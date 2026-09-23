@@ -1,145 +1,84 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CD7423BBFD6;
-	Wed, 23 Sep 2026 09:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D66E47C0E1;
+	Wed, 23 Sep 2026 09:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154084; cv=none; b=RCxuUsAXLFgPBckT9K20oyt4qDURSBYILfZ14JnR4W8/0drZ4KL39Z/VlHdRRtlydc2wcK5hrqkK3M0JLwPVUwZBnLcV4QMeBnfSZ6xAozRFBD4se+Rfm9G2lqF2X02CuVc0jLfl2JTG/TOlgNJWuN90SBqCik8M6OEWsPiNp34=
+	t=1790154090; cv=none; b=T6vXpAo92CkmF12iZlP2LmL2mYKnQuvvjllk1Vztj4jQgnqsfag8L8hZTwnkOdxhYFvzJXiu/WgF06Mrq5e20CQlbRk29WVCrXuU+Qb2a4mkJ2K7tN/flwVCHBkU8gbHFfo8KzTYRfD/7oVITbliYhZgz6TJl1NaE+1e7kKVUbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154084; c=relaxed/simple;
-	bh=eaDRSMhxRUUCK8R+oUyIpxydo2lKh37HrMtX6/5Mmbg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=eHa7nZ/9DGIh2rATEmS4a/hjP0ZlOehcwjx6th3zJsvTrkGzvJUtX2a5K3LYTIwugrmjXjuh0oG6gqhqtbvtyRwPA98YZe9rTALy7Ai/MraoPJUosfd6H364LYGRVtMVAMY8P7rH+KC0rToHWGc5WzgZVO/AztaVYv81MGhNn+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqWCP5wfczTSdw;
-	Wed, 23 Sep 2026 17:00:49 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqWCM1QqJzTSds;
-	Wed, 23 Sep 2026 17:00:47 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 499A63027FF0;
-	Wed, 23 Sep 2026 16:56:16 +0800 (CST)
-Received: from [127.0.0.1] (10.0.235.124) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 23 Sep
- 2026 17:00:36 +0800
-Message-ID: <78aec2a6-e1e8-4260-806d-cbe90e0faaa1@hygon.cn>
-Date: Wed, 23 Sep 2026 17:00:35 +0800
+	s=arc-20240116; t=1790154090; c=relaxed/simple;
+	bh=ISzdWoXfaKo8vJPGY0V42vVJBxlBsiuOOm6jPC3xnbY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YvZqd/nlAnDu323gpmNtU6VjzdeLoF6x2vf4XVVZTgkAXFswImRsCcolcBQF0qacgo1Mle2keHAwBp4OfmlGpJUf8QaJM0jCShrPj8r8+WQl/MlS/wuVza1ewh0QpD62ecnYNxyqj/31NidSbavcSY08JWOyeKafLRy97HDoJOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KQDVBRwg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KQDVBRwg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B18C1F000FF;
+	Wed, 23 Sep 2026 09:01:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790154089;
+	bh=C3iALwKhweGWgTgs/ynHjahU+T6YJ3fzthsWNjuqcpg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KQDVBRwgaZwcyX5kpUVev23cDupF4Yh0z/fQO5qma/hc1uSWR8aM3MyA/UoS0L4Xo
+	 bzk2Kxuq/oqwzFX1QgelXBLrA3Si7Ttj7nClPFH9WklMhJN+O0Ik3wOZxjNuQ1ueoi
+	 Snw0YyzBU0UJZNACEiSNy2w5aeGPhmI1Ncdv0uUrN5tA9RD9GHHPP+78+sSxbbXBmr
+	 fn9OLDprYrYuhrQNcL6V7CkdphZZJ65tn1kdFp9R3qHl/Kx/Bvv6hHt/SGsm8lRhz+
+	 wytn/6x4dJlHU+gzet1xW3w2o7CsJUu9jfW3j8X/p/jq60GgcUg+OofmGnWbjRMiHc
+	 9UZk/FFH3rBzw==
+Date: Wed, 23 Sep 2026 10:01:23 +0100
+From: Simon Horman <horms@kernel.org>
+To: Daniel Machon <daniel.machon@microchip.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	UNGLinuxDriver@microchip.com, Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next v7 08/14] net: lan966x: clear FDMA interrupt
+ stickies after switch reset
+Message-ID: <20260923090123.GQ13925@horms.kernel.org>
+References: <20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c@microchip.com>
+ <20260918-lan966x-pci-fdma-v7-8-0ecc179c8a2c@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] perf vendor events hygon: Add Hygon Data Fabric
- PMU events and metrics
-To: Sandipan Das <sandipan.das@amd.com>, <peterz@infradead.org>,
-	<mingo@redhat.com>, <namhyung@kernel.org>,
-	<alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>,
-	<ravi.bangoria@amd.com>, <irogers@google.com>, <x86@kernel.org>
-CC: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<lijing@hygon.cn>
-References: <20260818100118.12944-1-liuqi@hygon.cn>
- <20260818100118.12944-3-liuqi@hygon.cn>
- <79ff1562-d910-418c-b5b5-92d217cdc568@amd.com>
-Content-Language: en-US
-From: Qi Liu <liuqi@hygon.cn>
-In-Reply-To: <79ff1562-d910-418c-b5b5-92d217cdc568@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
- (172.23.18.114)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260918-lan966x-pci-fdma-v7-8-0ecc179c8a2c@microchip.com>
 
-Hi Sandipan,
-
-Sorry for the delayed reply.
-
-On 8/19/2026 1:11 PM, Sandipan Das wrote:
-> On 18-08-2026 15:31, Qi Liu wrote:
->> Add perf JSON event definitions and metrics for the Hygon Data Fabric (DF)
->> uncore PMU.
->>
->> Signed-off-by: Qi Liu <liuqi@hygon.cn>
->> ---
->>   tools/perf/pmu-events/Build                   |   2 +-
->>   .../arch/x86/hygonm1/data-fabric.json         |  95 ++++++++++
->>   .../arch/x86/hygonm4/data-fabric.json         | 134 ++++++++++++++
->>   .../arch/x86/hygonm6/data-fabric.json         | 170 ++++++++++++++++++
->>   tools/perf/pmu-events/arch/x86/mapfile.csv    |   3 +
->>   tools/perf/pmu-events/jevents.py              |   2 +
->>   6 files changed, 405 insertions(+), 1 deletion(-)
->>   create mode 100644 tools/perf/pmu-events/arch/x86/hygonm1/data-fabric.json
->>   create mode 100644 tools/perf/pmu-events/arch/x86/hygonm4/data-fabric.json
->>   create mode 100644 tools/perf/pmu-events/arch/x86/hygonm6/data-fabric.json
->>
->> diff --git a/tools/perf/pmu-events/Build b/tools/perf/pmu-events/Build
->> index 372773b998e4..79a9b4cad202 100644
->> --- a/tools/perf/pmu-events/Build
->> +++ b/tools/perf/pmu-events/Build
->> @@ -95,7 +95,7 @@ endif
->>   
->>   ifeq ($(JEVENTS_ARCH),$(filter $(JEVENTS_ARCH),x86 all))
->>   # Generate Intel Json
->> -INTELS := $(shell ls -d pmu-events/arch/x86/*|grep -v amdzen|grep -v mapfile.csv)
->> +INTELS := $(shell ls -d pmu-events/arch/x86/*|grep -v amdzen|grep -v hygon|grep -v mapfile.csv)
->>   INTEL_METRICS = $(foreach x,$(INTELS),$(OUTPUT)$(x)/extra-metrics.json)
->>   INTEL_METRICGROUPS = $(foreach x,$(INTELS),$(OUTPUT)$(x)/extra-metricgroups.json)
->>   GEN_JSON += $(INTEL_METRICS) $(INTEL_METRICGROUPS)
->> diff --git a/tools/perf/pmu-events/arch/x86/hygonm1/data-fabric.json b/tools/perf/pmu-events/arch/x86/hygonm1/data-fabric.json
->> new file mode 100644
->> index 000000000000..8c6a8e9ba9a5
->> --- /dev/null
->> +++ b/tools/perf/pmu-events/arch/x86/hygonm1/data-fabric.json
->> @@ -0,0 +1,95 @@
->> +[
->> +  {
->> +    "EventName": "cpu_read_requests_cs_0",
->> +    "BriefDescription": "Number of CPU read requests to memory in 64-byte units for Coherent Subordinate 0 (CS0).",
+On Fri, Sep 18, 2026 at 01:34:00PM +0200, Daniel Machon wrote:
+> When in PCI mode, the GCB soft reset issued by the reset controller
+> can latch spurious bits in the FDMA error stickies. The latched bits
+> sit in FDMA_INTR_ERR until the FDMA IRQ is requested later in probe,
+> at which point the handler fires immediately and WARNs.
 > 
-> Coherent Station is the correct term, if you go by the terminology in AMD
-> PPRs. Since CSes are the interfaces between the data fabric and the memory
-> controllers (UMCs), it may be better to rephrase the descriptions as read
-> or write requests to DRAM channel 0..N which are backed by UMC 0..N and
-> CS 0..N.
-
-Thanks,I will update "Coherent Subordinate" to "Coherent Station".
-
-Yes, CSes provide the interface between the data fabric and UMCs. Since the 
-UMC-to-DRAM-channel topology may vary across platforms, would it be reasonable 
-to avoid referring to DRAM channels in the event descriptions?
-
-I was thinking of wording the description as follows:
-   "Number of CPU read requests associated with Coherent Station 0 (CS0) and the 
-UMC."
-
+> Clear FDMA_ERRORS, FDMA_INTR_ERR and FDMA_INTR_DB right after the
+> switch reset so the FDMA comes out clean and the IRQ handler does not
+> see ghost errors on probe.
 > 
->> +    "EventCode": "0x2",
->> +    "UMask": "0x07",
->> +    "CompId": "0x0",
->> +    "Unit": "HYGON_DF",
->> +    "ScaleUnit": "64Bytes"
+> The clear runs on both the PCI and platform paths. On the platform
+> path it has no effect — there are no spurious stickies to clear — but
+> keeping it unconditional avoids a PCI-specific code path here.
 > 
-> As the naming suggests, my understanding is that these events count the
-> number of requests and each request carries a 64-byte payload. Perhaps
-> the ScaleUnit needs to be factored into the bandwidth metrics instead of
-> the individual events.
-> 
+> Tested-by: Herve Codina <herve.codina@bootlin.com>
+> Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
 
-Thanks,I will remove the "64Bytes" ScaleUnit from the individual request
-events in v6.
-
-The bandwidth MetricExprs already apply the payload size: * 64 for the
-CPU bandwidth and I/O upper-bound metrics, and * 32 for the I/O
-lower-bound metric. I plan to retain those conversions in the metrics.
-
-Does that match your suggestion?
-
-Thanks,
-Qi
-
-
-
+Reviewed-by: Simon Horman <horms@kernel.org>
 
