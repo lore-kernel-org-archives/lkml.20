@@ -1,43 +1,48 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E9537A840;
-	Wed, 23 Sep 2026 02:31:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4483803D1;
+	Wed, 23 Sep 2026 02:31:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130669; cv=none; b=WV1fcTC3zXI4pW9gVKLqPHNpQ8n+nAW2wj6fojvwOGWCJ9x+AW1h4yJj7ZyoNILgq5HtECP/ieVa3ZC6GWqm71fCP5rZv7ZApOqcx82APOwXCVrH+59Decw6kd5nhVwSQ7+LPy9Q1rdPoZy05+yO02iTQYZccmCfNxqI0qKC9xs=
+	t=1790130699; cv=none; b=sqQP57z5i+YQS2xP+eg/XVFBWVrAjQdlmORltHAQ8DqUDRQNzRK2qJymPR+VLmuFl9zkez3aLfotJBPLRV9EyhZe6O3XjSusNQyFhEDeXK7ROjXuLrjj7SGK2A92OM1wpg1Kw1odActYm/qoadQbaptNWe/ua27EF0X3ytHiOmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130669; c=relaxed/simple;
-	bh=r1PyjHplFWLo0qH2k0g8IQNAGk+vBXKJq4wxfsUBQA4=;
+	s=arc-20240116; t=1790130699; c=relaxed/simple;
+	bh=EQQEOXtwWQu7ZO2YFOqf3SDcgDd/5RQkuGxg1GIYdWg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VOvHc9MrXMYWaQ3g/ETtbBUwFw0Egv92HR1MJ0xYpg/5H+sbagTurgoaw3gQ/JftAJkEdmtf+2LU/TwGguhat3su/FPnCkzrjQIavaKKF1Znt1fdb77cTjo9Q+lWefJYzdccIhO2GLvIBQ26x7La3l/242Shw3MPnIA6tUb3Cm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SOtLGYwe; arc=none smtp.client-ip=220.197.31.5
+	 MIME-Version; b=DC400rvwMrDOVfOcUJin1oS8lkPtVxDhbGNbR2T09M5GEMifKAS86T7dlcLstUkpUbC+90HlfO9UaOZrW0dusf1hxIN6Ti6vQ4wixVujAuSfQibi+eeZcjug+94rqIqdJUAmjgC6U6wpTfKC6gUInKfLhK2GbM4Q87nRl0/7lGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G0Zz+CVQ; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SOtLGYwe"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G0Zz+CVQ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=0N
-	sqepxNeBVmgMj8c92zRAqIkxsPWhSpvLpOBd8wNAY=; b=SOtLGYweNJnbLyWbUZ
-	uu1TwYgjlnDoPVTgD34a/NLWYxtfyNbtMPC7mx7qIgvaQJtmeKCmzYqVB93NE3zW
-	/F5hEIOSg+9J7WQWXwZCqiGVJViFB+Tuy6M4SLMJIruPCpbeohSoT1sqd4DO9gVl
-	0ZkvEpAyKrjDpSL0LR8SK8+f0=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=E1
+	BjnqYpjwmja07iXCEPtn9ejJYfXOgfMkya7BEEYuk=; b=G0Zz+CVQrGAS8qp0T0
+	GJxnlSxeHeX28d2JGDE4SQvnFDNSqbRP09sUgsuL9n3rQCVIA0+OmXe2xtgl862M
+	MLqWqIVdKNDmZ4M2JMXw5xSGFsc7sR3STVpgGHu+/bu/uwXuiQW0rAhQNG3Nz/7H
+	4Yy841//W8R1YoNX7torVfrGY=
 Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDH07rNObNqApTsAA--.33096S2;
-	Wed, 23 Sep 2026 10:30:38 +0800 (CST)
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnD9jWObNqbG79AA--.45419S2;
+	Wed, 23 Sep 2026 10:30:47 +0800 (CST)
 From: Quchaosheng <quchaosheng000406@163.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>,
-	Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-can@vger.kernel.org,
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
 	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	quchaosheng000406@163.com
-Subject: Re: [PATCH] dt-bindings: net: can: bosch,cc770: Convert to DT schema
-Date: Wed, 23 Sep 2026 10:30:27 +0800
-Message-ID: <20260923023027.352131-1-quchaosheng000406@163.com>
+Subject: Re: [PATCH v2] dt-bindings: arm: vexpress: drop the obsolete hwmon and regulator text files
+Date: Wed, 23 Sep 2026 10:30:36 +0800
+Message-ID: <20260923023036.352192-1-quchaosheng000406@163.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914030215.437602-1-quchaosheng000406@163.com>
-References: <20260914030215.437602-1-quchaosheng000406@163.com>
+In-Reply-To: <20260922091636.A5A401F000FF@smtp.kernel.org>
+References: <20260922091636.A5A401F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,51 +50,29 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDH07rNObNqApTsAA--.33096S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZryUuw15uFykJrWkWr13XFb_yoW8ZryxpF
-	ZxKrWrKryvvayY9wn7W3W8ArZxZF9Igr4j9FyUK34qvas8uw18XrykK34UWF47CrZrCa15
-	XFn0gwnrK3Z8ZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUJOzcUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAA4JfmqzOc5bOAAA30
+X-CM-TRANSID:_____wDnD9jWObNqbG79AA--.45419S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7JrWrXF1kCr4xuw15ZryxXwb_yoW3urcEkF
+	93Ar18G3y5tFsYgFyYkFnakr97G3WSyF93XrsFqr4Skr92kFsxGr93G3sxuryIga1Uur1D
+	WFZ5Ww40v34jgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUjsNVDUUUUU==
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xcLgGqzOddpagAA3L
 
-Marc, Vincent,
+Yes, that is right, and it is what 1/2 of this series does.
 
-These four cc770 patches are still sitting unread. Three went out on 09-14 and
-the fourth on 09-17. Sending one summary rather than four pings.
+Documentation/hwmon/vexpress.rst carries that reference because nothing had
+pointed it at the schema yet. Patch 1/2 replaces it with
+Documentation/devicetree/bindings/arm/vexpress-config.yaml:
 
-  1. dt-bindings: net: can: bosch,cc770: Convert to DT schema
-     <20260914030215.437602-1-quchaosheng000406@163.com>
-  2. net: can: cc770: update the binding file reference in the driver comment
-     <20260914030215.437602-2-quchaosheng000406@163.com>
-  3. net: can: cc770: propagate the error from platform_get_irq()
-     <20260914055611.495105-1-quchaosheng000406@163.com>
-  4. can: cc770: fix the clock divider check on the platform bus
-     <20260917114311.534863-1-quchaosheng000406@163.com>
+  https://lore.kernel.org/all/20260917115818.540344-1-quchaosheng000406@163.com/
 
-1 is the conversion; the schema is in net/can and references
-can-controller.yaml. 2 is the one-line path in the driver's header comment,
-and it only makes sense once 1 is in.
+Guenter applied 1/2 to the hwmon tree on 09-18, so the link does not dangle
+once both are in. 1/2 has to land before 2/2, otherwise there is a window
+where the reference points at a deleted file. That is the only ordering
+constraint between the two.
 
-3 and 4 came out of sashiko's review of 1, which flagged two things in the
-platform driver. Both are still there in current mainline:
+I ran the grep I should have run before posting, and it confirms there is
+nothing else: the reference in hwmon/vexpress.rst was the only one left in
+the tree besides the two files themselves.
 
-  cc770_platform_probe() collapses every platform_get_irq() failure into
-  -ENODEV, so an -EPROBE_DEFER is thrown away and the probe is not retried.
-
-  cc770_get_platform_data() tests priv->cpu_interface for CPUIF_DSC before
-  assigning it from pdata->cir. priv comes from alloc_cc770dev() ->
-  alloc_candev() -> alloc_netdev_mqs(), which uses kvzalloc_flex(), so the
-  field is still zero at that point and the test never matches. A board whose
-  pdata->cir has CPUIF_DSC set gets its clock halved in hardware but not in
-  can.clock.freq, so the bit timing is computed from twice the real rate. The
-  platform data example in the header of that file sets exactly that bit
-  (.cir = 0x41), and cc770_isa.c already assigns before testing.
-
-Neither 3 nor 4 is a dt-binding change, so they can go in on their own. If
-you would rather have them as one series under net/, say so and I will repost
-them that way. And if any of this is out of scope for you, tell me and I will
-drop it.
-
-Thanks,
 Quchaosheng
 
