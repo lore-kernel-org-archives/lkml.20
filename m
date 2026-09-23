@@ -1,89 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D461535FD2;
-	Wed, 23 Sep 2026 14:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172013; cv=none; b=cK7c07fr8QNhCw0/u9Pu8xYqpP18CHRF3sgLRNRrgUwpk10d9p61aHKb9ozG9yDi/G14/jGZBml3vJKle+jPTKcEZrAxMZW3m7JLqgY6u39VOenPTl3VFHf4LN2KGP+/Do7r7zRhgEVzYZ25OlrYmhFuONidXPADJeRH4kM2llo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172013; c=relaxed/simple;
-	bh=SIINyKArYOBU+m7LMycLWcJsLnMKO2zsO2JrQHKDiuc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WzJcVWu8GuRbMsMq4E95PB4iYTzxtILcjMFOtlEXf782KFJDLR0sInLfVxPDiA4L5zwgLJrQ3LNKiTAt4QDMuZ0Agtz6mFcpp6ijyp39I0m5BuLVN+mHS/Vrvub16PoBhqMmOYRI9rIsOkciZbJBFcGDKS0rrgVDavBrGYehrR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584F51F000FF;
-	Wed, 23 Sep 2026 14:00:07 +0000 (UTC)
-Message-ID: <46246a5b-3e95-4ecb-bc52-e374dc136514@linux-m68k.org>
-Date: Thu, 24 Sep 2026 00:00:04 +1000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AFD52CCDF;
+	Wed, 23 Sep 2026 14:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790172037; cv=pass; b=JNc081OIz6sjcn5mc/Jn5Ybt5EVx4FNC8AFoUEme51JTfFUUEVlwRmPFyIp3FSd+tXXt0WT6iX7uQnGVYp6QyrF5uBMvBLruprvyngtKhLcQPyLX3Z/kKi3iYY36x9wHO3aR4GIKtl+pIreGMjC33YKjYYJittO6P7hqlLBus7Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790172037; c=relaxed/simple;
+	bh=6533UyEVQVvXizIdCznOAiy6uyccdRCYUbyNmbwZJMs=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=hin3ZDEmUfMvIIgDYqFLyNr4EJVaYxCtDA8wiCm8vL0WYqXel1W1W66Xi9Sh/lha3PXd/LJ/ANpZZPf6KszUaeUbbg0ACm0nWdIx4zltlryMdrrq1Y5ExCHhzspMDMBjFGVMCcrDIJl8ChWAi5mLOY9DOyXISCtlpBHi+9HvuG8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=fjIYZKEz; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="fjIYZKEz"
+ARC-Seal: i=1; a=rsa-sha256; t=1790171965; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=jicYzAoprwpsIWN1U00F8UuLOdczK6zyosgQsUMxTcGqqofaM/VefKS9qvdQrsxWMCf5AZkZr8q32XtrxvhfhNLmZHp1ao9SI5AHGaK4ExjXcKJK+tDjeO/Fb9OxcfaRJ7WG4YExTzLqcZDR/Ca4A1KcOcqiO9tFkaKxAM9oUZ8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790171965; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=L7epMfBwO2rJwwLcucODN167YbFCjHgq+KPch1hiG+E=; 
+	b=U3raRjcO6FiJ8s4sct/2rOaXtEQ1OwGsVPV2UGR0TsHGrfboVeAFLUD4w9dcVfeLpOrT7G7ChlDTpjpM53jLZq27vMKLoywIn4N/YME9tmzdnd+ihTLg5QkGu1qS/1N+gXO7c1kVJwsgc1xLASfLmu5M0fZgWn8hU0bIAAe84rA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790171965;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=L7epMfBwO2rJwwLcucODN167YbFCjHgq+KPch1hiG+E=;
+	b=fjIYZKEzmcfcdkZEfeXVr6h+2+NJw9FaHxC7kbQcYExCGJHZK0rPbOBJl5vriP1m
+	4rzcIccVn9O/ZqzG2XS29d9x0NE0QIS5rhdcZ81UjTTDCuXDTTRh/MFIqgpnLODgrPh
+	q+jBR+IOtijQ1DjlES/Nm9Da1CotXBbDEdC8T1T4=
+Received: by smtp.zohomail.com with SMTPS id 1790171962617504.15189302321266;
+	Wed, 23 Sep 2026 06:59:22 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv3 1/3] net: fec: do not use readl()/writel() for ColdFire
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org,
- arnd@kernel.org, wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
- imx@lists.linux.dev, netdev@vger.kernel.org, nico@fluxnic.net,
- linux-can@vger.kernel.org, linux-spi@vger.kernel.org, olteanv@gmail.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com
-References: <20260907134037.1855408-1-gerg@linux-m68k.org>
- <20260907134037.1855408-2-gerg@linux-m68k.org>
- <42ad1525-fceb-43d6-aa03-d17e844a9ad9@linux-m68k.org>
- <eb987eb9-f368-4d28-bdd0-c289c3039c3b@lunn.ch>
-Content-Language: en-US
-From: Greg Ungerer <gerg@linux-m68k.org>
-In-Reply-To: <eb987eb9-f368-4d28-bdd0-c289c3039c3b@lunn.ch>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH 1/9] drm/tyr: validate presence of CSF shared section
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260915-tyr-interfaces-v1-1-5d28f1f75aca@collabora.com>
+Date: Wed, 23 Sep 2026 10:59:02 -0300
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Lyude Paul <lyude@redhat.com>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ John Stultz <jstultz@google.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org,
+ kernel@collabora.com,
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <C8FBCD55-3246-41B6-9F45-C1190F0FFD14@collabora.com>
+References: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com>
+ <20260915-tyr-interfaces-v1-1-5d28f1f75aca@collabora.com>
+To: Laura Nao <laura.nao@collabora.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
 
 
-On 23/9/26 23:23, Andrew Lunn wrote:
-> On Wed, Sep 23, 2026 at 11:07:17PM +1000, Greg Ungerer wrote:
->> Ping...
-> 
-> To: linux-m68k@lists.linux-m68k.org
-> 
-> ICMP redirect.
-> 
->>> The FEC driver works today because the m68k architecture io.h has a
->>> kludge in the definitions of the readl() and writel() functions for
->>> ColdFire that allow big-endian access if the address of the register to
->>> access is within the SoC's internal peripheral registers. This is being
->>> fixed in the near future to define readl() and writel() correctly - with
->>> no byte swapping. Thus the motivation for this fix here.
->>>
->>> __raw_readl()/__raw_writel() access methods are used instead of the more
->>> commonly used ioread32be()/iowrite32be() here because those are broken too,
->>> because of the current readl()/writel() kludge. They are implemented in
->>> asm-generic/io.h in terms of readl()/writel().
->>>
->>> Note that even when readl() and writel() are fixed on ColdFire they will
->>> not be the right thing to use within the FEC driver on ColdFire hardware.
-> 
-> So what is the end goal here? This patch. Then fix
-> readl()/writel(). Then fix ioread32be()/iowrite32be()?
+> On 15 Sep 2026, at 07:57, Laura Nao <laura.nao@collabora.com> wrote:
+>=20
+> From: Deborah Brouwer <deborah.brouwer@collabora.com>
+>=20
+> The firmware binary must have a shared section for communicating with
+> the MCU. Check for this section after parsing and fail with -EINVAL if =
+it
+> is missing.
+>=20
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+> Signed-off-by: Laura Nao <laura.nao@collabora.com>
+> ---
+> drivers/gpu/drm/tyr/fw/parser.rs | 14 ++++++++++++++
+> 1 file changed, 14 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/tyr/fw/parser.rs =
+b/drivers/gpu/drm/tyr/fw/parser.rs
+> index c4d0ad1d7899..8bddaa1f0aa2 100644
+> --- a/drivers/gpu/drm/tyr/fw/parser.rs
+> +++ b/drivers/gpu/drm/tyr/fw/parser.rs
+> @@ -197,6 +197,20 @@ pub(super) fn parse(&mut self) -> =
+Result<KVec<ParsedSection>> {
+>             return Err(EINVAL);
+>         }
+>=20
+> +        // Validate that the firmware contains the required shared =
+memory section.
+> +        let has_shared_section =3D parsed_sections
+> +            .iter()
+> +            .any(|section| section.va.start =3D=3D =
+super::CSF_MCU_SHARED_REGION_START);
+> +
+> +        if !has_shared_section {
+> +            dev_err!(
+> +                self.cursor.dev,
+> +                "No shared section found at 0x{:08x} in firmware\n",
+> +                super::CSF_MCU_SHARED_REGION_START
+> +            );
+> +            return Err(EINVAL);
+> +        }
+> +
+>         Ok(parsed_sections)
+>     }
+>=20
+>=20
+> --=20
+> 2.39.5
+>=20
 
-Yes, definitely. Patch 3 in this series completes the fixing of readl()/writel().
-That also has the effect of fixing ioread32be()/iowrite32be().
 
-
-> And then change
-> these macros to use ioread32be()/iowrite32be()?
-
-Happy to do that if that is want you want. Ultimately probably the cleanest.
-
-
-> Are we always going to be using fec_read()/fec_write()?
-
-The driver will always need to support big and little endian hardware, so I
-am not sure how to avoid some abstraction like this.
-
-Regards
-Greg
-
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>=
