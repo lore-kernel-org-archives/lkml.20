@@ -1,120 +1,144 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB12448CF6;
-	Wed, 23 Sep 2026 08:17:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA2C469855;
+	Wed, 23 Sep 2026 08:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151478; cv=none; b=dbwCPWXLu66W/2lLPjFJ8NeUcjAhbICJ/aQJpoUAdxop46tfDcCZeCKX/iYYaFpbQybsXMIoaiJDLgfiaGP6cbUCGKkaDLeb7ngRgiwE/D5Q3kdIsfIZ8V4EWTlxYEX3nKST8fIoifD3FpgYmASja/RQCY2rTmShXF1tAZmWcgU=
+	t=1790151491; cv=none; b=EQRU9n1NgXz/g5qChAelpsMaJzDIhKy1bctHJE+cG04S43Dzmp5xG/0b16MTA3ijpQyqUACr/FtHoS9Q4l4LwCyQjeEou6mp+Tnw058HH3CI/ojOeEhAGB3wd6P63Of3vAVRloeAghRsol4oDAzCa6iXAONpzz9CHAJ9VIePT00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151478; c=relaxed/simple;
-	bh=DKsHVr/IcvJ4S+VywNfzLh+VzdbNQ+YARS2CIPixJS8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=K+AGrx1RqPlKTbwSZDwWgiCgmihB1UwK8rl/jkKnE39MwRW5j6zime5J4L+l9RjS/3y4mkFOQx96Lc/RtdwxC9PEAfAuJ+2C7vk03InKooZfzoE4YoThOvti1LXQX+GtMLBOJ6FQmrFYysMo2uA2YTSIOXNPCCXc4eQB/U5YcBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=izY3fPhE; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1790151491; c=relaxed/simple;
+	bh=5KbQewGVf4Sk12JLSEB53USn+PaHSoX4MErLcMfNZOQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=t7px4MCXxLN9mPQ3EfcDRWM1p8YP7ZoZfp0RKPNxm8RP5MWSnXSk6YO9SHIjN+252TAXIdIWAo0vqYD88IKRm02IiMay+AcyiAxp43sMCgzfI5iABaMqO6bO/QNjrq7DNPSGbRCtdcWYWiORUcEnVS+2DrD+qgsrc5xQxmT/fQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=juRimmJX; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="izY3fPhE"
-Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id EB27280729;
-	Wed, 23 Sep 2026 08:17:48 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id B78886000F;
-	Wed, 23 Sep 2026 08:17:46 +0000 (UTC)
-Date: Wed, 23 Sep 2026 04:17:41 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
- <linux-trace-kernel@vger.kernel.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [PATCH] ring-buffer: Add a MAINTAINERS category specific for
- the tracing ring-buffer
-Message-ID: <20260923041741.3f4c43ab@fedora>
-In-Reply-To: <arOIjWCRhnYxkUcR@google.com>
-References: <20260908094035.0b180833@gandalf.local.home>
-	<arOIjWCRhnYxkUcR@google.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="juRimmJX"
+X-UUID: 4c5bef32b72711f1b1788b6acf885367-20260923
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=lijFYt7fn7y4dEKk033Svyx2DUUuaRfP9B2dn9a0jnE=;
+	b=juRimmJXVDobBoa5KPoUlCkkzk/rmyjzb6cI1s0aDP8einPv8I6P3iEyKue48j6usorihDiWDUFYAMEGU+d5qOPplqOfuAPpSsaFTV1pInPMmQ1ng+K1R61Gju8apIZkAJ2Q6z6fJ9/jJ9dinoLNcEczmFkd4envf87DsYpM3J0=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:a29213ab-4ffb-45d8-ac16-b53457d6b1ee,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:2e0edefa-1cb6-4618-8a29-fa072b24d2a9,B
+	ulkID:nil,BulkQuantity:0,SF:102|136|836|865|888|898,TC:-5,Content:0|15|50|
+	99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI
+	:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 4c5bef32b72711f1b1788b6acf885367-20260923
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw01.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1976877886; Wed, 23 Sep 2026 16:18:03 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 23 Sep 2026 16:18:03 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 23 Sep 2026 16:18:02 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
+	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
+	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
+ Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
+	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
+	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
+Subject: [PATCH v10 07/10] media: mediatek: vcodec: add decoder compatible to support MT8189
+Date: Wed, 23 Sep 2026 16:18:00 +0800
+Message-ID: <20260923081800.268283-1-kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: B78886000F
-X-Stat-Signature: 1wizpee9ke7zmutn3hp1estw5t3jk9hr
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1++nwASrgHCUVJYC8Gl5GAoYqpPG3lyOBE=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=KzLS8QLY2z40mi4CH0QaoZSY/dG45acAj/F74i3x8wg=; b=izY3fPhEYs2w6pIw4v22PH3efDph5F0ord7XNMKrl/49BpmQtqEhE3kzKceXxUVamfPiBxXEqPOL7OlRmhlEJx/tLrDBjLKeAOFtkejbleoiwtcsb/91Hl/bEV8wSVL2P4OSM1AUBvapZT7ZT0qFCUpfQVp0dBge5R5qLRmXpi0=
-X-HE-Tag: 1790151466-662672
-X-HE-Meta: U2FsdGVkX1/UR7fwce7VDhn3JOhTy+N5sVjAblQbK2MOQJ0Nfo2A8XHn3ixSYaszb/vQvs0nyUUzEWbZ6jUfSWye0Txx/sjZRpNTNfipsorOeAz42osa1CXSGdQ8zTBlzOJcqdlAImw47Ge4Q4sDMChyZmojtvJkdwwUD55q1ISm+0EvKTzns/mEL+bR1n3zC8Jew3ZR6sU+uTLUMwGY0SF1RmnPgguPC7ddwJ6Z+GBwbf1V0S5zQuZusx5BrYtY4IKOSl8zXix8RFtTmok7NnxEFC39PNzMbiJ1xaJFl1KZcG0nfSmqdn5myjvfr3zS3mf7zPZDa/NSQmwdOeF/wxXzCxo2pF60lzSPfOvhcUhdgXyKrFZxoZftNWquqe0ZTTGqmyFqdKaIjF9wP/TgwhhppqSGWTGbCE4ll1ePA9d6pJLgylYTYR1lR6e4Y1QxTVcQt/a9d2lnkhnibmhf7WEhw99xQnGdIsbFG/UeHopENVV++dvhB2RUALIiToO4
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-On Wed, 23 Sep 2026 09:06:37 +0100
-Vincent Donnefort <vdonnefort@google.com> wrote:
+MT8189 is pure single core architecture. Add its compatible to
+initialize platform data.
 
-> On Tue, Sep 08, 2026 at 09:40:35AM -0400, Steven Rostedt wrote:
-> > From: Steven Rostedt <rostedt@goodmis.org>
-> > 
-> > The ring buffer code in the tracing directory has always been decoupled
-> > from the tracing code. It had a clean abstracted API to allow it to be
-> > used by systems outside of tracing. The API even allowed the ring buffer
-> > code to be drastically changed without affecting the tracing sub-system.
-> > 
-> > Recently, Vincent Donnefort has been contributing a lot of work to enhance
-> > the ring buffer. He implemented the user space mappings and recently
-> > created a version to allow pKVM hypervisors to use the code to trace
-> > the hypervisor and expose the events to the user.
-> > 
-> > Create a separate category for maintaining the ring buffer code so that
-> > Vincent can become an official maintainer of it. His work has little to do
-> > with the tracing code itself. In the future, he may even be the main
-> > maintainer of the ring buffer.
-> > 
-> > Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-> > ---
-> >  MAINTAINERS | 16 ++++++++++++++++
-> >  1 file changed, 16 insertions(+)
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 3a19da74d00c..71bd2f57055d 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -27778,6 +27778,22 @@ F:	kernel/trace/trace_irqsoff.c
-> >  F:	kernel/trace/trace_osnoise.c
-> >  F:	kernel/trace/trace_sched_wakeup.c
-> >  
-> > +TRACING RING BUFFER
-> > +M:	Steven Rostedt <rostedt@goodmis.org>
-> > +M:	Vincent Donnefort <vdonnefort@google.com>
-> > +M:	Masami Hiramatsu <mhiramat@kernel.org>
-> > +L:	linux-kernel@vger.kernel.org
-> > +L:	linux-trace-kernel@vger.kernel.org
-> > +S:	Maintained
-> > +Q:	https://patchwork.kernel.org/project/linux-trace-kernel/list/
-> > +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-> > +F:	Documentation/trace/ring-buffer*
-> > +F:	Documentation/trace/remotes.rst
-> > +F:	include/linux/ring-buffer*.h
-> > +F:	kernel/trace/*ring_buffer*.c  
-> 
-> as it relates to simple_ring_buffer.c do you want to add here undefsyms_base.c?
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ .../mediatek/vcodec/decoder/mtk_vcodec_dec.h  |  1 +
+ .../vcodec/decoder/mtk_vcodec_dec_drv.c       |  4 ++++
+ .../vcodec/decoder/mtk_vcodec_dec_stateless.c | 21 +++++++++++++++++++
+ 3 files changed, 26 insertions(+)
 
-Sure. I can send a v2.
-
--- Steve
-
-> 
-> > +F:	kernel/trace/remote*.c
-> > +F:	tools/testing/selftests/ring-buffer/
-> > +
-> >  TRADITIONAL CHINESE DOCUMENTATION
-> >  M:	Chen-Yu Yeh <chenyou910331@gmail.com>
-> >  M:	Weijie Yuan <wy@wyuan.org>
-> > -- 
-> > 2.53.0
-> >   
-> 
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
+index 80cb46f1cded..2bde871c0224 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h
+@@ -71,6 +71,7 @@ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8173_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8183_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8188_pdata;
++extern const struct mtk_vcodec_dec_pdata mtk_vdec_8189_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8192_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8195_pdata;
+ extern const struct mtk_vcodec_dec_pdata mtk_vdec_8196_pdata;
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+index 62e7bbbe95c3..c8d9dbdfee20 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
+@@ -540,6 +540,10 @@ static const struct of_device_id mtk_vcodec_match[] = {
+ 		.compatible = "mediatek,mt8196-vcodec-dec",
+ 		.data = &mtk_vdec_8196_pdata,
+ 	},
++	{
++		.compatible = "mediatek,mt8189-vcodec-dec",
++		.data = &mtk_vdec_8189_pdata,
++	},
+ 	{},
+ };
+ 
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
+index 56656222d0f1..5c9084731a57 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateless.c
+@@ -1053,3 +1053,24 @@ const struct mtk_vcodec_dec_pdata mtk_vdec_8186_pdata = {
+ 		.prob_size = VP9_PROB_BUF_SIZE,
+ 	},
+ };
++
++const struct mtk_vcodec_dec_pdata mtk_vdec_8189_pdata = {
++	MTK_STATELESS_DEC_DATA,
++	.hw_arch = MTK_VDEC_PURE_SINGLE_CORE,
++	.fw_type = SCP,
++	.fw_init = mtk_vcodec_fw_scp_init,
++	.chip_model = 8189,
++	.h264_params = {
++		.level = V4L2_MPEG_VIDEO_H264_LEVEL_5_2,
++		.profile = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH_10,
++	},
++	.h265_params = {
++		.level = V4L2_MPEG_VIDEO_HEVC_LEVEL_4,
++		.profile = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE,
++	},
++	.vp9_params = {
++		.level = V4L2_MPEG_VIDEO_VP9_LEVEL_5_2,
++		.profile = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
++		.prob_size = VP9_4K_PROB_BUF_SIZE,
++	},
++};
+-- 
+2.51.0.windows.2
 
