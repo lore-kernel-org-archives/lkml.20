@@ -1,120 +1,93 @@
-Received: from mta1.migadu.com (out-133.mta1.migadu.com [95.215.58.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A327637F010
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:57:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47000469845
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157447; cv=none; b=JPydmx1hKSgwBMhXTBFXAooag1Y5whEFB3ZUr7RsOO+oFHKWmgVkKx1qiA0/F7sWqOXi7dzoAm2Irh/wFr5nhqNizKbml2VAV9BN+I1dU2z07Pbu3vZ9Hcl1+kHVU6JRI+1nhac32R7rrzFZp7PzWxLrW8R5egr+g+xEkMwP8eo=
+	t=1790157522; cv=none; b=T0muzRoc1l5WNROzQxGWtbLL9KM+vVDKQCFxuh9wMHZ53ZRw9GCNIq564U62OjfZnIGomHGzslC/vnG92i8KKp96azHtqkmp9POD8X0Vgxy5FDy/IhDKr5LHXQpxi1HPEe5z0pL8JXUDkkQ2wTPgUj/SSxyhq9gVchab+bhf030=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157447; c=relaxed/simple;
-	bh=6d7CmGfi1oUosIcp8Gxd5YdKxwhrzKotaECyrpU929A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EN8fqiEMSH2c6Zt8HtRBg5R923E6jH4phzwtPnCANGSyEcyc0l/dARfqrsFPC3AGqe3CY2hcXGeqGXO7tPat7sL/lg6x56fX20bV0BQd4GBF+mfIa2j2AXjJ6zJW8XrqPHgYMZzs+HRj9EyWyQ8PAuHX3Rp6TgD9cs6v4sPovHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sLjJdQkh; arc=none smtp.client-ip=95.215.58.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790157522; c=relaxed/simple;
+	bh=Ewb5vtsCwy9weKsdC41CYy5PZB6uFtx4Vsqm/CY/95k=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=JP9+0UqRPJtW4+7alV1X82EWT8bqqe73XDdkkqhILJQyC+A7Pnw9TC9/+1Rh9e1gorbkqaXKAAeNwCDIduo3cFiLw+Vc8n/scDEuQBeX/rFtPYHUCjklBsJRPqPrs2QCu7EiUKKWpa91bbzyvqcaWBVnOgLag2kJS56+Sazj/cQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eybySs/w; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sLjJdQkh"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6d7CmGfi1oUosIcp8Gxd5YdKxwhrzKotaECyrpU929A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790157442; v=1; x=1790762242;
- b=sLjJdQkhOgqwuJHRdvhKmL6TglD0VX+VhZsx7+TrQB81HkRf/xIQ9rUPCl6bZ3AOmqoil6ez
- dKo6lRcRWhEon+ArxBneXDaEWWhh0ozDGVu4D6rhaOAxGVv9qPGMwqVDkk009+arqd+aVoWn6/u
- lr72knvRKB1bu3jn/t7wfeE8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id aef8c51cf6c77559;
-	Wed, 23 Sep 2026 09:57:22 +0000
-X-Mizu-Trace-ID: aef8c51cf6c77559
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fcd7d1ec-d2d1-4dac-ad8f-245392f92fcd@linux.dev>
-Date: Wed, 23 Sep 2026 17:57:12 +0800
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eybySs/w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790157519;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XADAmWPRAFo3Wikfq3m+Ve1SmhqcQPLmkoVN0EyX4dQ=;
+	b=eybySs/w4cWVGu46Okr9qfeNkIPJjdHoypoEuJZTnEHrch0v+8oUZv3HQc0ZC8RM9WUw1s
+	VgVGmj0rcBbW8mQ2rgVeNzk1T/ji38vUcq2Wr6CFZZQy5HwEcH57edQog/9l/F6lUxa1dJ
+	q/3N5wXV4eu6ywsMjy+4ScGGxx7yTDc=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-582-CHDgkbCoOPuEqWPWV6fo9A-1; Wed,
+ 23 Sep 2026 05:58:34 -0400
+X-MC-Unique: CHDgkbCoOPuEqWPWV6fo9A-1
+X-Mimecast-MFC-AGG-ID: CHDgkbCoOPuEqWPWV6fo9A_1790157513
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A0C5F1944A89;
+	Wed, 23 Sep 2026 09:58:32 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D34EC18005B8;
+	Wed, 23 Sep 2026 09:58:27 +0000 (UTC)
+Date: Wed, 23 Sep 2026 11:58:25 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Itai Handler <itai.handler@gmail.com>
+cc: Eric Biggers <ebiggers@kernel.org>, Milan Broz <gmazyland@gmail.com>, 
+    Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+    Benjamin Marzinski <bmarzins@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+    Shuah Khan <skhan@linuxfoundation.org>, 
+    Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev, 
+    linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/1] dm-crypt: allow encryption sector size up to
+ PAGE_SIZE
+In-Reply-To: <CAFpOueSjekxhjEosQGiZ9BiDh5tFOqBPX5w_2PVsrcN6pO+dHw@mail.gmail.com>
+Message-ID: <9a6c20da-4da9-4a8d-a6d4-f18900228bf6@redhat.com>
+References: <20260922120330.127262-1-itai.handler@gmail.com> <07e750dc-570b-4f69-9ec3-68de51416a06@gmail.com> <20260922134945.667305-1-itai.handler@gmail.com> <20260922213457.GA3536981@google.com>
+ <CAFpOueSjekxhjEosQGiZ9BiDh5tFOqBPX5w_2PVsrcN6pO+dHw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v1] pfcp: fix socket lifetime on netdevice
- registration failure
-To: Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- aleksander.lobakin@intel.com, wojciech.drewek@intel.com,
- marcin.szycik@linux.intel.com, linux-kernel@vger.kernel.org,
- Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-References: <20260918123158.5631-1-xuanqiang.luo@linux.dev>
- <20260923092638.GS13925@horms.kernel.org>
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-In-Reply-To: <20260923092638.GS13925@horms.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-On 2026/9/23 at 17:29 Simon Horman wrote:
-> On Fri, Sep 18, 2026 at 08:31:58PM +0800, Xuanqiang Luo wrote:
->> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
->>
->> pfcp_newlink() creates the UDP socket before register_netdevice().
->> If registration fails after pfcp_dev_init() succeeds, the core calls
->> pfcp_dev_uninit(), which releases the socket and clears pfcp->sk.
->> The newlink error path then releases it again, causing a NULL pointer
->> dereference. This was observed with failslab fault injection:
->>
->>    FAULT_INJECTION: forcing a failure.
->>    kobject: kobject_add_internal failed for pfcp0 (error: -12 parent: net)
->>    BUG: KASAN: null-ptr-deref in udp_tunnel_sock_release+0x1c/0x50
->>    Read of size 8 at addr 0000000000000120 by task ip/1037
->>    Call trace:
->>     show_stack+0x18/0x24 (C)
->>     dump_stack_lvl+0x78/0x90
->>     print_report+0x468/0x5cc
->>     kasan_report+0xa4/0xf0
->>     __asan_load8+0x7c/0xd0
->>     udp_tunnel_sock_release+0x1c/0x50
->>     pfcp_newlink+0x128/0x184
->>     rtnl_newlink+0x848/0xe44
->>     rtnetlink_rcv_msg+0x468/0x514
->>     netlink_rcv_skb+0xc0/0x1f0
->>     rtnetlink_rcv+0x18/0x24
->>     netlink_unicast+0x4b8/0x558
->>     netlink_sendmsg+0x2b8/0x584
->>     ...
->>
->> Create the socket in pfcp_dev_init() after initializing the GRO cells,
->> and let pfcp_dev_uninit() release it on registration failure or removal.
->>
->> Move the RCU wait into pfcp_dev_uninit(), using synchronize_net() after
->> socket release to drain receive callbacks before destroying the GRO cells.
->>
->> Fixes: 76c8764ef36a5 ("pfcp: add PFCP module")
->> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
->> ---
->> A NULL check would fix the crash. Moving socket creation into ndo_init
->> also removes the duplicate cleanup and ensures the receive state is
->> initialized before enabling the socket's receive callback.
-> 
-> Assuming the NULL check is significantly simpler than this patch,
-> and that it resolves the bug, think that we should consider:
-> 
-> 1. A patch that minimal NULL check for net
-> 2. Follow-up with the approach taken by this patch in net-next
-> 
-> I say this because this seems to be lower risk than skipping to applying
-> 2 to net.
-> 
-> Also, please consider CCing stable on bug fixes.
-> 
-> Link: https://docs.kernel.org/process/maintainer-netdev.html#stable-tree
 
-That makes sense. I left stable off Cc because the lifecycle changes
-seemed too broad for a stable fix. Splitting the two makes sense now.
 
-I'll send a v2 for net with just the NULL check and Cc stable, then
-follow up with the lifecycle changes once the fix reaches net-next.
+On Wed, 23 Sep 2026, Itai Handler wrote:
 
-Thanks for the suggestion!!
+> If there is a specific correctness, security, or architectural reason
+> why dm-crypt should retain 4096 bytes as an absolute limit even on
+> systems with larger PAGE_SIZE, I would be very interested to understand
+> it. Otherwise, I think the question is better evaluated independently
+> of whether QCE is a suitable accelerator.
+> 
+> Thanks,
+> Itai
 
-Xuanqiang
+There is one important problem - the SSDs and HDDs today have 4k hardware 
+sector size.
+
+If you use 64k encryption sectors, the disk may write only a part of the 
+64k sector during power failure. When you attempt to read and decrypt such 
+a sector, you get garbage.
+
+This is not a problem for XTS or ECB, but it is problem for CBC and most 
+other encryption modes. So, the patch should reject using larger sectors 
+with cipher modes other than XTS and ECB.
+
+Mikulas
+
