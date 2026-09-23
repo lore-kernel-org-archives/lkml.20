@@ -1,70 +1,132 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB71B4ED1B9;
-	Wed, 23 Sep 2026 12:02:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from proxmox-new.maurer-it.com (proxmox-new.maurer-it.com [94.136.29.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A084CCDEB;
+	Wed, 23 Sep 2026 12:02:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.136.29.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164934; cv=none; b=UotfxcybNCAcAPud8+T8oOoOpkTAW1jhZxQAGPF6fE0j6yRcwelw1vOHLpOF7enFrDyduwszXwNYR02M76ftazGkMXcvYv2m/HmiugsimBmlpY3jdbrjBFWFjvXhuWJ72tqns6iyLICQQvu2o0do7wGNfer25BrM4xf6BvhFovs=
+	t=1790164967; cv=none; b=FXd67OqQ0+1hWfyAAwruybBO+CcO4Cr/KhbMCAdkiuq/Q6irajKzvsNLEyfWHIWKIu4aVcnNGQh/fXXDOICR9EL6kQXkXrI7N0W7r7jrMPUjSKcfrzQf41SOUbKmc0ifDxvzRF/BmiWJRP6e0YBpdLcSiiI0TETykmk/tXJgJ1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164934; c=relaxed/simple;
-	bh=ZSA9NmHbOKoODpNc+Db6J+pL8NPkAuD5MPRRVnRkWak=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VbV/xUaGIF/h3oyLvpcMR8yguktDSwfd2YUezqT/SF5zKB9cnpspS9g6FmK/ItbJ6srL65WeQrszqPJepWh/4/UpAPFgbcD//O/346B5y5kIkbB4CA58erllBWuNgrlKK6rY8NOn5+cQkI5xMXHf4vx7KDb2EtvM87iLrJD4wfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YnnDZKTk; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YnnDZKTk"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 13FDF1570;
-	Wed, 23 Sep 2026 05:02:08 -0700 (PDT)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0FDC63F86F;
-	Wed, 23 Sep 2026 05:02:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790164931; bh=ZSA9NmHbOKoODpNc+Db6J+pL8NPkAuD5MPRRVnRkWak=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YnnDZKTk607Xz6jmhC3bEIAsMk9ckTgPQN8GF+0wt7oCRTSwavnSKYeYKg/XzFebi
-	 wkC89TEd4T2cmzMg9dP5dR9s9O8pAwuL1BJEKRjUQO776fY8cp12btfjbzTgRFAhOP
-	 CJelwlr/v83wl2gw/weTODamNHJ4YevZp89whv68=
-Date: Wed, 23 Sep 2026 13:02:05 +0100
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	d-gole@ti.com, jic23@kernel.org, elif.topuz@arm.com,
-	lukasz.luba@arm.com, philip.radford@arm.com,
-	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
-	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com
-Subject: Re: [PATCH v12 05/25] include: trace: Add Telemetry trace events
-Message-ID: <arO_vXAptcW5nwSy@pluto>
-References: <20260920091928.2014972-1-cristian.marussi@arm.com>
- <20260920091928.2014972-6-cristian.marussi@arm.com>
- <7a6fab99-618c-4180-b8b3-2d1371c90483@kernel.org>
+	s=arc-20240116; t=1790164967; c=relaxed/simple;
+	bh=Tjz6WacIRMWzXb0FO4mz/4dyBfn5AlLTlVpLxjQQOIE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MPZAuK/385K2CV4SkBeZTCuZnCs7eOxistyOOctOMtXFWZyqcHft8VGQhDNAgH+de/vnXJgbT4dKHWpifwBAl6H44s59gXSfz5DEBXcBQ4f4S1ricHqGMjH7xZYA3vkWdg17VB2RAt7Hh6ydvDUgUfN3Ls0YJMCAqDsFu1yyBmU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com; spf=pass smtp.mailfrom=proxmox.com; arc=none smtp.client-ip=94.136.29.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=proxmox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proxmox.com
+Received: from proxmox-new.maurer-it.com (localhost.localdomain [127.0.0.1])
+	by proxmox-new.maurer-it.com (Proxmox) with ESMTP id 91B6342AEC;
+	Wed, 23 Sep 2026 14:02:34 +0200 (CEST)
+From: Gabriel Goller <g.goller@proxmox.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3] net: ipv6: seg6: report lwtunnel setup errors via extack
+Date: Wed, 23 Sep 2026 14:02:04 +0200
+Message-ID: <20260923120228.172643-1-g.goller@proxmox.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7a6fab99-618c-4180-b8b3-2d1371c90483@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Bm-Milter-Handled: 55990f41-d878-4baa-be0a-ee34c49e34d2
+X-Bm-Transport-Timestamp: 1790164953658
 
-On Tue, Sep 22, 2026 at 03:48:05PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/20/26 11:19, Cristian Marussi wrote:
-> > Add custom traces to report Telemetry failed accesses and to report when DE
-> 
-> You write here "failed accesses", but the tracepoint below is called
-> "scmi_tlm_access". Is it supposed to be used for any accesses?
-> 
-Yes..this is definitely a stale commit message since the first iteration
-of the series...
+seg6_build_state() rejected invalid configurations with a generic -EINVAL,
+so "ip route add ... encap seg6 ..." always reported "Invalid argument".
 
-I'll fix.
+Attach an extack message to each of them. The checks themselves and their
+return values are unchanged.
 
-Thanks,
-Cristian
+Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
+---
+
+v3 (https://lore.kernel.org/all/20260922090851.38978-1-g.goller@proxmox.com/):
+ * format fix
+ * use NL_SET_ERR_MSG_ATTR
+
+v2 (https://lore.kernel.org/all/20260918153544.1178884-1-g.goller@proxmox.com/):
+ * dropped tests
+
+ net/ipv6/seg6_iptunnel.c | 24 +++++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
+
+diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
+index 61c6a27bf202..9f1aecc4f215 100644
+--- a/net/ipv6/seg6_iptunnel.c
++++ b/net/ipv6/seg6_iptunnel.c
+@@ -756,8 +756,11 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+ 	struct seg6_lwt *slwt;
+ 	int err;
+ 
+-	if (family != AF_INET && family != AF_INET6)
++	if (family != AF_INET && family != AF_INET6) {
++		NL_SET_ERR_MSG(extack,
++			       "unsupported address family for SRv6 encapsulation");
+ 		return -EINVAL;
++	}
+ 
+ 	err = nla_parse_nested_deprecated(tb, SEG6_IPTUNNEL_MAX, nla,
+ 					  seg6_iptunnel_policy, extack);
+@@ -765,8 +768,10 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+ 	if (err < 0)
+ 		return err;
+ 
+-	if (!tb[SEG6_IPTUNNEL_SRH])
++	if (!tb[SEG6_IPTUNNEL_SRH]) {
++		NL_SET_ERR_MSG_ATTR(extack, nla, "missing SRv6 SRH attribute");
+ 		return -EINVAL;
++	}
+ 
+ 	tuninfo = nla_data(tb[SEG6_IPTUNNEL_SRH]);
+ 	tuninfo_len = nla_len(tb[SEG6_IPTUNNEL_SRH]);
+@@ -776,13 +781,18 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+ 	 */
+ 	min_size = sizeof(*tuninfo) + sizeof(struct ipv6_sr_hdr) +
+ 		   sizeof(struct in6_addr);
+-	if (tuninfo_len < min_size)
++	if (tuninfo_len < min_size) {
++		NL_SET_ERR_MSG(extack, "truncated SRv6 SRH attribute");
+ 		return -EINVAL;
++	}
+ 
+ 	switch (tuninfo->mode) {
+ 	case SEG6_IPTUN_MODE_INLINE:
+-		if (family != AF_INET6)
++		if (family != AF_INET6) {
++			NL_SET_ERR_MSG(extack,
++				       "inline mode requires an IPv6 route");
+ 			return -EINVAL;
++		}
+ 
+ 		if (tb[SEG6_IPTUNNEL_SRC]) {
+ 			NL_SET_ERR_MSG(extack, "incompatible mode for tunsrc");
+@@ -798,12 +808,16 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
+ 	case SEG6_IPTUN_MODE_L2ENCAP_RED:
+ 		break;
+ 	default:
++		NL_SET_ERR_MSG(extack, "invalid SRv6 encapsulation mode");
+ 		return -EINVAL;
+ 	}
+ 
+ 	/* verify that SRH is consistent */
+-	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo), false))
++	if (!seg6_validate_srh(tuninfo->srh, tuninfo_len - sizeof(*tuninfo),
++			       false)) {
++		NL_SET_ERR_MSG(extack, "invalid SRv6 segment routing header");
+ 		return -EINVAL;
++	}
+ 
+ 	newts = lwtunnel_state_alloc(tuninfo_len + sizeof(*slwt));
+ 	if (!newts)
+-- 
+2.47.3
+
+
