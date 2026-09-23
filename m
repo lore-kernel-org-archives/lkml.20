@@ -1,281 +1,177 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29AB8443C0D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:29:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CED444705
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790144963; cv=none; b=IABrKmZqxSa8WwZpGzjsM4MbD0ybYBfDEhper/p5SnxeZDxoFveYRMYfccFoA6fcfdUlsKKWZ6koXmAOKyBYUJ/s+EjjMDK9D9uof57OuZBG/wAYMWMEnVL77ADoJMoXv4rqdJTzDGP21vc8I+49g7Fxm5+BJMf3W/YAtf6DJUA=
+	t=1790144965; cv=none; b=Q0/9/Lnha9DIAL1i81Bai9Kouz8z/jQ+AtWIvbcWHL7g7MEO60UGo/BeqWYvj76Jsy4nkmgg7yhWoLPK4TMHbLa4gnImqmpykfoq5ENvWKYRLmGfSTLStcIEIZh/6eEu6F4zCM4Ecnhs1WJ3zu548lTxt4wTWUxuvBM+ajnkEVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790144963; c=relaxed/simple;
-	bh=2P1/Y+7yd2b38wkBtdBMXr+oehxAhkxnhsbRjMjb8Ls=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mn7hoQfDTRK4RhWWBhzLxeRwAlknelPGLAnZQInO12lreYFRIaeUcaUD1khaIjL4hVFghLQFr2M1Qft89924gQsI/tt2ACky6hlro2dStsSwe5bMDqOgK5Ws61xoIvQvDVxaj3YIi2OlSRkYV8VJ3vypKlgjY1G87vvMdmkRL6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=l6od56IM; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790144965; c=relaxed/simple;
+	bh=p+t6rwYDFXv9MMHDHyLII541DjI3rl25xQ77OuO+OVM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=DpqZ5nKyHZx5BwRQu5XNaQX0+UcjCnIAOz4NDfvRut/fPY3tkGSDbdWYRKMorIzjY011FElTwN1PPwifIgVeeLeN4vEodVELR/8sNwNNC3rlJGvAJM+/ndz12WO5/F06KbOxJgZKrElxILbxe7DPo+MZvqHoRJ1FPGsx+ct7hGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gz4WDphN; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="l6od56IM"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c2790ccso390128f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:29:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gz4WDphN"
+Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc433d52421so316904a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:29:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790144951; x=1790749751; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IqBBUCm9D3kcAtSAGWx9YPoXXMR7IIvhwpg10TQoYm0=;
-        b=l6od56IMX74BNqnz4bkTqVsvT7TD24l1V6scX5Gxcm2Ba0nNYt0lyH968epWiozZQX
-         EsQfZEgGNgKa0yumSDHHGtbh8TtcstcLd5rpQkOdGDWJkWOyuZIcy/H2MCD6N2ngdeDZ
-         D/PhGynIR4UpFG+LQ8pifR7209dFV43U2wYIe/4iRiwA8zT6D4Co7F7cvdCcrzLoKfag
-         qM2CyIdWDF8xgmhzsXgYmW7faTWr8aoPqrM309n+jxkHx9OSAiKmmHs3cDYNYM2Ch4GP
-         68kPpsY7cGyX8SGtVyBqRGxz/405HuON/8+PfuCz7oz61mKOwSo9+KhIQPNeHvN8q9n3
-         RUCw==
+        d=gmail.com; s=20251104; t=1790144955; x=1790749755; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XMhtuKKM9junrQcHfwBMD2RoOkQktkfIp1wjOSUMcpY=;
+        b=gz4WDphNRBWqrFbYo2DhKpq7mcnHd3AwBCirquh9e0CrLjCmmO7fo0NUB7PAUcS4XB
+         0VfnquxR7E4pn6f+pV/bU75TxgbwrJgUJFGGRRtLGerWTGK22pBqI4zDHt+SeV22ms2E
+         +cLDOfcWQ5WYVEK80/RhzIGbu63NbbC4AWPgTJfyvL9i3qnDHKUxy7zhlmcIYQXd6Izq
+         OZrQCi9VHj7Sp0Xab+yAkD9j1z1Lr7h9O3Ps7PA/xB0K9o6IC+/xrNPNUTOiklGGkL46
+         TYyRmwc5/LNpKHwZuVT7hioB7/n0ek30Amx4BolpPb6Bsn74UgY1Rs2SIyrdYXE+jlyn
+         4lZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790144951; x=1790749751;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IqBBUCm9D3kcAtSAGWx9YPoXXMR7IIvhwpg10TQoYm0=;
-        b=s2j1H+ahxS5u2752eMjG6OPoCxH7gu7olQ8uJP5k9+pOV8KoLR7nKxlOeipaHTQZ36
-         iKxy8d22tX5AOmRtNsUY9U2XNtFmHALcO9oy5sVWkAjPFVnTwT+E8v9vXDFeEt9Ia4EW
-         a7dgFqhq6W4YALIrSaCMrJpdBDQkL1IEIVRf1nj22UJspiijYL9y7dvQK9szeHulDRdd
-         z5B8UPgEUU//MmtfDUvXHkqJMYiTcQyvS4yxDsfY2ySryITHp6wp9mc1fbr9R3La0gx0
-         y4dIWZNQFBkH604y3gvODDDWNk91i3BwAoHxpi5Vu6AkSBkcKW8vHQvoKzDcwJ8krS/u
-         9m3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwIsuQY/1fqrXunokxQOQbU1xub35pWfEAa/BuhU1JOCRtnc5BN9yd2gRGK2g76e2qFi9DFrARjqz78I3k=@vger.kernel.org
-X-Gm-Message-State: AFuF++myUpg750bMKLwiLFooSJM1gLmN6SUhHQaohljrdC/mXObAUg+3
-	/iPiXnVjEIXatmglAyiCLz1VAyM0oz1OTqPZRWv8LfZtPj6/1uN8aMnsN1OZSlKqduk=
-X-Gm-Gg: AYBFou3gum6ZRPZ81IQWK1ij0Y5pa/EUIOu3RhsUXPok3E8OQXrjq76SVSVnrlSAgSt
-	Xp4NGw1e4WQF821Zlapun+DkXGOhuKG6H7OiFMjVI9LHVVNIyenU9ksFF2ptjKQokdHXQ/ISCTL
-	Prt7cllvJC7w2eGT34kkuzROYQ6l2U8uOMhdWbqtldY3H6Q0/dDI8z6pqsL5owm/LTKslObVhMP
-	xzot0kTD94MBjOkq2t45/fydwm2g1FAK7NM1gCeuyb4Zpi5AbXFq4Hnwt0cXJw0Cz98rFts0JY1
-	Zt+nTdGT0z57erRZL8xTaMT/rsyPRrb2/JbLFAvC4QEZ6d77RmnGc9QxEF2cpKv4fAxx6z/RCFZ
-	P38GgW7lB1tgcEgO7jVBjnBkeQOFU9xeuU+/uW4qJ9zc4TIlgB64Tqborf52cAG53WNh63h3qr5
-	kI9hQRQg1PFhPCxLa86FOBa2N58YyooQoY+UTr1n8pRA8PmmjnZ+8sU3+oYIlhzS/V27ovDHVhu
-	9i9utLCJjpeMnk=
-X-Received: by 2002:a05:6000:40dd:b0:487:27f6:a4db with SMTP id ffacd0b85a97d-48867092e81mr2065474f8f.43.1790144951218;
-        Tue, 22 Sep 2026 23:29:11 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4886876c1fdsm4980428f8f.14.2026.09.22.23.29.09
+        d=1e100.net; s=20260707; t=1790144955; x=1790749755;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XMhtuKKM9junrQcHfwBMD2RoOkQktkfIp1wjOSUMcpY=;
+        b=hYgaL83vpcxRZYRUgtgVO68xn3kCFfWe0ECI2h7gqKxreGzJjOCbE1WrRmp6+dKW3R
+         rT/isk4UY9UonltVYFFWP14r5RdbVtIBphKcn687B/cJYHa4sBw972BTKxlwqRU9Hq1N
+         M9hQVEXzn/vbznFGlOxfbzm2wc9QKJiHHmohsSolas47QPz0a5ybueB1exCicZMMXJaR
+         wa5cBK7p088kVqvHE1S+ySGo8b27s0ajAkskn/g+VGQ3iwFVkyF3vxrYz21KQdY6hRSm
+         VZO7y720dALuhPDQGLXero9qtoiS20EQJHr2zPNUTwDgSYh0uVSaofObBLzMPtlMX0AM
+         OuPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwxAsvew2N1ZdEdrIse+2mT0BnalUUGOBUIN71meKyn+Q71tEF2ZKnfCEK/NbTW0nOk1DNx/iD4ZzDvWT0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUWEUGm5vJQbAwNiiq1I9HWXxeuKOuDTly49qdZJbB4v4kk/jY
+	PmWpi/FKUIq9XIXQLUabz7O8Jpa2BNO8B2Xfwgijzl3rYJMAfgn6z1Q2
+X-Gm-Gg: AYBFou15tfY+Lm1TPP1mFmBrygPTvrZrvel1+s41inGRN0lhFzjojIQWMfoncyXqQI0
+	/LiZiB8kuFcjQ8AoXEHQPw6cxDlk2iBs5R74pAQp8JAM8XFWk8xHlUj787OwoSuafqUkbyAMyPO
+	zRwCm924rhUsKMJ2Hsm/WCfMGJ6Gl66NNH20Vtq9S/0M8LD6I/x8WEucCl71ylD4wqRNjMNOn18
+	LQvZQCq4f4bKrsbgEGDKaM8N3ivFr28GEIezxv87fJRw4iqA8Ac5HOjwRXcSNlQog5sO/5KJeIq
+	VdUam5m+GKQFPvNe9Qij6WljXiU3gSHf8aCbUm4oaPEJ5Yoht6WE1FAfeCtV3sjBfH0l1BwnkLc
+	FHmVlprjIImw1rYMuSbJ4nZmZfdNEOnjW02SVNnVlQUiDV1RUoTW7xxmQaZpzX9YbsYiwDVT0K7
+	/SdBaPXG7dMz9mwnu3xeBJv2knuzOWYSvhfitwZZNuyGajhvu6+UZdgN2DxDxiprj0Qs7/Q1vc2
+	p5hV7G+aPtQ+vj6ZohAQA==
+X-Received: by 2002:a17:902:ccc2:b0:2dd:c100:4249 with SMTP id d9443c01a7336-2df69de978fmr13493295ad.45.1790144955081;
+        Tue, 22 Sep 2026 23:29:15 -0700 (PDT)
+Received: from mi-OptiPlex-7060.mioffice.cn ([43.224.245.234])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516bfdsm5620465ad.5.2026.09.22.23.29.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 23:29:09 -0700 (PDT)
-Date: Wed, 23 Sep 2026 08:29:08 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: David Lechner <dlechner@baylibre.com>, 
-	Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Bradley Morgan <brads@mainlining.org>, Aleksandr Nogikh <nogikh@google.com>, 
-	linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-usb@vger.kernel.org, driver-core@lists.linux.dev, linux-trace-kernel@vger.kernel.org, 
-	Johan Hovold <johan@kernel.org>, Richard Weinberger <richard@nod.at>
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-Message-ID: <arNuIicuNMmA7E3K@monoceros>
-References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
- <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
- <arIvG0nx4LXG9nlW@monoceros>
- <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
- <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+        Tue, 22 Sep 2026 23:29:14 -0700 (PDT)
+From: Wen Jiang <jiangwenxiaomi@gmail.com>
+X-Google-Original-From: Wen Jiang <jiangwen6@xiaomi.com>
+To: akpm@linux-foundation.org,
+	catalin.marinas@arm.com,
+	linux-mm@kvack.org,
+	urezki@gmail.com,
+	will@kernel.org
+Cc: Xueyuan.chen21@gmail.com,
+	ajd@linux.ibm.com,
+	anshuman.khandual@arm.com,
+	baohua@kernel.org,
+	chleroy@kernel.org,
+	david@kernel.org,
+	dev.jain@arm.com,
+	jiangwen6@xiaomi.com,
+	leo.yan@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	maddy@linux.ibm.com,
+	mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	rppt@kernel.org,
+	ryan.roberts@arm.com
+Subject: [PATCH v9 06/10] mm/vmalloc: extract vmap_set_ptes() to consolidate PTE mapping logic
+Date: Wed, 23 Sep 2026 14:28:28 +0800
+Message-Id: <20260923062832.479455-7-jiangwen6@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260923062832.479455-1-jiangwen6@xiaomi.com>
+References: <20260923062832.479455-1-jiangwen6@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="m4tmncbnbg4g756x"
-Content-Disposition: inline
-In-Reply-To: <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+Content-Transfer-Encoding: 8bit
 
+Extract the common PTE mapping logic from vmap_pte_range() into a
+shared helper vmap_set_ptes(). This handles both CONT_PTE and regular
+PTE mappings in a single function, preparing for the next patch which
+will extend vmap_pages_pte_range() to also use this helper.
 
---m4tmncbnbg4g756x
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
- userspace manually messes with devices and drivers
-MIME-Version: 1.0
+No functional change.
 
-On Tue, Sep 22, 2026 at 11:04:46PM +0200, Armin Wolf wrote:
-> Am 22.09.26 um 15:40 schrieb David Lechner:
->=20
-> > On 9/22/26 2:39 AM, Uwe Kleine-K=F6nig wrote:
-> > > On Fri, Sep 18, 2026 at 06:39:02PM +0200, Danilo Krummrich wrote:
-> > > > On Mon Sep 14, 2026 at 4:30 PM CEST, Greg Kroah-Hartman wrote:
-> > > > > The ability to add and remove devices from a driver through the s=
-ysfs
-> > > > > "bind" and "unbind" files was created all those decades ago as a =
-way
-> > > > > that kernel developers can iterate faster, and provide a debuggin=
-g way
-> > > > > for users to attempt to add a new device to a driver without havi=
-ng to
-> > > > > rebuild their kernel.
-> > > > >=20
-> > > > > This api over the years has been abused and recently come under a=
- major
-> > > > > fuzzing "attack" through tools like syzbot which decided that it =
-would
-> > > > > attempt to just randomly bind any driver to any type of device, c=
-ausing
-> > > > > loads of unneeded errors and pointless kernel patches to be gener=
-ated by
-> > > > > unsuspecting new developers.
-> > > > >=20
-> > > > > Handle all of this by adding a new taint flag, TAINT_FORCED_BIND,=
- which
-> > > > > will be set on the driver if the bind/unbind sysfs files are ever
-> > > > > written to.  This lets kernel developers "know" that a user is
-> > > > > attempting to do something that is not normal, and as such, if the
-> > > > > kernel breaks they get to keep the shiny pieces laying around on =
-the
-> > > > > floor.
-> > > > >=20
-> > > > > The flag is 'Y' which was unused, and can remembered as the user =
-is
-> > > > > "yeeting" the device being operated on here (thrown with force wi=
-thout
-> > > > > regard for the thing being thrown).
-> > > > >=20
-> > > > > Note, the taint flag gets set _BEFORE_ the bind/unbind callback h=
-appens,
-> > > > > as many times crashes/oops/warnings/failures happen within the ca=
-llback,
-> > > > > and the taint flag needs to be there to show what was being attem=
-pted.
-> > > > > If it were to be set after the callback happens, the oops report =
-would
-> > > > > not properly reflect what foolishness was being attempted.
-> > > > >=20
-> > > > > Fuzzing tools like syzbot, that doesn't have hand-crafted rules t=
-o keep
-> > > > > the tool from hitting bind/unbind, should be run with panic_on_ta=
-int
-> > > > > enabled so that they fall over and don't continue on, thinking th=
-at they
-> > > > > actually found a real issue.
-> > > > >=20
-> > > > > Userspace operations that rely on the bind/unbind files
-> > > > I agree that this should be avoided.
-> > > >=20
-> > > > But I also think the biggest offender really is driver_override. Sp=
-ecifically,
-> > > > on a hot-pluggable bus a driver must be complient with the device d=
-river
-> > > > lifecycle rules and hence shouldn't break on bind/unbind. I think i=
-t would be
-> > > > nice to not taint the kernel for such busses, and only taint on dri=
-ver_override,
-> > > > as I think we'd still want the bug reports for such cases.
-> > > >=20
-> > > > But I think this is fine to leave for a follow-up.
-> > > I fully agree. I'm fine and support tainting on driver_override, but
-> > > bind/unbind are used occasionally in my bubble and I consider drivers
-> > > not handling that properly buggy.
->=20
-> I fully agree with this, drivers should correctly implement the lifecycle=
- model
-> and not just break when being unbound at a improper time. Drivers sufferi=
-ng from
-> this can easily break this way when unloading the associated kernel modul=
-e, so this
-> taint is no solution.
->=20
-> > In the IIO subsystem, unbind/rebind is the de-facto way to reset a wedg=
-ed
-> > chip.
-> >=20
-> > A few examples where other reset methods were reject in favor of unbind=
-/bind:
-> >=20
-> > https://lore.kernel.org/linux-iio/20240727160216.2488ed29@jic23-huawei/
-> >=20
-> > 	This needs documenting as it's custom ABI. Note that we don't often
-> > 	accept custom ABI. Particularly not a hook that seems to reset the
-> > 	device. If you want to do that, unbind and rebind the whole drive[r]
-> > 	so we are in a known state etc.
-> >=20
-> > https://lore.kernel.org/linux-iio/20240720163440.03c713dc@jic23-huawei/
-> >=20
-> > 	Firstly as stated below, we don't provide interfaces for this
-> > 	because it's a heavy weight process that is most of the effort of
-> > 	unbinding and rebinding the driver. So if you need to reset, do that.
-> >=20
-> > https://lore.kernel.org/linux-iio/20250505200609.54756520@jic23-huawei/
-> >=20
-> > 	The solution is to run it once at driver bind. Similar to reset
-> > 	below, if the usecase needs to re do it then unbinding and rebinding
-> > 	the driver reflects the fact we are taking it effectively offline
-> > 	for a while.
-> >=20
-> I also consider bind/unbind to be an official API to interact with device=
-s,
-> so i want to use them in the future with the WMI subsystem.
->=20
-> AFAIK the underlying reason for this series is that some drivers break wh=
-en
-> being bound to unsupported devices. However IMHO drivers should verify th=
-at
-> they support a given device inside their .probe callback, and the associa=
-ted
-> bus should only match devices with drivers that explicitly claim support =
-for
-> those devices (ignoring driver_override).
->=20
-> Can we get some example bugs uncovered this way?
+Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Tested-by: Leo Yan <leo.yan@arm.com>
+---
+ mm/vmalloc.c | 36 +++++++++++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 9 deletions(-)
 
-There is a related set of mail threads, that however are not the trigger
-for Greg's effort.=20
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index fb757d95bde25..d475e52110e4a 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -92,6 +92,29 @@ struct vfree_deferred {
+ static DEFINE_PER_CPU(struct vfree_deferred, vfree_deferred);
+ 
+ /*** Page table manipulation functions ***/
++
++/*
++ * Try contiguous mappings at the PTE level for arches which support them, and if
++ * requested by the caller. Fall back to PAGE_SIZE mappings otherwise.
++ *
++ * Return: mapping size.
++ */
++static __always_inline unsigned long vmap_set_ptes(pte_t *ptep,
++		unsigned long addr, unsigned long end, u64 pfn,
++		pgprot_t prot, unsigned int max_page_shift)
++{
++	unsigned long size;
++
++	size = arch_vmap_pte_range_map_size(addr, end, pfn, max_page_shift);
++	if (size != PAGE_SIZE) {
++		pte_set_huge(ptep, addr, PFN_PHYS(pfn), prot, size);
++		return size;
++	}
++
++	set_pte_at(&init_mm, addr, ptep, pfn_pte(pfn, prot));
++	return PAGE_SIZE;
++}
++
+ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+ 			phys_addr_t phys_addr, pgprot_t prot,
+ 			unsigned int max_page_shift, pgtbl_mod_mask *mask)
+@@ -100,6 +123,7 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+ 	u64 pfn;
+ 	struct page *page;
+ 	unsigned long size;
++	unsigned int steps;
+ 
+ 	if (WARN_ON_ONCE(!PAGE_ALIGNED(end - addr)))
+ 		return -EINVAL;
+@@ -120,15 +144,9 @@ static int vmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+ 			BUG();
+ 		}
+ 
+-		size = arch_vmap_pte_range_map_size(addr, end, pfn, max_page_shift);
+-		if (size != PAGE_SIZE) {
+-			pte_set_huge(pte, addr, PFN_PHYS(pfn), prot, size);
+-			pfn += PFN_DOWN(size);
+-			continue;
+-		}
+-		set_pte_at(&init_mm, addr, pte, pfn_pte(pfn, prot));
+-		pfn++;
+-	} while (pte += PFN_DOWN(size), addr += size, addr != end);
++		size = vmap_set_ptes(pte, addr, end, pfn, prot, max_page_shift);
++		steps = PFN_DOWN(size);
++	} while (pte += steps, pfn += steps, addr += size, addr != end);
+ 
+ 	lazy_mmu_mode_disable();
+ 	*mask |= PGTBL_PTE_MODIFIED;
+-- 
+2.34.1
 
-Initially I suggested to protect the pwm-tegra driver from attaching
-to unexpected devices via a check in .probe():
-
-   https://lore.kernel.org/linux-pwm/ed943d9be3b785514e0f65a5b8c13a78aba7a0=
-90.1789741839.git.u.kleine-koenig@baylibre.com/
-
-Thierry suggested a dedicated flag in struct device_driver instead
-allowing to opt out of the driver_override mechanism:
-
-   https://lore.kernel.org/linux-pwm/20260922-driver-override-opt-out-v1-0-=
-58c35ded3b83@nvidia.com/
-
-I think Greg was motivated by syzcaller triggering various exceptions
-using driver_override.
-
-So my opinion on the right way forward is:
-
- - Given that there are only very few drivers that are supposed to be
-   used for a driver override, there should be an opt-in (instead of the
-   opt-out that Thierry suggested).
-
- - The changes from this thread (i.e. make usage of bind/unbind result
-   in a taint) should be dropped. I wrote earlier that I'm ok with a
-   taint for a usage of driver_override, but with the previous item
-   implemented, I don't think that is necessary.
-
-Best regards
-Uwe
-
---m4tmncbnbg4g756x
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqzcbIACgkQj4D7WH0S
-/k5/RAf/SE7NQiSIqLNn4DRqC5N/7ANJOhVQL7lvqZeGImpxnvizJPahFAQ5wgHr
-TqvOjwfgQW2cjqr0dT1HbkBIxqhE/FQQPy/wGiSAEwVqGPoaf3NQ2+EJhFtbkW3A
-UhHydl1NRAl0lJI3aDHu8yvr2fYi1JsjVoGk6bEHLa8H3g4mxV09GAmn5486tQ6N
-WbofIbgRNtpIYlMN9eWRKKBBB8j/EQvMHXZwBIy05z/jru237w9UWObXjS/FhwD6
-ktITAnnTBacmzUAC1u5hm2Z3lpH88/MCe014xcIal73LJ1HgVnwnjH7uaBmRrzsR
-r/G6IKsL4nPw3DX9iCQvpNDM+a44MQ==
-=ea/U
------END PGP SIGNATURE-----
-
---m4tmncbnbg4g756x--
