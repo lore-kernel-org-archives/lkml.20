@@ -1,189 +1,207 @@
-Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8643A9636;
-	Wed, 23 Sep 2026 14:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A58153161F;
+	Wed, 23 Sep 2026 14:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790173729; cv=none; b=AZvRQsiNE1dBv4vBcVgFpB0GFTXzqDM6IbN6g1Kgs+Q5r+oSM7EED8BAW9fdj3e42PxnDE8ltOIe38kvMGlrc9sxentWsZ519sw2+nfaHPJuG9HfU4NwExdAZOrfBk6xfYn9dzBiEBfQ1Zc9fda9+NGR1Cixv+/H4jFvK1jfxww=
+	t=1790173738; cv=none; b=E56Q2tivkd8xiJ6cndZWkRtg5EXL3nze3qnWtGFZxLpcRpDRnfXP3jrTZATk72F1H9ydYUlTdxTe1R3PZJeArE08+g3Xg+Ig1ebYIiQY57KecU2f8Gk5npwJs4uUuD6EDyJrzHmYT8BvRYD9sU4BetQN3Bq0zLOgZdJ4cSGjpdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790173729; c=relaxed/simple;
-	bh=rbox5PiX4IRjzrRyDEAzQ8FCibdyFXPow4fhXrs0Acg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a8aaYCWlzSMyeec6EWar6moEmzO1Oj+c6LvT3WZrfOvuZYoySSSD7dVuUM89xzKvfCIYSMj9fFt1zPQps+kYBgYlHp1j8dSUX65gIzHUp6sgH3xBnOLCHBDrmW567VINM7ttyhycjSr7usJtiuYfox1XqhwFK1AznvjQyh3UVrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=Om3/IJCN; arc=none smtp.client-ip=44.245.243.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1790173738; c=relaxed/simple;
+	bh=XV9XtjxIEhtgt8MoCVDRV/j5+YCPAyY1fr4ZCrG1aX0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=aPofFd4Xvv6lWbgHLAMGH/cUg0sDo7hnKQJE3iaO05HbygsqMvlqXorYpze2mMilVdNfFm0j85pZu7/FRuMInq+0YyTXCtio2HRCihMsG647hsWcXBvkfE7LcqIn9G2nliS4rAO3SIb3/xlNBIj95Zi4Opo38T/milPz7KOlXY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gKi1uvT9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="Om3/IJCN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790173728; x=1821709728;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ngPqdiOd/HTapC2oXTHu96HVXyI5Gv/DHYh7ueCEPUg=;
-  b=Om3/IJCNCpJFEEhsVABEW3Rg/tLFoQZ+yONI3xoig8ne19Pz0xZmcHNH
-   IIWVU04W0u7mLrRxsrfkpx0KiMkHAIMU0UlmH9Aumwv5Z0L1bREz1zIav
-   3q/BJNANYoKPrVJEl4U8AVRlFH2MjJZiWwep5lHo+MNvXY31i6/Hl29AJ
-   eBvBejdQCiKfWe9F3NAMRAkjihdxm7C1Cq6j1lt7mGvde0YyM0Eq5dzhz
-   OjHoUKjBfWxLQYdd0OO+d6ElGY+bpJJC1y69RD14vQksWlM1Nca4t8sn1
-   WyEL5FeH+Ob7DKgyb7pG9BevC6fzOvyjrjl8M4VyCCptFIYZUYCWu3GOH
-   A==;
-X-CSE-ConnectionGUID: o06THioiST6r6ZvPabAHog==
-X-CSE-MsgGUID: QKLTSGAySNud9r/ndOharg==
-X-IronPort-AV: E=Sophos;i="6.27,118,1787011200"; 
-   d="scan'208";a="28948323"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 14:28:44 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.51:28313]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.186:2525] with esmtp (Farcaster)
- id 008b42e8-e499-4538-839b-fff08e80c615; Wed, 23 Sep 2026 14:28:44 +0000 (UTC)
-X-Farcaster-Flow-ID: 008b42e8-e499-4538-839b-fff08e80c615
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 23 Sep 2026 14:28:44 +0000
-Received: from dev-dsk-surenkj-2b-416930d2.us-west-2.amazon.com (10.169.26.94)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 23 Sep 2026 14:28:44 +0000
-From: Surendran Kanagaraj <surenkj@amazon.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>, Peter Huewe <peterhuewe@gmx.de>,
-	Jason Gunthorpe <jgg@ziepe.ca>
-CC: <linux-integrity@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<nh-open-source@amazon.com>, Alexander Graf <graf@amazon.de>, "Gunnar
- Kudrjavets" <gunnarku@amazon.com>, Josh Levinson <joshlev@amazon.com>
-Subject: [PATCH 2/2] tpm_crb: Raise timeouts for Amazon NitroTPM
-Date: Wed, 23 Sep 2026 14:28:34 +0000
-Message-ID: <20260923142834.16786-3-surenkj@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260923142834.16786-1-surenkj@amazon.com>
-References: <20260923142834.16786-1-surenkj@amazon.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gKi1uvT9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671E01F00893;
+	Wed, 23 Sep 2026 14:28:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790173737;
+	bh=KJ+xcGas6Gs0DUbNkFsLqUYTG/kJ0yvHazAmaBZ9DQc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=gKi1uvT9tdO35/ODP00YcZaB1OEqOdJRXC43vCAtVa6/M+rRGUzFwrcEFzwLOcpM8
+	 rFd8FKNGTwcNeaPZJWHgle4aXrscaEQgzv4xKlpwSHuHfa8mOnUXOSeK49Z1Cyp2jU
+	 UGm/xAuJEzcqCQlbTOQ8w8JSwAyYh5Y3iAm3TlZ8hc3a46rYZqfHKqB/caJeoPyRSS
+	 /zj2aVMtbmuIKRqQ0GaxIrliBpBI6zWSJwyasssqkyicL2r7QVdLv9yWU0w6X9G84P
+	 DbwpUJekxBnSZqWqQEEPtZQ3gmRz621gb2mQKitAsMTjtTiWuylDjnHn8PUQB8+ZGO
+	 YoEgEm2KBqXYg==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Robin Murphy <robin.murphy@arm.com>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Mostafa Saleh <smostafa@google.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	Alexey Kardashevskiy <aik@amd.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [PATCH v5 4/6] dma: swiotlb: Centralize memory-encryption pool
+ sizing
+In-Reply-To: <644aa208-55f0-440c-94b9-75e58e588dde@arm.com>
+References: <20260921063628.362078-1-aneesh.kumar@kernel.org>
+ <20260921063628.362078-5-aneesh.kumar@kernel.org>
+ <644aa208-55f0-440c-94b9-75e58e588dde@arm.com>
+Date: Wed, 23 Sep 2026 19:58:36 +0530
+Message-ID: <yq5awlsc11pn.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: EX19D035UWB003.ant.amazon.com (10.13.138.85) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-TPM commands need to complete within the command duration defined in
-the TPM2 spec or keep answering TPM2_RC_RETRY for at most
-TPM2_DURATION_LONG (2s).
+Robin Murphy <robin.murphy@arm.com> writes:
 
-In rare scenarios NitroTPM can enter a mode where it either sends
-TPM2_RC_RETRY for more than 2s or delays command completion. When
-this happens during auth session start, the driver disables the chip
-and every subsequent request fails:
+> On 21/09/2026 7:36 am, Aneesh Kumar K.V (Arm) wrote:
+>> Memory-encrypted guests use shared or unencrypted memory for DMA and may
+>> route all DMA through SWIOTLB. The default pool can therefore be too
+>> small for I/O-intensive workloads.
+>> 
 
-    tpm tpm0: in retry loop
-    tpm tpm0: tpm2_load_context: failed with a TPM error 0x0922
+ [ ... 133 lines skipped ... ] 
 
-Add support for vendor quirks to the CRB driver. The table is keyed by
-the vendor ID read from the interface ID register. For NitroTPM, set
-busy_timeout_ms to 30s, which covers the longest unavailability time
-along with some headroom.
+>> +/**
+>> + * swiotlb_adjusted_size() - get the prospective adjusted SWIOTLB size
+>> + *
+>> + * Return the size that confidential-computing guest sizing would select for
+>> + * the default pool, without changing the configured SWIOTLB size. An
+>> + * explicit swiotlb= size is always preserved. An explicit area count is
+>> + * included in the size calculation. Automatic area sizing is initialized
+>> + * later from the running kernel's possible CPU map and any resulting size
+>> + * adjustment is therefore not reflected in the returned size.
+>> + */
+>> +unsigned long __init swiotlb_adjusted_size(void)
+>
+> This is yet another misleadingly ambiguous name.
+>
 
-Tested on an EC2 instance with NitroTPM by inducing multiple
-unavailability windows with no TPM errors, and in QEMU with swtpm by
-holding the TPM in TPM2_RC_RETRY and stalling command completion for
-longer than 2s with the quirk applied.
+Do you have any suggestions for a better approach? This returns the
+swiotlb size adjusted according to the existing heuristics.
 
-Assisted-by: LLM
-Signed-off-by: Surendran Kanagaraj <surenkj@amazon.com>
----
- drivers/char/tpm/tpm_crb.c | 54 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 54 insertions(+)
+>> +{
+>> +	unsigned long nslabs, size = swiotlb_size_or_default();
+>> +
+>> +	if (swiotlb_default_size_changed() ||
+>> +	    !cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT))
+>> +		return size;
+>
+> And this makes for another needlessly convoluted calling convention.
+>
 
-diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
-index ceb4100ba400..4107203beec9 100644
---- a/drivers/char/tpm/tpm_crb.c
-+++ b/drivers/char/tpm/tpm_crb.c
-@@ -13,6 +13,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/highmem.h>
-+#include <linux/io-64-nonatomic-lo-hi.h>
- #include <linux/rculist.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-@@ -26,6 +27,15 @@
- #define ACPI_SIG_TPM2 "TPM2"
- #define TPM_CRB_MAX_RESOURCES 3
- 
-+/* TPM_CRB_INTF_ID_x vendor ID field, bits 47:32 of the 64-bit register */
-+#define CRB_INTF_ID_VID(intf_id)	(((intf_id) >> 32) & 0xffff)
-+
-+/* Amazon NitroTPM */
-+#define CRB_INTF_VID_AMZN		0x0ec2
-+
-+/* Longest unavailability seen from NitroTPM */
-+#define CRB_AMZN_BUSY_TIMEOUT_MS	30000
-+
- static const guid_t crb_acpi_start_guid =
- 	GUID_INIT(0x6BBF6CAB, 0x5463, 0x4714,
- 		  0xB7, 0xCD, 0xF0, 0x20, 0x3C, 0x03, 0x68, 0xD4);
-@@ -783,6 +793,48 @@ static int crb_map_pluton(struct device *dev, struct crb_priv *priv,
- 	return 0;
- }
- 
-+/*
-+ * Read the vendor ID from the interface ID register. Returns -ENODEV when
-+ * the head registers are not mapped for this start method.
-+ */
-+static int crb_vendor_id(struct crb_priv *priv)
+I have updated this to
+
++static unsigned long __init swiotlb_adjusted_size(void)
 +{
-+	u64 intf_id;
++	unsigned long nslabs;
++	u64 size = swiotlb_default_pool_size();
 +
-+	if (!priv->regs_h)
-+		return -ENODEV;
++	if (!swiotlb_cmdline_size_set &&
++	    cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT)) {
++		/*
++		 * For SEV and TDX and CCA, all DMA has to occur via
++		 * shared/unencrypted pages. Kernel uses SWIOTLB to make this
++		 * happen without changing device drivers. However, depending on
++		 * the workload being run, the default 64MB of SWIOTLB may not be
++		 * enough and SWIOTLB may run out of buffers for DMA, resulting in
++		 * I/O errors and/or performance degradation especially with high
++		 * I/O workloads.
++		 *
++		 * Adjust the default size of SWIOTLB using a percentage of guest
++		 * memory for SWIOTLB buffers.
++		 *
++		 * The percentage of guest memory used here for SWIOTLB buffers is
++		 * more of an approximation of the static adjustment which 64MB for
++		 * <1G, and ~128M to 256M for 1G-to-4G, i.e., the 6%
++		 */
++		size = div_u64((u64)memblock_phys_mem_size() * 6, 100);
++		size = clamp_val(size, IO_TLB_DEFAULT_SIZE, SZ_1G);
++	}
 +
-+	intf_id = lo_hi_readq(&priv->regs_h->intf_id);
++	nslabs = swiotlb_calc_nslabs(size, default_nareas);
 +
-+	return CRB_INTF_ID_VID(intf_id);
++	return nslabs << IO_TLB_SHIFT;
 +}
 +
-+static void crb_amzn_quirk(struct tpm_chip *chip)
-+{
-+	/* NitroTPM requires larger timeouts */
-+	chip->busy_timeout_ms = CRB_AMZN_BUSY_TIMEOUT_MS;
-+}
-+
-+static const struct crb_vendor_quirk {
-+	u16 vendor_id;
-+	void (*apply)(struct tpm_chip *chip);
-+} crb_vendor_quirks[] = {
-+	{ CRB_INTF_VID_AMZN, crb_amzn_quirk },
-+};
-+
-+static void crb_apply_vendor_quirks(struct crb_priv *priv, struct tpm_chip *chip)
-+{
-+	int vendor_id = crb_vendor_id(priv);
-+	unsigned int i;
-+
-+	if (vendor_id < 0)
-+		return;
-+
-+	for (i = 0; i < ARRAY_SIZE(crb_vendor_quirks); i++)
-+		if (crb_vendor_quirks[i].vendor_id == vendor_id)
-+			crb_vendor_quirks[i].apply(chip);
-+}
-+
- static int crb_acpi_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -887,6 +939,8 @@ static int crb_acpi_probe(struct platform_device *pdev)
- 	chip->acpi_dev_handle = device->handle;
- 	chip->flags = TPM_CHIP_FLAG_TPM2;
- 
-+	crb_apply_vendor_quirks(priv, chip);
-+
- 	rc = tpm_chip_bootstrap(chip);
- 	if (rc)
- 		goto out;
--- 
-2.47.3
 
+But as shown above, we apply the CoCo sizing heuristic only when no
+explicit swiotlb= size was specified and guest memory encryption is
+enabled.
+
+>
+>> +	/*
+>> +	 * For SEV and TDX and CCA, all DMA has to occur via
+>> +	 * shared/unencrypted pages. Kernel uses SWIOTLB to make this
+>> +	 * happen without changing device drivers. However, depending on
+>> +	 * the workload being run, the default 64MB of SWIOTLB may not be
+>> +	 * enough and SWIOTLB may run out of buffers for DMA, resulting in
+>> +	 * I/O errors and/or performance degradation especially with high
+>> +	 * I/O workloads.
+>> +	 *
+>> +	 * Adjust the default size of SWIOTLB using a percentage of guest
+>> +	 * memory for SWIOTLB buffers.
+>> +	 *
+>> +	 * The percentage of guest memory used here for SWIOTLB buffers is
+>> +	 * more of an approximation of the static adjustment which 64MB for
+>> +	 * <1G, and ~128M to 256M for 1G-to-4G, i.e., the 6%
+>> +	 */
+>> +	size = memblock_phys_mem_size() * 6 / 100;
+>
+> But mostly I fail to see how this makes any sense for the x86 
+> crash_low_size_default() case anyway. This calculation is based on the 
+> *total* system memory, of which 6% is likely comparable to (or perhaps 
+> even more than) the *entire* amount of memory reserved for the crash 
+> kernel itself. What's more, if the low memory and size restrictions are 
+> lifted for regular CoCo SWIOTLB as people want, then it becomes even 
+> more utterly nonsensical to tie crashkernel_low to this.
+>
+> Yes, this happens to be the behaviour that falls out of how two 
+> different parts of the existing code interact, but I highly doubt it was 
+> ever intentional, so I'm not convinced that complicating SWIOTLB 
+> interfaces to blindly preserve it is the right thing to do.
+>
+
+
+I agree with the concern, but what would be the right solution? When the
+crash kernel boots, it will try to allocate the SWIOTLB pool according
+to this sizing heuristic, and the allocation may fail if insufficient
+memory was reserved.
+
+I have split the x86 crash-kernel changes into a separate patch, which
+we can drop depending on the conclusion here. I must admit that I do not
+understand the crash-kernel memory restrictions and allocation details
+well enough to propose a solution.
+
+-aneesh
