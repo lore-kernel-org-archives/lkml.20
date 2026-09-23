@@ -1,255 +1,252 @@
-Received: from mail-oo2-f12.google.com (mail-oo2-f12.google.com [74.125.231.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11BA858124D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:34:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0ABD4581247;
+	Wed, 23 Sep 2026 22:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202896; cv=none; b=EqfhU61o8XU6IgRz0fU5ffH/jfEIaaylHVqFdak7qgCFXSepUfSWFcTYfUlVi7mIhYn19ZoFViIcswu6No8xr/ZvH3esMJw6F4d91GC+ZMM+CZErk42PY5T95/oe8reCu4jWktf02t6ptu/H9e4MuMMR2FBwjkiM4QcrdzkcWYs=
+	t=1790202896; cv=none; b=uFJTK4Cymbj3w5aq9uk7+k6WfIn6i9PUA+3Y0XPe9ERlBA3k7EauGEI//45alz731aBJgwraQIK/H8f0OT9EDfeeTEpbqpIvS66RG57/zVv0SJXuKtMPHr2ES3mmdakT8xDWPDc2TJzqOoauh0San0GsTFp/p1xVIrT5rmnmmXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790202896; c=relaxed/simple;
-	bh=y3lSA8Y56umPh2HgV6WBl8hk1Eie/5gIm0L03MEj1o8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NkFsCjcRo8kT3d94hqk165d2azJ1+2lhWQuUtTOs3VS5PQCLGy2mESzLpiHkd5tM9sJMsfU9sn//t57tA5Zx7zUM+9AEhT0m+gfyLiUoqpQBnHgAQi/wR6LaCPiXLpNBfZYk1Tfdv1glDJ94f9f+7oH2r++/aij49GR94nemApY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f3CjLUhg; arc=none smtp.client-ip=74.125.231.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=e+cOxOOR7KeNTZdDG5EoT2YT7Z8uj3tv81dEWnLqxQY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M1oy0DWnqPGU4Tab/2CMxb7OZXgolyObN9/2mru6v/35y9mqJRb55apXiFKMuw4O5gtoOdYsTWKeCfD00SkwgDBGdJDDepzi+y66em0BsVCwWbOkWKJOm0eB2PPzGy1r127H+QKG2K+h8oMzhfzmZJSluHt8AGA6pi4RR2ay3eQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KvsswqJT; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f3CjLUhg"
-Received: by mail-oo2-f12.google.com with SMTP id 006d021491bc7-6b1ae6f5fc5so808925eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:34:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790202891; x=1790807691; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HYBO1elgU02juqjocVCetj8tAPEOFrTtjQUE5YuJ7kQ=;
-        b=f3CjLUhgnPn27p16v0DaPvaWzr6+CNMwpXgwnkXgxC4arik5aSQrrz19KrhHQHI8f8
-         TIlZxoRddPU5elwpnv5jY19pU5JcyD5k2ku/2UpzQoQ8XINZNYl8sAExWQanSg+ECN29
-         pNBPT1Stnd84ClJYBVydUZePwuDsf6udBCBWLjjhkLRHqtP+GwzXnGPwkIN8seb1h6dl
-         AGM/c00IekubPcdBOaZ6h/uxWMZNC83H4jaTSpMp7bobPtgisNLixu/sxpfIW3nNMh+n
-         88ev+M19WV8XSIfDkIZNHnsIMqUmObDjMVrrrZayX5DO7F3Gr5KcUCHBZ5VTkzxwasYh
-         9WVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790202891; x=1790807691;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HYBO1elgU02juqjocVCetj8tAPEOFrTtjQUE5YuJ7kQ=;
-        b=uolhbcPlKcE8paYG9V76Bo6UPZOEbCLJt6aErpjw34Ik+NfvK7L/PRF89mKjbjC1Da
-         mRJT7WH/dXksD2MPO3SKHC2nMJPuCU4WLNyTbBXNvvUV7KOBL5aYpbZuAlJh4A4ilYTr
-         k7Sk4Xv1rI0mY8E37Tb4OH9H4YAdlbj0OaKlMw6g7tChCuu6Srd4CHRssnI2oy8uPhCv
-         BR1jDWwZdeaJtW3lWfrgsKzwFGclu6aYuYFmM71ZJawomfsXl+6xzzCadZbe8ZabwUtH
-         y5JGA0TwdvxAqFFOTHvahcmr+pTBNZNEwtgUXmxgjIBMGORZFxh+h6BEdFbtY0umEzXL
-         3elw==
-X-Gm-Message-State: AFuF++mO6hpFWjQreG4DUbbZ34kD7i8J7to3A6RIS5RzeqPaptP21QEA
-	II7Zt+b/YpJqVKiBhxz1/8WLrwYJeyIwy1QzHzymP2kWXd5iAs+v2fAw
-X-Gm-Gg: AYBFou22iXodOe92smm2+Uee/8qHyKCi9xROtycTFeNSaI2PEoXeLTBDefI+oQeZO/x
-	YhvOFR1LRFkLobF/DRgIUr68cUaZpZXV0Jn99vxFUWbBEQU0+iIDO+0Pu6beTzaUjOLQonCejrG
-	XaSNxNjljHc6qXr9aNYN6stC+qY6+VqlCr9waFc+OliXSdCLVjCZ+Dm6XeHZDYCZhMvPE7iqGLv
-	xAzdHK4+LonZvzFSkrHnk93oGSjzY23R8Pw5nUo9ItMs3e5z6/P4XK0BKJTCmjl78KGHnYkX/ri
-	z8ux4I1zdIt1GYD8Abe2T54jRWPTnVFfW2HfZpjpsmQubrYNj7zi1rNPmJjsb+MGJIyFHWKdlBy
-	ZQ7tJWyIQe6xfHgIU17QRfyu6bJQHUlIXdRKF92QuthJX0DaJr/Lk3utFyXWLBUz4JVDQjhQsiO
-	f/mfWTfuUzA+126jg0msYwJD3VfLGwKeGDq2R7DShslfudl9j1EviJP47tDa79nTOzPBXKnfP+y
-	4sl3N4g+Kej/j6XTLJqs/Z1Agg/DPtoNadindhMQQ8q2ZvEi8+gGoVb/I5QBfgxFRrtQlLgzWH9
-	2JRlgOhTf7aMHIMOEhQ=
-X-Received: by 2002:a05:6820:823:b0:6cd:3fdb:fa5e with SMTP id 006d021491bc7-6d44179fef3mr638299eaf.73.1790202891371;
-        Wed, 23 Sep 2026 15:34:51 -0700 (PDT)
-Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
-        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.34.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:34:50 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Wed, 23 Sep 2026 16:34:30 -0600
-Subject: [PATCH v11 06/38] dyndbg.lds.S: fix lost dyndbg sections in
- modules
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KvsswqJT"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4783C152B;
+	Wed, 23 Sep 2026 15:34:48 -0700 (PDT)
+Received: from [10.57.8.94] (unknown [10.57.8.94])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BCDA23F632;
+	Wed, 23 Sep 2026 15:34:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790202891; bh=e+cOxOOR7KeNTZdDG5EoT2YT7Z8uj3tv81dEWnLqxQY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=KvsswqJTKoAouUyBTgte07ttJiGhLx7UEhKgBCQUl8AKuWIqgaS50y5r+1wZsvLfL
+	 PXiIgVDcVatXU14yZqH0uMrkLNul/b3Q0PXLMFXeb+rp99Enz2WFzuun0j2T37BLpI
+	 QoIRq58cDg5rRujzsuaS+8eMLq1WWgth4j4SEfEI=
+Message-ID: <eabbb060-9e99-432d-ac51-7470a7e8e7e9@arm.com>
+Date: Wed, 23 Sep 2026 23:34:43 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-dd-cmap-part2-clean-v11-6-9b6c217fdf2f@gmail.com>
-References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
-In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
-To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Jonathan Corbet <corbet@net.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
- John Ogness <john.ogness@linutronix.de>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=5098;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=y3lSA8Y56umPh2HgV6WBl8hk1Eie/5gIm0L03MEj1o8=;
- b=WcpmPX6A4hTWlUg2X3ONugbdk8SAN/6D/u3lSsJZ+nbEh6zbA/zDo/rbHg/QQkGuiXnzwOayV
- lz2oRKiazvqBU/t5jXfD9VYVFMp9M6ty4Gd27PRwT3Vi37djXrYr/g6
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 1/7] firmware: arm_rmm: Add SMC definitions for
+ calling the RMM
+Content-Language: en-GB
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-2-suzuki.poulose@arm.com>
+ <178978126540.2352296.16845657485139032765.b4-review@b4>
+ <d7ccaf22-5bde-4344-8bf0-a5a17dcac0f3@arm.com>
+ <45fb9520-7003-412f-9ab1-14e2a762c816@arm.com>
+ <20260921142716.000073f8@oss.qualcomm.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20260921142716.000073f8@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-With CONFIG_DRM_USE_DYNAMIC_DEBUG=y, several build configs had
-problems with __dyndbg* sections getting lost in drm drivers.  Fix
-this by following the model demonstrated in codetag.lds.h.
+On 21/09/2026 22:27, Jonathan Cameron wrote:
+> On Mon, 21 Sep 2026 11:02:56 +0100
+> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+> 
+>> On 21/09/2026 10:27, Suzuki K Poulose wrote:
+>>> On 19/09/2026 02:27, Jonathan Cameron wrote:
+>>>>> The RMM (Realm Management Monitor) provides functionality that can be
+>>>>> accessed by SMC calls from the host.
+>>>>>
+>>>>> The SMC definitions are based on DEN0137[1] version 2.0-bet3
+>>>>>
+>>>>> [1] https://developer.arm.com/documentation/den0137/2-0bet3/
+>>>>>
+>>>>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>>>
+>>>> With Gavin's nitpicks and the GENMASK_ULL() from sashiko, just a few
+>>>> comments inline.  Mostly on subtle inconsistencies that really don't
+>>>> matter that much.
+>>>>   
+>>>>>    include/linux/arm-smccc-rmi.h | 497 ++++++++++++++++++++++++++++++++++
+>>>>>    1 file changed, 497 insertions(+)
+>>>>>    create mode 100644 include/linux/arm-smccc-rmi.h
+>>>>>
+>>>>> diff --git a/include/linux/arm-smccc-rmi.h b/include/linux/arm-smccc-
+>>>>> rmi.h
+>>>>> new file mode 100644
+>>>>> index 000000000000..214d6228dfc2
+>>>>> --- /dev/null
+>>>>> +++ b/include/linux/arm-smccc-rmi.h
+>>>>> @@ -0,0 +1,497 @@
+>>>>> +/* SPDX-License-Identifier: GPL-2.0 */
+>>>>> +/*
+>>>>> + * Copyright (C) 2023-2026 ARM Ltd.
+>>>>> + *
+>>>>> + * The values and structures in this file are from the Realm
+>>>>> Management Monitor
+>>>>> + * specification (DEN0137) version 2.0-bet3:
+>>>>> + * https://developer.arm.com/documentation/den0137/2-0bet3/
+>>>>> + */
+>>>>> +
+>>>>> +#ifndef __LINUX_ARM_SMCCC_RMI_H_
+>>>>> +#define __LINUX_ARM_SMCCC_RMI_H_
+>>>>> +
+>>>>> +#include <linux/arm-smccc.h>
+>>>>> +#include <linux/bitfield.h>
+>>>>> +#include <linux/bits.h>
+>>>>> +#include <linux/build_bug.h>
+>>>>> +#include <linux/sizes.h>
+>>>>> +
+>>>>> +#include <asm/page.h>
+>>>>> +
+>>>>> +#define SMC_RMI_CALL(func)                \
+>>>>> +    ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,        \
+>>>>> +               ARM_SMCCC_SMC_64,        \
+>>>>> +               ARM_SMCCC_OWNER_STANDARD,    \
+>>>>> +               (func))
+>>>>
+>>>> Obviously it is v18 so probably a future thing but nothing about this
+>>>> is RMI specific.  Could be used for ARM_SMCCC_TRNG_RND64 for instance.
+>>>> I'm not entirely sure what we'd call such a macro
+>>>>
+>>>> ARM_SMCCC_CALL_VAL64_STD() maybe?
+>>>
+>>> ARM_SMCCC_STD_CALL64_VAL() ?
+>>>
+>>> But, I would leave it as a wider cleanup in the tree as a separate
+>>> series.
+>>>    
+>>>>
+>>>> I'm not just not keen on macros whose names to me hint at something
+>>>> special. FWIW this also matches SMC_RSI_FID() and FFA_SMC64().
+>>>> Isn't it nice when we have a predictable naming scheme :)
+>>>>
+>>>> FID (for Function IDentifier) is in the spec, so maybe?
+>>>>
+>>>> Anyhow, I don't really care that much.
+>>>>   
+>>>>> +
+>>>>> +#define SMC_RMI_VERSION                SMC_RMI_CALL(0x0150)
+>>>>> +
+>>>>
+>>>>   
+>>>>> +#define RMI_ABI_MAJOR_VERSION    2
+>>>>> +#define RMI_ABI_MINOR_VERSION    0
+>>>>> +
+>>>>> +#define RMI_ABI_VERSION_GET_MAJOR(version) ((version) >> 16)
+>>>>
+>>>> I'd mask it.  Mostly because that would shout that it is only 15 bits.
+>>>>   
+>>>
+>>> Ack
+>>>    
+>>>>> +#define RMI_ABI_VERSION_GET_MINOR(version) ((version) & 0xFFFF)
+>>>>> +#define RMI_ABI_VERSION(major, minor)      (((major) << 16) | (minor))
+>>>>
+>>>> I'd go all in on FIELD_PREP() / FIELD_GET() + GENMASK just for the
+>>>> sake of consistency + not having to be careful that everything is
+>>>> checked for fit to keep the LLM bots happy.
+>>>>   
+>>>>> +
+>>>>> +#define RMI_RETURN_STATUS_MASK        GENMASK(7, 0)
+>>>>> +#define RMI_RETURN_INDEX_MASK        GENMASK(15, 8)
+>>>>> +#define RMI_RETURN_MEMREQ_MASK        GENMASK(9, 8)
+>>>>> +#define RMI_RETURN_CAN_CANCEL_MASK    BIT(10)
+>>>>> +
+>>>>> +#define RMI_RETURN_STATUS(ret)
+>>>>> FIELD_GET(RMI_RETURN_STATUS_MASK, ret)
+>>>>> +#define RMI_RETURN_INDEX(ret)
+>>>>> FIELD_GET(RMI_RETURN_INDEX_MASK, ret)
+>>>>
+>>>> What's this one?  I can't find anything in the spec that matches it
+>>>> and as far as I can tell you don't use it in this series.
+>>>
+>>> This is coming from RmiResultDataLevel. See RmiResult type.
+>>> This was renamed after we introduce the RmiResultDataIncomplete.
+>>> It is used in the KVM code to find the "level" where a command
+>>> failed/walked.
+>>>
+>>> I could rename it to RMI_RESULT_DATA_LEVEL() ?
+>>> Similarly RMI_RESULT_STATUS instead of RMI_RETURN_*
+>>>    
+>>>>   
+>>>>> +#define RMI_RETURN_MEMREQ(ret)
+>>>>> FIELD_GET(RMI_RETURN_MEMREQ_MASK, ret)
+>>>>> +#define RMI_RETURN_CAN_CANCEL(ret)
+>>>>> FIELD_GET(RMI_RETURN_CAN_CANCEL_MASK, ret)
+>>>    
+>>>> These are obscure enough to find in the spec I'd give a comment just
+>>>> to save the sanity of anyone looking for them.
+>>>
+>>> As above, they are really RMI_RESULT_DATA_INCOMPLETE_*
+>>>    
+>>>>   
+>>>>> +/*
+>>>>> + * Note many of these fields are smaller than u64 but all fields
+>>>>> have u64
+>>>>> + * alignment, so use u64 to ensure correct alignment.
+>>>>
+>>>> Obviously this is only going to run on arm64 so it's not critical, but
+>>>> more generally u64s aren't always 64 bit aligned.  So if you 'really'
+>>>> care aligned_u64 is there to ensure it.  Meh, arm64 so fine.
+>>>
+>>> Agreed, I am worried about the churn in the consumer code. Also, like
+>>> you said, this is only for ARM64. So, I would pass it.
+>>>    
+>>>>   
+>>>>> + */
+>>>>> +struct rmm_config {
+>>>>> +    union { /* 0x0 */
+>>>>> +        struct {
+>>>>> +            u64 tracking_region_size;
+>>>>> +            u64 rmi_granule_size;
+>>>>> +        };
+>>>>> +        u8 sizer[SZ_4K];
+>>>>> +    };
+>>>>> +};
+>>>>> +
+>>>>> +static_assert(sizeof(struct rmm_config) == SZ_4K);
+>>>>> +
+>>>>> +#define RMI_REALM_PARAM_FLAG_SVE        BIT(1)
+>>>>> +#define RMI_REALM_PARAM_FLAG_PMU        BIT(2)
+>>>>> +#define RMI_REALM_PARAM_FLAG_DA            BIT(3)
+>>>>> +#define RMI_REALM_PARAM_FLAG_LFA_POLICY        GENMASK(6, 5)
+>>>>> +#define RMI_REALM_PARAM_FLAG_MEC_POLICY        GENMASK(8, 7)
+>>>>
+>>>> Tiny bit inconsistent. When do you decide _MASK is needed and when
+>>>> not?  Seems a little too random for multibit fields.
+>>>
+>>> I will try to clean this up.
+>>
+>> Actually, this is used when we don't consume them from RMM. i.e.,
+>> we never call FIELD_GET() on them. But thats not a reason for
+>> not being consistent in naming. I can fix it
+> 
+> Too obscure for me!  So if not too painful cleaner to just fix it.
 
-Introduce include/asm-generic/dyndbg.lds.h, to bundle dynamic-debug's
-multiple sections together, into 2 macros:
+Sorry, forgot to add that, I fixed them to _MASK
 
-vmlinux.lds.h DATA_DATA: move the 2 BOUNDED_SECTION_BY(__dyndbg*)
-calls into dyndbg.lds.h DYNDBG_SECTIONS(). vmlinux.lds.h now includes
-the new file and calls the new macro.
+Cheers
+Suzuki
 
-MOD_DYNDBG_SECTIONS keeps the 2 sections by name, aligns them and sets
-the output address to 0 when the sections are empty.
-
-dyndbg.lds.h includes (reuses) bounded-section.lds.h
-
-scripts/module.lds.S: now calls MOD_DYNDBG_SECTIONS right before the
-CODETAG macro (consistent with their placements in vmlinux.lds.h), and
-also includes dyndbg.lds.h
-
-This isolates vmlinux.lds.h from further __dyndbg section additions.
-
-CC: Arnd Bergmann <arnd@arndb.de>
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
----
-v3: move #includes to top, drop extra ALIGN(8) in DYNDBG_SECTIONS, add RvBy
-
-v2: Address linker script review feedback for relocatable modules.
-
-MOD_DYNDBG_SECTIONS() used the BOUNDED_SECTION_BY() macro, which
-proved problematic for kernel modules for two reasons:
-
-1. Unwanted Empty Sections:
-   BOUNDED_SECTION_BY() automatically generates `__start` and `__stop`
-   symbols. When applied to `MOD_DYNDBG_SECTIONS()`, the linker assumes
-   the sections are populated due to the symbol definitions, forcing an
-   empty `__dyndbg` and `__dyndbg_classes` output section in every
-   compiled module, even those without dynamic debug configuration.
-   Since the module loader uses `section_objs()` to locate data via
-   ELF headers instead of relying on `__start`/`__stop` symbols, these
-   assignments are completely unnecessary.
-
-2. Non-zero Output Addresses:
-   During relocatable linking (e.g., `ld.bfd -r`), omitting an explicit
-   base address causes the section to inherit the current location
-   counter. This results in non-zero sh_addr values in `.ko` files,
-   which is confusing, degrades compressibility, and can cause issues
-   with external tools parsing the ELF.
-
-Fix both issues by dropping `BOUNDED_SECTION_BY()` in favor of a simple
-`KEEP(*(...))` constraint and explicitly defining the sections with a `0`
-base address: `__dyndbg 0 : ALIGN(8) { ... }`.
-
-fixup-inc-vml
----
- MAINTAINERS                       |  1 +
- include/asm-generic/dyndbg.lds.h  | 18 ++++++++++++++++++
- include/asm-generic/vmlinux.lds.h |  6 ++----
- scripts/module.lds.S              |  2 ++
- 4 files changed, 23 insertions(+), 4 deletions(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 74790be45d06..009d628417d5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9257,6 +9257,7 @@ DYNAMIC DEBUG
- M:	Jason Baron <jbaron@akamai.com>
- M:	Jim Cromie <jim.cromie@gmail.com>
- S:	Maintained
-+F:	include/asm-generic/dyndbg.lds.h
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
- F:	lib/test_dynamic_debug.c
-diff --git a/include/asm-generic/dyndbg.lds.h b/include/asm-generic/dyndbg.lds.h
-new file mode 100644
-index 000000000000..9d8951bef688
---- /dev/null
-+++ b/include/asm-generic/dyndbg.lds.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_DYNDBG_LDS_H
-+#define __ASM_GENERIC_DYNDBG_LDS_H
-+
-+#include <asm-generic/bounded_sections.lds.h>
-+#define DYNDBG_SECTIONS()					\
-+	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)			\
-+	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)
-+
-+#define MOD_DYNDBG_SECTIONS()						\
-+	__dyndbg 0 : ALIGN(8) {						\
-+		KEEP(*(__dyndbg))					\
-+	}								\
-+	__dyndbg_classes 0 : ALIGN(8) {					\
-+		KEEP(*(__dyndbg_classes))				\
-+	}
-+
-+#endif /* __ASM_GENERIC_DYNDBG_LDS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 47586c6e9839..f5d508df84bf 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -52,6 +52,7 @@
- 
- #include <asm-generic/bounded_sections.lds.h>
- #include <asm-generic/codetag.lds.h>
-+#include <asm-generic/dyndbg.lds.h>
- 
- #ifndef LOAD_OFFSET
- #define LOAD_OFFSET 0
-@@ -344,10 +345,7 @@
- 	*(.data..do_once)						\
- 	STRUCT_ALIGN();							\
- 	*(__tracepoints)						\
--	/* implement dynamic printk debug */				\
--	. = ALIGN(8);							\
--	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
--	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)				\
-+	DYNDBG_SECTIONS()						\
- 	CODETAG_SECTIONS()						\
- 	LIKELY_PROFILE()		       				\
- 	BRANCH_PROFILE()						\
-diff --git a/scripts/module.lds.S b/scripts/module.lds.S
-index d0f200428957..5950ff8edc31 100644
---- a/scripts/module.lds.S
-+++ b/scripts/module.lds.S
-@@ -5,6 +5,7 @@
-  */
- 
- #include <asm-generic/codetag.lds.h>
-+#include <asm-generic/dyndbg.lds.h>
- 
- SECTIONS {
- 	/DISCARD/ : {
-@@ -56,6 +57,7 @@ SECTIONS {
- 		*(.rodata..L*)
- 	}
- 
-+	MOD_DYNDBG_SECTIONS()
- 	MOD_SEPARATE_CODETAG_SECTIONS()
- }
- 
-
--- 
-2.55.0
+> 
+> Jonathan
+> 
+>>
+>> Cheers
+>> Suzuki
+>>
+>>
+> 
 
