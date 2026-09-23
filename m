@@ -1,195 +1,208 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E932218ADD;
-	Wed, 23 Sep 2026 16:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037BA4F85A7;
+	Wed, 23 Sep 2026 16:08:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790179693; cv=none; b=BDWg1cEhlfsO5FtIxdKacXalU1WJi5iudSw4JrKpNGNiVM4NPyCm8XYTMwQNsIySpA37d0BmGaWiR5M4ibQvZ7Sd8VLxaEWLhVFpMi04+UUi3kIXxAjpFk+vr0fJPtiq0JdRUr2PNmgSVv8wAOC7RMcDHXwziGum2kkn3VPBknE=
+	t=1790179701; cv=none; b=peQEnHdUhIWhapI2O8eE5zBFmWvfbH6hC505NUUNzQVFrc0ENRhReooTWkRWgcPGZfgD+Ox3yJ68hKA3xu+rBdX2lMK0oGFcgFrx3QUNZJVA8v6TwExCk7YIj4UMym0tEUTWqjQELU+CaJG1JUSn4yizGXoxZv9uO44/emQEemw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790179693; c=relaxed/simple;
-	bh=UZF5Vwee2jbtC+Y2ukzZwnQqGFq1cUcCRNlfVN3szVI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=h+dMrZnG7cEQigfiAOuMY4URO/N5tOSMl83WFA463anjRLj5GHkT5Lo9gjOJ6GCuRY0KbhF2+tU1bLOMeiecbO2K+fow5EwzzOOUZPs5qCMFhEsJtOGgsLNOPjulklPV+EMaXcq/4VR14CP38k1vHK1DhNyp936mOwRiKM6t/Pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=OmYR52qv; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	s=arc-20240116; t=1790179701; c=relaxed/simple;
+	bh=hNTD/4ks3BZra2xP0p32ngHAUaRFxAvRNphUhYp2drk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sDiRGfnOytb4he9Xw2h3VyKj4nuMziLODFKrzfeb5YCA29LXFIeSmcqXPqe0mcMU09OKS/LQWSBR0/QJ6sUccuQUUqx5N9tk9N+p33LiunB6xg+P+jB1wSg3MfzkjOMMDjI7gAZRNv9QMn4LU/5hCXaq6YLOKa012EfF4DZYYrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H6DSnLqz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="OmYR52qv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=UZF5Vwee2jbtC+Y2ukzZwnQqGFq1cUcCRNlfVN3szVI=; b=OmYR52qvtJ8Fa6Ngx9IGf1l/s+
-	8m9gFCLq5nzcT7RMnqSWWDefSlDeoC2P4Xx9UtXYXmMPSr0ttfAIZbDezkF3SWkP1ldfcZsDeLQa0
-	0GqzlCxz4QGTam0B1LK6J/VDNSTE5lPfW05tL9tD+29+C4/nxdo7paWVMIU2LYIkxDRSuxg5GgVgw
-	WU7Y+FkCbnfwzt1YrglO3WBWmMh0vh4gjfskEqxOAgWcEwRdmz1tSPyDtCJfi90QkT0YVq9BJSBs0
-	FUYdqDp8k7BKZGxLfZs0JTEcV2x1TaQsREBNNAkSmjDLjvmlviFqcoVsHKhlWL2OSlDqtwq1gnN0/
-	u1pg0cLA==;
-Received: from [54.239.6.185] (helo=freeip.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9PVm-0000000Djcl-2jTo;
-	Wed, 23 Sep 2026 16:07:59 +0000
-Message-ID: <1cb9c1d40f246ddbe24c9fb930d6dce16aaa25a1.camel@infradead.org>
-Subject: Re: [PATCH 00/17] KVM: Use atomic SRCU for gfn-to-pfn cache,
- reinstate guest mode for x86 nesting
-From: David Woodhouse <dwmw2@infradead.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
-	pbonzini@redhat.com, seanjc@google.com, paul@xen.org, paulmck@kernel.org, 
-	kunwu.chan@linux.dev, nh-open-source@amazon.com
-Date: Wed, 23 Sep 2026 18:07:54 +0200
-In-Reply-To: <CAN_Opa-tDcZOEk=Mt5MAqUTkg2as5G79uBkxkUaJif8b5QpXYQ@mail.gmail.com>
-References: <20260923095435.591542-1-kunwu.chan@gmail.com>
-	 <7efbc8e2ecbf397fc8e44327d13e9a7021b97212.camel@infradead.org>
-	 <CAN_Opa-tDcZOEk=Mt5MAqUTkg2as5G79uBkxkUaJif8b5QpXYQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-32OOX5lVoTq4cD/I2qQO"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H6DSnLqz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 659261F000FF;
+	Wed, 23 Sep 2026 16:08:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790179699;
+	bh=3e9il85E3ABPy4I7irvXMCFKFPKx9Fa96n5jIdOodN0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H6DSnLqz2hqqkW7Vg5Bp2GkUPg0lC2kr8YI7cRIGOVEJ0F3gM9Nq18zRXPT9BnRQb
+	 UVL7u7NBIKYrt0EF1JgCOqhI4h15ibXjOU2rsvb4t6Yx6gKOi+E7/DoXKfJwe1JBlg
+	 e5sQzZZEhr+qyOPy5m/pGmiXqKvkKsNb0S9F+HWLEKO0E27Szuv9b0IIODuyiT/SYv
+	 jZr7r1ZBDQfkwxB4rhgrOxG56tQirvgJW34BSIaMe2XUekF0WZW18fZNRk0uFlz6SA
+	 DJMvNRxxkw0nNJPn8MdiRdj4gG/om+SAEU1Fq4haHo+YYwbwa6LMDxqLdMrnhu8Ddy
+	 xTgGsBLDKopJA==
+Date: Wed, 23 Sep 2026 17:08:14 +0100
+From: Lee Jones <lee@kernel.org>
+To: Yaozhong Li <yaozhonguwl@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Chris Zhong <zyw@rock-chips.com>,
+	Zhang Qing <zhangqing@rock-chips.com>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 2/3] mfd: rk8xx: Release the power hold GPIOs
+ before powering off
+Message-ID: <20260923160814.GL3864833@google.com>
+References: <20260909092728.1859-1-yaozhonguwl@gmail.com>
+ <20260919122930.1418-3-yaozhonguwl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919122930.1418-3-yaozhonguwl@gmail.com>
 
+On Sat, 19 Sep 2026, Yaozhong Li wrote:
 
---=-32OOX5lVoTq4cD/I2qQO
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> rk808_power_off() writes the PMIC's shutdown bit directly. On boards where
+> lines driven by the SoC gate the PMIC's power-off path, a shutdown
+> performed this way does not stick: the rails drop and immediately come
+> back up, so the board restarts instead of staying off. U-Boot reports the
+> result as a power-on reset.
+> 
+> Take those lines as an optional GPIO array, hold them asserted while the
+> system runs and release them - waiting power-hold-delay-ms - before
+> writing the shutdown bit. Device trees without the property retain the
+> existing behaviour.
+> 
+> The array is claimed before any child device is registered, so that a
+> -EPROBE_DEFER from the GPIO provider does not tear down the regulators,
+> RTC and clocks that devm_mfd_add_devices() has already registered.
+> 
+> Releasing every described line matters: on a Firefly-RK3399 the board
+> stays off when both lines described for it are released, whereas releasing
+> GPIO1_D0 while GPIO1_B5 is left asserted makes it come back up.
+> 
+> Signed-off-by: Yaozhong Li <yaozhonguwl@gmail.com>
+> ---
+>  drivers/mfd/rk8xx-core.c  | 47 +++++++++++++++++++++++++++++++++++++--
+>  include/linux/mfd/rk808.h |  4 ++++
+>  2 files changed, 49 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/mfd/rk8xx-core.c b/drivers/mfd/rk8xx-core.c
+> index 3dcf6ab..0898db0 100644
+> --- a/drivers/mfd/rk8xx-core.c
+> +++ b/drivers/mfd/rk8xx-core.c
+> @@ -11,6 +11,8 @@
+>   */
+>  
+>  #include <linux/bitfield.h>
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/mfd/rk808.h>
+>  #include <linux/mfd/core.h>
+> @@ -703,6 +705,24 @@ static int rk808_power_off(struct sys_off_data *data)
+>  	default:
+>  		return NOTIFY_DONE;
+>  	}
+> +
+> +	/*
+> +	 * Some boards route "power hold" lines from the SoC into the board's
+> +	 * power circuitry. They have to be held asserted while the system is
+> +	 * running and released before the PMIC shutdown request is written:
+> +	 * with any of them left asserted, the rails drop and then come back
+> +	 * up. Releasing them here rather than from a separate handler keeps
+> +	 * the ordering against the I2C write explicit.
+> +	 */
+> +	if (rk808->power_hold_gpios) {
+> +		unsigned int i;
 
-On Wed, 2026-09-23 at 23:58 +0800, KunWu Chan wrote:
->=20
-> You mentioned that the SRCU read side scales a lot better and avoids
-> cacheline bouncing. If you happen to have any existing measurements of
-> the reader side, such as throughput or reader-side latency, I would be
-> very interested in seeing them. That would be useful for understanding
-> the reader-side benefit you mentioned.
->=20
-> Of course, no need to rerun anything just for this. I was mainly
-> wondering whether you already had such data from the existing testing.
+What is i here?  Can it have a better name?
 
-Most of the KVM gfn-to-pfn-cache usage is per-vCPU so doesn't get much
-parallelism. The main case is interrupt delivery to Xen guests' event
-channels, and I did some benchmarking of parallel interrupt delivery.
-I'll see if I still have those results, or tell my friend to go and
-repeat some meaningful tests.
+> +
+> +		for (i = 0; i < rk808->power_hold_gpios->ndescs; i++)
 
---=-32OOX5lVoTq4cD/I2qQO
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+for (int <better_name> = 0; ...
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-O0GAxMX0soPvihxbJs+yFJ8AAAAAAAA=
+> +			gpiod_set_value_cansleep(rk808->power_hold_gpios->desc[i], 0);
+> +
+> +		msleep(rk808->power_hold_delay_ms);
+> +	}
+> +
+>  	ret = regmap_update_bits(rk808->regmap, reg, bit, bit);
+>  	if (ret)
+>  		dev_err(rk808->dev, "Failed to shutdown device!\n");
+> @@ -766,6 +786,7 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
+>  	struct rk808 *rk808;
+>  	const struct rk808_reg_data *pre_init_reg;
+>  	const struct mfd_cell *cells;
+> +	bool system_power_controller;
+>  	int dual_support = 0;
+>  	int nr_pre_init_regs;
+>  	u32 rst_fun = 0;
+> @@ -851,6 +872,29 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
+>  	if (!irq)
+>  		return dev_err_probe(dev, -EINVAL, "No interrupt support, no core IRQ\n");
+>  
+> +	system_power_controller =
+> +		device_property_read_bool(dev, "system-power-controller") ||
+> +		device_property_read_bool(dev, "rockchip,system-power-controller");
+> +
+> +	/*
+> +	 * Claim the optional power hold GPIOs before any child device is
+> +	 * registered. A -EPROBE_DEFER from the GPIO provider at this point
+> +	 * costs nothing, whereas deferring after devm_mfd_add_devices()
+> +	 * would tear the freshly registered children down again on every
+> +	 * retry.
+> +	 */
+> +	if (system_power_controller) {
+> +		rk808->power_hold_gpios =
+> +			devm_gpiod_get_array_optional(dev, "power-hold",
+> +						      GPIOD_OUT_HIGH);
 
+Why wrap here?  Some of the surrounding lines are clearly longer.
 
---=-32OOX5lVoTq4cD/I2qQO--
+> +		if (IS_ERR(rk808->power_hold_gpios))
+> +			return dev_err_probe(dev, PTR_ERR(rk808->power_hold_gpios),
+> +					     "Failed to get power hold GPIOs\n");
+> +
+> +		device_property_read_u32(dev, "power-hold-delay-ms",
+> +					 &rk808->power_hold_delay_ms);
+
+What if this doesn't return a value?
+
+> +	}
+> +
+>  	ret = devm_regmap_add_irq_chip(dev, rk808->regmap, irq,
+>  				       IRQF_ONESHOT | dual_support, -1,
+>  				       rk808->regmap_irq_chip, &rk808->irq_data);
+> @@ -872,8 +916,7 @@ int rk8xx_probe(struct device *dev, int variant, unsigned int irq, struct regmap
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "failed to add MFD devices\n");
+>  
+> -	if (device_property_read_bool(dev, "system-power-controller") ||
+> -	    device_property_read_bool(dev, "rockchip,system-power-controller")) {
+> +	if (system_power_controller) {
+>  		ret = devm_register_sys_off_handler(dev,
+>  				    SYS_OFF_MODE_POWER_OFF_PREPARE, SYS_OFF_PRIO_HIGH,
+>  				    &rk808_power_off, rk808);
+> diff --git a/include/linux/mfd/rk808.h b/include/linux/mfd/rk808.h
+> index 7ffc904..eda111e 100644
+> --- a/include/linux/mfd/rk808.h
+> +++ b/include/linux/mfd/rk808.h
+> @@ -1459,6 +1459,8 @@ enum {
+>  	RK818_ID = 0x8180,
+>  };
+>  
+> +struct gpio_descs;
+
+Do we do this for all of the other structs?  Why not add the include?
+
+> +
+>  struct rk808 {
+>  	struct device			*dev;
+>  	struct regmap_irq_chip_data	*irq_data;
+> @@ -1466,6 +1468,8 @@ struct rk808 {
+>  	long				variant;
+>  	const struct regmap_config	*regmap_cfg;
+>  	const struct regmap_irq_chip	*regmap_irq_chip;
+> +	struct gpio_descs		*power_hold_gpios;
+> +	u32				power_hold_delay_ms;
+>  };
+>  
+>  void rk8xx_shutdown(struct device *dev);
+> -- 
+> 2.55.0.windows.3
+> 
+
+-- 
+Lee Jones
