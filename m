@@ -1,93 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33732882D6;
-	Wed, 23 Sep 2026 01:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE5534C134;
+	Wed, 23 Sep 2026 01:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126874; cv=none; b=lMd9dn73HnshOhlnHvtaodd/LyuaqY0egBxWUNgTbjw0DldMpogYaxYeygQDHY72Md0J+B91AVaLeXiRU7yNU/WfiwlpPEu9AtHt/XUmSl3itN9XB97WifhwSOP5Z+Plj5hQKa8v+aqlz48ITQYWJ+BhszWC0fFIW7Eg5lM81Sw=
+	t=1790126878; cv=none; b=tS/+6AYUsn1TrJLGz219eolNHU/VeybcKro5rIj7mFJKzkoXPcbGSQf+uMp0YOYbUfVhBzSvPcP6gARvOogOAKQjvX32sjdLFS/Uq63wnZIEytc3lGFPDHHNO1U0LUDlSa6CzDzdhIyODm8HgYGGbAfrtN2CNkZbClbG6/zSJv0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126874; c=relaxed/simple;
-	bh=6lXYIkXsCGhMWgdtU2+XGolZIjsRdbNYIm2VlwRF74Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KB1KLIEKkjuRNYgxQ9iVVYKBFlTMtC17jKkf7xWCK/l7v2ODe6XVxnutzXi0gtmFaFuDDw0RNVJP/7e7vwqy6csvxHbqwABZwaGVYW/jH9dr23rzF61PXv1dG9WJcLvEb26EIJZkc41lGrMsza7V15E7VXK6Dbap5z4H8cjKmhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b7/yIza1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790126878; c=relaxed/simple;
+	bh=mW3Vkfkxjp+H+5FmxGrHaec7y+NgR5m7QC1Xm8DDNl0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YuWZv/3EivE0FeqYkeqgKCnUpgEaSnvc6tGljq2NrKfrVu8EKeXlACBrVaeOHRgCinsigW9E49ncFCoddKvX3X+giXC//RiyHwCEZksPAQDQz8FeGIcSNYu8r7hpXRaRpGKaTEObZ8ZbHSebr+G7sBR6C6oJqXSA+iWt/TH0+Mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=MenRviod; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b7/yIza1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7C361F000FF;
-	Wed, 23 Sep 2026 01:27:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790126873;
-	bh=/08pGxKrLgqH3ERhly0BGeg2r9Qnfihq7jzAwh7thOQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b7/yIza17KoIcJbVW0SsFsnrIaYGmaENCr/JDYQjp8vTfW1wZkKyvNUuDwSPHTsVN
-	 J03clZlPkW+FFdJZL3rngToL60D8ryQsTIBkQRHLzLj4D7XGdzLLazs5MaGAP6pOw8
-	 3Xa2LiY4xTekH9Hj/3CucNkLh0Lc4zl1fTaJnIKCFzcm17a4v56sfQ2+oH2+5/IfI+
-	 zhyu1zRMbKsX6K/EAZP7SY8hrXzrcphiH08wUIffWzdhq4G3gtPMxgWhFNItxFhtj7
-	 5MFZXax+40tDUFcoQMvzoiCdm4R0XcLUYGjUkIsHdgXZ2TmWqgtZb8hg6ds9WkV4/D
-	 N2Ipq9+eLp1mQ==
-Date: Tue, 22 Sep 2026 18:27:51 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: "Luck, Tony" <tony.luck@intel.com>
-Cc: alex@ghiti.fr, aou@eecs.berkeley.edu, babu.moger@amd.com,
-	baolin.wang@linux.alibaba.com, ben.horgan@arm.com, corbet@lwn.net,
-	cuiyunhui@bytedance.com, Dave.Martin@arm.com, james.morse@arm.com,
-	jgg@ziepe.ca, joro@8bytes.org, kevin.tian@intel.com,
-	palmer@dabbelt.com, pjw@kernel.org, reinette.chatre@intel.com,
-	robin.murphy@arm.com, shuah@kernel.org, tomasz.jeznach@linux.dev,
-	wangzhou1@hisilicon.com, will@kernel.org, xiaqinxin@huawei.com,
-	yuanzhu@bytedance.com, zengheng4@huawei.com,
-	zhangzhanpeng.jasper@bytedance.com, x86@kernel.org,
-	iommu@lists.linux.dev, linuxarm@huawei.com,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
-Subject: Re: Resctrl and I/O
-Message-ID: <arMrF51oJAXJrikO@thelio>
-References: <arKx__kOPe4B5gDW@agluck-desk3>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="MenRviod"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790126872; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=cD1YZ/WyUkw2qCPI2vFSMU0Kjpp4BrTGZOfKp+4KDFA=;
+	b=MenRviodAWpyhOyywxWe8gbb1EHKmmTfKjmXOyTxfs6GqaYywmHvMmrEOsVgYw0pYzdjtYO0Q+jgm6Cs40RFWIAyNKGN31sGrlPFhfRonOaT/dmuMCR53egmpjHmRhtBt2AD2HIM3LJceiYwSdu4A4WA++t/nOKq++iswDlcnU0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XBVIAlL_1790126871;
+Received: from 30.170.56.46(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XBVIAlL_1790126871 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 23 Sep 2026 09:27:52 +0800
+Message-ID: <c83f90ca-6712-4c84-8417-451cef65567e@linux.alibaba.com>
+Date: Wed, 23 Sep 2026 09:27:51 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arKx__kOPe4B5gDW@agluck-desk3>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: fix array out of bound access in
+ __ocfs2_find_path()
+To: Giorgi Kobakhia <gkobakhi@asu.edu>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
+References: <20260922202159.2421642-1-gkobakhi@asu.edu>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20260922202159.2421642-1-gkobakhi@asu.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 09:51:11AM -0700, Luck, Tony wrote:
-> Patches for ARM[1] and RISC-V[2] are both at RFC status.
+
+
+On 9/23/26 4:21 AM, Giorgi Kobakhia wrote:
+> __ocfs2_find_path() walks down the extent tree and records path by calling
+> find_path_ins(), which appends entry to path->p_node[]. It only has 5
+> spots.
 > 
-> They appear to be based on similar h/w capabilities where architecture
-> specific tags can be added to transactions from I/O devices by the IOMMU
-> servicing the device. Device enumeration is handled outside of the resctrl
-> file system.
+> A corrupted ocfs2 image whose extent block is pointing to itself causes
+> __ocfs2_find_path() descent endlessly, writing past the end of
+> path->p_node[] array.
+> 
+>  UBSAN: array-index-out-of-bounds in fs/ocfs2/alloc.c:677:14
+>  index 5 is out of range for type 'ocfs2_path_item [5]'
+>  Call Trace:
+>   <TASK>
+>   find_path_ins (fs/ocfs2/alloc.c:677 fs/ocfs2/alloc.c:1914)
+>   __ocfs2_find_path.constprop.0 (fs/ocfs2/alloc.c:1882)
+>   ocfs2_commit_truncate (fs/ocfs2/alloc.c:1924 fs/ocfs2/alloc.c:7286)
+>   ocfs2_truncate_file (fs/ocfs2/file.c:515)
+>   ocfs2_setattr (fs/ocfs2/file.c:1224)
+>   notify_change (fs/attr.c:556)
+>   do_truncate (fs/open.c:68)
+>   do_ftruncate (fs/open.c:194 (discriminator 1))
+>   ksys_ftruncate (fs/open.c:206)
+>   __x64_sys_ftruncate (fs/open.c:211 fs/open.c:209 fs/open.c:209)
+> 
+> Commit a406aff8c051 ("ocfs2: validate l_tree_depth to avoid
+> out-of-bounds access") already restricts el->l_tree_depth to be less than
+> OCFS2_MAX_PATH_DEPTH, which is equal to 5. However, does not handle the
+> infinite descent case.
+> 
+> Check if the el->l_tree_depth decreases on each descent. Maximum
+> descents are restricted to 4 and the path->p_node[] array does not
+> overflow.
+> 
+> Fixes: dcd0538ff4e8 ("ocfs2: sparse b-tree support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Tested-by: Xiang Mei <xmei5@asu.edu>
+> Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
 
-Thanks for starting a discussion on this topic.
+Looks fine.
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-> RISC-V description of "architecture specific device tokens" sounds great.
-> I'll have to find some ares of /sys to provide the mapping of tokens to
-> "device groups". There's no association with IOMMUs, so this will be some
-> other path in /sys. Perhaps under /sys/firmware/acpi since the data comes
-> from ACPI IRDT table.
+> ---
+>  fs/ocfs2/alloc.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
+> index be09e766ac1f..c85a472965d5 100644
+> --- a/fs/ocfs2/alloc.c
+> +++ b/fs/ocfs2/alloc.c
+> @@ -1817,6 +1817,7 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+>  	int i, ret = 0;
+>  	u32 range;
+>  	u64 blkno;
+> +	u32 prev_depth = OCFS2_MAX_PATH_DEPTH;
+>  	struct buffer_head *bh = NULL;
+>  	struct ocfs2_extent_block *eb;
+>  	struct ocfs2_extent_list *el;
+> @@ -1824,14 +1825,16 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
+>  
+>  	el = root_el;
+>  	while (el->l_tree_depth) {
+> -		if (unlikely(le16_to_cpu(el->l_tree_depth) >= OCFS2_MAX_PATH_DEPTH)) {
+> +		if (unlikely(le16_to_cpu(el->l_tree_depth) >= prev_depth)) {
+>  			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+> -				    "Owner %llu has invalid tree depth %u in extent list\n",
+> +				    "Owner %llu has invalid tree depth %u in extent list (max %u)\n",
+>  				    (unsigned long long)ocfs2_metadata_cache_owner(ci),
+> -				    le16_to_cpu(el->l_tree_depth));
+> +				    le16_to_cpu(el->l_tree_depth), prev_depth - 1);
+>  			ret = -EROFS;
+>  			goto out;
+>  		}
+> +		prev_depth = le16_to_cpu(el->l_tree_depth);
+> +
+>  		if (!el->l_next_free_rec || !el->l_count) {
+>  			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
+>  				    "Owner %llu has empty extent list at depth %u\n"
 
-resctrl could parse iommu_group:<id> itself which should cover the IOMMU
-case on ARM and RISC-V. Maybe other prefixes could be passed on to arch
-code?
-
-> Need an info file to tell users the format and source for device tokens.
-
-I agree and it could list which token namespaces the platform uses.
-
-> I'd like to avoid limiting resctrl monitoring of CPU activity due to the small
-> number of I/O RMIDs. Perhaps don't include a "devices" file or mon_data/{i/o
-> events} files in resctrl group directories when rdtgroup::mon::rmid >=
-> num_io_rmids? But that feels clumsy.
-
-There's no separate I/O ID space on RISC-V that could be smaller. The
-IDs a device carries are the same IDs the hart (e.g. cpu) carries. The
-number of RCIDs (e.g. CLOSID) and MCIDs (e.g. RMID) is a property of
-each capacity or bandwidth (CBQRI) controller. The RISC-V IOMMU spec
-also requires the IOMMU to support RCID and MCID at least as wide as any
-hart.
-
-Thanks,
-Drew
