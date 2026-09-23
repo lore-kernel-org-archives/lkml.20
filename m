@@ -1,64 +1,62 @@
-Received: from mail-ej2-f17.google.com (mail-ej2-f17.google.com [74.125.228.145])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2ED3D810F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.145
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C58437DEBF
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:19:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194766; cv=none; b=M8Nleg1o0nysAoqlknvHWLRmqc+2nBfrjND+jyd9fkyarr6DJPFpLET+AVK58yJrapnfFRNakUqgeefNtX+7yND8rTDJsY4eulbyRya8mS+hAdKi7P5njJz+taetesbbuDSLIj9Wo/Kl9sQpmPmJguPVW6PzCf3wlMioQrttuW0=
+	t=1790194765; cv=none; b=mCoBLRp4JRLNywvqKUeIHzjOznumifWSL5tONe4zPkR0ccDMrzyamsGDONn06oSPUMzNBDGcE5Thk17Ut0hjt+vTZYrxnUz3XH0684p72x9xcKWYHF5KENLee0yJjUFdVWxvxBHNMLXOJl0/o/IEjxYhUQolBn0d5ML+M9kelqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194766; c=relaxed/simple;
-	bh=0wHYlVgoasAY1JmiSfypx9MtD3RKd0J6iTU414lX8cc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gmz7vVVPUaffmvLV5ZQSH6FJiJTTGLXskdMzoQVcQvPJTbyoj2cG3dUiccjoAEqa3qmrFYGFo/dgfsqAYwcUxB2u3TljJ4I5PnapWyrgm3QFljywTV5mvpSg3h037mw9H4+NLGmaIIQ87V1WZw5j8HJYYOOQoQFG6/px5Wp8xOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sZV5K7zD; arc=none smtp.client-ip=74.125.228.145
+	s=arc-20240116; t=1790194765; c=relaxed/simple;
+	bh=j9ml7moNdZTZRiqUKuFEvti0+5715fcA+evNmXPT3E4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C0I/wnWOGvbhFQc8BtFVoSyLKGyTfsoycjSDLsF5lDk13dPDTVgvVdy8wKN/UEfT4P1Vb79OWzaK6jz/0uZFW7+WnZgSCbD0V8IhCDw++xg9W803o8rBtOL7FAHnsiHIuq+Zj5hardHXNDMRYiUdrJOacfS+6pDdeUNOoMPIig0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CFQRGnXC; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sZV5K7zD"
-Received: by mail-ej2-f17.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so185419766b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:19:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CFQRGnXC"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f70553dso207145466b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:19:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1790194758; x=1790799558; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lWUnL6Dr5OR7XEBSMs9m8RHYhNUCxYmL/3WkiHTjwQE=;
-        b=sZV5K7zD6WLwhp2aC7GFAOGLB2ULZgX+485VMLGElvKM70b1loMuAkWpXdLsRULQ2W
-         mtCy9BRt26fN3kJbWn1qNOzJ9SoydYrl/YmYpYd6VIv+F6nhL9v2QkgVaswwH+MxA9AH
-         13zkUDRVvFXaOquEZue9DJwdlwmVTmrFEmu7sNplaD6vkqaN8uRJ90xQqo5em9976SuR
-         0Om/eKiz0qSTwEY1dfFZKiARhm5trw1/laMaGeTSTJJB+NDQqZb+Nsz2gVb/Gs6Zo1s+
-         VGEixYIfsgQ/hUx9jzT7tqaajxKhr9EwaU/drXj0UUWZQWouICqwrG8x98YtraHvmko+
-         zOIw==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Oxi+D6Hm89oUa+qfqKu+JYDtZ0PtvCxhaa4mk2qXNVs=;
+        b=CFQRGnXCR5McwsDz9SVXsKHUVqijKDuxEYlD+fCIT4Vee5H7VtIKAnqOUq8/Nb3S1b
+         MrN3nnWWmwopKM6Q/zzxIQ/Q4UXq2R2Lx64fcJGkVgtJ+Xyuy3lSq5wmllEunDmgW6kY
+         C+Xvsxtaw1vaPx/I3sfO37EExtfOzalthLNcrDHZKqsBoTHNktTtV6fW+lagldoVVmqw
+         yXyfSA+TCxi3pKMFHz3H+K8T0MliiKHoVfAvYvYvCE5zlwVJpjxewvw06r3IQlC6ikl8
+         eVaKRoC/txwjKCtD7QJiOoUJrMpX5BIdr262wana5w4d2yGMWIIdZsCVAiOg+FGMvAe9
+         kPvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790194758; x=1790799558;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lWUnL6Dr5OR7XEBSMs9m8RHYhNUCxYmL/3WkiHTjwQE=;
-        b=QQlQpyP8XW5BtdU7BcswtnJXorvmMaTGjW74ENwyEJPd2XYts3mxZ3sLMkkXh2WZWM
-         gwJ83M0A8IYZDFUtqjJARh9adejOY8+PbsAIMbdm8XSQ7AyYdQSDI0cvEWkGARckQNuW
-         emsFFnahA/Oy2/fNNeXbhb4eIApAeNTCqA9mSBgKVkLWQiTLHXVdOrGryAEUF04B+bdR
-         NVrcfjrlYFKhzj7sPxT9XBWG6ODlO0/y4HHw6rTDctUvhkebzbrKFFyJK9rjIfRoZtwY
-         +O6ci0DfECe4jiM9U8gjQl9RGqkSt4y7zv9aiwofskTXI+Ydy135kWYGgVcEAUjHen1b
-         513g==
-X-Forwarded-Encrypted: i=1; AKwUvBx7EA/FBO65DhM9vSd/nZ57/W+ilTpw6Iff6cHg+1xniZW/aPcfA1uABLlgVjUbdDJ5UEFGUYUR0VGITAY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nThHkms0zS92GkifFNDhp90I5M40HX0JAe2/NxGwXfVCq8zyNf
-	NTiZbD+hbE8P5Z8TGiAd8yTZY8fOCocPdewKLtMcC++45ehMiPGfLv0A
-X-Gm-Gg: AYBFou0zx7rahulAwAsOE+EwWspCfEeT88cniCB87ViQZFP+FNfekowd3eD/mEVVO25
-	iNVHHYEVh/NsZqyOxA07XVxfv2tIkQ1cgM1f0HGWl6OgCsWOCSwsOFdR4UwwpKfALRyrE7cB6sW
-	awsdqxDUvowxyCm6sR0kwM1DCB4Ia80phfL8o4NmHft2Clmq83i8zEB78CrU2FfOv+Uru65G1Vb
-	Sm3JZ8xpEseyhJ2XBYunlQpCmyAl+/72BsiIBGv85AM9kqSq1CN9aT0H2JHR0VPkKGxxwnIFP6h
-	LHg6sh88FWmfgjxKKKqWkrQmYIb14SbTlhdxzIbJICS+dHfFnhqsszvTO2HE3StxHAO1QqMjvQj
-	PgeaIzRCVnad8DQ9G9UX85eulSGnSpLTKp/rxrswm7vW4uY+nnMm9EAyEmNBEaCN+oTLbbK/gJl
-	r5dAYtRcb27QoxJpEHxke64hkKSp9+GsvuW2eqO7SElMcTjL57q8eFv7irD8/saPnVHRIMHIOBG
-	zHuH1bc9kiZePPOfceJGt+Ivg/0QclZAfWBRbJh
-X-Received: by 2002:a17:907:1c84:b0:c26:2f09:f2d8 with SMTP id a640c23a62f3a-c2ac2601042mr17491066b.36.1790194758486;
-        Wed, 23 Sep 2026 13:19:18 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Oxi+D6Hm89oUa+qfqKu+JYDtZ0PtvCxhaa4mk2qXNVs=;
+        b=fgjawcX3rVVIX5zks0S176z7l7bgFLxpCfxiru2GEybRmnUNwyJ1Bk/baSH14k0XY/
+         Nh3mOeghptAl/+nXGeGDa0ZPkUaB2cZEkZbuR/fFd3YUrA7K8HIIft5kclBtEZXBfeFD
+         Dn8P1H8yu6QrlneW9dvpxnVSP0UMK7NNMpcJhNtgf9tOMY1pMDkxLNnhN4uNKh8Q/e6x
+         dDRaa8cE1N/nBBLpAw19r2ICBomvo+Hgzn29opiB8aH4OK28usjnuIu8Bz+m2EDblHQv
+         iVHUqVNtX/LVT45aOhSENVPQqRbgVSjjVs/bCdWqZw9jiVpDcI6OmKQDvMgINnUp+lRI
+         c3zg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWZVs6ztKi2C5cOlPExQzNOxt8LpDxcwa4IrdbXksw5J6RCbpkj4kyAF9Tu0dTzeSh+FYCSwRIchMOkmQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3nPTwtiHgBF9XlYda/FauP82xljqRxbx+bVjTbel4frCu2FYk
+	b49+tmeTqUQjMFdSLjMhcSQNYewfRXS9SdoEOrPEy617bSNGA6g4TXBX
+X-Gm-Gg: AYBFou3fwS5BiXpvD+EEona5Z8TKGfR0Z+A9bOT/kHYxaeXBfTYx4oFAGMxlQl7v9n4
+	K9vQMyEinB7zlZcWJwFMoUEUodCjwXMylLi9c6iYUajZ0uMe2ss9Uxh0o8BzFObfunIs0SN523e
+	0+nrrlRGnyCJOgwvr12q0cnEcA0xNBY0UecuT2+5NktiAjQmU8grnsxXLCw9XiDAJWziAZ4RPs7
+	zH401+SvnZtOtEDj65wETIrDWtTJSejOgEPJuKxX35TdpgejCrINZj5lZF974kpZuhytBb50McV
+	qZooQf2WoHElloNNJ4mG+q08ywvLkUJkFZqHHKTUsH843Y2nl+3nbCxYu3Z9eXVq0/DCNMB5VJw
+	nuiXoOMMA1HAqvSeqBQEATSu3pWBignj2OirV9LdCURzCDDgY1jwtM0jpbJI925yy6YDB42dJYI
+	LNSLT0Puf4gXcpsbjhx0U6ClcuP/HnOrc+ytHmGPXQWBvyU8xe50Qwub6XBjvy9l5opeNBAl+1/
+	JR9NYYBIjMRTjOo/imK69Vum4KCzqLXSOl6Ieg0QCu821srMOI=
+X-Received: by 2002:a17:906:f588:b0:c26:1648:a065 with SMTP id a640c23a62f3a-c2ac24ba0demr21153866b.32.1790194757536;
+        Wed, 23 Sep 2026 13:19:17 -0700 (PDT)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae63dc17sm183626966b.33.2026.09.23.13.19.17
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae63dc17sm183626966b.33.2026.09.23.13.19.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:19:18 -0700 (PDT)
+        Wed, 23 Sep 2026 13:19:16 -0700 (PDT)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: davem@davemloft.net,
 	andreas@gaisler.com
@@ -66,12 +64,10 @@ Cc: sam@ravnborg.org,
 	sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linmag7@gmail.com
-Subject: [RFC PATCH 1/5] sparc32: detect the compare-and-swap instruction at boot
-Date: Wed, 23 Sep 2026 22:17:17 +0200
-Message-ID: <20260923201830.865553-2-linmag7@gmail.com>
+Subject: [RFC PATCH 0/5] sparc32: kernel assisted compare-and-swap, and futex on SMP
+Date: Wed, 23 Sep 2026 22:17:16 +0200
+Message-ID: <20260923201830.865553-1-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923201830.865553-1-linmag7@gmail.com>
-References: <20260923201830.865553-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,230 +76,148 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some 32-bit sparc implementations provide the v9 compare-and-swap as an
-extension, LEON3 does, plain v8 does not. Whether it is present decides
-how a user word can be made atomic, and the kernel has to make the same
-choice userspace made: a binary built for such a cpu uses casa inline, one
-built for v8 cannot and asks the kernel instead. Both follow from the
-hardware, so deciding on the hardware keeps them in step.
+This series is part of my effort to get modern Linux kernels and a
+current glibc-based userland running on my SPARCstations. With the SILO
+and kernel fixes I've been working on, these machines can now boot
+recent kernels again. Booting the kernel is only part of the work,
+though: running a current glibc-based userland also requires working
+futex support and userspace atomics that cooperate with it.
 
-Probe by executing one compare-and-swap that must succeed and checking
-that it did, rather than inferring support from the absence of a trap.  A
-cpu without the instruction raises illegal_instruction, so
-do_illegal_instruction() now looks for an exception table fixup before
-dying, the way the data fault path already does; the same entry also
-covers a faulting address later.
+This series addresses the kernel side by providing a kernel-assisted
+32-bit compare-and-swap operation and implementing the architecture
+futex atomic operations needed to enable futex support on sparc32 SMP.
+On machines without hardware compare-and-swap, the proposed userspace
+trap and the architecture futex helpers use the same kernel-owned
+locks, allowing their operations on a shared word to participate in
+the same serialization mechanism.
 
-casa cannot appear in inline asm: sparc32 is built -Wa,-Av8, the assembler
-rejects the instruction outright, and sparc gas has no .arch pseudo-op to
-override that locally. It therefore lives in its own object assembled
--Wa,-Aleon, which adds the one instruction without letting the rest of v9
-in.  This affects the assembler only, not what the compiler emits.
+A companion glibc series addresses the userspace side, with the aim
+of restoring baseline SPARC V8 builds. It uses native compare-and-swap
+where available and the proposed kernel service otherwise, including
+for libc's internal atomic stores and exchanges so that they
+participate in the same protocol.
 
-The helpers are laid out for the LEON atomic errata rather than detecting
-them. GRLIB-TN-0011 wants the atomic 16-byte aligned, or an instruction
-TLB miss can release the bus lock before the store completes;
-GRLIB-TN-0010 forbids reaching one from a load or a control transfer,
-which a call with a load in its delay slot does. A nop at the entry plus
-nop padding to the boundary covers both, for less than runtime detection
-would cost. The padding is spelled .balignl because a plain .align lets
-the assembler branch over the gap, and that branch lands on the atomic -
-exactly the sequence TN-0010 asks us to avoid.
+CONFIG_FUTEX depends on !(SPARC32 && SMP), so an SMP sparc32 kernel has no
+futex at all, and glibc has relied on futex for internal locking for about
+a decade: such a kernel cannot support a current glibc userland correctly.
+Arnd Bergmann observed the same in the 2023 "sunset sun4m and sun4d"
+thread [1], and on what a v8 versus a leon build actually uses [2].
 
-The probe runs once, on the boot cpu, so an SMP machine whose cpus
-disagree about the instruction is not supported. None is known.
+The generic futex helpers must update a word in user memory atomically,
+and the baseline v8 instruction set lacks the general compare-and-swap
+operation that needs. A kernel-private lock does not fix it, the kernel
+does get_user() then put_user(), and userspace holds no such lock, so the
+mechanism has to be one both sides share. parisc does this with its LWS
+compare-and-swap, the model followed here.
 
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
----
- arch/sparc/include/asm/cas_32.h   | 10 +++++++++
- arch/sparc/include/asm/cpu_type.h |  7 +++++++
- arch/sparc/kernel/cpu.c           | 24 ++++++++++++++++++++++
- arch/sparc/kernel/traps_32.c      | 16 ++++++++++++++-
- arch/sparc/lib/Makefile           |  5 +++++
- arch/sparc/lib/casa_32.S          | 34 +++++++++++++++++++++++++++++++
- 6 files changed, 95 insertions(+), 1 deletion(-)
+The ground is not new. David Miller prototyped a sparc CAS trap in 2016
+and Andreas Larsson proposed kernel-assisted atomics again in 2019 [3],
+including compiler builtins trapping into the kernel [4]. This is a new
+ABI along those lines rather than a completion of that one; patch 2 has
+the detail. Software trap 0x11 gives trap type 0x91, immediately following
+the Linux syscall trap at software trap 0x10, trap type 0x90. sparc64
+compat mode is deliberately unsupported, since ta 0x11 is the old 64-bit
+system call trap there.
+
+Patch 1 detects the v9 casa extension at boot. Patch 2 adds the trap -
+userspace executes ta 0x11, since sparc adds 0x80 to form the type. Patch
+3 puts the futex helpers on it and drops the Kconfig dependency, 4
+advertises it in AT_HWCAP, 5 documents the ABI.
+
+Patch 5 documents the limits, which are worth reading first. On a cpu
+without casa, storage that participates in this protocol must have every
+atomic write built from the trap, because an ordinary store does not take
+the kernel's lock; that is Andreas Larsson's 2016 point, and why parisc
+ships a kernel-assisted atomic store beside its LWS CAS. Replacing the
+__atomic_* symbols is not sufficient, since gcc can expand some of them
+inline on v8 - and covering libc's own uses is a different scope from
+covering application code built with atomic builtins. One aligned 32-bit
+word is also not general byte and halfword atomics. So this is a
+kernel-assisted 32-bit compare-and-swap enabling futex for cooperating
+userspace, not arbitrary sparcv8 userland support.
+
+One kernel path is worth raising. futex_robust_unlock() clears the futex
+word with unsafe_atomic_store_release_user(), before the hash bucket is
+locked and not through either architecture helper. SPARC32 uses the
+generic definition of that macro, which ends in a plain user store, so on
+a no-CASA SMP system it does not acquire the lock the software CAS uses.
+It can land between that CAS's load and its conditional store, letting the
+CAS overwrite the unlock and still report success. Dropping the Kconfig
+dependency is what exposes this on SPARC32 SMP, and it has not been
+observed in practice.
+
+The requirement is only that the two agree on how they serialise access to
+the word. The macro is overridable, so SPARC32 could supply its own
+definition and keep this within the architecture; whether that is
+preferable to a futex-specific interface is the question I would like an
+answer to.
+
+Choosing between lock and instruction follows the hardware, not a build
+option, because userspace's choice does too:
+
+	hardware   trap-aware userland   userland uses   kernel uses
+	no casa    v8                    trap 0x11       lock array
+	casa       leon3                 casa            casa
+	casa       v8                    trap 0x11       casa
+
+Row three is why the trap handler uses casa where it exists, and why the
+futex read-modify-write is a casa retry loop rather than a locked read and
+write: a binary using casa inline holds no lock of ours, so between our
+two accesses its update can be lost while both appear to succeed.
+
+Applies and builds standalone on v7.3-rc1, cross-built for the
+SPARCstation 20, no new warnings. Boot-tested only; the trap itself has
+not been issued by a test, and the concurrency, fault-path and
+cross-process cases have no runtime results yet. The casa path has never
+executed here, this hardware has no casa.
+
+Boot testing on my SPARCstation 20 used these prerequisite series, since
+that machine does not boot current mainline without them:
+
+  sparc32: relocatable kernel / phys_base + Viking fixes
+    https://lore.kernel.org/sparclinux/20260816075141.3489194-1-linmag7@gmail.com/T/#t
+  sparc32: replace sp_banks with memblock (v3)
+    https://lore.kernel.org/sparclinux/20260901214611.60560-1-linmag7@gmail.com/
+  sparc32: SuperSPARC SMP synchronization fixes (v2)
+    https://lore.kernel.org/sparclinux/20260917075842.784996-1-linmag7@gmail.com/
+
+[1] https://lore.kernel.org/all/01ea8c41-88cd-4123-95c7-391640845fc3@app.fastmail.com/
+[2] https://lore.kernel.org/all/55c0b9a5-6ba3-4582-97f0-225d0119da5d@app.fastmail.com/
+[3] https://inbox.sourceware.org/libc-alpha/10289df2-0b5e-dbd4-fbde-dd3bf96a914d@gaisler.com/
+[4] https://inbox.sourceware.org/libc-alpha/bd5bc3bb-fbf2-398d-0485-21bba3c86798@gaisler.com/
+
+Magnus Lindholm (5):
+  sparc32: detect the compare-and-swap instruction at boot
+  sparc32: add a kernel assisted compare-and-swap
+  sparc32: implement futex atomic ops with the compare-and-swap locks
+  sparc32: advertise the compare-and-swap trap in AT_HWCAP
+  sparc32: document the compare-and-swap trap ABI
+
+ Documentation/arch/sparc/cas-trap.rst | 163 ++++++++++++++++++++++++++
+ Documentation/arch/sparc/index.rst    |   1 +
+ arch/sparc/include/asm/cas_32.h       |  33 ++++++
+ arch/sparc/include/asm/cpu_type.h     |   7 ++
+ arch/sparc/include/asm/elf_32.h       |   7 +-
+ arch/sparc/include/asm/elf_64.h       |   3 +
+ arch/sparc/include/asm/futex_32.h     | 137 +++++++++++++++++++++-
+ arch/sparc/include/uapi/asm/traps.h   |   3 +-
+ arch/sparc/kernel/Makefile            |   1 +
+ arch/sparc/kernel/cas_32.c            |  96 +++++++++++++++
+ arch/sparc/kernel/cpu.c               |  24 ++++
+ arch/sparc/kernel/entry.S             |  17 +++
+ arch/sparc/kernel/traps_32.c          |  16 ++-
+ arch/sparc/kernel/ttable_32.S         |   9 +-
+ arch/sparc/lib/Makefile               |   5 +
+ arch/sparc/lib/casa_32.S              |  46 ++++++++
+ init/Kconfig                          |   1 -
+ 17 files changed, 559 insertions(+), 10 deletions(-)
+ create mode 100644 Documentation/arch/sparc/cas-trap.rst
  create mode 100644 arch/sparc/include/asm/cas_32.h
+ create mode 100644 arch/sparc/kernel/cas_32.c
  create mode 100644 arch/sparc/lib/casa_32.S
 
-diff --git a/arch/sparc/include/asm/cas_32.h b/arch/sparc/include/asm/cas_32.h
-new file mode 100644
-index 000000000000..3658ff71fa70
---- /dev/null
-+++ b/arch/sparc/include/asm/cas_32.h
-@@ -0,0 +1,10 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _SPARC_CAS_32_H
-+#define _SPARC_CAS_32_H
-+
-+#include <linux/types.h>
-+
-+/* Returns 0 and stores the value found in *prev, or -EFAULT. */
-+int __sparc32_casa(u32 *addr, u32 oldval, u32 newval, u32 *prev);
-+
-+#endif /* _SPARC_CAS_32_H */
-diff --git a/arch/sparc/include/asm/cpu_type.h b/arch/sparc/include/asm/cpu_type.h
-index 2b59799859d1..c54e0abfdb2b 100644
---- a/arch/sparc/include/asm/cpu_type.h
-+++ b/arch/sparc/include/asm/cpu_type.h
-@@ -2,6 +2,8 @@
- #ifndef __ASM_CPU_TYPE_H
- #define __ASM_CPU_TYPE_H
- 
-+#include <linux/types.h>
-+
- /*
-  * Sparc (general) CPU types
-  */
-@@ -18,6 +20,11 @@ enum sparc_cpu {
- #ifdef CONFIG_SPARC32
- extern enum sparc_cpu sparc_cpu_model;
- 
-+/* True where the cpu implements the v9 casa extension (LEON3 does, plain v8
-+ * does not).  Probed once on the boot cpu.
-+ */
-+extern bool sparc32_has_casa;
-+
- #define SUN4M_NCPUS            4              /* Architectural limit of sun4m. */
- 
- #else
-diff --git a/arch/sparc/kernel/cpu.c b/arch/sparc/kernel/cpu.c
-index 79cd6ccfeac0..e09c688a5fd3 100644
---- a/arch/sparc/kernel/cpu.c
-+++ b/arch/sparc/kernel/cpu.c
-@@ -21,6 +21,9 @@
- #include <asm/psr.h>
- #include <asm/mbus.h>
- #include <asm/cpudata.h>
-+#ifdef CONFIG_SPARC32
-+#include <asm/cas_32.h>
-+#endif
- 
- #include "kernel.h"
- #include "entry.h"
-@@ -437,11 +440,32 @@ const struct seq_operations cpuinfo_op = {
- };
- 
- #ifdef CONFIG_SPARC32
-+bool sparc32_has_casa __ro_after_init;
-+
-+/* One compare-and-swap that must succeed: a cpu without casa traps and the
-+ * exception table reports -EFAULT.
-+ */
-+static void __init casa_probe(void)
-+{
-+	static const u32 oldval = 0x600df00d;
-+	static const u32 newval = 0x0badcafe;
-+	u32 word = oldval;
-+	u32 prev = 0;
-+
-+	if (!__sparc32_casa(&word, oldval, newval, &prev))
-+		sparc32_has_casa = prev == oldval && word == newval;
-+
-+	pr_info("sparc32: compare-and-swap instruction %s\n",
-+		sparc32_has_casa ? "present" : "not implemented");
-+}
-+
- static int __init cpu_type_probe(void)
- {
- 	int psr_impl, psr_vers, fpu_vers;
- 	int psr;
- 
-+	casa_probe();
-+
- 	psr_impl = ((get_psr() >> PSR_IMPL_SHIFT) & PSR_IMPL_SHIFTED_MASK);
- 	psr_vers = ((get_psr() >> PSR_VERS_SHIFT) & PSR_VERS_SHIFTED_MASK);
- 
-diff --git a/arch/sparc/kernel/traps_32.c b/arch/sparc/kernel/traps_32.c
-index bb149f6cc34b..85ae2fc143ec 100644
---- a/arch/sparc/kernel/traps_32.c
-+++ b/arch/sparc/kernel/traps_32.c
-@@ -20,6 +20,7 @@
- #include <linux/kdebug.h>
- #include <linux/export.h>
- #include <linux/pgtable.h>
-+#include <linux/extable.h>
- 
- #include <asm/delay.h>
- #include <asm/ptrace.h>
-@@ -108,8 +109,21 @@ void do_hw_interrupt(struct pt_regs *regs, unsigned long type)
- void do_illegal_instruction(struct pt_regs *regs, unsigned long pc, unsigned long npc,
- 			    unsigned long psr)
- {
--	if(psr & PSR_PS)
-+	if (psr & PSR_PS) {
-+		const struct exception_table_entry *entry;
-+
-+		/*
-+		 * An instruction this cpu does not implement can be probed
-+		 * for deliberately, so honour a fixup before dying.
-+		 */
-+		entry = search_exception_tables(pc);
-+		if (entry) {
-+			regs->pc = entry->fixup;
-+			regs->npc = regs->pc + 4;
-+			return;
-+		}
- 		die_if_kernel("Kernel illegal instruction", regs);
-+	}
- #ifdef TRAP_DEBUG
- 	printk("Ill instr. at pc=%08lx instruction is %08lx\n",
- 	       regs->pc, *(unsigned long *)regs->pc);
-diff --git a/arch/sparc/lib/Makefile b/arch/sparc/lib/Makefile
-index dd10cdd6f062..007d8e510ee8 100644
---- a/arch/sparc/lib/Makefile
-+++ b/arch/sparc/lib/Makefile
-@@ -12,6 +12,11 @@ lib-$(CONFIG_SPARC32) += blockops.o
- lib-y                 += memscan_$(BITS).o memcmp.o strncmp_$(BITS).o
- lib-$(CONFIG_SPARC32) += divdi3.o udivdi3.o
- lib-$(CONFIG_SPARC32) += copy_user.o locks.o
-+lib-$(CONFIG_SPARC32) += casa_32.o
-+
-+# casa is not in v8, which the rest of sparc32 is assembled as.  -Aleon rather
-+# than -Av9: it adds the one instruction without letting anything else v9 in.
-+AFLAGS_casa_32.o += -Wa,-Aleon
- lib-$(CONFIG_SPARC64) += atomic_64.o
- lib-$(CONFIG_SPARC32) += lshrdi3.o ashldi3.o
- lib-$(CONFIG_SPARC32) += muldi3.o bitext.o
-diff --git a/arch/sparc/lib/casa_32.S b/arch/sparc/lib/casa_32.S
-new file mode 100644
-index 000000000000..67df9ea439ce
---- /dev/null
-+++ b/arch/sparc/lib/casa_32.S
-@@ -0,0 +1,34 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Compare-and-swap for the 32-bit sparc implementations that have it.
-+ */
-+
-+#include <linux/linkage.h>
-+#include <asm/errno.h>
-+
-+	.text
-+	.align	4
-+
-+/* int __sparc32_casa(u32 *addr, u32 oldval, u32 newval, u32 *prev)
-+ * Returns 0 and *prev, or -EFAULT.  ASI 0x0b is supervisor data.
-+ */
-+ENTRY(__sparc32_casa)
-+	/* nop + .balignl: LEON errata GRLIB-TN-0010 and TN-0011. */
-+	nop
-+	.balignl 16, 0x01000000
-+1:	casa	[%o0] 0x0b, %o1, %o2
-+	st	%o2, [%o3]
-+	retl
-+	 clr	%o0
-+ENDPROC(__sparc32_casa)
-+
-+	.section .fixup,#alloc,#execinstr
-+	.align	4
-+2:	retl
-+	 mov	-EFAULT, %o0
-+	.previous
-+
-+	.section __ex_table,#alloc
-+	.align	4
-+	.word	1b, 2b
-+	.previous
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
 2.43.0
 
