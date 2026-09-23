@@ -1,108 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f9.google.com (mail-dy2-f9.google.com [74.125.229.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549E713D53C;
-	Wed, 23 Sep 2026 06:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A6E442388
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:30:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790145021; cv=none; b=oF2AXC65TQlpoJKtA+irTBn6EPYY0l1zPEezhrwRl14pLo0OcK65SvRNvrgCZqGEjxzcgx2YJtwf96Dt/uFxI+mFyZECD8Lwq9mWVclmn+e/OTmxvmruGIGdg4Yq/sXkM0JYC1H/e93dzYc5bvvMIoaV3NUM1PWxBmTvVQk0Zcw=
+	t=1790145024; cv=none; b=aqp72ioywcuJ1Rgv0GR+xjyMYuepzrUWGUGAOM68NZtd0MZI2FiCMhFSfiddcTTdN5vRAx0bEsziOfnivhG0JM4Sa0dwfzGScOljyMvdrnETbPCH1zqA1NS/dbMke+Gr1B6OpiPho3KahTIuQ8p1z5zYrwhL7KsNExwJ6S52Ml0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790145021; c=relaxed/simple;
-	bh=BMGnTj+00mQ/u4zsc1/t3m3T9cgDjBU0J2nPYu5XqG8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Umm6l+5Rd2d9UOwtQTj2vsf2K7x4L+W4P1cBjQwALRiWjPNsg6D5HsAlnoHFaEj+eGe4GVs5VljPD/R8Zc+Z/R2bUoIh8u7zt+Vsb1at8A0G3VXU/D2nZIZdH/apgkDy1mlhnEGDfSP5ZqQ0JnSQ45yj3ha5QWXSVmtQaBOTLp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAhsXnZv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790145024; c=relaxed/simple;
+	bh=Yqd8oIVHaIEfv/SOkHEA2x720xZ7lEJtuePJDxG9RE8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JW5Ayspp+PiDoIzg20ZChjHZm8RScP0QVSbH40dq4ODI7OukpykCphtmKDnbxw58ze4khPS0OacfBYTE5PEvsMIG5YuYuyukT7tpWWMMtbIp5rcb8se+M2mRm46rTKk1CkHX/UIBUsTa6nq+GNW0ITPOr5m3rI/FUfn8/w6wu3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CdI8j+fz; arc=none smtp.client-ip=74.125.229.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAhsXnZv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5381F000FF;
-	Wed, 23 Sep 2026 06:30:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790145012;
-	bh=0vT2FMuNxSeT1XTJS3tLHJ1GURs84Fhh3gS/jiyljno=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aAhsXnZvDVrpeee2B0EWkIFmWzsDNL8KCsYqpmfUVd9HhgiGc0l0TM4njiVE/o5YD
-	 PIa98yFwl/yIgcdQheQjLL+g6uEh6I1pOxn4ofgM0Vot8Ku2mg7d8Tp4mXAUQUisHF
-	 Dnb8RYqXO7Hli66fI+5dnvHgaM68piPBrd00Fbt/2Za8hectBA2dxrLJH3wajTmXSO
-	 dHYDfhcDSZN5pHBYwprabbawaojeavd3+Swo0jvFECD7q/AaJe4HfNiN83bw3ZTNyH
-	 99PYYx63gdhk+NZPvbCWC7QHYhj0Z5eZwL92+3J5h7TRZLAwhe5orygERqlV2Ec3Be
-	 u7nD/Q50AAdqQ==
-Message-ID: <a5586b54-eed9-47c6-9c9c-dc478f12d081@kernel.org>
-Date: Wed, 23 Sep 2026 08:30:07 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CdI8j+fz"
+Received: by mail-dy2-f9.google.com with SMTP id 5a478bee46e88-32b2e778709so355973eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:30:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790145016; x=1790749816; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3/htKEf0dBalXpL7CXg4i5HUtCUFjzPRqjVlUe6Cxa4=;
+        b=CdI8j+fzdRy4rpuBqpJrzk/vBF1p4uXjoJRzN+2lD6An0QrVvsCzrL7A+PYqn3IqLW
+         jjfCVxxcEYEIfLceEfvZrQAKaL+dS+H9PwNNSgUDsv0Aslr4XIfWg6RQHr+rZjMOd0dj
+         ONhxHyYJS4eTZZsZ6RUNMyqnNadv1GoW8mcCb8nHqRk2SHUdR2bFXjkIKXxeiXt0xOry
+         IybBgcmp+2QbWQMVtBUWnoeHsJy76HP+IkM/j10IS8fhbXQrO0vUuzb4HgvdjFR1VMz7
+         VlTxYjeGIIZ05HS0j7T9lOffBD08AGFaBI9jwzCNLIuGdhWze/YXSkAj5Q7WWJabJ4xE
+         B+Mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790145016; x=1790749816;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3/htKEf0dBalXpL7CXg4i5HUtCUFjzPRqjVlUe6Cxa4=;
+        b=Vc71VFRaLZOFTli1ovnh+bLG+Woaki28hHEQ512Fydyxa3y0W1ULE3J1KGqOGzHjmS
+         sQMxvd4ovdSn0eMiyMV4bDGkVdUf9OWGmqFdmiY9W+Neh77h0IIuHgqP1IT8x31b7xoa
+         fMTf5+5/f8eeNi+XboHX7hlullL90QrX+GtoTDRroVvYAcJOxPeVw8qnEKsfNRSgNbQj
+         T3+s66Wf8r5YSl0jX9MHWdt3oNfuEjWQIVVYudOYwYKuAWrNrHpSg2n4aNtH1Yak7MXB
+         gvjDWVjFkkvK2B0ivl+BhynbY+TBDQxtK58FUu/uG4UEEpG1q/7JwIVxVX4xXpHFORiv
+         AQEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgtueSzblZrW8tv3kdE1mUxveXbtu2iVUQnZw4AOY9Ac5aM9ybFECBy4SVcYOdg7YO9X0NZclJgbHj6Hc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYtkh7zeXdm7S5wTS6WR8Jzd7IxHh++VZpoTTifsO7nfR97jGa
+	jNai8sMDiAw4nxdxtfMKWsVIdkMqfhUqjCQ4qWT1NRMWuzIOh2u2hA2o
+X-Gm-Gg: AYBFou17GAD7jKxd1esypWtWi5Fo+9WJc4CCtaNBdcqzvoyUWNS2V6bba5IJjrP8t4X
+	uQK4KNSlXCQKCzaGkMd0z6+HCLTHhtOpRSDNom+YlXbMQioHMGvNcKu21WeZFvwnrb/C4uZLdxz
+	Yc50T9HEK5d7ChbzniuCqiTMESMlvWdMVP6GENgyZZgwE2cgqwqaPlY7Jj6i12NoPjrvMIxVbcX
+	KUyC/EaJXw0Eegnw3BJdgg96sjBGHtQvqri4MtIFYq2iM5LjUelJIcyL/dXS7OX+t+ZJwrB6/uR
+	69coMe62TYUbqpdQPKEcprSYljr7kPtHcqg1cjQ7ybAvr2R3fuKL67C/kk0pmpvm+7O1+aEIQEq
+	S616h7UDYopX7hkfhs08mYU/WzI5ZqONYEuffMcOdGjUr7PHmrDH0KrhKNAlNZsYqOacebePGZY
+	U57j+4E3r4aytkfl1JRJ9qN9kNTbQlofsXE/O51SO73NJlq7Pmq6E4KpUGZRatc93NT3Dgiz3w9
+	K3RiKxYfowuzQVCAqBrT2TuA/DTOoFwqM9mh9WFZqlv9iEKOmvN
+X-Received: by 2002:a05:7022:6298:b0:143:8829:5fb9 with SMTP id a92af1059eb24-144f91442fcmr2825829c88.16.1790145015911;
+        Tue, 22 Sep 2026 23:30:15 -0700 (PDT)
+Received: from Raccoon ([113.30.177.23])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f983d73fsm4838375c88.6.2026.09.22.23.30.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 23:30:15 -0700 (PDT)
+From: Rohinthan P <rokinthanp03@gmail.com>
+To: Alan Stern <stern@rowland.harvard.edu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org,
+	syzbot+ccc9a7cb39fa1af827ea@syzkaller.appspotmail.com,
+	Rohinthan P <rokinthanp03@gmail.com>
+Subject: [PATCH] usb: storage: alauda: check return value of alauda_ensure_map_for_zone()
+Date: Wed, 23 Sep 2026 12:00:08 +0530
+Message-ID: <20260923063008.19570-1-rokinthanp03@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] dt-bindings: usb: Add CIX Sky1 USBSSP controller
-To: Hongliang Yang <hongliang.yang@cixtech.com>
-Cc: peter.chen@kernel.org, gregkh@linuxfoundation.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- p.zabel@pengutronix.de, vkoul@kernel.org, neil.armstrong@linaro.org,
- pawell@cadence.com, rogerq@kernel.org, cix-kernel-upstream@cixtech.com
-References: <20260910025227.2490151-1-hongliang.yang@cixtech.com>
- <20260923025834.842467-1-hongliang.yang@cixtech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260923025834.842467-1-hongliang.yang@cixtech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23/09/2026 04:58, Hongliang Yang wrote:
-> Hi Krzysztof,
-> 
-> Gentle ping on my question below about representing the shared RCSU
-> region with a simple-bus container and translating ranges, versus
-> absolute addresses in reg directly under the soc node. I would like
-> to settle this before sending v5.
+In alauda_read_data() and alauda_write_lba(), the driver calls
+alauda_ensure_map_for_zone() to initialize the LBA-to-PBA block mapping
+for a zone before accessing MEDIA_INFO(us).lba_to_pba[zone][lba_offset].
 
-There is no context here, nothing below.
+However, alauda_ensure_map_for_zone() returns void and ignores the
+return value of alauda_read_map(). If reading the block map fails (e.g.
+due to I/O error or device disconnection),
+MEDIA_INFO(us).lba_to_pba[zone] remains NULL. The caller then
+dereferences MEDIA_INFO(us).lba_to_pba[zone], causing a general
+protection fault / NULL pointer dereference:
 
-Best regards,
-Krzysztof
+    Oops: general protection fault
+    KASAN: null-ptr-deref in range
+    [0x0000000000000000-0x0000000000000007]
+    RIP: 0010:alauda_read_data drivers/usb/storage/alauda.c:972
+
+In addition, alauda_read_data() checked lba >= max_lba after calling
+alauda_ensure_map_for_zone(), which could compute an out-of-bounds zone
+index.
+
+Make alauda_ensure_map_for_zone() return an error code and verify that
+the zone mapping pointers are non-NULL. Check its return value in both
+alauda_read_data() and alauda_write_lba(), and move the capacity
+overflow check in alauda_read_data() before calling
+alauda_ensure_map_for_zone().
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+ccc9a7cb39fa1af827ea@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=ccc9a7cb39fa1af827ea
+Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
+---
+ drivers/usb/storage/alauda.c | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/usb/storage/alauda.c b/drivers/usb/storage/alauda.c
+index 691fe47..da4964e 100644
+--- a/drivers/usb/storage/alauda.c
++++ b/drivers/usb/storage/alauda.c
+@@ -689,11 +689,25 @@ static int alauda_read_map(struct us_data *us, unsigned int zone)
+  * Checks to see whether we have already mapped a certain zone
+  * If we haven't, the map is generated
+  */
+-static void alauda_ensure_map_for_zone(struct us_data *us, unsigned int zone)
++static int alauda_ensure_map_for_zone(struct us_data *us, unsigned int zone)
+ {
++	int rc = USB_STOR_TRANSPORT_GOOD;
++
++	if (!MEDIA_INFO(us).lba_to_pba || !MEDIA_INFO(us).pba_to_lba)
++		return USB_STOR_TRANSPORT_ERROR;
++
++	if (MEDIA_INFO(us).lba_to_pba[zone] == NULL
++		|| MEDIA_INFO(us).pba_to_lba[zone] == NULL) {
++		rc = alauda_read_map(us, zone);
++		if (rc != USB_STOR_TRANSPORT_GOOD)
++			return rc;
++	}
++
+ 	if (MEDIA_INFO(us).lba_to_pba[zone] == NULL
+ 		|| MEDIA_INFO(us).pba_to_lba[zone] == NULL)
+-		alauda_read_map(us, zone);
++		return USB_STOR_TRANSPORT_ERROR;
++
++	return USB_STOR_TRANSPORT_GOOD;
+ }
+ 
+ /*
+@@ -823,7 +837,9 @@ static int alauda_write_lba(struct us_data *us, u16 lba,
+ 	unsigned int new_pba_offset;
+ 	unsigned int zone = lba / uzonesize;
+ 
+-	alauda_ensure_map_for_zone(us, zone);
++	result = alauda_ensure_map_for_zone(us, zone);
++	if (result != USB_STOR_TRANSPORT_GOOD)
++		return result;
+ 
+ 	pba = MEDIA_INFO(us).lba_to_pba[zone][lba_offset];
+ 	if (pba == 1) {
+@@ -954,8 +970,6 @@ static int alauda_read_data(struct us_data *us, unsigned long address,
+ 		unsigned int lba_offset = lba - (zone * uzonesize);
+ 		unsigned int pages;
+ 		u16 pba;
+-		alauda_ensure_map_for_zone(us, zone);
+-
+ 		/* Not overflowing capacity? */
+ 		if (lba >= max_lba) {
+ 			usb_stor_dbg(us, "Error: Requested lba %u exceeds maximum %u\n",
+@@ -964,6 +978,10 @@ static int alauda_read_data(struct us_data *us, unsigned long address,
+ 			break;
+ 		}
+ 
++		result = alauda_ensure_map_for_zone(us, zone);
++		if (result != USB_STOR_TRANSPORT_GOOD)
++			break;
++
+ 		/* Find number of pages we can read in this block */
+ 		pages = min(sectors, blocksize - page);
+ 		len = pages << pageshift;
+-- 
+2.53.0
+
