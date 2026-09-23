@@ -1,104 +1,183 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com [74.125.230.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1073F23C5
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:56:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23CD83AE198
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:56:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175383; cv=none; b=hlZHJ4AzIlKORThsJrtCN1THSaxGB8zsQN7V36+9AExJSwm1i3kbdYk4VgK/ubPR8A7yBXygGLru7oiyLfICC/6YHza0RHX7BymzyQqaynxMMPI7LYgiXCN5yiw/hZ700/rucCRviiUcP5TWrvt7VlbDDhxEKvigH+3gh7fVU8k=
+	t=1790175392; cv=none; b=I76phTa17WI04qiS1EFPdbGFpWKXUs0i9e2KuTnB28c2zEXXTqFpn58EA1fPcZbPryG1C3Q27Et35vFGmm0tU5iauhAaNFs9Zxf6jXDj12lPaLFciX3zxIZZBlItR9F/tIxBiiikwYhDGtuKaNQa7TX724JzbUu4qW81cPyc+p8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175383; c=relaxed/simple;
-	bh=R0Hl1uM+B2TCFyzAh2mRelpWA1TgmI+2NQ2VkDXBKN4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F0mGw9+mlp+tnEnG2tidksaTtJ6S6x1WPcDaXZ+oJ1uIfqqyrFCNViqEhNXp6bdf8cbnKg6mfrTdOReZ2z6E1heCpXQw45Aj2OAEI9E+QbX7RTyixpKk3Un1Q+PvuqLpCn31E3+I1L4J3/w7KJzURTozsJHZdkH7cUguVdu64/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1790175392; c=relaxed/simple;
+	bh=KLL1CoeBe+d6zkr4xAjE59UTUGfIF4KDbTLJ/l6GE10=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QAH96d+i5iiw6B7X9VZa9tUfMOFEim+tuMDgEndYoptg96fLBPCm/E0iWTg1unEUqvCx9J5G1SFgpgE6kAfkjLhU9ymb60HxQcJbFu/eHuwPvDF5JrIJxtJ1spUjPlqmQAWi2bwn76zxBOIqOjC5m0MHEjrae9F25LE1ozKRZIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ddnGgU1Q; arc=none smtp.client-ip=74.125.230.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-790b4aeb66bso554492137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:56:22 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ddnGgU1Q"
+Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a3552563d7so6219171fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:56:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790175388; x=1790780188; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EQsvAgfzLtsJnXkdBUm8r2goP4FuulbfN7zU4oyNzHQ=;
+        b=ddnGgU1QF9WjftCwQ9P/AsIJhSTebWI3RHjDGdLb5r6c7ugad/G6fyCJDNrTB6AGxd
+         mTftwM5gCvW9hgVEkJ81jzh2P5apTevcSh7kh9nLbjY8Yxmy8T1wwQnRKdQ1yztB/Zsv
+         ff8fQnHCmMgg4ragjTuV2+rdcC6X4WVpejXKsGVYmJx7yEGyrAjYV02s9/70k0/QNNNp
+         ksOfqnu3YsOHOXvjHTlI+jMI7ILkJv1uRyipPFzGwroRXrzdFXEq1/x7U9hbHLAEJ57S
+         A1RuYNgFOyke4f6Zy7lqypU/kAvna2B4LmWA538S1fGvqhl4sUb9GuvC0zRM3+hnThcf
+         62HQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790175381; x=1790780181;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=u4gaNTKxdC+sW3aviG7p02o1OWtFZhqrn2Ys43SAJgs=;
-        b=r5lOQuQX3mwilzqiVfMjlZkjEO+QfwppXShD/cNYnl4xTfz9j3kSwacmlG9w6VZb2+
-         HJzM0zksi4VSbaM3wxzHlAaEDcluSJzqDkG4Qp7fRozxAu/63KLtL8d6CdZfZb7ENLTg
-         pB8IORpf+WZS6eeZ/5bgUIat3YKLpGU9sjznfROE3n8kysWfO0Vhb78xmLPaA9QnQDy9
-         guNvaQBbvXD6vhJzAYDttiQdoUTftIvIHs84fJpGn8v5Q2TweRvmE2GA1Eq5E+liSUqD
-         wHjpxYDfOWEE4Nu2YXx9BsrmOXhJXQlGf/tA7BzDtZUU4CaKsny4aWjKKL5GgfHQcast
-         mugw==
-X-Forwarded-Encrypted: i=1; AKwUvBznu2otB3F3b5w0UZtXxTCfZWCWJsXBBFT7xaR9MyP6PGw42bTdjR6tkyhI3eYUToFX9/PMPKpcPJEZrHo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mM6CjqOx/seGCU5vxmMr0cDlTIj2MzI44bqYHvXbDgzOuMYIDZ
-	Wl63c1/DomPPKPzhUi7srzj8zkbA59lVfaQ3tuS/dc3a5H2XwQPcQJ1v3XwydNVmpww=
-X-Gm-Gg: AYBFou3aWPWO+Y/Lqy+DFwTEtWfjhx8zmmDvHCP3f6Ai5AM9ebDaRvNQYG245/QcvLv
-	h1TrVgd6f92fdvK51CdtL1LHpbbxtYaKoLgmrMw3WJk/0XHtn36CTvlIbcVxjVis4EQZT9qu8u2
-	jvqrmtRyqcMoPDJ+jUCFzA5SmUe8dq7HwAZVQGBOSNpLauAjpQ5Jy4DG1kRs7vuok/Nqdjf3h/X
-	9cpTxxYlf6sJ2+8MKsQ2bC1beoPdYBOC9Qumhsd2/nXF93RlvYI76FwRzUNibXnBPJcS9OBW/6R
-	jmrIj/XmZv6CbB6dMPS/fu8gjwvB0rRG/oe9YQvFQDGLd5K6+MnIpXiEsGU7o3CIEot7BIxJrt+
-	wwDJuD5UDeF3DWGd6Ek/+Zvraoi7FToEeqVYsVFT4qudi925+/Bbfx7jwkiKHITztiBuWv+rrOI
-	8WHLjRt617EDPFjIVQQK0WDuTIP4uPrt4RcCF+TwnFzYztBQvbLECjAO6x2wX92C4+f2FgLGMuH
-	lBrdo3I5X3H/lHEpFM77K2XIuym7eZgidHz
-X-Received: by 2002:a05:6102:3a08:b0:79e:2b00:b4da with SMTP id ada2fe7eead31-7ac1b205df4mr2772376137.6.1790175381101;
-        Wed, 23 Sep 2026 07:56:21 -0700 (PDT)
-Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com. [74.125.227.40])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf5674f44sm3688927137.3.2026.09.23.07.56.20
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 07:56:20 -0700 (PDT)
-Received: by mail-vs2-f40.google.com with SMTP id 71dfb90a1353d-5c9a1536864so724700e0c.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:56:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy/CxYbGIYCcoSMQ+42U3gdPlM6sMopSP3nmLYJceq82IVEiilvM6SSRFmlioEpnFr4JmOZDeFjKrEo7VM=@vger.kernel.org
-X-Received: by 2002:a05:6102:5e93:b0:7a1:f7d2:e827 with SMTP id
- ada2fe7eead31-7ac1e25c9a0mr2449263137.32.1790175380384; Wed, 23 Sep 2026
- 07:56:20 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790175388; x=1790780188;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EQsvAgfzLtsJnXkdBUm8r2goP4FuulbfN7zU4oyNzHQ=;
+        b=CFzHdR7voEVsNSAQEndzD77V4nwf0mjCVoJaRcZArbGPSIGWtS5OR4lmgGKkOu4VK7
+         AhuqzZoiv5YfA1UxQBE12TIdvOgAy/ohBy5kaIkFpUL/ifj3Go+7Ddmb7PT4ctY8NRq/
+         dgdpEBsqqa0xAHvFBV2ZciDYZBU7JiDCxIFEItSkSvL8SwJlN6L2IB5LZ2Z/G/w14hl2
+         CsAwT3rjrFyoIrMpYkk1aYxcRN8ZwL7tlvuUspELpluqPm87XZT7XpDuo/3pt6/2k/Xo
+         LbatW3lFmbKmV3g3fq6LY1F6Wb545qxKilwIQMT/y9a83fErmP1aqS7ZQXsljMYFiHXU
+         Jfhg==
+X-Forwarded-Encrypted: i=1; AKwUvBytYDQ7Vwk2koZ0WfM2qdH1r3o6AvkBLvMuuTk1dgu+jAXna3ixLqsJw/i/f/oaEN4GRDHh0VCuhioA7XU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+Y+jn2YO5U8y/jhBf8CLK8fnIX4mu4dwRDxSGERJDdTqVr/Vc
+	JVySSqF60A9Dx36dbDotWlEAiHh4vXf7DBGRnCcV2vSLGbeAEZ3hBgbF
+X-Gm-Gg: AYBFou0kaQJwQ2HX/MIXs64JYsvYjqdXuKMZjypKE033Z7svioJyg7IJChw9ZDKOo3+
+	RrLaYGgTOewIBeASHx8L8/RO+02PcWazO+F272pNCm8tnMh1URnY3V4xr/4CroXFNizduJOLHeQ
+	CLCrXAWWyK0dLvMaiwbCSgObaWYv5NZHc7ngAr+r96LW9G7L4SXUlQOFZr0iKERGskVqYY0CBeK
+	TKkx031m2T+Qbl+7QgFrfVxitW6cr2K/UCR/n0/2jGn33XDBPPNh+nJgNfFpvQb8GVPBQ+1272j
+	pNqaH2jySjpuw+wkqtM7WoNWEudO7BUfPoy/XdbzbMvK/tSWZMW305lzcPM8Q6Jgq/z2CNtPDi+
+	qPEI3sPoW2L5RSavlaVeBcaGBp8FEIp8d7SrwbVPjxrysrFNB1gHV7LdGlXW8/msxTn+1GrzW+T
+	+lJ2RC8XP1H7sDXl2w5gZM3ajvjcpkQP2KZPrfvSIvq93Kct1xvjlEVNKMwOOLlsfWTUwv6oWBk
+	/fGQMsnES+qYToR
+X-Received: by 2002:a05:651c:a205:20b0:3a2:72c:cde9 with SMTP id 38308e7fff4ca-3a6305ca196mr5197841fa.4.1790175387706;
+        Wed, 23 Sep 2026 07:56:27 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a62f53b4efsm7512171fa.39.2026.09.23.07.56.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:56:27 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@linux.ie>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	Kees Cook <kees@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Jani Nikula <jani.nikula@intel.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	David Airlie <airlied@redhat.com>,
+	Philipp Stanner <pstanner@redhat.com>,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Kees Cook <keescook@chromium.org>,
+	Zack Rusin <zackr@vmware.com>
+Subject: [PATCH 5.10 1/3] string.h: add array-wrappers for (v)memdup_user()
+Date: Wed, 23 Sep 2026 17:56:18 +0300
+Message-ID: <20260923145622.76242-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-7-94c4674927e8@solid-run.com>
-In-Reply-To: <20260904-rzg2-sr-boards-v8-7-94c4674927e8@solid-run.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 16:56:09 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUYm-hG5RcQpa4GGF=r07Lrgc5t5=Nu9qPhJTyx5kebzA@mail.gmail.com>
-X-Gm-Features: AclHuK_46aJgUmbOx6pmISWhWZ74QNKHCsrv6CnnvbaLCpF8u6RT7TH__uXbV0M
-Message-ID: <CAMuHMdUYm-hG5RcQpa4GGF=r07Lrgc5t5=Nu9qPhJTyx5kebzA@mail.gmail.com>
-Subject: Re: [PATCH v8 07/11] arm64: dts: renesas: rzg2l(c)/rzv2l hb-iiot: add
- dsi panel dt overlay
-To: Josua Mayer <josua@solid-run.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
-	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
-	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, 4 Sept 2026 at 13:57, Josua Mayer <josua@solid-run.com> wrote:
-> The SolidRun HummingBoard IIoT features a DSI connector supporting
-> touch-screen displays and is usable with RZ/G2L, RZ/G2LC and RZ/V2L
-> SoMs.
->
-> Provide addon for the Winstar WJ70N3TYJHMNG0 1024x600 dsi panel.
->
-> Add the addon in Makefile for all supported SoMs SoC targets.
->
-> Signed-off-by: Josua Mayer <josua@solid-run.com>
+From: Philipp Stanner <pstanner@redhat.com>
 
-LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+commit 313ebe47d75558511aa1237b6e35c663b5c0ec6f upstream.
 
-Gr{oetje,eeting}s,
+Currently, user array duplications are sometimes done without an
+overflow check. Sometimes the checks are done manually; sometimes the
+array size is calculated with array_size() and sometimes by calculating
+n * size directly in code.
 
-                        Geert
+Introduce wrappers for arrays for memdup_user() and vmemdup_user() to
+provide a standardized and safe way for duplicating user arrays.
 
+This is both for new code as well as replacing usage of (v)memdup_user()
+in existing code that uses, e.g., n * size to calculate array sizes.
+
+Suggested-by: David Airlie <airlied@redhat.com>
+Signed-off-by: Philipp Stanner <pstanner@redhat.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Reviewed-by: Kees Cook <keescook@chromium.org>
+Reviewed-by: Zack Rusin <zackr@vmware.com>
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230920123612.16914-3-pstanner@redhat.com
+Stable-dep-of: c833d6c7199c ("drm/amdgpu: Limit BO list entry count to prevent resource exhaustion")
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2026-23468
+
+ include/linux/string.h | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
+
+diff --git a/include/linux/string.h b/include/linux/string.h
+index 98b053d9c700..85efd2b738ea 100644
+--- a/include/linux/string.h
++++ b/include/linux/string.h
+@@ -5,6 +5,8 @@
+ #include <linux/compiler.h>	/* for inline */
+ #include <linux/types.h>	/* for size_t */
+ #include <linux/stddef.h>	/* for NULL */
++#include <linux/err.h>		/* for ERR_PTR() */
++#include <linux/overflow.h>	/* for check_mul_overflow() */
+ #include <stdarg.h>
+ #include <uapi/linux/string.h>
+ 
+@@ -13,6 +15,44 @@ extern void *memdup_user(const void __user *, size_t);
+ extern void *vmemdup_user(const void __user *, size_t);
+ extern void *memdup_user_nul(const void __user *, size_t);
+ 
++/**
++ * memdup_array_user - duplicate array from user space
++ * @src: source address in user space
++ * @n: number of array members to copy
++ * @size: size of one array member
++ *
++ * Return: an ERR_PTR() on failure. Result is physically
++ * contiguous, to be freed by kfree().
++ */
++static inline void *memdup_array_user(const void __user *src, size_t n, size_t size)
++{
++	size_t nbytes;
++
++	if (check_mul_overflow(n, size, &nbytes))
++		return ERR_PTR(-EOVERFLOW);
++
++	return memdup_user(src, nbytes);
++}
++
++/**
++ * vmemdup_array_user - duplicate array from user space
++ * @src: source address in user space
++ * @n: number of array members to copy
++ * @size: size of one array member
++ *
++ * Return: an ERR_PTR() on failure. Result may be not
++ * physically contiguous. Use kvfree() to free.
++ */
++static inline void *vmemdup_array_user(const void __user *src, size_t n, size_t size)
++{
++	size_t nbytes;
++
++	if (check_mul_overflow(n, size, &nbytes))
++		return ERR_PTR(-EOVERFLOW);
++
++	return vmemdup_user(src, nbytes);
++}
++
+ /*
+  * Include machine specific inline routines
+  */
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.53.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
