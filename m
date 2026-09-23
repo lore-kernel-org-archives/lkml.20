@@ -1,81 +1,96 @@
-Received: from outbound.baidu.com (mx14.baidu.com [220.181.3.101])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id AC937468C28;
-	Wed, 23 Sep 2026 08:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.181.3.101
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE6F3E16A9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151318; cv=none; b=YN4vnXEZ4v0bqR7wbsZ7wuv6Gpzq+Q5DNk4bidXk0eaIS1F1nPrZyGmcgGaV95ji8al38qlmBSlXYApObM5Q26jF4a/gF9O7fGitLls9Bg6+CXTR0uuxsGOdw/siXoZf1gXz1mc3AZHDYrkgW0BNP71f/kheAaI3+x2UjC8od4U=
+	t=1790151345; cv=none; b=Y1gQRt+UdH0qjHo7jYZE+Ua9WlIbssT0gkbqJDoKGVIGWDd+7+zBpI5sgNVBquv060YRbdp8zdcycEy6YgEHnmyVGD5rJg17b+6UczgXT9OaqbWriAej1XxjF56gRfy2xUQB18g145bPgbMTDotNDziZrjgY9nfHdLXGz4/6OSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151318; c=relaxed/simple;
-	bh=cUlRkQSrFkQP46KfQS5RmYTcBEiQhp/R1lfVhX9ZYUE=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AkG79lNc76wRZI5EnSsOThAx/HsGz4K/XZh55NJ/xJvutuSlyI1/XHcjfRvT/sNnD4ZD6CwQolAGblD9sAZjV3egIFUeJATfOerKgAA/gGeOpQc6FJThCVUEZY1TYeIY0FK9yTYHcH64fMVfr9WhrmMoK3KW6B/cRHsbO8gGrYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com; spf=pass smtp.mailfrom=baidu.com; dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b=VGEROovM; arc=none smtp.client-ip=220.181.3.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=baidu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baidu.com
+	s=arc-20240116; t=1790151345; c=relaxed/simple;
+	bh=Aw8qwOlJ9sFdhYrmecSvR+HuKipW2F5+ZK3LCKAb9GA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=H95zSYwmUHqlH3l9RdWuHyN/jCmOSCxb0VLDOdB7J1ZUdWlJuIX+nKEIticLC+dt+mP1gQvMDLO8YI841/9NwMc5dwxKUBEc/QnGTvlK61L4qFvduIhju230xwBr3crhSIBqSFOOp8NRMxFx4mxsO1jAAttWmlXhKl3LaKhDoQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O76SOVu5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baidu.com header.i=@baidu.com header.b="VGEROovM"
-X-MD-Sfrom: lirongqing@baidu.com
-X-MD-SrcIP: 172.31.50.47
-From: lirongqing <lirongqing@baidu.com>
-To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, Yishai
- Hadas <yishaih@nvidia.com>, <linux-rdma@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: Li RongQing <lirongqing@baidu.com>
-Subject: [PATCH] RDMA/mlx5: Unbind data direct device on IB device unregister
-Date: Wed, 23 Sep 2026 16:14:42 +0800
-Message-ID: <20260923081442.2520-1-lirongqing@baidu.com>
-X-Mailer: git-send-email 2.17.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O76SOVu5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08FEF1F0089C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:15:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790151342;
+	bh=Aw8qwOlJ9sFdhYrmecSvR+HuKipW2F5+ZK3LCKAb9GA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=O76SOVu576WVT3Xse2dxpHNsXzDbSJ8JfDG426CQvxK822pjlgcrcMuxQp1lahbmB
+	 DhsOnoFt3qk/ln8zGg8jJL/qzeKA0lQAXdAea8rbHfAeCSdMBiDsBb226mAPsux+uO
+	 BkIA2SJoVLgpp0453ALpHthPaN5JAJ9gTX7nS1VwOZhmBZvwe8u2lTSmUpm/aRfNjw
+	 +5HbNVrXPR0kmutwnUQdvBSzkPkmTfMZRcCYMBSljh8VmMqRGDyr0ayT6hpNcWsFo2
+	 Sqaer8pSdPoYuFgNeNSRVcQYUvtHblqonB1DSDE3pkusQY1vT7dPc0hhGpixDVvKHe
+	 Qm/1IJsVZFoYA==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff16c0e6so4710591fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:15:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw38s4UGbkmsXnjVp3+cN8akiezV3BloGR/4CVJNinI9OHBq68apbxJp5m+pmQ0wi2kohspYIA5d/LlQWk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIoWiAmShy9OK1nroKOmFfD7DbZcP3RyGpCG5CSPh9ZGAsW9pO
+	2YdJKdr31IsyRIstFFUDtpwUITQkNdP6cVXlFm1J0M+Xh9muS/SDhDAEyYJO6EEjeGuHz1JhQfq
+	DPfoTPGV9BdUAMjQN1ahiI4S9nTlfJJJx+RJzVRwTKw==
+X-Received: by 2002:a2e:be1c:0:b0:3a1:8558:56a2 with SMTP id
+ 38308e7fff4ca-3a6305c95d8mr4593041fa.6.1790151340521; Wed, 23 Sep 2026
+ 01:15:40 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 23 Sep 2026 01:15:38 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 23 Sep 2026 01:15:38 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260923030855.410109-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: bjhj-exc13.internal.baidu.com (172.31.4.11) To
- bjkjy-exc3.internal.baidu.com (172.31.50.47)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=baidu.com;
-	s=selector1; t=1790151303;
-	bh=wP/8Zs1UvN7ZV3Tmp06VjiXmF23YNcg9uGQ7o26GR4g=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type;
-	b=VGEROovM1deDAqwJKx6Qg4gbD3RMAzinyibZRSdscNa3ZVCHcoNV6f36OZldu4oMW
-	 /NUcEc7QMDufFp9LCuWvL+/B4tgJVoTUM8oGIW0TqTqi7UzTXIzb07p4ayAA7qsHhA
-	 CWEyUJu3gqWV9OieYWtijcN5DCvbP5BSr8H09DsLyLJUjGyNzD+cAZcwUBhx0YWFsZ
-	 cL584txmgK0bMVdDjFaYFdtbjN3zza3KSQ2jJxmRfeNv5vqReL55ZqboWvvKr57zIC
-	 xF4SGJfzcDKrWrCfla/fPWvlrLpgW9T99vUJ5x8AQCIPsR/2esnsZTlESgDg8uuUrR
-	 iVz7+vjFfWGRQ==
+References: <20260923030855.410109-1-fanwu01@zju.edu.cn>
+Date: Wed, 23 Sep 2026 01:15:38 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfHeDs5FndscwsM1Ycogq9Z8gqp4=XjY4__g_2yKTqNYg@mail.gmail.com>
+X-Gm-Features: AclHuK8uJ4XauR2LfLHmw4IroN5X4QmWH5FoLCLBzcg1D2bp5WkW97t70p99m4g
+Message-ID: <CAMRc=MfHeDs5FndscwsM1Ycogq9Z8gqp4=XjY4__g_2yKTqNYg@mail.gmail.com>
+Subject: Re: [PATCH] gpio: mpsse: fix race when arming the IRQ poll worker
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Song Li <songl@zju.edu.cn>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Li RongQing <lirongqing@baidu.com>
+On Wed, 23 Sep 2026 05:08:55 +0200, Fan Wu <fanwu01@zju.edu.cn> said:
+> gpio_mpsse_irq_enable() arms the poll worker before publishing it:
+> schedule_work() runs before the worker is added to priv->workers. If
+> gpio_mpsse_disconnect() walks the list in that window it misses the
+> worker, and once disconnect returns, the USB core frees mpsse_priv
+> while the orphaned gpio_mpsse_poll() work keeps accessing it, causing
+> a use-after-free.
+>
+> Fix this by publishing and arming the worker in one irq_spin
+> critical section. Teardown walks the same list under irq_spin, so a
+> worker found on the list is guaranteed to be armed, and
+> cancel_work_sync() handles it whether it is queued or running.
+>
+> A worker armed after the disconnect walk would still be missed, so
+> also set a new priv->dying flag under irq_spin before the teardown
+> walk, and check it in the same critical section, freeing the worker
+> instead when the device is going away. schedule_work() is safe to
+> call with irq_spin held, and the next probe gets a fresh mpsse_priv,
+> so the flag never needs to be cleared.
+>
+> This issue was found by an in-house static analysis tool.
+>
+> Fixes: 179ef1127d7a ("gpio: mpsse: ensure worker is torn down")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
 
-mlx5_data_direct_ib_unreg() removes and frees the registration entry
-but, unlike mlx5_data_direct_dev_unreg(), does not call
-mlx5_ib_data_direct_unbind().
+I probably wouldn't have noticed but Sashiko found an issue on PREEMPT_RT
+kernels[1].
 
-As a result, when an IB device is unregistered while its affiliated
-data-direct device is still registered, its data_direct_dev pointer
-is left set and its data-direct MRs are not revoked.
+Bart
 
-Call mlx5_ib_data_direct_unbind() before removing the registration so
-that the data-direct MRs are revoked and data_direct_dev is cleared
-during IB device teardown as well.
-
-Fixes: 6910e3660d86 ("RDMA/mlx5: Introduce the 'data direct' driver")
-Signed-off-by: Li RongQing <lirongqing@baidu.com>
----
- drivers/infiniband/hw/mlx5/data_direct.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/infiniband/hw/mlx5/data_direct.c b/drivers/infiniband/hw/mlx5/data_direct.c
-index d574842..54c07ac 100644
---- a/drivers/infiniband/hw/mlx5/data_direct.c
-+++ b/drivers/infiniband/hw/mlx5/data_direct.c
-@@ -113,6 +113,7 @@ void mlx5_data_direct_ib_unreg(struct mlx5_ib_dev *ibdev)
- 	mutex_lock(&mlx5_data_direct_mutex);
- 	list_for_each_entry(reg, &mlx5_data_direct_reg_list, list) {
- 		if (reg->ibdev == ibdev) {
-+			mlx5_ib_data_direct_unbind(reg->ibdev);
- 			list_del(&reg->list);
- 			kfree(reg);
- 			goto end;
--- 
-2.9.4
-
+[1] https://sashiko.dev/#/patchset/20260923030855.410109-1-fanwu01%40zju.edu.cn?part=1
