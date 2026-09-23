@@ -1,81 +1,47 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5591A53A395
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:54:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1083D9029;
+	Wed, 23 Sep 2026 14:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.128.210.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175271; cv=none; b=P6lwbgnLqu3kTVywaCDPYFZ++yVB9KTddVAVOK0mD8WjpuoK/yqwurzdX7SfpyV9mEnbnOgsrew1Z50sPEoCX3iY/0gqQb8uc3YaA1CkeVcBM90zIOczIrtLchzqFQ69PdrEpEsc99HNTrPPjs0ATSjaHEKd/tj+rOsFCvm/2Xs=
+	t=1790175292; cv=none; b=hqIsrbc1AeMtsKPfEcwXdbq9lzgnaC6lWw8Ch4c7wviZ39lQvu1dyPP50DPBmGChk5WMuEN4NM2hfBbsHDnKdZ56Di683DwOASOiJrGF8PHWsI/3gOAB6ckGxCG1/sGJoBOuSGshWgngk9/cQ4qaXclBucsXmuaC4Iz0yKo5Sto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175271; c=relaxed/simple;
-	bh=BQ3AIo9FaExG3aW1u0QXqsgAz+u3CyxtPn+zj7VYhc4=;
+	s=arc-20240116; t=1790175292; c=relaxed/simple;
+	bh=DCfsHfdiTiQG+izpLlTXb2WYiScu0Snv2Uw8tFI8zvQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tisWQ64buE7phBlrPAFP/1N19C5XOecy5WOCr+sYVcX8haqcDHf/xm1lxS2KeUhFnQe26zDu+f00DtnKaYK6PHBpGZfZADkjZ1G3Swo1JZtKuGJ8UmG0hNN6bZin8P//V6BBXCsh8CVD+VbcA89DJSpL6tYIpSbfO7q6U/Ajb4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YCFSrIC0; arc=none smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YCFSrIC0"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c537df4daaso495140b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:54:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790175268; x=1790780068; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8imZswOXgJq9Cx5JQERORsPUChw1RLSPP9EHDsUeryo=;
-        b=YCFSrIC0lwqobzyWufIQdV+GBzHpF+Ee2UQ6PKXA4ZgCLCa7gB5Jz2XhCrot7XSWHz
-         G2QmyzOtR8zr5vIXqYv1vEPXJP2+4+HNbP3nUdWcjpGD0JVWP+vUefUe1HjtNWT/drAK
-         du5NHAcJ9ssvnENlG7L0+pdUJo6HpKdO7FLb5fpPBLDFxSLVI/T55x2ic2ssthOEIQLn
-         7oTrle9afXPxeRPfcqoURZRVqPJhpUfjILLJ+qA+Nx3U5Y9hDImkoElfAK6b6Gdtyuom
-         7y5jRKpmuL54MnNrysbt0YjJ62Wj0f3UvDhJyU+1RtnE2zkJ0C4lsUJT8zmC9+I9vGDy
-         RQBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790175268; x=1790780068;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8imZswOXgJq9Cx5JQERORsPUChw1RLSPP9EHDsUeryo=;
-        b=qlLxuxoEE4mGSqWoBntU02MjZQ+V2024YYPyGQ7LoSW5RBKq74tDzZw/ecB2HkkszE
-         ELUG1dNGPuzJmAuraqW3FILeBubyv18tEemsKAOBbBnimhNof6YLO8CxRFwcYaXbsH5q
-         irH4dFq96KCCT7G5TE4KNsUUKZ6ZqkN/tpPUCzmdQyLY/dH12MX4XMMKz+23K8yurmLC
-         graXGrGaoN8WfUZwtEqdxGT3o9yuGH9+ix8U5jgEZOw5eNNh2u3maUocPrJf0d7VZiEf
-         MNM9EwQ6z6A/I1DTLfMQbz2zOLpGs0kBOrc9Oih24CPZrbU3ukuDDVdYtHXoR9KikWQE
-         W3Mw==
-X-Forwarded-Encrypted: i=1; AKwUvBxhTgZSsbDtRsM073Lp/TrHCsUlFxXLjoJ3AY/UO2vFWSmiZCLs5s3SRIAk0DpsqdqPWc9G0wAPBnlOdj4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYAn6US+EfLQC26I2JbL9Y+XDD8gC3c3kB6+w4q3GpqD/fD2pR
-	XILHPBRawl2P3NRujiSWK6KPSyETAhSjf8D9waGPeJmh6+jyU0elE9IA
-X-Gm-Gg: AYBFou0ib/r8iMtDt3kvWMxAzihQS2IJOVoQVNkKt3uQECSSZUHRX9YdrHFTxX1ctAb
-	jsBHYzDQTxd8tr7ZSXXq/CxJib7R9+qTM2L7w0nLcKVtPT5huV3yjSJHCd/iZywirVZnb/NY5wt
-	uMKWIIGJuMZkIGt/gntoQC4klj9NYxN4vLf7Nb6hVV4JWmlYF4sdah3xtGL+Al9s1z2iPE3qaSN
-	su5hlJ4GgiGy+B/4Op0vk795xPqkgV9m3LbFCQw/lPX7xeZfjqJ+IuTTKbWeyFEG9m1zEUBBADY
-	NBFsNB6Wf4nqyShjWjCq6iEkKiAvtuzvVu9UeeTkC3ygPqngLI3aSx0RLc9w2REDpfjN1ueObxt
-	vMsGubz0WdGUS9xTAzZpMs91ltiTPmPj/dUOygbLdSvR+UCuvjZIjRWttgGC9JhKobwKa1czB3Y
-	nlMvlCVNI9uYYIDdc7VONg0i/OCcCwgHfr7IjY0rL5gbdootJ4++r2TASUQYcmsgV8x7dpxQ==
-X-Received: by 2002:a05:6808:4f60:b0:4d6:9283:1bdd with SMTP id 5614622812f47-4d69283317bmr1082080b6e.58.1790175268279;
-        Wed, 23 Sep 2026 07:54:28 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d5c4bf8e14sm2290752b6e.14.2026.09.23.07.54.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:54:27 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Allen Pais <allen.lkml@gmail.com>,
-	sparclinux@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
+	 MIME-Version; b=kSd6VxG7Ipi5SEDHijaFI+HDa8oV+IVXDLVWW+G0EpvZBSK+WkqA10UYpbcmMVxKX8ZzcmetPw8cMF8KnTpJLNuxLz6o7LlctqTzcyLYhAHBWJctJCFQUdTQIuMmzpOyJWgzV/CGivIWpludZp58NbYeiqE3R4e3FvYExHkOAiw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net; spf=pass smtp.mailfrom=librecast.net; arc=none smtp.client-ip=185.128.210.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
+From: Brett A C Sheffield <bacs@librecast.net>
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org,
+	patches@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] sparc64: uprobes: fix relbranch_fixup() for BPr, FBfcc and FBPfcc
-Date: Wed, 23 Sep 2026 09:54:26 -0500
-Message-ID: <20260923145426.421639-1-danishkhateeb03@gmail.com>
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	Brett A C Sheffield <bacs@librecast.net>
+Subject: Re: [PATCH 6.18 000/398] 6.18.54-rc1 review
+Date: Wed, 23 Sep 2026 14:54:30 +0000
+Message-ID: <20260923145433.36416-1-bacs@librecast.net>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923144909.414968-1-danishkhateeb03@gmail.com>
-References: <20260923144909.414968-1-danishkhateeb03@gmail.com>
+In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
+References: <20260923140643.441954610@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,59 +50,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-uprobes single-step a copy of the probed instruction in an XOL slot.
-When the copy is a taken PC-relative branch, its target is relative to
-the slot, and relbranch_fixup() moves it back to the probed code. Like
-its kprobes counterpart, it only recognizes call, BPcc and Bicc. After a
-taken BPr (brz, brnz, ...), FBfcc or FBPfcc, the task continues at the
-slot's address plus the branch displacement, inside the XOL page, and
-dies with SIGILL.
+# Librecast Test Results
 
-GCC often emits a BPr as a function's first instruction, so a plain
-function-entry uprobe can kill the probed program. In QEMU sun4u, with a
-uprobe on a "brz,pn %o0, 1f", the first call with %o0 == 0 ends with
+020/020 [ OK ] liblcrq
+010/010 [ OK ] libmld
+120/120 [ OK ] liblibrecast
 
-  init: potentially unexpected fatal signal 4.
-  TSTATE: 0000000082000203 TPC: fffffffbffffe01c TNPC: fffffffbffffe020
+CPU/kernel: Linux auntie 6.18.54-rc1-gef437f2f0758 #1 SMP PREEMPT_DYNAMIC Wed Sep 23 14:48:56 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
 
-where the task's [uprobes] mapping is fffffffbffffe000-fffffffc00000000.
-FBfcc and FBPfcc behave the same.
-
-Add the missing branch formats, as for kprobes.
-
-Fixes: e8f4aa6087fa ("sparc64:Support User Probes for sparc")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
----
- arch/sparc/kernel/uprobes.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/arch/sparc/kernel/uprobes.c b/arch/sparc/kernel/uprobes.c
-index c8cac64e9988..c8ba033427ba 100644
---- a/arch/sparc/kernel/uprobes.c
-+++ b/arch/sparc/kernel/uprobes.c
-@@ -97,12 +97,15 @@ static unsigned long relbranch_fixup(u32 insn, struct uprobe_task *utask,
- 	if (regs->tnpc == regs->tpc + 0x4UL)
- 		return utask->autask.saved_tnpc + 0x4UL;
- 
--	/* The three cases are call, branch w/prediction,
--	 * and traditional branch.
-+	/* The cases are call and the branches with a PC-relative
-+	 * displacement.
- 	 */
--	if ((insn & 0xc0000000) == 0x40000000 ||
--	    (insn & 0xc1c00000) == 0x00400000 ||
--	    (insn & 0xc1c00000) == 0x00800000) {
-+	if ((insn & 0xc0000000) == 0x40000000 ||	/* call */
-+	    (insn & 0xc1c00000) == 0x00400000 ||	/* BPcc */
-+	    (insn & 0xc1c00000) == 0x00800000 ||	/* Bicc */
-+	    (insn & 0xd1c00000) == 0x00c00000 ||	/* BPr */
-+	    (insn & 0xc1c00000) == 0x01400000 ||	/* FBPfcc */
-+	    (insn & 0xc1c00000) == 0x01800000) {	/* FBfcc */
- 		unsigned long real_pc = (unsigned long) utask->vaddr;
- 		unsigned long ixol_addr = utask->xol_vaddr;
- 
--- 
-2.55.0
-
+Tested-by: Brett A C Sheffield <bacs@librecast.net>
