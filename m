@@ -1,65 +1,65 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687EE53A89A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:06:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A7553B35E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:06:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172410; cv=none; b=HZkGll8oBwBZSfn+qI60EYRR8+Jp6NYWdUoXJIl/2OBYKf3dd3L1Redc9E1lraVHQnIAdyr4D1xdQjK+tDHp7Y3qEe3gIWYVirDBKa+Nv0aqLQuwxF2VG9lqLQU61qvycUdU8GNG0sgJ4jRyOVRvTSPxWYocOo/9GAY3ni3iDP4=
+	t=1790172413; cv=none; b=t0RIko3Y12HV+ejj/geka0O6YVfy9pq4Q8BJceZsk84vEABc3Zd+r8tDH6JnR4aItK3SUppz95mPmcMTfsSSwqMd3scRHnJmdOYaXWzRI42vNup1x2nZy8hCYWUsLJsW59aoRqCho3kHuBeac2TpzQnjBNhHBBhqKoJpOkwfQlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172410; c=relaxed/simple;
-	bh=oQLeGHcFOEBKvK/KV/6VDCr5DCiylKfNZ+hZkYzkONE=;
+	s=arc-20240116; t=1790172413; c=relaxed/simple;
+	bh=QECkCCtFgmexVFOQEBEMUMlJ5mdLy8sLeezmjSt0bC4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E2eX2WAr5i1zDvWIsJM3vH68YMLvq2ur6mKw5PlzK10QDq1m1I+WpjXkwLaHVq+Zb7uY3kBrntJaAKzglAJFD/Hh+7A0oECbz+tS0KZQ2+zlXZZHeP93SyvqbLkWkDbIIvJ5ILxKA8u8leWK4ASPUjjk/yWLWsMbV3SFhAkV/LE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com; spf=pass smtp.mailfrom=linbit.com; dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b=McXd+yH4; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version:Content-Type; b=Xv6dvylaNsnOcQKNKapuhSvwKTi9nyUOqJkGgAJZL5HEY9EMudmcRvcHWwSUGWN4ikq57ZcevXN9xMFFdGgByPF5itR6i3Hh/nYjeXnsfYuWJwHQtde6f7BXnKduOOqyA5uYt6+x4smNqD+I1iZZ9k/JOcNqN0vQp3gWq6kFCiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com; spf=pass smtp.mailfrom=linbit.com; dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b=tDLYEirA; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b="McXd+yH4"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso12552425e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:06:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b="tDLYEirA"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e620fa473so5733045e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:06:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linbit-com.20251104.gappssmtp.com; s=20251104; t=1790172405; x=1790777205; darn=vger.kernel.org;
+        d=linbit-com.20251104.gappssmtp.com; s=20251104; t=1790172408; x=1790777208; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OT8DknvFkt3c/QwXXWqPTd2AqnUqoQwgm3MlbzbyL9g=;
-        b=McXd+yH4BeVNHTdAPqnTJD50AIsWxS75cMXu/pZBp60UDU3jq8v765fKW3NqR8iA8c
-         DkRDJspUeMyZIW43asLdmZXo0oSeS4eB/ouuHw58plgKKDwxnIznZ6tPy53pd/DKYF0O
-         S93p7sfjgWrXF0v0iCZSQFq93AImRfxArnsGgv17tIBAAvDYYaJy9yKyZo2SDmF3LZRP
-         hr2qCy5DDSCl8X0NWcmxGRqARER3jVqOzHUtnAs749XH/OZox+ksAYS9yPPe1luElEmJ
-         BQ5BnzlaF4j81gKuYowGYvTDM8HnJrDSXAMB2vsTlRNAH07FdHSRg2Hspb0Z3OyHP8EF
-         GQ7g==
+        bh=HjDgwYC7WS+fns6snJ5SpMXxfL8DgMKhiYl1lDgWvSQ=;
+        b=tDLYEirAUwBWE5zpLgmnqhGNHsLiFyrJM51W5NTAqqpdgcvUZ19YP5/a1YV9NwmuDi
+         oECQQbe8KeHzCoXyeCmLADyB6EXScEuMTo0xe71UgTpT8xtMmuE7vYb0xz/oE8bvAEtD
+         hE5eyHegIXHGQol/9QDdMtCuEakzV01LZk5TnYZ2sN2tC6lfAJQ34OKuW4GFxALR2H4d
+         syfC7KntZpVN329HQ3T8b+P+fgwHw/nrVocYRFaKitlkHE64M6NGi2gq0RNaoUTzSFUM
+         kFqBTekihxzNThvMdna1qgqjFEehjMTuzlZXeINCdUNdm27oI7GXLLTy3Q/YRd42llyS
+         t89g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790172405; x=1790777205;
+        d=1e100.net; s=20260707; t=1790172408; x=1790777208;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OT8DknvFkt3c/QwXXWqPTd2AqnUqoQwgm3MlbzbyL9g=;
-        b=i+jOtdXLeDrwGCrLZm4lnHc1+NKCwVDbC0tS3y9lPgqx9VSRpvcK4SWeHCshLU0bUY
-         rmUkXToBA5N8TtYRCZjzREgGypMSh5gTk63ZSPVPZPNaBe24O2Z0CLkMAtJKFUlomFxp
-         BNaba8GuR5shvwSYO+U7e13l/YFOskDuyAqGKub42sIFhgFHxx6IUpBXvwUTE28OCS4X
-         adc4erU692vtUzhVoJ67su3WKhPzPf5+DxTx8Tm9I2S/hgdQtvxFzCco/x39L78+BBmT
-         tQPfBA0WpEMsg5oheyW3JXtzDOOsh/iDIhYKKY7lxwHLLN7GTD5vwSFGdwsN3uGttixu
-         W1og==
-X-Forwarded-Encrypted: i=1; AKwUvBxPSkpmzlmMZ7qmUx0lpp2Wp18cZoN8wXYrFOI9YB8dfOXajAXa6Im8cTJiyN6OIDHf9hwTX9mmAKJSBd0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYcLUMvnxm6/ObaNVwMiAqg5JVDr2rRK41lQ9TL+kRSNZ3wgYt
-	OvaINlU+XJSOkAseGXO4wwvdFWjYTVeYkENRDmWbSjdVLQxzR2cRdYWne5UePuN5qiI=
-X-Gm-Gg: AYBFou0i4B5rVk1T2w1nM6JObPwrn+JCxAfFUCUv0Wb2wewlAWmgoVAh48cliv+4A5a
-	OmD16nlHO0fqH5UGlm2jEqI12DkZWF459Iv3qRHdomVF0lj61HH3yTUYc77JP8qeHtvA4Ly4We6
-	8ppG7U/EFDIXsA+IJHSUzLkLnzas3Bgub9AUom/x2k6X1M4j01WfpQ15o44gtAwt+MmFn6Es3tf
-	PEFQ5SrZZkDjzLvwNkAnwmZEhXcuWtLFunNawUWcX0K3SoL+VgDNl3/SN0mhMdxFw/YB1R6FaAk
-	qhysKu2OSJtJEph+CoU4tHBz7xIyYIQ2DQVPFBka5E3QU0WdQ/+CR/X+PbuhPY+m2FSekMWKMc2
-	dNQmKsegAmdSjjSdwS4OuML5SygnN4Xv/rc9eMF59IyUZtCuhWJCV4H94gPs3VTgheZt6H6kUmZ
-	n8dfyFatK9snzcOLxBqxraEnIvabpj2NVV0p0UieQFh7Ju+MsmoSoDtAEHzPrK2gB5qgYNUGE+H
-	OXLhKxP2pWljdE8U4C4YmDcxurUt9NlX4pIbRpyL0M=
-X-Received: by 2002:a05:600c:354e:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-49fdf137081mr40436105e9.19.1790172404980;
-        Wed, 23 Sep 2026 07:06:44 -0700 (PDT)
+        bh=HjDgwYC7WS+fns6snJ5SpMXxfL8DgMKhiYl1lDgWvSQ=;
+        b=jpMnAXKYKS0XXwV6kwu+IzoUfQFgHKI8K9jLkZfTYy0R86KMo3vMXD1s7tza5Ywev6
+         Kc6FmKhzyqXwxQBapLhEFdiYHVi1H+9n0KBy7mCwXtwcmGqMsMpooMRCaf2Am6BScHgG
+         boWCNXlVMmoDVuMI8Sklk4wT3KUxCcEgG4sgnTpA7BjF1HzFAHPztKIcvTWYMdactMFW
+         lJyUzJ6fJoTbhv8RmkFHywE+EIqU2+/d6YA6QFCTWeDu5pCbOvogBeWO7UPHLzrK5F99
+         qFygzLMd4SQHE8S/0KQ1noWTnsd+utHeT1FRRS1H3YNpfjm4zVItQLjVs0TyQxyIl4dG
+         M1tQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLRt+nsZPabFmG+PInu2JBtzl2Ey2w/ijRXv4qE4EUdzIHkdAzScH2EggjwDLenrI1XMq11WLNCQ4CeU0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+GOeWXJkEV9ZqA2dQaRZ3eY7rzCgZiRJMFd7ORHb0taWwa3eH
+	NTTDkdaQStOL6G2Av1NffnNSih0prMsL8XbFAliX2hjF8IDsaD0FPxYwaEsf/RKZz2M=
+X-Gm-Gg: AYBFou37DX7xSImpomViMVU6tU0XoMXFFm3uPQiRDDW+wg4HsdI4k5muJlbE7F4ph8/
+	WQ3KrBB6HwBizf+92yR6WRNLfPFkjEJMf/sY1pn9khgboj3jyZowjheXHEp9nJXF4nTWPnVCwDh
+	KiDZinyrWE77BRTE+/1Ni+vgO8iT64OWcBPvLY3/GKWJnq1Q6kzZTjum83nhZHz3rBpvefZQHlQ
+	TRxnIM1Eu0lC9HCHHNMS4AcggVe0lF8/gZLW+k1OTk0RRP/aRCO0+0gXrcMly4HqcQqex5eNLDH
+	fPCPGh9dMU8OEroRhVlfUal0sMMmnj5GRdlJ/oZy5WmREIMK3Hp7DWJTfDmmNeWpFFdPfN8tCTP
+	nwo4vwNMJhJRzOabWsOZwzGimjBlzBB/3hI8TfHvJDvcND6R1+jge2Zebsfm0bRSGYvO6zb/nQ5
+	eXK+MCZ7uQcgu/TQlyoDlO7sEF9dD881rhCuSuJt/15esd7URtgITNIwUknKKYpf1d4Um8RClZB
+	0x0MwgQTAQ5JfCOlvAydW9SuaOJ7+c=
+X-Received: by 2002:a05:600c:8b53:b0:49f:cbae:3414 with SMTP id 5b1f17b1804b1-49fe4ad6cffmr6974335e9.4.1790172407660;
+        Wed, 23 Sep 2026 07:06:47 -0700 (PDT)
 Received: from localhost.localdomain ([2001:4bc9:b01f:2334:39d8:9506:1776:f780])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde18a8a0sm78087455e9.5.2026.09.23.07.06.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde18a8a0sm78087455e9.5.2026.09.23.07.06.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:06:44 -0700 (PDT)
+        Wed, 23 Sep 2026 07:06:47 -0700 (PDT)
 From: =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Philipp Reisner <philipp.reisner@linbit.com>,
@@ -69,9 +69,9 @@ Cc: Philipp Reisner <philipp.reisner@linbit.com>,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
 	Lars Ellenberg <lars.ellenberg@linbit.com>
-Subject: [PATCH 5/7] drbd: replace the drbd_interval bitfields with a type and flags
-Date: Wed, 23 Sep 2026 16:06:06 +0200
-Message-ID: <20260923140608.1116713-6-christoph.boehmwalder@linbit.com>
+Subject: [PATCH 6/7] drbd: move the packet name table to drbd_strings.c
+Date: Wed, 23 Sep 2026 16:06:07 +0200
+Message-ID: <20260923140608.1116713-7-christoph.boehmwalder@linbit.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923140608.1116713-1-christoph.boehmwalder@linbit.com>
 References: <20260923140608.1116713-1-christoph.boehmwalder@linbit.com>
@@ -84,330 +84,417 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-struct drbd_interval carries three single-bit fields: whether the
-request is local, whether someone waits for it, and whether it has
-completed. They only say "local or not", so every user that needs to
-know what kind of request an interval belongs to has to look at the
-containing object.
+The string tables for the state enums live in drbd_strings.c, but the
+one for the wire protocol commands is a static array hidden inside
+cmdname() in drbd_main.c. Move it next to the others as
+drbd_packet_name(), and use the enum names themselves as the strings,
+so a log message names exactly the constant a reader will grep for.
 
-Record the kind of request in the interval itself as an
-enum drbd_interval_type, set by whoever allocates the request, and turn
-the remaining bits into an atomic flags word so they can be tested and
-set with the usual bit operations. drbd_interval_is_local() replaces
-the open-coded tests of the "local" bit.
+While at it, describe each table by a struct state_names, and make the
+lookup helpers uniform: every one of them range-checks against the
+table size and returns "?" for an index without a name, instead of
+three different "TOO_LARGE"/"TOO_SMALL" strings.
 
-This is the representation the DRBD 9 conflict handling is built on;
-the types are the ones it uses, so the rework only has to add flags.
-
-No functional change.
+This is the layout drbd_strings.[ch] have in DRBD 9.
 
 Signed-off-by: Christoph Böhmwalder <christoph.boehmwalder@linbit.com>
 ---
- drivers/block/drbd/drbd_interval.h | 51 +++++++++++++++++++++++-------
- drivers/block/drbd/drbd_main.c     |  2 +-
- drivers/block/drbd/drbd_receiver.c | 21 ++++++++----
- drivers/block/drbd/drbd_req.c      | 17 +++++-----
- drivers/block/drbd/drbd_sender.c   |  5 +++
- 5 files changed, 68 insertions(+), 28 deletions(-)
+ drivers/block/drbd/drbd_int.h      |   1 -
+ drivers/block/drbd/drbd_main.c     |  74 -----------------
+ drivers/block/drbd/drbd_receiver.c |  18 ++---
+ drivers/block/drbd/drbd_strings.c  | 126 ++++++++++++++++++++++++++---
+ drivers/block/drbd/drbd_strings.h  |  23 +++++-
+ 5 files changed, 142 insertions(+), 100 deletions(-)
 
-diff --git a/drivers/block/drbd/drbd_interval.h b/drivers/block/drbd/drbd_interval.h
-index 9d290ac120cd..3749377ec172 100644
---- a/drivers/block/drbd/drbd_interval.h
-+++ b/drivers/block/drbd/drbd_interval.h
-@@ -9,20 +9,47 @@
- #include <linux/types.h>
- #include <linux/rbtree.h>
+diff --git a/drivers/block/drbd/drbd_int.h b/drivers/block/drbd/drbd_int.h
+index d3ca2b730a11..297deac20f7e 100644
+--- a/drivers/block/drbd/drbd_int.h
++++ b/drivers/block/drbd/drbd_int.h
+@@ -104,7 +104,6 @@ extern struct ratelimit_state drbd_ratelimit_state;
+ extern struct idr drbd_devices; /* RCU, updates: genl_lock() */
+ extern struct list_head drbd_resources; /* RCU, updates: genl_lock() */
  
-+/*
-+ * Interval types stored directly in drbd_interval so that we can handle
-+ * conflicts without having to inspect the containing object. The value 0 is
-+ * reserved for uninitialized intervals.
-+ */
-+enum drbd_interval_type {
-+	INTERVAL_LOCAL_WRITE = 1,
-+	INTERVAL_PEER_WRITE,
-+	INTERVAL_LOCAL_READ,
-+	INTERVAL_PEER_READ,
-+	INTERVAL_RESYNC_WRITE, /* C_SYNC_TARGET */
-+	INTERVAL_RESYNC_READ, /* C_SYNC_SOURCE */
-+	INTERVAL_OV_READ_SOURCE, /* C_VERIFY_S */
-+	INTERVAL_OV_READ_TARGET, /* C_VERIFY_T */
-+};
-+
-+enum drbd_interval_flags {
-+	/* Someone is waiting on device->misc_wait for this to make progress. */
-+	INTERVAL_WAITING,
-+
-+	/* This has been completed already; ignore for conflict detection. */
-+	INTERVAL_COMPLETED,
-+};
-+
- struct drbd_interval {
- 	struct rb_node rb;
- 	sector_t sector;		/* start sector of the interval */
- 	sector_t end;			/* highest interval end in subtree */
- 	unsigned int size;		/* size in bytes */
--	unsigned int local:1		/* local or remote request? */;
--	unsigned int waiting:1;		/* someone is waiting for completion */
--	unsigned int completed:1;	/* this has been completed already;
--					 * ignore for conflict detection */
-+	enum drbd_interval_type type;	/* what type of interval this is */
-+	unsigned long flags;
+-extern const char *cmdname(enum drbd_packet cmd);
  
- 	/* to resume a partially successful drbd_al_begin_io_nonblock(); */
- 	unsigned int partially_in_al_next_enr;
- };
- 
-+static inline bool drbd_interval_is_local(struct drbd_interval *i)
-+{
-+	return i->type == INTERVAL_LOCAL_READ || i->type == INTERVAL_LOCAL_WRITE;
-+}
-+
- static inline void drbd_clear_interval(struct drbd_interval *i)
- {
- 	RB_CLEAR_NODE(&i->rb);
-@@ -33,14 +60,14 @@ static inline bool drbd_interval_empty(struct drbd_interval *i)
- 	return RB_EMPTY_NODE(&i->rb);
- }
- 
--extern bool drbd_insert_interval(struct rb_root *, struct drbd_interval *);
--extern bool drbd_contains_interval(struct rb_root *, sector_t,
--				   struct drbd_interval *);
--extern void drbd_remove_interval(struct rb_root *, struct drbd_interval *);
--extern struct drbd_interval *drbd_find_overlap(struct rb_root *, sector_t,
--					unsigned int);
--extern struct drbd_interval *drbd_next_overlap(struct drbd_interval *, sector_t,
--					unsigned int);
-+bool drbd_insert_interval(struct rb_root *root, struct drbd_interval *this);
-+bool drbd_contains_interval(struct rb_root *root, sector_t sector,
-+			    struct drbd_interval *interval);
-+void drbd_remove_interval(struct rb_root *root, struct drbd_interval *this);
-+struct drbd_interval *drbd_find_overlap(struct rb_root *root, sector_t sector,
-+					unsigned int size);
-+struct drbd_interval *drbd_next_overlap(struct drbd_interval *i,
-+					sector_t sector, unsigned int size);
- 
- #define drbd_for_each_overlap(i, root, sector, size)		\
- 	for (i = drbd_find_overlap(root, sector, size);		\
+ /* for sending/receiving the bitmap,
+  * possibly in some encoding scheme */
 diff --git a/drivers/block/drbd/drbd_main.c b/drivers/block/drbd/drbd_main.c
-index 590ac5cb84f5..09e42706c83e 100644
+index 09e42706c83e..fc674acf8bd4 100644
 --- a/drivers/block/drbd/drbd_main.c
 +++ b/drivers/block/drbd/drbd_main.c
-@@ -3656,7 +3656,7 @@ int drbd_wait_misc(struct drbd_device *device, struct drbd_interval *i)
- 	rcu_read_unlock();
+@@ -3560,80 +3560,6 @@ static void md_sync_timer_fn(struct timer_list *t)
+ 	drbd_device_post_work(device, MD_SYNC);
+ }
  
- 	/* Indicate to wake up device->misc_wait on progress.  */
--	i->waiting = true;
-+	set_bit(INTERVAL_WAITING, &i->flags);
- 	prepare_to_wait(&device->misc_wait, &wait, TASK_INTERRUPTIBLE);
- 	spin_unlock_irq(&device->resource->req_lock);
- 	timeout = schedule_timeout(timeout);
+-const char *cmdname(enum drbd_packet cmd)
+-{
+-	/* THINK may need to become several global tables
+-	 * when we want to support more than
+-	 * one PRO_VERSION */
+-	static const char *cmdnames[] = {
+-
+-		[P_DATA]	        = "Data",
+-		[P_DATA_REPLY]	        = "DataReply",
+-		[P_RS_DATA_REPLY]	= "RSDataReply",
+-		[P_BARRIER]	        = "Barrier",
+-		[P_BITMAP]	        = "ReportBitMap",
+-		[P_BECOME_SYNC_TARGET]  = "BecomeSyncTarget",
+-		[P_BECOME_SYNC_SOURCE]  = "BecomeSyncSource",
+-		[P_UNPLUG_REMOTE]	= "UnplugRemote",
+-		[P_DATA_REQUEST]	= "DataRequest",
+-		[P_RS_DATA_REQUEST]     = "RSDataRequest",
+-		[P_SYNC_PARAM]	        = "SyncParam",
+-		[P_PROTOCOL]            = "ReportProtocol",
+-		[P_UUIDS]	        = "ReportUUIDs",
+-		[P_SIZES]	        = "ReportSizes",
+-		[P_STATE]	        = "ReportState",
+-		[P_SYNC_UUID]           = "ReportSyncUUID",
+-		[P_AUTH_CHALLENGE]      = "AuthChallenge",
+-		[P_AUTH_RESPONSE]	= "AuthResponse",
+-		[P_STATE_CHG_REQ]       = "StateChgRequest",
+-		[P_PING]		= "Ping",
+-		[P_PING_ACK]	        = "PingAck",
+-		[P_RECV_ACK]	        = "RecvAck",
+-		[P_WRITE_ACK]	        = "WriteAck",
+-		[P_RS_WRITE_ACK]	= "RSWriteAck",
+-		[P_SUPERSEDED]          = "Superseded",
+-		[P_NEG_ACK]	        = "NegAck",
+-		[P_NEG_DREPLY]	        = "NegDReply",
+-		[P_NEG_RS_DREPLY]	= "NegRSDReply",
+-		[P_BARRIER_ACK]	        = "BarrierAck",
+-		[P_STATE_CHG_REPLY]     = "StateChgReply",
+-		[P_OV_REQUEST]          = "OVRequest",
+-		[P_OV_REPLY]            = "OVReply",
+-		[P_OV_RESULT]           = "OVResult",
+-		[P_CSUM_RS_REQUEST]     = "CsumRSRequest",
+-		[P_RS_IS_IN_SYNC]	= "CsumRSIsInSync",
+-		[P_SYNC_PARAM89]	= "SyncParam89",
+-		[P_COMPRESSED_BITMAP]   = "CBitmap",
+-		[P_DELAY_PROBE]         = "DelayProbe",
+-		[P_OUT_OF_SYNC]		= "OutOfSync",
+-		[P_RS_CANCEL]		= "RSCancel",
+-		[P_CONN_ST_CHG_REQ]	= "conn_st_chg_req",
+-		[P_CONN_ST_CHG_REPLY]	= "conn_st_chg_reply",
+-		[P_PROTOCOL_UPDATE]	= "protocol_update",
+-		[P_TRIM]	        = "Trim",
+-		[P_RS_THIN_REQ]         = "rs_thin_req",
+-		[P_RS_DEALLOCATED]      = "rs_deallocated",
+-		[P_WSAME]	        = "WriteSame",
+-		[P_ZEROES]		= "Zeroes",
+-
+-		/* enum drbd_packet, but not commands - obsoleted flags:
+-		 *	P_MAY_IGNORE
+-		 *	P_MAX_OPT_CMD
+-		 */
+-	};
+-
+-	/* too big for the array: 0xfffX */
+-	if (cmd == P_INITIAL_META)
+-		return "InitialMeta";
+-	if (cmd == P_INITIAL_DATA)
+-		return "InitialData";
+-	if (cmd == P_CONNECTION_FEATURES)
+-		return "ConnectionFeatures";
+-	if (cmd >= ARRAY_SIZE(cmdnames))
+-		return "Unknown";
+-	return cmdnames[cmd];
+-}
+-
+ /**
+  * drbd_wait_misc  -  wait for a request to make progress
+  * @device:	device associated with the request
 diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
-index 2c4507add143..3ebe18535fcf 100644
+index 3ebe18535fcf..fa87cbba756b 100644
 --- a/drivers/block/drbd/drbd_receiver.c
 +++ b/drivers/block/drbd/drbd_receiver.c
-@@ -1540,7 +1540,7 @@ static void drbd_remove_epoch_entry_interval(struct drbd_device *device,
- 	drbd_clear_interval(i);
- 
- 	/* Wake up any processes waiting for this peer request to complete.  */
--	if (i->waiting)
-+	if (test_bit(INTERVAL_WAITING, &i->flags))
- 		wake_up(&device->misc_wait);
+@@ -3655,7 +3655,7 @@ static int ignore_remaining_packet(struct drbd_connection *connection, struct pa
+ static int config_unknown_volume(struct drbd_connection *connection, struct packet_info *pi)
+ {
+ 	drbd_warn(connection, "%s packet received for volume %u, which is not configured locally\n",
+-		  cmdname(pi->cmd), pi->vnr);
++		  drbd_packet_name(pi->cmd), pi->vnr);
+ 	return ignore_remaining_packet(connection, pi);
  }
  
-@@ -1878,6 +1878,8 @@ static int recv_resync_read(struct drbd_peer_device *peer_device, sector_t secto
- 	if (!peer_req)
+@@ -4887,7 +4887,7 @@ static void drbdd(struct drbd_connection *connection)
+ 		cmd = &drbd_cmd_handler[pi.cmd];
+ 		if (unlikely(pi.cmd >= ARRAY_SIZE(drbd_cmd_handler) || !cmd->fn)) {
+ 			drbd_err(connection, "Unexpected data packet %s (0x%04x)",
+-				 cmdname(pi.cmd), pi.cmd);
++				 drbd_packet_name(pi.cmd), pi.cmd);
+ 			goto err_out;
+ 		}
+ 
+@@ -4896,12 +4896,12 @@ static void drbdd(struct drbd_connection *connection)
+ 			shs += sizeof(struct o_qlim);
+ 		if (pi.size > shs && !cmd->expect_payload) {
+ 			drbd_err(connection, "No payload expected %s l:%d\n",
+-				 cmdname(pi.cmd), pi.size);
++				 drbd_packet_name(pi.cmd), pi.size);
+ 			goto err_out;
+ 		}
+ 		if (pi.size < shs) {
+ 			drbd_err(connection, "%s: unexpected packet size, expected:%d received:%d\n",
+-				 cmdname(pi.cmd), (int)shs, pi.size);
++				 drbd_packet_name(pi.cmd), (int)shs, pi.size);
+ 			goto err_out;
+ 		}
+ 
+@@ -4917,7 +4917,7 @@ static void drbdd(struct drbd_connection *connection)
+ 		err = cmd->fn(connection, &pi);
+ 		if (err) {
+ 			drbd_err(connection, "error receiving %s, e: %d l: %d!\n",
+-				 cmdname(pi.cmd), err, pi.size);
++				 drbd_packet_name(pi.cmd), err, pi.size);
+ 			goto err_out;
+ 		}
+ 	}
+@@ -5110,7 +5110,7 @@ static int drbd_do_features(struct drbd_connection *connection)
+ 
+ 	if (pi.cmd != P_CONNECTION_FEATURES) {
+ 		drbd_err(connection, "expected ConnectionFeatures packet, received: %s (0x%04x)\n",
+-			 cmdname(pi.cmd), pi.cmd);
++			 drbd_packet_name(pi.cmd), pi.cmd);
+ 		return -1;
+ 	}
+ 
+@@ -5233,7 +5233,7 @@ static int drbd_do_auth(struct drbd_connection *connection)
+ 
+ 	if (pi.cmd != P_AUTH_CHALLENGE) {
+ 		drbd_err(connection, "expected AuthChallenge packet, received: %s (0x%04x)\n",
+-			 cmdname(pi.cmd), pi.cmd);
++			 drbd_packet_name(pi.cmd), pi.cmd);
+ 		rv = -1;
  		goto fail;
- 
-+	peer_req->i.type = INTERVAL_RESYNC_WRITE;
-+
- 	dec_rs_pending(peer_device);
- 
- 	inc_unacked(device);
-@@ -1916,7 +1918,7 @@ find_request(struct drbd_device *device, struct rb_root *root, u64 id,
- 
- 	/* Request object according to our peer */
- 	req = (struct drbd_request *)(unsigned long)id;
--	if (drbd_contains_interval(root, sector, &req->i) && req->i.local)
-+	if (drbd_contains_interval(root, sector, &req->i) && drbd_interval_is_local(&req->i))
- 		return req;
- 	if (!missing_ok) {
- 		drbd_err(device, "%s: failed to find request 0x%lx, sector %llus\n", func,
-@@ -1999,7 +2001,7 @@ static void restart_conflicting_writes(struct drbd_device *device,
- 	struct drbd_request *req;
- 
- 	drbd_for_each_overlap(i, &device->write_requests, sector, size) {
--		if (!i->local)
-+		if (!drbd_interval_is_local(i))
- 			continue;
- 		req = container_of(i, struct drbd_request, i);
- 		if (req->rq_state & RQ_LOCAL_PENDING ||
-@@ -2239,7 +2241,7 @@ static void fail_postponed_requests(struct drbd_device *device, sector_t sector,
- 		struct drbd_request *req;
- 		struct bio_and_error m;
- 
--		if (!i->local)
-+		if (!drbd_interval_is_local(i))
- 			continue;
- 		req = container_of(i, struct drbd_request, i);
- 		if (!(req->rq_state & RQ_POSTPONED))
-@@ -2275,10 +2277,10 @@ static int handle_write_conflicts(struct drbd_device *device,
- 	drbd_for_each_overlap(i, &device->write_requests, sector, size) {
- 		if (i == &peer_req->i)
- 			continue;
--		if (i->completed)
-+		if (test_bit(INTERVAL_COMPLETED, &i->flags))
- 			continue;
- 
--		if (!i->local) {
-+		if (!drbd_interval_is_local(i)) {
- 			/*
- 			 * Our peer has sent a conflicting remote request; this
- 			 * should not happen in a two-node setup.  Wait for the
-@@ -2409,6 +2411,7 @@ static int receive_Data(struct drbd_connection *connection, struct packet_info *
- 		return -EIO;
  	}
+@@ -5299,7 +5299,7 @@ static int drbd_do_auth(struct drbd_connection *connection)
  
-+	peer_req->i.type = INTERVAL_PEER_WRITE;
- 	peer_req->w.cb = e_end_block;
- 	peer_req->submit_jif = jiffies;
- 	peer_req->flags |= EE_APPLICATION;
-@@ -2687,6 +2690,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
+ 	if (pi.cmd != P_AUTH_RESPONSE) {
+ 		drbd_err(connection, "expected AuthResponse packet, received: %s (0x%04x)\n",
+-			 cmdname(pi.cmd), pi.cmd);
++			 drbd_packet_name(pi.cmd), pi.cmd);
+ 		rv = 0;
+ 		goto fail;
+ 	}
+@@ -5859,7 +5859,7 @@ int drbd_ack_receiver(struct drbd_thread *thi)
+ 			cmd = &ack_receiver_tbl[pi.cmd];
+ 			if (pi.cmd >= ARRAY_SIZE(ack_receiver_tbl) || !cmd->fn) {
+ 				drbd_err(connection, "Unexpected meta packet %s (0x%04x)\n",
+-					 cmdname(pi.cmd), pi.cmd);
++					 drbd_packet_name(pi.cmd), pi.cmd);
+ 				goto disconnect;
+ 			}
+ 			expect = header_size + cmd->pkt_size;
+diff --git a/drivers/block/drbd/drbd_strings.c b/drivers/block/drbd/drbd_strings.c
+index a35ff87a93b1..f9fde9defedb 100644
+--- a/drivers/block/drbd/drbd_strings.c
++++ b/drivers/block/drbd/drbd_strings.c
+@@ -3,10 +3,12 @@
+  * Copyright (C) 2014, LINBIT HA-Solutions GmbH.
+  */
  
- 	switch (pi->cmd) {
- 	case P_DATA_REQUEST:
-+		peer_req->i.type = INTERVAL_PEER_READ;
- 		peer_req->w.cb = w_e_end_data_req;
- 		/* application IO, don't drbd_rs_begin_io */
- 		peer_req->flags |= EE_APPLICATION;
-@@ -2700,6 +2704,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
- 		peer_req->flags |= EE_RS_THIN_REQ;
- 		fallthrough;
- 	case P_RS_DATA_REQUEST:
-+		peer_req->i.type = INTERVAL_RESYNC_READ;
- 		peer_req->w.cb = w_e_end_rsdata_req;
- 		/* used in the sector offset progress display */
- 		device->bm_resync_fo = BM_SECT_TO_BIT(sector);
-@@ -2722,6 +2727,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
++#include <linux/kernel.h>
+ #include <linux/drbd.h>
+ #include "drbd_strings.h"
++#include "drbd_protocol.h"
  
- 		if (pi->cmd == P_CSUM_RS_REQUEST) {
- 			D_ASSERT(device, peer_device->connection->agreed_pro_version >= 89);
-+			peer_req->i.type = INTERVAL_RESYNC_READ;
- 			peer_req->w.cb = w_e_end_csum_rs_req;
- 			/* used in the sector offset progress display */
- 			device->bm_resync_fo = BM_SECT_TO_BIT(sector);
-@@ -2730,6 +2736,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
- 		} else if (pi->cmd == P_OV_REPLY) {
- 			/* track progress, we may need to throttle */
- 			atomic_add(size >> 9, &device->rs_sect_in);
-+			peer_req->i.type = INTERVAL_OV_READ_SOURCE;
- 			peer_req->w.cb = w_e_end_ov_reply;
- 			dec_rs_pending(peer_device);
- 			/* drbd_rs_begin_io done when we sent this request,
-@@ -2754,6 +2761,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
- 			drbd_info(device, "Online Verify start sector: %llu\n",
- 					(unsigned long long)sector);
- 		}
-+		peer_req->i.type = INTERVAL_OV_READ_TARGET;
- 		peer_req->w.cb = w_e_end_ov_req;
- 		break;
+-static const char * const drbd_conn_s_names[] = {
++static const char * const __conn_state_names[] = {
+ 	[C_STANDALONE]       = "StandAlone",
+ 	[C_DISCONNECTING]    = "Disconnecting",
+ 	[C_UNCONNECTED]      = "Unconnected",
+@@ -33,13 +35,23 @@ static const char * const drbd_conn_s_names[] = {
+ 	[C_BEHIND]           = "Behind",
+ };
  
-@@ -4786,6 +4794,7 @@ static int receive_rs_deallocated(struct drbd_connection *connection, struct pac
- 			return -ENOMEM;
- 		}
+-static const char * const drbd_role_s_names[] = {
++struct state_names drbd_conn_state_names = {
++	.names = __conn_state_names,
++	.size = ARRAY_SIZE(__conn_state_names),
++};
++
++static const char * const __role_state_names[] = {
++	[R_UNKNOWN]   = "Unknown",
+ 	[R_PRIMARY]   = "Primary",
+ 	[R_SECONDARY] = "Secondary",
+-	[R_UNKNOWN]   = "Unknown"
+ };
  
-+		peer_req->i.type = INTERVAL_RESYNC_WRITE;
- 		peer_req->w.cb = e_end_resync_block;
- 		peer_req->opf = REQ_OP_DISCARD;
- 		peer_req->submit_jif = jiffies;
-diff --git a/drivers/block/drbd/drbd_req.c b/drivers/block/drbd/drbd_req.c
-index 1648d0dabcbd..f16b925fecc1 100644
---- a/drivers/block/drbd/drbd_req.c
-+++ b/drivers/block/drbd/drbd_req.c
-@@ -35,8 +35,7 @@ static struct drbd_request *drbd_req_new(struct drbd_device *device, struct bio
- 	drbd_clear_interval(&req->i);
- 	req->i.sector     = bio_src->bi_iter.bi_sector;
- 	req->i.size      = bio_src->bi_iter.bi_size;
--	req->i.local = true;
--	req->i.waiting = false;
-+	req->i.type = bio_data_dir(bio_src) == WRITE ? INTERVAL_LOCAL_WRITE : INTERVAL_LOCAL_READ;
+-static const char * const drbd_disk_s_names[] = {
++struct state_names drbd_role_state_names = {
++	.names = __role_state_names,
++	.size = ARRAY_SIZE(__role_state_names),
++};
++
++static const char * const __disk_state_names[] = {
+ 	[D_DISKLESS]     = "Diskless",
+ 	[D_ATTACHING]    = "Attaching",
+ 	[D_FAILED]       = "Failed",
+@@ -51,7 +63,12 @@ static const char * const drbd_disk_s_names[] = {
+ 	[D_UP_TO_DATE]   = "UpToDate",
+ };
  
- 	INIT_LIST_HEAD(&req->tl_requests);
- 	INIT_LIST_HEAD(&req->w.list);
-@@ -59,7 +58,7 @@ static void drbd_remove_request_interval(struct rb_root *root,
- 	drbd_remove_interval(root, i);
+-static const char * const drbd_state_sw_errors[] = {
++struct state_names drbd_disk_state_names = {
++	.names = __disk_state_names,
++	.size = ARRAY_SIZE(__disk_state_names),
++};
++
++static const char * const __error_messages[] = {
+ 	[-SS_TWO_PRIMARIES] = "Multiple primaries not allowed by config",
+ 	[-SS_NO_UP_TO_DATE_DISK] = "Need access to UpToDate data",
+ 	[-SS_NO_LOCAL_DISK] = "Can not resync without local disk",
+@@ -74,25 +91,110 @@ static const char * const drbd_state_sw_errors[] = {
+ 	[-SS_O_VOL_PEER_PRI] = "Other vol primary on peer not allowed by config",
+ };
  
- 	/* Wake up any processes waiting for this request to complete.  */
--	if (i->waiting)
-+	if (test_bit(INTERVAL_WAITING, &i->flags))
- 		wake_up(&device->misc_wait);
++struct state_names drbd_error_messages = {
++	.names = __error_messages,
++	.size = ARRAY_SIZE(__error_messages),
++};
++
++static const char * const __packet_names[] = {
++	[P_DATA]	        = "P_DATA",
++	[P_WSAME]               = "P_WSAME",
++	[P_TRIM]                = "P_TRIM",
++	[P_DATA_REPLY]	        = "P_DATA_REPLY",
++	[P_RS_DATA_REPLY]	= "P_RS_DATA_REPLY",
++	[P_BARRIER]	        = "P_BARRIER",
++	[P_BITMAP]	        = "P_BITMAP",
++	[P_BECOME_SYNC_TARGET]  = "P_BECOME_SYNC_TARGET",
++	[P_BECOME_SYNC_SOURCE]  = "P_BECOME_SYNC_SOURCE",
++	[P_UNPLUG_REMOTE]	= "P_UNPLUG_REMOTE",
++	[P_DATA_REQUEST]	= "P_DATA_REQUEST",
++	[P_RS_DATA_REQUEST]     = "P_RS_DATA_REQUEST",
++	[P_SYNC_PARAM]	        = "P_SYNC_PARAM",
++	[P_SYNC_PARAM89]	= "P_SYNC_PARAM89",
++	[P_PROTOCOL]            = "P_PROTOCOL",
++	[P_UUIDS]	        = "P_UUIDS",
++	[P_SIZES]	        = "P_SIZES",
++	[P_STATE]	        = "P_STATE",
++	[P_SYNC_UUID]           = "P_SYNC_UUID",
++	[P_AUTH_CHALLENGE]      = "P_AUTH_CHALLENGE",
++	[P_AUTH_RESPONSE]	= "P_AUTH_RESPONSE",
++	[P_PING]		= "P_PING",
++	[P_PING_ACK]	        = "P_PING_ACK",
++	[P_RECV_ACK]	        = "P_RECV_ACK",
++	[P_WRITE_ACK]	        = "P_WRITE_ACK",
++	[P_RS_WRITE_ACK]	= "P_RS_WRITE_ACK",
++	[P_SUPERSEDED]		= "P_SUPERSEDED",
++	[P_NEG_ACK]	        = "P_NEG_ACK",
++	[P_NEG_DREPLY]	        = "P_NEG_DREPLY",
++	[P_NEG_RS_DREPLY]	= "P_NEG_RS_DREPLY",
++	[P_BARRIER_ACK]	        = "P_BARRIER_ACK",
++	[P_STATE_CHG_REQ]       = "P_STATE_CHG_REQ",
++	[P_STATE_CHG_REPLY]     = "P_STATE_CHG_REPLY",
++	[P_OV_REQUEST]          = "P_OV_REQUEST",
++	[P_OV_REPLY]            = "P_OV_REPLY",
++	[P_OV_RESULT]           = "P_OV_RESULT",
++	[P_CSUM_RS_REQUEST]     = "P_CSUM_RS_REQUEST",
++	[P_RS_IS_IN_SYNC]	= "P_RS_IS_IN_SYNC",
++	[P_COMPRESSED_BITMAP]   = "P_COMPRESSED_BITMAP",
++	[P_DELAY_PROBE]         = "P_DELAY_PROBE",
++	[P_OUT_OF_SYNC]		= "P_OUT_OF_SYNC",
++	[P_RETRY_WRITE]		= "P_RETRY_WRITE",
++	[P_RS_CANCEL]		= "P_RS_CANCEL",
++	[P_CONN_ST_CHG_REQ]	= "P_CONN_ST_CHG_REQ",
++	[P_CONN_ST_CHG_REPLY]	= "P_CONN_ST_CHG_REPLY",
++	[P_PROTOCOL_UPDATE]	= "P_PROTOCOL_UPDATE",
++	[P_RS_THIN_REQ]         = "P_RS_THIN_REQ",
++	[P_RS_DEALLOCATED]      = "P_RS_DEALLOCATED",
++	[P_ZEROES]              = "P_ZEROES",
++	/* enum drbd_packet, but not commands - obsoleted flags:
++	 *	P_MAY_IGNORE
++	 *	P_MAX_OPT_CMD
++	 */
++};
++
++struct state_names drbd_packet_names = {
++	.names = __packet_names,
++	.size = ARRAY_SIZE(__packet_names),
++};
++
+ const char *drbd_conn_str(enum drbd_conns s)
+ {
+-	/* enums are unsigned... */
+-	return s > C_BEHIND ? "TOO_LARGE" : drbd_conn_s_names[s];
++	return (s < 0 || s >= drbd_conn_state_names.size ||
++		!drbd_conn_state_names.names[s]) ?
++	       "?" : drbd_conn_state_names.names[s];
  }
  
-@@ -270,10 +269,10 @@ void drbd_req_complete(struct drbd_request *req, struct bio_and_error *m)
- 		 * write-acks in protocol != C during resync.
- 		 * But we mark it as "complete", so it won't be counted as
- 		 * conflict in a multi-primary setup. */
--		req->i.completed = true;
-+		set_bit(INTERVAL_COMPLETED, &req->i.flags);
- 	}
+ const char *drbd_role_str(enum drbd_role s)
+ {
+-	return s > R_SECONDARY   ? "TOO_LARGE" : drbd_role_s_names[s];
++	return (s < 0 || s >= drbd_role_state_names.size ||
++		!drbd_role_state_names.names[s]) ?
++	       "?" : drbd_role_state_names.names[s];
+ }
  
--	if (req->i.waiting)
-+	if (test_bit(INTERVAL_WAITING, &req->i.flags))
- 		wake_up(&device->misc_wait);
+ const char *drbd_disk_str(enum drbd_disk_state s)
+ {
+-	return s > D_UP_TO_DATE    ? "TOO_LARGE" : drbd_disk_s_names[s];
++	return (s < 0 || s >= drbd_disk_state_names.size ||
++		!drbd_disk_state_names.names[s]) ?
++	       "?" : drbd_disk_state_names.names[s];
+ }
  
- 	/* Either we are about to complete to upper layers,
-@@ -505,7 +504,7 @@ static void mod_rq_state(struct drbd_request *req, struct bio_and_error *m,
- 	/* potentially complete and destroy */
+ const char *drbd_set_st_err_str(enum drbd_state_rv err)
+ {
+-	return err <= SS_AFTER_LAST_ERROR ? "TOO_SMALL" :
+-	       err > SS_TWO_PRIMARIES ? "TOO_LARGE"
+-			: drbd_state_sw_errors[-err];
++	return (-err < 0 || -err >= drbd_error_messages.size ||
++		!drbd_error_messages.names[-err]) ?
++	       "?" : drbd_error_messages.names[-err];
++}
++
++const char *drbd_packet_name(enum drbd_packet cmd)
++{
++	/* too big for the array: 0xfffX */
++	if (cmd == P_INITIAL_META)
++		return "InitialMeta";
++	if (cmd == P_INITIAL_DATA)
++		return "InitialData";
++	if (cmd == P_CONNECTION_FEATURES)
++		return "ConnectionFeatures";
++	return (cmd < 0 || cmd >= ARRAY_SIZE(__packet_names) ||
++		!__packet_names[cmd]) ?
++	       "?" : __packet_names[cmd];
+ }
+diff --git a/drivers/block/drbd/drbd_strings.h b/drivers/block/drbd/drbd_strings.h
+index 397c2eb9b666..a66d9f5fe4d5 100644
+--- a/drivers/block/drbd/drbd_strings.h
++++ b/drivers/block/drbd/drbd_strings.h
+@@ -6,9 +6,24 @@
+ #ifndef __DRBD_STRINGS_H
+ #define __DRBD_STRINGS_H
  
- 	/* If we made progress, retry conflicting peer requests, if any. */
--	if (req->i.waiting)
-+	if (test_bit(INTERVAL_WAITING, &req->i.flags))
- 		wake_up(&device->misc_wait);
+-extern const char *drbd_conn_str(enum drbd_conns);
+-extern const char *drbd_role_str(enum drbd_role);
+-extern const char *drbd_disk_str(enum drbd_disk_state);
+-extern const char *drbd_set_st_err_str(enum drbd_state_rv);
++struct state_names {
++	const char * const *names;
++	unsigned int size;
++};
++
++extern struct state_names drbd_conn_state_names;
++extern struct state_names drbd_role_state_names;
++extern struct state_names drbd_disk_state_names;
++extern struct state_names drbd_error_messages;
++extern struct state_names drbd_packet_names;
++
++enum drbd_packet;
++
++const char *drbd_conn_str(enum drbd_conns s);
++const char *drbd_role_str(enum drbd_role s);
++const char *drbd_disk_str(enum drbd_disk_state s);
++const char *drbd_set_st_err_str(enum drbd_state_rv err);
++const char *drbd_packet_name(enum drbd_packet cmd);
++
  
- 	drbd_req_put_completion_ref(req, m, c_put);
-@@ -786,7 +785,7 @@ int __req_mod(struct drbd_request *req, enum drbd_req_event what,
- 		 */
- 		D_ASSERT(device, req->rq_state & RQ_NET_PENDING);
- 		req->rq_state |= RQ_POSTPONED;
--		if (req->i.waiting)
-+		if (test_bit(INTERVAL_WAITING, &req->i.flags))
- 			wake_up(&device->misc_wait);
- 		/* Do not clear RQ_NET_PENDING. This request will make further
- 		 * progress via restart_conflicting_writes() or
-@@ -957,7 +956,7 @@ static void complete_conflicting_writes(struct drbd_request *req)
- 	for (;;) {
- 		drbd_for_each_overlap(i, &device->write_requests, sector, size) {
- 			/* Ignore, if already completed to upper layers. */
--			if (i->completed)
-+			if (test_bit(INTERVAL_COMPLETED, &i->flags))
- 				continue;
- 			/* Handle the first found overlap.  After the schedule
- 			 * we have to restart the tree walk. */
-@@ -968,7 +967,7 @@ static void complete_conflicting_writes(struct drbd_request *req)
- 
- 		/* Indicate to wake up device->misc_wait on progress.  */
- 		prepare_to_wait(&device->misc_wait, &wait, TASK_UNINTERRUPTIBLE);
--		i->waiting = true;
-+		set_bit(INTERVAL_WAITING, &i->flags);
- 		spin_unlock_irq(&device->resource->req_lock);
- 		schedule();
- 		spin_lock_irq(&device->resource->req_lock);
-diff --git a/drivers/block/drbd/drbd_sender.c b/drivers/block/drbd/drbd_sender.c
-index df0b6c99a59f..69b3676961d2 100644
---- a/drivers/block/drbd/drbd_sender.c
-+++ b/drivers/block/drbd/drbd_sender.c
-@@ -394,6 +394,11 @@ static int read_for_csum(struct drbd_peer_device *peer_device, sector_t sector,
- 	if (!peer_req)
- 		goto defer;
- 
-+	/*
-+	 * This will be a resync write once we receive the data back from the
-+	 * peer, assuming the checksums differ.
-+	 */
-+	peer_req->i.type = INTERVAL_RESYNC_WRITE;
- 	peer_req->w.cb = w_e_send_csum;
- 	peer_req->opf = REQ_OP_READ;
- 	spin_lock_irq(&device->resource->req_lock);
+ #endif  /* __DRBD_STRINGS_H */
 -- 
 2.55.0
 
