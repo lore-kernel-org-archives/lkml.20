@@ -1,176 +1,175 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012070.outbound.protection.outlook.com [40.107.200.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2210844C518;
-	Wed, 23 Sep 2026 10:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159924; cv=none; b=RXhFZBS0hSyBirKUaGtus9rEovcGq6Ypk1Gdf2vCQcD+qK4vUC9UVY68uXNw9swIH7eFDN8d0qCWvOQ7CyH+tDauKDdCs784ITiWMJmVVj+1a7z92XHZ2I4tiWGszVecfqSXaF8C2mV6re57+QikeiyB7oQasS+SHCg7WyGzrOQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159924; c=relaxed/simple;
-	bh=jVXvRTRMGnrSCLbg9RQPCXRZ4/YcFTpqyh0j1YYvpzA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fh2eBfgL1GC0mHNgX8lsqLuHYHtyNPft+yxH5JkH2MaTdT/gz288hKCsFkyTu8Re6eOdnS6zma9SBPCraDU3L3nk54P6+L9n2jjtzoLHU91Lik5pJwsr3DyfzbsIzrl/FYB+mFx6Imnw3Wi0Tb9nvecQTRBt/AOTkgVIbu+Vy+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=XVMGS1o8; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=1cvKRZqQ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wuaQx7r3; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=EUz1eHJe; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B65490C17;
+	Wed, 23 Sep 2026 10:39:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.70
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790159950; cv=fail; b=jgwoda7OBcxif/lWnVtZQFLTBzv2Tq1FW5GQZNUeeWzJw7sGOwKQvkTfXE03VueIsLVPcYUeFx2V6XCARYiJ21evkHHd+UMdtJ6JZ0U/T9JkfJV/P7tY8lVtvWTEIbTNHmNqPCl4y1FF9c1cUkwmn2frmElKpjeFT5jwz6x38lQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790159950; c=relaxed/simple;
+	bh=0ejEbG6UZBZEP/AieImcsAKolB0WnPw0kGSDLDrWPVQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=lIBHx2FMXTm3rI/St+szy0qXJWwR8HjGInaLTo5gOoqXSm1B9tyJv0QMesQoMvT2R55L6KrSdrO57ciVCmOvr/3gNyvQkQ94cc0ASNHVn75+80scTfCqea1wv89lPGg99PYrzuRdaJRhnWzADliAe95olFg5KcpOrZ4qf9xw82M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=YqpMQ+cU; arc=fail smtp.client-ip=40.107.200.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="XVMGS1o8";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="1cvKRZqQ";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wuaQx7r3";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="EUz1eHJe"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 9AF751FAB7;
-	Wed, 23 Sep 2026 10:38:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790159906; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6VgSltmef7rkR6OH+kojhS5odGZyWMU8aPX554ZF+1o=;
-	b=XVMGS1o8pI0wbNIoS5v9VcNVPIuVRh3N4/neO/eNdjvOblVFkCEXhO8gcP7aKusbfKoPBA
-	Kra0ZiQtXvULqOkdEuCqO9jKhPSyZQzNoqItf2EWRdxmvM4P+Hufuq3AEGlVJevZN74cDo
-	1uKfTfF+L5qW59jg6QjWTZXlVZ1Js6s=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790159906;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6VgSltmef7rkR6OH+kojhS5odGZyWMU8aPX554ZF+1o=;
-	b=1cvKRZqQ1CKmNz1QnD2Ds5kgjxrjxKbhNyuMsfCdRLvd2LuIeyxp1bki+AZGOEUgTGsd6S
-	VJ0uexBeBvg1nbCQ==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=wuaQx7r3;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=EUz1eHJe
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790159902; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6VgSltmef7rkR6OH+kojhS5odGZyWMU8aPX554ZF+1o=;
-	b=wuaQx7r3tzaladotjBiIsSZT8T8/WviFYUp8vkD/SJO1YPVelkPYLsKEFP2fGuaD/tHf1+
-	GbASOe9M6WM3j5pzMg6e081Nm9E/Koaf8NeSy4nVdYkmmjJroLrySJewa1jKDEeepf65WA
-	WZGCJGemy+4KDwPQ/mVWzfvFPdkSItU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790159902;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6VgSltmef7rkR6OH+kojhS5odGZyWMU8aPX554ZF+1o=;
-	b=EUz1eHJe9fG1DauYgxxg32dAXYUCKFcRV9/4lH5zn8HqEPuUP24SoN/wj2f3Xh0kSqPkEa
-	2DjTdDh+cf9wUxBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 743D113A6B;
-	Wed, 23 Sep 2026 10:38:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id K+j0Ex6ss2otZQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 23 Sep 2026 10:38:22 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 0517BA13D4; Wed, 23 Sep 2026 12:38:18 +0200 (CEST)
-Date: Wed, 23 Sep 2026 12:38:17 +0200
-From: Jan Kara <jack@suse.cz>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] initramfs: Reduce hardlink hash allocation sizes
-Message-ID: <5wbcm3ush6vtsboyy7c45ny2v546wceolwe32k5n3fufasbazo@fqtzdt4f527z>
-References: <20260919213859.24667-3-blum@kernel.org>
- <cbvwd3loa6edt7tjnd24vuv4dqnu6gul2ysbaooftx7d7o7zlo@xwg2ixm5ac37>
- <arJTq4TiVgyVLGA3@kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="YqpMQ+cU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bue1FZY+X3XrC/5j9LYhh6T4ywsUeq23tQuXvCeRCpjr/cqGsV2sWLndYsfaXWUYuQeajYIa2GW2oqvwCXX5KyIbjYMS9uvuGC/fpk83UJ23Yj2KduRZQSjafmis4zVLSxXPcJhoTsaZfgSZY3yFyhPkgATydxWXvQaUsLwZN8VAOwn9XMKosZfQRUUxxW+gXB58MtibuD/RiGUMNOjVgLOjs2fKrbMiQfaw4eFrwJ1p4Gt1v/9M0vaL8hptqTqLGpvdLhkrOyGVQ4DSxZjKCUxKSk/3NOL6ZsS0ErSu2fPjPSO20p5uldLGEXjWZ2ztHpS2LvwlWvHoz6bYyPXbUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Ic568VS9EkTC0WHr97FSlRC9RL6yxLq54rKSumyzz8k=;
+ b=mDEtxjU39GrIiI/sKqQ+SRY/Fxpbi27XuDoYRmeKbFDBQy/+6sQb3XVhzkLFypFu6iymtaVqYsxba8r3aARqODGLKhmH7tUY09T4FeN65zhuW2nlnq9e16Aqrq4qX91OrOm8ITHl932PH42vrBuX1zFrs48w3722unI6nHZ56jJUBDdEbykkax3Ss4+LkPDxtzjM2O0ob9FCd+9rRBv3Glmlu7DBemX04m590uWs/JxgB8BSoTQeCjSvcC61qEXgDOSn80d0dOrt8wbBY3nO4Enq7D/y6xmrl3DkAfHZjmhvGN/0VHy2ozgyiPABtlqOFwNsunMPke1TCxyPmbUWSw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ic568VS9EkTC0WHr97FSlRC9RL6yxLq54rKSumyzz8k=;
+ b=YqpMQ+cUwMoS+5aLpa0Zc7F87P6hldc2YCxjLq8JJQEut07LwxMgWsZukh3XPOaQ+Dq7na9tUNbpyaZGlbj97OGtETMJVjMjp51V9TDB9VEe7aXgvZUrtU+7W4WAjNLklHsLICRd08V5SaZ//B5hXaXk7QRUUS2KG2VmmC/tvAA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5712.namprd12.prod.outlook.com (2603:10b6:510:1e3::13)
+ by IA1PR12MB8519.namprd12.prod.outlook.com (2603:10b6:208:44c::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
+ 2026 10:38:55 +0000
+Received: from PH7PR12MB5712.namprd12.prod.outlook.com
+ ([fe80::afe1:7dd0:ea71:b7e7]) by PH7PR12MB5712.namprd12.prod.outlook.com
+ ([fe80::afe1:7dd0:ea71:b7e7%4]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 10:38:55 +0000
+Message-ID: <1486211b-1182-4277-b273-bdc84f6d23d7@amd.com>
+Date: Wed, 23 Sep 2026 16:08:45 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] perf/x86/amd/uncore: Drop redundant counter slot
+ searches
+To: Usama Arif <usama.arif@linux.dev>, acme@kernel.org,
+ adrian.hunter@intel.com, alexander.shishkin@linux.intel.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, irogers@google.com,
+ james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, mark.rutland@arm.com, mingo@redhat.com,
+ namhyung@kernel.org, peterz@infradead.org, tglx@kernel.org, x86@kernel.org
+Cc: hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
+ kernel-team@meta.com
+References: <20260921153108.2713179-1-usama.arif@linux.dev>
+Content-Language: en-US
+From: Sandipan Das <sandipan.das@amd.com>
+In-Reply-To: <20260921153108.2713179-1-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0252.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:223::7) To PH7PR12MB5712.namprd12.prod.outlook.com
+ (2603:10b6:510:1e3::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arJTq4TiVgyVLGA3@kernel.org>
-X-Spam-Score: -4.01
-X-Rspamd-Queue-Id: 9AF751FAB7
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email,suse.cz:dkim,suse.cz:email];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5712:EE_|IA1PR12MB8519:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a889506-9c4e-4051-edf1-08df195eddda
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|921020|56012099006|11063799006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	pbVSjDe18pBSjCXsIx1EQ7E/7rWiiPku/IgBb5RZXTYrsr3azErpdxhgB2OlO9H7vIjLQ+sNl2XaOQ5YRKYz83bDFvaWTkq7sy7Y17L2o6djP5HxRIdUCdHZVeLSxKKmVu1UfxECzzgz6sybaKU3HyGjjsJIsHd2HnJPJX4FWk/pFL2kfS+KkwZarsJqN1SkKd8T82BoUnQoKJ22senKcg/PdEQSGi/N/KnWIXpae63jlWyiWJwBGCJ3ashuebRznTHJFLpgnseaaYW9XaJO4/o208lTS5Ol5XS2hfewTgKW+LZCbHxyPvcuSLQNv9PofdBRT8QPQg7193dLuOF8MJTTL11dTkpIOGywTHcukr33WH6HUa8wSY/mfdaPQ9n+9bfo6PXB6UKvgPIT6J0+H7elWIVO4XIjcL52jN1HaHEUMRMaiCjwfnnQw2w8tlrgFonE5p1BjKR31cDImguMeVXWJfgKPWQp2fQqTcCTuEDuNyK7HyS3z1v85Hqe5BjjwRbPg+meXfIUS0M8xfIazTpztt2OFMK5aCRXrEVVGPQnMIGr94qzdKMXz91U7OTxbmx2Jz92n2zN1iMi+Gz/A4f9ky5IHlKyGNag/EQ0sOqEdkCy82oE3VDogWzdzyT2n0yRoj0ZYwtdtOhZsvFsYMGzpG7a422FendkyhCEnkY6Mf87xSkCo+pPytN2ROyD63uVWGbKHXmSgSsvB5KnyQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5712.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(921020)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S1I5TTd5OStPRHBQVHNRUWFEdXhJaWtwbTVjS01VZ2dYRlBUaVdaUTRVU0JU?=
+ =?utf-8?B?djk5L0x6NWsyUXdsYVo0MnI1aWRtYUtWcVpqNzdyaUk1YS9aYXJnd1k1K2Zp?=
+ =?utf-8?B?RmZkbWJBbXhualBpWkNPaUtLODY5S2xiWVQxVDc0ZnIwc2YyY2lGM1FOSVdm?=
+ =?utf-8?B?Z2l0WVdSenByQkZyVVRxcWViVlNoT1p5aHlPZUd3SUdnK2NZa0RuRnVkS2hL?=
+ =?utf-8?B?YmdMWmV4RUJMMHlWSUkxSmVheFF5M09HRTFIVER1WHhDZWlBTnJWVGJjWFBE?=
+ =?utf-8?B?VFRPSDczU3ZVNkhUK1h2aXBJdUJBNnNNR0E0NSt4dHNaMlFNZlZuLzI1cktI?=
+ =?utf-8?B?SW56ZEVzNzVTRkp0YjRsWGhwQTFBWnc0WVp3RFJjZW9BbWhIVFdndmp0c2V3?=
+ =?utf-8?B?S1NSaEF0Ynh2Wk9zODJ4emNKUlVzc2NZT1oyYVpMTGs4ZVFDY3QwMWgxa0J6?=
+ =?utf-8?B?bEhnL2xraHZHTlRBanE2bm8yWnBtdFB0WFB3NTNkSVhkRnV6UU5obitTaWxE?=
+ =?utf-8?B?QVpwcVlyT0VYRE9oYklTeEZBTW5LaG4zZFZhckVXWkwvT3JVMHN3OTVtUGxZ?=
+ =?utf-8?B?U2ZaMGVrNll4UzVJWHdWNG4xeU5NQXZyaC9WaHp2bkgzYnBEeTNBTkpPaERB?=
+ =?utf-8?B?WWlYQ1YrVWpOZ29oQUFnQnpldUIrc0hLSGtpbUpEYk1sUW1RTTd3RnpBQk5p?=
+ =?utf-8?B?OGRGVUJlcExTR1RNcGFuWFpYbFo4ZytLRXRGNmFtTU8yaU5GTlhVVHBzQThj?=
+ =?utf-8?B?MHJKbzJIWm42RzNHbzFmRWxPajV0NE9ZdmNrc1BLQkxMT0dnWDZBVUZjRk9T?=
+ =?utf-8?B?UmFmdDJJbVRPb1pLNHAxTnBnc1ZXNGlTZGNVRDd4M3JySHdhM1RMMmhaK2Ux?=
+ =?utf-8?B?aFNTU0J4bThnSTJ6ZTNRSSthdnNaMllGY05NQkRxcVN6eWNBaGRxdURpMmZY?=
+ =?utf-8?B?SkliaW5sY0NmSmo1MW5tMUk0aldyU25uaGZ1aXBCTFo3bU1zMzJvbDFEQXMx?=
+ =?utf-8?B?ZTQyZWRxWkxJbnJkY1M4dy84OTNhdEw5T1NUZCtpdUt4K2FPVFFSa3BGNllI?=
+ =?utf-8?B?alE5SjBFNk9tRTBERnZuKzVic2ZHZnljQTlrREhlRGlNRUF2YmtNWEU2b2sr?=
+ =?utf-8?B?Vk9XcjJ3R3RaUVdHamxhWTFNVlhvMjFsNEVka2lFOXdzN1FwN1AxSTA3TFJB?=
+ =?utf-8?B?dkhtbnNwVXRxaE1peHhyZU1hWVB0TDRJRVZZU3JpNUNGYzlRSG1uaExwUUNo?=
+ =?utf-8?B?K1hnaUg4MkthbmdGSEJ0eDh4Ti94SllIM0swcnpYNEQwdWNYNy9EZXN4RnZH?=
+ =?utf-8?B?aEh1NHVRQy8vQXMxTmZaa3puNjZQWVpiZlg0YW1KUWVwQ2RJRllVaUxReDA2?=
+ =?utf-8?B?bVJXR1FzT2N5bGU1Ulg2ZUJKejd4K3lRMU00OEFiemNtREFXcUUwUEhEWWty?=
+ =?utf-8?B?TlVTdG9nd3ppbkI5dFBXcjE3TS9ZWlE1TXRZT09ITUU4Yis0ZTJLd0RFYWl1?=
+ =?utf-8?B?Tit4UjJ5QzUrTjlhTGY2V3ZrUW00Ukl4UjJxZ0hQM3oyTXpRL3FvK2gxT0RF?=
+ =?utf-8?B?NFJoQlI5WmlVcm9ycUhsVndIcHdseG5KL0d0dUk0QU4wR21kNmVLN1FrdnZG?=
+ =?utf-8?B?OWFHcDE5ZVlwbm91bFZSd25OSHVqeGF2T0J1MXVxNDUxWklvdTBXVUlvQUJD?=
+ =?utf-8?B?bEtDL2RmcFgwSVB5UlhZSjdheUs0UGJoUmhyS2RDYmFLZVN3OFFjRGpaS3BH?=
+ =?utf-8?B?YzU4aFFPa0xMWGRCcjhPdGVFZHhxOE10S2hKMUZ2QjM4dmZiUTVvLytNN3ht?=
+ =?utf-8?B?dXY3S0w4NW9UaE1POWhvQU5pQnN0TjdNaVhHcDhhbkhyT25mSm1UMHQwVDBp?=
+ =?utf-8?B?cU5LRGxuWFROUWhVYmhOZGR4TnkzSGZQem9aN0drTVZGeDRmVy82eGN6d240?=
+ =?utf-8?B?cHBaOTA5YW5yK0ZiczM3K1NXRmVNQkJlMW1HTmpzRnZaY3NtTjZlekRsVGdj?=
+ =?utf-8?B?ZHV3VDl3VXh0RDVETXFQbkRFcGcydEZPME4vaGhEZms1TlY2UmZIZVB5K2Z6?=
+ =?utf-8?B?UnNsR2V2R0JCb2tiVDBPREFpRDRTc0RRaEpWNjlyN1FZdW1teWIxWDcyKzNB?=
+ =?utf-8?B?S290Mk5PQ1EyeWZhaEhCUVZkSzF6ejJ1dzRGd2xBUkpTeThYTmlyeTRmODNw?=
+ =?utf-8?B?NXhQL2lyQzUxSFduYlFrZlJKRy9aN2RJOWpRcU16VjBTOUIxc1FFMU9BWC93?=
+ =?utf-8?B?cE04eUpWTVpkZnlpUG1nSk9KWE1aaGU5SmsrMnBucXRFZmJyZjVHR0tZWFgy?=
+ =?utf-8?Q?0/8zGYg8pXPDzotQgK?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a889506-9c4e-4051-edf1-08df195eddda
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5712.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 10:38:55.1464
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h1bRT7QPDLNGmAg9sqsnIsgIpiK+t5HkTITMB7ghsitaODDHTnLG8dt++O/t5SIoDm8fIUi+L5pgimcTkZe87A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8519
 
-On Tue 22-09-26 12:08:43, Thorsten Blum wrote:
-> On Tue, Sep 22, 2026 at 11:45:37AM +0200, Jan Kara wrote:
-> > On Sat 19-09-26 23:39:00, Thorsten Blum wrote:
-> > > Each hardlink hash entry reserves N_ALIGN(PATH_MAX) bytes for its name.
-> > > This makes every allocation larger than 4 KiB, placing it in the
-> > > kmalloc-8k bucket even for short names.
-> > > 
-> > > Use a flexible array with the already validated cpio name_len to reduce
-> > > allocation sizes.
-> > > 
-> > > Also use const for the read-only name parameter.
-> > > 
-> > > Signed-off-by: Thorsten Blum <blum@kernel.org>
-> > 
-> > ...
-> > 
-> > > @@ -106,14 +106,15 @@ static char __init *find_link(int major, int minor, int ino,
-> > >  			continue;
-> > >  		return (*p)->name;
-> > >  	}
-> > > -	q = kmalloc_obj(struct hash);
-> > > +
-> > > +	q = kmalloc_flex(struct hash, name, nlen);
-> > >  	if (!q)
-> > >  		panic_show_mem("can't allocate link hash entry");
-> > >  	q->major = major;
-> > >  	q->minor = minor;
-> > >  	q->ino = ino;
-> > >  	q->mode = mode;
-> > > -	strscpy(q->name, name);
-> > > +	strscpy(q->name, name, nlen);
-> > >  	q->next = NULL;
-> > >  	*p = q;
-> > >  	hardlink_seen = true;
-> > 
-> > What about the space for terminating \0 ? This way the stored 'name' will
-> > be actually one character shorter because strscpy() will overwrite the last
-> > character by \0. Or do I miss something?
+On 21-09-2026 21:00, Usama Arif wrote:
+> Both amd_uncore_add() and amd_uncore_del() search ctx->events[] for an
+> event whose counter slot is already recorded in event->hw.idx.
 > 
-> do_name() guarantees that collected[name_len - 1] == '\0' before calling
-> maybe_link(), so name_len already includes the NUL terminator and no
-> character is overwritten.
+> Perf serializes ->add() and ->del() for an event, and the driver never
+> moves an installed event between slots, so an installed event can only
+> be at the recorded index. Both searches are redundant.
+> 
+> Neither callback is normally hot. That changes once more events target
+> a PMU than it has counters. Perf then multiplexes them: every mux tick
+> deschedules the resident set and schedules the next one, so both callbacks
+> run for each rotated event on every tick.
+> 
+> Meta's fleet-wide profiles attribute 1.1% of kernel CPU time, excluding
+> do_idle(), to amd_uncore_add() and amd_uncore_del() combined. On the
+> host that exposed this, a workload holding 15,782 perf event file
+> descriptors drove 56,575 calls per second into each callback from mux
+> rotation, against a 16-counter DF PMU.
+> 
+> Patch 1 removes the scan in amd_uncore_add(). It walks every counter
+> before the free slot search, which is the common case once multiplexing
+> has scheduled the event out.
+> 
+> Patch 2 makes amd_uncore_del() free the recorded slot directly instead
+> of rescanning from slot zero. Deleting all events from a full PMU with
+> N counters drops from N * (N + 1) / 2 compare-exchanges to N.
+> 
+> No functional change intended.
+> 
+> Usama Arif (2):
+>   perf/x86/amd/uncore: Remove redundant event slot scan
+>   perf/x86/amd/uncore: Free counter slot by index
+> 
+>  arch/x86/events/amd/uncore.c | 24 +++++++++---------------
+>  1 file changed, 9 insertions(+), 15 deletions(-)
+> 
 
-Ah, indeed. Thanks for explanation. Feel free to add:
+For the series
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Reviewed-by: Sandipan Das <sandipan.das@amd.com>
