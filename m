@@ -1,88 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F74743F8A7;
-	Wed, 23 Sep 2026 12:00:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA47A4A64E5
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164811; cv=none; b=vCU9b8irpVpX05MyoVT198NZ1OsW/kVpE238ak5g3/Ox0a0aNwyxoNBb3RgPvJjKdi9GjqE0AgcQZZYuL4ckQsXiBoyuYAffMznUT58aoVc1nEXsMxII6YA9864di2VQMRF4BHXFEsQErBQEQ0WYbZf1dH+O/ArRZWgSIZUvtos=
+	t=1790164813; cv=none; b=K1gy6iBOkiSw/+DPuwgjZl5R3DMUzj/RHNAj0aqJVze0HH9qcEWK3CMWZXknC6hUVchlv4vcAFKyQ6JMa+6N2/tsFQrMtcOFPEMt2LaJDr8RmE8m8yqa7gdEa7W7LPjJEjKMQ/hO0lk6AKrYkzpSAuElg5DcGKgDbwixIRPjQ4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164811; c=relaxed/simple;
-	bh=IardE9mwTMTgNgf71nb7nB6u9W+250RspRf5bHw4Yv0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dIfmsXsDrCkcmZT1wQMFQhc3i2aYCz9kp3LkyvjUVC6G4ZR4wCAP+iMc0NljrHdZgCvKusciwHBu2xFy89BVYKiu3MDCaf7lcEAXs0yKV8l5HUJDSAodw44xY3JPp9hIoRdXaF1xbDFgnDZDI8OBRNAf0Zv+cBrpt9FltnLleH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jbe4/N+a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790164813; c=relaxed/simple;
+	bh=1GBcvPzoXm1aMRVXIWh6oM8rHvYTbYsvbTkjmOlRDw8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=L9R2RLpvZcrXIobfW7z1UzGZe624bqIHXgylc4Kskdhnl4cCi8+tLqaJBkleqkP3NtMjgKNSUYSGpUffamXm+AvH540KSZCWRarO/jXek46Rv+EoHEKgrmzX8Zz3KrRthidIxeEuwN6jjncbTNfOp0KZRXO+bfP9zyHFfzl7xWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=jG8wSlua; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jbe4/N+a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B299B1F000FF;
-	Wed, 23 Sep 2026 12:00:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790164804;
-	bh=IardE9mwTMTgNgf71nb7nB6u9W+250RspRf5bHw4Yv0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jbe4/N+a414ufitw6R7WJKMNaOyEGFvwEYUM5QNWgcRccrbow9rAmiIxcHBz3Apnj
-	 Q/0/bl16q5Ipl/ntYMweZW2ADvs29vrE94M0Bjc+Gb93v0vMt0mLp41+Tza5Gwxe8W
-	 bqb4f66yqdRZYd4ETNohR1bMYKXhqA+j5Hi6z1kn8Os9pTaoxTD7xBhuhQ5/gq/cGe
-	 AYNOjpQRRuWsuWaMyLYOgmb8leXZG5iKKXWO5jLFf5c0cof/q3aR/koyMNN01Va5ff
-	 /dzRO1F9wA2w5LH0gRPGki82iYQNaKUU5N5G645lRlrgd8GMBWQ/dS8iwgptSShAtE
-	 iPnUDLY3S1scQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 189721AC5739; Wed, 23 Sep 2026 12:59:59 +0100 (BST)
-Date: Wed, 23 Sep 2026 13:59:59 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	cwweng@nuvoton.com
-Subject: Re: [PATCH 1/2] dt-bindings: spi: nuvoton,ma35d1-spi: Add Nuvoton
- MA35D1 SPI controller
-Message-ID: <arO_P5imHln19iV-@sirena.co.uk>
-References: <20260923041926.425551-1-cwweng.linux@gmail.com>
- <20260923041926.425551-2-cwweng.linux@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jG8wSlua"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790164805;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wAYZvqG64NWM3pm4lFT7ceYVzZbOVDSNdNkZDkRdins=;
+	b=jG8wSluaskioZrF9fn5wNgoXv2lztHdbk2VFxXM7tXg1Z7F1URcJehsGyU/uXHpBmG069m
+	QJyslsDRhCdi8uH3nsscvMfjesGjKcDsCotq51xtBV19pPVcVLgZpRTVksduRiwe7FmlgJ
+	7I6NOmEedT2MwAVEXVfVYTX7+CYFlnc=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-252-PmcdeM7kNyyeLh-oSWAHvQ-1; Wed,
+ 23 Sep 2026 08:00:02 -0400
+X-MC-Unique: PmcdeM7kNyyeLh-oSWAHvQ-1
+X-Mimecast-MFC-AGG-ID: PmcdeM7kNyyeLh-oSWAHvQ_1790164800
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CFFE018413A0;
+	Wed, 23 Sep 2026 11:59:59 +0000 (UTC)
+Received: from mpatocka-thinkpadx1carbongen12.rmtcz.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 299BE180057E;
+	Wed, 23 Sep 2026 11:59:54 +0000 (UTC)
+Date: Wed, 23 Sep 2026 13:59:52 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Itai Handler <itai.handler@gmail.com>
+cc: Eric Biggers <ebiggers@kernel.org>, Milan Broz <gmazyland@gmail.com>, 
+    Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+    Benjamin Marzinski <bmarzins@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+    Shuah Khan <skhan@linuxfoundation.org>, 
+    Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev, 
+    linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/1] dm-crypt: allow encryption sector size up to
+ PAGE_SIZE
+In-Reply-To: <20260923113903.901245-1-itai.handler@gmail.com>
+Message-ID: <947ecfba-353b-753e-53d1-30d894822401@redhat.com>
+References: <20260922120330.127262-1-itai.handler@gmail.com> <20260922213457.GA3536981@google.com> <CAFpOueSjekxhjEosQGiZ9BiDh5tFOqBPX5w_2PVsrcN6pO+dHw@mail.gmail.com> <9a6c20da-4da9-4a8d-a6d4-f18900228bf6@redhat.com>
+ <20260923113903.901245-1-itai.handler@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sUqdv2tH/WyvS8Pm"
-Content-Disposition: inline
-In-Reply-To: <20260923041926.425551-2-cwweng.linux@gmail.com>
-X-Cookie: Too clever is dumb.
+Content-Type: text/plain; charset=US-ASCII
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
 
---sUqdv2tH/WyvS8Pm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 12:19:25PM +0800, Chi-Wen Weng wrote:
-> From: Chi-Wen Weng <cwweng@nuvoton.com>
->=20
-> Add a Devicetree binding for the SPI controller found in the
-> Nuvoton MA35D1 SoC.
+On Wed, 23 Sep 2026, Itai Handler wrote:
 
-Please submit patches using subject lines reflecting the style for the
-subsystem, this makes it easier for people to identify relevant patches.
-Look at what existing commits in the area you're changing are doing and
-make sure your subject lines visually resemble what they're doing.
-There's no need to resubmit to fix this alone.
+> A torn sector is possible today
+> -------------------------------
+> 
+> Consumer NVMe are generally shipped with 512-byte logical blocks and
+> stay that way in use. Installing Linux does not change it: partitioning
+> and mkfs work inside the logical blocks the drive already exposes.
+> Changing the block size is a separate low-level operation - nvme format
+> with a different LBA format - which is destructive, which no installer
+> performs, and which a drive may not offer at all.
+> 
+> The machine I am writing from is one: a Samsung PM981a carrying a
+> complete Ubuntu install - GPT, EFI partition, /boot, and the rest of the
+> drive as LUKS over dm-crypt with LVM and ext4 on top - and it still
+> reports logical_block_size = physical_block_size = 512, with no
+> atomic_write_* attributes at all. The dm-crypt device on it reports a
+> 512-byte logical block too.
 
---sUqdv2tH/WyvS8Pm
-Content-Type: application/pgp-signature; name="signature.asc"
+I did some benchmarking some times ago - and all the SSDs that I tested 
+had worse IOPS for sub-4k writes than for 4k-aligned writes. This means 
+that the SSDs have 4k sectors internally and do read-modify-write cycle 
+for sub-4k writes.
 
------BEGIN PGP SIGNATURE-----
+The SATA standard doesn't specify well what 'physical block size' should 
+mean on SSD - the result is that some SATA SSDs report physical block size 
+512 and some 4k.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqzvz4ACgkQJNaLcl1U
-h9Dz1gf+NYCOhOIpeWAVJRB3QbcSmYNASO/6KLefUI3xl8grpvex8RMm/fte8r0i
-7CmPqopVussH3GKXPFZKYebJtOFCNMyKaMf71hFgoRi+HqRnWtYLvsepk6amqgZN
-mQXHo75rJbduC8/3Fhd3MZJBwZHDt51qlqRlh1OKHvEIvaVgcEMkFaGqEq1ehEPA
-RKE377KGTvEC2ksHXE/GIt6ewtKVjy7kvALLNogL4l5j/CewNIq4J7nifbjz3Z2t
-A5pyOcQVq4PvzbJB7qDR8TTezPlDwm7nFlCmEgwpCyvy6Mdi/2HFT0l/oXW2hHsi
-hUVqrqk4mqri4Lxcn07S3DIrcN+NQQ==
-=tlAB
------END PGP SIGNATURE-----
+The SSDs have remapping table that maps logical blocks to locations in the 
+flash chips - and RAM is expensive, so I doubt that any SSD vendor would 
+put 8 times more RAM on the SSD in order to map 512-byte sectors 
+individually.
 
---sUqdv2tH/WyvS8Pm--
+Mikulas
+
