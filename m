@@ -1,165 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FB53F4DD2;
-	Wed, 23 Sep 2026 07:25:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99DA0443E52
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790148345; cv=none; b=u7V4cTtlBheSrrK0atNs5lzLjiikCk0JisA5657oaCUhJ0+FH/KZpOP+ZaLMd7/PKaweh7JQqMYItEo0tzJDG5E/0DgeD51MFGMysuk1/g7rJ8TCX/chN+3Zi9hwsGwcsLzgLbF5MGx+cP5PId5YIsr7FpQRTqRJJ7bbxX9hUiU=
+	t=1790148349; cv=none; b=l3EuLxl9e81zVTYG0/MjXgq3q5gr2wWZdoE9htQGhCQC9u/LVi5rQt2hTrkn9ykfWo9C7NReCIRQLyoqWnUp99Rpghx7kjZvvUX4I98ewKaGTVuZeWcXqJlBsSLMUTjJ+3iJjZGVmBkO52+nLqGN7dZyp6stCc53zVQRu1o43EA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790148345; c=relaxed/simple;
-	bh=gjKAhENt8OS/KqIAW7SARRbkKsR3HmNYD+TAopC3l9k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=in3DrK/8/fOZ3k+eXJLI8+SF0jyx0NvRJs4blqzedc83eoT+32jfZoTSJEpWJzbOiND/5mremyOcGzYYZActNvywYXLfPQIqvvV/MCDQngWGM60sGMI2567MroCqymzxjk7y2atUxFI+5YEilWRugn0VSKXDRbomZ4K1hgQdQ/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PnTvaGXU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790148349; c=relaxed/simple;
+	bh=FMFvu1leO864za4bNNq5n0XaGNSTdbX/fyBf1f/TriE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TiLmroxAYUDU6oJhlWTuiTGiDD1T5fkEsf5CL3FxSQL38iSpEHB+DZLaXDxJyVadL4HrQiQ6dAAnn7Z2Jy9H6CIk85uar+z/OCIYz9WAxKmWG9kSfkgYcF1hHsJnAZzAgnCJC2BaznXHRkocI69DRZqKFTgSk2T8s2o1eXnfOqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ii2yvOxv; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PnTvaGXU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5C91F000FF;
-	Wed, 23 Sep 2026 07:25:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790148343;
-	bh=nHU+klMl+6fj4IxcKpc7ReZXkRGsZ/M7dfsPEKrCLKE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PnTvaGXUEepbUNJGYgo3QOK4ATe+VF/C8uPkFpcODBJG2+8AQajxzrLP9gSiT1cpN
-	 oqdoJh4cY7kJEcr2m69K9E87Y8ff2qQOhA73C5DmXfBv7i1WF7u06LJ3tKG17/ycaS
-	 wPSA9YdoCgh9YctF48BD1ljFpgbQ5ynzDGb3B4KWCZdC1eJ3v2Z4hzONnPMSLMC0nd
-	 38OjgtZXzVh4ccWsjkiIR6Fm8BGgCsYPDMyKR8FcEzjpv8mj8TlWc2V7svKF/hWGGP
-	 uyAFHMeWZk2IJPrfxD2ODwhF6dqj0o7YHfc7uIuwSogMPlgqR3nCoNjVX1Qhw7IVam
-	 VD5SqOjKsZI/g==
-Message-ID: <fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org>
-Date: Wed, 23 Sep 2026 09:25:34 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ii2yvOxv"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4d04d73b8so354473a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:25:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790148347; x=1790753147; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ayvYqvX3S4e1/XKaNC/+yD+owT/i5dd1ypLn+dC7fQg=;
+        b=ii2yvOxvVByI9QX0WcIV1QTs3M2ejg+bRdz0atp3CeFyTTgs3C6UCtIOvqpONTkOjt
+         NqgcnH9tv4c+QCMq14zNyQBnCM9hSEW+ZtSHQHteZHGxu2P67ivojFQJF3udcZWey7sE
+         8rxH/djyX4WTjSw4B/5kLsEzbUX5LiFRlGrqKNznWi6RXS2ApszyiW0JjJ6Vw5UNRp5r
+         QL9AkQNzP4+4ESwJ0HHff26pGR1XTb13Il1KFY0U3C390p9WhUyV/X3c6XG5jf5aXRG7
+         XHI7MNjZCukqoElpU6+PJx7RFvZFOF8xKR6+xUFlFqn7oOXJCizpXptdv9Wt15KqboCU
+         Uj4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790148347; x=1790753147;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ayvYqvX3S4e1/XKaNC/+yD+owT/i5dd1ypLn+dC7fQg=;
+        b=daUvC+VbPRirlOwRmdTfovORugjqvk77KZ9DCM9osbUxFroIaopGWffxNTzRqn7hEo
+         H8kT8Zq2YfdoPNWpZ5ekfNJtMBNcs2vKbxO2W7vkKKiMN3kgrDb8zjEz2wYCMWsyY0su
+         4fNphLkFKnOSH4ewmYH0biWOysxS2UH6hfC/NKt2ojTjxBIAiT/sC5Bm8m7+ZD8kIUbc
+         bpsBWPuocz+B8jE75nI5EUWOQLJpkyKT2QebwJJB+wh08yU4ahukTlhZo2Zh01238A9b
+         6shmsv4/enlMUTcn+G3oI71aXS7KPzbz+gymDTz/sGcvMw+qbCdixnR8SLaRSCNI2w+g
+         Echg==
+X-Forwarded-Encrypted: i=1; AKwUvByfOSXicxHCcHzJ5hRRyehYZFSWCzh2svkUD/1plWoiKspYjJatjoOsA3pCipQW6QWi+upr5Qv9x5pSXjw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3zEqyRHxXSTPvz+GH7FHj1cyk4QPujqTEe50/OWyOMsWgzSxi
+	/FSUxe69Pj69AexamDZZdT5MOiZ11YCMnVqeC6etDFjhgTA97OobYMIw
+X-Gm-Gg: AYBFou1xJP+uyCSr5oav6alU9w7rFhcXzyyxVzzB+ZHb5lraAREYGXs+j3R6akCkw3h
+	/AB+mW/X+6gniuzklD8QK3cUuzTp7/7ck7ltgryDUxl+6J2S52QxXIXZW/EzedeDLLrsdrvfjau
+	zsJrSzlcQ7D4A3H2ASREUZ1o5hqHbI6rY4PZyuaLq1N84afGnCF3PUIIwOwvxpx3AWlSCz4Kloo
+	jbs8xbJgFKYwayL13bj88OVKiJd5ejQvU3IEzAVFF1WXy9q1wL6dlqUHkN+ZVMSomKUMIO53Xdu
+	PfDlGEoMxbdSOav+LjwSBFtQOCVPk5gd1JsdxL5vKfldRqubXhqYaJfkZFNEsmE8BNxbRFeZ/Nx
+	LIibhbbLXjs61OGZP/W0bVAfsTBwlOF/AAiZPEvPhTZ9xEXtbGZHfxRXKmZ3Z9+wjLQVyFhBmhq
+	jMHG+aJGLMd/ZwGCKDFUT8k11WBWNGERVKoFERgKwKGcxz0YXys+ncog/oFInPcvatRpQyT+ahu
+	J67ueWE3UH9uaM+YtVmfP8tmZl24gthRq5flMnknhDP4RR5H820uUuZN5pvSW3Apni7OASKEEMK
+	MlUqByzUdCYPDQ==
+X-Received: by 2002:a17:90b:4d0d:b0:39e:6a81:5a97 with SMTP id 98e67ed59e1d1-3a07e716582mr1529832a91.43.1790148346921;
+        Wed, 23 Sep 2026 00:25:46 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07db88298sm3940945a91.4.2026.09.23.00.25.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 00:25:46 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Vignesh Raghavendra <vigneshr@ti.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>
+Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>,
+	Chuhong Yuan <hslester96@gmail.com>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 1/2] dmaengine: ti: edma: fix pm_runtime usage counter leak on error
+Date: Wed, 23 Sep 2026 14:25:31 +0700
+Message-ID: <20260923072532.19307-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
-To: Alex Elder <elder@riscstar.com>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, mfd@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260918165234.687224-1-elder@riscstar.com>
- <20260918165234.687224-2-elder@riscstar.com>
- <20260920-fiery-fanatic-manticore-6abf0a@quoll>
- <85b0e7de-e4a8-4e08-b801-a9664d366e1a@riscstar.com>
- <7e32063f-f1a4-4259-96c9-fcbdd25c7f2f@riscstar.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <7e32063f-f1a4-4259-96c9-fcbdd25c7f2f@riscstar.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/09/2026 23:02, Alex Elder wrote:
-> On 9/21/26 4:46 PM, Alex Elder wrote:
->>> I also have doubts that this is needed - I see no updates to the misc
->>> binding, which would be referencing it. But then another point would be,
->>> that you do not need separate child node, which has no properties.
-> 
-> Krzysztof, I've done some additional work on this based on
-> your feedback.
-> 
-> I think you are correct that there is no need to define
-> this as a special syscon with its own compatible string.
-> 
-> Instead, I can simply define a simple syscon with a label:
-> 
->          tc9564_config_syscon0: syscon@0 {
->                  compatible = "syscon";
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-I never proposed anything like that. I asked to drop simple-mfd.
+pm_runtime_get_sync() leaves the runtime PM usage counter incremented even
+when it fails, but the error path in edma_probe() does not call
+pm_runtime_put_noidle() to balance it, leaking a reference each time
+resume fails.
 
->                  reg = <0x0 0x2000>;
->          };
-> 
-> And then have the devices that need to use it, refer to
-> its label using a phandle:
-> 
->          tc9564_clock0: clock@1004 {
->                  compatible = "toshiba,tc9564-clock";
->                  toshiba,config-syscon = <&tc9564_config_syscon0>;
->                  #clock-cells = <1>;
->                  #reset-cells = <1>;
->          };
-> 
->          tc9564_emac0: ethernet@40000 {
->                  compatible = "toshiba,tc9564-xgmac";
->                  reg = <0x40000 0x8000>;
->                  toshiba,config-syscon = <&tc9564_config_syscon0 0x1070>;
-> 		. . .
-> 	};
-> 
->          tc9564_emac1: ethernet@48000 {
->                  compatible = "toshiba,tc9564-xgmac";
->                  reg = <0x48000 0x8000>;
->                  toshiba,config-syscon = <&tc9564_config_syscon0 0x1074>;
-> 		. . .
-> 	};
-> 
-> That simplifies things a bit, and requires no devicetree binding.
-> 
-> If you think this is incorrect, please let me know, otherwise it
-> is the direction I plan to go with the next version of this
-> series.
-> 
+Use pm_runtime_resume_and_get() instead, which automatically drops the
+usage counter on failure, fixing the leak.
 
-I think nothing behind PCI EP should be described in DT, because
-everything is internal to the device and implied by compatible (or
-vid/pid). We do describe internals of devices in DT usually for complex
-devices (like some display blocks with multiple subblocks) or when they
-are used outside of that device. That's why I asked how are all these
-clocks and resets exposed to the host. If the syscon is used only by the
-device itself, I don't quite get the benefits of describing it in DT.
+Fixes: 2a03c1314506 ("dmaengine: ti: edma: add missed operations")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
 
-Best regards,
-Krzysztof
+Changes in v2:
+ - Update the commit message: Change the function name from netcp_probe() 
+   to edma_probe().
+
+ drivers/dma/ti/edma.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/dma/ti/edma.c b/drivers/dma/ti/edma.c
+index d97db5af3555..8be9e71dab76 100644
+--- a/drivers/dma/ti/edma.c
++++ b/drivers/dma/ti/edma.c
+@@ -2345,9 +2345,9 @@ static int edma_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, ecc);
+ 
+ 	pm_runtime_enable(dev);
+-	ret = pm_runtime_get_sync(dev);
++	ret = pm_runtime_resume_and_get(dev);
+ 	if (ret < 0) {
+-		dev_err(dev, "pm_runtime_get_sync() failed\n");
++		dev_err(dev, "pm_runtime_resume_and_get() failed\n");
+ 		pm_runtime_disable(dev);
+ 		return ret;
+ 	}
+-- 
+2.43.0
+
