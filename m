@@ -1,159 +1,101 @@
-Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E321641F35A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B83C42122E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:49:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790185772; cv=none; b=G90ddKetrvIGFnYVUV6TOQQWy1Nxtzpm4oh7X0Hsj8OijUyaZmMVhnupYVXkqsyOoQOiPAFifidGMZ1Lq1XBGlqogeCBYyJi8oE9CpIm42YriyN6FcBSU2DQUEPryjLku07qRlVvLI617cfaTI1lOEiFpdXywtt6bnSVJ3KG4Tc=
+	t=1790185778; cv=none; b=mW8pnXjRVd324QvWdFbVjjbgtUOSYLoGoFuU4bOPqwoW5TDFRfmKWHd0/bXyw/cXgRlj664LjGhpJR22waZPxHC7sYta40BAllVD8OzzZuN6thbI1/xWLGWVQMNEZ9kP/pn77RVNe+UgjK9WMoD5ZDy0Itu6er/sQp44+R3r+Lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790185772; c=relaxed/simple;
-	bh=P1+tvHw1slpxwuQOyiakKqWUipAkZFzNjGyxkQPASA8=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ACUmIBEHTkO0YYeu/wTjICuZnPd58c7vfodhlDRkHpyaN5yTjoUmuCbr3sf3BcvTSt7e+RWBHIid+15aS1EkyTed8xnhfPlSInaEyMDAYHlP829NAiw1yqmOdAaRTLqnVyx1iZ6adMWPalWGfGUryUzWEXEb/Hzj+R21Rnd5O5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f9.google.com with SMTP id 46e09a7af769-7f4e9ec63a7so439403a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:49:30 -0700 (PDT)
+	s=arc-20240116; t=1790185778; c=relaxed/simple;
+	bh=b0qrLZrXHcjxaMdguIqby07pC/TpQhegHwKy5tJHNHA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=fiuZlpLpVPjfGNOUgaHa9EuYPg4VnVNnk0b1GWVnOlWivOnIClYziF6HAmrsX2wlZS6492Tnv6RVCKJzQG4xz4qNha6rvk9vawJuZruT6K6ym9yhu1LYgIjeop1CHgSejv6jsQm+uSII7G8qjWbWRnoQTWAKXWVGiZuNmsxwNK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RWaan63S; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RWaan63S"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso659953a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:49:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790185775; x=1790790575; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=b0qrLZrXHcjxaMdguIqby07pC/TpQhegHwKy5tJHNHA=;
+        b=RWaan63S3XBEf34onYxukqlDJ74B6rL/lbo4PsN/sDumTwMMfjCMq4PyeVSdY8PiN+
+         OGeiCDbzWk8O/y0HJW2nF/AuxjwrCc2nrC1Ig03c2FMQi0BTq3RniXwuzREoFY1+mHlR
+         CSlVKYeZwVo/zPSbfLBLgf8ubdiURu7aJTqVsVDHjdMLWqBCWmDtu2CrMBnQjjrmMM9f
+         tc5TFAscc65Ndsgcq9k53aRY869HVBGU4g76GyOIxt86Dmx6Jk9l59oNNwUvb4gwZjN9
+         Sy9QLGhWMyK6IkEgacSPsoRHjV0WEkg091LffqoLBRodv0z+y2K9g0AjvWh4g/i6jIeU
+         tXzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790185769; x=1790790569;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20260707; t=1790185775; x=1790790575;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BIoxU7LRZ4puv9TjF5uCcIKvwIgsp8NZRHhDg/lp2NQ=;
-        b=2m9YfIHPb5skzEYhEIN5eCZ/mWnKXYd17NlyARXIC+nfIiVhI+JFLYaeIREqntkIGp
-         g4IZ2yzhpE/SxYIMojeTYJyZ0wIP1ebflzrHJaes8IgmECmfePMrfV7N34H0srdh8eIK
-         RZ7NYG3l7iGM0ZIM0BA3FuCdPgwaMQTfHeJ54vtSbln0+c8Rl9osfoh4fR/oC+etdH3h
-         L+vDH6LCp5nytUn+iP48XvHhwKB/Y0X/G94LinORr4FHOHHr9u9Fwqw4Y9dEIiFrQ5IM
-         ErBJ7CNXZ85ufRR+YT2rW1bhzlrRulE35WEbHpJ5mvoKcTgwAkrQJBis+6zJBXhbUd7e
-         qMeg==
-X-Gm-Message-State: AFuF++m5epeF5vMiShKq5QY3wnJqcYYXUuH+oerXv4Y9rVuiNQx/4SUo
-	JCJygwHkfo/3ECAznKj/q+E20tBD0YJxLIkfjSoW8O7DzWmkH8+4MLkMQiTNptwY+isv51GegUA
-	SfAiWcis0uQ86TsCdacOzASWFsxnMhD9OqPCr4+k2bnPHSZz6TFgCfyPdwuiX8A==
+        bh=b0qrLZrXHcjxaMdguIqby07pC/TpQhegHwKy5tJHNHA=;
+        b=EpDVyo15Pxz57Om9R+2684pk+odCe+mhzZG3YpY7BzG9Rp5ShUMxWybfo3QmkuV5GX
+         wnCm/5puqYeWg4aAmfxa1aLoszIrpHgLSxJ5WM5emASNQXE76aTF82EnZvDFvGaFgQ1f
+         l9Xtlsj2WOhdAT0oj8XzBvGjphMkqx8VxJF9Z4RrfgkzW+ruO5ueWm9Fx8BR07MedvGL
+         m5uT1loOl9SwHg7TNkPEQ+cXmiFlVAhFZIHplctRWbZilBAIpjtkKPQ/4MTBzQmBFZT/
+         uq6NEKh41LBygpu484xqLBQMzPOvsdngWVhdXW04kB7sp53xtgxza5aukSTlqwJXb62/
+         NxyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxeoQEcFkvOlC9ZDzRauPud2ThSqKZaLxP8QxUclOxzTObU+uN81Lcw5ZgxPXv32yaWwjhc/fEWaihsVv0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBBgJqIZTmPmrJIH9qkIMxllPmBN7ADPaHg7utHWrwykqR7r50
+	jAw/9tQ4g0tMBmFE+qE3ylU1DjE7MAVxHGuFX5p7yYn7xHLesyhnpYY9
+X-Gm-Gg: AYBFou1DGCRL65+qBgkvEijtefw6HljCz/pgpHLl4RFSIaqR89Fuo3nbgGv8mYvsrN7
+	kmKJBsy8rhGPCNk1icHhUYsBmLY20oqeG/gi1sikNoEmmjwYGbBH0dN8woLDMDDfoRThecDAv04
+	MchuFD24OkxWoOcDFTrlexx9mXyQ/GuIN2VLHe3I9qNLjzrUw0CfMG00dwePbbjbXrBO6VsXFiL
+	r6Vwkzk8KjZVTkl3Hgjy1gSWjdpQbjGW4maW69Va3ynyc85gdFP0yv8AGoSa+fyh9kt6PM133KK
+	rW0jQVOW50Tp1qac9oG335ZmLC5COd0NOcIeVfhhHCN0xdumBYZ+k82vvyEf+xV2JWd5UlT1RAc
+	SCIDZHjf+FpHG2WgWM0sfxkFYtghO059eYVAO/XEmazyLzWdIIV9O0pPxi89oe13WKRNmbQs9z0
+	NFtqTjzD2j39G28jOmSkXyFr3pVfXypKR9WE6Y/96yxgldU17xv5uetRUdLYpxnmwzAEX/evaZ3
+	HaMTdA2+nbMf8DVoVRicDJgcsQfF1wD3/J9
+X-Received: by 2002:a17:90b:1cc5:b0:3a0:9640:8036 with SMTP id 98e67ed59e1d1-3a09640858dmr258738a91.6.1790185775461;
+        Wed, 23 Sep 2026 10:49:35 -0700 (PDT)
+Received: from localhost ([13.93.150.60])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a081274d7fsm2065754a91.2.2026.09.23.10.49.34
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 10:49:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1849:b0:6be:7d9:b14 with SMTP id
- 006d021491bc7-6d2cf845d8dmr3207973eaf.4.1790185769616; Wed, 23 Sep 2026
- 10:49:29 -0700 (PDT)
-Date: Wed, 23 Sep 2026 10:49:29 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab41129.e548f532.1ca396.001f.GAE@google.com>
-Subject: [syzbot] [raid?] general protection fault in ppl_write_stripe_run
-From: syzbot <syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
-	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
-	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 17:49:33 +0000
+Message-Id: <DLMVW6Z8IU9P.31OHF60Q6YCWP@gmail.com>
+Subject: Re: [PATCH net-next v4 2/2] selftests: net: test untracked NA
+ recovery of FAILED neighbors
+From: "Lawrence Lee" <lfqlee314@gmail.com>
+To: "Ido Schimmel" <idosch@nvidia.com>
+Cc: "David Ahern" <dsahern@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Simon
+ Horman" <horms@kernel.org>, "Randy Dunlap" <rdunlap@infradead.org>,
+ <netdev@vger.kernel.org>, "Arun Ajith S" <aajith@arista.com>, "Roopa
+ Prabhu" <roopa@nvidia.com>, "Jaehee Park" <jhpark1013@gmail.com>, "Jonathan
+ Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Shuah
+ Khan" <shuah@kernel.org>, <linux-doc@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.17.0
+References: <cover.1790127207.git.lfqlee314@gmail.com>
+ <ce40008682ed26ab039168a5fcb515eff8d30c3a.1790127207.git.lfqlee314@gmail.com> <20260923083633.GA2626135@shredder>
+In-Reply-To: <20260923083633.GA2626135@shredder>
 
-Hello,
+On Wed Sep 23, 2026 at 8:36 AM UTC, Ido Schimmel wrote:
+> You shouldn't have added a Fixes tag. Backporting this patch to older
+> kernels will make the test fail. Wait for feedback from Jakub / Paolo
+> before posting v5. They might agree to strip it before applying.
+>
 
-syzbot found the following issue on:
-
-HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17cfb4c9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=75d7e96ad03ac2dbbd9f
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11849405580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/303a0ade8f9e/vmlinux-50d05c7c.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/70b8ca71442b/bzImage-50d05c7c.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000002: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-CPU: 1 UID: 0 PID: 6845 Comm: md0_raid5 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:ppl_write_stripe_run+0x60/0x1320 drivers/md/raid5-ppl.c:538
-Code: 3c 02 00 0f 85 01 11 00 00 4c 8b 8b 48 09 00 00 49 8d 41 10 48 89 c2 48 89 44 24 60 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <0f> b6 04 02 84 c0 74 08 3c 03 0f 8e b9 10 00 00 41 8b 59 10 31 ff
-RSP: 0018:ffffc900077e7938 EFLAGS: 00010202
-RAX: dffffc0000000000 RBX: ffff888013c2c000 RCX: 0000000000000000
-RDX: 0000000000000002 RSI: ffffffff888aae3d RDI: ffff888013c2c948
-RBP: 0000000000000001 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: ffff888022c26000
-R13: dffffc0000000000 R14: ffff888013c2c2b8 R15: ffff888013c2c000
-FS:  0000000000000000(0000) GS:ffff888096a60000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000fff8cec0 CR3: 000000006b079000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- log_flush_stripe_to_raid drivers/md/raid5-log.h:101 [inline]
- handle_active_stripes.isra.0+0x11e4/0x1540 drivers/md/raid5.c:6851
- raid5d+0xe00/0x17b0 drivers/md/raid5.c:6985
- md_thread+0x505/0x580 drivers/md/md.c:8706
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:ppl_write_stripe_run+0x60/0x1320 drivers/md/raid5-ppl.c:538
-Code: 3c 02 00 0f 85 01 11 00 00 4c 8b 8b 48 09 00 00 49 8d 41 10 48 89 c2 48 89 44 24 60 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <0f> b6 04 02 84 c0 74 08 3c 03 0f 8e b9 10 00 00 41 8b 59 10 31 ff
-RSP: 0018:ffffc900077e7938 EFLAGS: 00010202
-RAX: dffffc0000000000 RBX: ffff888013c2c000 RCX: 0000000000000000
-RDX: 0000000000000002 RSI: ffffffff888aae3d RDI: ffff888013c2c948
-RBP: 0000000000000001 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000001 R11: 0000000000000000 R12: ffff888022c26000
-R13: dffffc0000000000 R14: ffff888013c2c2b8 R15: ffff888013c2c000
-FS:  0000000000000000(0000) GS:ffff888096a60000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000fff8cec0 CR3: 000000006b079000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	3c 02                	cmp    $0x2,%al
-   2:	00 0f                	add    %cl,(%rdi)
-   4:	85 01                	test   %eax,(%rcx)
-   6:	11 00                	adc    %eax,(%rax)
-   8:	00 4c 8b 8b          	add    %cl,-0x75(%rbx,%rcx,4)
-   c:	48 09 00             	or     %rax,(%rax)
-   f:	00 49 8d             	add    %cl,-0x73(%rcx)
-  12:	41 10 48 89          	adc    %cl,-0x77(%r8)
-  16:	c2 48 89             	ret    $0x8948
-  19:	44 24 60             	rex.R and $0x60,%al
-  1c:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  23:	fc ff df
-  26:	48 c1 ea 03          	shr    $0x3,%rdx
-* 2a:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax <-- trapping instruction
-  2e:	84 c0                	test   %al,%al
-  30:	74 08                	je     0x3a
-  32:	3c 03                	cmp    $0x3,%al
-  34:	0f 8e b9 10 00 00    	jle    0x10f3
-  3a:	41 8b 59 10          	mov    0x10(%r9),%ebx
-  3e:	31 ff                	xor    %edi,%edi
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+That's my mistake, I added it in response to Sashiko review feedback on=20
+v3 but thought it was just for documentation purposes, I didn't realize=20
+the tag would cause it to get backported since I only submitted to=20
+net-next. Sorry about that, will wait to hear from Jakub/Paolo before=20
+sending any new versions.
