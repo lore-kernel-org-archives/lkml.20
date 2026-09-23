@@ -1,195 +1,154 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18984A6CD4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703004CDDCA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:53:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790167950; cv=none; b=gjijUiYLvQ8PKmQxI5yOaGAnJZmV+/gBQqGypnUw+Y4p7pqLZYsfOMVKxFctY3JZLo5Umv0l/UTqhtJILiU8UxrwsCKL+B+5jEN3s1ym36MmInPm1i5dJUnTIHvcCi706cXUElo0rYC31fWNRQ0vKsDSrhzhafvw5SvQE62ctvs=
+	t=1790167982; cv=none; b=gFbFf8/WxHPGep7UKPne60m8pBg1Dve3aCo7Hs50xkErJqUMIVEfjuT0YsC4AR6wLzEhrXhB6T5eViu1ZE7mTEfpWPkVOaJ1MhgAkM2sCkuEAi9wjIV+M5xUif2v3zZwcOV9kZ1/Iu2F1kolCYIq6cIhmjNFV/AvFAni2Bwc5Gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790167950; c=relaxed/simple;
-	bh=WAI2SPpJ8puZMu37X97Tb+6oxDR/Qi6/9yk8IhH1Rz0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RbCihFKNyOz6AXw/ixV/cLH7yILVz0jFeFrl29ITyJk1NQhUJnhFEWsw3TLaPyx8C6JCxBHZsWoos2U/WXofMiGDNgIFcHxOOTgDDWf3a5ty/ReA+VG6GpFOXQKe/etJnxsk8fcd6Y51D+A3ZSHZDpZ1xc92isi5+VFQj9LxzsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1cVActw; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790167982; c=relaxed/simple;
+	bh=g73K1kFJKClIKuK+3AW4NuAPAHp5cYsn0gAPJiYJIgM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WlrIz+pgQj8MZdhM0YRvhZxi4vhrs/W6165wuRTVx5QHfgEm42yAwJK1Z1AHWKdUsWd5gb+60PiOIpM5Z+bfBI4+HFyjKpRvV0hBU15x++7c8959Ld8WMMC2m5fc50q3EKU+yDjwdz9AOiHpN8t4zmhK+1bVc1bWDNBWoOlF3Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VmrVYs0T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jo4+x8WY; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1cVActw"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8c1b8d7b5so791216e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:52:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VmrVYs0T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jo4+x8WY"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBbVY04144500
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:52:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3TBru2LjhWrK5UI6Nd5iQkiMg0zqz5wNpP02NfK9egk=; b=VmrVYs0TbJco0JQV
+	7D1VASLt1avyVEu3F78DAt7pnsrW0yAs3VB7y27joLefvmGty36nkzNLzcYgFUgU
+	Jv8wvNBL2HtyMeBJp3UyexiwmmvbenV+vdF0NUuQqgMeIuYEJDKeGH43LoEYz3I8
+	8F26WoVZJwwFFVO8febfx3ijdwrmPoidtsZBftEb/EglLLtCc0rpJSLSzZ8r8fkv
+	n1fyMHH2Nv+Ax5vSK2LyVXDTpC4zWo62jmzZUsJWhf+jLap48oywq8JTXZ+e3CaC
+	OkhV08huoG4vqyP9AyX7OL8y/Sk3oiZXTbx62UxdtIKlKsQpe5CFcIK6EsfDr6VO
+	vKmrAQ==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv428ttnd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:52:59 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-791265014f7so68990137.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:52:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790167946; x=1790772746; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sm7vKUqKVBNM8fpsiqdcEcneUTHOJiE76zYrPR0ilCY=;
-        b=K1cVActwFcDsjZT//i/mfB8v9KJpJvYseaGPk2FkC0KjxU4b6RsEf3COWAlP1RTDQz
-         smMge2qR22zCmc82xCqreoXQNJuubsLmJojOhzn+4q2TTaH1W3r+kiOmmj9LkJdOtedl
-         e1INrx411WVKfLmfX8HqBMZBIf2xMfABZLi/HeV9NtdGWKWg9hTtnU+sqcVDI3b4r96+
-         Cx7X7pvKVAyceoszelTcEvknJk4wbSbBJ7luYz7aQkBD6zHS9tdQB9+CmW66UeEEN5gI
-         3GAtcY6tGHOS2FCgh8tyeRwIM7R4HMSu4w5F5ZMXz045xynvmftA85L4mS6NdYKbcZLZ
-         Z1vQ==
+        d=oss.qualcomm.com; s=google; t=1790167978; x=1790772778; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3TBru2LjhWrK5UI6Nd5iQkiMg0zqz5wNpP02NfK9egk=;
+        b=Jo4+x8WYcn8Ev3PaNnZ4hvaKVPE9bYMNLYrlZUxf7vjlAR7OdG+Q8+usJxG5lKtJoS
+         uY6edCMFMWZDu9zvJfwrgm5nzvca1RpKXO7xdUyWqnsdW6mex3qb+tJZJmszjp2DwkNq
+         cUklF5cYYO8iltQl8jAr3a/Q02PeUmb4eQpSLb2ENGZ58ZYKq6iRS07pFW3nEszvyfKZ
+         UKY0P35nxO/hk6B8vNm8ZcfyvoT6lDMhDPeEaf79/T8CEpz0N8H/pw0k4OJGI59tiBLZ
+         2IhrdteIQXiFeJYQanNCXXNIUdJLKa+cDB9+GtUx7Q/0w2nkP37QsaN/jK79WPUqh7eO
+         DxpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790167946; x=1790772746;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=sm7vKUqKVBNM8fpsiqdcEcneUTHOJiE76zYrPR0ilCY=;
-        b=l56vKlHOGuZ2pqWspVeVB7mGHmUZ9iOH+5kQ/yQaljHs6Cxx2RPfmakr/xO2Ps0aG+
-         W5vVGBkLH9blDxmcyBhWZMczZgBnxPfUM+D/ThB0mBO+Me51yJeaCNEOdDuuMoNZOxlZ
-         Xme9Jd2+Bd7CTkSPoPtjjP53LQQnLSpB7NeTOLdnE+vc6vLsLi+5hWP/5INZ1z5r0CV6
-         AFByUJ/ddZ8LNe4xAVJGx5b4AeK4LopDLhJbJKBMP71ASdqRQh0PlvPttFXqTCIfMzBI
-         7OhtKD/ZB/H0T808fOl3OsRNetJkFwjtkmmlLAitMIKAUFZhFNEa+M2iQkiwQCyy6C6P
-         0NFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxHUGUUAZZX5Jds+zVQrtq89spqzPhAhjcce86NIqfe/aBA9VTh4oGtISsxZId6Y9eY0UOHghIMxwqumRs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nooluWuwnMD1MuKSQbsL76k01ip9uXt+00u7rGDw7YIItQKd+s
-	SQjqWmitpww0Vm+v39eRjLNTLVHozFkYxLPTVM6JYJBnydSbNRd2xok+
-X-Gm-Gg: AYBFou2p+tyD/xEcsrsoArrF8Rlf+XgyiS0i4GxtUL0YoFXgcTZlhLmaj+4RkvdTidS
-	MQGYMUtpOyFZ8y7Garka16gDvnhRqiF6YwmCu7lDvaks7kMB9zi2V+3atCcqVOnROMZwYuOSzw0
-	DD+fPhGtI3JnageahGmPzH//7fE4AFmDeBZ2P4dqs8C2v2aMJ6p7SkUQ9zjER7qALvGR8Rk4nXN
-	roj98f/V6FipviPuG9XCaVYl27oIaP1pTCa4f5fhaYYNbHDnu0v36pPKmpwob5XTwG1YJsrXrNl
-	CLACr4wcL4BtWqSqTu7CJUgVQwug+hTo7mrlBuF9HYO0S9eTg078X7Zi1mLbomypJbRwD2bJNrG
-	aCHaCVChMlDgzFzqUtFm7TP+9V5ofsbcjcyBfUGGVgLpsf7dpOMKNajuiFMPfJqPgdBzXlrDmCa
-	LQgMX1+IHl1Dj4ePHlnTEVLVvAjtvfGbOkjmamGBpW3+0UJXMQpCUxy4HKGcG3a54ND+QGiZZVr
-	/8FYA91fkFOcZ3DN/yONLfE35tP
-X-Received: by 2002:a05:6512:b22:b0:5b0:113d:8ae5 with SMTP id 2adb3069b0e04-5b8d895fe88mr1057730e87.10.1790167945480;
-        Wed, 23 Sep 2026 05:52:25 -0700 (PDT)
-Received: from localhost (sol-eduroam-pathost130.ki.se. [130.237.96.130])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d85956c0sm567280e87.78.2026.09.23.05.52.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 05:52:24 -0700 (PDT)
-Date: Wed, 23 Sep 2026 14:52:22 +0200
-From: Klara Modin <klarasmodin@gmail.com>
-To: Chris Li <chrisl@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arO0RCCE3Woh_I_z@parmesan.int.kasm.eu>
-References: <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
- <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
- <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
- <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
- <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
- <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
- <arKbXe1Qe-FDCTMM@gourry-fedora-PF4VCD3F>
- <CACePvbWW4avTV2WB6iRU+LN5zqkMTg3UhBrq41R0iw91-7Ni0g@mail.gmail.com>
- <5a7ad159b2fabf377b7e1fc4248c433287ac11fb.camel@surriel.com>
- <CACePvbUtEdQLmmudON_qC2aKuLYCNktBuAecFKiSvDC6eTfXeQ@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1790167978; x=1790772778;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3TBru2LjhWrK5UI6Nd5iQkiMg0zqz5wNpP02NfK9egk=;
+        b=OELH+Fv7KV/8kUAekEdggPTtiI1DLzsqvkukZoIiWIsF8uQ80alLsf609TnZ2d9RZv
+         3bP+gZGIJBq+yDk02GGuMzHn6lPDMY18q2VcGC00gwm8cYUhNB2+J9tZ+QjHV9r0hUuZ
+         KNpK+kNOynB2vSU3drsozuwwM9ruBn0dTwHZ3CiaEXaz7G29aritXAIkG8EdDSaMrqye
+         v0EIf4wRTJbjxxMUKffWhI3sz2Bm7yJTPYa8NrfnGwERFLndnglwdF7Y3+qjl0lEpr3O
+         F6SpICyvWPke9Zvdm7N3v1Zeh6PvHDg/8erwQSsk6i/atdCwMRbmfSs7opjRHHNoba7X
+         bTuA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRZyM5YeGcXE9xGYtBUGn8rX2jiYeWU/GRxUbbNcwECjI/GRUpi/Fn0y8wN9/TLm74gRwtL9cr/w5+q1w=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4UlsIVTV678wnHE8/ycddvFKrDTeewHtAf5ub/PnzxvBqotI5
+	iElOldzAGMhKV+vGEW3fBuFL6lLGrz6/lLUcowXVZq92C/GbU+2ZPmalTul+NjBoXRcJWFRPAWt
+	H9ym82zR+RoOM08q08PnLbiOqP9G5FMaxFmuZ5KCo8AY3NubAnb7idrXh/w50YpmWwq4=
+X-Gm-Gg: AYBFou3WyHNG3/UsKAOGmsg+ConIoe6mhTj1d+Wkx4qeKpUe8DRuV2d+j95o2/Qs8yM
+	57x7Ay/q0e/kGMnTgDOA+mrydXkEiuTLm0SoSqwDEgf4qin/LX6ObWgaU8I8vUi0Txy/VAmQKPT
+	reEgQd3AvDbFa/NHHA3eh/R2iArK8kG8BibXYVhMK5slpaB/+nTCRDTssFoIBE5Lc3SfafswdtN
+	lVViBYrO2E/dwZMo8MJ/xh1wr8r5aWa162pLxUadVa+Fkb8lnY4694DIgyOvG/KfUNKCKsFw2vE
+	lZ45ygw3/igRXZWNGaFd2FNPKDqvsB88CDoc0cAw62qx2XBfoXThYtLhTxuLN3AUEgmChgp15Jc
+	Az9m/Y1z9TDtVHpa+jJ19Qzv3zvksAmnH
+X-Received: by 2002:a05:6102:508b:b0:7ae:544d:b36c with SMTP id ada2fe7eead31-7ae544dcb9bmr399738137.3.1790167978581;
+        Wed, 23 Sep 2026 05:52:58 -0700 (PDT)
+X-Received: by 2002:a05:6102:508b:b0:7ae:544d:b36c with SMTP id ada2fe7eead31-7ae544dcb9bmr399717137.3.1790167978161;
+        Wed, 23 Sep 2026 05:52:58 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6da6acsm110013666b.59.2026.09.23.05.52.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 05:52:57 -0700 (PDT)
+Message-ID: <6f07518b-1917-4560-9b62-ca21e8eb56f1@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 14:52:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACePvbUtEdQLmmudON_qC2aKuLYCNktBuAecFKiSvDC6eTfXeQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] arm64: dts: qcom: eliza-cqs-evk: Move sound card
+ support to Eliza EVK generic
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260915-dts-qcom-eliza-add-ufs-variant-v2-0-86d72a2a8f47@oss.qualcomm.com>
+ <20260915-dts-qcom-eliza-add-ufs-variant-v2-2-86d72a2a8f47@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260915-dts-qcom-eliza-add-ufs-variant-v2-2-86d72a2a8f47@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=EZdd0/mC c=1 sm=1 tr=0 ts=6ab3cbab cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=RULibRgnv89dH67Rq6kA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-ORIG-GUID: cZ2mLajdEnpDuJ_4TqwUIT2mWaQB0YzG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1MSBTYWx0ZWRfX1aJFRgnbvATf
+ 9BpsNfshU4uzLWJfeXqSqgsiEV5HWFLgX5xzk93QFnQMb5HLEsr0Wnl0L8gGwSIZF6qw0Fj8LS+
+ xF4+eA9bRrSh91d/2LIjaN2ThCdKju6bQiI/ubUzxx/fIp3fw+Qy7BzMxmNQ65FK4sKFDKvHD52
+ PGlU4f56BGFtIp7F13xbMPlz18q2gZ4NM/+vYmeJBYFTkIJffy1w2eIcsESIQkEHLwBKdgWGAWU
+ 4xeFji5DRcK+pgEKc8Ztsine1fN8fcq2sbL037yoIBXRTa9WpPjJ996zgU1iwMGR5hCboWh24E9
+ OOkUbdOi7S4SkbNyXgm9CPW+S0NzkpKjfkT21UVhaaSDOmwzRs1lz83c2gf3qDB80d+dAzL5wFf
+ Er7rGwThGKzZIDZkmoqrrG1BFifIOzs+Qjv4aovjbfC2GiJQ6Q5bDJYlcdWBJ8T4kp9EM4A8abw
+ kIXCCDv+l4Guti5/cjg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1MSBTYWx0ZWRfX5tSnOGCT+CB6
+ +6wtuEkNtlJbsUnYHYMnzhQmxemjTZ5vw1Zk5XNMHIh8zYUREHZrHpxjwSLg79QjCXESTp5cPo9
+ r33enOlAtSMOCyeqZArDtEK+EWzp4Pg=
+X-Proofpoint-GUID: cZ2mLajdEnpDuJ_4TqwUIT2mWaQB0YzG
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609230051
 
-Hi,
-
-On 2026-09-22 21:10:53 -1000, Chris Li wrote:
-> On Tue, Sep 22, 2026 at 5:53 AM Rik van Riel <riel@surriel.com> wrote:
-> >
-> > On Tue, 2026-09-22 at 05:43 -1000, Chris Li wrote:
-> > > On Tue, Sep 22, 2026 at 5:20 AM Gregory Price <gourry@gourry.net>
-> > > wrote:
-> > > >
-> > > > On Tue, Sep 22, 2026 at 03:32:44AM -1000, Chris Li wrote:
-> > > > > > Right now it has 64GB of memory.
-> > > > >
-> > > > > That is exactly my point. You are running 1/8 = 12.5% system ram.
-> > > > >
-> > > >
-> > > > Chris you are missing the point
-> > > >
-> > > > Zswap:           8812236 kB
-> > > > Zswapped:       24927876 kB
-> > >
-> > > I am well aware of the point. The 7%-10% data I provided is before
-> > > compression. After compression, the real saving is about 1.5% - 2%.
-> > >
-> > Here I'm at 28% without any issues, with room for
-> > more.
+On 9/15/26 2:03 PM, Abel Vesa wrote:
+> The sound card support is the same across all variants of the Eliza
+> EVK. That means we can reuse it even for Eliza CQM EVK later.
 > 
-> 28% is one thing, 100% is a difference beast completely. If you
-> haven't tried it, don't assume 100% will behave the same as 28%. There
-> is a point where too much zswap makes the system unusable. It is hard
-> to pinpoint the exact upper boundary. However, figuring out the upper
-> bound larger than that exact boundary is not hard at all. I haven't
-> seen any one can use 100% system RAM sized memory swap out to zswap.
-> If you have a data point showing what that system with 100% swap to
-> zswap looks like, please share it.
+> So move the sound related nodes from Eliza CQS EVK to Eliza EVK generic
+> implementation.
 > 
+> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> ---
 
-Chiming in as more of a user perspective.
+the soundcard model part could be moved to the board dt if
+necessary
 
-On my 4 GiB BPI-F3, I can reach more than 10:1 compression ratio on
-zswap during some parts when building GCC 17 snapshots. E.g:
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-MemTotal:        3966864 kB
-SwapCached:        31872 kB
-SwapTotal:      16777212 kB
-SwapFree:       16638128 kB
-Zswap:            280140 kB
-Zswapped:        2859840 kB
-AnonPages:       2927376 kB
-AnonHugePages:   1409024 kB
-
-While this is 72 % rather than the 100 % you asked for, I think this
-shows that what size a potential limit on the uncompressed size of zswap
-is suitable heavily depends on the workload.
-
-I have been using vswap consistently on all my machines since about
-August, and I have also tried one or two versions of xswap (but the
-current lack of writeback makes it inconvenient for me). I really
-appreciate the work being put in to decouple zswap from needing a
-physical swap device to work.
-
-> >
-> > > You are not listening. The boundary was set due to feedback from the
-> > > application SLO. Those are real deployments not imaginary usage.
-> > > Please respect the user.
-> > >
-> > Different users need different things.
-> >
-> > The kernel needs to be able to accommodate all of them.
-> >
-> > The kernel default should accommodate the people who
-> > are least capable of configuring their systems.
-> >
-> > Hyperscalers can set their own defaults across their
-> > fleets. They know how to adjust settings.
-> 
-> They can use a safe value, e.g., 100% of RAM. Let the people who know
-> exactly what they want to swap configure the boundary they want.
-
-My personal preference would be for a default uncapped (or very high,
-and I don't think 100 % of RAM is high) limit on the uncompressed data
-which is backed by zswap, since that would mean one less knob to tune.
-
-> 
-> Chris
-
-Regards,
-Klara Modin
+Konrad
