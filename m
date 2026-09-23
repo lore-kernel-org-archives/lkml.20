@@ -1,432 +1,157 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011009.outbound.protection.outlook.com [40.107.208.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73AF57EDB3
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:59:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197149; cv=fail; b=p7PM46LnqRXDev493++KRofpcE+dOojptyS7DY1Bi+3jTXtZZaGCZIWkLKKVNkF7KKE4Ant+D8jrJ7Q4K2v0+ZjLcVSGELJSWaC5ZaSQQPwUqchr/jXjDSlnJ9sN04uD+Y55sxc5d8NAi13/6BbKjzN2t88xrQ3o4fGwaVcLpLc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197149; c=relaxed/simple;
-	bh=DaIAEBdgvwO1I/89PUwVh/QF93gOZDGsguhe5Jtkpuc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=GpnNgOEWoISJoiI6l3xK8UfLbhpnp+iola7iQcaFZGkZRrjKYb+EnclQnp2py/7PSYOQMFkwkf44fMNPen2jLpuSLfr20keJZ4uUdRrcbuMO67+rUn9EfaBL9HKOnPvX2A4aU4kk2ij9PRriEzo+7YUns3iPWI5+sveDUO/H0+o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DFxH/S8x; arc=fail smtp.client-ip=40.107.208.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38864481FC7;
+	Wed, 23 Sep 2026 20:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790197171; cv=none; b=nnY3qx8I+0qB94cIaqshijlJDKX13aCEHWiqFo9G7jIxpFmxjRjAvL7e0/ZzSeHhr1JJemubo7viGr8BDf65XSOn0Cut7AfZgCc6RDVh7mdCUHwHeHGgwuAafLRQGLS7D0ZVQ0nlEhfnzHcmO1/p0FnJfyiapjINTXESVGFFZjU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790197171; c=relaxed/simple;
+	bh=XjLg0A25jRw5IumqJVTczAk25TCLJcI4jyt9XoU+w/0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=EDZw1lyD64iYKOzh0IKfVVaxhx78D3XP30jLFINhxcnrATmwtdxEFx7iN9O/bNTfW9HCHHN6x5a738cvKyGMiRRJkBqndZEfit+P46LUZWOGimvhGDQu2Tp5wu0g+I+p95QxtDbmcCmqmmDRdpsRLNlj7fdcCAX2vCNmiu+iN6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QqomW+yl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DFxH/S8x"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mY8ZaCW4XBgjnQ4eROVqTSUTy67M7hILLh5oZ4JGP89a0T3cUUtQ+4XgfiwhOkiVd+iJmULvKGfr+Ev+X8r9A6YTGuxLZG1EXE9+yH+gaCvDnMBuYP9ZP5AjlGmYjemZ66bME0rj/PmfYqlAyH3jc8XHdlXZ+MoDCguiNIjh2WXyQ7qvZfCXlFicM1C1ZsaulKhf11MXaVr8S/zzmSAzCzdjO35nrcjNzzM7EMShDjzXRI2oaPwkQDSwW9bNzhaJHj3CppicAw3NY8iPn03Ho16atswZhjRkeLnLq+M5twSTBJgL9qrwFAmNIULejQekrsTQMrpoqs7fUZyAekh1yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=K0/xX99xAM+k2mEavhymmW30FKmT2Wum7HMP+5aTOZw=;
- b=fq9e8PKqsTGIFiqQy99HpHfWZ42ynvyIHdL059ZgEsNl5jJLfPth4NfQXaOMVkrumTUC44tQEAo4aeYxiOrNLEhz9Z4/QmX5DqEuldSlGvmcgRdMtL9q/pBLJD/uDvykKQX3qO+OD7ruYpA3L8yq9C5Ecj3HcBRz0cVWjneBZtgl9zepkmlmDweI22xnpzR49WymFiiMQmgD+oSe1uv1fzTRcMbT7IHqFEDs4f9KWVL3vRfWrWVb+6anFZStTT8GE0vXaEC+k5Is9B8XlrqGggIobbJUmnRxN8VThryDl52EV36/BEwhF9BGBUzMHqj2mvr6A06wmDlQGK1yuQjALA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K0/xX99xAM+k2mEavhymmW30FKmT2Wum7HMP+5aTOZw=;
- b=DFxH/S8x3LLnbBDdslgeCWxzZy3peBtOg6TGFjYUGoY76fYX4lDMaye5/jlSHQ6Z0BT9iInTFIMZ6vmdFE+bVdfPZaI9PkJJbFL6RxfbNmYby6d2aSFVnOQjQ9XdSUeN3gUJaHBigUxnUtuknNuST5J/6Q30Iqcw3gQbdSEmW+0=
-Received: from PH7PR13CA0018.namprd13.prod.outlook.com (2603:10b6:510:174::22)
- by SJ0PR12MB6942.namprd12.prod.outlook.com (2603:10b6:a03:449::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 20:58:54 +0000
-Received: from SN1PEPF00036F42.namprd05.prod.outlook.com
- (2603:10b6:510:174:cafe::1d) by PH7PR13CA0018.outlook.office365.com
- (2603:10b6:510:174::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.16 via Frontend Transport; Wed,
- 23 Sep 2026 20:58:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF00036F42.mail.protection.outlook.com (10.167.248.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 20:58:54 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 15:58:48 -0500
-Received: from [172.19.68.121] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 23 Sep 2026 15:58:48 -0500
-Message-ID: <a570abe2-4da7-4a0f-8c7f-4c227ac924cd@amd.com>
-Date: Wed, 23 Sep 2026 13:58:47 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QqomW+yl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 602181F000FF;
+	Wed, 23 Sep 2026 20:59:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790197169;
+	bh=IEdNn3aUwe4HImBS9dDjkJ7weHk8oU+emztUHcnANtw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=QqomW+ylpw/PDwHN9aiavnvl81CPHF9/3wUqB+c4utej/ylTCBDXi9PwjpqywO48f
+	 qpoH7O7V2ClBBAc6veRhtMn+YFtMQU57vfRRpftyeQqjMJfAsiI9koqG0HNVwhCxgx
+	 R2GvCdoiPC4W9beZtTMPNobd5zj6RbzdrEwxEVKM1eZUatzQEvrfrNBVdeiQPs/LpV
+	 DwdHrQgMIQpCmpB/94BNzCIP6mSvzojtmhqdzFOsMOPHldJz4VxIcOTMjPZNGq7I+K
+	 PLTTmlIUxjLF+suBD4fBrd4SJ3YFZXArduF8R+tUZnRjDKVw2i5gzgIa3K7+IjzRot
+	 egDJ2t3wrj7MQ==
+Date: Wed, 23 Sep 2026 15:59:28 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Alexey Kardashevskiy <aik@amd.com>
+Cc: x86@kernel.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-pci@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ashish Kalra <ashish.kalra@amd.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jini Susan George <jinisusan.george@amd.com>,
+	Kees Cook <kees@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
+	Nikunj A Dadhania <nikunj@amd.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Kim Phillips <kim.phillips@amd.com>, Joerg Roedel <jroedel@suse.de>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	"Tycho Andersen (AMD)" <tycho@kernel.org>,
+	Liam Merwick <liam.merwick@oracle.com>,
+	Michael Kerrisk <mtk.manpages@gmail.com>,
+	Suresh Siddha <suresh.b.siddha@intel.com>,
+	Xiaotian Feng <dfeng@redhat.com>,
+	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
+	Andi Kleen <ak@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
+	Tony Luck <tony.luck@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Xu Yilun <yilun.xu@linux.intel.com>,
+	Carlos =?utf-8?B?TMOzcGV6?= <clopez@suse.de>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Ian Campbell <ian.campbell@citrix.com>,
+	Jeremy Fitzhardinge <jeremy.fitzhardinge@citrix.com>,
+	Petr Tesarik <ptesarik@suse.com>,
+	David Howells <dhowells@redhat.com>,
+	Haavard Skinnemoen <hskinnemoen@atmel.com>,
+	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Michael Kelley <mhklinux@outlook.com>,
+	Ilias Stamatis <ilstam@amazon.com>,
+	Sumanth Korikkar <sumanthk@linux.ibm.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Toshi Kani <toshi.kani@hp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Jiang Liu <jiang.liu@linux.intel.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Kefeng Wang <wangkefeng.wang@huawei.com>,
+	Palmer Dabbelt <palmerdabbelt@google.com>,
+	linux-coco@lists.linux.dev, xen-devel@lists.xenproject.org,
+	iommu@lists.linux.dev, linux-mm@kvack.org, aik@ozlabs.ru,
+	Santosh Shukla <santosh.shukla@amd.com>,
+	"Pratik R . Sampat" <prsampat@amd.com>,
+	Scott Soule Cheloha <scott.cheloha@amd.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Fuad Tabba <tabba@google.com>
+Subject: Re: [RFC PATCH kernel 02/17] pci/tsm: Fix stale comment about TDI
+ report range start
+Message-ID: <20260923205928.GA1942391@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V1] accel/amdxdna: Preallocate hardware context schedulers
-To: Lizhi Hou <lizhi.hou@amd.com>, <ogabbay@kernel.org>,
-	<quic_jhugo@quicinc.com>, <dri-devel@lists.freedesktop.org>,
-	<mario.limonciello@amd.com>, <karol.wachowski@linux.intel.com>
-CC: <linux-kernel@vger.kernel.org>, <sonal.santan@amd.com>, Jonghyuk Kim
-	<malhyuk97@gmail.com>
-References: <20260923200501.281208-1-lizhi.hou@amd.com>
-Content-Language: en-US
-From: Max Zhen <max.zhen@amd.com>
-In-Reply-To: <20260923200501.281208-1-lizhi.hou@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F42:EE_|SJ0PR12MB6942:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ea0b275-5e7e-476f-5d3d-08df19b57a52
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|13003099007|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	nc6RxxRTLi3p8odE94dYEfw7vHE/huB4yuVObHXfuNL8ekPDC8EXwljHYJuzvPJACLgBYiGVVQkxi/uSn2Yz1Q5XmLaawZmwbQTK5roXQtIEdNfcZuGJ/3a1TFeJKTJb7xYdIhhVxy6Mp6F+FE1BKqON8rZmeRqx2/4oXYgs5lSA7nISSPhKQyW3mCk7YxlTgooAaKGT+f5wmEvyTdx3iCCFeXTdYcbzooSISAuS/hbJV5g0AtfBiGHC5E2hsxszY1oi/KQxW7bhVla9x78DyMLZEpg636l+YSZVW4gGV3biZJv54xvXLW5Y9POFl4KKawaeMa0YEtKgE/FhcHUrvFXa67nB3UPvZsqKa6+0lbjtCr1cg913VATJ2CmJ8Pj+FwmMkpkEtGki4xhFi8/lc+iWd3H7JiBig2BCN3x5LHMXF9J4fmoZDcpKmqSBoiAuPKfmxNamKeyg7+KTeuiP/OKbQhDuHkHKx3FpPOxiVjadwbgB7D+3JTumexa80MCKicFUkyLrVYR5XpBYp04JP6ZUtOc/D4TQx0uREvKlaFnUEYFnb/QRYyWo412UMd2qvIkTUyim2O8NDbkcnG1+nZ3K3UyK/F87pj2vCC9PklvhRmPIDsp1BAJHFvYuweksN7OQ55U97LEs8xLV9zxGoYmUvQ9sgy4yY8WDzsGimO4=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(13003099007)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VqTM9+TwqbaiSoJNvJvf4ev3d6Gzi2S7h3ySkPn4oIaV/DOZCerlWwxLXQDaEamkuMwOCDHN20CR0lVPoenF2PHzlu8rmh6vGGnJYYJibEryzAAYuhP/gT5XRQRrzb8FDL0iT/tyltXrBJANemwDeGUOOEkiR5Uxqq+J40RxS+VCju+YRY0VEll3jLvTN6FLIXGvsCFLPgr6dJWa28ke4shcs8We6nLcSQ0w38QGfU72vOa9iLivtUG+ZMcDjeFH+dRxp4ZuiKKQlr9+V/Lymnq6yqRivLGZ+914PhL+Bna8vc6ONpfj/JI01Yv+/Le81qtZaywVDabbnfnWmS6omi6EFa0/XmlRy0Ahl3Cq7w97Lew/yOPRePYhxwlSX2GcpJPiWKiXWYxBOQ+ZnCbRuLzS/JEuOH+XtWKDHg9zG+cvmrKHysZdgIY7h1pwQvme
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:58:54.1177
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ea0b275-5e7e-476f-5d3d-08df19b57a52
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00036F42.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6942
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916115159.1938195-3-aik@amd.com>
 
+On Wed, Sep 16, 2026 at 09:51:42PM +1000, Alexey Kardashevskiy wrote:
+> The PCIe spec r6 and later defines the MMIO range start in 4K units which
+> was not the intention. The upcoming change makes it a byte address.
+> The structure is already fixed to match the new definition but the comment
+> is stale, fix it.
 
+Please include specific reference to current spec, e.g.,
+"PCIe r7.0, sec x".
 
-On 9/23/2026 Wed 13:05, Lizhi Hou wrote:
-> The hardware context scheduler fence is exposed through
-> drm_syncobj_add_point(). After a hardware context is destroyed,
-> userspace can still call drm_sched_fence_get_timeline_name() on the
-> fence through SYNC_IOC_FILE_INFO. This results in a use-after-free
-> when accessing fence->sched->name.
-> 
-> Preallocate hardware context schedulers and free them during device
-> teardown instead. A destroyed hardware context no longer frees its
-> scheduler, ensuring that the scheduler remains valid while its fences
-> are still accessible.
-> 
-> Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
-> Reported-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
-> Link: https://lore.kernel.org/dri-devel/20260902012712.880520-1-malhyuk97@gmail.com/
-> Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Reviewed-by: Max Zhen <max.zhen@amd.com>
+I'm not sure who's intention is referred to here.
+
+Please make the subject line match others in drivers/pci in style,
+including capitalization.  Use "git log --oneline drivers/pci" to see.
+
+> Signed-off-by: Alexey Kardashevskiy <aik@amd.com>
 > ---
->   drivers/accel/amdxdna/aie2_ctx.c | 117 +++++++++++++++++++++++--------
->   drivers/accel/amdxdna/aie2_pci.c |  15 +++-
->   drivers/accel/amdxdna/aie2_pci.h |   6 +-
->   3 files changed, 105 insertions(+), 33 deletions(-)
+>  drivers/pci/tsm/core.c | 1 -
+>  1 file changed, 1 deletion(-)
 > 
-> diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-> index 164441e43940..d927c8c9d557 100644
-> --- a/drivers/accel/amdxdna/aie2_ctx.c
-> +++ b/drivers/accel/amdxdna/aie2_ctx.c
-> @@ -7,6 +7,7 @@
->   #include <drm/drm_device.h>
->   #include <drm/drm_gem.h>
->   #include <drm/drm_gem_shmem_helper.h>
-> +#include <drm/drm_managed.h>
->   #include <drm/drm_print.h>
->   #include <drm/drm_syncobj.h>
->   #include <linux/hmm.h>
-> @@ -99,9 +100,9 @@ static void aie2_job_put(struct amdxdna_sched_job *job)
->   static void aie2_hwctx_stop(struct amdxdna_dev *xdna, struct amdxdna_hwctx *hwctx,
->   			    struct drm_sched_job *bad_job)
->   {
-> -	drm_sched_stop(&hwctx->priv->sched, bad_job);
-> +	drm_sched_stop(hwctx->priv->sched, bad_job);
->   	aie2_destroy_context(xdna->dev_handle, hwctx);
-> -	drm_sched_start(&hwctx->priv->sched, 0);
-> +	drm_sched_start(hwctx->priv->sched, 0);
->   }
->   
->   static int aie2_hwctx_restart(struct amdxdna_dev *xdna, struct amdxdna_hwctx *hwctx)
-> @@ -659,10 +660,19 @@ static void aie2_ctx_syncobj_destroy(struct amdxdna_hwctx *hwctx)
->   	drm_syncobj_put(hwctx->priv->syncobj);
->   }
->   
-> -int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
-> +void aie2_hwctx_sched_fini(struct amdxdna_dev_hdl *ndev)
->   {
-> -	struct amdxdna_client *client = hwctx->client;
-> -	struct amdxdna_dev *xdna = client->xdna;
-> +	int i;
-> +
-> +	for (i = 0; i < ndev->priv->hwctx_limit; i++)
-> +		drm_sched_fini(&ndev->hwctx_sched[i]);
-> +
-> +	ida_destroy(&ndev->hwctx_sched_ida);
-> +}
-> +
-> +int aie2_hwctx_sched_init(struct amdxdna_dev_hdl *ndev)
-> +{
-> +	struct amdxdna_dev *xdna = ndev->aie.xdna;
->   	const struct drm_sched_init_args args = {
->   		.ops = &sched_ops,
->   		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
-> @@ -673,7 +683,55 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
->   		.name = "amdxdna_js",
->   		.dev = xdna->ddev.dev,
->   	};
-> -	struct drm_gpu_scheduler *sched;
-> +	int i, ret;
-> +
-> +	ndev->hwctx_sched = drmm_kcalloc(&xdna->ddev, ndev->priv->hwctx_limit,
-> +					 sizeof(*ndev->hwctx_sched), GFP_KERNEL);
-> +	if (!ndev->hwctx_sched)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < ndev->priv->hwctx_limit; i++) {
-> +		ret = drm_sched_init(&ndev->hwctx_sched[i], &args);
-> +		if (ret) {
-> +			XDNA_ERR(xdna, "Failed to init DRM scheduler. ret %d", ret);
-> +			goto fini_sched;
-> +		}
-> +	}
-> +
-> +	ida_init(&ndev->hwctx_sched_ida);
-> +
-> +	return 0;
-> +
-> +fini_sched:
-> +	while (--i >= 0)
-> +		drm_sched_fini(&ndev->hwctx_sched[i]);
-> +
-> +	return ret;
-> +}
-> +
-> +static struct drm_gpu_scheduler *aie2_hwctx_sched_alloc(struct amdxdna_dev_hdl *ndev)
-> +{
-> +	int ret;
-> +
-> +	ret = ida_alloc_range(&ndev->hwctx_sched_ida, 0,
-> +			      ndev->priv->hwctx_limit - 1, GFP_KERNEL);
-> +	if (ret < 0)
-> +		return ERR_PTR(ret);
-> +
-> +	return &ndev->hwctx_sched[ret];
-> +}
-> +
-> +static void aie2_hwctx_sched_free(struct amdxdna_dev_hdl *ndev,
-> +				  struct drm_gpu_scheduler *sched)
-> +{
-> +	ida_free(&ndev->hwctx_sched_ida, sched - ndev->hwctx_sched);
-> +}
-> +
-> +int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
-> +{
-> +	struct amdxdna_client *client = hwctx->client;
-> +	struct amdxdna_dev *xdna = client->xdna;
-> +	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
->   	struct amdxdna_hwctx_priv *priv;
->   	struct amdxdna_gem_obj *heap;
->   	int i, ret;
-> @@ -683,13 +741,26 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
->   		return -ENOMEM;
->   	hwctx->priv = priv;
->   
-> +	priv->sched = aie2_hwctx_sched_alloc(ndev);
-> +	if (IS_ERR(priv->sched)) {
-> +		ret = PTR_ERR(priv->sched);
-> +		goto free_priv;
-> +	}
-> +
-> +	ret = drm_sched_entity_init(&priv->entity, DRM_SCHED_PRIORITY_NORMAL,
-> +				    &priv->sched, 1, NULL);
-> +	if (ret) {
-> +		XDNA_ERR(xdna, "Failed to initial sched entity. ret %d", ret);
-> +		goto free_sched;
-> +	}
-> +
->   	mutex_lock(&client->mm_lock);
->   	heap = xa_load(&client->dev_heap_xa, 0);
->   	if (!heap) {
->   		XDNA_ERR(xdna, "The client dev heap object not exist");
->   		mutex_unlock(&client->mm_lock);
->   		ret = -ENOENT;
-> -		goto free_priv;
-> +		goto free_entity;
->   	}
->   	drm_gem_object_get(to_gobj(heap));
->   	mutex_unlock(&client->mm_lock);
-> @@ -722,30 +793,16 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
->   		priv->cmd_buf[i] = abo;
->   	}
->   
-> -	sched = &priv->sched;
->   	mutex_init(&priv->io_lock);
->   
->   	fs_reclaim_acquire(GFP_KERNEL);
->   	might_lock(&priv->io_lock);
->   	fs_reclaim_release(GFP_KERNEL);
->   
-> -	ret = drm_sched_init(sched, &args);
-> -	if (ret) {
-> -		XDNA_ERR(xdna, "Failed to init DRM scheduler. ret %d", ret);
-> -		goto free_cmd_bufs;
-> -	}
-> -
-> -	ret = drm_sched_entity_init(&priv->entity, DRM_SCHED_PRIORITY_NORMAL,
-> -				    &sched, 1, NULL);
-> -	if (ret) {
-> -		XDNA_ERR(xdna, "Failed to initial sched entiry. ret %d", ret);
-> -		goto free_sched;
-> -	}
-> -
->   	ret = aie2_hwctx_col_list(hwctx);
->   	if (ret) {
->   		XDNA_ERR(xdna, "Create col list failed, ret %d", ret);
-> -		goto free_entity;
-> +		goto free_cmd_bufs;
->   	}
->   
->   	ret = amdxdna_pm_resume_get_locked(xdna);
-> @@ -791,10 +848,6 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
->   	amdxdna_pm_suspend_put(xdna);
->   free_col_list:
->   	kfree(hwctx->col_list);
-> -free_entity:
-> -	drm_sched_entity_destroy(&priv->entity);
-> -free_sched:
-> -	drm_sched_fini(&priv->sched);
->   free_cmd_bufs:
->   	for (i = 0; i < ARRAY_SIZE(priv->cmd_buf); i++) {
->   		if (!priv->cmd_buf[i])
-> @@ -805,6 +858,10 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
->   	amdxdna_gem_unpin(heap);
->   put_heap:
->   	drm_gem_object_put(to_gobj(heap));
-> +free_entity:
-> +	drm_sched_entity_destroy(&priv->entity);
-> +free_sched:
-> +	aie2_hwctx_sched_free(ndev, priv->sched);
->   free_priv:
->   	kfree(priv);
->   	return ret;
-> @@ -812,18 +869,20 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
->   
->   void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx)
->   {
-> +	struct amdxdna_dev_hdl *ndev;
->   	struct amdxdna_dev *xdna;
->   	int idx;
->   
->   	xdna = hwctx->client->xdna;
-> +	ndev = xdna->dev_handle;
->   
->   	XDNA_DBG(xdna, "%s sequence number %lld", hwctx->name, hwctx->priv->seq);
->   	aie2_hwctx_wait_for_idle(hwctx);
->   
->   	/* Request fw to destroy hwctx and cancel the rest pending requests */
-> -	drm_sched_stop(&hwctx->priv->sched, NULL);
-> +	drm_sched_stop(hwctx->priv->sched, NULL);
->   	aie2_release_resource(hwctx);
-> -	drm_sched_start(&hwctx->priv->sched, 0);
-> +	drm_sched_start(hwctx->priv->sched, 0);
->   
->   	mutex_unlock(&xdna->dev_lock);
->   	drm_sched_entity_destroy(&hwctx->priv->entity);
-> @@ -834,7 +893,7 @@ void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx)
->   		   atomic64_read(&hwctx->job_free_cnt));
->   	mutex_lock(&xdna->dev_lock);
->   
-> -	drm_sched_fini(&hwctx->priv->sched);
-> +	aie2_hwctx_sched_free(ndev, hwctx->priv->sched);
->   	aie2_ctx_syncobj_destroy(hwctx);
->   
->   	for (idx = 0; idx < ARRAY_SIZE(hwctx->priv->cmd_buf); idx++) {
-> diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-> index daec1f6b4907..7a4314ca843b 100644
-> --- a/drivers/accel/amdxdna/aie2_pci.c
-> +++ b/drivers/accel/amdxdna/aie2_pci.c
-> @@ -503,10 +503,16 @@ static int aie2_init(struct amdxdna_dev *xdna)
->   	ndev->priv = xdna->dev_info->dev_priv;
->   	ndev->aie.xdna = xdna;
->   
-> +	ret = aie2_hwctx_sched_init(ndev);
-> +	if (ret)
-> +		return ret;
-> +
->   	for (i = 0; i < ARRAY_SIZE(npu_fw); i++) {
->   		fw_full_path = kasprintf(GFP_KERNEL, "%s%s", ndev->priv->fw_path, npu_fw[i]);
-> -		if (!fw_full_path)
-> -			return -ENOMEM;
-> +		if (!fw_full_path) {
-> +			ret = -ENOMEM;
-> +			goto free_hwctx_sched;
-> +		}
->   
->   		ret = firmware_request_nowarn(&fw, fw_full_path, &pdev->dev);
->   		kfree(fw_full_path);
-> @@ -519,7 +525,7 @@ static int aie2_init(struct amdxdna_dev *xdna)
->   	if (ret) {
->   		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d",
->   			 ndev->priv->fw_path, ret);
-> -		return ret;
-> +		goto free_hwctx_sched;
->   	}
->   
->   	ret = pcim_enable_device(pdev);
-> @@ -623,6 +629,8 @@ static int aie2_init(struct amdxdna_dev *xdna)
->   	aie2_hw_stop(xdna);
->   release_fw:
->   	release_firmware(fw);
-> +free_hwctx_sched:
-> +	aie2_hwctx_sched_fini(ndev);
->   
->   	return ret;
->   }
-> @@ -631,6 +639,7 @@ static void aie2_fini(struct amdxdna_dev *xdna)
->   {
->   	amdxdna_pm_fini(xdna);
->   	aie2_hw_stop(xdna);
-> +	aie2_hwctx_sched_fini(xdna->dev_handle);
->   }
->   
->   static int aie2_get_aie_status(struct amdxdna_client *client,
-> diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
-> index ea1dac106400..2c7019bd26b5 100644
-> --- a/drivers/accel/amdxdna/aie2_pci.h
-> +++ b/drivers/accel/amdxdna/aie2_pci.h
-> @@ -107,7 +107,7 @@ struct amdxdna_hwctx_priv {
->   	struct amdxdna_gem_obj		*heap;
->   	void				*mbox_chann;
->   
-> -	struct drm_gpu_scheduler	sched;
-> +	struct drm_gpu_scheduler	*sched;
->   	struct drm_sched_entity		entity;
->   
->   	struct mutex			io_lock; /* protect seq and cmd order */
-> @@ -152,6 +152,8 @@ struct amdxdna_dev_hdl {
->   	u32				total_col;
->   	struct amdxdna_drm_query_aie_version version;
->   	struct aie2_exec_msg_ops	*exec_msg_ops;
-> +	struct drm_gpu_scheduler	*hwctx_sched;
-> +	struct ida			hwctx_sched_ida;
->   
->   	/* power management and clock*/
->   	enum amdxdna_power_mode_type	pw_mode;
-> @@ -294,6 +296,8 @@ int aie2_update_prop_time_quota(struct amdxdna_dev_hdl *ndev, u32 us);
->   /* aie2_hwctx.c */
->   int aie2_hwctx_init(struct amdxdna_hwctx *hwctx);
->   void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx);
-> +int aie2_hwctx_sched_init(struct amdxdna_dev_hdl *ndev);
-> +void aie2_hwctx_sched_fini(struct amdxdna_dev_hdl *ndev);
->   int aie2_hwctx_config(struct amdxdna_hwctx *hwctx, u32 type, u64 value, void *buf, u32 size);
->   int aie2_hwctx_sync_debug_bo(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl);
->   void aie2_hwctx_suspend(struct amdxdna_client *client);
-
+> diff --git a/drivers/pci/tsm/core.c b/drivers/pci/tsm/core.c
+> index 9ac216ad896d..2a18be5be56e 100644
+> --- a/drivers/pci/tsm/core.c
+> +++ b/drivers/pci/tsm/core.c
+> @@ -623,7 +623,6 @@ EXPORT_SYMBOL_GPL(pci_tsm_mmio_teardown);
+>  #define PCI_TSM_DEVIF_REPORT_MMIO_ATTR_IS_UPDATABLE BIT(3)
+>  #define PCI_TSM_DEVIF_REPORT_MMIO_ATTR_RANGE_ID GENMASK(31, 16)
+>  
+> -/* An interface report 'pfn' is 4K in size */
+>  struct pci_tsm_devif_mmio {
+>  	__le64 phys;
+>  	__le32 nr_pfns;
+> -- 
+> 2.55.0
+> 
