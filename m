@@ -1,128 +1,298 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41F3D37F339;
-	Wed, 23 Sep 2026 15:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA06521889
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:04:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175852; cv=none; b=tfs+jWteRPEeYP+VrDCN9JzDAUln16zJIettYxW7Z43zi7n2aeHs9q8KH07xhnR0JNJM2RB9O6McvRhVOCmdwp/F9aOOVTmVq/LOcm4Gr3erzeFOgezRHSO24nF0uNmFTGxpk0Vz2D2P4nqPHXHtftb0mmgH5KGgLZIs7Q4D8gk=
+	t=1790175861; cv=none; b=UjT+IeSNKFmlKIq7IyUfhu6Lwid+Nj1PKSnxIJ6OufU7kXSUAWLA3k0k0IOEG1zaJCTyM5EzgKLA2O9BYaE0aNHee10ATK9P8pzpugFSpl6uBN+LVzpMcNZ9wDsg5Dsu9mPRjgBCULPHgWEMY8KFXizPLMSH7ewwENHoO6Fonms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175852; c=relaxed/simple;
-	bh=uTJqJYri0QvmQvrYQ0xJpsho88RYe5rDGLL9uGp0kgo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vDhKoaYH+bBmXIFddruaA+ns5XSAEuyL3wI502QFpldh31CbpA6SGE/aKLNTXoYhIBcuJ0p92tkK4V3q22yDybX6mcZaX/yeHooXNde9IPRdWz5qC2YVNgNRCnZ3fWBhPB+F134aynu00rVj9QjT8NuwN7vC04Pe4VQ35+rVJqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCTa9NLG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790175861; c=relaxed/simple;
+	bh=zyLAgDuGCnbVM6PTXgtJv50sRhjEn2knlMH3iE1IJP8=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=XLIlxZdTl8FR7dL/5JrG4eYNnNH7Pgqr6zoSMhl+ptnIEKhTB6dAKfocMT3RSwMrDjm/d4qpog8Tew6lyFp4q+lyzGYQgcAFsWvIPsjb59A437pPS1sIxSGh/uDhQKcY1Mc468jUKXlL/O2jzmhLm7I8vaCFj0yqvU+5AjJoJ1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NFx3OztI; arc=none smtp.client-ip=74.125.226.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCTa9NLG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCBE1F000FF;
-	Wed, 23 Sep 2026 15:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790175850;
-	bh=EBwjIZDKfun2zrL9E4dNc/T4J4zF9FUO6dKyh0B3FjE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NCTa9NLGFZRIWCIe1CzcwAWNx7b/8EYkY9lKFagdQvCwYIz1XSrjFaGXEfivEPSLU
-	 gBd3eFL9t7JZe4K0Yl4ZIcd+TjgH2//fXhi6us4SKoiZCm47DsxM7KsADJHMjGaYzr
-	 pT2eWqe4Eqi7+uRBsFkAb1Urxra6w+zsdncC94Z5QsPIUZHUxpZ9lU6Pmenn+DGn8H
-	 bDrww/sOyZMwE8vYh5YMlskX8zEYJC7v6N//s7ec/rH8uAVa6HSZ1bgafifYO/nHG0
-	 hXXoUItPc2Q/ofoWzq2WPhauKOz3DpRUV3Av+ltK877NQzYa/aGbX6TwBcHtJVHeg4
-	 G5KXF3IlLDSHQ==
-Date: Wed, 23 Sep 2026 10:04:09 -0500
-From: Rob Herring <robh@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Wei Xu <xuwei5@hisilicon.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: soc: hisilicon: Add HIP05 CPLD
-Message-ID: <20260923150409.GD27237-robh@kernel.org>
-References: <20260921232540.3128596-1-robh@kernel.org>
- <20260922-cheer-reference-c31fc6fb946d@spud>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NFx3OztI"
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-98514b4115eso549037241.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:04:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790175858; x=1790780658; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NTCUrwfrXeq8SGaMAxsVqs9zM4f5GTdExNXsJCfYt6I=;
+        b=NFx3OztI3NryCMYkmzhNeSjc1yQGHeE4wjmS+o0LTFVzV021yfQ9LGt8GHAeJNiYq3
+         ChroK4Zdge2AiDcyTV/FJbP4F5VgDTf9VQk49jUe7fSV7tI6AkpOpaREF6PRgqNflb3l
+         q/c48D0g29tENTLys34CECAIOrGoMfVljmZlKI8XAGhiJll8wA8GYztwb7HcfGjOHu7K
+         xDpMXPx2utiluSMUx5gdTo2HlixFhxXpQYYYd35evUyG/8OTwNPlnFZIUA0Cr+He8Eh7
+         NC0eVG4TqofKlpm/8wdvBabRjbNP4XufMOHtqInxaAygbzvMvNm8tN7rvH1YEZg81Qis
+         hQXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790175858; x=1790780658;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NTCUrwfrXeq8SGaMAxsVqs9zM4f5GTdExNXsJCfYt6I=;
+        b=2hFhFm1uLkFUr9i+l919vicIkzTPb17snOx/PldOx/Fy/WqnXSQYZ0HZPZdZN9U4DK
+         I0txecQe4nqEAR6EuJ9NGybpgaLZCGM/Ws4xrXTs4EbDUe/pI5FHIlI2yKjFFGfp+Nya
+         6j4yH+WkChR11CHWws2pCyQgZZ55ZqaOkYMuMeyCklOORNFfT5bKP89U6YbudQFI2T05
+         IkCyCRsbcmVJf5Y+qxCzKalHq0XdEFu5VgrmYHMt/0gIxIj3L60TaTIikgWSbYBe8JQS
+         m0Kp5xNolFaO9lghWZKW59ZCzYWLPm8Bql0Qpy3/vEcwCYM6ZLhkfklt0jUm4cPkabzC
+         xV+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzVGA4TAllIC/GjBl1kue1INHFkCXokHbDRAiJqhjgcvqFjK2swvPwZYsvNVw38Q9x3qTNevYCJnBlx+3o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvVt5OllsNp8T0ISiIEiYcyK8BU1GEhjsxH6Fjan+1dibTMOVc
+	wR2Q+Wl8Fklz5giWeiqUek1avg7kyi1LXRf1Ymu8qPHj4bWrPbbV1Dg=
+X-Gm-Gg: AYBFou2F7YPs9JZEbB8KUGsBdM9pou6dHe4vPNe0uoMHwVI6oQGZEFI43YftrKtJSrJ
+	XTDfDGpwsSI/klQLvuaM5dI300Aig27XXfN/1wJWfoWdcvRU1OU+sQfYa3fLivTzKguYOhUvPMQ
+	r6zDI7aHUKAcAydMC4kAB6KUSgUci5bIDO5G1Hc3DasryHize8+T2fHABDQmouXPPbPhmlQuE1g
+	MuAsiFh9mRNkdPjil6aEQ6Q4BBOyhVEZDABSXJtaDAy5tdRJNVF0f+FA0M5Gvq1bjYHpaSXldfV
+	/4SEr0Ags60LEiEhleSl/HfIym/VVVRYCkj8WRGjFv2d35l1ywWev++8BdR9wbjXK16OgRHEdjv
+	rFEuBikAx5dtuWixE2POs5W67nT+YFzcOH5Yn2xfn4x+zyJiYqsi6+xKDLL1c1Ip99Ch07vA62K
+	M02uV4J2NTbC6rrtxgKh5hCeoiipofnrU4oIy1MUTNqk7T1WdviMi3eAJUGoLwGbMqjFV5Eem60
+	iY6W9CHKllmtMDHM1rbpPrgKnH6hdWH4xLdgsQG9G8c
+X-Received: by 2002:a05:6102:1609:b0:7a1:3d97:fa91 with SMTP id ada2fe7eead31-7ac1a6bfc1emr2812341137.4.1790175857500;
+        Wed, 23 Sep 2026 08:04:17 -0700 (PDT)
+Received: from localhost ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98517a8ecaesm3259852241.12.2026.09.23.08.04.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 08:04:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922-cheer-reference-c31fc6fb946d@spud>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 12:04:10 -0300
+Message-Id: <DLMSDK8YPOR1.7XGP4DV03R1H@gmail.com>
+From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
+To: "David Gow" <david@davidgow.net>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Burak Emir" <burak.emir@gmail.com>, "Brendan Higgins"
+ <brendan.higgins@linux.dev>, "Miguel Ojeda" <ojeda@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Andreas Hindborg"
+ <a.hindborg@kernel.org>, "Benno Lossin" <lossin@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Boqun Feng"
+ <boqun@kernel.org>, "Brigham Campbell" <me@brighamcampbell.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Jori Koolstra"
+ <jkoolstra@xs4all.nl>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "Rae Moar" <raemoar63@gmail.com>, "Shuah Khan" <skhan@linuxfoundation.org>,
+ "Tamir Duberstein" <tamird@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Yury Norov" <yury.norov@gmail.com>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>
+Subject: Re: [PATCH RFC 0/3] rust: kunit: #[should_panic] and same test name
+ with different #[cfg(...)] support
+X-Mailer: aerc 0.20.0
+References: <cover.1789500084.git.nico.antinori.7@gmail.com>
+ <d20cc2b2-afeb-432c-924b-55ad00d980fe@davidgow.net>
+In-Reply-To: <d20cc2b2-afeb-432c-924b-55ad00d980fe@davidgow.net>
 
-On Tue, Sep 22, 2026 at 07:06:02PM +0100, Conor Dooley wrote:
-> On Mon, Sep 21, 2026 at 06:25:39PM -0500, Rob Herring (Arm) wrote:
-> > Add schema for the hisilicon,hip05-cpld node on the HIP05 D02 board. The
-> > node only contains the compatible string and one register window on the
-> > local bus.
-> > 
-> > Assisted-by: LLM
-> 
-> Guidance to the LLM should probably include including the reason that
-> this is being added to the commit message.
+Thank you for the feedback!
 
-Not sure what you are looking for... I told it to convert all the .txt 
-bindings to schema. Then I told it fix all the errors. Then I fixed some 
-things throughout the 900 commit branch upstreaming things bit by bit.  
-Then it mostly sat for a year and I told a new model to review them and 
-fix these common problems a, b and c. Then I said fix all the 
-dtbs_checks warnings on arm64. Then I said there's still warnings, do it 
-again. Repeated that ~10 times. Now I'm going thru to weed out all the 
-wrong and sometimes unnecessary changes.
+On Tue Sep 22, 2026 at 4:56 AM -03, David Gow wrote:
+> Le 16/09/2026 =C3=A0 03:33, Nicol=C3=A1s Antinori a =C3=A9crit=C2=A0:
+>> This patch series intends to implement two features for KUnit tests
+>> written in Rust. The work is based on a TODO comment made in the
+>> `bitmap.rs` module [1].
+>>=20
+>
+> Thanks very much for this series! It works fine here, but I think there=
+=20
+> are a few other options for how this could be implemented, and it's=20
+> probably worth our at least considering them.
+>
+> In particular, we've already got code for suppressing warnings, and I'm=
+=20
+> not sure whether it makes sense to unify all of the different attempts=20
+> to intercept panics / bugs / warnings of various kinds.
+>
+> That being said, Rust has unwinding and panic handlers as a core part of=
+=20
+> the language, and the C side of the kernel doesn't. Combine that with=20
+> the fact that #[should_panic] is already standardised in Rust, and the=20
+> argument for a separate implementation is not totally silly either.
+>
+> Do you think that #[should_panic] should only trigger on a rust=20
+> panic!(), or on any kernel panic? I'm leaning towards the former, but if=
+=20
+> the latter then we'd need to implement it in C and provide a C interface=
+=20
+> to it.
 
-So LLM did all the easy parts and I did everything that requires any 
-judgement. The hardest part is typically just figuring out the 
-correct maintainers...
+When I sent the series I leaned towards the former too. But thinking
+about it I believe there are situations where a kernel panic can be
+originated from C code called by Rust, for example, this test case:
 
-> > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> > ---
-> >  .../soc/hisilicon/hisilicon,hip05-cpld.yaml   | 35 +++++++++++++++++++
-> >  1 file changed, 35 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
-> > new file mode 100644
-> > index 000000000000..f9d48b871a4b
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/soc/hisilicon/hisilicon,hip05-cpld.yaml
-> > @@ -0,0 +1,35 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/soc/hisilicon/hisilicon,hip05-cpld.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: HiSilicon HIP05 CPLD registers
-> > +
-> > +maintainers:
-> > +  - Wei Xu <xuwei5@hisilicon.com>
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: hisilicon,hip05-cpld
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    local-bus {
-> > +        #address-cells = <2>;
-> > +        #size-cells = <1>;
-> > +
-> > +        cpld@100000000 {
-> > +            compatible = "hisilicon,hip05-cpld";
-> > +            reg = <1 0x0 0x100>;
-> 
-> Also what's with this example? 1 0x0 0x100 should be 0x1 0x0 0x100?
+#[test]
+#[should_panic]
+fn rust_test_kunit_panic_in_kunit_test_bug() {
+    unsafe { bindings::BUG() };
+}
 
-Shrug. Sure. Honestly, I think the example can just be dropped.
+This kernel panic is not caught by the Rust's panic handler. In the
+current version of my code, I catch that in
+lib/kunit/test.c::kunit_run_case_catch_errors function. With that
+modification there's no need of a Rust side panic handler (as it catches
+Rust's panics too, since the panic hanlder executes a bindings::BUG()).
 
-I'm converting all the crap no one cares enough about to convert. That's 
-pretty much all of the HiSilicon stuff. Mediatek needs some renewed 
-public shaming too. I only care about getting arm64 down to no warnings.
+>
+>> 1. Supporting `#[should_panic]` [2]:
+>>=20
+>> KUnit tests in Rust follow the user-space syntax, but at the moment
+>> `#[should_panic]` is not supported. The first patch of this series adds
+>> support for the attribute (only in its basic form, `#[should_panic =3D
+>> "message"]` is not supported, and I don't know if it makes sense to
+>> support it)
+>>=20
+>> The way it is supported is by having a separate `#[panic_handler]` when
+>> `CONFIG_KUNIT` is enabled. When a test is marked with `#[should_panic]`,
+>> a static value (KUNIT_SHOULD_PANIC =3D 0xDEAD7357) is assigned to the
+>> kunit's `priv` field, since it is meant for saving arbitrary user data
+>> [3]. At the moment, I did not find any place where Rust tests use that
+>> field, so it should be safe to write it.
+>
+> I don't think the `priv` field is the optimal place to put this. I don't=
+=20
+> think it's strictly a _problem_, particularly since Rust tests aren't=20
+> using it, but nominally `priv` is for test use, and I'd rather not use=20
+> it here (there may be future tests which want to use priv for something=
+=20
+> else, particularly as a quick way of passing test state between C and Rus=
+t).
+>
+> For most of these sorts of things, I'd recommend using a KUnit 'named=20
+> resource', but alas, there aren't any Rust binding for these. That being=
+=20
+> said, we've used named resources in C because they're setup at runtime=20
+> (which is how we've handled this in the past). That's useful if we want=
+=20
+> to note that a particular line in the test wants to panic, but if we're=
+=20
+> only concerned with whether a test as a whole panics, then this could be=
+=20
+> static.
 
-Rob
+I did not know that you could test particular lines for panics! That
+said, I believe the #[should_panic] attribute is meant to check if the
+test panics as a whole.
+
+If I had to test a particular line for panic that I'd write a new test,
+but that's just how I'd do it :P.
+
+>
+> In that case, how about adding a new `rust_should_panic` field to=20
+> `struct kunit_attributes`. If you only care about whether a panic=20
+> occurs, this could just be a boolean, but it also could be a place to=20
+> store, for example, a string to support #[should_panic =3D "message"] if=
+=20
+> you wish.
+
+I could not find a way to retrieve the kunit_case struct from Rust. I
+believe this is needed for implementing the check because the actual
+panic message can only be retrieved from the PanicInfo [1] struct.=20
+
+I am sure this can be implemented (the first things that comes to mind
+is having a C api that retrieves the current kunit_case struct, but I am
+not sure if the kunit_case meant to be leaked outside the runner) but
+I'd do it in another iteration if we find that it is useful.
+
+>
+> As an attribute, you could also then add it to lib/kunit/attributes.c=20
+> (probably with PRINT_NEVER, as I don't think we need it included in KTAP=
+=20
+> output), which would, for example, allow us to filter tests by whether=20
+> or not they expect to panic.
+
+Excellent! I'll do that!
+
+>> ...
+>> 2. Allow same test name with different #[cfg(...)]:
+>>=20
+>> When testing `#[should_panic]` in `bitmap.rs` (check the last patch of
+>> the series) I found that the test that was supposed to panic had the
+>> same name as another one, but they were run on different configurations.
+>> This caused the following compilation error:
+>>=20
+>> ERROR:root:error[E0428]: the name `kunit_rust_wrapper_owned_bitmap_out_o=
+f_bounds` is defined multiple times
+>>     --> ../rust/kernel/bitmap.rs:503:1
+>>      |
+>> 503 | #[macros::kunit_tests(rust_kernel_bitmap)]
+>>      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `kunit_rust_wrapper_ow=
+ned_bitmap_out_of_bounds` redefined here
+>>      |
+>>      =3D note: `kunit_rust_wrapper_owned_bitmap_out_of_bounds` must be d=
+efined only once in the value namespace of this module
+>>      =3D note: this error originates in the attribute macro `macros::kun=
+it_tests` (in Nightly builds, run with -Z macro-backtrace for more info)
+>>=20
+>>=20
+>> To fix this problem, I appended to the `kunit_rust_wrapper_*`
+>> identifiers an 'stringified' version of the test's #[cfg(...)]
+>> arguments. The purpose of this is that, if we have a test with the same
+>> name and configuration, it would fail.
+>>=20
+>> The configuration string was also appended to the tests names. This was
+>> done to have a better test run report:
+>>=20
+>> ...
+>> [SKIPPED] owned_bitmap_out_of_bounds_cfg_not_config_rust_bitmap_hardened
+>> [PASSED] owned_bitmap_out_of_bounds_cfg_config_rust_bitmap_hardened
+>> ...
+>>=20
+>> Otherwise we would have something like the following:
+>> ...
+>> [SKIPPED] owned_bitmap_out_of_bounds
+>> [PASSED] owned_bitmap_out_of_bounds
+>> ...
+>>=20
+>> Regarding this:
+>> - Does it makes sense to allow same test names with different cfgs?
+>
+> Yes-ish. I think it definitely makes sense for the same test to be=20
+> redefined with different cfgs, but I'd rather only one of those tests=20
+> then actually be compiled in (see below).
+>
+>> - Is it ok to 'stringify' the configuration so it can be distinguished
+>>    in the report? Would you prefer something like `_case_1` `_case_2` ..
+>>    instead?
+>
+> I don't _like_ this: my preference would be for us to keep the same=20
+> name, and just not emit a test_case for anything which should be=20
+> compiled out with cfg. Unfortunately, implementing that is a bit harder=
+=20
+> than would be ideal: we need a way of evaluating the cfg() arguments in=
+=20
+> a proc macro, I think. (Ultimately, because otherwise there's no way of=
+=20
+> statically determining the length of the TEST_CASES array?)
+>
+> Unless you've got a good idea how to fix this, though, I'm happy to put=
+=20
+> up with adding the configs to the name for now. Though if there's a nice=
+=20
+> way to make the names shorter=20
+> (rust_test_kunit_parse_cfg_in_kunit_test_cfg_config_rust_kunit_selftest_e=
+quals_n=20
+> is definitely too long a test name, for instance), that'd be best.
+
+I did not like it either but I could not find a way of evaluating the
+correspondig cfgs and not including the ones that were not active in the
+TEST_CASES array. I implemented the Gary's solution [2] (very neat
+trick!) and it worked really well!
+
+Again, thank you both for the feedback. I'll be sending a patch soon.
+
+Best regards,
+Nicol=C3=A1s
+
+[1] https://github.com/Rust-for-Linux/linux/blob/93f51579e7df24878021409441=
+8f205253383cc5/rust/kernel/lib.rs#L179
+[2] https://lore.kernel.org/rust-for-linux/DLLYGLVEA0R3.3D1733XFFTFPV@garyg=
+uo.net/
