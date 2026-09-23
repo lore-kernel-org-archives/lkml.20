@@ -1,190 +1,296 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FD5B526AA4;
-	Wed, 23 Sep 2026 13:04:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7934EDCD3;
+	Wed, 23 Sep 2026 13:04:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168668; cv=none; b=YlNAKtnZDCmi2SaowKC1qY8Cck7gmPwalZkW/u8JbgJKqeR/xVWDiWkzLSwV6RE7dNK+G2q0WpGS1X0efZVt3C4c7emCiVajI9UjPrHAFmo5ZMvqblfxAIY3P8qneQNVr5j4is8DJmEbim8py5wM+z9pUDF6Zydxxfqr4zmAy6Y=
+	t=1790168684; cv=none; b=mHiN7TcLeFDFIPoLmjhbyQtiOksupGIte7mXh7yWWI1w3SvA3DMesVeuA9ZRhm69DnizJfAcaGlrXgADpPRCLrsFmg8DczD7DTCRoicv45fX5+dGxqymk0uHZS6zx9W/IBFQ79NSinU3wAhRFBMmnvYHj401wecZ97TeAkQiwcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168668; c=relaxed/simple;
-	bh=V2eG6fezUymbQQ69ZuSww8KCP/5bN/QHpNMXTsYSPOw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fE8jdQcgaamktJYs+Fh0DfQ2jyc00UJpQxxsfsn75cuZs7AjO6hrrNS01ncSgje+0ns1Hk93YSZ8647xvRXlsHIsDr1Cd9hbiYwfGmW+ofXUBvnxnvPBacCYrMkL2FwvQOJePq0x3ZdQGkggTzFr5nZo5QwBWnxeBacdise1h8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ZvqzetxD; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ZvqzetxD"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6A0231570;
-	Wed, 23 Sep 2026 06:04:22 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A1A663F86F;
-	Wed, 23 Sep 2026 06:04:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790168665; bh=V2eG6fezUymbQQ69ZuSww8KCP/5bN/QHpNMXTsYSPOw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZvqzetxDsEV+z9y8tgXSp1WMJmVGbPD4FFevEiSlqja3DG2IGWuF2b73OrQ3DI5PP
-	 ebwj8SPEQZ4BaUOAgvsq/NUWIH7HsMxifQ4aW+kmBXBfzWreFCdx8DwnXmCnT2MCb1
-	 pQF5HqiW/0gA6vvYspF/vjHUh2HXW5nKxCvWawCQ=
-Message-ID: <8c9c04ae-cba7-4096-a7d1-70b90a46c161@arm.com>
-Date: Wed, 23 Sep 2026 14:04:00 +0100
+	s=arc-20240116; t=1790168684; c=relaxed/simple;
+	bh=fxY/gFcNNJodwitMhvc6sLgXF0g8jGJDAqtdNbtQpNo=;
+	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
+	 Subject:Content-Type; b=ReVnfktHXm3pBGtmO6x/lYjclQZI/FOGRHZZ/ItlIiFY7SmJxqlIb929/w2zRdlXU9ww42of/XkUGfQyTwpKZLmhcfmxSfn2aJ8mhp0xY2Euu9xAYoR/tvqaaXvoLx1o1hjzrkbIudN+/EoRTcEUoeyf0jH/uCV2ohfeMnulEvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hqccf4MV0z8Xrr9;
+	Wed, 23 Sep 2026 21:04:34 +0800 (CST)
+Received: from xaxapp02.zte.com.cn ([10.88.97.241])
+	by mse-fl1.zte.com.cn with SMTP id 68ND4Sr6042484;
+	Wed, 23 Sep 2026 21:04:29 +0800 (+08)
+	(envelope-from wang.yaxin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Wed, 23 Sep 2026 21:04:32 +0800 (CST)
+X-Zmail-TransId: 2af96ab3ce60e77-11d58
+X-Mailer: Zmail v1.0
+Message-ID: <202609232104322217DtZVWdYNJmwhuvwqdJqw@zte.com.cn>
+In-Reply-To: <20260923210149015t-X8AvGrXfHE4PDn9gZOM@zte.com.cn>
+References: 20260923210149015t-X8AvGrXfHE4PDn9gZOM@zte.com.cn
+Date: Wed, 23 Sep 2026 21:04:32 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 5/6] dma: swiotlb: Add an overridable architecture pool
- opt-out
-To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Will Deacon
- <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
- Steven Price <steven.price@arm.com>,
- Suzuki K Poulose <Suzuki.Poulose@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Jiri Pirko <jiri@resnulli.us>,
- Jason Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>,
- Petr Tesarik <ptesarik@suse.com>, Alexey Kardashevskiy <aik@amd.com>,
- Dan Williams <dan.j.williams@intel.com>, Xu Yilun
- <yilun.xu@linux.intel.com>, Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Russell King <linux@armlinux.org.uk>,
- Huacai Chen <chenhuacai@kernel.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Jiaxun Yang <jiaxun.yang@flygoat.com>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, x86@kernel.org
-References: <20260921063628.362078-1-aneesh.kumar@kernel.org>
- <20260921063628.362078-6-aneesh.kumar@kernel.org>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260921063628.362078-6-aneesh.kumar@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+From: <wang.yaxin@zte.com.cn>
+To: <wang.yaxin@zte.com.cn>
+Cc: <akpm@linux-foundation.org>, <fan.yu9@zte.com.cn>,
+        <yang.yang29@zte.com.cn>, <thomas.weissschuh@linutronix.de>,
+        <corbet@lwn.net>, <linux-kernel@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <xu.xin16@zte.com.cn>
+Subject: =?UTF-8?B?W1BBVENIIDIvMyB2NV0gZGVsYXl0b3A6IGFkZCB0aW1lc3RhbXAgb2YgZGVsYXkgbWF4?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 68ND4Sr6042484
+X-TLS: YES
+X-ENVELOPE-SENDER: wang.yaxin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Wed, 23 Sep 2026 21:04:34 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AB3CE62.000/4hqccf4MV0z8Xrr9
 
-On 21/09/2026 7:36 am, Aneesh Kumar K.V (Arm) wrote:
-> On x86, iommu=off historically prevented SWIOTLB initialization by not
-> setting SWIOTLB_INIT_ADDRESSING_LIMIT. This overloads that flag: it
-> controls both whether a pool is selected and where the pool is
-> allocated. If another requirement, swiotlb=force selects a pool
-> independently, omitting SWIOTLB_INIT_ADDRESSING_LIMIT may place it above
-> the addressable range of devices which need bounce buffering.
+From: Wang Yaxin <wang.yaxin@zte.com.cn>
 
-Well then surely something is wrong with the design? If 
-SWIOTLB_INIT_ADDRESSING_LIMIT is set then SWIOTLB still needs to respect 
-it irrespective of any *additional* reasons for activating (either from 
-arch code or internally). And conversely, if devices have addressing 
-limits but SWIOTLB_INIT_ADDRESSING_LIMIT is *not* set, then the arch 
-code has clearly gone wrong or made a bad assumption, but that doesn't 
-seem like SWIOTLB's problem to worry about.
+Record the wall-clock timestamp when each maximum delay occurred for
+all delay types. The timestamp is displayed in the MAX_TIMESTAMP column
+when using -t/--type option.
 
-> Add SWIOTLB_INIT_FORCE_DISABLE to let an architecture opt out of normal
-> pool initialization without discarding the pool placement constraints.
-> 
-> Unlike swiotlb_force_disable, which is set by swiotlb=noforce and
-> unconditionally prevents pool initialization, the new flag is an
-> architecture default. Explicit requirements such as memory encryption,
-> architecture remapping, or swiotlb=force take precedence over it.
+This enables:
+- Identifying the time when a process experienced an abnormal delay spike
+- Correlating delay peaks across multiple processes at the same timestamp
+- Cross-referencing with system logs, traces, or other metrics at that time
+- Pinpointing the root cause of latency issues by finding concurrent events
 
-Logically, that should already be implied by the architecture passing no 
-SWIOTLB_INIT flags.
+Signed-off-by: Wang Yaxin <wang.yaxin@zte.com.cn>
+---
+ tools/accounting/delaytop.c | 87 ++++++++++++++++++++++++++++++++-----
+ 1 file changed, 77 insertions(+), 10 deletions(-)
 
-Thanks,
-Robin.
+diff --git a/tools/accounting/delaytop.c b/tools/accounting/delaytop.c
+index 5582243b2355..104a2dcc6b77 100644
+--- a/tools/accounting/delaytop.c
++++ b/tools/accounting/delaytop.c
+@@ -76,14 +76,16 @@
+ 	offsetof(struct task_info, name##_delay_total), \
+ 	offsetof(struct task_info, name##_count), \
+ 	offsetof(struct task_info, name##_delay_max), \
++	offsetof(struct task_info, name##_delay_max_ts), \
+ 	modes}
+ #define SORT_FIELD_NO_MAX(name, cmd, modes) \
+ 	{#name, #cmd, \
+ 	offsetof(struct task_info, name##_delay_total), \
+ 	offsetof(struct task_info, name##_count), \
+ 	0, \
++	0, \
+ 	modes}
+-#define END_FIELD {NULL, 0, 0, 0, 0, 0}
++#define END_FIELD {NULL, 0, 0, 0, 0, 0, 0}
 
-> iommu=soft retains SWIOTLB_INIT_ADDRESSING_LIMIT because it requests
-> software bounce buffering for devices whose DMA masks cannot address all
-> system memory. Such devices must be able to reach the bounce pool.
-> 
-> Clear both flags for Xen because Xen explicitly requires a remapped
-> SWIOTLB pool and may allocate it anywhere in directly mapped memory.
-> 
-> With no override, iommu=off disables both hardware IOMMU translation and
-> SWIOTLB bouncing. Direct DMA remains available; mappings outside a
-> device's addressable range fail instead of being bounced.
-> 
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
-> ---
->   arch/x86/kernel/pci-dma.c | 11 ++++++++---
->   include/linux/swiotlb.h   |  2 ++
->   kernel/dma/swiotlb.c      | 10 ++++++++--
->   3 files changed, 18 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
-> index 0cff255827ba..ce257b20ea9c 100644
-> --- a/arch/x86/kernel/pci-dma.c
-> +++ b/arch/x86/kernel/pci-dma.c
-> @@ -44,9 +44,13 @@ static unsigned int x86_swiotlb_flags;
->   static void __init pci_swiotlb_detect(void)
->   {
->   	/* don't initialize swiotlb if iommu=off (no_iommu=1) */
-> -	if (!no_iommu && max_possible_pfn > MAX_DMA32_PFN) {
-> -		x86_swiotlb_enable = true;
-> +	if (no_iommu)
-> +		x86_swiotlb_flags |= SWIOTLB_INIT_DEFAULT_OFF;
-> +
-> +	if (max_possible_pfn > MAX_DMA32_PFN) {
->   		x86_swiotlb_flags |= SWIOTLB_INIT_ADDRESSING_LIMIT;
-> +		if (!no_iommu)
-> +			x86_swiotlb_enable = true;
->   	}
->   
->   	/*
-> @@ -84,7 +88,8 @@ static void __init pci_xen_swiotlb_init(void)
->   		return;
->   	x86_swiotlb_enable = true;
->   	/* Xen can use a SWIOTLB pool anywhere in directly mapped memory. */
-> -	x86_swiotlb_flags &= ~SWIOTLB_INIT_ADDRESSING_LIMIT;
-> +	x86_swiotlb_flags &= ~(SWIOTLB_INIT_ADDRESSING_LIMIT |
-> +			       SWIOTLB_INIT_DEFAULT_OFF);
->   	x86_swiotlb_flags |= SWIOTLB_INIT_REMAP | SWIOTLB_ANY;
->   	swiotlb_init_remap(x86_swiotlb_flags, xen_swiotlb_fixup);
->   	dma_ops = &xen_swiotlb_dma_ops;
-> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
-> index be3962a33fc6..466c33795db0 100644
-> --- a/include/linux/swiotlb.h
-> +++ b/include/linux/swiotlb.h
-> @@ -20,6 +20,8 @@ struct scatterlist;
->   #define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 2)
->   /* Initialize a default-sized pool that requires architecture remapping. */
->   #define SWIOTLB_INIT_REMAP		(1 << 3)
-> +/* Do not initialize a pool unless SWIOTLB is explicitly required. */
-> +#define SWIOTLB_INIT_DEFAULT_OFF		(1 << 4)
->   
->   /*
->    * Maximum allowable number of contiguous slabs to map,
-> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
-> index c19675846fc1..46b789eb0806 100644
-> --- a/kernel/dma/swiotlb.c
-> +++ b/kernel/dma/swiotlb.c
-> @@ -563,10 +563,16 @@ swiotlb_select_pool_policy(unsigned int flags)
->   	if (flags & SWIOTLB_INIT_REMAP)
->   		return SWIOTLB_POOL_DEFAULT;
->   
-> -	if (flags & SWIOTLB_INIT_ADDRESSING_LIMIT)
-> +	if (swiotlb_force_bounce)
->   		return SWIOTLB_POOL_DEFAULT;
->   
-> -	if (swiotlb_force_bounce)
-> +	/*
-> +	 * Explicit requirements above override an architecture's default opt-out.
-> +	 */
-> +	if (flags & SWIOTLB_INIT_DEFAULT_OFF)
-> +		return SWIOTLB_POOL_NONE;
-> +
-> +	if (flags & SWIOTLB_INIT_ADDRESSING_LIMIT)
->   		return SWIOTLB_POOL_DEFAULT;
->   
->   	if (swiotlb_kmalloc_needs_bounce())
+ /* Display mode types */
+ #define MODE_TYPE_ALL	(0xFFFFFFFF)
+@@ -117,27 +119,35 @@ struct task_info {
+ 	unsigned long long cpu_count;
+ 	unsigned long long cpu_delay_total;
+ 	unsigned long long cpu_delay_max;
++	struct __kernel_timespec cpu_delay_max_ts;
+ 	unsigned long long blkio_count;
+ 	unsigned long long blkio_delay_total;
+ 	unsigned long long blkio_delay_max;
++	struct __kernel_timespec blkio_delay_max_ts;
+ 	unsigned long long swapin_count;
+ 	unsigned long long swapin_delay_total;
+ 	unsigned long long swapin_delay_max;
++	struct __kernel_timespec swapin_delay_max_ts;
+ 	unsigned long long freepages_count;
+ 	unsigned long long freepages_delay_total;
+ 	unsigned long long freepages_delay_max;
++	struct __kernel_timespec freepages_delay_max_ts;
+ 	unsigned long long thrashing_count;
+ 	unsigned long long thrashing_delay_total;
+ 	unsigned long long thrashing_delay_max;
++	struct __kernel_timespec thrashing_delay_max_ts;
+ 	unsigned long long compact_count;
+ 	unsigned long long compact_delay_total;
+ 	unsigned long long compact_delay_max;
++	struct __kernel_timespec compact_delay_max_ts;
+ 	unsigned long long wpcopy_count;
+ 	unsigned long long wpcopy_delay_total;
+ 	unsigned long long wpcopy_delay_max;
++	struct __kernel_timespec wpcopy_delay_max_ts;
+ 	unsigned long long irq_count;
+ 	unsigned long long irq_delay_total;
+ 	unsigned long long irq_delay_max;
++	struct __kernel_timespec irq_delay_max_ts;
+ 	unsigned long long mem_count;
+ 	unsigned long long mem_delay_total;
+ };
+@@ -158,6 +168,7 @@ struct field_desc {
+ 	unsigned long total_offset; /* Offset of total delay in task_info */
+ 	unsigned long count_offset; /* Offset of count in task_info */
+ 	unsigned long max_offset;  /* Offset of max delay in task_info */
++	unsigned long max_ts_offset; /* Offset of max delay timestamp in task_info */
+ 	size_t supported_modes; /* Supported display modes */
+ };
 
+@@ -283,7 +294,7 @@ static void usage(void)
+ 	"  -p, --pid=PID            Monitor only the specified PID\n"
+ 	"  -C, --container=PATH     Monitor the container at specified cgroup path\n"
+ 	"  -s, --sort=FIELD         Sort by delay field (default: cpu)\n"
+-	"  -t, --type=FIELD         Display only specified delay type with avg/max\n"
++	"  -t, --type=FIELD         Display only specified delay type with avg/max/timestamp\n"
+ 	"  -M, --memverbose         Display memory detailed information\n");
+ 	exit(0);
+ }
+@@ -749,27 +760,35 @@ static void fetch_and_fill_task_info(int pid, const char *comm)
+ 						SET_TASK_STAT(task_count, cpu_count);
+ 						SET_TASK_STAT(task_count, cpu_delay_total);
+ 						SET_TASK_STAT(task_count, cpu_delay_max);
++						SET_TASK_STAT(task_count, cpu_delay_max_ts);
+ 						SET_TASK_STAT(task_count, blkio_count);
+ 						SET_TASK_STAT(task_count, blkio_delay_total);
+ 						SET_TASK_STAT(task_count, blkio_delay_max);
++						SET_TASK_STAT(task_count, blkio_delay_max_ts);
+ 						SET_TASK_STAT(task_count, swapin_count);
+ 						SET_TASK_STAT(task_count, swapin_delay_total);
+ 						SET_TASK_STAT(task_count, swapin_delay_max);
++						SET_TASK_STAT(task_count, swapin_delay_max_ts);
+ 						SET_TASK_STAT(task_count, freepages_count);
+ 						SET_TASK_STAT(task_count, freepages_delay_total);
+ 						SET_TASK_STAT(task_count, freepages_delay_max);
++						SET_TASK_STAT(task_count, freepages_delay_max_ts);
+ 						SET_TASK_STAT(task_count, thrashing_count);
+ 						SET_TASK_STAT(task_count, thrashing_delay_total);
+ 						SET_TASK_STAT(task_count, thrashing_delay_max);
++						SET_TASK_STAT(task_count, thrashing_delay_max_ts);
+ 						SET_TASK_STAT(task_count, compact_count);
+ 						SET_TASK_STAT(task_count, compact_delay_total);
+ 						SET_TASK_STAT(task_count, compact_delay_max);
++						SET_TASK_STAT(task_count, compact_delay_max_ts);
+ 						SET_TASK_STAT(task_count, wpcopy_count);
+ 						SET_TASK_STAT(task_count, wpcopy_delay_total);
+ 						SET_TASK_STAT(task_count, wpcopy_delay_max);
++						SET_TASK_STAT(task_count, wpcopy_delay_max_ts);
+ 						SET_TASK_STAT(task_count, irq_count);
+ 						SET_TASK_STAT(task_count, irq_delay_total);
+ 						SET_TASK_STAT(task_count, irq_delay_max);
++						SET_TASK_STAT(task_count, irq_delay_max_ts);
+ 						set_mem_count(&tasks[task_count]);
+ 						set_mem_delay_total(&tasks[task_count]);
+ 						task_count++;
+@@ -827,6 +846,44 @@ static double average_ms(unsigned long long total, unsigned long long count)
+ 	return (double)total / 1000000.0 / count;
+ }
+
++/*
++ * Format __kernel_timespec to human readable string (YYYY-MM-DDTHH:MM:SS)
++ * Returns formatted string or "N/A" if timestamp is zero
++ */
++static const char *format_timespec64(struct __kernel_timespec *ts)
++{
++	static char buffer[32];
++	time_t time_sec;
++	struct tm tm_info;
++
++	/* Check if timestamp is zero (not set) */
++	if (ts->tv_sec == 0 && ts->tv_nsec == 0)
++		return "N/A";
++
++	/* Avoid Y2038 truncation: check if timestamp fits in time_t on 32-bit platforms */
++	if (sizeof(time_t) < sizeof(ts->tv_sec)) {
++		__s64 max = (__s64)((1ULL << (sizeof(time_t) * 8 - 1)) - 1);
++
++		if (ts->tv_sec > max || ts->tv_sec < -max - 1)
++			return "N/A";
++	}
++
++	time_sec = (time_t)ts->tv_sec;
++
++	if (localtime_r(&time_sec, &tm_info) == NULL)
++		return "N/A";
++
++	snprintf(buffer, sizeof(buffer), "%04d-%02d-%02dT%02d:%02d:%02d",
++		tm_info.tm_year + 1900,
++		tm_info.tm_mon + 1,
++		tm_info.tm_mday,
++		tm_info.tm_hour,
++		tm_info.tm_min,
++		tm_info.tm_sec);
++
++	return buffer;
++}
++
+ /* Comparison function for sorting tasks */
+ static int compare_tasks(const void *a, const void *b)
+ {
+@@ -853,13 +910,15 @@ static int compare_tasks(const void *a, const void *b)
+
+ /* Get delay values for a specific field */
+ static void get_field_delay_values(const struct task_info *task, const struct field_desc *field,
+-				   double *avg_ms, double *max_ms)
++				   double *avg_ms, double *max_ms,
++				   struct __kernel_timespec *max_ts)
+ {
+ 	unsigned long long total, count, max;
+
+ 	if (!field || !field->max_offset) {
+ 		*avg_ms = 0;
+ 		*max_ms = 0;
++		memset(max_ts, 0, sizeof(*max_ts));
+ 		return;
+ 	}
+
+@@ -869,6 +928,11 @@ static void get_field_delay_values(const struct task_info *task, const struct fi
+
+ 	max = *(unsigned long long *)((char *)task + field->max_offset);
+ 	*max_ms = (double)max / 1000000.0;  /* Convert nanoseconds to milliseconds */
++
++	if (field->max_ts_offset)
++		*max_ts = *(struct __kernel_timespec *)((char *)task + field->max_ts_offset);
++	else
++		memset(max_ts, 0, sizeof(*max_ts));
+ }
+
+ /* Sort tasks by selected field */
+@@ -1033,11 +1097,12 @@ static void display_results(int psi_ret)
+ 			cfg.max_processes, get_name_by_field(cfg.sort_field));
+
+ 	if (cfg.display_mode == MODE_TYPE && cfg.type_field) {
+-		/* Display mode for -t option: show only specified type with avg/max */
+-		suc &= BOOL_FPRINT(out, "%8s  %8s  %-17s %12s %12s\n",
++		/* Display mode for -t option: show only specified type with avg/max/timestamp */
++		suc &= BOOL_FPRINT(out, "%8s  %8s  %-17s %12s %12s %20s\n",
+ 			"PID", "TGID", "COMMAND",
+-			"AVG(ms)", "MAX(ms)");
+-		suc &= BOOL_FPRINT(out, "----------------------------------------------------\n");
++			"AVG(ms)", "MAX(ms)", "MAX_TIMESTAMP");
++		suc &= BOOL_FPRINT(out, "--------------------------------------------------------");
++		suc &= BOOL_FPRINT(out, "----------------------------------------\n");
+ 	} else {
+ 		suc &= BOOL_FPRINT(out, "%8s  %8s  %-17s", "PID", "TGID", "COMMAND");
+ 		if (cfg.display_mode == MODE_MEMVERBOSE) {
+@@ -1064,11 +1129,13 @@ static void display_results(int psi_ret)
+ 			tasks[i].pid, tasks[i].tgid, tasks[i].command);
+ 		if (cfg.display_mode == MODE_TYPE && cfg.type_field) {
+ 			double avg_ms, max_ms;
++			struct __kernel_timespec max_ts;
+
+-			get_field_delay_values(&tasks[i], cfg.type_field, &avg_ms, &max_ms);
++			get_field_delay_values(&tasks[i], cfg.type_field, &avg_ms,
++					&max_ms, &max_ts);
+
+-			suc &= BOOL_FPRINT(out, " %12.2f %12.2f\n",
+-				avg_ms, max_ms);
++			suc &= BOOL_FPRINT(out, " %12.2f %12.2f %20s\n",
++				avg_ms, max_ms, format_timespec64(&max_ts));
+ 		} else if (cfg.display_mode == MODE_MEMVERBOSE) {
+ 			suc &= BOOL_FPRINT(out, DELAY_FMT_MEMVERBOSE,
+ 				TASK_AVG(tasks[i], mem),
+-- 
+2.25.1
