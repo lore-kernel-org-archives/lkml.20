@@ -1,141 +1,140 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09AE54788
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:37:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C80354788;
+	Wed, 23 Sep 2026 00:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790123876; cv=none; b=XKFYcLZraW16jDDEis5T/Xt9ELnWXfPKSoTtkkvsjfu34aPaCugUfzSYokTWxHNNCrRvlmQJQms0VunpPF83ZHcSyuGzGX+5+sEheuO0/6cbFEe3LS9T94CngYf3QvHBAL14/e5tX43F7hzd0X305SVCz9BHWD9mv1zTHdlAtG4=
+	t=1790123894; cv=none; b=enTNH2oQ8wkFh+KG/9uKnoV0KfSTs/8S8CTYu30tH7fL48xG4S/1FURhegVCWivULf0pP6KaVIYzSGmFW68lksWSJRtKh0XaCZ40ui2CpqpBvO4dMavi1k77oyYrj5hpqR+424ecYWs+vUsvjlZk/nFeHOrTnlq3YLxh4bfwj2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790123876; c=relaxed/simple;
-	bh=mLB37Exj08/433G+3BazeafnfFxR6CqGB3+a9cQSS5g=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=YpEwsDphprTdLbrZ1TbVn8iFeMCI2pfyCWecsdBZfNYP7Xa3klr5OFkdQSz2/MEkE59xZhVNJHJ7F0+kj9BX/JunvlN8PB7LcihhGDujqx5rUJIy6XNW9v4byWMxchHtfiulshhoI2iADRXZ5fx8ZjMAYBR22IrXhtUl/XUony4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kzfhNqVr; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790123894; c=relaxed/simple;
+	bh=INodYnnPvXxri6ZN6tPfAJkfZPOwWK9deoE5Q48J5WE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HvzZKQuJdQ/gZBXjT+2RggyFlm1X1nky/t7Yw+VPJaScTqarYhR3tWm4AgwEB8evMJv/qx46EwzJ3YLL063l+h0c2poII04EGQn33CCin4eDdRlshsWWmEV24DR7u27YLcxgI67Pq5hELrQxXKd52rays4bTsV2iklfMkzhwN1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fFYwxE8/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kzfhNqVr"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d249c4so351525b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:37:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790123874; x=1790728674; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=IwcZc6dV/wJdORGfLDctznTgTbvt9ax2XJYGP2ZitOo=;
-        b=kzfhNqVrrobPRdQM8WhVaBsRcdEmk5WmiapAxAXfiiXVwJ8Lt90vavG/0JT3wnIu8Y
-         cnEPsMMo0ylXmuyRusSJyEGyaQ0OybkbQpxDjtt4wsEvqS1mnm4RrD5R2v9aUGA6boHL
-         Pb5v1haeofXhPZ7svjFUsGLRayw2Jon4UOkzWZI+scCqmQO7+LTxT0Ibh8CdggLTB3jy
-         2kLYHg6boHTHMV4ApithnA3o3FGrRwivI/uBr0wPQOm3etzp5QtsUMw9qMSVwVFWZM+3
-         dAG+mdQhJM45zRdVqzbJehBwkzHmaTt2OKBgNGVaY8HkRribkZeDEsLvycrVL+ZXlTj8
-         amvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790123874; x=1790728674;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IwcZc6dV/wJdORGfLDctznTgTbvt9ax2XJYGP2ZitOo=;
-        b=TH+lHIAI7FOCrSAxqB5PNbJY5JFIbmdHWECWFsx1wOwjcvwjt2f04jKfLepDpCXPQy
-         ziqkFKtR557x3uHJshDub4iKGiAt+lxAl5vVGwsfRVN2H1LP0V7/I6fWZAbOx10u7Evt
-         pCBBzPg08DN8R8R07Y5KxDmmHj1HfMi8a68f3U2H5opX51M8phhne0g0tIgT3G1a2KLh
-         U3Qsp8qK+sYyDY96uG+DAs8LSID7Qp0w3LmyV+84VlBRoNLnZaaTk77dbin1cbesJ1fI
-         2cq9anuj+eE6gJa4ah2hmF8sbcuWz2C77ERmLLHA1dvwLabSmDOaX0Nb3bOg7VTO6FaG
-         rXmw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8GvdEEosTw7MWfDdlue6szX5vE0XayQsjY7yacJ3FviEI5TGd1sS1GNaGghNf6fbwY9pzXwWRXGigyZk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMiYMmd+DzOLQXf0GeEoPYIj6a078ogpW0v1QJ/dYYhnZot70J
-	T+t+9/4maFQieheTY7RpDM9ISklusaiJkqRlqMYX8k/1tg+HREB0pTbQ
-X-Gm-Gg: AYBFou2L1vUuGy+i3Tax4bm1eUnfCGUgczqBONBvOuQ1eA9v8w25PdgfCk6rIB+ElMT
-	a11gutBBZyPYRZccrTbMXb6tObGTzdPKJ25SmvfTgN90oxpNp8Qfdoz79V4f8Ly+fzknHWV7jx3
-	uzWhRCwccFSp/VH0t5LeKqkEnDcFMhNUzNLrx2S06SUyZbgaktNHfodPReMsda7vZSeOPBdQWzH
-	Olkbg8l6FU5o1xq2eGd1ASTij3JjvGsCqcq9LKvtYRNEj19oVNr6NOZWBIeUKnPnduMTr5LhiER
-	1Q7JsPlS8sJ3ywo0YgpvyzhTvSWUZB7CPk6wa4wUV5x3XEQAE6zdFx8fUjgoVUCU4x5e1J2d4P7
-	0E6MUPG/FbJAoHnXQUG4H6IVdnS/txLAttcbx33hNsTmaaFmsRi+obyztrf0MNRoQSKrybRaTVn
-	rN5V6j0giICLgw1q+gPvMDG17Ax3udgQy9cxtpBvFQm9lfUZq7oJ6c21PaPT18uVXN5Ldu+D8Hj
-	j49lb125r3/oI8Ebwcj1DfIZ1wU1oE=
-X-Received: by 2002:a05:6a20:748d:b0:3dd:a196:53a2 with SMTP id adf61e73a8af0-3ddf82f113fmr927824637.68.1790123873965;
-        Tue, 22 Sep 2026 17:37:53 -0700 (PDT)
-Received: from smtpclient.apple ([14.139.251.98])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1cfc0843sm449618b3a.12.2026.09.22.17.37.50
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 22 Sep 2026 17:37:53 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fFYwxE8/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FFA91F000FF;
+	Wed, 23 Sep 2026 00:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790123892;
+	bh=YP/I4S28TVTqUglK/IadqaM72viGX8Ih6JU5IQO5kJI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fFYwxE8/zFGLfGZCfdzcXvLQOdzxVkJ9cHZ0Aewi1If1FMmLtV7WDiKnG8g7cXJEq
+	 WH1FzGgY4Nu5HjlMfJhT0DJqISENkZg7H9O6mCxiSavYEZq/YoOTzh9ObF3pGAeQe6
+	 f1TJCyVn0VLCc441HnoqRpJpPNP1Mzpy4XSLPNd9CpRYVGoxXcYDuVsSB5b0aTKp3t
+	 /k6cWKEEXidMG8XOfgg7A6o+4mqkWbkypF1MpxssZwaQixLPmxIOWG0E2tnUk3kBPx
+	 dh0SSDRG2q2NAlMf6ETTnCBcKxed3mrJZPGpwzGq4trYn4VgItBqsa0hC+XMRTmmzd
+	 ZjjiK77LUahFQ==
+Subject: Re: [PATCH net-next v4 1/7] net: dsa: motorcomm: Hoist port_to_priv
+ helper into chip.h
+From: netdev-bot+sashiko@kernel.org
+To: mmyangfl@gmail.com
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux@armlinux.org.uk, linux-kernel@vger.kernel.org
+Date: Wed, 23 Sep 2026 00:38:11 +0000
+Message-ID: <179012389159.2160803.2607059745097443469@kernel.org>
+In-Reply-To: <20260921203040.1203911-2-mmyangfl@gmail.com>
+References: <20260921203040.1203911-2-mmyangfl@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
-Subject: Re: [PATCH] nfsd: prevent NFSv4.1 SEQUENCE reply-cache overflow
-From: Mayank Jangid <mayank.jangid.moon@gmail.com>
-In-Reply-To: <29830200-dcb0-452f-9e19-80a595b46fe7@slotpi15m67>
-Date: Wed, 23 Sep 2026 06:07:38 +0530
-Cc: jlayton@kernel.org,
- neil@brown.name,
- okorniev@redhat.com,
- Dai.Ngo@oracle.com,
- tom@talpey.com,
- linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- security@kernel.org,
- Kushal Khemka <kushalkhemka559@gmail.com>,
- Kkartik Aggarwal <aggarwalkkartik@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A0CE2B28-0875-43AE-95A2-18AA7FB758B4@gmail.com>
-References: <20260922112608.1256363-1-mayank.jangid.moon@gmail.com>
- <29830200-dcb0-452f-9e19-80a595b46fe7@slotpi15m67>
-To: Chuck Lever <cel@kernel.org>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
+MIME-Version: 1.0
 
-Hi Chuck,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Thanks for pointing me to J=C3=A9r=C3=A9my's series.
+Low priority / nit picks for your consideration:
 
-I tested the queued fix against our reproducer, and it resolves the =
-issue. I can no longer reproduce the reply buffer overflow with the two =
-patches applied.
+- [Low] The helper promoted into the driver-wide header,
+  `yt921x_port_to_priv(pp)` in drivers/net/dsa/motorcomm/chip.h:992-993,…
 
-Please feel free to add:
-Tested-by: Mayank Jangid (OpenSec Intelligence) =
-mayank.jangid.moon@gmail.com <mailto:mayank.jangid.moon@gmail.com>
+--
 
-Thanks,
-Mayank Jangid
-OpenSec Intelligence
+net: dsa: motorcomm: Hoist port_to_priv helper into chip.h
 
-> On 22 Sep 2026, at 7:36=E2=80=AFPM, Chuck Lever <cel@kernel.org> =
-wrote:
->=20
-> On 9/22/26 7:26 AM, Mayank Jangid (OpenSec Intelligence) wrote:
->> nfsd4_sequence() narrows the reply buffer to the session =
-cached-response
->> limit before accepting the slot sequence ID. A client can negotiate
->> ca_maxresponsesize_cached down to NFSD_MIN_HDR_SEQ_SZ, leaving no =
-storage
->> in the slot trailing sl_data[] array.
->=20
-> Thanks for the report and the patch. J=C3=A9r=C3=A9my Jean reported =
-the same
-> issue in August, and a fix for it is already queued in the =
-nfsd-testing
-> branch:
->=20
->  =
-https://lore.kernel.org/linux-nfs/20260817-jean-v1-0-9e356596ab85@kernel.o=
-rg/
->=20
-> Patch 1/2 there adds the same pre-flight check of the SEQUENCE reply
-> size before nfsd4_sequence() narrows the buffer and accepts the slot,
-> and patch 2/2 sets op->status when an operation header cannot be
-> encoded. Your patch does the same two things, so I won't apply it on
-> top of that series.
->=20
-> If you can test the queued fix against your reproducer and confirm it
-> addresses the overflow you found, a Tested-by: on that thread would be
-> welcome.
->=20
-> --=20
-> Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+The duplicated container_of_const() expression used to get from a
+struct yt921x_port back to the enclosing struct yt921x_priv is moved out
+of leds.c into chip.h as yt921x_port_to_priv(), and yt921x_poll_mib() in
+chip.c is converted to use it instead of its open-coded pointer
+arithmetic.
 
+> diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+> index 8b0ac5fc8c8b6..38e7879a9f1ae 100644
+> --- a/drivers/net/dsa/motorcomm/chip.c
+> +++ b/drivers/net/dsa/motorcomm/chip.c
+> @@ -608,9 +608,8 @@ static void yt921x_poll_mib(struct work_struct *work)
+>  {
+>  	struct yt921x_port *pp = container_of_const(work, struct yt921x_port,
+>  						    mib_read.work);
+> -	struct yt921x_priv *priv = (void *)(pp - pp->index) -
+> -				   offsetof(struct yt921x_priv, ports);
+>  	unsigned long delay = YT921X_STATS_INTERVAL_JIFFIES;
+> +	struct yt921x_priv *priv = yt921x_port_to_priv(pp);
+>  	int port = pp->index;
+>  	int res;
+>  
+> diff --git a/drivers/net/dsa/motorcomm/chip.h b/drivers/net/dsa/motorcomm/chip.h
+> index 83cd454955ddb..9cd1010eb9700 100644
+> --- a/drivers/net/dsa/motorcomm/chip.h
+> +++ b/drivers/net/dsa/motorcomm/chip.h
+> @@ -989,4 +989,7 @@ struct yt921x_priv {
+>  	struct yt921x_acl_blk *acl_blks[YT921X_ACL_BLK_NUM];
+>  };
+>  
+> +#define yt921x_port_to_priv(pp) \
+> +	container_of_const((pp), struct yt921x_priv, ports[(pp)->index])
+> +
+
+[Severity: Low]
+This isn't a bug today, but now that this helper lives in chip.h and is
+visible to every file that includes it, is the double expansion of the
+macro argument worth avoiding?
+
+The argument pp appears twice: once as the container_of_const() base
+pointer, and again inside the offsetof() member designator:
+
+  container_of_const((pp), struct yt921x_priv, ports[(pp)->index])
+
+container_of_const() only caches the first occurrence in its internal
+__mptr, so the second (pp)->index is a separate textual evaluation of the
+caller's expression. A caller passing something with side effects or a
+function call, say:
+
+  priv = yt921x_port_to_priv(&other->ports[i++]);
+  priv = yt921x_port_to_priv(get_port(ds, i));
+
+would compile cleanly but compute the container address from a different
+port than the base pointer.
+
+Would a static inline be preferable here?
+
+  static inline struct yt921x_priv *yt921x_port_to_priv(struct yt921x_port *pp)
+
+That gets single evaluation and type checking. All six users
+(yt921x_poll_mib() in chip.c, and yt921x_cled_brightness_set_blocking(),
+yt921x_cled_blink_set(), yt921x_cled_hw_control_get_device(),
+yt921x_cled_hw_control_is_supported(), yt921x_cled_hw_control_get() and
+yt921x_cled_hw_control_set() in leds.c) assign the result to a plain
+struct yt921x_priv *, so the const-preserving behaviour of
+container_of_const() does not appear to be needed.
+
+Failing that, could a short comment be added stating that the argument
+must be free of side effects?
+
+>  #endif
+
+[ ... ]
+
+The macro is still present verbatim at the end of the series, so nothing
+later in the series changes this.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921203040.1203911-1-mmyangfl%40gmail.com
