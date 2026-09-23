@@ -1,98 +1,138 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728B6286425
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B66D362156
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:05:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790129106; cv=none; b=qUDIK7QEdtaLl/r1+t9NLJOADRnP7UXo+QLuxIzZVxl374O+ZVKDrMUtgkt2BpDmjLAFUjjg8eOEHAkLrfYkOhbNVmqvlmcrW+3a5CzDbOPrf5CO7aHx210Mq5vzrR0V6rXjmHqIfU/q1UVaoQ1r0Ug7JoRkZfs/FDSRhI6vu7o=
+	t=1790129157; cv=none; b=qVXkyk+KmYT4+DeO59mXH9wCCQsRCRiShvNI0WQqrpG9s0AkXRvWAYsQu4b2W7p1MOeVejFpghE+V/c440n4CemhDclt93vvGaoKIV60C6JjyVKbZnqNHCWJJvExYc1NiyW9Q+uGnEFF3KWc7a3T0TqmTpcMk2ZKEyosdtqixfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790129106; c=relaxed/simple;
-	bh=rEtnPWekXA5o6t5jqiTT+KP47/mHE0DgP8GNKlQ/2M4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YKEUgKfWu0RQiyvmCbIrWnwYjDzHZmf3CU8Jeca8yyorVa5j072mphdykmuI68hFYTROgLUV1RuXbyKYq4/zpL19G9qHDCEZ0PUjpO1LJk8dt+w7UbveSmsigbIdScliCGA/+VF52e71d7fJH0dVHrTl1rIFzJ8iy4QiRaBxKHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DPnrrdJB; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790129157; c=relaxed/simple;
+	bh=Lh2KAWhxN/KUy7SbPIyEGCqRbIP1h0b+ba0VIRohGTs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=q7RSN5QY5Gmg8B/5F1oADRbXS81VvjQvk000Zd0uw4ix8iVRldTxbEtSHlu0ZNpemmne0mRvb5lW+ibWR6W7ccvZv7R1cgp/Pdnn7x1/dBATy4zpLT7w3AfKHo16j/K0l+lg/2BNjRXhtKIfjefPOlyyhnCIjDgMPont45XO0xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=H9kQjuiv; arc=none smtp.client-ip=95.215.58.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DPnrrdJB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=rE
-	tnPWekXA5o6t5jqiTT+KP47/mHE0DgP8GNKlQ/2M4=; b=DPnrrdJBfu+0ce9eJo
-	DPpJErWokaAbKlKyHTSHriG8ANpnbBpi5GzMa9qP0j5/+217bI2uXA11+m9UbAbt
-	kxeqpHIBkCmd5l300XWjSjNmjr2NLGUmm7JbcEzf+9WLAjFAuf27Jt0V6gGfpP06
-	FuQvffmkK4dm53lUHJi+i35ho=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3P5VXM7NqH_PmAA--.44275S2;
-	Wed, 23 Sep 2026 10:03:03 +0800 (CST)
-From: albin_yang@163.com
-To: peterz@infradead.org
-Cc: mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	chen.yu@linux.dev,
-	kayracizmeci@gmail.com,
-	mintaohuang@tencent.com,
-	linux-kernel@vger.kernel.org,
-	albin_yang@163.com,
-	albinwyang@tencent.com
-Subject: Re: [PATCH v3] sched/stats: Fix run_delay over-count for migrated sched_delayed tasks
-Date: Wed, 23 Sep 2026 10:03:02 +0800
-Message-ID: <20260923020302.3581908-1-albin_yang@163.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260922105522.GO1837346@noisy.programming.kicks-ass.net>
-References: <20260922105522.GO1837346@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="H9kQjuiv"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Lh2KAWhxN/KUy7SbPIyEGCqRbIP1h0b+ba0VIRohGTs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790129152; v=1; x=1790733952;
+ b=H9kQjuivjSuYyKmEXm22DCORDRwBlkK/q/aCOzu1hnWk4F6XT5B39Y2J6de1cyDnmfjCfmCB
+ 9uxjNwusQ7a7JUIjyPiM0Jgj8A2yZEtQRJRkXXLLIMObzEfUZFEUmoaqFf3v44Yu6PwV1FmV4Xr
+ 9xLA4q3eaHrFI2/8QObN1Wvo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3e0c62f87578aba1;
+	Wed, 23 Sep 2026 02:05:51 +0000
+X-Mizu-Trace-ID: 3e0c62f87578aba1
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+Subject: [PATCH v2 0/2] mm: fix hugetlb NR_HUGETLB accounting on folio
+ migration
+Date: Wed, 23 Sep 2026 10:05:14 +0800
+Message-Id: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P5VXM7NqH_PmAA--.44275S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ww4DXF1UAw1xuFyruw13XFb_yoW8XFyrpa
-	s8Kr4UG3Wvgr45tFsrZr4xWa1FqwnxCayY9F18trWDZw15Jryavrn2kr4a9FWvkr4fCFsI
-	9FnrXFyDAFyj93DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUP3kXUUUUU=
-X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbC7xhqDWqzM1jRWgAA3p
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSwqDQBBF0a1IjW3QUiPJVkTEz2utIBq62hAQ9
+ 25rhmdw704KJ1B6RTs5fEVlXQI4jqif2mWEkSGYOOFH8mQ2dnVm2kb4uWvUtx6ZKcrMcslpMeS
+ gEH4crPzuaVX/rVv3Ru+vEx3HCZdqEap2AAAA
+X-Change-ID: 20260922-for-hugetlb_state3-573f27215d4e
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>
+Cc: hongfu.li@linux.dev, Chris Down <chris@chrisdown.name>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org, 
+ Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790129144; l=3156;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=Lh2KAWhxN/KUy7SbPIyEGCqRbIP1h0b+ba0VIRohGTs=;
+ b=YvOPgCX20y0ccSSoHy0fUm9cg0wU5mkNoQ2pYoGvL4Evn4zDlV5WAToIEiN7MaC94cVVFkqMs
+ 44lLGpFkrIFAZu91iI7yon669lqbXoigrE5wuglQhL7OyMsBEVVExQq
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-Hi Peter,
+The hugeTLB counters added by 05d4532b60e3 ("memcg/hugetlb: add hugeTLB
+counters to memcg") are maintained in two per-node places:
+  - the per-node vmstat counter NR_HUGETLB, exposed as nr_hugetlb in
+    /proc/vmstat;
+  - the per-node memcg lruvec stat, exposed via memory.numa_stat.
 
-On Tue, 22 Sep 2026 12:55:22 +0200, Peter Zijlstra wrote:
-> Will we not have a similar problem with proxy exec? That is, would
-> t->is_blocked be more appropriate?
+Both are accounted against the folio's node, and both drift when a
+hugetlb folio is migrated, though in different ways.
 
-Yes, there is a similar issue: proxy_migrate_task() re-attaches a blocked
-donor via activate_task() without ENQUEUE_RESTORE -- a fake enqueue that
-should not update last_queued. Thanks to Kayra for confirming this and for
-the task_is_blocked() idea.
+A migration target folio is allocated by alloc_hugetlb_folio_nodemask()
+and inherits the old folio's state without ever being accounted, while
+the old folio is freed right after and its free is accounted. That
+alone loses vmstat accounting: the target node has no matching increment
+for the decrement on the old node, so /proc/vmstat's nr_hugetlb shrinks
+by nr_pages per migration. Patch 1 accounts the folio where it is
+obtained, so the increment pairs with the free in free_huge_folio() on
+the successful as well as the failed migration path. The memfd page
+cache preallocation helper has the same asymmetry and is fixed in the
+same patch.
 
-But t->is_blocked can't gate it. In ttwu_runnable(), the real wakeup of a
-delayed task does its enqueue_task(ENQUEUE_DELAYED) inside the
-if (p->is_blocked) branch, and is_blocked is only cleared afterwards in
-ttwu_do_wakeup(). So !is_blocked would suppress exactly the re-arm this
-patch relies on, and run_delay would never be accounted.
+The per-node lruvec stat breaks differently. mem_cgroup_migrate()
+moves the charge to the new folio and drops the old folio's memcg data,
+so the old folio's free right after migration skips the memcg per-node
+decrement; the count stays attributed to the old node for the rest of
+the charge's life, and the target folio never gets an increment on its
+new node. Patch 2 moves that per-node accounting along with the charge,
+in move_hugetlb_state().
 
-task_is_blocked() does look usable for the proxy case: every waker clears
-blocked_on before waking the task (mutex handoff, ww_mutex die/wound,
-proxy_needs_return), so it should not be set on a real wakeup enqueue. But
-it cannot replace se.sched_delayed -- a delayed sleeper has no blocked_on at
-all -- so it would have to be an additional condition rather than a
-substitute.
+---
+Changes in v2:
+- In patch 2/2, move_hugetlb_lruvec_stat() no longer takes the objcg
+  parameter; it takes the memcg from the new folio and uses guard(rcu)().
+- In patch 2/2, move_hugetlb_lruvec_stat() is moved to mm/hugetlb.c and is
+  now called from move_hugetlb_state() instead of mem_cgroup_migrate().
+- In patch 2/2, make mod_memcg_lruvec_state() non-static (declared in
+  include/linux/memcontrol.h).
+- Collected tags on both patches.
 
-Before adding that I would like to reproduce the proxy case and confirm what
-the donor's run_delay should look like: whether the time it spent blocked on
-the mutex ought to be dropped like a delayed sleep, or accounted somehow.
+To: Muchun Song <muchun.song@linux.dev>
+To: Oscar Salvador <osalvador@suse.de>
+To: David Hildenbrand <david@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+To: Chris Down <chris@chrisdown.name>
+To: Johannes Weiner <hannes@cmpxchg.org>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+To: Nhat Pham <nphamcs@gmail.com>
+To: Michal Hocko <mhocko@kernel.org>
+To: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: hongfu.li@linux.dev
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: cgroups@vger.kernel.org
 
-Please shed some light on how the proxy case could be dealt with, or should
-this patch only focus on the delayed case?
+---
+Hongfu Li (2):
+      mm/hugetlb: account migration target folio in per-node NR_HUGETLB vmstat
+      mm/memcg: migrate per-node hugetlb lruvec stat together with hugetlb folio
 
-Thanks,
-Wei Yang
+ include/linux/memcontrol.h |  8 +++++++
+ mm/hugetlb.c               | 60 ++++++++++++++++++++++++++++++++++++----------
+ mm/memcontrol.c            |  5 ++--
+ 3 files changed, 58 insertions(+), 15 deletions(-)
+---
+base-commit: 8d29b5365d528da545c1fe0768a55babadee95d0
+change-id: 20260922-for-hugetlb_state3-573f27215d4e
+
+Best regards,
+--  
+Hongfu Li <lihongfu@kylinos.cn>
 
