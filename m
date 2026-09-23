@@ -1,523 +1,214 @@
-Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com [74.125.231.99])
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6E759572C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D0A596503
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:35:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202959; cv=none; b=KvMzuaQ1DdsmIKT9yjsOw2g0hQJ++tzwz58jmkjUq6++FzQXf1VAPi6Gjp/v57NfUhoh9n5xg6aq05B93Ome2mioX/Rq7g1OdCw2zpdEyxrFhFsoAt0srqZT0tyoRBiVfw0RmE6q3M6gXIeO15K+4TF3BuxXIZ5BvfHDldKTrNk=
+	t=1790202962; cv=none; b=LaIMF7PwjLSJlY5HWuzq886tG97P6sSoyCIMcITuMdBKe1KNF0ZMYflKjLx8o79NSkgAKYNvvrV14xfl9CgkNFt22+71Ywlfs/FhDUaLw+NANO3YA3zMPa0qJwLHI79U7o0BGzVO2NV/6GarZU7DbQs9ytS/50+d0NifWzM6Qvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202959; c=relaxed/simple;
-	bh=n9Z8JXtV+hbQarrwr/08uWnROErL8cUNEOMgEF+8lZ0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=q0eo9I9/WRPEXjhGL1c+p3IjBL2JbclemzBghw/Iz17SK+lLZ+TPb+WM7VRTQxFer/VbDQOPUYGZ/9W4pUVwYEX6ZMsv7gz3M3/iaZf+cisy9CR134t0is0lvR9SniyiwQuKqf3Xd3sIW2grsF9520+2wkL7+nUC5N5/EXfrT5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JmRd67rO; arc=none smtp.client-ip=74.125.231.99
+	s=arc-20240116; t=1790202962; c=relaxed/simple;
+	bh=Ot25WLyqVRhsBXv9+FeXxetochqDJHUpqUPvyel2wpg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GdRMY+acxfhv0895sNyynbZ+Q40H21uNh0bpbBFz66eHjWpOPiX7OVcHYZoziiS8z++luHBBRdwJuc5VswHW+aJkEjHXrwmysgRYpVwrBd+GjMUO6jgPlv72e/3rk2TnA/KjxklMmEyFXQbvsy2rjbvt4fAV7/U0wPx3ytsL33I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flWNWFgi; arc=none smtp.client-ip=74.125.227.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JmRd67rO"
-Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-486e0f56cddso780828fac.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:35:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flWNWFgi"
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c98e1942dfso1239909e0c.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:35:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790202952; x=1790807752; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fzyHdOl4LBhnGjv+agUTHwxe+Zo72I6YnHJM+htK4QI=;
-        b=JmRd67rOENbbdTBN3Pb48S8lv3/2mlmhlj26bG5dpXgNPKtdrxypIFWvY/i7dAQY6J
-         EwdjLB/ZRGIqnPoY5iUSixqi2fSFK6mqJCAisyXGvYFnTvPCB1t+egh0Usby54XNnCid
-         1Mc4CSIZRU2jgMhrp6FahiJqkKfoha2ZcvovFoIM0IGOkoV0c/isIVbs54w/hh0Y82AU
-         Hu4xaTmVSlv40rMhGrhM1e4PYKgGaVuP80jXLbhVuqe5s3OI8++BiyDL88+KFRQ/+S/U
-         RiSoVyv4HWrW/keb/eW2zfZz1feS4q6wuwVUZo7yygWZLzyiFo5ICPb7KtIVuMXzRPhp
-         6TSg==
+        d=gmail.com; s=20251104; t=1790202957; x=1790807757; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E15zTz6LSPQ0+KOjqcr732bl7v4sHhRkFWWTNxNbp1E=;
+        b=flWNWFgiq2zZuJ8Knco5vhDc1+If3REpIIWfyGyLl6temXFn6r74AWhPEdzRAqkUPW
+         sT/p3Vzm9BIArdARoWO4KrqwIYs2fUXug/y4tYEwELhLrlZqdXwg3Teq1XIduKosJlBW
+         cxKLEmQifGHEi4H43DbNfEGoDJ891ff9o+DuC0B6rhXxqsUD2+/hvNOnxzrL2uWiDj3P
+         aq7lh+upgRqbW1QF2m2YssIUOBfeBlAsWTLowQe3uLIklmm08CzdNngH46fMsrlws/9U
+         gjVZt2KX5meOsyRnZ3xn/88wJcyeNHeriMFsfP4Qd74JlmcQOuv/cEybhTytIbvNwAWb
+         JbUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790202952; x=1790807752;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790202957; x=1790807757;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fzyHdOl4LBhnGjv+agUTHwxe+Zo72I6YnHJM+htK4QI=;
-        b=PDJgN08OivBKPydwHtwN7u43brCgu89zZol/kh97Iwz5+YM+4rzb1OQEYlizg/lWbl
-         ipdO7sruvhbnDJoVbZlYiHekOGgcdqwBD7VsRrska0lnDzRNuK/bVEUUjJ4WFaH7dlIj
-         SqLG+FRdRAZreEjrwGaMR5gj8nl+4pu/3d9fUc+IuCmGeJ/wxjt+Y2vpb8IfCQc3hoUy
-         ppPWVAfoIVqezoVLx2HUJDcIpP9FEDt9PsbI2urVnKAC8lq21jiKXKM893VwsjDi9Rxg
-         lyqSURAH54hY54xM+Ib5KI2M2U7PQqkBfAUKWGs+A4KhVL7rge6p3RjyRzY1N4GWaC3v
-         iRbQ==
-X-Gm-Message-State: AFuF++kWUm/s+uH2RBpCv3LZMayi3NL5q4/h9/CfNCbkheNbZY1S9CaQ
-	cZ+nfhU85qZQzoVNwMxu1RKpEhb25r90juYfNfB1wjYpQL/Rzt5CWdZM
-X-Gm-Gg: AYBFou0FXpXbwiVIogQynU5uUlg+Y+aWAoOi9QwckHWtpDMuKhjJ9eF8sDXRZqRoJ8i
-	8xgxkHBojf46Vg8gieM7grmBdLtSwJJ8ZN90VBnzDQHXRKi85LvlTLK9Wupvbo5CWiY4CHKwMr4
-	wdotZDg5FXfcGkdEX5nNljWUo452an7x1E6c3j0quzkmSpW0eOXK3rcRKMOQ5PnFtP5tYy77Pa9
-	gUf7LczOBmit/BhswtvlSzlF74mIR/zLLnnS5v0Mvt61jAgWo/o2dbu6rCyPRMy5bqahG54fWxK
-	oK61QblfCFUefZTSOA11WYqub1QvECB9gWjy2EieZGSpPeV6gZJna2FQjNFaKx+2lgvEakXZj5v
-	ADruMgMEGCHLXKaV5+EqxtNyQoz8mAnM90CNI4zyKWn7cXIrKHmpK5bhpaD4zLsGtxYRxTLN3GS
-	pDQoWxPLYJQryRxWGKkA2ZDkgHsYb/iOmHsDPoa2ivLP1bA1Bq7S588Wyu6L24L/k+yc1l0X8NZ
-	li2FMe5h/MMGl8dTYzzg93kxrXrdVSb6GIAhBbgTaUcMgjiwNIu4HjGU05nbUG/EMzw6+oRR28f
-	KlAexWG/gsUeXgi6W80=
-X-Received: by 2002:a05:6870:45a8:b0:47b:e948:4d6f with SMTP id 586e51a60fabf-491e58d0f81mr693435fac.17.1790202952075;
-        Wed, 23 Sep 2026 15:35:52 -0700 (PDT)
-Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
-        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.49
+        bh=E15zTz6LSPQ0+KOjqcr732bl7v4sHhRkFWWTNxNbp1E=;
+        b=esPQrOweMIPabOgd8z8BxmmmJCpwL4HvAmhpnBM4ZO5HqD1PvrNjbOxLzVGzdmeWum
+         CaNnDmqEdDHG7K9QYWe3jFglvlh+U5/Z9kfrSuqhtHEcCqAjUdDPkUbWPUgIqL62aU4U
+         wtEJtIrCn8rcG6mdIFtyEHZ/dRb145SQ0vcYfvksnesHkuaALMs4ogz9lKV0KVMh9W5V
+         siJ79THALxdsKvMkb4qDMTjt1Ux0GJwezMvD/hZl47lrtMEKvt4hR7zbc1nbazIvUzsM
+         Iva9VuVBexeGXWNaVNoOetKimBkh4Ot8UlieAoI4V+rvlLqw8ePS3+mKTHhDExkkJqwr
+         GMdA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6lO26FwJlCUMD6K4E3BjtSaVKrg+oKzH7tcA2p6ikpQJlUsQNt8K1HEbIqe4zfIdDkc6AOBad0+ZMKqk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvjPXlm4FTT7CYEc2V65ibrDlnScR1pZvzINnoIQufNBe4HPY6
+	by5lbK8LPWTs5M1JdagTAdl3VRaLRk3yS9SBO8nAM+nXgfoWk4P3tvk=
+X-Gm-Gg: AYBFou141FP1Y5mG5A0bZ8uEToXkkX1hvZLNCjQUK1h7PyAOyQuXd3xFz1NDj5E92Uf
+	7BplD4w5U8jLrrz7R6mgmACOnWCx9AJRh3wRWYCr7S6eiV31m3fPFqRO9lSVR7VqHAkm6h9sahb
+	Bd0KY2iu3S5SmfPSDrnM/9zaGuJiOalUaY6lrMCcoGxQ724MQFn5Jyjilt9nYLpYdHPKOOW1V2B
+	aZ4w5Wiz/VX9vKV5rKhpA+BEB1hQQUl1zSjrwNM1849924hDLMpgjJccjOlO5S5thmyU0vw/hLB
+	DYYzQjaMwD3Z1uVE39OdkCKkQZVgI+wYdMuOm9wZGHeq2ISmmgxAG8Lj+PKCwLoECmAlzXZqmXS
+	d0ixYYXkuOcMz7xuJJlrwKIGcD6godU/fS4pHXT5n/MyP23q7CDiwVEYUZKoD1Us0cjE2JHVFQ5
+	8PR2OLk1s0TQ4vmLsyWnyqc+PkoUDtb+lq8rDkk7FttOr7wUZvh2P238wf87WQwLeYdtdP2l30Z
+	X3V+oA+21E+SSx0QvXOC+tLcfOWsmGHIZ99kCpXNAA5zBlQSA==
+X-Received: by 2002:a05:6122:198d:b0:5c9:82a1:a6a3 with SMTP id 71dfb90a1353d-5cb08753a03mr590726e0c.6.1790202956828;
+        Wed, 23 Sep 2026 15:35:56 -0700 (PDT)
+Received: from localhost.localdomain ([186.158.238.108])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f04fb621sm5162983e0c.9.2026.09.23.15.35.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:35:51 -0700 (PDT)
-From: Jim Cromie <jim.cromie@gmail.com>
-Date: Wed, 23 Sep 2026 16:34:56 -0600
-Subject: [PATCH v11 32/38] dyndbg: resolve "protection" of class'd pr_debug
+        Wed, 23 Sep 2026 15:35:55 -0700 (PDT)
+From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v5 1/3] dt-bindings: display: add Chipwealth CH1115 OLED Controller
+Date: Wed, 23 Sep 2026 19:35:13 -0300
+Message-ID: <b961c25f0b67968b6ef891f2dd3527508a374261.1790200427.git.nico.antinori.7@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1790200427.git.nico.antinori.7@gmail.com>
+References: <cover.1790200427.git.nico.antinori.7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-dd-cmap-part2-clean-v11-32-9b6c217fdf2f@gmail.com>
-References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
-In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
-To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
- Jonathan Corbet <corbet@net.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
- John Ogness <john.ogness@linutronix.de>, 
- Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
- linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
- Jim Cromie <jim.cromie@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=14275;
- i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=n9Z8JXtV+hbQarrwr/08uWnROErL8cUNEOMgEF+8lZ0=;
- b=TpQ2B1pyJPtaOfzG9s270Vj5Aol5cENNbiRWtD7RNMDK6Gz/3kgspmLS9ATcqKX7XSNm+99G1
- 21Ult+otJXiCERU59pX9uGcTQqlq5Cz1e6P771yOKOGaHzuXitLOy4k
-X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
- pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-classmap-v1 code protected class'd pr_debugs from unintended
-changes by unclassed/_DFLT queries:
+Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
 
-  # - to declutter examples:
-  alias ddcmd='echo $* > /proc/dynamic_debug/control'
-
-  # IOW, this should NOT alter drm.debug settings
-  ddcmd -p
-
-  # Instead, you must name the class to change it.
-  # Protective but tedious
-  ddcmd class DRM_UT_CORE +p
-
-  # Or do it the (old school) subsystem way
-  # This is ABI !!
-  echo 1 > /sys/module/drm/parameters/debug
-
-Since the debug sysfs-node is ABI, if dyndbg is going to implement it,
-it must also honor its settings; it must at least protect against
-accidental changes to its classes from legacy queries.
-
-The protection allows all previously conceived queries to work the way
-they always have; ie select the same set of pr_debugs, despite the
-inclusion of whole new classes of pr_debugs.
-
-But that choice has 2 downsides:
-
-1. "name the class to change it" makes a tedious long-winded
-interface, needing many commands to set DRM_UT_* one at a time.
-
-2. It makes the class keyword special in some sense; the other
-keywords skip only on query mismatch, otherwise the code falls thru to
-adjust the pr-debug site.
-
- Jason Baron	didn't like v1 on point 2.
- Louis Chauvet	didn't like recent rev on point 1 tedium.
-
-But that said: /sys/ is ABI, so this must be reliable:
-
-  #> echo 0x1f > /sys/module/drm/parameters/debug
-
-It 'just works' without dyndbg underneath; we must deliver that same
-stability.  Convenience is secondary.
-
-The new resolution:
-
-If ABI is the blocking issue, then no ABI means no blocking issue.
-IOW, if the classmap has no presence under /sys/*, ie no PARAM, there
-is no ABI to guard, and no reason to enforce a tedious interface.
-
-In the future, if DRM wants to alter this protection, that is
-practical, but I think default-on is the correct mode.
-
-So atm classes without a PARAM are unprotected at >control, allowing
-admins their shortcuts.  I think this could satisfy all viewpoints.
-
-That said, theres also a possibility of wildcard classes:
-
-   #> ddcmd class '*' +p
-
-Currently, the query-class is exact-matched against each module's
-classmaps.names.  This gives precise behavior, a good basis.
-
-But class wildcards are possible, they just did'nt appear useful for
-DRM, whose classmap names are a flat DRM_UT_* namespace.
-
-IOW, theres no useful selectivity there:
-
-   #> ddcmd class "DRM_*" +p		# these enable every DRM_* class
-   #> ddcmd class "DRM_UT_*" +p
-
-   #> ddcmd class "DRM_UT_V*" +p	# finally select just 1: DRM_UT_VBL
-   #> ddcmd class "DRM_UT_D*" +p	# but this gets 3
-
-   #> ddcmd class "D*V*" +p		# here be dragons
-
-But there is debatable utility in the feature.
-
-   #> ddcmd class __DEFAULT__ -p	# what about this ?
-   #> ddcmd -p				# thats what this does. automatically
-
-Anyway, this patch does:
-
-1. adds link field from _ddebug_class_map to the .controlling_param
-
-2. sets it in ddebug_match_apply_kparam(), during modprobe/init,
-   when options like drm.debug=VAL are handled.
-
-3. ddebug_class_has_param() now checks .controlling_param
-
-4. ddebug_class_wants_protection() macro renames 3.
-   this frames it as a separable policy decision
-
-5. ddebug_match_desc() gets the most attention:
-
-a. move classmap consideration to the bottom
-   this insures all other constraints act 1st.
-   allows simpler 'final' decisions.
-
-b. split class choices cleanly on query:
-   class FOO vs none, and class'd vs _DPRINTK_CLASS_DFLT site.
-
-c. calls 4 when applying a class-less query to a class'd pr_debug
-   here we need a new fn to find the classmap with this .class_id
-
-d. calls new ddebug_find_classmap_by_class_id().
-   when class-less query looks at a class'd pr_debug.
-   finds classmap, which can then decide, currently by PARAM existence.
-
-NOTES:
-
-protection is only against class-less queries, explicit "class FOO"
-adjustments are allowed (that is the mechanism).
-
-The drm.debug sysfs-node heavily under-specifies the class'd pr_debugs
-it controls; none of the +mfls prefixing flags have any effect, and
-each callsite remains individually controllable. drm.debug just
-toggles the +p flag for all the modules' class'd pr_debugs.
-
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
-Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
 ---
-v11:
-. bind controlling_param and enforce ABI protection for native
-  classmaps in ddebug_match_apply_kparam() and early in
-  param_set_dyndbg_module_classes(). Note that ddebug_apply_class_maps()
-  itself was hoisted to Patch 23 for lifecycle symmetry between definers
-  and users.
-. drop const from struct ddebug_class_param.map and ddebug_class_map *cm
-  in ddebug_apply_params() to allow controlling_param binding.
+Notes:
+- Patch series based on 7.3-rc1
+- Carried "Reviewed-by: Krzysztof Kozlowski <...>" from v3 since this
+  patch did not change.
 
-v10:
-. drop dead #if 0 ddebug_apply_class_maps() block.
+ .../bindings/display/chipwealth,ch1115.yaml   | 81 +++++++++++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ 2 files changed, 83 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
 
-v9:
-. assign map->controlling_param = dcp in ddebug_match_apply_kparam()
-  to enforce protection on parameterized classmaps.
-v2: RvB after SoB
-
-old-v12
-
-minor fixup after squashing subsequent commits to previous ones
----
- include/linux/dynamic_debug.h |  16 ++++--
- lib/dynamic_debug.c           | 124 ++++++++++++++++++++++++++++++++++--------
- 2 files changed, 111 insertions(+), 29 deletions(-)
-
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 686060c13692..5b5f5bb31c48 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -89,6 +89,7 @@ enum ddebug_class_map_type {
-  * map @class_names 0..N to consecutive constants starting at @base.
-  */
- struct ddebug_class_map {
-+	struct ddebug_class_param *controlling_param;
- 	const struct module *mod;	/* NULL for builtins */
- 	const char *mod_name;		/* needed for builtins */
- 	const char **class_names;
-@@ -138,7 +139,7 @@ struct ddebug_class_param {
- 		u32 *lvl;
- 	};
- 	char flags[8];
--	const struct ddebug_class_map *map;
-+	struct ddebug_class_map *map;
- };
- 
- /*
-@@ -296,7 +297,12 @@ struct ddebug_class_param {
-  *
-  * Creates a sysfs-param to control the classes defined by the
-  * exported classmap, with bits 0..N-1 mapped to the classes named.
-- * This version keeps class-state in a private long int.
-+ *
-+ * Since sysfs-params are ABI, this also protects the classmap'd
-+ * pr_debugs from un-class'd `echo -p > /proc/dynamic_debug/control`
-+ * changes.
-+ *
-+ * This keeps class-state in a private long int.
-  */
- #define DYNAMIC_DEBUG_CLASSMAP_PARAM(_name, _var, _flags)		\
- 	static u32 _name##_bvec = _DPRINTK_CLASSBITS_INIT;		\
-@@ -309,10 +315,8 @@ struct ddebug_class_param {
-  * @_var:   name of the (exported) classmap var defining the classes/bits
-  * @_flags: flags to be toggled, typically just 'p'
-  *
-- * Creates a sysfs-param to control the classes defined by the
-- * exported clasmap, with bits 0..N-1 mapped to the classes named.
-- * This version keeps class-state in user @_bits.  This lets drm check
-- * __drm_debug elsewhere too.
-+ * Like DYNAMIC_DEBUG_CLASSMAP_PARAM, but maintains param-state in
-+ * extern @_bits.  This lets DRM check __drm_debug elsewhere too.
-  */
- #define DYNAMIC_DEBUG_CLASSMAP_PARAM_REF(_name, _bits, _var, _flags)	\
- 	__DYNAMIC_DEBUG_CLASSMAP_PARAM(_name, _bits, _var, _flags)
-diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 636a88994a77..d300d44c1a82 100644
---- a/lib/dynamic_debug.c
-+++ b/lib/dynamic_debug.c
-@@ -71,6 +71,10 @@ struct flag_settings {
- 	unsigned int mask;
- };
- 
-+static bool ddebug_class_map_in_range(const int class_id,
-+				      const struct ddebug_class_map *map);
-+static bool ddebug_class_user_in_range(const int class_id,
-+				       const struct ddebug_class_user *user);
- static DEFINE_MUTEX(ddebug_lock);
- static LIST_HEAD(ddebug_tables);
- static int verbose;
-@@ -200,14 +204,52 @@ static struct ddebug_class_map *ddebug_find_valid_class(struct _ddebug_info cons
- 	return NULL;
- }
- 
--#define __outvar /* filled by callee */
+diff --git a/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+new file mode 100644
+index 000000000000..6b037c40242e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+@@ -0,0 +1,81 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/chipwealth,ch1115.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
++title: Chipwealth CH1115 Display Controller
 +
-+static struct ddebug_class_map *
-+ddebug_find_map_by_class_id(struct _ddebug_info *di, int class_id)
-+{
-+	struct ddebug_class_map *map;
-+	struct ddebug_class_user *cli;
-+	int i;
++maintainers:
++  - Nicolás Antinori <nico.antinori.7@gmail.com>
 +
-+	for_subvec(i, map, di, maps)
-+		if (ddebug_class_map_in_range(class_id, map))
-+			return map;
++description:
++  Chipwealth CH1115 is a controller for monochrome dot matrix OLED
++  panels.
 +
-+	for_subvec(i, cli, di, users)
-+		if (ddebug_class_user_in_range(class_id, cli))
-+			return cli->map;
++  https://datasheet4u.com/download/1576606/CH1115.html
 +
-+	return NULL;
-+}
++allOf:
++  - $ref: panel/panel-common.yaml#
 +
-+/*
-+ * classmaps-V1 protected classes from changes by legacy commands
-+ * (those selecting _DPRINTK_CLASS_DFLT by omission).  This had the
-+ * downside that saying "class FOO" for every change can get tedious.
-+ *
-+ * V2 is smarter, it protects class-maps if the defining module also
-+ * calls DYNAMIC_DEBUG_CLASSMAP_PARAM to create a sysfs parameter.
-+ * Since the author wants the knob, we should assume they intend to
-+ * use it (in preference to "class FOO +p" >control), and want to
-+ * trust its settings.  This gives protection when its useful, and not
-+ * when its just tedious.
-+ */
-+static inline bool ddebug_class_has_param(const struct ddebug_class_map *map)
-+{
-+	return !!(map->controlling_param);
-+}
++properties:
++  compatible:
++    const: chipwealth,ch1115
 +
-+/* re-framed as a policy choice */
-+#define ddebug_class_wants_protection(map) (ddebug_class_has_param(map))
++  reg:
++    maxItems: 1
 +
- static bool ddebug_match_desc(const struct ddebug_query *query,
- 			      struct _ddebug *dp,
--			      int valid_class)
-+			      struct _ddebug_info *di,
-+			      int selected_class)
- {
--	/* match site against query-class */
--	if (dp->class_id != valid_class)
--		return false;
-+	struct ddebug_class_map *site_map;
- 
- 	if (!dp->format) {
- 		pr_err_ratelimited("ddebug: NULL format string at %s:%s:%u\n",
-@@ -252,7 +294,28 @@ static bool ddebug_match_desc(const struct ddebug_query *query,
- 	    dp->lineno > query->last_lineno)
- 		return false;
- 
--	return true;
-+	/*
-+	 * above are all satisfied, so we can make final decisions:
-+	 * 1- class FOO or implied class __DEFAULT__
-+	 * 2- site.is_classed or not
-+	 */
-+	if (query->class_string) {
-+		/* class FOO given, exact match required */
-+		return (dp->class_id == selected_class);
-+	}
-+	/* query class __DEFAULT__ by omission. */
-+	if (dp->class_id == _DPRINTK_CLASS_DFLT) {
-+		/* un-classed site */
-+		return true;
-+	}
-+	/* site is class'd */
-+	site_map = ddebug_find_map_by_class_id(di, dp->class_id);
-+	if (!site_map) {
-+		WARN_ONCE(1, "unknown class_id %d, check %s's CLASSMAP definitions", dp->class_id, di->mod_name);
-+		return false;
-+	}
-+	/* module(-param) decides protection */
-+	return !ddebug_class_wants_protection(site_map);
- }
- 
- /*
-@@ -268,33 +331,31 @@ static int ddebug_change(const struct ddebug_query *query, struct flag_settings
- 	unsigned int newflags;
- 	unsigned int nfound = 0;
- 	struct flagsbuf fbuf, nbuf;
--	struct ddebug_class_map *map = NULL;
--	int valid_class;
-+	int selected_class;
- 
- 	/* search for matching ddebugs */
- 	mutex_lock(&ddebug_lock);
- 	list_for_each_entry(dt, &ddebug_tables, link) {
- 		struct _ddebug_info *di = &dt->info;
-+		struct ddebug_class_map *mods_map;
- 
- 		/* match against the module name */
- 		if (query->module &&
- 		    !match_wildcard(query->module, di->mod_name))
- 			continue;
- 
-+		selected_class = _DPRINTK_CLASS_DFLT;
- 		if (query->class_string) {
--			map = ddebug_find_valid_class(&dt->info, query->class_string,
--						      &valid_class);
--			if (!map)
-+			mods_map = ddebug_find_valid_class(di, query->class_string,
-+							   &selected_class);
-+			if (!mods_map)
- 				continue;
--		} else {
--			/* constrain query, do not touch class'd callsites */
--			valid_class = _DPRINTK_CLASS_DFLT;
- 		}
- 
- 		for (i = 0; i < di->descs.len; i++) {
- 			struct _ddebug *dp = &di->descs.start[i];
- 
--			if (!ddebug_match_desc(query, dp, valid_class))
-+			if (!ddebug_match_desc(query, dp, di, selected_class))
- 				continue;
- 
- 			nfound++;
-@@ -772,11 +833,14 @@ static int param_set_dyndbg_module_classes(const char *instr,
- 					   const struct kernel_param *kp,
- 					   const char *mod_name)
- {
--	const struct ddebug_class_param *dcp = kp->arg;
--	const struct ddebug_class_map *map = dcp->map;
-+	struct ddebug_class_param *dcp = kp->arg;
-+	struct ddebug_class_map *map = dcp->map;
- 	u32 inrep, new_bits, old_bits, old_val;
- 	int rc, totct = 0;
- 
-+	if (map && !map->controlling_param)
-+		map->controlling_param = dcp;
++  chipwealth,inverted:
++    type: boolean
++    description:
++      Display pixels are inverted, i.e. 0 is white and 1 is black.
 +
- 	rc = kstrtou32(instr, 0, &inrep);
- 	if (rc) {
- 		int len = strcspn(instr, "\n");
-@@ -1171,7 +1235,6 @@ static bool ddebug_class_user_in_range(const int class_id, const struct ddebug_c
- 		return false;
- 	return ddebug_class_map_in_range(class_id - user->offset, user->map);
- }
--
- static const char *ddebug_class_name(struct _ddebug_info *di, struct _ddebug *dp)
- {
- 	struct ddebug_class_map *map;
-@@ -1332,25 +1395,40 @@ static void ddebug_sync_classbits(const struct kernel_param *kp, const char *mod
- 	}
- }
- 
--static void ddebug_match_apply_kparam(const struct kernel_param *kp,
--				      const struct ddebug_class_map *map,
--				      const char *mod_name)
-+static struct ddebug_class_param *
-+ddebug_get_classmap_kparam(const struct kernel_param *kp,
-+			   const struct ddebug_class_map *map)
- {
- 	struct ddebug_class_param *dcp;
- 
- 	if (kp->ops != &param_ops_dyndbg_classes)
--		return;
-+		return NULL;
- 
- 	dcp = (struct ddebug_class_param *)kp->arg;
-+	return (map == dcp->map)
-+		? dcp : (struct ddebug_class_param *)NULL;
-+}
++  chipwealth,offset:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 63
++    default: 0
++    description:
++      Display start line offset. Specifies the vertical alignment and row shift
++      along the Y-coordinate.
 +
-+static void ddebug_match_apply_kparam(const struct kernel_param *kp,
-+				      struct ddebug_class_map *map,
-+				      const char *mod_name)
-+{
-+	struct ddebug_class_param *dcp = ddebug_get_classmap_kparam(kp, map);
- 
- 	if (dcp && dcp->map == map) {
-+		/*
-+		 * Bind controlling_param to activate ABI protection in
-+		 * ddebug_match_desc(), shielding callsites from non-class
-+		 * wildcard (>control) queries.
-+		 */
-+		map->controlling_param = dcp;
- 		v2pr_info(" kp:%s.%s =0x%x", mod_name, kp->name, *dcp->bits);
- 		vpr_cm_info(map, " %s maps ", mod_name);
- 		ddebug_sync_classbits(kp, mod_name);
- 	}
- }
- 
--static void ddebug_apply_params(const struct ddebug_class_map *cm, const char *mod_name)
-+static void ddebug_apply_params(struct ddebug_class_map *cm, const char *mod_name)
- {
- 	const struct kernel_param *kp;
- 
-
--- 
-2.55.0
++  width-mm: true
++  height-mm: true
++  flip-horizontal: true
++  flip-vertical: true
++  panel-timing: true
++
++required:
++  - compatible
++  - reg
++  - width-mm
++  - height-mm
++  - panel-timing
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        display@3c {
++            compatible = "chipwealth,ch1115";
++            reg = <0x3c>;
++            width-mm = <12>;
++            height-mm = <8>;
++            chipwealth,offset = <8>;
++            panel-timing {
++                clock-frequency = <0>;
++                hactive = <88>;
++                vactive = <48>;
++                hfront-porch = <0>;
++                hback-porch = <0>;
++                hsync-len = <0>;
++                vsync-len = <0>;
++                vfront-porch = <0>;
++                vback-porch = <0>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 73acf72c01f6..16a4a7a158ab 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -331,6 +331,8 @@ patternProperties:
+     description: ChipOne
+   "^chipspark,.*":
+     description: ChipSPARK
++  "^chipwealth,.*":
++    description: Chip Wealth Technology, Ltd.
+   "^chongzhou,.*":
+     description: Shenzhen Chongzhou Electronic Technology Co., Ltd
+   "^chrontel,.*":
+--
+2.47.3
 
