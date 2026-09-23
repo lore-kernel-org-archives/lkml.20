@@ -1,86 +1,92 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277B7346E64;
-	Wed, 23 Sep 2026 08:32:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38A42339370;
+	Wed, 23 Sep 2026 08:32:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152355; cv=none; b=OrvOXE0zLJ8Yw3vOTl/jwGLIethP/CJb6NbbBPhQ+wpuU+NwO+ln1WnfEy8GV21qNGH8xP2e+RjOUt5b+/F1+ZxzJd4i9OobIfV8FUnDI26DMInOGq4cdOm6jxizC5WEu+HJ78qmW6HwE/mB/Bea6u2Kron4ZuRRGxDeiSxExXQ=
+	t=1790152362; cv=none; b=o1spWRXYwv8HGrVJ1P4gtVARZV0iXe28CluSk40yoHBv0q6c+hUrhog3tHCSL6Y9qBrgRYZf5gTPSpVhwKS9GtXU4e8o8DlTOG+e87f7+T3pdIDqjxhW04YQVWRGd2o0bRjwEMyrJ2OKn936Igyydd2BTIhuWxSIzseW4F8PNoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152355; c=relaxed/simple;
-	bh=3p/rqBCsBPprrZNeSjqBfIwUGC801QEegj7JgtWieXg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GIg3w1NygzAfdQ1E7VGcHwNSdWOLHXSgyfw5t9baA2OPxRt4pDbmjRR2YcTeEaVs3Yf/LAptE0aGxD7l/nii+6597N14mJ+E1d1MqEZ/QIrUvYXGyMEi4npyuXUZ4qf/CsAdsBsrnS9rkRwisRcslZIj3omXOBBFojBxCTf7F94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=RuRz/5CX; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1790152362; c=relaxed/simple;
+	bh=l+yK5+zyEHSK/AJtaCzSVpNPxaH4je8PBLfFrOyF2I4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=YnWIajUjwFwNX2w3ZDWnDMatIePAJeboY+4gEanLNzURAOrON7hUci0mdm9tTwssT5tx/uHII6cNCDU1iO5s+8EUKFD0VaN+Ftg7bRSHpUerQKljGwU93aSqSAdN//Zfr7EIiI9jTTbADsgDnfXDLBk1FpxQaoH+XgmSiyT8xoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RS3N/efX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="RuRz/5CX"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=AbgpJ6CKUtUVTx6r4Q/hXLIcgGWueg/e2MoP3w3eSac=; 
-	b=RuRz/5CXuGe8iCaC4esj2NRJ8JB7+ViG0qrh7vrEGr9K9UWBdMzLfMmdbSqXRyMtyqKqNXGOFag
-	q/o8+MRTeaw63FVUCTKLj1DaFCv2Oh3ytudTdbN+xCv7Vh9yIUnuDBvm2vwAsbwxDppY2DRMnsJQI
-	AZCsmSTX19/tRndIauxfkUJy9t76eqRNXFegj+oY0HhmbUbfaXtO8rm2ZBMo91zIlUe+o+cvg80Ge
-	87BXWGyJuLQ5FPw6RGy2TAKh+7AL/L2DxRACvahW+Yc4tryoXfAHU5z9KaI/vyCS/a8biZJ2XniFr
-	QL1W3DwtZ+T4Nm+7MjA1vzRl+/Xax+cnG7Kg==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x9IOv-0000000Gxop-3682;
-	Wed, 23 Sep 2026 16:32:26 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 18:32:25 +1000
-Date: Wed, 23 Sep 2026 18:32:25 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Ralf Lici <ralf@mandelbit.com>
-Cc: linux-crypto@vger.kernel.org, Antoine Tenart <atenart@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH crypto 2/2] crypto: safexcel - Map AEAD buffers with
- accurate DMA directions
-Message-ID: <arOOmSnC1NxvG1nw@gondor.apana.org.au>
-References: <arNj5SOwXf_TV6eK@gondor.apana.org.au>
- <20260923072646.86229-1-ralf@mandelbit.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RS3N/efX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5B501F000FF;
+	Wed, 23 Sep 2026 08:32:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790152360;
+	bh=moOLRtl3B7HRHlFtZpcGMhBGtQIVrDlmkD6QtGKrT/g=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=RS3N/efXIphFUEtBFsza67Ka1RwMr4BLxzOiJOdBGwr+rjJ5oDOXrPT0on7sTmLx3
+	 JyhOwCb33yYBvYRbUQ5PLQCKXU3jd53OjIGNCFMNuouzBC9DaX4bbWLJ3lJ/uZDxg8
+	 MMM3rhmaiFkgIz4Dxh006YZUNjXJiRcDZit047rpIbXt4IZGBuzWpa+aPmOkKwnsXe
+	 ooKtmh12qMBFhPlEqo+a1tG2pddPoc+TTdTiu04cbk4s+AFqE9jzH4eWs8KcaCuAUV
+	 gVqxn0Z3erPq5J+5aeyUtucbtJ3ofv4HU7U1z+vpHmAuvb/WcDVz2kvYICHYEHRAjs
+	 CTjSmBCM1IcjA==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	christian.koenig@amd.com, Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 12/13] dma-buf: system_heap: Allocate shared
+ buffers using CoCo shared memory allocator
+In-Reply-To: <arKvKME-_wNeW7ea@arm.com>
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-13-aneesh.kumar@kernel.org>
+ <arKvKME-_wNeW7ea@arm.com>
+Date: Wed, 23 Sep 2026 14:02:31 +0530
+Message-ID: <yq5acxu42wrk.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923072646.86229-1-ralf@mandelbit.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 09:26:46AM +0200, Ralf Lici wrote:
+Catalin Marinas <catalin.marinas@arm.com> writes:
+
+> On Mon, Sep 21, 2026 at 08:18:46PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> @@ -405,6 +396,7 @@ static struct dma_buf *system_heap_allocate(struct d=
+ma_heap *heap,
+>>  {
+>>  	struct system_heap_buffer *buffer;
+>>  	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+>> +	struct cc_shared_layout layout;
+>>  	unsigned long size_remaining =3D len;
+>>  	unsigned long sg_remaining =3D len;
+>>  	unsigned int max_order =3D orders[0];
+>> @@ -417,6 +409,14 @@ static struct dma_buf *system_heap_allocate(struct =
+dma_heap *heap,
+>>  	struct page *page, *tmp_page;
+>>  	int i, ret =3D -ENOMEM;
+>>=20=20
+>> +	if (cc_shared) {
+>> +		ret =3D cc_shared_calc_layout(len, &layout);
 >
-> No, the regions do not need to occupy separate sg entries, the patch
-> selects the direction conservatively for the whole entry.
-> 
-> For a completely linear in-place request, the entry overlaps the output
-> range and is therefore mapped DMA_BIDIRECTIONAL. For an out-of-place
-> request, the source is mapped DMA_TO_DEVICE. For example, a single
-> destination entry covering:
-> 
->     [ AAD | ciphertext | tag ]
-> 
-> has a logical output range covering only:
-> 
->           [ ciphertext | tag ]
-> 
-> Since the entry also contains the preserved AAD prefix, it is classified
-> as mixed and mapped DMA_BIDIRECTIONAL. The same applies if an entry
-> extends beyond the end of the output range.
+> You should not override 'ret' here, it was set to -ENOMEM for a reason.
+> cc_shared_calc_layout() succeeds resetting 'ret' and some further down
+> allocation failure, goto free will return ERR_PTR(0).
 
-Wait, I think this suggests that the caller is giving us bogus
-input.
 
-If the input is out-of-place, it shouldn't contain overlapping
-data.
+Agreed. I=E2=80=99ll fix this in the next revision.
 
-Which caller is this?
-
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+-aneesh
