@@ -1,170 +1,163 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C07D49DBBD
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:21:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAED649DB91;
+	Wed, 23 Sep 2026 11:20:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790162462; cv=none; b=geopT2CvKSRcBmlN8nG8dTIDgC5nPBW3cNX/Mep7JV6lq/Xz+++M+CzF6qWE5MRfznT5HlnskPZoZPkxbQV39hNZ9OKQ0+Hv8wl3M0a4kLaPXf7mBrA2TV5kBRrLsyYH0zssjYWVQDOyArJd/IXIQ5te8Xs5QP76nkjjz0XZknI=
+	t=1790162460; cv=none; b=lT4CfJbDR+DFb3mmG28DRLsFkuAeW+6pWaIT+NiT0zavJtn/3i2CQjzdRlH47z40qSV/6/N7TtykgCPbcOHdNnd4cEdobbTvXfzadkKVhiXT5ZT0sfjlOUx7moulBsA2i5LQB30h9yGB8b19rf3mkEk8boKdVRJ03VeY+bkTLEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790162462; c=relaxed/simple;
-	bh=IJU9MKcwbvSAyF5y30NT+cRls4Pn1fA0J/YBjBXRzkY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g+i7HmhaGGJ9BrmOtfB60unLTlSfKALYptisAimmsUdLu+y18vazDeIJ0C33r16vVjMHANGDgmb81gGbf6F+xvCXzApw+43Cd79ooA41DklUpzTLiG85JFfvJc4FQRzF3mENmn0F9NJOUWK8/jEKD76ATAI3Cd9fZmPFDZdR4e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KOFFg2/R; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bn9qgeAb; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790162460; c=relaxed/simple;
+	bh=qxgXPaVZ81KqoZmkENMxQXoSKcZmLeW316N3sNiz5Zo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WQB8F0UmBpGj8z38pnxLZ7GjdriopG/tFUKZ/RdUZPXaoSaSoxKZubaJjt5kl8kSafa/LnM/LoHK1DlmMIlVe05AKyu7L0ynyw3BkTPwyVN3vBGYxTRn6zVY1xc3M2g2zz4YnA+X0FEJYyhsG9VtS/kxVPXk0dJP6Qt2FCf9Y5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=L98RMmX2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=qU+wGpuY; arc=none smtp.client-ip=202.12.124.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KOFFg2/R";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bn9qgeAb"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NA2moe3208851
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:20:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1pvnghHOUtv+RWwHYZG0OQG1LJBa0evkZWaVyqIA/oE=; b=KOFFg2/R3VL8g5ty
-	lg3w6xp8EqYfWowoyBUsufen0Mwwz7lRw/xhzkS7YNyPHgJXk4jNb0frG1c6PETc
-	orq70fAvyPcGktcwcrt5/xJj8CLuaVSUdmH+svWtbOzeUddWAGuMEZO8EiDd7dN2
-	RkI3Bz/AVD958iSgUgjI+sa0CkIx/qym2xNqJDB0NCPTXAza5gHXjuIX1G8LAkHk
-	d+odsuReajFzUCRZikILMa8MOS6TP7HWmK+VZ/PgazflCG+QD4aab8rRv0sC4k5x
-	VpO+RBaOl/zzrVWiy8D3rdTRKZfqggK3mE0RATrg/SHfR7U0OCaJIErETvSlhoA9
-	lWH8Pg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv78n1pvd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:20:59 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-32b8c2b30c4so1172161eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:20:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790162458; x=1790767258; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1pvnghHOUtv+RWwHYZG0OQG1LJBa0evkZWaVyqIA/oE=;
-        b=bn9qgeAbV517ifSOIgeCQVegdb23XnDJ8ZZrt4KAeoIHcsxz3wf/CaEWiR7mkHZNmC
-         pzyAQENr3yOC94GNF90Eyl8tg5ro7P+aFpWzc8tBoxF2P0nANhIsr6QlTHJx22t7AZHE
-         WC4ZtoX++tY9AC+c81SU/vXBUVmcwKpQKVWCEaqb+8EyrOQREP9ct+YikJUSXs0FlUu1
-         qoMx+DVtN4YmKyAQnuDKgeZTnjiH/8BBKxAA56LWIiSgvlq3mADa6QNeUdXgk0UHp5wo
-         dTJGoLnfHZsfsAGxlmVDApwNJulsBvNq0A+uC0JPjJLUeuu/+e9qjnfkn12yTQRR9jaA
-         OeCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790162458; x=1790767258;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1pvnghHOUtv+RWwHYZG0OQG1LJBa0evkZWaVyqIA/oE=;
-        b=wsxRaTMrEqHwgBke65/AT2pAE+nWxVrRBcjp9mNpqnPtHEzezxzfblnJwVbFUAZD2i
-         tN0ynELmeeH1/+5JSyO9d0+uT08q5wXf20jIIBbnkdQOg/N9LL3wf8l0Xe96dl8+m3yk
-         BMuiaKHnCpT9LxbJRxCosjxuItoKtbwQjGXgRSKskALvAYjQuCLPErVnPxtTC6c9H28o
-         iq1OT99su0M6UsWRPKbXmtDcGurDZIrmvU6DDop3PA//TDHAKTEDGngd9gszva5H5RVj
-         T2kZV+rQJdN+tyC/bExLQ+thEBywtFP1g9JX6b0Dtwo5CICuqWJy73SeUNLarp7vPpnH
-         7vQw==
-X-Forwarded-Encrypted: i=1; AKwUvBx3KkqL1SieOzjp2/mij015ME6/Epx2dZm1B7PiClozY8WzF16OQBt+vE3MkQgFgPmpfqHg1pb1SOMtQ14=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGj/gtMGmFqa9aDeUXRGCX+DImzpA/Bu+FOEwulEWDS8kVmJYG
-	N/K1T74sP63R5SKWf1sENwv97omKoosxMYZMDdhIPWSCPLJ9gyQV+V5CWb+P1oKsylWLJsPJA8M
-	Drlq14aHJyqCY8WIFZs8xZWGPi4eTetraoyQK6dRn3dY4cc3yMupSUnkiHah00s0Zu2Y=
-X-Gm-Gg: AYBFou2W1STZcWdvvf1Fyk4LqHFkxCUDxqwy4Gj6GWs1l1yFNphL+JfiEhVmnHy3nHl
-	SHzFWFTlOSY7uCuXrUsZCg/wVrGeShiFUglq0artaSTQ1mw6JqFpBlGY1oMUeWegKfI6RB7x+7D
-	gLq1BwVYHF1ln1Nzcc9baRM01mrNI02whAE/1Wm2gOzcgUcgEdZh2SplsGGkcBMW7xpJIOXJvY8
-	40OWdrtzhHmp6Jv9b3OBWmQ1JXD7E8kyw/JKgp53QYNs9oAUhoiGEYetoJIc6wWXwiTiTH8WjuX
-	EITXMT91fUPmNXQeG8e2TGMeZT7M+Q3AoiJpyCA4TfgCRornihn/oTtQiPrG2dRVVMH6sdqfDd8
-	LDlTNnKC0iQXwfTecc9VX6iToq/o=
-X-Received: by 2002:a05:7301:162d:b0:33c:5ff:71e4 with SMTP id 5a478bee46e88-33e8c249fb9mr2158396eec.9.1790162458377;
-        Wed, 23 Sep 2026 04:20:58 -0700 (PDT)
-X-Received: by 2002:a05:7301:162d:b0:33c:5ff:71e4 with SMTP id 5a478bee46e88-33e8c249fb9mr2158378eec.9.1790162457791;
-        Wed, 23 Sep 2026 04:20:57 -0700 (PDT)
-Received: from [10.218.18.193] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fe502sm5805691eec.2.2026.09.23.04.20.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 04:20:57 -0700 (PDT)
-Message-ID: <2be528dd-487f-4093-a2eb-5916832a4123@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 16:50:51 +0530
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="L98RMmX2";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="qU+wGpuY"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.stl.internal (Postfix) with ESMTP id 8302E1300181;
+	Wed, 23 Sep 2026 07:20:55 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Wed, 23 Sep 2026 07:20:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1790162455; x=
+	1790169655; bh=ktiZUKec4B6HZzJ+HNFJ4iYy4188Qhi+lPMjiYgieJ0=; b=L
+	98RMmX2tvfQopY1x7eEjV9sTfX+l8j0VI1k01xg0D+Qmrf6ioEAr6nemXKJ4dxEF
+	Oo0TffjnNinl/3GQd41+cnNNgtg4qBrj8TCx15p3Ms06jdCn2azCvucDkwtJ59wz
+	D8pBs9Q/MR66hU8HkUbZ2JQn870SHFXEnOTEDPtZj1qWgX1+qXkPemxwRzE1le5L
+	ah2OxvHYyfs9IcLHMn2UIOaig10RjgR+L7Rdtf2zsO+HdX/N877mLo9iuJNaKb3E
+	hoDQTgzxAkx7T+74Cgk8VPWla70HDKmtNgZEcwpfUcjo053579zNK7GmFV1L1H2S
+	RgmKwDx6qpP2AKh96RWhQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1790162455; x=1790169655; bh=ktiZUKec4B6HZzJ+HNFJ4iYy4188Qhi+lPM
+	jiYgieJ0=; b=qU+wGpuYPN3hKO+M+jMFavBC8IWCUdrgpnyeGM0ze++b3XJa6mF
+	a3qcuTyl1sXjHvU/eQpeGl+3lyCo4USxjMw9vF1QOuc/kQatBAUK+OroKgEja0gD
+	mjYsBl6z3PHOjM9SuWCITnRBzVDpDUfoJCMONZ/G2PS0lGzAfLJ3eGdrlGIPp5mr
+	dc2a5UTOjGmzvrQE4owdPur1EqZ8Gl8nvo2N2gAAWD/F0FYTh3k73xjRxv63hYJ3
+	5RZqDt3BuW7aNxcgk898YiHLq1w98JDIDrXq38aVvoEoRW1HLmwVZ+WXxJmtbv4H
+	sWidPGjZU66tDqqUBzhZeOnlHtyL9E4Uhcg==
+X-ME-Sender: <xms:F7azavxogpDrfF4DNFL1eKcZyaLyIifkD3nR1ZRYKCDBCzqdcNT2Gg>
+    <xme:F7azapm_Ip8OGxjSen2YTfdBmEHNx2nSn0zexKKF-LjZciNHf-j0cjlG91DTqDxLk
+    ul2OFHNIeEUU6UGQR48HqSLu0rzLpWwp9Iww_ke3fCOnTi-8yRcrBE>
+X-ME-Received: <xmr:F7azaoBnzmW26a655BnpjHaY6rH0AzBSlqHQJW9OtSleJ8IE5F1hl45tHrc>
+X-ME-Proxy-Cause: dmFkZTGYKaX4MJrWiZQMObUvdDS/QWbPENP4/QfruR5BVC0vDr3fwy8UqZaiMm19WVvCJj
+    0rjC2wvVme8pZCZK4Hk73qsmr2qCNpQkL2lxolYz2oT+uCsVBU1r74piGSnXzeClBinZV7
+    y3sxhX+8TAkchK3N+UMQqjVLMQq4uynP4uBOC2y0eE+zIaGoNSwYA6DO1H17PSNo7adr3v
+    zojz82agX4yD8xYnPoAfAweqTZDQka1uyTOk1rUyA2wF2i+pTDCXEHTcXXCXckIiOGFMS9
+    RF8C9KpMBE6BRRNKbAjci9rBuBiDk4EEvDDezb/DoxDzAECoRSW1iKrymdowfjbRej8fo2
+    1fWqr2HTppvuYAkHu+XIoVQXJOiBnpn14qMCD7wVZMNdSs8WjzmZa0LCmexgVyTst7xXCV
+    8vrC5ID1UpF84NYRlV5wWUzeAeZrT7F4j2e/cj7Zx7V53e201mLuDIv+/RuQ0mj/VgPgvy
+    9sVH1R1Ngny8Rf4YlRIVLg9pOhHQTAipWD7r2nF0cQSF+vvqJhDIzyedY2MCw0+Tua+wuO
+    Cyx1D0Y8G3TrhzF0t2c7Fbnnl0ebdqM3oNftdN4qhfBYE7OA1G6iijrPP18j85XPYmw4qi
+    eevpq4izXY2aoM/WK135q5sIZ31zBMEPadTnZfXdg7nTknDl95Pg2+lUFqAw
+X-ME-Proxy: <xmx:F7azamcnDK08mifL84qQeuza90uRKs54JJQcFkR6hr9HwM5sWERw9w>
+    <xmx:F7azauptGNy_k84Tb9wPHFq9GIwU8W_MtL3tfwSMZP09VJaKfgKzGQ>
+    <xmx:F7azaqK4rhh7EUVDwIAsIoH5zX030UctfN-PANF85p9THr4j5d3mlQ>
+    <xmx:F7azavQ-EzhrMhKhAa63jnDmwRhHHHih65emu4DYNKz-CTtzoF5cqQ>
+    <xmx:F7azajpKXdNZS_Ql3gtTIKKMJ-xv-1D89RkX7k717JM6Poi4E83vb7G7>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 23 Sep 2026 07:20:54 -0400 (EDT)
+Date: Wed, 23 Sep 2026 12:20:53 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, akpm@linux-foundation.org, 
+	rppt@kernel.org, peterx@redhat.com, surenb@google.com, aarcange@redhat.com, 
+	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, mhocko@suse.com, 
+	shuah@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] userfaultfd: clear the inherited uffd bit in
+ move_swap_pte()
+Message-ID: <arO1r1NfMVLPwqtQ@thinkstation>
+References: <20260919004630.1159895-1-donggeunyoo.kernel@gmail.com>
+ <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com>
+ <49208ed6-6c20-49a9-9c0d-0e1cffe1898f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] ASoC: qcom: q6apm-dai: add SCM buffer assignment
- for mDSP platforms
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Mohit Sharma <mohit.sharma@oss.qualcomm.com>
-References: <20260922-vmid-v4-v5-0-e79cfd7af5b3@oss.qualcomm.com>
- <20260922-vmid-v4-v5-4-e79cfd7af5b3@oss.qualcomm.com>
- <arJ0yBdeDfjYihRd@sirena.co.uk>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <arJ0yBdeDfjYihRd@sirena.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0NSBTYWx0ZWRfX1+8luz/qrWfs
- 4r8zQGf/6OBWkm1HuMVKEiWEI1FEVcibjguCHcgEdlkwFImywvR7nWTDzQ+d89NO/Vv6zkpl/ti
- OyDTYA+cJbMzbwdKZkECqGviYsii+VU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0NSBTYWx0ZWRfX7zbkUTkECygf
- Ep6pXSlLQ566OmLcW4aGuKM+9jm2v6ZK7h6LKeDpyNhYgtleZHUWEmHLldKzrqpHzTD/Qw2DKxo
- bEsGrRYIBcJDn74mzWSEtqVYTmjalxEAfjIlIXdja3INBtqGa7HCpmry32sgrVoE5WXKX/ZwbQZ
- o5QubrUH7TS8966upwOjAVOknVHkkPw4rNE0RtFqYup2WtopvH86qvp+q0aChXkKA3jkJTG+WFM
- rlSoTC5TtfYNy1KvlMCfRRuyNSTbb6nPtX+tp9cJZYNDMpIjeWh338P4qskkwjcxhtTWNPJxQx5
- shortSohGFTY6a/2ktWfysjr/DCJwI+Q/cO0Zf3Ieds8HIOLowkC692m/Hmolvx4T8WZtXw8eau
- vFm3ugdMHzlOSpCuOfbCUwIcxwX1uoKXiIS1GINH/3FyDL+oQ+lLpUYBWQgC6yVokkrKOW2x6JR
- 3vNz/tY8K9zaiTHN7qg==
-X-Proofpoint-ORIG-GUID: deaMYwwuv66UBM9DhlFvVmKc7ffuxR1q
-X-Authority-Analysis: v=2.4 cv=aNFlOr9m c=1 sm=1 tr=0 ts=6ab3b61b cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=Eu4FWuEEJWto4IdLvdkA:9 a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-GUID: deaMYwwuv66UBM9DhlFvVmKc7ffuxR1q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230045
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <49208ed6-6c20-49a9-9c0d-0e1cffe1898f@kernel.org>
 
-
-
-On 9/22/2026 6:00 PM, Mark Brown wrote:
->> On platforms such as Qualcomm Shikra, audio is served by the modem DSP
->> (mDSP) which runs in a stage-2 protected context. Unlike ADSP targets
->> where SMMU-mapped system RAM is directly accessible, the mDSP cannot
->> reach the PCM buffers unless they are explicitly SCM-assigned to the
->> appropriate Virtual Machine IDs (VMIDs). Without this assignment, audio
->> does not function on these platforms.
->> +static int q6apm_dai_scm_assign(struct q6apm_dai_data *pdata,
->> +				phys_addr_t addr, size_t size)
->> +{
->> +	r = &pdata->scm_regions[pdata->num_scm_regions++];
-> This needs a lock.
+On Tue, Sep 22, 2026 at 01:40:51PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/19/26 02:46, Donggeun Yoo wrote:
+> > UFFDIO_MOVE on a swapped-out page installs the source PTE at the
+> > destination unchanged, so a uffd bit set on the source lands in a
+> > destination VMA that was never registered for write protection.  It is
+> > then permanent: the bit is dropped only by change_protection() under
+> > MM_CP_UFFD_{WP,RWP}_RESOLVE, which uffd_wp_range(), mrwprotect_range()
+> > and userfaultfd_clear_vma() issue only for a VMA registered in that
+> > mode.  pagemap reports the page as uffd-tracked, and MADV_COLLAPSE
+> > refuses the range while the bit is set, because collapse_scan_pmd() is
+> > strict about uffd on swap entries.
+> > 
+> > move_present_ptes() and move_zeropage_pte() build the destination PTE
+> > from dst_vma->vm_page_prot and arm RWP only when dst_vma asks for it, so
+> > the destination's own registration decides the result.  move_swap_pte()
+> > copies the source PTE instead and only ever sets the bit, never clears
+> > it, so one UFFDIO_MOVE behaves differently depending on whether the page
+> > happened to be resident.
+> > 
+> > Clear the uffd bit on the moved swap entry unless the destination is
+> > RWP-registered, as copy_nonpresent_pte() does where it installs a PTE
+> > into a destination that may not be armed.  A WP-registered destination
+> > stops inheriting the bit as well, which is already what it gets when the
+> > moved page is resident.
+> > 
+> > Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> > ---
+> >  mm/userfaultfd.c | 2 ++
+> >  1 file changed, 2 insertions(+)
+> > 
+> > diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> > index 74f04c323c50..6495666c596b 100644
+> > --- a/mm/userfaultfd.c
+> > +++ b/mm/userfaultfd.c
+> > @@ -1452,6 +1452,8 @@ static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
+> >  	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
+> >  	if (userfaultfd_rwp(dst_vma))
+> >  		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
+> > +	else
+> > +		orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
+> >  	set_pte_at(mm, dst_addr, dst_pte, orig_src_pte);
+> >  	double_pt_unlock(dst_ptl, src_ptl);
+> >  
 > 
->> @@ -1021,6 +1168,7 @@ static int q6apm_dai_probe(struct platform_device *pdev)
->>   {
->> +			if (per_stream <= POS_BUFFER_BYTES + PAGE_SIZE) {
->> +				dev_err(dev,
->> +					"reserved-memory pool too small: %llu bytes\n",
->> +					(u64)rmem->size);
-> %pa
+> In move_present_ptes() we don't run into that issue as we create a new PTE from
+> scratch
+> 
+> 	orig_dst_pte = folio_mk_pte(src_folio, dst_vma->vm_page_prot);
+> 
+> 
+> Staring at the
+> 
+> 	if (userfaultfd_rwp(dst_vma))
+> 
+> I do wonder why we don't have to take similar care about wp ... I'm sure the is
+> a good reason.
 
-Thanks Mark, fixed both in v6.
+The RWP branch does not preserve anything from the source. It arms the
+destination whether or not the source had the bit.
 
-I added a mutex to serialize scm_regions[] / num_scm_regions updates in
-q6apm_dai_scm_assign() and q6apm_dai_scm_unassign(), and changed the 
-reserved-memory size diagnostic to use %pa
+WP has nothing to arm. The bit is per-PTE state that userspace sets
+explicitly with UFFDIO_WRITEPROTECT or UFFDIO_COPY_MODE_WP. Registration
+alone protects nothing, and UFFDIO_MOVE has no MODE_WP flag, so a moved
+page in a WP destination starts unprotected, same as a faulted or
+copied one.
 
-Thanks
-Ajay Kumar Nandam
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
