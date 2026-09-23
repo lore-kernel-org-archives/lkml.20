@@ -1,64 +1,64 @@
-Received: from mail-dl2-f33.google.com (mail-dl2-f33.google.com [74.125.229.161])
+Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2404047CA7D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8654718EF
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790206928; cv=none; b=fUny5CqtaC6V8TTWHVzeDs18erT3nVSrjGQXud85hV1W3oMm0aKtorlVwj7wbLt4eKAyifpEV98/IcPOTCGDjnoKVB0tqhJM+RFC2gWJsfrOqmEMF0e3fMDG1RPWDnMSVmJQH3VDGKP53f5ZvnjBSUUs68OOh3EnVH7Io0typl4=
+	t=1790206933; cv=none; b=IE3YUFAyQr4IkXbVbZ836YEVjVekDhATNsgosILcXtp1398jQtJGkfZlGL7Lmzz2zTgyZdGd3WdtTcuEToh86ZMmJ9utjFBUqLzHiXnU1MiurnPZy9iopyAHhb/nxTh4VgETYa5zywBW6mFpuWfJdApwmJuXpWHgrqztwXswmks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790206928; c=relaxed/simple;
-	bh=u9MWO6G5WgY+wqpwg5Usmi42msdZA+YxJQLgulJg7+c=;
+	s=arc-20240116; t=1790206933; c=relaxed/simple;
+	bh=pYjeim6rkRmaxSpwPitBNprXWpSBnwzEpUPN7fveHIc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oNU0Og5GXTFbQYVpUqyNt9mH1tXv5uweGJ5+WXxc1N27Vh61xI3RTZ44bdjFYsomXlmX4lhqTBjPA53v1xAEO59pMGwFG6JywAdziDljqR09dk0p6hLPRynX0Y46wf6VwGgZ3sgAEGtHWGp9uENTWD0S53strnOrg6soAh2EKAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EZmxxA3P; arc=none smtp.client-ip=74.125.229.161
+	 MIME-Version; b=D2C6DsG6mUE2DS/+c9QbNsXnUjJtIiLrTWNze2u5eWQLMq47BkmpEywtd2SvAAHh+LzIc9Yr1Gqvcj67RtalaC4Eb3DSDRVVc4tpZ13ApCReybEFxZ/TZ+bndvfCmU52cJCaZMMPXwUI+inO9fMkNob1CeeG2Pt92klobnM7LVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J4hM865a; arc=none smtp.client-ip=74.125.229.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EZmxxA3P"
-Received: by mail-dl2-f33.google.com with SMTP id a92af1059eb24-1438e88300cso1038921c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:42:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J4hM865a"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f47a9b57so1574218c88.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:42:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790206925; x=1790811725; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790206927; x=1790811727; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=F3WhcGmivvTRyeXr5ABFsXDjq+w53c7qwY8p1nmGDGk=;
-        b=EZmxxA3P9llkwhcIVMKIgM9HEDzfMmC1AmVTgucsWnGUhVlIGXCJVarDCaZQdepr9T
-         G2C6QeaxLgM9cIQp8nmYgqmJ14Dd8ax2ckGJABWlak7khCLAf4/dGcbvOxUNQF1R/MVS
-         iS34v7pxMOe4EC/coYPv84JC42i0i4OoyelTvT5MQjXHQm5NX+QhciriQhQm7aUV5iJR
-         gjRCOHJj9iA/zPsUDEzYaqYQvjdhTA4hvs+B8UJWUUIX9SdugxWBX+WLotvr3WL9/rdu
-         96kOOl5cCCJXg+Rs5g2P7PdoeR4gBfZJvrvdSrJLVw4FAtEjfKwQaVESsNQpndgX4rin
-         pLSg==
+        bh=FrUy8lEwXCvnZORNFDyE8boY4XaJRyADxOjRdBxHQ6Q=;
+        b=J4hM865aVfy3DxSvThXVmoTUP9BSh84SLYtYPV/Imv71Ch+wtVeyeMpZE8tqKgsuhv
+         rZD3JsV8nKormNgIbPO18UGJfYm1LzwgYrD80QkxMpuvmJWI4eq3gWjr/MVoMiJjLD2n
+         WnC12Aso5dzMCuG6zKYWNJFzKR0CCKEcXDcPt/lZsUlt++HpRWDQwhlX4esFqdLEZ4Nl
+         4czuu5XPkoCtxpAQXyd40mcO4hNT8FZ7lBKoMS6EiDrjGWagazlG/YmNCXOO4kISs3TK
+         JJ0BPzHxPAnmL92CtalPA/+Mwt+MN93sn6Shsz96U8rDqz2GU6M9KH8mg4+bvnfRslsr
+         wzAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790206925; x=1790811725;
+        d=1e100.net; s=20260707; t=1790206927; x=1790811727;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F3WhcGmivvTRyeXr5ABFsXDjq+w53c7qwY8p1nmGDGk=;
-        b=mC8yx4EXpju8dj/86pmEYXiI+jCNWObc9qQQAtpJQfC6L+DomlEPsYo12yuAfuZOKE
-         xjUuzfld92qAqpua0aS2OCt3Qygm+twAfjx4/hhZdq78JJhTfPFr3I3J1IuwK5zlA/Q8
-         IOsUelm1E7JKWLyOzQnf91YaoEzgDMc/1LUo/w3KlhdbE4iLwRvHEKccL9T9Oxe0IU8t
-         jUrY0OK5IQQh1B5V9II9ItLLoYJCCRWrUTq0um0mLbL8PHy/mq+UqpwBdsOS5cNgb8xC
-         5FG3lnMGJCZ7AHvETCMM2HDvggbnqUHlfroz/9DqzJdHyzBRq4e2XqCUu5YgRPWLw7xH
-         4mwA==
-X-Forwarded-Encrypted: i=1; AKwUvBxFjdM0xXbEsCZjuM7+QUhJTmftkvrULNw3pEm8aoO6FkE+SAl85zZFxN1hqsSa5bOpNAEUIKCPGd3oQ58=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQr8FDSHOPXVALGT/h889Se3+JLyQyjIkdByFjHbFHYt8HBO3z
-	lZJUBuYB5FnU9kolRZFB1/uC2kxoKsTT6fCyNTJLe5ktj6JatxhKxU4N
-X-Gm-Gg: AYBFou1RluKzdMz3HU0Wew7osrJWZU0ibwfPi9gsupgVgpQrkOudFDUCUFbdynt7ZC3
-	oE7xIcFSL7hpHN7qVqLp+Tkb71Suy0XT+mZDS/rY7DepaLgdkE1m8hpyJkUr1ZzuLyCs/NP5iEh
-	eutSq4dqfNnIOygO9S9jbAlUr/F2cSKxr9cyicyJBNIguHrKAk4J6uWyIAFfN8Ik9hxMB3ycI2/
-	M4oda4bLN7989JCL9LZhUBNKxiqxxnEz60b8DKciXt7gDNiMTpcfGltledR9/XECNlZHfo71Zmo
-	sNFLE081wK/79FFxWufWL+G9Y0xL4BNE94ipjqYhVEtf8AIHzKFByXlzvz5M9yoV+RqZ5+EItyo
-	MnwdKw6+jCH4o4nWQSIIBwlTqvqrSc/hxBEAczrVXVr+G5fXfoMpMROJGJqUHuSHKBN9dbeEhDz
-	zKWBS+y/sdsXd0ZAM9UP1UexIRj4qFFRqxsQoVnmJGL9v9eCQC3ae6UfJ4fLLYctayzR+duBhQD
-	qtYBT1CD2IdRJFZaqc/LNNzPrFpCjkbspLiQ3z17cjVveM=
-X-Received: by 2002:a05:701b:4586:20b0:143:7001:7645 with SMTP id a92af1059eb24-1450401c5damr430174c88.47.1790206924708;
-        Wed, 23 Sep 2026 16:42:04 -0700 (PDT)
+        bh=FrUy8lEwXCvnZORNFDyE8boY4XaJRyADxOjRdBxHQ6Q=;
+        b=FJfTfgnlu3fY2lijTeZV4vdq7nL/oqVgBXkuzdzRUU9r11El0tthTJZc2T62k1zfyU
+         moH40pkrRL67FZffyzIJwJnKzyTR0Ve3nY52557wwgyjK0uy/HOBTBxuqF781ApRTLC+
+         oYMmS+e9xQrT29GBMfmlDxDDU5liyCoSY7GWww+cD4BU22AQlqYpPnlgJfOtCIkfIXPJ
+         e81lcO5AnT90ElOSIDeEjyhHqZrN24RoB44Gc9XNqgiYKCuBtREe0ZYtagiLDclO6V+Q
+         +gMjHooWA82/CEBJfPlnNdJ3Y4aDwQ8DVM6Ldmckhwaa/kwhlEtpqhxKmrGYn2u+xKIo
+         uvqA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8BiuvpRMlUNYCzxkhNFxS36zWjsSekuvqEhjgjWyopLPf5T+KyffuzoP9BMlKZpW6kTkWqpmiTCzgBMY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHV3VxnABIsh1m4fBvTYrOfIN1kMjoESrg6fWiwz5J5bwquj2d
+	9O2T2oBiQCcIgmpmgzXCx6lYdtsJM59Bk2mEJRnvJTyeVixABhawWDoV
+X-Gm-Gg: AYBFou0xlXFAmBLEhPjV0Fv7EaxnJR5UoTUTULd6br/q4Qlqy7EtGpweIc7zLujf8Jj
+	ansC2XLeuyZ147TH9/S5FT5NeU9bzwNY4eeMv2EMKa0audjAKvzO9EVZXpVEnCTLW14OZwR3D7G
+	Raj21FPCCS9VikpY1O/KPleAKtdIt+Id96hKU1oauZvoKrueq97r5+g9v76MpIUbRKLBG9Ke5HN
+	kAxbrTELhIuCTcx23wuqdC1NEsUwbKeg3OpCEiEZISHO4qy+uYDuFzVGIWzZBVvziRLQ+cMivCo
+	6YUscuu4Db1AOhR6cB6xRreVDoz3cXljTJyveo2kLp+NfYJlqBvnquSitObFaGX9zynLwzU5iFz
+	GVrTPPYKkKEmLX5RBAd8BjMVzr4T5HUlK+mntDVwPPNw9N6JiRDENvzOirY2Fe1iJKf9Ma1KI3k
+	37IavklHFYXG5ZysyTZTe0Mk4ka5G8I5NRdwFyZuL40wxZ8Oiu8Nc7nri6C/j8JJGeeB+D7L3AM
+	uMP80vPOsRysKeUj25pGteMOcWxbb4qi/Gt
+X-Received: by 2002:a05:7022:b058:20b0:130:7246:10aa with SMTP id a92af1059eb24-1450404d324mr444369c88.12.1790206927261;
+        Wed, 23 Sep 2026 16:42:07 -0700 (PDT)
 Received: from archsung (186-244-17-112.user3p.vtal.net.br. [186.244.17.112])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98209ffsm8100182c88.4.2026.09.23.16.42.02
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98209ffsm8100182c88.4.2026.09.23.16.42.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 16:42:04 -0700 (PDT)
+        Wed, 23 Sep 2026 16:42:07 -0700 (PDT)
 From: Felipe Calliari <calliarifelipe@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -69,9 +69,9 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Tomas Moro <tmorolias@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Felipe Calliari <calliarifelipe@gmail.com>
-Subject: [PATCH v3 3/5] media: ov02c10: Split the PLL registers off the mode tables
-Date: Wed, 23 Sep 2026 20:40:58 -0300
-Message-ID: <20260923234100.318151-4-calliarifelipe@gmail.com>
+Subject: [PATCH v3 4/5] media: ipu-bridge: Add the OV02C10 26 MHz link frequency
+Date: Wed, 23 Sep 2026 20:40:59 -0300
+Message-ID: <20260923234100.318151-5-calliarifelipe@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923234100.318151-1-calliarifelipe@gmail.com>
 References: <20260923144257.119076-1-calliarifelipe@gmail.com>
@@ -84,91 +84,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The PLL is programmed partly by the common mode table and partly by the
-per-lane tables, which override 0x0303 and 0x0305 with the same values
-for either lane count and also set 0x0316.
-
-Move the 0x03xx PLL registers into a table of their own, keeping only
-the values that end up in the sensor, and write it before the mode
-tables. The PLL settings depend on the external clock rate rather than
-on the mode or the lane count, and this prepares for supporting clock
-rates other than 19.2 MHz.
-
-No functional change intended.
+With a 26 MHz external clock the OV02C10 runs its CSI-2 link at
+399.479167 MHz instead of 400 MHz. Add that link frequency to the
+OVTI02C1 entry so the sensor driver can use it.
 
 Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
 ---
 
 Notes:
     Changes in v3:
-    - New patch, as asked by Sakari.
+    - New patch. The ov02c10 now advertises the 26 MHz link frequency
+      on its own (Sakari), so the bridge has to list it.
 
- drivers/media/i2c/ov02c10.c | 28 ++++++++++++++++------------
- 1 file changed, 16 insertions(+), 12 deletions(-)
+ drivers/media/pci/intel/ipu-bridge.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-index cdccbdef3..0e5010303 100644
---- a/drivers/media/i2c/ov02c10.c
-+++ b/drivers/media/i2c/ov02c10.c
-@@ -89,12 +89,6 @@ struct ov02c10_mode {
- };
- 
- static const struct reg_sequence sensor_1928x1092_30fps_setting[] = {
--	{0x0301, 0x08},
--	{0x0303, 0x06},
--	{0x0304, 0x01},
--	{0x0305, 0xe0},
--	{0x0313, 0x40},
--	{0x031c, 0x4f},
- 	{0x3020, 0x97},
- 	{0x3022, 0x01},
- 	{0x3026, 0xb4},
-@@ -303,10 +297,6 @@ static const struct reg_sequence sensor_1928x1092_30fps_1lane_setting[] = {
- 	{0x394e, 0x0b},
- 	{0x4800, 0x24},
- 	{0x5000, 0xf5},
--	/* plls */
--	{0x0303, 0x05},
--	{0x0305, 0x90},
--	{0x0316, 0x90},
- 	{0x3016, 0x12},
- };
- 
-@@ -330,11 +320,17 @@ static const struct reg_sequence sensor_1928x1092_30fps_2lane_setting[] = {
- 	{0x4d0d, 0x00},
- 	{0x5000, 0xfd},
- 	{0x481f, 0x30},
--	/* plls */
-+	{0x3016, 0x32},
-+};
-+
-+static const struct reg_sequence sensor_pll_19_2mhz_setting[] = {
-+	{0x0301, 0x08},
- 	{0x0303, 0x05},
-+	{0x0304, 0x01},
- 	{0x0305, 0x90},
-+	{0x0313, 0x40},
- 	{0x0316, 0x90},
--	{0x3016, 0x32},
-+	{0x031c, 0x4f},
- };
- 
- static const char * const ov02c10_test_pattern_menu[] = {
-@@ -601,6 +597,14 @@ static int ov02c10_enable_streams(struct v4l2_subdev *sd,
- 	if (ret)
- 		return ret;
- 
-+	ret = regmap_multi_reg_write(ov02c10->regmap,
-+				     sensor_pll_19_2mhz_setting,
-+				     ARRAY_SIZE(sensor_pll_19_2mhz_setting));
-+	if (ret) {
-+		dev_err(ov02c10->dev, "failed to write PLL settings\n");
-+		goto out;
-+	}
-+
- 	reg_sequence = mode->reg_sequence;
- 	sequence_length = mode->sequence_length;
- 	ret = regmap_multi_reg_write(ov02c10->regmap,
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 77257311d..6548691b2 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -93,7 +93,7 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+ 	IPU_SENSOR_CONFIG("OVTI01AB", 1, 400000000),
+ 	IPU_SENSOR_CONFIG("OVTI01AS", 1, 400000000),
+ 	/* Omnivision OV02C10 */
+-	IPU_SENSOR_CONFIG("OVTI02C1", 1, 400000000),
++	IPU_SENSOR_CONFIG("OVTI02C1", 2, 400000000, 399479167),
+ 	/* Omnivision OV02E10 */
+ 	IPU_SENSOR_CONFIG("OVTI02E1", 1, 360000000),
+ 	/* Omnivision ov05c10 */
 -- 
 2.55.0
 
