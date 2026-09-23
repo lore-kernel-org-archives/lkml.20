@@ -1,49 +1,43 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B307378838;
-	Wed, 23 Sep 2026 14:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8374A40927D;
+	Wed, 23 Sep 2026 14:16:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172953; cv=none; b=NPQ9ihmnb9c3Juf/pHBZtYvj7E25PM/PsRAfzrQoz33mw5Mp8kuJlvLHPbXFUWXMqPLBg/QKYDwG1EsQ2XGZc8gAcJDmQrxjUCreyjvMPrT7fIIR8354XekFb+ufZI2zSYZjm7ljXVnfOks0QLTJAvN85oiDdwe2DhE4wW0DEjI=
+	t=1790173003; cv=none; b=dFhPOLztBRLVzbN3jqklYEvcoPkyEkCuhGhWoRUk50afrkHYn0HJoWe5mdNOed0tDcfmcdHJp3wRSMH0xR3prkaJn8XAQxyLDTp3VD+l38ev5p4fWrWHujBdu6Yo0ildVHY1WpsxvzW69Lx36OCvMUk+uV3vULj7DuS1dtCbedk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172953; c=relaxed/simple;
-	bh=gLKxiXaYuzXzRH3NzpPWYDvSfcLvfUIzm83C2oCYFzc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fAJpqsA9Onyi78OxVpZJNUMMSaT8SDYdCpsGFR5xuQKvRbEchouxRbGO3ydrrXpWkA9KR8Yxyp/kFv1CTrZXdGQ2/jkbG4bVFeZguVe2wZcv4o9ipEKCb8+Gutf7G1EJ4bdqxdRON326tOdBALIpc201vzNxPSifFln+5LQyNSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Eirx7ZkB; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790173003; c=relaxed/simple;
+	bh=pjn94+QqUnplTf/Lw8dWChtvZoqbVQzZ8y3uw2QFkK0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=POnV/+WoQD9A2Col0uubv7m4EqWQUopy8ahbem3OpPGygLotD8C1S8yv8gma0CS3l6vjPEorApdKmeHVuDsqj0ZAN3vQDI47HkSlUxaiq+dBNZVehVupRwJnOkixPgRMKOk0U65PfCqEUD+oLV0NoO6cr9P0Y2MJNz0T0ZzAkGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Gx8orI2C; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Eirx7ZkB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Kh1BmU+b8bRZ/hX23dXwEg+RXJfNapV72jSBmuL3mNs=; b=Eirx7ZkBmpWEbnEkL9kj5cyFJP
-	tyiDa/gYdEre/pfo+5s+kW4rM+yNk4dyrUpwQPFmwgLhbZfdhd3jN+0W6fXCphigcWRg6rax1srEz
-	WM8pLmcYupWLDv0LGPMy+KZV8F/C0YZvNxpjw8qOpmorJikbGPU7Thx9JiZo3/4PLiBs=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9NlC-006p29-Qx; Wed, 23 Sep 2026 16:15:46 +0200
-Date: Wed, 23 Sep 2026 16:15:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Greg Ungerer <gerg@linux-m68k.org>
-Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org,
-	arnd@kernel.org, wei.fang@nxp.com, frank.li@nxp.com,
-	shenwei.wang@nxp.com, imx@lists.linux.dev, netdev@vger.kernel.org,
-	nico@fluxnic.net, linux-can@vger.kernel.org,
-	linux-spi@vger.kernel.org, olteanv@gmail.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com
-Subject: Re: [PATCHv3 1/3] net: fec: do not use readl()/writel() for ColdFire
-Message-ID: <fe8a632a-80a8-45da-ba64-31158af7c987@lunn.ch>
-References: <20260907134037.1855408-1-gerg@linux-m68k.org>
- <20260907134037.1855408-2-gerg@linux-m68k.org>
- <42ad1525-fceb-43d6-aa03-d17e844a9ad9@linux-m68k.org>
- <eb987eb9-f368-4d28-bdd0-c289c3039c3b@lunn.ch>
- <46246a5b-3e95-4ecb-bc52-e374dc136514@linux-m68k.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Gx8orI2C"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7320D152B;
+	Wed, 23 Sep 2026 07:16:37 -0700 (PDT)
+Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 551B43F86C;
+	Wed, 23 Sep 2026 07:16:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790173001; bh=pjn94+QqUnplTf/Lw8dWChtvZoqbVQzZ8y3uw2QFkK0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=Gx8orI2ClszWd17W6QarNcdz4HjWcAVSUfocdkWWupY7BYnCdOl1+ghmFEZznYJ7X
+	 rZUKyAfbgqhAIeBAo+EAgkpUgGl63WGXSVl8onWaaUU6DzMO8L3XdhAqijee00jNWV
+	 IDeczs3B4hH++oOrlYSfwTCms1AeMaB4V4aEJ8qI=
+Date: Wed, 23 Sep 2026 15:16:36 +0100
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-gpio@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>
+Subject: Re: [PATCH] arm64: enable HAVE_SHARED_GPIOS for all ARM64 platforms
+Message-ID: <arPfRFC5jzVaSQvq@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,13 +46,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <46246a5b-3e95-4ecb-bc52-e374dc136514@linux-m68k.org>
+In-Reply-To: <20260907-arm64-have-shared-gpios-v1-1-31af942ab30f@oss.qualcomm.com>
 
-> The driver will always need to support big and little endian hardware, so I
-> am not sure how to avoid some abstraction like this.
+On Mon, Sep 07, 2026 at 04:50:34PM +0200, Bartosz Golaszewski wrote:
+> Shared GPIO management provided by the GPIO shared proxy module has been
+> enabled for Qualcomm platforms for some time. By extension of the
+> defconfig, it's been effectively enabled for all ARM64 platforms when
+> using the default configuration. Bugs discovered initially after the
+> feature was first enabled, were fixed and I haven't seen any new reports
+> for several months. Make the feature enabled by default for all ARM64
+> platforms officially, which will allow us to continue the removal of the
+> deprecated GPIOD_FLAGS_BIT_NONEXCLUSIVE flag from the kernel.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  arch/arm64/Kconfig           | 1 +
+>  arch/arm64/Kconfig.platforms | 2 --
+>  2 files changed, 1 insertion(+), 2 deletions(-)
 
-I was wondering if there is a linux standard set of macros which is
-supposed to handle this big/little difference, the macro knows the
-architecture and does the correct thing?
+Since it touches more lines in Kconfig.platforms (2 vs 1), I'd leave
+this to the arm-soc people to merge (I also got a minor conflict in
+Kconfig.platforms).
 
-	Andrew
+Acked-by: Catalin Marinas <catalin.marinas@arm.com>
