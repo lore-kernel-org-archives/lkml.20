@@ -1,92 +1,130 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15CEA38A725;
-	Wed, 23 Sep 2026 05:49:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 471D93955CA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142582; cv=none; b=l0I0xk1CBohLejTuOAeia2mY0YN0pazdmxk1wpA9ErreJqZg9j8I+4+OvYm63FA2tzd8w2EC/EL3Wb6QFv5BmNVxcGUS5DVuLzFsLR80QL6B6eBbx+wq31/q0Az/AiISvURR2XwNvLnjqrrG6xGZgPa2yUYEKy3wpJxVG2p/NlM=
+	t=1790142667; cv=none; b=WTmFvwTz0P/nEdJ+h1RSiuLZt/sS74i4k/76PbN1EpESCdl50OaIzBvf94knmfIN1BaebEp1+TloJBlh3wFgTDEFFoDIEkYkELZuUwQHum6QYXunoJPFuyqOrKBjRvAwzW2yp+Z31vCl+ZNajjA0hKqfvMAjTwUCEMzk/y/KtTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142582; c=relaxed/simple;
-	bh=vT8RJz34w3HJasV0jOxaSYHk/g/wYgfzEFBwgejv/c4=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FoIvl5Du0dcSCnLVboDK8kUuZ4h/BxLw+LVyWQzE/Ie6aFSC9+06vWjfMYTjEYtj8pff1iSp7bey4OrOf+FWyh1JzdKaMtyN1iQuq5OfD33nDBQzZrus38flZthljj/dKRJzXP14JmS5EVrKtE4sAjFD3tIFSp95ik0gCGW5COY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqQyQ74GSzTSdg;
-	Wed, 23 Sep 2026 13:49:18 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqQyP0TLrzTSdg;
-	Wed, 23 Sep 2026 13:49:17 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id 7B6DF1032;
-	Wed, 23 Sep 2026 13:49:10 +0800 (CST)
-Received: from hsj-2U-Workstation (172.19.24.226) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 23 Sep
- 2026 13:49:13 +0800
-Date: Wed, 23 Sep 2026 13:49:11 +0800
-From: Huang Shijie <huangsj@hygon.cn>
-To: Christoph Hellwig <hch@infradead.org>
-CC: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <zhongyuan@hygon.cn>,
-	<fangbaoshun@hygon.cn>, <yingzhiwei@hygon.cn>, <jack@suse.cz>,
-	<dev.jain@arm.com>, <ljs@kernel.org>, <adobriyan@gmail.com>,
-	<akpm@linux-foundation.org>, <hpa@zytor.com>, <ryan.roberts@arm.com>,
-	<mjguzik@gmail.com>, <joel.granados@kernel.org>, <jannh@google.com>,
-	<oleg@redhat.com>, <aleksa@amutable.com>, <legion@kernel.org>,
-	<kees@kernel.org>, <joannelkoong@gmail.com>, <tj@kernel.org>,
-	<libaokun@linux.alibaba.com>, <ebiggers@kernel.org>, <sandeen@redhat.com>,
-	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH v2 1/3] fs/drop_caches: skip filesystems without page
- cache
-Message-ID: <arNoV2MdtTK-Ruw9@hsj-2U-Workstation>
-References: <20260920072811.2064247-1-huangsj@hygon.cn>
- <20260920072811.2064247-2-huangsj@hygon.cn>
- <arIVBpMZk5-O2AZc@infradead.org>
+	s=arc-20240116; t=1790142667; c=relaxed/simple;
+	bh=eKemzwRXQdl3c4hY8Ex1hKISlYj52xm/oYZ+lmbpr1A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nx/rA7rmUI6Scf3tHbKR4HZcSHirNQsuJOGDtFpcDG9Jcr8FyChYuTxpGhNXCrpWwlFSzOlQKx9ulE4f0DbpwMMJqVZx7Z1GJByPTfed31CITtO/L2E+PZMB4kNjQkozu5oRt1luixy48lekY3YTUcDlchmyMr/D0cH4j9apxNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fhJc/u5h; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fhJc/u5h"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b355ffso301166b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:51:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790142665; x=1790747465; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bNcaMozgi7eMkdPXPYneu/L8vYje9h4xULACp8evALk=;
+        b=fhJc/u5hOyhXhklkk7jsW7/glrZ+HjWqBtqKokh0MDgVt6SJIbPhh76SzJY062J8OT
+         chkQPGpVsS4LiYa6cD5np1rM7vcFlJoHJkda2eCzuBI/uogYY2ugwjnogBAaNCxkcbOF
+         xuJjro3cW7aMZsPArWBfLS52izqejd3mZJs5D7/VN620qtUcufxNB0rv/7svbJDp9+OD
+         g+ZZZX/I8cPGVgy+Lj9iqluPShA3JncZIl2Y1jiXVMRKMmAWMJr1XhYZ3/cwHPlKmXjv
+         /DIjL3wjuQhzB8wlI+LmdU1X2A5KkDb0CeY8ia437mlFiSU2snirphM866ub4Meu/Da7
+         C0iA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790142665; x=1790747465;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bNcaMozgi7eMkdPXPYneu/L8vYje9h4xULACp8evALk=;
+        b=b2fAfoJLyu3d19r2fAWvim2sUvwOdCzZun3q3p5HH9smvb0PtnHf8rcmRt5oHFc7qh
+         d5vJPAZxxLwzNYQ1xuxEsBRmX6F6pdtzqaEP2LOlzFEGDmQU5NKImiUueYUVaT457ApB
+         cCYFCJJXZuzZcat/+4ouZPuQBgYil0/kyCh56zOMni6heRERMoeH8CnFonnO7cRLRE/X
+         r/7vox/EuE0z5RqUcHB1vHEI9+8FLM5WV00Rsev0imrD3Rbl5aOMvMfpVlXnfwczgOqQ
+         4x2kOAjuFU3ik+W/KDPCjF6vSaI9B/y5fLTyQNTkH3cndoTj9i01Qb3f5hWBsG+UnVhs
+         hHqA==
+X-Forwarded-Encrypted: i=1; AKwUvBxtB1kq9LNW9m/LnYT0sgIvWXsdskRuAXf0ruF5qqPkfj+btlX0J6lVxAy7CORZKDpetQuF4ogZ6TVL3Rc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwZbuvNkG4YLrQ2etzF8jowleOJAW7X0DuEHj94vHZ+0yd5luo
+	mCLLT3aPei4bffWT0SJiq0TmigTBeK/uFIdBsNWZ6oa4ho34fsmX8/nQ
+X-Gm-Gg: AYBFou06v2V6KUpedYEH60JOZT5sQNGD2mr5nChHNKIf9Q2V0IDwWuKqlJMzPOkaHVu
+	z0f7oqE7xZjKAW229N3eioIg2rKLXH0efHJpd4vG6PC7x6N2qtXFI2XvoF2L3mz18Leg2SApPsx
+	4kuO9UMymIDqcbFwmpFrm1hqfXtXxTzEERZBahHxEYWClp1bPAWgGBrGrI7yUgwGbzXbyKdW9np
+	tKhrRr/M1PRyc2o2s5iTgsTyMj6j6rWcuOJ9zf1Y1uJaY/UsfVt10nXVoZS491d09qK41LUWioo
+	HfXfvRQAwQ98nenreugIdgV1vUxjXBvF1HV8lLjiJxcZU1A1RKNcfDENYuXUPfgGtakTpISV6AX
+	CpayB7NDBiIieoun+TTQuJHC5wg3YZGNH0CE/v2G80PTHvBLV2yGU4VKWguQ+T6jugtVey9/CjM
+	6HEVHF9Rke/urmCEHbRh6aUi+LbBFB+kZGiOdEy8f0HbnwAatyzgwlQtmxxY+ObxEcEs13l9HNT
+	1xr6IbsFbdpAzLUmlXnmAu9NQ+37QrIpQ==
+X-Received: by 2002:a05:6a00:3316:b0:86e:8deb:fbd4 with SMTP id d2e1a72fcca58-87d1a7af6fdmr1687497b3a.11.1790142665440;
+        Tue, 22 Sep 2026 22:51:05 -0700 (PDT)
+Received: from abs.sf.dndws.com ([50.35.86.68])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1dffd6ddsm691486b3a.48.2026.09.22.22.51.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 22:51:04 -0700 (PDT)
+From: Tao Gong <gongtao0607@gmail.com>
+To: netdev@vger.kernel.org
+Cc: "Chester A . Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	=?UTF-8?q?Ar=C4=B1n=C3=A7=20=C3=9CNAL?= <arinc.unal@arinc9.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Tao Gong <gongtao0607@gmail.com>
+Subject: [PATCH net v2 0/2] net: dsa: mt7530: fix trapped frame forwarding and egress tagging
+Date: Wed, 23 Sep 2026 05:51:01 +0000
+Message-ID: <20260923055103.949540-1-gongtao0607@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <arIVBpMZk5-O2AZc@infradead.org>
-X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
- (172.23.18.114)
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 10:41:26PM -0700, Christoph Hellwig wrote:
-> On Sun, Sep 20, 2026 at 03:28:09PM +0800, Huang Shijie wrote:
-> > Add a new flag SB_I_NO_PAGECACHE for superblock.
-> > 
-> > Skip scanning the inode lists of filesystems that have no page cache
-> > in drop_pagecache_sb(), as indicated by the SB_I_NO_PAGECACHE flag.
-> 
-> I don't think we need a new flag.  This can check for
-> 
-> 	sb->s_bdi == &noop_backing_dev_info
-> 
-Okay. I can use this method.
+This series resolves two issues in the MT7530 DSA switch driver preventing
+trapped link-local control frames (such as STP BPDUs) from reaching the CPU
+host when bridge VLAN filtering is enabled:
 
-> which is actually the more relevant concept - not if a file system
-> uses the page cache, but if it supports page cache writeback.
-> E.g. for ramfs there is page cache, but it is the only data store.
-> For shmemfs, there is writeback, but it is driven in a different
-> way (through the anonymous memory code and not fs writeback).
-> 
-> And most importantly it just work, no need to mark file systems,
-> as you're currently missing a lot of those that can have a fair
-> number of inodes, e.g., sysfs, kernfs, cgroupfs or configfs.
-> 
-I ever added support for these file systems, but I deleted the code before
-I sent out this patch.
+1. Commit 3ac85bcfd404 ("net: dsa: mt7530: preserve VLAN tags on trapped
+   link-local frames") set MT7530_VLAN_EG_DISABLED to preserve VLAN tags,
+   but in hardware this disables the per-packet override and causes
+   trapped frames to follow the CPU port's active VLAN table (VAWD2) rule.
+   When bridge VLAN filtering is active, the CPU port is in stack mode,
+   causing incoming untagged BPDUs (01:80:C2:00:00:00) to be egressed with
+   a VLAN tag, which userspace STP daemons (such as ustpd) and the kernel
+   bridge drop. MT7530_VLAN_EG_CONSISTENT correctly preserves wire state
+   (untagged frames stay untagged, tagged frames stay tagged).
 
-To Jan Kara,
-   thanks for the information about the issue.
-   I will check the inode iteration issue firstly.
+2. On Airoha EN7581 and AN7583 switch IP, setting MT7531_CFC (0x04)
+   CPU_PMAP alone is insufficient; the switch MAC forwarding control
+   (MT753X_MFC, 0x10) must also have CPU_EN and CPU_PORT configured for
+   trapped frames to exit to the CPU conduit.
 
-Thanks
-Huang Shijie
+Changes in v2:
+  - Rebased onto net/main
+    (git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git) adapting
+    to mt7530_rmw() instead of net-next's regmap helpers, resolving the
+    patch application failure on net-0 noted by Jakub Kicinski.
+  - Carried over Lorenzo Bianconi's Acked-by on patch 2 as the underlying
+    logic is unchanged.
+
+Tao Gong (2):
+  net: dsa: mt7530: use consistent egress tag for trapped link-local
+    frames
+  net: dsa: mt7530: trap frames to conduit in MFC on EN7581 and AN7583
+
+ drivers/net/dsa/mt7530.c | 27 ++++++++++++++-------------
+ 1 file changed, 14 insertions(+), 13 deletions(-)
 
 
+base-commit: 9c572a83037a7dcd653ba3a9cc468c16b857d0c9
+-- 
+2.55.0
 
