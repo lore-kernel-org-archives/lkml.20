@@ -1,92 +1,139 @@
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39EDF3101A5;
-	Wed, 23 Sep 2026 06:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3C13B2D39
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:56:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146551; cv=none; b=hRQfM3Bbu0kPyUYhNZc3uwtQiqSHwGfSxoCVPdjPpvs2qBg/u7FKlBeo4oy8bSJVXq3wE8/PUmdIIsoHTteKtzD23+mnr1IqMkCtlSl51lmgNHilPLzZ0ZACoO3VOdaDYLcX86bqg4DQLxKUMtixQ8cLHSRoFEHKIVjeeNls0lQ=
+	t=1790146582; cv=none; b=IHY/C0oxA/10i1M8OztYQGEVcRSQcIP0tMUZKVEQfRYHuzsWt0IYnitqO13VRd9Yto7N5nkt0YmHMVAI67f7hZ+/JDFMwUw4NCf4zaZ9W01QIteTsAwHree2d48HUWaCbOMbTPt+EIo/hxKf6ZlrSQ3qKJSQCnhc8Z8OIzYxIbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146551; c=relaxed/simple;
-	bh=Rln868J2mdYBx7nxT+SrCO2JAPRVb5QNzuX+gN/f59E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E8uZMjLeV4hfd6K0Vgz2KMHhJeTYWB5lcQL9BHASLSRrg40EoaffYgbjRJtbqXVmdcsC/d/XNTB8GmZ3AGRCvzj8+s9Mt1LFzaTodF2gDDT3t6r0Pw8fvoOWXx9yxJd9iWm42j9RZBOeP6Bim11oQMnl5NLnp9UjV8jsrO2e6cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=kP1FoJGt; arc=none smtp.client-ip=115.124.30.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790146582; c=relaxed/simple;
+	bh=qSM6L8Tt3Bo6L6FvVJnkZL8zE3lNbmNDUjzd5ZZnFUQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=EKry2xcMTcvquiB9W7Ye6oGsgGB+RpTXWEjXuYzLzpw/UZu4lofCE9KsQwt5ld/cUYXFYhzDwhZqk/d6NRhrMSUwpXmYwy26MinIGw07oLiQOiSIGPnkvewSqHgvWHTBBh0RnrELsX8LpiHdZwvSvMY8vH2P28ai9cH39ppzEY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h6bR4ahW; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kP1FoJGt"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790146542; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=MSHfleQDJgNVV/fzOPiv6iN0a6sYi73P6TvrUGvr60g=;
-	b=kP1FoJGtq1gRQ9ahc6sviTygKlCeZdp1zN254Wxz0QLB9nEkPR9K1mPfDga7lg1B1kSS79xKIZyPBTwLUp7Ea1McsfMzmRZCnhK68u8X6YXCl2ZQ7GwbPwtOvaWlib/9ypaizklpUiFbprAb4DtHl2K/vCyPs0bzlDI5UayGn3c=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XBWAyqu_1790146539;
-Received: from 30.74.144.107(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XBWAyqu_1790146539 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 23 Sep 2026 14:55:40 +0800
-Message-ID: <ea81ccb2-d316-47fe-93ae-ef32af2a7330@linux.alibaba.com>
-Date: Wed, 23 Sep 2026 14:55:39 +0800
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h6bR4ahW"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2df375fb9b2so6764265ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:56:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790146576; x=1790751376; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=93ESgb5epDnv42DkJ10ZS+s0RrMivyUc06fbtYjyWtw=;
+        b=h6bR4ahWE7rcBTDXRq3CVjKuPEu8aVwyXD+umoRXjaUSUmrIogEdxYYcJtk5zJmLXX
+         BYskt+n4hYl+spdtR4gzAhlvqrabrg3zZps8wMuYxGoEnTG5U6SKtfJkk1FG3/OFsgRK
+         gLIZ4slcZ14hmDb5EaFZ6GRQdVDImx9vrdtxgargKZWh/XRmO4TnqpSZLUr+PN2ZPSlQ
+         YvaWS4fgBjhXphgN4k8ueHXI2TGkhvaRYzTuEl9yslPoC3O5UgxWka2vPW9w1074ll0x
+         TCCZ7BbETGU2B/L/i/aO0z0AB/qsYKAwQGjZYwVnPxX4cgIPYMOV7cbOZjcTccGsOy8X
+         nbOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790146576; x=1790751376;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=93ESgb5epDnv42DkJ10ZS+s0RrMivyUc06fbtYjyWtw=;
+        b=QsIwkpXXfg9cNkCKBERTvl7qq0R7O4JvrGDr8cqRep9oA0IvUU/KWFZqNLhMYmV8Ur
+         MCcs2i9WqhH8Vp2WnWdWf3SE4viYl8LIrzHoRhQDTPi7aqHmLq5mgPra02nmF2mKRHqQ
+         +tY8eS3qai/OS/eV65p+ZQtRMeTi6Hj8tpdpLZb1uVvlV8t8mNAesXmwBKxmSIdRdr3Z
+         pf2MKaq0pPpXpyIZxIQjKMuumSel4WhTuBLsu5/1doiIXOc3suKQfYGuzy+766kH7P/E
+         XzFgD1xHXx/M8K6LoZrWRC03MyfUfZ9yt0tLB4SehgymG1Le9+MhmevHO6vo85XjEvBd
+         7UaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypJAgksGGTPTtyY6lftrTFzw0FtqJBnQb2+U9WGH2yoOsZAIQmK0kLB0AyBMU6FHsycDH+5saVyxXaFzA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSNyfs89bMmGdiArnyo1fRJ5AUCe/PQ3pWvANMUKO3qM4cuGU2
+	CJ+hnzfT2eUL5OWr96N246dBEB4O9mBWN7WWa0elKJj0mPCzVKlKY/q+xlESw5gjctKPlbsT//L
+	0
+X-Received: from pldy20.prod.google.com ([2002:a17:902:cad4:b0:2df:3fbc:5137])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1a6f:b0:2dd:c053:82f3
+ with SMTP id d9443c01a7336-2df69dc5153mr13412295ad.42.1790146575481; Tue, 22
+ Sep 2026 23:56:15 -0700 (PDT)
+Date: Wed, 23 Sep 2026 06:56:12 +0000
+In-Reply-To: <20260923063114.2683575-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 12/19] selftests/mm: parameterize the mixed-source
- collapse case by source order
-To: Kiryl Shutsemau <kirill@shutemov.name>,
- Andrew Morton <akpm@linux-foundation.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>
-Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- Muhammad Usama Anjum <usama.anjum@arm.com>, Usama Arif
- <usama.arif@linux.dev>, "Nico Pache (Red Hat)" <nico.pache@linux.dev>,
- Zi Yan <ziy@nvidia.com>, Barry Song <baohua@kernel.org>,
- Dev Jain <dev.jain@arm.com>, Hugh Dickins <hughd@google.com>,
- Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- Michal Hocko <mhocko@suse.com>, Ryan Roberts <ryan.roberts@arm.com>,
- Shuah Khan <shuah@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, kernel-team@meta.com
-References: <20260919002451.496763-1-kirill@shutemov.name>
- <20260919002451.496763-13-kirill@shutemov.name>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260919002451.496763-13-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260923063114.2683575-1-morbo@google.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260923065612.2707049-1-morbo@google.com>
+Subject: [PATCH v2] HID: bpf: add __counted_by_ptr attribute to device_data
+From: Bill Wendling <morbo@google.com>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	bpf@vger.kernel.org, Bill Wendling <morbo@google.com>, 
+	codemender-patching+linux@google.com
+Content-Type: text/plain; charset="UTF-8"
 
+The 'struct hid_bpf' contains a 'device_data' pointer field (of type
+'u8 *') and an 'allocated_data' field (of type 'u32') that specifies the
+size in bytes of the allocated memory for 'device_data'. Since
+'device_data' is a pointer to 'u8' (elements of size 1 byte),
+'allocated_data' represents the exact count of elements allocated for
+'device_data'.
 
+Annotate the 'device_data' field of 'struct hid_bpf' with the
+'__counted_by_ptr' attribute, pointing to 'allocated_data'. This enables
+bounds-checking sanitizers (like KASAN and UBSAN) to detect
+out-of-bounds accesses to 'device_data'.
 
-On 9/19/26 8:24 AM, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> collapse_order_mixed_sources() faults its region as order-2 folios and
-> collapses them to the -c target.  Order 2 is below the contpte size on
-> every arm64 page size, so nothing in this suite collapses a contpte-mapped
-> source on purpose.
-> 
-> Let -s name the source order alongside -c.  The case then faults at that
-> order, keeping order 2 when -s is absent, and the source order has to be a
-> supported mTHP order below the target.  The other mTHP cases are
-> unaffected: mthp_push_target_order() enables only the target order.
-> 
-> A -c at or below -s is refused before any case runs: the sources would
-> already be the size being asked for.  Without the check the generic cases
-> fail on that one by one instead of saying why.
-> 
-> "-s 5 -c 7" on arm64/64K then collapses contpte-mapped sources into a
-> larger mTHP.
-> 
-> Assisted-by: LLM
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
+Because the count 'allocated_data' is always set before any access and
+accurately tracks the allocated buffer size at all times, adding
+'__counted_by_ptr' will not cause runtime panics or false-positive
+bounds checks.
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: codemender-patching+linux@google.com
+Assisted-by: LLM
+Signed-off-by: Bill Wendling <morbo@google.com>
+---
+v2: Reorder the assignment of the buffer and the count field. It won't
+    generate an exception during execution, but it's a good coding
+    habit that also satisfies LLMs' paranoia.
+---
+ drivers/hid/bpf/hid_bpf_dispatch.c |  2 +-
+ include/linux/hid_bpf.h            | 10 ++++++----
+ 2 files changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/hid/bpf/hid_bpf_dispatch.c b/drivers/hid/bpf/hid_bpf_dispatch.c
+index d46779b63660..fb302d0b9797 100644
+--- a/drivers/hid/bpf/hid_bpf_dispatch.c
++++ b/drivers/hid/bpf/hid_bpf_dispatch.c
+@@ -255,8 +255,8 @@ static int __hid_bpf_allocate_data(struct hid_device *hdev, u8 **data, u32 *size
+ 	if (!alloc_data)
+ 		return -ENOMEM;
+ 
+-	*data = alloc_data;
+ 	*size = alloc_size;
++	*data = alloc_data;
+ 
+ 	return 0;
+ }
+diff --git a/include/linux/hid_bpf.h b/include/linux/hid_bpf.h
+index 19fffa4574a4..f45fb9cccece 100644
+--- a/include/linux/hid_bpf.h
++++ b/include/linux/hid_bpf.h
+@@ -185,10 +185,12 @@ struct hid_bpf_ops {
+ 
+ /* stored in each device */
+ struct hid_bpf {
+-	u8 *device_data;		/* allocated when a bpf program of type
+-					 * SEC(f.../hid_bpf_device_event) has been attached
+-					 * to this HID device
+-					 */
++	/*
++	 * allocated when a bpf program of type
++	 * SEC(f.../hid_bpf_device_event) has been attached
++	 * to this HID device
++	 */
++	u8 *device_data __counted_by_ptr(allocated_data);
+ 	u32 allocated_data;
+ 	bool destroyed;			/* prevents the assignment of any progs */
+ 
+-- 
+2.55.0.1082.g2b9226bbc0-goog
+
