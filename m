@@ -1,121 +1,120 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63002440A26;
-	Wed, 23 Sep 2026 10:56:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from r3-21.sinamail.sina.com.cn (r3-21.sinamail.sina.com.cn [202.108.3.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 392813AAF62
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:56:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.108.3.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790160978; cv=none; b=EBq+6s+OttukxznpwBf+sEaufEIP45GPvlogzPySpWf8B/A7iyyV8HqTVoDTL3YfcehSuGup6g6a4cxwoSC5zeQqYH47B7/2MUWYjJMuL1RVNxzpUhY695xVSyTYwJkLOKIGa1m6CZzycTeM/LvxOEqpYseln+pas4H6+bpoXO0=
+	t=1790160986; cv=none; b=nVj/Y15JkwM5jxOaXWmVqz8Hb+n+VummGta5bJUd/T7DB35CQG3tsx7SaCcgCXzl0HMgnMbl02m5q9Xw/U/zXtVbzQS+hdUbIyz4L70/BioHP118B9zoCAsAVBUFVA/Q2TBFJwwavuDSEpFebYAVXND7AXFsKFTINUAYzF58shk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790160978; c=relaxed/simple;
-	bh=s5eK6czV54tLMgQyspEsKT5FhzSt1Pt79xGUDPqztro=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GQCMg37a2XD9wBKMXhF0p3WI0puCE9Z0OHNA0IJW/20EmQQvR4ejX3PdhCO3X5hGXmgmZ3/yE9RuqZ2AeRyBCKZl+3ecj+DJ5Ki6DmzerGFKCGn92098qF5JaWwAYaFF0OcQWlTzRifI3hkKl2qs3NCk6hYlPZKTt9thYUg9mqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LogV7v5u; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790160986; c=relaxed/simple;
+	bh=zmC3b6pdxiH/U/JC0k/shEkrMtbgQW3YUdxmHb5/QkM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FhzgRQDZYtUwosmxy1OOV06yIDzMrSUthaJpMOz7pKW2hCYNhAIoQXOZk5yssRSParNiTIUJ5UiF37N9OuNRcN787rLQ1w4AmIanM//fKDhLkp+BkXIZkIpx5Pe69FvXk9eV7d7p2Ns2cSdCD9HZMwhzM37H8aKi2HCxEes56VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com; spf=pass smtp.mailfrom=sina.com; dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b=wXM7F9xO; arc=none smtp.client-ip=202.108.3.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LogV7v5u"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E97BF143D;
-	Wed, 23 Sep 2026 03:56:03 -0700 (PDT)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 047343F86C;
-	Wed, 23 Sep 2026 03:56:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790160967; bh=s5eK6czV54tLMgQyspEsKT5FhzSt1Pt79xGUDPqztro=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=LogV7v5ul2kJACpBHby8srql67OXX0Bled1I/EPPVwAmKpYNSZLzGG8ySoD5aiAqb
-	 z8+RgMj8cMWr4Pz2TESQ5GlrSOcy/prdB3nggxKbZkvpFNJLKUt7KD6SYEbTQptlAs
-	 Rr0b9Xa0retjD23OCp/6aqD0SFUfPj8MEmIOOIfo=
-Date: Wed, 23 Sep 2026 11:55:49 +0100
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Cristian Marussi <cristian.marussi@arm.com>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
-	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
-	f.fainelli@gmail.com, vincent.guittot@linaro.org,
-	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
-	d-gole@ti.com, jic23@kernel.org, elif.topuz@arm.com,
-	lukasz.luba@arm.com, philip.radford@arm.com,
-	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
-	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v12 02/25] firmware: arm_scmi: Allow registration of
- unknown-size events/reports
-Message-ID: <arOv8aLJaRQjhkaF@pluto>
-References: <20260920091928.2014972-1-cristian.marussi@arm.com>
- <20260920091928.2014972-3-cristian.marussi@arm.com>
- <2135509e-2689-4258-ab00-011d47f4b172@kernel.org>
+	dkim=pass (1024-bit key) header.d=sina.com header.i=@sina.com header.b="wXM7F9xO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1790160980;
+	bh=3ld3E1kieTmSwQvUOMXsxB6JXXsMC+E/XubT+M7MaWk=;
+	h=From:Subject:Date:Message-ID;
+	b=wXM7F9xOSbIz7U5lYFIR/ol3Ez5pL96cvGyE1FCb/rlwIMOZl30bvjRfuUcn9HDmA
+	 PYKdavMYajKIqr99xi2H7IsdF5RsXIPlq7p+WNUOZpS5TheiLkQGi0JoXEv8jJldtO
+	 FtnEuxMfLMZIHcjRLenkd8ygKuZk+Yv34yfAR3b0=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6AB3B01B00003731; Wed, 23 Sep 2026 18:55:30 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 5415726684944
+X-SMAIL-UIID: 4882B670D1F1403D930C985F4290CF71-20260923-185530-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: eadavis@sina.com
+Cc: dakr@kernel.org,
+	driver-core@lists.linux.dev,
+	gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	rafael@kernel.org,
+	kay.sievers@vrfy.org,
+	syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: [PATCH v2] kobject: optimize count first value
+Date: Wed, 23 Sep 2026 18:55:22 +0800
+Message-ID: <20260923105522.43514-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260917075615.999497-1-eadavis@sina.com>
+References: <20260917075615.999497-1-eadavis@sina.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2135509e-2689-4258-ab00-011d47f4b172@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 03:15:55PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/20/26 11:19, Cristian Marussi wrote:
-> > Allow protocols to register events with build-time unknown sizes: such
-> > events can be declared zero-sized and let the core SCMI stack perform the
-> > needed safe-net boundary checks based on the configured transport size.
-> 
-> ok, so we have a maximum message size defined by the transport. We'll use that
-> as payload size, and the report size just gets the additional ktime_t.
-> 
-> 
-> >  	pd = scmi_allocate_registered_events_desc(ni, proto_id, ee->queue_sz,
-> > @@ -807,7 +821,8 @@ int scmi_register_protocol_events(const struct scmi_handle *handle, u8 proto_id,
-> >  		mutex_init(&r_evt->sources_mtx);
-> >  
-> >  		r_evt->report = devm_kzalloc(ni->handle->dev,
-> > -					     evt->max_report_sz, GFP_KERNEL);
-> > +					     evt->max_report_sz ?: max_report_sz,
-> 
-> Having two similarly named variables is a bit confusing. I wonder if you can
-> somehow make it clearer in the latter case that it is the max_report_sz
-> according to the transport.
+The user writes to the regular sysfs file "/sys/bus/acpi/uevent\000" is
+as follows:
 
-Ok I'll do.
+write(r0, &(0x7f0000000280)='add\x00', 0xff0a);
 
-> 
-> > +					     GFP_KERNEL);
-> >  		if (!r_evt->report)
-> >  			return -ENOMEM;
-> >  
-> > diff --git a/drivers/firmware/arm_scmi/notify.h b/drivers/firmware/arm_scmi/notify.h
-> > index f18f98c5ab3b..c2eb4844c7db 100644
-> > --- a/drivers/firmware/arm_scmi/notify.h
-> > +++ b/drivers/firmware/arm_scmi/notify.h
-> > @@ -18,8 +18,12 @@
-> >  /**
-> >   * struct scmi_event  - Describes an event to be supported
-> >   * @id: Event ID
-> > - * @max_payld_sz: Max possible size for the payload of a notification message
-> > - * @max_report_sz: Max possible size for the report of a notification message
-> > + * @max_payld_sz: Max possible size for the payload of a notification message.
-> > + *		  Set to zero to use the maximum payload size allowed by the
-> > + *		  transport.
-> 
-> "maximum payload size" is ph->hops->get_max_msg_size(ph) ? Should we call this
-> "maximum message size" then?
->
-Ok 
-> > + * @max_report_sz: Max possible size for the report of a notification message.
-> > + *		   Set to zero to use the maximum payload size allowed by the
-> > + *		   transport plus the additional ktime_t timestamp.
-> 
-> Same here.
->
+From the parameters of write, we can know that: buffer is 'add\x00', and
+buffer count is 0xff0a.
+
+Since atomic_write_len was 0, kernfs_fop_write_iter() would silently truncate
+the buffer count 0xff0a to PAGE_SIZE.
+
+In kobject_action_type(), the strncmp() successfully stops at the null
+terminator for "add". Then the code directly attempts to access index 4095
+of the 4-byte string literal "add" via kobject_actions[action][count_first],
+potentially hitting:
+
+BUG: KASAN: global-out-of-bounds in kobject_action_type lib/kobject_uevent.c:86 [inline]
+BUG: KASAN: global-out-of-bounds in kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
+Read of size 1 at addr ffffffff8d72559f by task syz.0.17/5917
+Call Trace:
+ kobject_action_type lib/kobject_uevent.c:86 [inline]
+ kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
+ bus_uevent_store+0x3d/0x90 drivers/base/bus.c:917
+ bus_attr_store+0x74/0xb0 drivers/base/bus.c:172
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+
+When the buffer does not contain parameters, we take the smaller of the
+buffer string's actual length and the buffer count provided by the user
+as count_first.
+
+Fixes: 5c5daf657cb5 ("Driver core: exclude kobject_uevent.c for !CONFIG_HOTPLUG")
+Reported-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9a321aea9d851b299486
+Tested-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+v1 -> v2: change to optimize kobject
+
+ lib/kobject_uevent.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
+index ddbc4d7482d2..09dbee6d8815 100644
+--- a/lib/kobject_uevent.c
++++ b/lib/kobject_uevent.c
+@@ -78,7 +78,7 @@ static int kobject_action_type(const char *buf, size_t count,
+ 		count_first = args_start - buf;
+ 		args_start = args_start + 1;
+ 	} else
+-		count_first = count;
++		count_first = min_t(size_t, strnlen(buf, count), count);
  
-Ok
+ 	for (action = 0; action < ARRAY_SIZE(kobject_actions); action++) {
+ 		if (strncmp(kobject_actions[action], buf, count_first) != 0)
+-- 
+2.43.0
 
-Thanks,
-Cristian
-
-> -- 
-> Cheers,
-> 
-> David
