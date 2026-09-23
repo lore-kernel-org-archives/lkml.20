@@ -1,118 +1,113 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29703C1D75
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:10:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151032; cv=none; b=NW2ZFGSxdQDfTRDdu3mvx2j3wnbgf7fnrLpjqrP82p+WZWCreepG5KWQ8A09GXQKjBCG4kW/4jKbQAAGSnBUNPZq886UircmCTgTJmWiuGVxkZKI71WJRpZhaccURVLMSPSeg1xg5PBgwBwfehsmUzwZPrHf2tPf3fTjWklalrw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151032; c=relaxed/simple;
-	bh=OJ4lfeqD9im+Foc6CNC2HRl00ysGMYvZl2GuC3Av6WU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ph4hOJpry9nkPJ1SpUxuniKh3fE2W9PlkBXxgufDhjvcSbwCLrMF7P+4pi/SC8aNgj/j62uiZxzK32XkTJ/rExpYYFIEHq8tDH8blk5Eu1kOLJTbgLe4UHPvluRRiMfVNnPbvwAzqBAcU+IzMyQu0GPyC0te2ZYuBzGajsoEdWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bo6n5SZa; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E054413780
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790151054; cv=pass; b=bSuGvcwNCTYp/h6P5Ytnsm7Ik9l0r/ihEf/zs2XO1UOTzHu28E81k11xlkUIwEo9mQh0cbhhb9heIBa/DnR/fAykgHrX1bZcHxM+D01qzScpKDQW9upxkYgL9G9hIWxhR+X8uLjpqsFAqBKdxqta00+7DB4u8O27z7H1SfbC2gI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790151054; c=relaxed/simple;
+	bh=52slL8Hr8rgjB8Ot10IDBs/l6D+Y4XBWl6hOA13KGyw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oH3Nvkf6EUcYzhI0Sf/hcXP03mK8AUiVs0jjYqelS71w9bzvUz1HrBrLBIzn9BV/V96K1zBRzqpjJYhSgmg67Q3KU4yd5lRx2K8izDbP8NEHehF8KZJz1e03FkelAE22SRRCfZJUT68J6aMX3z+sbj1qoiRIidbmLSg00BquR7I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wY/o/MUz; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bo6n5SZa"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso563651a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:10:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wY/o/MUz"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so350964f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:10:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790151051; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CFRV7nbb2ri+3lZXXKTp5LFqBaLIwkstqOxJlaxAMOSR4qUmG17LbX66nVdNcAs0oV
+         ZaWmll8D9l032Lt97zDwgI+Jy+Z0+nZKVOgpAsRBqGo/3a+DBzmGynAypV2X1p1TkKh2
+         arZoK1AzDs3F+Dq4rKK+h8aKs0FM5pDqL2hCBuqM06fPJ6pWjjhGcPHX0cOTGE3mlJ+l
+         S43ZkVtQGmR1SORmwxnyl0hskkbb8hbt3FvIkG2MXSkDCIkA8RKlbxHSV8D8V9vMKVck
+         UaVHg7fWpRV0PhpxJzmvcIYahJYD93ugIp9RyJzzQlBUOTtjzh/QD0zK7jtk1ogIpQ4f
+         uyIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=52slL8Hr8rgjB8Ot10IDBs/l6D+Y4XBWl6hOA13KGyw=;
+        fh=8d2mJI/JFxMZGF1sJs/8uOi4Jd9RnOw5lMcOiR5fdYw=;
+        b=PfaCNALfCpGSUljWrZguJ9mudQnbMguJpVO9RlK62PHfxFMSQ+4FEDIaz75KaGeg9Y
+         kC+TYItE0yFuawwOz1/hVmSrKx6jfW3gEQR2oqciqLUaH0yu04nQta8uTZ7MhGT7CJ9F
+         5ZIbEZYlqbfPkmK0bREFlGazfxpIGIDbPL8cfYfz71w6h95mhGCn4ZlCeffe8Igr9fTA
+         z3p9ZYjC1u9xdildhpJYroj/kpcNrbsGQCSW2dNJd/IO6IV9niOZnqAu7dQk+sZE/A+9
+         uG1n8r4uWS/L+Jy0sVPISo3rQbE9rx6uVy/e6SyiKirzC5DHBZWhsVZXyU05BPgB9MMs
+         nMUA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790151030; x=1790755830; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xhNFDOl09aEMZ8kpRAqjjIB77iovlB54t187rXigIoI=;
-        b=Bo6n5SZaUklZRIKcMvOTUw4hT8isT66s0BTCkdS0ylCoRUyrosi1FITaHqLm33Hgmv
-         CTcXO73s8Oi88tKmrSNZLIXQR1uFQEWKjdynhmYq6LPMx0HgnuHOHXHzrvVqMJvN16dv
-         OukLISIpBlzqyhkRag6+4fvFttcZt1YyO2pG/4ZeWamLAC8tkWINGKgE9m+ImDBUPC1I
-         Y90iyxRP/h18NfnYkfAwu7LRe5h/3CCHrpMEg77T0CY5DRM40Anjap1cMQcBPlav8GGf
-         u4Mi4OAf91mZrTZKcxWf8RvVMdasgIDx+oxGBtAYQ5gCkL656C1TpWWZfDOvc7DoQzUR
-         qY+w==
+        d=google.com; s=20251104; t=1790151051; x=1790755851; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=52slL8Hr8rgjB8Ot10IDBs/l6D+Y4XBWl6hOA13KGyw=;
+        b=wY/o/MUzRro1mx8juemsMVZ1BEL6U+icyGCjN7xSMOm54HlxJNGNa+TOAIrk87sCoI
+         ViczLvNuFplCnJ4vDl8S+Xw/MakDAAjiLsJlNB/ds6WVVzovL7YDWZrgqSRamgT0PkuQ
+         f0nVFq4dNaePhkh+bKHrv9QftOEtNdCSHny6BvyAZAF4NC8aQCjdqNM+P6TmU9kJMneI
+         IvzNI7ZJI/JZ99IE6Kj7O81/GL6WDkNoiOJOlzwZ4xx6uyQEkjlc4j31UyJti3fi4DRm
+         rN2j3FbvjXSLABu6hAm5vEnRhOsym89SMTyuX860Jc1Ivn+YSOxfFTttDCOS9bYLCAJb
+         1PjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790151030; x=1790755830;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xhNFDOl09aEMZ8kpRAqjjIB77iovlB54t187rXigIoI=;
-        b=VJ3AkM2hKuI2ZtPjTyc8QFTaQWEbAqNJg7oze2LCepNrDJQX6F8a2dVDDu8MEPkK8o
-         hjtAa3mzWrhKNkDE5RNl7Rhv6Bb3c9HgkiMdqATvq0ctklbe5g/fu3Q4NYtjpUOQ4nLW
-         LBggRvMiTSQuBKzXDQynrpmB9+KG3wGFf8HZhcjxzX0RI4z59UO6ZezNn5IxjLsS34M3
-         RhEkg//vxbYg8etqHqJDlN6E67jaSvt4ghR9d589Li/LOfEZ3ZwfDs9pIMicy4bUGLHB
-         0+fgRR0N1nO9C4kQhSuk9JtQJJGQP3UDOh0C2Ki2jemHkn7gM3ITq+Xy7RHi0tbtI4ni
-         8U9w==
-X-Forwarded-Encrypted: i=1; AKwUvByvDR3Jola6tdJHJpjtIOD+RMiBhra9QeR3+SNZgP6W03arYjwGQhFsStMI1urBLUeG3FG42mKlAynLHZ4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndT7scvaw6vKqHhxiN7IdzUFH5qy/lGRSMNYnv1zKKPULuXqdn
-	FcjPQW7yca0Y6I9ApqoV4HXLpWc/WFgRGjeyf17AbP5+hdjo9GcYoc0nML+M7ZiFG70=
-X-Gm-Gg: AYBFou2XJ97IsT9r9FISfYa8Psv/vr9UVyYMQBKgk2OV7gyKPMmAfEYIlc2c5pPHzrI
-	P7OMxDTAKaKs0rn9Y7dq/ajbGH72HgIXIu/74oxulwnKFW36ZZSoobmcJSum9y1fzjnaWCgnu0n
-	loZh0smm7GObnHnPmSvJR0JZCq4fEY48OedTk0XS5ih5dEx1oxjUBFilTlC6nqIFnR4wdjMId0p
-	9PH1FbKflyJtBrCgwFGl71c0p1eNVf17izLREFKWb5VuJttPdXHNY34UFLBidgWoHkC4cT11u04
-	d2P/FQv86b5uQmWvKHRkCL9i87kVbZ87uYylGL/OD9Ro9bnvdThnYyBcBKZN+Oi8BDz12myPcID
-	dGieWtPMvxvcUFcZs4DF+PuUDsdRJ6kwo+DuAHOvzWWclCY9MMZGDqvYsmckWmXP5a5ePqgIith
-	uApvWP+y4ayHAZZ4ZpN2A/0fN5COPebAjELpp9uuKIQsQXmjG4riRYqKIa96R/YNQm4OHtsgit8
-	0fqya5MNLOty3bah99th63WOw==
-X-Received: by 2002:a17:90b:4c8e:b0:3a0:3700:fe9 with SMTP id 98e67ed59e1d1-3a07e6410b0mr1649244a91.36.1790151030164;
-        Wed, 23 Sep 2026 01:10:30 -0700 (PDT)
-Received: from flow.bytedance.net ([203.208.167.150])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07de20ecbsm3726373a91.13.2026.09.23.01.10.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 23 Sep 2026 01:10:29 -0700 (PDT)
-From: By <xiaobai050@gmail.com>
-To: agk@redhat.com
-Cc: snitzer@kernel.org,
-	mpatocka@redhat.com,
-	bmarzins@redhat.com,
-	dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com,
-	By <xiaobai050@gmail.com>,
-	syzbot+665bae0a102933788e1a@syzkaller.appspotmail.com
-Subject: [PATCH] usb: dwc3: pci: reject matches without software-node data
-Date: Wed, 23 Sep 2026 16:10:21 +0800
-Message-ID: <20260923081021.89508-1-xiaobai050@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790151051; x=1790755851;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=52slL8Hr8rgjB8Ot10IDBs/l6D+Y4XBWl6hOA13KGyw=;
+        b=oBwHHnBu33YhTNXWRl184QTNGqVIE5eFg7Uh2ABMshh6BIIH8vbXMXWCK2zFBtQK8b
+         q36pDY8oIIpb4pTmDPs95pMm1PnFy/bR3fff7BaJfVAYxaIPcllnhrTjNu3ldbQXpqYL
+         +rnCNDeZ6ChCZunRNJHh0pku86D1qaMuhJ/sn/6eI2YRHDJCDVUh2WA2EXXPWEiLgiGW
+         lMBxuBYnJszypKRarQJ8MN3TYCGLUu5KSC73Rr84i0xJykm72T6FUSQ3mxMEyH3FecFQ
+         mOhLpHpLky/hcyRjqJfLHmrdz9Su9PLMlS46boAZNpXh0RpL8p/m9AXs2B0FPe7L0+ea
+         TQ9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBymCg+JX2xId9a5tNsY1WaKAjFWFExjWUO6n2VfKCb/l+wkVrQigLCow0OGlLjGWE4J1FK9ELUorYITyzw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kN/0zOoM15I022qNSI7SYo67ek8VAXznld/8aanyVsgsTut/xq
+	DyJsJcelXJky8ysoIHhfPo4U6VkuOYeNDFV3Pq0bNeBnfQq0g5P1eaEoMWYjhF42d5l4MbsSPAL
+	SSOmkRq8jhFCtAehvopDWGf/EX6nj7NZUt3opdA6f
+X-Gm-Gg: AYBFou1Df1cfxvZM6h7ulQFRA+4nXqDZZRNTNzUGQN34YMYuL7fKQ29vnzzGajJQLDM
+	MCl36672FpI9h6sgXgdz2NWMV2Fd2HnQ2BzWZw74yCMv62WvLivAFkrB7JLQ+IT1vppEMDcIFLm
+	cdtAjYCn0kf6dVU0eXvRaGzXtPIuEOVJaJiCGgVynSubhk9BRUlK3S91bPHl8KaNZEA8HaiwxsQ
+	FsGYY+Kgnzy7U1ntuoJsBGXph75fsvQLwbMKqSp8MET7H3NgPROVA+PMHFyktQgyHTgS2n/1rRQ
+	PwY3/TvBQRRRy6nbQIQvJdM5805jmftId0Rnox3XmdlyyK7Hwuu/Q3wC0fqcVy/brK3ZOwRUA3l
+	/ZqyhrOEUGxrIkidK0YhFBM8PRIAvM0mftMgzcc/QwQ==
+X-Received: by 2002:a05:6000:26d0:b0:487:360:4fd1 with SMTP id
+ ffacd0b85a97d-48867060af3mr3013286f8f.5.1790151050299; Wed, 23 Sep 2026
+ 01:10:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260910-b4-add-list-for-tyr-v1-1-cd74ff2c1f8a@collabora.com>
+In-Reply-To: <20260910-b4-add-list-for-tyr-v1-1-cd74ff2c1f8a@collabora.com>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Wed, 23 Sep 2026 10:10:38 +0200
+X-Gm-Features: AclHuK83N6NgEdKtHsRmRTgf29F0Bv9EGKeqa04ZEKo4C3bnWfWqYur52dyGeok
+Message-ID: <CAH5fLgjerphsjv75W-dS+GOg+XgX15KchR1oFv3wCS-23MLreg@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: add rust-for-linux list for Tyr
+To: Deborah Brouwer <deborah.brouwer@collabora.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A PCI driver_override bind can reach dwc3_pci_probe() with the dummy ID
-from pci_match_device(). Its driver_data is zero, so dwc3_pci_quirks()
-passes NULL to device_add_software_node(), which crashes in
-software_node_register().
+On Fri, Sep 11, 2026 at 1:20=E2=80=AFAM Deborah Brouwer
+<deborah.brouwer@collabora.com> wrote:
+>
+> Tyr is a Rust DRM driver and Tyr patches are reviewed on the
+> rust-for-linux mailing list. Add the list to the Tyr MAINTAINERS entry so
+> that scripts/get_maintainer.pl and b4 prep --auto-to-cc include it.
+>
+> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-Reject the match before enabling the device or allocating resources.
-All static DWC3 PCI IDs provide software-node data.
-
-Build-tested with ARCH=arm64 defconfig and dwc3-pci.o. The runtime
-reproducer could not be run in this environment.
-
-Fixes: e492ce9bcaa1 ("usb: dwc3: pci: Register a software node for the dwc3 platform device")
-Reported-by: syzbot+665bae0a102933788e1a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=665bae0a102933788e1a
-Assisted-by: LLM
-Signed-off-by: By <xiaobai050@gmail.com>
----
- drivers/usb/dwc3/dwc3-pci.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/usb/dwc3/dwc3-pci.c b/drivers/usb/dwc3/dwc3-pci.c
-index 6c1cbb722..d7fdf6ca6 100644
---- a/drivers/usb/dwc3/dwc3-pci.c
-+++ b/drivers/usb/dwc3/dwc3-pci.c
-@@ -335,6 +335,9 @@ static int dwc3_pci_probe(struct pci_dev *pci, const struct pci_device_id *id)
- 	int			ret;
- 	struct device		*dev = &pci->dev;
- 
-+	if (!id->driver_data)
-+		return -ENODEV;
-+
- 	ret = pcim_enable_device(pci);
- 	if (ret) {
- 		dev_err(dev, "failed to enable pci device\n");
--- 
-2.55.0
-
+Merged into drm-rust-next. Thanks!
