@@ -1,78 +1,77 @@
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E88423EB7
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:45:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1145647987B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790199942; cv=none; b=Cf3qjjXd+RFFTFW8+uww51L9oNHUju2s3SwCZL929CHpMy0CvHFAdPggl5daQNm1cWVrM5CqyzVqskDsO69n8FXe9R2uLlF2rUHl+FEtjAVDg5QeNU0pZEJwKkzNTCVnpgzdBq0BYLAFS+30HcZK+I4Yyu1lhlGbjWobxsOFtas=
+	t=1790199998; cv=none; b=daf3Vuc+oljJSEzdwtjREKWafj0ic0udR+2e8V5nhyAlsySVtdxbnqXnInw7vImInrKdpVJdsZGgIq8riDdMXfD6YhuE/HTNY/kk+7/eFNaQqU19Pz9yw92E/IiNLIYxr0hy1cFYclVoFq/CR9iqbZ61yilo75HM1xiQywFIELE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790199942; c=relaxed/simple;
-	bh=MtFQVVY8ii0aQ8edUoqsdnczPPq3oMjj6fjAb3jD7mU=;
+	s=arc-20240116; t=1790199998; c=relaxed/simple;
+	bh=xdMUdk2g3RQS68sUHf1oVBCGtOm3a+cNh4Vyy2wH/r8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TmqZXHHr8GeME2Ih+YYqdErzRv0OsWhNdVGK1/VjM6HPrMAVjPjY6vHLm9oyFvCoDu0ljrDfja794GWxonrbElVd96zsuF7I8bAaqUmB9N6DSRI8UabB4/vE4OsVpQFZaUqykVRCwVbGg4yBUQosfyO9DouYY5EC1MYoKdiQw1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=WOp7eYni; arc=none smtp.client-ip=74.125.82.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=afrmMybKQxfB0FfCjHbvicIe8agSsmhEvW/8JYMnv9LYzG3G5hRD7+iYT6CckJOU/9cyAtZl9a/bGWtasu97BpACLDTEYpg/Atkgj2c2syXxaYN4g+J56XGd1Y6Fu9fmGVvRZVoI9R3XS2vRScQqRIOzRS1tp0w+PIQlCK+ORrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ESzcN1fY; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="WOp7eYni"
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-14327018b37so43250c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:45:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ESzcN1fY"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so7143135e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:46:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1790199939; x=1790804739; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790199990; x=1790804790; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OwHyWIRHXY3P9Fw/TPrR57c0xVbvLUEWr30qF/TORsY=;
-        b=WOp7eYniOf58CILu8cCtotg2NhrePWAEx47u7v7qyU20d1o9F2zWO3NmVlOkfQ08hw
-         QfAPNIWZ4p/uWAApE3hQ9BqFZ3S5UoBZTOjg5A6wWsSyouQCIstuxKommvmU9rDYAPN/
-         73QNLURCNKJ5X37isvNfrVK5+CoqEBh524J6i8XkEy2JhUyBeedHrUnv91I04EUowMWL
-         xsY9f9OLD3z9Ruf2Fo+eEi510SsoPmtnzTMHvTJpcqz2AdKsI8njDZUz6osHZylVLH/E
-         0+kZLnhU/sg6w7bNfvtoHDrhq+IW2kHoQDJ2xZuEMsf6mf/EJSGiHicS9lxy+3cC2Ggw
-         aX0w==
+        bh=CWYKTy9ur2zfAfW3YtEaKW/NAKkIGa1U+2owoaIL5wE=;
+        b=ESzcN1fYpS6QoZAQof79mmXasRvWuEXcUvRLo/67PgyTeWZN7rOTbNooUGXr4/psin
+         YHgnusrBGzrSYRVNCH0Mz1HmaTjJU5L2xJd8ZyF/q2FFRKqQp2TaBkrt9q3Yfre1PNVt
+         3qiiSu2VlgG/AafW5Wu2pNOp8Cjj2sPCGvmuTs5yx0AhwD7Y648EOb0cjcQC4bBAVBiu
+         qFZ9QGXpeud8s63DXsc4OTa0ALu411opAE/4OtiXyE6efMJpkgQRO046jQBM9w+9vtGj
+         EnqMj1jB/6rhPFDznKUkiG+4kKaJPBAPcPABN1RC4ieQ5p9uiGXnsKQPcCjqjPk94fPI
+         KpLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790199939; x=1790804739;
+        d=1e100.net; s=20260707; t=1790199990; x=1790804790;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OwHyWIRHXY3P9Fw/TPrR57c0xVbvLUEWr30qF/TORsY=;
-        b=HAkXOtbPMXCZ7Sm8G5QCtGk39qkpbl4SU/7I6r9jB7gnGbp79KbnVlNY3R/2f9tuA0
-         LA7mnIKOqo/HG1/pHHsOybsUJqx1OkFzhPx9UsBSjrsA9r6U4YSC56r6FTwMSKTb5GBc
-         y6ErKOv5IG/VYC1/gObMotYbsAfPZNn9aBT+YntoJHSrGC408IxZQ+yPUm+pbjDZc5Qv
-         hpA20Ohm0E0DIl4fJm22T62IEa0oEAwcYDG5j+05QB0DoRwh7cerko6vJKq+KD1ztyvC
-         dyfxtFZhxklG7JD6wq/B1cLpzz95CpQnBQdjvMaLwBap3+WzRJZsX2NDa4B7ie5xv9Xi
-         LSnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwLoFOzMuEnrlEjFs2mFOQh42FsFaUi79dljSgkH0wFkzrCE5xR9x6eEMq9tgIVgso/5O5DvfMDuXjq3Tw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVUwuQgOSpnY5dn1ywfJ4unY3W70rHns386cQbVEJ0Sd0BHY0l
-	e/tI9yxVDW405M2ePRsq/VxtkOjHcvP5sYXBPldjErJOIzjCeFMlwfLfndwoMfE269M=
-X-Gm-Gg: AYBFou0BUkLql9WklpldWuZ2pe5NtMdWhKUiST9+QV1KDKbVe9cpVDWAt5T5zsk5zlQ
-	avmMj7tpU2AgNx3kun+2mjdb1g+u/Sn0HPpdFtP7HiftDDAfp0HcfBdRxUfOpFtCczqPl3KJek8
-	KJFhE5pb3yrD2KMwD+zfQ/3gnJNzLs1k4TtPGmiPC41iWa+zbHBNGBckaR0s02mUGeGnCeQmWWs
-	9G/y9F9/MNg64ZAykv321EJIHHS7h62XjWSB4yh2O8z3oCWJ45o3F1xTe3ooTohXbK9ISenT1I+
-	Phk1TKaXGZgCgvHk6b2vKj/VWL/1yUtUcP0qIbe+vV1g4SL4ijseUZLQYqHeGq8dybbY7GkWaqg
-	5kN5KHbVy5mP9dghkoQJirAZ6d6Yo4u0tME7+G78XXA9cHvVduJtdsIigSfBqWvmKB+ra6jxagR
-	WoHTF5ZG8S7BjTY15YQGefwEvDmL88KPGxN8TvPgxTWGNHDuGkj8Sz3XsiipY9n6HtUqzgaHqCX
-	i5Q7iwVU7eEnXLZs6A=
-X-Received: by 2002:a05:7022:3a8b:b0:13b:32f4:e826 with SMTP id a92af1059eb24-1450404480emr343521c88.11.1790199938984;
-        Wed, 23 Sep 2026 14:45:38 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-33e95c7bf6bsm7892192eec.8.2026.09.23.14.45.38
+        bh=CWYKTy9ur2zfAfW3YtEaKW/NAKkIGa1U+2owoaIL5wE=;
+        b=2ndulzhIzUQMq1HVyYfOx02fsQuFifFsKleAsECy+Z4GUPs41zxXDGamQZ2fAIzCuH
+         zcVkaMudrwuMAcNv5DBPOUkMKphSzmWeGxw3o6QIKos9rcSX80W1rZbAVDuORvuaRdyo
+         wqMgGNubdzvtFYRdogcsGYaH2Wgyd/tWDkxVSDOH6Dc4A4e7uCkmBrpVFlx8FjXpzUfY
+         6RJO/qq2oul+5b1PXACgrrn6uVvZsawkQ23NyDmVvzltWtXqRE5bnjrnA57fvg0rEGmr
+         e9xHjDoKAsAgkbA0bBbE/21tM2+5D119Fq/DuZEtUh3U3kY62U5qp+r2Hun2pyww/GQA
+         3ypA==
+X-Forwarded-Encrypted: i=1; AKwUvByi6ARGQckstC3Nt8nBdBi7qfiSHE6Yk/zMuHvaDaCrhWq5i7hg+Y8qxLZEj06f4HbC52rg5IqU29f6Ugo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mTVIQxgpwVvfGqBqd7ClHnyeDJKiW6eiComk3MLkp3JGIeQyNb
+	XPS3Le0MEvpdWdKLxr4n1RI8rvDt4I9mr+mOrcM/xFoDl+2mvrJ7WOvIueLIiUxV
+X-Gm-Gg: AYBFou1aRLW9BMenrDySFALQlq5dQFjNvjXfxO4XhiB1yMGUZwuQDAwNV5Mcnx2z6sV
+	jZnxhrDo3Q1EIQq6NXslo5MTszSZEro9uyfYpxTS291P0u43ba/4Rp3emBEjwrNlcwjJuBpFDUr
+	4ViILiuw3XuwkHhCrvwxJrWXErNVpZD/9q/yagwzOoCO5BGcqdxgulwLyuindQHr+QZPszBWESy
+	r/h9gKEgGjdt6LSWTYjaKwekwl4Ls7nITdzhnp0hVciTZ3Bvo7IBu/EN88W2WsI2kS++3ZBF7WQ
+	jSQCRRBiz28JM1YYogdY1Gstb6AG4uny2vwNbC0hVvLnImMplBr84iq1hiUpC5z0MgjiYQ+//Rk
+	y9xBcEauLjFYPq2rjI1I9Q3lxMKU/8JE67Sr7JQQL1CWzS7MPEYVkBCUQrx81IhAuA/hHcIngH9
+	+HDPje8+YA9MCYTpG0ZUlpKaQHyRCBfIhKhxC/I6Z+QsMMh6IXE0D5msDsic5DqsqzLPDRmlsv/
+	+Egpaa8ocBIuwSZfXpAGbq896mQSUCr2yMLQ7xUBwClfZ2oe3SHkvZDoACPGP+3dD6sRSpbarZR
+	vj/tw+PXfUEFCc8s0SA/rublsUC08Jgw5+7KgQyssi/atBwqWCldYBx8ygfraevrT7fesaC8Dhc
+	tpwA0pzU1MoxRkpM=
+X-Received: by 2002:a05:600c:8b22:b0:49e:7d25:f397 with SMTP id 5b1f17b1804b1-49fe66d30c4mr8601345e9.15.1790199989777;
+        Wed, 23 Sep 2026 14:46:29 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a4a2-9601-c082-2dcb-3f3b-92b8.310.pool.telefonica.de. [2a02:3100:a4a2:9601:c082:2dcb:3f3b:92b8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe43fc27csm26083595e9.2.2026.09.23.14.46.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 14:45:38 -0700 (PDT)
-Date: Wed, 23 Sep 2026 14:45:37 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Jesse Taube <jtaubepe@redhat.com>
-Cc: linux-nvme@lists.infradead.org, Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	John Meneghini <jmeneghi@redhat.com>,
-	Chris Leech <cleech@redhat.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] nvmet: Add traffic based keep alive support to
- configfs
-Message-ID: <20260923214537.GI2931-mkhalfella@purestorage.com>
-References: <20260923202003.1776271-1-jtaubepe@redhat.com>
+        Wed, 23 Sep 2026 14:46:29 -0700 (PDT)
+Date: Wed, 23 Sep 2026 23:46:27 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] mm/damon/core: preserve the caller's quota in
+ damon_new_scheme()
+Message-ID: <arRHl5blMrrmvhkU@gmail.com>
+References: <20260921171155.3359-1-sj@kernel.org>
+ <20260922120845.44460-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,138 +80,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923202003.1776271-1-jtaubepe@redhat.com>
+In-Reply-To: <20260922120845.44460-1-sj@kernel.org>
 
-On Wed 2026-09-23 16:20:03 -0400, Jesse Taube wrote:
-> Add the ability to turn on and off tbkas (traffic based keep alive
-> support) via configfs. This is useful for testing and debugging.
-> 
-> Signed-off-by: Jesse Taube <jtaubepe@redhat.com>
+On Tue, Sep 22, 2026 at 05:08:44AM +0100, SJ Park wrote:
+> To calrify my opinion more, "caller's quota" feels unclear to me.  I hope it to
+> be more clear that it means "the quota that is passed as a parameter to the
+> function".
 
-Reviewed-by: Mohamed Khalfella <mkhalfella@purestorage.com>
+I've made it explicit that this means the quota passed as a parameter
+to damon_new_scheme().
 
-> V1 -> V2:
->  - Add tbkas to nvmet_ctrl
->  - Force reconnect controllers when tbkas is set
->  - Use ctrl->tbkas in nvmet_execute_identify_ctrl and nvmet_req_init
-> ---
->  drivers/nvme/target/admin-cmd.c |  4 +++-
->  drivers/nvme/target/configfs.c  | 29 +++++++++++++++++++++++++++++
->  drivers/nvme/target/core.c      |  4 +++-
->  drivers/nvme/target/nvmet.h     |  2 ++
->  4 files changed, 37 insertions(+), 2 deletions(-)
+> > > 
+> > > damon_commit_ctx() first copies the running context into a temporary
+> > > context for validating the proposed parameters.
 > 
-> diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-> index 7764a3c0195c..26028be8fe4d 100644
-> --- a/drivers/nvme/target/admin-cmd.c
-> +++ b/drivers/nvme/target/admin-cmd.c
-> @@ -696,7 +696,9 @@ static void nvmet_execute_identify_ctrl(struct nvmet_req *req)
->  
->  	/* XXX: figure out what to do about RTD3R/RTD3 */
->  	id->oaes = cpu_to_le32(NVMET_AEN_CFG_OPTIONAL);
-> -	ctratt = NVME_CTRL_ATTR_HID_128_BIT | NVME_CTRL_ATTR_TBKAS;
-> +	ctratt = NVME_CTRL_ATTR_HID_128_BIT;
-> +	if (ctrl->tbkas)
-> +		ctratt |= NVME_CTRL_ATTR_TBKAS;
->  	if (nvmet_is_pci_ctrl(ctrl))
->  		ctratt |= NVME_CTRL_ATTR_RHII;
->  	id->ctratt = cpu_to_le32(ctratt);
-> diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-> index 6286e38436dd..2b879b1d4c3c 100644
-> --- a/drivers/nvme/target/configfs.c
-> +++ b/drivers/nvme/target/configfs.c
-> @@ -1369,6 +1369,34 @@ static ssize_t nvmet_subsys_attr_serial_store(struct config_item *item,
->  }
->  CONFIGFS_ATTR(nvmet_subsys_, attr_serial);
->  
-> +static ssize_t nvmet_subsys_attr_tbkas_show(struct config_item *item,
-> +					     char *page)
-> +{
-> +	return snprintf(page, PAGE_SIZE, "%d\n", to_subsys(item)->tbkas);
-> +}
-> +
-> +static ssize_t nvmet_subsys_attr_tbkas_store(struct config_item *item,
-> +					      const char *page, size_t count)
-> +{
-> +	struct nvmet_subsys *subsys = to_subsys(item);
-> +	struct nvmet_ctrl *ctrl;
-> +	bool tbkas;
-> +
-> +	if (kstrtobool(page, &tbkas))
-> +		return -EINVAL;
-> +
-> +	down_write(&nvmet_config_sem);
-> +	subsys->tbkas = tbkas;
-> +
-> +	/* Force reconnect */
-> +	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry)
-> +		ctrl->ops->delete_ctrl(ctrl);
-> +	up_write(&nvmet_config_sem);
-> +
-> +	return count;
-> +}
-> +CONFIGFS_ATTR(nvmet_subsys_, attr_tbkas);
-> +
->  static ssize_t nvmet_subsys_attr_cntlid_min_show(struct config_item *item,
->  						 char *page)
->  {
-> @@ -1706,6 +1734,7 @@ static struct configfs_attribute *nvmet_subsys_attrs[] = {
->  	&nvmet_subsys_attr_attr_qid_max,
->  	&nvmet_subsys_attr_attr_ieee_oui,
->  	&nvmet_subsys_attr_attr_firmware,
-> +	&nvmet_subsys_attr_attr_tbkas,
->  #ifdef CONFIG_BLK_DEV_INTEGRITY
->  	&nvmet_subsys_attr_attr_pi_enable,
->  #endif
-> diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-> index 43871a8f56ca..6b4bda231bd9 100644
-> --- a/drivers/nvme/target/core.c
-> +++ b/drivers/nvme/target/core.c
-> @@ -1227,7 +1227,7 @@ bool nvmet_req_init(struct nvmet_req *req, struct nvmet_sq *sq,
->  		goto fail;
->  	}
->  
-> -	if (sq->ctrl)
-> +	if (sq->ctrl && sq->ctrl->tbkas)
->  		sq->ctrl->reset_tbkas = true;
->  
->  	return true;
-> @@ -1677,6 +1677,7 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
->  	mutex_lock(&subsys->lock);
->  
->  	ctrl->max_qid = subsys->max_qid;
-> +	ctrl->tbkas = subsys->tbkas;
->  
->  	ctrl->sqs = kzalloc_objs(struct nvmet_sq *, ctrl->max_qid + 1);
->  	if (!ctrl->sqs)
-> @@ -1865,6 +1866,7 @@ struct nvmet_subsys *nvmet_subsys_alloc(const char *subsysnqn,
->  	}
->  
->  	subsys->ieee_oui = 0;
-> +	subsys->tbkas = true;
->  
->  	subsys->firmware_rev = kstrndup(UTS_RELEASE, NVMET_FR_MAX_SIZE, GFP_KERNEL);
->  	if (!subsys->firmware_rev) {
-> diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-> index dbda55895f4f..2bc0e87ea981 100644
-> --- a/drivers/nvme/target/nvmet.h
-> +++ b/drivers/nvme/target/nvmet.h
-> @@ -270,6 +270,7 @@ struct nvmet_ctrl {
->  	u16			cntlid;
->  	u16			max_qid;
->  	u32			kato;
-> +	bool			tbkas;
->  
->  	struct nvmet_port	*port;
->  
-> @@ -343,6 +344,7 @@ struct nvmet_subsys {
->  	bool			subsys_discovered;
->  	char			*subsysnqn;
->  	bool			pi_support;
-> +	bool			tbkas;
->  
->  	struct config_group	group;
->  
-> -- 
-> 2.55.0
-> 
+> I'd prefer using the term, 'commit' instead of 'copies' for clarity.
+
+Changed to "commit" for the context operation.
+
+> Now I understand you added the comment for commit 60bd24f272d0.  I think Fixes:
+> should also be 60bd24f272d0.
+
+Agreed. I checked the diff and earlier callers. That commit first passes
+the running context as the source. v2 uses it with a plain Cc: stable.
+
+The LLM suggested the wrong tag, and I didn't notice it when checking it.
+
+v2 is rebased on mm-new and passes all 46 KUnit tests on x86-64 and
+i386. I'll send it soon.
+
+Thanks,
+Karl
