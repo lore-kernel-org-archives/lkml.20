@@ -1,169 +1,147 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f30.google.com (mail-oa2-f30.google.com [74.125.231.94])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430EA35DA6E;
-	Wed, 23 Sep 2026 01:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7359235E93B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:43:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.94
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790127680; cv=none; b=ekp99Dw852dXzEuyDX2rw6zSMoU82bKYA2pTIoW24Vz504rwp/fRLqi9AGWdjtZLY7iGmCHticzw1zYI8AG8bHPPUS/P7rdyApIungeLMp56GA+bPTxNvp7Ryh1YQRcEqW5hZXh9ZDPPhD+ncMwU4EccZX/DYDd73mp2bq3gE9Q=
+	t=1790127841; cv=none; b=AsGsOs28QM26qwF5vz6KFhr3Z5YwGVZkhMyknWBPTEjPhsT5QoZJSgOj5qMXypTR2Dvvqt3Fd+qlSSCJV24IgZ1kpNbvqlpURf6BuTxbIk+M6uQeippdMaTlN6ERvcTNnI60CVR+B73hgk1O1sl7Z7bXqtjP7664JwNYQiy2Z7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790127680; c=relaxed/simple;
-	bh=ktISumbwT0u/xbi8uoGNLbukjIGr3O0cQy0xASU8uHU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CWrW2Fxr+mbNOg0yqh2O1hG6pQTMj439kQzJ+ihGxgQgoHaXBKmYIx9MfHJ3offuBzBqUyFOrAjecB1zSOdJt/9aqd7JEOBxqf+O4UH4hdEPrlhlkVPdVgPZGQvjWeltZo6TuTjrnhqFtYX9aM6Bx6QNbOCfe/Oy4jQqi10qb58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=FMx9Y3IO; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790127841; c=relaxed/simple;
+	bh=ZGRMUdvpEDO28//onMwgdeir1i0kQC2Vm8gsM52HBfQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Rlg2XLEi5PstSNEgO2Gfuh2tHMGUWpwRHfFYtVwDGjOUrtx7yTlASgW15Hz9/Iiumn+NNGcYY81HrnNkgzOicm9pwFsMI/Jz+eDeiDRXby0YvGRM2AUv/0iJ/l2N4DB+fV5LdZ78HCPAYnnOMeUu0B6mTvHrdAqsW246eIlEFVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y8uUhVY0; arc=none smtp.client-ip=74.125.231.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="FMx9Y3IO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790127558;
-	bh=9a1MU2/CDQgQTTa7WOxBZit45Y2o1Lnsh9hi2FH1r94=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=FMx9Y3IOhlE3RQuT55vdtSKS6UG3B0ps8KAGbU/0rog7M6DO34WvcSbFWA7iOu1Ex
-	 P/b2TsERGPSHM16ybZ4zQX2jUfpz4sv370pONi20qOvtT1ggFvjcKvX4TGfBqlg3MQ
-	 uFuWJWfs3k8j/5gkzSNb9cVEIrgAJf+NN9u4pl5k=
-X-QQ-mid: esmtpsz16t1790127556td68b5a6b
-X-QQ-Originating-IP: is8yxHjnwoMn4IwMqRzIakXosdwaURxV7jhMysF5Vas=
-Received: from [127.0.0.1] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 23 Sep 2026 09:39:13 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 18217622928680533914
-Message-ID: <CE261C82D3A29A3C+1dca40d8-c022-4120-a3a3-a812a34cffef@linux.spacemit.com>
-Date: Wed, 23 Sep 2026 09:39:13 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y8uUhVY0"
+Received: by mail-oa2-f30.google.com with SMTP id 586e51a60fabf-483c65c2fa7so315411fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:43:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790127838; x=1790732638; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VZPAkhgcpAiEbHXleiCEIDZbE5BEZ43kNMKfu3ffIhU=;
+        b=Y8uUhVY0/DyaSrHLeZPuU6UcY96AiLU6adZK0lpCNQeIZAhKMgml1A4rvXiSOXkSt3
+         YYFDkrgdgjs5OS2Q2zBVyJPSYV9O8JLItV4MZx8qwgQ/U96id4IbD5VvsS0qZMxijUo5
+         8nfquWhN4CpPiMXmg3RjVDaps31D9har9ZSaO1CJPqM3RxWNw8C/i9Ozx/H30dShJVBG
+         T6MHY4LgsGY4h2ToxYO4AqzF4tjxxVB4dz4Cp+nZwGwS28iR08X9bkk3dY7LVCCTfpgm
+         j0iLJfnEWdMcG0Dc/XxEUweo5q7o2zERj9kl06dCsmdoxFnplitRVRsPcaTq01HrjyoT
+         47gg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790127838; x=1790732638;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VZPAkhgcpAiEbHXleiCEIDZbE5BEZ43kNMKfu3ffIhU=;
+        b=OM2qsnv96DQXxxnoQS4grAUGHL5skDwEinUwzmCtbsLQU5ql5SR509obge9iFlJ2d5
+         rpOnVytZSTUpbwtG2Ee46xGRqFdCMTn1eFgfqxiw2//yyJGHvezR7Nj6p3F3EJ5xVgDo
+         vJ9JpYIXKMOjwug6WrqSMXffLWSw7BgDl3PFaIRgRj+ditAtaEF8xm160Id2uRlwbM0O
+         49H3+nGc1TVR1meadr0R+koFnjVuKnsQE3ibQsZ7eDdvj5WkindqnfPORIMnyyGN6WJc
+         x0m2KidDOSXXqRevCnxuMJIc2FUYKk+XYy3R5GYuc+JLA1lqhrnRYJ7V23MvjA49wV5A
+         AmNA==
+X-Gm-Message-State: AFuF++ny/e2DUH6xpuUqQO7yHGrMhmurVXxDpTvpRqv//7SdSzVywHSK
+	iJwMLBRXWnZ61ezTo3kSqQGUmRQAVuHrtsqXzNAo159zySJgFeS/b/Zp
+X-Gm-Gg: AYBFou1DmTGacuewhaXbrYHg8+FBRorOYejCVo9VaFJZ6JqM3rU+eiGjYULDZZ+rzRN
+	FYHKT5P1zXKLF2kPrwqm14o6jJwlEdTVl+YejA+RMAPZ+2DZdGI95C8bT3yRDmgI432uX9C7MUO
+	yeogzYd8Oe2H5Cv7mDdPAMpkh9XS3o7RO0Cx1RQAOVV4QBAQyTSwBq9cV5WvonniH1fq9L6GD6S
+	HPlIbLw+1TW2MPr1pgvFnb1BEJYrbbAJqvS/xIWI0KmTdZy3oOuglwPJsAtvJMufUsNtI0CY+7x
+	15LrwOOX8CP2/KDzExFTRFOhDHeEzzGULUw775ISxf2uAa/n29sTmsDpzPUl6DBjAsVBsy3vtBx
+	/da/f/W1FNlNr5wcuYLXeVALD2GL5D8daKA1AxsyD2FV8F/bXrSr2QC0pTCW2QRz56lkzMPWIom
+	bQutlYxcjecTvqhjZpAh4nOxPS9bhEPIYg+O2wXT5B/J2moMDoJ6dhwCOfTGaGRhExHIuZ
+X-Received: by 2002:a05:6871:cc:b0:48f:e0e5:a1e8 with SMTP id 586e51a60fabf-4908ba61bcfmr1353300fac.45.1790127838251;
+        Tue, 22 Sep 2026 18:43:58 -0700 (PDT)
+Received: from localhost ([2a03:2880:30ff:43::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4908eb88b49sm1110257fac.11.2026.09.22.18.43.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 18:43:57 -0700 (PDT)
+From: Daniel Zahka <daniel.zahka@gmail.com>
+Subject: [PATCH net-next 0/8] eth: mpnic: initial support for Meta
+ Platforms NIC
+Date: Tue, 22 Sep 2026 18:43:38 -0700
+Message-Id: <20260922-linux-mpnic-v1-0-236844f53072@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/14] gtrace: Add RISC-V Trace ramsink driver
-To: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Paul Walmsley <pjw@kernel.org>, Greg KH <gregkh@linuxfoundation.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Ian Rogers <irogers@google.com>
-Cc: Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
- Adrian Hunter <adrian.hunter@intel.com>,
- Mayuresh Chitale <mchitale@gmail.com>, Anup Patel <anup@brainfault.org>,
- Atish Patra <atish.patra@linux.dev>,
- Andrew Jones <andrew.jones@oss.qualcomm.com>,
- Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Anup Patel <anup.patel@oss.qualcomm.com>
-References: <20260810152223.3946743-1-mayuresh.chitale@oss.qualcomm.com>
- <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
-From: Zane Leung <liangzhen@linux.spacemit.com>
-In-Reply-To: <20260810152223.3946743-10-mayuresh.chitale@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NcfXIs+Ms1qHUenpEwWlnOdc/FbKT+TP1JZJJ4vfin9+3GPDagXABNGJ
-	aE7VTJ8FCmkpqhsCE5XmX/JaeOE/h4aDjfyOpNT+kUV67sSpLC8xmXCK5iP4CIqhWB3u1MN
-	fNhoj2cy6d+Kq0S2oluYmgypgd3KFWSVy7kxJ+PbGdy8XK+j5kJ55MzbcWRQPJBxmwOVbLV
-	gDpFf1xBFOLCB0QSzdWbJY/ZA9+0CyvZuDOjP/TIWUHeQe2knSimhr6VimUmDDEwF1TCNZH
-	CQ0viNtoFQoc4ZG/NgsDAGiJPlOI8s9phZ8m5BbJbopyE7xrTNICb2d95W8LHhP99B+uH+i
-	62sknYIodKNQAxJ1ksoQrQbM4hk9MElqtla4yIBiHZt5Ys3uWxAfpm0hpilB1PZk3jUJYxp
-	n/YehftIeNHPNR8AHglDISUJBMcT/4HdLZYpBA5rzcJ9w9G66DmT/BRwvRFMMxb6Ro9PKFV
-	ihAam1DfIV2MSK7/TCJswhud009ihR3jRADTb0DmeLKoWL8r8/c7Efne/My0RyqvNuieDO+
-	ZVxnxJMaI9TA9BymeQux2fHZ6JSS7m8e0xRMogWjVpTaBbkhmDn8Iy1siwHObdCTNotv6z3
-	gMvpaJidoi7ofddQqO213p8BgWndrul17rLE7nsWvX/+2fIZNkg7o9/OJ+g2gyW3krvnEuL
-	jiqEzDCXY1sg2T9e1vcxInE+A/p6qfTKNhr24sDd3GilfK5cKbbfCI4pd0dfo9nMrlvf5Zs
-	sn2OmTlUplpPOLj6CLL8bp4iKYt9FMlGrjeNlY1rSHTF0QnI6K59+e1nE2G3dLTvDz3Yuso
-	rvHVzeurjNAf0HzB+DEt4+yLzy2jZqvAdbjnOC16XQgfOFCpZKsRju13WdyiSqC2hidI5jE
-	aIPgQYxD9D9GvonHfN0oV+eKwZjC1bsoRolQOXSp639noCJGJCVZFypLhJBSm6ll+cfsA7M
-	JlQ8MNCLY+zy7V6AO6EGQwhh5jg6//eexHDXxHkRFuRh8i4f9p6Z9suRfbXWWpMNYDsD9uK
-	ZQbY1Vjw==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+X-B4-Tracking: v=1; b=H4sIAMous2oC/x3MQQqAIBBA0avErBvQpLCuEi2kxhqoKbRCiO6et
+ HyL/x+IFJgidMUDgW6OvEuGLgsYFyczIU/ZUKmqUa22uLJcCbdDeETrndF2qo3yDnJxBPKc/ls
+ PQicKpROG9/0AAG6SB2cAAAA=
+To: Alexander Duyck <alexanderduyck@fb.com>, 
+ Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>, 
+ Mohsin Bashir <mohsin.bashr@gmail.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+ bpf@vger.kernel.org
+X-Mailer: b4 0.13.0
 
+Meta Platforms NIC is the second-generation NIC from Meta. There are
+quite a few high-level similarities to fbnic, but all of the CSRs and
+descriptors have been reshuffled, and new features have been added.
+Since the device is sufficiently different from fbnic, and the design of
+our FW is minimal, we have decided a separate driver is appropriate.
 
-On 8/10/2026 11:22 PM, Mayuresh Chitale wrote:
-> +static int rvtrace_ramsink_setup_buf(struct gtrace_component *comp,
-> +				     struct rvtrace_ramsink_priv *priv)
-> +{
-> +	struct device *pdev = comp->pdata->dev;
-> +	u64 start_min, limit_max, end;
-> +	u32 low, high;
-> +	int ret;
-> +
-> +	/* Probe min and max values for start and limit registers */
-> +	gtrace_write32(comp->pdata, 0, RVTRACE_RAMSINK_STARTLOW_OFF);
-> +	gtrace_write32(comp->pdata, 0, RVTRACE_RAMSINK_STARTHIGH_OFF);
-> +	low = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_STARTLOW_OFF);
-> +	high = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_STARTHIGH_OFF);
-> +	start_min = (u64)(high) << 32 | low;
-> +
-> +	gtrace_write32(comp->pdata, 0xffffffff, RVTRACE_RAMSINK_LIMITLOW_OFF);
-> +	gtrace_write32(comp->pdata, 0xffffffff, RVTRACE_RAMSINK_LIMITHIGH_OFF);
-> +	low = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITLOW_OFF);
-> +	high = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITHIGH_OFF);
-> +	limit_max = (u64)(high) << 32 | low;
-> +
-> +	/* Set DMA mask based on the maximum allowed limit address */
-> +	ret = dma_set_mask_and_coherent(pdev, DMA_BIT_MASK(fls64(limit_max)));
-> +	if (ret)
-> +		return ret;
-> +
-> +	priv->va = dma_alloc_coherent(pdev, priv->size, &priv->start, GFP_KERNEL);
-> +	if (!priv->va)
-> +		return -ENOMEM;
-> +
-> +	priv->end = priv->start + priv->size;
-> +	priv->prev_wp = priv->start;
-> +	if (priv->end <= start_min || priv->start >= limit_max) {
-> +		dma_free_coherent(pdev, priv->size, priv->va, priv->start);
-> +		dev_err(&comp->dev, "DMA memory not addressable by device\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	/* Setup ram sink start addresses */
-> +	if (priv->start < start_min) {
-> +		dev_warn(&comp->dev, "Ramsink start address updated from %pad to %pad\n",
-> +			 &priv->start, &start_min);
-> +		priv->va += start_min - priv->start;
-> +		priv->start = start_min;
-> +	}
-> +
-> +	gtrace_write32(comp->pdata, lower_32_bits(priv->start), RVTRACE_RAMSINK_STARTLOW_OFF);
-> +	gtrace_write32(comp->pdata, upper_32_bits(priv->start), RVTRACE_RAMSINK_STARTHIGH_OFF);
-> +	gtrace_write32(comp->pdata, lower_32_bits(priv->start), RVTRACE_RAMSINK_WPLOW_OFF);
-> +	gtrace_write32(comp->pdata, upper_32_bits(priv->start), RVTRACE_RAMSINK_WPHIGH_OFF);
-> +	/* Setup ram sink limit addresses */
-> +	if (priv->end > limit_max) {
-> +		dev_warn(&comp->dev, "Ramsink limit address updated from %pad to %pad\n",
-> +			 &priv->end, &limit_max);
-> +		priv->end = limit_max;
-> +		priv->size = priv->end - priv->start;
-> +	}
-> +
-> +	/* Limit address needs to be set to end - mem_access_width to avoid overflow */
-> +	end = priv->end - priv->mem_acc_width;
-> +	gtrace_write32(comp->pdata, lower_32_bits(end), RVTRACE_RAMSINK_LIMITLOW_OFF);
-> +	gtrace_write32(comp->pdata, upper_32_bits(end), RVTRACE_RAMSINK_LIMITHIGH_OFF);
-> +	low = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITLOW_OFF);
-> +	high = gtrace_read32(comp->pdata, RVTRACE_RAMSINK_LIMITHIGH_OFF);
-> +	end = (u64)(high) << 32 | low;
+Major new features compared to fbnic will take a while to land. This
+series includes only the bare-bones Tx/Rx datapath.
 
+Our high-level patch sequence and plan for the upcoming series is:
+ 1. Core datapath (this series)
+ 2. Basic offloads, RSS, and counters
+ 3. Firmware mailbox support
+ 4. Base ethtool operations
 
-Suggest introducing gtrace_read_pair/gtrace_write_pair/gtrace_relaxed_read_pair/gtrace_relaxed_write_pair API,
+This patch series was prepared in part with these LLM prompts:
+https://github.com/kuba-moo/ai-prompts/blob/main/driver-upstreaming-prompts.md
 
-They should be used frequently.
+The prompts were used to distill our fully-featured OOT driver into this
+minimal Tx/Rx capable upstream driver. We then performed human review on
+the output to create this posting. Jakub has made the prompts public in
+case people would like to take a look. 
 
-> +	if (end != (priv->end - 4)) {
-> +		dev_warn(&comp->dev, "Ramsink limit address updated from %pad to %pad\n",
-> +			 &priv->end, &end);
-> +		priv->end = end;
-> +		priv->size = priv->end - priv->start;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
+Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
+---
+Daniel Zahka (7):
+      eth: mpnic: add scaffolding for Meta Platforms NIC
+      eth: mpnic: allocate MSI-X vectors
+      eth: mpnic: implement Tx queue allocation and cleanup
+      eth: mpnic: start and stop the Tx HW queues
+      eth: mpnic: add a netdevice and basic Tx handling
+      eth: mpnic: implement Rx queue allocation and cleanup
+      eth: mpnic: add basic Rx handling
+
+Mohsin Bashir (1):
+      eth: mpnic: add register init for the device
+
+ drivers/net/ethernet/meta/Kconfig              |   13 +
+ drivers/net/ethernet/meta/Makefile             |    1 +
+ drivers/net/ethernet/meta/mpnic/Makefile       |   16 +
+ drivers/net/ethernet/meta/mpnic/mpnic.h        |   66 ++
+ drivers/net/ethernet/meta/mpnic/mpnic_csr.h    |  321 ++++++
+ drivers/net/ethernet/meta/mpnic/mpnic_init.c   |  553 ++++++++++
+ drivers/net/ethernet/meta/mpnic/mpnic_irq.c    |   64 ++
+ drivers/net/ethernet/meta/mpnic/mpnic_netdev.c |  181 +++
+ drivers/net/ethernet/meta/mpnic/mpnic_netdev.h |   35 +
+ drivers/net/ethernet/meta/mpnic/mpnic_pci.c    |  187 ++++
+ drivers/net/ethernet/meta/mpnic/mpnic_txrx.c   | 1398 ++++++++++++++++++++++++
+ drivers/net/ethernet/meta/mpnic/mpnic_txrx.h   |  147 +++
+ 12 files changed, 2982 insertions(+)
+---
+base-commit: 6598456d72e48d779445bfec8f72114747f8b8d7
+change-id: 20260918-linux-mpnic-8fa318d530fa
+
+Best regards,
+-- 
+Daniel Zahka <daniel.zahka@gmail.com>
+
