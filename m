@@ -1,39 +1,50 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AAA497B77;
-	Wed, 23 Sep 2026 15:40:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB0E38F630
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:41:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178023; cv=none; b=S2ZeFX7SZyAEjmOCYAfC+yo3iySgN1hmMqiSZLzGTouXEd76Z0HChQ6BHndQVBYuMp9oFoQK9FHazyiJL69SFMPxYAfb72IPR+4rkmn9rHVuyuz7I6ri9HvxFi64KNq/ZtFIp8Vhtq2KR8AKWScIAlJD00fP/Xz5hrxhPvaipWA=
+	t=1790178086; cv=none; b=a0zoNrVm7mXOhOUbG2bPfyC2ouFK5VbcO1FXn59rIlv1kaCPVNQTk6JQEIw7YLXLCq+uYShK6QS5Yu5XpFqaBY3lr0oCa/iGVJFobGjkOkQG5jGhTSen3+BRo3rGR6O1LTiM7rWDcWM1p285BC4XhJJBWfCIUkHlh40voOFLsUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178023; c=relaxed/simple;
-	bh=+Q1bN+lyJlgwEwcCF9Qz+L2nU4YyCQhZD63+cNDqjPc=;
+	s=arc-20240116; t=1790178086; c=relaxed/simple;
+	bh=eXASLp7QhEUExQAJeOlhQD52QuBHV1qUPcikmMqrGvE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WFvSSbVBdgtkvJZdondXmTR8mHyCh4Z8P2o+lI10ZsSJhU29WMZw2B/NLk0zzxPMjCKSwChIdATpA719G1lWe20xHXjNALJOBZJPot5iNnx360aUJ8ZnlQHfHEzvLxLcGe/446AVB0lkoV+NVAUbAffrZVrTJPc0yX1y6kOhM1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=iyouXx+j; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	 In-Reply-To:Content-Type; b=tUyoWzjqOMqBeGDxSF/8jNMPMB9SkKHvo5EPZDnmdls5i53KqNjbGIuDvuGT38NFvfvHwlYGF9QS9FNmDM5razNYSHOxtnrRFytdd3QTDxMKV+o2WW6RXKThwZgJurVHl9hfK9sC07xadAscKGnizhZkyy5pwF0r1MRrrAwAeOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZYIr3M2n; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="iyouXx+j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1790177995;
-	bh=Pvf6utvFFy4W0lCvpXIM2zHVFitTH88Hp81cFrCEahk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iyouXx+jA+xaknvK7tvNx3mfKFDu+72K2NrM6eeU4LF9DV+5VmxR22njJv9A7ic32
-	 bpNrdkvN6fL6lSIbBbYw3RNdTNIS8ieRpSodoWhuihAzFUk8/aq3S/HUEL8oCGzgv4
-	 niaLMPC+ek5SV3Co7KUa7/WQUjPRnoUaZbiVOT+aR86tS2G597vqecgjH40IEr/Xb6
-	 CDZOmWouOW8shnBSWJX3pR2mD924McGg0K7uN+0dfJd6HcN4qMu6JasI++X8HnhEoc
-	 GAZbz9kWvywsowbJHsC0vIv2y9+zsNzzvY5IKL4wCH4gSfF680v/yoMzXkER24E7a3
-	 hYyHIuiVmYJeg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hqh3h1tlnz4wB5;
-	Thu, 24 Sep 2026 01:39:43 +1000 (AEST)
-Message-ID: <e33f1d3a-1900-4bf3-9785-3af5447e7e54@ozlabs.org>
-Date: Wed, 23 Sep 2026 16:40:03 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZYIr3M2n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790178085; x=1821714085;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=eXASLp7QhEUExQAJeOlhQD52QuBHV1qUPcikmMqrGvE=;
+  b=ZYIr3M2n4n+wFEVtb5UCVTvL9yLB4qqTDe27VyrzQE4wVIRjzXPKDMbS
+   108WmWwfmtsU6Aq9h+VTUoxTs+xMy5eX5DJ1+Q03hDVZAdHzscgMMnwW8
+   RIwdnERnietemevkpjcvppE4wf525wElQri/DExJO0YPL+7J+O+jstlCu
+   AG31BT4q8zUYJOAhc13RBmb5509GSZX3Ac5/fM+//PJMeY88Wwl02XvVp
+   Js8N9FPcWu8yKPutcPyFDj+AMtdajNclaXPQQJdirGwaYdckqGS5RFZTs
+   zwyfQ2c4/FAeltbFLreDzuky8ECq/JARN8LhGHtI8OF9hU0v5woI6hwZi
+   Q==;
+X-CSE-ConnectionGUID: 5O8IFbBQT2eFBU8pGtKrEw==
+X-CSE-MsgGUID: kAHlwzi9TumtbzpNQ1SmEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="90754374"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="90754374"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 08:41:24 -0700
+X-CSE-ConnectionGUID: HC6S2X6/RaaWaVUNWcrzLQ==
+X-CSE-MsgGUID: 3ILPRf6rSgappfCtgQRTTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="4766925"
+Received: from cooperst-gp06.amr.corp.intel.com (HELO [10.125.110.104]) ([10.125.110.104])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 08:41:23 -0700
+Message-ID: <5fd83a49-f836-46e3-8e1e-1e2bbb365dfc@intel.com>
+Date: Wed, 23 Sep 2026 08:41:23 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,92 +52,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 9/9] vfio/pci: Permanently revoke a DMABUF on request
-Content-Language: en-GB
-To: Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Williamson <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <0fdfe19e-f8ef-47ff-aa99-66adbc524728@amd.com>
- <23a0ea30-c6dc-4b8c-a0a1-89e9f912bf37@ozlabs.org>
- <20260921132208.GA1507824@nvidia.com>
- <fa5c7fd5-f24a-4ca1-89c3-9ccd9a728fb4@amd.com>
- <20260921134924.GB1507824@nvidia.com>
- <2d15cca5-0bbe-461a-baf3-56758e82cfb7@amd.com>
- <20260922124137.GD1507824@nvidia.com> <20260922124637.GG563127@unreal>
- <20260922125421.GE1507824@nvidia.com>
- <arMBqyI4XNfD+q1W@devgpu015.cco6.facebook.com>
- <20260922225747.GB2545495@nvidia.com>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260922225747.GB2545495@nvidia.com>
+Subject: Re: Dead arch/x86 UV code?
+To: Steve Wahl <steve.wahl@hpe.com>
+Cc: Justin Ernst <justin.ernst@hpe.com>, Kyle Meyer <kyle.meyer@hpe.com>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>,
+ Russ Anderson <russ.anderson@hpe.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
+References: <d49f2e1a-1f19-49e8-a2a0-98b839274b69@intel.com>
+ <arPwr2hqcQos-TFY@swahl-home.5wahls.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <arPwr2hqcQos-TFY@swahl-home.5wahls.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi Jason, Alex,
+On 9/23/26 08:30, Steve Wahl wrote:
+>> I threw a silly LLM at arch/x86 trying to find unused code. One of the
+>> things that stood out was UV:
+> Thanks, Dave, we (HPE folk you listed) will look at these.  It may
+> take a few days to get to them, so I wanted to send a short note so
+> you'd know you weren't being ignored!
 
-On 22/09/2026 23:57, Jason Gunthorpe wrote:
-> On Tue, Sep 22, 2026 at 03:31:07PM -0700, Alex Mastro wrote:
-> 
->> So I empathize with Matt's contention that the _existing_ behavior that the
->> priv->revoked flag represents is actually "temporarily revoked": the importer
->> can use the same dma-buf again, later, without having to re-import
->> it!
-> 
-> mlx5 isn't a revoking importer, it is move capable. So the above
-> sequence isn't a revoke, it is a move with an unmapped placement for a
-> while.
-> 
-> This is why "temporarily revoked" is a confusing phrase.
-> 
-> The API is such that move and revoke importers can co-exist like this
-> but they experiance a different version of things..
-
-Ahhhhh.  That was very helpful (esp. to contrast with the previous
-iommufd statement about invalidate_mappings being permanent), thank you!
-
-So the worry was that the VFIO DMABUF's temp/perm state could be
-misconstrued as an implication/guarantee about the future availability
-of that DMABUF to importers, OK.  And we want the existing move(false)
-behaviour still, for dynamic importers that treat it as a move.
-
-> We probably should not have made it have this move compatible
-> restoration and had things more consistent. User space can't know if
-> the importer is move capable or not so it has to assume revoke and it
-> has to go and unmap things before resetting/etc.
-> >> This series doesn't intend to change the behavior of either. Is the
-confusion
->> about whether the current behavior is intentional and/or desirable? If the
->> answer to both is "no", then IMO this series paves the way nicely towards making
->> PERM_REVOKED the only supported semantic later.
-> 
-> Right, I think the only concern is language.
-In that case, the VFIO-internal tracking could be:
-
- priv->status = VFIO_PCI_DMABUF_OK;      /* was priv->revoked = false */
- priv->status = VFIO_PCI_DMABUF_REVOKED; /* was priv->revoked = true */
- priv->status = VFIO_PCI_DMABUF_DEAD;
-
-The latter means that an invalidate_mappings was performed (due to a new
-userspace ioctl trigger), and that all future dma_buf_*attach() attempts
-must fail.  I'd add a comment to explain this clearly in the enum.
-
-If that's too macabre, DEFUNCT?  (A word implying guaranteed
-permanence...).  The userspace action causing all this can IMHO be
-called REVOKE still; it's what it does.  (I'll clarify the observable
-effect from the POV of an importer in the UAPI.)
-
-WDYT?
-
-
-Matt
-
+Thanks! Also, it's no hurry at all. I'd be quite happy to see some
+patches in the next month or so.
