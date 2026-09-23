@@ -1,124 +1,132 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E561E4D1789
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F9D328B4B;
+	Wed, 23 Sep 2026 13:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168776; cv=none; b=VKMq3Eo3nUFg2XYR71z1c4PcdimNXE7TQzCALOZcoOdt2nb0WOpyLWfgBUg9hSGDNoxyOJZfm1OasxFHxNMjQxyR+nOUVZWYmYIiXhaHApR9spCgSv5JYafmSFVasys87qUxuG72qgDTUUsX54qDR8HPqKuOtJa/3hlqAMLqwWc=
+	t=1790168838; cv=none; b=s8a/LXL8FthNaXY84O1ivP1AII4JwifzhvIEzCR4j6ytFbsJ8QJy8LamFcLcw85ha411bN/zaD3OciRk2XVSpPTtqBdjP3U6nKOGtdukdRggEgktynUkXl62hnG8Vwxcu9T0VzCJUo8VFlotWlGvr5iVAiwSwrlDb5Ia1fbS/nY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168776; c=relaxed/simple;
-	bh=ih23spaVgrDHOFSey9aqnpQ7LFap1dWio/xJjG+h0zE=;
+	s=arc-20240116; t=1790168838; c=relaxed/simple;
+	bh=AUXX0lLET+vhI6Ykx8+X33/sdAZKJETzskzKzmf6SPk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L8ZowKXtLOuMFFERxvY7dG6IeItPutozM0WvQcf7RCdnvkSq96kF3mh7Gk8e1d4sfqfK6p9f6QEwPgiXcu+kwZ36dIAUsR6zVb2PyaSxxIeBjIO2IQ3SVYthhbxe+V9eKVhPuk4y9rXESpGYSSyoB93YpDpCSuv+nzeFYHsFWco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=QM9H8Zrv; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	 Content-Type:Content-Disposition:In-Reply-To; b=iEE4UPQJryAvgGUTKzBbU6wVzX3uVQiVK1gfD+4MVULpUL+FPypGuw/P6tyfTFI9JSE2kMOiKxq6rdFGcXvf4ZCiXLnQzt0OFHoynQK2ywuLAxxijEFKIXJJ5kUndkqpJrmcQHbATyMfYX+SGoSof3Yuk1LL0/Lxyz5JVtP6JTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PoA6KOtM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="QM9H8Zrv"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dce6e235so660266c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:06:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790168774; x=1790773574; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ih23spaVgrDHOFSey9aqnpQ7LFap1dWio/xJjG+h0zE=;
-        b=QM9H8Zrv8Qmtd8Cu2xViSORcsFrwLAZf52EqWpWEtiHi8IegetYozpX7YhBWxshiK+
-         0eePIPj8nFGp6fC0i75hE012I0FgQNa0KlOJQg1v1B0Lws2vu3AN5GEWRB+K195I33qz
-         rZYIMavFkLl5Yir/QCKXtDmlsV54UurB/VWu5BBfQOB8Mo159L60rNy8Ual6/V65aKzV
-         8fkm97uBbww1JBl6qLUOmGSyiWsMPsLk+vLPG0zBoLldzAELihvhnI690O3s9sa/9KkU
-         pXeeIE5pC4zejHf1ozeCT0tivhA8Eb+AbtjbanonYyXV5kdavqPndSGgbtn71gLrg/iD
-         vfTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790168774; x=1790773574;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ih23spaVgrDHOFSey9aqnpQ7LFap1dWio/xJjG+h0zE=;
-        b=b5vg7HMhC9agGHN/8GJRm1J3NtgYTm1d7cF1ptIPwvPces7f9KhfpeQaOu0DVSCxwG
-         TIaeS6xOR+dET5tv+DW4axgllw1WY9WvguQZW57gl3XXUQKkScicuskC7CJXVGDRBlqO
-         0cZQnMu6yRSjPEMRQWaG0WrU/n22aI3ULi/8reDcnKijuztUHM/pn9UgpWjbntWucOL/
-         yBlJYKLbnFPGJNIVWCzsQX15+Bt66WuwtjeiH64OoQ3Vgeui+YWOOaFOEUXZyHlFnrZI
-         tmM/hLVWGnkb5CImMUWzd66Lo8+kXBdBQDFecciCfeCQXDoiP83/5oK/CEs+amkUiKTC
-         k2xQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzu6PNA1fZ/Q/PvbrOW5TdFXk/K1heGlCyubH6ImUR2jfYSgyxiXun9oyHXPNbsrs6MqXafehuYQOnquWg=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8Q0FYi/gtVStlIGmJyBj2QhAQA5Baf02jD6fFPJ/IUwStizu9
-	M+pWRhaf6BCVWt2Q0f0It1YTLVU2ML6ksCCHAxFZ4tODUFKzaEL64HaGuaXzT/ZbRfI=
-X-Gm-Gg: AYBFou0wTkPpGYoJcKCbthPigMjMabkf1Q51c6+zfI7utP1xMrgjUEXjp0OiuqHPs1M
-	urFCeXA61rEng5aJ2yNTKbAoRZI33bXrrTSglqzoDyI6n/DweXZqCLelC8Vu7MTQZ/Tiy7qySD0
-	ZCQxnQekNES6Fi9bMoMK5l1CgyXNw9bf07zN/zRqMfKHod2gsZvFMqJjVkupK9jzNEkm1GiqErf
-	pQbRkyILM8ZJa8ctn8YUPp6XZs9bGjGXb0lXd8/mo5DYjBWls6wAtHS8JWCrB9FSfSFb5yw8FAO
-	C1NdeAeEakd1OXRB19Go+ApGXNMnw5aFjzk5sitD+qjSM3/naotefNZy9Po+mJHS4qs15AhEF+s
-	kmb4Kh/vE7q+UvVYX5ZSfzj7GjHeezSM3DAiQtJy8owPFvNn1zB744al2TxGR4dJdFHkKtef96i
-	2HcWkKZoBoumwQldtdLMD+Oa2RTs+SitAAXfnTIiSPEWwa
-X-Received: by 2002:a05:7022:1402:b0:143:2719:566c with SMTP id a92af1059eb24-144f9198b49mr2872815c88.40.1790168773123;
-        Wed, 23 Sep 2026 06:06:13 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm10833873c88.13.2026.09.23.06.06.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 06:06:12 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x9Mfr-0000000DZ6d-2NEP;
-	Wed, 23 Sep 2026 10:06:11 -0300
-Date: Wed, 23 Sep 2026 10:06:11 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
-	christian.koenig@amd.com, Joerg Roedel <joro@8bytes.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Steven Price <steven.price@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-media@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
-Message-ID: <20260923130611.GF1540250@ziepe.ca>
-References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
- <20260921144847.501151-3-aneesh.kumar@kernel.org>
- <arKsFofudnTYpXj1@arm.com>
- <yq5aik3w344o.fsf@kernel.org>
- <arOfD6syXOgQhZYA@arm.com>
- <yq5a5wzw2ree.fsf@kernel.org>
- <arOspFxWZ1DjgcAr@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PoA6KOtM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210F31F00893;
+	Wed, 23 Sep 2026 13:07:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790168836;
+	bh=V8j3QTNFK1gOVjs7UmpTiFVyMmeLvCeDqRqufg2zvtU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PoA6KOtMm5ehTm1iX//8yFUmxRmpVHuInQ+U6/jlOBljmXgRxBa4Heiaxoc1FHwj7
+	 K8Pfno5NbSknUPxIFQQsWYvgeUS6EmqOsSk1+rBifl6M2cELWo8KxVhAtdIws0Q1Y2
+	 91IOWz5gk0/3BrMLhLideayf2y/+hNgAORdQ2TIrL80FQaIPVRcGdtZaQvWym0hrGZ
+	 7mDscITsdhrlBDzdOZxyVHzret0gz7jj8JDAeLaeJYK6vE25juu2uNpbH9n98t3AWc
+	 LKTk+Ny3EOhFKshDNooiYDB9IzzWoP5iP5C2CgBus4Zl7592bYPn1pFGpk7b6uvz6X
+	 ws7V57DdbcCeA==
+Date: Wed, 23 Sep 2026 15:07:11 +0200
+From: Joel Granados <joel.granados@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: zhanxusheng1024@gmail.com, kees@kernel.org, kuniyu@google.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	zhanxusheng@xiaomi.com
+Subject: Re: [PATCH 1/2] sysctl: Negate before converting in the int read path
+Message-ID: <j55ziuijejg3kefuhi2du37d7qechruzchgigp3c55stuhtkh2@fddifpg5kxzq>
+References: <20260922031229.2300283-2-zhanxusheng@xiaomi.com>
+ <867A30A7-5460-4988-A078-09D0B4BCD44C@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eppq62ztiji2q7bc"
+Content-Disposition: inline
+In-Reply-To: <867A30A7-5460-4988-A078-09D0B4BCD44C@mainlining.org>
+
+
+--eppq62ztiji2q7bc
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arOspFxWZ1DjgcAr@arm.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 11:40:36AM +0100, Catalin Marinas wrote:
+On Tue, Sep 22, 2026 at 07:37:57AM +0100, Bradley Morgan wrote:
+> On 22 September 2026 04:12:27 BST, Zhan Xusheng <zhanxusheng1024@gmail.co=
+m>
+> wrote:
+> >proc_int_k2u_conv_kop() reports the sign through *negp and the magnitude
+> >through *u_ptr, but for a negative value it hands the sign-extended int =
+to
+> >the converter and negates the result:
+> >
+> >	*u_ptr =3D k_ptr_op ? -k_ptr_op((ulong)val) : -(ulong)val;
+> >
+> >With div_hz() and HZ=3D1000 a stored -1000 becomes
+> >(ulong)-1000 / 1000 =3D=3D 18446744073709550, and negating that wraps:
+> >
+> >	# echo -1 > /proc/sys/net/ipv4/tcp_fin_timeout
+> >	# cat /proc/sys/net/ipv4/tcp_fin_timeout
+> >	-18428297329635842066
+> >
+> >Take the magnitude first and convert that, which is what the open-coded
+> >version did before commit 2dc164a48e6f ("sysctl: Create converter
+> >functions with two new macros") folded it into a macro.  The
+> >k_ptr_op =3D=3D NULL branch was already correct.
+> >
+> >proc_dointvec_jiffies() and proc_dointvec_ms_jiffies() are affected.
+> >
+> >Fixes: 2dc164a48e6f ("sysctl: Create converter functions with two new ma=
+cros")
+> >Cc: stable@vger.kernel.org
+> >Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+> >---
+> > kernel/sysctl.c | 2 +-
+> > 1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> >diff --git a/kernel/sysctl.c b/kernel/sysctl.c
+> >index f7b75985d542..38597f26b34c 100644
+> >--- a/kernel/sysctl.c
+> >+++ b/kernel/sysctl.c
+> >@@ -483,7 +483,7 @@ int proc_int_k2u_conv_kop(ulong *u_ptr, const int *k=
+_ptr, bool *negp,
+> >=20
+> > 	if (val < 0) {
+> > 		*negp =3D true;
+> >-		*u_ptr =3D k_ptr_op ? -k_ptr_op((ulong)val) : -(ulong)val;
+> >+		*u_ptr =3D k_ptr_op ? k_ptr_op(-(ulong)val) : -(ulong)val;
+> > 	} else {
+> > 		*negp =3D false;
+> > 		*u_ptr =3D k_ptr_op ? k_ptr_op((ulong)val) : (ulong) val;
+> >
+> I didn't do much crazy review here, but I think this LGTM! :)
 
-> The simplest is probably to always zero in the backend and ignore
-> __GFP_ZERO to the allocator. But it's probably only marginally smaller
-> than passing a CC_SHARED_ZERO flag down. Get codex to try this as well
-> and compare the diffstat.
+If you didn't do much, please don't send the mail.
 
-For patch ordering I would convert to use the allocator first
+>=20
+> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>=20
+> --- Thanks!
+> "I'm not a very positive person" - Linus torvalds
 
-The semantics of the new API should be clear
+--eppq62ztiji2q7bc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If you pass GFP_ZERO then the resulting allocated memory is zero
+-----BEGIN PGP SIGNATURE-----
 
-Otherwise the allocator does Whatever The Arch Needs to not leak
-private data out.
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmqzzv4ACgkQupfNUreW
+QU+69AwAmHrA2+jE3WrC5me63jtEy+bAn63/JvtpLn5pHMQnYIFmUXWCzvVCPnI9
+vjSghr4AmzTDe3sehrQnaZXoGDd40AC8TJAlr/AXruKnJRSsbpLFcT/CrORAM8bE
+BWAKtie3Mvw2iUj2y3Ykp0hmYtLPzjKZHHLy1kpLnkgpWNNOwkc7PX1Qc0VWwxTu
+pOIIZFZAsW0ilmfudoOe/YAmFWQmRvSGsrdm+3Cjs0tSGIxep+H/EjB1znJdQymG
+AiwdKgnB7qCC7IbzZxmiJDTKCR2imYBAkgyOJ8UDXtbAFKHAknMNU2a1B7xkU6K+
+4Xc2aMzp3zXXX3pkqV4gb6Z7d11DPzC2ZOJSnrFH6JEAiwOrxAcxeq/YbpdJFwkD
+bVn86vh5z8xUBcK3lmD2yzxa4S8/fP74iZ9NkcyS8r1HBLEFhjgazMj182GutX4t
+2KKogl1vdemXsOKWC+k3/Q4ZJnq4c+2Zd9L1mtMiRgXokMAzKn0S1TW4sQU07IX5
+IsE0eW1i
+=zFn0
+-----END PGP SIGNATURE-----
 
-Once places are converted to the allocator lets go see what is left
-and ask why it is left and what API it actually needs.
-
-I think HCH was right that nobody should be calling this in driver
-code, lets aim to unexport set_memory_decrypted as an ideal goal
-
-Jason
+--eppq62ztiji2q7bc--
