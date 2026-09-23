@@ -1,243 +1,211 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012033.outbound.protection.outlook.com [40.93.195.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED35F18DB1F;
-	Wed, 23 Sep 2026 00:08:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790122109; cv=fail; b=uN+RmBZcRROQKNl/Ru+PTLlMV9HU2KxIw0/oSx/A/oVYSuBQfHEPIEJ18FTqhgyiiqW0hYTtfO/QNgpv/PcITSoGI4s5ag8q9Z22/XACM7rcieBJoYaVTnbvudIVmiwHvF8FAC2wRe69rH2zr93IcfrZdB1reKTyQSKVXVFcBEQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790122109; c=relaxed/simple;
-	bh=/1MhfChqSbiwyekEYi9uTkWnplzUcoiijaSSxqg2ZM8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Fspq+SKgUumEbaXznpeLa7fX0LGlZTcRZ6E0SFBdNV+iQRcD7aY9ih3UVdOKxuAIlTlbIJZ/YIa5AY4UM57RaI/HqlrWGmo/CX3p6WQ8IJWXCdMZ2beMCk++a7PkPf1k+LJCoScNHttBQ1dbRe3nM/9T27krfLkYKNBEy4tvihI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=i+at6IQE; arc=fail smtp.client-ip=40.93.195.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3493218CC13
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790122115; cv=none; b=NU+lcifBYr8zKidFPQMUnp4qUuxJkoR7/dza1gtUOPCA8C7fV3vCYdbqmAmFCerHyP+NbKpfIw1OdKcpQUCjC2iHMK9F+vpEphG4LY1XZretNQGasWXfazvGqEccuPOzLgmTwxIWZeH++afmTR5ytEZc6c5IFAqRG0rtb1k961k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790122115; c=relaxed/simple;
+	bh=FXOqWk6+ZyNZc5l454FhAHeymScBoMRKHlFW2SXO0lM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eqWqxi9k7lsk+ZKavC+aoqANCwuxB5tTrfpCKCdGYS7AZMg7tWLhqWS7sk5eoH9Il9DjgBPeQ/Zv3FTb1tDYeW7QJsKaJT0kGxvD2QLHTTkPVKtGEwGT8ehLmCv7ZYn2Ty9n405owDhmEmokkFu8sdHM5FtDOPAGelfH/njUm38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dRpn16fm; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="i+at6IQE"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qzdvJTFeczghYl4Ckz1hABrg53uXPPfvsZz43zn06jr/Yc4cFGjcY69KUP3DT0R7RO5b39Jm+1e0/tJJKsfOFVxlQ/wh04N3eZRkV1GLk224zx8fQkqAy+AR005rwvTA3zb684czIHXXEcESczvHh1AflUFmzLdcOrwI8WKWewVeFfsIKAVLFOa1he8UPue5p/ed7hRvq2zp7AB4cCv3yF1P5EDMwNj8o3i2aKud2N92rPYD2eibFMLMqYET6CJeqs6X1dfgm2AdUEdax6YX1xVjYKW9g3xtoFdycWqr2JTU05hwu41zQhTotcSfvyJc/3XB+Li/RdbX8AL3n+Rwug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xZw5/stQ5u5G/65DGEPaD8ea0dWnVW8PPG41SYtsEyU=;
- b=jf4oYTGkNshgw4nfQSNiFo1tSHXVOB9lUghZNDoMMpb9wT50i6fyE1VDeOQ5e/CpHeyEWvvOtqwM+mfq3PVf1bbAqTbmMn1tudDV1A95Hg3R62TjubT6fRqHZJVWxRUVPzpMlv5LHnJOxVLYtCByKA0TkOXYDU6mJADp/w3g9MyFbUIqOOvzRzTH+ohpG7hPli3aCidBEbVlntROFAj2/rivFwzkk2yNbG/kWlF8D56b9QiIF7bdguMhT170tfnOrJBYoCN2Nlk9+4C0/KAMz4narVi+azJYo7wCgfY7kMULiHMGT8i7s6KGfUdYEUm8qfWW6J58FFIfAKPjewXOuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xZw5/stQ5u5G/65DGEPaD8ea0dWnVW8PPG41SYtsEyU=;
- b=i+at6IQEXI2Un97eYiPxNkaSUowwoqCBU/4Uyn0W9lV1GCG4tr3Tp8DtgjNDvrkmcOuSVIXUId0w5PZ7XJcbPSEexhVR2GllDVu924RRkbLN+qIYULFnco1fQ2Oc6M+BoaFFvTbwW6EmQVsT5wn0Un77D2/nw4MqEoc9Ml0lgQQ9RNCCwm63VtQOS9SPEPatzsW7BKY941bhmgMSCDEKVQHKPgPh13lpfmRff3mVHASncupZ6NZq7D/1zcU+4RIXGKO4+Agsmm1meqBNSyN9MtGkGbj6d1VnqnjATYG4WDJ4ost1aMu0uQD6gL16lniQO/MnlvDxHCZ69xt296h/SQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DSVPR12MB827618.namprd12.prod.outlook.com (2603:10b6:8:3e5::24)
- by SA3PR12MB7781.namprd12.prod.outlook.com (2603:10b6:806:31a::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.15; Wed, 23 Sep
- 2026 00:08:23 +0000
-Received: from DSVPR12MB827618.namprd12.prod.outlook.com
- ([fe80::c673:6b00:5b48:b56f]) by DSVPR12MB827618.namprd12.prod.outlook.com
- ([fe80::c673:6b00:5b48:b56f%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 00:08:23 +0000
-Message-ID: <354b7192-401e-43b3-84eb-8488a0fd89b1@nvidia.com>
-Date: Tue, 22 Sep 2026 17:08:21 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 07/12] cxl: Validate HDM ranges before CXL reset
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Dave Jiang <dave.jiang@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, Ira Weiny <ira.weiny@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20260910070808.1444264-1-smadhavan@nvidia.com>
- <20260910070808.1444264-8-smadhavan@nvidia.com>
- <20260912023344.4cdeaf7a@jic23-hlaptop>
-Content-Language: en-US
-From: Srirangan Madhavan <smadhavan@nvidia.com>
-In-Reply-To: <20260912023344.4cdeaf7a@jic23-hlaptop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY1P220CA0021.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:a03:5c3::16) To DSVPR12MB827618.namprd12.prod.outlook.com
- (2603:10b6:8:3e5::24)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dRpn16fm"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d91ede8035so3155595ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:08:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790122112; x=1790726912; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jXRneLdpupGQ5UzSvLNCbz2mrO1OCHoDsNMUHQpwnQo=;
+        b=dRpn16fmMpDckJeus7/oLEVwBHFjjTw+OfRGdIJkQSyZIhleUSrAPIZNF/7yNMgjbV
+         7jTBInoF/CM6tJrOSJlB2zMcX3N0H3/yYlztuStnMWgRMUQwsI66tomy3KEac4mP0JwJ
+         62R4EaqMrj3Vz8B66FlkgOjEmOaEwy1LQ3vH0CJJiNv1v6iAM9oSKoDwyAgUBVUUuF06
+         1yw8M7xIETs2lHj68wQUFhtPaZWFwdVSJ6yscWNqIR9euLOoDfe3VGuOYRLcZxiciw26
+         QWVDriEjtDqsi+uVsOAwUpowiI5ASaYNq1BEfpmBRrjvPV7/L5m6crTRKYEkftPq9AC7
+         ReFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790122112; x=1790726912;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jXRneLdpupGQ5UzSvLNCbz2mrO1OCHoDsNMUHQpwnQo=;
+        b=Ee30oPznKyQz7F0GuQxN66rV/6ZjDbKg1gIcyB01JC96coOFXbRlrloQKg6mrXN8T/
+         xGvkJMcEMEeYo3c597SkuQNrmAe5Q+5UXeWS5nkXJOE+DFuTcXdcYDZtTLH921jk9plk
+         2YjZrl7TO5wNofyzaSug/kIJB140wEPQd6YUWqDkRiNzgsW9dykz4DFfN9aBOe1WcJcS
+         bn4jja8FYmEi70vcL3j0tVgkWfcU5Go6Lfq5Mr35u4pZfM187TsG9G+Z1sBwoCouHLP1
+         imzSUQn8ClxB4xxkVvFoijVR/UtIpXaJ+R7cW/4Pf5k1znn1lkmrrpfjZJD/sLfTSJDY
+         S6yA==
+X-Forwarded-Encrypted: i=1; AKwUvBzJTnFdzRa3Xam6+r2K5YtVEhlfl3GwDqR2gUSCRegImF1JF0NAy60Eq22fmooWESbuQFn79i3rDagghpI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsWioch4PJt4+gi2CajbB0lSPsmO/7cCju97tZuw6PKIjrIDe3
+	iikYOw2QRz3kgLTqCDHvY5KT/rABWiXm34kW1AiSqY1RFnUdHvPFFeE=
+X-Gm-Gg: AYBFou2HH9aPe6e26xHpIWm0hH53X8rMn22504leLV4cAEdi1D5jIoQR4DJt+2F1355
+	PhfeWa1c5oMRTE4OYSymewbUbPhRFsWq2B1kyh3FJAcN550xk1EGe909bugiP58uK4FE/gEuhDb
+	4Dp4nlcyLm71c/BGe9gup1ync4/gBbS3zktdhamtK+Salb04h/11odWUrhIBU+yrJy/1kpdZyu+
+	iMbAvlOnLhgcqbFIBpUWanWBg46rIvKe/F5B642p7ZJ5IQDfBdwf+GTcFXOUFewLE31qwkXHwM7
+	9dAFGEoE1k1p0sTgt0TEelVAKRQTeDiOnztQr1VlpOTgshbX4NffSac+nSLO4Px5kfXCl0NzomO
+	CBIQe9P/RC24DChziyzsTmDmokjEwFq+uia/SxPcbwNvplvNDtsPSc4bAxj6iOTBoXpDQm9TkJ3
+	qol5Eo5Qx3q3xVPsL9YBde8FrCHRPOUgYTrK5vlK11gAMtk+GNaj8EpsMRpSbnH0p1XSeD+iIJm
+	uHw521zTpen9JuQDo7JzuQaTonlB8E5XMsq6+8LeECbfBLY
+X-Received: by 2002:a17:902:d484:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2df69d517bdmr9833245ad.14.1790122112335;
+        Tue, 22 Sep 2026 17:08:32 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:2466:805a:e198:cde8])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5c3a3dsm2021425ad.43.2026.09.22.17.08.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 17:08:31 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	leon.hwang@linux.dev,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH bpf v2 2/2] selftests/bpf: Test per-cpu initialization of a BPF_F_CPU created element
+Date: Wed, 23 Sep 2026 09:08:01 +0900
+Message-ID: <20260923000801.1764758-3-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923000801.1764758-1-donggeunyoo.kernel@gmail.com>
+References: <20260923000801.1764758-1-donggeunyoo.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR12MB827618:EE_|SA3PR12MB7781:EE_
-X-MS-Office365-Filtering-Correlation-Id: 836c40da-9291-4361-865f-08df1906c88d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|10067099003|4143699003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	q7XWrvp1zCkyHWDK5txLlWqsiQuyVCCzGuvpDoCFY2PsIM3hFjAYxIeZlDinf3Foqot4uy6KBblV+25nYKA4GClrvTIwF5YL6rG+GPar0RFKAe9gpapGMv/Avmb0j9jyblRmVNu2vubRuNRg1W+urHQTZ3BCzNv8ZS1bGjzJejaTj8CBJ2NqmMttewxv56hhBgf4VGzHAh0HZuniIfkkS7NhZ5WOgtyYEUaeZRnCxv1fPyn2ff35T7qxIAPgKAQIBcca5k5usdKqM3b2RPqM7rROp7kFFps+MxnuE53jl94+UwCCqHSY+znuAgjwM4pCEefyregb4UkMjTXVMNFuI4ugq6gqn6dihhQr4zj9negHduQe0jm6XR3EFzCXiOg01+7XtlVC4JL/TxxoFU/ZgKPMYsjndI7q+aGk3C9Gy8hlZrUSWy/lnoKQ5q70Yz8+czV5CBvZyUmNt5DykKjpTRP9QQ7+hVsP39W57Q1YVNZ7+af0TyNUHlWZWswinF5lbZIm9FLsuns7tb2x23t0zNooSTOo6t1Fst1jS7sVODcwp6F9opPquLO7qDPHzLOji1sc8h56oe2Uw/ET84FT+gcUmej0SKb9MXDT3FPkmQ8CArjhgwzLIEE5TXAMlDE4avmd/CPHXFIEU/Ng54YjGRHuyufNIgKWhSqjBsj87IU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB827618.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VHg0aThVR1c5dFkyYUNtbVRSVWVQYTcwVldmVElmU3ZLM1hMckhxQ2tCSVZF?=
- =?utf-8?B?M01OUzNGbCs1NjlOczh1UVRPMmVFTHdtQlMwMVRQUVBtSWt1anVZVXhJeEN0?=
- =?utf-8?B?UWJoRXFzTlJyZllnSTdLanp6dlpnbGIyb1NCY09RamJtZktiV1l1VnFHYVBK?=
- =?utf-8?B?WmowQWg3clBBcTlZNDJPSm5vTi9xbjA1YTQ2c0JHemg0RzRmQjdHbURhTEhO?=
- =?utf-8?B?am1xZkkvRmdIc2pBY2RNMTI0UXpHa2NHMEJwZmtucmJXQ09QUDFKUFRxZ012?=
- =?utf-8?B?Q05wS1VpZDhVZEtnRXJHRUpoRStlT2l1d2p0a0dPeWVCVXBXMUlUT0RIcHV2?=
- =?utf-8?B?RWtBdHgyV080OXpwUlhOZGdUVWs0Y2MzaEhqYnBWZ2NPUzJhL1dQZ2JWYjc2?=
- =?utf-8?B?MVprTzdtdkQxYm1WRlJrUTlzY0NzSHZJWEFwcHR3NnhpcHQ1L1RVeDVsZ1JS?=
- =?utf-8?B?ZVpCZEhObTRmb3duMHdWZkpjWnRhWDZkK0U2SnhPNHlGTVlJNEJadThoRFFX?=
- =?utf-8?B?U2lyZWxaakxiNkpJR1paMWlOMzA3aDlzdzJxeTVlQ1NtcnVVeDZzYlJ3ajhH?=
- =?utf-8?B?QmNSaXR5bEZNODlKYnlLSHQ1WlZXSjJZcjVYOXdsUG9pWSt0UjlNMTk2S0M1?=
- =?utf-8?B?aTRyNGFJQjkxZVBOY2ZnZVQ4R2c3anR6Ry9HZCtkRXlSaEl0d1VNM1czeGth?=
- =?utf-8?B?Zk5ma1BtelpKZkVqRVhKYjZSK25uNGNYMjdPRmlyeU5EYzMvaU02RFdtemYv?=
- =?utf-8?B?S2ZWNXFUNklDN2RuSitSdkdScVVOQjhtRGh5YWVDc0NDbWJxRVpCOStPSERY?=
- =?utf-8?B?ZEUzQ1gzSFVnWTJzV3RhUXdQd2t5RGFnZFQxVXAycm1NWmNjMUhHUE5SeHVK?=
- =?utf-8?B?S0NUOEZNUW80U2tURTVJOWJOVU5WM2V2Vk5DajZnYTJieUJkVHZ2MHBEa1hJ?=
- =?utf-8?B?ZWErU2t2WDVUT1VENG1xT005YmFBRmpLUW5ha3hxNThCQ2tvWldoU3dERDVw?=
- =?utf-8?B?eVRGbHl5b3NTN0FteFcrWVE4RHA3MFNIYk9uREt6WmpEUnhHa1BxZWF1bWdh?=
- =?utf-8?B?QlhRS0VpanNIQSt4UysrLytpVTZwWTEzWkpQMzFzTDdVaVNxd3djbXBrNEp1?=
- =?utf-8?B?TVlJOGxzSXhIaG0zalhjenhadUN1Wno3NEsyeVNMalZncmVSd1J4NU1BN2Ro?=
- =?utf-8?B?bWtoek00cmR1WVR1N0REL0hWTVljbjNtbnBoOUxVb2ZwWU93NTUrTS9MdlFa?=
- =?utf-8?B?ZC91T1V1RW9KZkU3SXZ4OE5ScXI4QVVGd290eWtRS3dYZXlPYXlxNkJUTGdi?=
- =?utf-8?B?NzZJV1pneWlQcUkwVWhHN3VGVzNmZWJUUnp0eWsyYUtucHFPaGlVd2pocm9l?=
- =?utf-8?B?eEs1S3J0OWIzSTBPYnRDd0lIUy9mcnYyVjk1R0RDRW9pbDRPdHdXVDgxNE05?=
- =?utf-8?B?N05WNGxFamdFZVRaamJZRWxzMFg3N2VYTW12RUJLZ2svTDljMjBNMG5TV2xx?=
- =?utf-8?B?cFhTZXFJb2U4SGlMMW5BTlF3SjNNejBldXE2SUJBdVFCK2Urd2xSeXQzVHlS?=
- =?utf-8?B?OVJzY1VtUEx1R251MUxKQXlDMXd0b1AzQW13eWJMME1WVWJhcjBiNkZ1QnFx?=
- =?utf-8?B?VzlnNjRDZDZ0cmFaTVM5NTRwK3ZQVjEyZ2RDK1ZqNEwvVitGQUhXbE9SNEtk?=
- =?utf-8?B?SFRHSEFEcVJvd0FRK1RORFVYcUdDYTVoYldDNk9PSE84VEpiNk9OZG90THZN?=
- =?utf-8?B?VFBka3UrNUtHQkJWaDRWMWEvaTM3VGJOZGRhUnhvdTRJVE0xQnEvK05uQXNv?=
- =?utf-8?B?bFYyRnZ2YTIySkYxeGhENi9Ma2dnVUMwTDZJK0VXdk42NG52dHJQR0FjYWRX?=
- =?utf-8?B?K2hpMkRuTHAyUU1PMDNnWFpsTWQ0SFVXdVNlbmU4anlUTWNISGJYdnhlbWRy?=
- =?utf-8?B?eG1zMlNyTDZIUUVXUk1xU3lpTDFHbGpWaXMrVWhRQm8yWkkvN01ISkNsS1lw?=
- =?utf-8?B?d3A4azVlSENkWEJWcUJOUTYvQ2txV2U4TlJHRnFsdDQxM01idDlwZWI4c0NN?=
- =?utf-8?B?WlIycHYxSW1STE1Bb3BEa3p0K056bWZXd1VNTFZrUW9JK05FVXBIMUxJeVV4?=
- =?utf-8?B?RVVYcng5MHdiNGFPbXV0eEtzZWx5Z2crZ3NVSjFoUXlTb0trREpxR0hEU2FB?=
- =?utf-8?B?NTVLaS9GcDVMaXVkdEQ4V25OYW5YcllkeE1pSkpWd0h1NElJTEVjRFZ3YTRN?=
- =?utf-8?B?MWYzRHBNenp3d2tEMVdZUkhUNVFLK0tGQUNZSm9FM2d5ZUZwa0J3RFlic0JS?=
- =?utf-8?B?TklvRWM2dUxURG9hVVNDSU5SK2ZWT3BlZVVNVWRjNFprOHV4SmJwQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 836c40da-9291-4361-865f-08df1906c88d
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB827618.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 00:08:23.6157
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c9Eg+OYCVTJQsVk3/M2IATj6SrvtsI1PpsUOyCNy1hdLYr3+qk0sg4BpuLKv9h/lXig1XfDQDpNv5b/gDcJ5Tg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7781
+Content-Transfer-Encoding: 8bit
 
-On 9/11/26 6:33 PM, Jonathan Cameron wrote:
-> External email: Use caution opening links or attachments
-> 
-> 
-> On Thu, 10 Sep 2026 07:08:03 +0000
-> Srirangan Madhavan <smadhavan@nvidia.com> wrote:
-> 
->> Before reset, require cached HDM decoder state, collect enabled decoder
->> ranges, and reserve them with request_mem_region(). This rejects reset
->> while affected CXL memory is busy and keeps the validation stable
->> through reset.
->>
->> If CPU cache invalidation support is available, invalidate the affected
->> ranges before reset.
-> 
-> If it is not what happens? I'm thinking dead system as coherency just broke
-> but maybe not. My gut is no reset without cache invalidation support.
-> 
-> In general document your cache invalidation flow in this commit message. I'd
-> suspicious you don't have a pair of invalidations, one before to ensure
-> all caches are clean and one after to evict prefetched lines if your
-> device was mean enough to serve garbage during the reset
-> (which many will do!)
-> 
-> If more comes in later patches, but a breadcrumb in here to say so.
-> 
->> If the runtime backend is unavailable, continue
->> after the range reservation succeeds.
->>
->> Reject CXL Reset when no cached HDM decoder state is available. The reset
->> path needs the cached address map to validate affected ranges and perform
->> CPU cache invalidation. Also reject normalized-addressing decoders for
->> now because the cached decoder range is not a system physical address.
->>
->> Signed-off-by: Srirangan Madhavan <smadhavan@nvidia.com>
-> 
-> 
-> 
->> +static int cxl_hdm_range_flush_cache(struct cxl_hdm_range *range)
->> +{
->> +     struct pci_dev *pdev = range->pdev;
->> +     const struct range *hpa_range = &range->hpa_range;
->> +     int rc;
->> +
->> +     rc = cpu_cache_invalidate_memregion(hpa_range->start, range->len);
->> +     if (rc)
->> +             pci_err(pdev,
->> +                     "failed to invalidate CPU cache [%#llx-%#llx]: %d\n",
->> +                     hpa_range->start, hpa_range->end, rc);
-> What does the wrapper really bring?
-> 
->> +
->> +     return rc;
->> +}
->> +
->> +static int cxl_hdm_ranges_flush_cpu_caches(struct cxl_hdm_range_context *ctx,
->> +                                        struct pci_dev *pdev)
->> +{
->> +     struct cxl_hdm_range *range;
->> +     int rc;
->> +
->> +     if (list_empty(&ctx->ranges))
->> +             return 0;
->> +
->> +     if (!cpu_cache_has_invalidate_memregion()) {
->> +             pci_warn(pdev,
->> +                      "CPU cache synchronization unavailable; continuing without cache invalidation\n");
-> 
-> boom.  Unless you have very strong reasonsing for me this is a no.
-> This introduces extremely subtle cache coherency corruption into your
-> system and no one wants to debug results of that.
-> 
->> +             return 0;
->> +     }
->> +
->> +     list_for_each_entry(range, &ctx->ranges, list) {
->> +             rc = cxl_hdm_range_flush_cache(range);
->> +             if (rc)
->> +                     return rc;
->> +     }
->> +
->> +     return 0;
->> +}
-> 
+The existing cpu_flag subtests always prime a key with BPF_F_ALL_CPUS
+before any BPF_F_CPU write, so the create path is never covered.
 
-These go into the v13 patch 11 now. I have:
-   - reset is rejected when active HDM ranges exist and CPU cache
-     invalidation is unavailable;
-   - the affected ranges are invalidated before reset and again after 
-state restoration;
-   - range reservations and IOMMU exclusion remain active through the
-     second invalidation; and
-   - added description  for invalidation sequence in the commit message.
+Add a subtest that creates the element with BPF_F_CPU on a map with
+max_entries 1, so the key can only reuse the element the previous key
+released, and check that the CPUs the update did not name read back
+zero.  Run it for PERCPU_HASH preallocated and BPF_F_NO_PREALLOC,
+whose per-cpu areas come from different allocators, and for
+LRU_PERCPU_HASH.
 
-The previous wrapper around one invalidation call is now a range-context 
-helper used by both invalidation passes.
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+---
+v2: skip on a uniprocessor machine instead of failing; the block
+comment uses the general kernel style.
 
-https://lore.kernel.org/linux-cxl/20260922083924.2451158-12-smadhavan@nvidia.com/
+ .../selftests/bpf/prog_tests/percpu_alloc.c   | 80 +++++++++++++++++++
+ 1 file changed, 80 insertions(+)
 
+diff --git a/tools/testing/selftests/bpf/prog_tests/percpu_alloc.c b/tools/testing/selftests/bpf/prog_tests/percpu_alloc.c
+index a72ae0b29f6e9..f853f97bb882d 100644
+--- a/tools/testing/selftests/bpf/prog_tests/percpu_alloc.c
++++ b/tools/testing/selftests/bpf/prog_tests/percpu_alloc.c
+@@ -350,6 +350,80 @@ static void test_lru_percpu_hash_cpu_flag(void)
+ 	test_percpu_map_cpu_flag(BPF_MAP_TYPE_LRU_PERCPU_HASH);
+ }
+ 
++/*
++ * A BPF_F_CPU update that creates an element must zero the value on the other
++ * cpus, rather than leave them holding whatever the recycled element last
++ * contained. max_entries is 1 so the second key can only reuse the element
++ * the first one released.
++ */
++static void test_percpu_map_cpu_flag_create(enum bpf_map_type map_type, __u32 map_flags)
++{
++	LIBBPF_OPTS(bpf_map_create_opts, opts, .map_flags = map_flags);
++	const u32 stale = 0xDEADC0DE, fresh = 0xC0FFEE;
++	int nr_cpus, cpu, map_fd, err, key;
++	u32 value;
++	u64 flags;
++
++	nr_cpus = libbpf_num_possible_cpus();
++	if (!ASSERT_GT(nr_cpus, 0, "libbpf_num_possible_cpus"))
++		return;
++
++	if (nr_cpus < 2) {
++		test__skip();
++		return;
++	}
++
++	map_fd = bpf_map_create(map_type, "cpu_flag_create", sizeof(key), sizeof(value), 1, &opts);
++	if (!ASSERT_GE(map_fd, 0, "bpf_map_create"))
++		return;
++
++	key = 1;
++	value = stale;
++	err = bpf_map_update_elem(map_fd, &key, &value, BPF_F_ALL_CPUS);
++	if (!ASSERT_OK(err, "bpf_map_update_elem all_cpus"))
++		goto out;
++
++	err = bpf_map_delete_elem(map_fd, &key);
++	if (!ASSERT_OK(err, "bpf_map_delete_elem"))
++		goto out;
++
++	key = 2;
++	value = fresh;
++	flags = BPF_F_CPU;
++	err = bpf_map_update_elem(map_fd, &key, &value, flags);
++	if (!ASSERT_OK(err, "bpf_map_update_elem specified cpu"))
++		goto out;
++
++	for (cpu = 0; cpu < nr_cpus; cpu++) {
++		value = 0;
++		flags = (u64)cpu << 32 | BPF_F_CPU;
++		err = bpf_map_lookup_elem_flags(map_fd, &key, &value, flags);
++		if (!ASSERT_OK(err, "bpf_map_lookup_elem_flags specified cpu"))
++			goto out;
++		if (!ASSERT_EQ(value, cpu ? 0 : fresh, "value on specified cpu"))
++			goto out;
++	}
++
++out:
++	close(map_fd);
++}
++
++static void test_percpu_hash_cpu_flag_create(void)
++{
++	test_percpu_map_cpu_flag_create(BPF_MAP_TYPE_PERCPU_HASH, 0);
++}
++
++static void test_percpu_hash_cpu_flag_create_malloc(void)
++{
++	test_percpu_map_cpu_flag_create(BPF_MAP_TYPE_PERCPU_HASH, BPF_F_NO_PREALLOC);
++}
++
++static void test_lru_percpu_hash_cpu_flag_create(void)
++{
++	/* lru without prealloc is -ENOTSUPP, so there is no malloc variant */
++	test_percpu_map_cpu_flag_create(BPF_MAP_TYPE_LRU_PERCPU_HASH, 0);
++}
++
+ static void test_percpu_cgroup_storage_cpu_flag(void)
+ {
+ 	struct percpu_alloc_array *skel = NULL;
+@@ -454,6 +528,12 @@ void test_percpu_alloc(void)
+ 		test_percpu_hash_cpu_flag();
+ 	if (test__start_subtest("cpu_flag_lru_percpu_hash"))
+ 		test_lru_percpu_hash_cpu_flag();
++	if (test__start_subtest("cpu_flag_create_percpu_hash"))
++		test_percpu_hash_cpu_flag_create();
++	if (test__start_subtest("cpu_flag_create_percpu_hash_malloc"))
++		test_percpu_hash_cpu_flag_create_malloc();
++	if (test__start_subtest("cpu_flag_create_lru_percpu_hash"))
++		test_lru_percpu_hash_cpu_flag_create();
+ 	if (test__start_subtest("cpu_flag_percpu_cgroup_storage"))
+ 		test_percpu_cgroup_storage_cpu_flag();
+ 	if (test__start_subtest("cpu_flag_array"))
 -- 
-Regards,
-Srirangan
+2.53.0
+
