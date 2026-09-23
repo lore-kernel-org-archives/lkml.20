@@ -1,75 +1,75 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC5C923A562
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:14:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D14220F2A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:14:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790122483; cv=none; b=rkNac0beeuseLgP1A5MJOMfFYMrbncHmiWLJIgRgzVptBpa5ZIcPDqFfk1qmsPtysvvjCTaaAz6tB81JCT7qGn4U+Ysk6PPTbi/3XYlzcrgc75Q31pZKK1ACIyax6dhTTzlsXKxXr8t8yT9Luwngb36MQtfJ+pXIKLrY/gAdeEc=
+	t=1790122484; cv=none; b=qbv2sJV21Cji3fcCYkfJEjv3mCee7DOcPB4+UCv0s7NACxAt2V9/6Kkc9HYDjXYx7dEAnn6NkAoV1rGDpj+0EsMwZfYXUxdmlLVdVaV6hQWSxxkDnTxngL7yxikMWFPWNKDHYrhHkv++4reIWwYXtWh78egi2IAt4DKpkvx3f+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790122483; c=relaxed/simple;
-	bh=kKxpjMyiHK9lV9OtcBaphCHIS0puTCLcWrgvqpO3mqs=;
+	s=arc-20240116; t=1790122484; c=relaxed/simple;
+	bh=w/aktebwl1Y3XGcI23NvEGJ5CAnVHvAXb/qbZPYpZaY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WSCk901HqsRlgUFSQLygqp/VgEkcmJVMQmGRu4uxWDXASiwm+88w8v5G9uS3kmUTnyaV6zSg3po2UNcTWLzLALUBRoZBbGs2B2GAflARymIG69v3GAM3mpQzvBmrEyoxf6ikTeGxbHfPblxxjhKZaH3yIjZ1RHgJogbWYMo4u1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M1jBLwA7; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=dGYUD/64a/PphY7AU+eLXYA0K/p5aOa2ICsIoNbALRM7JoG8ZI5XK+ygcyj9K2bacbTXtF2Z0erH5AngbUrdcOyMfsK9z/dYiKWHcRJLVCSxtJx48CZtSjw69PFG9UPeGEO9+Yu/Wn3R5ept5h94hgjir6Da8j/c0QjVtpaIED8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZaFcAjuV; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M1jBLwA7"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so1124605e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:14:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZaFcAjuV"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so2733455e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:14:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790122476; x=1790727276; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790122479; x=1790727279; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/lwakMGT3g+t2lkoiIlXbmB0IFTfs1dS2fNYFlIz4+A=;
-        b=M1jBLwA7BqUBWNgeep3mnrL7hq3utgb5eWlkQ1TUK9mVpJUTud4KlxJ/7VcTH1Gndr
-         Pdb/icbgeYg9xBYnJsbfy8jfbl8q5hL3TkAbm/VfzX/cGZWZcn2EDk4U8zVPygMxYkl9
-         f4rkbPCsQGHKx6ct1tVlticB4XVMw8aewdvJSx0rW2kNYsfsTO4myJUoe6BJAZOaDEXp
-         GTT+ENDUqRNBcGhl+r41P9HgUivb3rZLVB2aKvgPgsAK9w2bnU/Ghc6kwVHCKG7efLOx
-         ev8z82cYCPFAjE+/mvK585uH/LQg5y1pZ+59Me7e1s06Tqfef8RwxbeOxB6/sbxwZ/fx
-         fx5A==
+        bh=43QVrNsixc1/5D2acx7HxxSlwhomqIkjYst8NKgVyIQ=;
+        b=ZaFcAjuVYze3JesFBQXxiHNekH7ua22ghkYHsARl1JMy7QjA9bA2G6c1uE523IvghL
+         cBNF0HqiJK1GWsotHY1oTEPu3dF7dhlWXKibZmqIEKq7WK5s+zHeXLOluRYXSCPaRru7
+         OyO1+0qJyeG5qb35Bkg4jwY2J5ASQZiYJREy1ghtnoceJnF2lJA4Zu8qTeXJZ/Ijju47
+         kkohcGNph8LmFK7KACCTb17sg5W7PjTI4qHeVCYjeuMSl9X2148/oBASzz9UoZnYQr57
+         or5yn0z411Jg1M40G0FBgQFZlr8iwJQLywoJ8eRsv3hCd/SnWKcrhjYd4XxZu2SWLVd5
+         Tf8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790122476; x=1790727276;
+        d=1e100.net; s=20260707; t=1790122479; x=1790727279;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/lwakMGT3g+t2lkoiIlXbmB0IFTfs1dS2fNYFlIz4+A=;
-        b=H5I0l2tR+q8QQvaG1fH5gBAnVaP2CTiu6iiPAQ6gXie6ZSLBjcvcukEZhJlpyvDNbp
-         7PfRFniPXbLXAXpfqO2RoNvqZokFkXhCc1AETbGd22f5CTwid79UT4Y32BBKrKQ71L28
-         g6bLBOoQhIq+HGxEj4RA6Cnu5ZQcG4iq0snGzz7hpJ1D8vOQBLVYY4Jrfow26Xb/ZtjS
-         +h+b+NHfOpq8L3u4CFaZPzKs9gWK3Hh45bavTpKoxxILoOw205uspUoI6DZE34fS/qsy
-         eLerEAgdRhhZcz9q1pZzJobBQqxbJxBPaUtrG8imm2ASsNB39swCKb9q6FlYlW12bqcZ
-         CDGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwRd145yOgrWCzcdmY+in862RYhQqoyPh8hG90W9bwbBS8dfsCL5nt92yCVx9UBAjGxqC9FZR3b1Awg7vw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kN2W8p0JxGvwzrta8fAsMehGIqpjo1ZHh/QO7yx46FlABziyGA
-	1z8ICXplqcbhMsQ2xX2S6gl5Hi0zevuJhdZLuzRx6XyLUGl3CHVKADM2
-X-Gm-Gg: AYBFou0KsSqoQXjvpJP4i5z/0QK2M9zzLm8El/jCP94oPNZdjYpc8VY7lAt3neJClvy
-	iq+q8cYooHlxMZzqUQrC3hWKvXwBMV0LZOutuVAmhuFYzyzl9CHOuiOHAZDSHY/4kJ+xu4wZaDh
-	8OkcFUVW7/0X5DH+B6G5DpfrVWO/BBsr/im57pRi1vpc+jxm/Zbk6S1B/zRJJftdUK9Vjr5AO8+
-	Qy0m7vNPlnpG3xWhycjyNZQ7UoevTtjMJpeGa7MBWOWGbnZorrWOoaMBOqSDzwXUWc40rg9klf4
-	F+2OtOZcCQDRA15NkRd5Df/MmvonKzOubrj3Yc7Cv8gMszdzrLj2vRMDywjRxWJNa00goDQY/6u
-	dg890doteL5xdjDSyfJL/bDFFdvNKflm1fD9jLROh41t5/pBswEQIDf1jiRoYt/56tXi8zZyAbA
-	ilCEzltkYVqo/tGh6ncYcAS1t/IpdpK7/wBiJFbHn/xBqrQHiXWUvOAKwdhgHqXyAFjF3Mot4d7
-	HORWYB6pRHE8+cvxn9KJVGRrMN30fJpOVimMP32GAsavvY92BN/08kQhTDlKyCdR4gexwzhpidT
-	a215lanI7VISkF9/eh4CV6mKhGTXvaeag1fWOkvGPFfscpsC3iU8kxUkaXnV21cPecXzcr8kR0X
-	1TIv9t9kjNthG2u+j5Q3wWw==
-X-Received: by 2002:a05:600c:6087:b0:49d:2936:8ad1 with SMTP id 5b1f17b1804b1-49fde360163mr16064825e9.1.1790122475827;
-        Tue, 22 Sep 2026 17:14:35 -0700 (PDT)
+        bh=43QVrNsixc1/5D2acx7HxxSlwhomqIkjYst8NKgVyIQ=;
+        b=1GyshV4R2ceAYAV/BvUUnfc8+Ibn4qTFeHSv2tPOWB0C8whTSHZ8jM3l0lGm/6QLO9
+         YCBrO5d9a2YPxcFQ8GuVZ7gt0yS/ZtUcOAj8jR/9L9WT0Cy5X75WbPlRhaFF1NeC8hZ9
+         UmNtUruduBk1jAmZYE3WGqmSGGwPRobvxPhbCBs4E329fP7eniE6SRmraEElYLTqk+hD
+         /6YKTkcBUCY5ZvnBvtXR6panAI7kxJt75GcBwxjXwRhSAX3kpBqX/6RusaUnBFIaL8ML
+         IDXd+N9ZngwlCMuh7tXLZxT/50qBoPJcaNJaKwlPmADk7mAapwzWxs711zX+mmwOGSwI
+         B9CA==
+X-Forwarded-Encrypted: i=1; AKwUvBytESJv5BP7gxTuN4f9tHDqn7WNvEaYQUGoDQ8iUJ4MD10t+6tDdQQx9YGpqDBSWAEmp4keGF2wBLI5y48=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNbhxCUMB4nMVSUvl5MqUz6xIHYGCP/79hbKKcSwyASwrcmJ41
+	u0KsBcNxpjd01xCddPfSu6LDYBOZBe8xN1k1khy53//Tu19HoPCq3RG2
+X-Gm-Gg: AYBFou3w9JdjIotsqOY9SV8luAUyfdtQ4o4E0E0c0NyqVatdEXq+u6ApPiU/dDHTFoh
+	fEMje4/D7Ku6gjXFlLy35pQMV5zZaEzv7UfAQQO4unE0aqa8+D/MQW+6+TrPmHXXjdVrc1fgMV6
+	p2FIowIOv+9KChduxKF0c4wE27g/h+UGbgBktkyQjG8vPHSLCcdQPzVOYmJ/oj/50aIMfUKhuJk
+	NU8z3+337W4LjNRu7LNKCBdcCNkTZm0GvT9HWg3B1Ks0ZM6xzMqMIBIp8kv3E2/U8kMf7dwQASE
+	+eQdpWAK81M6Uab1mTfCThuMkQsNFJZX/JyUO/bMeTGQii1dfdbz3UAkdht4HdJB1E89DooY4WL
+	RzvXOuwDnQXel8nYCO1XxwxY5NiiEUbeSIHAplcwJxRe2jGuoaqDJB3GOsxH0XJ0NR4GxdO41WD
+	+kMWli5LUXYgkyl8Isbl1a0tt5nlEllCJlyt0MDpuMBKGdDczo9K2uWxsaV890+oDsDTm4x1jMs
+	YiXsFv3ObRLDGK2ojoYOmltdYE1n+f3oa1qvGvO+P4osGh7O9aI64mYLpw103mfPh1fT6vhpi87
+	HVSYxnY9lDgHmpAAQ1/BgqqbuvKn6BZASHIb4vNmI2bGk50/x9SiMlsE4qlNX90/W61i5lKyzmK
+	Q8EnS9GbaX6E+80NA/jSpH0lRVu4IfxGT
+X-Received: by 2002:a05:600c:a013:b0:49f:d58f:1f8b with SMTP id 5b1f17b1804b1-49fdf12bd26mr8409485e9.18.1790122479138;
+        Tue, 22 Sep 2026 17:14:39 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a00-1028-c000-0ddf-8c68-4a09-6ad6-6324.ipv6.o2.cz. [2a00:1028:c000:ddf:8c68:4a09:6ad6:6324])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde180a39sm34612165e9.1.2026.09.22.17.14.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde180a39sm34612165e9.1.2026.09.22.17.14.38
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 17:14:34 -0700 (PDT)
+        Tue, 22 Sep 2026 17:14:38 -0700 (PDT)
 From: Josef Schlehofer <pepe.schlehofer@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Hyunwoo Kim <v4bel@theori.io>,
 	Josef Schlehofer <pepe.schlehofer@gmail.com>
-Subject: [PATCH 2/6] media: az6007: propagate USB errors from I2C transfers
-Date: Wed, 23 Sep 2026 02:14:06 +0200
-Message-ID: <20260923001410.30297-3-pepe.schlehofer@gmail.com>
+Subject: [PATCH 4/6] media: drxk: stop accessing a disconnected device
+Date: Wed, 23 Sep 2026 02:14:08 +0200
+Message-ID: <20260923001410.30297-5-pepe.schlehofer@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260923001410.30297-1-pepe.schlehofer@gmail.com>
 References: <20260923001410.30297-1-pepe.schlehofer@gmail.com>
@@ -81,54 +81,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__az6007_read(), __az6007_write() and az6007_i2c_xfer() currently map
-usb_control_msg() failures to -EIO. After disconnect, USB reports
--ENODEV, but drxk cannot distinguish a gone device from a transfer
-error.
+drxk continues frontend status polling after its USB device disappears.
+read_status() keeps issuing I2C accesses, and drxk_get_stats() ignores
+the error from get_lock_status(), so callers see "no signal".
 
-Propagate the error reported by usb_control_msg() instead. Keep short
-transfers mapped to -EIO as before.
+Enter DRXK_NO_DEV when an I2C transfer returns -ENODEV and reject
+further hardware accesses in that state. Propagate -ENODEV from
+drxk_get_stats() so read_status() reports the disconnect.
 
-This lets drxk stop retrying and accessing the device after disconnect.
+Also check the state after the tuner's gate control in
+drxk_set_parameters() before continuing demodulator setup.
 
 Signed-off-by: Josef Schlehofer <pepe.schlehofer@gmail.com>
 ---
- drivers/media/usb/dvb-usb-v2/az6007.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/media/dvb-frontends/drxk_hard.c | 29 ++++++++++++++++++++++---
+ drivers/media/dvb-frontends/drxk_hard.h |  2 +-
+ 2 files changed, 27 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/usb/dvb-usb-v2/az6007.c b/drivers/media/usb/dvb-usb-v2/az6007.c
-index 4ce1afe01c3b..5449ceda87e8 100644
---- a/drivers/media/usb/dvb-usb-v2/az6007.c
-+++ b/drivers/media/usb/dvb-usb-v2/az6007.c
-@@ -109,7 +109,7 @@ static int __az6007_read(struct usb_device *udev, u8 req, u16 value,
- 			      value, index, b, blen, 5000);
- 	if (ret < 0) {
- 		pr_warn("usb read operation failed. (%d)\n", ret);
--		return -EIO;
-+		return ret;
- 	}
+diff --git a/drivers/media/dvb-frontends/drxk_hard.c b/drivers/media/dvb-frontends/drxk_hard.c
+index 0815083e54eb..df5f5ea959ce 100644
+--- a/drivers/media/dvb-frontends/drxk_hard.c
++++ b/drivers/media/dvb-frontends/drxk_hard.c
+@@ -208,10 +208,27 @@ static void drxk_i2c_unlock(struct drxk_state *state)
+ static int drxk_i2c_transfer(struct drxk_state *state, struct i2c_msg *msgs,
+ 			     unsigned len)
+ {
++	int status;
++
++	/* Don't touch the bus once the device is known to be gone */
++	if (state->m_drxk_state == DRXK_NO_DEV)
++		return -ENODEV;
++
+ 	if (state->drxk_i2c_exclusive_lock)
+-		return __i2c_transfer(state->i2c, msgs, len);
++		status = __i2c_transfer(state->i2c, msgs, len);
+ 	else
+-		return i2c_transfer(state->i2c, msgs, len);
++		status = i2c_transfer(state->i2c, msgs, len);
++
++	/*
++	 * -ENODEV from the I2C adapter means that the device is gone for
++	 * good, e.g. an unplugged USB bridge. Stop accessing it from now on.
++	 */
++	if (status == -ENODEV) {
++		state->m_drxk_state = DRXK_NO_DEV;
++		pr_warn("device is gone, stopping all I2C access\n");
++	}
++
++	return status;
+ }
  
- 	if (az6007_xfer_debug) {
-@@ -163,7 +163,7 @@ static int __az6007_write(struct usb_device *udev, u8 req, u16 value,
- 			      value, index, b, blen, 5000);
- 	if (ret != blen) {
- 		pr_err("usb write operation failed. (%d)\n", ret);
--		return -EIO;
-+		return ret < 0 ? ret : -EIO;
- 	}
+ static int i2c_read1(struct drxk_state *state, u8 adr, u8 *val)
+@@ -6319,6 +6336,10 @@ static int drxk_set_parameters(struct dvb_frontend *fe)
+ 	if (fe->ops.i2c_gate_ctrl)
+ 		fe->ops.i2c_gate_ctrl(fe, 0);
  
- 	return 0;
-@@ -782,8 +782,9 @@ static int az6007_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msgs[],
- 			if (ret >= len) {
- 				for (j = 0; j < len; j++)
- 					msgs[i + 1].buf[j] = st->data[j + 5];
--			} else
-+			} else if (ret >= 0) {
- 				ret = -EIO;
-+			}
- 			i++;
- 		} else if (!(msgs[i].flags & I2C_M_RD)) {
- 			/* write bytes */
++	/* The device may have disappeared while the tuner was programmed */
++	if (state->m_drxk_state == DRXK_NO_DEV)
++		return -ENODEV;
++
+ 	old_delsys = state->props.delivery_system;
+ 	state->props = *p;
+ 
+@@ -6487,7 +6508,9 @@ static int drxk_get_stats(struct dvb_frontend *fe)
+ 
+ 	/* get status */
+ 	state->fe_status = 0;
+-	get_lock_status(state, &stat);
++	status = get_lock_status(state, &stat);
++	if (status == -ENODEV)
++		return status;
+ 	if (stat == MPEG_LOCK)
+ 		state->fe_status |= 0x1f;
+ 	if (stat == FEC_LOCK)
+diff --git a/drivers/media/dvb-frontends/drxk_hard.h b/drivers/media/dvb-frontends/drxk_hard.h
+index a850a876deee..dc6ee0bb6854 100644
+--- a/drivers/media/dvb-frontends/drxk_hard.h
++++ b/drivers/media/dvb-frontends/drxk_hard.h
+@@ -106,7 +106,7 @@ enum e_drxk_state {
+ 	DRXK_DTV_STARTED,
+ 	DRXK_ATV_STARTED,
+ 	DRXK_POWERED_DOWN,
+-	DRXK_NO_DEV			/* If drxk init failed */
++	DRXK_NO_DEV			/* drxk init failed or device gone */
+ };
+ 
+ enum e_drxk_coef_array_index {
 -- 
 2.54.0 (Apple Git-157)
 
