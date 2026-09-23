@@ -1,64 +1,64 @@
 Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239A857ED8A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:19:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB44457EDA9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:19:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194769; cv=none; b=a0IlGn87gSp1z1wYxpwgwiU4qTKFUqJiJu44NIDpQNemliMZcou3AYYQMsucpjs/YV8jjMMC3BJu3eryu33ghWtclaVom1OHuNQ2m0V1oDaApDxZk8mxVPBNRXEsj1mQWguJqF1w1eiB3TeOT/WZ3y1lELDrbJB5sGlDHn3we7M=
+	t=1790194771; cv=none; b=ZnKIJd1ybSWlQbDyNgxY/AMauWNV7gWL51uP+sGyh3oWWWkS1N5COYiR5Lm1bKTo/vpBZOBHOQ57Ar89lpZ6/cdZFkdg16O11xWn7cwH70Uj1HLkh+KIrKzMWYrdLcR0yHQyZJ6qc68KbNx+sUcj0jZ8Gfe26HtyQXs3klIxRSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194769; c=relaxed/simple;
-	bh=U5kUJj8tfW2V7b3/nuO6sQr9QzMENF2JMUJE8N1DAT8=;
+	s=arc-20240116; t=1790194771; c=relaxed/simple;
+	bh=AC8oylFdwQ8cFzwdlHbb126te9vtXzziDP7/wP1B/5E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VgDXv6ITSqBrzGrldoxKDbEzb4oH1KffeaFDSyhkF3V3JG6mmWwpqIAEZP8LKYsj77HftFBYejKAqMgbGboMvhiNI8bgp2ixFSOf1LNQQnAiUK6kYfbWda2bL+oDHk58TAcVWgJLcSPGdYccMH46WV5VhcEYmAK3zmJBrt4txIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C8kuizLQ; arc=none smtp.client-ip=74.125.228.140
+	 MIME-Version; b=NnQIDPzh5C6QcVvbv/Dl4pWsDZaZwZu1wjOVaSy5ShiayszN8YQlUdjqzUbhIHfJudk3s0/PQC/N2jB8pw4XRiJ12S7E0/iVr5OYdH+9+lSleJ7GUG4WlLPoOS9H4I/7waIzRiv3miBOHsZpMAyi5+yDHBWwFOTiBVik/1kSB68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GOZM/cQ+; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C8kuizLQ"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ef15d3so183424666b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:19:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GOZM/cQ+"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55eff0so202943966b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:19:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790194760; x=1790799560; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790194763; x=1790799563; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aBkTioHa1njfgepZWcJOCl/N0/x0qKl0Yu1MlhUgAqw=;
-        b=C8kuizLQC8LCFKyWH7dW5kw8KLBQb5SSI0MEX8MNeeytGa8CpsoaPVJ+MSNFnBDfUV
-         CPRjiyhiK1OzZr3W0aTd/ZXtalDeCVtyR/T3M0pywi6QEJvPWsV4GVh+aYmXP1CZ2XDM
-         5ErssEnjlRN77I8EZCrLs9ZfMDLwTjSr3U7XZyAYlg592cvQ5U4hdklEqvywbsOOFMF6
-         BjPHllK2+M5kA7A4SGcr9AvLH50F/e86W11Wf0yQxZ/ZCQGqNZvWUClaZ/Y+Vu3YKkOY
-         jpw6kcITjuo2RkGkQRzYdRniePG2Hvi7errGaD4t2/Z2UYHcmsTEd+QY+77VcHFlW/I2
-         V4cQ==
+        bh=TSFltJ3k/9xOW9Dlp3D0ImCoh69p5cGuVhZZbL+BLyM=;
+        b=GOZM/cQ+o7m6jYlRgzO8Aw2YVG3SM9pBEaWRxwuq0Li9EuVL2YVsS2tTFFFp1XFW+v
+         FqNNtBe6pIhFtC/PMIBhKUNKu41wpn8rItDcoEZGH6WvawP+E6GzRVday4TiZKHrbrOh
+         ZaRK2ip8mt4PnAk403cXOx3BDaQ8O2DqddzaDatfv3fVaYulVECGVyNg7gToRfyaFWVF
+         oDBx24VoYI5Q8y7NkSc6poe1gqobw2dSN8FlU7e1izq2S5Xg2bkrHvlt9zR4SJLqrF1K
+         07acmlfmIzA1syW1ZVhv7xoBP8eM4A17AfHZpqg+iU4q1MW6evgRo7yvR5wGd+jtOWlS
+         jMCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790194760; x=1790799560;
+        d=1e100.net; s=20260707; t=1790194763; x=1790799563;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aBkTioHa1njfgepZWcJOCl/N0/x0qKl0Yu1MlhUgAqw=;
-        b=1//nXWEl5h+6SQ6KTZaRquHK5fgPPfLvbmK5HlpR2Lh/IVnk5AIebLSHd7Wg1m7IG+
-         WLN+20Zw7yF7NcA19ZcF+LMqX6lEPe8+c3I8QViI/s6QEw7oi6UG0WeiVR0EL4zCHu6x
-         P8bBmJpept7W/Xxyf+QN4Pu4HPyuDnln1i2uS0S9bue1zHCVWIXmdQjQu6a3NHGRT56/
-         Ck5bnpCa+pzMScYhd3kqWA5555hkIUPXTjKbjtXOWxZ/6uI/pfmJyR5+8umvlpUh8LkK
-         UuKDtggfzYPv02/sBvq2ev7fpbS60iGiDFMOHxfEbObLlLneNXq6UeRcH70XfU8fxoHm
-         5b5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxeeaV6BtEYwgVopxvB3RnN6gAb3s2wyKkEsiyIF9H44KKRa0ztpzU/f3DDeybwMQ6w7a92SOi3y6fnKzE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLOAqpSERhLvkBbrGS45zI5xH2tcJzZP/+NOnDk839wlNakaKQ
-	OgwWuWUCLbPC+boeIE5PooaYo6UEFjYcFLF1VPL0jYqnnDksnra+S34F1ouXKw5p
-X-Gm-Gg: AYBFou3U0JffYKFX3F77/kXTv++YSC5mmmgjqnLICFtJu7OySFeHUDw+OTvW7+W6rBK
-	8pbSxdNDzy+LnzL4mSS0c7+gcUZhVtK7ybYgBuz4xIMn+8BA6uFACNbpa5eOmU+4qfaEx/V1y1S
-	nlYeV96KAjjs9V0Csz5NefNekAwt2zLVn9Gf/AojuWfj9WkzZWlpnJ76Yd5Oy4TSPcy+ySw9l2S
-	rF29k9JzjLJH7OTNBbGmcY4A0xEwbY+54ZOtZljOd1C120Pnpt1uqzFdb1NM3uYEXvyTZZiVAgP
-	dMQ2jaRUmghtsxDv2HWXHJ6puWn6/5cmIv+IQu9uer94yZ2N/ZRA1O1om9lQ07ASzDBWRjaTrka
-	SeGX4NUNrktrUdtsBJ531lfmR2dMeSXl6LeCDncprhfmSRNoUQMF/NghQRohBxYvaI4X94gPdmF
-	gjShfeb8v7sc3xI2UhlSKFETLMxZk2wtsOHYWj14Is2OntwxmwKSqIaFq/KqwM8h4X4QdQLf+cH
-	7B5iY8Q4bGuOgn6ll2nMO/ZTPHnmjOCpZ80StL6
-X-Received: by 2002:a17:907:c48a:b0:c29:f5d5:5a9a with SMTP id a640c23a62f3a-c2ac241cb87mr18810766b.36.1790194760417;
-        Wed, 23 Sep 2026 13:19:20 -0700 (PDT)
+        bh=TSFltJ3k/9xOW9Dlp3D0ImCoh69p5cGuVhZZbL+BLyM=;
+        b=SEUHSrmdH5Bix+Xrag0nm+s5gCgphRNM/bneIyx5CJPdb75PXjrlwQXQZA5X7ESHUe
+         xw/T43ODEGTbjsaNo7hDBmipF1fNwCpw+ezc2zGydNg7oKMdTAkoIhMTm3kZLPku/AJy
+         2WQfTtkHT+gxXFFTUpACNPhUP0t55lF0ll7gNB8+vKLx9g32LQrvTAfbDw/UQ9xrO4Jc
+         zQYG6HTMacEJ54adEhKz2WKXEpgSh/9hWk1w2fgnTPrXYoxbyYHI5UhtDYPODw14HxdD
+         0ymkRzS56eSk2snXxPy4wheznbPEj9dEFLQhVSeFQM1eVnVO/b9A+ODBuvtD6tKcJFl9
+         cdhw==
+X-Forwarded-Encrypted: i=1; AKwUvBwjgoyazpp/V5aQ7TWeq5pBkgUc5EJT+xcCjXqVHmIysATn0p8Me+j/ZB0lq+gBLhoNkoDYMuw8gvyZMQU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mx/7ZpNHrT7xI8vbaS6+IEbz85HtGRItXPScBJS95C7R4rWC5m
+	z082aN3jenWwkGI6mYDdFV3iC+whZovvmva+BaFE8zwJcq0hM5CRKFSD
+X-Gm-Gg: AYBFou3usjsR/U0h4a74m5rxQ9fgvrWn6Mv/tZjp34+5JVPgt3pBitycm9DJXDvTUjG
+	0SGaawQStqAFRc9oMswzZNEU5WoP6SiilyMIEWVXY7qWQaPj8ks9U3vLnT/C2WVHxrZOJnCHMji
+	gGtW6IcSuJo9L/7pQcqUENnBkhjpX3SI4/T7DhvkcYUsOrzqbWZm1WRqpZAyQvunGV3vOZExbxX
+	Ayf/eSWlxleUp9wuLMhsOStq3KVESajck/RCJwpNEU4SKAZHnUkky4SqFnWm4LeVeTf3SLEYxpm
+	ou/Ypgzl3RaV0lnty3g+c0qbP5J48NUleI2MNE3bL8mo/EuRoV/BpHLfIEoHs61/BrI4lnPU0x0
+	FlLgN2cBmCWBFXoSHvrhYkx9vmfE4muOYO40Ag7Ug2l4exy+lO0UNXh3vvoqA/oNyFlag8sVD9s
+	gXKmRGP/Q7+Y/hEWkv7n0ofDMMGBwetULtXgVGhP3Ldid1lR2HCfb1jcy8jsgFEWlv9V8h4QvhR
+	Qdnv6W+D6KzkwdRwwmf5mKnciMzxQmVwLomL3ef
+X-Received: by 2002:a17:907:c23:b0:c2a:704c:8c75 with SMTP id a640c23a62f3a-c2ac25123f2mr22944766b.39.1790194762351;
+        Wed, 23 Sep 2026 13:19:22 -0700 (PDT)
 Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae63dc17sm183626966b.33.2026.09.23.13.19.19
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae63dc17sm183626966b.33.2026.09.23.13.19.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:19:20 -0700 (PDT)
+        Wed, 23 Sep 2026 13:19:22 -0700 (PDT)
 From: Magnus Lindholm <linmag7@gmail.com>
 To: davem@davemloft.net,
 	andreas@gaisler.com
@@ -66,9 +66,9 @@ Cc: sam@ravnborg.org,
 	sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linmag7@gmail.com
-Subject: [RFC PATCH 3/5] sparc32: implement futex atomic ops with the compare-and-swap locks
-Date: Wed, 23 Sep 2026 22:17:19 +0200
-Message-ID: <20260923201830.865553-4-linmag7@gmail.com>
+Subject: [RFC PATCH 5/5] sparc32: document the compare-and-swap trap ABI
+Date: Wed, 23 Sep 2026 22:17:21 +0200
+Message-ID: <20260923201830.865553-6-linmag7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260923201830.865553-1-linmag7@gmail.com>
 References: <20260923201830.865553-1-linmag7@gmail.com>
@@ -80,232 +80,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sparc32 had no futex implementation of its own and fell back to the
-asm-generic one, which on SMP cannot work: it needs to update a user word
-atomically, and pre-v9 sparc has no instruction for that. CONFIG_FUTEX
-was therefore made to depend on !(SPARC32 && SMP).
+The trap is userspace ABI rather than an internal kernel facility, so
+write down what it promises: the instruction and trap type, the register
+convention, the failure cases, what the AT_HWCAP bit means, and the limits
+a caller has to work within.
 
-Now that the kernel owns a compare-and-swap on behalf of userspace, the
-futex code can use the same mechanism. Where the cpu lacks the
-instruction both sides serialise on the lock array used by the trap type
-0x91 handler; both callers go through sparc32_atomic_lock(), so the two
-hashes cannot drift apart, parisc keeps the same invariant with a comment
-asking that its futex hash match its LWS code.
-
-Where the cpu has the instruction that lock cannot serve for the
-read-modify-write. A binary built for such a cpu does its own casa and
-knows nothing about the array, so a lock, get_user, put_user, unlock
-sequence can lose that binary's update between the two accesses while both
-operations appear to have succeeded and FUTEX_WAKE_OP defines its update
-of uaddr2 as atomic. arch_futex_atomic_op_inuser() therefore retries a
-casa until the word is still the one the new value was computed from, the
-way sparc64 does it. Only the pre-v9 path takes the lock, where it is
-correct because userspace takes the same lock through the trap.
-
-Both entry points are called with page faults already disabled, so the
-user accesses fail rather than sleeping under the lock.
-
-With a real cmpxchg available the Kconfig dependency can go, which is what
-lets FUTEX_PI and robust futexes be built for this configuration rather
-than refused. Their runtime behaviour here has not been tested.
-
-One gap is known and not closed here.
-
-futex_robust_unlock() clears the futex word with
-unsafe_atomic_store_release_user(), before the hash bucket is locked and
-without going through either helper added here. SPARC32 currently uses
-the generic implementation of unsafe_atomic_store_release_user(), which
-ultimately performs a plain user-memory store. On a no-CASA SMP system
-that store does not acquire the lock used by the SPARC32 software-CAS
-implementation. It can therefore occur between the trap handler's load
-and conditional store, allowing the CAS to overwrite the unlock:
-
-  cpu 0, trap compare-and-swap        cpu 1, robust unlock
-
-  take sparc32_atomic_lock(uaddr)
-  read *uaddr -> T
-                                      store 0 -> *uaddr, no lock
-  compare against T succeeds
-  store T | FUTEX_WAITERS -> *uaddr
-  release the lock, report success
-
-Neither order of those two operations permits that result, so the missing
-serialisation is what produced it. The flag itself is not gated
-CONFIG_FUTEX_ROBUST_UNLOCK covers only the rseq fixup path, so dropping
-the Kconfig dependency is what exposes this on SPARC32 SMP. It has not
-been observed in practice; it is reported because it follows from the
-implementation.
-
-The requirement is only that these two operations agree on how they
-serialise access to the word. The macro is overridable, so SPARC32 could
-supply its own definition and keep this inside the architecture; whether
-that is preferable to a futex-specific interface is a question for the
-futex maintainers, and is asked rather than guessed at.
+Several of those limits are easy to miss. Replacing the __atomic_* helper
+symbols does not by itself route every atomic write through the trap,
+because the compiler can expand some of them inline and covering libc's
+own uses is a different scope from covering application code built with
+atomic builtins. The service is one aligned 32-bit word, which is not the
+same as general byte and halfword atomics. The guarantee is indivisibility
+of that one word and no ordering beyond it. And futex_robust_unlock()
+currently writes the futex word without taking the lock the trap uses, so
+that one kernel path is outside the guarantee.
 
 Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- arch/sparc/include/asm/futex_32.h | 137 +++++++++++++++++++++++++++++-
- init/Kconfig                      |   1 -
- 2 files changed, 135 insertions(+), 3 deletions(-)
+ Documentation/arch/sparc/cas-trap.rst | 163 ++++++++++++++++++++++++++
+ Documentation/arch/sparc/index.rst    |   1 +
+ 2 files changed, 164 insertions(+)
+ create mode 100644 Documentation/arch/sparc/cas-trap.rst
 
-diff --git a/arch/sparc/include/asm/futex_32.h b/arch/sparc/include/asm/futex_32.h
-index 6a332a9f099c..35ff08a6b2bd 100644
---- a/arch/sparc/include/asm/futex_32.h
-+++ b/arch/sparc/include/asm/futex_32.h
-@@ -1,6 +1,139 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
- #ifndef _ASM_FUTEX_H
- #define _ASM_FUTEX_H
+diff --git a/Documentation/arch/sparc/cas-trap.rst b/Documentation/arch/sparc/cas-trap.rst
+new file mode 100644
+index 000000000000..f09d81e8f1ed
+--- /dev/null
++++ b/Documentation/arch/sparc/cas-trap.rst
+@@ -0,0 +1,163 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++=================================
++The sparc32 compare-and-swap trap
++=================================
++
++Pre-v9 sparc has no compare-and-swap instruction.  A lock held inside one
++process cannot make a word atomic against another process mapping the same
++page, and a lock kept inside the word itself costs value bits, so the kernel
++performs the operation instead.  parisc provides the same service for the same
++reason.
++
++Interface
++=========
++
++``ta 0x11`` - software trap 0x11, trap type 0x91, ``SP_TRAP_CAS`` in
++``asm/traps.h`` - asks the kernel to compare and swap one 32-bit word:
++
++=======  =========================================
++``%o0``  word aligned user address
++``%o1``  expected value
++``%o2``  new value
++=======  =========================================
++
++On return the carry bit is clear and ``%o0`` holds the value that was found at
++the address.  The caller compares it against what it expected to learn whether
++the swap happened; there is no separate success flag.
++
++Registers
++---------
++
++``%o0`` is read and written.  ``%o1`` and ``%o2`` are read and are not
++modified.  Every other windowed and global register is preserved across the
++trap.  The integer condition codes are written - that is how success and
++failure are reported - and must be treated as clobbered.
++
++An inline-assembly wrapper therefore wants ``%o0`` as an in/out operand,
++``%o1`` and ``%o2`` as inputs, and both ``"cc"`` and ``"memory"`` in the
++clobber list, the latter so the compiler does not move accesses across the
++operation.
++
++On failure the carry bit is set and ``%o0`` holds an error number:
++
++==========  =========================================
++``EINVAL``  the address is not word aligned
++``EFAULT``  the memory access could not be completed
++==========  =========================================
++
++A successful return does not establish that the mapping is writable.  On the
++software path the kernel writes only when the comparison succeeds, so a
++mismatching value on a read-only mapping can be returned without the kernel
++ever discovering that the mapping could not be written.  The two
++implementations are not required to agree about an invalid operand: pass an
++aligned word in memory that is both readable and writable.
++
++The operation is atomic against another process issuing the same trap, against
++the futex operations in ``asm/futex_32.h``, and - on a cpu that implements
++``casa`` - against a binary using that instruction directly.
++
++The service guarantees an indivisible compare-and-swap on the addressed word
++under the participation rules below.  It does not provide any additional
++acquire, release or full-barrier guarantee for other memory locations.
++Userspace must supply whatever ordering the operation it is implementing
++requires.
++
++One kernel path does not participate.  ``futex_robust_unlock()`` clears the
++futex word through ``unsafe_atomic_store_release_user()``, for which sparc32
++uses the generic definition - ultimately a plain user store.  On a no-casa SMP
++system that store does not acquire the lock this trap uses, so it can land
++between the trap's load and its conditional store, and the compare-and-swap
++then overwrites the unlock while still reporting success.
++
++On no-casa SMP systems the non-PI robust-unlock operations
++``FUTEX_UNLOCK_WAKE_LIST32`` and ``FUTEX_UNLOCK_BITSET_LIST32``, including
++their private variants, therefore do not serialise with the software-CAS lock
++domain.  Their store can race with a trap-based compare-and-swap, and equally
++with the lock-backed operations in ``asm/futex_32.h``, which take the lock but
++still load and store separately.
++
++The integration point for this store remains an open question for review.
++
++What userspace has to do as well
++================================
++
++On a cpu without ``casa`` the kernel does the swap under a lock of its own, and
++**an ordinary store does not take that lock**::
++
++	trap                        another thread's plain store
++
++	lock
++	read word -> A
++	                            store B -> word
++	write C -> word
++	unlock
++
++``B`` is lost, and no ordering of an atomic compare-and-swap and an atomic
++store makes that a legal outcome.
++
++So userspace using this service to build atomic operations must build *every*
++atomic write from it, not just compare-and-exchange: an atomic store and an
++atomic exchange each become a compare-and-swap retry loop.  An implementation
++that routes read-modify-writes through the trap but leaves atomic stores as
++plain stores is not atomic, and the failure is silent.
++
++This does not apply to a cpu that has ``casa``, where the kernel uses the
++instruction and userspace can too.
++
++Replacing the ``__atomic_*`` helpers is not sufficient
++-----------------------------------------------------
++
++Providing replacement ``__atomic_store_4`` and ``__atomic_exchange_4`` symbols
++does not by itself route every atomic write through the trap.  gcc can expand
++an atomic store to a plain store, a 32-bit atomic exchange to ``swap``, and an
++atomic test-and-set to ``ldstub`` on v8.  ``swap`` and ``ldstub`` are
++themselves atomic, but they do not take the kernel's lock and so do not exclude
++against its separate read and write.  A call the compiler never emits cannot be
++intercepted.
++
++Two different integration scopes follow from that, and they are not
++interchangeable.  Changing libc's internal atomic macros covers libc's own
++uses.  It does not change application code compiled with atomic builtins; that
++needs compiler support - the possibility Andreas Larsson raised in 2019 - or a
++build that avoids the inline expansions.
++
++One aligned word is not general byte and halfword atomics
++--------------------------------------------------------
++
++The service operates on one naturally aligned 32-bit word.  A byte or halfword
++atomic synthesised by read-modify-writing its containing word is not safe
++merely because every atomic on the target uses the trap::
++
++	word:  [ atomic byte A | ordinary byte B | ... ]
++
++	cpu 0                             cpu 1
++
++	read the whole word under the lock
++	                                  plain store to B
++	write the whole word back,
++	  including the old B
++
++The ordinary writer of the neighbouring object ``B`` has no reason to
++participate, and its store is lost.  Byte and halfword atomics built this way
++need either width-aware accesses sharing this lock domain, or storage rules
++that give the atomic object its containing word to itself.
++
++Availability
++============
++
++``AT_HWCAP`` carries ``HWCAP_SPARC_CASTRAP`` (0x10000000) when the kernel
++implements the trap.  Userspace must consult it rather than probing, because
++there is no safe way to probe:
++
++- on a kernel without this support the trap is fatal;
++- on sparc64 a 32-bit process reads its hwcap word from ``asm/elf_64.h``, where
++  the bit is reserved and always clear, and ``ta 0x11`` there is not an illegal
++  instruction but the old 64-bit system call trap.
++
++The bit describes the kernel service, not the hardware.  It is set whether or
++not the cpu has ``casa``, because a binary built for plain v8 cannot use that
++instruction even on a cpu that has it.  A binary that does have ``casa``
++available - one built for LEON3 - should use it inline and ignore the bit
++entirely; the kernel uses the instruction too where it exists, so the two agree
++on the same word.
+diff --git a/Documentation/arch/sparc/index.rst b/Documentation/arch/sparc/index.rst
+index ae884224eec2..3a7d6df91a84 100644
+--- a/Documentation/arch/sparc/index.rst
++++ b/Documentation/arch/sparc/index.rst
+@@ -7,6 +7,7 @@ Sparc Architecture
  
--#include <asm-generic/futex.h>
-+#include <linux/futex.h>
-+#include <linux/uaccess.h>
-+#include <asm/errno.h>
-+#include <asm/cas_32.h>
-+#include <asm/cpu_type.h>
+    console
+    adi
++   cas-trap
  
--#endif
-+/* These share the compare-and-swap trap's lock array and must hash
-+ * identically to it; see asm/cas_32.h.
-+ */
-+
-+static inline int sparc32_futex_op(int op, int oparg, u32 oldval, u32 *newval)
-+{
-+	switch (op) {
-+	case FUTEX_OP_SET:
-+		*newval = oparg;
-+		break;
-+	case FUTEX_OP_ADD:
-+		*newval = oldval + oparg;
-+		break;
-+	case FUTEX_OP_OR:
-+		*newval = oldval | oparg;
-+		break;
-+	case FUTEX_OP_ANDN:
-+		*newval = oldval & ~oparg;
-+		break;
-+	case FUTEX_OP_XOR:
-+		*newval = oldval ^ oparg;
-+		break;
-+	default:
-+		return -ENOSYS;
-+	}
-+
-+	return 0;
-+}
-+
-+static inline int
-+arch_futex_atomic_op_inuser(int op, int oparg, int *oval, u32 __user *uaddr)
-+{
-+	raw_spinlock_t *lock;
-+	unsigned long flags;
-+	u32 oldval, newval, prev;
-+	int ret = 0;
-+
-+	if (sparc32_has_casa) {
-+		if (!access_ok(uaddr, sizeof(u32)))
-+			return -EFAULT;
-+
-+		if (unlikely(get_user(oldval, uaddr) != 0))
-+			return -EFAULT;
-+
-+		/* Retry until the word still holds what newval was computed
-+		 * from, making the read-modify-write one atomic step.
-+		 */
-+		for (;;) {
-+			ret = sparc32_futex_op(op, oparg, oldval, &newval);
-+			if (ret)
-+				return ret;
-+
-+			if (unlikely(__sparc32_casa_user(uaddr, oldval,
-+							 newval, &prev) != 0))
-+				return -EFAULT;
-+
-+			if (likely(prev == oldval))
-+				break;
-+
-+			oldval = prev;
-+		}
-+
-+		*oval = oldval;
-+		return 0;
-+	}
-+
-+	lock = sparc32_atomic_lock(uaddr);
-+	raw_spin_lock_irqsave(lock, flags);
-+
-+	if (unlikely(get_user(oldval, uaddr) != 0)) {
-+		ret = -EFAULT;
-+		goto out;
-+	}
-+
-+	ret = sparc32_futex_op(op, oparg, oldval, &newval);
-+	if (ret)
-+		goto out;
-+
-+	if (unlikely(put_user(newval, uaddr) != 0))
-+		ret = -EFAULT;
-+
-+out:
-+	raw_spin_unlock_irqrestore(lock, flags);
-+
-+	if (!ret)
-+		*oval = oldval;
-+
-+	return ret;
-+}
-+
-+static inline int
-+futex_atomic_cmpxchg_inatomic(u32 *uval, u32 __user *uaddr,
-+			      u32 oldval, u32 newval)
-+{
-+	raw_spinlock_t *lock;
-+	unsigned long flags;
-+	u32 val;
-+
-+	if (!access_ok(uaddr, sizeof(u32)))
-+		return -EFAULT;
-+
-+	/* casa is atomic against userspace's own; a lock of ours is not. */
-+	if (sparc32_has_casa) {
-+		if (__sparc32_casa_user(uaddr, oldval, newval, &val))
-+			return -EFAULT;
-+		*uval = val;
-+		return 0;
-+	}
-+
-+	lock = sparc32_atomic_lock(uaddr);
-+	raw_spin_lock_irqsave(lock, flags);
-+
-+	if (unlikely(get_user(val, uaddr) != 0)) {
-+		raw_spin_unlock_irqrestore(lock, flags);
-+		return -EFAULT;
-+	}
-+
-+	if (val == oldval && unlikely(put_user(newval, uaddr) != 0)) {
-+		raw_spin_unlock_irqrestore(lock, flags);
-+		return -EFAULT;
-+	}
-+
-+	raw_spin_unlock_irqrestore(lock, flags);
-+
-+	*uval = val;
-+	return 0;
-+}
-+
-+#endif /* _ASM_FUTEX_H */
-diff --git a/init/Kconfig b/init/Kconfig
-index 8583d9f06c52..9eb8086af7db 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -1875,7 +1875,6 @@ config BASE_SMALL
+    oradax/oracle-dax
  
- config FUTEX
- 	bool "Enable futex support" if EXPERT
--	depends on !(SPARC32 && SMP)
- 	default y
- 	imply RT_MUTEXES
- 	help
 -- 
 2.43.0
 
