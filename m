@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBD443B4BD
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690AA415F35
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143420; cv=none; b=FXZs3Ra+/VuaBlejeHmwXxHal56K2V/nUiergvmfk/vNPMIjD60YeS1zKi8jkdCFI06xyMR5Zl1SHXC2On7exJSWumFtwHRhQpqNeaSaK2yzda1fY+BQ6LhLjTQnLZkO+cGTeG+0eZaEAEVOOJbxsTyBR/aOV+BMAZteYdFYuKo=
+	t=1790143418; cv=none; b=pO1A+veReTG+n8CanRFtBfJq9BZyilqKU7h6CHIKNSl55nC910toxTiqizqlZTOVqCyKTNUj1B3UWaOUBzN0QN6xPGPhMwqAR0hkVlOmFNv9+zyrNELsASBCy+EXHNTSbF5L5+AaIc9uSQC6amj6yeqPQnmtd/7OS3dQ1E+5+mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143420; c=relaxed/simple;
-	bh=XxLdUmBno4bd5Qj5g1RgFgK0RqMw0Dv2kgbnplqeGkw=;
+	s=arc-20240116; t=1790143418; c=relaxed/simple;
+	bh=4Bxu09lDN3sGYhPbkWjN2XGPea3D6GgYqM6hQhRqWHs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hcsULHVwh/T75akMcP/b++r/HHNWyFU22yRp+PSML8byYLxiASRrl+QAQwytWaUEfuUbsDM2N+aU9c7zxlRWAieee7Sta7nX0quqeeFmA6OU00gkWtqZduQpB/CFG7pzfHCIEDCHs2GPth/dVFR86VsQZZR7JLcBfxF5ySLiQZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mMxIHG0T; arc=none smtp.client-ip=117.135.210.5
+	 MIME-Version; b=Kjtr7vyg5r49iS2twZeKRNIx+y4709hZoPJ+h/ohvRB59bMnYJXHOApzf/vr81WivMRbU/FJhIxHUR96E5yNX6RNhH0Q0bXU8b5Q86NtS4eQP0wW6IxikUSnXygOP7FAlUtHQam8XRYsrQ3KeIYDeEAwd8Sf708YAa7LEv1LQtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LsCz8QFC; arc=none smtp.client-ip=117.135.210.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mMxIHG0T"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LsCz8QFC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ye
-	bFd7WMTqJxaSa+0EPIQ3YSpYYSMXtcX0gRL2DMfBE=; b=mMxIHG0TBsR1+IGJt2
-	n+x/gtx0c0qODQpDIfoADyluDgExD1Ukg0LmCUDtcTxXKcgJHZ0X4cHZFdA0FBDG
-	WAtR/QN6y3a32iW5aLKcDZ1csr5XiAlbX/08igH2n8PGGXBmqPmQGbDS8IUeSVj1
-	RMaSS0FQTVNfgEj1V5lX8z+yg=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=5H
+	pexEt4aloWm+EqmZ+/bxGP1VV1dZYIoQw3Ij9JXjc=; b=LsCz8QFCI6SGBJdQve
+	C/FWbmr9GxWUCY1TQwqErywH2rKJbluEplha0V36xpcl8GxymbKMFtrf8glPciw7
+	tlrWgG7N0hA+7PHCl/hpkqdpNKzxDy/PbWC8BbdwG8d/KoPz3jiyVhzaQ2h0RMIC
+	BuV+2q5gaimYKUqDe1vD11MVo=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgCH_E+Ia7NqXdW_Aw--.58316S4;
-	Wed, 23 Sep 2026 14:02:56 +0800 (CST)
+	by gzsmtp4 (Coremail) with SMTP id PygvCgCH_E+Ia7NqXdW_Aw--.58316S6;
+	Wed, 23 Sep 2026 14:02:59 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -32,9 +32,9 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	chenxiaosong@chenxiaosong.com,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 02/10] ntfs: validate EA chains and link zero-terminated tails
-Date: Wed, 23 Sep 2026 14:02:38 +0800
-Message-ID: <20260923060246.2499192-3-liubaolin12138@163.com>
+Subject: [PATCH v4 04/10] ntfs: preserve EA attribute lookup errors
+Date: Wed, 23 Sep 2026 14:02:40 +0800
+Message-ID: <20260923060246.2499192-5-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260923060246.2499192-1-liubaolin12138@163.com>
 References: <20260923060246.2499192-1-liubaolin12138@163.com>
@@ -45,219 +45,130 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgCH_E+Ia7NqXdW_Aw--.58316S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtrWDuw1DWw1fWw4DZryxXwb_yoW7uF4UpF
-	9Iy3s8tr4rJrnrGFnakw4DXayF9397WryUK34xKw1Ikr1qqr15tas09F9a9ayFy3ykAr1r
-	tFZ8tFs5uF1UAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jgJ5rUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hCGUWqza5ARwAAA3e
+X-CM-TRANSID:PygvCgCH_E+Ia7NqXdW_Aw--.58316S6
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuryxurWxtr4UXr13Aw4fXwb_yoW5KrW7pF
+	yfGry3twsxX3ZxKFn7tr1DX3WYvas7GryUKr9rK3Z2kr1rt34Dtw15KF9Y9FyFyrWrA340
+	gF4UKay7Cr47Xr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjBTOUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwROGUWqza5O9NgAA3v
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-A zero next-entry offset terminates an EA list. Appending an entry
-without linking the old tail makes the new entry unreachable. Invalid
-entries are also treated as missing names, allowing setters to proceed
-on corrupt metadata.
+ntfs_attr_exist() treats lookup failures as absence. Using it while
+updating EAs can select creation or removal paths after an allocation or
+I/O failure.
 
-Validate the entire chain before modifying it and connect a zero tail to
-the append position. Check name terminators and retain the full tail
-span when removing an entry. Return EUCLEAN for malformed EA structures
-and inconsistent information lengths, preserving that error through the
-get, set and list paths. Keep ENOENT for a missing name and translate it
-to ENODATA only at the xattr read boundary. Preserve lower-level read
-errors.
-
-Reuse the same full-chain validation in ntfs_listxattr(), including
-size-only queries, before copying names. Reject malformed lists with
-EUCLEAN instead of returning an empty or partial list.
+Use an EA-local lookup helper that preserves errors from mapping the MFT
+record, allocating the search context and looking up the attribute.
+Check both EA attributes before modifying either and return EUCLEAN if
+only one exists. Keep the known presence state for the final update.
 
 Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 ---
- fs/ntfs/ea.c | 81 +++++++++++++++++++++++++++++++---------------------
- 1 file changed, 48 insertions(+), 33 deletions(-)
+ fs/ntfs/ea.c | 51 ++++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 36 insertions(+), 15 deletions(-)
 
 diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index bb97df3045a0..2ee700f8227e 100644
+index 98ca9e4f8d25..6f7273f754ae 100644
 --- a/fs/ntfs/ea.c
 +++ b/fs/ntfs/ea.c
-@@ -53,10 +53,13 @@ static int ntfs_ea_lookup(char *ea_buf, s64 ea_buf_size, const char *name,
- 	loff_t offset, p_ea_size;
- 	unsigned int next;
- 
-+	if (!ea_buf_size)
-+		return -ENOENT;
-+
- 	offset = 0;
- 	do {
- 		if (ea_buf_size - offset < sizeof(struct ea_attr))
--			break;
-+			return -EUCLEAN;
- 
- 		p_ea = (const struct ea_attr *)&ea_buf[offset];
- 		next = le32_to_cpu(p_ea->next_entry_offset);
-@@ -64,31 +67,31 @@ static int ntfs_ea_lookup(char *ea_buf, s64 ea_buf_size, const char *name,
- 
- 		if (p_ea_size < sizeof(struct ea_attr) ||
- 		    offset + p_ea_size > ea_buf_size)
--			break;
-+			return -EUCLEAN;
- 
- 		if ((s64)p_ea->ea_name_length + 1 >
- 		    p_ea_size - offsetof(struct ea_attr, ea_name))
--			break;
-+			return -EUCLEAN;
- 
- 		actual_size = ALIGN(struct_size(p_ea, ea_name, 1 + p_ea->ea_name_length +
- 					le16_to_cpu(p_ea->ea_value_length)), 4);
--		if (actual_size > p_ea_size)
--			break;
-+		if (actual_size > p_ea_size ||
-+		    p_ea->ea_name[p_ea->ea_name_length])
-+			return -EUCLEAN;
- 
--		if (p_ea->ea_name_length == name_len &&
-+		if (name && p_ea->ea_name_length == name_len &&
- 		    !memcmp(p_ea->ea_name, name, name_len)) {
- 			*ea_offset = offset;
--			*ea_size = next ? next : actual_size;
-+			*ea_size = p_ea_size;
- 
- 			if (ea_buf_size < *ea_offset + *ea_size)
--				goto out;
-+				return -EUCLEAN;
- 
- 			return 0;
- 		}
- 		offset += next;
- 	} while (next > 0 && offset < ea_buf_size);
- 
--out:
- 	return -ENOENT;
+@@ -181,6 +181,29 @@ static inline int ea_packed_size(const struct ea_attr *p_ea)
+ 	return 5 + p_ea->ea_name_length + le16_to_cpu(p_ea->ea_value_length);
  }
  
-@@ -126,7 +129,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
- 		return PTR_ERR(p_ea_info);
- 	if (ea_info_size != sizeof(struct ea_information)) {
- 		kvfree(p_ea_info);
--		return -EIO;
-+		return -EUCLEAN;
- 	}
- 
- 	ea_info_qlen = le32_to_cpu(p_ea_info->ea_query_length);
-@@ -137,7 +140,7 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
- 		return PTR_ERR(ea_buf);
- 
- 	if (ea_info_qlen > all_ea_size) {
--		err = -EIO;
-+		err = -EUCLEAN;
- 		goto free_ea_buf;
- 	}
- 
-@@ -162,7 +165,8 @@ static int ntfs_get_ea(struct inode *inode, const char *name, size_t name_len,
- 		return ea_value_len;
- 	}
- 
--	err = -ENODATA;
-+	if (err == -ENOENT)
-+		err = -ENODATA;
- free_ea_buf:
- 	kvfree(ea_buf);
- 	return err;
-@@ -216,7 +220,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 			goto out;
- 		}
- 		if (ea_info_size != sizeof(struct ea_information)) {
--			err = -EIO;
-+			err = -EUCLEAN;
- 			goto out;
- 		}
- 
-@@ -255,12 +259,29 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 	}
- 
- 	if (ea_info_qsize > all_ea_size) {
--		err = -EIO;
-+		err = -EUCLEAN;
++/* Unlike ntfs_attr_exist(), preserve lookup errors. */
++static int ntfs_ea_attr_lookup(struct ntfs_inode *ni, __le32 type)
++{
++	struct ntfs_attr_search_ctx *ctx;
++	struct mft_record *mrec;
++	int err;
++
++	mrec = map_mft_record(ni);
++	if (IS_ERR(mrec))
++		return PTR_ERR(mrec);
++	ctx = ntfs_attr_get_search_ctx(ni, mrec);
++	if (!ctx) {
++		err = -ENOMEM;
 +		goto out;
 +	}
++	err = ntfs_attr_lookup(type, AT_UNNAMED, 0, CASE_SENSITIVE,
++			       0, NULL, 0, ctx);
++	ntfs_attr_put_search_ctx(ctx);
++out:
++	unmap_mft_record(ni);
++	return err;
++}
 +
-+	/* Validate the whole chain before modifying it, including its tail. */
-+	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &ea_off,
-+			     &ea_size);
-+	if (err != -ENOENT)
- 		goto out;
-+	/* A zero tail offset must be linked before appending another EA. */
-+	for (ea_off = 0; ea_off < ea_info_qsize; ea_off += ea_size) {
-+		p_ea = (struct ea_attr *)(ea_buf + ea_off);
-+		ea_size = le32_to_cpu(p_ea->next_entry_offset);
-+		if (!ea_size) {
-+			ea_size = ea_info_qsize - ea_off;
-+			p_ea->next_entry_offset = cpu_to_le32(ea_size);
-+		}
- 	}
+ /*
+  * Set a new EA, and set EA_INFORMATION accordingly
+  *
+@@ -198,7 +221,8 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ {
+ 	struct ntfs_inode *ni = NTFS_I(inode);
+ 	struct ea_information *p_ea_info = NULL;
+-	int ea_packed, err = 0;
++	int ea_packed, err = 0, ea_err;
++	bool has_ea;
+ 	struct ea_attr *p_ea;
+ 	u32 ea_info_qsize = 0;
+ 	char *ea_buf = NULL;
+@@ -211,7 +235,16 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 	if (name_len > 255)
+ 		return -ENAMETOOLONG;
  
- 	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, name, name_len, &ea_off,
- 			&ea_size);
+-	if (ntfs_attr_exist(ni, AT_EA_INFORMATION, AT_UNNAMED, 0)) {
++	err = ntfs_ea_attr_lookup(ni, AT_EA_INFORMATION);
 +	if (err && err != -ENOENT)
-+		goto out;
- 	if (ea_info_qsize && !err) {
- 		if (flags & XATTR_CREATE) {
- 			err = -EEXIST;
-@@ -537,7 +558,7 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 		goto out;
- 	}
- 	if (ea_info_size != sizeof(struct ea_information)) {
--		err = -EIO;
-+		err = -EUCLEAN;
- 		goto out;
- 	}
++		return err;
++	ea_err = ntfs_ea_attr_lookup(ni, AT_EA);
++	if (ea_err && ea_err != -ENOENT)
++		return ea_err;
++	if (!err != !ea_err)
++		return -EUCLEAN;
++	has_ea = !err;
++	if (has_ea) {
+ 		p_ea_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
+ 						&ea_info_size);
+ 		if (IS_ERR(p_ea_info)) {
+@@ -230,15 +263,9 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 			ea_buf = NULL;
+ 			goto out;
+ 		}
+-		if (!ea_buf) {
+-			ea_info_qsize = 0;
+-			kvfree(p_ea_info);
+-			goto create_ea_info;
+-		}
  
-@@ -550,32 +571,26 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- 		goto out;
- 	}
+ 		ea_info_qsize = le32_to_cpu(p_ea_info->ea_query_length);
+ 	} else {
+-create_ea_info:
+ 		p_ea_info = kzalloc_obj(struct ea_information, GFP_NOFS);
+ 		if (!p_ea_info)
+ 			return -ENOMEM;
+@@ -249,12 +276,6 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 		if (err)
+ 			goto out;
  
--	if (ea_info_qsize > ea_buf_size || ea_info_qsize == 0)
-+	if (ea_info_qsize > ea_buf_size) {
-+		err = -EUCLEAN;
-+		goto out;
-+	}
-+
-+	/* Validate the entire chain, including size-only queries. */
-+	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &offset,
-+			     &ea_size);
-+	if (err != -ENOENT)
-+		goto out;
-+	err = 0;
-+	if (!ea_info_qsize)
- 		goto out;
- 
- 	offset = 0;
- 	do {
--		if (ea_info_qsize - offset < sizeof(struct ea_attr)) {
--			err = -EIO;
--			goto out;
+-		if (ntfs_attr_exist(ni, AT_EA, AT_UNNAMED, 0)) {
+-			err = ntfs_attr_remove(ni, AT_EA, AT_UNNAMED, 0);
+-			if (err)
+-				goto out;
 -		}
 -
- 		p_ea = (const struct ea_attr *)&ea_buf[offset];
- 		next = le32_to_cpu(p_ea->next_entry_offset);
- 		ea_size = next ? next : (ea_info_qsize - offset);
+ 		goto alloc_new_ea;
+ 	}
  
--		if (ea_size < sizeof(struct ea_attr) ||
--		    offset + ea_size > ea_info_qsize) {
--			err = -EIO;
--			goto out;
--		}
--
--		if ((int)p_ea->ea_name_length + 1 >
--			ea_size - offsetof(struct ea_attr, ea_name)) {
--			err = -EIO;
--			goto out;
--		}
--
- 		if (buffer) {
- 			if (ret + p_ea->ea_name_length + 1 > size) {
- 				err = -ERANGE;
+@@ -404,7 +425,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+ 	/*
+ 	 * no EA or EA_INFORMATION : add them
+ 	 */
+-	if (!ntfs_attr_exist(ni, AT_EA, AT_UNNAMED, 0)) {
++	if (!has_ea) {
+ 		err = ntfs_attr_add(ni, AT_EA, AT_UNNAMED, 0, ea_buf,
+ 				ea_info_qsize + new_ea_size);
+ 		if (err)
 -- 
 2.51.0
 
