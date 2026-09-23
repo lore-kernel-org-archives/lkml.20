@@ -1,84 +1,53 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mta1.migadu.com (out-44.mta1.migadu.com [95.215.58.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEF3566C79
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:24:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784C6541E72
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:25:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177089; cv=none; b=MKJ+lURUyHqp9KchMxx6oI9FEOYkjRRvMSBdM8bJR33KUTAdKVj8sLmhshTQgQyv5IdoXbRKUH3XYE9wWoze2WtP92dSIflIboOAprB1CCm9pNmKpyFlOhKjEgyZMcgUcPfJovcGX7+v72bsbiNf/tcrmcQd5b7z3lwqMVxOTto=
+	t=1790177141; cv=none; b=tVf0ni16u7j/ZI0fLWEUyHerdsZ37zM+CPrPwvxdc9IY4uW/fkFrPzaaDiKXMfW2B9iF4Ue4RbpsIIPFMbh1PsssoAJw8FFNbrwdqBxzcjc3iBaVVbdPSXH/zNO2rQXKFgPG18l3IcRgWd6cziaLWvELtnUsZB/iRzyQRTttHC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177089; c=relaxed/simple;
-	bh=L9jJiVOxZyUZuz1cElyCECjsSAjWfF9V54udftkhp64=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vFLVkxxC1lyxd/dNZJm/z1v9Of3R45svOLvCgqJQpkak20FP4yyrjLfeoXmNh4O/dJncJksHyMuhO5Gk+fKcGfheRJ/OARzJbcc8lZoA/6PG4LdIjEWz6Xc5SfYmAF1+h/bUx0J+W3QErk/P6gk1U0DkYlXEicG4cQo5AnD+qpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=WdojOx60; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	s=arc-20240116; t=1790177141; c=relaxed/simple;
+	bh=3ROL16dsAh+c8sg22iUPVfDiQwxBVc7mKsfDKO9pLq8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oyFbgot7AjiVT33grCQbXpz9u/WgTaoOmphA9WolmfKtYkdVMObMEm5QG1G9t8PLsZfeYnJjg6UG5tXZAYnJOQkE1yTsNcjCqPdFLbW9DrlZjnPq9GWzwKncxSQZ+XYO7C6e2D3MLiA855vBI9aKbUx0e0GHb4/0Gp1ZQEFx50Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=akao.au; spf=pass smtp.mailfrom=akao.au; dkim=pass (2048-bit key) header.d=akao.au header.i=@akao.au header.b=eh3PIzuJ; arc=none smtp.client-ip=95.215.58.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=akao.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=akao.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="WdojOx60"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e2406so5286555e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:24:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1790177083; x=1790781883; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+qgYEofzcD0eUBX9qHujAnDMeKk0KiqVJqZ/6o5oZEs=;
-        b=WdojOx60M1cABF+8zHfnpEiLRzOizhWk9Yvkk/Qbgu1g8Vu59KWMw2Nwza9TfFuRXd
-         jMHR2ZDG1ZbFUtqx6bxH71/a5EqdDnm2gZ+pTiTtvB2SS2EIBDS5/fiu05YRhpu2c3ie
-         P6VUiKo8dchHhq4WEdCi1MzmX1otH34UPlR2E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790177083; x=1790781883;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+qgYEofzcD0eUBX9qHujAnDMeKk0KiqVJqZ/6o5oZEs=;
-        b=2YcvIbX1FwbG0r2nuYefEg2eiy8PQeVqZJ0vl9Ws2v+yRRmFBb6+YXyO571csYAC7U
-         Ra/xvt6Yw3Ne8/aOaDB4Zn8cgCj73X9+d0AWzhPQzdTIZomCFfeDlSiy3d8v6ZRHP5vV
-         gaM/W/izm6/wm7uxqoL8bj1NgA3Vl0znFuDFivp5Xuccg+ahh50Iq9T7hhAZ8pireSK2
-         ItWg44nHNuGQTIrmBznEzzyBbpNkVfegOqN/DcPLon+6SheRdyLpRyBB+/OOI7gFCFrx
-         01qzfMDFCuGYoGKfgyIArCbnGp1CqumK5OuC0OW97cnqGE9oyr9ZayCM342/iHq+W2xA
-         PdIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ1/cfFRSYx5j8JllR3DJBvtgT5Il3HdIg8arkkg/M2zgxh1Je2A1VKb6dwffRiOgMv5mP/4Q19zKMyCE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mBuGyRSoI7JXx6SuDo2doj4tq4NEiGeXwV63hVluhgVIIZSOKC
-	rJnzB96ahEs2v5q+GgPTjw8rNyt4BinvdFk0u17eOFPkWZ7q8Xwf6cemHG5U829flcI=
-X-Gm-Gg: AYBFou0zc/Z+NEERURRR1wjX9WuQGle2fV1g5dk2BvaVRvvRdGYy8aa8zrYJYCu/kro
-	8PLH8K1b6zGVhcHdc6tefYIfX08y4vNlLyGl1/Vpg26ICEqvNDn4zWXQaqpIwqG+LjaLJbAttaW
-	LWdTd6NIph4FUMlF2L6nTOQRN9TQnviy+Dx6W+U7bd6JsR5kE8eSsnR8a890Wfn7olgzf059Kod
-	4dLfeAhX4/D+cVwXJt7QZDmPGRcuTT2IGqOne2nba3Ds9PenmMiAc/wRellBIHxGiufxWF4V5fA
-	7w4Y7/eIT+0IwSDRsiUfCX9XxFIQ7k3kl0P23dOu4d23ax4a2qcbky4DZEGhCrkIyJCvys/DZbG
-	ZKSgu15Lpi5jJT72WxdBz3Is/+NsUBPYtl4FZ7IwIOlq+nexlgY95HV8uJ0/3H6FmeZYBf00Kuo
-	sPtdkLKk3lcH8phnK5r+mpW/sjBCPA77OSmoLvSDSl+ydOgE31CzPugLWVy9SK/Qo9OLstLMWTF
-	Shd1SaXNkswUS1VCbRNmhkFa4ta2H/OJCctVUZHDNI1j9vOM0LPILJkUe2i09+Xn2/2T+Ip1aWB
-	1q2YeMQbnA4j
-X-Received: by 2002:a05:600d:8491:10b0:49f:ce79:7a8d with SMTP id 5b1f17b1804b1-49fde4acce8mr34646275e9.17.1790177083240;
-        Wed, 23 Sep 2026 08:24:43 -0700 (PDT)
-Received: from localhost.localdomain ([2001:b07:6474:ebbf:12f8:fcfa:728a:2514])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c446e1sm55582165e9.2.2026.09.23.08.24.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:24:42 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: linux-stm32@st-md-mailman.stormreply.com,
-	francesco.utel@engicam.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amarula@amarulasolutions.com,
-	domenico.acri@engicam.com,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=akao.au header.i=@akao.au header.b="eh3PIzuJ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3ROL16dsAh+c8sg22iUPVfDiQwxBVc7mKsfDKO9pLq8=;
+ c=simple/simple; d=akao.au;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790177132; v=1; x=1790781932;
+ b=eh3PIzuJdtkTzNASTqrfWxAHggwqNNw4+qddWx4WFrO/OwG7uAm8/REC+s2sbpQKwnqZ3yJ2
+ KgupTGEexkHjpo6w6bHo/WCtVcRQhJmJHnAvrLPOQ1Sojqp+KHYrh58abERCy2xGJ3vFtfmpuxA
+ ZrGM8dJuO9sPW3jQIcOIb4DNFQvoIOLEyiP4hjZTvQ2r/tyz6nHR4n3QAZilk9mDuf0mIiIYWyJ
+ JYRPlMD2IfSZpeKPbPD5XaNnC4/DHR2REZ2nb7eI97A+ORNvtjGIxSXEjtPgZbBcNG4LRD4og2V
+ 3sKUSH3UHl0EsRVuyGjslnXwMksW+XNYOdRbAPjDF03Rg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 80ca941ee9d5e72b;
+	Wed, 23 Sep 2026 15:25:23 +0000
+X-Mizu-Trace-ID: 80ca941ee9d5e72b
+X-Migadu-Flow: FLOW_OUT
+From: Charlie Garner <charlie@akao.au>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Marek Vasut <marex@nabladev.com>,
-	Conor Dooley <conor+dt@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	michael@amarulasolutions.com,
+	Conor Dooley <conor+dt@kernel.org>,
+	Val Packett <val@packett.cool>,
+	Laurentiu Tudor <laurentiu.tudor1@dell.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Subject: [PATCH 2/2] arm64: dts: st: add Engicam MicroGEA-STM32MP257D-RMM LVDS display overlay
-Date: Wed, 23 Sep 2026 17:23:48 +0200
-Message-ID: <20260923152435.563925-3-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923152435.563925-1-dario.binacchi@amarulasolutions.com>
-References: <20260923152435.563925-1-dario.binacchi@amarulasolutions.com>
+	Charlie Garner <charlie@akao.au>
+Subject: [PATCH 0/2] arm64: dts: qcom: Dell Inspiron 14 Plus 7441 backlight and touchscreen fixes
+Date: Thu, 24 Sep 2026 00:55:04 +0930
+Message-ID: <20260923152506.44989-1-charlie@akao.au>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,128 +56,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add an overlay for the variant fitted with the AM-1280800W8TZQW-T00H
-10.1" 1280x800 LVDS panel. Its touchscreen is connected over USB, so
-there is no touchscreen node.
+Two fixes for the Dell Inspiron 14 Plus 7441.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Patch 1 gives the eDP panel a PWM backlight. The AUO B140QAX01.H panel
+only supports PWM-pin brightness, so the DP AUX fallback registers a
+backlight with max_brightness 0 and brightness cannot be changed. The PWM
+wiring (PMK8550 gpio5 func3, pmk8550_pwm) matches the HP OmniBook X14.
+It goes in the Inspiron DT rather than x1-dell-thena.dtsi, because the
+Latitude 7455 was submitted with a different panel and a working
+backlight, and only the Inspiron has been tested. The dtsi only gains a
+panel label, which leaves the Latitude DTB functionally unchanged. If a
+Latitude 7455 owner can confirm the same PWM wiring, this can move to the
+dtsi.
 
----
+Patch 2 moves the touchscreen from 0x10, where nothing responds, to 0x09.
+That is where the HID-over-I2C device answers, where the firmware's DSDT
+places it on this machine, and where the Latitude 7455 DT already has the
+same part.
 
- arch/arm64/boot/dts/st/Makefile               |  6 ++
- ...gea-rmm-overlay-am-1280800w8tzqw-t00h.dtso | 67 +++++++++++++++++++
- .../st/stm32mp257d-engicam-microgea-rmm.dts   |  2 +-
- 3 files changed, 74 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtso
+As far as I know, no Inspiron 14 Plus 7441 has its touchscreen at 0x10.
+The original node matches the CRD, XPS 13 9345 and T14s nodes the DT was
+based on.
 
-diff --git a/arch/arm64/boot/dts/st/Makefile b/arch/arm64/boot/dts/st/Makefile
-index 218ff7fdf576..7f657d2bd629 100644
---- a/arch/arm64/boot/dts/st/Makefile
-+++ b/arch/arm64/boot/dts/st/Makefile
-@@ -1,4 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0-only
-+stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h-dtbs := \
-+	stm32mp257d-engicam-microgea-rmm.dtb \
-+	stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtbo
-+
- stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a-dtbs := \
- 	stm32mp257d-engicam-microgea-rmm.dtb \
- 	stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtbo
-@@ -7,6 +11,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp215f-dk.dtb \
- 	stm32mp235f-dk.dtb \
- 	stm32mp257d-engicam-microgea-rmm.dtb \
-+	stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtb \
-+	stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtbo \
- 	stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtb \
- 	stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtbo \
- 	stm32mp257f-dk.dtb \
-diff --git a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtso b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtso
-new file mode 100644
-index 000000000000..7655c1bf56b1
---- /dev/null
-+++ b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtso
-@@ -0,0 +1,67 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+ * Copyright (C) 2026 Engicam srl
-+ *
-+ * Ampire AM-1280800W8TZQW-T00H 10.1" 1280x800 LVDS panel. Its touchscreen
-+ * controller is connected over USB.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/clock/st,stm32mp25-rcc.h>
-+
-+&{/} {
-+	panel-lvds {
-+		compatible = "ampire,am-1280800w8tzqw-t00h";
-+		backlight = <&backlight>;
-+		power-supply = <&reg_3v3>;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&lvds_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&framebuffer {
-+	clocks = <&rcc CK_BUS_LTDC>, <&rcc CK_KER_LTDC>,
-+		 <&rcc CK_BUS_LVDS>, <&rcc CK_KER_LVDSPHY>;
-+};
-+
-+&ltdc {
-+	status = "okay";
-+
-+	port {
-+		ltdc_out: endpoint {
-+			remote-endpoint = <&lvds_in>;
-+		};
-+	};
-+};
-+
-+&lvds {
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+
-+			lvds_in: endpoint {
-+				remote-endpoint = <&ltdc_out>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			lvds_out: endpoint {
-+				remote-endpoint = <&panel_in>;
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-index 4b39b6c482d6..87d4bac1c89b 100644
---- a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-@@ -43,7 +43,7 @@ chosen {
- 		#size-cells = <2>;
- 		ranges;
- 
--		framebuffer {
-+		framebuffer: framebuffer {
- 			compatible = "simple-framebuffer";
- 			clocks = <&rcc CK_BUS_LTDC>, <&rcc CK_KER_LTDC>;
- 			lcd-supply = <&reg_3v3>;
+Charlie Garner (2):
+  arm64: dts: qcom: x1e80100-dell-inspiron-14-plus-7441: add PWM
+    backlight
+  arm64: dts: qcom: x1e80100-dell-inspiron-14-plus-7441: fix touchscreen
+    i2c address
+
+ arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi   |  2 +-
+ .../x1e80100-dell-inspiron-14-plus-7441.dts   | 31 +++++++++++++++++--
+ 2 files changed, 30 insertions(+), 3 deletions(-)
+
+
+base-commit: 32afff1e816e10185bb571aa9d89dc2eb061d548
 -- 
-2.43.0
+2.55.0
 
