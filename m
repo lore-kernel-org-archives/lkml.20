@@ -1,262 +1,96 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8C249CF3A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9997349CF3A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:41:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790163667; cv=none; b=tLSDQ01Xl1ABcDCUFtRo0B9XH5/enGZK0SASAR1yRxVea6n3IrptK625nl8c6Pi9h8OqEvLwzGmx53SdO4XIvYvjetyTvDF4hgLzupdtnBGfg/QXt4n9mPOWFoLbpRhpUIn/4tZJazY17SNuzyJYztqhhiI7hxLxWk+RGUaCuhI=
+	t=1790163718; cv=none; b=dIkNv+ixmsvfL09TDPTh6s6Kp2idBCzHI8dV7mijNzmgorYrDjy1YQUkHBlw+fPp3kdQKQiWsyQND/LzSMn8UyiTEkqw595ML0uYx01gW7XwejqEDpLfFt1TjwcpErpDRgcrOv/lE2hV2+aaS/XBzKnDZQLgxu+ViB4E7gp4fkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790163667; c=relaxed/simple;
-	bh=ajL6f5/1RlB/VvJqhe4xL+NIeS0b7UDmyPv3vPbO+1E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O4MrjlkpHLWBHlhlPFgTdLweR5ZzpWZmjV4m3+0yzoE9XLZl1A3C4OPgkzn2bWgiRrxumfppf2JdquCYldvKeg9HYmKa9U5C2BFY73osieKwC1+51hiJN9JnbmRxEEIc3+Xrq3mMtcGp94dJU7L8qESzHxZs3Wnltd+A/e6RxdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=glMzn2Li; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="glMzn2Li"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8ZjZM1729651;
-	Wed, 23 Sep 2026 11:40:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=uQUtV0
-	wLTAkW4ZihQIXr/8Gts2bFI7i5cS9f3FCFtPg=; b=glMzn2LizC+W3RHCzqqjfd
-	VndhSWd/n2NW09LCNq3DSm5Hg2gdDfVGn0AO427IEUx50TnQNNnzvQGUjo18ekv0
-	ZTB5VfvP9QG+ud9oO6XPSTN7q0DOGxPyzwXHx7m3jzHskCXdBs06ORn0ulcRdI+/
-	zEecKscdc+7oVSrsuLAArbfwocpmyt7wkoalCi9eiC4iMh98qo189NhcaVa1D2+n
-	NtZI3n5XIPtz5ohFKL7v/0sePQN8zmegLYg7bl7QC/DkeW4WHPd4+udvKDHxdT52
-	rFA9dUQad19/s/hYZGtpvxKnqthoupZE4I0IApQTVjQpGfbC9DnHtygjD55RBR8w
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgqjdgr-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 11:40:34 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N95gWD005711;
-	Wed, 23 Sep 2026 11:40:34 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu8rj94-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 11:40:34 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NBeU2e45416794
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 11:40:30 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 50CD520043;
-	Wed, 23 Sep 2026 11:40:30 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C78D120040;
-	Wed, 23 Sep 2026 11:40:27 +0000 (GMT)
-Received: from [9.123.14.142] (unknown [9.123.14.142])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 23 Sep 2026 11:40:27 +0000 (GMT)
-Message-ID: <2d3a50a9-42c3-4f00-887e-56cf4a0bbe30@linux.ibm.com>
-Date: Wed, 23 Sep 2026 17:10:26 +0530
+	s=arc-20240116; t=1790163718; c=relaxed/simple;
+	bh=88RWzbn/+jTvfVn0/HFOlPVPnVyg9BLcXVLlqTv8hP8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IywRbWZo7emnNucZiaGX/CE3ZloeqFZkPjQmul4ItZQmpRjiD+1ZQLb/o4OIQY98m27AFmKaK62RqMO6JvX5vYHmxOIEVtZA6YUUpF6cjwR7gpDu6YzkaR0kexvjbB3n80+BOcUCIC42nXwDMG9cja3Sx+aai6ONJu8w406yKWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f43.google.com with SMTP id 71dfb90a1353d-5c82bb05ddaso662370e0c.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:41:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790163708; x=1790768508;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zh2KYVrSMhdvS8iHXuKJD1cdXsjz7/TJAFEy3igYvuU=;
+        b=UnyOY0ZL78DGEff/oDiTw4vVHqbwPG8S6n7mIhhftgso7GFC2nkZHZvrONoNLl+pTU
+         v+gcz2ALtg8/+UlVVy53fF39/5qHwR5nRJfyN68eyw9m3hjEDlFcA9uPQk8FMCGsO4Jw
+         TPctM7RZiJvac/D+nJ7IubJ1DZ5uLOHzVDUnzESqk+gwJ5K22C5TSJzxnKQr3aNfdA/G
+         BqBtg1WFHnxbYTxgJEcE8MDZ1JJNN48DhjdxzW809k0XTguQKFuy51HCnDcY37gqMwOA
+         m5GidvIifhVdyeo/2fXnbdHXQ2F75MXYWh/kM7dEXznMaK5RDy5HGGxOpos3jrU2PbKE
+         jV6A==
+X-Forwarded-Encrypted: i=1; AKwUvByFUHFiHPhMtDetr/VbCF8vzwvHgKgTOVnFkNcKgoOZhafjSlNpHt98eEZmj62x0ylMPCjzJdOmMmGjoLk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kx1a4K6W5wSsmG0tcOwB7D1Uioo2Dg5o3kbeZcWgkZQKbtdjcB
+	YisCmLjOWHho7bZC8bJkrsHwW7Zzc85kkITD+T7BPhZgtJOdy3Y30uIwUv8ooXrhcpI=
+X-Gm-Gg: AYBFou07wdb/f9hm7kgdrVZQnNFhBKy6bf+uPeDhfwvvtMUN3UjjZtBkk8W8qp7mqwO
+	C6Mrt5Qzss8QA27aNwIbOfwOK47Hpg9tXUSR++cm2zjnmLT1z6KpLTv2FYMXPQnaktt202ixRKE
+	tYDs23kafoODqkawtHXwG2+yVWISABOcDWjItAP+tycqvgesEn+mfCYbdwzRNjuBefGp/zzTOis
+	cWaEPCE4rCENwIxFdTNnCYTo8yIH5vp1pdxH8VgmC7iDycXjB9Ww9YAAewoMgGWWfk7LiI2pUVg
+	qnT82LQ/JfiMLmLaLo5HBh0VqfgF2IlTUGQ09NkBqMGFp4rU4o2u7ypBXUGgQxysLwTHQ85YZOL
+	G6I0ewrGvhZkoCLTAFSy/mjqPAvK1wvyjjdsrP36P2uFRVcgQxhJ3daFR41jRNQ/j9VzHLdNmiV
+	aylJKB/wgjs0BbGxVdGkH64rVjS+IyHAlWAaT6MH1HDsaLWY6+Kl7K64P1oXFWnaLAfgPS92VSO
+	5MBvruhIAALIbGH8BdH71H6p8OGrNqff3ZRw5sGoqoNnaAo
+X-Received: by 2002:a05:6123:2eb:b0:5c9:c60e:5cf8 with SMTP id 71dfb90a1353d-5c9f16c4fbemr3039961e0c.22.1790163707752;
+        Wed, 23 Sep 2026 04:41:47 -0700 (PDT)
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com. [74.125.226.235])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f0582b6bsm2866487e0c.18.2026.09.23.04.41.47
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 04:41:47 -0700 (PDT)
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-9832c759198so398695241.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:41:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzOg5gVRR9rF4MLQzzGwjLbMXjhx0yWPPSj0hjmJXoVuWxTIpAI2V6fjOKyOrvmrhLaI+IyR+93o7aRg9M=@vger.kernel.org
+X-Received: by 2002:a05:6102:4b04:b0:7a8:46fb:eb3e with SMTP id
+ ada2fe7eead31-7ac1e45b0aamr2120265137.36.1790163707075; Wed, 23 Sep 2026
+ 04:41:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/5] vfio/spapr_tce: Normalize EEH IOA error injection
- addresses
-To: Narayana Murty N <nnmlinux@linux.ibm.com>, mahesh@linux.ibm.com,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
-        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
-        alex@shazbot.org
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-        sbhat@linux.ibm.com, harshpb@linux.ibm.com
-References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
- <20260831065441.48654-3-nnmlinux@linux.ibm.com>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <20260831065441.48654-3-nnmlinux@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=G+OJgNk5 c=1 sm=1 tr=0 ts=6ab3bab3 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=l3H96H2cUKNrCSvcW0EA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0NiBTYWx0ZWRfXxS6RZlHtPU12
- 1IKpGSTX8eQldi8QrGYvRE/Bci1IZsyXHJHVTc2PDb0GFH4aBSJ1msPb7iGVAzEqZfOOwrmSsCJ
- WW660GqzFqL1yw8S0u2vghkfLWKb7jBm4A3/9vpQqOZZk+e45kjNc1CADG9P3BjjccP8uMsLEsE
- 6vmLWwB3mcJWligVtWSh35ZcMHl9rP6iCQWCdamE0gchwI0sphyNMeUK9n5vFbPjGePTkkPpAX7
- wbjR5I1DVS4e2+QhJc4Kzr3PT+kvb7HvnMM4ftq7+BWuez9OtoiL8z7ZGIOC4IL1H1tvm5ydHm1
- +1XksrD4NmcMvR+0XtzOYS/mkKS8ZfFy6Uo6ISCFylLGR6eSmPPvVLvWJw5ELrUOr6G3Mlt79nK
- /lH3tnBEp7QG0w17rrEDvf631bOdUm+uR7xdXeixo77x4bwK2H1SsvW7MJmCToidVjq/8Lx+RGo
- VfyAzX98uyl96P/zMFA==
-X-Proofpoint-ORIG-GUID: qI_qedNBfrEsZcQZ18wKcRJaU0cZqJFd
-X-Proofpoint-GUID: _JSxy0piIMu9Nl45dY4ZoBgVQQ8WxT4v
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0NiBTYWx0ZWRfX9OYT2UYe3Kqt
- 7spRObAabalkH03xOcGq/WLorXkLV28jes36u0UADLtHJdXoB7SrTLh2KcBPdEm10KLKWfoASCb
- GWD5kaf0xg6gE3XqY+tnQXvHgTxmxL0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230046
+References: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com> <20260921134432.50338-5-ayman.chaudhry.kc@renesas.com>
+In-Reply-To: <20260921134432.50338-5-ayman.chaudhry.kc@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 13:41:35 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVJxPOraiFRSUTJ_9J5Ft5TwpBVJhMHOUa2Vs9BywdvWg@mail.gmail.com>
+X-Gm-Features: AclHuK8SjZ9c_4ckHlrUMygRuUW85Xhsufq5Fr9074LRPmosifEbxSZ8cLmLsxE
+Message-ID: <CAMuHMdVJxPOraiFRSUTJ_9J5Ft5TwpBVJhMHOUa2Vs9BywdvWg@mail.gmail.com>
+Subject: Re: [PATCH v2 4/9] soc: renesas: Enable SYSC driver for r8a774a3
+To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-
-
-On 31/08/26 12:24, Narayana Murty N wrote:
-> VFIO_EEH_PE_INJECT_ERR receives a target address from userspace.  For
-> userspace such as QEMU, this address may be derived from the host Linux
-> BAR resource.  The platform EEH backends, however, expect the PCI/IOA
-> bus address used by firmware error-injection interfaces.
+On Mon, 21 Sept 2026 at 15:45, Ayman Chaudhry
+<ayman.chaudhry.kc@renesas.com> wrote:
+> Select SYSC_R8A774A3 config option if ARCH_R8A774A3 is enabled
+> so that System Controller driver is enabled on Renesas RZ/G2M v3.0 SoC.
 >
-> Normalize IOA/MMIO error-injection addresses in the sPAPR VFIO EEH
-> ioctl path before dispatching to eeh_pe_inject_err().  If the supplied
-> address is already a PCI bus BAR address it is left unchanged.  If it is
-> a Linux resource address, translate it to the corresponding PCI bus
-> address using the BAR-relative offset.
->
-> Keep the helper local to VFIO so the address semantics of other
-> in-kernel EEH callers are unchanged.  This provides common handling for
-> both pseries and PowerNV backends.
->
-> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
-> ---
->   drivers/vfio/vfio_iommu_spapr_tce.c | 90 +++++++++++++++++++++++++++++
->   1 file changed, 90 insertions(+)
->
-> diff --git a/drivers/vfio/vfio_iommu_spapr_tce.c b/drivers/vfio/vfio_iommu_spapr_tce.c
-> index 1c0eec228cc6..8a6cc856d7da 100644
-> --- a/drivers/vfio/vfio_iommu_spapr_tce.c
-> +++ b/drivers/vfio/vfio_iommu_spapr_tce.c
-> @@ -774,6 +774,85 @@ static long tce_iommu_create_default_window(struct tce_container *container)
->   	return ret;
->   }
->   
-> +static bool vfio_spapr_eeh_err_needs_addr_normalize(unsigned int type)
-> +{
-> +	if (type != EEH_ERR_TYPE_32 && type != EEH_ERR_TYPE_64)
-> +		return false;
-> +
-> +	return true;
-> +}
+> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Do we really need this function? It is only used once.
+Thanks, will queue in renesas-devel for v7.4.
 
-> +
-> +static int vfio_spapr_eeh_normalize_addr(struct eeh_pe *pe,
-> +					 unsigned long addr,
-> +					 unsigned long *normalized)
-> +{
-> +	struct pci_bus_region region;
-> +	struct eeh_dev *edev, *tmp;
-> +	struct pci_dev *pdev;
-> +	struct resource *res;
-> +	resource_size_t pci_start, pci_len;
-> +	resource_size_t res_start, res_len;
-> +	resource_size_t offset;
-> +	int bar;
-> +
-> +	if (!pe || !normalized)
-> +		return -EINVAL;
-> +
-> +	if (!addr) {
-> +		*normalized = addr;
-> +		return 0;
-> +	}
+Gr{oetje,eeting}s,
 
-This silently bypasses normalization for addr == 0. A comment on
-why zero is exempted would be helpful.
+                        Geert
 
-> +
-> +	eeh_pe_for_each_dev(pe, edev, tmp) {
-> +		pdev = eeh_dev_to_pci_dev(edev);
-> +		if (!pdev)
-> +			continue;
-> +
-> +		for (bar = 0; bar < PCI_STD_NUM_BARS; bar++) {
-> +			res = &pdev->resource[bar];
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-I'm not very familiar with this PCI resource regions, so quick question.
-is pdev->resource[] limited to PCI_STD_NUM_BARS?
-
-Also doesn't this need locking around the traversal? This dereferences
-pdev->resource with no lock held, what stops hot-removal or BAR
-reassignment racing this?
-
-> +
-> +			if (!resource_size(res))
-> +				continue;
-> +
-> +			if (!(res->flags & (IORESOURCE_MEM | IORESOURCE_IO)))
-> +				continue;
-> +
-> +			pcibios_resource_to_bus(pdev->bus, &region, res);
-> +
-> +			pci_start = region.start;
-> +			pci_len = resource_size(res);
-> +
-> +			/*
-> +			 * Case 1: userspace already supplied PCI/IOA
-> +			 * bus address.
-> +			 */
-> +			if ((resource_size_t)addr >= pci_start &&
-> +			    ((resource_size_t)addr - pci_start) < pci_len) {
-> +				*normalized = addr;
-> +				return 0;
-> +			}
-> +
-> +			/*
-> +			 * Case 2: userspace supplied Linux resource/CPU
-> +			 * address Convert it back to PCI/IOA bus address
-> +			 * before calling the platform EEH backend.
-> +			 */
-> +			res_start = res->start;
-> +			res_len = resource_size(res);
-> +
-> +			if ((resource_size_t)addr >= res_start &&
-> +			    ((resource_size_t)addr - res_start) < res_len) {
-> +				offset = (resource_size_t)addr - res_start;
-> +				*normalized = region.start + offset;
-> +
-> +				return 0;
-> +			}
-> +		}
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
->   static long vfio_spapr_ioctl_eeh_pe_op(struct iommu_group *group,
->   				       unsigned long arg)
->   {
-> @@ -818,6 +897,17 @@ static long vfio_spapr_ioctl_eeh_pe_op(struct iommu_group *group,
->   		if (copy_from_user(&op, (void __user *)arg, minsz))
->   			return -EFAULT;
->   
-> +		if (vfio_spapr_eeh_err_needs_addr_normalize(op.err.type)) {
-
-At this point eeh_pe_inject_err is still using eeh_pe_inject_mmio_error, 
-so why to normalize the address in this patch itself? Isn't this is a 
-good candidate for 4/5 patch?
-> +			unsigned long normalized;
-> +			long ret;
-> +
-> +			ret = vfio_spapr_eeh_normalize_addr(pe, op.err.addr, &normalized);
-> +			if (ret)
-> +				return ret;
-
-We should have error/debug log to tell eeh is not going through.
-
-> +
-> +			op.err.addr = normalized;
-> +		}
-> +
->   		return eeh_pe_inject_err(pe, op.err.type, op.err.func,
->   					 op.err.addr, op.err.mask);
->   	default:
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
