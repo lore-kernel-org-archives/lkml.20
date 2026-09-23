@@ -1,106 +1,101 @@
-Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD45951DB03
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:05:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF00519E02;
+	Wed, 23 Sep 2026 12:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165140; cv=none; b=ucdmCURedPOUHPoo67txyzKRGbO5oXYJkLGdYP/XFlmggng+dmtridKA46TUs7a/eDBAGXN1ZABalTeyzGHVJS6wWsbx9t6J4TN0oTtc76U5Sv7Qd+5/dGAUq4WEzQSJS2gqzwyt5S8XhYb5S5sP4UK/b0RREEx1K37wrcAxEzo=
+	t=1790165168; cv=none; b=QMVHeN6c2HZ7set2a/+Wviq6egGdEsutV9iLyTWjC+wYgHgZ9t48hc2Z6hIcg90QiKAWYQzJgt/uW4dOOdrDoaA7oFf/Zkc4Tj1vmASknR1GVVdLhyFGZgcaZZhPFpIJATjypQooT5T//o9c6rEfZbUlx9RtpXkc3DEa493g/HU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165140; c=relaxed/simple;
-	bh=u6BlPqfnX246IQYqasnk26G+irKQ6AhLrI1E4kh9qXc=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=SIycBRhzMuZTOtXa4CpLxjp6EDda4oO817yGYwWVIS2DRURuNfhVPXdCfHV9tN4K8jRq9X2Ab/BiZ98jm0hYisj9c+ptg3BbsjVUuHmtjFD0lYKjt3OEzUjzohTKY+KsJ3OTbKlJkMgxsJ8MyhVv/Ms+Ftgag8HuzA9+VF/siLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=T4lmsJ8P; arc=none smtp.client-ip=185.70.43.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1790165168; c=relaxed/simple;
+	bh=ANa3KUuk8p+uDvEN46/goxQBg8Ih7jBzmpzwd3Ms0OY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fEO1jzek2RAtcxcC0j2B9KLLuDbRGwmx3WYdNQ+sJLGNzgvLyV7Qt4qmSTbd34EIBU/my1W1INXbHs+lohVa0enxy8I0PQyAlE7W1JX8AdhisqpKlHf/VloW++vVNKNN9+XLi8/rAgf69g7u7W5sgypOXwZL/mAbY9+g2phuK4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DDbXR956; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="T4lmsJ8P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=yftbyle7ozcaznszoawf2llexq.protonmail; t=1790165125; x=1790424325;
-	bh=8mHgQgHYnmQVvZTt78PdSgMJEhjtqfge7wQlTrJctNo=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=T4lmsJ8PnezOqlkE1qX7cYNJi0joOgfkqcpBTbGx9TXfQngW+qn3KxTfKvCaEW33W
-	 fbTJDcEJkFnE85fYnvNbpqbK6jYQrihT9KeVLgUFKlE4le1HQRZr4YEUAjIdMdCUzC
-	 ap2kZ14wj0EnS0jxoym0VyzndFo3swJXoM1CxAkwWC+mXT1yVjr9uJFc5HQAB4xfHq
-	 d/S2THaYayarbZsoI8cvpMbcf5URAi7ffwF/u6FAEVzLlg/R+RhWOGWPPT4/FJtUcH
-	 KZdIxAO5Bw8QN8ja91V3Seu73KqNEimdImD5L/4IeYHaTQam8hVHizD6uiA8oT4LYz
-	 S0FU05HqCE/2w==
-Date: Wed, 23 Sep 2026 12:05:17 +0000
-To: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, Matthew Maurer <mmaurer@google.com>, Carlos Llamas <cmllamas@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-From: Sagar Taunk <sagartaunk@proton.me>
-Cc: Sagar Taunk <sagartaunk@proton.me>, Andrew Lunn <andrew@lunn.ch>
-Subject: [PATCH net-next v4] rust: net: netlink: validate attribute length before casting to `c_int`
-Message-ID: <20260923120504.9100-1-sagartaunk@proton.me>
-Feedback-ID: 130121444:user:proton
-X-Pm-Message-ID: f95d144d66500ca3285a525e0ba5c0e01c7d28b5
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DDbXR956"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FCB41F000FF;
+	Wed, 23 Sep 2026 12:06:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790165165;
+	bh=LrZ5TRaE/9++BmCHHogZ++HfWVTS52D1WbB8W/6Fpic=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DDbXR956PegLSdfynST50/XHM1c+uL0QRLf8k66nBd/FEpWJ+c/uhCpslOhdRdYH5
+	 ghgob07OOu+nKv6z1o7ttgWIW5wK38MKslvyDy1CY4I2vR0Nmre/lp3O69JXj6Rwgk
+	 EHDZpT3BqMUIjc1L59Nzi19gINCDb2nzWO/kTS2c=
+Date: Wed, 23 Sep 2026 14:05:59 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Edward Adam Davis <eadavis@sina.com>
+Cc: dakr@kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, rafael@kernel.org,
+	kay.sievers@vrfy.org,
+	syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH v2] kobject: optimize count first value
+Message-ID: <2026092357-egotism-mango-c378@gregkh>
+References: <20260917075615.999497-1-eadavis@sina.com>
+ <20260923105522.43514-1-eadavis@sina.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923105522.43514-1-eadavis@sina.com>
 
-`put()` trusted an unchecked `as` cast from `usize` to `c_int`.
-When the length exceeds `i32::MAX` that cast wraps around to a
-negative value.
+On Wed, Sep 23, 2026 at 06:55:22PM +0800, Edward Adam Davis wrote:
+> The user writes to the regular sysfs file "/sys/bus/acpi/uevent\000" is
+> as follows:
+> 
+> write(r0, &(0x7f0000000280)='add\x00', 0xff0a);
 
-This ultimately resulted in a kernel panic when the reinterpreted
-value via `__nla_reserve()` and `skb_put()` became enormous.
+You mean a "root user", right?  So don't do that :)
 
-Validate payload and header both fit together in a `u16`, rejecting
-any payload that wouldn't leave room for `NLA_HDRLEN`.
+> >From the parameters of write, we can know that: buffer is 'add\x00', and
+> buffer count is 0xff0a.
+> 
+> Since atomic_write_len was 0, kernfs_fop_write_iter() would silently truncate
+> the buffer count 0xff0a to PAGE_SIZE.
+> 
+> In kobject_action_type(), the strncmp() successfully stops at the null
+> terminator for "add". Then the code directly attempts to access index 4095
+> of the 4-byte string literal "add" via kobject_actions[action][count_first],
+> potentially hitting:
+> 
+> BUG: KASAN: global-out-of-bounds in kobject_action_type lib/kobject_uevent.c:86 [inline]
+> BUG: KASAN: global-out-of-bounds in kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
+> Read of size 1 at addr ffffffff8d72559f by task syz.0.17/5917
+> Call Trace:
+>  kobject_action_type lib/kobject_uevent.c:86 [inline]
+>  kobject_synth_uevent+0x79d/0x7d0 lib/kobject_uevent.c:200
+>  bus_uevent_store+0x3d/0x90 drivers/base/bus.c:917
+>  bus_attr_store+0x74/0xb0 drivers/base/bus.c:172
+>  sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+>  kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+>  new_sync_write fs/read_write.c:595 [inline]
+>  vfs_write+0x6af/0x1050 fs/read_write.c:687
+> 
+> When the buffer does not contain parameters, we take the smaller of the
+> buffer string's actual length and the buffer count provided by the user
+> as count_first.
+> 
+> Fixes: 5c5daf657cb5 ("Driver core: exclude kobject_uevent.c for !CONFIG_HOTPLUG")
+> Reported-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=9a321aea9d851b299486
+> Tested-by: syzbot+9a321aea9d851b299486@syzkaller.appspotmail.com
+> Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+> ---
+> v1 -> v2: change to optimize kobject
 
-Fixes: 5eaa5fbb6e6c ("rust: netlink: add raw netlink abstraction")
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
----
-Changes Since V3:=20
-Rebased on the upstream rust-next tree.=20
-No functional changes.=20
+Hasn't this been submitted before from others?  Have you seen this
+thread:
+	https://lore.kernel.org/r/200d27f7.1471a.1a0138c92da.Coremail.stitch@zju.edu.cn
+?
 
- rust/kernel/net/netlink.rs | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Your "fix" is different from the above, which is correct?
 
-diff --git a/rust/kernel/net/netlink.rs b/rust/kernel/net/netlink.rs
-index 22ef3dde36fa..2f8733a694a9 100644
---- a/rust/kernel/net/netlink.rs
-+++ b/rust/kernel/net/netlink.rs
-@@ -11,6 +11,7 @@
- use kernel::{
-     alloc::{self, AllocError},
-     error::to_result,
-+    num::casts::u16_as_usize,
-     prelude::*,
-     transmute::AsBytes,
-     types::Opaque,
-@@ -86,9 +87,17 @@ fn put<T>(&mut self, attrtype: c_int, value: &T) -> Resu=
-lt
-     where
-         T: ?Sized + AsBytes,
-     {
-+        // `nla_len` is a 16-bit field that encodes the total attribute le=
-ngth
-+        // (header + payload). Subtracting the header size from `u16::MAX`=
- gives
-+        // the largest payload that still fits within that field.
-+        const MAX_PAYLOAD_LEN: usize =3D u16_as_usize(u16::MAX) - size_of:=
-:<bindings::nlattr>();
-+
-         let skb =3D self.skb.skb.as_ptr();
-         let len =3D size_of_val(value);
-         let ptr =3D core::ptr::from_ref(value).cast::<c_void>();
-+        if len > MAX_PAYLOAD_LEN {
-+            return Err(EMSGSIZE);
-+        }
-         // SAFETY: `skb` is valid by `NetlinkSkBuff` type invariants, and =
-the provided value is
-         // readable and initialized for its `size_of` bytes.
-         to_result(unsafe { bindings::nla_put(skb, attrtype, len as c_int, =
-ptr) })
---=20
-2.55.0
+thanks,
 
-
+greg k-h
