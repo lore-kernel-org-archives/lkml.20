@@ -1,187 +1,127 @@
-Received: from mail-pz2-f18.google.com (mail-pz2-f18.google.com [74.125.228.18])
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E81E953D0D4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:46:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9229C521891
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174800; cv=none; b=DIU0HDBiSIvM4L6yCrQBFZhjBM9A1GlsHIiq03WrxEaChBtlkZLc937x0WtcFE5clwZjfwzFeU5+Ix56OfcIzKbweuaqoZNEfoIX6t0Y9moVe7HEe5vmkt1sYFI9my5fb5kd39PM4C92/UCNYQzmbTWKty12LhwmB+0nhndo4wQ=
+	t=1790174815; cv=none; b=UNR0Fr76YI5EbJzfSRS25BhnXBq5FkisJJp+CLOpMypqdp1+iRmLuYx6KcCoc/CO9DiiOyyGKW/XFIpIM6U2zViheKQPzyxxBH1QmFgPIvkxctN5IrfeS6Z2Fyoaw1PIngk/Tr4n1oaqlJSLndgIUxk5KllJ/zBho0sIvOlnEH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174800; c=relaxed/simple;
-	bh=XwpjmJluvtoDZaA6MKdbJZybCqPcUBUalWYslDZI7Kk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F6DWOaEupKZjclEc1CFdfqzlunjVXGDDqRVopiSAFDo9acRXUYBasiMHFtvLzURltOAbKVjNDyz71tS6jjpai/omxhQu33rQqq4y5ZEbk/drEpQ2A40OAAmoWkI5USVujpiuzF320yceIqt2plDgR4PSJkW6jrQzSkPrWveKM4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CDMDuTgT; arc=none smtp.client-ip=74.125.228.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1790174815; c=relaxed/simple;
+	bh=FXzg6hBNBXZZsScdwtGeM5Pmqbhre7BC03zd4cLn0Yo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KS9lMSLLxdyWXRoE4WDgqdbRdnfFB1TlRYESFpy5ks0fhxTHKmSH8Qzp4Vezs2FIUtHruQimlZGlw4BeBbOiEIdNJKTl8FAh+KIYs2vz750XV+vfxLpAJVkrq3WXOvtUpokv8u3iMphzIB0aRxrwTsZGieGyMb7+UHYBoJrL3lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CDMDuTgT"
-Received: by mail-pz2-f18.google.com with SMTP id 41be03b00d2f7-cc4bdf8abaaso794983a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:46:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790174798; x=1790779598; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=j2hU/V/9OkaoLGgLOfMT38LPn29XKPRospCOIHDkyow=;
-        b=CDMDuTgT1GXqI4KOrqwClYKloigjbiRyn2b2GK3xda6opT2Rxjof82hE4AYe/h/HM9
-         GI/I0s5tobfm/3ppZWuMG9YfuYbeVYil8YWBkLoqel61OSyMPrBssuaQVehj3KNGFtjz
-         v00FbcUsOBXMArCsvm/EkFviOGNJf0DxWa3O3oUYdWkoihdg2BsVpAmcQ3zw3/3U6t0H
-         hm77D/JDni85lu9uMFOVHDBFqFFKzj3+bwIUayQEAmTGeiobA648sSJB9Ig/jUFrnBa+
-         48JOujCwzCI9gR+DzhvsHAnolHBNR4IOWeQYBVqsokztM4ZwjfEoXGNiGWrCywpHMOd4
-         bcbw==
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e33b917so831651e0c.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:46:53 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790174798; x=1790779598;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j2hU/V/9OkaoLGgLOfMT38LPn29XKPRospCOIHDkyow=;
-        b=gGSo2ggJDTjsWXpymPkb/wx+LYtsJdqz06j93YXATCYH3NuxxJWBnh7tK80XTH5ihU
-         etRlnHa1jTpmnr2Gchl2cLY2J5xtP7sGVwlQ30tUX+uyjFTM2py/nKvhYau4/vpZ8ArR
-         pB5DTvaZvK0THTmY1NM/+6Z+kp68+ivoIOSzhJUeUnA+PaWrLy3TfykYX4apKmZtSbHM
-         bqV9Q8rDenq4PZBPAfp0Mn+WFCJpDV/G/qJh1v9pNvxIlxJGvEYK2+S8XDES97KSyoBf
-         zxRgY0cMk2QyHd5rX54FLFoaf6RmrZgw7faYuM9dr+NAE6teRj0roAwHZ4mQtkrfdnYT
-         Hx2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzVChJ8ULhj7xjkp7aYOmOuV9Y1z6T6e+mJf3rvLs++KbQBBXaoRySyD2sXoMrwm7n9Pf5Rfx/zyulst4k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mdEuLCFtH9DbqC5Mokvo53ivu4nK+FC1TwquIkqo0JeB3bGB2V
-	ZzW4KGKqOWW39DXiExdf435FUn2Trfb+3xdg/E90xMOh3+X5D3ghYceC
-X-Gm-Gg: AYBFou0ZN8muN6bSL8H/IejV0Ow5WzCMK4BI35WpMvhnLf7WLp0fxIFfVSxuShFciak
-	pLYnvvx8AQYGNIHnyVF1BD5OW1ivzoRXTAg5N61EbfBGvLZVcT5kyF+lcFCJojRcUB0BwE6HAB7
-	l55pMeUHCY/tDxh9v9/AnOqXFUfA/oZPFmwm2lzMUUSwvpGEVvYu6N00QYi9O5x05JUOnBCh50g
-	QDtDBsqZH/wmPEEAjs8Mjm5KL8y5RCImOfEBUnLdHUJ4MhpnU1rKTLdOsrGYwRmjaxUcFrmyIMw
-	9cPCJI2ExldGap/sMG6V7jEwH0pb55tkao7moM3HGpa/efYbasOTo9ulwdxf96mlBDcg+5Feg/W
-	JC/+yCVPgYejrfb2H6BqH8HmuuSuTVFV7deGQU7aiR1LLe20wf91d6RuK8psb1aGMGDarIdXpms
-	AvIrMjl+tkuJ01u8q6x1xc7jkKmMKvZeCvvb9m0P96NK2guubuLqDLb2VIeVFXenFlPgbb1EcI4
-	BdGwj3TAwNm
-X-Received: by 2002:a05:6a20:c90e:b0:3dd:a196:5396 with SMTP id adf61e73a8af0-3ddf8296889mr2890417637.56.1790174798050;
-        Wed, 23 Sep 2026 07:46:38 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f2228a2sm1257186a12.4.2026.09.23.07.46.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:46:37 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 23 Sep 2026 07:46:36 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>,
-	Prasad Bolisetty <pbolisetty@axiado.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, Tzu-Hao Wei <twei@axiado.com>,
-	Karthikeyan Mitran <kmitran@axiado.com>,
-	linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] hwmon: axiado-pwm-fan: Add missing documentation and
- MAINTAINERS entries
-Message-ID: <8b761904-27e7-4e03-bc37-9fb048368b2b@roeck-us.net>
-References: <20260923-axiado-pwm-fan-doc-fix-new-v1-1-8c8c2ce58a21@axiado.com>
+        d=1e100.net; s=20260707; t=1790174812; x=1790779612;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ONYGJu27lrhOYpsTIFykGbM1Hkv2j9YTc036/0zk0Ug=;
+        b=c3ul/s6NUc5AaVGkPXGzBn3MuTGhgqgn5LGOd77yoQ5XFp0ntDKiPP5bHk1C2yk+kx
+         UUuJ6tu8l0D/xX/xrAl2qYmll44pjcMuWRF0H7T9cQh9kLbtsO4do3pauy3gRe8mJBNU
+         vcGNwjmqtqPfAoOqVvm9+7UtnOqc8Ii9y9cgbwgVlzB/T7vZ35TvJQacfi6EDUJxSsN0
+         lUqE3tJrKcc+mPzAQ9Ebx2X60QBFp37ha6xeWnQQ1YQLpyM72wvPim5awgGGuE8mZXO4
+         JXDdWp3fYIm3qIzvkp2KZlclYrRRr0Q7SlFj/nXrk4+2fFk9DPR9gO/EHgfsA+KzZzLG
+         1NoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwzsnVwKLjLVBUKIkRQMMrqmhsxWjBVzcWooII/21oqHSglvoShqMySx9Dwvjj6gHerSLRD4FwPIexXUus=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVCj1oBcUeE6cSXoTb0K+9o7oHj+xRL5KywXchkVA0JaFN2GIP
+	Bso3Gt7Xt1W438pDTdIUly/7feyuLdRtR6x9UHfgCqw/qQLGaFSHltOCIPCv8lnr/Do=
+X-Gm-Gg: AYBFou2/f98kojdzDEpU1AEa7s/fM5CIY7RSHscsKKFeVOAy8Isq3avXSBdTKWVncHv
+	yZ5bKCDiW7JaMSn3RTw9WNX7SCp+yPnB85kqF4ZR/H9nbnclrjiFhT/cd1peo+gWbTSe5nmP2ty
+	I8IkE5GwoMfSx5OROivrJAp6i3omICczk1mIN93gZDI3UaG3owPMsFrRb0UmJ18ZDFlJIh3hTC4
+	3BTxUvA4ywrzm7n0jQNX2kE/y4sKBCRJqO8DngtziU0siAr5gkXwUt3aWgE7uYK1GuHBbQdpVwg
+	6/SoEkDoXt6Kq/allwcyJeueLiRxAYKuxOTdzkqs3KfrQ60B0boAiZPH7f/EW8iWQEn5PD/sK91
+	UsJO37g9TQmRK/O91On2Jyj73ca3pwQYSEsRzhK5qjIkXEDYvO0H9WZUwJB+FfTJNLJtbCFvXRR
+	DAURDSQjssV3FTt21hm1nFXcPdmM0+6tY7TpRuGdi9Fo670X9oe1KNgeVf6xD/zgYts2PVCK89C
+	kGkx4LvltkImT/BdTm1W+ZxYcP+TqWwQCOlm2J8SjmVYzd8
+X-Received: by 2002:a05:6102:3f16:b0:7a5:673f:7a2d with SMTP id ada2fe7eead31-7ac1b000b0cmr2800619137.6.1790174812184;
+        Wed, 23 Sep 2026 07:46:52 -0700 (PDT)
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf35bcb07sm3870633137.2.2026.09.23.07.46.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 07:46:51 -0700 (PDT)
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c7b4ed1so532052241.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:46:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwcjEVPPd5VNsnXWsXib/xuObzWhbEoxl4NXn/NpJsOb0XPu6jjnKX4UZtpOKNF8zErEfoKd3Hp4mgKX1E=@vger.kernel.org
+X-Received: by 2002:a05:6102:5709:b0:7a1:f7e2:aadf with SMTP id
+ ada2fe7eead31-7ac1d0cb10emr2412732137.17.1790174811407; Wed, 23 Sep 2026
+ 07:46:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-axiado-pwm-fan-doc-fix-new-v1-1-8c8c2ce58a21@axiado.com>
+References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-5-94c4674927e8@solid-run.com>
+In-Reply-To: <20260904-rzg2-sr-boards-v8-5-94c4674927e8@solid-run.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 16:46:38 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWUt7w8Y=fmX2PtdJhZJ0k0YaKkoaC2ifx+LSYL5PijHg@mail.gmail.com>
+X-Gm-Features: AclHuK_0TFDwROATeFWc5QcEb9bj6YWPyy6x8RXwybT5t7YWLi1_s9QYUiwmNRs
+Message-ID: <CAMuHMdWUt7w8Y=fmX2PtdJhZJ0k0YaKkoaC2ifx+LSYL5PijHg@mail.gmail.com>
+Subject: Re: [PATCH v8 05/11] arm64: dts: renesas: add support for solidrun
+ rzv2l som and hb-iiot evb
+To: Josua Mayer <josua@solid-run.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
+	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 23, 2026 at 02:58:41AM -0700, Petar Stepanovic wrote:
-> The axiado-pwm-fan entry was added to the hwmon documentation index, but
-> the corresponding Documentation/hwmon/axiado-pwm-fan.rst file is missing.
-> 
-> The MAINTAINERS entry also only lists the devicetree binding and is missing
-> entries for the hwmon documentation and driver.
-> 
-> Add the missing documentation file and MAINTAINERS entries.
-> 
-> Fixes: 2d52742f408f ("hwmon: add Axiado AX3000 and AX3005 PWM fan controller driver")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202609230904.aIWyLsSt-lkp@intel.com/
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
+> Add support for the SolidRun RZ/V2L [1] SoM on HummingBoard IIoT [2].
+>
+> The SoM features:
+> - 2x 1Gbps Ethernet with PHY
+> - eMMC
+> - 1/2GB DDR
+> - WiFi + Bluetooth
+> - SDHI Mux switching between eMMC and Carrier Board
+>
+> The HummingBoard IIoT features:
+> - 3x USB-2.0 Type A connector
+> - 2x 1Gbps RJ45 Ethernet
+> - USB Type-C Console Port
+> - microSD connector
+> - RTC with backup battery
+> - RGB Status LED
+> - 1x M.2 B-Key connector with USB-2.0 + SIM card holder
+> - 1x DSI Display Connector
+> - GPIO header
+> - 2x RS232/RS485 ports (configurable)
+> - 2x CAN
+>
+> The RZ/V2L SoM shares PCB with RZ/G2L, differing only in the SoC itself.
+> RZ/V2L is adding a powerful DRP-AI NPU which G2L lacks.
+>
+> Due to the similarities most code is shared, including DT overlays for
+> eMMC, microSD, and RS485.
+>
+> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/
+> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+>
+> Signed-off-by: Josua Mayer <josua@solid-run.com>
 
-Sorry for that. The patch did not apply due to conflicts, and I had to
-apply manually using patch. Doing so I forgot to include the missing
-entries.
+LGTM, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-I'll fold this patch into the original patch introducing the driver.
+Gr{oetje,eeting}s,
 
-Thanks,
-Guenter
+                        Geert
 
-> ---
-> This patch adds the missing Axiado PWM fan documentation file and updates
-> the MAINTAINERS entry to include the documentation and driver source
-> files.
-> ---
->  Documentation/hwmon/axiado-pwm-fan.rst | 38 ++++++++++++++++++++++++++++++++++
->  MAINTAINERS                            |  2 ++
->  2 files changed, 40 insertions(+)
-> 
-> 
-> ---
-> base-commit: bf92ea2a46120fd0809f24d39ad3482d0f20876b
-> change-id: 20260923-axiado-pwm-fan-doc-fix-new-d0e42bbb0cbc
-> 
-> Best regards,
-> --  
-> Petar Stepanovic <pstepanovic@axiado.com>
-> 
-> diff --git a/Documentation/hwmon/axiado-pwm-fan.rst b/Documentation/hwmon/axiado-pwm-fan.rst
-> new file mode 100644
-> index 000000000000..d110e170b0df
-> --- /dev/null
-> +++ b/Documentation/hwmon/axiado-pwm-fan.rst
-> @@ -0,0 +1,38 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +
-> +Kernel driver axiado-pwm-fan
-> +============================
-> +
-> +Supported chips:
-> +
-> +  * Axiado AX3000
-> +  * Axiado AX3005
-> +
-> +    Datasheet: Not publicly available
-> +
-> +Author:
-> +
-> +  * Petar Stepanovic <pstepanovic@axiado.com>
-> +
-> +Description
-> +-----------
-> +
-> +The Axiado AX3000 and AX3005 PWM fan controllers measure the rotational
-> +speed of one fan using a hardware tachometer block. Fan speed is controlled
-> +through a PWM signal supplied by an external PWM controller.
-> +
-> +The number of tachometer pulses generated per fan revolution is configured
-> +through the ``pulses-per-revolution`` devicetree property. If the property
-> +is not specified, the driver uses two pulses per revolution.
-> +
-> +Sysfs attributes
-> +----------------
-> +
-> +The driver provides the following standard hwmon attributes:
-> +
-> +=============== ====== =====================================================
-> +fan1_input      RO     Fan speed in revolutions per minute (RPM).
-> +
-> +pwm1            RW     Relative PWM control value from 0 to 255. A value of
-> +                       255 selects the maximum PWM duty cycle.
-> +=============== ====== =====================================================
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index eb3cc6c81bcf..5ad12c57ca5f 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -4504,6 +4504,8 @@ M:	Prasad Bolisetty <pbolisetty@axiado.com>
->  L:	linux-hwmon@vger.kernel.org
->  S:	Supported
->  F:	Documentation/devicetree/bindings/hwmon/axiado,ax3000-pwm-fan.yaml
-> +F:	Documentation/hwmon/axiado-pwm-fan.rst
-> +F:	drivers/hwmon/axiado-pwm-fan.c
->  
->  AXIADO SPI DB DRIVER
->  M:	Vladimir Moravcevic <vmoravcevic@axiado.com>
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
