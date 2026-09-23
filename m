@@ -1,291 +1,227 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022089.outbound.protection.outlook.com [52.101.96.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E98A542EE3
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:47:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C403155C1BB
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790182046; cv=fail; b=utomJ5vRQJgLUL+hX9LS07IWHiA7wK7fKolL7kvCzd2GQxRO8MaO5jJBT4DiqPExBNt3Fq37Ubwql0Y+1Ro/WBvs9J9x8fLCrD74iyYmUyJEy/OYhJIQGFZdzxV12kc6CHdxAwxa6ZtQHlQzVxN2C9R3Xpucp0Dv1q+A2lQZnLE=
+	t=1790182051; cv=pass; b=lcfA1qefGeSjxhFtGYZHL9dREQXWcYfG/9XLmvTmMPVdPqQiK6K3xQoWWQKMV3oiP0KMaTIXPusplPD885VJdcQwf/d9AVUjPCrZNLcp3gZyIt31j9a2dBMK995iwlHraK2Pd+jggbI6VI5QtsaFg8cbMFF0Oqwj1lkN8U28k48=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790182046; c=relaxed/simple;
-	bh=sDQ6GMxXak0YDfceh+sjOzAeKfnidSAVY7ZoSmkcN7k=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=R0H6CBxH5H1MdMxwqaRXq3CojFUBm/jjuH02+HFO9x9mujCLmphn/kbKuDJsCevbE53gmdvS4vfsdLYg+pyHz2kQ9TMcJtqKa0EkltC1ka4zzzQuO2jzsu6/vsihiqVu5Wb6Eci8PMso166tl3pIjRJMiSkPcW1mYsl0nPc4mVY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=jazPfo6S; arc=fail smtp.client-ip=52.101.96.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	s=arc-20240116; t=1790182051; c=relaxed/simple;
+	bh=ZUu/E4ThfNs6/hpOHi+oCAKFDMTBtwuUpcdaOif5M+A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DwBqXTxcl3595DPJopB5QaaYnN21Ud9MeLlxdNKQLvonhnEfvtcDHdRjEyAhal2DoC6IB/kjNu+e/hOrfAPT0K+YtfiDAB02m7K23RhHR5zm1duaStyweW+87jwSzLOUoOOBFDFMQLvHfSY9FvK8dgM/8qumZ3Qf0+HbqcE7/os=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eRm2k+p2; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="jazPfo6S"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=K6GchP4cT1Do1nV4JaSj+r256nwTK4P/RLJZLkMvxJVE2DrnJ8uX7ck86QlEj3wsk7i2mOX4abA60C98uqXToTZpxouSJKrEPkkPU2MFJejf/sgqYUL2OD/UaC6CvKcD02Uv3C2LqCi5oS8J++jtPNvLVUBYEEaK3pk1gGgbBUPe4Y9hTUNsRRqZG+Ug8rxRverjFsdw0UZvyB2DfrbO82XBLREtKOHHF3b62Lty1dcyEsTj6E6HIA7BuqxPUydh/LVh8bXIMMmBqFpDk2a2ZPgxtSKyhx9m9VmAaqa+46oOKuXxnwp41fzNgEQEc9OoIZzsVfv48v3+4xeo7yt+hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S16zuhR5Vwyw/I8pmdJSZlCM09CHQsiJaalMfLUWTsM=;
- b=dsLe0T/ncSX3lsLQtSSUBXVM+Bc7YQgBPCNeoU29jNShgjEDBlxoj3ml5mujyqGPbmUgsxVIQgB3wZyxrA4DuVWP8Fa9h6u6ThmcXUeqnseKK2HQJbqtvkvTpnNj/St4/RrEAYwlnDqAhJrtuhCFweYycQnTeJfMSH75bM8OPnSVAP9iPXUzAoczH4t7ahaFr+gLuvPXmGatouhu4BAZpQ+mjuRgOJ6SuEWOF0VGGdAnRAdJq7Wm7MY0Gt1+0hZ3Lxv32dLVMp2LeKFuaC+Ni/YHLsBXnhHRZcqfEbyk+AmYTWeb4Paauu4taVeFtcLKktuWKw/Gil5EXNn5Ee+N1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S16zuhR5Vwyw/I8pmdJSZlCM09CHQsiJaalMfLUWTsM=;
- b=jazPfo6ShinodtWsx3U0WIpF2CedskgcR9JdIHJ9kCDUKJ1DdUbRuySa74OIUtAoKpsCWGSKjp+etKkcky3XRz+9iFsKbO1xM4ZmhjIUaRi5Nb7KbCH4dWUqo7KALLYgxqGE3FPFjm4eW3TG4mZNN7ERL9gCW8p1JwN9UykK2Io=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO2P265MB7202.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:32d::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 16:47:12 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 16:47:11 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 17:47:10 +0100
-Message-Id: <DLMUKFL5CAZ5.2ICMKG94JXP52@garyguo.net>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Alex Gaynor" <alex.gaynor@gmail.com>, "Boqun Feng"
- <boqun.feng@gmail.com>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 08/33] gpu: nova-core: gsp: compute the queue regions
- from a count and a slot
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20260918010719.1176945-1-jhubbard@nvidia.com>
- <20260918010719.1176945-9-jhubbard@nvidia.com>
- <DLMFFOSI9SZ9.2ECOM8X8PA147@nvidia.com>
- <DLMNTQWLGXJA.39Z56H8BZMBPR@garyguo.net>
- <DLMQ5TVNFSC1.2AGU37ACR0Y9Q@nvidia.com>
-In-Reply-To: <DLMQ5TVNFSC1.2AGU37ACR0Y9Q@nvidia.com>
-X-ClientProxiedBy: LO2P123CA0084.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:138::17) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eRm2k+p2"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so7993745e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:47:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790182039; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WHiTYuoXrbcHt0lJUEbwvRTC1AURqo//wDS1SYVkLdW8RR96DJ41Eard6pkMjvZwZg
+         fxB09thyImAWn9tyUa8yznhuULB26FACK2IF+434q8JKdpahaHKy1HC0PrGWqaS+oSjz
+         DlDOicpsCK4cBX13ywL+kIC8di/hhtGPEFmFwdk7y9963tMGQ1dlsr7wsM3eD07RM/VG
+         35PjkNf43f8VtQU65G1caFz6jCcIFuqLdGSYXGbN7ZAoRIOcU2HwAX0JFQUDylKbnLRa
+         0bqcmnQRgbKJcJgLXuEazynbF5xfMyHFnka74zCIgFFjyDSKO4DjUVdg7zYxwH7TBVm9
+         aKvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tAQcvfsEw2NREatFJ5f2rKVMnBOJ07JjjvYvVs9Yqug=;
+        fh=mCUhf77+p315xwZsJigc97h5n3aTzJw1DKtfBLVU5cc=;
+        b=X5jC7wU+UkXiqXQXAi5lT1JAfVPmbNt4dzs7geXbOUbjuA6qe+tiR0k4JKgJO0jyoX
+         YgBpxpRhr18Ss/h7TPMUaf2Kfzzp9V/I7xdtH5g0bqUO83NfQm+q9eHP+d/P9k/HD2/v
+         /kCsJ7TOWredZ+atcEc8kOEne1ZG3COLuPEgVHNW2xLtpJ8YnT2q66pP0FmZLKYwgnJj
+         FkihUhZ2iH41Fd8u1f7+9GMaWMHq6O4IMYhqXgDs6bqdQw7alT2y1KPeOiqPTod66ZJo
+         2oWS6yFFzWjrO6uCIfLlpCyj/iH38jysRGLUAN6W+j3CEDN29rfJiRq/x+8PNc1Wf6Db
+         C9vQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790182039; x=1790786839; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tAQcvfsEw2NREatFJ5f2rKVMnBOJ07JjjvYvVs9Yqug=;
+        b=eRm2k+p2QYxUN5yPzHo1FVb7o4MDsaEyhvy/R+BHFhYrvaxTN2O9FVI6nKV7GMOtC6
+         Yxyez1QH31RC1hPnMP+To9pLJoKAKOo5KXJ0JuXbizMmUKOnH2PwZpAIbNn6F0hcxJqJ
+         zxWnJNTa3L7suTs8BW9WtSSd5u8S/MyEXzLxZGXP60pr+MpR6uwC4Pisrn7xk4k3ACUi
+         Xm5GJmfgWhMOnzEfwx+pTmuNJYeTIynH1SomvwQDcHA+zprTQN359Fz8A00NPNkIOFa1
+         ny+jtbYvxL1J1HGvbs4BJdn52MjqNFbmy0+IZj5YPNM2KnWgnNLOsgg+7DhdLL1W7TJ5
+         BHdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790182039; x=1790786839;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tAQcvfsEw2NREatFJ5f2rKVMnBOJ07JjjvYvVs9Yqug=;
+        b=g08CaxlYPSNWv8qO6iKd7GREWBcJOAQiN7qHo80TL7JlnBZQwH/ss4yNbVGNMN/BKZ
+         SRJVBwgvSq4imC/WecAiz3hU8nOT5gVfz6zEIYufIc4IkDMccXaIsI9Nc4z6DDKsUwIl
+         Cl29DYaOtOTrqVOxql0MtBCePThXni+yueXbdgA3lRfIEUgFDp51gqLwlBYbxhn6yWRf
+         RLBVXyCx4taSlNkboTsMVMUn/JD1uOp+kxy8rEYZbOfthSeyuM+0de67XuTDZ31p6Wqb
+         eQ6qdhjKnimX+wG4rVh5h8afycdFWpC6BgQ3fCC+uXFxIy08JIdt5DkqFNgu9K+LFrOh
+         4gdA==
+X-Forwarded-Encrypted: i=1; AKwUvBxhTCY6MRplJ4qMFXr1gTAsFx4i9RBlBAbSrLW8oiizDB4Ip/C8/VqWsoATEZbF27mvZHgZU6DFyQ+90rs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFVVt7+mA+C3L/Kp/8Seg22aveu8JItCHpc60/22vhI3ufQCEs
+	w3EU4lVg1MJKgauXgW/Kn4+2NlPSdPTd7e4gmVa0rZqnUvVQu7COy5tb7RjY77DEBFgqBNFDei5
+	9RoEkBRoet05i77jnhYACFnjsG6rU6Vo=
+X-Gm-Gg: AYBFou0xyiWLlhXayyIRhL5NcnTH4XbsPYRM3sb3VL18Sz0wtox5yVVKLxl6VUIoDw1
+	ordAXwhmXG6uDC36xtxdqluIOIikQtD4S3pGUkWX4zFGlRArnrRHuJQyfRj1fWfRAFM3rzk+Wfc
+	/TfkHrDQnmFLuLTKosmZCJJMsgothIpuTtqldtNl5RfgznbuwShGzYvZwfpyDQCuBX1dhWXgNZs
+	6T/AD6h5axbCmpHAU5e7RXRxkWKjjP7Aqi4P3XfVSfsOmBras3es1DzhJOm0uysSraeOu+3H/2v
+	4QFTBJ37g6ZoWOD/ZHaxImzc14dOrAF3cNmmLNwdbq/HDN1bL9KfYQyP8nFBktZClchQRXyZsNR
+	4D7GUW8Sx8MScjQ==
+X-Received: by 2002:a05:600c:4e93:b0:49c:e27c:6b10 with SMTP id
+ 5b1f17b1804b1-49fdee0a952mr49666665e9.3.1790182038728; Wed, 23 Sep 2026
+ 09:47:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB7202:EE_
-X-MS-Office365-Filtering-Correlation-Id: d479c290-9f98-4947-d2ad-08df19925064
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|7416014|366016|376014|1800799024|10067099003|56012099006|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	8f/rEyN5VT2ZI5BpTU4gXa35y5xAmFqLxNBcSg0fNmGr2dQxkw/UoRszpdf+39yM1s09VkSbuA4+NIZgyCeS13StXqNWDOGHWai+2PbV/HUdhZuCL7bIKWTC39gDfKDmbpi05LwhH9aJkF9leHC2NDSj8YBI8McV4X04fScDpL9+I980+GCfNuAsZDfy1nGZPRiAfDuIvUJTPbzCfUGzPMAJpRNEuW7OJEncafjRr8Lf9rpaYaMrjS9hb7B/7jkkf2EEZfDMScVu+TxxKGjLPjU/Cxk6BZvIMmgMatJvUR1yAVMSlOBahlWp+8rzbU748SahaWaMNYD0DE9rJ2dlil7+l1MukLyoze2/5YiVV97VmwgD1XPZz7nHt/CLyVZF/3Fh62ke8GcDh04RyRVbh5PnsqO2tYC2Me5x5uCNvn7m4qk7kUZbzyuxOlnSk/oplwaTiP0tfWZCmKpLmrLr6UoxWzt8QbkxBF6Cl4lD9K81Pv8LJL1k8jU4bSaa9pNX1fM83WahljkcxLqWKbRS1VmzBrLrSUNlwwxkO+IFETaTGuq2wWQgBeGlcoOeMGpk9fp6S7r65rFY+SyVypwocJmigRTORJz8zps6qca4e0fWGc/G6mhm89Yfw3Ti4MxON0izQ9vwjlUvjFJh0x1TvNwMStyaWJYqSM5c8O0OuBQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(7416014)(366016)(376014)(1800799024)(10067099003)(56012099006)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?emJ0bks2d3ZFeS83dHNJTHd2UDIxTENqMHluY3lMTXR0RjRBbC8xczE0Q1J5?=
- =?utf-8?B?ajNvRmRTQmJZMk9JTmFZKzhGWXQrOC8wUnp1cTZ1L1ZvSE4yditHQ3pxTUJ2?=
- =?utf-8?B?d25lYmxzNEloa2JDbTArYlpRdTNqbytKTWY2MHdjbGhTb1JzdVhFRmthZ0RD?=
- =?utf-8?B?NXVmb1JlL1lqdjFGTTZYN2ZXMnlhendLTDNmUExWR1pGbXcxWFlBMnA0TmUr?=
- =?utf-8?B?blFoSXY4MS9Tb2dKbko3b3FobThObGdOeFdsZGlPOGczTUtXay8zaGNhQWhJ?=
- =?utf-8?B?SjZ4U1cvTWlLdFFOYjRoRXNhaVdzUUxuK2t1ZVU4VlRjNm4weFpIV2ViV2J5?=
- =?utf-8?B?cks1VzR1SXNPR2lxRmJyc3lIa0VvY1dUTDlXV3paL09ZUEh6OUM3cUlUL1Fr?=
- =?utf-8?B?L1c1N1Ard1pmOCtmK2t0bHo2U293a2xvNTNZQUdzMFp5NTdhUUxGd0srZnlB?=
- =?utf-8?B?ZERLZXROZWQ2V2VvRWNLckNTVDJHNmpoVkczbFY5aVFLbEFTakJJS3VvYnhq?=
- =?utf-8?B?RkxRMVNVazc3SzJSUE8ySjg1ZTVRVGxDRjIzWGtmWnJtMkphU05uU01FN202?=
- =?utf-8?B?aHhRdS9FSXhMNE5oOHFrelFVVzR4czIxRkdHbWl1ZTNLZmVDV3laMXczRzFx?=
- =?utf-8?B?VlloeEhCa1ZYVGFiOXZ1eW5ZaEtJVUtleVNVbWZTNG1BT015c3pYOS9zZ1FR?=
- =?utf-8?B?UXVnc1BJbEoyZFJMMEkxcU8vSGsvRGkxT0FZQ05mWVRGdDdtMGlaYUY5OC9K?=
- =?utf-8?B?OW0wV0hPbnc5QjkycS9nZVdWZmgxNTRoc1ZGcUpSRmM2b0VrZ2ZMTzRVbjRs?=
- =?utf-8?B?S25aVWJwaXlCaG9YNWpkenI1MUQ2S1daZkVScXlTaEM5VVRiZ2FmKzJidzZx?=
- =?utf-8?B?bEM4WUltb0tJenQvUnN2L1gra1UrR2tQaWpNT0FKLzNrM3RaZkpJUjcrNmUv?=
- =?utf-8?B?UUxBR3IxbGovZHN5b1BaVEdCS2p4ak5EOUJjWXlIbkZ2Z3RCQVYwM09MNGQ4?=
- =?utf-8?B?U1g0SEFPeVlISmNmS0MrcW56bVBjWFhzWHNmMHVhZ05JZEJlR3dwTHJJM2Rr?=
- =?utf-8?B?bWVrUVVnNnV6OUR6NHdzZ1Q0Q21kRVNZZncvUEo5aDBxdUNkK1F2QWR3WkJz?=
- =?utf-8?B?NU5ROFNHUFlIekNncXdvQThUaFpNRUJsZ3hWZUhmY1Ntck1nTVBoNWpyVm1y?=
- =?utf-8?B?cVgzYzNYMmRTc0NTNndTRTRuTTZZb0pBelNidTBsd3pURU9td0J3OUxPaTdt?=
- =?utf-8?B?V1F4d1l3b2lBdzc2RHp2c1NhUnNWNUtWbUxIUzdCZGxSdUVCbDhjYWFGejIz?=
- =?utf-8?B?bGdscUoxRjBOVFFLdzBRRUFvdHA2a0pTb2NXbFZaQlgwV25pS1dDcytVQ2lT?=
- =?utf-8?B?dE9UbG9jeUJRYVFOSTdyeG8vYVgzQ2hPeXcvVkNMUndyNGdaWUJXSnJGVUNt?=
- =?utf-8?B?clpvbyt1K0FFWHNBLzEzNGsrb2phZ0FOdXFieE5kWXJjTUl1TG1tVGZxYmh5?=
- =?utf-8?B?OTdJdTB4Szd5dVR1eEU5azlUTk5JcDJTQmgreFp5V2poWUlleGo4NE9heThH?=
- =?utf-8?B?d2hHaVo5V3RZQU1pSUVicVIrbFlxVVNpb2htZEowUzg3ZWl3dm5LOG5GMUc5?=
- =?utf-8?B?TGZHb0N4VUYwWHo1TnloTHdqOHVHdm9ORTl5Q0lsTWh4bTk2eFQ2bUNDZU1v?=
- =?utf-8?B?cHBiR2g0TUZLQmptVUFEYzFoRE5iNGVCdjA5WXRUS3JKTWZYZnRGU3dkUE11?=
- =?utf-8?B?dHZlOXgwb2dLc090czJGcHhJZHpTVE0xWmRjT29oQ1R4N0p0ZmRFK0xYNXNH?=
- =?utf-8?B?RGFQeUZHVFM5ajhWVkUwUnhNaG44ZC8zOXRXQ2RiUWNaTkR5NndyV1NEUmds?=
- =?utf-8?B?eGVIMXZBTnlSWld0U2dQU2s4YkNSczUzdXE2REhtMWFkSmo1QWNHOEFzK3Nu?=
- =?utf-8?B?VEtBN041bFNVRlkzV1lBenFUc1lQWkJrcXl2L0dhcm5PWUdFbG82N2pyR0pT?=
- =?utf-8?B?Qm1pMUhmV000VHJ4aTB0bzRNNnIyc1JqbUNsV28weDhCb3pnSjJCRFlMUWtZ?=
- =?utf-8?B?eTFMeGFnOTVvblpJYlEybWRqcUVtZGdvbmNGSGNoZHl3UnZ1V091U2wwNnBD?=
- =?utf-8?B?M0YrQ3c4ejhEQ2gvN1JtOVRnQmdHSTUrWkRIS2kvQnRQT2xXVlZjTE11dk1O?=
- =?utf-8?B?ekN0blFnYmlLcCs4UFZzdlRGeWZrY1JIRlFKZTFFc2VacDJaSnFvQm5kL1Rs?=
- =?utf-8?B?Nm1zdEZnTk5QSlhiUmhGZlRmTGYvWnBTMU5Md3I3SmVnUks1WHh4OWNqYjgv?=
- =?utf-8?B?Ykt4SEZQTzBtQjRKaVZSK1hlOVVjdnh4SUdhQVBEdGtQYXNsQUc4UT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: d479c290-9f98-4947-d2ad-08df19925064
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 16:47:11.6319
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zY2ko6J4D5EUHo3SoOF2nH2crmmgTw+dnon0zFg9L1Ole+RdOYmODm8/qUKtoNolHm+B1hGWCCzibrMV7uxlBA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB7202
+References: <20260923055139.2982-1-sj@kernel.org>
+In-Reply-To: <20260923055139.2982-1-sj@kernel.org>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Thu, 24 Sep 2026 00:47:02 +0800
+X-Gm-Features: AclHuK-q8bibuGsWXEsNmxKAcN1nnzvypJ4ztbgQ6XSyFRq2oe6A825P900qgHo
+Message-ID: <CAN_Opa_d=Dta4hRcvXuyi0wj+uoOgLxOCuHU3K4d9o34e_Aypg@mail.gmail.com>
+Subject: Re: [PATCH v3 mm-unstable] mm/damon/core: keep the temporal tuner
+ quota over an unmeasured PSI round
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	stable@vger.kernel.org, Lian Wang <lianux.mm@gmail.com>, damon@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed Sep 23, 2026 at 2:20 PM BST, Alexandre Courbot wrote:
-> On Wed Sep 23, 2026 at 8:30 PM JST, Gary Guo wrote:
->> On Wed Sep 23, 2026 at 5:55 AM BST, Alexandre Courbot wrote:
->>> On Fri Sep 18, 2026 at 10:06 AM JST, John Hubbard wrote:
->>>>      fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &=
-mut [[u8; GSP_PAGE_SIZE]]) {
->>>> -        let tx =3D self.cpu_write_ptr();
->>>> -        let rx =3D self.gsp_read_ptr();
->>>> +        let avail =3D num::u32_as_usize(self.free_slots());
->>>> +        let w_slot =3D num::u32_as_usize(self.cpu_write_ptr());
->>>> =20
->>>>          // Pointer to the first entry of the CPU message queue.
->>>>          let data =3D ptr::project!(mut self.mem.as_mut_ptr(), .cpuq.m=
-sgq.data[build: 0]);
->>>> =20
->>>> -        let (tail_end, wrap_end) =3D if rx =3D=3D 0 {
->>>> -            // The write area is non-wrapping, and stops at the secon=
-d-to-last entry of the command
->>>> -            // queue (to leave the last one empty).
->>>> -            (MSGQ_NUM_PAGES - 1, 0)
->>>> -        } else if rx <=3D tx {
->>>> -            // The write area wraps and continues until `rx - 1`.
->>>> -            (MSGQ_NUM_PAGES, rx - 1)
->>>> -        } else {
->>>> -            // The write area doesn't wrap and stops at `rx - 1`.
->>>> -            (rx - 1, 0)
->>>> -        };
->>>> -
->>>>          // SAFETY:
->>>> -        // - `data` was created from a valid pointer, and `rx` and `t=
-x` are in the
->>>> -        //   `0..MSGQ_NUM_PAGES` range per the invariants of `cpu_wri=
-te_ptr` and `gsp_read_ptr`,
->>>> -        //   thus the created slices are valid.
->>>> -        // - The area starting at `tx` and ending at `rx - 2` modulo =
-`MSGQ_NUM_PAGES`,
->>>> -        //   inclusive, belongs to the driver for writing and is not =
-accessed concurrently by
->>>> -        //   the GSP.
->>>> -        // - The caller holds a reference to `self` for as long as th=
-e returned slices are live,
->>>> -        //   meaning the CPU write pointer cannot be advanced and thu=
-s that the returned area
->>>> -        //   remains exclusive to the CPU for the duration of the sli=
-ces.
->>>> -        // - The created slices point to non-overlapping sub-ranges o=
-f `data` in all
->>>> -        //   branches (in the `rx <=3D tx` case, the second slice end=
-s at `rx - 1` which is strictly
->>>> -        //   less than `tx` where the first slice starts; in the othe=
-r cases the second slice is
->>>> -        //   empty), so creating two `&mut` references from them does=
- not violate aliasing rules.
->>>> -        unsafe {
->>>> -            (
->>>> -                core::slice::from_raw_parts_mut(
->>>> -                    data.add(num::u32_as_usize(tx)),
->>>> -                    num::u32_as_usize(tail_end - tx),
->>>> -                ),
->>>> -                core::slice::from_raw_parts_mut(data, num::u32_as_usi=
-ze(wrap_end)),
->>>> -            )
->>>> -        }
->>>> +        // - `data` points to the `MSGQ_NUM_PAGES` initialized entrie=
-s of the CPU message queue.
->>>> +        // - The returned slices cover the `avail` free slots from th=
-e write pointer on, which the
->>>> +        //   GSP does not read until `advance_cpu_write_ptr` publishe=
-s them.
->>>> +        // - `split_at_mut` gives two non-overlapping halves, and the=
- `&mut self` borrow lasts as
->>>> +        //   long as the returned slices, so that no other call hands=
- out the same region while
->>>> +        //   they live.
->>>> +        let data =3D
->>>> +            unsafe { core::slice::from_raw_parts_mut(data, num::u32_a=
-s_usize(MSGQ_NUM_PAGES)) };
->>>> +        let (before_w, after_w) =3D data.split_at_mut(w_slot);
->>>
->>> This creates a reference over the whole ring, including the parts owned
->>> by the GSP, which breaks the `Coherent` safety contract that the device
->>> must not be able to read or write to a live slice. So we'll need to cal=
-l
->>> `from_raw_parts_mut` twice, with the correct sizes, instead of
->>> splitting.
->>>
->>> (also `split_at_mut` is panicking and should have a `PANIC:` comment
->>> justifying why it cannot, but once the point above is addressed that
->>> call will go away).
->>>
->>> I wanted to try it locally and ended up with something that seems to
->>> work, so let me share it to save some time:
->>>
->>>     fn driver_write_area(&mut self) -> (&mut [[u8; GSP_PAGE_SIZE]], &mu=
-t [[u8; GSP_PAGE_SIZE]]) {
->>>         let avail =3D self.free_slots();
->>>         let w_slot =3D self.cpu_write_ptr();
->>>
->>>         // Pointer to the first entry of the CPU message queue.
->>>         let data =3D ptr::project!(mut self.mem.as_mut_ptr(), .cpuq.msg=
-q.data[build: 0]);
->>>
->>>         let in_after =3D avail.min(MSGQ_NUM_PAGES - w_slot);
->>>         let in_before =3D avail - in_after;
->>>
->>>         // SAFETY:
->>>         // - `data` was created from a valid pointer of `MSGQ_NUM_PAGES=
-` entries.
->>>         // - The `in_after` entries after `w_slot` belong to the `avail=
-` entries that the driver is
->>>         //   currently allowed to write.
->>>         // - The `in_before` first entries belong to the `avail` entrie=
-s that the driver is
->>>         //   currently allowed to write.
->>>         // - The slices do not overlap.
->>>         unsafe {
->>>             (
->>>                 core::slice::from_raw_parts_mut(
->>>                     data.add(num::u32_as_usize(w_slot)),
->>>                     num::u32_as_usize(in_after),
->>>                 ),
->>>                 core::slice::from_raw_parts_mut(data, num::u32_as_usize=
-(in_before)),
->>>             )
->>>         }
->>>     }
->>>
->>> It has turned out quite short, which I like! I also opted to work with
->>> the original `u32` until the very end, as it results in less conversion=
-s
->>> overall.
->>
->> Possibly take some thing from the old projection syntax rework series?
->>
->> https://lore.kernel.org/rust-for-linux/20260415-projection-syntax-rework=
--v1-4-450723cb3727@garyguo.net/
+Thanks for the update.
+
+I also checked the issue I raised on v1 regarding unmeasured rounds.
+The temporal case now uses the effective quota to determine
+current_value when there is no previous PSI sample, while measured
+rounds continue to use the PSI delta and update last_psi_total.
+
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+
+Thanks,
+Kunwu
+
+On Wed, Sep 23, 2026 at 1:51=E2=80=AFPM SJ Park <sj@kernel.org> wrote:
 >
-> Oh yes, I forgot about this patch. Do you mean using `ptr::project` to
-> create the final sub-slices, or am I missing something else?
-
-I think it's possible to use I/O projection on `CoherentView` and then you
-assert that it's not concurrently accessed by turning them from `CoherentVi=
-ew`
-to `&mut []` using `CoherentView::as_mut`.
-
-Best,
-Gary
-
+> From: Karl Mehltretter <kmehltretter@gmail.com>
+>
+> The patch in mm-unstable of subject "mm/damon/core: handle uninitialized
+> damos_quota_goal->last_psi_total" scores a PSI quota goal without a
+> previous sample as achieved. This leaves the consist tuner's input
+> unchanged, but the temporal tuner sets its quota to zero for an achieved
+> goal. A running scheme with a nonzero temporal quota therefore loses a
+> charge window after a quota-goal commit.
+>
+> Use the effective quota to preserve the temporal tuner's previous
+> goal-achievement state during an unmeasured round, as SJ suggested [1].
+> Score the goal as achieved when the effective quota is zero and as not
+> achieved otherwise. A new scheme's initially zero quota stays zero, and
+> the consist tuner's behavior is unchanged.
+>
+> Move the PSI current-value calculation and last_psi_total update into a
+> helper that takes the current PSI total. This lets a unit test cover the
+> unmeasured and measured rounds without depending on system memory
+> pressure.
+>
+> Link: https://lore.kernel.org/damon/20260916001311.101024-1-sj@kernel.org=
+/ [1]
+> Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goa=
+l")
+> Cc: <stable@vger.kernel.org> # 6.9.x
+> Cc: Lian Wang <lianux.mm@gmail.com>
+> Cc: Kunwu Chan <kunwu.chan@gmail.com>
+> Suggested-by: SJ Park <sj@kernel.org>
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Reviewed-by: SJ Park <sj@kernel.org>
+> Signed-off-by: SJ Park <sj@kernel.org>
+> ---
+> This is a fixup of a patch [1] that is still in mm-unstable tree.
+>
+> [1] https://lore.kernel.org/20260902002725.108635-3-sj@kernel.org
+>
+> Changes from v2
+> - v2: https://lore.kernel.org/20260921020013.33105-1-kmehltretter@gmail.c=
+om
+> - Split out of the series for squashing into the broken patch.
+> - Collect R-b: from SJ.
+> - Update commit message to make clear this is a fixup of a patch in
+>   mm-unstable.
+> Changes since v1
+>  - v1: https://lore.kernel.org/20260915060937.3423-1-kmehltretter@gmail.c=
+om/
+>  - Use the previous effective quota for the temporal decision, including
+>    when it is zero. Keep resetting last_psi_total for new and updated
+>    goals.
+>  - Move the current-value calculation and last_psi_total update into a
+>    helper. Test both tuners with explicit samples and check
+>    last_psi_total after each call.
+>
+>  mm/damon/core.c | 30 +++++++++++++++++++++++-------
+>  1 file changed, 23 insertions(+), 7 deletions(-)
+>
+> diff --git a/mm/damon/core.c b/mm/damon/core.c
+> index 4687b909d42c..733025b36745 100644
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -2956,6 +2956,28 @@ static inline u64 damos_get_some_mem_psi_total(voi=
+d)
+>
+>  #endif /* CONFIG_PSI */
+>
+> +static void damos_set_psi_current_val(u64 now_psi_total,
+> +               struct damos_quota_goal *goal, struct damos *s)
+> +{
+> +       u64 last_psi_total =3D goal->last_psi_total;
+> +
+> +       goal->last_psi_total =3D now_psi_total;
+> +       if (last_psi_total !=3D U64_MAX) {
+> +               goal->current_value =3D now_psi_total - last_psi_total;
+> +               return;
+> +       }
+> +       /* uninitialized last_psi_total; make no effect this round */
+> +       if (s->quota.goal_tuner =3D=3D DAMOS_QUOTA_GOAL_TUNER_CONSIST) {
+> +               goal->current_value =3D goal->target_value;
+> +               return;
+> +       }
+> +       /* let temporal tuner show the same achievement as in the last ro=
+und */
+> +       if (!s->quota.esz)
+> +               goal->current_value =3D goal->target_value;
+> +       else
+> +               goal->current_value =3D 0;
+> +}
+> +
+>  #ifdef CONFIG_NUMA
+>  static bool invalid_mem_node(int nid)
+>  {
+> @@ -3208,13 +3230,7 @@ static void damos_set_quota_goal_current_value(str=
+uct damon_ctx *c,
+>                 break;
+>         case DAMOS_QUOTA_SOME_MEM_PSI_US:
+>                 now_psi_total =3D damos_get_some_mem_psi_total();
+> -               /* uninitialized last_psi_total; make no effect this roun=
+d */
+> -               if (goal->last_psi_total =3D=3D U64_MAX)
+> -                       goal->current_value =3D goal->target_value;
+> -               else
+> -                       goal->current_value =3D now_psi_total -
+> -                               goal->last_psi_total;
+> -               goal->last_psi_total =3D now_psi_total;
+> +               damos_set_psi_current_val(now_psi_total, goal, s);
+>                 break;
+>         case DAMOS_QUOTA_NODE_MEM_USED_BP:
+>         case DAMOS_QUOTA_NODE_MEM_FREE_BP:
+>
+> base-commit: 4b811cf44e3dd87981f18631be832027385f7d4f
+> --
+> 2.47.3
