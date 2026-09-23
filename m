@@ -1,135 +1,127 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 492F75448B5
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891CB53B322;
+	Wed, 23 Sep 2026 16:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790182497; cv=none; b=EpHwLII+IZccMT2nlY/YnULbIMSZYDrDnxP/+q4MP2fuiwHQpYNowNgM3RHp0o4qwRkGOjDflZShwAKIE3C/MK1mz6wEPVStqtrYtlfBCsFGl3l0l9UuBgLPI0A7nRw8bNYMltnOGP2p2J/WI0ry6bbx0PWPxjMlRIFLDP/k4Wo=
+	t=1790182519; cv=none; b=ktbDiEglQNEBc1mUpxHwqfUGeiFfTwiSN6xKdbyXoIherThyXyZrZ218yOByPQ6ye/zhn+iUfVqvgI/owL+AakEAB3slFa39N77nzeZOpi8CXIYNOze/CwRFgIcGG1wYxYe3Z943S29M/oxnqJj/SxgSJdd0TQRhxZXOCkyUono=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790182497; c=relaxed/simple;
-	bh=MY6Hm4+lmXtD8gpPA0TPD5UjA14uW8GK2wk6tiuPOP8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ju6uZx48ii/ndNhfnQKrrC8Y5i58KAqeH0Ay49/kKYjqXs7owwUXKMR0X6wnhqn7zX/R2qBawiWPXhPMZs8+dRdFyge3r+fsgK5Q4t0Gw3GwkaGf/kttAiweCYO9Igl6YFb6kTT9HRBa8ocGMAZbtJ6Orcgsj0rVLdWosROn9dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aLiZXsS4; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790182519; c=relaxed/simple;
+	bh=a+GMB5qVD9ZAbtd1a3qTD56IBUJbpiNabXOXiiZqy1c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kVfxYdfE0XzKl0k8ICWvgLAina0SO833aGk1Jit2H+ksX7s7Asg0vHpHTzeJmyAMfQ0snz0EMl8uwswgPDZ5+dqVs9yLvT9VXbCQCu0AlJCuKRktK2oCQFJXtVhXuN+dPfru1MGI/3q39zGPI5RG+idSDCE2Zoti/GSYyOkmtfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dryvgs1s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLiZXsS4"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadea0so72720585a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:54:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790182495; x=1790787295; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XoMn1hm3woLIoz+/tRipkpbGXRndkvfVU8WHGny3VZ4=;
-        b=aLiZXsS4D8Sb+ERFU7RwVTTRoieuFd8qEruOetP3eJ4jj9Rl5XzSPW8/MWi3s7WTt8
-         nBpzsAUdFKndXzmYoVRT+YvQwu74lTkISAjoe1EdTIfWoSQ56EOCDMfYr4omqQET8cYC
-         tNT7S5ORWfG1DBJBrj6/JFLEnSoBF/HRQzIbnr0Dj3aqcDbuBDuMpfftsEn3e5vWoNec
-         G9tqT2alqOd9Igmy6NrcZXvUqcxM0hySJQPj492DKcX3Nz893t0hR6g9kckVPuTN5g7U
-         rbNwFVBhU5CBm7TraJiq/7EvwtZPsWLYY6LGfKR8Ir/21FYncDdlkKcoAufXhdOGHXs2
-         hFzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790182495; x=1790787295;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XoMn1hm3woLIoz+/tRipkpbGXRndkvfVU8WHGny3VZ4=;
-        b=COtQSOZelPrNPBYRo6D6kye1FpMAAvi3wC0KK1ngN+pK2BJWwj5LawCgid9a68wcjH
-         /ymimqzsYrEP80bPndmRkVow9ZPUsRHHJQKkXUs1LW3ImWmthiqlkaq6yBnbmhPnUjgM
-         CkSpAZU8UXuOTUXZ5tkXGAye1KlstdDEmXXK6vdp1YWCAi+/TaT/XL/nrdRSauqQy55q
-         V3gbqP3jI2sYzs8KGUKsslCCh7gADcar0RzdtgkuqlIXj10npezN3tpEP3cyG9t+Hvz2
-         ZGsKRcWAsprhKAhJFMv5NzoQve+qA7oVjN8dfRKXJS+cy3HHIBmf+45qFB5WOXv6fV3D
-         /sZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwH7+KcPft7etMEP4XeN7jiwhTiBTeKeF/PcnmG2zDKKMMRaCTsx4979wIeCqPFvKCMhqVR4UcrT1cvHgs=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3HlZj1nFZ5bponk+RGeyIzVLIVLWueq9YDsEwAwv0VAjS9++5
-	q9SPmcfYkGb7pQwRNqevJfdptE2OT+XxbwJrxnu7tbWgdeRyAXiWFtAq
-X-Gm-Gg: AYBFou2dDurfSrLGXB8eBLnUrVrIJDiiFIf0S7IynXVm4gHt3oLRJpH+70mctIbFLBr
-	kB21LBjnkMRsL/LOxv3EUujlbrbk+q//EI/BYUEOLLYV/pD9gc+MnlfrX60fUJgwpAgwBuaJ58E
-	MwyVOzuPNlyEsP8y80wFdVSgHLJvrCxiZTF59+3SOhagvnRxiz0/HLsM0dGtbkN/w5kVtJW2q6Q
-	b4wTq2nNLGPsHIQyBvQ9RkFdAYXrzao1npomJvoAglFD3Kd7Y9gEPelDx8G7woushkAK7sUgpSi
-	3Ud+8mlXMigITbXLk/H4WAVJcO5ZNR+2Fewfqh0ELepdhPkPCZk9hLw2SRqzHztiO+ZjSRj9Zsp
-	NnikJjDCw9F4mO8gv3SFVt9Bc/PKatTl7TB9/QJrsgwsoowS3sEd52pgRvvBRQl+bv+XmKmhjtn
-	xd0bzVfm9KRNwzoZlGOZnL08LuZQ2jkDzaS5bK9e3QyE7+ucWUEH6n/cLfOpYXB+YHquyT4oP5A
-	GNaV5eGMkTKZNCpgcPmIHNfNhIDTmQj
-X-Received: by 2002:a05:620a:3710:b0:93a:855b:b95 with SMTP id af79cd13be357-93c251e370dmr503428885a.52.1790182495034;
-        Wed, 23 Sep 2026 09:54:55 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2c22f729sm137899485a.13.2026.09.23.09.54.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 09:54:54 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v1] irqchip/gic-v3-its: Drop ITS node reference on its_of_probe() errors
-Date: Wed, 23 Sep 2026 12:54:40 -0400
-Message-ID: <20260923165447.619477-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dryvgs1s"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2754E1F000FF;
+	Wed, 23 Sep 2026 16:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790182518;
+	bh=Diq01iAs35QsxqCi7Y+JesWTuEVB1bEqcMQJasl1pgQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dryvgs1s9JTEQn7MvbgOOzFB6L5MoAkKSt0tpFtaR+E0YgHDVGGFCKkUczFZfleS/
+	 lq93Ef/zoUg5otzsjv3xRyJu7PwBDkUmCVt7bIaiNitxr8MGLsT3D13OH+Yv4sK0P/
+	 8RaKvZl3sPLvuyoUQRgg55fp4veFnsfKWUObgZ7nIZA0b8OXiY4+TaB1L4Z8FoKJM/
+	 jvV8vpP5yiQvWu7gLjTW7HHDD1Un5o3PALSm0yZY48bbVk+N0ZHKqcqxApZlxH4iST
+	 c9HBqru997COKBdaO8rlf72q+docT9ZOIwUY+7NqZ+QnudoiKQ/AV5m7j8LOM+EVC8
+	 j8blnt/xeH3Yw==
+Date: Wed, 23 Sep 2026 09:55:17 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: linux-xfs@vger.kernel.org, Carlos Maiolino <cem@kernel.org>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 RESEND] xfs: bound inode fork length against the fork
+ size during log recovery
+Message-ID: <20260923165517.GD2705364@frogsfrogsfrogs>
+References: <20260923115744.3160635-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923115744.3160635-1-qwe.aldo@gmail.com>
 
-its_of_probe() walks the ITS nodes with of_find_matching_node(), which
-drops the reference on the previous node and returns the next one with
-its reference count raised.  The loops are balanced when they run to the
-end, but the three error returns (a failed its_reset_one(), a failed
-its_node_init() and a failed its_probe_one()) leave with the current
-node still referenced.
+On Wed, Sep 23, 2026 at 08:57:44AM -0300, Aldo Ariel Panzardo wrote:
+> xlog_recover_inode_commit_pass2() copies an inode log item's data/attr
+> fork region into the inode buffer using the on-log region length without
+> bounding it against the fork capacity, e.g.:
+> 
+> 	len = item->ri_buf[2].iov_len;
+> 	memcpy(XFS_DFORK_DPTR(dip), src, len);
+> 
+> The only guard is an ASSERT, which is a no-op on production kernels
+> (CONFIG_XFS_DEBUG off), and xfs_dinode_verify() runs only after the copy.
+> A crafted image with a dirty log can therefore drive a heap out-of-bounds
+> write at mount time. The XFS_ILOG_DBROOT sibling already passes
+> XFS_DFORK_DSIZE as a bound; the DDATA/DEXT and ADATA/AEXT memcpy paths
+> did not.
+> 
+> Bound each logged fork region against the destination fork size before
+> copying it, and reject the log item with -EFSCORRUPTED when it does not
+> fit. Because the recovered inode is only verified after the fork data has
+> been copied in, the checks are done up front, before any memcpy into the
+> on-disk inode.
+> 
+> Fixes: 658fa68b6f34 ("xfs: refactor log recovery inode item dispatch for pass2 commit functions")
+> Cc: <stable@vger.kernel.org> # v5.8
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-Drop it before returning.
+Looks correct to me,
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 
-Fixes: c733ebb7cb67 ("irqchip/gic-v3-its: Reset each ITS's BASERn register before probe")
-Fixes: 9585a495ac93 ("irqchip/gic-v3-its: Split allocation from initialisation of its_node")
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-Compile-tested only (arm64 defconfig, W=1).
+--D
 
- drivers/irqchip/irq-gic-v3-its.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-index e9807af23537..6361d20bd920 100644
---- a/drivers/irqchip/irq-gic-v3-its.c
-+++ b/drivers/irqchip/irq-gic-v3-its.c
-@@ -5579,8 +5579,10 @@ static int __init its_of_probe(struct device_node *node)
- 			continue;
- 
- 		err = its_reset_one(&res);
--		if (err)
-+		if (err) {
-+			of_node_put(np);
- 			return err;
-+		}
- 	}
- 
- 	for (np = of_find_matching_node(node, its_device_id); np;
-@@ -5602,12 +5604,15 @@ static int __init its_of_probe(struct device_node *node)
- 
- 
- 		its = its_node_init(&res, &np->fwnode, of_node_to_nid(np));
--		if (!its)
-+		if (!its) {
-+			of_node_put(np);
- 			return -ENOMEM;
-+		}
- 
- 		err = its_probe_one(its);
- 		if (err)  {
- 			its_node_destroy(its);
-+			of_node_put(np);
- 			return err;
- 		}
- 	}
-
-base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
--- 
-2.43.0
-
+> ---
+> v2: cc stable # v5.8 (per Darrick).  Move both fork-length checks to the
+>     top of the fork-copy block, before any memcpy into the on-disk
+>     inode, and drop the now-redundant ASSERT.
+> 
+>  fs/xfs/xfs_inode_item_recover.c | 20 +++++++++++++++++++-
+>  1 file changed, 19 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/xfs/xfs_inode_item_recover.c b/fs/xfs/xfs_inode_item_recover.c
+> index 169a8fe3bf0a..6c7dd7dd7032 100644
+> --- a/fs/xfs/xfs_inode_item_recover.c
+> +++ b/fs/xfs/xfs_inode_item_recover.c
+> @@ -507,6 +507,25 @@ xlog_recover_inode_commit_pass2(
+>  	ASSERT(!(fields & XFS_ILOG_DFORK) ||
+>  	       (len == xlog_calc_iovec_len(in_f->ilf_dsize)));
+>  
+> +	/*
+> +	 * The recovered inode is verified only after the fork data has been
+> +	 * copied into it, so bound each logged fork region against the size of
+> +	 * its fork now, before the memcpy below can overrun the on-disk inode.
+> +	 * The DBROOT/ABROOT cases already bound their copies against the fork
+> +	 * size.
+> +	 */
+> +	if ((fields & (XFS_ILOG_DDATA | XFS_ILOG_DEXT)) &&
+> +	    item->ri_buf[2].iov_len > XFS_DFORK_DSIZE(dip, mp)) {
+> +		error = -EFSCORRUPTED;
+> +		goto out_release;
+> +	}
+> +	if ((fields & (XFS_ILOG_ADATA | XFS_ILOG_AEXT)) &&
+> +	    item->ri_buf[(fields & XFS_ILOG_DFORK) ? 3 : 2].iov_len >
+> +	    XFS_DFORK_ASIZE(dip, mp)) {
+> +		error = -EFSCORRUPTED;
+> +		goto out_release;
+> +	}
+> +
+>  	switch (fields & XFS_ILOG_DFORK) {
+>  	case XFS_ILOG_DDATA:
+>  	case XFS_ILOG_DEXT:
+> @@ -546,7 +565,6 @@ xlog_recover_inode_commit_pass2(
+>  		case XFS_ILOG_ADATA:
+>  		case XFS_ILOG_AEXT:
+>  			dest = XFS_DFORK_APTR(dip);
+> -			ASSERT(len <= XFS_DFORK_ASIZE(dip, mp));
+>  			memcpy(dest, src, len);
+>  			break;
+>  
+> -- 
+> 2.53.0
+> 
+> 
