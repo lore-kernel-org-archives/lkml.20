@@ -1,128 +1,84 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2CAC83932F9;
-	Wed, 23 Sep 2026 04:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 922BB35674E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:33:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790137970; cv=none; b=RfqhOqMFGM8UjVqYddXn8q4r97sfHgHDK+c6PtBhj1JH2Px1PsX74qiRDGP9o7I1Wi3XGfzY7m91Fw3/l+kGd9OoXb8w/oH+qEaAChqO/2gzqqa83zZ4OqBU0bbHW8eWiP4k9/vf5dJM7eDTjs5vkzbquRm7/hhA1MIdIsJx7BY=
+	t=1790138015; cv=none; b=SWOxX2wmbs0fHX5XxwKBqeQJ4ivA6ARdRPsydVrNvyuvx1B2XI5V3zv3cEKfs04GqAqnBRQBVTDQnXNSJIJ0sjZcpxu5klyf+h1yRUtZl+Gn32joswtKOqBO7xCioEFILmgVUIt1zbRlrror1Br2PLJSz8tdGZYXZvGDPT999GU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790137970; c=relaxed/simple;
-	bh=XcLwHk06QSGKe2Ods7V5zqX1zXNtJInI09P5mJmD2K0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=n69kl7c1VKPsmUreA9feHmY8h1SzTtCueJmoP/y/IWmzli5XZXo12zC0C7/ivd8YvfS/F0zK/yrn6BxT9+y1LJ4TN5IkC+8cYHFneKxYsJS7KS4jXn85j5ZZaC/Q8/mmGMPCxxMxXP8rBwDepj1Z2XA9RDvQB6sMLJU1xONSPBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=TrnyWHp8; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="TrnyWHp8"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3EB091A25;
-	Tue, 22 Sep 2026 21:32:43 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 008213F86C;
-	Tue, 22 Sep 2026 21:32:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790137966; bh=XcLwHk06QSGKe2Ods7V5zqX1zXNtJInI09P5mJmD2K0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TrnyWHp8RvqNfolAhCIU6/NudgDVmICu+gpFWOjR+r3KHpXHxMqW4Jj07bRhzLHZf
-	 F4ZraoMVAyyaFdO3luR8ZZ31Sfq0zxo/4LQwmCjf29FdEBqwEM+W+ixM06swahUPU7
-	 evVq2qWpOO0jeOHXXj26CgbU80Ek9KqU7Qp220HU=
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: linux-mm@kvack.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Helge Deller <deller@gmx.de>,
-	loongarch@lists.linux.dev,
-	linux-s390@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] parisc/mm: Drop all pxdp_get()
-Date: Wed, 23 Sep 2026 10:02:22 +0530
-Message-ID: <20260923043226.331880-4-anshuman.khandual@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923043226.331880-1-anshuman.khandual@arm.com>
-References: <20260923043226.331880-1-anshuman.khandual@arm.com>
+	s=arc-20240116; t=1790138015; c=relaxed/simple;
+	bh=WU4sawMlGgWTtEIG63OgE5FYvvxD/mdQZvKYerfQUr4=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=OdGuYpRcrpze6cDZg+/PeFL2b5rUqlTmYpjCSNu9kZ+gEV60DtdKYO2HNSUeZ4g4cx6KzRhsixOu/fwySr1z9whvc5liBPjCJ54ZwNtsVOyXth+9Do+8sQotReZQUNzXdhg1dhrcdmZVDx1KqyliiHEUhQ+jMuR9qxCpH2s/q3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6c277929a4aso542873eaf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:33:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790138012; x=1790742812;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8U+8SxW0lyN1A81qRgj2j8WvsjVH/+wIIVddT2WDUf0=;
+        b=EEaoOb4bpABaK5NzX5UQ0GWrknaZ1eXxMYURkDb4qS1tRiVtDFCYJlldBW13zmdz+w
+         Di2qEsCtT2x+6M6pznHEA6Dq8Ds2PrfHuPTrp0kVfNa4baL0YOKXsHsBQfyewKf1ALU4
+         rWItVVP4WAClmxiEs6OdmQrc4rNlv4f3N3mmF5vWCiQRuZf8JQ9hszg58uoxE+bIT/Pc
+         6pUZFRf8mhFetWv4BoOovPxAFQDv0AWXrmTYSm9ckWq8WHtZ4Rymq0WQd6JZN1im9ukH
+         eiFyAsxQUNLRPNna6AgipO3ITFgnRSxiaeMmkjB2Tn1ih0zzDJaQrXAw+TQMxQgEvHo9
+         xdRA==
+X-Forwarded-Encrypted: i=1; AKwUvBwOeNnWsdY3eeI073YL0TB+V4hlp53Z3idcFkW6fePRYAckQQ50e2hw0vXtNrXEUHVjaWtkASHhUw/JsQ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEE44EQW/jtvkTz49uAfYm6iMPFuaOWeDaYswimwN8U2h87B5E
+	rZB8vpCYtZv/7XXRjr4o4KJon7qXlKLviHM90cz6BfzZoiMCePV0zL4wLVueoP95noboRJ5nP4V
+	nfy3vU9dRLJAjlqCUUrLFg/lwhX7fG5zQgT8p/vJKmQI7bttdXHiBW1brVtM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:4b0d:b0:6bd:df1c:23b1 with SMTP id
+ 006d021491bc7-6d2cf847b8amr1362403eaf.15.1790138012446; Tue, 22 Sep 2026
+ 21:33:32 -0700 (PDT)
+Date: Tue, 22 Sep 2026 21:33:32 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab3569c.514bccd6.255447.0023.GAE@google.com>
+Subject: [syzbot] Monthly nvme report (Sep 2026)
+From: syzbot <syzbot+list003bd56f9e8b27f9d049@syzkaller.appspotmail.com>
+To: hch@lst.de, linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org, 
+	sagi@grimberg.me, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Current platform specific pxdp_get() helpers are exact same as the default
-ones defined in the generic MM header (include/linux/pgtable.h) thus making
-them redundant. Move functions that are now depending on generic helpers to
-avoid build failure.
+Hello nvme maintainers/developers,
 
-Cc: “James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
-Cc: Helge Deller <deller@gmx.de>
-Cc: linux-parisc@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-mm@kvack.org
-Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+This is a 31-day syzbot report for the nvme subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/nvme
+
+During the period, 2 new issues were detected and 0 were fixed.
+In total, 3 issues are still open and 3 have already been fixed.
+There are also 2 low-priority issues.
+
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 1       No    WARNING: bad unlock balance in nvme_update_ns_info
+                  https://syzkaller.appspot.com/bug?extid=64bc2169c92ee55ad31f
+<2> 2       Yes   KASAN: slab-use-after-free Read in nvmet_port_subsys_allow_link
+                  https://syzkaller.appspot.com/bug?extid=b0996ac2197dd7420c3e
+<3> 1       No    KASAN: slab-use-after-free Read in fcloop_t2h_xmt_ls_rsp
+                  https://syzkaller.appspot.com/bug?extid=2a31ef5d37a9d722e987
+
 ---
- arch/parisc/include/asm/pgtable.h | 20 +-------------------
- arch/parisc/mm/init.c             | 13 +++++++++++++
- 2 files changed, 14 insertions(+), 19 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/arch/parisc/include/asm/pgtable.h b/arch/parisc/include/asm/pgtable.h
-index 467b8547ac8bf..975aa283b4c13 100644
---- a/arch/parisc/include/asm/pgtable.h
-+++ b/arch/parisc/include/asm/pgtable.h
-@@ -432,25 +432,7 @@ static inline pte_t pte_swp_clear_exclusive(pte_t pte)
- 	return pte;
- }
- 
--static inline pte_t ptep_get(pte_t *ptep)
--{
--	return READ_ONCE(*ptep);
--}
--#define ptep_get ptep_get
--
--static inline bool ptep_test_and_clear_young(struct vm_area_struct *vma,
--		unsigned long addr, pte_t *ptep)
--{
--	pte_t pte;
--
--	pte = ptep_get(ptep);
--	if (!pte_young(pte)) {
--		return false;
--	}
--	set_pte_at(vma->vm_mm, addr, ptep, pte_mkold(pte));
--	return true;
--}
--
-+bool ptep_test_and_clear_young(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep);
- bool ptep_clear_flush_young(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep);
- pte_t ptep_clear_flush(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep);
- 
-diff --git a/arch/parisc/mm/init.c b/arch/parisc/mm/init.c
-index be3380c9bcdae..3da7d8def9435 100644
---- a/arch/parisc/mm/init.c
-+++ b/arch/parisc/mm/init.c
-@@ -992,3 +992,16 @@ struct execmem_info __init *execmem_arch_setup(void)
- 	return &execmem_info;
- }
- #endif /* CONFIG_EXECMEM */
-+
-+bool ptep_test_and_clear_young(struct vm_area_struct *vma,
-+			       unsigned long addr, pte_t *ptep)
-+{
-+	pte_t pte;
-+
-+	pte = ptep_get(ptep);
-+	if (!pte_young(pte))
-+		return false;
-+
-+	set_pte_at(vma->vm_mm, addr, ptep, pte_mkold(pte));
-+	return true;
-+}
--- 
-2.43.0
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
