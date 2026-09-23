@@ -1,381 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CAB530E0A;
-	Wed, 23 Sep 2026 13:18:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2106C5304C6;
+	Wed, 23 Sep 2026 13:18:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169533; cv=none; b=LhTySBhJWkecQClAateqbbPSTX0nqe8I1qiablydauyUdpYYQOQ7DTCXeBBKKfXWOF3EqqU7RmXYSNCx7mwci12c7aZ0M+b9SsGC06x4/f3ea+dEzuksvH3xN5pB1CxMoybPv2VU7i9B2z2g08R0+AE8bjFGSGkzc8d3OVF4C+Q=
+	t=1790169539; cv=none; b=tkqu9DOvROVUkCScHvcuV4gsX81z4QBrl3YQwIBVTzegMMzvuIb07DEDyA4jZSIry2prWH6jJLzAcNZE+wjkhoyIIc1hMndt5SptN+K5BMRocw2YfN9mZPDvejE0qRlHYa4b+VdON5vmKlDNKLG1ximraR6QnfmS5AOd8sLlcD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169533; c=relaxed/simple;
-	bh=2MJCcjMSqZYU61/mlzu7p8PU+iqPW2XcXJ3DCvdViEU=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UgghvKeN1c5TvsgIzfZr+YbevBPfeqU0XdCQvOXJ2Zwal3W2F9/FAusc2KDg9SAzW91vI8wfg1iIAYIhLM5SYYyOJq4oG9FP9po0dxBvCxH/iIE0HwH9lQY+Xa4Bxxw/TTAzvgXCwHndd+upB6VTbXQ+rQFaYiYWwr4bu4UpcTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RwYzPxCk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790169539; c=relaxed/simple;
+	bh=wWH4fKsWOyheCbNebbp+8OlkINLgIfqoiOwkTCoUDzk=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Hg2T0MwZW/skWUWJsJF527jPqdVwVFtPSdGcTvEYOceljQ1u0yYmLxtCIfJNz9Zx9gsTImSSKm0f4yUxg7K8LbPiYYhtBFKbrDf9+HIrAgvkSx/HZfEGaH/3z8+grCtvA0l3DVH5yR7qz7l7tjW9YYEyfZz0HT2OnWBf2a4kaM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=drlErN7P; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RwYzPxCk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B241F000FF;
-	Wed, 23 Sep 2026 13:18:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790169520;
-	bh=BSvIUUVPs3vpcQNZgqtwmOeR8QwxCnzKrnKsdXZdJDg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RwYzPxCkykj0IQENtEr3Mgo85N/GX2p1skjSQ4ANKdJkqYfdVQh7kVFHnpxNTROV0
-	 T0Payhqnn1InAdkRxmaEkOiJKPuaTbWVfa2qLODC+gwaISmG13z4GQ453hhYTfZUZt
-	 qcsPbOrclw5jrzxLf+P/eeMMoexYuctB0NWfR+bFw5cqZnklQdJzj/1dp2R6FUsy2x
-	 xFYVvkuIXiJP54SVzfZMN6dftT2kLHUBKJmeS1TQjyKjNzpZDbD3xvARUvSCchF5ku
-	 voAuzgCEGKVcBRZKDxtm4ZHzQqyjR2j+9vpfRrioUr1Xd8E2g+upIqHdawZUJyVO6s
-	 NUlFqjuJcBJxA==
-Subject:
- Re: [PATCH net v8 2/2] net: stmmac: remove software VLAN tag stripping
-From: netdev-bot+sashiko@kernel.org
-To: peilinhe2020@163.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- he.peilin@zte.com.cn
-Date: Wed, 23 Sep 2026 13:18:38 +0000
-Message-ID: <179016951891.2160803.13955157449938739742@kernel.org>
-In-Reply-To: <20260919125413.18058-3-peilinhe2020@163.com>
-References: <20260919125413.18058-3-peilinhe2020@163.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="drlErN7P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790169533; x=1821705533;
+  h=from:to:subject:date:message-id:in-reply-to:references:
+   mime-version:content-transfer-encoding;
+  bh=wWH4fKsWOyheCbNebbp+8OlkINLgIfqoiOwkTCoUDzk=;
+  b=drlErN7PnqYwFdp6GVqE6RjnTmiqxSCrdWG+fTFPTDmkzEndWcndn8qr
+   xMbX+KbMgG1/6Trc5Bo3vN+SA2ESQ3xCcN77n4i5mFr3axGolwg+iCpfV
+   hMxtHtnCPVSUHjzMNgfBT3Jm02s9o0bgBK/t2ARmsPw+SwR7VbmWvh0dp
+   0GT6TY9HG4PJkLmAQ8D9HP4IdZ7AZRm3hFZiG6ouzkzx/eTdPWMETcNgJ
+   2wjAvM7TwAU+bLir0UepqTrBwCorJ6AVQxFd9gfutbW6en8dhZeojCQQR
+   uEe+UlPVPgJzxrmJsbvj8HS0rE+Oo7m0QOuO36G82G8JA/2FfXvqJbCFG
+   A==;
+X-CSE-ConnectionGUID: DR6XR7OqRMauL2cLN5aVug==
+X-CSE-MsgGUID: e4SP+jSZRoy/0fwIUcxbMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="94683858"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="94683858"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 06:18:49 -0700
+X-CSE-ConnectionGUID: h3cBXUa/SOaGK6vZZ/aHxQ==
+X-CSE-MsgGUID: bW+g54EqSaCvFWzquOR33Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="301535283"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.13])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 06:18:43 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+	Nikolas Joshua Britton <nbritton@exabit.io>,
+	Geramy Loveless <gloveless@jqluv.com>,
+	Eric Auger <eauger@redhat.com>,
+	Alexey Fomenko <alexey.fomenko@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 4/5] PCI: Fix composite resource sizing
+Date: Wed, 23 Sep 2026 16:17:54 +0300
+Message-ID: <20260923131757.7792-5-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260923131757.7792-1-ilpo.jarvinen@linux.intel.com>
+References: <20260923131757.7792-1-ilpo.jarvinen@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+The bridge window sizing algorithm aims to pack child resources back to
+back. With multiple composite child resources whose sizes do not align
+to the calculated minimal alignment for the bridge window, back-to-back
+placement may not be possible. The non-aligning remainder placement is
+limited because it must be adjacent to the rest of the composite
+resource.
 
-Critical: 0 · High: 3 · Medium: 0 (1) · Low: 1 (1)
+Effectively, two remainder parts may be placed into the same align
+sized block, but sum of their size might not match align. In such case,
+a gap is required to meet the alignment requirement of both resources.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Add bridge window gap size calculator. Basic rules:
 
-- [High] stmmac_has_ip_ethertype() parses the VLAN chain at the wrong
-  offset on RX, so widening the bound from `depth <= ETH_HLEN` to `depth…
-- [High] The same helper is the TX gate: stmmac_features_check()
-  (ndo_features_check) clears NETIF_F_IP_CSUM/NETIF_F_IPV6_CSUM when…
-- [High] The widened `depth <= VLAN_ETH_HLEN` bound removes the last
-  software guard that kept the driver from claiming CHECKSUM_UNNECESSARY…
-- [Low] The patch silently fixes a live, user-visible feature-
-  advertisement bug on DWXLGMAC but carries no Fixes: tag.
+1) Gaps are only necessary if there is more than one non-aligning
+   composite resource within a single bridge window.
 
-Pre-existing issues:
-- [Medium] Removing NETIF_F_HW_VLAN_STAG_RX from the advertised features
-  does not stop the MAC from stripping S-tags and reporting them as…
-- [Low] priv->hw->hw_vlan_en is a plain bool flipped from process context
-  in stmmac_set_features() (under rtnl) while it is read concurrently by…
+2) If there are only two remainder parts that amount to less than align
+   together, the required gap is the difference of align and the sum of
+   remainder sizes.
 
---
+3) On other cases, round each remainder part to align to get the gap
+   size. Sometimes, smaller size may be possible but due to how sizing
+   and assignment are made in different phases, it is not always
+   possible to predict where each resource is assigned. Thus, the
+   sizing has to play safe.
 
-net: stmmac: remove software VLAN tag stripping
+The gap is calculated based on the minimal alignment for the bridge
+window, which may be different for the case with only required
+resources and the case with optional resources.
 
-This removes stmmac_rx_vlan() and its two call sites, relaxes the depth
-check in stmmac_has_ip_ethertype() so a single in-payload VLAN tag is
-tolerated, and changes the RX VLAN feature advertisement in
-__stmmac_dvr_probe() to depend on the presence of .set_hw_vlan_mode and
-.rx_hw_vlan.
+Fixes: 9036bd0efcb6 ("PCI: Align head space better")
+Reported-by: Bjorn Helgaas <bhelgaas@google.com>
+Tested-by: Bjorn Helgaas <bhelgaas@google.com>
+Reported-by: Nikolas Joshua Britton <nbritton@exabit.io>
+Link: https://lore.kernel.org/linux-pci/20260903063124.9316-1-nbritton@exabit.io/
+Reported-by: Maciej Grochowski <Maciej.Grochowski@sony.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
+ drivers/pci/setup-bus.c | 79 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 76 insertions(+), 3 deletions(-)
 
-A few questions below.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 1fb5f804ea23..232b1e7e031c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4769,7 +4769,11 @@ static bool stmmac_has_ip_ethertype(struct sk_buff *skb)
->  	proto = __vlan_get_protocol(skb, eth_header_parse_protocol(skb),
->  				    &depth);
->  
-> -	return (depth <= ETH_HLEN) &&
-> +	/* Software VLAN stripping is gone, so a single VLAN tag may
-> +	 * still be present. The MAC RX checksum result still applies
-> +	 * to the inner IP packet.
-> +	 */
-> +	return (depth <= VLAN_ETH_HLEN) &&
->  		(proto == htons(ETH_P_IP) || proto == htons(ETH_P_IPV6));
->  }
-
-[Severity: High]
-On the RX side, is the VLAN chain parsed at the right offset here?  Both
-RX callers advance skb->data before calling this helper:
-
-	skb->protocol = eth_type_trans(skb, priv->dev);
-
-	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb) ||
-	    (status & csum_none))
-
-eth_type_trans() calls eth_skb_pull_mac(), which is just:
-
-	static inline struct ethhdr *eth_skb_pull_mac(struct sk_buff *skb)
-	{
-		struct ethhdr *eth = (struct ethhdr *)skb->data;
-
-		skb_pull_inline(skb, ETH_HLEN);
-		return eth;
-	}
-
-and it never assigns skb->mac_len.  The skb is built with
-napi_build_skb()/napi_alloc_skb() so mac_len is still 0 at this point;
-skb_reset_mac_len() only runs later in __netif_receive_skb_core(), after
-napi_gro_receive().
-
-__vlan_get_protocol() passes mac_offset 0, and the walk then does:
-
-net/core/skbuff.c:__vlan_get_protocol_offset() {
-	unsigned int vlan_depth = skb->mac_len, parse_depth = VLAN_MAX_DEPTH;
-
-	if (vlan_depth) {
-		...
-		vlan_depth -= VLAN_HLEN;
-	} else {
-		vlan_depth = ETH_HLEN;
-	}
-		vh = skb_header_pointer(skb, mac_offset + vlan_depth,
-					sizeof(vhdr), &vhdr);
-	...
-}
-
-With mac_len == 0 the first VLAN header is expected at skb->data +
-ETH_HLEN, but after the pull the real tag sits at skb->data + 0, so the
-read lands 14 bytes too far.  For a tagged IPv4 frame
-h_vlan_encapsulated_proto is then read from IP header bytes 12..13, i.e.
-the first two bytes of the source address; for IPv6 it is source address
-bytes 4..5, and for a tagged ARP frame it is sender-MAC bytes 4..5.
-
-That leads to two effects.  First, the ordinary tagged IPv4/IPv6 frame
-fails the proto comparison, so the MAC RX checksum result is still
-discarded and dwmac100/dwmac1000 lose CHECKSUM_UNNECESSARY for the VLAN
-traffic that previously got it via stmmac_rx_vlan() with depth 0.  Does
-that contradict the commit message claim:
-
-    "Adjust stmmac_has_ip_ethertype() to tolerate a single in-payload
-    VLAN tag so that the MAC RX checksum offload result is still used
-    for tagged IPv4/IPv6 frames on cores without MAC-level stripping."
-
-Second, when those mis-read bytes do happen to equal 0x0800 or 0x86DD
-(for instance a tagged frame with a source address in 8.0.0.0/16, which
-the sender chooses), depth becomes 18 and the new bound accepts it, so
-CHECKSUM_UNNECESSARY is set for frames whose real EtherType is not IP.
-The old depth <= ETH_HLEN bound could not reach that state because a
-VLAN walk always yields 18.
-
-Would it work to run the helper before eth_type_trans(), or to pass an
-explicit mac_offset that accounts for the ETH_HLEN pull?
-
-> @@ -5049,24 +5053,6 @@ static netdev_features_t stmmac_features_check(struct sk_buff *skb,
->  	return vlan_features_check(skb, features);
->  }
-
-[Severity: High]
-stmmac_has_ip_ethertype() is also the TX gate in stmmac_features_check():
-
-	if (priv->plat->tx_queues_cfg[queue].coe_unsupported ||
-	    !stmmac_has_ip_ethertype(skb))
-		features &= ~(NETIF_F_IP_CSUM | NETIF_F_IPV6_CSUM);
-
-Unlike the RX side, the parse offset is correct there, because
-__dev_queue_xmit() has done skb_reset_mac_header() and mac_len is either
-0 or 18, so depth 18 is genuinely accepted after this change.  That
-re-enables hardware checksum (and therefore TSO, via
-harmonize_features()) for frames that already carry one VLAN tag in the
-payload when ndo_features_check runs: DSA tag_8021q frames such as
-sja1105 in VLAN-aware mode, and bridged/forwarded tagged
-CHECKSUM_PARTIAL frames from tap/vhost guests.  vlan_features_check()
-only masks multi-tagged frames, so a single in-payload tag passes
-through.
-
-Isn't that the class of frames that commit c2945c435c99 ("net: stmmac:
-Prevent DSA tags from breaking COE") excluded with depth <= ETH_HLEN, on
-the grounds that "on TX these tagged frames are ignored by the checksum
-offload engine and IP header checker of some stmmac cores"?  If the COE
-does not skip the tag, the descriptor CIC request is ignored and the
-frame goes out with the pseudo-header sum still in the L4 checksum
-field, and there is no TX-side fallback.
-
-Was this TX effect intended?  The changelog only describes the RX
-rationale, and c2945c435c99 carried a Fixes: tag and went to stable.
-
->  
-> -static void stmmac_rx_vlan(struct net_device *dev, struct sk_buff *skb)
-> -{
-> -	struct vlan_ethhdr *veth = skb_vlan_eth_hdr(skb);
-> -	__be16 vlan_proto = veth->h_vlan_proto;
-> -	u16 vlanid;
-> -
-> -	if ((vlan_proto == htons(ETH_P_8021Q) &&
-> -	     dev->features & NETIF_F_HW_VLAN_CTAG_RX) ||
-> -	    (vlan_proto == htons(ETH_P_8021AD) &&
-> -	     dev->features & NETIF_F_HW_VLAN_STAG_RX)) {
-> -		/* pop the vlan tag */
-> -		vlanid = ntohs(veth->h_vlan_TCI);
-> -		memmove(skb->data + VLAN_HLEN, veth, ETH_ALEN * 2);
-> -		skb_pull(skb, VLAN_HLEN);
-> -		__vlan_hwaccel_put_tag(skb, vlan_proto, vlanid);
-> -	}
-> -}
-> -
->  /**
->   * stmmac_rx_refill - refill used skb preallocated buffers
->   * @priv: driver private structure
-> @@ -5435,9 +5421,7 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
->  	if (priv->hw->hw_vlan_en)
->  		/* MAC level stripping. */
->  		stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
-> -	else
-> -		/* Driver level stripping. */
-> -		stmmac_rx_vlan(priv->dev, skb);
-> +
->  	skb->protocol = eth_type_trans(skb, priv->dev);
->  
->  	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
-
-[Severity: High]
-Can the relaxed bound make the driver claim CHECKSUM_UNNECESSARY for
-frames the COE never validated?  In this zero-copy path the descriptor
-status is not consulted at all:
-
-	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
-		skb_checksum_none_assert(skb);
-	else
-		skb->ip_summed = CHECKSUM_UNNECESSARY;
-
-and in stmmac_rx() the extra status term cannot express "not checked":
-
-drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:dwmac4_wrback_get_rx_status() {
-	if (rdes1 & RDES1_IP_HDR_ERROR) { x->ip_hdr_err++; ret |= csum_none; }
-	if (rdes1 & RDES1_IP_CSUM_BYPASSED)
-		x->ip_csum_bypassed++;
-	...
-	if (rdes1 & RDES1_IP_PAYLOAD_ERROR) { x->ip_payload_err++; ret |= csum_none; }
-}
-
-RDES1_IP_CSUM_BYPASSED is only counted, never mapped to csum_none, so
-status & csum_none stays clear for a frame the engine skipped.  Before
-this change, any frame whose payload still began with a VLAN header gave
-depth 18 > ETH_HLEN and was downgraded to CHECKSUM_NONE; now depth 18 is
-accepted.  Cases where the COE legitimately bypasses include an
-802.1ad/QinQ frame whose inner tag remains after the outer one is
-stripped, and IP fragments.
-
-Combined with the offset question above, the accept on RX is reached via
-the mis-read EtherType, i.e. from payload bytes the sender picks, so a
-corrupt L4 checksum can be handed to the stack as verified.  Should the
-descriptor bypass bit be consulted before setting
-CHECKSUM_UNNECESSARY, at least in the zero-copy path?
-
-> @@ -5929,9 +5913,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
->  		if (priv->hw->hw_vlan_en)
->  			/* MAC level stripping. */
->  			stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
-> -		else
-> -			/* Driver level stripping. */
-> -			stmmac_rx_vlan(priv->dev, skb);
->  
->  		skb->protocol = eth_type_trans(skb, priv->dev);
->  
-
-[Severity: Low]
-This is a pre-existing issue and not introduced by this patch, but after
-the else branch is gone, priv->hw->hw_vlan_en becomes the only gate for
-recovering the VLAN ID from the descriptor.  The flag is a plain bool
-written from process context in stmmac_set_features():
-
-	if (features & NETIF_F_HW_VLAN_CTAG_RX)
-		priv->hw->hw_vlan_en = true;
-	else
-		priv->hw->hw_vlan_en = false;
-
-	phylink_rx_clk_stop_block(priv->phylink);
-	stmmac_set_hw_vlan_mode(priv, priv->hw);
-
-and read from softirq context in stmmac_rx() and
-stmmac_dispatch_skb_zc(), with no READ_ONCE/WRITE_ONCE, no barrier and
-no NAPI quiescing between the flag update and the MAC strip-mode
-register write.  On the disable transition the flag is cleared first, so
-frames whose tag the MAC already stripped are delivered with
-stmmac_rx_hw_vlan() skipped and the VLAN ID lost.  Is it worth making
-the flag update and the register write ordered while this code is being
-touched?
-
-> @@ -7990,9 +7971,10 @@ static int __stmmac_dvr_probe(struct device *device,
->  	ndev->features |= ndev->hw_features | NETIF_F_HIGHDMA;
->  	ndev->watchdog_timeo = msecs_to_jiffies(watchdog);
->  #ifdef STMMAC_VLAN_TAG_USED
-> -	/* Both mac100 and gmac support receive VLAN tag detection */
-> -	ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
-> -	if (dwmac_is_xmac(priv->plat->core_type)) {
-> +	if (priv->hw->vlan &&
-> +	    priv->hw->vlan->set_hw_vlan_mode &&
-> +	    priv->hw->vlan->rx_hw_vlan) {
-> +		ndev->features |= NETIF_F_HW_VLAN_CTAG_RX;
->  		ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
->  		priv->hw->hw_vlan_en = true;
->  	}
-
-[Severity: Low]
-This ops-presence check also fixes a live advertisement bug on DWXLGMAC.
-The ops table there provides neither callback:
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-	const struct stmmac_vlan_ops dwxlgmac2_vlan_ops = {
-		.update_vlan_hash = dwxgmac2_update_vlan_hash,
-		.enable_vlan = vlan_enable,
-	};
-
-so with the old dwmac_is_xmac() test that core advertised
-rx-vlan-offload and set hw_vlan_en while rx_hw_vlan was a no-op and the
-MAC was never programmed to strip.  That is the same problem
-8eb301bd7b0f4 ("net: stmmac: enable HW-accelerated VLAN stripping for
-gmac4 only") addressed for gmac/xgmac, and 534df0c1724b7 ("net: stmmac:
-dwxgmac2: Add support for HW-accelerated VLAN stripping") reintroduced
-for XLGMAC by widening the condition to all xmac cores.  Should this
-carry a Fixes: 534df0c1724b7 tag, or be split into its own patch so it
-can be backported separately from the cleanup?
-
-[Severity: Medium]
-This is a pre-existing issue rather than something this patch
-introduces, but does dropping NETIF_F_HW_VLAN_STAG_RX actually change
-what the hardware does?  hw_vlan_en is still set here, and
-stmmac_set_features() derives it from the single C-tag bit, after which:
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c:vlan_set_hw_mode() {
-	if (hw->hw_vlan_en)
-		/* Always strip VLAN on Receive */
-		value |= VLAN_TAG_STRIP_ALL;
-	...
-}
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c:vlan_rx_hw() {
-	if (hw->desc->get_rx_vlan_valid(rx_desc)) {
-		u16 vid = hw->desc->get_rx_vlan_tci(rx_desc);
-
-		__vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q), vid);
-	}
-}
-
-Once an 802.1ad VLAN is configured, vlan_update_hash() sets VLAN_ESVL /
-VLAN_EDVLP / VLAN_DOVLTC, so an outer S-tag is recognised, stripped by
-VLAN_TAG_STRIP_ALL and then reported as ETH_P_8021Q on an interface that
-now declares S-tag RX offload unsupported.  The S-VID can then land on an
-802.1Q upper device with the same VID.  Since the commit message gives
-this as a motivation:
-
-    "NETIF_F_HW_VLAN_STAG_RX is no longer advertised, as the hardware
-    reports stripped S-tags as C-tags."
-
-would it be clearer to state that the strip/report behaviour itself is
-unchanged and only the feature bit is removed?  The driver selftest
-validator still expects ETH_P_8021AD metadata for an outer S-tag.
-
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index 7ca0e9f4ffb6..9d828a59bd00 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -1164,6 +1164,76 @@ static inline resource_size_t calculate_mem_align(resource_size_t *aligns,
+ 	return min_align;
+ }
+ 
++/*
++ * Bridge window gap size calculator.
++ *
++ * Calculates gap (empty space) necessary because of non-aligning composite
++ * resources (VF BARs, bridge windows).
++ *
++ * Rules:
++ *
++ * 1) Gaps are only necessary if there is more than one non-aligning
++ *    composite resource within a single bridge window.
++ *
++ * 2) If there are only two remainder parts that amount to less than win_align
++ *    together, the required gap is the difference of win_align and the sum of
++ *    remainder sizes.
++ *
++ * 3) On other cases, round each remainder part to win_align to get the gap
++ *    size. Sometimes, tighter packing might be possible but due to how
++ *    sizing and assignment are made in different phases, it is not always
++ *    possible to predict where each resource is assigned. Thus, the sizing
++ *    has to play safe even if it may overestimate in some cases.
++ */
++static resource_size_t calculate_win_gap_size(struct pci_bus *bus,
++					      struct resource *b_res,
++					      resource_size_t win_align,
++					      bool optional)
++{
++	resource_size_t safe_gap = 0, remainders = 0;
++	unsigned int nonaligning = 0;
++	struct pci_dev *dev;
++
++	list_for_each_entry(dev, &bus->devices, bus_list) {
++		struct resource *r;
++		int i;
++
++		pci_dev_for_each_resource(dev, r, i) {
++			resource_size_t r_size, remainder, aligning;
++
++			if (!pdev_resources_assignable(dev) ||
++			    !pdev_resource_should_fit(dev, r))
++				continue;
++			if (b_res != pbus_select_window(bus, r))
++				continue;
++
++			if (!optional && pci_resource_is_optional(dev, i))
++				continue;
++
++			r_size = resource_size(r);
++			if (r_size <= win_align)
++				continue;
++
++			aligning = ALIGN_DOWN(r_size, win_align);
++			remainder = r_size - aligning;
++			if (!remainder)
++				continue;
++
++			nonaligning++;
++			remainders += remainder;
++			safe_gap += win_align - remainder;
++		}
++	}
++
++	if (nonaligning == 2 && (remainders <= win_align))
++		return win_align - remainders;
++
++	if (nonaligning >= 2)
++		return safe_gap;
++
++	return 0;
++}
++
+ /*
+  * Calculate bridge window head alignment that leaves no gaps in between
+  * resources.
+@@ -1281,6 +1351,7 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
+ 	int order, max_order;
+ 	resource_size_t children_add_size = 0;
+ 	resource_size_t add_align = 0;
++	resource_size_t gap_size;
+ 
+ 	if (!b_res)
+ 		return;
+@@ -1345,7 +1416,8 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
+ 	win_align = pci_min_window_alignment(bus, b_res->flags);
+ 	min_align = calculate_head_align(aligns, max_order);
+ 	min_align = max(min_align, win_align);
+-	size0 = calculate_memsize(size, realloc_head ? 0 : add_size,
++	gap_size = calculate_win_gap_size(bus, b_res, min_align, false);
++	size0 = calculate_memsize(size + gap_size, realloc_head ? 0 : add_size,
+ 				  0, win_align);
+ 
+ 	if (size0) {
+@@ -1355,8 +1427,9 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
+ 
+ 	if (realloc_head && (add_size > 0 || children_add_size > 0)) {
+ 		add_align = max(min_align, add_align);
+-		size1 = calculate_memsize(size, add_size, children_add_size,
+-					  win_align);
++		gap_size = calculate_win_gap_size(bus, b_res, add_align, true);
++		size1 = calculate_memsize(size + gap_size, add_size,
++					  children_add_size, win_align);
+ 	}
+ 
+ 	if (!size0 && !size1) {
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919125413.18058-1-peilinhe2020%40163.com
+2.47.3
+
