@@ -1,44 +1,47 @@
-Received: from out-zbxj-a87.jellyfish.systems (out-zbxj-a87.jellyfish.systems [198.54.127.87])
+Received: from out-2z4y-a134.jellyfish.systems (out-2z4y-a134.jellyfish.systems [198.54.127.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6196A368D55
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:31:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2BB372EF5
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130709; cv=none; b=JXQv7vy1yhwH9NXRQ4chR+6VXO/ZHDkj96N0TZXA2bRx0o/lM2RaZOs+DiFdM5XH3mZHFIt6lVn/Kz4+weACNCphnKkWLJWSvlFi19Ddij5ms9CLnQFopB7kucKV2uQLDvR5Ms/8bw8Z2tYn2z8vwv7Tfq2Aq/GK67TqtZ1tGYw=
+	t=1790130728; cv=none; b=QBy1N2asOi9qZmhu+Ma605t8BJs8HpCbJHKum/prOXWgV7SlNHYQ2p+BV7hGtqJO3ZBYqSaeSDabciCyracQudJOUuUyH0lyy6eKqqHyuA7WD8a9s4nE1SfqIn0dNKwmsoITcRc5ALMzftYonC0sWJyx3nlR4xyTeZQHjt0UzkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130709; c=relaxed/simple;
-	bh=xVYCl2+ToQhJsfoOk1Efc9VXhWNjqHGapy2zKgaYkh4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DajiUsKbsUlIe5nf0aua6pT2uW/qhh3OYDub6gB00VJwcGqLPlpq9xZGdNygofngRIIoPviTq1UNgjHdgB1jmMR+x99ql7E3usRXGhXv7MAWNJZNFhdG8F2SD/5iclV1FLZMS1gzddexVypKNZ+GWlXEUat7dAdaxxGJDE3pHDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=DQ1m2Cq3; arc=none smtp.client-ip=198.54.127.87
+	s=arc-20240116; t=1790130728; c=relaxed/simple;
+	bh=H8G1ZpSGU+XEPkSOWl5JwWrQCV5ATc+10WGucScsNZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R0Qvez2WJMocU4YoX9fUgg+HgRFLEguu5986sCjVvpi0Oqd5RQPjhjiPK/rz76zz+1SIkIfr9XFHlt91Jwyx2juIr9DJyHKtKE4Em/9J+qyXZfr8yk6285sjEMp8YudbhiqCoaQ53Pk8iKOx2QYU0TDSDSosVzABTWzNcLksvUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=JxeV8+Gt; arc=none smtp.client-ip=198.54.127.134
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="DQ1m2Cq3"
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="JxeV8+Gt"
 Received: from fedora (unknown [120.199.7.38])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hqLZJ3fkcz8sYH;
-	Wed, 23 Sep 2026 02:31:36 +0000 (UTC)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hqLZW45MGz8sYH;
+	Wed, 23 Sep 2026 02:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1790130697;
-	bh=atpMB5sAObGBHnnZwrOzoT8hf1VnqLifryohDjX8lnw=;
-	h=From:To:Cc:Subject:Date:From;
-	b=DQ1m2Cq3mutHCmf62FSW3M/unrd1lwHkBQARS34Crz9uY49SCD15QOhS9fI975POz
-	 kFUV8asMjEoSR8PU6pJIcBAuXRpW6+B96JcoFVSmZPS2TbwSSK6eZgrTNVFjVnpGMn
-	 15YWHFNgN5s5y5N+xRr55hL75j/kKUrMkGvBYhrnu9WdEM89ixC31s8KmbCsG3tEXQ
-	 U3yW6+nNQEsP5WAOqp8VU+7Wzc3/kkG5EUxiiMB74y75dnbtJySeOAoA9/YaglZstS
-	 wZ6q/Y+dIKQJE3PsrXY7IBAO5/QOiW7jugWLwpkHD233D6C978J81S4H31EIQLyULy
-	 s/jqhLWjiwYtQ==
+	s=spacemail; t=1790130709;
+	bh=r5BCBsILvYpkCei8NxC2nBexoyGfpFRtjZRXstiHS3c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=JxeV8+Gta6mPvrkqBEcX7kwlYEAqpPcPO5yJBmlxp2MWLyMY9zeRQhNoPUx69Q5gj
+	 fgfZCk0mgSYgRKQDuKntGl16gTZQC+q7m7a4bN2goCXzbRjOz/ZQpj0OAC5lg5l+nF
+	 NxB8EjwKuB1EvIEkwzUrFZK2ZvudGhURT/E+53XQrJ4YFL9Jj/3JK2pN24rg7eMTGO
+	 1UIw8wv0506cABI7dNCAoeidT4/nQTr6L8qJ7Ti85cSy7x4O96egJ4GEwjBQ9phkQk
+	 3ykc0JQu5LrqD+r4T5v5Fd6Wp8VIrnICCLH0xOyh2lAv9S1VE5fjabpFUQ/nVsa25C
+	 abAFNQ8fO/4Ow==
 From: Tianyi Chen <hi@tychen.cc>
 To: Mike Rapoport <rppt@kernel.org>
 Cc: linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/4] memblock tests: fix BUILD=32 address conversions and warnings
-Date: Wed, 23 Sep 2026 11:31:22 +0900
-Message-ID: <20260923023126.1910311-1-hi@tychen.cc>
+Subject: [PATCH v2 4/4] memblock: initialize the region merge end index
+Date: Wed, 23 Sep 2026 11:31:26 +0900
+Message-ID: <20260923023126.1910311-5-hi@tychen.cc>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923023126.1910311-1-hi@tychen.cc>
+References: <20260923023126.1910311-1-hi@tychen.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,49 +51,34 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Envelope-From: hi@tychen.cc
 
-Fix the BUILD=32 physical-address truncation and sign-extension failures,
-and address the remaining GCC warnings reported during review.
+GCC 13 reports that end_rgn may be used uninitialized when building the
+memblock simulator with BUILD=32 and its default sanitizer flags.
 
-Changes in v2:
-- Use memblock_phys_free() for all synthetic physical ranges in the basic
-  API tests, not only the maximum-address check.
-- Keep the dummy-memory address conversion fix unchanged.
-- Use __pa() in tools virt_to_phys() to avoid a pointer-size warning and
-  sign extension of 32-bit pointers with their top bit set.
-- Initialize end_rgn to avoid GCC's maybe-uninitialized warning.
+Every insertion sets end_rgn, and the nr_new check prevents merging when
+there were no insertions, so this is not an uninitialized read. Initialize
+the index to zero to avoid the warning without disabling the diagnostic.
 
-Clang BUILD=32 without NUMA also passes on v1 (189 checks). The earlier
-cover letter only mentioned the NUMA-enabled configuration tested then.
+Reported-by: Mike Rapoport <rppt@kernel.org>
+Link: https://lore.kernel.org/r/179007180279.508753.4595268983388589280.b4-review@b4
+Assisted-by: LLM
+Signed-off-by: Tianyi Chen <hi@tychen.cc>
+---
+ mm/memblock.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Validated v2 with GCC 13.3.0 and Clang 18.1.3, retaining the default ASan
-and UBSan flags and adding -Werror. Both compilers build without warnings
-and pass ./main -v and ./main -m -v in each configuration:
-- Default and NUMA=1.
-- BUILD=32, with and without NUMA=1.
-- 32BIT_PHYS_ADDR_T=1, with and without NUMA=1.
-- BUILD=32 NUMA=1 MEMBLOCK_DEBUG=1.
-
-Each run passes 189 checks without NUMA or 272 with NUMA, including both
-allocation directions. A separate virt_to_phys() boundary check passes
-with both compilers in 32- and 64-bit builds; GCC BUILD=32 failed it on
-v1 for 0x80000000 due to sign extension.
-
-v1: https://lore.kernel.org/r/20260916161105.2548281-1-hi@tychen.cc
-
-Tianyi Chen (4):
-  memblock tests: use physical addresses for region removal
-  memblock tests: zero-extend simulated memory addresses
-  tools: use __pa() in virt_to_phys()
-  memblock: initialize the region merge end index
-
- mm/memblock.c                            |  2 +-
- tools/include/linux/mm.h                 |  2 +-
- tools/testing/memblock/tests/basic_api.c | 20 ++++++++++----------
- tools/testing/memblock/tests/common.c    |  6 +++---
- 4 files changed, 15 insertions(+), 15 deletions(-)
-
-
-base-commit: 5728d3523f12826a2b180c1c5738f74e33197e14
+diff --git a/mm/memblock.c b/mm/memblock.c
+index 22d14a637f24..aee1fe36130b 100644
+--- a/mm/memblock.c
++++ b/mm/memblock.c
+@@ -614,7 +614,7 @@ static int __init_memblock memblock_add_range(struct memblock_type *type,
+ 	bool insert = false;
+ 	phys_addr_t obase = base;
+ 	phys_addr_t end = base + memblock_cap_size(base, &size);
+-	int idx, nr_new, start_rgn = -1, end_rgn;
++	int idx, nr_new, start_rgn = -1, end_rgn = 0;
+ 	struct memblock_region *rgn;
+ 
+ 	if (!size)
 -- 
 2.55.0
 
