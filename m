@@ -1,134 +1,133 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C4B448D11
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:44:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA31C394490;
+	Wed, 23 Sep 2026 07:44:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149460; cv=none; b=T7pWuojH0rewGzSsqCHJbPc9lxDAkFEgA1lGPZ28NUX4WAKIW+pU4KNcchihJDcc/pdJtBs4E1ODwLp/r7/Z8l7mY8Tqy+US+FP9Lib91McTrgkWIS4wNHqcMzqMjbQte/8vVgQLQK0xk659WQGdpP7ojmq0eGT4TcNTzawL+wg=
+	t=1790149466; cv=none; b=mi52CWpQxoow7fGX1+rkiewErYYfgGiEIZ8fTYRvCjS4Klz0qQqo5+2qkIsLEmXq5yhdIm0p6HMIzgVahgju1Qf9fypBhCJtV8AzhrIjOA8Pfa+YkGH+tIJOYQaETLPMrXBnk1jx685RLQcRkRDyKhkleqfysgEjblIqs8lRxyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149460; c=relaxed/simple;
-	bh=M9lMAFUnH2NTE62JM03Y7t5HyySwHMlsThVH5J/2ELU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KvO5IA/raPWUfL16+HOHr7idIsTCYRNK/3yjftQhQHcWjVI9w+1VP7EO3vOaD9oAR2IPZi3Ks7h3Z0OjDB0xjwnx0Wg3WQwQx+/ZevseP/LDphyZy8PWAT5o5uLXO/lYmaO06iLGRjO7A0rgLWsv9JGlGRNagrgvbTEXI28uPfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=e06pX9Ws; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790149466; c=relaxed/simple;
+	bh=qzhs0Pb5m81hvixzsOg4zduo32BSVgYiO96PJiwHqss=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=DYJxghjl5gbdsMCuXZJSojeiiGt/dlbTgsCHR+Do2BjWowTNui8ddvQ9dex/EemaLHdHEXU/co0zJ1j56UApx/7wMpAfcOK8wQe/XCBDCDnjiJIsekMY3gedvKQmlrQo0+g7lAQsiXNn0fr3NJrcTGa1Y6UjxecNlUoMElO+I1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=IRmAWcVB; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="e06pX9Ws"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d822dso3570915e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:44:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790149453; x=1790754253; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aAsvDchc+x61ynFxcLSRLs5AAyNrnPoee4eK2EySr0w=;
-        b=e06pX9WsWvTdRwAAMUJKI6Jq27L/lD3MT5v+XoOJr4n9lSBrr2uXn+e0/W6FtByr2j
-         HER7lewG3BISPp1VByK8q8VI/je159qx8NyFPRjI0fTLnC+U9WB3aSwk6STXh1BTcLGP
-         2P8EBvI5STfshG7g9TnXsItow4PSEO3KshIFkGdY5LlS9K1ONBliEkvKCa2wGzz2SD1N
-         PUO4TYo2PpWgqlBDkSl1CLrO+uZP9NGbTNURLlm1qz76om+E5W+eUAoBLpnes8b0Zegr
-         +YlZyc7g2wRfVByOmzdPNCWotnjKudlPREFyjAjeozlUxWwIvfWUAatbcmWMpSF8edH8
-         fIrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790149453; x=1790754253;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aAsvDchc+x61ynFxcLSRLs5AAyNrnPoee4eK2EySr0w=;
-        b=GU7PBAAnyD4576SJ79r5ApQUA/n7s4r2kJvWf1VF+uOlEAo19pFCxjfGyZGKvQZx4O
-         BwK41LGz85rLYTNYUBbHIe/XthEZQtjBWw3so6NX/gWxUY15xBwAskk1nGpNUnK9MWjh
-         5EYcBfOWt3dmK/9Vt1chSxaw2sLY7UUC26vPZgOeNli7fI37vrhnCTpQdc9Xg0PB1P3v
-         CCJHgCDeZ6ytgndrLMsmaDuY+AQfXFGgV9wCQkbyDSxqikuVACUUr8RE8WCfn/T792t4
-         MnMiLFl0XpiYKE1DWCtmq3L3+45HGfr03jMf6v9JN7GztLL7WCzh1Sibe6JgtVzdgA+y
-         vZ5A==
-X-Forwarded-Encrypted: i=1; AKwUvBz65HuUE8oQK+FJ8qMqZ840Zskt4c4KNAQSxcdSeEyWlWFoQeCIcqMHYFX7fImUbBIt6I0hO460L4+Vn70=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCPfzEKuMqACoF6mrokLCrYMcPs5udLcl0TtolA/X58P5rhUgz
-	qAFGRLVzwPNwlG02W+U+9fradTIl+oa7Rpo2x5TWYQWgdwueWh3nzPcTVTYgqzntzIxNUBIqCer
-	gZweFmA==
-X-Gm-Gg: AYBFou1IFzOSh5fL9egXQTkDnh63JeL5vS0Dob18DQa6ciWSwjEo25hhuDS7IDClKwt
-	7PZHETHWCs6Nur4l5PdLWM9cNv7bei4wg7igNQaF9bvM8bLlJZmwB3p1m2D+H/LUHfystmN4Qm1
-	Roz83iN05lJdOlAO1p3+zrmOUSJ3g/1Dz1tv/u1pYx5JvnSmqDMqQBOYajBqZzD7w2RnUXmHTtP
-	ghqC27eYac/fLf9JLrAOKHRj4W6FqJ4XsJU/FlAWRgqz0E3E0PaAAdKk6aSMUl4jPl0LaR2WE08
-	+qtQyI0IZ3s3qkCtvBEFCcrn2e8ECpk3P0GnZT0pbCxIMcmxoZBfurq09vkSfwre0B8Oahtfcw3
-	C5mgbDLVlIlBm1t4vAEnest4/lzha+d55qmsTZ5Pe/P8W6bcBoLVAScp2RG2tXv5feR7WlhCIXl
-	By3Rq9u9tNnZDlybAAkF5BbuTwfHB3tokBqgdgQ0qv4aURGBZG5tPO2vvg4nMUU2Yyz4VmwAvyT
-	2DgzNz8VVZYxQgc2o7oX+1Y2T1/Wo6iyzqO38u82dA=
-X-Received: by 2002:a05:600c:8b6f:b0:49c:fff9:f684 with SMTP id 5b1f17b1804b1-49fdf13502amr22086715e9.21.1790149452550;
-        Wed, 23 Sep 2026 00:44:12 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde198f85sm59969785e9.8.2026.09.23.00.44.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 00:44:12 -0700 (PDT)
-Date: Wed, 23 Sep 2026 08:44:08 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Subject: Re: trace/simple_ring_buffer build failure on parisc, sparc64
-Message-ID: <arODSJcEFYShdkou@google.com>
-References: <5574c9e6-9ed2-4ee6-a2b2-fb6ee81e83a1@roeck-us.net>
- <arN9bPXyZFt0DV3H@google.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="IRmAWcVB"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68N7iAyjD142878, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790149450; bh=flyXIh/kNOVxgLn36qpxOplJyAGQHLViQ5ltaf6ezCs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=IRmAWcVBzlcT1Bett0yjEkMJW/vfNo055tyZZjbexQEaCFzp1gho72CA+MNKiWOUh
+	 0zdvWtLQoklUFTidtZOYNOwFKqkY4WII2EgajHFxSxCvMNdNcwRn3IlWsp8QI7y2RE
+	 GTwQlfOZarlQEvVnWP3LMLcCGyXh8O3tKyGgnZWuJB/iyeRZm/rgEDYvZ6dajeDNeM
+	 1peEtUZ3/Fek+pyixr25kYZzx89cU/fGJR3ztHEdvzcSepULzhuFgR/VjcJDDi3uPu
+	 O9g+SsOokdd6ZjD4c5S/eIvRf8bu7IBuTQLzAJ9ni/8S2r2s2NPzpsVxuxSykDhQmG
+	 orop70uBbyFsQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68N7iAyjD142878
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 23 Sep 2026 15:44:10 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 23 Sep 2026 15:44:09 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Wed, 23 Sep 2026 15:44:09 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH v3 1/6] wifi: rtw88: 8723b: add the RTL8723B register
+ definitions
+Thread-Topic: [PATCH v3 1/6] wifi: rtw88: 8723b: add the RTL8723B register
+ definitions
+Thread-Index: AQHdSeATlhJ4Vg2ZrEeh4i3UA0Ho0rbbyTmA
+Date: Wed, 23 Sep 2026 07:44:08 +0000
+Message-ID: <cfe927df6a3d4999bf591e491a678f4d@realtek.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-2-luka.gejak@linux.dev>
+In-Reply-To: <20260921154347.82317-2-luka.gejak@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arN9bPXyZFt0DV3H@google.com>
 
-On Wed, Sep 23, 2026 at 08:19:08AM +0100, Vincent Donnefort wrote:
-> On Tue, Sep 22, 2026 at 08:57:05AM -0700, Guenter Roeck wrote:
-> > Hi,
-> > 
-> > when trying to build parisc:allmodconfig or sparc64:allmodconfig,
-> > I get the following errors.
-> > 
-> > Building parisc:allmodconfig ... failed
-> > --------------
-> > Error log:
-> > Unexpected symbols in kernel/trace/simple_ring_buffer.o:
-> >          U __atomic_hash
-> >          U trace_hardirqs_off
-> >          U trace_hardirqs_on
-> >          U warn_bogus_irq_restore
-> > 
-> > Building sparc64:allmodconfig ... failed
-> > --------------
-> > Error log:
-> > Unexpected symbols in kernel/trace/simple_ring_buffer.o:
-> >                  U 
-> >                  U 
-> >                  U current_thread_info_reg
-> 
-> Thanks for the report. I could reproduce with clang. I should have a fix
-> shortly.
-> 
-> > 
-> > I always thought this has to do with my environment and/or C compiler, but
-> > it seems as if the problem appears to be generic.
-> > 
-> > I have no idea what causes the problem, why only those architectures are
-> > affected, or how to fix it. If anyone has an idea, please let me know and
-> > I'll be happy to write a patch and/or test it.
-> > 
-> > I disabled CONFIG_RING_BUFFER for test builds of parisc and sparc64 for
-> > now, so this does not directly affect my test builds anymore. This is
-> > primarily a report that the problem exists, not a request to fix it.
-> > 
-> > Thanks,
-> > Guenter
-> 
-> -- 
-> Vincent
+Luka Gejak <luka.gejak@linux.dev> wrote:
+> Add the register offsets and bit definitions the RTL8723B driver uses:
+> the power and system function bits, the BT antenna and control
+> registers, the packet lifetime and MAC ID drop registers, the FPGA0
+> HSSI and RF switch control registers, and the RFE antenna path
+> registers.
+>=20
+> These are split out from the chip driver so the driver patch that
+> follows is easier to read. Nothing references them yet.
+>=20
+> This depends on the shared core handling sent as a separate series,
+> "wifi: rtw88: preparations for RTL8723B/RTL8723BS".
 
-https://lore.kernel.org/linux-trace-kernel/20260923074213.3077182-1-vdonnefort@google.com/T/#t
+No need to point out dependency in commit message. If it is needed,
+add it after --- as note.=20
 
-Is that good enough?
+But as you have based on rtw/rtw-next, the patchset is merged already.
 
--- 
-Vincent
+>=20
+> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+
+[...]
+
+> @@ -301,6 +308,8 @@
+>  #define REG_HMEBOX3            0x01DC
+>  #define REG_LLT_INIT           0x01E0
+>  #define BIT_LLT_WRITE_ACCESS   BIT(30)
+> +#define REG_RFK_FW_ACK_8723B   0x01e7
+
+upper case 0x01E7 as existing ones.
+
+> +#define BIT_RFK_FW_ACK_8723B   BIT(0)
+>  #define REG_HMEBOX0_EX         0x01F0
+>  #define REG_HMEBOX1_EX         0x01F4
+>  #define REG_HMEBOX2_EX         0x01F8
+
+[...]
+
+> @@ -606,12 +624,20 @@
+>  #define BIT_RX_PSEL_RST                (BIT(28) | BIT(29))
+>  #define REG_TXPSEL             0x080C
+>  #define REG_RX_GAIN_EN         0x081c
+> +#define REG_FPGA0_XA_HSSI_PARM2        0x0824
+> +#define HSSI_3WIRE_ADDR_LEN    0x400
+> +#define HSSI_3WIRE_DATA_LEN    0x800
+>  #define REG_CCASEL             0x082C
+> +#define REG_FPGA0_XB_HSSI_PARM2        0x082c
+
+upper case 0x082C
+
+[...]
+
+> @@ -683,6 +713,7 @@
+>  #define REG_RX_IQC_AB_A                0x0c10
+>  #define REG_RX_IQC_CD_A                0x0c14
+>  #define REG_TXSCALE_A          0x0c1c
+> +#define REG_B_RXIQI            0x0c1c
+
+I'd say upper case too, but existing ones are there. Just ignore this.=20
+
+>  #define BB_SWING_MASK          GENMASK(31, 21)
+>  #define REG_TX_AGC_A_CCK_11_CCK_1              0xc20
+>  #define REG_TX_AGC_A_OFDM18_OFDM6              0xc24
+> --
+> 2.55.0
+
