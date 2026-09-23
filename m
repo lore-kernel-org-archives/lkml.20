@@ -1,99 +1,130 @@
-Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9FC36B90A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=128.116.240.228
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149212; cv=none; b=TQsW2waRhLqhdWvVeA12pNspgomMOTQGKNDItfd/u8ByHdOnSjRkMHYEi9SD36taLEsAUyuZOWZmY2dz1BBXQKre7dHreqU94mtlcMk/2+PjCICuuu80Ae/e/njZ39WHT70h26iWpfTPd5pZkcHPX1d6N+GzXYsekW/YKvFxF20=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149212; c=relaxed/simple;
-	bh=Li/7CtQT9ekhb/rzTQeU0eAMCKM+r3+9eXDiZG06pV0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=adOD9BlGZKe0aPQQFZlZHUGZBtA1mBZVVc/F+r0UdtRJU8mwIy4HWlZkZG7iEaTH7yyeoS158FV1/z99sqhCxpJZO0AO7N2z2QdLkCExSRu5o9hdRLyJNxPfaf2hvOfxe3L7Q19uwExXfmDLI44aYZ8nLL2lN/kVNtEnOSy+O9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu; spf=pass smtp.mailfrom=arkamax.eu; dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b=e+Zed52s; arc=none smtp.client-ip=128.116.240.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B22457E53
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790149315; cv=pass; b=TpCtzN7B8Sa/NZ6y1Ujl5RId7B4I6zixAJIviu4qeXwXG9ceN/nCTESxdE520QrWZsSB/zDNJQctxxKUWwvMhV4IK7GG3KMrDrs35ATmJWnllzL6ALWnFRL5ruhej+6mOinnuTmSs5B+5Dq1R0dGEYCJmL1sj6BF0rFDOZdgfVs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790149315; c=relaxed/simple;
+	bh=meb1bAvawCq/Ib8QpyVS9dzYsYkDPtpweSxQpaNTp0U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WvbgnNubXSJ+sdKsz52JYWPjXGvGm+YEaa1G3cvd0fgR4+JxdYfCD7cZCIZBgZQNTdmU8vwH/syiHXrr8Mw4I8eaLcXWaR+6JfRw4aE9AOSuGtqt4qw0SjJuBK3RYaOKcTPMbryOxBh1Yfnp9rHGBOG4jpTpZVg2VKmQTclCRx0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=W8mQfAi5; arc=pass smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arkamax.eu header.i=@arkamax.eu header.b="e+Zed52s"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=Li/7CtQT9ekhb/
-	rzTQeU0eAMCKM+r3+9eXDiZG06pV0=; h=in-reply-to:references:to:from:
-	subject:cc:date; d=arkamax.eu; b=e+Zed52sFs1MQhswBlULyyhS2wxFpwwD6DmHL
-	Kdx5wffvjxDThp6IUMki2uLx/J3ZQ3InYVtukhdxOpdu7pq9TnRPT7GXZbmfUIwD9ECBGV
-	e5YaCjF5OaXZFdL+c7P62gi53t27r885zhjQvg1rwGWx7WOfyQ78dTKGlcY140+LyUz46T
-	21bKs2RPW/cj2rnFwJyoRD/TQu/tUwUzGv20GYtjfAdTuwmvrYNHxi1wCzaPwz+RXveGkk
-	LSBFn1xao3GYrqB8ZMlObyVOFMZzUyDffrA0/DjbpyICphiQataFCtbUR4f99qCJPbqiPB
-	ZoLLnWpPrmwoHpy334RjbtwZg==
-Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
-	by arkamax.eu (OpenSMTPD) with ESMTPSA id 58c282aa (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Wed, 23 Sep 2026 09:40:00 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="W8mQfAi5"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53113d72966so136391cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:41:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790149305; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jtmeRQHEYe0lJCFvMUElXeUqSEGt9YHyC0XOFyrmi7wNGn6McG4wAAvVJOAYa+5PAk
+         MRGPSmsU2vfK/AHIUIdqI5PmptWeNNeNRW4gK1L7dgalp47AV/nPwHh2q1NL/7iUcUMr
+         6ZdqIrg/U7sRkhDXJOb5kSJS8x9ErGcZeeqcUH11YSNyfxuCYN8FaYIQQNDM3EN3RtKW
+         Y2dcVjD7kNMjgyozebd1yBrldrKDoczOIQiRzo5eNFAWSvkycXstGDPwiHrDLV0GF0JX
+         X+GuTqntzQzCm/YqWlxAfiB7zChKeywLrC9HX+TC+p+U687+5NhV5JVFybotUpn118GS
+         9wGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=meb1bAvawCq/Ib8QpyVS9dzYsYkDPtpweSxQpaNTp0U=;
+        fh=B6d6er2DAVCQtknLjR/TJ27UsuHkvc41FpGXkQcPWac=;
+        b=MODw0egdj1EX8migyLFO9EcfVEmtiUtDtR04PLumiH23F8aRjun8Ce3gTc6h+jAYaE
+         HhyGIrD6c0MNThpTUe2ghbnViCWUrkf5qgvWsNEww5ME/GuA1m/T/V6Owr4e/MFdLXyF
+         j0BpAFGk1mxmxTEse/+ra7t7GSNuqB+rM0Al62RGJ4ct+vLjE3gora7hWprjIfZDaC3W
+         2JUgvtmnYL3eJaoOVGounX+LzSqj98IuT0Y+OREATgWVXEpYoXfDjpkoRQC7WmnEJ80h
+         xWHxRYZhOh8s/ZTejCpFzPDM7TmR9sMrLL/isapm3o76zWMHYoUKLadNatZeWoOImbfQ
+         Y7Kw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790149305; x=1790754105; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=meb1bAvawCq/Ib8QpyVS9dzYsYkDPtpweSxQpaNTp0U=;
+        b=W8mQfAi5fknrVsqLQojpfMuUz7nqIsVD9eU8Q/KsRk9ncgzi1eD0ZgzLelurwrKXus
+         7I5SHiSUa55RMsci2iURrYte/QzO+1Jueun0FR/jlb22+Yin1ODVKm5ezw7AKaBwVeTM
+         DjuCY9kXxiX4cEqEaMSmlBdfSly8DDP9k3i4isA2hkP2HgVZO1RKntA72e1J0Q0aofPw
+         wbFe/pgEDZjtkG0/C2SH4nDBbjnvgnQobDLYmlJ+8ofNHk5pz0vXHyjZnfU4jU9iV42i
+         9+OmneFUQdEvZny0w41v9fXMemTiPqkW++GdrvU/97bvUQlN/SYeLJjGhJdZ33p4tqIn
+         Ydvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790149305; x=1790754105;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=meb1bAvawCq/Ib8QpyVS9dzYsYkDPtpweSxQpaNTp0U=;
+        b=RKut4jkAELbWfTrvR57Dg9Ve1JenWaLcaCHoTwd7X5E5MRNm9EK/kUlXGoKjfLFc7u
+         meUYCW8sHDHScY09ogKOIpPULkXBbZv75aID+cuPc/G95ofI0bZKkAJ1P6Jshba+aoKo
+         NhPTtg+zYAmwbRWJ8SyhqwgHK5k6HpFO6oYEKO4BI/x60GB8GpkpvdKTdL7QmqE3JxvM
+         E5qwNv7Yi6b7yHqzOQf0fS+KrrpaHg5FPkg/hjSyfD8tSO747/7ytGUCmRDt5pIaD5gP
+         8wUamV59WcvL8Ny1ODVJRpXcYqe/H2pxSaE85HUkuIzT3ypwVSSznhMA1l1ZyhIkhTSl
+         0avQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxjzr3qz4/CMy2l9ko/apM4cdXwj9QuXw0bhp1nOqiUDbPPbjd0Ni25grXPlplGeg5uKpUpDY3q+fq0elk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nBFY47BS3XIHI1Qur37X3xxlEsjgVdis74rmqjYeb0qkL94BTe
+	IXHS2R/diaqadJNdkAMOn/b8zNnYx0qy8AiVkYe6ZVcw1jNM759OZ7jzUocsGBqHHXPofyJJ4Y1
+	7/MhM4hv+y8WblJLwpsxvWnXwMd4R4OAjwhmpdGij
+X-Gm-Gg: AYBFou1RG/v+JGud9p7no3QxX6QWCBygIp9gLNogO6I85tKMmnVO5IuWrqUA6rdrOeX
+	yy32s7GRCWHlpI0spKrSZDoDuJ/shR/KitTTizgTqN9GTQszxAOrruHajRbzDXkimSs3eQzBxiJ
+	TORb6koyufSTRwNBNU9r0MaNUeYkVcHvg/EQqcLghniWSC/f+TUNsNUMzY+fYexsZ2zGedt0s0v
+	3yHlpGpmSQQhUStzzeF3BVRECO83m3I8fHGDW4r3QKFvrbZPrVUOAJ+2mIfKs662WmW2HYBX2+k
+	mWp1FyPTlmmSJYbWq3qD7jzxFCkvhKqnBit5oSoaVg1UAtG2fQh2Rfw=
+X-Received: by 2002:ac8:7f43:0:b0:532:ad75:e432 with SMTP id
+ d75a77b69052e-532ebc71886mr11204181cf.8.1790149304297; Wed, 23 Sep 2026
+ 00:41:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260922215548.398541-1-chrismelnu@gmail.com>
+In-Reply-To: <20260922215548.398541-1-chrismelnu@gmail.com>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 23 Sep 2026 00:41:31 -0700
+X-Gm-Features: AcwNN1VapWtcX2GGSDCIJrm4EXoEzaxFJtfKpxb1AM3c9K7F1JzWeyqMfOzL1aE
+Message-ID: <CAP-5=fV0-yvc68BUSKoSajHjHY_A6COgbEJYiFxRg+G-8LeJhQ@mail.gmail.com>
+Subject: Re: perf stat: worth documenting task-clock/cpu-clock in perf-stat.txt?
+To: Christian Melendez <chrismelnu@gmail.com>
+Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 09:39:59 +0200
-Message-Id: <DLMIXHATYR90.4RUG08AMWH8U@arkamax.eu>
-Cc: <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <mlombard@arkamax.eu>
-Subject: Re: [PATCH v2] nvmet-tcp: fix stale comment on NVMET_TCP_MAXH2CDATA
-From: "Maurizio Lombardi" <mlombard@arkamax.eu>
-To: "Ing. Alfonso Kuen Arroyo" <gerencia@idkmanager.com>, <hch@lst.de>,
- <sagi@grimberg.me>, <kch@nvidia.com>
-X-Mailer: aerc 0.22.0
-References: <179013720383.9364.11263428288753603011@idkmanager.com>
-In-Reply-To: <179013720383.9364.11263428288753603011@idkmanager.com>
 
-On Wed Sep 23, 2026 at 6:20 AM CEST, Ing. Alfonso Kuen Arroyo wrote:
-> The constant is 0x400000, 4 MiB, but the comment next to it said 16M.
-> Use SZ_4M instead of a value and a comment that can drift out of sync
-> with each other, as suggested by Christoph Hellwig.
+On Tue, Sep 22, 2026 at 2:56=E2=80=AFPM Christian Melendez <chrismelnu@gmai=
+l.com> wrote:
 >
-> Noticed by Maurizio Lombardi while reviewing "nvmet-tcp: report a
-> bounded MDTS instead of "no limit"".
+> Hello Arnaldo,
 >
-> v2: use SZ_4M instead of the raw hex value + comment (Christoph
->     Hellwig). The file did not pull in linux/sizes.h yet and had no
->     other SZ_ user, so the include is added.
+> I'm learning performance engineering and ran into this while playing
+> around with perf stat. perf-stat.txt's TIMINGS section explains "time
+> elapsed" and "user"/"sys", but I couldn't find task-clock itself
+> documented anywhere, even though it appears in the first command
+> example, as the very first metric shown.
+>
+> This apparently came up unanswered on this list before, in 2013 and
+> 2015 (2015: https://www.spinics.net/lists/linux-perf-users/msg02405.html)=
+,
+> where users asked about cpu-clock too, without anything ever being
+> added to the docs. Would it be worth documenting task-clock/cpu-clock
+> there? Happy to send a patch if so.
 
-version differences should be put after the '---' separator, they are
-not part of the commit message
+Extra documentation always sounds good to me. We added json
+documentation for software events not long ago (it shows up in `perf
+list`):
+https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
+t/tree/tools/perf/pmu-events/arch/common/common/software.json
+There is also documentation of cpu-clock and task-clock in the
+perf_event_open man page.
 
->
-> Signed-off-by: Alfonso Kuen
+Thanks,
+Ian
 
-The mail is missing, this should be:
-Signed-off-by: Alfonso Kuen <gerencia@idkmanager.com>
-
-> ---
->  drivers/nvme/target/tcp.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> Best regards,
+> Christian
 >
-> diff --git a/drivers/nvme/target/tcp.c b/drivers/nvme/target/tcp.c
-> index e598101..000000 100644
-> --- a/drivers/nvme/target/tcp.c
-> +++ b/drivers/nvme/target/tcp.c
-> @@ -18,12 +18,13 @@
->  #include <net/handshake.h>
->  #include <linux/inet.h>
->  #include <linux/llist.h>
-> +#include <linux/sizes.h>
->  #include <trace/events/sock.h>
->
->  #include "nvmet.h"
->
->  #define NVMET_TCP_DEF_INLINE_DATA_SIZE	(4 * PAGE_SIZE)
-> -#define NVMET_TCP_MAXH2CDATA		0x400000 /* 16M arbitrary limit */
-> +#define NVMET_TCP_MAXH2CDATA		SZ_4M
->  #define NVMET_TCP_BACKLOG 128
->
->  static int param_store_val(const char *str, int *val, int min, int max)
-> --
-> 2.53.0
-
-The change looks ok to me
-Reviewed-by: Maurizio Lombardi <mlombard@redhat.com>
-
