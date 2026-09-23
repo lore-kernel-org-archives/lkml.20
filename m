@@ -1,152 +1,190 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572CD53F6A7
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174995; cv=none; b=hmTfaCSZ7frE1j1KnjlvWQfTq9f9pfIRqyk9U88wnp2H+dAaJIj6qNGz6Iu+c+N5O1HYW0MYEaFG7URkrKVksXM/XrcYNgZJ24F9sEbz3U1wedNdQcok8PNevPB2MQ5jALNcwAAl4jEViidZZsIKemlD2NsLF4TqL27f4IkfpbI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174995; c=relaxed/simple;
-	bh=xJdKepmRpAoz1zQFvIxmXfvUfRSmnb1JsW+eRmMFwSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IwR2bJU5pdByU5eQ52aPnzq0A1CsCKdl0x544uScdyipu62YUxsGBwZxKpJxHRj0+n636KYOFE2KLp/7iilQGFtdDWNVRcYEKCEd1kkVl4aGiUg/xaJhvclXsdjJUKtfzkqTwNAipJyFtzPjyhAkYdh03FfknTeBtU22bwyjPd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mqs008B0; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A12C53C3B9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:50:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790175002; cv=pass; b=JvroHnhBgR8y1REGXfgYtJRq63GaMIZKDENf6Sxv/VU4A9RKmQm2zQ/2NxKOqJBkUv7SYESQYN6+yKlX4VDhMAi6PNJ6uDNTl+CHdrptNBwmOgtDTxhdkipnvIMVntrwIDLnykvL4aA6zbvmVUYGX+PLZNZexC592alp32QiHdk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790175002; c=relaxed/simple;
+	bh=WebFz/x2kN4bRHuJPHFy9SuIkJELXXm1xUzthNsPI38=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Oga3VXCLq0oBqNe2J6lSWYivrDQH+2kSxrAwSHIbvNSNeRHhzbdU90eTKKFXLMjAB0JLJAVHLgEPDLcOPlHtiK3oXsU0RHIQ/o4HKXMXzfIagiAvpiXEe3pld6ZE1NTWnOHM44/2UVvcR/CcCJGO8sjk4K7ZQe9AcwFwMP/bS3w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SB1oIBBS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ljOz8B0e; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mqs008B0"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so469256a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:49:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SB1oIBBS";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ljOz8B0e"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790175000;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=tjtigGpmQBYCeWjN840ZGVkbkxHuJotFRoc5rNE0Iz0=;
+	b=SB1oIBBSpYWhQ1FdaDJsLpWZEd4SthLycGl3nJKVbp+IpfZlVphqg4lZNpCeYY4i/696cP
+	rN0M6MEBBZIXUZ38TiE0cr1yqK9AokWQbEP5pSdFYVmPfMc6fXGNmBiBVtxD9QMLJieoaa
+	xnX+0qP/aQIxhDtMC8rvDC50AorXKkE=
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com
+ [209.85.128.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-621-30zmHb4oPwuXyE34kvq4UQ-1; Wed, 23 Sep 2026 10:49:43 -0400
+X-MC-Unique: 30zmHb4oPwuXyE34kvq4UQ-1
+X-Mimecast-MFC-AGG-ID: 30zmHb4oPwuXyE34kvq4UQ_1790174979
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8789206f693so13050677b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:49:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790174979; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UT4NdPLj26O/hmvqpyy2vPSA5us6fOg3YvHwX2a+M2yOKaZzXMxPEU6VG+yOX+o8lY
+         5jT9rnq5sFuZvMduoNrXCambRCXe5F6HVr9qZ+5jqaeEESdfaiee4vMVmFjEyKYxLtCC
+         EbhwQ1EXkY/3g/v+FAHR4RiPgFp5uaBayOhEe+gncsq1od9kmWWRHoqrk/fwsU9z00ox
+         yF7EtvQZBnPrWlmWXHoyFbFGY10U0hSfBG0Afxid8U2zSQ2r3izlxUPoh9sK/6s80DzF
+         zpjXST+Y3cVuxgvnrLPRLButD5HQQX3YYJudKVaIjkBsTCt0Bu4UxlGqbd8y1DYaDUh6
+         ljIg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tjtigGpmQBYCeWjN840ZGVkbkxHuJotFRoc5rNE0Iz0=;
+        fh=xaZtelCyykVfghOvGUHTpxhVsgJuP3CSWzZTdLuTbBo=;
+        b=O3qCms1bUfXnkxi9bnhx42fMaRaNzZ6mqQlkZTz6LZhyH49qFgKKSf5pSzNlln1+kb
+         HwCl9k1zAqzLDU4MjuyUiMVzJKeyArjKmW0rkxzBHEiRlBB0dsHw++RIPuYib+OIu3i0
+         IED+hvFN2C8MBrY9GIhdm7+PYyaWnUorgLwTFHNuDdv5ZY/p5XMg9yg8fkMfLTt8bKAz
+         gRS1IvdE5RRfYlIlN69bO4FJJwwVvqK6KkZOHWfW8ZxnAPuxxtisQEaMS05FzaFvZyFr
+         wuuOTNa4HOANdmfQqIqcC8yJTGE99KhU3OgYi1pqahbP0eKTow87vff1bjr4KU1lvn2k
+         8hDw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790174994; x=1790779794; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JjR07HVq5pYhUmwpsgEGWXdyXHF+ofIQx2iCJm+Z1l0=;
-        b=mqs008B0oH2utC7g7dz1vj31Sy10v3bGiB5F/Nae2ELECmkplwwjwPT18NVenOGiMd
-         k9aXFDeMzE1kYyt/f/HTtmrogGk4zjBLXG/8t8KbVlyyyoOZoykV1Y8uZ2W7g83xfQgp
-         f2pUtD8foSxoSbHv+wTBRxXlcenPGVp85gf5MXiCC4xAQkxZsv3VbwDQffwYLlZTl0+Y
-         DqNT/m/DmZcskmDAQT19duZZe3HO0jDkmMjCslsZJbwZtkr4nsl83L1p7cfpBWYb48ID
-         of/+0FJXgJlgkY227EoRFoBBpRM9JSn9ZcuucprkymTgEszzEl6nm7arJYEFkdOuFUz5
-         oQ6g==
+        d=redhat.com; s=google; t=1790174979; x=1790779779; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tjtigGpmQBYCeWjN840ZGVkbkxHuJotFRoc5rNE0Iz0=;
+        b=ljOz8B0eTXfRZu74H5vh5d4lU26ogBQ5xFf32Rcmn8afynzBXCCcUroG9rxb/sc49B
+         Yj4vUfvAJach5g+1eldy/hto4QtutX5sjD1u++Fcth4HovbWVhSKuTvOJfN6ekCxMDyw
+         mqCmVSQw9E8N3aYvOxQ6XZc3vLf2EUdi9kIITFx9ItuizuOYwdfLdA2LgqUhJ/j/TsaH
+         6SDNnFxJsJb4Jn7R7nAvvMuf131rL3Op3P5j8YqUAiKZkytAj3R9I2gy1LdG7rY5cZxV
+         iPYD/Fko3RO6h+IAMnRh1txWri7Wg1LAdA8OZNCSU0vqFeiigLyvxH0DvRRBCkk5rKtm
+         XHhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790174994; x=1790779794;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JjR07HVq5pYhUmwpsgEGWXdyXHF+ofIQx2iCJm+Z1l0=;
-        b=AaJryLeyhAF2nbNUA1JPr4Heesql+oR76K4ApYBuBaY78aBi5fb22v+f8tA2YqkDT3
-         1dNgyMKUzb0Fdl2gdjOhVeQ/6RS+oOI8wIyD/lbYZgJat4s83fygU9fLXnbQaCvPaUF0
-         iH17EqmL0HOE4XSN9XX/dScPI/d35fF43eXLNBiINm8LGcZ2R3YXFpi0phCNhpf945JY
-         GL9x9bPeYyF8BiDq+2m4xrexxRNGu+zN6kG6nUAkF3HEe60fQX0ciPkJwR/+61NeHLuF
-         wM6dbtfNumwbyg2TPozrmoQMtQ2/tlKRjlxnWhLVIS9SwNNWZEOHRSrSeORZ7kps9nl6
-         VjBg==
-X-Forwarded-Encrypted: i=1; AKwUvBwAVn1t4a9Ajnb315X4HcYeMsVytqN3Eb6zcoTHOizPv1q6heVsqBa0m1S+XBjK3kRCl7dSraPDvT4Lxek=@vger.kernel.org
-X-Gm-Message-State: AFuF++nK4le/1l3Pni8nXrhTvCUJ6bx8iIkK8Jf7xsXi/zvCU1OFYCxd
-	piAvj6ihnBxntnY+hNAO2g0+16n4Xz+fmGO7ZQOmTbsF0lnHNy64+I4P
-X-Gm-Gg: AYBFou2jOs+1cWGyLmBeE8h27CZuoajHsaoDDEaGqopk5Rd53BgP8CeH2MaOo/Xi0zN
-	/uCsbVzdUoQxVfHhz0CI6cRL8yiR/fPbqckXASVuBoHruzaF/4xG394Yc2ptgqdFq5NPWRsQ7zF
-	iNw9/82/diwTbuJJ3oqSxp2TmZ78NKvwzs2GuJxRr7sqdgwBGwMqg29GhzbRQEVqdD+NknbWuok
-	g0s80wb8aiX22I2WFradkOc0nf/ERN0eupFboEUgAg3egnA8jXjSXP+2U8PmTxVVI7Ok3A8GYhD
-	MyVz7bkvVaekjoATDVqJ/L6lj9uwlkUX4jD/ueUNmg8RjTdG9gvYcBO03OIizAysLTPywPzAhYx
-	LPVzJDZHZ9/81Ojye9+JKh29o29L/XyqBccZsvM8JWciCK7Wv5TL9EfmnnqbrG8HycVcHkk+unB
-	eQuIGVBCjhgV/UwQqtFXfQWqt4HGeNOxaTXzer2W4qArsUMREQz873H3MFFRP3mOMLKwGHSewAt
-	B2J6GU7hct+Z3SIzpr6Lg==
-X-Received: by 2002:a17:90a:f947:b0:39e:6c68:fd93 with SMTP id 98e67ed59e1d1-3a07e6195e3mr1763305a91.40.1790174993687;
-        Wed, 23 Sep 2026 07:49:53 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc4109dsm6469824a91.14.2026.09.23.07.49.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:49:53 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: Joel Granados <joel.granados@kernel.org>
-Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	Kees Cook <kees@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Bradley Morgan <brads@mainlining.org>,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 2/2] selftests: sysctl: Check the sign of a negative jiffies read
-Date: Wed, 23 Sep 2026 22:49:37 +0800
-Message-ID: <20260923144940.3712965-3-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923144940.3712965-1-zhanxusheng@xiaomi.com>
-References: <20260923144940.3712965-1-zhanxusheng@xiaomi.com>
+        d=1e100.net; s=20260707; t=1790174979; x=1790779779;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tjtigGpmQBYCeWjN840ZGVkbkxHuJotFRoc5rNE0Iz0=;
+        b=NwDel01HVZ3JZECDw1GInWCIf+CMHxC5FFBpuihH7hNHyNiKONnOiTD8YE8838I1WP
+         VQSp91edGQPg9p62KXnqzzJXE5GmF6A7UkZtYWT0JMEtFbYfnAX0A7Z6iXk6KEMMOdvr
+         0Hfrj0d/G4vC6tudDkn5+/IHPWeAMsR0opXq/6b+XVyptoW1uMNkghWiDAdneh4iJgdC
+         fZtjW8EurGhDHG1HAQyUYipB94vh2KLKK3robYKqGxipFCWzATeFKBcozisNDtC9pEyG
+         cDqcb6PgdBYrCDP26+dGRZgF5RIszwa8HSV1j4FtRNzzcJcaShCevsnpO1qj5j0lPVXk
+         d/lA==
+X-Forwarded-Encrypted: i=1; AKwUvBwZtdVnEJ4mYKNwJtuPIY8yHCfPIa152OGhzbQmsuXytsij9321j51zP4LqwHJ7LGIYAd9TE8PGiQCqj3Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++njl7kWSFcIWkzy46pwyNvYtafPov2lJqaspEGp8rBYoPoLcc8T
+	j2M0FgW8gejB8dDVZZ3c7bwI6lFbTvgXWFlB5pdlZO1JiaPHPg+eroI+K0kdO9Tog8u3CkVV5DJ
+	5roiYJroaRHmDgxxen/aANJ/ztqsM/R0SMpWxjvmhrfvo6Yps77Pm5tgdF8OcSTQk4Gj6jrf6cY
+	T8F9zNr4Io9aHL22medW5cF4qS/rbJrBn8Wi04mO89
+X-Gm-Gg: AYBFou3x2JvoZ5c0LaF1nzmu0EGYbFCvrsmgILp+ub67TGbzX3voKemBpzklsGhSfmt
+	WdEntVbG8iMfzj4DR2gyWvN2YuG7ngaEwzQYD6Qxq2je3poL4muPqGWwxSnI8947/zJh4//q51W
+	9FrfaU+j1yCaW1HD7AXWQRCgMj4hlRAwVBNt3qZU0z4hsx/9DJlufEow==
+X-Received: by 2002:a05:690c:5689:b0:873:5ddf:d85a with SMTP id 00721157ae682-8a45921c328mr11363447b3.37.1790174979059;
+        Wed, 23 Sep 2026 07:49:39 -0700 (PDT)
+X-Received: by 2002:a05:690c:5689:b0:873:5ddf:d85a with SMTP id
+ 00721157ae682-8a45921c328mr11363327b3.37.1790174978696; Wed, 23 Sep 2026
+ 07:49:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260904-port-smem-v2-0-bb497dd3c48b@redhat.com>
+ <20260904-port-smem-v2-1-bb497dd3c48b@redhat.com> <b3ae48e9-c2fc-4d04-8926-503fa6192c1d@oss.qualcomm.com>
+In-Reply-To: <b3ae48e9-c2fc-4d04-8926-503fa6192c1d@oss.qualcomm.com>
+From: Albert Esteve <aesteve@redhat.com>
+Date: Wed, 23 Sep 2026 16:49:27 +0200
+X-Gm-Features: AclHuK8MZPm7Kj81Y7Rq0M_C-YZuLWYmQS8ZOOU3IYOzjUo1jgQ8cF2XkT5Nu_M
+Message-ID: <CADSE00Jrn4E4bac7xoym77jujHuE0+n3Ta_OXpRco2oaORUaWA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] soc: qcom: smem: add boundary checks for partitions
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sarannya S <quic_sarannya@oss.qualcomm.com>, 
+	Pranav Mahesh Phansalkar <quic_pphansal@oss.qualcomm.com>, 
+	Sudeepgoud Patil <quic_sudeepgo@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-proc_int_k2u_conv_kop() returns the sign through *negp and the magnitude
-through *u_ptr.  For a negative value it used to convert the
-sign-extended int and negate afterwards, so the magnitude came back as a
-wrapped 64-bit number.  Nothing noticed, because no test wrote a
-negative value to a jiffies sysctl.
+On Wed, Sep 23, 2026 at 3:58=E2=80=AFPM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
+>
+> On 9/4/26 5:18 PM, Albert Esteve wrote:
+> > From: Sarannya S <quic_sarannya@oss.qualcomm.com>
+> >
+> > Add condition check to make sure that the end address
+> > of private entry does not go out of partition.
+>
+> [...]
+>
+> > @@ -409,6 +421,7 @@ static int qcom_smem_alloc_private(struct qcom_smem=
+ *smem,
+> >                                  size_t size)
+> >  {
+> >       struct smem_private_entry *hdr, *end;
+> > +     struct smem_private_entry *next_hdr;
+> >       struct smem_partition_header *phdr;
+> >       size_t alloc_size;
+> >       void *cached;
+> > @@ -421,19 +434,25 @@ static int qcom_smem_alloc_private(struct qcom_sm=
+em *smem,
+> >       end =3D phdr_to_last_uncached_entry(phdr);
+> >       cached =3D phdr_to_last_cached_entry(phdr);
+> >
+> > -     if (WARN_ON((void *)end > p_end || cached > p_end))
+> > +     if (WARN_ON(!IN_PARTITION_RANGE(end, 0, phdr, cached) ||
+> > +                                             cached > p_end))
+>
+> strange indentation
+> >               return -EINVAL;
+> >
+> > -     while (hdr < end) {
+> > +     while ((hdr < end) && ((hdr + 1) < end)) {
+>
+> I believe the latter implies the former
 
-Write one to each of the three int converters and require the value to
-read back unchanged.  Each value is chosen to convert exactly at every
-CONFIG_HZ, so the test does not depend on it:
+Yes, the check that matter is the second part. I'll fix it in the next
+version, thanks!
 
-	converter		write	jiffies stored	reads back
-	jiffies			-1	-HZ		-1
-	ms_jiffies		-1000	-HZ		-1000
-	userhz_jiffies		-100	-HZ		-100
+>
+> [...]
+>
+> >       e =3D phdr_to_first_uncached_entry(phdr);
+> > -     end =3D phdr_to_last_uncached_entry(phdr);
+> > +     uncached_end =3D phdr_to_last_uncached_entry(phdr);
+> > +     cached_end =3D phdr_to_last_cached_entry(phdr);
+> > +
+> > +     if (WARN_ON(!IN_PARTITION_RANGE(uncached_end, 0, phdr, cached_end=
+)
+> > +                                     || (void *)cached_end > p_end))
+>
+> The || usually goes on the end of the line, please move it there
+>
+> This patch changes a lot without much explanation, could you please
+> split it up so that the changes are more focused? I know the general
+> theme is overflow checks, but a lot of conditions change
+> simultaneously in its current form and it's hard to track, even GPT
+> is slightly confused
 
-On a kernel without the fix, at CONFIG_HZ=250:
+Yeah, you're right. I was preserving the original patch as is, but I
+will try to split it in a way that makes sense, while keeping the
+original SoBs.
 
-  # int_jiffies: got '-18372957097414713411', want '-1'
-  # int_ms_jiffies: got '-18446744069414585320', want '-1000'
-  # int_userhz_jiffies: got '-18446742229035144346', want '-100'
-  not ok 1 test_int_jiffies_negative
+BR,
+Albert
 
-(paths shortened; the runner prints them under /proc/sys/debug/test_sysctl)
-
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
- tools/testing/selftests/sysctl/sysctl.sh | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
-
-diff --git a/tools/testing/selftests/sysctl/sysctl.sh b/tools/testing/selftests/sysctl/sysctl.sh
-index ceb5cfa0cfd4..ad1ee0fccd7c 100755
---- a/tools/testing/selftests/sysctl/sysctl.sh
-+++ b/tools/testing/selftests/sysctl/sysctl.sh
-@@ -328,6 +328,29 @@ test_int_plain()
- 	assert_int_range "$t" "$baseline" || RET=$KSFT_FAIL
- }
- 
-+# The jiffies converters report the sign separately from the magnitude, so a
-+# negative value must survive the round trip through the converter.  Each
-+# value below is chosen to convert exactly at every CONFIG_HZ.
-+test_int_jiffies_negative()
-+{
-+	local t="${SYSCTL}/int_jiffies"
-+	local m="${SYSCTL}/int_ms_jiffies"
-+	local u="${SYSCTL}/int_userhz_jiffies"
-+
-+	[[ -f "$t" && -f "$m" && -f "$u" ]] || { RET=$KSFT_SKIP; return; }
-+
-+	printf '%s' "-1" > "$t"
-+	assert_content "$t" "-1" || RET=$KSFT_FAIL
-+	printf '%s' "-1000" > "$m"
-+	assert_content "$m" "-1000" || RET=$KSFT_FAIL
-+	printf '%s' "-100" > "$u"
-+	assert_content "$u" "-100" || RET=$KSFT_FAIL
-+
-+	# The positive path was never broken; keep it covered.
-+	printf '%s' "1" > "$t"
-+	assert_content "$t" "1" || RET=$KSFT_FAIL
-+}
-+
- test_uint_plain()
- {
- 	local t="${SYSCTL}/uint_0001"
--- 
-2.43.0
+>
+> Konrad
+>
 
