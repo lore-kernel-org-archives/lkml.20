@@ -1,117 +1,151 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2038040EB89
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:38:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA47140F73B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:38:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790185112; cv=none; b=NcgqbGG5vpVQXciN51QJDuadiOIy56oLLvxMHl42Ggs0F10xPr+MDAozdDStSUitmvGSvzMcLlyZwnlEyTR44tC3LfwM/ysJ9ikQxm2YhivslDZoNks2sl0HE2tHsHUFFCk0uzQ0lapx+cBRMXsZdNiN4zn3nSuVDsqjG60s950=
+	t=1790185118; cv=none; b=d4PveKhUlbqO89lzzGUgs9mRcXPoynIFlUVb5FxxGuXB0S6epbJTztpg1kVRObLAvgJOo25RWNhfkLD2PmMYU5FIq3Pmum5BucNWWPUXAhJTQA/mciOjcp54GZUB3zG0k43KuJZO5SkmEYEc9PxX0Kd9NSZ1CmNOvLjul2UdTvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790185112; c=relaxed/simple;
-	bh=pV+1D5vSrpBEiPdYYCuKzOStJttNKVhJ4dZ4A9bnN/s=;
+	s=arc-20240116; t=1790185118; c=relaxed/simple;
+	bh=XIYGGHxY9tI0JKsviu2UAjzT5cR+81bKArXmpsRjnmI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dfIajNG2E5PBtBKVpIBDTVhWpAXKxXkilPOFvDnbn9jzXyEP4bJllTumAQfH36zAXUOSLQM7hG69P5Hogmxmn45Js8xv6j0XHSeTj/YUSRaM7QeaDDsrhhp9gBqJBYBM+LcjtX52yzo08E3daXzUxhbUvs1Oi6IjZcquzqimn0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EXpzXTtC; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=TeFO7Gh0NQza0Wyj5ulP/4bu0OrHNaG8U5ii2Y/n9PxMUXoAvHMlCKJHTMVKud15YecEVUM0w0EnxhwoRQBWXAT1iTyFWbug3TamFnZHIcvQNXhZ32LgEmhtGHEW2Xl2f4Fim8/QzSufDTPqBkpLEVYr0huiEORnEpj/ufi6y9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=B0hKQKOn; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EXpzXTtC"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d8facae850so6645ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:38:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="B0hKQKOn"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4ad9so7062215e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:38:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790185110; x=1790789910; darn=vger.kernel.org;
+        d=suse.com; s=google; t=1790185115; x=1790789915; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=D1AquzIApwGo2FvNhSKw8uhRmWAtNmW1t7wHGg5rKrs=;
-        b=EXpzXTtCj8ztqUvIft+WiLrzGaKaHL1NXJ0cS8TtZePNF9Wjoe5TiNES6nZ1cLIaCf
-         C4DgJgKP4N3FlFL3ANoU5RWJoWlRmWp5XxHVHSj9uHuoxDaVIeEqAdSWJbAJilENn213
-         pAtayeMHjOk57biEwRw43UiAbPXw5+vIhA5nAqDdI7zmD0q7qcWHMYrj06LdWuniqhmn
-         ogo4zlPHwAKXXgv9uvSsH2wf3o6iLNTyJDRQt+jPE4+gfnq+omDTjUkqmOVhWhfK2J8Y
-         4O0adTAXUgpibLcTcqXYlbq5EzoxaLPUmrEd8PQjJ+W9QnnJgUGX2/63VGkn2GlNgT5j
-         hfFA==
+        bh=2E6jaqGmgCa1f3WKCO/PJDeZ3Cge2ODa7wmdYukhEmc=;
+        b=B0hKQKOnllkoD2FT60WO4n98HLdL0d7fDAFN9JRzSbgRwPlZDN/RyC+vxhIY2ea37+
+         MBdvYSromSs99u0IOVFvhzq15E/snr/X2fuAesUXUdAGu6hUEzkt+roVM/PGfmOKDgRr
+         qFB34DMq2W0P8x/O/ugKZ5T0KXwcIgWLvIAXXndf+R4hfzLMrF+esZRSXG/P+qfd7kan
+         2SCXYIqyNZcLxZ1UNEgxRsCabyXDTBFYNTTUPUp9l4bnhS0FwEEyX5gbByulo89VQgK+
+         KmOmt1gRGRdqFTJu2evsex1u4Jb3x7JA4Y7DAxjiO1G9izFXWwBpVyH22bsBeOk8rg8X
+         ea8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790185110; x=1790789910;
+        d=1e100.net; s=20260707; t=1790185115; x=1790789915;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=D1AquzIApwGo2FvNhSKw8uhRmWAtNmW1t7wHGg5rKrs=;
-        b=MWxzjNFgpCK23VDe5SFyx8Rpy2d7+msRGna8LUZxXEPudYafpAs2LRSCZ5jCiQHgs7
-         tPXyJ5WKaLhrFPtWA5m4SuP+vkzQkR78yKWaikoBg1Kl/jnp9iPw4gKzw0G1ayxWGvmx
-         JX7aPk05Rqy+hztYvsFC4UjwljBrTCYLVxoxLWdVrPiH0jR1TiqBnBwdxoWBXK3+D13C
-         mp4APy3jgEvnLzwkJIFhUNz6MFXSSl8WPHF0cVG9evLunCOg4jNNZo9ejzA8CnaLeTX+
-         C/xXSWvl0Es03b9BAkLmK+de0ZL7kw0S1rDEx5a/C1ZWnec9Ns06pJQGSz4N3QaXaI2m
-         D5dA==
-X-Forwarded-Encrypted: i=1; AKwUvBzUT+kOewtAh6alnBdk9aX4TR1FcOQNiKTtRXNa64bezQW6zZgGEUnlIqYjojqhfmy5++GwAuBUbvIRpE0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mifM/6QU66FLi6LCSwR+RlhRi5KzcDuyqJsD4LeraXTa/UJSMg
-	UlZU2Ggm1IZqRXL51GpTN1p0fHkunFOTnAXYdg7QIQD6CmrQGvW3ojebF7jDmTO6jw==
-X-Gm-Gg: AYBFou23taR8Q5T8DTQHWNnWeA7KpaqNNJle3eeJ4pBQrsJ0A4F6yiH4o8srNyj9H8Z
-	9GICSMGU5+eMxJ6ZrvhparQLwGBV6vVMsD6NLOd2UhpsPTFOAnxn8Lkobc4dGGP/zeLhWCPqpLS
-	YPOk6ydXAv1A6GeV/udliMGqN/lEH/pHAGRS8Fh4mJ4ww48CHbc9AV7n54P8x19tW1kpQaIuChU
-	O9cDnz7wuZjX/3TYt+RLqvSf3qnKNOvBhAhkxg4HrlRtHpuv36VhPRpVfL1j/LM6wLmF4Yh6RGB
-	h/LzYb1xUWjdB2P/8hpU2MOTOmg81PQKalrul2Dr3zJe8BLQT5ETQJvITC8RQyRBaq/5srLtV7Y
-	b3ExP2wOiCKSG0M3Q6Rhg2mdp7Ojhd6MbFi9CpTARLHD0pmVoBd1dI1h2yfTCf/gCKWVPU9M+yv
-	dthopWMFhTEjpAISV6YzSV2J1YRVU0NTTkBrNjGCEwuxF25434qQGQ85P299zKiJVgy8jPXHB4M
-	6rU141eOylFRIXoTbvM6agYrj+F+F/exrWX3ItAv36zycOVVTAgCwtDNA/aGlMpvo49ByKProcZ
-	9GJgsqEuSBUNv2Q794mikn9o/cUbbI9t1Fqpp/ydTMuGFak=
-X-Received: by 2002:a17:903:90d:b0:2ca:4bb4:4bd with SMTP id d9443c01a7336-2df7bbd799fmr625835ad.5.1790185109816;
-        Wed, 23 Sep 2026 10:38:29 -0700 (PDT)
-Received: from google.com (99.95.125.34.bc.googleusercontent.com. [34.125.95.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5c4sm119346a91.5.2026.09.23.10.38.27
+        bh=2E6jaqGmgCa1f3WKCO/PJDeZ3Cge2ODa7wmdYukhEmc=;
+        b=EqQuUwdV1jbU+TPdkss0nbssCWK3hWbcbn/NN712qjhXRU9e4z/vsSCzkkSCvS7Jyg
+         WXyKm2Sie2OeKdHwVhqjiHmF79Mg95POgCRsMe95T7EtMoYzxYObVgoRuDEomqvw3KLl
+         pZpajsoSXOLGPZ6oN2G7DR/meJ623s8uJ4E8eGUzt9cCCanzCgv37KvzKKIy82pvYE1N
+         5wnxyaNPxCmWpNevCfrCaMgHOSjJvTbsdMNIW34BJRaZakYEoMEDpRuihJuPkIELeBKF
+         kerPeXoHiliCN8kB/3NpUnEBcbDSHQL6nKLqFahbGrtcfBI0uifcwkj71DcOPxTn5m6m
+         kbfA==
+X-Forwarded-Encrypted: i=1; AKwUvBzPk3cEcSlJlU8yCPSQKucn1ZeH7JMf7lwGCeUOPX5+VchEKXjNSKGzdjyiwhukDXQfZryGQWmzcz+OnhU=@vger.kernel.org
+X-Gm-Message-State: AFuF++noZPq0Qj2Q8RQUagZj2I0wk78Z1/jBwhBfemM4fdyT1rsS3ZDl
+	8XPKd38oLixUBFsQO7YCzOcdnEo0hpEuHqRXgVYSs+g6JLvwYftylqwv8I4DK2TDxw4=
+X-Gm-Gg: AYBFou0SBbMQMKZ14QZ6RDhV4XRF3AKTbd7FznLxVnjJF5LE2Qw41kPUHsdj6hqo+ey
+	7oWiWtgxZ73eJejyLjfQShHma/utvBtc7YwPXEnfs36Z+del7uERSEXL1q9pF63/nitkUb3Fjnn
+	fIyDR3tOrf/L89ggK4IXH6JT3MVSGXhyIziqHwMT5awbizOp6lHrluu/+KNXBJrpti0jr0fHsK/
+	W8ZQLwiaE0UDFUu0X5Te61HRpvYwyTCbLSSkkELCZILYZAaAuFpG3Rv7oEfESr6JgDCh69IWPOe
+	pQgHPxXW3sA4nZoaBo5jAtlKWotTJDzI5oDL87ccnIYKLca4TNCO3Cy21D9c65M6Szm95khTloY
+	qrGmr0TAPiK58v1ixrl97M8fGPox6Cm7JuacyrBUyo8tjH8njrE+Q84siRVMicxsqAwBUnf9WVU
+	j3b/+Oig2S+7Zf/q45/f9HwbnC2Ga3QNeRT0vbM66IUXG6Lr+/FIKq3j9CfH0y3SPj3nE4aIV12
+	vsChl1zBMV8
+X-Received: by 2002:a05:600c:354e:b0:49c:fc6e:a3d8 with SMTP id 5b1f17b1804b1-49fdf13d72cmr52800525e9.23.1790185115110;
+        Wed, 23 Sep 2026 10:38:35 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cbd134sm2334655e9.9.2026.09.23.10.38.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 10:38:29 -0700 (PDT)
-Date: Wed, 23 Sep 2026 17:38:24 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Sagar Taunk <sagartaunk@proton.me>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Matthew Maurer <mmaurer@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	netdev@vger.kernel.org, rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>
-Subject: Re: [PATCH net-next v4] rust: net: netlink: validate attribute
- length before casting to `c_int`
-Message-ID: <arQOkOAcTTt6dCyr@google.com>
-References: <20260923120504.9100-1-sagartaunk@proton.me>
+        Wed, 23 Sep 2026 10:38:34 -0700 (PDT)
+Date: Wed, 23 Sep 2026 19:38:32 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Shaojie Sun <sunshaojie@kylinos.cn>
+Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Shuah Khan <shuah@kernel.org>, cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH] selftests/cgroup: Add a test for the
+ /proc/self/cgroup namespace view
+Message-ID: <arP_HOr98HkTC-mK@localhost.localdomain>
+References: <20260916111445.245788-1-sunshaojie@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="dlzzjlynwtbxxvfa"
 Content-Disposition: inline
-In-Reply-To: <20260923120504.9100-1-sagartaunk@proton.me>
+In-Reply-To: <20260916111445.245788-1-sunshaojie@kylinos.cn>
 
-On Wed, Sep 23, 2026 at 12:05:17PM +0000, Sagar Taunk wrote:
-> `put()` trusted an unchecked `as` cast from `usize` to `c_int`.
-> When the length exceeds `i32::MAX` that cast wraps around to a
-> negative value.
-> 
-> This ultimately resulted in a kernel panic when the reinterpreted
-> value via `__nla_reserve()` and `skb_put()` became enormous.
-> 
-> Validate payload and header both fit together in a `u16`, rejecting
-> any payload that wouldn't leave room for `NLA_HDRLEN`.
-> 
-> Fixes: 5eaa5fbb6e6c ("rust: netlink: add raw netlink abstraction")
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Signed-off-by: Sagar Taunk <sagartaunk@proton.me>
+
+--dlzzjlynwtbxxvfa
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH] selftests/cgroup: Add a test for the
+ /proc/self/cgroup namespace view
+MIME-Version: 1.0
+
+Hello.
+
+On Wed, Sep 16, 2026 at 07:14:45PM +0800, Shaojie Sun <sunshaojie@kylinos.c=
+n> wrote:
 > ---
+> RFC.  This adds the missing selftest coverage for how /proc/$PID/cgroup is
+> rendered for cgroup namespaces: the behavior is documented in
+> Documentation/admin-guide/cgroup-v2.rst (section "Namespace"), but nothing
+> in tools/testing/selftests exercises it.
 
-LGTM,
+What lead you to consider this as the missing coverage? (Are you using
+some kcov reports or just the docs?)
+What reasons do you see for this to break?
 
-Reviewed-by: Carlos Llamas <cmllamas@google.com>
+>=20
+> Two points I would like feedback on before asking for a merge:
+>=20
+>   - The third case, a process moved into a sibling cgroup of its namespace
+>     root, needs the parent and the child to synchronize, which is about a
+>     third of the file.  Letting the child migrate itself after unsharing
+>     would remove most of that code, but with the nsdelegate mount option
+>     (which systemd sets by default) cgroup_procs_write_permission()
+>     rejects the migration with -ENOENT, so the test could only skip on
+>     exactly the setups where the behavior matters.  Keep the coverage and
+>     the synchronization, prefer the smaller test, or split the file into a
+>     basic-view patch and a boundary patch?
+
+Looking at the sibling cgns is not so common, hence the test isn't
+easily implementable. I prefer the smaller test w/out this case. (If the
+child checked /proc/<other-pid>/cgroup, perhaps it could be simpler but
+some synchronization is likely unavoidable.)
+
+>=20
+>   - I kept the ksft_* style with a tests[] table which the other tests in
+>     this directory use.  If new tests should use kselftest_harness.h
+>     instead, I can switch.
+
+I'd like to gradually move to the harness, i.e. potential new code could
+use that.
+
+> This is an RFC, not a merge request yet.
+
+Thank you
+
+Michal
+
+--dlzzjlynwtbxxvfa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCarQOlBsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AgDYQEAvYW9wgZArew5M47LpPCO
+hGwpgUqD9Yn/cxh3OtaC6Z8A/ArHMN4Yvi0Oi242W6/1cKfKEGlxQTQd3csgfMMn
+TJ8H
+=+Zub
+-----END PGP SIGNATURE-----
+
+--dlzzjlynwtbxxvfa--
