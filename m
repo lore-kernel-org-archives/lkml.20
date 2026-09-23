@@ -1,123 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D00E23E4101;
-	Wed, 23 Sep 2026 17:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118013D567A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:47:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790185621; cv=none; b=JpoBBCXl7NooicbnXTVxu+3pdyB4bZwFTLt+ocKZX20Sbro6uVTjjrahcAqBRmTcdtikQSma2B+uQQupGR0pyfIaWAfXjTeXNWs2SJTOdJAC1sNrgq7PLP2J3yyLFcN+6wGsOybbdGxJiE+Eeyrtbpozu5JH0cUMnj285BdfSl4=
+	t=1790185653; cv=none; b=rquGR59ZyzXJoXL7VsIiSYyQQqCUrt/8+Ebg2MptXF2vevSnyg8ybf2zGy5jnRFwXD3L+TnpnEKpEFh8T7DVETHXcUqJvUsnW0rqJlR7V5UPVnhk/JLRU5/OYNkSNOa0VVNbcz/XUjMJ09qDDNLRRDgMWhYjjdglLRibXIVlOpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790185621; c=relaxed/simple;
-	bh=CNgHjP/DfpBaZsuxBCjqFqQRHKSt6Ce3YtFeYKzwlns=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ts8h+owip2lU6FcaJbjy1Gp3AjJ/Moe8OvM3lAiZqCIEj3sYyZ+2jU64Shj6B0hNEZqlx21Ky8O1WgC8D7MxOPsfpRRnJ+TilWeG8EVdgF3Wnf62LB5BurNxYhscTUkTeo7mbZ8a42cjboze6Z5Jd5p8B/nzAylnp2EP4npMrtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZN5RbPdk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790185653; c=relaxed/simple;
+	bh=xeTF7AbUJiyZKStDfbV1ta/s+4wX0IuJsAkaOhCG2eg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pObgdHdmN+FKuyejbYvcUwKw1sVjoq6DgIgHWaPeHczNWAZ6ZmdNVixN0D6jG0UZ5OjPcBgP3wAS5OXQhrQU4CX7shaDCbfoMo1I/MHlVLbfVXdIc59Roeh6w/Wl0ZybJYb2OV/so/bHsJFfILX9zUvn6mtGthoSZcR2OtX5FpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KQKjBPF+; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZN5RbPdk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23F9D1F000FF;
-	Wed, 23 Sep 2026 17:46:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790185619;
-	bh=lumxCHSfeWvkTjSL62YAFITk4CTnl2QQ4sojIU6xQcM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZN5RbPdkzmv7OkLuqlbDa+AhkQM07KBgjT1HVrvWkqecfImZMSDootdgSQEfoaZ49
-	 liAWYiZvU178eXhSqpQmxHnm+Cy9xSACjxNpY+MzA8BRWa7PAq4K8IWb6jTn6n+JGU
-	 jJRMbr1a7dxlSiEaiHS6BUFA9Tdt0ucnD+2Rsqu1eMbGN8HeaDCN8on3yrtB2LJOAE
-	 3h59FsevGR6GRGVkAip/WuSz7prKgp0EAKoAp+qcOvW6Hp7/Q9FkcQvYH/SUGDD/Zd
-	 2LF3KbxL1afRsHoUQLuIzNvsn1gHhul+ZihnliDRQrMd0L/lxb4wJdlTNtlmcHjw2+
-	 kBECXBRG3o+xQ==
-Date: Wed, 23 Sep 2026 18:46:54 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>
-Cc: Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vma: predicate setting mmap_prepare VMA fields on new
- vma alloc
-Message-ID: <arQQXfnt7cw-tRzR@gremlin>
-References: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KQKjBPF+"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398a1676000so803439a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:47:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790185651; x=1790790451; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3Ys+TDlQiXSK2w0rIaULx8EXuHW6K3TaTzQSB501wZs=;
+        b=KQKjBPF+VtYiN0XVsxrYuBMMfdyL0s4muYq4EmmhH2q84ijg45c4GTPoGzh9A4PHor
+         /J3uYC5EuExvXfpp8dvSAbjWgvk++MEU4Xq/jRSDck7YZie24oDvGnodBJk+O7cn2waL
+         ADb8TOJlwAtDQwZeNFsS3boUsnBHz/aDTiMfU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790185651; x=1790790451;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3Ys+TDlQiXSK2w0rIaULx8EXuHW6K3TaTzQSB501wZs=;
+        b=kJ2gQw6U07GebIgpZKuTXS5iKaqiqBl+qf61pQDzgKdhqkQ42pR47LH+5CwUudOmHh
+         9PTcliELNWo/rS7FyHvtuRbVoObfoI+chbgttoRG30aoBouTjFnLYk/mMNqgVCcs6CWI
+         X7dy9I+miDLCgRpFXpEuyHu3UsIdYA/buO5ogycNYaA02aykc14HU4VHMBIfuWcKO/Jj
+         Nbo4BWS/Tt+ZJ1ubwxbF5i6ALf6FVM/1T3VlCrwf6yiDwv0XzPRvvVGhHI/eU/aucquA
+         v9zSNtgbgHQETAXCXRicgdkteJVmJTRtfTdJkwUdHnQuUiFFbHvcFSBnWEZ0jkX21Quj
+         hqAA==
+X-Forwarded-Encrypted: i=1; AKwUvByr5l5+LvjCPPt/pZzJO/59d+5lLnWaCctl447pVnNZzmTyMAsPalScvWQbd8osunslJ3Zcvgbgkke3iuo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAdzsg3X0ajaYWlWrm7Jw9TYTUc/2LninQ7NPaKGo5IWjUVoTX
+	ykxkoJQyOBwlnQ1/BQemM3wEtj02U2LXE79Aynh4iAf7dPijRPa/21FrKjRxrF/tWA==
+X-Gm-Gg: AYBFou1BJ6X1DtUa5Mc83/Xn/mtzlFV1Ai3l+qQirGLHKfORU+gMsPzyaN6TN38Gf+z
+	59kHq8XMlBxEZ6cF3Do1TCHaRPSUFoJRS+Ma7jgNPMpr97Gry2ru5aYcM6y6Cu0CiJDnP7x1/n2
+	RlvFQyWCtcpxpB81f9lZpgIbjU3T1htuujZPn6t39GwSLbb7w6ZLIg0EItlycXyQjcylp8vkHbk
+	ejvi3fAssWUr7hObC1X3B7YHEjd2PEwTtSknW6bLgJy+Zswhj4GkRH2xDD1gd+iESQ6cX8FQT1k
+	JqW47QzYoTM2+e5t9rEjGBQiIYxaqq44iYi7ivKfRsPe6zD80F1GpSB5hdJoaN8O3ReJ7ClHWdv
+	o0fyPTOFzXHnua6m/msnYcb37KWgDSa/7BRzWxwNxzZZOq3hFXWf/81HlG5fMCZb1q92g+4kzEa
+	IpiiGZHHHHqIi+8BgDlvHnAI5EO11yoQX+8UlUVusINHSyztZdVkGuBRO7jNg1pj+hpzq5iAeve
+	GX46MMp0vnYFj8+hus6ZdzRJ8wxqF5CdQ+52m4jNkQ9B7op
+X-Received: by 2002:a17:90b:1dcf:b0:39e:6c69:f479 with SMTP id 98e67ed59e1d1-3a07e74a090mr3526315a91.56.1790185651372;
+        Wed, 23 Sep 2026 10:47:31 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:642b:a4c2:7ea5:5668])
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-3a097663e1dsm157934a91.7.2026.09.23.10.47.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 10:47:29 -0700 (PDT)
+From: Brian Norris <briannorris@chromium.org>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: linux-doc@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Ulf Hansson <ulfh@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Doug Anderson <dianders@chromium.org>,
+	linux-kernel@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>
+Subject: [PATCH v2 0/8] PM: runtime: Overhaul kerneldoc, runtime_pm.rst docs
+Date: Wed, 23 Sep 2026 10:40:24 -0700
+Message-ID: <20260923174711.1283986-1-briannorris@chromium.org>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 06:45:41PM +0100, Lorenzo Stoakes (ARM) wrote:
-> It only makes sense to manipulate VMA fields if a new VMA was allocated,
-> rather than merged.
->
-> VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
-> keeps its own, which is also what the legacy f_op->mmap path does since it
-> never touches an existing VMA.
->
-> Currently, these fields will get overwritten by whatever state is
-> established in the mmap_prepare hook, and if the VMA was merged,
-> vm_ops->mapped will not have been called, so this could destructively clear
-> existing state without replacing it with anything valid.
->
-> There is an implicit requirement that vm_private_data and vm_ops are
-> fungible across VMAs which means that losing the 'new' state is
-> fine.
->
-> However in this case the 'old' state is being overwritten by potentially
-> invalid 'new' state, so this must be rectified.
->
-> Additionally constify have_mmap_prepare while here.
->
-> All existing in-tree users either derive state for the tree or are
-> unmergeable due to VMA flags, so this has no direct impact.
+The runtime PM documentation could use some improvements and additions,
+to help guide people less familiar with the main runtime PM concepts and
+its internal implementation details.
 
-Instantly noticed a typo when I hit send (ugh).
+Find version 1 of this series here:
+https://lore.kernel.org/all/20260904212000.4167880-1-briannorris@chromium.org/
 
-'derive state for the tree' should be 'derive state from the file'. It's late :)
+The first part of that series has already been applied. For the
+remaining work:
 
->
-> Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
-> Note that this is cc: stable to account for any possible back-ports that could
-> break it (unlikely) or out-of-tree modules which might be affected.
-> ---
->  mm/vma.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/mm/vma.c b/mm/vma.c
-> index 9f0a0acf694a..6cde67883fb0 100644
-> --- a/mm/vma.c
-> +++ b/mm/vma.c
-> @@ -2849,7 +2849,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
->  {
->  	struct mm_struct *mm = current->mm;
->  	struct vm_area_struct *vma = NULL;
-> -	bool have_mmap_prepare = file && file->f_op->mmap_prepare;
-> +	const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
->  	VMA_ITERATOR(vmi, mm, addr);
->  	const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
->  	MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
-> @@ -2892,7 +2892,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
->  		allocated_new = true;
->  	}
->
-> -	if (have_mmap_prepare)
-> +	if (have_mmap_prepare && allocated_new)
->  		set_vma_user_defined_fields(vma, &map);
->
->  	__mmap_complete(&map, vma);
->
-> ---
-> base-commit: fe2ec83746e501645709761605c2464a44fd2929
-> change-id: 20260923-fix-mmap-prepare-overwrite-6304d112a4c7
->
-> Best regards,
-> --
-> Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
+ - Formatting and clarity improvements.
 
---
-Cheers, Lorenzo
+ - Clarifying core concepts in the Introduction. (Pretty much all new
+   readers I encounter have a hard time with the difference between
+   "enabled", "allowed", and "active".)
+
+ - Adding Example driver patterns -- because the API is so large and
+   complicated, it can help to try to walk people through standard
+   practices, and what everything means in context.
+
+I tried to keep some of the larger changes toward the end, to hopefully
+make it easier to rework or reject them while cherry-picking some of the
+easier stuff from the first part of the series.
+
+Feel free to add suggestions! Within reason, I'm open to tackling more
+here, as I think many people have many valid perspectives on exactly why
+and how the docs do or don't serve people well today. Or I can tackle
+less, if you think some of my choices are not improvements.
+
+Some possible follow-ups I'm toying with:
+
+ * Slimming down the API might be better than heavily documenting it. A
+   smaller API is a more digestible API.
+
+   My only concrete next step: drop __pm_runtime_put_autosuspend(). Its
+   last user is nearly gone:
+   https://lore.kernel.org/all/20260806-smmu-rpm-v4-1-8183d007331c@oss.qualcomm.com/
+
+   I could also see deprecating one of
+   pm_runtime_put_sync{,_suspend,_autosuspend}(). They all do slightly
+   different things, but I'm not sure every difference is actually fully
+   intentional (or at least, not necessary).
+
+ * Tweaking some of the behavior on pm_runtime_barrier(). Today, it's
+   very asymmetric, as it prefers resume. But I believe there may be
+   value in making it flush (not just cancel) pending suspend too. That
+   may be in a future proposal; for now, I just try to make its
+   asymmetry more clear in the docs.
+
+ * Sand down some more rough edges on return codes. For example, it's
+   very difficult to get any useful meaning out of pm_runtime_put_sync()
+   return codes. There's a high chance that anyone trying to treat
+   return codes as errors is inviting bugs. (Is -EAGAIN a failure?)
+
+   Of course, the answer there is not "document it better" -- we can
+   make it easier to use.
+
+ * Adjust the way devm_pm_runtime_enable() works, specifically for
+   remove()/teardown. Currently, this is very hard to use correctly --
+   some common driver patterns may assume that a device will tear down
+   while RPM_SUSPENDED; but that's not actually guaranteed. Notably,
+   this makes some of the "Examples" section fairly tricky/subtle.
+
+Regards,
+Brian
+
+Changes in v2:
+ * Major rework on Introduction section, especially regarding "enabled"
+   and "active"
+ * Add appropriate teardown to "Probe with Hardware Powered Off"
+   Example, as the remove() + power-off behavior is subtle here, and
+   easy to get wrong
+ * Drop changes that are already applied
+ * Add a few new fix patches, noticed while reviewing the rest
+ * Move Introduction patch near the end of the series, as it is a likely
+   target for further discussion and modification.
+ * Correct Ulf's email address
+ * CC linux-doc
+
+Brian Norris (8):
+  PM: runtime: Correct pm_runtime_autosuspend_expiration() doc
+  PM: runtime: More kerneldoc formatting
+  PM: runtime: Misc improvements to runtime_pm.rst
+  PM: runtime: Add "Section" hyperlinks
+  PM: runtime: Clarify ->runtime_idle() callback return value handling
+  PM: runtime: Clarify driver callback expectations and structure
+    Section 2
+  PM: runtime: Expand introduction with core concepts and structure
+  PM: runtime: Add Example Driver Patterns section
+
+ Documentation/power/runtime_pm.rst | 568 ++++++++++++++++++++++++++---
+ drivers/base/power/runtime.c       |   8 +-
+ 2 files changed, 525 insertions(+), 51 deletions(-)
+
+-- 
+2.56.0.rc1.310.g51773c2048-goog
+
