@@ -1,176 +1,183 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+Received: from mta0.migadu.com (out-152.mta0.migadu.com [91.218.175.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116F541BA62
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BE13932F9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:15:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790183732; cv=none; b=BAJL3QM+Ptk9pClORH0J3thq57IXYXZl3Ek2ZuK/Xutv3czOrhOmYhjL5OvWQq1560AG6QkjAa7VmvU1NV7WQMZ3bODg4LX00+WFJ7ccQNA1dyaA87omrc+BwdP9wfy1YRuiAoPiHqJqdAoxj7noj4/z8Bj+ASHgKYDLF01oBM8=
+	t=1790183757; cv=none; b=pM1F88m/ocwWzIlX4MCE/YIqy07oWnHc3cz9eUbeejbpGsggas0C3/lcUW/gyuZbZPbmlhBgb/ZlTho85cpqIDzruVhP53XE0FNmjVJ0Ixkz7XCfpqgFtn8VyravgpMcQZ10KXotl0R6mtAjmC9Zmzwo5agVoJo6Uo6DmrxWckc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790183732; c=relaxed/simple;
-	bh=EtOSZieVqck/qf7QjhpRBraqaoUIyhy0x35464xd6nw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tFphYUy/MdmaP2Vyymn/D/M/vNkhUwU9i0k6lNOMSz1B0X9plsKy9GlWb59cX/GPYM44BXXwA5fKduV0W7k+QD7cS7lgvViPWeuYw9Tk3zAxvtqbSnc9YH5RDclurxGkTf4ntwPlrz9Q2iT24vhC+vAIu9Nv9hwNlYJcrfLgRNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=CXHsW9bB; arc=none smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1790183757; c=relaxed/simple;
+	bh=jxGuprUYi106B5t11FFkgi+yqb+rQeyTVQAW+p12YwA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=bBgTSM+7yKHGyoALErOUDjbv8LTQqd8im94lTAVrf88SQBi9Ngms18WQ0XUGLZaTvkIOBqxWPSSINaY8h9nGHbLQNYUnB7sMmJGMY1K2jF85D+PuBJL4wq7KuckO35i8kN7rzT8S7LoVrbg6RD/CI3R13HFY0FRSzg3SBrbwMM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=ZVe0P3h1; arc=none smtp.client-ip=91.218.175.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="CXHsW9bB"
-Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-66e4ab201ecso1034471d50.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:15:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1790183720; x=1790788520; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FNQHNSKZkECfWRp+ScI6OE+kyYlP/vtiU1JMeWIOhRQ=;
-        b=CXHsW9bBS9FfoisRaZk83bfh0DxRf7G6KKCj0xKkgx9VjcJGglbB8Gj8UuD655805R
-         7GM2sHTBfD+1+5BGqA6+8QJP7bKM9HwxpansBx8D2T/qoFRnLV8uJswbXemJ1021Eruu
-         R1xpIRSZL6pZN+45k/v0R7Ze0CGMPgVvPYKaDpR3EIussj2rqSb90BCzCFOn5NJTGzQC
-         ferybH2PpXXA89C34MJd+PBG7UakecWBiTjyRVQqSzWNRmwE+kN1rM8iuyz8tT64oW75
-         L7/FlCP2x2OqX9iq+KNE69WDHHJId6dZNdJb1OfRRwF/w6Ux0TeG9b6viExn1EiZTAvd
-         VhbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790183720; x=1790788520;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FNQHNSKZkECfWRp+ScI6OE+kyYlP/vtiU1JMeWIOhRQ=;
-        b=1ls3N/j7bQ1SbRggVxPfy5DfVRurY0sqpLpgtIFXJsQsb9m8Z37mAjvE0NYkuZV6nr
-         mvM6L5QXd7mlf06cHJanDOXCiD/UzNYyq6sozeto2wVFTSQuAPEzmSNN515DgUfrE5J7
-         RToQhgCdZbKDk2E7NA7z8qIvBDHtpDxadwBAzMv/wOIUCVpcqrVXKtCD7OsQj+OWDESW
-         o1DU6MbIiv05HvS0tehjJ0SH2bwcRzmRmYvIJnJ0pg24hyQCTEJ8nCNyqjZ1vQYvaQBI
-         stDamZV9f7n7YaCrjqkL6uCUu5cL/kgcX2xYPSBBW72jP45Lqph0u+qftjCZp5wWfSY0
-         S5Jg==
-X-Forwarded-Encrypted: i=1; AKwUvByBiXc2wEB0thIjd/MMRBvYPm6z3KL/xSHQCgi+NXrPdX/5kYiPPWQOTmM0zEAjqDtQi2lWeHXoJakKWF4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCtWLQ02SwDycEbUzSxHT1YRS/t/y++CKaoxvHvtS0fNggnQVZ
-	GkwuryTJELOdZUZiGWL4DcgYwdZUOYylTrhfnX/QGS2gBJAekTDZiQ3T71f0ZkgCq1s=
-X-Gm-Gg: AYBFou3w6/jf2VVMb454Gnra1eyamFc5byPtB5Pqfth8Rb9GBmNDV9HwEUytUWy6mTu
-	BEozvfLMv8Bz9Rg2rV4XmyOACbwLgnbOU+Q6peRIcRy4qAlac28X3C92gHNsVGYvric4gMRzAlT
-	LN2z9AV6syNsdj2ggmup74qicDlIBvdaDQWBBb2k+CDfdGsHBrAIYJrXLlvZPqISmO9ZlMoUZME
-	0LPTCVPevuKFFQAx9367GfXmUb+FfQHFfTxtlFbk0cX75q/7po1F+F31y4RovoArwwzIcWbzq4e
-	ImqL6T9bGShjiy479QtViEUreR572QsLRwkstJEDLmj/1CF7Sv9JCaJKrlYadhoaz0zeoVLvadQ
-	0NaF/PxLBR29muWTduIlxGKDVyBM/anaimB8Dtz3iV0kythTFXwWddnHySG6oXhtBtHJXXCxvYP
-	Now0iH3MfLdnPFQvsMr+my6Z1n7qtr94wzRy8fpwiXLror01ppbXmQEdU7sF6sI1obnhB5IQ==
-X-Received: by 2002:a05:690e:d51:b0:671:2519:a915 with SMTP id 956f58d0204a3-672d57b43bfmr1318283d50.59.1790183719867;
-        Wed, 23 Sep 2026 10:15:19 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9140c482cb4sm24670056d6.49.2026.09.23.10.15.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 10:15:18 -0700 (PDT)
-Date: Wed, 23 Sep 2026 13:15:14 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Youngjun Park <her0gyugyu@gmail.com>
-Cc: Youngjun Park <youngjun.park@lge.com>, akpm@linux-foundation.org,
-	chrisl@kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kasong@tencent.com, mhocko@kernel.org,
-	roman.gushchin@linux.dev, shakeel.butt@linux.dev,
-	muchun.song@linux.dev, shikemeng@huaweicloud.com,
-	baoquan.he@linux.dev, baohua@kernel.org, yosry@kernel.org,
-	joshua.hahnjy@gmail.com, taejoon.song@lge.com, lianux.mm@gmail.com
-Subject: Re: [RFC PATCH v11 0/4] mm/swap: priority-based swap tiers with
- per-cgroup selection
-Message-ID: <arQJIjzE0BlUg0CV@cmpxchg.org>
-References: <20260916183437.2946306-1-youngjun.park@lge.com>
- <20260916200434.GA5784@cmpxchg.org>
- <arAHu_BD5oqpZJER@gmail.com>
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="ZVe0P3h1"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jxGuprUYi106B5t11FFkgi+yqb+rQeyTVQAW+p12YwA=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790183736; v=1; x=1790788536;
+ b=ZVe0P3h1vL/8qbgOqkx72olxY4ujSROqjM5GA/cl7qJF6JFSNt2gDq2Pzo1UvKljCgDNsOkA
+ u0rlqhNm2fR3+NuPptvnQV1bAWCpK6jEUOqfEW/oqZ95g9e/cmfCSQs1u7f8QfvAfT1b8Xsbjde
+ B0BNy5tQfRQSRdFPaJ6bmH7++YW9IyvUL+eMHXgaBBbBUiqSey1YABoPxKuX03yKhxhypFrd1Xg
+ Yn/ldhH/mCSv4TOFo+JpYYMZ1w7fFKLyEE25rzRj5s5RT6+eOt2QL2u8EUkEK6Gaae0GHzoJzbr
+ 2ThwUJ0DqxwMQkKG6K5FDaxBmAskcbxYzBMGFbqUlrvTg==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6f9c8085352aaf04;
+	Wed, 23 Sep 2026 17:15:17 +0000
+X-Mizu-Trace-ID: 6f9c8085352aaf04
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arAHu_BD5oqpZJER@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 19:15:13 +0200
+Message-Id: <DLMV5WTF5TR1.BXDY94L4J4H7@cknow-tech.com>
+Cc: "Sebastian Reichel" <sebastian.reichel@collabora.com>,
+ <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>, "Jonas Karlman" <jonas@kwiboo.se>
+Subject: Re: [PATCH v5 5/7] arm64: dts: rockchip: describe PCIe RTL8125
+ Ethernet on NanoPi R5S
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: <ricardo@pardini.net>, "Heiner Kallweit" <hkallweit1@gmail.com>,
+ <nic_swsd@realtek.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
+X-Mailer: aerc 0.22.0-24-g39041fd9f179
+References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net> <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-5-c1b9e5f10cd6@pardini.net>
+In-Reply-To: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-5-c1b9e5f10cd6@pardini.net>
 
-On Mon, Sep 21, 2026 at 01:20:11AM +0900, Youngjun Park wrote:
-> On 2026-09-16 16:04, Johannes Weiner wrote:
-> > On Thu, Sep 17, 2026 at 03:34:33AM +0900, Youngjun Park wrote:
-> > > Per-cgroup swap in debugfs
-> > > ==========================
-> > > 
-> > > Patches 3 and 4 let a memory cgroup choose its tiers through debugfs.
-> > > 
-> > >   # swapon -p 100 /dev/nvme0n1p2
-> > >   # swapon -p 50 /dev/sdb2
-> > >   # cat /sys/kernel/debug/swap/tiers
-> > >   Idx   Prio
-> > >   0     100
-> > >   1     50
-> > >   # echo "/batch 0x2" > /sys/kernel/debug/swap/memcg_tiers
-> > > 
-> > > Bit i of the mask is tier i, so /batch swaps only to sdb2. A tier keeps
-> > > its index for its lifetime, so the mask keeps selecting the same tier
-> > > across swapon and swapoff.
-> >
-> 
-> Hello Johannes,
-> 
-> Sorry for the late reply on a good suggestion :)
+Hi,
 
-No worries, and same ^_^
-
-> > Can the cgroup be given a priority limit? That would have pretty
-> > obvious inheritance semantics:
-> > root
-> > `- batch (memory.swap.prio.max = 20)
-> >    `- task (memory.swap.prio.max = max)
-> >    `- logs (memory.swap.prio.max = 10)
-> > `- interactive (memory.swap.prio.max = max)
-> >    `- task (memory.swap.prio.max)
-> 
-> Right, the inheritance is clear and easy to understand, and with this I
-> can pre-define the limit without knowing the mask value.
+On Thu Sep 10, 2026 at 10:07 PM CEST, Ricardo Pardini via B4 Relay wrote:
+> From: Ricardo Pardini <ricardo@pardini.net>
 >
-> But first, let me check the intent. Is the point that capping batch keeps
-> it from taking the faster tiers, so they are left for interactive?
+> The FriendlyElec NanoPi R5S (rk3568) carries two on-board Realtek
+> RTL8125 NICs behind pcie2x1 and pcie3x1, alongside the existing gmac0
+> RGMII PHY.
+>
+> Describe the fixed function nodes and attach ethernet1/ethernet2
+> aliases (ethernet0 stays mapped to gmac0), so that U-Boot's
+> fdt_fixup_ethernet() can inject mac-address properties from its
+> eth1addr/eth2addr env, for stable MACs across boots that both U-Boot
+> and the kernel agree on.
+>
+> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts | 30 ++++++++++++++++=
+++++++
+>  1 file changed, 30 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts b/arch/ar=
+m64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
+> index 90ce6f0e1dcff..9ed11663c31c9 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
+> @@ -15,6 +15,8 @@ / {
+> =20
+>  	aliases {
+>  		ethernet0 =3D &gmac0;
+> +		ethernet1 =3D &rtl_eth1;
+> +		ethernet2 =3D &rtl_eth2;
+>  	};
 
-Yes, basically, that's what I tried to express. Interactive has access
-to all available capacity. Batch only has access to lower tiers.
+With my NanoPi-R5S I'm still getting the following warning:
 
-> If so, that matches our use case. Latency sensitive workloads get the
-> fast tiers, non-latency sensitive ones get the slow tiers. But...
-> 
-> Even then, the reverse cannot be expressed. A cap only cuts from the top,
-> so a latency sensitive workload given max can still fall back to the slow
-> tiers once the fast ones fill up. For example,
-> 
->   tier0  tier1  tier2  tier3
->     0     10     20     30
-> 
-> there is no way to say "use tier0 and tier1, but never fall back to tier2
-> or tier3". To cover that, the interface would also need a min value, or
-> some way to express a range.
+  r8169 0001:11:00.0: can't read MAC address, setting random one
 
-Correct, this isn't covered by the above.
+```
+root@nanopi-r5s:~# ip link
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DE=
+FAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: end1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq_codel state =
+DOWN mode DEFAULT group default qlen 1000
+    link/ether 4e:52:85:9e:22:f9 brd ff:ff:ff:ff:ff:ff
+    altname enp1s0
+    altname enx4e52859e22f9
+3: end2: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq_codel state =
+DOWN mode DEFAULT group default qlen 1000
+    link/ether 12:e5:47:9e:e2:f1 brd ff:ff:ff:ff:ff:ff
+    altname enP1p17s0
+4: end0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode =
+DEFAULT group default qlen 1000
+    link/ether 4e:52:85:9e:22:f8 brd ff:ff:ff:ff:ff:ff
+    altname enx4e52859e22f8
+```
 
-> And even a range is not enough. Excluding only tier2 leaves a hole in the
-> middle, which no min/max pair can express. That needs per-tier selection,
-> which is what the mask,  and what I'd carry over to the memcg
-> interface later (Currently memcg.swap.tiers.max).
-> 
-> How do you think?
+I did not do anything (explicitly) in U-Boot, but it seems it created a
+non-random MAC address for end0 and end1 ... and then stopped.
+AFAIK gmac0=3Dend0 already had a non-random MAC address and I hoped/expecte=
+d
+it would create non-random addresses for end1 and end2, which would've made
+the above warning go away too.
 
-I think it could help to aggregate the usecases in the cover
-letter. Your cover letter describes how it works, which is great, but
-it would be good to understand better what the constraints are, how it
-fits in with other existing control surface and broader usage models.
+Is this an issue with this patch, with U-Boot or me?
 
-With the above, yes, you can restrict who gets access to the
-privileged tiers top down, but not bottom up. Is that an issue? Keep
-in mind the alternative is cutting privileged groups OFF from certain
-available capacity. This seems somewhat counter-intuitive to me, and
-doesn't reflect a clean privilege hierarchy anymore.
+Full details:
+https://paste.sr.ht/~diederik/8ae7d354985afcd1c3464e3a4ad81da1b4442364
 
-If you can think of a good usecase, memory.swap.prio.min would be
-certainly a natural extension. But we should get the usecase laid out.
+Side note:
+I wonder how 'random' those addresses are as during testing ``ssh rock5b``
+landed me on another device (NanoPC-T6 Plus), f.e. My router has DHCP
+reservations based on MAC addresses and it looks like it got confused ;-)
 
-The requirement to punch holes is the one I can relate to least. Why
-would a cgroup need access to good tiers and bad tiers, but skip the
-middle ones?
+Cheers,
+  Diederik
 
-This would seem less like tiering/hierarchy and more like flat
-per-cgroup swap pools but with obstacles.
+>  	gpio-keys {
+> @@ -107,6 +109,20 @@ &pcie2x1 {
+>  	num-lanes =3D <1>;
+>  	reset-gpios =3D <&gpio0 RK_PB6 GPIO_ACTIVE_HIGH>;
+>  	status =3D "okay";
+> +
+> +	pcie@0,0 {
+> +		reg =3D <0x000000 0 0 0 0>;
+> +		#address-cells =3D <3>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +		device_type =3D "pci";
+> +		bus-range =3D <0x00 0x0f>;
+> +
+> +		rtl_eth1: ethernet@0,0 {
+> +			compatible =3D "pci10ec,8125";
+> +			reg =3D <0x010000 0 0 0 0>;
+> +		};
+> +	};
+>  };
+> =20
+>  &pcie30phy {
+> @@ -119,6 +135,20 @@ &pcie3x1 {
+>  	reset-gpios =3D <&gpio0 RK_PA0 GPIO_ACTIVE_HIGH>;
+>  	vpcie3v3-supply =3D <&vcc3v3_pcie>;
+>  	status =3D "okay";
+> +
+> +	pcie@0,0 {
+> +		reg =3D <0x100000 0 0 0 0>;
+> +		#address-cells =3D <3>;
+> +		#size-cells =3D <2>;
+> +		ranges;
+> +		device_type =3D "pci";
+> +		bus-range =3D <0x10 0x1f>;
+> +
+> +		rtl_eth2: ethernet@0,0 {
+> +			compatible =3D "pci10ec,8125";
+> +			reg =3D <0x110000 0 0 0 0>;
+> +		};
+> +	};
+>  };
+> =20
+>  &pcie3x2 {
+
 
