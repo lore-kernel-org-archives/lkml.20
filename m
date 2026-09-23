@@ -1,116 +1,117 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C8353FD28
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:00:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A1970836;
+	Wed, 23 Sep 2026 17:00:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790182818; cv=none; b=goi/wHz5tXg1ED448cIUnX9rCNHguOOf4EsoBM9kxTiW9HlbDq9y7tVdEItF+2GqAst//NR5rgvXTIczF/EyV841uvnS4afYzCGQHiAVSJuH+dv7ekEHtacmzBWUqe4G+/N87EDr/7EcyyKSgaXBoGAUB+6arDTYMzs3/d1++5w=
+	t=1790182839; cv=none; b=MobyNvYwRQLQVs3d2jmwfOmqfXkA3Dn7IWRNivNQHCCT8pZNN6DBo3CDeTxTt3AoUpSR9UEXwC/rlLEBFKqFVfrCyZKye7XRCyOUCv2YL/2TNIc3laLCOB11h/GUhSGb7AzGfm0L0c3FlOg9T4zw45qnk3hFXWE2gOcdMbrS9V8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790182818; c=relaxed/simple;
-	bh=sGc6PJ0ESI7aHX7FRKJfITiyKS1azlW6j7agq0JY1UQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Uy80GYFBCS7xxbWQvDKU8SZenTVtvhipbr/iIUJ1bv0YFHPGRzP+nUatot2MPOxz6NZbcUVaC6AuX8zaQg7Y2X/aQC+q69pbnnJLOYSzy0HfJIRVLXhY9/TKfcu3HFZqznGHZjZLhFdubmQbk/1/rG11kxvdNBLANbheFtR5Wis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D1BXr7hr; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790182839; c=relaxed/simple;
+	bh=upvQ28kj+Zot6l2sr0FocrdOCH6thCSzV9pOZTXEDnM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TkrIZySZvYbJMr5RQoQOBChsG6vjclteCnht7DMiYPX4iXqr0ETnQuSGOaWD8nmQPW9HVxNS0isPeI22FqkGMBvVsIJYqIZnhhc/8pW3kHUi9W7k9+M1EeOieip1Jeu+pKVMGziJuJH0H59r+TpXSCItdVESgkhm6cfp0YjzsXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O3SWeuyx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D1BXr7hr"
-Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-8748f34b1f2so692897b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:00:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790182813; x=1790787613; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zS39PJcT1oQj1VI+hAMdqo5YKZWOz03P5HuPkkDO3U8=;
-        b=D1BXr7hr3nz3+z2BR57/MNCw75SG37vRiam7uTqORXArxmgjvVuoJOkJqGmE57mbTG
-         s4s+ElQPhf8Di8AQW8eFxVXQjs1V665EddN79qATTa3Xoex5+SL+iFVaaGbFGJjk1Dwu
-         G7kySfdFMfAnZdYiF1FySkPirWClUu3VzLy+esoeLfzQ9LMGNiM5UaJnhl+0dytVaYxF
-         pbIudF4DnTq+uDE/4ouwwahVVUiGvLbQXGW1nOQklhDv7qJZSoFWFjy+gS5G02R+NgsJ
-         ou2VVev0wVJ3ME7LWaJNZ0VRMWL7tfBe/d1KNgyStSeW1TnOYSh0e6JlBSjVgEIr4hQ+
-         YMPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790182813; x=1790787613;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zS39PJcT1oQj1VI+hAMdqo5YKZWOz03P5HuPkkDO3U8=;
-        b=1ZMRjKwZSaV1OEjYGoPdrZqbsV/EmgwX1A8UfeD17CGJBiEI8fUdt8BQKg/W7oGMPU
-         s+3Wx9nCWmxYNJAt73oSGp4nJq9+0Gl44r6dbNyEWkNJAuREqklFLiYWfIamEXNxUxgf
-         VDO+QvjjXsVUh/XzPs5mjDXD3aV9A3ptmFdZtI9DAtUPnS53tZhdJlOrvLsaG/Z8rhWL
-         DeQjD++S2DEz+qkMb54nRmP4r98HbeTjtSTqdtSqor2YWZxIf5mMg9UJ+7Upu+mNpZBQ
-         fc0HSx26i6u1feng8FXU2eCTmGwCWs2ZP/vPbjBSumlXhafi4+fnz3n501gc5qsBUD+i
-         o3TQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwf9ytgNDz8GJ29VGYzNGaMeYq1h+u1g9xelSqdWwYReuXjsoQjEBUTprbMf8G14Kbd8nNW+gK6prjdlJM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLTiB58JEuM5sRvlOEXM7StBQiW0al7EaBdL+guiuRsWueTge9
-	OaYZNLumByXj62Wsrb5oLEjwOfzULfcF9+6+gL1omlnwQ/KaCcdFcoWS
-X-Gm-Gg: AYBFou0QXdTFJ2xXERF23l0LrUN/XfXnTKl3T1r1yE/6oUKpq1BH0STZuCSypnbdvPl
-	nKehvDyewG5hzisYevTEm+Tsaj5qbsUcZIovP3EoTK31RRRQMLL0ePgBCLoBZXVaGa62A3UAFJh
-	AMlYNJa6G/Njg4kzHZRBNb5ylPtxLBtXLAmiCVg2S+zRdowfn7tt5ke3AWNuUps7ySwRESmNkxo
-	YXMIb1sY5j4MmFpoW8cqmVZ5DzG5qMldd38ccBK5cwJ7NCmGCQquEgfgncs2E17N3ZLf2iVtkar
-	FACALuGuaAv+B4jUlpRXZmnY747bakfZWn6H94b0yx6jfioG4jQ7jqKM3G5R+xY2CUa9+jUgFeT
-	nyNFIHCD9pmp9fk1j9zP0S3Zbbysb0mC4K8H27981p6D1a1Vv7rkcNOKh8LaRvzPIcDSeHC4aqt
-	0raL9yd7P6edw/QQpduo5FHDJgoQIy/EKZzPrcFofXFW7ZJI+92SXrxdf1vN7pZhUeUmGl7g/kP
-	7c4XJrco3ru
-X-Received: by 2002:a05:6a20:d529:b0:3dd:a197:cf22 with SMTP id adf61e73a8af0-3ddf82868fbmr2949364637.70.1790182812807;
-        Wed, 23 Sep 2026 10:00:12 -0700 (PDT)
-Received: from [10.14.5.0] ([192.19.161.248])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1dadae4fsm1630251b3a.40.2026.09.23.10.00.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 10:00:12 -0700 (PDT)
-Message-ID: <8fbc43b4-c38a-49c1-b6c9-77899760ca71@gmail.com>
-Date: Wed, 23 Sep 2026 10:00:12 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O3SWeuyx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03A7C1F000FF;
+	Wed, 23 Sep 2026 17:00:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790182834;
+	bh=oYrY96BkmNrksWcvVD7C1QohSxV2WmGeTWj6WJeQNwk=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=O3SWeuyxeCA33WKiVgWynxkaK6WXM/9PzNvKGGJvHYgMtZ7fzf5wNbGABcm2PyPj0
+	 ulo+tAaMqePdNeRO4+Z12Obay4r+X761lYIAXX7LBrFpH1jyxy/IcTr3YvwTboZroO
+	 tHqehtSNX4OCsUOvOroNHB5MqUtLlAWLWuyWJ/jPw7b+0IN20cMVOt8NDPbZXBh0uj
+	 6TQhIAVJGZD1sl840y39G+sYKSRYOGPkxAYleHfPbZOxM9hfcg3XAzKEEUnh3MCz7U
+	 WBGGn5AXMVNwklMPoO+X82EHE3INiTFAxKTO0GDKUZXxF9WmRvptntaEd3aJ7hfXe1
+	 HTGdL2PEWqJxA==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id AFC4ACE1598; Wed, 23 Sep 2026 10:00:33 -0700 (PDT)
+Date: Wed, 23 Sep 2026 10:00:33 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Bradley Morgan <brads@mainlining.org>, frederic@kernel.org,
+	neeraj.upadhyay@kernel.org, boqun@kernel.org, joelagnelf@nvidia.com,
+	rcu@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+	Arnd Bergmann <arnd@arndb.de>, linux-arch@vger.kernel.org,
+	Vineet Gupta <vgupta@kernel.org>,
+	linux-snps-arc@lists.infradead.org,
+	Russell King <linux@armlinux.org.uk>,
+	linux-arm-kernel@lists.infradead.org, Guo Ren <guoren@kernel.org>,
+	linux-csky@vger.kernel.org,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	linux-sh@vger.kernel.org, Chris Zankel <chris@zankel.net>,
+	Max Filippov <jcmvbkbc@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/6] lib: Add two-byte cmpxchg emulation function
+Message-ID: <93f2bb33-c5ec-4836-8b1b-d0ee131be5b7@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260911192540.20983-1-brads@mainlining.org>
+ <20260911192540.20983-2-brads@mainlining.org>
+ <20260923114313.75494970@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260923140644.756254324@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923114313.75494970@pumpkin>
 
-
-
-On 9/23/2026 7:00 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.8 release.
-> There are 438 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Wed, Sep 23, 2026 at 11:43:13AM +0100, David Laight wrote:
+> On Fri, 11 Sep 2026 19:25:34 +0000
+> Bradley Morgan <brads@mainlining.org> wrote:
 > 
-> Responses should be made by Fri, 25 Sep 2026 14:05:46 +0000.
-> Anything received after that time might be too late.
+> > cmpxchg_emu_u8() emulates one-byte cmpxchg() in terms of four-byte
+> > cmpxchg() for the architectures lacking native one-byte atomics.
+> > The same architectures also lack native two-byte cmpxchg(), where
+> > such an operation is not supported and either fails to compile via
+> > BUILD_BUG() or fails to link, because the bad pointer sentinels
+> > these architectures declare are never defined.
+> > 
+> > Add cmpxchg_emu_u16(), the two-byte sibling. It reads the enclosing
+> > word with READ_ONCE(), splices the two target bytes through a union
+> > and loops on cmpxchg() of the full word until the compare succeeds.
+> > Like cmpxchg_emu_u8() it is fully ordered.
+> > 
+> > The Kconfig symbol gating this file is renamed from
+> > ARCH_NEED_CMPXCHG_1_EMU to ARCH_NEED_CMPXCHG_1_2_EMU, as it now
+> > selects both the one-byte and the two-byte emulation.
+> > 
+> > Suggested-by: Paul E. McKenney <paulmck@kernel.org>
+> > Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> > ---
+> >  arch/Kconfig                |  2 +-
+> >  arch/arc/Kconfig            |  2 +-
+> >  arch/arm/Kconfig            |  2 +-
+> >  arch/csky/Kconfig           |  2 +-
+> >  arch/sh/Kconfig             |  2 +-
+> >  arch/xtensa/Kconfig         |  2 +-
+> >  include/linux/cmpxchg-emu.h |  1 +
+> >  lib/Makefile                |  2 +-
+> >  lib/cmpxchg-emu.c           | 35 ++++++++++++++++++++++++++++++++---
+> >  9 files changed, 40 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/arch/Kconfig b/arch/Kconfig
+> > index 3bb2e568f5b1..d56064797e09 100644
+> > --- a/arch/Kconfig
+> > +++ b/arch/Kconfig
+> > @@ -1817,7 +1817,7 @@ config CC_HAS_SANE_FUNCTION_ALIGNMENT
+> >  	# strict alignment always, even with -falign-functions.
+> >  	def_bool CC_HAS_MIN_FUNCTION_ALIGNMENT || CC_IS_CLANG
+> >  
+> > -config ARCH_NEED_CMPXCHG_1_EMU
+> > +config ARCH_NEED_CMPXCHG_1_2_EMU
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.8-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+> Is it actually worth the churn of changing the name?
+> Maybe just a comment that say it adds both 1 and 2 byte emulation?
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+The churn is only a few lines of code, and the potential confusion from
+the name would be forever.  I agree that if we were stuck with the old
+name, the comment would help, but why not just rip the bandage off and
+be done with it?  ;-)
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
--- 
-Florian
-
+							Thanx, Paul
