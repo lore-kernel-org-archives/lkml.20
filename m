@@ -1,130 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1EF377EBF;
-	Wed, 23 Sep 2026 13:54:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6C15326BB;
+	Wed, 23 Sep 2026 13:56:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790171700; cv=none; b=oWAXQpTmEnDAnhbG4OGnN+keFhUGmtovqO42PeM4bBO3arSqQOhYC1wOpjqDfdyB7DvefULpiYUV+IGcYUBzjdVK8EmcOdpfDrejjBclACumn4wD1FbewV/gQCERhw/pnhSXa0e9nW3Zq01qR8QOX62f10memnjoWB7eSY5O6LQ=
+	t=1790171766; cv=none; b=drFLhQDvdYme5eTXxHZ7qlwswdO2f4mFH7cmfUozJrMr3j6zoxtKXlc0hIxoTEnR5FLR8ZSq5HS6KAK3GWXSJyYVJ2ZB35IBKgJAc1GXl7D8ISJpXW3kvSI6FTN0k7b6zimfO95tTd2zVWUVclNKsmNC/h8rLoJPsPL1oU7iv10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790171700; c=relaxed/simple;
-	bh=aT0jx2Enz+IOYUuA7N8ge/OBM1RkRl7Mh36SHDDD7f8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X5E0RHeRdwFtKIpsasT5VrWDd6EtGQzUoDVk1VUkNxCcEpB/wtaWjTqC+XXGNVAyxhoNiPgGxMG1z2gzUSp0eK73z8nWunhcROiDoPboZxz1nBPoDqNVJJIrRSLTnKwmfi9KGEvkEVFoXP1HQVV9drbpgEqrXGly8idZKzRAviY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FM5j2lqH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790171766; c=relaxed/simple;
+	bh=zqDy86mP9fmqxJ+z6nD8B7gI9aGd8Nj7Y7iVprPg1qc=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=RoX4oVgk9xSD9xP4R5cg0NdpXmevP5L28nPpkwNj+GxZLw49Dgjt53BeFgelQ+WSPpltKRkEld2ZpgjQn8a3Yz/NsUY7mYLs+yZMDSVupaMLMUznBUMZLGiX38Obyb3/U7S2BwD6E1OYD80ancpzNX5SZdXKgndlVQ9lswPlez0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bsXP6fbu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FM5j2lqH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85DF01F000FF;
-	Wed, 23 Sep 2026 13:54:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bsXP6fbu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CFE1F008A0;
+	Wed, 23 Sep 2026 13:56:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790171699;
-	bh=3pRdOBL+cijWfZO9/7sYlQGKCgeKIlKJlS6CU60AIms=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FM5j2lqHF5oBA4kkvgz0PCwgEZsqnHHisgMdkAAnmRuvvwHVyhV2luZJK6Y4xkemL
-	 qAPC3fd7iEJsbd4xQDTAQ7q11ZqPOPy+xvE8OlQX9ae0LVkWeQlJEePNYwymIgC31g
-	 I9T+XAYUIU07RhGDOcqX7yEpg+RocTvGQgi62YrIsf5DnIuzwxvAiPX55mz+k2pO4M
-	 4Deia8UBXt97VtZtydrpwjRzcDk+ZM3EmHeK+hJImCzrcdHCdIs2GTD/OP6eqCm/1C
-	 SG+CNlFlvz1KiGyOFaPQFsi+mA5+jTYIZln8Cdpcxvx61fAaAp1iIP0xnhZnSSI3ki
-	 J9iQD2s3T/VGw==
-Message-ID: <0241581e-3823-43ec-9c6d-2346433f8f87@kernel.org>
-Date: Wed, 23 Sep 2026 15:54:48 +0200
+	s=k20260515; t=1790171765;
+	bh=/RkMoEre4s0cWwdK8pJI3qLzangpGPybRLGHnZa2kcY=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=bsXP6fbu3tADeWx3UZmNQmxUeu+hk9l2AVXYnpdgrU3Sq/eDl0cuboXcSTq4mhGNI
+	 MOIzvLFdgmt9DrQVWJeKBqpO0moXOBvv0mGWYee61ztRmuhYkGEeJcVX6sU6DFdSYo
+	 /V7BX2I9LFamNA3TSFBCplKficQd7ppVMaWcpGfzfWfbGzxy1tUMp+l9xrHgKIGNMh
+	 ZJV+o5oZfHCuuFdogX6L0rLnOOJfn0g2Pkby6zAN1/yGOy5R5TWINFzYmlixcbOnYS
+	 TSmaWvjVMHMPWjesbsstMqxKgUSSDAKBlC3HAyS1yinqrLA2fHVjqzkZYNYw5ewc68
+	 6B2/b+tp6PHUw==
+Content-Type: multipart/mixed; boundary="===============8758721912312969620=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] kselftest: mm: use helper to identify anon_ops in
- khugepaged test
-To: Yeoreum Yun <yeoreum.yun@arm.com>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: akpm@linux-foundation.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com,
- dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev,
- usama.arif@linux.dev, kas@kernel.org, ljs@kernel.org, vbabka@kernel.org,
- rppt@kernel.org, surenb@google.com, mhocko@suse.com, shuah@kernel.org
-References: <20260923110133.429745-1-yeoreum.yun@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20260923110133.429745-1-yeoreum.yun@arm.com>
-Content-Type: text/plain; charset=UTF-8
+Message-Id: <d96c63f73df29f7a250296c2734afc94f516716f270e51e33e311691010c6a34@mail.kernel.org>
+In-Reply-To: <20260923130856.1157-2-cp0613@linux.alibaba.com>
+References: <20260923130856.1157-2-cp0613@linux.alibaba.com>
+Subject: Re: [PATCH bpf-next 1/2] bpf, riscv: Add support for indirect jumps
+From: bot+bpf-ci@kernel.org
+To: cp0613@linux.alibaba.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,memxor@gmail.com,bjorn@kernel.org,puranjay@kernel.org
+Cc: ihor.solodrai@linux.dev,eddyz87@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,pulehui@huawei.com,pjw@kernel.org,palmer@dabbelt.com,shuah@kernel.org,guoren@kernel.org,bpf@vger.kernel.org,linux-riscv@lists.infradead.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 23 Sep 2026 13:56:02 +0000 (UTC)
+
+--===============8758721912312969620==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-On 9/23/26 13:01, Yeoreum Yun wrote:
-> Instead of comparing mem_ops->name to determine whether mem_ops is
-> anon_ops, use the is_anon() helper.
-> 
-> Suggested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
-> NOTE:
->   This patch is based on mm/mm-unstable.
-> ---
->  tools/testing/selftests/mm/khugepaged.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-> index bdc0c7c117d9..b0cb02bf1a73 100644
-> --- a/tools/testing/selftests/mm/khugepaged.c
-> +++ b/tools/testing/selftests/mm/khugepaged.c
-> @@ -618,7 +618,7 @@ static bool wait_for_scan(const char *msg, char *p, size_t len,
->  		usleep(TICK);
->  	}
->  
-> -	if (!strncmp(ops->name, "anon", 4))
-> +	if (is_anon(ops))
->  		madvise(p, len, MADV_NOHUGEPAGE);
->  
->  	return timeout == -1;
+> diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
+> index ed0a6f871dea..9de3749fb268 100644
+> --- a/arch/riscv/net/bpf_jit_comp64.c
+> +++ b/arch/riscv/net/bpf_jit_comp64.c
 
-This should be squashed in the other patch under review.
+[ ... ]
 
--- 
-Cheers,
+> diff --git a/arch/riscv/net/bpf_jit_core.c b/arch/riscv/net/bpf_jit_core.c
+> index 2fb0b4e198b9..15acf249fed4 100644
+> --- a/arch/riscv/net/bpf_jit_core.c
+> +++ b/arch/riscv/net/bpf_jit_core.c
 
-David
+[ ... ]
+
+> @@ -176,6 +179,15 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
+>  		for (i = 0; i < prog->len; i++)
+>  			ctx->offset[i] = ninsns_rvoff(ctx->offset[i]);
+>  		bpf_prog_fill_jited_linfo(prog, ctx->offset);
+> +
+> +		/*
+> +		 * bpf_prog_update_insn_ptrs() wants the start of each insn, so
+> +		 * shift the linfo array by one and get insn 0 from the prologue.
+> +		 */
+> +		for (i = prog->len - 1; i > 0; i--)
+> +			ctx->offset[i] = ctx->offset[i - 1];
+> +		ctx->offset[0] = ninsns_rvoff(ctx->prologue_len);
+> +		bpf_prog_update_insn_ptrs(prog, ctx->offset, jit_data->ro_image);
+>  out_offset:
+>  		kvfree(ctx->offset);
+>  		kfree(jit_data);
+
+This isn't a bug, but could the comment say "shift ctx->offset[] by one"
+rather than "shift the linfo array by one"? The jited_linfo was already
+filled in by the bpf_prog_fill_jited_linfo() call above, and it is the
+JIT's own offset table that is being rewritten here.
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35866214591
+--===============8758721912312969620==--
