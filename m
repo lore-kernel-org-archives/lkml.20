@@ -1,51 +1,50 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BBB4A9D5B;
-	Wed, 23 Sep 2026 12:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216DD5187E0;
+	Wed, 23 Sep 2026 12:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165839; cv=none; b=QQUcx7+ZJqpMih5kaWdhkBdP8nATuL3iF6bS6wQa4AFHDc0abKmg9MG5qkbbAX5E0IUVLZDj4Wsn/la1y6Ooo/30jOcz9XKDjXBd75qVj/Zr6LHbVsyXRorqjCwdM5rzutL9UJLHZgBNOHo9W+492je5wNc5PuelUh5e+lZt6zg=
+	t=1790165831; cv=none; b=EaWfi7c4vtb3PKPgTOZRXjP5RPKpiXpQ0ocGGqNu6eRIRrGa5ta9xZTH0m+AuwfnhnyBMY6rG0WZTma4BOymPjx7UrK8Bb1F/2YFTWh3ibKO9OQLIGZqU1GEIQ3rNvkRHaa8tQuV5ATGDCRj1cleAVe3ZwCeC0ABjuau3uxyZxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165839; c=relaxed/simple;
-	bh=I850guTHv9ywbIJlgUV+AXYkJLzJ9So4+Fs6bkitukM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ElxdUnou0kfsYUdfDg3AnFiQleHqGqwk9NXA+f6D5RONwJxNQEElOLunzZlYAFNjGxldKuJtGFBiWJlRGDOk4yBlpM+aFuY1VSaRmraMNEKcmGj/2X/1ySv3c9wNIgrgMqf8ToolB36Na3mQbzz2267Z9opW4y2oTV36Ce+m0Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: ac26e04ab74811f19a56ed5b684f684d-20260923
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:10f5ed81-2320-41cc-9a39-c12452002edd,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:09f6a7cfbc632e97a3e830ca77d6aa1f,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
-	:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
-	:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ac26e04ab74811f19a56ed5b684f684d-20260923
-X-User: zhangheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 516464414; Wed, 23 Sep 2026 20:16:57 +0800
-From: Zhang Heng <zhangheng@kylinos.cn>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhang Heng <zhangheng@kylinos.cn>,
-	stable@vger.kernel.org,
-	Baojun Xu <baojun.xu@ti.com>,
-	Antheas Kapenekakis <lkml@antheas.dev>,
-	Aleksei Arsenev <alesharik4@gmail.com>
-Subject: [PATCH] ALSA: hda/realtek: Fix square wave output on ASUS Strix G615LR
-Date: Wed, 23 Sep 2026 20:16:40 +0800
-Message-Id: <20260923121640.272509-1-zhangheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1790165831; c=relaxed/simple;
+	bh=ovsAtgEi6L1M2RO1lkZMwC93Fl5nrIiLA+OFFMvsVfw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VAbsr/Qkz4U5zQTDKF7+K2Yfa4don136cP0VSGcEzLNCJ1iOru+Kx4loFEszhmcG8XauINkGk60TuLPnGSPl3nYfZs9UFY9a4k3VHKslAzZG7pY4pc0sWpHXa+KDis1WG6LDiIFBlh50RTenDc7yXzm/OgM1+A9cpMJM4C1dvBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=BbCi5bol; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="BbCi5bol"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C804A4AA6;
+	Wed, 23 Sep 2026 14:16:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790165814; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=GzLk9AHxyejvus2S9q+Bu2XrtqNIw34QVfpPbaQXNKk=;
+	b=BbCi5bolnm1vv0bWnb5PcVrM7s6BCRFbAyuGz1B7f82rR1/k43IqmT/K4DBA6H6ts93zHH
+	eRGO9LE6g3f4Cvz8GFh+0zvEk6qnkERAz9OYUaXewxZoNTo0yECV5soD2SH36ysfE2tsaN
+	9cFAOLLgXoesfXlZbthi+eRzaajmU/p9EoxxpkKkhkaZRN5kXiU8tLIRnGPwiUMeevJiqG
+	vh2fBX5AfAfpnOKum+sHb54uNGRUJ3XeDsQ/kM5N2AGY2g670l2nkCyElh2KAVeIC3uh5B
+	4DCLKxS7Gh0+TIFK3F5Fu2BUSKWY71Ugz3ko8dl0CVp1L6yXb/z7Pq4uGrzCZg==
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kory Maincent <kory.maincent@bootlin.com>
+Cc: vadim.fedorenko@linux.dev,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 1/2] net: ethtool: don't match a hwtstamp provider on a device without a PHC
+Date: Wed, 23 Sep 2026 14:16:42 +0200
+Message-ID: <20260923121644.2194183-2-nb@tipi-net.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923121644.2194183-1-nb@tipi-net.de>
+References: <20260923121644.2194183-1-nb@tipi-net.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,45 +52,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-ASUS ROG Strix G16 G615LR (PCI SSID 1043:3f20) outputs a loud
-full-scale square wave from internal speakers since the TAS2781
-amplifier driver started loading. The quirk was using
-ALC287_FIXUP_TXNW2781_I2C which chains to the ThinkPad headset
-jack fixup, but this is an ASUS device that should use
-ALC287_FIXUP_TXNW2781_I2C_ASUS which chains to ALC294_FIXUP_ASUS_SPK
-for proper EAPD and pin configuration.
+A device without a PHC reports phc_index -1. A request for index
+0xFFFFFFFF is stored in an int and becomes -1 too, so the two match and
+a netdev provider is selected on a device that has none.
 
-Fixes: f7cede182c96 ("ALSA: hda/realtek: Add Asus quirk for TAS amplifiers")
-Cc: stable@vger.kernel.org
-Cc: Baojun Xu <baojun.xu@ti.com>
-Cc: Antheas Kapenekakis <lkml@antheas.dev>
-Reported-by: Aleksei Arsenev <alesharik4@gmail.com>
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=222045
-Signed-off-by: Zhang Heng <zhangheng@kylinos.cn>
+Fix this and only match a real PHC index.
+
+Fixes: b9e3f7dc9ed9 ("net: ethtool: tsinfo: Enhance tsinfo to support several hwtstamp by net topology")
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
-Baojun, Antheas: several other ASUS Strix Gxx5 entries (0x3ee0, 0x3ef0,
-0x3f00, 0x3f10, 0x3f30) are still using ALC287_FIXUP_TXNW2781_I2C (the
-non-ASUS variant that chains to the ThinkPad fixup). Could you check
-whether they also need to be changed to ALC287_FIXUP_TXNW2781_I2C_ASUS?
-Ideally with testing on the affected hardware if possible.
----
- sound/hda/codecs/realtek/alc269.c | 2 +-
+ net/ethtool/common.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 39dbd876bc1a..d70e03061c91 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7964,7 +7964,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x3ef0, "ASUS Strix G635LR_LW_LX", ALC287_FIXUP_TXNW2781_I2C),
- 	SND_PCI_QUIRK(0x1043, 0x3f00, "ASUS Strix G815LH_LM_LP", ALC287_FIXUP_TXNW2781_I2C),
- 	SND_PCI_QUIRK(0x1043, 0x3f10, "ASUS Strix G835LR_LW_LX", ALC287_FIXUP_TXNW2781_I2C),
--	SND_PCI_QUIRK(0x1043, 0x3f20, "ASUS Strix G615LR_LW", ALC287_FIXUP_TXNW2781_I2C),
-+	SND_PCI_QUIRK(0x1043, 0x3f20, "ASUS Strix G615LR_LW", ALC287_FIXUP_TXNW2781_I2C_ASUS),
- 	SND_PCI_QUIRK(0x1043, 0x3f30, "ASUS Strix G815LR_LW", ALC287_FIXUP_TXNW2781_I2C),
- 	SND_PCI_QUIRK(0x1043, 0x3fd0, "ASUS B3605CVA", ALC245_FIXUP_CS35L41_SPI_2),
- 	SND_PCI_QUIRK(0x1043, 0x3ff0, "ASUS B5405CVA", ALC245_FIXUP_CS35L41_SPI_2),
+diff --git a/net/ethtool/common.c b/net/ethtool/common.c
+index 23db40618fed..23e8282563cc 100644
+--- a/net/ethtool/common.c
++++ b/net/ethtool/common.c
+@@ -980,7 +980,7 @@ int ethtool_net_get_ts_info_by_phc(struct net_device *dev,
+ 	if (err)
+ 		return err;
+ 
+-	if (info->phc_index == hwprov_desc->index &&
++	if (info->phc_index >= 0 && info->phc_index == hwprov_desc->index &&
+ 	    net_support_hwtstamp_qualifier(dev, hwprov_desc->qualifier))
+ 		return 0;
+ 
 -- 
-2.25.1
+2.53.0
 
