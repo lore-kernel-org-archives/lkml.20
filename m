@@ -1,66 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64674EB85E;
-	Wed, 23 Sep 2026 15:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BC753D0D7;
+	Wed, 23 Sep 2026 15:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790179042; cv=none; b=qchiLEyQtIeBGldAMpZbx8FITzByBS/rA//0h7CRkaYobfbjNnyz5Bl+a5ZtKU7gJpl5/kinvCJ2V4cfZLn9bFz9s0WaNiiDY/wFfGB9MPkQ05ImP+GwYS+tho3/ale9EVbFGo82ylEpLEvnSifNmlU6iBCiFkj/fupkvgNLM4w=
+	t=1790179042; cv=none; b=Jh2pxMr+9geomRO6C0UkD4U71YGhWebA0a4njowKuj/jBgQ7Acqd7AZcIXi1GpGLIbCWjEQ+2iRTbmXel1ktCbzSFMQRU6S+NlQMKrLthhTSPqA0szSCdr7BYwEzwrsfNZ/elMfZCpD5Df4UF7SCrslRwWjbc2+fESxZ5GOzAYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790179042; c=relaxed/simple;
-	bh=dH1zh7QkL5jIxgg6r/MNhC42g1LfEW7PADxJ/Jd2GVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ov1XVBL9MJ2Oe/bmPBijGWxZdIMyuNfurkbGEIE8kcbd0sAO8uk2py5Rznb2zvI8XpKXHmWdpfB96QpdrlRADxOsDlZnF8rB9ENiCrUWClWzVwumwdnR3GNeb30AdJz4H7hbR3T0togm8lbg9k1X9RxAtw6SNeAyKadl17nm5m4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=El4Zf1lk; arc=none smtp.client-ip=100.103.45.18
+	bh=Z/w/kI/X4tXR/s2nUyxfG2V8PK+h36DMzF53LKcUUqE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GCohl5G7q0uE0GGRO8drv75qQbsSFACWCDa1tWzxS3V7YQ9TgxCQoyx6J6GwYOLgfSo7FaPqkjD90Gbr1dVHuzLVl36CQ6VnsHLWlncTOwIHZ8xFf9Mp65gRWQ+GW6wL7rOe65HyeATSLac60Z5RhZ2++ygPBJqYShq7Us3+dME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fgTAekkr; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="El4Zf1lk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9D101F000FF;
-	Wed, 23 Sep 2026 15:57:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790179039;
-	bh=4P0k3hiKGkpk1Fi1QdfvymEGAMVjJIDevylceiC3XnI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=El4Zf1lkzCwXQ1+o2MLB2VmC3YE1om69fiHU41tHfctUSij3bfIWxCcUcd2fwlH7+
-	 eJUymQ0VGc/4/3ZpNgw+flxz/v6SoBqs/mDE0qGc2jES7+RKw8PJ1ll2hInOUJ+FRV
-	 2WfyL4bRk1oj5Kyo0FXCGw/bYmfOgn9R4ogfk2j80bFZ2RSJxEOj86q3Y2m57dgk+T
-	 F8BJB8svO+7DvEdUXYshAcbg6NvFNr3VOhUxMN2QJWRMEZbZVtU+nkvAnmZZbQgXL1
-	 ZKjezw1N5ZwVOTWUS2IMkZSOT8FCuclWXdcimT+F9lrH2x8mZagysE5MKfxpCBLHHN
-	 qzIFw5ZLkYNJw==
-Date: Wed, 23 Sep 2026 10:57:18 -0500
-From: Rob Herring <robh@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Yong Wu <yong.wu@mediatek.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, iommu@lists.linux.dev,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: iommu: Describe MT8195 infra IRQs
-Message-ID: <20260923155718.GG27237-robh@kernel.org>
-References: <20260921232716.3134140-1-robh@kernel.org>
- <bef176a0-7b13-4753-9d9c-494a0bf04cea@collabora.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fgTAekkr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790179039; x=1821715039;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Z/w/kI/X4tXR/s2nUyxfG2V8PK+h36DMzF53LKcUUqE=;
+  b=fgTAekkrIcSragk8z4KuFKX5wAfmXDIEj6CNrUORsfvOfQk/D/gd/J7g
+   zCa1a/efF4d3gksHxZYWnm68937wAkqkuSURo2egSRXQKrbXXIhYCQZzg
+   F5Wv0HOqpya7NvQ/B44c17/jV540lSK6T8sc1jQMFg0/Sq1Zb5DR6cfMK
+   lJBquxzHkR65pgIlAkh2hdrr4YtAq0OMgNCgCI2oiJARu2lkSdA3fN6e9
+   mkSYbtLcZv1tIY61DwhxzHzzWPe07Fo58CkTgq7wLvIAdfuvukORJk5L4
+   fMlehqTdI+vfXOC1WqWU2rAmvYPznrh1Tnfdt/+3Xt1smqf7pgXxcHsfH
+   Q==;
+X-CSE-ConnectionGUID: VDA8cshyRQyeIVZp4d9jaw==
+X-CSE-MsgGUID: mVERw9rrSF2Jx5rULKluYw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="78445987"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="78445987"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 08:57:14 -0700
+X-CSE-ConnectionGUID: g6YnwgaVSEKxZW1sNlvnYw==
+X-CSE-MsgGUID: vTX+ZWzyTyy5EGoSyHStpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="4935342"
+Received: from rosenzwe-mobl1.amr.corp.intel.com (HELO tfalcon-desk.attlocal.net) ([10.124.221.119])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 08:57:14 -0700
+From: Thomas Falcon <thomas.falcon@intel.com>
+To: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Cc: linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>
+Subject: [PATCH v11 6/6] perf c2c: print memory region data with stdio output
+Date: Wed, 23 Sep 2026 10:57:03 -0500
+Message-ID: <20260923155703.34814-7-thomas.falcon@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923155703.34814-1-thomas.falcon@intel.com>
+References: <20260923155703.34814-1-thomas.falcon@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bef176a0-7b13-4753-9d9c-494a0bf04cea@collabora.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 01:45:05PM +0200, AngeloGioacchino Del Regno wrote:
-> On 9/22/26 01:27, Rob Herring (Arm) wrote:
-> > The MT8195 infra IOMMU has one fault interrupt per IOMMU bank. Require
-> > the five bank interrupts, named bank0 through bank4, for this
-> > compatible. Keep other MediaTek IOMMUs limited to one unnamed interrupt.
-> > 
-> 
-> Why are you introducing interrupt-names, and why would that be a required property?
-> 
-> I disagree - interrupt names are not necessary here.
+Print memory range data in perf-c2c subcommand. Only available in stdio
+mode currently. If memory ranges are not supported or present, print
+nothing.
 
-I agree. Not enough review of this one on my part.
+Example output of perf c2c report --stdio:
 
-Rob
+=================================================
+                  Memory Ranges
+=================================================
+Range 0: [0x0000000000000000-0x00000000bfffffff] Node 0, local region id 0, remote region id 255
+Range 1: [0x0000000100000000-0x000000203fffffff] Node 0, local region id 0, remote region id 255
+Range 2: [0x0000008000000000-0x0000027fffffffff] Node -2, local region id 1, remote region id 255
+Range 3: [0x0000028000000000-0x0000047fffffffff] Node -2, local region id 1, remote region id 255
+Range 4: [0x0000048000000000-0x000004ffffffffff] Node -2, local region id 1, remote region id 255
+
+Assisted-by: Sashiko:gemini-3.1-pro-preview
+Reviewed-by: Ian Rogers <irogers@google.com>
+Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Thomas Falcon <thomas.falcon@intel.com>
+---
+v10: Fixup double blank line before print_memory_ranges_info() define
+---
+ tools/perf/builtin-c2c.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+
+diff --git a/tools/perf/builtin-c2c.c b/tools/perf/builtin-c2c.c
+index a42423ca990d..2c8e1c7adedd 100644
+--- a/tools/perf/builtin-c2c.c
++++ b/tools/perf/builtin-c2c.c
+@@ -2597,6 +2597,33 @@ static void print_c2c_info(FILE *out, struct perf_session *session)
+ 	fprintf(out, "  Cacheline data grouping           : %s\n", c2c.cl_sort);
+ }
+ 
++static void print_memory_ranges_info(FILE *out, struct perf_session *session)
++{
++	struct perf_env *env = perf_session__env(session);
++	int nr_ranges = 0;
++
++	if (!perf_header__has_feat(&session->header, HEADER_MEMORY_RANGES))
++		return;
++	nr_ranges = env->nr_memory_ranges;
++	if (nr_ranges == 0) {
++		pr_debug("No memory ranges found, skipping\n");
++		return;
++	}
++
++	fprintf(out, "\n");
++	fprintf(out, "=================================================\n");
++	fprintf(out, "                  Memory Ranges                  \n");
++	fprintf(out, "=================================================\n");
++
++	for (int i = 0; i < nr_ranges; i++) {
++		struct memory_range *r = &env->memory_ranges[i];
++
++		fprintf(out, "Range %d: [0x%016" PRIx64 "-0x%016" PRIx64 "] Node %d, local region id %u, remote region id %u\n",
++			i, r->base, r->base + r->length - 1, r->node,
++			r->local_region_id, r->remote_region_id);
++	}
++}
++
+ static void perf_c2c__hists_fprintf(FILE *out, struct perf_session *session)
+ {
+ 	setup_pager();
+@@ -2610,6 +2637,8 @@ static void perf_c2c__hists_fprintf(FILE *out, struct perf_session *session)
+ 	if (c2c.stats_only)
+ 		return;
+ 
++	print_memory_ranges_info(out, session);
++
+ 	fprintf(out, "\n");
+ 	fprintf(out, "=================================================\n");
+ 	fprintf(out, "           Shared Data Cache Line Table          \n");
+-- 
+2.43.0
+
