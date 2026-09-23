@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05925304A1;
-	Wed, 23 Sep 2026 13:29:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CD54D0CC5;
+	Wed, 23 Sep 2026 13:29:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170153; cv=none; b=duLxmaiU9P0jxFSESskNOEj35PTI150m+v10PrTbJO6pczE3T39/hLHW92a0Bc5JTY4jWVK1Nnk+T+eOfjA2je4x/GIjy31JnXQMCgtJEtGYm7CNF23jjofV8nfJMR1N+6yBsZL1Z1MpyLl1Dn/LnACUmhhnPVByTWsYfgHeoeQ=
+	t=1790170162; cv=none; b=i1yMMnoPUZgXA7HFJYuLgUNeF+atMej/10YlalqvhkNmH+vIqVbi6BjfFRPX+6qw8x5YFmedvpgg24N2HKC3yKqP27z3sejJL7V/GebjRoQ39pFOh1zdVi4jqrNJN66rrSTVwp6aNd3dZ2qn/hwXsSgG3wBhGFZnAFWQK4BMEGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170153; c=relaxed/simple;
-	bh=geG71kIQHu4AeAzA3LdZm2dSG80TTngPRG09cR08t3A=;
+	s=arc-20240116; t=1790170162; c=relaxed/simple;
+	bh=gpCZr8u03L/1mMISk72o+fynNoTXxe+xC6jgX+XjSHc=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=e1Fq7ZZtYGrEpMAVSnKBrqveBbW8sh41rV6pK8P87OZ0SVcMSgBobOlWcJUROWQkiqbaAENkiYf1VX1PXDeKwOybOugWlr2uk3aLwMGnUZTzTqIWc1tXOW81cf8wFDH5BSTHrTLhbfX3x8QTaV4NPc0F3w4pmvIM1nsEgGCsA6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=doRlZZsd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=tvPQ6nVNJ70UevrpZmjWSmbdkIGWiOTrLb37GBGRPhNO27LQypK8oeqSd59FV01MQTF9LSsAta2VugGj/ZIH+Lsr/C2+hPeOqYLtb2zFHMhQTNFciKnImOvX+GtqS42wu4k7VZ8eay1toN7D+aG3HsuGM3ueNKhbDpc15f/zHbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PQLKHnVw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="doRlZZsd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D762F1F000FF;
-	Wed, 23 Sep 2026 13:29:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PQLKHnVw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF3B1F00898;
+	Wed, 23 Sep 2026 13:29:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790170152;
-	bh=wuZnGbcVSoDdUYd590lo0xP01Qx6KBsw7GVHfUbfXc0=;
+	s=k20260515; t=1790170161;
+	bh=yygsGnFltgurq/BUs7NOEEkRqO4i/4yT2EM6Ffixt0I=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=doRlZZsd6urMjfEKAwHUt/zzQSZjpWmWe4tUFA4h8YOTp49a6ELOpzI6Rf9fYnADu
-	 4mmsIZCxEyowCv5FYdrd05mI1HSiYHKKHJk4okgBMQbro263quWEuXCOQdDZIWjOKq
-	 RuaecCR+LbzX+FAntGpTtQyURfW5/aj9LfjA9qXI4ifN+Ehra8jmyo2IaZ8aklJK6k
-	 cXetivXMwiXkBzy2XioadBrC5Ygd0TU8HjJ/bSJIgd8DUbX+8kNKamRsECNoiLYAra
-	 R4Nosuhc+c0a6RV2hSiT5rWJ+nWzZzMsiJPX6mN1LwBlOcx1VtjoYDQLkJP1Vcm4P0
-	 sBEWz2niYELwQ==
+	b=PQLKHnVwZUq992EwT9XxYunWy7StzJ8SDWlJuS6BXUx2ML2YcVcWa8deQ5S5+I1qm
+	 /f2tkB1o6819IlcnaM5Gl301ugGwLD4ytjK+wD2/7YwAaboC9Mntgpg8zsFuI64UrB
+	 cO8Bxns1uZSVecWG91i37F2kclYWFWxlsWBuKgOhC6FplmQXNC5YIG/XI/qT8F/3aj
+	 aaL6OLWfwoXSrgiCDQ5gZ6kEI8+cYSSfmsMyyR3O4L1GYZ7MtyD1UipwV9yGuwXpJn
+	 nqL9EI+ZzKHi+ue9YNWdd1kcNhgpY1vsLc6Grbl7h8YH0Lu1o9Aly+G37aGPVxbLW3
+	 wR56MBWFjAbdg==
 From: Mark Brown <broonie@kernel.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, John Stultz <john.stultz@linaro.org>, 
- "Rob Herring (Arm)" <robh@kernel.org>
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Eugen Hristev <ehristev@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>
 Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260922183128.289564-1-robh@kernel.org>
-References: <20260922183128.289564-1-robh@kernel.org>
-Subject: Re: [PATCH] ASoC: dt-bindings: hi6210-i2s: Allow graph ports
-Message-Id: <179015959360.322763.6533233354859331541.b4-ty@b4>
-Date: Wed, 23 Sep 2026 12:33:13 +0200
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org
+In-Reply-To: <20260922183121.289108-1-robh@kernel.org>
+References: <20260922183121.289108-1-robh@kernel.org>
+Subject: Re: [PATCH] ASoC: dt-bindings: mediatek: Fix MT7622 clock count
+Message-Id: <179015857689.322763.9242441046352881202.b4-ty@b4>
+Date: Wed, 23 Sep 2026 12:16:16 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,20 +50,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1119; i=broonie@kernel.org;
- h=from:subject:message-id; bh=geG71kIQHu4AeAzA3LdZm2dSG80TTngPRG09cR08t3A=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqs9QihWVPK4llzrDyTiHWMUNvkpVboF/jt0Lab
- YRuBw9S+ouJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarPUIgAKCRAk1otyXVSH
- 0H1mB/9jDvdTOHZVbv03ObVZGwmN+Aa7jtGI6PQJFqr3gKhx3RaS+2kmC1aR/3pW61xt3OX2+zb
- oJlagwC1rso4/PSq9wKpSYlL4PWnZMWIWoHyuJWMsnk+OSWKkogSY9jqy0IpuVkM1T9OGNDC7o5
- 190zTwaWkLu3wRoMMnHzWtZxZiuVdFAfDRvmu5zBr3xm2Oltkgq0Q4leIhk7GaG3veKwa7LufI3
- MR/vu2JL7nnIKGTe8B4FWTMg5vXF2SJyu5pDPTmV8SQmSw4BRoVKRkefAX4QGC1vD2fQn0Onu12
- folSzZTKK7NjuLUhernk0HLRKkSkjBhnrGfbkPfke23kNzBj
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1125; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=gpCZr8u03L/1mMISk72o+fynNoTXxe+xC6jgX+XjSHc=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqs9QpI9twB4Gv9+NN/M39J9ZkvXSaphDuMFk1D
+ LUDWGKB4Q6JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarPUKQAKCRAk1otyXVSH
+ 0BkHB/0emvTrVyY0TSqs/nlBVFZ1EdFmOq368Cx57Hemx9emyUYCl5jzvH02iZv5hWg1FPvo1hT
+ id0Yhv0pXJpOYzoCnIIl+UQiPQ/OrCecp2QV44XCpcrXRvFwb6jHjeaypIILZ5oLkWx2bmo0CDC
+ L1+tLjqO0hvP9F7mBevuMNtD2pwRtOhfL+h6tf+3B4tRA8l1XCDMXUXRQgnN3FVgiOQtHjYsmG2
+ JXBX3mZyYF6HXNDdkg5yDFZ6peiYPfpDNFqjzrxXOPBTZc2Yc/wLF8FjwLM4W3uAuqk2J1W/4/m
+ EofulVVN8f5l4dIRpUqwEVjDynkS0Z/R2qS/gT9QgSEP0SCA
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 22 Sep 2026 13:31:28 -0500, Rob Herring (Arm) wrote:
-> ASoC: dt-bindings: hi6210-i2s: Allow graph ports
+On Tue, 22 Sep 2026 13:31:20 -0500, Rob Herring (Arm) wrote:
+> ASoC: dt-bindings: mediatek: Fix MT7622 clock count
 
 Applied to
 
@@ -68,8 +71,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: dt-bindings: hi6210-i2s: Allow graph ports
-      https://git.kernel.org/broonie/sound/c/425733d0aea9
+[1/1] ASoC: dt-bindings: mediatek: Fix MT7622 clock count
+      https://git.kernel.org/broonie/sound/c/2a2d659b835c
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
