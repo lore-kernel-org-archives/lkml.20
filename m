@@ -1,116 +1,179 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DCE44605E;
-	Wed, 23 Sep 2026 06:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70EF24457D5
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:58:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146717; cv=none; b=YRskyDQyocyK+Ujd8dEvBNY5yrUolS1hb3JgBEZXqFRN+AXYJPHAmYWzotb+TbtlvqhIOojIcnNU5iWrHbwc9dknrR+7Qpk/tu61emR3fKnCNNKMFGny2Rak4vZkb+tj2ILnJrDQn+IrZ+y8NY6I3Ogkkff1wli5lp+/IXTL3t0=
+	t=1790146727; cv=none; b=aWe7ELdoKq16BQUE/avSFUM0Y8kiUKWx1P0XGnIlx5mJup4tJH5UmhlbfKQTf3kFcF1oB7otipDj1Uc11BiCZPz/CScSCkkNxEg03a8A1SWJmyKFMd8eBw9iyKnDa/s9K8Yeg2SZ0VDZ6zmT1yWef8m+aX3yLqPEuqMqifzSggs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146717; c=relaxed/simple;
-	bh=kORj+Ecp+1R5NMJn0p/R1vy/I4KzVbWwxiMXybvr4N0=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=R3srMi9wWGv2cUJ/gUPhYOzmT4HT5xRclrMIAAZCO7VtEQ1goybZ6aUKKwJ/2Ja/s1PpHfglBH5pc+OxZvBZCHzBV2I5aa5NUXe6xBFyzDEy4ZZurqK2dyaNBkFbJslgb1Ct137ennJfvwqe7rY8ZJNNExc+ABjA2CNfXlpxkJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dUth35nt; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790146727; c=relaxed/simple;
+	bh=z5Kj4jIi/pBtjqnz+GdQ5hZ3/qqGbM1EQ2LLsesAaSY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=qfLxeQ1q832A+X1UMi1CN9lcMdcXUgmhb91qIOpwKB5rB9Aru0vTfRsunbGUTFDTiJ1w3dbJjwwpOhkqrGoBxXaSRSWB3a99Xh0FQzUzK35I6sQ2zHHHFTUuFngkZl0et4nnH82WmBu7qTUzNMO1IfbPCyY0uuJxPsK0E/ce6C0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AL3uUtX4; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dUth35nt"
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BEE1AA25;
-	Wed, 23 Sep 2026 08:56:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790146597;
-	bh=kORj+Ecp+1R5NMJn0p/R1vy/I4KzVbWwxiMXybvr4N0=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=dUth35ntRJ1gGIvzwrxvHyTLuC+LLiL5I7x1XRnq/B/aMFcOmCzhNWeEHnd3Kohoo
-	 AfQvDhlMiRGkbhzcXu9rRUtNX0rByt7qH1ybN4bIrGj6rjC2TSrgGoG+3D+pKcDWRg
-	 CQ9I7ARpttkMAipqinhyxk3t5lpQc9NKm+ULq0aI=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AL3uUtX4"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso7276005e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:58:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790146718; x=1790751518; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iZrjQ33poEdSxILO2JDtHpIllTCJBtOtLGzw0UbF9Hs=;
+        b=AL3uUtX4MK0ZNCXEupHV6+kAuOMQSHDZibywLJ6mFaMLw8livfxKtfRkp6yDSfhri6
+         I4Q8j39DYaUcx7417kk54zcL5xtnXai9FPUys4hg5X5HBaJgqviTScGiu0eQnh/ykmHn
+         b6bH4CogmdBVf7ilMcflbKPgpLf1jIcTixmONubPWro8eId2SvNPg2v2GeKHM+EMJbog
+         7rl8OE5A4bQQ50eHlsNnGBVFEZNh+UeZcTSAImcm+OPndgW990Z9vY6cYieFPrWKQxKB
+         Z4sa/wTVm4WFL0S0QgbGFxfwCviEqfGPK5keRwiXzTcQCXrJhyG+uqqQVXPg7g6ZNbNH
+         SPaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790146718; x=1790751518;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iZrjQ33poEdSxILO2JDtHpIllTCJBtOtLGzw0UbF9Hs=;
+        b=kD9nu+Rvh3+gTflT0D8TBJN3Q7qlKx9PMcotYuhtlc0J4V6nOtwSaqU/Oyelu6ux3R
+         GXgkgkCxexdOWiv9gtfGTbQAvUSyuhIF5CTpd1mNUhGHqB+GgCp7BNbCcHOUTI+Eg9Ib
+         onWGocP9WqhrMDQq/0ce7xc6NOHUCmcQNLD4NfgoXmPjQkzLs40Z1se3E3UDc/BefOel
+         LTxF+NfBNoWNGjy7Nr7Os/NE9GifIwihsxji21cUeRAUHehyKCLJZTAjMZDtR6HyoR6a
+         +bg+oMkuKmBk/mvAWBniYE1jAApeQ2Baut9wLJR1T3pTheoZgtqA+4Xe4ALKnJYFLyR8
+         K7DQ==
+X-Forwarded-Encrypted: i=1; AKwUvByowju0+20XEBJcky7hg3F71VKSgo0FFDKB5q2tNi4xo9zj7olM4dQ1I7b8OlijJiy9fYzvHMiyS1g5YoQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfAr3ah+QZ6JLOnWv81M/YkCd2fNPckY7x3+GpUs0vhuDHYCwP
+	N0evbcB3SbWuEXLxkOR+zi7eVArdKhOJQtZc99wUvmEcp/OcozX85hyF12QW45j9
+X-Gm-Gg: AYBFou3TkofYhlF2MSymH5hkxORGespHPE2o0tKRiKJ5VJtjt9zYPOh89NoLtVvWM46
+	Uo5OkyA7VY5rU3Ch3hJHFOgDxF6FAEjyelyKmGCSR67wI/Nj2MGnvVKV0i+sP3cuGhHHSlPYVSJ
+	ChVamFP04p2vgEYWwo6/J+2GSUV/ah3RAnhAd7bkXCDlHdHUTVf7tS0/I0mkM6SekJHt3bdoojW
+	hahVfxBvjH64kQXgE7PdNjRg4Ivgk1QvsElPM/8smEVvPaksEgD6Z0vLBbHOV+UNphzYtDMf1rp
+	rGCEyjTd46FHQiPvc7fDysM5+5vhdpRYCBVIfAAAitOtGKoAwdWE2ETJ28OKvE5udU//4VyPCan
+	HgQfetRQGY7h3y+8ALfXByn0yYgxXKzuIx2fmVIzrSX80cIgMdnXBWco/qHLan0KEux1H3fF1gs
+	AKfIEdhK3b1UPvCyWwKX7yIg+s8N4QprU1TrQkZf+lKy+nG96ynTJ+Z0i7pEb2M955NRcF44KYf
+	zgAzuO2zolh+hXCYkhLm12/TkpNjHePcCTM2Y08HtMrBz2sWQEY/JjY3lf0x5htU9Y0cQXqvePg
+	GjLeHx7bMqyt3/zZ1yH1hI+KRvvKHo7hPNeabw==
+X-Received: by 2002:a05:600c:c176:b0:49f:c451:b4ab with SMTP id 5b1f17b1804b1-49fdf152561mr17989925e9.29.1790146718132;
+        Tue, 22 Sep 2026 23:58:38 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-095-114-182-160.95.114.pool.telefonica.de. [95.114.182.160])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe23d4288sm22524325e9.12.2026.09.22.23.58.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 23:58:37 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Zhao Li <enderaoelyther@gmail.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Ma Wupeng <mawupeng1@huawei.com>,
+	Jinmeng Zhou <zhoujinmeng@bytedance.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm/hugetlb: fix max-only subpool accounting on alloc_hugetlb_folio failure
+Date: Wed, 23 Sep 2026 08:57:14 +0200
+Message-Id: <20260923065714.20781-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260428113037.88766-2-enderaoelyther@gmail.com>
+References: <20260427145247.84157-2-enderaoelyther@gmail.com> <20260428030712.66256-2-enderaoelyther@gmail.com> <20260428113037.88766-2-enderaoelyther@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <arNzDkG8JmIWedwF@kekkonen.localdomain>
-References: <20260922-sensors_pm-v1-1-05adf2098b5e@adishatz.org> <arNzDkG8JmIWedwF@kekkonen.localdomain>
-Subject: Re: [PATCH] media: v4l2-async: link ancillary device runtime PM to the sensor's
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans Verkuil <hans@jjverkuil.nl>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
-To: =?utf-8?q?C=C3=A9dric?= Bellegarde <cedric.bellegarde@adishatz.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Date: Wed, 23 Sep 2026 07:58:21 +0100
-Message-ID: <179014670130.2497080.16248724869350735374@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+Content-Transfer-Encoding: 8bit
 
-Quoting Sakari Ailus (2026-09-23 07:34:54)
-> Hi C=EF=BF=BDdric,
->=20
-> On Tue, Sep 22, 2026 at 09:39:12PM +0200, C=EF=BF=BDdric Bellegarde wrote:
-> > When a sensor's fwnode references an ancillary lens or flash device
-> > (e.g. via the "lens-focus" or "flash-leds" properties),
-> > v4l2_async_create_ancillary_links() already creates a media controller
-> > link between the two entities, but their runtime PM states remain
-> > independent.
-> >=20
-> > This is a problem for devices such as VCM lens actuators, which are
-> > typically spring-loaded: holding a position away from the spring's
-> > rest point requires continuous power, and the position is not retained
-> > once power is cut. If such an actuator is allowed to runtime-suspend
-> > independently of the sensor, the lens can drift back to its rest
-> > position during an otherwise active capture session.
-> >=20
-> > Add V4L2_SUBDEV_FL_PM_LINK to allow an ancillary subdevice to request
-> > that its runtime PM state be linked to the associated sensor.
->=20
-> Interesting idea.
->=20
-> The IPU bridge has created such a device link between the VCM and the
-> sensor as on some ACPI systems the VCM is in fact relying on the power
-> resources of the sensor. But to do this everywhere?
+On Tue, Apr 28, 2026, Zhao Li wrote:
+> Mounts with min_hpages != -1 are left unchanged for now.
 
-Same on any Raspberry Pi camera module. The VCM is powered by the same
-enable lines as the Sensor there I think which has made things
-interesting in handling VCMs for those devices.
+In case it helps with that follow-up, here is a small reproducer for the
+min_size case. It needs no hugetlb cgroup.
 
+The pool has two huge pages and no overcommit, and the mount is
+size=8M,min_size=4M. A test maps a 4-page file MAP_SHARED | MAP_NORESERVE,
+touches the first N pages, then unmaps and removes the file. Five rounds
+on one mount:
 
-> VCMs traditionally have been powered through opening their sub-device node
-> and that hasn't been exactly neat API-wise. It has been practical still,
-> AFAIK, as in order to control the VCM, you have to have a sub-device node
-> open.
+  N   faults ok / SIGBUS   statfs free / blocks   HugePages_Rsvd
+  -                                               2 (after mount)
+  2   2 / 0                4 / 4                  2
+  2   2 / 0                4 / 4                  2
+  4   2 / 2                2 / 4                  0
+  2   2 / 0                2 / 4                  0
+  2   2 / 0                2 / 4                  0
 
-This is an issue though, as libcamera opens the device nodes and holds
-the file descriptor when it has a camera. This means that even if the
-camera isn't streaming, the VCM is powered on and causes power
-consumption on mobile devices which people then attribute to pipewire.
+The two SIGBUS faults keep their used_hpages charge. Half of the quota
+stays gone with no file on the mount. used_hpages then no longer drops
+below min_hpages, so hugepage_subpool_put_pages() never restores
+rsv_hpages, and the mount has lost its minimum reservation for good.
 
-=20
-> This change also does mean that if the sensor is powered, even for
-> always-on use cases that generally consume very little power, the VCM is
-> powered on as well. VCMs still typically consume very little power if the
+The out_subpool_put: path skips this case on purpose, as the commit
+message says.
 
-Do you foresee use cases where a linked VCM shouldn't be  powered while
-a camera is streaming? That effectively means the lens position seen by
-the camera is 'arbitrary' / undefined ?
+Same result on v7.3-rc4 (f0100363d8c3), on v7.3-rc4 with this patch, and
+on next-20260922. That tree also has 6f8b22e85eac ("mm/hugetlb: fix subpool
+minimum reservation rollback"), which fixes the hugetlb_reserve_pages()
+error path. This is the fault path. Tested under QEMU x86_64, one CPU.
 
-> current is configured to zero. Maybe this won't be an issue? Backtracking
-> from such a change wouldn't be simple, and might not be possible at all.
->=20
-> There wouldn't be a need for a sub-device flag and this would be done for
-> all VCMs based on the ancillary link.
->=20
-> I wonder what others think.
->=20
-> Cc Laurent and Hans as well.
+Thanks,
+Karl
 
-Cc Dave too as he's looked at similar things in the past.
+#include <fcntl.h>
+#include <setjmp.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <sys/statfs.h>
+#include <unistd.h>
 
---
-Kieran
+#define HPAGE (2UL << 20)
 
->=20
-> --=20
-> Kind regards,
->=20
-> Sakari Ailus
+static sigjmp_buf env;
+
+static void on_sigbus(int sig)
+{
+	siglongjmp(env, 1);
+}
+
+/* usage: t <hugetlbfs dir> <pages to touch, at most 4> */
+int main(int argc, char **argv)
+{
+	int n = atoi(argv[2]), fd, i;
+	volatile int ok = 0, bus = 0;
+	struct statfs st;
+	char path[256];
+	char *p;
+
+	signal(SIGBUS, on_sigbus);
+	snprintf(path, sizeof(path), "%s/f", argv[1]);
+	fd = open(path, O_CREAT | O_RDWR, 0600);
+	if (fd < 0 || ftruncate(fd, 4 * HPAGE))
+		return 1;
+	p = mmap(NULL, 4 * HPAGE, PROT_READ | PROT_WRITE,
+		 MAP_SHARED | MAP_NORESERVE, fd, 0);
+	if (p == MAP_FAILED)
+		return 1;
+	for (i = 0; i < n; i++) {
+		if (!sigsetjmp(env, 1)) {
+			p[i * HPAGE] = 1;
+			ok++;
+		} else {
+			bus++;
+		}
+	}
+	munmap(p, 4 * HPAGE);
+	close(fd);
+	unlink(path);
+	statfs(argv[1], &st);
+	printf("ok=%d sigbus=%d free=%ld/%ld\n", ok, bus,
+	       (long)st.f_bfree, (long)st.f_blocks);
+	return 0;
+}
+
+  echo 0 > /proc/sys/vm/nr_overcommit_hugepages
+  echo 2 > /proc/sys/vm/nr_hugepages
+  mount -t hugetlbfs -o size=8M,min_size=4M none /mnt/h
+  for n in 2 2 4 2 2; do ./t /mnt/h $n; grep HugePages_Rsvd /proc/meminfo; done
