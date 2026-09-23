@@ -1,36 +1,33 @@
-Received: from mta1.migadu.com (out-10.mta1.migadu.com [95.215.58.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C77B3BFE3A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:18:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D8D3314D2
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:19:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147924; cv=none; b=M4xI4BwMoUlyxFSrZUyNGqhL4MqewJg1r0+0pbGKeGVIwflgak4vdAFJvCjuJjN2qn++ZVZuAvHg7ETjqDkNoOxKs/cRj+/bWdwwHpsFaKyFhKo2pcd41XVzrj1+p+5Tq7qCfouYL5cF7INlhfwLrSOR46rrSGzYbrn7c5+T5ag=
+	t=1790147945; cv=none; b=BZRkj6kYyk/Zx5lDkdQzD6lJiCShQBea6pvL1JfIqMGvPNxyNzlhwbYfl0Rjpucvs1z8tH8qReq2RPaF45iQh79oWMkyu46Sp+OjscWrItHLNJ1T5L9bC58c3WwWqLMUQI7R/jpnUPkd3HGZ6Ln/KK9JUZZnp/7iAJQ+bQ6LRb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147924; c=relaxed/simple;
-	bh=ftIfSiBGVQtCnPrtNG2sYlwb3kX4tGScpi67ufltGms=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UnSQn6WBPl10RppRNktq30ZldyA4aipbaGrJCfHOvg0I1Z+D6ozbKE8/y6msoD9Bm425VlmQJH5TRYIwiamKHyJBGf4D0DMeJRlm7e9S2wqSZ3/RnN2B8TRrjmVqbaN8AyjWw1jcbI1Ea1EogGccfCY3+B8ZpekbIinpdP/YGyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FHSXsCJQ; arc=none smtp.client-ip=95.215.58.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790147945; c=relaxed/simple;
+	bh=rYNhXNY9sXeWg8bHkzc4ViWau0owmg51LGJInuniVd4=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=US4zMCTx/rXalCfo4bP5u8QUDNzb+VPHdZLpeJWGJvUVIonh48wYsMYSFAkYLzvHXueGlig6BLoMQI60unwUi4IRuJBiptg6RZ9W9r8x/FA94tc9GYfafn06N1ymgOL7aNVlGB/LlqS6VCU6vTvT24+jMd9Vbj/IM1pbQ9Db0zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wh5TQzDa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FHSXsCJQ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ftIfSiBGVQtCnPrtNG2sYlwb3kX4tGScpi67ufltGms=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790147919; v=1; x=1790752719;
- b=FHSXsCJQcp2gatF8FVoRNlCOC3RUxKusFciABMnOKMktthHKbq2b2ZOwx6kOrSPpjx7os3yI
- /95+roTwVxLT2tjaAarjwQKWhn3YLdPJjaciTqRQgVH3GfSdXApZMeQ2B5NE3PfXb01CQo8kzCM
- iInnn1P+PNiR0Pz5fazcaZ9g=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a804e1edd13ff3f4;
-	Wed, 23 Sep 2026 07:18:38 +0000
-X-Mizu-Trace-ID: a804e1edd13ff3f4
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <8769d7a8-9442-4dbb-9828-01447e4320d1@linux.dev>
-Date: Wed, 23 Sep 2026 15:17:56 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wh5TQzDa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6361C1F000FF;
+	Wed, 23 Sep 2026 07:19:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790147943;
+	bh=rYNhXNY9sXeWg8bHkzc4ViWau0owmg51LGJInuniVd4=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=Wh5TQzDaFlFh/3eIDQvw/pQ1nRyfPQCy0gprJJ/LhQLv2tOd1ORryRLy7I6lDi93S
+	 x2HCtYHRJtdaAp7puiMmJpcwHnri89IAAQ5jteMKc57B8DbQIHRrFhIaNwAkGtEplQ
+	 J9/NAg++jNlH6hSMLxriJOmpH+lNWvWoYBA7MftWa4iSjTP8NjywQMQK3XfwCQL9RZ
+	 5HM222YR783+GXIw1bAuoWpay6QpXS7GYcXxTdK8VKKjfuIeuCnG6qB5uy+OCE7u6K
+	 qo+EX8P2/hjSidkAmvzToX7V5Q8Z0EZiKGN1AV8xRlDYouD/JhTE3vDX8Hvf0cBIRD
+	 oCMBh/BsW9nBA==
+Message-ID: <d7a99050-74d1-4b31-b8f9-7502ac7a3785@kernel.org>
+Date: Wed, 23 Sep 2026 15:18:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,97 +35,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for MMU
- riscv
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- usama.arif@linux.dev, kas@kernel.org, guoren@kernel.org, bcain@kernel.org,
- geert@linux-m68k.org, dinguyen@kernel.org,
- schuster.simon@siemens-energy.com, jonas@southpole.se,
- stefan.kristiansson@saunalahti.fi, shorne@gmail.com, dalias@libc.org,
- glaubitz@physik.fu-berlin.de, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, linux@armlinux.org.uk,
- vgupta@kernel.org, monstr@monstr.eu, chris@zankel.net, jcmvbkbc@gmail.com,
- will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com,
- peterz@infradead.org, davem@davemloft.net, andreas@gaisler.com,
- richard.henderson@linaro.org, mattst88@gmail.com, linmag7@gmail.com,
- catalin.marinas@arm.com, mark.rutland@arm.com, chenhuacai@kernel.org,
- kernel@xen0n.name, tsbogend@alpha.franken.de,
- James.Bottomley@hansenpartnership.com, deller@gmx.de, maddy@linux.ibm.com,
- mpe@ellerman.id.au, chleroy@kernel.org, hca@linux.ibm.com,
- gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
- svens@linux.ibm.com, richard@nod.at, anton.ivanov@cambridgegreys.com,
- johannes@sipsolutions.net, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, arnd@arndb.de,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- jgg@ziepe.ca, jhubbard@nvidia.com, peterx@redhat.com,
- ysato@users.sourceforge.jp, shakeel.butt@linux.dev, corbet@lwn.net,
- rdunlap@infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org,
- linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org,
- linux-arch@vger.kernel.org, sparclinux@vger.kernel.org,
- linux-alpha@vger.kernel.org, loongarch@lists.linux.dev,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org,
- linux-um@lists.infradead.org, hughd@google.com, qi.zheng@linux.dev,
- linux-doc@vger.kernel.org
-References: <20260922-rcu-pagetable-freeing-v4-3-fe1ad1f1e303@kernel.org>
- <20260923061551.84398-1-lance.yang@linux.dev> <arN6JBJixHUjX2CJ@gremlin>
+Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Barry Song <baohua@kernel.org>,
+ Juan Yescas <jyescas@google.com>, Dev Jain <Dev.Jain@arm.com>,
+ linux-kernel@vger.kernel.org, David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Nanzhe Zhao <nzzhao@126.com>, Pengfei Li <lipengfei28@xiaomi.com>,
+ Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [f2fs-dev] [PATCH v2 10/14] f2fs: handle partial truncate of
+ large folio dirty subpages
+To: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+References: <c4e0c6d3-ad28-4e5e-a938-08b7658e9931@kernel.org>
+ <20260923025035.2202070-1-zhaonanzhe@xiaomi.com>
 Content-Language: en-US
-From: Lance Yang <lance.yang@linux.dev>
-In-Reply-To: <arN6JBJixHUjX2CJ@gremlin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260923025035.2202070-1-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
+On 9/23/26 10:50, Nanzhe Zhao wrote:
+> Thanks for the review. I think I may should change like this?
+Seems fine, thanks for the update.
 
-
-On 2026/9/23 15:05, Lorenzo Stoakes (ARM) wrote:
-> On Wed, Sep 23, 2026 at 02:15:51PM +0800, Lance Yang wrote:
->>
->> On Tue, Sep 22, 2026 at 04:35:34PM +0100, Lorenzo Stoakes (ARM) wrote:
->>> Currently riscv gates MMU_GATHER_RCU_TABLE_FREE on CONFIG_SMP and
->>> CONFIG_MMU.
->>>
->>> Commit 69be3fb111e7 ("riscv: enable MMU_GATHER_RCU_TABLE_FREE for SMP &&
->>> MMU") enabled CONFIG_MMU_GATHER_RCU_TABLE_FREE for CONFIG_SMP, CONFIG_MMU
->>> riscv builds.
->>>
->>> This is expressly for the safety of GUP-fast walkers (CONFIG_HAVE_GUP_FAST
->>> is enabled if CONFIG_MMU is enabled).
->>>
->>> Naturally a single core system does not encounter issues with software page
->>> table walkers being correctly synchronised across cores, as there is only a
->>> single core.
->>>
->>> However, CONFIG_PREEMPT_RCU is still available on a riscv UP system, so for
->>> a future RCU-only page table walker, this guarantee is required to prevent
->>> concurrent page table teardown.
->>>
->>> All page table freeing is already done via tlb_remove_ptdesc() so the
->>> conditions of CONFIG_MMU_GATHER_RCU_TABLE_FREE are already met.
->>>
->>> This forms part of an overall effort to switch every architecture to this
->>> mode.
->>>
->>> Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
->>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>> ---
->>
->> Yeah, for RISC-V, page-table freeing already goes through
->> tlb_remove_ptdesc() :) Tested on QEMU, no issues seen :)
->>
->> Tested-by: Lance Yang <lance.yang@linux.dev>
-> 
-> Thanks! :)
-
-Cheers!
-
-> A cheeky A-b tag possible too? :P
-
-Sure thing! Here it is :D
-
-Acked-by: Lance Yang <lance.yang@linux.dev>
+Thanks,
