@@ -1,81 +1,83 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7321B49E5C5
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:39:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD9A84A840E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790163568; cv=none; b=Dx9XUYerYQH4RTQAUgHtv4454iyAS4eopSGXCbg1zdySoilSD7VIGqnslrdb9JZaLqcWa8GpiaDaC9JHN/tH9DPoi4JDgyajrDZDeVgm3v4odzRyHsu/uXTgAWzuXTxL5c5wwdic2Hkv4vmqt7JkTM6yPFWtefpAE8sM4nGQqvs=
+	t=1790163599; cv=none; b=suOmwMoQu5zknZjPhRwcivdAqHx4Z4jysG98uQtxJNpnoBcrXmU0avXrisdSkavBcR8W/mp2oydmKcW9AjO4Di3AweYFc7w3JK+95O2T9M/dL2MgEagRPsLKi5TbeJ1cuJzGf+PGEKOMpC1Zo2xlbNX7TiYLFuKE5w9AaOG8sVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790163568; c=relaxed/simple;
-	bh=sT3f5CSowAx+WsW39V1WrOSwBm0jKQKK9E8vUOutaIQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RJU/w55Lv28EEnv2/M5+/nLpg8PA39oU+CbMbODRzEx4BQqVwTdYpSbF2Nt+3Rpcl5oj6FM1tZFYfEfQRLnyKlb2Ihsx/ccCqCZ3elYe2cPDUBLoA0/pGak73hDfqom6gVNvB41ZNuDXGOTfpMck+fbaL0zfBxVxEry9Y97dTyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VXsP0EcI; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1790163599; c=relaxed/simple;
+	bh=NcuGwx6nAU4jknO4kfaOEdRYLrOWx/RlJvZRS0+ffmc=;
+	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=j8k8++mM49k2rJVMBADBX+wVtwyWcHwyh2vSa1j7gPlv4ebgux1aJU4L4epnzDTrvQqaj5C7JLVOn4tjpKhfcK4tTUuEVUNfEhY9Qwxawu2hXdACWZa+xSuAh3fAjE26AbbC5yjUobkS11oMxOoyD0hqJK/+LZ0jVHEAJC13GiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=abTBvJwl; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VXsP0EcI"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so469369a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:39:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="abTBvJwl"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843178b1c8so114716f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:39:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790163556; x=1790768356; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=byz42tnH1aP31XpuO9qZLa1U10ksdFNPyaGh5na7j6c=;
-        b=VXsP0EcIvPX6Ohak492BRMOOwHr0V014dlP7EAorXBMKbap3T56K6b7BrsEppw7ptJ
-         zi5KLqVviALNFyDKDUvEkgMtb7/ecm+Qz/QlnnWB7j0q+V31wZBvqPKPvB/+NiZtq1QG
-         IY8rngadv29QuiZqWKrPaQ97cSyMO6bMgeiJWDDqNKWZE3PSr4TxTFu+8if7m0kHd4TN
-         QbkoRr0Ivhke5xguUTmBeJuBg0l5N3tKkrLOAlALNbSqV2S0sSNUgzQpUv1ZaLG19b5M
-         ik1/NVm9e9Uot+wnHA4Qyi89r3Zj7rNSrF7nHLNrQPrV5IzgSWgoGRmOTCfTotRPHovk
-         nPbw==
+        d=gmail.com; s=20251104; t=1790163583; x=1790768383; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ptqEbP9k/k599RgBfEHuSUGuglS6CduFjL/USF1vB6g=;
+        b=abTBvJwlV7CkSqZJ0bmbttJ2/TyK/x7k7HKr3YxEQKImSxKMsDY/9VSgtfxfrBBn56
+         fO/S3IWfMUBYCWQQvnjDB5KU9XDsA7tgMQ/DE60Nb3110qPmU1F3cxz2ONK8JeyjSv63
+         I4ksUvzJEE66lUPDR7auUt8Rjwqxdzm3wfGn18mOstO2Biibx0gwoi/kGKv0p91pNpMo
+         Y3l5dGlZjBoQ/DbAQnV5WwMmoqKLF9txx9xjiJam/wLeuK1moNAaF62DuOE15Fnc6z5O
+         hdhwnnLmPu6lkAAL08v3yndPyTHD0/2ZlINDe4181qfgvv0yL/1RzH6AESKqA8LpzNqo
+         UkXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790163556; x=1790768356;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=byz42tnH1aP31XpuO9qZLa1U10ksdFNPyaGh5na7j6c=;
-        b=Be0UDWDu3Nxu7iV7X5E4Bbo0oFAZtlpF6bF+3wEDCcfc/no7hlJdt3AhRuLQzSh5qG
-         3dK/jDFn6AaU9qL5zbAqsLRFMA2od3MIjfmxyyA+l3Iu3jnsDqKkaSJMuOZx2OaNOr4Z
-         vuR7ibueVvvpcoUz5wrs5FyMYQ2VRXupLWGis20Uw+EP+QMdFakOqQbK+ZO//+1Op/MC
-         3C/nDlZSZXC48b9ofmLDZcpXtaOeXm4cA/aLfE1G9UXvkstKmvXcYEM7mE/e/R1dpsF1
-         aRsp6ZdP52rKCiRRoTxgZZeB1mSqrnam6nKbRZONp2M8cFvdW492GiqLQbkSnwjS06PP
-         nrdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwKEuVFk0ohKEXXZJYsWgvgAKht0XppMVGOMzq1BYeZIMYuwMgT1bIJt0ub1bdMQWJL1zUPmeFKGzEd/Mk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFLiCPtUnt+o2dand7vVtIZMlw7OR3O3P95MaTBgd5mxFQj922
-	uteSkfFSkH49oxVD96nDKFFN/n8QMVpbX8HaPb8RQW9HzNQYMeUpIhXg
-X-Gm-Gg: AYBFou1itxKzmRPcfFSDRXHZU/MiZARCI+ict8JY20VOR0M6ZVOLvZ5oaTyk22dOchq
-	FhAC6bqLDfnvI45gzIkdZHpsNn4Bp5pN74sgB3YCKEMiMmqfECJDhkGUuDrNOO+sBM2OOvCSYKC
-	EUwOvQpFy5Wi++ECiYjUFJOTIg8CPmcfH29Q0vQ9UmQKmXk1EGB4xuK9Zimq2mus4G7GdpCl2g7
-	T4pcReRgLAqPvXQGEth3+wYee+wWluhQuuhBVimFaAWXZrCdy/aVo5jL46R+cOgVuU08gB3Uk3p
-	kyQj94g7/r3F/HJCEdPEQQOR9gNwJ+PDjrDkFXo1LA+sCDeTYJKdURUafWRl0Hsc4KJxAZCyQGl
-	Q17XML3NXZtcXpvD8b3DdzZYSHDq+Itrs2hJNBMnNHHRbWIpUaMSacrG9tQcO8mz1MVhZS0cbA0
-	sCyOLlgFiyOLxYolr7r96n8NaCtrLWa6/o9Bz/WX4e7+iDsWpb98OERDjCe1spsdQ09xdO7VPnd
-	xXY89NbKEmJhwHwViKV
-X-Received: by 2002:a17:90a:c886:b0:39d:f08e:e6e7 with SMTP id 98e67ed59e1d1-3a07e5373camr2045004a91.9.1790163553103;
-        Wed, 23 Sep 2026 04:39:13 -0700 (PDT)
-Received: from cfarm424.jing.rocks (cfarm424.jing.rocks. [2600:3c18:e002:2e11::c424])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07ddaf4easm4654288a91.6.2026.09.23.04.39.10
+        d=1e100.net; s=20260707; t=1790163583; x=1790768383;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ptqEbP9k/k599RgBfEHuSUGuglS6CduFjL/USF1vB6g=;
+        b=CJfshwgyo+JHaxdYjVh+qeu93BPQ9EQpxSoc7dYEwadx5ABb0SZeRSSVDccJJLMumG
+         5UZsbl2D5TbZbre191xXrywWGxxjTB7sv5Vjw/SL7mAi4Q/6tJLs9jbHoArPya4Z+Rox
+         D49AUQVhoZxxKc9wW8uymBVss22WxF/2P1Y1YyVZjrXLFW2L/I12OZ/wS83twz0SdEBg
+         hLMAivZfNeEuozMViYQ9bKcCMg5YnVszONEfBnDk0CQ+C1OGCpg2UnoLxH+vTiCyYGnz
+         AuNR+Cl8Nz0p90FaD65gkbMwgk35I2AToPkrgSoa58v6UNtBECVQcn0X+JBsiT2vvNvX
+         8FuA==
+X-Forwarded-Encrypted: i=1; AKwUvBzcz/zSZTVf+gKEZiFhVBVqPWebOUSVke6aHT4cdaNvbVxX/2wghSwFPFz8R7GSS6gzLhH8XkuiSqMJGrw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMtumxdHOgBWWTEgpqHXFBEc6GlAUBDu08rfXsAXr6ArjrRiRn
+	ko2BnAtJCMwmPGQC4fz37i/m5ijlc69rXkIFuOBVXvk84tVCTdzlWKEl
+X-Gm-Gg: AYBFou0s1nn1myfYVn8iZowyMKQnbdafXF8ftfmwkbzxqtPAnA4GvcOvsUsa2c0iEFm
+	/RLe9Awibdo7NTuxxAlmu35jMJAwPpLx5XOYPRUbfjaOrKECEO/YpeV5jQH0SzIdtO2p4fbYAWB
+	ufElYbN15JOuakk3OeLihe3xyOUhtZN3FQ+E8HkDyEnkyQ7HQYqHPWTH/7DD9b5Y3CBEQM8ww70
+	K/wOGrWNkWwx3SDXkuqpkPEJJjZNz6s7FT8ZbliZ5kKpZOJrCzwzQuoB9f2HkGcBV21HOKIDU+0
+	AcLVFFNKMpWznZ4McfOZQz5UTV2alCZtrp/PXIc790IctJE/f0DqsR7/o4/NsJScXBqECxAdRJu
+	ou6eVzV53HvDxzi/4TWSnn4FrHgmqVZHE+Bs6V4P7O+oruDVLLR8g0XwLrpeXC/7I4S3UvbdwuU
+	iQOzRjuYrAUZJPgXCzg4KuLgJPJ200N/DS7SF0LwwvUrQvm9PMECiTRe3NmxDzWlA0/M+OQqR9a
+	HlzczcypQRvHVEQfQo=
+X-Received: by 2002:a05:600c:4fcc:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49fdf13cf49mr30698975e9.2.1790163583288;
+        Wed, 23 Sep 2026 04:39:43 -0700 (PDT)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde18093csm81679515e9.3.2026.09.23.04.39.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 04:39:12 -0700 (PDT)
-From: Ridham Khurana <khurana.ridham222@gmail.com>
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Srinivas Neeli <srinivas.neeli@amd.com>,
-	Michal Simek <michal.simek@amd.com>,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Shuah Khan <shuah@kernel.org>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	linux-kernel-mentees@lists.linux.dev,
-	Ridham Khurana <khurana.ridham222@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] gpio: xilinx: fix runtime PM leak on request error path
-Date: Wed, 23 Sep 2026 11:39:02 +0000
-Message-ID: <20260923113905.1409290-1-khurana.ridham222@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        Wed, 23 Sep 2026 04:39:42 -0700 (PDT)
+From: Itai Handler <itai.handler@gmail.com>
+To: Mikulas Patocka <mpatocka@redhat.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Milan Broz <gmazyland@gmail.com>,
+	Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dm-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/1] dm-crypt: allow encryption sector size up to PAGE_SIZE
+Date: Wed, 23 Sep 2026 14:39:03 +0300
+Message-Id: <20260923113903.901245-1-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <9a6c20da-4da9-4a8d-a6d4-f18900228bf6@redhat.com>
+References: <20260922120330.127262-1-itai.handler@gmail.com> <20260922213457.GA3536981@google.com> <CAFpOueSjekxhjEosQGiZ9BiDh5tFOqBPX5w_2PVsrcN6pO+dHw@mail.gmail.com> <9a6c20da-4da9-4a8d-a6d4-f18900228bf6@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,45 +86,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pm_runtime_get_sync() leaves the usage counter incremented even when it
-fails, and xgpio_request() returns the error without dropping it.
+On Wed, 23 Sep 2026, Mikulas Patocka wrote:
+> There is one important problem - the SSDs and HDDs today have 4k hardware
+> sector size.
+>
+> If you use 64k encryption sectors, the disk may write only a part of the
+> 64k sector during power failure. When you attempt to read and decrypt such
+> a sector, you get garbage.
+>
+> This is not a problem for XTS or ECB, but it is problem for CBC and most
+> other encryption modes. So, the patch should reject using larger sectors
+> with cipher modes other than XTS and ECB.
 
-gpiolib does not call ->free() when ->request() fails, so xgpio_free(),
-which holds the only matching pm_runtime_put(), never runs. The reference
-is leaked and the controller can no longer runtime-suspend, so its clock
-stays enabled.
+The mechanism is real and I am not disputing it. What I would like to
+put to you is that it is not new, that this patch does not change it,
+and that documenting it fits what dm-crypt already does better than a
+new restriction would.
 
-Switch to pm_runtime_resume_and_get(), which only increments the usage
-counter on success.
+A torn sector is possible today
+-------------------------------
 
-Fixes: 26b04774621e ("gpio: gpio-xilinx: Add support for suspend and resume")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
----
-Build-tested on arm64 with CONFIG_GPIO_XILINX=m. Not tested on hardware.
- drivers/gpio/gpio-xilinx.c | 9 +--------
- 1 file changed, 1 insertion(+), 8 deletions(-)
+Consumer NVMe are generally shipped with 512-byte logical blocks and
+stay that way in use. Installing Linux does not change it: partitioning
+and mkfs work inside the logical blocks the drive already exposes.
+Changing the block size is a separate low-level operation - nvme format
+with a different LBA format - which is destructive, which no installer
+performs, and which a drive may not offer at all.
 
-diff --git a/drivers/gpio/gpio-xilinx.c b/drivers/gpio/gpio-xilinx.c
-index 532205175827..9406ce85f933 100644
---- a/drivers/gpio/gpio-xilinx.c
-+++ b/drivers/gpio/gpio-xilinx.c
-@@ -271,14 +271,7 @@ static void xgpio_save_regs(struct xgpio_instance *chip)
- 
- static int xgpio_request(struct gpio_chip *chip, unsigned int offset)
- {
--	int ret;
--
--	ret = pm_runtime_get_sync(chip->parent);
--	/*
--	 * If the device is already active pm_runtime_get() will return 1 on
--	 * success, but gpio_request still needs to return 0.
--	 */
--	return ret < 0 ? ret : 0;
-+	return pm_runtime_resume_and_get(chip->parent);
- }
- 
- static void xgpio_free(struct gpio_chip *chip, unsigned int offset)
--- 
-2.47.3
+The machine I am writing from is one: a Samsung PM981a carrying a
+complete Ubuntu install - GPT, EFI partition, /boot, and the rest of the
+drive as LUKS over dm-crypt with LVM and ext4 on top - and it still
+reports logical_block_size = physical_block_size = 512, with no
+atomic_write_* attributes at all. The dm-crypt device on it reports a
+512-byte logical block too.
 
+The atomic write unit follows that format.
+nvme_configure_atomic_write() takes it from NAWUPF, and where the
+namespace does not advertise one the unit is a single logical block;
+controller-level AWUPF is explicitly ignored. So on that drive the
+guaranteed atomic unit is 512 bytes, not 4096.
+
+Which means dm-crypt already permits, and has permitted for as long as
+sector_size has existed, exactly the situation the restriction is meant
+to prevent: a 4096-byte encryption sector spans eight device writes
+there, with seven places to tear, in any cipher mode including CBC.
+
+What this patch changes is the maximum size. It does not change what
+any mode does when a sector is torn, and it does not make a torn sector
+possible where it was not before.
+
+What a tear costs
+-----------------
+
+  XTS, ECB     each cipher block is independent, so the sector decrypts
+               to a mixture of old and new plaintext - what a torn write
+               gives on an unencrypted device
+  CBC          P_i = D(C_i) ^ C_(i-1), so exactly one block, the one
+               whose predecessor is on the other side of the tear,
+               decrypts to garbage; the rest is old or new data
+  AEAD         authentication fails and the read returns an error rather
+               than data, which is the loudest and arguably the best of
+               these outcomes
+  diffusers    the whole sector decrypts to garbage; in practice only
+               reachable by writing a table by hand, since BITLK uses
+               512 or 4096
+
+My view is that all of these are acceptable, because a sector whose
+write was not atomic is lost data in every one of them. The filesystem
+above cannot rely on a partially written block whatever comes back from
+it; the cipher mode decides whether the loss looks like stale data,
+like one corrupt block, or like an I/O error. It does not decide whether
+the data survived, because it did not.
+
+Documenting it
+--------------
+
+So I would rather say this plainly in
+Documentation/admin-guide/device-mapper/dm-crypt.rst than refuse
+configurations:
+
+    An encryption sector larger than the unit the underlying device
+    writes atomically can be torn by a power failure, leaving part of
+    the sector written and part not. This is already possible with a
+    4096 byte sector on a device whose atomic write unit is 512 bytes,
+    which is the common case; a larger sector widens the window. With
+    XTS and ECB the torn sector decrypts to a mixture of old and new
+    data, as a torn write does on an unencrypted device. With chaining
+    modes the block at the tear also decrypts to garbage, and with the
+    wide-block diffusers the whole sector does. Use a large sector only
+    where losing a sector to a power failure is acceptable.
+
+Reworded however you prefer, and I will send it as part of v3.
+
+Rejecting modes above 4096 would be a new restriction on a hazard that
+already exists below 4096, and it would have to be revisited for every
+mode added later. It would also read oddly to a user who meets it as
+"use ECB instead", ECB being tear-tolerant but not something anyone
+should choose for disk encryption.
+
+For what it is worth I do not think many people would meet it either
+way: cryptsetup has defaulted to xts-plain64 for plain mode, LUKS1 and
+LUKS2 for years - plain-mode, luks1-mode and luks2-keyslot-cipher in its
+configure.ac - so almost anyone asking for a large sector is on XTS
+already.
+
+If it turns out to matter
+-------------------------
+
+If experience shows this does need enforcing, the version worth having
+is not a mode allow-list against a constant but a comparison against
+what the device actually advertises: refuse a sector larger than
+queue_atomic_write_unit_max_bytes() for modes that cannot absorb a tear.
+That plumbing exists, and you enabled DM_TARGET_ATOMIC_WRITES for
+dm-crypt yourself last year.
+
+It cannot go in now, because on drives like the one above it would also
+refuse 4096 and break existing tables, so it needs a deprecation path
+rather than a one-line check. That seems to me a better use of the
+effort than freezing 4096 into the code as though it were a safe size,
+and I am happy to work on it as a follow-up.
+
+v3 will carry the documentation above, and the two changes I already owe
+this thread: dropping the dm-verity comparison, which does not apply to
+a writable target as Milan pointed out, and dropping QCE as the stated
+motivation, which Eric was right about.
+
+Thanks,
+Itai
