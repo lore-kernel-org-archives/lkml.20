@@ -1,316 +1,225 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A457747DD6A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:54:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A4847F2D5;
+	Wed, 23 Sep 2026 09:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157275; cv=none; b=ba2rITZPi4wKijzI06Ug1njdxUKo3EqfF0WHWdO0Ki+GV+ijprHaH4lrqP4auobtWA9yF8zYifu/ZRVnmn3X/TyMdVXCRdebzLP5iocUTT1iTIjD8CKVBLiHCsGvobngoJ2AxAUumUiChd0VXYHPBAzwrqWan5MPnus41yT7JWs=
+	t=1790157281; cv=none; b=MBSByRoN5MbVIU5n8IYjpIb9pUETY+VRC8d21DisXzNmS/GdBMLGbxYAvTgPWUNhFaUxDPKKn4ZZ08mctEd8ofcJ3nI1rH13FFupmKqBqV3EnRBzVTqO4Lt7+EObFq4dNiWthuci8VAp8RyUaTRvl0Srw8E8xfOsS57vVhbOh3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157275; c=relaxed/simple;
-	bh=QP2zeCcSlOzjBL2aqTVUS2P4u++MGbpIG9oq+g1c7lQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KlvSd3E46Hlyiie08n4XhH2S4ZoGwo2FGFonFhMKiulOA7wpXGKOc8JOZO7Fi74so4kqlAzECh9+wjmXQTefYNM6etB0Nd4AJAPasvTiSd5XmyRe8ZxNnA4mOtfdV35TzociUUH6OxuO9zI338vLGbg+TOIGEBSGu+VJEkD57lE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=YK0zlITG; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1790157281; c=relaxed/simple;
+	bh=L4/n+65sMdgjRJcyuPD7nEB2hnY7edDeSQ2y+aq3guU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=mDCVXTF+IvTW9FqS/d/QCISf8JQLMsvzP3nJR6JUil/QNWca754w40eP9D2VHsP966nMgMvWKx3b2dxUtMtNy+CYfsjlgjaJY0JBzP9X1HPOUYLzOn/0KVu3XfxHHGqy9ziPyjnTgknVRfAfbaiT3RqOuTOY4pPKVVAtn7qYblo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ul50Wr5G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="YK0zlITG"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so496317a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:54:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790157271; x=1790762071; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QR9bfHIsQ04W27fHUOP8MJLUlZC8gKLrUSCQoHM5E/g=;
-        b=YK0zlITGRivyVw8kvh9uo8E3kdcGFbjx6uH1k5rhAuvGF436fdqBL//z1I2r5Dwd/P
-         MutqWptlu2xsUoGIaU6t5zc5T93Jq7CsBcwV7+9cCHwel5qGL8Yk/i1+Q+SqhHs8wbWF
-         7SJetVz0w1Zvy6KLMkAbSK6Ytn34a9rVjkDfNkS099sjwAzNMZE2AgBV63iFMmsPFlcB
-         oEA6uKqbfPDJA4XXVz4Ri0TMhYSXy+dQ7d7+7pvPu1k0KH0hlsAC5IyWZDWq8SiQMihm
-         4dOMlX6zqT5T38FPaXm5W5k1ozHliIUGxw8QWwPEczwZMXlPPVHq1iAYqpZtzOajNuoc
-         Jgaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790157271; x=1790762071;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QR9bfHIsQ04W27fHUOP8MJLUlZC8gKLrUSCQoHM5E/g=;
-        b=pEkKNXBIgCKvZHQrKzJgBPQzx6sRewLf3gbBGlZTtcE+igaQh/GU2OQQaSG6Ic57ss
-         bQSKBudyDMTXICB4mUArO7Re3SHqV9xGTD4xONnhuN0O9FxxCAgcJ2QMTK+UQQX6RkG3
-         4WKk4ri7fOKz8BgbIyhsOgPW7Wrf4/wWZi3ymlxszEjr7fO7W1r3a6K1Df9Su4PcIyQ1
-         RNV+GUp+5CRs6hXLEuq7mq+8wYzcUNOMJQgloiZzev0qB8tGAlFRAENIlB3B5Hz23S/q
-         On3f9W+mwbnFtH6Jb2TD/tSbc2XWNXJJBOldP5qnTlNeLrEZ3tOAow3H6wz93mSK9LN7
-         pWug==
-X-Forwarded-Encrypted: i=1; AKwUvBxjxtz8aM5h+M0+fs/BwmXCY9AAjTQ9eQBaQNNlgHuWEYMviVn0g2l6Sb7emxMZVAtuWzsTu5PLS4qEt6o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvYWpMRjuYKTmAoiF+87a0OXgvqZVtwFGILsrqgFh973KP0eN4
-	DPwUAqQjOnCsWLjXOxjJ1HJJQZbpB0vt5drjqraTOOy2afWZ4mOjfH4+eGwZeNMwuSQ5
-X-Gm-Gg: AYBFou02nXCtdmO8ElhOxTGOP+aEP4JQyfxYuKFbftpSNNTilnVrG4jKIUxY3tKI0IX
-	UN1yP7UMzmfzD73PY+3NPyZ+kO6DIdyQPospXJmGXIlest/za2IY4eRxIbmiPXCn1FQ0fJ5yNTx
-	4ZFw8WiJHNqbq7s5AeaR0KDghwfB20udQIPe4iooDHNxQ1SK+69pixq1sD6TKlTrpAE7ZJJmGll
-	y3ipIruYTKqg3Lp5E4R6ICUgkPJrV9N2AOkUmV9pKUDi30ywXt0W/G9ZrKmteypgO0cGJabAZwE
-	upKLN6Odzy25Vfwq4XFG6w+WMZuovmMBghyp2IssydzbnBvCBdvnkA4x2sczxdXwgf07t451cuI
-	7wWgB11AmTSXsJzHqLNQ/IGZ7cAEDGGaVQgVYSHORfWJdITCFKEZCe9SGqfoA+mA8+pCkcGLnzv
-	RHg8J0N8tWo0LlJ5xkeYd3gjut36pJAy8PzFlp6bEKUuerUQEkQIpXXJR037Idgm+hEwG0Wgm20
-	qDtfC3a4KvkPonagIAjXNceec5rOQ==
-X-Received: by 2002:a17:90b:51c8:b0:39e:4c80:44bd with SMTP id 98e67ed59e1d1-3a07e5ea39dmr1698414a91.32.1790157271227;
-        Wed, 23 Sep 2026 02:54:31 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc5f3d7sm4793862a91.16.2026.09.23.02.54.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 02:54:30 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netfilter-devel@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org,
-	horms@verge.net.au,
-	ja@ssi.bg,
-	zihanx@nebusec.ai,
-	pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Subject: [PATCH nf v4 1/3] ipvs: wait the running timer cb on conn deletion
-Date: Wed, 23 Sep 2026 09:54:13 +0000
-Message-ID: <dfc9f33299baa890537aacdc3082c85e1a6eccc9.1790146910.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790146910.git.zihanx@nebusec.ai>
-References: <cover.1790146910.git.zihanx@nebusec.ai>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ul50Wr5G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A5441F00893;
+	Wed, 23 Sep 2026 09:54:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790157278;
+	bh=k7iECOsQjJSZD5VEWOPiYHIjpbmBagUaEuQH/HWxFDc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Ul50Wr5GsPkPxrF5Vw+AsiTa3MtRbd4GD7rPc4axl82bpbj8xgospZ6qvzYg5Bmu+
+	 ubvrkEzIBag0RMKgcoz8/IP7HE5DVgBBzUXZZYQoxe5Iu5bxqwmtWI8vtH+CtAyfTw
+	 XvJd8Tzx773MH9NF1c97LjolxrFpE66fyZQIIIlK9o+qI8WjMNG/f0yWv8+HvplJuo
+	 TeNM0u3NmuxAiQHTXniD8fyY10Ys/Qk/1ueEqiyVHo0DVYa25QMuoC7GJJzeg/JDC8
+	 Jn31+uZ62Zac0wEVttYYI3k95dP+V8X9aWkP2YqbiXGuHlk/VVJBMbS0UQQdx4xB73
+	 Qufi1mh87gFpA==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+To: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>, Breno
+ Leitao <leitao@debian.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy
+ Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
+ <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
+ <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Younes
+ Akhouayri <git@younes.io>
+Subject: Re: [PATCH v3] rust: configfs: fix object initialization cleanup
+In-Reply-To: <20260818-fix-rust-configfs-registration-state-v1-v3-1-28b5cbfe0a72@younes.io>
+References: <20260818-fix-rust-configfs-registration-state-v1-v3-1-28b5cbfe0a72@younes.io>
+Date: Wed, 23 Sep 2026 11:54:27 +0200
+Message-ID: <87ld8s2sz0.fsf@t14s.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Julian Anastasov <ja@ssi.bg>
+Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org> writes:
 
-Sashiko reports for problem when deleting connections.
+> From: Younes Akhouayri <git@younes.io>
+>
+> Subsystem::new() calls configfs_register_subsystem() at the end of its
+> pin initializer. If registration returns an error, release the config
+> item's initial reference and destroy the initialized mutex before
+> returning. Otherwise, long subsystem names allocated by
+> config_item_set_name() leak.
+>
+> The initial reference also remains after a successful subsystem is
+> unregistered. Release it from PinnedDrop before the Rust container is
+> destroyed.
+>
+> Initialize driver data before the C configfs object in Subsystem::new()
+> and Group::new(). Then failure while initializing driver data cannot
+> leave an initialized config group, and its allocated name, behind.
+>
+> Keeping registration inside try_pin_init! also means PinnedDrop is
+> installed only after registration succeeds. A duplicate name therefore
+> returns -EEXIST without attempting to unregister a subsystem whose
+> ci_dentry was never set.
+>
+> Fixes: 446cafc295bf ("rust: configfs: introduce rust support for configfs=
+")
+> Signed-off-by: Younes Akhouayri <git@younes.io>
+> ---
+> Changes in v3:
+> - Initialize driver data before configfs groups.
+> - Release the initial group reference after registration failure and unre=
+gister.
+> - Link to v2: https://patch.msgid.link/20260818-fix-rust-configfs-registr=
+ation-state-v1-v2-1-9acedd3070f7@younes.io
+>
+> Changes in v2:
+> - Register the subsystem at the end of try_pin_init!.
+> - Destroy su_mutex when registration fails.
+> - Remove the registered flag.
+> - Link to v1: https://patch.msgid.link/20260818-fix-rust-configfs-registr=
+ation-state-v1-v1-1-c929990bc8ef@younes.io
+>
+> To: Andreas Hindborg <a.hindborg@kernel.org>
+> To: Breno Leitao <leitao@debian.org>
+> To: Miguel Ojeda <ojeda@kernel.org>
+> To: Boqun Feng <boqun@kernel.org>
+> To: Gary Guo <gary@garyguo.net>
+> To: Bj=C3=B6rn Roy Baron <bjorn3_gh@protonmail.com>
+> To: Benno Lossin <lossin@kernel.org>
+> To: Alice Ryhl <aliceryhl@google.com>
+> To: Trevor Gross <tmgross@umich.edu>
+> To: Danilo Krummrich <dakr@kernel.org>
+> To: Daniel Almeida <daniel.almeida@collabora.com>
+> To: Tamir Duberstein <tamird@kernel.org>
+> To: Alexandre Courbot <acourbot@nvidia.com>
+> To: Onur =C3=96zkan <work@onurozkan.dev>
+> Cc: rust-for-linux@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  rust/kernel/configfs.rs | 35 +++++++++++++++++++++++++----------
+>  1 file changed, 25 insertions(+), 10 deletions(-)
+>
+> diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
+> index cd082b83e9e7..d28ac9a648f1 100644
+> --- a/rust/kernel/configfs.rs
+> +++ b/rust/kernel/configfs.rs
+> @@ -150,6 +150,7 @@ pub fn new(
+>          data: impl PinInit<Data, Error>,
+>      ) -> impl PinInit<Self, Error> {
+>          try_pin_init!(Self {
+> +            data <- data,
+>              subsystem <- pin_init::init_zeroed().chain(
+>                  |place: &mut Opaque<bindings::configfs_subsystem>| {
+>                      // SAFETY: We initialized the required fields of `pl=
+ace.group` above.
+> @@ -172,13 +173,23 @@ pub fn new(
+>                      Ok(())
+>                  }
+>              ),
+> -            data <- data,
+> -        })
+> -        .pin_chain(|this| {
+> -            crate::error::to_result(
+> -                // SAFETY: We initialized `this.subsystem` according to =
+C API contract above.
+> -                unsafe { bindings::configfs_register_subsystem(this.subs=
+ystem.get()) },
+> -            )
+> +            _: {
+> +                let result =3D crate::error::to_result(
+> +                    // SAFETY: We initialized `subsystem` according to t=
+he C API contract above.
+> +                    unsafe { bindings::configfs_register_subsystem(subsy=
+stem.get()) },
+> +                );
+> +                if result.is_err() {
+> +                    // SAFETY: The group and mutex were initialized abov=
+e, and registration
+> +                    // failed, so configfs does not hold references to t=
+he group.
+> +                    unsafe {
+> +                        bindings::config_item_put(
 
-If connection timer expires, its callback can not be
-concurrently running but if connection is deleted
-the callback can be running on another CPU even
-after all references are released. Before now we
-continued with the connection freeing, risking the
-callback to access the deleted connection after it
-is freed. As ip_vs_conn_del*() run under RCU lock
-there is no risk accessing a freed connection by
-concurrent timer callback as Sashiko warns, may
-be only if our timer expires and we try to delete
-the cp->control chain.
+I think this should be `config_group_put`, although it does make a
+difference in practice right now.
 
-Fix that by failing the ip_vs_conn_unlink() call after
-refcnt is restored to 1 allowing the timer callback
-to be scheduled for new execution which should happen
-after the detected running callback finishes.
+> +                            &raw mut (*subsystem.get()).su_group.cg_item,
+> +                        );
+> +                        bindings::mutex_destroy(&raw mut (*subsystem.get=
+()).su_mutex);
+> +                    }
+> +                }
+> +                result?
+> +            }
+>          })
+>      }
+>  }
+> @@ -188,8 +199,12 @@ impl<Data> PinnedDrop for Subsystem<Data> {
+>      fn drop(self: Pin<&mut Self>) {
+>          // SAFETY: We registered `self.subsystem` in the initializer ret=
+urned by `Self::new`.
+>          unsafe { bindings::configfs_unregister_subsystem(self.subsystem.=
+get()) };
+> -        // SAFETY: We initialized the mutex in `Subsystem::new`.
+> -        unsafe { bindings::mutex_destroy(&raw mut (*self.subsystem.get()=
+).su_mutex) };
+> +        // SAFETY: Unregistering drops configfs's references to the grou=
+p, so it is safe to drop
+> +        // the initial group reference and destroy the initialized mutex.
+> +        unsafe {
+> +            bindings::config_item_put(&raw mut (*self.subsystem.get()).s=
+u_group.cg_item);
 
-One of two things can happen when we detect the
-running callback:
+Similar, should be `config_group_put`.
 
-1. the concurrent timer callback can see refcnt 0 and
-do nothing, so we will schedule new timer callback to
-expire the connection after the running one finishes
+> +            bindings::mutex_destroy(&raw mut (*self.subsystem.get()).su_=
+mutex);
+> +        }
+>      }
+>  }
+>=20=20
+> @@ -260,6 +275,7 @@ pub fn new(
+>          data: impl PinInit<Data, Error>,
+>      ) -> impl PinInit<Self, Error> {
+>          try_pin_init!(Self {
+> +            data <- data,
+>              group <- pin_init::init_zeroed().chain(|v: &mut Opaque<bindi=
+ngs::config_group>| {
+>                  let place =3D v.get();
+>                  let name =3D name.to_bytes_with_nul().as_ptr();
+> @@ -269,7 +285,6 @@ pub fn new(
+>                  };
+>                  Ok(())
+>              }),
+> -            data <- data,
 
-2. the concurrent timer callback can see refcnt 1 and
-to expire the connection as usually, in this case we
-will see refcnt 0 and will do nothing
+Without adding a `PinnedDrop` implementation, this change has no effect.
+We should add `PinnedDrop` that does `config_group_put` on `group`,
+right?
 
-Add explicit rcu_read_lock() while deleting the cp->control
-chain to protect from concurrent timer callback for ct to
-expire it before us.
+We could also consider adding `SubsystemInner` and `GroupInner` and
+implement `PinnedDrop` on those, to handle the C interface. We would
+then have fields of type `SubsystemInner` in `Subsystem` instead of
+`Opaque<_>` and similar for `Group<_>`. Then we would not have to
+consider the initialization ordering with respect to the `data` field of
+`Subsystem` and `Group`. What do you think?
 
-During such races, try to keep 0 in cp->timeout as it is
-a request for deleting our cp->control chain immediately.
+Best regards,
+Andreas Hindborg
 
-Link: https://sashiko.dev/#/patchset/cover.1789435989.git.zihanx%40nebusec.ai
-Fixes: f9200a52eedf ("ipvs: avoid expiring many connections from timer")
-Signed-off-by: Julian Anastasov <ja@ssi.bg>
----
- net/netfilter/ipvs/ip_vs_conn.c | 103 +++++++++++++++++---------------
- 1 file changed, 54 insertions(+), 49 deletions(-)
 
-diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-index 6fa3e1dc534c3..32cfc02aa2912 100644
---- a/net/netfilter/ipvs/ip_vs_conn.c
-+++ b/net/netfilter/ipvs/ip_vs_conn.c
-@@ -313,17 +313,34 @@ static inline int ip_vs_conn_hash(struct ip_vs_conn *cp)
- /* Try to unlink ip_vs_conn from conn_tab.
-  * returns bool success.
-  */
--static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
-+static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp, bool my_cb)
- {
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 	struct hlist_bl_head *head, *head2;
- 	u32 hash_key, hash_key2;
- 	struct ip_vs_rht *t;
--	bool ret = false;
- 	bool use2;
- 
-+	if (!refcount_dec_if_one(&cp->refcnt))
-+		return false;
-+
- 	if (cp->flags & IP_VS_CONN_F_ONE_PACKET)
--		return refcount_dec_if_one(&cp->refcnt);
-+		return true;
-+
-+	/* Revalidate after conn is excluded from traffic:
-+	 * - not controlling other conns
-+	 * - no pending/running timer callback
-+	 *
-+	 * And the winner is ...
-+	 */
-+	if (atomic_read(&cp->n_control) ||
-+	    (!timer_delete(&cp->timer) && !my_cb)) {
-+		/* Not me? Give the timer callback another chance, even
-+		 * if one is concurrently running during the conn deletion.
-+		 */
-+		refcount_inc(&cp->refcnt);
-+		return false;
-+	}
- 
- 	rcu_read_lock();
- 	local_bh_disable();
-@@ -337,15 +354,11 @@ static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
- 		      false /* new_hash2 */, &head, &head2);
- 
- 	if (cp->flags & IP_VS_CONN_F_HASHED) {
--		/* Decrease refcnt and unlink conn only if we are last user */
--		if (use2 == ip_vs_conn_use_hash2(cp) &&
--		    refcount_dec_if_one(&cp->refcnt)) {
--			hlist_bl_del_rcu(&cp->hn0.node);
--			if (use2)
--				hlist_bl_del_rcu(&cp->hn1.node);
--			cp->flags &= ~IP_VS_CONN_F_HASHED;
--			ret = true;
--		}
-+		/* Unlink conn as we are the last user */
-+		hlist_bl_del_rcu(&cp->hn0.node);
-+		if (use2)
-+			hlist_bl_del_rcu(&cp->hn1.node);
-+		cp->flags &= ~IP_VS_CONN_F_HASHED;
- 	}
- 
- 	conn_tab_unlock(head, head2);
-@@ -353,7 +366,7 @@ static inline bool ip_vs_conn_unlink(struct ip_vs_conn *cp)
- 	local_bh_enable();
- 	rcu_read_unlock();
- 
--	return ret;
-+	return true;
- }
- 
- 
-@@ -1319,34 +1332,29 @@ static void ip_vs_conn_rcu_free(struct rcu_head *head)
- 	kmem_cache_free(ip_vs_conn_cachep, cp);
- }
- 
--/* Try to delete connection while not holding reference */
-+/* Try to delete connection while not holding reference.
-+ * It can be called concurrently and always under RCU lock.
-+ */
- static void ip_vs_conn_del(struct ip_vs_conn *cp)
- {
--	if (timer_delete(&cp->timer)) {
--		/* Drop cp->control chain too */
--		if (cp->control)
--			cp->timeout = 0;
--		ip_vs_conn_expire(&cp->timer);
--	}
--}
-+	struct timer_list *t = (void *)((unsigned long)(&cp->timer) | 1UL);
- 
--/* Try to delete connection while holding reference */
--static void ip_vs_conn_del_put(struct ip_vs_conn *cp)
--{
--	if (timer_delete(&cp->timer)) {
--		/* Drop cp->control chain too */
--		if (cp->control)
--			cp->timeout = 0;
--		__ip_vs_conn_put(cp);
--		ip_vs_conn_expire(&cp->timer);
--	} else {
--		__ip_vs_conn_put(cp);
--	}
-+	/* Drop cp->control chain too */
-+	if (cp->control)
-+		cp->timeout = 0;
-+	ip_vs_conn_expire(t);
- }
- 
-+/* Connection is removed in the following steps:
-+ * - timer expires or connection is deleted
-+ * - there should be no more references (n_control>0 and refcnt>1)
-+ * - there should be no pending timer or a running timer callback (on deletion)
-+ */
- static void ip_vs_conn_expire(struct timer_list *t)
- {
--	struct ip_vs_conn *cp = timer_container_of(cp, t, timer);
-+	bool my_cb = !((unsigned long)t & 1);
-+	struct timer_list *t2 = (void *)((unsigned long)t & ~1UL);
-+	struct ip_vs_conn *cp = timer_container_of(cp, t2, timer);
- 	struct netns_ipvs *ipvs = cp->ipvs;
- 
- 	/*
-@@ -1356,26 +1364,21 @@ static void ip_vs_conn_expire(struct timer_list *t)
- 		goto expire_later;
- 
- 	/* Unlink conn if not referenced anymore */
--	if (likely(ip_vs_conn_unlink(cp))) {
-+	if (likely(ip_vs_conn_unlink(cp, my_cb))) {
- 		struct ip_vs_conn *ct = cp->control;
- 
--		/* delete the timer if it is activated by other users */
--		timer_delete(&cp->timer);
--
- 		/* does anybody control me? */
- 		if (ct) {
--			bool has_ref = !cp->timeout && __ip_vs_conn_get(ct);
--
-+			rcu_read_lock();
- 			ip_vs_control_del(cp);
- 			/* Drop CTL or non-assured TPL if not used anymore */
--			if (has_ref && !atomic_read(&ct->n_control) &&
-+			if (!cp->timeout && !atomic_read(&ct->n_control) &&
- 			    (!(ct->flags & IP_VS_CONN_F_TEMPLATE) ||
- 			     !(ct->state & IP_VS_CTPL_S_ASSURED))) {
- 				IP_VS_DBG(4, "drop controlling connection\n");
--				ip_vs_conn_del_put(ct);
--			} else if (has_ref) {
--				__ip_vs_conn_put(ct);
-+				ip_vs_conn_del(ct);
- 			}
-+			rcu_read_unlock();
- 		}
- 
- 		if ((cp->flags & IP_VS_CONN_F_NFCT) &&
-@@ -1410,13 +1413,15 @@ static void ip_vs_conn_expire(struct timer_list *t)
- 		  refcount_read(&cp->refcnt),
- 		  atomic_read(&cp->n_control));
- 
--	refcount_inc(&cp->refcnt);
--	cp->timeout = 60*HZ;
-+	if (__ip_vs_conn_get(cp)) {
-+		if (cp->timeout || atomic_read(&cp->n_control))
-+			cp->timeout = 60 * HZ;
- 
--	if (ipvs->sync_state & IP_VS_STATE_MASTER)
--		ip_vs_sync_conn(ipvs, cp, sysctl_sync_threshold(ipvs));
-+		if (ipvs->sync_state & IP_VS_STATE_MASTER)
-+			ip_vs_sync_conn(ipvs, cp, sysctl_sync_threshold(ipvs));
- 
--	__ip_vs_conn_put_timer(cp);
-+		__ip_vs_conn_put_timer(cp);
-+	}
- }
- 
- /* Modify timer, so that it expires as soon as possible.
--- 
-2.43.0
 
