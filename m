@@ -1,41 +1,78 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA9C3009E2;
-	Wed, 23 Sep 2026 05:18:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E6A3242D4
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:19:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790140700; cv=none; b=JysUj0z7E++FoEZE1de+p4PrLj/eB7v2AEeO8lexzZN44t104hQXrroeh7xEd38Mt7eJ1E3g1nzddDuMiK6QQe9nKUFW1WuZ9QvQN/+RkFwvkZs6GGvaWHRtnXKSMyj0ztVWzALHvzVWBukb/Jmd1BSagoon5HPxQ4VS6SsPqDs=
+	t=1790140796; cv=none; b=XRYBc1IJSV5v/jgNn0xMAaW6s9lFTmoS+geVVXhTI6uxA13+RgDxjaRQHCR/oAkaj7kuvY4hM3Yz2qA+cU/QZyQ4T2tW4hevp/fp4AXfkYvHd+h+9kEaTMlQOsI8gnyQmHDiedNkquahFuoQVmbdx8hHrBjZG+r37gShoIbvlDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790140700; c=relaxed/simple;
-	bh=lTst2yzFRnUqh3PxxziN2l1nZK8t4W5rYWqtVKN0d2s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s+0rw2jPKsndtZ1pf0XHyMIbKlR4JuNsU+y+ZDYLpvkn07AzGdRp635+S2yNtRocghA+UqZl0JaehwhwnySsyqB6T1a4FWRAOp0bEZwlETfMhiF0YO90CRQqU5KBTP/3WKdR/o0ZtZ6/4TTDmXVFugjzw+5qLfd31d1rxJENNq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pejCAqck; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790140796; c=relaxed/simple;
+	bh=rd4bVtBebW5Eh3X9btyAfOosrbirLB3M1wbnj3/C+mQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Taj+/2XLC4IBbdJGYITGe3W6YCg/w4/pIE/HdxM+Bkzz/Bo6BdjZmR42cFdFfXfghNVCGPVHTIWWOeTLHyXLGvNhEr6WqN/0ZKrVkUxhCz7PhAvsU8310Ivbkb1nJtMsjJ/cztCWuw/Y0/fjHdydt17W7oeVzvAS3oxGUkBHqt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uh+9KJWR; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pejCAqck"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=L2
-	V/fxkj/NtCf9TX3NMx3LfEuCN5nDIGx4Z/rf/rZC8=; b=pejCAqckgrd+yk4Yur
-	Oz5oUUxZHRjZtBRKMFkWTbr1zQA9dgWM8p7Uhk7R5yr/1UzbayvfTPBLq75E2di6
-	yPH9HyqLP0zViW2Q0QRwWDjMAsuSPzdSyMBeUwENDCfsH7tPUKayfxSbcxh/qFMm
-	SS8APklqQGsRVbw9SUeaYhjFw=
-Received: from colol4bi5.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3H38KYbNqtjQeAQ--.4083S2;
-	Wed, 23 Sep 2026 13:18:03 +0800 (CST)
-From: Binbin Deng <18983559317@163.com>
-To: zyjzyj2000@gmail.com,
-	jgg@ziepe.ca,
-	leon@kernel.org,
-	dsahern@kernel.org
-Cc: linux-rdma@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uh+9KJWR"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadea0so39903185a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:19:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790140793; x=1790745593; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xv3eebB7JJQAp3Uiqk1W5LHA/Ob2Oi0cbs08SqtlKHI=;
+        b=Uh+9KJWRKSuR4dXeYYSL9Bh7Ke/kxwRKu57nLCFnC++eHkjr50M1zXVBr0+7XbA9eg
+         9uLjwwDZ2DuS9FVTA2O0jVXFFwSwYoz6nszwJZAb2SzwCReCzTdXLfBCPKmZIGMgbwhA
+         rw78PGeVkXE8JS5kRuG970uyZfvAKjz6b7THA0rwNbXeoGFYAVV5E6V5AhiISOOdg2am
+         urfZatCo0upDueOK/brmYxImgN2k+X/JH8votrDrOlmyr+6t0qSukdUrgrVI2Q7N6Fij
+         mfgV+9Gz8Rl36mkh1mysd9JRxB9esfYiI8CFsf2Og9irWhMzxwV3Cy0OuAzAykdMgPPM
+         +jWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790140793; x=1790745593;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xv3eebB7JJQAp3Uiqk1W5LHA/Ob2Oi0cbs08SqtlKHI=;
+        b=N1mgtoYTHczFnffChNyk7N8abkx9k1tjyDYGt8BpOdXj04l5BdkEPLe7LYArmT7R1g
+         SAsE10+zLrCNyrlIssx3Ihx3bwoTronjhRs+7fdVY3edMweZGairrhhy//bKedBe5OND
+         AqNr+dBl/rL/i1OQ1fgQg0YZgPN1B/KncfK6gCJbyvm7zy5T5KullrwvsEfgM0kDzHgu
+         kqDQxXYSzPcrz8mmZDhiL1IGjgidbhntTIvg3uoGjmOHwr3wLNtLAtfMl1srcwVD7CgE
+         a4R963CApBRhyutK4U4r0YxMP55yIKwdaekBWtLiaocdmQkzOrP41LiN8LQDzjCsAY9r
+         2BBA==
+X-Forwarded-Encrypted: i=1; AKwUvBwflFBVh0wWjEJlf6TgRpMGVZdnlKASJxokaqQ9IoSh0o7+9sjFQosNcVv4K7XcUI+AVwL7nhORR0sGhOo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvRlLEMEpr8Ul2FKnJkvuFzTFZvoMaOpsiFNpwkLlMLyAbGF0s
+	ts2NQWKUtxxyMW9Z4a4K6oIhix/geVFBTxuAW045aPMpoqPxnYOYcFk=
+X-Gm-Gg: AYBFou3Lfw2i0vhuWkrs/tgLdaRkhJ30MLyGxjeTICB+W+gykB5zSdn9bxZc126aWe/
+	kM3gWgEVtcu33mEimdoGugE65lDZ0CZCG2AunjS5/aqfi6Fag7UMPH9cmNgnFWKUeghfZ2LE1dr
+	JSLZ1YRswEvn9uyPkUNefujsClWRhBzazWaxgi0nKt2kYwEhwdG4D4QCuRfR674dHjsStTI4nAz
+	WnXJllKA59Woumc/1TirgYjR8d6GGS6edVoRrr1Nx2LhRvd/2URCfsZklRGUjy5BM/bCVG5GyAM
+	42DayhJir9F49cGsA6XdnR3MzFCo8UDRaREXq4Rmrz/uUp14Jid6BJYEYq+dZrAjpfbZjdJLPR5
+	vvsF746mWY2zhLj3TOZXaHxN89ytpl7v4PXcpATXstGaeXoVQpBmmOB/ikx/2rIa+tmr/YSL9WD
+	vfHkL5bsCprHsIEKKKXUSwJUNdYthAZCInaemfPI0IfJ0xml6QHLj8EAu4xpQ+DT6u0lAp530Zl
+	Xfj9ODy1lSra5sLOReX6XHA7kcd1Elj77yQTLz5SG34etXSZ35oEEDB2vMpylFaaQ636WGLiWxX
+	KuJ6EtO9QGC8Fbdx/YapuyjtUuuLKR1ffCuViYh/EE+y2uTqxpQqPyujV2pXUdKPYdjgkcYhr2S
+	uGSxwCLXHa6uO
+X-Received: by 2002:a05:620a:8810:b0:93b:e917:6888 with SMTP id af79cd13be357-93c251052e9mr240052285a.33.1790140792573;
+        Tue, 22 Sep 2026 22:19:52 -0700 (PDT)
+Received: from localhost.localdomain (h16.44.55.139.dynamic.ip.windstream.net. [139.55.44.16])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c248b7f22sm149877685a.37.2026.09.22.22.19.51
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 22 Sep 2026 22:19:51 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Ming Qian <ming.qian@nxp.com>,
+	Ming Qian <ming.qian@oss.nxp.com>,
+	Zhou Peng <eagle.zhou@nxp.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Myeonghun Pak <mhun512@gmail.com>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Binbin Deng <18983559317@163.com>
-Subject: [PATCH v1] RDMA/rxe: unpublish the per-net tunnel socket before
-Date: Wed, 23 Sep 2026 13:18:00 +0800
-Message-ID: <20260923051800.244740-1-18983559317@163.com>
-X-Mailer: git-send-email 2.43.0
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] media: amphion: Stop mailbox RX before freeing the message buffer
+Date: Wed, 23 Sep 2026 01:19:50 -0400
+Message-ID: <20260923051950.89403-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,105 +80,128 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3H38KYbNqtjQeAQ--.4083S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZryDAry7KryDWFW3ur17Jrb_yoW5Zw4kpF
-	WrK3yYyr4rJr1jvr4ayr1jvF4Fva1rtr9xGF92ka4xZa15G3yaqFnxtryj9Fn5Cry8CFyU
-	ZF1kAFyvkw4Fkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UG9aPUUUUU=
-X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC3wvhxWqzYQsyfgAA3P
 
-KASAN reports a slab-use-after-free in ip6_route_output_flags()
-reached from rxe_find_route(), with the free in __sk_destruct() after
-rxe_sock_put(), and a user with CAP_NET_ADMIN can remove the device with
-"rdma link del rxe0" while RoCE v2 over IPv6 traffic keeps looking the
-socket up.
+vpu_core_unregister() frees core->msg_buffer and clears core->vpu
+before cancelling the message workers.  The fifo keeps its own pointer
+to that buffer.  The core workers read it and queue inst->msg_work,
+which uses core->vpu and may send on TX.
 
-BUG: KASAN: slab-use-after-free in ip6_route_output_flags+0x300/0x360
-Read of size 4 at addr ffff888115ddd794 by task kworker/u32:6/309
-Call Trace:
- <TASK>
- dump_stack_lvl+0x53/0x70
- print_report+0xd0/0x630
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? ip6_route_output_flags+0x300/0x360
- kasan_report+0xce/0x100
- ? ip6_route_output_flags+0x300/0x360
- ip6_route_output_flags+0x300/0x360
- ip6_dst_lookup_tail.constprop.0+0x76c/0xcc0
- ? ct_nmi_exit+0xc3/0xf0
- ip6_dst_lookup_flow+0xf5/0x1e0
- ? __pfx_ip6_dst_lookup_flow+0x10/0x10
- rxe_find_route+0x426/0xa30
- ? __kasan_slab_alloc+0x6e/0x70
- ? __pfx_rxe_find_route+0x10/0x10
- ? kmem_cache_alloc_node_noprof+0x141/0x370
- ? kmalloc_reserve+0x103/0x2b0
- ? rxe_icrc_generate+0x229/0x330
- ? __pfx___alloc_skb+0x10/0x10
- rxe_prepare+0x9e8/0x18b0
- ? rxe_init_packet+0x3c7/0x4f0
- rxe_requester+0x1a0f/0x51f0
- ? rxe_completer+0x1de9/0x38c0
- ? __pfx_rxe_completer+0x10/0x10
- ? __queue_work+0x43e/0x11f0
- ? __pfx_rxe_requester+0x10/0x10
- ? irqentry_exit+0xd2/0x640
- ? _raw_spin_lock_irqsave+0x85/0xe0
- ? __pfx__raw_spin_lock_irqsave+0x10/0x10
- ? __pfx_rxe_sender+0x10/0x10
- rxe_sender+0xe/0x30
- do_work+0x144/0x470
- process_one_work+0x633/0x1030
- ? assign_work+0x11d/0x370
- worker_thread+0x45b/0xd10
- ? __pfx_worker_thread+0x10/0x10
- kthread+0x2c6/0x3b0
- ? recalc_sigpending+0x15c/0x1e0
- ? __pfx_kthread+0x10/0x10
- ret_from_fork+0x36e/0x5a0
- ? __pfx_ret_from_fork+0x10/0x10
- ? __switch_to+0x572/0xdd0
- ? __pfx_kthread+0x10/0x10
- ret_from_fork_asm+0x1a/0x30
- </TASK>
+vpu_isr() fills the fifo from the mailbox RX callback.  i.MX MU
+free_irq() waits for that callback, not for the queued work.  An open
+instance holds a runtime-PM reference, so remove can skip runtime
+suspend and leave RX active.
 
-Allocated by task 146020:
- kasan_save_stack+0x33/0x60
- kasan_save_track+0x14/0x30
- __kasan_slab_alloc+0x6e/0x70
- kmem_cache_alloc_noprof+0x130/0x360
- sk_prot_alloc+0x56/0x210
+Stop RX, then drain the core workers and the instance workers they
+queued with vpu_core_cancel_work(), while core->vpu and TX are still
+valid.  Free the buffer and clear core->vpu after that drain.  Drop
+the runtime reference only then: runtime suspend frees every channel.
 
-Fix by clearing the per-net pointer before the last reference is dropped.
-
-Fixes: f1327abd6abed ("RDMA/rxe: Support RDMA link creation and destruction per net namespace")
-Signed-off-by: Binbin Deng <18983559317@163.com>
+Fixes: 9f599f351e86 ("media: amphion: add vpu core driver")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/infiniband/sw/rxe/rxe_net.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/media/platform/amphion/vpu_core.c | 28 +++++++++++++++++++---------
+ drivers/media/platform/amphion/vpu_mbox.c |  9 +++++++--
+ drivers/media/platform/amphion/vpu_mbox.h |  1 +
+ 3 files changed, 27 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/infiniband/sw/rxe/rxe_net.c b/drivers/infiniband/sw/rxe/rxe_net.c
-index 53daaf4c1eb2..4153f03ed69a 100644
---- a/drivers/infiniband/sw/rxe/rxe_net.c
-+++ b/drivers/infiniband/sw/rxe/rxe_net.c
-@@ -638,9 +638,15 @@ static void rxe_sock_put(struct sock *sk,
- 	if (refcount_read(&sk->sk_refcnt) > SK_REF_FOR_TUNNEL) {
- 		__sock_put(sk);
- 	} else {
-+		/*
-+		 * Clear the per-net pointer before the last reference is
-+		 * dropped.  rxe_ns_pernet_sk4/6() returns the pointer to readers
-+		 * that dereference it outside the RCU read-side critical section,
-+		 * so it must not stay visible once the socket has entered the
-+		 * teardown path.
-+		 */
-+		set_sk(net, NULL);
- 		rxe_release_udp_tunnel(sk);
--		sk = NULL;
--		set_sk(net, sk);
- 	}
+diff --git a/drivers/media/platform/amphion/vpu_core.c b/drivers/media/platform/amphion/vpu_core.c
+index 85cc4a14f8ed..000000000000 100644
+--- a/drivers/media/platform/amphion/vpu_core.c
++++ b/drivers/media/platform/amphion/vpu_core.c
+@@ -299,21 +299,23 @@ static void vpu_core_put_vpu(struct vpu_core *core)
+ 	core->vpu->put_vpu(core->vpu);
  }
  
++static void vpu_core_cancel_work(struct vpu_core *core);
++
+ static int vpu_core_unregister(struct device *dev, struct vpu_core *core)
+ {
+ 	list_del_init(&core->list);
+ 
+ 	vpu_core_put_vpu(core);
+-	core->vpu = NULL;
+-	kfree(core->msg_buffer);
+-	core->msg_buffer = NULL;
+ 
+ 	if (core->workqueue) {
+-		cancel_work_sync(&core->msg_work);
+-		cancel_delayed_work_sync(&core->msg_delayed_work);
++		vpu_core_cancel_work(core);
+ 		destroy_workqueue(core->workqueue);
+ 		core->workqueue = NULL;
+ 	}
+ 
++	kfree(core->msg_buffer);
++	core->msg_buffer = NULL;
++	core->vpu = NULL;
++
+ 	return 0;
+ }
+@@ -700,10 +702,18 @@ static void vpu_core_remove(struct platform_device *pdev)
+ 	WARN_ON(ret < 0);
+ 
+ 	vpu_core_shutdown(core);
+-	pm_runtime_put_sync(dev);
+-	pm_runtime_disable(dev);
+-
+-	vpu_core_unregister(core->parent, core);
++	/*
++	 * Runtime suspend frees every mailbox channel, including TX,
++	 * and is skipped while another runtime-PM reference remains.
++	 * Stop RX first.  vpu_core_unregister() then drains the core
++	 * workers and the instance workers they queue, which may still
++	 * send on TX, before the fifo buffer and core->vpu are released.
++	 */
++	vpu_mbox_free_rx(core);
++	vpu_core_unregister(core->parent, core);
++	pm_runtime_put_sync(dev);
++	pm_runtime_disable(dev);
++	vpu_mbox_free(core);
+ 	memunmap(core->fw.virt);
+ 	memunmap(core->rpc.virt);
+ 	mutex_destroy(&core->lock);
+diff --git a/drivers/media/platform/amphion/vpu_mbox.c b/drivers/media/platform/amphion/vpu_mbox.c
+index b2ac8de6a2d9..521fd47f1d90 100644
+--- a/drivers/media/platform/amphion/vpu_mbox.c
++++ b/drivers/media/platform/amphion/vpu_mbox.c
+@@ -88,14 +88,19 @@ error:
+ 	return ret;
+ }
+ 
++void vpu_mbox_free_rx(struct vpu_core *core)
++{
++	mbox_free_channel(core->rx.ch);
++	core->rx.ch = NULL;
++}
++
+ void vpu_mbox_free(struct vpu_core *core)
+ {
+ 	mbox_free_channel(core->tx_type.ch);
+ 	mbox_free_channel(core->tx_data.ch);
+-	mbox_free_channel(core->rx.ch);
+ 	core->tx_type.ch = NULL;
+ 	core->tx_data.ch = NULL;
+-	core->rx.ch = NULL;
++	vpu_mbox_free_rx(core);
+ 	dev_dbg(core->dev, "%s free mbox\n", vpu_core_type_desc(core->type));
+ }
+ 
+diff --git a/drivers/media/platform/amphion/vpu_mbox.h b/drivers/media/platform/amphion/vpu_mbox.h
+index 8b7aea4f606c..a934fe61b294 100644
+--- a/drivers/media/platform/amphion/vpu_mbox.h
++++ b/drivers/media/platform/amphion/vpu_mbox.h
+@@ -8,6 +8,7 @@
+ 
+ int vpu_mbox_init(struct vpu_core *core);
+ int vpu_mbox_request(struct vpu_core *core);
++void vpu_mbox_free_rx(struct vpu_core *core);
+ void vpu_mbox_free(struct vpu_core *core);
+ void vpu_mbox_send_msg(struct vpu_core *core, u32 type, u32 data);
+ void vpu_mbox_send_type(struct vpu_core *core, u32 type);
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
 -- 
-2.43.0
-
+2.47.1
