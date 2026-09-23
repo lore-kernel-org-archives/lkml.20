@@ -1,80 +1,122 @@
-Received: from smtpdh17-1.aruba.it (smtpdh17-1.aruba.it [62.149.155.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCE845517C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:50:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.155.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4504562BB;
+	Wed, 23 Sep 2026 07:50:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149857; cv=none; b=eH7517B4925Z2uDBYP71pUk1xbsnIYVQ9z6RTYZx2CCMEyRRWQxykXWVq3CoFjVc5HdyDNe6j/8BD6lSaHy/rgy+FdLfGKLCFI6Wx/PDfyBMIWFtnTZv8ldxcBwl2FPja045yIZEmZ4iUyJjjddM0zhopqOuWic1t5u+IDDmlxo=
+	t=1790149860; cv=none; b=EKaO7KSFhPuscp/81u3YUcuK6oYQw9zR7Lp2JaRdlB1uhtYkT3YO4IOEHcrCjBts7WxRS41vMw9VHqBxpTyPBQmBknU36ZKB0lY16Mby9/mKFUPHw98SSPAQuCq9CYFxvXoqMLMjvQBPPmpQ4E9LNm2SZDG67+ZQXaF75vdYsnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149857; c=relaxed/simple;
-	bh=kbt7APN66sOZaq6zRRM4c0YwoQfRKpH1vnKB8xYMma0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qEJuamlUsxuIF7khBAtjuBEvv/Fo/nUVPN+Rtddhg5Wzpc8Gio8ZgQBodWpsP4B3qiLXnkbe2MCefNSmWuinwMc9HjiAGbK8CmFZjA/em7U5CP+rQ5ipo/84r7aN4sAaHXdVdk/gci58me5YKvn8um5/H8FRKy2wlrKL5f6ftwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=jxRuuqXd; arc=none smtp.client-ip=62.149.155.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
+	s=arc-20240116; t=1790149860; c=relaxed/simple;
+	bh=Ec5v5NaaRW5K3ptykL0Fh6ijvJIq0SpB7Y+NUY5XMaE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=NmDH0QwIBUe83dhBJ+rJQr4NElebCaWhdMYONk8WrgNVARXB3uUgfKoIz3napAFG56pg4qTkbXKQRJP2wGvihIGHnD2HgOTvXNdPbDeZ30kbPHyHz0JhKfE5QidY47lyLEd9r7qQ8kHWS109WBfODt0ROZUAhJiH9Q9wNPq3P0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=vQiMkndh; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="jxRuuqXd"
-Received: from [172.18.100.99] ([109.238.20.116])
-	by Aruba SMTP with ESMTPSA
-	id 9HkYxgVg0Bm789HkZxkKtp; Wed, 23 Sep 2026 09:50:45 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
-	t=1790149845; bh=kbt7APN66sOZaq6zRRM4c0YwoQfRKpH1vnKB8xYMma0=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=jxRuuqXdiVqPY7q0i1fFsGhWAld/L/5PgqH7NQtoSXDR4/BUuJzfayNVReF12vowM
-	 iwbiypRN5hArBJ+/sEcOFx1nyNWQyyN6Yl4noLcYsyCLLgNSusDTj/gltFFe4h9Nsq
-	 h0s+OvTgGf1P8rUbZfjRl7Pa4UpGR0OA+oB5NJMx59FliMBSDv5awFw1/eAg7ChaFD
-	 bpVzI1f04zVnHUvu0kQCjsvQMCdlA4+WttcXrGWAJTSm8d4iHZyy2qg9YoTQgBdfug
-	 +VzcUW6sNVi0ISLw36rTno0u4YaPo1cyHfjBHknlgS9NbMQwWw7/tWaDARFMdyUTHT
-	 1IsO/f5MxDr3w==
-Message-ID: <5d3fd16f-e2d7-4d5e-98c7-807dd0aa3eeb@enneenne.com>
-Date: Wed, 23 Sep 2026 09:50:42 +0200
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="vQiMkndh"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68N7okXR3144777, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790149846; bh=1SvcaZZzNQwcBflCyJ29C45gmpZKYnrv8J+pt5vqubw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=vQiMkndhUzmHB49/EapVAyjn7S9i91KypE5pk+k6viYIxCRSBBPpRSrSEvswQWnZz
+	 7wYB2QIGqsH6wLiNfYoYFA2poKW5tUTgWJVaqnBbgACYOb/eztoY1Pho8GH7L9oqGj
+	 zgkdRVCSg9K929NadLP23VH/xRFDDM0GuIQYyEsf90STW7Z6Z2ODscMgQ2QUgMJ+LQ
+	 azza/TBhsN5ExgHlS9DCAP9qhLu1wkWjdehtzzqiQhI0fnYvb6O+Cbl5PpbhcxcAP9
+	 UjY1NBjjDK1BpZ/FjVtUZqIHZjIetByZkRqVPnS7MhHmsbV9x+UOy8ExroAmK+bF7K
+	 k2lOwdDnh6Iig==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68N7okXR3144777
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 23 Sep 2026 15:50:46 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 23 Sep 2026 15:50:44 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Wed, 23 Sep 2026 15:50:44 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
+ Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>
+Subject: RE: [PATCH v3 2/6] wifi: rtw88: 8723b: add the RTL8723B BB, RF and
+ AGC tables
+Thread-Topic: [PATCH v3 2/6] wifi: rtw88: 8723b: add the RTL8723B BB, RF and
+ AGC tables
+Thread-Index: AQHdSeATpI0NUCgP0kmEYeuJr1vdNLbby2HQ
+Date: Wed, 23 Sep 2026 07:50:44 +0000
+Message-ID: <0a6ea4337e004faa97595b1b62d2cad9@realtek.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-3-luka.gejak@linux.dev>
+In-Reply-To: <20260921154347.82317-3-luka.gejak@linux.dev>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/4] pps: clients: gpio: release pins to an inactive
- state on remove and shutdown
-To: "Farber, Eliav" <farbere@amazon.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Andrew Morton
- <akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260919171157.5502-1-farbere@amazon.com>
- <20260922103051.5257-1-farbere@amazon.com>
- <20260922103051.5257-5-farbere@amazon.com>
- <d9a9ecdf-8e29-4595-aedd-e62afa7ebb4c@enneenne.com>
- <BY3PR18MB4722D28B37D2DBCF3DC38ACDC6832@BY3PR18MB4722.namprd18.prod.outlook.com>
-From: Rodolfo Giometti <giometti@enneenne.com>
-Content-Language: en-US
-In-Reply-To: <BY3PR18MB4722D28B37D2DBCF3DC38ACDC6832@BY3PR18MB4722.namprd18.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfPMyqbJdaZuuzWa/r/ZYTMVQ8HSe4tRqnLDwTqBD4xHboHpwqvmUGCSFEb9EmcH+SH95vud82axTmxqwPwmDhqdwejIhsAmNGMwC5t9ABD83JOOuwt0o
- Mu1omzjzQATka8CFsW2QDR5yoloWCPheS7lS+FXlCvAE+XC1vS4srYJP5etyi43YS/Vivu1PFd9rfFxYBld+GGlinBRGbE+ckJN1pUWssc8zxmIXKoshD04c
- reQLFgf/gaI3EQFw/55HzIhGUfWPpIwVwCTU6Q4WpuhtkFF/CFkJirXjHiusTh4lz4s3u3o5w9N9o9OF33bdM6EYZQpMPBvMMEjxoypcuL56VbTPgAwNdKAp
- nSlXhxyq+xlrnzmhUBYJtF5geTs0j+ZPPhcepzT2kNHTpazpkXAle7LqShV4tOOvQE9cDicRvqM7nuM8nL7JI7UGuKkwc3XZVSW8vN/HRgQDe/pZ8s48msAB
- TWvJYUToT4YfyltI2c8iJaYW5FCyknXbNmQs1XhzpbQGeoCkmBtqH3UoC5kICGhPgmkyuTWkOHwEslzTA3CVTKJ3OEXyWMsZbXDc4A==
 
-On Tue, Sep 22, 2026 at 02:55:05PM +0000, Eliav Farber wrote:
-> Which do you prefer?
+Luka Gejak <luka.gejak@linux.dev> wrote:
+> Add the baseband, RF and AGC parameter tables for the RTL8723B, and the
+> transmit power limit and power by rate tables, in the layout the shared
+> rtw88 phy code expects.
+>=20
+> These are split out from the chip driver so the driver patch that
+> follows is easier to read. Nothing references them yet.
+>=20
+> The RTL8723B chip support is based on the initial work by
+> Michael Straube <straube.linux@gmail.com>.
+> Link: https://github.com/mistraube/rtw88/tree/rtl8723bs
+>=20
+> Co-developed-by: Michael Straube <straube.linux@gmail.com>
+> Signed-off-by: Michael Straube <straube.linux@gmail.com>
+> Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
+> ---
+>  .../wireless/realtek/rtw88/rtw8723b_table.c   | 862 ++++++++++++++++++
+>  .../wireless/realtek/rtw88/rtw8723b_table.h   |  18 +
+>  2 files changed, 880 insertions(+)
+>  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table.c
+>  create mode 100644 drivers/net/wireless/realtek/rtw88/rtw8723b_table.h
+>=20
+> diff --git a/drivers/net/wireless/realtek/rtw88/rtw8723b_table.c
+> b/drivers/net/wireless/realtek/rtw88/rtw8723b_table.c
+> new file mode 100644
+> index 000000000000..49989da3b8aa
+> --- /dev/null
+> +++ b/drivers/net/wireless/realtek/rtw88/rtw8723b_table.c
+> @@ -0,0 +1,862 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
+> +/*
+> + * Copyright(c) 2007-2017  Realtek Corporation
+> + * Copyright(c) Michael Straube <straube.linux@gmail.com>
+> + * Copyright(c) 2024-2026 Luka Gejak <luka.gejak@linux.dev>
 
-I think option 2 is the best, since patch 4 has to modify that block
-anyway, and it's simply an extra line within a section of code that is
-being changed regardless.
+I'm not sure if we should claim copyright year back to 2007?
 
-You just need to mention it in the commit message for patch 4 so it
-doesn't look like a superfluous or random change.
+[...]
 
-In any case, this doesn't block anything.
+> diff --git a/drivers/net/wireless/realtek/rtw88/rtw8723b_table.h
+> b/drivers/net/wireless/realtek/rtw88/rtw8723b_table.h
+> new file mode 100644
+> index 000000000000..49291fd1dd9d
+> --- /dev/null
+> +++ b/drivers/net/wireless/realtek/rtw88/rtw8723b_table.h
+> @@ -0,0 +1,18 @@
+> +/* SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause */
+> +/*
+> + * Copyright(c) 2007-2017  Realtek Corporation
+> + * Copyright(c) Michael Straube <straube.linux@gmail.com>
+> + * Copyright(c) 2024-2026 Luka Gejak <luka.gejak@linux.dev>
 
-Ciao,
+ditto.
 
-Rodolfo
+
