@@ -1,66 +1,65 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CAAE538D72
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:06:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 687EE53A89A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:06:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172405; cv=none; b=Oygc2o3z5RtFZX50sOzrDDOXByMVi4s60kNHo0lsKXcGLIqxaLaYfglUe39vRSYkPXiEwxaWuLLArvYCL4NX2/HGzTpRbJXvO0BL6vE9rhzNlwC4bqGPYa3Y9cJ7DayiFr3CK7ZcPGGldjNDVYzSb1hUVsuNWupb71ITDaPopSw=
+	t=1790172410; cv=none; b=HZkGll8oBwBZSfn+qI60EYRR8+Jp6NYWdUoXJIl/2OBYKf3dd3L1Redc9E1lraVHQnIAdyr4D1xdQjK+tDHp7Y3qEe3gIWYVirDBKa+Nv0aqLQuwxF2VG9lqLQU61qvycUdU8GNG0sgJ4jRyOVRvTSPxWYocOo/9GAY3ni3iDP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172405; c=relaxed/simple;
-	bh=GlB3Y2tQPHLzYKtxFX/9Dq0VZmwRG2B6cqN7HfVlLCQ=;
+	s=arc-20240116; t=1790172410; c=relaxed/simple;
+	bh=oQLeGHcFOEBKvK/KV/6VDCr5DCiylKfNZ+hZkYzkONE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DnVQRaLL8EL+a200LD1qlJtAqMPOb4CvSxAQBkQsq9wJiw6zomkQaeQ2paX1PCqDRhjC+LXpWZTT1xWxfFY6S+AqhQDKwM+3IVIXGsEldGAtNv8LkH1ytKYCDRziN0YNo9UUyOMKwiNDpxb9hW+LOAbgttCUtYG1ZDMx1mVxoe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com; spf=pass smtp.mailfrom=linbit.com; dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b=w5nDBzhN; arc=none smtp.client-ip=74.125.225.76
+	 MIME-Version:Content-Type; b=E2eX2WAr5i1zDvWIsJM3vH68YMLvq2ur6mKw5PlzK10QDq1m1I+WpjXkwLaHVq+Zb7uY3kBrntJaAKzglAJFD/Hh+7A0oECbz+tS0KZQ2+zlXZZHeP93SyvqbLkWkDbIIvJ5ILxKA8u8leWK4ASPUjjk/yWLWsMbV3SFhAkV/LE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com; spf=pass smtp.mailfrom=linbit.com; dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b=McXd+yH4; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b="w5nDBzhN"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633ece3so814552f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:06:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b="McXd+yH4"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso12552425e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:06:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linbit-com.20251104.gappssmtp.com; s=20251104; t=1790172400; x=1790777200; darn=vger.kernel.org;
+        d=linbit-com.20251104.gappssmtp.com; s=20251104; t=1790172405; x=1790777205; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4Jv+EBHDHVTqvAzcDsBTs/b5ikUux5eKi9OrKqTVCnM=;
-        b=w5nDBzhNEip1jK2A9UqPzUUj2NNo/f8RGTo0iFgSiX/LsisKqnNClMS9LztwUyGKy3
-         XxQPvRCU+NjY02KrBigyq/SnBms8nx/Y12KNwDuuB+/QjKu7qhxdxF7oZNgeifV6rXDg
-         XO+1t3gq2oeiaQnbCZySehBU074/5BavdIVeBbBdquAQKvs+5mn1E4xvxUNE/MLGdCWQ
-         k506d1wMuucPdjPjADiygP6s+w0XR5oW+tSAE+PKcP2GxfpuHUdyHmQm+AmmxCAUVeNZ
-         HVq5PP6OXpsfDYTT441FEAClmsF29ThSDBMzF1fRWiq8Ga05/w9GaFsqekisHmXvQh8n
-         s12g==
+        bh=OT8DknvFkt3c/QwXXWqPTd2AqnUqoQwgm3MlbzbyL9g=;
+        b=McXd+yH4BeVNHTdAPqnTJD50AIsWxS75cMXu/pZBp60UDU3jq8v765fKW3NqR8iA8c
+         DkRDJspUeMyZIW43asLdmZXo0oSeS4eB/ouuHw58plgKKDwxnIznZ6tPy53pd/DKYF0O
+         S93p7sfjgWrXF0v0iCZSQFq93AImRfxArnsGgv17tIBAAvDYYaJy9yKyZo2SDmF3LZRP
+         hr2qCy5DDSCl8X0NWcmxGRqARER3jVqOzHUtnAs749XH/OZox+ksAYS9yPPe1luElEmJ
+         BQ5BnzlaF4j81gKuYowGYvTDM8HnJrDSXAMB2vsTlRNAH07FdHSRg2Hspb0Z3OyHP8EF
+         GQ7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790172400; x=1790777200;
+        d=1e100.net; s=20260707; t=1790172405; x=1790777205;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4Jv+EBHDHVTqvAzcDsBTs/b5ikUux5eKi9OrKqTVCnM=;
-        b=zvn65cHZ9RtSAogt94N+6ea6i0O13TFpfPUT2eRrHKJCNJh/5A2NK+4aewvui0UwwL
-         Bc3LhO2k6XOQrFGZB5FPWHUPjUxSQ087r1LymovCUC9sRldZE5+mIQqbtG/Vo5ZNm+PS
-         9REz8jhPkANL5KBX9idx0TL1KBTSH0vjvb2nnLXI6vCCmaFruFhdy1jfeMm7SLtsm1fv
-         PClcdFfPD4tJwjLIYzGY9FFSP5D4Mk935iCALazFEXrWAsG23B0dBO3JZSRt4HEOrbAB
-         PIAccuG4G+iwfJXj3F2FyEchoQJ/5Eoo09grtiIaCKCnbRsXKdml4zOnptH5HJo/lASd
-         RMqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzcB08SHHgOSbYb7ACHqVXA4tWnw4V5unGaCl2gsG4qOGJOTAYBi3+R8uDvXiebkTB4T9SBWN29hAyWJzw=@vger.kernel.org
-X-Gm-Message-State: AFuF++ni43CGCfAqGCiN74RcbWIoPba40w2ZQbrqxmN1ra1/I/QFfwXY
-	UtAm+6VA3FnB6MC/KX9aTP4pvYEt3qpDAhMRO6vxhqC86yUg9IwDG5gDFeMeG8PAJLCsKKT/Rf+
-	Zm5IKgFk=
-X-Gm-Gg: AYBFou1KToNvxC13BzdZJ84Ei1L3yK/2V1t6KP5ma2AccwPf4OwWGkatoIV1HzDKrN6
-	zQqIaLLB1WpF+EXyyK4uN6MP3Mw5+qB0ErgXMuuXPZ3X6M/TxrMsj1oUVzFermzJflCp59QLDih
-	sGke4JucsSIIzsZlcBXH13G3oJF/hEYTSNbtEJMCZfRpJyOlLOXpRYb7iTLaJNLTejYh03sRnpm
-	BTphfid/HWUCjkJTQXHXCAyQ+lMTVUqESqoCl4a/Gv8btliFDpqQjfoWzvSkPzk3COGp5fFoPha
-	NnG/MsZVTDePo4jLYVXC1uk7B41CaKyvkyyzW/m/oEl6Yk/L3HmfqFM+Rftppq61HjisATE1+nX
-	XZAFC8qGV7gDTGGhdjLfStgsCy91wp3eTdj0bWsrw9ep+5XqDpJsGyPrrlKD4x3A4X4BisnoJuc
-	VfJo1PJZ6Iq8U6VwA54cXV7lJrNoRq0owaEyZ9pIQbYMU/M8F0a/olDq2dXgm8+31xT/sLT/Gs5
-	8Uhnk7v/8aVZikAIaJxhAetOjJOydg=
-X-Received: by 2002:a05:600c:34c1:b0:49e:6e94:7cae with SMTP id 5b1f17b1804b1-49fdf148205mr37610215e9.28.1790172399746;
-        Wed, 23 Sep 2026 07:06:39 -0700 (PDT)
+        bh=OT8DknvFkt3c/QwXXWqPTd2AqnUqoQwgm3MlbzbyL9g=;
+        b=i+jOtdXLeDrwGCrLZm4lnHc1+NKCwVDbC0tS3y9lPgqx9VSRpvcK4SWeHCshLU0bUY
+         rmUkXToBA5N8TtYRCZjzREgGypMSh5gTk63ZSPVPZPNaBe24O2Z0CLkMAtJKFUlomFxp
+         BNaba8GuR5shvwSYO+U7e13l/YFOskDuyAqGKub42sIFhgFHxx6IUpBXvwUTE28OCS4X
+         adc4erU692vtUzhVoJ67su3WKhPzPf5+DxTx8Tm9I2S/hgdQtvxFzCco/x39L78+BBmT
+         tQPfBA0WpEMsg5oheyW3JXtzDOOsh/iDIhYKKY7lxwHLLN7GTD5vwSFGdwsN3uGttixu
+         W1og==
+X-Forwarded-Encrypted: i=1; AKwUvBxPSkpmzlmMZ7qmUx0lpp2Wp18cZoN8wXYrFOI9YB8dfOXajAXa6Im8cTJiyN6OIDHf9hwTX9mmAKJSBd0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYcLUMvnxm6/ObaNVwMiAqg5JVDr2rRK41lQ9TL+kRSNZ3wgYt
+	OvaINlU+XJSOkAseGXO4wwvdFWjYTVeYkENRDmWbSjdVLQxzR2cRdYWne5UePuN5qiI=
+X-Gm-Gg: AYBFou0i4B5rVk1T2w1nM6JObPwrn+JCxAfFUCUv0Wb2wewlAWmgoVAh48cliv+4A5a
+	OmD16nlHO0fqH5UGlm2jEqI12DkZWF459Iv3qRHdomVF0lj61HH3yTUYc77JP8qeHtvA4Ly4We6
+	8ppG7U/EFDIXsA+IJHSUzLkLnzas3Bgub9AUom/x2k6X1M4j01WfpQ15o44gtAwt+MmFn6Es3tf
+	PEFQ5SrZZkDjzLvwNkAnwmZEhXcuWtLFunNawUWcX0K3SoL+VgDNl3/SN0mhMdxFw/YB1R6FaAk
+	qhysKu2OSJtJEph+CoU4tHBz7xIyYIQ2DQVPFBka5E3QU0WdQ/+CR/X+PbuhPY+m2FSekMWKMc2
+	dNQmKsegAmdSjjSdwS4OuML5SygnN4Xv/rc9eMF59IyUZtCuhWJCV4H94gPs3VTgheZt6H6kUmZ
+	n8dfyFatK9snzcOLxBqxraEnIvabpj2NVV0p0UieQFh7Ju+MsmoSoDtAEHzPrK2gB5qgYNUGE+H
+	OXLhKxP2pWljdE8U4C4YmDcxurUt9NlX4pIbRpyL0M=
+X-Received: by 2002:a05:600c:354e:b0:49f:bd3c:bc18 with SMTP id 5b1f17b1804b1-49fdf137081mr40436105e9.19.1790172404980;
+        Wed, 23 Sep 2026 07:06:44 -0700 (PDT)
 Received: from localhost.localdomain ([2001:4bc9:b01f:2334:39d8:9506:1776:f780])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde18a8a0sm78087455e9.5.2026.09.23.07.06.38
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde18a8a0sm78087455e9.5.2026.09.23.07.06.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:06:39 -0700 (PDT)
+        Wed, 23 Sep 2026 07:06:44 -0700 (PDT)
 From: =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Philipp Reisner <philipp.reisner@linbit.com>,
@@ -70,9 +69,9 @@ Cc: Philipp Reisner <philipp.reisner@linbit.com>,
 	linux-kernel@vger.kernel.org,
 	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
 	Lars Ellenberg <lars.ellenberg@linbit.com>
-Subject: [PATCH 2/7] drbd: modernize the file header comments
-Date: Wed, 23 Sep 2026 16:06:03 +0200
-Message-ID: <20260923140608.1116713-3-christoph.boehmwalder@linbit.com>
+Subject: [PATCH 5/7] drbd: replace the drbd_interval bitfields with a type and flags
+Date: Wed, 23 Sep 2026 16:06:06 +0200
+Message-ID: <20260923140608.1116713-6-christoph.boehmwalder@linbit.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923140608.1116713-1-christoph.boehmwalder@linbit.com>
 References: <20260923140608.1116713-1-christoph.boehmwalder@linbit.com>
@@ -85,462 +84,330 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Replace the pre-SPDX "This file is part of DRBD by ..." blocks with plain
-kernel-style copyright notices, and add the missing ones. The license is
-carried by the SPDX identifier since commit 93c68cc46a07 ("drbd: use
-consistent license"), so the prose about it in every file is redundant.
-The file name lines were partly wrong anyway (drbd_vli.h calls itself
-drbd_receiver.c, drbd_strings.c calls itself drbd.h).
+struct drbd_interval carries three single-bit fields: whether the
+request is local, whether someone waits for it, and whether it has
+completed. They only say "local or not", so every user that needs to
+know what kind of request an interval belongs to has to look at the
+containing object.
 
-This is the header layout the out-of-tree DRBD 9 sources carry, so the
-upcoming rework no longer touches the first lines of every file.
+Record the kind of request in the interval itself as an
+enum drbd_interval_type, set by whoever allocates the request, and turn
+the remaining bits into an atomic flags word so they can be tested and
+set with the usual bit operations. drbd_interval_is_local() replaces
+the open-coded tests of the "local" bit.
+
+This is the representation the DRBD 9 conflict handling is built on;
+the types are the ones it uses, so the rework only has to add flags.
 
 No functional change.
 
 Signed-off-by: Christoph Böhmwalder <christoph.boehmwalder@linbit.com>
 ---
- drivers/block/drbd/drbd_actlog.c   | 13 ++++---------
- drivers/block/drbd/drbd_bitmap.c   | 12 ++++--------
- drivers/block/drbd/drbd_debugfs.c  |  4 ++++
- drivers/block/drbd/drbd_debugfs.h  |  4 ++++
- drivers/block/drbd/drbd_int.h      | 15 +++++----------
- drivers/block/drbd/drbd_interval.c |  4 ++++
- drivers/block/drbd/drbd_interval.h |  4 ++++
- drivers/block/drbd/drbd_main.c     | 16 ++++------------
- drivers/block/drbd/drbd_nl.c       | 13 ++++---------
- drivers/block/drbd/drbd_proc.c     | 10 +---------
- drivers/block/drbd/drbd_protocol.h |  4 ++++
- drivers/block/drbd/drbd_receiver.c | 13 ++++---------
- drivers/block/drbd/drbd_req.c      | 13 ++++---------
- drivers/block/drbd/drbd_req.h      | 12 ++++--------
- drivers/block/drbd/drbd_sender.c   | 15 +++++----------
- drivers/block/drbd/drbd_state.c    | 15 ++++-----------
- drivers/block/drbd/drbd_strings.c  | 12 ++----------
- drivers/block/drbd/drbd_strings.h  |  4 ++++
- drivers/block/drbd/drbd_vli.h      | 12 ++++--------
- include/uapi/linux/drbd.h          | 12 ++----------
- include/uapi/linux/drbd_limits.h   |  5 ++---
- 21 files changed, 77 insertions(+), 135 deletions(-)
+ drivers/block/drbd/drbd_interval.h | 51 +++++++++++++++++++++++-------
+ drivers/block/drbd/drbd_main.c     |  2 +-
+ drivers/block/drbd/drbd_receiver.c | 21 ++++++++----
+ drivers/block/drbd/drbd_req.c      | 17 +++++-----
+ drivers/block/drbd/drbd_sender.c   |  5 +++
+ 5 files changed, 68 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/block/drbd/drbd_actlog.c b/drivers/block/drbd/drbd_actlog.c
-index b3dbf6c76e98..04b8d50e4e9e 100644
---- a/drivers/block/drbd/drbd_actlog.c
-+++ b/drivers/block/drbd/drbd_actlog.c
-@@ -1,14 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
--   drbd_actlog.c
--
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2003-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 2003-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--   Copyright (C) 2003-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
--
-+ * Copyright (C) 2003-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2003-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2003-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-  */
- 
- #include <linux/slab.h>
-diff --git a/drivers/block/drbd/drbd_bitmap.c b/drivers/block/drbd/drbd_bitmap.c
-index 65ea6ec66bfd..8416c7e8257c 100644
---- a/drivers/block/drbd/drbd_bitmap.c
-+++ b/drivers/block/drbd/drbd_bitmap.c
-@@ -1,13 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
--   drbd_bitmap.c
--
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2004-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 2004-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--   Copyright (C) 2004-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
-+ * Copyright (C) 2004-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2004-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2004-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-  */
- 
- #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
-diff --git a/drivers/block/drbd/drbd_debugfs.c b/drivers/block/drbd/drbd_debugfs.c
-index 371abcd7e880..b8e698dbb475 100644
---- a/drivers/block/drbd/drbd_debugfs.c
-+++ b/drivers/block/drbd/drbd_debugfs.c
-@@ -1,4 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2014, LINBIT HA-Solutions GmbH.
-+ */
-+
- #define pr_fmt(fmt) "drbd debugfs: " fmt
- #include <linux/kernel.h>
- #include <linux/module.h>
-diff --git a/drivers/block/drbd/drbd_debugfs.h b/drivers/block/drbd/drbd_debugfs.h
-index ee3d66eb40c6..e02960c6ec35 100644
---- a/drivers/block/drbd/drbd_debugfs.h
-+++ b/drivers/block/drbd/drbd_debugfs.h
-@@ -1,4 +1,8 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2014, LINBIT HA-Solutions GmbH.
-+ */
-+
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/debugfs.h>
-diff --git a/drivers/block/drbd/drbd_int.h b/drivers/block/drbd/drbd_int.h
-index 48b45c3142f7..d3ca2b730a11 100644
---- a/drivers/block/drbd/drbd_int.h
-+++ b/drivers/block/drbd/drbd_int.h
-@@ -1,15 +1,10 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- /*
--  drbd_int.h
--
--  This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--  Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
--  Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--  Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
--
--*/
-+ * Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-+ */
- 
- #ifndef _DRBD_INT_H
- #define _DRBD_INT_H
-diff --git a/drivers/block/drbd/drbd_interval.c b/drivers/block/drbd/drbd_interval.c
-index 873beda6de24..2c12297ffdaf 100644
---- a/drivers/block/drbd/drbd_interval.c
-+++ b/drivers/block/drbd/drbd_interval.c
-@@ -1,4 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2011, LINBIT HA-Solutions GmbH.
-+ */
-+
- #include <asm/bug.h>
- #include <linux/rbtree_augmented.h>
- #include "drbd_interval.h"
 diff --git a/drivers/block/drbd/drbd_interval.h b/drivers/block/drbd/drbd_interval.h
-index 5d3213b81eed..9d290ac120cd 100644
+index 9d290ac120cd..3749377ec172 100644
 --- a/drivers/block/drbd/drbd_interval.h
 +++ b/drivers/block/drbd/drbd_interval.h
-@@ -1,4 +1,8 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2011, LINBIT HA-Solutions GmbH.
-+ */
-+
- #ifndef __DRBD_INTERVAL_H
- #define __DRBD_INTERVAL_H
+@@ -9,20 +9,47 @@
+ #include <linux/types.h>
+ #include <linux/rbtree.h>
  
++/*
++ * Interval types stored directly in drbd_interval so that we can handle
++ * conflicts without having to inspect the containing object. The value 0 is
++ * reserved for uninitialized intervals.
++ */
++enum drbd_interval_type {
++	INTERVAL_LOCAL_WRITE = 1,
++	INTERVAL_PEER_WRITE,
++	INTERVAL_LOCAL_READ,
++	INTERVAL_PEER_READ,
++	INTERVAL_RESYNC_WRITE, /* C_SYNC_TARGET */
++	INTERVAL_RESYNC_READ, /* C_SYNC_SOURCE */
++	INTERVAL_OV_READ_SOURCE, /* C_VERIFY_S */
++	INTERVAL_OV_READ_TARGET, /* C_VERIFY_T */
++};
++
++enum drbd_interval_flags {
++	/* Someone is waiting on device->misc_wait for this to make progress. */
++	INTERVAL_WAITING,
++
++	/* This has been completed already; ignore for conflict detection. */
++	INTERVAL_COMPLETED,
++};
++
+ struct drbd_interval {
+ 	struct rb_node rb;
+ 	sector_t sector;		/* start sector of the interval */
+ 	sector_t end;			/* highest interval end in subtree */
+ 	unsigned int size;		/* size in bytes */
+-	unsigned int local:1		/* local or remote request? */;
+-	unsigned int waiting:1;		/* someone is waiting for completion */
+-	unsigned int completed:1;	/* this has been completed already;
+-					 * ignore for conflict detection */
++	enum drbd_interval_type type;	/* what type of interval this is */
++	unsigned long flags;
+ 
+ 	/* to resume a partially successful drbd_al_begin_io_nonblock(); */
+ 	unsigned int partially_in_al_next_enr;
+ };
+ 
++static inline bool drbd_interval_is_local(struct drbd_interval *i)
++{
++	return i->type == INTERVAL_LOCAL_READ || i->type == INTERVAL_LOCAL_WRITE;
++}
++
+ static inline void drbd_clear_interval(struct drbd_interval *i)
+ {
+ 	RB_CLEAR_NODE(&i->rb);
+@@ -33,14 +60,14 @@ static inline bool drbd_interval_empty(struct drbd_interval *i)
+ 	return RB_EMPTY_NODE(&i->rb);
+ }
+ 
+-extern bool drbd_insert_interval(struct rb_root *, struct drbd_interval *);
+-extern bool drbd_contains_interval(struct rb_root *, sector_t,
+-				   struct drbd_interval *);
+-extern void drbd_remove_interval(struct rb_root *, struct drbd_interval *);
+-extern struct drbd_interval *drbd_find_overlap(struct rb_root *, sector_t,
+-					unsigned int);
+-extern struct drbd_interval *drbd_next_overlap(struct drbd_interval *, sector_t,
+-					unsigned int);
++bool drbd_insert_interval(struct rb_root *root, struct drbd_interval *this);
++bool drbd_contains_interval(struct rb_root *root, sector_t sector,
++			    struct drbd_interval *interval);
++void drbd_remove_interval(struct rb_root *root, struct drbd_interval *this);
++struct drbd_interval *drbd_find_overlap(struct rb_root *root, sector_t sector,
++					unsigned int size);
++struct drbd_interval *drbd_next_overlap(struct drbd_interval *i,
++					sector_t sector, unsigned int size);
+ 
+ #define drbd_for_each_overlap(i, root, sector, size)		\
+ 	for (i = drbd_find_overlap(root, sector, size);		\
 diff --git a/drivers/block/drbd/drbd_main.c b/drivers/block/drbd/drbd_main.c
-index a2a841c89201..590ac5cb84f5 100644
+index 590ac5cb84f5..09e42706c83e 100644
 --- a/drivers/block/drbd/drbd_main.c
 +++ b/drivers/block/drbd/drbd_main.c
-@@ -1,17 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
--   drbd.c
--
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--   Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
--   Thanks to Carter Burden, Bart Grantham and Gennadiy Nerubayev
--   from Logicworks, Inc. for making SDP replication support possible.
--
--
-+ * Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-  */
+@@ -3656,7 +3656,7 @@ int drbd_wait_misc(struct drbd_device *device, struct drbd_interval *i)
+ 	rcu_read_unlock();
  
- #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
-diff --git a/drivers/block/drbd/drbd_nl.c b/drivers/block/drbd/drbd_nl.c
-index b77f901fc3ef..51ba8e542928 100644
---- a/drivers/block/drbd/drbd_nl.c
-+++ b/drivers/block/drbd/drbd_nl.c
-@@ -1,14 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
--   drbd_nl.c
--
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--   Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
--
-+ * Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-  */
- 
- #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
-diff --git a/drivers/block/drbd/drbd_proc.c b/drivers/block/drbd/drbd_proc.c
-index 6d0c12c10260..fb2b68c5c5f7 100644
---- a/drivers/block/drbd/drbd_proc.c
-+++ b/drivers/block/drbd/drbd_proc.c
-@@ -1,14 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
--   drbd_proc.c
--
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--   Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
--
-+ * Copyright (C) 2001, LINBIT HA-Solutions GmbH.
-  */
- 
- #include <linux/module.h>
-diff --git a/drivers/block/drbd/drbd_protocol.h b/drivers/block/drbd/drbd_protocol.h
-index 56bbca9d7700..be7dacac5a86 100644
---- a/drivers/block/drbd/drbd_protocol.h
-+++ b/drivers/block/drbd/drbd_protocol.h
-@@ -1,4 +1,8 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2014, LINBIT HA-Solutions GmbH.
-+ */
-+
- #ifndef __DRBD_PROTOCOL_H
- #define __DRBD_PROTOCOL_H
- 
+ 	/* Indicate to wake up device->misc_wait on progress.  */
+-	i->waiting = true;
++	set_bit(INTERVAL_WAITING, &i->flags);
+ 	prepare_to_wait(&device->misc_wait, &wait, TASK_INTERRUPTIBLE);
+ 	spin_unlock_irq(&device->resource->req_lock);
+ 	timeout = schedule_timeout(timeout);
 diff --git a/drivers/block/drbd/drbd_receiver.c b/drivers/block/drbd/drbd_receiver.c
-index 2135c14354a8..2c4507add143 100644
+index 2c4507add143..3ebe18535fcf 100644
 --- a/drivers/block/drbd/drbd_receiver.c
 +++ b/drivers/block/drbd/drbd_receiver.c
-@@ -1,16 +1,11 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
--   drbd_receiver.c
--
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--   Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
-+ * Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-  */
+@@ -1540,7 +1540,7 @@ static void drbd_remove_epoch_entry_interval(struct drbd_device *device,
+ 	drbd_clear_interval(i);
  
--
- #include <linux/module.h>
+ 	/* Wake up any processes waiting for this peer request to complete.  */
+-	if (i->waiting)
++	if (test_bit(INTERVAL_WAITING, &i->flags))
+ 		wake_up(&device->misc_wait);
+ }
  
- #include <linux/uaccess.h>
+@@ -1878,6 +1878,8 @@ static int recv_resync_read(struct drbd_peer_device *peer_device, sector_t secto
+ 	if (!peer_req)
+ 		goto fail;
+ 
++	peer_req->i.type = INTERVAL_RESYNC_WRITE;
++
+ 	dec_rs_pending(peer_device);
+ 
+ 	inc_unacked(device);
+@@ -1916,7 +1918,7 @@ find_request(struct drbd_device *device, struct rb_root *root, u64 id,
+ 
+ 	/* Request object according to our peer */
+ 	req = (struct drbd_request *)(unsigned long)id;
+-	if (drbd_contains_interval(root, sector, &req->i) && req->i.local)
++	if (drbd_contains_interval(root, sector, &req->i) && drbd_interval_is_local(&req->i))
+ 		return req;
+ 	if (!missing_ok) {
+ 		drbd_err(device, "%s: failed to find request 0x%lx, sector %llus\n", func,
+@@ -1999,7 +2001,7 @@ static void restart_conflicting_writes(struct drbd_device *device,
+ 	struct drbd_request *req;
+ 
+ 	drbd_for_each_overlap(i, &device->write_requests, sector, size) {
+-		if (!i->local)
++		if (!drbd_interval_is_local(i))
+ 			continue;
+ 		req = container_of(i, struct drbd_request, i);
+ 		if (req->rq_state & RQ_LOCAL_PENDING ||
+@@ -2239,7 +2241,7 @@ static void fail_postponed_requests(struct drbd_device *device, sector_t sector,
+ 		struct drbd_request *req;
+ 		struct bio_and_error m;
+ 
+-		if (!i->local)
++		if (!drbd_interval_is_local(i))
+ 			continue;
+ 		req = container_of(i, struct drbd_request, i);
+ 		if (!(req->rq_state & RQ_POSTPONED))
+@@ -2275,10 +2277,10 @@ static int handle_write_conflicts(struct drbd_device *device,
+ 	drbd_for_each_overlap(i, &device->write_requests, sector, size) {
+ 		if (i == &peer_req->i)
+ 			continue;
+-		if (i->completed)
++		if (test_bit(INTERVAL_COMPLETED, &i->flags))
+ 			continue;
+ 
+-		if (!i->local) {
++		if (!drbd_interval_is_local(i)) {
+ 			/*
+ 			 * Our peer has sent a conflicting remote request; this
+ 			 * should not happen in a two-node setup.  Wait for the
+@@ -2409,6 +2411,7 @@ static int receive_Data(struct drbd_connection *connection, struct packet_info *
+ 		return -EIO;
+ 	}
+ 
++	peer_req->i.type = INTERVAL_PEER_WRITE;
+ 	peer_req->w.cb = e_end_block;
+ 	peer_req->submit_jif = jiffies;
+ 	peer_req->flags |= EE_APPLICATION;
+@@ -2687,6 +2690,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
+ 
+ 	switch (pi->cmd) {
+ 	case P_DATA_REQUEST:
++		peer_req->i.type = INTERVAL_PEER_READ;
+ 		peer_req->w.cb = w_e_end_data_req;
+ 		/* application IO, don't drbd_rs_begin_io */
+ 		peer_req->flags |= EE_APPLICATION;
+@@ -2700,6 +2704,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
+ 		peer_req->flags |= EE_RS_THIN_REQ;
+ 		fallthrough;
+ 	case P_RS_DATA_REQUEST:
++		peer_req->i.type = INTERVAL_RESYNC_READ;
+ 		peer_req->w.cb = w_e_end_rsdata_req;
+ 		/* used in the sector offset progress display */
+ 		device->bm_resync_fo = BM_SECT_TO_BIT(sector);
+@@ -2722,6 +2727,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
+ 
+ 		if (pi->cmd == P_CSUM_RS_REQUEST) {
+ 			D_ASSERT(device, peer_device->connection->agreed_pro_version >= 89);
++			peer_req->i.type = INTERVAL_RESYNC_READ;
+ 			peer_req->w.cb = w_e_end_csum_rs_req;
+ 			/* used in the sector offset progress display */
+ 			device->bm_resync_fo = BM_SECT_TO_BIT(sector);
+@@ -2730,6 +2736,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
+ 		} else if (pi->cmd == P_OV_REPLY) {
+ 			/* track progress, we may need to throttle */
+ 			atomic_add(size >> 9, &device->rs_sect_in);
++			peer_req->i.type = INTERVAL_OV_READ_SOURCE;
+ 			peer_req->w.cb = w_e_end_ov_reply;
+ 			dec_rs_pending(peer_device);
+ 			/* drbd_rs_begin_io done when we sent this request,
+@@ -2754,6 +2761,7 @@ static int receive_DataRequest(struct drbd_connection *connection, struct packet
+ 			drbd_info(device, "Online Verify start sector: %llu\n",
+ 					(unsigned long long)sector);
+ 		}
++		peer_req->i.type = INTERVAL_OV_READ_TARGET;
+ 		peer_req->w.cb = w_e_end_ov_req;
+ 		break;
+ 
+@@ -4786,6 +4794,7 @@ static int receive_rs_deallocated(struct drbd_connection *connection, struct pac
+ 			return -ENOMEM;
+ 		}
+ 
++		peer_req->i.type = INTERVAL_RESYNC_WRITE;
+ 		peer_req->w.cb = e_end_resync_block;
+ 		peer_req->opf = REQ_OP_DISCARD;
+ 		peer_req->submit_jif = jiffies;
 diff --git a/drivers/block/drbd/drbd_req.c b/drivers/block/drbd/drbd_req.c
-index 70f75ef07945..1648d0dabcbd 100644
+index 1648d0dabcbd..f16b925fecc1 100644
 --- a/drivers/block/drbd/drbd_req.c
 +++ b/drivers/block/drbd/drbd_req.c
-@@ -1,14 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
--   drbd_req.c
--
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--   Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
--
-+ * Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-  */
+@@ -35,8 +35,7 @@ static struct drbd_request *drbd_req_new(struct drbd_device *device, struct bio
+ 	drbd_clear_interval(&req->i);
+ 	req->i.sector     = bio_src->bi_iter.bi_sector;
+ 	req->i.size      = bio_src->bi_iter.bi_size;
+-	req->i.local = true;
+-	req->i.waiting = false;
++	req->i.type = bio_data_dir(bio_src) == WRITE ? INTERVAL_LOCAL_WRITE : INTERVAL_LOCAL_READ;
  
- #include <linux/module.h>
-diff --git a/drivers/block/drbd/drbd_req.h b/drivers/block/drbd/drbd_req.h
-index 9ae860e7591b..51b12a960e45 100644
---- a/drivers/block/drbd/drbd_req.h
-+++ b/drivers/block/drbd/drbd_req.h
-@@ -1,13 +1,9 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- /*
--   drbd_req.h
--
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2006-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 2006-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--   Copyright (C) 2006-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--
-+ * Copyright (C) 2006-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2006-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2006-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-  */
+ 	INIT_LIST_HEAD(&req->tl_requests);
+ 	INIT_LIST_HEAD(&req->w.list);
+@@ -59,7 +58,7 @@ static void drbd_remove_request_interval(struct rb_root *root,
+ 	drbd_remove_interval(root, i);
  
- #ifndef _DRBD_REQ_H
+ 	/* Wake up any processes waiting for this request to complete.  */
+-	if (i->waiting)
++	if (test_bit(INTERVAL_WAITING, &i->flags))
+ 		wake_up(&device->misc_wait);
+ }
+ 
+@@ -270,10 +269,10 @@ void drbd_req_complete(struct drbd_request *req, struct bio_and_error *m)
+ 		 * write-acks in protocol != C during resync.
+ 		 * But we mark it as "complete", so it won't be counted as
+ 		 * conflict in a multi-primary setup. */
+-		req->i.completed = true;
++		set_bit(INTERVAL_COMPLETED, &req->i.flags);
+ 	}
+ 
+-	if (req->i.waiting)
++	if (test_bit(INTERVAL_WAITING, &req->i.flags))
+ 		wake_up(&device->misc_wait);
+ 
+ 	/* Either we are about to complete to upper layers,
+@@ -505,7 +504,7 @@ static void mod_rq_state(struct drbd_request *req, struct bio_and_error *m,
+ 	/* potentially complete and destroy */
+ 
+ 	/* If we made progress, retry conflicting peer requests, if any. */
+-	if (req->i.waiting)
++	if (test_bit(INTERVAL_WAITING, &req->i.flags))
+ 		wake_up(&device->misc_wait);
+ 
+ 	drbd_req_put_completion_ref(req, m, c_put);
+@@ -786,7 +785,7 @@ int __req_mod(struct drbd_request *req, enum drbd_req_event what,
+ 		 */
+ 		D_ASSERT(device, req->rq_state & RQ_NET_PENDING);
+ 		req->rq_state |= RQ_POSTPONED;
+-		if (req->i.waiting)
++		if (test_bit(INTERVAL_WAITING, &req->i.flags))
+ 			wake_up(&device->misc_wait);
+ 		/* Do not clear RQ_NET_PENDING. This request will make further
+ 		 * progress via restart_conflicting_writes() or
+@@ -957,7 +956,7 @@ static void complete_conflicting_writes(struct drbd_request *req)
+ 	for (;;) {
+ 		drbd_for_each_overlap(i, &device->write_requests, sector, size) {
+ 			/* Ignore, if already completed to upper layers. */
+-			if (i->completed)
++			if (test_bit(INTERVAL_COMPLETED, &i->flags))
+ 				continue;
+ 			/* Handle the first found overlap.  After the schedule
+ 			 * we have to restart the tree walk. */
+@@ -968,7 +967,7 @@ static void complete_conflicting_writes(struct drbd_request *req)
+ 
+ 		/* Indicate to wake up device->misc_wait on progress.  */
+ 		prepare_to_wait(&device->misc_wait, &wait, TASK_UNINTERRUPTIBLE);
+-		i->waiting = true;
++		set_bit(INTERVAL_WAITING, &i->flags);
+ 		spin_unlock_irq(&device->resource->req_lock);
+ 		schedule();
+ 		spin_lock_irq(&device->resource->req_lock);
 diff --git a/drivers/block/drbd/drbd_sender.c b/drivers/block/drbd/drbd_sender.c
-index 0697f99fed18..df0b6c99a59f 100644
+index df0b6c99a59f..69b3676961d2 100644
 --- a/drivers/block/drbd/drbd_sender.c
 +++ b/drivers/block/drbd/drbd_sender.c
-@@ -1,15 +1,10 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
--   drbd_worker.c
--
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--   Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
--
--*/
-+ * Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-+ */
+@@ -394,6 +394,11 @@ static int read_for_csum(struct drbd_peer_device *peer_device, sector_t sector,
+ 	if (!peer_req)
+ 		goto defer;
  
- #include <linux/module.h>
- #include <linux/drbd.h>
-diff --git a/drivers/block/drbd/drbd_state.c b/drivers/block/drbd/drbd_state.c
-index adcba7f1d8ea..f1a5d899fd54 100644
---- a/drivers/block/drbd/drbd_state.c
-+++ b/drivers/block/drbd/drbd_state.c
-@@ -1,16 +1,9 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
--   drbd_state.c
--
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--   Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
--   Thanks to Carter Burden, Bart Grantham and Gennadiy Nerubayev
--   from Logicworks, Inc. for making SDP replication support possible.
--
-+ * Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-  */
- 
- #include <linux/drbd_limits.h>
-diff --git a/drivers/block/drbd/drbd_strings.c b/drivers/block/drbd/drbd_strings.c
-index 0a06f744b096..a35ff87a93b1 100644
---- a/drivers/block/drbd/drbd_strings.c
-+++ b/drivers/block/drbd/drbd_strings.c
-@@ -1,15 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
--  drbd.h
--
--  This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--  Copyright (C) 2003-2008, LINBIT Information Technologies GmbH.
--  Copyright (C) 2003-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--  Copyright (C) 2003-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
--
--*/
-+ * Copyright (C) 2014, LINBIT HA-Solutions GmbH.
-+ */
- 
- #include <linux/drbd.h>
- #include "drbd_strings.h"
-diff --git a/drivers/block/drbd/drbd_strings.h b/drivers/block/drbd/drbd_strings.h
-index 0201f6590f6a..397c2eb9b666 100644
---- a/drivers/block/drbd/drbd_strings.h
-+++ b/drivers/block/drbd/drbd_strings.h
-@@ -1,4 +1,8 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2014, LINBIT HA-Solutions GmbH.
-+ */
-+
- #ifndef __DRBD_STRINGS_H
- #define __DRBD_STRINGS_H
- 
-diff --git a/drivers/block/drbd/drbd_vli.h b/drivers/block/drbd/drbd_vli.h
-index 941c511cc4da..609a91c68a86 100644
---- a/drivers/block/drbd/drbd_vli.h
-+++ b/drivers/block/drbd/drbd_vli.h
-@@ -1,13 +1,9 @@
- /* SPDX-License-Identifier: GPL-2.0-only */
- /*
---*- linux-c -*-
--   drbd_receiver.c
--   This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--   Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
--   Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--   Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
-+ * Copyright (C) 1999-2008, Philipp Reisner <philipp.reisner@linbit.com>.
-+ * Copyright (C) 2002-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
-+ * Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
-+ * Copyright (C) 2008, LINBIT HA-Solutions GmbH.
-  */
- 
- #ifndef _DRBD_VLI_H
-diff --git a/include/uapi/linux/drbd.h b/include/uapi/linux/drbd.h
-index cf1ec3eb872f..b7d6b1c52df0 100644
---- a/include/uapi/linux/drbd.h
-+++ b/include/uapi/linux/drbd.h
-@@ -1,16 +1,8 @@
- /* SPDX-License-Identifier: GPL-2.0-or-later WITH Linux-syscall-note */
- /*
--  drbd.h
--  Kernel module for 2.6.x Kernels
--
--  This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--
--  Copyright (C) 2001-2008, LINBIT Information Technologies GmbH.
--  Copyright (C) 2001-2008, Philipp Reisner <philipp.reisner@linbit.com>.
--  Copyright (C) 2001-2008, Lars Ellenberg <lars.ellenberg@linbit.com>.
--
-+ * Copyright (C) 2014, LINBIT HA-Solutions GmbH.
-+ */
- 
--*/
- #ifndef _UAPI_LINUX_DRBD_H
- #define _UAPI_LINUX_DRBD_H
- #include <linux/types.h>
-diff --git a/include/uapi/linux/drbd_limits.h b/include/uapi/linux/drbd_limits.h
-index acefe84bc602..65d3ebf2437b 100644
---- a/include/uapi/linux/drbd_limits.h
-+++ b/include/uapi/linux/drbd_limits.h
-@@ -1,8 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
- /*
--  drbd_limits.h
--  This file is part of DRBD by Philipp Reisner and Lars Ellenberg.
--*/
-+ * Copyright (C) 2014, LINBIT HA-Solutions GmbH.
-+ */
- 
- /*
-  * Our current limitations.
++	/*
++	 * This will be a resync write once we receive the data back from the
++	 * peer, assuming the checksums differ.
++	 */
++	peer_req->i.type = INTERVAL_RESYNC_WRITE;
+ 	peer_req->w.cb = w_e_send_csum;
+ 	peer_req->opf = REQ_OP_READ;
+ 	spin_lock_irq(&device->resource->req_lock);
 -- 
 2.55.0
 
