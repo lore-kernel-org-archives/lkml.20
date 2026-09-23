@@ -1,116 +1,88 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8944DA540
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F74743F8A7;
+	Wed, 23 Sep 2026 12:00:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164773; cv=none; b=UV6b98Rn6XOeO933s/9GTyh/VpWbn+bDhB9W4n/5BmaMGMTRp/D0gbdR/YmBvjEVk4z9cwlhXIa2FOyTHeiE359s9hgm0Xhe5uyAQUEVLk9/G36b+ImruhjLZGNJ7Icm6LL/RbIFH4QkOPtPueYyg4DuyAiS9jIkCFnfvD1vxWg=
+	t=1790164811; cv=none; b=vCU9b8irpVpX05MyoVT198NZ1OsW/kVpE238ak5g3/Ox0a0aNwyxoNBb3RgPvJjKdi9GjqE0AgcQZZYuL4ckQsXiBoyuYAffMznUT58aoVc1nEXsMxII6YA9864di2VQMRF4BHXFEsQErBQEQ0WYbZf1dH+O/ArRZWgSIZUvtos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164773; c=relaxed/simple;
-	bh=lyThp7bIz6kj168zSwcpYX6Pcr2CQbMqDAwt8ob+z70=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IevIcO5NMpjW6LcokevJvYfb3vsFLHxTVrHtdpDPCySUHPOIsGN1Y4dm5SoBecytWRp298kzJAhrr1Y2xodD+qcAqOQp6N8A+P20LftXEQH77LoScWHrvDAZaE/oU1XP3STZaWTNWZEdr2oLnJ9fPDDfh2bPyi6dd2vKF0jzlj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DBXnmgxe; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790164811; c=relaxed/simple;
+	bh=IardE9mwTMTgNgf71nb7nB6u9W+250RspRf5bHw4Yv0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dIfmsXsDrCkcmZT1wQMFQhc3i2aYCz9kp3LkyvjUVC6G4ZR4wCAP+iMc0NljrHdZgCvKusciwHBu2xFy89BVYKiu3MDCaf7lcEAXs0yKV8l5HUJDSAodw44xY3JPp9hIoRdXaF1xbDFgnDZDI8OBRNAf0Zv+cBrpt9FltnLleH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jbe4/N+a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DBXnmgxe"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4aeso448309a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:59:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790164767; x=1790769567; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BrzXSXvlSZQsoju04uUevcVwnOSzbxdAq6pl8JZzW5k=;
-        b=DBXnmgxegbZBUmOsq3ltZ7SoonG/vyLROHa14W3bPLY0yEqB1VWFo7NC0gPqLMMy/K
-         zj/ZBWFLkXNK8uDFTkFYUjWgOGvceYykGRnILOhe9wtj2T564r+wCaDHyGEzOkyX3sQX
-         lvnSNeaEHXbtWqhkMleUt0NePUoJjQ/exLHhmx0BGBMEZVMd05F45669JGghJWgvLcYQ
-         tusInSmiEsXb/dpfKyzy45GxPaM5YyJnEZ/y8+IuSacGQW4T+SPAK7VaL60wmcrN//L3
-         hbzcGzpnlEzriwWqAp312asfccBF1q9rs2k2Eu//HzgJOTcT/89FUG8otdn05cIkCo0J
-         Blhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790164767; x=1790769567;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BrzXSXvlSZQsoju04uUevcVwnOSzbxdAq6pl8JZzW5k=;
-        b=2dCxTNtRrU3RTL+Tiam24PjLe5eiAH5AUyRpHpmZZkW8GZ1dRbrWKNw2isituy7+6P
-         pHtGbV6CzEcYTR14EGhVA/c32lwmboXf/D3WJfd8vxvKRoBJJ0mrMrZjsVgrAyZG29jP
-         ADEqIF2Jo6c5AIB/ldhXhUW4sUT1BOIYKvGOXKAf6aNW+qjOakXd6pBMSYBthHQRE536
-         hkUzpAFy+fyYFqR62AsY3TjHuzFRTborJFej/k1ivx94IdF0WrxDJb//EfmUQGewMaoS
-         do7QXy5vcFE5YCj6qDFp5exEuf/R5vmXoTRZqh30qNUjn5NN8e2dSiYME6sWT49iCpQK
-         7QGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwl4Pjm81uIR1N72dTY5P3aXQKpphyvbGPK3oND/6u7Tu0iJRBDXWUNH08yjuWanVL5CxUElJYExFYq3Zc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKNTv18Dyqz2DMg3BkWKDXBvQO5MtFvZ7UQLhORD7DFiYK1qbI
-	lyY/voObMFSTH3lXA8hQH/C9fogwD9WfQRySSxghcrbh0hX13tchygjY
-X-Gm-Gg: AYBFou2iWDHE0GvO/GPaBilPra65y1YhrD5B5D4Af3TkA0wqDOuO+fVbRtQH2MEjehk
-	k5GliWpGuh7zpeeTCGiJXXkVQNwU22EGGLs4M75ndAeEqMLwHGwMm9U3AzRxwOCSijj8/5Mo/sI
-	P0aEjrELdkQv49masSD7ogIdJ5NRKHZ9xK/ONTmfduaANOIEKPPStb8L+rIXV4Q9L76tdzO5CqD
-	D8QA6LXAGuLNFBrm/qAE1AQDu/SwrIYagMt5qfqOmKRGFWgBmLcNjKhcI2q3HAKJhZm4EH1ySKM
-	g6R7470wTKgD27Il9vjLLzsjM6CLBWw7Swdedo3qy6xsAPoE9vf5rBs4FTQphv2JugYzaNYeQgT
-	sYgyEacA3UngA3KVDTI8mTwv7PFz/pCeojFPzdJpZumm1J9zvs7e9Sx2+ExYOsupJ+nLUFk1crL
-	LHTIps9wNtPY/HAoHZSyHMwbxAmEQsS1OBz9PvSEXnpPful5zu21qrvlszb8r5g7s=
-X-Received: by 2002:a17:90b:4a45:b0:39e:2530:2102 with SMTP id 98e67ed59e1d1-3a07e56552cmr2048640a91.11.1790164766974;
-        Wed, 23 Sep 2026 04:59:26 -0700 (PDT)
-Received: from dev ([163.43.103.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07ddae66asm5970635a91.3.2026.09.23.04.59.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 04:59:26 -0700 (PDT)
-From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-To: idosch@nvidia.com
-Cc: dsahern@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	justin.iurman@gmail.com,
-	alex.aring@gmail.com,
-	steffen.klassert@secunet.com,
-	herbert@gondor.apana.org.au,
-	razor@blackwall.org,
-	eyal.birger@gmail.com,
-	nicolas.dichtel@6wind.com,
-	lucien.xin@gmail.com,
-	shuah@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net 0/4] net: lwtunnel: accept encap attributes without NLA_F_NESTED
-Date: Wed, 23 Sep 2026 20:59:14 +0900
-Message-ID: <20260923115914.70760-1-yuya.kusakabe@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260923112917.GA2749166@shredder>
-References: <20260923-lwt-encap-noflag-v1-0-8de7ab6c86e9@gmail.com> <20260923112917.GA2749166@shredder>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jbe4/N+a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B299B1F000FF;
+	Wed, 23 Sep 2026 12:00:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790164804;
+	bh=IardE9mwTMTgNgf71nb7nB6u9W+250RspRf5bHw4Yv0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jbe4/N+a414ufitw6R7WJKMNaOyEGFvwEYUM5QNWgcRccrbow9rAmiIxcHBz3Apnj
+	 Q/0/bl16q5Ipl/ntYMweZW2ADvs29vrE94M0Bjc+Gb93v0vMt0mLp41+Tza5Gwxe8W
+	 bqb4f66yqdRZYd4ETNohR1bMYKXhqA+j5Hi6z1kn8Os9pTaoxTD7xBhuhQ5/gq/cGe
+	 AYNOjpQRRuWsuWaMyLYOgmb8leXZG5iKKXWO5jLFf5c0cof/q3aR/koyMNN01Va5ff
+	 /dzRO1F9wA2w5LH0gRPGki82iYQNaKUU5N5G645lRlrgd8GMBWQ/dS8iwgptSShAtE
+	 iPnUDLY3S1scQ==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 189721AC5739; Wed, 23 Sep 2026 12:59:59 +0100 (BST)
+Date: Wed, 23 Sep 2026 13:59:59 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	cwweng@nuvoton.com
+Subject: Re: [PATCH 1/2] dt-bindings: spi: nuvoton,ma35d1-spi: Add Nuvoton
+ MA35D1 SPI controller
+Message-ID: <arO_P5imHln19iV-@sirena.co.uk>
+References: <20260923041926.425551-1-cwweng.linux@gmail.com>
+ <20260923041926.425551-2-cwweng.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sUqdv2tH/WyvS8Pm"
+Content-Disposition: inline
+In-Reply-To: <20260923041926.425551-2-cwweng.linux@gmail.com>
+X-Cookie: Too clever is dumb.
 
-On Wed, Sep 23, 2026 at 02:29:17PM +0300, Ido Schimmel wrote:
-> If this never worked, then why target these patches at net and blaming
-> up to 7 years old commits? I try to follow [1] when deciding between net
-> and net-next.
-You are right, it is not a regression.  If there is a v2 it will go to
-net-next without the Fixes tags.
 
-> Also, did you hit this in practice or was this flagged by AI? If nobody
-> is using save/restore and hitting this in practice, then maybe it's not
-> worth to loosen the validation performed by the kernel.
-It was flagged by an AI review of a new encap I am working on (SRv6
-Mobile User Plane, still RFC).  I reproduced it there, and checking the
-existing encaps showed rpl, ioam6, xfrm and the ip tunnel options behave
-the same.  I have no report from their users.
+--sUqdv2tH/WyvS8Pm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-My motivation was that a feature which exists should not silently fail,
-and the series only drops the flag check on the container; everything
-nested inside is still validated strictly.  But if nobody relies on
-save/restore for these encaps, I am fine dropping the series, and the
-new encap will keep nla_parse_nested() like rpl, ioam6 and xfrm.
+On Wed, Sep 23, 2026 at 12:19:25PM +0800, Chi-Wen Weng wrote:
+> From: Chi-Wen Weng <cwweng@nuvoton.com>
+>=20
+> Add a Devicetree binding for the SPI controller found in the
+> Nuvoton MA35D1 SoC.
 
-Thanks
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
+
+--sUqdv2tH/WyvS8Pm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqzvz4ACgkQJNaLcl1U
+h9Dz1gf+NYCOhOIpeWAVJRB3QbcSmYNASO/6KLefUI3xl8grpvex8RMm/fte8r0i
+7CmPqopVussH3GKXPFZKYebJtOFCNMyKaMf71hFgoRi+HqRnWtYLvsepk6amqgZN
+mQXHo75rJbduC8/3Fhd3MZJBwZHDt51qlqRlh1OKHvEIvaVgcEMkFaGqEq1ehEPA
+RKE377KGTvEC2ksHXE/GIt6ewtKVjy7kvALLNogL4l5j/CewNIq4J7nifbjz3Z2t
+A5pyOcQVq4PvzbJB7qDR8TTezPlDwm7nFlCmEgwpCyvy6Mdi/2HFT0l/oXW2hHsi
+hUVqrqk4mqri4Lxcn07S3DIrcN+NQQ==
+=tlAB
+-----END PGP SIGNATURE-----
+
+--sUqdv2tH/WyvS8Pm--
