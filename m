@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B8B476CE9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:32:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36644766B1
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:32:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790199164; cv=none; b=iLdDjDB10KcUAF81QNIVxQD11UtGrs+n2ScnyVhEwZbVALuTE27KtiRoX1dm78ZWXKgUy4jZBobIX9WgnRBsHKGg0Wu5zlLoRWKWcbT1sRczPO+R5I+A4fDG7JBHq+C+bkgNXfbvaIeHlPmuIA2J35ZkiHZXlWuTXLMhw0wFSzg=
+	t=1790199164; cv=none; b=R9sC7pAB5GDCCNnaE2OMsE42KFrnMRCCTab4Ojh4UjsbyHpLhYMDtPNSwG9PN8+kLWLBFwMn25kOJEi/IRaT5tfc3djL8wk34SogTboOFgsXSP4vNf5Yq7qj4a1idNn74cWcl69zAAdDMMe7zCBG6P+c1X4dluxkBvuB6/sB+Lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790199164; c=relaxed/simple;
-	bh=ZDf6KklUL1VJiJN35meAQReHtETf/ilTmtshGQq/oto=;
+	bh=G6lzysDx7CRWXFJdUsrK5RErF2sIGfTamezuD6h7XWY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GII7w0a/fPx3sCTzJ1tCKBDJYp73/zaDpGytID0y0scqZ5j6/xm4cRfS6trYY2G1WOv3OqKk0Ag/BFWR1IW6XeWgNL34iG6W53vUVNNW57jxF4Aqiuve5byQ1ZgYCaLYcQjYhjY8T3KT/9JCQGkgR9NK3pVVXXizsLTn9s2/DRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9xNylgK; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=dvU7hopbncC5I2Jq7rVrWR4hB+qzB8TRBM/MqKzMo8w/dRv/XPAiZlxZyEbmtH0OUkBLEBBwubO5m56SM7NPbg+2btvnYtzip4Zjyy5KKt5Tx/VROD5HdHgGkkkX2A+QPN8OIe3ZAL9CIm4ebXBi3yGvgmC+RFcIq8fDo1MogG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L4RrsQ8w; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9xNylgK"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EA119C2BCFC;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L4RrsQ8w"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D5F31C2BCFA;
 	Wed, 23 Sep 2026 21:32:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790199164;
-	bh=ZDf6KklUL1VJiJN35meAQReHtETf/ilTmtshGQq/oto=;
+	s=k20201202; t=1790199163;
+	bh=G6lzysDx7CRWXFJdUsrK5RErF2sIGfTamezuD6h7XWY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=i9xNylgKls7bTuzU/eo6aSagb2pvXGi/fIn63P5z4zUY4YYVjwS5uZhTHjb/eQJ9V
-	 qlCcVezEyplfnMUQCcyNjYVUM6htc+3yeYTg1AJVQ9HnC9fZb4ZBenynVSS04hLwpr
-	 qjt1IYZT8NR7tg578FnJg+e7sgJNxbjk8gnyZZFTIbLOaIUqVwkHK8plHkWsXbW98G
-	 gp6yNsyV2DyNyLti5ntQeNfA8g6Aoe2co9v+NkJJKdglCBLEbDYQSjX9gQXevDMW+t
-	 9Id3oWmCGCbpKilFl5izs6E844k9QYG0IIe8MyfvXcn6W7to3hV55WNn4dtvF5IUoE
-	 fmjLWwk1yOEPw==
+	b=L4RrsQ8wCChdTjex3TrlsGudelzPqwIV3UjNqe+KE9EP1qMjvdkb9j8ybccP5VMCe
+	 GW1Dq3/7j+stFXqG+2rX6D/5l+R5AqCOLSRwCnY1M9xEv9fnAtGDya6HhnjJbT234c
+	 SRIc2YS44WmrrEWveozkHCD8TDRv7kixxBKQ4zH58/q4Mlary/DuzQNpSOhS3+etXw
+	 7vitEDUpJGbRQotXu6f2TNt4ig5oOMKFVUbKqn328Fu0gr9/GUCuC87HqGg7zOguDD
+	 5PlDEzXTRr5CQJ90ZsyZLsnpD23Ks4Rb2f9zHCmKyprw0hjjyFS97wnoiIrhfr7ZRR
+	 TFwnjc51LpxiA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5E6EC98304;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C1EDEC98312;
 	Wed, 23 Sep 2026 21:32:43 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Wed, 23 Sep 2026 23:32:44 +0200
-Subject: [PATCH v6 13/17] mm/huge_memory: move memcg switch into the file
- split helper
+Date: Wed, 23 Sep 2026 23:32:43 +0200
+Subject: [PATCH v6 12/17] mm/huge_memory: move anon_vma handling into the
+ anon split helper
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-swap-thp-cleanup-v6-13-ba1b4ba72c6f@tencent.com>
+Message-Id: <20260923-swap-thp-cleanup-v6-12-ba1b4ba72c6f@tencent.com>
 References: <20260923-swap-thp-cleanup-v6-0-ba1b4ba72c6f@tencent.com>
 In-Reply-To: <20260923-swap-thp-cleanup-v6-0-ba1b4ba72c6f@tencent.com>
 To: linux-mm@kvack.org
@@ -61,11 +61,11 @@ Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
  Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <kasong@tencent.com>, 
  Kairui Song <ryncsn@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790199160; l=3709;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790199160; l=5852;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=yE5eu4lNBeWc96ndYU7jpzh4N9fRuY9dY8qKr7QXzUs=;
- b=IcJ3bl74clci/tOWp+x2uWCjpK7cQMm1RWbh4/TQ1A1LxhoxWtE6pwFJFItArBlnSms/Fm8R1
- 77uxr2R3aH6Bs9C4b4uad7QTI2Zn+4yCPdU4GPZx/wWtw+S01ccME06
+ bh=LJ+5qeAIckMWthAZegpdl6LRllp3JqAkUk0Cnq/gqes=;
+ b=qnfjZNR9a2xlXxe0wVn/8SYFjU6JKiNDw8GL2w4GPXE6B/0t3thsDsK7G474P2HAB1uwXJDJl
+ 3bonPrBDXeWDMvoWV+UDBd9CwDxKjoLK8i4C9TU39HmFZDct4GVCDVV
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -75,117 +75,159 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-The xarray node allocations in __folio_freeze_split_file() need
-to be charged to the folio's memcg, so move the memcg switch from
-__folio_split() into the helper.
+Only anon split needs the anon_vma, and it only needs it to unmap and
+remap.  Move the folio_get_anon_vma()/anon_vma_lock_write() pair out of
+__folio_split() into the anon helper next to the folio_mapped()
+check that already gates unmap_folio().
 
-The anon split helper and the after-split folio freeing perform no
-chargeable allocations, so no memcg handling is left in __folio_split().
-Rename its out_no_memcg label to out.
+This makes the anon_vma conditional on folio_mapped(), which is a
+behaviour change but should be fine.  folio_get_anon_vma() returns
+NULL whenever !folio_mapped(), so an anon folio with
+folio_mapcount() == 0 used to get -EBUSY from split_huge_page() and is
+now split instead.  A realistic case is a THP that has been fully
+swapped out and is still in the swap cache: swap PTEs do not contribute
+mapcount, so it is !folio_mapped() but still alive.
 
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+That should be safe and right to have because:
+
+- folio_ref_freeze() below still rejects a folio that picked up any
+  reference, a mapping or a GUP pin, in the meantime.
+
+- A parallel split is excluded by the folio lock.  The anon_vma
+  write lock was added to serialize split in commit 062f1af2170a
+  ("mm: thp: acquire the anon_vma rwsem for write during split"), when
+  split_huge_page() did not hold the folio lock throughout. commit
+  e9b61f19858a ("thp: reintroduce split_huge_page()") later made the
+  folio lock a caller requirement and added the folio_ref_freeze()
+  scheme, so that has been covered ever since.
+
+- Unmapped path is already exercised by folio_split_unmapped(),
+  and the swap cache split already runs well for a partially
+  swapped-out mapped THP.
+
+- A !folio_mapped() folio cannot become mapped meanwhile: mapping it
+  requires the folio lock.
+
+For mapped folios the anon_vma write lock is now released before
+__folio_split() unlocks the after-split sub-folios, where previously it
+was held across that loop; that window is harmless as the sub-folios
+stay folio-locked and referenced until it.
+
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/huge_memory.c | 36 +++++++++++++++++++-----------------
- 1 file changed, 19 insertions(+), 17 deletions(-)
+ mm/huge_memory.c | 57 +++++++++++++++++++++++++++++---------------------------
+ 1 file changed, 30 insertions(+), 27 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 62e2879cd3b4..8d43ee243b27 100644
+index 24073f75e87b..62e2879cd3b4 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -4142,6 +4142,7 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	struct address_space *mapping = folio->mapping;
- 	XA_STATE(xas, &mapping->i_pages, folio->index);
- 	struct folio *end_folio = folio_next(folio);
-+	struct mem_cgroup *memcg, *old_memcg;
+@@ -4032,16 +4032,37 @@ static int __folio_freeze_split_anon(struct folio *folio,
+ 	struct swap_cluster_info *ci = NULL;
+ 	const int old_order = folio_order(folio);
  	struct folio *new_folio, *next;
- 	int nr_shmem_dropped = 0;
- 	unsigned int min_order;
-@@ -4154,9 +4155,18 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	if (new_order < min_order)
- 		return -EINVAL;
++	struct anon_vma *anon_vma = NULL;
+ 	enum ttu_flags ttu_flags = 0;
+ 	struct lruvec *lruvec;
+-	bool need_remap = false;
+ 	int ret = 0;
  
 +	/*
-+	 * Switch to folio's memcg as xarray node allocation can happen and
-+	 * needs to charge to it.
++	 * Unmap/remap needs the anon_vma, so we first take a reference on
++	 * it to prevent it from disappearing, and lock it for write here,
++	 * letting unmap_folio() walk the rmap with TTU_RMAP_LOCKED.
++	 *
++	 * folio_mapped() is not stable here, but it can only change in
++	 * one direction while the folio is locked. The mapcount can drop
++	 * to zero at any time, zap_pte_range() takes no folio lock. It
++	 * cannot go up: swapin, migration and uffd move all lock the folio
++	 * before mapping it, and fork only copies PTEs that already exist.
++	 *
++	 * So if we see the folio mapped, the worst case is an empty rmap
++	 * walk. If we see it unmapped, it stays unmapped and needs neither
++	 * the reference nor the lock. Anything else needs a reference
++	 * first and folio_ref_freeze() below catches it.
++	 *
++	 * Note that entirely swapped-out THPs are unmapped but can be split.
 +	 */
-+	memcg = get_mem_cgroup_from_folio(folio);
-+	old_memcg = set_active_memcg(memcg);
-+
- 	gfp = current_gfp_context(mapping_gfp_mask(mapping) & GFP_RECLAIM_MASK);
--	if (!filemap_release_folio(folio, gfp))
--		return -EBUSY;
-+	if (!filemap_release_folio(folio, gfp)) {
-+		ret = -EBUSY;
-+		goto fail_free;
+ 	if (folio_mapped(folio)) {
+-		need_remap = true;
++		anon_vma = folio_get_anon_vma(folio);
++		if (!anon_vma)
++			return -EBUSY;
++		anon_vma_lock_write(anon_vma);
+ 		ret = unmap_folio(folio);
+ 		if (ret)
+-			return ret;
++			goto out_unlock;
+ 	}
+ 
+ 	local_irq_disable();
+@@ -4099,11 +4120,16 @@ static int __folio_freeze_split_anon(struct folio *folio,
+ 		swap_cluster_unlock(ci);
+ out_no_split:
+ 	local_irq_enable();
+-	if (need_remap) {
++	if (anon_vma) {
+ 		if (!ret && !folio_is_device_private(folio))
+ 			ttu_flags = TTU_USE_SHARED_ZEROPAGE;
+ 		remap_anon_folio(folio, 1 << old_order, ttu_flags);
+ 	}
++out_unlock:
++	if (anon_vma) {
++		anon_vma_unlock_write(anon_vma);
++		put_anon_vma(anon_vma);
 +	}
  
- 	mapping_set_update(&xas, mapping);
- 
-@@ -4288,6 +4298,9 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	 */
- 	i_mmap_unlock_read(mapping);
- fail_free:
-+	/* Restore the previously active memcg */
-+	set_active_memcg(old_memcg);
-+	mem_cgroup_put(memcg);
- 	xas_destroy(&xas);
  	return ret;
  }
-@@ -4319,7 +4332,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- {
+@@ -4294,7 +4320,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
  	struct folio *end_folio = folio_next(folio);
  	bool is_anon = folio_test_anon(folio);
--	struct mem_cgroup *memcg, *old_memcg;
+ 	struct mem_cgroup *memcg, *old_memcg;
+-	struct anon_vma *anon_vma = NULL;
  	int old_order = folio_order(folio);
  	struct folio *new_folio, *next;
  	int ret;
-@@ -4329,27 +4341,20 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+@@ -4325,23 +4350,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 	memcg = get_mem_cgroup_from_folio(folio);
+ 	old_memcg = set_active_memcg(memcg);
  
- 	if (folio != page_folio(split_at) || folio != page_folio(lock_at)) {
- 		ret = -EINVAL;
--		goto out_no_memcg;
-+		goto out;
- 	}
- 
- 	if (new_order >= old_order) {
- 		ret = -EINVAL;
--		goto out_no_memcg;
-+		goto out;
- 	}
- 
- 	ret = folio_check_splittable(folio, new_order, split_type);
- 	if (ret) {
- 		VM_WARN_ONCE(ret == -EINVAL, "Tried to split an unsplittable folio");
--		goto out_no_memcg;
-+		goto out;
- 	}
- 
--	/*
--	 * switch to folio's memcg as xarray node allocation can happen and
--	 * needs to charge to it.
--	 */
--	memcg = get_mem_cgroup_from_folio(folio);
--	old_memcg = set_active_memcg(memcg);
+-	if (is_anon) {
+-		/*
+-		 * The caller does not necessarily hold an mmap_lock that would
+-		 * prevent the anon_vma disappearing so we first we take a
+-		 * reference to it and then lock the anon_vma for write. This
+-		 * is similar to folio_lock_anon_vma_read except the write lock
+-		 * is taken to serialise against parallel split or collapse
+-		 * operations.
+-		 */
+-		anon_vma = folio_get_anon_vma(folio);
+-		if (!anon_vma) {
+-			ret = -EBUSY;
+-			goto out;
+-		}
+-		anon_vma_lock_write(anon_vma);
+-	}
 -
  	if (is_anon)
  		ret = __folio_freeze_split_anon(folio, new_order, split_at,
  						true, list, split_type);
-@@ -4376,10 +4381,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+@@ -4368,11 +4376,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
  		free_folio_and_swap_cache(new_folio);
  	}
  
--	/* restore to caller's old_memcg */
--	set_active_memcg(old_memcg);
--	mem_cgroup_put(memcg);
--out_no_memcg:
-+out:
- 	if (is_pmd_order(old_order))
- 		count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
- 	count_mthp_stat(old_order, !ret ? MTHP_STAT_SPLIT : MTHP_STAT_SPLIT_FAILED);
+-	if (anon_vma) {
+-		anon_vma_unlock_write(anon_vma);
+-		put_anon_vma(anon_vma);
+-	}
+-out:
+ 	/* restore to caller's old_memcg */
+ 	set_active_memcg(old_memcg);
+ 	mem_cgroup_put(memcg);
 
 -- 
 2.55.0
