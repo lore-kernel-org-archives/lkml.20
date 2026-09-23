@@ -1,208 +1,286 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazolkn19013091.outbound.protection.outlook.com [52.103.20.91])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C130F47CC67;
-	Wed, 23 Sep 2026 18:36:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.91
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188611; cv=fail; b=Eh467pn318NOk1WYPiKAygPtyGfcGZ3xqraaym9oHvGuxn9V4Kxu+wzGAAnFvTeNcXeALSFXEo1UArlfZmFzA/h0h3T9fWS906Z9eDVbBnQS9qQ/iH+y6nNC+/pR5EQ4/EiZ7aui5wt8U1NO0ChKFOWh4Owd20m8STpIFySmNDg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188611; c=relaxed/simple;
-	bh=azluML+L/THkKQd0Bo22pEK1BeWUUaGMc56rYHaWyeQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Vt6G57aqwZHfgnommCU3j5WKxxiD/rambjyvxyui5cZpi/BM2eKxgU9HzoeDO0hhC3riPhtg1oxplvJOvv4uVes7Y76fjLRdQBOgITZcFUMs0J1PPfAOJUJONsBkOI63REG3/23FQVcFxwSjtBJ6gOm/3xGIbR6H4Wa2rI7UHr8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=Tq0+BtKV; arc=fail smtp.client-ip=52.103.20.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED1F4A4848;
+	Wed, 23 Sep 2026 18:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790188614; cv=none; b=Qen1z7+pOS2UFB+wNddmL0xRSlalr03peijU6KIUw+5pSjSuM0pUbBdgkzzOVi1MeUHKabGVOchD8hP7CIRIxFBwxi+WJW9x0fXbXdp7V7NGjPsFjkqpTjdqau8hsKQPbCTMzrGLnguv+0PtFBH68B6q9hGMM4I88i9CqNIpEkc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790188614; c=relaxed/simple;
+	bh=+Jtt1cU4U8k1cpZJK1LQTkB7oIUEVS9l74OTKqgep2E=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EOjrMfz0WKR0Wdrr4plv07eCTZrB+PwFtObNK1UogoNvoOCUh1lF5nOgcDDK3SdlrWRhlyAMViFmMUSq43woKiit1VQ7ifAkpQtq1E/A+X547iF9oBbrwS6FIYvPlP+hD1b0c1j2gcoIPLGi8+/8+Ay97XUJTbCqo+q3nYpk9LA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tpe9kFrO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="Tq0+BtKV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L0lOEUBNjOfRAPwT1ujf3YBo1DdL8Is2qCPniCavHKbw9iT/Bn+29Ihrxjccv0NMiPXIpivmKXygWGrfSqJaem753sfBhNCDU9ojnRJCrLTMRbWtcOt1+8eCcmMl6pA1Y0ADKRhUerIRcfV4miZzw5Pwu0aAN05f9phPRyhd53z79RHM8EY6yMgf2gGwD9dIlTyc2PEZwwzDxkpeavlRXZTx/qgyL6P5ZlfryntxEGO6R9Cfe7TQY+p4/fGGrglZAury6MdQGM/em7PFYmXCpTttej7u4p8bsZTrrXKCHm93mbBHhyLf358F7Ko/tITus8mgf/cnCuhOigrQHp2enA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=azluML+L/THkKQd0Bo22pEK1BeWUUaGMc56rYHaWyeQ=;
- b=fxNnJj0lJYiL1bSYHurt/BC4FFRowbrS5Rzvbd0piZNTia0bE2XSd9mEQjt9z2sFgBxP1DfT04DQrMRYPtDOErdywo5l3cfQSr2BdlKi+XNMbygW8sEoNCTzjF1Z/puCJkGy665aRT62msDLdzFFTxJM2pzrsrXSTo32HZoCZJLWLkxRBubgW9gabhZ00Aso9T9pMnHV/AKFR3Fq2tVzx26vkcY4IFVHXbamD2EP7J7WduPzCQcBY3kYBeYKpw34OWflLa6Tz8/medQmpqPojOdsWuAa+0GOW5M+CpHYiip5/iMrKo/R/Qr4KEZCut2qnuOH6lDaN3G9QteckXEqgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=azluML+L/THkKQd0Bo22pEK1BeWUUaGMc56rYHaWyeQ=;
- b=Tq0+BtKVhsC+i2XXRLaod0YLFT2rXQnuwDchpUJ3964gA1qFrb3BEAEsGeLNWiKy+zvJVLA5ylKz0H5S8vlvtSk5dp5muw8ne/ouY4DLH9RGIPHOS3VIG9lkxIIlULTyA3YEkJ1rUHTTpYuL2n1QafnTorfVx/n0jt8H/GoRhokbpEs4zXYQroisAXUnEE5RYSjvvVAnAhjfJavJhsHv0NIKojUYwKlXHn7GBYHYbdGjiAWIqmOoE+m+fcG/mrRH7IXBKDVJbRljjiur9lyadDsx+5kA9pr05TV7CMI87vHqsTneHCpRUq3dnw2NFpMqrusZls8IMI1SXl5vpsEG4Q==
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
- by BL3PR02MB8186.namprd02.prod.outlook.com (2603:10b6:208:339::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 18:36:46 +0000
-Received: from SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
- ([fe80::900:1ccf:2b1e:52b6%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 18:36:46 +0000
-From: Michael Kelley <mhklinux@outlook.com>
-To: Kameron Carr <kameroncarr@linux.microsoft.com>, Jason Gunthorpe
-	<jgg@ziepe.ca>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Michael Kelley
-	<mhklinux@outlook.com>
-CC: Catalin Marinas <catalin.marinas@arm.com>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "kvmarm@lists.linux.dev"
-	<kvmarm@lists.linux.dev>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "iommu@lists.linux.dev"
-	<iommu@lists.linux.dev>, Andrew Morton <akpm@linux-foundation.org>,
-	"christian.koenig@amd.com" <christian.koenig@amd.com>, Joerg Roedel
-	<joro@8bytes.org>, Marc Zyngier <maz@kernel.org>, Marek Szyprowski
-	<m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, Steven Price
-	<steven.price@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, Suzuki K
- Poulose <suzuki.poulose@arm.com>, Thomas Gleixner <tglx@kernel.org>, Will
- Deacon <will@kernel.org>, "dri-devel@lists.freedesktop.org"
-	<dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org"
-	<linaro-mm-sig@lists.linaro.org>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>
-Subject: RE: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
-Thread-Topic: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
-Thread-Index:
- AQItt+sf4ibi8Dao6KrPcVgruF+ONwI+uxT+AmeiYiACor7ERwGgpMoeAdaSfxICc2LzjwKbJ9sTAiUWR5oCj2EHzbWXZrwAgAAjsVA=
-Date: Wed, 23 Sep 2026 18:36:46 +0000
-Message-ID:
- <SN6PR02MB4157EF24550B893D2109B138D4822@SN6PR02MB4157.namprd02.prod.outlook.com>
-References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
- <20260921144847.501151-3-aneesh.kumar@kernel.org> <arKsFofudnTYpXj1@arm.com>
- <yq5aik3w344o.fsf@kernel.org> <arOfD6syXOgQhZYA@arm.com>
- <yq5a5wzw2ree.fsf@kernel.org> <arOspFxWZ1DjgcAr@arm.com>
- <20260923130611.GF1540250@ziepe.ca> <yq5atsng10b2.fsf@kernel.org>
- <20260923152124.GG1540250@ziepe.ca>
- <5cbe0bde-47d8-41ca-b244-bc0329d0d066@linux.microsoft.com>
-In-Reply-To: <5cbe0bde-47d8-41ca-b244-bc0329d0d066@linux.microsoft.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|BL3PR02MB8186:EE_
-x-ms-office365-filtering-correlation-id: 39b3be55-86da-4a84-9cd8-08df19a19f50
-x-microsoft-antispam:
- BCL:0;ARA:14566002|55001999006|24021099003|41001999006|37011999003|15080799012|13091999003|8060799015|8062599012|51005399006|19110799012|31061999003|25010399006|4140399003|40105399003|12091999003|1602099012|10035399007|2607281247196008|102099032|3412199025|440099028|4302099013|1710799026;
-x-microsoft-antispam-message-info:
- =?utf-8?B?bUVaQUdTUGxzdG51azEwSVRacTFtZmkxWGozeVRmVHhrYXVVb2R4VDhyUXE4?=
- =?utf-8?B?eGR1eElKY0pUb1ZsczdlR05uRkxmSU1VUDZVUW4vdVFqUDJKTHdEK0M5eUJL?=
- =?utf-8?B?cFpiWXk4aUFndjFOd3ExdmFmbHA1Z3lXYmdBbmtVR0J3VWQyZ09zaUEwZmVO?=
- =?utf-8?B?MUR3YmRVSk85a2MvVC9wWkRacG5XYUd0bXRJWml6eXFkZEtZVUVOYTViZStT?=
- =?utf-8?B?ZE5mcDZDNytnYUtaSENxWmcyRlJOSHNyVHpBajR5TTMyVWgwZXBhWHZSdXJw?=
- =?utf-8?B?aHErZG1MMzBNMVdmYlhOUVBITno1NGl2T0FxZ0tjazBJMjV1b2lEOHB5TkZt?=
- =?utf-8?B?dkZ0YXZDUVZsbHZabVVvbzVzaGlMSFUvUGIyZVJyaEh5Yjl0bW5rM3NYQy9Z?=
- =?utf-8?B?SDdUU0dveEloS2M0aHhLcmVHbmUzNUo0V2JMQlhYcWdvSW1saGY0R05IQ0ww?=
- =?utf-8?B?cXF4WnUyZVNZOTJ0UlJRekZuYy80VHIwcUgzYUl2dWtYSE50b0JiVFdsZXlQ?=
- =?utf-8?B?Yy8rdC9RRmhlQ1Jqb1VXRnFvR01LdXR5Y1BiWWh5Y2s1MlpySGlIOFNOd3My?=
- =?utf-8?B?YnIwK1dDTVJKRVZ1eDNGek4vUjZGUC9qWkcyZGlhRTZkYmJyclFjd3hkclpi?=
- =?utf-8?B?OG9HSWFWT2tLaUpjZ2pWeEIzYm1FYS95dlhFQVNqdHBFbGxxZzQ4N3RvUSsv?=
- =?utf-8?B?VEtMeG1zVENzK3liU1MrbWlHVnVlNnowMy9saUFWTFY0NkRBajF2cllldXFi?=
- =?utf-8?B?QVBjdXpUZkhqZ0MzRmZEVFdmQS9BQmplOHpxRXJFcmNYTENqTEQ1VFFDM3RF?=
- =?utf-8?B?UmxQUmp1ZDJ4Uk9VTlIwTGJRVUZjeGpIQ3dUMkhoTTZEL2xhRUdkTSs4aUd0?=
- =?utf-8?B?MU15Vnk4cUswdFNOeTAvYll1WnJKU1RDNXNZSEFxUlU4VUcyalBOZjlmSVJ4?=
- =?utf-8?B?Q3FvcC9VVTlXamJvaExYY0N1ZlNUSnRmQzdLRXIyUmZEWmdONHhWSG01VmFS?=
- =?utf-8?B?VkVoNlJQeTNiR1kzYVVIVGpHTWhUNXhpVStlbWloYmFSM2l4Q1BycXJjcmta?=
- =?utf-8?B?NG5jbnlVSUtydnZ6N1BvVVNSNjdnQld0T3VGbTRtdEZiQ0UwSWtuQ3RUV05K?=
- =?utf-8?B?elgza0ZKTHYrOHgwZFFIbkFDODByMEhZaS90TEZQaEg2NEhFdlI4dEFYbVNR?=
- =?utf-8?B?dzFlRHNxTHdmL29jc3Q1cXhMZi9pSTkreE0wSWJHVDhPaEtYaUN3OFN6NlZZ?=
- =?utf-8?B?QjQ3MFdXbm1Va2JyRHZzcStaSm1UKzhWT21EZnROcWdGMjdIMEpMT3VVUStL?=
- =?utf-8?B?V2g3Q2pWQnRZVjFtQmVxRFBvLzE4cHlPMmZ6Z2Z0V1VmSTYxbkhGN2lrZWxO?=
- =?utf-8?B?MzBLSUJyQml5VHMwYVBmbU5FdENWNVQxK1FQVmc0VHdwb1FFNFFqS2pHL3Nm?=
- =?utf-8?B?dEZ5eGtRN1FxQU0wTW1aKzFzbzYxWWdXTTc4THcxWG03T1NoK0FwUTBoOGtF?=
- =?utf-8?B?dFRHV1hkRWVhRWlVZ1pqaDFPSUNNSTB3SWpUQ0hoK1V3bVFkRTJCdC96bzdm?=
- =?utf-8?Q?rnopPl9Uh7xS/a1gzbcSlfIJ8=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?dUVFNXhvaXlFRDJEYWVyWnppMjFsQmNtR0tuWFVYNndLbW13WFVpNVRMWUM0?=
- =?utf-8?B?akZma1FEZFFpMnZteXcrdGoyYU1TcFo3cGplbGlPV1gyQmRSRStFMDlMQ00x?=
- =?utf-8?B?ejRxQUx6VlF2Z2JCSjVwaUFLUzBLSUJPRUpJdU9UT2pQanRDeEZ6STJWeVpK?=
- =?utf-8?B?ZU1GL1dEc0gxRmdIVnNTTkpyTDZTMDc3WWtUeDdmZXM1endRbGxhL1haMVZt?=
- =?utf-8?B?YWpHdWU2bG1BcURCMFFtREhvVWg1U3dkTm1md0NQT1Q5YVk0SGNMM0UzZzJN?=
- =?utf-8?B?OElMU0ZGUWY3K2J0M0lucVdRVkI0M01XdU5KQlRMeHhXQlI2Y1c1aXRJclZN?=
- =?utf-8?B?Q0dxNFVycDRwOC8yK3AwcGRPazlycjA3akpBbmF6ak4yNDFwZ3VYYUo2ekpn?=
- =?utf-8?B?MWFyajIwd2Q0VzlYVkRPeWFtYVZMNm8wcDRESmludkYyR08zS0xyWkhjOFZs?=
- =?utf-8?B?aUxIOHZwMDdvOUFCTzlSZkZlOXVuMDR5aEpFY0pDVG9HQ0xGWW1GSjRyZThJ?=
- =?utf-8?B?Q0loN3ZUbUNBV3VzMlRENDJVUFYxMEZZbmt2dzRIc000VlBHaldlSXFMQU5G?=
- =?utf-8?B?bFhGWjR1bW03bjZhL3h1azNoUTF5b2xXTTlkb1IrM1RTV29YMk5DZU9NOExw?=
- =?utf-8?B?MG16OWNkOTdZSjh0NDBMTG1id1JybWR2SUhMais5NUlDTlJhdDhidlJ3OVdX?=
- =?utf-8?B?VEFyTHlYWUpIU0dMOFRmQ0E4SWNDdXY4NnlBUjlGWFJudkRuTlBVeDMwcHdk?=
- =?utf-8?B?cVdXcXBPZml4SDJ0ZGc0RXhlVzFPcUhwK29mTTJob1J1MWVsTTVZd2FycmZU?=
- =?utf-8?B?YmRWcEp5amFLaEphREErenZMQmtIUlRSNmJkc1c0QllkS1RBQng5eXlEQVl4?=
- =?utf-8?B?ZnpBMU56U3p0cE56MFNZQTVCVkFGdm91NHBVMGppUW13Um5WYURBVW8yWngr?=
- =?utf-8?B?aGZLS0MrYjlORzhqNzBuTTBFR1E2NzBDUG1QK0YwVkxsSGtmWWprallRaHV2?=
- =?utf-8?B?eFZUczZZV09OVE0rbDZtZUMzWlFaSFBjK1RMeGJWT2pGTHo2MURiYjY1c3Vt?=
- =?utf-8?B?N0V0VFBmYXpaZVFHY0EwNFJzQ2FvRUExVWZ5NWhBUWUvQkducWZvNHVFVGxX?=
- =?utf-8?B?dnhUY0xNNGlYOGdTZGxsWmFrTXJldjBsNTYxNzlBU1BGRjYwOE5oaUZHSHRQ?=
- =?utf-8?B?djJORmRpM2IwWDBrQnVENis0OXNscUNNRjFsbEFaNEFvbE5GTkxKNVZIajJv?=
- =?utf-8?B?NGNrMWpKekxDMzEzMzhpQ0VDMy80U0hoWlZOcmYrR01KYTA5Ri9JODF2eDVS?=
- =?utf-8?B?V1U4UHV3dVBlL2tBRXgxbkdhSUticlV2VDlXQmkvNTZudzQ3QzJDZXZwbGI4?=
- =?utf-8?B?M2VDa0RzNTMzVVYzSnZxWXBEakc3d3BLMGoyQnh1bW9nU1RiRG4vVzB5a044?=
- =?utf-8?B?Q3FyNzhZczJVWDNNblp2RzZqUGNwbStJbGdpQ3pOMGRWZGZ3cUgvVTJKNXNY?=
- =?utf-8?B?UmE1RGgrcmszcnhvcVVQM1pDWUZhUjB5aVcrSlRFMDFSejM1NWlJcExWTWFX?=
- =?utf-8?B?ZDY4SnVZTUl1U3JpQzJjWlJldXJtRkZZbGFablZjWXdLOERWQklwSCtBQ3hV?=
- =?utf-8?B?VjBvQ3ZhUm1EVzhBT2Q2TEplNEs1eXU4ekVvRGhFQW1xMnE3YUpGUFdmUlY2?=
- =?utf-8?B?Y0hNblVhakFMS3ZSVXJobU9GWTlvdGF4NWJOMHdFR3BpSGk3a29yUHR0NG14?=
- =?utf-8?B?NEZpay8zWlgyWGZZeDNyTkdnZ1ZnaWJ0M2VIYXdJZXluT2ZmMHl5dHE3aHFT?=
- =?utf-8?Q?0kzFefncJnrL0/AhQvOSEbT+zsB5ReUMibdFE=3D?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tpe9kFrO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D4D1F000FF;
+	Wed, 23 Sep 2026 18:36:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790188612;
+	bh=gLvEq6x6vlfP6bUwxmnguwF0raKfMv/VOUto/aw7tWE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Tpe9kFrOgveGVJYDE0SHuHzT6I5ZN1n9g5G7YDq8mgM4QKUhxb+wDFCJUNeOSEfAT
+	 AfL7mKSJqc0vtgwEVb/58GZWoE3i2rhEvmXA3qpPJs+S6FUDD/nepgUfd2yLyJc7Sp
+	 i/nOCfKIBHdPkt6bQSCLYvkRVNYXuk5Tm+OUV6YDTOMhOa5tzq7HGnyGdXHZLj7yUJ
+	 aAXg3bjwslRnWHKWJngT4UEPNOXYBcaOuDO3HZQDemVC80TMsRKE2TnoOyU+kFQGN3
+	 8voAyqEC6uyQiCAU2NCIoMTKY3pp0JHLq1T+mwGQXtlKIDIMPXV6900jQEMDQQ4UTG
+	 7ObqAosAeASUQ==
+Subject: Re: [PATCH] 6lowpan: add missing pskb_may_pull() checks in IPHC and
+ NHC compression
+From: netdev-bot+sashiko@kernel.org
+To: benquike@gmail.com
+Cc: alex.aring@gmail.com, marcel@holtmann.org, luiz.dentz@gmail.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-bluetooth@vger.kernel.org, linux-wpan@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 23 Sep 2026 18:36:50 +0000
+Message-ID: <179018861097.2160803.13520936526945055504@kernel.org>
+In-Reply-To: <20260919213638.3314763-1-benquike@gmail.com>
+References: <20260919213638.3314763-1-benquike@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39b3be55-86da-4a84-9cd8-08df19a19f50
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 18:36:46.2697
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR02MB8186
 
-RnJvbTogS2FtZXJvbiBDYXJyIDxrYW1lcm9uY2FyckBsaW51eC5taWNyb3NvZnQuY29tPiBTZW50
-OiBXZWRuZXNkYXksIFNlcHRlbWJlciAyMywgMjAyNiA5OjI5IEFNDQo+IA0KPiBPbiA5LzIzLzIw
-MjYgODoyMSBBTSwgSmFzb24gR3VudGhvcnBlIHdyb3RlOg0KPiA+IE9uIFdlZCwgU2VwIDIzLCAy
-MDI2IGF0IDA4OjI4OjU3UE0gKzA1MzAsIEFuZWVzaCBLdW1hciBLLlYgd3JvdGU6DQo+ID4NCj4g
-Pj4gSSdtIGFsc28gY29uc2lkZXJpbmcgcmVxdWlyaW5nIHRoZSBhZGRyZXNzIHBhc3NlZCB0byBj
-Y19tYWtlX3NoYXJlZCgpIHRvDQo+ID4+IGJlIGluIHRoZSBsaW5lYXIgbWFwLiBUaGlzIGlzIGN1
-cnJlbnRseSByZXF1aXJlZCBieSBib3RoIFREWCBhbmQgQ0NBLA0KPiA+PiB3aGlsZSBBTUQgU05Q
-IGFwcGVhcnMgdG8gc3VwcG9ydCB2bWFsbG9jIGFkZHJlc3Nlcy4gVGhlIG9ubHkgdXNlciBvZg0K
-PiA+PiB0aGF0IHZtYWxsb2Mgc3VwcG9ydCBpcyBIeXBlci1WIFZNQnVzIEdQQURMIHNldHVwDQo+
-ID4+ICh2bWJ1c19lc3RhYmxpc2hfZ3BhZGwoKSkuIEhvdyBzaG91bGQgdGhlIGdlbmVyaWMgQ29D
-byBzaGFyZWQtbWVtb3J5DQo+ID4+IGFsbG9jYXRvciBoYW5kbGUgdGhpcz8NCj4gPg0KPiA+IHZt
-YnVzX2VzdGFibGlzaF9ncGFkbCgpIGlzIHRoZSB0aGUgc2FtZSB3cm9uZyBhYnN0cmFjdGlvbiBh
-cyB0aGUgYXJjaA0KPiA+IGNvZGUuIEdldCByaWQgb2YgaXQgYW5kIHVzZSB2bWJ1c19lc3RhYmxp
-c2hfZ3BhZGxfY2FsbGVyX2RlY3J5cHRlZCgpOg0KPiA+DQo+ID4gCQlwZGF0YS0+cmVjdl9idWYg
-PSB2emFsbG9jKFJFQ1ZfQlVGRkVSX1NJWkUpOw0KPiA+IAkJaWYgKCFwZGF0YS0+cmVjdl9idWYp
-IHsNCj4gPiAJCQlyZXQgPSAtRU5PTUVNOw0KPiA+IAkJCWdvdG8gZmFpbF9mcmVlX3Jpbmc7DQo+
-ID4gCQl9DQo+ID4NCj4gPiAJCXJldCA9IHZtYnVzX2VzdGFibGlzaF9ncGFkbChjaGFubmVsLCBw
-ZGF0YS0+cmVjdl9idWYsDQo+ID4gCQkJCQkgICAgUkVDVl9CVUZGRVJfU0laRSwgJnBkYXRhLT5y
-ZWN2X2dwYWRsKTsNCj4gPg0KPiA+DQo+ID4gU28geW91IG1hZGUgYW4gYWxsb2NhdG9yIHRoYXQg
-cmV0dXJucyBmb2xpb3MsIG5vdyB5b3UganVzdCBuZWVkIHRvDQo+ID4gdXNlIHRoYXQgYWxsb2Nh
-dG9yIHRvIGltcGxlbWVudCBhIGt2emFsbG9jIHdyYXBwZXIuIEFSTSBjYW4gY2FsbCB2bWFwDQo+
-ID4gb24gZGVjcnlwdGVkIG1lbW9yeSB3aXRoIHBncHJvdF9kZWNyeXB0ZWQoKSwgcmlnaHQ/DQo+
-ID4NCj4gPiBPciBtYXliZSB0aGlzIGNhbiB1c2Ugdm1idXNfYWxsb2NfYnVmZmVyKCksIGl0IGFs
-cmVhZHkgZG9lcyBpdC4NCj4gDQo+IE1pY2hhZWwgS2VsbGV5IHJlY2VudGx5IHByb3Bvc2VkIFsx
-XSBtb3ZpbmcgYWxsIHJpbmcgYnVmZmVyIGFsbG9jYXRpb25zDQo+IHRvIHVzZSB2bWJ1c19hbGxv
-Y19idWZmZXIoKS4gSWYgd2UgbW92ZSBmb3J3YXJkIHdpdGggdGhpcywgaXQgc2hvdWxkDQo+IHJl
-bW92ZSB0aGUgZGVwZW5kZW5jeSBvbiB2bWFsbG9jIHN1cHBvcnQuDQoNCkkgdGhpbmsgd2UncmUg
-YWxyZWFkeSB0aGVyZSBvbiByZW1vdmluZyB0aGUgSHlwZXItViBkZXBlbmRlbmN5IG9uDQp2bWFs
-bG9jKCkgc3VwcG9ydC4gVGhlIG9ubHkgdm1hbGxvYydlZCBidWZmZXJzIHBhc3NlZCB0bw0Kdm1i
-dXNfZXN0YWJsaXNoX2dwYWRsKCkgd2VyZSB0aGUgc2VuZCBhbmQgcmVjZWl2ZSBidWZmZXJzIGlu
-IG5ldHZzYywNCmFuZCBLYW1lcm9uJ3MgYWNjZXB0ZWQgcGF0Y2ggc2V0IGFscmVhZHkgY2hhbmdl
-cyB0aG9zZSB0byB1c2UgdGhlIG5ldw0Kdm1idXNfYWxsb2NfYnVmZmVyKCkuDQoNClRvZGF5LCB0
-aGUgcmluZyBidWZmZXJzIGFyZSBhbGxvY2F0ZWQgYnkgYWxsb2NfcGFnZXMoKSBhbmQgc28gYXJl
-IGluIHRoZSBsaW5lYXINCm1hcC4gVGhlIG9yaWdpbmFsIFsxXSBpcyBhIHByb3Bvc2FsIHRvIHVz
-ZSB2bWFsbG9jKCkgd2hlbiB0aGVyZSdzIGFuDQphbGxvY19wYWdlcygpIGZhaWx1cmUgZm9yIGhp
-Z2gtb3JkZXIgcmVxdWVzdHMgZHVlIG1lbW9yeSBmcmFnbWVudGF0aW9uLg0KVGhhdCB3b3VsZCBo
-YXZlIHJlaW5zdGF0ZWQgYSBkZXBlbmRlbmN5IG9uIHZtYWxsb2MnZWQgYnVmZmVycywgd2hpY2gN
-CmlzIHRoZSB3cm9uZyBkaXJlY3Rpb24gdG8gZ28uIEkgcHJvcG9zZWQgdGhhdCB2bWJ1c19hbGxv
-Y19idWZmZXIoKQ0KYmUgdXNlZCBpbnN0ZWFkIGFzIHRoZSB3YXkgdG8gYXZvaWQgaGlnaC1vcmRl
-ciBhbGxvY2F0aW9uIGZhaWx1cmVzLg0KDQpNaWNoYWVsDQoNCj4gDQo+IA0KPiBbMV0gaHR0cHM6
-Ly9sb3JlLmtlcm5lbC5vcmcvYWxsL1NONlBSMDJNQjQxNTdCNzFDQUMxNDMzQjA0QjkyQjcwMEQ0
-ODMyQFNONlBSMDJNQjQxNTcubmFtcHJkMDIucHJvZC5vdXRsb29rLmNvbS8NCj4gDQo+IEthbWVy
-b24NCg0K
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
+
+Critical: 0 · High: 2 · Medium: 1 · Low: 1
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] Incomplete fix: the same unvalidated IPv6-header dereference on
+  the 6LoWPAN transmit path survives in both link-layer callers, which…
+- [High] Both new guards are anchored at skb->data, but the reads they
+  must protect are anchored at header offsets, so the checks can pass…
+- [Medium] The two new pskb_may_pull() failures only produce -EINVAL, and
+  neither in-tree caller honours it, so the malformed frame this patch…
+- [Low] Commit message states the wrong failure mode, but the concern's
+  own mechanism is also disproven.
+
+--
+
+6lowpan: add missing pskb_may_pull() checks in IPHC and NHC compression
+
+This adds a pskb_may_pull() check for sizeof(struct ipv6hdr) in
+lowpan_header_compress() and for sizeof(struct ipv6hdr) +
+nhc->nexthdrlen in lowpan_nhc_do_compression(), returning -EINVAL when
+the headers are not in the linear area.
+
+A few questions on the changelog and on the placement of the checks.
+
+> 6lowpan: add missing pskb_may_pull() checks in IPHC and NHC compression
+>
+>     When a short or non-linear `ETH_P_IPV6` frame is transmitted over a
+>     6LoWPAN interface (for example, via `AF_PACKET`),
+>     `lowpan_header_compress()` and `lowpan_nhc_do_compression()` read past
+>     `skb_tail_pointer(skb)` and trigger `BUG_ON(skb->len < skb->data_len)`
+>     in `skb_pull()`.
+
+[Severity: Low]
+Is the described failure mode accurate?  skb_pull() is skb_pull_inline():
+
+include/linux/skbuff.h:
+	return unlikely(len > skb->len) ? NULL : __skb_pull(skb, len);
+
+For the reachable case, a short but linear ETH_P_IPV6 frame (skb->len = 6,
+data_len = 0), the skb_pull(skb, sizeof(struct ipv6hdr)) in
+lowpan_header_compress() just returns NULL without touching skb->len, so
+the BUG() inside __skb_pull() cannot be reached.
+
+The non-linear variant also looks unreachable for these two netdevs:
+neither lowpan_setup() (net/ieee802154/6lowpan/core.c) nor netdev_setup()
+(net/bluetooth/6lowpan.c) advertises NETIF_F_SG or NETIF_F_FRAGLIST, so
+skb_needs_linearize() is true and validate_xmit_skb() linearizes or drops
+any paged/fraglist skb before ndo_start_xmit.
+
+Would it be more precise to describe this as an out-of-bounds read of the
+IPv6 header whose bytes are then emitted in the compressed header, rather
+than as a BUG()?
+
+> diff --git a/net/6lowpan/iphc.c b/net/6lowpan/iphc.c
+> index 37eaff3f7b69..b2be70036ee7 100644
+> --- a/net/6lowpan/iphc.c
+> +++ b/net/6lowpan/iphc.c
+> @@ -1140,6 +1140,9 @@ int lowpan_header_compress(struct sk_buff *skb, const struct net_device *dev,
+>  	if (skb->protocol != htons(ETH_P_IPV6))
+>  		return -EINVAL;
+>  
+> +	if (!pskb_may_pull(skb, sizeof(struct ipv6hdr)))
+> +		return -EINVAL;
+> +
+
+[Severity: High]
+Does this cover the whole transmit path?  Both link-layer callers
+dereference the IPv6 header before lowpan_header_compress() is reached.
+
+net/bluetooth/6lowpan.c:setup_header() {
+	...
+	hdr = ipv6_hdr(skb);
+	...
+	memcpy(&ipv6_daddr, &hdr->daddr, sizeof(ipv6_daddr));
+	...
+	lowpan_header_compress(skb, netdev, daddr, dev->netdev->dev_addr);
+}
+
+The memcpy() reads 16 bytes at IPv6 header offsets 24..39 and the result
+feeds ipv6_addr_is_multicast(), BT_DBG("dest IP %pI6c") and
+peer_lookup_dst(), all before the new check runs.  netdev_setup() sets
+hard_header_len = 0 and bt_xmit() only calls skb_unshare(), which
+validates no length, so an AF_PACKET send of 6 bytes with sll_protocol =
+htons(ETH_P_IPV6) makes those bytes land past skb_tail_pointer(skb).
+
+net/ieee802154/6lowpan/tx.c:lowpan_header_create() {
+	const struct ipv6hdr *hdr = ipv6_hdr(skb);
+	...
+	n = neigh_lookup(&nd_tbl, &hdr->daddr, ldev);
+}
+
+This is header_ops->create, called from dev_hard_header() in
+packet_snd() on the SOCK_DGRAM path before skb_copy_datagram_from_iter()
+has copied any payload, with no pskb_may_pull() anywhere.
+
+Should the length and linearity validation happen at the xmit/hard-header
+entry points (bt_xmit()/setup_header() before the daddr read, and
+lowpan_header_create()) instead of only inside the compressor?
+
+[Severity: Medium]
+Who consumes this new -EINVAL?  Neither in-tree caller looks at it.
+
+net/ieee802154/6lowpan/tx.c:lowpan_header() {
+	...
+	lowpan_header_compress(skb, ldev, &info.daddr, &info.saddr);
+
+	*dgram_offset = (*dgram_size - skb->len) + skb_network_header_len(skb);
+}
+
+lowpan_header() returns only wpan_dev_hard_header()'s value, so the
+"if (ret < 0) drop" in lowpan_xmit() is never taken.
+net/bluetooth/6lowpan.c:setup_header() also calls it as a void statement
+and then reports its own unicast/multicast status, so bt_xmit() goes on to
+dev_hard_header()/send_pkt().
+
+Does that mean the frame this patch rejects is still put on the link,
+uncompressed?  Its first byte 0x6x aliases LOWPAN_DISPATCH_IPHC (0x60,
+mask 0xE0), so a receiver would parse it as an IPHC header.
+
+There is a second effect on the ieee802154 path: the aborted compression
+never reaches the skb_pull()/skb_reset_transport_header() at the end of
+lowpan_header_compress(), so skb_network_header_len() is called on an skb
+whose transport header may still be the ~0U sentinel:
+
+include/linux/skbuff.h:skb_network_header_len() {
+	DEBUG_NET_WARN_ON_ONCE(!skb_transport_header_was_set(skb));
+	return skb->transport_header - skb->network_header;
+}
+
+Can this trip the debug warning and produce a garbage *dgram_offset?
+
+For completeness: the stronger claim that lowpan_xmit_fragment() then
+copies past the tail did not hold up — a frame short enough to fail
+pskb_may_pull() always satisfies
+skb_tail_pointer(skb) - skb_network_header(skb) <= max_single and takes
+the single-frame path.
+
+Would it work to have both callers propagate the error and drop the skb,
+or to move the check into lowpan_xmit()/bt_xmit()?
+
+>  	hdr = ipv6_hdr(skb);
+>  	hc_ptr = head + 2;
+>  
+> diff --git a/net/6lowpan/nhc.c b/net/6lowpan/nhc.c
+> index a4dde85664f2..a9bf340c090a 100644
+> --- a/net/6lowpan/nhc.c
+> +++ b/net/6lowpan/nhc.c
+> @@ -79,6 +79,11 @@ int lowpan_nhc_do_compression(struct sk_buff *skb, const struct ipv6hdr *hdr,
+>  		goto out;
+>  	}
+>  
+> +	if (!pskb_may_pull(skb, sizeof(struct ipv6hdr) + nhc->nexthdrlen)) {
+> +		ret = -EINVAL;
+> +		goto out;
+> +	}
+> +
+
+[Severity: High]
+Are these guards anchored at the right pointer?  pskb_may_pull() measures
+from skb->data:
+
+include/linux/skbuff.h:pskb_may_pull_reason() {
+	if (likely(len <= skb_headlen(skb)))
+		return SKB_NOT_DROPPED_YET;
+}
+
+but the reads they protect are anchored at header offsets:
+lowpan_header_compress() uses hdr = ipv6_hdr(skb), i.e.
+skb->head + skb->network_header, and the only in-tree nhc->compress,
+udp_compress() (net/6lowpan/nhc_udp.c), reads
+udp_hdr(skb) == skb->head + skb->transport_header.  When
+skb_network_offset(skb) != 0 the checks validate a different range than
+the one dereferenced.
+
+A fully linear case on an ieee802154 6LoWPAN device (lowpan_setup() sets
+hard_header_len = sizeof(struct ipv6hdr), min_header_len = 0): send exactly
+80 bytes over AF_PACKET SOCK_RAW with sll_protocol = htons(ETH_P_IPV6),
+bytes 40..79 being an IPv6 header with nexthdr = 17.
+
+In packet_snd() reserve = 40, the skb is fully linear,
+skb_reset_network_header() followed by skb_reserve(skb, -40) leaves
+skb_network_offset(skb) == 40, and the
+"len < reserve + sizeof(struct ipv6hdr)" re-reset is skipped since 80 is
+not < 80.  Then:
+
+net/core/flow_dissector.c:__skb_flow_dissect() {
+	key_control->thoff = min_t(u16, nhoff, skb ? skb->len : hlen);
+}
+
+gives thoff = min(80, 80) = 80, so the transport header points exactly at
+skb_tail_pointer(skb).  pskb_may_pull(skb, 40) passes (headlen 80),
+nexthdr 17 selects the UDP NHC, pskb_may_pull(skb, 48) also passes, and
+udp_compress() reads uh->source, uh->dest and uh->check at skb->data +
+80..88.  Does lowpan_push_hc_data() then copy those eight uninitialised
+bytes into the header that is transmitted on the link?
+
+The IPHC guard looks affected the same way by any non-zero network offset,
+e.g. a tc mirred ingress-to-egress redirect that does
+skb_push_rcsum(skb, skb->mac_len) before dev_queue_xmit(), giving
+network_offset 14 and a 14-byte past-tail read of hdr for skb->len in
+40..53.
+
+Would pskb_may_pull(skb, skb_network_offset(skb) + sizeof(struct ipv6hdr))
+and skb_transport_offset(skb) + nhc->nexthdrlen be the right forms here,
+or should a non-zero skb_network_offset(skb) simply be rejected?
+
+>  	/* In the case of RAW sockets the transport header is not set by
+>  	 * the ip6 stack so we must set it ourselves
+>  	 */
+
+On the adjacent pre-existing fixup:
+
+	if (skb->transport_header == skb->network_header)
+		skb_set_transport_header(skb, sizeof(struct ipv6hdr));
+
+This isn't a bug introduced by this patch, but the canonical test for an
+unset transport header is !skb_transport_header_was_set(skb):
+
+include/linux/skbuff.h:skb_transport_header_was_set() {
+	return skb->transport_header != (typeof(skb->transport_header))~0U;
+}
+
+With the equality test above, an skb whose transport header was never set
+escapes the fixup and udp_hdr(skb) resolves to skb->head + 0xFFFF.  Is it
+worth switching to skb_transport_header_was_set() while touching this
+function?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919213638.3314763-1-benquike%40gmail.com
