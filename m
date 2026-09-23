@@ -1,109 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ABEF42F6F1;
-	Wed, 23 Sep 2026 09:33:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7283BED6A;
+	Wed, 23 Sep 2026 09:34:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156021; cv=none; b=OiixhJ5uvQmVyEZ2ZNHhZH/p2NOeIpECqhESUZqXrQkSHiznYEJu+k6hugAgvPL4wtrnvdPUSjvFFTUddy6NjZaxIiWVS9I4fn5Q0nYMse/Kj4GOIRffPtvXlOPq2I3MwcJyHfyR0qUuqGBYlKaRuIGyTk9g7pKTUnnUuvemfQw=
+	t=1790156069; cv=none; b=If8jvO+4vnFvTCOi6kx/eJuUHZ2wbAWZpnNpYWHc10tWoncadQQWTmywR1dCJcEiM7baPiV279G9SKcfbhGlnVA9hmZYpH9lLzm+CgDjHjRKcdZT23K7pB2YXd/8vWjlaNEBIDrHHikqXr2ef3r/SGvpW+cQmcFwguOKXA5ve7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156021; c=relaxed/simple;
-	bh=0/nkeNgeSGnCoLTiFcQsUE9LWEEwaJs0vl/FjLc59BE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=cbrmR4Z/l3GyoTUGkb6ZE46cWVkp4tVFZebTWcnirTI21E/+VehSLNjyNopmnUqAnS2CaHY7cYacEnaoGOQAs13zXFO68b/Lo1MKxjaMTICuNdXv/Y3POZRY0hwl4VUnn8yqQHXqI6UPUyoINXh/eMiHQQeetyke6OKpUEtmlaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZJrkW1g2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790156069; c=relaxed/simple;
+	bh=CfE50gjOMJIZIOiIvNlU0diQlCTpqwlV6Vs5njlwQ8E=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=BpAlGW4j2VUCgKWl2/i3FkQImRQRtWVkXkTLJ+pDoWudYB19FNI1Bt9M5ksU/0So5AGz8ctBpgTWeMkzDIQk7z+kmVrYZiSTjTRf9AObPQnuYfm3CrxTXSBmETDYYBLyFKd4l4UqD1EY6RyWrTEiexQd+NzHytXN4RRbmKUwWXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nZIYPjHV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZJrkW1g2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7CE41F000FF;
-	Wed, 23 Sep 2026 09:33:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nZIYPjHV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC951F000FF;
+	Wed, 23 Sep 2026 09:34:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790156020;
-	bh=1Y6hoer9W3p2iG1kXmdaNP3hX1Lpnnl1CRtfRD5f/SU=;
-	h=Date:From:To:Cc:Subject;
-	b=ZJrkW1g2/ssNhIaH8EMfoc0Gt2JpjNiQE5/KZCbHo3XGIUl2mrByLb7aZO4lJTS7J
-	 76dF2Ks3YMzN3sTJlVRtBGSXnzWOhdwCf3kIldljpMdRNu4x3qit25yS/fUvPXvx2w
-	 CqNewDW9DHBJeNnM+81XsLXtG5D1W9aVUgqvtlDpBYI/JNEXcJFoeAurGm+ec7oif7
-	 TnKjsxEXtwbD0DehG5FpJFJUx1UY8RJ7QIY9+HRh4UPBrbO4XpU7Oa7yc8dfhsLBG6
-	 CeZsqXuoZV4J9yPpgMbm65gJNp5lM8uvCOPxhxG8Igny1BpF8qQEkFxA2TAKPoyFWf
-	 w6mYh3rmCmoqA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id D96F11AC5737; Wed, 23 Sep 2026 10:33:36 +0100 (BST)
-Date: Wed, 23 Sep 2026 11:33:36 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Disha Goel <disgoel@linux.ibm.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the mm-nonmm-unstable tree with the
- vfs-brauner-fixes tree
-Message-ID: <arOc8LIkMo60d7s7@sirena.co.uk>
+	s=k20260515; t=1790156067;
+	bh=zzIZC/0TmFVsfiURHWtB6V8xRvBxm3UJTXCN9OmPP6E=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=nZIYPjHV0WM7ycAr+Bcw3vrnmkyjLeoMKvJHCCZSKd8bjIGt70AtOMAcG15z1Rsvf
+	 uFUsJ+x91uAvf12+qKqy2VBln0lEwQyh8C7gctkZMnbV6lRebdlCqKzUJ9DXyWXKrZ
+	 CAz807ML0KI1/DSBPDBGvZ0VYSlAkA5RJ5IvNseJi9e9LvAEtx6AZ+6O+VsBhMWJN8
+	 n7/WqAj4N4CO4QhHtvT120p+WTvWMESOTt4I09AGWhluEwLwK2VW6vPepBAzs73m49
+	 MGgH4sc83HlnPyg+yGU89rPPInWPsN9bd32SONWm1/TFz1+anM4Cfhu9fP4O52NKYl
+	 2SysyDGp21ZxA==
+Content-Type: multipart/mixed; boundary="===============1656904363404045793=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="w4aiWyxKaMWgQw3K"
-Content-Disposition: inline
+Message-Id: <ee3c07a18ef7f010f42b75a1dabe1e9bb8904f108398d6556c1119cd20c99852@mail.kernel.org>
+In-Reply-To: <20260923085817.365930-2-chenyuan_fl@163.com>
+References: <20260923085817.365930-2-chenyuan_fl@163.com>
+Subject: Re: [PATCH bpf-next v7 1/2] bpf, arena: fix range_tree_clear inconsistency on kmalloc_nolock failure
+From: bot+bpf-ci@kernel.org
+To: chenyuan_fl@163.com,bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,alexei.starovoitov@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,chenyuan@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 23 Sep 2026 09:34:25 +0000 (UTC)
+
+--===============1656904363404045793==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> bpf, arena: fix range_tree_clear inconsistency on kmalloc_nolock failure
+>
+> range_tree_clear() pre-allocates the right-half node before modifying
+> the tree, so an allocation failure returns -ENOMEM without altering the
+> range tree.
+>
+> Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
+
+This appears to fix a bug where kmalloc_nolock() failure in the split
+branch left the node already shrunk and reinserted, permanently losing
+the [last+1, old_last] sub-range. Should this include a Fixes: tag?
+
+The suggested tag would be:
+
+  Fixes: f8c67d8550ee ("bpf: Use kmalloc_nolock() in range tree")
 
 
---w4aiWyxKaMWgQw3K
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Hi all,
-
-Today's linux-next merge of the mm-nonmm-unstable tree got a conflict in:
-
-  tools/testing/selftests/Makefile
-
-between commit:
-
-  76ebb69da677d ("Revert "selftests/filesystems: add mntns cleanup test"")
-
-=66rom the vfs-brauner-fixes tree and commit:
-
-  73bdd88ca86eb ("selftests/filesystems: fix missing and stale TARGETS entr=
-ies")
-
-=66rom the mm-nonmm-unstable tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --combined tools/testing/selftests/Makefile
-index 273853937c254,330d061f6366f..0000000000000
---- a/tools/testing/selftests/Makefile
-+++ b/tools/testing/selftests/Makefile
-@@@ -49,6 -49,7 +49,6 @@@ TARGETS +=3D filesystems/move_moun
-  TARGETS +=3D filesystems/empty_mntns
-  TARGETS +=3D filesystems/fsmount_ns
-  TARGETS +=3D filesystems/fscontext_ns
- -TARGETS +=3D filesystems/mntns_cleanup
-  TARGETS +=3D filesystems/xattr
-  TARGETS +=3D firmware
-  TARGETS +=3D fpu
-
---w4aiWyxKaMWgQw3K
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqznPAACgkQJNaLcl1U
-h9A2RAf8Dwmc+ll6ZZvBoekMk1QEcT/D1oe478hesMlS4NjX78DvsQC+fyrOdchc
-Oepj0uCMDRwJPl7RbHhi7/yRFJFlcZ+k5nZnz6mCmQCamA95VyeUJFka4TvqKSx/
-nz8zG5rQ09wC+ugVMszFn58oH01xJnenZeDVDWTkOXyR95WPdrMpOaQvIk+rMqPp
-kEFBqn1ByXP+YPj+mP1ysee4tYj64v1v9JcdRgexugLfnrwbKNWzJxoy5CW7HdOb
-ZN0XKcppOnsLmR95BCqsg6EaYA49xPcM1KpyH0aLsOY09C5oHY5QPtJ0V7nP+0Qw
-rrOuXzW5+JEa+YUd4axjfgc8Y18JGA==
-=/58H
------END PGP SIGNATURE-----
-
---w4aiWyxKaMWgQw3K--
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35841441642
+--===============1656904363404045793==--
