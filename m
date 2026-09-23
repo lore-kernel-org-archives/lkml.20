@@ -1,109 +1,295 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428775372E2;
-	Wed, 23 Sep 2026 14:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E29535FBB
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:38:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174300; cv=none; b=O2Uebjh3aleABjKY95cTgFLTx4SEytmYaHAMoGuTUYwV0b4IOLKVOPgF4soiABY8gxiMC4SRiUIG+zuO/a1jbPjWuiHZh31Xmw8+vTzhXfGzL5KPmxLLn5RZmFctdFAwFEdaGt7c2FAM6dBT6G2Ujl3h/Nyz04giTGWmub1EfGA=
+	t=1790174298; cv=none; b=OSzVRa9A6+rnqZpaDQtn3Q6v1SGw+vkLym4SRUS1ppNkqnsiE7WEHor+A5o/us1nzz9vhoimkWR6ni6oJTicss4PuSKQpPHjOw8wqOiIMwJStqKFSdI9s19iDW0D34TaeYUARf7duiCZf5YZCDYxuzM3e97WkQbFrE0reKn27oI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174300; c=relaxed/simple;
-	bh=jo94GN64USZXPL2xH0g3ZXB5EEGg5PvXg0Vq2m5XFGg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EwMTngxi/fWSYPzAGlPuP1aU+De6nLaVX2+yTMFG4NT5feWefXh/jIdIQFADN8ft0/lCqLMmi/Rv1SKTJGuom5xJcoY4XaxbQsxP2b7Q61cPQotgrMo23gJfPlSg+iVrUrCHU4yAXPODO9yVrwbSHEfvsdTc5k5F6Qs4uAOx4ik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hqfhN4WsWzYQtqp;
-	Wed, 23 Sep 2026 22:37:56 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.75])
-	by mail.maildlp.com (Postfix) with ESMTP id B09A540561;
-	Wed, 23 Sep 2026 22:38:13 +0800 (CST)
-Received: from ultra.huawei.com (unknown [10.90.53.71])
-	by APP2 (Coremail) with UTF8SMTPA id Syh0CgB3+A9V5LNqq0eGBQ--.55710S2;
-	Wed, 23 Sep 2026 22:38:13 +0800 (CST)
-From: Pu Lehui <pulehui@huaweicloud.com>
-To: bpf@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Pu Lehui <pulehui@huawei.com>
-Subject: [PATCH bpf-next] riscv, bpf: Adjust bpf_func to account for CFI offset in bpf_jit_free
-Date: Wed, 23 Sep 2026 14:42:16 +0000
-Message-Id: <20260923144216.934701-1-pulehui@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790174298; c=relaxed/simple;
+	bh=hqx/pFG7rh8SHBraDxck/KZYHtT5hGzdRHybaJTJB/Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZCZ9vUuN9HUFqKdjeo37okkETdbbGsoENKvtFv4dHMbgLJZAYwcRISbR8Ft1k4G5ci/y56Y9iKnTNB0MhVnotQb526srbX+ZBm2OOtdrsEJwVGo+upTzrol4QCv8Gzxd4gHsRWumlXpcUvGmYZU7ABv8AdcfiOsx82I6hYnrnaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=GRHoMqfd; arc=none smtp.client-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="GRHoMqfd"
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-39647184c73so1561890a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:38:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790174296; x=1790779096;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wAyEMshv0bakkIvz5egKdJdTCKXOElPmdU5rFJ6c2G8=;
+        b=aTHHKcZqnsGTBaLuXgS9xDOpBjxbUrhn/9ZmE/OqUk4pS1vwcu4oDZxv4CufearPZD
+         Jxo/4Qz/6A5rk6VZUpROLVtGbrbW+7ogkeNdFVqsmf+7mRE7pfldCVVCMPZugsMxIUK+
+         L82zlnuRfIPAH+k2NhjOvrrwP2Nwcq9fjq8Wx3b0xscbQqJ/VsuDObQMME/j/Ha286pR
+         vsdK/jNxyYT8q0UkmoxArWy5TfYSAGnfzVTF0F7qjmgL7gpq59oofsbNilM+5QTmjQkH
+         Xsp2fSfNMKKXNIRXm30HisfqJmM75lgv3pcNuAj//nVptqmWP3pNXPkgblj2+y78CZUi
+         iYHg==
+X-Forwarded-Encrypted: i=1; AKwUvByQwmdLM2mW8EYq9wwhfXnwiz46r6Zu8nLTRjB+5/819G9KVEfun27WAo9t+zDK9wNmhG5w8IDZrAtAfck=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+rI7kfK5/MjkHrTvagFKpj3xjA1Txs219PRSx/vgfvEsDpxF8
+	9AkWPQ61LVMb4njC2znIt7CoUGBkZbw6EbILS0IU3/PgMiRS0fI7JleKs4buSBU2cDHz7qBvyhu
+	wBW/puDQvs+MMUPkgJncqOXtheug/YYyXi6tPQ3JRHsWKCAGrybA+vxT6tl0YAnhoqFGfsVPKo0
+	2rEAd0MmgTeDMalFjbCwkJchuwxxWFXRNLodEz8p9dW/cmpaElNY07fnVs9b827Nw4kY0hEeaNZ
+	RT7EnjcKsM2X2TM
+X-Gm-Gg: AYBFou02wvfLDlkLgWr92yeL9AmB4+QTHESO0IeZ0Dlr6AoNsQGizdHPD6WuOOOp9jN
+	8aBYrGQnB7AtDIxtOn6WhfYz02wxtFhjZb3HEn8ir9vSfUNyL24POXSx1dyB48gD7tl3+Id3LE2
+	s5VpWy3Wr0Y9wTmPIaNPiq9bGWElEJrlcWtoMfQh4GXoojYkerQXBW5H9ondgzc7vMXOvAX5wYn
+	FxBOr7WQtHQT2ituj2nNHdGSuddbo0x2nn6FMc5cAlG3KB3/o3EVKiS5ky5V/WLG9c79EapHBPC
+	B3flEODKn6undcW7dIjMr36jMBWl+1a2pdmtNLODl4Ni6KglYKsF9DOsq6eLM+6JP0Rg3KbFHsC
+	xKjzh8fh5o7QfJAmt8JfioDtiLoz37SMinBs1e+OH5MDYCtOL7FXJvwCnGgWSwDNutoKLtyWbtZ
+	Wntt9pUdnLjiBvXJVLKNd1p8Xtg4SJU32yL3Y=
+X-Received: by 2002:a17:90b:5890:b0:39e:6c68:fd8f with SMTP id 98e67ed59e1d1-3a07e6028famr1741533a91.36.1790174296257;
+        Wed, 23 Sep 2026 07:38:16 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a0812be9fcsm159721a91.3.2026.09.23.07.38.15
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 23 Sep 2026 07:38:16 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33bb08e80a8so941414eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:38:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1790174294; x=1790779094; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wAyEMshv0bakkIvz5egKdJdTCKXOElPmdU5rFJ6c2G8=;
+        b=GRHoMqfd+ndzl5tKu+jXJC3hQFd/Nb2GdFBaDs4AVSh3E7wM92qWdDhFG4SZ3wMdTR
+         33fDf5GPbRDOtNsJUIaJjR+8G/1cs52w1EcCq8R/UQXUCPE8oNpVujJHXE+saMvFZMS2
+         jK0305dTJ+VXNYR1hv+H5QSBShDDhxx1V8e4M=
+X-Forwarded-Encrypted: i=1; AKwUvByZpdXFLYAl7guJ7gO8ZsjSeGZNpVPW+Id72CYlys05wXcQTPlTWaC7ryoLOj1jUMKCbZu7vU/XVQRltKg=@vger.kernel.org
+X-Received: by 2002:a05:693c:8812:10b0:33c:1e4c:151d with SMTP id 5a478bee46e88-33e5c8903a9mr2696494eec.7.1790174294357;
+        Wed, 23 Sep 2026 07:38:14 -0700 (PDT)
+X-Received: by 2002:a05:693c:8812:10b0:33c:1e4c:151d with SMTP id
+ 5a478bee46e88-33e5c8903a9mr2696422eec.7.1790174292822; Wed, 23 Sep 2026
+ 07:38:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Syh0CgB3+A9V5LNqq0eGBQ--.55710S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF18Xr4fKFykGrykGF45Jrb_yoW8JFWUpF
-	4kGr1fC34kWrn7KF4ktr10grW8Jw4DWw1xWryUu345KFnIgF92v3Z3C34jgFW5CFyUK3WF
-	9rWagr13Aa4kX37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0E
-	n4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I
-	0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8
-	ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAF
-	wI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa
-	7IU0bAw3UUUUU==
-X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
+References: <20260923122601.438892-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260923122601.438892-1-qwe.aldo@gmail.com>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Wed, 23 Sep 2026 10:37:54 -0400
+X-Gm-Features: AclHuK9I1sPWruKdTZ2g86ZtrDjy2iD85ODd7q3CWFNwDVQGdDpeOH1SDBnweS0
+Message-ID: <CABQX2QMUUf1ETuLmvrzQ9_rsX4+KG32YAQJ-9hV3uakAyPiYrg@mail.gmail.com>
+Subject: Re: [PATCH] drm/vmwgfx: do not hand the embedded sg_table to the
+ PRIME core
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="000000000000eee142065c276e0b"
 
-From: Pu Lehui <pulehui@huawei.com>
+--000000000000eee142065c276e0b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When CFI is enabled, the actual BPF program entry point is shifted
-forward by a CFI preamble. During bpf_jit_free(), this shifted pointer
-causes the wrong ro_header to be fetched, leading to a potential invalid
-memory free.
+On Wed, Sep 23, 2026 at 8:26=E2=80=AFAM Aldo Ariel Panzardo <qwe.aldo@gmail=
+.com> wrote:
+>
+> vmw_gem_object_get_sg_table() returns vmw_tt->vsgt.sgt when the buffer
+> object has already been DMA mapped.  vmw_ttm_map_dma() sets that field
+> to &vmw_tt->sgt, which is a member embedded inside the struct
+> vmw_ttm_tt allocation and not a table of its own.
+>
+> The core owns whatever .get_sg_table returns.  drm_gem_map_dma_buf()
+> takes the table and drm_gem_unmap_dma_buf() destroys it in full:
+>
+>         dma_unmap_sgtable(attach->dev, sgt, dir, DMA_ATTR_SKIP_CPU_SYNC);
+>         sg_free_table(sgt);
+>         kfree(sgt);
+>
+> Both are ops of drm_gem_prime_dmabuf_ops, so the core ends up calling
+> kfree() on &vmw_tt->sgt, which is not the start of an allocation.  The
+> preceding sg_free_table() also destroys a scatterlist that vmwgfx still
+> considers its own and frees again from vmw_ttm_unmap_dma().
+>
+> drm_gem_unmap_dma_buf() runs from dma_buf_detach(), including the
+> importer's error path, so a failed import is enough to reach it:
+> exporting a bound buffer with DRM_IOCTL_PRIME_HANDLE_TO_FD and
+> importing it on a second DRM device with DRM_IOCTL_PRIME_FD_TO_HANDLE
+> is sufficient.  Both ioctls are DRM_RENDER_ALLOW.
+>
+> Observed on 6.12.101 with KASAN, as uid 65534:
+>
+>   BUG: KASAN: invalid-free in drm_gem_unmap_dma_buf+0xb3/0xf0
+>   Free of addr ffff888008290450 by task poc_mm04_sgtabl/321
+>   CPU: 1 UID: 65534 PID: 321 Comm: poc_mm04_sgtabl Not tainted 6.12.101 #=
+4
+>    kasan_report_invalid_free+0x94/0xc0
+>    check_slab_allocation+0x116/0x120
+>    kfree+0x103/0x360
+>    drm_gem_unmap_dma_buf+0xb3/0xf0
+>    dma_buf_detach+0x165/0x510
+>    drm_gem_prime_import_dev+0x33e/0x430
+>   which belongs to the cache kmalloc-192 of size 192
+>   The buggy address is located 80 bytes inside of
+>    144-byte region [ffff888008290400, ffff888008290490)
+>
+> 80 is offsetof(struct vmw_ttm_tt, sgt) and 144 is sizeof(struct
+> vmw_ttm_tt), which identifies the freed pointer as the embedded member.
+>
+> Always return a table the core can own, as the other drivers do.
+> Reusing the cached representation would require copying it into a
+> freshly allocated sg_table, never returning the alias.
+>
+> Fixes: 8afa13a0583f ("drm/vmwgfx: Implement DRIVER_GEM")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+>  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx=
+/vmwgfx_gem.c
+> index 39f8c4655..a0233729b 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> @@ -73,10 +73,13 @@ static struct sg_table *vmw_gem_object_get_sg_table(s=
+truct drm_gem_object *obj)
+>         struct vmw_ttm_tt *vmw_tt =3D
+>                 container_of(bo->ttm, struct vmw_ttm_tt, dma_ttm);
+>
+> -       if (vmw_tt->vsgt.sgt)
+> -               return vmw_tt->vsgt.sgt;
+> -
+> -       return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw=
+_tt->dma_ttm.num_pages);
+> +       /*
+> +        * Do not return &vmw_tt->sgt: the core owns what this returns an=
+d
+> +        * drm_gem_unmap_dma_buf() sg_free_table()s and kfree()s it, but =
+that
+> +        * sg_table is embedded in the vmw_ttm_tt allocation.
+> +        */
+> +       return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages,
+> +                                    vmw_tt->dma_ttm.num_pages);
+>  }
+>
+>  static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *ma=
+p)
+> --
+> 2.43.0
+>
 
-Fix this by subtracting cfi_get_offset() from prog->bpf_func to
-correctly restore the original JITed allocation address before freeing.
+Thank you. Because of the influx of llm patches it's very hard to
+reason about what's valid and what's not if it comes without a
+reproducible testcase. Could you please add an igt testcase for this
+and then include the full igt results for vmwgfx before and after this
+change? Same for your other change.
 
-Fixes: e63985ecd226 ("bpf, riscv64/cfi: Support kCFI + BPF on riscv64")
-Signed-off-by: Pu Lehui <pulehui@huawei.com>
----
-- Separate from the patch series [0].
-[0] https://lore.kernel.org/bpf/20260725154915.2488611-1-pulehui@huaweicloud.com
+z
 
- arch/riscv/net/bpf_jit_core.c | 1 +
- 1 file changed, 1 insertion(+)
+--000000000000eee142065c276e0b
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-diff --git a/arch/riscv/net/bpf_jit_core.c b/arch/riscv/net/bpf_jit_core.c
-index 2fb0b4e198b9..470a6ace5662 100644
---- a/arch/riscv/net/bpf_jit_core.c
-+++ b/arch/riscv/net/bpf_jit_core.c
-@@ -244,6 +244,7 @@ void bpf_jit_free(struct bpf_prog *prog)
- 			kvfree(jit_data->ctx.offset);
- 			kfree(jit_data);
- 		}
-+		prog->bpf_func = (void *)prog->bpf_func - cfi_get_offset();
- 		hdr = bpf_jit_binary_pack_hdr(prog);
- 		bpf_jit_binary_pack_free(hdr, NULL);
- 		WARN_ON_ONCE(!bpf_prog_kallsyms_verify_off(prog));
--- 
-2.34.1
-
+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
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIIS0
+rNNE9P30sw+FBt+AjjeL3Lj6F3KC3ngaSJqAlgF+MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDkyMzE0MzgxNFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAKOIiln/jacE5WFE7GbKUmLkyYyO3A2kfbpawb+g
+XEFbn5agBMJYo2amjt1m0elR7ucmC6WWtUukHq7RqllngQRPq6PwSjeAZoHWefGZWlj4ALB88QQk
+PFjxWLFqxMiMZIGKgpbZBOFRRSWBv3qnKQoeahEr7VoRS9g6j/30VZ7i6vo0AiH9RWCkyekpHFiL
+u8bQ79I3PkgIdRIQ+VQSbh8hwYoTWw+ME6e4+tzz+0hQRgtgRUoa5eULIj227nyniR+nrGXnsVsP
+SmRo6KYPS8i1mh0/joQ6dGFyFlSalzsNzDUp5jTYSG2TiPwcxFqG6ybpGYSBCspyG7w4qkOKSGM=
+--000000000000eee142065c276e0b--
