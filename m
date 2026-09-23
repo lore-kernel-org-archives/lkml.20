@@ -1,245 +1,213 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 513B732B111;
-	Wed, 23 Sep 2026 15:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176405; cv=none; b=Kup/fcb0IKcdEXNiHHrXG8EQebenUVFUKpt9wY3SDZEQ3jjESWkZdSNNBqxA1pD+bOKMJIZOhOshPhlVyrb6YjUKmKarudfBegoo0cT3m71y3oKScF0Prp6PRGrfXF8+r0VAfMnIDRERP+dog1mwmeXqrIpgNd/U+5InljzvC8c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176405; c=relaxed/simple;
-	bh=phoCjmKpgbmmjwB/TcyzDXeAvmM89UaYWapuOmD6GO4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kYeNImLrYqkyPwm/4q5qwSzJMIrD8UYp6Bfh9UEGGa7cZPVtwc6czJrM8FDPNpDaVoULui9MPzYI39qBAOlwhjD/8uWLQXaoB1hyrFpkWvuIRek0K2ur1zVcgTfbGwEE2TM+5235mNzfKvRiJQgnBNK7f6fPCsqLQbr6holg6Ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lT0HrR7d; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010027.outbound.protection.outlook.com [52.101.85.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486F05349AE;
+	Wed, 23 Sep 2026 15:13:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790176426; cv=fail; b=TTVjiofUYc3GBoFok2eFoFlLZ6Q9eQELomnKRmUtfLp/qIjSAk0e+W1Y5wfRmc3TR5a20XwcuONsF/LwR4GwYe9xYmlXjlleCqQ2ecOvUp3Jqe3kUkCPI6juwI022UYE1560CTBNQ6WLf6uu75RO09VDXczxxcnBOWmZiP7m31M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790176426; c=relaxed/simple;
+	bh=QN7vHC+01I00gjNNivGTbqGXVy/49EGWFTbvsJ5ZMtM=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=i2zFJ8VCyxejV6y89ANUJebHSG41lsNZqOo6VA9dSUIzDfk5lS8CbXCzGaZd1zcDPqK/QE4rmjzZm9vcLJXaoKDVlNGcXYLYC3tzb3++SQx/eyb0Dnuby3upl1ozdofsNpAij/LTpxkq28FJ2uQWGR7WSgdlucHjwn9lJmt5+aM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=S57fkodu; arc=fail smtp.client-ip=52.101.85.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lT0HrR7d"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2367F1A32;
-	Wed, 23 Sep 2026 08:13:20 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E9DE43F86F;
-	Wed, 23 Sep 2026 08:13:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790176403; bh=phoCjmKpgbmmjwB/TcyzDXeAvmM89UaYWapuOmD6GO4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=lT0HrR7dE1KrdfZA5B71p57+NqXyZadFCb7ajyLoJVdE7kZMh3rZ3Jd0t7uUp8jnW
-	 fLqDM7jtOQPyRFFDJI03lMKNhDcWBWt6MltdUDqXOiaZKTfjhdEkEyRFSF66Rbvbq/
-	 Yjv8PK7Ahg6Cgu2DicOgJTx/pdIes/7CME0K6SuM=
-Message-ID: <37174cd4-95c0-4350-aeb2-b1b6abaccbff@arm.com>
-Date: Wed, 23 Sep 2026 16:13:18 +0100
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="S57fkodu"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SPUPFi8YoeHv4Wx+KpKg77/bksQtZU2orgOUZAmWJropxmMgGdBIA8dpbZIkT/T3I3JY06+Jc1Ei/R12eL+ONWrXw829eMIsDWqrAuLq8D1ukPHwFpTqBmR3KXZMfEmWWWNqdrZVEG8VdzSGevMU1MnlJguLwDCLXm4GuNYH4PneV3I/7J3LCfsAP2+Th3++E4K4YMTtY8zv9MVH1S+8H1A0PR9Wzpl/3K/N0y192kaFlaslpkxCOxsEG6xCwGZrgPSRGXXOSYrCKmMP+A9ydM1Pu+/YMEFaVxr+ub6Y+ujhXiHqC8c9He7sV8xfMhnBsVaaoVyIUy6kH0Klv7Xzxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RGmc9ja9eE+nKc1AAAjOS0z8bs0sn0vl/URD1jHcjIg=;
+ b=cTppukBBjbjRkicYT1hXxPyaMdXNo6uPwCNcogf2LyZroZqs5Hgx5VjBEDaiVT8SuNwNSeiSxQxe487TwObOHitff1EtFof0WTnhaVW4tFOWLWKoJBuHBsaM7Tq/2xqafPmQo/0qLM2g8rGy0AS6SvsjzFr8oGuE1v4PRMlA4sOp3G9/+4sKt4z+LHRoYGV1BeaAKXZLAA6z6/Sbr+btTagnCJBoqHucDz2GQSHDF1MFpDhRX1jJnz6cUY1G6521dVwGWbmxjGhyi1/PVsTxk4E9Uh1cX0ROwFxoY0ji9da+DDQ3x4bxAfVhbxBp84ze3BZGH3A42lkO0bbCupDJXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RGmc9ja9eE+nKc1AAAjOS0z8bs0sn0vl/URD1jHcjIg=;
+ b=S57fkoduWJcvKgJ4XOrmZ121EcAj6AxGeSY58uZhYEB+UvZXg/gkrcOGt/PSiN0A6sRr7w2KYAwODjB4ClQ0xk9WGEP0KH0UFRmlXvi79No9+3WvH2H7Q0tcoswqMX4rd9dwkpNYyUrqnNUdAOFSA4wyYXAH9jifvqSV1mgxE0s=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB9074.namprd12.prod.outlook.com (2603:10b6:510:2f4::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 15:13:36 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 15:13:36 +0000
+Message-ID: <3983b2de-b6ee-4674-be22-9ecb2525a055@amd.com>
+Date: Wed, 23 Sep 2026 17:13:31 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
+To: Philipp Stanner <phasta@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260923150308.1294592-2-phasta@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260923150308.1294592-2-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0007.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c8::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 00/12] remoteproc: add support for any virtio device
-To: Francesco Valla <francesco@valla.it>,
- Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>, Mark Brown
- <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>
-Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, virtualization@lists.linux.dev,
- imx@lists.linux.dev, iommu@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB9074:EE_
+X-MS-Office365-Filtering-Correlation-Id: a215a30e-d9d4-4e7b-f0e6-08df19853d83
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|56012099006|11063799006|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	bHfIYy50V27m4/cW6oaeJcuHA+WBQ0CvQPL+ogIE3DBPSxzEb9Y4W3rQumQHeZeoSRCJm1R++TKVfL+Ou5WXUy72Oh3NSOCZZbK5H4lb9Uq4IRbcHy625ebU0MyTwlJ6wAEoS0LPKI9bOwYi0NwAYdcRoRvtQeFgrqBMJmIuHZ15b4RWL6W16LhOZfR9d6qXLQKUIsaJS+U6G2hxDJOyumzzSgl836TpSLQ3zD5vfF2pcbN6KHbsDGiknpOUJkvOBcP2qQzC+Ty75NGk4KARpOl2y+jbY34HtSn9H7l9YCa9lpljbNb9bLXJwULa5v/Ulreg51t6nOSI4l4U71cM49YFvKcscq3GpfBDc8e6ieJDdM7SBr7q6BCbDf0/8/FUM3nAc0/J1eeoPQ601C3PFaOlOGh64OmnqD6RiyPWCenoUmg8rlQiNFZqygP2/MRWqiN2z743c32Y1ny+tENoD9Ta6F0h2hTPHKo+NUg74MfS+r+Vd3/qKr7Fbae0z09B4U56Z9DBDqpPsl+oyUDtwOUPq/mRfsB/PSxCghaA8vlxi8SmykhVWsTLD6hFVEIUjgx4BvjWISjX/wzBG36NvXP3Xg7ZiwdA4wM5+tdEQdf2oIE5kspi1WyNSdU33gMw9jg5MPX1DnQGknYGQmggIs/Mj3EYcDG+9+Sjv1+VFBY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UWs4UlNDN0VLMHowMDlISUJ0THNnZHZoelhReHB0dG5mU25Ra3loZnpLeThY?=
+ =?utf-8?B?SEJQSDgyQWNHZFpRSXd1cm1PenpUdWdpQmkrSzdpUmlZckJlVDBPS3oraDZs?=
+ =?utf-8?B?cHFNSTVsOHJySUZ2K2d0dk8vMWMwQmJjMlNnVmRURld4UmxxaXBnczhqWThI?=
+ =?utf-8?B?SFYyenM3ZjBGKyt5UituMDFHTHNCZXFaZFlneUtCRG41bG9aQzhkK2hwNmtQ?=
+ =?utf-8?B?dmp2Q3luZFdWMG5aaCs0dUdlck9ISTFYanF2QmVKamFBTFhHOXJTQ2h1aSty?=
+ =?utf-8?B?TG5tdklHY3lQRlNpK1BCMU9IVksrcWN3VnhuREF4bnJic0VXZGYyTUVMbWlx?=
+ =?utf-8?B?dFM0cTFBdmd1UC9hLzNwbFZPMlZJVmgrSDFObnJVb0hOT1NsTDQ4aGkvWUY3?=
+ =?utf-8?B?WVFSVDBkMklLZTZBVHBSNVArQXFDeGhrYUlDT0EzYlBrMXMvb3h5R2xudFh1?=
+ =?utf-8?B?aWxOeE5WczF3ZHp2eVR1eE9OeXJ4VU05cUpCbm9HUTFHSVo3Q3hIbDUxVFlJ?=
+ =?utf-8?B?TE1xWE9LUEk4YXRJNjBlc2lrUDBPUkVUZi8wK0tlOHlKNHRSWm1IL1ZhVGtk?=
+ =?utf-8?B?dk9vaVVSaVhoNjZiYmRxZDFLM01BRVpsbHhOQU1WSHB2cHIzT0pxeWk5Um9U?=
+ =?utf-8?B?dFRPMitxcWxqV1BMM2xDM3hQbzFsR3FQVE9oZzArL0xFbWJiLzFzdTNLcXhL?=
+ =?utf-8?B?bDZZcG04bTBvOHh6TUJGVGZ2SVJwdGpMWVJ3OGZmQkJUQVdjV3YwdTgvMEpI?=
+ =?utf-8?B?dXJzeUR5SjBlZzA2MWx6QVByQlA2VnBmME84NDhiZERXY3F2UzdzaGlES1pK?=
+ =?utf-8?B?OHNkd3Nib0pqMzcvditBRVFrQUk0alNmbjFRRDl4M1dXeUt2SDBpOGczdEhE?=
+ =?utf-8?B?UkZKaGExL0w1eXRQLzhjYmh1RTV3L01LdWdtWWpxVDd4RVFEd3ZQRytDVU5q?=
+ =?utf-8?B?bndmdTUwSmF2S21KRGlUQ3h2QmlHZnpveGptMkJjQUh0dTZTZUE4ai96cGww?=
+ =?utf-8?B?djd4TE9sVXVyRkV4UFZiWk5JRHRUdHVBcG5RRno5c0xGYUJOOUtLdDZMSVlK?=
+ =?utf-8?B?VDd4RzZxZzJWMURNQ0JPbEdZb3FqbWh2Z2twYSszbHZRSkZyL3VDZHE1V29o?=
+ =?utf-8?B?OVJOYnRjYkpxOUNzVjk2YUdMYVFjNXltWGJVc3FuVUNvSTErcmZSanVoM21F?=
+ =?utf-8?B?OEFnNlpFSGE2R094Q05rNUM0VGJQdXZ6cXVTWDM0SENjeUR5Mm9iVnlvdzhP?=
+ =?utf-8?B?R1RBMTBNRTR3ak5rVlRsZjAxZ2lGY0tDL2pCN1laY29NVU9VblR2LzdVeGl3?=
+ =?utf-8?B?MXJZMEs4cVUweFRsWGtFOWptZ0Z0ejhpQWhJTy9zbUk1bGJIU3BZRy93cmhT?=
+ =?utf-8?B?NWJVQTZFck9JV1hiOGlhb2d6bk5jYktqbHVaVlpOOEVkMjZ4a2dEZ3dqeHNI?=
+ =?utf-8?B?bWhZOWVEMjV4YTFhcGVrYUl6bFB0bVNRU0dNQ0MvdEJZYUdLZVZKZUNTMDBT?=
+ =?utf-8?B?UFA4RFlnZkkxcGFQdW9GZVJ1ekhJaVRzRHpDUGM3SmozMDNjVFNidWNuUnl4?=
+ =?utf-8?B?SkFtQzYvU3JUb2Zwb0hWbEp3b2kxUVRuaEdmZjFGZUgxWHZqaWt1TDRFd3ly?=
+ =?utf-8?B?dVZ3N0dXaTBwN3ZCUmNZNXlpTnhwaGlRdm5iMTB3M0wzcWpGT2lOSEN5a0pk?=
+ =?utf-8?B?RmhaYVhWWndWV1FhSm4xYkd4VGFsK3lGclZ4N1ArWDVkTjBTcUhlZ3hvWTNW?=
+ =?utf-8?B?MTVwdUtmOEgwNmwzSlc1aDhwSG10Q1pWUWtUV281WGErSG83ZFdaZ1cxdE03?=
+ =?utf-8?B?YjFTV240VXppcG92Z1ZkQisxbkc2ZXVOQ2NaVGNYd0RxL25yK0FkVGp6bmEy?=
+ =?utf-8?B?TUQ5aW9kSGM2YURmQXJ6b0xRTXc1cHR6bXlmN2JIL1NoMW1NQ1ZLeWw3cGJX?=
+ =?utf-8?B?Nk1zaGNjL1RzK0htTlJYR3VwU2hTSnBwS0JXWlFuYkE4MHpub1RwNlp2Q2Na?=
+ =?utf-8?B?OUtQcUNpdUJqWGFqUWh3bU95QWdCTE81SjhOZm9UWkh5ZUZqQlowRGNGd1p0?=
+ =?utf-8?B?RGgyU3JjQUZpRGVjU1J6QVVjSEh0dkRSSWd6OG9Mdm9kWWR3NUt5b3EyKzlp?=
+ =?utf-8?B?RUtrVzlJUW1Ia2ZhME00MFg1dzJYMjNOSWkwcWxBKzlxTGYwbjJLSnhxTXRV?=
+ =?utf-8?B?MUdtM2pXNitpR1Rmd1RIQkJTb250VTQyelRjSHNNNnlUVElaUS9FelhQMkg3?=
+ =?utf-8?B?MEY4UjNxTWZiZGJLc3Y0U3ErdldJcGxnaUJaVE5pamVoOUwwNUxSeW1tWnIy?=
+ =?utf-8?Q?IxpAGHm3UNgHMTCHAy?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a215a30e-d9d4-4e7b-f0e6-08df19853d83
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:13:36.4531
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w56SV1KVMWjosZa7yTQo/+1fHjDgmWpdmUfRNArjY7iAy970/0ztyBs+COywZ3qu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9074
 
-On 16/09/2026 10:10 pm, Francesco Valla wrote:
-> Hello,
+On 9/23/26 17:03, Philipp Stanner wrote:
+> dma_fence's backend_ops functions ops->wait() and ops->release() are
+> problematic because they prevent fence producers from unloading.
+> Moreover, they can easily be implemented through simpler means more
+> aligned with the dma_fence contract.
 > 
-> this patch series introduces the possibility to support generic virtio
-> devices over the remotepoc transport, whereas today only rpmsg and
-> virtio-console are supported.
+> Since the declared goal of dma_fence is to move towards an
+> implementation that supports driver-unload in all circumstances, we must
+> prevent more parties from implementing those callbacks.
 > 
-> == Introduction ==
+> Deprecate ops->release() and ops->wait() and document what users should
+> do instead.
 > 
-> Support for devices other than rpmsg was originally planned [1] and is
-> declared inside the documentation [2], but is in practice not there for
-> the majority of (if not all) the platforms that provide remoteproc
-> capabilities due to memory allocation.
-> 
-> While vrings are pre-allocated in an area that is reachable by both the
-> local (i.e.; Linux) and remote processors, buffers produced by virtio
-> drivers aren't, since they typically get allocated through kmalloc.
-> The aforementioned rpmsg and virtio-console drivers instead use a trick
-> to overcome this limitation and allocate these buffers directly from
-> the remoteproc device's coherent memory area, somewhat breaking the
-> separation between the driver and the underlying transport.
-
-This sounds very much like needlessly reinventing restricted-dma-pool, 
-with even the same underlying motivation, more or less...
-
-Thanks,
-Robin.
-
-> 
-> == Well, nice, but why? ==
-> 
-> Main usecase is sharing/virtualization of devices in hypervisor-less
-> mixed-criticality contexts, where a subset of peripherals are controlled
-> by a "safety" real-time processor but still need to be used by the Linux
-> world. Several solutions have been / are being proposed [3] [4], but
-> none of them re-uses the existing, standardized virtio specifications.
-> 
-> == The proposal ==
-> 
-> The proposed approach is to introduce a bounce buffering mechanism that
-> is transparent to the drivers and can expose to remoteproc devices only
-> memory areas they can access. This is obtained by defining the .map
-> memeber of each registered vdev and use the map() and unmap() callback
-> to bounce data to and from the remote processor, just like the swiotlb
-> framework is doing in other contexts, using the device's coherent memory
-> area and the associated functions to allocate the bounce buffers.
-> 
-> During the map() callback the address of the incoming buffer is compared
-> against the coherent memory address base and size, to pass through
-> buffers already suitable for remoteproc usage (e.g.: the ones allocated
-> by the rpmsg framework).
-> 
-> == Status and open points ==
-> 
-> The series was tested against a custom Zephyr application [5] running on
-> the Cortex-M33 processor of an i.MX93 and exposing six different virtio
-> devices:
-> 
->    - rpmsg
->    - entropy (rng)
->    - gpio
->    - i2c
->    - spi
->    - can
-> 
-> On top of three of them (unsurprisingly: i2c, spi, and gpio) several
-> devices where declared inside Linux devicetree and successfully used
-> (well, technically I'm still experiencing difficulties with gpio
-> interrupts not firing on the M33, but that's not really related to the
-> series).
-> 
-> Several open points are still present, and needs to be either
-> investigated or discussed:
-> 
->    - for each bounce buffer an entire page is allocated from the coherent
->      memory pool; this is a waste for most of the allocations, which take
->      on average 32 to 64 bytes. An option can be to initialize a DMA pool
->      on one page and allocate small buffers from it?
-> 
->    - the support in its current form allocates more memory than before
->      (for bounce buffer tracking) also for existing usecases (i.e.,
->      mainly rpmsg).
-> 
->    - an additional issue still exist - and is not solved by this series -
->      for a subset of virtio devices: communication through the device's
->      config space. The remoteproc transport expects this config space to
->      be somewhat constant, and there is no provision to sync changes made
->      by the driver with the remote device. This prevents e.g.
->      virtio-input to work.
-> 
->    - device de-registration on remoteproc stop is causing oopses (under
->      investigation - might no be strictly tied to the series)
-> 
-> == Patches breakdown ==
-> 
-> Patches 1 and 2 are cleanups to the remoteproc-virtio driver and could
-> be applied independently of this series.
-> 
-> Patch 3 was submitted a couple of months ago [6] and paves the road for
-> the actual support of generic virtio devices, removing the fixed number
-> of 2 for the vrings associated to a vdev.
-> 
-> Patch 4 introduces two new APIs for coherent memory areas associated to
-> devices that are used later.
-> 
-> Patch 5 might somewhat be controversial, as it unconditionally defines
-> the VIRTIO_F_VERSION_1 feature for all vdevs. This is required to
-> support some virtio device types, and there is no other mean of
-> defining it, since the field reserved for features inside the resource
-> table is limited to 32 bits. Given that the 1.x virtio specifications
-> are ~10 years old this still seems reasonable.
-> 
-> Patch 6 is were the bounce buffering mechanism is introduced; another
-> feature (VIRTIO_F_ACCESS_PLATFORM) is there unconditionally defined to
-> force the virtio framework to use the new map APIs.
-> 
-> Patches 7 and 8 are new devicetree bindings, the first for spi-virtio
-> (modelled against the existing ones for gpio-virtio and i2c-virtio) and
-> the second for declaring virtio device inside a devicetree. This is not
-> required for some devices (e.g.: can, net, gpu), but for others is
-> necessary to declare child devices and link them.
-> 
-> Patch 9 is used to convince the remoteproc-virtio transport to parse the
-> bindings just defined; it is worth noting that the virtio framework
-> already has the support for devicetree declarations and this adds only
-> the glue between the existing support and remoteproc.
-> 
-> Patches 10 and 11 are i.MX-specific and enable the usage of the newly
-> introduced support on this family of platforms. The first one might
-> probably be sumbitted as-is independently of the series, as it aligns
-> the behavior of imx-rproc to the other platforms in relation to mailbox
-> usage.
-> 
-> Finally, patch 12 is the PoC that has been used to develop and test the
-> series and shall not be merged.
-> 
-> ======
-> 
-> Thank you in advance for any comment you may want to leave.
-> 
-> Regards,
-> Francesco
-> 
-> [1] https://lore.kernel.org/all/1330589497-4139-1-git-send-email-ohad@wizery.com/
-> [2] https://elixir.bootlin.com/linux/v7.2.5/source/Documentation/staging/remoteproc.rst#L26
-> [3] https://lore.kernel.org/linux-remoteproc/20260721204704.400781-1-shenwei.wang@oss.nxp.com/
-> [4] https://cfp.embedded-recipes.org/er2026/talk/PCYPJP/
-> [5] https://github.com/WallaceIT/zephyr/tree/multi_vdev
-> [6] https://lore.kernel.org/all/20260621-vring_flex-v1-1-c6c582fbe94b@valla.it/
-> 
-> Signed-off-by: Francesco Valla <francesco@valla.it>
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 > ---
-> Francesco Valla (12):
->        remoteproc: virtio: cleanup rproc_add_virtio_dev error path
->        remoteproc: virtio: replace commas with semicolons
->        remoteproc: virtio: support dynamic number of vrings
->        dma-coherent: add base and size APIs
->        remoteproc: always report VIRTIO_F_VERSION_1 feature
->        remoteproc: virtio: add bounce buffering for data buffers
->        dt-bindings: spi: add bindings for spi-virtio
->        dt-bindings: remoteproc: add remoteproc-virtio
->        remoteproc: search for a fwnode during vdev registration
->        remoteproc: imx_rproc: always use non-blocking mailboxes
->        dt-bindings: remoteproc: imx-rproc: support virtio
->        PoC: arm64: dts: imx93-11x11-frdm: add multiple vdevs
+>  include/linux/dma-fence.h | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
 > 
->   .../bindings/remoteproc/fsl,imx-rproc.yaml         |   3 +-
->   .../bindings/remoteproc/remoteproc-virtio.yaml     |  89 +++++++++
->   .../devicetree/bindings/spi/spi-virtio.yaml        |  52 +++++
->   arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++-
->   drivers/remoteproc/imx_rproc.c                     |  49 +----
->   drivers/remoteproc/imx_rproc.h                     |   1 -
->   drivers/remoteproc/remoteproc_core.c               |  43 +++-
->   drivers/remoteproc/remoteproc_virtio.c             | 222 ++++++++++++++++++---
->   include/linux/dma-map-ops.h                        |  10 +
->   include/linux/remoteproc.h                         |  24 ++-
->   kernel/dma/coherent.c                              |  34 ++++
->   11 files changed, 562 insertions(+), 93 deletions(-)
-> ---
-> base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
-> change-id: 20260915-remoteproc_virtio_map-bcf32a5fab54
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index dd07d128adc3..59af0159cd25 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -220,6 +220,8 @@ struct dma_fence_ops {
+>  	/**
+>  	 * @wait:
+>  	 *
+> +	 * DEPRECATED!
+> +	 *
+>  	 * Custom wait implementation, defaults to dma_fence_default_wait() if
+>  	 * not set.
+>  	 *
+> @@ -236,6 +238,10 @@ struct dma_fence_ops {
+>  	 * Implementing this callback prevents the fence from detaching after
+>  	 * signaling and so it is necessary for the module providing the
+>  	 * dma_fence_ops to stay loaded as long as the dma_fence exists.
+> +	 *
+> +	 * Deprecated for the reason mentioned above. No new users must be
+> +	 * implemented.
+
+>	Consumers of a fence can instead notify themselves by
+> +	 * registering a callback on the fence.
+
+Mhm, the wait callback is transparent to consumers it's just that implementations used it for quite a number of different hacks.
+
+I would just drop that sentence.
+
+>  	 */
+>  	signed long (*wait)(struct dma_fence *fence,
+>  			    bool intr, signed long timeout);
+> @@ -243,6 +249,8 @@ struct dma_fence_ops {
+>  	/**
+>  	 * @release:
+>  	 *
+> +	 * DEPRECATED!
+> +	 *
+>  	 * Called on destruction of fence to release additional resources.
+>  	 * Can be called from irq context.  This callback is optional. If it is
+>  	 * NULL, then dma_fence_free() is instead called as the default
+> @@ -254,6 +262,12 @@ struct dma_fence_ops {
+>  	 *
+>  	 * If the callback is implemented the memory backing the dma_fence
+>  	 * object must be freed RCU safe.
+> +	 *
+> +	 * Deprecated because it prevents the producer of a fence from
+> +	 * unloading. No new users must be implemented. Parties with a
+> +	 * hypothetical need for this callback can instead simply and directly
+> +	 * perform their custom release operations one RCU grace period after
+> +	 * they have signaled the fence.
+
+Yeah that is a bit problematic.
+
+We need my patch set to explicit signal fences instead of returning true/false from callback for that so that a backend can properly implement this.
+
+It's on my TODO list, but not the highest priority at the moment.
+
+Regards,
+Christian.
+>  	 */
+>  	void (*release)(struct dma_fence *fence);
+>  
 > 
-> Best regards,
-> --
-> Francesco Valla <francesco@valla.it>
-> 
+> base-commit: 2302669bb4b52d581cc2589b90b3af7bb3783a28
 
