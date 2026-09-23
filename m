@@ -1,155 +1,127 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB0484756C3;
-	Wed, 23 Sep 2026 09:49:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 310A747CA63
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156954; cv=none; b=Qq6fuuuZjsK1AQtsw/ZhTx7HH46a2//g+aVvLU1IToIY9v9V0ZixsavJV0by3oaCAuNwSxmWyGZd1GojmR3Xx3TxtXbh6y0XtBXOOJHS5dySfbEOCDWbak6Z7UIr+9u42oa+k72UDHyzLEARE8Ofk7Lx8WBS6mAq2XSKhW3ndhM=
+	t=1790156957; cv=none; b=OCPH+rYaVzu9BeFnqeMDzQXLa8PiHngQIV8JGD8l2H60vfbi9C/DLceOWlG+czmdrjRFTuNYhkjmEwfILKanwy2yhZ7a+90j1pk1dc4ToLMBV2eEm1b2AX412XOTnGseM0eOKnO8VkZngxVgfQukbYPdXUK25LcyjaOCsUlVLbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156954; c=relaxed/simple;
-	bh=onO0Jdhy+n/YPKxtxMu+68vh5d+rvCqvu72aSYGTGzw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s32/xHsW5TA+HtLW+ti2TSiweH8gUr2VnJNs/eWRN5wJUBKrLybsZGp9RSzyMme2rzMeG4OBenn8U0l8O+o+3BiTYHSIzcf9U/Ygw4ZfelEX4cTg2FwKxtdzaxwMSBYBjEuo0ylh4qb0a0gRWZzemT8X/EsarWoDi7bDQ4YC4Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wCnkH6PoLNqJVExAQ--.7129S3;
-	Wed, 23 Sep 2026 17:49:04 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgDHFMmOoLNqwoWWBA--.41472S2;
-	Wed, 23 Sep 2026 17:49:02 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] iio: adc: ad_sigma_delta: fix use-after-free on unbind
-Date: Wed, 23 Sep 2026 09:48:07 +0000
-Message-Id: <20260923094807.503690-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1790156957; c=relaxed/simple;
+	bh=GjWhhapekepSw3xDZhTubaOgG9SpMCtdY0jaTW4TErE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UvH1R2kLoxiTFdM9HxfFiiGmxkL4oJIIEVAfcrQRQTzGfq8x6azm1KSr3E9isPAlZ9aThQxBDPb9l8zCJJ8jxQEunGZZXkMAqrR3W/9Knaw3nbmEeQHPsAb+rdUOX1QIcUKeqnZzT/9dHVL3S/cU2MFYQGUa3QjaTVAAVrcLPoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HPCkuayi; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HPCkuayi"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso9147585e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:49:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1790156952; x=1790761752; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gQY9+mxl5RQeElezYwhR5Xgjfp9BQCJuxwrhuNY8J6A=;
+        b=HPCkuayi90S0BJAjAhbdq1lbdYMgDpMaqRkXNgCTZh5aAbk1j4Zfn25Kx255lkkrm+
+         gA6uqW/ZXNHGC8e5vua2Bt4hzV9bPAvQXfUyc8Od68RmOXRvp1ZzWnFDXTSdLcX8OVnq
+         E/xmjk9Z9WEOq0tYED15aQRBOop+r8kRvX7mM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790156952; x=1790761752;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gQY9+mxl5RQeElezYwhR5Xgjfp9BQCJuxwrhuNY8J6A=;
+        b=BkmceDd7/oMIJzeLWezDX3zHgIwm6pvmrNRpZt4+wqCzHK6HAl9F4QWgd/2BavLlIJ
+         U8yOVHPQBg4wDMIT0Jjz0KVXQ3kVZJpdadgl8rb9Gixl0Cd3DeB76VQXk9+6k3Rci99y
+         5dHTpndcpBZ8D+lX+KprzBNipSBl5YbVhCYx2W2Y+stqAaLM0V8s+Kigq/nb6nyyB/fv
+         chFCtPbf9+R27ej5/ItwPusDp+JzU9thA3GbMP++nGIADHESsEee+wDK44Lg8z37rwd4
+         kLMpW9DCo5QaZ16iTMWJ1lbHCZ4NN/isXnlKK/rYVnpMF+CShcebYdr+r+9swyvQ2p0u
+         WNWw==
+X-Forwarded-Encrypted: i=1; AKwUvBxkOCPYVT3jnrKSmTiIBbSgLIhUvSiK4jSOEtnt0SiJ7H1iYylPRBXyafKvIkawMfTZ2tpfgaaFvybkWp8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lewDs7Laoz5POp/r4l2EjCCsLvZSr+7ybvvo2B6mnGc5uW10C8
+	/NLaNEQigvQ5zTVyNa/T0618B26+tk83JgE4DCIyvSfmImx+vAoulbQkNP0pjtCw4ks=
+X-Gm-Gg: AYBFou1/A2d7DUi/sXcHake2mh362dBWx5y6oDtyot1JNDGQ3iLYLpL7JJnLi6OdFyA
+	Ts7V7Ljjwz0iFvGdrwEu3eUvffQgpqXKN6gH++XDvvrgPJKEDtVmrFKLoBdVV9jSXjeJ3u2gjIh
+	cogz9klzimKBGzp3Erz+Ziuc4JuJjanTmKIcLWmkr+MIAL61Ch5sJ19tXQGhoVnFZaeWtQD+0RA
+	frP+9NJKiUI8+OH2t56UL3JX9OB6jG5G1IpTkeDF1uithfdrfDUV+spFQGwNoylUOtxk9c9vmp4
+	9/n+LrrtaT9PI7yPQpCatLid9rrD26v/ZEEGX9UQCX+JfPBhNw/x4qZ2wnkH3U3igzWzxdi93cm
+	UMN2BrxauuCiDUvSNYUb8Eih50UimQK8VXYcjcvFXIONV4XhBfJgzTUNlwUcDYxjefnpimPw4If
+	MUEPINyLuvA6wRzCU3tuZweRSGjnRC1yNoXWUzXgWiUP5T7NimJWSgHTBPwej2jrmkcLjFUTJx0
+	CiVb83pbHYkHh7P
+X-Received: by 2002:a05:600c:4e86:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-49fdeffcd07mr26633495e9.7.1790156952208;
+        Wed, 23 Sep 2026 02:49:12 -0700 (PDT)
+Received: from [10.214.128.75] ([149.7.5.83])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe14322c0sm50931985e9.5.2026.09.23.02.48.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 02:49:11 -0700 (PDT)
+Message-ID: <eeacd6db-3f4a-4f7f-a27f-b7bfacc0a981@linuxfoundation.org>
+Date: Wed, 23 Sep 2026 03:48:42 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgDHFMmOoLNqwoWWBA--.41472S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?ahvVegXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI1PLYSSMdIkt6yCgFAlM7AW1+TnRYI0sOKfrB+5X2+zr7oF
-	RbxLB0yqqPXBTpWut0Gp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxXrWfKry8ArWDAF1DKF4Utrc_yoWrGryUpF
-	Z3Kr1xCrWUXF1fXF1jvasY9Fy5twsrWr4UKF4av34I9wn8Zr9YgFyj9ryftFWrAr92yrsr
-	tws5Jw4UWF1xtFXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_
-	Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07jeAp5UUUUU=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usbip: host: ignore number_of_packets for non-isoc URBs
+To: zjzhao@edatec.cn, linux-usb@vger.kernel.org
+Cc: valentina.manea.m@gmail.com, shuah@kernel.org, i@zenithal.me,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260825033623.332537-1-zjzhao@edatec.cn>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260825033623.332537-1-zjzhao@edatec.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ad_sd_buffer_postenable() allocates sigma_delta->samples_buf with
-devm_krealloc() at runtime, so its devres entry sits after all
-probe-time entries of the driver. devm resources are released in
-reverse allocation order, which means unbind frees samples_buf before
-iio_device_unregister() disables the buffers and detaches the trigger
-pollfunc. The data ready IRQ is still enabled at that point, so
-ad_sd_trigger_handler() can still run and memcpy() incoming samples
-into the freed samples_buf.
+On 8/24/26 21:36, zjzhao@edatec.cn wrote:
+> From: zjzhao-eda <zjzhao@edatec.cn>
+> 
+> number_of_packets is only meaningful for isochronous URBs.  The USB/IP
+> stub currently copies the value from the CMD_SUBMIT PDU into the local
+> URB verbatim for all endpoint types.
+> 
+> Some clients (e.g. usbip-win) leave number_of_packets uninitialized for
 
-Fix this by preallocating the buffer in
-devm_ad_sd_setup_buffer_and_trigger(), before the triggered buffer and
-the IRQ are set up, so it is freed only after iio_device_unregister()
-has drained the trigger handler via free_irq(). Size it for the worst
-case of all sequencer slots being active; ad_sd_validate_scan_mask()
-already caps the number of active channels at num_slots.
+Using usbip-win isn't a supported configuration.
 
-This issue was found by an in-house static analysis tool.
+> non-isoc URBs, so a garbage/huge value reaches usb_submit_urb().  Host
+> controllers that size per-URB allocations by this field (e.g. dwc2's
+> dwc2_hcd_urb_alloc(), which always sizes the iso descriptor array by
+> urb->number_of_packets) then attempt a multi-gigabyte allocation that
+> fails with -ENOMEM, making usbip-host reset the device in an endless
+> loop (older dwc_otg crashes outright instead).
+> 
+> Sanitize number_of_packets to 0 for non-isochronous endpoints in the
+> stub.  This is a strict no-op for well-behaved clients (Linux vhci
+> already sends 0 for non-isoc URBs) and fixes the dwc2/dwc_otg failures.
 
-Fixes: 8bea9af887de ("iio: adc: ad_sigma_delta: Add sequencer support")
-Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/iio/adc/ad_sigma_delta.c | 32 +++++++++++++++++++-------------
- 1 file changed, 19 insertions(+), 13 deletions(-)
+Also how does this manifest? Where in the code path do we use the
+number_of_packets without checking the usb_pipeisoc type first?
 
-diff --git a/drivers/iio/adc/ad_sigma_delta.c b/drivers/iio/adc/ad_sigma_delta.c
-index 1b41029..4f982c6 100644
---- a/drivers/iio/adc/ad_sigma_delta.c
-+++ b/drivers/iio/adc/ad_sigma_delta.c
-@@ -498,7 +498,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 	const struct iio_scan_type *scan_type = &indio_dev->channels[0].scan_type;
- 	struct spi_transfer *xfer = sigma_delta->sample_xfer;
- 	unsigned int i, slot, channel;
--	u8 *samples_buf;
- 	int ret;
- 
- 	if (sigma_delta->num_slots == 1) {
-@@ -530,7 +529,7 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 		xfer[1].bits_per_word = scan_type->realbits;
- 		xfer[1].len = spi_bpw_to_bytes(scan_type->realbits);
- 	} else {
--		unsigned int samples_buf_size, scan_size;
-+		unsigned int scan_size;
- 
- 		if (sigma_delta->active_slots > 1) {
- 			ret = ad_sigma_delta_append_status(sigma_delta, true);
-@@ -538,17 +537,6 @@ static int ad_sd_buffer_postenable(struct iio_dev *indio_dev)
- 				return ret;
- 		}
- 
--		samples_buf_size =
--			ALIGN(slot * BITS_TO_BYTES(scan_type->storagebits),
--			      sizeof(s64));
--		samples_buf_size += sizeof(s64);
--		samples_buf = devm_krealloc(&sigma_delta->spi->dev,
--					    sigma_delta->samples_buf,
--					    samples_buf_size, GFP_KERNEL);
--		if (!samples_buf)
--			return -ENOMEM;
--
--		sigma_delta->samples_buf = samples_buf;
- 		scan_size = BITS_TO_BYTES(scan_type->realbits + scan_type->shift);
- 		/* For 24-bit data, there is an extra byte of padding. */
- 		xfer[1].rx_buf = &sigma_delta->rx_buf[scan_size == 3 ? 1 : 0];
-@@ -855,6 +843,24 @@ int devm_ad_sd_setup_buffer_and_trigger(struct device *dev, struct iio_dev *indi
- 
- 		indio_dev->setup_ops = &ad_sd_buffer_setup_ops;
- 	} else {
-+		const struct iio_scan_type *scan_type =
-+			&indio_dev->channels[0].scan_type;
-+		unsigned int samples_buf_size;
-+
-+		/*
-+		 * Worst-case size: all sequencer slots can be active, capped
-+		 * at num_slots by ad_sd_validate_scan_mask().
-+		 */
-+		samples_buf_size =
-+			ALIGN(sigma_delta->num_slots *
-+			      BITS_TO_BYTES(scan_type->storagebits),
-+			      sizeof(s64));
-+		samples_buf_size += sizeof(s64);
-+		sigma_delta->samples_buf =
-+			devm_kzalloc(dev, samples_buf_size, GFP_KERNEL);
-+		if (!sigma_delta->samples_buf)
-+			return -ENOMEM;
-+
- 		ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
- 						      &iio_pollfunc_store_time,
- 						      &ad_sd_trigger_handler,
+> Signed-off-by: zjzhao-eda <zjzhao@edatec.cn>
+> ---
+>   drivers/usb/usbip/stub_rx.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/usb/usbip/stub_rx.c b/drivers/usb/usbip/stub_rx.c
+> index 1e9ae578810d..ec9ecbf432f5 100644
+> --- a/drivers/usb/usbip/stub_rx.c
+> +++ b/drivers/usb/usbip/stub_rx.c
+> @@ -481,6 +481,8 @@ static void stub_recv_cmd_submit(struct stub_device *sdev,
+>   
+>   	if (pipe == -1)
+>   		return;
+> +	if (!usb_pipeisoc(pipe))
+> +		pdu->u.cmd_submit.number_of_packets = 0;
+>   
+>   	/*
+>   	 * Smatch reported the error case where use_sg is true and buf_len is 0.
 
+thanks,
+-- Shuah
