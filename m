@@ -1,568 +1,184 @@
-Received: from mail-ej2-f24.google.com (mail-ej2-f24.google.com [74.125.228.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82269352C52
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.152
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151384; cv=none; b=An07D0JUi+DrIwr6oU9/CY9fF1TYnz5lfNHwREpNeA2d81ae9DBt2Yuufd41ovG4PDb7e490jJNXCHIQ5EeXfcXMnqEwccDGukQeVjq5Dl3eJCjR9wXVfnt/EzFd885xZVou3RYU6v8RVDpqZ2i8ud97s+aB7C/TZeOP3/3GQeA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151384; c=relaxed/simple;
-	bh=TD8aoLd2/Dhpb761SBQvxNiJjRFVqLXTRzX/SkEvpms=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gOkUNtoXZXBkF45v2o2eaHNoAKBtV7+xF01vqs5KPPJ6wyUx21qVk+4N0YMOnbmloOMBD9WTVpAuu/F4t6Z7WasD/lJwg0phdOcxzgH1umqs01h44UlZqdqjR2s0OAqywdMBsqylHzbQCgQcs/WFqH087LH3BNQSfJKOJcjyUg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=sJ++FrUd; arc=none smtp.client-ip=74.125.228.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49262463B9B;
+	Wed, 23 Sep 2026 08:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790151421; cv=fail; b=O251UuIKdoQV7itRc1Rq+NptT8WdvagtjB5Oy+QtCfC4+nnS1TYrBYtbVydDMa5B1SlPzh6bQT8TEjFUrBPP4UKlaQSBcRE3jnx3QwZaUkMbGImOuPAIrCHXGPTYFQ6dpiKKekWYNaj9Y8Tt56BsOBPnpugxQFMhXR3F18RgqNE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790151421; c=relaxed/simple;
+	bh=rh3eS9g7qSZiMliTytYbAhNhYaUPrKMDs1jRK18434k=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=n5CE8b1mm8EMSu6vy1kU0dH2fP5Dz7wKyE43vtVJ4OtY82vJfR3DdJo3Uk6/NsjBoyOeA0YKEBWUeWU+kKGZx2WSwZ+uRgS+lmcFCf1pRlUSfJkVOgSjraQLgDqRlA7XO21SfBKMkmUwU2WGYkrAuqMHgaLsODWsxUKG1GX8wmQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UeCKqWvC; arc=fail smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="sJ++FrUd"
-Received: by mail-ej2-f24.google.com with SMTP id a640c23a62f3a-c29d33431c8so75635366b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:16:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790151380; x=1790756180; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+8eAM1LNzWCJpxJuZHLJDRoAxSp2dTJJnVis9TF2H7I=;
-        b=sJ++FrUdOI02/QULNnxuEaPFkTd4G9Q6w/YwxkfQOwc7fzcKwsFEVKZWhlDgVVoA2e
-         F9szZlzU1X699XX3jvSSq5r6Kl4SyiuJAJkNPTWHro263N60FSRDLhZbskynQT7QmjLW
-         HwtNQrk5vDoBaxcvIz8J+bPVVmjXGhNX1CHZqtTXlV58FKtlU5thEBsIXiAq+allk6c3
-         O7zd2yCqq19xsp6CiTshksOibAcqlRW91YKShcNBucnk7vIDN7Rt9PgkGlnyYK7lgBve
-         hE9b6OTUMnmxRq3oFyfSU/Z11cBmu6fGiD3htPCi1Rh35ke3NeQfZkkt3Cf+7XAB4W71
-         ofXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790151380; x=1790756180;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+8eAM1LNzWCJpxJuZHLJDRoAxSp2dTJJnVis9TF2H7I=;
-        b=c8nYdoDy5tvsBQBKRdWaaS8x/2JmISPAUfn9Ltd3hcwoaGJIhwJrvCOOu0xyUclDia
-         nrGvbOCW8A1wRHzAO/Zl4rtrj6wMT4qk7yCmSkAzA7lOCZ0RHjcM/NZQ7P/NcN7vkKc/
-         CUjVoNc5GQJEEt4wYBc5jXOPxmr0zA4zxHHQqDWTu5kOuraMUZk5rrlBHIXhKQlbJelK
-         fmQGV8BbETxg3iIWg79CK7jwVpcg6Em8Nu07pYFADmwxRlizeT4CQYM+3YOPIH1s1Ksy
-         0U63cdYYMC/8rQ+6CB28XAmwn8VLekSUyURNe5DAHzjdtAoEQLr2y/573/0DLC4fJuot
-         13BA==
-X-Forwarded-Encrypted: i=1; AKwUvBy9JhmO5E5lafxfEVvxzKkkU4J+Y8tnNKNTLxqQ7I60KbdGtg68IQZb0uJzzwhryN21sNpk9mdF6kyYcAs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kY8/STmO1TUgH4V/b5BXTuajeXFHGCkrbQngOESNbHNIxx9Z5J
-	eiyWaMLgSn5nt5XCVIgPR13Up6xz0bWNQOYQF4olOR1uSAsI449ZYFKQuPXu7XlR7bY=
-X-Gm-Gg: AYBFou0GzEy9cgsasNZ+rhmdWMvB8DKTsOnloIS4aqTAtp+y0BuQTMkBVQ9PBRODIor
-	7HwVcRqgWUocWVZqCOGXLsRLZRysXcnrKmzdoo7A1k/iKbtEAfbG/gK4jpCiiPElg9txv6bvfYd
-	Xltcs72kouWNk9kA/3UqMkoWMkH28APo9XfDbFggzFGcIfYtPAexjQQkHsk6gtIK/DIa0WJ2pp/
-	PFVC10t3nQer29o1mtZsZw3Si74PvweWBI/CDeAjWxjukFy6ao4OIgTHkUg9nxeIqkIcvyRYR60
-	NIV28CWJDU1GqX/4bEhP/pAKisUT7/rD5G/GZZQbDqgneriuPHmebs23aoAS4y9Ctbtgci9AsdT
-	jKtxiHS019gt7Od9NgfYv6Xu1IAmGEzfvEQQma5NFnMOMxTu3Hzbm/0Hzk/h2O1ehLs9ig4g1sS
-	fWwXG4KMbWnICs4fLc2gDC9SC9pA+daoQ8NluFm/+a42IdQuNWU2j3mIMamZZgrIMHneuFtgdQ+
-	Q3/
-X-Received: by 2002:a17:907:1907:b0:c26:19e3:e98e with SMTP id a640c23a62f3a-c2aae37b22emr121088866b.46.1790151379357;
-        Wed, 23 Sep 2026 01:16:19 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae60e4c8sm66710966b.26.2026.09.23.01.16.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 01:16:18 -0700 (PDT)
-Message-ID: <c7d189ad-8cd9-45b3-9cdd-72923aa5d5d9@linaro.org>
-Date: Wed, 23 Sep 2026 09:16:17 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UeCKqWvC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790151419; x=1821687419;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=rh3eS9g7qSZiMliTytYbAhNhYaUPrKMDs1jRK18434k=;
+  b=UeCKqWvCDYNwJW2KiK0XYVXtu7qai8ABHdYKn+o8xvYZb1pzg9hw6MK/
+   vSTXm/r3HAfhEq4BD949k5MsXrXSWiHZK6frsnpxM2VhtvEjSWBYnSdwk
+   nZ79wCiNTTFBpkf1mjeFKh3sZmQqXKTlLPtOgmuvZEgg+/P82T7kqNWmR
+   wcIQAkGDJdF6oLXu26bk1V9Il8A9c66QzYLyLTLOBlVH0Ckxizp8wWKXS
+   5+rhmDzebSLrgIajttIxsL2gPIMYdu4bfd+jdInfOHtEmPpBxcwtrzmUz
+   UuXcr9IkP4xN02TXTXIgPk0amkWrbpkzDlBbeF9GsLQgXW+GpPJv8G001
+   Q==;
+X-CSE-ConnectionGUID: QiqjmRhUQnaW0Gl0VqicAw==
+X-CSE-MsgGUID: z1xCt4MoR3+b2+E6RM7t+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="89739926"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="89739926"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 01:16:58 -0700
+X-CSE-ConnectionGUID: 70/b3u7CQmeHB3ryMkL72g==
+X-CSE-MsgGUID: xiHs2BTeQxq8S7AW/irgcA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="299746181"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 01:16:58 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 23 Sep 2026 01:16:57 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 23 Sep 2026 01:16:57 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.8) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 23 Sep 2026 01:16:53 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Lwrvq7CK0QDxyUgJXQ9qqZH5g/LYyeAJf3ZZ0N93UOvVvXkPnrgXulJO/NNtbIXPpBlfSAxEJewK2+2aaDSi7V/cYmXSvQloGi8k6VNzddXRyfFXzpNiGvEzIZi31EJ0vxqKbuZDSmnlvZYnSzEWfJm2xTpnRNLMgzIznDxkiR1y1a3Hnvehm0ZBshYsf3zwRl/DbkTP6BXbJg3wwMSJaPMje7NVh0lpXGufgYpBuPlhl1vnQBgJ14aaNrGT+rpyRRIqosR+X1VKeloRkPOET7jRMAoJnCRX1X1RqrwHvidtKXmgqh3t+bv0JovcXs09qqmpaOCI3ym51AIc0V5a3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JcvtK4kcuFNLIxD+XFM4URD6pfKOoNLf2W3PI7L/61U=;
+ b=FttgTOwrgxS8ddPBy3/8ZPnKPoMesFwLabAMDb622ovjk++q1iIHOYccjdhTZNsFuPmPHV+lL8Q/ne+Q7gD38WjPH3JqO715bCY9W27dyXxQx6LmnlFR/D3RdgtlWJ6Gd3mcgI9spKK8X3m6B9ueLg7eeAdGkiwdiccJmuXzxDL50UKB5WsmAMujcpM+ahnWWpNLVR3BG/9w4OXojcnYYVFzNf2D4Hojz+yghfBuISV13sRuGk+51DQc4/p1PnNnx6PNoBlEfAR4aZTPatn+Z4MQAlCoEWBHFiF0j48Vc9wOJBcbqcqVCfp0wdT0no4rwpmxNps5uzVpd2u4t3YzGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6006.namprd11.prod.outlook.com (2603:10b6:510:1e1::13)
+ by SJ0PR11MB6669.namprd11.prod.outlook.com (2603:10b6:a03:449::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
+ 2026 08:16:48 +0000
+Received: from PH7PR11MB6006.namprd11.prod.outlook.com
+ ([fe80::4e2d:28f0:ede9:73bd]) by PH7PR11MB6006.namprd11.prod.outlook.com
+ ([fe80::4e2d:28f0:ede9:73bd%6]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
+ 08:16:39 +0000
+Message-ID: <1690dddf-02ba-4a30-b490-d9e317303b6f@intel.com>
+Date: Wed, 23 Sep 2026 10:16:33 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/21] ASoC: codecs: rt5640: Move mclk acquisition to
+ the i2c probe
+To: Chancel Liu <chancel.liu@oss.nxp.com>
+CC: Support Opensource <support.opensource@diasemi.com>,
+	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<patches@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>, "Liam
+ Girdwood" <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, "Takashi
+ Iwai" <tiwai@suse.com>, Charles Keepax <ckeepax@opensource.cirrus.com>, "Oder
+ Chiou" <oder_chiou@realtek.com>
+References: <20260923061305.4041197-1-chancel.liu@oss.nxp.com>
+ <20260923061305.4041197-10-chancel.liu@oss.nxp.com>
+Content-Language: en-US
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <20260923061305.4041197-10-chancel.liu@oss.nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: WA3PEPF00000521.POLP291.PROD.OUTLOOK.COM
+ (2603:10a6:1d8::66b) To PH7PR11MB6006.namprd11.prod.outlook.com
+ (2603:10b6:510:1e1::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 38/49] perf python: Port arm-cs-trace-disasm to perf
- module
-To: Ian Rogers <irogers@google.com>
-Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com, leo.yan@linux.dev,
- linux-kernel@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
- tmricht@linux.ibm.com, acme@kernel.org, alice.mei.rogers@gmail.com,
- linux-perf-users@vger.kernel.org, namhyung@kernel.org
-References: <cover.1789966896.git.irogers@google.com>
- <f724b653476e2733c18b02268c57baaaa54870ba.1789966896.git.irogers@google.com>
- <967f2941-2f7c-464e-8a8e-eb0a78f586d6@linaro.org>
- <CAP-5=fXz5S-Va1BdvQjvDqcKovToyoODC-T1gVV46pLPEbiVvQ@mail.gmail.com>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <CAP-5=fXz5S-Va1BdvQjvDqcKovToyoODC-T1gVV46pLPEbiVvQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6006:EE_|SJ0PR11MB6669:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6e0991ad-1f23-4cd5-d2ec-08df194afe54
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|10067099003|11063799006|22082099003|18002099003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: JEIwOTu5hOF6mdlUbX6HdcKDUGXM0V0kzqGZJoVt7fa9jgEeA+F5Ia/zCcdBnFZzOrd6MxS3mx5DOP2XA7++u0i2sB7DKmoa4Se4xsqrs2O3UmvCZXGqITINUA4hAzxY+8nqN1yf/z2P9jY2PBlddkTCc/8LoLvCNaB/d5VzMGMegfMrDhfC9pUUY9SOaqWv2mcPEI1fQJ8uil47FBrTodfi01NDDPyt9JohOUeLjWs07Y+YKdH2BGTiLtwZHjHfRQkVo38m21RmpZDb79ctsLAg/zZ4ZTXECx1tnwvUrmlGReQvr/W+5TmooZJHYZ6vWXsDdkHTdUGpNnFKdaalM8oSbcr+BEkuTjT/S5HBnjHN913wm1vf7k4dM7FsMMYYuAzBK+XyPI66xXXYNavoL6JaSn0+Ju4joJuCJGIi+qduGF27/13j2sjBYg1SZ+/54gmsl7aT1NHhVIteQ8ieGFdtQrcv/X8yUIgv0w3bMq4wTLOO6Yw478skwZWJsqDWF0NapB86Ttp3nzcuqyNrEhXMmy0j88bbiB+G/sk/QyfLZEeNKdqNtNP2P13WzmV4sXXtSWoBFueNtapV0PfBNQ2WoCiA3AKuYwAWUO4EC39plvespcFSl+pfzdj+y/V/aryS2vfAM7yzgJyOVIGHe40qOi8/RiK1p5ijjUF/ruE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6006.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bUZ5Z3Rac1puTmxQTWxKSmlTcUdWQzNMbGxUZDZzOEFyeWJJZ2xUTHhIR0xO?=
+ =?utf-8?B?OHFsdXhtWXQ4ZWcrcjFRazIyWW0zQ3BHYll6QTZwMnpVV3l6ajdQaFMxMXFr?=
+ =?utf-8?B?N1IybHgrbENYam9xV2lpOWFLNEdxc2xsQVdWWXY2N2dFVDNsT3FOcmZJbnNK?=
+ =?utf-8?B?dkdVS2x2aHpvOFg4b2ZTSURhcEptbjQ4aU1KQUJjWmZISnllL3czM1Q5QXBy?=
+ =?utf-8?B?dU1ncDMwNVBqR09zZU83YUVkdk95UkQzU2FvRG0wVlRpTlE1bmxTaUM3SnQz?=
+ =?utf-8?B?Y3FLL1FFY1QxdHE0ZUZ0Q2ZuL2ZuRVdINFk3NWJTcXB3ZmlONnJEeTFLMVE3?=
+ =?utf-8?B?RzFsb1JSRkkvTGZaVnJjRlRhTnl0ZnBYTmJVQlk4VE54ODB2U2g1OGJRMTZD?=
+ =?utf-8?B?S1NyS2dUQnlqRnBwM21xa0luWWtvdUJWZlBFdWdZK1kyRHNLdDI2THRmSFFC?=
+ =?utf-8?B?M3Y4N2tFK04yNHVkMy90dUR1MmZ6YTNQUFFwYUpKTlQ5czl4WHZMWEtMVmdS?=
+ =?utf-8?B?WG5lbEc4TG10VytwenhRbVVKT1dXV1p6R01WYVlUVDUyWUdlOVV6d2w5NEY3?=
+ =?utf-8?B?OHpVbjNOaTRxdHZlaHJpS29pMkZzc0UrcXB5TEVqQUw0VXVwZjhBdkVtRFo4?=
+ =?utf-8?B?MWNqTVhUTkw2ZFpDclZGNkxEdFg0dG5CSEJsQlBwOTdQSFg1MDh0SjFpTnJM?=
+ =?utf-8?B?TXByZDdFcFJYbEF0SS9XalB0VTFaZ000UWViVDJzQmV6R2NIS3pTaUdqdlV3?=
+ =?utf-8?B?VWNGUXhqNmUrZXhXbTZKMkhZMG5lbjYxMHBLOGp1UXJ5YXhWazM5YU1zbldK?=
+ =?utf-8?B?V0cwdHYyd2xmaFhkOWRRTUVnM0lDdU52OVVFQjc4ZnhocEZWeXpqTklmWUdD?=
+ =?utf-8?B?S3FSM1BOdUY1Q2orei9YdFluMFRkZ2hvaDRBVnB2V2NLZ3pzQlVXWm1UZk9Y?=
+ =?utf-8?B?Ris2c1c0OEc2MmlNOXRLU0VTcllDQ1F0QXE5WTkxbWNTNHdjRm16dFcvc1E5?=
+ =?utf-8?B?cktXNTlITTBnem11VUdjQWpKM0dLL2pkTkt6NENxdVdhaERQWk5nekFQVGdE?=
+ =?utf-8?B?VWJiTHhNLzM0YjBCRXFXY3U2Y05oZForTjUwNis2ejJORUZhckJIUVdkSEpM?=
+ =?utf-8?B?bzdvSHVzZ2xtb3Q4cktHVjVLUkMrQVFmUWRLYVlsSnNaV2xndytpbTZ0QjVu?=
+ =?utf-8?B?SytIUGQ4VWw5MHhDZ1dDcW5BWUtNR0Z4M3BLRzE5bGhiZjZhMWR6UTNHT2hO?=
+ =?utf-8?B?bERmUXl5ZU05ZG03dXVqQ2Z0SW9LemZwdWVPU05MK0hOMUwrdzM3UDY1V0pW?=
+ =?utf-8?B?czlUTG01bVNjL1plK0VGU2xoUEtEQ0hqbmorbXFub0NxSW5XL0ltcEoxMnZh?=
+ =?utf-8?B?LzBkR3ZsdWVOMXBFU0xkQ0lqam5ucnQwSWxrU1pWT2Y0K0dqWEsxVEFlUEFX?=
+ =?utf-8?B?Qy95dEpyaytpbFQvVFZtbFdCaE4yZEx5RWZ5Q0hicmFtdkh6enBOWmFYOXd6?=
+ =?utf-8?B?ZEMvWStkQWZ5T0xGNjBNQVZBNXUrYks1a3pnaFpsSmpKNE92SUcxVU5mcUl3?=
+ =?utf-8?B?MExHdUlqUHdNaFk0VkRZQVJLMzZYWkZQb0luQnZYMEJHT3I3cWZMd1BaeTQ2?=
+ =?utf-8?B?UEk5N05tNENSdjBJWllEUGxPMkZuUURCdTVsQ3dmTVZOVElmZm42dmsxZG9Z?=
+ =?utf-8?B?U0hFb3VZZGh0WDJLTk9MbFl3bFYvcmo0TFFDcWFCREJXN0xhRHdIQ0ROQy9m?=
+ =?utf-8?B?N3V2Yll5UzlLWU9UT3N2Q0hIZjZqbXliM1VFSG5sNHJGaDFCOHpiQkVrUmY2?=
+ =?utf-8?B?cWl1Ny9DMWxyMjJXRnZrM1VBQzhJOC9reFUyZlB5SXRYTCtCT1NXVnZUdTNW?=
+ =?utf-8?B?NjNoanBaMDFCcGFGYVBvLzR3bzB4eHNVUlRFUWdMcHpWaXRhT2plSjJubVps?=
+ =?utf-8?B?NVNPSXlrUHhLZVQyWkRlZElTNDlzUUFYVVE0RHdOOG9qYTlPaWYwYlJFSm0x?=
+ =?utf-8?B?N0xzOER0bDN3UW80cWlXdmZxczVCU0gvcUZDa3EyU0dOSkNua0QyQ2Z2TnVV?=
+ =?utf-8?B?UVlLaHBPZ0ZZZHhXV0lIakFCQTlCUnFlZkk2M0MwWVlHdGw2dzcyV0NoL0pE?=
+ =?utf-8?B?bWkxZlJDcmxSWGI2Qi9CR0pIS3VlSmlFcGhWQW5tczRPQkw2ckVPNmRyZDVu?=
+ =?utf-8?B?TUp2ZFVtc2xoc1FaeXJuNlhjT0U5OUh4YytiRGxsMG81V2NaT0JzTGNiN3pY?=
+ =?utf-8?B?aG5waTdFc21Db0ZlbWVWZVRsWjYwYlVFVUNKamI3WEZLMHRNcWtlK3Z0a1Vq?=
+ =?utf-8?B?WVpKcDNRbHJHNkNsN3ZJbVE2czJycm1jKzBuUW50N1ByK1R4VmQrMmZRSXZG?=
+ =?utf-8?Q?casyH09k+TAh4Cbs=3D?=
+X-Exchange-RoutingPolicyChecked: LaZrNMQIecK7itga75/20bqInO0ss6XSzYo88I14QptuMkk1KFDVEgWuJddFwoW4yPytLPEESlVX1CV4inWyXgzBpn9P2uwO1y2qzTSbNMKu74TPSALUhUq9FjarDvgcmncGn8SQ5vVexD4t409gZ6B1/3KUhH6ie94yoIKGKGOsbbIIPBIbLnKqLhYAw/yqKBkX4BvhNn11/FT7hwMwrLBKCePJoBVLdQihf1LgnukWs2UBfBL3XZiQWpsJ/KnAcrjx8oaMWoj4+kQWhEYASvIbEgssGiZpVBoV1WNmli2i6iOhUW/wBae0rwYoKBt9TzJ8jTEuwElxSWaZMISMRA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6e0991ad-1f23-4cd5-d2ec-08df194afe54
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6006.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 08:16:39.6206
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lvMPjMiANHtL0f1QG+t2GF8sl6e7b8BBmO7+6Mdyk+zXFXmATxiP0aCvLK39QvRCALOmFiqDz41kryutumzqn0WMCwmyDrdaYNY3t6LT1pI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB6669
+X-OriginatorOrg: intel.com
 
-
-
-On 23/09/2026 06:23, Ian Rogers wrote:
-> On Tue, Sep 22, 2026 at 6:12 AM James Clark <james.clark@linaro.org> wrote:
->>
->>
->>
->> On 21/09/2026 06:06, Ian Rogers wrote:
->>> Port arm-cs-trace-disasm.py to a standalone script in tools/perf/python/
->>> using the perf module directly.
->>>
->>> Improvements compared to the legacy script:
->>> - Encapsulate trace disassembly state in a TraceDisasm class
->>> - Automatically search standard kernel debug paths (find_vmlinux())
->>>     when -k/--vmlinux is not specified, and query
->>>     perf.config_get("annotate.objdump") for the default objdump binary.
->>> - Bound DISASM_CACHE memory consumption by evicting the cache at 1024
->>>     entries and skipping caching of oversized (> 512 lines) objdump
->>>     outputs.
->>> - Use sample.srccode() from the perf extension module to annotate
->>>     disassembly output with source filenames, line numbers, and source
->>>     lines.
->>>
->>> Update the ARM CoreSight disassembly shell test
->>> (test_arm_coresight_disasm.sh) to invoke the standalone script.
->>>
->>> Assisted-by: Antigravity:gemini-3.1-pro
->>> Signed-off-by: Ian Rogers <irogers@google.com>
->>> ---
->>>    tools/perf/python/arm-cs-trace-disasm.py      | 356 ++++++++++++++++++
->>>    .../coresight/test_arm_coresight_disasm.sh    |  24 +-
->>>    tools/perf/tests/shell/lib/setup_python.sh    |   4 +
->>>    3 files changed, 378 insertions(+), 6 deletions(-)
->>>    create mode 100755 tools/perf/python/arm-cs-trace-disasm.py
->>>
->>> diff --git a/tools/perf/python/arm-cs-trace-disasm.py b/tools/perf/python/arm-cs-trace-disasm.py
->>> new file mode 100755
->>> index 000000000000..1a9d9a01d1e4
->>> --- /dev/null
->>> +++ b/tools/perf/python/arm-cs-trace-disasm.py
->>> @@ -0,0 +1,356 @@
->>> +#!/usr/bin/env python3
->>> +# SPDX-License-Identifier: GPL-2.0
->>> +"""
->>> +arm-cs-trace-disasm.py: ARM CoreSight Trace Dump With Disassember using perf python module
->>> +"""
->>> +from __future__ import annotations
->>> +
->>> +import os
->>> +from os import path
->>> +import re
->>> +from subprocess import CalledProcessError, check_output
->>> +import argparse
->>> +import platform
->>> +import sys
->>> +from typing import Dict, List, Optional
->>> +
->>> +import perf
->>> +
->>> +# Initialize global dicts and regular expression
->>> +DISASM_CACHE: Dict[str, List[str]] = {}
->>> +CPU_DATA: Dict[str, int] = {}
->>> +DISASM_RE = re.compile(r"^\s*([0-9a-fA-F]+):")
->>> +DISASM_FUNC_RE = re.compile(r"^\s*([0-9a-fA-F]+)\s.*:")
->>> +CACHE_SIZE = 1024
->>> +class _State:
->>> +    sample_idx: int = -1
->>> +    source_file_name: Optional[str] = None
->>> +    line_number: Optional[int] = None
->>> +    dso: Optional[str] = None
->>> +
->>> +_STATE = _State()
->>> +
->>> +KVER = platform.release()
->>> +VMLINUX_PATHS = [
->>> +    f"/usr/lib/debug/boot/vmlinux-{KVER}.debug",
->>> +    f"/usr/lib/debug/lib/modules/{KVER}/vmlinux",
->>> +    f"/lib/modules/{KVER}/build/vmlinux",
->>> +    f"/usr/lib/debug/boot/vmlinux-{KVER}",
->>> +    f"/boot/vmlinux-{KVER}",
->>> +    "/boot/vmlinux",
->>> +    "vmlinux"
->>> +]
->>> +
->>> +def default_objdump() -> str:
->>> +    """Return the default objdump path from perf config or 'objdump'."""
->>> +    try:
->>> +        config = perf.config_get("annotate.objdump")
->>> +        return str(config) if config else "objdump"
->>> +    except (AttributeError, TypeError):
->>> +        return "objdump"
->>> +
->>> +def find_vmlinux() -> Optional[str]:
->>> +    """Find the vmlinux file in standard paths."""
->>> +    if hasattr(find_vmlinux, "path"):
->>> +        return getattr(find_vmlinux, "path")
->>> +
->>> +    for v in VMLINUX_PATHS:
->>> +        if os.access(v, os.R_OK):
->>> +            setattr(find_vmlinux, "path", v)
->>> +            return v
->>> +    setattr(find_vmlinux, "path", None)
->>> +    return None
->>> +
->>> +def get_dso_file_path(dso_name: str, dso_build_id: str, vmlinux: Optional[str]) -> str:
->>> +    """Return the path to the DSO file."""
->>> +    buildid_dir = os.environ.get('PERF_BUILDID_DIR')
->>> +    if not buildid_dir:
->>> +        buildid_dir = os.path.join(os.environ.get('HOME', ''), '.debug')
->>> +
->>> +    if dso_name in ("[kernel.kallsyms]", "vmlinux"):
->>> +        if vmlinux:
->>> +            return vmlinux
->>> +        if dso_build_id:
->>> +            for kname in (dso_name, "vmlinux", "[kernel.kallsyms]"):
->>> +                candidate = os.path.join(buildid_dir, kname, dso_build_id, "elf")
->>> +                if os.access(candidate, os.R_OK):
->>> +                    return candidate
->>> +        return find_vmlinux() or dso_name
->>> +
->>> +    if dso_name == "[vdso]":
->>> +        append = "/vdso"
->>> +    else:
->>> +        append = "/elf"
->>> +
->>> +    dso_path = buildid_dir + "/" + dso_name + "/" + dso_build_id + append
->>> +    # Replace duplicate slash chars to single slash char
->>> +    dso_path = dso_path.replace('//', '/', 1)
->>> +    return dso_path
->>> +
->>> +def read_disam(dso_fname: str, dso_start: int, start_addr: int,
->>> +               stop_addr: int, objdump: str) -> List[str]:
->>> +    """Read disassembly from a DSO file using objdump."""
->>> +    addr_range = f"{start_addr}:{stop_addr}:{dso_start}:{dso_fname}"
->>> +
->>> +    # Don't let the cache get too big, clear it when it hits max size
->>> +    if len(DISASM_CACHE) > CACHE_SIZE:
->>> +        DISASM_CACHE.clear()
->>> +
->>> +    if addr_range in DISASM_CACHE:
->>> +        disasm_output = DISASM_CACHE[addr_range]
->>> +    else:
->>> +        start_addr = start_addr - dso_start
->>> +        stop_addr = stop_addr - dso_start
->>> +        disasm = [objdump, "-d", "-z",
->>> +                  f"--start-address={start_addr:#x}",
->>> +                  f"--stop-address={stop_addr:#x}"]
->>> +        disasm += [dso_fname]
->>> +        try:
->>> +            disasm_output = check_output(disasm).decode('utf-8', errors='replace').split('\n')
->>> +        except (CalledProcessError, OSError):
->>> +            return []
->>> +        if len(disasm_output) <= 512:
->>> +            DISASM_CACHE[addr_range] = disasm_output
->>> +
->>> +    return disasm_output
->>> +
->>> +def print_disam(dso_fname: str, dso_start: int, start_addr: int,
->>> +                stop_addr: int, objdump: str) -> None:
->>> +    """Print disassembly for a given address range."""
->>> +    for line in read_disam(dso_fname, dso_start, start_addr, stop_addr, objdump):
->>> +        m = DISASM_FUNC_RE.search(line)
->>> +        if m is None:
->>> +            m = DISASM_RE.search(line)
->>> +            if m is None:
->>> +                continue
->>> +        print(f"\t{line}")
->>> +
->>> +def print_sample(sample: perf.sample_event) -> None:
->>> +    """Print sample details."""
->>> +    print(f"Sample = {{ cpu: {sample.sample_cpu:04d} addr: {sample.sample_addr:016x} "
->>> +          f"phys_addr: {sample.sample_phys_addr:016x} ip: {sample.sample_ip:016x} "
->>> +          f"pid: {sample.sample_pid} tid: {sample.sample_tid} period: {sample.sample_period} "
->>> +          f"time: {sample.sample_time} index: {_STATE.sample_idx}}}")
->>> +
->>> +def common_start_str(comm: str, sample: perf.sample_event) -> str:
->>> +    """Return common start string for sample output."""
->>> +    sec = int(sample.sample_time / 1000000000)
->>> +    ns = sample.sample_time % 1000000000
->>> +    cpu = sample.sample_cpu
->>> +    pid = sample.sample_pid
->>> +    tid = sample.sample_tid
->>> +    return f"{comm:>16s} {pid:5d}/{tid:<5d} [{cpu:04d}] {sec:9d}.{ns:09d}  "
->>> +
->>> +def print_srccode(comm: str, sample: perf.sample_event, symbol: str, dso: str) -> None:
->>> +    """Print source code and symbols for a sample."""
->>> +    ip = sample.sample_ip
->>> +    if symbol == "[unknown]":
->>> +        start_str = common_start_str(comm, sample) + f"{ip:x}".rjust(16).ljust(40)
->>> +    else:
->>> +        symoff = 0
->>> +        symoff = getattr(sample, 'sym_offset', 0) or 0
->>> +        offs = f"+{symoff:#x}" if symoff != 0 else ""
->>> +        start_str = common_start_str(comm, sample) + (symbol + offs).ljust(40)
->>> +
->>> +    source_file_name, line_number, source_line = sample.srccode() or (None, 0, None)
->>> +    if source_file_name:
->>> +        if _STATE.line_number == line_number and _STATE.source_file_name == source_file_name:
->>> +            src_str = ""
->>> +        else:
->>> +            if len(source_file_name) > 40:
->>> +                src_file = f"...{source_file_name[-37:]} "
->>> +            else:
->>> +                src_file = source_file_name.ljust(41)
->>> +
->>> +            if source_line is None:
->>> +                src_str = f"{src_file}{line_number:>4d} <source not found>"
->>> +            else:
->>> +                src_str = f"{src_file}{line_number:>4d} {source_line}"
->>> +        _STATE.dso = None
->>> +    elif dso == _STATE.dso:
->>> +        src_str = ""
->>> +    else:
->>> +        src_str = dso
->>> +        _STATE.dso = dso
->>> +
->>> +    _STATE.line_number = line_number
->>> +    _STATE.source_file_name = source_file_name
->>> +
->>> +    print(start_str, src_str)
->>> +
->>> +class TraceDisasm:
->>> +    """Class to handle trace disassembly."""
->>> +    def __init__(self, cli_options: argparse.Namespace):
->>> +        self.options = cli_options
->>> +        self.sample_idx = -1
->>> +        self.session: Optional[perf.session] = None
->>> +
->>> +    def process_event(self, sample: perf.sample_event) -> None:
->>> +        """Process a single perf event."""
->>> +        self.sample_idx += 1
->>> +        _STATE.sample_idx = self.sample_idx
->>> +
->>> +        if self.options.start_time is not None and sample.sample_time < self.options.start_time:
->>> +            return
->>> +        if self.options.stop_time is not None and sample.sample_time > self.options.stop_time:
->>> +            sys.exit(0)
->>> +        if self.options.start_sample is not None and self.sample_idx < self.options.start_sample:
->>> +            return
->>> +        if self.options.stop_sample is not None and self.sample_idx > self.options.stop_sample:
->>> +            sys.exit(0)
->>> +
->>> +        ev_name = str(sample.evsel)
->>> +        if self.options.verbose:
->>> +            print(f"Event type: {ev_name}")
->>> +            print_sample(sample)
->>> +
->>> +        dso = sample.dso or '[unknown]'
->>> +        symbol = sample.symbol or '[unknown]'
->>> +        dso_bid = (sample.dso_bid.decode('utf-8')
->>> +                   if isinstance(sample.dso_bid, bytes)
->>> +                   else str(sample.dso_bid or '[unknown]'))
->>> +        dso_start = sample.map_start
->>> +        dso_end = sample.map_end
->>> +        map_pgoff = sample.map_pgoff or 0
->>> +
->>> +        comm = "[unknown]"
->>> +        try:
->>> +            if self.session:
->>> +                thread_info = self.session.find_thread(sample.sample_tid)
->>> +                if thread_info:
->>> +                    comm = thread_info.comm() or "[unknown]"
->>> +        except (TypeError, AttributeError):
->>> +            pass
->>> +
->>> +        if dso == '[unknown]':
->>> +            return
->>> +
->>> +        if dso_start is None or dso_end is None:
->>> +            print(f"Failed to find valid dso map for dso {dso}")
->>> +            return
->>> +
->>> +        if "instructions" in ev_name:
->>> +            print_srccode(comm, sample, symbol, dso)
->>> +            return
->>> +
->>> +        if "branches" not in ev_name:
->>> +            return
->>> +
->>> +        self._process_branch(sample, comm, symbol, dso, dso_bid, dso_start, dso_end, map_pgoff)
->>> +
->>> +    def _process_branch(self, sample: perf.sample_event, comm: str, symbol: str, dso: str,
->>> +                        dso_bid: str, dso_start: int, dso_end: int, map_pgoff: int) -> None:
->>> +        """Helper to process branch events."""
->>> +        cpu = sample.sample_cpu
->>> +        ip = sample.sample_ip
->>> +        addr = sample.sample_addr
->>> +
->>> +        if CPU_DATA.get(str(cpu) + 'addr') is None:
->>> +            CPU_DATA[str(cpu) + 'addr'] = addr
->>> +            return
->>> +
->>> +        start_addr = CPU_DATA[str(cpu) + 'addr']
->>> +        stop_addr  = ip + 4
->>> +
->>> +        # Record for previous sample packet
->>> +        CPU_DATA[str(cpu) + 'addr'] = addr
->>> +
->>> +        # Filter out zero start_address. Optionally identify CS_ETM_TRACE_ON packet
->>> +        if start_addr == 0:
->>> +            if stop_addr == 4 and self.options.verbose:
->>> +                print(f"CPU{cpu}: CS_ETM_TRACE_ON packet is inserted")
->>> +            return
->>> +
->>> +        if start_addr < dso_start or start_addr > dso_end:
->>> +            print(f"Start address {start_addr:#x} is out of range [ {dso_start:#x} .. "
->>> +                  f"{dso_end:#x} ] for dso {dso}")
->>> +            return
->>> +
->>> +        if stop_addr < dso_start or stop_addr > dso_end:
->>> +            print(f"Stop address {stop_addr:#x} is out of range [ {dso_start:#x} .. "
->>> +                  f"{dso_end:#x} ] for dso {dso}")
->>> +            return
->>> +
->>> +        if self.options.objdump is not None:
->>> +            if dso == "[kernel.kallsyms]":
->>> +                dso_vm_start = 0
->>> +                map_pgoff_local = 0
->>> +            elif dso_start == 0x400000:
->>> +                dso_vm_start = 0
->>> +                map_pgoff_local = 0
->>> +            else:
->>> +                dso_vm_start = dso_start
->>> +                map_pgoff_local = map_pgoff
->>> +
->>> +            dso_fname = get_dso_file_path(dso, dso_bid, self.options.vmlinux)
->>> +            if path.exists(dso_fname):
->>> +                print_disam(dso_fname, dso_vm_start, start_addr + map_pgoff_local,
->>> +                            stop_addr + map_pgoff_local, self.options.objdump)
->>> +            else:
->>> +                print(f"Failed to find dso {dso} for address range [ "
->>> +                      f"{start_addr + map_pgoff_local:#x} .. {stop_addr + map_pgoff_local:#x} ]")
->>> +
->>> +        print_srccode(comm, sample, symbol, dso)
->>> +
->>> +    def run(self) -> None:
->>> +        """Run the trace disassembly session."""
->>> +        input_file = self.options.input or "perf.data"
->>> +        if input_file != "-" and not os.path.exists(input_file):
->>> +            print(f"Error: {input_file} not found.", file=sys.stderr)
->>> +            sys.exit(1)
->>> +
->>> +        print('ARM CoreSight Trace Data Assembler Dump')
->>> +        try:
->>> +            self.session = perf.session(
->>> +                perf.data(input_file),
->>> +                sample=self.process_event,
->>> +                itrace=self.options.itrace
->>> +            )
->>> +        except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError) as e:
->>> +            print(f"Error opening session: {e}", file=sys.stderr)
->>> +            sys.exit(1)
->>> +
->>> +        try:
->>> +            self.session.process_events()
->>> +        finally:
->>> +            self.session = None
->>> +        print('End')
->>> +
->>> +if __name__ == "__main__":
->>> +    def int_arg(v: str) -> int:
->>> +        """Helper for integer command line arguments."""
->>> +        val = int(v)
->>> +        if val < 0:
->>> +            raise argparse.ArgumentTypeError("Argument must be a positive integer")
->>> +        return val
->>> +
->>> +    arg_parser = argparse.ArgumentParser(description="ARM CoreSight Trace Dump With Disassembler")
->>> +    arg_parser.add_argument("-i", "--input", help="input perf.data file")
->>> +    arg_parser.add_argument("-k", "--vmlinux",
->>> +                            help="Set path to vmlinux file. Omit to autodetect")
->>> +    arg_parser.add_argument("-d", "--objdump", nargs="?", const=default_objdump(),
->>> +                            help="Show disassembly. Can also be used to change the objdump path")
->>> +    arg_parser.add_argument("-v", "--verbose", action="store_true", help="Enable debugging log")
->>> +    arg_parser.add_argument("--start-time", type=int_arg,
->>> +                            help="Monotonic clock time of sample to start from.")
->>> +    arg_parser.add_argument("--stop-time", type=int_arg,
->>> +                            help="Monotonic clock time of sample to stop at.")
->>> +    arg_parser.add_argument("--itrace", default="b",
->>> +                            help="Instruction tracing options.")
->>> +    arg_parser.add_argument("--start-sample", type=int_arg,
->>> +                            help="Index of sample to start from.")
->>> +    arg_parser.add_argument("--stop-sample", type=int_arg,
->>> +                            help="Index of sample to stop at.")
->>> +
->>> +    parsed_options = arg_parser.parse_args()
->>> +    if (parsed_options.start_time is not None and parsed_options.stop_time is not None and
->>> +            parsed_options.start_time >= parsed_options.stop_time):
->>> +        print("--start-time must less than --stop-time")
->>> +        sys.exit(2)
->>> +    if (parsed_options.start_sample is not None and parsed_options.stop_sample is not None and
->>> +            parsed_options.start_sample >= parsed_options.stop_sample):
->>> +        print("--start-sample must less than --stop-sample")
->>> +        sys.exit(2)
->>> +
->>> +    td = TraceDisasm(parsed_options)
->>> +    td.run()
->>> diff --git a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
->>> index f3ebad596378..51bcbd78f460 100755
->>> --- a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
->>> +++ b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
->>> @@ -1,6 +1,6 @@
->>>    #!/bin/bash
->>> -# Check Arm CoreSight disassembly script completes without errors (exclusive)
->>>    # SPDX-License-Identifier: GPL-2.0
->>> +# Check Arm CoreSight disassembly script completes without errors (exclusive)
->>>
->>>    # The disassembly script reconstructs ranges of instructions and gives these to objdump to
->>>    # decode. objdump doesn't like ranges that go backwards, but these are a good indication
->>> @@ -22,9 +22,21 @@ glb_err=1
->>>
->>>    perfdata_dir=$(mktemp -d /tmp/__perf_test.perf.data.XXXXX)
->>>    perfdata=${perfdata_dir}/perf.data
->>> +perfdata2=${perfdata_dir}/perf2.data
->>>    file=$(mktemp /tmp/temporary_file.XXXXX)
->>>    # Relative path works whether it's installed or running from repo
->>> -script_path=$(dirname "$0")/../../../scripts/python/arm-cs-trace-disasm.py
->>> +if [ -n "$PERF_EXEC_PATH" ] && [ -e "$PERF_EXEC_PATH/python/arm-cs-trace-disasm.py" ]; then
->>> +     script_path="$PERF_EXEC_PATH/python/arm-cs-trace-disasm.py"
->>> +else
->>> +     script_path=$(dirname "$0")/../../../python/arm-cs-trace-disasm.py
->>> +fi
->>> +
->>> +# shellcheck source=lib/setup_python.sh
->>> +. "$(dirname "$0")"/../lib/setup_python.sh
->>> +$PYTHON -c "import perf" 2>/dev/null || {
->>> +     echo "Skipping test, perf python module not found"
->>> +     exit 2
->>> +}
->>>
->>>    cleanup_files()
->>>    {
->>> @@ -44,8 +56,8 @@ branch_search='[[:space:]](bl|b(\.(eq|ne|cs|cc|mi|pl|vs|vc|hi|ls|ge|lt|gt|le|al)
->>>    if [ "$(id -u)" == 0 ] && [ -e /proc/kcore ]; then
->>>        echo "Testing kernel disassembly"
->>>        perf record -o ${perfdata} -e cs_etm//k --kcore -Se -m,64K -- touch $file > /dev/null 2>&1
->>> -     perf script -i ${perfdata} --itrace=b -s python:${script_path} -- \
->>> -             -d --stop-sample=2 -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
->>> +     $PYTHON ${script_path} -i ${perfdata} --itrace=b -d --stop-sample=2 \
->>> +             -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
->>>        grep -q -E ${branch_search} ${file}
->>>        echo "Found kernel branches"
->>>    else
->>> @@ -56,8 +68,8 @@ fi
->>>    ## Test user ##
->>>    echo "Testing userspace disassembly"
->>>    perf record -o ${perfdata} -e cs_etm//u -Se -m,64K -- touch $file > /dev/null 2>&1
->>> -perf script -i ${perfdata} --itrace=b -s python:${script_path} -- \
->>> -     -d --stop-sample=2 2> /dev/null > ${file}
->>> +perf inject --itrace=b -i ${perfdata} -o ${perfdata2}
->>> +$PYTHON ${script_path} -i ${perfdata2} -d --stop-sample=2 2> /dev/null > ${file}
->>>    grep -q -E ${branch_search} ${file}
->>>    echo "Found userspace branches"
->>>
->>> diff --git a/tools/perf/tests/shell/lib/setup_python.sh b/tools/perf/tests/shell/lib/setup_python.sh
->>> index 2173215a0517..220d9663f81a 100644
->>> --- a/tools/perf/tests/shell/lib/setup_python.sh
->>> +++ b/tools/perf/tests/shell/lib/setup_python.sh
->>> @@ -18,6 +18,10 @@ fi
->>>    # Set PYTHONPATH to find the in-tree built perf.so first, avoiding system-wide perf.so
->>>    if [ -n "$PERF_EXEC_PATH" ] && [ -d "$PERF_EXEC_PATH/python" ]; then
->>>      PYTHONPATH_DIR="$PERF_EXEC_PATH/python"
->>> +elif [ -n "${BASH_SOURCE[0]}" ] && [ -d "$(dirname "${BASH_SOURCE[0]}")/../../../python" ]; then
->>> +  PYTHONPATH_DIR="$(dirname "${BASH_SOURCE[0]}")/../../../python"
->>> +elif [ -d "$(dirname "$0")/../../../python" ]; then
->>> +  PYTHONPATH_DIR="$(dirname "$0")/../../../python"
->>>    elif [ -d "$(dirname "$0")/../../python" ]; then
->>>      PYTHONPATH_DIR="$(dirname "$0")/../../python"
->>>    elif [ -d "$(dirname "$0")/../python" ]; then
->>
->> Reviewed-by: James Clark <james.clark@linaro.org>
+On 9/23/2026 8:12 AM, Chancel Liu wrote:
+> From: Chancel Liu <chancel.liu@nxp.com>
 > 
-> Thanks! v3 has some Sashiko related nits cleaned up in this code, but
-> I'll keep the reviewed-by tag. I hope that's okay.
+> component->dev is the underlying i2c device whose devres is only
+> released on physical device removal, not on ASoC card unbind. Getting
+> the codec clock with devm_clk_get_optional(component->dev, ...) in the
+> component probe therefore leaks a clk reference on every card
+> bind/unbind cycle.
 > 
-> Thanks,
-> Ian
+> Move the devm_clk_get_optional() to rt5640_i2c_probe() so the clk
+> reference is tied to the physical device lifetime.
+> 
+> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+I see no reason why my tag was removed. Nonetheless:
 
-Yep sure.
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
