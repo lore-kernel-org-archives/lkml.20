@@ -1,190 +1,146 @@
 Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1032637CD2C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:23:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D2DF35B12B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:24:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790133827; cv=pass; b=mOZ/NuZUNwMMzV2y43MlFFOFtlaXzAN5NLV2811KbdAUBWLhxhWF8jplbxjPYSIDaeWkjIAFyavwRlL0/PHItlEuD3BJJ57BRLYCgaBLJjqd4PVMmWcZEtGWSBVbhGrZIMKBCSncRlRrPzD1yL30C4Wm1vXnk7OyUQArmqxSDlI=
+	t=1790133887; cv=pass; b=DEnvXttMfl6abyXFwf0qHlgtxh6jls7Wt6XIhMbN9J2kiH5hy9iU14p909emilcI/11slJuyr+eVnOAAK/O4P4jcst+Te0vteg2gytQCZEpkMRDg4lXoOo8iJ6O7XjPl6ItMRiuD8Ybi9hNsvJVe0wAeizYPfuqLaNJF6Zn81LI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790133827; c=relaxed/simple;
-	bh=hTaa0ekNdm0ClfdmyzHYT7ItvbWXA3cvQZ7wVxy2Cl0=;
+	s=arc-20240116; t=1790133887; c=relaxed/simple;
+	bh=DSWeIecAf7yMhlXesBdwg+3lyF8bl49YDtQr18mW7LM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mh6iIf2BzpWbkGI6OHy/a1GH2tg9fZX1SeO5HcDJU3oMVoGsPG1TsakSW29QRrE/qdSdxq/hFBNrbXcWqtK7TMbfVHtASjK8v/GWZ33/0EMCjp6pL3mM2qvNub7OAd77pUAvzyrCHKXprMUk1a6EDvcu61UgV375rHKhyKFVy6w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XHuJqe0n; arc=pass smtp.client-ip=74.125.224.141
+	 To:Cc:Content-Type; b=uTl4EN/2WH2Si3a5s5QazUZ95t8CgZHoddB6Mzu93bNnOqLi6CjsDsc6tsolxm+y21yt8m3CDKXs6ersm/M0EY8wL5Qx8o1CSskPtk1ag2Bgjtu8RrIJNpitT4drygaw3oJdWC0xTl5kaRSKf6McxEg0q2O0ABaDpIJIamqyXBs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y1pCjiYb; arc=pass smtp.client-ip=74.125.224.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XHuJqe0n"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aa8e6bbso246452d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:23:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790133825; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y1pCjiYb"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab20a33so569952d50.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:24:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790133885; cv=none;
         d=google.com; s=arc-20260327;
-        b=ecQYZAb82FcWDesvZisGGhTh3dyxXkZ21InzVmPWB4OXOIbE4Q+sGh9Zn1jTsSostg
-         kkl678vgrVazcLr4m4h0y7IG2cRC72ItyYq4fGYrMvf810vyGi3rGia5+uBRanbH8o8w
-         SWsD/yCDrMv8BHLi5mB97A7XdthJrbthsoRIrNKvV3t7jVdqF67RkjHrsAbw6zQt7rBW
-         YlYuCGMt6+RUq8BL7URturXRVX8DvRobviLbblKoxFDzoK8vQ7vsm7czdkA1k0Blrw58
-         RrfNVp/OIOToNIsSkgUss3C2kHX7nLmLzqDh320RGEomwYM5MhBfI7Ux3xri4B8Kv3qi
-         8h4g==
+        b=ge/LDQ6/CIbKcWatGxOt1Sl+52v6pxPXhIIhU401rIQymRBKaz1AGGnQW0rE4aHWeW
+         FdZfA1lB30jZuxwbMTjQSGGHqQE/GjjW52mB5d2aGd3KVAjiQreItkTNJlnuPA6HQRug
+         fonMu0zMpWpkgu4HgRK29jRdKo90XmYndnyD/7C5rFuUsP2cbrY2BFF/fb0YCCHmUB6a
+         5Taum48+5fAPnVvjVWpdDsUgIpw69YBMl36vfrEpqW5OZgV/Ph8D61uBOGqsjoQiBC9x
+         vDwfuK/VBBC8bfqJS03XthvkrWe2rbSrwzg28GrJYPWJxkZ2tV6rHbL6NPEAo1+sHu9b
+         r+uw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=2d+jrvEZexjVenG78loJJdYCjfuKeXtpLvBaz250Jnc=;
-        fh=gfNF6KN4bh0kRLNzqnEaFDtP5AeEclFkYtvP3oFyQZY=;
-        b=MGXP57E3kgkCx978r78pdJ85D9RQRypdChZxwm6q3gFZXf4dVLuKoaOH3Q97HCTbfE
-         qo3NL+qjSmkLrsgGIWkYtACkXtW0ONd6b7icgtmzuwojxX8Nfji01/Z0r4pjTg6wsc9g
-         kSA7vdY1w78FnuEU3boirMOc1/rYyIYQ32iTC36NQqjT06LPel8ETtFCG7m71WINrLqJ
-         XW7wRibedvNle1NDy9noHDSt6Ooz3Y0EAtjz4yK51QIlrqpFuhDMEwRPxKSowb+CJI1M
-         Omj895K2mG1g0nKA0CQiUC4kNriU3tTnj/eUHco0f7GsHJFDpgPo+bdrZ/Cw95COEmkx
-         KX7Q==;
+        bh=JvJYAxC3BFkryMHCPPUutRIKj2Els96Oe0pXTAumBDM=;
+        fh=pLfUHR999whM7BbU+xRGD755t8fK+57Z7AuTw76lFdk=;
+        b=qep5GbRL32L7D9silYH6J4edQ+X/axYET2HV531VKWvPL10Da+vOuBVQL5E9vd3yzn
+         Wdav9Wb5lVGaonMgwSDfeqxpzfogFfq+4hPKQjvtO7ODa9A2xy+JUiXIyZANLKoPbJZO
+         +z9xr/EtLkoEXPrwgWhxxX/5pMQH/hp2nXu4+Z66XgFpcQefg/ie6TtscbzRLWGHZ/4N
+         lNNv36gvY1AmxhYHU4YNaiXroMqPUSb9j02NwF6WvVzHyJf/roiyqnLQ8mQYWD9uVE4e
+         J5+xg769/32dnZXmqc8obh3kOHlOzgwcX0rgdhFIT9hvT4Em1mt9hNubIal0ZWsb3+zZ
+         6HdA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790133825; x=1790738625; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790133885; x=1790738685; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2d+jrvEZexjVenG78loJJdYCjfuKeXtpLvBaz250Jnc=;
-        b=XHuJqe0n5TsE8C2Ostezgf45VbBTckyRjNr+SZTPaLMNVZ9vc6aH9N6CnMgncuRfUa
-         B+xavvqPcbtXr/D6wymkmW0GqUueX7yGWUnSnCU3OLM6gT2t4QtxH9RjePjulpmRgYqy
-         yDzKRXFj3BZNMBYE1lx3rV71/TQL04szVFInva/ZsRPCTWDNZ/d8AGN29b009a4nVsQf
-         2B8PxcajE1SuqSD5pc54xioTn4uDnC0WyTfBC2isWNikKwCAwxjZTB9UxwJ/mwW5I3Ud
-         ZF4oxkYdvuMLkbRGsWBe/JgxZAalU4oDPyo5neKLR300aL8w9Dx4MNFNGiTFbp70KOp2
-         ytXQ==
+        bh=JvJYAxC3BFkryMHCPPUutRIKj2Els96Oe0pXTAumBDM=;
+        b=Y1pCjiYb9pLt1lA/IWGNYqvQWIAGoRuvu68pVduzurD6Uw27P9N8WQfKDxGZaAztmA
+         PbrOCocQ6NDFZbM/vdeuQFtzQyP6hWudcqMt7V9V4qn1y7RoIH7vlBpAO1/hsh6jyaua
+         wIlPmajTEy8zA4rX2qRj2VqGuqLbUWF8HS/kWOqNhsdwwdR3B8chUI2gAV6pUy6wXZZ/
+         IN02Z48sYAvQC1eWeYM3m1lN3L1NdKMZP0znwa/Glh1oJLGO8HLKC5pzHlDgJTSfzg+8
+         74JQq/ZBJ3VWRPoyz5Snb8wUlkwau0F/qdNSwM+gsUIFRHQQd8Ncmvik4WMqNdr1glnQ
+         VTUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790133825; x=1790738625;
+        d=1e100.net; s=20260707; t=1790133885; x=1790738685;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2d+jrvEZexjVenG78loJJdYCjfuKeXtpLvBaz250Jnc=;
-        b=EBL4G3g73o1mTRQfSbslYkueakQPW3dtZRSWTlxwo9O2MyxneMr5tbi9TLXEyaF8UQ
-         j7b71aJVUULdSAp59rMB/wiyzjJOFKcUS7sfNoWnoIXf/RclgJyBiUaQeWb3cJGBIPRf
-         2ns7IdH2fyPYutuFtxeA28ab/ho9pAYcP01M4Rqy29XPcIt4cZVCpMlWBAh8Q7GRCLK0
-         fuW/ZQYwDcAsJoaY4syWI6w39NW1Pnt5Cqy8oHgmEkyNzOwEAvSI19FYQhb+uxQ8ihB7
-         2uTJle7cxrmlgUtu8qw9AX2ZieBqJLzowVWW3HBLUrnB3tu8jkWkysCeWxSLPbX4ipZb
-         5Dbg==
-X-Forwarded-Encrypted: i=1; AKwUvByizDUT4fX62y8wN2v6nnTjYDpsyzf4DXzX2jCtwGxrQOXGaz/xJB2EGBEV+gFSco/nNa2P/3jQDgbdwl4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mI8mhVSB5oAtnZxwkw2+O0Q9xyyqJ5D7AxRlcjK8lRyPaqUKEy
-	nK1vzyezvAvDUp5uKTNwk0iMYzao9SwuW2R85ZKcIstZIIW7VDIMagQQu0q0UR7po8ui9qjO4ct
-	jSkw6QNABf6D7GOJflfOMB4CRXDd6KRs=
-X-Gm-Gg: AYBFou0bvHp2UR5fbzueyUNhzVROVmpwuKr+Y//JdeviMrOoo5/dqLZoUI4mUozM6zT
-	hFmckmh5TgIPsGaMOYY8SnukUCpmzCrMmnO9K0ZyJ/2yWXltiG/na2+ZlmsBZ099rtFxKqDL4pw
-	5r7neMliDakqmtVa9qJmkOqor34a546x4zYzWyrZhRQqGKCEAXxZCDNG9IzUVlazFjPdgjdPSO9
-	iYzGfFNuxsWZh64M6yz/Pa8SB+EZOgt+HnbPiT813WDMOrRv6tsKIp8WPfQG7krxlHa7Rgs9eD6
-	hWQypc+4H7Mom5bEI4htR8wtLpW/wC+yxXaT/CpoY9d1o0xKk97tXBoqccJi7kniLV8/RF0Nkxk
-	XNDwpXvV66Vyv8yCbRIyexL1k4Lmp2aEsJeQtiAfxtgYH91IZKHQdSg==
-X-Received: by 2002:a05:690e:4887:20b0:671:40ee:ddf4 with SMTP id
- 956f58d0204a3-672d5a672f5mr517247d50.48.1790133824920; Tue, 22 Sep 2026
- 20:23:44 -0700 (PDT)
+        bh=JvJYAxC3BFkryMHCPPUutRIKj2Els96Oe0pXTAumBDM=;
+        b=BxB+jAYjg/uX8xd3q4p74m1B0MKYu0I4Y4L5Z51j5VDyCUYYsa6ofjFCuITYehZu/u
+         TNqO6kuBsrx6A7Ty5cINAGxb6wARAwWMiJP/kOIHbu/DfuajFr/t4GqoxN6k8UXK70VJ
+         jHzYkR5uJ+0me5qp3yx2quMfNgdrWiOIBttGxOmK1CV9gYFzuL7zNrGSbwg6BVykXI+s
+         sH0OyeF+SFO4XlJ0r0movanSi3oSG1gA5Rv335wCIO2bRT4giYvP8Ac+62EZRbNHAtQ1
+         PBgbEsLcubPjJ8x3zO3mL32uxWWqf4w+3Ne83D7DrsR+MelxSmpRbFtxjb+swGIaqrcW
+         6nAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzbSw0JN9JWAU4+1MUXLh75FgIf/AYvrEFrvcIRNJhQI5vZs5VC9R1v6pfr8y1V+bj6pSXEUZeXcpb6sQQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3KqGuDE1cySh0aNa9uAhsMoPEft2mZvIK3JxvtLrSXNDZjSU4
+	i/5jmH1rDXVfWehd00NJQ5r7gUXE5N0ijMkorUoyU3URSVd/Be9dVFAYx+eIxirGMoqUtij5FzC
+	jk0OKZrXj4vhsq2dwMNGsoY3hv0Q3MJY=
+X-Gm-Gg: AYBFou1wDAxFm77+dgjK0bTZKZjVuzD7qUQ+/ux/oH/NlRHqnQ1uxVx+8SvRGORIhzd
+	WXiApr4f15NJggyqAkBGkGWozaxtJjAv6AkwcBx95/xunpxLdcOEl9AmQgHAum9YLuUKnaESpy0
+	/vW17RyW0UdcL3taCzG4JcGvC13y8N7UbvSjUYovjR+Uf9HZna1CVh78X0VS2FI5Eel+DJm4rR2
+	flGP7PoIfI1Bgf8twlw632r0gN418encocJn7I8wnkrnrFeK+8jz4wYQpCxSyRZOgiV6xZNYTyv
+	QwFhvBurr/XWr7bb+XSEIJpfA8v6198d1RfePBqDggM/3Q+kFHypZ+C0JQQY2O/NO/+lBAvVrn9
+	xcotk6fH3Sapqsypc9Fibk39ALoZy5TWMhVW2qODEVkI=
+X-Received: by 2002:a53:a545:0:b0:668:9230:e266 with SMTP id
+ 956f58d0204a3-672d578373amr531468d50.46.1790133885534; Tue, 22 Sep 2026
+ 20:24:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912035306.13130-1-kartikey406@gmail.com>
-In-Reply-To: <20260912035306.13130-1-kartikey406@gmail.com>
+References: <20260910041047.24437-1-kartikey406@gmail.com>
+In-Reply-To: <20260910041047.24437-1-kartikey406@gmail.com>
 From: Deepanshu Kartikey <kartikey406@gmail.com>
-Date: Wed, 23 Sep 2026 08:53:33 +0530
-X-Gm-Features: AcwNN1V63Mvj_g22-PUgvs2G9LwXk08boBIvwUHModkUD8SqmI6fT1lk081aeSE
-Message-ID: <CADhLXY5Rg5EAtfJ=+SyTWNp9-s7RVMdyZThJT5yC15GYh6X-2g@mail.gmail.com>
-Subject: Re: [PATCH] Input: sur40 - fix use-after-free in v4l2_release on disconnect
-To: dmitry.torokhov@gmail.com
-Cc: kees@kernel.org, oliverburns.kernel@gmail.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
+Date: Wed, 23 Sep 2026 08:54:33 +0530
+X-Gm-Features: AcwNN1U6czatgEZRd1Tuqm5XEJFOVJG01prTEVjnQfkDzzObqmXUjCvs5QK8mCY
+Message-ID: <CADhLXY5MJOvgvW1SSbb8NPDCjicC-83LNHLANLo8mLDQq=OVDQ@mail.gmail.com>
+Subject: Re: [PATCH] mac80211: fix using smp_processor_id() in preemptible
+ code in ieee80211_tx_control_port()
+To: johannes@sipsolutions.net
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+d979bd35c8a76fd1b6f5@syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 12, 2026 at 9:23=E2=80=AFAM Deepanshu Kartikey
+On Thu, Sep 10, 2026 at 9:40=E2=80=AFAM Deepanshu Kartikey
 <kartikey406@gmail.com> wrote:
 >
-> sur40_disconnect() unconditionally freed the sur40_state struct
-> (which embeds struct video_device vdev) via kfree(), even while a
-> userspace process could still hold an open file descriptor on the
-> video device. video_unregister_device() does not wait for open file
-> descriptors to close before returning, so if a process closed its fd
-> after disconnect() had already run, v4l2_release() would dereference
-> the already-freed vdev, resulting in a slab-use-after-free.
+> ieee80211_tx_control_port() can be called from nl80211_tx_control_port()
+> in normal process context via netlink sendmsg(), where BH/preemption
+> is not disabled. dev_sw_netstats_tx_add() uses this_cpu_ptr() internally,
+> which requires preemption to be disabled, triggering a
+> "BUG: using smp_processor_id() in preemptible code" warning.
 >
-> Fix this by giving vdev a real .release callback (sur40_video_release)
-> instead of video_device_release_empty, and move the v4l2_device
-> unregister and the kfree() calls into it. This defers the actual free
-> until the last reference to vdev drops to zero, whether that happens
-> during disconnect() (no fd open) or later when the last open fd is
-> closed.
+> Fix this by moving the local_bh_disable()/local_bh_enable() section to
+> also cover dev_sw_netstats_tx_add() and ieee80211_tpt_led_trig_tx().
 >
-> Tested-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
-> Reported-by: syzbot+34957180b0ed2581edaf@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D34957180b0ed2581edaf
-> Assisted-by: Claude
+> Fixes: d5a014204a3b ("wifi: mac80211: tx: simplify control port frame tra=
+nsmission")
+> Reported-by: syzbot+d979bd35c8a76fd1b6f5@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Dd979bd35c8a76fd1b6f5
 > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
 > ---
->  drivers/input/touchscreen/sur40.c | 16 ++++++++++++----
->  1 file changed, 12 insertions(+), 4 deletions(-)
+>  net/mac80211/tx.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
 >
-> diff --git a/drivers/input/touchscreen/sur40.c b/drivers/input/touchscree=
-n/sur40.c
-> index 09d8c5f8d09f..bd8d9f6190fb 100644
-> --- a/drivers/input/touchscreen/sur40.c
-> +++ b/drivers/input/touchscreen/sur40.c
-> @@ -179,6 +179,7 @@ static uint gain =3D SUR40_GAIN_DEF;
->  module_param(gain, uint, 0644);
->  MODULE_PARM_DESC(gain, "set initial gain"
->         SUR40_PARAM_RANGE(SUR40_GAIN_MIN, SUR40_GAIN_MAX));
-> +static void sur40_video_release(struct video_device *vdev);
+> diff --git a/net/mac80211/tx.c b/net/mac80211/tx.c
+> index 74ab27534076..7b1a3c63e5dc 100644
+> --- a/net/mac80211/tx.c
+> +++ b/net/mac80211/tx.c
+> @@ -6687,10 +6687,9 @@ int ieee80211_tx_control_port(struct wiphy *wiphy,=
+ struct net_device *dev,
+>                 return -EINVAL;
+>         }
 >
->  static const struct v4l2_pix_format sur40_pix_format[] =3D {
->         {
-> @@ -750,6 +751,7 @@ static int sur40_probe(struct usb_interface *interfac=
-e,
->         sur40->vdev.v4l2_dev =3D &sur40->v4l2;
->         sur40->vdev.lock =3D &sur40->lock;
->         sur40->vdev.queue =3D &sur40->queue;
-> +       sur40->vdev.release =3D sur40_video_release;
->         video_set_drvdata(&sur40->vdev, sur40);
->
->         /* initialize the control handler for 4 controls */
-> @@ -820,6 +822,16 @@ static int sur40_probe(struct usb_interface *interfa=
-ce,
->         return error;
->  }
->
-> +static void  sur40_video_release(struct video_device *vdev)
-> +{
-> +       struct sur40_state *sur40 =3D container_of(
-> +                                               vdev, struct sur40_state,=
- vdev);
-> +
-> +       v4l2_device_unregister(&sur40->v4l2);
-> +       kfree(sur40->bulk_in_buffer);
-> +       kfree(sur40);
-> +}
-> +
->  /* Unregister device & clean up. */
->  static void sur40_disconnect(struct usb_interface *interface)
->  {
-> @@ -829,10 +841,6 @@ static void sur40_disconnect(struct usb_interface *i=
-nterface)
->
->         v4l2_ctrl_handler_free(&sur40->hdl);
->         video_unregister_device(&sur40->vdev);
-> -       v4l2_device_unregister(&sur40->v4l2);
+> +       local_bh_disable();
+>         dev_sw_netstats_tx_add(dev, 1, skb->len);
+>         ieee80211_tpt_led_trig_tx(local, skb->len);
 > -
-> -       kfree(sur40->bulk_in_buffer);
-> -       kfree(sur40);
->
->         usb_set_intfdata(interface, NULL);
->         dev_dbg(&interface->dev, "%s is now disconnected\n", DRIVER_DESC)=
-;
+> -       local_bh_disable();
+>         ieee80211_xmit(sdata, sta, skb);
+>         local_bh_enable();
+>         rcu_read_unlock();
 > --
-> 2.43.0
+> 2.34.1
 >
 
 Gentle Reminder. Please let me know the status of this patch.
 
 Thanks
-
 
 Deepanshu
