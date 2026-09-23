@@ -1,125 +1,114 @@
-Received: from mail-244122.protonmail.ch (mail-244122.protonmail.ch [109.224.244.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADD55616BB;
-	Wed, 23 Sep 2026 19:46:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.122
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790192804; cv=none; b=XOT+7VjXXpTYKG/x+PEh4ZuT9k9czrLrYqOhdHHYG9pZpGLioe/7aV4QpVFX/30RNU1CT8AdCwofzNu6Uq1vmYVzlfW4aLTH0/lAA7/pGIHVmZT55mrm1xUi1ajBKvOYcR3GNWg7I9xAAaU1asZwLGwA3Yx/9OLSzWRP9RenUMU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790192804; c=relaxed/simple;
-	bh=l1gEqX+9pjOkKyPeqJpGEn8NGf4UA4O5d9Z/8HmdnQM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bbe5fgiNngaBfZII6nwOx3JRAj/s9pdO3YLbdJS02cfGSLPt4GfduDJbGPUUdHoTggZtmLd27HuL+0qPj0ikMyPk+qmHQTOWP227ufr6vUrHHXCcZQFqzzwXpWFK5vY+W49VF0DYD79RWziN36eP0djLB1yJg25PFkmHPIrXc3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=cO/4MOeY; arc=none smtp.client-ip=109.224.244.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F21F56C627
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:49:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790192990; cv=pass; b=Fx8uy3FR12zhYkXwsv1DpzPQGZFwRO5WlOxA6xpcAjh6s1ecbQFC4CDrrZ4g8Abg53lD0Cg7wB0kH+6GM+2ZrP5AUvEckOsxpj/tnaEWOuNyrNJU7nE1jHVXFuXqag7hssSBs3o515yCWKQx6nNmgiYg2wIuxXLGd2oA+OfL7QA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790192990; c=relaxed/simple;
+	bh=RksxLKnB3yS+nYXEiKhMFhIcCH6JcEIqRI8Y/4IK6Kw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G3AoXhgvOgO/l57di00FCIb1n/ArvjEBey3hK9RNk69/sKGwgGgSfo30GWKoNh+3mvWVsqNMPVuF8cldyG9CoDvy/Gia5Rdm/ShnJMORKK0F7PITA0xn6B77hl+CmL32aBQA049G+83yyPUqi+7YEdKlSNZD0WCTa3lcQlergig=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LaEh9T+V; arc=pass smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="cO/4MOeY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790192787; x=1790451987;
-	bh=l1gEqX+9pjOkKyPeqJpGEn8NGf4UA4O5d9Z/8HmdnQM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=cO/4MOeYBMx9XH7RqmG0Yvy/LyNWVxmHsB2B1TgJBbSt3iArpeLHxcqd26Fc6djkO
-	 gYs1m9URDcohpYR4hF3biMzPd4SbYKe3fKGtxg2DSJrmUbqQP79adqdwdtQsfKkcBG
-	 kLDiT5361VJp75sjzFGZv0AMtJSHd1TBOYXbYiwTlCjXmkfP3hop+tCD3g6MfwkGnu
-	 WAINKjQgO6lbLDHFJvuJZpiqvWrhCH/HP7MCxXFtU39uAuFwyxOGS2pfeG3pgxruON
-	 fOAHq4JZBheFXUeKaEww3pV0TpbwfD/L9pE/ccIZ97PlGurN60SnaOBDdGYAk6SVao
-	 JhU/MyPqgaMqQ==
-Date: Wed, 23 Sep 2026 19:46:23 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] media: i2c: Add Sony IMX681 sensor driver
-Message-ID: <20260923194617.84480-1-lsa.uz@pm.me>
-In-Reply-To: <arJElIQgkq2uqwQT@kekkonen.localdomain>
-References: <20260921192450.21811-1-lsa.uz@pm.me> <20260921192450.21811-3-lsa.uz@pm.me> <arJElIQgkq2uqwQT@kekkonen.localdomain>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: ec45274f7d401d650dd3866fd0302dd9fd86defb
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LaEh9T+V"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a9d74e8292so288a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:49:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790192986; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KMSp8xGs64uz12wQUB0A9avsYzER1xdA8Qe4nLnWWXiwf/Y2yLDy6n6ZgpC/aXaz0W
+         WTu/EwYNwBjCwagBH9xlFpXsc6TA0rbsD5W7vnQaAKBj9ruYXyHXSkyBRot2PYTEF/6b
+         aHKDUh3bTB4kxrXd6KNMQhsBmT/UPsoZ9Y3RtTDTqw3P1vfjdUB+1LHIuN2rVwKs9oQa
+         P4vCU4KKGSt7AwZ/q/Ri3+9fH0IKNdb8CA2hreUmiO/IuZp/qcI8Q83cdJ+12WhUPsI6
+         GTVccnCQmHWJvgHE8UK8E5AC/W1Y4A1CU6G2BhR9pmhVYjzVNtJJgoYp2s288I1Hgu2u
+         bMIA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Zg+TRF2hlMBWlKMGW490ituj1VT149iHCF+fbR91AZY=;
+        fh=4VbjQ0uOfmsgD5Q9R84cHX83Ur8mEMxcecQDvhRzQk8=;
+        b=sdFx0ZUPQk6hdin7jQ78QcvZz09d31vVUA7HTk+lSlYGO8i+K2ofU0OjZUP/SPdvmt
+         xaquTjqV3B+cDRaR/8fkgBehI3hBGgJNiwjtOLCG3xo6W0Rco5iYdbNTB3boYbqSk8TJ
+         n7ZkteDfg7LtpTN1g4ddILL2gc0FsXcFIS4yB0J/BMSwxbOr2P5vTfmeZgct/GzvyaM7
+         OAfON1PMoXxnOXoTmE266NM6bvneIts0yl/0fVhCPFIxSFVExC27K8mjwPU3MkpkEi/0
+         79F6QoHLpbG1+Z+SCYO7Kztxmm/AxS12nph3QItMn2ytzsK3wZ5oPquwOW4Bv/ltK1jF
+         V8PQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790192986; x=1790797786; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Zg+TRF2hlMBWlKMGW490ituj1VT149iHCF+fbR91AZY=;
+        b=LaEh9T+VhpbtNX3w/zEMWVHTzQaNgN2gquOOZCGIATw0zL58ufmqhUvrJALMVBT2dI
+         5M9C6MHdaknAoJUBO8gJa59Hd7+Gbp321zW9hwkUUZI4DxbdjLsnmdFG94knMYDYzlgi
+         UaoEF1dgi1mXvTpU+nfoE/dIsBxjSbA76K8nOxHTXmwauJ7yOB9b2OuONgns9v6NJOL8
+         DTWLoO/EIIDhWLzQp7RRj5uP0tl4iLYfR+SBKXYD13HC1iYWVSsQKeN/1cGKADA1W2y/
+         LwIWmo7Nf/FqVmEC/MHG43lZIvmiRlyF88vV7h//Pkhx4J8IyBvGFFc729mJjUCNYQ0X
+         BqhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790192986; x=1790797786;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Zg+TRF2hlMBWlKMGW490ituj1VT149iHCF+fbR91AZY=;
+        b=cTtzOKGRf39jVwvTIP3q84HebgAvBbQKg0lWqg29tp7MtLuLI7UY7oQD7X2gilPPEk
+         YBVXidFrq94yZig6+vOQTjSCgP8uGim6mJoXR2xuZ1kOKacTDqKL+Q75uUiphrh02EnO
+         C1H/cYLvbqthaWDm3sjSgWFm8jyfwEVH6xSO43rdxTgEfYhNVWlwzkg5ui/q8emCBg92
+         Acrirg3xcvP5lABmOIiIOtxngncqb9MOipN+tnaj4Fq3br3ENh6t0eDRs1Xh6QsfhUtw
+         WYMYtu4OPxzRviIW4GOl3vonGZoVkjubd9KzKu98PWU7TzGkTxMZ2atylbmbiOsVscSe
+         nvWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwAikiN+Xh/zgcZY5mPYWy27pOwNDfdDqJr9NedmoVZBgNqABFMmTXT/jTxQD1iJirpcvlZlQRvy6f7Lqg=@vger.kernel.org
+X-Gm-Message-State: AFuF++keyIrETNykgJynCRUiRcdnumjKxQ413iefcqhT06g+ulZRK9fO
+	M4i/i2JXJDgORChep5qeuBKwC5osHQBdHFN/sya383RTL0Qn/QZFZxEog+62qL4KocZTQxk+XiD
+	dsyvTwFSEaq55EFVUAld/KzsMJkGz9gNlYpnmEOtl
+X-Gm-Gg: AYBFou3YOUaZZFl12Zxs6EDwB58+a/87dxYYxzmy7/hLGRlpQSGlgF6+oqi9mR4FPbo
+	01NjCx8wRnRGxgdqFlXIIPTLHaf2J+n+dP8BMXhTU9uqg8VcAWJAZTUyz1PAw4C34Sopnk5ov+j
+	4atv9FPbNEFUcVQzTpQZuFlR5Whs5XizE7UCJq/ZdSqdVH/U91Lv4F1npg8mDZDSVZTwy2zMH11
+	EKjJ6jGj8acRC433dR/kFW6KuUHVHs3vtsrLZaZBFyv8omUZLRjWvOcaKLe2tF7UmPWnT1APRc3
+	LKPHo4vRyVqKkkIW1gKO4KijrD50yNdvjxGLDttw2NJEBbhhISt1w2w=
+X-Received: by 2002:a05:6402:1c0f:b0:69a:f1cf:4849 with SMTP id
+ 4fb4d7f45d1cf-6aac7c0a102mr17386a12.2.1790192985525; Wed, 23 Sep 2026
+ 12:49:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <cover.1790171702.git.zhang_wei@open-hieco.net> <ece0aca2e99edc2cc626e0a8e61ccace80a28d74.1790171702.git.zhang_wei@open-hieco.net>
+In-Reply-To: <ece0aca2e99edc2cc626e0a8e61ccace80a28d74.1790171702.git.zhang_wei@open-hieco.net>
+From: Jim Mattson <jmattson@google.com>
+Date: Wed, 23 Sep 2026 12:49:33 -0700
+X-Gm-Features: AclHuK9wDS3j_kFU_z29aQCAAxsQCqLzUICOjyr0No49JpSQevHnMBu9QJNROds
+Message-ID: <CALMp9eTyC5fhWnhbf1_npF30NuQzoAmuTbJe5mkG5Kv3_P3a=g@mail.gmail.com>
+Subject: Re: [PATCH v8 1/8] KVM: x86: Provide INVLPG linear address to
+ intercept handlers
+To: Tina Zhang <zhang_wei@open-hieco.net>
+Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,
-
-Thank you. v6 is on the list with all of this in it bar two points, below.
-
-The dual PLL was the remark that mattered, and the driver contradicted
-itself in a way I could have caught without you (sorry): the link frequency
-is taken off the output PLL and IMX681_PIXEL_RATE was then taken off the sa=
-me
-side, giving 387,840,000, which is 16.16 fps against a cover letter claimin=
-g
-thirty. Rather than pick the arithmetic that lands on thirty, I read the
-part. At its operating point the video-timing chain is PRE_PLL_CLK_DIV 2 an=
-d
-PLL_MULTIPLIER 225, so a 2160 MHz VCO, then VT_SYS_CLK_DIV 2 and
-VT_PIX_CLK_DIV 6 - by the CCS formula 180 MHz, which would be 7.5 fps. It
-runs at 30. Those registers are at the CCS addresses without carrying the
-CCS meaning, so the second derivation is no better than the first, and v6
-states the rate as measured: LINE_LENGTH_PCK x FRAME_LENGTH_LINES x 29.95
-fps is 720,000,000, with a comment saying why it is not derived.
-
-Naming the CCS registers, which your imx355 pointer prompted, turned up two
-you had not flagged: 0x0307 is the low byte of the 16-bit PLL_MULTIPLIER an=
-d
-0x030d the low byte of OP_PRE_PLL_CLK_DIV. Same partial-write fault as the
-crop registers, one block further along. Both are whole in v6.
-
-It also settled the shape of the map, which the driver had never stated:
-geometry, both PLLs, the external clock and the signalling mode are at thei=
-r
-CCS addresses, while exposure and frame length are 24-bit at 0x0229 and
-0x033d. 0x0229 falls inside CCS's SHORT_ANALOG_EXPONENTIAL_GAIN_GLOBAL, so =
-I
-checked it on the part - with the blanking raised, exposure reads 6636 in
-both the control and 0x0229, frame length 6640 in both, while 0x0340 reads
-zero and 0x0202 does not follow the control.
-
-Two I have not applied.
-
-.set_fmt stays. Dropping it and making the bus code follow the flips cannot
-both hold: init_state() runs once, so after a flip the stored format still
-names a code the sensor has stopped delivering and the pipeline rejects it
-with EPIPE at stream on. I found that by applying both. Every driver in the
-tree that picks its Bayer code from the flips keeps set_fmt - fourteen of
-them, imx219 and imx355 among them - and thirteen carry MODIFY_LAYOUT on
-both flips as this one does. imx219 recomputes the code inside set_fmt,
-which is what v6 does too.
-
-The comment above pm_runtime_get_if_active() stays, if you will have it. It
-is there because getting that three-valued return wrong cost a regression i=
-n
-v2 that v3 had to undo - the -EINVAL case, where runtime PM is absent, the
-device is powered from probe and the write must still go out with no
-reference to drop. gc08a3, gc05a2 and imx283 all comment that call site
-too, though about a different thing - when controls reach the part rather
-than what the return value means.
-
-One number on the exposure default, which is applied. With it at the minimu=
-m,
-libcamera's generic AGC needs more than a hundred frames to leave it: a
-hundred-frame capture ends at exposure 42 of 3173 and a black frame, three
-hundred at 136 and still black, four hundred reaches an image. imx219 and
-imx283 default mid-scale; ov08x40, imx415 and gc05a2 default to the maximum=
-.
-None of them starts at the minimum. Your reasoning holds - userspace does
-set it - so v6 has the minimum, and the number is here in case it changes
-your mind.
-
-The "Uh-oh." is mine (sorry again): I converted thirteen sites to
-dev_err_probe() in v4 and left a `ret =3D` standing above one of them.
-
-Andre Gilerson wrote this driver and is on Cc. And the binding ack Krzyszto=
-f
-asked for is properly his.
-
-Sergey
-
+On Wed, Sep 23, 2026 at 7:02=E2=80=AFAM Tina Zhang <zhang_wei@open-hieco.ne=
+t> wrote:
+>
+> INVLPG's memory operand is decoded with NoAccess, and thus src_val does
+> not contain the operand address.  Intercept handlers therefore cannot
+> construct exit state that reports the linear address from the existing
+> x86_instruction_info fields.
+>
+> Add get_invlpg_linear_addr() to compute the address through __linearize()=
+,
+> using the same flags as em_invlpg(), and pass the result through
+> x86_instruction_info.
+>
+> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+Reviewed-by: Jim Mattson <jmattson@google.com>
