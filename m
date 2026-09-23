@@ -1,141 +1,190 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD85428841
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87770395D8B
 	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:31:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790141483; cv=none; b=l2ftSpbT1Lr4peju9acJrSPSg/s0Y+EYqG7S+Tt8CGYpFibAFH5TKY+OGDokOdlbFA/rnC8MryHA8BE5oBx5gw7mrqZCKUBa0XugfZnTcP9IRRrJXawEdCaUFGtPSeoVEQDv57TVvVR08jzhjJc4jVjWrGq8RUyJjXhJJsSSGKQ=
+	t=1790141482; cv=none; b=HPabg6QnKycYe4uWRaNyLSHI0HxxqyJGtbwc9COX4/g5vhy2xkGJdgr/K20BBPNbzwUtVzHHy/fd8inJ/DcDpgFU+bFf6eQXbAqbnqkBLeYWkug2LVms4W1bQx73JzmO2ByEfc82oJ+U+5zfPydg3/5xTJzJSJG0oMaBJz++xRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790141483; c=relaxed/simple;
-	bh=ehFRQ3FZleExfRY9jjlGGdk7L45AX2N0aVofYNFEIo0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cil+pBvu5mWoF+C/CfDIkZUsbRq2q4VcY7S3rChccXKx7hLqpHR27723IkgYSoRPRWQOY9bMbzdj7dWtckI6EyjfHKXj+sV7kqQtDfHeoYR9S6PnktKE0U9p1a2K7XxO3DnGeIUkJ8p5Zkj02Mf/UH5C42QRY4JQQqOqud2Khfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j3vOoP8p; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790141482; c=relaxed/simple;
+	bh=qyxPaT9VL3iggKLsNgzLafbVD6NN2QNY/OEteKHN5kA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SeV+nVIoHh0H0eXkvBdGWGMkbMLcxrIvP1YQxhNUIIVYbLM89WW1Qbp8iYNioUMSrYgbFGo6fvRMLOBxHBqKzYGPh9dsZmKuDBKtx7qosEKONpj5eq2rlpy7tMOdrfgoaUklisSxboW0IZaETCISugLFswK2RzfsxFYwWD9k2p8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GwjJS6Lf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hZNKs1vg; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j3vOoP8p"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb7692a57so8298391cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:31:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GwjJS6Lf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hZNKs1vg"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3ikmn2116343
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:31:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+LrvhrC2M28wUTYTFfBdvCnZV3wVCma94KrYLJhrE84=; b=GwjJS6LfpkFyGPv1
+	cSMlzIOb4VZ1n19tY7T4XzY3OS5H3Nqz8tMyJ7nPKQbWcm4FC2c5ayEI/IKRBHm5
+	uOGy6XlObK699LQ0l1HXIPRNkflWkZ1u1IFKgtrGBaR4YZYPQDIGggTujWsjwMrZ
+	Fxz2NEl61W0/KXGIudcft6cqJnfrjBQQyEfW2Rb+txcHkDU9yIxXuH+d/sYtXOZi
+	kWh1qBGLItWRDxZzk8QPXAnKmlNqs77F7nWyiGs1/2qBBJ4CKhQ//pJP9pRudYw1
+	LRxaKmCY6gc/gG0/K3kiT/gIwGJcZkp25t4pb9FqKoCpdMQ8QjMy3h2AU+DdBs8S
+	645ong==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv32qs4yu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:31:19 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-30f1b904861so705756eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:31:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790141481; x=1790746281; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SFpOg8k0FRJ6+H0KfdVDioIX8p2jh6VxkW8sAx0q0/Q=;
-        b=j3vOoP8pRQ9BrhOxrhsotlGge/xt20Jlxm5Nt86aYCLgHFxNiMPd9NHQn4oBsUKTV1
-         0yTWOQWWhv41ByQcNsxtKcXxhl/Iow41OJo/XSeAkwMgWj9BLy1jKvBKxnPsbovWUxOV
-         X5tnVC+sbaU1pnEwMgxuIkc/4Zh1joO+c47jBPoGFjZMZj6Cv+rFT+EFeaK/N2FOPSj/
-         8JzxcZ3R2b10bGr05jqSXnwU3epbhzDFZIIVP4UsXWha2mt4NVGqjwVD4+vNLlW5n1Ub
-         w0m0b8avXtYVbMDrrAPmfhXaJ2Z7yYXCto5JnBwz9RfEGk/UAild135OWfzvxXyVFXKk
-         Phhg==
+        d=oss.qualcomm.com; s=google; t=1790141479; x=1790746279; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+LrvhrC2M28wUTYTFfBdvCnZV3wVCma94KrYLJhrE84=;
+        b=hZNKs1vgaTvHP0Upg1lvQ3/MUskyT+XYVCtgFogkZEMyg9T39ukgoDew4EMx0hD46t
+         17feKl7m63L4hgHNd3UFwEv7ZRHuBxGL5VTCYl2HOo/ZnU3NPdZdnhe1clLMirvT6TZZ
+         Jtx/+214ZYVx8uyK50InHYDlODSLK910n3UOzOb9c57sbQLtQOWVx+wZbmfLMed2h89C
+         ptNMSY54R4ExZUHS19gnjxeAr7tyJc6lNITx7yHbl6bxmFz2LrBT+eR8+X5QWs5gPhTQ
+         ej+MDpvxnN3ayJLPMv4g4Off2RVRgO57LRKtw5oVSvZOJiszMJSevJIG87tkLEHYaPNl
+         ilAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790141481; x=1790746281;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790141479; x=1790746279;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SFpOg8k0FRJ6+H0KfdVDioIX8p2jh6VxkW8sAx0q0/Q=;
-        b=mLdtGKvdYDrZSjCd7WcjrfZPylF+kl8B1QcwSHB48dM5TCId0Z5Ate8y78NmT1/0w+
-         bnhm7Hdgh7hV4QZBA2UfRgDn4GxuKbpxelaY3Ny12es8H1gQr/K0krn+jbFUwxcd1dKT
-         Cxa4lh+PCssLn8t0ZBkBKj7HOui8KIBa6uzixPmxdlYY4mEPUF5XEYSwXUPDrlNSWjek
-         Cq8b/yMksE6EPequkVB+wYu3WXiwz5VXmnpFOO39NhBBk37QgC2cv2WYJal1KiUsYf0M
-         ckcUgo1tQAnWgA1sFNUFQXgaBKHtWS/m0lA54cXhd3OPQLq3AXFMl4N3N2901R6OX6cG
-         BhdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPRg9dbtd5OieEII0R6NO4BzTyaMF9zCzc7V4uaHh2sJY2aj75XKjYWvJa1U+KfCUxOd/pF78T5R+GXmk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nD6dzrmfvFtT2TlDKR0srWZ08ZeegFzcY81cpEkunUHn9Ci/GH
-	RuO4AdRQ3Ec7CbBKwpNQIwGrsNdGeLt4iX1IGgdk/TLNBUDrekqTJcI=
-X-Gm-Gg: AYBFou0nJSmRqb7ql7EeqlSsnAj7GcSfFj+45F4G09UJYdEDxc/xnTRThhj03U1yH5H
-	SFd2GHEf/9rZ2ElcbHwnE67SI+tjSrwlInX9bebncHPRnmKUM9+3+AsF3W6WjsDH0ld4QYFRFb5
-	vdhshz2CNjNOlhPShtnuBf8e/yJZNaYW8WEgFu+GwMlRH/dawrXXJsNYuH+WQxuxhjsPROlRlif
-	xsSpfFC64/zBpMhg4lrWIP/HOKuit3vW+sIsel/Yx8nuZZ7V796s2TOjWjOIgZVWyQB5+25stNW
-	la0T8e6sTpLT18K3asQfT6TjpTjMSRawGS4mI7y6YdUErkAB5Jcro2e3svYjmWl2X1baX18DOAl
-	mkbmqiymJmyOe33exIpJZycSiUqPvoiMdlq3LJXCEz2IaqprmXo2lOF5oZCH79BNsgo3NnLx9Ki
-	3LTks66IzZ5q176rvgn4Lxj8a+Hrump//4bzP3gH17is2Gx3lnw44U+Uq3MRAYVKCmzbeIEKsWZ
-	BHUDhFJXV5DAWeo20/75aWGic/bkYmhKo0MsbhQyZj7Wk5pAld6FcD124kjWK6M8Fy790WwUBJm
-	xqgrlQJucRf1XYrgUCCGvxlq7/EHDLgrjGl+Pkgkp7pWtqBc4YMyOSKZ9xmDnNNY6A7OCLFqwRD
-	XD6HpXyFyZMzo
-X-Received: by 2002:a05:6214:4a81:b0:910:3de8:177a with SMTP id 6a1803df08f44-9140c368a32mr24771786d6.16.1790141480528;
-        Tue, 22 Sep 2026 22:31:20 -0700 (PDT)
-Received: from localhost.localdomain (h16.44.55.139.dynamic.ip.windstream.net. [139.55.44.16])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9140c2a71cdsm13876646d6.3.2026.09.22.22.31.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 22:31:19 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Mathias Nyman <mathias.nyman@intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] usb: host: xhci-tegra: Unregister OTG notifier before cancelling id_work
-Date: Wed, 23 Sep 2026 01:31:17 -0400
-Message-ID: <20260923053118.92147-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+        bh=+LrvhrC2M28wUTYTFfBdvCnZV3wVCma94KrYLJhrE84=;
+        b=edmwC3DW1eyA1xK8p6t07cehVJ3ZnPWHZ0sqBYB61JlGuapd0xSxpfJx2vKfdpSwAS
+         hcJ/vkZc4U6sZhABXIwt0fyYKFL8Xaszuuox5l1UFPa8mnPKbZ0+jSgdR6PB/oGjmn1x
+         vHk4hr3HTp/CuE0FIcKwmOAw2FLT/VeegHgslgsakhsQDcFBbhkSPbUMkEBs3TH0bkUa
+         zOTQE4/KynIPYFG/RhSnHqIWDnm5s91S8zmLCrfJ9BzyYc0hZgvCrRC5ST17GUtW3fiA
+         9N9/vDkfrh1tkbFKQuPf3v6g5rrq4IxULrf3tL58dt+4kR4GHYfdSTly+RINcNVsh1Ts
+         a/8w==
+X-Forwarded-Encrypted: i=1; AKwUvBwxrCJqspui9uwPhq+V/v/ccaw4HL0hwRYhcTLQAgVp+m1Ak6Kc+NGwMzPXlSPDCIJQERYTSVndLc51hF8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgHGm5tCbqvLCNsymLgoDX5Z5bezL8th6gEWMgrb6VWglV5Lwt
+	cL4thIhlPRCfRxP/YklTadT5Bk1k/yGiJ+iVL2vuercObvrN1XqYtIHhW8lui89ZF5yiXWoSkJT
+	E4jTyoP2dprgiR7PKE/rRJ8MGp0qJJIr6DdWsU6tHGrOoJIUvm3A2xDdjojjoBMvA3b4=
+X-Gm-Gg: AYBFou2LOYFmlgvvYj82gt1hWfCRFAbHtgpoxvTwEUijMAwyNATcEkqvAs7Z+9N4zJm
+	iZGuX6K+QpwucpyUn+t/QEg0ffEytwpOtBmq3G16UB7SVtZwf8dzed0YEii3tQL9QUXPMl7Gni8
+	5nkkDk6v0xfr6tHUj+8dnqEb2DtXPC4liP05zzDUBkRSamkRy8GhBgX3VukCNALPyktVmAxBmYh
+	jUgnX01pqsb57sMQ7NIlmwzE9HeihVsD1/p3vBh8+7Sm1M44HSp9va4oquDDmcSG+YOYQrZplzJ
+	uHaYsdiPC5+ZNDdjRnDBQE/M/v/gXKc9sJ4hG7Zrmp+LRL6kjfZZcQqOdj1xw/4BYW70EVh/jpn
+	2OIu/Ej8xftRISl1HAAXUkwynUW3IN0nQjWuFAsH+OTs=
+X-Received: by 2002:a05:7300:1c13:b0:33e:6d14:be9e with SMTP id 5a478bee46e88-33e8d2ebdc2mr1499159eec.23.1790141478873;
+        Tue, 22 Sep 2026 22:31:18 -0700 (PDT)
+X-Received: by 2002:a05:7300:1c13:b0:33e:6d14:be9e with SMTP id 5a478bee46e88-33e8d2ebdc2mr1499134eec.23.1790141478269;
+        Tue, 22 Sep 2026 22:31:18 -0700 (PDT)
+Received: from [10.217.219.38] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e9684d643sm7003888eec.18.2026.09.22.22.31.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 22:31:17 -0700 (PDT)
+Message-ID: <2a50b64c-148a-4d44-a2a3-3275982eda60@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 11:01:11 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] i2c: qcom-geni: Fix hardcoded clock index in
+ SE_GENI_CLK_SEL
+To: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        Sagar Dharia <sdharia@codeaurora.org>,
+        Karthikeyan Ramasubramanian <kramasub@codeaurora.org>,
+        Stephen Boyd <swboyd@chromium.org>, Wolfram Sang <wsa@kernel.org>,
+        Douglas Anderson <dianders@chromium.org>
+Cc: Girish Mahadevan <girishm@codeaurora.org>, linux-i2c@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260921-i2c-fix-se-clk-conf-v2-1-8b5537ceff2d@oss.qualcomm.com>
+ <5fc58faf-dd51-4b7b-a2ce-5acb0ac6bbd6@oss.qualcomm.com>
+Content-Language: en-US
+From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+In-Reply-To: <5fc58faf-dd51-4b7b-a2ce-5acb0ac6bbd6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=SJnXx+vH c=1 sm=1 tr=0 ts=6ab36427 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=ngQ2yLvfpiWeLRerOt0A:9
+ a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: LgaSa55SOFFKZLegpoSaSj16Ls9fnZeO
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAyMSBTYWx0ZWRfX5DJPr6d7u3gk
+ L7B+5ppWnsNAdzp+I8nIYE9ah3RB6Mq7X1qaBWKCfu+fhkN9cxol7b4uogBeS4LNzPsbTkBwfaO
+ 2Cupq5XLd8XewsoFru1hkDyhtPPOJsc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAyMSBTYWx0ZWRfX8ZTpEsirDqyU
+ LMfR4hJs1vPtUa0yGn7iHHCNPusmDzeMRVMG3QmN5/W5zWQGiEXEXhIS6KEaEQFMc8EcrtD+TMa
+ AtHQBj1z2TIV6I1yQmfdVbZKBt7YaUliMS1bh8ZYUMOg8hmDSuqwGGHsBgl5At5ebox4AJ657mU
+ NWJ8Q51UO1IeBBFK8us/r5choGCbvIbTLb19GNg7M5LMopa8jVooGp2tFUU+diUXW6WqV3udpcd
+ NXKs7GbyoCEkMYxfTqW6UXMVs9vhQtf1wzZzewIF3XaLQlBMRkXar5UkSSTII5dbCQ66YEWs3QI
+ BTzGL2PyEsC1B7ACU5ZIByMyY6EppMkGKIhnLTtLOcLyRGOowUwDRiGmJo3uZ8ZJWHb0t4UEvjt
+ nPag+XC87Ad1QhBVKdnwJ8ZLNx/BMc65uT8KuMF6p06h15A0kHdeiXdQloBabQJpPXOn0IGzrjs
+ YRBKRgtoJ5wAL6/JIBw==
+X-Proofpoint-ORIG-GUID: LgaSa55SOFFKZLegpoSaSj16Ls9fnZeO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 bulkscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230021
 
-tegra_xusb_remove() cancels id_work, then calls otg_set_host() with a
-NULL host.  That leaves id_nb registered until devm_usb_phy_release2()
-runs after .remove() returns, so a role change can queue id_work again
-and use the HCD released by usb_put_hcd().
 
-Unregister id_nb first.  atomic_notifier_chain_unregister() finishes
-callbacks already on the chain, and cancel_work_sync() drains the work
-they queued.  devm_usb_phy_release2() unregisters again.  A second
-unregister finds no entry; the wrapper discards the internal -ENOENT.
-The devres entry is still required for usb_put_phy().
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+On 9/21/2026 5:33 PM, Viken Dadhaniya wrote:
+> 
+> 
+> On 9/21/2026 5:17 PM, Viken Dadhaniya wrote:
+>> qcom_geni_i2c_conf() writes a hardcoded 0 to SE_GENI_CLK_SEL, which
+>> selects an index from the hardware clock performance table. This always
+>> picks the first table entry regardless of the actual source clock
+>> configuration. On platforms where the matching entry is not at index 0,
+>> the wrong source clock divider is active and the I2C bus runs at an
+>> incorrect frequency.
+>>
+>> Use geni_se_clk_freq_match() in geni_i2c_clk_map_idx() to find the
+>> performance table index for the source clock (32 MHz or 19.2 MHz). Store
+>> the resolved index in a new clk_idx field in geni_i2c_dev and write it
+>> to SE_GENI_CLK_SEL instead of the hardcoded 0.
+>>
+>> Fixes: 37692de5d523 ("i2c: i2c-qcom-geni: Add bus driver for the Qualcomm GENI I2C controller")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+>> ---
 
-Fixes: f836e7843036 ("usb: xhci-tegra: Add OTG support")
-Cc: stable@vger.kernel.org # 5.7+
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/usb/host/xhci-tegra.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+Reviewed-by: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
 
-diff --git a/drivers/usb/host/xhci-tegra.c b/drivers/usb/host/xhci-tegra.c
-index 6f235d1e117e..f5894f2a5991 100644
---- a/drivers/usb/host/xhci-tegra.c
-+++ b/drivers/usb/host/xhci-tegra.c
-@@ -1542,11 +1542,20 @@ static void tegra_xusb_deinit_usb_phy(struct tegra_xusb *tegra)
- {
- 	unsigned int i;
- 
--	cancel_work_sync(&tegra->id_work);
--
--	for (i = 0; i < tegra->num_usb_phys; i++)
--		if (tegra->usbphy[i])
-+	/*
-+	 * id_nb is registered on the PHY notifier chain by
-+	 * devm_usb_get_phy_by_node(), so devres would only drop it after
-+	 * tegra_xusb_remove() has returned.  Unregister it here, before the
-+	 * work is cancelled, so that it cannot be queued again.
-+	 */
-+	for (i = 0; i < tegra->num_usb_phys; i++) {
-+		if (tegra->usbphy[i]) {
-+			usb_unregister_notifier(tegra->usbphy[i], &tegra->id_nb);
- 			otg_set_host(tegra->usbphy[i]->otg, NULL);
-+		}
-+	}
-+
-+	cancel_work_sync(&tegra->id_work);
- }
- 
- static int tegra_xusb_setup_wakeup(struct platform_device *pdev, struct tegra_xusb *tegra)
+>> Changes in v2:
+>> - Update the comment describing the source-clock frequency requirement
+>>    and the rejection of higher-frequency multiples.
+>> - Add a blank line before the final return statement, as suggested.
+>> - Link to v1: https://patch.msgid.link/20260828-i2c-fix-se-clk-conf-v1-1-9adc72308f2d@oss.qualcomm.com
+>>
+>> --- b4-submit-tracking ---
+>> {
+>>    "series": {
+>>      "revision": 2,
+>>      "change-id": "20260807-i2c-fix-se-clk-conf-89f6f92d373a",
+>>      "prefixes": [],
+>>      "presubject": "",
+>>      "history": {
+>>        "v1": [
+>>          "20260828-i2c-fix-se-clk-conf-v1-1-9adc72308f2d@oss.qualcomm.com"
+>>        ]
+>>      }
+>>    }
+>> }
+> 
+> Please ignore the --- b4-submit-tracking --- block; it is internal b4
+> metadata accidentally included during the rebase.
+>> ---
+>>   drivers/i2c/busses/i2c-qcom-geni.c | 38 +++++++++++++++++++++++++++++++++-----
+>>   1 file changed, 33 insertions(+), 5 deletions(-)
+> [...]
 
-base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
--- 
-2.53.0
