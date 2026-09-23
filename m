@@ -1,156 +1,289 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 742AE5326D2
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8516253162C;
+	Wed, 23 Sep 2026 13:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169830; cv=none; b=T/KS3yS7VEvD7M1rrApv6z+XkW5xu9k10qpRrvY/RoqyaSK7JRqkMcsQ8TBhJo7643Ki4I1pdIsfL/T2ws9Aaes5LKluBoXv+16yaOWZnKZyXdlHZrgOtKDj4IzB3yuRrXo3Dc2wmpkKCFwTOzlMGo67mkLcR1BuiHs/eMSkKhY=
+	t=1790169873; cv=none; b=Q3RvU62LDmmSoYK8GBOESTw5q1AZ9trY7VSPhzvCezWAqFaHRrUQOBarReQ7T1t6ZyH5Zz7QIoqxOO+MsGZ+oaeQMCpM6pk6xcATJGczwfK75sRHrZML9QbBQdWKk0wPxr7gDxK4CYF8Ab3xEEvjyRV/PJXw3FInmgUluYHmtSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169830; c=relaxed/simple;
-	bh=vrbjCTtsJyzwtHuyaf91WcAhXyYix8svgAK1qoMzsKs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rwx6hQNk44NwOT5RXr9gEuqaBoeDMIvGPyeC+64gtUf0jg1BtUURKKUSH4k0B+Gue+KCK8gj2E622fZreZUQj8T0KQUpk5a0ZyaRSlez/IL7+VHg15+g3ety3dphBCYUbO8JUZM0JOGyOY+1M74aeNgyaY0W8SK9+oqIS+AQvN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SJ/GfdNv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KFzUniUa; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790169873; c=relaxed/simple;
+	bh=URbHuBN1x3lnU7r2lPBY+8SE2ajxprvZwtLU8pUXMyQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pNcGWL0JffXiKH6VN9SVM+XZN0QkSZTEIAXTWNaq+G5sNjbyixT82MJL6QypHV007V0X5RGEN1/31LXwKNcQkU0ayKktg69U2hD9y9EZHiUq93vsTC/EdXuHowyNYGJzQlxnuqZN8DDQlwWBUCgLRcDvuOmaD1CDGbJLERnJViQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uyNliMsS; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SJ/GfdNv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KFzUniUa"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NDKwEP2056502
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:23:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ui/R75E8kUWbSRcH6Jr3UdntL2soM1PcUyFJ6Wtu9YY=; b=SJ/GfdNvpBe4wTkT
-	S1mXf1SgvWRVx7plQgwMrWgIYlNvgoqCHBexV3CFDcics1ykZdqJp4GWOnIufIAu
-	xzAllA8gYDUM26ua3NS2ayqtDWF3cHqXmNUoqbpjFP4fp5IAgFFo1+Y3UeyWQv+n
-	HxA85LZLFSuojbNHlqKvUh7v9bvcD7sMG0WavXFhIKX5jKqgBhko+uZ9Y+Pf0JKH
-	i4b+uPFGeWhBqT3QnKYqBWCxm6lWNVTJ9p91WjDICDILVUkGBpg1NoOW8d/b6psm
-	a3WkcNZ7KP0o53mPbD+LQ33XoRoiFxSpzQn1SPsRB6/JzUbfKsgfjuRWCEANVgGg
-	JtJY4g==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjv00b2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:23:45 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-530cd3dff25so1447611cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:23:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790169825; x=1790774625; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ui/R75E8kUWbSRcH6Jr3UdntL2soM1PcUyFJ6Wtu9YY=;
-        b=KFzUniUaOQLhI/TMpgnijlKixE6TW0Mt7UrnrYubGwTP4oqT9HNB30mzlWp7QpsfWU
-         l1G6mIW5K73tSFPNPRt6CkubtO0KmNH+SHBXp7446MVLnr4ZNUVJbuo4W1f9QknS4ulr
-         w6nnEf2k3BKu+t3MMfYbRbPZHI2B9zFuhcn11HkcVm7qRDwTF2IGN1R2WcJS4iySfweB
-         qhbmSrQ4M6BLpP3Uc+tAGEVf4h7yZwhMSXgpfHEabyP4Nle7WXR7t00HHiFYpppvn044
-         0f5BpGCCqsoLkpu0srADWQ/IQc8haRlrBgLAcpJk00Mh15A1NrF2l4EWSumC1we+xrhA
-         vRnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790169825; x=1790774625;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ui/R75E8kUWbSRcH6Jr3UdntL2soM1PcUyFJ6Wtu9YY=;
-        b=1m2rMBywz4VsSodQxkRd8AWq9NqLtzarl9Zo8LiUJZBaehlctt75rGtWilXmhqFoj0
-         7oWVfXl4WEkn6GMDuuCxmA5d/JfHJA5xh/QyA1Mq++p+CC1MFPMLnxwrbggy8rX8pQ6O
-         7PpFN+jKpIBfZK+cEJhwQUMV/YVDGR60drEwpvynQGp5uV+SfzaLWSc9O5IL4Asma//n
-         udhXDORyqzjZ5CkzMfybz9nvRu7qwmr0u8R6I2a8khLdM/NJgxjy1zNHc/W3MwXn9Qnu
-         aasMReICKunhZXdtd/Ibn8TpJWxpJe0akNT7LJWD0NGNxEdUSXAZv3fYd26eYk5U4Kbt
-         qoXw==
-X-Forwarded-Encrypted: i=1; AKwUvBzpqw+fyg93eLgB7JQ+oCXOfr4N4RJGsHDdNxoYss6vEoeHcCc6ocnW7QViNnc0HsnTGdaKSaAixfc8WCE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mapgLJHYYS9ZyLseA7uuN6inS3cXAR9LlgtDXlSr/SDxBKAcz5
-	O+lU3xn3tOXp8n+fDNasfTUOnxRew8Z4IDc53R54XO8wpBtIyMyJETQ8TjIEBXgeUMHpGR6FT/n
-	+QtNaz880O9C/Cg+pQeFIEGRIB2S+sPdOr0FKIsVsq2rfzHhdPbirikW4Ype8+m1ul48=
-X-Gm-Gg: AYBFou3I6s4R1FRdvYQKfjItEI1LW/ZpodiTN4xQwdhLrA+7UnHQnnnIj4rrkY4T67R
-	fdjDrbU5V7TNVBhwLJbCDLB6jA61R6TkcpFsBiYG+KzdZXL7hm5BHPfBiSXV+CDqWkPTZC4k2BD
-	TZHvvbGZIWwNjGqHjfjlTaWFkaNXzC/K+iZTWNSiTy4rvZJKlcgeTKXI56CHSAtGE4NBkIlfPnM
-	c41nHbE4WOZPB0oLyhq7+x8afuX5kbWdS/3FJbGffG0C7KuUrJfqSlYzm278y30rNn4J3mG+Y2z
-	IGs4Krs4pj+MhK/lqOR7oBT+d1BLv6qXX61qgGW2uB0ehqTk0WHgLbdd6c3Pd5NvagipC1ETSep
-	IToqESQFlIpVR5UoBcGsTVQ==
-X-Received: by 2002:a05:622a:60b:b0:52e:3991:84c8 with SMTP id d75a77b69052e-532eacc093bmr44926541cf.2.1790169824670;
-        Wed, 23 Sep 2026 06:23:44 -0700 (PDT)
-X-Received: by 2002:a05:622a:60b:b0:52e:3991:84c8 with SMTP id d75a77b69052e-532eacc093bmr44926131cf.2.1790169824160;
-        Wed, 23 Sep 2026 06:23:44 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a62f5139e2sm7037091fa.26.2026.09.23.06.23.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 06:23:43 -0700 (PDT)
-Message-ID: <a41366e9-2bd7-4a5c-bbc6-e5cc28acca0d@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 15:23:38 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uyNliMsS"
+Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EDA3F1F8;
+	Wed, 23 Sep 2026 15:22:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790169751;
+	bh=URbHuBN1x3lnU7r2lPBY+8SE2ajxprvZwtLU8pUXMyQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=uyNliMsSV32J0xy+hrtym18PbYPfxjp8OJV2rDH0mUlYaCETmkBVUhgVczCiRlu04
+	 MpSmmyI8ZmW3ww2bNV+lm4p7NRwAMvrKMKmhOizKAFRK7cVpuCBh2zzRp0P4lqsRAk
+	 N5Uzp3krtWAa6eu++gY9cPXk680wqLHrs2b/BswA=
+Date: Wed, 23 Sep 2026 15:24:14 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
+Message-ID: <arPNMr1NV2vWjHMP@zed>
+References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
+ <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
+ <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
+ <ap_0yL-JatdVDaXG@zed>
+ <ap_2Jhqc3vlmkmci@kekkonen.localdomain>
+ <aqEJk6dKWuyMLLRt@zed>
+ <aqEUTAAhwI09JOuR@kekkonen.localdomain>
+ <aqEsceb73f5ysKmK@zed>
+ <aqU6MPoOvhAEHOeI@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] clk: qcom: Add support for camera clock controller
- on Maili
-To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Jagadeesh Kona <quic_jkona@quicinc.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260921-maili_camcc-v3-0-2f8d739ac2d4@oss.qualcomm.com>
- <20260921-maili_camcc-v3-2-2f8d739ac2d4@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260921-maili_camcc-v3-2-2f8d739ac2d4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1MyBTYWx0ZWRfX6rGabmZpr3Dw
- 6UzyYZ/Rzyo9wzVv0PlSO59EBdJ2yINLaMy2+r9+kF/7xZjr08RWXTwVFMH/KyI8xVAaHb3UQhw
- XlgXaCqI+iLe3Y9jnJoHokrUHgfahuJ+LsCNmnWfyqItOAmnE52ak4FvjZFQPjM0zuzOOqn6Sg8
- PvcAJjxX+RbSHN8ZR3G/RS7/tPnKd4hpWSY1CbzBoYe1U6hxEcEqS+Wy2P9y+rzdzXlXpZzxzl2
- uQUEGq4kmObUbp3pFK1pI+REn4DiQvZqII9cZRgTe+ui0vsHsUe9ihb9/IKIBn/LnIXI3M/cPOU
- uUQifOFfN5bMKpDoSVKLdlLv/k/dIJeteMy0evr1Rr/+xXcj5HYEOtbK7n6DHON4gxJU1pZC0cA
- b2Yun7ZtID4Ytg+UInlHh81z1nFBhPcWRzeZeNk/QQNaEbDthSKeadVs8x8F5R0en7YsiqfmNfj
- eBQNXaoB3gNJfTJbvGw==
-X-Authority-Analysis: v=2.4 cv=aIxlOr9m c=1 sm=1 tr=0 ts=6ab3d2e1 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=3jvcJnBrcLkHgcWL8XUA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-GUID: ndl3rkWraVN8_15F7i2MJ6vYiXbpFw84
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1MyBTYWx0ZWRfX5UwSHVIXWFca
- NqzyJntQu2UEtSX35clnY8QN53Lsx44Y5hKvpz/8k8slqxHje1IFLwVPryKArJY5IoOAnxVRso0
- c29apBuZHc4HeFXhjbPvvECeo6FlYLE=
-X-Proofpoint-ORIG-GUID: ndl3rkWraVN8_15F7i2MJ6vYiXbpFw84
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 priorityscore=1501 spamscore=0 phishscore=0
- malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230053
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqU6MPoOvhAEHOeI@kekkonen.localdomain>
 
-On 9/21/26 6:40 PM, Jagadeesh Kona wrote:
-> Maili camcc is mostly identical to Hawi camcc, with a few clocks
-> removed, frequency table updates for a few other clocks, and PLL
-> configuration changes. Hence, reuse the Hawi camera clock controller
-> driver and extend it for the Qualcomm Maili SoC.
-> 
-> Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
-> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-> ---
+Hi Sakari
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Sat, Sep 12, 2026 at 02:40:32PM +0300, Sakari Ailus wrote:
+> Hi Jacopo,
+>
+> On Wed, Sep 09, 2026 at 11:56:27AM +0200, Jacopo Mondi wrote:
+> > Hi Sakari
+> >
+> > On Wed, Sep 09, 2026 at 11:09:48AM +0300, Sakari Ailus wrote:
+> > > Hi Jacopo,
+> > >
+> > > On Wed, Sep 09, 2026 at 09:35:52AM +0200, Jacopo Mondi wrote:
+> > > > Sakari,
+> > > >
+> > > > On Tue, Sep 08, 2026 at 02:48:54PM +0300, Sakari Ailus wrote:
+> > > > > Hi Jacopo,
+> > > > >
+> > > > > On Tue, Sep 08, 2026 at 01:46:11PM +0200, Jacopo Mondi wrote:
+> > > > > > Hi Sakari
+> > > > > >
+> > > > > > On Tue, Sep 08, 2026 at 11:16:26AM +0300, Sakari Ailus wrote:
+> > > > > > > Hi Jacopo,
+> > > > > > >
+> > > > > > > On Tue, Sep 08, 2026 at 09:57:23AM +0200, Jacopo Mondi wrote:
+> > > > > > > > Add bindings for the ams OSRAM Mira016 image sensor.
+> > > > > > > >
+> > > > > > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > > > > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > > > > > > > ---
+> > > > > > > >  .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
+> > > > > > > >  MAINTAINERS                                        |  7 ++
+> > > > > > > >  2 files changed, 104 insertions(+)
+> > > > > > > >
+> > > > > > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
+> > > > > > > > new file mode 100644
+> > > > > > > > index 000000000000..49a606fca6cb
+> > > > > > > > --- /dev/null
+> > > > > > > > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
+> > > > > > > > @@ -0,0 +1,97 @@
+> > > > > > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > > > > > > +%YAML 1.2
+> > > > > > > > +---
+> > > > > > > > +$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
+> > > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > > > > +
+> > > > > > > > +title: AMS 0.16 MP NIR enhanced global shutter image sensor
+> > > > > > > > +
+> > > > > > > > +maintainers:
+> > > > > > > > +  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > > > > > +  - Philippe Baetens <philippebaetens@gmail.com>
+> > > > > > > > +
+> > > > > > > > +description:
+> > > > > > > > +  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
+> > > > > > > > +  and 3D consumer and industrial machine vision applications. The sensor is
+> > > > > > > > +  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
+> > > > > > > > +  physical layer specifications to transmit the image data to the host
+> > > > > > > > +  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
+> > > > > > > > +
+> > > > > > > > +allOf:
+> > > > > > > > +  - $ref: /schemas/media/video-interface-devices.yaml#
+> > > > > > > > +
+> > > > > > > > +properties:
+> > > > > > > > +  compatible:
+> > > > > > > > +    const: ams,mira016
+> > > > > > > > +
+> > > > > > > > +  reg:
+> > > > > > > > +    maxItems: 1
+> > > > > > > > +
+> > > > > > > > +  clocks:
+> > > > > > > > +    maxItems: 1
+> > > > > > > > +
+> > > > > > > > +  vdd28-supply:
+> > > > > > > > +    description:
+> > > > > > > > +      I/O voltage supply, 2.8 volts
+> > > > > > > > +
+> > > > > > > > +  vdd11-supply:
+> > > > > > > > +    description:
+> > > > > > > > +      I/O voltage supply, 1.1 volts
+> > > > > > > > +
+> > > > > > > > +  reset-gpios:
+> > > > > > > > +    description: Sensor reset (RST_N) GPIO
+> > > > > > > > +    maxItems: 1
+> > > > > > > > +
+> > > > > > > > +  port:
+> > > > > > > > +    $ref: /schemas/graph.yaml#/$defs/port-base
+> > > > > > > > +    additionalProperties: false
+> > > > > > > > +    description:
+> > > > > > > > +      Video output port
+> > > > > > > > +
+> > > > > > > > +    properties:
+> > > > > > > > +      endpoint:
+> > > > > > > > +        $ref: /schemas/media/video-interfaces.yaml#
+> > > > > > > > +        unevaluatedProperties: false
+> > > > > > > > +
+> > > > > > > > +        properties:
+> > > > > > > > +          data-lanes:
+> > > > > > > > +            items:
+> > > > > > > > +              - const: 1
+> > > > > > >
+> > > > > > > The device obviously supports non-continuous clock mode (and that's what
+> > > > > > > the driver also only does right now) but as the continous clock mode is
+> > > > > > > required by CSI-2, I presume the device can do both.
+> > > > > > >
+> > > > > > > So I think you should have
+> > > > > > >
+> > > > > > >              clock-noncontinuous: true
+> > > > > > >
+> > > > > > > here.
+> > > > > > >
+> > > > > >
+> > > > > > Maybe I'm confused (again, after 10 or so years of doing this) by the
+> > > > > > usage of unevaluatedProperties/additionalProperties, but if I read
+> > > > > > Documentation/devicetree/bindings/writing-schema.rst right
+> > > > > >
+> > > > > >   * unevaluatedProperties: false
+> > > > > >       Used when this binding references other schema whose all properties
+> > > > > >       should be allowed.
+> > > > > >
+> > > > > > Means all properties from video-interfaces.yaml are accepted (which is
+> > > > > > imho very wrong, but it's a battle with dt maintainers I don't want to
+> > > > > > start again).
+> > > > >
+> > > > > I guess you should have
+> > > > >
+> > > > > 		additionalProperties: false
+> > > > >
+> > > > > too?
+> > > > >
+> > > >
+> > > > Where exactly do you mean ?
+> > > >
+> > > > I don't think I can have additionalProperties: and
+> > > > unevaluatedProperties: in the same node, do I ?
+> > >
+> > > Yes, these are mutually exclusive.
+> > >
+> > > >
+> > > > It's been a long time ago when we discussed with dt-maintainers what
+> > > > the policy should have been for endpoints that reference
+> > > > video-interfaces.yaml.
+> > > >
+> > > > To me, the most sensible thing was to use "additionalProperties: false"
+> > > > and explicitly allow the supported properties, instead of allowing all
+> > > > of them. However dt maintainers had a different opinion (for reasons I
+> > > > honestly can't remember) and I think we have stabilized on the
+> > > > following pattern
+> > > >
+> > > >         port:
+> > > >           $ref: /schemas/graph.yaml#/$defs/port-base
+> > > >           additionalProperties: false
+> > > >
+> > > >           properties:
+> > > >             endpoint:
+> > > >               $ref: /schemas/media/video-interfaces.yaml#
+> > > >               unevaluatedProperties: false
+> > > >
+> > > >               properties:
+> > > >                 ...
+> > > >
+> > > > All the most recently merged bindings in media/i2c have this pattern
+> > > >
+> > > > 42f83a32259a ("dt-bindings: media: i2c: Add Sony IMX678")
+> > > > 097d2be74ad0 ("dt-bindings: media: i2c: document Omnivision OV08D10 CMOS image sensor")
+> > > > 631dd79305ab ("dt-bindings: media: i2c: Add ov2732 image sensor")
+> > > >
+> > > > I feel like I'm missing something obvious, otherwise I don't see why
+> > > > this binding should be different ?
+> > >
+> > > Good question. Perhaps there was no specific thought given on
+> > > non-contiguous clock support? I guess most of the above should probably
+> > > specify it, even if the driver doesn't support it.
+> >
+> > Maybe I'm still missing something, but using
+> > 'unevaluatedProperties: false' and referencing video-interfaces.yaml
+> > means you can include all properties from there (which, again, I think
+> > it's wrong, but allows you to specify continous/non-continuous clock
+> > support).
+> >
+> > >
+> > > There's a good example of doing this in
+> > > Documentation/devicetree/bindings/media/i2c/ovti,ov5670.yaml, you're listed
+> > > as the maintainer there. :-)
+> >
+> > eheh, that binding has 'additionalProperties: false' which means you
+> > have to list properties you accept.
+> >
+> > This would be my preferred approach, but if my recollection is
+> > correct, we stabilized on using 'unevaluatedProperties: false' after
+> > discussing it with dt maintainers.
+> >
+> > Does anyone have a different recollection ?
+>
+> I don't have such a recollection albeit I'm not sure I recall more than
+> this was probably discussed at some point. :-) What I do prefer however is
+> to be able to say what is relevant for a given device. There are lots of
+> properties there in video-interfaces.yaml that aren't for nearly every
+> device (node).
 
-Konrad
+I totally agree this would be more correct.
+
+I thought we had a policy in place where we had agreed with
+dt-maintainers to use "unevaluatedProperties: false", and I feel we
+had this discussion many times already.
+
+After quite some archeology I found this:
+https://lore.kernel.org/all/Y9Tz8AWds51vGgsM@valkosipuli.retiisi.eu/
+where the discussion didn't seem to end anywhere.
+
+I value consisenticy above correctness for minor things like this,
+both for sake of the code base sanity, both as a measure to avoid
+pulling contributors in too many directions depending on who does the
+review.
+
+All the recently upstreamed bindings use "unevaluatedProperties:
+false" meaning all properties from video-interfaces.yaml are optional
+and accepted.
+
+If we want to change this we should make a clear policy (a comment in
+video-interface.yaml might be enough) and align all bindings,
+shouldn't we ? Otherwise this will repeat over and over, depending
+which bindings a submitter use as reference and who does the review.
+
+>
+> (It's been in my plan to better separate these based in physical interfaces
+> etc. but so far it's been just a plan. Even that won't make this issue go
+> entirely away though.)
+>
+> --
+> Kind regards,
+>
+> Sakari Ailus
