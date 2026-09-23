@@ -1,114 +1,134 @@
-Received: from mail-vs2-f40.google.com (mail-vs2-f40.google.com [74.125.227.40])
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E3C3ACA64
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:36:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACCF1496D4E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:38:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177805; cv=pass; b=imQuawqlt1bbnhV7xabIRKTmJCFPMgKlkZyHXYHqUsI0nh9n+WWwwqfr9mODsIgMSFg0EbJv2s8T4igbesWhmrvrz71MbCWCVpmoNtQEpaLC4PtjJkRraapXFUWQxEoEMgyMgjdFaXB20wHBDRBO+S97+kIa7du1YuY+YAS6MuQ=
+	t=1790177909; cv=pass; b=nfBg5PsHJKws8TdHOE5jgKRBUJBir2+yocmZX8bEbwb3fuYc1tuG7O0U9RITMBPsiTvazk8yIR6vksnprwceiS7xm6ld41uvfXHhva9D2fX+UfVYhqr0tHQcARfU9CrZ/gPWrCeS6u6bl/uZbrEdWytqRDegUmqhvMy5y9+RrG8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177805; c=relaxed/simple;
-	bh=MckAIFt7y6KQiCveSZvFBLKgfYCSm/ZaqCz+bYvfhus=;
+	s=arc-20240116; t=1790177909; c=relaxed/simple;
+	bh=gEeSEkSOfRu+0wU1/5d2sKj9+XsQVOzf6RYN8jzfDRo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bhyKT7PtX5aZ4bXNEM9En2vMwPKuandgwNLQ0fSxOK5sKkiwwlm58aTxbTehS8b1Gsdhm3B60UUnZ1RcVQaMVo/GMxAxHCugYxY+O9c3IIzG8WxusxHRUraeXXwEsXpDMKyXm7MTMQ9LRsPf4hakPp4f1vEFpPlfWFGfUatx5do=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anyfinetworks.com; spf=none smtp.mailfrom=anyfinetworks.com; dkim=pass (2048-bit key) header.d=anyfinetworks-com.20251104.gappssmtp.com header.i=@anyfinetworks-com.20251104.gappssmtp.com header.b=l2TOw4Lx; arc=pass smtp.client-ip=74.125.227.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anyfinetworks.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=anyfinetworks.com
+	 To:Cc:Content-Type; b=r4tvjI+WgCxKOr42WGDQLAlYcnmJ8M6FOtun8BwJdfUMPh0hZlgMP/ZAikIdO6m/Pv/pB3XdiKQTfZurVE0fIdBcEK5bMrlI42A6KCEtXoKX0JzPUzbZk66L7XldL0WMmbXTU/Fz2zyMg79VpFVPclBYLHCvPGwvnXMtA+m5JQA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R1rfZCpV; arc=pass smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=anyfinetworks-com.20251104.gappssmtp.com header.i=@anyfinetworks-com.20251104.gappssmtp.com header.b="l2TOw4Lx"
-Received: by mail-vs2-f40.google.com with SMTP id ada2fe7eead31-7a05d236f53so591671137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:36:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790177803; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R1rfZCpV"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4b34ee88df5so139539b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:38:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790177906; cv=none;
         d=google.com; s=arc-20260327;
-        b=QyI0LB670I9wzkTd9Jb5n3pGUbwAWOH1UdPP/k0ee0yO2WI9ocCXd97yhZ938vNpW/
-         jiP2BPyEWCyNT1PLNg+Oa85fky2Q3HKgd2oIRROAXNyFMD0Ub51ymkHdG5rM0Dk7XoNi
-         d7wk/PqaN0qmg9ncflWh+lzPlZD6kpF1WedaL5eYwFoTEm9X1lxhqPDaOeDpWzhQ0mah
-         6Vb1mDPHY3AmV9wsP88F79RaSH0O4MsK9D5sj9bwrHDJbekveUOKTpckL+jet3JBqK4N
-         8TOpigoBCloArdXgqIUvgIbxjvifURGjA68lDX0lGggtxTUO4Z7wTVJ64JR/4HJrfcVP
-         i14Q==
+        b=aDGj7+oF4yzDnvmoVgIYVmGd3RK+uZZepU9eMECkMAvpGQ8FrW5CtcZOqOSISmj8FE
+         zXWkFxHJI6W7qNSc8C3mYiuwH5a9hT5+/kNusvPFyt0zoEmC3z1DVnQUoFfW+KPt/TWZ
+         2CV+p5erL0Ek9GZuLDqlqPOUyNFhBB2IV/XN+sNQfFDXfBKv/RQoJBEIlwLdbIKN/mHo
+         O20CtlHgHynIT9td9VN9R0qOd9xRP3BAfz/tN9ZLzL5CrA6VRGkeGjumLnrpVGvTPeAr
+         xPvS0aHNbLfg1QBr/M32mJ7T7C6JPaNqZ3l88ojXy26Cb/T24lYtw17o8Ior9HCB0FHE
+         gqUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=WyKcbkEZlymHx0VcQ7j5z0yvfYLusEKHMFeFnghlEvU=;
-        fh=dUC+MH0womIRrqrLcukOW/D04dKB/NJD9w7TXvFR8Ro=;
-        b=CLiozR+RdC7jtZrr1GqWJJO+hv/vNqo2dPhE9MF3UJ8mVOhAWZizwZvwaKDAudMcdq
-         x5jfrtcgMS9fpycRTqrHUTkEP8/3CXjXvgDhoHU3C00dpGivnIA8r2KnvUx7+QmQZ3/u
-         uNXp9EI5j5MLjghMSSPLauVAxzj86vMO6c9Sh4aqPnCYRF5cbMmoEbaSkI0tigqCNXRt
-         NMXgum0s+Hpa1FX9RVQHlkIsY6BQW9YqClHSHhR+pCj7YupQhZML131EPgLNl4chpeBl
-         HtK0NEYUAg0yk8GW5XxHDMmSrM+EBlTGWOr5+MuiDkmArceNZYLzc9jfrq/N4mGl+evj
-         UZ/Q==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gEeSEkSOfRu+0wU1/5d2sKj9+XsQVOzf6RYN8jzfDRo=;
+        fh=0OkyN8OZc7Z341kYOVZKZhvhJobjuImMK0wMCmiX188=;
+        b=VA207cczIEWWrMOC2i/EWzC6RM2HJqGMCrNhdDFaN1sT2loKi0ifuPotC2piLhseSw
+         rvpWFgK1/+ZWSz6FE1d+57rutDL+3Lcr3K2BExb3wNmWFLFAqpYRqxol6Y+pr7Y6wj81
+         C7HLFlgYj8/opXDamG+d/hi1MK7TUAzlPbTOBKcsOe06KfuoyWe5t8GHBNjjL47l61QN
+         MRxoyYe8n0WyViJ1OnadkCYb9NvhNtWo0gRsvQuViSZSteSxDxdnPF3eXnf8gi4wwCK0
+         op8/aW4Vre03eDEN84Cok/On4v5LNoNE+NHAJ6k+JMZIcBPTpgtiOILefBBCpZxzkGBo
+         PpDA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=anyfinetworks-com.20251104.gappssmtp.com; s=20251104; t=1790177803; x=1790782603; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WyKcbkEZlymHx0VcQ7j5z0yvfYLusEKHMFeFnghlEvU=;
-        b=l2TOw4LxGBKykjSF6yNa2YP4rRN+HRl2i7AntiIAVw6rxJINw/YSTkq0NvZycm3N/e
-         ne4Lc/zLTwN3UeZDESODBDOOcEbzZDs4neg9holUuBm7QbL8+LVLWVZDM0ALbCtbAeDo
-         0eDAQn+lIzXrndwUjlVhPMdk5+U6CTCiJFzrxB7SM3W5UViZJzcFq42ZUngGYo+i/XO3
-         v42WFEV8rxgGpQMVFC2kC/3N34lvxKXVzuplNyxshLjYPNJJObWJgHS08RWIZUVKCVfK
-         xdY7cj8P703FrBFSBKWENWXDeru76REFVDSSdM0jFsqzwPUaaYONs6kq6NItxq1Z/7nr
-         uDOA==
+        d=gmail.com; s=20251104; t=1790177906; x=1790782706; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gEeSEkSOfRu+0wU1/5d2sKj9+XsQVOzf6RYN8jzfDRo=;
+        b=R1rfZCpVaoeS1I2e9V3K7gFOBN4qX9lpx2qWsDz6TSFzILf9pqdosDuJZkprYzJUqy
+         mPSNCdaCsCRHbpk6WVGCjxaAALCpoiyA30X/TtQbkLIz1p4ceuY6XUPBKEdEBXv4EE9S
+         2fnqvMF+M+RxE6Kgwj8mBgt12nP7s+GU9YdFI7tJbg+4wH3JmHZwJNGEVvwPJVaBrIo2
+         VbHltlbqfqRtmHgK6nkQyVs7NwGN4y/3T/7N7X0qCtJvrBZ5D8pCB62U4Vz/hOvHUKi4
+         seRU0faKnD9B/KzQxPXca3DwxLerTBl0nDK9kHyaN+DvX+i5ebUXe7rwbaDdIJmBDZuH
+         CJlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790177803; x=1790782603;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WyKcbkEZlymHx0VcQ7j5z0yvfYLusEKHMFeFnghlEvU=;
-        b=SqDGwUu/tO+xW5Vixo2mF66fCDySC6xOqIh4KVTFXwyImF5rDGgoazm5RHcIF4uRQQ
-         tq7+VjxSIWaELYc5iPKz7pD4Co/xErEN71cFZvD3pkJawv1dZXDzQ2zvqSF50lQ6aVZE
-         sTRqE06QpBHJYBabhYxpJmX1I/0L9Kfzm7ihqTgTnUelzBeJK5QKADVP3vyxxd1afJVz
-         PloRVMQSR9cF1RVvI0PRGGvAAvhfG1FmDgZAnSI3jzi1+CChMSNm8xJjHKBdja/51BNt
-         pcqGvkXoU8BHJctGNbOHAOE+Rh5TTUntRvdoVfhEoOOB4eHmDlRCs/ONn5FNmvmPfJYe
-         SP7A==
-X-Forwarded-Encrypted: i=1; AKwUvByJ4rRDwm72jYxM8zaQZ1bw7Qs3Hh06dly0k5CF8bm2Hig0zyTPu+iCswegJTYiJBhXoSzWaQ2kQe4rS5s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgBVj37eY0QLYVno92RPB8o5U5NMKMv3tENPkXVk5DsafOwTz9
-	9Fr3QaPq/SlBrX0otRUcg+DI74D2cPajPl8Bs3AAz4FxtpF/UNzgrh8gkOF5MME7ozhHfMoR0Xc
-	GPdaUIXpWDgKBWcfHWF6tsnXzeoWwfUJGHzcNH/AOQg==
-X-Gm-Gg: AYBFou3Wu8cRWx9DrxTHlBY4ypvS/ZI3omUBdbS7JBDtDrQ2j6rGzzTtUUvmToy5r5D
-	5y1LiUEa+7+OlSyufePVXqnnfeO5Yum+bXIZ6U+t2VXBE1qgI/YSnqG1AvGLtdbQOG56mGiQgvq
-	VeIkZo9dR4cKV366pTF8r75LXAG5rIjGJH0MbFfkaX+26MHtI9hhO5WN5NHLi/7si0mp2uBGLFp
-	uPh2p8/dSLRjzM44Ej6DkzZwEkELjBskLZ5C8LWDlaOq5JZOR8BQZwRLQLFpfUaZ4G5zyuev2XE
-	bZpR7Sb/Efiz/kGOKXcS+5cTnVYNgOcDSWp+tBcaYBq6/LcVHlQ4ax4=
-X-Received: by 2002:a05:6102:c94:b0:7a7:19aa:8a81 with SMTP id
- ada2fe7eead31-7ac1ceab000mr2765066137.28.1790177803157; Wed, 23 Sep 2026
- 08:36:43 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790177906; x=1790782706;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gEeSEkSOfRu+0wU1/5d2sKj9+XsQVOzf6RYN8jzfDRo=;
+        b=xP2eNzVltBgd+nM+FO5blIIwPlVdWPZjj4ngcWO2gxskadVNgmqq9yHVvMj1gFfTWG
+         +mGHgKiPslGDmMUJWvK8eoChUo13dazxqn0ZWiPfTduu4Bp/ri9L0MKcBzMEq7H5bcfe
+         TIIbhRhmeY4mocYIs4L3MkUsAPbYg9WfVwUj+Gum6vEcMk2+v1Elll9MNlgOeGLTsjAC
+         JtbKrcoT8HOkec/fHj0IFzUOXLe+YcbTKRJ1d33JY9rzJmdurvwYE5rFLlpRra0nVBzL
+         Z/bVtU0eBQO8+qOmA24DAMIQJzyv1FehuwECfRdoF/POZzqAkuXKrxRFzOE13CJSR5WI
+         RXZw==
+X-Forwarded-Encrypted: i=1; AKwUvBwsaUnZwgz/ksyApb3BwV6GsLbf/PeN3bxZaoxkmTVyvWVX/jfBrDd4aAW+UOO5nybEUEkcJ7C0bgkOg/0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kRkSgMfhYZ8WNNBA3Pi0NyI1+zrwZ30YqaNbA7bdqWqQl2cw08
+	eSvqTrHHk0YzRgPo3f8gKM82jGW91Uj3dV5ny1WrGqmHtYdFa2gYDMKwr7j9G5zVMtwPYl81U1V
+	1h5xFWUStGWySsg93lieNIDxX2H9Wt70=
+X-Gm-Gg: AYBFou2t+MRCBvQVExAZRVRdSJyp82+TnyDj9xQ0467Vasy/3hQxJ0QaHkn8Bv/SDUe
+	3pTr8VXZTRRXLiybZcqqZK75K5WcFo7g0OoJ08DcRqYEI37lPJWLwJOdYthyfFaNFGGgSYVVwMI
+	utGI03l8i2X9mJZ4lTVSE1WMi/K36LGtJJ0UHxWC7o8rCw8RJG3N5TsblRPmV8/TFctU5gjo4oQ
+	PTZDx2RiW06PkCV2vj0vRsWPReoXF5QnqZdwbI7PodIIE/p29t3vOXNX9NacrDi5WTIZro14SZ+
+	YUa8iTB2vv5vCTE+y6tk/tiKPFPIF5kootpSRv6XDRkeCJbyizhlh66EpQK73J2O5Tk0rPo=
+X-Received: by 2002:a05:6808:ed0:b0:4b3:9985:1734 with SMTP id
+ 5614622812f47-4d5ba3c4acbmr3726514b6e.4.1790177906420; Wed, 23 Sep 2026
+ 08:38:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911213340.3767930-1-main.kalliope@gmail.com>
-In-Reply-To: <20260911213340.3767930-1-main.kalliope@gmail.com>
-From: Johan Almbladh <johan.almbladh@anyfinetworks.com>
-Date: Wed, 23 Sep 2026 17:36:32 +0200
-X-Gm-Features: AclHuK9A_heK5XpfCJuEwPoemEBWBt68h_7NVvsiHk4qVRuUG-8IlkgYOWm5Ax8
-Message-ID: <CAM1=_QT3=gVshfds+0dZbmHy3vrturgddDfzj8MQYaj_mCchMg@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v4 0/3] bpf, mips: Add signed div/mod support
-To: Nicholas Dudar <main.kalliope@gmail.com>
-Cc: tsbogend@alpha.franken.de, ast@kernel.org, daniel@iogearbox.net, 
-	andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, paulburton@kernel.org, 
-	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
-	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
-	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	philmd@oss.qualcomm.com
+References: <20260914-netcons_ratelimit-v3-0-8e81b789ab37@debian.org> <20260914-netcons_ratelimit-v3-1-8e81b789ab37@debian.org>
+In-Reply-To: <20260914-netcons_ratelimit-v3-1-8e81b789ab37@debian.org>
+From: Gustavo Luiz Duarte <gustavold@gmail.com>
+Date: Wed, 23 Sep 2026 16:38:14 +0100
+X-Gm-Features: AclHuK-2YGSrpzgft7by3_dFRSTPGzkf9KPty-TIWRA5mQOXoN0qwCVvVkFO1d8
+Message-ID: <CAGSyskXex-Pu1n1wp+YfpVgbZnCRrd3CmGcLR9XWxenVNnk6NQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 1/5] netconsole: send the oops when oops_only
+ is set
+To: Breno Leitao <leitao@debian.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, paulmck@kernel.org, asantostc@gmail.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	kernel-team@meta.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Nicholas Dudar (3):
->   bpf, mips: Factor out div/mod emission helpers
->   MIPS: uasm: Add signed div/mod and sign-extension emitters
->   bpf, mips: Add support for BPF_SDIV and BPF_SMOD
+On Mon, Sep 14, 2026 at 1:10=E2=80=AFPM Breno Leitao <leitao@debian.org> wr=
+ote:
+>
+> A target running with oops_only=3D1 receives nothing when the kernel
+> oopses, which is the one thing the option exists for. Only a panic
+> still gets through.
+>
+> netconsole_write() bails out unless oops_in_progress is set, and that
+> flag is already gone by the time netconsole runs. netconsole is
+> CON_NBCON_ATOMIC_UNSAFE, so console_is_usable() keeps it out of the
+> emergency flush an oops prints in, and the records only leave the box
+> once the printer thread runs.
+>
+> die() wakes that thread from oops_exit(), by which point
+> bust_spinlocks(0) has cleared oops_in_progress again. TAINT_DIE is set
+> in between, so test that as well, behind a helper.
+>
+> With oops_only=3D1 on a netdevsim target, an lkdtm EXCEPTION produces 44
+> lines of oops. The receiver gets none of them before this change and
+> all of them after it, while ordinary messages stay suppressed.
+>
+> The taint never clears, so from the first oops on, an oops_only target
+> sends everything instead of going quiet again. Sending the aftermath of
+> a crash beats sending nothing.
+>
+> Fixes: 7eab73b18630 ("netconsole: convert to NBCON console infrastructure=
+")
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-Tested together with the other MIPS BPF JIT series and fixes. See
-https://lore.kernel.org/bpf/CAM1=_QTjcyMtMLawSFnCt2c5wJJ-if40GSfo+o-CoZqcgx5wYQ@mail.gmail.com/
-for test setup and results.
-
-For the series:
-Tested-by: Johan Almbladh <johan.almbladh@anyfinetworks.com>
-Acked-by: Johan Almbladh <johan.almbladh@anyfinetworks.com>
-
-Thanks,
-Johan
+Reviewed-by: Gustavo Luiz Duarte <gustavold@gmail.com>
