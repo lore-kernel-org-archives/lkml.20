@@ -1,56 +1,56 @@
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A09450B429
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E214ED1AE
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187226; cv=none; b=TUue/Sj5uP30YUo3ya8Uag8LOJfPpvFx9s5JTvfOwUegLBNHyUBfKr0vY3bSUKgYBK45qg0yFjSJQYC1y/EEKKRODh2hJ2IQ2jnZcSmUCrh+qgUpLFD3CROnBUeL3aI0zU3L8GdfdGSNOl8BLAyh+qcP3CMeDU0WCHv9AR/GvkI=
+	t=1790187233; cv=none; b=e6e22iVM6ENdRXwProPrV4KDW/fHhVuNU0H6XIrfzBr7YCjw46T6CMGvztX+c6I8ZaOVwq71IUpmaV29ceZw4WUsWIkALd2rXXeUP/5D68uvncnhIcVS8xyM92YgcUh8EFzzcEPAWhywn2U0HwMt0a3QmiX9uVHb19GslbpRBss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187226; c=relaxed/simple;
-	bh=4b0imgbFdYz+4JCKfONwFUgxUK4QQzPGLp4FygSrSe8=;
+	s=arc-20240116; t=1790187233; c=relaxed/simple;
+	bh=PCoZS4hYLNKyS2/J0zNmrX67ReirwGEQHba41+qzYdI=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=U/Clp+Ur/Ldofi+CiBNHYPtIfk/9R3fhp816WW5k54T5oTVI6U8pHZ/5lWPt9v/8PM61tZGS4nQupz+tEOEUBXTEfR9PZjzDeETsMLZcGTWFgFv36vt6b+DkJhfANKi06gRkRgUkIJVPqTepOhoecrJF/H5kTIDC7V4jwh2la6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KiGffeV2; arc=none smtp.client-ip=74.125.82.70
+	 To:Cc:Content-Type; b=eGmDElJCKGagXPPxoLG+VuwNv8xzo5XGJSbs4Duf3KPISJC18tkwVBk+0bNXNbQT2VXhB8er5Iyq9XGH4zdjpD5ySll7sbUNauw1ArU1zO7ispKCtsCjcD1imOMFl8D6Ndb/dfX8djr2yE+q7v+dEuttj0GkMYXsCClM8FdsXT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IbPbFp/6; arc=none smtp.client-ip=74.125.82.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KiGffeV2"
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1438492fb40so1869895c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:13:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IbPbFp/6"
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-14383177746so2648298c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:13:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790187214; x=1790792014; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790187224; x=1790792024; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GdUrPLeidZ9sUt9zVmAl34CruFIaflRaMNzsOxLYKi0=;
-        b=KiGffeV2Z1taDBcZok6Q938vffq48oeY3s4b8ZLt3dGg2tosKbznJQZQGjSOMSrrxc
-         ZHQdO2dt2VmCumx7+LGIPP3UkX9pLYxYwWM9N/95ALmSmaXu5Q6udXU+ZbUr87rkNgFZ
-         pK+7nd6At2r9o/dB9o8ITLWAbcWe/NE8bAF44cCAITI6FZkKg49voHJWvWpO6yQC2lIP
-         M/T4/pvLHGYNGj/fKFiQkYS/7xOLXQx3FaQmMxrPtGhy9NMDACsV5KQbP/VvXRhxPfNd
-         TuuWmXXg7Ind1591A4MBICQ96CtVFVD9JlcsGtIdP1nq3FN1TW/sMxYdOhf75nblehDV
-         Zuvw==
+        bh=e8ZzEnXiAriAz3I2b2+FYE+wrUl61cx7qAsXLfK/CdM=;
+        b=IbPbFp/6nMDpQ29Vmicz7a7ArJqhf059kJ7vDJrhatqHxJ6zI2Xh0X5x/LzVwhBekT
+         uun+G/fD7bGXRlofAXVg5hrEMU/vE8+q7hCJlufGHgoqFm5KX71Yt7lTd4A/W1GvHi2Q
+         hwFwQyKj65P+wLv6CCEasgMAX2AIhHuNl3WgaapBXEhzctjLxTCFDhTXcARawD20Mw6e
+         xbCvmHRj90bPOZ21FWdpec25AUw2HpE/SgOFCWfRotLRJLECC3heIRKHbwjTE5FZkfqa
+         Gh+X+rYyE1wt2x0Y1wyEVmVl4JCr2AYDiq7qAMJdgAFLzvnyl4R3j/3yw9rdgdfsVzRP
+         g8vA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187214; x=1790792014;
+        d=1e100.net; s=20260707; t=1790187224; x=1790792024;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GdUrPLeidZ9sUt9zVmAl34CruFIaflRaMNzsOxLYKi0=;
-        b=HA4soOR57H3MJ4RxRBPl/LBUb4BDQp/baaFZ9tEzj8hI/UY/mJfppFyzwnzowASPyA
-         Xh3VQOkOgqQ9m+W1E3Sr57b/Pqytc0eLBmmwzJcqHYMDGNBKqNQxqNG+A/eOgbIs6HSx
-         E0FuQE7sipKJzNf/de0Ms9l+mYZa3MQCdmmdgIqIy/lFEk/GGH6F6lGgklqEi3V+PuUS
-         q87l50WmmQoZURlgFduF2gHr7D2wXait5k4CCadGkColOa8RysbLZ2JPUGrnzmicr7TN
-         MHp6CO2Og/gM/gY1roj0TYoEDveJy/I+v1YEkftoN5CTMFXL3kvp0eBdEBkSpktkA6pB
-         cTnw==
-X-Forwarded-Encrypted: i=1; AKwUvBzfef632c6Ys9X485/MNcl6z/LqrQGYYmpcckRSD/nayVy+LY6aEBiNm2lQ38N5b0FC6rCqfw45SwKZG5I=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyZfar9YTmR7aZn2B/PQOzageAaRUvrZ635aornTBhFTSKPUAU
-	yG6cJ+HMYacxTOnNddNBTRfciiCOXWCFytOclVFTGj3Q0y+jViA06nN5eQ8pTe1xR55zw3J8dRr
-	4naiD8BHZcA==
-X-Received: from dldnz10.prod.google.com ([2002:a05:701a:ca0a:b0:144:dc81:9760])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:ea30:b0:143:271a:308
- with SMTP id a92af1059eb24-144f91b5db4mr5035124c88.46.1790187213775; Wed, 23
- Sep 2026 11:13:33 -0700 (PDT)
-Date: Wed, 23 Sep 2026 11:11:39 -0700
+        bh=e8ZzEnXiAriAz3I2b2+FYE+wrUl61cx7qAsXLfK/CdM=;
+        b=Jy2fQMvF4W+7/uAvdUNTP4G7IqIqlyMR0SVuhBzvsHGxBCZiuoTxtPu8N1kogfuDT/
+         4LYcWr09nk5T7SV/Cc1MB9lnkkt7t9lCf5UsPtFRkb6KrWBGq+Y2jdFj2CKRvjEeTIra
+         cIIwJbvvibDlofnKIuZXTR9lVqmKTz0Ja6QQjrRiLteXH8i/fQiggrO+0PbIj106hY4c
+         /cYuoqvbgiZ9h+3P6P2IntqaJwVRM9hi1qOlOZy8BbguOMcklByt9Otg0UrKg/NC7F+P
+         nwjxqXlt+ZCvd4frvpIaArOczjhmDXWj8smyyvYZowWH2wZEldJrJcEESEVJrbiXNh38
+         IZ3A==
+X-Forwarded-Encrypted: i=1; AKwUvBz8CPuWCyctfH2n+Yge9+XbLRSdeo+fWFLiUBo0Hn2LUhEfpKEQDlifVw5rwyHq+PmuJ9lU17fVbRA+HhE=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/CBgMV+bOX814J6j0ShCG2PtdX7j06lsZDQloMArkk74HmutT
+	Bu3JPSSsF5bib9pCojkfh8TuDqrgaYb9R/F+8b643sU4REI0cv+xGsYj4H5IBsXeGm3+DpJUXHS
+	ucAYjpSm77A==
+X-Received: from dlbox9.prod.google.com ([2002:a05:7022:1209:b0:144:f706:dbd4])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:f51c:b0:144:c127:dd1a
+ with SMTP id a92af1059eb24-144f9193f01mr3178179c88.38.1790187223661; Wed, 23
+ Sep 2026 11:13:43 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:11:42 -0700
 In-Reply-To: <20260923181213.3032038-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789966896.git.irogers@google.com> <20260923181213.3032038-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260923181213.3032038-17-irogers@google.com>
-Subject: [PATCH v3 16/49] perf python: Port stat-cpi to perf module
+Message-ID: <20260923181213.3032038-20-irogers@google.com>
+Subject: [PATCH v3 19/49] perf python: Port flamegraph to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	namhyung@kernel.org
@@ -71,263 +71,333 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Port stat-cpi.py from the legacy embedded scripting framework to a
-standalone Python script in tools/perf/python/ to calculate Cycles Per
-Instruction (CPI) per interval per CPU or thread.
+Port flamegraph.py to a standalone script in tools/perf/python/ that
+uses the perf module directly, avoiding intermediate dictionary
+allocations for event fields.
 
 Improvements compared to the legacy script:
-- Support both perf.data file mode (via perf.session stat callbacks)
-  and live counter collection mode (using perf.parse_events,
-  evlist.open, and evsel.read across intervals), with automatic fallback
-  to user-space (:u) and self-process monitoring when perf_event_paranoid
-  restricts system-wide events (EACCES).
-- Compute per-interval counter deltas (val, ena, run) keyed by raw event
-  name so cumulative PERF_RECORD_STAT snapshots and hybrid PMU events
-  (e.g. cpu_core/cycles/, cpu_atom/cycles/) are accumulated accurately,
-  and scale counts by time_enabled / time_running when multiplexed.
-- Replace hard-coded CPU ([0, 1]) and thread ([0]) arrays with dynamic
-  CPU and thread discovery so arbitrary system topologies work
-  automatically.
-- Add CLI option handling (-i, -I, -p) via argparse and type annotations
-  passing mypy and pylint.
+- Add Subresource Integrity (integrity="sha256-...") and
+  crossorigin="anonymous" attributes to external CDN stylesheet and
+  script tags in MINIMAL_HTML.
+- Upgrade CDN HTML template hash verification from weak MD5
+  (hashlib.md5) to cryptographic SHA-256 (hashlib.sha256).
+- Escape '<', '>', and '&' ('\u003c', '\u003e', '\u0026') in embedded
+  JSON payloads (stacks_json and options_json) to prevent HTML script
+  injection / XSS when rendering untrusted symbol or command names.
+- Skip invoking 'perf report --header-only' when the input is stdin
+  ('-'), a FIFO pipe, or a character device (S_ISFIFO / S_ISCHR) so
+  non-seekable streams do not hang or fail.
 
-Add a shell test (test_stat_cpi_python.sh) to verify the standalone
+Add a shell test (test_flamegraph_python.sh) to verify the standalone
 script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/stat-cpi.py                 | 210 ++++++++++++++++++
- .../perf/tests/shell/test_stat_cpi_python.sh  | 115 ++++++++++
- 2 files changed, 325 insertions(+)
- create mode 100755 tools/perf/python/stat-cpi.py
- create mode 100755 tools/perf/tests/shell/test_stat_cpi_python.sh
+ tools/perf/python/flamegraph.py               | 283 ++++++++++++++++++
+ .../tests/shell/test_flamegraph_python.sh     | 110 +++++++
+ 2 files changed, 393 insertions(+)
+ create mode 100755 tools/perf/python/flamegraph.py
+ create mode 100755 tools/perf/tests/shell/test_flamegraph_python.sh
 
-diff --git a/tools/perf/python/stat-cpi.py b/tools/perf/python/stat-cpi.py
+diff --git a/tools/perf/python/flamegraph.py b/tools/perf/python/flamegraph.py
 new file mode 100755
-index 000000000000..58ffa0b4e274
+index 000000000000..1b06a11fa86c
 --- /dev/null
-+++ b/tools/perf/python/stat-cpi.py
-@@ -0,0 +1,210 @@
++++ b/tools/perf/python/flamegraph.py
+@@ -0,0 +1,283 @@
 +#!/usr/bin/env python3
 +# SPDX-License-Identifier: GPL-2.0
-+"""Calculate CPI from perf stat data or live."""
++"""
++flamegraph.py - create flame graphs from perf samples using perf python module
++"""
 +from __future__ import annotations
 +
 +import argparse
++import hashlib
++import json
 +import os
-+import signal
++import re
++import subprocess
 +import sys
-+import time
-+from typing import Any, Optional
++import urllib.request
++from typing import Dict, Optional, Union
 +import perf
 +
-+class StatCpiAnalyzer:
-+    """Accumulates cycles and instructions and calculates CPI."""
++MINIMAL_HTML = """<head>
++  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/d3-flame-graph@4.1.3/dist/d3-flamegraph.css" integrity="sha256-fXXWjLZigZo3QBJIhjEA3Z2zUfS+vzMQhF2Rlvurfio=" crossorigin="anonymous">
++</head>
++<body>
++  <div id="chart"></div>
++  <script type="text/javascript" src="https://d3js.org/d3.v7.js" integrity="sha256-DA1YviEGwU4kL8dbwJoXRngAYwdRWAZl9ulVKgwGTqI=" crossorigin="anonymous"></script>
++  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/d3-flame-graph@4.1.3/dist/d3-flamegraph.min.js" integrity="sha256-GEbx5jbtG9LDL8h9HiTWOv9+Txhim0u9gZNR8J6iI1M=" crossorigin="anonymous"></script>
++  <script type="text/javascript">
++  const stacks = [/** @flamegraph_json **/];
++  // Note, options is unused.
++  const options = [/** @options_json **/];
 +
-+    def __init__(self, args: argparse.Namespace) -> None:
++  var chart = flamegraph();
++  d3.select("#chart")
++        .datum(stacks[0])
++        .call(chart);
++  </script>
++</body>
++"""
++
++class Node:
++    """A node in the flame graph tree."""
++    def __init__(self, name: str, libtype: str):
++        self.name = name
++        self.libtype = libtype
++        self.value: int = 0
++        self.children: dict[str, Node] = {}
++
++    def to_json(self) -> Dict[str, Union[str, int, list[Dict]]]:
++        """Convert the node to a JSON-serializable dictionary."""
++        return {
++            "n": self.name,
++            "l": self.libtype,
++            "v": self.value,
++            "c": [x.to_json() for x in self.children.values()]
++        }
++
++
++class FlameGraphCLI:
++    """Command-line interface for generating flame graphs."""
++    def __init__(self, args):
 +        self.args = args
-+        self.data: dict[str, float] = {}
-+        self.prev_data: dict[str, tuple[int, int, int]] = {}
-+        self.recorded_pairs: set[tuple[int, int]] = set()
++        self.stack = Node("all", "root")
++        self.session = None
 +
-+    def get_key(self, event: str, cpu: int, thread: int) -> str:
-+        """Get key for data dictionary."""
-+        return f"{event}-{cpu}-{thread}"
++    @staticmethod
++    def get_libtype_from_dso(dso: Optional[str]) -> str:
++        """Determine the library type from the DSO name."""
++        if dso and (dso == "[kernel.kallsyms]" or dso.endswith("/vmlinux") or dso == "[kernel]"):
++            return "kernel"
++        return ""
 +
-+    def store_key(self, cpu: int, thread: int) -> None:
-+        """Store CPU and thread IDs."""
-+        self.recorded_pairs.add((cpu, thread))
++    @staticmethod
++    def find_or_create_node(node: Node, name: str, libtype: str) -> Node:
++        """Find a child node with the given name or create a new one."""
++        if name in node.children:
++            return node.children[name]
++        child = Node(name, libtype)
++        node.children[name] = child
++        return child
 +
-+    def store(self, event: str, cpu: int, thread: int,
-+              counts: tuple[int, int, int], is_delta: bool = False,
-+              raw_name: Optional[str] = None) -> None:
-+        """Store counter values, computing difference from previous
-+        absolute values if not already deltas."""
-+        self.store_key(cpu, thread)
-+        key = self.get_key(event, cpu, thread)
-+        prev_key = self.get_key(raw_name or event, cpu, thread)
++    def process_event(self, sample) -> None:
++        """Process a single perf sample event."""
++        if self.args.event_name and self.args.event_name not in str(sample.evsel):
++            return
 +
-+        val, ena, run = counts
-+        if is_delta:
-+            # counts are already deltas
-+            cur_val = val
-+            cur_ena = ena
-+            cur_run = run
++        pid = sample.sample_pid
++        dso_type = ""
++        try:
++            thread = self.session.find_thread(sample.sample_pid, sample.sample_tid)
++            comm = (thread.comm() if thread else None) or "[unknown]"
++        except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError):
++            comm = "[unknown]"
++
++        if pid == 0:
++            comm = comm if comm != "[unknown]" else "swapper"
++            dso_type = "kernel"
 +        else:
-+            if prev_key in self.prev_data:
-+                prev_val, prev_ena, prev_run = self.prev_data[prev_key]
-+                cur_val = val - prev_val
-+                cur_ena = ena - prev_ena
-+                cur_run = run - prev_run
-+            else:
-+                cur_val = val
-+                cur_ena = ena
-+                cur_run = run
-+            self.prev_data[prev_key] = counts  # Store absolute value for next time
++            comm = f"{comm} ({pid})"
 +
-+        # Scale each raw event's delta by its own multiplexing ratio before
-+        # summing across PMUs (e.g. cpu_core and cpu_atom on hybrid systems) so
-+        # enabled time from an idle PMU does not inflate the multiplier of an
-+        # active PMU.
-+        scaled_val = cur_val * (cur_ena / float(cur_run)) if cur_run > 0 else float(cur_val)
-+        self.data[key] = self.data.get(key, 0.0) + scaled_val
++        node = self.find_or_create_node(self.stack, comm, dso_type)
 +
-+    def get(self, event: str, cpu: int, thread: int) -> float:
-+        """Get scaled counter value."""
-+        key = self.get_key(event, cpu, thread)
-+        return self.data.get(key, 0.0)
++        callchain = sample.callchain
++        if callchain:
++            # We want to traverse from root to leaf.
++            # perf callchain iterator gives leaf to root.
++            # We collect them and reverse.
++            frames = list(callchain)
++            for entry in reversed(frames):
++                name = entry.symbol or "[unknown]"
++                libtype = self.get_libtype_from_dso(entry.dso)
++                node = self.find_or_create_node(node, name, libtype)
++        else:
++            # Fallback if no callchain
++            name = (sample.symbol or '[unknown]')
++            libtype = self.get_libtype_from_dso((sample.dso or '[unknown]'))
++            node = self.find_or_create_node(node, name, libtype)
 +
-+    def process_stat_event(self, event: Any, name: Optional[str] = None) -> None:
-+        """Process PERF_RECORD_STAT and PERF_RECORD_STAT_ROUND events."""
-+        if event.type == perf.RECORD_STAT:
-+            if name:
-+                if "cycles" in name:
-+                    event_name = "cycles"
-+                elif "instructions" in name:
-+                    event_name = "instructions"
-+                else:
-+                    return
-+                self.store(event_name, event.cpu, event.thread,
-+                           (event.val, event.ena, event.run), raw_name=name)
-+        elif event.type == perf.RECORD_STAT_ROUND:
-+            timestamp = getattr(event, "time", 0)
-+            self.print_interval(timestamp)
-+            self.data.clear()
-+            self.recorded_pairs.clear()
++        node.value += 1
 +
-+    def print_interval(self, timestamp: int) -> None:
-+        """Print CPI for the current interval."""
-+        for cpu, thread in sorted(self.recorded_pairs):
-+            cyc = self.get("cycles", cpu, thread)
-+            ins = self.get("instructions", cpu, thread)
-+            cpi = 0.0
-+            if ins != 0:
-+                cpi = cyc / float(ins)
-+            t_sec = timestamp / 1000000000.0
-+            print(f"{t_sec:15f}: cpu {cpu}, thread {thread} -> cpi {cpi:f} ({cyc:.0f}/{ins:.0f})")
-+
-+    def read_counters(self, evlist: Any) -> None:
-+        """Read counters live."""
-+        for evsel in evlist:
-+            name = str(evsel)
-+            if "cycles" in name:
-+                event_name = "cycles"
-+            elif "instructions" in name:
-+                event_name = "instructions"
-+            else:
-+                continue
-+
-+            for cpu in evsel.cpus():
-+                for thread in evsel.threads():
-+                    try:
-+                        counts = evsel.read(cpu, thread)
-+                        self.store(event_name, cpu, thread,
-+                                   (counts.val, counts.ena, counts.run),
-+                                   is_delta=True, raw_name=name)
-+                    except OSError:
-+                        pass
-+
-+    def run_file(self) -> None:
-+        """Process events from file."""
-+        session: Optional[perf.session] = perf.session(
-+            perf.data(self.args.input), stat=self.process_stat_event
-+        )
++    def get_report_header(self) -> str:
++        """Get the header from the perf report."""
 +        try:
-+            assert session is not None
-+            session.process_events()
-+        finally:
-+            session = None
++            input_file = self.args.input or "perf.data"
++            if input_file == "-":
++                return ""
++            mode = os.stat(input_file).st_mode
++            import stat
++            if stat.S_ISFIFO(mode) or stat.S_ISCHR(mode):
++                return ""
++            output = subprocess.check_output(["perf", "report", "--header-only", "-i", input_file])
++            result = output.decode("utf-8")
++            if self.args.event_name:
++                result += "\nFocused event: " + self.args.event_name
++            return result
++        except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError,
++                subprocess.CalledProcessError):
++            return ""
 +
-+    def _open_live_evlist(self) -> Any:
-+        """Open evlist for live mode, falling back to user-space or process scope on EACCES."""
-+        threads = perf.thread_map(self.args.pid) if self.args.pid else None
-+        candidates = [
-+            ("cycles,instructions", threads),
-+            ("cycles:u,instructions:u", threads),
-+        ]
-+        if threads is None:
-+            self_threads = perf.thread_map(os.getpid())
-+            candidates.append(("cycles,instructions", self_threads))
-+            candidates.append(("cycles:u,instructions:u", self_threads))
-+
-+        last_err: Optional[OSError] = None
-+        for events, tmap in candidates:
-+            try:
-+                evlist = perf.parse_events(events, None, tmap)
-+                for evsel in evlist:
-+                    evsel.read_format |= (
-+                        perf.FORMAT_TOTAL_TIME_ENABLED | perf.FORMAT_TOTAL_TIME_RUNNING
-+                    )
-+                evlist.open()
-+                evlist.enable()
-+                return evlist
-+            except PermissionError as e:
-+                last_err = e
-+            except OSError as e:
-+                if e.errno == 13:
-+                    last_err = e
-+                else:
-+                    raise
-+        if last_err is not None:
-+            raise last_err
-+        raise RuntimeError("Failed to open events")
-+
-+    def run_live(self) -> None:
-+        """Read counters live."""
-+        try:
-+            evlist = self._open_live_evlist()
-+        except OSError as e:
-+            print(f"Failed to open events: {e}", file=sys.stderr)
++    def run(self) -> None:
++        """Run the flame graph generation."""
++        input_file = self.args.input or "perf.data"
++        if input_file != "-" and not os.path.exists(input_file):
++            print(f"Error: {input_file} not found. (try 'perf record' first)", file=sys.stderr)
 +            sys.exit(1)
 +
-+        def handle_signal(_signum: int, _frame: Any) -> None:
-+            raise KeyboardInterrupt
-+
-+        signal.signal(signal.SIGINT, signal.default_int_handler)
-+        signal.signal(signal.SIGTERM, handle_signal)
-+
-+        print("Live mode started. Press Ctrl+C to stop.")
 +        try:
-+            while True:
-+                time.sleep(self.args.interval)
-+                timestamp = time.time_ns()
-+                self.read_counters(evlist)
-+                self.print_interval(timestamp)
-+                self.data.clear()
-+                self.recorded_pairs.clear()
-+        except KeyboardInterrupt:
-+            print("\nStopped.")
++            self.session = perf.session(perf.data(input_file),
++                                        sample=self.process_event)
++        except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError) as e:
++            print(f"Error opening session: {e}", file=sys.stderr)
++            sys.exit(1)
++
++        try:
++            self.session.process_events()
 +        finally:
-+            evlist.close()
++            # perf.session is a C extension type that holds a strong reference to the
++            # bound method self.process_event (which references self) and does not
++            # implement cyclic GC (tp_traverse). Explicitly clear self.session to break
++            # the reference cycle and free the underlying session resources deterministically.
++            self.session = None
 +
-+def main() -> None:
-+    """Main function."""
-+    ap = argparse.ArgumentParser(description="Calculate CPI from perf stat data or live")
-+    ap.add_argument("-i", "--input", help="Input file name (enables file mode)")
-+    ap.add_argument("-I", "--interval", type=float, default=1.0,
-+                    help="Interval in seconds for live mode")
-+    ap.add_argument("-p", "--pid", type=int,
-+                    help="Monitor specific process ID in live mode")
-+    args = ap.parse_args()
++        stacks_json = json.dumps(self.stack, default=lambda x: x.to_json())
++        # Escape HTML special characters to prevent XSS
++        stacks_json = stacks_json.replace("<", "\\u003c") \
++            .replace(">", "\\u003e").replace("&", "\\u0026")
 +
-+    analyzer = StatCpiAnalyzer(args)
-+    if args.input:
-+        analyzer.run_file()
-+    else:
-+        analyzer.run_live()
++        if self.args.format == "html":
++            report_header = self.get_report_header()
++            options = {
++                "colorscheme": self.args.colorscheme,
++                "context": report_header
++            }
++            options_json = json.dumps(options)
++            options_json = options_json.replace("<", "\\u003c") \
++                .replace(">", "\\u003e").replace("&", "\\u0026")
++
++            template = self.args.template
++            template_sha256sum = None
++            output_str = None
++
++            if not os.path.isfile(template):
++                if template.startswith("http://") or template.startswith("https://"):
++                    if not self.args.allow_download:
++                        print("Warning: Downloading templates is disabled. "
++                              "Use --allow-download.", file=sys.stderr)
++                        template = None
++                else:
++                    print(f"Warning: Template file '{template}' not found.", file=sys.stderr)
++                    if self.args.allow_download:
++                        print("Using default CDN template.", file=sys.stderr)
++                        template = (
++                            "https://cdn.jsdelivr.net/npm/d3-flame-graph@4.1.3/dist/templates/"
++                            "d3-flamegraph-base.html"
++                        )
++                        template_sha256sum = (
++                            "f6a4aa7edffda4fb9bd71eb0eb75bc44d0bb34cd9efbd053f6095bc5c28d702b"
++                        )
++                    else:
++                        template = None
++
++            use_minimal = False
++            try:
++                if not template:
++                    use_minimal = True
++                elif template.startswith(("http://", "https://")):
++                    with urllib.request.urlopen(template) as url_template:
++                        output_str = "".join([l.decode("utf-8") for l in url_template.readlines()])
++                else:
++                    with open(template, "r", encoding="utf-8") as f:
++                        output_str = f.read()
++            except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError) as err:
++                print(f"Error reading template {template}: {err}\n", file=sys.stderr)
++                use_minimal = True
++
++            if use_minimal:
++                print("Using internal minimal HTML that refers to d3's web site. JavaScript " +
++                      "loaded this way from a local file may be blocked unless your " +
++                      "browser has relaxed permissions. Run with '--allow-download' to fetch " +
++                      "the full D3 HTML template.", file=sys.stderr)
++                output_str = MINIMAL_HTML
++
++            elif template_sha256sum:
++                assert output_str is not None
++                download_sha256sum = hashlib.sha256(
++                    output_str.encode("utf-8")
++                ).hexdigest()
++                if download_sha256sum != template_sha256sum:
++                    s = None
++                    while s not in ["y", "n"]:
++                        try:
++                            s = input(f"""Unexpected template sha256sum.
++{download_sha256sum} != {template_sha256sum}, for:
++{template}
++continue?[yn] """).lower()
++                        except EOFError:
++                            s = "n"
++                    if s == "n":
++                        sys.exit(1)
++
++            assert output_str is not None
++            replacements = {
++                "/** @options_json **/": options_json,
++                "/** @flamegraph_json **/": stacks_json,
++            }
++            # Use a lambda replacement so re.sub does not interpret backslashes
++            # in the JSON strings (such as \n or \u003c) as regex escape sequences.
++            output_str = re.sub(
++                r"/\*\* @(?:options_json|flamegraph_json) \*\*/",
++                lambda m: replacements[m.group(0)],
++                output_str,
++            )
++            output_fn = self.args.output or "flamegraph.html"
++        else:
++            output_str = stacks_json
++            output_fn = self.args.output or "stacks.json"
++
++        if output_fn == "-":
++            with open(sys.stdout.fileno(), "w", encoding="utf-8", closefd=False) as out:
++                out.write(output_str)
++        else:
++            print(f"dumping data to {output_fn}")
++            with open(output_fn, "w", encoding="utf-8") as out:
++                out.write(output_str)
++
 +
 +if __name__ == "__main__":
-+    main()
-diff --git a/tools/perf/tests/shell/test_stat_cpi_python.sh b/tools/perf/tests/shell/test_stat_cpi_python.sh
++    parser = argparse.ArgumentParser(description="Create flame graphs using perf python module.")
++    parser.add_argument("-f", "--format", default="html", choices=["json", "html"],
++                        help="output file format")
++    parser.add_argument("-o", "--output", help="output file name")
++    parser.add_argument("--template",
++                        default="/usr/share/d3-flame-graph/d3-flamegraph-base.html",
++                        help="path to flame graph HTML template")
++    parser.add_argument("--colorscheme", default="blue-green",
++                        help="flame graph color scheme", choices=["blue-green", "orange"])
++    parser.add_argument("-i", "--input", help="input perf.data file")
++    parser.add_argument("--allow-download", default=False, action="store_true",
++                        help="allow unprompted downloading of HTML template")
++    parser.add_argument("-e", "--event", default="", dest="event_name", type=str,
++                        help="specify the event to generate flamegraph for")
++
++    cli_args = parser.parse_args()
++    cli = FlameGraphCLI(cli_args)
++    cli.run()
+diff --git a/tools/perf/tests/shell/test_flamegraph_python.sh b/tools/perf/tests/shell/test_flamegraph_python.sh
 new file mode 100755
-index 000000000000..0960afa4c797
+index 000000000000..3733d53b916b
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_stat_cpi_python.sh
-@@ -0,0 +1,115 @@
++++ b/tools/perf/tests/shell/test_flamegraph_python.sh
+@@ -0,0 +1,110 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# stat-cpi python test
++# flamegraph python test
 +
 +set -e
 +
@@ -338,107 +408,102 @@ index 000000000000..0960afa4c797
 +# If we don't have the perf python module, we can't test
 +if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
 +	echo "Skipping test, perf python module not found"
-+	return 2 2>/dev/null || exit 2
++	exit 2
 +fi
 +
 +script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/stat-cpi.py"
++script_path="${script_dir}/flamegraph.py"
 +
 +if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, stat-cpi.py not found at $script_path"
-+	return 2 2>/dev/null || exit 2
++	echo "Skipping test, flamegraph.py not found at $script_path"
++	exit 2
 +fi
 +
 +err=0
-+ran=0
 +temp_data=""
-+temp_out=""
++temp_json=""
++temp_html=""
++temp_tpl=""
 +
 +cleanup() {
-+	[ -n "${pid}" ] && kill "$pid" 2>/dev/null || true
-+	[ -n "${workload_pid}" ] && kill "$workload_pid" 2>/dev/null || true
-+	rm -f "${temp_data}" "${temp_out}"
-+	trap - exit term int
++	rm -f "${temp_data}" "${temp_json}" "${temp_html}" "${temp_tpl}"
 +}
 +
-+trap_cleanup() {
-+	cleanup
-+	exit 1
-+}
-+trap trap_cleanup exit term int
++trap 'cleanup' EXIT TERM INT
 +
 +temp_data=$(mktemp /tmp/perf.data.XXXXXX)
-+temp_out=$(mktemp /tmp/perf.out.XXXXXX)
-+
-+test_live_mode() {
-+	echo "Testing stat-cpi.py live mode..."
-+	if ! perf stat -e cycles,instructions -- sleep 0.1 2>/dev/null && \
-+	   ! perf stat -e cycles:u,instructions:u -- sleep 0.1 2>/dev/null; then
-+		echo "perf stat failed (permissions?), skipping live mode test."
-+		return 0
-+	fi
-+	perf test -w noploop &
-+	workload_pid=$!
-+	if ! perf stat -e cycles,instructions -p "$workload_pid" -- sleep 0.05 2>/dev/null && \
-+	   ! perf stat -e cycles:u,instructions:u -p "$workload_pid" -- sleep 0.05 2>/dev/null; then
-+		kill "$workload_pid" 2>/dev/null || true
-+		workload_pid=""
-+		echo "perf stat -p failed (ptrace_scope?), skipping live mode test."
-+		return 0
-+	fi
-+	ran=1
-+
-+	# Run live mode for 1 interval in the background, give it a tiny sleep, then interrupt
-+	"$PYTHON" "$script_path" -I 0.1 -p "$workload_pid" > "${temp_out}" &
-+	pid=$!
-+	sleep 0.5
-+	kill -INT "$pid" 2>/dev/null || true
-+	set +e
-+	wait "$pid"
-+	res=$?
-+	set -e
-+	pid=""
-+	kill "$workload_pid" 2>/dev/null || true
-+	workload_pid=""
-+	if [ $res -ne 0 ] && [ $res -ne 130 ] && [ $res -ne 143 ]; then
-+		echo "Live mode failed or crashed"
-+		err=1
-+	elif ! grep -q "cpi" "${temp_out}"; then
-+		echo "Live mode produced no cpi output"
-+		err=1
-+	else
-+		echo "Live mode test passed."
-+	fi
-+}
++temp_json=$(mktemp /tmp/perf.flamegraph.json.XXXXXX)
++temp_html=$(mktemp /tmp/perf.flamegraph.html.XXXXXX)
++temp_tpl=$(mktemp /tmp/perf.flamegraph.tpl.XXXXXX)
 +
 +test_file_mode() {
-+	echo "Testing stat-cpi.py file mode..."
-+	# Generate some stat events - perf stat -I represents interval reporting
-+	if ! perf stat -e cycles,instructions -I 100 record -o "${temp_data}" \
-+		-- sleep 0.5 2>/dev/null && \
-+	   ! perf stat -e cycles:u,instructions:u -I 100 record -o "${temp_data}" \
-+		-- sleep 0.5 2>/dev/null; then
-+		echo "perf stat failed (permissions?), skipping file mode test."
-+		return
-+	fi
-+	ran=1
++	echo "Testing flamegraph.py..."
 +
-+	out=$("$PYTHON" "$script_path" -i "${temp_data}")
-+	if ! echo "$out" | grep -q "cpi"; then
-+		echo "File mode test failed."
++	# Generate some events with callchains
++	if ! perf record -g -o "${temp_data}" -- perf test -w noploop >/dev/null 2>&1; then
++		echo "Skipping test, perf record -g failed (permissions or lack of support)"
++		exit 2
++	fi
++
++	# Run the script, dump as json to temp_json (testing both file mode and pipe '-' mode)
++	if ! "$PYTHON" "$script_path" -i "${temp_data}" -f json -o "${temp_json}" >/dev/null; then
++		echo "File mode JSON test failed."
++		err=1
++	elif ! perf record -g -o - -- perf test -w noploop 2>/dev/null | \
++		"$PYTHON" "$script_path" -i - -f json -o "${temp_json}" >/dev/null; then
++		echo "Pipe stdin JSON mode test failed."
 +		err=1
 +	else
-+		echo "File mode test passed."
++		# Validate JSON
++		if ! "$PYTHON" -m json.tool "${temp_json}" /dev/null >/dev/null 2>&1; then
++			echo "JSON validation failed."
++			err=1
++		elif ! "$PYTHON" -c "import json, sys
++d = json.load(open(sys.argv[1]))
++assert d.get('v', 0) > 0 or len(d.get('c', [])) > 0" "${temp_json}" >/dev/null 2>&1; then
++			echo "JSON flamegraph structure is empty."
++			err=1
++		else
++			echo "File and pipe mode JSON tests passed."
++		fi
++	fi
++
++	# Run the script, dump as html to temp_html using MINIMAL_HTML fallback
++	if ! "$PYTHON" "$script_path" -i "${temp_data}" -f html \
++		--template /nonexistent/template.html -o "${temp_html}" >/dev/null 2>&1; then
++		echo "File mode HTML test failed."
++		err=1
++	else
++		if ! grep -q "<head>" "${temp_html}" || \
++		   ! grep -q 'crossorigin="anonymous"' "${temp_html}"; then
++			echo "HTML validation failed."
++			err=1
++		else
++			echo "File mode HTML test passed."
++		fi
++	fi
++
++	# Test custom local HTML template and --colorscheme option
++	cat << 'EOF' > "${temp_tpl}"
++<html><body><script>
++const opts = /** @options_json **/;
++const data = /** @flamegraph_json **/;
++</script></body></html>
++EOF
++	if ! "$PYTHON" "$script_path" -i "${temp_data}" -f html --template "${temp_tpl}" \
++		--colorscheme blue-green -o "${temp_html}" >/dev/null 2>&1; then
++		echo "Custom template HTML test failed."
++		err=1
++	elif ! grep -q "blue-green" "${temp_html}"; then
++		echo "Custom template colorscheme substitution failed."
++		err=1
++	else
++		echo "Custom template HTML test passed."
 +	fi
 +}
 +
-+test_live_mode
 +test_file_mode
 +
-+cleanup
-+if [ $ran -eq 0 ]; then
-+	exit 2
-+fi
 +exit $err
 -- 
 2.56.0.rc1.310.g51773c2048-goog
