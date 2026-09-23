@@ -1,149 +1,445 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148C6568544
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:30:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 069AE5678D0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188235; cv=none; b=qDSG1a2vrdclMPWSuRF98sByp/a4zY8ouUFTyyhuzgHsymKxldlSvzXZxjg/jYzz2La9lIFfLFiI3yL/R1K4opUOL4ECAod6HlFxU0SAfL3wyDgDmnIr1/oUH9j71dM8Exf7S9vDKeIL6QcHvFhulaHt0Jy5/gqEoJGmgl2oDdg=
+	t=1790188231; cv=none; b=JcXC3EgHu6ZsTTiPF2mH4qaS8zJGkoJwkuDNkRR3VvIZV9GIUxBzXYehvWSRPc8gccnZYOJHJ1SvmiQCXcBeFN3Qt1v6OYDTdSdyUB9t1aWmk44a3DwD1F3wVngla9oWGlJOjSnKexIe56x3IyCk4Qo1dZer9Dul98fXlY5NBP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188235; c=relaxed/simple;
-	bh=ykaPsaBcf3wmsqZTDXV/oUlFMV4ag/AD+dVfvmDTVyA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sI3ooOZoL1GnY07wc/S/WZO7yVyb63cmuTc7oK/vZkaDXtaz//u7rl7nJ1TYkDm6zyMuTAYVuux8RJDqjmm0gNq4B/HV3h4lAwBe6Xd1Hq8His1cfxKj+2vEyHjGdGDYGjgeH6qPlZksyIkrSF+bxhojhSwmVEl6xo9BnRyYps4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=VahgeL8L; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790188231; c=relaxed/simple;
+	bh=hpsSqsSsSLYK5AZPSKuwD6Ytr5Hn4TTt02kVTQyewa0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bpy5kPoP+EMyI6oAgzZnOVeI9UrCDHqaO0NhmJfG2LIDlXBMr8w387xNUgvt5oPzj0eU8KVsjb0Qu0xGfgNHM6p1E0mgsn0K/ud+bDi2fp682NemN7y8gMyytF4mxz5di6X6Ei1utb/HLj0UkWXVfi29BI/LpfVM0WJ6toRZJV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YFTR/79H; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="VahgeL8L"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGZmbV3926266;
-	Wed, 23 Sep 2026 18:30:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=nRBPVkwZlntLgCYvE
-	n3XzhJ8yN0rCtAWrZRJ+coOhBM=; b=VahgeL8Lwj7YVN5RLQvFf0tnqSDAr6g8+
-	e0+QTnZz7vbQRVlZAQ6iOWQH0g2b5L6ODd4KFufiAT0CED1MRsd+b80g/vHgS+1v
-	T/OjjBh9eBGvRZkegmlfJjfsJiI0MWGqrFiJl+gV4VSQo1C/5rSB60oi4HzSKzUy
-	9QZrXk2rvJJYPhvkAq3sMYnBvZZXhEbewyR/nHFsndrIuF6aPWU573dZWG2lkYRK
-	xWXexIfvRXmqekLhAKmHuETdADeLXKhC98dWzW/S9QVz9wa9GDVZLsgMw0v/+ki0
-	5+rZ1ckQdFd80l18SeggTOVGujCSAv1tTfYnQrn/pA3s/ntLhxC8A==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskg2n0v9-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 18:30:18 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGWtuv664875;
-	Wed, 23 Sep 2026 18:30:17 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbe1t9ff-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 18:30:17 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NIUDfX42926346
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 18:30:13 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C697020043;
-	Wed, 23 Sep 2026 18:30:13 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 33D3720040;
-	Wed, 23 Sep 2026 18:30:09 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.83.254])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 23 Sep 2026 18:30:08 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        christophe.leroy@csgroup.eu, nayna@linux.ibm.com, gjoyce@linux.ibm.com,
-        ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        linux-kernel@vger.kernel.org, rnsastry@linux.ibm.com,
-        ssrish@linux.ibm.com
-Subject: [PATCH 11/12] pseries/plpks: rename the default wrapping key macro
-Date: Wed, 23 Sep 2026 23:58:15 +0530
-Message-ID: <20260923182816.151451-12-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923182816.151451-1-ssrish@linux.ibm.com>
-References: <20260923182816.151451-1-ssrish@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YFTR/79H"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so6509915e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:30:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790188224; x=1790793024; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S50GnjNT4LcU7HxZLphXVRYRUilWr4TH9rawik4ZJKw=;
+        b=YFTR/79H+d/KY/83zexl7uMUiuYc199nMXANlSgBOcwbFzCd3+1zwAe7ASKKVP/Gr1
+         xAkmyPJbNvXfThVGIFkR2/gQSbfySvGwuAknqsPO3uab2fU4s3Opp52HNuEjGusDqkW2
+         WaI9/ZPNEmB9x44RFsBp5aI55R+KoagXic3UkZPvNs+EsxNTxJNpoMoO2V91J1XvdHml
+         Q67A9+vfJXnEXu3hrqaR8F+BZBmh/tQRmC8cAYvSJSSTyewlXNJmNqRbtPeAqPb1+BE4
+         A1doTHymUI7y1E7P5NDsqoZCq2jlavy9RxwpgCubcmNhxVHgKrkkzvpO3UJTBTwd32ds
+         68zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790188224; x=1790793024;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S50GnjNT4LcU7HxZLphXVRYRUilWr4TH9rawik4ZJKw=;
+        b=WjrTjteXx6cqrfofdx2mxcRLkrxTG3z+3OF2WAa5zMG7MuxE+kxZnFMkibu85n+klU
+         6rObp8sG/dPwg8BcBFJGGOs2uS8CyhXANPKp4zjS7bJb2eiH2ba7OHCk7u273IJmz7xZ
+         gy9lNsWaclZeu2rQ48AWBT93dB49zYLuRE3uA55ZMwkGGj/RgHsAXceneLDPJbQ7833G
+         GUNSP8BhVfB3wcDs1VqST4bn8lO8/XjYGfPc2rOinW2Md8f9/sS5EeE1vlo3/PlYYCl5
+         Hw9J3ovXUs6C/75YauVREt/CshMXzYN+MAcuyX/Pymmusi/0b5x6yJFhzh/tp3oHEk1b
+         Oq+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxK3PGJ7tcMsdDFuWpJCv0OjR2anZAvOhskQcDFXSd6EEg4H5GXMUH2KRZkBVAOe1pXhHY6Et7S0HuxpKc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLregNb2+QDLKg9V3GSFkiuFpxnearUTbnzazck7syRu1GOADw
+	3LrRXl5X1ffkbw95ovx0xq8yEpoj1kcFh4bZnnzlFarY3YZHMLscBjVc
+X-Gm-Gg: AYBFou186NKH1CZxLURux3vaxlv2CQXb1SrpN3L+1FSRARnslx0KnRQ5ng93eYzuKlr
+	OKJhG8cgY6UsnlNvvOBhRXFysy/ECR42w8PFfuPWJyFkM0vaPEcmEHpxMOeuVz71mRwUjVwPHwp
+	HZdB5jB0ZqEot6nTtlihRHi9CV4uAwaw4M528R/qqXGagttEC3SMiuVz6vYlCOGmaSS70P3GKXc
+	h1Yga7ivsI9BMoRJE75XbLwbbmeF7pCaHqUHrys8X2EucKj1QwJIoitlZUopuJxqmh3hkrjs2Ff
+	hZP6eco9jEOxxy67ajNDfRE/HDqfIhItedpX2vrQKyWOtWHnRNzByIxdLCL4I1KoGyYEmcHbIDT
+	PdBeW/xmz40ygWkU4l8kYXGZLHtqPk5WbvFGS43yVkcYnpjAetu5AOxfhO4inUd0XANHtUWl2Nd
+	81B200ZvE80qOJ5Sw3NaMcrAOb91Z0bMyw5hx0MXWqAwXc4k00qP1TMlp1tO6C6UGI2rUuR+8PQ
+	ALN
+X-Received: by 2002:a05:600c:4e86:b0:49c:dcec:bd27 with SMTP id 5b1f17b1804b1-49fe66cb868mr1511945e9.8.1790188224488;
+        Wed, 23 Sep 2026 11:30:24 -0700 (PDT)
+Received: from [192.168.0.2] ([197.250.51.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd3d5csm4711835e9.14.2026.09.23.11.30.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 11:30:23 -0700 (PDT)
+From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+Date: Wed, 23 Sep 2026 21:28:57 +0300
+Subject: [PATCH v12 11/12] reset: zte: Add a zx297520v3 reset driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: WjcLWUqHA8MIeP_pIhRS1a527kYUfZk3
-X-Authority-Analysis: v=2.4 cv=I43w19gg c=1 sm=1 tr=0 ts=6ab41abb cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=ZsBnnucTmTjdUaLPtLYA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA3MiBTYWx0ZWRfX840Hjm4nSwOw
- Lyel4RONMC/Mr4cRZmQkt2C7DsDDtTmOZzErRUX9XZ9i59fwfJpuI4YRfTgEMnEqP3DMuggc4vp
- m6nHOxc9qfWV1178TON61WR9tLHddyHBNuA1EEiGvjApmkMisLdLpW0ch+AvpIjJnuTMigrbNfS
- ICaHERg0XhM6ydi7mtcagnYN9vld1eX22VojB4K/irSa1SAy68KDY0KaB/QduPgSVeUSdnZ4p48
- aPfIUgt0ytBR1rCmOCFmpH2pLmEnB+97Zi4ME43FrIl127bW2BF2rbAZrNaiCqsdiwNXk+u8TB7
- KtTOMGMGMon3Eh6PwLUGw3/OOgxlSsHmSNyamriwnQbZwXLUYUQPy7io/YyaeCp+V1im/BUMv10
- URJMtVm5ZR3CPp1uopcufBcQSkjXtPP/A6e2/hZ6wS+YW0SXpvPMjrJbvt2oMLcoM88428tqua4
- XIdMttKE8G0jhc/u1Vw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA3MiBTYWx0ZWRfX0VO5mMp6ZxhW
- WRmtWoxaC9xXrRnW7NzxXcfXVKuX1uVP1gd7puGfgbKlyHUqOrQ4d13dafoXENTCfFZT+9O7l/L
- glj9HMS7661BKq6j8o2mzygmbFLZmyo=
-X-Proofpoint-GUID: OMqHZxx-qGQH6QWrixx_ZecZtsUgYwMc
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 adultscore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230072
+Message-Id: <20260923-zx29clk-v12-11-9c243796b6d2@gmail.com>
+References: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
+In-Reply-To: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-phy@lists.infradead.org, mfd@lists.linux.dev, 
+ =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13416;
+ i=stefandoesinger@gmail.com; h=from:subject:message-id;
+ bh=hpsSqsSsSLYK5AZPSKuwD6Ytr5Hn4TTt02kVTQyewa0=;
+ b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBqtBpuR5BaOr/F1DCUlSHummYKWK6Dnjoz8XfZX
+ udK45UaZNOJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCarQabhsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiIehg/+NyK39i+n9EH8XfFSQVmatQ3R8mC5Qts
+ BhuQp7hQFQtUWR6m3lnfnQWqJx5I5c6F7szNLfLwXMHDiA8mnx0DbyStS010HlzD9j1pCy/fpn4
+ Ol1sBLxAEgMbKAAcbOCoz8836hMIPkvc0a2aqdcIrvw3+XrsuEl6aFDpeSiMp/L4WpkoiIt5LVa
+ d/w7esugqwC4zQYP3VelFun+fGFxc9pblkQOR1BXMmGAKBNRDwSj3+h+0FKAcDBlL8rtLYYA9/2
+ gBxNcG5+3b/KCZ1PAA6DS3jLuO+6Wy3RJ+9IVjR4YROarFAynZ2WnxBlSVhCX0e+ryTHDUI6o2B
+ pxgNyALywDiFnRJn22CyodiJpmkG2yEzS3+Lfv7yAD78/f/Xpzu5wkwuy6fsvfztCoy2bEcohvp
+ Qghu3VVTys/QF44ct2QJR0674H0QQVP5nADg5M5BLy2L0dVh8KFaY1+D9iogAjlW4Whd1/+WSWI
+ Y5YSoOaL1Ky6fQuBEtO5l/LZp2+04ResF1o/6F0aklRpny0ZvwM7zkM1u9PwWU189OiR7SRU8vS
+ wEz1Im30JVdmp5bqNRiVQd07Eg2E6yhdU37ePqGpnNRdgl1+7S7aHtZTcmkEPFqKopPwYbWgb25
+ NOWWB74GZ10tTwEFdYMd4EADMDuyhuRunm+i7CJxibGO8uATGzFs=
+X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
+ fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
 
-Rename PLPKS_WRAPKEY_NAME to PLPKS_DEFAULT_WRAPKEY_LABEL to clarify that
-the macro represents the default wrapping key label used by PKWM.
+This drives the MFD child devices created by the zte-zx297520v3-crm
+driver.
 
-Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
 ---
- arch/powerpc/platforms/pseries/plpks.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/arch/powerpc/platforms/pseries/plpks.c b/arch/powerpc/platforms/pseries/plpks.c
-index eff968fe5ae0..240cd5632446 100644
---- a/arch/powerpc/platforms/pseries/plpks.c
-+++ b/arch/powerpc/platforms/pseries/plpks.c
-@@ -10,7 +10,7 @@
- #define pr_fmt(fmt) "plpks: " fmt
+v12: Correct SSC reset from bit 24 to bit 28 in matrix+0x94.
+
+v10:
+Add ZSP reset in matrixcrm
+
+v9:
+Remove HSIC and USB PHY resets, the phy driver will access them through
+the shared regmap directly
+Sort include files alphabetically
+Depend on HAS_IOMEM due to "select MFD_SYSCON" (Sashiko). This has some,
+but not consistent, precedent in the same file
+
+v8: Select MFD_SYSCON for COMPILE_TESTing this driver without the MFD
+parent driver.
+
+v7:
+Add MODULE_DEVICE_TABLE (Philipp)
+Add DDR control and LSP resets
+
+v6:
+Add a comment wrt checking all bits in .status() (Philipp)
+include cleanup (Philipp, Sashiko)
+
+v5:
+Make top and matrix MFD children instead of aux devices
+Split USB PHY reset into its own reset ID
+Remove USB reset wait code - this will be handled via syscon from a
+future minimal phy-zx29-usb driver
+---
+ MAINTAINERS                          |   1 +
+ drivers/reset/Kconfig                |  13 ++
+ drivers/reset/Makefile               |   1 +
+ drivers/reset/reset-zte-zx297520v3.c | 237 +++++++++++++++++++++++++++++++++++
+ 4 files changed, 252 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index cf4e8c48ddfc..e6ed86f9141b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3929,6 +3929,7 @@ F:	arch/arm/boot/dts/zte/
+ F:	arch/arm/mach-zte/
+ F:	drivers/clk/zte/
+ F:	drivers/mfd/zte-zx297520v3-crm.c
++F:	drivers/reset/reset-zte-zx297520v3.c
+ F:	include/dt-bindings/clock/zte,zx297520v3-clk.h
+ F:	include/dt-bindings/phy/zte,zx297520v3-topcrm.h
+ F:	include/dt-bindings/reset/zte,zx297520v3-reset.h
+diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+index 3168ab1eea88..30fa1f2868ef 100644
+--- a/drivers/reset/Kconfig
++++ b/drivers/reset/Kconfig
+@@ -428,6 +428,19 @@ config RESET_UNIPHIER_GLUE
+ 	  on UniPhier SoCs. Say Y if you want to control reset signals
+ 	  provided by the glue layer.
  
- #define PLPKS_WRAPKEY_COMPONENT	"PLPKSWR"
--#define PLPKS_WRAPKEY_NAME	"default-wrapping-key"
-+#define PLPKS_DEFAULT_WRAPKEY_LABEL	"default-wrapping-key"
- 
- /*
-  * To 4K align the {input, output} buffers to the {UN}WRAP H_CALLs
-@@ -938,8 +938,8 @@ int plpks_gen_wrapping_key(void)
- 	struct label *label;
- 	int rc = 0, pseries_status = 0;
- 	struct plpks_var var = {
--		.name = PLPKS_WRAPKEY_NAME,
--		.namelen = sizeof(PLPKS_WRAPKEY_NAME) - 1,
-+		.name = PLPKS_DEFAULT_WRAPKEY_LABEL,
-+		.namelen = sizeof(PLPKS_DEFAULT_WRAPKEY_LABEL) - 1,
- 		.policy = PLPKS_WRAPPINGKEY,
- 		.os = PLPKS_VAR_LINUX,
- 		.component = PLPKS_WRAPKEY_COMPONENT
-@@ -1033,8 +1033,8 @@ int plpks_wrap_object(u8 **input_buf, u32 input_len, u16 wrap_flags,
- 	bool sb_audit_or_enforce_bit = wrap_flags & BIT(0);
- 	bool sb_enforce_bit = wrap_flags & BIT(1);
- 	struct plpks_var var = {
--		.name = PLPKS_WRAPKEY_NAME,
--		.namelen = sizeof(PLPKS_WRAPKEY_NAME) - 1,
-+		.name = PLPKS_DEFAULT_WRAPKEY_LABEL,
-+		.namelen = sizeof(PLPKS_DEFAULT_WRAPKEY_LABEL) - 1,
- 		.os = PLPKS_VAR_LINUX,
- 		.component = PLPKS_WRAPKEY_COMPONENT
- 	};
++config RESET_ZTE_ZX297520V3
++	tristate "ZTE zx297520v3 Reset Driver"
++	depends on HAS_IOMEM
++	depends on MFD_ZTE_ZX297520V3_CRM || COMPILE_TEST
++	default SOC_ZX297520V3
++	select MFD_SYSCON
++	help
++	  This enables the reset controllers for ZTE zx297520v3 SoCs. The reset
++	  controllers are required for booting this board and are part of the
++	  clock and reset management controllers on this board, so you will also
++	  need MFD_ZTE_ZX297520V3_CRM. Enable this if you are building a kernel
++	  for a ZTE zx297520v3 based board.
++
+ config RESET_ZYNQ
+ 	bool "ZYNQ Reset Driver" if COMPILE_TEST
+ 	default ARCH_ZYNQ
+diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+index 45ad17062462..3662824c5c36 100644
+--- a/drivers/reset/Makefile
++++ b/drivers/reset/Makefile
+@@ -52,5 +52,6 @@ obj-$(CONFIG_RESET_TI_TPS380X) += reset-tps380x.o
+ obj-$(CONFIG_RESET_TN48M_CPLD) += reset-tn48m.o
+ obj-$(CONFIG_RESET_UNIPHIER) += reset-uniphier.o
+ obj-$(CONFIG_RESET_UNIPHIER_GLUE) += reset-uniphier-glue.o
++obj-$(CONFIG_RESET_ZTE_ZX297520V3) += reset-zte-zx297520v3.o
+ obj-$(CONFIG_RESET_ZYNQ) += reset-zynq.o
+ obj-$(CONFIG_RESET_ZYNQMP) += reset-zynqmp.o
+diff --git a/drivers/reset/reset-zte-zx297520v3.c b/drivers/reset/reset-zte-zx297520v3.c
+new file mode 100644
+index 000000000000..6a5711446502
+--- /dev/null
++++ b/drivers/reset/reset-zte-zx297520v3.c
+@@ -0,0 +1,237 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026 Stefan Dösinger
++ */
++#include <dt-bindings/reset/zte,zx297520v3-reset.h>
++
++#include <linux/bits.h>
++#include <linux/err.h>
++#include <linux/errno.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/reset-controller.h>
++#include <linux/types.h>
++
++/* Most devices on the zx297520v3 SoC have one reset bit per clock line. As a rule of thumb, the
++ * lower bit disconnects the device from the bus, similarly to turning off PCLK - registers read 0
++ * or hang indefinitely. Unlike PCLK, this reset may have a lingering effect after deasserting.
++ * E.g. timers will be disabled, but retain their counter value.
++ *
++ * The other bit resets the actual device registers.
++ *
++ * For some devices, e.g. GMAC, both reset bits behave in the same way: They disconnect the device
++ * and registers will have their default state after deasserting. For devices that have two reset
++ * bits, both need to be deasserted for the device to function.
++ */
++struct zte_reset_reg {
++	u32 mask;
++	u16 reg;
++};
++
++struct zte_reset_data {
++	const struct zte_reset_reg *resets;
++	unsigned int num;
++};
++
++struct zte_reset {
++	struct reset_controller_dev rcdev;
++	struct regmap *map;
++	const struct zte_reset_reg *resets;
++};
++
++static inline struct zte_reset *to_zte_reset(struct reset_controller_dev *rcdev)
++{
++	return container_of(rcdev, struct zte_reset, rcdev);
++}
++
++static int zx29_rst_assert(struct reset_controller_dev *rcdev, unsigned long id)
++{
++	struct zte_reset *rst = to_zte_reset(rcdev);
++
++	return regmap_clear_bits(rst->map, rst->resets[id].reg, rst->resets[id].mask);
++}
++
++static int zx29_rst_deassert(struct reset_controller_dev *rcdev, unsigned long id)
++{
++	struct zte_reset *rst = to_zte_reset(rcdev);
++
++	return regmap_set_bits(rst->map, rst->resets[id].reg, rst->resets[id].mask);
++}
++
++static int zx29_rst_status(struct reset_controller_dev *rcdev, unsigned long id)
++{
++	struct zte_reset *rst = to_zte_reset(rcdev);
++	int res;
++
++	/* Devices with two reset bits need both deasserted to work. So only report them as
++	 * deasserted if both bits are set.
++	 *
++	 * assert()/deassert() will always clear/set both. The only reason a device might be in a
++	 * hybrid state is an unexpected handover state from the bootloader.
++	 */
++	res = regmap_test_bits(rst->map, rst->resets[id].reg, rst->resets[id].mask);
++	if (res < 0)
++		return res;
++
++	return !res;
++}
++
++static const struct reset_control_ops zx29_rst_ops = {
++	.assert		= zx29_rst_assert,
++	.deassert	= zx29_rst_deassert,
++	.status		= zx29_rst_status,
++};
++
++static const struct zte_reset_reg zx297520v3_top_resets[] = {
++	/* This bit is set by ZTE's cpko.ko blob, it looks like a reset bit for the LTE DSP
++	 * coprocessor. Clocks for it are in matrixcrm.
++	 */
++	[ZX297520V3_ZSP_CORE_RESET]  = { .reg = 0x13c, .mask = BIT(0)            },
++
++	[ZX297520V3_UART0_RESET]     = { .reg =  0x78, .mask = BIT(6)  | BIT(7)  },
++	[ZX297520V3_I2C0_RESET]      = { .reg =  0x74, .mask = BIT(8)  | BIT(9)  },
++	/* Only one reset. Bit 5 is settable but does not do anything observable */
++	[ZX297520V3_RTC_RESET]       = { .reg =  0x74, .mask = BIT(4)            },
++	[ZX297520V3_TIMER_T08_RESET] = { .reg =  0x78, .mask = BIT(4)  | BIT(5)  },
++	[ZX297520V3_TIMER_T09_RESET] = { .reg =  0x78, .mask = BIT(2)  | BIT(3)  },
++	/* Only one reset. Bit 0 is settable but does not do anything observable */
++	[ZX297520V3_PMM_RESET]       = { .reg =  0x74, .mask = BIT(1)            },
++
++	/* I haven't found any clocks for GPIO. It probably wouldn't make much
++	 * sense anyway. Only one reset bit per controller.
++	 */
++	[ZX297520V3_GPIO_RESET]      = { .reg =  0x74, .mask = BIT(3)            },
++	[ZX297520V3_GPIO8_RESET]     = { .reg =  0x74, .mask = BIT(2)            },
++
++	[ZX297520V3_TIMER_T12_RESET] = { .reg =  0x74, .mask = BIT(6)  | BIT(7)  },
++	[ZX297520V3_TIMER_T13_RESET] = { .reg =  0x7c, .mask = BIT(0)  | BIT(1)  },
++	[ZX297520V3_TIMER_T14_RESET] = { .reg =  0x7c, .mask = BIT(2)  | BIT(3)  },
++	[ZX297520V3_TIMER_T15_RESET] = { .reg =  0x74, .mask = BIT(10) | BIT(11) },
++	[ZX297520V3_TIMER_T16_RESET] = { .reg =  0x7c, .mask = BIT(4)  | BIT(5)  },
++	[ZX297520V3_TIMER_T17_RESET] = { .reg = 0x12c, .mask = BIT(0)  | BIT(1)  },
++	[ZX297520V3_WDT_T18_RESET]   = { .reg =  0x74, .mask = BIT(12) | BIT(13) },
++	[ZX297520V3_USIM1_RESET]     = { .reg =  0x74, .mask = BIT(14) | BIT(15) },
++	[ZX297520V3_AHB_RESET]       = { .reg =  0x70, .mask = BIT(0)  | BIT(1)  },
++
++	/* USB reset. 0x84 returns the USB device status (0x1 for HSIC up, 0x2 for USB up, but
++	 * all 3 bits (PCLK, WCLK, PHY) need to be deasserted for the device to report ready.
++	 * Thus polling the status is the responsibility of the USB PHY driver.
++	 */
++	[ZX297520V3_USB_RESET]       = { .reg =  0x80, .mask = BIT(4) | BIT(5)   },
++	[ZX297520V3_HSIC_RESET]      = { .reg =  0x80, .mask = BIT(1) | BIT(2)   },
++};
++
++static const struct zte_reset_data zx297520v3_topreset_data = {
++	.resets = zx297520v3_top_resets,
++	.num = ARRAY_SIZE(zx297520v3_top_resets),
++};
++
++static const struct zte_reset_reg zx297520v3_matrix_resets[] = {
++	[ZX297520V3_CPU_RESET]       = { .reg =  0x28, .mask = BIT(1)            },
++	[ZX297520V3_ZSP_BUS_RESET]   = { .reg =  0x3c, .mask = BIT(0)            },
++	[ZX297520V3_DDR_CTRL_RESET]  = { .reg = 0x100, .mask = BIT(10) | BIT(11) },
++	[ZX297520V3_EDCP_RESET]      = { .reg =  0x68, .mask = BIT(0)            },
++	[ZX297520V3_SD0_RESET]       = { .reg =  0x58, .mask = BIT(1)            },
++	[ZX297520V3_SD1_RESET]       = { .reg =  0x58, .mask = BIT(0)            },
++	[ZX297520V3_NAND_RESET]      = { .reg =  0x58, .mask = BIT(4)            },
++	[ZX297520V3_PDCFG_RESET]     = { .reg =  0x94, .mask = BIT(20)           },
++	[ZX297520V3_SSC_RESET]       = { .reg =  0x94, .mask = BIT(28)           },
++	[ZX297520V3_GMAC_RESET]      = { .reg = 0x114, .mask = BIT(0)  | BIT(1)  },
++	[ZX297520V3_VOU_RESET]       = { .reg = 0x16c, .mask = BIT(0)            },
++	[ZX297520V3_LSP_RESET]       = { .reg =  0x80, .mask = BIT(0)            },
++};
++
++static const struct zte_reset_data zx297520v3_matrixreset_data = {
++	.resets = zx297520v3_matrix_resets,
++	.num = ARRAY_SIZE(zx297520v3_matrix_resets),
++};
++
++static const struct zte_reset_reg zx297520v3_lsp_resets[] = {
++	[ZX297520V3_TIMER_L1_RESET]  = { .reg = 0x04,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_WDT_L2_RESET]    = { .reg = 0x08,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_WDT_L3_RESET]    = { .reg = 0x0c,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_PWM_RESET]       = { .reg = 0x10,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_I2S0_RESET]      = { .reg = 0x14,  .mask = BIT(8)  | BIT(9)  },
++	/* 0x18: Not writeable */
++	[ZX297520V3_I2S1_RESET]      = { .reg = 0x1c,  .mask = BIT(8)  | BIT(9)  },
++	/* 0x20: Not writeable */
++	[ZX297520V3_QSPI_RESET]      = { .reg = 0x24,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_UART1_RESET]     = { .reg = 0x28,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_I2C1_RESET]      = { .reg = 0x2c,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_SPI0_RESET]      = { .reg = 0x30,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_TIMER_LB_RESET]  = { .reg = 0x34,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_TIMER_LC_RESET]  = { .reg = 0x38,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_UART2_RESET]     = { .reg = 0x3c,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_WDT_LE_RESET]    = { .reg = 0x40,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_TIMER_LF_RESET]  = { .reg = 0x44,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_SPI1_RESET]      = { .reg = 0x48,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_TIMER_L11_RESET] = { .reg = 0x4c,  .mask = BIT(8)  | BIT(9)  },
++	[ZX297520V3_TDM_RESET]       = { .reg = 0x50,  .mask = BIT(8)  | BIT(9)  },
++};
++
++static const struct zte_reset_data zx297520v3_lspreset_data = {
++	.resets = zx297520v3_lsp_resets,
++	.num = ARRAY_SIZE(zx297520v3_lsp_resets),
++};
++
++static int reset_zx297520v3_probe(struct platform_device *pdev)
++{
++	const struct platform_device_id *id = platform_get_device_id(pdev);
++	struct device *dev = &pdev->dev;
++	struct device_node *of_node = dev->parent->of_node;
++	const struct zte_reset_data *data;
++	struct zte_reset *rst;
++
++	if (!id)
++		return -ENODEV;
++	data = (const struct zte_reset_data *)id->driver_data;
++
++	rst = devm_kzalloc(dev, sizeof(*rst), GFP_KERNEL);
++	if (!rst)
++		return -ENOMEM;
++
++	rst->resets = data->resets;
++	rst->rcdev.owner = THIS_MODULE;
++	rst->rcdev.nr_resets = data->num;
++	rst->rcdev.ops = &zx29_rst_ops;
++	rst->rcdev.of_node = of_node;
++	rst->rcdev.dev = dev;
++
++	rst->map = device_node_to_regmap(of_node);
++	if (IS_ERR(rst->map))
++		return dev_err_probe(dev, PTR_ERR(rst->map), "Cannot get parent syscon regmap\n");
++
++	return devm_reset_controller_register(dev, &rst->rcdev);
++}
++
++static const struct platform_device_id reset_zx297520v3_ids[] = {
++	{
++		.name = "zx297520v3-topreset",
++		.driver_data = (kernel_ulong_t)&zx297520v3_topreset_data,
++	},
++	{
++		.name = "zx297520v3-matrixreset",
++		.driver_data = (kernel_ulong_t)&zx297520v3_matrixreset_data,
++	},
++	{
++		.name = "zx297520v3-lspreset",
++		.driver_data = (kernel_ulong_t)&zx297520v3_lspreset_data,
++	},
++	{ }
++};
++MODULE_DEVICE_TABLE(platform, reset_zx297520v3_ids);
++
++static struct platform_driver reset_zx297520v3 = {
++	.probe = reset_zx297520v3_probe,
++	.driver = {
++		.name = "reset-zx297520v3",
++	},
++	.id_table = reset_zx297520v3_ids,
++};
++module_platform_driver(reset_zx297520v3);
++
++MODULE_AUTHOR("Stefan Dösinger <stefandoesinger@gmail.com>");
++MODULE_DESCRIPTION("ZTE zx297520v3 reset driver");
++MODULE_LICENSE("GPL");
+
 -- 
-2.52.0
+2.55.0
 
