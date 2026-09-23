@@ -1,239 +1,169 @@
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20683C1F57
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B69E63A3E73
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:38:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152698; cv=none; b=qy7GZvcU+Cuu+5ili2QSRi5R6kRXtQ74fqFmgKHTJVpshGyoYKkaAhE/WoQqI/tVH6/YjepIbs2u0fQqApBLDLAdq+acbzK1RNCRIAVsKAHmn20bO84q7bcl3F4QoPazIEK2pWBSumAIUp8XyZ9spioz8iMYJwuezEvH56pp5SA=
+	t=1790152705; cv=none; b=bud1jCN+mBy86UVf87YmEgkz/Cn9LS9H0qbGNHqjRo0UwXmHK9sTmBII2RWUG0D0x+XASLLywPOTQtcEm5s7UUn1hNIXLpQStKEBWz1W7qDID3UdVp50AEoK70kqb+15wTxJefiPae0xsPfBWxHb9wN1KuqP3NVpZ/D+8WwjujI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152698; c=relaxed/simple;
-	bh=S/auuJm0UMjhfFYs9rAptPbQY9NJImNXB0pxrGAXDow=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=GQ8/wBCmzbUNQW6EHrlOMydGRN/NtCXfA4Fu8F5KipEwbZSzcgFCywsHSDPoOlawVUBnd50Yj5QXslzd53Ql2kjz8r3rHwOCZ6L9wbQHoC666zlYQD7gVRKPrWVFkjCnsO7ZfdOUG6HbPscC1oxvHvNsbOUwjc7nBsNUwd4zY/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=a5J0YaIE; arc=none smtp.client-ip=209.85.128.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1790152705; c=relaxed/simple;
+	bh=yyO1TjjuZ73WiNg4/ZkbI22ApDsMSWGk15dUuD4XbsM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mu6hs7Bn8F5PQfRp5vxVTqhDjL+iae+4ky+KKeSbPIOxHw3/KT6F9mtOr+D7XCJa6Hx1W9S78o+E+5SAovUQNWfTmEUDOJRnbEJvn3E3DwJhfUvFtyqphe2eUMhJQleAZTC7Rz+EKpjX3guFV7KgMv+Exi1hW6b4T/lbGij526Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gtxTY3Lg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zhn2gsns; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="a5J0YaIE"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49e73659ac5so9448575e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:38:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gtxTY3Lg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zhn2gsns"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8JV9E2197313
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:38:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=cDb0sGso1ETTrzZaYUFiyqOj
+	3EvRajpbPDzXFX1BXvU=; b=gtxTY3Lgmo0J0t3fEs82mwgejpRgmqwLUASBH8J4
+	Ki5McU9Wa1putLIOnCfeR2umYGTLZ6dtjd1ldPWAKWKVn0+w/voJ4XwJk9Nk10sf
+	W9KLmbiD0eHslzVSQMR3TXdKVYrNK/iPV72ioqmV9QIMX3dFcY7fUPWfIogvp95O
+	tFEn/ctHVnLWvtBvr/G0nS28K6k4pyyo280LToKcJaaM2dqRv6X8Wt30Wd9A/h53
+	oBufjpMbb6PvGqZVBOyfmUhbDS8DKbmYehYdOogamQvaZ+8nS5ZNkAlFHv6jhukm
+	O1op1TidfRMkeIimSZA9w9fkPzmjcp4o89brDadfG0SZ2A==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv9bqgk3u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:38:08 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93a0312937eso87977885a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:38:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790152681; x=1790757481; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kOQuxC7LVBVgFra/SLEL7xZErR13eeQQM4CHXuTiXLo=;
-        b=a5J0YaIEgziHtFxUqO7RtXT+UXgkzWP6f6SDWKw2i3QRRnvufJ68c7DY+EFyES4GsL
-         lQ7vcdQfc8b0tbDU5bxMiWNESNyAoflNkuLjSLsONkOTOaCwuIRVrfVe/J72igNU7/lm
-         JoFkAa881fpiGF2rcOZaYob2oaAQe8q7PktE3SE/jLU5rZWdAZzvYm2aJXv6AXstrWRk
-         Vij7V770YtShXfbwDgDZbRQw4N5xiITnRyRANSIl9pYok+UP4Twxevup17loLD5u1mcs
-         lwuhP5oeHLHzz9zq9OQY9meWfiUpwa1vm7CX2Mpbr/3FKc7FO4ew2ppU6P3W/Kb3k8eV
-         bvxQ==
+        d=oss.qualcomm.com; s=google; t=1790152685; x=1790757485; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cDb0sGso1ETTrzZaYUFiyqOj3EvRajpbPDzXFX1BXvU=;
+        b=Zhn2gsnsHhS6Nzv8y+/c+rW3oWJCtPmHGsG1mtV3+NptTYpprjv2hshm/SfvNImBGJ
+         d0EwYgTxKifE0H9DtIrN3yP5751Y8dBuII1gU0e5t/p6yR7RwM/K9KjYk4EXcqTxLm1i
+         9NcjIFiHXY454YqxV0nSlunE7Tg2O1Suc+vZLodVqM3blUUIkEJkXCsOwA4jhegtBNnN
+         O7M30ltE9K9UIKucvWnJbXpM4kYqGnFTOFM4YKwpy4smpoEFV0OFVb5MxzT2fHKXKp9k
+         haiaDJQQ5jxZkGQiQVCDfCm2Pmdn8JqBNFc8VzIgSWy5FaxvQRV8pfEOaYvkzcKSMzv4
+         rlig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790152681; x=1790757481;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kOQuxC7LVBVgFra/SLEL7xZErR13eeQQM4CHXuTiXLo=;
-        b=WY1bOlfHPptZmMhk6uKxMoX+C8wEQrTyEDIbTsM4guzoZKytgfzaZq2vASgyD79d6n
-         3eOvlhB24jmFZadeEu9Wng9mgqzRTLDV+go4rqK75m9SPc9rUpK3Bzjq6lq59xM2IarP
-         7tzTFux2O+qv47kViUACwzpwnRBI9tBCEYv1PfHPFpSxOoxgJGBgWK1YNa1ocF5g7/kW
-         QwbKx1vGCCZt2okdJXSM8Q5/5V/asgTYP5+QlHcBRi/So9pCsJkVwPwsiEisoFZ2BM8Q
-         g/uj9kKdQESFdUpqrm8fLkJGr7QfgqZCuo+ckCjCPI3yIJG5tjfZXSR6ABorsZTFP7Dc
-         4svw==
-X-Forwarded-Encrypted: i=1; AKwUvByvD7d+lnm9sJ3S0EQ6hH4nVDpVa1rR91q6jWFZVMBaGHIqT3E2bnYPpGoKk6IDrPMYoAa/yfMTD7zcLv8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJYI0hq8OqbpSqth6X/QKjpyILe6WUK1FOfi0F8lWH8wFgbeb5
-	Y/9hnLAku7/4CJfwCzRHPU1+zh9pGSMnb5jUSu08BfCbjHN2e1yxadQHTIH2nZ6rnsJT+gstMX2
-	0O68qNfdeoJTYl6PLng==
-X-Received: from wmbb24.prod.google.com ([2002:a05:600c:5898:b0:49c:ed8f:b617])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1385:b0:49f:d6b2:4dfa with SMTP id 5b1f17b1804b1-49fdee0b74fmr19593985e9.4.1790152680354;
- Wed, 23 Sep 2026 01:38:00 -0700 (PDT)
-Date: Wed, 23 Sep 2026 08:37:58 +0000
-In-Reply-To: <20260728-tyr-irq-v2-v6-2-15c90baed949@collabora.com>
+        d=1e100.net; s=20260707; t=1790152685; x=1790757485;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cDb0sGso1ETTrzZaYUFiyqOj3EvRajpbPDzXFX1BXvU=;
+        b=OYUx5Wj8RNHdWih9xYTbT+9YGipbaf+iaTQufzEuRJcGtWR1xSslpzKbtpMN19JY7G
+         hRZi9k612ujiCp16xVBB/7c5MItJ6YZ1Fw6jVplhZNHyAsBoU4oIDLpDJPG5Wk8WMa5k
+         cmIInSneADEXv9wMAx8zrk4jzq0BrYQIvNLiFIKKyj6wm2Yzq7TDHBue0ZTw2ujiopS0
+         2yjgVsOFATuOr58zccI0xN0YnCsRcpWihcjVHbimx4UehZ3AwN1YFYV3+/q4nHW72P5l
+         q+4vrsfpgrokBLrfP3/CSAbrX6o6ixrQAOxf6ZeYmYGGSSpp0J8NC85ReAd2s/T4aNw8
+         SMxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzpdP+gf4zKnU34gDf+wTfqHpcSVlT7P5yJIPrbYKPi7JpT6AXk9alLwsSzisU5mWJiy0RlfAy3L4vBC5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxANJADPS/D7+brgE2h9DzyY24g7GQa8w0UjHqF4Vt1e8AD8mD
+	S+Xj5LuvbWaER6KF7BYuCvGUIerMYxyLv/N1A0WMpCFjB3MezLq14RJrR23+2vxP6b1WaJ3R/fJ
+	Sy9iuGDxvoDe4MIfHAGgmMsje6las1QdC1AvGv0kRWBer398GjaU6tNEVwzTWi2kxB6s=
+X-Gm-Gg: AYBFou3G3FDWyGjb6An36ITE+yhcYkXlQyLsEOORi8cbdkycoIoTW6HqhtZA1NPOeen
+	GMQgUllAZC0+7f2ZuSPj0I5lLxa4BChHseKu1CQdVca+/zXCXITxuqPSKdWbgX6xhGqObldqR7w
+	YFHCwfGrmbI4BD4+EtggU8AqjXE9YenvyaqJPi7eOp/VJy8GY3CA5wPQlD2m0A0W7n4rFnNLcC5
+	dwzMgbLX/Gl7Y5Hxur4pT4kEtCs90ZcGYXd4ruU304QZT4lOTQ9qppaVYPb+hCZz8lj2h1DT7vk
+	o7u6HzxFRN4b8h9X09nHm42kCs8cQdM062UBkAtCHSSb5CJKv6jioTLr+9dh1+RpO3/zcN6pZLL
+	K6FmsWiC03Ir3jte9grR1bK2P72a+Od9P3A08wgFb1v8Kzw4e5W9/ZZydITU8h7HrSK8sgiJDZ6
+	xTu5edT+JDmdXI
+X-Received: by 2002:a05:620a:4054:b0:93b:c581:2e16 with SMTP id af79cd13be357-93c250cdf90mr298719785a.30.1790152685313;
+        Wed, 23 Sep 2026 01:38:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:4054:b0:93b:c581:2e16 with SMTP id af79cd13be357-93c250cdf90mr298718685a.30.1790152684724;
+        Wed, 23 Sep 2026 01:38:04 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d859652esm418457e87.83.2026.09.23.01.38.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 01:38:03 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:38:01 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Fan Wu <fanwu01@zju.edu.cn>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        linux-usb@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Song Li <songl@zju.edu.cn>
+Subject: Re: [PATCH] usb: typec: ucsi: yoga-c630: unregister EC notifier
+ before UCSI teardown
+Message-ID: <z7v6erddxh2ydm63xavvfb3sckvwsaruife4bz3r7cpwmyg65r@j44ta55rkcgg>
+References: <20260923074828.489562-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260728-tyr-irq-v2-v6-0-15c90baed949@collabora.com> <20260728-tyr-irq-v2-v6-2-15c90baed949@collabora.com>
-Message-ID: <arOP5iuLuj1aTiLl@google.com>
-Subject: Re: [PATCH v6 2/2] drm/tyr: add Job IRQ handling
-From: Alice Ryhl <aliceryhl@google.com>
-To: Laura Nao <laura.nao@collabora.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>, Danilo Krummrich <dakr@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
-	kernel@collabora.com, Deborah Brouwer <deborah.brouwer@collabora.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923074828.489562-1-fanwu01@zju.edu.cn>
+X-Proofpoint-GUID: 7j_rHLlKnGEMp5cX0QNyt9XxMSX98yCS
+X-Proofpoint-ORIG-GUID: 7j_rHLlKnGEMp5cX0QNyt9XxMSX98yCS
+X-Authority-Analysis: v=2.4 cv=WZuZ+EhX c=1 sm=1 tr=0 ts=6ab38ff0 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=pIWJAyJa_h66JnIjfXsA:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAzNCBTYWx0ZWRfX2oQi3z6UgPyn
+ nJ5E2Haa+s2s9fE1E3GKn7YHFAOhYvXIOPQfKGv2ghVQtjcIREzbaG1T2Yf7bHSEh7w70Zg6t2l
+ Hv51bOcOVCkqd3qKS9eyeqd5Tem+MJ4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAzNCBTYWx0ZWRfX1Rtxr3pex5Q3
+ 3vN+/GXJU8gJusT/wX9BAbdIhEpjQ7amG3/u39jnM0lcywcc4hOpv6e9K3wCztLGgPmyz0d3X0z
+ JOUzy7gxRYqzfpU4FeVEgQti+YOR1sHfWgI6QWbotc3uFa9/cdnRR5cGl8CsofjewIIwmQVdjHg
+ YsymK286vig20MJXIde3LvE81POLAjYniamdcrjU4SfpioK2npXOCvrgzhWUlpfVcQfTsI3kO5w
+ h/cT3rc6FIZAIx9Y4JlpUsR8jKTg74y0w6rE9LzDrMW7CCTTDp4pDWwnur5IJka6OU11vdA3UXO
+ pM1PXmFQ1CYRXBmRY1pq1NmLL+zAoGXDghNB3R2XSIfzfGLy/mH92kzeAoJzPRRqIw4MiuU6B0N
+ IqPr3hINASLh5fOAsa8hWpz7Hl3TnUev25M31/LtS3QIk3Rz3z9GkZnoTxnll+hvLkFtYkziKt6
+ EhWUc3WxLmpaGcbEjow==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
+ suspectscore=0 clxscore=1015 impostorscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230034
 
-On Thu, Aug 27, 2026 at 10:01:11AM +0200, Laura Nao wrote:
-> The Job IRQ reports requests from the CSF firmware, including global
-> interface requests and CSG attention bits. Only the GLB bit is currently
-> handled, as it will be used to check firmware readiness. CSG bits
-> handling will be added at a later stage. The Job IRQ handler masks the
-> interrupt in the primary IRQ handler, processes pending raw status in
-> the threaded handler, clears the handled bits, and reenables the mask
-> before returning.
-> Add JobIrqEvents to hold the wait queue and the ready flag used to
-> signal firmware readiness when the GLB bit is set, and JobIrqMaskGuard
-> to ensure the Job IRQ is masked before its registration is freed.
+On Wed, Sep 23, 2026 at 07:48:28AM +0000, Fan Wu wrote:
+> Both yoga_c630_ucsi_remove() and the probe error path call
+> ucsi_unregister() while the EC notifier is still registered.
+> ucsi_unregister() frees the connector array, so an EC event (USB, HPD or
+> UCSI) arriving before yoga_c630_ec_unregister_notify() makes
+> yoga_c630_ucsi_notify() run on freed memory: typec_set_orientation() on the
+> freed port and ucsi_connector_change() queuing work in the freed connector
+> array. USB and HPD events do not depend on the UCSI notification-enable
+> state, so the disable command ucsi_unregister() sends to the EC does not
+> close this window.
 > 
-> Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> Signed-off-by: Laura Nao <laura.nao@collabora.com>
+> Fix this by unregistering the EC notifier before ucsi_unregister() in both
+> paths, restoring the teardown ordering from before the error and remove
+> paths were reworked. blocking_notifier_chain_unregister() waits for a
+> running callback, so once it returns the EC interrupt thread can no longer
+> reach the UCSI instance and ucsi_unregister() can tear the connectors down
+> undisturbed.
+> 
+> The callback is also the only external source that requeues the connector
+> work, so the cancel_work_sync() calls in ucsi_unregister() can no longer
+> race with a new connector-change event.
+> 
+> This issue was found by an in-house static analysis tool.
+> 
+> Fixes: 168c3896f32e ("usb: typec: ucsi: yoga-c630: fix error and remove paths")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 > ---
->  drivers/gpu/drm/tyr/fw.rs     |   1 +
->  drivers/gpu/drm/tyr/fw/irq.rs | 174 ++++++++++++++++++++++++++++++++++++++++++
->  drivers/gpu/drm/tyr/irq.rs    |   1 -
->  3 files changed, 175 insertions(+), 1 deletion(-)
+>  drivers/usb/typec/ucsi/ucsi_yoga_c630.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-> index 47d25c901bd0..8162b9806c97 100644
-> --- a/drivers/gpu/drm/tyr/fw.rs
-> +++ b/drivers/gpu/drm/tyr/fw.rs
-> @@ -69,6 +69,7 @@
->      vm::Vm, //
->  };
->  
-> +pub(crate) mod irq;
->  mod parser;
->  
->  pub(super) const CSF_MCU_SHARED_REGION_START: u32 = 0x04000000;
-> diff --git a/drivers/gpu/drm/tyr/fw/irq.rs b/drivers/gpu/drm/tyr/fw/irq.rs
-> new file mode 100644
-> index 000000000000..7dd894de18cb
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/fw/irq.rs
-> @@ -0,0 +1,174 @@
-> +// SPDX-License-Identifier: GPL-2.0 or MIT
-> +
-> +//! IRQ handling for the Job IRQ.
-> +//!
-> +//! The Job IRQ signals events from the MCU, including global interface acknowledgements.
-> +#![allow(dead_code)]
-> +
-> +use kernel::{
-> +    device::Bound, //
-> +    io::Io,
-> +    irq::ThreadedRegistration,
-> +    new_waitqueue,
-> +    platform,
-> +    prelude::*,
-> +    sync::{
-> +        atomic::{
-> +            ordering,
-> +            Atomic, //
-> +        },
-> +        Arc,
-> +        WaitQueue, //
-> +    },
-> +    time::{
-> +        msecs_to_jiffies,
-> +        Msecs, //
-> +    },
-> +};
-> +
-> +use crate::{
-> +    driver::IoMem,
-> +    irq::{
-> +        TyrIrq,
-> +        TyrIrqTrait, //
-> +    },
-> +    regs::job_control::{
-> +        JOB_IRQ_CLEAR,
-> +        JOB_IRQ_MASK,
-> +        JOB_IRQ_RAWSTAT,
-> +        JOB_IRQ_STATUS, //
-> +    }, //
-> +};
-> +
-> +/// The firmware events published by the Job IRQ handler, and the queue used to announce them.
-> +#[pin_data]
-> +pub(crate) struct JobIrqEvents {
-> +    #[pin]
-> +    wait: WaitQueue,
-> +    /// Set once the firmware has signalled that the global interface is ready.
-> +    ready: Atomic<bool>,
-> +}
-> +
-> +impl JobIrqEvents {
-> +    /// Creates a new, empty set of Job IRQ events.
-> +    pub(crate) fn new() -> Result<Arc<Self>> {
-> +        Arc::pin_init(
-> +            pin_init!(JobIrqEvents {
-> +                wait <- new_waitqueue!(),
-> +                ready: Atomic::new(false),
-> +            }),
-> +            GFP_KERNEL,
-> +        )
-> +    }
-> +
-> +    /// Clears the firmware-ready state.
-> +    pub(crate) fn clear_ready(&self) {
-> +        self.ready.store(false, ordering::Relaxed);
-> +    }
-> +
-> +    /// Waits until the firmware signals readiness via the GLB IRQ bit, or the timeout expires.
-> +    pub(crate) fn wait_ready(&self, timeout_ms: Msecs) -> Result {
-> +        self.wait.wait_event_timeout(
-> +            || self.ready.load(ordering::Acquire),
-> +            msecs_to_jiffies(timeout_ms),
-> +        )?;
-> +
-> +        Ok(())
-> +    }
-> +
-> +    /// Updates state and wakes up waiters
-> +    fn signal(&self, status: u32) {
-> +        // TODO: handle other Job IRQ events (e.g. CSG attention bits) here once
-> +        // support for them is added.
-> +
-> +        // The GLB bit only signals firmware readiness once, at power up
-> +        if JOB_IRQ_RAWSTAT::from_raw(status).glb() && !self.ready.load(ordering::Relaxed) {
-> +            self.ready.store(true, ordering::Release);
-> +        }
-> +
-> +        self.wait.wake_up_all();
-> +    }
-> +}
-> +
-> +// The Job IRQ, signalling requests or notification from the MCU.
-> +pub(crate) struct JobIrq<'a> {
-> +    /// GPU MMIO register mapping.
-> +    iomem: Arc<IoMem<'a>>,
-> +    /// Firmware events signalled by this IRQ.
-> +    events: Arc<JobIrqEvents>,
-> +}
-> +
-> +/// Guard that masks the Job IRQ when dropped.
-> +///
-> +/// To mask the Job IRQ before it is freed, this guard must be stored in a field declared
-> +/// before the corresponding `ThreadedRegistration` in the struct that owns both. Since
-> +/// struct fields are dropped in declaration order, this guarantees the Job IRQ is masked
-> +/// first, and only then does `free_irq()` run and wait for any in-flight handler to
-> +/// complete.
-> +pub(crate) struct JobIrqMaskGuard<'a>(Arc<IoMem<'a>>);
-> +
-> +impl Drop for JobIrqMaskGuard<'_> {
-> +    fn drop(&mut self) {
-> +        self.0.write_reg(JOB_IRQ_MASK::zeroed());
-> +    }
-> +}
 
-I agree with sashiko's review here.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-This needs to happen after the free_irq() call in the destructor of
-TyrIrq. And most likely, we need an atomic along the lines of ACTIVE /
-PROCESSING / SUSPENDING in panthor_irq.
 
-Alice
+-- 
+With best wishes
+Dmitry
