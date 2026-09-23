@@ -1,89 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDB24F3931;
-	Wed, 23 Sep 2026 11:58:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B21A4EDCB8
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:58:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164731; cv=none; b=UVXIVu/PVvwHejLd6PXI6Mj3UMOp4ICybAStu85CWXXqD5A38oOkWljlHLRzksB4HGw0/wckQTUypxYaAU2t/RPtZAHAroHhPylhpzpGdqURJFHE/API3d0drpX8lfLR2rIDpzBTOf0RSOY+N7W/sw/OVesmyYQG5HhGealoX/8=
+	t=1790164734; cv=none; b=j6q8LMxIiAWDOT3tMYa/qNQKr9xt70Lk7lCzjoMo1lqvv4l3pPF9NTO9IqPQ40XGSoyibvjZFWJYkT/T5cXZNXGWeeCYIRaHqJA3bN1yV0ZNQmQ/0OpZaPLqJ4e72HbvMuxW24s0Ge9aBhtcGtfPclp83Q/dFA8NhdkVLDARyDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164731; c=relaxed/simple;
-	bh=mpSCfBw2MyUXF4x4y6PrLZs/lCKK4Z/hnDGYQZ2I+s8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pe9Nv8WC2vgidgyW4GPTyA3C9Kvf3/6SfDo5p22+/j9LKcHDbPv1Lz5szjgk4tyS8Z5QFTXYxitgt7mFvH7jqFFKhNo0cNA6ErCRs6+Um5Fa5ho/wYhV4jSP4Wugu2AtFVpkE2/5D9AACE10uwTuxl/08ylYWaHvj2s69FugjDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J1V/kd7Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790164734; c=relaxed/simple;
+	bh=zgDWRJspStpa4jR47SeyYSy7tiYqlqolxBYKT8UwfIQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EYD53Yxw5V8qkYGRwPFf2Xp3Vp0dWwUgu14jRQB8ZQtDMGC1oeE7an8hmo9aQc5iIWrDdTZzeEq9D8KPxkBdrJKWlUPlkNs0yqnKLBHL0j+T4FHQAWz33HVbrF2ECQc40/DXGZpQ7On65qsY+86V9jQv5oSTL8yMvEpBZP/7qgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJKkDvQd; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J1V/kd7Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D29A91F000FF;
-	Wed, 23 Sep 2026 11:58:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790164726;
-	bh=XPbwVw8AvPrMTUbDpUqknizZ4TkUS7ak1cVmIlROZSU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J1V/kd7ZmWBsLX+HguWLeI0boJ+DPXn0S7zM3k8CbyLNfRWmgP8BvhhMdH41+WOE+
-	 /p1bk1Afzo6V/gpThb3oHZ8NfGNxO/XFblCIz35VyUgQlCoSKPKl9n11stlO0jJw0W
-	 83N3/dMNE/PzVc6guTzeztATChzI4ETsgn27m2rQfCzEiYuzcSLNxlcOzFsbKK6HLE
-	 jYYCKWbYanC9EgYDqZmLucIXr5rCQ8I4VcnAWkJ/3+gnueE63zR49JDEzsTR3EaA2Q
-	 xymQIk/py5T8SQ7ewzX0Pc+3f3WnRnIcBvV/tvBoi05cZiZbwCepUGHnlVmMh46zAK
-	 4s+FzuoHfUxTQ==
-Date: Wed, 23 Sep 2026 12:58:41 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Salman Nabi <salman.nabi@arm.com>,
-	Vedashree Vidwans <vvidwans@nvidia.com>,
-	Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
-	Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
-	Varun Wadekar <vwadekar@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH v4 2/8] firmware: smccc: Add support for Live Firmware
- Activation (LFA)
-Message-ID: <20260923-resilient-speedy-malamute-01c800@sudeepholla>
-References: <20260918141112.2115555-1-andre.przywara@arm.com>
- <20260918141112.2115555-3-andre.przywara@arm.com>
- <20260921-ubiquitous-brawny-hyena-ff6ee9@sudeepholla>
- <1b87219a-dd52-4270-9127-ec68333ab814@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJKkDvQd"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-785692e59a4so440344137.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:58:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790164727; x=1790769527; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LP4UJ6rcNxj5vtQd0NWw+zniHfA0ViW+8Yb9WndmdNQ=;
+        b=LJKkDvQdvS78tKVnF8LwOJIJKYm4Hy/lecFX7oewUmmlKzE81qLB6rzFV8qv9c50y/
+         UwZlvuon4IuLL4rM8B0yfbgER2onV81uwU0753caZcl9kqPhxNUFnDkpQIw2M/wRxJiB
+         TcPLDqjDq9eatYneP+92DWlPqHPkHoJeM0IGjmekWqV/AGB/+68tDxr1X158Rko1th4n
+         GYBnRuuAIWnHw1vbVZfUUcdmT4ds370zsA8ML9qFNkBXqekhoDvF6QzoYB6knA+TnjPa
+         64miMcqKivaJmxo1CJe7XFs7N/ZBvxJ13R1xsIBmEk0/nsFdnI/BE8JEUVrZgaqV/wdU
+         G6+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790164727; x=1790769527;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LP4UJ6rcNxj5vtQd0NWw+zniHfA0ViW+8Yb9WndmdNQ=;
+        b=OWPp4kQ6hxJd+6gHndSzGm5YYsQ/5jzbVwXE4kNdOuTmpBWezRoGCaRVxcBw/XD49y
+         YA67wAukDmlQNQqSdl8N05+kxmHRBeJrQE3S76LL06AZuAyMPju9YDJmGYRQO//AviYA
+         YERroyUJd9Ra+3reMtbWBgr9frrzK+Fh1xvodk0lv9mOMeQtz93m2oAoz1mEqY4twbN6
+         5ZEsxm588J5c5qaxxfp7G92yFLH8FF6uVlXP93PUxkNs3a+hoCHS/czQYV+yuT8XGEil
+         d1mqPkxGe3WvBf2uHtlQTCYaWELJLkfhbptcqSj9Zv2555jQVDCnQHk85Am1Iryo5pP7
+         RRzg==
+X-Forwarded-Encrypted: i=1; AKwUvByTQv2aqRSnnfGXQlhXMbWLpf0Y82ci/4nT6ziaacSOSDvbSVxzfemUpIAgIxspxiKH8wTGPkdlb3dZEzA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOyOEU+Vt5avxg246EExKJGc/RZ/5orhYQWase56Qbg1YYnQWF
+	XrU3pk86kdOxAnboqBPjEPLE7uVJwM/iWwu9Nh0TmesB2PE3lRdaxRog
+X-Gm-Gg: AYBFou235MO2N/4vD0kyuujk4rFken5ZQI1HTrrF2vNxLSecAllHml1t5h09upCINiM
+	+sP7Z5CRlPD2AP2x0TuouJhS/wlV3SkOYpy1cduZ/HmzMQ0tQ7mBt++AYcMFX10p1O766qYVixu
+	g1Nztk57J4d/++YA9TOHBwHZIMe+PqtW42W9aCw9jne1g9PZV7Alb9BR2F0dQERa6jznFd9xt1i
+	vFyX/MHmiuCdxE8Dlh3eM1ETp6bN8uyPEca2qsk2F6D2E38QWyazLI2KyLg9fEHpGbfZBSNENxQ
+	4kQiVQPLqE3YJg4bh+z11RPeShsLlW/zMmgQC8qYrK+OEWK5SNqeCHbilwReR9O7XAKqLLJ12Ls
+	atYe9J0ycI8tuGWrw9qTrpcCjePbqlxAXGv0TJwYs1H8gpsxcYsOwQZqmFdAYG7AcCLCuLRzV/p
+	Ri5RauGZDf+UNg8keFaX/r1x53XqbCfot2Rp3oAwIXtXCqq6r/JRYOf5AS7NHMSYvbySJrJ0yQz
+	Tkg+xxTcy/x
+X-Received: by 2002:a05:6102:54a5:b0:7a7:19aa:8a85 with SMTP id ada2fe7eead31-7ac1d2d4823mr2262310137.32.1790164727264;
+        Wed, 23 Sep 2026 04:58:47 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf5674f44sm3099961137.3.2026.09.23.04.58.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 04:58:46 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: bcm-kernel-feedback-list@broadcom.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 RESEND] drm/vmwgfx: return an error when a shared GB surface has no backup buffer
+Date: Wed, 23 Sep 2026 08:58:39 -0300
+Message-ID: <20260923115839.3363885-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1b87219a-dd52-4270-9127-ec68333ab814@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 01:46:56PM +0200, Andre Przywara wrote:
-> On 9/21/26 17:32, Sudeep Holla wrote:
-> > 
-> > DEN0147, Section 2.1.2, says that the caller must determine that
-> > the SMCCC version is at least 1.2 before calling LFA_VERSION.  The generic
-> > SMCCC probing path only checks that a conduit exists before invoking this
-> > function ID. That could break our SMCCC bus logic. Assuming the firmware
-> > can cope up, it is always good to check the SMCCC version >=v1.2 in the
-> > probe which is not done currently.
-> 
-> So as said above, I am checking this in lfa_smccc_probe() now. If I get you
-> right, then that's the right place to do? Or are you suggesting we should
-> move that check into the SMCCC bus code? I think the version call is
-> compliant with the SMCCC v1.0 calling convention, so should be safe to call
-> in any case?
-> 
+vmw_gb_surface_reference_internal() rejects a surface that has no backup
+buffer by logging an error and jumping to out_bad_resource, but it never
+sets ret on that path. ret is still 0 from the earlier successful
+vmw_surface_handle_reference(), so the ioctl returns success while
+leaving the reply structure uninitialised. drm_ioctl() then copies the
+72-byte reply back to user space; on a CONFIG_INIT_STACK_NONE build that
+is an information leak of stale stack contents, and on every build user
+space is handed a "successful" reply that was never produced.
+DRM_VMW_GB_SURFACE_REF is DRM_RENDER_ALLOW, so an unprivileged local
+user can reach it.
 
-I hope so. I was just thinking out loud here. My earlier comment to check
-for SMCCC v1.2 before using LFA_VERSION conflicts with what SMCCC logic
-as is. But yes it should be compliant, I was just thinking how one statement
-from the spec I used to request you to add a check in probe conflict here.
+Set ret to -EINVAL and, on the error paths, drop the reference that
+vmw_surface_handle_reference() took; once the ioctl fails user space no
+longer releases it via DRM_VMW_UNREF_SURFACE. The unref is guarded by
+ret so the shared success fall-through keeps the reference the caller
+still owns, and it also plugs the same leak on the drm_gem_handle_create()
+failure path.
 
-Worst case we can add version based addition in that SMCCC device addition
-if required in the future, shouldn't be a big deal.
+Fixes: 14b1c33e8429 ("drm/vmwgfx: Add new ioctl for GB surface create and reference")
+Cc: stable@vger.kernel.org
+Suggested-by: Zack Rusin <zack.rusin@broadcom.com>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+v2:
+ - Shortened the commit message (Zack Rusin).
+ - Also drop the reference taken by vmw_surface_handle_reference() on the
+   error paths; with the ioctl now returning an error, user space no
+   longer releases it via DRM_VMW_UNREF_SURFACE (Zack Rusin). This also
+   plugs the same pre-existing leak on the drm_gem_handle_create() path.
 
+v1: https://lore.kernel.org/all/20260808231002.67559-1-qwe.aldo@gmail.com/
+
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index bd0563741e..164886a3e6 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -1720,6 +1720,7 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
+ 	srf = &user_srf->srf;
+ 	if (!srf->res.guest_memory_bo) {
+ 		DRM_ERROR("Shared GB surface is missing a backup buffer.\n");
++		ret = -EINVAL;
+ 		goto out_bad_resource;
+ 	}
+ 	metadata = &srf->metadata;
+@@ -1758,6 +1759,9 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
+ 	rep->creq.must_be_zero = 0;
+ 
+ out_bad_resource:
++	if (ret)
++		ttm_ref_object_base_unref(vmw_fpriv(file_priv)->tfile,
++					  base->handle);
+ 	ttm_base_object_unref(&base);
+ 
+ 	return ret;
 -- 
-Regards,
-Sudeep
+2.43.0
+
