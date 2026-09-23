@@ -1,214 +1,237 @@
-Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECBF82F7AD2
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:33:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9B9A2E7393;
+	Wed, 23 Sep 2026 00:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790123606; cv=none; b=YH+TDL1hW3PZAzFdnkBxXAP+VLqk58SkgGqbCbeEbNI+oGB3obs+4RUKCwe5u0kvkBWIa3S6+mo0yDWSQD6PQjjGE1Xu8gxHwa0iccKsIk87pei5kvj5Tr1kmp1EY8GlFNm59uESG+sY15qyAYiF+LTpLLg/bkFlVPF5Vl8Pupg=
+	t=1790123621; cv=none; b=mPAdejqzvmS6qHcBXQd2n2jhaChOxWlsJ27z7z1B6ivKDAwK70WTTl3ZPl8OECKXF19WYMcIhbFuj89jlmzv76Ik/A8G/o3GVW7Z2WcgHs73QVPeHEy9JJxfQhx4nCjwGxIizVu4zQc3bcd4GL6oYqPcCR+UTSB59uHb7W/J1DY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790123606; c=relaxed/simple;
-	bh=sUo0eeU9dqLm3x/b4GdwnnnVIPDwHP9vuivKkMgRwQM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=DNPgG4mF3A5ipUX5JRW/hTYkTPoohIj+LmNzw4U2nyasSLfVxBdNxMNYx+mdTP7H36o6HDVtcRpics17p2rF1X3YN/RDwVvGMaxVuwB82+WpEqAlQQhzqRzBO0+ZDEkNx94ATTOsidOnnEVVq5zGbrqtAIQG6H6687J4aNNsAWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f4.google.com with SMTP id 006d021491bc7-6d26562298dso135129eaf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:33:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790123604; x=1790728404;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=26acOs9A2D4oBmB7TKWMEDIcWIuf7VT+CiNnxN/eHn0=;
-        b=0GXKqTiWzmUhsjMi24Rtu7AzeX/vGp11CkBmqSP+o2TAPsfQRL4OxkGKrN4sm42PiL
-         6pgLrNMQZYtaomFIbz6Cx76zM7TQdT7gQLABeRqiKbJJWF+ueYWLogXdXDj4Y8BcwhA4
-         Kma0Qoc1cR1x5UsRttLqGR6JRxGVIAGUh6JiOaUa5/K5s3UOpopHcdZWWWqNHYaBk6qQ
-         NYMp/0eLsLU2wnmI9dlWNninANqpdTGBNOI4nMbxnIVJcaGh+sFVG0mg0RlVlxioyGA0
-         DXtipTID+zLvsr3hYV0QKv8q8kBvXXVe6A0FBEd6q1+wEIAOTKRn+UsNUQAtxVum6kgf
-         qjpQ==
-X-Gm-Message-State: AFuF++nGPKl+XZHbJIsTOm2KA28/QjnDPG9CPk2av/+NmY4YNvSE9Fe6
-	tFErsfx+F7NXhuHjHyaRiZdnnnlbfu3tAyZzZyd3+6gDyHWY0aG0LF24RrfG5BvMq8YBpOynQO7
-	q7himn3DiDOx807P+HKUgWqGf0I70gIftj/rUiMPJYkJtaTzOXDLkJWJD/JwVMw==
+	s=arc-20240116; t=1790123621; c=relaxed/simple;
+	bh=nFpLy8xbShidBlfebeX+NCmSK8MfAgTDKvUWcfhds74=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kWyrOhYcqu5IyIZXBjIPNGpg3YMaKnjRAfm+mGAKubwo1bLUu8pYr/z2b6Vgkf4yyZS+MlVaFusuEjELtFYBXKz4HxwqA4XnvtFDCXqhr7SVkLljR9Ng2vAm6wgzFpYt1z5np3qkWOJeTltbtMnUYfF/NdqAPWNdCwQvm5fFjG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=a2xTnBHM; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="a2xTnBHM"
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MMX5II3809402;
+	Tue, 22 Sep 2026 20:33:37 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=ZkLMz
+	ckqtCXylOmmKeuyAXG+e2lFKRhw1bmoqckzwgQ=; b=a2xTnBHM79vSBljafLqsq
+	2hIwydeSVVRj72Xm9W2R61IIS2pUuXLrksatHi2BaoK8dAmN9IZHwxjR5MqSiIUq
+	IpMfuUY/CLowLywfVXRM57KCxNSCjFX/WgL8sWN/Iw6OoPNSFgrfGf4kgM0wFCDd
+	oDyRU69jGbg+b5+jJl7LzUxJ1iifvCeVUFeq+y5ZstVBqOv5K3t6pSzZQY0IX+P9
+	LG3wBXpnLm7kijXRqhcvlQTvqNvGFVL76bfZLOVsh/iRa8/sruMhJjNu1iTeEoQt
+	47tA+rDD1BUoHSiMK9bvlJLbg51b2miruvSQO0MZB9w2c3RE6ijWalLcZwFlN7cX
+	g==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gusd2ujxb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 22 Sep 2026 20:33:37 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68N0XaWx046010
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 22 Sep 2026 20:33:36 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Tue, 22 Sep
+ 2026 20:33:35 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 22 Sep 2026 20:33:35 -0400
+Received: from HYB-VFz9h4bIQxi.ad.analog.com (HYB-VFz9h4bIQxi.ad.analog.com [10.118.4.49])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68N0XQkO005006;
+	Tue, 22 Sep 2026 20:33:29 -0400
+From: Jan Carlo Roleda <jancarlo.roleda@analog.com>
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+        Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>
+CC: <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH RESEND v13 0/2] leds: Add LTC3208 Multidisplay LED driver
+Date: Wed, 23 Sep 2026 08:33:22 +0800
+Message-ID: <20260923003325.61722-1-jancarlo.roleda@analog.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260911-upstream-ltc3208-v12-0-9107f5f0a7b0@analog.com>
+References: <20260911-upstream-ltc3208-v12-0-9107f5f0a7b0@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1524:b0:6cd:3fdb:fa65 with SMTP id
- 006d021491bc7-6d2d3908806mr979955eaf.80.1790123603977; Tue, 22 Sep 2026
- 17:33:23 -0700 (PDT)
-Date: Tue, 22 Sep 2026 17:33:23 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab31e53.3179f8cd.1e36b2.002e.GAE@google.com>
-Subject: [syzbot] [mmc?] KASAN: slab-use-after-free Write in ms_read_bytes
-From: syzbot <syzbot+ccffdf05833ebdaeae70@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	linux-usb@vger.kernel.org, maximlevitsky@gmail.com, oakad@yahoo.com, 
-	syzkaller-bugs@googlegroups.com, ulf.hansson@linaro.org, ulfh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAwMSBTYWx0ZWRfX46tsBmeB1w7y
+ tTctvp7KBmndVz6d+PXd55VvOUkvTP7qTQBdigBp2TdkvAo0QbuEy8fmZiT0ghu5v8HmuKFgHtP
+ X5t+sp4K5BDicU33ANQj7XBJdLR1fP43N12lcNy7Fx4Fnpe7SYtYvjiGcqExpvjLw04qFeWZwiD
+ ntdCOVx7kvInGubgOeE8xR79/awIHRXQZVg2sonBoFVVwkpEZX09jVmNwmND3QUzIO82djR16aK
+ xHSvLn63ngNotxO6+RKX0/oF770Wj7uzfy/UaMLrGeB3lJrLK1tLdpxyjzNER10rgJAO9jySoX3
+ jamqZgVwcWb9SFHhTIBiju3wCGFLdipMHSkhKVOANYkqhrs6XveXSFez5eZfL0TCY05ydSfUjYL
+ kCbDH4o6W9QjqFiHJWMZBc71W3LNknmf9NpacozYYlI1TbEw2Desfg3CCJ1Q+BGj45r85nrGbFp
+ nzr0gD7Nco7I1gZeUKw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAwMSBTYWx0ZWRfXyFwHHud+QGuS
+ F/Eab4KX4Okmn0zWrE63kZUys2L1vpnmfuK4PKKQZFk1/DcpAoVEi7bzapXjBkczZ572LJ8rths
+ fnkNZ8FB2FrkYpIeUGzBNmkQQ17BfJKNDFnKAPOPK7/V8iUTZ55b
+X-Proofpoint-ORIG-GUID: sMQnevTF5LxDrD_goJRzfJRngF1sHjLG
+X-Proofpoint-GUID: sMQnevTF5LxDrD_goJRzfJRngF1sHjLG
+X-Authority-Analysis: v=2.4 cv=adH0Dhot c=1 sm=1 tr=0 ts=6ab31e61 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=Z0pTeXoby7EwIRygza74:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8
+ a=IcWdq1wQ3oZ9IN_8gNwA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 suspectscore=0 phishscore=0 bulkscore=0
+ clxscore=1015 spamscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230001
 
-Hello,
+The LTC3208 is a multi-display LED driver, using a high-efficiency, low
+noise charge pump to provide power to 5 channels (MAIN, SUB, RGB, CAM,
+AUX). Current for each LED is controlled by the I2C serial interface.
+Four AUX current sources can be independently assigned via the I2C port
+to the CAM, SUB, MAIN, or AUX DAC controlled displays.
 
-syzbot found the following issue on:
+RESEND v13: rebased onto leds/for-leds-next to resolve missing patches.
+Resending as requested.
 
-HEAD commit:    d58dffe9ee2c USB: core: amend usb_get_from_anchor() kernel..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-console output: https://syzkaller.appspot.com/x/log.txt?x=112d0515580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c451f9f64434b622
-dashboard link: https://syzkaller.appspot.com/bug?extid=ccffdf05833ebdaeae70
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+Changes in v13:
+- Mistakenly replaced max_register with LTC3208_NUM_REGS. Reverted to
+  LTC3208_REG_G_OPT
+- Link to v12: https://lore.kernel.org/r/20260911-upstream-ltc3208-v12-0-9107f5f0a7b0@analog.com
 
-Unfortunately, I don't have any reproducer for this issue yet.
+Changes in v12:
+- Added LTC3208_NUM_REGS to explicitly define the register count in
+  regmap_cfg
+- Link to v11: https://lore.kernel.org/r/20260903-upstream-ltc3208-v11-0-28f5f0fd364e@analog.com
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/424c61cbb872/disk-d58dffe9.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/4124586dc97c/vmlinux-d58dffe9.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/a07e8e384dc4/bzImage-d58dffe9.xz
+Changes in v11:
+- Fixed inline comment formatting
+- Adjusted newline spacing of device_property_read_bool attributes
+- Link to v10: https://lore.kernel.org/r/20260817-upstream-ltc3208-v10-0-e1f9564b1e86@analog.com
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ccffdf05833ebdaeae70@syzkaller.appspotmail.com
+Changes in v10:
+- Appended "_CURRENT" to DAC register names
+- Removed additional newlines
+- Removed size specification for ltc3208_reg_defaults
+- Standardized dev_err_probe messages to start with upper-case and
+  removed full-stops
+- Updated dev_err_probe messages to be slightly more descriptive
+- Link to v9: https://lore.kernel.org/r/20260806-upstream-ltc3208-v9-0-c746e872c193@analog.com
 
-=========
-==================================================================
-BUG: KASAN: slab-use-after-free in ms_read_bytes+0x8fe/0x990 drivers/memstick/host/rtsx_usb_ms.c:450
-Write of size 1 at addr ffff88813c188079 by task kworker/1:5/5239
+Changes in v9:
+- Add "#address-cells" and "#size_cells" requirement to devicetree bindings
+- Add regmap hardware synchronization to reset value (0) in device probe
+- Link to v8: https://lore.kernel.org/r/20260730-upstream-ltc3208-v8-0-6bdcc35e65d7@analog.com
 
-CPU: 1 UID: 0 PID: 5239 Comm: kworker/1:5 Not tainted syzkaller #0 PREEMPT(lazy) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: events rtsx_usb_ms_handle_req
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- ms_read_bytes+0x8fe/0x990 drivers/memstick/host/rtsx_usb_ms.c:450
- rtsx_usb_ms_issue_cmd drivers/memstick/host/rtsx_usb_ms.c:477 [inline]
- rtsx_usb_ms_handle_req+0x557/0x1a00 drivers/memstick/host/rtsx_usb_ms.c:531
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+Changes in v8:
+- Adjusted register define comments and formatting
+- Adjusted aux channel string declaration formatting.
+- Removed I2C client from ltc3208_led.
+- Replaced struct ltc3208 with a bitmap to validate unique channel
+  registration in probe.
+- Replaced ltc3208 kzalloc with individual ltc3208_led kzalloc in probe.
+- Added spacing to each bracketed item.
+- Adjusted formatting of reg_field declaration.
+- Replaced reg_val with dev_options name in probe.
+- Adjusted error messages to be more descriptive.
+- Removed newlines from error messages.
+- Refactored AUX channel configuration to be more readable.
+- Removed id_table from i2c_driver initialization.
+- Link to v7: https://lore.kernel.org/r/20260708-upstream-ltc3208-v7-0-aed7f7bd461c@analog.com
 
-Allocated by task 1662:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x8f/0xa0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2d8/0x680 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- memstick_alloc_card drivers/memstick/core/memstick.c:383 [inline]
- memstick_check+0x2c1/0x10d0 drivers/memstick/core/memstick.c:452
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+Changes in v7:
+- added reg_defaults to regmap_config
+- removed i2c_client and regmap from ltc3208 struct data
+- fixed typo comment in driver commit description
+- fixed string formatting of u32 chan data in probe
+- added explicit CPO set to 0 in probe
+- Link to v6: https://lore.kernel.org/r/20260623-upstream-ltc3208-v6-0-fc6bd9749166@analog.com
 
-Freed by task 1662:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x43/0x70 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kfree+0x20c/0x650 mm/slub.c:6792
- memstick_alloc_card drivers/memstick/core/memstick.c:420 [inline]
- memstick_check+0x72b/0x10d0 drivers/memstick/core/memstick.c:452
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+Changes in v6:
+- Fixed code conventions (spaces in brackets, awkward line breaks)
+- Removed unused `i2c_set_clientdata` from probe function
+- Added guard for potential errors in AUX channel configurations
+- Added guards to prevent duplicate LED registrations to the same ID
+- Corrected `dev_err_probe` return values
+- Link to v5: https://lore.kernel.org/r/20260619-upstream-ltc3208-v5-0-075d18060606@analog.com
 
-The buggy address belongs to the object at ffff88813c188000
- which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 121 bytes inside of
- freed 2048-byte region [ffff88813c188000, ffff88813c188800)
+Changes in v5:
+- Fixed MAINTAINERS commit ordering
+- removed i2c_client from ltc3208_dev
+- renamed ltc3208_dev struct to ltc3208
+- refactored brightness_set function to use regmap_field
+- updated leds attribute to use constant size array
+- updated regmap_config to use REGCACHE_FLAT_S cache type
+- added max_register to regmap_config
+- renamed variables in probe function
+- renamed map to regmap for regmap instances
+- moved AUX channel configuration inline to probe
+- Link to v4: https://lore.kernel.org/r/20260416-upstream-ltc3208-v4-0-3884ed3e49f5@analog.com
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x13c188
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0x200000000000040(head|node=0|zone=2)
-page_type: f5(slab)
-raw: 0200000000000040 ffff888100042000 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
-head: 0200000000000040 ffff888100042000 dead000000000100 dead000000000122
-head: 0000000000000000 0000000000080008 00000000f5000000 0000000000000000
-head: 0200000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 24, tgid 24 (kworker/1:0), ts 137296809400
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0xf4b/0x3440 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2d7/0x2f70 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7410
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __kmalloc_cache_noprof+0x4a1/0x680 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- usb_alloc_dev+0x55/0x1090 drivers/usb/core/usb.c:651
- hub_port_connect drivers/usb/core/hub.c:5483 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x2c5d/0x4510 drivers/usb/core/hub.c:5966
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-page_owner free stack trace missing
+Changes in v4:
+- Reordered commit order to match dependency order
+- Updated Kconfig to be more descriptive of device
+- Added led@0-7 with more complete example properties (function and
+  color)
+- Driver changes:
+-- Removed unnecessary include headers
+-- Formatted macros
+-- Created helper `write_current_level` functions for LED current
+  configuration, using `regmap_update_bits()`
+-- Adjusted awkward tabbing issues
+-- Updated variable names in probe to be more descriptive
+-- Updated inline comment capitalization
+-- Initialized `i` within the for loop in AUX configuration in probe
+-- Refactored `update_aux_dac` function to use array pointer
+-- Fixed error messages in probe
+- Link to v3: https://lore.kernel.org/r/20260406-upstream-ltc3208-v3-0-7f0b1d20ee7a@analog.com
 
-Memory state around the buggy address:
- ffff88813c187f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88813c187f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff88813c188000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                                ^
- ffff88813c188080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88813c188100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
+Changes in v3:
+- Edited device bindings descriptions
+-- removed full stop in title
+-- replaced quotes with double quotes for consistency
+-- removed <dt-bindings/gpio/gpio.h> from example
+-- removed led1-7 in example for brevity
+- squashed maintainers commit to driver commit
+- Link to v2: https://lore.kernel.org/r/20260326-upstream-ltc3208-v2-0-3dbc992b6098@analog.com
+
+Changes in v2:
+- Addressed DTSchema bot warnings and errors
+-- removed extra blank lines
+-- fixed $id to match current naming
+- Addressed Kernel test warnings
+-- fixed bounds for aux channel configurations
+- Link to v0: https://lore.kernel.org/r/20260318-upstream-ltc3208-v1-0-015f1f1e9065@analog.com
+
+Jan Carlo Roleda (2):
+  dt-bindings: leds: Document LTC3208 Multidisplay LED Driver
+  leds: ltc3208: Add driver for LTC3208 Multidisplay LED Driver
+
+ .../devicetree/bindings/leds/adi,ltc3208.yaml | 183 ++++++++++++++
+ MAINTAINERS                                   |   8 +
+ drivers/leds/Kconfig                          |  12 +
+ drivers/leds/Makefile                         |   1 +
+ drivers/leds/leds-ltc3208.c                   | 234 ++++++++++++++++++
+ 5 files changed, 438 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/leds/adi,ltc3208.yaml
+ create mode 100644 drivers/leds/leds-ltc3208.c
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+base-commit: e264a106d8fc45fd82891cb0c4f8bd9e2c48c152
+change-id: 20260318-upstream-ltc3208-7cc8968bf69e
+-- 
+2.43.0
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
