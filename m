@@ -1,71 +1,460 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FA7233149;
-	Wed, 23 Sep 2026 02:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790132138; cv=none; b=K97N1RPpRMiJkzEzeRxRh9qQWLQPtvV4Tf9P+zhswg7eRrCjSCNsT92mTMsb2Tb7H9DGkOVQPgvvh6VbBwg1CR0Tg18HeXuFlxMS47hHv8ftRCT2evZf+yX7fDEqffZ0zYfkOqmJwdqfIDQ4fvbBfVFeVdH1ymYXHKpPm44f1I8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790132138; c=relaxed/simple;
-	bh=uZC1XiULrqzAC9iNFxpCn73XPmh1YXKIQ3pl3xdsed8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=axfQZLLJP9wzFrvQjyzPB75EwyJJsL++99rrhchERgR8hGd+a+WWNXKX7upjxWAoVBqCDr1DTm94ca1GmBF0S3Iwktl1uJLfZt3HhbxW272LI/3gnqlTkno3Hv9JtgSC5SRX6lCKTugIvzQPjMkCdvIlGq2vCIFQxIbvJ8lhgTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=zYRBYcLw; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF5F279DC3
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790132223; cv=pass; b=Qi7vC1gKA8XhzlvIbBWwmxE9w7b4HAh/RPcqPX0C3Z2OF6dkqyNW1Vh7kZOjwJlmkkvHs725oz1igYS1zrJGjo/7ptFcJ+pLgAD+aB2wXQLtQEa1qLo3zB29rnruHtQcrf0aWSurK2XY/Y/IDIpiEcCWdCEE06rz5KNs7HbCEqA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790132223; c=relaxed/simple;
+	bh=8UDl0UsNZXOhetgbFCY+EYL1CkOSiSWB+iFE1wcb9D0=;
+	h=In-Reply-To:References:MIME-Version:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DIEX2pK57XXjg270dqIElvWonhpaKAn3GwZMyahbCvVd7mX50R5RdvWYvktIbJsCnEHOHnbFEicLuAGKN/9l6k9vkBilMi7ZupDxQ+KGsMzmYJQYnXEI2GI4kttWp1E76V9WVw5IRFUsv2cBf4s5umMmzcwxKSbk0Yrv3IQ3CC0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cGo313f3; arc=pass smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="zYRBYcLw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=lIxehaR8yZWOs1PZelfbTS1LZUGz5g2odjrc/Fh7LWY=; b=zYRBYcLwECVu43QrLDae2U1AhR
-	RwN/Y5JEdpGciTTt+tH+zYO5oA4nQFdmUPo/2UKEGDAVaS0fwGIXlQP9hVxJby7oKQf6wsSd2GrqT
-	cJGn71goc9PZUvhRGEjk4bNRsYyI63s7PYfIPJvadBapDf2xvPQDaD4dnCPZ/X73FUp30pBC4CPF/
-	gy+UVR3RR3mNQG29aqqqG5v+nEuc3J5g92un8Th832x4DeQ1iOS+XvvHSeH/XEda/cTRIIRdOYwug
-	qxEHyqVzstkAf9sPrDbZICZxgHk9/VbuVzqbaI1cOeTZWOa6nccCWp5cdwMRgbHDJSEn3AdYy3GxZ
-	5R41q/LQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9D8x-0000000705I-0ROC;
-	Wed, 23 Sep 2026 02:55:35 +0000
-Message-ID: <086e1b04-c437-40f0-b71a-4f7e62a52c75@infradead.org>
-Date: Tue, 22 Sep 2026 19:55:34 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cGo313f3"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33be7dfcfc1so473569eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:57:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790132220; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GHx5SHTR50dTlaXkd2hSkRcMfjrsLSwIRPEjD2hUE4PtgK3Sv0YYfIrCHmLgxVqNjU
+         fcrnc8+LVdYjtxIWPu+YnUYqMs1CFnAb2FHO5/YvA7TaBZgAInJXbgQ/0qLyUk3CMWRQ
+         C6HRsQ8RR3hTlMdEUNgdTVe6C9beNGbLevDT/Ttex0w64hOAVOBkceDpkYi/G0sYCoGF
+         xW+NIh97DolIecrQoevLlYBA9ff1EW6NJwernmaVnO7uuE4laaQphg+rW7oz5nRFqE7x
+         i55/cAOKPUSmUilOEgcDxUrheHYNbaBjcK09SzwQux70fUPGhHWuYlt1mJrVqrfjqLmf
+         ddmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:references:in-reply-to:dkim-signature;
+        bh=8UDl0UsNZXOhetgbFCY+EYL1CkOSiSWB+iFE1wcb9D0=;
+        fh=R7oyLDvX7TElHd7e+qG9607r9LRJm/qtbkTZnrUbBeQ=;
+        b=jN8ohOo6dvKmtyjDsWETbINqQf42FSwLzA+RQ3+Bo8zii5t4KC5/Vd7OXeCELCvIjW
+         7IqQMCJ4G/NvF9ocAKp1aSh36ZH+pEQObzV+2W5C+oqaceinHP5YsPWYcQ/vJ/pTxpCs
+         yhzxmC5idxpiKLqlrgWNneaW5usAATvJWZrkzBnw8sOij6CqOPH5i+Wr1HbmQhP3DH+e
+         7DVZLY/3LrX8xuW8ql2Un1vjtF8Ch3TnXPbdfXHJdeit3xJiOtdMqhcp1Oav7/NqD3F7
+         PwtzUTeIjhByCvZ/o3bXpI4bsZ2LYiYVGzz3LbqKUQFSebAAlRgyU0ytVuxUGI2PfZ/x
+         kUfA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790132220; x=1790737020; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:references:in-reply-to:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8UDl0UsNZXOhetgbFCY+EYL1CkOSiSWB+iFE1wcb9D0=;
+        b=cGo313f39wjW8l8JqWpFvfifnbViY0341h/pKGO18cl2hVYaDqVJxSjTZ1aAVCqT2G
+         yek2nuu2peYhZiRmcgcTPLM9sN5OYkVu8d8JFBu6+q3LoAeht3AXrpCNkN9qfgh4jpXd
+         4AlpleXrZChXRSREZ2Kxt8cfrFZLGKUEobjRxGGJNVK+HIiIjBgmJ1lBs/tEu0omx5q6
+         hc5lvGy2x3kf0vEYWhiuKwWLyllcl+1Wz6wJdB7uHQAA3t10EXu7EOmiel/vbOdTvRjU
+         SEBf6kZ4JEMJAFZqZ2EQVUcBb1gyFRTjoP5NGcI2uU8lycRR6NijSWofKKgzqvJLeLsH
+         923w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790132220; x=1790737020;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:references:in-reply-to:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8UDl0UsNZXOhetgbFCY+EYL1CkOSiSWB+iFE1wcb9D0=;
+        b=K9Eox1l8VL2BxHc9zaa9F9eQawl/lzT4SWWXVTAi+ZyDa87iu9XCB/LzSonJOfTFR1
+         16+7e9mawN6nrxm7tWxN5fsLSU0xeJ/bKfO3r3MywU00nwXSgEDc/gNnholQXGOkdrsw
+         WvCa3yMQ1r2eJfINZUPy/a2aX1wws3sZfBTR/jc6nVA/aBKoyGmEpVALaM/vW0CTQqXc
+         /CY0fBeFoEqlgYbd2sEoiTz809XFGdFLwtTxETA528EZakpRxU08s+cY6zmerdsV6wJI
+         KwalM6X0EWLDfPzDupdq3LXhoDJWUlxWXQx10hH8zTaR+JBB+r+zXQik+uQCOFOSCgbz
+         /7lg==
+X-Forwarded-Encrypted: i=1; AKwUvBwrwl2/Y7k0FQWhVrrPqVTf/i4b+rEXhgAQ3MPYGCxQOYphwTK3evAOvhXzqg9rqZKI7ePtAWgCrv2OOis=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtb9HMPAf7FCCq4m77gWDsCv3PeF4MJ7SAj8n/QEd1IyCt+6jg
+	bLk7W00L0kga/DghyEr2zldwcYdSpKugyR/EcBbLIe7nUoRltbtkBFD2u2IMjeExKYbujyD5Hb8
+	+L0J+QXXK9I959HyOSPHPeaFTl13QVc4=
+X-Gm-Gg: AYBFou3z08iHUwrwfDp0+WOo2QxSul3iInBbMgsKixdNlWEUHAXC0VvE6BH7UjAzlTH
+	G+GNwWNjjttZYIZBgGgySWedztrbsdhOrohC8q83URnfNAWXnC8wVX0QAL2F4sTu5hCsOg8bU+W
+	3skrlfN5gk1Y/mNXvWkM9ncWQuFhJS7KNUqrNP5mukn1pGyy37GTe2MnDBqAKKsOC5+RJHuoeMj
+	uCFF31Y6m441wuV3WlRuc9DaBq92nZ89bEWI+Htd6Ij1MbptkPfEn0gmKA5NGiGJcwUdWVpsz1E
+	Cc0Aay4ESLhyyT5eIgA8cRD47XhjWvREto9IXCXLTyuZCOmPvG+00Q==
+X-Received: by 2002:a05:7301:71a8:b0:33b:ea8c:811b with SMTP id
+ 5a478bee46e88-33e8b88d912mr1165068eec.5.1790132219742; Tue, 22 Sep 2026
+ 19:56:59 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 22 Sep 2026 19:56:58 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 22 Sep 2026 19:56:58 -0700
+In-Reply-To: <ap6mHnPJKKJFapsO@black.igk.intel.com>
+References: <20260903030356.58597-1-ivanrwcm25@gmail.com> <20260903232121.271776-1-ivanrwcm25@gmail.com>
+ <ap6mHnPJKKJFapsO@black.igk.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] doc: phy: Document some bulk helper functions
-To: Inochi Amaoto <inochiama@gmail.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rhys Tumelty <rhys@tumelty.co.uk>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- Longbin Li <looong.bin@gmail.com>
-References: <20260923023304.78428-1-inochiama@gmail.com>
- <20260923023304.78428-6-inochiama@gmail.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260923023304.78428-6-inochiama@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: =?UTF-8?Q?Iv=C3=A1n_Rodriguez?= <ivanrwcm25@gmail.com>
+Date: Tue, 22 Sep 2026 19:56:58 -0700
+X-Gm-Features: AclHuK9gOEvYhNFnYgsJAMnp-CmaWTD9ecsuEllOd8FEpYc9E0hTm7bR2mR3W0s
+Message-ID: <CAO4EdiSv-hqc4WMoTa9F-ODs+TCzDG8ZEmAvx0z55wGhLdFJCA@mail.gmail.com>
+Subject: Re: [PATCH v2] usb: typec: ucsi: acpi: fix use-after-free on driver removal
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Fan Wu <fanwu01@zju.edu.cn>, Wei Huang <huangwei@kylinos.cn>, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi,
 
+Little ping on this patch. It has received RB tags from Wei Huang and
+Heikki Krogerus, and I don't believe there are any outstanding
+comments.
 
-On 9/22/26 7:33 PM, Inochi Amaoto wrote:
-> +Missing Bulk Helpers
-> +====================
-> +Currently, Only a few bulk helper functions are added as they have users.
+Please let me know if anything else is needed from my side.
 
-              only
+Thanks,
 
-> +Function not upstreamed can be found at https://lore.kernel.org/linux-phy/20260904083709.425893-1-inochiama@gmail.com/
+Iv=C3=A1n
 
--- 
-~Randy
-
+On Mon, 7 Sep 2026 13:55:10 +0200, Heikki Krogerus
+<heikki.krogerus@linux.intel.com> wrote:
+> On Thu, Sep 03, 2026 at 08:21:21PM -0300, Iv=C3=A1n Ezequiel Rodriguez wr=
+ote:
+> > ucsi_acpi_remove() destroys the UCSI instance before removing the ACPI
+> > notify handler:
+> >
+> > ucsi_unregister(ua->ucsi);
+> > ucsi_destroy(ua->ucsi);
+> >
+> > acpi_remove_notify_handler(...);
+> >
+> > ucsi_acpi_notify() dereferences ua->ucsi, so a notify arriving after
+> > ucsi_destroy() uses freed memory:
+> >
+> > CPU0 CPU1
+> > ---- ----
+> > ucsi_acpi_remove()
+> > ucsi_unregister()
+> > ucsi_destroy()
+> > kfree(ucsi)
+> > ucsi_acpi_notify()
+> > ua->ucsi->ops->read_cci() <-- UAF
+> >
+> > Simply removing the handler before ucsi_unregister() is not correct
+> > either. ucsi_unregister() drains work that needs the notify path to mak=
+e
+> > progress: ucsi_handle_connector_change() issues GET_CONNECTOR_STATUS an=
+d
+> > ucsi_unregister_port() drains and destroys con->wq, and those commands
+> > block in wait_for_completion_timeout() on ucsi->complete for up to
+> > UCSI_TIMEOUT_MS. That completion is signalled only from
+> > ucsi_notify_common(), i.e. from the notify handler. Tearing the handler
+> > down first would leave cancel_work_sync() and destroy_workqueue()
+> > waiting the full timeout for a completion that can no longer arrive.
+> >
+> > Moving the removal between ucsi_unregister() and ucsi_destroy() is not
+> > sufficient on its own: at that point the connector array has already
+> > been freed, so a late notify reaching ucsi_connector_change() would
+> > queue work on a freed connector.
+> >
+> > Teardown therefore needs two properties at the same time: no new
+> > connector changes once connectors start going away, but the notify path
+> > still available for command and acknowledge completions until that work
+> > has been drained. Whether the PPM actually produces those completions i=
+s
+> > a firmware matter; what changes here is that the path able to deliver
+> > them is no longer torn down first.
+> >
+> > Introduce a quiescing state, local to the ACPI backend, that provides
+> > both. ucsi_acpi_remove() sets ua->quiescing under ua->notify_lock befor=
+e
+> > calling ucsi_unregister(); ucsi_acpi_notify() takes the same lock and,
+> > when quiescing, reduces the CCI to the bits that ucsi_notify_common()
+> > consumes for completions. ucsi_notify_common() looks at exactly
+> > UCSI_CCI_BUSY, the connector number, UCSI_CCI_ACK_COMPLETE and
+> > UCSI_CCI_COMMAND_COMPLETE; keeping the first and the last two preserves
+> > the completion and bogus-data behaviour unchanged, while clearing the
+> > connector number makes ucsi_connector_change() unreachable. The CCI tha=
+t
+> > the command path inspects is unaffected, because
+> > ucsi_sync_control_common() re-reads it from the interface after the
+> > completion.
+> >
+> > The resulting order is:
+> >
+> > mutex_lock(&ua->notify_lock);
+> > ua->quiescing =3D true; -- no new connector work
+> > mutex_unlock(&ua->notify_lock);
+> >
+> > ucsi_unregister(); -- drains work, notify path still
+> > available for completions
+> >
+> > acpi_remove_notify_handler(); -- unlinks, then flushes
+> > kacpi_notify_wq
+> >
+> > ucsi_destroy(); -- no notify can be in flight
+> >
+> > which gives the following happens-before chain:
+> >
+> > - A notify that acquires notify_lock before ucsi_acpi_remove() runs to
+> > completion while remove() waits on the lock, so any schedule_work() it
+> > performs happens before ucsi_unregister() starts cancelling.
+> > - A notify that acquires notify_lock after remove() released it observe=
+s
+> > quiescing =3D=3D true, so it cannot reach ucsi_connector_change() and
+> > cannot touch ucsi->connector.
+> > - acpi_remove_notify_handler() unlinks the handler and then calls
+> > acpi_os_wait_events_complete(), which flushes kacpi_notify_wq, so a
+> > notify already dispatched on another CPU has returned before
+> > ucsi_destroy() frees the instance.
+> >
+> > notify_lock is never held across ucsi_unregister() or
+> > acpi_remove_notify_handler(); holding it there would deadlock against
+> > the notify work those calls wait for. It is only ever taken as a leaf:
+> > ucsi_notify_common() and ucsi_connector_change() take no locks, so it
+> > cannot invert against ucsi->ppm_lock or con->lock, which the drained
+> > work holds while waiting for the completion. The handler runs from
+> > kacpi_notify_wq via acpi_os_execute(OSL_NOTIFY_HANDLER, ...), i.e. in
+> > process context, so sleeping on the mutex is allowed.
+> >
+> > The probe error path already removes the handler before ucsi_destroy()
+> > and is left unchanged.
+> >
+> > Fixes: f56de278e8ec ("usb: typec: ucsi: acpi: Move to the new API")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Fan Wu <fanwu01@zju.edu.cn>
+> > Link: https://lore.kernel.org/all/20260718021142.3146566-1-fanwu01@zju.=
+edu.cn/
+> > Signed-off-by: Iv=C3=A1n Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+>
+> You could have used guard(mutex) in ucsi_acpi_notify(), but that's
+> not a huge problem.
+>
+> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+>
+> > ---
+> >
+> > Notes:
+> > Hi Heikki, Greg,
+> >
+> > v2 is a rewrite rather than an incremental fixup. v1 moved
+> > acpi_remove_notify_handler() ahead of the teardown, and that ordering i=
+s
+> > wrong for the reason Fan Wu had already documented in [1]: the work tha=
+t
+> > ucsi_unregister() drains can be waiting for a completion that only the
+> > notify path delivers. This version keeps the handler installed across
+> > ucsi_unregister() and adds an ACPI-local quiescing state instead.
+> >
+> > Wei Huang asked on v1 whether acpi_remove_notify_handler() waits for a
+> > callback that already entered on another CPU. It does: for
+> > ACPI_DEVICE_NOTIFY it calls acpi_os_wait_events_complete() after
+> > unlinking the handler (drivers/acpi/acpica/evxface.c), that flushes
+> > kacpi_notify_wq (drivers/acpi/osl.c), and device-notify dispatch runs o=
+n
+> > that same workqueue through acpi_os_execute(OSL_NOTIFY_HANDLER, ...).
+> > So the raw call is already the barrier, and acpi_dev_remove_notify_hand=
+ler()
+> > would only add a second flush. Chasing that question is what surfaced t=
+he
+> > harder half of the problem, which is what this version is about.
+> >
+> > On [1]: that patch kept the handler installed across ucsi_unregister()
+> > for exactly the right reason, and this version preserves that property.
+> > What it did not cover is the window you described in that thread, where=
+ a
+> > notify arriving after ucsi_unregister() has freed the connectors still
+> > reaches ucsi_connector_change(). You also asked to keep the solution
+> > inside ucsi_acpi.c rather than redesigning the core, which is what this
+> > does.
+> >
+> > Changes since v1:
+> > - Do not remove the notify handler before ucsi_unregister().
+> > - Add the quiescing state, so connector changes stop while the notify
+> > path stays available for completions.
+> > - Drop the ucsi.c changes from v1 (ntfy =3D 0, connector =3D NULL, cap =
+=3D 0).
+> > I could not show they were needed for the other backends, and they do
+> > not belong in the same patch as the ACPI lifetime fix.
+> > - Correct the Fixes: tag. v1 pointed at 8243edf44152, which added the
+> > driver; the current ordering came from f56de278e8ec.
+> > - Credit Fan Wu, who reported the underlying use-after-free first.
+> > - Use mutex_init() rather than devm_mutex_init(), which only appeared i=
+n
+> > 4cd47222e435 (2024) and would be a needlessly modern dependency for a
+> > fix tagged for stable from a 2019 commit.
+> >
+> > Testing
+> >
+> > I have no machine that exercises the UCSI ACPI path, so this was tested
+> > with a software PPM backend that drives the real UCSI core
+> > (ucsi_create/ucsi_register/ucsi_unregister/ucsi_destroy/
+> > ucsi_notify_common) and reproduces the ACPI notify protocol, including
+> > the deferral to a percpu workqueue. All three candidate teardown
+> > orderings were run against it: the one from v1, the one from [1] and th=
+e
+> > one in this patch. v7.3-rc2, KASAN + lockdep + PROVE_LOCKING +
+> > DEBUG_MUTEXES, QEMU, oops=3Dpanic.
+> >
+> > Each case below parks a connector work in wait_for_completion_timeout()
+> > before teardown starts, and asserts that precondition rather than
+> > assuming it.
+> >
+> > teardown ordering result
+> > ------------------------------------ ----------------------------
+> > quiesce, unregister, unlink (this) 148 ms, clean, with a late
+> > connector notify fired after
+> > ucsi_unregister() returned
+> > unlink, unregister (v1) 10595 ms stall
+> > unregister, unlink (as in [1]), a KASAN slab-use-after-free in
+> > connector notify landing in the queue_work_on(), then a GP
+> > window fault in the kworker that
+> > picked up the freed work
+> > nothing in flight (this) 146 ms, clean
+> >
+> > Repeated with the teardown starting while ucsi_init_work() is still
+> > running, so that cancel_delayed_work_sync(&ucsi->work) has to drain an
+> > init command parked on the completion: this patch takes 2299 ms and
+> > completes cleanly, of which 1500 ms is the injected command delay, whil=
+e
+> > the v1 ordering stalls for 10089 ms and the init gives up with
+> > -ETIMEDOUT.
+> >
+> > Two deterministic checks of the properties the patch claims:
+> >
+> > - CCI mask. A single CCI carrying both connector 1 and COMMAND_COMPLETE
+> > (0x80000002) is delivered while quiescing: the completion is signalled
+> > and EVENT_PENDING stays clear, i.e. ucsi_connector_change() is not
+> > reached. The same CCI with quiescing off sets EVENT_PENDING, so the
+> > check is sensitive to the path it claims to block.
+> >
+> > - notify_lock as a barrier. A notify that has entered the handler is
+> > held inside it for 1200 ms; the store of quiescing in the teardown
+> > path blocks for 1215 ms behind it. This is what makes "a notify that
+> > started before teardown finishes its schedule_work() before
+> > ucsi_unregister() begins cancelling" an ordering guarantee rather
+> > than a likelihood.
+> >
+> > Soak: 1000 teardown cycles with four threads hammering the notify path
+> > concurrently with the quiesce sequence, repeated at 1, 2, 4 and 8 vCPUs=
+,
+> > so 4000 teardowns in total. No stall, no KASAN report and no lockdep
+> > splat in any configuration. A separate KCSAN build ran 200 of those
+> > cycles at 4 vCPUs with no data race reported in any UCSI path.
+> >
+> > What this does not cover: no real ACPI hardware, so the ACPICA drain
+> > described above is established by reading evxface.c and osl.c rather
+> > than by execution; and the LG gram quirk path is untouched and
+> > unexercised.
+> >
+> > The harness is not part of this patch. I can post it separately if it
+> > is useful.
+> >
+> > [1] https://lore.kernel.org/all/20260718021142.3146566-1-fanwu01@zju.ed=
+u.cn/
+> >
+> > drivers/usb/typec/ucsi/ucsi_acpi.c | 53 ++++++++++++++++++++++++++++--
+> > 1 file changed, 51 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucs=
+i/ucsi_acpi.c
+> > index 18286d3e9cc5..61bba7625d17 100644
+> > --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
+> > +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> > @@ -24,6 +24,15 @@ struct ucsi_acpi {
+> > bool check_bogus_event;
+> > guid_t guid;
+> > u64 cmd;
+> > + /*
+> > + * notify_lock serialises ucsi_acpi_notify() against the start of
+> > + * teardown, so that @quiescing is observed by every notify that has
+> > + * not yet run. It must not be held across ucsi_unregister(), whose
+> > + * drained work may depend on the notify path, nor across
+> > + * acpi_remove_notify_handler(), which flushes notify work.
+> > + */
+> > + struct mutex notify_lock;
+> > + bool quiescing;
+> > };
+> >
+> > static int ucsi_acpi_dsm(struct ucsi_acpi *ua, int func)
+> > @@ -179,11 +188,31 @@ static void ucsi_acpi_notify(acpi_handle handle, =
+u32 event, void *data)
+> > u32 cci;
+> > int ret;
+> >
+> > + mutex_lock(&ua->notify_lock);
+> > +
+> > ret =3D ua->ucsi->ops->read_cci(ua->ucsi, &cci);
+> > if (ret)
+> > - return;
+> > + goto out_unlock;
+> > +
+> > + /*
+> > + * Once teardown has started the connectors are being unregistered and
+> > + * freed, so a connector change must not be reported any more. Command
+> > + * and acknowledge completions must still be able to reach the core:
+> > + * ucsi_unregister() drains connector and partner work that can be
+> > + * blocked in wait_for_completion_timeout() on ucsi->complete, and tha=
+t
+> > + * completion is only signalled from here. Keep exactly the bits that
+> > + * ucsi_notify_common() needs for that, which drops the connector
+> > + * number and with it the path to ucsi_connector_change(). The busy
+> > + * indicator is kept so that bogus CCI data is still ignored.
+> > + */
+> > + if (ua->quiescing)
+> > + cci &=3D UCSI_CCI_BUSY | UCSI_CCI_ACK_COMPLETE |
+> > + UCSI_CCI_COMMAND_COMPLETE;
+> >
+> > ucsi_notify_common(ua->ucsi, cci);
+> > +
+> > +out_unlock:
+> > + mutex_unlock(&ua->notify_lock);
+> > }
+> >
+> > static int ucsi_acpi_probe(struct platform_device *pdev)
+> > @@ -219,6 +248,8 @@ static int ucsi_acpi_probe(struct platform_device *=
+pdev)
+> >
+> > ua->dev =3D &pdev->dev;
+> >
+> > + mutex_init(&ua->notify_lock);
+> > +
+> > id =3D dmi_first_match(ucsi_acpi_quirks);
+> > if (id)
+> > ops =3D id->driver_data;
+> > @@ -256,11 +287,29 @@ static void ucsi_acpi_remove(struct platform_devi=
+ce *pdev)
+> > {
+> > struct ucsi_acpi *ua =3D platform_get_drvdata(pdev);
+> >
+> > + /*
+> > + * Stop reporting connector changes, but keep the notify handler
+> > + * installed so that the work ucsi_unregister() drains can still be
+> > + * reached by the command completions it may be waiting for. Any notif=
+y
+> > + * that already passed this point runs to completion first, so no
+> > + * connector work can be queued once ucsi_unregister() starts.
+> > + */
+> > + mutex_lock(&ua->notify_lock);
+> > + ua->quiescing =3D true;
+> > + mutex_unlock(&ua->notify_lock);
+> > +
+> > ucsi_unregister(ua->ucsi);
+> > - ucsi_destroy(ua->ucsi);
+> >
+> > + /*
+> > + * Now that no work is left to serve, drop the handler. This unlinks i=
+t
+> > + * and then calls acpi_os_wait_events_complete(), which flushes
+> > + * kacpi_notify_wq, so a notify running on another CPU has returned
+> > + * before ucsi_destroy() frees the instance that it dereferences.
+> > + */
+> > acpi_remove_notify_handler(ACPI_HANDLE(&pdev->dev), ACPI_DEVICE_NOTIFY,
+> > ucsi_acpi_notify);
+> > +
+> > + ucsi_destroy(ua->ucsi);
+> > }
+> >
+> > static int ucsi_acpi_suspend(struct device *dev)
+> > --
+> > 2.43.0
+>
+> --
+> heikki
