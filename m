@@ -1,239 +1,70 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6231038332A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:51:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A01394EA6;
+	Wed, 23 Sep 2026 04:51:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790139103; cv=none; b=SVT9UiwtwB+QSwJrgCnptVlvtv8AMSt3b/uZhreSXPWPxx26c4rW9MkQs+MHkDLlnyKGkMkoHWlW6MB4Bg6RIzWTSV3p0B/bt5sR26Flzb5fOsC4xLeuFhWbOEv/Vs8su7ZGuxp9awtSZr8JXNtK5cDtbyQ9lIvT1WpnMBZNoIk=
+	t=1790139112; cv=none; b=owjZCm1jxSFsOapW7gm9xQ0uag21JDAm4oRphMCg7HkVQKBLGlQCj5m9bdky29k3oFCKbRpaXlpJhjfUY2hS8/4YU+r2NNHEMR/IeWAf1ESn7YI+7CiB7XM1bVqAlYElFI9DQkJ7+Oy7UBI3WBxU0lKYPPJP8Fq9FjvHA9G2bvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790139103; c=relaxed/simple;
-	bh=xEf3t/R7Jbvgx6YTeNrky889ZHjfTclMhSwF0D/NvIA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=L3n182yCoJucpGgaG270cgNj1UUWCkxJrkVJVrwIIcEGak0qJ5VEDwTAl0buIO5iDjvry3Nc6WWjOr/W8GDCD65hh9Uuc0PcBSfNEYhu4PAwG21RPhreXsno/NmkbFmw0OZtxBXoWLdblFj2YlXBy63871Iu3SKdI6sLoz2Cl/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dch50fso; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dch50fso"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccafb74fso365962a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:51:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790139101; x=1790743901; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Vau8smD7DdgUp75NMX0g1XIGti7nSC/bWHbTDZeWg+k=;
-        b=dch50fso9M7VJGXrAYDFHyVlbRo7yjBqqzorKb4JWf0oGWFgeWigQLr7DGg12i5Iyt
-         gUswyR0Avy5E5Nz5ODVLiBvqSftjwzGbnuhgPazbHfeAYEoP0KaNwnV0Zz6RF4aQF/yB
-         wpkvnsHLn7txMFfYLV5ixY4SvPYuAQnBbypB8l84dNA/RzyuUPSvU15DMaH1tgmvrGJg
-         d85uqAEYnucMGLd2leeFm5zdsw2VLGHvq9hDNm++o/SqP/Q7K9ONx4s0fgEogaWfz1Vn
-         XYhUNEULharJLbhA0dZTMLXuC31bRHVEJ0wDI39gzJwCPAzEfI4YovEJYChOpNVzpMgs
-         +BLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790139101; x=1790743901;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Vau8smD7DdgUp75NMX0g1XIGti7nSC/bWHbTDZeWg+k=;
-        b=UjDgMS0DB+0zae92YmTWv36CrNAt2nFBli/AUrXj7PemPmZWfxOJuQQotLKaoDh+Fv
-         LXIhio2xGIxeiAmwp9GUIm7fIoe2CSSXjc2XVhgaFaPIRchOB7loFw3S1pZeddK68eUk
-         4T+03XWvIua0kzvmQ2IpLV3b25siL02SW13fWFTW5XC384reYj+IbQJsUjSb5YOMtsEJ
-         k0Y4Eyahozo2KKcZjwNTJV3+sHs+zUtVbe2rZL+8uQQk6PtlYoEEH7DEBioaoGgmVNRJ
-         hW8RRJS+sbt7yxZYF+OWzoQoLKtUmUbiWAsFfXONdK0fWTp7ztzW4xPkQqiC/ZW51VZQ
-         k9wQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz4C8+/CmmNmp1pGslxsLQgmqr3V2PKCvIc4tKzVKxCEDMHaWj3qKdfJIXbBLvEAwwYKmgB0NFpZNOREps=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHQfVjC01Q3P7LssPnvI/PcziweYY+uyCM8nkMMVSPH9xaTnmQ
-	gk32YBMC/yIfkfkMf8OZ0YbVfUQInermDV91HPvxlNgEiaBW0b5R6Ctr
-X-Gm-Gg: AYBFou0/w73xGib1WODtSqpZ9V2UVJOnkcTf7gp681x195XgxxIJ8XDYpy4cykDn/zo
-	gi4X1wix3pA92NdDaNuZ/UZm2KKW9ff7o/qpElVIqCALz+ZrapZ6QsRVQZiM3YXrYtr6TJo6SJO
-	knKXTTWi9yPLQC3XIxCr5hbInCqyoh0XLk6BEK7+44ZLuhBJQEi3SHItA8PHEazelvrkJNjc341
-	RU70sOpommcJUN8gTEk6BORIEdqSQ3CGXg3lW6eNJjOQW2MNXgTbr3hk18nDuRG8FkaSlCh1SFh
-	wKzNkAtTL3YpB+qG7p4Mq6pteFO+w85bBCjFULYTnU85ffwz13/N60EZImRHO+JohQpiXM4FJFD
-	xO5AY1u/CvRzg0LvQ+G1T5/9AFWF69ZCYe8bksqy+Wk+qbwtajkWG94rjpxKrAupUQ0G2j+w4wQ
-	qLfGWQHwoGVoX9mFYV7DJWSzS7TD3HFiu5u8r+s2KIa+wPTV6UGXEfqZSKKZoFGRhT3qzFlbNhB
-	8GDyO2UzSfYFTjOwnP+
-X-Received: by 2002:a17:90b:560c:b0:39e:423:bb8f with SMTP id 98e67ed59e1d1-3a07e51ca8emr1317609a91.1.1790139101363;
-        Tue, 22 Sep 2026 21:51:41 -0700 (PDT)
-Received: from [163.43.103.131] ([163.43.103.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a089197169sm234555a91.8.2026.09.22.21.51.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 21:51:40 -0700 (PDT)
-From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Date: Wed, 23 Sep 2026 13:51:37 +0900
-Subject: [PATCH net] seg6: fix HMAC validation when an extension header
- precedes the SRH
+	s=arc-20240116; t=1790139112; c=relaxed/simple;
+	bh=pu/mpkCqXSxgYN59HbS0UJuN1/RXNva8bBq3n7KmNpk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eYpUjT/ADjUXOO/flICe8sIq7/ZPYA0r6ARmRJ+65JQiRquhb9dE8cQcwRE3iTvE+i7Xscco0KcavzHiJY+a1lKu6RYTSQj1cPuOKMJZKMrCZAoGRRhrp0npunvKxVMIZxnWofiUj/lfv0VgRpEeb6fidBfUTYIfv6XTLcebCVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 2B01F68BFE; Wed, 23 Sep 2026 06:51:44 +0200 (CEST)
+Date: Wed, 23 Sep 2026 06:51:43 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	io-uring@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Nitesh Shetty <nj.shetty@samsung.com>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	Anuj Gupta <anuj20.g@samsung.com>,
+	Tushar Gohad <tushar.gohad@intel.com>,
+	William Power <william.power@intel.com>,
+	Phil Cayton <phil.cayton@intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
+Subject: Re: [PATCH v6 04/13] block: introduce dma map backed bio type
+Message-ID: <20260923045143.GA26231@lst.de>
+References: <cover.1789997898.git.asml.silence@gmail.com> <a3ee719abc440ca139f1a945fdaf43a45f0c6b57.1789997898.git.asml.silence@gmail.com> <20260922131610.GA30468@lst.de> <cce62c72-278a-44d1-9cf7-e0beb0b72688@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-b4-seg6-hmac-transport-header-v1-1-3ae85dc0fdb9@gmail.com>
-X-B4-Tracking: v=1; b=H4sIANhas2oC/yXMQQrCMBBA0auUWTuQhjRUryIuknRsRjAtM1GE0
- rub6vL/xdtASZgULt0GQm9WXkqL/tRByqHMhDy1BmusN2drMTpUmj3mZ0hYJRRdF6mYKUwkaPt
- hNG6MLiYPzViF7vz5+VcoVOH2n/qKD0r1kGHfv/V7aCmGAAAA
-X-Change-ID: 20260922-b4-seg6-hmac-transport-header-2158048b4bc6
-To: Andrea Mayer <andrea.mayer@uniroma2.it>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>, 
- Ido Schimmel <idosch@nvidia.com>, David Lebrun <david.lebrun@uclouvain.be>, 
- Ahmed Abdelsalam <amsalam20@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yuya Kusakabe <yuya.kusakabe@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5048;
- i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
- bh=xEf3t/R7Jbvgx6YTeNrky889ZHjfTclMhSwF0D/NvIA=;
- b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBqs1raOyWwew0Hli56N7ZHs07TCEoACZ5nU4jBZ
- tBe5dJMzVyJAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCarNa2gAKCRAq19F1Kl0b
- TfSuD/43UvtuGT71ZkdlZL0stBTiD5Sa3zMnzh1FociHb7jmsBZZfeupSv0jsleR8CtkgyewkUA
- JA7VgW2rq4h1Bs7IdZRidsdonkYBMR2Poi6QmK9H5uJRs6MxsA4bb6AYA92O7eaei9HkZ/yPhIS
- KiHj5/qlWsTWfs+Ov3yZt5/0VHvxKN90u8pZNyKa+CzeHeRhUfs8VuXZtbitA1gRQzm1n/rEjl4
- P/iQOyqaLxC+9QGiMXxQOSvrBd059ByHaLs6UTGoQ3gInwga28alKoDT41H65CYxvqWfJFML0Rh
- rv4MnbnoyF89kNfEXf1YY8QG64X4cj/bXL5YIS6/qtrrzYuivp8nFCkebX7NN7jHN2u84xqTBOY
- V8JlUxnS9xhr+EiVZrK4L0P/KwBvKusIlPFur92eS0mbZ5sm5QN1innzY+TnkQ/HNfyxPBe2z3F
- mvC381aFVfh/fKqD3T0SV0vlhyCNN4euKaatwNv7335vxM4/SlPtTs/AaRWnXroVeW93+kAujiL
- LFALuB09EqPKE8BPVsIUki0p5wiBX32BJe8k6N+s4oT2v59/5y4PMYC7bjR2JT9OLCbhnydpvYT
- Cjs3+1EFsVYQ/+sgKu0gl96008ldm8Fx4PnR1HH5xhAh10zJRcc3tE9s88PGG1qCx/3xqCFrPSk
- ClMNUoZciNakXjA==
-X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
- fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cce62c72-278a-44d1-9cf7-e0beb0b72688@gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-seg6_hmac_validate_skb() derived the SRH from skb_transport_header().
-That only holds while the two coincide, which is not true on the
-seg6_local input path.
+On Tue, Sep 22, 2026 at 02:54:25PM +0100, Pavel Begunkov wrote:
+>>
+>> Can you please expland on the splitting considerations a bit?  Preferably
+>> both in a comment for the details, and in the commit log for how we
+>> arrived at them and why they are fine for now?
+>
+> I'll add something to the commit log, but not sure which specific
+> details in comments you mean. Do you want me to expand the comment
+> above limiting the number of segments? Maybe I should add there that
+> it's stricter than necessary and might cause more splitting than
+> necessary? This one:
 
-ip6_rcv_core() leaves the transport header just past the IPv6 header.
-A Hop-by-Hop options header is consumed before the route lookup and
-advances it, but a Destination Options header is not: the seg6_local
-lwtunnel is entered through an input redirect from the route lookup,
-which bypasses the extension header handlers. The transport header
-then still points at the Destination Options header while
-seg6_get_srh() has located the real SRH further down the chain.
-
-The HMAC is therefore computed over the Destination Options header,
-and a packet carrying a valid HMAC TLV is dropped when
-seg6_require_hmac is set. Such a packet is legitimate: RFC 8200 allows
-Destination Options before a routing header, and get_srh() has walked
-the header chain since commit 5829d70b0b6c ("ipv6: sr: fix get_srh() to
-comply with IPv6 standard "RFC 8200""). The misread header is covered
-by the pskb_may_pull() in seg6_get_srh(), so the result is a wrong
-verdict, not an out-of-bounds access.
-
-Reproduce by giving a node a seg6local End SID with
-net.ipv6.conf.<dev>.seg6_require_hmac=1 and a key installed with
-"ip sr hmac set <keyid> sha1", then sending
-
-  IPv6 -> Destination Options -> SRH (carrying a valid HMAC TLV) -> payload
-
-to that SID: it is dropped, while the same packet without the
-Destination Options header passes.
-
-Fixes: 5829d70b0b6c ("ipv6: sr: fix get_srh() to comply with IPv6 standard "RFC 8200"")
-Assisted-by: LLM
-Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
----
- include/net/seg6_hmac.h | 3 ++-
- net/ipv6/exthdrs.c      | 2 +-
- net/ipv6/seg6_hmac.c    | 5 +----
- net/ipv6/seg6_local.c   | 6 +++---
- 4 files changed, 7 insertions(+), 9 deletions(-)
-
-diff --git a/include/net/seg6_hmac.h b/include/net/seg6_hmac.h
-index e9f41725933e..3161a8104b89 100644
---- a/include/net/seg6_hmac.h
-+++ b/include/net/seg6_hmac.h
-@@ -48,7 +48,8 @@ extern int seg6_hmac_info_add(struct net *net, u32 key,
- extern int seg6_hmac_info_del(struct net *net, u32 key);
- extern int seg6_push_hmac(struct net *net, struct in6_addr *saddr,
- 			  struct ipv6_sr_hdr *srh);
--extern bool seg6_hmac_validate_skb(struct sk_buff *skb);
-+extern bool seg6_hmac_validate_skb(struct sk_buff *skb,
-+				   struct ipv6_sr_hdr *srh);
- #ifdef CONFIG_IPV6_SEG6_HMAC
- extern int seg6_hmac_net_init(struct net *net);
- extern void seg6_hmac_net_exit(struct net *net);
-diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-index 09a4552f7f08..3ef3c2635581 100644
---- a/net/ipv6/exthdrs.c
-+++ b/net/ipv6/exthdrs.c
-@@ -387,7 +387,7 @@ static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- 	}
- 
- #ifdef CONFIG_IPV6_SEG6_HMAC
--	if (!seg6_hmac_validate_skb(skb)) {
-+	if (!seg6_hmac_validate_skb(skb, hdr)) {
- 		kfree_skb(skb);
- 		return -1;
- 	}
-diff --git a/net/ipv6/seg6_hmac.c b/net/ipv6/seg6_hmac.c
-index e6964c6b0d38..bd2704d4c7a0 100644
---- a/net/ipv6/seg6_hmac.c
-+++ b/net/ipv6/seg6_hmac.c
-@@ -173,13 +173,12 @@ EXPORT_SYMBOL(seg6_hmac_compute);
-  *
-  * called with rcu_read_lock()
-  */
--bool seg6_hmac_validate_skb(struct sk_buff *skb)
-+bool seg6_hmac_validate_skb(struct sk_buff *skb, struct ipv6_sr_hdr *srh)
- {
- 	u8 hmac_output[SEG6_HMAC_FIELD_LEN];
- 	struct net *net = dev_net(skb->dev);
- 	struct seg6_hmac_info *hinfo;
- 	struct sr6_tlv_hmac *tlv;
--	struct ipv6_sr_hdr *srh;
- 	struct inet6_dev *idev;
- 	int require_hmac;
- 
-@@ -187,8 +186,6 @@ bool seg6_hmac_validate_skb(struct sk_buff *skb)
- 	if (!idev)
- 		return false;
- 
--	srh = (struct ipv6_sr_hdr *)skb_transport_header(skb);
--
- 	tlv = seg6_get_tlv_hmac(srh);
- 
- 	require_hmac = READ_ONCE(idev->cnf.seg6_require_hmac);
-diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-index d1070aec7b72..67eeb27ee43a 100644
---- a/net/ipv6/seg6_local.c
-+++ b/net/ipv6/seg6_local.c
-@@ -222,7 +222,7 @@ static struct ipv6_sr_hdr *get_and_validate_srh(struct sk_buff *skb)
- 		return NULL;
- 
- #ifdef CONFIG_IPV6_SEG6_HMAC
--	if (!seg6_hmac_validate_skb(skb))
-+	if (!seg6_hmac_validate_skb(skb, srh))
- 		return NULL;
- #endif
- 
-@@ -239,7 +239,7 @@ static bool decap_and_validate(struct sk_buff *skb, int proto)
- 		return false;
- 
- #ifdef CONFIG_IPV6_SEG6_HMAC
--	if (srh && !seg6_hmac_validate_skb(skb))
-+	if (srh && !seg6_hmac_validate_skb(skb, srh))
- 		return false;
- #endif
- 
-@@ -771,7 +771,7 @@ static int end_flv8986_core(struct sk_buff *skb, struct seg6_local_lwt *slwt)
- 	srhoff = srh ? ((unsigned char *)srh - skb->data) : 0;
- 	pinfo = seg6_get_srh_pktinfo(srh);
- #ifdef CONFIG_IPV6_SEG6_HMAC
--	if (srh && !seg6_hmac_validate_skb(skb))
-+	if (srh && !seg6_hmac_validate_skb(skb, srh))
- 		goto drop;
- #endif
- 	flvmask = finfo->flv_ops;
-
----
-base-commit: 17741334d00bf5ebd37f8c1c36bc9c146a351deb
-change-id: 20260922-b4-seg6-hmac-transport-header-2158048b4bc6
-
-Best regards,
---  
-Yuya Kusakabe <yuya.kusakabe@gmail.com>
+Yes, explain why we apply a relatively arbitrary limit not fully
+exploiting the hardware capabilities, and why we thing that is okay.
 
