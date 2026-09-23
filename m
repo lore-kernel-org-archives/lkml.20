@@ -1,323 +1,172 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010050.outbound.protection.outlook.com [52.101.201.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557E94A9D5B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166048; cv=none; b=rvK9wxwIs0EfVtL0K6NFfQaAqrK1yDQ3DqDJW1cMEQ21l0496P9jOQoVppldfdyUY6abBCV/XoZqH2PeLnMKhoff2lcfj6ZUx4qOBsJm+BC/sEKSA+SsoFlxMuNTsD1PaaK36rJEMtx68BiTVqwtqMPlMrlKJLePGIxcbtohZo0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166048; c=relaxed/simple;
-	bh=fuV87aaUHDzuJt3uwaIZDnGcoihmJ6JF26OZkzkIRdM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tImnx6rFWOUVFAhsJ25XJoxPWQOZZD2lYj1iuymCvmvzFt5qbZQdWNcyFhQZWOqesjkwCisTtzJBxWO5duHgV+Lk60Qp3nu0h5nW0ZroEZ6w1t0mVkx/jHE2qC5MWVaVfDhAyZOwLSskTjyACkaChVG2qOYBNiaRwQ8LkkDUQeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K4PxMkdT; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2993FFF94
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790166074; cv=fail; b=dWRPp79rnF5bpwumZwyMKEznKDAjNHDrcn6c+vs9MqOHE8/tO3ipYPglZZfQ5709l0UHL0FT6MIVqk7jXZD+W0LIfcQu63k+eX5dAaimF3wE47UBGEw7C0US1V98xFADu+LN7aBbSlzdmts0HaJkYLNXzfymoAgkewlcPabqTHg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790166074; c=relaxed/simple;
+	bh=pMuaF4uu2dHB120Ji6JGB1m5nTxl7qionDWkh4jCUAg=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=Dr63vQUCPE0ZGQZ3zrmSPbWkDPBVTk4UbiaN4kB5dFyjG5MippZKjhcBWo7IAXXTHcnQnsf06yyqY5Ykq6+MEzM/VwSZmY0FgVNvygwEi/YiYdDOZGaYQdAj513z7LwTOpdrOLcT/j9uwLqPc44MWZ0+dsR8r44gXXj02N5DPSc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=e5wb81nW; arc=fail smtp.client-ip=52.101.201.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K4PxMkdT"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c83be8db39so556361e0c.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:20:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790166045; x=1790770845; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YpFKYfPhZapcpo9PA/CRrUdbEtZcRrxPPY3WKgYlFtE=;
-        b=K4PxMkdTQB2bDuEmS4q5QCJQurd7Rlw8a3YbYw//nXnnaEung5UdNAuZAQEm68dk/L
-         bn6it3U7PynZabpQAGyvJ9T1AWQB6PFcdAFrvZp+mfUjXl76hwz1HQX9CibbvX4c4DDA
-         AoIcZoszpR5Bq+MzsvFV85pN1v/TgvDObPzAa8jEM2IeppPsD2WEzPqIFLHVQGzDb05h
-         gKgxU13gfEdhbg02tjJeG0PS6Gk+2cOao9TvTdq8W+zlRdE4sqbQAo88TBKeg2G7o0yI
-         a82pnERO62QE6hE7US9fwq0anUCCFDBR6wCbpO5uxlA7KLQlZtxUl5yrs6BU/dkrWjnK
-         JaNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790166045; x=1790770845;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YpFKYfPhZapcpo9PA/CRrUdbEtZcRrxPPY3WKgYlFtE=;
-        b=nNMfdkxMKHt48Vjhbh+LYeAUI03xfyUaez8nP5EFVbWcsbBJBsdCI8T0GSQgVG90in
-         4qfyTijSR4UizGHY0Gm2nSPc4q0k1//T4yK9kHnFobclAevBWgZ4gaDO/ZDz6jyEHMr7
-         +CRvfY/wsNl2IBj0PlCwHmbKun+2/4Y3NnP+pcfq/TcSHILPwm/1zLcDIwpAR9U1C+lk
-         KID77mJT06Xx8p0cWUScdTs1WVS3Mx9c57mgK+BXVaLw28uxSNMZCTYd03h1BaJyVI5a
-         3vqPf7C1HFdtpplP2HP80OJkBWHJ/VzrDDYc4ZyRcXL6NcTq6kE3nKQHsyMJZOeCtXto
-         1B1A==
-X-Forwarded-Encrypted: i=1; AKwUvByfrzo0B1ncPEsUJiHPRUn9M9KYUkK+biAHlNHvgBPUWep5tAnuH02p1QkEqVvPEru0mWiqycBLo7n8eaw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhn8NvAB3mYhaVogLgf13VwZmOztBcNEEIBZdqzDtS/fQP2a9+
-	+TUjOW/yufCT4PiYCxTrfjCHxdNuxE+JmVfyDgfMrhWeeOJN2Zd3QitE
-X-Gm-Gg: AYBFou0pU9Gcf4M6fZitweT7S+8tif38FHWoyMBTGrfVCp8mFM3CYHjcr+Fvy9i/HTw
-	GXJND+pdHNHnPmiLOWTFD5ucHjnJ9D7xLwdSbaogAeHAYtfOWgG07XSRHV5pIHxqdhkgHFGcD6G
-	VFUp+iE+m5C//EarcYzwt0GMxOvYnA/em7/RanP2WxeK7O/uvx+ZVeomP5JVMfVQFKqc5TW3oVR
-	glRmKlSCBccs/irHmz84aZqUoWxBl9T67ScEjEL/QaoN7epuXsSfZu/JgQOdfcLm9DyI1+SciwW
-	BY1/THGN3UmdGaxyyeT9pYRKvmilZZGWsXNHBgKXrfUsLD9y3j1iahgogQ+HAFtqDg8Hr4Uq0+e
-	u3GL/Nuz+s139LrcrBZj8kWeZ6tMP6Ej4JzmxlafTnB/T9ObYonV344MbAduPNhE1bmTaO68wOO
-	7RCa6qmk1zW2ZxCmLPPy5vC0FTcTdnUaAl2cnIgHzTluT8KlhvFCIUg59YZRocL/shmd1NbHBEI
-	w==
-X-Received: by 2002:a05:6122:e191:b0:5c7:ebed:1018 with SMTP id 71dfb90a1353d-5c9f15c8919mr2844793e0c.8.1790166045066;
-        Wed, 23 Sep 2026 05:20:45 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ca4604daf9sm872471e0c.17.2026.09.23.05.20.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 05:20:44 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: pav@iki.fi,
-	luiz.dentz@gmail.com
-Cc: marcel@holtmann.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v3] Bluetooth: SCO: serialise sco_conn lifetime against sco_recv_scodata()
-Date: Wed, 23 Sep 2026 09:20:26 -0300
-Message-ID: <20260923122026.3465391-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="e5wb81nW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NRZ/wgW00t19fxgF09OlDM85WTxLB4NM5wwU3W8c+DjSLdCHH3GlLsrdluIi2cRqlZBwsRpziNk7GsFdZBgP+b3YdyyKL7L6KYzh/0Y7E1ilK8vbQmngM0Xh0a4TzHST4kR8NVL8A5eLFVmEV7qJnr7eh16JCRRoZjorhN6LS4YOdyjDx6A7KnKnY+RwLrD7UO5vq75Ge+1GRNtomDE4bDGaXgH0+0VHTrnf2KNvRGMzgpJMWJ4OS0XOjeaWB0e4xJZv5a+/u/x4EmW9mRLoHqaF6HLLJsrkCHX/B/WyTfGsOCKPulyUVSGaWWM+cx7I7xxFow/ezV9cvuf26nwYFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+9BDX4srMzRpbu2v3FfW973KAHH9x9yLYGq9cv/+6CE=;
+ b=hCeL5hjJsBD+B8jjebzq+WBFl9a2ivUNJTT4nlmsqExwRJZ/m2oylRq4V59dQfsKL8ywuM3FBdI000aIAzGa7LGW3TurJbDIUYY6jcG5JAPRIpijtqj54Rt1uh0Y+AECDDjkD6j5OpGu5+Oxdz3r7/K9Q21o899dBWYl+o7/WJfqx+1uo7mL7XV9Ty9l8GRjBcedmkc/zLVpK56/vMCpPXBn63L+/psAthIcO5Mpx10nJg5tkbxeqsgHN3ZgOYVoRDyifJrUpv1Y8b4bHmRu03oKU7oH5mZi9LGk9j3RIhhefpautgDgg/AZDopkzQW4jZXxNUAdsVmVckOFfAFesQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+9BDX4srMzRpbu2v3FfW973KAHH9x9yLYGq9cv/+6CE=;
+ b=e5wb81nWdyNUSdunYbus9PrgDE2bHSv0+LLLyw9Q1m6WECpwBfGbzBExB0kFKNRWfhcwQLdoSqQrQ0s2r6FgdwtNWrY5Ca/sg8Dr4xOKjg8011ov4G8n33sPhvf+CcdQOjGVGEooAMaE6HKMRl82CfmVQWSELjwuN6mC1wy+zozmAl9RD5VM5Skjn1WnV84J1mtPMznavJD8vrbDG1VXxm+Zz4ehg/w6alprObY+VPaEYbl/QWQrGXT+osC7zb8TR1rWjeZUej8XvoAPLpi957qfexo/Ass4n3Y6mml6kV3p3Fsw69qeJskLAc19Lrd+t/ugc95RTfZxZvSpuW2Vyg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH7PR12MB6858.namprd12.prod.outlook.com (2603:10b6:510:1b4::20)
+ by LV8PR12MB9449.namprd12.prod.outlook.com (2603:10b6:408:204::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
+ 2026 12:21:05 +0000
+Received: from PH7PR12MB6858.namprd12.prod.outlook.com
+ ([fe80::a550:dbcf:2fcf:463d]) by PH7PR12MB6858.namprd12.prod.outlook.com
+ ([fe80::a550:dbcf:2fcf:463d%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 12:21:05 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 21:20:58 +0900
+Message-Id: <DLMOWLTWLMT2.1CF8Z8JXTRDZ6@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
+ <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 05/33] gpu: nova-core: regs: add msgq v2 BAR0
+ register declarations
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260918010719.1176945-1-jhubbard@nvidia.com>
+ <20260918010719.1176945-6-jhubbard@nvidia.com>
+In-Reply-To: <20260918010719.1176945-6-jhubbard@nvidia.com>
+X-ClientProxiedBy: OS0P286CA0011.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:9c::16) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB6858:EE_|LV8PR12MB9449:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f0cf4bb-ae23-43d8-8e5e-08df196d2177
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|23010399003|7416014|1800799024|10070799003|4143699003|3023799007|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	rzFyk55uuXVXC7GVqnJXj0UZ32K1LP7kmag77htxAbWjHigw/29KxdvssDpidTY7ubRJAi2cx/pmUbMWv6SKVyUxYbQeoThCaQp1Xb8L9iqyGsZ67nmfwqwI3HQ3rUXhLgdmUOpgaWpeexsbCxnNV9wfL5utdw9D4wEpDvJfbv/is2tTD4BPRmZhDN4mZ8BYEp0m7I96YMHrRSPDhgxmvMx26z634aoL6VSOe3b0OMlDhObbxQ9g4XnVLKAQ/fcQAET3+3qVTixYp6ajj3Bege4ktPOhFp7O8un/ElGTcjqYhtHknyCdFYtsstaOaKza8Yl1pSPmB67gaG8rfQy2UgZ4MxZTOvJErZTaYc1Qef5Y83ZxfYrkTGvw0cTCXgTn5JKnMiAbakVfSeMx96X4ItOJM/2rZafxZQMouy4UQn4r8oEMg3OvsW8pkS+V0rnVx0+koRXuMp7SMnzEi/tF0LjG95rt6NUc2fpMtThZmfRba5KwViuDw3y54KpWYQpB/NSA2yEFQAImf+ECIoE3cqJHRxr56IQApsD5B/Hcdw2YSSiF25p0fAfHIm8C9TvOT64SYu2ZZmlFzFaHR7U9ekUn8fRzxXUZTD+rqLrWBRhE6/ApQ4RO23shtOLLDI02LDO69tPB0AwrQqPQhqEGwDA1bcgAcgFs4mJ5eT9WY2g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6858.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(7416014)(1800799024)(10070799003)(4143699003)(3023799007)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YThwSGlWOFpESm50b1NlRjJZWDNIUGdiL2VxSmpNUlAwWS9YdmhOandFemNs?=
+ =?utf-8?B?NVYyZmFWOVdtbWNvMHV6bVlTRWxTSVAzd3R0ODNnM2FTSW9ENThIUUQ0Yi9U?=
+ =?utf-8?B?WGMwckFkNmJxaHR1ekRBWnBwb1ZaRlBjenAzNU1WcVU0Zi9teWdLMGFQMEtn?=
+ =?utf-8?B?WWZCZ0RxMGsvdDVlWE44WWZEeHpvazhJOHVEc3dycmY1MGV0dHNDa2ZwY053?=
+ =?utf-8?B?aDlBa1VXWm1kNWhnR2VzVlFNbXErQTdzNm8rQmwrVlZGTjBOY3JFZ0gxS2Ix?=
+ =?utf-8?B?bnRBWEhHcmZIV0hwZDFCbVVkZTJ2Z1JBck84U2wySzEzdTRIeWtzUkEyUGx5?=
+ =?utf-8?B?Qy9uczllSGhMZFdUVzVocDB4TWE0ZDlnTVRjVXNwUG9uVDBPSjhZYW5hVUhG?=
+ =?utf-8?B?UjFXNTFSc3V5bHYrRnB6R0ZGbERwRzN2UjZXSC96RWhpVW83aGRyZk9yb0Na?=
+ =?utf-8?B?cFpDYTF3a3p2bkJHb0NiUVJ5emNHR1E5bllCUEJPQVh1NytIMHFtY0QyVkdG?=
+ =?utf-8?B?T0tYei9idjltcUZuWTBIaWZ3QnoybHdCZTc0TStCdkVsRWhHRXZFOW5LQlcx?=
+ =?utf-8?B?bDRFM0dlSDgxeEZpRUNvektPM1hvc09XcEFvcWMwWEZaRTJaVFU0eithYU91?=
+ =?utf-8?B?T3A1QXUwOSs4K0pObEJnQzVkR1hMSzZvS3VETm5TYUVkbkNST3ZUWmtSZ2k0?=
+ =?utf-8?B?OTFXYXVTZENaNWI3YzFzUC9VTy9Xc3c0QzZrdTZuMldkRnUyeTZqMzBOckEw?=
+ =?utf-8?B?UWNIOGtodjVpUXdpUER6R0Z5R1BPWGExZnhSS2dtME9Yd0t3d1V0MzVKWmVS?=
+ =?utf-8?B?OWFUaSt1cFNFN2xZN2xNR2IvbExZMmdoN1FpRkhBNG5oMlBoN3NtWEhPM2sr?=
+ =?utf-8?B?emFiZCt6aE85VmNrL3pJc1BqZ2Q5WXNMZEhjcGNSa0hiQmJmSUVlc2t4TFc1?=
+ =?utf-8?B?aW40b3lIK1pFQnJ5MWJaZlFIbU9odkhkSkVKa0hMbXVUR1dVc0lrakQ0QklX?=
+ =?utf-8?B?ZThmV1p5aWVib0hsSnF1elI0WmxJNzUzUjQrY1JBTUpERk9lSzVkZTVPM1BD?=
+ =?utf-8?B?Q0NwNjFpWlQ4VUxvaVQ3cnhXN1pYSUdqMDNZQ3oydTI4UldhWFZWdzFncERS?=
+ =?utf-8?B?djIyMkRCWCs3Y0NBdjZWc2RSblRxcFNyMUs3Q3NuaXV2eFdNcjNmc3laelhW?=
+ =?utf-8?B?YnplOFQvaU9jOEVPL2l0RjJhRFdobE9Ob28rUEI4N3A4NUR3bmhxV0xCY2po?=
+ =?utf-8?B?aUE5OVA0Q1cybWV5TXNpODkwblBOYkQ1WmhpZkV4L0VNRFlBSCtkSk5kdW12?=
+ =?utf-8?B?VDltQmRPOS9ad1NvRWEzRnhHVGRjbjU3UlFxb1lmajVLcUtidlVmU0dWSWxX?=
+ =?utf-8?B?UzFZMnVLV0ZjeTQ2MkFjZlRka2ZVcVN6TFprdW5kemhqNDJjclhBQXVRbXQ3?=
+ =?utf-8?B?L1FraXdIdDVtUDMzdDRFbFJRMFpJWWZnbm4yY1YveE9Id0daMU03blJrQmhM?=
+ =?utf-8?B?ZG1QU3U4MlFpWjk0RVN1YWlFU1g0MU5VWEh3VTBtYWs5NGJBSWZJdEZvbis5?=
+ =?utf-8?B?YVRkdGpBRDRvK1BWVXZuM3dXZVNWSHFDblNEbCs0V3VhRUxVTS8rZ1puYzBq?=
+ =?utf-8?B?SGxIU050OEV6TE0zam8vN1lTb3hhL0EwOHh2TXZRdEZJQk1xNlMrV28xSXNG?=
+ =?utf-8?B?a2FKMk1vbktNVUhPL0ZhVFN3YVYvMjkxNWRLRnlhU0xjVWF2cFVNL001OVZY?=
+ =?utf-8?B?UlFDdTdZSy85TkYwM1hqWjhiTTlkN3owajlSb29hUXJkNldqT1pFeVowejJa?=
+ =?utf-8?B?cHFiblgvS0tYZ2dEUkl5b1VIR3VLdS81Z3NUZkZUcm9FUTE4eVAyQ0gwSlRs?=
+ =?utf-8?B?WWFJSUtNV2ozUlFUeHluZmZIa1MzSkpnbGxQTTZJbjIwcGFzT1QvcFdDaW5t?=
+ =?utf-8?B?d25zd2RhUWtTNVBJV1hSZEVSYU0vYU1sY1k1OURjWGZzaUFEN1ZWQktNYWlO?=
+ =?utf-8?B?aGx0RndRNFV5aGlLVWhtc250QWg4VWxDZG9KbTJnVGNnOTNBdU9kVHZPOGM3?=
+ =?utf-8?B?bEN0M0JDclJneThudnNVY0YybXZLRnJpdWFPY09jNFJxTE03bFpaYU1KNHUz?=
+ =?utf-8?B?Z3hjWXpQOEdrbVkyRUNjYzl1S2tQRTQvdVM1SnhzZVZwUzF3TkJDbU8wQXk1?=
+ =?utf-8?B?R2lWQlJCRjNWZThjUGlLc1AwVnhjY0xKV0ZkaDRxSHd2VUdpeVFFVm41M05n?=
+ =?utf-8?B?OWlHMDdORlF3UEtoam9kY2FNOStwMzhna09IREtQWnlGakZtRFVJdW9BRUg2?=
+ =?utf-8?B?NmlQL1lHWDBZNjlCRFU4bW9ZRkl4RE1hWG14Z1dGWjJSakRpbllKTmI4NDFX?=
+ =?utf-8?Q?0EWHsaFIj7GsU1xFVK8hz7mu4v1tyFQCEB97qAPdpZp3a?=
+X-MS-Exchange-AntiSpam-MessageData-1: 7YAC9etIz7a1ZQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f0cf4bb-ae23-43d8-8e5e-08df196d2177
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 12:21:05.3533
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y59V00hilIdgLzwiZmqE+JTCWZ7R/hsqwgO9lKn2DxaqQBFbve6FOrqhJlFKnrHlGcc9CFvOf4jT2ChR8+l5EQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9449
 
-sco_recv_scodata() upgrades the weak hcon->sco_data back-pointer to a
-strong reference under hdev->lock:
+On Fri Sep 18, 2026 at 10:06 AM JST, John Hubbard wrote:
+> Msgq is the pair of ring buffers in shared memory through which the
+> driver and GSP-RM communicate. The command queue carries commands from
+> the driver to GSP-RM, and the message queue carries messages from GSP-RM
+> to the driver. Each ring buffer has a write pointer and a read pointer.
+>
+> Msgq v0, which the r570 firmware uses, keeps both pointers of each ring
+> buffer in that ring buffer's header, in shared memory. Msgq v2, which
+> the r000 firmware uses, keeps the four pointers, two per ring buffer, in
+> four BAR0 registers instead:
+>
+>     NV_PGSP_QUEUE_HEAD    command queue write pointer
+>     NV_PGSP_QUEUE_TAIL    command queue read pointer
+>     NV_PGSP_MSGQ_HEAD     message queue write pointer
+>     NV_PGSP_MSGQ_TAIL     message queue read pointer
+>
+> The GSP numbers its queues 0 through 7, and each numbered queue is one
+> such pair of ring buffers with its own four pointer registers, so the
+> hardware has 32 pointer registers in all. Nova-core uses queue 0 only.
+>
+> A write to NV_PGSP_QUEUE_HEAD also interrupts the GSP. Msgq v0 uses that
+> write as the doorbell, so nova-core already declares NV_PGSP_QUEUE_HEAD.
+>
+> Declare the other three, NV_PGSP_QUEUE_TAIL, NV_PGSP_MSGQ_HEAD and
+> NV_PGSP_MSGQ_TAIL, each as a scalar at its queue 0 offset rather than as
+> an array of eight.
 
-    hci_dev_lock(hdev);
-    hcon = hci_conn_hash_lookup_handle(hdev, handle);
-    ...
-    conn = sco_conn_hold_unless_zero(hcon->sco_data);
-    hci_dev_unlock(hdev);
-
-but the pointer is cleared from the other side without that lock. When
-the last sco_conn reference is dropped, sco_conn_free() ran
-
-    conn->hcon->sco_data = NULL;
-
-with no hdev->lock held, so the RX path could read hcon->sco_data and
-call kref_get_unless_zero() on an sco_conn that was concurrently freed:
-
-    BUG: KASAN: slab-use-after-free in sco_conn_hold_unless_zero+0xbe/0x160
-    Write of size 4 by task kworker/u17:0
-    Workqueue: hci0 hci_rx_work
-    Call Trace:
-     sco_conn_hold_unless_zero+0xbe/0x160
-     sco_recv_scodata+0x13f/0x490
-     hci_rx_work+0x3af/0x730
-
-kref_get_unless_zero() only guards against a zero refcount, not against
-the backing memory already being freed.
-
-Give hcon->sco_data an actual reference on the sco_conn it points to, so
-the object cannot be freed while the pointer is still installed, and only
-clear and drop it from sco_conn_del(), which runs under hdev->lock (its
-callers, sco_connect_cfm() and sco_disconn_cfm(), hold it). The reader in
-sco_recv_scodata() also takes hdev->lock, so the store and the read are
-now serialised: the RX path either observes NULL or a reference that is
-guaranteed to stay valid until it drops its own.
-
-sco_conn_add() no longer hands its kref_init() reference to the caller as
-the connection's only reference; that initial reference is the one owned
-by hcon->sco_data, and callers get their own via sco_conn_hold().
-
-Because the sco_conn can now outlive the socket (the association keeps it
-alive until the link goes down), the hci_conn can no longer be dropped
-from sco_conn_free() without regressing socket close: closing a connected
-SCO socket must still tear the link down. Move hci_conn ownership to the
-socket instead: __sco_chan_add() takes an hci_conn reference and it is
-released from sco_chan_del() and sco_sock_destruct(), exactly once. The
-sco_conn no longer owns an hci_conn reference, so sco_conn_add() stops
-consuming one and sco_connect() drops the hci_connect_sco() reference on
-every path; sco_connect_cfm() no longer needs its hci_conn_hold() dance.
-
-Fixes: e6720779ae61 ("Bluetooth: SCO: Use kref to track lifetime of sco_conn")
-Cc: stable@vger.kernel.org
-Suggested-by: Pauli Virtanen <pav@iki.fi>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
-v3: fix two UAFs found by Pauli Virtanen in the v2 review:
-    - sco_chan_del(): drop hci_conn ref before clearing conn->sk so that
-      sco_conn_del() on another CPU cannot free hci_conn under our feet
-    - sco_sock_destruct(): same ordering fix
-    - remove dead branch in sco_conn_add() (conn->hcon == NULL impossible)
-    - move hci_conn_drop in sco_connect() tighter after __sco_chan_add()
-v2: quote inlined code and KASAN splat with spaces (bluez CI gitlint);
-    no functional change.
-
-diff --git a/net/bluetooth/sco.c b/net/bluetooth/sco.c
-index 3d4362a..a2f17ab 100644
---- a/net/bluetooth/sco.c
-+++ b/net/bluetooth/sco.c
-@@ -84,12 +84,14 @@ static void sco_conn_free(struct kref *ref)
- 	if (conn->sk)
- 		sco_pi(conn->sk)->conn = NULL;
- 
--	if (conn->hcon) {
--		conn->hcon->sco_data = NULL;
--		hci_conn_drop(conn->hcon);
--	}
-+	/* hcon->sco_data is cleared and the association's reference on the
-+	 * sco_conn is dropped in sco_conn_del() under hdev->lock, and the
-+	 * hci_conn is now owned by the socket (held in __sco_chan_add() and
-+	 * dropped in sco_chan_del()/sco_sock_destruct()), so there is nothing
-+	 * left to release towards hcon here.
-+	 */
- 
--	/* Ensure no more work items will run since hci_conn has been dropped */
-+	/* Ensure no more work items will run before the connection is freed */
- 	disable_delayed_work_sync(&conn->timeout_work);
- 
- 	kfree(conn);
-@@ -188,25 +190,19 @@ static void sco_sock_clear_timer(struct sock *sk)
- }
- 
- /* ---- SCO connections ---- */
--/* Consumes a reference on @hcon, which the returned sco_conn owns until it is
-- * freed. On failure (NULL return) the reference is left for the caller to drop.
-+/* Returns a new reference the caller must drop with sco_conn_put(). The
-+ * hcon->sco_data association holds its own reference on the sco_conn for the
-+ * connection's lifetime; it is dropped in sco_conn_del() under hdev->lock.
-+ * @hcon is not consumed: the hci_conn reference is taken and owned by the
-+ * socket in __sco_chan_add().
-  */
- static struct sco_conn *sco_conn_add(struct hci_conn *hcon)
- {
- 	struct sco_conn *conn = hcon->sco_data;
- 
- 	conn = sco_conn_hold_unless_zero(conn);
--	if (conn) {
--		if (!conn->hcon) {
--			sco_conn_lock(conn);
--			conn->hcon = hcon;
--			sco_conn_unlock(conn);
--		} else {
--			/* conn already owns a reference on hcon */
--			hci_conn_drop(hcon);
--		}
-+	if (conn)
- 		return conn;
--	}
- 
- 	conn = kzalloc_obj(struct sco_conn);
- 	if (!conn)
-@@ -227,7 +223,10 @@ static struct sco_conn *sco_conn_add(struct hci_conn *hcon)
- 
- 	BT_DBG("hcon %p conn %p", hcon, conn);
- 
--	return conn;
-+	/* kref_init() above set the association reference owned by
-+	 * hcon->sco_data; hand the caller its own reference.
-+	 */
-+	return sco_conn_hold(conn);
- }
- 
- /* Delete channel.
-@@ -242,6 +241,19 @@ static void sco_chan_del(struct sock *sk, int err)
- 	BT_DBG("sk %p, conn %p, err %d", sk, conn, err);
- 
- 	if (conn) {
-+		struct hci_conn *hcon;
-+
-+		sco_conn_lock(conn);
-+		hcon = conn->hcon;
-+		sco_conn_unlock(conn);
-+
-+		/* Drop the socket's hci_conn reference BEFORE clearing
-+		 * conn->sk, so sco_conn_del() on another CPU cannot free
-+		 * the hci_conn while we still hold a pointer to it.
-+		 */
-+		if (hcon)
-+			hci_conn_drop(hcon);
-+
- 		sco_conn_lock(conn);
- 		conn->sk = NULL;
- 		sco_conn_unlock(conn);
-@@ -266,6 +278,13 @@ static void sco_conn_del(struct hci_conn *hcon, int err)
- 
- 	BT_DBG("hcon %p conn %p, err %d", hcon, conn, err);
- 
-+	/* Detach from the hci_conn and drop the association's reference.
-+	 * The caller holds hdev->lock, which serialises this against the
-+	 * read of hcon->sco_data in sco_recv_scodata().
-+	 */
-+	hcon->sco_data = NULL;
-+	sco_conn_put(conn);
-+
- 	sco_conn_lock(conn);
- 	sk = sco_sock_hold(conn);
- 	sco_conn_unlock(conn);
-@@ -290,6 +309,11 @@ static void __sco_chan_add(struct sco_conn *conn, struct sock *sk,
- 	sco_pi(sk)->conn = sco_conn_hold(conn);
- 	conn->sk = sk;
- 
-+	/* The socket owns an hci_conn reference for as long as it stays
-+	 * attached; it is dropped in sco_chan_del()/sco_sock_destruct().
-+	 */
-+	hci_conn_hold(conn->hcon);
-+
- 	if (parent)
- 		bt_accept_enqueue(parent, sk, true);
- }
-@@ -371,6 +395,7 @@ static int sco_connect(struct sock *sk)
- 	if (sk->sk_state != BT_OPEN && sk->sk_state != BT_BOUND) {
- 		release_sock(sk);
- 		sco_conn_put(conn);
-+		hci_conn_drop(hcon);
- 		err = -EBADFD;
- 		goto unlock;
- 	}
-@@ -379,9 +404,13 @@ static int sco_connect(struct sock *sk)
- 	sco_conn_put(conn);
- 	if (err) {
- 		release_sock(sk);
-+		hci_conn_drop(hcon);
- 		goto unlock;
- 	}
- 
-+	/* __sco_chan_add() took its own hci_conn reference; drop ours. */
-+	hci_conn_drop(hcon);
-+
- 	/* Update source addr of the socket */
- 	bacpy(&sco_pi(sk)->src, &hcon->src);
- 
-@@ -495,9 +524,26 @@ static struct sock *sco_get_sock_listen(bdaddr_t *src)
- 
- static void sco_sock_destruct(struct sock *sk)
- {
-+	struct sco_conn *conn = sco_pi(sk)->conn;
-+
- 	BT_DBG("sk %p", sk);
- 
--	sco_conn_put(sco_pi(sk)->conn);
-+	/* If the channel was not already torn down via sco_chan_del(), drop
-+	 * the socket's own references here.
-+	 */
-+	if (conn) {
-+		struct hci_conn *hcon;
-+
-+		sco_conn_lock(conn);
-+		hcon = conn->hcon;
-+		sco_conn_unlock(conn);
-+
-+		if (hcon)
-+			hci_conn_drop(hcon);
-+		sco_pi(sk)->conn = NULL;
-+		sco_conn_put(conn);
-+		return;
-+	}
- 
- 	skb_queue_purge(&sk->sk_receive_queue);
- 	skb_queue_purge(&sk->sk_write_queue);
-@@ -1511,12 +1557,10 @@ static void sco_connect_cfm(struct hci_conn *hcon, __u8 status)
- 	if (!status) {
- 		struct sco_conn *conn;
- 
--		conn = sco_conn_add(hci_conn_hold(hcon));
-+		conn = sco_conn_add(hcon);
- 		if (conn) {
- 			sco_conn_ready(conn);
- 			sco_conn_put(conn);
--		} else {
--			hci_conn_drop(hcon);
- 		}
- 	} else
- 		sco_conn_del(hcon, bt_to_errno(status));
--- 
-2.43.0
+I understand that at the moment we are only using the first of these
+registers (and `NV_PGSP_QUEUE_HEAD` was already declared that way), but
+technically they are arrays of 8 - let's take the opportunity to declare
+them accurately and stop deriving from the hardware definition.
