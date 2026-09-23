@@ -1,77 +1,67 @@
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E819922370A;
-	Wed, 23 Sep 2026 03:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E4A922370A;
+	Wed, 23 Sep 2026 03:13:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790133125; cv=none; b=RJKLldB7COTlG9Fkl6MG9NKRfulVAjWJEBrvIeAPZaLhMFZ+kXHZ4z+Pb3yl4IuBhyg90PHt4IzoqGh87BjrNvm/aJOjJXe4SIdsfIAap+tHYupCNz4qeAqv0DEGR1bEhJ2wZIHsagSJPOZkb0W/fq+uGqbtlDKv8Gtp1HdTgnk=
+	t=1790133234; cv=none; b=LLuZ2YxtcUGHFaKkHMnDa6mt5k8Q+6W8+StqRsrx+GshMRh0oGw0Gxy3nrxAlX10203aDtfz1yagd1zq62PH70lnYumy/FPNINTc7/6eK9IIjI1lJd5kSvIG03rhO6LLAGmkW6kI9FViYDCeB5SGMbQhOUCLs888iGJ0WqXLEPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790133125; c=relaxed/simple;
-	bh=a36Ee3YEbPH5862wbsXoPLufAschgf7elgGNcKL4ULs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XY7ZDwdeCO4dNtgSweqiYaaTbWyMCfvPQU2G83K8B86P2X0Ojp2dqqAaYRBlRg0gHJoAM8HTjOfkH/4NFQBB2zVnG6crQFjGxONVDZReCbIqv5L2nQpVn7fA54f+m1ZU+20OUpHnqBZ2OKaA2L+pVT+9y7zrrT3FXaboum2sfrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=fM6+ok9X; arc=none smtp.client-ip=115.124.30.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790133234; c=relaxed/simple;
+	bh=eUMUnL09JgoZujcDjHD28pHpgwC30seBXRoiBjOBdwI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EC8qZ773LMmO6w3dRexavlsPzzZVlRMcBhmxFD8rfEXmsahxYsnu7zYuunGa3jm5oyOU1c5MZHfaOeqSaN19fXspI0NgZ8O4cyHagRCatEVmD20kl9+rgUDUEYcqIKJmAi8zXObktd7y/bTtFuGOQ6RpxnX2wS9ogoZShoWtsKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lTgpM43k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="fM6+ok9X"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790133119; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=GXqRRRTZoDrLgtSIIIeujmLVFncqWjfihFp3XOxyNoc=;
-	b=fM6+ok9XqnzP751xZiXV3fbENazwmZRpgysMf4lM3pLyVlUVuxC8+bBvW+iCeHgIjImhW43S5nc6k0TipeAgFjkTBEUMze6bCaCzV4K200hIMqfVGPOdpAkmaPYFlg58I9cYnc5XahmxHX2jWUy/iO1EiuZo8WmsXT4WS2jbU8s=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R681e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XBVZ2Ep_1790133116;
-Received: from 30.74.144.107(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XBVZ2Ep_1790133116 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 23 Sep 2026 11:11:57 +0800
-Message-ID: <37f7fca9-76c3-4731-b1c0-2687a03eefe2@linux.alibaba.com>
-Date: Wed, 23 Sep 2026 11:11:55 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lTgpM43k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2DB31F000FF;
+	Wed, 23 Sep 2026 03:13:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790133232;
+	bh=sp/75QJ/0AAJXaRRqRZ3WNxBQir5H7P0Ip1PtESnJD0=;
+	h=From:To:Cc:Subject:Date;
+	b=lTgpM43kzERrEFArVqO5RzJSmuN0R3kxJZQVGhGfhmef76Ztagmze9KrgoiLfruja
+	 F77GomlmjD1zx156i6sPvTH2zV2ce+FXMfDrciM0RRuyTnYuxqgbAeXYtIbHeeKHHK
+	 XtMIRIZV4487kpN8OkJWZb4rQALPzzkVHr/47PsWMrYgzWDV7AR0n+oxvUff2bqSfT
+	 39Bc8waKX4oe9vzLsC8P9GwgOGWYK7ZKl1njY5lGdkvWnO6LfioYelMJ/oe9TOqRd3
+	 S/+2wST9ngXRkCFdLrCf3kmgg+6TX0vZbbxbcBSn/xoJ7aE1X3280LAU5fo5l1VU5t
+	 XnPD/LSmtTERQ==
+From: Fan Wu <wufan@kernel.org>
+To: linux-security-module@vger.kernel.org
+Cc: paul@paul-moore.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] ipe: fix two use-after-frees
+Date: Tue, 22 Sep 2026 20:13:47 -0700
+Message-ID: <20260923031349.1216431-1-wufan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 3/3] kselftest: mm: remove check_huge_shmem()
-To: Yeoreum Yun <yeoreum.yun@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Shuah Khan <shuah@kernel.org>, Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260921-fix_split-v7-0-d25ec991159f@arm.com>
- <20260921-fix_split-v7-3-d25ec991159f@arm.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260921-fix_split-v7-3-d25ec991159f@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+This series fixes two use-after-free bugs in IPE, both found by a recent
+AI-assisted code scan.
+
+The first one is in the policy load audit path, where a concurrent
+delete can free the policy while it is being audited. The second one is
+in the dm-verity root hash path, where ->preresume can free a digest
+that policy evaluation is still using.
+
+Fan Wu (2):
+  ipe: fix use-after-free when auditing a newly loaded policy
+  ipe: protect the dm-verity root hash with RCU
+
+ security/ipe/eval.c      | 12 ++++++++----
+ security/ipe/eval.h      |  2 +-
+ security/ipe/fs.c        |  8 +++-----
+ security/ipe/hooks.c     | 22 +++++++++++++++++-----
+ security/ipe/policy_fs.c |  3 +++
+ 5 files changed, 32 insertions(+), 15 deletions(-)
 
 
-On 9/21/26 6:40 PM, Yeoreum Yun wrote:
-> check_huge_shmem() was required to distinguish shmem huge pages because
-> /proc/self/smaps reports them using a dedicated “ShmemPmdMapped” entry,
-> as opposed to “FilePmdMapped” for file-backed huge pages.
-> 
-> Now that /proc/self/smaps is no longer used to detect huge pages and
-> /proc/kpageflags is used instead, it is sufficient to distinguish
-> between file-backed and anonymous pages since the ShmemPmdMapped is also
-> kind of file-backed.
-> 
-> Therefore, remove check_huge_shmem() and use check_huge_file() instead
-> and cleanup khugepaged's check_huge operation in mem_ops.
-> 
-> Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> ---
+base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.55.0
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
