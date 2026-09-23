@@ -1,117 +1,198 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78DA3A75B8
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9B44EB85D;
+	Wed, 23 Sep 2026 16:41:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790181693; cv=none; b=uRjiJjim5YUSP/40xzyJZj3qjOSuExkqy6dzwybQdDcIzz6HSlhojHBTFqK0nHW9rAaaljArXxHA9wrQAaLFzVtUxGjlzTZ0Gb/yE2wss+e3FiBMQ6DzEsnLHZNIkxToCkqjB8FwIKNxTNTCJphwikdDbv6Lt0RvIymhYAYHKVk=
+	t=1790181720; cv=none; b=VTlCGKKNUTSU6ynt8D/h8zAGGLeB9CoGVoFahqvXyVsAAH0SETxlJKWyoX5TyTMAkBFEQYULOJ061OVUcP6TwC0TU+8dzMXX1DY1X4D/x78npmIjpQkvsRCPND+wez7FYQEHWkmZbygPSbHNC6IazMD2tEa85NhDgBlQJcUnBEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790181693; c=relaxed/simple;
-	bh=Z8XEHb1n1t6otZovQjQ0kiiXzql5nBBKA0LjXK4CdnI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iLwkfmn37ig3S7f8TTEPpLTAWkTQhoUPz8vxhxaocT3YShkWLPKHO8+mvN8D2XHyOGMQU/Xh778Ujd1+5ZKN4p2v+y1b/E/31/Rwjynfq/3mwAsnoes+ek6RiEz22Im9+bDKhh1nYnRSzjvSw4W9RtaUcAdiyK/lOswoxizughA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NqmS+eJS; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790181720; c=relaxed/simple;
+	bh=t8xA+CCZNgtWaT1hBZRHEYLhKl3NywTybWQ68t4Sgww=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MctNc0zA+vKI8ElO1OajBnv1pRZzju0KsZo4WySinYkOqbrXiJTq8S1eBGKySCH3kVHC6FndenEPdJqSyO3hWHcfWRTKrbpwYZWlLWeU9dkL792qgrbpwCoaac1xYtgWD6k9AkMx3mdghvY+HyGpxErIRbbPtxGKRGcBcmO+h/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fufJ+aIX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NqmS+eJS"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcb5cb1so10139816d6.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:41:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790181686; x=1790786486; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7BzNuazOcXSzuWsG/mzzOpckUomlPcZX4HNgS2NA/iA=;
-        b=NqmS+eJSwQUp+H/hLytHI+0Li/PkOZAqIoIrzBy+OSgr2+CWxoGEghDauMbSwAp0gK
-         BJEQNF9RqJN1CgCSy87Q7vj+4Wo5rsMIfh/aJXsqu9TKYkW1Jma/u5cM/B8iC41JNj67
-         7OmS1XsgMrxhMYMlnZ97acPhYvCf5OZzG5xYI9Ka3v2bCDHD/J4fAE6a7wfxzZe4rzmE
-         f4jecTwDOAatIDWZjZOJ2Qjl5gsGH4a13zkP7jAhVuScUPrciYxpVBM1WU+mcKj/HRV5
-         N0tGzefbMuSAJ7J+DxMZorbZPW+dWR/DeioLlUUTx4tn6p/sHLRFawXZd+H8sdYezd7V
-         rFpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790181686; x=1790786486;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7BzNuazOcXSzuWsG/mzzOpckUomlPcZX4HNgS2NA/iA=;
-        b=jOqhFr+u2TyoZgVmqz15zvG3Gqy51k6DfbvcedssHG80hA7bYQwSqMg1LoY0eWQF1r
-         jWg2YI3kDU7pkZ80jUPbqsmDAK5NWPRxmUpntRueXIpJeCIL6MYhvusgXC52fkuqW3st
-         HvG3Lf1D17of9zqLtzf2EAH0dZG0BdAxqXKKVTE2qEyM80Ge31wCKzVVs6X6wXNjpGE4
-         ljjn48opET24sNuGuxmm1vrDMaswDMYOCJdNYUCYumogMakqRdnYK5WOGQawkQqr0C9a
-         uG8iGJCKhh1w3JWZOccQ93agiqHExU0dhaIT6b7ldJFBrFyBGyXggHFW6wveFG5fOq2w
-         te4w==
-X-Forwarded-Encrypted: i=1; AKwUvBwb4zKbW+8S9zyZx4sX2zAKOojAOprMJ3RPdRTaAS+Dmlobwl2typArf/jV9M4xjYahG0mN5CPVEpAU6ug=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1NPtunk7gRYvmVcVKyycCpNg7EZzoj+cBDXQCkxk7lu+NbC4e
-	LjukTUU1ePgb1s2QyyHUH7AE+cHjd1MKKo5a0PnGCXatZ10jFqlHb1vKHcd/nuEJ
-X-Gm-Gg: AYBFou1MGO3WeWujXfBNjtBbaUhTAgBGcnDIUxY9UGrAkKqIq3OHwOzKpLPMEnplxLg
-	hT1Qc4QuhTjfKxVT6HEYqhRuiZH+1xbDh2HMIlObzNTT1kgvirq3StbVCtAxVtuP0nQb8uGcUpZ
-	tPE/K87nuZfWmcQ6UHxHEdl6qIseGviCARt6F6yUzBHVlQVd0lt1rhkzaexhIvzlyolIpgFjj4p
-	kx6bZjcqNkFBmSimJ7PEvshdfRZMtJKSNG6G/mhKwmHDIkm96WQp8lXCF4+VWBgwAYKAGwOOgOu
-	IsNLIww04SUA3FvtNffD6BopAJNtPYvvSE3MyVsYh8RZZnXsNBJBL9VRlZu19nmSKF4JJjE7/tH
-	43NihU/08iEbAwMO0nkis4jOFulhBUqr8ng/upnS7EzJfkcnd54pNT4l+md6UdjLpgPL8VzFN66
-	vAL0bFeavd8nuxHbseFwNetOgjdFVisUAlg1CFtM5Bk0+71aCaftqHtlh2S7o5lPpDtwqbUw4dg
-	QJtb79wAjsZqiQsjsVhgt96cwPYxqAp
-X-Received: by 2002:a05:620a:1994:b0:937:27fb:96f8 with SMTP id af79cd13be357-93c251e0964mr496039185a.41.1790181685674;
-        Wed, 23 Sep 2026 09:41:25 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c248e22f7sm258625685a.47.2026.09.23.09.41.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 09:41:25 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: Nicolas Pitre <nico@fluxnic.net>,
-	linux-arm-kernel@lists.infradead.org,
-	soc@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v1] bus: arm-cci: Drop cci-control-port node reference in __cci_ace_get_port()
-Date: Wed, 23 Sep 2026 12:40:55 -0400
-Message-ID: <20260923164122.596910-1-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fufJ+aIX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 132D91F000FF;
+	Wed, 23 Sep 2026 16:41:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790181709;
+	bh=DUHuqGEWOOeL/Scqhd6mGhvk6nURogoQs+2z9NAzpcY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fufJ+aIXbklBpgPFeTiHKgZ4SP61lqR5+OXDRzftNF/yQQvtTZOQMwGo/6ROkFxsU
+	 ohyBPHQ26vexHvwDjsxe4ZPjWToS6/ch+38DTetWWvjwI9KrGTUMDi9cednUJ3YjdX
+	 7YD9dagHjzsgTvRDNcCgEqYwC29bn0l5WpB3LX3mpLpC+jGn5KyFd9btlF2wWOduuY
+	 jFmr9z5XIdjxg74SQTtqYIUu2j5IMfrBTCXZgNjJw00z2xG9MVWQoYeDTyVoBkvux8
+	 BsOV1l+LMPaJedGBYwDsIO3iF/AzBnOsdiFgnq2367EM8ZGCPHwcIfrXN5hlfyl+U8
+	 UwgD7VWTk/YXA==
+Date: Wed, 23 Sep 2026 17:41:44 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Tushar Nimkar <tushar.nimkar@amd.com>
+Cc: Anirudha Sarangi <anirudha.sarangi@amd.com>,
+	Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>, git@amd.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: interrupt-controller: Add Xilinx
+ Versal NET SMMU CSR
+Message-ID: <20260923-grafted-undergrad-9356739dd2b5@spud>
+References: <20260923-smmu-changes-v2-v3-0-87bd09ba9605@amd.com>
+ <20260923-smmu-changes-v2-v3-1-87bd09ba9605@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="S144mpyO4atM9GmT"
+Content-Disposition: inline
+In-Reply-To: <20260923-smmu-changes-v2-v3-1-87bd09ba9605@amd.com>
 
-__cci_ace_get_port() looks up the device's "cci-control-port" node with
-of_parse_phandle(), which returns the node with its reference count
-raised, and only compares the pointer against the probed ports.  Neither
-the match nor the no-match return releases it.
+--S144mpyO4atM9GmT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Drop the reference on both paths once the comparison is done.
+On Wed, Sep 23, 2026 at 12:46:31PM +0530, Tushar Nimkar wrote:
+> From: Anirudha Sarangi <anirudha.sarangi@amd.com>
+>=20
+> Add a device tree binding schema for the Xilinx Versal NET SMMU CSR
+> (Control and Status Register) interrupt controller.
 
-Fixes: ed69bdd8fd9b ("drivers: bus: add ARM CCI support")
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-Found by code review; compile-tested only (multi_v7_defconfig, W=1).
+This sounds like a very odd name for an interrupt controller.
+What else does this block do?
 
- drivers/bus/arm-cci.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+You've actually got a 0x1000 carve out in the example, starting at a
+round number, so I suspect this is "fine" and if there's other features
+required later you've not painted yourself into a corner by defining a
+device for one register. The driver having a starting offset of 0x24 is
+another point in your favour.
 
-diff --git a/drivers/bus/arm-cci.c b/drivers/bus/arm-cci.c
-index 7f2baf0571286..223b1fe19ba06 100644
---- a/drivers/bus/arm-cci.c
-+++ b/drivers/bus/arm-cci.c
-@@ -167,9 +167,12 @@ static int __cci_ace_get_port(struct device_node *dn, int type)
- 	cci_portn = of_parse_phandle(dn, "cci-control-port", 0);
- 	for (i = 0; i < nb_cci_ports; i++) {
- 		ace_match = ports[i].type == type;
--		if (ace_match && cci_portn == ports[i].dn)
-+		if (ace_match && cci_portn == ports[i].dn) {
-+			of_node_put(cci_portn);
- 			return i;
-+		}
- 	}
-+	of_node_put(cci_portn);
- 	return -ENODEV;
- }
- 
+I'm inclined to ack this, I just want to see an answer first.
 
-base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
--- 
-2.43.0
+Cheers,
+Conor.
+>=20
+> The SMMU CSR block acts as a vendor-specific interrupt controller
+> in front of the ARM SMMUv3, providing registers to enable and clear
+> standard SMMU interrupts such as EVENTQ, CMDQ_SYNC, GERROR and PRIQ.
+> Interrupts must be acknowledged in this block before being forwarded
+> to the parent interrupt controller (e.g. GIC).
+>=20
+> Signed-off-by: Anirudha Sarangi <anirudha.sarangi@amd.com>
+> Co-developed-by: Tushar Nimkar <tushar.nimkar@amd.com>
+> Signed-off-by: Tushar Nimkar <tushar.nimkar@amd.com>
+> ---
+>  .../xlnx,versal-net-smmu-csr.yaml                  | 75 ++++++++++++++++=
+++++++
+>  1 file changed, 75 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/xlnx,=
+versal-net-smmu-csr.yaml b/Documentation/devicetree/bindings/interrupt-cont=
+roller/xlnx,versal-net-smmu-csr.yaml
+> new file mode 100644
+> index 000000000000..38b63e51b732
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/xlnx,versal-=
+net-smmu-csr.yaml
+> @@ -0,0 +1,75 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/interrupt-controller/xlnx,versal-net-=
+smmu-csr.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Xilinx Versal NET SMMU CSR Interrupt Controller
+> +
+> +maintainers:
+> +  - Anirudha Sarangi <anirudha.sarangi@amd.com>
+> +  - Tushar Nimkar <tushar.nimkar@amd.com>
+> +
+> +description: |
+> +  The Versal NET platform includes a Xilinx-specific SMMU CSR (Control a=
+nd
+> +  Status Register) block that acts as an intermediate interrupt controll=
+er
+> +  for ARM SMMUv3.
+> +
+> +  The block provides registers to enable, disable and clear the
+> +  standard SMMUv3 interrupt sources (EVENTQ, CMDQ_SYNC, GERROR and PRIQ)
+> +  before forwarding them to the parent interrupt controller,
+> +  typically a GIC.
+> +
+> +  The controller receives one parent interrupt and demultiplexes CSR
+> +  status bits into the following child interrupt identifiers
+> +    0 - EVENTQ
+> +    1 - CMDQ_SYNC
+> +    2 - GERROR (GLOBAL)
+> +    3 - PRIQ
+> +
+> +allOf:
+> +  - $ref: /schemas/interrupt-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: xlnx,versal-net-smmu-csr
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  "#interrupt-cells":
+> +    const: 1
+> +    description: |
+> +     Single cell containing the child interrupt identifier
+> +      0 - EVENTQ
+> +      1 - CMDQ_SYNC
+> +      2 - GERROR (GLOBAL)
+> +      3 - PRIQ
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupt-controller
+> +  - "#interrupt-cells"
+> +  - interrupts
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    interrupt-controller@eca10000 {
+> +        compatible =3D "xlnx,versal-net-smmu-csr";
+> +        reg =3D <0xeca10000 0x1000>;
+> +        interrupt-controller;
+> +        #interrupt-cells =3D <1>;
+> +        interrupt-parent =3D <&gic>;
+> +        interrupts =3D <GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>;
+> +    };
+>=20
+> --=20
+> 2.34.1
+>=20
 
+--S144mpyO4atM9GmT
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarQBSAAKCRB4tDGHoIJi
+0gnoAPoD3niCRrEz3R9dI5MIGi63vf8m0m0eKQOF+5uIjSSbigEA7r8IYj1Yc3b2
+vwFXT9PUkBcVaflI98VTHUvDvvDP3w8=
+=Qk+h
+-----END PGP SIGNATURE-----
+
+--S144mpyO4atM9GmT--
