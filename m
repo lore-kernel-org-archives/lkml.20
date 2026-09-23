@@ -1,40 +1,33 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3677B1C695;
-	Wed, 23 Sep 2026 08:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65EEA1C695
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:31:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152288; cv=none; b=s7Rn5Q2Qq1QHRuHa1bGc7qk6zAh8iu99fJ1tS6FmUXWJk9vKIKlJuQ+FfeeTQGrFX2+WyRGGVYUQBZBYzimy1DZTZu5yi+PyfQctcwxj8hSC5p5EBJPYc5jAWVh1HvdkUhuNTjTi6VivZE4v1zg69QLnJZ1N8I2Dx6ra0ZBubFw=
+	t=1790152294; cv=none; b=rXjVYITFglvs7e2LJJ5u3s2Vl5Bxdwq0exeqNByNYTv/SWpmvf7LlvljE+mccMj2x6FdlG92ZZAtV7M4VEXdQDmLAN85EXS9Joqa/6uDxgVxe9qd7DDSG+rNI18VqokXN1EnOMl3LeRXfaUgQNdr0/PXhME8aidByKQljMFDsJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152288; c=relaxed/simple;
-	bh=f8MjPqhRjZFCo17vsKJXb4XJoztMeVIuVFT7xq41j/Q=;
+	s=arc-20240116; t=1790152294; c=relaxed/simple;
+	bh=uo/YQJ9Ixi6nxB3CeTrx+DkpZlwIfhyjjyUZRUsJGvs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VbXNqH43PJaGlYZcI/nz/sY1hi1ohLLZlsTyDxo+cOBosDxD3gKcm3q1We9SIRAzmCHvz6TFtChWApxQn47vOYUeuReF9HL5nsKTxd23jOcWgjdbKItUon13gHvGbL12m2zVI35sEn0uEicv7n9MieT4H0v0+A9OplMuQ5oUv08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=D8yPuzyq; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:Content-Type; b=QLCrWYzpFP8DEUPzEVQAQyms5gEo8h2O3ieNOpM57y+kEtHvw59ACReZ8+ppjTDzzPnN7AF9HYFbzhzFnZIqSJUcr/oyI0vJKydF23FdPAt5gpw99vBufVnkvGQmuLTQthO0GAZRm58WQ2DIrpmmfbaEn06MTtx2a9vxDKrkTv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ILKJZuuK; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="D8yPuzyq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790152285;
-	bh=f8MjPqhRjZFCo17vsKJXb4XJoztMeVIuVFT7xq41j/Q=;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ILKJZuuK"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 09A0C1655;
+	Wed, 23 Sep 2026 01:31:28 -0700 (PDT)
+Received: from [10.0.138.135] (XHFQ2J9959-5.cambridge.arm.com [10.0.138.135])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B43753F86C;
+	Wed, 23 Sep 2026 01:31:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790152291; bh=uo/YQJ9Ixi6nxB3CeTrx+DkpZlwIfhyjjyUZRUsJGvs=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=D8yPuzyqijQDRhuR1w5l5pydXbXnu2NwfYYMuWMQYAiw2AVLiA04oDG0j34xLhljP
-	 IUXY4/WlqIuoy6Gs3SrvIOIgX8fj5GrbpmqxdOb+YwfqHjshamyEpRloboo/5GRLmG
-	 DA6UyYupEHPZcCWYqKB+PMIdTSWll1jsWkKtTj93036bMWjr92Lc1v9eBmwYlhCf9D
-	 taMm1NDT/AY4eEXbKO8hPN00cQPCv0DHpH8N42BU04Ypjek+3Xl8lxmMw2RUAK3ZYI
-	 vzs6ODb0BQMM1n3znaAaMAnECzA0V/acurL+MI/C5cg+FAJgnZuwzjq1YJ8liaAm2W
-	 DZVx4dEtc5xGQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C896A17E03D5;
-	Wed, 23 Sep 2026 10:31:24 +0200 (CEST)
-Message-ID: <c4908f1a-878c-4958-aaac-9960aae11879@collabora.com>
-Date: Wed, 23 Sep 2026 10:31:24 +0200
+	b=ILKJZuuKIEuzmuevKqKO4tOS30td5XpGCkCczw00msIJ1M68Pm2su8zMpXlopRKtq
+	 uO92e8JU8rn3U2M+muQPsaL6hrrjejHKeBhqQGZnHztXAU4EKE14nCDGLtMFyqT3Sf
+	 nAHVmD4U/JKqIVNq3KlgE1+TBT5qqNmtP3stWqns=
+Message-ID: <a2365246-53a4-41e6-a655-6813f913cc1f@arm.com>
+Date: Wed, 23 Sep 2026 09:31:28 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,168 +35,193 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] cpufreq: mediatek: add support for CPU speedbin
-To: rva333@protonmail.com, "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Matthias Brugger <matthias.bgg@gmail.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20260923-6572-cpufreq-v1-0-41f7af6d6d1a@protonmail.com>
- <20260923-6572-cpufreq-v1-1-41f7af6d6d1a@protonmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260923-6572-cpufreq-v1-1-41f7af6d6d1a@protonmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH V2 4/4] arm64/mm: Use pgdp_get() for PGD accesses
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, kasan-dev@googlegroups.com
+References: <20260922061638.3967467-1-anshuman.khandual@arm.com>
+ <20260922061638.3967467-5-anshuman.khandual@arm.com>
+From: Ryan Roberts <ryan.roberts@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260922061638.3967467-5-anshuman.khandual@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/23/26 09:23, Roman Vivchar via B4 Relay wrote:
-> From: Roman Vivchar <rva333@protonmail.com>
+On 22/09/2026 07:16, Anshuman Khandual wrote:
+> Replace READ_ONCE() with pgdp_get() for PGD accesses in preparation for
+> supporting both D64 and D128 translation table formats.
 > 
-> MediaTek SoCs are often released under the same marketing name, but with
-> different suffix for the speedbin. For example, mt6572m has 1 GHz limit,
-> mt6572a - 1.2 GHz, mt6572w - 1.4 GHz.
+> READ_ONCE() cannot currently be used for 128-bit page table entries on
+> arm64 because it does not provide the required 128-bit single-copy
+> atomicity, causing builds to fail for accesses wider than 64 bits.
 > 
-> Add code to support per-cluster 'opp-supported-hw' property. The DT is
-> expected to pass a CPU speedbin using standard 'nvmem-cells' property
-> under the CPU node.
+> Although LDP/STP provide the required atomicity when FEAT_LSE is
+> available (as required by FEAT_D128), extending READ_ONCE() to support
+> 128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
+> so doing so could encourage other 128-bit users that would either fail
+> to build in configurations without D128 support or, if D128 becomes a
+> runtime option, silently permit tearing on systems without the required
+> hardware support.
 > 
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> Instead, standardize PGD accesses on the existing page-table helpers.
+> These can be overridden on arm64 to provide 128-bit single-copy
+> atomicity when required. No functional change intended.
+
+I notice you have unconverted READ_ONCE(*pgdp) in:
+
+ - p4d_offset_phys()
+ - p4d_offset()
+
+Is that intentional?
+
+Thanks,
+Ryan
+
+
+> 
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: kasan-dev@googlegroups.com
+> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
 > ---
->   drivers/cpufreq/mediatek-cpufreq.c | 50 ++++++++++++++++++++++++++++++++++++--
->   1 file changed, 48 insertions(+), 2 deletions(-)
+>  arch/arm64/mm/fault.c       | 2 +-
+>  arch/arm64/mm/hugetlbpage.c | 2 +-
+>  arch/arm64/mm/kasan_init.c  | 6 +++---
+>  arch/arm64/mm/mmu.c         | 6 +++---
+>  arch/arm64/mm/pageattr.c    | 2 +-
+>  arch/arm64/mm/trans_pgd.c   | 4 ++--
+>  6 files changed, 11 insertions(+), 11 deletions(-)
 > 
-> diff --git a/drivers/cpufreq/mediatek-cpufreq.c b/drivers/cpufreq/mediatek-cpufreq.c
-> index 052ca7cd2f4f..f15135b2898b 100644
-> --- a/drivers/cpufreq/mediatek-cpufreq.c
-> +++ b/drivers/cpufreq/mediatek-cpufreq.c
-> @@ -10,6 +10,7 @@
->   #include <linux/cpumask.h>
->   #include <linux/minmax.h>
->   #include <linux/module.h>
-> +#include <linux/nvmem-consumer.h>
->   #include <linux/of.h>
->   #include <linux/of_platform.h>
->   #include <linux/platform_device.h>
-> @@ -57,6 +58,7 @@ struct mtk_cpu_dvfs_info {
->   	const struct mtk_cpufreq_platform_data *soc_data;
->   	int vtrack_max;
->   	bool ccifreq_bound;
-> +	int opp_token;
->   };
->   
->   static struct platform_device *cpufreq_pdev;
-> @@ -381,6 +383,38 @@ static struct device *of_get_cci(struct device *cpu_dev)
->   	return &pdev->dev;
->   }
->   
-> +static int mtk_cpu_parse_speedbin(struct mtk_cpu_dvfs_info *info, int cpu)
-> +{
-> +	struct device *cpu_dev = get_cpu_device(cpu);
-> +	struct dev_pm_opp_config config = {};
-> +	u32 val, opp_hw_ver;
-> +	int ret;
-> +
-> +	ret = nvmem_cell_read_variable_le_u32(cpu_dev, "speed_grade", &val);
+> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
+> index a6afd8929a10..43f25418275a 100644
+> --- a/arch/arm64/mm/fault.c
+> +++ b/arch/arm64/mm/fault.c
+> @@ -160,7 +160,7 @@ static void show_pte(unsigned long addr)
+>  	guard(irqsave)();
+>  
+>  	pgdp = pgd_offset(mm, addr);
+> -	pgd = READ_ONCE(*pgdp);
+> +	pgd = pgdp_get(pgdp);
+>  	ptval_to_str(pxd_str, pgd_val(pgd));
+>  	pr_alert("[%016lx] pgd=%s", addr, pxd_str);
+>  
+> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
+> index 5771bf49e1fe..e05e5b41ae50 100644
+> --- a/arch/arm64/mm/hugetlbpage.c
+> +++ b/arch/arm64/mm/hugetlbpage.c
+> @@ -284,7 +284,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
+>  	pmd_t *pmdp, pmd;
+>  
+>  	pgdp = pgd_offset(mm, addr);
+> -	if (!pgd_present(READ_ONCE(*pgdp)))
+> +	if (!pgd_present(pgdp_get(pgdp)))
+>  		return NULL;
+>  
+>  	p4dp = p4d_offset(pgdp, addr);
+> diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
+> index 4dd8c1186471..f61f5bc09467 100644
+> --- a/arch/arm64/mm/kasan_init.c
+> +++ b/arch/arm64/mm/kasan_init.c
+> @@ -102,7 +102,7 @@ static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node,
+>  static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr, int node,
+>  				      bool early)
+>  {
+> -	if (pgd_none(READ_ONCE(*pgdp))) {
+> +	if (pgd_none(pgdp_get(pgdp))) {
+>  		phys_addr_t p4d_phys = early ?
+>  				__pa_symbol(kasan_early_shadow_p4d)
+>  					: kasan_alloc_zeroed_page(node);
+> @@ -256,7 +256,7 @@ static int __init root_level_idx(u64 addr)
+>  static void __init clone_next_level(u64 addr, pgd_t *tmp_pg_dir, pud_t *pud)
+>  {
+>  	int idx = root_level_idx(addr);
+> -	pgd_t pgd = READ_ONCE(swapper_pg_dir[idx]);
+> +	pgd_t pgd = pgdp_get(swapper_pg_dir + idx);
+>  	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
+>  
+>  	memcpy(pud, pudp, PAGE_SIZE);
+> @@ -280,7 +280,7 @@ static int __init next_level_idx(u64 addr)
+>   */
+>  static void __init clear_next_level(int pgd_idx, int start, int end)
+>  {
+> -	pgd_t pgd = READ_ONCE(swapper_pg_dir[pgd_idx]);
+> +	pgd_t pgd = pgdp_get(swapper_pg_dir + pgd_idx);
+>  	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
+>  
+>  	memset(&pudp[start], 0, (end - start) * sizeof(pud_t));
+> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+> index 83709d987e7c..76d8d320aeed 100644
+> --- a/arch/arm64/mm/mmu.c
+> +++ b/arch/arm64/mm/mmu.c
+> @@ -434,7 +434,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
+>  {
+>  	int ret;
+>  	unsigned long next;
+> -	pgd_t pgd = READ_ONCE(*pgdp);
+> +	pgd_t pgd = pgdp_get(pgdp);
+>  	p4d_t *p4dp;
+>  
+>  	if (pgd_none(pgd)) {
+> @@ -1649,7 +1649,7 @@ static void unmap_hotplug_range(unsigned long addr, unsigned long end,
+>  	do {
+>  		next = pgd_addr_end(addr, end);
+>  		pgdp = pgd_offset_k(addr);
+> -		pgd = READ_ONCE(*pgdp);
+> +		pgd = pgdp_get(pgdp);
+>  		if (pgd_none(pgd))
+>  			continue;
+>  
+> @@ -1827,7 +1827,7 @@ static void free_empty_tables(unsigned long addr, unsigned long end,
+>  	do {
+>  		next = pgd_addr_end(addr, end);
+>  		pgdp = pgd_offset_k(addr);
+> -		pgd = READ_ONCE(*pgdp);
+> +		pgd = pgdp_get(pgdp);
+>  		if (pgd_none(pgd))
+>  			continue;
+>  
+> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
+> index 826856ef64a8..dfa1356daac2 100644
+> --- a/arch/arm64/mm/pageattr.c
+> +++ b/arch/arm64/mm/pageattr.c
+> @@ -399,7 +399,7 @@ bool kernel_page_present(struct page *page)
+>  	unsigned long addr = (unsigned long)page_address(page);
+>  
+>  	pgdp = pgd_offset_k(addr);
+> -	if (pgd_none(READ_ONCE(*pgdp)))
+> +	if (pgd_none(pgdp_get(pgdp)))
+>  		return false;
+>  
+>  	p4dp = p4d_offset(pgdp, addr);
+> diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
+> index 7afe2beca4ba..06470d690f9f 100644
+> --- a/arch/arm64/mm/trans_pgd.c
+> +++ b/arch/arm64/mm/trans_pgd.c
+> @@ -134,7 +134,7 @@ static int copy_p4d(struct trans_pgd_info *info, pgd_t *dst_pgdp,
+>  	unsigned long next;
+>  	unsigned long addr = start;
+>  
+> -	if (pgd_none(READ_ONCE(*dst_pgdp))) {
+> +	if (pgd_none(pgdp_get(dst_pgdp))) {
+>  		dst_p4dp = trans_alloc(info);
+>  		if (!dst_p4dp)
+>  			return -ENOMEM;
+> @@ -164,7 +164,7 @@ static int copy_page_tables(struct trans_pgd_info *info, pgd_t *dst_pgdp,
+>  	dst_pgdp = pgd_offset_pgd(dst_pgdp, start);
+>  	do {
+>  		next = pgd_addr_end(addr, end);
+> -		if (pgd_none(READ_ONCE(*src_pgdp)))
+> +		if (pgd_none(pgdp_get(src_pgdp)))
+>  			continue;
+>  		if (copy_p4d(info, dst_pgdp, src_pgdp, addr, next))
+>  			return -ENOMEM;
 
-Let's keep consistency with cell names: for example, on the GPU side, the node
-in devicetree is called "gpu-speedbin@1234", and the panfrost node has
-
-nvmem-cells = <&gpu_speedbin>;
-nvmem-cell-names = "speed-bin";
-
-Check MT8186 and MT8188 devicetrees ;-)
-
-> +	if (ret) {
-> +		if (ret == -ENOENT)
-
-if (ret != -ENOENT && ret != -EOPNOTSUPP)
-
-> +			/* speedbin is optional */
-> +			return 0;
-> +		return dev_err_probe(cpu_dev, ret, "cpu%d: failed to read speedbin\n", cpu);
-> +	}
-> +
-> +	/* Convert the raw value to a bitmask */
-> +	if (val >= 32)
-> +		return dev_err_probe(cpu_dev, -EINVAL,
-> +				     "cpu%d: invalid speedbin value %u\n", cpu, val);
-> +	opp_hw_ver = BIT(val);
-
-If you look at nvmem/mtk-efuse.c there is a mtk_efuse_gpu_speedbin_pp() function
-that is doing (almost) *exactly* what you're doing here.
-
-Check if the same constraints as GPU speed binning applies to the CPU: if they do,
-just allow "cpu-speedbin" as node name in the fixup function, otherwise add a new
-post processing function for the CPU and act accordingly.
-
-> +
-> +	config.supported_hw = &opp_hw_ver;
-> +	config.supported_hw_count = 1;
-> +
-> +	info->opp_token = dev_pm_opp_set_config(cpu_dev, &config);
-
-It's way easier if you use
-
-devm_pm_opp_set_supported_hw(dev, &opp_hw_ver, 1);
-
-Cheers,
-Angelo
-
-> +	if (info->opp_token < 0)
-> +		return dev_err_probe(cpu_dev, info->opp_token,
-> +				     "cpu%d: failed to set OPP config\n", cpu);
-> +
-> +	return 0;
-> +}
-> +
->   static int mtk_cpu_dvfs_info_init(struct mtk_cpu_dvfs_info *info, int cpu)
->   {
->   	struct device *cpu_dev;
-> @@ -450,18 +484,22 @@ static int mtk_cpu_dvfs_info_init(struct mtk_cpu_dvfs_info *info, int cpu)
->   		}
->   	}
->   
-> +	ret = mtk_cpu_parse_speedbin(info, cpu);
-> +	if (ret)
-> +		goto out_disable_sram_reg;
-> +
->   	/* Get OPP-sharing information from "operating-points-v2" bindings */
->   	ret = dev_pm_opp_of_get_sharing_cpus(cpu_dev, &info->cpus);
->   	if (ret) {
->   		dev_err_probe(cpu_dev, ret,
->   			"cpu%d: failed to get OPP-sharing information\n", cpu);
-> -		goto out_disable_sram_reg;
-> +		goto out_free_speedbin;
->   	}
->   
->   	ret = dev_pm_opp_of_cpumask_add_table(&info->cpus);
->   	if (ret) {
->   		dev_err_probe(cpu_dev, ret, "cpu%d: no OPP table\n", cpu);
-> -		goto out_disable_sram_reg;
-> +		goto out_free_speedbin;
->   	}
->   
->   	ret = clk_prepare_enable(info->cpu_clk);
-> @@ -533,6 +571,10 @@ static int mtk_cpu_dvfs_info_init(struct mtk_cpu_dvfs_info *info, int cpu)
->   out_free_opp_table:
->   	dev_pm_opp_of_cpumask_remove_table(&info->cpus);
->   
-> +out_free_speedbin:
-> +	if (info->opp_token > 0)
-> +		dev_pm_opp_clear_config(info->opp_token);
-> +
->   out_disable_sram_reg:
->   	if (info->sram_reg)
->   		regulator_disable(info->sram_reg);
-> @@ -573,6 +615,10 @@ static void mtk_cpu_dvfs_info_release(struct mtk_cpu_dvfs_info *info)
->   	clk_disable_unprepare(info->inter_clk);
->   	clk_put(info->inter_clk);
->   	dev_pm_opp_of_cpumask_remove_table(&info->cpus);
-> +
-> +	if (info->opp_token > 0)
-> +		dev_pm_opp_clear_config(info->opp_token);
-> +
->   	dev_pm_opp_unregister_notifier(info->cpu_dev, &info->opp_nb);
->   	if (info->soc_data->ccifreq_supported)
->   		put_device(info->cci_dev);
-> 
