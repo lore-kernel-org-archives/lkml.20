@@ -1,151 +1,146 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9155A3E3141;
-	Wed, 23 Sep 2026 17:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C2C3E6DFA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184190; cv=none; b=GS/SMNXNhQ59JyFQ8qKy4OqSxuRdl8j2GxNNlEIa+1pi3/fNjawz0+oZhXlF+ULqI6KvWBKSNweAzptjN6FqeqAiOFysSNoesKzOSJvDsAKCXsW3aDzvggY42cpDg4vxv3ichb+JKwUsZolmieNZuyPA/r8bDAm06lWPrd5g250=
+	t=1790184218; cv=none; b=NESRsA6LZRwW4cP7ZrT4imw9yuEljzIFsQDPl9Z3AX9jGOa1a5FL0a44gvK13tHTNKblXjiyreIP1ABLJNAA5Gdq88AEL/oRGOh7cxlEGvDNEI7pcWnLAnYVlfgkdpyYpko4jRhmR1Z+Gapb3e4p5NavZxfvggGz3VFNFDk+GWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184190; c=relaxed/simple;
-	bh=zVqDY3QHhz61/o9oOsjPRhH1RXoSoxjW5AYr4k5N2a0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qfrj/Bk9OjUhoHKQPtF0fr++x5kQTzm164t1ttnXm4eeZ23+8gXFH7gaaCKb21X7FcJLmfVikf8KMANTe1crYazWHHVFCiu8vL6ReDYMB+ZrFxudfI/jxPl/5v/uYDCSrGvxvkrDiCXb/4ZxrmrqKq8/YY4mUR1gCxIo96n9d5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kLUT1bIw; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790184218; c=relaxed/simple;
+	bh=t2TgzO8nwUEwjRZhrCgeKf9S8CRIcvO43oc+9yu4/Wg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tbT8BO0eZbqbr3/TWBEX9aucTLlU3mLcppNCpqVphMD5yWH/PnGRt9PHv8m1sZuFeLtpETIp0qfCkR6alYQdKSqPrjZY4H0IKpQVkWnzw0cRbZELYQcjGEyBesANhvHuxAI9ZhfoVH6+E6xRPdBoAFv1f5DuRhaRaVeCvV4FlMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=gQQYiOFm; arc=none smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kLUT1bIw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Qm
-	jvDmH7U0nEx2P2zYXk+jYlzUqQoozGJXETiQk5K7g=; b=kLUT1bIwDkZXh3np2k
-	Mbw4UZ54q8gJW7QsfbPDC9O+cqobhvtNT63mSXAlcxuITzcWJfoK1s6bH4wtA7jz
-	lzvwuOnYu9kQndkaz27vWX0XnY6D26QUXuIdNr8b22hgDcQOURqScP/4g10SCJPj
-	VW3U77h6tGKKVpTiaoBnIGu68=
-Received: from cason-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDnz0NjCrRqQKRpAQ--.63117S2;
-	Thu, 24 Sep 2026 01:20:35 +0800 (CST)
-From: Xiaochuan Li <chuanx2070@163.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Xiaochuan Li <chuanx2070@163.com>
-Subject: [PATCH v3] io_uring/lock: Keep spinlock release before wake_up()
-Date: Thu, 24 Sep 2026 01:20:32 +0800
-Message-ID: <20260923172032.11057-1-chuanx2070@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923164849.135000-1-chuanx2070@163.com>
-References: <20260923164849.135000-1-chuanx2070@163.com>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="gQQYiOFm"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c4bf3defecso867297b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:23:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1790184215; x=1790789015; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1FwE1NfmDw+YKo1XdhlQDW5TQG+slKv16o9ht1shLNo=;
+        b=gQQYiOFmc7T264uw2eL6O0Ld54Bs4WlWK3nhBNV4ht6i3oNVhRmEbtKPm7uSxIDcpW
+         LscrUKn9cn212x5D1YuKkEONgt9ZUD9eYtM6cT/vqlOrs2jwYeA3WRlNOcjyWfSvSdvW
+         hmUtzoXFsQG0z+mYfyjcdG4XsrD7hsCTMi+uwKJdLkoPL//Nolt5nv0YZKwWcTtKHa5v
+         /8lqfFF/K1UL6nK4FBPU3CxbN80Zx6oVNUAhPq5wMOWaGxB4JhV9B1m/N8A5Q8tO++t2
+         uFDV+Ek9+g4V8oCVDkceiLzgjcwsHHna+UHQ2Ee3cfq+nKgtF5sMozOklRmwvzMeMcVT
+         jd3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790184215; x=1790789015;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1FwE1NfmDw+YKo1XdhlQDW5TQG+slKv16o9ht1shLNo=;
+        b=czcpb2MURu7pH9kUemiSC9emRnSEKg84c3FCRZOkJKO94NAY51PwiMNH1lT3HpWg2G
+         AHFUENvf/bhEQT7fmC1jA3UX54mQCu2OP2y7SYcC1IEYCL9Xdeq+fW0PucN0wdZZhMf+
+         FlNfmcpl4B35ikdY8bxtba2sA7hSJmyxBu3gqL/wD53knlLHS+Q+3pBB0JtxzqZdA4Ve
+         ZZmwQKxIG8roiWWOF/MWDFuYQR/20WWLOsh9vJYbqxVR8QL6ZLJ9GBmUhAdtLM+OMJcX
+         ufpE3fspA5XSZaRsxoIVXmVSmLYiUa1cBsn79pxwyTsyKOh+jY/t+Ag7OOGdYDYzaI80
+         YUlw==
+X-Forwarded-Encrypted: i=1; AKwUvBwp8Rzqm0ZqlJsvGQF0rTD5l0+BiB44uvFe7wvQjZ//1PYKY4OYKVm9obh4x4eJKjQUIA3tAC8YnHQ8G54=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkkVERHc/L4Jfkaxxzvfic68xx1AEZ0WVhPENUkpmgFKZRPtsq
+	ruGu7VFS3FZMgr6Pd/UsGRsNTIGrru6YmTbpuWVm6ZR//S59l4+MiugUtKPFHTU7elA=
+X-Gm-Gg: AYBFou0JUleqx+N9g9WZa+9UDPBBEiDvt3r0JQcm5ZxGHOQUYZGTPl7G4uMaSww2cYM
+	zIj+NJiCyhGmDqZN2IRMcpxMVa8YMAOpJu1equYU8lBroZeQYgpw8rj5G3JGmpdOZfUtc1yVDkJ
+	KKtzm00SEDjf2X4yyPmpYmLpmRNkxrBS0Vr5RkdivGdaxNGoUMR2lKvTeQJnAYtDE8jnOXfQjD2
+	BJ0AImukerDzrtjMO3SXFsd+g3BJ+Hl5xhtVyli+Gky7rrvJfgHlZznZXe7q8tTycxKuK6YhxDR
+	RKZCGHOuiPoWnTKyiG25+mwfZmdrfD+dRJTW/YCCwUSggy2YPGayQavOxFIZYEywNNW7SsN0gxe
+	VMs0fZ9pRwiWHycyv3mFAqEITPVo2OCkEkOgi6bwBTFMk5yTYmX14tP6kMJs09i6Jx60+1JGDfE
+	EojRtRYad/X3yDvuJzz/0GDIbjEg6P3TNKZl2ejuASharE
+X-Received: by 2002:a05:6808:1313:b0:4b5:5bfd:518f with SMTP id 5614622812f47-4d5b85af4d4mr3232472b6e.21.1790184214658;
+        Wed, 23 Sep 2026 10:23:34 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d5c522604asm2686648b6e.15.2026.09.23.10.23.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 10:23:34 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x9Qgv-0000000E9nH-0xvE;
+	Wed, 23 Sep 2026 14:23:33 -0300
+Date: Wed, 23 Sep 2026 14:23:33 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Kameron Carr <kameroncarr@linux.microsoft.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, mhklinux@outlook.com,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+	christian.koenig@amd.com, Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-media@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
+Message-ID: <20260923172333.GM1540250@ziepe.ca>
+References: <20260921144847.501151-3-aneesh.kumar@kernel.org>
+ <arKsFofudnTYpXj1@arm.com>
+ <yq5aik3w344o.fsf@kernel.org>
+ <arOfD6syXOgQhZYA@arm.com>
+ <yq5a5wzw2ree.fsf@kernel.org>
+ <arOspFxWZ1DjgcAr@arm.com>
+ <20260923130611.GF1540250@ziepe.ca>
+ <yq5atsng10b2.fsf@kernel.org>
+ <20260923152124.GG1540250@ziepe.ca>
+ <5cbe0bde-47d8-41ca-b244-bc0329d0d066@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnz0NjCrRqQKRpAQ--.63117S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF18GFWDCFyUKryUZF45trb_yoW5CrW3pF
-	W3K34rtFW8XFyq93y7AF1jy342kw4qgw48Grs5G34rArW5XrnIva1ktF4F9F45WrZ7Cry5
-	uF48trWa9a18ZwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U9_-QUUUUU=
-X-CM-SenderInfo: pfkxt0j0sqlii6rwjhhfrp/xtbC7gRjRmq0CmSFlQAA3v
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5cbe0bde-47d8-41ca-b244-bc0329d0d066@linux.microsoft.com>
 
-When CONFIG_PREEMPT_RT enable, raw_spin_lock() will preempt_disable()
--> raw_spin_lock()
--> wake_up()
-  ...
-  -> spin_lock_irqsave()
+On Wed, Sep 23, 2026 at 09:28:54AM -0700, Kameron Carr wrote:
+> On 9/23/2026 8:21 AM, Jason Gunthorpe wrote:
+> > On Wed, Sep 23, 2026 at 08:28:57PM +0530, Aneesh Kumar K.V wrote:
+> > 
+> >> I'm also considering requiring the address passed to cc_make_shared() to
+> >> be in the linear map. This is currently required by both TDX and CCA,
+> >> while AMD SNP appears to support vmalloc addresses. The only user of
+> >> that vmalloc support is Hyper-V VMBus GPADL setup
+> >> (vmbus_establish_gpadl()). How should the generic CoCo shared-memory
+> >> allocator handle this?
+> > 
+> > vmbus_establish_gpadl() is the the same wrong abstraction as the arch
+> > code. Get rid of it and use vmbus_establish_gpadl_caller_decrypted():
+> > 
+> > 		pdata->recv_buf = vzalloc(RECV_BUFFER_SIZE);
+> > 		if (!pdata->recv_buf) {
+> > 			ret = -ENOMEM;
+> > 			goto fail_free_ring;
+> > 		}
+> > 
+> > 		ret = vmbus_establish_gpadl(channel, pdata->recv_buf,
+> > 					    RECV_BUFFER_SIZE, &pdata->recv_gpadl);
+> > 
+> > 
+> > So you made an allocator that returns folios, now you just need to
+> > use that allocator to implement a kvzalloc wrapper. ARM can call vmap
+> > on decrypted memory with pgprot_decrypted(), right?
+> > 
+> > Or maybe this can use vmbus_alloc_buffer(), it already does it.
+> 
+> Michael Kelley recently proposed [1] moving all ring buffer allocations
+> to use vmbus_alloc_buffer(). If we move forward with this, it should
+> remove the dependency on vmalloc support.
 
-which will trigger:
-BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:46
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 985654, name: iou-wrk-983605
-preempt_count: 1, expected: 0
-RCU nest depth: 0, expected: 0
-CPU: 3 PID: 985654 Comm: iou-wrk-983605 Tainted: G        O  6.1.83-rt28-g19631eb82f21
-stack:0        ppid:977479 flags:0x00000008
-tgid:977553 prio:120 preempt:0x100000001 rcu_read_lock_nesting:0
-used_cpu 3 wake_cpu 3 on_cpu 3 on_rq 1 migrate_dis 0
-arrive:17423426040675 queued:0 prev_sum:33955300 sum_exec:33955300
-Call trace:
- dump_backtrace.part.0+0xdc/0xec
- show_stack+0x1c/0x30
- dump_stack_lvl+0xac/0xc4
- dump_stack+0x14/0x30
- __might_resched+0x13c/0x170
- rt_spin_lock+0x34/0xc0
- __wake_up_common_lock+0x68/0xd0
- __wake_up+0x1c/0x24
- io_worker_handle_work+0x5b0/0x600
- io_wqe_worker+0xf4/0x310
- ret_from_fork+0x10/0x20
+Even better vmbus_alloc_buffer() can use the new allocator API
+directly so it doesn't need to open code the set_memory_decrypted arch
+call.
 
-Signed-off-by: Xiaochuan Li <chuanx2070@163.com>
----
-Changes in v3:
-- Defer wake_up() after releasing acct->lock, add need_wake flag
-- keep need_wake from wq_has_sleeper() in the same order
+Lets do it!
 
-The v1 patch didn't show up on lore.kernel.org
-
-Link: [https://lore.kernel.org/io-uring/20260923164849.135000-1-chuanx2070@163.com/T/#t]
-
- io_uring/io-wq.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index 2ca223e47d41..2dadde0ca395 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -526,7 +526,8 @@ static bool io_wait_on_hash(struct io_wq *wq, unsigned int hash)
- }
- 
- static struct io_wq_work *io_get_next_work(struct io_wq_acct *acct,
--					   struct io_wq *wq)
-+					   struct io_wq *wq,
-+					   bool *need_wake)
- 	__must_hold(acct->lock)
- {
- 	struct io_wq_work_node *node, *prev;
-@@ -575,8 +576,7 @@ static struct io_wq_work *io_get_next_work(struct io_wq_acct *acct,
- 		raw_spin_lock(&acct->lock);
- 		if (unstalled) {
- 			clear_bit(IO_ACCT_STALLED_BIT, &acct->flags);
--			if (wq_has_sleeper(&wq->hash->wait))
--				wake_up(&wq->hash->wait);
-+			*need_wake = wq_has_sleeper(&wq->hash->wait);
- 		}
- 	}
- 
-@@ -607,6 +607,7 @@ static void io_worker_handle_work(struct io_wq_acct *acct,
- 
- 	do {
- 		struct io_wq_work *work;
-+		bool need_wake = false;
- 
- 		/*
- 		 * If we got some work, mark us as busy. If we didn't, but
-@@ -615,7 +616,7 @@ static void io_worker_handle_work(struct io_wq_acct *acct,
- 		 * can't make progress, any work completion or insertion will
- 		 * clear the stalled flag.
- 		 */
--		work = io_get_next_work(acct, wq);
-+		work = io_get_next_work(acct, wq, &need_wake);
- 		if (work) {
- 			/*
- 			 * Make sure cancelation can find this, even before
-@@ -631,6 +632,9 @@ static void io_worker_handle_work(struct io_wq_acct *acct,
- 
- 		raw_spin_unlock(&acct->lock);
- 
-+		if (need_wake)
-+			wake_up(&wq->hash->wait);
-+
- 		if (!work)
- 			break;
- 
-
-base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
--- 
-2.43.0
-
+Jaon
