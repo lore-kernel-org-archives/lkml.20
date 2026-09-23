@@ -1,123 +1,137 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8404544683E;
-	Wed, 23 Sep 2026 07:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437B1381EA0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:11:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147437; cv=none; b=nLo0GIpKld0wRUN/5K6ah8SYxKijElye7lYWsLAzX6hwziMq3aPmz1q341ZT7d69qA3icHArPPxKjrIqBfYMlP2Fjwkpe11aylDRw8IKXed33dpnbaJ4OgeeY0Jq8cACsEmc4pghBoPIK1O4Wt69QGseQUBuTLXKDKa7gMF/KT4=
+	t=1790147468; cv=none; b=fSEC96k1/J/zxVIsRF93CDIHwlIum7oh3QwPNTTvawbubpLaaqsMEhfzo1RbUcogptFdhbdN7Z2H6QmzaEXSAXEG/qKRq2214wCbyV2IU7u3Mvb4N1ZxVuydWXyrkm+FVnOrAn34QH1oV0phMZNWxeeiI8jhvUpu9zDnyrgB7ZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147437; c=relaxed/simple;
-	bh=JkSChL0vtocvr/tbCkoo+HdlZNHkoDcYYAOjIiPyrx4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H0MkkkvNcAAyl9KuvnPIYUM0r6jimtt4zyAs8vZJzPzysxSoTLffD3JaKJQs8LJmLf2uiaLF8oq4V8X81Zxcx32Rb2aMMWMfr7U9r7xiA+FIFrkEjuyMsxMDYpjHezoF7Pabl5A1oVVCdpORr9R2pKZ0tHKdR4kU1QT921Qanqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=git9Fm0j; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790147468; c=relaxed/simple;
+	bh=tMhv2qOhzG4jrkkzinGONLyAHB+FkZzKXBAXmbOVLII=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eDvg/sz/QOVxgB2jKRQso5AWrTkyTv5iA8aE8VzexyaF3J+dndgHlw3jNBe4HVL8uXMa9BWyrs79vQBIyt5BX929U4YDUEvnSzt3qsxP3E/RrI4M6GAfyu+kyzlB921HLEP/ssClWIF+if+jDOdAVzviPYsXY9ijoSvvGQnTsxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sf2gvYC1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="git9Fm0j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790147434; x=1821683434;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JkSChL0vtocvr/tbCkoo+HdlZNHkoDcYYAOjIiPyrx4=;
-  b=git9Fm0jPfzK7M3IPynXwSndhX4mcQQcDHv/4RZhDafyNVZq25SF9HkX
-   pfnweY03ed1u21i0BMdB2g8c8jkC+gtM5BJcE5wtjT4QNpY7BV+BZyD0h
-   iCZlzCf//ytCGrBf0FCNVUmjmOft+rDHxJzrT9DLeAF7TVJQQgRgRe5I+
-   7uBbNGOGjXy+/w8NEHFCLJ5dTqkasxTn79VyERVr69nKdOEmm9wME+xeb
-   81rp/CbtyH+A/J6oidH7GhZ6M7Weh25255ePD56Bm+lSepippkLXexQMA
-   IRVyf0Ad2erpKu48uJ4tkMOxTnJ4awjavXfTQHIJh1oRaJ+6Q4EB+NtUv
-   A==;
-X-CSE-ConnectionGUID: 9LwaLOytRDmMNdoyI1Ri8Q==
-X-CSE-MsgGUID: thmYZFtgRA67xTS77UaXoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101475373"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="101475373"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 00:10:32 -0700
-X-CSE-ConnectionGUID: /A0PgzoASFu2L+9OdWK7xA==
-X-CSE-MsgGUID: MCGFTH42S7mHRHlMs8mCww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="278230367"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa004.fm.intel.com with ESMTP; 23 Sep 2026 00:10:29 -0700
-Date: Wed, 23 Sep 2026 15:09:25 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Rick Edgecombe <rick.p.edgecombe@intel.com>
-Cc: pbonzini@redhat.com, dave.hansen@intel.com, seanjc@google.com,
-	x86@kernel.org, kas@kernel.org, adrian.hunter@intel.com,
-	yan.y.zhao@intel.com, binbin.wu@intel.com, xiaoyao.li@intel.com,
-	chao.gao@intel.com, linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Subject: Re: [PATCH 2/2] x86/virt/tdx: Drop tdh_phymem_page_wbinvd_*()
-Message-ID: <arN7JeQa1f8V61UJ@yilunxu-OptiPlex-7050>
-References: <20260922205215.870563-1-rick.p.edgecombe@intel.com>
- <20260922205215.870563-3-rick.p.edgecombe@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sf2gvYC1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E820E1F008A3
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:11:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790147467;
+	bh=tftRg/27iV6vOu9wnOe9xdmjMcB/et17gUJyLajCKAk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Sf2gvYC16i7t3y1+CNEEDaFYEerMmIMhLoQE4kK8OddmpLkHpPFIB5kpnUCmi3Omw
+	 ic73erqLgRSRCVpjsi6z6kV+s0+YG6p+eOxXKzXjirZd95RKvRgBW0fQXDNdm+ml6d
+	 BKinEvNLADOfwhOkBWou2UasFo05YixEqK7j0mbDqvBBxFnMU4ap+cUeiKsKIzW85a
+	 zmbIskaAs8TCIlTPISgaIggHTHIpYcQ0uCHkkVEDOWbTPGIaH4ffBnbrnS1KPYzjYR
+	 4/EMdDUAoZAHZr8pdzA12UxVQbX/J444BMbLwPVEu5eiuRfB3f7eWrtgqjCZhL7NPL
+	 5neo3NiKWjS7A==
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43f9b120so8789437b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:11:06 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxRXTYo9/vRb2zNgFbTMhndN9SlP1UmzIkbrzbJAa1UZVIB1ACWy54dWJxSEQpwTtLbUK8DYJPZCXyb5zY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4d1tKxj8hFrXTpiSvRVv/zrMn8/Z1LNDZ9YKKmKrh7A8++Fjs
+	mP8wiqr67asKllFJ1BOGhmezTor6Gy7MgPuOLqWFaDSQGJOwmMCIyX/8rXUbQfYQ0ge4ODirHQJ
+	N+1WcSaR3dL4LNaD76RksT7shgc+Ryy+0gqhq26u7+Q==
+X-Received: by 2002:a05:690e:b4a:b0:66f:c1be:3186 with SMTP id
+ 956f58d0204a3-672d59e6f9bmr769388d50.93.1790147466000; Wed, 23 Sep 2026
+ 00:11:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922205215.870563-3-rick.p.edgecombe@intel.com>
+References: <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
+ <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F> <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
+ <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
+ <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
+ <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
+ <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
+ <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
+ <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
+ <arKbXe1Qe-FDCTMM@gourry-fedora-PF4VCD3F> <CACePvbWW4avTV2WB6iRU+LN5zqkMTg3UhBrq41R0iw91-7Ni0g@mail.gmail.com>
+ <5a7ad159b2fabf377b7e1fc4248c433287ac11fb.camel@surriel.com>
+In-Reply-To: <5a7ad159b2fabf377b7e1fc4248c433287ac11fb.camel@surriel.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Tue, 22 Sep 2026 21:10:53 -1000
+X-Gmail-Original-Message-ID: <CACePvbUtEdQLmmudON_qC2aKuLYCNktBuAecFKiSvDC6eTfXeQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UwLMqYNrXn7OTzxPK_RQ9DWuqFMbs5fykDFtZyEsnuAKIyTcjTdWAUOSI
+Message-ID: <CACePvbUtEdQLmmudON_qC2aKuLYCNktBuAecFKiSvDC6eTfXeQ@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Rik van Riel <riel@surriel.com>
+Cc: Gregory Price <gourry@gourry.net>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
+	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 01:52:15PM -0700, Rick Edgecombe wrote:
-> In the early days of TDX it was expected that pages being reclaimed from 
-> the TDX module would need any cacheline from their private KeyID alias 
-> flushed. The TDX docs describe doing this in a couple cases, for example 
-> reclaiming the TDR memory:
->   Flush MODIFIED cache lines: this is required to avoid corruption due to
->   cache line aliasing. Note that all cache lines for all other TD pages
->   must have been flushed before the TDR page was reclaimed.
-> 
-> For a similar reasons as why the CLFLUSH_BEFORE_ALLOC features0 bit was
-> never actually set in any TDX module, this flush of the private KeyID
-> cachelines turned out to not be needed by the final TDX solution. However,
-> the TDX docs were never updated to reflect that.
-> 
-> Since private KeyID virtual mappings are reserved for TDX use, the TDX
-> module has to do the clflush itself.
+On Tue, Sep 22, 2026 at 5:53=E2=80=AFAM Rik van Riel <riel@surriel.com> wro=
+te:
+>
+> On Tue, 2026-09-22 at 05:43 -1000, Chris Li wrote:
+> > On Tue, Sep 22, 2026 at 5:20=E2=80=AFAM Gregory Price <gourry@gourry.ne=
+t>
+> > wrote:
+> > >
+> > > On Tue, Sep 22, 2026 at 03:32:44AM -1000, Chris Li wrote:
+> > > > > Right now it has 64GB of memory.
+> > > >
+> > > > That is exactly my point. You are running 1/8 =3D 12.5% system ram.
+> > > >
+> > >
+> > > Chris you are missing the point
+> > >
+> > > Zswap:           8812236 kB
+> > > Zswapped:       24927876 kB
+> >
+> > I am well aware of the point. The 7%-10% data I provided is before
+> > compression. After compression, the real saving is about 1.5% - 2%.
+> >
+> Here I'm at 28% without any issues, with room for
+> more.
 
-This paragraph is a little confusing to me. Here reads like the TDX
-module does the clflush internally and the host doesn't have to opt-in.
+28% is one thing, 100% is a difference beast completely. If you
+haven't tried it, don't assume 100% will behave the same as 28%. There
+is a point where too much zswap makes the system unusable. It is hard
+to pinpoint the exact upper boundary. However, figuring out the upper
+bound larger than that exact boundary is not hard at all. I haven't
+seen any one can use 100% system RAM sized memory swap out to zswap.
+If you have a data point showing what that system with 100% swap to
+zswap looks like, please share it.
 
-> The TDH.PHYMEM.PAGE.WBINVD SEAMCALL
-> leaf was created for this purpose.
+>
+> > You are not listening. The boundary was set due to feedback from the
+> > application SLO. Those are real deployments not imaginary usage.
+> > Please respect the user.
+> >
+> Different users need different things.
+>
+> The kernel needs to be able to accommodate all of them.
+>
+> The kernel default should accommodate the people who
+> are least capable of configuring their systems.
+>
+> Hyperscalers can set their own defaults across their
+> fleets. They know how to adjust settings.
 
-But the SEAMCALL leaf shows host should opt-in.
+They can use a safe value, e.g., 100% of RAM. Let the people who know
+exactly what they want to swap configure the boundary they want.
 
-Ah, you want to say host can't directly do clflush because of some
-reason, so we need a SEAMCALL, is it?
-
-[...]
-
-> @@ -578,15 +577,6 @@ static void tdx_reclaim_td_control_pages(struct kvm *kvm)
->  	if (__tdx_reclaim_page(kvm_tdx->td.tdr_page))
->  		return;
->  
-> -	/*
-> -	 * Use a SEAMCALL to ask the TDX module to flush the cache based on the
-> -	 * KeyID. TDX module may access TDR while operating on TD (Especially
-> -	 * when it is reclaiming TDCS).
-> -	 */
-> -	err = tdh_phymem_page_wbinvd_tdr(&kvm_tdx->td);
-> -	if (TDX_BUG_ON(err, TDH_PHYMEM_PAGE_WBINVD, kvm))
-> -		return;
-> -
->  	tdx_quirk_reset_paddr(page_to_phys(kvm_tdx->td.tdr_page), PAGE_SIZE);
->  
->  	__free_page(kvm_tdx->td.tdr_page);
-
-After removing the wbinvd, we don't need open code to reclaim tdr
-anymore, is it? tdx_reclaim_control_page(kvm_tdx->td.tdr_page)?
-
-This may not be relevant to the topic, not sure if we are good to clean
-up it in this series.
-
-
-Another thing. There are also 2 wbinvd_on_all_cpus() on PAMT
-adding/reclaiming. Remove them?
+Chris
