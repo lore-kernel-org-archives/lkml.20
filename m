@@ -1,170 +1,144 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DD147D925;
-	Wed, 23 Sep 2026 09:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CC0A429CC2
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:07:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154462; cv=none; b=GfjxGW5CA2vaFIEMzFO352+rUaD8RbdZ/F6DDc8h3IFG3gXKmDYIAXYghyYdWDCgk4pzxMLVFbPXqp4VzqxnuAxmhpvj9cC23Fnyj/w4cjW5spHam/4Qw54UKb61aYs191JjOPzse3fqkr9desDWIqSA0CP5xXW7wh/5ERNquSY=
+	t=1790154480; cv=none; b=o/PA/Q7fjAnCLb6g8Pq/n/PH4T1UoHywfpg6c8KgBJF25Ljjg6bPszSmWoPZQTK6h61xTVetD5RwQX8tQPNqe8jwX2URsb3lHjyPBuRLv25zIDDJ4QbQp0nZiFQP/oDoeMqd8cNQvypHHqsxp+MohII//1A2beDoH/M+mMZxhlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154462; c=relaxed/simple;
-	bh=hMeF6zvrbmtd5L0Fl4kFRnK2npu6Nm4haLoxXNRAyRs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZZOz/z/kaYgltrMSIIk1j3JhMLzHk7VWEerv+U9l3/yxvrK1XikWhIGnfQZWeUBUT58M4BZRhDDiY9h68RQ8GW3xiovSwv6wGDi2ZxiWj4WiRlal9/Z/zvdqZFEypITgnQtWToHiuSco8xqacqyL1TI+Ikds/IS8rfHUbBrQNxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Mj9HmEPg; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790154480; c=relaxed/simple;
+	bh=IUM/k86M0HMHRzXZI25n7LcEaTa2SkGEuLDxUp6qdUc=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lcP4d9EKQ1YrMorUCPpuD+qIZCKbyFyMw0EmZo7+3g6UUg0CJ86d9nNg+/7W6Xsq9D3j5gDaluPi69mZK+RGJAw/9dVzTLyqHlkCH0uJxWauzPb3Nrq84PZocBH5hbUwTTNT9ojYJdbWeFQQG9cSiiaLfagkMYsEkj6YE16dC4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tzp9eCoO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Mj9HmEPg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/g
-	TM73/F9WSA8hdHaJIMje7bLTqx7CUbbRHTg5nU5F8=; b=Mj9HmEPgqJQd/2cuBw
-	yMb2vmv7/2cHF92s2fN+FAOrEohlZ1u1Qs6Fqk2vUc1CinBHpcwPes8wziMiF4EL
-	ZanFHh9ZJkm5aoKnOkJppBbS/9ykeXxHyYEY0LkZNpaKptXg4Q9oWaug4c8IZOk1
-	AnLRUy3CpDq8pzpjfOxbJHR0Q=
-Received: from nec8-i7 (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDXvIWmlrNqQZffAw--.40141S3;
-	Wed, 23 Sep 2026 17:06:49 +0800 (CST)
-From: chenyuan_fl@163.com
-To: bpf@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Alexei Starovoitov <alexei.starovoitov@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Yuan Chen <chenyuan@kylinos.cn>
-Subject: [PATCH bpf-next 1/2] bpf: Keep target extended until its last freplace link detaches
-Date: Wed, 23 Sep 2026 17:06:34 +0800
-Message-ID: <20260923090635.368488-2-chenyuan_fl@163.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260923090635.368488-1-chenyuan_fl@163.com>
-References: <20260923090635.368488-1-chenyuan_fl@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tzp9eCoO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0FDD1F0089C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:07:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790154479;
+	bh=rvHgMZ0dWD7lgj67arf01dNq7VRxt7WQ1KerphseR/I=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=Tzp9eCoONKaGir1quxt2td51CW2dbzO/YppIPlt/BI56+U7LDQkKLggnvUO/6+bW6
+	 lmZmIa8rLCZJJhO4iYI0hwEoWCKlpedQ4ds4O57MpOfnSjNJvmwQiXUpyyO1cx75GB
+	 mkAxCPxmTUEZVK2iCXygh7Hi7+XKV8OPWLOKEIbAexaCdc9k7LTSw8+ZVXDUckSp/6
+	 h6bQW5hh/UMra9QVcYzsQvURDijRnjTMoA996V/U7/0/KzgNGRhAYPqcp9vB2gNb5m
+	 zS7YQxh8qMTD+2rw/9Z+7zmZXfZ25fjy2RbSgRRzklnfcYYlCv1OxVv/GD3EjKdyLv
+	 utEwLjZW7B/jA==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1e419so219287e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:07:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwo7JvOLtc2IEdgxLzZKn1zrzpRfalgBLGD5d/F4AYv+KFglnQ9wEna10zc7UUjqEbSkB5LE3rK4dEqccc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLDDFcEqMxH1o+6k7uEf2bpCRIDUgxub0jLHcMkO07HRPxAJTB
+	NQUP7lH9gCaOwRHGCfkV0v1hyuqocHGeJf4Ctk0KHjpAicL4Vc0ldB38vH5N84Ye1aUT0rv/hUb
+	z5IrWheAc2jWmeESdW9NQjsC+bs0w82z8qc5T9umhSg==
+X-Received: by 2002:a05:6512:2243:b0:5aa:62df:cd0f with SMTP id
+ 2adb3069b0e04-5b8d863a8efmr644237e87.2.1790154477561; Wed, 23 Sep 2026
+ 02:07:57 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 23 Sep 2026 02:07:56 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 23 Sep 2026 02:07:56 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260922065908.477523-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDXvIWmlrNqQZffAw--.40141S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAFy5Wryxtr4fWF4rtFyrZwb_yoWrCFWUpF
-	WUJr1UCr4UXw4qq34kAw1UZw4a9w1kX3yxGFWrG3W0vFZIqrWkua4UW3sIkFyFvFW0yF1S
-	va10grWDAw1xGFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joNtxUUUUU=
-X-CM-SenderInfo: xfkh05pxdqswro6rljoofrz/xtbDAQlXFWqzlqk3CwAA3Q
+References: <20260922065908.477523-1-shengchao.guo@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 02:07:56 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfrBwqdMnT5TynJ0NVBf3OWKF7BSGr1cy4YjyCVrZdX1A@mail.gmail.com>
+X-Gm-Features: AcwNN1V3JM8lRZKBpz6lxEaP1AAZEm_g_UsomoC_BosRwITdPdApr_IvPVD7mTg
+Message-ID: <CAMRc=MfrBwqdMnT5TynJ0NVBf3OWKF7BSGr1cy4YjyCVrZdX1A@mail.gmail.com>
+Subject: Re: [PATCH v2] pinctrl: qcom: spmi-gpio: make direction changes exclusive
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Yu Zhang <yu.zhang@oss.qualcomm.com>, 
+	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Yuan Chen <chenyuan@kylinos.cn>
+On Tue, 22 Sep 2026 08:59:08 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> pmic_gpio_populate() seeds pad->input_enabled and pad->output_enabled from
+> the hardware MODE_CTL register, so a pad left in DIGITAL_INPUT or
+> DIGITAL_INPUT_OUTPUT mode by the bootloader starts out with the input
+> buffer enabled.  Neither direction callback clears the opposite buffer:
+> .direction_output() only packs PIN_CONFIG_LEVEL, which sets
+> output_enabled, and .direction_input() only packs PIN_CONFIG_INPUT_ENABLE,
+> which sets input_enabled.  Requesting either direction on such a pad
+> therefore programs MODE_DIGITAL_INPUT_OUTPUT rather than the requested
+> direction.
+>
+> That silently breaks both directions.  After gpiod_direction_input() the
+> pad keeps driving the line, since the output buffer is never disabled.
+> And after gpiod_direction_output() pmic_gpio_get_direction() still reports
+> GPIO_LINE_DIRECTION_IN, because it cannot tell plain input from
+> input+output, which makes gpiolib consider the line an input while the
+> driver is driving it.  On a board where several regulator-fixed nodes
+> share one PMIC GPIO the shared GPIO proxy reads that direction back and
+> rejects every consumer after the first:
+>
+>   reg-fixed-voltage regulator-wcn-core-vm-1p35: setup of GPIO (default) failed: -1
+>   reg-fixed-voltage regulator-wcn-core-vm-1p35: error -EPERM: can't get GPIO
+>
+> Pack the opposite buffer's PIN_CONFIG_*_ENABLE along with the requested
+> direction so that the resulting MODE_CTL is DIGITAL_INPUT or
+> DIGITAL_OUTPUT, never both.  pmic_gpio_config_set() programs the registers
+> once after walking all configs, so this stays a single register write.
+>
+> Pads that are genuinely bidirectional can still be described that way
+> through pinconf, which is the interface that has always been able to
+> express it; the gpiolib direction callbacks now mean what gpiolib says
+> they mean.
+>
+> Fixes: 263447532463 ("pinctrl: qcom: spmi-gpio: implement .get_direction()")
+> Assisted-by: LLM
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+> Changes for v2:
+> - Drop GPIO shared-proxy patch
+> - Update Fixes tag (Thanks Neil!)
+> - Link to v1: https://lore.kernel.org/all/20260915014447.282121-1-shengchao.guo@oss.qualcomm.com/
+>
+>  drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 16 ++++++++++------
+>  1 file changed, 10 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> index f6dc43e27b38..eb4431591331 100644
+> --- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> +++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> @@ -741,22 +741,26 @@ static int pmic_gpio_get_direction(struct gpio_chip *chip, unsigned pin)
+>  static int pmic_gpio_direction_input(struct gpio_chip *chip, unsigned pin)
+>  {
+>  	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+> -	unsigned long config;
+> +	unsigned long configs[2];
+>
+> -	config = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
+> +	configs[0] = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
+> +	configs[1] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 1);
+>
+> -	return pmic_gpio_config_set(state->ctrl, pin, &config, 1);
+> +	return pmic_gpio_config_set(state->ctrl, pin, configs,
+> +				    ARRAY_SIZE(configs));
+>  }
+>
+>  static int pmic_gpio_direction_output(struct gpio_chip *chip,
+>  				      unsigned pin, int val)
+>  {
+>  	struct pmic_gpio_state *state = gpiochip_get_data(chip);
+> -	unsigned long config;
+> +	unsigned long configs[2];
+>
+> -	config = pinconf_to_config_packed(PIN_CONFIG_LEVEL, val);
+> +	configs[0] = pinconf_to_config_packed(PIN_CONFIG_INPUT_ENABLE, 0);
 
-The is_extended / prog_array_member_cnt protocol introduced by commit
-d6083f040d5d ("bpf: Prevent tailcall infinite loop caused by freplace")
-keeps a prog extended by a freplace program out of prog_array maps, and
-vice versa: once a tail call re-enters an extended subprogram, its
-tail_call_cnt resets on every execution and the loop never terminates.
+Sashiko's comment basically says that for open-drain GPIOs, if we set direction
+to output via GPIOLIB and disable the input buffer, then later call
+gpiod_get_value() on that GPIO, we'll never read what's really on the wire. Can
+we not disable the input buffer for open-drain pins?
 
-But is_extended is a plain boolean, while one target prog can carry
-several freplace links at the same time, one on its entry and one on a
-global subprogram.  __bpf_trampoline_unlink_prog() cleared is_extended
-whenever *any* freplace link detached, so detaching one of two links
-re-armed the unbounded loop through the remaining one.
-
-Replace the is_extended boolean with a count of the freplace links
-attached to each target prog, so the target stays extended until its
-last link detaches.  Also rename bpf_freplace_check_tgt_prog() to
-bpf_freplace_link_tgt_prog(), as the helper has never been a pure
-check: it reserves the target prog on success.
-
-Fixes: d6083f040d5d ("bpf: Prevent tailcall infinite loop caused by freplace")
-Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
----
- include/linux/bpf.h     |  4 ++--
- kernel/bpf/arraymap.c   |  2 +-
- kernel/bpf/trampoline.c | 10 ++++++----
- 3 files changed, 9 insertions(+), 7 deletions(-)
-
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index 73bacfc6444d..fc9011b8446d 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -1773,7 +1773,6 @@ struct bpf_prog_aux {
- 	bool xdp_has_frags;
- 	bool exception_cb;
- 	bool exception_boundary;
--	bool is_extended; /* true if extended by freplace program */
- 	bool jits_use_priv_stack;
- 	bool priv_stack_requested;
- 	bool changes_pkt_data;
-@@ -1785,7 +1784,8 @@ struct bpf_prog_aux {
- 		u8 verdict;
- 	} sig;
- 	u64 prog_array_member_cnt; /* counts how many times as member of prog_array */
--	struct mutex ext_mutex; /* mutex for is_extended and prog_array_member_cnt */
-+	u64 freplace_link_cnt; /* counts freplace links extending this prog */
-+	struct mutex ext_mutex; /* mutex for freplace_link_cnt and prog_array_member_cnt */
- 	struct bpf_arena *arena;
- 	void (*recursion_detected)(struct bpf_prog *prog); /* callback if recursion is detected */
- 	/* BTF_KIND_FUNC_PROTO for valid attach_btf_id */
-diff --git a/kernel/bpf/arraymap.c b/kernel/bpf/arraymap.c
-index 248b4818178c..3bcff6a0430d 100644
---- a/kernel/bpf/arraymap.c
-+++ b/kernel/bpf/arraymap.c
-@@ -974,7 +974,7 @@ static void *prog_fd_array_get_ptr(struct bpf_map *map,
- 	}
- 
- 	mutex_lock(&prog->aux->ext_mutex);
--	is_extended = prog->aux->is_extended;
-+	is_extended = prog->aux->freplace_link_cnt > 0;
- 	if (!is_extended)
- 		prog->aux->prog_array_member_cnt++;
- 	mutex_unlock(&prog->aux->ext_mutex);
-diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
-index ed7999ad6c66..d18a913bc80f 100644
---- a/kernel/bpf/trampoline.c
-+++ b/kernel/bpf/trampoline.c
-@@ -813,7 +813,7 @@ static enum bpf_tramp_prog_type bpf_attach_type_to_tramp(struct bpf_prog *prog)
- 	}
- }
- 
--static int bpf_freplace_check_tgt_prog(struct bpf_prog *tgt_prog)
-+static int bpf_freplace_link_tgt_prog(struct bpf_prog *tgt_prog)
- {
- 	struct bpf_prog_aux *aux = tgt_prog->aux;
- 
-@@ -827,7 +827,7 @@ static int bpf_freplace_check_tgt_prog(struct bpf_prog *tgt_prog)
- 		 */
- 		return -EBUSY;
- 
--	aux->is_extended = true;
-+	aux->freplace_link_cnt++;
- 	return 0;
- }
- 
-@@ -933,7 +933,7 @@ static int __bpf_trampoline_link_prog(struct bpf_tramp_node *node,
- 		/* Cannot attach extension if fentry/fexit are in use. */
- 		if (cnt)
- 			return -EBUSY;
--		err = bpf_freplace_check_tgt_prog(tgt_prog);
-+		err = bpf_freplace_link_tgt_prog(tgt_prog);
- 		if (err)
- 			return err;
- 		tr->extension_prog = node->link->prog;
-@@ -979,7 +979,9 @@ static int __bpf_trampoline_unlink_prog(struct bpf_tramp_node *node,
- 					 tr->extension_prog->bpf_func, NULL);
- 		tr->extension_prog = NULL;
- 		guard(mutex)(&tgt_prog->aux->ext_mutex);
--		tgt_prog->aux->is_extended = false;
-+		if (WARN_ON_ONCE(!tgt_prog->aux->freplace_link_cnt))
-+			return err;
-+		tgt_prog->aux->freplace_link_cnt--;
- 		return err;
- 	}
- 	bpf_trampoline_remove_prog(tr, node);
--- 
-2.54.0
-
+Bart
