@@ -1,247 +1,133 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f6.google.com (mail-oi2-f6.google.com [74.125.231.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3BA46D09A;
-	Wed, 23 Sep 2026 20:54:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8ED53ECF7
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790196850; cv=none; b=bEkjV96jrx3mMdmxksoKXOLxDXxy0kvb1LEZFkws1Wf+KY7mgnGYC2av5hWH/ba4NBHgINVZ4NivNuXAWn5mHyzyws4+nZnP9Dmc0U2fM/xtC3vRABk6WD9Ne/YjldBfPn8McJF07LMCMd8iKexMpOLRUr4UKGaMSjFMLxr3w2Q=
+	t=1790196883; cv=none; b=hYfZdwi4L8eDOqGa0k9kSo4wPkwVSlpSL+a0HvYV459Y3WRF0d3mfoIMISdc4+MXahUfbtTG7TmjmEhkDCy1b/m7OPsRLkoV/9Uk60Dc9FQ/2lor1OwF2tZcVL6wC7NfhUCGHxE8h31re4zGnnnYNwoE6WRNf+83wOTbwPeXV3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790196850; c=relaxed/simple;
-	bh=iHLa2rw9wf8mLUuRep7O7Zoc1j6qyzT4nWjSA2W3ifw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WxubHDIoIL8QtJEuD9LkU9hqO/08SWD3O/cpjOfx8holqHReyTZj0bEksPQNFM4siR8amTZWY/iBe3+abqml9V4u/dELVRJVhlDcibRQL+UBcCJH+76cT/K4v6u5MgtIpEoyZB8M/YLwciYCqLDrnBc+HHyJOLVpTUr1uvGrWws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i2QKqaJr; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i2QKqaJr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790196848; x=1821732848;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=iHLa2rw9wf8mLUuRep7O7Zoc1j6qyzT4nWjSA2W3ifw=;
-  b=i2QKqaJrQ3mnLcU2o/93cHZZTtIKkk/omV4RlligBp7rQbapHnk/6pRh
-   dXoscQ5fbup3yevTE4ozMNhGO0WBzczH7haFDt6vFEV5aTM30j8x4Zp7W
-   RpzMb9nChCrGRrgrBrYz/jp4lFr2cz+fcm9hThMvFV51R2n6KHmYvwbXX
-   u8n9pkK8Sn/SysU/ebGURcQV7rAzDl7D91BY5FqMh8NG0cW0zH+bwY7Zb
-   bVXHIPqhHlFdux76NpWWLSfJ/oUrfirv5HFLnqlY15rlIW3jlAiiDBuPg
-   ZIWnNrt0bOQCBZBY6himbnEt2Q3ttR/+U+csaevSxOCG9DvorQUDjqZhd
-   w==;
-X-CSE-ConnectionGUID: xEwWZorxSwiRF25X66J8WA==
-X-CSE-MsgGUID: G7FqTRLtS3iOEDZsVwORKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89849339"
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="89849339"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 13:54:07 -0700
-X-CSE-ConnectionGUID: BHxecrJjSZqusZF7EAr7Bw==
-X-CSE-MsgGUID: L4lQHyKcSYWN26Ca68YV4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="4884498"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.83])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 13:54:05 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3CA9611F9B7;
-	Wed, 23 Sep 2026 23:54:04 +0300 (EEST)
-Date: Wed, 23 Sep 2026 23:54:04 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Felipe Calliari <calliarifelipe@gmail.com>
-Cc: linux-media@vger.kernel.org, Hans de Goede <hansg@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tomas Moro <tmorolias@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] media: ov02c10: Accept a 26 MHz external clock
-Message-ID: <arQ8bCozVcYL8AEf@kekkonen.localdomain>
-References: <20260905030732.39196-1-calliarifelipe@gmail.com>
- <20260923144257.119076-1-calliarifelipe@gmail.com>
- <20260923144257.119076-4-calliarifelipe@gmail.com>
+	s=arc-20240116; t=1790196883; c=relaxed/simple;
+	bh=G1AA7YrFL8xLT9b2T2uWEotop8fShiaKbqgPsIV9vaM=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=jg50x1aTN0KEWZgvGfXQLHFxtyiqT9ZSOjxpJI+76DD13CCs7x0Y2TSse7llaouoDJmstTIMxEu9zLQxrH2aG4pu7ex3hMWnCtSnlqYFqdFlH3ZThw63wbkWT7g8o4CNspJ10OXASF+AH77wwvdFE+PfDxoFdXTZZtvNtb48J98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f6.google.com with SMTP id 46e09a7af769-804795653f9so290204a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:54:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790196880; x=1790801680;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4o9p5Yjpo/SS1O7YZHoSOG4JjsPX0B2dN68tMlGrTFM=;
+        b=uInMJUaCZCnWzUm4c7dsXKTazOFXUf76QIDb8oq7UVPaIw34wQWYOEZ/t/0TImnyFo
+         l83rgjvk/20dWrECL6ohk74upRYHbiL6GHz9TNYU3uk7qYypYuow72IVvUVWXIs08CXh
+         ZV0XWYf8u5kxHXZRJHHiZ/arZz9IzaOL1138gwyNW/zqgs//iauvkUnnlKWSxw6ba3So
+         1/u0CvMMwN96DAVUBAnVBO9TJNy+27YmrKJ8oBzqnOI0h5jElT9LBX2c1FCLMJpAU9mO
+         HztIBDj+pXgMSprXlpKMyFPwauWgYbjwQgSKD90cwei4f6tywJocmgsk+KfOWLndRbIm
+         qRfg==
+X-Gm-Message-State: AFuF++k+n0zCfyGOUN7mY/2xNiOKoFLwGR8jGr9IYRuQE5KZ4TDxpEuQ
+	7rhXjsr6mJhL849aZmpakrZ91qIS400BmDlaejwOl5mJx8leTcpm8Vt1waazBNnuVc/5dgNiqrc
+	vTdtK40P5GF2x1EtLZW4R0t21fI6VgqfIJb7+qbubbzF0iw56rSo/1V82/lDLlw==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923144257.119076-4-calliarifelipe@gmail.com>
+X-Received: by 2002:a05:6820:2910:b0:6ba:2d85:8f49 with SMTP id
+ 006d021491bc7-6d441995ecdmr424970eaf.65.1790196880023; Wed, 23 Sep 2026
+ 13:54:40 -0700 (PDT)
+Date: Wed, 23 Sep 2026 13:54:40 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab43c90.7428d045.30104c.0005.GAE@google.com>
+Subject: [syzbot] [kernel?] KCSAN: data-race in __mmput / copy_mm (4)
+From: syzbot <syzbot+a4bf7413d2424fa6e235@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, luto@kernel.org, peterz@infradead.org, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Felipe,
+Hello,
 
-Thanks for the update.
+syzbot found the following issue on:
 
-I think this patch still needs a bit more work, see below.
+HEAD commit:    fe2ec83746e5 Merge tag 'hid-for-linus-2026092202' of git:/..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13895405580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ea1e6d8de13bab08
+dashboard link: https://syzkaller.appspot.com/bug?extid=a4bf7413d2424fa6e235
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-On Wed, Sep 23, 2026 at 11:42:57AM -0300, Felipe Calliari wrote:
-> Several Meteor Lake / Lunar Lake designs (e.g. the Samsung Galaxy Book3/4
-> series) wire the OV02C10 to a 26 MHz external clock instead of the
-> 19.2 MHz assumed so far. The IPU6 ipu-bridge forwards the rate from the
-> ACPI SSDB verbatim as the "clock-frequency" property, so probe() just
-> rejects it today:
-> 
->   ov02c10 i2c-OVTI02C1:00: external clock 26000000 is not supported
-> 
-> Rename OV02C10_MCLK to OV02C10_MCLK_19_2MHZ, add OV02C10_MCLK_26MHZ and
-> accept both.
-> 
-> The register tables program the OP PLL multiplier (0x0304/0x0305, 16-bit)
-> to 0x0190 = 400 for a 19.2 MHz clock: the common table writes
-> 0x0304 = 0x01 and the per-lane tables override 0x0305 = 0x90. Left alone
-> on a 26 MHz clock the same dividers run every internal clock, and
-> therefore the MIPI link, 26/19.2 = 1.3542x faster: a ~541.7 MHz link at
-> ~40 fps instead of the nominal 400 MHz at ~30 fps.
-> 
-> Re-program both PLL multipliers by the inverse factor instead, so that
-> the link stays where the driver and the ipu-bridge fwnode already
-> describe it: 400 * 19.2 / 26 = 295 = 0x0127, written to 0x0304/0x0305
-> and 0x0315/0x0316 after the per-lane table when the external clock is
-> 26 MHz. That puts the link at 295 * 26 / 19.2 = 399.5 MHz, within 0.13%
-> of the nominal 400 MHz, so link-frequency and pixel-rate stay accurate
-> with the single existing menu entry and the ipu-bridge needs no change.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Please do add that frequency; it's still different from what's supported
-now. If someone later on improves the driver and implements a PLL
-calculator for it, this will stop working.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/8d62b1e87101/disk-fe2ec837.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f842c0393d08/vmlinux-fe2ec837.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/b8e7137bfc1e/bzImage-fe2ec837.xz
 
-What about pixel rate? It's also affected, isn't it?
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+a4bf7413d2424fa6e235@syzkaller.appspotmail.com
 
-> 
-> Tested on a Samsung Galaxy Book3 (two CSI-2 data lanes, 26 MHz clock
-> confirmed via clk_summary): the multiplier registers read back 0x0127
-> while streaming and capture runs at a steady 30.01 fps by buffer
-> timestamp, against ~40 fps with the unmodified tables, matching the
-> 30.14 fps that the exported hblank, vblank and pixel-rate describe.
+==================================================================
+BUG: KCSAN: data-race in __mmput / copy_mm
 
-If the patch is adding support for a new link frequency, just say that. The
-rest goes to the cover letter.
+write to 0xffff8881046681f8 of 8 bytes by task 21217 on cpu 1:
+ __list_del include/linux/list.h:241 [inline]
+ __list_del_entry include/linux/list.h:264 [inline]
+ list_del include/linux/list.h:275 [inline]
+ __mmput+0xe2/0x1c0 kernel/fork.c:1198
+ mmput+0x40/0x50 kernel/fork.c:1216
+ exit_mm+0x113/0x1a0 kernel/exit.c:618
+ do_exit+0x438/0x1510 kernel/exit.c:1000
+ do_group_exit+0xfe/0x140 kernel/exit.c:1155
+ get_signal+0xe07/0xf10 kernel/signal.c:3112
+ arch_do_signal_or_restart+0x96/0x480 arch/x86/kernel/signal.c:337
+ __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
+ exit_to_user_mode_loop+0x15d/0x8c0 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:343 [inline]
+ do_syscall_64+0x212/0x360 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-> 
-> While touching the clock check, terminate its error string with a
-> newline.
-> 
-> Link: https://lore.kernel.org/linux-media/ap_CGQTdNFysTLot@kekkonen.localdomain/
-> Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
-> ---
-> 
-> Changes in v2:
-> - Re-program the OP and VT PLL multipliers instead of advertising the
->   scaled 541.667 MHz link frequency (Sakari). The suggested 0x28a / 0x1b1
->   produce no output on this hardware; 0x0127 -- the 0x0190 the tables
->   already program, scaled by 19.2/26 -- does, and brings the frame rate
->   back to the nominal ~30 fps.
-> - Drop the second V4L2_CID_LINK_FREQ entry that v1 added: with the link
->   back at ~400 MHz the existing single entry matches the ipu-bridge
->   fwnode directly, so no ipu-bridge change is needed either.
-> - Bryan's Reviewed-by and the Tested-by on v1 are not carried over, as
->   the patch was rewritten.
-> 
->  drivers/media/i2c/ov02c10.c | 43 ++++++++++++++++++++++++++++++++++---
->  1 file changed, 40 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-> index cdccbdef3..17208f2e6 100644
-> --- a/drivers/media/i2c/ov02c10.c
-> +++ b/drivers/media/i2c/ov02c10.c
-> @@ -16,7 +16,8 @@
->  #include <media/v4l2-fwnode.h>
->  
->  #define OV02C10_LINK_FREQ_400MHZ	400000000ULL
-> -#define OV02C10_MCLK			19200000
-> +#define OV02C10_MCLK_19_2MHZ		19200000
-> +#define OV02C10_MCLK_26MHZ		26000000
->  #define OV02C10_RGB_DEPTH		10
->  
->  #define OV02C10_NATIVE_WIDTH		1928
-> @@ -337,6 +338,23 @@ static const struct reg_sequence sensor_1928x1092_30fps_2lane_setting[] = {
->  	{0x3016, 0x32},
->  };
->  
-> +/*
-> + * The mode tables target a 19.2 MHz input clock, programming the OP PLL
-> + * multiplier (0x0304/0x0305, 16-bit) to 0x0190 = 400 for a 400 MHz link at
-> + * ~30 fps.  A 26 MHz input clock instead runs every internal clock, and
-> + * therefore the MIPI link, 26/19.2 = 1.3542x faster (~541.7 MHz, ~40 fps).
-> + * Scaling both PLL multipliers by 19.2/26 -- 400 * 19.2 / 26 = 295 = 0x0127
-> + * -- puts the link back at 295 * 26 / 19.2 = 399.5 MHz, within 0.13% of the
-> + * nominal 400 MHz, so the frame rate and the advertised link frequency both
-> + * stay correct without a second link-frequency entry.
-> + */
-> +static const struct reg_sequence sensor_pll_26mhz_setting[] = {
-> +	{0x0304, 0x01},
-> +	{0x0305, 0x27},
-> +	{0x0315, 0x01},
-> +	{0x0316, 0x27},
-> +};
+read to 0xffff888104668000 of 1728 bytes by task 3876 on cpu 0:
+ dup_mm kernel/fork.c:1537 [inline]
+ copy_mm+0xd6/0x340 kernel/fork.c:1595
+ copy_process+0x108a/0x2350 kernel/fork.c:2310
+ kernel_clone+0x1c0/0x5f0 kernel/fork.c:2769
+ __do_sys_clone kernel/fork.c:2911 [inline]
+ __se_sys_clone kernel/fork.c:2895 [inline]
+ __x64_sys_clone+0x143/0x180 kernel/fork.c:2895
+ x64_sys_call+0x2479/0x2550 arch/x86/include/generated/asm/syscalls_64.h:57
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x112/0x360 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-This needs to be preceded by a patch splitting off these registers from the
-main register list. The result, in this patch, should be two register lists
-to choose from (or even better, a PLL calculator).
+Reported by Kernel Concurrency Sanitizer on:
+CPU: 0 UID: 0 PID: 3876 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+==================================================================
 
-> +
->  static const char * const ov02c10_test_pattern_menu[] = {
->  	"Disabled",
->  	"Color Bar",
-> @@ -396,6 +414,9 @@ struct ov02c10 {
->  	/* MIPI lane info */
->  	u32 link_freq_index;
->  	u8 mipi_lanes;
-> +
-> +	/* External (sensor) clock rate, Hz */
-> +	u32 xvclk_freq;
->  };
->  
->  static inline struct ov02c10 *to_ov02c10(struct v4l2_subdev *subdev)
-> @@ -619,6 +640,17 @@ static int ov02c10_enable_streams(struct v4l2_subdev *sd,
->  		goto out;
->  	}
->  
-> +	if (ov02c10->xvclk_freq == OV02C10_MCLK_26MHZ) {
-> +		reg_sequence = sensor_pll_26mhz_setting;
-> +		sequence_length = ARRAY_SIZE(sensor_pll_26mhz_setting);
-> +		ret = regmap_multi_reg_write(ov02c10->regmap,
-> +					     reg_sequence, sequence_length);
-> +		if (ret) {
-> +			dev_err(ov02c10->dev, "failed to write PLL settings\n");
-> +			goto out;
-> +		}
-> +	}
-> +
->  	ret = __v4l2_ctrl_handler_setup(ov02c10->sd.ctrl_handler);
->  	if (ret)
->  		goto out;
-> @@ -877,6 +909,10 @@ static int ov02c10_check_hwcfg(struct ov02c10 *ov02c10)
->  	/* v4l2_link_freq_to_bitmap() guarantees at least 1 bit is set */
->  	ov02c10->link_freq_index = ffs(link_freq_bitmap) - 1;
->  
-> +	dev_dbg(dev, "%u Hz external clock, link freq %lld Hz\n",
-> +		ov02c10->xvclk_freq,
-> +		link_freq_menu_items[ov02c10->link_freq_index]);
 
-Maybe useful at development time, but hardly anymore.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-> +
->  	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1 &&
->  	    bus_cfg.bus.mipi_csi2.num_data_lanes != 2) {
->  		ret = dev_err_probe(dev, -EINVAL,
-> @@ -926,10 +962,11 @@ static int ov02c10_probe(struct i2c_client *client)
->  				     "failed to get imaging clock\n");
->  
->  	freq = clk_get_rate(ov02c10->img_clk);
-> -	if (freq != OV02C10_MCLK)
-> +	if (freq != OV02C10_MCLK_19_2MHZ && freq != OV02C10_MCLK_26MHZ)
->  		return dev_err_probe(ov02c10->dev, -EINVAL,
-> -				     "external clock %lu is not supported",
-> +				     "external clock %lu is not supported\n",
->  				     freq);
-> +	ov02c10->xvclk_freq = freq;
->  
->  	v4l2_i2c_subdev_init(&ov02c10->sd, client, &ov02c10_subdev_ops);
->  
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
--- 
-Regards,
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Sakari Ailus
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
