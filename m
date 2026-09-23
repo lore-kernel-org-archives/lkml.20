@@ -1,170 +1,155 @@
-Received: from a11-135.smtp-out.amazonses.com (a11-135.smtp-out.amazonses.com [54.240.11.135])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A343440627;
-	Wed, 23 Sep 2026 09:20:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.240.11.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE359442396;
+	Wed, 23 Sep 2026 09:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155247; cv=none; b=Pp/LR5O0whK5J6d4FM5pdZZu8k6xJ+rRlSpV9Epn51dYHHHbr15Tve5G3gGG/yYrFAO0VDewe6kz8qfSmOpokgwaz1ggWRcA6uOeJjo3zJ5yvolw5HZ0+TSGwks//gLJzx4+APAxNbcseC3ZQ6zOJbtFk4oa5dNyiYL/8NHpRqE=
+	t=1790155304; cv=none; b=jaBfXDGzHwWl2UwAemHLvKOFMJM1gTB1BFcqDL2UFDVnDDqlakPn6y9XYDSnhBYuiSaCOGYp4Y5eHQEwVlY2CQhn/Zfe90xm6BfyJMQOLu5epHo9SlCMi6pbSZ5ISVHgQ/+qHFSMMq3ux//kgDvk7V2pcrfvx1/e6un+zOXY6yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155247; c=relaxed/simple;
-	bh=56F1tJzddi4oAdTxKeSfMiGnCGolC5XbQMVUsr+70Hc=;
-	h=From:To:Cc:Subject:Message-ID:Date:MIME-Version:Content-Type; b=H+iNsGdTdz3jFRh5uczYWlBwIp7eZ68XlnPfiOPLN2GcCqDP9Opz6jhljkZmoXqIKVux62iBC+gunFjuhZkUDGWgkZP3WQoc9p9Bh9uOIsa5DeN4tNMDrO2UB8b5icmmVUemYilChz5aQETuCjd+MEoBXxazUrRE2lL8IltEjsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lollipopkit.com; spf=pass smtp.mailfrom=rsend.lollipopkit.com; dkim=pass (1024-bit key) header.d=lollipopkit.com header.i=@lollipopkit.com header.b=RohbW00V; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=cX/GmMES; arc=none smtp.client-ip=54.240.11.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lollipopkit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsend.lollipopkit.com
+	s=arc-20240116; t=1790155304; c=relaxed/simple;
+	bh=oAixXAnaQxinHHkQ/rby2Wk4rk6fMGCMkLTBcOV+IsU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=thOXBgDfR2EAO84JTDg/w27t4pM5aJwxzZyO+MgUchdJSShVqEmcUi23r7XOd1YdBoFbgku4wVIUSEgCCT0zNFNaFC4Z0acwpQvSaHR5s0xzHlCPI0lS2kb6uAAdOnsAzfxEe8oBnvff880WI/1ZwHf04cPd6nVwz1QluyrxDJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hsV1VpEI; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lollipopkit.com header.i=@lollipopkit.com header.b="RohbW00V";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="cX/GmMES"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=lollipopkit.com; t=1790155245;
-	h=From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=56F1tJzddi4oAdTxKeSfMiGnCGolC5XbQMVUsr+70Hc=;
-	b=RohbW00VcUwfyMeiba5fg0Va1a5qi6ippFlwkvG/AGjDPF+QqUuJRnLqzvvwXp/6
-	vAnd+DmPvAXP7PaZcnioK9805aqgYOSvAGAAhFd+L048MJN1rfhjkuP+9QWsm90N1DV
-	z/3QOu8KdiAPXP7a6r80eTR4Uu9vqfN1mYzRmgBI=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=224i4yxa5dv7c2xz3womw6peuasteono; d=amazonses.com; t=1790155245;
-	h=From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=56F1tJzddi4oAdTxKeSfMiGnCGolC5XbQMVUsr+70Hc=;
-	b=cX/GmMESvqFk8Q1N2q0pKmfdmCl5Bja8faBj1yDvEPr7yFUApM8YJlbf1yJi3xmq
-	DBqwdMW/qjefYwKKk2CWQMnVqbGcmhl8sz1DSqo0QDeJ0hCi5iLx+aoKPUkc/9ru97e
-	yids3lOTf7iprx++u01+OiwWnbF864xlQdAkV1Ac=
-X-Mailer: git-send-email 2.54.0
-From: Junyuan Feng <a@lollipopkit.com>
-To: asml.silence@gmail.com, axboe@kernel.dk
-Cc: dw@davidwei.uk, io-uring@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, a@lollipopkit.com, 
-	stable@vger.kernel.org
-Subject: [PATCH] io_uring/zcrx: requeue multishot receives stopped by a
- local resource
-Message-ID: <010001a0cd914529-23df2f94-bbe0-49cd-ae5d-05922356fa12-000000@email.amazonses.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hsV1VpEI"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hqWgP6fWWzMlcN;
+	Wed, 23 Sep 2026 11:21:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790155297; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oAixXAnaQxinHHkQ/rby2Wk4rk6fMGCMkLTBcOV+IsU=;
+	b=hsV1VpEIcbfAY97859a01N4NfGJ1qfkYQ3qQDzvGI09N3qFlULRneVEir627XR5eolXIdw
+	5RrkkOPWp5H54LzL4Sp4h9TtXn+DVUxJ93vxkHhohRl6y+c8A7t9HDNYWHRBwIi0fz54Gy
+	lpGV3DMWLLVkxnDIxpS0DH44l61v1dDjoGR6ZMdDJty4cyNwwq6c1xkXWW6vV9pXOe6vPA
+	/bl/H+fjLKLagm13Z3OMmuWLqS5hiQaBMtdyQphynQz305m6osjNHtIv3BN3eLNsQCeMZy
+	gUpBOavYW/2suWPmXnP0lEdKHEb0QDbhExZioHGGa/oLmVFFiEzVceATJr7GnQ==
+Message-ID: <ffad51ef7d5f20d21396c84362fbdd2ac5883116.camel@mailbox.org>
+Subject: Re: [PATCH v11 1/2] rust: Add dma_fence abstractions
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+	 <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Daniel Almeida
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=	
+ <work@onurozkan.dev>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,  "Yury Norov (NVIDIA)"	
+ <yury.norov@gmail.com>, Asahi Lina <lina+kernel@asahilina.net>, Burak Emir	
+ <burak.emir@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes	
+ <joelagnelf@nvidia.com>, FUJITA Tomonori <fujita.tomonori@gmail.com>, Boris
+ Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org
+Date: Wed, 23 Sep 2026 11:21:26 +0200
+In-Reply-To: <DL9AEUZ4VGV5.2RT33JE0MHYME@kernel.org>
+References: <20260905085343.1827305-2-phasta@kernel.org>
+	 <20260905085343.1827305-3-phasta@kernel.org>
+	 <DL9AEUZ4VGV5.2RT33JE0MHYME@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 09:20:44 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.us-east-1.zZXFpnRVb5v1SY0SyvHElzKYQkSXQPjo9kw1iCidPP/Xszxq/qqJllW0Ln+LCaEVNlbpfAg52fU51cAASENW1Yt7Egb17owWO1eovAvE1fqwD1XvbfSSHmutcmP6wAD73PZKmFk7PoV+NG0E0ET7/U+JZim5HeuAl2eGafhS4Uk=:1.us-east-1.pAEstvQcjyhQNKGKcgSlzI7SVR8ZSG5wSmKwiz/A8Dg=:AmazonSES
-X-SES-Outgoing: 2026.09.23-54.240.11.135
+X-MBO-RS-ID: ee915ba95aed2083b9c
+X-MBO-RS-META: gc4f65s5boyqeb8nrisbs9xnw697ra6q
 
-A multishot RECV_ZC can go idle with unread TCP data when a receiver-local
-resource runs out. An empty copy-fallback niov freelist returns -ENOMEM;
-a full CQ returns -ENOSPC. After partial progress the stop reason is
-lost: io_zcrx_copy_chunk() and io_zcrx_recv_skb() report the copied
-bytes, and tcp_read_sock() drops an error from a later call once earlier
-data was consumed. The edge-triggered request is then not requeued, so
-it cannot consume the remaining data until another socket event arrives.
+On Mon, 2026-09-07 at 20:14 +0200, Danilo Krummrich wrote:
+> On Sat Sep 5, 2026 at 10:53 AM CEST, Philipp Stanner wrote:
+> > +impl<'a, T: Send + Sync + FenceContextOps> Drop for DriverFence<'a, T>=
+ {
+> > +=C2=A0=C2=A0=C2=A0 fn drop(&mut self) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let guard =3D self.as_fence=
+().lock();
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // Use dma_fence_test_signa=
+led_flag() instead of
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // dma_fence_is_signaled_lo=
+cked() because the C backend wants to get rid
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // of the latter.
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `guard` is valid=
+ until the `call_rcu()` below.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let signaled: bool =3D unsa=
+fe { bindings::dma_fence_test_signaled_flag(guard.as_raw()) };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if !signaled {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_=
+err!("DriverFence drops unsignaled. Danger of memory corruption!\n");
+>=20
+> I'm not sure we want to keep this as pr_err!().
+>=20
+> If we really want to keep warning about this I'd either make this a WARN_=
+ON() or
+> dev_warn() (we can easily store a device reference in the fence context),=
+ such
+> that it is at least clear who's the offender.
+>=20
+> My preference would be dev_warn(), as I don't think it is that bad of an =
+error
+> condition to begin with. It would be pretty odd to have a driver where a =
+DriverFence
+> drops while the corresponding GPU job is not dropped. And further it'd be=
+ pretty
+> odd if dropping the GPU job would not imply that the GPU actually stopped
+> processing the work associated with the job.
 
-Record in io_zcrx_recv_skb() when a walk stops before consuming the
-length it was offered, and requeue if the pass still returned data. The
-failed chunk is first on the next pass. The resource is usually still
-exhausted by then, so that pass fails at once and ends the request with
-an error CQE, which the application must handle by re-arming. The
-request does not spin, and the stall becomes a visible error. Keep the
-existing skb limit and SOCK_DONE handling.
+Yeah, it would be odd. I would not expect it to happen. But many things
+have happened which I did not expect, so =E2=80=A6 :)
 
-Fixes: 11ed914bbf94 =
-("io_uring/zcrx: add io_recvzc request")
-Fixes: bc57c7d36c4c =
-("io_uring/zcrx: add copy fallback")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-6-sol
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Junyuan Feng <a@lollipopkit.com>
----
-Reproduction and validation (measured on this revision):
-- Loopback CQE-face A/B (mid-skb path), v7.2.6 + this fix behind a =
-test-only
-  runtime switch (one binary, both arms), 64 connections, large =
-area so the
-  pool stays healthy, 64-entry CQ, 10 runs per arm:
-    fix off: 10/10 runs stalled (allocation_errors 0 -- CQ ring, not pool)
-    fix on:  0/10 runs stalled
-- On header-split hardware an skb usually =
-carries a single frag, so resource
-  exhaustion is expected to fall on an =
-skb boundary -- the case a multi-frag
-  loopback run rarely samples. =
-Validated on GCP c4a (gve, TCP data split),
-  v7.2.6 + this fix behind a =
-test-only runtime switch so one binary runs both
-  arms; pool face, 64 =
-connections, 4.03 MiB area, copy-fallback path, 3 runs
-  per arm (numbers in parentheses are stalled connections):
-    fix off: 3/3 runs stalled (1, 10, 9 connections)
-    fix on:  0/3 runs stalled, 64/64 delivered
-  Allocation errors were =
-7141-14995 per run with the fix off and 4796-5213
-  with it on: the pool =
-was exhausted in both arms, but with the fix
-  exhausted requests end with =
-an error CQE that the receiver re-arms and no
-  connection stalls.
-  The off arm behaves as upstream (same binary, fix disabled), so this =
-shows
-  the fix clears the stall; it does not separate the boundary case =
-from the
-  mid-skb case.
-- iou-zcrx selftest (test_zcrx data path, =
-zero-copy on the bound queue) on the
-  same kernel passes with the fix both=
- on and off.
-- Recovery needs an explicit cancel: closing a stalled =
-receiver fd leaves the
-  socket established while the ring is alive; a =
-cancel + rearm recovers it.
+>=20
+> For the same reason I also think it is a bit misleading to say "Danger of=
+ memory
+> corruption!". It's not the signaling of the fence that does prevent memor=
+y
+> corruption; it's the driver implementing a proper teardown sequence. And =
+if this
+> sequence is structurally detached from the lifetime of the DriverFence (a=
+nd Job)
+> structure, something is structurally wrong with the driver anyway.
 
- io_uring/zcrx.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Hypothetically, it could mean that there is a forgotten job still
+running on the GPU, which might then access freed resources through
+DMA. Sure, that would mean that the driver is fundamentally broken, but
+that's what warnings like that are about.
 
-diff --git =
-a/io_uring/zcrx.c b/io_uring/zcrx.c
-index 1b3b11405..beb35077f 100644
---- a/io_uring/zcrx.c
-+++ b/io_uring/zcrx.c
-@@ -374,6 +374,7 @@ struct =
-io_zcrx_args {
- 	struct io_kiocb		*req;
- 	struct io_zcrx_ifq	*ifq;
- 	unsigned		nr_skbs;
-+	bool			stopped_early;
- };
-=20
- static const struct memory_provider_ops io_uring_pp_zc_ops;
-@@ -1899,6 +1900,9 @@ io_zcrx_recv_skb(read_descriptor_t *desc, struct =
-sk_buff *skb,
- 	}
-=20
- out:
-+	/* Bytes left in len mean an error stopped =
-the walk early. */
-+	if (len)
-+		args->stopped_early =3D true;
- 	if (offset =3D=3D start_off)
- 		return ret;
- 	desc->count -=3D (offset - =
-start_off);
-@@ -1935,8 +1939,9 @@ static int io_zcrx_tcp_recvmsg(struct =
-io_kiocb *req, struct io_zcrx_ifq *ifq,
- 			ret =3D -ENOTCONN;
- 		else
- 			ret =3D -EAGAIN;
--	} else if (unlikely(args.nr_skbs > =
-IO_SKBS_PER_CALL_LIMIT) &&
--		   (issue_flags & IO_URING_F_MULTISHOT)) {
-+	} else if ((issue_flags & IO_URING_F_MULTISHOT) &&
-+		   (unlikely(args.nr_skbs > IO_SKBS_PER_CALL_LIMIT) ||
-+		    args.stopped_early)) {
- 		ret =3D IOU_REQUEUE;
- 	} else if (sock_flag(sk, SOCK_DONE)) {
- 		/* Make it to retry until it =
-finally gets 0. */
+Just to ellaborate on my thinking. I wouldn't insist on any wording.
+From my POV we can just say "=E2=80=A6 drops unsignaled.". That should be
+enough.
 
-base-commit: ab394388d05977f369e8e8d1beceae47fc3c5e72
---=20
-2.54.0 (Apple Git-157)
+>=20
+> Furthermore, it would be very natural to just require the generic Job typ=
+e to
+> own a DriverFence. In this case it becomes natural to either signal the f=
+ence on
+> Job completion, or just drop the Jobqueue, which does the ring teardown a=
+nd
+> subsequently drops all the Jobs, which would also imply signaling the
+> DriverFence with ECANCELED. I.e. I think the fact that the DriverFence is
+> signaled with ECANCELED if it is still unsignaled should just be an API c=
+ontract
+> and not an error condition.
 
+Yup, with the JobQueue design I have in mind this error is largely
+impossible, just as the forgetting of DriverFences is. Which is why I
+think it's a good design idea to have the JQ own the jobs, isolating
+the driver from direct fence interaction.
+
+
+P.
