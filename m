@@ -1,227 +1,180 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBA957980F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:06:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790201185; cv=pass; b=RrF0G8QxjhaMELAH9L2+U390sH1aPx1RFIrt+xnIkUQZ1qhYCBOirvGRlBdzdh1LgTYg3o4LRB6bBneCIllpEJeAl4KhkgmTjaHGGYTvtMJDHeTb7vxUDHmIWTIcCjZI/mF6Dp1oYgLa7TwRv9sOEMPK4wQvwDk9xxzcQlnXmLM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790201185; c=relaxed/simple;
-	bh=AsWbvRuBs6JsB6ieQaz86pXFNDyRQud0rrGGSGlxzuY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SG1x+EEhA8NC5KmlhruuXxJuV6azOjLIVdCno981cQR65AoJ3ip1YPc/hZcZPxjl9c+nILowup3DPYpmbbTqS189I2vpt14xNKcEODbcWOIJH9vmlB2zFQq2d/xhtCBJO0bo9FjQW8fLwucpep5yYjNLz/L44TjpDDQybnh6/cE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HS3+hd2L; arc=pass smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900E257D23E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:09:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790201367; cv=none; b=Sxotwcg2f/r/RzIZWZQ2odVAlhV/AvhmLwGLdcQjOuvbwD9oeai+yOHGjY6g8JysIns2sZH54YHL/Bqi2fA3KJlHlJUV0swml1LC5Mk1NuR8yOKp2OHHSoC7J1awqyMlgkm4S/jr2QPfKz8JwpsG1TFjavtlAy65EPdqfePx3Vw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790201367; c=relaxed/simple;
+	bh=b0TAtr57yWE+QSO16pjO+nrOxPN+Pz6dGmFJGAl5jPA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=RGBQp+QyUq72qPxXYqzk3Hq67RCXoBhIu9OZlCS6mO/DvPM7ZQioWbiEZwZXweyEVF72mj0VJEXxPDJE1q4lGci+SdF9WJuTZhMrWN3F/bFrxlibyPGgJY4oHf1lU7gM1cFerZ0lRjUZSVhh1u4AQdS1qcnObkUkmy4kyXtGmWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hcM78zUf; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HS3+hd2L"
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-78a5e045187so659633137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:06:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790201180; cv=none;
-        d=google.com; s=arc-20260327;
-        b=O4fdEr/+cgyVjw6JcySDYkJ043HP5EyqSzqFTnkQSIwYMLalS+3LA+Q0DnYGrly79/
-         9SkysWHcCS7FLIF8Bl/AHtL/6a2D80ag5CIxUaI6y2WWprY0g+vJcWMQpooYy1EDFrvt
-         bLgyR5rtPYTGsXphaopOYnuH8P0a/n27F3Qr1pq5OQWqZi0k+6bWRM6RKdxGmFXG1KoP
-         G7DpBr1PU8Aa8qiOMOlbdDc+dixHIcUDlEObWzMOpNjlUPFgK4jshSl6XvytrqprWwPX
-         88YvlH2WYHKwSpL6olR64y5adtDTBqVRQWiGh3TObBKauoSGSlShzbo3xnyPhAYUBKY/
-         /lwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=3yKK+WuchgTTwdNLrz4OxJ2b7Qi8+fI+db9UtwpFLIo=;
-        fh=flID4iix8crt3Ah+CeM6USnVoAbXriJfcdABVEWYLno=;
-        b=RNj1QDq+W8Ine0cbOAgyNz3XM8j0C+XqUesqbAPPreQy3PwWLU+EUySBSYHaFHVj5x
-         p69SOT1RRMtS3eNT37bnM5W1kNkjvqhiN3GwSYhS1XjZ7pognSB6kpkfl+n4GCG2La7B
-         g+AwvmqvokWR4kX3R0ncdEQo6z2zJ/bhfrFDH/G/BsvswLqoj66nF9H8vJCTTDWTcB33
-         jKxotToe/qBEnma8MhRV0s0iBNwwSTBN8RjkHfPS7AB96dwTVnFvi7T3fCT+rzmtitlX
-         AJe7YiWKz5+3sYYKC/EzbxC0CyHzTljGzgTg4cZzvvOcrggnNjcXSlW37Wey7osxsGYT
-         It+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hcM78zUf"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso17471855e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:09:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790201180; x=1790805980; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3yKK+WuchgTTwdNLrz4OxJ2b7Qi8+fI+db9UtwpFLIo=;
-        b=HS3+hd2LNIXxo51Lo08u/4zA+eKjJTYh/z+YZ/iJuZzIVK8UCdK2zz2G3TjboIMapd
-         SUVSki8eM7T9Nxd/CABC7JJUIiPKL2XQcyfNAk0ng1IDvdUyebs224vozRCCPgcu4PJg
-         OdVCyQIUkpDst0NEMsTutZJB7Te6Eros3gqVOVRoMPV9grBZeD1vx8dJ0hJFoQNDS5nQ
-         RF8hwA4H6+RVxsL8a+FAAs9Zm9X8C9P3K0UiKr18rnvl7I3SLa1mbFZ1l5HwijmlynnM
-         IBXhigQm+/Tnfn3Dd+O1F1Yxv7tOXw5H8XJawYndPvHbokkPm+54c5J+5y3c4BdEVeku
-         Rrzw==
+        d=gmail.com; s=20251104; t=1790201364; x=1790806164; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0vfvvH4VnMd4dK0iJViHA204XuBKefpDpGV2LA9qE58=;
+        b=hcM78zUf/OarTJnCAvLnhcMARyxhZZB1YqM21ZpU2+InWJXd4saJi85V3wPxwjSGpg
+         rFa9BC0CaR/QZuuJXNzEg51AqCH9tzkPQVifIhYM+5ujMndca7+TLNmt6yWebOVBA0hd
+         DsGTbQYoh5Op/1g4Lm2jgaishy6Rsx9fu10v+flgiTeIiFVgkN6GM9Jt12HSXFz8Owh4
+         mFa6w2gv6YEnhKKZJBdtVvop7pnAokHL4MCyDECDrT9ayMNzHc9eG31KC+6fiJvbPp1H
+         g4bHyAI7/kjfaHWh3HmE3SkyzWq+rLzRmBkl9ndYIAscbRnt3tnaW1xVtJ1mDrZ/xdsB
+         22Kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790201180; x=1790805980;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3yKK+WuchgTTwdNLrz4OxJ2b7Qi8+fI+db9UtwpFLIo=;
-        b=E0t+lODSMhyMpOkaJYPyST39vnKLMsOytGnwzrnFv/FVPTMFMSO/bZrqQgSBnTRXnH
-         mdW/q3gLWyg/Qw7cCWiraMJbDFqDxsBN3noZeNzk/9FEOQI8YYWVWyjU/7zQ/3JumheU
-         NW6jz8ZxDX4AS4XZC9yam7NFI6FxerxdJTokJPag+dHgqk+mRiDgrmrsoFM8vzAdmQBH
-         AueYvVKO9E+u0x/hPGTHaYMdYf3I7iRlQIkTlVFhaa54fDsCsPjCFyko3cLHdCb2aE3Z
-         gG47ceRrprL839PGi059rKLiurcy80mRE4EFSdimFXitQG8G0QdqJXiqD2weo5Io9Z9i
-         GoSg==
-X-Forwarded-Encrypted: i=1; AKwUvBxkoaEI/RsXgABtHqRtxTf12GEbsY+gjjqVMbe9oiLP+35PmrSKgdvSpwVucbN2YRWI9VTrlzjxwfNWNt8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTEg0Fv8FDkT15HeR6W4u9W4jWt9YnUOF9BWV7pcW/EaIDVGhT
-	69i24+rzI/RAGBaFfVbzRxcygW8rtJLljcsDFOaTazmIQIr1GnUxMVAVd8pG2OrP+wSNND7gS1A
-	VBNm+dseMV5yudf8QwZKNOMkfqVSBINctb19dPjg=
-X-Gm-Gg: AYBFou2gwXIKSYwIsewlzooxSbY6taSektYBIKrl3mB/wDjAAnXU59C1GYCrAhRgGOk
-	wJpLdL/GYD2BIMnE/ho4F7ZWEtvZC8BKcORIWcvMxzLpb7sQY4czH3PMUtBz4IeBImg1pQx5o+1
-	2gS972XhQayieJ1ANibnS0cISFe1rysp/UlArL0g5kZDAqgotAxQIMHS8dH+lrE0mfPeZBHeLGj
-	RRweY7xUwCMQ7Sq2TgJGmRu9mWWAy+fObtjYJbBCUlgaGX0UJY1d+uWSPURIcOne8R692C7fyKF
-	olkqoCYOXfKq+p9iqsFwUEPLSFQ3lsqHFyTSHKjffwmp830eCB5ylJkrbKfjkGzTUmrinO+SgpQ
-	nPT50W7uzJl/YNLbVa5gZ
-X-Received: by 2002:a05:6102:61c4:b0:7a7:b6a:b022 with SMTP id
- ada2fe7eead31-7af38bbded1mr142471137.22.1790201179622; Wed, 23 Sep 2026
- 15:06:19 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790201364; x=1790806164;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0vfvvH4VnMd4dK0iJViHA204XuBKefpDpGV2LA9qE58=;
+        b=cp5mINEZzCWVLQgb+VieA+zTornYPmABnLLcRbCcZQAsud3evX/RejEtsCFoqojENS
+         hkRlODB3iTlsmjYYcfuv2M0AEAhpkBw6iSevoleZa38tLt6Ayr5WZRbydqrVgRWxU0xp
+         qsyTvWSKS8Lsbbznzg21LT0slbfr1cWsaDKbYlurMVhKkKVoa/a6Ib807PcyhhMc1D3R
+         9IbAmCrTxMp9COr+BzXRy2b70AdrxUePSez84WYlj0tk/uvSMeKi8HFyM79z8i12ELfc
+         1Yvcgg20ElqZ49ukVeth7qm/oNDzQzY50xgYciXkBjQi9EoIPLFK7Y9L36I+lhFUMZPG
+         9X+w==
+X-Forwarded-Encrypted: i=1; AKwUvBy6pjRRheDck06CsO3kWPMNITfQw02A+aVcQVEwigtICkMYxbS+frIUKnmlCx2ugrhehFwEGdX/OVDRsJo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4xHo2QOF+eTMf1kafbDMeJ2IFUuj3erVZ0ap43Oi9peyI/TvV
+	5564HRkeTFmlP6nD+NcLSxsev1CoscTHLiyT4KelI+nHVr4YPRgl2C7t
+X-Gm-Gg: AYBFou3mN1fl3BdvfsP4eJukcUewXEA7Xt5N243RUKamExBxojD4FmVrA31cHMU4Kiq
+	1dt7kSzXNYlnAUv06/ijW1/Bt3wujv5q6ESj1eLmsvcYQECZTlEpF12SC7jHfyBkgd0VIkggnr0
+	NcEMMtgzTM7qK+zwt/MdeXNkgJl2EaDUmm6AFwie6C5aZtl6ZoDK2EmJvHqi8q3zYvzBFswZRF1
+	jNB0cF4ijSdilA/MPKdu9sOAGpReMD5078pJtN2A1oD5fSY5smirguAYBRNEd7DB/MiGwpL/g3y
+	ICDOV1AeDkV2d6CehNcjh1Fd5hS7YpVz+vRfrCtK5bNkxaxLAi9Tirqwi/qw4hBZGbH1OW1ishx
+	0bBL5WYFQa/gV6s7xVYbklvAwjwyjwW3zZNwJnJ1gA1g7cvunFtj785QFYFDT5lnBqRpHSuo8+F
+	GuBne2Y1EJvo29Kvkvt/maMvZIh2d2o5ydrLmCxBq3UENz5UQl5ZodbI//O1ze5e1aoEVwVrmMJ
+	xSa5fqbLvCZRwpiCLOoad2H7bJ4jMhlwyoWosMR3b+xy+asX//uO9v2YycMXC+X7FuDLVSpAJjC
+	G5LoQVpFE7KFLFpPuBqbvzI1t8Kz6OSXGHDu81mqBnoMyvTrOEaVMCStyp1xUorlcjGF46t/A4X
+	P7ePUGKObFU4b
+X-Received: by 2002:a05:600c:138f:b0:49e:602a:b4ec with SMTP id 5b1f17b1804b1-49fe66d2700mr8501195e9.8.1790201363197;
+        Wed, 23 Sep 2026 15:09:23 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a4a2-9601-c082-2dcb-3f3b-92b8.310.pool.telefonica.de. [2a02:3100:a4a2:9601:c082:2dcb:3f3b:92b8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf3541aesm57899075e9.0.2026.09.23.15.09.21
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 23 Sep 2026 15:09:22 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Zhao Li <enderaoelyther@gmail.com>,
+	Jinmeng Zhou <zhoujinmeng@bytedance.com>,
+	Alex Shi <alexs@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dongliang Mu <dzm91@hust.edu.cn>,
+	Hongxiang Lou <louhongxiang@huawei.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Wupeng Ma <mawupeng1@huawei.com>,
+	Yanteng Si <si.yanteng@linux.dev>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	fvdl@google.com,
+	jthoughton@google.com,
+	rientjes@google.com,
+	vannapurve@google.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
+Date: Thu, 24 Sep 2026 00:09:12 +0200
+Message-Id: <20260923220912.46905-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
+References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com> <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922112111.1970872-1-morbo@google.com> <202609230033.E3A658F@keescook>
- <CAGG=3QW+N1FoUL2GOLfU=U1Pj-eb_o99Z_Mq76ocrZ29S-NyZg@mail.gmail.com>
-In-Reply-To: <CAGG=3QW+N1FoUL2GOLfU=U1Pj-eb_o99Z_Mq76ocrZ29S-NyZg@mail.gmail.com>
-From: Bill Wendling <morbo@google.com>
-Date: Wed, 23 Sep 2026 15:06:03 -0700
-X-Gm-Features: AclHuK_fY_1P8WjIOJbnwMFJqwDTCUFnN7YSyMbkDR7oEaQHX-fU05ol8keeeJ8
-Message-ID: <CAGG=3QXAoU8cPQHFLDPa7KZGPWMEqS9iLXY2KeBt2us=K6Z6hQ@mail.gmail.com>
-Subject: Re: [PATCH] iio: st_sensors: add __counted_by_ptr to struct st_sensor_settings
-To: Kees Cook <kees@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 12:34=E2=80=AFPM Bill Wendling <morbo@google.com> w=
-rote:
-> On Wed, Sep 23, 2026 at 12:52=E2=80=AFAM Kees Cook <kees@kernel.org> wrot=
-e:
-> > On Tue, Sep 22, 2026 at 11:21:11AM +0000, Bill Wendling wrote:
-> > > Annotate the "ch" pointer member of "struct st_sensor_settings" with =
-the
-> > > "__counted_by_ptr" attribute. The elements of "ch" are counted by the
-> > > "num_ch" member in the same struct.
-> > >
-> > > All instances of "struct st_sensor_settings" are defined as "static
-> > > const" arrays across the ST sensor core drivers. For pressure sensors=
-,
-> > > "num_ch" is explicitly initialized with the size of the respective
-> > > channel array using "ARRAY_SIZE(...)" during static definition.
-> >
-> > I wanted to understand this so, in drivers/iio/accel/st_accel_core.c:
-> >
-> > static const struct st_sensor_settings st_accel_sensors_settings[] =3D =
-{
-> > ...
-> >                 .ch =3D (struct iio_chan_spec *)st_accel_12bit_channels=
-,
-> > ...
-> > }
-> >
-> > static const struct iio_chan_spec st_accel_12bit_channels[] =3D {
-> >         ST_SENSORS_LSM_CHANNELS_EXT(IIO_ACCEL,
-> >                         BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCAL=
-E),
-> >                         ST_SENSORS_SCAN_X, 1, IIO_MOD_X, 's', IIO_LE, 1=
-2, 16,
-> >                         ST_ACCEL_DEFAULT_OUT_X_L_ADDR,
-> >                         st_accel_mount_matrix_ext_info),
-> >         ...
-> >         IIO_CHAN_SOFT_TIMESTAMP(3)
-> > };
-> >
-> > #define IIO_CHAN_SOFT_TIMESTAMP(_si) (struct iio_chan_spec) {          =
- \
-> >         .type =3D IIO_TIMESTAMP,                                       =
-   \
-> >         .channel =3D -1,                                               =
-   \
-> >         .scan_index =3D _si,                                           =
-   \
-> >         .scan_type =3D {                                               =
-   \
-> >                 .sign =3D 's',                                         =
-   \
-> >                 .realbits =3D 64,                                      =
-   \
-> >                 .storagebits =3D 64,                                   =
-   \
-> >         },                                                             =
- \
-> > }
-> >
-> > So .ch is assigned an array of items which looks to end with a terminat=
-ion
-> > sentinel. And .num_ch is unassigned:
-> >
-> > $ git grep '\.ch =3D ' drivers/iio/accel/st_accel_core.c | wc -l
-> > 16
-> > $ git grep '\.num_ch =3D ' drivers/iio/accel/st_accel_core.c | wc -l
-> > 0
-> >
-> > > For accelerometer, gyroscope, and magnetometer sensors, "num_ch" is n=
-ot
-> > > explicitly initialized (and thus defaults to 0). This is because thos=
-e
-> > > drivers hardcode the channel count to "ST_SENSORS_NUMBER_ALL_CHANNELS=
-"
-> > > rather than using "num_ch" from the settings struct.
-> >
-> > Yeah, checks out:
-> >
-> > $ git grep '\.ch =3D ' | cut -d: -f1 | sort | uniq -c
-> >      16 accel/st_accel_core.c
-> >       4 gyro/st_gyro_core.c
-> >       5 magnetometer/st_magn_core.c
-> >       6 pressure/st_pressure_core.c
-> > $ git grep '\.num_ch =3D ' | cut -d: -f1 | sort | uniq -c
-> >       6 pressure/st_pressure_core.c
-> >
-> > Interestingly, the pressure/st_pressure_core.c uses both assigned .num_=
-ch
-> > _and_ a sentinel.
-> >
-> > > Since these structures are static const, both "ch" and "num_ch" are
-> > > fully initialized at compile time and available immediately at boot
-> > > time.  The only accesses to the "ch" field of "st_sensor_settings" oc=
-cur
-> > > when assigning it to "indio_dev->channels" during device probing.
-> >
-> > Heh, so the bounds check gets laundered. :) Even pressure:
-> >
-> > pressure/st_pressure_core.c:    press_data->num_data_channels =3D press=
-_data->sensor_settings->num_ch - 1;
-> > pressure/st_pressure_core.c:    indio_dev->num_channels =3D press_data-=
->sensor_settings->num_ch;
-> >
-> > > Because "sensor_settings->ch" is never dereferenced or accessed as an
-> > > array, adding the "__counted_by_ptr" annotation does not cause any
-> > > runtime panics or false-positive bounds checks under KASAN or UBSAN.
-> >
-> > I would argue that either __counted_by_ptr has no use here ("accidental=
-ly
-> > safe because no one dereferences .ch" isn't a great justification)
-> > or that the accelerometer, gyroscope, and magnetometer sensors should
-> > have their .num_ch assigned correctly so that the "contract" is correct=
-,
-> > even if nothing does the deref.
-> >
-> This is all very weird. Below is the full output from CodeMender. It
-> might give some insight into this, but perhaps we should just NACK
-> this patch?
->
-After further review, I'm going to NACK this patch as having no
-effect. I think this makes me a real kernel developer now? :-)
+On Wed, 16 Sep 2026 20:13:07 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+> So if downstream people (-stable maintainers, others) follow our
+> recommendations, some kernels will get two of these patches, other
+> kernel versions will get three and some lucky kernels might get all
+> four.  Are you confident that the patches can be split apart in this
+> fashion and still produce a good result?
 
-NACK: Bill Wendling <morbo@google.com>
+Two things I noticed while testing this series on v7.3-rc3 (x86_64
+QEMU, one CPU):
 
--bw
+1. It overlaps with two fixes already queued in mm.git, so I've added
+   their authors to Cc:
+
+   - 3/4 rewrites the same out_subpool_put: block as Zhao Li's
+     "mm/hugetlb: fix max-only subpool accounting on
+     alloc_hugetlb_folio failure" (mm-hotfixes-unstable), and has the
+     same Fixes: tag.
+   - 2/4 rewrites the same out_put_pages: block as Jinmeng Zhou's
+     "mm/hugetlb: fix subpool minimum reservation rollback"
+     (mm-unstable).
+
+   3/4 doesn't apply to mm-hotfixes-unstable, and 2/4-4/4 don't apply
+   to mm-unstable. If I read them right, the queued fixes only handle
+   mounts with size=, while 2/4 and 3/4 also cover min_size mounts, so
+   they would probably replace them.
+
+2. On splitting: 1/4 applies cleanly on top of both queued fixes, but
+   in my tests it made min_size-only mounts worse on its own. As far
+   as I can tell, that's because it starts tracking used_hpages on
+   those mounts, while the two error paths only release it after 2/4
+   and 3/4.
+
+   HugePages_Rsvd, expected value in parentheses. Q = the two queued
+   fixes, wrap = 18446744073709551615:
+
+                                   rc3   +Q  +1/4  +Q+1/4  +1/4..4/4
+   min_size=4M only:
+     SIGBUS faults [1], no files (2)  2    2     0      0      2
+   min_size=8M only:
+     failed mmap [2], umounted (0)    0    0     3      3      0
+   size=8M,min_size=4M:
+     SIGBUS faults [1], no files (2)  0    0     0      0      2
+   size=10M,min_size=8M:
+     failed mmap [2], umounted (0)  wrap   0  wrap      0      0
+
+   With 1/4 alone, the min_size-only mount loses its reservation, and
+   in the failed-mmap case three huge pages stay reserved after umount,
+   presumably because the subpool is never freed.
+
+So it looks to me like 1/4 shouldn't go anywhere without 2/4 and 3/4.
+I haven't tested older stable trees. With all four patches applied,
+all the cases above give the expected values, and so does the
+partial-truncate case from the 1/4 changelog (Rsvd drops to 0 after
+the truncate instead of staying at 1).
+
+I'm happy to rerun these tests on a rebased v4.
+
+[1] https://lore.kernel.org/r/20260923065714.20781-1-kmehltretter@gmail.com/
+[2] the scenario from Jinmeng's changelog:
+    https://lore.kernel.org/20260907132055.26696-1-zhoujinmeng@bytedance.com
+
+Thanks,
+Karl
