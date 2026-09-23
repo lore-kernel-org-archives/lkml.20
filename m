@@ -1,162 +1,224 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EBB3B42EC
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178195; cv=none; b=WhBBdJ9lR3CCllF82KbMlkmbiTO+2mz0Ktzp9ZEKu2EmgBeWCn5ijI9dnnyYZwTeYrHF2+/BTqkRMs9rt170/sAr4nb4hRm1gTAHlr+bc6bxp66TVoNhYUMVBLYquXfHLfTsOg2rtFBPirmH7Et248oxrxCCbWsSkJPECPfQbF4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178195; c=relaxed/simple;
-	bh=ngrEMwBHoqSrBzOVr3vVVpoFr7ca+FoSsZWu/3nVPSo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Type; b=io6uOa/mrAxA6h0wxTku0/YxYpG5+FzM7oQTW1kkiXK5e6xS3OfyHxh+1OG9FhXDKqZ7fYnw3it20rttkpeQ2EHicZola9qgzroVAYjpPmk4NaJN0fXw1EbEzJdqbqqSDBsr0Ptq/a2MeRwxoGa8AlfxlDldblGOjQIdoOpIKxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BebfA1LI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=O6w+i2BW; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0BF521229
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:43:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790178236; cv=pass; b=kwc7fK+vD6jDOPp9uWnknD4GwtWxMaTARaT3cYycGMNNH3eLVCTklwpwCzBJBuJgrrIkukMFA6rGW4iDzrAgsbKqzF4WDa1703stoMf5N00zk9uTly7tR5wgYoYVj3nqN5lH5M5lGv+SR8cNfqPeIYlk43PCUpMUfmE7wtq0wr8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790178236; c=relaxed/simple;
+	bh=TTU+wpCFcAYrH8o/n1TRd3F4KqHTT45Ovt6xsGHc/po=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bgAi7u4v1/c4ptOtHMXa/JQlHE87QOae+8msQ7QJdgYN6KtA1ofBxwYdV+A8dlGvh+W70Y86eTyctYp4duYCIgBrsvWz3tEKIF2v3G0QdcZVxqTDGSyuQdwGXylM73Kjoe4w+hXfJ1LrK7dIc0+ahkFi4fH/Y/LDqw+CcfJpAj0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z98iyog2; arc=pass smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BebfA1LI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O6w+i2BW"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NDLxWh3842838
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:43:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:content-type:date:from
-	:message-id:mime-version:subject:to; s=qcppdkim1; bh=px3kokqR7Yq
-	JFvxeVNtGq39hKU5pCWQ04iMYG9ZzgDQ=; b=BebfA1LIHP/rtgOG3RB+tLSGuis
-	noOs8tcOFAX6jQ+xpupTmws9yn0tlTsHp50qHqh3n89aU5M6zdU8vs/kCYz7jWLT
-	N39uQuD1xaDgs2+klbU3j6tpDwy1B5wfvheBhbVAWQLXwSArrSfmKRjYDPzOhRoi
-	Y/ilTgs2/zYBM1MPRQFwKhMaU/mTBHTQWes8Tpq55/bb64wWEmcHxCVVi9mgCI5p
-	NZmafk5r7oYwhWqnce6gGQmqK+QSJLif6QhjfzekuTBypfrdR2E8eCq2pssjAPtg
-	HiqdyDkBAeRY3YRdNLSrS5o9ss49rLX/FSPeaQOD5zk8wHcBXy2+XuOVHLA==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfkbgmy7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:43:13 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7a8e3cc28e6so862999137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:43:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z98iyog2"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so8187645e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:43:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790178233; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ih5FbPml/ZoWzQqtcvCBEcNiR1FpDRTkwO1JO5EzgzwYoDJs8jpTFA4Fd2M5gvD3zJ
+         fx5WRb0/aIdgZLBo0MpguPeVKKORXLpjaCPO0EJaZBD2WAKHyp6l3kHupu6PW5t8fE+x
+         hI7ezUuM3TqopxBBJG5XONFet/xjqK46vI+Rt0qzvfVvKwLDda7ZEnilkvgkHPTvahSK
+         7+fI8Ki8P6Ct49O/J7NWrsG1lQS4AK9m0kMREj5rVQbn+VRzsGj315ccw4W0FK9g+DRq
+         ++UkPf2zr6SYbi5nBvKe+e+pvp8h+r7oqGLk1tqyW7hGsJcTkgB4mY8HVpvnMdYwwxft
+         97tw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Es8e/JK6KVLGMkYWnzLbZUNxa6vgo1yIxcTSFiPCupo=;
+        fh=Wr+QeVT6QmOlnOSUGDC/OZuJ0rpdAWEb6GOTEpJiJlU=;
+        b=aERHFuA5CjHhhOXLkLwA7uVqkzd2D/QBJJrGa1fjcN4AGoRYQaW0UTOtIO5/MsSjkY
+         hS4leI1ImlMLMdgAmhcIWmiMTF6Df8ecJYVhr5JXS5VvxofC/G12w9svMtWEBr65xhzj
+         wyJRevj3cSBI2kVzJDd8YX3qrk3eRes4DsMvzO/d8rOvno/fTIHsIy4WnQ4w+Br0tY4i
+         sOgSJFWXG7va/MGLqKSui/fZNMEimmNsCQI4fdlH9Bj0gP/otGwtyM9YgfwDNhNixkww
+         XQrfpK1J4jO99z6Co8DLZKbwDet7Fpc+Hv9EcUg0ycEFf0m95QMWfcGMkicEVSFjIigE
+         ABgg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790178193; x=1790782993; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:content-type:mime-version
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=px3kokqR7YqJFvxeVNtGq39hKU5pCWQ04iMYG9ZzgDQ=;
-        b=O6w+i2BWXI5ePnP+RKIVEQ/ZVJSGhY093ztYkeuXUFY68Gc2Z6+ju9rmPqzMxLJ+c1
-         zc/IhmL/zUYRXSvWAoUIsBRaut3LbVulKKnqckG7Lco1SZBvK4YA6tHdCqgghViZpUgs
-         xQQZzUh+WtU1FgowyD26VQbhYkzoOSSDDrMqNFVuEcr4FDe9VaX63aiZ71onhxQu/ZQ4
-         pj2Q9D5tMB/lYnCVl64QNNC5EQgw6gCwK1uHg05XcKQCIPYJA318vp2y/XFavJWwpxKl
-         6ravu2JbGfv38dvR6cvgELjHsJs31j5oyOwgxQHbym7Km4FDbKp6wZl8GjGcTlThGjZn
-         vC8Q==
+        d=gmail.com; s=20251104; t=1790178233; x=1790783033; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Es8e/JK6KVLGMkYWnzLbZUNxa6vgo1yIxcTSFiPCupo=;
+        b=Z98iyog2OL6AlgrltudNlWgBSpLK46Jk4Xoqe8PWWnjvWoSPijHLozscKuquMtdKCo
+         O5+BRPihiSH9YO+fkdH7vXb4xnbH1JJMSENu/VhK/34y5iIcDZJ0Dis+tYYqJKAy+Riy
+         gjkcsI8BLraRNQBZqu62OSlOVXl46ZtZwTTZ3Qa7INPED9N9mvPGiafhFYaqfKicC61v
+         cEfvpwRCpr0MZNqbrNCNNgiC9pXoVfjws6TnCpzQLg5reGkKoKuI9ItzHp7sfcSg922c
+         agjZjCGyInnauf5xRIt6ctbnZZ7eE5WKl2WdDBiiAgKGS7Ly0mY1UkRzVB2UdlkjYxUn
+         gsOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790178193; x=1790782993;
-        h=content-transfer-encoding:content-type:content-type:mime-version
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=px3kokqR7YqJFvxeVNtGq39hKU5pCWQ04iMYG9ZzgDQ=;
-        b=DH21g5I8OEshhwS9joPwgIbJKeFMU4WdmhEoLyZx3E7VYR9+NGVYccd15NYmdJaDVy
-         it3r3IT/1sq+6MBL89mk7MR7aIuZvwU9jkWNrwW5wRAS9rAFNOj/BhXqY6zm3w67W1kP
-         UZ4nqHBXxQUQuJuL6Yosohay/CrD84BevIh1OZpp/DlQG3MhYYxAhmR3QB70LqdbKH9O
-         AP0uyrb72eExRT5Ar/hgkZN5016G2tV2DE1kiWauVfQRL33DDpM2GYKVEVDp9vjcHOhf
-         Thei8cc9V0DdxWFvQKFxARzhkXaEXNRIaPoVNObZ/7wU0NDaZ0qn78NyNdhBOTgNAtLY
-         7heA==
-X-Gm-Message-State: AFuF++l7Wn9LhiP93vEuMi14hnh17zcBp7NuUOLlRuRZw+TnVTZpwKRW
-	v9rWqFPo1rKquPxBBT803wWvgK2UZtgbinnkftbch1Gm/0Cnz0eBxX6tbTOU0p8JjoIhMcrAybi
-	gDpe6n8XLtMgUG/0gIy4CXc/tt9LGTo/+TNS9NU2L9PT/MuAQRGLqZbXBuR+v/wXEBkMvF7ZyX+
-	U=
-X-Gm-Gg: AYBFou1E44djk2HV+sPBj/oMz1f5VSNfhb4fdapf37+StVN+96hNZdspYBwNMysXi9+
-	QJSUswwr52jjLBPBLlehOLR1KDn/8BXVYsHpfswTi+PCJBkYig6QtRKgjY5PocWvtWJ07lHXyHx
-	4Iq3+xCnptH4PQiuiqHEF9SzIYYTSa3n63AaJTu6FCzYUWuRLE0Fr5uqhIy1XLOLlQH93mCdAjY
-	i5vfCo081JJKzYKvBYibGsoWV8DMR2UaZgzgMiDjKI/jZm77bR4C6xtsNWIl/laBZJ/VE423I1z
-	M87cj+YK7afs2Xuif2OaNp6SslfKph6V/141MIU7Jhzzw4pYVEhsFAPd5lnS6nngdjhUhBy0bwJ
-	0HjeQIFpNWXVExPsShDhhpw/4T+t3ngwvs6cVntlXFk4UlAw=
-X-Received: by 2002:a67:f818:0:b0:7a1:f2b5:646c with SMTP id ada2fe7eead31-7aaa0f22399mr4953207137.41.1790178192685;
-        Wed, 23 Sep 2026 08:43:12 -0700 (PDT)
-X-Received: by 2002:a67:f818:0:b0:7a1:f2b5:646c with SMTP id ada2fe7eead31-7aaa0f22399mr4953196137.41.1790178192233;
-        Wed, 23 Sep 2026 08:43:12 -0700 (PDT)
-Received: from hu-bcain-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886848646dsm7043804f8f.10.2026.09.23.08.43.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:43:11 -0700 (PDT)
-From: Brian Cain <brian.cain@oss.qualcomm.com>
-To: linux-kernel@vger.kernel.org
-Cc: pierrick.bouvier@oss.qualcomm.com, paulmck@kernel.org,
-        sid.manning@oss.qualcomm.com, peterz@infradead.org,
-        linux-hexagon@vger.kernel.org,
-        Brian Cain <brian.cain@oss.qualcomm.com>,
-        Ingo Molnar <mingo@kernel.org>,
-        Frederic Weisbecker <frederic@kernel.org>,
-        =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>
-Subject: [PATCH v2] smp: align struct __call_single_node to 8 bytes
-Date: Wed, 23 Sep 2026 08:43:07 -0700
-Message-Id: <20260923154307.3625611-1-brian.cain@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1790178233; x=1790783033;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Es8e/JK6KVLGMkYWnzLbZUNxa6vgo1yIxcTSFiPCupo=;
+        b=v0ZJ5F73BK1KuD3xPzoJYjSL1Xw5b2m9K+h0uS2WcQMrSvZKzNQKhYKfpDEp93yGWc
+         1QsusQJa+6/wGL7Wv1g0z0CyOerHuoni6by1To17OorDAhsTUb/KLGhf6+fspa4se6dx
+         ZrAnEV4lKUAH2Bp0VMtqY9InVsxcq3OyH2hD3xV2EchFqxUVhrRvHs3V7Zs59qOstrg8
+         VrVny6e28q1tPnOUUS0EkoPIt4Rjy6KmDUz5QBkgDyDr9RTVluPmRSHBZjtQhaXny8rA
+         GF5Oc7D5IZvjiCmyawWcnN8I9DYK7oyjFBeF9vWaFOF76Bw9WLAcnCnYg8eJU5YWNs42
+         QNBA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrEWyNxdXu8I3Aks7TTUS1jRXsWdj5L1uECRfiT5e3f1Fef0RN1l3rwOmHuzdL6DGKWBSiOaNNQxjlfZc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kN7cOQ9thHH4S2CX/nVHV1djXwymuwnQ+YxrLetlA43MUwYkxm
+	n5S+Wo/j5+c4NdzrBhyWoCeJDFmVa7K+dWrsF6/55A5gvy73G6/zdYa5VqDtqpdK63DcCAu++WP
+	ZoNaGWG+e9kjOVrWyfD3GZK2s7BtJSZI=
+X-Gm-Gg: AYBFou1truCAvLh55fIeyqOzi/LcZd/XiSh+LAAKi9AfJvdCVN9r5zDstj2o0MLIp4r
+	K3oo3A2LP04IVa5wy5mn9WdnByxFrJhHXjgm4e7VdRKoPOtiw3KSgjF808BZpowV05QhBUfkvRH
+	l4AtN4P5F0nit1RyDyesb6ybz8JsnozqD8ctu4tZ0v8+JMH9gQ5KriMI8u5djSSEFDhJ3ts/GXM
+	n+ZrfE/7emJgVNGznN2QnBtPrjdts+wgg7LF3vrRv6YTV3s9RlzvCeTSM7GvHoWJenH6ydq4iMq
+	uibIk3Pcr4c/iiWIMbvtQNBiV+tcGX8Sh4YRCo/1TTC8R5gJuIMnFZhWxPrQsC7wL6fNbqq1Qjb
+	5E53pbPk362A=
+X-Received: by 2002:a05:600d:1:b0:49f:e3d4:4c1f with SMTP id
+ 5b1f17b1804b1-49fe3d44c52mr27492235e9.8.1790178232516; Wed, 23 Sep 2026
+ 08:43:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2MiBTYWx0ZWRfX1xh3jIRoR5bf
- c0f9D/OOqwQobkbFrlqAQscEU6hNp2FqP36rfZclXl014osgU/r7axLTvQvPEsi70LLDt4W9x5H
- mihS8xluPNWoFG8+3TB0NwvxHAyjc60=
-X-Proofpoint-GUID: rYb33qhKYludRwo8OnlenB5sYxCDeN16
-X-Authority-Analysis: v=2.4 cv=RYMFmFtv c=1 sm=1 tr=0 ts=6ab3f391 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=JfrnYn6hAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=IZicBOMgkkpEp8HIunUA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
- a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2MiBTYWx0ZWRfX8GV0coT4jeF7
- jdgW+wU230r66Vjiq9FI+ZuJbNL+5etJG8EVlOWa+nHjzomUGDLRs0RuEmcs+QAL6ssK9aOYKL1
- vUtXyT19xalGdGSGwO1dvB/EMpwEqWfnx4y2TIDsKhFzzM0ZljBXwX6UFN/rnaFgBdSssIPWPNd
- xXwArOE0v32I8ZDQXgC0xtEQqkZxNewef/mTJOGHV4fiOT/ri5Wv0omWcziwF7nAGVgepBTaezw
- gCj7oCAaTb3ok8Qks6BKjeiaQPUiwaVk8GAY8QwP7uDKRvrcW/PTKrR2qLo3ru1huJ+CV73GN1K
- 1Ho8m2Ds6c/5rIslumCwA61ejEpjfzn9H/O8tTd/xJUwIfXoO1OoNmBQBkEyY84hu/bla6LHUYY
- wmDGPOq4ZOyP2XYcWVT+GwdHU7gmp201zXMZ802d10ufU+RnvlgeO7m2cw5eU/+sJr8jt5ktvgz
- CeREiwbSL8CmI3EjLZQ==
-X-Proofpoint-ORIG-GUID: rYb33qhKYludRwo8OnlenB5sYxCDeN16
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230062
+References: <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
+ <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
+ <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
+ <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
+ <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
+ <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
+ <arKbXe1Qe-FDCTMM@gourry-fedora-PF4VCD3F> <CACePvbWW4avTV2WB6iRU+LN5zqkMTg3UhBrq41R0iw91-7Ni0g@mail.gmail.com>
+ <5a7ad159b2fabf377b7e1fc4248c433287ac11fb.camel@surriel.com>
+ <CACePvbUtEdQLmmudON_qC2aKuLYCNktBuAecFKiSvDC6eTfXeQ@mail.gmail.com> <arO0RCCE3Woh_I_z@parmesan.int.kasm.eu>
+In-Reply-To: <arO0RCCE3Woh_I_z@parmesan.int.kasm.eu>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Wed, 23 Sep 2026 08:43:41 -0700
+X-Gm-Features: AclHuK-DOXD6gmZ00tV-Y_YvQz68XBhp-4953At3s2qoPuH6VxOPtvAoXyV4CLo
+Message-ID: <CAKEwX=Mw8DsieAeEK=Wjb2d2o=wxEN3QOoOR153u7Ki28003gw@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Klara Modin <klarasmodin@gmail.com>
+Cc: Chris Li <chrisl@kernel.org>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Consumers walking call_single_queue cast each node to call_single_data_t
-and, given that type's declared over-alignment, the compiler may load
-llist.next and u_flags as one naturally aligned double word.  Fields using
-this type, such as task_struct::wake_entry only guarantee pointer alignment,
-which faults on strict-alignment 32-bit architectures like hexagon.
+On Wed, Sep 23, 2026 at 5:52=E2=80=AFAM Klara Modin <klarasmodin@gmail.com>=
+ wrote:
+>
+> Hi,
+>
+> On 2026-09-22 21:10:53 -1000, Chris Li wrote:
+> > On Tue, Sep 22, 2026 at 5:53=E2=80=AFAM Rik van Riel <riel@surriel.com>=
+ wrote:
+> > >
+> > > On Tue, 2026-09-22 at 05:43 -1000, Chris Li wrote:
+> > > > On Tue, Sep 22, 2026 at 5:20=E2=80=AFAM Gregory Price <gourry@gourr=
+y.net>
+> > > > wrote:
+> > > > >
+> > > > > On Tue, Sep 22, 2026 at 03:32:44AM -1000, Chris Li wrote:
+> > > > > > > Right now it has 64GB of memory.
+> > > > > >
+> > > > > > That is exactly my point. You are running 1/8 =3D 12.5% system =
+ram.
+> > > > > >
+> > > > >
+> > > > > Chris you are missing the point
+> > > > >
+> > > > > Zswap:           8812236 kB
+> > > > > Zswapped:       24927876 kB
+> > > >
+> > > > I am well aware of the point. The 7%-10% data I provided is before
+> > > > compression. After compression, the real saving is about 1.5% - 2%.
+> > > >
+> > > Here I'm at 28% without any issues, with room for
+> > > more.
+> >
+> > 28% is one thing, 100% is a difference beast completely. If you
+> > haven't tried it, don't assume 100% will behave the same as 28%. There
+> > is a point where too much zswap makes the system unusable. It is hard
+> > to pinpoint the exact upper boundary. However, figuring out the upper
+> > bound larger than that exact boundary is not hard at all. I haven't
+> > seen any one can use 100% system RAM sized memory swap out to zswap.
+> > If you have a data point showing what that system with 100% swap to
+> > zswap looks like, please share it.
+> >
+>
+> Chiming in as more of a user perspective.
+>
+> On my 4 GiB BPI-F3, I can reach more than 10:1 compression ratio on
+> zswap during some parts when building GCC 17 snapshots. E.g:
+>
+> MemTotal:        3966864 kB
+> SwapCached:        31872 kB
+> SwapTotal:      16777212 kB
+> SwapFree:       16638128 kB
+> Zswap:            280140 kB
+> Zswapped:        2859840 kB
+> AnonPages:       2927376 kB
+> AnonHugePages:   1409024 kB
+>
+> While this is 72 % rather than the 100 % you asked for, I think this
+> shows that what size a potential limit on the uncompressed size of zswap
+> is suitable heavily depends on the workload.
+>
+> I have been using vswap consistently on all my machines since about
+> August, and I have also tried one or two versions of xswap (but the
+> current lack of writeback makes it inconvenient for me). I really
+> appreciate the work being put in to decouple zswap from needing a
+> physical swap device to work.
+>
+> > >
+> > > > You are not listening. The boundary was set due to feedback from th=
+e
+> > > > application SLO. Those are real deployments not imaginary usage.
+> > > > Please respect the user.
+> > > >
+> > > Different users need different things.
+> > >
+> > > The kernel needs to be able to accommodate all of them.
+> > >
+> > > The kernel default should accommodate the people who
+> > > are least capable of configuring their systems.
+> > >
+> > > Hyperscalers can set their own defaults across their
+> > > fleets. They know how to adjust settings.
+> >
+> > They can use a safe value, e.g., 100% of RAM. Let the people who know
+> > exactly what they want to swap configure the boundary they want.
+>
+> My personal preference would be for a default uncapped (or very high,
+> and I don't think 100 % of RAM is high) limit on the uncompressed data
+> which is backed by zswap, since that would mean one less knob to tune.
+>
 
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@kernel.org>
-Cc: Paul E. McKenney <paulmck@kernel.org>
-Cc: Frederic Weisbecker <frederic@kernel.org>
-Cc: linux-hexagon@vger.kernel.org
-Reviewed-by: Philippe Mathieu-Daudé <philmd@oss.qualcomm.com>
-Signed-off-by: Brian Cain <brian.cain@oss.qualcomm.com>
----
- include/linux/smp_types.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks for the data, and for the testing. Please let me know if you
+have any requests or encounter any problems :)
 
-diff --git a/include/linux/smp_types.h b/include/linux/smp_types.h
-index 2e8461af8df6..5773e1fb2660 100644
---- a/include/linux/smp_types.h
-+++ b/include/linux/smp_types.h
-@@ -64,6 +64,6 @@ struct __call_single_node {
- #ifdef CONFIG_64BIT
- 	u16 src, dst;
- #endif
--};
-+} __aligned(8);
- 
- #endif /* __LINUX_SMP_TYPES_H */
--- 
-2.34.1
+And yes, I completely agree with you. We're having a very backward
+conversation. The default should ALWAYS be less hassle for userspace.
+Ergo, as transparent as possible.
 
+Exposing priority, sizing, etc. is *adding work* to userspace. That's
+the position that needs justification, not the other way around.
