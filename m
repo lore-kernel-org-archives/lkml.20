@@ -1,160 +1,109 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 986BA3D3CE2
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3498C3C819B;
+	Wed, 23 Sep 2026 21:08:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197684; cv=none; b=d5ZcSFk2HJiZ5GCkFldLULM3xZRf0VxURWU+/ZDKs60W773P1WMrGK6A4w2LjD9eaVU0B7WEhFsU3BgYlOBIISwBholbgunzZqoK3zaSEAJwn+UFF6n/lh4MHeb2g3l8udU4SLNTv/kqFJkIW7QoP69iLI69yweQnTaz9xXXfT8=
+	t=1790197717; cv=none; b=euNzqlAjg8khj+R2u3OZ1cO5TSzzA4PQ1zJaIcPZfc+R0qNevYTPRr0prIfzpIKIl9oiwdKwBBwiBafW7HfOf3u5hspD5KZH1rPLMzAGPksYYIfD61kGcmjfXiqw8Obk2M1VbmyQHKHe0dTCpK5tZXE5a62Bd+8DM8MvcyJRilo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197684; c=relaxed/simple;
-	bh=8B2fWGIDUgftWpMYtaxbZfUEWzXz+xAFmykfFulfqSY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AKCmVZG67lxA2A56CdIgvEBBYo87+8QZoNtE+4f/e11ClxZvdD/73n5GrsrY59BvJRlNIcS239NA6u1TchisNk5xcHUGx8lC+YEj/k5+8KascIgzB+tcNQwitif5RDToNKy0ksJnDjasd9D54pQ3RAJoMpslXFkeOn887eCXA40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=w5/kP4rT; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1790197717; c=relaxed/simple;
+	bh=u9vyTnfDdTrmd9y7fzOYI9Chf27iTNx4Gu6KyxRoDT4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RuXtoYZGpv/zZwNyyxNU0qkQCOvqjUWycU7RWBLbZp0hf7pq2/zW8B+53c+KU9xBZ3WuilBZ3G0Kg3ignOU6krv2kNiK5zZbTWZJaLExIr5dOO5wk5KzuAhPZOMYzGOlfuEVhCj2Ug7QVR89RTfJIl9MXbmgtXpuYNU72dkcZis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IFfLk5F+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="w5/kP4rT"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed6d6eso9000775ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:07:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1790197676; x=1790802476; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aslm3Yn3BYgx8V54FZU0TWe6uKvDrpLLy9fax5L8J1M=;
-        b=w5/kP4rTscb/mCMMHW3CPd1FkmxYDmkjz7VgryWm6h94s2pHak+1dkIi9RwHeSnmah
-         EJkESKN2KfWrNM9esGF/sQr1oayAIpcBXUqNBtMVUlBjS/sWgCmKsglNZhM6iUngP1Iq
-         hSg+QIYS3dt/JUV60gl4QUeHym/KnunP+asSN2uIq4wsgz7rVGboozEjBTL4cQ2BW0rj
-         cdaCjOrUV+tkoWpb4SWWJr+W7qqitRDZ5XSdvlOJxaULsXE1jTZ9TAMNVK7k4D62TO0r
-         I7gq1MvApRSRczysJZ+Wxi4QnFE4OngjIjIlOjfSE5R8IT/rgbLlkEzKfRq8fhNAH7t9
-         tijA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790197676; x=1790802476;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aslm3Yn3BYgx8V54FZU0TWe6uKvDrpLLy9fax5L8J1M=;
-        b=btrxf853KKblAsnjTZ8hWWDJ1ZkF+YsMABC9wdFaQ1K8iP7vu2iWZe/ZiERSexCpG2
-         cXFoexgA6uW0P6iQ07lp8D7EuxT4TSXighgDEgTaesZgOKQ8ZNPEq9tdedvugki1T6eI
-         q3zvFpxjzA28WOP3jw5CohtFwfX0pEsmp9VHrlNotdPldi1sqQ+ZVdLh8tJ+VX4GDZ9s
-         8rLNVDa0tM7U8CRUXoxexcm3M5x3MlJeMR713D3WyzXi7lg7S0Nzr2M+542kjESck76z
-         BV9HZqh44GaeiMN2yy5y5VC09qejZ/VSXmAeBCQig3Ei8tW2Z1KwRRML8DlysMc7ghIs
-         7w2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxhLF9ULD7iIE2JMilcZHL2a532SAEoUrxzJ7P/ol45tOau/gUp718d4+viWC8WhVD1e++virQgPGVOr+8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9QCHr/YEWHvCylQiwsOOwmJnUXd4uZ/ELD2c75lXAy/RupobL
-	X+V2N0Kio2+mosqtfAIOLeGoFVxQGkvlCbFcke3QyJtvSarE9VwtWfwAEGq2R0mD+qY=
-X-Gm-Gg: AYBFou1uvKEjx5CSczLysZuvBOlE20P2I5TP9C5PRKx6uy/DvG8t1DU6sKdMe3niJQE
-	QoA/MVvTNmXwhCBiZ1H61OU7LS6wn6f+C/yqe3XFG5Z5v8QgqsQjG3u4vEX3Hky4OFBhzWNET9O
-	o4aW/p0ldkmFcMaSrvP1LtEbWO0afslyz4p60v1FOaJvRuuU8rVeDrsJuU0WsoHCyehynPSYitT
-	81c4ebA38P3t5oK/iaD2tAnT/Yhb8ERN/p/1nepAuGsvlVwoZ8mBsJPGEUHFTFNTfk2AGmmPhZd
-	ZWwq645SWNXbjDaVJ8Qd6RRIgfsmL86YHyVsA0wH/bvLUnH9qmQCopvs3n6GCc/LJbodPxhtC37
-	YDvzgjDoZ3MfZGqQZ0jwhEWFckiNH0pRgAXibRSJhVwKYToqUZW0SwE1Ixl8DyRaDRL3mTyxcCL
-	If+eBiFy5BRwZUI8aQUPLCO20J3SYUQJNJ0ixyA3puJFEYYlwFEeF3PA==
-X-Received: by 2002:a17:902:f543:b0:2d8:d4d3:3fbb with SMTP id d9443c01a7336-2df7da839aemr2463045ad.15.1790197676232;
-        Wed, 23 Sep 2026 14:07:56 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:4c::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5eea15sm16450405ad.64.2026.09.23.14.07.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 14:07:55 -0700 (PDT)
-From: Joe Damato <joe@dama.to>
-To: netdev@vger.kernel.org,
-	Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Prashant Sreedharan <prashant@broadcom.com>
-Cc: horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Joe Damato <joe@dama.to>
-Subject: [RFC net v3 2/3] bnxt_en: check HWRM response if completion never arrives
-Date: Wed, 23 Sep 2026 14:07:41 -0700
-Message-ID: <20260923210744.3406861-3-joe@dama.to>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923210744.3406861-1-joe@dama.to>
-References: <20260923210744.3406861-1-joe@dama.to>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IFfLk5F+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16721F00893;
+	Wed, 23 Sep 2026 21:08:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790197711;
+	bh=oYRyYQ7jGFmso8AY6dUwDwpqY0QEPIOZBmqP3y/+Wjw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IFfLk5F+vPh8IZNhqF0jC6aiB53HDZvSF2VK2z8f7otoMhT2JY81X0DRgu4kSZy1c
+	 joRyiJr0iXdIujrsXvmcilGrrlkhEL9YLIUEvmzKixvjEeFJ8vxgxkwXlAMImcgbz5
+	 ObT2M39E9XWkmhhoICbrZZTEJIdLs70sQZ7CLs85nDdlrYvQI58UEG0MV2Zli3ORfN
+	 qEGaY7uobvyPgkqQYN9MxRINi7FLvSkgqHtmHbwFsTDaPMYxN2sV8xdrPRQjkvGaFE
+	 AUROK5OvdNxX5Jpjfb4/VhakF9Jk6w7yYiqjrfNKsr4mXgTRJosRSZ3QC2bAL67QYd
+	 6F00ow4Wk2EBQ==
+Message-ID: <49153dff-b4e0-43ac-aa82-15175fea6445@kernel.org>
+Date: Wed, 23 Sep 2026 22:08:19 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] firmware: qcom: scm: pass qcom_scm through the
+ exported API
+To: Albert Esteve <aesteve@redhat.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Russell King
+ <linux@armlinux.org.uk>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Christian Loehle <christian.loehle@arm.com>,
+ Maximilian Luz <luzmaximilian@gmail.com>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jeff Johnson <jjohnson@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+ Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Brian Norris <briannorris@chromium.org>,
+ Govind Singh <govinds@codeaurora.org>,
+ Niklas Cassel <niklas.cassel@linaro.org>, Kalle Valo <kvalo@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org, Maxime Ripard <mripard@kernel.org>
+References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
+ <bRb6NzJiFvNGB0X3BeiVytgZNlRv88LFlcaBwwFIFa3GtVZhn5bh9EoRRDliRtgsnlQNMddvcIPK-5HK9x7z9Q==@protonmail.internalid>
+ <20260914-scm-device-api-v1-2-3573e2596c51@redhat.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260914-scm-device-api-v1-2-3573e2596c51@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When a command is sent over a completion ring, __hwrm_send() waits for
-NAPI to consume the completion and gives up if it never arrives, without
-looking at the response.
+On 14/09/2026 13:41, Albert Esteve wrote:
+>   static int spm_cpuidle_drv_probe(struct platform_device *pdev)
+>   {
+> +	struct qcom_scm *scm = qcom_scm_get();
+>   	int cpu, ret;
+> 
+> -	if (!qcom_scm_is_available())
+> +	if (!scm)
+>   		return -EPROBE_DEFER;
 
-If a completion is not posted within the timeout, check the response
-before giving up. If resp_len is set, the sequence id matches, and the
-valid byte is set then the firmware completed the command and only the
-notification was lost. Fall through to the normal error_code handling in
-that case.
+Is this equivalent code ?
 
-Several seconds are spent waiting for the completion, so a response that
-was written at all is complete by the time the wait gives up. There is no
-need to poll for the valid byte here the way the polling path below has
-to, where the poll is for a non-zero length and the valid byte at the end
-of the message may still be on its way.
+Its also a bit confusing to me that the next patch adds a .available 
+field to the qcom_scm struct.
 
-Log the response state on both paths so there is more data when this rare
-event occurs.
+I see where you do get drvdata but I haven't managed to find in the 
+series where the data gets set - haven't asked an LLM either - I think 
+the logic to associate the scm pointer and get it should live together 
+in one patch so that the logic is easier to find and reason about.
 
-Fixes: 74608fc98d28 ("bnxt_en: Ring free response from close path should use completion ring")
-Signed-off-by: Joe Damato <joe@dama.to>
 ---
- .../net/ethernet/broadcom/bnxt/bnxt_hwrm.c    | 33 ++++++++++++++++---
- 1 file changed, 29 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_hwrm.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_hwrm.c
-index 5bfabdca7d0e..4feba90f0bf6 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt_hwrm.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_hwrm.c
-@@ -582,11 +582,36 @@ static int __hwrm_send(struct bnxt *bp, struct bnxt_hwrm_ctx *ctx)
- 		}
- 
- 		if (READ_ONCE(token->state) != BNXT_HWRM_COMPLETE) {
--			hwrm_err(bp, ctx, "Resp cmpl intr err msg: 0x%x\n",
--				 req_type);
--			goto exit;
-+			__le16 resp_seq_id;
-+			u8 valid_byte = 0;
-+
-+			/* The completion ring entry was not delivered for
-+			 * some reason. It might be possible that the command
-+			 * was carried out even without a completion being
-+			 * posted. Check the response before giving up and log
-+			 * the state.
-+			 */
-+			dma_rmb();
-+			resp_seq_id = READ_ONCE(ctx->resp->seq_id);
-+			len = le16_to_cpu(READ_ONCE(ctx->resp->resp_len));
-+			if (len && resp_seq_id == ctx->req->seq_id)
-+				valid_byte = *((u8 *)ctx->resp + len - 1);
-+
-+			if (!valid_byte) {
-+				hwrm_err(bp, ctx,
-+					 "Resp cmpl intr err msg: 0x%x len:%d seq:0x%x/0x%x\n",
-+					 req_type, len,
-+					 le16_to_cpu(resp_seq_id),
-+					 le16_to_cpu(ctx->req->seq_id));
-+				goto exit;
-+			}
-+			netdev_warn(bp->dev,
-+				    "Resp cmpl intr not delivered, msg: 0x%x completed anyway (len:%d valid:0x%x err:0x%x)\n",
-+				    req_type, len, valid_byte,
-+				    le16_to_cpu(ctx->resp->error_code));
-+		} else {
-+			len = le16_to_cpu(READ_ONCE(ctx->resp->resp_len));
- 		}
--		len = le16_to_cpu(READ_ONCE(ctx->resp->resp_len));
- 		valid = ((u8 *)ctx->resp) + len - 1;
- 	} else {
- 		__le16 seen_out_of_seq = ctx->req->seq_id; /* will never see */
--- 
-2.53.0-Meta
-
+bod
