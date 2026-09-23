@@ -1,106 +1,184 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E5143B3EF
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:43:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8322A3446B0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:43:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156590; cv=none; b=VHlH3hiAqc2cYkRrNLgNFs0uMxxtoYibRK865lu6goJPCWqiNappECbGAmNhBgtOvhQP3Bv2oAnf4JeRSVcVfwTD7JJt9KTHZfu0h1a3lUce5Gk/W9l/YL3JbsfZzK+c1K4Nz6rLnJ5fEa48tgEAtW8KzQENjDi9CIaVzBe/Y78=
+	t=1790156622; cv=none; b=dghOp3D9mLTk0+OyXhMlHimbm80T7B9aOfo4n8m+YUK9ZpUL9VDqr8dRLe3GwdKphbWGKp9cm29+KlwM4Upfdp3XQxPuRchO1v2dyLy21hmR8P0uD7R0a0ej4Xva6uchctQ7QZowhJJbehBGHFS9+klgwQC0bk00Mlr/6fQA1YA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156590; c=relaxed/simple;
-	bh=kXRIYiD+xenQqUzM6yr57E7e+H4wDyAglPgjREDARWw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JZ+Hpf6KY+usDYe/nfROickTowsC0u5y45YBD54wfBnSypjurej4gYBOJDSRLT9jUifp4v03KQ5a+Qt/YjW919aB0W3WeBCC6nXCOp/TT5DojHMYxjVh4v99Fca3OdCH445NdUS/ulxb6uskM9bLnlDzSCvc09fIR+CVG8xtBdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-785686d2764so164637137.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:43:08 -0700 (PDT)
+	s=arc-20240116; t=1790156622; c=relaxed/simple;
+	bh=d1pBOVvOPwQJpUNnV1NfQhYCaKulw8D4ABZ2mdyYVB0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BFa5xBFdzYxJ0f4AwZoq0lJVG6PVa8wCgivwtPHY3jtWWmpEwgq7r4IFacWJcjVK3O+9gCLOzXT4+JjnSkjzkhFrFbGLBOTT8Pl3c3xzsUZkDrGnduYp1EHe7SQG2umToAmhG4llOb2hEuOyyS5/xq2MzAXr2BAFuSCL7b9KFpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=NHuifBy4; arc=none smtp.client-ip=74.125.225.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="NHuifBy4"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-482f6351831so466537f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:43:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790156618; x=1790761418; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NrFWLk2KJwE6h9jkffHRi2/DE7jTZ7JtngmaiYlVevI=;
+        b=NHuifBy4IfkKGgDHNmbepzDH3yUSVn0KautjOm5bHty6d90T0Y9eXWiVACgT6WMfg3
+         deOvxNua6TcTdbpN/i7PNcGRrz3H2Yuv5HFdt2Ko4OHhZmyz4+asBNXUn7lxZOJfW7dv
+         tgoqWQL9V4X3Fg66tLihg+CXUawheFG/qlc+eYogsJlpbAoVBBPcm5v7BsvDEXizqao3
+         WvOZjTGJK/1ASw2116/32Gb1vJYYMvKHF499adggSf3rDIa2PRnUBdmOf1eLbWOW4LiP
+         mcxYtJLaQ+/aNS0/LHM+STeWCXM3kWsLu1rOzIn3IGX/qllIQNuLEuQ3jNPcK8BsjgEQ
+         jhHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790156588; x=1790761388;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SiQX30aX3aRyR4XyZV6+3F+T8bea/FfKCnzec63MSFM=;
-        b=Bp4dg8NufBUlS7AlEKncpqm1QLbnKHDwriKtNfKDhmclNt5gwKVv8ZuTlyNQbJimDB
-         2zFowhf8o7C2IwVinpfX9uOc+c/6FizofYZBV5aBMubA3peqLl+AB5MjUA6xL5hESKuB
-         SzRsVOb354guTq6Lxyud4Z4tdicdk9Q2Qfpc42anGlbgYjoRTIhby7SQKn2xZ8Lnfr+Z
-         tIH5we+rOfz8Xd65bd4aI/waZ95cPW7ztM2VwUBINaLEUKKbUfR6C+wm1Qkkh3Ex/dEI
-         8iAPsiQ5VGp+CkgHVDL82YUM3RbmVDnuE/ummnC5Nd2MNvpRfZE2SOTT2qVBiqU9eXEp
-         1Y1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw0+ZikRsAsGsbNDBTw6ybDPnwLNSNMSLC5EETviM2mkiLMpdxPQOWZ90iUq4FCAkUDbsmsGSxnj/En2LY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+kNdkN60h+kQyftD4LliRE3PK1X7udldha2EzfyGiU+TZY01/
-	tEUIVGU0GLDkAqOYznNkhH1ykFUEjyZcAMrEjKl7cBzbNpseOssdoPszZWROzdWQ4WM=
-X-Gm-Gg: AYBFou0vk7bshI492kilTmCI7xG4OlkzkIPS77Duzd1X5KefUBSsQ96Ehmtjqjdy5XZ
-	Rpd0ORgT0o/xxZ+Cj6gkU25ltgDEBMf9OnMoLLz7bqGZZL+NsGXutC2cFKn1YmszAT1yZJfMjOw
-	faDDKY1Kv3dxc7H+a6iRgj6LA2rkBrjKuo4XYGX3NluPwYvVNGJvwgyQbzK8Oez46udEIOla5cd
-	qlI5BCrDJj/CPmDaCVR8Vnv7pKEUUijCGn6rqVSWcMczaecV8YaDf01p7rV57AWuwko2kYZ8N5P
-	88LsmxaGx0wXHVWBuqvXvOJqm9JjM6u1QyN3FGXVoa2EkS6M8Vip92A4t1zEvjhzkMm+oscsY+l
-	H7xiaoWkSETzFm+ihFhVjVYJfGlvshKbvZI0GYED3r3QSSrFsqj6VpK3CzUPONPsHDbK5e3PlrD
-	j2PjBHIhy3FxZoQGGWuL8+9Yp7g+7ekCWRPdmnWEu0tZp/eeXAf92LK5GvNFvYIK7ULkyeyTjmq
-	Sz+jF1SzLMzqpPE8G2kbSx7LrAo21HqAVWS
-X-Received: by 2002:a05:6102:808e:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-7ac1acd62e2mr1891189137.6.1790156587675;
-        Wed, 23 Sep 2026 02:43:07 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf608a27esm2632786137.10.2026.09.23.02.43.07
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 02:43:07 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e4fff62so296211e0c.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:43:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwo7kKDd2gD83XerDiciHSweSl0GKgTUdLM013Cy7AZKsxGVncvmTRzpHb+bIRQjCRgOnAHblILSHrAeU4=@vger.kernel.org
-X-Received: by 2002:a05:6102:162a:b0:7a5:d652:2e3c with SMTP id
- ada2fe7eead31-7ac1b41557dmr1905945137.9.1790156586853; Wed, 23 Sep 2026
- 02:43:06 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790156618; x=1790761418;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NrFWLk2KJwE6h9jkffHRi2/DE7jTZ7JtngmaiYlVevI=;
+        b=UjsIhbYiI/4oHbu6m4BdiZq+o4r9/NIyKEnYlGUe+q+pdFSHMJQCWO1eK/J5U+SfPk
+         a7BIi5ox9iGIINj0q4PeK3YdWBLRFPJar3xf+ic3KM6bqRoNl7KhQr1k0mq6sRWpUopJ
+         OO7xi7WUSd4AVLE2erf1W4olZ7UjTfKN7ieQpuembYNEv+zExULeP0jQXCBNRAEpvWFU
+         s5bkEHU/4bMgIQJ6r9pwUlcXS7GzpjZlDQFiov7Mvh2LZLLYERMlOlqXh8xX6cJyXEdr
+         s4R44d4knMRikLS0rWzLz1pnIyckMy7j5zFGPbLHcM+nYLUS68qfe4JIvajmRPROSFU9
+         TjDw==
+X-Forwarded-Encrypted: i=1; AKwUvBy7jgJ+iyHcsp4c/cLL70sRv6CoAugkT9Z86bpOVduzTylqF+FF83OtAKwCJom25H/onO3F57eaVzMqOPc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nfqK67+tal4cmXH/072TDpQMjMNElto9z0ihriSCN10BxlTtsg
+	3kuCZNS1SPpocihs/+Yo9vws0rDJmEzXHlIkbGKEobIYZ/KMsg3eVUkk2xJEbWcXVzM=
+X-Gm-Gg: AYBFou2AMmRvyRm+2YqInEP5eOc7NqovTEcdLXG7rdNLoJbdmcOx9zw+PNcpoMJO+Zj
+	qJdU49pvo6RiN4DBjqwvdA98EtMvgwHOw9BWH9ZthGWO8j+M6ETgprfBZ5fsesgGzeDEAxo3SOy
+	f4XyAhikg24DG5a4R5ZHOEb7QbE5FjTAujVONWZwLqOXbr8YRP8QhpmyWKZG7l55orNUUbX9cac
+	5OQOnED5opCqCUr41LJCKNZXFzXgnnHPCLQ6oxLGvGzXF3mf1TcafjGmaJkORhD/vKoreDez0dg
+	p2lpFEwjCWloPDgLwErw1532aVLA/nJ0HTuEe7FyCnAP6JjCpgmgni/BWQT5BSr+jWHcbHMBX+X
+	xtgU+jjRcMc58d1/utoH5QQ03PgX6kPxF7kSTIZEMA1nGqaJyXSda/rO7PdvTyw+RAnSWbOydmZ
+	Nb3tXQyTlBREI25b6YA5bmWPV2YReX3TCa7qBTY2X7PGH30xrI7+jqh7cskLqxIFmV1WyLgyaWo
+	tV8rZqROT6xJA4ifakAEtM4sA==
+X-Received: by 2002:a05:6000:1847:b0:486:e5f7:89ca with SMTP id ffacd0b85a97d-488670610d9mr3241862f8f.8.1790156618535;
+        Wed, 23 Sep 2026 02:43:38 -0700 (PDT)
+Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868779472sm5974664f8f.23.2026.09.23.02.43.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 02:43:38 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:43:36 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: John Ogness <john.ogness@linutronix.de>
+Cc: Lin Junzhe <m18667909625@163.com>, Steven Rostedt <rostedt@goodmis.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] printk: fold consecutive duplicate messages
+Message-ID: <arOfSJT-xRcAb-T1@pathway.suse.cz>
+References: <20260921050304.73440-1-m18667909625@163.com>
+ <875wzzoxcd.fsf@jogness.linutronix.de>
+ <20260921183000.1-m18667909625@163.com>
+ <87ik3yssy0.fsf@jogness.linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790005703.git.tommaso.merciai.xr@bp.renesas.com> <540fcb8ccfe7efd15844823c030f393efb536076.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <540fcb8ccfe7efd15844823c030f393efb536076.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 11:42:55 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWFUM7xVNOfEhCN08UgdgEu7ZAnkR8GDGgT4d-wg5TpJw@mail.gmail.com>
-X-Gm-Features: AclHuK-GoN-PXrLEwtbZvvcfh_d25jq7EgJX0WCMepbHIeyPLfj-FzR3-jNoD1U
-Message-ID: <CAMuHMdWFUM7xVNOfEhCN08UgdgEu7ZAnkR8GDGgT4d-wg5TpJw@mail.gmail.com>
-Subject: Re: [PATCH v4 3/3] arm64: dts: renesas: r9a09g047e57-smarc: Enable
- USB2.0 support
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87ik3yssy0.fsf@jogness.linutronix.de>
 
-On Tue, 22 Sept 2026 at 00:27, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
-> Enable USB2.0 support on the RZ/G3E EVK board. The USB1B_1A_HOST and
-> USB5_4_HOST connectors support host operation only, while USB0_OTG
-> supports both host and peripheral operation.
->
-> renesas-smarc2.dtsi is shared by all boards based on the RZ SMARC
-> Carrier II Board. USB2.0 is not yet supported on the RZ/G3L SMARC
-> EVK, so disable the common USB2.0 nodes in its board DTS until proper
-> support is added.
->
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> ---
-> v3->v4:
->  - Drop usb21_pins.
+On Mon 2026-09-21 14:19:43, John Ogness wrote:
+> Hi Lin,
+> 
+> On 2026-09-21, Lin Junzhe <m18667909625@163.com> wrote:
+> > Real cases I have seen in the field and in bug reports:
+> >
+> > 1. GPU faults (nouveau): a misbehaving userspace program or a dying
+> >    GPU can trigger a stream of identical fault reports from the
+> >    in-tree nouveau driver, e.g. repeated "fifo: fault at ..." lines
+> >    while the offending context keeps being rescheduled. Similar
+> >    spam exists for other GPU drivers when a fence or scheduler
+> >    loop misbehaves.
+> 
+> There are several such "fault at" messages. However, the ones I looked
+> at have other printk messages following in the same context, so your
+> patch would not even help in these cases.
+> 
+> Please specify the exact message (file + line number) you are talking
+> about. Perhaps it would be enough to change it to use a printk
+> ratelimited variant.
+> 
+> > 2. Failing storage: a dying SATA disk produces endless identical
+> >    "ata1.00: failed command" / "ata1: SError" storms. This is a
+> >    classic dmesg flood that buries everything else on machines
+> >    with a serial console and no syslogd.
+> 
+> The "failed command" ata printk is also followed by further printk's, so
+> your patch would not help.
+> 
+> Please specify the exact message you are concerned about.
+> 
+> > 3. USB reset loops: a flaky cable or port makes the USB stack
+> >    repeatedly print the identical "usb X-Y: reset <speed> USB
+> >    device number N using <hcd>" line, sometimes for minutes.
+> 
+> I could not find this pattern. Please specify the exact message.
+> 
+> > 4. IRQ storms: an unhandled level-triggered interrupt prints the
+> >    identical "irq N: nobody cared" report for every retrigger
+> >    until the IRQ is disabled.
+> 
+> This message also follows with more messages, so your patch would not
+> help.
+> 
+> >> printk is NMI safe and lockless. It needs to remain so.
+> >
+> > Fully agreed, and thank you for the clear statement. My
+> > implementation takes a raw spinlock in vprintk_emit(), which
+> > violates exactly that invariant -- the in_nmi() guard only avoids
+> > the deadlock by disabling the feature where it would be most
+> > dangerous, which is not acceptable either.
+> >
+> > Given this, I see two options:
+> >
+> > a) I drop the patch entirely; or
+> >
+> > b) I rework the idea as lockless per-CPU/per-console state at the
+> >    console output layer (or on top of nbcon), so the printk
+> >    fast path stays lock- and NMI-safe.
+> >
+> > Please tell me whether (b) is worth exploring or whether the
+> > consensus is that deduplication belongs in userspace and (a) is
+> > the right outcome. Either way is fine with me.
+> 
+> I am against a patch that drops messages just because a format string
+> repeats. The _data_ is not the same and that is important (particularly
+> with your GPU and SATA examples).
+> 
+> I am also skeptical that these are real-world issues as all of your
+> examples (that I could find) had different printk messages following,
+> which would lead to no drops.
+> 
+> There is also the ratelimited variant of printk. If there are indeed
+> messages that are not useful and can flood the kernel log, perhaps those
+> messages should be either removed or ratelimited.
+> 
+> If such a feature were to exist, I would prefer it is implemented such
+> that:
+> 
+> 1. A duplicate message means contents are identical (except for the
+> timestamp of course).
+> 
+> 2. It is implemented using flows similar to LOG_CONT to be certain that
+> the message being dropped is really the next message.
+> 
+> 3. Records could be extended to include a counter for how often they
+> repeat (so that deferred consoles can print the "repeated" line).
+> 
+> Honestly, I do not see a real value for this feature. In my experience,
+> even if a console is being flooded with messages, I still want all those
+> messages. If a console is unable to keep up with the flood of incoming
+> records, I need to use a faster console and/or reduce my console
+> loglevel. And if there really are printk messages that can flood the
+> kernel log and are useless when repeated output, they should be make to
+> use the once or ratelimited variants.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+I have nothing more to say. I fully agree with John here.
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Best Regards,
+Petr
