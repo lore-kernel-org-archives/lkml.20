@@ -1,238 +1,147 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011011.outbound.protection.outlook.com [40.107.208.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D2F9372B2F;
-	Wed, 23 Sep 2026 11:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164508; cv=none; b=VBO4FmjGLEP9sPu/qmVZjwsuzOWJED505ZQ10vSxzDzCSk10ULs9N6kPpb39X/XamhtS7vaDZpktQEDt/uhIK07p+tD+dZ8efsxW/UmobwZsdK08YzRG/DL1yYMFi0Qq67uTWhp0gCXwZWOhmJYnOKjNdyYznhbmAUzIpFvbGjc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164508; c=relaxed/simple;
-	bh=22/faKz6Gnw+zUvKjx8BiXp6H9FKIGfro4Ro+BBqUHM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jSB8wA5KKpTioV2dXqQSOo9vhlYlaeLqQ4lMBH02HT13B9dmyS9iZcEH5reukc2/bYH/zYCW25Ie4fR3LbBiEvID4LqGvoe04hVafR//5jqh+tjpqdZjbZX+dSgVq10XQ+NC//SkPEEfv1dhJ8M6Bts8cKjYhtUBdv13avk7JCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ip/9PsmL; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB3B4F0555
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790164521; cv=fail; b=Sn9V5zOv+MANUwyEmofJjisUKzKXNHuggvsdWEND71zVIU6te20xxXA3QHifmsyKMZRYsyN8pG5lO7mqwPHQddGn6cTTRvd9CNJgooE9RvZ/kyRKzZdB1wYtobgBF+XXVIV9/LvdqjFhWE44JqZIZ0HHjoen15RNx0a6i/OMdvU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790164521; c=relaxed/simple;
+	bh=HWmd2CuUQjPYOHU5ZR55dTQYMMzkXYRv6imTTzw1cVc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=oUJPCcdlyOuY3ZcmyvSLBQ7R7oLnMsxQYyJydXfRqItJU7m9E/TombvQGjcxTeHMyAzp8/rpZrMT/mXQaQ1TPPe2WMv64hud5FNoRL7oa6TedZS07NWfPrlDKFCpuWoQ8FAt8sGoLor/pMKxcYS51ia1nhckz/96rTdyFOOUO3w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=RtbzKI1w; arc=fail smtp.client-ip=40.107.208.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ip/9PsmL"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8ZaCq2742039;
-	Wed, 23 Sep 2026 11:52:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=DZPR253R3+bl6LyBiXW5gQAtjY6DOY
-	80tr7PJYJoSn0=; b=Ip/9PsmLLpYTUEIiqqN7PEUCjt/tbos3gbllDcLV+dKinE
-	DxM4vzFM1FgDLuHauy7zkOFHkE+8QgTu4v3UOwe3wRUssGJANSTjHJOqGP138G+T
-	Nhqd4UMt93hU/7hAzMP4DnDStV7v3lAJgOZvyhZ0P+hcH1+UYg4pIU0KHQpm5t+5
-	XYQiGLs519bydF3F3Ly2mUsQkpmeIheUS2Amsu7SuvxdJgo6dsqyP4V/N6M8uPwo
-	Yuml8Vro5Oj2/R/nPk2G/xRZFMnqki/FTHYZUvTsblhV4A+Kj49Gi5gWyBTzSy/p
-	hvCA8ghvjVyo99no8eYyGLGNv+3L5xoksFaAmS9Q==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1jk3y-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 11:52:49 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8ILmd2892101;
-	Wed, 23 Sep 2026 11:52:48 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gu5bkgqma-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 11:52:48 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NBqkcL49086914
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 11:52:46 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4C3D920043;
-	Wed, 23 Sep 2026 11:52:46 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8F30620040;
-	Wed, 23 Sep 2026 11:52:45 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown [9.224.92.206])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed, 23 Sep 2026 11:52:45 +0000 (GMT)
-Date: Wed, 23 Sep 2026 13:52:44 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
-        Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-        Rodrigo Vivi <rodrigo.vivi@intel.com>,
-        Tvrtko Ursulin <tursulin@ursulin.net>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Dimitri Sivanich <dimitri.sivanich@hpe.com>,
-        Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
-        Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Muchun Song <muchun.song@linux.dev>,
-        Oscar Salvador <osalvador@suse.de>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
-        "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-        Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
-        Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-        David Hildenbrand <david@kernel.org>,
-        Pasha Tatashin <pasha.tatashin@soleen.com>,
-        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-        Uladzislau Rezki <urezki@gmail.com>,
-        Steven Rostedt <rostedt@goodmis.org>,
-        Masami Hiramatsu <mhiramat@kernel.org>,
-        Alexei Starovoitov <ast@kernel.org>,
-        Daniel Borkmann <daniel@iogearbox.net>,
-        Andrii Nakryiko <andrii@kernel.org>,
-        Eduard Zingerman <eddyz87@gmail.com>,
-        Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-        Ingo Molnar <mingo@redhat.com>,
-        Arnaldo Carvalho de Melo <acme@kernel.org>,
-        Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
-        Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
-        Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
-        Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
-        Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
-        ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
-        intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
-        linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
-        linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
-        linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
-        linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
-        linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH v2 1/8] mm: introduce hw_pte_t for PTE table storage
-Message-ID: <4fb9f42e-73c3-46db-ac10-351a90901b7c-agordeev@linux.ibm.com>
-References: <20260903103002.1091859-1-usama.anjum@arm.com>
- <20260903103002.1091859-2-usama.anjum@arm.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="RtbzKI1w"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BoCmvdMYg1GEldYeu9JwjjXLZQrPiT4ZNeIKZSfDuaoVwh9+Xb7QHgrFUV3+PFOdoRA/lgA4JdhZkhiaS+50JF+3ol5DoqPqOtdqT0ygXlzEw7+Qzzv/H8bt4SZ3D1S56amz74cHfp/Cv18d9ZYSsEF1xcil0yJWBBosJ2n/CzDFGbH5awdXaPfLzQ21TdMijzvlGX6GC9/0O7QFj/aJkOF/6vOb1i1ksqhF1+7DDPwjJdXsz9x07k/miu/sEilXx5QNiEBoxKjxmRY5ewmDhvqbOVm2KA5YwC5a7Rxf6H6vxPjvYJ9SUyZZShLL2r2iTxKd+7BGZd1bTSxwFzMbFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+qje7R6igkbEw8YoDnFVsmsG0A4S47nuN8/jSYIHUws=;
+ b=LTCs3bKdPjAiFuQ6gqEmw4wnHnII8dMSKkUa+oX4Mq3sv5/kLRRQ1HXtblsTojTx0N25O7mOMC9+RO5eW7VDD+9nSVfW2q/bPUYMhTxBhm4cPPCzB3LeY2b4dIKqQmYtkMHL0KGO6QVFtmTGuqIYvLZBohj0cTK083gx9sY8/EEKJgQFqnTO8WOcpqASGWjZSR+BY9ZhigLQe2OlPUR6zV7C3Agzhd/76lOJaaLZ4ie+ChsFkc4o+9+v/sv3g2e3Uc02Su7cNctGgcJx+UUzzfcm1TWe3n2f4cOtOpDYKZJwDIjkqgoofI+edwP8y4EE3t1F3H7ps+T5LFeoJO3rOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+qje7R6igkbEw8YoDnFVsmsG0A4S47nuN8/jSYIHUws=;
+ b=RtbzKI1wD3BCkbRBe+4WO290voGRuEb1qQi949hZFxpeAsqbCFCermxZ0d4yY6Jo1CErFiJdDXQ8fqpix2u5TNXEWyOBTCktGmpQ49p3Pai/l+pCiQE8tYI8XFreHub7c0Zl9oOoYDOkwF6WgXvKrQzjNUJAgHiktJ25cy8W1vxkuAoH4bGyxwHeJ7SXMwhltx88YEA3CDDUcXFAiFw/sAnVfkEZ/Cj6IW7/OVxfUEVkmOy4uMfFGaU4SSytP6cEwejToExA4vTYPe1QG735NpxWYhmQDkPQWUlWll75ZEhnGrvtv954Hu/2VD05AY3OBu9aHo3nl0QM8M63/0dmRw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by DS6PR12MB152050.namprd12.prod.outlook.com
+ (2603:10b6:8:410::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.16; Wed, 23 Sep
+ 2026 11:55:03 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 11:55:03 +0000
+Date: Wed, 23 Sep 2026 08:55:01 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+Cc: Nicolin Chen <nicolinc@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
+	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
+	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
+	yuzenghui@huawei.com, joro@8bytes.org, mark.rutland@arm.com,
+	qperret@google.com, tabba@google.com, vdonnefort@google.com,
+	sebastianene@google.com, keirf@google.com
+Subject: Re: [PATCH v8 04/25] iommu/arm-smmu-v3: Move IDR parsing to common
+ functions
+Message-ID: <20260923115501.GD2545495@nvidia.com>
+References: <20260922131259.2975334-1-smostafa@google.com>
+ <20260922131259.2975334-5-smostafa@google.com>
+ <arLa0E3xq5dGuPpd@nvidia.com>
+ <20260922214818.GA2545495@nvidia.com>
+ <arOmSxqRxhd717Xy@google.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arOmSxqRxhd717Xy@google.com>
+X-ClientProxiedBy: SN7PR04CA0114.namprd04.prod.outlook.com
+ (2603:10b6:806:122::29) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903103002.1091859-2-usama.anjum@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: zkg8Yjm8buhyt1eRNhnorvj4h8bfMg31
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0NiBTYWx0ZWRfX6bMVOEi2qN4e
- SEAEWElqPuFcMqb6XxMSAKgTBU7nj/dCzT7pboAwFXABTdsicPgdnhSpodFJ6O+u2hg509qHfDk
- z9HbX8YO6UJxXAtAPBr1SXV/yRHUshBZqtP38jfDABopi2Q8TlICK2s09kBGBV4exDZexYbukEp
- Oxg7zWWj4bwJEOGzokpvAGkgwx6mOV9Hci2samlSyJVgEXMEqtoph/gVCurHxiAAqf0TauaVInd
- IvHSuwss6TAgfLNFvMkfvgEfm/lWIxq4QqGWZb1wZGJTR0i8Aqwb5xGBOLcMv/lOTIYdxzI8o3R
- oPxWzTJkmoTyuCze3ranpvgoRtO0j9Fwo13juJtO4WWD8YTP1C0PjcAbhZUntKNvoYTNnIcU/mO
- iX0G+Pezy0wbnkBvSeLA9ii/P51EkQzABCycAD2yGmiU5zm9dKM8qjIMLGZaPS8vA+24yUC1vPk
- rGMSqvFG6FK+7tXalcw==
-X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab3bd91 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=7CQSdrXTAAAA:8
- a=WBsaCDucxrlOMaPtzzAA:9 a=CjuIK1q_8ugA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0NiBTYWx0ZWRfX/Y5nhDG4vyXY
- k03GeTaIqKwMRq4AUpoHFMiSiGlDWAE+orQ24P6M5Bz7btA5rwd/KAwZVyCP0QeAkoFRkdQm8Rw
- gOzyts+JEL8Z8Grz2VhIOfiIo2KdxD0=
-X-Proofpoint-GUID: zkg8Yjm8buhyt1eRNhnorvj4h8bfMg31
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230046
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DS6PR12MB152050:EE_
+X-MS-Office365-Filtering-Correlation-Id: f9f36226-3394-406a-24e1-08df196980bb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|56012099006|18002099003|22082099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	j9R2vW/rqd8T8HIHCHOKmDW5rKFKNiygAid2TXnO0edOKhvUEEnroIIEd5MG2/btP8aY46+nMNSDkSBDYUlHfP+QvxkvxkLg+/bUnucQdYUzJvghHtP77BtS24nLeqwleKLpMyIUcWEr1cVKHvUorClet/7GV83loOSws7nZfopswafG1xlUC43hZtg6GsXQ4Mg4YLZvFp7LlSRedfhaUMsLesPWS47FnV5Vo6F1lgKV1/SOYTc7QLopl4THrcxvLapVYv1PnRCyiJG1GmZPwCD9l1Oq7i+kJT/TffrrgwfE3hifVYtemuzSrwdWRMjLVHrxTPvmUFSUUlDaWjinAjdV/SAj7ix8eGsvmlcB9pCIbwuL5OCGrz91sR72xPhCPol9PBurrINTuS4QFpjBQacCwrd/ZnqaJ1RtXB8Y2JrKOR497ZBUaSMMxKgk+h91EYgOrqjxkblbNQhXM+u0Gc5CZVJ5LJ1Zp9pher6YBSBHm9SZB6efsqlG6aWkSi7hXQC3LaGbxZKGJTjpqXwZYLlia9KVfWISbUllCPXWX/LFGDD4n/lzfTTuFvz+lXB//t74fYMDYs7HV5T3nIGYh0MMrf+7fZ1VMNSOvV4yswYzvm3+Nq8msWFfnVxP/L8nvbMsDnKOTgM/9pwelnMhW2fOlYsqqtUw/LcEckwVrUk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(56012099006)(18002099003)(22082099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?tjv9d1MNspQMAdOQ786A3irD6L92rq4cqZKcmn9ITb6w7cyUA+IN470LRDlb?=
+ =?us-ascii?Q?VO98t4ogtBgqD0S3EQMFX9Q0/ckbzS3wNBiwNs0ALZpy64kkxWVb4s0DiJ14?=
+ =?us-ascii?Q?M4+wCu2rxChAFJsJbYwSn3vaH/3Yp8Jl1xWAUZ9/hbMMBUL/QJXMpfst7cLo?=
+ =?us-ascii?Q?EKutWAkQk6rSX4AtPOuo3/ux6ao2/cD6PY2ziCTn1cp3u7YgY3jULsGxx46G?=
+ =?us-ascii?Q?OJk7kCP+cuEqBoZ+a2Yhp1TeCWrWX98jZjLLYEyJ+hZ1bvddvqNDGjQTNLns?=
+ =?us-ascii?Q?rIszfbXoQR+s6w/vqVXRUJrgFt2PyNs4KoEF37ih2zVjjoC/acBax9lzTRpg?=
+ =?us-ascii?Q?RTM+PGNG297nMdpwpo8g6EFBcyu+of5Py0w6Ml++Tb1RV4hm6PjJRoi1fy8e?=
+ =?us-ascii?Q?8tAyaDWCUEEyctYoPuf5d/lQyBDnLsaPF1CIdHA+bpVUlHDACp1RQ+dg1j3Z?=
+ =?us-ascii?Q?SvVxa32yE+iniKS3snuLw9oMLk12J/LBRdKyjityRuAMsFf5vgzrvtunu44B?=
+ =?us-ascii?Q?Nrb/ax5r+HMxb0JAp/sYTYOBT7LA6kVGmTHnLUlj1tsrh2fcnJqJjW5atybs?=
+ =?us-ascii?Q?9ld4n83qBBRF6JTBQjDFYhjmPNRhU/yZsYR6XZZVsXWtwRccqryd9+WeuQbf?=
+ =?us-ascii?Q?DVqvdVKZ2JZpNeuICvvkhBj1kZIw5xVQWOkxxCskzydxhplySl8Vgmi0uNGc?=
+ =?us-ascii?Q?yLxpgCwDAJUuJhbBE/FGEymKP0/1Z8H2qb+m3EyKDLsCTq96TviV5SVRCgi8?=
+ =?us-ascii?Q?QsoZbvhoxxWzjjsxjxI7zp+0/5/eP9cEWw1w9VNEoqmRD5YATYmmmdb61e5a?=
+ =?us-ascii?Q?baAOKZkF4FYLEiTSQqccqpP+iSHiR6GymgSUA3Qbh1TeWPg0cHHAayAFyYDw?=
+ =?us-ascii?Q?6GDwpZsNuxns1geve4qMSbS1WHZiKxq+v4ELJuwMGKOQPU/9zNTFd3KX7SND?=
+ =?us-ascii?Q?zGkLzdCzhng9UJz2GEMVq/NM79Md7fzSQvRczSeHQzavO9V0Jw2LzIJFNXNI?=
+ =?us-ascii?Q?1PTYD5S4MSrKJK7/1lhQ0wl5bI3fjKeHV/Bj4kWdmsIg5IgSaVKgCUwKGy4b?=
+ =?us-ascii?Q?yWdflhU/yJdzFjAn0RiJcUFdINrjYpACIf2z7MSCLvA8pvuF8TKfVAHt8Q3M?=
+ =?us-ascii?Q?S2fsUL+Kq5uXs2ixZ5ZjrVla8LoolyXX9HepVcKzSXWP0ftDQFMR2g4c63qj?=
+ =?us-ascii?Q?4lYSqSIVOiQXQOhIish1kI5ZBQrigTeUH+KWwZ4VAmknpP1RK45Rq6bA83oU?=
+ =?us-ascii?Q?Y0/pYCKJOR5Z5kAL1RW30oc0ILFWs4Qmu9hdhrX1BUjHflZsauc7Khu1a9Qt?=
+ =?us-ascii?Q?HB3wP2uUqfEa93IP6C9iWuCoWj4R6iydfmT0f4jNDRXe69sibA7zi7isPdLg?=
+ =?us-ascii?Q?7lrgtp9maA9Prx7Aw+Fz0dXpKoRXSuflUaC8C1up9DY0L5VLllmJjafl9uQT?=
+ =?us-ascii?Q?AUEHXYUvW1pjCz7jYe8egTZnOo1d9LBsiUxDPCOxUU8+LjtP2j9NhoTKj8ex?=
+ =?us-ascii?Q?uOt4KVEj6dXldQURIcrp2mNVUYz3dAeab7H3LnsQG4Td7Fn++0gXd8+uRfCS?=
+ =?us-ascii?Q?m30MWLUAikCMcwtEULgdxh3GTBrgsHHn+H7BAix/UXSsA98TLsQegLZ/NGYg?=
+ =?us-ascii?Q?JmnBTOEhCo4+uOMH5a68Ame4pNPLCgNjyCq594POv2Z1j1jTbsHIGodi5jNE?=
+ =?us-ascii?Q?imwlXCbXGu+GMavUoc4wHNonDfx/E0OClrwF8VZBYVRB7Pdg?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f9f36226-3394-406a-24e1-08df196980bb
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 11:55:03.2692
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YYBsKU0YKYUmPUOYFcFY631nJEoIXDkgFKFBj9xyOpiVdEzc4fUAoE3UWm5txAw+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB152050
 
-On Thu, Sep 03, 2026 at 11:29:53AM +0100, Muhammad Usama Anjum wrote:
-> pte_t is used both for software PTE values and for entries stored in a PTE
-> table, so pte_t * does not distinguish a pointer to a software PTE
-> value from a pointer to table storage.
+On Wed, Sep 23, 2026 at 10:13:31AM +0000, Mostafa Saleh wrote:
+> > If kvm doesn't want to dev_err log that's fine, we should able to
+> > #define that away too shouldn't we? And maybe it does want to log?
 > 
-> Introduce hw_pte_t as the generic name for a PTE table element. Define it
-> as a macro alias of pte_t by default. When an architecture selects
-> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
-> This preserves the representation while allowing converted architectures
-> to enforce the distinction at compile time.
-> 
-> Name the generic wrapper structure __hw_pte_t so architectures can
-> forward-declare it when pgtable_t must be defined before the generic
-> hw_pte_t typedef is visible. This avoids header-order dependencies.
-> 
-> Keep the C type definitions behind an __ASSEMBLY__ check because
-> architecture assembly sources can include this header indirectly. Include
-> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
-> they previously obtained from that header.
-> 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> ---
-> Changes since v1:
-> - Name the generic wrapper structure __hw_pte_t so architectures can
->   forward-declare it, and explain why this is required.
-> - Use software PTE value terminology.
-> 
-> Changes since RFC v1:
-> - Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
-> - Exclude the C type definitions from assembly sources.
-> - Update the description for the new opt-in model.
-> ---
->  MAINTAINERS                   |  1 +
->  include/linux/pgtable_types.h | 17 +++++++++++++++++
->  mm/Kconfig                    |  3 +++
->  3 files changed, 21 insertions(+)
->  create mode 100644 include/linux/pgtable_types.h
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2133aec4a2004..da60a8bdcddb5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17140,6 +17140,7 @@ F:	include/linux/mmu_notifier.h
->  F:	include/linux/pagewalk.h
->  F:	include/linux/pgalloc.h
->  F:	include/linux/pgtable.h
-> +F:	include/linux/pgtable_types.h
->  F:	include/linux/ptdump.h
->  F:	include/linux/vmpressure.h
->  F:	include/linux/vmstat.h
-> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-> new file mode 100644
-> index 0000000000000..07da05d375c2c
-> --- /dev/null
-> +++ b/include/linux/pgtable_types.h
-> @@ -0,0 +1,17 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef _LINUX_PGTABLE_TYPES_H
-> +#define _LINUX_PGTABLE_TYPES_H
-> +
-> +#include <asm/page.h>
-> +
-> +#ifndef __ASSEMBLY__
-> +
-> +#ifdef CONFIG_ARCH_HAS_HW_PTE_T
-> +typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
-> +#else
-> +#define hw_pte_t pte_t
-> +#endif
+> The hypervisor can not print to the kernel console, so dev_err()
+> will not compile, I'd rather keep that outside and let the caller
+> decide what is a probe failure and print it's own message that keeping
+> the code and stubbing dev_err().
 
-I would suggest to provide __hw_pte() in this series - it is needed
-by architectures along with __pte_from_hw() right away (as opposed
-to when lands in arm64).
+I'd rather stub the dev_err than split it like this. Every driver
+should still do these checks, it doesn't entirely make sense to omit
+them from the pkvm flow.. No print, fine (and really, pkvm has no
+tracing, printing or anything?)
 
-> +#endif /* !__ASSEMBLY__ */
-> +
-> +#endif /* _LINUX_PGTABLE_TYPES_H */
-> diff --git a/mm/Kconfig b/mm/Kconfig
-> index c1ddf59c0d71a..5f462ec6fa5e5 100644
-> --- a/mm/Kconfig
-> +++ b/mm/Kconfig
-> @@ -1312,6 +1312,9 @@ comment "GUP_TEST needs to have DEBUG_FS enabled"
->  config GUP_GET_PXX_LOW_HIGH
->  	bool
->  
-> +config ARCH_HAS_HW_PTE_T
-> +	bool
-> +
->  config DMAPOOL_TEST
->  	tristate "Enable a module to run time tests on dma_pool"
->  	depends on HAS_DMA
-> -- 
-> 2.47.3
-> 
+As a stube I'd do something like arm_smmu_err(smmu, "blah"); pkvm can
+do whatever with that.
+
+Jason
