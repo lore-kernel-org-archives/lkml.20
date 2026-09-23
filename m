@@ -1,161 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB5A396D0D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:32:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E96946EC7F;
+	Wed, 23 Sep 2026 22:32:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202726; cv=none; b=G61INTn0FaVJy+7PwAVPt+pVTrJtkQ8KwkAcvzOa1aAwXEd97KVYaIlDDYgI1i3X8TbZnVL/wbBJRCvfdBgZf/WMLBofNA9SHUej9JZyXyYvNZPeiWOCuKuXmnJzf9LdQfQoz9Kr3wxNJrxxTOGuVnGpqtqSQOrtQHfOSpcmezA=
+	t=1790202731; cv=none; b=OeccnQvj6cfAR9avUb6UWAduZQRhtYxXvtGLZ2jyMjFJx5IC16nmGJdliaUmwuGJk4o8CW9/Bc8Na5Yz0/0sJGxc7By1tgOvrmoslZwcdMt3EgYwsGISjeMfRaJ49gcCCuUfn2ySrvN2SDZl1m33KnLmQiKhiMpkzzVIUPTqJ00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202726; c=relaxed/simple;
-	bh=+7Fa68RkVUaSKXHx7D9LSko/X7DgoFCCmrI4RX5nfaI=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=fWgfASp2rqOTLLFESJwFyAkJxy8o3NuzdGc5E2Wd1eaetAkNFlQYRDtUNZM8gqdtb5m7SLCLNRUcXWxj+yW+sMZHv+xEibDKEuZqddsDWCTlm+MiOl/RnoV/wqqHoAkdxN0EM0L6cs8CjE8m4oc0RUJi6bMOTGlm2zNzqaq1XRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=X2mNFTAy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790202731; c=relaxed/simple;
+	bh=1XPyZl7KcJ8iUJW3sUKhc204l0JzqrgROESCE9y4KLE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W7wVGI/zbG6eK/TMLTZmbK3jZHg8O5JCzgEMZoq5G8SFImKjRJ8NTEkAqaLV717voi7y5p9ow5Q7DBzsliXKYbBcZ6B/X9a6W93PRcFLoS0HKwDwuhu/ITVxc8mhmOHweClrbo9L8TB8GFM3u/H7JqtUYHkaktONZgVgtMhZqo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=T4zvA616; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="X2mNFTAy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 664CA1F00893;
-	Wed, 23 Sep 2026 22:32:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790202725;
-	bh=Bxf0qfMfsaxisq5UZ3SzuyCSxoFCjpdy7dNmDjiJt2E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=X2mNFTAynqJKc99C9i0zaKuzSO/xxQaKys32ItvkJWs1xUAMPG9UNc9soM7xXdidl
-	 kiF+VEWg84idMei3OgrybKgm3bRYkchCMj1TFALO/5Z/Fp9E+ueLdy+Kh7DA4BRpxG
-	 hEGlP2s/v99pG2eoDmhdkxdaixuUHbsPyFjEGZFo=
-Date: Wed, 23 Sep 2026 15:32:04 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: kasong@tencent.com
-Cc: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, David Hildenbrand
- <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan
- <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Lance
- Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Vlastimil
- Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, Suren
- Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li
- <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham
- <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Barry Song
- <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, Yeoreum Yun
- <yeoreum.yun@arm.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, Shivam
- Kalra <shivamkalra98@zohomail.in>, Kairui Song <ryncsn@gmail.com>
-Subject: Re: [PATCH v6 00/17] mm/huge_memory: clean up and decouple the anon
- and file split helpers
-Message-Id: <20260923153204.4fbc4a07679561feb4b665be@linux-foundation.org>
-In-Reply-To: <20260923-swap-thp-cleanup-v6-0-ba1b4ba72c6f@tencent.com>
-References: <20260923-swap-thp-cleanup-v6-0-ba1b4ba72c6f@tencent.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="T4zvA616"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9FBAE152B;
+	Wed, 23 Sep 2026 15:32:03 -0700 (PDT)
+Received: from [10.57.8.94] (unknown [10.57.8.94])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 222A43F632;
+	Wed, 23 Sep 2026 15:32:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790202727; bh=1XPyZl7KcJ8iUJW3sUKhc204l0JzqrgROESCE9y4KLE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=T4zvA616YRMKkA/8qFynJksx3CL52m7SBaF34fky4Pck+og5+fqKvcASybEilKkot
+	 ijT6stRUsS4dTQlogQOwuIs9kbZG0d1MrlloV46j/ZTIBReieWJvP7OicSZGg4OjML
+	 X6BvciaDfsJxBOwHqKV7/Vvo++g94RrgMOcXkVhc=
+Message-ID: <12024d6c-b8df-434c-8b63-29f5780a13a0@arm.com>
+Date: Wed, 23 Sep 2026 23:31:57 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v18 2/7] firmware: arm_rmm: Check for RMI support at init
+Content-Language: en-GB
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
+ <20260912083611.2513845-3-suzuki.poulose@arm.com>
+ <20260914-nano-narwhal-of-blizzard-dbc6a0@sudeepholla>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <20260914-nano-narwhal-of-blizzard-dbc6a0@sudeepholla>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 23 Sep 2026 23:32:31 +0200 Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org> wrote:
+Hi Sudeep,
 
-> The folio split path handles anon, page cache and swap cache folios in
-> one routine.  That mixing is what makes the swap cache split
-> restrictions hard to lift and to review. We now support uniform split to
-> order-0 only, and no mappingless swap cache folios. And it has left a fair
-> number of dead or redundant checks behind.
+Apologies, this one took longer to address. Thanks for raising this,
+response inline.
+
+On 14/09/2026 11:27, Sudeep Holla wrote:
+> On Sat, Sep 12, 2026 at 09:36:05AM +0100, Suzuki K Poulose wrote:
+>> From: Steven Price <steven.price@arm.com>
+>>
+>> Query the RMI version number and check if it is a compatible version.
+>> The first two feature registers are read and exposed for future code to
+>> use.
+>>
+>> We only support this for Little Endian kernels, the Big Endian kernel
+>> support is anyway marked BROKEN and is being removed.
+>>
+>> Signed-off-by: Steven Price <steven.price@arm.com>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+
+> [...]
 > 
-> This series prepares for lifting those restrictions by cleaning up the
-> code first: split the routine into an anon and a file helper, and keep
-> all swap cache handling in the anon helper.  The file helper never sees
-> a swap cache folio, folio_check_splittable() rejects them up front.
+>> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+>> new file mode 100644
+>> index 0000000000000..9792bf0e00cb9
+>> --- /dev/null
+>> +++ b/include/linux/arm-rmi-cmds.h
+>> @@ -0,0 +1,36 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +/*
+>> + * Copyright (C) 2026 ARM Ltd.
+>> + */
+>> +
+>> +#ifndef __LINUX_ARM_RMI_CMDS_H_
+>> +#define __LINUX_ARM_RMI_CMDS_H_
+>> +
+>> +#include <linux/arm-smccc-rmi.h>
+>> +#include <linux/bug.h>
+>> +#include <linux/processor.h>
+>> +#include <linux/types.h>
+>> +
+>> +
+>> +/*
+>> + * rmi_smccc_invoke: Invoke the RMI call and return the results in @regs_out
+>> + * @regs_in: Registers with the arguments filled in.
+>> + * @regs_out: Ouptput results from the call.
+>> + */
+>> +static inline void rmi_smccc_invoke(struct arm_smccc_1_2_regs *regs)
+>> +{
+>> +	struct arm_smccc_1_2_regs args = *regs;
+>> +	unsigned long status;
+>> +
+>> +	while (1) {
+>> +		arm_smccc_1_2_invoke(&args, regs);
+>> +		status = RMI_RETURN_STATUS(regs->a0);
+>> +		if (status != RMI_BUSY && status != RMI_BLOCKED)
+>> +			break;
+>> +		cpu_relax();
+>> +	}
+>> +}
 > 
-> Apart from two bug fixes (patch 1 and 2) and a slight adjustment of anon
-> splitting (patch 12), this is a pure cleanup.
+> I haven't done a detailed review, this is just a drive through comment.
+> The while(1) gained my attention.
+> 
+> Should RMI_BLOCKED be returned to the caller instead of retried here?
 
-Thanks, I've updated mm.git's mm-unstable branch to this version.
+Short answer yes, to be safe.
 
-> Changes in v6:
-> - Comments updated and make a few variables const as suggested by
->   [David Hildenbrand]
-> - Link to v5: https://patch.msgid.link/20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com
+> 
+> RMM spec defines RMI_BLOCKED as persisting until the Host takes action.
+> It also says it is returned when another SRO on the same context is
+> incomplete. You may be running it on different CPUs and hence different
 
-Here's how v6 altered mm.git:
+I agree this is poorly documented and we are working on improving the
+documentation on this front.
+
+RMI_BLOCKED is a side effect of an incomplete operation (in other
+words long running) that has turned some "resource" into an
+intermediate state. e.g.
+
+The following operations could put objects into an intermediate
+state until the RMM completes it, to ensure correctness.
+
+  * Unmap a large IPA range triggering SMMU TLB invalidations.
+    For KVM, we serialize the unmap S2 with kvm->mmu_lock with
+    write lock. So two operations could not race (even a map
+    at the same location).
+
+  * Delegate/Undelegate, which again could end up in SMMU GPC
+    invalidations.
+    The only case where we race and do parallel "delegate" is
+    while handling concurrent VCPU faults on two different physical
+    CPUs. Even there a failing thread handles this by returning
+    to the guest and taking the fault again (if it wasn't
+    resolved by the other thread). We could additionally tighten
+    this by using write lock for the fault (just like pKVM).
+
+  * Change the tracking region granularity. e.g, convert from FINE
+    granulartiy to COARSE or INTERMEDIATE, causing all granules in
+    the target region to be locked. This is not something we do
+    in Linux. We mandate the firmware maintains FINE granularity,
+    at least for now. Even with dynamic tracking, we don't expect
+    to fold the tracking granularity for regions with "mixed"
+    entries (which would fail anyway due to the mismatch).
+
+  * An object bound SRO handle is active, while another SRO initiating
+    operation is issued. This possible with a buggy host.
+    e.g., RMI_REALM_ACTIVATE is called while RMI_RTT_INIT_RIPAS is
+    in progress. In KVM we serialize this with kvm->arch.config_lock.
+
+For all practical purposes the above operations should complete in
+a single try and another command observing the RMI_BLOCKED should
+be able to make progress. That said, for Linux it is better to
+return the RMI_BLOCKED back to the caller after an arbitrary
+tiny number of times. So I have updated the code to try for
+3 times for RMI_BLOCKED and return back to the caller.
+
+We could even drop that and just return back immediately to
+the caller. Like I described above, the only case where
+we expect to hit the RMI_BLOCKED in Linux is for parallel
+faults, which could be handled and/or prevented in Linux.
 
 
- mm/huge_memory.c |   19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
 
---- a/mm/huge_memory.c~b
-+++ a/mm/huge_memory.c
-@@ -3538,6 +3538,11 @@ void vma_adjust_trans_huge(struct vm_are
- 		split_huge_pmd_if_needed(next, end);
- }
- 
-+/*
-+ * A return value of 0 does not mean that unmapping succeeded. It might
-+ * still have failed, but remap_anon_folio() must be called afterwards,
-+ * for anon folios.
-+ */
- static int unmap_folio(struct folio *folio)
- {
- 	enum ttu_flags ttu_flags = TTU_RMAP_LOCKED | TTU_SYNC |
-@@ -3555,7 +3560,6 @@ static int unmap_folio(struct folio *fol
- 	/*
- 	 * Anon pages need migration entries to preserve them, but file
- 	 * pages can simply be left unmapped, then faulted back on demand.
--	 * If that is ever changed (perhaps for mlock), update remap_anon_folio().
- 	 */
- 	if (folio_test_anon(folio))
- 		try_to_migrate(folio, ttu_flags);
-@@ -4025,7 +4029,7 @@ static int __folio_freeze_split_anon(str
- {
- 	struct folio *end_folio = folio_next(folio);
- 	struct swap_cluster_info *ci = NULL;
--	int old_order = folio_order(folio);
-+	const int old_order = folio_order(folio);
- 	struct folio *new_folio, *next;
- 	struct anon_vma *anon_vma = NULL;
- 	enum ttu_flags ttu_flags = 0;
-@@ -4048,8 +4052,7 @@ static int __folio_freeze_split_anon(str
- 	 * the reference nor the lock. Anything else needs a reference
- 	 * first and folio_ref_freeze() below catches it.
- 	 *
--	 * Note a swapped-out THP counts as unmapped here as swap PTEs do
--	 * not contribute mapcount, and they are splittable.
-+	 * Note that entirely swapped-out THPs are unmapped but can be split.
- 	 */
- 	if (folio_mapped(folio)) {
- 		anon_vma = folio_get_anon_vma(folio);
-@@ -4133,10 +4136,10 @@ static int __folio_freeze_split_file(str
- 		unsigned int new_order, struct page *split_at,
- 		struct list_head *list, enum split_type split_type)
- {
-+	const long old_nr_pages = folio_nr_pages(folio);
- 	struct address_space *mapping = folio->mapping;
- 	XA_STATE(xas, &mapping->i_pages, folio->index);
- 	struct folio *end_folio = folio_next(folio);
--	long old_nr_pages = folio_nr_pages(folio);
- 	struct mem_cgroup *memcg, *old_memcg;
- 	struct folio *new_folio, *next;
- 	int nr_shmem_dropped = 0;
-@@ -4166,7 +4169,7 @@ static int __folio_freeze_split_file(str
- 	mapping_set_update(&xas, mapping);
- 
- 	if (split_type == SPLIT_TYPE_UNIFORM) {
--		int old_order = folio_order(folio);
-+		const int old_order = folio_order(folio);
- 
- 		xas_set_order(&xas, folio->index, new_order);
- 		xas_split_alloc(&xas, folio, old_order, gfp);
-@@ -4269,10 +4272,6 @@ static int __folio_freeze_split_file(str
- 	folio_ref_unfreeze(folio, folio_nr_pages(folio) + 1);
- 	lruvec_unlock(lruvec);
- fail:
--	/*
--	 * If we want to use try_to_migrate() on file in unmap_folio,
--	 * remember to add remap_anon_folio() and adapt it.
--	 */
- 	xas_unlock_irq(&xas);
- fail_mmap_unlock:
- 	if (nr_shmem_dropped)
-_
+> context I assume. But this loop takes no such action and hides the status
+> from the caller, so a command issued against that context if that can
+> happen can spin indefinitely while the operation which would unblock it
+> cannot run. Ignore me if it taken care not to happen elsewhere. I am
+> just looking at this in isolation.
+> 
+> Could this retry only RMI_BUSY and propagate RMI_BLOCKED so that the caller
+> can arrange for the incomplete operation to make progress if the above
+> scenario is possible ?
+
+Ack. I have made the changes in the next version.
+
+Cheers
+Suzuki
+
+
+> 
 
