@@ -1,48 +1,44 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-zbxj-a87.jellyfish.systems (out-zbxj-a87.jellyfish.systems [198.54.127.87])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4483803D1;
-	Wed, 23 Sep 2026 02:31:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6196A368D55
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.87
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130699; cv=none; b=sqQP57z5i+YQS2xP+eg/XVFBWVrAjQdlmORltHAQ8DqUDRQNzRK2qJymPR+VLmuFl9zkez3aLfotJBPLRV9EyhZe6O3XjSusNQyFhEDeXK7ROjXuLrjj7SGK2A92OM1wpg1Kw1odActYm/qoadQbaptNWe/ua27EF0X3ytHiOmM=
+	t=1790130709; cv=none; b=JXQv7vy1yhwH9NXRQ4chR+6VXO/ZHDkj96N0TZXA2bRx0o/lM2RaZOs+DiFdM5XH3mZHFIt6lVn/Kz4+weACNCphnKkWLJWSvlFi19Ddij5ms9CLnQFopB7kucKV2uQLDvR5Ms/8bw8Z2tYn2z8vwv7Tfq2Aq/GK67TqtZ1tGYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130699; c=relaxed/simple;
-	bh=EQQEOXtwWQu7ZO2YFOqf3SDcgDd/5RQkuGxg1GIYdWg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DC400rvwMrDOVfOcUJin1oS8lkPtVxDhbGNbR2T09M5GEMifKAS86T7dlcLstUkpUbC+90HlfO9UaOZrW0dusf1hxIN6Ti6vQ4wixVujAuSfQibi+eeZcjug+94rqIqdJUAmjgC6U6wpTfKC6gUInKfLhK2GbM4Q87nRl0/7lGs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G0Zz+CVQ; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790130709; c=relaxed/simple;
+	bh=xVYCl2+ToQhJsfoOk1Efc9VXhWNjqHGapy2zKgaYkh4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DajiUsKbsUlIe5nf0aua6pT2uW/qhh3OYDub6gB00VJwcGqLPlpq9xZGdNygofngRIIoPviTq1UNgjHdgB1jmMR+x99ql7E3usRXGhXv7MAWNJZNFhdG8F2SD/5iclV1FLZMS1gzddexVypKNZ+GWlXEUat7dAdaxxGJDE3pHDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=DQ1m2Cq3; arc=none smtp.client-ip=198.54.127.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G0Zz+CVQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=E1
-	BjnqYpjwmja07iXCEPtn9ejJYfXOgfMkya7BEEYuk=; b=G0Zz+CVQrGAS8qp0T0
-	GJxnlSxeHeX28d2JGDE4SQvnFDNSqbRP09sUgsuL9n3rQCVIA0+OmXe2xtgl862M
-	MLqWqIVdKNDmZ4M2JMXw5xSGFsc7sR3STVpgGHu+/bu/uwXuiQW0rAhQNG3Nz/7H
-	4Yy841//W8R1YoNX7torVfrGY=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDnD9jWObNqbG79AA--.45419S2;
-	Wed, 23 Sep 2026 10:30:47 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Sudeep Holla <sudeep.holla@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: Re: [PATCH v2] dt-bindings: arm: vexpress: drop the obsolete hwmon and regulator text files
-Date: Wed, 23 Sep 2026 10:30:36 +0800
-Message-ID: <20260923023036.352192-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260922091636.A5A401F000FF@smtp.kernel.org>
-References: <20260922091636.A5A401F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="DQ1m2Cq3"
+Received: from fedora (unknown [120.199.7.38])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hqLZJ3fkcz8sYH;
+	Wed, 23 Sep 2026 02:31:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
+	s=spacemail; t=1790130697;
+	bh=atpMB5sAObGBHnnZwrOzoT8hf1VnqLifryohDjX8lnw=;
+	h=From:To:Cc:Subject:Date:From;
+	b=DQ1m2Cq3mutHCmf62FSW3M/unrd1lwHkBQARS34Crz9uY49SCD15QOhS9fI975POz
+	 kFUV8asMjEoSR8PU6pJIcBAuXRpW6+B96JcoFVSmZPS2TbwSSK6eZgrTNVFjVnpGMn
+	 15YWHFNgN5s5y5N+xRr55hL75j/kKUrMkGvBYhrnu9WdEM89ixC31s8KmbCsG3tEXQ
+	 U3yW6+nNQEsP5WAOqp8VU+7Wzc3/kkG5EUxiiMB74y75dnbtJySeOAoA9/YaglZstS
+	 wZ6q/Y+dIKQJE3PsrXY7IBAO5/QOiW7jugWLwpkHD233D6C978J81S4H31EIQLyULy
+	 s/jqhLWjiwYtQ==
+From: Tianyi Chen <hi@tychen.cc>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/4] memblock tests: fix BUILD=32 address conversions and warnings
+Date: Wed, 23 Sep 2026 11:31:22 +0900
+Message-ID: <20260923023126.1910311-1-hi@tychen.cc>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,29 +46,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnD9jWObNqbG79AA--.45419S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7JrWrXF1kCr4xuw15ZryxXwb_yoW3urcEkF
-	93Ar18G3y5tFsYgFyYkFnakr97G3WSyF93XrsFqr4Skr92kFsxGr93G3sxuryIga1Uur1D
-	WFZ5Ww40v34jgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7VUjsNVDUUUUU==
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xcLgGqzOddpagAA3L
+X-Envelope-From: hi@tychen.cc
 
-Yes, that is right, and it is what 1/2 of this series does.
+Fix the BUILD=32 physical-address truncation and sign-extension failures,
+and address the remaining GCC warnings reported during review.
 
-Documentation/hwmon/vexpress.rst carries that reference because nothing had
-pointed it at the schema yet. Patch 1/2 replaces it with
-Documentation/devicetree/bindings/arm/vexpress-config.yaml:
+Changes in v2:
+- Use memblock_phys_free() for all synthetic physical ranges in the basic
+  API tests, not only the maximum-address check.
+- Keep the dummy-memory address conversion fix unchanged.
+- Use __pa() in tools virt_to_phys() to avoid a pointer-size warning and
+  sign extension of 32-bit pointers with their top bit set.
+- Initialize end_rgn to avoid GCC's maybe-uninitialized warning.
 
-  https://lore.kernel.org/all/20260917115818.540344-1-quchaosheng000406@163.com/
+Clang BUILD=32 without NUMA also passes on v1 (189 checks). The earlier
+cover letter only mentioned the NUMA-enabled configuration tested then.
 
-Guenter applied 1/2 to the hwmon tree on 09-18, so the link does not dangle
-once both are in. 1/2 has to land before 2/2, otherwise there is a window
-where the reference points at a deleted file. That is the only ordering
-constraint between the two.
+Validated v2 with GCC 13.3.0 and Clang 18.1.3, retaining the default ASan
+and UBSan flags and adding -Werror. Both compilers build without warnings
+and pass ./main -v and ./main -m -v in each configuration:
+- Default and NUMA=1.
+- BUILD=32, with and without NUMA=1.
+- 32BIT_PHYS_ADDR_T=1, with and without NUMA=1.
+- BUILD=32 NUMA=1 MEMBLOCK_DEBUG=1.
 
-I ran the grep I should have run before posting, and it confirms there is
-nothing else: the reference in hwmon/vexpress.rst was the only one left in
-the tree besides the two files themselves.
+Each run passes 189 checks without NUMA or 272 with NUMA, including both
+allocation directions. A separate virt_to_phys() boundary check passes
+with both compilers in 32- and 64-bit builds; GCC BUILD=32 failed it on
+v1 for 0x80000000 due to sign extension.
 
-Quchaosheng
+v1: https://lore.kernel.org/r/20260916161105.2548281-1-hi@tychen.cc
+
+Tianyi Chen (4):
+  memblock tests: use physical addresses for region removal
+  memblock tests: zero-extend simulated memory addresses
+  tools: use __pa() in virt_to_phys()
+  memblock: initialize the region merge end index
+
+ mm/memblock.c                            |  2 +-
+ tools/include/linux/mm.h                 |  2 +-
+ tools/testing/memblock/tests/basic_api.c | 20 ++++++++++----------
+ tools/testing/memblock/tests/common.c    |  6 +++---
+ 4 files changed, 15 insertions(+), 15 deletions(-)
+
+
+base-commit: 5728d3523f12826a2b180c1c5738f74e33197e14
+-- 
+2.55.0
 
