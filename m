@@ -1,56 +1,56 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD1B47ECF4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3FA8329C48
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:13:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187211; cv=none; b=lor5BIzLd+n3emdICBDxr3H2rJYET/P96lkkJM/u8/7ECieZPD2hkx/HN8guBI6mgY1DYPy5qmotwlMXs+E7bx6vRv0Tu6xEtRS+il8x/e1Jp/6awmJVu9oaJAftKyD1Fhci4hrB+IgtYoTBBkau4HS7GwgYNOL3HUo7pMheYqE=
+	t=1790187215; cv=none; b=uu9V5lrDh6lcRNMZN4T/BaQO6jdofXWmYHuLYm0f+iv8cAU6IQg1gXdqs/3yqAsBWv2ADWx1WhdXn0EnHCjBIlsXPb68WlB7l2ceC46OI/Z+V4+GzXUzKwIQzPU6cdKSYJxLhpTezIQTspA/kwAqTAldx0joapR4TmAkX1DD3JM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187211; c=relaxed/simple;
-	bh=Mqme3tjYOsx6QvtSOqg1yMKFJwfr64HkzN9wNnVljLk=;
+	s=arc-20240116; t=1790187215; c=relaxed/simple;
+	bh=tK+fRx6syfWM9ocycAOJ6lVgRUkKT9ljETZX87PyWwo=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=FGqmJ1XKmGLW5qwsZCIL/WfooEHtJnTkkL/NhjE+aMBjoBic8tOLCswiRRpkDY1OazF7fvwvb02J5V7saNZkP95ZNDbJ69cDvMyn+Zqd7LyFvHwDzelt9lnMVA9vU8nFJkxs5i2FzS04uo47CFzDwMhubkGRbhCf9JI3fFdl88w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ath9SWRk; arc=none smtp.client-ip=209.85.210.198
+	 To:Cc:Content-Type; b=o9+rgQIZchfSiZsAtcVrY5P9xt7EBxTutXEjuli7ZwWPQcipqX9shUxLMdqPYt4LIIRC+f3y+bDs5WCcAGM6lc0RPL7ZyzvE6IXqsPnbMZATrSva6Wjft2FxpkTTxDxxVQTXr1cIELobk/3bwxjc9P28lMnkBC5bTwfRFuEpUi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UO1mOAMh; arc=none smtp.client-ip=74.125.82.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ath9SWRk"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-86ab8302b54so946138b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:13:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UO1mOAMh"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3286d2bac04so1402289eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:13:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790187205; x=1790792005; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790187207; x=1790792007; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Qt8LZpEBEh0Ra99otG9OHNC1wC4EnMMGyhmdZrr4ouo=;
-        b=Ath9SWRkxAK1hVXEnUVUWBRdPUoyYSNZnyx1CR4hKNQ+MILBL4g+vQGa13g49N3xtg
-         2Q2T5CrddEFRbzh1r530e9rckvoLeoHThoduDnDtmQpEClD/cSK+VYTBY19j6EhETtWE
-         km5ZvjPN+q/PA12FTadoNzdjECp9rAsQL8/NZWpXHxExIB1MSJC0av5br5/kSaqGlcdL
-         q9Uu0vRKQ4wu8btyTupGQ+Ct4B4H4Gqzi7pU+LhorH4F1OfQE+DwipoLVMtbqai0BUB5
-         byLwScD2hSrbeG++waWPG6FJPMjD3dh2MECHWBwMw3r7Z3XRdD3X8ljyzfNPYQ1nl4Y0
-         KHuQ==
+        bh=jnoc9MZNbNt2LlkkCvZ6RrV9DZCe8GgCTw1SQFJkYmY=;
+        b=UO1mOAMhbCvTEPqrO79KKSCrUP9dQU3wd3RQBM7/yObo7LAr2PY+jhL5Z85AcPhho5
+         V9RFridRcXpYKU7EbYhytH50fpObjTb99vdHQgHSfPu3oR+EW6ecKFUb2Q+CTZTKmlXL
+         bw8gJA/Zp7oyEBTe985FWqFxhZKMmUsgVaMylqUv0ZTWyOOCBrFSVkHf55wCb3M2qwc5
+         lQWIx42OOrAp8ktdxGC4Y/CNZe1P7HHvrCefdRq/djXmFi9DfJFj1Qpa4Z8DDjEmpcyU
+         YX4sQvrJ/nxlhIs5nrKdTLUvHKV6j8rh1TizLpbKUqeOiX0C5vnRQGnjC7KoBH7uROOR
+         hdvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187205; x=1790792005;
+        d=1e100.net; s=20260707; t=1790187207; x=1790792007;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Qt8LZpEBEh0Ra99otG9OHNC1wC4EnMMGyhmdZrr4ouo=;
-        b=NgwfZ7V7+1W7hms/DMImhHkuoLxS7u+OBY4URwI5qwFoO8M47U0p8xzH+bqvxoHdGK
-         vkQayuJw7JVYrhpV6PqaGlC3yOK9kxZJnctXYK+XX6Dzc/c38ZpkCHc7QeWdl8jTZFfo
-         PGhhWLuCQ1h8wh3/pJZaKN6IxbxWcUQmgpTESyEzLUROflPmYMaKRT4Ap3W/G3IPJ4Hw
-         iQgKknPOd82jb4p4/D14agf8gAx/VJuoCGP7ju5vyQDbd8F+2BiCUAX9dvoVfift6x8Z
-         rZp3wG+IQKok0bAMSjIe1fTB1KJPUkdByx/FfL5wE+BuN6rKMPQvRvv5YKrBwureawOm
-         mMIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxwKQ3tz2VgoeAYSycqYhzUJNKkv1gbuLcIvSo367eLcUbwa7oT+kyhfnyKtpjLg8aavPyrtgQVk12uQjM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lx0ZE9vN7MoZq4CjRHywacMBmos+QJGUBFIHkeebeOoIVOYsDG
-	wjdCfnYjKPI5o+ZSLMS9LVQdCCjg9buoAQ2ZUpUbC/fMVN505X+nn8eYMLQNzI+G0YTXeCtE9gM
-	KKBOwf7uZBg==
-X-Received: from pfpk17.prod.google.com ([2002:aa7:9d11:0:b0:86b:a074:218a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4650:b0:87c:e44e:5694
- with SMTP id d2e1a72fcca58-87e98f91b9amr10642b3a.21.1790187204911; Wed, 23
- Sep 2026 11:13:24 -0700 (PDT)
-Date: Wed, 23 Sep 2026 11:11:36 -0700
+        bh=jnoc9MZNbNt2LlkkCvZ6RrV9DZCe8GgCTw1SQFJkYmY=;
+        b=xg+zynWPyLymWpAYrQgaG7llYLE+7GRMg//KfycRo36ewPpBnjNtJN4d45AmnK52N+
+         34GAIZXTkRknHyIlJmaJsS0ORDE2j91dkZ9aCFhb7qyVFUlIfP0i5NUiSXGsQ5ixqCTT
+         3gPmDx6ngxP4wQaZ40EhA7XkdUhzUTrhCIDjwNZqW6z3nl8+HdzDW7fgh/uaKECibwpp
+         BlpNKWGwPFTtkfHF5IgzQQVWT9ff7VxTIRcHuUsJ+C67OXocIFgJaXLnLX2jwTu5axzT
+         cb+l47a2GWt2saFczKw4zRA/vCXQsMO2TuJgvRVagSELh+Af9XpeS4YfvUexvc3azsaO
+         TBKg==
+X-Forwarded-Encrypted: i=1; AKwUvBzzm3sH0dhMkVQQCuo9c2ZVhawuWt3KpYlpWBCgNBcacExPNRX4NrS6V9JPOBgJb5D6rjDd72LM8YwlNrQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTdfih/BpIT5ITNJpS42F3poti/YAKuIsRdFKAJAZTQP3Tdnk+
+	lLPHxHiSyRlVtl7nwGnDl1noab9XQUI/YIpSqWEia2FdXJRGPe0uFc3+pjJM9CBkcZsh/kxmoXl
+	AuYsJ0LxcVA==
+X-Received: from dlbem11.prod.google.com ([2002:a05:7022:100b:b0:144:d7d5:5999])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:42c7:10b0:144:fb31:a5a4
+ with SMTP id a92af1059eb24-144fb31a6eemr3029203c88.42.1790187206598; Wed, 23
+ Sep 2026 11:13:26 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:11:37 -0700
 In-Reply-To: <20260923181213.3032038-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789966896.git.irogers@google.com> <20260923181213.3032038-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260923181213.3032038-14-irogers@google.com>
-Subject: [PATCH v3 13/49] perf build: Make mypy build test opt-out (NO_MYPY=1)
+Message-ID: <20260923181213.3032038-15-irogers@google.com>
+Subject: [PATCH v3 14/49] perf build: Make pylint build test opt-out (NO_PYLINT=1)
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	namhyung@kernel.org
@@ -71,131 +71,147 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Commit 168910d0f937 ("perf build: Add mypy build tests") added a
-compile-time mypy type check for Python files in tools/perf, but left it
-opt-in via MYPY=1.
+Commit 8a54784e708b ("perf build: Add pylint build tests") added a
+compile-time pylint check for Python files in tools/perf, but left it
+opt-in via PYLINT=1.
 
-Now that mypy issues across tools/perf/python, tools/perf/pmu-events,
-and tools/perf/tests/shell/lib have been cleaned up, enable the mypy
-check by default when mypy is installed on the system, with an opt-out
-via NO_MYPY=1 (matching NO_SHELLCHECK=1 and other perf build feature
-flags). Also configure MYPYPATH in Makefile.perf so scripts can resolve
-perf.pyi type stubs and local modules, pass --ignore-missing-imports so
-optional third-party packages do not fail default builds, and remove
-*.mypy_log files during `make clean`.
+Now that pylint issues across tools/perf/python, tools/perf/pmu-events,
+and tools/perf/tests/shell/lib have been cleaned up, enable the pylint
+check by default when pylint is installed on the system, with an opt-out
+via NO_PYLINT=1 (matching NO_SHELLCHECK=1, NO_MYPY=1, and other perf
+build feature flags).
+
+Configure PYTHONPATH in Makefile.perf so pylint resolves perf.pyi type
+stubs and pmu-events modules, enable error and warning categories
+(--disable=all --enable=E,W --disable=W0123,W0311,W0511,W0603,W0622,W0718
+--ignored-modules=textual,setproctitle) appropriate for perf's standalone
+CLI and test scripts, and require pylint >= 2.16.0 (skipping with a
+warning if an older version is installed).
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
  tools/perf/Build            |  2 +-
- tools/perf/Makefile.perf    | 26 ++++++++++++++++++++++----
+ tools/perf/Makefile.perf    | 40 +++++++++++++++++++++++++++++++++----
  tools/perf/pmu-events/Build |  2 +-
  tools/perf/tests/Build      |  2 +-
  tools/perf/util/Build       |  2 +-
- 5 files changed, 26 insertions(+), 8 deletions(-)
+ 5 files changed, 40 insertions(+), 8 deletions(-)
 
 diff --git a/tools/perf/Build b/tools/perf/Build
-index e18c80a5c1bc..37d603faea6d 100644
+index 37d603faea6d..5bd0e58d7cb0 100644
 --- a/tools/perf/Build
 +++ b/tools/perf/Build
-@@ -88,7 +88,7 @@ endif
+@@ -101,6 +101,6 @@ endif
  
- $(OUTPUT)%.mypy_log: %
+ $(OUTPUT)%.pylint_log: %
  	$(call rule_mkdir)
--	$(Q)$(call echo-cmd,test)mypy "$<" > $@ || (cat $@ && rm $@ && false)
-+	$(Q)$(call echo-cmd,test)$(MYPY) "$<" > $@ || (cat $@ && rm $@ && false)
+-	$(Q)$(call echo-cmd,test)pylint "$<" > $@ || (cat $@ && rm $@ && false)
++	$(Q)$(call echo-cmd,test)$(PYLINT) "$<" > $@ || (cat $@ && rm $@ && false)
  
- perf-y += $(MYPY_TEST_LOGS)
- 
+ perf-y += $(PYLINT_TEST_LOGS)
 diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-index 2438b40eaaec..c7cade270b23 100644
+index c7cade270b23..aacaa04854c5 100644
 --- a/tools/perf/Makefile.perf
 +++ b/tools/perf/Makefile.perf
-@@ -129,6 +129,8 @@ include ../scripts/utilities.mak
- # Define GEN_VMLINUX_H to generate vmlinux.h from the BTF.
- #
+@@ -131,6 +131,8 @@ include ../scripts/utilities.mak
  # Define NO_SHELLCHECK if you do not want to run shellcheck during build
+ #
+ # Define NO_MYPY if you do not want to run mypy during build
 +#
-+# Define NO_MYPY if you do not want to run mypy during build
++# Define NO_PYLINT if you do not want to run pylint during build
  
  # As per kernel Makefile, avoid funny character set dependencies
  unexport LC_ALL
-@@ -262,9 +264,24 @@ ifneq ($(SHELLCHECK),)
+@@ -284,9 +286,39 @@ ifneq ($(force_fixdep),1)
    endif
  endif
  
--# Runs mypy on perf python files
--ifeq ($(MYPY),1)
--  MYPY := $(shell which mypy 2> /dev/null)
-+# Runs mypy on perf python files.
-+# Wait until after the fixdep bootstrap sub-make (force_fixdep != 1) so
-+# command-line overrides (MYPY=1, MYPY=/custom/path, NO_MYPY=1) reach the
-+# main Makefile.perf pass intact, then strip MYPY=% from MAKEOVERRIDES
-+# (substituting escaped spaces so multi-word overrides like MYPY="mypy --strict"
-+# are removed as a single token) so child Makefile.build sub-makes inherit the
-+# MYPYPATH-wrapped export MYPY environment variable.
+-# Runs pylint on perf python files
+-ifeq ($(PYLINT),1)
+-  PYLINT := $(shell which pylint 2> /dev/null)
++# Runs pylint on perf python files.
++# Require pylint >= 2.16.0 (which introduced W0718 broad-exception-caught and
++# astroid .pyi stub support for perf.pyi).
++# Disabled warnings:
++#   W0123 (eval-used): Use of eval()
++#   W0311 (bad-indentation): Non-4-space indentation
++#   W0511 (fixme): Presence of FIXME/TODO comments
++#   W0603 (global-statement): Use of the global statement
++#   W0622 (redefined-builtin): Redefining a built-in name (e.g. id, type, dir)
++#   W0718 (broad-exception-caught): Catching broad Exception
++# Wait until after the fixdep bootstrap sub-make (force_fixdep != 1) before
++# resolving PYLINT and stripping PYLINT=% from MAKEOVERRIDES (substituting
++# escaped spaces so multi-word overrides are removed as a single token) so child
++# Makefile.build sub-makes inherit the PYTHONPATH- and flag-wrapped export.
 +ifneq ($(force_fixdep),1)
-+  MAKEOVERRIDES := $(subst __SPACE__,\ ,$(filter-out MYPY=%,$(subst \ ,__SPACE__,$(MAKEOVERRIDES))))
-+  ifeq ($(NO_MYPY),1)
-+    override MYPY :=
-+  else ifeq ($(filter-out 1,$(MYPY)),)
-+    override MYPY := $(shell which mypy 2> /dev/null)
++  MAKEOVERRIDES := $(subst __SPACE__,\ ,$(filter-out PYLINT=%,$(subst \ ,__SPACE__,$(MAKEOVERRIDES))))
++  ifeq ($(NO_PYLINT),1)
++    override PYLINT :=
++  else ifeq ($(filter-out 1,$(PYLINT)),)
++    override PYLINT := $(shell which pylint 2> /dev/null)
 +  endif
 +
-+  ifneq ($(MYPY),)
-+    override MYPY := MYPYPATH=$(srctree)/tools/perf/python $(MYPY) --ignore-missing-imports
++  ifneq ($(PYLINT),)
++    ifneq ($(shell $(PYLINT) --version 2>/dev/null | \
++          awk '/^pylint / { split($$2, v, "."); print (v[1]+0 > 2 || (v[1]+0 == 2 && v[2]+0 >= 16)) }'), 1)
++      $(warning Warning: pylint version is older than 2.16.0, skipping pylint checks.)
++      override PYLINT :=
++    else
++      override PYLINT := PYTHONPATH=$(srctree)/tools/perf/python:$(srctree)/tools/perf/pmu-events \
++        $(PYLINT) --disable=all --enable=E,W --disable=W0123,W0311,W0511,W0603,W0622,W0718 \
++        --ignored-modules=textual,setproctitle
++    endif
 +  endif
  endif
  
- # Runs pylint on perf python files
-@@ -948,7 +965,8 @@ clean:: $(LIBAPI)-clean $(LIBBPF)-clean $(LIBSUBCMD)-clean $(LIBSYMBOL)-clean $(
- 	$(call QUIET_CLEAN, core-objs)  $(RM) $(LIBPERF_A) $(OUTPUT)perf-archive \
+ export srctree OUTPUT RM CC CXX RUSTC CLANG LD AR CFLAGS CXXFLAGS RUST_FLAGS V BISON FLEX AWK LIBBPF READELF
+@@ -966,7 +998,7 @@ clean:: $(LIBAPI)-clean $(LIBBPF)-clean $(LIBSUBCMD)-clean $(LIBSYMBOL)-clean $(
  		$(OUTPUT)perf-iostat $(LANG_BINDINGS)
  	$(Q)find $(or $(OUTPUT),.) -name '*.o' -delete -o -name '*.a' -delete -o \
--		-name '\.*.cmd' -delete -o -name '\.*.d' -delete -o -name '*.shellcheck_log' -delete
-+		-name '\.*.cmd' -delete -o -name '\.*.d' -delete -o -name '*.shellcheck_log' -delete -o \
-+		-name '*.mypy_log' -delete
+ 		-name '\.*.cmd' -delete -o -name '\.*.d' -delete -o -name '*.shellcheck_log' -delete -o \
+-		-name '*.mypy_log' -delete
++		-name '*.mypy_log' -delete -o -name '*.pylint_log' -delete
  	$(Q)$(RM) $(OUTPUT).config-detected
  	$(call QUIET_CLEAN, core-progs) $(RM) $(ALL_PROGRAMS) perf perf-read-vdso32 \
  		perf-read-vdsox32 $(OUTPUT)$(LIBJVMTI).so
 diff --git a/tools/perf/pmu-events/Build b/tools/perf/pmu-events/Build
-index 372773b998e4..c3542e5ae46f 100644
+index c3542e5ae46f..1ac067be9d34 100644
 --- a/tools/perf/pmu-events/Build
 +++ b/tools/perf/pmu-events/Build
-@@ -187,7 +187,7 @@ JEVENTS_DEPS := $(OUT_JSON) $(GEN_JSON) $(JEVENTS_PY) $(METRIC_PY) $(EMPTY_PMU_E
- ifdef MYPY
- define MYPY_RULE
+@@ -203,7 +203,7 @@ endif
+ ifdef PYLINT
+ define PYLINT_RULE
  $(2): $(1)
--	$$(Q)$$(call echo-cmd,test)mypy $(1) > $(2) || (cat $(2) && rm $(2) && false)
-+	$$(Q)$$(call echo-cmd,test)$$(MYPY) $(1) > $(2) || (cat $(2) && rm $(2) && false)
+-	$$(Q)$$(call echo-cmd,test)pylint $(1) > $(2) || (cat $(2) && rm $(2) && false)
++	$$(Q)$$(call echo-cmd,test)$$(PYLINT) $(1) > $(2) || (cat $(2) && rm $(2) && false)
  endef
  $(foreach src,$(wildcard pmu-events/*.py), \
-     $(eval dest := $(patsubst pmu-events/%,$(OUTPUT)pmu-events/%.mypy_log,$(src))) \
+     $(eval dest := $(patsubst pmu-events/%,$(OUTPUT)pmu-events/%.pylint_log,$(src))) \
 diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
-index 406e48eed1c8..98b05b68fc14 100644
+index 98b05b68fc14..f88e9a55c4f5 100644
 --- a/tools/perf/tests/Build
 +++ b/tools/perf/tests/Build
-@@ -104,7 +104,7 @@ endif
+@@ -117,6 +117,6 @@ endif
  
- $(OUTPUT)%.mypy_log: %
+ $(OUTPUT)%.pylint_log: %
  	$(call rule_mkdir)
--	$(Q)$(call echo-cmd,test)mypy "$<" > $@ || (cat $@ && rm $@ && false)
-+	$(Q)$(call echo-cmd,test)$(MYPY) "$<" > $@ || (cat $@ && rm $@ && false)
+-	$(Q)$(call echo-cmd,test)pylint "$<" > $@ || (cat $@ && rm $@ && false)
++	$(Q)$(call echo-cmd,test)$(PYLINT) "$<" > $@ || (cat $@ && rm $@ && false)
  
- perf-test-y += $(MYPY_TEST_LOGS)
- 
+ perf-test-y += $(PYLINT_TEST_LOGS)
 diff --git a/tools/perf/util/Build b/tools/perf/util/Build
-index d08f2af7d970..71d1f7289d03 100644
+index 71d1f7289d03..3ea888f4210a 100644
 --- a/tools/perf/util/Build
 +++ b/tools/perf/util/Build
-@@ -426,7 +426,7 @@ endif
+@@ -438,7 +438,7 @@ endif
  
- $(OUTPUT)%.mypy_log: %
+ $(OUTPUT)%.pylint_log: %
  	$(call rule_mkdir)
--	$(Q)$(call echo-cmd,test)mypy "$<" > $@ || (cat $@ && rm $@ && false)
-+	$(Q)$(call echo-cmd,test)$(MYPY) "$<" > $@ || (cat $@ && rm $@ && false)
+-	$(Q)$(call echo-cmd,test)pylint "$<" > $@ || (cat $@ && rm $@ && false)
++	$(Q)$(call echo-cmd,test)$(PYLINT) "$<" > $@ || (cat $@ && rm $@ && false)
  
- perf-util-y += $(MYPY_TEST_LOGS)
+ perf-util-y += $(PYLINT_TEST_LOGS)
  
 -- 
 2.56.0.rc1.310.g51773c2048-goog
