@@ -1,184 +1,101 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F39496D59;
-	Wed, 23 Sep 2026 13:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3D4489FB0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170655; cv=none; b=K9DHl+CZ3e0MnTh3tMPfLuP4DCaZfr9XjMCDkMkZWVwS5z+U8YifdSH+x/tnCiIYEu/5kYusU/QmF+F6OKwsVxKnRdA48D27cDcD/LRDggFBwoMcauqWB9kInH/ycRmlr55OzcOrTjavLo5y1QaV5fNNpl5Gwp5NrDgzVLZJb8w=
+	t=1790170657; cv=none; b=HL7nUXmT+/p7UU0FecKdoOQcy3HI5Y/vPndB6U0CAFADbtUsCI8uezh+Oq1JO+yXMEXDTOwHW7vYf+V4QQquMcOXcfJKHYREnvyJOFTpD4xbalDa1JjTPrJaoB9bBPz4TS1hT/Tbcet8FTWv0HVsngqZyfjm1wYLSaPLTCHXsO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170655; c=relaxed/simple;
-	bh=Fcb7nKeecyRZtG9CqtBUkYjdlxcmT3QYwgba2BJ4cKI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S+dPJ+QzJePWd1jZqCZ6ERGD9M6EVshyB4HWHWHt1gupv+LTo3XpCeZNj1wldqLtsV72DwsFZ2UB6cPaAdAQJL8Nqb9yrN6j+MInF+PqhstvJD7Pz/b7hR4qlOwX6K5JlF+btXxLjgfY8yA/o0vJMo0Jy6n/OI9ka+vpDjohlSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=m5226VQs; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=CHsZ3VTJ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=J+1YfswV; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=ox++wCKf; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790170657; c=relaxed/simple;
+	bh=rP8aHHu5Bkp8yoYoNyYcWejJ2NBAV1DEmgmqAtzlFQ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RjivbhTYp3rfap6U6nSkbzZJWeOF2pn0feccuSNBCJmauZy0BnnI8MryLRsEZnyhAfD3eXdHFihIQIpaYrc08WpYnLHxup2bRq/bwQEaXrTnk2C66uwpk9jK1qrPLrYqyb9kQamc/1EtbR0ZDWWEQ9IKOPj2i2kBT+R0E5r4mJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LyVAaVgg; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="m5226VQs";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="CHsZ3VTJ";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="J+1YfswV";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="ox++wCKf"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LyVAaVgg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790170653;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D6J8zcfjJGXzyEQooABwNDMn3L1SBB4UGC/mafu55wA=;
+	b=LyVAaVgg9D5Bass+I7SRmrHPutpYLlsY3pRywuVVakW1FOU9V/EI7IglV6vJ+N8ydNMrba
+	h8U74/IeCmjf6Gfx2Tt0iHyGZiO7GGg+Tg7Xexz0VHA0LSmpKQ8RSCNRhCuTlMh0KdgdKH
+	2sXybeoxDFBsYRJLP0jycjgdPnwP/8M=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-558-TObKH2AWNTS8I9FtVwtQ_A-1; Wed,
+ 23 Sep 2026 09:37:30 -0400
+X-MC-Unique: TObKH2AWNTS8I9FtVwtQ_A-1
+X-Mimecast-MFC-AGG-ID: TObKH2AWNTS8I9FtVwtQ_A_1790170649
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id A12AF21D9A;
-	Wed, 23 Sep 2026 13:37:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790170647; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bHNLwAJ2kCo7ASstkU5km7Ae8sD8Fph69aMuKEuvoI4=;
-	b=m5226VQsBJNgHXPcCuD73VWmCcSAf2mRcNzuHheopjsau2q17JcTi5aJ6RFwqxRaXIJn4T
-	h8DgW9ojmgI/surO8zT/A59GVv4t1/ZDe1KvcqShu/y0CY04BcM/Sf+Q2G3OuSEI6sGOOr
-	52mMgFFvNb647dXxUUc1hD5lCRdrftE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790170647;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bHNLwAJ2kCo7ASstkU5km7Ae8sD8Fph69aMuKEuvoI4=;
-	b=CHsZ3VTJMCoHQT6t8VSiGfgGk9yWbfEJfg/ZyrxTjDwkVjgvSzh3BKOOwpZsCtPUJ0vt4K
-	LKt1iwj7rZTYqfDQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=J+1YfswV;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=ox++wCKf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790170643; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bHNLwAJ2kCo7ASstkU5km7Ae8sD8Fph69aMuKEuvoI4=;
-	b=J+1YfswV8WM0t3tZkr18ZX5NVpwBA10qcMs5OIPnTjJcJYAEX8DXO1tPwDGzKZJhoRwmpa
-	NcOcFJ8+Cb85Dz5qPQGnbUSo5y12npgj2XHJ2ATaQT6jB/uD56oEhd0ncXwo5cnvtMTcN2
-	Sv5ARWkOEXQbR6VJ90P1YsDZux3JncA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790170643;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bHNLwAJ2kCo7ASstkU5km7Ae8sD8Fph69aMuKEuvoI4=;
-	b=ox++wCKfQ4hUfWiKXUxyyaL4QBJa97WqVBTAeNuBvTcW/0HDd2JXXlAUTGVCoPjYeSkBjd
-	xhxI9NPK1kd7UTDw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 74A5013432;
-	Wed, 23 Sep 2026 13:37:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id bHk9FBPWs2rSMAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 23 Sep 2026 13:37:23 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 00E84A13D4; Wed, 23 Sep 2026 15:37:22 +0200 (CEST)
-Date: Wed, 23 Sep 2026 15:37:22 +0200
-From: Jan Kara <jack@suse.cz>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Christian Brauner <brauner@kernel.org>, 
-	Yichong Chen <chenyichong@uniontech.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] isofs: validate directory records in
- isofs_read_level3_size()
-Message-ID: <cpadce3biub2f3lv5mnuegqpd5wwip3n67oe4xy3jujserdzfk@ynipz43pmoul>
-References: <20260922140137.1768064-1-matthias.goergens@gmail.com>
- <20260922140137.1768064-2-matthias.goergens@gmail.com>
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C5E6018011FE;
+	Wed, 23 Sep 2026 13:37:28 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.54])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id B679A1800473;
+	Wed, 23 Sep 2026 13:37:24 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: netdev@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jeffrey Altman <jaltman@auristor.com>
+Subject: [PATCH net v11 02/17] rxrpc: Fix rxperf test rxgk key kvno to be 0
+Date: Wed, 23 Sep 2026 14:36:49 +0100
+Message-ID: <20260923133706.1496540-3-dhowells@redhat.com>
+In-Reply-To: <20260923133706.1496540-1-dhowells@redhat.com>
+References: <20260923133706.1496540-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922140137.1768064-2-matthias.goergens@gmail.com>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: A12AF21D9A
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -2.51
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On Tue 22-09-26 22:01:36, Matthias Goergens wrote:
-> isofs_read_level3_size() walks the multi-extent directory records of a
-> file and dereferences de->size and de->flags for each one without ever
-> checking the record's length byte.  A record with a short length placed
-> near the end of a block makes those fixed-field reads run past the
-> record, and for a record at the end of the last block of a page, past
-> the buffer.
-> 
-> readdir, lookup and the NFS get_parent path have validated every record
-> with isofs_dir_record_valid() since commit e2ee4078ec58 ("isofs:
-> validate directory records consistently").  Use the same helper here.
-> It rejects records shorter than the fixed part, records whose name
-> would not fit, and records that would run past the block, so the
-> straddling-record copy below can no longer be reached with a bad
-> length.
-> 
-> Found by fuzzing fs/isofs in a userspace harness with ASan
-> (heap-buffer-overflow reads in isonum_733(de->size)).
-> 
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
->  fs/isofs/inode.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
-> 
-> diff --git a/fs/isofs/inode.c b/fs/isofs/inode.c
-> index 337836a0a170..c9bc1f479161 100644
-> --- a/fs/isofs/inode.c
-> +++ b/fs/isofs/inode.c
-> @@ -1208,6 +1208,14 @@ static int isofs_read_level3_size(struct inode *inode)
->  			continue;
->  		}
->  
-> +		if (!isofs_dir_record_valid(de, offset, bufsize)) {
+Fix the test rxgk keys in the rxperf test server to have kvno 0 to match
+other implementations.
 
-This is going to trigger when the block is fully packed, won't it? I think
-the check belongs to a moment after we've handled transition to the next
-block...
+Fixes: aa2199088a39 ("rxrpc: rxperf: Add test RxGK server keys")
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Jeffrey Altman <jaltman@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+---
+ net/rxrpc/rxperf.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-								Honza
+diff --git a/net/rxrpc/rxperf.c b/net/rxrpc/rxperf.c
+index f1f41151589c..26f97e1dd388 100644
+--- a/net/rxrpc/rxperf.c
++++ b/net/rxrpc/rxperf.c
+@@ -586,7 +586,7 @@ static int rxperf_add_yfs_rxgk_key(struct key *keyring, u32 enctype)
+ 	for (int i = 0; i < krb5->key_len; i++)
+ 		key[i] = i;
+ 
+-	sprintf(name, "%u:6:1:%u", RX_PERF_SERVICE, enctype);
++	sprintf(name, "%u:6:0:%u", RX_PERF_SERVICE, enctype);
+ 
+ 	kref = key_create_or_update(make_key_ref(keyring, true),
+ 				    "rxrpc_s", name,
 
-> +			printk(KERN_NOTICE "iso9660: Corrupted directory entry in block %lu of inode %llu\n",
-> +			       block, inode->i_ino);
-> +			brelse(bh);
-> +			kfree(tmpde);
-> +			return -EIO;
-> +		}
-> +
->  		block_saved = block;
->  		offset_saved = offset;
->  		offset += de_len;
-> -- 
-> 2.55.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
