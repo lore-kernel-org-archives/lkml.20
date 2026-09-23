@@ -1,323 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022123.outbound.protection.outlook.com [52.101.126.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F0F36494F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790129424; cv=none; b=KrMk9c+CONbysaRbFgN+ml/jZNtG9XuKChPZC5quysUjmhrZvUSNJ0hfsEthTQScmCmP+9WOzoVEBMRYzIRfl+8gXjXT0sZFelHT280moQAinapgu4UecvdfJCCqUT50+jAYmAdyAgXPBdjDe6uU94LP5iFZeRDfZAAtTo4jjyQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790129424; c=relaxed/simple;
-	bh=zJs4aOwwFsFj3SvXVZdymZBJN3AaTIjAOllr9jGKB68=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eBMgQZHvqADLKlikZT5IoiecU0I3MPSk/I9SO2uxtr+m2p2i2dFq3hTaM6M+Attce1WfrC8fdW90bo0srGoWGXa6tye92Dqs0TqFB3JCxjTP99Y5r7GtTRzgRgSLXPRzUiOSWSgKCzETwwJTS3/64SRYX8fdq9WKzKeY5gwr6tE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GlyZwJPl; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GlyZwJPl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D3D1F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:10:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790129423;
-	bh=us9YHg7JOnERKh2ln5timd0T5hyAAB/+9kI7oFnTjgY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GlyZwJPlTj9Y3pYpFbkHd+sGykzWwN8EQSmzzkDo+cauesgQ3QuA7tMZJlgiaiD4t
-	 50Gi35z7BxWsZQ6//b3TQXgU0OhiWpQWYv+eZJo2bsAtYccXpHH1Eq7ZhcP8NeEG1C
-	 mwf6DL09/gEVNqN5sBBatb6JfH90zYWzooy5LXdZ0yIfQgMZQM/N/DARQAXYbMvbB7
-	 1Ie6WGgNpNkBfw59kcAH2zhnkMY+tid1TN+gZxZi8Q+CeQ6JvPyMgz7FMgugvFBy/y
-	 ajLyU6bP2it9Tjh1TnklPTM/LMe88bsrVo0QJ38W2GVHmhubqHGVAR1eqHxOTbj9eF
-	 B6PRI2/FBIq6Q==
-Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so2293065ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:10:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwNw4L9i5MYf92G+cQbF37lctmozucBoIL0onJsn0F3qmHxecU+Y0n1eZDIWw90eSFTKg1dEViKdVeGNa0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJs9Srz7UKG+n69uqjRWYrOVuvFC4S7Yw2LxsxHZCTE+r43bQj
-	walrpscZ0Ho2axloEnbEpcwZCkz1daSVmEph2Fxo4sow+NMNLvkjoL8r/1FDFbl+aCTO7FIopRz
-	VtztHwIYOnhIGzVP8LeteHcX2RIPyxag=
-X-Received: by 2002:a17:902:fd87:b0:2d8:d4d0:7930 with SMTP id
- d9443c01a7336-2df69d5fce6mr9835935ad.20.1790129422622; Tue, 22 Sep 2026
- 19:10:22 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FB3358D37;
+	Wed, 23 Sep 2026 02:10:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.123
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790129440; cv=fail; b=UVhH/sLfNap7wN9M7APFuvdZaYdlPc4yfWUfaObAoLKvldZ6F6fMG1RWUlSPIIr+SJ5O91hRWZ54KUj4gDfxK4wyAT4B4tp5hBUyvf2/wI7gCuH1OpPT0vp9c/2drHfkp/Df8TNkeC3TXc6ktup7q8vxizyVNgB/jCWxZ0Q3knQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790129440; c=relaxed/simple;
+	bh=JtX4IYHJBHH9nu5PK7b9bb5RF1Cf861jiEF1RVf8+tI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UqxDCs4Ff6/dTop1s+SZsjNqMtCGioQCDc/UPvO3e2fUA5swh+ratAzUY/5kwltdQm3aHdkq71sDmR48Lf87ylAWJFuuQCn6os+x1Cwy2g5kfi8/VL/AUr+PeTWTeyoFfdWivumb74Ae8QC+hMg9yL5lSM7fuGpBLtd3woCgJeo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=v62iWZCwdpPiudXjYVRd2lpUBX19fgsL+VLr9GEc8mCJlaar70bfsz7D9vjJ+T5lkHZc3fIy4+hFz7M2y4WgkmVkoJ5BLaXI7Xzw5OeUmFU28Bfbjl+2ilY6IQSFSAQcIDfwPnqx7gbFPk4IcQQbLwEIbytS3LMCyMhwofTz4pisDVApD8PJPRcqvWlEucnkTVKHy9cD5jBgj5/7gMyS07KUjc/EaJufltmWVbEwlqduCw2l6i/XYnZJsJ08//vt91DB3xELWnWeEv4DyXp7RwwEeWNvcq532vJW4rGXTFFelFr9tn3QQNDP984GxscDLwQwPqr1Xd79zV2P3xtxEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JtX4IYHJBHH9nu5PK7b9bb5RF1Cf861jiEF1RVf8+tI=;
+ b=gL9NILr3uTg+ZdBAdtoXLoajqC1Z9YWBbEd/3yIxVw/fUQwnSOxYZipN5dtjGYrBh976b7tU5N5+UYlTT3r0MFx7taKsltYlv5w3WZ3Kre9GgCO3WROwgvzyXBUshpMi2zUfniYH89sJ8Jm5fdMfEGt132jdEKyohpqD6WXo4lwlbjvmVD88jmxkw4LIW5iFcfUpfRq1eeLSXPXdpsja3bdUqNHHs5Nj4Hpnoso4NIJ4LKsfJ3hI2dK0pLqC4ikzm3FfWJlykcDNlhCu9R8tg3pzmAFFKUhHMmCnYWzKWFjXxkUWrHZxpVHfHhU+TLScFCVF5FRGi4LvK/uDUnyshA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI3PR03CA0012.apcprd03.prod.outlook.com (2603:1096:4:297::12)
+ by PUZPR06MB5721.apcprd06.prod.outlook.com (2603:1096:301:f7::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 02:10:34 +0000
+Received: from OSA0EPF000000CB.apcprd02.prod.outlook.com
+ (2603:1096:4:297:cafe::4d) by SI3PR03CA0012.outlook.office365.com
+ (2603:1096:4:297::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
+ 23 Sep 2026 02:10:34 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000CB.mail.protection.outlook.com (10.167.240.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 02:10:33 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 288A343B1061;
+	Wed, 23 Sep 2026 10:10:32 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
+	peter.chen@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	krzk@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	p.zabel@pengutronix.de,
+	gregkh@linuxfoundation.org,
+	cix-kernel-upstream@cixtech.com
+Subject: Re: [PATCH v4 2/3] phy: cix: Add CIX Sky1 USB3 PHY driver
+Date: Wed, 23 Sep 2026 10:10:31 +0800
+Message-ID: <20260923021031.815275-1-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260906032431.470744-3-hongliang.yang@cixtech.com>
+References: <20260906032431.470744-3-hongliang.yang@cixtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922095816.1191799-1-ruanjinjie@huawei.com> <arK0cT7CGb3Khy69@hallyn.com>
-In-Reply-To: <arK0cT7CGb3Khy69@hallyn.com>
-From: "Andrew G. Morgan" <morgan@kernel.org>
-Date: Tue, 22 Sep 2026 19:10:11 -0700
-X-Gmail-Original-Message-ID: <CACmP8UK5wGZmBTRVBOm2_ZGhpFG-jWpihvUNxrcrgXr5K2GYEw@mail.gmail.com>
-X-Gm-Features: AcwNN1VpEgyPIrdBvaQsAAnQZe78lZotlxrFRUR0fBTtf7p0b-lXKcbaPrcQ564
-Message-ID: <CACmP8UK5wGZmBTRVBOm2_ZGhpFG-jWpihvUNxrcrgXr5K2GYEw@mail.gmail.com>
-Subject: Re: [RFC PATCH] security: Allow dropping bounding set process-wide
-To: "Serge E. Hallyn" <serge@hallyn.com>, Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: paul@paul-moore.com, jmorris@namei.org, pjw@kernel.org, tglx@kernel.org, 
-	peterz@infradead.org, debug@rivosinc.com, broonie@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000CB:EE_|PUZPR06MB5721:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 4e811cd2-16cb-40e1-1b7f-08df1917d9a7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|7416014|23010399003|376014|10067099003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	l4+qGz4o4dffyc/iXgKb3SsxbB1CZcmlJEY4EieCrVPb//DBODLRVEvKfQTglMLFhyrE9abUaurzQzB4fJ9WC56KvNH0QAWPnMDGOQSaHfLXG79DMoZtTgEXOGHGyqwzqEjrKEnbBo1k8ngezu4LnMFZWEyWQjJBtpzUgskbX3wD6Q2FCDded5F5BCxQEjfQxnap7WqX8+I54fvmJGPQ+kBh+/UGbOnAWWrdH8l8Df+nZcl7mE46ixYkTPOWtS9onWM3fvtPn2171j+1LY3dfEFISgfO71ioSI7uBPYeY8XPUowCiabc50ezOWWuW25tMWjhGK3m2mLDyv3v2elqem22qcxDmkWX6TlrqWBIBzPtr40NBD2i9M1CphX6t7V4TwX9DK4YpvbuA/Jfe70ux8yHE9TIua2jHeF766aTGF2X+dZGIOiTJmhHhB4f+XjzxK6lZTGe+g5Ec9TR3Hxzy4XTKibLmaoEKumXFgbFVlzMyD5jjvfpfEyTX3NSnA0nVGhBNIwxz1FdPplEiDoMSbky2WycaMS98QRDYpf/WFY9qBiP9xfEQw4DDV6jtEv/FHrR7pUUcMbUBz7uYCwC/mN4RgF6A/ygMxyA5eTGxRKuQp78o82keVDnkuJcFU+S3cpmV6uDupqvAAE5jf6kVBo29OgbQ9R2EYmqr4RhXSZUXJA75Ks5D00xIjYcmuRvPshbzpHHYV/yvpz7118xEA==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(7416014)(23010399003)(376014)(10067099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	2uI9ZaesvWZnNi46dBIwbF3UGudV8pBsTr0TGMBcq5LufZRVUHjF2pudP420BMP7CeeoDT9cj9IzcnNb606zYUA2AmPvN8eUty6R/+3XlC2x5geOPz7vIAKxd0UP7F+WzN8SUQIFW30ChiJNBr4gC5Ll2amWLVoft8urNPFpt/6sB5GSO2AfbZw1d6NtOqgFm2xu0CL7Yp6doTiqGdsI4Vl7BGmCiAfmKMY/8BJJpXJLKaqIPURukDREAaxdA/jvxEFBwEVVzFBlIq6oXeeNKi9b8dU+9eI7XL1GzmgJMnl7lWOaNnF0nUsUKc47s/ZBD+8Ro8l4LQ7JalOLPia4Ghp/OHskjEG0GBstEsCuX8QgYDOddB0LilvHoEhllbsPwGMzwLp0lBoudHwB1ViZPM+uq1gtzVulJTOh/bv1z8awFcc+rckCYwegKH7Sjfmq
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 02:10:33.4038
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e811cd2-16cb-40e1-1b7f-08df1917d9a7
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000CB.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB5721
 
-The https://pkg.go.dev/kernel.org/pub/linux/libs/security/libcap/cap#IAB.Se=
-tProc
-already handles this for the whole process. It can be run from main()
-if you need it to happen early, and it will track down all of the
-threads in the runtime.
+Hi Vinod,
 
-To Serge's point, I am also curious what benefit there is from doing
-it more quickly. After all, this is pretty much a one-time function
-request for any executable.
+Gentle ping on this series. The binding (1/3) has Conor's Acked-by.
+The driver patch (2/3) could still use a review.
 
-FYI The "sendmail capabilities bug" reference is written up here:
-https://sites.google.com/site/fullycapable/thesendmailcapabilitiesissue
+The USB controller glue series that consumes this PHY is also under
+review, so having the PHY side settled would help both.
 
-Cheers
-
-Andrew
-
-On Tue, Sep 22, 2026 at 10:01=E2=80=AFAM Serge E. Hallyn <serge@hallyn.com>=
- wrote:
->
-> On Tue, Sep 22, 2026 at 05:58:16PM +0800, Jinjie Ruan wrote:
-> > The capability bounding set is per-thread: PR_CAPBSET_DROP only affects
-> > the calling thread, since its bounding set lives in the per-task struct
-> > cred.  User space that wants to drop capabilities for a whole process
-> > must therefore invoke PR_CAPBSET_DROP once per capability per thread,
-> > which on a many-threaded process is expensive, and from a Go runtime
-> > requires stopping the world and signalling every thread.
-> >
-> > Add PR_CAPBSET_DROP_MASK, an opt-in prctl that removes a set of
-> > capabilities, given as a 64-bit mask in arg2 (low 32 bits) and arg3
-> > (high 32 bits), from the bounding set of every thread of the calling
-> > thread group in a single call.
-> >
-> > The calling thread drops the capabilities synchronously, last; every
-> > sibling that still holds any of them is asked to drop them through a
-> > task_work item, so that it applies the drop in its own context.  This
-> > avoids racing with a sibling's concurrent credential updates such as
-> > setuid() or capset().  The call does not wait for the siblings: a
-> > sibling may be parked in a wait that is not woken by TIF_NOTIFY_SIGNAL
-> > (e.g. futex), so waiting could block for an unbounded time.  This is
-> > still safe, because TIF_NOTIFY_SIGNAL is handled on the way out to user
-> > mode, so a sibling applies the drop before executing any further
-> > userspace code.  It does not synchronize against a sibling that is
-> > concurrently creating threads, so callers must keep the thread group
-> > quiescent while dropping.
-> >
-> > Measured with gVisor's "bounding set trimmed" boot phase on an arm64 KV=
-M
-> > guest (medians over repeated boots):
-> >   - 8 vCPUs:  ~1.6ms  -> ~0.10ms
-> >   - 32 vCPUs: ~3.5ms  -> ~0.11ms
-> >   - 64 vCPUs: ~10.1ms -> ~0.1-0.6ms
-> >   - cost goes from O(capabilities * threads) stop-the-world prctls to a
-> >     single thread-group walk.
->
-> That is impressive, but please do detail the specific use case where
-> you need to drop from the bounding set after the go scheduler has started=
-.
-> I can imagine some cases where you need to do some early setup and then
-> want to drop privileges, but you could also do that by re-exec'ing, so
-> I'd like to hear specifics.
->
-> This makes me nervous, reminding me of the 'sendmail capabilities bug'.
-> If some program specifically locks down one thread, I could imagine the
-> locked down thread forcing wrong behavior from the privileged threads
-> by calling this.
->
-> >
-> > Cc: Serge Hallyn <serge@hallyn.com>
-> > Cc: Paul Moore <paul@paul-moore.com>
-> > Cc: James Morris <jmorris@namei.org>
-> > Cc: Paul Walmsley <pjw@kernel.org>
-> > Cc: Thomas Gleixner <tglx@kernel.org>
-> > Cc: Zong Li <zong.li@sifive.com>
-> > Cc: Deepak Gupta <debug@rivosinc.com>
-> > Cc: "Peter Zijlstra (Intel)" <peterz@infradead.org>
-> > Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> > ---
-> >  include/uapi/linux/prctl.h |   1 +
-> >  security/commoncap.c       | 129 +++++++++++++++++++++++++++++++++++++
-> >  2 files changed, 130 insertions(+)
-> >
-> > diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
-> > index b6ec6f693719..750a7824d3bc 100644
-> > --- a/include/uapi/linux/prctl.h
-> > +++ b/include/uapi/linux/prctl.h
-> > @@ -70,6 +70,7 @@
-> >  /* Get/set the capability bounding set (as per security/commoncap.c) *=
-/
-> >  #define PR_CAPBSET_READ 23
-> >  #define PR_CAPBSET_DROP 24
-> > +#define PR_CAPBSET_DROP_MASK 83
-> >
-> >  /* Get/set the process' ability to use the timestamp counter instructi=
-on */
-> >  #define PR_GET_TSC 25
-> > diff --git a/security/commoncap.c b/security/commoncap.c
-> > index 3399535808fe..ae7ce50a8151 100644
-> > --- a/security/commoncap.c
-> > +++ b/security/commoncap.c
-> > @@ -19,7 +19,14 @@
-> >  #include <linux/hugetlb.h>
-> >  #include <linux/mount.h>
-> >  #include <linux/sched.h>
-> > +#include <linux/cred.h>
-> > +#include <linux/rcupdate.h>
-> > +#include <linux/sched/signal.h>
-> > +#include <linux/sched/task.h>
-> > +#include <linux/slab.h>
-> > +#include <linux/task_work.h>
-> >  #include <linux/prctl.h>
-> > +#include <linux/printk.h>
-> >  #include <linux/securebits.h>
-> >  #include <linux/user_namespace.h>
-> >  #include <linux/binfmts.h>
-> > @@ -1283,6 +1290,123 @@ static int cap_prctl_drop(unsigned long cap)
-> >       return commit_creds(new);
-> >  }
-> >
-> > +/*
-> > + * Structure used to queue process-wide bounding set drops via task_wo=
-rk.
-> > + */
-> > +struct cap_bset_drop_work {
-> > +     struct callback_head work;
-> > +     struct task_struct *task;
-> > +     kernel_cap_t mask;
-> > +     struct cap_bset_drop_work *next;
-> > +};
-> > +
-> > +static void cap_bset_drop_work_fn(struct callback_head *work)
-> > +{
-> > +     struct cap_bset_drop_work *w =3D container_of(work, struct cap_bs=
-et_drop_work, work);
-> > +     struct cred *new =3D prepare_creds();
-> > +
-> > +     if (!new) {
-> > +             /* Out of memory: bounding set drop failed silently for t=
-his thread. */
-> > +             pr_warn_ratelimited("capability bounding set drop failed =
-for pid %d (%s)\n",
-> > +                                 task_pid_nr(current), current->comm);
-> > +             goto out;
-> > +     }
-> > +
-> > +     new->cap_bset =3D cap_drop(new->cap_bset, w->mask);
-> > +     commit_creds(new);
-> > +
-> > +out:
-> > +     put_task_struct(w->task);
-> > +     kfree(w);
-> > +}
-> > +
-> > +/*
-> > + * cap_bset_drop_process - Drop capabilities from all threads in the g=
-roup.
-> > + * @mask: Mask of capabilities to drop from the bounding set.
-> > + *
-> > + * Drops @mask from the calling thread synchronously, and queues a tas=
-k_work
-> > + * item for each sibling thread to safely apply the drop in its own co=
-ntext.
-> > + *
-> > + * The caller must hold CAP_SETPCAP. Thread group must be quiescent to=
- avoid
-> > + * racing with concurrent thread creation.
-> > + *
-> > + * Returns 0 on success, or -ENOMEM if allocations fail (all-or-nothin=
-g).
-> > + */
-> > +static int cap_bset_drop_process(kernel_cap_t mask)
-> > +{
-> > +     struct cap_bset_drop_work *list =3D NULL, *w, *next;
-> > +     struct task_struct *thread;
-> > +     struct cred *new =3D NULL;
-> > +     int ret =3D 0;
-> > +
-> > +     rcu_read_lock();
-> > +     for_each_thread(current, thread) {
-> > +             const struct cred *cred;
-> > +
-> > +             if (thread =3D=3D current || (thread->flags & PF_EXITING)=
-)
-> > +                     continue;
-> > +
-> > +             cred =3D __task_cred(thread);
-> > +             if (cap_isclear(cap_intersect(cred->cap_bset, mask)))
-> > +                     continue;
-> > +
-> > +             w =3D kmalloc_obj(*w, GFP_ATOMIC);
-> > +             if (!w) {
-> > +                     ret =3D -ENOMEM;
-> > +                     break;
-> > +             }
-> > +
-> > +             w->task =3D get_task_struct(thread);
-> > +             w->mask =3D mask;
-> > +             w->next =3D list;
-> > +             list =3D w;
-> > +     }
-> > +     rcu_read_unlock();
-> > +
-> > +     if (!ret) {
-> > +             new =3D prepare_creds();
-> > +             if (!new)
-> > +                     ret =3D -ENOMEM;
-> > +     }
-> > +
-> > +     if (ret) {
-> > +             while (list) {
-> > +                     next =3D list->next;
-> > +                     put_task_struct(list->task);
-> > +                     kfree(list);
-> > +                     list =3D next;
-> > +             }
-> > +             return ret;
-> > +     }
-> > +
-> > +     for (w =3D list; w; w =3D next) {
-> > +             next =3D w->next;
-> > +             init_task_work(&w->work, cap_bset_drop_work_fn);
-> > +             if (task_work_add(w->task, &w->work, TWA_SIGNAL)) {
-> > +                     put_task_struct(w->task);
-> > +                     kfree(w);
-> > +             }
-> > +     }
-> > +
-> > +     new->cap_bset =3D cap_drop(new->cap_bset, mask);
-> > +     commit_creds(new);
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int cap_prctl_drop_mask(unsigned long low, unsigned long high)
-> > +{
-> > +     kernel_cap_t mask =3D mk_kernel_cap((u32)low, (u32)high);
-> > +
-> > +     if (cap_isclear(mask))
-> > +             return 0;
-> > +
-> > +     if (!ns_capable(current_user_ns(), CAP_SETPCAP))
-> > +             return -EPERM;
-> > +
-> > +     return cap_bset_drop_process(mask);
-> > +}
-> > +
-> >  /**
-> >   * cap_task_prctl - Implement process control functions for this secur=
-ity module
-> >   * @option: The process control function requested
-> > @@ -1313,6 +1437,11 @@ int cap_task_prctl(int option, unsigned long arg=
-2, unsigned long arg3,
-> >       case PR_CAPBSET_DROP:
-> >               return cap_prctl_drop(arg2);
-> >
-> > +     case PR_CAPBSET_DROP_MASK:
-> > +             if (arg4 || arg5)
-> > +                     return -EINVAL;
-> > +             return cap_prctl_drop_mask(arg2, arg3);
-> > +
-> >       /*
-> >        * The next four prctl's remain to assist with transitioning a
-> >        * system from legacy UID=3D0 based privilege (when filesystem
-> > --
-> > 2.34.1
+Thanks,
+Hongliang
