@@ -1,157 +1,129 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010061.outbound.protection.outlook.com [52.101.69.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A7B579828;
-	Wed, 23 Sep 2026 20:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790193997; cv=fail; b=WhJSWGf11lCPbPuGfM3CSbBbDXBXA1g5mXwhGMilCK4xyC+1H+AsxJrOtYtaY565Ln4LSQ+tvm8OTUVOwF7Ve2DVEgAbG1S5URYL4aqINzfhfYriCFCg3AD/1Mg0xVC82MeAjrL578a+nJiXNIebATcWFj5GQSW31XcXEcfANgw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790193997; c=relaxed/simple;
-	bh=8n2VBazTXVXH3xIGZ+G+y6ptoM24/16SAuBGvfi2Hh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=c8f1nftdQaI2sO9R3c4D95m9fnLfk1c8ocmH7LRNYhASLA8xJIXDa+bbHjcsR0Tfy3md3Ae9lMknX4sY+QW3wI1GG5PnTMDQGvqSJTcyD8LfIViIbzlF4+zjflmM01QGkMmp9XpEj7bRZT6fJzI/XLQQfWhwF3zuUgi85BxHBMo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=T42ODCfP; arc=fail smtp.client-ip=52.101.69.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C46B57C736
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790194046; cv=none; b=lP9TaVd/qSSK4LROcguIEyG+1NN/7hL6GWz5VCXnOeJNksG+WirR7EbaulxtPOAEPOqq6idwEOGFAKpxjKEq9j2rYWXwb9tRJPKgAvOjCFISF7rQ2iGDA8SQnuvHhmyuIVaf2+aA0KUsmvxM25ov34ttcTjaiSxyUxB3Lsgares=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790194046; c=relaxed/simple;
+	bh=VcbyOqt6Sge8WI94gsu2VDu7+1RDaQRpMTyR95ubKTI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kTBZN6UFY3b4UpGOHHlmm05rCWAnySmpsg3302aagabLqPogH+Al9JnNYyMI9ML/xhOfSCPMF508br3tB0JGmkmhunzQra31fbSp5Upf6YwDe1NR5xhxqBMbw4w0VSgk9ZUalotFceLpYoWCpcY1gH9lm/PkWD8Rhc/de08Ep7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hdck5BUY; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="T42ODCfP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n1W/13/ek3bPyJw/3Riv3lWpPFjL1wgukvVxtgykHiOQiNwJKZxOlH+w2sHK1XULUPg2sXdCRut+8BjdtZFS+UYUsl7tmXcRpBcLvwIzNnHzEz3j49LercsWDXgsyb3vnCF5WW3+yCVKSmMdlS7oM7xBiHbvuNYh8P681wPKCkRN4OBbPFtd6pheiIs0qm3B+64tXwTYlMwVv/oAVBkCP01oGPA/vcPg2t6h9LQ+DReRyCzgcphxB3+YG4MIVeCQix8csrKP8b6X8qfIFeKeJYEZ87ZdOiydXN4blswpZcdUoIHnDVyU5MKZJQOp9lvy+YaHtp9/X0aq5gf0n9guTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2eZDrdAGxFxQ/Gbi5B6A4H47ftvNX3N4alF51KxrXKg=;
- b=dlk+Y5KsFpxSfl7kgCVBn0iGsJBmdHmF/8adVl1HQN1+Ns+8Ng2Rih/dK8jN3QBdLMNO0ArhtekNkbfBZARGsdmcKspqZL1YMHMpNYcQbb7i1hZFIT5wmNr/BqZzRuK1WoBeK0hDDc33xbPyhs2pUA+9HgalTAv4hP7rfQHfj0vIHGFkTuQqVuM2mJMHyxLfFi7xHz1oIPQmAsZEuADWyde3oeAGlfVQBzapGQPDCH8VizzdN7Q5vBca/9NKflHwSAJ1EN/W2TJkeXZV2WdJ+qPK2bhacYtr8pKKaFz2vg958DBzQpXvf+t/tzsxZwEzgmcusH4TcSFsqHmHaX/WWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2eZDrdAGxFxQ/Gbi5B6A4H47ftvNX3N4alF51KxrXKg=;
- b=T42ODCfPXroFHrxI8O4BgATFykQ8OZUIqa8obQVZlZaIBEH3I2znU1Mf1SqX/wwQA5KGViYsk/yHEQGvj2ohoQmztXcgIJo4YFNXu7HEJFfbUUbqOhXVvmgkho/bE+MmZphA0pB19AJaeaGxt/9ldBVSWMG3eQRjjDlYJl29dqrubyWW+SI9QrVomFXQG3mJCdauL31GY9onntga3OsVkTHQCcpXEHvTrY8ZZq/AqSQjkUrE4bI5ThloJor3CGH2sFildelI4jG5+cvzK9+OwE2u9gBS56n1alVct42/yEv1z0crCjYFUiFeyN8lWnQlNBRioVft61BsxFOwNZgDjQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU7PR04MB11089.eurprd04.prod.outlook.com (2603:10a6:10:5b1::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 20:06:31 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
- 20:06:31 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hdck5BUY"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab1ef11so1251656d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:07:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790194039; x=1790798839; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SiHJ4k1HZVmizz1HUvNw+RWE7k7KrIF+LVqXP7p65LI=;
+        b=hdck5BUYoe++YP6TLlwNwrNMAwelFg8IVXT6k256Jq8YyTDN93529OjuXus4a7tD/x
+         7gym8EQXqaKW2XZQVEyoz8fSGkVyhc0B4+hK5VfiLelLjOb33m1bPisM+QsbVSWP8gQf
+         giYFCNjNB0ouNS8mw2bgvhgfHtAbz9ZVcnC97+89SPcHj5gIOWHwTG6ltCRJOrthujKR
+         oI8JtFH73WVACnfQbpGSqY0VN7Z0uTFHL1lDHzsgdikRwtok60OCaf1E2mihw6kpbL9O
+         9SvzTpw7OuvoOLtzmZlS0IGKVTivGLnmZyQacxf1XdMPmrt8Xh1m4ErPDkdj0GpCzeSY
+         96dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790194039; x=1790798839;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SiHJ4k1HZVmizz1HUvNw+RWE7k7KrIF+LVqXP7p65LI=;
+        b=N9I5KrBni38NX/UCgBfzkhLPLKMqf8V1RGNlk0cB64HgQezQh3q29LjaO9iC3HAiw4
+         WH9B7P6bmgaYZCys7JAxHWPJw3qH3rtI5d8Eh89j4why7oPim4JlAcOPMHbCzI6JZ5qa
+         5PJkuphyn4E8wTrX4MO13FBsVrXQ0I/pog2br+at+US+hpqxCzAi8ABRCNZJePcpk1X1
+         yw4Tv2QmstnA74JnLnapAY9eqUZqf2tWhOmBWQICoj+f5z7MTt1N/N7tyAYl97BZUIBx
+         hdsdyRlvgREuo/B1/jfeXot4b3DZvmh1cUcknQ/HNvzb1dRnMaklii/MjXofRjI+yzAq
+         q5iw==
+X-Forwarded-Encrypted: i=1; AKwUvBwV1JdfAaZa8pQjlTDm/DL2YCPXwikHXX7VFpTe4b63AGRp4JyLt36nOYmIbTcnyiaMIwio21QI2IEczmg=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+0NQ4YBLKgalcJDPRrBH3RMl0Ale/7jGLJeJxwFs2rXla0fL1
+	shn1f8y1lpBb3Fgk/ThnF1o9qJhsQoiCCG1Kf82ATwoyhRYD1KiYk9p3
+X-Gm-Gg: AYBFou2l2BXHV+5eD30qwjPgCOYQvT5ZxlsXtyMmf/QBUpRvTjyYogehx6pyb9WvWb7
+	tXpwUdTbkau4FWy4IN35RXPSQSih69dJ0JvTRwHP1SYkYB3E6XgHEuKSD6se5Uh7YMkUBXMVpy+
+	AA4qrmEg2bm5cK6QyISTtN4RWxwC4c91UAh9t8BbRCcOD5e81yJiGks1yceud8MdPlHigBMdqWM
+	kZa7sdN4vVa3XZ1iBKKz/iHEXqcfITbea/+qTCTdhHfREcz6vzzJ6LOBhjGb1pOgN9N/NALlv6+
+	PZBrFEphUZ3Ci+L7FwOUVgBpJ6S2P0DLL4cfwXWfoK8VQrCoNJqXMNhSrubB8nitcrTn5yEfqWZ
+	vuXnIjLseTYuvE5vSfMDo1jsMgLJF1caB7lslcM1DzwAyztjtC+lVwXqxjlyA5eYuSNZctaomyB
+	+aamcsvKj+HyEwM4mNoW9hxb1g47oKtfK53BQDy+PwFQpn6mAEKOKOLsB+1stoo0GL+l8Dq+l3R
+	69sdbEVLg==
+X-Received: by 2002:a05:690e:814:20b0:672:b676:c1ce with SMTP id 956f58d0204a3-672ed228e6bmr187635d50.9.1790194038864;
+        Wed, 23 Sep 2026 13:07:18 -0700 (PDT)
+Received: from DESKTOP-TLFH1MG ([76.255.203.42])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672d80bea23sm1221915d50.10.2026.09.23.13.07.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 13:07:18 -0700 (PDT)
+From: Jonathan Frazin <frazinjonathan@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	kamlesh.gurudasani@gmail.com,
+	lanzano.alex@gmail.com,
+	phil@raspberrypi.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1] arm64: dts: freescale: imx95-toradex-smarc: enable Wi-Fi SD interface
-Date: Wed, 23 Sep 2026 16:06:22 -0400
-Message-ID: <179019397478.3738924.8779081389570740062.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914175027.9097-1-francesco@dolcini.it>
-References: <20260914175027.9097-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PH1PEPF000132F9.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:518:1::2a) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	Jonathan Frazin <frazinjonathan@gmail.com>
+Subject: [PATCH v2 0/2] drm/mipi-dbi: display a cropped region of an oversized framebuffer
+Date: Wed, 23 Sep 2026 14:57:10 -0500
+Message-ID: <20260923195713.88-1-frazinjonathan@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU7PR04MB11089:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cc485e3-aa29-494f-e48d-08df19ae28e0
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|19092799006|1800799024|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	KvQYsAeXhIWyweFljZmHizyhl2EF4yz9mpZrRQpuEN60NzGU5aJBua94P9b9N/mvB0KYPLP/yKTiD/z5pq/gVjpnnMLJbdmr26pAvRGdBwWAebkuhNrAf9TcmBOBua7uaILtx+fOqtSzOjbPWe/qiEgUr6wkbxMFiMvyvN+k8y8nVyCHzp93UBq3yqCPBsivN6tlIR1urTuXRTaCu356pe4UKCP/0tQGfwGfdKe/t8C0VMaPOaYrsjRTmePNF5H8YXuCm03SkocEOAjOICXW6xmuaGpC+C5PCiUOUyNw+JJNJdnFVVOlIFtRfAg5cjxteW7VNZvmSjPYNBRxLK8V4QeltoisPgL9Q+3g32T2Hj1zMrWGiXb6yvCXXuvsUHg9bPEr6kmpORWqzLr3bJxNbdC1iDzh5Haa3lnW8kQqulPbJAKP0YluRpxOj3OTiT+64ZuLd1XS3JIARduckzg+BZiEa/xZOw9OUKpMmoKxnSArwF3MkDkIKBuXF9/ATAa2lGdzDXl98rYQH79rmvQtjCOutEOCOjrtQnIENOPLjN3om4zi4CAcX+bFj98dMQNs3TvZ6O/39f2lhmoMIhMYIcBrglphTQgKuD6i8YvdLaZndjf85c68obYNUBO5RgK82ud3qhsJlzF+LmmCImjc4DVl8CuNXvSoGujC3DNvrIQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(19092799006)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U212Sno0SDIyOGt6c3NyK3pZTW5XekNRNjRzNk1oRTBSSjFCNEVxSllJby93?=
- =?utf-8?B?Y2pqMjUySWRWMkYxZjcxZVpjbFpxNGUvbUM5MDQ5bUJvY3hyRVcrZVhQLzlm?=
- =?utf-8?B?U3h3aWtVTTVDQ1JUUit4dVJGVnY3ajNDZG4vVG5zcWt2dFBsd2F6cHh2MjZJ?=
- =?utf-8?B?T1J4UUNoM3JHTUQzZjJJWm54VEVmQ3RzOXRpWFU2dlF3RlYwVk1QY1pwd0ho?=
- =?utf-8?B?a2pZNkpCMEhWd01RalNjbHQ3TlM4YUVMaWJ3QUlJQXVYMVNOWG05T3laOGV5?=
- =?utf-8?B?bndGQkpwRFg3bk41MjRadFBIeE9DdGpkSjV0S01RVVV1S3B1djRmWklvZHNC?=
- =?utf-8?B?WnpYajJTc3h4ckk3Sy9KSFN3dlgxUmx5cU1TczN0a2hhZWY0TWVVUmlIRmNQ?=
- =?utf-8?B?NVZtRFBWc0NrU3dQSlhSR1FQRzRBWDNITVA4UnA2Zm5iazErTkFpVHhBTmto?=
- =?utf-8?B?dmxCdjJETzJxVVhVWmRCTzlLZHZhTDk1NitUWXhrZzhESVJKb0wySnhIM0ll?=
- =?utf-8?B?VWR4R25zTFd6Q1c2K1FSaVJzS2xiUzA4cXFTUjZDaXQxc2xyMUc1eG5JV1Jy?=
- =?utf-8?B?dHRyUXYzSVZnWXhCZExZSlp4Nk1Ba1FqNTBEVzlUc1FEOXhLSklwTHhJUFRq?=
- =?utf-8?B?M0NjR0tkcmdIN2FTTE9WeTdkaEVhMWhqcFpTYmxxaHNkYUlHcTdKaDJLMms0?=
- =?utf-8?B?SFdUUkZEcjE5MkQ4VWExa0lJU2dWSDhUNHZIUFFxQjk1akhnV0psOGYyQitT?=
- =?utf-8?B?VVMyMUJvZWhIK2dBbVdEZm1sM2F5V1lNR3h4YzRoUU1LeXF5Q0RlYmloempM?=
- =?utf-8?B?dHYwMm1XVGJxR2JTQWtUUDBkSWlmbGxBajNnYUdIZFVCdXdhTmVUaDFXR2Qz?=
- =?utf-8?B?R2RkdVViMlFNc3JPbUYvNmQwZlp1SnVrZHR5a1ZVV2kvWWZpZVhiT3NSdTVy?=
- =?utf-8?B?dWNXUmEvY1dKeVNQcWNSU2FvcVJCclFtY3BHNjJlTXZ4bWVuSCtMdmtPVGxu?=
- =?utf-8?B?RkxzbEEyeG5mWVdOYnRDMExSRXE4Z0RmZmJEZ2xkb3d2ZFZRa0RvSG4zZFpr?=
- =?utf-8?B?K1Q0T2UxWEh4WWRHd1FmSWFEc21GdEp2cW04ZHd1dkNJV1hQbnZZZmdvelZi?=
- =?utf-8?B?aVhnL2QrVEJUa2hNOHdDdzZlR3dzWnNDSVNvSytLdFVUMG5wMEJ3cnVXcWI4?=
- =?utf-8?B?b2NjMmdHNGV3MWNrd0VZSnFSUzcvMXhOQnpCUXRNVGI3SXdEOEVndWVwYzZj?=
- =?utf-8?B?TVdQNURGMmk2cDNsZElyenZpNkpIMUpqdUNmK1haUkJMdTdQNmhCMmowZlBD?=
- =?utf-8?B?N1JMR05vSmpNY1czbVgrVGQzRkI5U3B1QUZ0UnluZG9jK2w2QzVPUHZsbzZm?=
- =?utf-8?B?eGFyQ1B6QUpudFRza0o5THNCRGpXTEZNVDFMUjJqcWk1QnRXRXR1NXFXakha?=
- =?utf-8?B?WEdaRG9QekRiTXdCMUJjdGtEUUxRRGcyMFViYUZPRE81QVpjSjRaSy9UOWRI?=
- =?utf-8?B?NHB4UFpoc3pXcWhNKzZlUzRqaHdMYk1yTmhtV1JCVEkveFFnY0hpZTdIRnY3?=
- =?utf-8?B?cmVhMTRQR1owT0VRYjZhMUZXL2xNUzBCcFAwbk1TVzNiM2lPNXdnQWdnT3lw?=
- =?utf-8?B?eXhKVi9IejNFd2pLanBlWkEzUkdOOVVFR2lsQWpoT2t0UUNPVEJqcmRNaFY0?=
- =?utf-8?B?a0JsdDVvYWg3ZzBrd2N0V1hGd2hiS1djZUZSaE5xMzYwR0FsTWg3bTZkN0Qr?=
- =?utf-8?B?QUFsMUEzZmdPeXJkeGJ1Q09pSmt6azRFdi84dmVOSzdKczRUTk5rUm9GZUFM?=
- =?utf-8?B?MTh6ZEpFMFNqNzBzdlhFTFA5SHVIQTBzWXR1TlBNNDYrMDZWQW5mZ2c1Mnlu?=
- =?utf-8?B?b3JpWWQxcGJUYmgwazhPWktkWXV1MGdPbDk1ckpwSmd2YWR6TmZIK0ZKS255?=
- =?utf-8?B?TzVuMy9iQVhaY0tLMmVLTTB0WG5BWkJCK3I3MjRCYlVxS2ZieFk3UFFlalJW?=
- =?utf-8?B?RnkrcFQvVWVnNXNDNks5bXBVbk9oKzNGR2poTDhBd1E4dGdhYVJldXBmU29u?=
- =?utf-8?B?clNBNTN0WWsxR1lOZzlCT05OZHAwcjFmZmRtL044M3gzajVacjJ1NEFza0Qw?=
- =?utf-8?B?UGFpQjBLSzBBbmk1dHk0SHhTSlRXM3M5bWFZUHJJQjgvYUxTNi9PS3luQitI?=
- =?utf-8?B?WHZVZ2FLWDFublR5YXNpZFBjTlNmWjBsR2orM2tLSFh0WGNyWXM1UXBESVkz?=
- =?utf-8?B?Vk1Oeit6enJoRVFBcHNoTTk4TDZNSTJIZUhKQjZ0TnZrbWJScGU2MXdkcEEx?=
- =?utf-8?B?OVRCc09FVS9BQ1hnYVREK3Q0TEEybEhoVS9qRzFQeDA2aGV0a3luSXh3a3RO?=
- =?utf-8?Q?sycB1UxKnWZwBZE8R+FSPfyhFmGdyQqBaBg96?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc485e3-aa29-494f-e48d-08df19ae28e0
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:06:31.2431
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Sl/NT8w+y/ag2SC09mree2em3q97c0OYvyUDJ7sqSTj4z5CVQk/PbyRIIyqNPp0DmTjurule19eFt9IyKZcLlpN0DA6+UFrdeDOj0Um7lOn3hIW10WVdLOiZg3SHNPjT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU7PR04MB11089
+Content-Transfer-Encoding: 8bit
 
-From: Frank Li <Frank.Li@nxp.com>
+A drm/tiny MIPI DBI panel can currently only scan out a framebuffer that is exactly panel-sized, always from the origin. This series lets a client allocate a larger framebuffer and choose the displayed region via the plane source rectangle - a crop / pan with no scaling.
 
+Motivation: feeding hardware-decoded video to a small SPI panel. The video decoder emits a fixed frame size; being able to point the panel at a panel-sized window of that buffer avoids a full-frame CPU copy on every flush and lets userspace pan/centre the image.
 
-On Mon, 14 Sep 2026 19:50:26 +0200, Francesco Dolcini wrote:
-> Enable usdhc3, used for the on-module u-blox MAYA-W260 Wi-Fi/BT module,
-> it was left disabled by mistake in the initial commit.
+Patch 1 is the actual fix - mipi_dbi_fb_dirty() addressed the controller in framebuffer coordinates, which is only correct while src_x/src_y are zero. It now subtracts the plane source origin.
 
-Applied, thanks!
+Patch 2 raises mode_config.max_width/height (pinned to the panel size) on the six drm/tiny drivers that flush through the shared drm_mipi_dbi_plane_helper_atomic_update(). ili9225 is excluded - it has its own flush path that does not carry the source offset.
 
-[1/1] arm64: dts: freescale: imx95-toradex-smarc: enable Wi-Fi SD interface
-      commit: b91cb164517d6cfbccd8bedad11827d8ea3bcb97
+Open question for patch 2: the six drivers each set the limits identically in their probe. This could instead be a shared helper (or folded into drm_mipi_dbi_dev_init / the DRM_MIPI_DBI_MODE_CONFIG_* macros) so future drivers get it for free. Happy to respin that way if preferred - the per-driver form is what is shown here because it is the smaller diff and easier to review a first pass.
 
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+The min_width/min_height, the fixed mode, the connector and the mode-sized transfer buffer are all unchanged, and drm_mipi_dbi_plane_helper_atomic_check() still enforces DRM_PLANE_NO_SCALING and no repositioning, so the flushed rectangle stays bounded by the panel regardless of the framebuffer dimensions.
+
+Tested on hardware: ILI9341 and ST7789V (through panel-mipi-dbi), both 240x320 - an oversized framebuffer is accepted and a non-zero-offset panel-sized window scans out correctly; a panel-sized framebuffer is unchanged. HX8357D was tested during the downstream review by Dave Stevenson (Cc'd). ili9486, mi0283qt and ili9163 are build-tested only.
+
+Both patches have been carried in the Raspberry Pi kernel (rpi-7.2.y) and in use there: https://github.com/raspberrypi/linux/pull/7589
+
+Applies to current mainline / drm-misc-next; the touched files are identical there.
+
+Changes since v1:
+- Patch 1: clamp the damage rectangle to the panel's fixed mode before
+  using it, instead of trusting it to already be panel-sized. src_x/src_y
+  are the plane source origin truncated to whole pixels, but the
+  rectangle from drm_atomic_helper_damage_merged() is clipped against
+  that origin's exact 16.16 fixed-point value - when the origin has a
+  fractional part, the rectangle's far edge could land up to a pixel past
+  where the truncated origin would place the panel's own width/height,
+  overflowing the panel-sized tx_buf. Thanks to the automated review for
+  catching this.
+- Patch 2: unchanged.
+
+Jonathan Frazin (2):
+  drm/mipi-dbi: honour the plane source offset when flushing
+  drm/tiny: allow a framebuffer larger than the panel on MIPI DBI
+    drivers
+
+ drivers/gpu/drm/drm_mipi_dbi.c        | 33 +++++++++++++++++++++++----
+ drivers/gpu/drm/tiny/hx8357d.c        |  8 +++++--
+ drivers/gpu/drm/tiny/ili9163.c        |  8 +++++--
+ drivers/gpu/drm/tiny/ili9341.c        |  8 +++++--
+ drivers/gpu/drm/tiny/ili9486.c        |  8 +++++--
+ drivers/gpu/drm/tiny/mi0283qt.c       |  8 +++++--
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c |  8 +++++--
+ 7 files changed, 64 insertions(+), 17 deletions(-)
+
+--
+2.53.0
