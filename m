@@ -1,69 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BFD419FB2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B100A410D13;
 	Wed, 23 Sep 2026 22:20:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202006; cv=none; b=HVtsCexW12UazZ8B/3gTLHq1oD2soHxjMWOR0W/fVgf68OvlloxYdffMSgxztgTbY7IdhLYGqFJRPhVzRnZHwweqRipa9CJg1HEEl5BCe27krkJQUdvxgP8kh6EHBISGZSk+cyfTCuI7X0pveE5YeK/KJJWxRe5+SUPc01/Tnv8=
+	t=1790202007; cv=none; b=OLvft5UXO4/WwVmGO/d3zunJ02XvlIZS0dSPgrxtjJOYhMvLpLJLYfyM2mxDsqSy0jtYkvgkkB7WLEVT26jOMD9bFhEWrx819wnmfwUv71pH7W3owwu//LLM1t4gUPSvKmQERYAXN13LB2bklyeiX22qmgoft5mv1GlulcJb8Gw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202006; c=relaxed/simple;
-	bh=DOYliRI4Bm+Krr9IWqs3gkmLe0Z3X2dQSNQsrQ7jWIE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lq5wmLOF4ZUErL4SD7KBysRE9tgUTAq6TKX4zkNGGRnrp0KDGb2/6i4RyiOtSYwfaEkB9PLDHj8FS/rm4WSowJSYh3SDrdPkOfcv9EwUTMn52KJIaer5yo6skqruS/+52o8uo2s+v1fDwf5XMjmluBJFls9QCzAJgOP7+nnDPXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBo//1df; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790202007; c=relaxed/simple;
+	bh=052+S21nULlpvbLS5JXY/wmkVp7OavARQS40hzPiyuM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SVfl38JXch4cDkKEoCIFet2+ApY/w1ORcEn2/4pe+ZhnZXl9dfPi0MgS3GR4yI5oRCyJ7VrL5NL44WFvr+HjGQ/Zf0PL9/4/DWpocBP7DVumPrk9RJBpG6i2PP2wh/BbeppMtLAY2bVzg+P+p+IyExYSWcts1wLH9irXwgbkGw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=v4aY/kP1; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBo//1df"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A16841F000FF;
-	Wed, 23 Sep 2026 22:20:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790202005;
-	bh=XqCpkzNetQz5PuLAIl8cTYQN7N3WGD5tuRvZen5KYA4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PBo//1dfZS6ouFDOPRZbnN//aYWw0vTqbRNV6BLdZHkbDHZ4MrzBNFvN03IL3GGtC
-	 T7cUPIOFK4aOhOlwaoSWEX9DFCK3nokYYyRQAWEtdvrVmJnCGZ3V9uXYOeEN5bSxba
-	 OL/yp4botzCxwzWx97Wf7PioeGy3j2JQWhg1qV+kwJL3f5x0Im9eHTYOnXC/7VMN4C
-	 +H3nraHKbRcaUNakmqIwlALmTw2ZY/bJkWXn0b+1rjLPJgHUjOKsoDIpcdcCuAL5BB
-	 QrVCIg9tscYRvef3KV7Y2iAkK5NAelmdaIpfNBFflssyUbjD3kExDEFzPPtlWORK7t
-	 TAU5G+w/Hg4fA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="v4aY/kP1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=/r/VPJN9CDJhmNdhWRSdElLGuVctjxCds5gWyL7ngvI=; b=v4aY/kP1g/K3rv2M6AttWFUwC1
+	QPL6uHHZzQfOPCaxq40B+3gHZk9qsKy4onEhXz9XaXFX6fMxVBY+TJP+fxTspSsdFC6aiFaYRKW3A
+	6L6rN0hvI1uwQUkckiYYiAdUm76arbf3HxmCd8nAGlV3/t+Osq7K+3iTYAz9EmhW1XUE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9VJg-006ss1-5p; Thu, 24 Sep 2026 00:19:52 +0200
+Date: Thu, 24 Sep 2026 00:19:52 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Anvesh Jain P <anvesh.p@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/2] arm64: dts: qcom: Add EC support for Purwa IOT EVK
-Date: Wed, 23 Sep 2026 17:19:56 -0500
-Message-ID: <179020199814.520949.2112926853306939366.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260629-ec_support_for_purwa_evk-v1-0-e082b70138d6@oss.qualcomm.com>
-References: <20260629-ec_support_for_purwa_evk-v1-0-e082b70138d6@oss.qualcomm.com>
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH net-next v3 0/5] net: stmmac: Add support for Allwinner
+ A733 GMAC210
+Message-ID: <9cc61625-47c9-4bdf-97f0-0528f661a399@lunn.ch>
+References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
 
+>  * Unstable EEE/LPI: If the device stays in LPI mode long enough, the
+>    link sometimes (but not always) goes down, coming back up when the
+>    device exits LPI mode. This is apparently due to the PHY; the vendor
+>    driver disables this feature. The solution is to use genphy with the
+>    eee-broken-* DT properties or wait for the upcoming mainline driver:
+>    https://lore.kernel.org/all/MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com
 
-On Mon, 29 Jun 2026 16:10:16 +0530, Anvesh Jain P wrote:
-> Add the embedded controller node to the Purwa IOT EVK board and document
-> its compatible. The EC provides fan control, temperature sensors and EC
-> state change notifications.
-> 
-> 
+Looking at this code, it totally ignores the interface mode. So you
+have no idea what RGMII delays it is adding. When this driver gets
+fixed before being merged, your DT fragment will likely break.
 
-Applied, thanks!
-
-[1/2] dt-bindings: embedded-controller: qcom,hamoa-crd-ec: Add Purwa IOT EVK
-      commit: 9d1a720973d0f16e0f93b658f82c45033b61a02a
-
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+       Andrew
