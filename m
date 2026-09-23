@@ -1,109 +1,69 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381F217B50A;
-	Wed, 23 Sep 2026 02:50:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD183911BD;
+	Wed, 23 Sep 2026 02:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790131808; cv=none; b=uVPeEBuE4puat5sAVR6MYXWjhtjKglF6YEqlRUpSFnHPBBkJ7vJVOArChV5HSR7nFXzkVs9MAjCrI2CUkw5ww0YUzaUNm8LuevqFR8qpDQdO/cmZ7+YfJRS61TE+qMG29+KhChIKw0xaFVzyLzsJEq+/xuHyc9ovnotQZMBUoqA=
+	t=1790131815; cv=none; b=tmGEvLZ4deXpv96VlEg7NbckTZgOmGUjyNpmZf9k0Bp7J2e0He1tec6E+oRPn7n/zXj9ia3qm3pVshUqy/JhGNJVmZPRTkFxlhmBhdtBge5Rl1opGXdIGgMkNzC2U3RviisN7CtNIcN9F7qVDMAs1ObIBPxJTOHXQPj/H7mStOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790131808; c=relaxed/simple;
-	bh=IJjp6TJfH8b3kg8FpdNc7AAR/T8yrD2piXCxkjCZAWg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=koYYuu70X5TPmohUYevj1u/6/v1GLNsSSDQFDKvRSkWCj/YbqREzrbp7O1+3Mwck55TvdcpsOnI8z0D8Zig4hKulUxDXjNC3QuieWDtu850fyzFk1J5BxFgYnf/I/1Wt5hszMB0Qyb7bFOULY182NtY2SfwWgK55o5dLvamIWhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZTaZJGms; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790131815; c=relaxed/simple;
+	bh=Eo5PNvzKKc4BFL3+MuJflE+BxX4YdcxoeglU+t5KwrY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WAiQ9nIguO6aadAHiy5tMFKhVJKzaGcCQBOiqgosRbBcVFeCkYadJ4r2bVcuF90ZtP6z9AFcSBDN7c3TmA4//l64EsZPv1cpHqov8ObjUNnR2WdY0VYGE3jo3bAypDTesugs3Y49hbwxwHsi/NufSrGQ2smbALJGqHzndZrXEqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZQ5CORt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZTaZJGms"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=orrn+NdoCFzU23emXEq7tOhnV7XAniUCodDT+yO/cJk=; b=ZTaZJGms71Z3F9Vujt3b/I/wZi
-	g+bpybjjeBWFY+hdMrjAZ9KnhBQaEit6jJDrgZdNYiGn8oIwBVrgY/kfVRZSc+FheIaq3yj0wK+Vi
-	rptIJFhZb2T3sMsaxZfgFqee9qCcYYgrJcMvWIm/aIwEc2MRu2NgjM14Rpptf9DkU7lPXGcAxvx5C
-	gblb0qaC2MyJYFq4xDuICNluccM5k0Prn7dVkF94WbNpDU5eHEq+Z9ZBIvuWb93+0lmolstabSUqK
-	FBkAp1ITTR/cV/iau0/W8v1KYzzZPoVjzaRkCq3g7BK6scf/YiNjDO2P3B7CxG0KlkHzRNJlDgbFC
-	RvUjtErA==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9D3W-00000006zGN-23ep;
-	Wed, 23 Sep 2026 02:49:58 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-doc@vger.kernel.org
-Subject: [PATCH] docs: ABI: sysfs-class-firmware-attributes: use literal blocks for console commands
-Date: Tue, 22 Sep 2026 19:49:56 -0700
-Message-ID: <20260923024957.845198-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZQ5CORt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98D221F000FF;
+	Wed, 23 Sep 2026 02:50:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790131808;
+	bh=Eo5PNvzKKc4BFL3+MuJflE+BxX4YdcxoeglU+t5KwrY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=JZQ5CORtA6ZeETmwbFwtxoC2CfxFDPqnS+RC7NQO9H6gNAWIrOqRx/Ufk0nd7fXBP
+	 iDsMlkWUtzAnjAvlhBCUMNzhaXQ/vkFLbfx2lrBgDBLqshGRoPTToU+UzQECX2lS7O
+	 3hOj1XpvCcXAc0DcB6YInNKaNEJ5699vb/l07V4BKzELxkLf2ZDEb+lTAyv47yBAPk
+	 ZhJnVtJSnQx768X8qVjVvdmubkx3JubAP3KHc5ZiF9vbvUNSKMN0r/kGszo4Y/4OhV
+	 aWR4snVHpOGntttMBDW8Y0zH6Od2jXwwQs9+77WD1uLLF6eFaDTxtom3jZjBRSsu18
+	 oaCSP+Zmih2Ow==
+Date: Tue, 22 Sep 2026 19:50:06 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Coia Prant <coiaprant@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, Maxime Chevallier
+ <maxime.chevallier@bootlin.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Lad Prabhakar
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>, Romain Gantois
+ <romain.gantois@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Russell King
+ <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>, David
+ Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH net-next v10 00/11] net: pcs: add basic support for
+ RK3568 XPCS
+Message-ID: <20260922195006.79890f24@kernel.org>
+In-Reply-To: <20260922200336.2201212-1-coiaprant@gmail.com>
+References: <20260922200336.2201212-1-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Use a literal block for console I/O so that the lines aren't merged
-together in the produced output.
+On Wed, 23 Sep 2026 04:03:24 +0800 Coia Prant wrote:
+> This series adds proper SGMII support for the Rockchip RK3568 SoC
+> using the integrated Synopsys DesignWare XPCS, along with necessary
+> fixes and refactoring in the stmmac core and XPCS driver.
 
-Also correct some punctuation.
-
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-Cc: Mark Pearson <mpearson-lenovo@squebb.ca>
-Cc: Hans de Goede <hansg@kernel.org>
-Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-doc@vger.kernel.org
-
- Documentation/ABI/testing/sysfs-class-firmware-attributes |   21 +++++-----
- 1 file changed, 12 insertions(+), 9 deletions(-)
-
---- linux-next-20260921.orig/Documentation/ABI/testing/sysfs-class-firmware-attributes
-+++ linux-next-20260921/Documentation/ABI/testing/sysfs-class-firmware-attributes
-@@ -397,22 +397,25 @@ Description:
- 		unlimited attributes.
- 
- 		Read the attribute to check what save mode is enabled (single or bulk).
--		E.g:
--		# cat /sys/class/firmware-attributes/thinklmi/attributes/save_settings
--		single
-+		E.g::
-+
-+		  # cat /sys/class/firmware-attributes/thinklmi/attributes/save_settings
-+		  single
- 
- 		Write the attribute with 'bulk' to enable bulk save mode.
--		Write the attribute with 'single' to enable saving, after every attribute set.
-+		Write the attribute with 'single' to enable saving after every attribute set.
- 		The default setting is single mode.
--		E.g:
--		# echo bulk > /sys/class/firmware-attributes/thinklmi/attributes/save_settings
-+		E.g::
-+
-+		  # echo bulk > /sys/class/firmware-attributes/thinklmi/attributes/save_settings
- 
- 		When in bulk mode write 'save' to trigger a save of all currently modified attributes.
--		Note, once a save has been triggered, in bulk mode, attributes can no longer be set and
-+		Note, once a save has been triggered in bulk mode, attributes can no longer be set and
- 		will return a permissions error. This is to prevent users hitting the 48+ save limitation
- 		(which requires entering the BIOS to clear the error condition)
--		E.g:
--		# echo save > /sys/class/firmware-attributes/thinklmi/attributes/save_settings
-+		E.g::
-+
-+		  # echo save > /sys/class/firmware-attributes/thinklmi/attributes/save_settings
- 
- What:		/sys/class/firmware-attributes/*/attributes/debug_cmd
- Date:		July 2021
+Please slow down with the reposts.
+Not more than 2 a week, and please wait for the AI review to finish
+and be published before you repost.
