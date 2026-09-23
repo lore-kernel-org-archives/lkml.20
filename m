@@ -1,88 +1,81 @@
 Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A8953163A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:59:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9326C51993C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:59:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790200759; cv=none; b=ksVTEdLtVvxlvPRejps4rJsqL69xdmNSROB3JmElmKE5sIh2N2C7uWITExgsZNozKjhKIeX/4QgR3IZQ3RnHEn4OGB9EzwU30frw5YzM98+7VrkS1uk/N698DibRLUheLhfIKqfq4IbcGBnIindK+jld8AID3H3W57vV8IQna/o=
+	t=1790200760; cv=none; b=XFe4B3kC3bGOWg/3z07AWWb+g1mz1+P+xQQrlpvF4qBE3Ls1CoFl8CJtiaXO/vUxa7USFob/Ic4c5VK3VguNRs6ImPW/DUk4Au4/d3ufMZNMaJzw7TBM+9RtrlmdzCNuLh9KattF1h/0YugR0LhpD1ueVKMcYk3qFQOnp8VbRL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790200759; c=relaxed/simple;
-	bh=crfmY1UoAp0225g5YflMny9pd86Ycu6YBiZZO+PGdW8=;
+	s=arc-20240116; t=1790200760; c=relaxed/simple;
+	bh=Y9sArGvG06fTxoj89o52hgoYE/AuOUlmcdKNh3A52M8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bN4/I7BrCdwh7nFjrS/GTEG6EMH+D1FiXU0Gy7RscMjDESW2UugExVCe1/ZdY1AEtrMrp4YhEZLhgNae8xoKM9TYvtQNYT8+EF2OdpKWYy3XmGjDreWemI2uvEHjbaGU1xK1gv4JcKKXfli6Uuq3AdD5EjA5yh0vviKmQJkM9x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p/yvXsWM; arc=none smtp.client-ip=74.125.228.140
+	 MIME-Version; b=tRNKHOpZXBqm+v2xuNO1R/5rJVWca4OWUSFLJQ+RR+XQ+tRzoOPzsEwSfEn+//AfXxfanJccxQFQXrVHDd58dQGIey1OQnxv7TUesrOMgFXxuC69nPAtCDlywnu2TPTrL7kF5DzUjLMPxDLhNJWGegKKlStrNu0JQOgNTPn55mY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BgOFElSV; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p/yvXsWM"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55eff0so212018366b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:59:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BgOFElSV"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa4c24cso228018066b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:59:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790200756; x=1790805556; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790200757; x=1790805557; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SYVKcOWe7AV6XzPqKfhqiFAXADXl3H8Zz3CAushPG+U=;
-        b=p/yvXsWMN+cy/+tDrmgeDBrbjBoFnYveCJIAhdS5OvkKVFsJw+ek/9dee3vA/jzHmJ
-         DEeORK2Kaa9kLxNU1QFson5grqb8bUw7lvEU5jcQJGkLly/tRcid/wQ+I6TUnxeDA+AE
-         WvR1o2QdvsWGZMGDlVd1OSn9TDf3EgJSFubHBTAGryFRBLXpAKkOYxaHz4a89/JPKZlS
-         TgzkPFMhPaIGSjcwOVo4DRu1i5jU1P4MhvVS1m9MpzhiW1m1GIFxEuykKmQWiihX1cSi
-         gKsXrmyVun1n4oe9MTGmD2Id2WJDnxZwSbazR64mz8V4NQfSqi5LVaL+zpodiqxrw3SN
-         yKFw==
+        bh=UfaWWRdlASqYfBci2TjPeC9jvASabRGvOwAX9IAIbN4=;
+        b=BgOFElSV8Cb00qpqi9vVNT+HwBtABRl1duAhAjALaEicoA9H9QKQHRloEDJSaYrTe9
+         iNIQ9hHD8HdyJy4tphV1tO65JRy/F1BlvL+4UmfAsVmuhdQQC73Hb1ngHy9sjnXc/6yh
+         EtyRAX8SobeFU4lhQQstNCEvwRHKvFS5t6tPCVZgK49VgoIQwu+ZU7iRG+wNAqlZ0TRq
+         HjJ7T2lZBqbZapowN8GQFW5ZmTnGm5xozfC2USUSzjXK5lqUtYXnCIY9QA4dxhcjIwem
+         4nszfGIEgvcShlMKjxkHSHAkPbgbRfZRpooDIFC5e+M1IH2dSYohV6nYSUZwhULAhhsZ
+         n7nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790200756; x=1790805556;
+        d=1e100.net; s=20260707; t=1790200757; x=1790805557;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SYVKcOWe7AV6XzPqKfhqiFAXADXl3H8Zz3CAushPG+U=;
-        b=V5FVIidJJXU68bRaue85Ol7CN937BJ20/IXs4f5e7HphR2tKKbojZyTf/PFes5COkv
-         lGXVgd7oNMLsqRywCoiv7ySKxDZey0t8lcZVjUBrR1cGPiQXbs12ToSp8kSqFS2QdUGw
-         uKlAsVLoN8B+lX5wd2Sytbp5gON35i+nPyyydfFU9uX5G1z0TUhtrHHRemS3Y+oD8rmJ
-         ed8DQfA/Sv+VA4mt8EHvH8mSJzIX/MEbDIG7qO8+r6o+NTWiFrzo5T4X8efLCd/fCfMt
-         JchMZJwYdhB+mEcL6UcbIEvYNR975aSO+9pTi+x9C9sKzW4r2R+CRPEawKxf3pdLowqz
-         MiKA==
-X-Forwarded-Encrypted: i=1; AKwUvByb5IWrDy0r6Guh4ZHuEHPe9/Rat9t7vbJwRBmNBEL/fsY5AHMM5mkohnHf9OjkekxGtySrEQAZKFcMvNY=@vger.kernel.org
-X-Gm-Message-State: AFuF++me4zXK3Wmz5CqzGqtN0GtTAbRhbbUTW0JR3RZGAVm5ssEmS3yo
-	pEZ67kDKaXVlR5Wxl47ECdWIy6Pm4r/s4MPy4F/SDcHMrOvCIqKZg0WI
-X-Gm-Gg: AYBFou2j3+REh8iKZ9lqDHvO445mt6MW5qvlCe0hC3pp8paJ0U7YxEsEsSdfQjX14rH
-	+cy3dab1292tLwgN7eHRaIHrEBkidxmzI6gqgnnJrGmRC+kJeeRkfAbu42JnmiZEHMacpmEjNWG
-	w2g+Xj/HUZuHTFjC3sOMBQ20xQ4MIWBFq0O21RO0waYCtZP8zWAgYZewWI9KS39dVK74B1gpTqZ
-	wMsZyZ41yd54Z/UBhboHezInnvnklKFNCQAWSQLzASS9dQgzC8S7yymmowqXnGi8zNYXpF5DR+g
-	iDldSibmLEkwG2rrSTLSuG/ohJSvmOo+JLYKJ2wK8P3H70ZeK9qdMYoyg1QuUvbTrkHGsihHdPE
-	EJ1736BNkOHmVPGKGtuLP2abYfCvL+3ok+5gwmrE1mL+hs1Z/hybsPx8G74VuJzl8fWA4D9x4zV
-	vVv1sLh8EvljpefxQhI50sSiafwrOAI9lUlkyhbX+ooTbCKkCuAczE9nwQaqedoxQIty0P5Xwad
-	XJobASjXqoic6uLdebzyo0MtlM4dnSdS8PjnKXbI8Kcls9QQ1OB7ADHU2xmuWHrjgQ0mdmB1cK5
-	JlaG7GY2xZUCKM1V6yJIOfnZIBa89kA=
-X-Received: by 2002:a17:907:6a16:b0:c1c:4e36:eec6 with SMTP id a640c23a62f3a-c2ac23c4e05mr37551766b.18.1790200755900;
-        Wed, 23 Sep 2026 14:59:15 -0700 (PDT)
+        bh=UfaWWRdlASqYfBci2TjPeC9jvASabRGvOwAX9IAIbN4=;
+        b=z5nNjlrgzf4/YjSoSpoVSdp+FtzV2w7FazBNcJNwvhUR8B+KarZ1Nq4s36HvUdS8T1
+         5kqhZDWW4GHh03zanQB5vwoyrcJGM3O96YZv+IkUjmfoKNPcZzdgJ+adNkb1EGn3hYvs
+         JVYJx5EDKqhJJdtzfvVfWoDfvYjF1xnZnu1QOH/Rr4N0+4RhSwZjxjy/MBtvPEczFTE4
+         MAcFkqvxp9ckzcw4sl5U6ghbmhZh0VF+5l0fwB/1ICeVCGy+RJ+FMsDw+iZ4xTYqhoHD
+         lq3YGpmXsRN/7GXv73ZFUM4T7JnL4ifb+8bFsRn+FP0erJsLp0tqVOlWThlSVON3lZz7
+         tH3Q==
+X-Forwarded-Encrypted: i=1; AKwUvByIll7GH5a030l+ZvRB6X4Dg+nD6ytXbW254mRy5H5j9GrpddPALGks1cVd1ROLx9W6isp+RRRM9BruZeQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4+eSfgMr4ZI/Xx6URBZ1E3O0wS8hDjmOnHVeVeWYK99ttzO3L
+	wsHW0MneVvlzUjlyTauAYlZ9CYZ9zEiyBHXhD/UFaw2QofMRu52VsmY7
+X-Gm-Gg: AYBFou1fzpaEZX98AEnWtM0JiAFO2a37mkuH/Ri6XNVKczreG4jg+1Ln5tJTyZtUU4F
+	MVRvkXakXKSZPdbEL2UEVRURpU65Hzcc7q5twfFzuaGKtTlNewTySZUQD10h/ja8IH3G2dYMEW8
+	bSELkuSA3uZUf5VKDY4JZGBqyog9AhLSSWoH0SWWR1uh4Bz/fXTH+7mStthQe1IpMtiOlzn3mkL
+	H/k5mIsPH+0rSIM7kBVLzKiOA6i7ZkMd/lubMt+6uffr32TEd8OqV2DAB1fMDVvXDTnImRm2cXW
+	NopUCYicr7W6wFdg33xKmi38e+Fu0wbhopNxDNuWeVv5n4XW86l6NAP/kz+ndNQKZ7fZeS4LTVK
+	x/3s0IRFvlT+1R04Udwe0k/6c+SYy12wpZeI93TkSQtKraGEj1zww4gvK8P9We6+hc6qEWdqew+
+	S6XB88X0JZhETgFbes+Zuzl11MNhdwl8QfGL6rdjlY9UjFZJWtfMaKyHhbD5pg7Jm4nvd8sqSXN
+	RlqF2zy59QsuZ0Cinw6i68sLk9WDgJZ3c75EZSQiQj0Obk4+kftsi771eq25TMaV205ZDavenql
+	ATR+Z4FkCneZdvd74GZr4Q==
+X-Received: by 2002:a17:907:a088:b0:c19:6104:e5e4 with SMTP id a640c23a62f3a-c2ac21fcbe3mr39259066b.20.1790200756904;
+        Wed, 23 Sep 2026 14:59:16 -0700 (PDT)
 Received: from localhost.localdomain (83-233-130-25.cust.bredband2.com. [83.233.130.25])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6dcf0dsm197647666b.61.2026.09.23.14.59.13
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6dcf0dsm197647666b.61.2026.09.23.14.59.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 14:59:14 -0700 (PDT)
+        Wed, 23 Sep 2026 14:59:16 -0700 (PDT)
 From: Yongzhao Chen <yongzhao.derek@gmail.com>
 To: netdev@vger.kernel.org
 Cc: "David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
 	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jonas Gorski <jonas.gorski@gmail.com>,
 	Andrew Lunn <andrew@lunn.ch>,
 	Vladimir Oltean <olteanv@gmail.com>,
-	Woojung Huh <woojung.huh@microchip.com>,
-	UNGLinuxDriver@microchip.com,
+	Christian Marangi <ansuelsmth@gmail.com>,
 	Russell King <linux@armlinux.org.uk>,
-	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ziyang Huang <hzyitc@outlook.com>
-Subject: [RFC PATCH net-next v3 1/5] net: dsa: pass PHY flags when connecting shared ports
-Date: Wed, 23 Sep 2026 23:58:53 +0200
-Message-ID: <20260923215858.1653-2-yongzhao.derek@gmail.com>
+Subject: [RFC PATCH net-next v3 2/5] net: dsa: qca8k: serialize CPU MAC pause during MTU changes
+Date: Wed, 23 Sep 2026 23:58:54 +0200
+Message-ID: <20260923215858.1653-3-yongzhao.derek@gmail.com>
 X-Mailer: git-send-email 2.45.2.windows.1
 In-Reply-To: <20260923215858.1653-1-yongzhao.derek@gmail.com>
 References: <20260923215858.1653-1-yongzhao.derek@gmail.com>
@@ -94,93 +87,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DSA calls get_phy_flags() for user ports, but passes zero when connecting
-CPU or DSA port PHYs. Pass the callback result before PHY initialization
-for shared ports too. Drivers without the callback still pass zero.
+The global maximum frame size must be updated with CPU MACs disabled.
+The previous logic only paused ports 0 and 6, leaving an internal PHY
+CPU port enabled while modifying the register.
 
-Keep bcm_sf2 and ksz88xx shared-port flags at zero, preserving their
-existing behavior. Document the extended callback scope.
+Include enabled internal CPU ports in the pause sequence. Use the
+existing reg_mutex to serialize the MTU update against port enable, port
+disable, and phylink link-up and link-down transitions. Read and restore
+each port's original TXMAC and RXMAC bits, ensuring ports that were down
+remain down and preserving LINK_AUTO. Retain existing handling for ports
+0 and 6.
 
-This lets qca8k pass revision information and a SmartSpeed quirk to an
-internal PHY used as a CPU link. The remaining patches supply that user.
+Abort before updating the frame size if reading port status or pausing
+the MAC fails. Attempt to restore all ports already modified, and report
+any restoration failures even if an earlier error occurred.
 
-Assisted-by: LLM
+The standalone qca8k MDIO error-propagation fix is a prerequisite for
+this series; that error-handling bug predates this locking change.
+
 Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Assisted-by: LLM
 ---
- Documentation/networking/dsa/dsa.rst | 2 ++
- drivers/net/dsa/bcm_sf2.c            | 4 ++++
- drivers/net/dsa/microchip/ksz8.c     | 4 ++++
- net/dsa/port.c                       | 6 +++++-
- 4 files changed, 15 insertions(+), 1 deletion(-)
+ drivers/net/dsa/qca/qca8k-8xxx.c   |  2 +
+ drivers/net/dsa/qca/qca8k-common.c | 79 ++++++++++++++++++++++++------
+ 2 files changed, 66 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/networking/dsa/dsa.rst b/Documentation/networking/dsa/dsa.rst
-index 7edfdd555..647f952e3 100644
---- a/Documentation/networking/dsa/dsa.rst
-+++ b/Documentation/networking/dsa/dsa.rst
-@@ -668,6 +668,8 @@ PHY devices and link management
-   on its own (e.g.: coming from switch memory mapped registers), this function
-   should return a 32-bit bitmask of "flags" that is private between the switch
-   driver and the Ethernet PHY driver in ``drivers/net/phy/\*``.
-+  It is called when connecting PHYs for user, CPU and DSA ports. Drivers
-+  should return zero for ports that do not need switch-specific PHY flags.
+diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+index f9e2eb0b9..d8564001c 100644
+--- a/drivers/net/dsa/qca/qca8k-8xxx.c
++++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+@@ -1488,7 +1488,9 @@ qca8k_phylink_mac_link_up(struct phylink_config *config,
  
- - ``phy_read``: Function invoked by the DSA user MDIO bus when attempting to read
-   the switch port MDIO registers. If unavailable, return 0xffff for each read.
-diff --git a/drivers/net/dsa/bcm_sf2.c b/drivers/net/dsa/bcm_sf2.c
-index 9e5713015..f516fc396 100644
---- a/drivers/net/dsa/bcm_sf2.c
-+++ b/drivers/net/dsa/bcm_sf2.c
-@@ -709,6 +709,10 @@ static u32 bcm_sf2_sw_get_phy_flags(struct dsa_switch *ds, int port)
+ 	reg |= QCA8K_PORT_STATUS_TXMAC | QCA8K_PORT_STATUS_RXMAC;
+ 
++	mutex_lock(&priv->reg_mutex);
+ 	qca8k_write(priv, QCA8K_REG_PORT_STATUS(port), reg);
++	mutex_unlock(&priv->reg_mutex);
+ }
+ 
+ static struct qca8k_pcs *pcs_to_qca8k_pcs(struct phylink_pcs *pcs)
+diff --git a/drivers/net/dsa/qca/qca8k-common.c b/drivers/net/dsa/qca/qca8k-common.c
+index 13005f10e..6b32bdd75 100644
+--- a/drivers/net/dsa/qca/qca8k-common.c
++++ b/drivers/net/dsa/qca/qca8k-common.c
+@@ -463,7 +463,8 @@ int qca8k_mib_init(struct qca8k_priv *priv)
+ 	return ret;
+ }
+ 
+-void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable)
++static void qca8k_port_set_status_locked(struct qca8k_priv *priv, int port,
++					 int enable)
  {
- 	struct bcm_sf2_priv *priv = bcm_sf2_to_priv(ds);
+ 	u32 mask = QCA8K_PORT_STATUS_TXMAC | QCA8K_PORT_STATUS_RXMAC;
  
-+	/* Shared ports previously received no PHY flags. */
-+	if (!dsa_is_user_port(ds, port))
-+		return 0;
+@@ -477,6 +478,13 @@ void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable)
+ 		regmap_clear_bits(priv->regmap, QCA8K_REG_PORT_STATUS(port), mask);
+ }
+ 
++void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable)
++{
++	mutex_lock(&priv->reg_mutex);
++	qca8k_port_set_status_locked(priv, port, enable);
++	mutex_unlock(&priv->reg_mutex);
++}
 +
- 	/* The BCM7xxx PHY driver expects to find the integrated PHY revision
- 	 * in bits 15:8 and the patch level in bits 7:0 which is exactly what
- 	 * the REG_PHY_REVISION register layout is.
-diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip/ksz8.c
-index d74981320..be8861a7a 100644
---- a/drivers/net/dsa/microchip/ksz8.c
-+++ b/drivers/net/dsa/microchip/ksz8.c
-@@ -3076,6 +3076,10 @@ static u32 ksz88xx_get_phy_flags(struct dsa_switch *ds, int port)
+ void qca8k_get_strings(struct dsa_switch *ds, int port, u32 stringset,
+ 		       uint8_t *data)
  {
- 	struct ksz_device *dev = ds->priv;
- 
-+	/* Shared ports previously received no PHY flags. */
-+	if (!dsa_is_user_port(ds, port))
-+		return 0;
-+
- 	switch (dev->chip_id) {
- 	case KSZ88X3_CHIP_ID:
- 		/* Silicon Errata Sheet (DS80000830A):
-diff --git a/net/dsa/port.c b/net/dsa/port.c
-index 1f5536c0d..4db7e6f9c 100644
---- a/net/dsa/port.c
-+++ b/net/dsa/port.c
-@@ -1666,6 +1666,7 @@ static int dsa_shared_port_phylink_register(struct dsa_port *dp)
+@@ -751,8 +759,10 @@ int qca8k_port_enable(struct dsa_switch *ds, int port,
  {
- 	struct dsa_switch *ds = dp->ds;
- 	struct device_node *port_dn = dp->dn;
-+	u32 phy_flags = 0;
- 	int err;
+ 	struct qca8k_priv *priv = ds->priv;
  
- 	dp->pl_config.dev = ds->dev;
-@@ -1675,7 +1676,10 @@ static int dsa_shared_port_phylink_register(struct dsa_port *dp)
- 	if (err)
- 		return err;
+-	qca8k_port_set_status(priv, port, 1);
++	mutex_lock(&priv->reg_mutex);
++	qca8k_port_set_status_locked(priv, port, 1);
+ 	priv->port_enabled_map |= BIT(port);
++	mutex_unlock(&priv->reg_mutex);
  
--	err = phylink_of_phy_connect(dp->pl, port_dn, 0);
-+	if (ds->ops->get_phy_flags)
-+		phy_flags = ds->ops->get_phy_flags(ds, dp->index);
+ 	if (dsa_is_user_port(ds, port))
+ 		phy_support_asym_pause(phy);
+@@ -764,14 +774,20 @@ void qca8k_port_disable(struct dsa_switch *ds, int port)
+ {
+ 	struct qca8k_priv *priv = ds->priv;
+ 
+-	qca8k_port_set_status(priv, port, 0);
++	mutex_lock(&priv->reg_mutex);
++	qca8k_port_set_status_locked(priv, port, 0);
+ 	priv->port_enabled_map &= ~BIT(port);
++	mutex_unlock(&priv->reg_mutex);
+ }
+ 
+ int qca8k_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+ {
++	u32 mask = QCA8K_PORT_STATUS_TXMAC | QCA8K_PORT_STATUS_RXMAC;
+ 	struct qca8k_priv *priv = ds->priv;
+-	int ret;
++	u32 status[QCA8K_NUM_PORTS] = { 0 };
++	int ret, restore_ret, i;
++	u32 stopped = 0;
++	u32 ports;
+ 
+ 	/* We have only have a general MTU setting.
+ 	 * DSA always set the CPU port's MTU to the largest MTU of the user
+@@ -784,25 +800,58 @@ int qca8k_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+ 
+ 	/* To change the MAX_FRAME_SIZE the cpu ports must be off or
+ 	 * the switch panics.
+-	 * Turn off both cpu ports before applying the new value to prevent
+-	 * this.
++	 * Include internal PHY CPU ports as well as the two MAC-only ports.
++	 * Toggle only MAC enables, preserving the phylink link-control mode.
+ 	 */
+-	if (priv->port_enabled_map & BIT(0))
+-		qca8k_port_set_status(priv, 0, 0);
++	ports = BIT(0) | BIT(6);
++	for (i = 1; i < 6; i++)
++		if (dsa_is_cpu_port(ds, i))
++			ports |= BIT(i);
+ 
+-	if (priv->port_enabled_map & BIT(6))
+-		qca8k_port_set_status(priv, 6, 0);
++	mutex_lock(&priv->reg_mutex);
++	ports &= priv->port_enabled_map;
 +
-+	err = phylink_of_phy_connect(dp->pl, port_dn, phy_flags);
- 	if (err && err != -ENODEV) {
- 		pr_err("could not attach to PHY: %d\n", err);
- 		goto err_phy_connect;
++	for (i = 0; i < QCA8K_NUM_PORTS; i++) {
++		if (!(ports & BIT(i)))
++			continue;
++
++		ret = regmap_read(priv->regmap, QCA8K_REG_PORT_STATUS(i),
++				  &status[i]);
++		if (ret)
++			goto unlock;
++	}
++
++	for (i = 0; i < QCA8K_NUM_PORTS; i++) {
++		if (!(ports & BIT(i)) || !(status[i] & mask))
++			continue;
++
++		stopped |= BIT(i);
++		ret = regmap_clear_bits(priv->regmap, QCA8K_REG_PORT_STATUS(i),
++					mask);
++		if (ret)
++			goto restore;
++	}
+ 
+ 	/* Include L2 header / FCS length */
+ 	ret = qca8k_write(priv, QCA8K_MAX_FRAME_SIZE, new_mtu +
+ 			  ETH_HLEN + ETH_FCS_LEN);
+ 
+-	if (priv->port_enabled_map & BIT(0))
+-		qca8k_port_set_status(priv, 0, 1);
+-
+-	if (priv->port_enabled_map & BIT(6))
+-		qca8k_port_set_status(priv, 6, 1);
++restore:
++	for (i = 0; i < QCA8K_NUM_PORTS; i++)
++		if (stopped & BIT(i)) {
++			restore_ret = regmap_update_bits(priv->regmap,
++							 QCA8K_REG_PORT_STATUS(i),
++							 mask, status[i] & mask);
++			if (restore_ret) {
++				dev_err(priv->dev, "failed to restore MAC state on port %d: %d\n",
++					i, restore_ret);
++				if (!ret)
++					ret = restore_ret;
++			}
++		}
+ 
++unlock:
++	mutex_unlock(&priv->reg_mutex);
+ 	return ret;
+ }
+ 
 -- 
 2.43.0
 
