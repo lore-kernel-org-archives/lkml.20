@@ -1,139 +1,82 @@
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364233DDAE2
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:45:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E150038A725;
+	Wed, 23 Sep 2026 05:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142343; cv=none; b=kzbcQXcvcbrhZtqPaV8r5ZCHuTJ9ZR+bVEwXnjd+fDI8Z6VU+JSuKIe8HSf4A3orVd6QB2y+Q0KBm14/XJA1ldceWhA/040P21/u0SWFvevUSJOeIfrnBPgD/9WaIoNFGXozy48RlNraKacqX1zeuu+Mi4d0o4/diadmcqMwxiA=
+	t=1790142344; cv=none; b=GyT5fqawKRNalOdrLsPBQiBCCVRuYMlHolZiQFUU+LruVVhs0kWbyF52UsagwfBpjiWjGOkoezH9nnv6SroK/BnXP4W8YG6/w+H7S3Ir0+B3l/Y4SnBg/jyXlFj06GH7lbQHt9l2Wf5d0UTOMUZFR6woc2HXz0at6YmDD9JvUFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142343; c=relaxed/simple;
-	bh=Hpchx+TeVg+3320N2ZLza2s70qLylkvHKlXE793d4Z4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ED6A4ozEFkqpuX0je2QHW7VhxzpyScVBXisKRK3onPqkURHKuj0nMATyXWahk9b4FXbU0y2Hd9kSAdyxggK8OdjbHWzHI/v/mq0TgWqhuGDrCnY83488wjk2V/Ji1Rxyg9WbTO4HKD40HqNnQ8AiQsdLY+dgCHmC5B0Iqa87mFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=U36gbV3M; arc=none smtp.client-ip=44.202.169.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
+	s=arc-20240116; t=1790142344; c=relaxed/simple;
+	bh=pM9okg1mAfTcsOjVU0S3FtEU5LVCKah7staipiTn4vs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dc9qwussQr1EqFXsKWMxRPuFB1LcU6YRUneo85jqz8G2AZm2MbMOu9w9i5/dtDNWCwO3Ye/6lrzdfDMA5g/82NCCxE3g1pgAasUfeZrq+TZj4KqSlJFO6KOe2+y9ahLpqkUZnEaXSh1o0O50RGT3vVBw9uXeiUchC6rXxdUHSgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=WfGG6sol; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="U36gbV3M"
-Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
-	by cmsmtp with ESMTPS
-	id 9Bafx23dJFNWB9FnZxUaKA; Wed, 23 Sep 2026 05:45:41 +0000
-Received: from gator4166.hostgator.com ([108.167.190.91])
-	by cmsmtp with ESMTPS
-	id 9FnYxiloL8TJY9FnYxnIpb; Wed, 23 Sep 2026 05:45:41 +0000
-X-Authority-Analysis: v=2.4 cv=S9vZwJsP c=1 sm=1 tr=0 ts=6ab36785
- a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=1XWaLZrsAAAA:8
- a=VwQbUJbxAAAA:8 a=4ffO35K8LLM2FldQJH0A:9 a=QEXdDO2ut3YA:10
- a=2aFnImwKRvkU0tJ3nQRT:22
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="WfGG6sol"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=/E5qcA3QzsXosiYS9VqPceYIRRHq3vwJ1GMOPH5S7j8=; b=U36gbV3Mix/x
-	WIQjz6KImRom22m14NU17nkw2Fz9/BzozX7h8i445DOlqIky7qEU2Ko0uaWY72P3QKkAB2vwMh3DV
-	z3GccUJyHkhSvmxM8MdZT9Dr2mByWNDmnsm5Uv64/k4mXHrwrZvUpQVro6qkg3CuafvSJ7ZyoARzF
-	yWnVDH2AFHAjE/g7CftfEa2a4b4EyrC7MPNSj/S0d79W9lMYod2wX3hHhmBhoMngx5GcdWnpWx2h4
-	UinxsBdLkVY0fMD6ot2o6xHlSzcgAS2BG3rxOUBLHbrlJPd0tB2IoWbjW+6/wCgzvMMDVTuNQ0Kym
-	jfgitaiY82MPrUluK+MEqg==;
-Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:36818 helo=[10.203.100.34])
-	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <gustavo@embeddedor.com>)
-	id 1x9FnX-00000001zQT-0WFg;
-	Wed, 23 Sep 2026 00:45:39 -0500
-Message-ID: <8d82177e-5347-4e7e-898b-01cfe244e1af@embeddedor.com>
-Date: Wed, 23 Sep 2026 14:45:34 +0900
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=3XjZVCiagHx/6Y2uabzw7ERTMDgBSCPbpJOmgaLw8rc=; 
+	b=WfGG6solAfSnndvgldn7M6P/gN3c+yxuhwwaWx9DJkX9auGa5PLRu0OlYAXPeWl7QB9lR41yQWK
+	kmsYiicpjP9YZHHs0stEeuhiD0F328mq8FsqfwCnTvPomlbsbaDFFSHj51lC+UrXPv481X5OtTnzH
+	M43fpYQqbDwsQduUqjtwotepIMW1taysCQ0tNPBRGYrAP/HFazGhn5kfKViNqd7rMekEwF3Bq/BEA
+	EVxuzOZJPP6cQfDu4fvq5KHd+BXk/uvjnf9KMVGq5COdJo4Sv1OY/hjzRCFC2sRT0WsgLXxfwsg1t
+	SOmCOam6ISG1Ctr4L0xeR12FxrQPVRxSSZcA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x9FnU-0000000GumR-35x7;
+	Wed, 23 Sep 2026 13:45:37 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 15:45:36 +1000
+Date: Wed, 23 Sep 2026 15:45:36 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-crypto@vger.kernel.org, Srujana Challa <schalla@marvell.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] crypto: cesa: complete pending requests on device remove
+Message-ID: <arNngHZELtCQqVF_@gondor.apana.org.au>
+References: <20260916230526.284982-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: adc: qcom-adc5-gen3: Annotate struct
- adc5_device_data with __counted_by_ptr
-To: Bill Wendling <morbo@google.com>, Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- codemender-patching+linux@google.com
-References: <20260922220950.2267270-1-morbo@google.com>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20260922220950.2267270-1-morbo@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 125.195.69.90
-X-Source-L: No
-X-Exim-ID: 1x9FnX-00000001zQT-0WFg
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:36818
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 40
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfCo11tGPjSotJjfyRuGzZoP+G84t6CPJhqWzJJwA6p8LNAaZyiaWBSFKgtmJilC2gUrGy3gLevJDQtFFnSl05dXng0i+kNYltlBZaQ558v9eKi8byrgF
- 8bOaxRAXFB7rsmVSSJi+5A1l6+sNz7d2tN4i/oWPSwybHrl+CDtGwJbjkdyy+Be8ykWFhlDMUAkVzAzYjS5B0HiwqGZkdfaD+ka+xDpQBNdl8rlbygHkn7cs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916230526.284982-1-rosenp@gmail.com>
 
-
-
-On 9/23/26 07:09, Bill Wendling wrote:
-> Under compiler-supported bounds checking (via KASAN or UBSAN), pointer
-> fields inside structures can be annotated with the '__counted_by_ptr'
-> attribute to specify which field in the same structure holds the element
-> count. This enables the compiler to perform runtime bounds checking on
-> the pointer.
+On Wed, Sep 16, 2026 at 04:05:26PM -0700, Rosen Penev wrote:
+> mv_cesa_remove() unregisters the algorithms and frees the IRQs but never
+> drains the engine queues. Each engine can still hold outstanding requests
+> in three places: engine->req (currently in flight), engine->queue (queued
+> but not started), and engine->complete_queue (processed but not yet
+> reported). The latter two are only completed from the IRQ handler, which
+> is torn down before they are flushed.
 > 
-> Annotate the "base" pointer field in "struct adc5_device_data" with the
-> "__counted_by_ptr" attribute pointing to "num_sdams". The number of
-> SDAMs is determined from the device property and assigned to "num_sdams"
-> which is then used to initialize "base" via "devm_kcalloc".
+> If the device is unbound via sysfs while requests are outstanding, those
+> waiters never receive their completion callback and block indefinitely,
+> leaking the request and its scatterlist buffers.
 > 
-> By ensuring "num_sdams" is set to the correct element count prior to
-> the "base" pointer allocation, and since the size of "base" is never
-> reallocated or changed, this annotation is safe and will not cause any
-> false-positive runtime bounds check panics or KASAN issues.
+> Drain all three queues in mv_cesa_remove() and complete each remaining
+> request with -ENOENT before freeing the IRQ, so bound tasks are released.
 > 
-> Cc: codemender-patching+linux@google.com
 > Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
-
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-
-Thanks
--Gustavo
-
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
 > ---
->   include/linux/iio/adc/qcom-adc5-gen3-common.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/iio/adc/qcom-adc5-gen3-common.h b/include/linux/iio/adc/qcom-adc5-gen3-common.h
-> index 39cbfcbdb101..b3e2c2f50e8f 100644
-> --- a/include/linux/iio/adc/qcom-adc5-gen3-common.h
-> +++ b/include/linux/iio/adc/qcom-adc5-gen3-common.h
-> @@ -137,7 +137,7 @@ struct adc5_sdam_data {
->    */
->   struct adc5_device_data {
->   	struct regmap *regmap;
-> -	struct adc5_sdam_data *base;
-> +	struct adc5_sdam_data *base __counted_by_ptr(num_sdams);
->   	int num_sdams;
->   };
->   
+>  drivers/crypto/marvell/cesa/cesa.c | 46 ++++++++++++++++++++++++++++++
+>  1 file changed, 46 insertions(+)
 
+Please check the Sashiko comments:
+
+https://sashiko.dev/#/patchset/20260916230526.284982-1-rosenp%40gmail.com
+
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
