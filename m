@@ -1,218 +1,212 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011033.outbound.protection.outlook.com [52.101.57.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-135.mta1.migadu.com [95.215.58.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3144455635;
-	Wed, 23 Sep 2026 08:03:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.33
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790150618; cv=fail; b=QdP90L/QWxugEnuzsmk5VnKajXrgvCtfVu45I0trCTi9b+ufJZ87a5+iaRbg0nrf+jYf90m5H1vqswVvAh103YyJsIXHe1ohJyaZsCp7xniM4qbXQtEHukZTWlAd7wqpmMoWLCDOD0moocPcxpvSDw1xHMsMRmC/J5oCFCzBLQk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790150618; c=relaxed/simple;
-	bh=iNcigU8SKKS4UCAyTgtwdz9vnKIHgAnymJ3icWIyHUs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=OxW1nviFcybtTQHD8JlV7JL9eQWJiUDNov6CgRPdMv6TA3IWb+VgnEG1mU09aR+uFE/m5+G+lHrp0QCT28/MyLaJAfv/CXTd2Uzc8vVBwvl3I6ncKey3tr8Zst0doorLg6bS0VeUPS5qw2CfjUNIafgMULvMx2CAyD7LPd3rqec=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4COAFWss; arc=fail smtp.client-ip=52.101.57.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44B80459AE9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:05:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.135
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790150750; cv=none; b=VlrWVkbx65XvINIeidIWPGQG7GZOWnWtX4jZjk5KBZY8hTW3IJTx9Q1zfSmb4LUfq+DuNw+OcbmMMZRuzc+VCP5oIEa7OeeB/o99pNORhDBZg9VMu8fY49c270LqcRe3dgQglMN503xJzdtknhzXv3fyF07ZpKPNFc4RzOE5m/I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790150750; c=relaxed/simple;
+	bh=5BGZTHY8kFe6g0IgkeIcnp2oHzMTIKE0zyxoC0cn6HM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gKsrk8l4E1wX/O7WLwWPJx6dpJV1nGsUKX4DNQvS3mtM4EHdfBfRAFMMyiRgXVlQUKxsJJvcw+MuxE2wB6UIy7yOhrHDEXre4i2SVOILKaDmTyv3AJWpMK3ZxAcQDS3oGU7VGZMC9AZv/4bDW2FiiEfPj3xOlZxmHsWLI+2b15U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xOV70F6T; arc=none smtp.client-ip=95.215.58.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4COAFWss"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lenqgBmgwcLfp/Ogk9ZF8wJsIP3SEvyoLJTqWwzjYTaRiNRitcc6RBo0zQ4gP2ko1js+7acrlxdpva2QQLpaab75A5CDqOsCVfFTgJi4YvS3jktpXMxWtve+8ZMEkXK6po6lS9x+DW6b98SGSFLOJbDyz+YWosGMuObAkLBlH352nKuGB4rsIUdvxRH/T+SL3K/7jbuOVT+C3egJGD0XgrC4axcHaZlYJlJMrWyo4w2kyz4czQevUg2scXQDPpY8WJ2bWeiqSM6gSyw/mKOYhEcvVO4eSATLUbnkIxPq7tTv1597WBszxdgFFBOykmow2PAXeOC6Ak4CQUO2zUbSSg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xwJHULXrUqe3nJ1D9ShD1Iz5v9mjdwj9roFfAm9+b5k=;
- b=MqdqFSPUAOBmgy1bbvmiVmSKCO04OszTeoIRv34NY6EwAQRCHE0PxsfaV/RiOOYRlxzAKlrudAl3hXAbepQTs5Uo+TJDBU4TNzkTdr099P2cNh2eOmZLGWbirvI3rqlrfnSXo0bXDHJGtkF/AzLwTaewSVKolTnD/2GFITS+Q2yZMGu0Dwd9CGPm5AOnapXWTfoqZTOqICCi0LaGkhhYNAsnHj9kV3wHYr91du3jRIaSknc6bZip/P7SEiURdomNz8XfpON7BQtnZoFgBPwvB++8Wg2kctP99MZgfmPqUQ829PYJmHfdYsGkL27OAcBeV5pNT19uM/leaCQgVcPUCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xwJHULXrUqe3nJ1D9ShD1Iz5v9mjdwj9roFfAm9+b5k=;
- b=4COAFWss5kIw03jr4Ir5xjq/h3xyTV1oiUto3aDEymFLNXeO4uuiSXq9mRA9NZu3I9yGHnnIrgJBGT1V9UwsfA2HOZq+CbcROu4mdQqpklGvRgXXVfJTr+qJas+0mWkMbOH/Lf4n1+XNxZeprxLEhbC0Gq0DQF6dFlY2Inh5yGI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB8419.namprd12.prod.outlook.com (2603:10b6:8:e9::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.16; Wed, 23 Sep
- 2026 08:03:27 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 08:03:26 +0000
-Message-ID: <fe3a4297-f300-451d-9763-0b3016706111@amd.com>
-Date: Wed, 23 Sep 2026 10:03:21 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v1 1/2] dma-buf: keep DMABUF_DEBUG off by default
-To: Jianfeng Liu <liujianfeng1994@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, linaro-mm-sig@lists.linaro.org,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Simona Vetter <simona@ffwll.ch>, freedreno@lists.freedesktop.org,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Karl Mehltretter <kmehltretter@gmail.com>
-References: <20260923074256.9357-1-liujianfeng1994@gmail.com>
- <20260923074256.9357-2-liujianfeng1994@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260923074256.9357-2-liujianfeng1994@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0315.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f6::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xOV70F6T"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=5BGZTHY8kFe6g0IgkeIcnp2oHzMTIKE0zyxoC0cn6HM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790150745; v=1; x=1790755545;
+ b=xOV70F6TL/N5yFZSi3f9S+2hZYWUVOoxwR+uo5RtdPViIRjcwWGIPwQHE5MNUvXqJRoa2pMV
+ XETkKl1JSJyJHgttnEozZ0pTPXm5t7sE2VvyT5/K7JPxqS/v4eFeFvfsBFsjwV0h+5+G2v3PAcg
+ ZOM5ie5XofVZ8V6lcFShF+2Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0dc515f7c86dd02d;
+	Wed, 23 Sep 2026 08:05:34 +0000
+X-Mizu-Trace-ID: 0dc515f7c86dd02d
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	guoren@kernel.org,
+	bcain@kernel.org,
+	geert@linux-m68k.org,
+	dinguyen@kernel.org,
+	schuster.simon@siemens-energy.com,
+	jonas@southpole.se,
+	stefan.kristiansson@saunalahti.fi,
+	shorne@gmail.com,
+	dalias@libc.org,
+	glaubitz@physik.fu-berlin.de,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	linux@armlinux.org.uk,
+	vgupta@kernel.org,
+	monstr@monstr.eu,
+	chris@zankel.net,
+	jcmvbkbc@gmail.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	peterz@infradead.org,
+	davem@davemloft.net,
+	andreas@gaisler.com,
+	richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linmag7@gmail.com,
+	catalin.marinas@arm.com,
+	mark.rutland@arm.com,
+	chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	tsbogend@alpha.franken.de,
+	James.Bottomley@HansenPartnership.com,
+	deller@gmx.de,
+	maddy@linux.ibm.com,
+	mpe@ellerman.id.au,
+	chleroy@kernel.org,
+	hca@linux.ibm.com,
+	gor@linux.ibm.com,
+	agordeev@linux.ibm.com,
+	borntraeger@linux.ibm.com,
+	svens@linux.ibm.com,
+	richard@nod.at,
+	anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	arnd@arndb.de,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	jgg@ziepe.ca,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	ysato@users.sourceforge.jp,
+	shakeel.butt@linux.dev,
+	corbet@lwn.net,
+	rdunlap@infradead.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-csky@vger.kernel.org,
+	linux-hexagon@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-openrisc@vger.kernel.org,
+	linux-sh@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-snps-arc@lists.infradead.org,
+	linux-arch@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-alpha@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	hughd@google.com,
+	qi.zheng@linux.dev,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 04/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for MMU arm
+Date: Wed, 23 Sep 2026 16:05:23 +0800
+Message-ID: <20260923080523.9480-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20260922-rcu-pagetable-freeing-v4-4-fe1ad1f1e303@kernel.org>
+References: <20260922-rcu-pagetable-freeing-v4-4-fe1ad1f1e303@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8419:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ea54156-8de6-4d0d-aecf-08df194925c4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|22082099003|18002099003|56012099006|11063799006|5023799004|10067099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	9ekffflhBCx6uxh/xf32orR1uAdoiEaRJnv4FtnS+cxx520OdoACxIT2m0Gu1eradp/ABYHHXdldoUKP0P57c6Y8MCSXh6ysBHrUaazBJKeVAjuIukwKhB1uMqT80PdtMo7xq9cXVyk5/JKqBJZqfbICAmn7NAREWeTgBdKZP6AmLHpxro1oeg38DuSeoxcu4nT2S8/mVxms8cEJfN7Iop9XAGZpGwIGoGEj6pNK+fy+Iu+sd+wvhNF2B5hO+h2jzH6GhSApH/0nHxvUHcBotfb0EB6fjIMjDBnqRQtVnjjbalbO/ttz4i3qaI+fLKw029JYeaQxyL2opJeJsPN+q0FAQaX1nbucgzL/AJnlZx5Qy6fkX5L+xDy4fKTVwi6Uhf+YW0WNBQVB4Dhpa6hsq7ca9dk5+n4kXvcFCLDYhTcQGLhK5ZlMgI2T132WznwuOApSnOdBT9X4E2UCSTBdPVz+frX5y6KkDDs/yjy4o5m6ms+aey5g2HdDlH9QibPyUaejCy+2Xn19X8M4d9D9RL2AHSmaBOxk13A6vvBzZdeH7cRWjfGL1j8o9MV2kA2qdi8KKTjLUeQLA85Pcs/OgDhOBoE5q5619jkcfGsRfN2VO/nS2/svO3OxJ4AsPDmdyNAnHn2mWSbUU7+irnZDMiHwiRwt5E8HZ3P/D0GGwTs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(5023799004)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cGRidzVMOTBkZjNvWDcwSGliZXVyRVBiL3RLWTJkL1FmczNia1NuTjRTbjcx?=
- =?utf-8?B?U1g2RVRuUjNXZ21kRDJRQms1c01EU3VSTzFkVEoyNUZVZDl0WGthRlBrY2tu?=
- =?utf-8?B?WVkzeWFUOTNNUnZ3Y0x5Mk8wZDUrMzR6UWs0N09QTjlGZktRU0NlYSszZWlY?=
- =?utf-8?B?QjVoeEFHcG91dURZMDcvWklZeDR5cXZ4OHkrLzFoTU5mQkpnd1ZseURWakdK?=
- =?utf-8?B?MnRrMi9QdDM5cXNwQzlCTmh0TlhGbkJsRU1Pd0RFTCs5VVBrVmxtNHdWczFJ?=
- =?utf-8?B?L3hVVFRoVEQyZU5kMTVkSDNtZmZmS1ZRVFN1YWZkVUhQYWJtNnFYQVJHQWRY?=
- =?utf-8?B?R1ZSY0RoQ0ROeHhZcERMYkVmSTkrSUNpNk83VjgrWHl5M05Ed2RSQmc3Wmlh?=
- =?utf-8?B?TndROUx5OSs0ckVZREJtNG1GMlBTdThvbWs5eFlYSE15SFRFQnJZTXJpVU5o?=
- =?utf-8?B?K2tKVHVqK0VPOWhaZDlwb1ZSOUxjWEdZcldGenFNbVkzclFnVjBOb0MycUhT?=
- =?utf-8?B?OFdXa1d3ZUF4bytIbG9qeVdMRkljTS9YTzI0MS90NmpKYVBtL3pMbVdCYXh1?=
- =?utf-8?B?L2R4UFRNbzBPMkVUSjdhQjI3MkVBZHFmbnp2ME1LVXlWYUtoZEpLTGhxZVdJ?=
- =?utf-8?B?QWxsd3J3bHl3ZDluZkNUajI2d3prZ1MxTUM3dnBTVUVyK0NhVDZueHdnRHJ2?=
- =?utf-8?B?bjR5eFdSNmNHMkFUbkdOeEpNVlYvVkVWcWNvcU9wR3IyenlxS0QyUTVUaTdO?=
- =?utf-8?B?dFlZVUU2cmdWQXc1SlY1UlE0NmI1NENtbDNNaUdiKzhtTG1rM0RhRDBMWTBB?=
- =?utf-8?B?TzlKVG1HV2YwM1NpbzNIY2pqRk9iaGpsaFNDdkFDdzlPdndVb1Avd05UVkNk?=
- =?utf-8?B?aVh2enI1Y1UrQkN2djhuSHEybWxKK3R1UW1tMzZRWHAyOUVQbWF2VDdMd3hZ?=
- =?utf-8?B?UkFyZnViSFk4VUcvcWovSnhhQU1jakVGYXFvbnNUaWJWVVcxQXRIbVZLTUh2?=
- =?utf-8?B?Y2RzTlZLT2FxZWhtTUlJUlROZUNPNTVGZ0R1MlB3VXRMbVFoN2ZrdkRJNHBp?=
- =?utf-8?B?Qlh2Vmt1ZTZqN0s0a0I2UFJHYTloa0kyWk50a0Q2RXcrZ0NwOU1iYkU2UWFW?=
- =?utf-8?B?TENWUEgxSGgwak1HaktXbUlUNXNOempid2FFUFdSNkxuZEF0N1hROUZBTWtN?=
- =?utf-8?B?UXlrTWhzaEtia2pKREdMc0s5ai9SeTR4VjlqaXVtMkFYRnQzeTdka29DNjlF?=
- =?utf-8?B?Z004eUZqbXFiYVRaTkhjVzNGSlBSbXlWV0hjcTFkZGszYjk2L2syeWtJTUtV?=
- =?utf-8?B?UTFTTzl1bU9aZWttNE9jUUVEdmxITS9mbGpGYk9lbkpIQ0trWjE3K0RmUmtQ?=
- =?utf-8?B?ZDd0UDE1S1RucHc4WFlmS0FFUzd3RFFLYVRBYUZhV2ZIY1dHZlhZcEJjdE5k?=
- =?utf-8?B?UG9VT0psRDJYa3I3YXJkRGhzV09uOVB1TU1xdUdhK2ZZaFBSL0h6VnFTMUVN?=
- =?utf-8?B?QktEWElZalZnZ3JWMW1XTDgzWkRaK0JNcDhuTU9OLzI1Q1VwRkpZaFNPYzdS?=
- =?utf-8?B?THY5NTFZcmVObEo0dlFldUpvMUtPaWoyWHVaL20rZFBLZWQ5UENEbjg4NWRw?=
- =?utf-8?B?ZHJRWFZseGZ4OHl1RDlGRk4yNGE5bTlFV0o1cDNSZjljN1RRc2NQVitGUm9x?=
- =?utf-8?B?TXBzcmRuT1NNQWVpR1JEUEFBZk1tcEsydEZ0N3hwZFFCcFZ3c2lab1ZpTkEz?=
- =?utf-8?B?QVd2L2pJRkhsTTdCZzVRZkpLbWR3bEpucEI0YmJ2MWdlYTVhZGRFbFJIb3l4?=
- =?utf-8?B?QTZSbUlEb2p3aTBVVDk5VGV0N21NS2pvcUJqMCtoTTRxaWVINy9iRVd0TDUx?=
- =?utf-8?B?enN3VHU1YjN2TDdRVTYvVUc0MzUzNkJMUFlLN0dvNkFxS1JoYU5KVWUvSWZz?=
- =?utf-8?B?RWxGTWtzcmg2QUlGS3dNMFIvNE1DcGxZWTdXRDJxQWMwVXRoNHB2dlArQlUx?=
- =?utf-8?B?eU40eGlST2ZTQjVtK3VSaWc1MUVJQXRNQWR6NERUbXpEMWx5MzNDcEtKUmJ5?=
- =?utf-8?B?SUtSM2dxUTdtRjd2VzU4bEg1U3IrbG5KQ3JkWTA5Z1plUForYjNJUmpKMGJh?=
- =?utf-8?B?YkhlNDhuTEp2YXpmSEVvb0tZS1JQN0U2WU9yOUdBR25xcGZranlobCt2Y3Zr?=
- =?utf-8?B?dGJDOXlLdzdqekFsSkoxNWJJQXhYSzYvSkQ0d1VVa0EvbDRuOFJZbkZ1Y0I2?=
- =?utf-8?B?S3RndUxrS21uNGV3MGZSVHg5cThjazJrbEpMR0RjL1dLZXFpNGE3QUFqRjRw?=
- =?utf-8?Q?tUAreIR3hLYCCAjWRE?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ea54156-8de6-4d0d-aecf-08df194925c4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 08:03:26.8371
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JEMman8ulaQugxz95TQ0xYcyHXIDpICzT/FxljpBxoqrlJfyFQ6pMqIAeCLcRF2R
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8419
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 9/23/26 09:42, Jianfeng Liu wrote:
-> [Sie erhalten nicht häufig E-Mails von liujianfeng1994@gmail.com. Weitere Informationen, warum dies wichtig ist, finden Sie unter https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
-> DEBUG_KERNEL kernels") fixed a dangling reference in the DMABUF_DEBUG
-> default, which had the side effect of enabling the option (and with it
-> the page-stripping sg_table wrapper handed to importers) on every
-> kernel with DEBUG_KERNEL=y - i.e. virtually every distro kernel.
-> 
-> drm/msm is broken by this: it maps imported dma-bufs into the GPU's
-> own pagetables with iommu_map_sgtable(), which needs the struct page
-> of the attachment sg_table, and it fills the GEM object's page array
-> through drm_prime_sg_to_page_array().  With the debug wrapper in
-> place both silently produce garbage (the wrapper zeroes sg->length,
 
-Interesting point, we should probably change that.
+On Tue, Sep 22, 2026 at 04:35:35PM +0100, Lorenzo Stoakes (ARM) wrote:
+>Commit a0ad5496b2b3 ("arm: mm: enable HAVE_RCU_TABLE_FREE logic") enabled
+>CONFIG_MMU_GATHER_RCU_TABLE_FREE (then named HAVE_RCU_TABLE_FREE) for SMP
+>arm architectures with LPAE enabled.
+>
+>Regardless of whether CONFIG_ARM_LPAE is enabled or not, the same page
+>table freeing functions __pte_free_tlb() and __pmd_free_tlb() are used.
+>
+>Non-LPAE PMD page tables are folded into the PGD and freed by
+>pgd_free() (PGD freeing is not part of mmu_gather page table freeing in any
+>case), so this is a noop in this case.
+>
+>Since commit 358d1c39c82a ("arm: convert various functions to use ptdescs")
+>both LPAE and non-LPAE PTE page table freeing uses tlb_remove_ptdesc().
+>
+>Thus all page table freeing is performed under RCU with
+>CONFIG_MMU_GATHER_RCU_TABLE_FREE enabled for LPAE and non-LPAE and thus it
+>need not be gated on LPAE.
+>
+>A UP arm system can set CONFIG_PREEMPT_RCU, so a future pure RCU page
+>table walker requires MMU_GATHER_RCU_TABLE_FREE to be enabled on UP as
+>well, even if concurrent GUP fast is not possible there.
+>
+>Therefore, it is both safe and desirable to set
+>CONFIG_MMU_GATHER_RCU_TABLE_FREE for all MMU arm architectures (nommu does
+>not perform mmu_gather operations).
+>
+>This forms part of an overall effort to switch every architecture to this
+>mode.
+>
+>Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>---
 
-> so the page iterator yields nothing and an uninitialized array is
-> kept).  The VM_BIND map job then fails asynchronously after userspace
-> has already enqueued GPU work referencing the mapping, which shows up
-> as an arm-smmu translation fault from UCHE, e.g.:
-> 
->   gpu fault: ttbr0=000000088a889000 iova=000000010741c000 dir=READ
->   type=TRANSLATION source=UCHE
-> 
-> This breaks hardware video decode (clapper, chromium) on Adreno
-> systems; bisected on a Snapdragon laptop as v7.3-rc3 good,
-> v7.3-rc4 bad, culprit 143755bdabaa9.
-> 
-> Revert the default until importers that legitimately need to build
-> phys-based mappings have been converted.
+Tested under heavy page-table teardown load on qemu-system-arm,
+with and without ARM_LPAE. No issues seen :D
 
-Well that won't work like this, pointing those things out is exactly what DMABUF_DEBUG is made for.
+Tested-by: Lance Yang <lance.yang@linux.dev>
 
-What MSM is doing here is not allowed at all and can break badly. We gave drivers 5 years to get that fixed and I'm now pushing for completely deprecating that hack.
+Also, feel free to add:
 
-See patch 84335675f2223cbd25d0de7d38ecc7d40b95bd4a:
+Acked-by: Lance Yang <lance.yang@linux.dev>
 
-Author: Simona Vetter <simona.vetter@ffwll.ch>
-Date:   Fri Jan 15 17:47:39 2021 +0100
 
-    dma-buf: Add debug option
-
-When MSM needs the struct page then it must import a shmemfd and not a DMA-buf. What we could do is to either fix MSM or mark it as broken.
-
-Regards,
-Christian.
-
-> 
-> Fixes: 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on DEBUG_KERNEL kernels")
-> Signed-off-by: Jianfeng Liu <liujianfeng1994@gmail.com>
-> ---
-> 
->  drivers/dma-buf/Kconfig | 9 ++++++++-
->  1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/Kconfig b/drivers/dma-buf/Kconfig
-> index e4f078a326a41..b3c581ef4c987 100644
-> --- a/drivers/dma-buf/Kconfig
-> +++ b/drivers/dma-buf/Kconfig
-> @@ -43,7 +43,14 @@ config UDMABUF
->  config DMABUF_DEBUG
->         bool "DMA-BUF debug checks"
->         depends on DMA_SHARED_BUFFER
-> -       default y if DEBUG_KERNEL
-> +       # NOTE: keep this default n.  The page-stripping sg_table wrapper that
-> +       # this option installs for importers breaks drivers that build a
-> +       # second-stage IOMMU mapping (phys -> iova) from the attachment sg_table
-> +       # and therefore still need the struct page, e.g. drm/msm with its
-> +       # per-process GPU pagetables.  Until those importers are fixed, making
-> +       # this default y breaks hardware video decode and GPU workloads out of
-> +       # the box on affected systems.
-> +       default n
->         help
->           This option enables additional checks for DMA-BUF importers and
->           exporters. Specifically it validates that importers do not peek at the
-> --
-> 2.47.3
-> 
-
+> arch/arm/Kconfig | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+>index 408aa58a2a5b..72b9afc6ae10 100644
+>--- a/arch/arm/Kconfig
+>+++ b/arch/arm/Kconfig
+>@@ -134,7 +134,7 @@ config ARM
+> 	select HAVE_PERF_REGS
+> 	select HAVE_PERF_USER_STACK_DUMP
+> 	select HAVE_POSIX_CPU_TIMERS_TASK_WORK
+>-	select MMU_GATHER_RCU_TABLE_FREE if SMP && ARM_LPAE
+>+	select MMU_GATHER_RCU_TABLE_FREE if MMU
+> 	select HAVE_REGS_AND_STACK_ACCESS_API
+> 	select HAVE_RSEQ
+> 	select HAVE_RUST if CPU_LITTLE_ENDIAN && CPU_32v7 && !KASAN
+>
+>-- 
+>2.55.0
+>
+>
