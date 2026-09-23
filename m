@@ -1,206 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18CF9329E44;
-	Wed, 23 Sep 2026 13:00:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D8332B112;
+	Wed, 23 Sep 2026 13:00:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168430; cv=none; b=pJPkcnPs4t4beVPlcRscWUwqY0sej0OxpXIKdiF7qL56DBq+7iSc2EnCJAoJG8QQQHfuxzQAAx2jHUykRfS9whFjD3IQp+r7Ul0zsW4qROcmgLMQ9EYwXNlQP03dmWQ2xgipvYMp0jGhosYkqPKniGBQCm9jbfOp9b0S/8wP1+E=
+	t=1790168433; cv=none; b=f9GIZJx4AwUK0ilyeQ/ooxlPixnj6jAmZidvXxXXNTZXgq2lK4hdFaSK4TQm4jWw55apsdJIox3C7AO7vhqCfMtBeh1guBXdJkMGeBnkKSN//2LKI3yNcJsM+zVqW3MbmfcFfVp8IZGLhLf09ZWPdUxtISwSPWa558MdCspZN0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168430; c=relaxed/simple;
-	bh=x2uClFIduoHJWDWzPyHhn8J5Js/Z0dbLP3Q6qKaP55k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NmIi/u75SgFqR9OixBsDgegXTPhs9IHFHHpAfZjPTNJtKTiNSsuvMaxJPBrVpjWhLFw9iPphZ5H3yO/fZoMfLRObM2PKARbR7Ybwp1UbK4F9NEmhVDZ2zTf8oOypuZZXAZzYmwmiQXa+VWdA3SP0y1MxH22ixvEK7Of0aE5SCZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bpwr/vyh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790168433; c=relaxed/simple;
+	bh=OuRi4RB4ETc1nsHbqt+ElDxiJpjjkHhEVNTsrEq4D4I=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=KlCSQaaNoGE/odlQZ9JxWkod1vcpmR2GhmWEplsGKmNgJPbpO+BX1Sx7AfdRc4x+w0Z6Vik6ZU2ho/n5GYUKH8S7y2cgEaPH7dSi7NzMHLkmSMxfobM86h1HbNM2YeU+HP4vFj0Q8fxhBitRgMPm1hwJNW369raXMQqbC+P2/l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=RlQRzBS4; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bpwr/vyh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B789D1F000FF;
-	Wed, 23 Sep 2026 13:00:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790168428;
-	bh=0eaOB5XAcAd55GxCwgcmBnkX7TY60tdwa1+MAd2bYuc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Bpwr/vyh1zRJQZL9oDtbJHE4z8JxDVXBum/PKvbV9vVKQBJV4YuDhveRBW0rbC8tz
-	 h3LPnY7BDM9k87AZuQrPUZpU9QxX2A6fgfutpaqAd/tbsKLtfPjMQ86J7srtTtWxCJ
-	 rj7S2il2mOb1kn58l3ryfcQhLlNTTP5++/jHzr0L8gaLJOwg/y96wjwH59NA3udJQu
-	 2u/PYuvmPQKUwXfXsfXS5ZA/cikbEVUvH7OYQ1gBXo8qgPiB0iXuMjhEx4UBUjSfhE
-	 s7FqV8/iDJCe5dfWV6TTSQLZcgu1h8453DZ8pterLqVc9hvV67R5m77vu8S0TvxW5a
-	 NGber7hjJloTg==
-Message-ID: <6c8aa567-6ad9-4aed-a7ec-5d2cb6979384@kernel.org>
-Date: Wed, 23 Sep 2026 15:00:19 +0200
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="RlQRzBS4"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6E403A4AA2;
+	Wed, 23 Sep 2026 15:00:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1790168429; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=FJKmiNAmuxbpruVO5Wj9VLGixnw/8MdgtY3CHwCOtFI=;
+	b=RlQRzBS4tTCx+L5uZlNtuws/1aOHIHQnCV82rjGeD2btkkj0j61U94SmN/+ckgX5O/ph5e
+	XVOHDXM9MQ6r6CaWx0FhA1qCXgpQd4GZGQqHbg5OQmp67HMqeAYmGgFvl6jbEBGpVBRe9a
+	PpFeODF9IVNkdLBQNCFMj5kxe7YtPFq5nl8q6PCfRtXO15YMlJlpyYQb/4i4S6ObitTvEJ
+	1i4X8KrTPFI3WbAXSJjO5gMPm/a9n+2VT69repb5GpxlbrhsCK6HSk+sr+FiOpdbRU39Cv
+	7mmrh7IkpbcDCjdk2DBx8YNbSqiYhLgbVPrwK3yz6ZW/QP/ull3jpzhwViudbA==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/15] dt-bindings: display/msm: Document A850 GPU and GMU
-To: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
- <20260923-hawi-gpu-v1-10-0c3c79a1a470@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260923-hawi-gpu-v1-10-0c3c79a1a470@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 15:00:27 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Kory Maincent
+ <kory.maincent@bootlin.com>
+Cc: vadim.fedorenko@linux.dev, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, maxime.chevallier@bootlin.com,
+ bjorn@kernel.org
+Subject: Re: [PATCH net v2 1/2] net: ethtool: don't match a hwtstamp provider
+ on a device without a PHC
+In-Reply-To: <20260923121644.2194183-2-nb@tipi-net.de>
+References: <20260923121644.2194183-1-nb@tipi-net.de>
+ <20260923121644.2194183-2-nb@tipi-net.de>
+Message-ID: <e604da518229c94ea571db295776f1b1@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 23/09/2026 12:25, Akhil P Oommen wrote:
-> Adreno A850 GPU found in Hawi SoC belongs to the A8x family and is
-> the successor to A840. Like A840, its clocks are described in the GMU
-> node and it has the following power related updates:
->   1. GMU is now powered via a dedicated GDSC connected to MxG rail
->   2. An additional power rail called Bx
++CC Maxime & Bjorn
 
-I don't see the updated related to (2) above
-
+On 23.9.2026 14:16, Nicolai Buchwitz wrote:
+> A device without a PHC reports phc_index -1. A request for index
+> 0xFFFFFFFF is stored in an int and becomes -1 too, so the two match and
+> a netdev provider is selected on a device that has none.
 > 
-> Describe this GPU/GMU along with the new compatible strings.
+> Fix this and only match a real PHC index.
 > 
-> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> Fixes: b9e3f7dc9ed9 ("net: ethtool: tsinfo: Enhance tsinfo to support 
+> several hwtstamp by net topology")
+> Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 > ---
->  .../devicetree/bindings/display/msm/gmu.yaml       | 44 ++++++++++++++++++++++
->  .../devicetree/bindings/display/msm/gpu.yaml       |  2 +
->  2 files changed, 46 insertions(+)
+>  net/ethtool/common.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> index 9e459f12ce3f..875fd1242528 100644
-> --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-> @@ -55,14 +55,18 @@ properties:
->        - const: gmu
->  
->    power-domains:
-> +    minItems: 2
->      items:
->        - description: CX power domain
->        - description: GX power domain
-> +      - description: GMU MX power domain
->  
->    power-domain-names:
-> +    minItems: 2
->      items:
->        - const: cx
->        - const: gx
-> +      - const: gmu_mx
-
-Your commit msg said mxg. Or mx, because this is GMU, so saying that
-it's power domain is GMU is redundant.
-
->  
->    iommus:
->      maxItems: 1
-> @@ -359,6 +363,46 @@ allOf:
->              - const: memnoc
->              - const: hub
->  
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,adreno-gmu-850.1
-> +    then:
-> +      properties:
-> +        reg:
-> +          items:
-> +            - description: Core GMU registers
-> +        reg-names:
-> +          items:
-> +            - const: gmu
-> +        clocks:
-> +          items:
-> +            - description: GMU clock
-> +            - description: GPU CX clock
-> +            - description: GPU MEMNOC clock
-> +            - description: GPU AHB clock
-> +            - description: GPU MXG AHB clock
-> +            - description: GMU HUB clock
-> +        clock-names:
-> +          items:
-> +            - const: gmu
-> +            - const: cxo
-> +            - const: memnoc
-> +            - const: ahb
-
-Keep existing order. ahb is first.
-
-> +            - const: mxg_ahb
-> +            - const: hub
-> +        power-domains:
-
-Just minItems
-
-> +          items:
-> +            - description: CX power domain
-> +            - description: GX power domain
-> +            - description: GMU MX power domain
-> +        power-domain-names:
-
-minItems
-
-But OTOH you need to restrict power domains for every other variant
-> +          items:
-> +            - const: cx
-> +            - const: gx
-> +            - const: gmu_mx
-> +
->    - if:
-Best regards,
-Krzysztof
+> diff --git a/net/ethtool/common.c b/net/ethtool/common.c
+> index 23db40618fed..23e8282563cc 100644
+> --- a/net/ethtool/common.c
+> +++ b/net/ethtool/common.c
+> @@ -980,7 +980,7 @@ int ethtool_net_get_ts_info_by_phc(struct 
+> net_device *dev,
+>  	if (err)
+>  		return err;
+> 
+> -	if (info->phc_index == hwprov_desc->index &&
+> +	if (info->phc_index >= 0 && info->phc_index == hwprov_desc->index &&
+>  	    net_support_hwtstamp_qualifier(dev, hwprov_desc->qualifier))
+>  		return 0;
