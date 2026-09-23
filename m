@@ -1,107 +1,188 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13294756DE;
-	Wed, 23 Sep 2026 09:09:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328B14756DE;
+	Wed, 23 Sep 2026 09:09:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154572; cv=none; b=GrhslIFne75HNt/DKSBvnD2JOcKLM5vxyunVS7Vh29DMZM2ooTEIcQRyNjBW/x/IP1duePzrWvIpPmk+0mgTb4Zk6Dd1q5kgKOZQfxfptEjp+Ujqyssq4o2ljgSCrgqxMutdfuJC4U9glHMtzsIn4hfO6uPcoZfqAkUtaW0HxB8=
+	t=1790154577; cv=none; b=hySaUcdOCBMlxdiu0UXXPXpTu8QXf1y8j4vW51CYNyMy/5hZo/7f2yTUOoBWhh/irFtT8e7WlG+E/AtjH6dPEQb2mpsklKDjOhycmCbzz5NEMbib7ym8bdXvkuHsSHEAxoDBMSbDoqo89gAtrzv/4U79RVXYEna7rzSPqdN+uuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154572; c=relaxed/simple;
-	bh=nHicoToJMuRixP28mM7eCyZcSpEkqVgre2qAOT+Dyi0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l70+Ckd0gWfINK/b2taXcrNZjDKsODRw5U9OIOdWdjHRZCxghU7SKplX7uqtxVnTVuuGNM2cKf8x1LKb51oMfJ9DiitBPO4a4SFdHQD0EWOBmqa9qLQVfV5kaz7cbpaqTkyjku2wSkU2vMHPo0Amgw4BvWN62qgcsXhSaOfRUkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=gbE9Gs1c; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=qK1d2lUE; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1790154577; c=relaxed/simple;
+	bh=rjZgFnB2qaYlaxizo4zghPjV9UQTD5pI1jr0cMoFmNg=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=lUKPKXlZz5NlZvzJXE5uBf5c+GI/W+LDsvO6PBMVorvMf3oGbzMUAzLWcera2OaI7yNDGNs5yFDLJeDDwo6LpOy/RThq5rOxsSbmF5skTdx1+wLpA/RJ/y+wIfPaRaXmsTWiovRZqO9NSHw2Vy0jIwbJpHJnNeSAMFjAWB6GiRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGIISKl0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="gbE9Gs1c";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="qK1d2lUE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1790153994; bh=nHicoToJMuRixP28mM7eCyZcSpEkqVgre2qAOT+Dyi0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=gbE9Gs1cdglIEVN3oF2zJk87RCPuMs1I5nXASwPHsM/Q2jYDgDVmTfgWR8wbVht1c
-	 05dsPy2Helkixvb4YvmaxTX6pn2jgjDil5QEWDFzf6Mxbbdo7rBsCxrYPW2sQJ2OEm
-	 p0Q/3DI33XHIsUU/G+wS/RGjNcJzNyw6pHSyDZ/vU7bEQvjwvidHanOEFrUTpApWrM
-	 AOsj/8dS4rC9dPVRKAC3kgDdWWOUNdEf0CRz0/FymKOMTRNQ14AX4AuB24ZbH5+LfE
-	 BBaoO71j3WFwx9DC5NRwYK8ObJpCWVRQFHB3s6R5IVkyjSklsW4io1ckx39MK98tJM
-	 Rh0Exy13ovuYA==
-Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 463C640BA2; Wed, 23 Sep 2026 09:59:54 +0100 (BST)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1790153993; bh=nHicoToJMuRixP28mM7eCyZcSpEkqVgre2qAOT+Dyi0=;
-	h=From:To:Cc:Subject:Date:From;
-	b=qK1d2lUEnm2YJlzPo39PiHTN14XcMn4AT/36lTWWf2Tp0Xx0ouKWj7zZShrzSTf21
-	 Whf5J+gD3ozQe25I51cwQM8clJINI4UFwdlesKv5wnfLoMB7P1krG1jJ23E96ckuby
-	 RX/qMl7KhSW+HdcNlp/0T76edjZrIj79UjobmYu8iWdRKkVBBd86Qxk4mSvvKBWsep
-	 FiFHzJHPmvuiIhlQCmTTM3ua4p88KWqU/wbfYu0dOFxWGx50Xxx9oCOPY8WmAH9KDV
-	 spQw/nAa8EAYakZSAMOFtQaNwUBlFwQuJ+qtUk55HdgCIK7YLz40WZCPl6I3ebu9O+
-	 6J7JaBjw9SU+A==
-Received: from maru.mess.org (hephaestus.mess.org [82.68.61.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 531E24017A;
-	Wed, 23 Sep 2026 09:59:53 +0100 (BST)
-From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: kernel test robot <lkp@intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: rc: Fix build failure with CONFIG_LIRC disabled
-Date: Wed, 23 Sep 2026 09:59:47 +0100
-Message-ID: <20260923085948.312798-1-sean@mess.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGIISKl0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9591F000FF;
+	Wed, 23 Sep 2026 09:09:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790154575;
+	bh=YZRwz2oHAmJNbYCksPnYbQJpTYZJBRvQbS1n8BAyWfk=;
+	h=Date:From:To:Cc:Subject;
+	b=GGIISKl0pxVb3XODYoolz/EW9iZ6XRFfUvYrBX1+G+llWwsHwHbnjhTlB6d6LuHB0
+	 kDZg3wxlFw8FSG+iK7J1OdZN+DkyrGy5LHJvG+R/w6bU9jNfr+jHBM2jUbeiEUpRIC
+	 A1gGfCebCND5DdgiBhiAMk7f6jo74UfZj9YNne6nzYIw6yVJn1Nacp9IJOWpfQH6kd
+	 LnheX53A1BhJpIb+c7iduUSYb65p5cWXsOkkGe9dFDaxf9QE3KxQlK91Zh8VZaytIC
+	 cc2Z1HV/A4LXdzzfhLdMy9vAxDgR6gQXtsGaK6gviXjCfCRb/R8tLk8rMEA+0O86VK
+	 j9xBca8ii6Aqw==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 0ABDC1AC5736; Wed, 23 Sep 2026 10:09:31 +0100 (BST)
+Date: Wed, 23 Sep 2026 11:09:30 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Gael Blivet <gael.blivet@gmail.com>, Henry Hu <huhai@kylinos.cn>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Subject: linux-next: manual merge of the vfs-brauner tree with the ksmbd tree
+Message-ID: <arOXSoxHpzbrMfr-@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="OrvEvYTS95KwbZmH"
+Content-Disposition: inline
 
-commit 37efd09ba2c6 ("media: rc: Ensure registered is cleared in error
-path") broke the build if CONFIG_LIRC was not enabled.
 
-Fixes: 37efd09ba2c6 ("media: rc: Ensure registered is cleared in error path")
-Reported-by: kernel test robot <lkp@intel.com>
-Link: https://lore.kernel.org/oe-kbuild-all/202609230511.Em5Osw74-lkp@intel.com
-Signed-off-by: Sean Young <sean@mess.org>
----
- drivers/media/rc/lirc_dev.c | 3 +++
- drivers/media/rc/rc-main.c  | 3 +--
- 2 files changed, 4 insertions(+), 2 deletions(-)
+--OrvEvYTS95KwbZmH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/media/rc/lirc_dev.c b/drivers/media/rc/lirc_dev.c
-index d9b6ecca563f..f7b8f1f66d9b 100644
---- a/drivers/media/rc/lirc_dev.c
-+++ b/drivers/media/rc/lirc_dev.c
-@@ -777,6 +777,9 @@ void lirc_unregister(struct rc_dev *dev)
- 	unsigned long flags;
- 	struct lirc_fh *fh;
- 
-+	if (!device_is_registered(&dev->lirc_dev))
-+		return;
-+
- 	dev_dbg(&dev->dev, "lirc_dev: driver %s unregistered from minor = %d\n",
- 		dev->driver_name, MINOR(dev->lirc_dev.devt));
- 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index 1c07bdd3b42b..a867bf9e8416 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -2018,8 +2018,7 @@ int rc_register_device(struct rc_dev *dev)
- 	scoped_guard(mutex, &dev->lock)
- 		dev->registered = false;
- 
--	if (device_is_registered(&dev->lirc_dev))
--		lirc_unregister(dev);
-+	lirc_unregister(dev);
- 	device_del(&dev->dev);
- 	/* registered already cleared above */
- 	goto out_free_table;
--- 
-2.55.0
+Hi all,
 
+Today's linux-next merge of the vfs-brauner tree got conflicts in:
+
+  fs/smb/server/smb2pdu.c
+  fs/smb/server/vfs.c
+  fs/smb/server/vfs.h
+
+between commits:
+
+  a0115a20ecc50 ("ksmbd: fix invalid pointer dereference when get_inode_acl=
+() fails")
+  1be59204ab530 ("ksmbd: copy stream content when renaming to a new stream =
+name")
+  a90dd07b4dfb3 ("ksmbd: look up stream size by exact xattr name")
+
+=66rom the ksmbd tree and commits:
+
+  16d90b57d8439 ("fs: port xattr to const mnt_idmap")
+  0c18a70900eee ("fs: port i_{g,u}id_into_vfs{g,u}id() to const mnt_idmap")
+
+=66rom the vfs-brauner tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+diff --cc fs/smb/server/smb2pdu.c
+index 5221c6e944d55,262360e184fb3..0000000000000
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@@ -3667,11 -3634,10 +3667,11 @@@ static int smb2_create_sd_buffer(struc
+  			    le32_to_cpu(sd_buf->ccontext.DataLength), true, false);
+  }
+ =20
+ -static void ksmbd_acls_fattr(struct smb_fattr *fattr,
+ -			     const struct mnt_idmap *idmap,
+ -			     struct inode *inode)
+ +static int ksmbd_acls_fattr(struct smb_fattr *fattr,
+- 			    struct mnt_idmap *idmap,
+++			    const struct mnt_idmap *idmap,
+ +			    struct inode *inode)
+  {
+ +	struct posix_acl *acl;
+  	vfsuid_t vfsuid =3D i_uid_into_vfsuid(idmap, inode);
+  	vfsgid_t vfsgid =3D i_gid_into_vfsgid(idmap, inode);
+ =20
+diff --cc fs/smb/server/vfs.c
+index db0f2de2bab3a,5cb161994e702..0000000000000
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@@ -217,9 -216,9 +217,9 @@@ int ksmbd_vfs_mkdir(struct ksmbd_work *
+  	return err;
+  }
+ =20
+- ssize_t ksmbd_vfs_getcasexattr(struct mnt_idmap *idmap,
+ -static ssize_t ksmbd_vfs_getcasexattr(const struct mnt_idmap *idmap,
+ -				      struct dentry *dentry, char *attr_name,
+ -				      int attr_name_len, char **attr_value)
+++ssize_t ksmbd_vfs_getcasexattr(const struct mnt_idmap *idmap,
+ +			       struct dentry *dentry, char *attr_name,
+ +			       int attr_name_len, char **attr_value)
+  {
+  	char *name, *xattr_list =3D NULL;
+  	ssize_t value_len =3D -ENOENT, xattr_list_len;
+@@@ -842,8 -841,8 +842,8 @@@ ssize_t ksmbd_vfs_listxattr(struct dent
+  	return size;
+  }
+ =20
+- ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
+ -static ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
+ -				   struct dentry *dentry, char *xattr_name)
+++ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
+ +			    struct dentry *dentry, char *xattr_name)
+  {
+  	return vfs_getxattr(idmap, dentry, xattr_name, NULL, 0);
+  }
+@@@ -1672,10 -1671,9 +1672,10 @@@ out
+  	kfree(def_smb_acl);
+  	return rc;
+  }
+ +EXPORT_SYMBOL_IF_KUNIT(ksmbd_vfs_set_sd_xattr);
+ =20
+  int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
+- 			   struct mnt_idmap *idmap,
++ 			   const struct mnt_idmap *idmap,
+  			   struct dentry *dentry,
+  			   struct smb_ntsd **pntsd)
+  {
+diff --cc fs/smb/server/vfs.h
+index 566c670c90bed,67cc48e583c81..0000000000000
+--- a/fs/smb/server/vfs.h
++++ b/fs/smb/server/vfs.h
+@@@ -108,15 -108,10 +108,15 @@@ ssize_t ksmbd_vfs_getxattr(const struc
+  			   struct dentry *dentry,
+  			   char *xattr_name,
+  			   char **xattr_buf);
+- ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
+++ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
+ +			    struct dentry *dentry, char *xattr_name);
+- ssize_t ksmbd_vfs_getcasexattr(struct mnt_idmap *idmap,
+++ssize_t ksmbd_vfs_getcasexattr(const struct mnt_idmap *idmap,
+ +			       struct dentry *dentry, char *attr_name,
+ +			       int attr_name_len, char **attr_value);
+- ssize_t ksmbd_vfs_casexattr_len(struct mnt_idmap *idmap,
++ ssize_t ksmbd_vfs_casexattr_len(const struct mnt_idmap *idmap,
+  				struct dentry *dentry, char *attr_name,
+  				int attr_name_len);
+- int ksmbd_vfs_setxattr(struct mnt_idmap *idmap,
++ int ksmbd_vfs_setxattr(const struct mnt_idmap *idmap,
+  		       const struct path *path, const char *attr_name,
+  		       void *attr_value, size_t attr_size, int flags,
+  		       bool get_write);
+
+--OrvEvYTS95KwbZmH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqzl0oACgkQJNaLcl1U
+h9DmBgf+PCZ8whGGodB5W6hWaCuawCXaEH1qR1ARFvXXADFYvnkQELezH9Xn1pWv
+h7SUahjO3EwqTaqDnvYUrNB2JRH0CMs/KwAY5PxihCLU5YV0n7eu/xLvUx/hD03x
+vwbaoR7bPRHz2Bkdm+CMRu8cr6bSK3DkEeWKRbC0iTQ0rava7pxfAgN2n1h7RsV4
+nuHab9+xtmqgP2txQ0OVHffLMAMEIcBfvwFMzSPJI0vwMzGO6y7qyr9Tgeb6/vQr
+6m/VRx5lUKUyJefqK+l/NHNZ1pYWHplGSMdf3DMVOp2ly//ezfgZtnm9CYuefqcz
+rZ8mGaXo7Iv667x4Y72KnrjhU60qew==
+=s8Q3
+-----END PGP SIGNATURE-----
+
+--OrvEvYTS95KwbZmH--
