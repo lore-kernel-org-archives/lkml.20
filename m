@@ -1,83 +1,102 @@
-Received: from forward502a.mail.yandex.net (forward502a.mail.yandex.net [178.154.239.82])
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE84429CE9;
-	Wed, 23 Sep 2026 07:33:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57ADD44CF37;
+	Wed, 23 Sep 2026 07:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790148799; cv=none; b=N28eFTkHOk6tBDQqXV23zVbFQLpNr7awtI/gRy5Yyz7+iyD6KDS7e01u9ycYYYJ+NEC71TMuDliEpwu2FXacbZkpa2Jcs5apprrH8dF1GvdIopAi/kDSbVmBNxujJKy3Sh3NqbBAdeYci29FHZ/rLvii9d2yqaAPnvDW6BWwDVM=
+	t=1790148840; cv=none; b=niVBTrokYcdFpvlWz8zGGDSgfGspMQjzeIPKJf5sFqC/wRLOutpEztV6IyHw5cO053bUe4aU6TjYq7KpR6OwA3yMEhAheor49oxxcXqo7cKljLS7YTrRhFAhsXFgwH9VFs3M9LJPuTdaN8iu/eGzakXhiK/wtbv9Ajsjj6RrJoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790148799; c=relaxed/simple;
-	bh=j9K7038HQlqGAJDtLdBxvW9ZeIsq2TVZGyQYLXt5Nck=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eoupa+rM/Y2fAicbPxbEbvHKrKXdSrqvbYmDcyMoZcFqxlSa25yEJ6a6J+Fm3HLS65KIkH2eGCkgfEw4EFsFWYTEinZk0R8q8nXPt3SN7UNrXjjkKaQ1x/vARxdQPotWN8o4HMW09lkCybIxZhV9sJOyph+VVFiLa8prGEhwMsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sezginduran.net; spf=pass smtp.mailfrom=sezginduran.net; dkim=fail (0-bit key) header.d=sezginduran.net header.i=@sezginduran.net header.b=USJZhr/O reason="key not found in DNS"; arc=none smtp.client-ip=178.154.239.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sezginduran.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sezginduran.net
+	s=arc-20240116; t=1790148840; c=relaxed/simple;
+	bh=M39+igoGLIwondFbgByGrW/eWy9yRSeWK1t9WWtncuk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=P2a2zqtnpz3BtSv1x0yETUYmV27nWgDJiX2HoVi5II40cs+joqykRR9rVXaGQz/uuZkK/Iae7yDRM8ZVriUYYJbB1dHgVfsJGU1FV5SGy+mPgNO2LL7mvZpVSobh4dOluOQcHSjzEBPo7tHn8LxzhzeJ/WWmRDLSxhdMyJvdEOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=cIbtTtrc; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=sezginduran.net header.i=@sezginduran.net header.b="USJZhr/O"
-Received: from mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net [IPv6:2a02:6b8:c15:340d:0:640:ad51:0])
-	by forward502a.mail.yandex.net (postfix) with ESMTPS id 1B4E389B8A;
-	Wed, 23 Sep 2026 10:27:36 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net (smtp) with ESMTPSA id VRWR4DBfVCg0-BDEuOpqA;
-	Wed, 23 Sep 2026 10:27:35 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sezginduran.net;
-	s=mail; t=1790148455;
-	bh=JxNhnZVX0zisr9Q6dCty2PkG5yvkM2Jo3j4bOUjwosE=;
-	h=From:In-Reply-To:Cc:Date:References:To:Subject:Message-ID;
-	b=USJZhr/OFDp0RHs8/5Wl4TEUHYcG5kXaPMz+lV3oYlbzLrQlwr2xO0AFbbyVIOWW1
-	 7mfny93kS45+IpakLHNPQlCrTmtcSrRt6dORfSaPcT58d/xO5nlggjPBEIKPW1eUec
-	 Ji9nT41j+ZawJ35xWFYdvMb+SDJJNJM/7CIAq+Ew=
-Authentication-Results: mail-nwsmtp-smtp-production-main-95.vla.yp-c.yandex.net; dkim=pass header.i=@sezginduran.net
-Message-ID: <e0bf7dfe-c03d-4fa6-abdd-ac88cab8faa8@sezginduran.net>
-Date: Wed, 23 Sep 2026 10:27:31 +0300
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="cIbtTtrc"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Unsubscribe-Post:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=ga3qyzMoZilCY7ey+Tpyr8hgVvSITFqdTm2ZHDsEJVE=; b=cIbtTtrcmPW3vkTjiYSTMTHEmI
+	m6y3WBXG50ncm9PliRTCtrzIATWBuGr+xW7U+ojHkzKS0ZPT+TPdibE+nZr0mmB8vgnpllV8Y0M+5
+	GjAr273xZACx/SmmsHVgpAC3iZkkBuA24HpOrvLmUNOn1AklI2BD9ZnWehzCnT42EHTmQ+CtjcuD+
+	apsfhDIr+vdngzl1ZmvoOBanNI5AQ8Xlj5V5jzftpUnb/y6WOj+f5L99MDQ8cUduKcv4wY3l68Av7
+	WbK3sj95a/MufKj7+pYZdflFMglQfHVXlvaHrhcStvPsaZMSF8C6iuCjwyQbeQgS6pHhzDBMyxV3c
+	vTtf4MYQ==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:33340 helo=localhost.localdomain)
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1x9H2S-00000009mhH-2NHf;
+	Wed, 23 Sep 2026 09:05:07 +0200
+From: Primoz Fiser <primoz.fiser@norik.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	upstream@lists.phytec.de,
+	Yunus Bas <y.bas@phytec.de>
+Subject: [PATCH 1/2] ARM: dts: imx6dl: Add a label to cpu1 node
+Date: Wed, 23 Sep 2026 09:05:04 +0200
+Message-Id: <20260923070505.494949-2-primoz.fiser@norik.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260923070505.494949-1-primoz.fiser@norik.com>
+References: <20260923070505.494949-1-primoz.fiser@norik.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] staging: sm750fb: mark g_fbmode as const
-To: =?UTF-8?Q?I=C3=B1aki_Sobera_Sotomayor?= <inakisobera8@gmail.com>,
- sudipm.mukherjee@gmail.com, teddy.wang@siliconmotion.com,
- gregkh@linuxfoundation.org
-Cc: linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260922225501.1792665-1-inakisobera8@gmail.com>
-Content-Language: tr
-From: Ahmet Sezgin Duran <ahmet@sezginduran.net>
-In-Reply-To: <20260922225501.1792665-1-inakisobera8@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On 9/23/26 1:55 AM, Iñaki Sobera Sotomayor wrote:
-> The g_fbmode array of pointers is only used during module initialization
-> to parse display options and is never modified. Marking both the pointers
-> and the array const allows the compiler to place it in .rodata, which
-> avoids accidental modifications and cleans up a checkpatch warning.
-> 
-> Signed-off-by: Iñaki Sobera Sotomayor <inakisobera8@gmail.com>
-> ---
->   drivers/staging/sm750fb/sm750.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-> index 8b93bfeb2..c3f391cdd 100644
-> --- a/drivers/staging/sm750fb/sm750.c
-> +++ b/drivers/staging/sm750fb/sm750.c
-> @@ -12,7 +12,7 @@
->   static int g_hwcursor = 1;
->   static int g_noaccel __ro_after_init;
->   static int g_nomtrr __ro_after_init;
-> -static const char *g_fbmode[] = {NULL, NULL};
-> +static const char * const g_fbmode[] = {NULL, NULL};
->   static const char *g_def_fbmode = "1024x768-32@60";
->   static char *g_settings;
->   static int g_dualview __ro_after_init;
+From: Yunus Bas <y.bas@phytec.de>
 
-Did you compile this patch? While SM750 module is enabled?
+The cpu1 is missing a label for further reference. Since cpu0 has
+already a label, add also one for cpu1 node, so it can be referenced to
+add or modify cpu specific properties the same way as cpu0.
 
-Regards,
-Ahmet Sezgin Duran
+Signed-off-by: Yunus Bas <y.bas@phytec.de>
+Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
+---
+ arch/arm/boot/dts/nxp/imx/imx6dl.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6dl.dtsi b/arch/arm/boot/dts/nxp/imx/imx6dl.dtsi
+index dc919e09a505..78092d94f265 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6dl.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6dl.dtsi
+@@ -48,7 +48,7 @@ cpu0: cpu@0 {
+ 			nvmem-cell-names = "speed_grade";
+ 		};
+ 
+-		cpu@1 {
++		cpu1: cpu@1 {
+ 			compatible = "arm,cortex-a9";
+ 			device_type = "cpu";
+ 			reg = <1>;
+-- 
+2.34.1
+
