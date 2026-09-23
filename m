@@ -1,381 +1,165 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E7944605B;
-	Wed, 23 Sep 2026 06:35:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612AD443AB8;
+	Wed, 23 Sep 2026 06:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790145351; cv=none; b=fomMZHL3H9QAsV2ICLHfeoDzOEZCbPvBVwiBtZagz5VJs80e1wSYtVd6pd29TcEidIdF8yWE6wZtrvkXzwrmFnS1nkrLPb7/8IiSvecAbaiSrcmEp0fKzNvEE1ZCIj763h+oRvQrJcV7FqRBgTVKKFYx23AccUYmr2/NLGAcOYM=
+	t=1790145363; cv=none; b=s91MviKZPUAFUaOc9+K9/HGk3cV7+ud7kF0OAiGKU4VZX/LNFXrCCtYgkHrvSoaS9beWCk9IQSesYvMuiHHQ13RfX2+F9StCt4/ev8BqS0eaYKnk4jPQ8KpvPs1a9UxTQPd7ElCZ0aKHJw9SkaQ44Zjp36yF+oMrqQs0M56GA20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790145351; c=relaxed/simple;
-	bh=uWMyBK+GEIC8XIjvo+9hH4bmP0RZRas3U1WVp92xNUY=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LgbnLPDH7Go7vMlD+hX1c3RKrUfrw4ZIjbA+96bgfnsXe5AjufzFKkIzMz4+y/re2e9a8bX2Tyn9CCIcxuX1ZQSDKlI6L3mXHRnEDvtj8hGTE+zrH6ShQoKr5BlP/bj4nYIRvY7PtADG1Yx5yQlJE/RHQfkZicUcvT037SCQ58o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ew699ooy; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1790145363; c=relaxed/simple;
+	bh=e3EV+bgTQMNIGaDDugrfwsPK65Buz/F2IuA6IxfKJ1A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XsCBT1UbgUExHmCtaC5SIpJuV3ObO/sWJfqqA0aPxTDmJIGV80So5QYSYrd6ggh4lVoZHoG274lO6A4A91NUfzvUjdvTYnoWjLF+g+DiS95wqu/tOZcfNzboPT8lGPSzRSLWFfeT0JBsHz6o6U1ozg42grussnk844EfdZmzUB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y6nkKtCz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ew699ooy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1790145346; x=1821681346;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=uWMyBK+GEIC8XIjvo+9hH4bmP0RZRas3U1WVp92xNUY=;
-  b=ew699ooyru2h82RD6HHWDIfTqlLrVUhUvkEPvr6qRTRp8UH3FwsTuHg5
-   EyAT8b2Pvux585t480GfG0bbasX7csL6ifvQSQlVUqI/LqSHAAUx1ax6B
-   rI8p6s1ysPCpkRx04cZfkNfdD5U64Yp4mYp1sJpfNBaOdbG+2vPXgwKHk
-   AhIR4bcnD0fUnboBVlVcioLcYiotJJlMZRd0AwjFo6MIElqll2Vsh4SKV
-   XuISjKrgGnVl4UArtKESz25Q9SYtDskM0G8JYKoFO8VJmWHnnARdNGHNF
-   4gJZl4mCokX1iBngi1qtFQ3QB5xtUisTBd9LiNCMxempZ0JLpHJTf+lEB
-   Q==;
-X-CSE-ConnectionGUID: DjSYN1hFTa6DTU9vOVwW+w==
-X-CSE-MsgGUID: FCR6vOsSRQGXyF3ZG4siEw==
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="231143838"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 22 Sep 2026 23:35:34 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.85.144) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Tue, 22 Sep 2026 23:35:33 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 22 Sep 2026 23:35:29 -0700
-Date: Wed, 23 Sep 2026 08:35:29 +0200
-From: Daniel Machon <daniel.machon@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <horatiu.vultur@microchip.com>,
-	<steen.hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
-	<ast@kernel.org>, <daniel@iogearbox.net>, <hawk@kernel.org>,
-	<john.fastabend@gmail.com>, <sdf@fomichev.me>, <herve.codina@bootlin.com>,
-	<arnd@arndb.de>, <gregkh@linuxfoundation.org>, <mohsin.bashr@gmail.com>,
-	<richardcochran@gmail.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH net-next v7 03/14] net: microchip: fdma: add PCIe ATU
- support
-Message-ID: <20260923063529.qm35iz2qjxgkvowh@DEN-DL-M70577.microsemi.net>
-References: <20260918-lan966x-pci-fdma-v7-3-0ecc179c8a2c@microchip.com>
- <179008204420.2160803.14375469578712775106@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y6nkKtCz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F34E1F000FF;
+	Wed, 23 Sep 2026 06:35:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790145353;
+	bh=0lkUVys8gvUjF/9PcP1iToEGr3wc3OwcQw4hSpUPIN0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Y6nkKtCzEeqId9jMLa0VpqG7vVmn6qXI47fFEsnF917E5SKaQy8E14ioPXN/eoegQ
+	 CfgIhwCcqL1okZeQtygWog5zd0RFe+uSsZXrzBmPHzWXEJtXG4ypSy+1uD5rFx9Cj7
+	 l/9d6pUxhAMnzY4DpakXGPQ7BZPsnQECF3dV0jopfD4LGmhoEGsvCxRlCxIert7RYm
+	 IE2KgQ2Xs93KwTdDGmGbOPGanWdhNR0wzp8hJs1oXu/lL57s9Qm0trbH93804Yz3oh
+	 kTdqLdQ5HpGG0fDu+C+Zc5TGoeH2uT3I0dfV6+9T45m+fCB7i6NV574TgvmTMJisBa
+	 ruNJ0CX+0KYVA==
+Message-ID: <7ea6e90a-e2fb-4793-b6ea-e292388bdfdf@kernel.org>
+Date: Wed, 23 Sep 2026 08:35:47 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [linus:master] [mm/secretmem] 97d34aa65c:
+ stress-ng.secretmem.ops_per_sec 99.5% regression
+Content-Language: en-US
+To: kernel test robot <yi1.lai@intel.com>, Lorenzo Stoakes <ljs@kernel.org>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Daehyeon Ko <4ncienth@gmail.com>,
+ Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>, "David S. Miller"
+ <davem@davemloft.net>, Hagen Paul Pfeifer <hagen@jauu.net>,
+ Jakub Kacinski <kuba@kernel.org>,
+ James Bottomley <james.bottomley@hansenpartnership.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Michal Hocko <mhocko@suse.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Suren Baghdasaryan
+ <surenb@google.com>, linux-mm@kvack.org
+References: <202609230824.7a9189aa-lkp@intel.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <202609230824.7a9189aa-lkp@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179008204420.2160803.14375469578712775106@kernel.org>
 
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider.
+On 9/23/26 03:00, kernel test robot wrote:
 > 
-> Critical: 0 · High: 0 · Medium: 1 · Low: 3
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+> Hello,
 > 
-> - [Medium] fdma_pci_atu_region_map() programs base/limit/target and then
->   issues the region-enable write (CTRL2 bit31) and returns immediately;…
-> - [Low] fdma_pci_atu_region_map()
->   (drivers/net/ethernet/microchip/fdma/fdma_pci.c:138) validates that…
-> - [Low] fdma_pci_atu_configure_translation() programs lower/upper base
->   (+0x8/+0xc), limit (+0x10) and lower/upper target (+0x14/+0x18), and…
-> - [Low] fdma_pci_atu_translate_addr() (fdma_pci.c:181) computes
->   region->base_addr + (addr - region->target_addr) with no check that…
+> kernel test robot noticed a 99.5% regression of stress-ng.secretmem.ops_per_sec on:
 > 
-> --
-> 
-> net: microchip: fdma: add PCIe ATU support
-> 
-> Adds a PCIe ATU layer for the Microchip FDMA engine so that a lan966x or
-> lan969x acting as a PCIe endpoint can reach host memory. The outbound
-> address space 0x10000000-0x1fffffff is split into six regions that are
-> claimed and programmed when FDMA buffers are allocated.
-> 
-> A few questions on the new ATU code below.
-> 
-> > diff --git a/drivers/net/ethernet/microchip/fdma/fdma_api.c b/drivers/net/ethernet/microchip/fdma/fdma_api.c
-> > index e78c3590da9e..a3c9e3097c5c 100644
-> > --- a/drivers/net/ethernet/microchip/fdma/fdma_api.c
-> > +++ b/drivers/net/ethernet/microchip/fdma/fdma_api.c
-> > @@ -127,6 +127,50 @@ void fdma_free_phys(struct fdma *fdma)
-> >  }
-> >  EXPORT_SYMBOL_GPL(fdma_free_phys);
-> >
-> > +#if IS_ENABLED(CONFIG_MCHP_LAN966X_PCI)
-> > +/* Allocate coherent DMA memory and map it in the ATU. */
-> > +int fdma_alloc_coherent_and_map(struct device *dev, struct fdma *fdma,
-> > +                             struct fdma_pci_atu *atu)
-> > +{
-> > +     struct fdma_pci_atu_region *region;
-> > +     int err;
-> > +
-> > +     if (WARN_ON(fdma->atu_region))
-> > +             return -EBUSY;
-> > +
-> > +     /* The ATU cannot express a limit finer than the region granularity, so
-> > +      * the hardware widens the programmed limit to that boundary. Pad the
-> > +      * allocation to match, or the outbound window would extend past the
-> > +      * memory we own.
-> > +      */
-> > +     fdma->size = ALIGN(fdma->size, FDMA_PCI_ATU_REGION_ALIGN);
-> > +
-> > +     err = fdma_alloc_coherent(dev, fdma);
-> > +     if (err)
-> > +             return err;
-> > +
-> > +     region = fdma_pci_atu_region_map(atu, fdma->dma, fdma->size);
-> > +     if (IS_ERR(region)) {
-> > +             fdma_free_coherent(dev, fdma);
-> > +             return PTR_ERR(region);
-> > +     }
-> > +
-> > +     fdma->atu_region = region;
-> > +
-> > +     return 0;
-> > +}
-> > +EXPORT_SYMBOL_GPL(fdma_alloc_coherent_and_map);
-> > +
-> > +/* Free coherent DMA memory and unmap the memory in the ATU. */
-> > +void fdma_free_coherent_and_unmap(struct device *dev, struct fdma *fdma)
-> > +{
-> > +     fdma_pci_atu_region_unmap(fdma->atu_region);
-> > +     fdma->atu_region = NULL;
-> > +     fdma_free_coherent(dev, fdma);
-> > +}
-> > +EXPORT_SYMBOL_GPL(fdma_free_coherent_and_unmap);
-> > +#endif
-> 
-> [ ... ]
-> 
-> > diff --git a/drivers/net/ethernet/microchip/fdma/fdma_pci.c b/drivers/net/ethernet/microchip/fdma/fdma_pci.c
-> > new file mode 100644
-> > index 000000000000..dd1dc46cbc9d
-> > --- /dev/null
-> > +++ b/drivers/net/ethernet/microchip/fdma/fdma_pci.c
-> > @@ -0,0 +1,208 @@
-> 
-> [ ... ]
-> 
-> > +#define FDMA_PCI_ATU_ADDR            0x300000
-> > +#define FDMA_PCI_ATU_IDX_SIZE        0x200
-> > +#define FDMA_PCI_ATU_ENA_REG         0x4
-> > +#define FDMA_PCI_ATU_ENA_BIT         BIT(31)
-> > +#define FDMA_PCI_ATU_LWR_BASE_ADDR   0x8
-> > +#define FDMA_PCI_ATU_UPP_BASE_ADDR   0xc
-> > +#define FDMA_PCI_ATU_LIMIT_ADDR      0x10
-> > +#define FDMA_PCI_ATU_LWR_TARGET_ADDR 0x14
-> > +#define FDMA_PCI_ATU_UPP_TARGET_ADDR 0x18
-> 
-> [ ... ]
-> 
-> > +/* Configure the address translation in the ATU. */
-> > +static void
-> > +fdma_pci_atu_configure_translation(struct fdma_pci_atu_region *region)
-> > +{
-> > +     struct fdma_pci_atu *atu = region->atu;
-> > +     int idx = region->idx;
-> > +
-> > +     writel(lower_32_bits(region->base_addr),
-> > +            fdma_pci_atu_addr_get(atu->addr,
-> > +                                  FDMA_PCI_ATU_LWR_BASE_ADDR, idx));
-> > +
-> > +     writel(upper_32_bits(region->base_addr),
-> > +            fdma_pci_atu_addr_get(atu->addr,
-> > +                                  FDMA_PCI_ATU_UPP_BASE_ADDR, idx));
-> > +
-> > +     /* The OB address space lies entirely below 4GB, so the limit always
-> > +      * fits the lower limit register and the upper one is left alone.
-> > +      */
-> > +     writel(region->limit_addr,
-> > +            fdma_pci_atu_addr_get(atu->addr, FDMA_PCI_ATU_LIMIT_ADDR, idx));
-> > +
-> > +     writel(lower_32_bits(region->target_addr),
-> > +            fdma_pci_atu_addr_get(atu->addr,
-> > +                                  FDMA_PCI_ATU_LWR_TARGET_ADDR, idx));
-> > +
-> > +     writel(upper_32_bits(region->target_addr),
-> > +            fdma_pci_atu_addr_get(atu->addr,
-> > +                                  FDMA_PCI_ATU_UPP_TARGET_ADDR, idx));
-> > +}
-> 
-> [Severity: Low]
-> The offsets used here match the DesignWare unrolled iATU layout: block at
-> DBI + 0x300000, 0x200 stride per region, Control 2 at +0x4 with enable in
-> bit 31, base at +0x8/+0xc, limit at +0x10, target at +0x14/+0x18.
-> 
-> That layout also has a Control 1 register at +0x0 selecting the outbound
-> TLP type, the function number and the ECRC/TD bits, and it is never
-> written here. fdma_pci_atu_init() claims all six outbound regions and
-> only clears Control 2, so each region keeps whatever Control 1 value it
-> already held.
-> 
-> The generic driver for the same block always programs it explicitly
-> before enabling:
-> 
-> drivers/pci/controller/dwc/pcie-designware.c:dw_pcie_prog_outbound_atu() {
->         ...
->         val = atu->type | atu->routing | PCIE_ATU_FUNC_NUM(atu->func_no);
->         ...
->         dw_pcie_writel_atu_ob(pci, atu->index, PCIE_ATU_REGION_CTRL1, val);
->         ...
-> }
-> 
-> Is it safe to inherit Control 1 from whatever configured the outbound
-> windows before the driver probes, or should it be programmed for the
-> memory TLP type explicitly?
-> 
-> > +/* Map a host DMA address into a free outbound region. */
-> > +struct fdma_pci_atu_region *
-> > +fdma_pci_atu_region_map(struct fdma_pci_atu *atu, u64 target_addr, int size)
-> > +{
-> > +     struct fdma_pci_atu_region *region;
-> > +
-> > +     if (!atu)
-> > +             return ERR_PTR(-EINVAL);
-> > +
-> > +     if (size <= 0)
-> > +             return ERR_PTR(-EINVAL);
-> > +
-> > +     if (size > fdma_pci_atu_region_size())
-> > +             return ERR_PTR(-ERANGE);
-> > +
-> > +     /* The ATU region base is only ever aligned to FDMA_PCI_ATU_REGION_ALIGN;
-> > +      * require the same alignment of the host target address, since the ATU
-> > +      * translates addr - target_addr + base_addr and any misalignment here
-> > +      * would shift every translated address by the same amount.
-> > +      */
-> > +     if (!IS_ALIGNED(target_addr, FDMA_PCI_ATU_REGION_ALIGN))
-> > +             return ERR_PTR(-EINVAL);
-> 
-> [Severity: Low]
-> Should size also be checked against FDMA_PCI_ATU_REGION_ALIGN here?
-> 
-> fdma_pci.h documents the requirement for both arguments:
-> 
-> /* Outbound regions are 64KB granular (datasheet section 3.24.7.4.1), so both
->  * the region base and the mapped size must be aligned to this.
->  */
-> 
-> /* Map a host DMA address into a free ATU region. target_addr and size must be
->  * FDMA_PCI_ATU_REGION_ALIGN aligned; a misaligned target_addr returns -EINVAL.
->  */
-> 
-> but only target_addr is verified, and the unaligned value then goes
-> straight into the hardware limit:
-> 
->         region->limit_addr = region->base_addr + size - 1;
-> 
-> Per the commit message the hardware widens that limit to the 64KB
-> boundary, so an unaligned size would leave the outbound window covering
-> up to 64KB - 1 beyond the buffer.
-> 
-> The single in-tree caller, fdma_alloc_coherent_and_map(), pads with
-> fdma->size = ALIGN(fdma->size, FDMA_PCI_ATU_REGION_ALIGN) before
-> allocating, so nothing can hit this today, but the invariant lives in the
-> caller while fdma_pci_atu_region_map() is exported. Would it make sense
-> to enforce it in the primitive too?
-> 
-> > +     mutex_lock(&atu->lock);
-> > +
-> > +     region = fdma_pci_atu_region_get_free(atu);
-> > +     if (IS_ERR(region)) {
-> > +             mutex_unlock(&atu->lock);
-> > +             return region;
-> > +     }
-> > +
-> > +     region->target_addr = target_addr;
-> > +     region->limit_addr = region->base_addr + size - 1;
-> > +     region->in_use = true;
-> > +
-> > +     fdma_pci_atu_configure_translation(region);
-> > +     fdma_pci_atu_region_enable(region);
-> > +
-> > +     mutex_unlock(&atu->lock);
-> > +
-> > +     return region;
-> > +}
-> > +EXPORT_SYMBOL_GPL(fdma_pci_atu_region_map);
-> 
-> [Severity: Medium]
-> Does the enable write need to be read back before the region is treated
-> as mapped?
-> 
-> fdma_pci_atu_region_enable() issues a posted write of bit 31 to Control 2
-> and fdma_pci_atu_region_map() returns immediately, so the caller can arm
-> the FDMA channel (later in the series
-> lan966x_fdma_pci_rx_alloc() programs the LLP with region->base_addr and
-> lan966x_fdma_rx_start() starts the channel) before the outbound window is
-> known to be live. There is also no way for the API to report a window
-> that never enables.
-> 
-> The generic driver for this register layout polls instead:
-> 
-> drivers/pci/controller/dwc/pcie-designware.c:dw_pcie_prog_outbound_atu() {
->         ...
->         /*
->          * Make sure ATU enable takes effect before any subsequent config
->          * and I/O accesses.
->          */
->         for (retries = 0; retries < LINK_WAIT_MAX_IATU_RETRIES; retries++) {
->                 val = dw_pcie_readl_atu_ob(pci, atu->index, PCIE_ATU_REGION_CTRL2);
->                 if (val & PCIE_ATU_ENABLE)
->                         return 0;
-> 
->                 mdelay(LINK_WAIT_IATU);
->         }
->         ...
->         return -ETIMEDOUT;
-> }
+> commit: 97d34aa65c29cca85e3e9050f4c936389b38a054 ("mm/secretmem: properly account locked pages") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
 
-Issue addressed and dismissed in v6 - same finding, unchanged.
+Well maybe there is some inefficiency that can be fixed (haven't checked)
+but if it's the cost for proper accounting then so be it? I doubt creating
+secretmem pages is something userspace would have to do intensively enough
+to matter.
 
+> testcase: stress-ng
+> config: x86_64-rhel-9.4
+> compiler: gcc-14
+> test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 256G memory
+> parameters:
 > 
-> The same applies in reverse on teardown: fdma_pci_atu_region_unmap()
-> issues the disable write and fdma_free_coherent_and_unmap() calls
-> fdma_free_coherent() right after, without confirming the window is down
-> before those pages go back to the allocator.
+> 	nr_threads: 100%
+> 	testtime: 60s
+> 	test: secretmem
+> 	cpufreq_governor: performance
 > 
-> > +/* Translate a host DMA address to the corresponding OB address. */
-> > +u64 fdma_pci_atu_translate_addr(struct fdma_pci_atu_region *region, u64 addr)
-> > +{
-> > +     return region->base_addr + (addr - region->target_addr);
-> > +}
-> > +EXPORT_SYMBOL_GPL(fdma_pci_atu_translate_addr);
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <yi1.lai@intel.com>
+> | Closes: https://lore.kernel.org/oe-lkp/202609230824.7a9189aa-lkp@intel.com
 > 
-> [Severity: Low]
-> Can this return an address belonging to a different region?
 > 
-> All six regions are contiguous slices of the same outbound space
-> (base_addr = 0x10000000 + i * region_size), and nothing here checks that
-> addr falls inside [target_addr, target_addr + mapped size) or that
-> region->in_use is still set. An address outside the mapping silently
-> lands in a neighbouring window and the FDMA would then read or write
-> another buffer's host target rather than failing.
+> Details are as below:
+> -------------------------------------------------------------------------------------------------->
 > 
-> fdma_pci_atu_region_unmap() also resets target_addr to 0 while leaving
-> base_addr alone:
+> The kernel config and materials to reproduce are available at:
+> https://download.01.org/0day-ci/archive/20260923/202609230824.7a9189aa-lkp@intel.com
 > 
->         region->target_addr = 0;
->         region->in_use = false;
+> =========================================================================================
+> compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
+>   gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-spr-r02/secretmem/stress-ng/60s
 > 
-> so a translation on a released region returns base_addr + addr.
+> commit: 
+>   35b0fb391b ("mm/mremap: reset unfaulted VMA page offset for MREMAP_DONTUNMAP")
+>   97d34aa65c ("mm/secretmem: properly account locked pages")
 > 
-> The in-tree users, lan966x_fdma_pci_dataptr_cb() and
-> lan966x_fdma_pci_nextptr_cb(), only pass offsets inside the mapped
-> buffer, and fdma_free_coherent_and_unmap() clears fdma->atu_region, so no
-> current path feeds a bad address. Since the region already stores
-> limit_addr, would a bounds and in_use assertion be worth adding?
+> 35b0fb391b0df573 97d34aa65c29cca85e3e9050f4c
+> ---------------- --------------------------- 
+>          %stddev     %change         %stddev
+>              \          |                \  
+>    6080503           -99.6%      23092 ±  3%  stress-ng.secretmem.ops
+>      85584           -99.5%     385.28 ±  3%  stress-ng.secretmem.ops_per_sec
+>      71.48           -16.0%      60.07        stress-ng.time.elapsed_time
+>      71.48           -16.0%      60.07        stress-ng.time.elapsed_time.max
+>      97435 ±  2%   +1276.4%    1341103        stress-ng.time.involuntary_context_switches
+>     230308           -96.1%       9096        stress-ng.time.maximum_resident_set_size
+>   18401243         +3349.6%  6.348e+08        stress-ng.time.minor_page_faults
+>      20417            -8.7%      18639        stress-ng.time.percent_of_cpu_this_job_got
+>      14581           -25.0%      10937        stress-ng.time.system_time
+>      13.34         +1858.5%     261.33        stress-ng.time.user_time
+>       6898 ±  2%  +96037.7%    6631576 ±  3%  stress-ng.time.voluntary_context_switches
 > 
-> [ ... ]
+> Disclaimer:
+> Results have been estimated based on internal Intel analysis and are provided
+> for informational purposes only. Any difference in system hardware or software
+> design or configuration may affect actual performance.
 > 
-> --
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c%40microchip.com
+> 
+
