@@ -1,240 +1,93 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4393382CB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:27:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33732882D6;
+	Wed, 23 Sep 2026 01:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126851; cv=none; b=YDa4Tp8TDU7oiEm+PpIiHFQakatrkip3OJgR8ZRDkHl+ER55li+7f6BkfdT2wxB0ABscTx9eS+vfkMi1pUMdGJU0bf1+QqTfKz9l9tk273I/XofbsL+TK0+fsttbB4KICULZeOnLJcnQql3IkaFnKuBxhTG29sgV/rKnQBGkbM4=
+	t=1790126874; cv=none; b=lMd9dn73HnshOhlnHvtaodd/LyuaqY0egBxWUNgTbjw0DldMpogYaxYeygQDHY72Md0J+B91AVaLeXiRU7yNU/WfiwlpPEu9AtHt/XUmSl3itN9XB97WifhwSOP5Z+Plj5hQKa8v+aqlz48ITQYWJ+BhszWC0fFIW7Eg5lM81Sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126851; c=relaxed/simple;
-	bh=MWZEeEEHXxP0UMNeEEcffTntxJwcZE16u9STmxmylgs=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=Q7pc7idaz90BksMyV6OMtv7I/cGngk72JkfDMMmheNnqo5MjYV2DSytco54eZHWRdxb4z3UK2z5dPimJ9rKZKC6Gaq2oaaD3m9SlSgU3y5FE+BhxyMVkOmKTknR0S/CmLHyMTIl75Mu2z1OiuV+T2+Trr09fEab0Vz0yEt6VIGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZBbc9Cy/; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790126874; c=relaxed/simple;
+	bh=6lXYIkXsCGhMWgdtU2+XGolZIjsRdbNYIm2VlwRF74Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KB1KLIEKkjuRNYgxQ9iVVYKBFlTMtC17jKkf7xWCK/l7v2ODe6XVxnutzXi0gtmFaFuDDw0RNVJP/7e7vwqy6csvxHbqwABZwaGVYW/jH9dr23rzF61PXv1dG9WJcLvEb26EIJZkc41lGrMsza7V15E7VXK6Dbap5z4H8cjKmhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b7/yIza1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZBbc9Cy/"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-8716a5baf64so6603587b3.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:27:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790126848; x=1790731648; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=lWen8M3Dy9y4fMx+Bf5KiQ+THttX5a/EDRsfysX8uYE=;
-        b=ZBbc9Cy/EYasTbBOc4eTC8ZPohEoDvIRmxx+1fOsWfRxpMXWytFzO6Vu/MxEeWkan4
-         d8aA3CZpTnw5bzhuKkRvgzlu1X4QC5T2MWCLiP2Y1WiiVIu6oykqAYodsLhB3NklCyey
-         pqKD2ISqRexRkV+vdm1c0V5Uw2YJ0bfOjC2bbvdS4ZjXoUbycMEtZx3gLyYNd4FEi5Le
-         n6wGc7ec3ToAUEuFQMcDRyowZqROeAqjbo+jVT4W4SMirNm9Cu6br67gThtYP1LVJjPZ
-         Pn7GSRxjX0UN5hgFP5wbVUjwXgzSL/3RHjBbBG+aapx07xB/5WvjokxdInk+0MY7XOv+
-         2Psw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790126848; x=1790731648;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lWen8M3Dy9y4fMx+Bf5KiQ+THttX5a/EDRsfysX8uYE=;
-        b=hyRlVXq+4JkLPrt2rwNpGzMAji+rCgfAmVp/qGF3ZLVxTNmvBYsvsfixX0DaM/Gft9
-         PtyOHEXq2EytOA9KLyv3UlyYG9GL2RXAYusvL6+ByvAnuEnKtTA/+IFnDBZ55RQgjgBJ
-         h+vIVMkF7q0zhp7G9KtILORsnboI9Ba71Rb3Ks052gQcT21qh7d+X3lwsZOhuHpGUzAi
-         cgqyNlw5FTrT5lesLwXYTdqO4kVs06iTXrvD+wC7CoiMpP2JVJ5R8nmzCq8Y2JSuXUNa
-         +4kYz/MeULdKmPGvSWUuP6LAIxn2UUGvH9mtpdWxCHtRytGMwy6tksjq4rvkO62RqoH/
-         6Oww==
-X-Forwarded-Encrypted: i=1; AKwUvByksLXN85O2jesYyGtAOBYV0A0VXF2anRwFpZlNVrvwCB7X0SvTSi5okL2oTKJPYw+trXq0ieY5Q8dpkHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRXYPeXBuJrr11rKTBFo4P0zLhYIvzWN32JhnSN5bf6qszMxLe
-	mVNuGNQNiWjM7vXBA+2jbLcBNcR/MD+9X7r36eh6xGEkMVjgO5cRL5W2
-X-Gm-Gg: AYBFou1cRvB/gG9c/zGCceHxd33yHHcz1TTtFEmkdKuHfkwpTiHHF8aZxew6/gcnqKY
-	CL9j2EKajZgAmEGPo27zU6YPxROfnR/dUvrEXCnuVntmPlCc/8bBmBTALyuDS4lB/V4VNbNYokF
-	o5BKShqW+I18rW6QKLPeF4/yCt4cPz6N7qToSxj4Dqr1fO4PKT/RDfUreBwCakf9TgOFu2KTq8b
-	7z4n1HHldOM5pwtSOcAOcoMq79h6v6Cla//8HHc64Ocw4tyOEzTe2yBpaEM+IOlLZ7o2aQLyJ6Q
-	2U+hfN2kAG1Jo84uBYXKT5L2ZvEedAZ60Zu5+UC0dFGV7byKbsOohcTa1K4AAzemCoLVoFqVshX
-	6tJoliLm7kTujbFEHlQhPugbklmzkvQEtwqXEyI3t4YQBGwxfA/XjLkhbN98uf2nxUDyfIcQQLF
-	ErWcOj6PlUCiViiRbjZQHenyfnWSmKmVeU1qFBJCSAIy35dW/WIVKr68RhM+N3PI9Mqcv+MgTPS
-	jHvPmng1PSbQqolM1E8+scG61oKyihwTztRs7gP0N9u0zA+OXir
-X-Received: by 2002:a05:690c:a703:b0:87c:32da:de03 with SMTP id 00721157ae682-8a45bb75aeemr4672467b3.69.1790126848128;
-        Tue, 22 Sep 2026 18:27:28 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a465dc9ebcsm4427937b3.20.2026.09.22.18.27.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 18:27:27 -0700 (PDT)
-Date: Tue, 22 Sep 2026 21:27:26 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- Paulos Yibelo <habte.yibelo@gmail.com>, 
- netdev@vger.kernel.org
-Cc: richard@nod.at, 
- anton.ivanov@cambridgegreys.com, 
- johannes@sipsolutions.net, 
- willemdebruijn.kernel@gmail.com, 
- jasowangio@gmail.com, 
- mst@redhat.com, 
- eperezma@redhat.com, 
- xuanzhuo@linux.alibaba.com, 
- andrew+netdev@lunn.ch, 
- pablo@netfilter.org, 
- fw@strlen.de, 
- phil@nwl.cc, 
- razor@blackwall.org, 
- idosch@nvidia.com, 
- dsahern@kernel.org, 
- davem@davemloft.net, 
- edumazet@google.com, 
- kuba@kernel.org, 
- pabeni@redhat.com, 
- horms@kernel.org, 
- linux-um@lists.infradead.org, 
- virtualization@lists.linux.dev, 
- netfilter-devel@vger.kernel.org, 
- coreteam@netfilter.org, 
- bridge@lists.linux.dev, 
- linux-kernel@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.2cdfef118aa1d@gmail.com>
-In-Reply-To: <willemdebruijn.kernel.259bc7096258d@gmail.com>
-References: <20260922030310.8684-1-habte.yibelo@gmail.com>
- <20260922030310.8684-2-habte.yibelo@gmail.com>
- <willemdebruijn.kernel.259bc7096258d@gmail.com>
-Subject: Re: [PATCH net v6 1/2] net: validate virtio checksum start after
- network header
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b7/yIza1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7C361F000FF;
+	Wed, 23 Sep 2026 01:27:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790126873;
+	bh=/08pGxKrLgqH3ERhly0BGeg2r9Qnfihq7jzAwh7thOQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=b7/yIza17KoIcJbVW0SsFsnrIaYGmaENCr/JDYQjp8vTfW1wZkKyvNUuDwSPHTsVN
+	 J03clZlPkW+FFdJZL3rngToL60D8ryQsTIBkQRHLzLj4D7XGdzLLazs5MaGAP6pOw8
+	 3Xa2LiY4xTekH9Hj/3CucNkLh0Lc4zl1fTaJnIKCFzcm17a4v56sfQ2+oH2+5/IfI+
+	 zhyu1zRMbKsX6K/EAZP7SY8hrXzrcphiH08wUIffWzdhq4G3gtPMxgWhFNItxFhtj7
+	 5MFZXax+40tDUFcoQMvzoiCdm4R0XcLUYGjUkIsHdgXZ2TmWqgtZb8hg6ds9WkV4/D
+	 N2Ipq9+eLp1mQ==
+Date: Tue, 22 Sep 2026 18:27:51 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: "Luck, Tony" <tony.luck@intel.com>
+Cc: alex@ghiti.fr, aou@eecs.berkeley.edu, babu.moger@amd.com,
+	baolin.wang@linux.alibaba.com, ben.horgan@arm.com, corbet@lwn.net,
+	cuiyunhui@bytedance.com, Dave.Martin@arm.com, james.morse@arm.com,
+	jgg@ziepe.ca, joro@8bytes.org, kevin.tian@intel.com,
+	palmer@dabbelt.com, pjw@kernel.org, reinette.chatre@intel.com,
+	robin.murphy@arm.com, shuah@kernel.org, tomasz.jeznach@linux.dev,
+	wangzhou1@hisilicon.com, will@kernel.org, xiaqinxin@huawei.com,
+	yuanzhu@bytedance.com, zengheng4@huawei.com,
+	zhangzhanpeng.jasper@bytedance.com, x86@kernel.org,
+	iommu@lists.linux.dev, linuxarm@huawei.com,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
+Subject: Re: Resctrl and I/O
+Message-ID: <arMrF51oJAXJrikO@thelio>
+References: <arKx__kOPe4B5gDW@agluck-desk3>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arKx__kOPe4B5gDW@agluck-desk3>
 
-Willem de Bruijn wrote:
-> Paulos Yibelo wrote:
-> > __virtio_net_hdr_to_skb() checks a minimum network-header length for
-> > CHECKSUM_PARTIAL packets. Its checksum start is relative to skb->data,
-> > but some callers have not established skb->network_header when they
-> > convert the virtio header.
-> > 
-> > Pass the data-relative L3 origin explicitly. Ethernet receive paths
-> > parse the frame and nested VLAN headers without changing skb state.
-> > AF_PACKET uses the frame's actual L3 origin even when the socket
-> > protocol is ETH_P_IP and the raw frame carries VLAN tags. Non-Ethernet
-> > AF_PACKET devices retain their established skb network offset.
-> > 
-> > Also pass the actual L3 protocol so IPv6 packets use the 40-byte base
-> > header minimum even without TCPv6 GSO. IFF_TUN obtains that protocol
-> > from the packet before skb->protocol is set. Name the Ethernet parser
-> > accordingly, use the same origin for tunnel validation, and propagate
-> > conversion failures in UML.
-> > 
-> > The bound remains a minimum; fragmentation paths separately validate
-> > the parsed IPv4 or IPv6 header length before completing a checksum.
-> > 
-> > Fixes: 49d14b54a527 ("net: test for not too small csum_start in virtio_net_hdr_to_skb()")
-> > Fixes: a2fb4bc4e2a6 ("net: implement virtio helpers to handle UDP GSO tunneling.")
-> > Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> > Link: https://lore.kernel.org/netdev/20260920004733.6473-2-habte.yibelo@gmail.com/
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: LLM
-> > Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> > ---
-> >  arch/um/drivers/vector_transports.c | 13 ++++-
-> >  drivers/net/tun_vnet.h              | 52 ++++++++++++++++-
-> >  drivers/net/virtio_net.c            | 10 +++-
-> >  include/linux/virtio_net.h          | 87 ++++++++++++++++++++++++-----
-> >  net/packet/af_packet.c              | 24 +++++++-
-> >  5 files changed, 163 insertions(+), 23 deletions(-)
+On Tue, Sep 22, 2026 at 09:51:11AM -0700, Luck, Tony wrote:
+> Patches for ARM[1] and RISC-V[2] are both at RFC status.
 > 
-> The fix may still miss the case IPv4 packets have options.
-> 
-> This version is a very large patch.
-> 
-> Untested shorter first suggestion by bot, which looks plausible as a
-> starting point for discussion.
+> They appear to be based on similar h/w capabilities where architecture
+> specific tags can be added to transactions from I/O devices by the IOMMU
+> servicing the device. Device enumeration is handled outside of the resctrl
+> file system.
 
-Cleaned up some more:
+Thanks for starting a discussion on this topic.
 
-    diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
-    index f4c652b1fa44..c24607af2aad 100644
-    --- a/drivers/net/tun_vnet.h
-    +++ b/drivers/net/tun_vnet.h
-    @@ -180,6 +180,9 @@ static inline int tun_vnet_hdr_put(int sz, struct iov_iter *iter,
-     static inline int tun_vnet_hdr_to_skb(unsigned int flags, struct sk_buff *skb,
-                           const struct virtio_net_hdr *hdr)
-     {
-    +    if ((flags & TUN_TYPE_MASK) == IFF_TUN)
-    +        skb_reset_network_header(skb);
-    +
-         return virtio_net_hdr_to_skb(skb, hdr, tun_vnet_is_little_endian(flags));
-     }
-     
-    @@ -199,6 +202,9 @@ tun_vnet_hdr_tnl_to_skb(unsigned int flags, netdev_features_t features,
-                 struct sk_buff *skb,
-                 const struct virtio_net_hdr_v1_hash_tunnel *hdr)
-     {
-    +    if ((flags & TUN_TYPE_MASK) == IFF_TUN)
-    +        skb_reset_network_header(skb);
-    +
+> RISC-V description of "architecture specific device tokens" sounds great.
+> I'll have to find some ares of /sys to provide the mapping of tokens to
+> "device groups". There's no association with IOMMUs, so this will be some
+> other path in /sys. Perhaps under /sys/firmware/acpi since the data comes
+> from ACPI IRDT table.
 
-    diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
-    index c381b916c1b5..02c448de0802 100644
-    --- a/include/linux/virtio_net.h
-    +++ b/include/linux/virtio_net.h
-    @@ -48,6 +48,42 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
-         return 0;
-     }
-     
-    +static inline int virtio_net_hdr_nh_min_len(const struct sk_buff *skb,
-    +                        unsigned int nh_min_len)
-    +{
-    +    int thoff = skb_transport_offset(skb);
-    +    __be16 proto;
-    +    int nhoff;
-    +
-    +    if (skb_network_header_was_set(skb)) {
-    +        nhoff = skb_network_offset(skb);
-    +        proto = skb->protocol;
-    +    } else {
-    +        if (unlikely(thoff < ETH_HLEN))
-    +            return -EINVAL;
-    +        nhoff = ETH_HLEN;
-    +        proto = eth_hdr(skb)->h_proto;
-    +    }
-    +
-    +    if (eth_type_vlan(proto)) {
-    +        proto = __vlan_get_protocol(skb, proto, &nhoff);
-    +        if (!proto)
-    +            return -EINVAL;
-    +    }
-    +
-    +    if (proto == htons(ETH_P_IP)) {
-    +        const struct iphdr *iph = (void *)(skb->data + nhoff);
-    +
-    +        if (unlikely(thoff < nhoff + sizeof(*iph)))
-    +            return -EINVAL;
-    +        nh_min_len = max_t(u32, iph->ihl * 4, sizeof(*iph));
-    +    } else if (proto == htons(ETH_P_IPV6)) {
-    +        nh_min_len = sizeof(struct ipv6hdr);
-    +    }
-    +
-    +    return nhoff + nh_min_len;
-    +}
-    +
-     static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
-                           const struct virtio_net_hdr *hdr,
-                           bool little_endian, u8 hdr_gso_type)
-    @@ -98,13 +134,15 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
-             u32 start = __virtio16_to_cpu(little_endian, hdr->csum_start);
-             u32 off = __virtio16_to_cpu(little_endian, hdr->csum_offset);
-             u32 needed = start + max_t(u32, thlen, off + sizeof(__sum16));
-    +        int min_thoff;
-     
-             if (!pskb_may_pull(skb, needed))
-                 return -EINVAL;
-     
-             if (!skb_partial_csum_set(skb, start, off))
-                 return -EINVAL;
-    -        if (skb_transport_offset(skb) < nh_min_len)
-    +        min_thoff = virtio_net_hdr_nh_min_len(skb, nh_min_len);
-    +        if (min_thoff < 0 || skb_transport_offset(skb) < min_thoff)
-                 return -EINVAL;
+resctrl could parse iommu_group:<id> itself which should cover the IOMMU
+case on ARM and RISC-V. Maybe other prefixes could be passed on to arch
+code?
+
+> Need an info file to tell users the format and source for device tokens.
+
+I agree and it could list which token namespaces the platform uses.
+
+> I'd like to avoid limiting resctrl monitoring of CPU activity due to the small
+> number of I/O RMIDs. Perhaps don't include a "devices" file or mon_data/{i/o
+> events} files in resctrl group directories when rdtgroup::mon::rmid >=
+> num_io_rmids? But that feels clumsy.
+
+There's no separate I/O ID space on RISC-V that could be smaller. The
+IDs a device carries are the same IDs the hart (e.g. cpu) carries. The
+number of RCIDs (e.g. CLOSID) and MCIDs (e.g. RMID) is a property of
+each capacity or bandwidth (CBQRI) controller. The RISC-V IOMMU spec
+also requires the IOMMU to support RCID and MCID at least as wide as any
+hart.
+
+Thanks,
+Drew
