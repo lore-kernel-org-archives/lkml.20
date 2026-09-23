@@ -1,298 +1,97 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F385A53C3A0
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:53:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A1234266B2;
+	Wed, 23 Sep 2026 18:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790189598; cv=none; b=OUSkLv7YarLNLtzLoukb9LaQna2Y0JrnZGRfiTQKkAfzYZQurwdJTJPuK0/g+8ZLhAxpCGoqbwQv3WyJPdrR68LAYSZwDcMPXJHZXoPZAR5J2aLXD6QyiX24xzy8NwSJt26dpdzZjpTKITFL6R9MvWk+5epHwz9ByGm2hZaHI8A=
+	t=1790189747; cv=none; b=eBpcDyL0jesU7kN7sfMvJdrKo2+M84OKtYj4rfKs3fNbKnari0/k3dWPC4s3Jw5h/cuMv6Uq1fPCSUiyQ1K+F9hJB0vovTUeIe+08l5aclcfbrwQ5vB1ahGuiGwrKyP/nB++s9NvdHzXZ5AuzYSRe+PIvU+cjFPgc5JZXGV0PSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790189598; c=relaxed/simple;
-	bh=i0/Ud+/noGW0PP+lXUlJszcNgcaYYgaR+bLb+Qgf7ms=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=djYqvAvWmNgFmozvRts9S1XcOjoXbgHLBAgGw02GxIEiPDiQvRBOzn4pVr0v+dBz6TM3n/MZ40Aa1kisv8CR9zjTQTBZZQn+00Z2esACRRXq9WlHp0UEdFEGnSTG/0ww0xTstUHkWmH2RoeKrGSVaJM6UW43qK/lWKzTuRbymDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WbHDtCUw; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790189747; c=relaxed/simple;
+	bh=Rvm0Z5qWL6QK1cIHCWUfahf4qoEdET4G0nkib51eTqc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UngBaE1/Z951ujAOl+ZNb3ajdKAXdOGdPkubGbVebAw+IrYAHzs7ER3fEesAMKfbtdwGDMXNnBCwhI+WsZnXmok+sqV1qoF6WFooDsP3bCyErvT5BF8VBaPrI/Tf58rSPP4Yl7FcQvd4+SOAik5aVZSDU41niogW1N9BYjcFWMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zZ5uBgZQ; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WbHDtCUw"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d53so314038a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:53:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790189588; x=1790794388; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3s/MMajyZUTrt05y+Cn99bNu886D7Ka1lQx9ECIkJR0=;
-        b=WbHDtCUw2L3kgZ0pElHJl+akmegSxjTlfnYWqd3HzpZNE9zviAj2ZdYZjxH5u+hMDy
-         PASFJkgwWlIFv/lIix/SGwBTCLNxjks1rw0mcXpShRzz8G4nKqkpTJiR311yvR/M10l9
-         ZLkowRd51YhOr0CWyjQM9X7OnltAI6x0tWeKjN3Cp1Rd06AsFix8TK/ysO33X38GkJcM
-         TBYA5/dCrODZGrw9x+W9+IipuxRWr6RoaPKutfQxSUEgmqcZSiPS0Fdo83ZlaKgMAxl0
-         ZyjjIJEXKXivPel5cDAtMz7mluBn+Fj0eUC6DuWZp1bdkPlmFM0AvKjNaeMzCKCcKXwx
-         eT3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790189588; x=1790794388;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3s/MMajyZUTrt05y+Cn99bNu886D7Ka1lQx9ECIkJR0=;
-        b=dDaWkCt2BuRA4KFrMdTw33rTapKcej0B5RaBlgZwQyqdwsyb108F6mkJ0qrksofxZN
-         TrlqKM6Ghi9BMNRva0Sr/xJ6ch6BLEEoiiebRmt9taVDt9KcD7anRLY2cgh7Xk1Tv0LS
-         U5n+whnieSjt0b4PCT7ZfWFjh70jrY8KOa/OnIPZxN+U6yQ5BLGEAMrbg2xrlAyWFLZy
-         7l5V3T1AYfdjgSUHsoQdz0zdqLOzH2pFZx4/KQz7Z3IC7XZWvchB3cRcCdDR8e901zV4
-         fkYjOskbrpoQ7CNJ90jOWoR6PYwaXjQvSP5E8A1nEhME0p8UcSelStdx3gsZhI0rY5+R
-         hEnw==
-X-Forwarded-Encrypted: i=1; AKwUvBxMBiwpfQFC2PBK0jP7H9qQ56XcgS0R6hW/YnmpwpE4li9V4ZSX+SoZvyiLG5uEWfV0TKket92nanx+5mk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kU/sdBELp8S1Ju5FZODAYOYCze8ILgGVR1NnOE141/mBV77Ur3
-	lz2DVGpLfUj8VK2/oSeVcnLZF9weLe5dD9pS1XDinT0LfVJZ8O5kAzWH
-X-Gm-Gg: AYBFou0U+zJCO0ILHCpQFoVRS0DeixIsh1PyW8DfqbVurGlPD/i2OTE/9DHliSpNjBZ
-	yCvGRVrF/8GA3xsmEbvuyjmKXvgYIFxCd99CC9YZg3gKnhSG3EoTpIOLzMM4g3BghbSGUJ8+JsH
-	9bs4jecKYMZGgHIzHhvulvU7np57MV/2iW422KP2WApWcJZHFfm2ZpIJho4AcreZfMKOL6w41+Q
-	sdxmB9dQvnqT1DG82SNiYHZOQHTNdrl2yVZw7OxMAFGfVcotKfqOly0Go3PSWqv51fhSun/v4KO
-	Wuy5/eUeVGAFsmFBxXK8LT3iPvqwZDgV9d/HXIoi/tNSJez8HgR5SH3aQwcoRyAsF5toYjViXKi
-	jS3Ce60aLLRSTJ6r1ZVxLKLFZU9E5uds6GCKy4Lq+YQ934vkr17M1UXZ66/jsoyxCeD6IXWeEA/
-	8hSkR2ofD77VOcZ78wBvM8VekGv3DJ6s2DaNAWr0DNySQhhbgDOl7mqaJaQ+QfaxUh/NeFAH2q9
-	Rq8ZawfGNo2/a9DbfgWsmDXfYriCOsqFEOSvHfdM9C86OMZuua6XV2kz146zHq4PTKJnvY4aXMh
-	e8aXPTobFRRE+n8+b8HSLyNo/a6NqYMeoW0P+RCrdHk7ZLvoCp2HmeCOWe8=
-X-Received: by 2002:a17:90b:5183:b0:39e:6c68:fd96 with SMTP id 98e67ed59e1d1-3a098b98996mr35249a91.43.1790189588207;
-        Wed, 23 Sep 2026 11:53:08 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c8f8dsm409335a91.12.2026.09.23.11.53.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 11:53:06 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	linux-gpio@vger.kernel.org (open list:PIN CONTROL SUBSYSTEM),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] dt-bindings: pinctrl: convert nsp-gpio binding
-Date: Wed, 23 Sep 2026 11:53:05 -0700
-Message-ID: <20260923185305.26223-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zZ5uBgZQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=YAqD79GNVyUpTesDe5713HZbBsCiNT7LXqES/cAv4Fk=; b=zZ5uBgZQMntNm1XebHYJxD4rzg
+	hcGHnezCa/4iVu1p2MoJ4u+SefOFn+9rakT3HpI/vKtOTVXEjcB2Wj+F4HcqPOSPq3sZ+z/VlwbUn
+	qzGqDPeKOUXtXt6nZw6YFFZVhwgNabCzoK0I+2FqrFX95BzshbkHnV4NxVHhTcIo5CMM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x9S7y-006rUF-Hw; Wed, 23 Sep 2026 20:55:34 +0200
+Date: Wed, 23 Sep 2026 20:55:34 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Ginger Li <ginger.jzllee@gmail.com>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: dm9000: Fix a recursive lockup in the TX
+ timeout path
+Message-ID: <2daa63fc-84a3-457b-b7b8-4cb268bad7d3@lunn.ch>
+References: <20260923084055.65091-1-ginger.jzllee@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923084055.65091-1-ginger.jzllee@gmail.com>
 
-The brcm,nsp-gpio-a compatible used by the NSP GPIO controller was
-only documented in the legacy text binding, so dtbs_check reported
-'failed to match any schema' for the gpio@20 node present in every
-bcm958625 and related board DTS.
+On Wed, Sep 23, 2026 at 04:40:55PM +0800, Ginger Li wrote:
+> dm9000_timeout() takes db->lock with interrupts disabled and then calls
+> dm9000_init_dm9000(), which expects the caller to hold that lock and accesses
+> the chip registers directly.  For DM9000B devices dm9000_init_dm9000() also
+> calls dm9000_phy_write(), and that function takes db->lock again, so the TX
+> timeout path deadlocks on the same CPU.
+> 
+> dm9000_phy_write() already skips db->addr_lock when db->in_timeout is set,
+> because in that case the caller holds db->lock and sleeping is not allowed
+> either.  Skip db->lock as well then, so that the nested call from
+> dm9000_init_dm9000() works as intended.
+> 
+> Fixes: 6741f40 ("DM9000B: driver initialization upgrade")
+> Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
+> ---
+>  drivers/net/ethernet/davicom/dm9000.c | 18 +++++++++++-------
+>  1 file changed, 11 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/davicom/dm9000.c b/drivers/net/ethernet/davicom/dm9000.c
+> --- a/drivers/net/ethernet/davicom/dm9000.c
+> +++ b/drivers/net/ethernet/davicom/dm9000.c
+> @@ -325,10 +325,10 @@ dm9000_phy_write(struct net_device *dev,
+>  	unsigned long reg_save;
+>  
+>  	dm9000_dbg(db, 5, "phy_write[%02x] = %04x\n", reg, value);
+> -	if (!db->in_timeout)
+> +	if (!db->in_timeout) {
+>  		mutex_lock(&db->addr_lock);
+> -
+> -	spin_lock_irqsave(&db->lock, flags);
+> +		spin_lock_irqsave(&db->lock, flags);
+> +	}
 
-Convert Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
-to a YAML schema and drop the text binding. Keep the existing
-required and optional properties (reg, #gpio-cells, gpio-controller,
-ngpios, and the optional interrupt/gpio-ranges support), including
-the generic pinconf child nodes with pin bias and drive-strength.
+This is ugly.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- .../bindings/pinctrl/brcm,nsp-gpio.txt        |  80 --------------
- .../bindings/pinctrl/brcm,nsp-gpio.yaml       | 101 ++++++++++++++++++
- 2 files changed, 101 insertions(+), 80 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
- create mode 100644 Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+Is it possible to pull the locking out of dm9000_phy_write() to give a
+version which tests the lock is taken using lockdep_assert_held(). Put
+a wrapper around it which takes the lock for the normal case.
 
-diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
-deleted file mode 100644
-index 0844168a6dd4..000000000000
---- a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
-+++ /dev/null
-@@ -1,80 +0,0 @@
--Broadcom Northstar plus (NSP) GPIO/PINCONF Controller
--
--Required properties:
--- compatible:
--    Must be "brcm,nsp-gpio-a"
--
--- reg:
--    Should contain the register physical address and length for each of
--    GPIO base, IO control registers
--
--- #gpio-cells:
--    Must be two. The first cell is the GPIO pin number (within the
--    controller's pin space) and the second cell is used for the following:
--    bit[0]: polarity (0 for active high and 1 for active low)
--
--- gpio-controller:
--    Specifies that the node is a GPIO controller
--
--- ngpios:
--    Number of gpios supported (58x25 supports 32 and 58x23 supports 24)
--
--Optional properties:
--- interrupts:
--    Interrupt ID
--
--- interrupt-controller:
--    Specifies that the node is an interrupt controller
--
--- gpio-ranges:
--    Specifies the mapping between gpio controller and pin-controllers pins.
--    This requires 4 fields in cells defined as -
--    1. Phandle of pin-controller.
--    2. GPIO base pin offset.
--    3  Pin-control base pin offset.
--    4. number of gpio pins which are linearly mapped from pin base.
--
--Supported generic PINCONF properties in child nodes:
--- pins:
--    The list of pins (within the controller's own pin space) that properties
--    in the node apply to. Pin names are "gpio-<pin>"
--
--- bias-disable:
--    Disable pin bias
--
--- bias-pull-up:
--    Enable internal pull up resistor
--
--- bias-pull-down:
--    Enable internal pull down resistor
--
--- drive-strength:
--    Valid drive strength values include 2, 4, 6, 8, 10, 12, 14, 16 (mA)
--
--Example:
--
--	gpioa: gpio@18000020 {
--		compatible = "brcm,nsp-gpio-a";
--		reg = <0x18000020 0x100>,
--		      <0x1803f1c4 0x1c>;
--		#gpio-cells = <2>;
--		gpio-controller;
--		ngpios = <32>;
--		gpio-ranges = <&pinctrl 0 0 31>;
--		interrupt-controller;
--		interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
--
--		/* Hog a few default settings */
--		pinctrl-names = "default";
--		pinctrl-0 = <&led>;
--		led: led {
--			pins = "gpio-1";
--			bias-pull-up;
--		};
--
--		pwr: pwr {
--			gpio-hog;
--			gpios = <3 1>;
--			output-high;
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
-new file mode 100644
-index 000000000000..9eb4a2a1f02f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
-@@ -0,0 +1,101 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/brcm,nsp-gpio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Broadcom Northstar Plus (NSP) GPIO/PINCONF Controller
-+
-+maintainers:
-+  - Ray Jui <rjui@broadcom.com>
-+  - Scott Branden <sbranden@broadcom.com>
-+
-+properties:
-+  compatible:
-+    const: brcm,nsp-gpio-a
-+
-+  reg:
-+    items:
-+      - description: GPIO base registers
-+      - description: IO control registers
-+
-+  "#gpio-cells":
-+    const: 2
-+    description: |
-+      The first cell is the GPIO pin number (within the controller's pin
-+      space) and the second cell is used for the following:
-+      bit[0]: polarity (0 for active high and 1 for active low)
-+
-+  gpio-controller: true
-+
-+  ngpios:
-+    description: Number of GPIOs supported (58x25 supports 32 and 58x23 supports 24)
-+    maximum: 32
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  "#interrupt-cells":
-+    const: 2
-+
-+  interrupt-controller: true
-+
-+  gpio-ranges: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#gpio-cells"
-+  - gpio-controller
-+  - ngpios
-+
-+patternProperties:
-+  '-pins$':
-+    type: object
-+    additionalProperties:
-+      description: Pin configuration child nodes.
-+      allOf:
-+        - $ref: pincfg-node.yaml#
-+        - $ref: pinmux-node.yaml#
-+      additionalProperties: false
-+
-+      properties:
-+        pins:
-+          items:
-+            pattern: '^gpio-'
-+
-+        bias-disable: true
-+        bias-pull-up: true
-+        bias-pull-down: true
-+
-+        drive-strength:
-+          enum: [ 2, 4, 6, 8, 10, 12, 14, 16 ]
-+
-+      required:
-+        - pins
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    gpio@18000020 {
-+        compatible = "brcm,nsp-gpio-a";
-+        reg = <0x18000020 0x100>,
-+              <0x1803f1c4 0x1c>;
-+        #gpio-cells = <2>;
-+        gpio-controller;
-+        ngpios = <32>;
-+        gpio-ranges = <&pinctrl 0 0 31>;
-+        interrupt-controller;
-+        #interrupt-cells = <2>;
-+        interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
-+
-+        led-pins {
-+            led {
-+                pins = "gpio-1";
-+                bias-pull-up;
-+            };
-+        };
-+    };
--- 
-2.55.0
+I would also take a look at dm9000_phy_read() and understand why its
+locking is different.
 
+Ideally you want to remove db->in_timeout, and make sure locked or
+unlocked functions are called as needed. I assume you have the
+hardware, and can trigger a timeout? So you can do a bigger refactor
+like this?
+
+     Andrew
