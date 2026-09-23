@@ -1,215 +1,507 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AFB5187FB;
-	Wed, 23 Sep 2026 12:05:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B90251A742
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:05:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165137; cv=none; b=aN87mCJcSEJTKCCOUqyEB4Dft0aamo82Km7ZFNXL3Ln8k6tR3H0YXmW01GuB1h7dgnitObQpMF1v2Nu3nLyTitiSO4O2qc5TTaXM21qzZNztL9ILQICjhO+aF1nAuQLGffyyjPLhvyyUj/20MOVoTNGxtOgjGO7DEVjSnbW3Hs4=
+	t=1790165136; cv=none; b=TRBumm1hODDFgKR7Zco4LLTjCzCXSMQyxYeG8Iz3sdEx3S4soQgQJw42yo1G/U9VjiyD9orcTWjAcnXrZae9c9vot57rm0hDgoHeyRJB46gVSzvfoji7CW1eMmNFBpNFAwUdVA6YY1TGA2wptgypUA+rWEHHUhaBrEzu8VQJUHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165137; c=relaxed/simple;
-	bh=FW4C2V0KtHR9j1IruA5FAlVuV2IBxi0wWUmf6CifxD4=;
-	h=Message-ID:Subject:From:To:Cc:Date:in-reply-to:Content-Type:
-	 MIME-Version; b=URq/FgWjBC7SkO5kB1IEmUsbqWt2rdSDo/q/PLys4hdl4RAeW9Si9RABJpcPn/8ucC+/u9C6oWry60UgAnVE5umEvL+ap64Hg/F/QaJ+DAu0tBDugA9YndpbcZTkzgVbpDWG4DAPSPeCrS3w4fzFMtxLvhG2+2wDl3XvYCHcEsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=sJuS/4zY; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	s=arc-20240116; t=1790165136; c=relaxed/simple;
+	bh=KeQJijXbeWJ5q75Zs8GJ1q08IqjbRPIAs1FLolc2vhI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C/cefmH9UEsESQ709PnR7TnwCNMDmITS6d52tuM8+LdyeTmWrgq5NMuGLZYtiWm5D4vqhNYB5h9yBOQBoLs2/G9NrF0t3U8IgvYNv3n+OO1noOh4D/xpbHkTWHV9Q87mB0zwBei1VMMZSmDibdoRyIvlAi/TrkM2zAlUdUYgzw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b/exiGkk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CCalbvkF; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="sJuS/4zY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:in-reply-to:
-	Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
-	Content-ID:Content-Description:References;
-	bh=bv44Eq/IwFacWRBSw0kcZCfcz6oe4eRlvH8apxKPluI=; b=sJuS/4zY54oRTrM94n9XGZ0GkG
-	1QUyolWZZyFtqcQ4PvWQNOU5zm0PpHCeljdqfRd3JGrWdjMFD4mGc97AkQaA+606TViU9hdskOoNM
-	Amvmue4leZsNihBd61ubB3zKYZE9zHXP23/mW4vRkibzxx8j+uVQMkeInA9KF0zhK1qEkpQN3ZMvh
-	uYLj6M/fPg1/cB4GwWgOx33JEvWgbEcYzyG5i6+dtM16hmRhVSAGL1d4IIVbkdPPnxe9a7N/C1Yxz
-	fEaAa5HdP4YWJ+DC5xIUNk0Cz18FQXPjo5yRLlodb4lhtMXeexVOYNiPbw/Frh0TmIYHtDZSOo10x
-	+dPC9CYw==;
-Received: from [54.239.6.185] (helo=freeip.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9Liy-0000000D0b0-20qG;
-	Wed, 23 Sep 2026 12:05:20 +0000
-Message-ID: <7efbc8e2ecbf397fc8e44327d13e9a7021b97212.camel@infradead.org>
-Subject: Re: [PATCH 00/17] KVM: Use atomic SRCU for gfn-to-pfn cache,
- reinstate guest mode for x86 nesting
-From: David Woodhouse <dwmw2@infradead.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
-	pbonzini@redhat.com, seanjc@google.com, paul@xen.org, paulmck@kernel.org, 
-	kunwu.chan@linux.dev, nh-open-source@amazon.com
-Date: Wed, 23 Sep 2026 14:05:18 +0200
-in-reply-to: <20260923095435.591542-1-kunwu.chan@gmail.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-isMiZyYAk8DuxxStIRAk"
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b/exiGkk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CCalbvkF"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBbWCi2466622
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:05:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=wh5YHy7+aGQY7ISy/0N263Kn
+	noD6IwFmv2T0XtNZlp8=; b=b/exiGkkCnugZVS45O97UgZ3S7biMLKxINZYymai
+	aiq1zaLCMraxzRE68DvavKCtrSIQOI56vuRh/+AcRWxC4jeqXNUJmdHpbU1j3k/P
+	Icdho0PY5lUOxy8zbPaB1kp7ylervrvbHa1zwCoVs27d2wI5JIzAHYBNu/v/4xEa
+	W9dh5Bk7TRfl3BON2G//hltRsz+abX8S4zLjJ/ltmxSSHx5yYFGGUbK2fsdIldc4
+	Z3U+MXtYYU7v21Nl+C3RYAKZvz5KgyQW5BqmE4BIaiaoQ2rKfLSF2Cm+2eeBheaD
+	43ZCsPJYzCHVYVSjMqXiMuPf6NxxMIK8TDlIKCA26bGAwA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guy2c3vw3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:05:27 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-313d1015161so2182552eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:05:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790165126; x=1790769926; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wh5YHy7+aGQY7ISy/0N263KnnoD6IwFmv2T0XtNZlp8=;
+        b=CCalbvkFPjp0A1oIO1FIjXW/C8vOonZj0XhTDVxazhNXRI51eSfXRdiycES9xsvZqP
+         9IXtp1kd46eSoxTGMUuI5rgb5ThaMq5JGkl+CK9qXeogdwFMiQMADOOnwHMFZFoHBSse
+         pZB8pbOBSwEfB6AZ5fOHqqgKija4uvAj68tyURijm0v10lU2QJtYbXwoBCrZLgsWv2qK
+         ffP+NHZfdvk6N3V3uJTYtQhIUd6Djw7Y7Ta3CpO125zkeAhZBliujQd2IMhXom5bblH0
+         eR8CrW8LI6Kplru+xD77gAOkZKDiKMB05E9vRedwSIGTAoWBbkd+j1Fc0yFQ0TaXU5C3
+         clTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790165126; x=1790769926;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wh5YHy7+aGQY7ISy/0N263KnnoD6IwFmv2T0XtNZlp8=;
+        b=BxvNtHLnsdmZtTfXXa2QUHRCJ7eAWHwj1Stb/3nfD+8N0LaIoyhHSnqaJSTKh1dgNm
+         KVaz1tdqOhutZKVRtiCw+N3/1zTjcc4WUt1f8KGluf2kkyV6QPmxGIDzx1a6eoS+AV1G
+         wCjws9hqUVwbyT5NHtqSALxdTO1Xm96MF2n3IgaX3JoxXIPpdruhV9cRhicsaR8iA6CD
+         +gwmU/V5WzW+qq9fJYwSFI/3LwRhOqo3C0cir2Do2YDEqM0z09BiSFDRzd9gxvKtZ6So
+         GiJH3uXI7hIoJPvlytOy8OhdrTLhCt7lFaSYvlrB4oV4RK976cWPXiPX1EoB2a0SHyGc
+         1fOw==
+X-Forwarded-Encrypted: i=1; AKwUvByB6uycdZwIZqBvaESP3zYXWdsNFUKdMcjxQvFONKYIFR68bDenG+K1njUEgk0icsIRXrgcd3AawBQ3UZ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3URseD31J/Bsjr65UJVgHADNkvh46KJrNOL1eALn9LM06E8Ck
+	SYvwqmyN/zg0uwAdElq4HKzG8G/6OIC5VqptmGKkUxCUdlNLUzEB6P8ID6F+CDnbafpSKJNWXop
+	jMXos2+ahSip+O4/g5GW89Z6eepQM71yIxM+xLfHTwMChKFrJa02UG9QfLzAyIYYU5cM=
+X-Gm-Gg: AYBFou07OPKSQT0fFwjqxPFqU3uZ3WcVAJbpxwjJYM2qL4LFoZbyXZmEEWrBqcoiuYE
+	r228veSErZzuLUG+X8Oi1o2kmesaIejIDJRjB5PSiROb7z8R7EBu/xeGxN+KR47MGxcjx+GnFZG
+	SUSHZr0A5m+dKSKmebjGe4VGckQnIgVNim+WpXlBJH5GoPjr8hNv8BBdwZkJL3TfyQ+cRB2csdX
+	Uj2s0HcfNMbzUcGecVprh/Kkn2/VwP7t36qlJYuAh1bWnKhMLFNjeEP5OoZ+eE41wT6r5MRBK6z
+	XrlESiafqt3FU1x9w6o8H4wXQhNSEsZmYdFgV+6BquR2yGFMRIDkD+pPiFfxlEmcX2Gsqp0j14o
+	IdN0h/Vf43QTABindHfFPdULnjP8cPRAeSPY2YVocMg==
+X-Received: by 2002:a05:693c:41c1:10b0:33e:84c3:a05b with SMTP id 5a478bee46e88-33e8ddc79bcmr2252801eec.30.1790165125854;
+        Wed, 23 Sep 2026 05:05:25 -0700 (PDT)
+X-Received: by 2002:a05:693c:41c1:10b0:33e:84c3:a05b with SMTP id 5a478bee46e88-33e8ddc79bcmr2252775eec.30.1790165125074;
+        Wed, 23 Sep 2026 05:05:25 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96f47d52sm7145892eec.28.2026.09.23.05.05.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 05:05:24 -0700 (PDT)
+Date: Wed, 23 Sep 2026 20:05:18 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, brgl@kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: nord-ride-embedded: Enable USB
+ ports
+Message-ID: <arPAftqIgHPYE9Qn@QCOM-aGQu4IUr3Y>
+References: <20260922-nord-usb-dwc-dts-v2-0-ba2b39f1a843@oss.qualcomm.com>
+ <20260922-nord-usb-dwc-dts-v2-4-ba2b39f1a843@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-nord-usb-dwc-dts-v2-4-ba2b39f1a843@oss.qualcomm.com>
+X-Proofpoint-GUID: HR8Vf6XTXW9lXARZeRrwaEwVDM-XkfAn
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0OCBTYWx0ZWRfX8VNaeEe9eyon
+ oQi8ZqDuaOTv+Z7AM/SzgBKvkhXuXDHOXHD6Ktk9BFtEvnR2vYAS/3GS2hr1+KIxp7RKAATEtD8
+ j2zWzxlkr4U2+rc0AV/0G/2eU1f1A1E=
+X-Authority-Analysis: v=2.4 cv=Zsh4uN7G c=1 sm=1 tr=0 ts=6ab3c087 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=w5VJh7DtWAenZCr4fmkA:9 a=CjuIK1q_8ugA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: HR8Vf6XTXW9lXARZeRrwaEwVDM-XkfAn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0OCBTYWx0ZWRfXyeSnAEzgtPUc
+ UM/MriBn4gMosLPPDAhA6YejDrtHwK9A/UdxRRqJSqNPiy3K/k+NHEpz5d2t5YcXN9bTz/hH1XH
+ 16O/sOLJM9oN/CvbqDirVzLWENrNMy9VqtgiOAflxqynRtAhIc1WVpLGpdeFAf+5FLELF6HV08V
+ 1ldMnEsKp8fBWpo3/8VDZeERLtQPmoTSEnKIiUXyunE4mhfayvUHf1uBpuu5kC2no/lYQKlJKC0
+ 2xHZA0oMssEurbFD/jZp7h7Tww+QO38eVC2HqMjzRBW2VFHY/8OEuqze7ORkqX32lfKEfs2BnuM
+ 1pVO9Imm5uwun3S5UF00KaFIqiThCCcQjaEw+bcH4Mq/g4Zs1PkdnraRSduVnHN1Hp8vyhxO7D7
+ u38iY/OlQHX/L5XZbq5Bb8E+WrXFYzE9Lsf8tSCiTZoer+MXQwxMPtwOhT+drI61OP0nfOQPZYa
+ ldmp4RyoAKlytAU2RrQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230048
 
+On Tue, Sep 22, 2026 at 05:01:10PM +0200, Bartosz Golaszewski wrote:
+> From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> 
+> Wire up the board specific pieces for USB ports. Enable i2c9 and add the
+> three NXP PTN3222 eUSB2 repeaters (one per USB port) with their 1.8 V
+> supply and reset GPIOs on the PMIC GPIO expanders.
+> 
+> Add the onsemi FUSB15201 dual port Type-C controller at 0x50, with
+> its interrupt and pinctrl state on pmau0102_i gpio8. Both controller
+> ports are wired on this board, so describe two usb-c-connector
+> children and cross-link their HS and SS endpoints to the dwc3 HS
+> endpoint and the QMP combo PHY SS output of USB_0 and USB_1. Both
+> controllers therefore run in OTG mode with usb-role-switch.
+> 
+> USB_2 has no Type-C connector, so it is configured as a fixed host
+> port. Its VBUS is supplied by a fixed regulator gated by
+> pmau0102_h gpio3, kept always-on since nothing switches it at
+> runtime.
+> 
+> Assisted-by: LLM
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> Co-developed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/nord-ride-embedded.dts | 309 ++++++++++++++++++++++++
+>  1 file changed, 309 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
+> index 09ee525764ef9a65aa17648097038687e61a5122..ee1525b37b381120d80a76d7b8e20ab2edeca6c3 100644
+> --- a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
+> +++ b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
+> @@ -6,6 +6,7 @@
+>  /dts-v1/;
+>  
+>  #include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/interrupt-controller/irq.h>
+>  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>  
+>  #include "nord-embedded.dtsi"
+> @@ -53,6 +54,124 @@ bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
+>  			clock-div = <2>;
+>  		};
+>  	};
+> +
+> +	vreg_per_3p3: regulator-per-3p3 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vreg_per_3p3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +	};
+> +
+> +	usb2_vbus: regulator-usb2-vbus {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "usb2_vbus";
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		gpio = <&pmau0102_h_gpios 3 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +		regulator-always-on;
+> +	};
+> +
+> +	usb2-connector {
+> +		compatible = "usb-a-connector";
+> +		label = "USB-2-Type-A";
+> +		power-role = "source";
+> +
+> +		vbus-supply = <&usb2_vbus>;
+> +
+> +		port {
+> +			usb2_con_hs: endpoint {
+> +				remote-endpoint = <&usb_2_dwc3_hs>;
+> +			};
+> +		};
+> +	};
+> +
+> +	vreg_wcn_3p3: regulator-wcn-3p3 {
 
---=-isMiZyYAk8DuxxStIRAk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Nah, it (and the following WCN regulators) doesn't belong to this patch.
 
-On Wed, 2026-09-23 at 17:54 +0800, Kunwu Chan wrote:
-> Thanks, this is very helpful. I've put the results together below.
+Shawn
 
-That looks correct. I had my friend dig out the missing parts from runs
-I haven't posted, and do the runs it hadn't run.
-
-128-way Ice Lake, PREEMPT_DYNAMIC production-like config:
-
-  rwlock                                   avg 0.59=C2=B5s   max  330=C2=B5=
-s
-  synchronize_srcu_expedited() drain       avg 3.65=C2=B5s   max 4383=C2=B5=
-s
-  synchronize_srcu_atomic(), no fastpath   avg 8.04=C2=B5s   max 6034=C2=B5=
-s
-  synchronize_srcu_atomic() + fastpath     avg 3.59=C2=B5s   max  326=C2=B5=
-s
-
-192-way Granite Rapids, PREEMPT_RT production config:
-
-  rwlock                                   avg  4.4=C2=B5s   max 3854=C2=B5=
-s
-  synchronize_srcu_expedited() drain       avg  8.6=C2=B5s   max  810=C2=B5=
-s
-  synchronize_srcu_atomic(), no fastpath   avg 12.0=C2=B5s   max  620=C2=B5=
-s
-  synchronize_srcu_atomic() + fastpath     avg  ~3=C2=B5s    max  801=C2=B5=
-s
-
-The max values here are noisy and can vary by 2x per (300s) run. The
-averages are fairly clean, and I think I have per-bucket breakdowns for
-all of them if you really want to dig into it.
-
-Astute readers will note that rwlock actually wins on average on the
-"production-like" config, that the max is in the same ballpark as the
-srcu_atomic+fastpath too, and wonder why we bothered... the point is
-not just that rwlocks are the wrong thing to use for PREEMPT_RT, but
-also that all we're benchmarking in the above tables is the
-*invalidation* not the read side, which scales a *lot* better in the
-SRCU model and doesn't bounce cache lines around.
-
---=-isMiZyYAk8DuxxStIRAk
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-4gi/OaccjdBuQ/ayz3W5HIUAAAAAAAA=
-
-
---=-isMiZyYAk8DuxxStIRAk--
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vreg_wcn_3p3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +		gpio = <&pmau0102_e_gpios 8 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	vreg_wcn_core_vl_0p95: regulator-wcn-core-vl-0p95 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vreg_wcn_core_vl_0p95";
+> +		regulator-min-microvolt = <950000>;
+> +		regulator-max-microvolt = <950000>;
+> +		gpio = <&pmau0102_e_gpios 6 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	vreg_wcn_core_vm_1p35: regulator-wcn-core-vm-1p35 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vreg_wcn_core_vm_1p35";
+> +		regulator-min-microvolt = <1350000>;
+> +		regulator-max-microvolt = <1350000>;
+> +		gpio = <&pmau0102_e_gpios 6 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	vreg_wcn_core_vh_1p95: regulator-wcn-core-vh-1p95 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "vreg_wcn_core_vh_1p95";
+> +		regulator-min-microvolt = <1950000>;
+> +		regulator-max-microvolt = <1950000>;
+> +		gpio = <&pmau0102_e_gpios 6 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	wcn7850-pmu {
+> +		compatible = "qcom,wcn7850-pmu";
+> +
+> +		wlan-enable-gpios = <&pmau0102_e_gpios 10 GPIO_ACTIVE_HIGH>;
+> +
+> +		vdd-supply = <&vreg_wcn_3p3>;
+> +		vddio-supply = <&vreg_s3a_1p8>;
+> +		vddaon-supply = <&vreg_wcn_core_vl_0p95>;
+> +		vdddig-supply = <&vreg_wcn_core_vl_0p95>;
+> +		vddrfa1p2-supply = <&vreg_wcn_core_vm_1p35>;
+> +		vddrfa1p8-supply = <&vreg_wcn_core_vh_1p95>;
+> +
+> +		regulators {
+> +			vreg_pmu_rfa_cmn: ldo0 {
+> +				regulator-name = "vreg_pmu_rfa_cmn";
+> +			};
+> +
+> +			vreg_pmu_aon_0p59: ldo1 {
+> +				regulator-name = "vreg_pmu_aon_0p59";
+> +			};
+> +
+> +			vreg_pmu_wlcx_0p8: ldo2 {
+> +				regulator-name = "vreg_pmu_wlcx_0p8";
+> +			};
+> +
+> +			vreg_pmu_wlmx_0p85: ldo3 {
+> +				regulator-name = "vreg_pmu_wlmx_0p85";
+> +			};
+> +
+> +			vreg_pmu_rfa_0p8: ldo5 {
+> +				regulator-name = "vreg_pmu_rfa_0p8";
+> +			};
+> +
+> +			vreg_pmu_rfa_1p2: ldo6 {
+> +				regulator-name = "vreg_pmu_rfa_1p2";
+> +			};
+> +
+> +			vreg_pmu_rfa_1p8: ldo7 {
+> +				regulator-name = "vreg_pmu_rfa_1p8";
+> +			};
+> +
+> +			vreg_pmu_pcie_0p9: ldo8 {
+> +				regulator-name = "vreg_pmu_pcie_0p9";
+> +			};
+> +
+> +			vreg_pmu_pcie_1p8: ldo9 {
+> +				regulator-name = "vreg_pmu_pcie_1p8";
+> +			};
+> +		};
+> +	};
+>  };
+>  
+>  &apps_rsc {
+> @@ -366,6 +485,121 @@ vreg_l3l_1p8: ldo3 {
+>  	};
+>  };
+>  
+> +&i2c9 {
+> +	clock-frequency = <400000>;
+> +
+> +	status = "okay";
+> +
+> +	usb0_repeater: redriver@43 {
+> +		compatible = "nxp,ptn3222";
+> +		reg = <0x43>;
+> +		#phy-cells = <0>;
+> +		vdd1v8-supply = <&vreg_l3l_1p8>;
+> +		vdd3v3-supply = <&vreg_per_3p3>;
+> +		reset-gpios = <&pmau0102_i_gpios 9 GPIO_ACTIVE_LOW>;
+> +	};
+> +
+> +	usb2_repeater: redriver@47 {
+> +		compatible = "nxp,ptn3222";
+> +		reg = <0x47>;
+> +		#phy-cells = <0>;
+> +		vdd1v8-supply = <&vreg_l3l_1p8>;
+> +		vdd3v3-supply = <&vreg_per_3p3>;
+> +		reset-gpios = <&pmau0102_l_gpios 3 GPIO_ACTIVE_LOW>;
+> +	};
+> +
+> +	usb1_repeater: redriver@4f {
+> +		compatible = "nxp,ptn3222";
+> +		reg = <0x4f>;
+> +		#phy-cells = <0>;
+> +		vdd1v8-supply = <&vreg_l3l_1p8>;
+> +		vdd3v3-supply = <&vreg_per_3p3>;
+> +		reset-gpios = <&pmau0102_i_gpios 10 GPIO_ACTIVE_LOW>;
+> +	};
+> +
+> +	typec@50 {
+> +		compatible = "onnn,fusb15201";
+> +		reg = <0x50>;
+> +		interrupts-extended = <&pmau0102_i_gpios 8 IRQ_TYPE_LEVEL_LOW>;
+> +
+> +		pinctrl-0 = <&usb_pd_int_default>;
+> +		pinctrl-names = "default";
+> +
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		connector@0 {
+> +			compatible = "usb-c-connector";
+> +			reg = <0>;
+> +			label = "USB-C0";
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +			try-power-role = "sink";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					usb_0_con_hs: endpoint {
+> +						remote-endpoint = <&usb_0_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					usb_0_con_ss: endpoint {
+> +						remote-endpoint = <&usb_0_qmpphy_usb_ss_out>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		connector@1 {
+> +			compatible = "usb-c-connector";
+> +			reg = <1>;
+> +			label = "USB-C1";
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +			try-power-role = "sink";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					usb_1_con_hs: endpoint {
+> +						remote-endpoint = <&usb_1_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					usb_1_con_ss: endpoint {
+> +						remote-endpoint = <&usb_1_qmpphy_usb_ss_out>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&pmau0102_i_gpios {
+> +	usb_pd_int_default: usb-pd-int-state {
+> +		pins = "gpio8";
+> +		function = "normal";
+> +		input-enable;
+> +		bias-pull-up;
+> +		power-source = <0>;
+> +	};
+> +};
+> +
+>  &qupv3_0 {
+>  	firmware-name = "qcom/nord/qupv3fw.elf";
+>  
+> @@ -440,3 +674,78 @@ &ufs_mem_phy {
+>  
+>  	status = "okay";
+>  };
+> +
+> +&usb_0 {
+> +	status = "okay";
+> +};
+> +
+> +&usb_0_dwc3_hs {
+> +	remote-endpoint = <&usb_0_con_hs>;
+> +};
+> +
+> +&usb_0_hsphy {
+> +	vdd-supply = <&vreg_l1h_0p9>;
+> +	vdda12-supply = <&vreg_l2h_1p2>;
+> +
+> +	phys = <&usb0_repeater>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_0_qmpphy {
+> +	vdda-phy-supply = <&vreg_l2k_0p9>;
+> +	vdda-pll-supply = <&vreg_l2h_1p2>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_0_qmpphy_usb_ss_out {
+> +	remote-endpoint = <&usb_0_con_ss>;
+> +};
+> +
+> +&usb_1 {
+> +	status = "okay";
+> +};
+> +
+> +&usb_1_dwc3_hs {
+> +	remote-endpoint = <&usb_1_con_hs>;
+> +};
+> +
+> +&usb_1_hsphy {
+> +	vdd-supply = <&vreg_l1h_0p9>;
+> +	vdda12-supply = <&vreg_l2h_1p2>;
+> +
+> +	phys = <&usb1_repeater>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_1_qmpphy {
+> +	vdda-phy-supply = <&vreg_l2k_0p9>;
+> +	vdda-pll-supply = <&vreg_l2h_1p2>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_1_qmpphy_usb_ss_out {
+> +	remote-endpoint = <&usb_1_con_ss>;
+> +};
+> +
+> +&usb_2 {
+> +	dr_mode = "host";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_2_dwc3_hs {
+> +	remote-endpoint = <&usb2_con_hs>;
+> +};
+> +
+> +&usb_2_hsphy {
+> +	vdd-supply = <&vreg_l1h_0p9>;
+> +	vdda12-supply = <&vreg_l2h_1p2>;
+> +
+> +	phys = <&usb2_repeater>;
+> +
+> +	status = "okay";
+> +};
+> 
+> -- 
+> 2.47.3
+> 
