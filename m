@@ -1,122 +1,171 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B943BB13C;
-	Wed, 23 Sep 2026 06:09:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0881837268C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143791; cv=none; b=VoVhDmKT6xrkmlKATcP7I5V+psqgUR4n7cVRXan0mX62ajJBNNhi1zXjp2o6nJf+eWEfnJ3yfG4103t6CKSPFZPVCsAl7we0nIJY9rGr20TzOGeeNFJbfzyoi1avip7evz4OV8Mk/AJ1avyffHlBJBCGQN8Fj+nHWBmX/KMO5ug=
+	t=1790143807; cv=none; b=ZaDssscvx1VmGYf7DsSlLsmRWFZrpaSWWfoieChb09IfehBCHydo1SMMcmtIXLeOr4gLozL269lyp4QaN1eA15pS5G7zNE3HSva5onIVNCPJKIVJ2U0MHtbjLh6X3KDORFEyNrRUZ41xcg40vX3ipxMarkmfp+J7faiTwB2MSH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143791; c=relaxed/simple;
-	bh=yK4GGOQ7q5Jsm1hYN2ke5S7Bqv10s370fwH9Yyni3vI=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kODsx93FKYOKSLmyVib4Zfcn35z2AqWeFj5th5O4POzdG8uLjA1Lbmlq5PWextVUbQPRaLSQO+qXVv9+RVArYuFIuai0jHk+jmMWVpd7qq7qKvgrD4GRx5/VCAJw3VL8xP1G98wuPD3CHFLJ/A3p5ZbhRch038oWml2sDS/dukM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=IKQnwyxN; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1790143807; c=relaxed/simple;
+	bh=iP+xM/Nm2s51I7N4uWGzs3QFeDnfkK6qhX2Exs+Av50=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iIxA4SQW4LTThJky89quYPW21wsrgkFZRNLqKm1P+HGQnR1HVClGpNXdNMIdwyg9u0RtOPHVJwccaKyQ0y0a3oxwl9RMV4Q9fahcQzMN3bL4g1S+Ii4+rKCKQzUe0rdanlOJiUTz1TkTX4fnCGcwzPNsFrKE10ZbttleUHUZoGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R3zU1l5A; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="IKQnwyxN"
-X-UUID: 5f11ebfcb71511f1b1788b6acf885367-20260923
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=yK4GGOQ7q5Jsm1hYN2ke5S7Bqv10s370fwH9Yyni3vI=;
-	b=IKQnwyxNkwJqFWv0FtVHRGyimrXGeYSy4yUIrlmYvcJeK1HS6uB4lL30JIU8p6mZeRczirm1HP8iocRNj6lMkSNGFxGND9T3i26ThyMQx5yMnMAD0w6A0XDCPEKGd/M3VVb1qu6vzMVJ5PSiOh8MEVYkdHNkOck135wcRlj3ehk=;
-X-CID-CACHE: Type:Local,Time:202609231409+08,HitQuantity:1
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:2f4c735d-1ce8-4d9c-afd7-a9fc806b29b1,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:cf79dcfa-1cb6-4618-8a29-fa072b24d2a9,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
-	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:
-	-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5f11ebfcb71511f1b1788b6acf885367-20260923
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw01.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1828432630; Wed, 23 Sep 2026 14:09:44 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 23 Sep 2026 14:09:43 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Wed, 23 Sep 2026 14:09:42 +0800
-Message-ID: <f116f82d28f7af4cfca76adf5cff6093fdf393a2.camel@mediatek.com>
-Subject: Re: [PATCH v2 2/2] scsi: ufs: core: Decouple CQ sweep from request
- iterator in MCQ
-From: Peter Wang <peter.wang@mediatek.com>
-To: Bart Van Assche <bvanassche@acm.org>, Stanley Jhu <stanleyjhu@google.com>
-CC: <linux-scsi@vger.kernel.org>, "Martin K. Petersen" <mkp@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Alim Akhtar
-	<alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, Bean Huo
-	<beanhuo@micron.com>, "Bao D. Nguyen" <quic_nguyenb@quicinc.com>, Can Guo
-	<can.guo@oss.qualcomm.com>, Manivannan Sadhasivam <mani@kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Date: Wed, 23 Sep 2026 14:09:42 +0800
-In-Reply-To: <df31eb82-7211-415a-9ec1-53ecbc3e39b0@acm.org>
-References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
-	 <20260918143809.3034592-1-stanleyjhu@google.com>
-	 <20260918143809.3034592-3-stanleyjhu@google.com>
-	 <1ddc5181-f547-465c-bfbe-dbf14a91493e@acm.org>
-	 <20260920135014.3528082-1-stanleyjhu@google.com>
-	 <e3538f10-fb9e-48ce-b48f-bca25c8f3d6c@acm.org>
-	 <bab059b9a2dfed258db23993b5a6b4aceca2da49.camel@mediatek.com>
-	 <df31eb82-7211-415a-9ec1-53ecbc3e39b0@acm.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R3zU1l5A"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so2347555e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:10:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790143804; x=1790748604; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rzigS/BodMBW2I1kmdTZEpfx589O3xIFW3xCJjMx4pU=;
+        b=R3zU1l5ANLXB6AmevKSoH2wkA7OKXHI7gUqdHojrX5vEbMBWQB0iTxtC/HTAFFvS7K
+         C5ph+af8P3PZGluQpTcknwFA+2CIMHx5UOXoo6TM2oIXG96dnxzAsDcnJs18g+M1KVyI
+         HSzS7cDnNKRI0cL/bn5H+iPKGeTC2OgUNVgwE7CZcs2rfky7SGj+HdPaElg3jqb9UDEg
+         NoDUOeJZ4pfHQxFXGXqI5d4cgcliHO2TnDoqPqn47FOplz1IKxgcyTV6VL8jI1cGou0o
+         0PAn5tvnC7Vs1Kv2WeBg1jyPLlmQsE72iURY3xiyh3IKOvwUoqIMZ8bh80JwZTJT4WJL
+         Xewg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790143804; x=1790748604;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rzigS/BodMBW2I1kmdTZEpfx589O3xIFW3xCJjMx4pU=;
+        b=eubFISiGtidnPZP4I2CHpDe8q5LqK2L58TDz7cIgGUbK4bRZhfgw0tZQSWd0T51IyA
+         Pm7kRYK1cv0fbP20PZmFiBcOE0lAi8Vr4o0Z9MpMdByEHmkcIpF8goxWyOqHKLUT70Yl
+         xqZfDRw/TubevcWLNCn47ugSM0fwaU1Ir8bBs2q3sp8pd0eAl40xqvIlJkkMBCdigJUD
+         qupZ+J6Yvu8O1LeVSF/Bjs+YzsB6dOBWO5d7sFKa+MTvpHjrLa9aXvlMwXFvr9562TYn
+         dlS3nXanG5B/JZ8yo41FTUaYZDPd8JxKeMFZa52HHY2iaecpsz1lETXqsRAJ1OfZgtQt
+         kHiA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1AKMPj3Z0yNyaa4FennVn5TD/YMBsjNrEXTU5V+S5nZzdqheQewO8LAsSZmkKMRxhrO+bOTFYO7n1aBA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqH0I5PNrJ/ifpi7+L/lZj+cUZlKavG0bkuDddHU6qv1WC0q7q
+	/NLF7zcG0VwgGA7ol1h5b+4t1DzY/b7Dq7Es+b+ky8npPufGp0evWsfX
+X-Gm-Gg: AYBFou2peRtbGeEg0gapJ3uCDVGEZkSB6JAwyWJWa/zH87kFkKuYlUokvgdGD43mXP4
+	7N/Rkr/J6/I1K7E6qhyparRlKTBDfITJFj0evIvoIQh9JYIb1s+Y90XwT3xq6t+OcAVb3U+qYic
+	RmtHyI7E6yvxX0qwCMkCHQG2Br38WjyvIFSJCVTipwRxu2CJbVYVAas22PrKz6wcvqobQ2eym0d
+	pGWG8RrTIZa977ofKphS1SzvrTDFiIbuu9OwEZSAfIBZr6d223i4n9vw6OSkFTfgwl5Lg+dxttz
+	+YOt3Rt1PkqQNtiXy3pVZKqBvIzmQ+3TfoI0SZG/uZShy2F6SAaC3QePhNDKvf+8cQ9SFeIYI7u
+	xgdtOdOB6nY60x+sd4l2malLGnJfRa/3Hk30rQw+YiHzk/dY3TD2C/ukO0nrU7Fz7pMy8fq3zk+
+	eOeGFC3K1U+p7q3UnIPU0mzIHfD259JT010iDDRwMdOCVsoqT6s0IuFnleqfPS1V83Hn7LlSj8x
+	Jd6O+layDGVi9RxOcolKdUZGn+nqi/LPD/qkephc2+edxWIx/Ylhvk=
+X-Received: by 2002:a05:600c:8b86:b0:49c:cee2:1697 with SMTP id 5b1f17b1804b1-49fdf1354b4mr15462555e9.16.1790143804001;
+        Tue, 22 Sep 2026 23:10:04 -0700 (PDT)
+Received: from LS-Tayyab-Farooq.dreambig.corp ([58.27.187.115])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1acb91sm48246775e9.15.2026.09.22.23.10.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 23:10:03 -0700 (PDT)
+From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+To: Helge Deller <deller@gmx.de>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Simona Vetter <simona@ffwll.ch>,
+	Andrew Morton <akpm@osdl.org>,
+	Antonino Daplas <adaplas@pol.net>,
+	dri-devel@lists.freedesktop.org (open list:FRAMEBUFFER CONSOLE),
+	linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER CONSOLE),
+	linux-kernel@vger.kernel.org (open list)
+Cc: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>,
+	syzbot+bf4020519fbd94b2355d@syzkaller.appspotmail.com
+Subject: [PATCH] fbdev: fbcon: Fix KASAN slab-out-of-bounds read in rotated font buffer
+Date: Wed, 23 Sep 2026 11:08:07 +0500
+Message-ID: <20260923060924.45742-1-syedtayyabfarooq08@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MTK: N
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-09-22 at 09:30 -0700, Bart Van Assche wrote:
-> A SCSI host controller reset must abort all pending commands.
-> Requeuing
-> SCSI commands during a host controller reset violates the API
-> contract
-> between the SCSI error handler and SCSI LLDs. I'm not aware of any
-> other
-> SCSI LLD than the UFS host controller driver that requeues pending
-> commands upon a host controller reset instead of aborting these.
->=20
-> .eh_host_reset_handler() is expected to reset all logical units and
-> the
-> host controller. The SCSI architecture manual (SAM) mentions
-> explicitly
-> that resetting logical units involves aborting all commands.
->=20
-> Thanks,
->=20
-> Bart.
+The root cause of this KASAN slab-out-of-bounds read is that fbcon fails to
+reallocate the rotated font buffer (par->rotated.buf) when the font
+character count changes but the font dimensions (width and height) remain
+the same.
 
-Hi Bart,
+When a user changes the font via ioctl(KDFONTOP), fbcon_do_set_font() is
+called. If the user first sets a 256-character font, enables rotation, and
+then sets a 512-character font with the exact same width and height, resize
+evaluates to false. The function then directly calls update_screen(vc).
+Notice that fbcon_do_set_font() never calls par->bitops->rotate_font() to
+update the rotated font buffer for the new font. As a result,
+par->rotated.buf remains sized for the old 256-character font.
 
-I'm not sure if I misunderstood your point. SCSI reset=20
-(ufshcd_eh_host_reset_handler) does indeed abort all commands
-by trigger ufshcd_err_handler and call ufshcd_abort_all.
-This shouldn't violate the SCSI API contract. But whether the=20
-subsequent re-queue (DID_REQUEUE) violates, I haven't seen any=20
-prohibition?
+When update_screen(vc) is called, it eventually reaches cw_putcs_aligned(),
+which attempts to read the glyphs from the rotated buffer. Since
+vc->vc_font.charcount is now 512, vc->vc_hi_font_mask is set, making
+charmask equal to 0x1ff (511). If the text buffer contains a character with
+an index >= 256, src will point out of bounds of the old par->rotated.buf
+(which only holds 256 glyphs). The subsequent read in
+__fb_pad_aligned_buffer() triggers the KASAN slab-out-of-bounds crash.
 
-Because currently the UFS error handler (ufshcd_err_handler)=20
-directly re-queues (By set DID_REQUEUE) the unfinish command,
-and err handler might be triggered in many places, for example,=20
-like UIC errors, directly resetting and re-queueing should be
-reasonable and can be handled quickly.=20
+To fix this, fbcon_do_set_font() must call par->bitops->rotate_font() to
+update the rotated font buffer before calling vc_resize() or
+update_screen(). If vc_resize() fails and the old font is restored in the
+error path, rotate_font() must be called again to restore the rotated
+buffer.
 
-If it cannot directly re-queue, then ufshcd_eh_host_reset_handler
-would need another similar function that does not handle re-queueing.
-But this looks unnecessary, direct re-queuing seems safe?
+This pattern of updating the rotated font buffer was previously established
+in fbcon_modechanged() by commit ef7656e85f1a ("fbdev: Fix out-of-bounds
+access when rotating console after font resize"). The fix applies this
+exact idiom to fbcon_do_set_font(). By placing it before vc_resize() and
+update_screen(), we ensure the buffer is correctly sized before any
+rendering occurs. Checking con_is_visible(vc) is also correct here, as
+hidden consoles will have their rotation state updated later via
+fbcon_switch() when they become visible.
 
-Thanks
-Peter
+Furthermore, by calling rotate_font() again in the err_out path, we ensure
+that if vc_resize() fails, the rotated buffer is restored to match the old
+vc->vc_font. Without this, restoring a 512-character font to a
+256-character font on failure would leave the rotated buffer sized for 512
+characters, which wastes memory; or worse, restoring a 256-character font
+to a 512-character font would leave the buffer too small, causing an
+out-of-bounds read later.
 
+Fixes: e4fc27618b75 ("[PATCH] fbcon: Console Rotation - Prepare fbcon for console rotation")
+Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
+Reported-by: syzbot+bf4020519fbd94b2355d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=bf4020519fbd94b2355d
+Link: https://syzkaller.appspot.com/ai_job?id=59f0d7d9-607c-4497-b2e2-0b16693f9502
+Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
+---
+ drivers/video/fbdev/core/fbcon.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
+index 01715873ea49..158b2f91d68e 100644
+--- a/drivers/video/fbdev/core/fbcon.c
++++ b/drivers/video/fbdev/core/fbcon.c
+@@ -2432,6 +2432,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!vc->vc_hi_font_mask && charcount == 512)
+ 		set_vc_hi_font(vc, true);
+ 
++	if (con_is_visible(vc)) {
++		if (par->bitops->rotate_font && par->bitops->rotate_font(info, vc)) {
++			par->rotate = FB_ROTATE_UR;
++			set_blitting_type(vc, info);
++		}
++	}
++
+ 	if (resize) {
+ 		int cols, rows;
+ 
+@@ -2466,6 +2473,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
+ 	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
+ 		set_vc_hi_font(vc, false);
+ 
++	if (con_is_visible(vc)) {
++		if (par->bitops->rotate_font && par->bitops->rotate_font(info, vc)) {
++			par->rotate = FB_ROTATE_UR;
++			set_blitting_type(vc, info);
++		}
++	}
++
+ 	font_data_put(data);
+ 
+ 	return ret;
+-- 
+2.43.0
 
