@@ -1,170 +1,154 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66CB147D93C;
-	Wed, 23 Sep 2026 09:49:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83434772B1;
+	Wed, 23 Sep 2026 09:49:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156965; cv=none; b=hGsgs2ipTEyDw8zU+QfMWGV4rRguJQfrrnjnxMz3r3abYPQkW4/zvm8vPDf1gS1aB5c/ElR3rhZ5sHJHEp58QfgwN3edRoaYbldhpN+k4DvrbDXvWu0rZLLR219hgZsybSW5C221vLpkGzdQ/3XvPQP30kqWhpoqKRJ60E8ViKA=
+	t=1790156990; cv=none; b=pwgAXLKjhs5s3TJsDPa/+A90PVlKFnFdrOgCEvVxHrB51jY0IjSOsRAFxZpUeK6yY86jwaZtNkEfLQcATAWUglDa5S5LxlVzrZO6WaDwdRheAQw48v/VlzHYRkrYc4vUJaBsmhqzQTa/RUtXCu8tDbL82jv2N2AzH75jsOMYphg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156965; c=relaxed/simple;
-	bh=KZJUmu+dExzXuPBUi/nBC1Xht2Kt9qnofl3DHqRhOdc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=MXgM1vXZ/ZZHd3nc336PtvlWpG7aUJS0N9BfWfq/XB1d9gFxHsALhqwMZnPbJJIhF9f+csWKkK5FaTn0fYT6Chc10uEiZYI+L8pGPgcs8ma2EHZLCAfTnARvm76YGV83f0Gk2sk2B5nEcF/rwruy2tYXhLqavK6emaWmriEDQTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Pafi9j3S; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790156990; c=relaxed/simple;
+	bh=0xs1aK+waLR/h64Dn98ERXS0Ct3KJtqXAJmX+rFh/oU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vE/sN8IHx6aXxyP0itPwUCNoZLnQXIJjU7RbN2WPiVFDFVeG31Lf8w4n39GEoroF521Wqcf0L0rYSB3lvV8UNhilfpGc8sA5oyTPQcTXQsshZYKezaSIgFfEPm2C+LxcLZgcqx/0Aab7Ct5w8kevS4bLktTyrSwroqKluGemzuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Vtphx4aT; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Pafi9j3S"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=KZJUmu+dExzXuPBUi/nBC1Xht2Kt9qnofl3DHqRhOdc=; b=P
-	afi9j3Skxnz41FZ5r2n3q9V8p7TTAQVjPEenzRqFyHf7TMEdaT//bsV03D85eNNv
-	qzgFjA4zKKDuLMAUoCOfOtI2qWRjgPQXucOltsrewJObehZWPAZlXEypjjGcjo4f
-	VpdnRzK2yb3qaGtz3xa1PfPvkg82p8EoBEPQ1rt8mU=
-Received: from slark_xiao$163.com ( [2408:8459:3c60:5f56:d5c1:bb9:4975:423f]
- ) by ajax-webmail-wmsvr-40-142 (Coremail) ; Wed, 23 Sep 2026 17:49:00 +0800
- (CST)
-Date: Wed, 23 Sep 2026 17:49:00 +0800 (CST)
-From: "Slark Xiao" <slark_xiao@163.com>
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: mani@kernel.org, jeff.hugo@oss.qualcomm.com, mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH] bus: mhi: host: pci_generic: Add autosuspend_delay
- customized support
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
-References: <20260919095506.9570-1-slark_xiao@163.com>
- <bf94f351-777d-4dc0-98a2-7af77f832f2b@oss.qualcomm.com>
- <1bec2fd7.99f3.1a0c8ea4db6.Coremail.slark_xiao@163.com>
- <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
-X-NTES-SC: AL_Qu2SAv2euUEv5iaeYukdnUYVh+s9WsW5uPUl34dUc+EGiQLS2ToMVnVyFGHZ4suAKx2pkhmPfypr8tVdT5R3rx2cOJOOvPGOGK6QgZp1JA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Vtphx4aT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790156986;
+	bh=0xs1aK+waLR/h64Dn98ERXS0Ct3KJtqXAJmX+rFh/oU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Vtphx4aTmU8jfvrft1SoI/PuISbWncfFJzkoaPa9wuqpD75ekIkgSdGVA3qvHGyLa
+	 +WfsOnrWMCK8tdgz4i181YAbKB5DNBgQVTJ5YulEYV6kEOArEmJmu9G6F1LfNSANAk
+	 iHs3vUCAuHOGSrIluiMeQNI/vF94jWxXoExyWuFv5/0RWvj9k/8Qk90G+Etzub/XvS
+	 A/aRXx2096Xx0fRZEmm+h8hw/TMhteAMIOhV07DQ0rUPUvLBKXY5cmSQ6FgK/a83PU
+	 9VcD8eGD8J27pAQxHW21INZdaCyP83lQwawM6Resu3lZ2AYHZ1xZfDS5VBMOsY6K68
+	 S05g9a1FnxW9g==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A20EC17E0803;
+	Wed, 23 Sep 2026 11:49:45 +0200 (CEST)
+Message-ID: <b32d6f95-08fe-49f9-a142-11597afd4263@collabora.com>
+Date: Wed, 23 Sep 2026 11:49:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <114d4e42.8e22.1a0cdab2583.Coremail.slark_xiao@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:jigvCgDXvwuMoLNqBlFNAA--.56323W
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbCwAzSN2qzoIwDGAAA3H
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 02/10] media: mediatek: decoder: Add a new platform
+ data member
+To: Kyrie Wu <kyrie.wu@mediatek.com>, Tiffany Lin <tiffany.lin@mediatek.com>,
+ Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+ Yunfei Dong <yunfei.dong@mediatek.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Nathan Hebert <nhebert@chromium.org>, Arnd Bergmann <arnd@arndb.de>,
+ Irui Wang <irui.wang@mediatek.com>, George Sun <george.sun@mediatek.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
+ Yilong Zhou <yilong.zhou@mediatek.com>
+References: <20260923081246.268182-1-kyrie.wu@mediatek.com>
+ <20260923081246.268182-3-kyrie.wu@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260923081246.268182-3-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-CkF0IDIwMjYtMDktMjMgMTE6NTQ6NTUsICJLcmlzaG5hIENoYWl0YW55YSBDaHVuZHJ1IiA8a3Jp
-c2huYS5jaHVuZHJ1QG9zcy5xdWFsY29tbS5jb20+IHdyb3RlOgo+Cj4KPk9uIDkvMjIvMjAyNiA1
-OjA5IFBNLCBTbGFyayBYaWFvIHdyb3RlOgo+PiBBdCAyMDI2LTA5LTIyIDEyOjEyOjM1LCAiS3Jp
-c2huYSBDaGFpdGFueWEgQ2h1bmRydSIgPGtyaXNobmEuY2h1bmRydUBvc3MucXVhbGNvbW0uY29t
-PiB3cm90ZToKPj4+Cj4+PiBPbiA5LzE5LzIwMjYgMzoyNSBQTSwgU2xhcmsgWGlhbyB3cm90ZToK
-Pj4+PiBGb3Igc29tZSBXV0FOIGRldmljZSwgaXQgbWF5IGdldCBhIFNZUyBFUlJPUiBpc3N1ZSB3
-aGVuIHJlc3VtaW5nCj4+Pj4gZnJvbSBzdXNwZW5kIHN0YXRlIGZyZXF1ZW50bHkuIFJlZmVyIHRv
-IHRoZSBRdWFsY29tbSBXaW5kb3dzCj4+Pj4gZHJpdmVyLCB0aGUgZGVmYXVsdCB2YWx1ZSBvZiBh
-dXRvc3VzcGVuZF9kZWxheV9tcyBpcyBzZXQgYXMgNTAwMAo+Pj4+IG1zLiBCdXQgaW4gTGludXgg
-c2lkZSwgYWxsIFdXQU4gZGV2aWNlIHdlcmUgc2V0IGFzIDIwMDBtcy4gV2UKPj4+PiB0cmllZCB0
-byBzZXQgdGhpcyB2YWx1ZSB0byA1MDAwbXMgYW5kIHdlIGNhbiBnZXQgYSBwb3NpdGl2ZSB0ZXN0
-Cj4+Pj4gcmVzdWx0Lgo+Pj4+Cj4+Pj4gU28gd2UgYWRkIGEgc3VwcG9ydCB0byBhbGxvdyB2ZW5k
-b3IgdG8gc2V0IGEgZGlmZmVyZW5jZSB2YWx1ZSBmb3IKPj4+PiBzcGVjaWZpYyBXV0FOIGRldmlj
-ZS4KPj4+IHlvdSBjYW4gY2hhbmdlIGF1dG8gc3VzcGVuZCBkZWxheSBmcm9tIHN5c2ZzLCBwbGVh
-c2UgdXNlIHRoYXQgd2F5IGluc3RlYWQgb2YKPj4+IGRvaW5nIGluIHRoZSBkcml2ZXIuCj4+Pgo+
-Pj4gLSBLcmlzaG5hIENoYWl0YW55YS4KPj4gWWVzLCB3ZSBjYW4gZG8gdGhpcyBieSBzZXR0aW5n
-IHRoZSBzeXNmcyBBUEkgLiBIb3dldmVyLCBub3QgYWxsIHVzZXJzIAo+PiBhcmUgYXdhcmUgb2Yg
-dGhpcyBtZXRob2QuIEFkZGl0aW9uYWxseSwgdGhpcyBhcHByb2FjaCBpcyBvbmx5Cj4+IGVmZmVj
-dGl2ZSBmb3IgYSBzaW5nbGUgaW5zdGFuY2U7IGl0IHJlcXVpcmVzIHJlY29uZmlndXJhdGlvbiBh
-ZnRlciBlYWNoCj4+IHJlc3RhcnQsIHdoaWNoIGlzIHF1aXRlIGluY29udmVuaWVudC4KPnlvdSBj
-YW4gaGF2ZSB1ZGV2IHJ1bGUgdG8gc2V0IHRoaXMgd2l0aG91dCBhbnkgdXNlciBpbnRlcnZlbnRp
-b24uCj4+IFRob3VnaCBJIHdhbnQgdG8gc2V0IHRoZSBkZWZhdWx0IHZhbHVlIGZyb20gMjAwMCB0
-byA1MDAwLCByZWZlciB0bwo+PiB0aGUgUXVhbGNvbW0gV2luZG93cyBkcml2ZXIsIEkgZG9uJ3Qg
-d2FudCB0aGlzIGNoYW5nZSB0byBhZmZlY3QKPj4gdGhlIGRlZmF1bHQgY29uZmlndXJhdGlvbiBv
-ZiBvdGhlciB2ZW5kb3JzLiAKPj4KPj4gVGhpcyBhdHRyaWJ1dGUgc2hvdWxkIGJlbG9uZyB0byBz
-cGVjaWZpYyBXV0FOIGRldmljZXMsIHN1Y2ggYXMKPj4gU0RYNjUsIFNEWDcyIG9yIFFEVTEwMCwg
-cmF0aGVyIHRoYW4gdG8gdGhlIHNhbWUgY2F0ZWdvcnkgb2YKPj4gZGV2aWNlcywgbGlrZSBhbGwg
-TUhJIGRldmljZXMgc2hhcmluZyBhIHNpbmdsZSBzZXR0aW5nLgo+Pgo+PiBCVFcsIEkgc2F3IHNv
-bWUgb25lIGFkZCAnbm9fbTMnIGZsYWcgZm9yIHRoZWlyIFNEWDdYIGRldmljZS4KPj4gV2h5IGNh
-biB0aGV5IGRpc2FibGUgc3VzcGVuZCBvbiB0aGUgc2FtZSBTRFg3WCBkZXZpY2UsIHdoaWxlCj4+
-IEkgY2FuJ3QgYWRqdXN0IHRoZSBzdXNwZW5kIGRlbGF5IHRpbWU/IFRoYXQncyBjdXJpb3VzLgo+
-bm9fbTMgZmxhZyBpcyBmb3IgcWR1MTAwIHRhcmdldCwgd2hlcmUgdGhlIHRhcmdldCBpdHNlbGYg
-d2lsbCBub3Qgc3VwcG9ydCBNMy4KPkl0IGlzIG5vdCBqdXN0IGRpc2FibGluZyBzdXNwZW5kIGJ1
-dCBhbHNvIG1ha2Ugc3VyZSBkZXZpY2UgbmV2ZXIgZW50ZXJzIG0zIGV2ZW4KPmluIHN5c3RlbSBz
-dXNwZW5kIGNhc2UuwqAKPgo+VGhlcmUgaXMgYWxyZWFkeSBzdXBwb3J0IGZyb20gc3lzZnMgdG8g
-Y2hhbmdlIHRoZSB0aW1lLCBkb2luZyBhZ2FpbiB0aGF0IGluCj50aGUgZHJpdmVyIGlzIGp1c3Qg
-ZHVwbGljYXRpb24gb2Ygd29yay4KPgo+LSBLcmlzaG5hIENoYWl0YW55YS4KSSBtZWFuIGFub3Ro
-ZXIgZGV2aWNlLCB5b3UgY2FuIHJlZmVyIHRvIGJlbG93IGxpbms6Cmh0dHBzOi8vbG9yZS5rZXJu
-ZWwub3JnL21oaS8yMDI2MDcwMTA5NTM0NC4zMDk0MDktMS16d3EyMjI2NDA0MTE2QDE2My5jb20v
-CgpBbnl3YXksIGlmIHRoZSBrZXJuZWwgZGVzaWduIGlzIG5vdCBhbGxvd2VkIHZlbmRvciB0byBz
-ZXQgdGhlIGF1dG9zdXNwZW5kIApkZWxheSBhcyBhIGN1c3RvbWl6ZWQgaXRlbSwgSSB3aWxsIGZv
-bGxvdyB0aGlzLgoKT2ggd2FpdCwgSSBhbSBub3Qgc3VyZSBpZiB5b3UgaGF2ZSBiZWVuIGNvbmZ1
-c2VkIGJ5IHRoZSB0aXRsZS4gWW91IG1heSB0aGluayB0aGF0CnRoaXMgY3VzdG9taXplZCBzdXBw
-b3J0IG1ldGhvZCBoYXMgY29uZmxpY3RlZCB3aXRoIHRoZSBzeXNmcyBBUEkuIEJ1dCBhY3R1YWxs
-eSwgCnRoaXMgcGF0Y2ggd291bGQgbm90IGJlIHRoZSBvbmx5IHBhdGNoIGZvciB0aGlzIGZlYXR1
-cmUuIFdlIG1heSBwcm92aWRlIG1vcmUKc2V0dGluZ3MgZm9yIG91ciBkZXZpY2UsIGxpa2Ugd2Ug
-c2V0IHRoZSBUOTlXNjk2IGFzIDIwMDBtcywgRFc1OTM0ZSBhcyA1MDAwCm1zLi4uLi4KVGhpcyBj
-dXN0b21pemF0aW9uIGlzIGZvciBkaWZmZXJlbnQgV1dBTiBkZXZpY2Uod2l0aCBkaWZmZXJlbnQg
-ZGVmYXVsdCBzZXR0aW5ncyksIApub3QgZm9yIGEgc2luZ2xlIGRldmljZSBkdXJpbmcgZGlmZmVy
-ZW50IHNjZW5hcmlvLgoKSSBob3BlIHRoZSBhYm92ZSBleHBsYW5hdGlvbiBoZWxwcyB5b3UgdW5k
-ZXJzdGFuZCB0aGUgaW50ZW50aW9uIGJlaGluZApteSBzdWJtaXR0ZWQgcGF0Y2guIFRoYW5rIHlv
-dSBvbmNlIGFnYWluIQoKPj4KPj4gVGhhbmtzCj4+Pj4gQlRXLCBiYXNlZCBvbiB0aGUgcHJpbmNp
-cGxlIG9mIHN0cnVjdHVyZSBhbGlnbm1lbnQsIEkgbW92ZWQgdGhlCj4+Pj4gbG9jYXRpb24gb2Yg
-J3RyaWdnZXJfZWRsJy4KPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6IFNsYXJrIFhpYW8gPHNsYXJr
-X3hpYW9AMTYzLmNvbT4KPj4+PiAtLS0KPj4+PiAgZHJpdmVycy9idXMvbWhpL2hvc3QvcGNpX2dl
-bmVyaWMuYyB8IDE0ICsrKysrKysrKysrLS0tCj4+Pj4gIDEgZmlsZSBjaGFuZ2VkLCAxMSBpbnNl
-cnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Pj4+Cj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-YnVzL21oaS9ob3N0L3BjaV9nZW5lcmljLmMgYi9kcml2ZXJzL2J1cy9taGkvaG9zdC9wY2lfZ2Vu
-ZXJpYy5jCj4+Pj4gaW5kZXggYjYzNmUyYzIzYjRkLi4zMzM5YjliMmQxNmQgMTAwNjQ0Cj4+Pj4g
-LS0tIGEvZHJpdmVycy9idXMvbWhpL2hvc3QvcGNpX2dlbmVyaWMuYwo+Pj4+ICsrKyBiL2RyaXZl
-cnMvYnVzL21oaS9ob3N0L3BjaV9nZW5lcmljLmMKPj4+PiBAQCAtMjMsNiArMjMsOCBAQAo+Pj4+
-ICAKPj4+PiAgI2RlZmluZSBIRUFMVEhfQ0hFQ0tfUEVSSU9EIChIWiAqIDIpCj4+Pj4gIAo+Pj4+
-ICsjZGVmaW5lIEFVVE9TVVNQRU5EX0RFTEFZX01TIDIwMDAKPj4+PiArCj4+Pj4gIC8qIFBDSSBW
-SUQgZGVmaW5pdGlvbnMgKi8KPj4+PiAgI2RlZmluZSBQQ0lfVkVORE9SX0lEX1RIQUxFUwkweDEy
-NjkKPj4+PiAgI2RlZmluZSBQQ0lfVkVORE9SX0lEX1FVRUNURUwJMHgxZWFjCj4+Pj4gQEAgLTM4
-LDExICs0MCwxMiBAQAo+Pj4+ICAgKiBAbmFtZTogbmFtZSBvZiB0aGUgUENJIG1vZHVsZQo+Pj4+
-ICAgKiBAZnc6IGZpcm13YXJlIHBhdGggKGlmIGFueSkKPj4+PiAgICogQGVkbDogZW1lcmdlbmN5
-IGRvd25sb2FkIG1vZGUgZmlybXdhcmUgcGF0aCAoaWYgYW55KQo+Pj4+IC0gKiBAZWRsX3RyaWdn
-ZXI6IGNhcGFibGUgb2YgdHJpZ2dlcmluZyBFREwgbW9kZSBpbiB0aGUgZGV2aWNlIChpZiBzdXBw
-b3J0ZWQpCj4+Pj4gICAqIEBiYXJfbnVtOiBQQ0kgYmFzZSBhZGRyZXNzIHJlZ2lzdGVyIHRvIHVz
-ZSBmb3IgTUhJIE1NSU8gcmVnaXN0ZXIgc3BhY2UKPj4+PiAgICogQGRtYV9kYXRhX3dpZHRoOiBE
-TUEgdHJhbnNmZXIgd29yZCBzaXplICgzMiBvciA2NCBiaXRzKQo+Pj4+ICAgKiBAdmZfZG1hX2Rh
-dGFfd2lkdGg6IERNQSB0cmFuc2ZlciB3b3JkIHNpemUgZm9yIFZGJ3MgKG9wdGlvbmFsKQo+Pj4+
-ICAgKiBAbXJ1X2RlZmF1bHQ6IGRlZmF1bHQgTVJVIHNpemUgZm9yIE1CSU0gbmV0d29yayBwYWNr
-ZXRzCj4+Pj4gKyAqIEBhdXRvc3VzcGVuZF9kZWxheTogY3VzdG9taXplZCBhdXRvc3VzcGVuZF9k
-ZWxheV9tcyB2YWx1ZSBmb3Igc3BlY2lmaWMgbWhpIGRldmljZQo+Pj4+ICsgKiBAZWRsX3RyaWdn
-ZXI6IGNhcGFibGUgb2YgdHJpZ2dlcmluZyBFREwgbW9kZSBpbiB0aGUgZGV2aWNlIChpZiBzdXBw
-b3J0ZWQpCj4+Pj4gICAqIEBzaWRlYmFuZF93YWtlOiBEZXZpY2VzIHVzaW5nIGRlZGljYXRlZCBz
-aWRlYmFuZCBHUElPIGZvciB3YWtldXAgaW5zdGVhZAo+Pj4+ICAgKgkJICAgb2YgaW5iYW5kIHdh
-a2Ugc3VwcG9ydCAoc3VjaCBhcyBzZHgyNCkKPj4+PiAgICogQG5vX20zOiBNMyBub3Qgc3VwcG9y
-dGVkCj4+Pj4gQEAgLTU0LDExICs1NywxMiBAQCBzdHJ1Y3QgbWhpX3BjaV9kZXZfaW5mbyB7Cj4+
-Pj4gIAljb25zdCBjaGFyICpuYW1lOwo+Pj4+ICAJY29uc3QgY2hhciAqZnc7Cj4+Pj4gIAljb25z
-dCBjaGFyICplZGw7Cj4+Pj4gLQlib29sIGVkbF90cmlnZ2VyOwo+Pj4+ICAJdW5zaWduZWQgaW50
-IGJhcl9udW07Cj4+Pj4gIAl1bnNpZ25lZCBpbnQgZG1hX2RhdGFfd2lkdGg7Cj4+Pj4gIAl1bnNp
-Z25lZCBpbnQgdmZfZG1hX2RhdGFfd2lkdGg7Cj4+Pj4gIAl1bnNpZ25lZCBpbnQgbXJ1X2RlZmF1
-bHQ7Cj4+Pj4gKwl1bnNpZ25lZCBpbnQgYXV0b3N1c3BlbmRfZGVsYXk7Cj4+Pj4gKwlib29sIGVk
-bF90cmlnZ2VyOwo+Pj4+ICAJYm9vbCBzaWRlYmFuZF93YWtlOwo+Pj4+ICAJYm9vbCBub19tMzsK
-Pj4+PiAgCWJvb2wgcmVzZXRfb25fcmVtb3ZlOwo+Pj4+IEBAIC0xMzY5LDYgKzEzNzMsNyBAQCBz
-dGF0aWMgaW50IG1oaV9wY2lfcHJvYmUoc3RydWN0IHBjaV9kZXYgKnBkZXYsIGNvbnN0IHN0cnVj
-dCBwY2lfZGV2aWNlX2lkICppZCkKPj4+PiAgCXN0cnVjdCBtaGlfcGNpX2RldmljZSAqbWhpX3Bk
-ZXY7Cj4+Pj4gIAlzdHJ1Y3QgbWhpX2NvbnRyb2xsZXIgKm1oaV9jbnRybDsKPj4+PiAgCXVuc2ln
-bmVkIGludCBkbWFfZGF0YV93aWR0aDsKPj4+PiArCXVuc2lnbmVkIGludCBhdXRvc3VzcGVuZF9k
-ZWxheTsKPj4+PiAgCWludCBlcnI7Cj4+Pj4gIAo+Pj4+ICAJZGV2X2luZm8oJnBkZXYtPmRldiwg
-Ik1ISSBQQ0kgZGV2aWNlIGZvdW5kOiAlc1xuIiwgaW5mby0+bmFtZSk7Cj4+Pj4gQEAgLTEzOTQs
-NiArMTM5OSw5IEBAIHN0YXRpYyBpbnQgbWhpX3BjaV9wcm9iZShzdHJ1Y3QgcGNpX2RldiAqcGRl
-diwgY29uc3Qgc3RydWN0IHBjaV9kZXZpY2VfaWQgKmlkKQo+Pj4+ICAJZG1hX2RhdGFfd2lkdGgg
-PSAocGRldi0+aXNfdmlydGZuICYmIGluZm8tPnZmX2RtYV9kYXRhX3dpZHRoKSA/Cj4+Pj4gIAkJ
-CSAgaW5mby0+dmZfZG1hX2RhdGFfd2lkdGggOiBpbmZvLT5kbWFfZGF0YV93aWR0aDsKPj4+PiAg
-Cj4+Pj4gKwlhdXRvc3VzcGVuZF9kZWxheSA9IGluZm8tPmF1dG9zdXNwZW5kX2RlbGF5ID8gaW5m
-by0+YXV0b3N1c3BlbmRfZGVsYXkgOgo+Pj4+ICsJCQkgIEFVVE9TVVNQRU5EX0RFTEFZX01TOwo+
-Pj4+ICsKPj4+PiAgCW1oaV9jbnRybC0+Y250cmxfZGV2ID0gJnBkZXYtPmRldjsKPj4+PiAgCW1o
-aV9jbnRybC0+aW92YV9zdGFydCA9IDA7Cj4+Pj4gIAltaGlfY250cmwtPmlvdmFfc3RvcCA9IChk
-bWFfYWRkcl90KURNQV9CSVRfTUFTSyhkbWFfZGF0YV93aWR0aCk7Cj4+Pj4gQEAgLTE0NjMsNyAr
-MTQ3MSw3IEBAIHN0YXRpYyBpbnQgbWhpX3BjaV9wcm9iZShzdHJ1Y3QgcGNpX2RldiAqcGRldiwg
-Y29uc3Qgc3RydWN0IHBjaV9kZXZpY2VfaWQgKmlkKQo+Pj4+ICAKPj4+PiAgCS8qIEFsbG93IHJ1
-bnRpbWUgc3VzcGVuZCBvbmx5IGlmIGJvdGggUE1FIGZyb20gRDNIb3QgYW5kIE0zIGFyZSBzdXBw
-b3J0ZWQgKi8KPj4+PiAgCWlmIChwY2lfcG1lX2NhcGFibGUocGRldiwgUENJX0QzaG90KSAmJiAh
-KGluZm8tPm5vX20zKSkgewo+Pj4+IC0JCXBtX3J1bnRpbWVfc2V0X2F1dG9zdXNwZW5kX2RlbGF5
-KCZwZGV2LT5kZXYsIDIwMDApOwo+Pj4+ICsJCXBtX3J1bnRpbWVfc2V0X2F1dG9zdXNwZW5kX2Rl
-bGF5KCZwZGV2LT5kZXYsIGF1dG9zdXNwZW5kX2RlbGF5KTsKPj4+PiAgCQlwbV9ydW50aW1lX3Vz
-ZV9hdXRvc3VzcGVuZCgmcGRldi0+ZGV2KTsKPj4+PiAgCQlwbV9ydW50aW1lX21hcmtfbGFzdF9i
-dXN5KCZwZGV2LT5kZXYpOwo+Pj4+ICAJCXBtX3J1bnRpbWVfcHV0X25vaWRsZSgmcGRldi0+ZGV2
-KTsK
+On 9/23/26 10:12, Kyrie Wu wrote:
+> Move the chip model information into the codec match data
+> and remove the second compatible matching code.
+> 
+> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> ---
+>   .../mediatek/vcodec/decoder/mtk_vcodec_dec.c  |   2 +-
+>   .../mediatek/vcodec/decoder/mtk_vcodec_dec.h  |   5 +
+>   .../vcodec/decoder/mtk_vcodec_dec_drv.c       |  40 ++-----
+>   .../vcodec/decoder/mtk_vcodec_dec_drv.h       |  17 +--
+>   .../vcodec/decoder/mtk_vcodec_dec_hw.c        |   2 +-
+>   .../vcodec/decoder/mtk_vcodec_dec_stateful.c  |   1 +
+>   .../vcodec/decoder/mtk_vcodec_dec_stateless.c | 104 +++++++++++++-----
+>   7 files changed, 96 insertions(+), 75 deletions(-)
+> 
+
+..snip..
+
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
+> index 53d1708b012b..153c617df78d 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
+> @@ -21,17 +21,6 @@
+>   #define IS_VDEC_INNER_RACING(capability) ((capability) & MTK_VCODEC_INNER_RACING)
+>   #define IS_VDEC_SUPPORT_EXT(capability) ((capability) & MTK_VDEC_IS_SUPPORT_EXT)
+>   
+> -enum mtk_vcodec_dec_chip_name {
+> -	MTK_VDEC_INVAL = 0,
+> -	MTK_VDEC_MT8173 = 8173,
+> -	MTK_VDEC_MT8183 = 8183,
+> -	MTK_VDEC_MT8186 = 8186,
+> -	MTK_VDEC_MT8188 = 8188,
+> -	MTK_VDEC_MT8192 = 8192,
+> -	MTK_VDEC_MT8195 = 8195,
+> -	MTK_VDEC_MT8196 = 8196,
+> -};
+> -
+>   /*
+>    * enum mtk_vdec_format_types - Structure used to get supported
+>    *		  format types according to decoder capability
+> @@ -108,6 +97,7 @@ struct vdec_pic_info {
+>    *
+>    * @is_subdev_supported: whether support parent-node architecture(subdev)
+>    * @uses_stateless_api: whether the decoder uses the stateless API with requests
+> + * @chip_model: platforms configuration values
+>    */
+>   struct mtk_vcodec_dec_pdata {
+>   	void (*init_vdec_params)(struct mtk_vcodec_dec_ctx *ctx);
+> @@ -129,6 +119,7 @@ struct mtk_vcodec_dec_pdata {
+>   
+>   	bool is_subdev_supported;
+>   	bool uses_stateless_api;
+> +	unsigned int chip_model;
+
+I already gave my R-b but I just noticed:
+
+Please use u16 here, 16 bits are way more than enough for this.
+
+>   };
+>   
+>   /**
+> @@ -277,7 +268,7 @@ struct mtk_vcodec_dec_ctx {
+>    * @dec_racing_info_mutex: mutex lock used for inner racing mode
+>    * @dbgfs: debug log related information
+>    *
+> - * @chip_name: used to distinguish platforms and select the correct codec configuration values
+> + * @chip_model: used to distinguish platforms and select the correct codec configuration values
+>    */
+>   struct mtk_vcodec_dec_dev {
+>   	struct v4l2_device v4l2_dev;
+> @@ -321,7 +312,7 @@ struct mtk_vcodec_dec_dev {
+>   	struct mutex dec_racing_info_mutex;
+>   	struct mtk_vcodec_dbgfs dbgfs;
+>   
+> -	enum mtk_vcodec_dec_chip_name chip_name;
+> +	unsigned int chip_model;
+
+same here
+
+
+Cheers,
+Angelo
