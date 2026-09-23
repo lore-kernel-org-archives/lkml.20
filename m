@@ -1,245 +1,195 @@
-Received: from mail-wr2-f14.google.com (mail-wr2-f14.google.com [74.125.225.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7677D3F65EA
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.78
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164887; cv=pass; b=FRzefLd+Sk1qhZ2/DOhFk3NKC9EPCn6tfK9IrtPtMKdL6b73Nb+vEODa8lkEFaN/ohCTRF1zgZN9XGuaGKjixuQ1eQ5a9OhUIXyt2WUhMTqjjcR8YKJMR8K0lFeKBiYjUFAa0MuHXpzLeUl7t0ODDs12bTyLQILDzUn8S2SB9AE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164887; c=relaxed/simple;
-	bh=UciKY87OJuo05x9eA/7imt88rzW35xEJOjxrzxqe9Co=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iPGZ6xeFUr8P8ynOJyB31zmkWwTTMVknhzbiBJajmORBi8g1uhQRSk9UMTuRsRGh53y641VwCumPYcD9kxhyeUH+D+rttHlSAKXtXX7t0zrsFY+D0gZyi9skVfMhdxnd5tT/8jV1AOgtAiTuqoxEWdauJlt9xcxrU4uYggGeQvA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=g0AMDHSH; arc=pass smtp.client-ip=74.125.225.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09F4497B97;
+	Wed, 23 Sep 2026 12:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790164911; cv=none; b=FUyV8T0QamX5Y7QPNo/WRGV1uNl5tLlyvvPvxMxXJv1PqQosH5E6+G05T7cBjgP5gXmBTCWVs6QPvNBWrGQM4goDavc1di29Tvo1NLXpBPq9ALr6mnIG0rKaadX8Zdn1GvvMRibW+5Q+rr/1Ge/tj0m+d7vG939WzwUCSw0duM4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790164911; c=relaxed/simple;
+	bh=iEwJU1mD3pjwYmRrreavMLgI+WLujd/Cte+xR+EwSOw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WSpNCLEqUaZ+GAFr+aIq0fS9/JNks2Jc/uatgFAb/idTgWGL8wu2AILWX/ErF3ByqJHm5CI9UhSGpPGFynSfrF+pZzPtXsgLDJ4CGXyqzB3iWNdH1mitrLIafJPn4Hvj0J9/9F5IstKO0vrOcJ8+soSZZx3yLt3Qzgwc7Pcu/3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=orJvCK2t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="g0AMDHSH"
-Received: by mail-wr2-f14.google.com with SMTP id ffacd0b85a97d-482f6350f88so609579f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:01:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790164880; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YLNvTCgNp+Av2ZTjT0Ci9QteSFRlRIlVe5t6Znw+wyGwxXEm/5X/7URozS4AJ/sspp
-         BKkL06QdLUMd6lg7KLJ0/DnloE56lSJtTyltwUzOPuecryibZCDIM01Yav0GKLsqoyh/
-         /5GU9/xOZRbrjiK+8tkWxTz+iOjcY1aTMyy/ccMO5V5R3GgM3TGlGe38jQRP/wJ8CJTN
-         fn15ClG+FqkphKFD8t3OqAWW1PxgL1rg36AeVMDlhdVKXipdDncjoyyMRU9AjDG0vZWy
-         H0Wcz8Ti3sWaLtMBNsAJg+nBzpLmdwnLNAevvg+dg8HqwQFwLdOKA0Xg8dqsktG/qj7+
-         A+OQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7oV5NhC84tix+b+JvApE1dpYWTnu/MAWxqkNt5esyEI=;
-        fh=gL6PFSgxKml4gHtgxumM3xF7D5tACfWr80jpkDYyo0U=;
-        b=CdQVv084Kgv3Cbw/PQia05uiPXdpx5lXxLezzV2nVv8FjnG8ox+sJxvG12cOwiDgch
-         UumAiBbG1u37+23nGP3FVGl2IQLY/xTqzOdgY/54G2c4SKKVy6FJu0H1DjuSf1HMj4iQ
-         LErLWnXeR1znEDXBeGJDh8nHl06780tMdXbjAJf7x76ADiWit2yC3NIiBIpRD5M1D+1l
-         Yt3WiRV1s3y9SQy+FGSiWFYrL1CRhRrRxrHCGMd5ZRT6gcgmkH3OfeuYHfRCK//0Fbv0
-         uodrOAxey+5PpHxoS4c7/eDFwQhW1hFVW1ARIsGuOQnPalugeKB2M04PPvUY+DtBuBiO
-         PCUg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1790164880; x=1790769680; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7oV5NhC84tix+b+JvApE1dpYWTnu/MAWxqkNt5esyEI=;
-        b=g0AMDHSHvPCZDReeaAZ6e/VDnkPNtK1/y+l7bSFZYZ1SQnOc/3SnHMxZsxPNq4gRb5
-         MoMM9zBDIyLLGz0yQoxNjYAt1/9uUZpJUCtIpvT3xwFisJY94KHiXkBg7kpiTU7kXETx
-         s3qxFov9ZLevli+6Dp5Ety0dS7eY3Jj8RPYRp0UmcWt80q41n2FD9j+P97C6RleFIOkx
-         A/sveEZ6KyzzFJEJKxw9GJr+1PhlMpdrLejStf6uDuac11+gfZbbOiPkOj2HL9/71oJP
-         qyvjtQVu12Hs4ucOoCyeYmyM8jMJKx99dRIineRWZFDEt6Fy2xeg98ZvbyYKVhsvLTEO
-         cmYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790164880; x=1790769680;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7oV5NhC84tix+b+JvApE1dpYWTnu/MAWxqkNt5esyEI=;
-        b=WylzMp3NuFSrqxcyDJZJTx2yvcdrbKpnSOHXKJX05eUU3uGRXxu3pcxuVqoxHa0UUk
-         +8t79ihsLY10ZIuco9iCvCqagLkMgdzTeTmb7fjtODM7Kq8/vJvfGtOyCrdq4VEDBPgf
-         dKNO6Oi8oLI8urdXgKuZ9AmOkB88Hr/rwCLDISwJ6a9o6Gsjw4SVSGq3YeU9zC9C23j4
-         qiV6Dy81aJLqniyJPlQ0ipTo56sR9PWAVHoOemMz2aOAIepVMLybigPY4nDuPhUN3gkg
-         0+tcDfC1a8gQiZ7jg+jPiqA3RpgTyrn/ZlmBSAPjAXwKngG7P3wij3eO8isf9NydWdyQ
-         rcNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxpKp1id7h686VN1+SBHaNCyPpZ/RNOgUC2xG5w89oahQ0Enb9exvrBI4i/wS1eLgr4MV2Hw9fPQqbjUVU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lC89zIOpDFrfXRsvGrgS43s0/srUbNhkGNQr32XYj0T/bDrj2z
-	pKOAaCz4o1w/MDQ4F/EVNWb68axMZ0gay5FL8sA6RmmsRXOBmOpYGwxW9pQf2/5jfQ9o1JnhR8K
-	rH3poC7qJecSjjeHHLPFIcjhDExLbRYM3QPk3I2uwiA==
-X-Gm-Gg: AYBFou3znwFPmwFd6O7Nidz873XWIQtVVGeiosHAK4rHWdyq61CYVQh7vT2mWb3Sxm2
-	giLjS6VuDm3lyL4Kh4yjC82Y6h0wvoN4d/ILlwa9hifWbVk7odHI4biYKjekt+aUsfQk+dYNlBl
-	x+PMK1N8149r9dd1ecRXU4zE/T9MvUrd9wz1xhDznzsl9ZZl3Eigq7w8Q5ormS1tfZiS65b3pHd
-	Txs8WovJW7lLOkFDa7N8pH6shxYgjQDDC+OHZ/iO/Sdg1btTN3qdOUlllAFUgtknZf6bSm5GxF+
-	DSIZKZ1/gGNqPprzb4PB57+ORmplO8RbyZHj0FP1dG0Fyy6NuJg8Bn40T+nlbXHOmm5q50gXRTo
-	+RD4UaGwj9QkCF1W0loKH+269pp1yEGjPyynK5A3MmMSWERWQdJpyYmX1pbNZqBnK/NpF/9A9OM
-	A=
-X-Received: by 2002:a05:6000:70b:b0:487:81c:183f with SMTP id
- ffacd0b85a97d-4886704926dmr3859972f8f.10.1790164877652; Wed, 23 Sep 2026
- 05:01:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="orJvCK2t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100E91F000FF;
+	Wed, 23 Sep 2026 12:01:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790164908;
+	bh=z3QL0JBh11KsKfmNd8SEMf7tMAHy0V22b19fkJafS9o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=orJvCK2t9mf6DE4bOUoAmMBT3XRccZPekd/P7JHA4HUvlk5Dng+WvEu4ROYNUzuS7
+	 gSnJ4UR5vKEjIUAK1QE+gTrA4yVW6TQU2KglXbkcDall3bjs8DyAxqkTM1HEqHhh6I
+	 4h0254o38tW1sO9odsnUgV8Gexv8zWy3PSiBChwjC7R/Na/vn3Unwu7K863PY6FVsm
+	 zdIU5WJizfDWlq93eS4YL9sQu9c1IJ8ircHX+8Fn2Q41X+PhapvJUVGoKZJzUElAku
+	 uOZtsf3DmwkY3ZuIH6tYcSyqd8eJBItpF/gYuM8OOLTUfMlb/njgq3pslGSVNVxPvV
+	 RJIrMd+eQSjCg==
+Date: Wed, 23 Sep 2026 13:01:44 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Sudeep Holla <sudeep.holla@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Frank.Li@kernel.org, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	imx@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] module: add SCMI device table alias support
+Message-ID: <20260923-calculating-positive-inchworm-28d3cc@sudeepholla>
+References: <20260918092951.5656-1-johannes.goede@oss.qualcomm.com>
+ <20260918092951.5656-2-johannes.goede@oss.qualcomm.com>
+ <arFKVhlgJge5EZyj@monoceros>
+ <20260923-sceptical-mauve-firefly-f5456d@sudeepholla>
+ <6b5a8300-ebf9-4717-bd39-952e89fc5e78@oss.qualcomm.com>
+ <20260923-snake-of-magic-satiation-c3b857@sudeepholla>
+ <a5e56180-b96f-4fac-980e-e837e84cd5a5@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com> <20260831145943.313726-13-andrew.jones@oss.qualcomm.com>
-In-Reply-To: <20260831145943.313726-13-andrew.jones@oss.qualcomm.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Wed, 23 Sep 2026 17:31:05 +0530
-X-Gm-Features: AclHuK-2ObkketlET_SBsJ58iMsfQLM0zUzwlh7sLplMTaBDRnaBDkNaFuzixnM
-Message-ID: <CAAhSdy36ZUbJ5OetQ0n7C8UYYBVhqUsbHc3+XMDOfXX2O9ZjmA@mail.gmail.com>
-Subject: Re: [PATCH v5 12/17] irqchip/riscv-imsic: Support IOMMU MSI address lists
-To: Andrew Jones <andrew.jones@oss.qualcomm.com>
-Cc: linux-riscv@lists.infradead.org, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev, tjeznach@rivosinc.com, 
-	jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org, will@kernel.org, 
-	robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com, tglx@kernel.org, 
-	kevin.tian@intel.com, fangyu.yu@linux.alibaba.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a5e56180-b96f-4fac-980e-e837e84cd5a5@oss.qualcomm.com>
 
-On Mon, Aug 31, 2026 at 8:30=E2=80=AFPM Andrew Jones
-<andrew.jones@oss.qualcomm.com> wrote:
->
-> RISC-V IOMMU host interrupt remapping maps every possible host IMSIC
-> target into one contiguous IOVA range. MSI message composition therefore
-> needs each target's position within that range.
->
-> When the S-mode IMSIC address list is available, prepare the complete
-> list while allocating an IRQ. This allows the IOMMU backend to map the
-> pages and cache the contiguous base IOVA in the MSI descriptor. Skip the
-> optional preparation when no list is available, allowing devices which
-> do not need IOMMU MSI translation to keep using physical MSI messages.
->
-> When the descriptor has an IOMMU MSI mapping, use the selected logical
-> CPU directly as the page index within the IOVA range. Use the same path
-> for initial composition and affinity updates. Messages remain physical
-> when no IOMMU MSI mapping is required.
->
-> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
-> ---
->  drivers/irqchip/Kconfig                    |  1 +
->  drivers/irqchip/irq-riscv-imsic-platform.c | 25 +++++++++++++++++++---
->  2 files changed, 23 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-> index 42f2278a702d..c7cda52b21eb 100644
-> --- a/drivers/irqchip/Kconfig
-> +++ b/drivers/irqchip/Kconfig
-> @@ -656,6 +656,7 @@ config RISCV_IMSIC
->         select IRQ_DOMAIN_HIERARCHY
->         select GENERIC_IRQ_MATRIX_ALLOCATOR
->         select GENERIC_MSI_IRQ
-> +       select IRQ_MSI_IOMMU
->         select IRQ_MSI_LIB
->
->  config RISCV_RPMI_SYSMSI
-> diff --git a/drivers/irqchip/irq-riscv-imsic-platform.c b/drivers/irqchip=
-/irq-riscv-imsic-platform.c
-> index 643c8e459611..6e26a31f7503 100644
-> --- a/drivers/irqchip/irq-riscv-imsic-platform.c
-> +++ b/drivers/irqchip/irq-riscv-imsic-platform.c
-> @@ -10,6 +10,7 @@
->  #include <linux/cpu.h>
->  #include <linux/interrupt.h>
->  #include <linux/io.h>
-> +#include <linux/iommu.h>
->  #include <linux/irq.h>
->  #include <linux/irqchip.h>
->  #include <linux/irqdomain.h>
-> @@ -69,8 +70,10 @@ static void imsic_irq_ack(struct irq_data *d)
->         irq_move_irq(d);
->  }
->
-> -static void imsic_irq_compose_vector_msg(struct imsic_vector *vec, struc=
-t msi_msg *msg)
-> +static void imsic_irq_compose_vector_msg(struct irq_data *d, struct imsi=
-c_vector *vec,
-> +                                        struct msi_msg *msg)
->  {
-> +       struct msi_desc *desc =3D irq_data_get_msi_desc(d);
->         phys_addr_t msi_addr;
->
->         if (WARN_ON(!vec))
-> @@ -79,6 +82,11 @@ static void imsic_irq_compose_vector_msg(struct imsic_=
-vector *vec, struct msi_ms
->         if (WARN_ON(!imsic_cpu_page_phys(vec->cpu, 0, &msi_addr)))
->                 return;
->
-> +       if (desc->iommu_msi_shift) {
-
-Is it expected that iommu_msi_shift =3D=3D 0 means no IOMMU in the path?
-
-> +               msi_addr =3D (desc->iommu_msi_iova << desc->iommu_msi_shi=
-ft) +
-> +                          vec->cpu * IMSIC_MMIO_PAGE_SZ;
-> +       }
-> +
->         msg->address_hi =3D upper_32_bits(msi_addr);
->         msg->address_lo =3D lower_32_bits(msi_addr);
->         msg->data =3D vec->local_id;
-> @@ -86,7 +94,7 @@ static void imsic_irq_compose_vector_msg(struct imsic_v=
-ector *vec, struct msi_ms
->
->  static void imsic_irq_compose_msg(struct irq_data *d, struct msi_msg *ms=
-g)
->  {
-> -       imsic_irq_compose_vector_msg(irq_data_get_irq_chip_data(d), msg);
-> +       imsic_irq_compose_vector_msg(d, irq_data_get_irq_chip_data(d), ms=
-g);
->  }
->
->  #ifdef CONFIG_SMP
-> @@ -94,7 +102,7 @@ static void imsic_msi_update_msg(struct irq_data *d, s=
-truct imsic_vector *vec)
->  {
->         struct msi_msg msg =3D { };
->
-> -       imsic_irq_compose_vector_msg(vec, &msg);
-> +       imsic_irq_compose_vector_msg(d, vec, &msg);
->         irq_data_get_irq_chip(d)->irq_write_msi_msg(d, &msg);
->  }
->
-> @@ -225,7 +233,9 @@ static struct irq_chip imsic_irq_base_chip =3D {
->  static int imsic_irq_domain_alloc(struct irq_domain *domain, unsigned in=
-t virq,
->                                   unsigned int nr_irqs, void *args)
->  {
-> +       msi_alloc_info_t *info =3D args;
->         struct imsic_vector *vec;
-> +       int ret;
->
->         /* Multi-MSI is not supported yet. */
->         if (nr_irqs > 1)
-> @@ -235,6 +245,15 @@ static int imsic_irq_domain_alloc(struct irq_domain =
-*domain, unsigned int virq,
->         if (!vec)
->                 return -ENOSPC;
->
-> +       if (imsic->smode_msi_pa) {
-
-The imsic_setup_state() will fail if smode_msi_pa creation fails at
-boot time so this looks like a paranoid check.
-
-> +               ret =3D iommu_dma_prepare_msi_list(info->desc, imsic->smo=
-de_msi_pa,
-> +                                                num_possible_cpus(), IMS=
-IC_MMIO_PAGE_SZ);
-> +               if (ret) {
-> +                       imsic_vector_free(vec);
-> +                       return ret;
-> +               }
-> +       }
-> +
->         irq_domain_set_info(domain, virq, virq, &imsic_irq_base_chip, vec=
-,
->                             handle_edge_irq, NULL, NULL);
->         irq_set_noprobe(virq);
-> --
-> 2.43.0
+On Wed, Sep 23, 2026 at 01:26:00PM +0200, Hans de Goede wrote:
+> Hi,
+> 
+> On 23-Sep-26 12:49, Sudeep Holla wrote:
+> > On Wed, Sep 23, 2026 at 12:23:50PM +0200, Hans de Goede wrote:
+> >> Hi,
+> >>
+> >> On 23-Sep-26 11:07, Sudeep Holla wrote:
+> >>> On Mon, Sep 21, 2026 at 05:19:45PM +0200, Uwe Kleine-König wrote:
+> >>>> On Fri, Sep 18, 2026 at 11:29:50AM +0200, Hans de Goede wrote:
+> >>>>> From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> >>>>>
+> >>>>> SCMI client drivers already describe their bus match data with
+> >>>>> MODULE_DEVICE_TABLE(scmi, ...), but modpost does not know how to consume
+> >>>>> SCMI device tables. As a result, SCMI modules do not get generated module
+> >>>>> aliases from their id tables.
+> >>>>>
+> >>>>> Move struct scmi_device_id to mod_devicetable.h so it has a fixed layout
+> >>>>> visible to modpost, add the corresponding generated offsets and teach
+> >>>>> file2alias to emit scmi:<protocol>:<name> aliases.
+> >>>>>
+> >>>>> Use the same stable alias format for SCMI device uevents and sysfs
+> >>>>> modaliases. The previous string included the instance-specific device
+> >>>>> name, which is not useful for matching modules.
+> >>>>>
+> >>>>> Assisted-by: Codex:GPT-5.5
+> >>>>> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> >>>>> Tested-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> >>>>> Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+> >>>>> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> >>>
+> >>> [...]
+> >>>
+> >>>>> diff --git a/include/linux/device-id/scmi.h b/include/linux/device-id/scmi.h
+> >>>>> new file mode 100644
+> >>>>> index 000000000000..1b4ccfa9dcc5
+> >>>>> --- /dev/null
+> >>>>> +++ b/include/linux/device-id/scmi.h
+> >>>>> @@ -0,0 +1,17 @@
+> >>>>> +/* SPDX-License-Identifier: GPL-2.0-only */
+> >>>>> +#ifndef LINUX_DEVICE_ID_SCMI_H
+> >>>>> +#define LINUX_DEVICE_ID_SCMI_H
+> >>>>> +
+> >>>>> +#ifdef __KERNEL__
+> >>>>> +#include <linux/types.h>
+> >>>>> +#endif
+> >>>>> +
+> >>>>> +#define SCMI_NAME_SIZE		32
+> >>>>> +#define SCMI_MODULE_PREFIX	"scmi:"
+> >>>>> +
+> >>>>> +struct scmi_device_id {
+> >>>>> +	__u8 protocol_id;
+> >>>>> +	char name[SCMI_NAME_SIZE];
+> >>>>
+> >>>> I wonder if you tried to keep this a char *. ISTR someone did something
+> >>>> similar recently and they claimed it worked. That would get rid of the
+> >>>> artificial name size limit and simplify this patch.
+> >>>>
+> >>>
+> >>> I agree with this. 
+> >>
+> >> Ok, so I checked and no other include/linux/device-id/*.h file
+> >> defines a foo_device_id field with a type of "char *" and
+> >> then uses that field in scripts/mod/devicetable-offsets.c /
+> >> scripts/mod/file2alias.c .
+> >>
+> > 
+> > I looked at hda_device_id and its uses. It looks like it does use
+> > char * and there were loads of drivers initialising the string. I must
+> > be missing something then ?
+> 
+> If you look for hda_device_id in:
+> 
+> scripts/mod/devicetable-offsets.c
+> scripts/mod/file2alias.c
+> 
+> Neither references the name member of struct hda_device_id.
+> 
+> So the actual modalias(es) added to the .ko by modpost
+> do not include the name, they are of the following format:
+> 
+>         ADD(alias, "v", vendor_id != 0, vendor_id);
+>         ADD(alias, "r", rev_id != 0, rev_id);
+>         ADD(alias, "a", api_version != 0, api_version);
+> 
+>         module_alias_printf(mod, true, "hdaudio:%s", alias);
 >
 
+Indeed, thanks for the pointer.
+
+> >> 2 device-id/foo.h headers (dmi, pcmcia) do define a "char *"
+> >> field, but then do NOT use that to generate a modalias.
+> >>
+> >> So scmi_device_id would be the first to do this.
+> >>
+> > 
+> > Your response made me dig further and I found snd_hdac_codec_modalias()
+> > which seems to do the magic there.
+> 
+> Note that function:
+> 
+> int snd_hdac_codec_modalias(const struct hdac_device *codec, char *buf, size_t size)
+> {
+>         return scnprintf(buf, size, "hdaudio:v%08Xr%08Xa%02X\n",
+>                         codec->vendor_id, codec->revision_id, codec->type);
+> }
+> 
+> Also does not include any name field into the modalias. Note this
+> side is the modalias which shows up under
+> 
+> 
+> /sys/bus/xxx/devices/yyy/modalias
+> 
+> not the one which gets included into the .ko (and can be shown
+> by "modinfo") that one comes from scripts/mod/file2alias, but
+> the 2 must match of course otherwise udev will not load the .ko.
+> 
+> So it seems the name field in struct hda_device_id is only
+> there for the kernel to include it in some log messages,
+> just like e.g. the dmi_device_id "ident" string.
+> 
+> But this is not used by the modpost code which adds
+> the modalias to the .ko, that tool is the one which has
+> problems with non const size strings.
+> 
+
+Agreed.
+
+Uwe, are you OK to keep the name with limited size ? Let us know.
+
+If Uwe is fine, yes I can take v7 as is.
+
+-- 
 Regards,
-Anup
+Sudeep
