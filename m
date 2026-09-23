@@ -1,77 +1,72 @@
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022104.outbound.protection.outlook.com [52.101.126.104])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835F8372EF5;
-	Wed, 23 Sep 2026 02:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.104
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790132323; cv=fail; b=ItnIe+sPzfCma2nWZxbeYicEj6D2KXCeWNAdS1LRJpZyPOeeonkbX4eQgkLxCrpw70VgtF6oV7WcVW7F+YKVry1z1NFAlg66WolrYxDHM/FFOzTWwlfe3hftjDc2kDpcuElyv/BBu1YvAvinv45bJFs7hpiPQwC29OWmStypg+c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790132323; c=relaxed/simple;
-	bh=MkZQ04tP2NNFMCmVvm54ZQ/Ggyr92WEvjO4M3D7tpGc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Wg/4nlOsMCH7DvlGbtIox1VvMtPkPFgm/ezwdTRDsHfpOGTca/EJJa3+sQT/vZYuGYpHEd5w5XbxYWhVJIcAJ2mfpjKKgm+tiSFQC/lWNMtplxEeGw+8gsmFIAr4uECIOiYr5wk+Cu8ksp/hVvzn0EsCWL4pUT/+ezLVvbx/dOU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RmFvob1i6IwL8m0sZSw2Myd3akMvElHBslarqERKm5S6A6eGxOnKmWTHL7gA/T/ThMSpwlHpTSnceWkB4QJyaAiNmlJliBZ6iMeCI2H2N2mM+eiqbog0RJec0ecsy1HAG6IxeE9gvACjn1pu0FST6ZfUb3I7GBrS/OKkO8dWacw04zs6LObfS/aRZZ2t+4OU8wj4Enas8irT2Qndq11cZjghmxMHY/WQSmCpTBuvR20tdh2gz7gS0MOHwLb+1cyOVBIfkyjxVLZUcnVAHWftpZowoDGubvr5E0B7GfN61i4sJD89NqXnWaqLr3COkx6LbT7IbwrZp9rBX8Zsrzrw2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MkZQ04tP2NNFMCmVvm54ZQ/Ggyr92WEvjO4M3D7tpGc=;
- b=lVwkLbHF/iH5XemVLsBMujHFSEbmu+2Bwbc+z2HCBXMhNO9l2RvzwEb5qo5ClPHbUYRXCnkfBURCwkE3hdWnf4/WM3VvFfBVV8m3i/rJyDl/6EFj6H5sHSYyGg/T4lsjEZWq0wEMC/GIcGzWJ0/BeHOItid/mo2bXrAYiYFtSQiBRo+O98HTnc3TSoFh6zOb6Sz54zWI6Y49wpuEnakwL0GFKRIMzUwCv69/F53D+QEUpeCTFcplrgGKvxXCs/UvSbHdyyMAflb+KMol9XTJXRMji9SerhwLtSQQ8r8F33f2vOuzcaGCOQbDI8KId3Hxk9OOeg0LhrM52fKVMn8oig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from SI1PR02CA0001.apcprd02.prod.outlook.com (2603:1096:4:1f7::15)
- by TYZPR06MB6095.apcprd06.prod.outlook.com (2603:1096:400:342::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
- 2026 02:58:37 +0000
-Received: from SG2PEPF000B66CF.apcprd03.prod.outlook.com
- (2603:1096:4:1f7:cafe::af) by SI1PR02CA0001.outlook.office365.com
- (2603:1096:4:1f7::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
- 23 Sep 2026 02:58:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CF.mail.protection.outlook.com (10.167.240.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 02:58:35 +0000
-Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 9FDEE43B1063;
-	Wed, 23 Sep 2026 10:58:34 +0800 (CST)
-From: Hongliang Yang <hongliang.yang@cixtech.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Hongliang Yang <hongliang.yang@cixtech.com>,
-	peter.chen@kernel.org,
-	gregkh@linuxfoundation.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EB3381E94
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790132347; cv=none; b=gxuoW0Bcl3icdTZ5WqjmESIqlwP+/ypSMxv/S2Kae0xw4g1Wq4FJRTPgW7VBYVs8ZhfVmFmh7VZ20cjMx4MHcBPAZ6m+ibyWhkHRFN7XZxhpsHk6vpZ0c+HvBxZQbkJ4QJuSoKbpAZF/W3HHD5XhHO0Sz77iIYRXXwmGUDOKePE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790132347; c=relaxed/simple;
+	bh=t+yRG4hRS4ZAaXnLV3C/QL3qtZT6az1pzdaQSQdTXBU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HZ5z6v3ZOlm8dHRYI5kxvTcKa8GaFHkNoVEqHrJwqIjG17yJirHmhjYF8EsDpzZrTsWCQAlco7RK7kXrGmTMbfIwxHItNU2/n0Hty34Xnre47XSVnPYqsUEjZZC0WjGV/3d8COLOcetVdebB4mK5/eWLiUlGOgOOk/sCV62M0+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lV3EqxWi; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lV3EqxWi"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db1ca069c8so2223935ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790132345; x=1790737145; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=heCNmTWhv5WWchkdhX55qRYTLaAxzJ4l+y2Pmd5y7go=;
+        b=lV3EqxWi6YpL9x/D/pprsW0lRnD2clpxPbltUiLE+D3p2blSSlR/M8xsuEf9gjGIC5
+         2mgB8zJM7mLEGaDTCQrT04q/IAsJaGOxOs4ixhZCyNdqX+rqOvSNnW0prwINQ/+fjJyH
+         wTAcBhOr4YQYlW0mGmiMmxRa/BhJ7h00gPZL1t3FF4bIcvi2E8TYdaCFgxSI05mV9xu4
+         2YOY+gqVQm6qn5Sqk7+TvkeK1CZHXo6RKydxxTOBmwzZPZV/HgdqD7BwGo+dqpwurkrE
+         QuNcU4CfwR0eFxokUtXK8p/1eCSYVnmop8vV8eAq05cUmAF89hxQtcdVkucdSwIE/W+9
+         H2zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790132345; x=1790737145;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=heCNmTWhv5WWchkdhX55qRYTLaAxzJ4l+y2Pmd5y7go=;
+        b=a3pHZ7j5B2hjRGEstM+sPlNEfGNHKX/EO35DgywJqZDcfkqwT9igVtwrRVU24Wf6SY
+         1S4kyl8gIJNrVgkQvYzjbG3+/ZFi5gRJVfizi2WJn2w/I21v3DRCow2gkukPJbwJawWN
+         11txUf4REixyDURzf6bjXhpuBheVHf+M3Gx7D2aWeZHgAPCZpfAUfSIvD4VbroWsLrPM
+         f71BbbAKrIR9gmGOOU8HDOVEi29pMA0TePqLqJWj99jrTjX4L6+i8AYWTsEOEt5t+JvU
+         jtvVyy9kpE2sUMp1zNP3C5KMZ9lfJgw6vuBdNHpW8W6Lg266vaFQia7NutRc/wXXb5ea
+         Rn7w==
+X-Forwarded-Encrypted: i=1; AKwUvBzRSP9Z4Q+9O/XrJ7o7K9cnD/5II1rCWCLHFAMamU7X+QNm4aqBq7dHGXlX7/AALhIlG0Mzv6RzMquk8P4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhtlzbJBds81efKW6kU5K1bbJK+POkULdWXPbuxH0fFTrihi6x
+	89TWAVWswkLDsm9FuNfVgiZ9BuTveXP/zUWVXeRgK0i7f3NBRiXQh3hX
+X-Gm-Gg: AYBFou2acsucwrXcUpeIG23f+ngGGog4L2n8oXFj+Hp4rubDXeR7+JonY7usmmSX+h3
+	SYwtY/uiLpj+Wg0OQGR+ENiIzGdAd9j4OlHS/JzcDC+NvrrhFJONQpW420J1QrpPqcFdummkGuq
+	sZeJEJwAMl7PfPjcUS76j9WVEObzIGr3tbesVQc6tQpFxou6NHi/H0UQ+NOJ/5M05+/xe3ci3/G
+	gjwQnpMisLjRXb5kSKVJB4q44kftbd2Vmfbd+GqEKr0fgoU/RJ2ADTGywFZALs2yqFKfLYpYS6j
+	mqU1r8U3gbVULGZBPbt3UtBpmgAd15uS2vcnjQ3hIjskqXvzK7+e21VKO6sBHawjv76CsQBoUcd
+	6YZHXFVNqoMpcpwlKFopHIRaBV4HhIAml2Kg/AabhMQdF5k/rdeH7czA7sbmbxh0lSclE2lTmtO
+	h7b59KPUTKbtGFrhZfOBWXCDJlnFXXpM+dbdw7Yby5sVxdpXhjijW36YXGPfK+PyCUbfKnJzfUo
+	4PNtqkk+V2YYqXSfDuR+llTkGc=
+X-Received: by 2002:a17:90b:38d2:b0:39e:6a81:5a92 with SMTP id 98e67ed59e1d1-3a07e716662mr1194436a91.38.1790132344850;
+        Tue, 22 Sep 2026 19:59:04 -0700 (PDT)
+Received: from embedsky001.tail6d6b2f.ts.net ([183.12.0.245])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc802bcsm2210432a91.1.2026.09.22.19.59.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 19:59:04 -0700 (PDT)
+From: Yonghao Zhang <hyz3367@gmail.com>
+To: andersson@kernel.org,
+	mathieu.poirier@linaro.org
+Cc: linux-remoteproc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	p.zabel@pengutronix.de,
-	vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	pawell@cadence.com,
-	rogerq@kernel.org,
-	cix-kernel-upstream@cixtech.com
-Subject: Re: [PATCH v4 2/4] dt-bindings: usb: Add CIX Sky1 USBSSP controller
-Date: Wed, 23 Sep 2026 10:58:34 +0800
-Message-ID: <20260923025834.842467-1-hongliang.yang@cixtech.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260910025227.2490151-1-hongliang.yang@cixtech.com>
-References: <20260910025227.2490151-1-hongliang.yang@cixtech.com>
+	Yonghao Zhang <hyz3367@gmail.com>
+Subject: [PATCH] remoteproc: core: Fetch the auto-boot firmware only once
+Date: Wed, 23 Sep 2026 10:58:55 +0800
+Message-Id: <20260923025855.2523147-1-hyz3367@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,44 +74,180 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CF:EE_|TYZPR06MB6095:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: 7d798a6e-a1cb-46db-9f81-08df191e8f94
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|376014|82310400026|36860700016|1800799024|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	O8bzqpUYzXUm8P45/MMHRfNfL+jm++G9kpiEAFlcJNodCnOZNUKoBlatxJ5SyqXWbuia8fUY9xWQ+XwtltZM6nvzJKfcQjXvuyzsyV7tMQUSQbo5GxSWrgB7mX6Qfmlj3SuoKBa4X/FIycr1CrUlaMvPVsS5E+h4ArWQezn+tapKNOU2qhjp9917QmYoTB4CwGSu9xGQaNrYpsJA9YUKR5HH/AFlQikHSSbsonrEXSFC+ilVzjmjjItpIdNvMfO4lTiF2ljsX7Da1vz8n3ztb1fH7a0/IPhnjgtY4UonlrDnd7I3GPT/u2TAYPcjYz9NZsRfbdPfaMoG6V74gfK23qmMhLxTHHewkJeQuxy9I/Zm5G1P1P+PEvLGTS/YozLuDNx6nO9xXcLGaqv6J3QjKh00vcV1T5K8JrkvX6K/2oWUJqIA/ER3bthTqS7jQAfMo/w5ZBBxX8FnhUNKgPLl0SWjua1HtXsOHrxwrAS6U+BMer2LVBIsBpbiO0sW2fHfyI3zHncrzLCMeUqOj8oplo9sKaJyr3TYdRq55w1cUXS5MMhpxK6JRjjLRnR27L960WGEFhJwPVPvOdzyBZbrb+7TdCmi6EIUr4PX0J8+Jn1E+i5qCgDnjCmVGKtHfJEnxUVVdyML9Mby0wv3SnvMNxUjdMcX/hqeJNWY+2xL3Errcb69aEkqWeHBcDTQt39H0V+f47Xf40+N1fFUgiY3bw==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	VAs8fR0sXQUFtnJjFQlq0UOwqUtVKe4s4GU364hbwC8psCM2xO0Vy4JmRJLKseZ0cyBFI9qKBd+ACznUDJoHRZuCLDV1sZHhCH1tmcwKE+Q9cWENVk0nqTdVS4w7HonoAkEBykEImdBjdJgsKpLrv3+/24aoiwPSBwwGlVLB7sIUYrZnwVNBUBgltiF4RLqBRJ13h3t7waeKxn67795Ll29xHWIXppxOgX71Jb3ybNDkCn5n70braUaR3UD9KCRT5AjLhPAFjKING9s5OBByrYu7BIh1H+o4A+fMLo+uIzS9T5/eBlvUDx5z+Y6Xf36sovX/8HB5rXV5RgXwv8wDxmNTCzGzmq0Lpi8jPkq3yl68GqtQpxz/66W+U43rkl9Bxs4a67M9Ld3hdWh7VP3eYBDc/w441GTSIDYfbwl0dsbDuQD8m6Xq7BmkEfENYUJe
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 02:58:35.6613
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d798a6e-a1cb-46db-9f81-08df191e8f94
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66CF.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6095
 
-Hi Krzysztof,
+Auto-boot for an always-on remote processor registers an asynchronous
+request_firmware_nowait() whose callback discards the fetched image
+and calls rproc_boot().  rproc_boot() then fetches the very same image
+again with a synchronous request_firmware(), so every auto-boot reads
+the firmware image twice and allocates the buffer twice; on kernels
+with the sysfs fallback enabled, the uevent round-trip is repeated
+as well.
 
-Gentle ping on my question below about representing the shared RCSU
-region with a simple-bus container and translating ranges, versus
-absolute addresses in reg directly under the soc node. I would like
-to settle this before sending v5.
+The asynchronous request exists only so that rproc_add() does not
+block on the filesystem read; the image it fetches is never used.
+The core already defers rproc_boot() to a worker for detached
+processors (attach_work).  Reuse that worker for offline processors
+too and drop the asynchronous firmware request: rproc_boot() fetches
+the image exactly once and dispatches between a firmware boot and
+an attach based on the proccessor state.  The work is renamed to
+boot_work to match its widened role.
 
-Also noted your comments on the missing blank line before the
-Signed-off-by tag -- the v5 commits are created with git -s, so this
-won't recur.
+commit 400e64df6b23 ("remoteproc: add framework for controlling remote
+processors") noted back in 2011 that "we must wait until it completes
+before we try to unregister the device".  rproc_del() now does exactly
+that: it waits for the boot work with cancel_work_sync(), which also
+closes the theoretical window in which a pending attach work could
+outlive the rproc instance.
 
-Best regards,
-Hongliang Yang
+The changed fallback behaviour only matters for legacy
+configurations.  udev dropped its userspace firmware loader back in
+2014, as recorded in
+Documentation/driver-api/firmware/fallback-mechanisms.rst, and the
+kernel has documented since commit 02c399306826 ("firmware_loader:
+enhance Kconfig documentation over FW_LOADER") that "Linux no longer
+relies on or uses a fallback mechanism in userspace".  Auto-boot now
+uses the same synchronous fallback semantics as every other explicit
+boot source (sysfs, cdev).
+
+Signed-off-by: Yonghao Zhang <hyz3367@gmail.com>
+---
+ drivers/remoteproc/remoteproc_core.c | 65 ++++++++--------------------
+ include/linux/remoteproc.h           |  4 +-
+ 2 files changed, 21 insertions(+), 48 deletions(-)
+
+diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+index 263e12f022ea..f329dc478170 100644
+--- a/drivers/remoteproc/remoteproc_core.c
++++ b/drivers/remoteproc/remoteproc_core.c
+@@ -1662,49 +1662,26 @@ static int rproc_attach(struct rproc *rproc)
+ }
+ 
+ /*
+- * take a firmware and boot it up.
+- *
+- * Note: this function is called asynchronously upon registration of the
+- * remote processor (so we must wait until it completes before we try
+- * to unregister the device. one other option is just to use kref here,
+- * that might be cleaner).
++ * Boot or attach the remote processor in the background, on behalf of
++ * rproc_trigger_auto_boot(): rproc_add() runs in probe context and must
++ * not block while the firmware image is read from storage.  rproc_boot()
++ * dispatches on the processor state, so this covers both a firmware boot
++ * and an attach to a processor started by another entity.
++ *
++ * Note: rproc_del() waits for this work to complete with
++ * cancel_work_sync(), so the rproc instance remains valid for the
++ * entire lifetime of this function.
+  */
+-static void rproc_auto_boot_callback(const struct firmware *fw, void *context)
++static void rproc_boot_work(struct work_struct *work)
+ {
+-	struct rproc *rproc = context;
++	struct rproc *rproc = container_of(work, struct rproc, boot_work);
+ 
+ 	rproc_boot(rproc);
+-
+-	release_firmware(fw);
+ }
+ 
+-static void rproc_attach_work(struct work_struct *work)
++static void rproc_trigger_auto_boot(struct rproc *rproc)
+ {
+-	struct rproc *rproc = container_of(work, struct rproc, attach_work);
+-
+-	rproc_boot(rproc);
+-}
+-
+-static int rproc_trigger_auto_boot(struct rproc *rproc)
+-{
+-	int ret;
+-
+-	if (rproc->state == RPROC_DETACHED) {
+-		schedule_work(&rproc->attach_work);
+-		return 0;
+-	}
+-
+-	/*
+-	 * We're initiating an asynchronous firmware loading, so we can
+-	 * be built-in kernel code, without hanging the boot process.
+-	 */
+-	ret = request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
+-				      rproc->firmware, &rproc->dev, GFP_KERNEL,
+-				      rproc, rproc_auto_boot_callback);
+-	if (ret < 0)
+-		dev_err(&rproc->dev, "request_firmware_nowait err: %d\n", ret);
+-
+-	return ret;
++	schedule_work(&rproc->boot_work);
+ }
+ 
+ static int rproc_stop(struct rproc *rproc, bool crashed)
+@@ -2348,11 +2325,8 @@ int rproc_add(struct rproc *rproc)
+ 	rproc_create_debug_dir(rproc);
+ 
+ 	/* if rproc is marked always-on, request it to boot */
+-	if (rproc->auto_boot) {
+-		ret = rproc_trigger_auto_boot(rproc);
+-		if (ret < 0)
+-			goto rproc_remove_dev;
+-	}
++	if (rproc->auto_boot)
++		rproc_trigger_auto_boot(rproc);
+ 
+ 	/* expose to rproc_get_by_phandle users */
+ 	mutex_lock(&rproc_list_mutex);
+@@ -2361,10 +2335,6 @@ int rproc_add(struct rproc *rproc)
+ 
+ 	return 0;
+ 
+-rproc_remove_dev:
+-	cancel_work_sync(&rproc->crash_handler);
+-	rproc_delete_debug_dir(rproc);
+-	device_del(dev);
+ rproc_remove_cdev:
+ 	rproc_char_device_remove(rproc);
+ 	return ret;
+@@ -2552,7 +2522,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
+ 	INIT_LIST_HEAD(&rproc->subdevs);
+ 	INIT_LIST_HEAD(&rproc->dump_segments);
+ 
+-	INIT_WORK(&rproc->attach_work, rproc_attach_work);
++	INIT_WORK(&rproc->boot_work, rproc_boot_work);
+ 	INIT_WORK(&rproc->crash_handler, rproc_crash_handler_work);
+ 	spin_lock_init(&rproc->crash_handler_lock);
+ 
+@@ -2630,6 +2600,9 @@ int rproc_del(struct rproc *rproc)
+ 	if (cancel_work_sync(&rproc->crash_handler))
+ 		pm_relax(rproc->dev.parent);
+ 
++	/* auto-boot may still be fetching firmware: wait for it here */
++	cancel_work_sync(&rproc->boot_work);
++
+ 	__rproc_shutdown(rproc, true);
+ 
+ 	rproc_delete_debug_dir(rproc);
+diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+index a44368737b39..d77e24539133 100644
+--- a/include/linux/remoteproc.h
++++ b/include/linux/remoteproc.h
+@@ -231,7 +231,7 @@ enum rproc_features {
+  * @subdevs: list of subdevices, to following the running state
+  * @notifyids: idr for dynamically assigning rproc-wide unique notify ids
+  * @index: index of this rproc device
+- * @attach_work: workqueue for attaching rproc
++ * @boot_work: workqueue for booting rproc
+  * @crash_handler: workqueue for handling a crash
+  * @crash_handler_lock: serializes crash handler queueing and deletion
+  * @deleting: remoteproc deletion has begun
+@@ -277,7 +277,7 @@ struct rproc {
+ 	struct list_head subdevs;
+ 	struct idr notifyids;
+ 	int index;
+-	struct work_struct attach_work;
++	struct work_struct boot_work;
+ 	struct work_struct crash_handler;
+ 	spinlock_t crash_handler_lock;
+ 	bool deleting;
+-- 
+2.34.1
+
