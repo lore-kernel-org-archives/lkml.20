@@ -1,65 +1,64 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f19.google.com (mail-pj2-f19.google.com [74.125.227.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BF04156F9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:29:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80764483B9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790144979; cv=none; b=FA+H4uUvEPbXU5RXiUoE4da/4mgg1aPJlbrdgtBoG5MHHDITUTnS4R+gvYqzCkhdfo0JxsjzdlZ5n2/DQmU3H7UtWOV218NDn57qv5JReh7GLp0rJSWCqlPoftubhLu+Y+tw0dFezzGeNLfZIPP7hvIIx/fGCzNRgQ26czeN98A=
+	t=1790144987; cv=none; b=efM5TR7H6J/Pag5fq7ODUtNveiFgzL6RrR4UJUzH+AWJrI2UNplvM6vEYsj7nevLiAmD0T8kOtVsUvl2u4ZwcQKMcaKUGQwFy9OW3Zi9gIMXtRT+FfjjmAB4M1I4Kuthxfm+cDU7mHpR1+WL5tWsD8bjR/tll5i5YwemLqKW1cM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790144979; c=relaxed/simple;
-	bh=j2LDewBnaNSHSszWiLsF8rrjIezPLg/AfJBstLlMPfY=;
+	s=arc-20240116; t=1790144987; c=relaxed/simple;
+	bh=bspJBmRxLS4qW3UQTFV0QVGd0Nf0mf04koeOIwHSQFA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oRlz3r/ffstVf53zp+/4PPThSY6uJMSNXrgoeFGztPQOGlzQ+D5HrBmLPBVELInNyAAhoPnDpnBaECBQZLQv2Iz934uhuNtFV1g5UoHzXIgZdDYKgprR5QKb97rlWfadKTxHXmIdfrQb9hQJ8/qiMiQBxqQaYP0FKbFU+CuBcek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jn8fIPLv; arc=none smtp.client-ip=74.125.227.141
+	 MIME-Version; b=PopbwOA9vpz+JYA4UxafmSQ0GGqbeg3bGi+WttLwZOSATZkbFBVkFQ1uiH5FPkysuC79J5eW2O854qgZYvcowItzygNCRRcIy4hswwO13OL8sxbwFawCKpbWUlTzwCVJvrFDuSwDFzbGSRRUl9UuvU5kdavYc5Qyq87lymEYWpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G88Z+KwI; arc=none smtp.client-ip=74.125.227.147
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jn8fIPLv"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed1368so3508725ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:29:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G88Z+KwI"
+Received: by mail-pj2-f19.google.com with SMTP id d9443c01a7336-2db18fe433fso2719975ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:29:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790144972; x=1790749772; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dEaCg+SoOuqpLOGmqy1zgShmdKDFtyrROF+HoSyjUpM=;
-        b=Jn8fIPLvUJNKQOUWYa9dIyD1NuCuK7P8bsLyR0mBQV/Te/H+wFaS2tW6vjmmH/PwYI
-         Eo16vqlWI4qBzGTI8wKoLfQ69TWaTR6+aEiFuKhlU0vyWbCaHFLP/UIZOW5KDMw52UoQ
-         Wx8uNsXzRhW/FM+gbFwarvC6U9WWWGD5GHp5CsJwRzNt88zSIo4/HppMZBMUj7nr+KPr
-         015ao1YFkmNdRz81EepBqjfL3vIhZDAm19kYLDr/KXgH8lCmvedI3q+IbYlDZu9DOtPR
-         aKV585VttvqEV0qKuIXqndRDEvtSXw/HLg7hpN7sbtGQXjajKmOpp93K8JFZnfLQlJWi
-         7/+w==
+        d=gmail.com; s=20251104; t=1790144978; x=1790749778; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qz31YaIUZL0HkPkLOInD8YA56WfSRIuJpUh6x60MqwE=;
+        b=G88Z+KwIzih7XULAfpBP2PFtsokNa3be8ORhSfBVtcfGN+5Q6Zz5gX+A+yNsrzv3MP
+         cqzeHKMhkZ2EaPESf8rygH+dxipQu21ZlVKj7wssRFlKlOvlG8vkzGs7JjfviWNJoS8w
+         PuHphWdcAVEdd3hR78lyhcINfP9e9nQsQYax1YurP/x5+eFa0YirKvBulLfaTtFpkMGI
+         Gn/ZKXPMl4KczvaxhW4PcynC20Gp5KqqxpIstyTeUg5zdTl1B1YsAfs09eNPHHE69st6
+         gMFggSVr+/1diAIss8BIKPiSLjbyiFsH0A2qpVXOaasMHYcbu9AJGOcthfEx4S0ddiI9
+         ZP2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790144972; x=1790749772;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dEaCg+SoOuqpLOGmqy1zgShmdKDFtyrROF+HoSyjUpM=;
-        b=2Ss1ps9PSk7ZtVPHbqCCQpsM8H6R81YZP6k/K6lZqjDsrVibO93JE/iLKk9b5GqyFM
-         SnJuEWSW+dLwElhhpl70mfli0sJGF9m8sFr/spj2ApWQuItzVSB9hDeBtxctfUngD/Cl
-         aBsavEulcQ5S1QRaDO5MvIEzjzGAu9Tdi1viJoNB6hoXUZjzR9rwvFFgq3BtI5WkFaOj
-         udfN2qjIwxV+APTHOQqpAq4C4tXLIsfg/zCgblTgWQ+GeNj69jzriRLlzI3fgZMRmBEX
-         7MKJyiCWbiown9LqzjOvj6ud6HJbzuDPv3I8RYgsApOfGCrhhO76mluLC+lz+RRQFw5T
-         PztA==
-X-Forwarded-Encrypted: i=1; AKwUvBwIZ/ZlvC7dfXs5ybqYE0H7wepbGNIh03y+zTT1aAz9k+M3vrqZZ6ih4PFmpO+GRfheef9FNnDxUASPwS8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nut7xpOaXLEr3049lo3DNNc9X0ocb/53P4g7cI201Daj8lOO7u
-	pUAMaKPmLy9w+qW9Bk/IR4DuzxyZDl6szEBjgo6+L+ojjmrrWIcuQs7N
-X-Gm-Gg: AYBFou2ZHVma8gveCjHLj4g/N2fuzV5IkvyVN9r/1ZqhgY26Uz8sBISRXE7foFyQ4Z4
-	YpDDE6MthYuoxrNZqEomT8ZHfVQGnyOzOlix/5pSuNEhxkrwaBIyJtIZUzkTIBn61ZItQ2DZJ45
-	4JfoBKM4Ryop8IxTyN3p1cEgGrlFf50vWCCLVy3ZNqy4GYE2zd1QFeSAIyNkgXqgdsH0zsi/0ED
-	80isJE1gFAH+E7xJtobpDUhmBCefHEAisiEK3GMHxzEMun6qSBCvHz2pc2yEinO8z7Kx0hiWUAw
-	oVRG8dHpW7x6kSw1Uv4nNL8AD8ClfUrLXdmnr8f1sLWseK799tcoVT8XbzgLlfEdqSDb8/pbbFx
-	iEPBjRGp6nRA4G2s27oOGz/ep711cAzhK5ZOEvbSl/7G659sgR8BcUhOS/rAssGdaV4eDOWeOvd
-	RWWlyYNZ3fTAhD4VrwSdL4vURzUNHat/o49fNl1m5x9EVTh1M8m1Y+dM6BqHPuCL1Y2I564FgLa
-	BX/Dyf2jZXV8HrlCSC+4w==
-X-Received: by 2002:a17:902:db0b:b0:2dd:c100:b2c2 with SMTP id d9443c01a7336-2df69e01d0cmr15666125ad.45.1790144972237;
-        Tue, 22 Sep 2026 23:29:32 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790144978; x=1790749778;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qz31YaIUZL0HkPkLOInD8YA56WfSRIuJpUh6x60MqwE=;
+        b=QP+4XORPIaoBiuuD4LpYu1DjrrpP801RzRKxTLuLeBrKC+Y4HXfRsfCauZOhqqDPiN
+         tubYIGXQtyHjQh9zE5ZXt5xBBvTiqaZIS2kvYz3xHOB35o478G6jIYgMz6l4viRpKp42
+         usNq+5sPjzYQ5bD5Tzo1uMD/NccUuTgxt5fYHZ4bWSkFzTLlfgMCALKWIfZGV1ecitP6
+         hMrwYwyGPTo6ceDrgzaCb/3YMbiw1DQC+QvpTH8CjgOAahbEqgmzWKV2HtUbaO7HQJOz
+         Xq86piWIj6qAcA/cMpiL2zXwHr+0CW1bxYPEzfnuQD6bV7yfrONpig9XKntEX4HrO0Hr
+         e6ig==
+X-Forwarded-Encrypted: i=1; AKwUvBwPyaUHDl85sfaQO0GmP+WM116iQvGHJ9QqRxpmpt1+fH+3vp1iw5PDWD2M41/KyYkTvwVKvpVCmGAf1QA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCV2iVGnz8x7O8r42yBQ3zNznXyBNIpa18J7SkWV1iOpfezzqA
+	kMnq090X9qOBfX9Ob+/qbVKrWLrmTamrDpzeonbhDyjvgXzjNWB4HWiC
+X-Gm-Gg: AYBFou1KEALzXn1wALiJRpIWY3hgQzR4WCKNBKnl1p/sQXol2QjQ9tBNg00lqfcKOQ1
+	+3RLZZMvqRChyVgbCbMDpuh9K7rwb6R7zLNrx9ekz/E8bjkRkWk6fvuBbo8XoBQ1P+dudiUzwLi
+	Xi5X/fdKVPVkG2A6H5o+xCixPL5ooiRh2VFsRIrto1ZMH6rfKkPyF9556Fqwlphg/END8TFpKbu
+	zV+fMk2kY8qKYAKIIfxAtWgg8gypqlbUeaFZnBa9h8X4GgiGm10/txnkozJWffs5lhgEMmToAZw
+	Uintn65Lr4tkxZ/Qi9ogl9LrEZ3mGEThY93b+tevc2ZBvVEhNPcsxb8BlJj8yl9naMSueEjKjlp
+	xL3v4FiqvjEfeZFFAkgWPQ/r9z/Z5T3KbP7AZWcKJGE3ybgY9Zbjib4a1v9BoXKYZidcsNlWYG6
+	WsafoLd9e+XmXYINTN6iRAUN+QoTzHm92RYEtg6/lMNscrqKXxHGQ3ROSgVoKF72XWmSvOJQ7uy
+	B4R3XuTD5C8nOgyYEsf+g==
+X-Received: by 2002:a17:902:d483:b0:2dd:c053:c20b with SMTP id d9443c01a7336-2df69ddf0cbmr15391165ad.39.1790144977728;
+        Tue, 22 Sep 2026 23:29:37 -0700 (PDT)
 Received: from mi-OptiPlex-7060.mioffice.cn ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516bfdsm5620465ad.5.2026.09.22.23.29.27
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516bfdsm5620465ad.5.2026.09.22.23.29.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 23:29:31 -0700 (PDT)
+        Tue, 22 Sep 2026 23:29:37 -0700 (PDT)
 From: Wen Jiang <jiangwenxiaomi@gmail.com>
 X-Google-Original-From: Wen Jiang <jiangwen6@xiaomi.com>
 To: akpm@linux-foundation.org,
@@ -84,9 +83,9 @@ Cc: Xueyuan.chen21@gmail.com,
 	npiggin@gmail.com,
 	rppt@kernel.org,
 	ryan.roberts@arm.com
-Subject: [PATCH v9 09/10] mm/vmalloc: map contiguous pages in batches for vmap() if possible
-Date: Wed, 23 Sep 2026 14:28:31 +0800
-Message-Id: <20260923062832.479455-10-jiangwen6@xiaomi.com>
+Subject: [PATCH v9 10/10] mm/vmalloc: align vm_area so vmap() can batch mappings
+Date: Wed, 23 Sep 2026 14:28:32 +0800
+Message-Id: <20260923062832.479455-11-jiangwen6@xiaomi.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260923062832.479455-1-jiangwen6@xiaomi.com>
 References: <20260923062832.479455-1-jiangwen6@xiaomi.com>
@@ -96,142 +95,90 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: "Barry Song (Xiaomi)" <baohua@kernel.org>
 
-In many cases, the pages passed to vmap() may include high-order
-pages. For example, the systemheap often allocates pages in descending
-order: order 8, then 4, then 0. Currently, vmap() iterates over every
-page individually—even pages inside a high-order block are handled
-one by one.
+Try to align the vmap virtual address to PMD_SHIFT or a
+larger PTE mapping size hinted by the architecture, so
+contiguous pages can be batch-mapped when setting PMD or
+PTE entries. We do not expect any significant overhead for
+this.
 
-This patch detects physically contiguous pages (regardless of whether
-they are compound or non-compound) by scanning with
-num_pages_contiguous(), and maps them as a single contiguous block
-whenever possible. The mapping order is determined by taking the
-minimum of the contiguous page count and the pfn alignment, allowing
-graceful degradation when pfn alignment is less than the contiguous
-range.
-
-Pages with the same page_shift are coalesced and mapped via
-vmap_pages_range_noflush_walk() to avoid page table rewalk.
-
-As users typically allocate memory in descending orders (e.g.
-8 → 4 → 0), once an order-0 page is encountered, we stop scanning
-for contiguous pages since subsequent pages are likely order-0 as well.
+Add __get_vm_area_node_aligned_caller() as a wrapper over
+__get_vm_area_node() to simplify repeated calls with fixed
+arguments.
 
 Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Co-developed-by: Dev Jain <dev.jain@arm.com>
-Signed-off-by: Dev Jain <dev.jain@arm.com>
 Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
 Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 Tested-by: Leo Yan <leo.yan@arm.com>
+Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
 ---
- mm/vmalloc.c | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 80 insertions(+), 2 deletions(-)
+ mm/vmalloc.c | 35 ++++++++++++++++++++++++++++++++++-
+ 1 file changed, 34 insertions(+), 1 deletion(-)
 
 diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index a43965016eb4d..37cddb7f45a4f 100644
+index 37cddb7f45a4f..1a3b191885024 100644
 --- a/mm/vmalloc.c
 +++ b/mm/vmalloc.c
-@@ -3576,6 +3576,85 @@ static inline unsigned int vm_shift(pgprot_t prot, unsigned long size)
- 	return arch_vmap_pte_supported_shift(size);
+@@ -3328,6 +3328,14 @@ struct vm_struct *get_vm_area_caller(unsigned long size, unsigned long flags,
+ 				  NUMA_NO_NODE, GFP_KERNEL, caller);
  }
  
-+static inline int get_vmap_batch_order(struct page **pages,
-+		pgprot_t prot, unsigned int nr_pages)
++static struct vm_struct *__get_vm_area_node_aligned_caller(unsigned long size,
++		unsigned long align, unsigned long flags, const void *caller)
 +{
-+	unsigned long pfn;
-+	unsigned int nr_contig;
-+	int order;
-+
-+	if (!IS_ENABLED(CONFIG_HAVE_ARCH_HUGE_VMAP))
-+		return 0;
-+
-+	/* Limit nr_pages by pfn alignment */
-+	pfn = page_to_pfn(*pages);
-+	if (pfn > 0)
-+		nr_pages = min_t(size_t, nr_pages, 1UL << __ffs(pfn));
-+
-+	nr_contig = num_pages_contiguous(pages, nr_pages);
-+	if (nr_contig < 2)
-+		return 0;
-+
-+	order = ilog2(nr_contig);
-+
-+	if (vm_shift(prot, PAGE_SIZE << order) == PAGE_SHIFT)
-+		return 0;
-+
-+	return order;
++	return __get_vm_area_node(size, align, PAGE_SHIFT, flags,
++				  VMALLOC_START, VMALLOC_END,
++				  NUMA_NO_NODE, GFP_KERNEL, caller);
 +}
 +
-+static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
-+		pgprot_t prot, struct page **pages)
+ /**
+  * find_vm_area - find a continuous kernel virtual area
+  * @addr:	  base address
+@@ -3655,6 +3663,30 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
+ 	return err;
+ }
+ 
++static struct vm_struct *vmap_get_aligned_vm_area(unsigned long size,
++		unsigned long flags, pgprot_t prot, const void *caller)
 +{
-+	const unsigned int nr_pages = (end - addr) >> PAGE_SHIFT;
-+	unsigned int prev_shift = 0, batch_idx = 0;
-+	unsigned long batch_start = addr, batch_end = addr;
-+	int err;
++	struct vm_struct *vm_area;
++	unsigned int shift;
 +
-+	err = kmsan_vmap_pages_range_noflush(addr, end, prot, pages,
-+					     PAGE_SHIFT, GFP_KERNEL);
-+
-+	if (err)
-+		goto out;
-+
-+	for (unsigned int i = 0; i < nr_pages; ) {
-+		unsigned int shift = PAGE_SHIFT +
-+			get_vmap_batch_order(pages + i, prot, nr_pages - i);
-+
-+		if (!i)
-+			prev_shift = shift;
-+
-+		if (shift != prev_shift) {
-+			err = vmap_pages_range_noflush_walk(batch_start, batch_end,
-+					prot, pages + batch_idx, prev_shift);
-+			if (err)
-+				goto out;
-+			prev_shift = shift;
-+			batch_start = batch_end;
-+			batch_idx = i;
-+		}
-+
-+		/*
-+		 * Once we fail to batch pages, we expect to fail batching
-+		 * for all remaining pages, so just give up.
-+		 */
-+		if (shift == PAGE_SHIFT)
-+			break;
-+
-+		batch_end += 1UL << shift;
-+		i += 1U << (shift - PAGE_SHIFT);
++	if (arch_vmap_pmd_supported(prot) && size >= PMD_SIZE) {
++		vm_area = __get_vm_area_node_aligned_caller(size, PMD_SIZE,
++				flags, caller);
++		if (vm_area)
++			return vm_area;
 +	}
 +
-+	/* Remaining */
-+	if (batch_start < end)
-+		err = vmap_pages_range_noflush_walk(batch_start, end, prot,
-+				pages + batch_idx, prev_shift);
++	shift = arch_vmap_pte_supported_shift(size);
++	if (shift > PAGE_SHIFT) {
++		vm_area = __get_vm_area_node_aligned_caller(size, 1UL << shift,
++				flags, caller);
++		if (vm_area)
++			return vm_area;
++	}
 +
-+out:
-+	flush_cache_vmap(addr, end);
-+	return err;
++	return __get_vm_area_node_aligned_caller(size, PAGE_SIZE, flags, caller);
 +}
 +
  /**
   * vmap - map an array of pages into virtually contiguous space
   * @pages: array of page pointers
-@@ -3619,8 +3698,7 @@ void *vmap(struct page **pages, unsigned int count,
+@@ -3693,7 +3725,8 @@ void *vmap(struct page **pages, unsigned int count,
  		return NULL;
  
- 	addr = (unsigned long)area->addr;
--	if (vmap_pages_range(addr, addr + size, pgprot_nx(prot),
--				pages, PAGE_SHIFT) < 0) {
-+	if (vmap_pages_range_batched(addr, addr + size, pgprot_nx(prot), pages) < 0) {
- 		vunmap(area->addr);
+ 	size = (unsigned long)count << PAGE_SHIFT;
+-	area = get_vm_area_caller(size, flags, __builtin_return_address(0));
++	area = vmap_get_aligned_vm_area(size, flags, prot,
++				__builtin_return_address(0));
+ 	if (!area)
  		return NULL;
- 	}
+ 
 -- 
 2.34.1
 
