@@ -1,227 +1,133 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65EEA1C695
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152294; cv=none; b=rXjVYITFglvs7e2LJJ5u3s2Vl5Bxdwq0exeqNByNYTv/SWpmvf7LlvljE+mccMj2x6FdlG92ZZAtV7M4VEXdQDmLAN85EXS9Joqa/6uDxgVxe9qd7DDSG+rNI18VqokXN1EnOMl3LeRXfaUgQNdr0/PXhME8aidByKQljMFDsJY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152294; c=relaxed/simple;
-	bh=uo/YQJ9Ixi6nxB3CeTrx+DkpZlwIfhyjjyUZRUsJGvs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QLCrWYzpFP8DEUPzEVQAQyms5gEo8h2O3ieNOpM57y+kEtHvw59ACReZ8+ppjTDzzPnN7AF9HYFbzhzFnZIqSJUcr/oyI0vJKydF23FdPAt5gpw99vBufVnkvGQmuLTQthO0GAZRm58WQ2DIrpmmfbaEn06MTtx2a9vxDKrkTv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ILKJZuuK; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83EEC37FF76
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:32:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790152328; cv=pass; b=WZzjrcHaQslUMxsP5DYL56MUKof0W6TuqeDsHwe8jwbbn2JK+txTVCaks/mYXeBVsr/RBUg/ioz+o9W08znqzJFwT22nihuQPPIHTAMzzeOa37ZzixyFRQuDeK7shtwKzjq2o924Nj9B7UN17liG2331Hge04IeFlG++3JVKy0k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790152328; c=relaxed/simple;
+	bh=hLbf5wdEcfSfArgGglezKU7/4be8aZs+31yfBhWP598=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=V1/D0DQFEE+OgHojd/ixJ5Up7nO+mWgcsRS68GgxHjuTq4AGYXmyeGJf+/hBGZMeJuXyaHac3CoSd7jdlhsCifKMA458PvtZjdfZU2ac+iUYoOn75cUfl23Gox8Pnlgp9K5gDs/SO5ellwUURe5qfFQf+PbAtxQ3z7jvJ3xHjGw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NttemEvV; arc=pass smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ILKJZuuK"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 09A0C1655;
-	Wed, 23 Sep 2026 01:31:28 -0700 (PDT)
-Received: from [10.0.138.135] (XHFQ2J9959-5.cambridge.arm.com [10.0.138.135])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B43753F86C;
-	Wed, 23 Sep 2026 01:31:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790152291; bh=uo/YQJ9Ixi6nxB3CeTrx+DkpZlwIfhyjjyUZRUsJGvs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ILKJZuuKIEuzmuevKqKO4tOS30td5XpGCkCczw00msIJ1M68Pm2su8zMpXlopRKtq
-	 uO92e8JU8rn3U2M+muQPsaL6hrrjejHKeBhqQGZnHztXAU4EKE14nCDGLtMFyqT3Sf
-	 nAHVmD4U/JKqIVNq3KlgE1+TBT5qqNmtP3stWqns=
-Message-ID: <a2365246-53a4-41e6-a655-6813f913cc1f@arm.com>
-Date: Wed, 23 Sep 2026 09:31:28 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NttemEvV"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc9b6e4so7061776d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:32:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790152321; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gJgSvgQj5/d5+xN6u59DnjD9hZqzKTjtb3Q1PTnmHN4uQCs2V0tFW+qqOUKardfKid
+         5ucx9wIzcbZRvse9457C6c1e7dO8wije4niXwKs53LNTDEepxCEl9ERbrwh7w1A0FXIW
+         c8a3DWgYHtRccWB+7v45g0rpN04Vz5G1v0Ea8FguTaH0NnSP2kenFZQ1lTqYXkgqOLUa
+         5r/uzCW0+9Foh1W6uUKf6fhHrw4zjy2sd2QtXNT/J7Zl5aAOZNKn1uaw+yPZsGWdYxkG
+         t18pIkPSDex4wJ1J0XrTqJeBOyZ9l2mvd1c6PavmAFiF3sS8OVYadpvfcFC/oX3s0Yyl
+         HoFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=hLbf5wdEcfSfArgGglezKU7/4be8aZs+31yfBhWP598=;
+        fh=qjq8oK8jqXw3D0fMoLfu9c9I/a3iJFc2kd3jZVIvPew=;
+        b=bkWCAUd6xG0WXyQL4JhEgd/HXXXeEx1G2AFbxAdOCXZfZ1H5KaFEg6S9eSvBDPqwTt
+         lh+MVc4J/cL5xJCbtmnIMqkmaXlTDuLTIPTSNyDWzHmvzBFfXwudEBfDFe8yj8h/Xtbm
+         Vn6aP/PI/cI+3ZY0Frdh+23mrgyawVmJcGrzL1hKo/G51YrQy2bdqftQ1yGz4G5isSco
+         lTe2lJmMoTO4AGr3cHelS9d2gINL7Nd0rtv62quIq498sMcmYgn95nbMvgUF5P5eEvm8
+         8kDF4CEy1Q2Wg6wSxX7pliMI4FQ9/4Q/bJnG2KhQe5JBrCTPOKV/2LblZp7xy3C4q0Nz
+         xvWQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790152321; x=1790757121; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hLbf5wdEcfSfArgGglezKU7/4be8aZs+31yfBhWP598=;
+        b=NttemEvVe7HFiC0/n/2XEDffB6Gz9Bwgh2IQ+eKH8YlZfzHQDCt97R0Pf0SBqu7J+B
+         x5TAnZ2nbcGlg5c0V8jzgCQ941hX/sSI0Fcq+hf76CdHB2R8f0ghVDmUecGAYgN+G5KO
+         ZKEEX86kmYGOxsXxn3cXgCwZAT/Vmw/BurKFRF8EdBV1qaw+UZVzYi5uFyUTcs83u4re
+         cqobkZO51m2W0kNcd5dWweVPDxm9Peqc98eG+dPHQB8MPGsIIrNJillu25v5nsarat3U
+         sjnWGQfyJKfCOj78G2xLuE+o7Uo0+OD8HxiyUUFok0zmvmcKNsERfHF8/jM15bBzsZWv
+         O1/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790152321; x=1790757121;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hLbf5wdEcfSfArgGglezKU7/4be8aZs+31yfBhWP598=;
+        b=k5iUgI2x6sOLQI5R50CKO6N+CVtjjeMsyXfkHuYmKJdCwsti6Is2yoZB7Luu79Bn5w
+         XID5Sh+Ldjty51aYy0qcJLZexX7iUlOulYqmNMJdtrlMu5qvsllV40yXT7EteQqnbyj0
+         ISmUk1wwCgIm0Rgcs8LcV+XgR7fIkTHlx/fk/0FDzP1yw81ADdEbMeeZBwWuf1UMH7Ni
+         T7Llg5Ga+n0bsNsisM56mnT8GGs5mYZbrz2bvi/VK9px9yBDfMXgtJyrS+X2SBG7uhcS
+         2jcUAaW0KynX04oJ7daHtgxPtPI6ymwV0Ui+ikV2MnRUryozzmvPWNmw/Htup6VYdbil
+         QNlw==
+X-Forwarded-Encrypted: i=1; AKwUvBwFIzONZV8YDGyFSeBVtQm0EGlU6pVHC3rxkF0Htt4YI+Ofle5NjJEHWMCGoZeNhXEEwFl6Go3cg/eEhDQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGnANK3GUhIP4+O7G5+WBRyJbjKL1J7go+WchM2kXnr1ZJoyIw
+	SKqgyi65jErq4sVLeI3N4mneCkddM7VpE0iEcK0Kvr16ulCOVRuxvMU1B6ml6SVEYG7artgQDoi
+	XaqVNCsX0NUfpjgpCb3GbRJ6v6f1H0s0=
+X-Gm-Gg: AYBFou2BISSxbTTD0D9sXnH19wcHezr+E+yi3m3LsnAeYfCb89SLYsRj188tDVLt1oF
+	M87xuHTafTNBOyjPdt2+OcBgMSoalfm7BqLZoFuSCtk9r8gzYcKwvD0yFneV9n+YVF3pPUATqO+
+	/ScItbtuY9SzKFzVtjH6s5+3iR3nRR4/MLLAWmjP1vZLtmFJ6AXtdhMNVgsZxTolvqX5AX28ZmS
+	M9/JyUkQsq/PQEhOBqzGHSvpzoQk1zsyPDCp27Nfzyr9ERkGlUKcCEd29328AmjwM/o6Jd3v7KN
+	EkoPJTlwThZMMnDm+nBgiekmhSmFO6Ww/dV6Trbq0Uf9z1nN5eqqYTnqKV92AFpJ
+X-Received: by 2002:a05:620a:6017:b0:93a:2d15:f84 with SMTP id
+ af79cd13be357-93c2511c2b1mr290767285a.33.1790152321118; Wed, 23 Sep 2026
+ 01:32:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 4/4] arm64/mm: Use pgdp_get() for PGD accesses
-To: Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, kasan-dev@googlegroups.com
-References: <20260922061638.3967467-1-anshuman.khandual@arm.com>
- <20260922061638.3967467-5-anshuman.khandual@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260922061638.3967467-5-anshuman.khandual@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260916235200.20712-1-ansuelsmth@gmail.com> <20260921135933.7e8857ba@kernel.org>
+ <CA+_ehUwy9RUKCCHDnqoED3AMVnErgGr9RCrCR4ceg5QONq1wOQ@mail.gmail.com> <20260922172514.7feb6e7c@kernel.org>
+In-Reply-To: <20260922172514.7feb6e7c@kernel.org>
+From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Date: Wed, 23 Sep 2026 10:31:49 +0200
+X-Gm-Features: AclHuK8jGec2XT5CWPXvYVvV1bFvl8hmA75zakqIakpr84shp0cAZGnoi6_G1Gs
+Message-ID: <CA+_ehUyFKZzd0uP4akgZxaLLJTwcvGGKz5ppCYsB++fn92Dn9w@mail.gmail.com>
+Subject: Re: [PATCH net-next v16 00/12] net: pcs: Introduce support for fwnode PCS
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Lorenzo Bianconi <lorenzo@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Russell King <linux@armlinux.org.uk>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On 22/09/2026 07:16, Anshuman Khandual wrote:
-> Replace READ_ONCE() with pgdp_get() for PGD accesses in preparation for
-> supporting both D64 and D128 translation table formats.
-> 
-> READ_ONCE() cannot currently be used for 128-bit page table entries on
-> arm64 because it does not provide the required 128-bit single-copy
-> atomicity, causing builds to fail for accesses wider than 64 bits.
-> 
-> Although LDP/STP provide the required atomicity when FEAT_LSE is
-> available (as required by FEAT_D128), extending READ_ONCE() to support
-> 128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
-> so doing so could encourage other 128-bit users that would either fail
-> to build in configurations without D128 support or, if D128 becomes a
-> runtime option, silently permit tearing on systems without the required
-> hardware support.
-> 
-> Instead, standardize PGD accesses on the existing page-table helpers.
-> These can be overridden on arm64 to provide 128-bit single-copy
-> atomicity when required. No functional change intended.
+Il giorno mer 23 set 2026 alle ore 02:25 Jakub Kicinski
+<kuba@kernel.org> ha scritto:
+>
+> On Tue, 22 Sep 2026 12:12:56 +0200 Christian Marangi (Ansuel) wrote:
+> > The remark on the fwnode patch are invalid. The driver is expected
+> > to return those error as probe defer is not supported.
+> > (a notifier and late attach/detach is used to align to phylink logic)
+> >
+> > For the specific Airoha PCS driver it's really speculation from the AI
+> > but HW doesn't work as described by AI.
+> >
+> > The only real comment that is valid is about the alternative way
+> > to give supported interface with the .get_capabilites OP.
+> >
+> > This is currently not supported as there isn't any user and it will
+> > be implemented as soon as there will be one. It's really to limit
+> > the patch delta of this change and to progress further.
+> >
+> > Maybe FIXME might be suitable?
+>
+> FWIW no preference here, I defer to the human reviewer.
+> We can treat the AI review as a hint if human reviewer thinks the code
+> is fine as is.
 
-I notice you have unconverted READ_ONCE(*pgdp) in:
-
- - p4d_offset_phys()
- - p4d_offset()
-
-Is that intentional?
-
-Thanks,
-Ryan
-
-
-> 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: kasan-dev@googlegroups.com
-> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
-> ---
->  arch/arm64/mm/fault.c       | 2 +-
->  arch/arm64/mm/hugetlbpage.c | 2 +-
->  arch/arm64/mm/kasan_init.c  | 6 +++---
->  arch/arm64/mm/mmu.c         | 6 +++---
->  arch/arm64/mm/pageattr.c    | 2 +-
->  arch/arm64/mm/trans_pgd.c   | 4 ++--
->  6 files changed, 11 insertions(+), 11 deletions(-)
-> 
-> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-> index a6afd8929a10..43f25418275a 100644
-> --- a/arch/arm64/mm/fault.c
-> +++ b/arch/arm64/mm/fault.c
-> @@ -160,7 +160,7 @@ static void show_pte(unsigned long addr)
->  	guard(irqsave)();
->  
->  	pgdp = pgd_offset(mm, addr);
-> -	pgd = READ_ONCE(*pgdp);
-> +	pgd = pgdp_get(pgdp);
->  	ptval_to_str(pxd_str, pgd_val(pgd));
->  	pr_alert("[%016lx] pgd=%s", addr, pxd_str);
->  
-> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-> index 5771bf49e1fe..e05e5b41ae50 100644
-> --- a/arch/arm64/mm/hugetlbpage.c
-> +++ b/arch/arm64/mm/hugetlbpage.c
-> @@ -284,7 +284,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
->  	pmd_t *pmdp, pmd;
->  
->  	pgdp = pgd_offset(mm, addr);
-> -	if (!pgd_present(READ_ONCE(*pgdp)))
-> +	if (!pgd_present(pgdp_get(pgdp)))
->  		return NULL;
->  
->  	p4dp = p4d_offset(pgdp, addr);
-> diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-> index 4dd8c1186471..f61f5bc09467 100644
-> --- a/arch/arm64/mm/kasan_init.c
-> +++ b/arch/arm64/mm/kasan_init.c
-> @@ -102,7 +102,7 @@ static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node,
->  static p4d_t *__init kasan_p4d_offset(pgd_t *pgdp, unsigned long addr, int node,
->  				      bool early)
->  {
-> -	if (pgd_none(READ_ONCE(*pgdp))) {
-> +	if (pgd_none(pgdp_get(pgdp))) {
->  		phys_addr_t p4d_phys = early ?
->  				__pa_symbol(kasan_early_shadow_p4d)
->  					: kasan_alloc_zeroed_page(node);
-> @@ -256,7 +256,7 @@ static int __init root_level_idx(u64 addr)
->  static void __init clone_next_level(u64 addr, pgd_t *tmp_pg_dir, pud_t *pud)
->  {
->  	int idx = root_level_idx(addr);
-> -	pgd_t pgd = READ_ONCE(swapper_pg_dir[idx]);
-> +	pgd_t pgd = pgdp_get(swapper_pg_dir + idx);
->  	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
->  
->  	memcpy(pud, pudp, PAGE_SIZE);
-> @@ -280,7 +280,7 @@ static int __init next_level_idx(u64 addr)
->   */
->  static void __init clear_next_level(int pgd_idx, int start, int end)
->  {
-> -	pgd_t pgd = READ_ONCE(swapper_pg_dir[pgd_idx]);
-> +	pgd_t pgd = pgdp_get(swapper_pg_dir + pgd_idx);
->  	pud_t *pudp = (pud_t *)__phys_to_kimg(__pgd_to_phys(pgd));
->  
->  	memset(&pudp[start], 0, (end - start) * sizeof(pud_t));
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index 83709d987e7c..76d8d320aeed 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -434,7 +434,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
->  {
->  	int ret;
->  	unsigned long next;
-> -	pgd_t pgd = READ_ONCE(*pgdp);
-> +	pgd_t pgd = pgdp_get(pgdp);
->  	p4d_t *p4dp;
->  
->  	if (pgd_none(pgd)) {
-> @@ -1649,7 +1649,7 @@ static void unmap_hotplug_range(unsigned long addr, unsigned long end,
->  	do {
->  		next = pgd_addr_end(addr, end);
->  		pgdp = pgd_offset_k(addr);
-> -		pgd = READ_ONCE(*pgdp);
-> +		pgd = pgdp_get(pgdp);
->  		if (pgd_none(pgd))
->  			continue;
->  
-> @@ -1827,7 +1827,7 @@ static void free_empty_tables(unsigned long addr, unsigned long end,
->  	do {
->  		next = pgd_addr_end(addr, end);
->  		pgdp = pgd_offset_k(addr);
-> -		pgd = READ_ONCE(*pgdp);
-> +		pgd = pgdp_get(pgdp);
->  		if (pgd_none(pgd))
->  			continue;
->  
-> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-> index 826856ef64a8..dfa1356daac2 100644
-> --- a/arch/arm64/mm/pageattr.c
-> +++ b/arch/arm64/mm/pageattr.c
-> @@ -399,7 +399,7 @@ bool kernel_page_present(struct page *page)
->  	unsigned long addr = (unsigned long)page_address(page);
->  
->  	pgdp = pgd_offset_k(addr);
-> -	if (pgd_none(READ_ONCE(*pgdp)))
-> +	if (pgd_none(pgdp_get(pgdp)))
->  		return false;
->  
->  	p4dp = p4d_offset(pgdp, addr);
-> diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-> index 7afe2beca4ba..06470d690f9f 100644
-> --- a/arch/arm64/mm/trans_pgd.c
-> +++ b/arch/arm64/mm/trans_pgd.c
-> @@ -134,7 +134,7 @@ static int copy_p4d(struct trans_pgd_info *info, pgd_t *dst_pgdp,
->  	unsigned long next;
->  	unsigned long addr = start;
->  
-> -	if (pgd_none(READ_ONCE(*dst_pgdp))) {
-> +	if (pgd_none(pgdp_get(dst_pgdp))) {
->  		dst_p4dp = trans_alloc(info);
->  		if (!dst_p4dp)
->  			return -ENOMEM;
-> @@ -164,7 +164,7 @@ static int copy_page_tables(struct trans_pgd_info *info, pgd_t *dst_pgdp,
->  	dst_pgdp = pgd_offset_pgd(dst_pgdp, start);
->  	do {
->  		next = pgd_addr_end(addr, end);
-> -		if (pgd_none(READ_ONCE(*src_pgdp)))
-> +		if (pgd_none(pgdp_get(src_pgdp)))
->  			continue;
->  		if (copy_p4d(info, dst_pgdp, src_pgdp, addr, next))
->  			return -ENOMEM;
-
+Soo should I send v17 to fix AI that failed review?
+I think I didn't got this detail.
