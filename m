@@ -1,130 +1,78 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A043041F35A;
-	Wed, 23 Sep 2026 18:01:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 068B0424D6B;
+	Wed, 23 Sep 2026 18:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790186510; cv=none; b=CIE+v80uDaEjkvSI/TuxFjCqCt81XZo+ej4YwgxFubN2MojIqpnIekvzQS0b8baVQRlbimsYNvisvydaKcgbtD8T8x+PheAe6xp8QApmwBNe2OQADFb1XFdFLrvCIHPUQ6xyqvCqBG2L/I2ivi0IRDJFBTpePCjFwY30GwgVL5M=
+	t=1790186520; cv=none; b=UyP1fCx7PWnN3iOjYwFfwWp9rActMMhhYwmfq1AqgQwPKz3uk/egTVUo8yj88CAxFVzchUYPPM6uoe2zkfHiWcBauWeKZgTSfLqPkrb8byiYdYGeP/AJB+vMUx3rmZYG80QxO6uFKJGth1RjHytNAlDtnwhO+zMyNI+BRckqBR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790186510; c=relaxed/simple;
-	bh=P3oi0PGDlf4xoKRMZIdGGpE4Q3g7CRonJXX2JvXuSGg=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=N7Wg+82G9Kc2F+apkchhtGKS79EpdBNjC2uRoonUhBMIjBfBXhdtGyHwZxbQxFpYYkM9YoQtOocTHEG9qZw4ZhCesr93SoeOV1bPUpXHyov4t0Bwdv/zU//mVmXhP+XqXDEMYpUQ9LECGT2lMJ+3Xb9VH534Uh2hg3UwzS1uP7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=12gnr5p2; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1790186520; c=relaxed/simple;
+	bh=2LcJXFfLglMAHFOvjRcZEnGSimjOxEhpXRXzE1krsME=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=oGAOCCX7lTlCKcYWineCVZkJSap7a7P3l9UE/GHCU0AqW2MKUPxrUbBbglDnl2vEkixNzlIV9tTCDdyR+KqH2clW2BzGzQuF9Fx0aBj6OoGDMTblO0QQXa0fjusRMXq82yZ8DIF1KH+qeo+TPNtacFQAAMNrfIVEph/AcVw6mlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OLffsnpN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="12gnr5p2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:References:Cc:To:Subject:From:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=i2fkcWjPo33/i5V/T6lRUhSfxbVcuI5QepfXiQgw9nc=; b=12gnr5p2LkszC78CQmmuo4EkD7
-	Aqi9BB8bzGNPkPc6Es6jdRy/uyZnpONUCjkRMu1yxZkbwreX8MZHqaCeQXMAGPGRXVTKfenqIHi8e
-	sexvPV+H9VjQyH0I8067RS3bmA+h9vlp5j6ckXYOqZMh7ldtMPLGDI3cGSO1VvdnhezMuCkG6O+GJ
-	sy3Rxwlr3Aj3ULsXnIyON28Mr18GBIT1srSBNKY2y2Zsc1WzZ1+na7PAwfP9OTNr8rHAU5aaNdEXv
-	srYvin7b7rOKolOJmzL78dfhpM/MbkXiGHKXkcie9V0Xxj96wK1VnUvgxs5r8Dg4PwxGBu6YDUasL
-	/X9Bplzg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x9RHr-000000097b2-3aFU;
-	Wed, 23 Sep 2026 18:01:44 +0000
-Message-ID: <1799e700-7898-4d63-9c0d-95535af415b0@infradead.org>
-Date: Wed, 23 Sep 2026 11:01:43 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OLffsnpN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A6F01F000FF;
+	Wed, 23 Sep 2026 18:01:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790186517;
+	bh=9PEG2hQh4VbbIb8Ol2k4AHCAhheLSNq1fmhDKGZBrJo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=OLffsnpNikCrulk6Drxd5vXez6+YqaOmw87TdolQ0I5QmEVYI3ILrMHj40D8hu/MO
+	 N100XMsDhvhTcbB/Bo+RhfUqDiNy5Fv69zp6ErYhfPIIvkYDeSgFIusQrWc6FoKqUT
+	 22JxqlB+EMXrKiB2MMuBK75/yPkK8dMEwDyWF2Ff9k3J15+I3BRMuVwAL65vol8yes
+	 mX9LklkXDq/PTLwfmmuxrYUlDVZ2oeoKND55LqWEakUelKQFQLtgov8ppeHc1HDzFf
+	 xyO8pqZ7KTit90Z9rdJAKO4ZuvYdsY7CCC1k89T2t1H3MInkCLGbZJH71Ik9wteSRB
+	 3p89msLBSCNjQ==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Patrice Chotard <patrice.chotard@foss.st.com>, 
+ Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Christophe Kerello <christophe.kerello@foss.st.com>, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20260917235925.44185-1-diegomancera.dev@gmail.com>
+References: <20260917235925.44185-1-diegomancera.dev@gmail.com>
+Subject: Re: [PATCH] memory: stm32_omm: fix child clock leak on set_amcr()
+ error path
+Message-Id: <179018651467.64819.2245489948858045.b4-ty@b4>
+Date: Wed, 23 Sep 2026 20:01:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [built failure] aicdb.h / __udivdi3
-To: David Laight <david.laight.linux@gmail.com>,
- Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: Linux Next Mailing List <linux-next@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-References: <1ccf42a99c89502a7a5e7038ed2ab2aa5a24dd7a.camel@mailbox.org>
- <0aa303bc-d3e9-4670-91e5-8299ddfcb6db@infradead.org>
- <5d00e8d9c5e8118477efcafeb19b1347268bcc38.camel@mailbox.org>
- <20260923171023.5a134671@pumpkin>
-Content-Language: en-US
-In-Reply-To: <20260923171023.5a134671@pumpkin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
 
-
-On 9/23/26 9:10 AM, David Laight wrote:
-> On Wed, 23 Sep 2026 15:41:59 +0200
-> Manuel Ebner <manuelebnerli@mailbox.org> wrote:
+On Thu, 17 Sep 2026 17:59:25 -0600, Diego Fernando Mancera Gomez wrote:
+> When the mux is enabled, stm32_omm_configure() enables the two OSPI
+> child clocks via stm32_omm_toggle_child_clock(dev, true); they are meant
+> to stay enabled for the device's lifetime and are disabled again in
+> stm32_omm_remove() and on the devm_of_platform_populate() error path.
 > 
->> On Tue, 2026-09-22 at 12:25 -0700, Randy Dunlap wrote:
->>> Hi--
->>>
->>> On 9/22/26 11:13 AM, Manuel Ebner wrote:  
->>>> Hi,
->>>>
->>>> I did some built testing with randconf and got some build errors.
->>>>
->>>> First error is:
->>>>   
->>>>> $ make KCFLAGS=-Werror -j8 > make_output.txt
->>>>> aicasm_symbol.c:47:10: fatal error: aicdb.h: No such file or directory
->>>>>    47 | #include "aicdb.h"
->>>>>       |          ^~~~~~~~~  
->>>>
->>>> This could be fixed by installing libdb-devel.
->>>> But than I got this error with the same configuration:
->>>>   
->>>>> $ make KCFLAGS=-Werror -j8 > make_output.txt
->>>>> date
->>>>> drivers/scsi/aic7xxx/aicasm/aicasm: 880 instructions used
->>>>> drivers/scsi/aic7xxx/aicasm/aicasm: 25 of 37 register definitions used
->>>>> /usr/bin/ld.bfd: fs/exfat/super.o: in function `exfat_set_vol_flags.isra.0':
->>>>> super.c:(.text+0x622): undefined reference to `__udivdi3'
->>>>> make[2]: *** [scripts/Makefile.vmlinux:72: vmlinux.unstripped] Error 1
->>>>> make[1]: *** [/home/manuel/skripts/next/Makefile:1390: vmlinux] Error 2
->>>>> make: *** [Makefile:248: __sub-make] Error 2  
->>>>
->>>> What can I do about it?
->>>> Is it me/ my system or the kernel?  
->>>
->>> For the fs/exfat/ build error:
->>>
->>> What is the target (x86_64, i386, arm64, arm, etc.)?  
->>
->> My system is x86_64.
->> But i guess this means the target is 32 bit:
->>> CONFIG_X86_32=y  
->> The rest of the .config is below.
->>
->>> What is the compiler and its version?  
->>
->> gcc (GCC) 16.2.1 20260819 (Red Hat 16.2.1-2)
->>
->>> That error usually means that the target is a 32-bit CPU
->>> and the code in question is doing an unsupported divide or
->>> modulus function.  
->>
->> Can the dependencies in the .config be improved to to make this issue impossible?
->>
->>> It possibly should be using a kernel macro from <linux/math.h>
->>> or other headers.  
->>
->> I figured I didn't successfully checkout next but this shouldn't change this error.
+> However, if the subsequent stm32_omm_set_amcr() call fails, the function
+> jumps to the "error:" label which only calls pm_runtime_put_sync_suspend()
+> before returning, leaving the two child clocks enabled. As this happens
+> during probe, the error is propagated and .remove() is never called, so
+> the clock enable references are leaked. devm_clk_bulk_get() only releases
+> the clock handles on unwind, it does not undo clk_prepare_enable().
 > 
-> I just tried to build the .config from below against a 'quite recent' linux-next.
-> If fails for a couple of unrelated reasons - I edited the config to fix them.
-> But there isn't a divide in exfat_set_vol_flags().
-> I can't see one in the source either.
-> The usual 'next stage' is to disassemble the .o file and work out which
-> source line is responsible.
+> [...]
 
-I also can build exfat fs successfully with this .config file.
-And as David did, I had a few other build issues aside from exfat fs.
+Applied, thanks!
 
+[1/1] memory: stm32_omm: fix child clock leak on set_amcr() error path
+      https://git.kernel.org/krzk/linux-mem-ctrl/c/a22355280361d2a376a2020059a2bae11e6cea10
+
+Best regards,
 -- 
-~Randy
+Krzysztof Kozlowski <krzk@kernel.org>
 
