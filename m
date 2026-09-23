@@ -1,91 +1,93 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A8639A803;
-	Wed, 23 Sep 2026 16:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 438F4559C82;
+	Wed, 23 Sep 2026 16:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790182029; cv=none; b=OjeCgXjPfGN/taVOt6Gz6fiua55Itr6HU6rc11hwSESSblyBBCtFQqMiC4mopHpe5Cioa6HNFS336pen8/goumRH/8y4kJMYnynwxDGAHPQkkR/rMj5ZffrogdsJg0tPOCdzKu244cnJaBHVFk2XcjUn6fmDhn247QauVsxz7H8=
+	t=1790182042; cv=none; b=h3bgdH5tuknXNSHnLcBA98Ky24gVebn1okUL90Y+ObjdoC/PDaebY5OYepYuL8pH5kRRZK1SsxLXO58J6vdPSOQiZjAg8GuMFYA+rJNcxPHOZDKNzfqbhwMXc1HNsl/lmXFAbiGjyveCwpUYK4l32ebzEmereR3S04N0Q1+KmHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790182029; c=relaxed/simple;
-	bh=rN8RmioOSsIyLTDBBJuw1n9QvcUwNcKWeqX63UCbAW0=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=rEGlv501qXpmuxUEDdKVqRQgKyZAz9L2zXbcBLJz802ES+Qkx8MNxBEoC9T8qzXT5mQUK3a0hYGVxUbvuq+5dYR7ZgzytctTQ6dbG1d3ZYdIU3nG3Lu9cVDvx0RgocnBZzV+HAZd6wbtStiqLrCL9XK8dyuzUsWe2FaNYI5X9dA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=desiato.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=bxejY7O1; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=desiato.srs.infradead.org
+	s=arc-20240116; t=1790182042; c=relaxed/simple;
+	bh=WfcmS1xtc+P6sdKSOtJprt63zIXwjbO5zEAQvUUCwDY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=rCIj/mdl/EiRhOt1JdnGCO89tluno4A5IUjq/w3OuEqmYjl5OP7hDatXb0SCH+0odcGwEhn0Bv4pnIFpCxUwXxfJo8d4I07lJXmhM2Ly3EImiJfM3ajNtuwDFNjFKqlO2KodVGRGJcNPLkxJMuV0wTHJOOkqH5dTV6mJhm6MFws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cU6Ae0Et; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="bxejY7O1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Content-Transfer-Encoding:Content-Type
-	:MIME-Version:Message-ID:References:In-Reply-To:Subject:CC:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=rN8RmioOSsIyLTDBBJuw1n9QvcUwNcKWeqX63UCbAW0=; b=bxejY7O1iRebOW7oN0FbM8ypoL
-	CdWPmAHwylfBfvuzKfPN855CIk/55gDmym8CtT6Gk0XfKNdqSAk/XzkelBFBEQY7xs6XAwIp6VF6d
-	oAbEV4c36dvhXTuRESfp3r8RuGoMt62yDHezeadPceyUnpF1MbjwZTgf/GIzv+hzGybr2bF3iBMPi
-	eUbTTVmMK5rDpt3YX+m8+kIVrI2RnFIR+I/LlY2xsalhhDLcAWW2XDm93ReaxfYqVOphQm225N2D7
-	lz09rAgg+lhFZ5cEaNBfJrawGAMmBpoTKOQ85Z8LoB6Xo9jVP0Gc5tB3qdXTF8G4mOEMOdkGUmOX2
-	HQF65fyg==;
-Received: from cust-west-par-46-193-9-67.cust.wifirst.net ([46.193.9.67] helo=ehlo.thunderbird.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x9Q7J-0000000F2SZ-3ykR;
-	Wed, 23 Sep 2026 16:46:46 +0000
-Date: Wed, 23 Sep 2026 18:46:47 +0200
-From: David Woodhouse <dwmw2@infradead.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-CC: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org,
- pbonzini@redhat.com, seanjc@google.com, paul@xen.org, paulmck@kernel.org,
- kunwu.chan@linux.dev, nh-open-source@amazon.com
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_00/17=5D_KVM=3A_Use_atomic_SRCU_for_gfn-t?=
- =?US-ASCII?Q?o-pfn_cache=2C_reinstate_guest_mode_for_x86_nesting?=
-User-Agent: K-9 Mail for Android
-In-Reply-To: <CAN_Opa-xVAzFAJVU3rwCsiBzVpQYqUYWzgpBBP7EaX3K+ASk1g@mail.gmail.com>
-References: <20260923095435.591542-1-kunwu.chan@gmail.com> <7efbc8e2ecbf397fc8e44327d13e9a7021b97212.camel@infradead.org> <CAN_Opa-tDcZOEk=Mt5MAqUTkg2as5G79uBkxkUaJif8b5QpXYQ@mail.gmail.com> <1cb9c1d40f246ddbe24c9fb930d6dce16aaa25a1.camel@infradead.org> <CAN_Opa-xVAzFAJVU3rwCsiBzVpQYqUYWzgpBBP7EaX3K+ASk1g@mail.gmail.com>
-Message-ID: <19595BD7-98B3-46F0-8B47-DAFF304C5A7A@infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cU6Ae0Et"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B3C41F000FF;
+	Wed, 23 Sep 2026 16:47:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790182038;
+	bh=pElAvUz/2FfkCAwnKeisXksZERMT6SZBcjUE4S/cPgQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=cU6Ae0EthGBEcr2veKV/piet/5j4p++JF3sSoJrG56Wj/GY1CZBIfTHqGMZgNmIwW
+	 woTVVOW1gNvMtSuoILPXYfpnJyMVzNjLuAGPl926Gc5Qfj8Tl8D/uxA6XDOnTOuQoU
+	 XTOS4pc0QirQgmY6ZfKJXrCG8rrXyQcAqFy257BUKkss67iTx7iuDNF+NUdz2Jlgr/
+	 xgQFvJ9eI9JUdUB9pcSEFje9FtBXlqfjt2CTA/mwXVqo6W4OLKIRF4SlU/h32VoFVP
+	 sYGkzdfWy9a+DtyuNi1RJxXZWMNxIl2GCj7yHwYH5EN8aBV0qCkkSQ9lPuZxRxb0kF
+	 6YcVnIjURIGqw==
+Date: Wed, 23 Sep 2026 18:47:15 +0200 (CEST)
+From: Jiri Kosina <jikos@kernel.org>
+To: =?ISO-8859-2?Q?Tomasz_Paku=B3a?= <tomasz.pakula.oficjalny@gmail.com>
+cc: oleg@makarenk.ooo, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] HID: universal-pidff: Add support for Turtle Beach
+ VelocityOne Race
+In-Reply-To: <20260922131758.1242755-1-tomasz.pakula.oficjalny@gmail.com>
+Message-ID: <729138p6-175p-n372-5oq0-62q3o38s14q2@xreary.bet>
+References: <20260922131758.1242755-1-tomasz.pakula.oficjalny@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by desiato.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-On 23 September 2026 18:26:32 CEST, KunWu Chan <kunwu=2Echan@gmail=2Ecom> w=
-rote:
->On Thu, Sep 24, 2026 at 12:07=E2=80=AFAM David Woodhouse <dwmw2@infradead=
-=2Eorg> wrote:
->>
->> On Wed, 2026-09-23 at 23:58 +0800, KunWu Chan wrote:
->> >
->> > You mentioned that the SRCU read side scales a lot better and avoids
->> > cacheline bouncing=2E If you happen to have any existing measurements=
- of
->> > the reader side, such as throughput or reader-side latency, I would b=
-e
->> > very interested in seeing them=2E That would be useful for understand=
-ing
->> > the reader-side benefit you mentioned=2E
->> >
->> > Of course, no need to rerun anything just for this=2E I was mainly
->> > wondering whether you already had such data from the existing testing=
-=2E
->>
->> Most of the KVM gfn-to-pfn-cache usage is per-vCPU so doesn't get much
->> parallelism=2E The main case is interrupt delivery to Xen guests' event
->> channels, and I did some benchmarking of parallel interrupt delivery=2E
->> I'll see if I still have those results, or tell my friend to go and
->> repeat some meaningful tests=2E
->
->Thanks David, that would be very helpful=2E
->
->The parallel interrupt delivery case sounds particularly interesting=2E
->Please don't go to any trouble if the old results are not available=2E
->I really appreciate you checking, and I also appreciate your friend's
->help with the measurements=2E
+On Tue, 22 Sep 2026, Tomasz Paku=C5=82a wrote:
 
-It's no trouble; my friend is remarkably compliant once I've held its meth=
-odology to account and probed at its conclusions=2E
+> Add usb VID and device PID to hid-ids.h
+>=20
+> Signed-off-by: Tomasz Paku=C5=82a <tomasz.pakula.oficjalny@gmail.com>
+> ---
+>  drivers/hid/hid-ids.h             | 3 +++
+>  drivers/hid/hid-universal-pidff.c | 1 +
+>  2 files changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+> index b3aca5aa9176..52b25d76cc2a 100644
+> --- a/drivers/hid/hid-ids.h
+> +++ b/drivers/hid/hid-ids.h
+> @@ -1504,6 +1504,9 @@
+>  #define USB_DEVICE_ID_ASUS_MD_5110=090x5110
+>  #define USB_DEVICE_ID_TURBOX_TOUCHSCREEN_MOSART=090x7100
+> =20
+> +#define USB_VENDOR_ID_TURTLE_BEACH=090x10f5
+> +#define USB_DEVICE_ID_TB_VELOCITYONE_RACE=090x7077
+> +
+>  #define USB_VENDOR_ID_TWINHAN=09=090x6253
+>  #define USB_DEVICE_ID_TWINHAN_IR_REMOTE=090x0100
+> =20
+> diff --git a/drivers/hid/hid-universal-pidff.c b/drivers/hid/hid-universa=
+l-pidff.c
+> index 60180467a0bf..f1854cfe42d0 100644
+> --- a/drivers/hid/hid-universal-pidff.c
+> +++ b/drivers/hid/hid-universal-pidff.c
+> @@ -187,6 +187,7 @@ static const struct hid_device_id universal_pidff_dev=
+ices[] =3D {
+>  =09{ HID_USB_DEVICE(USB_VENDOR_ID_ASETEK, USB_DEVICE_ID_ASETEK_FORTE) },
+>  =09{ HID_USB_DEVICE(USB_VENDOR_ID_ASETEK, USB_DEVICE_ID_ASETEK_LA_PRIMA)=
+ },
+>  =09{ HID_USB_DEVICE(USB_VENDOR_ID_ASETEK, USB_DEVICE_ID_ASETEK_TONY_KANA=
+AN) },
+> +=09{ HID_USB_DEVICE(USB_VENDOR_ID_TURTLE_BEACH, USB_DEVICE_ID_TB_VELOCIT=
+YONE_RACE)},
+>  =09{}
+
+Applied, thanks.
+
+--=20
+Jiri Kosina
+SUSE Labs
 
