@@ -1,99 +1,298 @@
-Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E92541E54
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F385A53C3A0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:53:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790189601; cv=none; b=p8gQlJHfThe5AGAKojSsO0Jh4P5vlnaZa9nit3tgbT9eUbOxFm3OUrF7zWBYlnorDje7laQnuEQtPvT+mL9fg+9R54DS4rM9Dmg/ReR0FIogFU3iyKorBB5NHjsCh7/Pw/JzuZJzW75GTnMaEXTluPZ7MhAhGsSuor+MrooQcbo=
+	t=1790189598; cv=none; b=OUSkLv7YarLNLtzLoukb9LaQna2Y0JrnZGRfiTQKkAfzYZQurwdJTJPuK0/g+8ZLhAxpCGoqbwQv3WyJPdrR68LAYSZwDcMPXJHZXoPZAR5J2aLXD6QyiX24xzy8NwSJt26dpdzZjpTKITFL6R9MvWk+5epHwz9ByGm2hZaHI8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790189601; c=relaxed/simple;
-	bh=VQwGs8kxbwA/pw10zZlCJcbl8pu79WWCbvhBxYPCINQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VlAg8e35yCiMb3weAriAcyIh/TdbsGQ+y/tJibA/M1Yl82FmEEw9UkCfdNhoTzg7WxMOJgDnZg9Pnci362F7NbPzWQ/wUxUT2yJPTmQWoN5P+/qMvzYz6BDh5XW70gV2au5qVGUKuFoSdHSob2SEArGRN0tvhdo2SpGeUGbXkl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HucKdqpF; arc=none smtp.client-ip=91.218.175.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790189598; c=relaxed/simple;
+	bh=i0/Ud+/noGW0PP+lXUlJszcNgcaYYgaR+bLb+Qgf7ms=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=djYqvAvWmNgFmozvRts9S1XcOjoXbgHLBAgGw02GxIEiPDiQvRBOzn4pVr0v+dBz6TM3n/MZ40Aa1kisv8CR9zjTQTBZZQn+00Z2esACRRXq9WlHp0UEdFEGnSTG/0ww0xTstUHkWmH2RoeKrGSVaJM6UW43qK/lWKzTuRbymDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WbHDtCUw; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HucKdqpF"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=VQwGs8kxbwA/pw10zZlCJcbl8pu79WWCbvhBxYPCINQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790189589; v=1; x=1790794389;
- b=HucKdqpF2C+Z2funT521S4GuulRKRrlYL3J4dzrEasBAGy13+3ocRtfF+Ew50v4ft3xCxBNu
- MYE59PCKbXsLZplEPE7kGHRQeiMISXaENc9IvzHtcUO8w7QJfLD5b3LXV157Qq/aznA0Bw0++zT
- 88vdJReZ9506tspXnQZt3SuI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5a8c85cc33237c1e;
-	Wed, 23 Sep 2026 18:53:09 +0000
-X-Mizu-Trace-ID: 5a8c85cc33237c1e
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b83c1421ecso1472e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:53:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy7sixJfG+Sx5AAa16ruEOqQUSW/LnPPmVLJKI4kmvc1pJMBdNIKuK5WDsES633HLHYiiii4F1LV0c9Q/I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmCdv5aeIunvC1DiPk/sByLTng/nynSCiYTnVPArzYAhnLQ+u3
-	/v+v67H+B0b6d/ijLvhZciedYDjZAtR1cOURZAslBjIsJzeJVGvkhE2rvCHSSJ/8Vxv9Fgw3DFX
-	cZGVL4fq5FAnF+8thEvxNXzArv7Sqdh/q5xnPPBC/
-X-Received: by 2002:a05:6512:124d:b0:5ae:cf5f:4a88 with SMTP id
- 2adb3069b0e04-5b8dda15fd4mr50291e87.8.1790189584139; Wed, 23 Sep 2026
- 11:53:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WbHDtCUw"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d53so314038a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:53:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790189588; x=1790794388; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3s/MMajyZUTrt05y+Cn99bNu886D7Ka1lQx9ECIkJR0=;
+        b=WbHDtCUw2L3kgZ0pElHJl+akmegSxjTlfnYWqd3HzpZNE9zviAj2ZdYZjxH5u+hMDy
+         PASFJkgwWlIFv/lIix/SGwBTCLNxjks1rw0mcXpShRzz8G4nKqkpTJiR311yvR/M10l9
+         ZLkowRd51YhOr0CWyjQM9X7OnltAI6x0tWeKjN3Cp1Rd06AsFix8TK/ysO33X38GkJcM
+         TBYA5/dCrODZGrw9x+W9+IipuxRWr6RoaPKutfQxSUEgmqcZSiPS0Fdo83ZlaKgMAxl0
+         ZyjjIJEXKXivPel5cDAtMz7mluBn+Fj0eUC6DuWZp1bdkPlmFM0AvKjNaeMzCKCcKXwx
+         eT3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790189588; x=1790794388;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3s/MMajyZUTrt05y+Cn99bNu886D7Ka1lQx9ECIkJR0=;
+        b=dDaWkCt2BuRA4KFrMdTw33rTapKcej0B5RaBlgZwQyqdwsyb108F6mkJ0qrksofxZN
+         TrlqKM6Ghi9BMNRva0Sr/xJ6ch6BLEEoiiebRmt9taVDt9KcD7anRLY2cgh7Xk1Tv0LS
+         U5n+whnieSjt0b4PCT7ZfWFjh70jrY8KOa/OnIPZxN+U6yQ5BLGEAMrbg2xrlAyWFLZy
+         7l5V3T1AYfdjgSUHsoQdz0zdqLOzH2pFZx4/KQz7Z3IC7XZWvchB3cRcCdDR8e901zV4
+         fkYjOskbrpoQ7CNJ90jOWoR6PYwaXjQvSP5E8A1nEhME0p8UcSelStdx3gsZhI0rY5+R
+         hEnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxMBiwpfQFC2PBK0jP7H9qQ56XcgS0R6hW/YnmpwpE4li9V4ZSX+SoZvyiLG5uEWfV0TKket92nanx+5mk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kU/sdBELp8S1Ju5FZODAYOYCze8ILgGVR1NnOE141/mBV77Ur3
+	lz2DVGpLfUj8VK2/oSeVcnLZF9weLe5dD9pS1XDinT0LfVJZ8O5kAzWH
+X-Gm-Gg: AYBFou0U+zJCO0ILHCpQFoVRS0DeixIsh1PyW8DfqbVurGlPD/i2OTE/9DHliSpNjBZ
+	yCvGRVrF/8GA3xsmEbvuyjmKXvgYIFxCd99CC9YZg3gKnhSG3EoTpIOLzMM4g3BghbSGUJ8+JsH
+	9bs4jecKYMZGgHIzHhvulvU7np57MV/2iW422KP2WApWcJZHFfm2ZpIJho4AcreZfMKOL6w41+Q
+	sdxmB9dQvnqT1DG82SNiYHZOQHTNdrl2yVZw7OxMAFGfVcotKfqOly0Go3PSWqv51fhSun/v4KO
+	Wuy5/eUeVGAFsmFBxXK8LT3iPvqwZDgV9d/HXIoi/tNSJez8HgR5SH3aQwcoRyAsF5toYjViXKi
+	jS3Ce60aLLRSTJ6r1ZVxLKLFZU9E5uds6GCKy4Lq+YQ934vkr17M1UXZ66/jsoyxCeD6IXWeEA/
+	8hSkR2ofD77VOcZ78wBvM8VekGv3DJ6s2DaNAWr0DNySQhhbgDOl7mqaJaQ+QfaxUh/NeFAH2q9
+	Rq8ZawfGNo2/a9DbfgWsmDXfYriCOsqFEOSvHfdM9C86OMZuua6XV2kz146zHq4PTKJnvY4aXMh
+	e8aXPTobFRRE+n8+b8HSLyNo/a6NqYMeoW0P+RCrdHk7ZLvoCp2HmeCOWe8=
+X-Received: by 2002:a17:90b:5183:b0:39e:6c68:fd96 with SMTP id 98e67ed59e1d1-3a098b98996mr35249a91.43.1790189588207;
+        Wed, 23 Sep 2026 11:53:08 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c8f8dsm409335a91.12.2026.09.23.11.53.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 11:53:06 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	linux-gpio@vger.kernel.org (open list:PIN CONTROL SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] dt-bindings: pinctrl: convert nsp-gpio binding
+Date: Wed, 23 Sep 2026 11:53:05 -0700
+Message-ID: <20260923185305.26223-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923-kvm-arm-prefault-v4-0-d4b0b4dfa8c3@kernel.org> <20260923-kvm-arm-prefault-v4-1-d4b0b4dfa8c3@kernel.org>
-In-Reply-To: <20260923-kvm-arm-prefault-v4-1-d4b0b4dfa8c3@kernel.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 23 Sep 2026 19:52:27 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTzDYSuBVEc+SMdDa41sq-ET=m_oWW0gL9dYf+AumPYPUg@mail.gmail.com>
-X-Gm-Features: AclHuK9102l5jXhHZm0wjY1xcBMQ6NzdYFil2Hlxj79BuZjg_2Y9X0YS37SYzUc
-Message-ID: <CA+EHjTzDYSuBVEc+SMdDa41sq-ET=m_oWW0gL9dYf+AumPYPUg@mail.gmail.com>
-Subject: Re: [PATCH v4 01/14] KVM: Allow architectures to disallow pre-fault
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Mark Rutland <mark.rutland@arm.com>, 
-	Randy Dunlap <rdunlap@infradead.org>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Janosch Frank <frankja@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, Jack Thomson <jackabt@amazon.com>, 
-	Jack Thomson <jackabt.amazon@gmail.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
-	Vincent Donnefort <vdonnefort@google.com>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
-	Sean Christopherson <seanjc@google.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
-	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, linux-s390@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Lorenzo,
+The brcm,nsp-gpio-a compatible used by the NSP GPIO controller was
+only documented in the legacy text binding, so dtbs_check reported
+'failed to match any schema' for the gpio@20 node present in every
+bcm958625 and related board DTS.
 
-On Wed, 23 Sep 2026 16:15:44 +0100, "Lorenzo Stoakes (ARM)"
-<ljs@kernel.org> wrote:
-[...]
-> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-[...]
-> +int kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
-> +{
-> +        if (!vcpu->kvm->arch.pre_fault_allowed)
-> +                return -EOPNOTSUPP;
-> +
-> +        return 0;
-> +}
+Convert Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
+to a YAML schema and drop the text binding. Keep the existing
+required and optional properties (reg, #gpio-cells, gpio-controller,
+ngpios, and the optional interrupt/gpio-ranges support), including
+the generic pinconf child nodes with pin bias and drive-strength.
 
-nit: the comment above the smp_rmb() in tdx_sept_map_leaf_spte() still
-says pre_fault_allowed is read by kvm_arch_vcpu_pre_fault_memory(),
-but after this patch it's read here.
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ .../bindings/pinctrl/brcm,nsp-gpio.txt        |  80 --------------
+ .../bindings/pinctrl/brcm,nsp-gpio.yaml       | 101 ++++++++++++++++++
+ 2 files changed, 101 insertions(+), 80 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
 
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
+deleted file mode 100644
+index 0844168a6dd4..000000000000
+--- a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
++++ /dev/null
+@@ -1,80 +0,0 @@
+-Broadcom Northstar plus (NSP) GPIO/PINCONF Controller
+-
+-Required properties:
+-- compatible:
+-    Must be "brcm,nsp-gpio-a"
+-
+-- reg:
+-    Should contain the register physical address and length for each of
+-    GPIO base, IO control registers
+-
+-- #gpio-cells:
+-    Must be two. The first cell is the GPIO pin number (within the
+-    controller's pin space) and the second cell is used for the following:
+-    bit[0]: polarity (0 for active high and 1 for active low)
+-
+-- gpio-controller:
+-    Specifies that the node is a GPIO controller
+-
+-- ngpios:
+-    Number of gpios supported (58x25 supports 32 and 58x23 supports 24)
+-
+-Optional properties:
+-- interrupts:
+-    Interrupt ID
+-
+-- interrupt-controller:
+-    Specifies that the node is an interrupt controller
+-
+-- gpio-ranges:
+-    Specifies the mapping between gpio controller and pin-controllers pins.
+-    This requires 4 fields in cells defined as -
+-    1. Phandle of pin-controller.
+-    2. GPIO base pin offset.
+-    3  Pin-control base pin offset.
+-    4. number of gpio pins which are linearly mapped from pin base.
+-
+-Supported generic PINCONF properties in child nodes:
+-- pins:
+-    The list of pins (within the controller's own pin space) that properties
+-    in the node apply to. Pin names are "gpio-<pin>"
+-
+-- bias-disable:
+-    Disable pin bias
+-
+-- bias-pull-up:
+-    Enable internal pull up resistor
+-
+-- bias-pull-down:
+-    Enable internal pull down resistor
+-
+-- drive-strength:
+-    Valid drive strength values include 2, 4, 6, 8, 10, 12, 14, 16 (mA)
+-
+-Example:
+-
+-	gpioa: gpio@18000020 {
+-		compatible = "brcm,nsp-gpio-a";
+-		reg = <0x18000020 0x100>,
+-		      <0x1803f1c4 0x1c>;
+-		#gpio-cells = <2>;
+-		gpio-controller;
+-		ngpios = <32>;
+-		gpio-ranges = <&pinctrl 0 0 31>;
+-		interrupt-controller;
+-		interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+-
+-		/* Hog a few default settings */
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&led>;
+-		led: led {
+-			pins = "gpio-1";
+-			bias-pull-up;
+-		};
+-
+-		pwr: pwr {
+-			gpio-hog;
+-			gpios = <3 1>;
+-			output-high;
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+new file mode 100644
+index 000000000000..9eb4a2a1f02f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+@@ -0,0 +1,101 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/brcm,nsp-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Broadcom Northstar Plus (NSP) GPIO/PINCONF Controller
++
++maintainers:
++  - Ray Jui <rjui@broadcom.com>
++  - Scott Branden <sbranden@broadcom.com>
++
++properties:
++  compatible:
++    const: brcm,nsp-gpio-a
++
++  reg:
++    items:
++      - description: GPIO base registers
++      - description: IO control registers
++
++  "#gpio-cells":
++    const: 2
++    description: |
++      The first cell is the GPIO pin number (within the controller's pin
++      space) and the second cell is used for the following:
++      bit[0]: polarity (0 for active high and 1 for active low)
++
++  gpio-controller: true
++
++  ngpios:
++    description: Number of GPIOs supported (58x25 supports 32 and 58x23 supports 24)
++    maximum: 32
++
++  interrupts:
++    maxItems: 1
++
++  "#interrupt-cells":
++    const: 2
++
++  interrupt-controller: true
++
++  gpio-ranges: true
++
++required:
++  - compatible
++  - reg
++  - "#gpio-cells"
++  - gpio-controller
++  - ngpios
++
++patternProperties:
++  '-pins$':
++    type: object
++    additionalProperties:
++      description: Pin configuration child nodes.
++      allOf:
++        - $ref: pincfg-node.yaml#
++        - $ref: pinmux-node.yaml#
++      additionalProperties: false
++
++      properties:
++        pins:
++          items:
++            pattern: '^gpio-'
++
++        bias-disable: true
++        bias-pull-up: true
++        bias-pull-down: true
++
++        drive-strength:
++          enum: [ 2, 4, 6, 8, 10, 12, 14, 16 ]
++
++      required:
++        - pins
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    gpio@18000020 {
++        compatible = "brcm,nsp-gpio-a";
++        reg = <0x18000020 0x100>,
++              <0x1803f1c4 0x1c>;
++        #gpio-cells = <2>;
++        gpio-controller;
++        ngpios = <32>;
++        gpio-ranges = <&pinctrl 0 0 31>;
++        interrupt-controller;
++        #interrupt-cells = <2>;
++        interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
++
++        led-pins {
++            led {
++                pins = "gpio-1";
++                bias-pull-up;
++            };
++        };
++    };
+-- 
+2.55.0
 
-Cheers,
-/fuad
