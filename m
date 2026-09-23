@@ -1,48 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D452580F3;
-	Wed, 23 Sep 2026 08:01:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9BE45DF58
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:01:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790150503; cv=none; b=Va1cm9W1dYVi30OGurmcAnWv7tzswYe5heM4PwVyiJvm7fQRM84fPoxuIZ2XsweaRRuHKFUZSgaKmX2L4ylFAl3d7t2Dgfl/l/YNt+TqNQ/T/Q1htpbFiR3Oh2E8bwt/+YNJc9nYa3XtNTSK6rLjzp/LWRadqkaJdFOSdn3t8Uw=
+	t=1790150509; cv=none; b=RcYi+VJk+LGJo831i1oPOtmAZfQNNlJJLhtexaYKUDbDSgxEZgnYlPIb0xWR2RCaZFPiGI8TTmnbdP3g71/OD3/YptaKoAIqNVUOBfXy3cYm73iNNo7JH0umWrXMYK3VgBufU45ELYO7jmKYcHHTVGsxutLoh9p0RRyhH/A4XPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790150503; c=relaxed/simple;
-	bh=m1xkiKN/X1JJIxueyxrugvHruIUDkXslW2W5JUJ+vF8=;
+	s=arc-20240116; t=1790150509; c=relaxed/simple;
+	bh=CA4XKi0Cd6YgI13rxF8FR/gNyyNEOMYqWRuRazHMyaM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CZU6uG811nDDdaBzoE5UpoFz3Wevmwpwa8umZA/P1+/1DhUY595FF0qCvzxS8vdwhdjiOqFjA8wTdJaXhesNhAwTN5PnrVJQvku2lj3G7OxC/kIyL+tuF1ly+1hMWlJSAVq4nOpqabQmDL5k3JteXe2OUEwrAabbUuu6QlJHqt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+O8OlcR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=tj2HA9eV8RwP5ZoetvK1uwkILFpD9Q1dVeb/athLUb82ZwXZkr3a8kMKbMEOs6foM9JoJT/M2PjAMtRiVcXdOp3zCHKn6i2O/s4sxDsEWV7VQCROvnXVlAzw3o6RzbuYpwzoLD04ZZjS6MbEOEU/0STo8NWWJ1RG+RQgeNhcVqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B1XZTS8L; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+O8OlcR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CFB71F0089E;
-	Wed, 23 Sep 2026 08:01:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790150502;
-	bh=Dc6gkHP2bbSbrikastse9j6lN/sY09368OBTKwNLCJE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S+O8OlcRHfiV3jFyTVyebprGjiJPU69uoB4tXVI2SoJ26RbPw5/o7srll9Y8wlH1P
-	 +FYPK9BKzdERa4aiK/QJynq+pGiRZ/pOyumwww2izNJ8XJvbE7G6SOKQU74KVzPhtf
-	 mn8JxAvz8jpr4egL35I82DCYvnLhoqx6xBmsGBD+bC+2zx4/fK3hHhoXOXUhNrYI9K
-	 STVVAL+NQiK/sJsJTDdsf2UmsO2KVL4MPEm0bOyS0h5axcbMcGdSKj1Ru4HnlOUUBZ
-	 p5k7a3wuzoNHJK0PYkHRr52jTyHQ+HiXxcooqPKzGyhKJRrtHsOE9FD9Z5thFWm8QS
-	 EIl4ZQ6QB51iQ==
-Date: Wed, 23 Sep 2026 01:01:42 -0700
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hardening@vger.kernel.org,
-	codemender-patching+linux@google.com
-Subject: Re: [PATCH] iio: adc: qcom-adc5-gen3: Annotate struct
- adc5_device_data with __counted_by_ptr
-Message-ID: <202609230056.DF2B9BE56@keescook>
-References: <20260922220950.2267270-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B1XZTS8L"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f705536so110650566b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:01:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790150506; x=1790755306; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yIsED9qvHGygDRbseLLF7eMBztpFKvOOESnk1D0m6Q8=;
+        b=B1XZTS8LpBKmfUQjVrBbdAxIqURHBFMqHb8xYLPn7dxmZy8/4d3FZmX6kobFnA56/L
+         DgHKcRzP2m7RIvXRMAafvywfaTgjK8giXv63CcbgQvoYipt1gKLHK5HW/W2w72yLWo2R
+         91duFeSZYskI3VTFsnYf0bk4tEl0Njwh21sa87HqTeNzgYIQMDijZ1+nIiAMpuuVff2g
+         3TIKD57o1hsFBg8j34F9Vfdpim+Xm51oGyEgh9zyfhHFXMBC0m9uFpfBBzfUvhLJwvhs
+         dGj1N/mXXxXL4AiRqJStTZKGoGggQlsIm644rB5RCiNK9pUc2+IkSCoMEREzq/IS74Iw
+         L9pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790150506; x=1790755306;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yIsED9qvHGygDRbseLLF7eMBztpFKvOOESnk1D0m6Q8=;
+        b=PzwmpxG5V53ULPnuuFTcCWo39UnrelpZTOcYyRc4NJK/Pr8wcWklDJ+leEU+nwBls3
+         WR+ptolVhgbGk3NPfoDc1/vUblwkYVOounM1kib6S56QO/F97EWg+ZHPqjN2wxiguJ/6
+         eKCtmZ3zNYv49OiCLMndsLrUAuXZ+HXkm1p1Wk+mxEUIgh6qJOmWwVtINnHAV8QfQnFT
+         Bsm2jddhpC3H9hfOt99LCpCFbdWNgX+yVxDf5lTz2dS9zHv1rwLa1oQ6F414lEB1XR/0
+         RY4A8+Sdg3pUDwrOliXMgeBoncepYy1vISOSNJnou1a4SPqZmdeHQCy9/hNy4ihD+jMM
+         7IpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxu8L0k7nz/oQZhBRJdH/6M0+GTEK+RYDHBe4jn0pHLlgQyO4qzIy/0KYHfiFMePsKiHB/eoQrt9sRjQI8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l4WbwwA/EqrweSdNvfeJpEzMbNWfUVI5L4JWMPxvmJn2GUuEt7
+	/I4NY5OA25z2ejAqmnL1cma5JFgy/q73Mzfu70t+V13/OwrgZgnlprtC
+X-Gm-Gg: AYBFou1I4ujgA8H8uT+BDoyUBHh4KZbPFdUqSPzX5mZEqjA1rTn6Tt7nffzGTFQrauW
+	VMLSsWitL8lx3t8dL/CcG9Pxi5/RxqUn7/jwfU/n8QycYJPwqGP3H+GgKW65FdsWV4fdOoTfxiQ
+	SnlJ2P7tpoIaWB9q1dq7IzN+/nvxo2bkZ8rYmRqhUF+psbHMmKu9MG7colIXvE4ep2CP+4a+mP2
+	gn8BHWj0k0pwa7/foJW007so6uhcC/Mitt3r9FFdisC+BeoyOxgrcjM7OHERdf8Iq1kv2nd6+WM
+	ip+WdEOeeED3zBsmKMZC5l8burdro/Qr3eBt2BF1Fu0xRsoWe5G1gEDRsnleIl0Ozk1R69MtYmv
+	hZGeUiLw4WJ4N10+/UtauXwdTgTqAwwM3ch+WACmW4YO6Oh6KP9KvR/g3exnabtmJFwirZzg/qk
+	qQS+RLWv1fDQ3CEtnoYLKrxT2JHgFDQdTUrOovBcMKWOeYZ4XZFlzAcPZ/+LlW0usBw80=
+X-Received: by 2002:a17:907:d408:b0:c26:1648:a076 with SMTP id a640c23a62f3a-c2aae140494mr127071166b.49.1790150506122;
+        Wed, 23 Sep 2026 01:01:46 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6d2defsm62414266b.56.2026.09.23.01.01.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 01:01:45 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:01:41 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Eduard Zateev <hackerowskiy@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vaibhav Agarwal <vaibhav.sr@gmail.com>,
+	Mark Greer <mgreer@animalcreek.com>,
+	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: greybus: avoid snprintf truncation in audio
+ topology
+Message-ID: <arOHZcAocfvxCJP3@stanley.mountain>
+References: <20260923023405.41700-1-hackerowskiy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,44 +80,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922220950.2267270-1-morbo@google.com>
+In-Reply-To: <20260923023405.41700-1-hackerowskiy@gmail.com>
 
-On Tue, Sep 22, 2026 at 10:09:50PM +0000, Bill Wendling wrote:
-> Under compiler-supported bounds checking (via KASAN or UBSAN), pointer
-> fields inside structures can be annotated with the '__counted_by_ptr'
-> attribute to specify which field in the same structure holds the element
-> count. This enables the compiler to perform runtime bounds checking on
-> the pointer.
+On Wed, Sep 23, 2026 at 04:34:05AM +0200, Eduard Zateev wrote:
+> Building with W=1 reports format truncation warnings when prefixing
+> the Greybus device id to widget and control names.
 > 
-> Annotate the "base" pointer field in "struct adc5_device_data" with the
-> "__counted_by_ptr" attribute pointing to "num_sdams". The number of
-> SDAMs is determined from the device property and assigned to "num_sdams"
-> which is then used to initialize "base" via "devm_kcalloc".
+> The destination buffers are NAME_SIZE bytes, while the copied topology
+> names may already take most of that space. Split the operation into
+> writing the prefix first and then copying the remaining name into the
+> space left in the destination buffer.
 > 
-> By ensuring "num_sdams" is set to the correct element count prior to
-> the "base" pointer allocation, and since the size of "base" is never
-> reallocated or changed, this annotation is safe and will not cause any
-> false-positive runtime bounds check panics or KASAN issues.
+> This avoids the -Wformat-truncation warnings while preserving bounded
+> string handling.
+> 
+> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
+> ---
 
-Welp, yes, it's allocated correctly to the size. It'll be interesting to
-see if this:
+I hate the -Wformat-truncation warning.  It doesn't really matter for
+the kernel.  Dmesg output has always been really grotty and especially
+when you actually need it because of a crash then that's when it's
+the most jumbled.  Truncating the last couple bytes is not going to
+make a crash noticably more difficult to solve.
 
-        ret = device_property_count_u32(dev, "reg");
-        if (ret < 0)
-                return ret;
+The fix is to get rid of -Wformat-truncation for kernel builds.
 
-        adc->dev_data.num_sdams = ret;
+This patch silences the warning but doesn't fix anything and makes
+the code less readable.
 
-is never at odds with this:
+regards,
+dan carpenter
 
-        ret = devm_request_threaded_irq(dev, adc->dev_data.base[ADC5_GEN3_VADC_SDAM].irq,
-                                        NULL, adc5_gen3_isr, IRQF_ONESHOT | IRQF_SHARED,
-                                        adc->dev_data.base[ADC5_GEN3_VADC_SDAM].irq_name,
-                                        adc);
-
-Nothing checks that num_sdams >= ADC5_GEN3_VADC_SDAM (0). I feel like
-that ret = device_property_count_u32 should check for < 1 :)
-
-
--- 
-Kees Cook
