@@ -1,122 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EFBD485924;
-	Wed, 23 Sep 2026 12:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC0E50129B;
+	Wed, 23 Sep 2026 12:05:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165051; cv=none; b=NMgJUKC2GyyGnQzzMjH7d26oyRZq8lBdTy6DK266Ovn4/8uCZg60TmxDiY0dsnEY8ks5kKr5hwJhgY9BpRA1uhGrgzwXVm4FM3NztER8g4a35TEByfaMai9/Z2AScCIZesdwCJH1+suKHX8ZiYmD8NXVUdki9cnwoyPzR0ElWWU=
+	t=1790165123; cv=none; b=i8qVXaaGXu/ciCQVSfouVr2RQejzrthsDTWLdLOlDIdso56f04DUQsKtF3HqWzY3s1zfcjtWefmhsyTbY0rY4yq6MCrQoUYo+GnLPzVno1GGRgm0n2kNkjsesjEesfAIklkx0V17VH4i4TB2/4fBNbFwM/PEMgyekEfiPJNE5sE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165051; c=relaxed/simple;
-	bh=O1byl75nyXgk1Xj7AS/Sdyk1a4bPSXL278xPHButlNc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IYjmpNNvDR+RsiVvDAicBZVlK+2OEzrDcJJNzdIbw2wBoI9GatR/TUcFtYrFXAgsITIB5QWBNfGC5tUQqiN3TIvsabxZNWxkPd2pJ24EzCNl/bxgZXxGIlwp7bJvRbfQlQg/mKA6Vau83qbR+pC+nx5imcMM/EijxenKtDOZ3FM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E9611F000FF;
-	Wed, 23 Sep 2026 12:04:05 +0000 (UTC)
-Message-ID: <e135863e-3057-42ab-9019-bb397ef320e6@linux-m68k.org>
-Date: Wed, 23 Sep 2026 22:04:06 +1000
+	s=arc-20240116; t=1790165123; c=relaxed/simple;
+	bh=cL5+YFpsqpZKGpz68YOUSSKCHE8atf18HiZnV4MKXmo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=updOnLmt/6V+SApJmNYSxDGOAV7eZkKseQOL+KPKaOtr9UJ8TSkegExib78kegjkYYIJp5cQ5QVBdFi93WxON9e58dC0doscScSEiMDYIJfhRWvs94FHBEJ3EJXnTqmmiOkVvaT12zrKQUmgDmcMD6g8HUjQkk65bWwYFXmB7/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vAK5zYOt; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vAK5zYOt"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C1923C4AF0B;
+	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790165121;
+	bh=cL5+YFpsqpZKGpz68YOUSSKCHE8atf18HiZnV4MKXmo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=vAK5zYOtijl1haOI9gXqsv8ACUPMutJwUPLC6WTnT1AZh3Y6sZE3xXDrp6OiFM7JK
+	 UVObtbnF9HeL0DjifTgJ56SIYL5et9/OfuUH4g97Q1mLDfQJ2Kzxm5yvyumOCH9puM
+	 oaAVBiUpFVCTibcsfJCs9Am84DrNXPNf43UtmpLXD6+bnPe05S6CkClPLU+QZXuPhB
+	 YRa1xpIo76ugmj3f1v8SWVG272xJjlV3vYBBS/hxxBdNEYh4qVoCku9K6f2BZECF97
+	 33lByZA+6YX4xc+SyIuf+wyT3RfRlX9Z5LNHF3qk7wEV4T6lGh9QrygnHV9gbXEHoP
+	 MV3vRJo6IOqgg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD9AEC982FA;
+	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
+From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
+Date: Wed, 23 Sep 2026 16:05:22 +0400
+Subject: [PATCH ath-next 16/16] wifi: ath11k: add QCN6122 device support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] m68k: Fix seccomp filtering on ColdFire and 68000
-To: Christopher Lusk <clusk@northecho.dev>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Kees Cook <kees@kernel.org>, Andy Lutomirski <luto@kernel.org>,
- Will Drewry <wad@chromium.org>, Michael Schmitz <schmitzmic@gmail.com>,
- Andreas Schwab <schwab@linux-m68k.org>, linux-m68k@lists.linux-m68k.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260912230651.461269-1-clusk@northecho.dev>
- <20260913131753.605893-1-clusk@northecho.dev>
-Content-Language: en-US
-From: Greg Ungerer <gerg@linux-m68k.org>
-In-Reply-To: <20260913131753.605893-1-clusk@northecho.dev>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-16-86729521a75c@outlook.com>
+References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
+In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
+To: Johannes Berg <johannes@sipsolutions.net>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, 
+ ath11k@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, 
+ George Moussalem <george.moussalem@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=2721;
+ i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
+ bh=N0lWRlkViy66JiabYe3wnlNpM0tjJSjRzUVdOXoZ9Gs=;
+ b=ToSFrdMAsPUqm34M8ORvBROXcmsCcULlAR9RBecaTVXwiXWOjpr9vkoHJZdK+tfkF0OdSXTgR
+ 8mBh+8gPFSZDoPSuVKzWN20Nk8CGHwe/JuaZ7Nci5MMz30OhGbHNugr
+X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
+ pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
+X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
+ with auth_id=364
+X-Original-From: George Moussalem <george.moussalem@outlook.com>
+Reply-To: george.moussalem@outlook.com
 
-Hi Christopher,
+From: George Moussalem <george.moussalem@outlook.com>
 
-On 13/9/26 23:17, Christopher Lusk wrote:
-> m68k selects HAVE_ARCH_SECCOMP_FILTER for all configurations, but the
-> ColdFire and 68000 syscall entry paths only branch to
-> syscall_trace_enter() for TIF_SYSCALL_TRACE. TIF_SECCOMP alone falls
-> through to syscall dispatch, leaving installed filters ineffective.
-> 
-> Test the combined TIF_SYSCALL_TRACE and TIF_SECCOMP mask in both paths
-> and route either flag through the existing slow path. Leave the classic
-> MMU syscall entry implementation unchanged.
-> 
-> Validated the combined test under QEMU mcf5208evb (ColdFire): filters
-> denying getpid, openat, unlinkat, and reboot each returned -EPERM. A
-> classic-MMU control (q800) denied the filtered getpid syscall both before
-> and after this change. The 68000 path shares the same source-level
-> omission and receives the identical masked test but was not separately
-> emulated. Compile-tested W=1 with CONFIG_SECCOMP_FILTER=y on both
-> m5208evb_defconfig and a custom no-MMU UCSIMM configuration; the latter
-> built arch/m68k/68000/entry.o and vmlinux.
-> 
-> Fixes: 6baaade15594 ("m68k: Add kernel seccomp support")
-> Cc: stable@vger.kernel.org # v6.3+
-> Suggested-by: Andreas Schwab <schwab@linux-m68k.org>
-> Assisted-by: Claude:claude-opus-4-8
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+QCN6122 is a 2x2 11AX PCIe based chipset, but it is attached to the WPSS
+(Wireless Processor SubSystem) Q6 processor, hence it is enumerated
+by the Q6 processor. It is registered to the APSS processor as a
+platform device (AHB).
 
-Looks good, thanks for the v2. I will push this into the m68knommu git tree,
-for-next branch.
+Q6 firmware segments for QCN6122 are contained within the multi-PD
+version of the shared firmware package for IPQ5018. Each (up to 2)
+QCN6122 radio present runs in its own user PD which the ath11k driver
+manages to power it up or down.
 
-Regards
-Greg
+Also, device information like BAR and its size is not known to the APSS
+processor as the chip is enumerated by WPSS Q6. These details are
+fetched over QMI.
 
+The QCN6122 chip supports STA, AP, and MESH modes.
 
+Tested on: Linksys MX2000 and GLiNET B3000 wireless access points for
+prolonged duration tests spanning multiple days with multiple clients
+connected with firmware WLAN.HK.2.7.0.1-01744-QCAHKSWPL_SILICONZ-1
 
-> ---
-> 
-> Notes:
->     Changes in v2:
->     - Combine the TRACE/SECCOMP tests into a single masked branch per Andreas
->       Schwab; scoped to the ColdFire/68000 paths, classic MMU unchanged.
->     
->     No in-tree m68k defconfig selects the pure-68000/DragonBall path.
->     Compile-tested W=1 with a custom no-MMU UCSIMM configuration and
->     CONFIG_SECCOMP_FILTER=y; arch/m68k/68000/entry.o and vmlinux both built
->     successfully. The combined gate uses the same flags byte as the classic-MMU
->     entry path.
-> 
->  arch/m68k/68000/entry.S    | 3 ++-
->  arch/m68k/coldfire/entry.S | 3 ++-
->  2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/m68k/68000/entry.S b/arch/m68k/68000/entry.S
-> index c257cc415..0d3cbeded 100644
-> --- a/arch/m68k/68000/entry.S
-> +++ b/arch/m68k/68000/entry.S
-> @@ -79,7 +79,8 @@ ENTRY(system_call)
->  
->  	/* Doing a trace ? */
->  	getthreadinfo
-> -	btst	#(TIF_SYSCALL_TRACE%8),%a2@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-> +	moveb	%a2@(TINFO_FLAGS+2),%d1
-> +	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d1
->  	jne	do_trace
->  	cmpl	#NR_syscalls,%d0
->  	jcc	badsys
-> diff --git a/arch/m68k/coldfire/entry.S b/arch/m68k/coldfire/entry.S
-> index 4ea08336e..d658abdc5 100644
-> --- a/arch/m68k/coldfire/entry.S
-> +++ b/arch/m68k/coldfire/entry.S
-> @@ -72,7 +72,8 @@ ENTRY(system_call)
->  	movel	%d2,%a0
->  	movel	%a0@,%a1		/* save top of frame */
->  	movel	%sp,%a1@(TASK_THREAD+THREAD_ESP0)
-> -	btst	#(TIF_SYSCALL_TRACE%8),%a0@(TINFO_FLAGS+(31-TIF_SYSCALL_TRACE)/8)
-> +	moveb	%a0@(TINFO_FLAGS+2),%d2
-> +	andl	#((_TIF_SYSCALL_TRACE + _TIF_SECCOMP) >> 8),%d2
->  	bnes	1f
->  
->  	movel	%d3,%a0
+Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+---
+ drivers/net/wireless/ath/ath11k/ahb.c  | 7 +++++++
+ drivers/net/wireless/ath/ath11k/pcic.c | 9 +++++++++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
+index 26110c927577..51908e779b7c 100644
+--- a/drivers/net/wireless/ath/ath11k/ahb.c
++++ b/drivers/net/wireless/ath/ath11k/ahb.c
+@@ -46,6 +46,9 @@ static const struct of_device_id ath11k_ahb_of_match[] = {
+ 	{ .compatible = "qcom,ipq5018-wifi",
+ 	  .data = (void *)ATH11K_HW_IPQ5018_HW10,
+ 	},
++	{ .compatible = "qcom,qcn6122-wifi",
++	  .data = (void *)ATH11K_HW_QCN6122_HW10,
++	},
+ 	{ }
+ };
+ 
+@@ -1395,6 +1398,10 @@ static int ath11k_ahb_setup_msi_resources(struct ath11k_base *ab)
+ 	ab->pci.msi.addr_hi = upper_32_bits(msi_addr_iova);
+ 
+ 	ret = of_property_read_u32_index(ab->dev->of_node, "interrupts", 1, &int_prop);
++	if (ret == -EINVAL)
++		ret = of_property_read_u32_index(ab->dev->of_node,
++						 "interrupts-extended", 2,
++						 &int_prop);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/net/wireless/ath/ath11k/pcic.c b/drivers/net/wireless/ath/ath11k/pcic.c
+index 2259adc3bbdc..cdcf3df26438 100644
+--- a/drivers/net/wireless/ath/ath11k/pcic.c
++++ b/drivers/net/wireless/ath/ath11k/pcic.c
+@@ -138,6 +138,15 @@ static const struct ath11k_msi_config ath11k_msi_config[] = {
+ 		},
+ 		.hw_rev = ATH11K_HW_QCA6698AQ_HW21,
+ 	},
++	{
++		.total_vectors = 13,
++		.total_users = 2,
++		.users = (struct ath11k_msi_user[]) {
++			{ .name = "CE", .num_vectors = 5, .base_vector = 0 },
++			{ .name = "DP", .num_vectors = 8, .base_vector = 5 },
++		},
++		.hw_rev = ATH11K_HW_QCN6122_HW10,
++	},
+ };
+ 
+ int ath11k_pcic_init_msi_config(struct ath11k_base *ab)
+
+-- 
+2.53.0
+
 
