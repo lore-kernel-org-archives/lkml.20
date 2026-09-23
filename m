@@ -1,135 +1,103 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2046377AAD;
-	Wed, 23 Sep 2026 14:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A2053162E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:33:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790173984; cv=none; b=W2HaID4uLJTsETeWLnvtwr4PDrOd7q4+e+rB78RjRA+KA153uZJ5jDuik7whBFcCvzQb3fypnv50ym+Lm2TMiNo8aW0pj0gkxYmflVCY6aDVTZZZCmc4STDcGp51LaTC1GMLkH3QR6S1ey83yIU9YyNBH/7H6QM/Lj0ZSi4tdGk=
+	t=1790173997; cv=none; b=Ior4ukV5OWsg/IJeiMHM3AOY6bJ3iwwKs3WUWf0F8vS1Zvk4nvXXKf6c7JDDNWDZcNrwfCYhzRG1vaFUuHJxGWY2ETsCwJxNmdC9iXdhuLB/BiHr8YB/hUYL/WoJIxXP8CMRe8lpfxBSwHCz5Zhs6eDpUSkXMN+XJbOh3fdGffI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790173984; c=relaxed/simple;
-	bh=9ofp4hNr70z2lyv3ooh2c6m/rwRRgcegg3VMXAMXFDg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FJsX3doeM/mdm+Er5tc8qB7CRQRocS49Q444QQXUlU8iPoRy8Muac3QxNGi0KAcXGi02xfchpqQeXGMULgsYipFHhpcBMNOBMzmOb/uGqA9GuyC35jwPohKOQH/AoF3kUvD46b3AoplAoEXxZ/Y5zkdFDJhKYP+jBLGAJWoZpZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Qo88Uxoh; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790173997; c=relaxed/simple;
+	bh=9SziFnm+aShDkRNqNWK4TN1HFS1h14/qWjFuIX4GFYA=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=BsdZcSr6DQyQmn24p5oOaMYfQbT1G/p4CHg+y4dg8RImK2YvHetws8TebYbDdeYrEndyfKZ/WKIPRH4ecNv6MFGBd4tHAqM4xWMAInEYQRx1rbhnL+IF5lczA8r/HeljTWdcxxEICroLQQX4APE1DTcGI7PVm6RlOyLNpOh1s+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=G4djl8C3; arc=none smtp.client-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Qo88Uxoh"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8Zoov1031364;
-	Wed, 23 Sep 2026 14:32:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=dTLEWXxZ3/GILPnEIAr1GlznsBvHRZ
-	fvHZ70H1KLoLk=; b=Qo88UxohcNN8SpbSKUBr5cDAuLy9wsUReWb22/yAD3VEna
-	iaQcJhiJ3ARz3qC3Bza2bqx5LDMDY3fqjzGg0Y1Yx2giTnCYKV6/Cyu2YcD27Lb8
-	7RH7xqSNuxuGmHMviyp3364SThNgSF6jUNmX098C6rfX20Qf3os2ILUO4Vgou2xl
-	v7Wr2ATjzrYx1vDks3x+OSDJZPaJUXVM7pndrciNEZxmioJ7ayTFXMhN5SKtw07u
-	948FpPzhD5Qot2aHLbq4T9CRmW9/W2c9sVRB2ECc3RENETXjqNal/kUkXqN/kr9d
-	9mQLELOmeQ8FjtGJvU0+1CraPYger0G5Sdmm1Zgw==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1uv8k-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 14:32:54 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68NCLiiQ008504;
-	Wed, 23 Sep 2026 14:32:53 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb8jse13-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 14:32:53 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NEWntm16384288
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 14:32:49 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9913020049;
-	Wed, 23 Sep 2026 14:32:49 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 28D3220040;
-	Wed, 23 Sep 2026 14:32:49 +0000 (GMT)
-Received: from osiris (unknown [9.111.16.152])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed, 23 Sep 2026 14:32:49 +0000 (GMT)
-Date: Wed, 23 Sep 2026 16:32:47 +0200
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: linux-mm@kvack.org, David Hildenbrand <david@kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-        Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>,
-        Helge Deller <deller@gmx.de>, loongarch@lists.linux.dev,
-        linux-s390@vger.kernel.org, linux-parisc@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] s390/mm: Drop all pxdp_get()
-Message-ID: <20260923143247.9636Cf1-hca@linux.ibm.com>
-References: <20260923043226.331880-1-anshuman.khandual@arm.com>
- <20260923043226.331880-2-anshuman.khandual@arm.com>
- <20260923091629.9636A36-hca@linux.ibm.com>
- <echvqvjj435meeh6gcrqewysdqbtkrsgayvsyfcr3q6h3bh7fn@hsa7xh22l4rj>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="G4djl8C3"
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8623e5d4279so1562591b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:33:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790173996; x=1790778796; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AX/aeWxWgB/GKGsHNXt+UF87Ro0pQpzXrq2csA576lg=;
+        b=G4djl8C3qxRTsRmvPNo5MOrfBBswMKCGB6TDoGTiEKAlra62ktjDTE69fVMNHfDiRB
+         6nwEsCtA47lYdmfdQC8e/d13TBE0tfs3znkzlWpxNNfwzchICxPfyhqaHKU87a9weD2J
+         NRXNDMBr1teRUBUiubml1aNnXs93x+joWSp7oOxW7B0LqvvEAaYiklk2u7rWX7fgRy5U
+         X9IWtepwDWlJe+kBfbHziUx4RFhKzQiSVXt2OVG57BQ9rXGa2EUTl5CnRiQWp82kEAyg
+         o6FYT3jccLBqcl51Hb+ZvnlUj74dDlA1EgIRNsqpxwUzVIVXMfvuYFiPQ2cLWiu1/nBH
+         n8Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790173996; x=1790778796;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AX/aeWxWgB/GKGsHNXt+UF87Ro0pQpzXrq2csA576lg=;
+        b=J9Y6PmGvKVSkgafBrzl/OTN2NpSxGjVHdl3W/CAocQRPmD0dGX2+N3oCrep5isNMbR
+         T5z1axzs+dzcFsijlrx3im1J6iEySFopZQVFPI5Nuso8Tk/2b4SvB38b04y8uecQCddz
+         YJKnYt8XfB/wPouoax+inc4D7sGSqk4Om2s5FE6IBTFhfSqg7Z6DwROoElwqv3XYfQWR
+         GsE0lA/hZdTpD1K/cHFAMYsiVaYhtm7aEkdFcWRYsHyaJ4AdryNUVyC1/d6ZGW60gZ/n
+         NGp1jUrbXyxmVTvmfGVh8x1XRlDVf2XLESE00obshl6MBHtFaC+mmLoHm2Nzc9IMywDX
+         251g==
+X-Forwarded-Encrypted: i=1; AKwUvBz7uzAuFiItlMway9ZtczM+X9nRbbNBhRQht+lAvI3m4DRoVLd/QgKR9pjVKNk9mQFI9SHsdT/v5fp7FRw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmr0s2okPC6QsIXuNDtLtrwlbdMd8VI3ocIllspQm9ClIA7t6U
+	EBZ10G0sJfV6juJ5Qzkjo6sgwftWc+47VglWLaueay4vb2aVzyunXnU8ZUTi69AwZEbNugYZHnk
+	jBfqGeA==
+X-Received: from pfet15.prod.google.com ([2002:aa7:938f:0:b0:87b:94d4:77a2])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:3319:b0:87c:e44e:5683
+ with SMTP id d2e1a72fcca58-87d1a4b357amr2446190b3a.23.1790173995748; Wed, 23
+ Sep 2026 07:33:15 -0700 (PDT)
+Date: Wed, 23 Sep 2026 07:33:15 -0700
+In-Reply-To: <20260923085139.GV776954@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <echvqvjj435meeh6gcrqewysdqbtkrsgayvsyfcr3q6h3bh7fn@hsa7xh22l4rj>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: pB-ITqb9sOi216kpDP6qFr_AkUfA0YiO
-X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab3e316 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=s6_hAop9O4wJoUa2jvYA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1NiBTYWx0ZWRfX22wASEXzLiou
- PfFsvMfHjLR3w9yAsIv0VoV1k3rQ1tg1VGpyHFdoCSG77Z4UvPhFSm4mrr3cFl+H5R/R3beTz47
- rGtl+Y6RwJokrmDgrV2vhG9hrs2x4lI=
-X-Proofpoint-GUID: wKSs8eQ0tSZ4i-GNyRYMRcD2K4LE2JQz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1NiBTYWx0ZWRfXwHPABW50L+fB
- IloTBWxVRpe3zLFf6xTiqsudch9JpP0gjXsS4DmzoU/vzgS4sgktPxavXKEfcdW8kC7+6nhhNo0
- +ry4ndBZtugMek7C7B9frVH+AWPJcbCrAxzGdQl3Jyc5yxA6x2UhotqdvLyFzBr4VACaFOy1I8c
- Lxo46K1swYjr84QTmBRS23JSimQbO3FRlkEQAhanoWdL6LlrPUfg8oLM63o0TwU714EM+D5Y/ZE
- +Sin01SfRk6lvimzFutahVWSPeOECK2DnDfIX0mcx+i7unp47bpzcHK9JuNNcgxVVNq8Z7C+7IA
- Yj7wDw07WYlMCiuH4BDtliirABQ5Nkou11UoHxnH51CyrimCAS+nYS8cTtx7TAhRPeRuCho2tah
- JenhoBlym3Gro7kuMLcmkKAtppeSJ0VRp2PCMG0bXWI+NE03hKMTQdMHRmpGLKw5NialfhVw56n
- Vj0Qi3gQIrmLdBUVP9w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230056
+Mime-Version: 1.0
+References: <179005108298.388919.4535333252892590932.stgit@devnote2>
+ <179005110742.388919.1509641807739909065.stgit@devnote2> <20260923085139.GV776954@noisy.programming.kicks-ass.net>
+Message-ID: <arPjK1-PVp_UqAsQ@google.com>
+Subject: Re: [PATCH v17 02/13] perf/x86, KVM: Prevent host debug register leak
+ into guest OS on NMI
+From: Sean Christopherson <seanjc@google.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ingo Molnar <mingo@kernel.org>, Jinchao Wang <wangjinchao600@gmail.com>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	"H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+	Ian Rogers <irogers@google.com>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, x86@kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Wed, Sep 23, 2026 at 05:42:00PM +0530, Anshuman Khandual wrote:
-> On Wed, Sep 23, 2026 at 11:16:29AM +0200, Heiko Carstens wrote:
-> > On Wed, Sep 23, 2026 at 10:02:20AM +0530, Anshuman Khandual wrote:
-> > > +static inline pte_t ptep_get(const pte_t *ptep);
-> > > +static inline pud_t pudp_get(const pud_t *pudp);
-> > > +static inline p4d_t p4dp_get(const p4d_t *p4dp);
-> > > +static inline pgd_t pgdp_get(const pgd_t *pgdp);
-...
-> > > -#define ptep_get ptep_get
-> > > -static inline pte_t ptep_get(pte_t *ptep)
-> > > -{
-> > > -	return READ_ONCE(*ptep);
-> > > -}
+On Wed, Sep 23, 2026, Peter Zijlstra wrote:
+> On Tue, Sep 22, 2026 at 01:25:07PM +0900, Masami Hiramatsu (Google) wrote:
+> > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 > > 
-> > As reported by Sashiko, this results in a compile error due to conflicting
-> > types; but I don't see too much value with this patch if a forward declaration
-> > of the common code implementation needs to be added instead. Looks like s390
-> > would be the only architecture which would have that.
+> > When KVM enters a guest OS, host hardware breakpoints are disabled
+> > before running the guest. However, an NMI can occur while executing
+> > in guest mode or during guest transition, where
+> > arch_install_hw_breakpoint() can be invoked from NMI context.
 > 
-> We could move pxdp_get() caller functions from this header inside C files
-> like other platform changes proposed here. Would that be better instead ?
+> How? AFAICT perf doesn't do that. arch_install_hw_breakpoint() is called
+> through pmu::add() which is strictly IPI context.
 
-That would make pud_clear() & friends real functions calls instead of being
-inlined. Function calls are more expensive, so I would like to avoid that.
+I assume it's:
 
-I would prefer to drop this patch.
+  kgdb_nmi_handler()
+  |
+  -> kgdb_nmicallin()
+     |
+     -> kgdb_cpu_enter()
+        |
+        -> arch_kgdb_ops.correct_hw_break()
+           |
+           -> kgdb_correct_hw_break()
+              |
+              -> arch_install_hw_breakpoint()
