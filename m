@@ -1,104 +1,116 @@
-Received: from mail-dy2-f1.google.com (mail-dy2-f1.google.com [74.125.229.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1512E443C0A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EF844238B;
+	Wed, 23 Sep 2026 09:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156501; cv=none; b=k5fPy+izYYvGhVSsp5YGXQHeGat3WwRVdJ71b/9d2bLeotreAG+YxvYuutG28y/8CmSIpw7IE4kac1sgze2/MIAzTg+dKf1x/kWKodl/cw1uZ1hUihqnY5/LzrvRaKTeo/2H45SYSZjDAVAyA/we6rD2XuZwluwJUOd7xYxrySE=
+	t=1790156502; cv=none; b=A8qS3f2pVVfWg8BkVMkG5wVDd2pbS9Ocx87TiqodRz+8HWaq1Dmla62uDRBi7AQaVRsdjHXed8ghN3l44T75FU+o9llu9DV+kNFRTj0O6T4j0uXKAVC0/Gzrgv6bJ6/ezM6xcMDsLgUjj2OS+pyS68ed4xDlZ3tONDflw9Ck6IA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156501; c=relaxed/simple;
-	bh=8KRd2IeBcyI79hkB04B1fpSGvFrzC7yk22zox4oFbxY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=erSOTBdbPrsV7wxJMkh2PrNuMS+lkxXsw6ijMZhZULnijV+dh7BGHvMo9nOatL4jNGCzGZsbJV4U4wyqnbJBcEi+3fiz7ToSRQFjfX9sY3x4aR5KAMDfswYpEU6bbLGj3xleNMWmUY1PgqhdgGy1DNrxgGO5gzgiWH8vIxs0uXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fUq7WRWt; arc=none smtp.client-ip=74.125.229.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790156502; c=relaxed/simple;
+	bh=H7g9+yDN3x5kwltj5KPOLI2Ok2pctzcjorpZkubHj0o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=imkCAxQggVyt9jDqmCCiIvJfQCAMNhLkHJB+MyVU2BeZpI/kh4PDmIHe1knTL3Vdjp3FgIM5/CX/ZEwOrithJ+fZgE7E7KOl1TPiiTdvx5TRAyN+/KS0rPv8FPkKrSdJDt7v5/IQdsaTVdJ/zjnYAtXO3xgbb53+us/a8BQe+TQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OLRLlN9l; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fUq7WRWt"
-Received: by mail-dy2-f1.google.com with SMTP id 5a478bee46e88-313be8d47d4so368848eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:41:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790156499; x=1790761299; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oEoKsgWSINlMeUP0j6kujHfz74zeFa1j5vE3VMbHVkw=;
-        b=fUq7WRWtBf55mOPPROeg+JVIGrPm05Fk5FKWfubHtY6eQpEvDmZ0/Jhm6plF4Lywa2
-         DzODqSmYNIQwhYCj0ZST6SFauakYP+atbVN4DVl4ME8loPm3akydmer/1nUd20uDcAhl
-         c61E0asuw8uFtuKjpOVLFzu9If4Q9PshOiSWJ7vyx8eWzusYk1ul6Esy7x/yMsmojZW0
-         sgX6ZwDcNMLONRPZie4WWpRMyTP/e5rluSRjewmIdCJYMH2SrrK8ZDtdOTXXaG2ZwdgW
-         x/QY5bxFPA/p4Ht3ZYx9SI2g+Wc3pSxj3rgcCScbNU4UgDAUWaHXZssMQJrLHtR+3GRd
-         guWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790156499; x=1790761299;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oEoKsgWSINlMeUP0j6kujHfz74zeFa1j5vE3VMbHVkw=;
-        b=qOEnUhEYmgCjnQ5CVoYuDUPegQArf9gAniONC5TprJVm3RHQFl6Q97anpcxlo3rz/F
-         ow6NAkZj7vJNwlK0VY9FzG9s0G056X45mIQ6+iS/IovaITuqxk1mEQTUA2kwE4XVhDW+
-         uvek7rf4mCtiipIj3Ezm6gBygkxjL3ErBmRDyCxTpJsTbWj1T3CW6VNTI8hajXyhrWTy
-         GKkoAqXvujJUHVD2oVxXdtjym76gVLKz56RkSphVuNbKPi9AXXt8oEiO7M7/5w+vuzAd
-         804/IlqY3kAXr3/O9aHuMfPelnTX0n2sZ3YDDf/M2ExGXnxz+k7nxSG7tETsNeX7sNgV
-         6pLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx02vrkqwDmIleF+df5Y8PGEJEtbSWie4Ehp6OkEHtpzNmyZ/iG7BFAWGNuecJ+TBzwHgzHDzRFKfvnNqI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0E4vktNAIui04dD8WXc49yj4Y4GTLVCoCxX9O/aGPrkZLgt6i
-	o87b7bsBZgnOErAkB20PDJSp40XJqHfO0aIFCFY4rFQG9dSPwcH4aCBTXtCv9+4=
-X-Gm-Gg: AYBFou1LLAGaajNsbeZUgoLsY6SkCzm5JjOSGpVZVOz0TW99U1nNvLUt13OT2evpnW+
-	DygazBtNAf85pEELalBTuhyT1/FhVjDvRJbMKO0vjHv3n6Rpkz3utrqMoT9Ql3HZjceYbxpPzb7
-	96mxmaYh4uBGZtyQilly3xkjC5gR6hRmqueEaX2BM/azUoNABEZdoBkeB6Io++eQ65dTDEYD0vh
-	fFZlBf/cJwjYeCffhFdueXJB6oqTtYWnl2EsWSyT1RecB5E0sAEbyvnJoy1+zxaGNB70VTro4Sb
-	EOdom5d8Zvv6D/EqLVT/5CYeT61bsPR7Ny60O199IcwecouwKFLR0crETGg/3td1xfzfBOh0LPB
-	6kM6ZxDtZiTv9be7I9TvN0+3h8PpiaPaq/0u/0XagBOwltBirx5uvthjPkJbGq5XeUgFnuHjPxX
-	49qJCs516avr8O7vFyE/Q20bErL3X3S2ib9Y/KY+7ZNGGpqgcygZxlFHgf2s0Awm5JDG4Fu1qt4
-	N+ILJuNdrilSPVjGLNLI5WX
-X-Received: by 2002:a05:7300:fc01:b0:33b:f062:a654 with SMTP id 5a478bee46e88-33e9548f062mr1886015eec.16.1790156498684;
-        Wed, 23 Sep 2026 02:41:38 -0700 (PDT)
-Received: from murali-Aspire-A515-58PT.. ([2a09:bac5:3b22:16b4::243:71])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e95c7bf6bsm4894525eec.8.2026.09.23.02.41.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 02:41:38 -0700 (PDT)
-From: Murali Krishna <muralikrishna2444b@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: srini@kernel.org,
-	ekansh.gupta@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Murali Krishna <muralikrishna2444b@gmail.com>
-Subject: Re: misc: fastrpc: is a ctx_idr IDR -> XArray conversion wanted?
-Date: Wed, 23 Sep 2026 15:10:01 +0530
-Message-ID: <20260923094040.18397-1-muralikrishna2444b@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026092338-banking-tactics-2cfb@gregkh>
-References: <20260923082254.15312-1-muralikrishna2444b@gmail.com> <2026092338-banking-tactics-2cfb@gregkh>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OLRLlN9l"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id DD1F94E40ED1;
+	Wed, 23 Sep 2026 09:41:37 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 941C460580;
+	Wed, 23 Sep 2026 09:41:37 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 11D91103293EF;
+	Wed, 23 Sep 2026 11:41:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790156495; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=14/vh+QzZPhsx5uvQM0Uz7p1ZDkGwAb8ilKyyQwVJng=;
+	b=OLRLlN9lAltV/1QbWWGR8Pkwn1w2rOSYmM9jOs/uT+NrrfciKSQQCasv29uuO5DEMaFR58
+	kiPMFvNV8H6IE3jBlcPiiCjNNx/R/Nqr7q04XX0GiAX23f/h6yviJEx+jFfsPPAqEmwuyY
+	a4SYRoP6aAFTY11A/ccCU1un7OFtTElsmd2lrlkZC5q9iPcW9SWiZ2VatsdINJfOxhKkgm
+	E3GL4eyV5t89ETSfKPYSgaPcJGOaWJlASpKxlHRm6aZhaBnOD95TDLcy11Cl565UDL4dnK
+	Z7zC92+KvlCltjZzeUQtLgh1HOnkzmlDpGYVQ6ysLRtkFvkjkVGCoyg1+HiMbg==
+Message-ID: <5135e15d-b6ac-476c-9a7d-b7d64e4eed5c@bootlin.com>
+Date: Wed, 23 Sep 2026 11:41:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC net-next 0/9] net: introduce Qualcomm XPCS support and
+ add Nord Ethernet plumbing
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Coia Prant
+ <coiaprant@gmail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org,
+ Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
+ Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 23, 2026 at 11:28:52AM +0200, Greg KH wrote:
-> I doubt it's really needed unless you can prove some sort of advantage
-> for the change?  Is it faster on a measurable path, or less memory or
-> something else that would justify the churn?
->
-> idr is still a fine structure/api for many things, they don't all have
-> to go away, otherwise we would have done so long ago.
+Hi,
 
-Understood, and I cannot show such an advantage. struct idr is already
-built on the same underlying tree as the xarray, so there is nothing
-measurable to gain here in speed or memory -- it would be churn for its
-own sake. I will drop the conversion.
+On 9/23/26 03:07, Mohd Ayaan Anwar wrote:
+> Hi,
+> 
+> This is an early RFC which adds the XPCS and ETHQOS plumbing required
+> to enable 10 Gigabit Ethernet on the Qualcomm Nord SoC. This is the
+> first time USXGMII together with an external PCS is being supported by
+> the dwmac-qcom-ethqos driver.
 
-Thank you for answering so quickly, and for explaining the reasoning
-rather than just saying no. That was useful to me.
+There are currently 3 in-flight series that adds glues to DW XPCS and stmmac: 
 
-If there is something in fastrpc, or elsewhere in drivers/misc, that you
-would actually like to see worked on, I would be glad to take on
-something small and learn from the review.
+This one,
+The Rockchip one from Coia [1]
+The S32 one from Jan [2]
 
-Thanks,
-Murali Krishna
+
+[1] : https://lore.kernel.org/netdev/20260922200336.2201212-1-coiaprant@gmail.com/
+[2] : https://lore.kernel.org/netdev/20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com/
+
+MAINTAINERS entry for XPCS says :
+
+SYNOPSYS DESIGNWARE ETHERNET XPCS DRIVER
+L:      netdev@vger.kernel.org          
+S:      Orphan                          
+F:      drivers/net/pcs/pcs-xpcs.c      
+F:      drivers/net/pcs/pcs-xpcs.h      
+F:      include/linux/pcs/pcs-xpcs.h    
+
+It would nice if some of you could help maintain the core XPCS driver, and make sure
+these series aren't stepping on one another :( I personnaly don't have any XPCS HW
+for tests.
+
+You don't have to do it alone, multiple people can co-maintain that :) Maybe
+Synopsys folks can also chime in ?
+
+Maxime
