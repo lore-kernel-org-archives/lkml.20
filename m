@@ -1,60 +1,36 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-145.mta0.migadu.com [91.218.175.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B113137F339;
-	Wed, 23 Sep 2026 03:39:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C112DECC2
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:39:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790134777; cv=none; b=clBEYECqKE7pSx28BuwOpl32x4RrByOuoO2iq5ha2N5z2KXL+bPwEggs288ppdFHfHw/9xSBvadiFBknWQbrjKpScwNoidpsmBY7vB4ZgUQgbI60WGC9Ga5ihWLaOBNm/pRQZDNYsJalURKjnr0ZYhTEIYFrDkaThHB5/5fAG/w=
+	t=1790134784; cv=none; b=oEzXpcTbQ5FKayo0wExLrUCJsnlhRAH7nKa1sshtAAc/RPK7daJqYz6ZvboUQuKQUxA8ZHQFXH2+hEBeUaJFNqyznzAxGIe8G4OYj6G+cFZm+lyikuMobKjip7UAVBLSRTzYOO+fgVzmbbMb/VL3kPoVX4pZPrccJjGRowCwJK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790134777; c=relaxed/simple;
-	bh=gm4fyReuiWxeqJWFOIFuvDAEIaopYi+tVz5GKuVnZFQ=;
+	s=arc-20240116; t=1790134784; c=relaxed/simple;
+	bh=QY8AVjCbcaW+wVLRtHjQxzMTz4h9U9+ldEP+b+H2GcE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lopCwCIOBiI1BtogmYl7MFDM6kRiLl17H5Lib77jBwHxEWBHhJXihrqXyqLJ/CB2iF5izGMPabT/Vp9p+PdriqCY3rWjFVMNZu7fGUwGNrOHWVjgHEfr3QXLFbn8XgeOw+hCvDxXTmggcjiORpUQA68rKN6CHgdehDgkqqfsU5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iaafy6ou; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 In-Reply-To:Content-Type; b=lNBJxN/v68qVEixHpJHlgcKGX8fUc4CnNQ1BJvAHL/ISsZqU3o7bfyZnJazEGXsr2YhfWL3qOUzKO7YnX0qwI/xNdn3yqW7uSfq3+aXLZ+POONNUwNlQjgwsYalDQiEwqaMZWYpyAZd4XF+9Bvc9/QjJGhMteqkXQnpVICaYL9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xq5qrKhz; arc=none smtp.client-ip=91.218.175.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iaafy6ou"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3a6HY2317248;
-	Wed, 23 Sep 2026 03:39:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=7NoF1/
-	Lp4e2fruKgAZwH9CbISe4iP63v0zB28htVbAU=; b=iaafy6oukNdFx0gFRpn+cN
-	0JMjQLFwECcH1R23b/D91JnMUG1s4VSedp5Qa1/6L8C5ORpDBObzr6mgE/HBoV6f
-	B5jj6Z7SwOkHB3EHdiIUJaxMrHiuAO3PmVpEOch394JkiHwAKep2z0Sosm0zC5en
-	+iVqnZjgFnmy0lvh7wy0Jhlm0x3Nzspps6YB5w/inga1+vW9ku0xSUmUffIf8Gj6
-	T4p+z17RGr2Hre1p+lllB8OeDX9NEqlUD3qiXGu9SuYQMRFTuc3uIGTAOyyOM/pR
-	9FGebxJ+Pq0rVIMpeVTTUmsSgbBietvONRJtrMRLrCosgX7gVJ5VnkfhKab/Vm7g
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskdv8ny5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 03:39:06 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3WXbV2578232;
-	Wed, 23 Sep 2026 03:39:05 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gu5bkf44w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 03:39:05 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68N3d1Ax45416746
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 03:39:01 GMT
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 90AF62004E;
-	Wed, 23 Sep 2026 03:39:01 +0000 (GMT)
-Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A720620043;
-	Wed, 23 Sep 2026 03:38:58 +0000 (GMT)
-Received: from [9.124.211.2] (unknown [9.124.211.2])
-	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 23 Sep 2026 03:38:58 +0000 (GMT)
-Message-ID: <ed756a12-182f-4933-8788-8b54a4e8912a@linux.ibm.com>
-Date: Wed, 23 Sep 2026 09:08:57 +0530
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xq5qrKhz"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=QY8AVjCbcaW+wVLRtHjQxzMTz4h9U9+ldEP+b+H2GcE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790134780; v=1; x=1790739580;
+ b=xq5qrKhzE0+o64gM4M94boNT5RqrOoMc1iU/v1S+dI+Xa8+B5gIXMAP0L6qaPMed6RxtReb9
+ N9dgVgeovnw4lDGjtvZwei5sgML/jLGTo/YaY0hQL6TTP21136CCSibH4ARRqwJy3uUA51ic/3G
+ kexcT/7NKGTkoNWudjN8ueVg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e2387b4930517eb3;
+	Wed, 23 Sep 2026 03:39:30 +0000
+X-Mizu-Trace-ID: e2387b4930517eb3
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <19136e23-3af6-4bf5-93cf-46bb1dc46c08@linux.dev>
+Date: Wed, 23 Sep 2026 11:39:25 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,166 +38,186 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
- by LPCR_MER bit
-To: Gautam Menghani <gautam@linux.ibm.com>, maddy@linux.ibm.com,
-        npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org,
-        ritesh.list@gmail.com, sshegde@linux.ibm.com, amachhiw@linux.ibm.com
-Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Timothy Pearson <tpearson@raptorengineering.com>
-References: <20260921111043.49825-1-gautam@linux.ibm.com>
+Subject: Re: [PATCH v2 2/3] mm/vmalloc: fix vmalloc_dump_obj cross-zone VA
+ lookup
+To: Uladzislau Rezki <urezki@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Paul Walmsley
+ <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, Ye Liu <liuye@kylinos.cn>
+References: <20260921-vmalloc_dump_obj-v2-0-73fceb3ed1c8@linux.dev>
+ <20260921-vmalloc_dump_obj-v2-2-73fceb3ed1c8@linux.dev>
+ <arJ4PLGlF7uhNWOs@milan>
 Content-Language: en-US
-From: Narayana Murty N <nnmlinux@linux.ibm.com>
-In-Reply-To: <20260921111043.49825-1-gautam@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: FMJDrbwTvLAlZxxf_Y3B4db8Us1VDxTr
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAxNCBTYWx0ZWRfX55My7ytjw32Y
- j/rT5Wo3X1Y+yKUjGLNS8xCVQRQokiwSfrrunJeJuCXQjXDpb4UWKNECklQvD9kBekaayDoKdbX
- fyCpPOpXxtY6NhpIFoNTeEHKRKxAG2I=
-X-Authority-Analysis: v=2.4 cv=FLiOVOos c=1 sm=1 tr=0 ts=6ab349da cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8 a=VnNF1IyMAAAA:8 a=EThlqOoKbmT7VKALfbcA:9
- a=QEXdDO2ut3YA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
-X-Proofpoint-GUID: aBLqlTnfUXMt09OXVH3CAj-ky44OsTcu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAxNCBTYWx0ZWRfX7MZHIOxzupFX
- s2rmtiQTZoZ3K1t0+VzhupmUzM2avyqsQxYbzGz8cUtenXcje0+M1b4XB0VC84QqYRWb0t0Wi6V
- JDVOSInbh57kEGikhttOu2Jylz+jvrr7idp3h1C0n0ddRLggOl88uPn5BDMnCS08ss78GGIV9vz
- CKCH383vaEaeP1ZRo4qfw1bvSgzxl9j8Au1X2Qp5heym7y1Yjw78bcO1Ut7YYDMorM8c2HtZYrT
- pRPz+M8DP2y0Psc0Xmmb1K2RSBowMZVZu1iGeSwciqwaQyNrDsaIxiFF/CKcUhzyWoSNt4IGth6
- 5DvRp439sxMzFLNwZvNe4Y7O04pN2GXQcVn2thjpIuMWrdt8UCl9YWRdjmbiTrskdzx+ZqUajt8
- ElDJeH7gwb/MkPl8zE8TtS+ceeGjSKua8uMK2iJOkWAv7td+8RgObpTE+2mB8oRD1HTwmQ1PE9+
- 7SF4cu0PuCoSPeam1EQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_01,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 phishscore=0 spamscore=0 clxscore=1015
- suspectscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609230014
+From: Ye Liu <ye.liu@linux.dev>
+In-Reply-To: <arJ4PLGlF7uhNWOs@milan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Gautam,
 
-On 21/09/26 4:40 PM, Gautam Menghani wrote:
-> A huge number of spurious interrupts can be seen immediately after a KVM
-> on PowerNV guest boots up in XIVE mode.
+
+在 2026/9/22 20:44, Uladzislau Rezki 写道:
+> On Mon, Sep 21, 2026 at 09:17:22PM +0800, Ye Liu wrote:
+>> From: Ye Liu <liuye@kylinos.cn>
+>>
+>> vmalloc_dump_obj() searches only one vmap node (addr_to_node(addr)),
+>> but a vmalloc allocation may span multiple vmap zones.  The VA is
+>> stored in only one node's rb-tree (addr_to_node(va_start)), so an
+>> object pointer in a different zone than va_start maps to a different
+>> node and the search misses.  This affects any allocation larger than
+>> vmap_zone_size (64 KiB) on multi-CPU systems.
+>>
+>> Iterate all vmap nodes using for_each_vmap_node, like find_vmap_area()
+>> does, but with spin_trylock instead of spin_lock as this function can
+>> be called from atomic dump contexts (OOM, KASAN, RCU).
+>>
+>> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+>> ---
+>>  mm/vmalloc.c | 24 ++++++++++++++++++------
+>>  1 file changed, 18 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>> index df42d8a6f058..30c610f678dc 100644
+>> --- a/mm/vmalloc.c
+>> +++ b/mm/vmalloc.c
+>> @@ -5278,17 +5278,29 @@ bool vmalloc_dump_obj(void *object)
+>>  	unsigned long nr_pages;
+>>  
+>>  	addr = PAGE_ALIGN_DOWN((unsigned long) object);
+>> -	vn = addr_to_node(addr);
+>>  
+>> -	if (!spin_trylock(&vn->busy.lock))
+>> -		return false;
+>> +	/*
+>> +	 * A vmalloc allocation may span multiple vmap zones, so the
+>> +	 * node whose rb-tree holds the VA may differ from the node
+>> +	 * the address maps to.  Search all nodes.  Use trylock as
+>> +	 * this function can be called from atomic dump contexts.
+>> +	 */
+>> +	va = NULL;
+>> +	for_each_vmap_node(vn) {
+>> +		if (!spin_trylock(&vn->busy.lock))
+>> +			continue;
+>> +
+>> +		va = __find_vmap_area(addr, &vn->busy.root);
+>> +		if (va && va->vm)
+>> +			break;
+>>  
+>> -	va = __find_vmap_area(addr, &vn->busy.root);
+>> -	if (!va || !va->vm) {
+>>  		spin_unlock(&vn->busy.lock);
+>> -		return false;
+>> +		va = NULL;
+>>  	}
+>>  
+>> +	if (!va)
+>> +		return false;
+>> +
+>>  	vm = va->vm;
+>>  	addr = (unsigned long) vm->addr;
+>>  	caller = vm->caller;
+>>
+>> -- 
+>> 2.25.1
+>>
 > 
-> $ cat /proc/interrupts  | grep SPU
-> SPU:     223705     192439     273526     147623   Spurious interrupts
-> 
-> This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
-> Handle pending exceptions on guest entry with MSR_EE"). The root cause
-> is that once LPCR_MER bit is set, it is supposed to be reset by
-> software. But when a vCPU starts running with LPCR_MER set, the vCPU does
-> not exit back to the host until the decrementer expires or there is an
-> hcall, etc. This is because KVM on PowerNV guests have support for
-> native XIVE, so they are not dependent on host for interrupt emulation.
-> Due to this behaviour, a huge number of spurious interrupts are seen
-> since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
-> vCPU exits to the host.
-> 
-> Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
-> available (currently in case of KVM on PowerNV only), as the XIVE hardware
-> can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
-> functionality is not required. This reduces the number of spurious
-> interrupts drastically.
-> 
-> Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
-> Cc: stable@vger.kernel.org # 6.8+
-> Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
-> Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
-> Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
-> ---
-> v3:
-> 1. Continue the use of LPCR_MER when kernel-irqchip=off (Sashiko)
-> 
-> v2:
-> 1. Handle the case where xive_interrupt_pending() is true and also the
-> external exception bit is set. (Narayana)
-> 
->   arch/powerpc/include/asm/kvm_ppc.h | 7 +++++++
->   arch/powerpc/kvm/book3s_hv.c       | 2 +-
->   2 files changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
-> index 169ea6a7fbad..580ad2548c2b 100644
-> --- a/arch/powerpc/include/asm/kvm_ppc.h
-> +++ b/arch/powerpc/include/asm/kvm_ppc.h
-> @@ -747,6 +747,11 @@ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
->   	return vcpu->arch.irq_type == KVMPPC_IRQ_XIVE;
->   }
->   
-> +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm)
+> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+> index 89c327a6ce7d..3719dc02dcaf 100644
+> --- a/mm/vmalloc.c
+> +++ b/mm/vmalloc.c
+> @@ -2511,7 +2511,22 @@ static void free_unmap_vmap_area(struct vmap_area *va)
+>  	free_vmap_area_noflush(va);
+>  }
+>  
+> -struct vmap_area *find_vmap_area(unsigned long addr)
+> +static inline int next_vmap_node_id(int i)
 > +{
-> +	return kvm->arch.xive_devices.native;
+> +	return (i + nr_vmap_nodes - 1) % nr_vmap_nodes;
 > +}
-Also, should 'kvmppc_xive_native_enabled()' check the active XIVE
-device rather than just whether a native device has been created?
-
-'kvmppc_xive_native_release()' clears 'kvm->arch.xive', but explicitly
-keeps the 'kvmppc_xive' pointer under 'xive_devices' for reuse. The
-comment in 'book3s_xive.c' also says that when switching between XICS
-and native XIVE, the previous KVM device is released before the new one
-is created.
-
-So 'xive_devices.native != NULL' seems to mean that a native XIVE
-device has been allocated/cached, rather than that it is currently
-active.
-
-Would this be more appropriate?
-
-return kvm->arch.xive_devices.native &&
-        kvm->arch.xive == kvm->arch.xive_devices.native;
-
 > +
->   extern int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
->   					   struct kvm_vcpu *vcpu, u32 cpu);
->   extern void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu);
-> @@ -782,6 +787,8 @@ static inline bool kvmppc_xive_rearm_escalation(struct kvm_vcpu *vcpu) { return
->   
->   static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
->   	{ return 0; }
-> +static inline bool kvmppc_xive_native_enabled(struct kvm *kvm) { return false; }
+> +enum vmap_lock_mode {
+> +	VMAP_LOCK,
+> +	VMAP_TRYLOCK,
+> +};
 > +
->   static inline int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
->   			  struct kvm_vcpu *vcpu, u32 cpu) { return -EBUSY; }
->   static inline void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu) { }
-> diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
-> index dbac3573b2c8..cb2bb29451a7 100644
-> --- a/arch/powerpc/kvm/book3s_hv.c
-> +++ b/arch/powerpc/kvm/book3s_hv.c
-> @@ -4980,7 +4980,7 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
->   			if (!kvmhv_on_pseries() && (__kvmppc_get_msr_hv(vcpu) & MSR_EE))
->   				kvmppc_inject_interrupt_hv(vcpu,
->   							   BOOK3S_INTERRUPT_EXTERNAL, 0);
-> -			else
-> +			else if (!kvmppc_xive_native_enabled(vcpu->kvm))
->   				lpcr |= LPCR_MER;
-Is the intent here to suppress LPCR_MER only for interrupts that
-native XIVE can deliver directly?
+> +/*
+> + * Add a comment here.
+> + */
+> +static struct vmap_area *
+> +find_vmap_area_lock(unsigned long addr, struct vmap_node **locked_vn,
+> +		enum vmap_lock_mode mode)
+>  {
+>  	struct vmap_node *vn;
+>  	struct vmap_area *va;
+> @@ -2534,16 +2549,40 @@ struct vmap_area *find_vmap_area(unsigned long addr)
+>  	 * addr is within 2 or 0 nodes we should do extra work.
+>  	 */
+>  	i = j = addr_to_node_id(addr);
+> +
+>  	do {
+>  		vn = &vmap_nodes[i];
+>  
+> -		spin_lock(&vn->busy.lock);
+> +		if (mode == VMAP_LOCK) {
+> +			spin_lock(&vn->busy.lock);
+> +		} else {
+> +			if (!spin_trylock(&vn->busy.lock))
+> +				continue;
+> +		}
+> +
+>  		va = __find_vmap_area(addr, &vn->busy.root);
+> +		if (va) {
+> +			*locked_vn = vn;
+> +			return va;
+> +		}
+> +
+>  		spin_unlock(&vn->busy.lock);
+> +	} while ((i = next_vmap_node_id(i)) != j);
+>  
+> -		if (va)
+> -			return va;
+> -	} while ((i = (i + nr_vmap_nodes - 1) % nr_vmap_nodes) != j);
+> +	*locked_vn = NULL;
+> +	return NULL;
+> +}
+> +
+> +struct vmap_area *find_vmap_area(unsigned long addr)
+> +{
+> +	struct vmap_node *vn;
+> +	struct vmap_area *va;
+> +
+> +	va = find_vmap_area_lock(addr, &vn, VMAP_LOCK);
+> +	if (va) {
+> +		spin_unlock(&vn->busy.lock);
+> +		return va;
+> +	}
+>  
+>  	return NULL;
+>  }
+> 
+> 
+> and we use the helper in the vmalloc_dump_obj()?
 
-BOOK3S_IRQPRIO_EXTERNAL is a separate software-pending exception. If
-MSR_EE is clear it remains pending, so it seems this path should still
-set MER even when native XIVE is active.
+Hi Uladzislau,                                                       
+                                                                     
+Thanks for the suggestion.  I have adopted the find_vmap_area_lock() 
+helper approach in v3.  The helper unifies the cross-node iteration  
+logic with a mode parameter for spin_lock and spin_trylock, the      
+latter used by vmalloc_dump_obj() for atomic dump contexts.          
+                                                                     
+find_unlink_vmap_area() is also simplified to use the same helper,   
+removing a third copy of the iteration loop.  The helper returns with
+the node's busy.lock held, so the caller can unlink_va() under the   
+same lock before releasing it.   
+                                                                     
+Will send v3 shortly.                                                
 
-IOW, should the behavior be:
+> 
+> --
+> Uladzislau Rezki
 
-else if (!kvmppc_xive_native_enabled(vcpu->kvm) ||
-	 test_bit(BOOK3S_IRQPRIO_EXTERNAL,
-		  &vcpu->arch.pending_exceptions))
-	lpcr |= LPCR_MER;
-
-so that only the native-XIVE-pending case suppresses MER?
-
+-- 
 Thanks,
-narayana Murty N
->   		} else {
->   			/*
+Ye Liu
 
