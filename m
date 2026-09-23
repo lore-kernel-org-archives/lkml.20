@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E2D499F16;
-	Wed, 23 Sep 2026 12:05:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3729A511E8A;
+	Wed, 23 Sep 2026 12:05:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165123; cv=none; b=Cr5rUUJB4C7F6+Ak2shjDTVziUeYg+8k751tgL9dTxk7Qn1hv/e9P+WC1ebeUcQN9KUkUzguEJTespqrlPC11G7XVCNUR2Pt8iy4dZ+FMQRdLWFyOeHhDyChJkx5lJKvJd/A0pDIZHaHiA2mKYyVerf90quDxc5qyMkSlDlDuQg=
+	t=1790165125; cv=none; b=d3Q5ks4vCtJcp/rCpvi+abmU+JTCbnsLYWygDgQ8uK0rIZIFmxw9hMFjN/uGjONuCkWqPnuBhdjlUDykSOg6tk02I1yScQ7gNWb8RhVbHsgyUX6bYtQ5Q9LVAHRJbgBPYpUIQauVtIlRqQE4u0hCRatBixUUSSxqsA6IMe0BFcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165123; c=relaxed/simple;
-	bh=EcnjjjPlRLgVMlGl09xnVm7puWdmbRefGX0JPWnE+LQ=;
+	s=arc-20240116; t=1790165125; c=relaxed/simple;
+	bh=EhK0W4v/QWQboSgQv0FiQZyCRjGIoZ4QrJsYKB6dfn8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZazaQV8+QsRWw3nVISFLVCNAvx/lk3iCyV5gEvwabMRkdAHkwb9fOs4kTYPiPccjRFL/NmuDJSRqAte5Ffy9C2GBNKEJVOLLLZkLtPrsJbBIA1WZMNIpAcjAQ687axg4J8cmQaQyQTPzuhNJPx2ePlcI1GVaXDudK9Ov6z4Uc4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=tv9ijzCQ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=IvrVkx9whuwx34M5/9Om/yLTEBAAogWPiwrchHPRLpoIRXgSaV+x3yi4F4SglK7owW3B1VS9RqwKxtmSXqFtKhrAdXQZhQw9tPn88xggFQDPUOPSNmivLetIVaHv3kzdtL/WJwHAR1nkHtgjjq84xyN1cwdUecGEDqeIeu35pNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EReKHZsV; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="tv9ijzCQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E97B0C32781;
-	Wed, 23 Sep 2026 12:05:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EReKHZsV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6077DC32786;
+	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1790165121;
-	bh=EcnjjjPlRLgVMlGl09xnVm7puWdmbRefGX0JPWnE+LQ=;
+	bh=EhK0W4v/QWQboSgQv0FiQZyCRjGIoZ4QrJsYKB6dfn8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=tv9ijzCQgHc6zNUdhl1avtTT6xB0OpVRwLFUPzNGiYGnnq6y5FwOhFYqS98eOSIg0
-	 KLZiDFUXgNHRdCipoa3Hc5bGkHc9qro3E5vm439hWA51GarOZvjt3czuN6ox8qcfiy
-	 oew5sPT1waw4Bvj9ivJwrsHMNL9AK79ZoqA2eDRfUuXEajy1dF8IY4ZRfmKQVYK0bP
-	 +O7y6y2eWn2GlsZpdXy/0ZpLtIFYJ9189DZso5nfy68QnHWxjWSB10I53sbe3cDNmG
-	 EYWsw++hBKy5bN5nvhj3v/qmU5hGTUpazw0jvazDrvVzEq1Y8KpHTEknRL9/vSgXfZ
-	 uEYfy49e1Ae9g==
+	b=EReKHZsVjtaj262kHJ+tkTTga2kFSlEl/P0mW65wYJITyoVMFYhKEp+dFzD4U450N
+	 8breq4yZKDsQhjc2VfRatTVggL60n46NvLn2ikvNEOQvRc58nYaaLKylsvf0ccQUvR
+	 nPYmb3VVvqy0j4svCJQf5CI75Ocrw5OsY/aJIVEe4ZFRdmIO+b2XLdFpjjAOjCN6zk
+	 8DAygTlrzuYwLdV8qpyT92Luu9oXVk9YeuttVIfYlSPEgSFw4yPgMJbqJ/MNw1b5ps
+	 3VvEaS3LeH2Pq5XDtBeg0ifVnh5AFGqpesUOfG/bblV80n2ih1V9DC4TQ0Cbe5g2uu
+	 rBJiZQulPxyWA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D22A3C9830D;
-	Wed, 23 Sep 2026 12:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D205C9830D;
+	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Wed, 23 Sep 2026 16:05:10 +0400
-Subject: [PATCH ath-next 04/16] wifi: ath11k: Add support for loading m3
- mbn firmware
+Date: Wed, 23 Sep 2026 16:05:16 +0400
+Subject: [PATCH ath-next 10/16] dt-bindings: net: wireless: ath11k: Add
+ bindings for QCN6122
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-4-86729521a75c@outlook.com>
+Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-10-86729521a75c@outlook.com>
 References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 To: Johannes Berg <johannes@sipsolutions.net>, 
@@ -56,11 +56,11 @@ Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=10329;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=9542;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=b8Zwusm7H6v4vsfbn9Gmvu7jm5Rc6Udk2jN5W6UTq0I=;
- b=YwAx/XlVOYQPqU/hTQeqMwskJ+PKx0sZif1StO+0evCwNHHNbk6Ag7aQrgNoCN9WPRWdvWs7j
- 6IZc8YupXZ0A0AawVfBGohNsQ0/GyIMfPwpAA9+or1VksU6/SJpRIHp
+ bh=AMmUM3ppUAEMYWiKIHUzMgENqvh58tpVmet+RfpQRGA=;
+ b=KddqHTm2dhPWaE2pvLI3lphALP/XjHvwb66YiQi0ATFRsAwBVw1o7rW8eU8f7RMsko7i5Qy4G
+ VPH400sOf2dBPijM66rmtkG3yrwzaGbdnlvpuaVMpkxXkPSWR3QMIsr
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -70,302 +70,234 @@ Reply-To: george.moussalem@outlook.com
 
 From: George Moussalem <george.moussalem@outlook.com>
 
-Add support for loading m3 firmware in MDT file format which is
-different from the m3.bin file format. This is required for several
-ath11k wifi chips such as IPQ5018.
+Add bindings for QCN6122, which is a companion chip to IPQ5018. The
+QCN6122 is a 5G/6G WiFi chip that is used in conjunction with the
+IPQ5018 SoC in a multi-PD (MPD) configuration.
 
-The rproc driver is used to load the Q6 firmware binaries / MDT segments
-into memory for the root PD and user PDs if present. However, the m3
-firmware blob is not. The m3 firmware in MBN (MDT) format is loaded by
-ath11k as part of the root PD boot sequence for AHB platform chips.
+WiFi on IPQ5018 boards come in one of the following configurations:
+1. IPQ5018 (standalone) + optional 5G/6G WiFi card (such as QCN9074)
+2. IPQ5018 (MPD) + one or two 5G/6G QCN6122 WiFi chips.
 
-For chips for which the m3 firmware is outside of the Q6 memory
-carveout, obtain the memory region from the device tree and load the m3
-firmware into that region. Otherwise, fall back to the Q6 memory region
-of the rproc node itself.
+IPQ5018 implements the multi-PD architecture as follows:
 
-Keep track of whether m3 firmware has been loaded in the global
-rproc_info struct using a bitmap. In a configuration with multiple
-wifi chips of the same hardware revision, the m3 firmware requires to be
-loaded only once.
+                     +-----------------------------+
+                     |     Q6 Remote Processor     |
+                     |            RootPD           |
+                     +--------------+--------------+
+                                    |
+                                    |
+                                    |
+              +---------------------+---------------------+
+              |                     |                     |
+        +-----v-----+         +-----v-----+         +-----v-----+
+        |  UserPD1  |         |  UserPD2  |         |  UserPD3  |
+        |  IPQ5018  |         | QCN6122 #1|         | QCN6122 #2|
+        |  (Radio)  |         |  (Radio)  |         |  (Radio)  |
+        +-----------+         +-----------+         +-----------+
+
+The rootPD is responsible for managing the lifecycle of the UserPD and
+shared resources and providing SSR notifiers. There are different
+firmware blobs that include either the rootPD and userPD binaries for
+IPQ5018-only which auto-spawns the userPD for IPQ5018 WiFi, or for
+IPQ5018 and QCN6122 for which the userPDs for each radio must be spawned
+by the ath11k driver.
+
+SMP2P is used for signaling between the host and the Q6 remote processor
+to manage the lifecycle of the userPDs, so add the required interrupts
+and smem-states for incoming and outgoing interrupts in the case of the
+IPQ5018 + QCN6122 MPD configuration. Otherwise, the SMP2P interrupts and
+smem-states are not required for the IPQ5018-only configuration.
+
+In addition, document the memory regions needed for loading the BDF and
+M3 firmware as well as for assigning the M3 dump memory block.
+
+It's worth noting that QCN6122 does not have its own Q6 firmware blobs.
+Instead, the firmware segments for QCN6122 are included in the IPQ5018
+MPD firmware blob(s). In addition, the QCN6122 M3 firmware which does
+come separately is loaded into the Q6 memory carveout of IPQ5018, hence
+the need for a dedicated "m3-region" reserved memory region.
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- drivers/net/wireless/ath/ath11k/ahb.c  | 65 ++++++++++++++++++++++++++++++++++
- drivers/net/wireless/ath/ath11k/ahb.h  |  3 ++
- drivers/net/wireless/ath/ath11k/core.c | 12 ++++++-
- drivers/net/wireless/ath/ath11k/hw.h   |  8 +++++
- drivers/net/wireless/ath/ath11k/qmi.c  |  6 ++--
- 5 files changed, 91 insertions(+), 3 deletions(-)
+ .../bindings/net/wireless/qcom,ath11k.yaml         | 144 ++++++++++++++++++++-
+ 1 file changed, 142 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
-index 86723a2eb3d2..9fe2e112dfb8 100644
---- a/drivers/net/wireless/ath/ath11k/ahb.c
-+++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -18,6 +18,7 @@
- #include "qmi.h"
- #include <linux/remoteproc.h>
- #include "pcic.h"
-+#include <linux/soc/qcom/mdt_loader.h>
- #include <linux/soc/qcom/smem.h>
- #include <linux/soc/qcom/smem_state.h>
+diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
+index 621ad6d4ddad..10102b5ea8c8 100644
+--- a/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
+@@ -20,6 +20,7 @@ properties:
+       - qcom,ipq5018-wifi
+       - qcom,ipq6018-wifi
+       - qcom,ipq8074-wifi
++      - qcom,qcn6122-wifi
+       - qcom,wcn6750-wifi
  
-@@ -890,6 +891,7 @@ static struct ath11k_ahb_rproc_info *ath11k_ahb_rproc_info_alloc(struct ath11k_b
- 		return NULL;
+   reg:
+@@ -30,11 +31,11 @@ properties:
+     maxItems: 52
  
- 	rproc_info->root_pd_booted = false;
-+	rproc_info->m3_loaded = 0;
- 	init_completion(&rproc_info->rootpd_ready);
- 	ab_ahb->rproc_info = rproc_info;
+   interrupts-extended:
+-    minItems: 56
++    minItems: 17
+     maxItems: 56
  
-@@ -962,6 +964,58 @@ static int ath11k_ahb_boot_root_pd(struct ath11k_base *ab)
- 	return 0;
- }
+   interrupt-names:
+-    minItems: 32
++    minItems: 17
+     maxItems: 56
  
-+static int ath11k_ahb_load_m3_firmware(struct ath11k_base *ab)
-+{
-+	char m3_fw_name[ATH11K_FW_NAME_LEN];
-+	const struct firmware *m3_fw = NULL;
-+	struct device_node *node;
-+	struct resource res = {};
-+	phys_addr_t mem_phys;
-+	void *mem_region;
-+	size_t mem_size;
-+	int ret;
+   qcom,rproc:
+@@ -459,6 +460,93 @@ allOf:
+       required:
+         - interrupt-names
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,qcn6122-wifi
++    then:
++      properties:
++        interrupts-extended:
++          items:
++            - description: interrupt event for ring CE1
++            - description: interrupt event for ring CE2
++            - description: interrupt event for ring CE3
++            - description: interrupt event for ring CE4
++            - description: interrupt event for ring CE5
++            - description: interrupt event for ring DP1
++            - description: interrupt event for ring DP2
++            - description: interrupt event for ring DP3
++            - description: interrupt event for ring DP4
++            - description: interrupt event for ring DP5
++            - description: interrupt event for ring DP6
++            - description: interrupt event for ring DP7
++            - description: interrupt event for ring DP8
++            - description: Q6 firmware user PD fatal interrupt event
++            - description: Q6 firmware user PD ready interrupt event
++            - description: Q6 firmware user PD spawn interrupt event
++            - description: Q6 firmware user PD stop ack interrupt event
++        interrupt-names:
++          minItems: 17
++          items:
++            - const: ce1
++            - const: ce2
++            - const: ce3
++            - const: ce4
++            - const: ce5
++            - const: dp1
++            - const: dp2
++            - const: dp3
++            - const: dp4
++            - const: dp5
++            - const: dp6
++            - const: dp7
++            - const: dp8
++            - const: fatal
++            - const: ready
++            - const: spawn
++            - const: stop-ack
++        memory-region:
++          minItems: 1
++          items:
++            - description: memory region for Q6 firmware
++            - description: memory region for M3 firmware
++            - description: memory region for M3 dump
++        memory-region-names:
++          minItems: 1
++          items:
++            - const: q6-region
++            - const: m3-region
++            - const: m3-dump
++        qcom,smem-states:
++          items:
++            - description: Signal bit used to shutdown Q6 user PD
++              items:
++                - description: Phandle to the Shared Memory Point 2 Point device
++                - description: Single bit index to toggle in the value sent to the remote processor
++                  maximum: 32
++            - description: Signal bit used to stop Q6 user PD
++              items:
++                - description: Phandle to the Shared Memory Point 2 Point device
++                - description: Single bit index to toggle in the value sent to the remote processor
++                  maximum: 32
++            - description: Signal bit used to spawn Q6 user PD
++              items:
++                - description: Phandle to the Shared Memory Point 2 Point device
++                - description: Single bit index to toggle in the value sent to the remote processor
++                  maximum: 32
++        qcom,smem-state-names:
++          items:
++            - const: shutdown
++            - const: stop
++            - const: spawn
++      required:
++        - interrupts-extended
++        - interrupt-names
++        - qcom,smem-states
++        - qcom,smem-state-names
 +
-+	ret = of_reserved_mem_region_to_resource_byname(ab->dev->of_node,
-+							"m3-region", &res);
-+	/* If m3 region isn't found, fall back to the mem region of the rproc */
-+	if (ret && ret == -EINVAL) {
-+		node = g_rproc_info->tgt_rproc->dev.parent->of_node;
-+		ret = of_reserved_mem_region_to_resource(node, 0, &res);
-+	}
-+	if (ret) {
-+		ath11k_err(ab, "Failed to get m3 memory resource: %d\n", ret);
-+		return ret;
-+	}
-+
-+	mem_phys = res.start;
-+	mem_size = resource_size(&res);
-+	mem_region = devm_memremap(ab->dev, mem_phys, mem_size, MEMREMAP_WC);
-+
-+	snprintf(m3_fw_name, sizeof(m3_fw_name), "%s/%s/%s",
-+		 ATH11K_FW_DIR, ab->hw_params.fw.dir, ATH11K_M3_MBN_FILE);
-+
-+	ret = request_firmware(&m3_fw, m3_fw_name, ab->dev);
-+	if (ret < 0) {
-+		ath11k_err(ab, "Failed to request firmware: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (!m3_fw->size || m3_fw->size > mem_size) {
-+		ath11k_err(ab, "Invalid firmware size\n");
-+		release_firmware(m3_fw);
-+		return -EINVAL;
-+	}
-+
-+	ret = qcom_mdt_load_no_init(ab->dev, m3_fw, m3_fw_name, mem_region,
-+				    mem_phys, mem_size, &mem_phys);
-+	if (ret)
-+		ath11k_err(ab, "Failed to load MDT segments: %d\n", ret);
-+
-+	release_firmware(m3_fw);
-+
-+	return ret;
-+}
-+
- static int ath11k_ahb_configure_rproc(struct ath11k_base *ab)
- {
- 	int ret;
-@@ -981,6 +1035,17 @@ static int ath11k_ahb_configure_rproc(struct ath11k_base *ab)
- 		goto err_put_rproc;
- 	}
+   - if:
+       properties:
+         compatible:
+@@ -861,3 +949,55 @@ examples:
  
-+	if (ab->hw_params.m3_fw_support &&
-+	    ab->hw_params.fw.m3_loader == ath11k_m3_fw_loader_ahb &&
-+	    !(g_rproc_info->m3_loaded & BIT(ab->hw_params.hw_rev))) {
-+		ret = ath11k_ahb_load_m3_firmware(ab);
-+		if (ret) {
-+			ath11k_err(ab, "failed to load m3 firmware: %d\n", ret);
-+			goto err_unreg_notifier;
-+		}
-+		g_rproc_info->m3_loaded |= BIT(ab->hw_params.hw_rev);
-+	}
+         qcom,rproc = <&q6v5_wcss>;
+     };
 +
- 	if (g_rproc_info->tgt_rproc->state != RPROC_RUNNING) {
- 		ret = ath11k_ahb_boot_root_pd(ab);
- 		if (ret) {
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.h b/drivers/net/wireless/ath/ath11k/ahb.h
-index 99a361e0091f..033d6223494b 100644
---- a/drivers/net/wireless/ath/ath11k/ahb.h
-+++ b/drivers/net/wireless/ath/ath11k/ahb.h
-@@ -33,6 +33,9 @@ struct ath11k_ahb_rproc_info {
- 	struct notifier_block root_pd_nb;
- 	void *root_pd_notifier;
- 	bool root_pd_booted;
++    wifi1: wifi@b00a040 {
++        reg = <0x0b00a040 0x0>;
++        compatible = "qcom,qcn6122-wifi";
 +
-+	/* Bitmap of loaded M3 firmwares indexed by hardware revision */
-+	u32 m3_loaded;
- };
- 
- struct ath11k_ahb {
-diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
-index d2ed6a0ea7e3..428f382e74a9 100644
---- a/drivers/net/wireless/ath/ath11k/core.c
-+++ b/drivers/net/wireless/ath/ath11k/core.c
-@@ -46,6 +46,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 			.dir = "IPQ8074/hw2.0",
- 			.board_size = 256 * 1024,
- 			.cal_offset = 128 * 1024,
-+			.m3_loader = ath11k_m3_fw_loader_ahb,
- 		},
- 		.max_radios = 3,
- 		.bdf_addr = 0x4B0C0000,
-@@ -135,6 +136,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 			.dir = "IPQ6018/hw1.0",
- 			.board_size = 256 * 1024,
- 			.cal_offset = 128 * 1024,
-+			.m3_loader = ath11k_m3_fw_loader_ahb,
- 		},
- 		.max_radios = 2,
- 		.bdf_addr = 0x4ABC0000,
-@@ -222,6 +224,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 			.dir = "QCA6390/hw2.0",
- 			.board_size = 256 * 1024,
- 			.cal_offset = 128 * 1024,
-+			.m3_loader = ath11k_m3_fw_loader_qmi,
- 		},
- 		.max_radios = 3,
- 		.bdf_addr = 0x4B0C0000,
-@@ -314,6 +317,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 			.dir = "QCN9074/hw1.0",
- 			.board_size = 256 * 1024,
- 			.cal_offset = 128 * 1024,
-+			.m3_loader = ath11k_m3_fw_loader_qmi,
- 		},
- 		.max_radios = 1,
- 		.single_pdev_only = false,
-@@ -400,6 +404,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 			.dir = "WCN6855/hw2.0",
- 			.board_size = 256 * 1024,
- 			.cal_offset = 128 * 1024,
-+			.m3_loader = ath11k_m3_fw_loader_qmi,
- 		},
- 		.max_radios = 3,
- 		.bdf_addr = 0x4B0C0000,
-@@ -492,6 +497,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 			.dir = "WCN6855/hw2.1",
- 			.board_size = 256 * 1024,
- 			.cal_offset = 128 * 1024,
-+			.m3_loader = ath11k_m3_fw_loader_qmi,
- 		},
- 		.max_radios = 3,
- 		.bdf_addr = 0x4B0C0000,
-@@ -582,6 +588,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 			.dir = "WCN6750/hw1.0",
- 			.board_size = 256 * 1024,
- 			.cal_offset = 128 * 1024,
-+			.m3_loader = ath11k_m3_fw_loader_qmi,
- 		},
- 		.max_radios = 1,
- 		.bdf_addr = 0x4B0C0000,
-@@ -667,6 +674,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 			.dir = "IPQ5018/hw1.0",
- 			.board_size = 256 * 1024,
- 			.cal_offset = 128 * 1024,
-+			.m3_loader = ath11k_m3_fw_loader_ahb,
- 		},
- 		.max_radios = MAX_RADIOS_5018,
- 		.bdf_addr = 0x4BA00000,
-@@ -724,7 +732,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 		.dbr_debug_support = true,
- 		.global_reset = false,
- 		.bios_sar_capa = NULL,
--		.m3_fw_support = false,
-+		.m3_fw_support = true,
- 		.fixed_bdf_addr = true,
- 		.fixed_mem_region = true,
- 		.static_window_map = false,
-@@ -752,6 +760,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 			.dir = "QCA2066/hw2.1",
- 			.board_size = 256 * 1024,
- 			.cal_offset = 128 * 1024,
-+			.m3_loader = ath11k_m3_fw_loader_qmi,
- 		},
- 		.max_radios = 3,
- 		.bdf_addr = 0x4B0C0000,
-@@ -843,6 +852,7 @@ static const struct ath11k_hw_params ath11k_hw_params[] = {
- 			.dir = "QCA6698AQ/hw2.1",
- 			.board_size = 256 * 1024,
- 			.cal_offset = 128 * 1024,
-+			.m3_loader = ath11k_m3_fw_loader_qmi,
- 		},
- 		.max_radios = 3,
- 		.bdf_addr = 0x4B0C0000,
-diff --git a/drivers/net/wireless/ath/ath11k/hw.h b/drivers/net/wireless/ath/ath11k/hw.h
-index 4996536fbd14..5a1100ceb895 100644
---- a/drivers/net/wireless/ath/ath11k/hw.h
-+++ b/drivers/net/wireless/ath/ath11k/hw.h
-@@ -72,6 +72,7 @@
- #define ATH11k_HW_RATECODE_CCK_SHORT_PREAM_MASK  0x4
- 
- #define ATH11K_FW_DIR			"ath11k"
-+#define ATH11K_FW_NAME_LEN		35
- 
- #define ATH11K_BOARD_MAGIC		"QCA-ATH11K-BOARD"
- #define ATH11K_BOARD_API2_FILE		"board-2.bin"
-@@ -79,6 +80,7 @@
- #define ATH11K_DEFAULT_CAL_FILE		"caldata.bin"
- #define ATH11K_AMSS_FILE		"amss.bin"
- #define ATH11K_M3_FILE			"m3.bin"
-+#define ATH11K_M3_MBN_FILE		"m3_fw.mbn"
- #define ATH11K_REGDB_FILE_NAME		"regdb.bin"
- 
- #define ATH11K_CE_OFFSET(ab)	(ab->mem_ce - ab->mem)
-@@ -137,6 +139,11 @@ struct ath11k_hw_hal_params {
- 	size_t num_tx_rings;
- };
- 
-+enum ath11k_m3_fw_loaders {
-+	ath11k_m3_fw_loader_ahb,
-+	ath11k_m3_fw_loader_qmi,
-+};
++        interrupts-extended = <&intc GIC_SPI 416 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 417 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 418 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 419 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 420 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 421 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 422 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 423 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 424 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 425 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 426 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 427 IRQ_TYPE_EDGE_RISING>,
++                              <&intc GIC_SPI 428 IRQ_TYPE_EDGE_RISING>,
++                              <&wcss_smp2p_in 16 IRQ_TYPE_NONE>,
++                              <&wcss_smp2p_in 17 IRQ_TYPE_NONE>,
++                              <&wcss_smp2p_in 20 IRQ_TYPE_NONE>,
++                              <&wcss_smp2p_in 19 IRQ_TYPE_NONE>;
++        interrupt-names = "ce1",
++                          "ce2",
++                          "ce3",
++                          "ce4",
++                          "ce5",
++                          "dp1",
++                          "dp2",
++                          "dp3",
++                          "dp4",
++                          "dp5",
++                          "dp6",
++                          "dp7",
++                          "dp8",
++                          "fatal",
++                          "ready",
++                          "spawn",
++                          "stop-ack";
 +
- struct ath11k_hw_params {
- 	const char *name;
- 	u16 hw_rev;
-@@ -147,6 +154,7 @@ struct ath11k_hw_params {
- 		const char *dir;
- 		size_t board_size;
- 		size_t cal_offset;
-+		enum ath11k_m3_fw_loaders m3_loader;
- 	} fw;
- 
- 	const struct ath11k_hw_ops *hw_ops;
-diff --git a/drivers/net/wireless/ath/ath11k/qmi.c b/drivers/net/wireless/ath/ath11k/qmi.c
-index 7dc07339b957..bd81e8d3d5f7 100644
---- a/drivers/net/wireless/ath/ath11k/qmi.c
-+++ b/drivers/net/wireless/ath/ath11k/qmi.c
-@@ -1724,7 +1724,8 @@ int ath11k_qmi_host_cap_send(struct ath11k_base *ab)
- 	req.bdf_support_valid = 1;
- 	req.bdf_support = 1;
- 
--	if (ab->hw_params.m3_fw_support) {
-+	if (ab->hw_params.m3_fw_support &&
-+	    ab->hw_params.fw.m3_loader == ath11k_m3_fw_loader_qmi) {
- 		req.m3_support_valid = 1;
- 		req.m3_support = 1;
- 		req.m3_cache_support_valid = 1;
-@@ -2589,7 +2590,8 @@ int ath11k_qmi_wlanfw_m3_info_send(struct ath11k_base *ab)
- 	memset(&req, 0, sizeof(req));
- 	memset(&resp, 0, sizeof(resp));
- 
--	if (ab->hw_params.m3_fw_support) {
-+	if (ab->hw_params.m3_fw_support &&
-+	    ab->hw_params.fw.m3_loader == ath11k_m3_fw_loader_qmi) {
- 		ret = ath11k_qmi_m3_load(ab);
- 		if (ret) {
- 			ath11k_err(ab, "failed to load m3 firmware: %d", ret);
++        qcom,smem-states = <&wcss_smp2p_out 16>,
++                           <&wcss_smp2p_out 17>,
++                           <&wcss_smp2p_out 18>;
++        qcom,smem-state-names = "shutdown",
++                                "stop",
++                                "spawn";
++
++        memory-region = <&q6_region_qcn6122_1>, <&q6_region_ipq5018>, <&m3_dump_qcn6122_1>;
++        memory-region-names = "q6-region", "m3-region", "m3-dump";
++
++        status = "disabled";
++    };
 
 -- 
 2.53.0
