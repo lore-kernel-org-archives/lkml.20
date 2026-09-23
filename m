@@ -1,32 +1,33 @@
-Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
+Received: from mta0.migadu.com (out-89.mta0.migadu.com [91.218.175.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF1B247291
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1053CAE73
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:01:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790139709; cv=none; b=K1LJMq/h2hDF1Px8kLMsoXpv+I9twuWcnxQFozGgVOyfuz/qT4IWjH1WDeXJ27grZI/xP8AEt2T7iSOilQO8XJmt2ejCu5vnkCog2c/oTOjU1hzJ2Zz6EtH1XxXu11bUiyk7hwJxhqYf09dBxjn9O+hXeA1d4jfwONTV0Dt0fIo=
+	t=1790139715; cv=none; b=r7TmUaWvVnUhijNxiGWBlpDSWRDtpbJw1/M2fV1TD5nz6uhbCKxsinjftMXp3BwpvgQNLqKjoQAymLgS9YD3vO4rDdgBnZbxCp357UpCm0rEVpvyaPlOssoeUVBN6vlYcc6CO3dTLilDulnEuyijh+4+m72wJ8e30qBWgZ7wrUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790139709; c=relaxed/simple;
-	bh=r/3KOrdYUmNwVxOcGvSaTbUTTWcz2w7l4T8WkfBT2jM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kcYG6YFJAY5itKH7YmMDoS2jJcDSuvCx52BEe3hl4SU8roZAXmcPFvFMJMp99bN8eOOUl1riYPlhiec+Cj5DYGiTbwEOCv/I35GziwK0c9bbIS7DDAl/PluroY14YKNqUErU7XNIBlFPmzkjGvziKNoo+AiSvvSUF7TP8w0mO80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Zrs5ogRE; arc=none smtp.client-ip=91.218.175.83
+	s=arc-20240116; t=1790139715; c=relaxed/simple;
+	bh=iQ4uLoMjcj0junE2ksDopo/DPDn3rk3XgKmcn0anIUs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=V6sAd3/PFFTWWypAsRoc79FS+qQiQ3FVhQfl2/RHLKPDgn7gduHwqO5HA9BA1f9tmAJw69oJljdiy3AyJn1bMICcXPHaHa8o7WDkX+Tfr2V+yO0GCUOgGOJLDZNTy6byVHjXyWAIGMOxdLOsRQ9mAbmZHA2kXVcqdiJC5+4kXb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wQqmUPhI; arc=none smtp.client-ip=91.218.175.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Zrs5ogRE"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wQqmUPhI"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=r/3KOrdYUmNwVxOcGvSaTbUTTWcz2w7l4T8WkfBT2jM=;
+DKIM-Signature: a=rsa-sha256; bh=iQ4uLoMjcj0junE2ksDopo/DPDn3rk3XgKmcn0anIUs=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790139705; v=1; x=1790744505;
- b=Zrs5ogREtblAqCo/K6lTrmMOuPejEjHe8TpiGp4K0Ujlds2/Hn00vrL/Q656iQmaMp1K23wV
- OH1MI6ge6nU0HKwlpJC6WPehDmft+Yzga2hAhWSSE+ZOysUt/wPtJVmCHbjehzAZB1lUSXZFDRp
- q35GWTMUWZUT6dGsha7c1FBA=
+ t=1790139708; v=1; x=1790744508;
+ b=wQqmUPhICdp0ywU25coNK5w2rKalnu72cU4FwlQbNi/U0cKaWKZ1kX1boY+CGR9Mkl+rZMSd
+ yQB+K3saWbBeo7yCbxF8h5L2Kceu8nt50E7WvpGatknvDBSprIGYTHaiOwYCtQX+q8xL+/dBSez
+ w3fDX1UZqgvPo5iZJM94pyqc=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a7693e6eafe49b3b;
-	Wed, 23 Sep 2026 05:01:35 +0000
-X-Mizu-Trace-ID: a7693e6eafe49b3b
+Received: by smtp.migadu.com with ESMTPS id 173f0a509f2da722;
+	Wed, 23 Sep 2026 05:01:48 +0000
+X-Mizu-Trace-ID: 173f0a509f2da722
 X-Migadu-Flow: FLOW_OUT
 From: Shakeel Butt <shakeel.butt@linux.dev>
 To: Peter Zijlstra <peterz@infradead.org>,
@@ -45,10 +46,12 @@ Cc: Paul McKenney <paulmck@kernel.org>,
 	cgroups@vger.kernel.org,
 	driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/7] locking: opt-in tracking of sleeping lock holders
-Date: Tue, 22 Sep 2026 22:01:17 -0700
-Message-ID: <cover.1790139577.git.shakeel.butt@linux.dev>
+Subject: [PATCH 2/7] locking/rwsem: track holders of opted-in rw_semaphores
+Date: Tue, 22 Sep 2026 22:01:19 -0700
+Message-ID: <4e2f3f201671c4ae07898f666c9fd6bc57e4bd8b.1790139577.git.shakeel.butt@linux.dev>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1790139577.git.shakeel.butt@linux.dev>
+References: <cover.1790139577.git.shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,203 +60,454 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds a cheap way to answer one question:
+Add rwsem_track_holder() to opt an rw_semaphore in to holder tracking.
 
-  Is this task holding a lock that other tasks may be waiting for?
+The count goes up once down_*() has the lock and down before up_*()
+releases it. Waiting is not counted, as the task does not hold the lock
+yet. The killable, interruptible and trylock variants count only on
+success. downgrade_write() keeps the lock held, so it needs no hook.
 
-The answer is a count in task_struct. Only the locks that ask to be
-tracked are counted. The mechanism introduced here is planned to be used
-by solutions for shared lock isolation scenarios [1].
+down_read_non_owner() and up_read_non_owner() can run in different
+tasks, which a per-task count cannot follow. Both warn on a tracked
+rwsem and neither counts. The warn is on both sides because the two are
+not always paired with each other: bpf task_iter takes mm->mmap_lock
+with mmap_read_lock_killable() and drops it with up_read_non_owner(),
+so warning only on the acquire side would miss it. This matters only
+with CONFIG_DEBUG_LOCK_ALLOC, as without it both are defined to plain
+down_read() and up_read(), which are counted and balanced.
 
-The problem
-===========
+A lock must opt in before anyone takes it. A task already holding it was
+not counted, so its up_*() would make its count wrong.
+rwsem_track_holder() warns and does nothing if the rwsem is held, and
+__init_rwsem() clears the flag with the rest of count.
 
-A task that stalls while holding a widely shared lock does not just slow
-itself down. Everything waiting behind that lock slows down too, and
-those waiters can be from unrelated cgroups.
+The opt-in is bit 3 of ->count, which is reserved. It is sticky: unlike
+the other flag bits it survives unlock, so a free tracked rwsem reads
+RWSEM_FLAG_TRACKED rather than zero, and rwsem_is_locked() and
+rwsem_assert_held_nolockdep() mask it off. Nothing else has to change,
+because every other path either adds to count or writes back a value it
+read, so the bit comes along.
 
-This is an isolation failure. Pressure in one workload leaks into an
-unrelated workload through a shared lock, and the second workload has no
-way to defend itself.
+PREEMPT_RT builds rw_semaphore on rt_mutex_base, which clears ->owner on
+unlock, so a bit there would not survive. On 64-bit it has four bytes of
+padding after ->wait_lock, so the flag goes there.
 
-The case we hit is memory. An allocation made while holding a lock can
-get stuck in reclaim, either because a memcg limit is being enforced or
-because the machine is low on memory. If the lock is cgroup_mutex or
-kernfs_rwsem, every other cgroup operation on the machine waits for that
-reclaim, whichever cgroup caused it.
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
+ include/linux/rtmutex.h         | 11 ++++
+ include/linux/rwsem.h           | 65 +++++++++++++++++++++-
+ kernel/locking/rtmutex_common.h |  3 ++
+ kernel/locking/rwsem.c          | 96 ++++++++++++++++++++++++++++++---
+ 4 files changed, 167 insertions(+), 8 deletions(-)
 
-Knowing the task holds such a lock lets the allocator treat it
-differently:
-
- - under a memcg limit, skip the throttling that enforcement does
-   inline, and leave it for the return to user space, where memory.high
-   is enforced anyway;
-
- - under global pressure, let the allocation reach the memory reserves
-   so it finishes instead of waiting for reclaim.
-
-Either way the task gets out of the critical section quickly, and the
-pressure is still accounted for.
-
-CPU limits have the same shape of problem, and the scheduler has already
-paid to avoid it: commit e1fad12dcb66 ("sched/fair: Switch to task based
-throttle model") stopped throttling a task the moment its cpu.max quota
-runs out, and now defers it to the return to user space, so a task
-cannot be stopped in the middle of a critical section. That works
-without knowing anything about locks, because it defers for every task.
-The allocator cannot do the same, because dropping the inline work for
-everybody may cause more isolation issues due to global memory pressure,
-or make the system unstable by fully depleting the memory reserves.
-
-
-Why not something that already exists
-=====================================
-
-Everything in the tree that can answer the question is too expensive,
-and the ones that are cheap enough cannot answer it.
-
-Too expensive:
-
- - lockdep. lock_is_held_type() answers exactly this, for every sleeping
-   lock type including the rw_semaphore read side. It is the only thing
-   in the tree that does. But the cost cannot be trimmed down to it:
-   DEBUG_LOCK_ALLOC selects DEBUG_SPINLOCK, DEBUG_MUTEXES and LOCKDEP,
-   and LOCKDEP selects STACKTRACE and KALLSYMS_ALL. Measured here on
-   will-it-scale, x86_64: DEBUG_LOCK_ALLOC costs 36-53% throughput and
-   PROVE_LOCKING 39-70%, and task_struct grows from 4096 to 6784 bytes.
-   lockdep also answers about one named lock, so the caller would have
-   to know the set of interesting locks and test each one.
-
- - BPF on the lock primitives [1]. This works, and we prototyped it:
-   fentry on the down_*() exits, fexit on the up_*() entries, per task
-   depth in task storage. It cost about 8% throughput against the same
-   policy hooking a single function, because the probe fires on every
-   down_read() in the kernel and only then compares the address.
-
-Cannot answer it:
-
- - The locks' own owner fields. A mutex, an rt_mutex and a write held
-   rw_semaphore know their owner. The rw_semaphore read side does not,
-   and that is the side that matters. kernel/locking/rwsem.c says why:
-   "Ideally we would like to track all the readers that own a rwsem, but
-   the overhead is simply too big." percpu_rw_semaphore is the same, by
-   design: its readers are spread over per-CPU counters.
-
- - hung-task blocker tracking. task->blocker records what a task waits
-   for, not what it holds, and inherits the same rwsem reader gap.
-
- - Lock tracepoints. The two that fire on every acquire and release are
-   inside #ifdef CONFIG_LOCKDEP. The ones that need no lockdep only fire
-   on contention. The closest, contended_release, is holder side but
-   fires at release, after the decision has to be made.
-
- - A new PF_ flag set by the callers. Save and restore cannot express
-   non-LIFO release, and sleeping locks are released out of order all
-   the time: take A, take B, release A, and the flag is cleared while B
-   is still held. Getting that right needs a counter, which is this
-   series with hand written call sites. The cgroupfs kernfs rwsems alone
-   are taken in 37 places, and missing one is silent.
-
- - Reusing PF_MEMALLOC. It means "I am reclaiming, let me into the
-   reserves": it grants ALLOC_NO_WATERMARKS and skips direct reclaim. A
-   cgroupfs walker holding kernfs_rwsem across many allocations would
-   drain the reserves rather than politely skip a throttle.
-
- - rwsem_is_locked() and friends say somebody holds the lock, not you.
-
-This series inverts that: instead of a lock knowing its many readers,
-each task knows how many interesting locks it holds.
-
-The opt-in is a spare bit of a word the lock already has, bit 3 of
-rw_semaphore::count and of mutex::owner, or existing padding, so on
-64-bit no lock grows. With CONFIG_TRACK_LOCK_HOLDERS=n the locking code
-is unchanged. With it built in but nothing opted in, the hooks are a
-static branch that has not been patched in, so every lock still runs the
-instructions it ran before.
-
-
-The patches
-===========
-
- 1  the core: the counter, the static key, the hooks, Kconfig
- 2  rw_semaphore support
- 3  mutex support
- 4  percpu_rw_semaphore support
- 5  KUnit tests
- 6  documentation
- 7  opt in the cgroupfs locks: the kernfs rwsems, cgroup_mutex and
-    cgroup_threadgroup_rwsem
-
-
-Testing
-=======
-
-19 KUnit tests in kernel/locking/lockholder_kunit.c. Sixteen check that
-the count always matches the number of opted-in locks the task holds,
-across every way each lock type can be taken and dropped: fast and slow
-paths, failed trylocks, out of order release, downgrade_write(), the
-percpu handover calls, cleanup.h guards, and a second task to check the
-counts are per task. Three cover what the opt-in changes besides the
-count: that an opted-in but unheld lock still reads unlocked, that
-*_track_holder() refuses a lock that is already held, and that the
-non_owner rwsem calls warn and do not count.
-
-  tools/testing/kunit/kunit.py run --kunitconfig=kernel/locking/ lockholder
-
-They pass in four configurations: UML, x86_64, x86_64 with
-PROVE_LOCKING, DEBUG_MUTEXES and DEBUG_RWSEMS, and x86_64 with
-PREEMPT_RT. The debug one earns its place twice over: it compiles the
-mutex fast paths out, so every acquire and release goes through the slow
-paths that rebuild the flag word, and it is the only one that runs the
-non_owner test, as without CONFIG_DEBUG_LOCK_ALLOC those calls are
-defined to plain down_read() and up_read(). That test skips in the other
-three. A full x86_64 build with modules is clean.
-
-
-[1] https://lore.kernel.org/20260921192559.2619635-1-shakeel.butt@linux.dev/
-
-Shakeel Butt (7):
-  locking: add opt-in tracking of sleeping lock holders
-  locking/rwsem: track holders of opted-in rw_semaphores
-  locking/mutex: track holders of opted-in mutexes
-  locking/percpu-rwsem: track holders of opted-in percpu_rw_semaphores
-  locking/selftests: add KUnit tests for lock holder tracking
-  Documentation/locking: document sleeping lock holder tracking
-  kernfs, cgroup: track holders of the cgroupfs locks
-
- Documentation/locking/index.rst               |   1 +
- .../locking/lock-holder-tracking.rst          | 168 ++++
- MAINTAINERS                                   |   1 +
- fs/kernfs/dir.c                               |   5 +
- include/linux/kernfs.h                        |   7 +
- include/linux/lockholder.h                    | 119 +++
- include/linux/mutex.h                         |  14 +
- include/linux/percpu-rwsem.h                  |  42 +
- include/linux/rtmutex.h                       |  11 +
- include/linux/rwsem.h                         |  65 +-
- include/linux/sched.h                         |   8 +
- kernel/Kconfig.locks                          |  16 +
- kernel/cgroup/cgroup.c                        |  27 +-
- kernel/exit.c                                 |   4 +
- kernel/fork.c                                 |   3 +
- kernel/locking/.kunitconfig                   |   4 +
- kernel/locking/Makefile                       |   2 +
- kernel/locking/lockholder.c                   |  19 +
- kernel/locking/lockholder_kunit.c             | 741 ++++++++++++++++++
- kernel/locking/mutex.c                        |  79 +-
- kernel/locking/mutex.h                        |  48 +-
- kernel/locking/percpu-rwsem.c                 |  28 +
- kernel/locking/rtmutex_api.c                  |  36 +-
- kernel/locking/rtmutex_common.h               |   3 +
- kernel/locking/rwsem.c                        |  96 ++-
- lib/Kconfig.debug                             |  13 +
- 26 files changed, 1539 insertions(+), 21 deletions(-)
- create mode 100644 Documentation/locking/lock-holder-tracking.rst
- create mode 100644 include/linux/lockholder.h
- create mode 100644 kernel/locking/.kunitconfig
- create mode 100644 kernel/locking/lockholder.c
- create mode 100644 kernel/locking/lockholder_kunit.c
-
-base-commit: next-20260922
+diff --git a/include/linux/rtmutex.h b/include/linux/rtmutex.h
+index 9e1f012f89db..3001a25705ac 100644
+--- a/include/linux/rtmutex.h
++++ b/include/linux/rtmutex.h
+@@ -22,6 +22,17 @@ extern int max_lock_depth;
+ 
+ struct rt_mutex_base {
+ 	raw_spinlock_t		wait_lock;
++#if defined(CONFIG_TRACK_LOCK_HOLDERS) && defined(CONFIG_PREEMPT_RT)
++	/*
++	 * Opt-in to holder tracking, set before first use. On PREEMPT_RT
++	 * the sleeping locks that can be tracked are built on this one.
++	 * On 64-bit the flag fits in the padding after wait_lock, so none
++	 * of them grows. Where that padding does not exist, as on 32-bit,
++	 * everything built on rt_mutex_base grows by a word, spinlock_t
++	 * included.
++	 */
++	bool			tracked;
++#endif
+ 	struct rb_root_cached   waiters __guarded_by(&wait_lock);
+ 	struct task_struct	*owner  __guarded_by(&wait_lock);
+ };
+diff --git a/include/linux/rwsem.h b/include/linux/rwsem.h
+index 6a1a7bae5f81..fa4f999330ca 100644
+--- a/include/linux/rwsem.h
++++ b/include/linux/rwsem.h
+@@ -68,17 +68,30 @@ context_lock_struct(rw_semaphore) {
+ 
+ #define RWSEM_UNLOCKED_VALUE		0UL
+ #define RWSEM_WRITER_LOCKED		(1UL << 0)
++#ifdef CONFIG_TRACK_LOCK_HOLDERS
++/*
++ * Sticky: set by rwsem_track_holder(), cleared only by init. count bits
++ * 3-7 are reserved, and the lock and unlock paths only add to count or
++ * write back a value they read, so the bit survives. See
++ * kernel/locking/rwsem.c.
++ */
++#define RWSEM_FLAG_TRACKED		(1UL << 3)
++#else
++#define RWSEM_FLAG_TRACKED		0UL
++#endif
+ #define __RWSEM_COUNT_INIT(name)	.count = ATOMIC_LONG_INIT(RWSEM_UNLOCKED_VALUE)
+ 
+ static inline int rwsem_is_locked(struct rw_semaphore *sem)
+ {
+-	return atomic_long_read(&sem->count) != RWSEM_UNLOCKED_VALUE;
++	return (atomic_long_read(&sem->count) & ~RWSEM_FLAG_TRACKED) !=
++		RWSEM_UNLOCKED_VALUE;
+ }
+ 
+ static inline void rwsem_assert_held_nolockdep(const struct rw_semaphore *sem)
+ 	__assumes_ctx_lock(sem)
+ {
+-	WARN_ON(atomic_long_read(&sem->count) == RWSEM_UNLOCKED_VALUE);
++	WARN_ON((atomic_long_read(&sem->count) & ~RWSEM_FLAG_TRACKED) ==
++		RWSEM_UNLOCKED_VALUE);
+ }
+ 
+ static inline void rwsem_assert_held_write_nolockdep(const struct rw_semaphore *sem)
+@@ -87,6 +100,21 @@ static inline void rwsem_assert_held_write_nolockdep(const struct rw_semaphore *
+ 	WARN_ON(!(atomic_long_read(&sem->count) & RWSEM_WRITER_LOCKED));
+ }
+ 
++static inline bool rwsem_is_tracked(const struct rw_semaphore *sem)
++{
++	if (!IS_ENABLED(CONFIG_TRACK_LOCK_HOLDERS))
++		return false;
++
++	return atomic_long_read(&sem->count) & RWSEM_FLAG_TRACKED;
++}
++
++#ifdef CONFIG_TRACK_LOCK_HOLDERS
++static inline void __rwsem_set_tracked(struct rw_semaphore *sem)
++{
++	atomic_long_or(RWSEM_FLAG_TRACKED, &sem->count);
++}
++#endif
++
+ /* Common initializer macros and functions */
+ 
+ #ifdef CONFIG_DEBUG_RWSEMS
+@@ -157,6 +185,23 @@ context_lock_struct(rw_semaphore) {
+ #endif
+ };
+ 
++/* The opt-in lives in the padding inside the rtmutex. */
++static inline bool rwsem_is_tracked(const struct rw_semaphore *sem)
++{
++#ifdef CONFIG_TRACK_LOCK_HOLDERS
++	return sem->rwbase.rtmutex.tracked;
++#else
++	return false;
++#endif
++}
++
++#ifdef CONFIG_TRACK_LOCK_HOLDERS
++static inline void __rwsem_set_tracked(struct rw_semaphore *sem)
++{
++	sem->rwbase.rtmutex.tracked = true;
++}
++#endif
++
+ #define __RWSEM_INITIALIZER(name)				\
+ 	{							\
+ 		.rwbase = __RWBASE_INITIALIZER(name),		\
+@@ -223,6 +268,22 @@ static inline void rwsem_assert_held_write(const struct rw_semaphore *sem)
+ 		rwsem_assert_held_write_nolockdep(sem);
+ }
+ 
++#ifdef CONFIG_TRACK_LOCK_HOLDERS
++/**
++ * rwsem_track_holder - track the holders of an rw_semaphore
++ * @sem: initialized rw_semaphore that no one holds yet
++ *
++ * Count @sem in task_nr_tracked_locks() of the tasks holding it. Use it
++ * for locks whose holders can stall unrelated work. Call it before anyone
++ * can take @sem, e.g. right after init_rwsem(). Do not use
++ * down_read_non_owner() or up_read_non_owner() on a tracked rwsem: they
++ * can run in different tasks, which a per-task count cannot follow.
++ */
++void rwsem_track_holder(struct rw_semaphore *sem);
++#else
++static inline void rwsem_track_holder(struct rw_semaphore *sem) { }
++#endif
++
+ /*
+  * lock for reading
+  */
+diff --git a/kernel/locking/rtmutex_common.h b/kernel/locking/rtmutex_common.h
+index c38b7bdea7b3..2228ac11910a 100644
+--- a/kernel/locking/rtmutex_common.h
++++ b/kernel/locking/rtmutex_common.h
+@@ -180,6 +180,9 @@ enum rtmutex_chainwalk {
+ 
+ static inline void __rt_mutex_base_init(struct rt_mutex_base *lock)
+ {
++#if defined(CONFIG_TRACK_LOCK_HOLDERS) && defined(CONFIG_PREEMPT_RT)
++	lock->tracked = false;
++#endif
+ 	scoped_guard (raw_spinlock_init, &lock->wait_lock) {
+ 		lock->waiters = RB_ROOT_CACHED;
+ 		lock->owner = NULL;
+diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
+index b9c180ac1eee..59e479a53f08 100644
+--- a/kernel/locking/rwsem.c
++++ b/kernel/locking/rwsem.c
+@@ -25,6 +25,7 @@
+ #include <linux/sched/signal.h>
+ #include <linux/sched/clock.h>
+ #include <linux/export.h>
++#include <linux/lockholder.h>
+ #include <linux/rwsem.h>
+ #include <linux/atomic.h>
+ #include <linux/hung_task.h>
+@@ -85,7 +86,8 @@
+  * Bit  0    - writer locked bit
+  * Bit  1    - waiters present bit
+  * Bit  2    - lock handoff bit
+- * Bits 3-7  - reserved
++ * Bit  3    - holder tracking opt-in (CONFIG_TRACK_LOCK_HOLDERS, sticky)
++ * Bits 4-7  - reserved
+  * Bits 8-62 - 55-bit reader count
+  * Bit  63   - read fail bit
+  *
+@@ -94,7 +96,8 @@
+  * Bit  0    - writer locked bit
+  * Bit  1    - waiters present bit
+  * Bit  2    - lock handoff bit
+- * Bits 3-7  - reserved
++ * Bit  3    - holder tracking opt-in (CONFIG_TRACK_LOCK_HOLDERS, sticky)
++ * Bits 4-7  - reserved
+  * Bits 8-30 - 23-bit reader count
+  * Bit  31   - read fail bit
+  *
+@@ -261,11 +264,39 @@ static inline bool rwsem_read_trylock(struct rw_semaphore *sem, long *cntp)
+ 	return false;
+ }
+ 
++/*
++ * The opt-in flag as it sits in count, for the one path that folds it
++ * into a cmpxchg. The flag is only set once the static branch is on, so
++ * an off branch means no rwsem carries it and the read can be skipped.
++ */
++static inline long rwsem_tracked_flag(const struct rw_semaphore *sem)
++{
++#ifdef CONFIG_TRACK_LOCK_HOLDERS
++	if (!static_branch_unlikely(&lock_holder_tracking_key))
++		return 0;
++
++	return atomic_long_read(&sem->count) & RWSEM_FLAG_TRACKED;
++#else
++	return 0;
++#endif
++}
++
+ static inline bool rwsem_write_trylock(struct rw_semaphore *sem)
+ {
+-	long tmp = RWSEM_UNLOCKED_VALUE;
++	/*
++	 * A free tracked rwsem reads RWSEM_FLAG_TRACKED, not 0, and the
++	 * flag has to survive the acquire, so both the expected and the
++	 * new value carry it. Reading it first costs one load but keeps
++	 * this to a single cmpxchg; the flag is sticky, so the read cannot
++	 * race. This is the only place the write side needs it: everywhere
++	 * else count is only added to, or written back from a value that
++	 * was read, so the flag survives.
++	 */
++	long flag = rwsem_tracked_flag(sem);
++	long tmp = flag;
+ 
+-	if (atomic_long_try_cmpxchg_acquire(&sem->count, &tmp, RWSEM_WRITER_LOCKED)) {
++	if (atomic_long_try_cmpxchg_acquire(&sem->count, &tmp,
++					    flag | RWSEM_WRITER_LOCKED)) {
+ 		rwsem_set_owner(sem);
+ 		return true;
+ 	}
+@@ -319,6 +350,7 @@ void __init_rwsem(struct rw_semaphore *sem, const char *name,
+ #ifdef CONFIG_DEBUG_RWSEMS
+ 	sem->magic = sem;
+ #endif
++	/* Clearing count also clears RWSEM_FLAG_TRACKED. */
+ 	atomic_long_set(&sem->count, RWSEM_UNLOCKED_VALUE);
+ 	atomic_long_set(&sem->owner, 0L);
+ 	scoped_guard (raw_spinlock_init, &sem->wait_lock) {
+@@ -1488,6 +1520,7 @@ static inline void __downgrade_write(struct rw_semaphore *sem)
+ void __init_rwsem(struct rw_semaphore *sem, const char *name,
+ 		  struct lock_class_key *key)
+ {
++	/* init_rwbase_rt() also clears the holder tracking opt-in. */
+ 	init_rwbase_rt(&(sem)->rwbase);
+ 
+ #ifdef CONFIG_DEBUG_LOCK_ALLOC
+@@ -1564,6 +1597,35 @@ static inline bool is_rwsem_reader_owned(struct rw_semaphore *sem)
+ 
+ #endif /* CONFIG_PREEMPT_RT */
+ 
++#ifdef CONFIG_TRACK_LOCK_HOLDERS
++void rwsem_track_holder(struct rw_semaphore *sem)
++{
++	/*
++	 * A task holding @sem now was not counted, so its up_*() would make
++	 * its count wrong.
++	 */
++	if (WARN_ONCE(rwsem_is_locked(sem),
++		      "%s: rwsem is held; opt in before it is published\n",
++		      __func__))
++		return;
++
++	/*
++	 * Turn the hooks on before the flag, so that a lock carrying the
++	 * flag always has them on.
++	 */
++	lock_holder_tracking_enable();
++	__rwsem_set_tracked(sem);
++}
++EXPORT_SYMBOL_GPL(rwsem_track_holder);
++#endif
++
++/*
++ * Holder tracking: the count goes up once down_*() has the lock and down
++ * before up_*() releases it. Waiting is not counted, as the task does not
++ * hold the lock yet. downgrade_write() keeps the lock held, so it needs no
++ * hook.
++ */
++
+ /*
+  * lock for reading
+  */
+@@ -1574,6 +1636,7 @@ void __sched down_read(struct rw_semaphore *sem)
+ 	rwsem_acquire_read(&sem->dep_map, 0, 0, _RET_IP_);
+ 
+ 	LOCK_CONTENDED(sem, __down_read_trylock, __down_read);
++	lock_holder_acquired_if(rwsem_is_tracked(sem));
+ }
+ EXPORT_SYMBOL(down_read);
+ 
+@@ -1588,6 +1651,7 @@ int __sched down_read_interruptible(struct rw_semaphore *sem)
+ 		return -EINTR;
+ 	}
+ 
++	lock_holder_acquired_if(rwsem_is_tracked(sem));
+ 	return 0;
+ }
+ EXPORT_SYMBOL(down_read_interruptible);
+@@ -1603,6 +1667,7 @@ int __sched down_read_killable(struct rw_semaphore *sem)
+ 		return -EINTR;
+ 	}
+ 
++	lock_holder_acquired_if(rwsem_is_tracked(sem));
+ 	return 0;
+ }
+ EXPORT_SYMBOL(down_read_killable);
+@@ -1615,8 +1680,10 @@ int down_read_trylock(struct rw_semaphore *sem)
+ {
+ 	int ret = __down_read_trylock(sem);
+ 
+-	if (ret == 1)
++	if (ret == 1) {
+ 		rwsem_acquire_read(&sem->dep_map, 0, 1, _RET_IP_);
++		lock_holder_acquired_if(rwsem_is_tracked(sem));
++	}
+ 	return ret;
+ }
+ EXPORT_SYMBOL(down_read_trylock);
+@@ -1630,6 +1697,7 @@ void __sched down_write(struct rw_semaphore *sem)
+ 	might_sleep();
+ 	rwsem_acquire(&sem->dep_map, 0, 0, _RET_IP_);
+ 	LOCK_CONTENDED(sem, __down_write_trylock, __down_write);
++	lock_holder_acquired_if(rwsem_is_tracked(sem));
+ }
+ EXPORT_SYMBOL(down_write);
+ 
+@@ -1648,6 +1716,7 @@ int __sched down_write_killable(struct rw_semaphore *sem)
+ 		return -EINTR;
+ 	}
+ 
++	lock_holder_acquired_if(rwsem_is_tracked(sem));
+ 	return 0;
+ }
+ EXPORT_SYMBOL(down_write_killable);
+@@ -1660,8 +1729,10 @@ int down_write_trylock(struct rw_semaphore *sem)
+ {
+ 	int ret = __down_write_trylock(sem);
+ 
+-	if (ret == 1)
++	if (ret == 1) {
+ 		rwsem_acquire(&sem->dep_map, 0, 1, _RET_IP_);
++		lock_holder_acquired_if(rwsem_is_tracked(sem));
++	}
+ 
+ 	return ret;
+ }
+@@ -1673,6 +1744,7 @@ EXPORT_SYMBOL(down_write_trylock);
+ void up_read(struct rw_semaphore *sem)
+ 	__no_context_analysis
+ {
++	lock_holder_released_if(rwsem_is_tracked(sem));
+ 	rwsem_release(&sem->dep_map, _RET_IP_);
+ 	__up_read(sem);
+ }
+@@ -1684,6 +1756,7 @@ EXPORT_SYMBOL(up_read);
+ void up_write(struct rw_semaphore *sem)
+ 	__no_context_analysis
+ {
++	lock_holder_released_if(rwsem_is_tracked(sem));
+ 	rwsem_release(&sem->dep_map, _RET_IP_);
+ 	__up_write(sem);
+ }
+@@ -1708,6 +1781,7 @@ void down_read_nested(struct rw_semaphore *sem, int subclass)
+ 	might_sleep();
+ 	rwsem_acquire_read(&sem->dep_map, subclass, 0, _RET_IP_);
+ 	LOCK_CONTENDED(sem, __down_read_trylock, __down_read);
++	lock_holder_acquired_if(rwsem_is_tracked(sem));
+ }
+ EXPORT_SYMBOL(down_read_nested);
+ 
+@@ -1722,6 +1796,7 @@ int down_read_killable_nested(struct rw_semaphore *sem, int subclass)
+ 		return -EINTR;
+ 	}
+ 
++	lock_holder_acquired_if(rwsem_is_tracked(sem));
+ 	return 0;
+ }
+ EXPORT_SYMBOL(down_read_killable_nested);
+@@ -1732,13 +1807,19 @@ void _down_write_nest_lock(struct rw_semaphore *sem, struct lockdep_map *nest)
+ 	might_sleep();
+ 	rwsem_acquire_nest(&sem->dep_map, 0, 0, nest, _RET_IP_);
+ 	LOCK_CONTENDED(sem, __down_write_trylock, __down_write);
++	lock_holder_acquired_if(rwsem_is_tracked(sem));
+ }
+ EXPORT_SYMBOL(_down_write_nest_lock);
+ 
++/*
++ * The non_owner calls can run in different tasks, which a per-task count
++ * cannot follow, so tracked rwsems must not use them.
++ */
+ void down_read_non_owner(struct rw_semaphore *sem)
+ 	__no_context_analysis
+ {
+ 	might_sleep();
++	WARN_ON_ONCE(rwsem_is_tracked(sem));
+ 	__down_read(sem);
+ 	/*
+ 	 * The owner value for a reader-owned lock is mostly for debugging
+@@ -1756,6 +1837,7 @@ void down_write_nested(struct rw_semaphore *sem, int subclass)
+ 	might_sleep();
+ 	rwsem_acquire(&sem->dep_map, subclass, 0, _RET_IP_);
+ 	LOCK_CONTENDED(sem, __down_write_trylock, __down_write);
++	lock_holder_acquired_if(rwsem_is_tracked(sem));
+ }
+ EXPORT_SYMBOL(down_write_nested);
+ 
+@@ -1771,6 +1853,7 @@ int __sched down_write_killable_nested(struct rw_semaphore *sem, int subclass)
+ 		return -EINTR;
+ 	}
+ 
++	lock_holder_acquired_if(rwsem_is_tracked(sem));
+ 	return 0;
+ }
+ EXPORT_SYMBOL(down_write_killable_nested);
+@@ -1779,6 +1862,7 @@ void up_read_non_owner(struct rw_semaphore *sem)
+ 	__no_context_analysis
+ {
+ 	DEBUG_RWSEMS_WARN_ON(!is_rwsem_reader_owned(sem), sem);
++	WARN_ON_ONCE(rwsem_is_tracked(sem));
+ 	__up_read(sem);
+ }
+ EXPORT_SYMBOL(up_read_non_owner);
 -- 
-2.47.3
+2.53.0-Meta
+
