@@ -1,155 +1,91 @@
-Received: from mail-ej2-f10.google.com (mail-ej2-f10.google.com [74.125.228.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300D54A7C95
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.138
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169479; cv=pass; b=r98C4hmljjqIuV5ECQrmXPgT5alVB11sb3wX65ENdsmK02o4mwKPx8gopETFDWfhuyhz1djWnR63cXaqJz/xoimc/fRO4v9917LfXOzOePeStM0ZllrZC6kXQes/o0JX/OPG2ZxN03mLzPQHIKLYlWWxgDpr0BeJaoRBnry1KK0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169479; c=relaxed/simple;
-	bh=DvrVvCJTQQOy2Ljw0fC6mFfv7ZDXIe713sZSc7YfmU0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bmrSTnD7xxFd3EQu7By0PZsxckywq1zxqdEXdx8dVNnnWpOGjqiRBZMaJGw4tGw2HTRkuBgJYeL6nqPsabn4/WIIgiyeS31bKPhf0nOFK2Oi4ekf6H744djC/XL95ob4kp/L0pCHWMrm+BUdCtOnJX44Mj86fnOzlMYf16CZHCs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JEks3zyT; arc=pass smtp.client-ip=74.125.228.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E053E52ED28
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:18:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790169492; cv=none; b=T7CoYikRCVEH5c1xXqfLEY0Wm/sx3+Pqf9lfXD8C+n+n/vcAmEp1nzCnoT0spx+YCn1yW6DKAcJcRBZvvrcmUrkUEA/TYUv1G6Pa6OWbMWMWbIjmJAXsPeLAW6wlzN/XeQMtN06jgB/4SSDDibfsoTKrmFPZT8iLaC9v160XPec=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790169492; c=relaxed/simple;
+	bh=VqTuNWTEVQUTU9m6cK3XARaLQEY06U77JRvzuEC1uVU=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=HHjATX1Eod8WanSFyeiZFFAA85vPqmN5BSWuWcA59vtDNmXduZecbrre8vetudXGumz4rp+WicHmBXTNaGHzMd8wuBZ723Q96oEU8EfoqL9RxVRh/qzQErTp1Plecx9fKcYVHSuHzeYmAupNxxFALfHx02OcNnAYWpDsh2j/6jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JrpYc15N; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JEks3zyT"
-Received: by mail-ej2-f10.google.com with SMTP id a640c23a62f3a-c2551bfabefso70021066b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:17:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790169476; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BrGyyuneBM4QAEByJlhxIP0S4HbuJS9oNOqHKLA7EMDR3WiqMEfUgZ2rCWOc0wN2r6
-         x7+krKfMBsMJ+RHs1gRQe4m0MQemkEuSbT6sI1yNBZiUxA2gFkmexut+0DXMIIGfb+kW
-         fUrdnxdjEK3xwKaCcPNX5CtOL4LGJQSMHCetLAee5DBXRROncHJMoKkn7IN7HdBLqsJ2
-         8X1t4yMZQApg7aSAVzHkmUOqItW/dzk6k+OOgi3nZFVsIPV+oYqcjKBCsfhwIU47cACF
-         R96PaOjxoXvxNm99RmSR8t0MxtPKdbuQzToLj96aBa0ga926ElXlgaV2WYlCjpiOzGhW
-         YQ+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=DvrVvCJTQQOy2Ljw0fC6mFfv7ZDXIe713sZSc7YfmU0=;
-        fh=k/DscqdZ7E0miG1DlzWVKxAmSZjAwFPepehkz3trLKk=;
-        b=glt9xxSfiuyUoiIqYIdBUsLo9Ak2JVBJ4CxqbMARv4Ln0Ai+W+5UiJmwVo74u2MLj8
-         SOodaX+EvNLu5JETIIfIJXiLLjzcM5911Wu9vfTDPQ+8rOc7IOV0Sa8OI9XK5jHYK02M
-         IXYa/ZhBbwsJ0o6z6raf/Sa8XR4zTCMGZXuZlfP2zMgpvJ8+soSz3IVinLdedYzNVqVB
-         RqzKwNFZnyMiBTfx9pMs+8qryHC80H32Jk9e0rr4zyH+lw/8XDX+4plsrxq845D9ALDE
-         3Uk2+gxccHv++Aj/CtRqeMvJHyJiTDZF5inmuXPCZpMzoRaC0HwEHloc6NNXmOTKuBjk
-         Yzvw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790169476; x=1790774276; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DvrVvCJTQQOy2Ljw0fC6mFfv7ZDXIe713sZSc7YfmU0=;
-        b=JEks3zyTKMevzI4WFusqHT1XBVoTE1QsMGne8r7dt0EIly1YMue8Yno7PA4WBVcy7c
-         P+cuWtNuDyks0uJNgxI2ZtWH2lMy4luPF8Dr66MNfEfmAIMMcDxjbdvakiWS8/QfNNys
-         0WiNQU1z67kNKE0+gvBOchxLnsr9g1ilrqwtjGiOSQx9B7HBawpEP2MiBbRnGhlSsYSG
-         afPFKXlu2GCsuLBBAKLF5Dfk6itSZQhZ1L2XwvLbeQG8mUQdpSmDS5TU8mgS1uLILpr8
-         kk71Wmxev1ywODGNWUQl92Ncj6NySLZpTNWGKmUwUDyWMvYcpZkMpb9bsnVlHRrfeUMR
-         u5vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790169476; x=1790774276;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DvrVvCJTQQOy2Ljw0fC6mFfv7ZDXIe713sZSc7YfmU0=;
-        b=C5I3w5+FWYNB7/gsXE6OXRO+2DZqeBOwwSLU+gv0YjjPLtcPFMTw5YxOe9NYHJPzhj
-         CM/S1Iv4PfSqt/6qoGo7hEzd0j2o9m8pKF4PoqOXQ+rX5SccQTITX+DNZ+d+bVDb3Dgg
-         tWvehaD+bCBzUctSWZDnpAXr8pd+McEqGKiEckKFUZeXUer1LGY08hDizuniUqyu5U6C
-         G6DrS7naCWP37Z63Qw77EfBBcT68MtCyBKiin18FDVd4KEimZm4nxqp4NdPAJD+g7jto
-         qvNozMvZ2aJLpn+Dumm2+PiYh66hPcdgaIOo7tDEhaxhvbJE+bM/1YM6juZzRKQ8VGXJ
-         /EmQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy6FHN2Z0Jvt2qiw/u+lL1w87LNJCS6ruoFknmyaRmT+H6Ei5pii5+lJObF72nMeVWNeh4142EC2pgHb2s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lRUrhBT7blO+73ZeS3Uv7ZhJ6BShc7lNEDBPVAFQjaLfBavuCt
-	WlxXa8wEAOwwoLKbnvlEou/z12W5WyyDg6nyOP3Be5zdCALhf+Bw114ZsbbldRq+BcC0IJXoaY4
-	i1F5DEdlAeKdIgBhhXjI7/voe9KXnkWA=
-X-Gm-Gg: AYBFou0/OYgUBnRoqeE12bttPsNBV3E7oI2SVb8pKoO524AnifjW35PgQLFVglAeANi
-	R2aRcERx+n1kZzmp2jK7lgrHRBoAj9GOE6Fvl/nHBAUhUy3dPxfGn/yT5kKfRL/bPLqDpasldsQ
-	QcOvKWabpD44kXerff5zPkTqoiEHqF3BKD+GUdOm0+SMdhH1nv7wJ8p4/ZWd+Uwf+n5KIlga9je
-	H6nDKe+100P/c+g0sc9oTfjzIZ7MAJ71jAd5wZ31hBiq/qFnDCmsnbCXqz3tTmVHceu0PzspLHV
-	zBxP9HylbMzLvUzPGfow9LZq9zLTbdvj//UsJ3a+ksGZgBTkHjzlt8oAWzdZs3JPpM5K
-X-Received: by 2002:a17:907:9409:b0:c25:8e4f:6d84 with SMTP id
- a640c23a62f3a-c2aadc98eb9mr212676466b.2.1790169476343; Wed, 23 Sep 2026
- 06:17:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JrpYc15N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790169490; x=1821705490;
+  h=date:from:to:cc:subject:message-id;
+  bh=VqTuNWTEVQUTU9m6cK3XARaLQEY06U77JRvzuEC1uVU=;
+  b=JrpYc15NnkUJOuZ2vShtXTuOwmy7TXgWUM2CKBW+bWy5itEzYXm7LQRp
+   A8u28etSbsFrV9tqjaC9kB4bMxMOfvsmZVqS+0VaS2ct59yrItDXtjl1j
+   9XWf6f2jBL15FjZ0qFrTgjnc4g73FSnprv9ucZczIuOGQS/opfHQSPvVC
+   Jhv2MB2Gqln+0Xd4ZBvsuxDn6MLH/0aMqsHMTuELNyM9GviHUST/LkC0i
+   /+l9IJgd/+FJclNIBr+PC/2GMIIchaT28rpqA0PB4WEdvqeedLRne78t0
+   J+ANzpBPZGb1rb9TF53SUDklvADjBgmVsVdsV9DWMA+j9cDwBojxx4qMq
+   w==;
+X-CSE-ConnectionGUID: 0PI7RY+HSU+KfaUKjq/6hQ==
+X-CSE-MsgGUID: 8ky2e5y1QrSJe2hTNHGgMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="1371207"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="1371207"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 06:18:09 -0700
+X-CSE-ConnectionGUID: UksniICeRMaFP9GzcnD68w==
+X-CSE-MsgGUID: Z7hQ9IX4TyeV6agQAltUOg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="272218126"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa006.fm.intel.com with ESMTP; 23 Sep 2026 06:18:07 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x9MrM-00000000H7K-1qtX;
+	Wed, 23 Sep 2026 13:18:04 +0000
+Date: Wed, 23 Sep 2026 21:17:23 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Christian Brauner <brauner@kernel.org>,
+ David Disseldorp <ddiss@suse.de>, SeongJae Park <sj@kernel.org>
+Subject: WARNING: modpost: vmlinux: section mismatch in reference:
+ trace_initcall_level+0x88 (section: .text.unlikely) -> initcall_level_names
+ (section: .init.data)
+Message-ID: <202609232149.A8u4hH6s-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
- <5135e15d-b6ac-476c-9a7d-b7d64e4eed5c@bootlin.com> <arOtU15iv5CWPUEu@oss.qualcomm.com>
-In-Reply-To: <arOtU15iv5CWPUEu@oss.qualcomm.com>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Wed, 23 Sep 2026 21:17:44 +0800
-X-Gm-Features: AclHuK-Nd-SsXdAr_w0eePSBz9cFeJT2YpbrMeoFm4kjMm3oXLxfgGRct4bNM9Y
-Message-ID: <CALj3r0gAaQ_CoS5_9Mmf5HY+Fu5_e74fbb+r0LstafMhagHx6A@mail.gmail.com>
-Subject: Re: [PATCH RFC net-next 0/9] net: introduce Qualcomm XPCS support and
- add Nord Ethernet plumbing
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Richard Cochran <richardcochran@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jose Abreu <joabreu@synopsys.com>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jan Petrous <jan.petrous@oss.nxp.com>, 
-	"Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, 
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, 
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
-	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, 
-	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Hi Mike,
 
-Thanks for the RFC. A few comments.
+FYI, the error/warning still remains.
 
-XPCS_ID
--------
-Is 0x00000030 documented for Qualcomm, or is it derived from
-NXP_SJA1110_XPCS_ID + 0x10? If it's the latter, it's a magic value and
-I'd rather see it confirmed against the Qualcomm documentation or a
-register dump from real hardware before it's used for platform
-identification.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   fe2ec83746e501645709761605c2464a44fd2929
+commit: 3fb2d124b64716f16355b9b722b2f062c0702f24 init: do_mounts: use kmalloc() for allocations of temporary buffers
+date:   4 months ago
+config: xtensa-randconfig-r1303-20260923 (https://download.01.org/0day-ci/archive/20260923/202609232149.A8u4hH6s-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 12.5.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260923/202609232149.A8u4hH6s-lkp@intel.com/reproduce)
 
-Non-existent MMDs
------------------
-Returning 0xffff on reads and silently discarding writes is what a
-floating bus / unimplemented feature looks like, so I agree with that
-direction. My pcs-xpcs-rk does the same.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 3fb2d124b647 ("init: do_mounts: use kmalloc() for allocations of temporary buffers")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609232149.A8u4hH6s-lkp@intel.com/
 
-Structure
----------
-pcs-xpcs-plat is itself a platform glue driver, for SoCs that don't
-need any platform-specific handling. Adding another abstraction layer
-on top of it to cover Qualcomm would be glue on glue. Generic, Qualcomm
-and Rockchip differ in power management, address window size (2M vs 8M,
-...) and MMD redirection, so they don't share a probe path.
+All warnings (new ones prefixed by >>, old ones prefixed by <<):
 
-Pushing that into pcs-xpcs-plat would also drag every existing user of
-the generic glue along: they would suddenly depend on GENERIC_PHY,
-PM_GENERIC_DOMAINS and whatever else the Qualcomm path needs, or they
-would have to carry per-platform branches in a driver that is supposed
-to be platform-agnostic. A per-SoC-family glue driver, the same way
-dwmac-intel, dwmac-rk, dwmac-renesas-gbeth and dwmac-rzn1 are
-separate, keeps each integration self-contained and leaves the generic
-glue alone.
+>> WARNING: modpost: vmlinux: section mismatch in reference: trace_initcall_level+0x88 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
+WARNING: modpost: missing MODULE_DESCRIPTION() in arch/xtensa/platforms/iss/simdisk.o
 
-Would it make sense to take that route here? My pcs-xpcs-rk does the
-MMD redirection through a custom MDIO bus; maybe the Qualcomm glue can
-reuse that idea directly instead of extending pcs-xpcs-plat. Happy to
-help with the generic parts if that's useful.
-
-Best,
-Coia
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
