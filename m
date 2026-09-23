@@ -1,106 +1,96 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8283C9ED5
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45803BFE3B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:19:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790198351; cv=none; b=gNwca4l+A1Ft5oQh1LrsnhPnNdKjMQu09Gv8C9/rs+kguzGvbTIFC6Io0thgUoQaRphD3ha7+vXXDZeqTTYOK5hp3cxTz3eLcHjrlwCe46E0lWj9MgIvKnWGRsLxbXI5GxJkyF9iCc1bN2oquwS5DVK4EWzo1eQmJ+pqNUnzXCc=
+	t=1790198383; cv=none; b=iSsgI5vyEc9BHDiPYb3aeCEWkl9aUrMcwPoS1SHWNVd/Qgzk6GDf+3MebhWQ8PwowKsgg78XRG9KCQuuWwbjNdqOGJrLV74mL+IebzBv3JYUwztyl8zWFBBGsU6TaAf1DcIy6R2EAjORRzxoptSt/iHTvvjVh4z0ISAATFXcbZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790198351; c=relaxed/simple;
-	bh=ZcbP3QeuLjyfA/MWPpI4xMkSD/R2NEkFhR/DwOlavZ0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DlpExm/RMwf8prGlhPqTMKS7VeBsKV7sGNOPSBg+WM6DkJwg99xMWSUE20mEE8wrbG6igyOFikohAJqNOu2pXOyOpj43BG4rb4c8s1nkadLjN/JH+6I+5MPha4nMAGHdNjWmdgepji0nn5VtGsJB09mc+AzYBdOU2rZsZNXasEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EAqepXK+; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790198383; c=relaxed/simple;
+	bh=DC/siQjdpVjjUxFYgWe5Iu2gmALNA2b7IeWGvb8NhIk=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=DTw/J7Wqamw7ZsRteURmX2I+la7TZqqfcuwqbpPHIm31X1mv2GXFY/Eo3QJYmNPrLJlF1p30fRyMQGR1y6IszWIHs7IIGX6frAoO3MAqYoSiDObbZfKHQQBizX8vhWlBgKliWiVTNWw7tq/xGI8kl6gLxeeG0m5HqYlKUoG0gDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Dj3qaJ8v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EAqepXK+"
-Received: by mail-pj2-f42.google.com with SMTP id d9443c01a7336-2ddaa08c890so7291905ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:19:04 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Dj3qaJ8v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6FB1F000FF;
+	Wed, 23 Sep 2026 21:19:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790198342; x=1790803142; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mvwR1H5066c3VfNVVSSHz0oGUtnFFfkwQhyCaKNQI9w=;
-        b=EAqepXK+ivUp1djsVH7gQb2y16ForKGGc2L1H1ROfrfTF3lw/SE94TuQ6gluhqEEmU
-         jWJS7auLvn+Qjx2i6r14+sKc0dq/LDjKJoBspxwlEbczdmfv0UvHdYdfsdTunFI7EZ8s
-         UJtnSI2eG3XEtqNfxOj9qJVaKjW6c6xp2ODbK8J+qAGdJbyoPUCQHieqFNcn/E7er28l
-         Zy7RF6juD5wa6BdG3/ypDxoZVXmpaJdPaILCuWpNWOe1g9czALUSEDEyWtGiQg+uRI84
-         3umQKoogRxkrab/tkNbasH4CA5BlFcKpCuZbNMsjmw+LUYTYFlQMJPk8xEnSQW152qL3
-         IGkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790198342; x=1790803142;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mvwR1H5066c3VfNVVSSHz0oGUtnFFfkwQhyCaKNQI9w=;
-        b=l7GIukK23VEjdBXypOup0v010wT9+UA/cVcmnMErfTirtbrzw3TM5HWqoq0/jumEAJ
-         tfjMPpKDfV72NVHOnFAboaJbW2CXXifSSO0JoZsZicM001DYslbkCf7BPtpPmq/Ik9Hm
-         GCdfIrbGbJdgUP0Dc3RUuH+sCunpxd29iX9W6/I9U71fInPKd/cObraFRQn35JxIau29
-         +1gOlyNOzrCdK9wOOjJeoMhtDDL1ztbqmWD+ImRA2LLNucUqGcsGmeCjgg8kO6wXiHTP
-         5ZvSUaHisF6dqTRvW1eqhG7jlEX73b5OD6Ub1x3nErlVIOATk6Oc4dvhdnVQ36pn4k8J
-         b/8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw8OB63N69NVZBimu2GyrY9WVT+YbWujyxfvLtC/IkI90GUZuvRP497+rJ07vNPiq019k+yQdC9+Ut7G8s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSUf1qm88tVNoR5+YiuzJ7I9JXVGaHjgoDC42Uag284AIpD9MN
-	GWz8ZoHKXJrM36kECKp0PS8UyLW1qUGJTlj4EVBsYPojbi7VOtgJ6mqQ
-X-Gm-Gg: AYBFou2l+ynIuUjYi0RQcW60Egozx3AV7sFUMHKFv35DHaNwXXaa+51F4ziZAFySFhH
-	BXGUPUmA40JfE+Bq+mkFEP4B+k5HVNluDTuiJKsfbP8DQFywsR8+D9TtyLf23s/xjc8efA0U14E
-	ttk40fK0dhb+GYHwQ0B6TwqokFc4KY5a7EXtn0mWadmplRg8+N1mcfW8ua3Fn+fDzgy43TsROCr
-	GwmKlXzaEsoqzj2e3KyrMbEwvwm118aM8qNx6CFc/cvFyhDsKbWcAMrBGRD+pTiI4gLFbdV40Y5
-	+Wg3OpY3RpfkFSUIWorGrQIaf9NI03wuBU8lrf2pQsaWi/pgMNdoJYXP3DnHDFu22J5SPg+7l7C
-	VuidYypIIJEzyTvxopB5avHi35NXz1uA6f6OVk2LAJ3hkyYm10ZYlgTlMrQ6htnwj0XNh2QkWMD
-	rH7xLJRNO/ZPTzcroHEO0BAgnYo1lF6jCTF/Xd8nr48eVX1o9r52AiCR4tKGGTW7cAYuyjr99gZ
-	kXRo8yj0n4a
-X-Received: by 2002:a17:903:1b6c:b0:2dd:c100:7cc7 with SMTP id d9443c01a7336-2df7dd74741mr2847775ad.67.1790198341935;
-        Wed, 23 Sep 2026 14:19:01 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5ee5efsm16486245ad.63.2026.09.23.14.19.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 14:19:01 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 23 Sep 2026 14:19:00 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v6 4/8] watchdog: rzv2h: Propagate WDTDCR access errors
-Message-ID: <999bd947-4f7f-4615-9ef3-c33b85182027@roeck-us.net>
-References: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260923104054.3324830-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	d=linux-foundation.org; s=korg; t=1790198377;
+	bh=ph4sZt22ESkzgUHNQP4jcUPEFYrI06GxwSPvp+2Uv18=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Dj3qaJ8vVz3tbYuKzWpNoKIDnMaryNKKSoxyHIsS+W+h6TIcoEjSKJRD3V8y/Eqmn
+	 XhYpVjFwx40Qe9lJPvahTeuWdHm1VYb/4OMV3V5P56yKoK+vCq0OakJjRxkmE+/bNm
+	 CqBNsU46UizbrfNkUde86RE2+JrUxrlUX0foREb0=
+Date: Wed, 23 Sep 2026 14:19:36 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Mika =?ISO-8859-1?Q?Penttil=E4?= <mpenttil@redhat.com>
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org, David
+ Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>, Leon
+ Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>, Matthew Brost
+ <matthew.brost@intel.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>
+Subject: Re: [PATCH 00/12] [PATCH v14 00/12] migrate on fault for device
+ pages
+Message-Id: <20260923141936.d1f9e5b85355f0bdc6a6ecd2@linux-foundation.org>
+In-Reply-To: <5b1d0fa6-d183-446e-bc52-56e0afd3f398@redhat.com>
+References: <20260922053421.4092027-1-mpenttil@redhat.com>
+	<20260922192726.90dec3c4c77b8c9063dbf218@linux-foundation.org>
+	<5b1d0fa6-d183-446e-bc52-56e0afd3f398@redhat.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923104054.3324830-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=ISO-8859-1
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 11:40:50AM +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> The WDTDCR helpers access the register directly using readl()/writel() and
-> therefore cannot report failures to their callers. WDTDCR is located in a
-> shared syscon region and will be accessed through regmap in a subsequent
-> change, where register accesses can fail.
+On Wed, 23 Sep 2026 08:29:34 +0300 Mika Penttil=E4 <mpenttil@redhat.com> wr=
+ote:
 
-For real or just theoretically ? If for real, warranting the quite
-substantial and invasive error handling code in this patch, this
-really needs to be explained further.
+>=20
+> >> migration). It is also tricky to code correctly. One page table walk
+> >> could costs over 1000 cpu cycles on X86-64, which is a significant hit.
+> >>
+> >> We should be able to walk the page table once, faulting
+> >> pages in as required and replacing them with migration entries if
+> >> requested.
+> > Sounds sensible.
+> >
+> >> Tested in X86-64 VM with HMM test device, passing the selftests.
+> >> For performance, the migrate throughput tests from the selftests
+> >> show similar numbers (within error margin) as unmodified kernel.
+> > But no performance benefits are demonstrated?
+>=20
+> There are no performance regressions for current tests.
+> Real benefits come if want to do migrate on fault.
+> For migrate on fault today missing pages are collected as not-present and
+> the caller has to fault them and re-run migrate_vma_setup(); folding=20
+> HMM_PFN_REQ_FAULT into the collecting walk removes that extra
+> fault+retry round-trip, dropping two page table walks. Page table walks
+> are not cheap. Not to mention simplified implementation for driver.
+> Also, the vma looked up as part of the walk is readily available for
+> migration, eliminating the need for explicit vma lookup - one more
+> performance benefit. Net effect two saved page table walks and
+> one vma lookup.
 
-Thanks,
-Guenter
+It certainly sounds that this series will result in performance
+improvements, but have those improvements been quantified?
+
+> This series also addresses the vanished/reborn page table while
+> collecting problem which can crash current implementation.
+
+Oh.  I didn't get that message from the v14 changelogs, and crashes in
+the current implementation are not what we want.  In fact, addressing
+those is more important than speeding things up.
+
+Under what circumstances to these crashes occur?  Can/should we we fix
+those in a minimal -stable backportable fashion before moving on to speedup=
+s?
