@@ -1,128 +1,88 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB2157D202
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:43:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790196206; cv=none; b=NHt7sGm8YfqpMB7vEZ/mpJXnSv3cny2x0Rkgj5mVCsijjyfbi6Pr7eU/RamlxKt6ysKYqvKH1DDWHH5/t/o38+CsLnMk+Er2oaeYdP/6p21dbDqdmqA2XIrPXHqBKR9Xi6kAFwD5IBDIUoGKTUsuggHbRngQPi6ZS06blrjmMSw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790196206; c=relaxed/simple;
-	bh=MkdxfzNK3Aw/xczi5euKuiD+ogoT8JhdeeYotSXEeEI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fqBIW8T++KtSjcQAQ/9SiFlGAPNlMLs8aqVW7LhY7+jqwZRIzo0IeK0SYCkYzJ5K85PSbE00OMf/l3XcfoAArQYjBZl8tF4Fbx4SCvTXXTzxywp1HXuvRmjXOlh7Xv2BXuhWCHXtEL0AXjoRSVWhcRz/8UtvhILcWsCAGwQOBW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=mhs4PXU+; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6502757266D;
+	Wed, 23 Sep 2026 20:44:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790196284; cv=pass; b=ba6IkucA7WgD/gj9RcQxCCdXL9ZwIQVvtaorHUha4UmOTjcQkTW8U9GEVIx1qQYUqU0sYvNRMefUF+EMWgmlTyUKD1ERrNHpSMn44mmp+1kqYZQ38eCpY9eL6U2+jzW73vlp/gWxBWy088csg2jU22dur9ymwT7MTlgn3f8BNNo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790196284; c=relaxed/simple;
+	bh=nIvStNaBwCUS9YqtzrTcJ+q9eFKmm8kIUj274/Rdrsg=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=D1fqKDyCd5jgaJlcIVEs1D7whLyQW++e9mSjx72fm4Zk7yf0UH1mR7CAv4gZWHQzvjKOXDSbMiQu5BFjFqNhOwn/zbRS+5Z3yp8oKGIHBJW068hHe12L7vUYeoTstwDKEeYv0nUMCe4J0qPM1d+Ozu70K9HtlQqFbgLIJJ6YpMA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=f+AiFKSs; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="mhs4PXU+"
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id C3F013F786
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:43:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1790196202;
-	bh=E0S4RGo400gWyKWjQ6KReY99+fLF22ntkggQIWdD5/A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version;
-	b=mhs4PXU+tDH9wva3U5RbhCrybJyUwyl41YVnGyVu/wLKoevIOZvd/AONgk5kfp9lV
-	 61U4b61JbLWVsfi2YUq/ZguUm5swQRXSnihSqgqj2B1nXw9whv4+PJxdOfM3FiIaVN
-	 9E4bHFn/dz6DS37uro86bh03A0/ZTiWqSlVa08QkEVod23Ficxzwh4mRZ8ypwMaxJp
-	 UqKQsXFPzjyQGgaas1Qfc8tfHw2xciLSvOuh7XSRKECubizKgbGTweX9L3PI1mvKAC
-	 xA015E0PU76bEdx5r3yfXDQVrFgWx3crhGK1NrhJQB5R8ZWnCzB5gDY+4b3MxbKJB5
-	 5NRQcnvHeGOvw/Lx5WzipgMg3+PZbr2cPciBj3ZNE1HQFXvfmSixPQtC5sWYzEv5b9
-	 MVggwLwMZGShr4A8KLusY8dJf06KKlG6HlOoQtbsPO+0Cu0zfM03X1e+5lVWoPrNzQ
-	 j0OaZAtiOntUguLNWbf5igxLvfh1dNMCZVGfJYQK+sJDOUp3j1607a7wobr9PT1et7
-	 LW7xq8iAz5RGyksBCs0UDkzv1EudpXbktT7zZBO0X9vLucO+4wT5BC0VfY8x5jaE0z
-	 flpCMUlk/y/iEnNEMVo0FiwdlCI7COBQT/I1K8U5vUyN/5/SyRzr4Rxb6ToJOdilTt
-	 uOGfHr36QENiZaq56WuvD3kk=
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c25edb54d22so149422266b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:43:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790196202; x=1790801002;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E0S4RGo400gWyKWjQ6KReY99+fLF22ntkggQIWdD5/A=;
-        b=UetWxL6xCCoUuxsUoFeQ+DOQ0DDGsIDaZyrf38xs9ftM6ol1xOZSeg9OwWp17AW2oo
-         SA8yVS/Rh/vxUxEH9vtLdMBpnYA7rpRxwyGb9ZM87lCKi5rRrHUg0K74cSTKlUtFUIka
-         L/Jqmx6bDR0O0VmkGUrhenk1iOdPqEeZHlG2tJgz9kOPTWYX0og16TKXkVneR+KJbev+
-         G4xTKXzIrd96XAC3JBgYRKBEmJjrIgTusveMEFQu3Mv1VjuLkEXw+v/Io8lQMaAbDMnO
-         ++4LoyQ3WG1GFtOmte4cjBuv6aq6zGWW3N0J1vhBWxfCe+k0DquKAqgwuuU1WuA+bDfq
-         RFeA==
-X-Forwarded-Encrypted: i=1; AKwUvBxacF9P9Zrm/pKXATIj6yuhTrAw1Zu64nMpcP/W+8YAEFVGbMDJZd+NYIg6bDG9AiRJUHXwBFb+EOaNxVg=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3HNFSDDvAgXm3uisbH6AbluhGx4lXiLkw+w3dm56OfRFovIXh
-	AkvR2iMN5TZCk/QyCCpPeww7myelzbVvj7+A4BtpQmq+JZyFcqhGV2gFgBqS2Bg8kDbB6aoVO7Q
-	kyzAiSdNBd7aWO6/UOr3wq93uVNlx1M7bBpYaWCgfoa8yCg5NKTtCB7gd18auKS9QZL3kuemlOk
-	Khon/dzA==
-X-Gm-Gg: AYBFou2q/CbKsYiho2ygaWe1Ia32b7YHAyFUHOMyEv7M5irxLF83EAa1KE5UQeu3uMW
-	FADWmrVyz+qRn7pm8q9uPU1jzlN6+60t/7Wcjp1Cni9IJUHgIt5IEUriP0BIJ71syggQE9xsgdz
-	FcoVo22MI7n5UUrCWQXKwkV1CT+YrMDM8Fz7h9TQ9nCalBZNxrxb6UWJGwsL16JT2IVvgkyeTem
-	f3HpYOlQpa0uUmhyPBkU71vEPDc8jZb8PA/H+aTat46CdxG1PGZ4Kwg+4dRlUqsurIR+EGQC/de
-	oDTByc3GPNK0jINcnVwaJfb9tqyQlCTD5ia6OYFA58VIk/My/q/ZPT62DjAEN7dt6jR7D1Vjcmq
-	Ha22PvKSTNM9cIlJTVYz3eXZx2g/+lxct3VApB9/f5yaIrqjRfip6hTDIydYKv4KBRIwFv0YE
-X-Received: by 2002:a17:906:f588:b0:c2a:6c3:9e98 with SMTP id a640c23a62f3a-c2ac22a7cf7mr23776266b.40.1790196202381;
-        Wed, 23 Sep 2026 13:43:22 -0700 (PDT)
-X-Received: by 2002:a17:906:f588:b0:c2a:6c3:9e98 with SMTP id a640c23a62f3a-c2ac22a7cf7mr23775766b.40.1790196202124;
-        Wed, 23 Sep 2026 13:43:22 -0700 (PDT)
-Received: from deep-thought.gnur.de (ip-095-089-205-015.vkd78.pools.vodafone-ip.de. [95.89.205.15])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6a4a00sm185431466b.46.2026.09.23.13.43.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:43:21 -0700 (PDT)
-From: Benjamin Drung <benjamin.drung@canonical.com>
-To: Arend van Spriel <arend.vanspriel@broadcom.com>
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	Matthias Brugger <mbrugger@suse.com>,
-	Benjamin Drung <benjamin.drung@canonical.com>
-Subject: [PATCH 2/2] wifi: brcmfmac: Add clm_blob firmware for brcmfmac43456-sdio
-Date: Wed, 23 Sep 2026 22:37:39 +0200
-Message-ID: <20260923203739.2560527-3-benjamin.drung@canonical.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923203739.2560527-1-benjamin.drung@canonical.com>
-References: <20260923203739.2560527-1-benjamin.drung@canonical.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="f+AiFKSs"
+ARC-Seal: i=1; a=rsa-sha256; t=1790196241; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Od7M/wSA5tzikDii9QWKFsoZ5vgDGjBtzcb0bvM09AK5BcZv6uRozRAf/zkyysrYxvO4t595mzW5PyALvuzvvR37ZZ3peVnKipwOvI/jptXo54FW+flUddvRWMN/PTXhu1lyT+NbrzmGJhNkuLephmGZMzIiTuFS3qG+w//vKsk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790196241; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nIvStNaBwCUS9YqtzrTcJ+q9eFKmm8kIUj274/Rdrsg=; 
+	b=lCseOl7ivxGPJqyykbMcQIb8pZ/fjUlZ+FQMknbBP4A7TEjAt9jCYfZe1mkpWfmE3J8pAm8Vnqd4vCOBZE8x2L/M9K6KrbYn04iZ/pTJ3Aob31hb7YGYYHg/3GI4hlRgL8i3FnqzbXXBG+y0viAzZ6N1X70oJQw1Qxy8oauSpmU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790196241;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=nIvStNaBwCUS9YqtzrTcJ+q9eFKmm8kIUj274/Rdrsg=;
+	b=f+AiFKSsMJLBM/RFvzar2N0OoUiswUecC+yuWuXB3Xpjz+smTTtjuKGSvLSlNTfL
+	thwigXIAFp7ndkJE1GUxOFHoT2oeaFm/cyUWyWrM8aqPJ/YY8SU1RkrD1LNFMLXSrzI
+	lYRbM30+eQghQF6MS87/g3T/Mz9NiEOT3FqYV08A=
+Received: by smtp.zohomail.com with SMTPS id 1790196240105565.6208435910355;
+	Wed, 23 Sep 2026 13:44:00 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH 3/9] drm/tyr: add MappedBo, a kernel BO with an
+ always-valid CPU mapping
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260915-tyr-interfaces-v1-3-5d28f1f75aca@collabora.com>
+Date: Wed, 23 Sep 2026 17:43:41 -0300
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Lyude Paul <lyude@redhat.com>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ John Stultz <jstultz@google.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org,
+ kernel@collabora.com
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <F5006B5E-CFC1-4EA6-9D15-8D68CBCFE2ED@collabora.com>
+References: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com>
+ <20260915-tyr-interfaces-v1-3-5d28f1f75aca@collabora.com>
+To: Laura Nao <laura.nao@collabora.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-On Ubuntu 26.10 these firmware file are missing inside the initrd when
-including the brcmfmac kernel module:
+See my reply to 4/9.
 
-```
-/usr/lib/firmware/brcm/brcmfmac43436-sdio.clm_blob.zst
-/usr/lib/firmware/brcm/brcmfmac43456-sdio.clm_blob.zst
-```
-
-So include the clm_blob firmware file for brcmfmac43456-sdio similar to
-the other firmware files.
-
-Bug-Ubuntu: https://launchpad.net/bugs/2168109
-Signed-off-by: Benjamin Drung <benjamin.drung@canonical.com>
----
- drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-index 3cff0f1fe25f..cea52d408817 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c
-@@ -618,7 +618,7 @@ BRCMF_FW_CLM_DEF(43430A1, "brcmfmac43430-sdio");
- BRCMF_FW_DEF(43430B0, "brcmfmac43430b0-sdio");
- BRCMF_FW_CLM_DEF(43439, "brcmfmac43439-sdio");
- BRCMF_FW_CLM_DEF(43455, "brcmfmac43455-sdio");
--BRCMF_FW_DEF(43456, "brcmfmac43456-sdio");
-+BRCMF_FW_CLM_DEF(43456, "brcmfmac43456-sdio");
- BRCMF_FW_CLM_DEF(4354, "brcmfmac4354-sdio");
- BRCMF_FW_CLM_DEF(4356, "brcmfmac4356-sdio");
- BRCMF_FW_DEF(4359, "brcmfmac4359-sdio");
--- 
-2.53.0
-
+=E2=80=94 Daniel=
