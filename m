@@ -1,109 +1,104 @@
-Received: from mta1.migadu.com (out-231.mta1.migadu.com [95.215.58.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D5E36212D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:48:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.231
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BE0363095
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:48:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790128099; cv=none; b=OyHvmzmx25X06p+DUqKIkrJLkwVujCWrr2z5EF9s3xps5pJ2QOBNMTtyFSUBGmdWDWKO0MoDZ4geP6h6kIelp5PtwcZS5b9bR52I2I/BfmtRgopy/wmKAGqwSO2sDUesCd+efQQBQPfyOlggjQWpp4PTcECjE3m1XLHkBUjS8tw=
+	t=1790128118; cv=none; b=UNKnTZVW0u9CYD5vlGJtTWhQLz46SwsVW7NqqIFT0/b13KoVwlg7yNdtVKlaNk2guwa4svHSTE3glxQR6mzjlXvC/oBIqgtVXZ6GDJPwov7p8V6YxcGDzn+6e/+Ly4dW+4/ms+IW43bS83osNGoI4OCiQBvrKlhFgxexqfLdkx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790128099; c=relaxed/simple;
-	bh=u+X6/vxg2v3iHeoqAYncrYBLXI0Jh253vVMVoJ9VuHI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EgQZGlenC7Uo+lzZODhv4+IxJyHUkGQzFK1BHVVEFMp+jMEwBuEK6ZfxNPhdBCI7ZHOYcrE6tppOubBbiC74ApHzO1h9UuYmFE8I56WIRmyY9Hpjd7hSgzmPLClR39TILtOIJVcczypFoJB7jyA72FapGIvv2ibc8nBMVSZFVZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qa/yn8YB; arc=none smtp.client-ip=95.215.58.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790128118; c=relaxed/simple;
+	bh=NXxtGQEw3lJq2ywZ3JodKPpLNNcsOYfg8Wng3zlbIg4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=f+z/muhs9GxQMKYh7huWIp/O9wYmN+sJ/9dGRh3jQ8kBkzugnw6ZO4mMNDwn1IRp/bMflfwU5FB6xyTUlRtNVoOAf1UEay+QBVTdECYtcWEBosJokxU7fMRi+BCrDUMFbdgzeS2evva6SmS3dxB90BZBQhJBcy8yQGpkvMZGbIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ddYDm/w1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qa/yn8YB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=u+X6/vxg2v3iHeoqAYncrYBLXI0Jh253vVMVoJ9VuHI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790128095; v=1; x=1790732895;
- b=qa/yn8YBih4LMpi3db42eaNAP2yLhX9XrHDF/GkwmL/BL0ekx+QcyJCEVavhSQBSJd2awIXg
- Rgs3ZeuuCzQk8JFJ/VEh+QBDCBCQziXWLgojLtxA+RYj9hX7f32SukLhOgmYiYUwhUySEAf6ADa
- R/Q2asSgaVCcjXcmqfMjNBz4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 3968b3c81cea4a5f;
-	Wed, 23 Sep 2026 01:48:14 +0000
-X-Mizu-Trace-ID: 3968b3c81cea4a5f
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 23 Sep 2026 09:48:08 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net-next 5/5] selftests: seg6: add End.X PSP selftest
-Message-ID: <arMv2FE49vEwM7BP@fedora>
-References: <20260922-srv6_flavors_endx-v1-0-4d01c05c47b7@kylinos.cn>
- <20260922-srv6_flavors_endx-v1-5-4d01c05c47b7@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ddYDm/w1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3D01F000FF;
+	Wed, 23 Sep 2026 01:48:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790128117;
+	bh=XstYQSkFZPa4cglZOxjO7EMZGeq2UwulVKwwU1m5/mY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ddYDm/w1eauvS3GtuwJjEmaoqcDTT8THiHyeLuMjikCjvy4Tkrwld5YTG3T1Hx4KR
+	 jsocDiUVSLL2m2rt3XkspM6n+1xLk6jfcnpIIjOIc3oPfKaTPuHzoEQJo9TXFnW4MM
+	 GFVn5T6IN/X358ru/LvwCCLVsTtcu8aXESyipxtfzPRkFDw18xzD0KKSmpVmDtcFsY
+	 t2MlWL+AnpPa3ozfRxwz66oUr78cZwkqLxHgIKyBT2VfjGOVsGPf0DVPu8au4RB5r7
+	 9KYHQJsj4JvwtKI/xkKnYqllf2jlp6sXDce24495avCacpEY0z6su7oNd3dql8bLe1
+	 oCcR9M3y2oSHw==
+Date: Wed, 23 Sep 2026 02:48:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Bence Csokas <bence.csokas@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Conor Dooley
+ <conor@kernel.org>, Yicong Yang <yangyicong@hisilicon.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] cache: Make cpu_cache_invalidate_memregion() error
+ out if there are no handlers
+Message-ID: <20260923024832.53b104c7@jic23-hlaptop>
+In-Reply-To: <20260922-cci_enxio-v1-1-00bade212729@arm.com>
+References: <20260922-cci_enxio-v1-0-00bade212729@arm.com>
+	<20260922-cci_enxio-v1-1-00bade212729@arm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922-srv6_flavors_endx-v1-5-4d01c05c47b7@kylinos.cn>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 04:54:47PM +0800, Hangbin Liu wrote:
-> From: Hangbin Liu <liuhangbin@kylinos.cn>
+On Tue, 22 Sep 2026 09:29:31 +0200
+Bence Csokas <bence.csokas@arm.com> wrote:
+
+> Currently, if there are no registered handlers,
+> cpu_cache_invalidate_memregion() returns 0. Callers are expected to check
+> cpu_cache_has_invalidate_memregion() and return -ENXIO themselves, instead
+> of calling this function. If a caller forgets to do this, they may
+> erroneously think the operation succeeded. This is in contrast to x86,
+> where cpu_cache_invalidate_memregion() itself checks if the operation is
+> supported, and returns -ENXIO if it is not.
 > 
-> The current selftest only exercises End with PSP. Add a new test that
-> uses End.X on the PSP path so the kernel's End.X flavor handling is
-> validated end to end.
-> 
-> Extend __setup_rt_policy() to parse End.X action field from the
-> router description, allowing entries like:
->   4:psp:End.X,4,2
->   3:psp:End.X,3,1
-> 
-> Since SETUP_ERR is not set in one setup function, and the middle test may
-> set ret to 1, we also need to check ret before setting the result as SKIP.
-> 
-> Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> Signed-off-by: Bence Csokas <bence.csokas@arm.com>
+
+As you noted short of a race we should never hit this in practice as
+all callers must check for support first. Still good to close
+that race.
+
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+Jonathan
+
 > ---
->  .../testing/selftests/net/srv6_end_flavors_test.sh | 83 ++++++++++++++++++++--
->  1 file changed, 78 insertions(+), 5 deletions(-)
+>  lib/cache_maint.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/tools/testing/selftests/net/srv6_end_flavors_test.sh b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> index 52731983b4cc..e130d0d71b3d 100755
-> --- a/tools/testing/selftests/net/srv6_end_flavors_test.sh
-> +++ b/tools/testing/selftests/net/srv6_end_flavors_test.sh
-[...]
+> diff --git a/lib/cache_maint.c b/lib/cache_maint.c
+> index 9256a9ffc34c..132d2816d6b1 100644
+> --- a/lib/cache_maint.c
+> +++ b/lib/cache_maint.c
+> @@ -59,12 +59,12 @@ static int cache_inval_done_one(struct cache_coherency_ops_inst *cci)
 >  
-> +setup_endx_flv_psp()
-> +{
-> +	# Direction hs-1 -> hs-2 (End.X PSP flavor)
-> +	# SID List=fcff:3::e,fcff:4::ef1,cafe::2
-> +	#  - rt-1 (SRv6 H.Insert policy)
-> +	#  - rt-3 (SRv6 End behavior)
-> +	#  - rt-4 (SRv6 End.X flavor PSP with SL=1)
-> +	#  - rt-2 (Route to hs-2 via nh and oif)
+>  static int cache_invalidate_memregion(phys_addr_t addr, size_t size)
+>  {
+> -	int ret;
+>  	struct cache_coherency_ops_inst *cci;
+>  	struct cc_inval_params params = {
+>  		.addr = addr,
+>  		.size = size,
+>  	};
+> +	int ret = -ENXIO;
+>  
+>  	guard(rwsem_read)(&cache_ops_instance_list_lock);
+>  	list_for_each_entry(cci, &cache_ops_instance_list, node) {
+> @@ -78,7 +78,7 @@ static int cache_invalidate_memregion(phys_addr_t addr, size_t size)
+>  			return ret;
+>  	}
+>  
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  struct cache_coherency_ops_inst *
+> 
 
-Oh, just noticed that I made a mistake comment. It should be
-
-	#  - rt-4 (SRv6 End.X flavor PSP with SL=1, route to rt-2 via nh and oif)
-	#  - rt-2 (Route to hs-2 with same subnet)
-
-> +	#
-> +	# Direction hs-2 -> hs-1 (End.X PSP flavor)
-> +	# SID List=fcff:3::ef1,cafe::1
-> +	#  - rt-2 (SRv6 H.Insert policy)
-> +	#  - rt-3 (SRv6 End.X flavor PSP with SL=1)
-> +	#  - rt-1 (Route to hs-1 via nh and oif)
-
-Same here.
-
-> +	setup_rt_policy_ipv6 2 1 "3:noflv:End 4:psp:End.X,4,2"
-> +	setup_rt_policy_ipv6 1 2 "3:psp:End.X,3,1"
-
-Thanks
-Hangbin
