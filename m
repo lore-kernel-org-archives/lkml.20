@@ -1,125 +1,141 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96582147E6
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B655539734A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:16:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165796; cv=none; b=NmTkhQ9kQ+hyuArj68VQrjm8tRpRv+BfsiAd/Sw/Ee2R1FEPof9fbKxMo0z9qn+CowVs9B54GTret9pj+V7gqCImg5IvZfwioFVGboQYsSPeTw4c7ALptie7lYEx8Qlb5hRU2HVYpyjxEMp6Ig09OQFPVwHHaBtss7VD870PJi0=
+	t=1790165805; cv=none; b=p5ZfYEEP/DBZMajDvZXFAdnUHCpEIf4mpL1nnFk+8JR5RBwOaKqpl1EFrq4t2dtXKf6pc5wlkum22P0LEVoPm4Yi8zKEzDTS70Vd7/Sy6L+p7Kz+zPVDw25gd4EAfn42Xjw6EtzXhXxgMhDPl714X0y/yVVjt3PUAy4O7c3K4ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165796; c=relaxed/simple;
-	bh=nBggCNPH6bpTzD8mrC88cZnve5HLygAexyN0l35Ms20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fsNSAGbLBdS1C/5DBxr1GurUuMKaZ9btzVXfc1bqC9c6iWmSq767ofj5VoIEIPxjAl+t/iG5esbBOMTTTQuIDdivIUEbKDGcPwrcoKjbszhXKIHu4ycADXxNmuzWPXaSJGorarghhdIXaQ3pT5xDF5c7x5SSJZTLAcr0VWyEwSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=EXLJb5JZ; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790165805; c=relaxed/simple;
+	bh=3fuxE0K0pdKY88jlD8b9+b8jsBFzputLxXJvAFlNEoc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=d1m8dzcyICMLi1t3PhdbeXpqlOa86127sEFLHu6qpmyAwIC/efYLhBu+VbV/VkyrMRhbTAT/ObfWRTyy2Xh/Uxm1M5LXBrM1Ct7puVgJKngOxi0sD2Wz8XX/5KL7oNsmGlRbzqdQBGR3RukD1Kncyun66xItJPT5JImQuBteEkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QuNQG72c; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="EXLJb5JZ"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ce364488dso2645425e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:16:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QuNQG72c"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac898fa4so882048f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:16:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790165791; x=1790770591; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0ixtpD3VykLYQiC4EZhJm008QI8qw2KZpD5O738a4zw=;
-        b=EXLJb5JZ+HSSrSfE+YMJ+9U941PzVwaK/Os8mXaajGYk15XOAG0g+x7aMRPZI4ULph
-         ismuHnTcRXoZ4lmjbA07uJmP3RtHUQKmT4fZHJzI89Wa5vsySXfFSc2Ac6TallGSeWEN
-         EUGRHL0n7S8M2RTBVyhgEaG8k+nujYz69XOX0gPmr+AWNV8LS5SgmvykFc+Gfb9uaToI
-         nzq3eZWBU0iVlaJvlGxBVfQ1bFsjdTDCdU0dZJKP/JB4uz8Vbc1Tvf53opoJVTGcrXiU
-         Q5ifwyyn91ud8Nu+zPYCjgO7K+lY+hejn2hvUfzxr0EN7Wq7r/B22Hj+WkWAJceDrZO/
-         +SMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790165791; x=1790770591;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=linaro.org; s=google; t=1790165798; x=1790770598; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=0ixtpD3VykLYQiC4EZhJm008QI8qw2KZpD5O738a4zw=;
-        b=om91IwcZmxpkyHRUURMfyfDvO30sqPy41H+f2U3ZttBDjI6PTBdhtweVn+PAYlgS7v
-         7hIsdCMTYwhR22G3agqP4b8HcyCbf8Qh/WlrKP9bl2y6rx7PoYU/zdKg1p8WRleUPaXP
-         zwUFBtR7BVi7dp37T1SqJsnhqBc/b/fIEslM6Si7R8kFfRwwUP72oYEcDuQsD8x+MlXv
-         jY7nVPuCt+YC0tVCavhclZrMH98QvzVUMem6ZKo6JrZ2TVunJZvRBNRjXB2uGoF92l6m
-         C8mHNKVnOkJa/xiFtsEQquAKy5fuT2Y0lGm0TVHteETNVTpMGW2Pqx0pz+0ksb0kzMS3
-         msrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzl+UrlYpVWxOLtPC5B7Vi7nk6aMM78fCYvMruP2hCftjLI+nIp8/LfA7JzGIhykir2WngCqggsQOCdlvQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgoPaqE3CBbYvPfOSDYffZSPgqFoGyltXDqhNrrRwYpiQ7Fkw8
-	IOS5z3BKCtVvVZSI10PBPQlZqHqRHrCcanOlHWV8eR0uQsLoscsB2lIGGYZyXK7AVaU=
-X-Gm-Gg: AYBFou2OOLbv9cD5vFfWXjEprBf1dJXB7tnQN54MCz69h0ZgHM555iWvqEbRfye36zt
-	VTWgLT4a8XYzMdBuaHqtL22zPkRG5vLhNVYb2A+0b/AFP6gh7VewIMhceZMn2xo0+1l7BdCRGH5
-	8s5jZtT/ldvoqB0YJy0wZV/LqYA3a3nce3B/s1N/IFkkGCb0dMhhjmz0tYpXmgZXHY2wuqdyd4V
-	KocGe4Svk1qQrzbReAn7HgDCFOWR05bIWmrByh5FkTz6c52VDDX9Km1pxX45jjimpW1Vk3dhr3y
-	fcuP3q93FFts8KluaXpiirGEVAse1rn3E8s05Ho94hcKPqy/hS274ru09EF77+Qz34rn4VPafBg
-	F3ACAnFRiceWOP0/Y5AAbc+W3APp7E07O9jS3I9Hze36+zjX3J6dsLZVfdbAisoG891mmWbOcZL
-	nmUeX0Nfr+C6U5kcxF9s9UfZXaUE4SNFZtQ6jmOyrq+unGEuYcmrFC6BwEinVR5maVIZxgL2cMd
-	ytyQRl9oeegJOg=
-X-Received: by 2002:a05:600c:1d1a:b0:49c:e37e:4389 with SMTP id 5b1f17b1804b1-49fde360116mr36490405e9.4.1790165790614;
-        Wed, 23 Sep 2026 05:16:30 -0700 (PDT)
-Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde198f85sm77809395e9.8.2026.09.23.05.16.28
+        bh=B3p/QU7OMVVYXBcpiGeqAoPHE1xk40WRckQQBqak4y4=;
+        b=QuNQG72cCnzHBrizFkkcS/yV53tq09AzzS3e/jSS3v2VPdMsJ2ePthzOOVNcnU1bZN
+         RsvyzwiIxurFD4zP03/1+ts4bHpmaci6jSQLBGPpprLBCJQlNGrBWDfKiB/y+UFx7EJj
+         lQzs6X5iGA2y9F/8YMbGlhjajywlbvNZ9cyHaV7K/TzMd6tcDd5MN0vj2xOoP5VWKyyI
+         C2tbhEYNK4a/eleB+6IsKC2hFxxo5Ib6fJaQOVvR/DoXQlljeCRuj5q1KoYVA8hzYMfO
+         OIJf8m0Z+AXaSeikAyS1IKq0t1s3X+8zriwFTJb9FQgPn0QUMekv2yJ8tD2ZlcFM6ESn
+         N3+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790165798; x=1790770598;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=B3p/QU7OMVVYXBcpiGeqAoPHE1xk40WRckQQBqak4y4=;
+        b=ab0x6SSOTFujUZOGcHUNVtrmGZwnCA/KNKxV90PY/1LGJXyjkdamqey5UxQTCmUBza
+         5K929dOGIktgAvaG6EEnngg0FiXP6PvO8EJ0bIdoC2KM2ApGfL5Hr6J+Rq7qJRnZ5CDX
+         oxDWDljP6fPu/dtFFIIjhih4guJNnyftD0ZPUwnTlIPXJlIk+S8XPB08IqqhPr7D5b2C
+         jhNhgkLq7QZdxjltTQ1iqbJUp1F8wL9zi328Do2Jhej4l0JQNFVGme1370MQhhkq82/q
+         CTxPX5c0MPy5t7wnFe6HHuP0sM1uiHiz5tHtT0Qs7fBMybbATfN54awUrg7hRJU848hq
+         kE2g==
+X-Forwarded-Encrypted: i=1; AKwUvBz05KvTlb7huUipRtyKCIiFb4IQMxcvdC/Q4qpkB535XVJdiGJg6jvkBy96t+R0gRVKyqmOAIXsZc1pACY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXqktreYsu8Pf52xiDSJctuIKAathWsv5K966xCZqkn5bqAtl7
+	lamk0NRR54tMBbE5VSjenmlgbOfUPtDCoiKDn+3RFeRD8Ngaq/d1amNh4GRPh/7S1fI=
+X-Gm-Gg: AYBFou3WFLBBD1Dq5IhxuGJPX4I1eygzCqjxJV30rLqE4Ogxmlb6MUVhHXNUSKWARGE
+	CJ/FrxNXbdubFA888knAsUW3v+3K/REFQYMZIwLfz1zgEO1jckY7jFT1bsFhsIxu1C7KBDL1xBd
+	NN9DV46hJPDyEaZUto5//+oq/v3L22KFR1aRuzK0w4MSWAe2d+55aHnXyomgQoNWxNvK+HyxYsE
+	KP0FLaSeXwmBQBRo1VxWvjQpUoLU29iO8EUyNJCnR1+nMgtzXr6vT+SOD5UWi9zMHhqd5dzSGEL
+	lIJKnEEDB63N3yNG5jUEvEUrM95VE7sdtNRNDymWoe4aEfxayiiEwUcK1/24zoejx9Xepiwvsq4
+	isYTMFgLsfCe7U5Qm3KYSj3EM4xyUpksWdh1j3eslGNHic25KLfymi63T4DKmrovWBwFeCpidQn
+	+1vH4VB7ISnmlWFe0faoH15hTTQkRs1zZRycMB2LpE/MUJ2TrvKEkJppk6JbwUan0T0r0TsAy//
+	wlCXTUjxgj6XARYGZ4=
+X-Received: by 2002:a05:6000:2506:b0:487:c4c:b7fc with SMTP id ffacd0b85a97d-4886704a279mr4171071f8f.4.1790165797727;
+        Wed, 23 Sep 2026 05:16:37 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868889376sm5410298f8f.33.2026.09.23.05.16.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 05:16:29 -0700 (PDT)
-Date: Wed, 23 Sep 2026 14:16:25 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: John Ogness <john.ogness@linutronix.de>, linux-kernel@vger.kernel.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: Re: [PATCH v2] printk: Use two irq_works instead per-CPU
-Message-ID: <arPDGWWeBEb1b3vW@pathway.suse.cz>
-References: <20260914143412.1sMcp89V@linutronix.de>
- <87zex9tcip.fsf@jogness.linutronix.de>
- <20260923075512.SBaoMRXt@linutronix.de>
+        Wed, 23 Sep 2026 05:16:36 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH v2 0/2] arm64: dts: qcom: sm8650: add support from Valve
+ Deckard headset
+Date: Wed, 23 Sep 2026 14:16:31 +0200
+Message-Id: <20260923-topic-sm8650-deckard-initial-dt-v2-0-8361c4548efa@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260923075512.SBaoMRXt@linutronix.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB/Ds2oC/4WOwQ6CMBAFf4X07Jq2sUU8+R+GQ2lXWMWWtJVoC
+ P8uYDx7nGTy5k0sYSRM7FRMLOJIiYJfQO4KZjvjWwRyCzPJpeaVFJDDQBbS46gVB4f2bqID8pT
+ J9OAyiMooLXQjeGXYsjJEvNJrK1zqL6dnc0Ob19nV6CjlEN/bhVGs3q8m/9ZGARysVFiWqnL8Y
+ M49eRPDPsSW1fM8fwDIIw034QAAAA==
+X-Change-ID: 20260921-topic-sm8650-deckard-initial-dt-19a5616b109a
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1409;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=3fuxE0K0pdKY88jlD8b9+b8jsBFzputLxXJvAFlNEoc=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqs8MjiU0x/zgmEClWkgsaJjjQSqOX50KRJE6fETJM
+ vLjSdzKJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCarPDIwAKCRB33NvayMhJ0dAdD/
+ 92PxwPuQFzpWbvqldCJYKmTFyhV7ZKbzcPXp9lnnss8iBvzHrP0EnPo5MYIXTSKtEYEz96nbuaFx3h
+ 5iFIVLbvPN7HgZ22YI8ibfOz8n4HNK6NXw1uYq6ywjBqyhSuK7SH+dv1glevNd9lJOgIrUmY+vKjek
+ vK4sH+RfuWahRp3uPf0CyWok0KkOjV1Lz4lTjElKYnwioVU9YlwCE2TH0i4SXvWPOSLw9r8ZCt/5bs
+ GkDeQ0yz5RkPLlUQg34KpihjW76ZOPYicKp0rx7wZSCLxRxbUnCI7780QdhpA/lxNCuWg4FFpGljnf
+ 3Dr0sDUNSXGPXMai2q7rfe4u5LY9N8inrAfOj03iYnIDB+iX2oeDguFkoYHAWl4H/lP5vMa35E1uDv
+ 830YxzyPXL6R/5MvahLzDabSY4AzVAMlYkNrYUGXiBTnQAWfWyNdh6VTaLDr/2h4OORl/qWWgYqqSJ
+ 5s5f6Nm6VqwF6ZdTPgPOcQYAfVOqKLsAtTIy6Q5pEsWAM1/vw3iCYRZIRUIEuwEFYkXDg3Rnp7cEBX
+ 6lQvq+kCOc/kxTYxIi7QMGrd4BxGEzjZVAOdUmYGDyzYaOUtV1IjW02YPKW9DEQt4+MeYFbx2d9u6X
+ IN8LK+k7d6iliVyBXDYIr7nXeIpgIg8yM6F/3oWGD0T4OtBbOyCKXxcauVOw==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-On Wed 2026-09-23 09:55:12, Sebastian Andrzej Siewior wrote:
-> On 2026-09-22 19:35:26 [+0200], John Ogness wrote:
-> > > @@ -4643,12 +4637,11 @@ static void __wake_up_klogd(int val)
-> > >  	 *
-> > >  	 * This pairs with devkmsg_read:A and syslog_print:A.
-> > >  	 */
-> > > -	if (wq_has_sleeper(&log_wait) || /* LMM(__wake_up_klogd:A) */
-> > > -	    (val & PRINTK_PENDING_OUTPUT)) {
-> > > -		this_cpu_or(printk_pending, val);
-> > > -		irq_work_queue(this_cpu_ptr(&wake_up_klogd_work));
-> > > -	}
-> > > -	preempt_enable();
-> > > +	if (wq_has_sleeper(&log_wait)) /* LMM(__wake_up_klogd:A) */
-> > > +		irq_work_queue(&pending_wakeup_work);
-> > > +
-> > > +	if (val & PRINTK_PENDING_OUTPUT)
-> > > +		irq_work_queue(&pending_output_work);
-> > 
-> > The ordering of operations has been reverse queued. Perhaps because
-> > irq_work is LIFO (implementation internal detail) and you wanted to
-> > preserve the current ordering?
+Document and add initial DeviceTree for the Valve "Steam Frame"
+codename Deckard. The Steam Frame is a virtual reality headset
+based on the Qualcomm Snapdragon 8 Gen 3 SoC (SM8650).
 
-Great catch.
+Product Website: [1]
 
-> > Or maybe this ordering was chosen because
-> > the code looks nicer. Either way, I think it doesn't matter if the
-> > legacy flushing occurs before/after waking the klogd waiter.
-> 
-> Hmm. I did not give much thinking into the ordering because it shouldn't
-> matter. We used to have "unlock" followed by "wakeup" in the irq-work
-> callback and this is what we have now given the LIFO ordering.
-> Having "wakeup" first might not take effect immediately because the
-> scheduler delays it or puts it on the current CPU and then it is delayed
-> until after the interrupt ("unlock") is done. So…
+Dependencies: None
 
-Honestly, I am not sure what ordering is better. And it depends on
-the internal irq_work implementation now. I would keep the patch
-as is.
+[1] https://store.steampowered.com/hardware/steamframe
 
-Best Regards,
-Petr
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Changes in v2:
+- Added labels to smp2p to make removal of the nodes cleaner
+- Reorganized properties (ranges after #*-cells, <prop>-names after <prop>)
+- Use "0" instead of "0x0" in the reserved memory reg properties
+- Use proper supply properties for vcnl4040
+- Link to v1: https://patch.msgid.link/20260922-topic-sm8650-deckard-initial-dt-v1-0-c25e7759d04a@linaro.org
+
+---
+Neil Armstrong (2):
+      dt-bindings: arm: qcom: document the Valve Deckard headset
+      arm64: dts: qcom: sm8650: Add initial Valve Deckard devicetree
+
+ Documentation/devicetree/bindings/arm/qcom.yaml   |    1 +
+ arch/arm64/boot/dts/qcom/Makefile                 |    1 +
+ arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts | 1288 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8650.dtsi              |    6 +-
+ 4 files changed, 1293 insertions(+), 3 deletions(-)
+---
+base-commit: 506632261e6aeb1aa05c3ebe4da0a9439153d746
+change-id: 20260921-topic-sm8650-deckard-initial-dt-19a5616b109a
+
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
+
