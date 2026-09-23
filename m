@@ -1,131 +1,207 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715C6463B91
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:41:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878563C1F;
+	Wed, 23 Sep 2026 20:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790196110; cv=pass; b=rbHbUxB9uXBKZQEdRjNTKoTek/BVgDLYYr1vee9txAVyt+sBZr60nDvY+eJhOHlOtLHySaWV7YFQTY3gguJGSrCw8GrKBtLXXQBRxDbJzirNGq5ODCn2xXK5dbi93sXBIx0JVoY1korF9Ts/SMf26K+FvT2RZ0iegmoipnLw8xM=
+	t=1790196201; cv=pass; b=M3kwUdgDlPsHGx/nwBlV3lBUr7pJKWAAD+mA73eEGmcE6DP3GjQTHtSoSl0kA/PWYlhoZ1yHbOKWN4DHgZJssCyhV8vZVVa9ECyuvulANox6/BZ22RjkjeYqB5HA1EMB+1z17QHGZ8vrInqLTyJ6Cd+khflhDAq85qY0q9U3fDY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790196110; c=relaxed/simple;
-	bh=Lo63KNDxHLfQPbHehQEJ2TckClhkCTu4ZWquj/U3zkE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o5MX7stXuBabRgO7THoie8l3JfwpzXo3wD9WGw/5Xkd27lwMQ2YPSMkZ6ZVMjQYoWl57K9QcDwiLgXgFKMw71ajo1eLy8CwRVl5cllp1oRtS2rA4+p1lG+bdTTq3I78l84lVpOf1/vUmF/MpuKPbyzxgZAN0CR7euEQjuo2M1A4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KK/8AOIN; arc=pass smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790196201; c=relaxed/simple;
+	bh=cQpgbVCfz1vyJ7PhUgvYbUvDkQyLBFh/zIn1QkfzTtE=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=XNcIKaDChcz6dEoYiCQMa3A9IgZwcILUUGiDJ4WrVcGasHRQTPkc9neKhGFYxPlaxwM/xuJKwN1QYGxhGKw4pKYh59N2LFxK/OCrSuUHygCd3B57LzT+ixU4/7GopbAIVTdAsVGRLeYSYoAMItKI0YuwOQqV/kVLIVmxYsvSybw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=gK9GgW7F; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KK/8AOIN"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc750a1482fso960416a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:41:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790196107; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IvIc+EP+ouLyjqpPERzUaGOOI4W0MvL51GDt9LIvzKoZ4zLttgWeNiXb9oe9oOiQiR
-         U1lFRfLi6mhdtAKIOuqtUr6cLF0wGLTEIvgDy/eQN5ePD4UnWWfTyBke5zNCzFUcWK/o
-         DcImTvt32Xk1ZlkaVAaODeibVulGitibTQ2Ldre0BSuJBhmr5jTB4CNm8TxaNXPbyIvt
-         daR/v0TAQ7Do+BZnhVygVzHjFTTfj1Z3vUPNyHv8GfEolG3fIPOVjJZOWGVwnrpR/QGW
-         cWriLVE6XRyqA8OW/sJnbN/ZQnfPwFGHRFr0fDceY5fSaXJL509YmU0NYj+OZeK+7xCa
-         2BtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=4Rk90bsYMJt5ZclNkQTVUd9tGxjSt+PKuql/N4zT35M=;
-        fh=paQVdPCbhRh4JmQ/3iO5AaBTWneFhf5xdkK+7hG6Evs=;
-        b=f1+FE30Dup6r2yZZWZvusTV06fv+eIMimO5qNhEPh/BeQNp5+VqtAWnNUU5U9Ov2Ug
-         On+1afJ5QxJfnMLvWQPgs3OjrzfjIA+pn1n4/SMIo1h40xVTPOMLacD6w3yM+18MPmyi
-         8SNB1TSLw/mddhMkqc1NkleXY/n6myLrco+evtpBbHa7IXi8t1pjBdFG86j4lmfFeeNZ
-         W/JM7/AGWdoD1Yp5LB15IdDdK2dnqPCcXrnTEPmBu7RbKfkoe8b57/cgBjYk0AU+1/RK
-         HxPExo5ZVvhq+ofJwluVhevQo6CYcsv9D2ugffhg8WL8lXjdmE6y6JhcD5LF4auaNsW+
-         gbeg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790196107; x=1790800907; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4Rk90bsYMJt5ZclNkQTVUd9tGxjSt+PKuql/N4zT35M=;
-        b=KK/8AOINc0pNtu+Va64iP13bQU9eUYg3oIdIw8s5Ci2/hAZyKMasJbc21mcIBaMp2O
-         tYDn71VCJne7qmvFIbkSfOQ/51qo95qR7NsgA5HBIJEriMBbIhIvxiFYZhsSfmlWhj2V
-         Vfv2VUQ6HmCAmTfEMxlOFKZ0bIEGYG8HvdNWoulJmu00uqDqYcrm572G+Y1kXMLXCI0h
-         BPAqhpskB+T7ptQ0nH2EPTVCCdJXsQTMQ37wOQ2jNVh6G5sfmAsa/Fa2/tNTWzhpdRDv
-         DxsuWGzD2/LV+CqwV+Q4qRy8QHf9rlVGHeyYSkjCeO/gj+hk+AjLRzeXR28FKXo1+zSG
-         4mKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790196107; x=1790800907;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4Rk90bsYMJt5ZclNkQTVUd9tGxjSt+PKuql/N4zT35M=;
-        b=xpAkTXZekNV38T07kHVw39q9N9uU6nysucGFm0AAS62OZ0qO2JT8A4ktIAXWUSBFmd
-         ip39yqiGRoKsCK3hsNWOh/S58i4tWfsGMUz6JCeJfzqj9eFh/vGL0/LteJlLYDHKAH3y
-         G1RVfDfoByvn+e/mwB+J7fRC270l6l9etfwCrYa6Rdc/dRJWdw30uP4skZphfCtlhIP8
-         DwfBWV4xtyu28eHakQcEpzl2c3U2Mzea619tf/efguRDpJEIf7hV8FiyY4okpWzNcrxj
-         dFQwxXqwwvl133DH5bd8yC/s5ErI3NP0OiaRCxLsPx4UcMsb7dDG5xsDnCn4pF4NFgEl
-         DeFQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGhD0lGpI20tofgHaFVVKHagsisxgv1nCuSBiH1uwxDyZpkw8B8+jV8EwvrES/w0/Sz7y5qI7b0A+zpFY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kF4sv4x0luh2EVG4FjF2t3r0b0ph0Hld53d9ILnzHxq3yHdOZw
-	XxqbIAMFfCbPFUBsYbwwdJ15ggurUTrXTwx2is+jcqQwClP6xp1gp/mXU6hMDQ4slzOo20r9Du9
-	yI3T8PPJTq9t8Ujy9HcnqFAVfPDsumAs=
-X-Gm-Gg: AYBFou2zVTTNtbvusSuBrmitNIWSNeJqmzykaD+DTJzKTaGXeEfBJxu74Vzud8mGYfg
-	sROUjxE6R0X+t/+apTRlDYMqKd6FS9lqNi9fQREDDvWsV8Zrk2nW9HP5nweGKb7SYMaEzlG9BGG
-	1Q6dLAk+Orxbn3h/0Md8HmtaZz0gqRVezmVulfmOxvm/r9FQr1UYc5Hoy3JfLJQ77lmmfmDSAG8
-	V03q0uON5e+zLgQWb8yHWuWDNw/zLbNiaOYqOCJe5IGFfMkLeyHbt+k+exDjrmqeMXY6Z0Krkhb
-	1sg+M1yV/lRjdPKQK7T+xs4r6U4o34RvYWnVde1W5ks/tvPc66zlJoM95no3oGzuAGoW9cUhp9h
-	/q4rH0ZActu/9zwWa2Ym3w0adpiQ+2WrSYXBwm4Tu
-X-Received: by 2002:a05:6a20:d522:b0:3dd:f9ff:f88 with SMTP id
- adf61e73a8af0-3de0ea1cc41mr281016637.59.1790196106915; Wed, 23 Sep 2026
- 13:41:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="gK9GgW7F"
+ARC-Seal: i=1; a=rsa-sha256; t=1790196154; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=J8Qty4xuAwmy9p1FDA6M4MKIbduEQW68wW5K4RMKvg8qAeHjvbdt6gLa560gn5SKk1/3ODoSz+B2LiVShTnEffY774x4pasKBFCtCaWX0DMMZzQRqYxO27sWZqCxf6F3iNts4KA0msRVm/K5Umrv+AasYLLUCBFALEgb3a3u9os=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790196154; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=xo7cgqIIFuStSgCn4luUGcQPHzo3wUQwdn1Qq+BTVqQ=; 
+	b=VBP0PCfW+ucS19AZr6VA2IULlPDugAlAIpeQwf0OWzJJEfklrHFGXPKce+yFKmMbUa4yoOjafYG8YkUU5dykK4KC2vX+B+Y/3fCU9SRlk1waiQeEQw4fUQ5LqUr8loaVKY01yAFrKHztVNX79a+vqpFBuXel2u7bS92KclvLlLw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790196154;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=xo7cgqIIFuStSgCn4luUGcQPHzo3wUQwdn1Qq+BTVqQ=;
+	b=gK9GgW7FLv0FVaPmeWXVOMiQb9TTQjskMlrMhkP8EZyo/jX1CKGHWQ0N4vnJzwr2
+	8I0KBZ0v6hseD7/Xhwd52EoxDtpeeUnNiz14hQfR+09smb7Gc+miE9elMMzw7lsXhGQ
+	pCmhQUJi9rL9Nfsfu8+xvXlvBOBhewEkTfu6U2ZM=
+Received: by smtp.zohomail.com with SMTPS id 1790196153019663.532298405788;
+	Wed, 23 Sep 2026 13:42:33 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260819144458.253967-1-joaofl@gmail.com> <2026092313-snare-goggles-ed1c@gregkh>
-In-Reply-To: <2026092313-snare-goggles-ed1c@gregkh>
-From: =?UTF-8?Q?Jo=C3=A3o_Loureiro?= <joaofl@gmail.com>
-Date: Wed, 23 Sep 2026 22:41:09 +0200
-X-Gm-Features: AcwNN1Vp4K1x9c17_VZLSp1YwuVUe8d-gHRrdZOHa6Ix1f3X9Cm2yhfxp6piCjw
-Message-ID: <CAJMWnCiJsNXsEe9JWDGBzHBGiUToco31ysoHF_Loj-9=YMQ3GQ@mail.gmail.com>
-Subject: Re: [PATCH] serial: fsl_lpuart: add support for GPIO-controlled modem lines
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Sherry Sun <sherry.sun@nxp.com>, 
-	Frank Li <frank.li@nxp.com>, Alexander Dahl <ada@thorsis.com>, linux-serial@vger.kernel.org, 
-	imx@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH 4/9] drm/tyr: add McuVa and claim-checked MappedBo views
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260915-tyr-interfaces-v1-4-5d28f1f75aca@collabora.com>
+Date: Wed, 23 Sep 2026 17:42:13 -0300
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Lyude Paul <lyude@redhat.com>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ John Stultz <jstultz@google.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ driver-core@lists.linux.dev,
+ rust-for-linux@vger.kernel.org,
+ kernel@collabora.com
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <C027787C-A04B-40AC-B0EF-62F0BBC156F9@collabora.com>
+References: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com>
+ <20260915-tyr-interfaces-v1-4-5d28f1f75aca@collabora.com>
+To: Laura Nao <laura.nao@collabora.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-On Wed, Sep 23, 2026 at 02:53PM +0200, Greg Kroah-Hartman wrote:
-> On Wed, Aug 19, 2026 at 04:44:53PM +0200, Jo=C3=A3o Loureiro wrote:
-> > --- a/drivers/tty/serial/Kconfig
-> > +++ b/drivers/tty/serial/Kconfig
-> > @@ -1301,6 +1301,7 @@ config SERIAL_FSL_LPUART
-> >       tristate "Freescale lpuart serial port support"
-> >       depends on HAS_DMA
-> >       select SERIAL_CORE
-> > +     select SERIAL_MCTRL_GPIO if GPIOLIB
->
-> Why not depends?
+Hi Laura,
 
-Because SERIAL_MCTRL_GPIO is a hidden symbol.  It is declared as a bare
-"tristate" with no prompt at the end of the same Kconfig file, so it can
-only ever be enabled by a select.  With "depends on SERIAL_MCTRL_GPIO"
-nothing could ever satisfy the dependency and SERIAL_FSL_LPUART would
-become unselectable.
+It=E2=80=99s been a while since I wrote this, and I now see this could =
+use some
+improvements.
 
-The dependency is also not a hard one.  serial_mctrl_gpio.h provides
-no-op static inlines for the !CONFIG_GPIOLIB case, so fsl_lpuart still
-builds and behaves exactly as before when GPIOLIB is off; the GPIO modem
-lines are an optional extra rather than a requirement.  A depends would
-silently drop LPUART from those configurations.
+I think the first problem is that this conflates "MappedBo" with "the =
+MappedBo
+backing the shared region". As soon as we try to add more users, this =
+will be a
+problem. I propose that we split this into two types that build upon =
+each other:
 
-Finally, this is what every other user of the helpers does:
-SERIAL_ATMEL, SERIAL_IMX, SERIAL_SH_SCI, SERIAL_STM32, SERIAL_MXS_AUART,
-SERIAL_SA1100, SERIAL_CLPS711X and SERIAL_AR933X all spell it as
-"select SERIAL_MCTRL_GPIO if GPIOLIB" in the same file, so this keeps
-fsl_lpuart consistent with them.
+a) a generic layer MappedBo, which remains roughly as-is:
 
-Thanks,
-Jo=C3=A3o
+gem.rs:
+
+pub(crate) struct MappedBo<'drm> {
+  vmap: shmem::VMapOwned<BoData>,
+  bo: KernelBo<'drm>,
+}
+
+impl<'drm> MappedBo<'drm> {
+  // pub(crate) API:
+
+  // no Arc, McuMappedBo has to hold it by value, otherwise a second =
+holder
+  // could write around the claims.
+  fn new(bo: KernelBo<'drm>) -> Result<Self>
+  fn va_range(...) -> ...
+  fn vmap(...) -> ...
+}
+
+impl Deref for MappedBo<'_> { type Target =3D Bo ... }
+
+
+b) A MCU-specific BO type with the claims + offset logic:
+
+fw/mcu_bo.rs:
+
+pub(super) struct McuVa(...) + related McuVa impls.
+
+#[pin_data]
+pub(super) struct McuMappedBo<'drm> {
+  bo: MappedBo<'drm>, // private, no accessor
+
+  #[pin]
+  claims: Mutex<KVec<Range<u64>>>
+}
+
+impl<'drm> McuMappedBo<'drm> {
+  // pub super API
+
+  // builds its own MappedBo, checks the 32-bit range before allocating =
+and
+  // copies the section data from the fw binary before any view can =
+exist.
+  new(ddev, mcu_vm: Arc<Vm<'drm>>, va: McuVa, size: u64, flags: =
+VmMapFlags,
+      data: &[u8]) -> Result<impl PinInit<Self,Error>> {...}
+
+  // views borrow: &'a self instead of self: &Arc<Self>
+  fn try_view<'a>(&'a self, va: McuVa, len: u64, reach: u64)
+      -> Result<McuView<'a>>
+  fn try_view_mut<'a>(&'a self, va: McuVa, len: u64, reach: u64)
+      -> Result<McuViewMut<'a>>
+}
+
+c) Views get renamed to McuView, McuViewMut:
+
+#[derive(Clone)]
+pub(super) struct McuView<'a> {
+  vmap: &'a VMapOwned<BoData>,
+  base: u64,
+  range: Range<u64>,
+  reach: u64, // <=E2=80=94=E2=80=94=E2=80=94=E2=80=94 Store this
+}
+
+pub(super) struct McuViewMut<'a> {
+  view: McuView<'a>,
+  claims: &'a Mutex<KVec<Range<u64>>>,
+}
+
+impl<'a> Deref for McuViewMut<'a> {
+  type Target =3D McuView<'a>;
+  fn deref(&self) -> &Self::Target {
+    &self.view
+  }
+}
+
+impl Drop for McuViewMut<'_> {
+  // return claim here.
+}
+
+
+>=20
+> +// SAFETY: `MappedBo` may move between threads: the CPU mapping's =
+address is
+> +// valid from any thread; `KernelBo`'s teardown (GPU unmap through =
+`Arc<Vm>`
+> +// and the GEM object release) goes through thread-safe C APIs; and =
+the only
+> +// interior mutability (`claims`) is mutex-protected.
+> +unsafe impl Send for MappedBo<'_> {}
+> +// SAFETY: `&MappedBo` exposes the mutex-protected claims table, the =
+`Deref`
+> +// surface to the GEM object (thread-safe C APIs), and the mapping =
+itself,
+> +// whose contents are only ever accessed through volatile operations. =
+The
+> +// memory is shared with the MCU by design, so concurrent access is =
+part of
+> +// the model rather than a race the type system must rule out.
+> +unsafe impl Sync for MappedBo<'_> {}
+
+
+I don=E2=80=99t think we need a manual implementation here.
+
+The rest of the patch looks good to me.
+
+=E2=80=94 Daniel
+
+
