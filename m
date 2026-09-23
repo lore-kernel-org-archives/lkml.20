@@ -1,170 +1,158 @@
 Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C2D36A342
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:40:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 508BD3BFE47
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:41:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790206828; cv=none; b=D8PRpMt+qkygNS3TmP9751tzQaaoQsqKX+6MyGWiMuguefP1j0NJEevVTWefqsTpYUj+XuxffpPmqaix2O4fzb8vb3GFZE6J7t9o1uCCjlmOBzcwZAUmOUPpCw7uFbKIsSYLt8dXsVLOtr/BU0z2IJW5mvT9qvIJEvFi0UVNH5U=
+	t=1790206917; cv=none; b=bh03pT9xXuXFP5K3Fum0S4Y2ad14z1DByoLfsXwNjJ1cEP+VHV4jntex7sX8VGvTXAssYkPqAZM4dxBioG73TEw5X8Vc8baY5Lq1ZZqUvJpmbJyzFNeMIVdfIgYJonSXnQv0mL2uWtdxqgYtYjs8o2bQoOPMzHcN/aLDmjDe3Jk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790206828; c=relaxed/simple;
-	bh=4d73jWUhVKwFne2iiMKsl6S5mOHyq32pL0TlnUi+MgQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZC7BRCyZ3/C7C/DplEYV6zLB4kJ7mzpMkb5SsC8n1yZC9x7ts5KSDZk6FBmcb5leLSqn8e+MmtbKwU1MqI+E3OX+wfzHjSRaSP51Uch6xvMN5cwrpWQdbW78caNhMPsCBWizY7KsenWHwi29C7kLMdJj4Dkwr3kXxMBbSakh5PU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=STnjJXSY; arc=none smtp.client-ip=74.125.229.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790206917; c=relaxed/simple;
+	bh=NIrzuAInzsj2sYociheA3JTrwufIGgyVll09+vFspTg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QFE4rc08qVJjowXf4qAv9WWhvHKanvAKROwG+gBYd0N+YSBp+ZyTt/sS2fyXOIyTaG/6H5eP+W3i/xfRqi1o8m6HdLxyrqaCYXkabcSR3pLHLHUNPEz8p8xua3AejDpMvNYA390U15BsOnN1la0srfuR/TV4OpP7iPUoxySVcPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AFOlgPeP; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="STnjJXSY"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dce6e235so1139987c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:40:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AFOlgPeP"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04f7f2so1639793c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:41:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790206826; x=1790811626; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+e9xikenpRxNbzkrvogML2O06nN9p7dr3NtMTmQXdRg=;
-        b=STnjJXSYSMHRbs357CYXvmOd8kc5W0w+MGR6gXvBRAfCpw3RUHtAJOnNZrJVc9KOfd
-         4+4Nqmeb3YLNcT/Kqd2Qc8IQBeHnxQPVoWcY8GIbMgX+ABIJWkWNe27hBh+PffA4STPv
-         fVZNvFa8EoUard/aYXfWaW3+lNUVmCzck3Q0HOWbROJlh2Zy944yyXjB+IDILfpGE2Wl
-         5F12vl46EIOE36f5ekgkOHzLHsFPyO7BFv3FTsjLAGd8MkoEyDxaQX8TKhNnH92sQiXk
-         9cm1tD3tQMBKYd3Mbt9HzScJg52ST3Ko8Inq6ZQpd7qB+jSSSJC0ddvhgAaoAMSXexrz
-         4FVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790206826; x=1790811626;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790206915; x=1790811715; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+e9xikenpRxNbzkrvogML2O06nN9p7dr3NtMTmQXdRg=;
-        b=NGRRF2giRtwITTxVMmHbdgrssG4qGo/bkHKDf0OuSUDhNfNVmzFpoGUEqRaMvFTvNm
-         mnhqWKifOHuQdKTj+yxIUSXTkqkikan4U67bjdqme8x4HjbFzrKgjSuYXl8DjzsFbJoR
-         j7wRj7Lzj+DdUEv54JO5phgzXNOOakLdIjmKr6J1KtPQd5ilh4Quiz5sKEnlQs5ZfCrg
-         ApIqDcz2n3WEIWwysLZnw7CPN3MN+MajtwVl1g6XxLMQzBHxx5RwZi0YQ75iGzQcbkxY
-         psn6Gh8NpVUOPdlfJORE0lKpcJTpds399A7jYJl8HH7IuxbBBvR/OrINA1bpbBiNfd/s
-         FH5Q==
-X-Forwarded-Encrypted: i=1; AKwUvByW537T8mxG6Da6Smsa29EMLJGvfJQYal7aTepJ7LpQFvqQjh8H4b9rj0pxo0W9Kl66En+HMgt7zEe8AiA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mx2yBp4pSDVer9OG1lrGPRASfRMrx2fkAbO+I2uZCbw9nOxoXI
-	it9tQ0kTmjjirhFu9P83KgufqmLjoUp445lfT/DlG8LwSTHavU8uYmzI/TFAA0sr9Q==
-X-Gm-Gg: AYBFou1zqhfi9i+FDIM9yyfKxBSj3q0AuFXGaTfFXzjff6GJIR1c7UrOGouvsOXeHBe
-	1uZ5Z5iwz6MvxBdAPG4axKQGBxzSCi3HrBYjTd0zbbJ7NVDaYiQcG1C5S5IbRqiEgxxcsGr6/R0
-	UC4pAWyXj/wAb/HsT3d1UQWBnXQs69AjhWzXvDJMUPePjiBblPUP+VZp9eDuscLZIxtQRYTPRwR
-	opmrePI8xuIQaK3IW3cp6cMLsZ9145e+bkIQDGMr6Gp3xH4u2FAS4MDLS6TvVdK0vWXCqb5DbHJ
-	2Qz88c0UYDUdOOY41BXtDVdkeYeBKpOW5jqgJtSDkbMFDu6K1oJHvCK1nfQww12aXEh1itk6due
-	ylin8P3IC2JRqi04izhMvo3Qa1kjAj1oy+ZVfuoGTOe4dmgpkWHuOqmz9im1Q4/XUNSpuWrvxRv
-	ytBs2dapEv6rg1gABw/UxWiTJcgQurrnIW/IakL2FyC1j23WaOYKmThw4eisKjNBvgFU7m/STvP
-	yra7VzDhKL8vNmr8tDzCTy0HZ7d+RbZ5rasxMXGX5KJSCCkCjrm6HQFUekiuJi9SHHz2yzzVzIW
-	k46EKDvqKc4+YMHd5u5EFiyNm5U=
-X-Received: by 2002:a05:701b:4515:10b0:144:fa64:dada with SMTP id a92af1059eb24-1450404d478mr444412c88.15.1790206824869;
-        Wed, 23 Sep 2026 16:40:24 -0700 (PDT)
-Received: from ?IPV6:2a00:79e0:2e7c:8:3cb2:1d30:b85:ba2e? ([2a00:79e0:2e7c:8:3cb2:1d30:b85:ba2e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f983c5a1sm14488825c88.7.2026.09.23.16.40.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 16:40:24 -0700 (PDT)
-Message-ID: <4e21dd18-1988-4eda-82cd-4dd64620fef7@google.com>
-Date: Wed, 23 Sep 2026 16:40:21 -0700
+        bh=PdOsqo/iziUsxrRxdJAZK/HE+PMHIxiZ0e+DSZHPK1Y=;
+        b=AFOlgPePOHdTP+RZjFdY4gUpeehfoiCKqCxEgdBSDEkl6sj4w3hjx6cWHGavsQM4EU
+         DEJ/EgS5QArnVQLHRGyTyJp1zc4Uk+xsfQY9yIz5KVNqF1HfkrsPvKBKrbjCKDyLBfEa
+         ocj1nhiS8RPVU0BOS/eijZC1TrbxrUJDzA0PZXIiARUO63vsSa4PyrqZ4CibVazNNlZ/
+         iCxW9bWuWrzkCCsGjU3s22vORvw1fbgDdfqL4CWhU68Tj4MDqDg2UdTtZrFCtePF9kLe
+         Gpe535zxF+aInL7p8Ey7lcJso1JV6HnTXVInS9clEXcV+URtmQeZxUBc/GtYD7/S4V+d
+         i8/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790206915; x=1790811715;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PdOsqo/iziUsxrRxdJAZK/HE+PMHIxiZ0e+DSZHPK1Y=;
+        b=MWu9VCHdjecI72PBnb3Y4m8OLFpf18U/BxuFThlihGqfjANcQZJhqSES4jrrKQdONv
+         ASYTEa7VBY42gAAjDIGDcJS0fCy7hTUil9n7PP6rQIk+wUzwauHCfS6/09O7dNKjRP60
+         t21zb2Pfht4VagyCF8VaKdfCqclgcK17RmygheUuuyjSPd0vYvvg5MdIPjME4jruJs2v
+         QnvrPfYRhcHVJxGL2CZR1TMBKx9brkv9+m2Qz3ZgUkJxWoUvVpvW/wP/88bNQwhm/XLJ
+         4FDaHJKD+HEuFRHRobbimlgJU3N3iLhJk9MGXkGK5C24Y9aAHzcR0btbPpfmoviYy/5h
+         NZWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwocBje4F4qDnGO/hwPKtTstL47z+RfbhGhZf+0pLjN7Nm58uYqf24VkhEi/jCCK3F4ghrfE62w++95ifo=@vger.kernel.org
+X-Gm-Message-State: AFuF++ls9mmbHi/y7/iV9vfW/NlR6G/owUyJ9P8UJS0p8mGIB6gDV/MS
+	9EMrBGI+8E+sTuJxmxlP7URcpNoUslkLAY7A0BM5lVXiNA+uRsSZcsjU
+X-Gm-Gg: AYBFou3TcV7ueN3MiD8cmx2qbbIcCe8Fl6hI7EATTC+wSLgAUtTm+cDN1Azuwn2grsu
+	D77djwqdIiu8ga9cAs3oeMxNRDjGOa8w6VwkKrUNOSGZQNi5TXiDLfnqCzDriPA6cPGnjQXgzi0
+	dwGtrSsE+BpZLkZL24HAUjwZP0TUdHKu+GWtgyoVH945k7GOpPQxT3+kT+y9HhpqkKehLmhNkYF
+	cNGZ0ZiucGy2y928cSpR6bE7ANU+5AJGvE+v88LKMl0YSO3jbFJjg32uKyrcyBqElwej6zoUQ65
+	IVniARhfNgu/WiT3xZLKt8sEHXCATVF5+CzR3dY1QfittG/dUq6jaXBoq8BNk/D9/gROYLS/mLC
+	UkRvVEnFuPGXDS12ibGZjbH2rdENBoZuTxIw/rEXcM/QjSgipJtWn2hqXar7GNndS2lPMyRmRcS
+	f+r1QzPsULiIcmYdUG8BuQj3U68IySlTwwahlmBlRBoMgHvbqjXMltRiH7Oea8IU/agRo9wRbLn
+	2Lvm1CIzw68ciiRWotrYoyTtfc7ahtlNqnq
+X-Received: by 2002:a05:701b:4247:10b0:13b:9d10:4fd2 with SMTP id a92af1059eb24-14503fc80fcmr486501c88.22.1790206915130;
+        Wed, 23 Sep 2026 16:41:55 -0700 (PDT)
+Received: from archsung (186-244-17-112.user3p.vtal.net.br. [186.244.17.112])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98209ffsm8100182c88.4.2026.09.23.16.41.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 16:41:54 -0700 (PDT)
+From: Felipe Calliari <calliarifelipe@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Tomas Moro <tmorolias@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	Felipe Calliari <calliarifelipe@gmail.com>
+Subject: [PATCH v3 0/5] media: ov02c10: get_selection and 26 MHz clock support
+Date: Wed, 23 Sep 2026 20:40:55 -0300
+Message-ID: <20260923234100.318151-1-calliarifelipe@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923144257.119076-1-calliarifelipe@gmail.com>
+References: <20260923144257.119076-1-calliarifelipe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] usb: typec: tcpm: reject type-mismatched source/sink
- PDO pairs
-To: pip-izony <eeodqql09@gmail.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Guenter Roeck <linux@roeck-us.net>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Li Jun <jun.li@nxp.com>,
- Kyungtae Kim <Kyungtae.Kim@dartmouth.edu>,
- Badhri Jagan Sridharan <badhri@google.com>, RD Babiera
- <rdbabiera@google.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <CAAsoPpX1NgzMKJrvTdNp0heM0AMQAT0_t_2+AJdZs5fsZNpLOQ@mail.gmail.com>
- <20260923170301.415666-3-eeodqql09@gmail.com>
-Content-Language: en-US
-From: Amit Sunil Dhamne <amitsd@google.com>
-In-Reply-To: <20260923170301.415666-3-eeodqql09@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Seungjin,
+Some Raptor Lake laptops, e.g. the Samsung Galaxy Book3 series, feed the
+OV02C10 a 26 MHz external clock, which the driver rejects at probe
+today. This series adds support for it, together with two small changes
+found along the way.
 
-On 9/23/26 10:03 AM, pip-izony wrote:
-> From: Seungjin Bae <eeodqql09@gmail.com>
-> 
-> The tcpm_pd_select_pdo() function matches a source PDO against a sink
-> PDO using their voltage ranges only, without checking that the two
-> PDOs are of the same type. A source PDO and a sink PDO of different
-> types (e.g. a Battery source PDO and a Fixed sink PDO) can therefore
-> be matched as long as their voltage ranges overlap.
-> 
-> tcpm_pd_build_request() then combines the matched pair with
-> min_power()/min_current(), which apply the same accessor to both
-> operands. Since pdo_max_current() and pdo_max_power() decode the same
-> bits (9:0) with different scaling (x10 mA vs x250 mW), a type-mismatched
-> sink operand is misinterpreted. This misreads the sink's capability and
-> weakens the min() bound intended to cap the request to the sink's limit.
-> 
-> Require the source and sink PDO types to match before a pair is
-> selected. 
+Patches 1 and 2 are unchanged from v2, apart from a corrected commit
+message in patch 2. Patch 3 splits the PLL registers off the mode
+tables, with no functional change. Patch 4 adds the 26 MHz link
+frequency to the ipu-bridge. Patch 5 adds a 26 MHz PLL table and picks
+the PLL table and the link frequency from the external clock rate.
 
-IMO, you can finish the commit message here. The following bit feels a 
-little repetitive.
+With the other PLL registers left as for 19.2 MHz, the link frequency is
+mclk * M / 19.2 MHz, M being the OP and VT PLL multipliers, which are
+set to the same value. The 19.2 MHz tables use M = 400. At 26 MHz an
+exact 400 MHz would need M = 295.38, so patch 5 uses M = 295 (0x0127):
+399.479167 MHz, advertised as such, with a pixel rate of 159.791666 MHz
+on two lanes. M = 296 would give 400.833333 MHz. Getting exactly 400 MHz
+from 26 MHz needs a divider with a factor of 13. I have no PLL
+documentation for this sensor. Sweeping 0x0301, 0x0303, 0x0313 and
+0x031c around their table values only gave coarse steps, no output or no
+change, so I don't think such a divider is available.
 
-This keeps the voltage-range matching introduced by commit
-> 53fe0de9a35d ("usb: typec: tcpm: pdo matching optimization") and covers
-> both the min() computation and the mismatch branch in
-> tcpm_pd_build_request().
-> 
-> I found this by static analysis and have not observed it on hardware, so
-> I am sending it as RFC.
+Tested on a Samsung Galaxy Book3 Ultra (Raptor Lake, two CSI-2 lanes,
+26 MHz clock):
 
-Do not include the above ^ sentence in a commit message. It can go in 
-the "under the cut" section. Also, you can document any tools used using 
-the "Assisted-by:" tag.
+ - link_frequency reads 399479167 and pixel_rate 159791666.
+ - I rewrote VTS over i2c while streaming and fitted the frame period,
+   from buffer timestamps, against four VTS values from 2360 to 4600
+   lines. That gives a line time of 14268.73 ns for an HTS of 2280,
+   i.e. a pixel rate of 159.7899 MHz, 11 ppm below the advertised
+   value. The intercept is -0.02 lines.
+ - At the default VTS, a 60 s capture runs at 30.014 fps. No frames are
+   dropped, apart from sequence number 1, which is skipped at every
+   stream start with or without this series. 30.014 fps is below the
+   30.105 fps that hblank, vblank and pixel_rate describe. The cause is
+   not the PLL: with the exposure at its maximum (VTS - 8) the sensor
+   stretches the frame to exposure + 15 lines. That is a separate issue,
+   which I'll look at on its own.
+ - A single CSI-2 "Frame sync error" is logged at stream start, as it is
+   with the unmodified tables.
 
-> 
-> Fixes: 53fe0de9a35d ("usb: typec: tcpm: pdo matching optimization")
-> Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
+The 19.2 MHz path is untested, as I have no such hardware. It ends up
+with the same register values. Only the write order changes, and two
+writes that the per-lane tables used to override are gone.
 
-Please CC stable when you send the actual patch (the non-RFC one).
+Changes in v3:
+- Patch 2, commit message only: the crop is centred in the output size
+  (0x3808-0x380b), not taken from the readout window.
+- New patch 3, splitting the PLL registers off the mode tables (Sakari).
+- Advertise the 26 MHz link frequency, 399.479167 MHz, as a second menu
+  entry and derive the pixel rate from it (Sakari). New ipu-bridge
+  patch 4 lists it in the fwnode.
+- Patch 5: short commit message, dev_dbg() dropped, no 0x0315 write.
 
-> ---
->   drivers/usb/typec/tcpm/tcpm.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-> index 2d6b14aa2085..4959872050ae 100644
-> --- a/drivers/usb/typec/tcpm/tcpm.c
-> +++ b/drivers/usb/typec/tcpm/tcpm.c
-> @@ -4514,8 +4514,9 @@ static int tcpm_pd_select_pdo(struct tcpm_port *port, int *sink_pdo,
->   				continue;
->   			}
->   
-> -			if (max_src_mv <= max_snk_mv &&
-> -				min_src_mv >= min_snk_mv) {
-> +			if (pdo_type(port->source_caps[i]) == pdo_type(pdo) &&
-nit: we could just use type instead of pdo_type(port->source_caps[i])?
+v2: https://lore.kernel.org/linux-media/20260923144257.119076-1-calliarifelipe@gmail.com/
+v1: https://lore.kernel.org/linux-media/20260905030732.39196-1-calliarifelipe@gmail.com/
 
- From a technical standpoint the USB PD 3.2 spec does not explicitly 
-prohibit mix type matching. Say, if we match a fixed snk pdo with the 
-source's variable type pdo (the rdo structure is the same). However, it 
-could have potential issues (instability). For the rest of the PDO types 
-the rdo structure is different so obviously you can't match them. It 
-shouldn't impact our Pixel user. But I can't say about the others 
-especially considering the patch you intended to fix introduced the type 
-matching when types were mismatched:
+Felipe Calliari (5):
+  media: ov02c10: Drop duplicate register write
+  media: ov02c10: Implement get_selection
+  media: ov02c10: Split the PLL registers off the mode tables
+  media: ipu-bridge: Add the OV02C10 26 MHz link frequency
+  media: ov02c10: Add support for a 26 MHz external clock
 
-https://lore.kernel.org/all/1521817127-23061-1-git-send-email-jun.li@nxp.com/
+ drivers/media/i2c/ov02c10.c          | 134 +++++++++++++++++++++++----
+ drivers/media/pci/intel/ipu-bridge.c |   2 +-
+ 2 files changed, 116 insertions(+), 20 deletions(-)
 
-Thanks,
-Amit
 
-> +			    max_src_mv <= max_snk_mv &&
-> +			    min_src_mv >= min_snk_mv) {
->   				/* Prefer higher voltages if available */
->   				if ((src_mw == max_mw && min_src_mv > max_mv) ||
->   							src_mw > max_mw) {
+base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+-- 
+2.55.0
 
