@@ -1,117 +1,315 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A6A372ECB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477F937AA6D
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:58:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790204277; cv=none; b=K9OG/O6wyHTS4XCf48+2V4eUeKtaKS7cgU3nfKGnEGgp9bVQPrs5DsJR3ScN7N7ie0igm2kwtC8prBTan8MliVHtqUBq3zsOQbSgFU7oqvFS3NPlfaYCWWV5XmFMcZGkiu4B+srSrarI1+v6ewrI6nCXpmYqahKof4kXsyax6Oo=
+	t=1790204304; cv=none; b=UQC9xW6OrebSr0lyKURgcJ5NtkD0fwQZwTX4nZiNYhxH1PDC2bjRnu7rKpP19BdyboFA8/abSdvR/qxU5NLmt2QWkMjTL1Y/qwAgt5lSGKifuQgfxbUockdd5CMCibl0wO4PT/t7l+9uOga+UiOF6xjDx//D483ja7oJRVVUQ+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790204277; c=relaxed/simple;
-	bh=R2AFbu6PkunSu3wRLU/rJSEJuyRo49aEee30ieQcmVQ=;
+	s=arc-20240116; t=1790204304; c=relaxed/simple;
+	bh=BKTHbU3y40nhjeylxspDDvKFCHhAg87yV1+AM5ki5xM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h4FC1qfvDWB8YEDjKvBIKztCLdklyxjYIEtHskfrp+HBBakjMtu9dklVQtsWAJya6QMp/sxnugO3VBI73mR5IgsMJ91M5wKvPGLHLOYkl78XmyfAwJYnIybTFnEUEEFK2xc96AZYY3XvbYkZZhtt5D5pxL2n5gE1zM4XlPFc+zo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=VlIcOVzy; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	 MIME-Version:Content-Type; b=GF0UiHl28UJaHMPAutXBplJDBl07Gs/447ZrGZOootWoKD33HZWDxY27th7Nq47WhzyRsbmyZ4j1NUrNEOX9UhaewmvxTS/zNFBsHqOSvpaYIV4R91aaiRBb5BObUzmAvlMKeAZXL20U8s4k8cbqnWaGa8oyJkx5N6iJrvTtqjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net; spf=pass smtp.mailfrom=blockcast.net; dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b=WFyxP3ih; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=blockcast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blockcast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="VlIcOVzy"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c3735125bso698170eec.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:57:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=blockcast.net header.i=@blockcast.net header.b="WFyxP3ih"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so7986075e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:58:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1790204275; x=1790809075; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R2AFbu6PkunSu3wRLU/rJSEJuyRo49aEee30ieQcmVQ=;
-        b=VlIcOVzyiAb4U7w3kLICTtlQn5GHy7i/Gmd80Suuxc+hFhU+zNSdhZKKeGbnYgRskm
-         fhhrkdK4eQ6qnxokQ4Bf4Y8XoHKL1mwFXHmzRZxIxUlbcf0lJQP54YTT3bMzBr8NpEsD
-         rMdXOn4himVazGC2U6ld8UQu1AKWJhYJ5JIkPNf5uTAiyv7eh+xPxl+GH9BrOrSFIEGI
-         UFcyPzZzFTqP6pne3Fzwuk/iYeP6EuMtlMDjHniYbwQSnW4x96RCobgiyod0S3ZBfMhZ
-         CgZ18hPfmEuHRvAsns2s8DXrkWcZwfIPVms3Zpcij6LDfpHESdYAwdajmLen9EEgl2Su
-         BgYg==
+        d=blockcast.net; s=google; t=1790204300; x=1790809100; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XeMipPAuwVCCTOvnSQqo7JiZRZXG45zOb88nXVU7yl8=;
+        b=WFyxP3ihNMaVXERQyswe9uwrjwNAFYX9ko2LE+25CWIYv1G3qc8T0zqVclwWZJ7PTI
+         kX3zzEn7qAhw6VgZisld5u1EI86phcTdUi5P5X7T/hnyIZerf+ftKGyVmfqEUedc6jKO
+         VaSPA7A/cMZqS2lAHzrPrlBqOAA9Pbg30GnG4/iCMTqRHfOexER6v6XZMk4gGIMT3JQr
+         iFeXC0FBJTK87vlwgtKNc9LzQQ8dg3cTlkNoJh7FPvm4aZtxXRKaltojrt69xwGdnNAQ
+         bbAAzcvB6O38fMMTPPJCMXZD5EL52kZGZcqP5ah9IRIFyowgZXACPP8ZmiM8Xl/2K2hB
+         tZ7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790204275; x=1790809075;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R2AFbu6PkunSu3wRLU/rJSEJuyRo49aEee30ieQcmVQ=;
-        b=07qzLXaCjjX6LPNkcxpLVF1CQRp5yg39H7uoEL1BJHrEJ7HRhACpD+yv9qRXecL1Gi
-         9cRwxkZSbzrhKw98nUkfBri7Py07u0Qb7t/fyZ7cesGuzOPuglICaQMb2WkGrA4d4X9i
-         bDJsX1AF136ap2nj//ij/RnXyQwj305+Gmvabr4mSd1v9TagX1iHx0f/xZE6FY+1zoSS
-         SXplJktBXHpcA62JWfzd+iGCHjUwPRWNICpNZS0J0fPWZSh+AfeOd1JE1CAkvwABFV0h
-         zOjUsvJz4I+1WRzGYgD+AYMYZm1QdwAqogU0St2CYzH9vGCdpvZpxnu5Jw+xDZiu91UO
-         pBAg==
-X-Forwarded-Encrypted: i=1; AKwUvBwqqBNE/rxv6GUQm1DB6yEeAsn7sHhc4WLRRGNl8iD4ZXwh9mFmaujpu8JYTjHD8H3/YsqmAD2XmTSqO6c=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYDuBkzhfQCa2p1AZQ7oilgUq7wHjExZrTdhK6ccmacJA3BNzp
-	64qvyRrxPhmATEFr/UWA4XrpnmkoZCmxURbUe0MQaPAywA4EStdbwEjeNAxKNy6Wnq8=
-X-Gm-Gg: AYBFou24/tcRfUtHpm1/jp+pYnoikTUH08/qH+g3DIJNIYtfw/oIUAvOyVhNUA5RMsR
-	N0QVDCs9kOhYImUb/AyZHXPjTIE0nih2ldvWtEzvan7jvJ1rhZhcJsvY65F89c8I/1EiKumFQb7
-	oZvaFjDfZnl0h3Yoa9HpwM7XYFqjElAxY9d1JkkOiElXBC2PrdiqhEye/+24SotJL0LvdBifHoM
-	LQpCbhHuqU9ldeu6o5vJXL1uWg+hwY0a5f8IK3+g9KiqlJYaF92ZP615FZN9LqrKw8HNqNqcXKK
-	2OXpXJggZexPR4O4wcSfJ4hu6WDZnwcI1NIOFU0kNrqEZfe9pbnF1QJ3baxcEFOgG2BVSTIj1ON
-	weYvL6bf93Of4IaUnbPYKrifvDrXE3JRP3B209tpN6AjD3l+JbSJRsN6KX6Sq9nWcrmqDKz6REI
-	udpOV7ptKwV0gD6HyA6GGdWRo9TWUWCYQ8UUEXr6eswTOL9KaZbo7yEbNOw/KImqoNy+sSRkfrf
-	KnoFtONLapHxZSl8cfSmgUQCavWTzy9u/w=
-X-Received: by 2002:a05:7301:c00f:b0:33c:1424:e57c with SMTP id 5a478bee46e88-34000c38310mr496652eec.29.1790204275252;
-        Wed, 23 Sep 2026 15:57:55 -0700 (PDT)
-Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([4.7.95.218])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fe502sm8281568eec.2.2026.09.23.15.57.54
+        d=1e100.net; s=20260707; t=1790204300; x=1790809100;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XeMipPAuwVCCTOvnSQqo7JiZRZXG45zOb88nXVU7yl8=;
+        b=2xUoDZ6/xHakL6HkbNJ6+DTiVx4NDxpph+OMU99zjrOBbCWhln5PBVDUCJ9ScsYG8+
+         qE1KkJLV9KRiYK8tp4+HyPfSAORoDKwnDXs1b/LhoEf85TX0QcIZbVHedB58iPdHD2IM
+         seB6NKxCPocSPY71WlTrBj5KvvcVztD5WwueUB5wW0DV/WHzSwdtMlizVHUBAlH6ncy1
+         Y1l4RYboNorh2zMVl1Zic65LfJFJGr+Us/xWzTPkpeLTkzA34HG+OzxNDFjJYN0jZTvp
+         91cwnt2MEWq1x8QbVA8EihzKzUehzFZ47CJLvdF5UNI4iNcl2P9cPHrgdT+sv2P3yuOP
+         yTOw==
+X-Forwarded-Encrypted: i=1; AKwUvByG2rL41CBJkViI4t2BB3jG7vWWKTOT+2FDa8cvN4Opo8NeQY97mFoX+N6ZDkWX5T08GmnLdmGR00mQODo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6eAtU/66gUizrhR1SfS8mSkzSvwztZYqm9M+VZy43Woi1Ehyo
+	Wr9jz4n33YlToiDADox/9jqD1Rlm4/e5O+EmOyqDK9QDyLyaE7U42xro4WwcBkCmhHk=
+X-Gm-Gg: AYBFou2xzdDX+Mj377McoN27KMwYPOVJNKp24bQYJDmrZsPbW/zQubhfr9zRbj7yaO2
+	cV56BhMVCKlGrE1SENeXxutqZVAF82bpZNpZQSgkdgseeVWlT9m7gYpgxwHfzz+jAjFzPFV0JZP
+	gUHDMRywAVIwev+Rupik+OYAiXsFxsb1sH8LqCEMrD2F+7etg/rMnMVfQqr3nMsaoV1qtVik5eL
+	kkfMtS92ve+qUw6jf29jMso4M1FzKohXJ9gysl5Ta7Z4n1A5YtpO0IoosM6vEfHM8wcSVyGiRhu
+	IXMWgi8NG/F0uddbeLJPtusjNC/yPLGsCaNOUrxrk1x9VEkkTOuvN3+UmVsX/JIZICcvpbjjO3W
+	9X1Sr0fO+er7/x0QpBvlayZfWmFtGARFHZB2YnIa0lp3aL1WTibcPASsS1EZmkHaKnHL7L7/vGD
+	UX+VYzHnHiv3lPA4nKmhhWM20r2npX2+lhQjUNqeWY1ZAivOTdShRlgu5dvmomZYDQTIUBUP4P/
+	FP5s+rWxcH9LAhByd+CNykkPZzrAvIPQ2KT3ytWBsmGGfXMhJjvkA3morYUBmL9j8th/cRUAz66
+	UQ+z
+X-Received: by 2002:a05:600d:8643:10b0:49f:bb8a:b4ce with SMTP id 5b1f17b1804b1-49fe67bc26fmr5904585e9.28.1790204299937;
+        Wed, 23 Sep 2026 15:58:19 -0700 (PDT)
+Received: from localhost.localdomain ([197.51.234.112])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4b51bsm72894285e9.4.2026.09.23.15.58.13
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 23 Sep 2026 15:57:54 -0700 (PDT)
-From: Krishna Iyer <kiyer@crusoe.ai>
-To: kbusch@kernel.org
-Cc: hare@suse.de,
-	axboe@kernel.dk,
-	hch@lst.de,
-	sagi@grimberg.me,
-	linux-nvme@lists.infradead.org,
+        Wed, 23 Sep 2026 15:58:18 -0700 (PDT)
+From: Omar Ramadan <omar@blockcast.net>
+To: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+Cc: Taehee Yoo <ap420073@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	nilay@linux.ibm.com,
-	sjpark@crusoe.ai,
-	saravanand@crusoe.ai
-Subject: Re: [PATCH v3] nvme-multipath: add fail_if_no_path sysfs attribute
-Date: Wed, 23 Sep 2026 15:57:53 -0700
-Message-ID: <20260923225753.49224-1-kiyer@crusoe.ai>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <arRJLL4ki-sVQnHf@kbusch-mbp>
-References: <20260923004959.88440-1-kiyer@crusoe.ai> <arRJLL4ki-sVQnHf@kbusch-mbp>
+	AutonomousCodeSecurity@microsoft.com,
+	Xiang Mei <xmei5@asu.edu>,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com
+Subject: Re: [PATCH net v2] amt: do not store tunnel pointer in skb control block
+Date: Thu, 24 Sep 2026 01:56:31 +0300
+Message-ID: <20260923225630.95537-2-omar@blockcast.net>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260922214150.13970-1-cenzhang@linux.microsoft.com>
+References: <20260922214150.13970-1-cenzhang@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 9/23/26 2:48 PM, Keith Busch wrote:
-> I agree with Hannes that we shouldn't need a new flag for this. The
-> current behavior is just broken in a few ways.
->
-> We just need to restrict queue_if_no_path to only if there really are no
-> paths so that we actually respect the failfast_tmo.
->
-> And the ANA inaccessible and persistent-loss handling you introduced
-> here should just be the default without requiring a flag. But I think
-> you need to add a requeue_list kick in nvme_update_ns_ana_state() too in
-> case the ANA transition leaves the namespace inaccessible.
+[Resending with the list and maintainers on Cc; my first copy went to
+Cen only. Sorry for the duplicate, Cen.]
 
-Agreed those are real problems, but fixing them still leaves no way
-to cover this case. Subsystems commonly expose many volumes as
-namespaces behind the same controllers, and failfast is controller
-scoped and time based: a timeout fails every namespace or none, and
-the trigger here is an event, not a duration one can pick up front,
-while sibling namespaces should keep queueing and ride out the
-outage. delayed_removal_secs does not apply either: it only governs
-the window after the last path is removed (here the controllers still
-exist and keep reconnecting), and its expiry removes the head disk,
-where this case needs the opposite, fail the parked I/O and keep the
-device. fail_if_no_path stays the only namespace scoped way to
-release parked I/O.
+Hi Cen,
 
-If the direction sounds right to you, I can send a two patch series:
-the default fixes you describe first, the namespace scoped attribute
-on top.
+On Tue, Sep 22, 2026 at 05:41:50PM -0400, Cen Zhang (Microsoft Security FORGE Labs) wrote:
+> An skb queued in a qdisc can outlive the tunnel it references
+> through a raw pointer in skb->cb. For example, a netem delay of
+> 180s exceeds the default tunnel lifetime of 135s (igmp_qrv=1);
+> when the tunnel expires and is freed, the subsequent dequeue
+> triggers a use-after-free in amt_dev_xmit().
+
+Thanks for finding this and for sticking with it. I agree with the
+analysis and the trace. Nothing pins the tunnel while the General
+Query waits in the qdisc, and amt_tunnel_expire() frees it with
+kfree_rcu() well before a 180s netem delay runs out.
+
+> Store the tunnel identity (ip4 + source_port) in skb->cb instead
+> of a pointer, and re-lookup the tunnel under RCU in amt_dev_xmit().
+> If the tunnel is gone, the query is simply dropped.
+>
+> A refcount fix would be hard to keep balanced here, as the skb may
+> be dropped or cloned by the qdisc layer before reaching
+> amt_dev_xmit().
+
+Agreed on the refcount. Could we avoid both the refcount and the
+lookup by not sending the relay's GQ through amt_dev_xmit() at all?
+
+amt_send_igmp_gq() and amt_send_mld_gq() have one caller,
+amt_request_handler(). It runs inside the rcu_read_lock_bh() section
+of amt_rcv() and already holds the right tunnel, whether it found the
+tunnel or just created it. For this skb, dev_queue_xmit() only leads
+back into amt_dev_xmit(), which strips the Ethernet header and calls
+amt_send_membership_query(amt, skb, tunnel, v6). The two senders can
+make that call themselves, in the same way that
+amt_send_advertisement() already transmits from this receive path.
+
+With that change:
+ - the skb never waits in a qdisc, so there is no lifetime window;
+ - the tunnel is only dereferenced inside the RCU section that found
+   or created it, and rcu_dereference_bh(amt->sk) in the sender stays
+   covered;
+ - it is O(1): nothing is stored in skb->cb, and there is no lookup
+   and no refcount.
+
+Once the round trip is gone, the query branch in amt_dev_xmit(),
+amt_skb_cb() and struct amt_skb_cb have no users left and can be
+removed.
+
+> +	list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list)
+> +		if (tunnel->ip4 == ip4 && tunnel->source_port == source_port)
+> +			return tunnel;
+
+This keeps the per-Query walk of tunnel_list that Taehee raised on
+v1. Space isn't the issue: your (ip4, port) key fits in the free cb
+bytes, and so would a u32 tunnel id. The cost is that any key needs a
+lookup at dequeue time, plus a rule for a tunnel that expired or was
+recreated in the meantime, while the sender already has the tunnel in
+hand.
+
+These are the behaviour changes I'm aware of. The first two only
+affect the relay's own GQs; the third affects foreign queries:
+ - They no longer go through a qdisc or taps on the amt device. They
+   are still visible as UDP on the underlay.
+ - They are no longer counted as tx_dropped when sent successfully.
+   Today the query branch in amt_dev_xmit() exits through the unlock
+   label, which counts every sent query as dropped.
+ - A query that reaches amt_dev_xmit() on a relay from somewhere
+   else, such as a userspace querier, is now dropped at the IGMP/MLD
+   type switch. Before, it trusted whatever skb->cb held, and a NULL
+   hit the WARN_ON(1). I found this by reading the code and have not
+   exercised it.
+
+What I have and haven't tested:
+ - The diff below applies to net at 9c572a83037a. It builds with W=1
+   and no warnings (gcc 14, arm64, CONFIG_IPV6=y and =n), and
+   checkpatch --strict is clean. I haven't booted it.
+ - An earlier form of this direct send (without the dead-code removal
+   or the failure accounting) passed amt.sh 5/5 under vng in August,
+   on a v7.1 tree carrying our other pending AMT patches. That was not
+   a KASAN build, and it predates this diff. Our out-of-tree module's
+   source carries the same earlier form.
+ - I haven't reproduced the KASAN report. Could you share the netem
+   setup you used, so I can run it before and after? The GQ no longer
+   enters the qdisc, so I expect it to stop triggering by
+   construction, but I'd want to see that before this goes in.
+
+If you and Taehee like this direction, either of these works for me:
+ - I post it as v3 with your KASAN trace in the commit message,
+   keeping the existing Reported-by tags (you're already one), plus
+   Co-developed-by if you'd like; that needs your Signed-off-by.
+ - You fold it into your v3 with a Suggested-by.
+
+Taehee, would this be acceptable to you?
 
 Thanks,
-Krishna
+Omar
+
+-- >8 --
+diff --git a/drivers/net/amt.c b/drivers/net/amt.c
+index bddc24e1856d..b53f8ec55661 100644
+--- a/drivers/net/amt.c
++++ b/drivers/net/amt.c
+@@ -80,15 +80,6 @@ static struct in6_addr mld2_all_node = MLD2_ALL_NODE_INIT;
+ static struct mld2_grec mldv2_zero_grec;
+ #endif
+ 
+-static struct amt_skb_cb *amt_skb_cb(struct sk_buff *skb)
+-{
+-	BUILD_BUG_ON(sizeof(struct amt_skb_cb) + sizeof(struct tc_skb_cb) >
+-		     sizeof_field(struct sk_buff, cb));
+-
+-	return (struct amt_skb_cb *)((void *)skb->cb +
+-		sizeof(struct tc_skb_cb));
+-}
+-
+ static void __amt_source_gc_work(void)
+ {
+ 	struct amt_source_node *snode;
+@@ -791,6 +782,11 @@ static void amt_send_request(struct amt_dev *amt, bool v6)
+ 	rcu_read_unlock();
+ }
+ 
++static bool amt_send_membership_query(struct amt_dev *amt,
++				      struct sk_buff *skb,
++				      struct amt_tunnel_list *tunnel,
++				      bool v6);
++
+ static void amt_send_igmp_gq(struct amt_dev *amt,
+ 			     struct amt_tunnel_list *tunnel)
+ {
+@@ -800,8 +796,11 @@ static void amt_send_igmp_gq(struct amt_dev *amt,
+ 	if (!skb)
+ 		return;
+ 
+-	amt_skb_cb(skb)->tunnel = tunnel;
+-	dev_queue_xmit(skb);
++	skb_pull(skb, sizeof(struct ethhdr));
++	if (amt_send_membership_query(amt, skb, tunnel, false)) {
++		amt->dev->stats.tx_dropped++;
++		kfree_skb(skb);
++	}
+ }
+ 
+ #if IS_ENABLED(CONFIG_IPV6)
+@@ -885,8 +884,11 @@ static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
+ 	if (!skb)
+ 		return;
+ 
+-	amt_skb_cb(skb)->tunnel = tunnel;
+-	dev_queue_xmit(skb);
++	skb_pull(skb, sizeof(struct ethhdr));
++	if (amt_send_membership_query(amt, skb, tunnel, true)) {
++		amt->dev->stats.tx_dropped++;
++		kfree_skb(skb);
++	}
+ }
+ #else
+ static void amt_send_mld_gq(struct amt_dev *amt, struct amt_tunnel_list *tunnel)
+@@ -1186,7 +1188,6 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ #endif
+ 	bool report = false;
+ 	struct igmphdr *ih;
+-	bool query = false;
+ 	struct iphdr *iph;
+ 	bool data = false;
+ 	bool v6 = false;
+@@ -1204,9 +1205,6 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			case IGMP_HOST_MEMBERSHIP_REPORT:
+ 				report = true;
+ 				break;
+-			case IGMP_HOST_MEMBERSHIP_QUERY:
+-				query = true;
+-				break;
+ 			default:
+ 				goto free;
+ 			}
+@@ -1228,9 +1226,6 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			case ICMPV6_MLD2_REPORT:
+ 				report = true;
+ 				break;
+-			case ICMPV6_MGM_QUERY:
+-				query = true;
+-				break;
+ 			default:
+ 				goto free;
+ 			}
+@@ -1261,19 +1256,6 @@ static netdev_tx_t amt_dev_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			goto free;
+ 		goto unlock;
+ 	} else if (amt->mode == AMT_MODE_RELAY) {
+-		if (query) {
+-			tunnel = amt_skb_cb(skb)->tunnel;
+-			if (!tunnel) {
+-				WARN_ON(1);
+-				goto free;
+-			}
+-
+-			/* Do not forward unexpected query */
+-			if (amt_send_membership_query(amt, skb, tunnel, v6))
+-				goto free;
+-			goto unlock;
+-		}
+-
+ 		if (!data)
+ 			goto free;
+ 		list_for_each_entry_rcu(tunnel, &amt->tunnel_list, list) {
+diff --git a/include/net/amt.h b/include/net/amt.h
+index a0255491f5b0..2846dde0cadc 100644
+--- a/include/net/amt.h
++++ b/include/net/amt.h
+@@ -231,10 +231,6 @@ struct amt_relay_headers {
+ 	};
+ } __packed;
+ 
+-struct amt_skb_cb {
+-	struct amt_tunnel_list *tunnel;
+-};
+-
+ struct amt_tunnel_list {
+ 	struct list_head	list;
+ 	/* Protect All resources under an amt_tunne_list */
