@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC0E50129B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F484BF941;
 	Wed, 23 Sep 2026 12:05:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165123; cv=none; b=i8qVXaaGXu/ciCQVSfouVr2RQejzrthsDTWLdLOlDIdso56f04DUQsKtF3HqWzY3s1zfcjtWefmhsyTbY0rY4yq6MCrQoUYo+GnLPzVno1GGRgm0n2kNkjsesjEesfAIklkx0V17VH4i4TB2/4fBNbFwM/PEMgyekEfiPJNE5sE=
+	t=1790165123; cv=none; b=a/INbdj7ivs02ojIwA+jgNFN4EGigV94kcibP27wycSRjOXqUzakmm2wfU9WZ17+mELtUC4mvt0i2a6o3YHId/ZVkOBCfvNGc8RdJtZplbVbHhlLNUnxLnqE0+kQg5AAC5E4Xoh+EfNZw0hr+o74cqe5jjr+4bA+4sGnhHxLBlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790165123; c=relaxed/simple;
-	bh=cL5+YFpsqpZKGpz68YOUSSKCHE8atf18HiZnV4MKXmo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=updOnLmt/6V+SApJmNYSxDGOAV7eZkKseQOL+KPKaOtr9UJ8TSkegExib78kegjkYYIJp5cQ5QVBdFi93WxON9e58dC0doscScSEiMDYIJfhRWvs94FHBEJ3EJXnTqmmiOkVvaT12zrKQUmgDmcMD6g8HUjQkk65bWwYFXmB7/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vAK5zYOt; arc=none smtp.client-ip=10.30.226.201
+	bh=DP7ZakM0RfG18wmgJmMLdmBWCDvPQiNf/lyndgVxw7o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NRKIbctsYf7lESivbd70Be6VtnebQ1EEY4uZiUJI5u/5eb1uBws7aR/7x1abm4TjEwWrg/aEjA89u7o1ln1Ay0IjOg2vZ1jplWIQa2WgA3XKRuNe6TaVMDX4+DAQpXByg8Ek+qoUjMfNcm0Uu1WblcQC2JWOHhZE3CvVxuGJhGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b/niJeLT; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vAK5zYOt"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C1923C4AF0B;
-	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b/niJeLT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B142FC2BCC7;
+	Wed, 23 Sep 2026 12:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790165121;
-	bh=cL5+YFpsqpZKGpz68YOUSSKCHE8atf18HiZnV4MKXmo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=vAK5zYOtijl1haOI9gXqsv8ACUPMutJwUPLC6WTnT1AZh3Y6sZE3xXDrp6OiFM7JK
-	 UVObtbnF9HeL0DjifTgJ56SIYL5et9/OfuUH4g97Q1mLDfQJ2Kzxm5yvyumOCH9puM
-	 oaAVBiUpFVCTibcsfJCs9Am84DrNXPNf43UtmpLXD6+bnPe05S6CkClPLU+QZXuPhB
-	 YRa1xpIo76ugmj3f1v8SWVG272xJjlV3vYBBS/hxxBdNEYh4qVoCku9K6f2BZECF97
-	 33lByZA+6YX4xc+SyIuf+wyT3RfRlX9Z5LNHF3qk7wEV4T6lGh9QrygnHV9gbXEHoP
-	 MV3vRJo6IOqgg==
+	s=k20201202; t=1790165120;
+	bh=DP7ZakM0RfG18wmgJmMLdmBWCDvPQiNf/lyndgVxw7o=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=b/niJeLT2ZU2trAA4Kk1o+BVKX/W+XHzz+VsVKfVInoMY2kmNWK8OpFZI3QNkZVzS
+	 SKkaVbGFUX6qjwMDycKcR9GDKRNYMj3DhSJsFa/Ywhu5oF2lPEiI3zaGdbYRrMAH60
+	 m0u6E6nek5v0qWt+YHuSCBRVQ1xTGNIzNLmrFXRlApjaSyCZ76OfMe6Oo2cFFCuNWL
+	 9uHYl1LvpohKz9V3iRYLNtQAKxStPFyIrLONPQwiYZwUbA8wSb28uXlHIYvCg7GuBC
+	 AoRBhvtlwWUnHG6CZ6FT/4YnZXOph4Y58o0aV8yn05ml6L/tijysn4H4KcGRf6juyE
+	 nOj46akfNDljw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD9AEC982FA;
-	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80D35C98309;
+	Wed, 23 Sep 2026 12:05:20 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Wed, 23 Sep 2026 16:05:22 +0400
-Subject: [PATCH ath-next 16/16] wifi: ath11k: add QCN6122 device support
+Subject: [PATCH ath-next 00/16] wifi: ath11k: add MultiPD support for AHB
+ platforms
+Date: Wed, 23 Sep 2026 16:05:06 +0400
+Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,9 +41,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-16-86729521a75c@outlook.com>
-References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
-In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MMQ6DMAxA0asgz1iK3RI1vQpigGDAQ9OQRBUS4
+ u5EHd/w/wlZkkqGd3NCkp9m/YYKahvw2xhWQZ2rgQ1b48igxr0z9MLdB0vM+IkzPi131j9ock6
+ gljHJosf/2sNYNgxyFBiu6wZ5C1dabwAAAA==
+X-Change-ID: 20260910-ipq5018-qcn6122-mpd-46256c31b99e
 To: Johannes Berg <johannes@sipsolutions.net>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
@@ -55,11 +57,11 @@ Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=2721;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=4766;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=N0lWRlkViy66JiabYe3wnlNpM0tjJSjRzUVdOXoZ9Gs=;
- b=ToSFrdMAsPUqm34M8ORvBROXcmsCcULlAR9RBecaTVXwiXWOjpr9vkoHJZdK+tfkF0OdSXTgR
- 8mBh+8gPFSZDoPSuVKzWN20Nk8CGHwe/JuaZ7Nci5MMz30OhGbHNugr
+ bh=DP7ZakM0RfG18wmgJmMLdmBWCDvPQiNf/lyndgVxw7o=;
+ b=6n/qkdAoTe9c56sFXBkMQiIhMPZANlM6ClgA6cmMYrO+R24jrQ8EGwTec/yEhk+Bxot49e/bC
+ h7Yu4a8MouHAdM5V5e2nmXjk7/IEiUYt82kbAHCiVCl1gIRvz+JDaly
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -67,81 +69,97 @@ X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
 X-Original-From: George Moussalem <george.moussalem@outlook.com>
 Reply-To: george.moussalem@outlook.com
 
-From: George Moussalem <george.moussalem@outlook.com>
+Add multiPD support for AHB platforms following the approach for ath12k:
+link: https://lore.kernel.org/linux-wireless/20250321-ath12k-ahb-v12-0-bb389ed76ae5@quicinc.com/
+link: https://lore.kernel.org/linux-wireless/20260721065038.126046-1-aaradhana.sahu@oss.qualcomm.com/
 
-QCN6122 is a 2x2 11AX PCIe based chipset, but it is attached to the WPSS
-(Wireless Processor SubSystem) Q6 processor, hence it is enumerated
-by the Q6 processor. It is registered to the APSS processor as a
-platform device (AHB).
+The IPQ5018 platform is a multiPD platform and the current ath11k driver
+supports standalone IPQ5018 WiFi only. However, IPQ5018 boards come with
+up to two optional SoC-specific QCN6122 WiFi companion chips for 5G/6G
+WiFi.
 
-Q6 firmware segments for QCN6122 are contained within the multi-PD
-version of the shared firmware package for IPQ5018. Each (up to 2)
-QCN6122 radio present runs in its own user PD which the ath11k driver
-manages to power it up or down.
+IPQ5018 implements the multi-PD architecture as follows:
 
-Also, device information like BAR and its size is not known to the APSS
-processor as the chip is enumerated by WPSS Q6. These details are
-fetched over QMI.
+                     +-----------------------------+
+                     |     Q6 Remote Processor     |
+                     |            RootPD           |
+                     +--------------+--------------+
+                                    |
+                                    |
+                                    |
+              +---------------------+---------------------+
+              |                     |                     |
+        +-----v-----+         +-----v-----+         +-----v-----+
+        |  UserPD1  |         |  UserPD2  |         |  UserPD3  |
+        |  IPQ5018  |         | QCN6122 #1|         | QCN6122 #2|
+        |  (Radio)  |         |  (Radio)  |         |  (Radio)  |
+        +-----------+         +-----------+         +-----------+
 
-The QCN6122 chip supports STA, AP, and MESH modes.
+The rootPD is responsible for managing the lifecycle of the UserPD and
+shared resources and providing SSR notifiers. There are different
+firmware blobs that include either the rootPD and userPD binaries for
+IPQ5018-only which auto-spawns the userPD for IPQ5018 WiFi, or for
+IPQ5018 and QCN6122 for which the userPDs for each radio must be spawned
+by the ath11k driver.
 
-Tested on: Linksys MX2000 and GLiNET B3000 wireless access points for
-prolonged duration tests spanning multiple days with multiple clients
-connected with firmware WLAN.HK.2.7.0.1-01744-QCAHKSWPL_SILICONZ-1
+It's worth noting that QCN6122 does not have its own Q6 firmware blobs.
+Instead, the firmware segments for QCN6122 are included in the MPD
+version of the IPQ5018 firmware blob(s). The QCN6122 M3 firmware does
+come separately and is loaded into the Q6 memory carveout of IPQ5018.
+
+In high-level, the path series covers:
+- Addition of multiPD IPQ5018 binding definition
+- Updates to the ath11k driver to register handle standalone vs multiPD
+  remoteproc boot sequence with required notifiers.
+- Support for loading M3 firmware files during remoteproc boot sequence
+- Ability to set required memory carveouts for Q6, BDF, and M3 firmware
+  segments.
+- Addition of SCM call to manage power state of the internal IPQ5018
+  WiFi radio
+- Driver support for resource acquisition and power up/down of userPDs
+- Binding definition and AHB driver support for QCN6122
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- drivers/net/wireless/ath/ath11k/ahb.c  | 7 +++++++
- drivers/net/wireless/ath/ath11k/pcic.c | 9 +++++++++
- 2 files changed, 16 insertions(+)
+George Moussalem (16):
+      dt-bindings: net: wireless: ath11k: Sort compatible names alphabetically
+      dt-bindings: net: wireless: ath11k: Add bindings for IPQ5018
+      wifi: ath11k: Register root PD rproc notifier
+      wifi: ath11k: Add support for loading m3 mbn firmware
+      wifi: ath11k: Add ability to set BDF and M3 dump memory addresses
+      firmware: qcom: scm: Add support for setting internal WiFi power mode
+      wifi: ath11k: Register userPD interrupts and SMEM entries
+      wifi: ath11k: Power up userPD
+      wifi: ath11k: Power down userPD
+      dt-bindings: net: wireless: ath11k: Add bindings for QCN6122
+      wifi: ath11k: add hw params for QCN6122
+      wifi: ath11k: add hal regs for QCN6122
+      wifi: ath11k: add hw ring mask for QCN6122
+      wifi: ath11k: update hif and pci ops for QCN6122
+      wifi: ath11k: define userPDs for QCN6122
+      wifi: ath11k: add QCN6122 device support
 
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
-index 26110c927577..51908e779b7c 100644
---- a/drivers/net/wireless/ath/ath11k/ahb.c
-+++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -46,6 +46,9 @@ static const struct of_device_id ath11k_ahb_of_match[] = {
- 	{ .compatible = "qcom,ipq5018-wifi",
- 	  .data = (void *)ATH11K_HW_IPQ5018_HW10,
- 	},
-+	{ .compatible = "qcom,qcn6122-wifi",
-+	  .data = (void *)ATH11K_HW_QCN6122_HW10,
-+	},
- 	{ }
- };
- 
-@@ -1395,6 +1398,10 @@ static int ath11k_ahb_setup_msi_resources(struct ath11k_base *ab)
- 	ab->pci.msi.addr_hi = upper_32_bits(msi_addr_iova);
- 
- 	ret = of_property_read_u32_index(ab->dev->of_node, "interrupts", 1, &int_prop);
-+	if (ret == -EINVAL)
-+		ret = of_property_read_u32_index(ab->dev->of_node,
-+						 "interrupts-extended", 2,
-+						 &int_prop);
- 	if (ret)
- 		return ret;
- 
-diff --git a/drivers/net/wireless/ath/ath11k/pcic.c b/drivers/net/wireless/ath/ath11k/pcic.c
-index 2259adc3bbdc..cdcf3df26438 100644
---- a/drivers/net/wireless/ath/ath11k/pcic.c
-+++ b/drivers/net/wireless/ath/ath11k/pcic.c
-@@ -138,6 +138,15 @@ static const struct ath11k_msi_config ath11k_msi_config[] = {
- 		},
- 		.hw_rev = ATH11K_HW_QCA6698AQ_HW21,
- 	},
-+	{
-+		.total_vectors = 13,
-+		.total_users = 2,
-+		.users = (struct ath11k_msi_user[]) {
-+			{ .name = "CE", .num_vectors = 5, .base_vector = 0 },
-+			{ .name = "DP", .num_vectors = 8, .base_vector = 5 },
-+		},
-+		.hw_rev = ATH11K_HW_QCN6122_HW10,
-+	},
- };
- 
- int ath11k_pcic_init_msi_config(struct ath11k_base *ab)
+ .../bindings/net/wireless/qcom,ath11k.yaml         | 569 ++++++++++++++++++++-
+ drivers/firmware/qcom/qcom_scm.c                   |  43 ++
+ drivers/firmware/qcom/qcom_scm.h                   |   2 +
+ drivers/net/wireless/ath/ath11k/ahb.c              | 555 +++++++++++++++++++-
+ drivers/net/wireless/ath/ath11k/ahb.h              |  54 +-
+ drivers/net/wireless/ath/ath11k/core.c             |  99 +++-
+ drivers/net/wireless/ath/ath11k/core.h             |   1 +
+ drivers/net/wireless/ath/ath11k/hif.h              |   9 +
+ drivers/net/wireless/ath/ath11k/hw.c               | 112 ++++
+ drivers/net/wireless/ath/ath11k/hw.h               |  10 +
+ drivers/net/wireless/ath/ath11k/pcic.c             |   9 +
+ drivers/net/wireless/ath/ath11k/qmi.c              |  70 ++-
+ drivers/net/wireless/ath/ath11k/qmi.h              |   3 +-
+ include/linux/firmware/qcom/qcom_scm.h             |   1 +
+ 14 files changed, 1501 insertions(+), 36 deletions(-)
+---
+base-commit: 10cfa109c880092df32e396647b4afdca9be8350
+change-id: 20260910-ipq5018-qcn6122-mpd-46256c31b99e
 
+Best regards,
 -- 
-2.53.0
+George Moussalem <george.moussalem@outlook.com>
 
 
