@@ -1,117 +1,160 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DA041836C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:48:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46BB4408626;
+	Wed, 23 Sep 2026 22:49:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790203731; cv=none; b=Iq72mxGvUoxyql7IbbdstLRSHtVZrTpiEU4LAIUtuEnowE3keDksWMpKvKrl16ALle1tWE7A9xPEXdx4JzRE/12mvgAF5+oSI2p0heFD9nqfGo//KUnMnZrVdrzaqlw7oQCX8hSXNJT7WyrIyAxciS2cT5OIqcrYN0fTJuID1nc=
+	t=1790203762; cv=none; b=kh/al7/IfwwykZxVIRTOGmrhwOyHxnWHFSPStjT9KG/oDeUM2z+HGPh2YW41w+rLGJPvIwh51B8Y7Z7gUNvox4rfSU2h+fFprS12sNWQExkCsBgt4/6s5SZqozj80D5W5X94kMai8XMGL3fL98wzs+QeGq+L5ano4xUUYvrLKmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790203731; c=relaxed/simple;
-	bh=NmEv/qxXrsEi6cbyCoQZggpw+8yoPFgh6OmcmV8YW/s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IdMXkEmZmahY4ON94Hyq++lMzwijqPDgm7MSD3nGlv6iO+8Jz0UT2MEu+a+Edyxcvpxy2YFqvGc02Ps1QamOdWmqwvLj/xOPwvxaMeeO3/fbHLPPC5iAq5cpJLNJ3CaUVDHGaVNDj4qHXINCAS7bpveDXT0XSRMpet4AVN+ymSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Cdrgcv5a; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790203762; c=relaxed/simple;
+	bh=mkzGYuT6ylnxihsZut8fAYz9U/x/x50/sKPJVuRvxVo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=J8LMpo37+hKIzrkC0xnN91uGt3SOnXOcIcAD51BXgKHKlkigrW9CPVLBCc5gBZKXcE6XScNHrmn58SpZSPB9AMpPtkRpPbsoaT1fKMMTu5yd0WowGiYa9QZGg5BzW1/XI1SDvTh9i2b6TRmLoJd8NBQQ9Q+nlxRd41t3ug915sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SERLnCPA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Cdrgcv5a"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790203728; x=1821739728;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NmEv/qxXrsEi6cbyCoQZggpw+8yoPFgh6OmcmV8YW/s=;
-  b=Cdrgcv5aWYztW0Vt2y4BJU4X522A5QbKerj58Cr0U0hg0qcCyFvCgSKt
-   hz+wOoDi/QfoOrGRDhDSDmjyX7/P/LT1hQC7nLNE+BjdJ9RF9PeyfxoL6
-   nFzoDUR0ji1T1MQ6ikSCjXFU/DpZZazdn5Hn8OKbyBlf1h1tQ1RhaVf/u
-   AJeHsHN7qBSJxV/3R+0lrDRVrbtoDCzQuRHUj3FEqAouegcVyTBoiicIV
-   bGAHiSFJSicnwLcNZU5wLQINWdsX81higZtqTZ0HZiCmFyZLVQm6zh351
-   plErj3YDsV5DdvBTQ7aA0VCNWIEbrubaQJuQvc8zPcQcWl6BV4T7xnAiI
-   g==;
-X-CSE-ConnectionGUID: dBJjomF2QRyQl6m50D78sw==
-X-CSE-MsgGUID: uJV9VH7/SQa2lGGNJBnfeg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="102311506"
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="102311506"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 15:48:46 -0700
-X-CSE-ConnectionGUID: Gkf+Cu2TRRW5r95GNuXO2w==
-X-CSE-MsgGUID: tB01F8yuSC6NmYi8YE7VTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="272402617"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 23 Sep 2026 15:48:44 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x9VlZ-00000000HtK-0vuu;
-	Wed, 23 Sep 2026 22:48:41 +0000
-Date: Thu, 24 Sep 2026 06:48:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	gregkh@linuxfoundation.org
-Cc: oe-kbuild-all@lists.linux.dev,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>, w.d.hubbs@gmail.com,
-	chris@the-brannons.com, kirk@reisers.ca, speakup@linux-speakup.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] speakup: Drop now-unused serialio operations
-Message-ID: <202609240615.5JumpThZ-lkp@intel.com>
-References: <20260922063047.1392828-1-samuel.thibault@ens-lyon.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SERLnCPA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403A51F00893;
+	Wed, 23 Sep 2026 22:49:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790203760;
+	bh=HC8VbvOSIKaqyHmIyF7SUUi2UNRhEpY8FwJ4bl0y2Cc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SERLnCPApAGnok1T5LPMo3KsD4xA9m4p3jiA1Ueuf2Z+doplz6X5eYQhaj2A5pFNZ
+	 +5pwlvAr3HTPYDeB9V1SzZHNc0eRw5G4x3qcSILItxoF/o7CZxZRJut8E7jtW7pE7f
+	 BO1MMqz1ADGaWcvdnMecajuqmY9j8sqXa5oaub25Z0aXvRAdtuCrH9N81pQCO0iC6w
+	 IfefcYTnGt0tBvPWg8HzN12nVw6hCdtgqT0j08HeDaz7ZPtYXA5K1hNbgTfmPc51tE
+	 nVHtJ/XKayQcEWru/M4wig/gINa9DGdzR0L8woWQ1FEpNsY/YGw5H/PfRtjdjYAHmT
+	 RNNXu87JKdy/Q==
+Subject: Re: [PATCH] net: qrtr: fix kernel stack infoleak in qrtr_getname()
+ and qrtr_ioctl()
+From: netdev-bot+sashiko@kernel.org
+To: benquike@gmail.com
+Cc: mani@kernel.org, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, linux-arm-msm@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 23 Sep 2026 22:49:19 +0000
+Message-ID: <179020375975.2160803.687922264808260369@kernel.org>
+In-Reply-To: <20260919212849.3240271-1-benquike@gmail.com>
+References: <20260919212849.3240271-1-benquike@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922063047.1392828-1-samuel.thibault@ens-lyon.org>
 
-Hi Samuel,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-kernel test robot noticed the following build warnings:
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-[auto build test WARNING on staging/staging-testing]
-[also build test WARNING on staging/staging-next staging/staging-linus linus/master v7.3-rc4 next-20260922]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Samuel-Thibault/speakup-Drop-now-unused-serialio-operations/20260922-083047
-base:   staging/staging-testing
-patch link:    https://lore.kernel.org/r/20260922063047.1392828-1-samuel.thibault%40ens-lyon.org
-patch subject: [PATCH] speakup: Drop now-unused serialio operations
-config: powerpc-randconfig-1000-20260924 (https://download.01.org/0day-ci/archive/20260924/202609240615.5JumpThZ-lkp@intel.com/config)
-compiler: powerpc-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609240615.5JumpThZ-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609240615.5JumpThZ-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/accessibility/speakup/serialio.c:24:38: warning: 'serstate' defined but not used [-Wunused-variable]
-    static const struct old_serial_port *serstate;
-                                         ^~~~~~~~
->> drivers/accessibility/speakup/serialio.c:20:37: warning: 'rs_table' defined but not used [-Wunused-const-variable=]
-    static const struct old_serial_port rs_table[] = {
-                                        ^~~~~~~~
-
-
-vim +/serstate +24 drivers/accessibility/speakup/serialio.c
-
-5e6dc548e453c6 drivers/staging/speakup/serialio.c Chen Gang      2013-10-31  19  
-3ee0017e03cd79 drivers/staging/speakup/serialio.c Jiri Slaby     2012-03-05 @20  static const struct old_serial_port rs_table[] = {
-c6e3fd22cd5383 drivers/staging/speakup/serialio.c William Hubbs  2010-10-07  21  	SERIAL_PORT_DFNS
-c6e3fd22cd5383 drivers/staging/speakup/serialio.c William Hubbs  2010-10-07  22  };
-defaa9ad58dfc5 drivers/staging/speakup/serialio.c Arushi Singhal 2017-03-14  23  
-3ee0017e03cd79 drivers/staging/speakup/serialio.c Jiri Slaby     2012-03-05 @24  static const struct old_serial_port *serstate;
-c6e3fd22cd5383 drivers/staging/speakup/serialio.c William Hubbs  2010-10-07  25  static int timeouts;
-c6e3fd22cd5383 drivers/staging/speakup/serialio.c William Hubbs  2010-10-07  26  
+- [Medium] Commit message factually misdescribes the bug being fixed in
+  `qrtr_ioctl()` (SIOCGIFADDR) and mislabels the memory class of the…
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+net: qrtr: fix kernel stack infoleak in qrtr_getname() and qrtr_ioctl()
+
+This zero-initializes the on-stack sockaddr_qrtr in qrtr_getname() and
+clears ifr.ifr_addr in the SIOCGIFADDR path of qrtr_ioctl(), then copies
+the individual struct members instead of doing aggregate struct
+assignments, so the 2-byte padding hole in struct sockaddr_qrtr is no
+longer copied out to userspace.
+
+> diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
+> index 78347c937af7..ee3cc2c32b73 100644
+> --- a/net/qrtr/af_qrtr.c
+> +++ b/net/qrtr/af_qrtr.c
+
+[ ... ]
+
+> @@ -1233,8 +1235,11 @@ static int qrtr_ioctl(struct socket *sock, unsigned int cmd, unsigned long arg)
+>  			break;
+>  		}
+>  
+> +		memset(&ifr.ifr_addr, 0, sizeof(ifr.ifr_addr));
+>  		sq = (struct sockaddr_qrtr *)&ifr.ifr_addr;
+> -		*sq = ipc->us;
+> +		sq->sq_family = ipc->us.sq_family;
+> +		sq->sq_node = ipc->us.sq_node;
+> +		sq->sq_port = ipc->us.sq_port;
+>  		if (put_user_ifreq(&ifr, argp)) {
+>  			rc = -EFAULT;
+>  			break;
+
+[Severity: Medium]
+Is the description of the qrtr_ioctl() part of this fix accurate?  The
+changelog says:
+
+    Similarly, in qrtr_ioctl() (`SIOCGIFADDR`), writing the 12-byte
+    `struct sockaddr_qrtr` into the 16-byte `ifr.ifr_addr` without
+    clearing `ifr.ifr_addr` leaves both the 2-byte padding hole and the
+    trailing 4 bytes of `ifr.ifr_addr` uninitialized before
+    `put_user_ifreq()`.
+
+The SIOCGIFADDR case reaches the address store only after a successful
+get_user_ifreq(&ifr, NULL, argp), and that helper initializes the whole
+on-stack struct ifreq on both paths:
+
+net/socket.c:get_user_ifreq() {
+	if (in_compat_syscall()) {
+		struct compat_ifreq *ifr32 = (struct compat_ifreq *)ifr;
+
+		memset(ifr, 0, sizeof(*ifr));
+		if (copy_from_user(ifr32, arg, sizeof(*ifr32)))
+			return -EFAULT;
+	...
+	if (copy_from_user(ifr, arg, sizeof(*ifr)))
+		return -EFAULT;
+	...
+}
+
+So wouldn't the trailing 4 bytes of ifr_addr hold the caller's own data
+in the native case and zeros in the compat case, rather than
+uninitialized kernel data?  In that reading the new memset() makes the
+returned tail deterministic but does not close a disclosure there.
+
+Along the same lines, does the subject's "kernel stack infoleak" match
+the ioctl path?  The only bytes with kernel-side content there are the
+two padding bytes that the old aggregate copy *sq = ipc->us propagated,
+and ipc->us lives in the qrtr_sock allocated by sk_alloc()/
+sk_prot_alloc(), which does not zero the private area unless
+want_init_on_alloc() is true:
+
+net/core/sock.c:sk_prot_alloc() {
+	...
+		sk = kmem_cache_alloc(slab, priority & ~__GFP_ZERO);
+		if (!sk)
+			return sk;
+		if (want_init_on_alloc(priority))
+			sk_prot_clear_nulls(sk, prot->obj_size);
+	...
+}
+
+ipc->us is only ever assigned member-wise, in qrtr_create():
+
+	ipc->us.sq_family = AF_QIPCRTR;
+	ipc->us.sq_node = qrtr_local_nid;
+	ipc->us.sq_port = 0;
+
+and in __qrtr_bind(), so the padding hole carries stale slab bytes, not
+stack bytes.
+
+Could the subject and body be narrowed to say that the getname() change
+fixes the stack padding disclosure, and that the ioctl change sanitizes
+a 2-byte slab-sourced padding hole in the SIOCGIFADDR output?  As
+written, the stable backport rationale rests on claims that the cited
+code does not support.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919212849.3240271-1-benquike%40gmail.com
