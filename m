@@ -1,565 +1,384 @@
-Received: from mail-ed2-f35.google.com (mail-ed2-f35.google.com [74.125.228.99])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7468057D211
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:23:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2FF3F58E8;
+	Wed, 23 Sep 2026 20:23:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790195008; cv=none; b=NLViRAGHRkM7qTFUmggK5K2Kghx2yDrHFevacjdVyntpqCSZrHGzGq2EHXCpiCj+R1kasmTnLlh3W0+DZ1CF7n306Q3ZweZpa+vVrhDvRJh+nPxVANrfBuDjTwfPxZfwjh/2EGqM898SH1JvInDj/6X3ZfKps1w/joFpO16SVyg=
+	t=1790195017; cv=none; b=rJyo7h1eJh9HMnKxXl4QJkG7QhSnUsKr2b19uUAlAtKueM8/PFZXxirR1CPWXqulXoK/mKTDnit7m06Yg2s1Ew2BpK7H3MBua8GH5AYscMpQKcJsAGwzyJXsVHQZFwrfbgNWLxIDhCkWDyvTZsz34bnIr8tAplZHo8q0avCeR00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790195008; c=relaxed/simple;
-	bh=dq58nguxWRFJ2NKSM+p8fZCfs922stLF8m2DwnXQ5hg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SMnxrqPYTWRvoixUHeqZCRLbPdvbhBl3R4OWslWTIyAgFYIJDXiM9pmqg3YvJaXog3w/mdncMU5QdkwpgSfRBGA2Hu1T72qquugLa8/St2mTDsiKuAY4clhcWnW90uYOFdqWeCxkw5hzTOHekGiv9lP+ZfFbDf51h8QimRNmOK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oM01LWn3; arc=none smtp.client-ip=74.125.228.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790195017; c=relaxed/simple;
+	bh=N3ZtQzKMoF3t3mjzucPKwU7WpmStxEm6lmVi7hsw5pk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hiDnEjg8vffraSPcv5+yHAmhOGhH5ZkLAd2tjSmzBv/MpHn1Eda8gLBbZrreNVBeZZOkkuyRO++iw4mjfPH2/F6jC3t8vilzYc1TsjEiWHJ36TcGCd9j8CKTYw9ljoeiYXw75nOIhQA1kt1NTopHn5INFkF6Cdkmg0k83dusImg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vKgZQ+68; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=3sEAlWav; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=z6E9OOdj; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SLDbMTC1; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oM01LWn3"
-Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a67fa7a64eso2266046a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:23:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790194996; x=1790799796; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1kOXCSWj3hUbwD4CZIG0ZXe9m1+QOIVwDX7PRkOhegw=;
-        b=oM01LWn3fdJGORKflQjUVkdOuLqJu+O46Z0bfMsK1TcvZAcoUQJIN4R71WE1FwOp3a
-         kajsVPMC0zn5umTARVSbvHelGV0deXGot49u8P3Ah3W16nDI3SlcJ9oOJ6GOuokOPiWA
-         +Xzi6mvWqAGFN8pASBa+/sB/Vftho49jKPsMzND/+UcON+OblD8whYj/5HfxBPbWN0N7
-         euEW+gNyrpXw/PYalLCiMwkOJDAUzDwrNK2Ed/eufFz7dTAJUESB2xYUZRG5qhQexeXP
-         AmTH3TdjHgSLhRx8FybQFe3M9fOl1/a3yfsFppA5tL8IXFeWHqB3viCtjDygxQkPUzt6
-         Wt/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790194996; x=1790799796;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1kOXCSWj3hUbwD4CZIG0ZXe9m1+QOIVwDX7PRkOhegw=;
-        b=P3u31coq5dNUCOvmkIpWSqfk1AL8HSJPKKcKtbCrIYpfWrmxGFD/PT2wIwkFwAuSGD
-         VeuMxZTBr0+OFei1JrFtEmyZIJCFjF+t7DSojaqh7fUN8FLtvUzF7+e7u1pGEqShvrXK
-         DoRMFnVd5fc3hAxlpJRgoOZgz7wjyDzCMkt3xV12TX6NnUZooASsJYJNfXxYBpGcJmz+
-         eErAvFVy3XGvKNAeS8ZON/gIr3Hy4NHBqEpyNzrgbQjFugNnlkZth83E+yzVRgHqAfL9
-         z9ETTYNV0Z0N11QJ1Y9o1JM9s5U1S336fHeeHSKTxQWlIz0vAU7T8hAViOGBJPOD57bD
-         FjHg==
-X-Forwarded-Encrypted: i=1; AKwUvBw0/S0OYrEI2DoqcIksBg8uzDiz2FwCPVIS+woJjejVav3dI0j2DlXFYdavU8QVMxgqNn0F6KiomoCDMt8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nW448Lt5da5vAFKmB185id/YlIIXfqVgLx3sW58qTshs/YFDIK
-	s2trmDXoenBgYj1o142QjNppZzzx7k55GvaWZUDpb2fmpF8GI0Jdjk1X
-X-Gm-Gg: AYBFou1iTXNISEfimLv8X+GnPcoBGcW8uRFK79KQt6B/TXqqfk9+F0xJwmgSRn6yjNj
-	9MyxEiZoqcgs2MUUuR7nlOSHwd2ea4EoJBWuCvrf/aayJ/oSOdOiTxF/OV/F/SMHSa1Cc6mR4+1
-	ajipxX7O1wFmeKMQ2STkFTuRMYhkwxedfwR8i4F1ZO9hAihq2d4+CeQSeRfpcNSyeeQqz+yQdZa
-	nmQ3XTo7XiW1CSHWxMfsORmAWW3h8TdbytOLxVQRjkXGeC3GG4QdbVmBtYPpgj1j1EPe2Dmhgt9
-	Dol9q2/z84WhRp6HM81p81wSd0JvOrjNX8Qy+7OHAdofYhQu+bFm86GILQ2ixlWYC+8LUsCNifk
-	l00lmTej9WXLrrvS986TTW+i3YAWRsEV1P1xaa8RUiXle1QlIPzLM6eqhDggrFL+WlUZ8HhG46l
-	+q4OCIzzOENK7D8F5MSCI919FLR8LLU9z3BBwHRjPOebeNvc0yYvMvZjZ82shELPvqF9qepRVP9
-	ujwRn5mmYO6QdBQDQSHkvimuMUQuNBF
-X-Received: by 2002:a17:906:f588:b0:c26:1648:a065 with SMTP id a640c23a62f3a-c2ac24ba0demr21931366b.32.1790194995981;
-        Wed, 23 Sep 2026 13:23:15 -0700 (PDT)
-Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c8a44sm177243566b.20.2026.09.23.13.23.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:23:15 -0700 (PDT)
-From: Pablo Mazzini <pmazzini@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Pablo Mazzini <pmazzini@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH v1 11/11] ARM: sunxi: add B288 and the PocketBook Verse board
-Date: Wed, 23 Sep 2026 21:17:01 +0100
-Message-ID: <20260923201701.43391-11-pmazzini@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923201701.43391-1-pmazzini@gmail.com>
-References: <20260923201701.43391-1-pmazzini@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vKgZQ+68";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="3sEAlWav";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="z6E9OOdj";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SLDbMTC1"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DC3FB1FFA4;
+	Wed, 23 Sep 2026 20:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790195001;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3txnbGXjnEMcg6Tno2syRovR7ra61zaqYc6U6PNPcNQ=;
+	b=vKgZQ+68d+onAg5VOUJixIXtms4eXf+hza8Qn3xv/AvsNgyCtxmQp18M6XHL3Z9JY8m7xM
+	8SNJ13ig30VoYFWMk0wy0bUfxrVD8Rac3m936gOPjIo3YKcJ8bH397E3qdFYtRAfQPwYu0
+	TTqYIA+6kmZltcISt5Lf5s+3uBgats0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790195001;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3txnbGXjnEMcg6Tno2syRovR7ra61zaqYc6U6PNPcNQ=;
+	b=3sEAlWavfBWdcIItajuaFaync5u0jBk+q3AKoXwL2HfwRu/iNbi1c7+QFRj3T7GB9CmYLq
+	4LPbJu3/2n6/iBAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790194996;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3txnbGXjnEMcg6Tno2syRovR7ra61zaqYc6U6PNPcNQ=;
+	b=z6E9OOdjcpH2C2T8Rpt182pYh6dsDlwjw7HApaUSh+V21JuNeWiTu+a5xZuGFEN3U2BYLu
+	tj+69PiplLD4eGKBo1hcXPsnVVwY/M94HJKLYr3A8LvI0JREzQZqhzJZ3vErkv/r65rtJZ
+	AaZvmYa5lbBo8VBGel3UmLsNGcN8x7k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790194996;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3txnbGXjnEMcg6Tno2syRovR7ra61zaqYc6U6PNPcNQ=;
+	b=SLDbMTC1RdHneptx0VcM/nsqdHn4285bwd15Wonz6ZaaUMeo1Lrs3UUbANafD7dollNxsB
+	v9aTOBc6qjs8OADQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 088FC13354;
+	Wed, 23 Sep 2026 20:23:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ZHICMjM1tGpMYwAAD6G6ig
+	(envelope-from <pvorel@suse.cz>); Wed, 23 Sep 2026 20:23:15 +0000
+Date: Wed, 23 Sep 2026 22:23:14 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: Narcisa Vasile <narcisav.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, kuba@kernel.org, daniel.zahka@gmail.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Ricardo B. Marliere" <rbm@suse.com>,
+	Sebastian Chlad <sebastian.chlad@suse.com>
+Subject: Re: [PATCH net-next] selftests: drv-net: add BIG TCP coverage to TSO
+ test
+Message-ID: <20260923202314.GA177730@pevik>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+References: <20260921201145.49875-1-narcisav.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921201145.49875-1-narcisav.kernel@gmail.com>
+X-Spam-Level: 
+X-Spam-Score: -2.00
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.00 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	HAS_REPLYTO(0.30)[pvorel@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,gmail.com,lunn.ch,davemloft.net,google.com,redhat.com,broadcom.com,suse.com];
+	MISSING_XM_UA(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TAGGED_RCPT(0.00)[netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lib.py:url,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:replyto];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	REPLYTO_EQ_FROM(0.00)[]
 
-arm,cpu-registers-not-fw-configured is required: Allwinner's boot0 sets
-neither CNTFRQ nor CNTVOFF, so the virtual timer storms. Same reason as
-commit 121b96cd9d7e ("ARM: sun6i: Enable ARM arch timers").
+Hi Narcisa,
 
-The watchdog interrupt was measured on hardware via GICD_ISPENDR.
+[ Cc Ricardo and Sebastian ]
 
-Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
----
- arch/arm/boot/dts/allwinner/Makefile          |   1 +
- .../allwinner/sun8i-b288-pocketbook-verse.dts | 122 +++++++
- arch/arm/boot/dts/allwinner/sun8i-b288.dtsi   | 300 ++++++++++++++++++
- arch/arm/mach-sunxi/sunxi.c                   |   1 +
- 4 files changed, 424 insertions(+)
- create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
- create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
+> Add IPv4 and IPv6 test cases that exercise GSO packets under BIG TCP
+> size limits.
 
-diff --git a/arch/arm/boot/dts/allwinner/Makefile b/arch/arm/boot/dts/allwinner/Makefile
-index 75b2b6a2f7a6..2dfdc01e4825 100644
---- a/arch/arm/boot/dts/allwinner/Makefile
-+++ b/arch/arm/boot/dts/allwinner/Makefile
-@@ -227,6 +227,7 @@ dtb-$(CONFIG_MACH_SUN8I) += \
- 	sun8i-a83t-bananapi-m3.dtb \
- 	sun8i-a83t-cubietruck-plus.dtb \
- 	sun8i-a83t-tbs-a711.dtb \
-+	sun8i-b288-pocketbook-verse.dtb \
- 	sun8i-h2-plus-bananapi-m2-zero.dtb \
- 	sun8i-h2-plus-libretech-all-h3-cc.dtb \
- 	sun8i-h2-plus-orangepi-r1.dtb \
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
-new file mode 100644
-index 000000000000..91c89d5a097e
---- /dev/null
-+++ b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
-@@ -0,0 +1,122 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * PocketBook Verse (PB629), an Allwinner B288 based e-reader.
-+ */
-+
-+/dts-v1/;
-+#include "sun8i-b288.dtsi"
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+/ {
-+	model = "PocketBook Verse";
-+	compatible = "pocketbook,verse", "allwinner,sun8i-b288";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@40000000 {
-+		device_type = "memory";
-+		reg = <0x40000000 0x20000000>;
-+	};
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-+&mmc0 {
-+	vmmc-supply = <&reg_dldo2>;
-+	bus-width = <4>;
-+	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
-+	status = "okay";
-+};
-+
-+&mmc3 {
-+	vmmc-supply = <&reg_dcdc1>;
-+	vqmmc-supply = <&reg_dldo1>;
-+	bus-width = <8>;
-+	non-removable;
-+	cap-mmc-hw-reset;
-+	status = "okay";
-+};
-+
-+&pio {
-+	vcc-pc-supply = <&reg_dldo1>;
-+	vcc-pd-supply = <&reg_dldo1>;
-+	/*
-+	 * PC and PD are named in the vendor rail list; PF is not. It is not
-+	 * on dldo2: with that rail off, a pull-up on PF6 still reads card
-+	 * detect correctly, so the bank has its own supply. dcdc1 is the
-+	 * only remaining candidate, carrying vcc-io and vcc-card. Derived
-+	 * from the rail naming plus that measurement, not from a schematic.
-+	 */
-+	vcc-pf-supply = <&reg_dcdc1>;
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+
-+	axp22x: pmic@34 {
-+		compatible = "x-powers,axp221";
-+		reg = <0x34>;
-+		interrupt-parent = <&nmi_intc>;
-+		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+	};
-+};
-+
-+#include "axp22x.dtsi"
-+
-+&reg_dcdc1 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <3000000>;
-+	regulator-max-microvolt = <3000000>;
-+	regulator-name = "vcc-io";
-+};
-+
-+&reg_dcdc2 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1260000>;
-+	regulator-max-microvolt = <1260000>;
-+	regulator-name = "vdd-cpu";
-+};
-+
-+&reg_dcdc4 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1100000>;
-+	regulator-max-microvolt = <1100000>;
-+	regulator-name = "vdd-sys";
-+};
-+
-+&reg_dcdc5 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1350000>;
-+	regulator-max-microvolt = <1350000>;
-+	regulator-name = "vcc-dram";
-+};
-+
-+&reg_aldo3 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <3000000>;
-+	regulator-max-microvolt = <3000000>;
-+	regulator-name = "avcc";
-+};
-+
-+&reg_dldo1 {
-+	regulator-always-on;
-+	regulator-min-microvolt = <1800000>;
-+	regulator-max-microvolt = <1800000>;
-+	regulator-name = "vcc-pc";
-+};
-+
-+&reg_dldo2 {
-+	/* Powers the microSD slot (slot pin 4), switched per card scan. */
-+	regulator-min-microvolt = <3300000>;
-+	regulator-max-microvolt = <3300000>;
-+	regulator-name = "vcc-sdcv";
-+};
-diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
-new file mode 100644
-index 000000000000..58668d581368
---- /dev/null
-+++ b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
-@@ -0,0 +1,300 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Allwinner B288 (sun8iw10p1) SoC
-+ *
-+ * Addresses and interrupts come from the PocketBook Verse (PB629) vendor
-+ * device tree, cross-checked against the BSP clk-sun8iw10.c.
-+ */
-+
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+#include <dt-bindings/clock/sun8i-b288-ccu.h>
-+#include <dt-bindings/reset/sun8i-b288-ccu.h>
-+
-+/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	interrupt-parent = <&gic>;
-+
-+	clocks {
-+		osc24M: osc24M-clk {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <24000000>;
-+			clock-output-names = "osc24M";
-+		};
-+
-+		osc32k: osc32k-clk {
-+			#clock-cells = <0>;
-+			compatible = "fixed-clock";
-+			clock-frequency = <32768>;
-+			clock-output-names = "osc32k";
-+		};
-+	};
-+
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		cpu0: cpu@0 {
-+			compatible = "arm,cortex-a7";
-+			device_type = "cpu";
-+			reg = <0>;
-+			clocks = <&ccu CLK_CPUX>;
-+			clock-names = "cpu";
-+		};
-+
-+		cpu1: cpu@1 {
-+			compatible = "arm,cortex-a7";
-+			device_type = "cpu";
-+			reg = <1>;
-+			clocks = <&ccu CLK_CPUX>;
-+			clock-names = "cpu";
-+		};
-+	};
-+
-+	timer {
-+		compatible = "arm,armv7-timer";
-+		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
-+			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-+		clock-frequency = <24000000>;
-+		arm,cpu-registers-not-fw-configured;
-+	};
-+
-+	soc {
-+		compatible = "simple-bus";
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		/*
-+		 * mmc0 is a v4p1x controller, so it runs in the old timing
-+		 * mode and needs the sample and output phase clocks. Do not
-+		 * give it the sun50i-a64-mmc fallback: that selects the new
-+		 * timing mode, which this block does not implement.
-+		 */
-+		nmi_intc: interrupt-controller@1c000d0 {
-+			compatible = "allwinner,sun8i-b288-nmi",
-+				     "allwinner,sun9i-a80-nmi";
-+			interrupt-controller;
-+			#interrupt-cells = <2>;
-+			reg = <0x01c000d0 0x0c>;
-+			interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
-+		};
-+
-+		mmc0: mmc@1c0f000 {
-+			compatible = "allwinner,sun8i-b288-mmc",
-+				     "allwinner,sun7i-a20-mmc";
-+			reg = <0x01c0f000 0x1000>;
-+			clocks = <&ccu CLK_BUS_SDMMC0_BUS>,
-+				 <&ccu CLK_MMC0>,
-+				 <&ccu CLK_MMC0_OUTPUT>,
-+				 <&ccu CLK_MMC0_SAMPLE>;
-+			clock-names = "ahb", "mmc", "output", "sample";
-+			resets = <&ccu RST_BUS_MMC0>;
-+			reset-names = "ahb";
-+			interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&mmc0_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		/* SDXC v4.5. The soldered eMMC; shares the PC pads with mmc2. */
-+		mmc3: mmc@1c12000 {
-+			compatible = "allwinner,sun8i-b288-emmc",
-+				     "allwinner,sun50i-a64-emmc";
-+			reg = <0x01c12000 0x1000>;
-+			clocks = <&ccu CLK_BUS_SDMMC3_BUS>, <&ccu CLK_MMC3>;
-+			clock-names = "ahb", "mmc";
-+			resets = <&ccu RST_BUS_MMC3>;
-+			reset-names = "ahb";
-+			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&mmc3_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		/*
-+		 * mmc2 (0x01c11000) is an SDHCI-style controller, not SDXC, and
-+		 * has no upstream binding. It loses the PC pad arbitration to
-+		 * mmc3 and is unused here, so it is left undescribed rather than
-+		 * given a wrong compatible.
-+		 */
-+
-+		ccu: clock-controller@1c20000 {
-+			compatible = "allwinner,sun8i-b288-ccu";
-+			reg = <0x01c20000 0x400>;
-+			clocks = <&osc24M>, <&osc32k>;
-+			clock-names = "hosc", "losc";
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+		};
-+
-+		rtc: rtc@1c20400 {
-+			compatible = "allwinner,sun8i-b288-rtc";
-+			reg = <0x01c20400 0x400>;
-+			interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
-+			clock-output-names = "osc32k";
-+			clocks = <&osc32k>;
-+			#clock-cells = <1>;
-+		};
-+
-+		pio: pinctrl@1c20800 {
-+			compatible = "allwinner,sun8i-b288-pinctrl";
-+			reg = <0x01c20800 0x400>;
-+			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_PIO>, <&osc24M>, <&osc32k>;
-+			clock-names = "apb", "hosc", "losc";
-+			gpio-controller;
-+			#gpio-cells = <3>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+
-+			mmc0_pins: mmc0-pins {
-+				pins = "PF0", "PF1", "PF2",
-+				       "PF3", "PF4", "PF5";
-+				function = "sdc0";
-+				drive-strength = <30>;
-+				bias-pull-up;
-+			};
-+
-+			i2c0_pins: i2c0-pins {
-+				pins = "PB6", "PB7";
-+				function = "twi0";
-+			};
-+
-+			mmc3_pins: mmc3-pins {
-+				pins = "PC1", "PC4", "PC5", "PC6",
-+				       "PC7", "PC8", "PC9", "PC10",
-+				       "PC11", "PC12", "PC13", "PC14";
-+				function = "sdc3";
-+				drive-strength = <40>;
-+				bias-pull-up;
-+			};
-+
-+			uart0_pb_pins: uart0-pb-pins {
-+				pins = "PB4", "PB5";
-+				function = "uart0";
-+			};
-+		};
-+
-+		wdt: watchdog@1c20ca0 {
-+			compatible = "allwinner,sun6i-a31-wdt";
-+			reg = <0x01c20ca0 0x20>;
-+			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&osc24M>;
-+		};
-+
-+		uart0: serial@1c28000 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28000 0x400>;
-+			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART0>;
-+			resets = <&ccu RST_BUS_UART0>;
-+			status = "disabled";
-+		};
-+
-+		uart1: serial@1c28400 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28400 0x400>;
-+			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART1>;
-+			resets = <&ccu RST_BUS_UART1>;
-+			status = "disabled";
-+		};
-+
-+		uart2: serial@1c28800 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28800 0x400>;
-+			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART2>;
-+			resets = <&ccu RST_BUS_UART2>;
-+			status = "disabled";
-+		};
-+
-+		uart3: serial@1c28c00 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c28c00 0x400>;
-+			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART3>;
-+			resets = <&ccu RST_BUS_UART3>;
-+			status = "disabled";
-+		};
-+
-+		uart4: serial@1c29000 {
-+			compatible = "snps,dw-apb-uart";
-+			reg = <0x01c29000 0x400>;
-+			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-+			reg-shift = <2>;
-+			reg-io-width = <4>;
-+			clocks = <&ccu CLK_BUS_UART4>;
-+			resets = <&ccu RST_BUS_UART4>;
-+			status = "disabled";
-+		};
-+
-+		i2c0: i2c@1c2ac00 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2ac00 0x400>;
-+			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI0>;
-+			resets = <&ccu RST_BUS_I2C0>;
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&i2c0_pins>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c1: i2c@1c2b000 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2b000 0x400>;
-+			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI1>;
-+			resets = <&ccu RST_BUS_I2C1>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		i2c2: i2c@1c2b400 {
-+			compatible = "allwinner,sun8i-b288-i2c",
-+				     "allwinner,sun6i-a31-i2c";
-+			reg = <0x01c2b400 0x400>;
-+			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TWI2>;
-+			resets = <&ccu RST_BUS_I2C2>;
-+			status = "disabled";
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+
-+		gic: interrupt-controller@1c81000 {
-+			compatible = "arm,gic-400";
-+			reg = <0x01c81000 0x1000>,
-+			      <0x01c82000 0x2000>,
-+			      <0x01c84000 0x2000>,
-+			      <0x01c86000 0x2000>;
-+			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
-+			interrupt-controller;
-+			#interrupt-cells = <3>;
-+		};
-+	};
-+};
-diff --git a/arch/arm/mach-sunxi/sunxi.c b/arch/arm/mach-sunxi/sunxi.c
-index e1b7945aac99..c5b19d0e63f9 100644
---- a/arch/arm/mach-sunxi/sunxi.c
-+++ b/arch/arm/mach-sunxi/sunxi.c
-@@ -61,6 +61,7 @@ MACHINE_END
- static const char * const sun8i_board_dt_compat[] = {
- 	"allwinner,sun8i-a23",
- 	"allwinner,sun8i-a33",
-+	"allwinner,sun8i-b288",
- 	"allwinner,sun8i-h2-plus",
- 	"allwinner,sun8i-h3",
- 	"allwinner,sun8i-r40",
--- 
-2.53.0
+> 1..2
+> ok 1 tso.big_tcp_ipv4
+> ok 2 tso.big_tcp_ipv6
 
+> Both of them run the existing tx-tcp-segmentation
+> and tx-tcp6-segmentation tests at the increased TSO maximum.
+
+> Additionally, reserve a hugepage and transmit its content using
+> MSG_ZEROCOPY to produce skb fragments larger than 65536.
+> Check that the number of retransmissions represents a small
+> percentage of the total packets sent. Record the number of drops
+> before and after the send to catch issues with large frag
+> handling during segmentation.
+
+> Signed-off-by: Narcisa Vasile <narcisav.kernel@gmail.com>
+
+LGTM, but I'm not really an expert on network drivers testing.
+
+Acked-by: Petr Vorel <pvorel@suse.cz>
+
+Kind regards,
+Petr
+
+> ---
+>  tools/testing/selftests/drivers/net/hw/tso.py | 161 ++++++++++++++++++
+>  1 file changed, 161 insertions(+)
+
+> diff --git a/tools/testing/selftests/drivers/net/hw/tso.py b/tools/testing/selftests/drivers/net/hw/tso.py
+> index 67f6c9ca9a64..176ddf97fabb 100755
+> --- a/tools/testing/selftests/drivers/net/hw/tso.py
+> +++ b/tools/testing/selftests/drivers/net/hw/tso.py
+> @@ -4,6 +4,7 @@
+>  """A simple test for TSO."""
+
+>  import fcntl
+> +import mmap
+>  import socket
+>  import struct
+>  import termios
+> @@ -15,6 +16,87 @@ from lib.py import EthtoolFamily, NetdevFamily, NetDrvEpEnv
+>  from lib.py import bkg, cmd, defer, ethtool, ip, rand_port, wait_port_listen
+
+
+> +MAP_HUGETLB = getattr(mmap, "MAP_HUGETLB", 0x40000)
+> +MSG_ZEROCOPY = getattr(socket, "MSG_ZEROCOPY", 0x4000000)
+> +SO_ZEROCOPY = getattr(socket, "SO_ZEROCOPY", 60)
+> +
+> +GSO_LEGACY_MAX_SIZE = 65536
+> +
+> +# Pool of the default hugepage size, the one /proc/meminfo reports on.
+> +NR_HUGEPAGES = "/proc/sys/vm/nr_hugepages"
+> +
+> +
+> +def default_huge_page_size():
+> +    """Return the hugepage size in bytes"""
+> +    try:
+> +        with open("/proc/meminfo", encoding="utf-8") as meminfo:
+> +            for line in meminfo:
+> +                if line.startswith("Hugepagesize:"):
+> +                    return int(line.split()[1]) * 1024
+> +    except OSError:
+> +        pass
+> +
+> +    return 2 * 1024 * 1024
+> +
+> +
+> +def hugepages_free():
+> +    """Return the number of unused hugepages of the default size."""
+> +    try:
+> +        with open("/proc/meminfo", encoding="utf-8") as meminfo:
+> +            for line in meminfo:
+> +                if line.startswith("HugePages_Free:"):
+> +                    return int(line.split()[1])
+> +    except OSError:
+> +        pass
+> +    return 0
+> +
+> +
+> +def set_nr_hugepages(count):
+> +    with open(NR_HUGEPAGES, "w", encoding="utf-8") as sysctl:
+> +        sysctl.write(f"{count}\n")
+> +
+> +
+> +def tx_dropped(ifname):
+> +    with open(f"/sys/class/net/{ifname}/statistics/tx_dropped",
+> +              encoding="utf-8") as counter:
+> +        return int(counter.read())
+> +
+> +
+> +def setup_hugepage():
+> +    """Reserve one hugepage, and put the pool back afterwards."""
+> +    if hugepages_free() >= 1:
+> +        return
+> +
+> +    try:
+> +        with open(NR_HUGEPAGES, encoding="utf-8") as sysctl:
+> +            old_count = int(sysctl.read())
+> +        set_nr_hugepages(old_count + 1)
+> +    except OSError as error:
+> +        raise KsftSkipEx(f"Unable to reserve a hugepage: {error}") from error
+> +
+> +    defer(set_nr_hugepages, old_count)
+> +
+> +    if hugepages_free() < 1:
+> +        raise KsftSkipEx("Unable to reserve a hugepage")
+> +
+> +
+> +def mmap_large_buffer():
+> +    """Allocate a buffer backed by one huge page."""
+> +    size = default_huge_page_size()
+> +
+> +    setup_hugepage()
+> +
+> +    try:
+> +        return mmap.mmap(-1, size,
+> +                         flags=mmap.MAP_PRIVATE |
+> +                               mmap.MAP_ANONYMOUS |
+> +                               MAP_HUGETLB,
+> +                         prot=mmap.PROT_READ)
+> +    except OSError as e:
+> +        raise KsftSkipEx(f"Unable to allocate a {size >> 20}MB hugepage "
+> +                         f"buffer: {e}") from e
+> +
+> +
+>  def sock_wait_drain(sock, max_wait=1000):
+>      """Wait for all pending write data on the socket to get ACKed."""
+>      for _ in range(max_wait):
+> @@ -33,6 +115,32 @@ def tcp_sock_get_retrans(sock):
+>      return struct.unpack("I", info[100:104])[0]
+
+
+> +def setup_big_tcp(cfg):
+> +    """Lift the GSO ceiling to what the device advertises for TSO."""
+> +    if cfg.dev["tso_max_size"] <= GSO_LEGACY_MAX_SIZE:
+> +        raise KsftSkipEx("Device does not support BIG TCP")
+> +
+> +    ip(f"link set dev {cfg.ifname} "
+> +       f"gso_max_size {cfg.dev['tso_max_size']} "
+> +       f"gso_ipv4_max_size {cfg.dev['tso_max_size']}")
+> +
+> +    defer(ip, f"link set dev {cfg.ifname} "
+> +              f"gso_max_size {cfg.dev['gso_max_size']} "
+> +              f"gso_ipv4_max_size {cfg.dev['gso_ipv4_max_size']}")
+> +
+> +
+> +def sock_send_zerocopy(sock):
+> +    """Send with MSG_ZEROCOPY, return the bytes queued."""
+> +    try:
+> +        sock.setsockopt(socket.SOL_SOCKET, SO_ZEROCOPY, 1)
+> +    except OSError as e:
+> +        raise KsftSkipEx(f"SO_ZEROCOPY not supported: {e}") from e
+> +
+> +    with mmap_large_buffer() as tx_buf:
+> +        sock.sendall(tx_buf, MSG_ZEROCOPY)
+> +        return len(tx_buf)
+> +
+> +
+>  def run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso):
+>      cfg.require_cmd("socat", local=False, remote=True)
+
+> @@ -96,6 +204,46 @@ def run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso):
+>                          500, comment="Number of LSO wire-packets with LSO disabled")
+
+
+> +def run_big_tcp_stream(cfg, ipver, remote_v4, remote_v6):
+> +    """Send with MSG_ZEROCOPY out of a huge page, so the frags exceed 64kB."""
+> +    cfg.require_cmd("socat", local=False, remote=True)
+> +
+> +    # No clamping, as it would keep the frags under 64kB
+> +    port = rand_port()
+> +    listen_opts = f"{port},reuseport"
+> +    listen_cmd = f"socat -{ipver} -t 2 -u TCP-LISTEN:{listen_opts} /dev/null,ignoreeof"
+> +
+> +    with bkg(listen_cmd, host=cfg.remote, exit_wait=True):
+> +        wait_port_listen(port, host=cfg.remote)
+> +
+> +        if ipver == "4":
+> +            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+> +            sock.connect((remote_v4, port))
+> +        else:
+> +            sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+> +            sock.connect((remote_v6, port))
+> +
+> +        # Small send to make sure the connection is working.
+> +        sock.send("ping".encode())
+> +        sock_wait_drain(sock)
+> +
+> +        retrans_old = tcp_sock_get_retrans(sock)
+> +        drops_old = tx_dropped(cfg.ifname)
+> +
+> +        sent = sock_send_zerocopy(sock)
+> +        sock_wait_drain(sock)
+> +
+> +        drops = tx_dropped(cfg.ifname) - drops_old
+> +        retrans = tcp_sock_get_retrans(sock) - retrans_old
+> +        sock.close()
+> +
+> +        ksft_eq(drops, 0, comment="Driver TX drops during BIG TCP send")
+> +
+> +        # Same best effort bound as the plain stream.
+> +        total_lso_wire = sent * 0.90 // cfg.dev["mtu"]
+> +        ksft_lt(retrans, total_lso_wire / 16)
+> +
+> +
+>  def build_tunnel(cfg, outer_ipver, tun_info):
+>      local_v4  = NetDrvEpEnv.nsim_v4_pfx + "1"
+>      local_v6  = NetDrvEpEnv.nsim_v6_pfx + "1"
+> @@ -147,6 +295,11 @@ def test_builder(name, cfg, outer_ipver, feature, tun=None, inner_ipver=None):
+>          if feature not in cfg.hw_features:
+>              raise KsftSkipEx(f"Device does not support {feature}")
+
+> +        # Run non-tunnel test cases under the BIG TCP limits too.
+> +        big_tcp = "big_tcp" in name
+> +        if big_tcp:
+> +            setup_big_tcp(cfg)
+> +
+>          ipver = outer_ipver
+>          if tun:
+>              remote_v4, remote_v6 = build_tunnel(cfg, ipver, tun)
+> @@ -159,6 +312,9 @@ def test_builder(name, cfg, outer_ipver, feature, tun=None, inner_ipver=None):
+>          ethtool(f"-K {cfg.ifname} {feature} off")
+>          run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso=False)
+
+> +        if big_tcp:
+> +            run_big_tcp_stream(cfg, ipver, remote_v4, remote_v6)
+> +
+>          ethtool(f"-K {cfg.ifname} tx-gso-partial off")
+>          ethtool(f"-K {cfg.ifname} tx-tcp-mangleid-segmentation off")
+>          if feature in cfg.partial_features:
+> @@ -171,6 +327,9 @@ def test_builder(name, cfg, outer_ipver, feature, tun=None, inner_ipver=None):
+>          ethtool(f"-K {cfg.ifname} {feature} on")
+>          run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso=True)
+
+> +        if big_tcp:
+> +            run_big_tcp_stream(cfg, ipver, remote_v4, remote_v6)
+> +
+>      f.__name__ = name + ((outer_ipver + "_") if tun else "") + "ipv" + inner_ipver
+>      return f
+
+> @@ -230,6 +389,8 @@ def main() -> None:
+>              # name,       v4/v6  ethtool_feature               tun:(type, args, inner ip versions)
+>              ("",           "4", "tx-tcp-segmentation",         None),
+>              ("",           "6", "tx-tcp6-segmentation",        None),
+> +            ("big_tcp_",   "4", "tx-tcp-segmentation",         None),
+> +            ("big_tcp_",   "6", "tx-tcp6-segmentation",        None),
+>              ("vxlan",      "4", "tx-udp_tnl-segmentation",     ("vxlan", "id 100 dstport 4789 noudpcsum", ("4", "6"))),
+>              ("vxlan",      "6", "tx-udp_tnl-segmentation",     ("vxlan", "id 100 dstport 4789 udp6zerocsumtx udp6zerocsumrx", ("4", "6"))),
+>              ("vxlan_csum", "", "tx-udp_tnl-csum-segmentation", ("vxlan", "id 100 dstport 4789 udpcsum", ("4", "6"))),
