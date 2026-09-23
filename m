@@ -1,128 +1,103 @@
-Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9BB539790
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE174963C8
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174953; cv=none; b=NVZSGXfaVWB3XfFTC9aqQnCduOPNSy6ZQr4UIQZ/0P1CcLeauc6eLeIwGTkc7ZNRAPuw8NKv/UdIaXmvPJZAuyWZDd4/t90Ju6b6FJthowDI0l8V7GJ+z7k6b3gc1NFbcFpeAO112dPT0h/TzMxqBP3FxVUXrdVeR9OyXlaGnWE=
+	t=1790174954; cv=none; b=CdNnOwGXkTIuXeTIwyblqqeoD4dhe703fhnK2MR6QBg44uYnQrb8+Aq8azKiKvx4UvHQ3fXJQMd04hXf6QcIja6NIVBFHUpiWkpgoINeOC+eFG978rMfAYWGRSndxyhr7qpnBq+IzFkCmNnoLhj3lV3tULbBXVtbm+G+PXOep7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174953; c=relaxed/simple;
-	bh=wQCvOdr5DG6nGGHUmjf3dbvqPAsVzIgztOSMKuc72jM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oBWUABYQfaD5N5/3j4N4NuCCJbbVHVSUqt0/bnTnP0BN/jRe7GG3gydbt3oZ+GLYP1RQeLBNiE8cpjX8N2/Tid7Ce1krhOENbCvqipkoKMk5gXGCF9Yr+Cgnsoy3xQw9jU93FZA6KQEo6GCcerh2n7uZimb1RMBFfM6Ey8LjJeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DVMvzhby; arc=none smtp.client-ip=74.125.231.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790174954; c=relaxed/simple;
+	bh=pSeEJPU3lkfh8cgLcenFy2jzqxMX5d+PxutRSDesZoc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VEYN2XN7oXIt2QGiqyE26uVHcFeu4/JFZCTtGDbrNgoByMPtuJAcx4F4TiFBW6iDaQvZseqZkdIv7CMRzB5NY0/8IYBt4rdM6kJLr/ep/sEZVTdGZCblWYkPqUB0/UM+PwEk34HnVIP+FwsHn1iVp+DZJtfoSxC9bqJWL0H0nYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=UlsN0GUg; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DVMvzhby"
-Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6d13d47b7caso527856eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:49:11 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="UlsN0GUg"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso8859905e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:49:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790174951; x=1790779751; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jb40C5wg5KlMegSVoKPaSGTLlViBBhllfQg4nnGSKA8=;
-        b=DVMvzhby3hWepqkLYFp3NitIWxCyCs+BvmMzaoEUuuZvhu/zgJBntz4evdhwOrXecL
-         nB2D16y2jhP2bcHSMCf0iiShrA2usUUbKlVk7oaqTWeLynqUhmEoXUieXWozIVng5kqb
-         v6ULCkYQCAvYEC0TGFZeNsRosSSl/c4LIJDjb7dgvFoONLQQW4oPFhfQsm/w5VkrVzba
-         eBIwzc8Akvg9FCvwwW2e7TN3UGLPR0YASFvT0qYoDyTo0H5tCzpg+3ppn32pWYAeaK00
-         yUuKVivSKMQof3WikcMALRJ8MtDVEoAi6OkatxjeIhvOT1HigvWrDu6j4sM+KUbaFrrL
-         +9xg==
+        d=konsulko.com; s=google; t=1790174951; x=1790779751; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5uYZRT0nIgMlAwRKG90W+rLkaTWtRA8cAKQ7+v7bJjc=;
+        b=UlsN0GUgtcuHplOFez3FwQkmoOuLY06F3v3t6oRX2CS+ug69goioqIP7TD04yVUdER
+         bYTOMNJmNl0OXBrMkGFrY+mqRjVpiRwA7y0KriMOuZH9xqxiLQy8G5Cn8DhKzj1+amxM
+         +8xj3C7Q0/EhBp/KFkZ1yaAqZrLQckvRiy2zo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790174951; x=1790779751;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jb40C5wg5KlMegSVoKPaSGTLlViBBhllfQg4nnGSKA8=;
-        b=2UlFs9LzDhQy4qbAUm7Es2+QauYVR4simNUkLaOE1MtV0PMI3ZgaL/L9z6SqX55gAf
-         e0FsYuP/HuXK+1s4y4XqCQQCiwDLK+cqFDg46wspU4zF5Qf5PyY8aGW/rVm7ndjwST5u
-         Trma2c9GdxCG5o+iNaGrjJa0MovZp7VRojP1F+nznN6KNkdrHwi9JyqManXNMSofkanf
-         0Kuxs4ReebhN/VVz0qnHWIyiMw5mo68LBsdHnumcBI4taDfXXUrGpK7JYp6SI92eVD6n
-         T07GxYa7a49p+tyFIuVL3Q8dPIepiF5/ssqxzR1bHspkmSYvpNvhF1Ruc2PDxZ7cmZhv
-         k6hw==
-X-Forwarded-Encrypted: i=1; AKwUvBxy3TG2w9H2wF7VjR/9ElyWMXeayXOlNduGPvvSoUSg/jIv+mpG6Qyn3u9TvTJTH4eRRvQu8+UWc/asIF8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kn8PfHlGLZwmNtsW00tyNZ7EdzaLVN9HS9EwxQeQfEvIXVkUtz
-	9+FceArUvIa0uMAUpMYncdox9JnL4pYQjSNp3mVRoEPqRz+7ygLv+slw
-X-Gm-Gg: AYBFou2xcK4j28tsq0FXvDuTDodF+2UI/IiDDxXlxAWwBNWHYS0eX6QnqdSdvUR0Krz
-	1ZUjHMU9sR6JCMTuRWH3BEvQsfi8eIR6l9gjOhQ/U8vkYFmjyHb88gS5NZPnQeYzy5Rm+8kRDo4
-	sCHGQALS5j6Hzej2BcMaZ9/S4egzoNshqnTqKE8AP/BGGID6tXzl7jr4NVooVtS3VptlJgrTwDc
-	MlA2dJszb3aAUGsdncvgt2tE+8uRi/cxyINIm8WtmdfzrktxHZyWcepl9s7Q4vY9oBBeY2eN2J6
-	W8T6D6mqkgxi2NPRi0CIBm7JCq9JxqeD8TUzjo3Ef79PN9kzL0naIjbPBUd6R3nqdb5t7+SrED1
-	jeyEFKnrLNGHmUGEUxs6CrlO2MdgOo59vTCANWWQE/tr5MB6pJXIaZah+H15Tj4yT+atE4RA3Px
-	3Xd6mtIcFTz8EFRK8SnbLjZ+7W/b6Swx1p/wnumOTpqJrgldZPrUaZJtL4a5yM2QdpUn9ZOiDRm
-	fZgFoqGyHe45x83d9qm+wuDgtFrQp1bBCjz6lEU
-X-Received: by 2002:a05:6820:190f:b0:6cd:3fec:de75 with SMTP id 006d021491bc7-6d2d3012efemr2156575eaf.75.1790174950870;
-        Wed, 23 Sep 2026 07:49:10 -0700 (PDT)
-Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d2c92c2619sm2788537eaf.0.2026.09.23.07.49.09
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5uYZRT0nIgMlAwRKG90W+rLkaTWtRA8cAKQ7+v7bJjc=;
+        b=BlTJH3pnatVvyMj7LwEQAzhXu2TBK7nOpOXkrIWr5P6ssGHIlFP+Q/BDvs2Hos1Rzd
+         DFKfE2K+yQ37cHox+KkEUdo9u7Cp0mXqoAzbOpj6IvH+gaDm3fTmNcA5KvmpE1yqHpZ2
+         CT7hyvcUplT7V3OuXb4Fr8rtgPNGQqI3bAOAbnvAnRlSxgL7ZntmFsEt++Kdt147CJXv
+         ULNWTV6ztB2ssTI0SnBcTdb1lD+St4NrlOhgt+ZqoBfrXVrADn4t3udWWMsNjteqdQUo
+         8sc9gXInXVP94DLhGkBPS+HgRIVt9hR5vDOy/+Hr0x4i0o/sGnG6FXYqgGxmFqUJk7kx
+         YbhA==
+X-Gm-Message-State: AFuF++kcItNWXl14YhEd4Xxoqv5XRgDBq2Tfhx2EbSddumwJBpVH9CtY
+	BokkVeWc7wW19LZJ25nHujpzospJ3uKURIMJvR9XwgtBZXCK8BnT/pR+oXuRHl7P3OeWaDYBoRc
+	hYiWg
+X-Gm-Gg: AYBFou2rK+fkFEsvkVY3YGs5woHImTB4H4MQCBKsuWKKLB+ThLmOwOrFrQhc2EE23G+
+	scF+vvkeGozfEwydbg+n8hDYQHIYRQQGqMM9C8XDrcxppWUjOB27WbWWS0sRH5aOgdNDiFRik+X
+	Y3jIjMM1gtnu+tZUjz+NaDMWoWrrOaeTsPINBLZX5PvWgPSLtz54DYq0Tzt1rkmJx79V3L13Mge
+	dNhtmUagP6RISA71LSPgxIa69UZ+34RNsLt3+f97W4pi3lmw/Kqj7MDvhHJBriLPnPJ1B8E/Ki2
+	R7lUuioF94JcZ9sCXfyItMxjcC1G8R9nhmbfmnscQDtaBgb0YDqvOl0p0ugDZHs5VgodJex3tUZ
+	dG8hN4nYqK3F73kak5dzdqddcAYayemrKItw/+9PJdF7umOUbYeEXtX/mqPI0OlW/1PSKAbltW4
+	NnCXPh7CGhkFzJjrSlTgVkvF1aGOEF90f7Dczca7XVSuY76oXQrx2IGcVW10o0WKMM7i6NyjmGH
+	So9UGw2qCbBeEU=
+X-Received: by 2002:a05:600c:198a:b0:49d:1840:4fd2 with SMTP id 5b1f17b1804b1-49fdf1454d2mr40893875e9.23.1790174951337;
+        Wed, 23 Sep 2026 07:49:11 -0700 (PDT)
+Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1aca52sm82614915e9.14.2026.09.23.07.49.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 23 Sep 2026 07:49:10 -0700 (PDT)
-From: Danish Khateeb <danishkhateeb03@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Allen Pais <allen.lkml@gmail.com>,
-	sparclinux@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Danish Khateeb <danishkhateeb03@gmail.com>
-Subject: [PATCH 0/2] sparc64: fix relbranch_fixup() for BPr, FBfcc and FBPfcc
-Date: Wed, 23 Sep 2026 09:49:06 -0500
-Message-ID: <20260923144909.414968-1-danishkhateeb03@gmail.com>
-X-Mailer: git-send-email 2.55.0
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	arnemaximilian.richter@draeger.com,
+	martynas.grybauskas@draeger.com,
+	Petko Manolov <petko.manolov@konsulko.com>
+Subject: [PATCH v1 0/2] arm: dts: nxp: imx: add Draeger M48 CPU board
+Date: Wed, 23 Sep 2026 17:49:02 +0300
+Message-ID: <20260923144905.3365851-1-petko.manolov@konsulko.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-kprobes and uprobes on sparc64 single-step a copy of the probed
-instruction, and each has a relbranch_fixup() that moves a taken
-branch's target from the copy back to the probed code. Both only
-recognize call, BPcc and Bicc. A taken BPr, FBfcc or FBPfcc therefore
-continues next to the copy, which crashes the kernel for a kprobe and
-kills the task with SIGILL for a uprobe. BPr is a common first
-instruction (a brz,pn on an argument), so a probe on a function's entry
-is enough to hit it.
+Adds the device trees for “Dräger M48 on NXP i.MX6 (Q|DL) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the
+same carrier and they are cross-monitoring each other.  The SoCFPGA boots
+independently off qspi flash.
 
-Patch 1 fixes kprobes, where the check dates back to the start of git
-history. Patch 2 fixes the uprobes copy of it. They are independent of
-each other, and of my pending uprobes kmap_local_page() patch.
+This is the imx6 devicetree part.  There are two bindings as well as device
+trees, since M48 is using two parts: imx6q and imx6dl.
 
-Testing, in QEMU sun4u with sparc64_defconfig plus PREEMPT,
-DEBUG_PREEMPT, PROVE_LOCKING and DEBUG_ATOMIC_SLEEP. A static init puts
-uprobes on seven branches in its own code: brz,pn at a function's entry,
-brgz,pt, fbe,pt %fcc0 (FBPfcc) and fbe (FBfcc), plus be (Bicc),
-be,pt %xcc (BPcc) and call as controls. Each function runs 200 times in
-a child, alternating taken and not taken, and the delay slot's effect
-and the path taken are both checked. It then puts a kprobe on
-__se_sys_getcpu(), which starts with "brz,pn %o0", and calls getcpu()
-200 times, half of them with a NULL cpu pointer.
+Petko Manolov (2):
+  dt-bindings: arm: fsl: add Draeger M48 dual-cpu board
+  arm: dts: nxp: imx: Add devicetree files for M48
 
-- fe2ec83746e5 (v7.3-rc4+): the four new uprobe cases die with SIGILL
-  on their first taken branch, the controls pass, and the first taken
-  getcpu() under the kprobe crashes the kernel.
-- Patch 1 only: the kprobe case passes with 200 hits; uprobes as before.
-- Both patches: everything passes, with no new kernel warnings. Boot
-  has three DEBUG_PREEMPT "__this_cpu_read() in preemptible" reports
-  from iommu_tbl_range_alloc(), with or without these patches.
+ .../devicetree/bindings/arm/fsl.yaml          |   2 +
+ arch/arm/boot/dts/nxp/imx/Makefile            |   2 +
+ .../boot/dts/nxp/imx/imx6dl-draeger-m48.dts   |  23 ++
+ .../boot/dts/nxp/imx/imx6q-draeger-m48.dts    |  23 ++
+ .../boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi | 369 ++++++++++++++++++
+ .../boot/dts/nxp/imx/imx6qp-draeger-m48.dts   |  78 ++++
+ 6 files changed, 497 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6dl-draeger-m48.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-draeger-m48.dts
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qdl-draeger-m48.dtsi
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx6qp-draeger-m48.dts
 
-W=1 and sparse are clean for both files.
-
-Danish Khateeb (2):
-  sparc64: kprobes: fix relbranch_fixup() for BPr, FBfcc and FBPfcc
-  sparc64: uprobes: fix relbranch_fixup() for BPr, FBfcc and FBPfcc
-
- arch/sparc/kernel/kprobes.c | 13 ++++++++-----
- arch/sparc/kernel/uprobes.c | 13 ++++++++-----
- 2 files changed, 16 insertions(+), 10 deletions(-)
-
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
 -- 
-2.55.0
+2.47.3
 
