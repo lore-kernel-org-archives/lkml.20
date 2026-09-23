@@ -1,219 +1,129 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E374497B79
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E23748C8AE
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790195836; cv=none; b=N4UDIhzeNSeR66LRuposvNRDd6xg8Ic/PaSkNuleOZzc7syUEgOu6Q6X4M6A6oyEX/Id5+allt2oO5UIKcQevSFhvQJcXgkjbZAHjUcbeAjiAm14MOKmJIKBqN+elc41JLGx1IfdGQkqtn6oJptzJOqjIQLwyy+96hChLFu2pBw=
+	t=1790195877; cv=none; b=CD6Uj0XrVM2RWXvXgyW+BaE37PpsQYQKVS+yEkONd6Yf13Bj7VsgMpAFSxzORPAsB5YltPO3epldehSxImLzc8OrFyGAo0FXhv+GveJ0BwW0Q/p9GC0C9XMFpPGFgyXmmmSHJo/PprPE5Vynz68o659QTgw4RIkEAjxmu/N1mNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790195836; c=relaxed/simple;
-	bh=76OGawCGCzNjaY/PdRchvCHcK95PvzVL/gr2BwqRyZc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HNV3S2Gej7B9j2k7+GlTky9Ecq8JxLJbv0EztMae0UQ8kzBJwKHgoqfpiZlqa/qHUxqQOqey7zc8VHS4HNN6bV5dCf5KklVAfh6pLHiAaHQLZq6CCPuVvq6jt9OKr7PeFu0ncJoVBH9OWS22yYhGpZAH3hILqNdhMbl4zkfpQHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=outQsVKI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SPV34L+r; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790195877; c=relaxed/simple;
+	bh=ktR9e2h8nCd9S0EFkl5DruJEUJcripKPI1tSmR1JOBs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C+nQEFN68KdLVTQela1CMOv41zzWYkSH7Mil01tN6GHtTrRaS4+FbHG9d0KXESkJocVkrL+/ZLfQh9Y+RJ4/s/1M8Rlzxil4fPseLAiFPt64CeyQ4/qh71P0t9AdsoHWZo6CyNp5xn6FyZlrsiKg2CeC2N8rBgWASlqWfluqi8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WsPFLco0; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="outQsVKI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SPV34L+r"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NJlINv3513976
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:37:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=bYaxrW6ifBz/Y6MOZDh+WJ5i
-	wKja590ZzTUZuOtu2rE=; b=outQsVKIq8iTjcf4061tlqFfLV4bMUoou/vtbytB
-	QSBJZ+aGBdy3BHUuQHR6/XZHFzekbmdTris/no3reM2I+WOGf/YotWmq1EumNYIX
-	sFOSbTZ39aeKVpx7ZMJxbKD3jOtTmWC+qwred1/stvQndu5F3PpZ+DyFa5hfugfx
-	CnV6Pboz5z2cEGNorrIeIGgb/k4bb8xqOpI0EY80S1kj7bxWJffjvT2IWBDiedlY
-	laZbzyQLvJF/yYInahC1myskS1AKOrD09q9VoBNaZtiMoqmdGif0ygkGu7+nw/sf
-	l6DlEgnlGgu8OwfyWTmBBGf1Cb9AUbLY6Mf9aE7Rn6T3sQ==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvbx7jv0p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:37:13 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-790de8f0cecso410088137.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:37:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WsPFLco0"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e630052ebso1624343eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:37:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790195833; x=1790800633; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bYaxrW6ifBz/Y6MOZDh+WJ5iwKja590ZzTUZuOtu2rE=;
-        b=SPV34L+rR4Yi8WAcCYn9+NPf5bkxMZTO/EcqmWlRlLzs4wFB29QiWQ2iFq717SLEWj
-         +8jZ/ZJiYyDkwyJXUJcCQzDxnoDC1Fgg2rSize87sXoqM1pWzRXmHLR/RbOgPqpw3l62
-         WnpwFX19IxfILqFpgC/P+TEmtoQH3ozUPrcoeDTSZkXJcos4iJMyIqQMBb/gvQHCga76
-         hVN8Zcb8oyLkOoCGUWNHg8GX5u3eQoESDj2vkyRbHwoI22wsYPgrH0wVUddzr+kSRktG
-         ZLeE4C/gLG+vvUwzfkCuLwOLGEiRS+XspFLZsmn+NdNH7FWlhelpTJ9wXceC1LuZ+PDp
-         7qzA==
+        d=gmail.com; s=20251104; t=1790195875; x=1790800675; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+ZvYoYp7T3tg2JMG9Cckdchh+Egbf2tNmPcdBTT/ZU4=;
+        b=WsPFLco0BTKLwvvYD/SgZxR7EEMa9176KlisVwB54AJYvwXv9rOttuYZqbe0GWlG0R
+         O7Nw2L40x7ZTi0y3HFViQBW7I5H8TwP9jDHjZnxezZ6FiVrMUL7y143XHfirYtGq8TdU
+         2q8omMlKbC0+07N2TvZ/wMi6kxlGlMHWdk/8CD4IksXriQqXBuHTGDEycFGunSj09DKz
+         zXsXRxiWmd/MhJuuc1SRm+TyDX+3R43WfVngqkSGYgcRfi/HLTyW6MZY2TlMng4/G1l4
+         CAcvrlDEkB8E/Q3UsM2rUHqyF1MYSaQqko9AFY4yDhr2EszY5YMdXbFEBL+fXiQQEQZv
+         YdbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790195833; x=1790800633;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bYaxrW6ifBz/Y6MOZDh+WJ5iwKja590ZzTUZuOtu2rE=;
-        b=EAm3S2CO+lY/W1XtaZqM4qcH1FI1CYvo80mozR/fgBcxyST6EF1eoIE8B8MxYXkSsB
-         G+ELI1mrWjP83qzH8SVBG5bPG6cZQlOuIY/G9wBB8XQ96pM/fPCxmjA+tNGH/IFH6th0
-         eW4CqQqIRyYu93CcVmXtTdN3cfc+t6RJrmkxeE0CoXOAeUnzyxL6AmmaguHGLYnVvrUf
-         CMeYgVzi5MRKCkGIDpSwzHUDLXSARAgOqEoa+hvzcVsFkNtz1F8Nf+xYK9daKZCDl2jQ
-         4IlXKZT8F0HjmSRVUFldw7b4su5TtsZV+LKJn9cL5AYo6Dt+8FjL2bISZU/l8w4nJbil
-         3aCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywe+S+3l0BuLLeS7VE/ku5R1g1HODLxUZCpU9R2jQ6/yI11NuwMXIY8nUl86vTYeoFuePK+Jhdd8ex3QQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAKIDKCRAGkjuR3UjVS5XwSdr5WgSONppvF8fRm3gTWiul+jrs
-	e1DiQjpEacDcyQMz5k82cioSBTASY16FKkSVpeelY+mMMOEg4AYvshhbmy9Gyo2WohudmcgTZHJ
-	id+ZLGLXvNv1NvZvaCG+Hz3uEG1lybf2oSC/9Z1n+OgHSheSGfhlqLtgAX0uWckSfCY37CDkbZG
-	0=
-X-Gm-Gg: AYBFou1wWTMIZqWOmbOyVcVmgp3fEVI3WnSNXyId/JI2eBVcTdoiUrNWHLWntD5abgO
-	DN/Q5w2rMst1j8t12eQUw5X18xgISLsNb8fVxWBtiZQ1XKu+vXNowJZQtBCsLC12EOUfX1Y1n2l
-	J7+wxG0a3gVurOHThUlamurE3m48rbHa/gJPBq7g8eDHQ7ye3c+zJz2t5fbkAd4RDBrSHUDbLil
-	/4AVozs2Z0k4ygM7xt5qA9lgzBIuCS5RJl9eBqzOOUKLevgsgnW8YQ4pv9wCMgj6jZzCV4TE86k
-	+EWTi+GSlbMj1+JIfecNXuJIPJAnSuUkZ/iViJlB7uRP+yylwPyGqWnSnHf+my9RvUqXP0iDUUK
-	IE4uboM5lHhjtAQWLTWBJhRuS
-X-Received: by 2002:a05:6102:3fa3:b0:7a8:2a34:432e with SMTP id ada2fe7eead31-7af1ce99caamr335948137.9.1790195832617;
-        Wed, 23 Sep 2026 13:37:12 -0700 (PDT)
-X-Received: by 2002:a05:6102:3fa3:b0:7a8:2a34:432e with SMTP id ada2fe7eead31-7af1ce99caamr335926137.9.1790195832110;
-        Wed, 23 Sep 2026 13:37:12 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c4cc01sm35186275e9.3.2026.09.23.13.37.10
+        d=1e100.net; s=20260707; t=1790195875; x=1790800675;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+ZvYoYp7T3tg2JMG9Cckdchh+Egbf2tNmPcdBTT/ZU4=;
+        b=FZSqoGNyAqM+tI4OEJKYpZ3reYT+zs+s/EvhXRBDp8WutnZ+G4fDwW2jSesGzVtqgb
+         xl1hYOMFKTfqsFLPxCCFitA0/2aGLp4BBa5QnNko3Hn63GjfRTGVD8U9+nso2QOZIn2W
+         LR5uBDE0dPqxsS6+cCUN2Cyzjp4Ts4nOIb1/WZfyrIgo7t6NjP5S2K+lp6bSAmeCy6g7
+         sC3uEx2ObZxTvePiD7aQQstDI/rVsljZ2B4YcxE4tZVJ2UH7B/ycnGzV5zQtcDMNo8UM
+         IYW84Cn5+6ih0uzRhpTchgE5z+WPmNCqGZCD13359HlJw/C+hPuvCvKiNpTPtP5HG5PN
+         sR7w==
+X-Forwarded-Encrypted: i=1; AKwUvBw4gwpLRrfcS1E4Qhkmsz0/3NBV56tOA94PvNsvZSV00bwnd3qRrdUpKgavThCp34jGnh/NLUT0KVc+ic8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQkKY0sD/hPQZ953DInW+OvwvqX1msyXauA525djg7e+108v36
+	LSSFB+KPgXJlx0f7xof2n1HreP6ELTyFoON2lFsQUvVYngz7iMHG2RQa
+X-Gm-Gg: AYBFou32ZS6yYUENv2CvKFZwUDo7MXyASaY5M1l5iTXReQ83PZ8IZFXDjEy+NaZjCz0
+	5iPOsVh/PHs3Xy5BcLwpylovMMpU+aZuOgRLGQeFX8iKm6ovnpGM4+dsqvv41vGdlq7M7wa2jvn
+	y54K88Yj31RZrPzgJQovcypF10EAEC2ZPHsF5QAgw/kvyPW3TNqYLXcdLWY/NcQscKUQSJFBgez
+	nNi7Ak+EfNeJfKy4J1kHFKaMBNa5YHDPfTQL8lJQvyXMmVAxPKDrGNt0QcVVcbQX3gHntmMPvXp
+	tcijeIa5e5JVHl78N2N1vVAJlyP8uzvVVBl5OE1iUujpZiMKL9/Lni7OES42txh3+iLz1Xb2Kfh
+	AcZvTWcm3rvohnq3fCEKwqtrFhT71VyKJ1ORwjj2pN8vdjLcYxWIEXl2TbWwFKo23t5o01zQ8IW
+	WPA3rNl4q8s1QLwdoRJqywCzHR4lJ8LYeudqGu1u6uGR4xFboIWLwZd5Yv0HaczMA=
+X-Received: by 2002:a05:693c:8206:b0:339:8131:424e with SMTP id 5a478bee46e88-34006978035mr212595eec.34.1790195875080;
+        Wed, 23 Sep 2026 13:37:55 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e95c7cfd9sm8375052eec.5.2026.09.23.13.37.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:37:10 -0700 (PDT)
-Date: Wed, 23 Sep 2026 22:37:09 +0200
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: maxime.chevallier@bootlin.com, netdev@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        sashiko-bot@kernel.org
-Subject: Re: [PATCH] net: stmmac: guard FCS stripping against runt frames
-Message-ID: <arQ4dVkI9llhXCDx@lore-desk>
-References: <20260923162339.1375698-1-qwe.aldo@gmail.com>
+        Wed, 23 Sep 2026 13:37:54 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: wei.fang@nxp.com
+Cc: andrew@lunn.ch,
+	frank.li@nxp.com,
+	shenwei.wang@nxp.com,
+	imx@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH net v2] net: fec: reject oversized fragments before bounce-buffer memcpy
+Date: Wed, 23 Sep 2026 17:37:38 -0300
+Message-ID: <20260923203738.1583735-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="PJAgeMB1n6WnILQU"
-Content-Disposition: inline
-In-Reply-To: <20260923162339.1375698-1-qwe.aldo@gmail.com>
-X-Proofpoint-ORIG-GUID: z58d9C8uUqn_I5rGUisSqTUfDz4fKTyh
-X-Authority-Analysis: v=2.4 cv=J4s/fwnS c=1 sm=1 tr=0 ts=6ab43879 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=ZCkw8b18SyrqGgSs42gA:9 a=CjuIK1q_8ugA:10
- a=0CZsOOD427REJE_1_m8A:9 a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA4MiBTYWx0ZWRfX7IRCqWuQgJY8
- beaQ04fst0WMjQ+LSogrUkN3C3MinI+QmZsOMrPaejk/qjgTdOwLQe41Nd8obvGrfOE2d6SGN2G
- ypE++DZIdLlfu/X/1R6djwe91UoRn8aZqSO+uKMhyq+7ceu8vRUG8ak4m5RJolVBv3RMmk8RLDu
- ogUAwcidYXdQV9KId/xCmRJAiq+SkE2n9xNZGxrmZPIC9kkkAmuULx+nRpd6oyjFCPJ68YstUPB
- 7m85APEAsjTpRGIpHz0JECdS2JziG1iQ1/8ZQ9OuIM1yWD9SGk2tJuUi2otnZ3DWUCaMfAmr5Wy
- lqigpeE2d183OOVq0M+hbK/NhOfgYHBH7mgS6PHQB/IOp+S5CWxb61qZyho8/vAAe3hZo8i6n5X
- MpHh11p2icNGzH00cElHeZTMXeQGORJEs4BttFX8yq0GbdsophGxmJ/9PTav8sPqQUkivDvqOWg
- oFMk3xW+b8qqlGHLHfA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA4MiBTYWx0ZWRfX4X/2BrWDmtTu
- w0yERetLmViHyVWmnK5+9ZUxv5zUjmH5ExBizthmobGcKRgknlHQ5Nkj9cS7PufOCWNCsTxJRdz
- 2g9STFaomqAgY1yybTTNgb6YN9SauFs=
-X-Proofpoint-GUID: z58d9C8uUqn_I5rGUisSqTUfDz4fKTyh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 spamscore=0 impostorscore=0 priorityscore=1501
- phishscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230082
+Content-Transfer-Encoding: 8bit
 
---PJAgeMB1n6WnILQU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+fec_enet_txq_submit_frag_skb() and fec_enet_txq_submit_skb() copy
+transmit data into a per-ring bounce buffer when the source address is
+misaligned or the FEC_QUIRK_SWAP_FRAME quirk is active. The bounce
+buffers are allocated as kmalloc(FEC_ENET_TX_FRSIZE) where
+FEC_ENET_TX_FRSIZE is 2048 bytes.
 
-> stmmac_rx_zc() and stmmac_rx() strip the 4-byte FCS from the last
-> buffer when ACS (Automatic Checksum Stripping) is disabled:
->=20
->     buf1_len -=3D ETH_FCS_LEN;
->     len -=3D ETH_FCS_LEN;
->=20
-> Neither path checks that the buffer actually contains at least
-> ETH_FCS_LEN bytes. A runt frame delivered by the hardware with a
-> buf1_len or buf2_len smaller than 4 underflows the unsigned
-> subtraction, producing a very large value. In the XDP zero-copy path
-> this wraps data_end backwards:
->=20
->     buf->xdp->data_end =3D buf->xdp->data + buf1_len;
->=20
-> giving the XDP/BPF program an enormous data region that extends into
-> adjacent kernel memory.
->=20
-> Add the missing lower-bound checks so that undersized frames are
-> silently passed through without stripping.
->=20
-> Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
-net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 1fb5f80..4526669 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -5636,7 +5636,8 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, i=
-nt limit, u32 queue)
->  		len +=3D buf1_len;
-> =20
->  		/* ACS is disabled; strip manually. */
-> -		if (likely(!(status & rx_not_ls))) {
-> +		if (likely(!(status & rx_not_ls)) &&
-> +		    likely(buf1_len >=3D ETH_FCS_LEN)) {
->  			buf1_len -=3D ETH_FCS_LEN;
->  			len -=3D ETH_FCS_LEN;
->  		}
-> @@ -5808,10 +5809,10 @@ static int stmmac_rx(struct stmmac_priv *priv, in=
-t limit, u32 queue)
-> =20
->  		/* ACS is disabled; strip manually. */
->  		if (likely(!(status & rx_not_ls))) {
-> -			if (buf2_len) {
-> +			if (buf2_len >=3D ETH_FCS_LEN) {
+However, skb_frag_size() can return up to PAGE_SIZE (4096 on most
+architectures) for scatter-gather fragments, and skb_headlen() can
+exceed 2048 for certain GSO packets. When this happens the memcpy
+overflows the bounce buffer by up to 2048 bytes, corrupting adjacent
+heap objects.
 
-I do not think this approach is correct since, at least theoretically, the =
-FCS can be
-splitted between buf1 and buf2.
+Add a length check before each bounce-buffer copy. If the data exceeds
+the bounce buffer capacity, fall through to the error path rather than
+performing the out-of-bounds write.
 
-Please note the non-XDP case is already fixed in the following patch:
-https://lore.kernel.org/netdev/20260923-stmmac-rx-sg-fix-v3-1-ed26fea7180d@=
-oss.qualcomm.com/
+Fixes: 6605b730c061 ("FEC: Add alignment handling for FEC driver")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+ drivers/net/ethernet/freescale/fec_main.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-The XDP-case will be properly handled introducing XDP multi-buff support (I
-have already posted v1 and I need to respin the v2).
-
-Regards,
-Lorenzo
-
->  				buf2_len -=3D ETH_FCS_LEN;
->  				len -=3D ETH_FCS_LEN;
-> -			} else if (buf1_len) {
-> +			} else if (buf1_len >=3D ETH_FCS_LEN) {
->  				buf1_len -=3D ETH_FCS_LEN;
->  				len -=3D ETH_FCS_LEN;
->  			}
-> --=20
-> 2.43.0
->=20
-
---PJAgeMB1n6WnILQU
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCarQ4dQAKCRA6cBh0uS2t
-rM+VAQC4Rn9dY3tiTR2/fmt3OlWG2jSxFCFwvWYvYTdp3KNgsQD+Pdw4h9iISL6z
-hmCcBLNChmc5hA0SPtVBy0D50l9sWAE=
-=dhiC
------END PGP SIGNATURE-----
-
---PJAgeMB1n6WnILQU--
+diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
+index 794ec42..8614984 100644
+--- a/drivers/net/ethernet/freescale/fec_main.c
++++ b/drivers/net/ethernet/freescale/fec_main.c
+@@ -558,6 +558,8 @@ fec_enet_txq_submit_frag_skb(struct fec_enet_priv_tx_q *txq,
+ 		index = fec_enet_get_bd_index(bdp, &txq->bd);
+ 		if (((unsigned long) bufaddr) & fep->tx_align ||
+ 			fep->quirks & FEC_QUIRK_SWAP_FRAME) {
++			if (frag_len > FEC_ENET_TX_FRSIZE)
++				goto dma_mapping_error;
+ 			memcpy(txq->tx_bounce[index], bufaddr, frag_len);
+ 			bufaddr = txq->tx_bounce[index];
+ 
+@@ -634,6 +636,8 @@ static int fec_enet_txq_submit_skb(struct fec_enet_priv_tx_q *txq,
+ 	index = fec_enet_get_bd_index(bdp, &txq->bd);
+ 	if (((unsigned long) bufaddr) & fep->tx_align ||
+ 		fep->quirks & FEC_QUIRK_SWAP_FRAME) {
++		if (buflen > FEC_ENET_TX_FRSIZE)
++			goto release;
+ 		memcpy(txq->tx_bounce[index], skb->data, buflen);
+ 		bufaddr = txq->tx_bounce[index];
+ 
+-- 
+2.43.0
