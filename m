@@ -1,152 +1,231 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010006.outbound.protection.outlook.com [52.101.69.6])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2E349891A;
-	Wed, 23 Sep 2026 15:05:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175954; cv=fail; b=C/vjx/bqOYlLLWTM7S5h3S8ed2rmY0EDNzvhMnS24do+ZozdsTIFSLXrnORXOWtYe4P3s7LAcn83wcYUs8GYiENzuhdRaICagpmZEGPkIU3kl/EGkjglmM11GijNs7wcH8vwb/btiNqeAkTJhv8wtm2aeq7Eq71VuzYsH5nB0ZA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175954; c=relaxed/simple;
-	bh=82TZ0TNT9Z+iYSGJPUhMDeclp17TRDrUgPv7/XTUWGM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=bcbFeoN413NzdcqMWcXjOtn1UwTdl5X6+NfdwF+lAbacx3FA5cwoNDgMTs0HXOaiFgGeUheRTPoZm3giAvDexuSLdTbY4ZD4+5sRjXitMJogpT3N5mF78qmNT2aNyEMVUhlymy2WLpK/cR/1HK1CT2hj/0o+mQd5wdbHmfNjYWk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=lXleVRVg; arc=fail smtp.client-ip=52.101.69.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC0548122F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:06:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790175976; cv=none; b=uDNm2q0DxkahaH2ZPuEf/w9xrMVffVG7ZB9GQZmmLB8korK7Hatgb/Hgz7jKfoSA0QsPSRh5EKAIN4fAkkrakpItXh8Ca8vhU+l+SVtV1VaikNU1iWVVTLQOVfsP3vcOUOSaIXBwtPaMMybIpIk+mYrTxvXaY1Z5JJJjIGzyCqU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790175976; c=relaxed/simple;
+	bh=W8mCp3SJrCu4CBEqSbc4yuvWfyqV1/A4EX/v4gQIyvI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SyNF6EpwrlDNR/YCviJV+aDeX+h5KnujC486tTY/ZSdtRIHeaPeXRaXTxrAF9dUb6O0pq56Rg3j73TF3hj11ObiVWDIRiI1OPn7tt8bc5m7BJ7kYWOgLFTgLiwdK2jlKRdt7zm48WQ2aAoCjxkip4d9icGGs46/vtkQZZibVpGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=dUhDHp1O; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="lXleVRVg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cT7t9wwNuXg4t3TnZRLsi+WEjCxbVDf2sfsixAOz3jWm0Ob7ijdKkjhsc+2u0HJhlZVRoyRGSLqEDPumUEFDwADDgkN4Lm6XlQnngdUL5oQjBvKO3fZYeE52rZpTtIC2+OjMSUo9xgaFmuEvwqv7DwlGfYwYaGXMY7LKTMJ4ADO7J/Br2YPGXiOUjchCv7zNWWZ1XfYuaN9JWn1Y3ZbARt0A/pBN3XVt16oA6Qt/CTg3AjyfYxA/ODjxS+Ut53+3GAqg5B5eBhlYlfuc9avU04523Lgh7Uu/ru1ie6khgRXKblCj95Gxy5cO8s0CMc7te8pXw9fBL37aJI0z20iAzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5kuRZM5jHC2qMkHjUdbPl3oLRjKRu1i3yyQovm5xoDI=;
- b=HdE/DPkF7iiqmfvcy3KoJh6IGJrmVvNmoSdMgO/HlIODp+bM43QVc9g+142xkN1WCIEmQApNaZkSGKpTtxDM6j10Ch+6eQQ9CmJ4sWhwCPc655yG56sfouGCQrIOAU0bJZOv4HW2Db7lnTjz0fzO63G8XUV7EFXR2f7CHr1fTgvBsCSooDHwdAL3kMklStyKa7WF9YMoQz+nHwoKY2VOviEqhMVV4sJV6eL4iK1xKT2qI3BDHmAP8zoYhrMA9SaPMJvZJViYeUL4fZ7kaO25V//XsJNpfDWcqAoTvwhcXwWx9V3QonVsgCOFb5lAyjVMuGykSI99NYlhUSxqzgPHKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5kuRZM5jHC2qMkHjUdbPl3oLRjKRu1i3yyQovm5xoDI=;
- b=lXleVRVgEpiR518NhS7u0O3hdvFucjQPFHGBDbY4OBq1PDRNTsEUihNUHckiwAU8BzGSL7fwLMjDzrtj0xTwsml+bfjQmwSoxsSsigcdS40XdAxi8ZsjFJ4/5LRxgSBGdKvl4BNqTQwLL+J2OP0UnMWcA7M1ERXF8xQTXHQs6njLgZIRzBSjpKBVwk7rV0eNV9egDWr5LDJNFjGjAFjqJeus3bG/eTRYRqoeygwbJdO3xGIZQR3HB1w4DpbrWPEPNSO3loXUfGd+hsoaSTIHTj4E76Zf0BGTJFckMRjg62bCz+mQ2/iokRIwkA3XjnoiyahsdgOl0YiI7YyFbbCcmQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM7PR04MB6902.eurprd04.prod.outlook.com (2603:10a6:20b:107::20)
- by BR0PR04MB538501.eurprd04.prod.outlook.com (2603:10a6:2c8:63::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 15:05:46 +0000
-Received: from AM7PR04MB6902.eurprd04.prod.outlook.com
- ([fe80::6d09:9d2a:f8c2:25e6]) by AM7PR04MB6902.eurprd04.prod.outlook.com
- ([fe80::6d09:9d2a:f8c2:25e6%4]) with mapi id 15.21.0428.014; Wed, 23 Sep 2026
- 15:05:45 +0000
-Date: Wed, 23 Sep 2026 18:05:42 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: Patryk Biel <pbiel7@gmail.com>
-Cc: Ioana Ciornei <ioana.ciornei@nxp.com>, Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v3] net: pcs: enable autonegotiation for
- 10g-usxgmii
-Message-ID: <20260923150542.jo6inqtczwiignln@skbuf>
-References: <20260922-b4-fix-pcs-lynx-an-v3-1-dda3ac4e499c@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922-b4-fix-pcs-lynx-an-v3-1-dda3ac4e499c@gmail.com>
-X-ClientProxiedBy: VI1P194CA0050.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:803:3c::39) To AM7PR04MB6902.eurprd04.prod.outlook.com
- (2603:10a6:20b:107::20)
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="dUhDHp1O"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id D1A26240101
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:06:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1790175969;
+	bh=uEgYgG2jtpKqiEwQEWofsJ4lh37upe+OlrEoikITC34=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=dUhDHp1OUpnfUasNBkFTQn3Qy1oMMMERHkE3RzNc9KDn9ean8msh6xLpynV9oGOAp
+	 b09yCVlnCBmOwaFbhThbOs+v5JnskGIneGE+ztRMDsSNovkKDIfQXyt+rqezbvv81Q
+	 E/0HZ/orNvk33taziSVjvMyYtYX5vc8s7E/5b5qWz7oHr9g1PWfshGY5/krzz9BPUS
+	 +CFRtuQxpawTPFuq0pXfRpR2hsxerydyZtnvaGZtY6ioq41T9lk50E2sgMEagyoqz6
+	 G7qg3mDRMvxh/x7gjggiZq8Tgj+eIyjTuWiNGIHLb/Xqewg05xSr84ZD60swSwlIwS
+	 QYuSC6cfaSo6A==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hqgJs27jgz9rxD;
+	Wed, 23 Sep 2026 17:06:05 +0200 (CEST)
+Message-ID: <708eb7c004c0cce22d71bc8fbd68b44aa3b704a3.camel@posteo.de>
+Subject: Re: [PATCH v2 1/3] tty: serdev: Export functions to pause
+ receive_buf callback calls
+From: Markus Probst <markus.probst@posteo.de>
+To: Gary Guo <gary@garyguo.net>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>
+Cc: Ayush Singh <ayush@beagleboard.org>, Johan Hovold <johan@kernel.org>, 
+ Alex Elder <elder@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
+ <boqun@kernel.org>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Eric Biggers	
+ <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Lorenzo Stoakes	
+ <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"	
+ <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Jiri Slaby	
+ <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	greybus-dev@lists.linaro.org, linux-serial@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	driver-core@lists.linux.dev
+Date: Wed, 23 Sep 2026 15:06:08 +0000
+In-Reply-To: <DLMQUEKCSXRS.2OBTL1GV4FXVV@garyguo.net>
+References: 
+	<20260920-rust_serdev_probe_refactor-v2-0-43b855162f5d@posteo.de>
+	 <20260920-rust_serdev_probe_refactor-v2-1-43b855162f5d@posteo.de>
+	 <2026092356-chatting-dust-3de9@gregkh>
+	 <2fcec4f3cd70a41e282505ff5c99b19e5809aead.camel@posteo.de>
+	 <DLMQUEKCSXRS.2OBTL1GV4FXVV@garyguo.net>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-qFTq82k4Jz8KYLv/i1pk"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM7PR04MB6902:EE_|BR0PR04MB538501:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2a31036-4be8-4308-4b62-08df19842508
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|19092799006|10070799003|23010399003|18002099003|22082099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	H1C32XzZwdhb3yKsH+VuRiq07M4KJJ/qU08MC6XJE9R05eXX98AeatxPv4HonAwmVs3rStsWDEwLd0Nh24fucFpLOW9FmeY97fhNjmJQaW1oeDy/0o4+pcyCxmLgiQmnbnFxlyHuC7v5NJr+VO2ihgkzRtbB1xwcuRxtPD4dU6ZDjP1+lxN9XO9c97X7a6XH6kf7BtODavk4+mmwIGbxmBpd0o0VqzMjLXwrwSkNd9VKGYJ4xc5/QWWH6XL26XeIra2kkjz360SqQl5SRZfwmGwxngPeEhQBkd7Q2Onbnda+lYvOBzWq7q5y/diuA9DNfw6B2oT/NHk7oms8PhrpnbqHSxNuU8J/kOLxQO8UB2Eh53dQq3VTJfhE3K/A1wA6IvAWgRJvhhqRvyGtiPPTJ1v8UOtg85o2X/R1EQBlqGsl79UIZdOFtE+HfSepq9FCu95NyIK96kvGmas9ijlpOxoI6sTYl01xZAdbYy0MWCV6wvarObAwwjxbcuQlCHmmBVDWuaGYfpqx8nRiAmh78kIFQu5vNj+9JJbNBDW1NaVhqym/sC4QGOOhuMl9+gags/siugMtMdMMhvobBZ8kS1tNR/DvbCVzy/AzOs+NWpHZniePUWAdciF6Njizu7yGF7JT7+QlM6HDRyEW3JX8v6n2wHche8/jid4QrTh+lfQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB6902.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(19092799006)(10070799003)(23010399003)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WR8yCV60OA8UmYoG/l8ME30h50XzjvJIr97QmkTOL/SJAFoxv8baSszvDhIk?=
- =?us-ascii?Q?09di2iqAaTYdtnnORjTNnYxOJep13RPJ8qRCLTGdTx0thsw4K5AIb4pxD74Y?=
- =?us-ascii?Q?doAxiCFlW4YU9ZIVUNGZU0y31HfOxjC/XCwn4Mv6NCdpqB57hDVibwvSJp22?=
- =?us-ascii?Q?ZUmIC87c/LN7DR37GLArfDRVtbbEZ4eqBRTB3I3BdSVEnkZmI5S6gd3LmYu4?=
- =?us-ascii?Q?cu/ZWbBgtVq60xf2rx8hloQQkpNoY5sDY73OLoNLFZ7NVwmosqt3RMN0hwzw?=
- =?us-ascii?Q?lJAbThnouKQuIvJRO0hR43F5CVSo66UmlxJf3PIgkKE6UXCd88gv4B2kuHEr?=
- =?us-ascii?Q?tdgYUYR1HVzgyinC4KK7wc/cXZI2G/8aOpOIHCtdGjp4YlPoGZivewhiVsih?=
- =?us-ascii?Q?8x3N5qU5tqFWzY+XsVyOa2CdfXbGUd6m/kQQiIF+XFlOIy+2uWPZ9uopMAuC?=
- =?us-ascii?Q?MeSuAm5JGS28NzMSyQcIePlMZE87PiGhx3rjgdevuzhgjlpUtP2ztjOuuml7?=
- =?us-ascii?Q?C4kPJh85R71c6V68W7RP+DrgifAFitEEE08UodS38RMIBIwf44kWxWNonP7P?=
- =?us-ascii?Q?eqsmb/w8lpSdDXNqVtGzSzzNSfNOkWAOBXg9x9a44X21Vnxy6NzZMW09BA5s?=
- =?us-ascii?Q?AAXbeYG47fh1d5Luj/63arAD0K3wXD6wOKRy2W/T+b7NOf9s8EKw0yZUSgrE?=
- =?us-ascii?Q?ci1QdBI60F8aIrux8//1ZEmSqpkJLehWo9R6wznbGI2LNtFldnR4/zkCItk7?=
- =?us-ascii?Q?pkSrJyBuv2RrP3GHS9Te0ga8b0EqgjDyet3906KMB61OtyPV7qIgaPLh2FRi?=
- =?us-ascii?Q?hDOmwV0X+rtu4MxgsH5RIWoa4K5PcV3cYOq01oiSb6TGVgeOzn0xYi9jOucJ?=
- =?us-ascii?Q?6stj+KbD8mUF3xUBq5nBwNK9cmvSx+by6v0NzWg1X75sdIQVxK2smBcBSgpz?=
- =?us-ascii?Q?RhRekfnj9uGX0XmPXcuJWjzhekA4Lzk3G+WEhVhcsWdNZ0n3/5c822ulj+c6?=
- =?us-ascii?Q?DGk7RGMBxu9D/Uwt1tcG1Yd35fcJqyNz8/DBwXkwOz2Lgr1XbbectIRA0O5k?=
- =?us-ascii?Q?PnOtgBTcfHcP6LZZSNrP6RDzsD/YWHjahdbLl8+dAoreArqJcKE6RZmcJZai?=
- =?us-ascii?Q?2+BrV89Wr55WaQNJgY20qQbcn0prfy3srqH6RnRzVE2b1w/wLSaNbl+xe+1X?=
- =?us-ascii?Q?+/5H66Vfvo6A6OoJiy2TJlwNVQfgYabiFkpYuGeME36JhXlHUHBw/wpVjofu?=
- =?us-ascii?Q?RU9XYymshwdDhgqItp2zvzAwVl17elSf680shXBgsmSKtzYqNYsjbpYQKMFX?=
- =?us-ascii?Q?YcbF6QvX08WOJM9YeYefJZXKjPkBromYH082mQrnH62JGpLme1HK9wH0xhyh?=
- =?us-ascii?Q?8Au45VswnIbAo5fKofIB4JYJam98LmcfQpsJMZ26yiIzhEsl4qZcktaDSpBI?=
- =?us-ascii?Q?YWV2bhg9V+5p9yvniFByCn0ZntkAiHKIxPX/KeJug9VlDa4AuARUaOxVsz+g?=
- =?us-ascii?Q?EkqeS4Hyu5euvGck5GnZmx4Uk9srVJjfCOiu359x1uEbv9yo9ie2mg8lsztJ?=
- =?us-ascii?Q?0IEmBYoXME1wKIIS3IdKsbZ6nkZk8+jaL+6fhyRJfUiB6aDLezYdd+AQia5M?=
- =?us-ascii?Q?ZF/Kl2gZ8gfD77WdzeKKRPKPYX2HvVmHS/ILekIBDKaS8SKTrj5rOeTrxITe?=
- =?us-ascii?Q?aon5EIBBT5kQOvFDPWqvTNihsWA8HRC8BZ0hHAutJQTwY1RcT1E53qJ8i/eT?=
- =?us-ascii?Q?xX0OdfVzTxRGhThBSEqG0KT4JIpVY7aA6Rw3owJ/Ge/I+kXdlXUUEWngeMc5?=
-X-MS-Exchange-AntiSpam-MessageData-1: TbfXLXatNnoIhLygAg4EL/JYME9yQjCZo1U=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2a31036-4be8-4308-4b62-08df19842508
-X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB6902.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:05:45.9233
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SxwNNwG87gXtjkBdJB1SiepzrOo9I6fwyThJVtCnsZr7xeFj1IXxB3d1jvPFSRM8f7gmTgGF7Mgz1uF0ETb7cA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB538501
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-On Tue, Sep 22, 2026 at 05:54:46PM +0200, Patryk Biel wrote:
-> The Lynx PCS USXGMII setup programs the replicator advertisement, but
-> does not explicitly enable and restart in-band autonegotiation or program
-> the replicator link timers.
-> 
-> This leaves the PCS dependent on firmware or bootloader state. Systems
-> which do not get the USXGMII replicator preconfigured before Linux may
-> therefore fail to negotiate the link correctly.
-> 
-> After programming the USXGMII device ability, configure the replicator
-> BMCR with reset, autonegotiation enable and autonegotiation restart. Also
-> program the replicator link timer registers using the value returned by
-> phylink_get_link_timer_ns()
-> 
-> Co-developed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-> Signed-off-by: Patryk Biel <pbiel7@gmail.com>
-> ---
 
-There are 2 problems with the commit message. First the prefix should be
-"net: pcs: lynx:", and second, you say you enable autoneg for 10g-usxgmii
-(which doesn't exist) instead of saying you enable it for 10g-qxgmii and
-usxgmii (to correctly reflect the code). You should probably fix both.
+--=-qFTq82k4Jz8KYLv/i1pk
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Anyway, with both addressed:
-Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-Tested-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+On Wed, 2026-09-23 at 14:52 +0100, Gary Guo wrote:
+> On Wed Sep 23, 2026 at 2:31 PM BST, Markus Probst wrote:
+> > On Wed, 2026-09-23 at 12:35 +0200, Greg Kroah-Hartman wrote:
+> > > On Sun, Sep 20, 2026 at 02:29:58PM +0000, Markus Probst wrote:
+> > > > These functions will be used to simply the serdev rust abstraction.=
+ It
+> > > > also contributes to the fixing of 2 race conditions in the serdev r=
+ust
+> > > > abstraction.
+> > > >=20
+> > > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
+> > > > ---
+> > > >  drivers/tty/serdev/core.c           | 50 +++++++++++++++++++++++++=
++++++++++++-
+> > > >  drivers/tty/serdev/serdev-ttyport.c | 38 +++++++++++++++++++++++++=
++++
+> > > >  include/linux/serdev.h              |  6 +++++
+> > > >  3 files changed, 93 insertions(+), 1 deletion(-)
+> > > >=20
+> > > > diff --git a/drivers/tty/serdev/serdev-ttyport.c b/drivers/tty/serd=
+ev/serdev-ttyport.c
+> > > > index bab1b143b8a6..e8aa89e733bd 100644
+> > > > --- a/drivers/tty/serdev/serdev-ttyport.c
+> > > > +++ b/drivers/tty/serdev/serdev-ttyport.c
+> > > > @@ -7,8 +7,10 @@
+> > > >  #include <linux/tty.h>
+> > > >  #include <linux/tty_driver.h>
+> > > >  #include <linux/poll.h>
+> > > > +#include "../tty.h"
+> > > > =20
+> > > >  #define SERPORT_ACTIVE		1
+> > > > +#define SERPORT_PAUSE_RX	2
+> > > > =20
+> > > >  struct serport {
+> > > >  	struct tty_port *port;
+> > > > @@ -32,6 +34,14 @@ static size_t ttyport_receive_buf(struct tty_por=
+t *port, const u8 *cp,
+> > > >  	if (!test_bit(SERPORT_ACTIVE, &serport->flags))
+> > > >  		return 0;
+> > > > =20
+> > > > +	if (test_bit(SERPORT_PAUSE_RX, &serport->flags))
+> > > > +		return 0;
+> > > > +
+> > > > +	/*
+> > > > +	 * Ensure writes by the driver are visible before allowing traffi=
+c to resume.
+> > > > +	 */
+> > > > +	smp_mb__after_atomic();
+> > >=20
+> > > This scares me.  Why not use a real lock?=C2=A0
+> > >=20
+> > I can use locks to make it less "fragile". But I don't I think I need
+> > them.
+> >=20
+> > > WHat's the issue here, you
+> > > need this to be "flushed" before this call:
+> > >=20
+> > > > +
+> > > >  	ret =3D serdev_controller_receive_buf(ctrl, cp, count);
+> > >=20
+> > > here?
+> > >=20
+> > > And you just tested a bit, you didn't set a bit, so what are you tryi=
+ng
+> > > to ensure is written exactly?
+> > This should be an acquire load operation (paired with the release store
+> > operation in `ttyport_resume_rx`).
+>=20
+> Then you should use `test_bit_acquire`.
+Ok. For some reason there is no equivalent `set_bit_release`.
+
+>=20
+> However, this isn't sufficient because there's no synchronization between=
+ this
+> bit test with the bit set inside pause_rx.
+Will be replaced with a mutex in the next revision.
+
+Thanks
+- Markus Probst
+
+>=20
+> Best,
+> Gary
+
+--=-qFTq82k4Jz8KYLv/i1pk
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqz6twbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSOk0QALLiTzfWtOf81gvgqjYo
+mhW2jo2bqdGVcOHTrqDJY4ms9BRnQmAzJyMamlKEEks3mG6I0QtCAv41lntVXHeW
+jvcOXO54yyQWxVwS+J+M+y8z//MLdvO7mb5v91vYBEY1jnMwl60PHnuKUuVTLms7
+qN+zvihG68OVGFVTInb3CPN4N93cgZkM2gNl+2r/NJxci1tYJN/DgosHvFD2n2UA
+X1ZkfXBMYxiOClRI5V0M36HL3LNM1tNa7Z32Mvl1D4ym09eUoLhPOT+EPONi65cm
+WqBwSFQrWwCffcIzetd68CG6G6C9aPjbXValmd3kUAbsxWFdahghADq35wNb1kNE
+Ga7tcuqL6lpoT46U0wTkDtp8iBk76AjoMK3RtO8SxFxdnstvCVnk8XuqL77QR6tT
+Fd0lMktEYiCm/prxsbwC9jQqRZNEWMTPKGYr21rU2mClvElu4pRceWwzuxsm8D/i
+G7T6runz97OxPDxhdjqGdXLtl8yMF6ds8S7/yxx9DqbtzLp+IhZye+HPsstIECWj
+Xf+ElC8wyTVoCHosvVx6uw1TAKj/mxnq/A2adTvxHYEEiHGOEcMxMENmqZOaKk0G
+Q1U4Ec9RqiAP9Kri1LPxf0pPmiB7rFHtcpfsd79f4KbLI2Owu/bvxqJ7pEQLLAPo
+dFPE9V81NqqyfF4mWkx7RIC0
+=m2Wa
+-----END PGP SIGNATURE-----
+
+--=-qFTq82k4Jz8KYLv/i1pk--
