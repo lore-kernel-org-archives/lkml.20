@@ -1,148 +1,181 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CC33921D8;
-	Wed, 23 Sep 2026 06:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC9E38330F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:03:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143375; cv=none; b=dwB/KgZZbR6329rM9xm1gqJDk38nyr6gkn7iaaf8MEJuAyqml1t0ktRGe9Z7BpbePImSPKHdv7WPG7HMcMO/ALO6J8bDh6WozBU/qXdw4W47E69JexmxxdqkKheiY0j71bBgr63vVM8sqsazDdkeOcn83pKMUQ2mip6IXzUIxMw=
+	t=1790143410; cv=none; b=j+qK3Aa5Or2kAVi8H1/00Ue+8R1zYp2F6Sk1rHa4i5CM/TwcA3eAi5NEORbAdkevCLJQtIb6TXNCYginfnHzzZV2L/tJMCJGSj2Njx3er5zWg9p2vBQVkmnu8OtWAotqWkhCBV11DhZiZDoui0/FzI9by0MI28UTTtBUgHGeovE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143375; c=relaxed/simple;
-	bh=/9ZsZrXt3sJ7Evh/S85SLP2t51xmVXZh/pKyUEk/xJY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pEmpvoZrKKaz2fyc1kJ6Q819XUEI05dQD3iYQuKKIM8fmuPQTu9Wtu13tJ8vs2rd5fRB0g/o2+Op/Y581pK/g6qHPxzPmOkTqh0mVtWkXYyE5wPsTJKR/ZKNgoFsjbqAM5QzuWKFVNl8BKUrzDG6Sd4u6m2i8MPnMWuiqI2xHic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=l2RMgQ57; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790143410; c=relaxed/simple;
+	bh=qwds/siRDE+eeZa5GkDL6duepRKLKaLT+6EW7WQwZuE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NNaWDAAqwOeH2TREB3N7cAYmFuUntejIfLu0Win4PxERhwl/DeLjqxct+mNpGsbC+ldraoxL4rZefLL/p1q78KHeNJZIKOROuiK2LRoPLhMT05ceg87ghawFCdLwtLV1wp2D02x4M3enrRexVnDavC131AIlJCfinSP1+Kguqvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SOX64Lc9; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="l2RMgQ57"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N45Utw477977;
-	Wed, 23 Sep 2026 06:02:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=FYQsvY
-	G2wsnBxzzyypBwi/yEFaazst6rjiPKmTG39QY=; b=l2RMgQ57gZ2c1f7ZitPaZh
-	+MrPk+lPM91a9EXxM/FyYUn9Kx0r8r00yP8NdhLY3RzgS+MSpJkZvQ8vuoeH/yP2
-	AB9M0jFJxgU0q5rpHsT5dJahPb3dkAFkZ1+ubogtD0AEs9OxErpbydxYNYOr6iiq
-	2qA/2JrdmXn7sZg10utHlzvzEaUOLwVXaeUIkc2DQDrMfn/XTwLKUldH5Il2edr9
-	ABDGcLkkKYv20ED8cKhBkHrnfDj8r8aV/GwszkZ65iwNhMu6KU6aI5Qy4/z4EAL5
-	cn7rE+EAtEDxCnnYh9g2WRB1dz/mZaowRxLbA8LB+wxvZYBmGgl85RVPoWbXyIrw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1sfsy-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 06:02:43 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3lYOS3837505;
-	Wed, 23 Sep 2026 06:02:43 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt53vn27c-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 06:02:42 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68N62dsf49086850
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 06:02:39 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F237E20043;
-	Wed, 23 Sep 2026 06:02:38 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 93F8420040;
-	Wed, 23 Sep 2026 06:02:38 +0000 (GMT)
-Received: from [9.111.22.84] (unknown [9.111.22.84])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 23 Sep 2026 06:02:38 +0000 (GMT)
-Message-ID: <7a05f81f-1cd0-4ef0-a1bc-424b19f04626@linux.ibm.com>
-Date: Wed, 23 Sep 2026 08:02:37 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SOX64Lc9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=jZ
+	H6p0nbE6w/2bt0YPaWHLvUgTWm/ZxZD3uu7k6qs4c=; b=SOX64Lc9dSHp+w+sIV
+	2fjj6BIgz5ovrGd7vsLK0AnjKOwD54WV4Ui0iLUb/8Y1XYtA4xps15mpWZDDu+NJ
+	QjNf1fGDJVnWzJDPU3MEG6e5omPgkgFFc7nTUNT2AeKJdj/i/7q0Pr1mt4QvFpbK
+	IyHB5CwgZr7JfTHEkjoezqug0=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgCH_E+Ia7NqXdW_Aw--.58316S2;
+	Wed, 23 Sep 2026 14:02:50 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	chenxiaosong@chenxiaosong.com,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v4 00/10] ntfs: persist Linux file attributes in an EA
+Date: Wed, 23 Sep 2026 14:02:36 +0800
+Message-ID: <20260923060246.2499192-1-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/11] s390: More this_cpu_*() changes
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Mark Rutland <mark.rutland@arm.com>,
-        Juergen Christ <jchrist@linux.ibm.com>,
-        Ilya Leoshkevich
- <iii@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        linux-s390@vger.kernel.org
-References: <20260921155806.2447506-1-hca@linux.ibm.com>
- <dc01ef2f-3ed9-4b25-ae5f-1bd317df27cb@linux.ibm.com>
- <20260922182255.26236Cc2-hca@linux.ibm.com>
-Content-Language: en-US
-From: Mete Durlu <meted@linux.ibm.com>
-In-Reply-To: <20260922182255.26236Cc2-hca@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Oa1qwrk0hedGmGrucZJmB8_nWKusJJmx
-X-Authority-Analysis: v=2.4 cv=EOCTQFZC c=1 sm=1 tr=0 ts=6ab36b83 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=lJ8Ht4UjfrDHC3yQZS8A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAyMiBTYWx0ZWRfX1SX6NjbDNRuj
- z1lyrXOojs5apO29u9XtCTjnmOg7XITd05JrSo/lLJgO5HP6XH7lqkVDsNdzwPsXgCjM2/wKh5q
- guxKZ4R6O7tF2EJjWMlRGgnTX9i8QoY=
-X-Proofpoint-GUID: Oa1qwrk0hedGmGrucZJmB8_nWKusJJmx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAyMiBTYWx0ZWRfX0LYocv9dYVN4
- IGXMFexcotpC+lMoYOU6ZmqJgkIPnbMNvY2HmG9ltH265tpuzUXIOZZKTbmoAnPCZ41zGIOu/BM
- QLvP6XWvODUPmhvvc8U3QJAHRUlsJzvTXz5CBdVjS+mA5rqlK4SyS9M+UIWCH49cF4usl6Ecr8r
- oGqa/bXJ7UBEYVeanK9FroFnuBAhJfg/qHdbKltpZsPrmnV2hNajJVGz6ff96gdCJ+3U91Ybpm3
- zBpy++82fk3+1nN1swb6xCclZNbHhhYzvKvzErNb1SXavSjwyV82op3W82sIOzwcc0Yp/uoczkp
- OTnblBrQ9FctlNlAyqJJSmwJ9TW0IplGs+PO1V0MFsJ8m0/p35qZLXSaIr+OSEz5+hr8wrKCh9i
- B9mq1k6MIXisNg92N6TZYTsS1q5iMavcfGhaMqsF7ZS172p9N4MVXLVeaw8txf6tx9DLAwcAxzq
- otak1IcelA5UUNnrIZw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 priorityscore=1501 clxscore=1015 spamscore=0
- adultscore=0 impostorscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230022
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgCH_E+Ia7NqXdW_Aw--.58316S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3Gw4DWFyrAw47XFy3Cr18Grg_yoWxZFW8pF
+	Z3K3sxK3ykJw17C392ya12qayF9Fs5AFWUWryDKry8uFyY9342qFWft3WYqF4xCrWfKw1U
+	Xa1jq3ykurWrAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5eOJUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwQqET2qza4q8RgAA3C
 
-On 22/09/2026 20:22, Heiko Carstens wrote:
-> On Tue, Sep 22, 2026 at 05:37:14PM +0200, Mete Durlu wrote:
->> On 21/09/2026 17:57, Heiko Carstens wrote:
->> [..snip..]
->>> The only non-trivial patch is the last one, which converts s390's
->>> this_cpu_*() operations to use a similar scheme like Mark Rutland
->>> provided it for arm64 [1]. This allows to simplify the irq entry and exit
->>> path, however at the cost of slightly worse code for this_cpu_*()
->>> operations.
-> ...
->> Hi all,
->>
->> I did some benchmarking for this patch series.
->>
->> Used a shared LPAR with 24 CPUs (12 cores w SMT2).
->>
->> Base commit: f0100363d8c3 ("Merge tag 'xfs-fixes-7.3-rc5' of
->> gitolite.kernel.org:/pub/scm/fs/xfs/xfs-linux")
->>
->> Some of the benchmark runs show +-5% standard deviation which can
->> be attributed to s390 being a virtualized system. Each run has been
->> repeated five times to circumvent the effects of standard deviation.
->> (In the odd case where baseline has -5% and patched run has +5%
->> deviation, the comparison can show ~+10% improvements which is highly
->> misleading).
->>
->> Overall, the benchmarks do not show any real difference between baseline
->> and patched kernels;
-> 
-> Mete, thanks a lot for running the benchmarks!
-> 
-> This confirms that we can move forward including the last patch of this series.
+From: Baolin Liu <liubaolin@kylinos.cn>
 
-I also gave it a spin on a zVM instance. Results are quite similar.
-FWIW, here is my tested by;
+This series implements persistent immutable, append-only and nodump flags
+using a private $LINUXFLAGS EA in the standard NTFS $EA/$EA_INFORMATION
+attributes. No new NTFS attribute type or formatter changes are needed.
 
-Tested-by: Mete Durlu <meted@linux.ibm.com>
+The value is a little-endian u32 with immutable, append-only and nodump
+in bits 0, 1 and 2. Inode loading restores the flags. Unknown bits are
+preserved, and the entry is removed only when its entire value is zero.
+The setter protects system metadata and sys_immutable-derived immutable
+state, rejects direct writes to $LINUXFLAGS, and updates in-memory flags
+only after the EA update succeeds. Fileattr queries also report mount-wide
+case folding. Nodump is reported through both fileattr and statx.
+
+Changes since v3 (the standalone revision of patch 2):
+- Rename the private EA from $LXFLAGS to $LINUXFLAGS, as agreed with
+  Hyunchul, to avoid the WSL-owned $LX namespace. Rename the related
+  internal fields, helpers and constants, and update the documentation.
+- Include the v3 patch-2 changes: ntfs_listxattr() reuses full-chain
+  validation, including size-only queries, and returns EUCLEAN for
+  malformed EA structures while preserving lower-level read errors.
+- Resend the complete ten-patch series with Hyunchul's Reviewed-by tag.
+
+Changes since v2:
+- The EA rename above and the listxattr validation requested during
+  review. The on-disk bit assignments and update/rollback behavior
+  remain unchanged.
+
+Patch overview:
+- Patch 1 fixes the cached EA presence flag after creating or replacing
+  the only entry.
+- Patch 2 validates EA chains and links zero-terminated tails before
+  appending entries.
+- Patch 3 preserves EA write errors and reports truncate failures.
+- Patch 4 distinguishes missing attributes from lookup failures and
+  rejects incomplete EA attribute pairs.
+- Patch 5 distinguishes empty EA values from deletion and rejects
+  removal or replacement of absent entries.
+- Patch 6 prepares the new list before updating attributes, restores
+  both old attributes on failure, and shuts down if restoration fails.
+- Patch 7 adds fileattr queries for existing inode flags and mount-wide
+  case folding.
+- Patch 8 introduces the $LINUXFLAGS storage and inode-load paths, adds
+  immutable persistence, and protects system-imposed immutable state.
+- Patch 9 extends the persistent interface to append-only.
+- Patch 10 adds persistent nodump and reports it through fileattr and
+  statx.
+
+Testing on this revision:
+- QEMU tests covered flag and EA readback, inode cache reclaim,
+  read-only/read-write remount, unmount/mount and fresh-kernel reload.
+  Checked immutable write/unlink denial, append-only enforcement,
+  normal I/O after clearing flags, and read-only SETFLAGS rejection.
+- Verified EPERM when clearing $Bitmap protection, including without
+  sys_immutable, and when clearing sys_immutable-derived protection.
+  $MFT rejects SETFLAGS with ENOTTY through its empty operations.
+  Checked casefold reporting and STATX_ATTR_NODUMP.
+- Exercised first-EA creation/removal, XATTR_CREATE/REPLACE, zero-length
+  values, zero-terminated tails, unrelated EA preservation, unknown-bit
+  preservation, and direct LINUXFLAGS write/removal rejection.
+- listxattr tests covered exact names and sizes, zero-terminated and
+  empty lists, short buffers, and malformed offsets, name terminators,
+  values and entry headers. Size-only, full-buffer and tiny-buffer
+  requests returned EUCLEAN for malformed chains after a successful open.
+- Malformed LINUXFLAGS length, chain offsets, name termination, value
+  length and query length returned EUCLEAN. A corrupt tail following
+  LINUXFLAGS prevented an update without changing the existing flags.
+  An invalid resident EA_INFORMATION length rejected earlier by the
+  underlying attribute parser retained that parser's EIO.
+- Fault injection covered allocation failure, failures after each EA
+  attribute update and rollback failure. Tested creation, replacement
+  and removal with no other EAs, resident EAs and an 8 KiB non-resident
+  EA; checked old values and protection after failure and remount, and
+  shutdown when restoration failed.
+- Additional injection checked ENOSPC write errors, short writes,
+  truncate errors, ENOMEM/EIO lookup errors and missing EA attribute
+  pairs, with old EA contents verified after remount.
+- Formatted a SanDisk USB partition inside QEMU using the final kernel,
+  and created combined and individual flag probes through SETFLAGS.
+  A fresh QEMU boot with both disk and mount read-only confirmed flags
+  0x70/0x10/0x20/0x40 and LINUXFLAGS values 7/1/2/4, directory nodump,
+  absence of the cleared entry, unchanged canary EA and statx nodump.
+
+The USB was freshly formatted with the label LINUXFLAGS_V4. The final
+read-only check verified that $LINUXFLAGS is present with the expected
+four-byte values and that the obsolete $LXFLAGS entry is absent.
+
+Windows compatibility testing with the new $LINUXFLAGS name completed
+on Windows build 26200.9457 (ver: 10.0.26200.9457), using the LINUXFLAGS_V4
+USB volume (serial 3B3F-1D09). Windows mounted the volume and accessed
+the existing probes with dir/type. After changing the current directory
+to C:\, chkdsk G: /f completed all three stages and reported no filesystem
+problems and no further action required.
+
+After returning the USB to Linux, a fresh QEMU guest running the final
+v4 kernel checked it with both the virtual disk and NTFS mount read-only.
+GETFLAGS and EA reads confirmed combined flags 0x70 and individual flags
+0x10/0x20/0x40, with four-byte $LINUXFLAGS values 7/1/2/4 unchanged.
+Directory nodump remained set, the cleared entry remained absent, the
+unrelated canary EA was unchanged, and statx still reported nodump.
+The obsolete $LXFLAGS entry was absent.
+
+The tested Windows mount/access/CHKDSK sequence therefore preserved the
+$LINUXFLAGS names, lengths and values on this Windows build.
+
+Baolin Liu (10):
+  ntfs: keep the EA presence flag after creating the first entry
+  ntfs: validate EA chains and link zero-terminated tails
+  ntfs: propagate EA write and truncate errors
+  ntfs: preserve EA attribute lookup errors
+  ntfs: distinguish empty EA values from removal
+  ntfs: restore EA attributes when an update fails
+  ntfs: add fileattr query support
+  ntfs: persist immutable in the $LINUXFLAGS EA
+  ntfs: persist append-only in the $LINUXFLAGS EA
+  ntfs: persist nodump in the $LINUXFLAGS EA
+
+ Documentation/filesystems/ntfs.rst |  24 ++
+ fs/ntfs/ea.c                       | 483 +++++++++++++++--------------
+ fs/ntfs/ea.h                       |   9 +
+ fs/ntfs/file.c                     | 125 +++++++-
+ fs/ntfs/inode.c                    |  12 +-
+ fs/ntfs/inode.h                    |   2 +
+ fs/ntfs/namei.c                    |   2 +
+ fs/ntfs/ntfs.h                     |   4 +
+ 8 files changed, 423 insertions(+), 238 deletions(-)
+
+-- 
+2.51.0
+
