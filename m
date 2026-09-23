@@ -1,131 +1,172 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8F6E8530E06;
-	Wed, 23 Sep 2026 15:30:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5DB572679
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:30:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177413; cv=none; b=qVvLS8SxjeoA6hhQ/fjm0E/BeYvuXaXxUgsdInzJtZyQyZQ+d5iYhPadP8h3qgvzYEgr0cVwcMlk34a7O1Tp9G7hnAAyR5RQvHbgOhdhQCXFhOwtio0CjzBobC9ljpcYIMJe7ZLZkwj9qETXivyNjnR+ls3jfpmfmb1lRYQel4I=
+	t=1790177448; cv=none; b=CGkfL+tMcgPvEEzvxZ6l/xII2P+cSanl0PvMFYV6RvPcDJrl0Uij/lwDTJwxYWBYBmnT2K8L7h+zQdnk8+2PnUbz4Fddt9L9JQ75ktZIgVRa/upeZPuOCB1+I191V2u6OCcS3jKTfgGINfC0Iu7nYHRaq/dJ9h6JA30haw42ZoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177413; c=relaxed/simple;
-	bh=ooA7gnlKxc89gO2WIVt8hrp3HEKHzLvwfAey+X1/t9M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jzVwGBwAYZ7JnKrjcSKkoG/ZVT/J9yUjdasykvR3HaJl0V4A+UdIkKrUw3BK77m9ZuhuQxyB9hRjfhoSp9H+xR2D3t4vp57BunIONIvqVL0hSwMViXP/KkT4ciKicnL1kL9+Cx31LPilap9VZUkH7uKyP+1Ln5UGEgWulAz/nHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hw7PCCi5; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790177448; c=relaxed/simple;
+	bh=1vmm0wkc2HkHONRH8pVcOgqdwW78+bTinZ2FzAKmk3c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C4DDr2FYNn+TfaCkfZq4mJxyHJ5rd2FHSNFT251AcWUzAEGWWxnDmcI9R0CokYSDCpb2xdcRLt/usZN+aDEAEUc4Dvpi93XBjND761F/6YJWZYHkc6xeeO7YFXw3dtnAAt96emS4ZD+kPWcQpDS+DofPxKTXcQGWxUrMkeClY7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=U+rRjNcm; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hw7PCCi5"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7073D1713;
-	Wed, 23 Sep 2026 08:30:01 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E96CD3F86F;
-	Wed, 23 Sep 2026 08:30:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790177405; bh=ooA7gnlKxc89gO2WIVt8hrp3HEKHzLvwfAey+X1/t9M=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=hw7PCCi5jHR812P5EOIWZclw4ZxjUSX7JLRYhLtXpc4HxN+39wQ2emq3aKdgcXiCz
-	 OT6hV4qavToaDNJ+zoSQwVL6ajNpche0PPLo29kcABl2/fOrzs1rVcHWiW5AteDIrh
-	 2i/Ce240ZJuWHuYQ3pBFOjzB9p6EnFf0JDjPtyF0=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Wed, 23 Sep 2026 16:29:52 +0100
-Subject: [PATCH v3 2/2] kselftest: mm: fix intermittent failure khugepaged
- test
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="U+rRjNcm"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-3a02902dce2so640756a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:30:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790177437; x=1790782237; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=W4AqH3BG39Ccw9rat1s2LDjmKzSlLDWMcVufSeoX/Lk=;
+        b=U+rRjNcm7ugzc5Soz10jkunYElefyJ/mmDKlhLWKxx6z11zYyaHFhhSoYKfXPKWBFw
+         27xgR+M2sA6H2ZWxkjODi5uha64syM1YHfvjc6sczDTfgx/+9+bAmL/LLTQGX2im1r24
+         vnbBTToGn5eTvwUOy0ufX/Y9l8EbodyBTpgTAYpNBr8tNrl80i8S6OmUfpvYK9QXlPUZ
+         K40XB5d98svdxNzLOY1cjwqKXKjYZaYzBsmQx00jERdfe9HVzCgLQ6c4ydWL4cFWEZT2
+         3a3N22hOtj6qhEGw0unwpMeGCo2sSv68PYITFdMGaA174wdpTQhDtvyvnggx+37Z/bAW
+         7AsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790177437; x=1790782237;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=W4AqH3BG39Ccw9rat1s2LDjmKzSlLDWMcVufSeoX/Lk=;
+        b=u0PzChrBRgJD7tOKwUw17DwTN/2qUfFY5dfJxea6iPfHGLo/ncOT4bY9t1SxyAHmCs
+         FgIhnZ65S4h8jR2PoPAhq9qahr422SiZH7X/yK6/O7hoA3zD0KaVrdyVdj4f9j1Q3LIU
+         HWb/EQWSXvx6gTshmc2W3zUsHoNDuvBSmpb3zsj5DRdYYby/r+9G6QnoMGhd5/6Et97q
+         U1MKb9BiZTYbwFA9gtKnOfaYiX6WjwKet6Mw1halBHzVU9XuNZKgitdWdsjyyMsLw2RU
+         jK7vBJ3OSW1LmSV0YN/ZG6Y+/JCgVtL+T1cSjfXebn8QRcPO8p/sGUW56MRT2be9S/dW
+         LnfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx5uv1YmvmEETMan8KT61N+lm21L3WFCqVt28wtPUF1M96BIhD+8pxIyNC8KEFJAaKiDRW7qHUCjZEw6Cw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncA9zWddcSFM4471BlkB5MRYUQ9gqGRSEhdNfmshWkKVbY/QD1
+	sbJxPN+j9ssyqecYEKW9QSUM8m4o5Fj2HAUU+dfPZVGe4bh2JxP7+zIqNILvU5keAjw=
+X-Gm-Gg: AYBFou1SR/1AeWzm3pCmSAh+M+n/bwOoix0snH9GVKyxxX49zY1OZXnxT/VbevulfCw
+	Bxe4VcnkrzY8UxA9pNd7YA/3yu9s5fwn5CqEtglt4OEqiprp3FZGEmJWUk91DY6O9DpB3HXQTvA
+	tMQluHnZ105VeCpwGB7FGaQUJ90rLBfo77pwIrWgHqRwh9SBGyupXvq2xgbw/Mi2MVPrIg6T5dS
+	q74mBSuo8waCoP0r/mSxKMPE5W172On7cbn2ogj//T55CvP+ZAQ0fjLFEUtn4xc7HjuVuyKX+2J
+	S/FDvKaPeznMAenuOoGk4TrmFI3+YImLioNDph3AxVyIw/gKlb7XIYdj3MT5mS5EAmqqF94sJI8
+	/orDojMWSngQw8g6Qioxf4d0eq9JsIXNg2vjxdojbvrgBTJqQZUtyQftzljmtFT2SVBnFGZAZUY
+	Lvqd/EuxtrQbzTJ249k1rB6Xu3rbZCJl0xDy0qpYaGGs4hyFoJSqsA+pGbCLZ+FkJkz5QySDY=
+X-Received: by 2002:a17:90b:4d0e:b0:39e:6a7e:ee19 with SMTP id 98e67ed59e1d1-3a07e6540e2mr2620920a91.37.1790177436748;
+        Wed, 23 Sep 2026 08:30:36 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:b4a:dc6a:68e:2592])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07ddf1cf3sm5652074a91.9.2026.09.23.08.30.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 08:30:35 -0700 (PDT)
+Date: Wed, 23 Sep 2026 09:30:33 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: remoteproc: Fix MT8188 SCP regs
+Message-ID: <arPwmV6I6e2hCqo6@p14s>
+References: <20260921232520.3127457-1-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-fix_khugepagd_fail-v3-2-b387e92fe1a9@arm.com>
-References: <20260923-fix_khugepagd_fail-v3-0-b387e92fe1a9@arm.com>
-In-Reply-To: <20260923-fix_khugepagd_fail-v3-0-b387e92fe1a9@arm.com>
-To: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>, 
- Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2212; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=ooA7gnlKxc89gO2WIVt8hrp3HEKHzLvwfAey+X1/t9M=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqs/Bypoq9vTrEQVXeB9sf2lJpalwQjYUcNreLF
- vOel/96l82JAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCarPwcgAKCRBt1cPRWsUx
- Mx3nC/9rvmyHURuLkgtUmXfMQosa4eCGa9HReNKzlD+EjOD7f/wjyIWVpohxdVXx/vLpw/ulWB9
- iHZFGNZdtIxoDjqOymdosbkanMfOpGHaZxIKADZRZtt2TwN4r4qGnrZvdohg87UciEO4RpgvRon
- TTu7Bv/Q5XVSsgFXGn9Nz5LWZAKpc/Q2Ebb1zQMXIJ9UqWEXUUotizO2NxxNoAikI6lL+aEQEYV
- mOaVNYvlzlw1FgNrSBsxvAD8npp6X/HXAz+EwGj+9imiQJh8ib/LJG3vFi9caum2sqZjR2ep9RL
- 39LIF2Z5h22jz+UIDxp+pzBOjumlsyrw6CJWXSb8jjn6wFRLul3baiVTWVlx01hvJRoaSBKVFBH
- tglhp2rHCHSOjezEqGVEzqbH1xobmjrJ/GvbXM34NyjJr0CA3+11u2iCZrJupelN6kRxeqQoIza
- fJx/uf6yBk6sgKGG85huRI64p7jO3i8mbpcUEkuqpbscOk+PyibHYtDTqs77i4+s8J98U=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921232520.3127457-1-robh@kernel.org>
 
-There are intermittent failures in collapse_max_ptes_swap() and
-collapse_max_ptes_shared() when using the khugepaged_context:
+On Mon, Sep 21, 2026 at 06:25:19PM -0500, Rob Herring (Arm) wrote:
+> Allow single-register MT8188 SCP dual nodes with only the cfg
+> region. Keep two-register and three-register requirements for the
+> other MediaTek SCP variants that need SRAM and L1TCM regions.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>  .../bindings/remoteproc/mtk,scp.yaml          | 22 ++++++++++++++++---
+>  1 file changed, 19 insertions(+), 3 deletions(-)
+>
 
-  // while running ./khugepaged -s 2
+Applied.
 
-  # Run test: collapse_max_ptes_shared (khugepaged:anon)
-  # Allocate huge page... OK
-  # Share huge page over fork()... OK
-  # Trigger CoW on page 1023 of 2048... OK
-  # Maybe collapse with max_ptes_shared exceeded.... OK
-  # Trigger CoW on page 1024 of 2048... Fail
-  Bail out! Unexpected huge page
-  # Planned tests != run tests (26 != 23)
-  # Totals: pass:23 fail:0 xfail:0 xpass:0 skip:0 error:0
-
-  # Run test: collapse_max_ptes_swap (khugepaged:anon)
-  # Swapout 257 of 2048 pages... OK
-  # Maybe collapse with max_ptes_swap exceeded.... OK
-  # Swapout 256 of 2048 pages... OK
-  Bail out! Unexpected huge page
-  # Planned tests != run tests (26 != 17)
-  # Totals: pass:17 fail:0 xfail:0 xpass:0 skip:0 error:0
-
-This happens because khugepaged may collapse the pages before wait_for_scan()
-is called, causing a sanity check that expects uncollapsed pages to fail.
-
-For example, in collapse_max_ptes_swap(), after faulting the pages back in
-and paging out up to max_ptes_swap pages, khugepaged may collapse them again
-before c->collapse() is called.
-
-To prevent this, mark the VMA with MADV_NOHUGEPAGE after it has been
-collapsed by wait_for_scan() for anon. This prevents khugepaged from
-collapsing it again before c->collapse() is called.
-
-This failure was observed on NVIDIA Spark with 16KB page.
-
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- tools/testing/selftests/mm/khugepaged.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-index 2aa7c9197158..b0cb02bf1a73 100644
---- a/tools/testing/selftests/mm/khugepaged.c
-+++ b/tools/testing/selftests/mm/khugepaged.c
-@@ -618,6 +618,9 @@ static bool wait_for_scan(const char *msg, char *p, size_t len,
- 		usleep(TICK);
- 	}
+Thanks,
+Mathieu
  
-+	if (is_anon(ops))
-+		madvise(p, len, MADV_NOHUGEPAGE);
-+
- 	return timeout == -1;
- }
- 
-
--- 
-2.43.0
-
+> diff --git a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
+> index bdbb12118da4..2f0a28c7a24c 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/mtk,scp.yaml
+> @@ -28,11 +28,11 @@ properties:
+>      description:
+>        Should contain the address ranges for memory regions SRAM, CFG, and,
+>        on some platforms, L1TCM.
+> -    minItems: 2
+> +    minItems: 1
+>      maxItems: 3
+>  
+>    reg-names:
+> -    minItems: 2
+> +    minItems: 1
+>      maxItems: 3
+>  
+>    clocks:
+> @@ -171,6 +171,7 @@ allOf:
+>      then:
+>        properties:
+>          reg:
+> +          minItems: 2
+>            maxItems: 2
+>          reg-names:
+>            items:
+> @@ -185,6 +186,7 @@ allOf:
+>      then:
+>        properties:
+>          reg:
+> +          minItems: 3
+>            maxItems: 3
+>          reg-names:
+>            items:
+> @@ -195,17 +197,31 @@ allOf:
+>        properties:
+>          compatible:
+>            enum:
+> -            - mediatek,mt8188-scp-dual
+>              - mediatek,mt8195-scp-dual
+>      then:
+>        properties:
+>          reg:
+> +          minItems: 2
+>            maxItems: 2
+>          reg-names:
+>            items:
+>              - const: cfg
+>              - const: l1tcm
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          enum:
+> +            - mediatek,mt8188-scp-dual
+> +    then:
+> +      properties:
+> +        reg:
+> +          minItems: 1
+> +          maxItems: 1
+> +        reg-names:
+> +          items:
+> +            - const: cfg
+> +
+>  additionalProperties: false
+>  
+>  examples:
+> -- 
+> 2.53.0
+> 
