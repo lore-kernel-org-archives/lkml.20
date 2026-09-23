@@ -1,123 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA273BE178;
-	Wed, 23 Sep 2026 16:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBBD2F9DA1
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:35:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790181301; cv=none; b=uygtisC5NxSaDDcKJIID7QvxIVBiORS4qBYbRH96jY/OQTOmyh6II9wQqfKoItTwwvMTAyfdsm2o66I2XAWwp2tTYPs+iK2RY49cn3eJAf2VPan/yjhH/BkU5KOYgN+ygZJr6svGfFKSN1FiRsfrjgGJEnrCsGBYEh70pek8tz4=
+	t=1790181352; cv=none; b=HxlK8tHIRJC9bgaZWJrxXFg0xa/TaZcK6g5GjKQwQhPUHrKsLZMrhUy1TR8xGTOlGyF1Ia4Xe2e0RQa1BDlwHu45NRVRdkczHhLeEfhfnvrbhd/V5sz0tf7qmP+X+QSkoUI6t0u7SCSA1+6UthEbynKZTAW7LfyE0MNQTgowNV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790181301; c=relaxed/simple;
-	bh=gvkKJXWX504JVXNfq8nlTqNPqxGPQY3bFLzXp0zukIY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N4rUrjr6f2VWt8IUCEAdEk+6QQ+WwXoNiFYQB5IbM009M2737MSVD0JpZ81Jnzi5IfymirmYCAV8+5exEhVDfpAODWcxcXYqmhshUcvN596a2PThb0xZyxWFy3DGjOCeCtIfGHEYEgxjZQzuBB+vanJ3KydZXnZ31uNE8ttgwDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QcQe7o4K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790181352; c=relaxed/simple;
+	bh=u5gxEPDdMGngagwxyI1X/73gU3KsM7oagGaXMiOMRnU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GI4BZ0BuRfq4uD4cK6zdlX/fj+kJz0AYVbqqsJIZOWLRHWQxGLiiKGCOG2kn17JvLhaoyh/oxTY9+G6Nttu4WMY2UvFcPmefNRMN6jPWDzsAqqmb3sl72VnQnclg/xVrriEJw2BujEGok1NkStMeDgcDSzwnxIEOjcR3vKaGUOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HePB/U5H; arc=none smtp.client-ip=74.125.230.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QcQe7o4K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C5F81F000FF;
-	Wed, 23 Sep 2026 16:34:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790181293;
-	bh=mTTFKJLThslPpgGE7iC07a5WG4GQvmr7lQzblT/Mg0s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QcQe7o4KLNtz1sHi1oWVX79bCW48fRolAQNDOiWgUVMFP96hS6bxTl9/Yc0UvoOtV
-	 zs0A7nYeCSaug0BZ2WRw2KK4BkZqrdVN0uEkid2SoHQyuR6+XbqqZm7B1bOSfBwAF0
-	 ZIwkM/vLx4qGd8LRqYuAYOjWbrkIMD3SjSxhVSXik8toATWlhPZgnnY+ZnUm7ETuj1
-	 xujkm6rmatRUH6PcGKG7UfODTBC+guomuwXWVgnSC9LnmAbZWP5iIzyOooOwea8AfK
-	 oeszJUbzDTZgOM4oGZGqvLzvoN5EzB1YO+uDi7Ek3vvsBh1QoBBf3cC9d1FpAfdPA2
-	 5JwQb5KQ4OaCw==
-Date: Wed, 23 Sep 2026 17:34:49 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Dmitry Osipenko <dmitry.osipenko@collabora.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Gerald Loacker <gerald.loacker@wolfvision.net>,
-	Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, kernel@collabora.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/9] dt-bindings: media: snps,dw-hdmi-rx: add the source
- port
-Message-ID: <20260923-task-corncob-09e46d99fb94@spud>
-References: <20260923-hdmirx-media-v1-0-ea3d77d4a5f3@pengutronix.de>
- <20260923-hdmirx-media-v1-3-ea3d77d4a5f3@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HePB/U5H"
+Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-91058dd77a2so10686266d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:35:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790181339; x=1790786139; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b5p40yKNXmiRzyWRdpfFOTFd2Qmr/Bgk6kI4JtztrGo=;
+        b=HePB/U5HoauN6XWUCvBoFV79vKwFxYmHiIHEDnqvmF/37qhXM/z7BJXcVW9vsd3neK
+         5DNEIIEFdacunUW+DaoZNVPIXGN9VifwhqBtmug6mqC/1b9rVfRlmgaNYqB7xqjyLis9
+         G1tRpEM6RmmnUn4uPnb+VwfJ9DnpMbIK9vYxP10ZstTRAN5PKiBUCHEMx1uUmS19p1xm
+         OOyTH8rP9xRXPmTDPqCj1WZMqhFsChn7fAP/ik5NFKCRUYuRJvUutTHXXTiFZe8bk0pz
+         VIt5abi+MzEGmm/dp8Hyr3exXJMnC6FKrZwl6OWN7ax3SeoMobJ4FxYj50c2ue63T2h8
+         SPRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790181339; x=1790786139;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b5p40yKNXmiRzyWRdpfFOTFd2Qmr/Bgk6kI4JtztrGo=;
+        b=n2+j8vHWVJMdj3iVNoGQTB6fEkpgzW2pIxlI0eqWjgIhAHo/0QcEz9VcFrlMFAR6m0
+         sMsl8IdhHCdI4/roMZtBF/CrYPxAQY3DQAkHrCoGXjH/3+2RbbeoLA1Dx2S5Fb7oCnEP
+         qpF1q79oaKzszxLdbN1nOZdx5JjxaqljGliTEUlyrhSorTf18XrVbZm4hDqVk9jryHIG
+         eMi9OdnPY+r1mhb6Bf2ByPslGazP0FIrTMqX2AMfpRgfoq2RFA3fIrDrleC4VfugwVA4
+         1NgkBNY+OUqZX1vkbwbSmgF9Qsb12yR4IM0X65PLEEgZp8uom9iZ2gTRrojmIG0VFrt3
+         FHsg==
+X-Forwarded-Encrypted: i=1; AKwUvBy7yQf03U28U9T8kwRufQqkxGhun2KCZco7ILxw7n/JWMSS0P/pGIOtgX+MriR7z66ik/3LCcNePGxTBPk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMLgK7ncnMXnEvUOrIZfZhc96dquLNFYvxnXYMVi3R3Rs9nfjv
+	6unyBe8+ognyco9TTWtlA56ul0OhVRxVKh0H5D5t045auxW+yyITtNvH
+X-Gm-Gg: AYBFou2R6FK0+bgqe/cC4futQilFwv7p6Ln2KmyWw0AwEjrEDdzydhVA5mFI3w8n/jM
+	0ZdWG2VRtm4jQSwm17Os+7NVRbom3Nq7c86/NeEVJ+pdt1eolzs7qymc3mS/Id0XdDATIrvEPb+
+	gwYKrCIC4i8tzDkLH1iv3GhquFfRtgiiskr6yW8DBO611ZTTCVVVPPL2lZ6tpyBgaOk3+jxZB7y
+	xEJAJhrzx831//YRJTmDaIxHx4rJuq/YJXprHGkYaZKHchRh1poa/lLe41gw59Yk13plVysklIh
+	Jw0t1/u1Lr6u1J1ry7PVJKa8TvZ3ds6xhjilZmmO3U3fOQoa4Eh6oThzv/bDNgsixN9pST2itl2
+	UEJMzKsDqUMcJPgIHFJ40Srgbdh3ZQw+8ScGZa7S2JwqtfKEICFhEZ/pkoLLqCKuSHZ1vCYwB7O
+	ZbZWa5+pHAmgvJtkMT279uGov4VtyxcXTVUBJH998PsM9TgOs3Su5VNSYkqJomTyh3ThqTpKYhd
+	9jiWncTQLszKiKHgfsqYg==
+X-Received: by 2002:a05:622a:1cc9:b0:52d:28f8:578c with SMTP id d75a77b69052e-532eada4922mr49461241cf.31.1790181339344;
+        Wed, 23 Sep 2026 09:35:39 -0700 (PDT)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eb210527sm23066351cf.12.2026.09.23.09.35.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 09:35:39 -0700 (PDT)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>
+Cc: Nicolas Pitre <nico@fluxnic.net>,
+	linux-arm-kernel@lists.infradead.org,
+	soc@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH v1] bus: arm-cci: Drop CPU node reference in cci_ace_init_ports()
+Date: Wed, 23 Sep 2026 12:35:15 -0400
+Message-ID: <20260923163536.596107-1-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/H04gVFbu6GNgBqZ"
-Content-Disposition: inline
-In-Reply-To: <20260923-hdmirx-media-v1-3-ea3d77d4a5f3@pengutronix.de>
+Content-Transfer-Encoding: 8bit
 
---/H04gVFbu6GNgBqZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+cci_ace_init_ports() looks up each possible CPU's node with
+of_get_cpu_node(), which returns the node with its reference count
+raised, but never releases it: neither when the CPU has no ACE port nor
+after the port has been recorded.  Before the commit below the loop used
+for_each_child_of_node(), which manages the references itself.
 
-On Wed, Sep 23, 2026 at 03:44:42PM +0200, Sascha Hauer wrote:
-> Describe the OF graph port connecting the receiver to an HDMI bridge in
-> front of it. Boards that wire the HDMI connector straight to the receiver
-> leave it out, so it is not required.
->=20
-> The schema sets additionalProperties: false, so without this a device
-> tree carrying the endpoint does not validate at all.
->=20
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> ---
->  Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml=
- b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> index b7f6c87d0e06a..7e66dcbdfe2cb 100644
-> --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> @@ -66,6 +66,14 @@ properties:
->      description: GPIO specifier for HPD.
->      maxItems: 1
-> =20
-> +  port:
-> +    $ref: /schemas/graph.yaml#/properties/port
-> +    description:
-> +      Connection to the HDMI source. Present when an HDMI bridge sits in
-> +      front of this receiver instead of the connector being wired straig=
-ht
-> +      to it.
+The node is only needed for the port lookup, so drop the reference right
+after __cci_ace_get_port().
 
-> The bridge is bound as a v4l2 subdevice and appears in the
-> +      media graph.
+Fixes: 78b4d6e0fd26 ("drivers/bus: arm-cci: avoid parsing DT for cpu device nodes")
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
+---
+Found by code review; compile-tested only (multi_v7_defconfig, W=1).
 
-This sounds like OS-specific info that shouldn't be here.
+ drivers/bus/arm-cci.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-pw-bot: changes-requested
+diff --git a/drivers/bus/arm-cci.c b/drivers/bus/arm-cci.c
+index 7f2baf0571286..076ac8e06bd01 100644
+--- a/drivers/bus/arm-cci.c
++++ b/drivers/bus/arm-cci.c
+@@ -199,6 +199,7 @@ static void cci_ace_init_ports(void)
+ 			continue;
+ 
+ 		port = __cci_ace_get_port(cpun, ACE_PORT);
++		of_node_put(cpun);
+ 		if (port < 0)
+ 			continue;
+ 
 
-Thanks,
-Conor.
+base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+-- 
+2.43.0
 
-> +
->    rockchip,grf:
->      $ref: /schemas/types.yaml#/definitions/phandle
->      description:
->=20
-> --=20
-> 2.47.3
->=20
-
---/H04gVFbu6GNgBqZ
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarP/qQAKCRB4tDGHoIJi
-0lgFAQDWu8jSGakyX/c8NyvvRIeYwJyf8B4XZbl38WT+zYTX9wEA3zlFmFXHDPVk
-i/V0Z+hjqpSzoQ6VsPUzDnS6ACyOZgA=
-=BPXJ
------END PGP SIGNATURE-----
-
---/H04gVFbu6GNgBqZ--
