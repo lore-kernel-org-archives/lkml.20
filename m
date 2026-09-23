@@ -1,94 +1,145 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2CE53E5EF7
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:28:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B8737F010
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:28:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155704; cv=none; b=p4l5w5r/cieL8XQnytfUO1nCa03bf8bhySVi3m6+ePe0ve+o5Xdg+meh0SHsuY/1zxtr6RXXg04OkEqhW7spsdgolGM2TORWtrG0o+lfrT2+AZbThLFsH70IeG8RNas1j8+dH7Yr/6rC4JuZp767oYutDqxgUqvK9VpCA0mGhsk=
+	t=1790155723; cv=none; b=dTvAw7q99O2T0pZthYy+CgN4jLsTXw3YRe4R0k8DqvpHXi5qcH7s4ZpcKdV3vcz+wR7MtJ2wsZaDJ7AGr5qTIgJpxZTWp/1j6CY2ZxzQ0DKHUuHhLHhxGaO2F/ZQwEkWf5Hp5w9EGqETq89e1iY2cwnHkAOELu5fVi8gbK5lZNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155704; c=relaxed/simple;
-	bh=1MOd4w7s09OI6TuYj3wnci7LsymgBd4yB8eYcSBdIjA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l9ExhxWqfcVFgVkApJ+2P9FtI2K8ppaJl6ujj7wetZsLFE6Ak5Lz/ozrEhosHaGp87wvaMLBbonG7yiFdzDFjcx6NH/rJTBe+NeC6eLQ+MOVGRPd6Kuw7xg85u+eCAj5vwHIKdUAhMkHEeiLtDX03+PqQaZ/N6Ugxn926/h8iYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=mO+R8sGu; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Bb+H1iY2; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790155723; c=relaxed/simple;
+	bh=eKQNdHt+hhAAjn5VJiqGyCUamYddAWI7/Er5YHSBndM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uoZGyRJA+dQab/nH+OcBSdEBPeGbWSZzcCg71vOBzZLXKuALnSHzLthcWv0h0uoWdekP8wt4fcw8tTb7qIoqYYB1W3oDcaSSLd+5yXqSVHW3iZ1kSBfw+jILaX5XZNlf4q0kIKnlOKeuuZw1aOKeV4iw0BPMnIz8GGpGOU7Bf2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VK32VceR; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="mO+R8sGu";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Bb+H1iY2"
-Date: Wed, 23 Sep 2026 11:28:19 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790155700;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vuuzklLFXpGyxvMk6v9sJZguQfGsHk5HMtg4YoVNttk=;
-	b=mO+R8sGurXdWjAEuTXmy5Vv1Y6CCXfzxdJ0PoOc+IFYG7/ZjocnCwqo6K/Bzs9wY1Vl5ux
-	h/VFx4AgtIJZ7+E5uHKhtdt5Y0S+PXhsz3x7WyjGtmiH9rCVQQSXt6Abrij4oZNBlNdEs1
-	iGmRFVh9kdhX5ZpiJQrVvMHfoWaT30Hrj0XLy4rdjmG12+f2PjvG4Ehv3oMc4nr0r1OeJv
-	+KzT/Ps04To+YYu0umJa8pw6jU5ocfzvFDMOqGHUZgRTjm956Ou7c/Z2rRon5SL1qMRP2/
-	Ix230+UOsyOKMaAnHLDQWCYv06WOuSaz4gaCbxFVxqdorSmzfu0cQRmSg2eSGw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790155700;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vuuzklLFXpGyxvMk6v9sJZguQfGsHk5HMtg4YoVNttk=;
-	b=Bb+H1iY23I53kepYLhmEaGB1F34bhpTSsKldoFIwiaz0R7c4HntCcduVF+EOWn+Mihb+uY
-	dNjMpZW7mhSk0mCg==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Chuyi Zhou <zhouchuyi@bytedance.com>
-Cc: tglx@kernel.org, mingo@redhat.com, luto@kernel.org,
-	peterz@infradead.org, paulmck@kernel.org, muchun.song@linux.dev,
-	bp@alien8.de, dave.hansen@linux.intel.com, pbonzini@redhat.com,
-	clrkwllms@kernel.org, rostedt@goodmis.org, nadav.amit@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/5] x86/mm: Decouple kernel TLB flushes from
- flush_tlb_info
-Message-ID: <20260923092819.OVgjJ9Gb@linutronix.de>
-References: <20260921095359.3784458-1-zhouchuyi@bytedance.com>
- <20260921095359.3784458-5-zhouchuyi@bytedance.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VK32VceR"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f63546c5so562066f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:28:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790155720; x=1790760520; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Op+1G3Jxi9SdULjib67/1vBJNLUR2DhfwMdslr3CGLI=;
+        b=VK32VceR6fWNd4+HvsPwSwCtgcnAY9SMwCt64LPwFGxbvQmM+d4Fh5ciQJfnDY+adl
+         o0JaduaeSBfU0xFVGltxsIJ8l7kK4qCPjQQgWQQKUpfsPpPew6CVRR5DhBqbA207cz/8
+         WYMZ3p/AyjVTb9I7ilFqG+FD6Ypvij1AOhrCK7kZUcMFy4knCXUuuLvRw79lSlM3+ZuN
+         JfqtG68XoxblIvawKrDcAfHK1Q4q5xZr3uZXLXTTsJhrkZ/WPEI48VBU8e2ZhDSa3TSI
+         qEXcs9MYLe3tGG2Hc+CrQcaAeyL9TbNIBQKPNPtNCWhsACfHcVMT2SJuy+4tT9HHrJfK
+         YmDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790155720; x=1790760520;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Op+1G3Jxi9SdULjib67/1vBJNLUR2DhfwMdslr3CGLI=;
+        b=1M8Lv/wDyaLtbf6TvgeyCuoCRfasdx9TiBM/o6aOHUz3nGC3IsedXl4MRxJVSK9Vyb
+         yiPjRLVCehqS7ViLI0IAHYFCu6GWXNOvdHX6xuuAVK2y2JPxVVwyDSSjTSvmuWe6TU+b
+         VfzpsbHwJ8Nfg+ogw7VEwQPzxB1pYs1ADx3vxEAGfoJSpdtV/F3m0nEsXFPnfgjMUDXB
+         Lq6+TW5DkRWhz0IggMgcxikOQ2ibtwuz/LeAuH4gN0BIdQjMWfwrZq6PZWhFUiPpP7F9
+         4hcm1TWY845n8fVf+RlZK5dn+R7r9Y/7vCGTjKgodx4/pPWzVHKwkB7ggj6Noe1Ct7RV
+         oMXA==
+X-Forwarded-Encrypted: i=1; AKwUvByZ+udlQCyob+UMqQnPwK9XBu7ztM76aG3SmycBJnsz+UmOGVxtKpKu+p/02zfxqo7i+5N+z5i85dsCRhk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMEmLaT06xghXHMmEOriQu876CfDZLC0u/yvtI1bIY8jR7VoIr
+	8bOSZ/rlN7iZRlpiWzpx1w3+pIpCDjG3I1OMvfqau1ZTcgRqtqOlCIy+
+X-Gm-Gg: AYBFou1uzdwEJmenJUk5H6JcErKM5glW9SO76Qzl0FhxJYRjHnXmfBg5Cubibqe92d1
+	dp67OOKr9A6RDW2wCM+lhgfmjhIyi9gmNqo7jXP9i+ZCdFs5EaMv348sMYRkg9aN6LQzL1vR047
+	wDUBEovVVtKGP7H+xLFxEqzfT+D6LmWbye/1giHHdUq5nKuBRt2eZKaeYJRZY6r+AGgsB0hV/Gr
+	qy9dJoU3AvSvSm8+RqpYL/cuiTqe8c2RKA5NZT86/fawz3560CMwrkQQmFth2Zqv7bw0FyuSr9w
+	SPdKZmxnW1X/JicxiHLJ+5+ig7W3d0o/Oal/Pj3cR/OMtAZCGYPkbJtkemraxH7ildcZOYKLGHT
+	pQtQBncw9HenBiIJs8F2r4Kz02Pugny7/bEpd91uXAakoxNF3xHBPjYQt+2Xhi8sA9Zd0SScsrq
+	2paiHqUHrJtwkC97fxoh26Bl9QwMqna853DV9fmvtQ06q/N1nR3EiH/ROdknBHk2CoOUUvO8f6C
+	L1cS1qXHUNOOuJSbTmxRmrTkcqpGfCctyLcdqexlCRZMw==
+X-Received: by 2002:a05:6000:3ce:b0:485:8c16:5ef6 with SMTP id ffacd0b85a97d-488670b342cmr3399764f8f.48.1790155719650;
+        Wed, 23 Sep 2026 02:28:39 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c500sm5584975f8f.19.2026.09.23.02.28.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 02:28:39 -0700 (PDT)
+Date: Wed, 23 Sep 2026 10:28:37 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Vineet Gupta
+ <vgupta@kernel.org>, Guo Ren <guoren@kernel.org>, Yoshinori Sato
+ <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, Chris Zankel
+ <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>, Arnd Bergmann
+ <arnd@arndb.de>, "Paul E . McKenney" <paulmck@kernel.org>, John Paul Adrian
+ Glaubitz <glaubitz@physik.fu-berlin.de>,
+ linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/5] sh: Emulate two-byte cmpxchg
+Message-ID: <20260923102837.2b46d772@pumpkin>
+In-Reply-To: <20260922173354.14404-4-brads@mainlining.org>
+References: <20260922173354.14404-1-brads@mainlining.org>
+	<20260922173354.14404-4-brads@mainlining.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260921095359.3784458-5-zhouchuyi@bytedance.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 2026-09-21 17:53:58 [+0800], Chuyi Zhou wrote:
-> --- a/arch/x86/mm/tlb.c
-> +++ b/arch/x86/mm/tlb.c
-> @@ -1487,38 +1487,47 @@ static void invlpgb_kernel_range_flush(struct flu=
-sh_tlb_info *info)
-=E2=80=A6
->  void flush_tlb_kernel_range(unsigned long start, unsigned long end)
->  {
-> -	struct flush_tlb_info info;
-> -
->  	guard(preempt)();
-> -	init_flush_tlb_info(&info, NULL, start, end, PAGE_SHIFT, false,
-> -			    TLB_GENERATION_INVALID);
-> =20
-> -	if (info.end =3D=3D TLB_FLUSH_ALL)
-> +	if (end =3D=3D TLB_FLUSH_ALL ||
+On Tue, 22 Sep 2026 17:33:52 +0000
+Bradley Morgan <brads@mainlining.org> wrote:
 
-info.end might be TLB_FLUSH_ALL because init_flush_tlb_info() might set
-it so. But 'end', which is passed as an argument, should not be
-TLB_FLUSH_ALL or can it?
-And if so, wouldn't the check below cover it anyway?
+You missed v4 from the subject line of all the patches.
 
-> +	    tlb_range_exceeds_ceiling(start, end, PAGE_SHIFT))
->  		kernel_tlb_flush_all();
->  	else
-> -		kernel_tlb_flush_range(&info);
-> +		kernel_tlb_flush_range(start, end);
->  }
+> SH has no byte or halfword atomic memory operations, so the __cmpxchg()
+> switch routes case 1 through cmpxchg_emu_u8() and lets case 2 fall
+> through to __cmpxchg_called_with_bad_pointer(), which is declared but
+> never defined, so a two-byte cmpxchg() fails at link time. Route case
+> 2 through the new cmpxchg_emu_u16(), which takes the old and new
+> values as unsigned long, so the (unsigned long) casts move off the
+> call and into _old_ and _new_ declarations that type check the old
+> and new arguments against *ptr through (unsigned long)(0 ? *ptr : _o_),
+> the idiom David Laight suggested, so cmpxchg(&p, 4, 5) no longer
+> compiles silently.
+> 
+> Acked-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> ---
+>  arch/sh/include/asm/cmpxchg.h | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/sh/include/asm/cmpxchg.h b/arch/sh/include/asm/cmpxchg.h
+> index 1e5dc5ccf7bf..b87f59107b4e 100644
+> --- a/arch/sh/include/asm/cmpxchg.h
+> +++ b/arch/sh/include/asm/cmpxchg.h
+> @@ -59,6 +59,8 @@ static inline unsigned long __cmpxchg(volatile void * ptr, unsigned long old,
+>  	switch (size) {
+>  	case 1:
+>  		return cmpxchg_emu_u8(ptr, old, new);
+> +	case 2:
+> +		return cmpxchg_emu_u16(ptr, old, new);
+>  	case 4:
+>  		return __cmpxchg_u32(ptr, old, new);
+>  	}
+> @@ -70,8 +72,10 @@ static inline unsigned long __cmpxchg(volatile void * ptr, unsigned long old,
+>    ({									 \
+>       __typeof__(*(ptr)) _o_ = (o);					 \
+>       __typeof__(*(ptr)) _n_ = (n);					 \
+> -     (__typeof__(*(ptr))) __cmpxchg((ptr), (unsigned long)_o_,		 \
+> -				    (unsigned long)_n_, sizeof(*(ptr))); \
+> +     unsigned long _old_ = (unsigned long)(0 ? *ptr : _o_);	 \
+> +     unsigned long _new_ = (unsigned long)(0 ? *ptr : _n_);	 \
+> +     (__typeof__(*(ptr))) __cmpxchg((ptr), _old_,				 \
+> +				    _new_, sizeof(*(ptr)));	 \
 
-Sebastian
+Minor niggle if you have to do these again...
+That line doesn't look long enough to need splitting.
+More generally if you add 'unsigned long _rval_' and put a final cast
+at the bottom the the #define the code will probably look neater.
+
+David
+
+>    })
+>  
+>  #include <asm-generic/cmpxchg-local.h>
+
