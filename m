@@ -1,680 +1,193 @@
-Received: from mta1.migadu.com (out-63.mta1.migadu.com [95.215.58.63])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9598311C1B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.63
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790124436; cv=none; b=Duxn1L8lFdxkuX5iYdyEtUfLh2yz6MIMTr0W5TayONDcUeaaVQwY7UKL7JrCGTY0OC1iLxSPVOZhjCunMB5v+OD9efNxZc+fT2AJP0IbE0v11MgBc923NKuuf7Clgh7NVgUzdcFWV63/XY+H6KwHWSErN0NsBIC9TlKVBxyEvX0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790124436; c=relaxed/simple;
-	bh=Qj9HZiPePJhGdvJbXs3hWBcD87o8H0W+O6Kv2OW8Uo8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iVZKEx/tKmDnxoIgqs49ycjvaQs9lqk4LKQnFcW8NCNssH6tp45BkQHei3vs5ALu3Qa4KoLMqdy+MX1z66at+si+LGFuNGM3iG8psctsMbV/BqS/VI1jO1O0Oe93OKnw/yJXcPe6fxze3GsW4/ht/021JF6jqKV7Iq0LwAsD9w0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FNDgAOD0; arc=none smtp.client-ip=95.215.58.63
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF0D2D23A6;
+	Wed, 23 Sep 2026 00:47:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790124443; cv=fail; b=R7jw7GwKMkOuEGPTWFq2mNM2QRrB4yNka1J8b3GolCHCntuEh4Ths4SpTSuYp0vgYJUMkgye/lSHYaRGcOp0zau5eVdujg5iafXeBACYrBmvNo+Z+D2Kp+p77obRhQfpaORFzePXIwK2QoIkrCilnYCfuPu60u/0MwdxeXL0mUo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790124443; c=relaxed/simple;
+	bh=7sItGaeXNX0EN1V0UAtZSQnjY5fhQUzCBsjQAla2uxs=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=dIrbJcIap24s6vKyc7gkyEmvsjGa86Xo7TmsePSLm8H+W3smBu0YS0TByIgjSOZo+rABAWPyMHv5wFDi9eL5r+n2QMIZk0IigZcbBS8jtJh7Err1tP0sKZhUKWOk8BYBOLE9o/rEb7tkA97hKLF/bbe704u/mx380ccUnjQfjNg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nkzWaLcd; arc=fail smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FNDgAOD0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Qj9HZiPePJhGdvJbXs3hWBcD87o8H0W+O6Kv2OW8Uo8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790124431; v=1; x=1790729231;
- b=FNDgAOD0rVY1TlxoVLDrSoRt4NQz5/8Z7b7SdwLkZCLtXyudrJqX+ASpOTt0qYKFpT0vYQCw
- MibT6VjKz9gAa6/O4pfG0bT6JrWVWjgApl+0fuuqkM0h23XVTTdiK3pCEF6eJ4aXnO3bfgGMXb2
- zpoHg4o+ELjvtv5IAw+Bc0OY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 95090a31b149dccd;
-	Wed, 23 Sep 2026 00:47:11 +0000
-X-Mizu-Trace-ID: 95090a31b149dccd
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Hans de Goede" <hansg@kernel.org>,
-	"Corentin Chary" <corentin.chary@gmail.com>,
-	"Luke Jones" <luke@ljones.dev>,
-	"busybox11" <busybox11th@gmail.com>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v2 1/2] platform/x86: asus-armoury: let attribute groups decide their own visibility
-Date: Wed, 23 Sep 2026 00:47:05 +0000
-Message-ID: <20260923004706.41256-2-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260923004706.41256-1-denis.benato@linux.dev>
-References: <20260923004706.41256-1-denis.benato@linux.dev>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nkzWaLcd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790124442; x=1821660442;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=7sItGaeXNX0EN1V0UAtZSQnjY5fhQUzCBsjQAla2uxs=;
+  b=nkzWaLcdJ+jkB2twOXFMDuEL7jdIMvkhzqzNwHuLS9su1YIt9CdkNik/
+   LInYM7Xh/bRgeybhwDv7k0CquMzaxlCvjSH+6XrY5U47dg4tU+twlp1G2
+   pgNM2rmOy4ONZfLna/03kaRLIePpEI2Ma7MezlUU0UVe7ak8TANBOuv4E
+   ZGUXExaVetKqzKqdSouVVLsexEV3Y8AYEKX3a0ZXYHvQjatehh7EJ2FJy
+   gNIq0dKcb8POTZo1+UhvRL4YcF6I+qAwo+blDm/W3edbDJTlJGyq4bYWS
+   IH1kbmLm71hfijN+4rRkl9dyhTC5Xl5Kf9uLbf2+Tal0tq5t5G1FeYxAp
+   Q==;
+X-CSE-ConnectionGUID: v0RS0FqzQamfHysh1TvxKQ==
+X-CSE-MsgGUID: Iq/PVG7ETBytcsAoSHpqTQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="93277314"
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="93277314"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 17:47:21 -0700
+X-CSE-ConnectionGUID: fx+t5EM6QkGGwP3US3upMA==
+X-CSE-MsgGUID: FAEcB0CESTCbL95dWUIgXw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="272568556"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 17:47:21 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 22 Sep 2026 17:47:20 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 22 Sep 2026 17:47:20 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.58) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 22 Sep 2026 17:47:20 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vly381PORoqrGGhiEv2dkvK2KIHn7D4B+2c5QJumQb2rzd7ut0CvqgQB2zDz3Loxp7P8shJFfH12SIwW1UI4ObkYAHGpmbs2nrvzjr5sEPAV5eRmnRUfi3QA9kEMKgrJlF6ZwmruX6gacj42fBcfwvEu7QpsTAQt8MWF5Nc3MuZNGNf/Il4VFClGtDwA8cHuhYfWzajwQlvd4BcgYxBl1z0/fNZhwXjhj6apigC51RDUS9olRJzSGG+hQx+zfeoalKGF//oX9Nz1I2I3Wg4OnpcmH5UYrh7r+ZbHPu317X+z/+S5yQcSKdFauGS40+9uy5efxWgr+XIMo5j5r4bPBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7sItGaeXNX0EN1V0UAtZSQnjY5fhQUzCBsjQAla2uxs=;
+ b=M16gFYWiMZUQeo4nCQsQzb4OdKBa8O8wxFmI+DA/TuxvRUJiiuQDJUCDVxOys/ic8Wu0BHHAGPG5RlSpwb/f9ehCb6K+Hva4JG/qJE85aISRM9xVu8OdWskr5yK8e2Tq6bCq2B+W7o9QduvOgkbXvzHxyPXZB30vsLErKukOXoC0KgcDAR7g2ziDmcMjHomAjUWKYLSXlEX346eY5+PRydWnIkG1pqkRTxPOnB0Yq4X6tcyuWjQFodsm4c/oNq+AGxhUb1RdzvV5wWLMIUC9y0Q1bvGq/4oMEghh1iuGCC/W6ca2XiWmludM0o0supIiy2/+JXgw8VOL/8IhOHBT2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
+ by DS0PR11MB7311.namprd11.prod.outlook.com (2603:10b6:8:11e::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 00:47:13 +0000
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0451.012; Wed, 23 Sep 2026
+ 00:47:13 +0000
+From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+To: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-coco@lists.linux.dev"
+	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Gao, Chao" <chao.gao@intel.com>,
+	"x86@kernel.org" <x86@kernel.org>
+CC: "hpa@zytor.com" <hpa@zytor.com>, "mingo@redhat.com" <mingo@redhat.com>,
+	"kas@kernel.org" <kas@kernel.org>, "tglx@kernel.org" <tglx@kernel.org>,
+	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "bp@alien8.de"
+	<bp@alien8.de>
+Subject: Re: [RFC PATCH v2 00/10] TDX: Stop auto-generating the global
+ metadata code
+Thread-Topic: [RFC PATCH v2 00/10] TDX: Stop auto-generating the global
+ metadata code
+Thread-Index: AQHdR3IQ2nw8C1Rg3UiJ54WE1CaRBbbbWz8A
+Date: Wed, 23 Sep 2026 00:47:13 +0000
+Message-ID: <c320ac55c4e0c0e8e8d3c9c399a63f15d949d109.camel@intel.com>
+References: <20260918132946.76533-1-chao.gao@intel.com>
+In-Reply-To: <20260918132946.76533-1-chao.gao@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.44.4-0ubuntu2.1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|DS0PR11MB7311:EE_
+x-ms-office365-filtering-correlation-id: 4bbd1bd5-dea5-4233-072d-08df190c352e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|7416014|23010399003|376014|11063799006|10067099003|22082099003|18002099003|56012099006|38070700021;
+x-microsoft-antispam-message-info: 8M16MfK9MKL5HxZPpat22uBX4mczTsy1NUokSaftLJteIBx6GkzoSO/cRF6JVhDZJY2pln0AtzITBmXm0WM2GA+8XyFr03DYxKM8jVcEKACDzue91G9J+dN0EPsCaRfDViY1B/qALU2yGQQDDWf4qyioLGpui1DTxAMrlGQG+9hr3uPV/fFmHkFtt5qiULFTzxjRJsPFStNwTMzrqU1TE/LnjIj9WH+2AFcQrUS41niH/PD8qGdnj57ajMc7aCXM0eIaFsG2Uell+MP6Qn8T1i8BJuQwZwCclNQSfjqvjiDmHFy3wQdp8WXvyIZKb5vhNi6VqzuTjIUN68sou3bLxDWqJODum9wljxAdsDgODnJ8MWAV7pyKgR438OtYgnMH4PAF6Jjrk9FjF+3BE9v2g7aG9gJvn129AZz2GS9hbOBTm3VjWYwtmGHjlwTJZa0lCym3yl0v0x4l+yXGNHsY1vAmarETboZeaXOPN8hJCNdInMXWrl9hBZDguw7+FbLnR3e4YHgvN193NMIhAMr41sfZJrgYKTGnSIOuH8pY4qJeh5F1RtMmDfQBbxvGrGyrZzKOhcHKBbhTsnxHCx/YOa2kuUCG9Gf5FjQZtNsvBXV1V45xyBiSwrEEAppXaLBBkR5C4L3apjrqWQcOhrjHlAKL11RNmGspAwDFGuSJjYWRdj2asMNdJipEPrCizyQaDUunccEXbyqdedYgkNZpZnISOzvHvH73U3DEdalboMc=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(11063799006)(10067099003)(22082099003)(18002099003)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dDFUT1MyNzJQck83a2tVZG5SREo0bHNBZENrOVREUUZjWGxkb2RTTkJvVXVI?=
+ =?utf-8?B?T0dyOUg0MlZZbmJDSHMxZVJNdWkxVTFBSVNpbW41a0VXbFM3K0RPQUluTW5H?=
+ =?utf-8?B?OVlLdFN1ejFGSXo3OG1WcURoV0hyb1VucFVrR3VRK3F4TUJsQUx0S2d1Ri9F?=
+ =?utf-8?B?c01RakVXUVhhSi9DRkYwRHArUG52TDYzVWZwL2FzeTFxb3h1aUdqbCtUdWdZ?=
+ =?utf-8?B?SEo4R2FGOVFkNzd1RnB0UlNoRXNqdFRpN1duY1FsRFFjOFFPQ0IyVVlQdXA4?=
+ =?utf-8?B?a3dWRnRJRFJPZjJLdmVMdnRTeUlodEtVTkdMcUdsSnJVTEVWLy9QRXh6TGEx?=
+ =?utf-8?B?TXR4YXhsZTV3ZDhENjdVV0wyenRMblJ4WlZidUVYYXVmTEVBcVlhUUlOZXY5?=
+ =?utf-8?B?cEQvVW4zRjc5dUtzNHdFWkVTQ25SR3dtbmFWeWxyeUFRWVRERjhsOHJTSHhh?=
+ =?utf-8?B?Z2pFWFFjSUVDcDFLekk1ZFVWaHlKQXBpSjdTSUFkRTlyRFhCUTUxQTlYVElM?=
+ =?utf-8?B?d1VsVXM3VUorU3ZLSjVlWDYwR2JENTRyVVc0aWhMU1lZYjBxbVpZMmtMcGZQ?=
+ =?utf-8?B?T3o3ajlOT3N4MGVVdVFXKzcxcVpFZW01djdWV2FtZ0ZsRHZqdVBYUEJHTzd5?=
+ =?utf-8?B?ckE1WkdNK3hBT1pibDhaVCs3eVl1VDdHVU9aTWt1ei93MUZwUjFMbktmVWw4?=
+ =?utf-8?B?VWNzV0hnYkVLUURLb3YyZmhTQkZCaVpWR29YWlpkQVhiWmV0Q3p4VU5zcC9l?=
+ =?utf-8?B?Y1NvN28zSGgrSHNyYkFoT2ZIVG93K0FweFBJZnhPeWZUS0ZqWmduSFZsSjlH?=
+ =?utf-8?B?SStBK0w2U25UVCt0aCtNVTZHOTUvVERIbmZFVjJ3MjlwSDNpMUlPQXRZNUwy?=
+ =?utf-8?B?YjVFd0drRGhRTy91S0tLOGUwOVY5ZjhrT3AyLzE5VXhVbVlZVlJZQVBDY2NZ?=
+ =?utf-8?B?blhibnVZdFdIQ0IvbFYxVzA2ZXdVVVpsajNndkxQSENjWEZORlo0aFhwMFly?=
+ =?utf-8?B?dTZVcllUYXVrck1LOXh0WGF5NVU1M3lSbnM5Y1FRN1pRRmE5bjhUb0RxSjBQ?=
+ =?utf-8?B?NUpzRUY5YlR5R216RkxGV3ZHY0U2M2xPNStyTkFxWEpNSHk5K2I5QU9kSDlh?=
+ =?utf-8?B?cGF2SlJIK2Ivb0dmRlphank2dWFNKzJwTVgvekl2cUZHdHNwbXMxVTZCR0Z1?=
+ =?utf-8?B?VXg5aXdKN2NLN0QyblJPODNkc01wQ0dIVklCSzc0OGlMSzRyY3lzMXg2ak04?=
+ =?utf-8?B?SDg3OVZDaC81NGVvYVh5Z3lWSlQwbk1TRHp2RWJFYjZHTUJnY2VBMHdwTmFP?=
+ =?utf-8?B?SUhWTzE3Ti9qd0wxdFY2bW1VdHl1YzROaUNUaTFFK0VEYmxQcDVMYjNwZHZk?=
+ =?utf-8?B?QUpNVDllSG1HQXB5WWxKRWM5ZHpwZUpleFl3Q3BJT1dwZWk2ZGwxNjk1V3lm?=
+ =?utf-8?B?MlJhQ3dLelA5cld4a3NNdVRVMCs4NXVCUFROczBTMTFvUk02WWk5dHZMUDRR?=
+ =?utf-8?B?NFcwTWZZcnhiSWRJVDEyQTRGc3R1aVlsdnZhczhSRlV6YUlaL1huZ0hjZHY2?=
+ =?utf-8?B?OGZqUGtkWVNzdGFkd1JyUTNqWE9yMHVNNmtDWkhMdFJYN3JScHhBVXJwSW1G?=
+ =?utf-8?B?dVN2d0plc1haVlZmclRMbHMzSlVVaytybnluT0JZR2VoczNGQWswSjhNMGNC?=
+ =?utf-8?B?bStJYmQzMi9KZjJhOWU1elBkeDFScWdsR3hud0JjdWxDRnVLdEhSenVBMWlj?=
+ =?utf-8?B?K2ptSHVheGNUaEdHelJhZDBaM0taUEUvd1IvMit3T0JJeHZIb2xjcWZFR0lN?=
+ =?utf-8?B?L3h1NWI5WDNnMWxVekd0b3dPTS94VkNIVlk4a2ZRMEFkOEdNVmFqL25id21k?=
+ =?utf-8?B?UUQwbmhpT09RWjBjeXBSSEVqZW9ocko0ZFFLazB1eURWVTI4VXF4ZWs2TlVj?=
+ =?utf-8?B?ODVZYy9nVGRYajRIR0xWV3I4KytETzlwSWhDYlI1OHliQWlBekxORHRPSTR2?=
+ =?utf-8?B?emdYeG9yVUptNUZPbkY1dXdSakNnRE1ETEhGSno5L2hVU3RNdXpyTG9iZmlz?=
+ =?utf-8?B?VVFWUVdSYzJmUm9IT1NuVzNxWWR4K3c4Yzh3NnJvYUlDazNhcjI2WHdmVkVF?=
+ =?utf-8?B?ejY4MFhqQXp0M254d2xhK3dlRHh4Ujd3SXk5K21HMHBzb3UwellZZXpTeE5E?=
+ =?utf-8?B?Z3h6YlplR0YrT1JZcEw4YVRFQVpicGtCdjJVdjJ2ZHJub2tmWjVHSFdPZGJT?=
+ =?utf-8?B?Q3B4ck9HclVoWGZHVFNzVzZGcjR1Z3ZubEc0dVVVdWxHZ2d3Z0RqOHg3T1dL?=
+ =?utf-8?B?cHYreEo1aU9RRGtodmJmRVdsVjZzanlQdXo3OWw5ZTNTcEtyQXduUG5lUHFm?=
+ =?utf-8?Q?5wocYsCKLUb4uLvU=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <30CE6E266E71314F939888B304BB93C5@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: EOncEpGKm4W0au5EcFchAsoq7hfqOg71UJgGJv8ZQlVZ0U/vOwVbe/Qbyhoqn38+NDJaz2vBIbJ0w/fms7kbjwkrX8Kl+HiPqYxLDC1dWnEfvlxkwOYYKsbW1eZ9OIVIq5Udd0+bMEDdAaBYJoa/ishR++oNvUIlc4wCu8B3TqC6qnFvBoBwFXJGoOggBxjdUjLG4/fkYTK2QgqDLCailIKdWVwMtbLuq4cuXXalMLR7fNXZNam8TD3Hkrctbbi+PE+6j6OAmtnm+uACFZGxobOnVEeb59ibb8s2T03zydJ6otz+CwtMWaWRyt3LsXPxWHvicGG3b6Kn3UG3UDoAHw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4bbd1bd5-dea5-4233-072d-08df190c352e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 00:47:13.1868
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 61rYhsv2yLmBzKrZWls3d0dQkSPBZTAnqDV3jd5qEjy6XCFf2Poc1AQ0lk9cvS+oMSzOjvf3CA6TFSiMYFYiquqisyGyXss+aYTfALpT3IU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7311
+X-OriginatorOrg: intel.com
 
-mini_led_mode, gpu_mux_mode and dgpu_disable are created by ad-hoc
-conditional blocks in asus_fw_attr_add() which must be manually tracked
-by the error and exit paths; those paths also re-probe WMI to know which
-groups were actually created.
-
-Give every attribute group its own .is_visible() callback: all groups
-are created unconditionally through the common loop and sysfs hides the
-unsupported ones entirely. The plain group macros now gate their
-visibility on the WMI presence of their device, the
-ASUS_ATTR_GROUP_BOOL() and ASUS_ATTR_GROUP_ENUM() macros declare groups
-backed by a device ID resolved at probe time, and the power tunable
-macros are additionally gated on the platform limits defining a max
-value, replacing the special-casing in asus_fw_attr_add() and with it
-is_power_tunable_attr().
-
-The dgpu_disable attribute now goes through the same resolved device ID
-scheme as mini_led_mode and gpu_mux_mode, storing the device ID to use
-in asus_armoury.dgpu_disable_dev_id instead of always operating on
-ASUS_WMI_DEVID_DGPU.
-
-No functional change is intended.
-
-Signed-off-by: Denis Benato <denis.benato@linux.dev>
----
- drivers/platform/x86/asus-armoury.c | 280 +++++++++++-----------------
- drivers/platform/x86/asus-armoury.h | 124 +++++++++---
- 2 files changed, 213 insertions(+), 191 deletions(-)
-
-diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
-index 2d5ca75bc727..7812e93734b8 100644
---- a/drivers/platform/x86/asus-armoury.c
-+++ b/drivers/platform/x86/asus-armoury.c
-@@ -94,6 +94,7 @@ struct asus_armoury_priv {
- 
- 	u32 mini_led_dev_id;
- 	u32 gpu_mux_dev_id;
-+	u32 dgpu_disable_dev_id;
- 
- 	bool requires_fan_curve;
- };
-@@ -110,11 +111,6 @@ static struct fw_attrs_group fw_attrs = {
- 	.pending_reboot = false,
- };
- 
--struct asus_attr_group {
--	const struct attribute_group *attr_group;
--	u32 wmi_devid;
--};
--
- static void asus_set_reboot_and_signal_event(void)
- {
- 	fw_attrs.pending_reboot = true;
-@@ -458,6 +454,12 @@ static ssize_t mini_led_mode_possible_values_show(struct kobject *kobj,
- 		return -ENODEV;
- 	}
- }
-+
-+static bool mini_led_mode_group_visible(struct kobject *kobj)
-+{
-+	return asus_armoury.mini_led_dev_id;
-+}
-+
- ASUS_ATTR_GROUP_ENUM(mini_led_mode, "mini_led_mode", "Set the mini-LED backlight mode");
- 
- static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
-@@ -471,8 +473,8 @@ static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
- 	if (err)
- 		return err;
- 
--	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU)) {
--		err = armoury_get_devstate(NULL, &result, ASUS_WMI_DEVID_DGPU);
-+	if (asus_armoury.dgpu_disable_dev_id) {
-+		err = armoury_get_devstate(NULL, &result, asus_armoury.dgpu_disable_dev_id);
- 		if (err)
- 			return err;
- 		if (result && !optimus) {
-@@ -502,6 +504,12 @@ static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
- 	return count;
- }
- ASUS_WMI_SHOW_INT(gpu_mux_mode_current_value, asus_armoury.gpu_mux_dev_id);
-+
-+static bool gpu_mux_mode_group_visible(struct kobject *kobj)
-+{
-+	return asus_armoury.gpu_mux_dev_id;
-+}
-+
- ASUS_ATTR_GROUP_BOOL(gpu_mux_mode, "gpu_mux_mode", "Set the GPU display MUX mode");
- 
- static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
-@@ -538,7 +546,8 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
- 	}
- 
- 	scoped_guard(mutex, &asus_armoury.egpu_mutex) {
--		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL, ASUS_WMI_DEVID_DGPU);
-+		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL,
-+					   asus_armoury.dgpu_disable_dev_id);
- 		if (err)
- 			return err;
- 	}
-@@ -547,7 +556,13 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
- 
- 	return count;
- }
--ASUS_WMI_SHOW_INT(dgpu_disable_current_value, ASUS_WMI_DEVID_DGPU);
-+
-+static bool dgpu_disable_group_visible(struct kobject *kobj)
-+{
-+	return asus_armoury.dgpu_disable_dev_id;
-+}
-+
-+ASUS_WMI_SHOW_INT(dgpu_disable_current_value, asus_armoury.dgpu_disable_dev_id);
- ASUS_ATTR_GROUP_BOOL(dgpu_disable, "dgpu_disable", "Disable the dGPU");
- 
- /* Values map for eGPU activation requests. */
-@@ -695,6 +710,12 @@ static ssize_t egpu_enable_possible_values_show(struct kobject *kobj, struct kob
- {
- 	return armoury_attr_enum_list(buf, ARRAY_SIZE(egpu_status_map));
- }
-+
-+static bool egpu_enable_group_visible(struct kobject *kobj)
-+{
-+	return armoury_has_devstate(ASUS_WMI_DEVID_EGPU);
-+}
-+
- ASUS_ATTR_GROUP_ENUM(egpu_enable, "egpu_enable", "Enable the eGPU (also disables dGPU)");
- 
- /* Device memory available to APU */
-@@ -771,6 +792,12 @@ static ssize_t apu_mem_possible_values_show(struct kobject *kobj, struct kobj_at
- {
- 	return armoury_attr_enum_list(buf, ARRAY_SIZE(apu_mem_map));
- }
-+
-+static bool apu_mem_group_visible(struct kobject *kobj)
-+{
-+	return armoury_has_devstate(ASUS_WMI_DEVID_APU_MEM);
-+}
-+
- ASUS_ATTR_GROUP_ENUM(apu_mem, "apu_mem", "Set available system RAM (in GB) for the APU to use");
- 
- /* Define helper to access the current power mode tunable values */
-@@ -782,6 +809,44 @@ static inline struct rog_tunables *get_current_tunables(void)
- 	return asus_armoury.rog_tunables[ASUS_ROG_TUNABLE_DC];
- }
- 
-+/**
-+ * has_valid_limit - Checks if a power-related attribute has a valid limit value
-+ * @name: The name of the attribute to check
-+ * @limits: Pointer to the power_limits structure containing limit values
-+ *
-+ * This function checks if a power-related attribute has a valid limit value.
-+ * It returns false if limits is NULL or if the corresponding limit value is zero.
-+ *
-+ * Return: true if the attribute has a valid limit value, false otherwise
-+ */
-+static bool has_valid_limit(const char *name, const struct power_limits *limits)
-+{
-+	u32 limit_value = 0;
-+
-+	if (!limits)
-+		return false;
-+
-+	if (!strcmp(name, ATTR_PPT_PL1_SPL))
-+		limit_value = limits->ppt_pl1_spl_max;
-+	else if (!strcmp(name, ATTR_PPT_PL2_SPPT))
-+		limit_value = limits->ppt_pl2_sppt_max;
-+	else if (!strcmp(name, ATTR_PPT_PL3_FPPT))
-+		limit_value = limits->ppt_pl3_fppt_max;
-+	else if (!strcmp(name, ATTR_PPT_APU_SPPT))
-+		limit_value = limits->ppt_apu_sppt_max;
-+	else if (!strcmp(name, ATTR_PPT_PLATFORM_SPPT))
-+		limit_value = limits->ppt_platform_sppt_max;
-+	else if (!strcmp(name, ATTR_NV_DYNAMIC_BOOST))
-+		limit_value = limits->nv_dynamic_boost_max;
-+	else if (!strcmp(name, ATTR_NV_TEMP_TARGET))
-+		limit_value = limits->nv_temp_target_max;
-+	else if (!strcmp(name, ATTR_NV_BASE_TGP) ||
-+		 !strcmp(name, ATTR_NV_TGP))
-+		limit_value = limits->nv_tgp_max;
-+
-+	return limit_value > 0;
-+}
-+
- /* Simple attribute creation */
- ASUS_ATTR_GROUP_ENUM_INT_RO(charge_mode, "charge_mode", ASUS_WMI_DEVID_CHARGE_MODE, "0;1;2\n",
- 			    "Show the current mode of charging");
-@@ -819,103 +884,35 @@ ASUS_ATTR_GROUP_ROG_TUNABLE(nv_tgp, "nv_tgp", ASUS_WMI_DEVID_DGPU_SET_TGP,
- ASUS_ATTR_GROUP_INT_VALUE_ONLY_RO(nv_base_tgp, ATTR_NV_BASE_TGP, ASUS_WMI_DEVID_DGPU_BASE_TGP,
- 				  "Read the base TGP value");
- 
--/* If an attribute does not require any special case handling add it here */
--static const struct asus_attr_group armoury_attr_groups[] = {
--	{ &egpu_connected_attr_group, ASUS_WMI_DEVID_EGPU_CONNECTED },
--	{ &egpu_enable_attr_group, ASUS_WMI_DEVID_EGPU },
--	{ &dgpu_disable_attr_group, ASUS_WMI_DEVID_DGPU },
--	{ &dgpu_power_state_attr_group, ASUS_WMI_DEVID_DGPU_POWER_STATE },
--	{ &apu_mem_attr_group, ASUS_WMI_DEVID_APU_MEM },
--
--	{ &ppt_pl1_spl_attr_group, ASUS_WMI_DEVID_PPT_PL1_SPL },
--	{ &ppt_pl2_sppt_attr_group, ASUS_WMI_DEVID_PPT_PL2_SPPT },
--	{ &ppt_pl3_fppt_attr_group, ASUS_WMI_DEVID_PPT_PL3_FPPT },
--	{ &ppt_apu_sppt_attr_group, ASUS_WMI_DEVID_PPT_APU_SPPT },
--	{ &ppt_platform_sppt_attr_group, ASUS_WMI_DEVID_PPT_PLAT_SPPT },
--	{ &nv_dynamic_boost_attr_group, ASUS_WMI_DEVID_NV_DYN_BOOST },
--	{ &nv_temp_target_attr_group, ASUS_WMI_DEVID_NV_THERM_TARGET },
--	{ &nv_base_tgp_attr_group, ASUS_WMI_DEVID_DGPU_BASE_TGP },
--	{ &nv_tgp_attr_group, ASUS_WMI_DEVID_DGPU_SET_TGP },
--
--	{ &charge_mode_attr_group, ASUS_WMI_DEVID_CHARGE_MODE },
--	{ &boot_sound_attr_group, ASUS_WMI_DEVID_BOOT_SOUND },
--	{ &mcu_powersave_attr_group, ASUS_WMI_DEVID_MCU_POWERSAVE },
--	{ &panel_od_attr_group, ASUS_WMI_DEVID_PANEL_OD },
--	{ &panel_hd_mode_attr_group, ASUS_WMI_DEVID_PANEL_HD },
--	{ &screen_auto_brightness_attr_group, ASUS_WMI_DEVID_SCREEN_AUTO_BRIGHTNESS },
-+static const struct attribute_group *armoury_attr_groups[] = {
-+	&mini_led_mode_attr_group,
-+	&gpu_mux_mode_attr_group,
-+	&egpu_connected_attr_group,
-+	&egpu_enable_attr_group,
-+	&dgpu_disable_attr_group,
-+	&dgpu_power_state_attr_group,
-+	&apu_mem_attr_group,
-+
-+	&ppt_pl1_spl_attr_group,
-+	&ppt_pl2_sppt_attr_group,
-+	&ppt_pl3_fppt_attr_group,
-+	&ppt_apu_sppt_attr_group,
-+	&ppt_platform_sppt_attr_group,
-+	&nv_dynamic_boost_attr_group,
-+	&nv_temp_target_attr_group,
-+	&nv_base_tgp_attr_group,
-+	&nv_tgp_attr_group,
-+
-+	&charge_mode_attr_group,
-+	&boot_sound_attr_group,
-+	&mcu_powersave_attr_group,
-+	&panel_od_attr_group,
-+	&panel_hd_mode_attr_group,
-+	&screen_auto_brightness_attr_group,
- };
- 
--/**
-- * is_power_tunable_attr - Determines if an attribute is a power-related tunable
-- * @name: The name of the attribute to check
-- *
-- * This function checks if the given attribute name is related to power tuning.
-- *
-- * Return: true if the attribute is a power-related tunable, false otherwise
-- */
--static bool is_power_tunable_attr(const char *name)
--{
--	static const char * const power_tunable_attrs[] = {
--		ATTR_PPT_PL1_SPL,	ATTR_PPT_PL2_SPPT,
--		ATTR_PPT_PL3_FPPT,	ATTR_PPT_APU_SPPT,
--		ATTR_PPT_PLATFORM_SPPT, ATTR_NV_DYNAMIC_BOOST,
--		ATTR_NV_TEMP_TARGET,	ATTR_NV_BASE_TGP,
--		ATTR_NV_TGP
--	};
--
--	for (unsigned int i = 0; i < ARRAY_SIZE(power_tunable_attrs); i++) {
--		if (!strcmp(name, power_tunable_attrs[i]))
--			return true;
--	}
--
--	return false;
--}
--
--/**
-- * has_valid_limit - Checks if a power-related attribute has a valid limit value
-- * @name: The name of the attribute to check
-- * @limits: Pointer to the power_limits structure containing limit values
-- *
-- * This function checks if a power-related attribute has a valid limit value.
-- * It returns false if limits is NULL or if the corresponding limit value is zero.
-- *
-- * Return: true if the attribute has a valid limit value, false otherwise
-- */
--static bool has_valid_limit(const char *name, const struct power_limits *limits)
--{
--	u32 limit_value = 0;
--
--	if (!limits)
--		return false;
--
--	if (!strcmp(name, ATTR_PPT_PL1_SPL))
--		limit_value = limits->ppt_pl1_spl_max;
--	else if (!strcmp(name, ATTR_PPT_PL2_SPPT))
--		limit_value = limits->ppt_pl2_sppt_max;
--	else if (!strcmp(name, ATTR_PPT_PL3_FPPT))
--		limit_value = limits->ppt_pl3_fppt_max;
--	else if (!strcmp(name, ATTR_PPT_APU_SPPT))
--		limit_value = limits->ppt_apu_sppt_max;
--	else if (!strcmp(name, ATTR_PPT_PLATFORM_SPPT))
--		limit_value = limits->ppt_platform_sppt_max;
--	else if (!strcmp(name, ATTR_NV_DYNAMIC_BOOST))
--		limit_value = limits->nv_dynamic_boost_max;
--	else if (!strcmp(name, ATTR_NV_TEMP_TARGET))
--		limit_value = limits->nv_temp_target_max;
--	else if (!strcmp(name, ATTR_NV_BASE_TGP) ||
--		 !strcmp(name, ATTR_NV_TGP))
--		limit_value = limits->nv_tgp_max;
--
--	return limit_value > 0;
--}
--
- static int asus_fw_attr_add(void)
- {
--	const struct rog_tunables *const ac_rog_tunables =
--		asus_armoury.rog_tunables[ASUS_ROG_TUNABLE_AC];
--	const struct power_limits *limits;
--	bool should_create;
--	const char *name;
- 	int err, i;
- 
- 	asus_armoury.fw_attr_dev = device_create(&firmware_attributes_class, NULL, MKDEV(0, 0),
-@@ -944,73 +941,32 @@ static int asus_fw_attr_add(void)
- 	else if (armoury_has_devstate(ASUS_WMI_DEVID_MINI_LED_MODE2))
- 		asus_armoury.mini_led_dev_id = ASUS_WMI_DEVID_MINI_LED_MODE2;
- 
--	if (asus_armoury.mini_led_dev_id) {
--		err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
--					 &mini_led_mode_attr_group);
--		if (err) {
--			pr_err("Failed to create sysfs-group for mini_led\n");
--			goto err_remove_file;
--		}
--	}
--
- 	asus_armoury.gpu_mux_dev_id = 0;
- 	if (armoury_has_devstate(ASUS_WMI_DEVID_GPU_MUX))
- 		asus_armoury.gpu_mux_dev_id = ASUS_WMI_DEVID_GPU_MUX;
- 	else if (armoury_has_devstate(ASUS_WMI_DEVID_GPU_MUX_VIVO))
- 		asus_armoury.gpu_mux_dev_id = ASUS_WMI_DEVID_GPU_MUX_VIVO;
- 
--	if (asus_armoury.gpu_mux_dev_id) {
--		err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
--					 &gpu_mux_mode_attr_group);
--		if (err) {
--			pr_err("Failed to create sysfs-group for gpu_mux\n");
--			goto err_remove_mini_led_group;
--		}
--	}
-+	asus_armoury.dgpu_disable_dev_id = 0;
-+	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU))
-+		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_DGPU;
- 
- 	for (i = 0; i < ARRAY_SIZE(armoury_attr_groups); i++) {
--		if (!armoury_has_devstate(armoury_attr_groups[i].wmi_devid))
--			continue;
--
--		/* Always create by default, unless PPT is not present */
--		should_create = true;
--		name = armoury_attr_groups[i].attr_group->name;
--
--		/* Check if this is a power-related tunable requiring limits */
--		if (ac_rog_tunables && ac_rog_tunables->power_limits &&
--		    is_power_tunable_attr(name)) {
--			limits = ac_rog_tunables->power_limits;
--			/* Check only AC: if not present then DC won't be either */
--			should_create = has_valid_limit(name, limits);
--			if (!should_create)
--				pr_debug("Missing max value for tunable %s\n", name);
--		}
--
--		if (should_create) {
--			err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
--						 armoury_attr_groups[i].attr_group);
--			if (err) {
--				pr_err("Failed to create sysfs-group for %s\n",
--				       armoury_attr_groups[i].attr_group->name);
--				goto err_remove_groups;
--			}
-+		err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
-+					 armoury_attr_groups[i]);
-+		if (err) {
-+			pr_err("Failed to create sysfs-group for %s\n",
-+			       armoury_attr_groups[i]->name);
-+			goto err_remove_groups;
- 		}
- 	}
- 
- 	return 0;
- 
- err_remove_groups:
--	while (i--) {
--		if (armoury_has_devstate(armoury_attr_groups[i].wmi_devid))
--			sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
--					   armoury_attr_groups[i].attr_group);
--	}
--	if (asus_armoury.gpu_mux_dev_id)
--		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &gpu_mux_mode_attr_group);
--err_remove_mini_led_group:
--	if (asus_armoury.mini_led_dev_id)
--		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &mini_led_mode_attr_group);
--err_remove_file:
-+	while (i--)
-+		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
-+				   armoury_attr_groups[i]);
- 	sysfs_remove_file(&asus_armoury.fw_attr_kset->kobj, &pending_reboot.attr);
- err_destroy_kset:
- 	kset_unregister(asus_armoury.fw_attr_kset);
-@@ -1182,17 +1138,9 @@ static void __exit asus_fw_exit(void)
- {
- 	int i;
- 
--	for (i = ARRAY_SIZE(armoury_attr_groups) - 1; i >= 0; i--) {
--		if (armoury_has_devstate(armoury_attr_groups[i].wmi_devid))
--			sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
--					   armoury_attr_groups[i].attr_group);
--	}
--
--	if (asus_armoury.gpu_mux_dev_id)
--		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &gpu_mux_mode_attr_group);
--
--	if (asus_armoury.mini_led_dev_id)
--		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &mini_led_mode_attr_group);
-+	for (i = ARRAY_SIZE(armoury_attr_groups) - 1; i >= 0; i--)
-+		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
-+				   armoury_attr_groups[i]);
- 
- 	sysfs_remove_file(&asus_armoury.fw_attr_kset->kobj, &pending_reboot.attr);
- 	kset_unregister(asus_armoury.fw_attr_kset);
-diff --git a/drivers/platform/x86/asus-armoury.h b/drivers/platform/x86/asus-armoury.h
-index d605af2fdaa1..38509a086a02 100644
---- a/drivers/platform/x86/asus-armoury.h
-+++ b/drivers/platform/x86/asus-armoury.h
-@@ -100,6 +100,43 @@ ssize_t armoury_attr_uint_show(struct kobject *kobj, struct kobj_attribute *attr
- 	static struct kobj_attribute attr_##_attrname##_##_prop =		\
- 		__ASUS_ATTR_RO(_attrname, _prop)
- 
-+/*
-+ * Every attribute group decides its own visibility through .is_visible():
-+ * sysfs hides a named group entirely when its first attribute reports
-+ * SYSFS_GROUP_INVISIBLE, so groups are always created and never leave
-+ * empty directories behind.
-+ */
-+#define __ASUS_DEVSTATE_GROUP_VISIBLE(_attrname, _wmi)			\
-+	static bool _attrname##_group_visible(struct kobject *kobj)	\
-+	{								\
-+		return armoury_has_devstate(_wmi);			\
-+	}								\
-+	DEFINE_SIMPLE_SYSFS_GROUP_VISIBLE(_attrname)
-+
-+/*
-+ * Power tunables are additionally gated on the platform limits actually
-+ * defining a max value for them. Only the AC limits are checked: if not
-+ * present then DC won't be either.
-+ */
-+#define __ASUS_POWER_TUNABLE_GROUP_VISIBLE(_attrname, _fsname, _wmi)	\
-+	static bool _attrname##_group_visible(struct kobject *kobj)	\
-+	{								\
-+		const struct rog_tunables *tunables =			\
-+			asus_armoury.rog_tunables[ASUS_ROG_TUNABLE_AC];	\
-+									\
-+		if (!tunables || !tunables->power_limits)		\
-+			return armoury_has_devstate(_wmi);		\
-+									\
-+		if (!has_valid_limit(_fsname, tunables->power_limits)) {\
-+			pr_debug("Missing max value for tunable %s\n",	\
-+				 _fsname);				\
-+			return false;					\
-+		}							\
-+									\
-+		return armoury_has_devstate(_wmi);			\
-+	}								\
-+	DEFINE_SIMPLE_SYSFS_GROUP_VISIBLE(_attrname)
-+
- #define __ATTR_RO_INT_GROUP_ENUM(_attrname, _wmi, _fsname, _possible, _dispname)\
- 	ASUS_WMI_SHOW_INT(_attrname##_current_value, _wmi);		\
- 	static struct kobj_attribute attr_##_attrname##_current_value =		\
-@@ -108,6 +145,7 @@ ssize_t armoury_attr_uint_show(struct kobject *kobj, struct kobj_attribute *attr
- 	__ATTR_SHOW_FMT(possible_values, _attrname, "%s\n", _possible);		\
- 	static struct kobj_attribute attr_##_attrname##_type =			\
- 		__ASUS_ATTR_RO_AS(type, enum_type_show);			\
-+	__ASUS_DEVSTATE_GROUP_VISIBLE(_attrname, _wmi);				\
- 	static struct attribute *_attrname##_attrs[] = {			\
- 		&attr_##_attrname##_current_value.attr,				\
- 		&attr_##_attrname##_display_name.attr,				\
-@@ -116,7 +154,9 @@ ssize_t armoury_attr_uint_show(struct kobject *kobj, struct kobj_attribute *attr
- 		NULL								\
- 	};									\
- 	static const struct attribute_group _attrname##_attr_group = {		\
--		.name = _fsname, .attrs = _attrname##_attrs			\
-+		.name = _fsname,						\
-+		.is_visible = SYSFS_GROUP_VISIBLE(_attrname),			\
-+		.attrs = _attrname##_attrs					\
- 	}
- 
- #define __ATTR_RW_INT_GROUP_ENUM(_attrname, _minv, _maxv, _wmi, _fsname,\
-@@ -129,6 +169,7 @@ ssize_t armoury_attr_uint_show(struct kobject *kobj, struct kobj_attribute *attr
- 	__ATTR_SHOW_FMT(possible_values, _attrname, "%s\n", _possible);	\
- 	static struct kobj_attribute attr_##_attrname##_type =		\
- 		__ASUS_ATTR_RO_AS(type, enum_type_show);		\
-+	__ASUS_DEVSTATE_GROUP_VISIBLE(_attrname, _wmi);			\
- 	static struct attribute *_attrname##_attrs[] = {		\
- 		&attr_##_attrname##_current_value.attr,			\
- 		&attr_##_attrname##_display_name.attr,			\
-@@ -137,7 +178,9 @@ ssize_t armoury_attr_uint_show(struct kobject *kobj, struct kobj_attribute *attr
- 		NULL							\
- 	};								\
- 	static const struct attribute_group _attrname##_attr_group = {	\
--		.name = _fsname, .attrs = _attrname##_attrs		\
-+		.name = _fsname,					\
-+		.is_visible = SYSFS_GROUP_VISIBLE(_attrname),		\
-+		.attrs = _attrname##_attrs				\
- 	}
- 
- /* Boolean style enumeration, base macro. Requires adding show/store */
-@@ -168,37 +211,63 @@ ssize_t armoury_attr_uint_show(struct kobject *kobj, struct kobj_attribute *attr
- 	__ATTR_RO_INT_GROUP_ENUM(_attrname, _wmi, _fsname, _possible, _dispname)
- 
- /*
-- * Requires <name>_current_value_show(), <name>_current_value_show()
-+ * Boolean style group whose whole visibility is decided by
-+ * <name>_group_visible(), for attributes backed by a device ID resolved
-+ * at probe time.
-+ * Requires <name>_current_value_show(), <name>_current_value_store()
-+ * and <name>_group_visible()
-  */
- #define ASUS_ATTR_GROUP_BOOL(_attrname, _fsname, _dispname)		\
-+	DEFINE_SIMPLE_SYSFS_GROUP_VISIBLE(_attrname)			\
- 	static struct kobj_attribute attr_##_attrname##_current_value =	\
- 		__ASUS_ATTR_RW(_attrname, current_value);		\
--	__ATTR_GROUP_ENUM(_attrname, _fsname, "0;1", _dispname)
-+	__ATTR_SHOW_FMT(display_name, _attrname, "%s\n", _dispname);	\
-+	__ATTR_SHOW_FMT(possible_values, _attrname, "%s\n", "0;1");	\
-+	static struct kobj_attribute attr_##_attrname##_type =		\
-+		__ASUS_ATTR_RO_AS(type, enum_type_show);		\
-+	static struct attribute *_attrname##_attrs[] = {		\
-+		&attr_##_attrname##_current_value.attr,			\
-+		&attr_##_attrname##_display_name.attr,			\
-+		&attr_##_attrname##_possible_values.attr,		\
-+		&attr_##_attrname##_type.attr,				\
-+		NULL							\
-+	};								\
-+	static const struct attribute_group _attrname##_attr_group = {	\
-+		.name = _fsname,					\
-+		.is_visible = SYSFS_GROUP_VISIBLE(_attrname),		\
-+		.attrs = _attrname##_attrs				\
-+	}
- 
- /*
-- * Requires <name>_current_value_show(), <name>_current_value_show()
-- * and <name>_possible_values_show()
-+ * Group whose whole visibility is decided by <name>_group_visible(),
-+ * for attributes backed by a device ID resolved at probe time.
-+ * Requires <name>_current_value_show(), <name>_current_value_store(),
-+ * <name>_possible_values_show() and <name>_group_visible()
-  */
--#define ASUS_ATTR_GROUP_ENUM(_attrname, _fsname, _dispname)			\
--	__ATTR_SHOW_FMT(display_name, _attrname, "%s\n", _dispname);		\
--	static struct kobj_attribute attr_##_attrname##_current_value =		\
--		__ASUS_ATTR_RW(_attrname, current_value);			\
--	static struct kobj_attribute attr_##_attrname##_possible_values =	\
--		__ASUS_ATTR_RO(_attrname, possible_values);			\
--	static struct kobj_attribute attr_##_attrname##_type =			\
--		__ASUS_ATTR_RO_AS(type, enum_type_show);			\
--	static struct attribute *_attrname##_attrs[] = {			\
--		&attr_##_attrname##_current_value.attr,				\
--		&attr_##_attrname##_display_name.attr,				\
--		&attr_##_attrname##_possible_values.attr,			\
--		&attr_##_attrname##_type.attr,					\
--		NULL								\
--	};									\
--	static const struct attribute_group _attrname##_attr_group = {		\
--		.name = _fsname, .attrs = _attrname##_attrs			\
-+#define ASUS_ATTR_GROUP_ENUM(_attrname, _fsname, _dispname)		\
-+	DEFINE_SIMPLE_SYSFS_GROUP_VISIBLE(_attrname)			\
-+	static struct kobj_attribute attr_##_attrname##_current_value =	\
-+		__ASUS_ATTR_RW(_attrname, current_value);		\
-+	__ATTR_SHOW_FMT(display_name, _attrname, "%s\n", _dispname);	\
-+	static struct kobj_attribute attr_##_attrname##_possible_values =\
-+		__ASUS_ATTR_RO(_attrname, possible_values);		\
-+	static struct kobj_attribute attr_##_attrname##_type =		\
-+		__ASUS_ATTR_RO_AS(type, enum_type_show);		\
-+	static struct attribute *_attrname##_attrs[] = {		\
-+		&attr_##_attrname##_current_value.attr,			\
-+		&attr_##_attrname##_display_name.attr,			\
-+		&attr_##_attrname##_possible_values.attr,		\
-+		&attr_##_attrname##_type.attr,				\
-+		NULL							\
-+	};								\
-+	static const struct attribute_group _attrname##_attr_group = {	\
-+		.name = _fsname,					\
-+		.is_visible = SYSFS_GROUP_VISIBLE(_attrname),		\
-+		.attrs = _attrname##_attrs				\
- 	}
- 
- #define ASUS_ATTR_GROUP_INT_VALUE_ONLY_RO(_attrname, _fsname, _wmi, _dispname)	\
-+	__ASUS_POWER_TUNABLE_GROUP_VISIBLE(_attrname, _fsname, _wmi);		\
- 	ASUS_WMI_SHOW_INT(_attrname##_current_value, _wmi);		\
- 	static struct kobj_attribute attr_##_attrname##_current_value =		\
- 		__ASUS_ATTR_RO(_attrname, current_value);			\
-@@ -211,7 +280,9 @@ ssize_t armoury_attr_uint_show(struct kobject *kobj, struct kobj_attribute *attr
- 		&attr_##_attrname##_type.attr, NULL				\
- 	};									\
- 	static const struct attribute_group _attrname##_attr_group = {		\
--		.name = _fsname, .attrs = _attrname##_attrs			\
-+		.name = _fsname,						\
-+		.is_visible = SYSFS_GROUP_VISIBLE(_attrname),			\
-+		.attrs = _attrname##_attrs					\
- 	}
- 
- /*
-@@ -284,6 +355,7 @@ ssize_t armoury_attr_uint_show(struct kobject *kobj, struct kobj_attribute *attr
- 		__ASUS_ATTR_RW(_attr, current_value)
- 
- #define ASUS_ATTR_GROUP_ROG_TUNABLE(_attrname, _fsname, _wmi, _dispname)	\
-+	__ASUS_POWER_TUNABLE_GROUP_VISIBLE(_attrname, _fsname, _wmi);	\
- 	__ROG_TUNABLE_RW(_attrname, _wmi);				\
- 	__ROG_TUNABLE_SHOW_DEFAULT(_attrname);				\
- 	__ROG_TUNABLE_SHOW(min_value, _attrname, _attrname##_min);	\
-@@ -303,7 +375,9 @@ ssize_t armoury_attr_uint_show(struct kobject *kobj, struct kobj_attribute *attr
- 		NULL							\
- 	};								\
- 	static const struct attribute_group _attrname##_attr_group = {	\
--		.name = _fsname, .attrs = _attrname##_attrs		\
-+		.name = _fsname,					\
-+		.is_visible = SYSFS_GROUP_VISIBLE(_attrname),		\
-+		.attrs = _attrname##_attrs				\
- 	}
- 
- /* Default is always the maximum value unless *_def is specified */
--- 
-2.47.3
-
+T24gRnJpLCAyMDI2LTA5LTE4IGF0IDA2OjI5IC0wNzAwLCBDaGFvIEdhbyB3cm90ZToNCj4gQ2hh
+byBHYW8gKDEwKToNCj4gwqAgeDg2L3ZpcnQvdGR4OiBBZGQgYSBoZWxwZXIgdG8gcmVhZCBhIHRh
+YmxlIG9mIG1ldGFkYXRhIGZpZWxkcw0KPiDCoCB4ODYvdmlydC90ZHg6IENvbnZlcnQgdGhlIHZl
+cnNpb24gbWV0YWRhdGEgcmVhZGVyDQo+IMKgIHg4Ni92aXJ0L3RkeDogQ29udmVydCB0aGUgZmVh
+dHVyZXMgbWV0YWRhdGEgcmVhZGVyDQo+IMKgIHg4Ni92aXJ0L3RkeDogQ29udmVydCB0aGUgdGRt
+ciBtZXRhZGF0YSByZWFkZXINCj4gwqAgeDg2L3ZpcnQvdGR4OiBDb252ZXJ0IHRoZSB0ZF9jdHJs
+IG1ldGFkYXRhIHJlYWRlcg0KPiDCoCB4ODYvdmlydC90ZHg6IENvbnZlcnQgdGhlIGhhbmRvZmYg
+bWV0YWRhdGEgcmVhZGVyDQo+IMKgIHg4Ni92aXJ0L3RkeDogQ29udmVydCB0aGUgdGRfY29uZiBt
+ZXRhZGF0YSByZWFkZXINCj4gwqAgeDg2L3ZpcnQvdGR4OiBSZW1vdmUgdGR4X2dsb2JhbF9tZXRh
+ZGF0YS5jDQo+IMKgIHg4Ni92aXJ0L3RkeDogVXNlIGVhcmx5IHJldHVybnMgaW4gZ2V0X3RkeF9z
+eXNfaW5mbygpDQo+IMKgIHg4Ni92aXJ0L3RkeDogVmVyaWZ5IHN0cnVjdHVyZSBtZW1iZXIgc2l6
+ZXMgYWdhaW5zdCBtZXRhZGF0YSBmaWVsZCBJRHMNCj4gDQo+IMKgYXJjaC94ODYvdmlydC92bXgv
+dGR4L3RkeC5jwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfCAyMjIgKysrKysrKysr
+KysrKysrKysrKy0NCj4gwqBhcmNoL3g4Ni92aXJ0L3ZteC90ZHgvdGR4LmjCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgNTQgKysrKysNCj4gwqBhcmNoL3g4Ni92aXJ0L3ZteC90
+ZHgvdGR4X2dsb2JhbF9tZXRhZGF0YS5jIHwgMTU0IC0tLS0tLS0tLS0tLS0tDQo+IMKgMyBmaWxl
+cyBjaGFuZ2VkLCAyNzUgaW5zZXJ0aW9ucygrKSwgMTU1IGRlbGV0aW9ucygtKQ0KPiDCoGRlbGV0
+ZSBtb2RlIDEwMDY0NCBhcmNoL3g4Ni92aXJ0L3ZteC90ZHgvdGR4X2dsb2JhbF9tZXRhZGF0YS5j
+DQo+IA0KPiAtLQ0KPiAyLjUyLjANCg0KV2hhdCBpcyB0aGUgYmFzZSBjb21taXQ/DQo=
