@@ -1,115 +1,103 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D6F8D46A5F2;
-	Wed, 23 Sep 2026 09:00:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AB9FF44780D;
+	Wed, 23 Sep 2026 09:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154014; cv=none; b=rco0eagjohKOqghsQhjzw1ibevUwJzsXKkqUNe0AMUnswqY/kIONWCck1vgQenfUvukJNxkV85lneDj31ucFvudibcJ/MQQSO+TeEdlOrEQzdIqDMEaJC+Co2ua2rj81Y33XfTayXDuw3Y4s4dEuz9I3/FdRJIOi5T40vWdSr9U=
+	t=1790154028; cv=none; b=V9sauNNS+Y6I5bjHnr2pAWlwoaXJ8fNR6IwTKH/7xlHLrB+/XCWRWTNYuNoJHmvSbpv72pETdoGdoJsZuJFkB5Mr+jRuzHPl6vKEZq8s2yaslyCH1NfRZRoHCRCXJiqF9vQTtJp8eCtlb/eVQyBiq3Fzav7INFBbsix8CYk8xcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154014; c=relaxed/simple;
-	bh=79aqT9q797MP2m+MAGONuSLqP1NcK9sSbxzyRFu8S0I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZuToRdO94fTdeMchMpGI+nYjh6RymmRecEnxi1WrWu6odoUgQxAmAAmhSY+F1NP35vRqnhsV80UeFf4rYRMa0BAO4cPRBhCQPtPc4GNxs0Yeu3HD+bd1pB303EUX4Fthb9QhTGkL8uncFWCkVTqKRptcJLmfX3qTOCYRhxnqNCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FIiEDW6U; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FIiEDW6U"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 43DE91570;
-	Wed, 23 Sep 2026 02:00:06 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 666373F86C;
-	Wed, 23 Sep 2026 02:00:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790154009; bh=79aqT9q797MP2m+MAGONuSLqP1NcK9sSbxzyRFu8S0I=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FIiEDW6UvtcRTIKtEaoDVP5V3Qme+5oNbMo9m4lskSVh+UJxNR3MSQshFQkky1a94
-	 KKzn2f9+KCjKbza8KBEzAzisxMd6zofhbPTRVHmQsqdOwhTLDFrZD45sMyBdnawozp
-	 sBzN+B7WJt2IeYepqZye5aouyJV49E4xXoZ/mlG8=
-Date: Wed, 23 Sep 2026 10:00:07 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Ian Rogers <irogers@google.com>
-Cc: acme@kernel.org, alice.mei.rogers@gmail.com,
-	linux-perf-users@vger.kernel.org, namhyung@kernel.org,
-	adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
-	james.clark@linaro.org, leo.yan@linux.dev,
-	linux-kernel@vger.kernel.org, mingo@redhat.com,
-	peterz@infradead.org, tmricht@linux.ibm.com
-Subject: Re: [PATCH v2 38/49] perf python: Port arm-cs-trace-disasm to perf
- module
-Message-ID: <20260923090007.GJ200420@e132581.arm.com>
-References: <cover.1789966896.git.irogers@google.com>
- <f724b653476e2733c18b02268c57baaaa54870ba.1789966896.git.irogers@google.com>
+	s=arc-20240116; t=1790154028; c=relaxed/simple;
+	bh=STUYC7n0BZKIPyHery0gssByxhR0+hlp8CbmBx/FWTk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=emsQ4yyJeubBS4w8gMI2yWCXVoD4LIfLQfaGjY3LyV7UyyZHmgfk1B7cxOdAWiAPCuJJJAtgGcdxhL9iqxGR2uB9FggabzcgTHuX8/EHbhdZZrqjdtyDRy32xoNSuZRJUGiYkZOAkCQz1cV9RqMByFCByw9mVkD7fnpzZacev3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCnLzQhlbNqKS4xAQ--.6797S3;
+	Wed, 23 Sep 2026 17:00:17 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgBHt8whlbNq02CWBA--.45849S2;
+	Wed, 23 Sep 2026 17:00:17 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+	Houlong Wei <houlong.wei@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] media: mediatek: vpu: free IRQ before destroying watchdog workqueue
+Date: Wed, 23 Sep 2026 08:59:21 +0000
+Message-Id: <20260923085921.496767-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f724b653476e2733c18b02268c57baaaa54870ba.1789966896.git.irogers@google.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgBHt8whlbNq02CWBA--.45849S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?SW2ZXAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI2Rv7UHILkiL+vVQcy0p0DsKJ3OEr1dpUAe2S/uPJ3WWKA1
+	XoHu+JNxgo1UfABGDN6p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7Zw1xXr4ktrWxCr1UJr45CFX_yoW8XF1kpr
+	s5Kayjyry8Ga1UXw47Aw1UWF15AF1fWFW7uw13uw1fZwnIvFs8XryFyayqyrZ3ArykZa4a
+	yF90g343CFZ0vFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8aQ6JUUUUU==
 
-On Sun, Sep 20, 2026 at 10:06:56PM -0700, Ian Rogers wrote:
+mtk_vpu_remove() destroys the watchdog workqueue while the interrupt
+handler requested with devm_request_irq() is still registered: the
+devres core frees the interrupt only after remove() has returned. If
+the VPU watchdog fires in that window, vpu_irq_handler() queues
+vpu->wdt.ws on the already destroyed vpu->wdt.wq.
 
-[...]
+Fix this by calling devm_free_irq() before destroy_workqueue(), which
+releases the interrupt and waits for a running handler, so no new work
+can be queued while the workqueue is drained and freed.
 
-> ---
->  tools/perf/python/arm-cs-trace-disasm.py      | 356 ++++++++++++++++++
+This issue was found by an in-house static analysis tool.
 
-A new script is added under tools/perf/python/, but I don't see the
-legacy script under tools/perf/scripts/python/ being removed.
+Fixes: 3003a180ef6b ("[media] VPU: mediatek: support Mediatek VPU")
+Cc: stable@vger.kernel.org
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/media/platform/mediatek/vpu/mtk_vpu.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Should we maintain two copies of the script for the same purpose?
+diff --git a/drivers/media/platform/mediatek/vpu/mtk_vpu.c b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+index 8d8319f..b6bd80b 100644
+--- a/drivers/media/platform/mediatek/vpu/mtk_vpu.c
++++ b/drivers/media/platform/mediatek/vpu/mtk_vpu.c
+@@ -962,6 +962,7 @@ static void mtk_vpu_remove(struct platform_device *pdev)
+ #ifdef CONFIG_DEBUG_FS
+ 	debugfs_remove(vpu_debugfs);
+ #endif
++	devm_free_irq(&pdev->dev, vpu->reg.irq, vpu);
+ 	if (vpu->wdt.wq)
+ 		destroy_workqueue(vpu->wdt.wq);
+ 	vpu_free_ext_mem(vpu, P_FW);
 
-> --- a/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-> +++ b/tools/perf/tests/shell/coresight/test_arm_coresight_disasm.sh
-
-> @@ -44,8 +56,8 @@ branch_search='[[:space:]](bl|b(\.(eq|ne|cs|cc|mi|pl|vs|vc|hi|ls|ge|lt|gt|le|al)
->  if [ "$(id -u)" == 0 ] && [ -e /proc/kcore ]; then
->  	echo "Testing kernel disassembly"
->  	perf record -o ${perfdata} -e cs_etm//k --kcore -Se -m,64K -- touch $file > /dev/null 2>&1
-> -	perf script -i ${perfdata} --itrace=b -s python:${script_path} -- \
-> -		-d --stop-sample=2 -k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
-> +	$PYTHON ${script_path} -i ${perfdata} --itrace=b -d --stop-sample=2 \
-> +		-k ${perfdata}/kcore_dir/kcore 2> /dev/null > ${file}
->  	grep -q -E ${branch_search} ${file}
->  	echo "Found kernel branches"
->  else
-> @@ -56,8 +68,8 @@ fi
->  ## Test user ##
->  echo "Testing userspace disassembly"
->  perf record -o ${perfdata} -e cs_etm//u -Se -m,64K -- touch $file > /dev/null 2>&1
-> -perf script -i ${perfdata} --itrace=b -s python:${script_path} -- \
-> -	-d --stop-sample=2 2> /dev/null > ${file}
-> +perf inject --itrace=b -i ${perfdata} -o ${perfdata2}
-> +$PYTHON ${script_path} -i ${perfdata2} -d --stop-sample=2 2> /dev/null > ${file}
-
-The perf script command is replaced with perf inject and a Python
-command. I learned from the above that we can pass the itrace option to
-the Python script.
-
-This is fine with me. I'm just curious why we don't use a single Python
-command here.
-
->  grep -q -E ${branch_search} ${file}
->  echo "Found userspace branches"
->  
-> diff --git a/tools/perf/tests/shell/lib/setup_python.sh b/tools/perf/tests/shell/lib/setup_python.sh
-> index 2173215a0517..220d9663f81a 100644
-> --- a/tools/perf/tests/shell/lib/setup_python.sh
-> +++ b/tools/perf/tests/shell/lib/setup_python.sh
-> @@ -18,6 +18,10 @@ fi
->  # Set PYTHONPATH to find the in-tree built perf.so first, avoiding system-wide perf.so
->  if [ -n "$PERF_EXEC_PATH" ] && [ -d "$PERF_EXEC_PATH/python" ]; then
->    PYTHONPATH_DIR="$PERF_EXEC_PATH/python"
-> +elif [ -n "${BASH_SOURCE[0]}" ] && [ -d "$(dirname "${BASH_SOURCE[0]}")/../../../python" ]; then
-> +  PYTHONPATH_DIR="$(dirname "${BASH_SOURCE[0]}")/../../../python"
-> +elif [ -d "$(dirname "$0")/../../../python" ]; then
-> +  PYTHONPATH_DIR="$(dirname "$0")/../../../python"
-
-Not sure if this is specific to arm-cs-trace-disasm.py. Would this be a
-common change?
-
-Thanks,
-Leo
