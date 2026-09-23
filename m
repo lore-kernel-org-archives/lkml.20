@@ -1,225 +1,242 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-dl2-f43.google.com (mail-dl2-f43.google.com [74.125.229.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5853F475357
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:12:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790201531; cv=none; b=PpvnoYZoj56rhljl/Of2cholPLVmEPT9avN3iDCkTdcUCW4w8szjfyyRsrqmDZ4ygawSeY0y99iGxoiim6dIhMXMY+OLBza8QDZmC8jdIZFJr4N3H2abymlvAJCw4OUYHWd1GhG/d0OVmmf3bZxGQWV1yhWSk4hjhvpsInMNN14=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790201531; c=relaxed/simple;
-	bh=0J3P6qvjQVxdDdI1pZ1afZKyws9kpPkqptmywna2umw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PoN3Eu6Hijyg1U1d0BGRYP/PGoNGWQLrbZTMlc70QXrF6NWOrbyiyVgrAcXWah6x77q6BdDTI3xBle6hed669wp8SBGWr4Al7DcA1q+2X7LFBl5sJDjdFujkiwNECjCzfrco8PdAa8rxoPZlC5uS11jqAbEt8R3DQRiYSHMdxtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hC2PMmzV; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BF34AB1DF
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:12:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790201545; cv=pass; b=SMYAXt7dZcPHBJRU9rVSOTesNJ+Yw7ex+We9Ju6yb3iu8ZUdMaaJko1nrSLRrCz8MEZ/KJ/P4RuFruyJ6MIdsVOWHKa5EC2lvnAfyZMbHr8NNc9UbQdBDKxrwjtPCz0NjA18FskI1EilcZh6dsGo34e3yd4ZpjbTcZh1FWnEwSg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790201545; c=relaxed/simple;
+	bh=RF09cE7ioD8j+xL9e6cVzbwze+m4bkJrefwNTRLCmd8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JtLczW+Z3odzxErDlGnA/lCwNuXalvjJWs/ulKaFBsGUzw3J8z8pMGkWv8VHI3OoopawSg+GrLHzWGhsJnEivjJrVcnfCXTZ8bpp7RrJ05HBFkyZZ7WL4HPZwwvGYKzg2KgFUj0eJx4St2P9t3vyPolU3uIcIW/EchaPiagqufc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=G/orQXpd; arc=pass smtp.client-ip=74.125.229.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hC2PMmzV"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e66390995so9020605e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:12:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="G/orQXpd"
+Received: by mail-dl2-f43.google.com with SMTP id a92af1059eb24-1438f55921fso565475c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:12:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790201543; cv=none;
+        d=google.com; s=arc-20260327;
+        b=diPT4grzjPM+H+RX01XEhJx37PzcqZCmm6Q23KoE6U1mVOJ8uXkjtXA+PEH6RvGGSh
+         ECD/X6sexbbYI1mLgdCQi8m8y5SrYuEMxiUZnJ7tSbTNhkRcdst1X7fLUtSA+a+mM8yA
+         kpaSqosM/pJVDH1rewcnMd+MMA7lECRtYQZjwiiBR6PGmMH01Z6qoy2Lt+CPKagPqDU4
+         3pomhe24yAKHVKwjrLuYZgg55e5u67UeA7v3lcC5k2KJPv+1jHbKmNpyo8AS5dBKnfQg
+         RgnKVlXoyq6Ps+QL+hY1Ks63O/6N+ShOn/Tuorf+Q7Z7rledIm7nAYgVPEtOh7Qa9tAe
+         WKaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=NjZO/0op0Il8fdlo4Q38ShHr57bjfTGXucOfCAVH0b0=;
+        fh=2NmBpR5FBEvXgd92lq7vYstH0RsYuAs6MPQ4wYrELv0=;
+        b=QvE6CfZDRq4gdo0GgtEoXug1HsiBLq36JIZBGktMpXpIqxw3Mse0i7g94f/oQ+Kynm
+         fxMDfhITY/Wjr13HF/ReNypLC7S7WRo3Qcb4jZeU8jqAut35k9IeNZhxvhhcIo1+zWnK
+         axpJ/ooVPh+Ixq/YGR0WFqpQpqgOSPXSlxUFHkdARqf7gy4/ScM0gqBssOB7cE+B5tzu
+         Bdkoqb1+vI2HhjphMZqdZ+kVDGBRZACMxzLi0+8TT5agGFvgTR5ka22ScXFar1Qi3npl
+         vDXeZnbPdO5KK8Emz6O9QJM4UxqvzSSVcjyvUoxq4aOS/RZBP5UsAocGFmXiBrb4gim+
+         BY4A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790201528; x=1790806328; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=14msH1DLW+vh/dJJ1llExxyOzbLsmiOUyZtaLlxkEYY=;
-        b=hC2PMmzVV7ffnGjOcW0yVItO81T+lHUIvr4HoCKh+/sOIKgQqnC5Qr5vNsYgtS/P4W
-         FhyhLsa9EveAN9zFKGYKpGMx6AcFNSNQ+KtzdJjIeYflpmAlVTgq7NNNy6AltT9GQhPN
-         /2L7xHLY28TFr+eDlCbdoHTpySWJVsg4IgXvBJrphD90JdcRJ1TMFJRx3uBCzLDQozzL
-         gHEIa3J1gOUbREgChQ8VujgXgIXmrEZ4R7NF7Zr3Qi1Onxy2Bx+S7h/BVMzlMXL8es2Y
-         /GS8IWvw6awJGHk+5C54rzAFDewIwsYi2OrMUVhpyR5WWkUgF8YcNZ5FflvtefkDvMPV
-         fa0Q==
+        d=google.com; s=20251104; t=1790201543; x=1790806343; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=NjZO/0op0Il8fdlo4Q38ShHr57bjfTGXucOfCAVH0b0=;
+        b=G/orQXpdNRHGJd2hyo0vRTQhIuy/C7d08OkwZKq1RTNaj2SAK5hxKTNZLH0hNTUN79
+         14IbbvgH3dl0qSkpMwnnQ78sbO7OKBUtlZXyOox0IuaCI+gQGT6gQZlF0CT5kvfNhULE
+         3159AFsMSGH/wuUpshV69r2qIYTv7XDF87zul4kiWn3pzXlsMWcftEQlCH7Q5d5nyDZ2
+         TQQUazcaRHfIrLnxRNb72Yj51rvbKNJfQFBfyhkwAwJeotw+bIm1HVUnldhHS44yYgXE
+         /BBj+KKimJ/ljcGgKq4XMCh0TSqJPIe9h8IuTyXIYvV2xXE/IufXans/SZBdZGvo/0YR
+         AasA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790201528; x=1790806328;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=14msH1DLW+vh/dJJ1llExxyOzbLsmiOUyZtaLlxkEYY=;
-        b=ZbteiOS1VuK5poahe2wExi19tvlpVz04BstxgJdlt/UlYU7Nrq0Ulg4TuU/SmTzZMT
-         yz9J8/tZ7LoSK2hLg59YdFSg0XOUSHupnaSdMK6xYwkM7VfzIdQn19/7nItnzPYiEHxu
-         5rfWdWpN2NtZ4g3eOL/xzX3wvdO5b4EC0B7S3o3zwTwur3CrIUWfmq5EPE6NAoSXwmHd
-         3qAuiwfLG1DFPTdXns+r4jgVf8YygAWE4odi4ah8C0K6RvuROoQQsySq8Xl3iz2/+RZK
-         b7R9wpJdFRKC0PicXKuZ85kF4udFQtS6YODHwmR+Kkeix4FxHJANygcBD5CsZhXIRmhP
-         eY4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxgZPmZWgg7cQuMr1Ax2Uo1NS1yIaPcMnGGVdfPfayiu7+cAiIMIiCIp9PgWSv1GsfHMx8XPVEWj8OTMXs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m+H6sCvFwMQBuZ3IRWssIGld8cAkXGCd0g9RQTfui4dutbiy2M
-	Ezs/d8qbYBm2d9+tC1cI7vaan7pNdM3D/yYQ5P7xyKY9b/4e9ZGQk+EC
-X-Gm-Gg: AYBFou3D8FI41O0ufKIzUwX+E1KXL18Q9fEp7qDAQ68IRqpyF8HyYemocn1lSGwCbBx
-	/6r7nXsshuTaS6eASIkE3MfRcsVbIqxU0qu6DqbfC0W5HjyxSjCCxbelSyqeU6xKEm3BtwsKa3g
-	FGTGT2LoWczsY0UDvznaYjHNrewnLaBm/rlwN+sG9Njt5hgrT/O+uGTXC6KfYX+VTSwlOFoxep/
-	3tsAcojMmf2bIAnrzUlu/yUQJJ9p/RJ5gxUseCzUEIFUoCMDuEckrQ1iFJkLpo/ejQEYcpAEuTn
-	Nh85yNGpC+TGvNVyTVkJHzgFL1Cb2gmfvPUHi1uwp7i/Bcv5pCoA361QPcHvhWBTuqswPONY1jH
-	e6WtbqvXXINHKmVNsWJw2RgfCnIBFJ45Zw8QDglk9+smrnH2t0c45tWDTWJGnisQESpEzdD19bb
-	cQm3hcGWYNJN3opbZpfucs8b9bDE6WwiUUbbOABvnjTGEW9xPq3qxaigbmGWN+TO5owXLMZsECn
-	3Rzrb2uEeWJKzC2jDsm04ofazsDNXu0ewvVMfEpCOOT7bIuiL8ubUjt/OnbVkll4R2wPk/RiJii
-	2c8aH6bK7JpFhNn1Aholk5e7TEgyb275TysfqJ8iAQcXgjg=
-X-Received: by 2002:a05:600c:a00d:b0:49f:ce73:7ab with SMTP id 5b1f17b1804b1-49fe6708b23mr9674415e9.34.1790201528357;
-        Wed, 23 Sep 2026 15:12:08 -0700 (PDT)
-Received: from tulkas.localdomain (95f12971.skybroadband.com. [149.241.41.113])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5dff204sm24977495e9.14.2026.09.23.15.12.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:12:07 -0700 (PDT)
-From: Conor Svensson <conor10@gmail.com>
-To: intel-gfx@lists.freedesktop.org
-Cc: Conor Svensson <conor10@gmail.com>,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com,
-	joonas.lahtinen@linux.intel.com,
-	tursulin@ursulin.net,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] drm/i915/dp: Ignore inconsistent TMDS limits on an Anker DP branch
-Date: Wed, 23 Sep 2026 23:07:50 +0100
-Message-ID: <20260923221018.42133-1-conor10@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790201543; x=1790806343;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NjZO/0op0Il8fdlo4Q38ShHr57bjfTGXucOfCAVH0b0=;
+        b=0XnnMKhScK0C45MaLZc3YhfZu9J1Pg3vHPZNQEBGCz0CcPTBL4d96iJWbwLXQRHsFH
+         6V7Nrkvien+KkeBQ/nK3y7PLWphO0nDQ2LkRoMNnU5P3YUy9qQSj6i5vmhmw66YgBkW2
+         lFheKgVmTl2WBwPz7k/IOhDna7rIO023k2VcT1Behqbl49ZBfJP5CP1GdBkfheaAqCFA
+         fPke4d/PWX/DZFHFYxJ0ilss1vJyY6637A4TzcgkKDBnYY4PibA5bsSPa6S2MAWv+RVF
+         jNItrkuKxvATgNS+2kEFgOs7MQkWRmc9E7u3Yt3ZizABymmjJvXRriikObS6ZxzJwlhi
+         UY8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxtd9JHUeTD5L+CMnT57PHvECl6pTWL0ZPLt9HemgJAwRJxiqCKDc0/UTGgbEyRraa9gJjFDmO8O9KJ51Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++nW+E26XIn+RYIsq3snsaAJY0v3tMwpLukJKdl3KfGTnGvp0207
+	U0RIdohBCsHINwxV1hxU8aBQJcxjsYbUiXFy3b5eap7Wl1sAomzuF223yY1i8plu1g2/ZWVfk5M
+	XuO2LidxCg34UPSKyuuaaswNqY/5b5U3/x4t9ygLJ
+X-Gm-Gg: AYBFou0G6zSWAQZY0XY3zA0DVjH76BFkvWyX+zPi5qkoe0BVH6PQAV7WmZOKjK2fTgn
+	yjHXgxFLhf/AxZXxPkHZl7TFWQH9YSBJHybYj2bginrWZ032ltiOT8HpODfsUgblGYdDj7cYgKK
+	gi2rsaIeujX5QkRulAIYp4yiv4N/yXK1orddMPnq+jqqKonq071h35c99H/gGfLKJYFu9yA2rW8
+	XtPmRAMdY6Sz4LbXJTHPWETPsmO5jypNK1IMO6X2xO1/eJUXkNow0BAcWsRFJYbygNmNYttuvWi
+	1DDAfLDHHoXiC/s3DUbFL0FMJjw3fJC7toKFNwEb1kCj3Dn2uu1l8Pck3O26TMR5PaWjkTKpRf6
+	1Mq8q6cerIL4X3ChXAKnToe9szF1BxJU4Ae86rYhOsrONRs6UnOLty/MjvwIq+JhZimQpLojBvj
+	dZQGd/3oB6DCgUlIeBXgjsOTLnQ2T7nKRy
+X-Received: by 2002:a05:701b:204b:20b0:144:c123:4033 with SMTP id
+ a92af1059eb24-14503fd9160mr398713c88.32.1790201542213; Wed, 23 Sep 2026
+ 15:12:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260921070127.42998-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20260921070127.42998-1-runyu.xiao@seu.edu.cn>
+From: Kuniyuki Iwashima <kuniyu@google.com>
+Date: Wed, 23 Sep 2026 15:12:10 -0700
+X-Gm-Features: AclHuK_cX28lFH9a-TsHKKsw7xvTUTDBMSfKJR-vi5UaPqx05gP3xNIFwct14dQ
+Message-ID: <CAAVpQUBK09EfvhQfAztFzQsXD6-A-30fkG=ShjYN_CPBtthh9A@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: neighbour: Serialize proxy timer teardown
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: "David S . Miller" <davem@davemloft.net>, "Denis V . Lunev" <den@openvz.org>, 
+	Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>, 
+	Jianhao Xu <jianhao.xu@seu.edu.cn>, Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reconnecting an Anker 565 A8388 USB-C hub with a DisplayPort monitor
-attached can leave the branch reporting a DVI downstream descriptor
-with 25-165 MHz TMDS limits. On a ThinkPad L14 Gen 4 Intel with a Dell
-S3422DWG, this removes the native 3440x1440 mode from the connector's
-mode list even though the EDID still contains it. An explicit native
-modeline works with the same hardware state.
+On Mon, Sep 21, 2026 at 12:01=E2=80=AFAM Runyu Xiao <runyu.xiao@seu.edu.cn>=
+ wrote:
+>
+> __neigh_ifdown() purges device-specific entries and then checks whether
+> the shared proxy queue is empty before deleting proxy_timer. A concurrent
+> ARP or NDISC request can enqueue a delayed proxy response between the che=
+ck
+> and timer_delete_sync(). The timer deletion can then leave the new skb
+> queued without a timer to process it.
+>
+> Serialize proxy queue insertion and timer rearming with the purge, empty
+> check, and timer deletion. The timer callback does not take the new lock,
+> so timer_delete_sync() can still wait for an in-flight callback. Keep
+> timer_delete_sync() rather than timer_shutdown_sync(), since the timer is
+> reused after per-device and carrier teardown.
+>
+> A check of netif_running() in pneigh_enqueue() alone would not serialize
+> the insertion with the purge, empty check, and timer deletion. An enqueue
+> can pass that check while the device is still up and then be delayed unti=
+l
+> after __neigh_ifdown() has observed an empty queue. Also, __neigh_ifdown(=
+)
+> is used by neigh_carrier_down(), where netif_running() can remain true.
 
-Ignore the derived TMDS limits only for the captured branch identity,
-firmware and downstream descriptor when EDID 1.4 identifies a digital
-DisplayPort input. Retain the raw descriptor and other mode checks.
-Do not restrict the match to a particular monitor or laptop model.
+By "dev is down" I meant whatever that creates ordering between
+the teardown thread and insertion, but I missed it's still racy by multiple
+devs.
 
-With otherwise matching upstream Linux 7.2.5 control/patched builds,
-the control loses native modes after USB-C reconnect, while the patched
-kernel selects 3440x1440 at 59.973 Hz automatically. Repeated reconnects,
-both USB-C ports, suspend/resume, undocking while asleep and docked boot
-pass. HDMI also works and does not activate the workaround. Periodic
-picture cycling observed on the control stops with the patch.
+But still, I think adding a spinlock is not worth it, see below.
 
-The branch identity is not proven unique to this retail adapter. This
-is an experimental workaround for review, not an explanation of why the
-branch reports inconsistent capabilities. Other adapters and monitors
-have not been tested.
 
-Link: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180
-Assisted-by: LLM
-Signed-off-by: Conor Svensson <conor10@gmail.com>
----
-RFC: is this best handled as a branch quirk here, or in the common DP
-helpers? The captured identity and descriptor match is deliberately narrow;
-there is no monitor/laptop model restriction. The informational log marker
-is retained to show exactly when this experimental workaround executes.
-The commit introducing the underlying problem has not been identified, so
-there is no speculative Fixes tag.
+>
+> Tested in an x86_64 QEMU guest with proxy ARP, three network namespaces,
+> and veth pairs. An AF_PACKET helper sent valid broadcast ARP requests whi=
+le
+> the proxy-ARP ingress interface was repeatedly brought down and up. A
+> temporary test-only build flag added a 5 ms delay before pneigh_enqueue()
+> and after the empty-queue check before timer_delete_sync() to amplify the
+> narrow scheduling window.
+>
+> The unfixed kernel reached both paths and observed a non-empty proxy_queu=
+e
+> with proxy_timer not pending 772 times. The fixed kernel reached both pat=
+hs
+> under the same workload without observing this state. Natural-load runs
+> reached both paths but did not hit the narrow race without the temporary
+> delay.
+>
+> Fixes: 66ba215cb513 ("neigh: fix possible DoS due to net iface start/stop=
+ loop")
+>
+> Assisted-by: LLM Codex
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+> v2:
+> - Add the QEMU reproduction and buggy/fixed results.
+> - Explain why a device-state check does not serialize carrier teardown.
+>
+>  include/net/neighbour.h | 2 ++
+>  net/core/neighbour.c    | 6 ++++++
+>  2 files changed, 8 insertions(+)
+>
+> diff --git a/include/net/neighbour.h b/include/net/neighbour.h
+> index 8860cc2175fc1c9eb6b67f2c5ef149188c9feb16..15107c00b4df473e53e6cf2e7=
+57fb2ef3c4fd3f7 100644
+> --- a/include/net/neighbour.h
+> +++ b/include/net/neighbour.h
+> @@ -239,6 +239,8 @@ struct neigh_table {
+>         struct list_head        gc_list;
+>         struct list_head        managed_list;
+>         spinlock_t              lock;
+> +       /* Serializes proxy timer rearming with teardown. */
+> +       spinlock_t              proxy_timer_lock;
+>         unsigned long           last_rand;
+>         struct neigh_statistics __percpu *stats;
+>         struct neigh_hash_table __rcu *nht;
+> diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+> index 1349c0eedb642539b28391390fd82f543e004353..1ea794a541efb6852700062da=
+2e25efac6c060e8 100644
+> --- a/net/core/neighbour.c
+> +++ b/net/core/neighbour.c
+> @@ -471,10 +471,13 @@ static int __neigh_ifdown(struct neigh_table *tbl, =
+struct net_device *dev,
+>         spin_unlock_bh(&tbl->lock);
+>
+>         pneigh_ifdown(tbl, dev, skip_perm);
+> +       /* The callback does not take this lock, so sync deletion can wai=
+t for it. */
+> +       spin_lock_bh(&tbl->proxy_timer_lock);
+>         pneigh_queue_purge(&tbl->proxy_queue, dev ? dev_net(dev) : NULL,
+>                            tbl->family);
+>         if (skb_queue_empty_lockless(&tbl->proxy_queue))
+>                 timer_delete_sync(&tbl->proxy_timer);
 
-Hardware A/B testing used upstream Linux 7.2.5 with otherwise identical
-configurations. This RFC applies the same 48 added lines to drm-tip at the
-base commit below. This drm-tip revision has not been boot-tested. The affected intel_dp.o
-compiles successfully here with no compiler warnings; strict checkpatch
-passes (human sign-off pending), and 426 predicate boundary cases pass
-with ASan/UBSan. These predicate tests are not DRM integration tests.
+I'd simply remove these two lines.
 
-Results: three USB-C reconnects, alternate USB-C port, docked s2idle
-resume plus reconnect, undock while asleep/wake/reconnect, and docked
-DisplayPort reboot all passed. HDMI also passed without activating the
-workaround. The control lost native modes and showed periodic picture
-cycling; that cycling stopped on the patched kernel. No custom modeline
-was used in either test kernel. Other hardware and higher refresh rates
-remain untested.
+In net.git, arp_tbl/nd_tbl is still global, and we do not need to worry
+about timer touching the table after being freed.  Even if skb was
+put into the queue after pneigh_queue_purge(), it's harmless
+since skb holds dev refcnt and neigh_proxy_process() will just free it.
 
-AI assistance: Codex (GPT-6) helped investigate the reported hotplug
-failure, wrote the match/limit-clearing change, prepared the predicate
-tests, collected diagnostics and drafted this message. The human reporter
-performed the physical reconnect, suspend and reboot tests and confirmed
-the visible results. The assistance arose from an extended troubleshooting
-session, rather than a single code-generation prompt.
+In net-next.git, we call timer_shutdown_sync() in neigh_table_clear(),
+where prior synchronize_rcu() guarantees there are no inflight arp/ND,
+and then neigh_ifdown() is called and pneigh_queue_purge() purges
+the queue.
 
-Evidence and detailed test results:
-https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/17180#note_3677750
 
-This is my first kernel patch submission. I'd appreciate feedback on
-whether this belongs here or in the common DP helpers, and whether the
-matching criteria are appropriate.
 
-Thanks,
-Conor
-
- drivers/gpu/drm/i915/display/intel_dp.c | 48 +++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index ffddf4b33..6d6767ca7 100644
---- a/drivers/gpu/drm/i915/display/intel_dp.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -6153,6 +6153,39 @@ intel_dp_get_edid(struct intel_dp *intel_dp)
- 	return drm_edid_read_ddc(&connector->base, &intel_dp->aux.ddc);
- }
- 
-+static bool
-+intel_dp_has_anker_tmds_mismatch(struct intel_dp *intel_dp,
-+				 const struct drm_edid *drm_edid)
-+{
-+	static const struct drm_dp_dpcd_ident branch = {
-+		.oui = { 0x90, 0xcc, 0x24 },
-+		.device_id = { 'S', 'Y', 'N', 'A', 'b', 0x10 },
-+		.hw_rev = 0x10,
-+		.sw_major_rev = 0x06,
-+		.sw_minor_rev = 0x05,
-+	};
-+	static const u8 downstream_ports[] = {
-+		0x0a, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-+	};
-+	const struct edid *edid = drm_edid_raw(drm_edid);
-+
-+	if (intel_dp_is_edp(intel_dp) || intel_dp->is_mst ||
-+	    !drm_dp_is_branch(intel_dp->dpcd) || !edid)
-+		return false;
-+
-+	/* HDMI and DVI inputs must retain their downstream limits. */
-+	if (edid->version != 1 || edid->revision < 4 ||
-+	    !(edid->input & DRM_EDID_INPUT_DIGITAL) ||
-+	    (edid->input & DRM_EDID_DIGITAL_TYPE_MASK) != DRM_EDID_DIGITAL_TYPE_DP)
-+		return false;
-+
-+	return !memcmp(&intel_dp->desc.ident, &branch, sizeof(branch)) &&
-+		!memcmp(intel_dp->downstream_ports, downstream_ports,
-+			sizeof(downstream_ports)) &&
-+		intel_dp->dfp.min_tmds_clock == 25000 &&
-+		intel_dp->dfp.max_tmds_clock == 165000;
-+}
-+
- static void
- intel_dp_update_dfp(struct intel_dp *intel_dp,
- 		    const struct drm_edid *drm_edid)
-@@ -6181,6 +6214,21 @@ intel_dp_update_dfp(struct intel_dp *intel_dp,
- 		drm_dp_get_pcon_max_frl_bw(intel_dp->dpcd,
- 					   intel_dp->downstream_ports);
- 
-+	/*
-+	 * Experimental workaround for the branch observed in an Anker A8388.
-+	 * USB-C hotplug can expose a DVI descriptor for the DP output. The
-+	 * monitor's native timing works when requested explicitly, despite
-+	 * the reported 165 MHz limit. Keep the captured identity and failure
-+	 * signature checks narrow until the underlying cause is understood.
-+	 */
-+	if (intel_dp_has_anker_tmds_mismatch(intel_dp, drm_edid)) {
-+		intel_dp->dfp.min_tmds_clock = 0;
-+		intel_dp->dfp.max_tmds_clock = 0;
-+		drm_info(display->drm,
-+			 "[CONNECTOR:%d:%s] experimental Anker DP TMDS limit workaround\n",
-+			 connector->base.base.id, connector->base.name);
-+	}
-+
- 	drm_dbg_kms(display->drm,
- 		    "[CONNECTOR:%d:%s] DFP max bpc %d, max dotclock %d, TMDS clock %d-%d, PCON Max FRL BW %dGbps\n",
- 		    connector->base.base.id, connector->base.name,
-
-base-commit: 703cd271db3a35088460ab3fec0a96bd48e7fe04
--- 
-2.55.0
-
+> +       spin_unlock_bh(&tbl->proxy_timer_lock);
+>         return 0;
+>  }
+>
+> @@ -1729,6 +1732,7 @@ void pneigh_enqueue(struct neigh_table *tbl, struct=
+ neigh_parms *p,
+>         NEIGH_CB(skb)->sched_next =3D sched_next;
+>         NEIGH_CB(skb)->flags |=3D LOCALLY_ENQUEUED;
+>
+> +       spin_lock_bh(&tbl->proxy_timer_lock);
+>         spin_lock(&tbl->proxy_queue.lock);
+>         if (timer_delete(&tbl->proxy_timer)) {
+>                 if (time_before(tbl->proxy_timer.expires, sched_next))
+> @@ -1740,6 +1744,7 @@ void pneigh_enqueue(struct neigh_table *tbl, struct=
+ neigh_parms *p,
+>         p->qlen++;
+>         mod_timer(&tbl->proxy_timer, sched_next);
+>         spin_unlock(&tbl->proxy_queue.lock);
+> +       spin_unlock_bh(&tbl->proxy_timer_lock);
+>  }
+>  EXPORT_SYMBOL(pneigh_enqueue);
+>
+> @@ -1858,6 +1863,7 @@ void neigh_table_init(int index, struct neigh_table=
+ *tbl)
+>                 WARN_ON(tbl->entry_size % NEIGH_PRIV_ALIGN);
+>
+>         spin_lock_init(&tbl->lock);
+> +       spin_lock_init(&tbl->proxy_timer_lock);
+>         mutex_init(&tbl->phash_lock);
+>
+>         INIT_DEFERRABLE_WORK(&tbl->gc_work, neigh_periodic_work);
+> --
+> 2.34.1
