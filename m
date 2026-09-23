@@ -1,189 +1,168 @@
-Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A6538D6A2;
-	Wed, 23 Sep 2026 14:22:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=96.67.55.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124595221E4
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790173351; cv=none; b=oYbvAcwtybNQmOP+ZQTCVLuNPXRj5xgjy8XZaWteCkjNQ4nSoNvh+YPLXVwWQyGGZO8IE8B1ZjnMI/6Hf6EYVbOqBCsLF5nJTRvUREw4zu2Qv0ELnuYpIRqrgkV/Ie39SgK6U0s89ZFie3TCtRu5eS5C+mgUy7DJy+gT8++VJnw=
+	t=1790173389; cv=none; b=qGP0epn5mZUu+AnnQdNwzZMjl4XMKgK1Tn4kl862Guz3W6qTc18dqvoV6adr0smVEAZMmYTum2ysfBh0iKvmVxa1Wyotj4KHIzEiIK89OCbByqRYD0Sdd7ZOfOy6F+CO22YWv/Tm5Og0AJ2s0j7aZvXj7RJea0cFhYoOOihyVtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790173351; c=relaxed/simple;
-	bh=W89cXpAHB1FMGHDJbriYSGL15CQFOTzD4nfyYDTgBjA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rtv35e2IO6CoI+h5fLESZeYJC23NzoK5A1vBOTKl21/pYBQaHYIG+ZAMXp9Eb2QHbP3xgw0wgh2wxNFgKogpKip6u1UTCGiLzLS2ymdkk3msgGZI0MeUda5n6layomzVPfi9dzgLhSvmGddQuD86L0W2r9kS1kDqncMoRvGHxxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com; spf=pass smtp.mailfrom=surriel.com; dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b=Um3FXi8K; arc=none smtp.client-ip=96.67.55.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=surriel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=surriel.com
+	s=arc-20240116; t=1790173389; c=relaxed/simple;
+	bh=vHF/4Rebpf1RbmlVp0v2ZLMX/ypaFMtdvlrlz1+PRak=;
+	h=From:Date:Subject:To:Cc:Message-ID:MIME-Version:Content-Type; b=WFNj8g/iUf4WgM3IpGwDU8XzmtkYTVz+fJMAy6bm/EE41tEAHVD6opoN7dhz5WLtiU/pvuh3cv4d3m6czNJ0BAvsxottcPLMruPRyIv/NxlPpW1p5eDSeLhMbaRPvfxZHTV2YGbHsEwOnRFFUDvpeh4W+noRJWUQ3TAltPMA53U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HhANkH8E; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=surriel.com header.i=@surriel.com header.b="Um3FXi8K"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
-	; s=mail; h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID; bh=W89cXpAHB1FMGHDJbriYSGL15CQFOTzD4nfyYDTgBjA=; b=Um3FXi
-	8KUrGFrmUZp/b8RXs+vnR7SswoKSQrK47ivQYukgP3XMcRTyYr4DQhXBrLW5nKV9HfguhjILmFVyr
-	/aUV0VDgTbYImCBSzqOf5hFCdkzn2jemMn9+NL/YKgVjeZxQdidHi6qtIf9LbeCTqjbfLRV4P80O1
-	gxxn1uhuRfrHSCqGvH4qQuDUzElVdiajpR/Ue9Ay4nUL1LX87FeE+kRihRl/ntoZ9h9/X+xSZXGll
-	JxydMp000KAp4JaG2hX8ja20Dlcp+VmkgInSAQjtINg797z+I8E/W/MG6zUmvF59ZkmM46TdixHAM
-	nvZp+DOjLKT4AVvyCtpdcaLSM/Wg==;
-Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708]
-	by shelob.surriel.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <riel@surriel.com>)
-	id 1x9NqS-00000002OE6-2Sw2;
-	Wed, 23 Sep 2026 14:21:12 +0000
-Message-ID: <013e65703413af4ce94cdd2b110763cc3efc460b.camel@surriel.com>
-Subject: Re: Path forward for Virtualized Swap?
-From: Rik van Riel <riel@surriel.com>
-To: Chris Li <chrisl@kernel.org>
-Cc: Gregory Price <gourry@gourry.net>, Johannes Weiner <hannes@cmpxchg.org>,
-  Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, Kairui
- Song <kasong@tencent.com>,  Michal Hocko <mhocko@kernel.org>, Roman
- Gushchin <roman.gushchin@linux.dev>, Shakeel Butt	
- <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, David Hildenbrand
-	 <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, Kemeng Shi	
- <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, YoungJun Park	
- <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- "Lorenzo Stoakes (Oracle)"	 <ljs@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Suren =?UTF-8?Q?Baghdasaryan=EF=BF=BC?=	
- <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen	
- <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu	
- <weixugc@google.com>, Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet
-	 <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, Baolin Wang	
- <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, Michal
- =?ISO-8859-1?Q?Koutn=FD?=	 <mkoutny@suse.com>, Shuah Khan
- <skhan@linuxfoundation.org>, Kunwu Chan	 <kunwu.chan@linux.dev>, Meta
- kernel team <kernel-team@meta.com>, Linux Memory Management List	
- <linux-mm@kvack.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>, 	linux-doc@vger.kernel.org, "open
- list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Kairui Song <ryncsn@gmail.com>,  Joshua Hahn <joshua.hahnjy@gmail.com>
-Date: Wed, 23 Sep 2026 10:21:10 -0400
-In-Reply-To: <CACePvbUHoJ7bBn_iKrMyducFzKkHpfe8htZZYW=b8v+EGRF2jQ@mail.gmail.com>
-References: 
-	<CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
-	 <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org>
-	 <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
-	 <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
-	 <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
-	 <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F>
-	 <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
-	 <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
-	 <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
-	 <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
-	 <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
-	 <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
-	 <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
-	 <a75b2eac4297ca6b238dde6f9246d2c1807b935f.camel@surriel.com>
-	 <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com>
-	 <02616d611c9e862afc6c8c3118b6be096756b3bb.camel@surriel.com>
-	 <CACePvbUHoJ7bBn_iKrMyducFzKkHpfe8htZZYW=b8v+EGRF2jQ@mail.gmail.com>
-Autocrypt: addr=riel@surriel.com; prefer-encrypt=mutual;
- keydata=mQENBFIt3aUBCADCK0LicyCYyMa0E1lodCDUBf6G+6C5UXKG1jEYwQu49cc/gUBTTk33A
- eo2hjn4JinVaPF3zfZprnKMEGGv4dHvEOCPWiNhlz5RtqH3SKJllq2dpeMS9RqbMvDA36rlJIIo47
- Z/nl6IA8MDhSqyqdnTY8z7LnQHqq16jAqwo7Ll9qALXz4yG1ZdSCmo80VPetBZZPw7WMjo+1hByv/
- lvdFnLfiQ52tayuuC1r9x2qZ/SYWd2M4p/f5CLmvG9UcnkbYFsKWz8bwOBWKg1PQcaYHLx06sHGdY
- dIDaeVvkIfMFwAprSo5EFU+aes2VB2ZjugOTbkkW2aPSWTRsBhPHhV6dABEBAAG0HlJpayB2YW4gU
- mllbCA8cmllbEByZWRoYXQuY29tPokBHwQwAQIACQUCW5LcVgIdIAAKCRDOed6ShMTeg05SB/986o
- gEgdq4byrtaBQKFg5LWfd8e+h+QzLOg/T8mSS3dJzFXe5JBOfvYg7Bj47xXi9I5sM+I9Lu9+1XVb/
- r2rGJrU1DwA09TnmyFtK76bgMF0sBEh1ECILYNQTEIemzNFwOWLZZlEhZFRJsZyX+mtEp/WQIygHV
- WjwuP69VJw+fPQvLOGn4j8W9QXuvhha7u1QJ7mYx4dLGHrZlHdwDsqpvWsW+3rsIqs1BBe5/Itz9o
- 6y9gLNtQzwmSDioV8KhF85VmYInslhv5tUtMEppfdTLyX4SUKh8ftNIVmH9mXyRCZclSoa6IMd635
- Jq1Pj2/Lp64tOzSvN5Y9zaiCc5FucXtB9SaWsgdmFuIFJpZWwgPHJpZWxAc3VycmllbC5jb20+iQE
- +BBMBAgAoBQJSLd2lAhsjBQkSzAMABgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRDOed6ShMTe
- g4PpB/0ZivKYFt0LaB22ssWUrBoeNWCP1NY/lkq2QbPhR3agLB7ZXI97PF2z/5QD9Fuy/FD/jddPx
- KRTvFCtHcEzTOcFjBmf52uqgt3U40H9GM++0IM0yHusd9EzlaWsbp09vsAV2DwdqS69x9RPbvE/Ne
- fO5subhocH76okcF/aQiQ+oj2j6LJZGBJBVigOHg+4zyzdDgKM+jp0bvDI51KQ4XfxV593OhvkS3z
- 3FPx0CE7l62WhWrieHyBblqvkTYgJ6dq4bsYpqxxGJOkQ47WpEUx6onH+rImWmPJbSYGhwBzTo0Mm
- G1Nb1qGPG+mTrSmJjDRxrwf1zjmYqQreWVSFEt26tBpSaWsgdmFuIFJpZWwgPHJpZWxAZmIuY29tP
- okBPgQTAQIAKAUCW5LbiAIbIwUJEswDAAYLCQgHAwIGFQgCCQoLBBYCAwECHgECF4AACgkQznneko
- TE3oOUEQgAsrGxjTC1bGtZyuvyQPcXclap11Ogib6rQywGYu6/Mnkbd6hbyY3wpdyQii/cas2S44N
- cQj8HkGv91JLVE24/Wt0gITPCH3rLVJJDGQxprHTVDs1t1RAbsbp0XTksZPCNWDGYIBo2aHDwErhI
- omYQ0Xluo1WBtH/UmHgirHvclsou1Ks9jyTxiPyUKRfae7GNOFiX99+ZlB27P3t8CjtSO831Ij0Ip
- QrfooZ21YVlUKw0Wy6Ll8EyefyrEYSh8KTm8dQj4O7xxvdg865TLeLpho5PwDRF+/mR3qi8CdGbkE
- c4pYZQO8UDXUN4S+pe0aTeTqlYw8rRHWF9TnvtpcNzZw==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HhANkH8E"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-868cfc5c244so386132b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:23:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790173387; x=1790778187; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:cc
+         :to:subject:date:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hOAfnEJCG2dfje1lhj2D/yy4s3DfFqXgRx5oeJiylnY=;
+        b=HhANkH8ExC9SpT5qyZKbCVFKMQTPmeA6RwWOndDgqRo2FdugEAaaH4db14sRmuknPG
+         WolZLi7LchG9y+mJqxX2EUD8GsxA1MP0fUEHwezmMczkhEh3XCMaRPvrpLy/h/m1Fs/Q
+         8mokFu/0Y5dcRrorrRhBCrAVhqJlxxjabNJnI/YBQvwDV7Yi+7I5h+xG8Wh/R2Fky0Mg
+         CJkly68JyDdxmO2HDalF9Pv7inCLm7tXuxjw0TIzkqUjVcq6eK19Bj5y33DNskuTjIn3
+         n7OT+Lxtzn2nuECnkf1WlJgKBMl99MYTkhI8Ug9x3uLuYxyMR/sgS2KkstnbNsuTJs6u
+         P9xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790173387; x=1790778187;
+        h=content-transfer-encoding:content-type:mime-version:message-id:cc
+         :to:subject:date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hOAfnEJCG2dfje1lhj2D/yy4s3DfFqXgRx5oeJiylnY=;
+        b=Pl9jHQXGzC2OxaY/5/a7RL6pV8r8yVdGS5fcaOC7BXt4mM4dn0XpwUyYyayLMXf/Tx
+         jFcc5mNxzMKuApFie0ASuhPMWAvqs2apCMXgfpIovut7FlZ972uxnZ/fkFIWJv66p/0R
+         lP5bpy6Tccb5vtMRsWxq3OkUjIinPN5KpM90RB4pByeKAQj85DhR1w6JW/hMAO7gsEn4
+         XSWf1kHLUvM1fhbCqHtRnOH/qHhLf2esqm9YElS8RIlGEXrGswHSEhqbSH7yxWnpqDHt
+         aYc9k4WSHkLrgJ8xa76zMnmRjdhr/7rDe6PRbcE7bZfzAhhDmDvt1WYB+MpS+7hdzdRg
+         hD+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzMupuVruzoIsRrgOoMRBSit/63nplm+oVH7joMLT3GTi/ihiKgfYtjPCOFjw8ieRX/tURO4Qh6AmN6Bjo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZWuADcPaUQkEf9D16ZnojzZBYBjgZ0YzBvFYiFh5Yx0NtbrE6
+	sn/GyCqnzOond+04Z5zAX58O4DpJ96ts5Q9n4dF56ShKS+XwII6Q9iby
+X-Gm-Gg: AYBFou1xUjjYdkEQaQuXZsJ+0jU/geE0trVTX3G0F8F94kBU0v0JEQbFmr2qPJFUckd
+	nLec2bW0mjf8dapKvkQ+sBR+aowj7zTSQjnKbG6jPTE+w0F/vTgM4/w5rs1W97LVsnMDxR0Bk+e
+	R1pP18Qkos1Z9vW6ppZ3F0yCVEQ5Fy6ld177Zv1IQXVPAY6Do74GaWnApdqQ/Pej/26Oj1PJtuB
+	Xj6luRFIeZZThNENb9xPVQnITWhqcwct1znqtv7yXy4c6PIJQ0LNRSVWp3F+EDmn4I3fpvX+psv
+	XycbhAAWrVznXqzlO90PyYAjt679gmjG7g7V3nm0ly/qGg1Y7zi2W0xjpjmkoUQu3bmFhMp4jS2
+	J2g4pqddHz0MeT4KwzQdn1KtKM873L0stYSY+Cvp8+TDHMkIP7f4gXVb1GfUzMJwe9Dskx8q5on
+	/iHd+7/D7Ejm68JBzEjVuC/L89CbtPIEJgwTkicNZQSH90pKPpDox94MHSJVLtSfMQKXLF7R7k5
+	gUgVg8ji+O/zAo/M3XHP9F+AE25m5OXyRh5qrRYuGphFS0eKlRqs5XoRoKxWLxN0Mky1SpXK5aY
+	GW7Hz5zvgy4goesXsCDGASopXZ1s9dTJRBRaxngcja0y7g==
+X-Received: by 2002:a05:6a00:3912:b0:874:705d:f63b with SMTP id d2e1a72fcca58-87d1c1c833dmr2392179b3a.29.1790173387247;
+        Wed, 23 Sep 2026 07:23:07 -0700 (PDT)
+Received: from [172.16.0.2] ([2a09:bac5:d58e:323::50:1d4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e0f4fbbsm1403313b3a.52.2026.09.23.07.23.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:23:06 -0700 (PDT)
+From: houtinghang <ue081723@gmail.com>
+Date: Wed, 23 Sep 2026 22:22:59 +0800
+Subject: [PATCH] clang-tools: Import os for broken pipe handling
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: llvm@lists.linux.dev, linux-kbuild@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+Message-ID: <179017337986.52388.7943687183785012868@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-09-22 at 21:00 -1000, Chris Li wrote:
-> On Tue, Sep 22, 2026 at 5:49=E2=80=AFAM Rik van Riel <riel@surriel.com>
-> wrote:
->=20
-> >=20
-> > However, your configuration values are not a good
-> > default for my setup.
-> >=20
-> > I believe we need to set the default to something
-> > that accommodates a diverse range of desktop and
-> > mobile users.
->=20
-> Act. That is why I am asking for the maximum percentage that
-> represents the upper bound for an actual usage case.
->=20
-I think the workload that can use the most zswap
-is probably a build system that places its temporary
-files in tmpfs, in order to cut down on SSD wear.
+The BrokenPipeError handler in run-clang-tools.py calls os.open() and
+os.dup2() without importing os. When the analysis pool raises this
+exception, the handler raises NameError instead of redirecting stdout
+and exiting with status 1.
 
-Those files are just sitting there most of the time,
-and are not part of the working set.
+Import os and add a regression test that injects BrokenPipeError from
+Pool.map(), then checks the redirection and exit status.
 
-I suspect for such a workload we could get away
-with maybe 30-40% of memory taken by the zswap
-pool, which with a 4:1 compression ratio would
-correspond to 120-160% of memory zswapped.
+Fixes: 87c7ee67deb7 ("scripts: handle BrokenPipeError for python scripts")
+Assisted-by: LLM
+Signed-off-by: houtinghang <ue081723@gmail.com>
+---
+Testing: python scripts/clang-tools/run-clang-tools_test.py -v
+The test fails before the import with NameError and passes after it.
+Tested with Python 3.13 on Windows using exception injection; no complete
+kernel build or real clang-tidy pipeline test was performed.
 
-At a more pessimistic 3:1 compression ratio,
-which seems to be fairly typical, it would
-be 90-120%.
+AI disclosure: Codex found the missing import, wrote the fix and test,
+ran the test, reviewed the diff, and drafted this message in response to
+a request to find, fix, review and submit a Linux kernel bug.
 
-> >=20
-> > Most of those users do not know what they will need,
-> > but they will know to close a few browser tabs when
-> > things get slow.
->=20
-> They don't need to know. Such a bound exists naturally. We just want
-> a
-> safe margin. You say such a boundary doesn't exist. I say that
-> boundary exists; that is the main contention.
->=20
-The current default in Linux is to allow the
-zswap pool to take up to 20% of memory.
+ scripts/clang-tools/run-clang-tools.py      |  1 +
+ scripts/clang-tools/run-clang-tools_test.py | 41 +++++++++++++++++++++
+ 2 files changed, 42 insertions(+)
+ create mode 100644 scripts/clang-tools/run-clang-tools_test.py
 
-That results in 60-80% of memory swapped out
-to zswap at most, at typical compression ratios=C2=A0
-of between 3:1 to 4:1.
+diff --git a/scripts/clang-tools/run-clang-tools.py b/scripts/clang-tools/run-clang-tools.py
+index e78be82..79d58b3 100755
+--- a/scripts/clang-tools/run-clang-tools.py
++++ b/scripts/clang-tools/run-clang-tools.py
+@@ -12,6 +12,7 @@ compile_commands.json.
+ import argparse
+ import json
+ import multiprocessing
++import os
+ import subprocess
+ import sys
+ 
+diff --git a/scripts/clang-tools/run-clang-tools_test.py b/scripts/clang-tools/run-clang-tools_test.py
+new file mode 100644
+index 0000000..207b866
+--- /dev/null
++++ b/scripts/clang-tools/run-clang-tools_test.py
+@@ -0,0 +1,41 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: GPL-2.0
++
++"""Tests for run-clang-tools.py."""
++
++import importlib.util
++import os
++from pathlib import Path
++import unittest
++from unittest import mock
++
++
++spec = importlib.util.spec_from_file_location(
++    "run_clang_tools", Path(__file__).with_name("run-clang-tools.py"))
++run_clang_tools = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(run_clang_tools)
++
++
++class TestRunClangTools(unittest.TestCase):
++    def test_broken_pipe_redirects_stdout_and_exits(self):
++        args = mock.Mock(path="compile_commands.json")
++        with mock.patch.object(run_clang_tools, "parse_arguments", return_value=args), \
++             mock.patch("builtins.open", mock.mock_open(read_data="[]")), \
++             mock.patch.object(run_clang_tools.multiprocessing, "Lock"), \
++             mock.patch.object(run_clang_tools.multiprocessing, "Pool") as pool, \
++             mock.patch("os.open", return_value=42) as open_devnull, \
++             mock.patch("os.dup2") as dup2, \
++             mock.patch.object(run_clang_tools.sys, "stdout") as stdout:
++            pool.return_value.__enter__.return_value.map.side_effect = BrokenPipeError
++            stdout.fileno.return_value = 1
++
++            with self.assertRaises(SystemExit) as raised:
++                run_clang_tools.main()
++
++            self.assertEqual(raised.exception.code, 1)
++            open_devnull.assert_called_once_with(os.devnull, os.O_WRONLY)
++            dup2.assert_called_once_with(42, 1)
++
++
++if __name__ == "__main__":
++    unittest.main()
 
-I suspect a few workloads would benefit from
-having a larger zswap pool.
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
+-- 
+2.52.0.windows.1
 
-> I agree; I wouldn't want to configure each machine differently all
-> the
-> time. In my mind, swapping out that much system RAM to zswap already
-> results in a very unusable system. If you haven't try that, I suggest
-> you try it before suggesting a number > 100%. At 100%, it is not a
-> usable system, so we don't need to make a default for that.
-> Defaulting
-> to 8PB or 8TB is way too much.
-
-But we don't have a default size.
-
-Zswap starts at size 0. The memory is only allocated
-when it is needed.
-
-The vswap data structures are the same. They get
-allocated when they are needed, and freed when
-they are no longer needed.
-
-It isn't like we need to pre-allocate anything.
-
---=20
-All Rights Reversed.
