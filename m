@@ -1,131 +1,178 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E67D368D55
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:25:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5086DEEB3;
+	Wed, 23 Sep 2026 02:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130341; cv=none; b=WPzJBJ/IYRCWtrZsMisNfvi7H++KL9M31rBiw3IjTKNxLi6Ix8sALg4FO1bFD8Sw7hC09J3qrGIF/qnsAoRBv40/EzVHMJ/z0osUKDH9PJlsgqn+LZPKsXGDweMzZqP6y/ceFRKGgJIRsGC/dLWeluZl+nCwZyLWT9NpKcpAePE=
+	t=1790130367; cv=none; b=gaskuEljKmRrSaMF1M27+F9LRq4fKZ65JQZfQfenKrgLYzUW5HtgmKKR3iRU8fTaDkHXbg84JkuKzGwovKMmrYZK4N+2zEBdato4U/VchVrIMfag+TfLsohAZEfhncfOljdqOY4PDZJXLrlxBOHJ0bn+wUZ3RPKSxSRXqBdWUPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130341; c=relaxed/simple;
-	bh=4vHSLjUiiivi80NKIZM434XlQQ2bTlJx5rN8ftXtfls=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BoweesLOJEz9hURW6bVJZ+hw199e3poc1s4KAtiaPVcgY1fSTSwvNdKitxGR+qEFCAtevIRdqjGG0XLvjKTVs+Tv7gLoawkBnzhvf3RTSB1Vb3juRmKHX3AOkeXZYf8FVxbgYpRuv/jf4YPVqxwitc9Sw9iBy/yPFfaV6GVRETc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GXDSg3BE; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790130367; c=relaxed/simple;
+	bh=tCl4HUPVZ2Hu7QmAeAwQZyr8ueuNKLJA7PzKLTrGl0c=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VzkUEvRr7bIArPj88fI3UgPRTHW2mQPM1b1y+ZfDL5zbg7hiTbbkglo4S9aBoZL5/cbYosAWNj0eob5flriLju/UKNZnwtheesV7cQEYDMwRrJ3BcDOhmyEOpx9j7vhnhI0184nmYyZNENqi9//WPqPaFOxCT91srSGGswAsQMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZ8nbXxL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GXDSg3BE"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso286347a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:25:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790130340; x=1790735140; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YgscQk7Ar8r9xNVFdDi2QgmLohb1qk8AI+LPa8A9QYM=;
-        b=GXDSg3BEt1qV9dG1OtaQ6y3aBxRTXTvxleVCAcf0yq/woRjgMLlhbSrCCqJq5DzxWl
-         PnGfn+dibDgXDU9wnQvvq0o/6XtmCCdJqdyWShaLJWGtvm9CdzaBH6SDRXMgrl6tfm1q
-         5chMFfgkH2CH7Ntrf5rKian0KGg6hHQWJ0Q1g7VoUMSLF4je7HL5txkCZCyHyXqGihrQ
-         iD6f2J12bTsiGojGJckQkyQsS0pUmTRzSitNcd4BU4HyxyrvH+BSa19gfwmsNRGUKJUJ
-         oUsBr2WxLnW5p9Kr2X+USNAVt8w0Abc1i4I0FAI6+g/F1s00X7D76XS6vxU7mM4qlz6j
-         XvZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790130340; x=1790735140;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YgscQk7Ar8r9xNVFdDi2QgmLohb1qk8AI+LPa8A9QYM=;
-        b=GMldEkDWf9w+xPOQZV/0Hlcnisl731zG2wyldpgo5thuJZDZFH9oa8cyghTxf5ZgWf
-         m2EG3o/5cF6+VDjw1Ms3jUSrT8NkVr2nw2+Yj3lttoMsZJ4xAEVNX9uOP6UUdziM8jnH
-         ca6c9Efizp1SUcUF5WQAjIr9cveDrUEqtdAk9hLqYDTg8im7Qb5hrJ8uNTmbxUFKH9Vk
-         7WD8a45GhoF24w0vCjr514xmdNEa5drC8Xh1V6dgMLkl0PVTQvPtIAy17S4u84vLcqlT
-         BDt5TMJK2kOQ50s5KLAPFyQYiuW+d81tR/19si51FrI9WU57sXDO2GKMSeHzatjIGGdg
-         FiVg==
-X-Forwarded-Encrypted: i=1; AKwUvBy/daNl11RP+szJ28ngvWdTtHw4HDR1CJf+7JjCsYnxmsSPhVprh4OdBlLjs3v2q/XbGak6kCoSXOlI47w=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5z35skLtogq+xNM4KXo7Vy7XSTffu4z7MrHucYM96qZDJHFr7
-	UH2falRaAe0U6sPW1PySXfySjnHhIClcUIm0MQ8QOy8lW0TP43unZ6rS
-X-Gm-Gg: AYBFou2eNHN/SoleQjmQoqlsGhr8T6e3OjQAg7iQFER6nWHQhDbnfS68CpJnhYHSKXl
-	JDh5vit8uwwZaVS0idykodkU1KEaRYOpbTQpedPLzmjwJEhjdSiQGo/nByy0ForrPrYfZa5GsHd
-	74tO1TpEsfEJn2fVFbbdFZB/0r8Jx/cfht5Lhs+RLURaZoKDKkl2zwPRPIuAcISkwcX3PUOSfy5
-	baPzTP8JyjSDiA1S//B9JaP3y9tNuEhlvxBibVhwCTwz+S1BBYVX9T3Peojyr57Sjy5W5RqYZp6
-	O+tVtGr0qXtJXF4nmX/DYUiJ6t9NFfwhZla76SzJthyoM+hEHzqwZWjuClHSXOMwZshK7XCfkTP
-	jq3NmMgTZISoK/7oxWEBg6m6HUGkAXWTKZw45RdyRXzq7TGzB4yRz1OW2hpQrCbOt7Vz4I82QDv
-	h9iUGccrBhhf2zaWLCS0e0lW3rgKomclo3XniYDJIGkxBPtK6/i9JG94FUNp7B7dgl9MUafI6HS
-	1Fc9eHsMxTjLeWaMYhYM9ILbdg4FA6Gjyyhcy4RyWwWU51jgpdNG2zYsrxyLIh3
-X-Received: by 2002:a05:6a21:730b:b0:3dd:a195:fa16 with SMTP id adf61e73a8af0-3ddf82fd6d6mr1278376637.59.1790130339718;
-        Tue, 22 Sep 2026 19:25:39 -0700 (PDT)
-Received: from k1832-XPC7A-R57-GD.tailc99621.ts.net ([2407:c800:5a41:af7:fd99:3ec2:4e58:1374])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f40839csm309403a12.30.2026.09.22.19.25.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 19:25:39 -0700 (PDT)
-From: Keita Morisaki <kmta1236@gmail.com>
-To: Austin Zheng <austin.zheng@amd.com>,
-	Jun Lei <jun.lei@amd.com>,
-	Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Keita Morisaki <kmta1236@gmail.com>
-Subject: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate control
-Date: Wed, 23 Sep 2026 11:24:51 +0900
-Message-ID: <20260923022451.3346675-1-kmta1236@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZ8nbXxL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05E8A1F000FF;
+	Wed, 23 Sep 2026 02:26:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790130365;
+	bh=fSfHxB6vtn6N4sw+fJbEZmatPa++7pwxwtbQq2xMMQg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=OZ8nbXxL+s3z2JtDSfX9yWM/rL1oSitb+r6jcbmJNh8zbru1953wsfNNeppWgLSk/
+	 9Jf9ZiQQzW8aZKxjzedu2pm309XbfJSHZ5WRcu/bZ4Wn18CHiZjnn70tUJDAxZ6GPx
+	 iSjndVHG8Z4h8/2vD3NH8KQuGQcFCExvPV2W2S/aTKo/HsCk0T/NlS3U6S9hf1nHAH
+	 qa3RLyQ4qKmOO+bEkI46Wdy5Rfjo9MRWWyL43fq7izhjI6RaGqUXqh53UM4ZXliyLL
+	 RC0ydICFztDqiH1DlKT+wLv8s0AAq9G0dsGxKNU5HlVmhVjjCi099EwRPBuGN8jWWd
+	 qoEI+70jThDfQ==
+Subject: Re: [PATCH net v9 1/4] net: usb: lan78xx: register the PHY interrupt
+ with the MDIO bus
+From: netdev-bot+sashiko@kernel.org
+To: f@lex.la
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, andrew+netdev@lunn.ch,
+ hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ olteanv@gmail.com, Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
+ steve.glendinning@shawell.net, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 23 Sep 2026 02:26:04 +0000
+Message-ID: <179013036452.2160803.9091592272745855906@kernel.org>
+In-Reply-To: <20260919015326.499479-2-f@lex.la>
+References: <20260919015326.499479-2-f@lex.la>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-median3() is meant to return the median of three values, but its last
-compare-and-swap step swaps b and c instead of a and b. When c is
-smaller than both a and b, it returns max(a, b) instead of min(a, b).
-For example, median3(2, 3, 1) returns 3 instead of 2.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-_do_calc_rc_params() always passes 0 as the first argument, and the
-second argument is never below 12. So whenever the third argument is
-negative, first_line_bpg_offset (and second_line_bpg_offset for 4:2:0)
-is set to the second argument instead of 0.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Fix this by swapping a and b in the last step, as intended.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Note that this change does not affect valid DSC configurations. The
-third argument is negative only when bits per pixel exceeds the
-uncompressed rate of the colour format:
+- [Medium] Commit message hides a user-visible precedence inversion and
+  is factually wrong about it.
 
- - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
+--
 
- - 2 * bpc for 4:2:2
+net: usb: lan78xx: register the PHY interrupt with the MDIO bus
 
- - 1.5 * bpc for 4:2:0
+The driver's mapped PHY interrupt number is now written into every entry of
+mdiobus->irq[] in lan78xx_mdio_init() before of_mdiobus_register(), and the
+later assignment to phydev->irq in lan78xx_phy_init() is removed so that
+phy_device_create() seeds the number from the bus table instead.
 
-Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
-Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+> index cb782d81d84f..d7472d894c8d 100644
+> --- a/drivers/net/usb/lan78xx.c
+> +++ b/drivers/net/usb/lan78xx.c
+> @@ -2092,6 +2092,7 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
+>  {
+>  	struct device_node *node;
+>  	int ret;
+> +	int i;
+>  
+>  	dev->mdiobus = mdiobus_alloc();
+>  	if (!dev->mdiobus) {
+> @@ -2118,6 +2119,10 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
+>  		break;
+>  	}
+>  
+> +	if (dev->domain_data.phyirq > 0)
+> +		for (i = 0; i < PHY_MAX_ADDR; i++)
+> +			dev->mdiobus->irq[i] = dev->domain_data.phyirq;
+> +
+>  	node = of_get_child_by_name(dev->udev->dev.of_node, "mdio");
+>  	ret = of_mdiobus_register(dev->mdiobus, node);
+>  	of_node_put(node);
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-index b8fc27a5361e..657173d8081c 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
-@@ -46,7 +46,7 @@ static int median3(int a, int b, int c)
- 	if (b > c)
- 		swap(b, c);
- 	if (a > b)
--		swap(b, c);
-+		swap(a, b);
- 
- 	return b;
- }
+[ ... ]
 
-base-commit: 93f51579e7df248780214094418f205253383cc5
+> @@ -2892,13 +2897,6 @@ static int lan78xx_phy_init(struct lan78xx_net *dev)
+>  		return 0;
+>  	}
+>  
+> -	/* if phyirq is not set, use polling mode in phylib */
+> -	if (dev->domain_data.phyirq > 0)
+> -		phydev->irq = dev->domain_data.phyirq;
+> -	else
+> -		phydev->irq = PHY_POLL;
+> -	netdev_dbg(dev->net, "phydev->irq = %d\n", phydev->irq);
+> -
+>  	ret = phylink_connect_phy(dev->phylink, phydev);
+
+[Severity: Medium]
+Does moving the number into mdiobus->irq[] change which value ends up in
+phydev->irq for LAN7800/LAN7850?
+
+Before this patch the assignment above ran after of_mdiobus_register() had
+created and probed the PHY, so the driver's number was written last. Now
+the number is present at scan time, and phy_probe() runs after it:
+
+drivers/net/phy/phy_device.c:phy_probe() {
+	...
+	if (!phy_drv_supports_irq(phydev->drv) && phy_interrupt_is_valid(phydev))
+		phydev->irq = PHY_POLL;
+	...
+}
+
+The lan88xx entry in drivers/net/phy/microchip.c deliberately defines no
+interrupt callbacks:
+
+	/* Interrupt handling is broken, do not define related
+	 * functions to force polling.
+	 */
+
+So for the internal PHY at address 1 (phy_mask = ~(1 << 1)) phydev->irq is
+seeded from the table, phy_probe() sees a valid interrupt with a driver that
+does not support one, and demotes it back to PHY_POLL. The old late write in
+lan78xx_phy_init() happened after phy_probe() and defeated that demotion.
+Does this move LAN7515 boards such as Raspberry Pi 3B+/4 from the chip's
+INT_EP_PHY interrupt to phylib polling?
+
+If so, the post-commit note "Neither in-tree lan78xx PHY node carries an
+interrupts property, so nothing in tree changes" does not cover this path,
+since the change here comes from phy_probe() rather than from devicetree.
+
+The commit message also says:
+
+	A devicetree PHY node still overrides that.
+
+Is "still" accurate? Previously fwnode_mdiobus_phy_device_register() wrote a
+devicetree interrupt into both phy->irq and mdio->irq[addr]:
+
+drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_phy_device_register() {
+	...
+	if (rc > 0) {
+		phy->irq = rc;
+		mdio->irq[addr] = rc;
+	} else {
+		phy->irq = mdio->irq[addr];
+	}
+	...
+}
+
+and lan78xx_phy_init() then overwrote phy->irq with the driver's number, so
+the devicetree value was discarded. After this patch the devicetree value
+wins. That is a precedence inversion rather than unchanged behaviour, so
+could the commit body state it directly?
+
+The explanation of all of this currently lives in the notes below the ---
+line, which is dropped when the patch is applied. Could the permanent commit
+message carry both behaviour changes, and could the "On its own it fixes
+nothing" reasoning for omitting a Fixes tag be revisited given that
+LAN7800/LAN7850 interrupt handling changes with this patch alone?
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919015326.499479-1-f%40lex.la
