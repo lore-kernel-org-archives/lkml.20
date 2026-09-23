@@ -1,151 +1,157 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011002.outbound.protection.outlook.com [52.101.70.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f13.google.com (mail-oa2-f13.google.com [74.125.231.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D27843FD3B;
-	Wed, 23 Sep 2026 15:09:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62E453A38D
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.77
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176179; cv=fail; b=XbtUjiof+Ss89sx99DrT2+bvTIJ/XsJHQRBmzIAbgq5ZMl6ZUAn7IsYi3Njkdxu4j5ztrgP16dg9T1VtPA/VH2xb9oDuRNUWHxPMUuE6cnjNoJ2CR7EZe00ySDZ4GDcD9hPT0xTuHXySDW2AN0BQjzKYXqv94hSLdiciDdiwpOo=
+	t=1790176185; cv=pass; b=kXkqnU9LJ3fuYffucngFJiXHKPZ5rGc5gVEdhIzLgXtAJG3aWDRiqdZmBmgdRzn0jytXOrOx19NcLuTWSv221iN/TSSq15sLCXjgYBNnCPONnMfLXzCullkliWHQ5zlfKsdho2n4j6rJE0U4uqt3PzAqZPQ3PMBD+PFf2/iZiQY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176179; c=relaxed/simple;
-	bh=/l3+ZnjtoCspAMexWOSFaVId8NcIkcQwBMyE0XmNnA4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=e+H3BVr3693tWqQ6n0J40czwWcfP0sHeX9R+RdfjV7FplOymoU+CyqnBmKykpJ/qv2VXVjsCGD2QUxbTIsuSoe3p3pt9sNG8z+iTCzcDksEnljCN7vvzy6efGvuStn4emfUoqqZ8I0Hjgxamk+zQM6xlEdSSwFUn4P8aI07BFm4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=RNyr/hTp; arc=fail smtp.client-ip=52.101.70.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	s=arc-20240116; t=1790176185; c=relaxed/simple;
+	bh=vBDDxkg/4u2xvKLK14IExq0ujAdn9caw6bDOuJLuOA8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o6St/kg/s/Y0hDDtl9mj03RUhdjbuNGFaQ4Pm2hfIVJ6/43/lHAYNQBCAqbZ/tpt5lTv6bqhjgXvDcf1iiqNBFzULgAaL3TomzppAipLgZ4xoOMIAiQovFAx5PRxa/mk/RkPrvfSV0fX579TT4vbyvAW+ocfyweH4ZWq551UvKo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=e1X3Aqz/; arc=pass smtp.client-ip=74.125.231.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="RNyr/hTp"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qLmVXPzZmyF8zBK8WosX94DXe4N/KMXmM19qr86QN54Llxp1BsK5dbkQ+tcoDuh9w2MKGltGmw/YGlX37bF+dEwkMteWzl9OUa8ls47b5qEU6C+GYSncnkAJJz5Z5h3ntj0Tfw2SpbK9R0n5HVsd3rXwow+v3xgT6UBYopyzAfmpyq83MygJl4+Za5C4gCQcCJUecNCFfNv/ztfgsVhkgsTh6x/n/AZ99hiaIIyFeElKn3bz6s4tpABkPZfFvcTTFM6QO4izib5poj09ArDCbXuB2JC8CXbhWWwoN01tjfRKdebrRSEU3JkL5Hp0yMQkzLXFBhWkYNECgI9dT1UVQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Re9zy3oSDhDTDDnTE7PIbVzv1+AXecNFo/2GbFD99rs=;
- b=I56vt88u2MPINn7bzXozVVcBei07TqBJ+dKJjbHMebaU5kf4mtGGsr4FGKQjK3oVYm88xZQXR3uIyHQB3ig+9ET8b/ZQkJDExJH+JTFJNlbZDxw6nhfqG9aTDSyG8t+ZjNtVLKUIYoInydEnVkyXMNfrmjG++s1dKHEshyD3aHCgyOgnYMd8TUzBgQrOnaRC9xxw7QlZ1Ni7KSBh36lSBJatW0YgSmXIvJazTefBJucnWDeaK8Wbx3HazfevpkEWPjYew6Bp7GQiIfPsET45T22rsQcZJ1aR0Sti8wldxPf4+ng/ugwZDbY4mrv0B+xXhXIKZwLyfPvju7FPfYVXww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Re9zy3oSDhDTDDnTE7PIbVzv1+AXecNFo/2GbFD99rs=;
- b=RNyr/hTpNr1GG1jUYl39BnOrf+hkuE6tKrHo7iBM6525uJOnqyzLAANuKO/y2Zs79G0fDomMQSQb9+KfCf+A3ptbjcazrGIxjLZdAChhaE5eS+Q7IsZbq9F9Ng3sDKXnXsHhYpYCd3HOV2NgPySUIUvJgZVLYNXL364B7FOqLvr0hWMOg4FOyLSykCa0Q31cD2LqSRyNoRGLwBjHD2anloJzAf6lnnH9ljFVDbhKST5vQY8l4wmQkKeNZnDLIsfKAGr0y/D5z7GGcw4svR6vo8HpERvqqYpFJ/x6iv8KVk2w5zOO0JiBARFPzrSnVxrOZqk+PHk9608ho661uOrrtw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
- (2603:10a6:290:d3::17) by AS1PR04MB9557.eurprd04.prod.outlook.com
- (2603:10a6:20b:481::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 15:09:34 +0000
-Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
- ([fe80::263c:943a:dcb0:29d8]) by MI9PR04MB019273.eurprd04.prod.outlook.com
- ([fe80::263c:943a:dcb0:29d8%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 15:09:34 +0000
-Date: Wed, 23 Sep 2026 18:09:30 +0300
-From: Ioana Ciornei <ioana.ciornei@nxp.com>
-To: vjardin@free.fr
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Vladimir Oltean <vladimir.oltean@nxp.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 0/2] dpaa2-eth: devlink port number from the
- DPMAC
-Message-ID: <rljgvjn3gbyq6ixikhnrwe6z6rlmfd3pepns4u2dujzjo6q6uv@kb7uozq52ozm>
-References: <20260923-for-upstream-dpaa2_ports-v1-0-b59c865edd00@free.fr>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-for-upstream-dpaa2_ports-v1-0-b59c865edd00@free.fr>
-X-ClientProxiedBy: FR3P281CA0200.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a5::15) To MI9PR04MB019273.eurprd04.prod.outlook.com
- (2603:10a6:290:d3::17)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="e1X3Aqz/"
+Received: by mail-oa2-f13.google.com with SMTP id 586e51a60fabf-466ccdd7695so399422fac.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:09:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790176182; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jN62HjX1UQHq9sFz0cXwsxJ71gwkwxI6ufjo2UvZpPPRW0Nhs/jxXnE9SKsgtoSD6I
+         W92phsoDde97rEhMw9lGAmnZuwHnuI28JsX/MTlpeOBIW3WmFg08un1pQpWdxwE7IU3i
+         ewNtBOqoxaNsRP+xt1np6bVv8Z/TlRrp+mf/N/cXwWMin3L9j9gnJpudQzm+2Ejl3DNL
+         CkvzaWH81FVyzQRnK6/Oaa6uO6x6LfgDXr3Mq7ASXGzrK5GnwMf1fGn3lkABHKgdWwYN
+         knCPG5CXG1R5hhd0f/0X7rHknVrfM/45wzzSGJAwXjf8Ofm4rrFSzoidMHX/fm1m7ubX
+         CjLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=CwM5I/T1IGiVWnONvAr320V4SRpC4B1cuoZUTNeL2UU=;
+        fh=EisgPc26kXavM2kx/+a3XjigYcG+SntK23CxEzdk80g=;
+        b=EwEb7dLIwI26brjBPxl21tphZ+lMVp/LF3DnYeGa1f2i8vNbkLjT9WbaX85JVqX5Q4
+         q+sZ5zAhsccQ29EjmBdEjWZrg5HTqIb6j0Ll7SV8C+4wmzc0AmCWYdNHEXCQrCAd4Wa1
+         AyUf5OoHRXNaE3aBvUTfM3GvUSY4j3C1UFrZF91wUGLAdlNx2SS4Hod4dWSUk7TdDP9U
+         1q6i4oQ19eyJO9JN/oQxC6Sxm9/LrZ/r/W2m/q1ER2UzpF68SWpPx6UmQlMOxqpkZSW/
+         CvUkZxDIr36bKYVpwiDEXvCM94ymnyaN+ZRanBl0d1a991X+bGkpO8flDCgaqOUdowmE
+         dyKQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1790176182; x=1790780982; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CwM5I/T1IGiVWnONvAr320V4SRpC4B1cuoZUTNeL2UU=;
+        b=e1X3Aqz/hHRoClKqDLuoluA3yZWOd+GzH3ZWxoj/NBJ38on0aEl6uYYBkqPWbK544y
+         yDl89Dj3AMW+Cy+XmZlQb9plNKDfIZ3EC9RggImo8bLvoVoQ+cFYZkRuTTmc54X98D66
+         fftqbjFJL6keOyG00rKYcIKozYqGT0QNyUbQycz5Uc7J5uig1tQcqc14fz/MdJw9mtJL
+         X9T1PQZ0kvXdXMwp5oDY+aDkassH8j4yDON+yIzwGu7GAYPse9pVHnoKdrF2jEdMlhrH
+         ZgCNfDh2E83ext6JB1rSdCNDqAi7uTtnZt96sjFiZaZpDIVT/JzScpiKKJAn0IKxJZNs
+         GMBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790176182; x=1790780982;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CwM5I/T1IGiVWnONvAr320V4SRpC4B1cuoZUTNeL2UU=;
+        b=evqJ1981Ajhz4NWEeEJAgCrmhUe/RWs9tBoDgoIWqC8rSiP4ubRufmCYsrvzIRs9af
+         9ji0F70bZwp6Ad3lIsVGX8HGknaKgtDzTitpqjZfzjIoamq0JLKf4VRtBXpYR69DGZBM
+         vK9MsUKi03h8OlmpiWawakFDh2HHjxlVyKRcxpanjLkLSVGfYcIPzH5SQMNX+b0rwtUt
+         3pER4zBLOq5xA/gDxS6AyWQMmOJdrxAI4aMP8nv+uDXE+a15urgVKxixUJ1GSqYg602c
+         EV+jqJqq/7QK9m9Perz5gpr+b8fc5M2r/MbMCz7TRemWFE6eGpN0b1rMHF7MEr/GeDZo
+         57yQ==
+X-Forwarded-Encrypted: i=1; AKwUvByad8Jf2AlUz2uowJqtm0KLfIRN+hkOzy6lBgcoK4Ca2PzCuEJ8HBnp9x3Oiu1DACkwLl47CFbjNtOp47U=@vger.kernel.org
+X-Gm-Message-State: AFuF++mN8Mp0pHLGIGMAaiwt0b0mwDLmOIY6bLm0ZJ73UYcvd5EoCRQN
+	RmQjJURKI9lkbHmPxH5oSaCMEfpRneSX3ltzFE8vq6+ysISYbRpfGCMe6cRCH/Ycf4JDSnev+US
+	n8XJHIJk9cXXvjf3yTN04z/g5m8mTzQls7CR9KGXS8g==
+X-Gm-Gg: AYBFou0LhpnNSb+OL4BxDdiv4qJ37bWnso/5/CIQV0KZHFlKgu+4O3yrxMYtbomKYzF
+	fHUYNSWDuRgY1FgaaX9M2OzXWro6r7i4QB+qRVfmvexVlQGHf4F6fs6rUxUtqIN4U6y9EiAwlsY
+	y09b4E/xK+9yubvJy/zcYFRzUD7OduJUD2yXqzrp81IkhJ+pf8LBB1ii+10GrE44ILVvBvbusUg
+	b35+WbPXmfWAlZwXtXgxjHtZZHWmta1ZXguXX7u8NyXFVcy5UievzS1XecWoJoGS8cGENCLmKVk
+	zeu1AQSK7pxbJFKb+ugt3aAQZ3Oy5I5UjsIYto4vJOcqdWk1h1UKomZlRzvctA5gfAuysHfDygZ
+	25/95U5xG4gXrdqk11SewkqRhqbB3rrauKPbWyVFowti5kZdUBBNSbvEhV3Hyq/+EbGiyMGdQ/e
+	Y6RT+ajA==
+X-Received: by 2002:a05:6870:b2ec:b0:48f:e21c:cd72 with SMTP id
+ 586e51a60fabf-4908c3cc5f5mr2967283fac.57.1790176182078; Wed, 23 Sep 2026
+ 08:09:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB019273:EE_|AS1PR04MB9557:EE_
-X-MS-Office365-Filtering-Correlation-Id: b1f7db9f-fb05-40eb-6f87-08df1984ad46
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|19092799006|366016|1800799024|11063799006|56012099006|10067099003|18002099003|22082099003|6133799003|41080700001;
-X-Microsoft-Antispam-Message-Info:
-	/shVG10nQYU319H0MuaZpUcj61ui70dV7cjm1eLYQOwTpNVGvFl6SWnNk34ZT1GQ4IcHPmOAZ5EkBwS9/acQzZ4BFW/MDjBsk9S7l+7tjgX6NqidCiUgszQxkL+KNeSkZ0juVIm4GTQcevH7bn2Vgt5kaHFCBQRZKQNhPpWcVA4+U1gJm7Uc8HF3hQcouyCmqTWZAVCw7IyqdLKb7vd4klVt54uK1RDEbRt0jcjXLV6j+3uzxQC42BbHX7uuV3r4Nj6Uva5Us57Y2DiocTvlrmGH8G1UzXrxCSVux11xqFRLeykbuUlJrwY85k/R6z8qd1dJNxJm572jzosKkjGf2McRDIH2SC3/mxUFvl6Jf5JasoIVAqDXNpc8Rl0Wbg9/RNJtydZysc+TQqhXaumu/aF1W/C6C8boUB9aNlhaz2LxduqxlF14lQgGcO9N4E1qxH7gOJqY/RQm4Xcp33Br616KNsliz6AqF24wo9MtTnKNnwHC1R0Rze72SkiWYV2SiSGm9qmpBV09m+BuEKnQC65AAMBSG04GL0h0vxbusQ+B7/S0trvY3mxarwtjqXFJir013LhUkQbb/R8kjd4G5MouQH41D0/VxAk6vQrmW58tK6fgCV78/q44EN0guwS+BH9C3wL4zY80EEB5oI8TccdH7pu1Ngzm6Xu9y8NdHGIWeckVOXq9yi0UUL7G+bqnzn12Kg7N10t/wJoFQh3E4A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB019273.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(19092799006)(366016)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(6133799003)(41080700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?80/2pOqNMQ2nANA7PHW9otb3f2S1CGlgNNUkuMJEiyu+/KxMPdoQAMRaVGen?=
- =?us-ascii?Q?DFmJ9UxZNBIvxjqmuPq2U6o4nctAQ/BlAg8SRiYmZD7TNbaXxh04spU5iCM/?=
- =?us-ascii?Q?vOySQ4IKu7gekKrkZMXT70wBYw+QjevS91zh+RWUhLWj2ApJxdMLl2HzezUO?=
- =?us-ascii?Q?6whETsypo8WEovbf8RzALLTpcDsumROmzNmT7adCwbUGtc6lbOCgKlNAdH30?=
- =?us-ascii?Q?PRutO/CGaOZof7GbEauhMSt6rbDetRsnS/e3SJKamgQuekrf+T+TrA57lglF?=
- =?us-ascii?Q?cq77qQ/ezVf0omgDZOfFGp04w9vBf6uj43fkadmFondboQdD7KPj26c60HvJ?=
- =?us-ascii?Q?nIDWTWv7MSY4OkR8Cr2h0adqfZQw6wkRDlRKhFkxsn60hs9vE9IOeuEgUd7M?=
- =?us-ascii?Q?mYQqcyanETNCPs3Ul7HMbosKCbX8uEjL19KvTc54IaPG2rL3nJmK3qeETd7n?=
- =?us-ascii?Q?qqeKTHhDyXC4o/+ipOaObcN0xODf0ScyrIGwyWvCEc9bzbQxANy5TnjICc30?=
- =?us-ascii?Q?HgmuJZSKwov0GfJ9niA8QRJcJ5snD2OLqLr3ndiUPd0eyufSZT6h7oVIO5sq?=
- =?us-ascii?Q?gdutdorYhfan7IAGDSTVC01w4kX+oywYBaef8k2r5GVaKtLKnP2nnT2iGBdp?=
- =?us-ascii?Q?Yb1P9ySUUlETQ25Cctdy4pofbSxFlM8eKl14OWe/SxVZpDMaiIVx7+r13tmj?=
- =?us-ascii?Q?bpMPqYbT6TGeIz17h/zlfiYutX3mpyH1QjMbOqLf+w0I8EJdkB4u8jp5pG6r?=
- =?us-ascii?Q?iw2PZaeKSAmjNu/98BU9bR9tIUyD/FMXr+gW38wWeUjhiZ3lndP3Pd1nEMhc?=
- =?us-ascii?Q?KjtKj0kKQRJttIimnnMsKGROwjzSTCgDjz5eqf0ccL9pWMPVuSUJH5ceB+Hi?=
- =?us-ascii?Q?s3h6tQbLAfvuy4NiLql0Jpk1gUPPW7um+X4wGJ0NlmplNA1HGpMt7s9u94Rf?=
- =?us-ascii?Q?j0duNZgJ004woCr9uqhnjX1EoaTfCGxaRLmiEONSQ/YjTA3t/YwhEsBXE5xd?=
- =?us-ascii?Q?o41LhuHSFGYZXWdH2tEj/3c8AhR1yrYjD9SPY2acZd/3kyIUonsVXX+nftaz?=
- =?us-ascii?Q?LwWuDb4MpSpcL/PePr75UQJ3bBXlVOKNe/U6J9RRF1mv1huv3dYLERGyfEp5?=
- =?us-ascii?Q?0Fxman7jHQldSoXI+/oKy/gjSa0aiiX7s79Q+zcFoeJwoHo7OB7YIHrVZj2u?=
- =?us-ascii?Q?yQ++Olla8awGgzB6azSHFyBbpLCqh6Ni3SXTwpCQdd7sHuTpj4d/ZPSxTjo6?=
- =?us-ascii?Q?GUiJAh6Q2K6uoIVcMj3nYwW6WrtpJ5eDN6COatiYME2uSc7mZPxPLIppmwJ4?=
- =?us-ascii?Q?C5N20UN9uASYgiBjs9aK5kE0RAg6nNKszSp+npjEdU8/NiH7E7GSwU5cZwuL?=
- =?us-ascii?Q?n1/ph+d2etjoHLy2uQjyhbKfYN59wbjJTvfZG0X49FdOyugccwD2tgO3F7W9?=
- =?us-ascii?Q?B2lQyiX9NVzXhKOe+HxJgGzoUpyFGY2BcB5UTPg+gODBjiRJBJE/bSW8932a?=
- =?us-ascii?Q?NktNexgjxnEmYEZgXP1Lcf0ARDLbCt2UINzGiKsJywoSABlfyt6iSY0znuxC?=
- =?us-ascii?Q?Z6r8uoqkF6rz+fjnY2ToJG81xwn0Rd+RMwR267hRU3lbZbM5kqaB8aIXIDjP?=
- =?us-ascii?Q?I7lAX56CMzFxBaficnOaLwRjuHcVMDTro+LY14ydBdp+iY2rBCzTYUjVZz/7?=
- =?us-ascii?Q?+Kzog5ESkmosEpLA32ByW+uxsNz7fWRwazTHyKvTMzF3hQp4wefOstm0qtyj?=
- =?us-ascii?Q?ECuNVXSUZQ=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1f7db9f-fb05-40eb-6f87-08df1984ad46
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB019273.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:09:34.4007
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qXvGr77LSHdIbkvm//SVQt1BhZjOBjmBsupzcNPrShtFsj3Z4qL681lewuq5UuELGx3miCPpAP3UHvGljAdQTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9557
+References: <20260914-ov9282-fixes-v1-0-f520af59df1b@linux.dev> <20260914-ov9282-fixes-v1-6-f520af59df1b@linux.dev>
+In-Reply-To: <20260914-ov9282-fixes-v1-6-f520af59df1b@linux.dev>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Wed, 23 Sep 2026 16:09:25 +0100
+X-Gm-Features: AclHuK8PSHi2moxp8iOY0QmIwCxXJthoUN8UYH9v0j8kmRsVHSJdFCXjqVWtIq4
+Message-ID: <CAPY8ntCaRiA8MjVUU1V1KxGYRhA-oZsefM9rw0i5Us1ybVHWDQ@mail.gmail.com>
+Subject: Re: [PATCH 06/10] media: i2c: ov9282: refresh flash_duration range on
+ an HBLANK write
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Martina Krasteva <martinax.krasteva@intel.com>, 
+	"Paul J. Murphy" <paul.j.murphy@intel.com>, 
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Gyula Kelemen <gyula.kelemen@advasolutions.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 23, 2026 at 02:57:59PM +0200, Vincent Jardin via B4 Relay wrote:
-> dpaa2-eth registers every DPNI as a physical devlink port without a
-> port number, so all the DPAA2 interfaces report the same
-> phys_port_name "p0", including the DPNIs that have no DPMAC behind
-> them.
-> 
-> Patch 1 uses the DPMAC id as the physical port number. The attributes
-> of a registered devlink port cannot change, so when the DPNI endpoint
-> changes at runtime a warning says the number is stale until the DPNI
-> is rebound.
-> 
-> Patch 2 registers the DPNIs without a DPMAC as virtual ports. They
-> have no phys_port_name, so "p<dpmac id>" is unique.
-> 
-> With both patches, udev can name an interface using its DPMAC, for
-> instance:
-> 
->   SUBSYSTEM=="net", ACTION=="add", DRIVERS=="fsl_dpaa2_eth", \
->     ATTR{phys_port_name}=="p3", NAME="dpmac3"
+Hi Richard
 
-Is consistent naming the end goal? Because renaming can already be done
-for DPAA2 network interfaces based on the of_node. I usually have
-something like below in my udev rules file:
+On Mon, 14 Sept 2026 at 20:21, Richard Leitner
+<richard.leitner@linux.dev> wrote:
+>
+> The strobe ceiling is the exposure time in microseconds, so it follows
+> the line time, and the line length sets the line time. Writing HBLANK moves
+> it and nothing recomputes the flash_duration ceiling.
+>
+> Therefore add the missing flash_duration range update when HBLANK is set.
+>
+> The exposure range is counted in lines, so it is unaffected and does not
+> need refreshing here.
+>
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+> ---
+>  drivers/media/i2c/ov9282.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
+> index e64d8343c18e9..632184e76b9bd 100644
+> --- a/drivers/media/i2c/ov9282.c
+> +++ b/drivers/media/i2c/ov9282.c
+> @@ -674,6 +674,19 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+>                 if (ret)
+>                         return ret;
+>                 break;
+> +       case V4L2_CID_HBLANK:
+> +               /*
+> +                * HBLANK affects the line time, which then affects the flash
+> +                * duration. Therefore recalculate the flash duration range
+> +                * here.
+> +                */
 
-SUBSYSTEM=="net", ACTION=="add", DRIVERS=="fsl_dpaa2_eth", \
-	ENV{OF_FULLNAME}=="/soc/fsl-mc@80c000000/dpmacs/ethernet@1", NAME="endpmac1"
+Except for the comment, this clause is identical to that for
+V4L2_CID_EXPOSURE that you added in patch 4. No need for the
+duplication.
 
-Anyhow, I will give the series a spin tomorrow.
+  Dave
 
-Ioana
+> +               exposure = ov9282_exposure_to_us(ov9282, ov9282->exp_ctrl->val);
+> +               ret = __v4l2_ctrl_modify_range(ov9282->flash_duration, 0,
+> +                                              exposure, 1,
+> +                                              OV9282_STROBE_FRAME_SPAN_DEFAULT);
+> +               if (ret)
+> +                       return ret;
+> +               break;
+>         }
+>
+>         /* Set controls only if sensor is in power on state */
+>
+> --
+> 2.53.0
+>
+>
