@@ -1,73 +1,82 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-oi2-f42.google.com (mail-oi2-f42.google.com [74.125.231.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEEE753B34D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FBA453B35C
 	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174956; cv=none; b=szDbUE4oscms7J8LHCOufdiHkmPDHoYTrkEbYUySXJ7Q3QL/L904LoP8a29qvHzl0OaexuBAzle1xYvjPvBWMlk5WUbDMYnlrTWmlisNCd5mx5D3TdFNyw3wYNbw2/0+hajFL86KVei9VpKlCqB257dcfTziRoVtepdgLmd0L6E=
+	t=1790174955; cv=none; b=qDC8khNwtTwSJmtW4dKMpHYwu+ENYgaW56P/dLdZ+KvOUnbiuBLqYeitByd+5cUbltlXNYj7m1PoLbmc3kRDaJsQLBaFCgVrhLot3q9MJ3E5gESRWvErf95KnCCWjS8/Dqt0fx+tUVcOvfOmwWQM/G8tEOyNe9Ya4KWmVAF9yB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174956; c=relaxed/simple;
-	bh=TzXxpYbafFuLEWOlOPwWeQ6+nw6AQz1JvlONI9AydL4=;
+	s=arc-20240116; t=1790174955; c=relaxed/simple;
+	bh=wvFQBz25XEKcRJNL0SSe015v57XgY3JcbH7bg42CNMo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E9Cf8Ws3sJk7FIqhkCoLIu/7ZwnDILxgN4lHgrNnjQTIQN/QARB2UMGSK37P9Jp+H6qtpph49l9xmTPFifLYHvNjkR2Qrv0JwDdFvVVydkUtizqZlUZAgzLHHNDlRZL6fKLKPR+Qgjo3dRcXKV7wPCvg4A4M/GPM1WzFv9kbJoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=s4BSppQk; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	 MIME-Version; b=V0fCCZS7Iz3W+veEfkdzg6r4KJa8qCSQFyxce2okmJiIF0nvTv9m10h2JhsWt400vdix8u0xo0ynsztUH6zwfSH/yZNOhqX+besHkukCNHmtSZ8ETgJJefd14X4Y/N2NTH7sPbnLQlkXJl9h9dEDkysw5mZe+TuIHgVMNnjmDEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pj8Hj02T; arc=none smtp.client-ip=74.125.231.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="s4BSppQk"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so5543105e9.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pj8Hj02T"
+Received: by mail-oi2-f42.google.com with SMTP id 46e09a7af769-8167e0d1f90so397945a34.0
         for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:49:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1790174952; x=1790779752; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790174953; x=1790779753; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sUIUCzm7xQrDtXiiFYGfOI6sfBFwp+dm2lFFx+iPEL4=;
-        b=s4BSppQkNHmbefMHkqt2n7mfyMijmCHL72y37DHNxK+XhrvumDkAp4Hb0s9ICqXpLl
-         inK0JLju8DH96XOyX91YnoGi2JOxzqYbeStRqlb+Izsf4ry1voccWrQe4rmlm6IeR3tp
-         uZhf65EKC6PfMERoKyCc2WO16b3HGlLCy4is4=
+        bh=Z1JAcPQg636JNOKXQW2C4J8TQkuklMU5EX+3CopghKI=;
+        b=pj8Hj02T5RrCa13vH2T6dW5BamMMzzI9RLcsJ7/rd3hZna05HBKy3gEoymkTskyEdd
+         AWTg8e1upkbBxE3C8AEP4mONO3KZkM4GRiK+qwyvHuNytIROskMd6L7B6L68AA1zr+Zu
+         ShiN+5esV0D1R7f9caPkTg16alL85axdwwaH3z4WUKPGoh5vNIkdV0U/FIxyVTRyLRbT
+         p0yYq0B7XhG52UZBgrYsqyxWTbVV/dhGoNQxF/tjfTr/KL270pjj4LndKFMZKdVCYWFD
+         l2SiHZiZWQM5xjwKHn5Udbw26F3Fz/AcGX5SmYxfObQ0H6GEFSBM7vFQfq5WbUpd9x8v
+         0rnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790174952; x=1790779752;
+        d=1e100.net; s=20260707; t=1790174953; x=1790779753;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sUIUCzm7xQrDtXiiFYGfOI6sfBFwp+dm2lFFx+iPEL4=;
-        b=V5Achj5xs/N5rzLcL0dslJ8xGKRg1S1VU3tI1KHECXqWjAsbWRi11IbLA4ybzJb5vZ
-         czAurl9/8cAiqziJwiTaxWGUD7bow0BpBj3akuOvvQn9ulHv7IaUFLBltHs5RbgTMcz3
-         Ji8uHNZLjeCK1wHApWfWSYBaK6m95bzwwFtmNXWY8pKgEkv8HvgJ6a9K90XTg9Ha0TKg
-         4Tdu+bG3pIXSxJJjzDZl2eC4RG1uOsI4eiP20cPLjx04snbEQTOWtTXOoOrXDmMjLw9f
-         Jr+NE/bvQ3ff+gP47cFwpGFcXdcQyk0lJfKNgDnMatZFMZCSnj1nd7HzJLkRUCdObYu2
-         S5ww==
-X-Gm-Message-State: AFuF++l9wn/BX+6YqNlmyRpOzu3L/PW1STXMIZAZORGRmzex96qvzpHG
-	yDBFkbkJsUYIMDzdqFzmVxi6R542FId72cgQnMLg1uNw9F2WqkKBdjsYcfy9GHIpwW7YSUQAGLt
-	JqvCg
-X-Gm-Gg: AYBFou2IjX4S6/miJqifUveGP+LKaKZ/uzpFtvlVFliM8e5n1cczqMbn+lHir3/QIVf
-	wED7uGi5q+HngjZjRdLgfxnPpytWmRxIHByeMg8jhudT5CMDGO51TV1kf8hGzCZysZ08Iq7D7l9
-	ilQ3c1fzRrm7kDLRG+Fe4EMwR38fJYD7WvWHB0uIQDwqLPi4XhBQjYNtNxVimyFYasWGNutIVRF
-	hXOxjtJiIzcv6MXhdO2b9vDZYMjr35J/RnrSjwU5ta2hVbHPErUhy0ud0e1/WMWaTSIOa/qkhD8
-	pZ+mnClViGGVz/LG8sMfrZtFhrXW7c+srPzS9sAz0M/+JhNLKThQtluvcGehxDtIDL2uNvcvII2
-	mqS/MNhwYSs2Q73vGBQ09UNykWB9b4HEp9vmpMx5nA+bnygAkU9HxiY4lJa97SkbNNnjzt4gnhl
-	K8JuRVOG1Z2PylW0hswdsSfXWJZW/Z9m4VgUD41dw0w0jvcRcl31QDNP8g15oRbSM58Xg+UDVrF
-	KhjNSqfxAO6OfI=
-X-Received: by 2002:a05:600c:6994:b0:49d:870:7a69 with SMTP id 5b1f17b1804b1-49fdece13dfmr43378995e9.12.1790174952299;
+        bh=Z1JAcPQg636JNOKXQW2C4J8TQkuklMU5EX+3CopghKI=;
+        b=rf7Rd3yrheAxIb4slY6uEi7o9ObPVDBESnr9YMSWd4dBXHTjjfesvEy34bgLVsoUBS
+         CwRljJgDtBR5eMatfXjbtc4u5EE1M2oOdBBrqGTT9zrWXMVphP6hBJBR1eg5WW0NsNWr
+         v1EgkDPIOGmzyTniyYOn7p2TXVfWPEH+z+9LutEJY8Zl0P7SfecWOzG9GY7PbQiB+r+1
+         t7BOaa1ja7BC0tWfyqtFHy42KgM+Isl749ulBwVDqb4RgaFnRsQ7OCjf0sd/vjxuep2s
+         OZJmW82AAyoht0J7vjsqQLVghuLQPBD6r/m1V9s1H8Zr+C5AEsK2x2v70GKoXJlF6sAp
+         2FQQ==
+X-Forwarded-Encrypted: i=1; AKwUvByjc3TDk5Gd1HbfLrqM+07DqKUNbbOUarHtuMd66ZgsmEBc8qM3L/QNHktKrTCoNZRWcP2yrOybAaLprgs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5rI7gbLNo+q0BQdzXsAiu0thCzdGnPYeiNrkjrD8+pQtV7OIk
+	BGBk5CcDg0AyCgUgv8Emnf2k9U7wZ5vi6f9gBl3mfZLQWRyr7SIrz5TJ
+X-Gm-Gg: AYBFou3bxXNBU6yDjH8NgJia19Lk/PNWPz7aiO9a5tl8FLKWHqbHnBw09Wyn++3xcwy
+	dMSOrJ91/0/vaM8irRrDLb9UDOjTrA8QBolbfIBjtwuO/EGq+yHIeBBLgk/+Qt/NeLb8p32A+g9
+	rXJzZga36kixgd1YN30V77QNpzgh1Ke/QJVq37ZZIqJ+DyDj7N7JiLNtvTatQk1hvG81TUsuBGn
+	dqwsnJw2bDV84uoWNnkyrgFoHVHxp5Es2OZasBYrMqkNIv8SGusWwXuEam1+I/upNdkDLVaPiLy
+	QS3zmOo1SAznLt9ahS1LaGZoFXKd83mOM4RuD8uj0EjR7wMWFhX1wLToNfi2lG4NG0qnBUjUuDj
+	CqwvFyBIUWwiJPvFWBtMbqn4bno9LNdSyIvEw2l/qsvE53eMJofuko8MPDLB2jGguEVBXSdzCYT
+	7O/mWj64RUTFQB2D3qKc0pTsYg43GCyzzdJQhr1Xjcmy6is05EiknkQvuMRTlgZRaUsSDGzPSig
+	U8893neE/VHL9FtR5h7fFiPW7SpMUq+ERKRgrcu
+X-Received: by 2002:a05:6820:4cc4:b0:6b1:3552:3195 with SMTP id 006d021491bc7-6d2cfd50098mr2368712eaf.11.1790174952926;
         Wed, 23 Sep 2026 07:49:12 -0700 (PDT)
-Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1aca52sm82614915e9.14.2026.09.23.07.49.11
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d2c92c2619sm2788537eaf.0.2026.09.23.07.49.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:49:11 -0700 (PDT)
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	arnemaximilian.richter@draeger.com,
-	martynas.grybauskas@draeger.com,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v1 1/2] dt-bindings: arm: fsl: add Draeger M48 dual-cpu board
-Date: Wed, 23 Sep 2026 17:49:03 +0300
-Message-ID: <20260923144905.3365851-2-petko.manolov@konsulko.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260923144905.3365851-1-petko.manolov@konsulko.com>
-References: <20260923144905.3365851-1-petko.manolov@konsulko.com>
+        Wed, 23 Sep 2026 07:49:12 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Allen Pais <allen.lkml@gmail.com>,
+	sparclinux@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] sparc64: kprobes: fix relbranch_fixup() for BPr, FBfcc and FBPfcc
+Date: Wed, 23 Sep 2026 09:49:07 -0500
+Message-ID: <20260923144909.414968-2-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923144909.414968-1-danishkhateeb03@gmail.com>
+References: <20260923144909.414968-1-danishkhateeb03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,39 +85,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-M48 is a heterogeneous board made by Draeger that is based on two
-independent cpus, that are monitoring each other.  One of them is
-imx6, the other is Altera SoCFPGA Cyclone 5.  The latter is booting
-independently off qspi.
+A kprobe single-steps a copy of the probed instruction in
+p->ainsn.insn[]. When the copy is a taken PC-relative branch, its target
+is relative to the copy, and relbranch_fixup() moves it back to the
+probed code. It only recognizes call, BPcc and Bicc, though. For a taken
+BPr (brz, brnz, ...), FBfcc or FBPfcc it keeps the target as is, and the
+kernel continues at the copy's address plus the branch displacement.
 
-The imx6 parts that are used in M48 are imx6q and imx6dl, hence the
-two bindings.
+GCC often starts a function with a BPr on an argument. For example,
+__se_sys_getcpu() begins with "brz,pn %o0". With a kprobe on it
+("p:kprobes/kgetcpu __se_sys_getcpu" in kprobe_events), the first
+getcpu(NULL, NULL, NULL) crashes the kernel in QEMU sun4u:
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+  init(1): Kernel illegal instruction [#1]
+  TSTATE: 0000004411001603 TPC: fffff800048d63c0 TNPC: fffff8000492631c
+  Kernel panic - not syncing: Fatal exception
+
+Add the missing branch formats. BPr is matched with bit 28 clear. The
+CBcond instructions of newer CPUs share its op2 value, but they have no
+delay slot, so a taken one never reaches the single-step breakpoint and
+this function.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/fsl.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/sparc/kernel/kprobes.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
-index 656f2596e1d5..8f3a04228780 100644
---- a/Documentation/devicetree/bindings/arm/fsl.yaml
-+++ b/Documentation/devicetree/bindings/arm/fsl.yaml
-@@ -260,6 +260,7 @@ properties:
-               - boundary,imx6q-nitrogen6x
-               - compulab,cm-fx6           # CompuLab CM-FX6
-               - dmo,imx6q-edmqmx6         # Data Modul eDM-QMX6 Board
-+              - draeger,imx6q-m48         # Draeger imx6q variant of M48
-               - ds,imx6q-sbc              # Da Sheng COM-9XX Modules
-               - embest,imx6q-marsboard    # Embest MarS Board i.MX6Dual
-               - emtrion,emcon-mx6         # emCON-MX6D or emCON-MX6Q SoM
-@@ -458,6 +459,7 @@ properties:
-               - boundary,imx6dl-nit6xlite     # Boundary Devices Nitrogen6 Lite
-               - boundary,imx6dl-nitrogen6x    # Boundary Devices Nitrogen6x
-               - bticino,imx6dl-mamoj      # BTicino i.MX6DL Mamoj
-+              - draeger,imx6dl-m48        # Draeger imx6dl variant of M48
-               - eckelmann,imx6dl-ci4x10
-               - emtrion,emcon-mx6         # emCON-MX6S or emCON-MX6DL SoM
-               - emtrion,emcon-mx6-avari   # emCON-MX6S or emCON-MX6DL SoM on Avari Base
+diff --git a/arch/sparc/kernel/kprobes.c b/arch/sparc/kernel/kprobes.c
+index 191bbaca9921..9a26c57c8d33 100644
+--- a/arch/sparc/kernel/kprobes.c
++++ b/arch/sparc/kernel/kprobes.c
+@@ -207,12 +207,15 @@ static unsigned long __kprobes relbranch_fixup(u32 insn, struct kprobe *p,
+ 	if (regs->tnpc == regs->tpc + 0x4UL)
+ 		return real_pc + 0x8UL;
+ 
+-	/* The three cases are call, branch w/prediction,
+-	 * and traditional branch.
++	/* The cases are call and the branches with a PC-relative
++	 * displacement.
+ 	 */
+-	if ((insn & 0xc0000000) == 0x40000000 ||
+-	    (insn & 0xc1c00000) == 0x00400000 ||
+-	    (insn & 0xc1c00000) == 0x00800000) {
++	if ((insn & 0xc0000000) == 0x40000000 ||	/* call */
++	    (insn & 0xc1c00000) == 0x00400000 ||	/* BPcc */
++	    (insn & 0xc1c00000) == 0x00800000 ||	/* Bicc */
++	    (insn & 0xd1c00000) == 0x00c00000 ||	/* BPr */
++	    (insn & 0xc1c00000) == 0x01400000 ||	/* FBPfcc */
++	    (insn & 0xc1c00000) == 0x01800000) {	/* FBfcc */
+ 		unsigned long ainsn_addr;
+ 
+ 		ainsn_addr = (unsigned long) &p->ainsn.insn[0];
 -- 
-2.47.3
+2.55.0
 
