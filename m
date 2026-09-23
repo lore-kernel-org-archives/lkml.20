@@ -1,133 +1,182 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF18F47012D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59AA446074;
+	Wed, 23 Sep 2026 09:26:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155578; cv=none; b=Fw8Ys9ttZ8HI7MSQhlKuFShEwAPUrQbGRfevAfPegcrR6UdbCYxBsjYeUDrohkzV709QQXCsiZXAnyVfi//2ttjh4VGTeLIRx9pyCXU8p8vTxvxDvDYf/w4jv/qkCtgXqFtkIANMnqWB1uStbyPRZ7ZDDVzT6i3fqIzVlrCouIM=
+	t=1790155583; cv=none; b=K7+G/Chv6HVydMY8lTiw1AFrKZVBpaXxgAT06r48Se2gpZwSZQoIimw0A9werFC4xF0I8JtxGmBC+nqDVJ0aLSgRiZjrt3khSdBc0uHirM7KF5WmPcjSxO9uT+uIBv3dtqzgU7SXA9c8P61x5B97aS08ngC11EMKyciSW8Tir1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155578; c=relaxed/simple;
-	bh=YuHsXKmtt1Yf4R6473fQ7ueJUHFzOqYtmF58xn6NqZA=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AqT5o4zO/fmrp3KxPGUha0aQiqbzl4uJxCt/ym0iqixkVelp+qAKL/r5/mn2GjRZzxULKk/DTAZm0q2ms0hjIiXcwsarxtLXKqjnBOegqSvyuQwq0MPv8D5PDOYrbAEygRuO5+SViuz/Sg8ci3YhRb/PAjhh9b9Q6MgGqzxYzgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=SqPInnDC; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790155583; c=relaxed/simple;
+	bh=YZHzbEixna3Eo+/4Y7t3C4H7+hX+/vEpExN0RBbdF8g=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KC47bTo4KIWRgnfiEXfU+IfJXof81EhLjOItHIUaD5tgDu1DRhl5XlU9AtQRcI+K/Gbc8GfRNSvVjOe1JA+9fFQChaNMf5aI+5SRV5/aVV+3gAZV8OdP+PHyseInHAwn1XnkxnHOcq/AKaKKPWmxaDoZdSl1AlaVTquqdb37X14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=tHRCIe6z; arc=none smtp.client-ip=35.83.148.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="SqPInnDC"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8ZTrm2907112;
-	Wed, 23 Sep 2026 09:26:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=
-	content-type:date:from:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:to; s=pp1; bh=/Pb/HPk8qE15QQIw9lXoM
-	FDPPQbYIBOkhW3LZaHPdyI=; b=SqPInnDCIXn0fGp9dgyE8yINNF0jZwcpHDCMJ
-	2xpghe0+mYu5JUPmosKMuKIZ8UjA2ZYjw+CcpHgQ+q8K2HvqjyygZ3YOTJmXdQm1
-	5/+Zh1P7mvVod+4eGQJZeAxLGrd+msoWyYEd5Sujgd/h4i1xsvYSNofoQ0qtpGQ+
-	tr8N5X2Bdmg8vO+/cEs1e9uCaSf3ftHk5f/GrVa/Pkewyt4TXrdrIunhUYihDG9j
-	DBd0hCE13xdw7rp4MuUAQ/5ACatkp9BTgJXt1nPi5vdbkDPlu3wN77r93p7S5VeT
-	TNCAAvvlmvlz+JK6o8kExQu/TZaXbY46fnB9ZSRFwUf4qu84Q==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgsa9cg-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 09:26:10 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8LwuS008049;
-	Wed, 23 Sep 2026 09:26:10 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb6qg67q-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 09:26:10 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68N9Q6dj47317366
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 09:26:06 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5CF4720043;
-	Wed, 23 Sep 2026 09:26:06 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 27CEB20040;
-	Wed, 23 Sep 2026 09:26:05 +0000 (GMT)
-Received: from linux.ibm.com (unknown [9.126.150.29])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Wed, 23 Sep 2026 09:26:04 +0000 (GMT)
-Date: Wed, 23 Sep 2026 14:56:04 +0530
-From: Srikar Dronamraju <srikar@linux.ibm.com>
-To: Josh Poimboeuf <jpoimboe@kernel.org>,
-        Brian Johannesmeyer <bjohannesmeyer@gmail.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] Revert "scripts/faddr2line: Combine three readelf calls
- into one"
-Message-ID: <arObLLalNd_fMi2u@linux.ibm.com>
-Reply-To: Srikar Dronamraju <srikar@linux.ibm.com>
-References: <20260905012449.3872882-2-srikar@linux.ibm.com>
- <aqhDm60zSZIazrnC@jpoimboe>
- <aqiqScJg8Ey5QnKl@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="tHRCIe6z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
+  t=1790155581; x=1821691581;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=cN5MLZiwNeqRdcxWX8m8G6mrJrXWNABdWnBEab4FCPQ=;
+  b=tHRCIe6zHPBgtJBX5x9OZu4OqU8lwtIDi3Ef/Ipa/dQLZ6IHSuyVkeP+
+   IobN4wDQTXEoYH22k0XRuLPU7BS64VoeWBwtuRQBKwNq4n03Oqr0XMVgz
+   zxVPCM8RJK394dd5s2nyINU04TMvjq0UPySJtGLPwa2DshA5eZiv9Uz6r
+   t/C1eOaJghKyzC+Pyr4ftCueHvaUpQCXdjyC1LwhzACoea2s50SCFHXsn
+   BqejQSz14Cbi95zuiyVj6A4RfNFpbcAL9h1qSYkZguxFAERfsdSkrtWQS
+   eLj40drnLD+hjA+PnWlQQFpqra267cBfK7RzwSg2rKjoPGBoMITU31dgI
+   A==;
+X-CSE-ConnectionGUID: Swfc1b/cRayzY0r31UWeqw==
+X-CSE-MsgGUID: rikSOqHrQaeO+po9b2UnIw==
+X-IronPort-AV: E=Sophos;i="6.27,118,1787011200"; 
+   d="scan'208";a="29214507"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 09:25:29 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:5405]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.59.1:2525] with esmtp (Farcaster)
+ id cd567582-b90f-43f2-a34a-5f02aae20a7f; Wed, 23 Sep 2026 09:25:29 +0000 (UTC)
+X-Farcaster-Flow-ID: cd567582-b90f-43f2-a34a-5f02aae20a7f
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 23 Sep 2026 09:25:29 +0000
+Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
+ (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Wed, 23 Sep 2026
+ 09:25:25 +0000
+From: Salvatore Dipietro <dipiets@amazon.it>
+To: <vbabka@kernel.org>, <akpm@linux-foundation.org>, <willy@infradead.org>
+CC: <abuehaze@amazon.com>, <alisaidi@amazon.com>, <blakgeof@amazon.com>,
+	<brauner@kernel.org>, <brendan.jackman@linux.dev>, <david@redhat.com>,
+	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
+	<djwong@kernel.org>, <hannes@cmpxchg.org>, <hch@infradead.org>, <hch@lst.de>,
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, <linux-xfs@vger.kernel.org>, <mhocko@suse.com>,
+	<ritesh.list@gmail.com>, <rvvandan@amazon.com>, <stable@vger.kernel.org>,
+	<surenb@google.com>, <ziy@nvidia.com>
+Subject: Re: [PATCH v4] mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
+Date: Wed, 23 Sep 2026 09:25:12 +0000
+Message-ID: <20260923092512.101833-1-dipiets@amazon.it>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <6c94405a-48e4-4842-a096-e2fbbbaa862f@kernel.org>
+References: <6c94405a-48e4-4842-a096-e2fbbbaa862f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-In-Reply-To: <aqiqScJg8Ey5QnKl@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab39b33 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=VwQbUJbxAAAA:8 a=uZoqLgDn0AsYzM-udzAA:9 a=wPNLvfGTeEIA:10
-X-Proofpoint-ORIG-GUID: TxBX3XJefu7F2_p06RZKwIsiUGgtT4ud
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAzNSBTYWx0ZWRfX9CttZq7zgnxB
- t+Uq6P603T1ZglTzefMiPLhZFS5MCs49GaqAGNV83L705TjJqj6CwPxZXf7vGmtvYD1DGT+7Muq
- +Tzg6uKliqrfR7bhbGfJ886uiTAjWTokB7ijmKF0mTORJptjjI59gwRLURlGiVGsZ+k0QjuDKsg
- TJ0AcCJxoBVJeOLpN9Nn0/l+bOznV3LP1HgxKMfZd5rzVLfeGCLZxYoW04TehnO7dxOLQHiEUpI
- kHQZgWAidWhIU7sUXhWogxjGG1Bdj6tsQUMqju+EwBDT1/Qy7jnveDG3+FRvsmkO5gtYrKDVwjO
- BrxOQv4n+wUXjkrLbzbyXICpzfQpFAIgebwQI++woaqXITAH6wBw1UHta2Tt8ejBF6row5Z5aUO
- VCsKrFj+DGyXWFgmFCt3NmOaaYdgYRhJhuHiFc2c3NWIC89J7qdcVnlB4kh7AfozOmQ4F1Fc+jv
- LeBI0NeCqG14nlzVrBw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAzNSBTYWx0ZWRfX9bOSIgz3krSJ
- tIbgmkVyq19UVUjRqh7I9vVpzcZiIuFxv4rjSXql84Zg4oarHHOzpqkMVsCVbcG1p/NuEGqyUW4
- 5i8oucfoNxQE4ogaJ91c52rOXGq8nyY=
-X-Proofpoint-GUID: ADsUo_F8NtOgviKY6q7Sh_ih7Q0BpUnX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230035
+X-ClientProxiedBy: EX19D032UWB003.ant.amazon.com (10.13.139.165) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-* Srikar Dronamraju <srikar@linux.ibm.com> [2026-09-15 07:45:37]:
 
-> * Josh Poimboeuf <jpoimboe@kernel.org> [2026-09-14 12:00:26]:
+On 9/19/26 06:13, Matthew Wilcox wrote:
+> This patch is still piling hack on hack.  We haven't made a serious
+> effort to understand what's going on, we're just adjusting flags until
+> things stop sucking.
 
-Hi Josh,
+I have tested two new kernel patches on v7.3-rc1, each isolating one behaviour
+(diffs at the bottom), and ran the same pgbench simple-update workload
+(1024 clients / 96 threads / 1200s, 3 iterations each).  Baseline is the
+unpatched regressed kernel; target is ~135k, the pre-5d8edfb900d5 number.
 
-> > > With the revert, we end up calling readelf three times but this should
-> > > still be fine since calling faddr2line is a debug tool.
-> > > 
-> > > Fixes: b8d9d9496c1e ("scripts/faddr2line: Combine three readelf calls into one")
-> > > Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
-> > 
-> > Can you run
-> > 
-> >   bash -x scripts/faddr2line ./vmlinux need_active_balance+0x1d4/0x21c
-> > 
-> 
-> + set -o errexit
-> + set -o nounset
-> + UTIL_SUFFIX=
-> + [[ '' == '' ]]
+  Config                                          Avg TPS   % vs baseline
+  v7.3-rc1 baseline (no patch)                      59,408            -
+  (a) post-reclaim drain step skipped               70,615       +18.9%
+  (b) compaction disabled only                     107,210       +80.5%
+  (c) v4 (full non-blocking, reference)            154,835      +160.6%
 
-Did you get a chance to look into this.
 
--- 
-Thanks and Regards
-Srikar Dronamraju
+We can notice that:
+
+1. The drain_all_pages() IPI is not the driver.  (a) skips the whole
+   post-reclaim drain step for costly __GFP_NORETRY -- that is
+   unreserve_highatomic_pageblock(), drain_all_pages() and the retry
+   together -- and the entire step is worth only ~11k of the ~96k gap.
+   Whatever the split between the three, the cross-CPU drain cannot
+   account for the bulk of it.
+
+2. Turning compaction off is not enough.  Your gfp_compaction_allowed()
+   one-liner (b) gets about half the gap, and it declines across
+   iterations (135k -> 98k -> 89k).  It drops compaction for
+   __GFP_NORETRY at every order that can use it, __GFP_THISNODE
+   excepted, not only at the costly order v4 gates on; the decline is
+   consistent with the zone no longer being repaired.  (c) only makes
+   the costly attempt non-blocking and leaves kswapd/kcompactd working,
+   and it does not show the decline.
+
+3. We have collected metrics to understand how often the
+   allocator stalls and normalised to a million page writebacks (nr_written),
+   over the same 3 x 1200s iterations as above:
+
+                                        compact_  allocstall_   pgscan_
+                                           stall      movable    direct
+     v7.3-rc1 baseline                       513          277    90,230
+     (a) post-reclaim drain skipped          912          472   129,249
+     (b) compaction disabled                   0          778    44,737
+     (c) v4 (full non-blocking)                5           39     4,407
+
+   The baseline enters stall compaction ~100x more often per page written
+   than (c) does.  (a) makes all three metrics worse.  (b) removes direct
+   compaction entirely (0 stalls) but does not remove the work: it enters
+   direct reclaim 2.8x more often than the baseline (778 vs 277
+   allocstall_movable), and still does half the baseline's direct scanning
+   (44,737 vs 90,230 pgscan_direct).  (c) cuts both instead -- reclaim
+   stalls 7x lower and direct scanning 20x lower (39 and 4,407).
+   That is why (b) recovers only half the gap -- the stall moves from
+   compaction into reclaim instead of going away.
+
+If you agree this is the right direction, I am happy to send a v6 with
+(c)'s behaviour plus the defrag_mode fix discussed in the v5 thread.
+
+
+Thanks,
+Salvatore
+
+
+---
+For reproducibility, here is the exact diff behind each measured row
+above (all against v7.3-rc1).
+
+(a) post-reclaim drain step skipped -- 70,615 tps:
+
+  diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+  --- a/mm/page_alloc.c
+  +++ b/mm/page_alloc.c
+  @@ -4487,7 +4487,8 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask, unsigned int order,
+   	 * pages are pinned on the per-cpu lists or in high alloc reserves.
+   	 * Shrink them and try again
+   	 */
+  -	if (!page && !drained) {
+  +	if (!page && !drained &&
+  +	    !(order > PAGE_ALLOC_COSTLY_ORDER && (gfp_mask & __GFP_NORETRY))) {
+   		unreserve_highatomic_pageblock(ac, false);
+   		drain_all_pages(NULL);
+   		drained = true;
+
+(b) compaction disabled only -- 107,210 tps:
+
+  diff --git a/include/linux/gfp.h b/include/linux/gfp.h
+  --- a/include/linux/gfp.h
+  +++ b/include/linux/gfp.h
+  @@ -380,7 +380,8 @@ static inline bool gfp_has_io_fs(gfp_t gfp)
+    */
+   static inline bool gfp_compaction_allowed(gfp_t gfp_mask)
+   {
+  -	return IS_ENABLED(CONFIG_COMPACTION) && (gfp_mask & __GFP_IO);
+  +	return IS_ENABLED(CONFIG_COMPACTION) && (gfp_mask & __GFP_IO) &&
+  +		(!(gfp_mask & __GFP_NORETRY) || (gfp_mask & __GFP_THISNODE));
+   }
+
+
+
+AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+
+
+
