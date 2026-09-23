@@ -1,394 +1,196 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013001.outbound.protection.outlook.com [40.93.201.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA91362156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180C4361949
 	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790127857; cv=none; b=WYnZUgJMN900fqQ0jKaBW4r5Qkw/SUWiEJ8pOO17i7JHm6XUrLsGmRTLplosEVSwgfLfsUT+0JL45lh5H3gjwimbaTNVlW4Ch1r4C5sEzqxr6K4Jq7TkRc1LTnS2kLk6qGLrhBpxLwQ4HkzTfI04qZ0uxZ8GOAxWzii1dgMMDDE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790127857; cv=fail; b=kqFGFcMLCYf1rIRSupADANkq9HeTCRbAAg3QnTtSNayU8Vpmg8YMuzhmXQa3pv2opbfvr8jHJ07RRnZNOsf5yyM2mQtQi/iXrfyiDpk5qA4j6aFOC+E6Ft4VKK6sjQ9OrqJeldGL0Wn3He0J84tPz6rGArbGkLiOZMd+hDYNz6E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790127857; c=relaxed/simple;
-	bh=fDfrKOU15wbc0Ee0E+6eKPVqnxqrF0/03jTgcJOTn3M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JJ1jy780CQjfXCNLYYGxl1NmOCweOYSlA5hyXxLn2CzRANTCKjUaPkY5LF8sGfMdtDggJpzVQMY4MnEkCaMetAZqiSUi2KMMYr9hXlBkJt/hDlKKEnkhJGaDZhRCYh5rQ2llOQMzX2ipg8F/RpFJmINcCZttz95tFmUoIlyjvXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NZ07wKKn; arc=none smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=UDQ3dOaIP59EemEwmOgdHXVsAium4IbvLuxGbrhJpyk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WumzBl1G3U8nL3Z6DmAnkHsTKvg6p2pWBWYq0gt4UCxzeETNa1FKZggi2oX1n2k3Ma6sBrdt7g2Z7lnjNaeGRO9E39EYgVG3wkirpVRHzkAPQsJ5QoVrKme8LfeVWMyyGGj+xqqcjeLJycqUxGcW3O/Ehi94aTOfM6bCkIi0NJk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Y8EDy6Zm; arc=fail smtp.client-ip=40.93.201.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NZ07wKKn"
-Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-80a6fbf797dso138152a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:44:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790127853; x=1790732653; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/LqqH7LQbtiMxbPxdRtIj8/NsCNypyGdLoH8DQpzo8g=;
-        b=NZ07wKKnSQAh313H9vrGi/gjgJj/4S9VP8fS0UermmjIo92p5Wu8OY5CErCxvmDgiP
-         GvBfPTUy/xgDeNjcg3VNJHcc41ADZ/pLi8+gXqniDbCSc0FxOeK8/aP8MKmrVSjMeoO4
-         uDn2LXQvhpoJgnMwyM27NGYPk+K4xWyMbNuVWBc5dSNFNeskvKZkz2BfC8mizGsyEvWG
-         lilEvR2AZaoj7/hm5iahqd7p+hIVzriMlWqNTatdQxVwra0zHgmsMqINvfon22X+93mi
-         k2XmZ985brmSlsN7gKdVFBvyXBovHqzFZFBTheW5Ldq6lzuMn3z0gqsD8FszgAA0/5bj
-         NiWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790127853; x=1790732653;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/LqqH7LQbtiMxbPxdRtIj8/NsCNypyGdLoH8DQpzo8g=;
-        b=jpqY7UGlI+kzk6JKPiYi1750l85JmsWZkkpGL8if0Jsuu38TEajtgtz2Yg+gtJwn5D
-         gvlaQFnnxDrkUD4UDqaauf2hfhN8SROtDMwM9kNMVKqFKRm9Ny6b2s+U3Snk4sIIJ8d8
-         NcH52DrwSYddYQ+oTOIhjwO4l8IcooJAncfQHFdMatz1OjRZ8gAQ03NhAoKPnSrv3DLZ
-         FronuVZEYVknzcJxUhNQ1B3m8VnDL/SdFrmWPHzmpy4mAYyuzFVs/LjpjB+H59ejq2/V
-         V33rGNt8lqHtfs2TP3zaX8MKcXNpzYMrUSvQ0o/zDmLelWYlHuSiuQIPsWA41rIlYlR3
-         pG9g==
-X-Gm-Message-State: AFuF++nnKzkp6InBXqj7eyl9TzNAhBlAcidOCApH9wnEexD1+RJtV+qb
-	j2gU9ozwsITfwV/rlqskaCkzNFrxnz0ABEZwWMfi2d/uyMoUt/cGD/TA
-X-Gm-Gg: AYBFou155dL302zQSflYIi/uE0H1euPZblUucgYuoW1tO18u5W+4A7HvxIamf5J+s18
-	l4Qa9C+rnYuFHJUHyuW3YRwJi+/MQ+DCrV38N0NicNv5kXVAVGQToDrcAz4xNreFAGd21Bv+T8a
-	cpfQpmzRNkoKa/td/6/Q9OUb0UkpVOueTI9F7jnMn76jhA9tHb1JU14YCRfzMJ2jVchHsAycs4l
-	3lLmlJ7C7LwSiYz7JPX87fkpMpOEr7zvAztP8urU4fsy/+doOcJY21xQjC57UG/c7NGjqWpR/nk
-	K1hJWBFwNyZnEk6NJsBBql68xksi+Y0NqOUhmOlKF7IEoTF4BKhpNx8Fa9khEu6JbnkFTRyZq7A
-	XiZc1ciuqXI3RQE/XDLBQX5Z6rRVOyYqksnRq9NMNZcpvH8SB63vqgAvWHP6eKGRV0XlN0MhoZ3
-	ImNFPLcb5guCVymrXiKAxNQ52Aw4HOxbfJ+L4+odFTcVLzCDLb5qbz4Fd+Q4PWhTEniyIjUU7Il
-	WuJTp4=
-X-Received: by 2002:a05:6830:a8b:b0:804:e0e8:1a86 with SMTP id 46e09a7af769-815f8293edcmr1167638a34.1.1790127853049;
-        Tue, 22 Sep 2026 18:44:13 -0700 (PDT)
-Received: from localhost ([2a03:2880:30ff:75::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-816049b51b2sm1597058a34.22.2026.09.22.18.44.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 18:44:12 -0700 (PDT)
-From: Daniel Zahka <daniel.zahka@gmail.com>
-Date: Tue, 22 Sep 2026 18:43:43 -0700
-Subject: [PATCH net-next 5/8] eth: mpnic: start and stop the Tx HW queues
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Y8EDy6Zm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eNxEAKUF+qs/EFA3O6pab4Aidn9lZlT8pQb5XB1ZEr8/8Yu8gxvQ5vjd5xk7TacR+5o4S5sdPTcnUIPYcUCguAx03Tnuv33CHMX2Pv+vUe6q0viLFzWG6Q6ANfYKVQTsDpC/wLVvhEOoZWxiWg2lgXNbsVpTnpwq7oMZjHa1BmDO6cfRRsr1OVfUEUgYI310eRnOxMCkHoA8xfP7+Sr4hdo05Jx3lQE7Z+pwr7D7IYiedNEL9XJUuzxMTsWLONl0YVPEn1UCLJA0X/cJYEFjKOdZR1Ow+aIpwhMH8idnRYpNY3suOofmrImO9C4Nj4osVCPaAijO2qzqTWqudSP51A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Is5Y7xQvXusv2X0tOqmIGIfFzngvRwa9qztt8LO/A4I=;
+ b=U4OyEcpk9Xra79x9PYLfWdng037oJYyUf47X0jPHmrEGXB202JjA0mX1Yd8QiCKjUKEXoMCDIRo+7mlt05r7Okx2ujS/UiJA/y8GPpNyRdaH/mFl9VOf0w3rfJGZ+weLBpargV6Az/SAvYq3XwJirBLqI9laPUHjlRGMnP2hMgh9Q8qTJWi3VcLxpos69soBpho5HDbYK8LHiFjmsMq9boAelW4lxPvdzBcUPw6oxraYt9CLBF8rTCSMEZKBVpoCmsffeQB21M4HEAeeb0cKpjY/C62VPTsZGYLo3/CT0zGwoaF0ZIof+I+4kG/WqPPBMmE4dy6i1xtDL53lyFVdlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Is5Y7xQvXusv2X0tOqmIGIfFzngvRwa9qztt8LO/A4I=;
+ b=Y8EDy6ZmCt5KdRmVdRZRK+KOk2WGcH5eqdVA1UxW3lBlr1KCbTM2NjLKfLVUTbltrGm34gcFX8EIsQxRLRab76JnMR7qDEbsun1+ic0mcnFcN5edVM8N3OB0pVaka8zT4zVmu1RkRK8fSnzibXobtqc7kOphaSkQDuNtetR421ol79ncnyM1rpRpuqwfAjNrJoQWWDbRLqvaShLgzJtCwM8X8s5PdjXuai+Kck1fLH76yE12tXt60V3kdqiQ3Qybwggfuf7ZeqjftXOBJqxH8upEXcg358SwwJ0/hajq3NEcyTL41/53Yc/0dy2UgUlkUDnIsHcaigwpyAPQi0lihw==
+Received: from CH0PR03CA0225.namprd03.prod.outlook.com (2603:10b6:610:e7::20)
+ by DM4PR12MB8500.namprd12.prod.outlook.com (2603:10b6:8:190::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Wed, 23 Sep
+ 2026 01:44:08 +0000
+Received: from CH3PEPF00000009.namprd04.prod.outlook.com
+ (2603:10b6:610:e7:cafe::6c) by CH0PR03CA0225.outlook.office365.com
+ (2603:10b6:610:e7::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
+ 23 Sep 2026 01:44:08 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH3PEPF00000009.mail.protection.outlook.com (10.167.244.36) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 01:44:08 +0000
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
+ 2026 18:43:48 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
+ (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Tue, 22 Sep
+ 2026 18:43:48 -0700
+Received: from nvidia.com (10.127.8.12) by mail.nvidia.com (10.129.68.9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Tue, 22 Sep 2026 18:43:46 -0700
+Date: Tue, 22 Sep 2026 18:43:44 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<kvmarm@lists.linux.dev>, <iommu@lists.linux.dev>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <maz@kernel.org>, <oliver.upton@linux.dev>,
+	<joey.gouly@arm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
+	<joro@8bytes.org>, <jgg@ziepe.ca>, <mark.rutland@arm.com>,
+	<qperret@google.com>, <tabba@google.com>, <vdonnefort@google.com>,
+	<sebastianene@google.com>, <keirf@google.com>
+Subject: Re: [PATCH v8 12/25] iommu/arm-smmu-v3-kvm: Probe SMMU HW
+Message-ID: <arMu0An215TY3tM9@nvidia.com>
+References: <20260922131259.2975334-1-smostafa@google.com>
+ <20260922131259.2975334-13-smostafa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260922-linux-mpnic-v1-5-236844f53072@gmail.com>
-References: <20260922-linux-mpnic-v1-0-236844f53072@gmail.com>
-In-Reply-To: <20260922-linux-mpnic-v1-0-236844f53072@gmail.com>
-To: Alexander Duyck <alexanderduyck@fb.com>, 
- Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Paolo Abeni <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>, 
- Daniel Borkmann <daniel@iogearbox.net>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>, 
- Stanislav Fomichev <sdf@fomichev.me>, 
- Dimitri Daskalakis <dimitri.daskalakis1@gmail.com>, 
- Mohsin Bashir <mohsin.bashr@gmail.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- bpf@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260922131259.2975334-13-smostafa@google.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000009:EE_|DM4PR12MB8500:EE_
+X-MS-Office365-Filtering-Correlation-Id: b18d4476-eefe-47b8-b0c7-08df1914290e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|82310400026|23010399003|36860700016|22082099003|18002099003|56012099006|4143699003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	bLpoFioSzEXnlBjYoEFBavRuEv2uFEqPUaIBZ126OrWybIyiin2rXlLGhCyO0lx6EBzFDWRHLnGHLP4cCqEF5szWzeTZjOsyq8PFfUpI4ffjdKB8bGl/qoLqMbS1Ag71y+rtanBqu1PThzXKchbE6QMue67hKuriKuEevlsiDU06N92+pofmQUFRAzTDJ+tDkkUVzu37BaD/mEfGrT1tNYQ8CxJqbZhs8gRC4K5cC9uhSiLwBFK70uO1cX1/AiQr2caMDYd2nEY+ZfEHeZva75XPVBsKTcG5vMKLwSE/X+t9DLvo/OW5HLXdwnEUtFnxu1QQXz0O4mUxsExLEFQpSeB2aR+kNkf6h6ESlIh6hWyexBc2zgEdgkUZGaY/nyt4kLcL/fOdp/HqHDlzJwkasfYaVY5j4M+Lmk0uDa9R8qUjVc4ZVD3e6oULfx4ZTmIWftKJMlGEOUAyENTC9sdq1+3RpMSziR1/QklqJcIaDeJTwIo6waqFCKW8iP416B1mNnP2z0R4Wgv+49H1GWxdzN7N0qm5ZiZWlTUT2ygolfFHitqyQGGxXAVk+5izgph0o7yX1Ma1ZWdQeGYdwjI8ekndlGzDmIyHwwYpG5Sr3U/XuX5anxU0rssL/N7TLWXH1bW8SHVxT6k307J4ECMgQxeslVn5e874gWClPBHW366/brz9IGb91n5kq+lfOa7bO3+Gky3c8bQ0kI2bjC83tg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(82310400026)(23010399003)(36860700016)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Pc2ov8xyjg68MpM7otGHjZ9atakZAdYAxtr5mmmp3pj7t/b2X4b6SY7+Wcq1QaMUchai4vtd8xiG1x1zMT3Byj8Lun5psOJKD+eYuIM3QBHbOlsOBpVeIXSTMUKKJU/NB45nTBuiq0haiesWXzWnonue3odiCItEUePo4wqEmsZdgRRNQtaRiVWnwhKWewEYPLBJ7imqcLKkalOI2UM5WcaJnDy+UxqEj0DvlYrqCsRrJ2c/wNvM5oFBzT8ESF8sKBYoKmMQArBxFxgMeCMrQOPfYfseN0cfcfSiltcMj7S5evqAlYE/xRFgjL1KnBNXTItKH2uHeWCXCjdIzSKDEJ7D0jlh6BsMtVjaQSHCf6c1SYFBNKImXx1U1xS426FpkG00TNmF8WtEXyRpLaFskAYIwIik1YgvfcqCJEwKlMqG7Z8GJYrQ2lkNh5q4AZn+
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 01:44:08.7001
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b18d4476-eefe-47b8-b0c7-08df1914290e
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH3PEPF00000009.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB8500
 
-Point the hardware at the descriptor rings and provide functions for
-turning the Tx queues on and off.
+On Tue, Sep 22, 2026 at 01:12:45PM +0000, Mostafa Saleh wrote:
+> +++ b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3-hyp.h
+> @@ -11,6 +11,9 @@
+>   *
+>   * Other members are filled and used at runtime by the SMMU driver.
+>   * @base		Virtual address of SMMU registers
+> + * @oas			PA size
+> + * @pgsize_bitmap	Supported page sizes
+> + * @sid_bits		Max number of SID bits supported
+>   */
 
-Teardown has to wait for the DMA engines to go idle before the ring
-memory can be freed: disabling a queue only stops the device picking up
-new work, it does not tell us that the work already fetched has been
-retired. Each block exposes an idle bitmap per queue, and every one of
-the four blocks a packet passes through on its way out has to report
-idle before the descriptors are safe to free.
+Some of them belongs to one of the prior patches.
 
-Signed-off-by: Daniel Zahka <daniel.zahka@gmail.com>
----
- drivers/net/ethernet/meta/mpnic/mpnic_csr.h  |  28 +++++
- drivers/net/ethernet/meta/mpnic/mpnic_txrx.c | 175 +++++++++++++++++++++++++++
- drivers/net/ethernet/meta/mpnic/mpnic_txrx.h |   4 +
- 3 files changed, 207 insertions(+)
+And, if we are going to list them all, could we do in kdoc style?
 
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_csr.h b/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
-index 49595c495141..a2133024b2cf 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_csr.h
-@@ -37,11 +37,26 @@
-  *****************************************************************************/
- 
- /* NIC_CORE_TDF */
-+#define MPNIC_TWQ_CTL(i, j)		(0x0 + 1024 * (i) + 2 * (j))
-+								/* 0x0 */
-+#define MPNIC_TWQ_CTL_RESET			CSR_BIT(0)
-+#define MPNIC_TWQ_CTL_ENABLE			CSR_BIT(1)
- #define MPNIC_TWQ_TAIL(i, j)		(0x4 + 1024 * (i) + 2 * (j))
- 								/* 0x10 */
-+#define MPNIC_TWQ_SIZE(i, j)		(0x10 + 1024 * (i) + 2 * (j))
-+								/* 0x40 */
-+#define MPNIC_TWQ_SIZE_SIZE			CSR_GENMASK(3, 0)
-+#define MPNIC_TWQ_BASE_ADDR(i, j)	(0x1c + 1024 * (i) + 2 * (j))
-+								/* 0x70 */
- 
- /* NIC_CORE_TCM */
-+#define MPNIC_TCQ_CTL(i)		(0x80 + 1024 * (i))	/* 0x200 */
-+#define MPNIC_TCQ_CTL_RESET			CSR_BIT(0)
-+#define MPNIC_TCQ_CTL_ENABLE			CSR_BIT(1)
-+#define MPNIC_TCQ_BASE_ADDR(i)		(0x86 + 1024 * (i))	/* 0x218 */
- #define MPNIC_TCQ_HEAD(i)		(0x8e + 1024 * (i))	/* 0x238 */
-+#define MPNIC_TCQ_SIZE(i)		(0x94 + 1024 * (i))	/* 0x250 */
-+#define MPNIC_TCQ_SIZE_SIZE			CSR_GENMASK(4, 0)
- 
- /* NIC_CORE_TIM */
- #define MPNIC_TIM_CTL1(i)		(0xc0 + 1024 * (i))	/* 0x300 */
-@@ -51,6 +66,11 @@
- #define MPNIC_TIM_CTL1_MASK			CSR_BIT(51)
- #define MPNIC_TIM_CTL1_MASK_EN			CSR_BIT(52)
- #define MPNIC_TIM_CTL1_TRIGGER			CSR_BIT(53)
-+#define MPNIC_TIM_INTR_MASK(i)		(0xc8 + 1024 * (i))	/* 0x320 */
-+#define MPNIC_TIM_INTR_MASK_MASK		CSR_BIT(0)
-+
-+/* NIC_CORE_TIM_PRV */
-+#define MPNIC_TIM_CTL(i)		(0x100100 + 1024 * (i))	/* 0x400400 */
- 
- /* NIC_CORE_RBP_HP_GLBL */
- #define MPNIC_BDQ_GLBL_CTL0		0x420080		/* 0x1080200 */
-@@ -84,6 +104,8 @@
- #define MPNIC_RNI_RCM_CTL		0x427004		/* 0x109c010 */
- 
- /* NIC_CORE_TDF_GLBL */
-+#define MPNIC_TWQ_IDLE(i)		(0x428042 + 2 * (i))	/* 0x10a0108 */
-+#define MPNIC_TWQ_IDLE_CNT		32
- #define MPNIC_TWQ_DEF_PRI_TWD		0x428082		/* 0x10a0208 */
- #define MPNIC_TDF_MEM_INIT_REQ		0x42813a		/* 0x10a04e8 */
- #define MPNIC_TDF_MEM_INIT_DONE		0x42813c		/* 0x10a04f0 */
-@@ -101,6 +123,8 @@
- #define MPNIC_TQS_SLOWDOWN_CTL_ENABLE		CSR_BIT(6)
- #define MPNIC_TQS_MTU_CTL0		0x42a030		/* 0x10a80c0 */
- #define MPNIC_TQS_MTU_CTL1		0x42a032		/* 0x10a80c8 */
-+#define MPNIC_TQS_IDLE(i)		(0x42a040 + 2 * (i))	/* 0x10a8100 */
-+#define MPNIC_TQS_IDLE_CNT		32
- #define MPNIC_TQS_SET_P0_MAP0(i)	(0x42a082 + 2 * (i))	/* 0x10a8208 */
- #define MPNIC_TQS_SET_P0_MAP1(i)	(0x42a092 + 2 * (i))	/* 0x10a8248 */
- #define MPNIC_TQS_GLBL_SHAPING		0x42a108		/* 0x10a8420 */
-@@ -136,10 +160,14 @@
- #define MPNIC_TQS_PORT_CTL(i)		(0x42a1e4 + 2 * (i))	/* 0x10a8790 */
- 
- /* NIC_CORE_TDE_GLBL */
-+#define MPNIC_TDE_IDLE(i)		(0x42b000 + 2 * (i))	/* 0x10ac000 */
-+#define MPNIC_TDE_IDLE_CNT		32
- #define MPNIC_TDE_MEM_INIT_REQ		0x42b1ee		/* 0x10ac7b8 */
- #define MPNIC_TDE_MEM_INIT_DONE		0x42b1f0		/* 0x10ac7c0 */
- 
- /* NIC_CORE_TCM_GLBL */
-+#define MPNIC_TCQ_IDLE(i)		(0x42c09e + 2 * (i))	/* 0x10b0278 */
-+#define MPNIC_TCQ_IDLE_CNT		16
- #define MPNIC_TCM_MEM_INIT_REQ		0x42c0be		/* 0x10b02f8 */
- #define MPNIC_TCM_MEM_INIT_DONE		0x42c0c0		/* 0x10b0300 */
- 
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-index fe360a26a27b..cb4d1427434c 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.c
-@@ -3,6 +3,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/dma-mapping.h>
-+#include <linux/iopoll.h>
- #include <linux/pci.h>
- #include <linux/slab.h>
- 
-@@ -460,6 +461,180 @@ void mpnic_reset_netif_queues(struct mpnic_net *mpn)
- 	}
- }
- 
-+static void mpnic_enable_twq(struct mpnic_dev *mpd, struct mpnic_ring *twq)
-+{
-+	u32 log_size = fls(twq->size_mask);
-+	u32 i = twq->q_idx;
-+
-+	/* Reset head/tail */
-+	mpnic_wr64(mpd, MPNIC_TWQ_CTL(i, 0), MPNIC_TWQ_CTL_RESET);
-+	twq->tail = 0;
-+	twq->head = 0;
-+	twq->deferred_meta = -1;
-+
-+	/* Store descriptor ring address and size */
-+	mpnic_wr64(mpd, MPNIC_TWQ_BASE_ADDR(i, 0), twq->dma);
-+	mpnic_wr64(mpd, MPNIC_TWQ_SIZE(i, 0), log_size & MPNIC_TWQ_SIZE_SIZE);
-+
-+	mpnic_wr64(mpd, MPNIC_TWQ_CTL(i, 0), MPNIC_TWQ_CTL_ENABLE);
-+}
-+
-+static void mpnic_enable_tcq(struct mpnic_dev *mpd,
-+			     struct mpnic_napi_vector *nv,
-+			     struct mpnic_ring *tcq)
-+{
-+	u32 log_size = fls(tcq->size_mask);
-+	u32 i = tcq->q_idx;
-+
-+	/* Reset head/tail */
-+	mpnic_wr64(mpd, MPNIC_TCQ_CTL(i), MPNIC_TCQ_CTL_RESET);
-+	tcq->tail = 0;
-+	tcq->head = 0;
-+
-+	/* Store descriptor ring address and size */
-+	mpnic_wr64(mpd, MPNIC_TCQ_BASE_ADDR(i), tcq->dma);
-+	mpnic_wr64(mpd, MPNIC_TCQ_SIZE(i), log_size & MPNIC_TCQ_SIZE_SIZE);
-+
-+	/* Store interrupt information for the completion queue */
-+	mpnic_wr64(mpd, MPNIC_TIM_CTL(i), nv->v_idx);
-+	mpnic_wr64(mpd, MPNIC_TIM_INTR_MASK(i), 0);
-+
-+	mpnic_wr64(mpd, MPNIC_TCQ_CTL(i), MPNIC_TCQ_CTL_ENABLE);
-+}
-+
-+void mpnic_enable(struct mpnic_net *mpn)
-+{
-+	struct mpnic_dev *mpd = mpn->mpd;
-+	int i, j;
-+
-+	for (i = 0; i < mpn->num_napi; i++) {
-+		struct mpnic_napi_vector *nv = mpn->napi[i];
-+
-+		for (j = 0; j < nv->txt_count; j++) {
-+			mpnic_enable_twq(mpd, &nv->qt[j].sub0);
-+			mpnic_enable_tcq(mpd, nv, &nv->qt[j].cmpl);
-+		}
-+	}
-+
-+	mpnic_wrfl(mpd);
-+}
-+
-+static void mpnic_disable_twq(struct mpnic_dev *mpd, struct mpnic_ring *txr)
-+{
-+	u64 twq_ctl = mpnic_rd64(mpd, MPNIC_TWQ_CTL(txr->q_idx, 0));
-+
-+	twq_ctl &= ~MPNIC_TWQ_CTL_ENABLE;
-+	mpnic_wr64(mpd, MPNIC_TWQ_CTL(txr->q_idx, 0), twq_ctl);
-+}
-+
-+static void mpnic_disable_tcq(struct mpnic_dev *mpd, struct mpnic_ring *txr)
-+{
-+	mpnic_wr64(mpd, MPNIC_TCQ_CTL(txr->q_idx), 0);
-+	mpnic_wr64(mpd, MPNIC_TIM_INTR_MASK(txr->q_idx),
-+		   MPNIC_TIM_INTR_MASK_MASK);
-+}
-+
-+void mpnic_disable(struct mpnic_net *mpn)
-+{
-+	struct mpnic_dev *mpd = mpn->mpd;
-+	int i, j;
-+
-+	for (i = 0; i < mpn->num_napi; i++) {
-+		struct mpnic_napi_vector *nv = mpn->napi[i];
-+
-+		for (j = 0; j < nv->txt_count; j++) {
-+			mpnic_disable_twq(mpd, &nv->qt[j].sub0);
-+			mpnic_disable_tcq(mpd, &nv->qt[j].cmpl);
-+		}
-+	}
-+
-+	mpnic_wrfl(mpd);
-+}
-+
-+struct mpnic_idle_regs {
-+	u32 reg_base;
-+	u8 reg_cnt;
-+	char name[4];
-+};
-+
-+static u32 mpnic_non_idle_queues(struct mpnic_dev *mpd,
-+				 const struct mpnic_idle_regs *regs,
-+				 unsigned int nregs)
-+{
-+	u32 non_idle_bitmap = 0;
-+	unsigned int i, j;
-+
-+	for (i = 0; i < nregs; i++) {
-+		for (j = 0; j < regs[i].reg_cnt; j++) {
-+			if (mpnic_rd64(mpd, regs[i].reg_base + 2 * j) !=
-+			    ~0ULL) {
-+				non_idle_bitmap |= BIT(i);
-+				break;
-+			}
-+		}
-+	}
-+
-+	return non_idle_bitmap;
-+}
-+
-+static void mpnic_idle_dump(struct mpnic_dev *mpd,
-+			    const struct mpnic_idle_regs *regs,
-+			    unsigned int nregs, u32 non_idle_bitmap, int err)
-+{
-+	unsigned int i, j;
-+
-+	dev_err(mpd->dev, "error waiting for queues idle %d\n", err);
-+	for (i = 0; i < nregs; i++) {
-+		if (!(non_idle_bitmap & BIT(i)))
-+			continue;
-+
-+		dev_err(mpd->dev, "%s block not idle:\n", regs[i].name);
-+		for (j = 0; j < regs[i].reg_cnt; j++)
-+			dev_err(mpd->dev, "  0x%04x: %016llx\n",
-+				regs[i].reg_base + 2 * j,
-+				mpnic_rd64(mpd, regs[i].reg_base + 2 * j));
-+	}
-+}
-+
-+void mpnic_wait_all_queues_idle(struct mpnic_dev *mpd)
-+{
-+	static const struct mpnic_idle_regs queues[] = {
-+		{ MPNIC_TWQ_IDLE(0), MPNIC_TWQ_IDLE_CNT, "TWQ" },
-+		{ MPNIC_TQS_IDLE(0), MPNIC_TQS_IDLE_CNT, "TQS" },
-+		{ MPNIC_TDE_IDLE(0), MPNIC_TDE_IDLE_CNT, "TDE" },
-+		{ MPNIC_TCQ_IDLE(0), MPNIC_TCQ_IDLE_CNT, "TCQ" },
-+	};
-+	u32 non_idle_bitmap;
-+	int err;
-+
-+	err = read_poll_timeout(mpnic_non_idle_queues, non_idle_bitmap,
-+				!non_idle_bitmap, 20, 500000, false, mpd,
-+				queues, ARRAY_SIZE(queues));
-+	if (err)
-+		mpnic_idle_dump(mpd, queues, ARRAY_SIZE(queues),
-+				non_idle_bitmap, err);
-+}
-+
-+void mpnic_flush(struct mpnic_net *mpn)
-+{
-+	int i, j;
-+
-+	for (i = 0; i < mpn->num_napi; i++) {
-+		struct mpnic_napi_vector *nv = mpn->napi[i];
-+
-+		for (j = 0; j < nv->txt_count; j++) {
-+			struct mpnic_q_triad *qt = &nv->qt[j];
-+			struct netdev_queue *txq;
-+
-+			/* Clean the work queue of unprocessed work */
-+			mpnic_clean_twq0(nv, 0, &qt->sub0, true, qt->sub0.tail);
-+
-+			txq = netdev_get_tx_queue(mpn->netdev, qt->sub0.q_idx);
-+			netdev_tx_reset_queue(txq);
-+		}
-+	}
-+}
-+
- void mpnic_napi_disable(struct mpnic_net *mpn)
- {
- 	int i;
-diff --git a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-index 0d4667666b5b..68a773133fa2 100644
---- a/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-+++ b/drivers/net/ethernet/meta/mpnic/mpnic_txrx.h
-@@ -76,5 +76,9 @@ int mpnic_set_netif_queues(struct mpnic_net *mpn);
- void mpnic_reset_netif_queues(struct mpnic_net *mpn);
- void mpnic_napi_enable(struct mpnic_net *mpn);
- void mpnic_napi_disable(struct mpnic_net *mpn);
-+void mpnic_enable(struct mpnic_net *mpn);
-+void mpnic_disable(struct mpnic_net *mpn);
-+void mpnic_wait_all_queues_idle(struct mpnic_dev *mpd);
-+void mpnic_flush(struct mpnic_net *mpn);
- 
- #endif /* _MPNIC_TXRX_H_ */
+> +++ b/drivers/iommu/arm/arm-smmu-v3/pkvm/arm-smmu-v3.c
+> @@ -29,6 +29,47 @@ static void smmu_deinit_device(struct hyp_arm_smmu_v3_device *smmu)
+>  	smmu->base = NULL;
+>  }
+>  
+> +/*
+> + * Mini-probe and validation for the hypervisor.
+> + */
+> +static int smmu_probe(struct hyp_arm_smmu_v3_device *smmu)
+> +{
+> +	u32 reg;
+> +
+> +	if (!(smmu->features & ARM_SMMU_FEAT_COHERENCY))
+> +		return -EINVAL;
 
--- 
-2.52.0
+Does this need to check IDR0.COHACC? If not, an inline note that
+explains why?
 
+> +
+> +	reg = arm_smmu_idr0_probe(smmu);
+> +
+> +	if (!(FIELD_GET(IDR0_TTF, reg) & IDR0_TTF_AARCH64))
+> +		return -ENXIO;
+> +
+> +	if (!(smmu->features & (ARM_SMMU_FEAT_TT_LE | ARM_SMMU_FEAT_TT_BE)))
+> +		return -ENXIO;
+> +
+> +	reg = readl_relaxed(smmu->base + ARM_SMMU_IDR1);
+> +	if (reg & (IDR1_TABLES_PRESET | IDR1_QUEUES_PRESET | IDR1_REL))
+> +		return -EINVAL;
+> +
+> +	smmu->sid_bits = FIELD_GET(IDR1_SIDSIZE, reg);
+> +	/* Follows the kernel logic */
+> +	if (smmu->sid_bits <= STRTAB_SPLIT)
+> +		smmu->features &= ~ARM_SMMU_FEAT_2_LVL_STRTAB;
+
+The IDR1 reg guard and sid_bits can be shared with the main driver.
+
+Maybe add an arm_smmu_device_idr1_probe()?
+
+> +
+> +	arm_smmu_idr3_probe(smmu);
+> +
+> +	arm_smmu_idr5_probe(smmu);
+> +	if (!smmu->oas)
+> +		smmu->oas = 48;
+
+The truncation can be shared with the main driver too?
+
+> @@ -43,8 +84,14 @@ static int smmu_init_device(struct hyp_arm_smmu_v3_device *smmu)
+>  		return ret;
+>  
+>  	smmu->base = (void __iomem *)haddr;
+> +	ret = smmu_probe(smmu);
+> +	if (ret)
+> +		goto out_ret;
+>  
+>  	return 0;
+> +out_ret:
+> +	smmu_deinit_device(smmu);
+
+Nit: out_deinit
+
+Nicolin
