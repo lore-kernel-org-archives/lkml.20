@@ -1,246 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6343569F1F;
-	Wed, 23 Sep 2026 19:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B424195A3
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790191271; cv=none; b=Ti3f9hU6vR0mLIP56rworNxhnbVr9WWiRd985R77ZTOebTCMhO/3Gj6QA2DewxOK++7hPkmyLivmH+Utf2zZgUmT7eAiqmbvI4fkNyx2vnb3tM/503HB3to5MXvJVzL0eVbBLdJk38fNpPCvrQqCYDFI7Q9yEKIy8hydlrj9sGM=
+	t=1790191313; cv=none; b=QemvqYky+HhHVyHpld/qhnESc47xRdWz3xLpKeUQjKntif7nosxzNaP40qf0Eb3/2hGBk8q4kwSGpYAn0/090FvCSXBra9nHuDc8eM4FF2Marnn2HJOSnP2u3BOJ3OpbST/FK6SRQq33sPkNF4ROdYCmer/ZJcPt9B4IowGRtOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790191271; c=relaxed/simple;
-	bh=JyB88lU8D8plLkT8atp1POiJmxbZ97970p8UnhC5dIY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e3K+pUhI3if/QL7Kfsrh9cO+PcJ9NEdwulD7tpJZ/nvISA55TigSR5d1rKM5m6EFeuCdlT6Gz8X8I3XmrVhVq+XxgUct+bD79WY39vzkfdMQZ17ZYlUmALcaA1mUgrbvOhJNp3glFS62d3KQu1n83b2tZM9VAoIcViFxnkyvjxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XODkItKQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790191313; c=relaxed/simple;
+	bh=SxXdQ9x4xrXPna5Lh1tiLIazYVu3Dy/LlggDG/smh7c=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jgxGW1zJnfewWpscz4cfJsLizZfB7j3t/OqEluw9wjC2bEsZzahvsaZxvlxt0tumSebs4oMkAgc0nySF2jQv66G8ZgW1aU++Q/h4KUbP0QV5LL7onhfwjfEd8QDcAxkbbsztC9/tlrRAUj+NHrGJUe6C+RJByb6C4JkGN7Y6bys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QSu4XVVv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OpYedIiy; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XODkItKQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CFA21F00893;
-	Wed, 23 Sep 2026 19:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790191269;
-	bh=MvAguG7XJjS5iXlWWMhU76RJL95W7uHcHbawUFlVNyE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XODkItKQaAOYarTSRjvSHqTRRZDng4evF9SQnTCxxfKxvXVwlGXwlNvA2xO+PZvMA
-	 9rg234UN9nnIZV6CT+cpxITrLHKJApSUMzE1pdNzCMnHr7jx8JZcJ90fozg9LKEnAV
-	 O1bppkT07sCdBQ/GCEdQa4GcGMRkoiHrwVaCO1uW2x8AtCPa/yGMr/hCzeXyVKIvW9
-	 ULlSzSErYp7xykehvOJzQEtDjc79zbWmVioe6qxQ7S2SQ1t7F15olxROeaqEVSstIq
-	 rsYOu9VbkP6/uX95VJjQFiFZwG7ouOrBrzObnBzQiGsDsKHspgORIsz2MqWWxxmx7N
-	 l3D/qPPmKcPIw==
-Subject: Re: [PATCH net-next v2 6/6] selftests/vsock: test the netns assign
- privilege checks
-From: netdev-bot+sashiko@kernel.org
-To: bobbyeshleman@gmail.com
-Cc: sgarzare@redhat.com, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, stefanha@redhat.com, mst@redhat.com,
- jasowangio@gmail.com, xuanzhuo@linux.alibaba.com, eperezma@redhat.com,
- shuah@kernel.org, rdunlap@infradead.org, donald.hunter@gmail.com,
- virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, kvm@vger.kernel.org,
- linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com,
- sdf.kernel@gmail.com, bobbyeshleman@meta.com
-Date: Wed, 23 Sep 2026 19:21:07 +0000
-Message-ID: <179019126776.2160803.16648507383433583043@kernel.org>
-In-Reply-To: <20260921-vsock-guest-ns-v2-6-693bd78fde9e@meta.com>
-References: <20260921-vsock-guest-ns-v2-6-693bd78fde9e@meta.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QSu4XVVv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OpYedIiy"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGUAbl3106325
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:21:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=x0wpg8eQ3E+q8HUKpU4pQ4
+	nMAtVqxGLo66qa1sOrIrU=; b=QSu4XVVv8pp2hbn/yjP2RMLOp0CUnOWtoS62yZ
+	7RJVjmubs3YeU5+Cb0UZCc9wKv5lNP+o3k0PMyI5CsCNlWDNTTy8WfUQNP4+8oKk
+	3CRPuUJxPEj1nZxzGLideiCiOAmb9/oWUrb1/AGyTKMLcq6ltO6h7Tg6AVxM3Fpa
+	zNzbHpeDZo0nozMPLw5BP7q7yPGW/PE6qARrMXAS7otaBDLTK55KemGGnyKuH20x
+	0oX1yF9cBjz52p2h+qeDFgS4YNBZCit6A2JJHS5e1GqYsp2c5IBnIoTXE8F0WN/p
+	QguaOjW9MnB4kcGHcR0pXD3y7y6jAN8/Ar08jKvLny5bDKzA==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfmwhjd3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:21:43 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33310847fcaso2226521eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:21:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790191303; x=1790796103; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=x0wpg8eQ3E+q8HUKpU4pQ4nMAtVqxGLo66qa1sOrIrU=;
+        b=OpYedIiy4DlRDvi6GTIt2A708yZ924eBQyukTfudIvfQaRHrUU15pUKPbn+T+2uhmx
+         jwlgarbHdO52rwaj0fhSMn3JdXYz71s1Ec9+Ds/ZHkxATNn4L5K8ucoPdN7s0MN22EdL
+         1kFngNMu3HAgFOKFP7iOyfLKlAXYag0cI7yT3OnJv2BW0NkGaUeEaajotc+1XXiwinzK
+         /24eqhWClF7RRPY1ra3pRaKeVAwekxGEpzPkAqEUanoRN0Rlb0xFu+W+3/4EyOTRgm0N
+         3W6U9hypGCcDqtaaOQRf/HqsIi3D9WambGNqooEpYlQLlY7Mum+33gdUWTjp/0/KZdbE
+         QcDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790191303; x=1790796103;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=x0wpg8eQ3E+q8HUKpU4pQ4nMAtVqxGLo66qa1sOrIrU=;
+        b=dASpNbWHCAi/+2bE8kuWiUtSVLmVqQLut5HgH/wPEOkJZptgB25NJvu8L0Wjmb3ny/
+         5NKFeL+Sp/PeHNAvQRsE4K0ldaiexSh49IIWd4wrcb8i8EEHM0gjX9k9EOqVNLWZmw5I
+         67JCdcnb1tS2m5jekcHGvSQWSudBKqUyORMziubFaTYaOUVOzlrn94/rxwHO+YOBjp2d
+         IbeN3Gl98Q7ylV84v11ZFpC277DlxPYaT5k/Wwfdz/o5T0F0jz3KpF6dCfzYBMp1pLei
+         iNBR/XVCTcb+T8Tn3oSgajc6hAGWnA0AvYv7k826F25BNttwJb03T5GxxQEjgxu5lhST
+         M0jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBym/ER3suNdwWaEbV72lM/oqnL8wemXfr+sLlFWx174TZ13yo0mN6tL/2Bf/R7mS83WGr3cNcS+YqCvLuk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4Y6lJVz9ryZOPTjiWMFEhn3eVLnOzKXKDJIDgjUMDztkC4JlS
+	VIu9O9Lw0A3QPz+rmRm1WaJpEgruDJw/0hd3kkR4JfTKuxtjZIPG76lRx1j+AVH1Zb9smXr8IyQ
+	zQdjOz7GdY7mjzSDQpps4vaNzWHRDFW4fZ5v1hPhgfm8AauiKO9eoAheq/UoVBKewh30=
+X-Gm-Gg: AYBFou1UGl7U4DHPifWYIGF323zWWQcN/g+0U9SsyYn0N3hkRSUoJM7ALNafNCt3hVX
+	BLhmyRlyK9wKmM9mBsfT8nE5GSAqkNqlHMTy/6719kH2cWCT8+uRbhhXfP8lS4FN0Jk5gtY6buv
+	0i9YGSTs3qVui8v+d9JAy1OjwMKkAEteDaDYnGkYsicMe24DPmMPyCA0wFbKN2LM+Et0NIZTnpS
+	M6FN4kQ3/u0W3zzKj85t+oStc6B2+u/WCHH1Z0/1zA4obd3OM58NtgyGMZ6kc24TYabmV6ScTx3
+	sU034c02Hg6nm6CPesgSlOtfPmMqsvzAecaiSETlmuXFqZvxgYkUw8RxDWvNZqR82yPtPWHpjfQ
+	Pvys4ocs4xGL8OYDQYyLH4sjAFXi6Pqw0iQ==
+X-Received: by 2002:a05:693c:83da:20b0:33b:e9a7:d819 with SMTP id 5a478bee46e88-33fff15ba3amr137899eec.14.1790191302733;
+        Wed, 23 Sep 2026 12:21:42 -0700 (PDT)
+X-Received: by 2002:a05:693c:83da:20b0:33b:e9a7:d819 with SMTP id 5a478bee46e88-33fff15ba3amr137867eec.14.1790191302019;
+        Wed, 23 Sep 2026 12:21:42 -0700 (PDT)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e9684d643sm17609309eec.18.2026.09.23.12.21.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 12:21:41 -0700 (PDT)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] clk: qcom: Add Nord DPRX clock controller support
+Date: Thu, 24 Sep 2026 00:51:30 +0530
+Message-Id: <20260924-nords_dprx-v2-0-fa4364e087ef@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALomtGoC/03M3wrCIBTH8VcZ5zqHOsnqau8RI8w/TWi6PCWL4
+ btng6CbA58Dv+8KaJO3CKdmhWSzRx9DBd81oEcVbpZ4Uw2c8j090o6EmAxezJwWIqqNVFofBIM
+ 6mJN1ftli56F69PiM6b21M/t+fxn5n8mMUGKE5Mp1jrIr6yNi+3ipu47T1NYDQynlA01Ofo+rA
+ AAA
+X-Change-ID: 20260903-nords_dprx-4903d7acc841
+To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA3NyBTYWx0ZWRfX0JmIpjI+Je9G
+ hDetGIPXXG+sprn/NTq4NPgn+W7C5B7bMh9vWrvrAC/beZ+quTNop/oo6dpo/2O/LX1gR9KH36i
+ TGiD1aZbre/VavYgw6ljlFxmVKFjKj9STRZ351UNw8bql29Hwr916zZSoiWlwmsUItBv3uJNhhA
+ Kuqcz7gtIxspQqxby/xYplpng6hE3VE/qL6skpVe/WrwDf//Bz459qIX+LykGHYrq34VJO+Y+zG
+ WJgjatB1pXfUgPUHOl8Te0INrpraFJ2snekH91j96PU9H2MK8q1FIJTBqtCf8CA9O6QXfjx93q8
+ jY89qY4BSd1RRZCbqP29Bu7AGPOo+K2JqE2VbcWZEkJzZ59Mw45mar5EjlTubtxmgnVy6ZO4Ne2
+ Bdct9trBf3GDjmULHN1TA0fBjQNCGYGXY4TgEPsG0uk5T/iic7fsK0JRP3WsmqiGC4II5ddrXZw
+ HxehIb5Q7rqTuzxGWJA==
+X-Authority-Analysis: v=2.4 cv=WK/qzXsR c=1 sm=1 tr=0 ts=6ab426c7 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=dhWb7Yg5Oiobcms0P14A:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA3NyBTYWx0ZWRfX8g5Aodl4tX58
+ HLveJCJxG0AZEzimya/fdJQRgl90K0j/t49mL0U90p0JHSxhzu/39nuATbvc0VvBjxOJ1VTL52a
+ bPFqm6joQP8JhfnqkyEMXHcrCKRxbcI=
+X-Proofpoint-ORIG-GUID: M0FzkgTitJa4w0zc6Wn65H9nV2opuzfr
+X-Proofpoint-GUID: M0FzkgTitJa4w0zc6Wn65H9nV2opuzfr
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 bulkscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609230077
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Add support for the DisplayPort Receiver (DPRX) clock controllers found
+on Qualcomm Nord devices. There are two identical DPRX clock controller
+instances (DPRX0 and DPRX1), each providing clocks for the DPRX core,
+audio, AHB and video memory paths, along with their core PLLs.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+The DPRX PLLs are ZONDA_OLE instances whose PLL_ALPHA_VAL register has
+been widened to 28 bits to carry the fractional word at a finer
+resolution. The existing alpha-PLL core derives the ALPHA_VAL width
+solely from the register-map layout and can only express 16 or 40 bits,
+so the first patch adds an optional per-PLL alpha_width override that,
+when set, feeds the recalc_rate/round_rate scaling and the Zonda
+set_rate L-adjust MSB check. This is a prerequisite for the DPRX PLLs to
+lock to and report the correct rate.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The series is organised as follows:
 
-- [Medium] Both new selftests
-  (`test_ns_guest_assign_g2h_netns_no_cap_net_admin_fails`,…
-- [Low] The two new shared-VM tests omit the `vm_reset_g2h()` cleanup
-  that every other ns_guest_assign_g2h_netns_* test in USE_SHARED_VM…
+  - Patch 1 - alpha-PLL 28-bit ALPHA_VAL width.
+  - Patch 2 - documents the Nord DPRX clock controller device tree
+    bindings.
+  - Patch 3 - adds the two DPRX clock controller drivers.
 
---
+Changes in v2:
+- Address review comments: remove unused definitions and includes, rewrap the
+  alpha-width ternary, and clarify that DPRXCC provides clocks and resets.
+- Add RB-by tag [Abel]
+- Link to v1: https://lore.kernel.org/r/20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com
 
-selftests/vsock: test the netns assign privilege checks
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+---
+Taniya Das (3):
+      clk: qcom: clk-alpha-pll: support a 28-bit ALPHA_VAL width
+      dt-bindings: clock: qcom: document the Nord DPRX Clock Controller
+      clk: qcom: dprxcc: Add Nord DPRX clock controller support
 
-Adds two vmtest.sh cases that attempt VSOCK_CMD_DEV_NETNS_SET without
-CAP_NET_ADMIN and from an unprivileged user namespace, and enables
-CONFIG_USER_NS in the vsock selftest config.
+ .../bindings/clock/qcom,nord-dprxcc.yaml           |  68 ++++
+ drivers/clk/qcom/Kconfig                           |  11 +
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/clk-alpha-pll.c                   |   8 +-
+ drivers/clk/qcom/clk-alpha-pll.h                   |   3 +
+ drivers/clk/qcom/dprxcc0-nord.c                    | 434 +++++++++++++++++++++
+ drivers/clk/qcom/dprxcc1-nord.c                    | 433 ++++++++++++++++++++
+ include/dt-bindings/clock/qcom,nord-dprxcc.h       |  27 ++
+ 8 files changed, 981 insertions(+), 4 deletions(-)
+---
+base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
+change-id: 20260903-nords_dprx-4903d7acc841
 
-> diff --git a/tools/testing/selftests/vsock/vmtest.sh b/tools/testing/selftests/vsock/vmtest.sh
-> index e94cc2fd90ccd..4f42bcdac3f6c 100755
-> --- a/tools/testing/selftests/vsock/vmtest.sh
-> +++ b/tools/testing/selftests/vsock/vmtest.sh
-
-[ ... ]
-
-> @@ -187,6 +195,8 @@ readonly TEST_DESCS=(
->  	ns_guest_assign_g2h_netns_host_connect_ok
->  	ns_guest_assign_g2h_netns_reset_on_ns_delete_ok
->  	ns_guest_assign_g2h_netns_old_conn_send_fails
-> +	ns_guest_assign_g2h_netns_no_cap_net_admin_fails
-> +	ns_guest_assign_g2h_netns_unpriv_user_ns_fails
->  )
->  readonly NS_MODES=("local" "global")
-
-[Severity: Low]
-Both new tests are added to USE_SHARED_VM but neither calls
-vm_reset_g2h() on any exit path, unlike every other
-ns_guest_assign_g2h_netns_* test in that list.
-
-Should these follow the sibling pattern?  If the privilege check under
-test is broken, the assign succeeds and the guest's single g2h device is
-left owned by the transient namespace created by unshare, while the
-harness moves on to the next test in the same VM.
-
-The kernel does restore this by itself once that namespace is reaped:
-
-net/vmw_vsock/af_vsock.c:vsock_g2h_net_reset() {
-	if (likely(rcu_access_pointer(vsock_g2h_net) != net))
-		return;
-
-	mutex_lock(&vsock_register_mutex);
-	if (rcu_access_pointer(vsock_g2h_net) == net)
-		rcu_assign_pointer(vsock_g2h_net, &init_net);
-	...
-}
-
-registered as .pre_exit in vsock_pernet_ops, and the next test's
-vm_ns_assign_g2h() overwrites the pointer anyway.  The residual window is
-the asynchronous teardown that ..._reset_on_ns_delete_ok already documents
-("the namespace itself is dismantled from a workqueue, so the device does
-not come back the same instant").  Since the new tests are appended last
-in TEST_NAMES and USE_SHARED_VM, a default run is unaffected; this only
-shows up with selective or reordered invocation.
-
-[ ... ]
-
-> @@ -1832,6 +1842,48 @@ test_ns_guest_assign_g2h_netns_reset_on_ns_delete_ok() {
->  	return "${KSFT_PASS}"
->  }
->  
-> +test_ns_guest_assign_g2h_netns_no_cap_net_admin_fails() {
-> +	local cmd="unshare -n setpriv --bounding-set=-net_admin"
-> +	local rc
-> +
-> +	vm_ssh "init_ns" -- "${cmd}" python3 /root/ynl/cli.py --no-schema \
-> +		--spec /root/ynl/vsock.yaml --do dev-netns-set &>/dev/null
-> +	rc=$?
-> +
-> +	if [[ "${rc}" -eq 0 ]]; then
-> +		log_host "assign unexpectedly succeeded without CAP_NET_ADMIN"
-> +		return "${KSFT_FAIL}"
-> +	fi
-> +
-> +	return "${KSFT_PASS}"
-> +}
-
-[Severity: Medium]
-Can this test pass without the capability check ever being reached?  The
-only assertion is rc -eq 0 => FAIL, output is discarded with &>/dev/null,
-and there is no positive control, so any nonzero status reads as
-KSFT_PASS.
-
-A few concrete sources of a nonzero status that are not -EPERM:
-
-net/vmw_vsock/af_vsock.c:vsock_nl_dev_netns_set_doit() {
-	int err = vsock_g2h_net_assign(genl_info_net(info));
-
-	if (err == -ENODEV)
-		NL_SET_ERR_MSG(info->extack,
-			       "no guest-to-host transport is loaded");
-	else if (err == -EOPNOTSUPP)
-	...
-}
-
-and cli.py collapses all of those to the same status as -EPERM:
-
-tools/net/ynl/pyynl/cli.py:main() {
-    except NlError as e:
-        print(e)
-        sys.exit(1)
-}
-
-vm_ssh() also returns ssh's own status, so a transport failure (255) or a
-remote shell failure (127, e.g. an installed util-linux that does not
-accept setpriv --bounding-set=-net_admin) is indistinguishable from the
-expected refusal.  A python-side failure such as a missing
-/root/ynl/vsock.yaml exits 1 too.
-
-Would it be worth asserting the privileged case succeeds first?  The file
-already has the helper the sibling tests use as a precondition:
-
-vm_ns_assign_g2h() {
-	local ns=$1
-	local nspid=$2
-
-	vm_ns_exec "${ns}" "${nspid}" "python3 /root/ynl/cli.py --no-schema \
-		--spec /root/ynl/vsock.yaml --do dev-netns-set"
-}
-
-On the changelog note "ynl's cli.py does not report the errno": is that
-accurate?  NlError.__str__() in tools/net/ynl/pyynl/lib/ynl.py does:
-
-        msg += os.strerror(self.error)
-
-so the error string is printed and the test could match "Operation not
-permitted" instead of sending everything to /dev/null.
-
-> +
-> +test_ns_guest_assign_g2h_netns_unpriv_user_ns_fails() {
-> +	local unpriv_uid=65534
-> +	local unpriv
-> +	local rc
-> +
-> +	unpriv="setpriv --reuid=${unpriv_uid} --regid=${unpriv_uid}"
-> +	unpriv="${unpriv} --clear-groups"
-> +
-> +	if ! vm_ssh "init_ns" -- "${unpriv} unshare -U true"; then
-> +		log_host "unprivileged user namespaces unavailable, skipping"
-> +		return "${KSFT_SKIP}"
-> +	fi
-> +
-> +	vm_ssh "init_ns" -- "${unpriv} unshare -Urn" \
-> +		python3 /root/ynl/cli.py --no-schema \
-> +		--spec /root/ynl/vsock.yaml --do dev-netns-set &>/dev/null
-> +	rc=$?
-> +
-> +	if [[ "${rc}" -eq 0 ]]; then
-> +		log_host "assign unexpectedly succeeded for unprivileged user"
-> +		return "${KSFT_FAIL}"
-> +	fi
-> +
-> +	return "${KSFT_PASS}"
-> +}
-
-[Severity: Medium]
-Same rc != 0 => KSFT_PASS inference here, plus the availability probe is
-not the command being measured:
-
-	probe:    ${unpriv} unshare -U true
-	measured: ${unpriv} unshare -Urn python3 /root/ynl/cli.py ...
-
-If the extra -r/-n setup or the python startup under uid 65534 fails, the
-result is KSFT_PASS rather than KSFT_SKIP or KSFT_FAIL, and the child user
-namespace never actually holds CAP_NET_ADMIN, which is the condition the
-commit message says is being tested:
-
-    the other confirms that CAP_NET_ADMIN in an unprivileged user ns
-    alone is insufficient.
-
-Would checking the reported error string, or asserting the privileged
-assign works in the same test, make these two cases fail if
-GENL_ADMIN_PERM is ever dropped from VSOCK_CMD_DEV_NETNS_SET?
-
+Best regards,
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921-vsock-guest-ns-v2-0-693bd78fde9e%40meta.com
+Taniya Das <taniya.das@oss.qualcomm.com>
+
