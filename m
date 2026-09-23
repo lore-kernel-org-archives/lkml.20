@@ -1,98 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4940751FCA9;
-	Wed, 23 Sep 2026 12:53:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A783FFF94;
+	Wed, 23 Sep 2026 12:54:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168041; cv=none; b=M8Uvf1kbZUgiwVW9v6fBj28XWkQMbB7rqNdJz3lqKWmw+iTIErtZiL6K5zdYkAOe5MagrIqoUnX4Lye9bDOSHExNNv/01AD4o4cMmZG/YiJYRUeaVmrqyPrNxiyBd4uHoAAy/oyWgQnJuKkbneKi53Z46Dj1G8Dinnj2qKr4n1g=
+	t=1790168064; cv=none; b=CKjXRjGfvkVuxRPnDjWw7IwI7cNHEBQ8M/5GFFysazQ95j0FkyS7pn26kQk/FBvoa71f0vgThiNc+EYqpNJe7hWbun9rGaMYdXr0JJIiNOtf1EYmnWVPC2gUwnpoxneNAIj5M36oliXIt21kdxBsg/EhXsda//TeY1KwEGbq60Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168041; c=relaxed/simple;
-	bh=lu2KEldYMIdJTY5gnGXrBRBbFD5hcsupirC5fYEC6Ko=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oLRYND+LyP8N8JDAA0Z5RGPPYJXZIlWRyNiRw1GAVJQu+7VEFoACPvzfrGSXFIHPsfF5MUZ3zw3I8ES1eyrutuUGogbEWi55SFzvIOtGgYolXOc7OzoGfXyIvpvObsYPU1+uGE2sZuLngEtbp1g0evR0BkyYfR4V4kdLuEfgIwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VMepWDPv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790168064; c=relaxed/simple;
+	bh=2J1h7MUp3bkY4g6NYXbBCpkjvuchfgG7QfNUnxKTW0s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a9XOK75f7E4jQGXdaF7uzb8dpanGGqo3ck6IjTkq7oH3m3LKTcrv8ST4UQoCPqu/3abzisoP/j7GQ90CbmGN2QouMhOjRFoSm1MTPQrKEKE9WoOB+MFE127/GkNA55/cRWQ5EavaXiRm5Sr9yKmtvhuE/0geXh69KqxREAAyBFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJ8AxRfE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VMepWDPv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CEEE1F00898;
-	Wed, 23 Sep 2026 12:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790168030;
-	bh=ZVEp2JvfuWHOXzAbrzSivpd316nYEBNph4i0Xb5Vdlk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VMepWDPvZu/ik3daLuc0FSklE+OTbuVfCYzqYoNySa2nQ7Fx93ZSCSqzi/4F5TDqD
-	 lM5XxJFf2Ud3zXQoolVuS6w4WxII/7xpvxOOjMoj/Y+CkJQsbURHvX+UiG67ZXUGsB
-	 Rt4ktykr3Zyb1HerdpCGsw75Ea74KSn+Rx9ZvShA=
-Date: Wed, 23 Sep 2026 14:53:46 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: =?iso-8859-1?Q?Jo=E3o?= Loureiro <joaofl@gmail.com>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Sherry Sun <sherry.sun@nxp.com>,
-	Frank Li <frank.li@nxp.com>, Alexander Dahl <ada@thorsis.com>,
-	linux-serial@vger.kernel.org, imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] serial: fsl_lpuart: add support for GPIO-controlled
- modem lines
-Message-ID: <2026092313-snare-goggles-ed1c@gregkh>
-References: <20260819144458.253967-1-joaofl@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJ8AxRfE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DDE51F00893;
+	Wed, 23 Sep 2026 12:54:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790168054;
+	bh=uQKW24Y6OW3CY3XYxdWBUmR7dEKdphWdgIXboMFRnOk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=XJ8AxRfEoOz5HKfBwxGt9+R/RLJZTF8WXeIzsEcONozH8IEVu9HP2tBIY4LNkFhh3
+	 vT2otMJhXGGtSO5NQq47YMSP6MeCudVUzSOrm3JvEdZoPBkkQfAJjLB+XOBYWl4CbY
+	 puJIXy6O8Q1iV0ra2h2aKMY18JHXU4UFN9NLp0lYp3jsOCSi849jZwXqUqF3LcCrsY
+	 5mQPTeaV+94o9HmUmwHFqGadJHqiS4GgO/bMGxJ7lvXvMaRZVBpJ3Z3n50vAHSPyTf
+	 nqB7N0xyR1P1RtnUmMpNkeaiJvD8VW5OvJfSNxtuJXfT45LRBQwh+jlIUxcG7RyoFv
+	 0giJWU9Hcm9mA==
+Message-ID: <ccf61e53-3bf0-47d3-92ef-46eaf756e339@kernel.org>
+Date: Wed, 23 Sep 2026 14:54:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260819144458.253967-1-joaofl@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 1/4] dt-bindings: spi: cdns,xspi: add SPI NAND
+ compatible
+To: Fei Xie <fei.xie@horizon.auto>, Mark Brown <broonie@kernel.org>
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Parshuram Thombare
+ <pthombar@cadence.com>, linux-spi@vger.kernel.org,
+ linux-mtd@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260921093701.1341766-1-fei.xie@horizon.auto>
+ <20260921093701.1341766-2-fei.xie@horizon.auto>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260921093701.1341766-2-fei.xie@horizon.auto>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 19, 2026 at 04:44:53PM +0200, João Loureiro wrote:
-> LPUART has no register bit to drive RTS to a chosen level: UARTMODIR only
-> offers receiver-driven auto-RTS (RXRTSE) and RTS-during-transmit (TXRTSE).
-> Consequently lpuart_set_mctrl() and lpuart32_set_mctrl() ignore TIOCM_RTS,
-> and their get_mctrl() counterparts report a hardcoded
-> TIOCM_CAR | TIOCM_DSR | TIOCM_CTS.
+On 21/09/2026 11:36, Fei Xie wrote:
+> From: "fei.xie" <fei.xie@horizon.auto>
 > 
-> That makes it impossible to talk to a peripheral which is driven by a
-> software controlled RTS strobe and answers on CTS.  TIOCMBIS/TIOCMBIC
-> silently do nothing, and because CTS always reads back as asserted, a
-> userspace handshake that waits for CTS to follow RTS can never complete:
-> de-asserting RTS and waiting for CTS to drop times out every time.  Boards
-> that route the two pins to plain GPIOs cannot work around it either, since
-> the driver never looks at rts-gpios/cts-gpios.
-> 
-> Wire the driver up to the serial_mctrl_gpio helpers, as imx.c and
-> atmel_serial.c already do.  set_mctrl() forwards the state to
-> mctrl_gpio_set(), and get_mctrl() runs the flags through mctrl_gpio_get()
-> so that a described cts-gpios overrides the assumed-asserted default.
-> Boards without such a description keep the previous behaviour.  Modem
-> status interrupts are enabled from startup() and disabled from shutdown(),
-> with a .enable_ms callback for the serial core.
-> 
-> The same limitation was reported for an i.MX 8XLite board that needs RS-485
-> with a GPIO RTS [1].  This change was developed and tested on an i.MX95
-> board whose barcode scanner is driven over LPUART with a manual RTS strobe;
-> with it, RTS toggles as requested and CTS is reported from the real pin.
-> 
-> [1] https://lore.kernel.org/all/20260210-rearview-hungrily-536a95fc3385@thorsis.com/
-> 
-> Signed-off-by: João Loureiro <joaofl@gmail.com>
-> ---
->  drivers/tty/serial/Kconfig      |  1 +
->  drivers/tty/serial/fsl_lpuart.c | 35 +++++++++++++++++++++++++++++++--
->  2 files changed, 34 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
-> index 4f57833e3ec7..a173eaf769ff 100644
-> --- a/drivers/tty/serial/Kconfig
-> +++ b/drivers/tty/serial/Kconfig
-> @@ -1301,6 +1301,7 @@ config SERIAL_FSL_LPUART
->  	tristate "Freescale lpuart serial port support"
->  	depends on HAS_DMA
->  	select SERIAL_CORE
-> +	select SERIAL_MCTRL_GPIO if GPIOLIB
+> Document the Cadence XSPI controller compatible used with SPI NAND.
 
-Why not depends?
+Some more explanation would be useful here, how different it is
+comparing to NOR variant.
 
-thanks,
+> 
+> Signed-off-by: fei.xie <fei.xie@horizon.auto>
 
-greg k-h
+It seems you might have used login as full name. Please configure Git
+correctly to properly attribute the work (see submitting patches and DCO).
+
+
+
+
+Best regards,
+Krzysztof
