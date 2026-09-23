@@ -1,232 +1,171 @@
-Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2713BB13C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:54:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.68
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9A52EFDA4
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146460; cv=none; b=dKG1ed2R9K0CGeZFIjcuSgFwhg5LFCfbhTKchsTl1tuS/GEH3RzXyKMdBFlGj2/1qsl0PVJ1+p5uzblVdJZ5qJBpxXlOPZt+3RknFaxBsTzFzgW230WxvLAk/P4QmjFtbYxLKrt63p+uWrNAtUuVcYXpUTUmu43//hOdoWO4+5M=
+	t=1790146459; cv=none; b=AND+0f4ZgiiuuEraHXKvRGMxcdVaX6IXC3V7o5JV4Ni67pPwdZ4GyrbTDTZO07y184FislBQb6FiaKj5tra5NyN8t/ccwbXyU6bviA9yBt32E7fDty2ZQWIAdgUUT8+TkSUYG5tmm8OJ5BfcVpR9ioGKTniJouOZu0kVxaqjiRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146460; c=relaxed/simple;
-	bh=43+l31JigLayJwEUrA9Gq86evXfBT+ruBR6R0luZO0g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aJbflswwQ31nd1aBk4VTrc69nrE+7aih0aOmh3aFCNulljRuu5q38bcr9lolXZRrRAOnstIQVZnH4qkSjUHyOZqiO86ycmzhNsUDnnsKRy+EfG2zzJ5eI6J8afHcNC3CSyh93fc6FaMeMcukA4T0T5Xtlzh4XaEjdE6+9DV+j6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=d8hMiuq5; arc=none smtp.client-ip=95.215.58.68
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790146459; c=relaxed/simple;
+	bh=ub9lmV/vJgIvt/52cHA9hak78+wXdVZ+Y0e9MlYNLQg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XQlq1VpcNQiQGnyunjTr3d72wteoPDhdaJJQxjc6A0VGQy0XgJsDrl/oitJMTTPhDB1eLVi9DaKJIxGkPpIww2SoXnPQUnQ2NJKedLeE+LMMC+/YlQxv0KG64WzjLtI1tNzGeFqTTWofIjKN1hICtwmCcMUc7cnTASw04psBs4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NRDZBxYA; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="d8hMiuq5"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=43+l31JigLayJwEUrA9Gq86evXfBT+ruBR6R0luZO0g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790146453; v=1; x=1790751253;
- b=d8hMiuq5ZjoAP39rjF9CjPb5ZvoA8/CoUbLRX3xs70pxd/Z/kJIyj19y+t1oVJ3WibdSCqbk
- 63bRMuj9arOSSjIl71j5N+Z5boy2AzrQMjJOlV7eipxf0dV8Y28uB+4j9ljNRokzNze0OCj1JFe
- kaeOHa9r1rfcQ+sH18rYxBsQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3514f7bca8d9eeb1;
-	Wed, 23 Sep 2026 06:54:11 +0000
-X-Mizu-Trace-ID: 3514f7bca8d9eeb1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <31772847-fd8b-4c3c-b2e5-a169193fcfd4@linux.dev>
-Date: Wed, 23 Sep 2026 14:55:08 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NRDZBxYA"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so444618a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:54:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790146455; x=1790751255; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cBPFJ7pxrxjtZgenSu8SvKuqY5moK00ZFB2fToeyYWc=;
+        b=NRDZBxYAy2bPOWNeTf5QXaE/7XzsdGjWfJLlNnNvz6ifxZM9DD6f7z97XheeW0xr0i
+         MzTKfFyh7LE1X6AOzvlkV83TJRVpqFvq3Ph/8poL+sTmzvY4DilZhplT6Z+umr4aTmy5
+         4VWLwoItw8L1qg0UFBriZi07FdvvAQlb5DFwTYMWvwbFfrAGuWwxFKCKO42iI50duK7N
+         j0AGEk7Tga0SjpPa/wsL8Pn+CX2+mi8lb8LWpNUAvFLWIMwZ7Q9k9gpurKLQZQaTs91R
+         AqEBx2iBdiDrbWm4ryBsGp/zh44/UWofiEa5776aKh12EAfqWT9iXAezNTipSL+hsli3
+         vrpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790146455; x=1790751255;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cBPFJ7pxrxjtZgenSu8SvKuqY5moK00ZFB2fToeyYWc=;
+        b=H/oepKiCC76Teoq4vi3xwdV3Y2iJk7Z2EkuRstTVBY9H3nhLwzG5dzZPdp8fgzgSDA
+         hg7o9H763jRH74F8aGcHnz4P8ZuraJdbUt8SEDlMJObQeXwIukANPAaX80qDqW1swohQ
+         OGGI/jIHzwo+7ofGe5plUCEcwAkzk96/mQ4ovLxEkLmPldNuWQhTUg8SkCSWE2J/0wRC
+         wESs6EEp3X1Rzs54lMGWfl7nFKRhcrwf2xcoTfjAlc4cIqGw6qaVo8qPzrScwpjOaJu2
+         DAjdPPRcj5LW4RZdckNJsxzXzXFCBMA6yLljeidtVmXEVZwWYQIGruMk/lW0Wz6EsUoq
+         PWBA==
+X-Forwarded-Encrypted: i=1; AKwUvBx5XoJ+Iud6q7MPFFItxucQWjVqrAJ92hrcGIYNTTZCedZqEbRLe85DanjWQ/2SBydUTfO82rvF25nc55w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcwiFRZ5uTA8XHEs7RS6/+E+7kWf48IfwaDo1DpUfRTVYscMBl
+	SgwWb5u6qgbq6wGYs3N8ByjNGqnaOqUHe7fMRZ+TKlONfUv3kn6WbP2d
+X-Gm-Gg: AYBFou0DdixjCGTh/4eK+ZR5YlaqpwXEXF4Sfb6ygHtJfGgtcAvrb1dUHabhNf9oSdj
+	qOAjoh+aruJJIHyUwQMK2If82xmyYum8efO/8eig5UdHmNnw92Dx0n/ZqhgQSPXTpBTDLCtX1ww
+	Gc1OKmb8ebrDUGZjN7eIvgHP6Dmv04m4nniRYBD1ee7/hsiYGfJRWI5/GyhgSjJZS0j1B9bK5v8
+	+kcWhLX5xmA32i56tGNmOGY0xBL+bHHBBpLTAceEqxDqa5vdl5IQ+8jCOOcjtgNt80QcAsxOIWh
+	9IedUIhSzjhsMrkxpbhalSDBKtBYV6AOlQ80aMebEs3Mv/tt/6OmyqqtBxDaLATwznfz1oCf8d6
+	0Hib/Psqy1jjOuHDZF0kK3fyk8tQyqzHDufIms2OwmY72b50UNyQQ1w3tQjHJAj6rBh+cQlqWXj
+	TOfu3ZVOrrAd0oJM+lYD8NC4cwUCq70BwqcLF6pkqMscDlRghyoWE6c8iMw49dzYi7RpEFgR+z/
+	6+Y/UOPx0SB
+X-Received: by 2002:a17:90b:3d8e:b0:39d:c3bb:98e7 with SMTP id 98e67ed59e1d1-3a07e568935mr1435549a91.6.1790146455101;
+        Tue, 22 Sep 2026 23:54:15 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc2b2fdsm3321787a91.12.2026.09.22.23.54.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 23:54:14 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+To: Qais Yousef <qyousef@layalina.io>
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
+	Ingo Molnar <mingo@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	John Stultz <jstultz@google.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	"Chen, Yu C" <yu.c.chen@intel.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2 04/13] sched/fair: Remove magic hardcoded margin in fits_capacity()
+Date: Wed, 23 Sep 2026 14:54:06 +0800
+Message-ID: <20260923065407.3451520-1-zhanxusheng@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260504020003.71306-5-qyousef@layalina.io>
+References: <20260504020003.71306-1-qyousef@layalina.io> <20260504020003.71306-5-qyousef@layalina.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 6/6] alloc_tag: Defer /proc/allocinfo removal to a
- workqueue
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-7-hao.ge@linux.dev>
- <CAJuCfpGMQqjHsAvW=XUA1Q3AyaVJKM2bKYVja_fgn0wa1tk7DA@mail.gmail.com>
- <d7327cdd-43df-46f8-92d4-c25dda7ae684@linux.dev>
- <CAJuCfpHMdZzJNSRgysbS7vOBmTwEPSYfPYUvt_5+uZ-Ydvw+hw@mail.gmail.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpHMdZzJNSRgysbS7vOBmTwEPSYfPYUvt_5+uZ-Ydvw+hw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Suren
+On 05/04/26 02:59, Qais Yousef wrote:
+> -#define fits_capacity(cap, max)	((cap) * 1280 < (max) * 1024)
+> +static inline bool fits_capacity(unsigned long util, int cpu)
+> +{
+> +	return util < cpu_rq(cpu)->fits_capacity_threshold;
+> +}
 
-On 2026/9/23 10:41, Suren Baghdasaryan wrote:
-> On Thu, Sep 17, 2026 at 6:38 PM Hao Ge <hao.ge@linux.dev> wrote:
->>
->> Hi Suren
->>
->>
->> On 2026/9/18 09:09, Suren Baghdasaryan wrote:
->>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
->>>>
->>>> shutdown_mem_profiling() calls remove_proc_entry() from
->>>> reserve_module_tags(), which runs under mod_lock held for write.
->>>> remove_proc_entry() waits for readers, and a reader takes mod_lock for
->>>> read in allocinfo_start():
->>>>
->>>>   CPU0 (insmod)                      CPU1 (read /proc/allocinfo)
->>>>   ----------------                   ----------------------------
->>>>   reserve_module_tags()
->>>>     down_write(&mod_lock)  [held]
->>>>                                      use_pde()            [in_use++]
->>>>                                      allocinfo_start()
->>>>                                        down_read(&mod_lock)  <- blocks
->>>>     shutdown_mem_profiling()
->>>>       remove_proc_entry()
->>>>         wait for in_use == 0         <- blocks
->>>>
->>>> Move remove_proc_entry() to a workqueue.
->>>>
->>>> The file creation is moved to the end of alloc_tag_init() as well.
->>>> If alloc_tag_init() fails with alloc_tag_cttype still NULL or an
->>>> error pointer, a concurrent reader of the leftover file would
->>>> dereference it in allocinfo_start() and panic.
->>>>
->>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
->>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->>>> ---
->>>>  mm/alloc_tag.c | 26 +++++++++++++++++---------
->>>>  1 file changed, 17 insertions(+), 9 deletions(-)
->>>>
->>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
->>>> index 1ca0409b492b..cfa0fc84b68f 100644
->>>> --- a/mm/alloc_tag.c
->>>> +++ b/mm/alloc_tag.c
->>>> @@ -15,6 +15,7 @@
->>>>  #include <linux/seq_file.h>
->>>>  #include <linux/string_choices.h>
->>>>  #include <linux/vmalloc.h>
->>>> +#include <linux/workqueue.h>
->>>>  #include <linux/kmemleak.h>
->>>>  #include <uapi/linux/alloc_tag.h>
->>>>
->>>> @@ -591,6 +592,13 @@ void pgalloc_tag_swap(struct folio *new, struct folio *old)
->>>>         put_page_tag_ref(handle_new);
->>>>  }
->>>>
->>>> +static void remove_allocinfo_file(struct work_struct *work)
->>>> +{
->>>> +       remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
->>>> +}
->>>> +
->>>> +static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
->>>> +
->>>>  static void shutdown_mem_profiling(bool remove_file)
->>>>  {
->>>>         if (mem_alloc_profiling_enabled())
->>>> @@ -600,7 +608,7 @@ static void shutdown_mem_profiling(bool remove_file)
->>>>                 return;
->>>>
->>>>         if (remove_file)
->>>> -               remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
->>>> +               schedule_work(&remove_allocinfo_work);
->>>>         mem_profiling_support = false;
->>>>  }
->>>>
->>>> @@ -1358,16 +1366,10 @@ static int __init alloc_tag_init(void)
->>>>                 return 0;
->>>>         }
->>>>
->>>> -       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
->>>> -               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
->>>> -               shutdown_mem_profiling(false);
->>>> -               return -ENOMEM;
->>>> -       }
->>>> -
->>>>         res = alloc_mod_tags_mem();
->>>>         if (res) {
->>>>                 pr_err("Failed to reserve address space for module tags, errno = %d\n", res);
->>>> -               shutdown_mem_profiling(true);
->>>> +               shutdown_mem_profiling(false);
->>>>                 return res;
->>>>         }
->>>>
->>>> @@ -1375,10 +1377,16 @@ static int __init alloc_tag_init(void)
->>>>         if (IS_ERR(alloc_tag_cttype)) {
->>>>                 pr_err("Allocation tags registration failed, errno = %pe\n", alloc_tag_cttype);
->>>>                 free_mod_tags_mem();
->>>> -               shutdown_mem_profiling(true);
->>>> +               shutdown_mem_profiling(false);
->>>>                 return PTR_ERR(alloc_tag_cttype);
->>>>         }
->>>>
->>>> +       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
->>>> +               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
->>>> +               shutdown_mem_profiling(false);
->>>
->>> You need free_mod_tags_mem() here.
->>>
->>
->> Right. Another problem is exposed here: moving proc_create() to the end
->> implies successful return from codetag_register_type(),
->> so alloc_tag is already added into codetag_types.
->> That looks a bit odd to me. Because all places inside codetag that access this
->> linked list will access this incompletely‑initialized codetag_type.
->> There is currently no matching unregister interface to tear it down.
->> So I drafted one previously:
->> void codetag_unregister_type(struct codetag_type *cttype)
->> {
->>         struct codetag_module *cmod;
->>         unsigned long id, tmp;
->>
->>         mutex_lock(&codetag_lock);
->>         list_del(&cttype->link);
->>         mutex_unlock(&codetag_lock);
->>
->>         codetag_lock_module_list(cttype);
->>         idr_for_each_entry_ul(&cttype->mod_idr, cmod, tmp, id)
->>                 kfree(cmod);
->>         idr_destroy(&cttype->mod_idr);
->>         codetag_unlock_module_list(cttype);
->>
->>         kfree(cttype);
->> }
->>
->> But looking back, do we really need to do this? I'm not so sure.
-> 
-> I think having codetag_unregister_type() would be a good idea. For now
-> it's used only in this failure case, so we can make it an __init
-> function and not waste any memory at all.
->
-Thank you for the valuable suggestion, I will take this approach.
-I've found there could be a race condition with alloc_tag_top_users.
-I'll analyze it.
+This does not hold on current tip anymore: fits_capacity() has picked up
+a second caller that does not pass a capacity, and the new signature
+accepts it silently.
 
-Thanks
-Best Regards
-Hao
+kernel/sched/fair.c, invalid_llc_nr():
 
->> I previously thought the issue reported by Sashiko was a false positive,
->> and I laid out my thoughts back then:
->> https://lore.kernel.org/all/afa606df-3d5b-47c2-9972-f3e0c2e13c12@linux.dev/
->> and I thought the change would be straightforward, and defensive programming
->> felt acceptable to me, but it turns out to be a little more complex than I expected.
->>
->> Suren, could you help me analyze this? Thank you very much for your valuable feedback
->>
->> Thanks
->> Best Regards
->> Hao
->>
->>>> +               return -ENOMEM;
->>>> +       }
->>>> +
->>>>         return 0;
->>>>  }
->>>>  module_init(alloc_tag_init);
->>>> --
->>>> 2.25.1
->>>>
+	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
+			(scale * per_cpu(sd_llc_size, cpu)));
+
+The second argument is a scaled count of the CPUs in an LLC. sd_llc_size
+is a per-CPU int and scale is an int, so the product binds to the new @cpu
+parameter with no conversion and no warning, and the test becomes
+
+	cpu_rq(scale * per_cpu(sd_llc_size, cpu))->fits_capacity_threshold
+
+With the defaults (CONFIG_SCHED_CACHE=y, sysctl_sched_cache_user=1,
+llc_aggr_tolerance=1) scale is 1, so this is cpu_rq(sd_llc_size), which is
+not a valid CPU id on a machine with a single LLC. invalid_llc_nr() is
+called from account_mm_sched(), task_cache_work() and
+can_migrate_llc_task().
+
+Separating the two uses first makes 04/13 safe to apply. Something like
+the below, against tip/sched/urgent (3cb0243767fd, where the cache-aware
+fixes have just landed; sched/core still has the older mm->sc_stat form).
+It is a no functional change, since x * 1280 < y * 1024 is equivalent to
+x * 100 < y * 80. Built with CONFIG_SCHED_CACHE=y and =n, no new warnings.
+
+I can post it as a standalone patch if you would rather not carry it in
+the series.
+
+---
+ kernel/sched/fair.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 57360f5cdde4..97ce56fcaf85 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -1526,6 +1526,21 @@ static bool exceed_llc_capacity(struct sched_cache_group *grp, int cpu)
+ 	return false;
+ }
+ 
++/*
++ * The margin used when comparing the number of a process' active threads
++ * with the number of CPUs in an LLC.
++ *
++ * Mirrors the ~20% margin of fits_capacity(), but is kept separate because
++ * fits_capacity() describes a utilization versus CPU capacity relation,
++ * which this is not.
++ *
++ * (default: ~80% of the LLC's CPUs)
++ */
++static inline bool fits_llc_nr(u64 nr_threads, unsigned int nr_cpus)
++{
++	return nr_threads * 100 < (u64)nr_cpus * 80;
++}
++
+ static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
+ 			   int cpu)
+ {
+@@ -1542,8 +1557,8 @@ static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
+ 	if (scale == INT_MAX)
+ 		return false;
+ 
+-	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
+-			(scale * per_cpu(sd_llc_size, cpu)));
++	return !fits_llc_nr(READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads,
++			    scale * per_cpu(sd_llc_size, cpu));
+ }
+ 
+ /*
