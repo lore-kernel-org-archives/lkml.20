@@ -1,140 +1,114 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4985304D4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6CBC403EB9;
+	Wed, 23 Sep 2026 15:44:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178252; cv=none; b=MhOgfeVHX10UWqG52FsRzOY98wbHxDeTwgOZluYfnNfiuX0dKgnDO3Esh7Y1Fey+WXcWOUqi+FF88//3EDXJWcDmkC7hOB5k3RqiXecAi7D7tpnyfZEzZL2L5CIgzN7Vff40JGhTzjnLOxPG67vLK8ENhxBqtAbyXOtZ+hnxzQY=
+	t=1790178273; cv=none; b=FTpaJeZBDgHbA+24PDcOF5rUAja3NAeTpowIUTCDaNYrU0asTyFwkxusASdt9CBTu5M8vuN5Xjvzj45r4h4YXaorykMclYmcUEcObaZBYn+PIQSwyyoFQD2sSmJkOEnoT2otXRVEvD7MYhRdVUeGv02CK2zgKszyKycItAdJiWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178252; c=relaxed/simple;
-	bh=dEsuichCM0C4hCd03bd1KgU+6bKSG+a5n+EmuwGO5YA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T+IANsgoXURzaSfHGru0nfR/O2PjBJruY5LBukSOL1eMpOO1xDtLZcDz+BR/cW3I0mYn+CWyTv7DCK6y/CFfvwC4FX83iy6e7NT5MFs2fGL+Xqsh7eYYnc4sDxmEMG8+SEMCWdCRVJvtT1YSeGf63ecHET652A8hpw3iQJdmulg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0ACg9Gb; arc=none smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790178273; c=relaxed/simple;
+	bh=Jj9QL+UbNTS5PSfoDhE2IyaEQhsh6t1d27dLirk2Ubk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k9a3r+4uzTt06jGjeYZMoVq0iTiHnNU6pzkEod2SDIy/r26sxDwxSloQz/qHbYSE5/wWyx1sqaoVkWqLeFv5ocVxG7U4ekbtUUe92pyz5uPSS+yCsfJjBRGZrhShbKHlC7hW+6t3bx8h8LsNPQuo/T7JpdGvDJGZADgPENdSpYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZCvKnDvy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0ACg9Gb"
-Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c83be8db39so706963e0c.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:44:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790178250; x=1790783050; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9HtKgKYLrxm3x6UJBU1QmDCl4UFfcngUzG8by9J5Mp4=;
-        b=K0ACg9GbRkf2d2CqOgjxb6McIJi3fYYkRKp4+otdQ49rbixq16AjG5B02Kpmy1ba/S
-         VxxTRZ/7GNuBl3KKRYMA8fKKxNKwzFZW/T18y9bEQOxj94YuKgrYHIcpwxG6vo0COwyX
-         2Vo/3pMZN9GH1ixwaFXBFjMJA5fLf/+VM0mbHsSImNwwyXYZfwqaqWQIR8DvMLtQi2W0
-         q1LEfXCpP5q40xcog22v2Hu26pqWG24XI7c41HEVcVd73+j6mI3BqsxwKwsFTPrdGn6b
-         IeaO2VnMOWdj7v9N83GxPRpflVADb6Na8cjhNrBcNB2jaC2Z30lVHwFXhU26pL1RGjEQ
-         xJCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790178250; x=1790783050;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9HtKgKYLrxm3x6UJBU1QmDCl4UFfcngUzG8by9J5Mp4=;
-        b=Lo7V/VoeBXz73iqf7O1KWMgsSUaI+O6I4YDVTTk5VbzcctuEh5JWdoX89wMD3B4Ov1
-         FkGJ/x8mROcDY2mBgSrSS6DIvx2KiQ2nzb5eJbDCqt/QYpqeAe1QLGNdDT+m3gIM5NlD
-         m2nzTkqKwB67iIvYW3DSohZcW5LSqnk5ige8dror+ip0J3u3hKoPhaDHj8UNnFf5nBhm
-         ohnd63IDqlVraYNvQPCYYkip4AQPxpWqUsAZ0lxG9cBqhL9R80aFn04wVczV48T8fhWb
-         mOFtakSt9ioX96kSbFcNnxb+n5KOE5noWgb+ZPlD+YH/Sb2+VXHMVWwSDc5Oaghz10e+
-         e6aA==
-X-Forwarded-Encrypted: i=1; AKwUvBznW1L73QGXMObgiPv2T0J2MMEclPH+rlytMbv6VhuGcLyrvKcXDtcInpVMbfpgsSzAPJE1Q8WcjVhlkl4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/rUgLVI9IbdC7/i3PaVOv4Wl0I6PMpJoutuWSb4tKa19IkgFC
-	ec+4X+K/KqyAyoD/ztCueQPuGIYzheyV2NIGl7HwtpMDO4rL936YIVbV
-X-Gm-Gg: AYBFou2FyjfPTbChHySDbEDfReQJQEQwJ9euwpnDe1hikyNHcVShlAUgDuOB6lpV/5+
-	QxS+UDd9s6WoodWeBmFCRZuSTMPc4gX0eWfc0hHXw0iQkhPfuY5WRWQMsqKb15hp1//s1cXrbbJ
-	IBIWbQNzcy/taUyxr/HG3qoxEYhkbePOXsbmlHLkzMrXRhOGfbtCzxkAMnK7hzzR9aXaLBCKiC5
-	RlYhVTbsrgLj6YJw4EFfy7W0VJy0MO7jqbDiSbP865UwMrD897vhZtuZiz/tWquCMARQ3fe6qia
-	nM8c6Cw6g6q3gxLX1rAWnXZkhgbGDXnY4XY3VAkUkkkY/czVAvRC5OapT3Sq9e+vsWbd2sFkom6
-	fueVFDYx0/wAIfPMa7S9YDVfGv/PCHLx6oONlxhYfUY/Ou9SPH/VfL73Y+lxGhaRVhtljRhb1Zo
-	rgiUIbHunsrIYETIKAGXHqHjZBwS7dBQhtM7AfBTOJvC380rf3tcEuNZKwPYVW2vSriUrWGNA8Y
-	x0A45MV2ra4
-X-Received: by 2002:a05:6122:400c:b0:5c9:a60c:273f with SMTP id 71dfb90a1353d-5c9f16b901cmr3577780e0c.23.1790178249808;
-        Wed, 23 Sep 2026 08:44:09 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f04f02bfsm3437129e0c.7.2026.09.23.08.44.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:44:09 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v3] drm/amdgpu: prevent parameter-space underflow in nested ATOM table calls
-Date: Wed, 23 Sep 2026 12:43:57 -0300
-Message-ID: <20260923154357.1319689-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923152912.1296884-1-qwe.aldo@gmail.com>
-References: <20260923152912.1296884-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZCvKnDvy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDAAF1F000FF;
+	Wed, 23 Sep 2026 15:44:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790178271;
+	bh=9PPxBgUPMs5vchL7SR1fadKjrntsb9RgCKzLY/cjVMM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZCvKnDvyFD4Ed5hludzd7plkpUV5xgTorV53CLht/02a3pPU8pxjsaNP+vl3RM6u0
+	 HHdcQrXYtJlRDswS+twP65Os5BLKtpUkF0NliYzgprI821NcdMJy4ICi0Vyzz/Ki+5
+	 n1f4aAAXIIPaqAuzkYZte48uwP0JSDtUbo9VMn8frp3k0UNWEggB00c8b+uH5t+6mT
+	 /b+nrhZH7sqBUiqOVota1eT4fe1qPNYIZ7ZQUoKJvp/Y4Y+OyFw57kNdnnPO6C0ONW
+	 TsqtVuNCK4mnlbY5ovdQ9umxwMjqtOuKpkvHSbiM4JQSx7VjoVvL4JZoHzwGDxCOPa
+	 JL/cPq7+7qwgg==
+Date: Wed, 23 Sep 2026 16:44:27 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Wei Xu <xuwei5@hisilicon.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: soc: hisilicon: Add HIP05 CPLD
+Message-ID: <20260923-strenuous-faceless-dfad20f6b872@spud>
+References: <20260921232540.3128596-1-robh@kernel.org>
+ <20260922-cheer-reference-c31fc6fb946d@spud>
+ <20260923150409.GD27237-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fXQyoIfMWTM8pali"
+Content-Disposition: inline
+In-Reply-To: <20260923150409.GD27237-robh@kernel.org>
 
-atom_op_calltable() invokes a child ATOM table, forwarding the
-parent's parameter space with an offset:
+--fXQyoIfMWTM8pali
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-    amdgpu_atom_execute_table_locked(ctx->ctx, idx,
-        ctx->ps + ctx->ps_shift,
-        ctx->ps_size - ctx->ps_shift);
+On Wed, Sep 23, 2026 at 10:04:09AM -0500, Rob Herring wrote:
+> On Tue, Sep 22, 2026 at 07:06:02PM +0100, Conor Dooley wrote:
+> > On Mon, Sep 21, 2026 at 06:25:39PM -0500, Rob Herring (Arm) wrote:
+> > > Add schema for the hisilicon,hip05-cpld node on the HIP05 D02 board. =
+The
+> > > node only contains the compatible string and one register window on t=
+he
+> > > local bus.
+> > >=20
+> > > Assisted-by: LLM
+> >=20
+> > Guidance to the LLM should probably include including the reason that
+> > this is being added to the commit message.
+>=20
+> Not sure what you are looking for... I told it to convert all the .txt=20
+> bindings to schema. Then I told it fix all the errors. Then I fixed some=
+=20
 
-ctx->ps_shift is in dwords (set to ps / 4 in
-amdgpu_atom_execute_table_locked()), while ctx->ps_size is the
-remaining capacity in bytes. The subtraction therefore mixes units:
-a child table requesting 60 bytes (ps_shift = 15 dwords) with only
-16 bytes remaining would compute 16 - 15 = 1 instead of the correct
-16 - 60 = underflow.
+I meant that it should say something like "Add schema for ... node that
+is undocumented but appears in the ... board dts".
+Otherwise this seems like a completely random addition, other than the
+submitter being you pointing towards it being cleanup for undocumented
+stuff.
 
-Convert ps_shift to bytes (ps_shift * 4) in both the guard and the
-subtraction so the units are consistent. Abort the interpreter when
-the request exceeds the available space so the parent table does not
-continue with stale or uninitialized data.
+> things throughout the 900 commit branch upstreaming things bit by bit. =
+=20
+> Then it mostly sat for a year and I told a new model to review them and=
+=20
+> fix these common problems a, b and c. Then I said fix all the=20
+> dtbs_checks warnings on arm64. Then I said there's still warnings, do it=
+=20
+> again. Repeated that ~10 times. Now I'm going thru to weed out all the=20
+> wrong and sometimes unnecessary changes.
+>=20
+> So LLM did all the easy parts and I did everything that requires any=20
+> judgement. The hardest part is typically just figuring out the=20
+> correct maintainers...
+>=20
+> > > Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> > > ---
+> > >  .../soc/hisilicon/hisilicon,hip05-cpld.yaml   | 35 +++++++++++++++++=
+++
+> > >  1 file changed, 35 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/soc/hisilicon/h=
+isilicon,hip05-cpld.yaml
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add coordinate ATOMBIOS table support")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
-v3: abort the interpreter (ctx->abort = true + return) when the
-    child table's parameter space exceeds the parent's remaining
-    capacity, instead of silently skipping execution (found by
-    Sashiko AI review on v2).
-v2: convert ps_shift to bytes (ps_shift * 4) before comparing with
-    ps_size, fixing the unit mismatch (found by Sashiko AI review).
+--fXQyoIfMWTM8pali
+Content-Type: application/pgp-signature; name=signature.asc
 
- drivers/gpu/drm/amd/amdgpu/atom.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
-index e0e585f..af283cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/atom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/atom.c
-@@ -646,8 +646,13 @@ static void atom_op_calltable(atom_exec_context *ctx, int *ptr, int arg)
- 		SDEBUG("   table: %d (%s)\n", idx, atom_table_names[idx]);
- 	else
- 		SDEBUG("   table: %d\n", idx);
--	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx))
--		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift);
-+	if (U16(ctx->ctx->cmd_table + 4 + 2 * idx)) {
-+		if (ctx->ps_shift * 4 > ctx->ps_size) {
-+			ctx->abort = true;
-+			return;
-+		}
-+		r = amdgpu_atom_execute_table_locked(ctx->ctx, idx, ctx->ps + ctx->ps_shift, ctx->ps_size - ctx->ps_shift * 4);
-+	}
- 	if (r) {
- 		ctx->abort = true;
- 	}
--- 
-2.43.0
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCarPz2wAKCRB4tDGHoIJi
+0qo5AQDoHJLM3dY0FK4aNlll5Vp276wV+D0l/vFY92imoN9xJwD/S/lJE2a7bcHD
+Q7vOIv9sEQqziJ6J3fePaQYs5nrnIw8=
+=v+dZ
+-----END PGP SIGNATURE-----
+
+--fXQyoIfMWTM8pali--
