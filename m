@@ -1,150 +1,131 @@
-Received: from smtp-bc0d.mail.infomaniak.ch (smtp-bc0d.mail.infomaniak.ch [45.157.188.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34143D6CCA
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:14:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8209447F770;
+	Wed, 23 Sep 2026 10:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158471; cv=none; b=cqtWdPfFKl5s0nqQwSYpIIwwDRLJGG6d6VSoMzQJm4aVLrQxvd20nR0Uiau+B9JWj3WdO8IhQeW150dtDD7RUBdp2OtJlSfHRNbVGsVriaMzdJ36Yzghr5CJUrE9QrV8vvh6AnCPDZ0GAZMgy9Std8vCFCwi40tTOpc+sebimHo=
+	t=1790158475; cv=none; b=I2ViEwUFFDFUvAitnyGtZCsv/6caEtNp6V4GAdr7/AcJTCGo7Dz14r0bpJekQPsMNn1TrsuMN+3PtZjldQSkMJJ0mbIg/R65DraiEOd8wRW5Xv7UnnQVZCqTwd3voMauHwWuIOwR4zPRY85HwQGiCalayQr8sP4ofSW8RV/r1Aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158471; c=relaxed/simple;
-	bh=h1AWZRxSrpr2Ju7TwFdK+nHYJRjWltU7Ec14LNpAKVI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jAp61qkPT+Qz89Ilx6pwsqFZCj++fq6pQ5B85Ij7Ec44TXwkPK93+VdpmaJ1B6/fEuOL9T0pP1/ftZH7qeroCEOL7L3AeT6fu+1dGzbRa+vTGcpjrPbtOhoUy0tq5StroDZ+F5zcpSXWI9gh1oJLRSxz5M3j7ygoEOyOJ0mxgsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=1hdtkPw7; arc=none smtp.client-ip=45.157.188.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	s=arc-20240116; t=1790158475; c=relaxed/simple;
+	bh=/+Y0zscRScVGHGgCFfeLdVCzp54cLykI6O4Q82zd0eg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nunFHWhyl8JxcdagW01fCd4j/QJfCvehB7868Kx5FrEKr98lSl8ejAXWIiBi1YqidGbGld9kZtocG9Ju5DVKkiV3ixrw4TOgg/QlzNtGqsGllYA9Ti0Q2YjDcCuVTZEu7hx0bW8GmmUmhbD0LGwcTnccpNCS/+H/6/oBmLFUZZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8tDa/wW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="1hdtkPw7"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hqXqv2KvQzgft;
-	Wed, 23 Sep 2026 12:14:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1790158443;
-	bh=SFOa6PXnvBCltv3PDeGTOt6gr++V0R18iCtkjLktUwU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=1hdtkPw7LjOjMNpTmsouoDpZKOhNYHgwH7jTNmRKoiy+vNUY4cyKE6wJ+IzUt8eif
-	 y7zmgJvFHUDPL7p4U9fWJqsRwAT8uLSNEBoPMSCT0PBT6AFjX/QXYDFHIEZHvV5sjm
-	 whH3F5uMft8pCQMRryu1smUuECKWVDZj+7M4eLzc=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hqXqt21f2zd3w;
-	Wed, 23 Sep 2026 12:14:02 +0200 (CEST)
-Date: Wed, 23 Sep 2026 12:14:01 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
-Cc: Christopher Lusk <clusk@northecho.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] docs: landlock: clarify TTY signal scoping
-Message-ID: <20260923.oyohBie1Jeen@digikod.net>
-References: <20260916152336.1589383-1-clusk@northecho.dev>
- <aqq3yY8SKIBGUZ8v@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8tDa/wW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DCD41F000FF;
+	Wed, 23 Sep 2026 10:14:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790158462;
+	bh=3gdSF/O138dnRSPNJCUqjM6K/O1uaucAa5FbPqgbSok=;
+	h=From:Subject:Date:To:Cc;
+	b=I8tDa/wWsCw5jIoiFWwux98tiDjO2/ZDHHO11aflFvsZ32ygo8gekVfdulrgkI31j
+	 B1E7bfYoWfHmZZYag0ugylccGp6zDxqCC7Mzw7GJwm9Oju7F/gSFCfxmkEwUvoN5SO
+	 WyCm6lcd8oz6EN6TSi8MY1miWe06jxzP0OqMrsRBucP69r73+onfaZJ7Hn+gkPZd77
+	 tbhXRrR4yjvBP92IkNciqKVoqX2XK1jo4Hp2W3pT5wm+vpd9fYpE/iRimHTfr+Q0RV
+	 wF6guOWyjxy1p2hg0ttZDNv9oqWoaRy0HSKy+urRIstkO6MiWE07UAuBS7/oKQ0slt
+	 SVEPQzIGtHO0A==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH v3 0/3] Asus Zenbook A16/A14 (UX3607OA/UX3407NA) EC driver
+Date: Wed, 23 Sep 2026 12:14:12 +0200
+Message-Id: <20260923-topic-asus_ec-v3-0-2bf3bb9da879@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqq3yY8SKIBGUZ8v@google.com>
-X-Infomaniak-Routing: alpha
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQ6CMBAF4KuYri3pD1Bw5T2MMaUdpUYodoBoC
+ He34MYY3UzykjffmwhCcIBkt5lIgNGh820McrshptbtBaizMRPBRM5KrmjvO2eoxgFPYCjLM5W
+ npSpAKRJ/ugBn91i9w/GdcaiuYPoFWRq1w96H5zo48qX3zx45ZVQqmfHcylRp2HvE5D7om/FNk
+ 8RDlolRfCBCfCMiIqyypZCWV0UmfyDzPL8AwSTz1ggBAAA=
+X-Change-ID: 20260917-topic-asus_ec-065764978e77
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Bjorn Andersson <andersson@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790158456; l=2735;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=/+Y0zscRScVGHGgCFfeLdVCzp54cLykI6O4Q82zd0eg=;
+ b=ZLg98IBBdt7/M9E28I+7TraB7uHsQ/TH/dcDr91U4uMS0dM9U6yJZQHbGszYu3O9oLecSAcLp
+ QOAd6NeLOQiAn50QZbEkbcwmYH50RVC6t/kLqJzycvTtzehkU1575yK
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-This looks good, much simpler.  Could you please send the (new) test
-with the v3 of this series?
+The Snapdragon X2 series-based Zenbooks come with a bespoke embedded
+controller firmware, bearing some resemblence to the reference Qualcomm
+implementation (qcom-hamoa-ec.c), albeit with too many changes made to
+consider them anywhere near "compatible".
 
-On Wed, Sep 16, 2026 at 05:37:45PM +0200, Günther Noack wrote:
-> On Wed, Sep 16, 2026 at 11:23:36AM -0400, Christopher Lusk wrote:
-> > The LANDLOCK_SCOPE_SIGNAL documentation does not describe how TTY-driven
-> > signals interact with signal scoping.  Holding a PTY master file descriptor
-> > is a separate capability: its holder can cause the TTY layer to signal
-> > processes running under that terminal, even across a Landlock domain
-> > boundary.
-> > 
-> > Add a concise clarification to the userspace API guide and the UAPI header.
-> > This records the capability boundary identified during review of the
-> > TIOCSIG discussion without enumerating individual TTY signal paths.
-> > 
-> > The documentation text and changelog were drafted with assistance from
-> > Codex (gpt-5.6-sol).
-> > 
-> > The userspace API documentation builds successfully with the kernel-pinned
-> > Sphinx dependencies.  The patch introduces no new warnings; the existing
-> > missing-graphviz and undefined-label warnings are unchanged.
-> 
-> Minor nit: Last two paragraphs of the commit message would have been
-> fine to drop for conciseness (the Assisted-by line already lists Codex
-> and the other paragraph talks about things that didn't change).
-> 
-> But really just very minor, and probably not worth changing unless we
-> unexpectedly need a V3.
-> 
-> > 
-> > Link: https://lore.kernel.org/r/aqqJAZfG9FC7PgMW@google.com
-> > Suggested-by: Günther Noack <gnoack@google.com>
-> > Assisted-by: Codex:gpt-5.6-sol
-> > Signed-off-by: Christopher Lusk <clusk@northecho.dev>
-> > ---
-> >  Documentation/userspace-api/landlock.rst | 3 +++
-> >  include/uapi/linux/landlock.h            | 2 ++
-> >  2 files changed, 5 insertions(+)
-> > 
-> > diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
-> > index 84cb7bf6b3ed..33a514ebc615 100644
-> > --- a/Documentation/userspace-api/landlock.rst
-> > +++ b/Documentation/userspace-api/landlock.rst
-> > @@ -430,6 +430,9 @@ The operations which can be scoped are:
-> >      This limits the sending of signals to target processes which run within the
-> >      same or a nested Landlock domain.
-> >  
-> > +    Holding a PTY master FD still grants the capability to issue signals through
-> > +    that PTY to the processes running under that terminal.
+This series introduces a new driver to let the user retrieve current
+RPM of the two fans, the temperature readouts from 2 temperature
+sensors and get/let keyboard brightness levels. The driver also
+notifies the EC of system suspend entry/exit.
 
-It would be more complete to quickly explain that a master TTY FD should
-be considered at least as privileged as the processes using/trusting the
-slave side.  See
-https://lore.kernel.org/all/20260923.eehieph7UaX1@digikod.net/
+Two separate compatibles are maintained since the two laptops' ECs seem
+to be generally alike, however assuming full compatibility with the
+limited available information does not spark confidence.
 
-So, this paragraph should really be short.
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v3:
+- Cover Ilpo's feedback: includes, braces, dev_info->dev_dbg, line
+  wrapping, reuse the timeout logic
+- Pick up tags
+- Reabse on next-20260922 (NOP)
+- Link to v2: https://patch.msgid.link/20260922-topic-asus_ec-v2-0-0bd923d1b853@oss.qualcomm.com
 
-> > +
-> >  ``LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET``
-> >      This limits the set of abstract :manpage:`unix(7)` sockets to which we can
-> >      :manpage:`connect(2)` to socket addresses which were created by a process in
-> > diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
-> > index cceda3b3b961..6485af37dd25 100644
-> > --- a/include/uapi/linux/landlock.h
-> > +++ b/include/uapi/linux/landlock.h
-> > @@ -501,6 +501,8 @@ struct landlock_net_port_attr {
-> >   *   related Landlock domain (e.g., a parent domain or a non-sandboxed process).
-> >   * - %LANDLOCK_SCOPE_SIGNAL: Restrict a sandboxed process from sending a signal
-> >   *   to another process outside the domain.
-> > + *   Holding a PTY master FD still grants the capability to issue signals
-> > + *   through that PTY to the processes running under that terminal.
+Changes in v2:
+- Add rationale for separate compatibles
+- Drop `wakeup-source` from `required` in dt-bindings
+- Fix bindings example indentation
+- Rebase on next-20260921 (NOP)
+- Link to v1: https://patch.msgid.link/20260917-topic-asus_ec-v1-0-373516d347ae@oss.qualcomm.com
 
-What about rewording the LANDLOCK_SCOPE_SIGNAL description to say that
-it is about signaling *arbitrary* processes (which is not the case with
-the TTY master FD)?  This way we would not have to specifically re-talk
-about the TTY case.
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Hans de Goede <hansg@kernel.org>
+To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: Guenter Roeck <linux@roeck-us.net>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: platform-driver-x86@vger.kernel.org
+Cc: linux-hwmon@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
 
-> >   */
-> >  /* clang-format off */
-> >  #define LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET		(1ULL << 0)
-> > -- 
-> > 2.55.0
-> > 
-> 
-> Reviewed-by: Günther Noack <gnoack@google.com>
-> 
-> Thank you very much for your contribution! :)
-> 
-> It ended up as a much smaller patch than we started out with, but the
-> real advancement lies in the understanding of the semantics and in the
-> double checking of these boundary conditions.  The LLM output was in
-> some cases a bit wordy ;-) but overall this was a good discovery and
-> useful discussion.
-> 
-> Thanks,
-> —Günther
-> 
+---
+Konrad Dybcio (3):
+      dt-bindings: embedded-controller: Add ASUS Zenbook A16 EC
+      platform: arm64: Add a driver for the EC found on ASUS Glymur machines
+      arm64: dts: qcom: glymur-zenbook-a16: Add Embedded Controller
+
+ .../asus,zenbook-a16-ux3607oa-ec.yaml              |  64 +++
+ .../dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts  |  15 +-
+ drivers/platform/arm64/Kconfig                     |  16 +
+ drivers/platform/arm64/Makefile                    |   1 +
+ drivers/platform/arm64/asus-glymur-ec.c            | 600 +++++++++++++++++++++
+ 5 files changed, 694 insertions(+), 2 deletions(-)
+---
+base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
+change-id: 20260917-topic-asus_ec-065764978e77
+
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
