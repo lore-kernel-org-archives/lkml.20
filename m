@@ -1,91 +1,170 @@
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D73F2479863;
-	Wed, 23 Sep 2026 09:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1555477E37
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154755; cv=none; b=qCtkut0PY+Co8WeXsTUBzO689ykbjdeOyux7tbLDpjCTqhNFSOLMGC/VrimAYVyaO09Se2IQ4euSVXjszZmTOzmrNuScpL0pCGiCYMLOiIoCoDj91bdmmlx+a1vuuIylZcTuisa+I4j/YJr7oALgbKo/lvyC2bf5beF5NiLlKxU=
+	t=1790154794; cv=none; b=TmKZEOIW3EDWXB34Vg6XWC0GoRo6XNcgP+/pClRuPiSYfeIim8jTAvTCaotaCmxIXl7Tk292/JNCQGVpbHPWGiF6vIywu+F+RG2Jym2JkjGdxPJ72hWdvJL3OOXxXPx01X7kzehkoMvPqU7qPWlHixn2ApfVGKQatcFv0zKkfQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154755; c=relaxed/simple;
-	bh=SAGVK9OPDvqZ1jJKLqmuMYQ2rVjzfprfyjrxl+sHNTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E/1vzKVHST3XeMYZ5b1PNFqYxjgCeVpWr5gb4Iyy+wXDbpVsY2l7imW5owez8f1LMzJq7SqJZ8pdEJ+uzi0Fz2xPFK6hf3z8v/dHfZePmY3kn8ibEu2Y7qSinxTaU18Dh8uMiSOoG7mJYKH+uyOhvnndZA5Ga3XfzXX0AZT2TJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=oHfb5M+F; arc=none smtp.client-ip=217.70.183.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1790154794; c=relaxed/simple;
+	bh=MqDx2uNPV3E/fiWMTSd/dV4UjPLeNNzFK2C1QLD5Gus=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VMK9xIyeFR1N5s8otCleFVLPnMlN+7lpllk95a/8HfcAm9k0jksEqRhGSupe6D4ObuP+CqBW1Vz3usUdFMc6b/UlQmTSHhC0CCuhXnKdViN1GWjZSkNbJZ3QzyTElZxyYL9h6jKb77MvgZ7fvQmyvvHq+PTBQrHojt+2OK5LOB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jw0TmQ+i; arc=none smtp.client-ip=91.218.175.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="oHfb5M+F"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id AC7F53EBC9;
-	Wed, 23 Sep 2026 09:12:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1790154745; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=XaWFynU97Xs0bJVkikFT8nA/Q51SOMSnMNYGzRCbHhg=;
-	b=oHfb5M+FSYpxbL2hzH6kdAlfs2u0jFGnmNU6ywtPYtrJG+D07go/nlkttBqpAaZSBtZdE3
-	PgbhZd1+qdTFBfUtYrvwBDE1QE/uVEVwrUaytqvKKziCLrP2qO/5DlhDF5WZe3GS+hoqj2
-	gDUE5tVN+G40zotFoOIA/aUtlFtdVnyan7gu1Cy/ajvUrQ8/zJfno9MVz+UBrK/09grFfH
-	lN0+I8TFebd7nigqzaw8zjs15vxYfTkOXo2RYVRAnYmcI8tgy2bQcd4h+5R+aVC8m/wFK6
-	p6Ya1plZJO5fKPcBXz5Zq6HFSt47qdwkPuls7nfC9g/awUjxvfXRmS5mEI9sGA==
-Date: Wed, 23 Sep 2026 11:12:21 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v9 1/3] dt-bindings: net: wiznet,w5100: convert
- to DT schema
-Message-ID: <20260923091221.GA90128@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260918-wiznet-link-gpio-v9-1-5536f24d8d6d@marmottus.net>
- <179009180465.2160803.12754142201441824675@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jw0TmQ+i"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MqDx2uNPV3E/fiWMTSd/dV4UjPLeNNzFK2C1QLD5Gus=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790154790; v=1; x=1790759590;
+ b=jw0TmQ+ihNUftgMRlC3fIpvxvsR1ERvpc1kCIwpZ2zOWh18GaV+ycTAIAqfxFtrZlMVhdPpK
+ g5lU9b+GSu+8NHF8YFXypn4YPzZxjwTAWNBdsNwKHhUwyIPCqUG2ouFk0StgSLnTDzSSCpUUvip
+ q/X1A2QQJ25SIOh4U2DNLEeo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ad223138143f3bbe;
+	Wed, 23 Sep 2026 09:13:09 +0000
+X-Mizu-Trace-ID: ad223138143f3bbe
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: ljs@kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	guoren@kernel.org,
+	bcain@kernel.org,
+	geert@linux-m68k.org,
+	dinguyen@kernel.org,
+	schuster.simon@siemens-energy.com,
+	jonas@southpole.se,
+	stefan.kristiansson@saunalahti.fi,
+	shorne@gmail.com,
+	dalias@libc.org,
+	glaubitz@physik.fu-berlin.de,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	linux@armlinux.org.uk,
+	vgupta@kernel.org,
+	monstr@monstr.eu,
+	chris@zankel.net,
+	jcmvbkbc@gmail.com,
+	will@kernel.org,
+	aneesh.kumar@kernel.org,
+	npiggin@gmail.com,
+	peterz@infradead.org,
+	davem@davemloft.net,
+	andreas@gaisler.com,
+	richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linmag7@gmail.com,
+	catalin.marinas@arm.com,
+	mark.rutland@arm.com,
+	chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	tsbogend@alpha.franken.de,
+	James.Bottomley@HansenPartnership.com,
+	deller@gmx.de,
+	maddy@linux.ibm.com,
+	mpe@ellerman.id.au,
+	chleroy@kernel.org,
+	hca@linux.ibm.com,
+	gor@linux.ibm.com,
+	agordeev@linux.ibm.com,
+	borntraeger@linux.ibm.com,
+	svens@linux.ibm.com,
+	richard@nod.at,
+	anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	arnd@arndb.de,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	jgg@ziepe.ca,
+	jhubbard@nvidia.com,
+	peterx@redhat.com,
+	ysato@users.sourceforge.jp,
+	shakeel.butt@linux.dev,
+	corbet@lwn.net,
+	rdunlap@infradead.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-csky@vger.kernel.org,
+	linux-hexagon@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-openrisc@vger.kernel.org,
+	linux-sh@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-snps-arc@lists.infradead.org,
+	linux-arch@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-alpha@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-s390@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	hughd@google.com,
+	qi.zheng@linux.dev,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 07/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for m68k-coldfire
+Date: Wed, 23 Sep 2026 17:13:03 +0800
+Message-ID: <20260923091303.19671-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20260922-rcu-pagetable-freeing-v4-7-fe1ad1f1e303@kernel.org>
+References: <20260922-rcu-pagetable-freeing-v4-7-fe1ad1f1e303@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <179009180465.2160803.12754142201441824675@kernel.org>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Score: 0
-X-GND-Cause: dmFkZTEbO+S7deTUsJDFY882Iwbc5iPiEjvYLSxRbrdyUBxZ8cKU/OJLRSfMrv9Odm7Wm1uqjo2WHtggfCf+d3x02XnqFbNm7e/idwNvSTj0VoV/5obZ7szriDueefipeyQC4PO8Bu5q+tdPu+Vzwm9grBQlmXo2/eAL7lzvTI97U7bjRkJCYyiproJcYyM8AZiLNbq788XY+mCvyUlr2oRfOCSIpeOZ8tY4ZEXRxcvgz0HSoPTfLrucbG/UcRTvnntgu23/+0703Y1w9Fp9wM3fGlFbc3mCAhufQ7a2dWOhxIbtHzKKDaYyq9xzOxt9NTPh8UGc2tyqh6LJAeCRPtKT5JrzjxJEmz7lgVDJxoX0hvISTJl/fE5zgXk8RBwIsah65FHr1koUKlZY+Mnsify4WTq3+wK4DIpkOawB2se441UnHEBlf0PBvtCFYQ0iuBJ+LqFZbc2zFkq1GMDXztH/VIrZrqRBIr2xQN5YnwlX+3VQC74RnO1p440yNx/QIniyrzNJqmes6LVf2h91z/IJq79vC+Qti6kKQz5EiknU99wxsSqCqlYuFysFt66lRy6kLidIzRKsyBLKAESFLlitpm9D2B5XCAn1EDG0ABXGRVh6wBuXiJRKCMv6s773GEpfyQamtLTZ/uAq9WbYDs3LjttTX9XvviCvJry8X+Qk6ss6uA
-X-GND-State: clean
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 03:43:24PM +0000, netdev-bot+sashiko@kernel.org wrote:
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index cae5962045dd..e6a5a4e245a0 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -29439,6 +29439,12 @@ M:	Miloslav Trmac <mitr@volny.cz>
->>  S:	Maintained
->>  F:	drivers/input/misc/wistron_btns.c
->>
->> +WIZNET W5100 ETHERNET DRIVER
->> +M:	Arthur Crepin Leblond <arthur@marmottus.net>
->> +L:	netdev@vger.kernel.org
->> +S:	Maintained
->> +F:	Documentation/devicetree/bindings/net/wiznet,w5100.yaml
->
->[Severity: Low]
->Could the commit message mention this new MAINTAINERS section?  The
->preserved log text only describes the .txt to YAML conversion and the
->edge-falling to level-low trigger change; the new maintainership claim is
->mentioned only in the changelog below the --- separator, which does not end
->up in git history.
->
->The section is named as a driver entry, but its only F: line matches the
->binding file, so at this commit scripts/get_maintainer.pl will not route
->drivers/net/ethernet/wiznet/ changes here.  That part is addressed later in
->the same series: the commit "w5100: detect carrier state using link status
->bit and optional interrupt" adds F: drivers/net/ethernet/wiznet/ to this
->section, so the mismatch exists only between this patch and that one.
->
 
-I'll update the commit and the MAINTAINERS file.
+On Tue, Sep 22, 2026 at 04:35:38PM +0100, Lorenzo Stoakes (ARM) wrote:
+>Similar to sun3, the coldfire variant of m68k uses 2-level page tables.
+>
+>Update its __pte_free_tlb() function to use tlb_remove_ptdesc() in order
+>that, with CONFIG_MMU_GATHER_RCU_TABLE_FREE, page tables are freed under
+>RCU.
+>
+>The page tables occupy a page each and have no odd semantics, so this
+>change suffices to allow enabling of CONFIG_MMU_GATHER_RCU_TABLE_FREE for
+>m68k-coldfire, so do so.
+>
+>This forms part of an overall effort to switch every architecture to this
+>mode.
+>
+>Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>---
 
-Arthur
+Yep, ColdFire PTE freeing now goes through tlb_remove_ptdesc() :)
+
+Feel free to add:
+
+Acked-by: Lance Yang <lance.yang@linux.dev>
