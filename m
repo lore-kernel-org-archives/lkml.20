@@ -1,72 +1,71 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69540353ED9;
-	Wed, 23 Sep 2026 08:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206BB413794;
+	Wed, 23 Sep 2026 08:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790153262; cv=none; b=GLIWoJ+6UgYJRGI+1cPSjaWECyH6Ot08osLbiPNaOMrnp1bU3Ht0kJ2OKVbfbSMWvwwshEKsszVzppp/hyNJ/iZJGHOLQzX/HiFiE8ztdnfTWxRIUdueJFN9E0er04ZPRwHHDFr0Z5IYUXB2C4km9/kR50jfLJ6d8Jj4tNi+xqU=
+	t=1790153265; cv=none; b=T4P9ucpFu/mKQz8FD+scB4seWLeC/L8dSAx/ui8+wglCv5FMQhWEZUNDjYgMDCp3Ond+OaJ3oU1z+A2LS9ejg3TcQr8oDr1QkNraMG4UTryl2L+gS9Nt2RJWLTMjVuN3SHoLEOjuw9OCFSzZRoP6rXLYo1v75YQBKUy6Hhrc9g8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790153262; c=relaxed/simple;
-	bh=b8bb5xRZ7cH3sAG7knHaZQcAUOoD8dtSx3panS3Vny0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u4Hgn6yn7jZWGbIiP9IgIGHz1/SxzR0h4OwuafO6/vwoHLjbWfmv3MU+Sj9TsZap/jSONo/9T6h0HcHurMBlv3i6c8epLK5+PRUgA7+U8x3bfSkM+R91EPeyzwParR0w7JRrd3wXkpXYF3/XZcUjXXG5nmEJgYmhNvOUGAnqIcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=pDEZ6SYS; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1790153265; c=relaxed/simple;
+	bh=zpgAuLkT2LOYV8IvxWjEmIqkjervfwmMwojK/9tya6E=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VKKf/E9/w88Jef5e+kyaq0W0h1OGzI0BCnttxqtKPv114Q5NmGuCz5qxIaPkA8cUhMHBggf1CiETQos6XLGpkOS4rQGQfrPL6chJRx1EpvwHsLXR8hRLs3sjr+kTmAGRJH5zY0KhunDdvbNkSZbmasxTcsmO2lcx2RGwwxnOK4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=lOjQFhuR; arc=none smtp.client-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="pDEZ6SYS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=bIvcDWnJA7ANdmb2jS7I+mzPuTwA4/C5NFzq0COuFbE=; 
-	b=pDEZ6SYSimnzAL/vEM8RtfPq26V5VEFMtDtiXK9h//Xadd6YDUdFWY+m/srVuoM+dajGquDe+uI
-	juPUdL3Y9090P7lXsejA5esOaTrPvSCrExsQiAyhGqN3s1GP9Cst5ngJKRv1Fvp/HSIe5ATRRP6/M
-	n1u3KGZRyuoQEd6f6J4y0Y9wRpkCw7W60/JJGsUzkAP5gHvTD9hf3/wyFPfdckA+weEVSRZ7AMDUY
-	Eo3IjwUQHku1xpwCGAyWweuvKWJjAKCzGWJ7khdY8//0QeuHqNUcdr5M9EyToRvG2kDElyn+wyRav
-	3glMpa0slzawBFn4zeT+mxCaRDxWKqb0wFmA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x9IdX-0000000Gy9n-20of;
-	Wed, 23 Sep 2026 16:47:32 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 18:47:31 +1000
-Date: Wed, 23 Sep 2026 18:47:31 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Jia Jie Ho <jiajie.ho@starfivetech.com>,
-	William Qiu <william.qiu@starfivetech.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] crypto: starfive: propagate clock and reset errors
-Message-ID: <arOSI-P7GAt4gHZW@gondor.apana.org.au>
-References: <20260830134835.10572-1-pengpeng@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="lOjQFhuR"
+Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id 052DEA6AD3;
+	Wed, 23 Sep 2026 08:47:35 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id 1FB7431;
+	Wed, 23 Sep 2026 08:47:32 +0000 (UTC)
+Date: Wed, 23 Sep 2026 04:47:30 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Vineet Gupta <vineet.gupta@linux.dev>
+Cc: mhiramat@kernel.org, mark.rutland@arm.com,
+ mathieu.desnoyers@efficios.com, andrii@kernel.org, peterz@infradead.org,
+ linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH 2/2] tracing: fgraph: Add a cond_resched() to the shadow
+ stack retry loop
+Message-ID: <20260923044730.1bc0a81c@fedora>
+In-Reply-To: <20260922225526.1554758-3-vineet.gupta@linux.dev>
+References: <20260922225526.1554758-1-vineet.gupta@linux.dev>
+	<20260922225526.1554758-3-vineet.gupta@linux.dev>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830134835.10572-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 1FB7431
+X-Stat-Signature: 79p416q55bj4hwixcabuekkqwe6tjoqy
+X-Rspamd-Server: rspamout03
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/5YKzK8B5lpzZqrKc7JBcSBUNuwZ7TNMk=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=zpgAuLkT2LOYV8IvxWjEmIqkjervfwmMwojK/9tya6E=; b=lOjQFhuRMYa+nvhUAjIuXOnhzjoQ6XTWqkt9z/0Gna0YGltsd1OwDaYXFlP1I2fpUmQ3Zh07NTaVDMoQxdrERgLz+UEo/0PdehETA9QbFjUPoQNRYsHcG4hPKYBwo381zcZVBzQDWBgUjE9SPyyHxpk6fMRqbOwYUDZEGuv2KYE=
+X-HE-Tag: 1790153252-226471
+X-HE-Meta: U2FsdGVkX19M/zr3w83fZ8KluxjxQtNkZbGYTJ07vaOWA+76DhQAZZFy60SvF9Ue0ZrYjrcHw+FGdzClB7JiZCvs5ac5EKym3rNBZe1blBVTfEWhJH9ialW96XCECmrVQYp9WQcfHsmbLKY2FXmhT7UaN5gHpEKg1hPzwOycVB3wDGGiv5yH647uvoVuvheitf9pKJEF4pA36dUf4ReEwlnqKGRheb6U6rmzNIn2Ke6cTYDc96QHkHTjZ37WWOaJ+zWloZFYlPPT4TXwaLUaSs3UM/ndvk8JXtuWaE9fPHdQdjBF+jQjJFf6qJ+HCxmH
 
-On Sun, Aug 30, 2026 at 09:48:35PM +0800, Pengpeng Hou wrote:
-> starfive_cryp_probe() publishes the crypto device after enabling its clocks
-> and deasserting its reset without checking whether those operations
-> succeeded.
-> 
-> Check each hardware activation step and unwind only the resources that were
-> actually enabled before returning the error.
-> 
-> Fixes: 42ef0e944b01 ("crypto: starfive - Add crypto engine support")
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-> ---
->  drivers/crypto/starfive/jh7110-cryp.c | 20 +++++++++++++++-----
->  1 file changed, 15 insertions(+), 5 deletions(-)
+On Tue, 22 Sep 2026 15:55:26 -0700
+Vineet Gupta <vineet.gupta@linux.dev> wrote:
 
-Patch applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+> This is supplementary to previous patch and is effective only for
+> !PREEMPTION kernels.
+
+FYI, a patch in a series should never mention "the previous patch" as
+if it gets committed, order in git history is not easily seen. Thus, a
+change log should mention the added functionality itself and not a
+patch sent to the mailing list.
+
+But that said, this patch is likely not going to be added because
+!PREEMPTION is being deprecated specifically to get rid of
+cond_rescheds. Hence, I'm not adding any new ones.
+
+-- Steve
+
