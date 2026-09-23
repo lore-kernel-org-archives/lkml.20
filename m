@@ -1,35 +1,77 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 33D3C3C0635;
-	Wed, 23 Sep 2026 07:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D244D45D5C4
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149782; cv=none; b=uXJwQQ7goSkviT/8YcAoUJW8tWfxrTkkp4ax4MwDaotZxKAvb/O6ICii1/HlUaUf4h1lgm3Xoxm0QTVebhs4a/0azxDD8glwLRsReUdowDxPXf474593b3uSIH6CurxtnNGTVtqb0qYH9eBwNlkDdamuwY4N2IQz2X/kwKsT5dg=
+	t=1790149782; cv=none; b=dGghOl4MTVK0gzGJs++SH3xeid9OG/Il115NdXKYJI8A/2T8DkMy0ZYIuJp8LKmqxFhH5wqD9S0vAWsxoLembwDEbyVWfSnbwFRSri7m29qkLBuwJzcW6m6INFNG9YsOJ31RcnSWHvqAeAfbiZbXr9STgozuJO/31NngJ5LUJUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790149782; c=relaxed/simple;
-	bh=m/cEceOzCnDodbXJi1kYlQoLj5ukhZwRLEOl76ErlNE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EcXF0clRBrxvDlz+kT44y14wUHFQNukFVeDHJO33G/jqREtGEgEsZ7WMlNiOeXPOYLZpzJadtHnZCZPX6L6lMBJg3T7F2YJCiqm63VUqAxgwHvVh4knBntb0GeGa6RW+tMvj0X7N561dSAROTERhHJa9qAYXBzz1MdaiaSqSa4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAHAYWEhLNq6vwwAQ--.6303S3;
-	Wed, 23 Sep 2026 15:49:25 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgAnezODhLNq65_OAw--.39044S2;
-	Wed, 23 Sep 2026 15:49:23 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
+	bh=x1EO1t+RhKNeTSsJq6ZLnxGbgzYj7ObuT+4PdV8PdPs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d/LBbi6fcRTZRZa1jW925g0rVxo+UF7i5V4NF+OvtrS88FRE1G83RklMrUyljRMw5U08zbvHs/XLnN5nrkggtHXVCS/PgZZft05bgCWKKSsEKgMMY7uPskcGstD4fhaiPnBdKf/rY4Zove1J53U55ndy/loZ2kR6OZYbbTSYRP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E1Ao9z2v; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E1Ao9z2v"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663bfso92933366b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:49:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790149776; x=1790754576; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jgp+ZrcyR2hZuyp2AvG7ZUXVguQdflnbvJs857sicKc=;
+        b=E1Ao9z2vHp1r7M2uqh+YkOjFPoiVDGg18ym4TRyYXszviGJuWGRj/PFG56sP5OpEmA
+         RjDE2Hha1XGocy69q414mvVmsl+j3E3+fiImx/UjYwDC2KNGn5TyC6w1X8TwstfoeG8T
+         2YdAV7IdBK2Mzr4D28bnksiMqXLl1gGey8AGpaKBdwqD4FKXQBVQNIEjnlv+geAOmWl8
+         zqGp/cZcx1EChlOMGEYISVJ3J2StBqZ1V0gPfhFeAhSAOvSQxbTHE7qY6ONOwHOuNWBX
+         Nh0ZNNF/Jf/W+J8hE9UE0ywqJtSdpkfUz70AxryVc/cVHOZAsB2r00PwoGfXqS/VrrYp
+         wtUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790149776; x=1790754576;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jgp+ZrcyR2hZuyp2AvG7ZUXVguQdflnbvJs857sicKc=;
+        b=2397G8xdm4ZlZKgZvxcKm+UeNs2AnoJ9uVHMkXiJNRG8ElYOcxQAzU07o3JAN9+lBn
+         TRnLFYyqZoWDCSy/cXmSje7yf8N6QNWCOj9KE2vJ1jpmHMPql9MDi3y68opP7aebOTS6
+         Jz5EMaOeWhd8/Ef+dVlH5lDeHPmUzLbEwn2Uso1P3exHdgiuZMafF2faKB84w+t9aPAW
+         Wuy26F+2ddKQ6ma91LPi8tOewuDvC0JOs2d5IyukPCJXvQ5zIXimDqsHlGhCI++DFanr
+         eMZyFdYsMzjBNMu7RfpUc3W5YOBpl/pmJv6NLMS9CyrXioDiXLoUXofb2n6sm0StA4sj
+         JFkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwF1u7dfQLWgE1r7lG9q7jxfD858OpChjNzX01JntJoOupKm5yDkfrBq8k555evSz/NenKYSe88ntCAkyE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOrZAzClM064gEpG0cmEZ6hMzbHpTd6gydG9L+ykPQXbKyRbq2
+	s6lxKJeMysLmj6AAO2m9X2h0EdULK50exCB0DI9k+lBInQSvjon2aC5He1K8lO79
+X-Gm-Gg: AYBFou3d5edYGDtG9/hc13PqhgVsJFfL0NY94+ltqocdwsYEHrBHDsTJBCHxAhrcBUj
+	byiC+kWD68NKyjZzDpIkWk8V1ZlDk+SCAr1r+asfIcD61zByWxPq8ybrLDP+3QGgCIHvWibwszP
+	uxqaXYKtLso4t+Udmxbq1cS3okpI5pOpFjVeuOqemI5YNvAH3mp/6OZU59TZHTkqMjPnJpdMBEr
+	glLrhg1etFx4+A3UoYtlo/Fd+V1Cve/cspfUVG16ISODMv/Tyqa4YJ68BNwjQf/3xPBAZQx2oNc
+	vuxTEBvwex4oONHeg8nWHJhVEBRa9Qn+mVg6t1PywocwXEqbME/35KoWss9BnilawDbHjhpv72k
+	n7VG093tbqqjkGy3Q21O2owwg+VwWpKcG1XfKIYe1A5O7msygUF5OiSFwiU2/nRW3ZOaq+HIWk2
+	W+iFxkUr2a6cNKz5cwFhl4NYASHp8hMU819VrYOvXw8XNU+JogSm8FAVR5vtKAT5uP7FCVI6O1t
+	0RM7N3DZa0cetf/uE/RzNwxrYIj0nzBvA2NwnM3
+X-Received: by 2002:a17:907:3e8c:b0:c29:f5d5:5a96 with SMTP id a640c23a62f3a-c2aae1d27damr126462866b.32.1790149776099;
+        Wed, 23 Sep 2026 00:49:36 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c6f5asm64951366b.15.2026.09.23.00.49.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 00:49:35 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: richard.henderson@linaro.org,
+	mattst88@gmail.com,
 	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] usb: typec: ucsi: yoga-c630: unregister EC notifier before UCSI teardown
-Date: Wed, 23 Sep 2026 07:48:28 +0000
-Message-Id: <20260923074828.489562-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	linux-alpha@vger.kernel.org
+Cc: linmag7@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3 7/7] alpha: invalidate the local context in flush_icache_user_page()
+Date: Wed, 23 Sep 2026 09:47:50 +0200
+Message-ID: <20260923074903.862898-8-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923074903.862898-1-linmag7@gmail.com>
+References: <20260923074903.862898-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,83 +79,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgAnezODhLNq65_OAw--.39044S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?7bhr7wXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZwE/vSQZ160CDmmYAs9ddiCPQNmRWzJkHDvskmO3z+yVcoJ
-	pDGAI6upKb0vpIyZY2Op9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoW7tw45XF1rtrWUCw1DXry5Awc_yoW5JF4Dpr
-	nIkaykGrW0qF45Ww45u3W5JFy5AF97JFWUZ347W348Krs8Jas7ua97AFy5ZFy5Ar1DCF47
-	tw45K3y5Z398A3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
 
-Both yoga_c630_ucsi_remove() and the probe error path call
-ucsi_unregister() while the EC notifier is still registered.
-ucsi_unregister() frees the connector array, so an EC event (USB, HPD or
-UCSI) arriving before yoga_c630_ec_unregister_notify() makes
-yoga_c630_ucsi_notify() run on freed memory: typec_set_orientation() on the
-freed port and ucsi_connector_change() queuing work in the freed connector
-array. USB and HPD events do not depend on the UCSI notification-enable
-state, so the disable command ucsi_unregister() sends to the EC does not
-close this window.
+flush_icache_user_page() has the same caller-CPU omission that the
+previous patch fixed in flush_tlb_mm(): when the target mm is not the
+calling CPU's active_mm nothing happens locally, and smp_call_function()
+handles only the other CPUs, so this CPU may later reuse the old ASN
+together with the translations it still holds.
 
-Fix this by unregistering the EC notifier before ucsi_unregister() in both
-paths, restoring the teardown ordering from before the error and remove
-paths were reworked. blocking_notifier_chain_unregister() waits for a
-running callback, so once it returns the EC interrupt thread can no longer
-reach the UCSI instance and ucsi_unregister() can tear the connectors down
-undisturbed.
+This matters here in particular because the function exists for
+operating on another process's mappings: the comment above it describes
+setting breakpoints through ptrace, and access_remote_vm() reaches it
+through copy_to_user_page(). The calling CPU is therefore often running
+something other than the target mm.
 
-The callback is also the only external source that requeues the connector
-work, so the cancel_work_sync() calls in ucsi_unregister() can no longer
-race with a new connector-change event.
+As in flush_tlb_mm(), the uniprocessor implementation in
+asm/cacheflush.h already has the missing case.
 
-This issue was found by an in-house static analysis tool.
+No imb() is needed, here or in ipi_flush_icache_page(). Alpha's
+user-space I-cache flush works by allocating a new ASN rather than by
+invalidating the I-cache: the entries stay, but they are tagged with the
+old ASN and can no longer match. An imb() is only required when the ASN
+space wraps and numbers are reused, and __get_new_mm_context() already
+does one in that case.
 
-Fixes: 168c3896f32e ("usb: typec: ucsi: yoga-c630: fix error and remove paths")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- drivers/usb/typec/ucsi/ucsi_yoga_c630.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ arch/alpha/kernel/smp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi_yoga_c630.c b/drivers/usb/typec/ucsi/ucsi_yoga_c630.c
-index 1be18d1..59738dc 100644
---- a/drivers/usb/typec/ucsi/ucsi_yoga_c630.c
-+++ b/drivers/usb/typec/ucsi/ucsi_yoga_c630.c
-@@ -296,7 +296,9 @@ static int yoga_c630_ucsi_probe(struct auxiliary_device *adev,
- 	return 0;
+diff --git a/arch/alpha/kernel/smp.c b/arch/alpha/kernel/smp.c
+index 988e397b0b8a..e21bc3920bec 100644
+--- a/arch/alpha/kernel/smp.c
++++ b/arch/alpha/kernel/smp.c
+@@ -758,6 +758,9 @@ flush_icache_user_page(struct vm_area_struct *vma, struct page *page,
+ 			preempt_enable();
+ 			return;
+ 		}
++	} else {
++		/* smp_call_function() does not call back into this CPU.  */
++		flush_tlb_other(mm);
+ 	}
  
- err_ucsi_unregister:
-+	yoga_c630_ec_unregister_notify(uec->ec, &uec->nb);
- 	ucsi_unregister(uec->ucsi);
-+	goto err_destroy;
- 
- err_unregister:
- 	yoga_c630_ec_unregister_notify(uec->ec, &uec->nb);
-@@ -311,8 +313,8 @@ static void yoga_c630_ucsi_remove(struct auxiliary_device *adev)
- {
- 	struct yoga_c630_ucsi *uec = auxiliary_get_drvdata(adev);
- 
--	ucsi_unregister(uec->ucsi);
- 	yoga_c630_ec_unregister_notify(uec->ec, &uec->nb);
-+	ucsi_unregister(uec->ucsi);
- 	ucsi_destroy(uec->ucsi);
- }
- 
+ 	smp_call_function(ipi_flush_icache_page, mm, 1);
+-- 
+2.43.0
 
