@@ -1,179 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC15E44C66B;
-	Wed, 23 Sep 2026 09:47:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156827; cv=none; b=u7cWZQVG5XNg5x7pYMEsoYAS8O2sl0hRzt6xvymdEFCUkoOrxOvLycxZVWo93pz0qLITkF6shcTjrz17onBXCuY7rDqAr0/hAADPYMnwXWVXZmxX81yHTaeYyYllQlqVOmunqyUWT5xDxVvGqFsmpzw9kylNjKoA70opwWA3JLI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156827; c=relaxed/simple;
-	bh=up/guhLojFLGtZrGIWqwUTqQsLkp6ijLf/QNYb56n3o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=on6kVsKigr8RqVDpUX/KY+wFwdOCVsWLHxtCS3Vf6RnTguQ2iOpJG4MQwPao4ATYEz56cWA+EFryunsS7yKmBqpD0BPPIJz00/H2H1oLKOvJZD/EYxokgZS8PHEWyHDkUiqhZCDdIS8S072Fj7M0B6kKLKX/eO8aSJaKV/rUJak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WmNaAty0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C673101A2
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790156940; cv=pass; b=ZH6tcVKbww7Q9hPx//n4jntcJMzbQLr1Obn03EBifb17w75NJ5EbpaB4/oPYsaUlOqa9Ai8K+OHol8IM7tDFa04dAD30AOpEHZ4d6SzFGC6N11IdOnVp5GSceHzVuq9fzKwgSttFT8PpayDSwk2ocED8BSU+yWuJxt0h9bskv+g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790156940; c=relaxed/simple;
+	bh=Wx4px2zkiHR2c6nwPLGSYtdbbt3JxOWVvjGhgsEZ98w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BQd8N2Rk+0PrQ97uCfIyxxombzHG0hcBnCvP85GbcdC3kK778m6lU5kTFeXc0yP57cOQxLbentJBacJ1qhsTHeg7gKzc3LEIXyK4D0BFaoWxTREhk+LjR9XWrqZri6FsVL7Ty1t6+adHvBRBkPsBdTjSWFVZkoLPGoyk0gqFP7k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org; spf=pass smtp.mailfrom=fooishbar.org; dkim=pass (2048-bit key) header.d=fooishbar.org header.i=@fooishbar.org header.b=LXsIZPQV; arc=pass smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WmNaAty0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0908E1F000FF;
-	Wed, 23 Sep 2026 09:46:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790156825;
-	bh=q9lu7/Lfykw5rD9RIMqHSiEol63xjIdEyxl0Gcv3hpo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WmNaAty0/yAlFHU43CCV2MnKPupK91y4CnUMGEPeh8kUxiMJUVFllGCnEn+XOmwGQ
-	 jtlvJlSlTo3pXUrwqWFokdpYCApi0lr1RmxxvWBXUTbVZf1W3uMFwAY1NHYkIBYb7h
-	 nuRxiRXpupiJkqa41j5HZAfQSgHa4I1bvNweGE1VLB12K3Xb9yp8565qAjjqByqEdr
-	 YErL9gNtCzYJriHq48dJYL0TnKGxgmyjrXSWvOdY9cZzlMTcKiLi3OUVthdWHc684f
-	 5zQqvMwgkRmNx6lztZ2a4kpyFR8UaBglnNyLfEZInlMVmnff0Vwz5sDSgVeUEwYY8H
-	 qm1dmQ8eGJU6Q==
-Message-ID: <d9a77381-cf88-4726-9223-c16a5c6608c2@kernel.org>
-Date: Wed, 23 Sep 2026 11:46:55 +0200
+	dkim=pass (2048-bit key) header.d=fooishbar.org header.i=@fooishbar.org header.b="LXsIZPQV"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d9004a1ac0so2952555ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:48:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790156938; cv=none;
+        d=google.com; s=arc-20260327;
+        b=D+mppz3HdlnAfeSPZauy1V2sX4L3BgWyRoBUhf2YsgQLUnYPrenNepIFdURoi53q+z
+         vLMKrNLveb8e3nTJ2zGKH4zv2H5F8jXhTAVp94ieQY99JLKZOz6mBHqq73Q2r9PPdjZs
+         +cEhU/wlO9CqEkLfXrL3OsAnQ59Nx3yIgBsqLmW885pv15RkTJ2HAkfrMPhjQ7yK3e7o
+         8GwKaNsJABf4uy4uV0qznHkEYr0iQZpbD22a94PQcRtUSfh+ClSeycX/AOhrjDcl8Qkl
+         7T557EQlzfbvyYGo21uBtwoLs/V7EPGXm9xz0CWVSN4dlQWzPriS8R7JKdJGGuNvFY7w
+         5vPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Wx4px2zkiHR2c6nwPLGSYtdbbt3JxOWVvjGhgsEZ98w=;
+        fh=m74jLzypSvzekEPocxrCOF/4P7YXLzw/PPgsBYfbmRA=;
+        b=m7R9NOuY9pXnnveovLlXN0MM8LyJ8TQ53A0ltrGxmLg4tR7T665f3Lm6jijT8wfJsj
+         KeOHRwCzDVLeORadTiAOaHKh29O3jaO5RDs3VoFkwZ+R1ghnoXQCRY4JqZjo5MTDlozK
+         Omr1apEGC/gEUO7hSbRrhbzB96n86ZbW/pcoMX906W1BJRN9e/aC6tYWIbLb7yFUr5KB
+         83DvXnn0mPz4qaCK/irxr0p3bRnTajDwHEeuv6kIiJSgmcFdAf3h9cnzPmCFk7TSqIB9
+         D9H+262fn+VQzj2Gv7XrnoWakIh0vu/WiybFqwzkFntFEPSJeU/PARUVc5rn3s3a68FD
+         lzCg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fooishbar.org; s=google; t=1790156938; x=1790761738; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Wx4px2zkiHR2c6nwPLGSYtdbbt3JxOWVvjGhgsEZ98w=;
+        b=LXsIZPQVoqoGTpdDUG15ancf1wvTFr1CR5sKo8wWRPunI6MnhFCA7isMdyvsbTtxqm
+         w2rRMYmfrbWginQEiJ2tOn2oJWM5CYi1TwCluouDoyR0AxyFlIDeB1WyzHM3Jvn9ZaMI
+         lJ1xjf6l1vm/sikdOh0As9h6Ms4cZ9InIUlXFK0hV25YpuE1omIFRGtSkTEurzRvtESo
+         xrNcuFythnBxtQfIoPVPfZ0wul+jtg3lmlRlBCM/LVU0xyaYX7tFsPAq1mBSyZ2LqCM5
+         kjCNagsdPLqtVqoA1hhYZ3CiJwUKfPoCJrbbDvEtv/N1V7+7wvAi0lXts9+elkbwF5g/
+         4B7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790156938; x=1790761738;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Wx4px2zkiHR2c6nwPLGSYtdbbt3JxOWVvjGhgsEZ98w=;
+        b=lA7/ZjT+xUcta6Ip0M9cN6X2u58lO7pcDjXP6/2wDo+ZF3HeMynIV8gm2y/uf8vxkT
+         PNstiaayxRMTEJ3QDLuLsdbx43itAeHqjZ0GzR7ynDhLC96ywknqJqQ6Wa6gQzw6SmOA
+         gysr9MLknuP4oDJ6pTfRMTzXMTF/XAr2Zd9pTEg1QmQrNFmfcv5OyyPyq03B6QJ9wVxn
+         YoY9dHSwe5g+3t1v2gSCbdLdRZ0wwr64y0NnySCLNpgSvvPgvq01A1Lmi0cDT8MWVEb8
+         h6cLHQpoTSaFL03kqO2nmcE6t28dwVQWo0rRncuNI/qhvuMFMJTcmvvVA81XXD7/+Ri4
+         1nuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzknABaH0IDo+8WrJ3BMJgyDb9HpwAd/CDwLFti0wFnRk1xpJi27H5ICftQ/i1soSLOGLQ6cqUVR9+x0kU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4KzV+uNVrh8u7FXzhG+EMT5ptzzUphjv7ble0LOAV9Xd1rOc/
+	id0pmp+yPswgez8ktGVBPSVOMtwvbcNTAsBA947b27waN1fKOCWc/yfi2RPkeIuyjmtn4ibejn2
+	emY7Er66BRwRNmndQ+7noZizsbSE0gD0mECm8h7rfCDBM3/7YD1dlZgjfgXu4
+X-Gm-Gg: AYBFou2lXTf2EBOTYYGemgOUp8zXFEf4tzIOqBAUaTqcTdGo6ybkPrmWzUHyIAWj1ci
+	7Qdcn5WTKenOjWy+guWnsVHsCR183TTMDYTY7hwTDw8RgPy7UIRP3nPqZBe2SS8j0bs6SStpnrf
+	jMw8h9IDdtMwbEPWE4Cer/hRCDutItPuh1lMfBESOJO0TysBttdkwHD1lvzsefJi62woqYTSIOU
+	EwGD+rwII+WM66paUc8r5uu2DVh1sW02qhIcuTFnE8NaOcLSUDBDtps5SQWOOMZphBKM9/HodpN
+	R7tnxPulUcMZ3FIrg+HvK3WwW8t46bjJc7ylgXXZ9DdyGyOhYGRE
+X-Received: by 2002:a17:902:fc4c:b0:2dd:c053:e0f7 with SMTP id
+ d9443c01a7336-2df69ddf21cmr18272105ad.38.1790156937998; Wed, 23 Sep 2026
+ 02:48:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: madvise: drop MADV_PAGEOUT folios at swap writeback
- completion
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Barry Song <baohua@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
- akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz,
- liam@infradead.org, ljs@kernel.org, vbabka@kernel.org, jannh@google.com,
- chrisl@kernel.org, shikemeng@huaweicloud.com, nphamcs@gmail.com,
- baoquan.he@linux.dev, youngjun.park@lge.com, qi.zheng@linux.dev,
- shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com,
- weixugc@google.com, hannes@cmpxchg.org, mhocko@kernel.org, yosry@kernel.org,
- chengming.zhou@linux.dev, kunwu.chan@gmail.com, tz2294@columbia.edu,
- hch@lst.de, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260921152449.629486-1-alex@ghiti.fr>
- <70cae945-3a4a-40db-96ac-5ce66a3fa186@kernel.org>
- <CAGsJ_4y8-wD0yMV8GCtCz5MfNrOKqUaTd+UgH=8MoP_nuvPnGg@mail.gmail.com>
- <108487b7-0529-4282-b5f4-355804b4c0cf@kernel.org>
- <CAGsJ_4zGmGh70QtRBpnhueev3qt_bgB4ZiE9fkW-hgNjAVhv+w@mail.gmail.com>
- <2e695c8a-4212-42b5-bb51-fbe1aa162e1d@kernel.org>
- <CAGsJ_4z2nakqBCKd_uAn4bfub99r3NJt2spOUx-K0M7bHW3_-w@mail.gmail.com>
- <4c7c6ea0-84a7-45f6-989c-d1502b90694c@kernel.org>
- <CAMgjq7DeYsJxG_VCf2KnViV5nd10m-PPYzXRD1fi8QcGWwD0qw@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CAMgjq7DeYsJxG_VCf2KnViV5nd10m-PPYzXRD1fi8QcGWwD0qw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
+In-Reply-To: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Wed, 23 Sep 2026 10:48:45 +0100
+X-Gm-Features: AcwNN1WttT0SOIaLJgPj7L96LwZzDPPyCZ9AdYI_ydBFNIIRW4TfTa-aNf4h73Y
+Message-ID: <CAPj87rMChKiJw3YbKcmb=3UWnu1Ccs5Me3R1tisDGMEL3aMDYQ@mail.gmail.com>
+Subject: Re: [PATCH v4 00/13] drm: Add DRM_MODE_ATOMIC_RESET flag
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Louis Chauvet <louis.chauvet@bootlin.com>, Haneen Mohammed <hamohammed.sa@gmail.com>, 
+	Melissa Wen <melissa.srw@gmail.com>, Daniel Stone <daniels@collabora.com>, 
+	Harry Wentland <harry.wentland@amd.com>, Jocelyn Falempe <jfalempe@redhat.com>, 
+	=?UTF-8?B?Sm9uYXMgw4VkYWhs?= <jadahl@redhat.com>, 
+	=?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+	Pekka Paalanen <pekka.paalanen@collabora.com>, Sebastian Wick <sebastian.wick@redhat.com>, 
+	Simon Ser <contact@emersion.fr>, Victoria Brekenfeld <victoria@system76.com>, 
+	Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/23/26 11:35, Kairui Song wrote:
-> On Wed, Sep 23, 2026 at 10:46 AM David Hildenbrand (Arm)
-> <david@kernel.org> wrote:
->>
->> On 9/22/26 22:55, Barry Song wrote:
->>> On Tue, Sep 22, 2026 at 7:26 PM David Hildenbrand (Arm)
->>> <david@kernel.org> wrote:
->>>
->>> I guess that's because the LRU is not always accurate. There are cases
->>> where our prediction of future access patterns may be wrong, resulting
->>> in refaults?
-> 
-> Hi All,
-> 
->>
->> Right. But these would happen in both the SYNC and the ASYNC case. Which seems
->> to indicate that making the SYNC case behave like the ASYNC case (keep in
->> swapcache before evicting) could actually improve performance?
->>
->> Or is the SYNC case in general so fast that it is not a problem and the
->> swapcache is just not a good use?
-> 
-> I think the problem is not LRU being inaccurate, but ASYNC case could
-> overshoot the anon reclaim very easily. File folios can be simply
-> dropped, and increase nr_reclaimed, but anon writeback (swap) can't be
-> done durig the reclaim iteration so nr_reclaimed never increase during
-> the scan iteration. So the scan tries hard to scan and reclaim more
-> anon folios, more than it really needed.
-> 
-> I think the real fix is some kind of different watermark, throttling,
-> or a different counter to limit the scan of async swap. I mentioned
-> this at LSFMM this year but I guess I presented too much at the same
-> time so few people remembered it :D.
+Hi Maxime,
 
-:D
+On Fri, 18 Sept 2026 at 15:18, Maxime Ripard <mripard@kernel.org> wrote:
+> Userspace currently has no atomic way to bring a display pipeline back
+> to a pristine state. A compositor that wants to start from a known
+> baseline must explicitly set every property on every KMS object to its
+> default value, which requires tracking which properties exist and what
+> their defaults are. This is fragile and must be updated every time a
+> new property is added to the kernel.
+>
+> This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+> atomic ioctl. When set, the kernel fills the commit with default
+> states for all KMS objects before applying the properties supplied in
+> the request. Properties not explicitly included remain at their
+> defaults. This allows userspace to describe the desired end state
+> declaratively, without caring about the current state or the full set
+> of properties.
 
-> 
->>
->>>
->>> Even on Android, which uses zram with very fast synchronous swap-out,
->>> I can still hit the swapcache from time to time. So perhaps with a
->>> slower device, such as an HDD, keeping the swapcache around for longer
->>> could allow applications to hit it more often?
->>
->> Why is that specific for HDD? It's the exact same app behavior independent of
->> the underlying swap technology.
-> 
-> If you have a shared folio, you must use swap cache, and even for
-> single used folios swap cache is the way to do synchronization,
-> regardless of the device.
-> 
->>>
->>> I don't know. Maybe Alexandre can share more details about this
->>> benchmark. I'm also a little surprised by the 15% regression in
->>> Sysbench OLTP. My initial feeling was the same as yours: we should
->>> release the memory immediately after writeback completes, for both
->>> synchronous and asynchronous I/O.
->>
->> Right. And see if we can identify why we are swapping out the wrong things :)
-> 
-> I think we are not? It's about over-reclaim. In the worst case we
-> might put every anon folio under writeback, while no folio is
-> reclaimed, if the device is super slow.
-Ah, that hints at the real problem then? How confident are we that that's what's
-happening?
+Thanks for bumping this - I had the original patch in my queue to look
+at after the hackfest, but it got lost in an unfortunate tab
+explosion.
 
--- 
+I think it would be good to document more clearly that 'default
+state', generally, means 'everything disabled'. Of course stuff like
+colour properties and max_bpc and whatever will likely have different
+values (where 'default state' means 'enough to get a basic 32bpp image
+displayed if you don't care about the details'), but I think
+explicitly calling out that planes + CRTCs + connectors will all be
+disabled would be useful.
+
+I can't find any holes in the implementation though, and I like the
+uAPI. I'd do the same thing for Weston as for Mutter: in our
+backend->state_invalid loop where we loop through setting all
+planes/CRTCs/connectors as disabled when we aren't just issuing
+incremental state updates, we'd ignore that and go straight to the
+STATE_RESET path.
+
+I wonder if we also want some kselftests along the lines of the VKMS
+IGT test, i.e. for drm_atomic_helper_connector_hdmi_reset_tests[] to
+make sure that the assumptions hold after init -> apply different
+state -> reset state.
+
+Regardless, series is:
+Reviewed-by: Daniel Stone <daniels@collabora.com>
+
+... with my reading-kernel-code and evaluating-uAPI hats both on.
+
 Cheers,
-
-David
+Daniel
