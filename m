@@ -1,127 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EC63A2E2B;
-	Wed, 23 Sep 2026 11:49:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0E04DE715;
+	Wed, 23 Sep 2026 11:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164175; cv=none; b=UIdoxQrx1HCHPOuew/dsVDK///iXRQCkoIC7Pty/wDqakaxWfRdg6btXdgR95snVmpCFItw/BHgbbMUYW1XhU4Qaj0TxeXyAV+r1sKthqEz0efA6k580UXpy4AsxT808Ah2Hslt8t0thIVmffuDjIAECUHKSI7/DHOBcPq1ZZFQ=
+	t=1790164216; cv=none; b=GCZRMDDigDgZJkNRlo10F9ex5JPK2GiKa9pHBAHmXA+AUu1D0f0nMsPuZEQt7zWPeSmsksPL4gi9UWKDuZLcVQyhTftDZ1PUxiuk440jrmtoW2Gfm8e5JMtfzukQfpsKbvy1AAkly9vdS/TCK1QCIszjL1/8q3V3D7qYkpVx7Fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164175; c=relaxed/simple;
-	bh=jwiqxrbsZtpA5Aylec/sBJv/MbEzwpdVd/4e2DbRM2Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MrtK7JSXbNmVSk0QTeF/3lXz+JCio45O5BVRXSxZkHdQD9ccEz2IzeGK6D7+eqESRlYIx7AsKYbS5nNegkdggTX6W+WXOk24QClP1uS2Wkc4e/hh7RG5Ga/uDoN6MbnWomkelw5xPlPJdbf/OMgFAXhdj8PffO6S2GCZIONeEoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0HspulT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790164216; c=relaxed/simple;
+	bh=HrzUtRQyb6wNrO13ZaUTR/tjUSAHl4//cFA2Xmw57ks=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=bZ+jrQnPopwrQzOZduuLvJx2gK6HNe1W+3mvvZKrsQ3Nc0klUpyaSr6QIz2VG7+Qo6348N4QvgNjpvuufOkUYzv0G8hK8vSZd4HbwHPVaZIr5Qprm7AYCQ4oGs5/Cy9jvfnMQUmOSa+r7lK8fHCfBYtjFL2IIkAEt7CY8ycPU3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j3QZjKt2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0HspulT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19B941F000FF;
-	Wed, 23 Sep 2026 11:48:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j3QZjKt2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D332E1F000FF;
+	Wed, 23 Sep 2026 11:49:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790164151;
-	bh=Z18U4qa6LbbRW6yI1ebVsuAYdmDir8PYv46mTQmvxDM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D0HspulTyBdCQX+9DDqdK27FApcPCCvh0cfa5A2rbZhHewxbqqnqFfAC7nocs+kP2
-	 0mvVh8QH9qXFX6+3roRxbIQueQ3TPhzi292qpq9D3xRZZ5wrxeyaLz+2QvciRn8RF2
-	 FVQ8S8jycXpuDyJ9rlAicpdmH0A4zO0K41QTIIgv5uUQwQu8Cyh3/fZ149W1dOnWWV
-	 yYYskNeHf77UMMMQLOJF6vyT4QfBuWnpw9G3F145FYd/VJTxiJBTwTSUUZpHmcLZ58
-	 JQgdeq38PegQ/KA2Ovq2zM3pjhtITbOaI5GbiIAo2djGnpsU4gEkvZ674V/u+BfhWb
-	 OSemwb5O1SYug==
-Date: Wed, 23 Sep 2026 12:48:53 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Guo Ren <guoren@kernel.org>, 
-	Brian Cain <bcain@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Dinh Nguyen <dinguyen@kernel.org>, Simon Schuster <schuster.simon@siemens-energy.com>, 
-	Jonas Bonn <jonas@southpole.se>, Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
-	Stafford Horne <shorne@gmail.com>, Rich Felker <dalias@libc.org>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Russell King <linux@armlinux.org.uk>, 
-	Vineet Gupta <vgupta@kernel.org>, Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
-	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
-	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
-	linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 11/12] mm: make userland page table freeing RCU-safe
-Message-ID: <arO7lSy71meks_sW@gremlin>
-References: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
- <20260922-rcu-pagetable-freeing-v4-11-fe1ad1f1e303@kernel.org>
- <72d1548a-a4ee-4832-b2ab-4bc82f1933f8@kernel.org>
- <arOWZCeV8FrkAvhK@gremlin>
- <802d3999-95fe-4a09-89b4-d01b60f8e963@kernel.org>
+	s=k20260515; t=1790164201;
+	bh=jI0vAlJKhDmiOEB6Q23h3G6CLXMXdX46480mhO3rjOk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=j3QZjKt2RDG++7vwN6aJe3RA7jXlLMR25KRKluo6b+e2fpyRs/pTz6vg3MeMVgz3Y
+	 H/uFrc3+3pyN38Avf0YeUAxm/S/O+UYkxoG1yg2hevAJ7xtnMPU4ruJWSG/bl4vDRu
+	 a2+E5u83/YxSpGaDgPepX4M+KVq5eQWV3LxaqaNvqgJ0xF/Xh37LMhSBpaanlugiGi
+	 a6+IqmVFl9eTuZSg2ZqPukR9Tb5u+HfSSew9/Q5ZdNFqsJuWTV56233K9JINsg6JB4
+	 SaDj00V23Bhf5UDAvsQeyU1kxlfysMR0sLQ47c99jCokiOgVXxgydYh+6zjRxefc3x
+	 m/QmnRG8vSOaA==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	christian.koenig@amd.com, Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 06/13] dma-contiguous: Accept an explicit minimum
+ alignment
+In-Reply-To: <arOrgRfi1k12clT7@arm.com>
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-7-aneesh.kumar@kernel.org>
+ <arOrgRfi1k12clT7@arm.com>
+Date: Wed, 23 Sep 2026 17:19:52 +0530
+Message-ID: <yq5a33v02nmn.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <802d3999-95fe-4a09-89b4-d01b60f8e963@kernel.org>
+Content-Type: text/plain
 
-On Wed, Sep 23, 2026 at 11:13:36AM +0200, David Hildenbrand (Arm) wrote:
-> On 9/23/26 11:06, Lorenzo Stoakes (ARM) wrote:
-> > On Wed, Sep 23, 2026 at 11:04:17AM +0200, David Hildenbrand (Arm) wrote:
-> >> On 9/22/26 17:35, Lorenzo Stoakes (ARM) wrote:
-> >>
-> >> The patch subject confused me at first: that's not what the patch is doing, no?
-> >> Previous patches did that, and now you're just removing the leftovers?
-> >>
-> >> Maybe I'm missing something that this patch does along the lines of teaching the
-> >> code to be RCU-safe.
-> >
-> > It is the final piece that makes that the case, so I think it's OK to allow
-> > oneself a nice subject line? No? :)
->
-> Just took me longer to figure out if I am missing something important.
->
-> E.g.,
->
-> 	"mm: remove unused RCU-unsafe user page table freeing"
->
-> would have been clearer to me. Anyhow, just stumbled over it, I don't care too much.
+Catalin Marinas <catalin.marinas@arm.com> writes:
 
-Compromise on:
-
-mm: now userland pgtable freeing is safe, remove unused bits
-
-?
-
+> On Mon, Sep 21, 2026 at 08:18:40PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> @@ -125,7 +126,8 @@ static inline int dma_contiguous_reserve_area(phys_addr_t size,
+>>  	return -ENOSYS;
+>>  }
+>>  static inline struct page *dma_alloc_from_contiguous(struct device *dev,
+>> -		size_t count, unsigned int order, bool no_warn)
+>> +		size_t count, unsigned int order, unsigned int required_order,
+>> +		bool no_warn)
+>>  {
+>>  	return NULL;
+>>  }
+>> @@ -136,7 +138,7 @@ static inline bool dma_release_from_contiguous(struct device *dev,
+>>  }
+>>  /* Use fallback alloc() and free() when CONFIG_DMA_CMA=n */
+>>  static inline struct page *dma_alloc_contiguous(struct device *dev, size_t size,
+>> -		gfp_t gfp)
+>> +		gfp_t gfp, unsigned int align_order)
 >
-> --
-> Cheers,
+> Can we not just bake the alignment further down in these functions
+> rather than getting the callers to pass the {required,align}_order?
 >
-> David
 
---
-Cheers, Lorenzo
+But, we need this to be conditional on CoCo shared allocations. We could
+derive that from attrs and pass attrs instead of align_order, i.e.
+something like:
+
+
+ struct page *dma_alloc_from_contiguous(struct device *dev, size_t count,
+-		unsigned int align, unsigned int required_align, bool no_warn)
++		unsigned int align, unsigned long attrs, bool no_warn)
+ {
+-	if (required_align > CONFIG_CMA_ALIGNMENT)
++	if (!dma_contiguous_resolve_alignment(attrs, &align))
+ 		return NULL;
+-	align = min(max(align, required_align), CONFIG_CMA_ALIGNMENT);
+ 
+ 	return cma_alloc(dev_get_cma_area(dev), count, align, no_warn);
+ }
+
+
+with
+
++static bool dma_contiguous_resolve_alignment(unsigned long attrs,
++					     unsigned int *align)
++{
++	unsigned int required_align = 0;
++
++	if (attrs & __DMA_ATTR_ALLOC_CC_SHARED)
++		required_align = get_order(cc_shared_granule_size());
++	if (required_align > CONFIG_CMA_ALIGNMENT)
++		return false;
++
++	*align = min(max(*align, required_align), CONFIG_CMA_ALIGNMENT);
++	return true;
++}
++
+
+-aneesh
