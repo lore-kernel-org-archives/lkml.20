@@ -1,161 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B363C4B68
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:25:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517342FE057
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:28:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790137536; cv=none; b=Orykz7kvxSjcRDnydousJOnD+U0VqJhRGn57caqJ1lSMDeNUovdzRDwjxywW8FqP4Ea/Qp7+Zfl9CEA0KYYFIGHuGRIpaoVEw6i3avRSND5H+K9/p+soAL3uqsOm4AAuNxGOUtnqvP+aTI3gRrlHp0EffCQw1xopbaTRORBm+hU=
+	t=1790137709; cv=none; b=He64vMzaDRZH+tzm2vcG/dYBw80aFLdRjlIBvWwsBd2DtmNWeI7x9Ub3RqfXXnTkwp854U0e1pvnDXmCfzZHknj68KCffy5alrBYwqKXor9wPav9h4D6F8r0cOnSg3pQzcIf1QP0OQUFaI/CojAxb/KH5M5QFQFaNsHpQIjJYF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790137536; c=relaxed/simple;
-	bh=nDIffy8Ui7Ukkiv/ZMLwEc0YmNmvoSTvU/vOMCTpJuQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LUenXDnS7J0wmvQRVfU9M7/z683fnbe6R6V6Tq9V29eB3Y5OtwY99Kpxkt5bt2nMegWREwTl5ZlV9m61Gk9E2JJjvPOXGPbfISIiHrMFyTOlYzqIGc7CbC9+IpoAnvzwfjyXDd1MpPlQ4NqDv4JTAP/S4pxxgZQ63ptscv5nSWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bj93yS6z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790137709; c=relaxed/simple;
+	bh=IqV1Sr0fSrDMt47qWNQ+9YAMvUWzYdiSXARmQmR1aMs=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=OSaicYWXebfbYo73UkcpFdRAgUUGjQlz+Fjd1mhvbxxItX/zgnEwy6vyZ7zFJlCBpmVFVSCfRaHcaPA6x/JtlqWeyJeEdk8QycKRybGpyfUaQ7joxdsThv14dsbaL10+gTNh+rERC/43tXjanPxk/l7SVlcovOU9S3acdX+67U4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YEkbdkaw; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bj93yS6z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F128C1F00899
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:25:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790137535;
-	bh=Vdpf3PCZFlhl4pkSGtgF1HJjNWl2NcPykL1HMPHL2Wo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Bj93yS6zZuQznlcBxkUfgSIso3pb0Vh9g6Ow8iZEBlHfQEAm4570P9dSvVA+4SHgC
-	 VYQY3J4M0YPZzp4oJJ3ADMPaAnH/LHZJ3em35gvUvE8tBqXdxJRqo9e1wtTtL8SgfP
-	 AaHOZn73Lh3JSo3G9eqy7ThwDtrumHUE9tTI+KBx2OpyXM0SCLkjXppMfWURKkBxRT
-	 aRc9ua9VaAsPJasuxnGOPFZQA2vKxObJW58hBOBy2uT2fWMChhILF3fa79GA6TMKIX
-	 0LcIl5cnYJ8qF5U32rbU4GvTBlAkEQesTNEhR3uGQgmPnUTmxZs1jNBopuTXTthGv2
-	 UGlCSWYCbnhbw==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a64c7cdb46so781880a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:25:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByUhzS5rWZKAprj5jw9k3ZAxvxCPnbT9pGwTrXthpc+WlqfpObHNk7VbszxxMIx+xEyvwtUenRhMcpcrVE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKeZIAT56sphMB9HlIG4w3CTSp45mkmEwrjZqROa3prtI0XQZD
-	0nkR1ObVBQkBbJXZ1wYCh6oqfVm6vONWkS6LqJ+wHmmckYog06KzZGFO9ieDekMltOsSAKQrBax
-	ccXq/twowc6bkQ4NqHXOm97EOd+4fbGs=
-X-Received: by 2002:a05:6402:11c8:b0:6a9:bc61:7f80 with SMTP id
- 4fb4d7f45d1cf-6aab3b4b9fdmr980413a12.27.1790137533480; Tue, 22 Sep 2026
- 21:25:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YEkbdkaw"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e8e864ef0so654837a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:28:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790137708; x=1790742508; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ngy4XhNxX90C6pR7bGxz/LIb3bO/nvGfahStoZKtl5Q=;
+        b=YEkbdkawAy/a8+2S4ylWed96ck+j1g+9bGox3XZ935krOO8g48/lUGl8Sx9OmuQPJR
+         AV/szlby6OWJKuV02BqVeC6yQUbSc226IgiC+BcbuVtd/b4i5Tze+/WFKpbaXFzQegea
+         /2xIi6JdvR2U3Y57zMe2n9QmxzRoCtks2CR2D4mTi2XztUs2M5eCmelpGI3HeV6F2f6m
+         DdtAzSn3OoBUw6D/pdqtzPk57/WmLQVlR0VLYQU3SoguJefm5nkCqbzWTG5qcH3leFzt
+         coruBivqCIr4YQK9fbDRK4btcq5VfreJTZWDdEt18ONv9SPz04mRvxv2u+oMAcLNdzLZ
+         hm2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790137708; x=1790742508;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ngy4XhNxX90C6pR7bGxz/LIb3bO/nvGfahStoZKtl5Q=;
+        b=gL1SRhJDmvso66lMNTSB5GQNJVOMEe8HpF9kGOOeXmv44CZSXxo3tRVASU/v1gqala
+         cRpJL7nyGMqzhMQG2AcowagZFcPnDkZTVmF+vBYkFvboqHFuHCUKdRJ4y4V7oIf+VVLz
+         ggR4EWEJMbLeVDJHelt5ICKUb1uYnZLpxRrVd2vNIyqxnuP/V7iJTOI7fhi9xmkvQm2d
+         JCgCTbUTkjXhzsr4p14VCkNZaG83OBS/RtJq8TYK31fwwuPtH9mz0g9FvLM9wpn8tebD
+         J93PlyfAjff3bkPQ/0vhqtNsgGRWIlabyxwRK3Fh1F8gt1mPmNUzlGwyWqUIXKb31aDl
+         v48g==
+X-Forwarded-Encrypted: i=1; AKwUvByeyPCPSbAzmMnT1jUkYOKJdVUvXYIADs/82k/pv9rWwyfg26Yocy47kH4djtbQzHmMf+55pdKUlIo2Ft8=@vger.kernel.org
+X-Gm-Message-State: AFuF++klNcWB02TTE+nGTCbTFL9ATEP6HcAF5s6BXKxnrw3+yb51kDR5
+	DzMAxLeIPHHtIgn1aZjIF60EJpgwlEdEcz/+ueIP8S3FhLJBSwucrXgcegGy7V+EKD4byBHI5in
+	A
+X-Received: from pjbkr5.prod.google.com ([2002:a17:90b:4905:b0:3a0:7de0:6fac])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4f8a:b0:3a0:42a9:9c81
+ with SMTP id 98e67ed59e1d1-3a07e65d0d7mr1242952a91.17.1790137707448; Tue, 22
+ Sep 2026 21:28:27 -0700 (PDT)
+Date: Wed, 23 Sep 2026 04:28:25 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260923012356.1058379-1-maobibo@loongson.cn>
-In-Reply-To: <20260923012356.1058379-1-maobibo@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 23 Sep 2026 12:25:21 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4AvjyfmjPiUBxBsWjRNFpP5c4sWK0+ZH-e1gjtrxBhMg@mail.gmail.com>
-X-Gm-Features: AcwNN1XAxUjeFmeUumiR-_MQxzHbJq692GVJ7naocC1NZSnNV46eKHaXQPViLcA
-Message-ID: <CAAhV-H4AvjyfmjPiUBxBsWjRNFpP5c4sWK0+ZH-e1gjtrxBhMg@mail.gmail.com>
-Subject: Re: [PATCH] KVM: LoongArch: selftests: Enable HW PTW by auto
- detection method
-To: Bibo Mao <maobibo@loongson.cn>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Shuah Khan <shuah@kernel.org>, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260923042825.2558762-1-morbo@google.com>
+Subject: [PATCH] iio: add __counted_by_ptr attribute to channels in struct iio_dev
+From: Bill Wendling <morbo@google.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, "=?UTF-8?q?Nuno=20S=C3=A1?=" <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi, Bibo,
+In 'struct iio_dev', the 'channels' pointer refers to an array of IIO
+channel specifications ('struct iio_chan_spec const'), and the size of
+this array is tracked by the 'num_channels' field within the same
+struct.
 
-On Wed, Sep 23, 2026 at 9:31=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wrot=
-e:
->
-> Add HW PTW feature when VM is created. This feature is detected firstly,
-> enable it if it is available on host machine. With HW PTW feature enabled=
-,
-> refill exception will not happen and it is not necessary to set refill
-> exception entry.
->
-> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
-> ---
->  .../selftests/kvm/include/loongarch/processor.h  |  3 +++
->  .../selftests/kvm/lib/loongarch/processor.c      | 16 ++++++++++++++--
->  2 files changed, 17 insertions(+), 2 deletions(-)
->
-> diff --git a/tools/testing/selftests/kvm/include/loongarch/processor.h b/=
-tools/testing/selftests/kvm/include/loongarch/processor.h
-> index 0e59daa8024e..8d9fabdc89e3 100644
-> --- a/tools/testing/selftests/kvm/include/loongarch/processor.h
-> +++ b/tools/testing/selftests/kvm/include/loongarch/processor.h
-> @@ -79,6 +79,7 @@
->  #define  CPUCFG2_LASX                  BIT(7)
->  #define  CPUCFG2_LLFTP                 BIT(14)
->  #define  CPUCFG2_LLFTPREV              GENMASK(17, 15)
-> +#define  CPUCFG2_PTW                   BIT(24)
->
->  /* LoongArch Basic CSR registers */
->  #define LOONGARCH_CSR_CRMD             0x0 /* Current mode info */
-> @@ -128,6 +129,8 @@
->  #define LOONGARCH_CSR_PGD              0x1b
->  #define LOONGARCH_CSR_PWCTL0           0x1c
->  #define LOONGARCH_CSR_PWCTL1           0x1d
-> +#define  CSR_PWCTL1_PTW_SHIFT          24
-> +#define  CSR_PWCTL1_PTW                        BIT_ULL(CSR_PWCTL1_PTW_SH=
-IFT)
->  #define LOONGARCH_CSR_STLBPGSIZE       0x1e
->  #define LOONGARCH_CSR_CPUID            0x20
->  #define LOONGARCH_CSR_KS0              0x30
-> diff --git a/tools/testing/selftests/kvm/lib/loongarch/processor.c b/tool=
-s/testing/selftests/kvm/lib/loongarch/processor.c
-> index 47bbde3e205a..35e35c62759f 100644
-> --- a/tools/testing/selftests/kvm/lib/loongarch/processor.c
-> +++ b/tools/testing/selftests/kvm/lib/loongarch/processor.c
-> @@ -282,6 +282,7 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->         unsigned int cfg;
->         unsigned long val;
->         struct kvm_vm *vm =3D vcpu->vm;
-> +       bool has_ptw =3D false;
->
->         switch (vm->mode) {
->         case VM_MODE_P36V47_16K:
-> @@ -300,6 +301,12 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->         ret =3D __kvm_has_device_attr(vm->fd, KVM_LOONGARCH_VM_FEAT_CTRL,=
- KVM_LOONGARCH_VM_FEAT_LASX);
->         if (!ret)
->                 cfg |=3D CPUCFG2_LASX;
-> +       ret =3D __kvm_has_device_attr(vm->fd, KVM_LOONGARCH_VM_FEAT_CTRL,=
- KVM_LOONGARCH_VM_FEAT_PTW);
-> +       if (!ret) {
-> +               cfg |=3D CPUCFG2_PTW;
-> +               has_ptw =3D true;
-> +       }
-> +
->         loongarch_set_cpucfg(vcpu, LOONGARCH_CPUCFG2, cfg);
->         cfg =3D read_cpucfg(LOONGARCH_CPUCFG6);
->         loongarch_set_cpucfg(vcpu, LOONGARCH_CPUCFG6, cfg);
-> @@ -338,6 +345,9 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->
->         /* PGD page shift and width */
->         val =3D (vm->page_shift + width * (vm->mmu.pgtable_levels - 1)) |=
- width << 6;
-> +       if (has_ptw)
-> +               val |=3D CSR_PWCTL1_PTW;
-> +
->         loongarch_set_csr(vcpu, LOONGARCH_CSR_PWCTL1, val);
->         loongarch_set_csr(vcpu, LOONGARCH_CSR_PGDL, vm->mmu.pgd);
->
-> @@ -345,8 +355,10 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->          * Refill exception runs on real mode
->          * Entry address should be physical address
->          */
-> -       val =3D addr_gva2gpa(vm, (unsigned long)handle_tlb_refill);
-> -       loongarch_set_csr(vcpu, LOONGARCH_CSR_TLBRENTRY, val);
-> +       if (!has_ptw) {
-Why not just check CPUCFG2_PTW in cfg? In this way we can drop has_ptw.
+Applying the '__counted_by_ptr' attribute to 'channels' allows KASAN
+and compiler-based bounds checkers to verify that accesses to 'channels'
+remain within bounds at runtime.
 
-Huacai
+Cc: codemender-patching+linux@google.com
+Assisted-by: LLM
+Signed-off-by: Bill Wendling <morbo@google.com>
+---
+ include/linux/iio/iio.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +               val =3D addr_gva2gpa(vm, (unsigned long)handle_tlb_refill=
-);
-> +               loongarch_set_csr(vcpu, LOONGARCH_CSR_TLBRENTRY, val);
-> +       }
->
->         /*
->          * General exception runs on page-enabled mode
->
-> base-commit: 93f51579e7df248780214094418f205253383cc5
-> --
-> 2.39.3
->
+diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
+index 711c00f67371..20505139a61b 100644
+--- a/include/linux/iio/iio.h
++++ b/include/linux/iio/iio.h
+@@ -648,7 +648,7 @@ struct iio_dev {
+ 	struct iio_poll_func		*pollfunc;
+ 	struct iio_poll_func		*pollfunc_event;
+ 
+-	struct iio_chan_spec const	*channels;
++	struct iio_chan_spec const	*channels __counted_by_ptr(num_channels);
+ 	int				num_channels;
+ 
+ 	const char			*name;
+-- 
+2.55.0.1082.g2b9226bbc0-goog
+
