@@ -1,68 +1,87 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E2D414A17
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:32:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC8437E5D1
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:32:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170340; cv=none; b=ODscmJevXFm5/DiriKk8Mb2AP9/KCpohCR1kHnrDPQu3EB3uMOZQUYYLEPjwbGz4PZJPwouTcXZyrGzGrHSth6gNz63Blbk9dzrp3dxkiCyx4F1T1pwJWnWgwpwdcTyQxP7qjXEUWzM+P8rqBhbrGaYuraJy9CiyWzb2gjSiEJY=
+	t=1790170357; cv=none; b=XIPmNq8X5pkPa8ZtOjzzUsDTgyWevQyCFYNyq9qGIxdqhBWeHPctDTYwMmgYGxnT1hq7bH8njURc96nNhJx+smBPoltRxbwOXltsEiJ9zxPlPTjFbqL61o8xvbaVcGxKfa50Z4tDCRf3ZL3+VzDo9FSFwy6J7WUrb9nKW2RPG5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170340; c=relaxed/simple;
-	bh=rxJ0+PdQtJDNjawn0M3k3EfnLQE1Ec58hUkxw9L+9eE=;
+	s=arc-20240116; t=1790170357; c=relaxed/simple;
+	bh=nmRrx1oR0BH0XgAAu9wmR3V3AJzHV7iNItpEHazJysA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZhGtzi6MnbeSGbbpzvtLvv4l8t54LR2UB+/ReIJHTf13GCnR2yP+nCRCi35UHX82rZAst5kMryFXQ7WsW2SE/2arY569AIeN+pcquJl8XHY6JUS4S2EM5+IBFqo3RYyKm9Rr8zaZRffrEN01tiB6TT7Cn7PrsYhA0GAf891fSH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SupJnGT2; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=m6SBNnkPpCTsE9sciPrd459fYKLwLVOGn/TjKYhdpWCKFDf8zLqsMlVv9moFY5wDo8cvZu6vGm9zpahaVlSdFxc6Bl0FJ7TQw6SN1IfdOBWOb4EO61A7/HOQ6RblF5IBH/SBXHFmBu7ScHKtcXc7bvEUY5Xt7Y0r9W6EMYnvjZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i1gKkraP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TlU7xYbr; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SupJnGT2"
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c796e3aso300779241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:32:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i1gKkraP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TlU7xYbr"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBbag23295729
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:32:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EJc22ULLzoVpK0pQz5J4SJYa+mta6CEUjm9M/VGF68M=; b=i1gKkraPKMS+7Lsc
+	3WzCUIBj1IRCgfBZQ71EcDw1F3yZH7vSIfmCMhHnws3KKx9qDiNmPzzyg3KSC3yc
+	WokZwZwbt7XelWJ8r21laXwOyBgsy+WWZInCuud4m4deqlFUP+AXaW0h8sTN5N/P
+	YwV1TXLHi/5PaJ0Us90dYNUQD7knHmNTAmsvy6G/MzMYgxTQqf7J+P1C2iu+UeTd
+	GNMKnCsLqRluQx+oBjCsKLeZksyhV4Ead9wmFojAAw+RIdR+byE6S9HRWxQ6V/lG
+	rEn/eEWn/CSxLJ1isleQ5hHLk899c4IIIpmyfgvEOHvnjPIt80UPTedmuBIdYU1F
+	kS8ouA==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvbwm91up-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:32:33 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7a6634ef51bso63115137.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:32:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790170337; x=1790775137; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790170353; x=1790775153; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NG4JXegZ//HjY70YRieR3wxtkpzy8rT/C0WH6S4BaKE=;
-        b=SupJnGT2g8GDL+NcHXE0GrL75UrTOlMvFZED8eENReUJYL2V3SeIJcn+YJcJc5OD21
-         Y9edC2s1rshDqAvjHudoNzJSI9heLVm5n/kK/tohIa6DlX31olOHKnR+fBXlXl4Jwh1b
-         OfvihyndBxeVba4NF+ErkzAU3o/0FAWea1QTw/nHM7cUCFGZYuu24gi+UzdRp4Apifci
-         jgk4pyIfR4FtaI5G7KFDQ1eFLMZtEfj2mDa9+2t8ON+zU6gvm6f669BGApuIsvlbIRdZ
-         ZGnrI9ihHy1a4QSn8bg9m9GBnFnYQIOdPNptSjIuEPqc5Dd3ulPdPVhLmEvvI+B5/P7f
-         zSmw==
+        bh=EJc22ULLzoVpK0pQz5J4SJYa+mta6CEUjm9M/VGF68M=;
+        b=TlU7xYbrRZ7Ox9pGWpW9c3AFUfSZGF+Zjn9g1XUixRylZbwvX4S1i7yzBAO96vqc/F
+         oIcCOAMxUk0fIqYBXmYAgO3HU5zTtq8+B+yEsR9zi0HC3eWdqa6USYC/mwNb+hSkkx3e
+         MkAHD++4Cp50Ccqaj6kUNW8WucpQJe/8giofF6EngOfYsIc4kt3vlyUpalvOH92vXVL+
+         ZKcb9PvGe07iK9GTqOG+VF5RT0gyOEYQpyVgfrjGstL7Tlzkqbc7P2B8WWXn+28+eORL
+         PW3qMBX+gGdzxg1mstxp7OoScOPRJyMMypOoO40ifjHkokjDrd84sYMae5SCNjIGNRMY
+         8I6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790170337; x=1790775137;
+        d=1e100.net; s=20260707; t=1790170353; x=1790775153;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NG4JXegZ//HjY70YRieR3wxtkpzy8rT/C0WH6S4BaKE=;
-        b=VulM18FdAKC4yWfBugc4RZ8ZBYhP5Bo56TPC9mosDEsAy5/NogswRsXvQ+yuTSeH01
-         H77clb4xCFqk6XuMzJ2m1WHmx9Myt/7S7MMDq0tUxVwNimJKKvNz70LdAL/CqKnbnXH5
-         ZUbPK8rvUqcfCyvvEpaEsjCuyw8FeCwuXBZgteAnnz+Q4k+AvochrLjIhE4w20E6UpEX
-         RIynk+iGFxK7SYZTd15pgAnfYNEWtjSzNYhx/t6y3Ip1C+DlUzSm7sbWHF4Sg65wYcxD
-         9d0IY0h5KCRT+RdC+F3C+d/iuZv5TGVUnElpvIGqpeKS7ZV4GUQ3mTM8UxCSf3ttiFym
-         MxCg==
-X-Forwarded-Encrypted: i=1; AKwUvByv6fO9lLBqSbAzRmvsrdrU+/0DbbScxkc03cQcY213ADq5ijvLmQe4DrzyDYVo1wTMKq6dP+imDtd7CrE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRM5CSvYVOQe5wxJ66RpBRfbkF5gu5G19rpu8LMUvy+c3fAXYZ
-	MgvPdUmwz9yckfVR92VRCXCcnM3qCnGD3yuSXTIpr3HEUTt3JP3Ytbgp
-X-Gm-Gg: AYBFou2PBxJdogjfUQNbQJ5jk80woM6CrqrrLiFaNL7/l0zrI/3tbatnaktG0Ok7/Ff
-	bHZ5Idt997RWQ3eldzV3dXLqZbeMzW6r4F8Jcjn19EcVbZx+9UhXnLtoWG+pM4XB4yrB4Zlaa2g
-	FDTTSZeSu3JIlyJgcpeEUuJdowWblR546NCzRcfujmIbr56nEAeRaCshnKF90+vk+oOQQzis/5l
-	ppzltM/URDt6ilZGd4ZOlljxs2ryl34tc5WneAeKMt8hoABiu1gUb5XjC879bm2OJMX5xjTJ7UW
-	L+A8QYeBxhnGPVh9NsMeVDhLi/x/6MBk5u1dtdPFlpM+nvFThZ9T7er69O6a4dpKHSdcEaLr4/J
-	qu2AR/2cikDVnFm+6ZEwxQr7sCcOipO/oSG8L8+EZjD6+2biGFuD0AtOgZ8YdI3IKeQvh30/p3S
-	+qLFLAE1uidaAZU9b6zTn7MEqbiwa+JAHr1XzbagsweUPxm2B0O2AnaX1YcGrpMALLmHE4X+dEm
-	Te0Ij8TN6b1ezTxiTs=
-X-Received: by 2002:a05:6102:38c7:b0:7a8:1ff8:5741 with SMTP id ada2fe7eead31-7ac1b610a6fmr2117008137.10.1790170337260;
-        Wed, 23 Sep 2026 06:32:17 -0700 (PDT)
-Received: from [100.125.248.95] ([124.70.231.46])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9851e8c4f2csm922107241.10.2026.09.23.06.31.50
+        bh=EJc22ULLzoVpK0pQz5J4SJYa+mta6CEUjm9M/VGF68M=;
+        b=j/TWL6Z8XIRezO7nWqIakl2qaui+MTrMubgeaRGJA1xuQ0xSCmOLLYI0/SsdYfzjIG
+         EgLwEw+kD8C/Z7SWBOoyjuDldjU1J7kfTFydsAoZ82xKsJ+9EzvOi/cffDOiakmH5FjS
+         VI/lhxu5cZQwcwRVcHy3PDzTSi/+SwUTYrEFu0pd4X+NZl/lpgzTXL0Zc+JF3cQetRJo
+         UfLW5EUW/+Up/pT0CLjsDWQb4bK+DwqEgeCiiLz2i6kBVxw/ZRXJz3DJ5/ooj4QhtJV3
+         GPOyDsaHcux1K7GBID0M9Dkn6p+t5ETBwvUuBECTJmf/FJHyTSr7R0akfDAkpCvASmQd
+         wWXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLZj1y3byHiEnz7+HjSvsM22S5W6cnd8/5oiwSTrkiCpBu6zGOghkIxLo29unz1PuIMH+yOaRMSDqV6gk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGc43dSX3EGlSNt5wehKD7nRnxMfu/tL4GT/VM8gKxIu+hgS4D
+	qt5f1YIVZzpzi+QChJUm+yZJFcvPtjd1p8guUvSFal+fbamBpdEj9pz8ja9r4PGGvD9a2ByPI4D
+	L+vvQEpS0nvYa9JZs67Nt2k0FV9sOgu52vBF0m3czUSec5cLP86abhVEaqHhkKl+kVOY=
+X-Gm-Gg: AYBFou3xyXdXFSFlhYHQiHMtlv+0FzZSkFdGn8zzyF6lY+3cqv6COJv0Jj0HczBUr7z
+	mhe+nwZ5LrdldsJVQxiscA6+fxqxgb4CGaXHR9pqb7WwkvpTySVJ8VZ3Iq/QHawNuzqsE7g+oOO
+	/V/reQFKLUIlc/a6x00DKkO5LTxYTco7qSJRSvwvCD3CwN0Ah/YCGglrGBjGKrndd1rtEBxLsOR
+	12IUo/tGGNh0+Pcx4x+INw/Da+9QRG443DADXaAsS8KkJLGpNOhbVbMc4Us6s2lghGm/2MN9t2z
+	lcxH9Bmz+/OqFaeiBGqsMvsbIJfg+ARh8+qcHTSjSL2yt+nsYIW7zpl/Tdhx6j/NA+/f5+jftLt
+	PZmtfWvs2/GCknIEjw3D7Lw==
+X-Received: by 2002:a05:6102:508b:b0:7ae:544d:b36c with SMTP id ada2fe7eead31-7ae544dcb9bmr525644137.3.1790170352825;
+        Wed, 23 Sep 2026 06:32:32 -0700 (PDT)
+X-Received: by 2002:a05:6102:508b:b0:7ae:544d:b36c with SMTP id ada2fe7eead31-7ae544dcb9bmr525575137.3.1790170352179;
+        Wed, 23 Sep 2026 06:32:32 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d85787b0sm611269e87.16.2026.09.23.06.32.29
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 06:32:16 -0700 (PDT)
-Message-ID: <4277af28-222b-49de-9372-4087f1a7e942@gmail.com>
-Date: Wed, 23 Sep 2026 21:31:46 +0800
+        Wed, 23 Sep 2026 06:32:31 -0700 (PDT)
+Message-ID: <e16cf23c-82aa-465b-81b2-6240f4a0f4d9@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 15:32:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,140 +89,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] mm/truncate: fix data loss when truncating
- straddling large folios
-To: Brian Foster <bfoster@redhat.com>, Zhang Yi <yi.zhang@huaweicloud.com>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
- akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
- liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
- mhocko@suse.com, hughd@google.com, baolin.wang@linux.alibaba.com,
- willy@infradead.org, jack@suse.cz, ziy@nvidia.com, joannelkoong@gmail.com,
- djwong@kernel.org, yi.zhang@huawei.com, yangerkun@huawei.com,
- chengzhihao1@huawei.com, wangkefeng.wang@huawei.com, yukuai@fnnas.com
-References: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
- <arKHDqdDkQajvAk6@bfoster>
+Subject: Re: [PATCH] clk: qcom: gcc-ipq5018: mark 'gpll0_main' clock as
+ critical
+To: Gabor Juhos <j4g8y7@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
+        Sricharan Ramabadhran <quic_srichara@quicinc.com>
+Cc: Stanislaw Pal <kuncy7@gmail.com>, Mieczyslaw Nalewaj <namiltd@yahoo.com>,
+        Jie Luo <jie.luo@oss.qualcomm.com>, Georg Seema <georgseema@gmail.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com>
 Content-Language: en-US
-From: Zhang Yi <yizhang089@gmail.com>
-In-Reply-To: <arKHDqdDkQajvAk6@bfoster>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260918-ipq5018-mark-gpll0_main-critical-v1-1-fbe8f27a0106@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1MyBTYWx0ZWRfX1KAMOTNkeus6
+ /tyV+XNciBMt08Eaa+67AEuCeHxh2KBBgECRV18A+KSRbRlx9EO/cXJ7cuTVGCDqwEef1o73PK9
+ VJjHw/ntFRRfw5aLLX5UET4lq+kShhI=
+X-Authority-Analysis: v=2.4 cv=R/6WitRX c=1 sm=1 tr=0 ts=6ab3d4f1 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=h7LrUwqXVdtm1vm8ficA:9
+ a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-GUID: IOsZyka6KHlOrbmb9DOyu2QI92CAJ-wd
+X-Proofpoint-ORIG-GUID: IOsZyka6KHlOrbmb9DOyu2QI92CAJ-wd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1MyBTYWx0ZWRfX91hgDCjR7MGe
+ YCZj5XFWCNrjtYThC6cXitdJ7crSzqo8Gg8mgNf/NY+4PRaEapkvriZ3NsQt3YMDzRrRu73obGq
+ M95bqRBaC7D/9tNTag9xlYf31inI6xc2COqEv1KfJOf8zmyfj4fuce/qDEJ6UHXiHfc4IvFTVT3
+ 3Icfke8hdQwPW279tcWZTzwt8qrEHHVL4Q+37PcOdXSo4F99f9n92DsRXQZCOvlqW9CZTDzy+/j
+ CjtPGLosP0uaGJceWUrFcu5nWc3uQ/Zdmv478AtGzuBcrZBGJHAB0fN+g0PltRg0cID0SrxLs0f
+ 5o5QM3isJud2kDM8r2zShqm7LvY5vfWE1xFP9q9rHEVr13ui8ODWZBWbC7LCOjIwlLSmLbnA+Q4
+ 9CV37eltq4yEYU71OzyBwlrWrK+NfMAr0OTn3/MOmKS/OT6QGIbAbnOoX0Zwt0b+Pps5D5FsyQC
+ KPBQn4tNiUxUSlcw3sw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 suspectscore=0 phishscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230053
 
-On 9/22/2026 9:47 PM, Brian Foster wrote:
-> On Tue, Sep 22, 2026 at 07:06:59PM +0800, Zhang Yi wrote:
->> From: Zhang Yi <yi.zhang@huawei.com>
->>
->> Hello,
->>
->> This is the fourth version fixing data loss when truncating straddling
->> large folios caught on the upcomming ext4 + iomap buffered I/O
->> conversion.
->>
->> When truncate_inode_pages_range() punches a hole or truncates a file,
->> truncate_inode_partial_folio() splits a large folio so that the caller
->> can drop the in-range sub-folios while keeping the out-of-range tail
->> intact.  This series fixes three distinct problems in that path that
->> can each lose the valid out-of-range tail of a straddling folio, plus a
->> follow-up that clarifies the return value semantics.
->>
->> Patch 01 aligns the truncation boundaries inwards to the mapping minimum
->> folio order in truncate_inode_pages_range().  With a non-zero min_order,
->> folio_split() stops at min_order instead of order 0, so a boundary
->> computed at page granularity can land inside a min-order-aligned
->> sub-folio and the truncate loop drops that whole chunk, valid tail
->> included, causing data loss.
->>
->> Patch 02 looks the end-edge straddler up by its page index through
->> __filemap_get_folio() in truncate_inode_partial_folio().  After the
->> first split the straddler is unlocked and only transiently ref'd in the
->> page cache, so the page pointer derived from the original folio can be
->> freed and reallocated as a different folio in the same mapping, and the
->> mapping check cannot catch it, which may cause incorrect splitting and
->> potential data loss.
->>
->> Patch 03 reworks the contract between truncate_inode_partial_folio() and
->> its callers.  If the second split of the straddler fails, the function
->> reported success unconditionally, and the leftover incorrect end
->> position could cause the truncate loop to drop that valid tail.  After
->> rework, it tells the caller the exact page range safe to discard via new
->> pstart/pend out-parameters, so the truncate loop never touches a
->> straddling folio that still holds valid out-of-range data.
->>
->> Patch 04 clarifies the return value semantics to "at least one split
->> succeeded", which is all the shmem caller needs to decide whether to
->> reset its scan loop.
->>
->>
->> The second patch fixes a pre-existing race issue that is reachable
->> today, so it is Cc'd to stable.  Patches 01 and 03 require a dirty large
->> folio that carries no filesystem private data, so they are not reachable
->> on current filesystems.  They were found while developing the upcoming
->> ext4 iomap buffered I/O path[1].
->>
->> Thanks,
->> Yi.
->>
+On 9/18/26 11:27 AM, Gabor Juhos wrote:
+> On IPQ5018, the APCS core clock feeds the CPUs. It can use
+> different clocks as its parent, but during system boot it
+> utilizes GPLL0.
 > 
-> Hi Yi,
+> Under some cicumstances, the 'gpll0_main' clock is getting
+> disabled during kernel start which results in a system hang
+> then the hardware watchdog restarts the board after a while.
 > 
-> Modulo Jan's comment on patch 4, this series looks good to me. FWIW:
+> This can happen when a driver gets a clock in its probe function,
+> then releases it either directly or by devres cleanup on probe
+> failure.
 > 
-> Reviewed-by: Brian Foster <bfoster@redhat.com>
+> For example, since v6.18 the kernel often fails to boot on the
+> TP-Link Archer AX55 v1 board by using the in-tree dts. In the
+> failing configuration, the 'ipq-cmn-pll' driver is built into
+> the kernel and the problem is caused by the pm_runtim_put()
+> call in the ipq_cmn_pll_clk_probe() function. Due to this call,
+> runtime pm disables the 'gcc_cmn_blk_ahb_clk' clock asynchronously
+> which results in disabling 'gpll0_main' as well.
 > 
-> Brian
+> Mark the clock as critical in order to avoid such hangs.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: e3fdbef1bab8 ("clk: qcom: Add Global Clock controller (GCC) driver for IPQ5018")
+> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+> ---
+> Note:
+> There is a patch [1] awaiting upstream which intends to solve the
+> problem in the case of the 'ipq-cmn-pll' driver. However the same
+> hang can be reproduced with several other drivers by triggering a
+> probe failure in them.
+> 
+> The actual patch aims to solve the root cause.
 
-Thank you for the review!
+This is a good workaround. Ideally, we would resolve why this
+happens in the first place.
 
-Yi.
+At a glance, we have the CPUs consuming
+&apcs_glb APCS_ALIAS0_CORE_CLK
 
-> 
->> [1] https://lore.kernel.org/linux-fsdevel/a638a8fb-c184-4069-ae33-379ec12cd514@huaweicloud.com/
->>
->>
->> v3->v4:
->>   - Move the patch that fixes data loss when min_order is non-zero to the
->>     first patch position, aligning start and end in
->>     truncate_inode_pages_range(). (Zi Yan)
->>   - Add patch 2, fixing the invalid folio2 issue under concurrency when
->>     truncate_inode_partial_folio() splits at the end position. Use
->>     __filemap_get_folio() to obtain a reliable folio2. (Jan Kara)
->>
->> v2->v3:
->>   - Rework the folio2 validity check logic to fix the invalid
->>     folio->index issue. (sashiko)
->>   - Clarify the pstart and pend setting logic and the corresponding
->>     comments to make it more readable. (Brian, Joanne)
->>   - Split the patch into 3 small patches. (Zi Yan)
->>
->> v1->v2:
->>   - Export pstart as a new parameter so that the generic and shmem
->>     truncate paths don't need to recompute the start value from the
->>     return value. (Brian)
->>   - When min_order is non-zero, align [pstart, pend] to the inner
->>     boundaries of the folio to ensure they do not point into the middle
->>     of a large folio, which could otherwise cause valid data within the
->>     folio to be incorrectly cleared. (Joanne)
->>
->> v3: https://lore.kernel.org/linux-mm/20260916092450.654408-1-yi.zhang@huaweicloud.com/
->> v2: https://lore.kernel.org/linux-mm/20260909062339.473816-1-yi.zhang@huaweicloud.com/
->> v1: https://lore.kernel.org/linux-mm/20260903115018.2034541-1-yi.zhang@huaweicloud.com/
->>
->>
->> Zhang Yi (4):
->>    mm/truncate: align truncation boundaries to mapping minimum folio
->>      order
->>    mm/truncate: look up the end-edge straddler by index
->>    mm/truncate: fix data loss when splitting straddling large folios
->>      fails
->>    mm/truncate: clarify return value of truncate_inode_partial_folio()
->>
->>   mm/internal.h |   4 +-
->>   mm/shmem.c    |  13 ++---
->>   mm/truncate.c | 128 +++++++++++++++++++++++++++++++++-----------------
->>   3 files changed, 91 insertions(+), 54 deletions(-)
->>
->> --
->> 2.54.0
->>
-> 
+which takes XO/GPLL0/A53PLL as parents.
 
+GPLL0 is a child of GPLL0_MAIN, so this should never be gated in
+practice. devlink and probe deferrals should make sure you always
+get a valid clock handle for the cpufreq driver..
+
+In any case:
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
