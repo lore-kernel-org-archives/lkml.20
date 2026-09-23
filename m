@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173A14BC00B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:45:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A00522F0F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178325; cv=none; b=U1aR7TQcxe0AfLtPMHFPrZ0fIpRM4oODWLOiOyENi+WnoP/GKO3uKgoFs5QmJ3/4sVXf6S76JJSFXpWmD3KynPs+iGGGWNNSVA0y2BP6C+Uy8qr7ToREKDkkE5eT863VJ7pPk8VB8yPfYTajicKGfIbliBDk9WzJoVDAdRHsDzk=
+	t=1790178327; cv=none; b=tkV0n+fU+kReuvTkwfGCKN/a9UesY0/QdBFa4lUA/c0AqzOPJNaRMSUmlXJrVjbIjiAvX3supJLI48RvJb/kQcPSWFrfpXw1rP7lu2QKHtHIVHl1LPApbgeqZJP4nKTo4irlabi9f+2pl9OKLHIDrxAmrVnV3PPLCfTQu8JmIxU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178325; c=relaxed/simple;
-	bh=oRFd3jSh+Ikq6LFUu0mpRxbLtMKDI7N0YsJgZ5Gkrg4=;
+	s=arc-20240116; t=1790178327; c=relaxed/simple;
+	bh=cg22F4oWYlEmIpDCazd39kSV82zKWDDN8b6deVus19Y=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FhozfHG93c5SDniHXs8DJud65EnI0APvoQtokjVpOSazlhDjZAnLK9I82bLYnUVDHaUMh8QLhXoY7Dn7Ne61y5UbuUOAeXlT9tBfBApEJdUN5CexErIeHLFitVbmvxhLBoUwJ64uxOL0588zb94Nk/bSyO6u/UjR96pHlsoblOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g3gL/0e+; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=lVAXsnEiE6zy5P5CC7a7dFXgZXAB3/PK6+mnsAYwrGpxzXOkOg8qDqe6xMZR6jy3bSN6iPsX18K7lG7pufpRLF++N5bzUZx9Ko5alr++v5MuMmID53GxQ1IpGEfcs3dlFAy0Jh5X4sBMBlXSZPVVmBio57qJ36OP01TdbV3torw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLn0rCcZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g3gL/0e+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68ECD1F000FF;
-	Wed, 23 Sep 2026 15:45:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLn0rCcZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F31911F00893;
+	Wed, 23 Sep 2026 15:45:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790178323;
-	bh=YX7Ca9UzhzFLU5oRq22G+Ie5WRxnHJyj2v5cEtZOB2k=;
+	s=k20260515; t=1790178326;
+	bh=evsrLpPx+3ZMMMhVn053YC5QDyQsoD3UAb1BpOZ7Ewc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=g3gL/0e+5shDUIHrn2nqmkylPMYc3pgM7ni3CiM2giZYpJMw0yGKkUO0lu2lhJ4CR
-	 48BUlyiTw7uCvCEZS9r5COkM6I2WAL7RGyymiTauq4Px2ljwFwLnujrEr6XcpN7E7P
-	 ob1OMdYzoy55f7h2Ts6J6ZkXdXdpo0e0XqGuUeEiiTdZYCAkeI8vCY/T7VLtTD7pKO
-	 5TrlPxHEXgSAe5DcxuUqrIF9ILW+jeoGHO1ppQFfa+I7B0JMd1IyrqXnjFAjO2obeV
-	 VAftTKn8j1vREkPZR/8WvfsptJdO9BpY/Rd2FgFsizx0wRD/643CiREh88X5OGeDv8
-	 Oqt7P2DY97ajw==
+	b=nLn0rCcZWtnRie2FV59JJMs9XVRpY5HnaIUTOb2mC5GCLbmtByEVJcFPQzr9elvM8
+	 lI7cb73x5uSEwwymSaBxb37s11aSIcS/PCCOvn2I2+2Xd6eg6sCZFkyEtnNe/98cXj
+	 zQ0htgsmDH9XHPc5RciveYGunT4BNdtXR/2HpWezWP7msphtQVKp0TaBSkyhdE1aUk
+	 UonsOUvqZbMcBP3hVMPvECP1mLe0JwOcrHdaHO6ViBL413m3fqCybyrW4hpDPIExOI
+	 TgAV5XLcZ6auagicNjbX6D0fNm1/oMh0iWth++pLF4aIg1lQm5U5qRhnrpMTzWSOk5
+	 Pr8hZo37zbYbA==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Wed, 23 Sep 2026 17:45:07 +0200
-Subject: [PATCH RFC 2/8] mm, slab: introduce slab_debug=N
+Date: Wed, 23 Sep 2026 17:45:08 +0200
+Subject: [PATCH RFC 3/8] mm, slab: rework KMALLOC_RECLAIM handling of
+ SLUB_TINY
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-slub_tiny_rework-v1-2-a0e66d536eb5@kernel.org>
+Message-Id: <20260923-slub_tiny_rework-v1-3-a0e66d536eb5@kernel.org>
 References: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
 In-Reply-To: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
 To: Harry Yoo <harry@kernel.org>
@@ -49,113 +50,153 @@ Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
  linux-kernel@vger.kernel.org, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 X-Mailer: b4 0.16.0
 
-Enabling slab_debug has the side-effect of disabling all percpu caching
-of objects (now via sheaves), which can be sometimes useful for saving
-memory for e.g. kdump kernels. To make this possible without the
-overhead (CPU or memory) of actual debugging options such as poisoning,
-introduce a No-op debug option that only forces the debugging slow paths
-and zero sheaf capacity.
+One (relatively minor) aspect of CONFIG_SLUB_TINY is the assumption that
+letting reclaimable and non-reclaimable caches merge will save more
+memory, which is more important on small systems than the page allocator
+level fragmentation (where distinguishing reclaimable slabs should
+help).
 
-This will also allow reimplementing CONFIG_SLUB_TINY as a boot-time
-option.
+For now that has been achieved by #ifdefs that result in making the
+SLAB_RECLAIM_ACCOUNT no-op and aliasing KMALLOC_RECLAIM to
+KMALLOC_NORMAL on the enum values level.
 
-While documenting the new N option, remove obsolete SLAB references from
-the F option description.
+With the goal of converting CONFIG_SLUB_TINY to a boot-time decision,
+rework this so that SLAB_RECLAIM_ACCOUNT and KMALLOC_RECLAIM are
+distinctly defined always. Now, creation of kmalloc-rcl caches is
+avoided by assigning a pointer to the normal kmalloc cache on the
+kmalloc_caches array level.
+
+To prepare disconnecting of this boot-time decision (and the evaluation
+of the need for kmalloc_no_objext) from CONFIG_SLUB_TINY, introduce a
+slub_tiny_enabled variable that's initialized to the CONFIG_SLUB_TINY
+state.
+
+There is one minor functional change for CONFIG_SLUB_TINY: with
+SLAB_RECLAIM_ACCOUNT not being 0 anymore, caches with and without the
+flag will stop being mergeable. If that turns out to have a noticeable
+impact on memory footprint, we can adjust the merging decisions to
+ignore SLAB_RECLAIM_ACCOUNT when slub_tiny_enabled is true.
 
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- Documentation/admin-guide/mm/slab.rst | 13 +++++++++++--
- include/linux/slab.h                  |  5 ++++-
- mm/slab.h                             |  2 +-
- mm/slub.c                             |  3 +++
- 4 files changed, 19 insertions(+), 4 deletions(-)
+ include/linux/slab.h | 10 ----------
+ mm/slab.h            |  5 +++--
+ mm/slab_common.c     | 12 ++++++------
+ mm/slub.c            |  2 ++
+ 4 files changed, 11 insertions(+), 18 deletions(-)
 
-diff --git a/Documentation/admin-guide/mm/slab.rst b/Documentation/admin-guide/mm/slab.rst
-index 14429ab90611..0beeae71d472 100644
---- a/Documentation/admin-guide/mm/slab.rst
-+++ b/Documentation/admin-guide/mm/slab.rst
-@@ -45,12 +45,12 @@ of the first "select slabs" blocks that matches the slab's name are applied.
- 
- Possible debug options are::
- 
--	F		Sanity checks on (enables SLAB_DEBUG_CONSISTENCY_CHECKS
--			Sorry SLAB legacy issues)
-+	F		Sanity (slab consistency) checks on alloc and free
- 	Z		Red zoning
- 	P		Poisoning (object and padding)
- 	U		User tracking (free and alloc)
- 	T		Trace (please only use on single slabs)
-+	N		No-op (force debugging slowpaths without any checks)
- 	A		Enable failslab filter mark for the cache
- 	O		Switch debugging off for caches that would have
- 			caused higher minimum slab orders
-@@ -85,6 +85,15 @@ in low memory situations or if there's high fragmentation of memory.  To
- 
- 	slab_debug=O
- 
-+The No-op option can be useful to minimize slab memory overhead by forcing slab
-+debugging slowpaths, which disables percpu object caching. This reduces SMP
-+scalability significantly, but does not impose the extra cpu or memory overhead
-+of debugging options that actually perform checks. This can be useful for e.g.
-+kdump kernels where scalability is not a concern, but memory has to be
-+pre-reserved from the production kernel. So for a kdump kernel you can use::
-+
-+	slab_debug=N
-+
- You can apply different options to different list of slab names, using blocks
- of options. This will enable red zoning for dentry and user tracking for
- kmalloc. All other slabs will not get any debugging enabled::
 diff --git a/include/linux/slab.h b/include/linux/slab.h
-index cda126def67a..ed949e8522be 100644
+index ed949e8522be..930dd64b9ad6 100644
 --- a/include/linux/slab.h
 +++ b/include/linux/slab.h
-@@ -35,6 +35,7 @@ enum _slab_flag_bits {
- 	_SLAB_PANIC,
- 	_SLAB_TYPESAFE_BY_RCU,
- 	_SLAB_TRACE,
-+	_SLAB_DEBUG_NOOP,
- #ifdef CONFIG_DEBUG_OBJECTS
- 	_SLAB_DEBUG_OBJECTS,
+@@ -55,9 +55,7 @@ enum _slab_flag_bits {
+ #ifdef CONFIG_KFENCE
+ 	_SLAB_SKIP_KFENCE,
  #endif
-@@ -166,8 +167,10 @@ enum _slab_flag_bits {
-  * Note that SLAB_TYPESAFE_BY_RCU was originally named SLAB_DESTROY_BY_RCU.
+-#ifndef CONFIG_SLUB_TINY
+ 	_SLAB_RECLAIM_ACCOUNT,
+-#endif
+ 	_SLAB_OBJECT_POISON,
+ 	_SLAB_CMPXCHG_DOUBLE,
+ #ifdef CONFIG_SLAB_OBJ_EXT
+@@ -241,11 +239,7 @@ enum _slab_flag_bits {
+  * pages are allocated with __GFP_RECLAIMABLE, which affects grouping pages by
+  * mobility, and are accounted in SReclaimable counter in /proc/meminfo
   */
- #define SLAB_TYPESAFE_BY_RCU	__SLAB_FLAG_BIT(_SLAB_TYPESAFE_BY_RCU)
--/* Trace allocations and frees */
-+/* DEBUG: Trace allocations and frees */
- #define SLAB_TRACE		__SLAB_FLAG_BIT(_SLAB_TRACE)
-+/* DEBUG: Force the debug slowpaths without actually doing anything */
-+#define SLAB_DEBUG_NOOP		__SLAB_FLAG_BIT(_SLAB_DEBUG_NOOP)
+-#ifndef CONFIG_SLUB_TINY
+ #define SLAB_RECLAIM_ACCOUNT	__SLAB_FLAG_BIT(_SLAB_RECLAIM_ACCOUNT)
+-#else
+-#define SLAB_RECLAIM_ACCOUNT	__SLAB_FLAG_UNUSED
+-#endif
+ #define SLAB_TEMPORARY		SLAB_RECLAIM_ACCOUNT	/* Objects are short-lived */
  
- /* Flag to prevent checks on free */
- #ifdef CONFIG_DEBUG_OBJECTS
+ /* Slab caches without obj_exts array */
+@@ -724,11 +718,7 @@ enum kmalloc_cache_type {
+ #endif
+ 	KMALLOC_PARTITION_START = KMALLOC_NORMAL,
+ 	KMALLOC_PARTITION_END = KMALLOC_PARTITION_START + KMALLOC_PARTITION_CACHES_NR,
+-#ifdef CONFIG_SLUB_TINY
+-	KMALLOC_RECLAIM = KMALLOC_NORMAL,
+-#else
+ 	KMALLOC_RECLAIM,
+-#endif
+ #ifdef CONFIG_ZONE_DMA
+ 	KMALLOC_DMA,
+ #endif
 diff --git a/mm/slab.h b/mm/slab.h
-index 8fd6835e4235..77fcbf99b7b4 100644
+index 77fcbf99b7b4..00d49ac0d93f 100644
 --- a/mm/slab.h
 +++ b/mm/slab.h
-@@ -490,7 +490,7 @@ void flush_rcu_sheaves_on_cache(struct kmem_cache *s);
- 			 SLAB_NO_USER_FLAGS | SLAB_KMALLOC | SLAB_NO_MERGE)
+@@ -410,6 +410,8 @@ extern const struct kmalloc_info_struct {
+ 	unsigned int size;
+ } kmalloc_info[];
  
- #define SLAB_DEBUG_FLAGS (SLAB_RED_ZONE | SLAB_POISON | SLAB_STORE_USER | \
--			  SLAB_TRACE | SLAB_CONSISTENCY_CHECKS)
-+			  SLAB_TRACE | SLAB_DEBUG_NOOP | SLAB_CONSISTENCY_CHECKS)
++extern bool slab_tiny_enabled;
++
+ /* Kmalloc array related functions */
+ void setup_kmalloc_cache_index_table(void);
+ void create_kmalloc_caches(void);
+@@ -590,8 +592,7 @@ static inline bool need_kmalloc_no_objext(void)
+ 	if (!mem_alloc_profiling_permanently_disabled())
+ 		return true;
  
- #define SLAB_FLAGS_PERMITTED (SLAB_CORE_FLAGS | SLAB_DEBUG_FLAGS)
+-	if (!mem_cgroup_kmem_disabled() &&
+-			(KMALLOC_NORMAL == KMALLOC_RECLAIM))
++	if (!mem_cgroup_kmem_disabled() && slab_tiny_enabled)
+ 		return true;
  
+ 	return false;
+diff --git a/mm/slab_common.c b/mm/slab_common.c
+index 28bf035a58f3..38de7d50bfa7 100644
+--- a/mm/slab_common.c
++++ b/mm/slab_common.c
+@@ -826,11 +826,7 @@ EXPORT_SYMBOL(kmalloc_size_roundup);
+ #define KMALLOC_CGROUP_NAME(sz)
+ #endif
+ 
+-#ifndef CONFIG_SLUB_TINY
+ #define KMALLOC_RCL_NAME(sz)	.name[KMALLOC_RECLAIM] = "kmalloc-rcl-" #sz,
+-#else
+-#define KMALLOC_RCL_NAME(sz)
+-#endif
+ 
+ #ifdef CONFIG_KMALLOC_PARTITION_CACHES
+ #define __KMALLOC_PARTITION_CONCAT(a, b) a ## b
+@@ -967,7 +963,11 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+ 	unsigned int aligned_size = kmalloc_info[idx].size;
+ 	int aligned_idx = idx;
+ 
+-	if ((KMALLOC_RECLAIM != KMALLOC_NORMAL) && (type == KMALLOC_RECLAIM)) {
++	if (type == KMALLOC_RECLAIM) {
++		if (slab_tiny_enabled) {
++			kmalloc_caches[type][idx] = kmalloc_caches[KMALLOC_NORMAL][idx];
++			return;
++		}
+ 		flags |= SLAB_RECLAIM_ACCOUNT;
+ 	} else if (IS_ENABLED(CONFIG_MEMCG) && (type == KMALLOC_CGROUP)) {
+ 		if (mem_cgroup_kmem_disabled()) {
+@@ -1000,7 +1000,7 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+ 	 * KMALLOC_NO_OBJ_EXT cache.
+ 	 */
+ 	if (!mem_cgroup_kmem_disabled()) {
+-		if (type == KMALLOC_NORMAL && KMALLOC_RECLAIM != KMALLOC_NORMAL)
++		if (type == KMALLOC_NORMAL && !slab_tiny_enabled)
+ 			flags |= SLAB_NO_MERGE;
+ 		else if (!(flags & SLAB_NO_OBJ_EXT))
+ 			flags |= SLAB_MAY_ACCOUNT;
 diff --git a/mm/slub.c b/mm/slub.c
-index a107a111c75e..bc593f0078c0 100644
+index bc593f0078c0..2a7b3b3b91b5 100644
 --- a/mm/slub.c
 +++ b/mm/slub.c
-@@ -1897,6 +1897,9 @@ parse_slub_debug_flags(const char *str, slab_flags_t *flags, const char **slabs,
- 		case 't':
- 			*flags |= SLAB_TRACE;
- 			break;
-+		case 'n':
-+			*flags |= SLAB_DEBUG_NOOP;
-+			break;
- 		case 'a':
- 			*flags |= SLAB_FAILSLAB;
- 			break;
+@@ -219,6 +219,8 @@ DEFINE_STATIC_KEY_MAYBE(CONFIG_MEM_ALLOC_PROFILING_ENABLED_BY_DEFAULT,
+ 			slab_obj_ext_has_codetag_key);
+ #endif
+ 
++bool slab_tiny_enabled __read_mostly = IS_ENABLED(CONFIG_SLUB_TINY);
++
+ /* Structure holding extra parameters for slab allocations */
+ struct slab_alloc_context {
+ 	unsigned long caller_addr;
 
 -- 
 2.55.0
