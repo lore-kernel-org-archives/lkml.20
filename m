@@ -1,166 +1,197 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011009.outbound.protection.outlook.com [52.101.65.9])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13E0534467;
-	Wed, 23 Sep 2026 20:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E38579839
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:03:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790193807; cv=fail; b=k9OrWuraQJLL3JW2oShz7Y4Kz6J3bBITcP7NoywHYMhVIFTBQBj2cz4Nu71UOe//dYGO5dn7YIdbgaaFioZtW2bor5oRyuLLriAnpmoVR673GkqvCE1yu35Q34yUX8Ri1UMUhJuqjBL/z2aPxBQI+8ImiZBJBjJ+IeB9QduVCcA=
+	t=1790193824; cv=pass; b=UbyGs76IXAd1FmLPaNs7/UYUkHllbgUlHHv1CK39l/QRA6RCwqWBTuUi/rtwRtdw4VT1+/IHbn5vkZBt6L8dzo6Zkye9s1mQi2WknFkbmpuW0mTd77jpa4W0Gj5M0eNmiHDYHkpG45Zdnnv2aVyobwOEUPi18Zom38WkQSxjq3E=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790193807; c=relaxed/simple;
-	bh=jKEPk8dXK4MhUOEfL1kQsWmiscrBtRtXd+O2mvKVHvg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GrXvh9a4eqYqcG2mulT4AJi4oL48V+qxsHgwew2g11R0KG3qEazzh329e5/i0OZzYsRxqqLpJE5Mwx83A1Zx+SGlpVbc/HQTU0TWQepwj7dw6B0VD9Zqvmq6b7Ea8QZ1kIZcZ/lRwEH1kWA5iljhpWUvXUH0ZhuDS8+BqR1jELQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=n7qrsDh9; arc=fail smtp.client-ip=52.101.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1790193824; c=relaxed/simple;
+	bh=Iz1BOsxdBuKj477nqSQYHD3rX0TjsoDNNyelP73QuMc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VYCEQ4yxKAu1npPeUE412CF7hAnSZsxVVeySwKS/QS48VcBLciyoVulnKAak2aBYvuPBumeiZ2t5Z0JksPySbK425ixqI9MNXU1EeNeJsjfbDoSIH7RWRw+F4iqXrwGGbvegZ5TTyq4HqWtE3w7K/bJrrF3iEmZUGVoV8nEOxJ4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Mqy9yf+m; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=qu8qV2NT; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="n7qrsDh9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x2RFZ9g0kJ/pDRKYNsN6a2Av303sYnGn+JSsnJznJhcXg2/GEQ3bqS4vVU1V3PeNuAy+tFFjiCEs4zRw4Cj7pSD9SNAz/gJ+n2BogU/p3Uu/ZxvjO54u/6vyf0t/2qd3DFtzK6/Wxva2i/mhDe5tPa7AT3s2/xEK5ctj/AN6sjOp4Rp/YRTj4PkfBxwkY4a5/oBXXkQ7GY1pZQIT5GALCQhSWSkw5pwa+ZDmUC6uifoXDtOs04tq54jlY99q8v4LpGY2ZVszex7QNNSFdQUdw8IrZImuP3LVoIvHYFU4rWXrKWUbjZIYDOLrqHu9P/J85artCqWU4tVTat+o4JsjvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DXZhqHFAIP+vAX3SalmPffrn9g6fV29+zNH2ePH2L+Y=;
- b=DR3+RfOxvxvMdksTwgDckAbcGe8Ukgs7qCUSVPL9TH2gZ2UlRQjkDt2hn1fiH4kHJgcsBkOC/WhJKx7olR4ZZVR3CTUNOA27PgqH5OxfgBZFGgSgzG9UXqVeh2iJfQC97RDJis1RRNu1aoQ5qZERkaUrEFMRe6c7z2nHv7xfqqzj5Ya9nJuDGZP4nk206UabW1Qhp4IH0rI65mGm/+EbrWQlZ1Fzsnmu0oZohHvTNNGDUclvPnTJPw0nYXYeb2lBkeX18FzZLdEmXoadxQ6VQ/3iPKg23uZsORkSkNmtkuclDMxFj6zRI4oLiqW/oEOrOdoxLsOsO18KDfh6Ws458g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DXZhqHFAIP+vAX3SalmPffrn9g6fV29+zNH2ePH2L+Y=;
- b=n7qrsDh9uCUf3yhQL4oQC8FbcT5Dg2KDR3S9re0NoWsXF2u8qC37zwNpW6Yh92Q1pzfv+CAGlGhK4TTtP4sWz59Bp14YLEf7LF3DS6iSBRDHw2j3PMpivVTRvgXch66KoKwLiUQDMIt5fh/bI2kOFjd9yth2tTROOzfjU8raxwPZ17zmk203XFi1YD3H63osa+q5iDmDfYCHnUcdCruq48pw5X+Q8hTW7Ohp38w0mqyFJjTZxsxz8cnZpWDPB3u79e8RasU8LwGDCCwlou561hkt6KhonXT5H0q4zriGdRhu+VyyH3GRtiQqOV43oGicFIV1TJVZungof/Yio4E4ZA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI2PR04MB10715.eurprd04.prod.outlook.com (2603:10a6:800:277::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 20:03:21 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
- 20:03:21 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vincent Jardin <vjardin@free.fr>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 0/3] arm64: dts: freescale: add Free Mobile Nodebox v3 CPU Module (LX2160A)
-Date: Wed, 23 Sep 2026 16:03:13 -0400
-Message-ID: <179019378816.3736505.5120424228796941617.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260914-for-upstream-nbxv3-dts-v7-0-373a142b08d5@free.fr>
-References: <20260914-for-upstream-nbxv3-dts-v7-0-373a142b08d5@free.fr>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CY5PR16CA0015.namprd16.prod.outlook.com
- (2603:10b6:930:10::28) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Mqy9yf+m";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="qu8qV2NT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790193819;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=81DZGA9FL/IAuER9hPI/dybgl88+ZKCRPSLQjN963CY=;
+	b=Mqy9yf+muVWnuWRl/cwk2VtocOYtsHbxV+UJcxri97zJNM0WiPD1mOslQNFK2duTlpsfBP
+	JsfotgWWmtR3FoRUeGrBjtdSLkjQZ55jW/R38Zj/tZd2ET4d6ItOHs0zL+COphSNv8FGg8
+	B7klsKw3pBfR7C6H3bcX+MxKCsIovNU=
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
+ [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-604-urQWUJNUMMWZINCHOLcTGA-1; Wed, 23 Sep 2026 16:03:37 -0400
+X-MC-Unique: urQWUJNUMMWZINCHOLcTGA-1
+X-Mimecast-MFC-AGG-ID: urQWUJNUMMWZINCHOLcTGA_1790193817
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-672e7c0d4d4so739391d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:03:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790193817; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oYJtRri/2Yi0q+JUb+HKkKgvXyuWLVTXnIcQcrZqAUh4QKbndkrXs1y5tK8b8Is8jq
+         XUBZuhKf6tPrWR0lYgjxWwWvkyjGWwuHDZ7CxuqhgG9qZX2uz/oeaApp/cE3SsXu4js2
+         S3yaGgpq6tLAx92OC/Flm2qH62eRtXByPE54lUUoTc9Wbi0ZYj0A2aBCdGVQ5rSp50h9
+         Oe8narZqfBesHt45ZC0Sa+YROyriMWV33qmvCXtZue8zKjc3SSE3VEbMqAJoJQivM6jX
+         OvwOS/JXEWKiz2jIn/6kXzOzP67wWtEjO8zEQN8HfCLdMepJDSvGpdcehOrjYM4Zs3Gl
+         ckEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=81DZGA9FL/IAuER9hPI/dybgl88+ZKCRPSLQjN963CY=;
+        fh=3pf63bz/8rbjfI/eL7DKI2T+xDG9HVOyXIKvJ7MwZBk=;
+        b=lOEIvCJiUuFgsyQLnEhIFtYrvSPDebAehG3uh7ncte53wuSgPsoZvjK4rDhO/7lfAZ
+         +6iTng3P723U5yim9D1ckf/lLbQxEJZ/StatQURHnuXqdyw3vUXex9e9Ad/aJ8qWUlr7
+         RAYTPGzL2ns8vGmTVYd6oqES/aEQ1++1bvG+b+F+p4bMtTmAQDQp6OUuK8KE8unejIAI
+         Cq9p6Hxdff3ISyB50HfOR+29lcuBL/p5JijwCbFndQzEp/nk3DsBfrkysM2/XvChZUkE
+         o38oCzrv2YQdEWbm0B3gkeUJlLlIW7ZgcXxuzj6U5vaBZiJZKEXcrM878mAygYUPeqm8
+         2NQg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790193817; x=1790798617; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=81DZGA9FL/IAuER9hPI/dybgl88+ZKCRPSLQjN963CY=;
+        b=qu8qV2NTJgeuzLXA17v5SHoesjXBY5KzN6dTXV6f6lhX7wDU7D9sqCP2syumAYdZ0j
+         LgOhjhFKvoIt/O6/ibsnUuMf2uaFZt+Gaf9aBpKN8hHd5dq22YlEJQTd1mrBHrxlqjRP
+         BeVEZ0dwHjkOJ/sJJeHi/Pq86oeto9K8mDJEh1fHjU84xidC30BhJ/2vNJryfLBZRaS4
+         14E1ROVEwvl8Y7ToTXx+MHGT5opS6MFlvR8OZEOBa6q0OrnuficsGGa60EGNKMjDfAaF
+         6UbzditGUAS3O8fiVrizbmzq8q5TT/BpWJPKgU9ULabqr99wz88/nUOAM2o2UTxiJPR1
+         wkdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790193817; x=1790798617;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=81DZGA9FL/IAuER9hPI/dybgl88+ZKCRPSLQjN963CY=;
+        b=pplNeqt/JBsc6XeUR8f2JDpIz7bTMecm0H+EoSyd+y0DxakH/bq8ZkfFmlzh/wmN7s
+         7Sy+JAkkrterb8SS7wHdKjEOmWSzKui6a9xCIBqBl5B/JrTgwBFSnahIBOZ7cswhnIFc
+         9za0gAW014Xa3wcovui+FKf/Gs0VbKAo8rcs6+RwRFWWC7LrSR6TqcgDEn9R74HrUJHj
+         t/9HuKsDNiUWKiaCeRztEPy2rLq8z/AfRwFmM6g8PV1RPJI4sWdoHhMs+EkjbTj028UG
+         or+Eb3u9TOL3wnPUv9oLNlxe0Cm7EvB2UBZs1t51RhHci/QUIapLB/czEGGsZ8lHRDor
+         uytA==
+X-Forwarded-Encrypted: i=1; AKwUvBzBSJXJhcONCmZaRNGjpUp7R7xdJl9oZOO+waLaAvWUSLi517izf5occMcdTg9ub2bYwH6fUJGgWyZKkfk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kQmq0m61duAiM/QIKvoI1rdrylI3qY/nCG9OCwFWr6+w6xtdXc
+	zg0R3tinkjz7uoa79MXX6bdsQmp2hi0YMiIAQJ2QGoe/as7FbdkPis32D4p1mD6FxwGduG0gt1M
+	gVeqecWugqXhzCMiTqHezwGe1vE3v/iBKsx/jDn6i3QPzKCl+4oiRqD0jMfWaSbv1l1xeZO4wE9
+	BUakfLmTuU/BXYlgzJy+6sCXg8/uBzLQ8xaP3NxXby
+X-Gm-Gg: AYBFou3UxWP3Wqdt+OYqf6jMZPqcCkKT1Da0us6eXv8UUorwNC/F8qFxCR1DHjYRt0g
+	SlEu7XoEdhXQqVBLvUIyfSyUjncx681VdXFZYD3j7yE73lAtbfzObPQ/nBwtBoP/H3Lg3xDhJhl
+	vwYLpn0vn8BbRnNC/hJdLt7lBI1786oV1B6DxlPmMsgooIm7ViYCzbn6lzKg==
+X-Received: by 2002:a05:690e:4805:b0:672:a055:f98a with SMTP id 956f58d0204a3-672ed51a9a9mr116075d50.100.1790193816925;
+        Wed, 23 Sep 2026 13:03:36 -0700 (PDT)
+X-Received: by 2002:a05:690e:4805:b0:672:a055:f98a with SMTP id
+ 956f58d0204a3-672ed51a9a9mr116058d50.100.1790193816473; Wed, 23 Sep 2026
+ 13:03:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB10715:EE_
-X-MS-Office365-Filtering-Correlation-Id: 468b02e6-65cf-49ad-88a7-08df19adb77e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|19092799006|11063799006|3023799007|10067099003|56012099006|22082099003|18002099003|41080700001;
-X-Microsoft-Antispam-Message-Info:
-	J5kvH5ExZmD4VlQNgJTm3y574CHrTTWCUlSpIAbBtS7a6qt50Wvp/LIOEJs0v3aLK/Xw+E6VSLBFK9WY6BDEU9a0PqQJpELGmeZyyVsX2XffUlIl3gl64zs8H86qGHp7vSN4B49L0SBul6ttsTEAB0nU/3bYS2OQWoyrI4r9DW7yzOQIYRksoG1Xw/4XQvgDhrcTibEF4WLeQTBCTjmeSWJA7H/Lq1ZA6EutoShhrI6jeXeX1IuM3EYRv0R+1OnfUZR+eGssr5FXwDj/NROshW3pSOnZOGRiHmbREYdik4IIrCfDJ64AHDTTTGtGr5ldpvxRNQWPHgP5njVnDHcs43usPOiJHwTT3bPKFGy/nZuP5xp7NK8dVOA3rPDCE2sHr43U1jT0wEQu69hUs9jXXxcvyxxl2OBBng5nj+WPrpPZFrF5jIoIDNJnjjt17+1jQ3WO8WK1qMbAr5yAIERfKOpOZua+7xM3Bx9lGd/k1u1+7DaBbINjXaBV5ArTj9dbuDYBQMW4j+JUWf31QAsy3tmwZ9gXnQjEstd9v1jIRrKuUYSmHHHhydvlUKO2UvjaeFQh35dHq43okHcT5oGS9RpD8BEkjIhlAArvtURLxAkACUbPGhG9ndUHOskDn26g4ST6PkrazJQzTa9mygnyACIwFCxdnX7uMgQ86i9ZBpMWdhMWVw6ongciA7G6RVuqYik/+r6Pxg+de21flqhN5w==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(19092799006)(11063799006)(3023799007)(10067099003)(56012099006)(22082099003)(18002099003)(41080700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MFltdkl0SUxMMXI1UmpZS3Q1R3VyOVN6NEZXMklWY3NlTXN0SmtzelZUKzJS?=
- =?utf-8?B?aktMTXZNenlNMFloNkVTOG5kOEYwOTF0anh6NXNqSE9QRGp0bW5haFZNbWZI?=
- =?utf-8?B?NFB5eWhRNVNRYUVlczdEVTJIMzUrT3ZwaDNjaXBpTXJ3T2RJN25uZ0syWWFj?=
- =?utf-8?B?OWprSXVwbVZNM3RnODVPTWdYMDJyaVVHemhUSzRBcXdEdVJsSzlkWllTcys4?=
- =?utf-8?B?R29NbTE5QzhMTCs5RlR4VWtLK2lzK2ZBbVd4alV2eDhSQ1lUcDRyY2hvVlNu?=
- =?utf-8?B?dGc3TjV5bGQvVW9majQrMTNXQk5QOFJibnZaZjZyTnBud1RqY05hZWJNUEdJ?=
- =?utf-8?B?bXR1NHlCMEpGS1lZem0vc0dZaEFjQXBIaTQ4T3lCdVBVMEtMSW5UaDZqL0o0?=
- =?utf-8?B?OEU3aEk2WjdKN292ZWdCRFI2UnJYSWhoQzlTMVAxVHR5bnpMRjdkVktTRy90?=
- =?utf-8?B?WWJ4ck55STVQeVRpSFFTVitMMW5saXlCSG95VHc4SHhIWE5LbmFQd3hOMGEw?=
- =?utf-8?B?OHd5QjZWY2hyUTl1NVB4cFArZnNoV09tREg4eWc0RWt6QzFocWs1a3BlZklW?=
- =?utf-8?B?NWh3M2ZWcllHdzhCVHpEVTN0QXZROE8wc3RpTGVjSHJtcDFwdzhBcUdHNXUr?=
- =?utf-8?B?cEdNbU1WM2ZhWW5NNTFIN1l1TTM0TUw1TTNLZzllRFBXYXN5cGs2dE5Xd1JQ?=
- =?utf-8?B?eE5yRW4xcEFRL0pmR3BRTjhFaGlhVGlSVG1JRWxuTmJkYndGRituM2E1eFBk?=
- =?utf-8?B?c2VVNjI0Q2lRWVpRTFVQRkdrMG9kNk43aVJCNzAwRGYwdkVqWXJQTi83Vmpk?=
- =?utf-8?B?SE5OWnpOdk5FUndPSitaSU9sM044YmR1VG5XMVQvNnhNV2l0L3JnemduaDNk?=
- =?utf-8?B?ckxBNytDcDUzaEM0ZDI2THYrU0lqSW5HNEFnUUREZVM5VVg4OEdxTHNRY1l4?=
- =?utf-8?B?cklIbkJCK3ptSlRRQlNGN1NNaXpBSjNUZ0FlQjhDTTFqb1Vic3RzUFpsZDJr?=
- =?utf-8?B?UlV4UTQxbkp2TmRxYVBhVjlvQmUyQVhvME5YNm9iYWIybHBMLzhiWFR3TDNy?=
- =?utf-8?B?NGNFYVo5STZYMStJM2U4QmVaV3JYL1ZyZks0eEhmQUlzZDVjbi9qK1ZTcnQr?=
- =?utf-8?B?L0V0d3lpWi9WRjRPYnFMdWJsdzJpRFpSbDRBS3RwVGFQUTY4MTZYaGtEUlc5?=
- =?utf-8?B?ZVVETmhOelFYL1ptNkFjeGp1ZXJlOW42MG5zeVNzUENvbUVKRFJ0alhGNHFO?=
- =?utf-8?B?U1laUVBDK0RGbDdRb0xkMzMvamVhY0lIaG43MkdFcFNReUFHNXdhU2JVSzBy?=
- =?utf-8?B?YTF5SkpOaktBVERXNjFoV29QbktQSE9jMWtCZU91eDZiNURnQkNTaGd6ZzJT?=
- =?utf-8?B?dmhxUXFHMktTL2NHZDIvbkZtUFN6NDVxcUNqTTk0VXN0RGJrZWlLWE5ONDhS?=
- =?utf-8?B?Szd0SFlPKzY2Nm56OVZ4b2ZGdFp4OUhzVjlhUDVCZk1SMTRHWGJDY094LzRo?=
- =?utf-8?B?a2NRSGVRd0tRamduV0pFbU9neGVmSlZxLzNrenlBRzFjUStXN1MwU0RveE1S?=
- =?utf-8?B?eHlrWHJQZXJUeC9XQmRlUmdjWmxsZEc4VHNCUDhmWmVYaWJSVkFLeEpjakJ6?=
- =?utf-8?B?bnAxVS90YktDZmt3RTYyY29RZWxWUTZlQWpFOHB3T3crbXJudk9uOU9zM0Uw?=
- =?utf-8?B?NGpHZ1BtbVFCbEpkQXJGeDlHWnhkaFNMRkpObVQvWXNQYVA2Q05HQnQwVUJH?=
- =?utf-8?B?SzZUVGtjazMvdHdKOWdwbnJRZ2hRRzBOOG1EZm4xRGtjMGNDQjBBejFqckFO?=
- =?utf-8?B?U2lqNWhQM2lpQ0xIcXdPZTVnVFpXV0tCU21LNnQwYTBjZVhkL1pnOXFvcFhH?=
- =?utf-8?B?dDk2K3lCck1zV05yU1BlTzk4QTNWeG9oWngyVGNVSFF4c2NSSktjbmFDZWs5?=
- =?utf-8?B?TnI3KytZNXFSWEljSktxRHAvbEJKRDVJSnEzYm1ITSs5eStKai9KUE80L2Rh?=
- =?utf-8?B?ZTNMdHBjaEppVWRaTXAvTTNITWUwMjRGelE3NjhRc0cxRjROZ25NaWpPU2ti?=
- =?utf-8?B?TVUzcDREU2lWMnRSYnBLK1RvTHlrWHNES3FMT3o1U2RZOXZzcXdCeHVDK3lj?=
- =?utf-8?B?TUc3bGtmdnZIYUZTWVVKYkE1T0VrVU5uVmZTUVdhbzhQLzNjR3hRZVBxc0Vz?=
- =?utf-8?B?aU5yZzR2TG5td2ExNFk5cXp2V08vbjBGeUwya0V4TFdmSGkrVkZqWDVETk5K?=
- =?utf-8?B?NE5SVXpUQmFuaDhCRThMNkFxRWlBSXNWcnVLdzNBUU5VMEJQWFdBdjJJNHZt?=
- =?utf-8?B?c01vMlV4cHVPdWREYlZDTFdRV0hQaDhyVmI4RklyV1Y1a3ZYN2RQSlkrOXhT?=
- =?utf-8?Q?bjBx4Oe/1MZrUQERNSHt41/QNS7DZmbJmqEB5?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 468b02e6-65cf-49ad-88a7-08df19adb77e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:03:21.0150
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TQA+Wf9cY/HBcn+x4uWsipKtqAjDNT1sjY3+KrDNJhM5tNtUVMvrs0auLurcviupXOQngCczgKHqiET5dLfZU/YfaX9pYGvaSCAXRgXAQK8dHGxzIK2knVCu2jUPaBas
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10715
+References: <aolxiwRzSDlJt2t5@aurel32.net> <20260824161259141TiMgABa1lW5yLKfzn4DnF@zte.com.cn>
+In-Reply-To: <20260824161259141TiMgABa1lW5yLKfzn4DnF@zte.com.cn>
+From: Jason Montleon <jmontleo@redhat.com>
+Date: Wed, 23 Sep 2026 16:03:24 -0400
+X-Gm-Features: AclHuK_kTUkYKrD6IxvGRUy1fLZzftbYinHX455LrTz5v_FdMhIrrFWYdq4Nqn8
+Message-ID: <CAJD_bPKrb2Xw16M7E2MB1n3jGPsMTueFPnaex5pOkSU-Y2iTMg@mail.gmail.com>
+Subject: Re: [PATCH] riscv: lib: Fix address overflow due to large count
+ values in strnlen ZBB path
+To: gao.rui@zte.com.cn
+Cc: aurelien@aurel32.net, pjw@kernel.org, palmer@dabbelt.com, 
+	aou@eecs.berkeley.edu, alex@ghiti.fr, jiangfeng@kylinos.cn, 
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Frank Li <Frank.Li@nxp.com>
+On Mon, Aug 24, 2026 at 4:12=E2=80=AFAM <gao.rui@zte.com.cn> wrote:
+>
+>
+> Hi Aurelien,
+>
+> >On 2026-08-19 16:18, gao.rui@zte.com.cn wrote:
+> >> Hi all,
+> >>
+> >> This patch fixes an issue in the RISC-V ZBB optimized strnlen implemen=
+tation.
+> >>
+> >> Problem description: When using the ZBB optimized strnlen implementati=
+on, passing very large count values (such as SIZE_MAX) can cause address ov=
+erflow and return incorrect results.
+> >>
+> >> This issue was observed in device-mapper tests:
+> >>
+> >> sh-5.2# dmsetup create testname9 --table "0 8 zero"
+> >> sh-5.2# cat /sys/block/dm-*/dm/name
+> >> testname
+> >> sh-5.2# dmsetup remove testname9
+> >>
+> >> The overflow in strnlen caused failures in string handling during devi=
+ce-mapper operations.
+> >>
+> >> Patch summary:
+> >> - Explicitly introduce the strnlen_generic label.
+> >> - Simplify the generic implementation loop.
+> >
+> >This part should be in a separate patch, separated from the bug fix, and
+> >if possible with some benchmark.
+>
+> I agree, I will split the generic implementation changes into a separate =
+patch and provide benchmark results
+> to show the performance impact.
+
+Hi Rui,
+Have you made any progress on an updated patch? This problem appears
+to be breaking LVM on recent kernel versions. We attempted to boot an
+early riscv64 Fedora 45 image with kernel 7.2.7 under QEMU today and
+booting failed unexpectedly.
+
+After some digging we found that LVM was broken because the UUID for
+dm-0 was truncated. Since we were using Libvirt/QEMU I adjusted the VM
+configuration to disable ZBB after which the VM booted successfully.
+```
+ <cpu mode=3D'custom' match=3D'exact' check=3D'none'>
+    <model fallback=3D'forbid'>rv64</model>
+    <feature policy=3D'disable' name=3D'zbb'/>
+  </cpu>
+```
+
+Reproducer: https://gist.github.com/jmontleon/4cca07e6e5e5aa06b6b3e98ced052=
+4e1
+
+Thank you,
+Jason Montleon
 
 
-On Mon, 14 Sep 2026 23:01:33 +0200, Vincent Jardin wrote:
-> The Nodebox v3 is a Free Mobile CPU module built around the NXP LX2160A
-> (16x Cortex-A72, DPAA2).
-> 
-> The same fsl-lx2160a-nbxv3.dtsi shall be used verbatim by the
-> U-Boot port, sent in parallel to the U-Boot list, so the two trees
-> cannot drift.
-> 
-> [...]
+>
+> >> - Add fallback logic in strnlen_zbb to redirect to the generic path wh=
+en a0 + a1 overflows.
+> >> This ensures correct behavior for large count values and SIZE_MAX case=
+s.
+> >
+> >Is there a way to instead to fix the strnlen_zbb to avoid the fallback?
+> >
+>
+> It is possible to make strnlen_zbb work correctly without fallback, I wil=
+l reconsider this point:  if the performance loss
+> of the non-fallback version turns out to be small, then using the non-fal=
+lback code may be acceptable.
+>
+> Regards,
+> Rui
+>
+>
+>
+>
 
-Applied, thanks!
-
-[1/3] dt-bindings: vendor-prefixes: add Free Mobile
-      commit: aa906abf611c7f37c0fe9171c1d33c40270aa5fe
-[2/3] dt-bindings: arm: fsl: add Free Mobile Nodebox v3 CPU Module
-      commit: bd4912cb2e063f9b574732144fdc601043281281
-[3/3] arm64: dts: freescale: add Nodebox v3 CPU Module
-      commit: 565b6713a460126874d15654fe24d995a57c822b
-
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
