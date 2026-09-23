@@ -1,61 +1,77 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 08728363083;
-	Wed, 23 Sep 2026 04:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1FB363083
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:19:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790137059; cv=none; b=GvOsrMrdswCpUG+D4exa8K9FRtnNv+sRPdZH3lGTKBxGeiDtiLLYN5qQb54A2wyJkaYpGlnIlIyvt+PxD2kNR4jJnPWgn6dE3SDYdFsfFZtevA/KwNSVzbiHXjZcsYQgQ/3y5eaXGCak95n5bOh6kBKliaheypxvH31K8NoJygQ=
+	t=1790137183; cv=none; b=GNCVa2HnlE67+7XkLm/1z+eXWefRit6kDjghObB2ZUODnQDKn6ToKGhKVupnpfskxT9y88UhnRh1QrrGWsOvxSdZwK1h77iiIYLcN/mYWWPmcowF87sfOXBuK1CQs7SNJ6PRmwms20+C7sTojiukUYViqM8QgV4raLPfbMH/F0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790137059; c=relaxed/simple;
-	bh=bFcKVfcUYkj4+QPxgYPjyeDqEzu7UnugMwi3SwfzYF8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A8z9iv4XYFiQDBt3W6facGdMRUT9F803N4t7AHDj5JM7P6E+fOBPBkVZSD6WtWCMBOai3PVNRABV8QArd0Sz8Z3HhrX/JZWU1u5NmWIpgSN90ShaSYght3nMtiSQjDxuunIGMoiWXI9LXsT4lRZIkBDjFuJss/A+wgsv0NIjXc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=n65WmTV7; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790137183; c=relaxed/simple;
+	bh=VnTRhCYz56QFEIHWtX5iIOB/v8A6bH/AwJdTUOxoN3U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qSLZlXr5eVXYGS18C5rqa1Ki9/PyFj3t8FF6t3tsl5tmQfB+xUpejo4c/7TQZCyok6bVner4xB5CEAAZOpXJJiyi7bjQGBrjoxll41TfI5Js1o/tj7/jKSHAhnkhGk4fu72UfsFK8GrkOTUW6da7rDXDftwj3Fte7fquuXpaeuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J/Moyymj; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="n65WmTV7"
-Received: from mac.lan (unknown [4.194.122.170])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 97B8320B7167;
-	Tue, 22 Sep 2026 21:16:34 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 97B8320B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790137009;
-	bh=2+r73rfbt6rv80fm5u0jZU2L86+FdHUf15Te4GgmnGA=;
-	h=From:To:Cc:Subject:Date:From;
-	b=n65WmTV7to9SA6iTkQvC26IkYVN9lLceqNhxk5JsRKJZF1iKijp0sPGBgJuRjJyLt
-	 nPQKOKoMIE6tyMtdLw1o4ll/J4hpRq1VqlCqzoCEw3zXe+sO4zFt+5ej669eSHRVlK
-	 iW2pZ/9pPMEFfQzCi2esmIqHU0cXN6agEeL5or2E=
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-To: bpf@vger.kernel.org
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Matthieu Xhonneux <m.xhonneux@gmail.com>,
-	David Lebrun <dlebrun@google.com>,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J/Moyymj"
+Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc50d1b048eso398019a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:19:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790137182; x=1790741982; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FSBnzQPFA3sp+acWAbZYd7ni8m80ai0yOy1PIw/qr5E=;
+        b=J/MoyymjonJKMIs5WM1NpcySHATUaZ5my5vof7PHmXCW1Z7o1l2UjqB8mnxa8trDh3
+         3SB1lumrDy21oaYuMsKpqiZGG1IIKbwRRCf/YyOCydiqIjlFqx14nH3HbzNCowpqIvZo
+         PkIDswAetUU2TsXLiUWexIJ3yYKlkzB5INhNuurEGFNR/XkGAj8uSHHKx+JxsU5Qf53u
+         SBltOGi8kQsgEGxas+7O8ncFdDw1LeU2uJtVVxfRPNB/WSFL/TULJZxi+uzVoirBRD9E
+         5E/Aq9jVNYxsTDvmv4xQQGvPwPG1zkrPmxvUQkgI7ftgcJODRYL/dHq1XI+5G1rV3aLw
+         PPgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790137182; x=1790741982;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FSBnzQPFA3sp+acWAbZYd7ni8m80ai0yOy1PIw/qr5E=;
+        b=PjS8pP7HR4RJlKi0MWIeN9Aa7O0aPL79unL9hGbtEePV2ibIoETBvCF8Uq4qS2SXBb
+         QEIogW72nS3zlUCRL9OwE3QmQUwZpmIY5qXkb5uIlMq7dELDVDF9RPGxEkBu0kycrsXV
+         tlb5GYwCysiL7FHgP+sOwjRXq5Z+83U5l7VJn1t9lgSakOy6sKRoAv4V4V/zZ4vEmJVj
+         j5fyYiW/GKimSdMbCFVC3JWVTlx24CM5qZZfUiSH/tOTOtMz+ifhnjEYUm56MahQysDJ
+         xvi4EXOHdjDzNRcXI1LsT7/F4vkq0+XPUKZ2h/SQnpU3qB42pGC3MSyG+mwNg5DJpMgf
+         hQFg==
+X-Forwarded-Encrypted: i=1; AKwUvBwWoCtBcbtSdIvNQH3Du8t3Z05NkozQt6Mifi0pa3on7YwUJF+4eHs+7PTFPq91KRbg+xZGGZCmFrayj6I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nENdpPYet8C5lwJAaLz3qjK72z92QTIxhBo8FHLwesHBD116vg
+	D87d3ZrxYzRoLa8U6kUsNNwlQ+HRswgI9yFTCzrdbbvS9+FjRYfIQ44p
+X-Gm-Gg: AYBFou1yiuxrnM0p1Lu54NECrPqaue/4Oaux6o9DlkjtqQG9+i7tAT66r0TpioBEOLw
+	GBPDRlJiBH7fdNF3Y67w3VoIJJIJDBkJV+321D0dSLqbe8VMKAqVq0LToVvP6kADwXNuF//CgBy
+	hcfbhtz3ZlZyDGikvTJo+XvYRjVdS53Yx6C2zT9YLmRydyBSW9ZmJtmDiiU9qacPASyewc+1MJU
+	aS4K2jUUQXF5l/g6CvewVEqKBUEh75tXx7JSckGOALFkZ5yDUjhkyj1rB4tAPoRZ3MNCYZtm//Y
+	FVuQz8oxl+5Rym3ZdHnfZMAmjr81U42Yb/uCBD0GMjJYEMXkziNNV1CXmiapIuYkJt/Ti2pTyEq
+	I029faecATY2i0zJ6m8fgtDeRkJce6OYIzcNJEN141zv7HN42wc71aDFEhJ8D7JkoOuw8nLJrLm
+	7LLHcuKvHn8bfkcsbQVZSkZg3Fq2nxx4HOF+HLLDj8TUHUH2H7auHntnoCOwcmyR8pp4is7zGfR
+	I+9oLCkHlTpCB7YaprQZgc/OiBWyiu9XAuxUWvPrQ6UvDoTPMZvsSUXSyqL/mjQBZe2lO4=
+X-Received: by 2002:a17:90b:3843:b0:3a0:50bf:d497 with SMTP id 98e67ed59e1d1-3a07e4a2525mr1289494a91.3.1790137181650;
+        Tue, 22 Sep 2026 21:19:41 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07ddae723sm2510243a91.5.2026.09.22.21.19.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 21:19:41 -0700 (PDT)
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+To: broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	Xiang Mei <xmei5@asu.edu>,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com
-Subject: [PATCH bpf v4] bpf: Fix non-linear SRH access in bpf_update_srh_state()
-Date: Wed, 23 Sep 2026 00:17:14 -0400
-Message-ID: <20260923041714.84435-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
+	cwweng@nuvoton.com,
+	cwweng.linux@gmail.com
+Subject: [PATCH 0/2] spi: ma35d1: Add Nuvoton MA35D1 SPI controller support
+Date: Wed, 23 Sep 2026 12:19:24 +0800
+Message-Id: <20260923041926.425551-1-cwweng.linux@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -64,154 +80,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bpf_update_srh_state() locates an SRH with ipv6_find_hdr() and caches
-skb->data + srhoff in the per-CPU SEG6 BPF state. This assumes that the
-returned offset is within the skb linear head.
+From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-That assumption is wrong because ipv6_find_hdr() uses skb_header_pointer()
-and can locate an SRH in non-linear data. The direct srh->hdrlen read and
-the cached SRH pointer can therefore access memory outside the linear area.
+This series adds Devicetree binding and driver support for the SPI
+controller found in the Nuvoton MA35D1 SoC.
 
-BUG: KASAN: slab-use-after-free in bpf_update_srh_state+0x1bc/0x200
- net/core/filter.c:7027 bpf_update_srh_state()
- bpf_lwt_seg6_action()
- input_action_end_bpf()
- seg6_local_input()
- ipv6_rthdr_rcv()
+The driver implements SPI host mode using polling-based PIO transfers.
+It supports SPI modes 0 through 3, LSB-first operation, and word sizes
+from 8 to 32 bits.
 
-Fix this by pulling the complete SRH into the linear head before it is
-dereferenced. Pulling can reallocate skb->head, so refresh the BPF data
-pointers inside bpf_update_srh_state() immediately after the pull.
+The controller provides two native chip-select outputs. GPIO chip
+selects are also supported through the SPI core GPIO descriptor
+infrastructure.
 
-For End.DT6, make the inner IPv6 base header linear before removing the
-outer headers. Pulling only the outer headers can leave the inner header in
-non-linear data, while ipv6_find_hdr() and the nexthop lookup access it
-directly. The helper parameter may point into packet data, so copy the
-table ID before pulling and potentially replacing skb->head. Clear the
-cached SRH pointer and refresh the BPF data pointers if the pull fails.
+The driver programs the clock divider according to the hardware
+requirement that only odd CLKDIV register values are valid, and rounds
+the divisor so that the generated SPI clock does not exceed the
+requested transfer frequency.
 
-End.B6 and End.B6.Encap can insert a new SRH and reallocate the skb before
-a later HMAC calculation or nexthop lookup returns an error. Rebuild the
-SRH state when the skb length changes, which indicates that the new SRH was
-inserted. Failures before insertion leave the existing state unchanged.
+DMA, target mode, half-duplex, 3-wire operation, FIFO threshold
+interrupt transfers, and the I2S function sharing the same hardware
+block are not included in this initial version.
 
-Fixes: 486cdf21583e ("bpf: add End.DT6 action to bpf_lwt_seg6_action helper")
-Reported-by: Xiang Mei <xmei5@asu.edu>
-Link: https://lore.kernel.org/bpf/20260901183151.16648-1-cenzhang@linux.microsoft.com/
-Suggested-by: Emil Tsalapatis <emil@etsalapatis.com>
-Link: https://lore.kernel.org/bpf/CABFh=a5iLOEJdPhoaWUhLc0eEqAuhnd83_jJr9MVZZG6gSJAEw@mail.gmail.com/
-Link: https://lore.kernel.org/bpf/CABFh=a4VyzxsQqsayWpTKjxY3HL2C072u=pbecEpNDbL9eBNKA@mail.gmail.com/
-Link: https://lore.kernel.org/bpf/CAADnVQJceTGftun8NfbyQdWe1FqLDsd6Ut5mrQFxuVkAvrAAEg@mail.gmail.com/
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
-Assisted-by: Copilot:gpt-5.6-sol
----
-Changes in v4:
-- Keep ipv6_find_hdr() and only add pskb_may_pull() instead of switching
-  to seg6_get_srh(), which also validates the SRH. (Alexei)
-- Rebase onto the current bpf master branch.
+Patch 1 adds the Devicetree binding.
+Patch 2 adds the MA35D1 SPI controller driver.
 
-Changes in v3:
-- Copy the End.DT6 table ID before pskb_may_pull() can replace skb->head
-  and invalidate a packet-backed helper parameter.
-- Rebase onto the current bpf master branch.
+Chi-Wen Weng (2):
+  dt-bindings: spi: nuvoton,ma35d1-spi: Add Nuvoton MA35D1 SPI
+    controller
+  spi: ma35d1: Add Nuvoton MA35D1 SPI controller support
 
-Changes in v2:
-- Rebuild the SRH state after End.B6 and End.B6.Encap only when the skb
-  length changes, avoiding selection of a spent Routing Header on errors
-  before insertion.
-- Rebase onto the current bpf master branch.
+ .../bindings/spi/nuvoton,ma35d1-spi.yaml      |  70 ++
+ drivers/spi/Kconfig                           |  11 +
+ drivers/spi/Makefile                          |   1 +
+ drivers/spi/spi-ma35d1.c                      | 701 ++++++++++++++++++
+ 4 files changed, 783 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,ma35d1-spi.yaml
+ create mode 100644 drivers/spi/spi-ma35d1.c
 
- net/core/filter.c | 27 ++++++++++++++++++++-------
- 1 file changed, 20 insertions(+), 7 deletions(-)
-
-diff --git a/net/core/filter.c b/net/core/filter.c
-index 70dc621672f2..1aaaa6c51745 100644
---- a/net/core/filter.c
-+++ b/net/core/filter.c
-@@ -7019,13 +7019,16 @@ static void bpf_update_srh_state(struct sk_buff *skb)
- 		this_cpu_ptr(&seg6_bpf_srh_states);
- 	int srhoff = 0;
- 
--	if (ipv6_find_hdr(skb, &srhoff, IPPROTO_ROUTING, NULL, NULL) < 0) {
-+	if (ipv6_find_hdr(skb, &srhoff, IPPROTO_ROUTING, NULL, NULL) < 0 ||
-+	    !pskb_may_pull(skb, srhoff + sizeof(struct ipv6_sr_hdr)) ||
-+	    !pskb_may_pull(skb, srhoff + ((skb->data[srhoff + 1] + 1) << 3))) {
- 		srh_state->srh = NULL;
- 	} else {
- 		srh_state->srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
- 		srh_state->hdrlen = srh_state->srh->hdrlen << 3;
- 		srh_state->valid = true;
- 	}
-+	bpf_compute_data_pointers(skb);
- }
- 
- BPF_CALL_4(bpf_lwt_seg6_action, struct sk_buff *, skb,
-@@ -7033,6 +7036,7 @@ BPF_CALL_4(bpf_lwt_seg6_action, struct sk_buff *, skb,
- {
- 	struct seg6_bpf_srh_state *srh_state =
- 		this_cpu_ptr(&seg6_bpf_srh_states);
-+	unsigned int old_len;
- 	int hdroff = 0;
- 	int err;
- 
-@@ -7050,40 +7054,49 @@ BPF_CALL_4(bpf_lwt_seg6_action, struct sk_buff *, skb,
- 		if (param_len != sizeof(int))
- 			return -EINVAL;
- 		return seg6_lookup_nexthop(skb, NULL, *(int *)param);
--	case SEG6_LOCAL_ACTION_END_DT6:
-+	case SEG6_LOCAL_ACTION_END_DT6: {
-+		int tbl_id;
-+
- 		if (!seg6_bpf_has_valid_srh(skb))
- 			return -EBADMSG;
- 		if (param_len != sizeof(int))
- 			return -EINVAL;
-+		tbl_id = *(int *)param;
- 
- 		if (ipv6_find_hdr(skb, &hdroff, IPPROTO_IPV6, NULL, NULL) < 0)
- 			return -EBADMSG;
--		if (!pskb_pull(skb, hdroff))
-+		if (!pskb_may_pull(skb, hdroff + sizeof(struct ipv6hdr))) {
-+			srh_state->srh = NULL;
-+			bpf_compute_data_pointers(skb);
- 			return -EBADMSG;
-+		}
-+		__skb_pull(skb, hdroff);
- 
- 		skb_postpull_rcsum(skb, skb_network_header(skb), hdroff);
- 		skb_reset_network_header(skb);
- 		skb_reset_transport_header(skb);
- 		skb->encapsulation = 0;
- 
--		bpf_compute_data_pointers(skb);
- 		bpf_update_srh_state(skb);
--		return seg6_lookup_nexthop(skb, NULL, *(int *)param);
-+		return seg6_lookup_nexthop(skb, NULL, tbl_id);
-+	}
- 	case SEG6_LOCAL_ACTION_END_B6:
- 		if (srh_state->srh && !seg6_bpf_has_valid_srh(skb))
- 			return -EBADMSG;
-+		old_len = skb->len;
- 		err = bpf_push_seg6_encap(skb, BPF_LWT_ENCAP_SEG6_INLINE,
- 					  param, param_len);
--		if (!err)
-+		if (skb->len != old_len)
- 			bpf_update_srh_state(skb);
- 
- 		return err;
- 	case SEG6_LOCAL_ACTION_END_B6_ENCAP:
- 		if (srh_state->srh && !seg6_bpf_has_valid_srh(skb))
- 			return -EBADMSG;
-+		old_len = skb->len;
- 		err = bpf_push_seg6_encap(skb, BPF_LWT_ENCAP_SEG6,
- 					  param, param_len);
--		if (!err)
-+		if (skb->len != old_len)
- 			bpf_update_srh_state(skb);
- 
- 		return err;
-
-base-commit: 6db1ce73e9853f533eb7f413f14ba00f8ec6f80d
 -- 
-2.53.0
+2.25.1
 
