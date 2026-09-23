@@ -1,43 +1,58 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15667473C86;
-	Wed, 23 Sep 2026 08:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0707471CE7;
+	Wed, 23 Sep 2026 08:51:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790153507; cv=none; b=UY8HRShtlNQeMOrUzWGQIcIVi4poA85P7mctg22QoxgkWDc3O+nc0NOmbhX/Hj6BrKm/PJLMGIvTdzo6ZbVwMUHsgmhrhKA8Kiv8Y++zYav6hliDW5F4Lyx0GBy4jY1J8uaZaaenMg3Ll/Sm5Y4hSuXYaX+0AB7y8HFdx/efNNw=
+	t=1790153515; cv=none; b=UeDtlubT216cLcboxGuHVay5WRhH+vc+k/IorgYvL9HEPFPJYwKHFS9BZxRY1y3omfE/UpMqZjo/5614yYZtSmxn9e1goZ5fZL7tWSR30Ep5msU51WpkXodjDT58gXRb6XhUHCsSYDSB9imXtGrS+LDaXD/ebO8KR8jL8qOv2G8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790153507; c=relaxed/simple;
-	bh=IjrAOGLFJ3kDUr1SO+rRxFDNeiDjrtz8Nglkhm/hlYs=;
+	s=arc-20240116; t=1790153515; c=relaxed/simple;
+	bh=e8BHkedST5IvMG8ydmkWCUz5sx/Tld0fVuGig1pKfak=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JPgZ1QzASoXwbfKt/TzRlogzqwyZ22j2HNC/ApEFuy8VOlBqmVHjdgBV2oZ2gTtYLBKDwrZB1XCeeMhTmyfFr+LCeLrAaXGbZO6LHjFarFIUq0ANBlP9w3lCnJ7c2kHAoAMPkCy9V/n9kEcz33JzLF1cBmX5BFAG9z4FfHTYV00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=IQXI6V+9; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=tQ1OsPZO5q4GBs6xPqAZy8rjcdwLmDNEKdfkHsjlifFV0X3jMS04j19muT8ht484C/Wa3W1D4vbbzhY5Esqxe//nmxXSKp64ZGZEDn64WeDX5rJbClA408yXQJhqiq5xPSOp2e5cZVCO6uQn11o1au/uQHASNe0YCrQefJnJ/vQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=qQ68kLs4; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="IQXI6V+9"
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="qQ68kLs4"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=y64sLOl1wcR0EFaDPT84zdtExiCsWPjSAzpuBJJV7+Q=; 
-	b=IQXI6V+9204LcR8vM2su3bnEKNWnOyikSSMIrpjJEckAoumeebZa16wSDTl6QlOLT6AlUtvWcbh
-	QuoBxLRlfN/sfwVsDrx4pmR50bsaQCgF9mHLiwQhaQMvsmjSMrP8t4yeEP7nHrNK7H+4sj1FpWjNv
-	7cgkqxjGbz77OzVn5dza1Hb7qQhw890KEbT6zGHNi+W+EK2d/o14ISCsCd+G1HvGSHq/QHu0hpPBo
-	V28WehQxhoIgPXav1P6tGouPlpNbFb0rxuZ12vKkULCsG4gUgOXt+JMAylv+jqyk8ow7PzvW/qUAE
-	Q0Psys9iVgcP1scfgI4Q6frQCIoa5YU1Bs6g==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x9IhZ-0000000GyEQ-2Kzt;
-	Wed, 23 Sep 2026 16:51:42 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 18:51:41 +1000
-Date: Wed, 23 Sep 2026 18:51:41 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Weili Qian <qianweili@huawei.com>
-Cc: linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
-	liulongfang@huawei.com
-Subject: Re: [PATCH 0/7] crypto: hisilicon/hpre - misc fixes and cleanups
-Message-ID: <arOTHcB78JaQK_8P@gondor.apana.org.au>
-References: <20260918122726.3014899-1-qianweili@huawei.com>
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Zhc+rBydMoTCVYj/UX3EYHmmMl8lLx0CKlWHb9p0Occ=; b=qQ68kLs4+03ouBN6dYWL0IKdKr
+	CE4g2/QKcVLDtevwYbe9FLJGfOeW7VS0wIXCU7bdiowtMHW2Nma9Lr1DpIJuTITY/EzZhjFvEgSzI
+	IX9ssJOaHTLxfDSRWyuWL1IRvxH1EwAjM9FXLE4xZRTgX7HwgeYGRZmwURbO6880f6kftSZEZBvJh
+	4PDZfjfsLAGZn5qr2pWwmRL/5HF1/v2bTxDEjn/D28F9zk6a4PWTmfm2pgU4mWoT7MtKVRQuAk3Vs
+	uzG8sqXn/EVyoTxSh29UIn+8PICGLE0wmNCx3jLBRC5c98WXJhIZGQuf6XLrdCeYouBcHltqofCbF
+	z/CrInLg==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x9IhY-0000000EXz8-0dbJ;
+	Wed, 23 Sep 2026 08:51:41 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 2A086300478; Wed, 23 Sep 2026 10:51:39 +0200 (CEST)
+Date: Wed, 23 Sep 2026 10:51:39 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@kernel.org>,
+	Sean Christopherson <seanjc@google.com>,
+	Jinchao Wang <wangjinchao600@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, x86@kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
+Subject: Re: [PATCH v17 02/13] perf/x86, KVM: Prevent host debug register
+ leak into guest OS on NMI
+Message-ID: <20260923085139.GV776954@noisy.programming.kicks-ass.net>
+References: <179005108298.388919.4535333252892590932.stgit@devnote2>
+ <179005110742.388919.1509641807739909065.stgit@devnote2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,33 +61,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260918122726.3014899-1-qianweili@huawei.com>
+In-Reply-To: <179005110742.388919.1509641807739909065.stgit@devnote2>
 
-On Fri, Sep 18, 2026 at 08:27:19PM +0800, Weili Qian wrote:
-> Patches 1-5 fix bugs (OOB read, dead code, wrong errno, DMA mapping
-> and GFP flags) in the ECDH/RSA/DH paths; patches 6-7 are cleanups.
+On Tue, Sep 22, 2026 at 01:25:07PM +0900, Masami Hiramatsu (Google) wrote:
+> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 > 
-> Weili Qian (7):
->   crypto: hisilicon/hpre - fix pointer dereference before length check
->   crypto: hisilicon/hpre - remove dma_free_coherent on NULL req->dst in
->     ECDH
->   crypto: hisilicon/hpre - return -EOVERFLOW for small ECDH output
->     buffer
->   crypto: hisilicon/hpre - fix ECDH destination DMA mapping
->   crypto: hisilicon/hpre - fix GFP flags for dma_alloc_coherent
->   crypto: hisilicon/hpre - extract clusters num into inline function
->   crypto: hisilicon/hpre - remove unused macros and struct fields
-> 
->  drivers/crypto/hisilicon/hpre/hpre.h        |  1 -
->  drivers/crypto/hisilicon/hpre/hpre_crypto.c | 28 ++++++++---------
->  drivers/crypto/hisilicon/hpre/hpre_main.c   | 47 +++++++++--------------------
->  3 files changed, 28 insertions(+), 48 deletions(-)
-> 
-> -- 
-> 2.43.0
+> When KVM enters a guest OS, host hardware breakpoints are disabled
+> before running the guest. However, an NMI can occur while executing
+> in guest mode or during guest transition, where
+> arch_install_hw_breakpoint() can be invoked from NMI context.
 
-All applied.  Thanks.
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+How? AFAICT perf doesn't do that. arch_install_hw_breakpoint() is called
+through pmu::add() which is strictly IPI context.
+
+
