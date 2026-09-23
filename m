@@ -1,122 +1,216 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A41DA3B993B;
-	Wed, 23 Sep 2026 03:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B6B93B840B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790135992; cv=none; b=KL9jtX304d4pjDqG+LTSwSXaDmtDBpQ/lLVaLQeZ9CRhTsA/jWoa7v7GkWyaDMfcp8yNauE6HAMzy5pB9U53dNsukBZSe2MqEFqJPsqpQZvModzkxjWOw2mVGFXr40PoVFmueLnakth3l09HCB5FsiN6JAEJQgJ3MRctcy+iXdY=
+	t=1790135993; cv=none; b=NpEqSPqoN7rS+IQ/r24LjnMNzC7mMWIlMq6k/Wk/wia2ijzGPFC5FbobaFADFUlGcXrSALEg1+bTmbTV/lan954bFnJD7Te9MjxhYs2ih1RNtuLkdVlJadLzF8W3y6INXeDI/wh/GAQUNiyDGvl+F3oQYPAkcW40aTqxKUXat4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790135992; c=relaxed/simple;
-	bh=Ade9z2snR8UANxq8D449N9U8rLoOAtRhCLpA06rC1d8=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AMnEbthH3HBEzd71SNC8bqDwtcODqjtG8lTRJme59GfilgSci2tPl0uFS3+Imlrd1Mrumy1AEcrOk3J47jrRl3aulvg08vF3P+qc7T4OegKsfMOBUSOq1xs3E47EIvF0zN5YvmIzW9fH/+vhO4XmFVGRI0ycvSGDQ1J23BwlEMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=glmLy8V7; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1790135993; c=relaxed/simple;
+	bh=xH4hRiOAl805CYlDfNg6I0TltyntRRPXeq1yeY1sqr0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BOEyYAI76AgAgHVdH2pVLNKmIjreVN2Tk8okNI2FCwc27hQcuSIL1qQEMMYE6T0wobUah40r0sn0Zo29xbkGHSj2ZDyGezMz3sB+XWMS5D+NoyuuI6/VFDDKqnXEHyEdppxUGCaspYDHpn6eH8MNuOib4YHdDk8St9CU/Pp9l0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WyCzLO3G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QG22Oqwl; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="glmLy8V7"
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3jguJ3270954;
-	Tue, 22 Sep 2026 20:59:42 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=583TZTC+aB6USk9lHMGAYPPxI
-	yLBzC0OlAKfReC3We8=; b=glmLy8V7s2dGo6NS/MrbbpzsSGWwm5gUiKnzJPoF1
-	PeL2sPvwm3Jh6RTr2zd2u0Vymww+C0oPNp+ubjYBm1hQkUC1yUjN1fTcAnA3dFP2
-	CVOeKxqSYfXyMa47ciov43JiXcWG6hc9x7liIFtB7IFcQur29oGw/HZgGt2DraPV
-	EvUsNEEtT04W3LdFIeONmeCyjA4zoojJWoDiZMnzUz4Jx+IhhUQ7FCK0ggPHVhts
-	zDwZH8Z1B4FpdEsp4FonnlpSXn68Xn5aJEynDHLgpf9dxZNfooVc3KK2tiK1dI1B
-	af7Ib6Bqbn3BniGNjV2fvnddRaST5d2FLGdnAffwNaDNA==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4guabug678-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 22 Sep 2026 20:59:42 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Tue, 22 Sep 2026 20:59:41 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Tue, 22 Sep 2026 20:59:41 -0700
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with SMTP id 1A3B93F7072;
-	Tue, 22 Sep 2026 20:59:37 -0700 (PDT)
-Date: Wed, 23 Sep 2026 09:29:31 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <sgoutham@marvell.com>
-Subject: Re: [PATCH v2 net-next] octeontx2-af: Add couple of mailbox support.
-Message-ID: <arNOo2m2UV0R7AOZ@rkannoth-OptiPlex-7090>
-References: <20260923032816.1740106-1-rkannoth@marvell.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WyCzLO3G";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QG22Oqwl"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3iPFs783403
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:59:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=kmIHfMDMkexbd15J3h4moF
+	XMc3RAffHwQndAuDE7/q4=; b=WyCzLO3G02k3fUrSwuyu4JPmcNqGQfSIq06lw6
+	SaIOy3aq+owGVKS4LA0pG4lmasms9ekUfYYb73FNf/w4pa8h+JcXYOJ9BXQLfgNQ
+	HmPOvNMwPR6KJntBVPCigGEZMJKOOX7ScgKo24CnqsdqZZyx1fMoHCXzXaZXSiTE
+	6CUctio1rBLPfRQnbAU9GSc7xNr3TEoTf2R8Tl3jNJanK815xx75jVBMdFD4Ea2v
+	OEULuA9fbu1g9yYosfKfBbo4GoEgbcxCQKVgloF/C9+xXpJ++NN5cabyf/itlJ79
+	/TBKoawaqE/pYt0w4oLp4Q+MDd7m6UiANheWs1J4nxwpt64g==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guyma1vg7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:59:51 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-338c2e27430so281681eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:59:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790135987; x=1790740787; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kmIHfMDMkexbd15J3h4moFXMc3RAffHwQndAuDE7/q4=;
+        b=QG22OqwlrwtNkoXYpTNRLBH+W0bSOYT9YB0uRDrExpXq03Hmm09z8M57NAlXGDEUd0
+         2amhHHdq+e7v9Ai8KPZ5SS4mL0uwcSpcjiKhDe2dG4c8rqzEWpSR110lSewUuI5KcmST
+         0UjnTro91YCgACSpyoGW9rArwIQM/w2QyF6D6izUBrtqUOAymeIlxOmSJ7ZhvORJ03+2
+         fxuBQ+Mg0oqPFCafNOukbGHFXbXFxvYq2YnrRB8Vzw2lhumKTIpz9SS6XzOLr2WbXBPr
+         i1aaPmxAw1Up38ny7zfGwN72PAvk2kqG7c2BPeWwfjCY75YmlHrGJLUUvMOBI/GuWqt1
+         C4+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790135987; x=1790740787;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=kmIHfMDMkexbd15J3h4moFXMc3RAffHwQndAuDE7/q4=;
+        b=hG5zXLS4rxR49nwS54Q8eidafr939lke8KLADr5eoc++RUO1ctEuQO0LrrJpYSWBRD
+         e24nJM3zb1NnmpgOPWY59TZEPqt8sK93Lv18S83968UeVThWIQ2wfyWTAOegZarPrOYO
+         zsHgUJuq0yWWY6fMp9L/vIaN0BAriLD4cJsXVS7GBj9XxpuYW6NYWDv2hc6vc7k9cslu
+         KD+j02bg2Xf5+1wP7lUzS20qR2vK6J+d6lOuDowBF6anHFRwH4svR7V7Nbb2yehmcJ54
+         WaYerDBW1QQlFG0ZnGXA3aMm5+VjaCPEFavx7gBpErdNhu4HXHijnQtiQQtChgAPoI8/
+         REpg==
+X-Forwarded-Encrypted: i=1; AKwUvByMytGzMoalwhKGglQQlzJQmAhlN1ClouKsgaHqLcNN52WvUp3rcdL1+UbYuGdcAaF3zgXnM6iDWC5fLo8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mw0XVyhtlyLr25Q2sbSl8F90QW07iNH+GwW5hgJfYeSfiCXomg
+	7WeHMRG9BppU9URKXe0ldCcYdzoeiX8qzVXS3wBbSLxrFqdIR4SD2qmV+Co2FB4/nWiaqThJgfk
+	ZmCWCMwTWM3kTq00pV28sZxh3G9+ibbJ5DO6ANlFgYtJ1d9icR6GWPUYwm8pCfj5+WGQ=
+X-Gm-Gg: AYBFou3pQsokR3fW+4rW/oxcf0uCgGYsyZ6rYQyTk7o0pO5Dt5oji2hLvxhVmlYwyDA
+	T9KxyS3jLb7WFh+BjAWAPQHJZaFe5iHUioiRGxvPLWnGeBG+uoKvDDoZ2Q0mlxigz1eWIsCx+h9
+	t9h42cblsPFoqTUrfzjCMhK7jCSkwc/jZcLVa8joIjdq2UHfMVPdQsbvO+QBlIqXytVduOIzgOB
+	iAKNGdqJOc4w7kzo9Zp3MCFSWl8h6wmeYKQT2jgVkg0RhPKhW9MMZzxtbKL8pl6TmqrPg4s57+I
+	wn9L/3dEynBBsDfu3SpmHkvzG1CvdUNLr4+81Wl8acEE8xlroQ7o9O/+u2DsliCsY6/TB7oRTZ9
+	w6CZkDNr/nKxO0Y1rfHbMv1Y4hFfyiG3X
+X-Received: by 2002:a05:693c:41c1:20b0:33b:f153:92c2 with SMTP id 5a478bee46e88-33e8d9c81bemr1416530eec.23.1790135986989;
+        Tue, 22 Sep 2026 20:59:46 -0700 (PDT)
+X-Received: by 2002:a05:693c:41c1:20b0:33b:f153:92c2 with SMTP id 5a478bee46e88-33e8d9c81bemr1416509eec.23.1790135986441;
+        Tue, 22 Sep 2026 20:59:46 -0700 (PDT)
+Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e972395f9sm2381006eec.30.2026.09.22.20.59.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 20:59:46 -0700 (PDT)
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 09:29:39 +0530
+Subject: [PATCH v2] arm64: dts: qcom: glymur: Fix fastrpc compute-cb reg
+ values for cdsp
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260923032816.1740106-1-rkannoth@marvell.com>
-X-Proofpoint-ORIG-GUID: gVm3oQgbp3mLAIAo7zO6K9f75CiZj8Uv
-X-Proofpoint-GUID: gVm3oQgbp3mLAIAo7zO6K9f75CiZj8Uv
-X-Authority-Analysis: v=2.4 cv=PMOaavqC c=1 sm=1 tr=0 ts=6ab34eae cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=QXcCYyLzdtTjyudCfB6f:22 a=VwQbUJbxAAAA:8
- a=M5GUcnROAAAA:8 a=FXRivRzO7OE6NwQmqLIA:9 a=CjuIK1q_8ugA:10
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAxNSBTYWx0ZWRfX4wnlHyE1Rs3T
- 0G4QTuGi+ldMPgjCEymB/5PGtR2Dt46yRmfOh4Os/q1Dm1xOdqdXgRVaPSaATl7cbFf3XLzlLHs
- 2ITM3XunZFAnwfVmx0NcSFUcgUGzfDsCzHUkmVVOwsPm885sGANBRiek716NjEbBt427KIFld2g
- ClhAnkB3Qo5d9ufTwngte0FBhDL7qX59JrcqMWI2DJp8CBmzdTLb8MYT4bgO4OH35X0uQnbK0m3
- Eu/E2pNYL7Go4jbJFxHa75luDh1d8635ZQLeGKaOI4lWPbzmML5eXBPClJ7kTAKNef/wrCWeeYK
- c5+IsvX4NKhstRDwGdEliJA2Yl4R17OPafbRKKccrYoTxzjpuWj7FXHlnptHRz5tDgbz1W59JL3
- MUyY5qYBpew6bOff+Gfefpv2sealwFNg3TM/NiAKItVa74hZEpk8ukJ5jqMRUyUSxNHyOV5xNo9
- lbTSI3lznW3K9ohKGmw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAxNSBTYWx0ZWRfX6USUnRXb4BDJ
- 3+Js1G2lOqEuiWHfHEm+9TqzIZ9WcWtdeQE+KquaINwQffG3tmq/nAwQ9Wkp9UcfJi1p6JkBzqk
- /0DBtmPEYzdEZTVl/FDdzE8tQySkEOY=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-glymur-dtfix-v2-1-a4b1928e0c72@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAKpOs2oC/3WMwQqDMBBEf0X23EjcasCe+h/FgzFbDahpsxoq4
+ r93670MDLyBeTswRU8Mt2yHSMmzD7MAXjLohnbuSXknDKjR6BpR9eM2rVG55ek/ylyLskJjS6s
+ R5PKKJPOpezTCg+clxO20p+K3/hGlQkmq2rXGaiJX3wNz/l7bsQvTlEtBcxzHF+e6sQKvAAAA
+X-Change-ID: 20260922-glymur-dtfix-6314526b4b02
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Mahima Bhattaram <mbhattar@qti.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790135980; l=2316;
+ i=ekansh.gupta@oss.qualcomm.com; s=20260223; h=from:subject:message-id;
+ bh=xH4hRiOAl805CYlDfNg6I0TltyntRRPXeq1yeY1sqr0=;
+ b=+P5Jj9zJrp69rKYmbZcJb6VjZH5/NkTPs3NZJqekJwX5xcFMVFzNBDOyDO1f7FuQeJbMl/xSL
+ c3ZIm3mlIEjD8xUz3K+89rQAgpiXGZbjfmDZLk4XmdcPETE9Hxmax5U
+X-Developer-Key: i=ekansh.gupta@oss.qualcomm.com; a=ed25519;
+ pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
+X-Proofpoint-ORIG-GUID: IlMT0QSU93JbwHU312Npdxr4TYz5PPip
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAxNSBTYWx0ZWRfX31ckK/XNRFQG
+ M6sQtZRD/KC6hslbwB2L+Dg12Avgww1j4yTBl48mqQhqOR3/1aBFlQn5x9kmG0RwoCIkrhimh19
+ KHLOJbZ3zFzdkpPq2gnOhn7VYjOLYtw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAxNSBTYWx0ZWRfX+9gNR83KhfMf
+ JwpcvSRK0Kn/c89rgYni0xpOYnonIJWJ28WDa47mmFFpdix+hMBUAuFIwTRhQQXOKRHnVxkpRHu
+ cTgNlVOMelAyrEn5Ob0M7KS+IneTtVzbxUGm2NOwJxCfsXAl0UdGhiSJLoUM+XCHIvEKKFl6KFP
+ QTDgnpgsTr9KVFtN41jOr4B595RQ5tR//dV57TTIZwZMlp0eQLC8vyQFC8iyRkZWIPCTX2P5Zy4
+ TezrGcp98UHTohjQoj8Tn461PttiZGGBaw3PGb2EOjOOksSrRx2i1iFCo7nNa582M9HtxJJSKks
+ TGS4vQCxK/7syR1JuRdi2SdtKYWE3iB+eeFgvux5GFM4ztTIXMLxUJ/Du4iHancE0BUBgu6SCyc
+ Ddsmc4SblMs/Yp1qDvxZ/XMyYvE4NI6irIErQizd0onuI4J2SHKjzGiUzzDOj1ncgcyQvPEOppk
+ LfKrmuwTkJJLy97wmxQ==
+X-Authority-Analysis: v=2.4 cv=N828hG9B c=1 sm=1 tr=0 ts=6ab34eb7 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=RYp5giNeBl3isHo28N0A:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: IlMT0QSU93JbwHU312Npdxr4TYz5PPip
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 malwarescore=0 adultscore=0 spamscore=0
+ impostorscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230015
 
-On 2026-09-23 at 08:58:16, Ratheesh Kannoth (rkannoth@marvell.com) wrote:
-> Add IFACE_GET_INFO and NPC batch flow/stats/features handlers for the
-> RVU switch PF, with synchronized NIX context and channel publishing.
->
->   IFACE_GET_INFO:           report PF/VF channel and queue topology
->   NPC_MCAM_FLOW_DEL_N_FREE: delete flows and free MCAM entries in bulk
->   NPC_MCAM_GET_MUL_STATS:   read MCAM counter stats in bulk
->   NPC_MCAM_GET_FEATURES:    report supported MCAM features
->
-> Rework NIX LF context memory publish and teardown so queue context
-> pointers and bitmaps are assigned and cleared under the NIX admin queue
-> lock.  Publish interface channel fields under rsrc_lock so IFACE_GET_INFO
-> can read a consistent snapshot.
->
-> Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
->
-> ---
->
-> v1 -> v2:
-> - Drop SWDEV2AF_NOTIFY and the switch skeleton hooks from this patch;
->   keep the series focused on the AF mailbox handlers above.
-> - Restrict IFACE_GET_INFO to the PAN RVU switch PF (rvu_is_switch_pcifunc())
->   and return -EPERM for other callers.
-> - Hold rsrc_lock while building the IFACE_GET_INFO topology snapshot.
-> - Publish and clear NIX interface channel fields under rsrc_lock.
-> - Publish NIX LF queue context pointers and bitmaps under the admin queue
->   lock; propagate assign failures and free partial allocations on error.
-> - Fix nix_get_tx_link() for representor and LBK VF devices.
-> - Propagate NPC flow deletion failures from npc_delete_flow() and the
->   bulk delete/free handler; ratelimit bulk handler error logs.
-> - Read NPC MCAM features under mcam->lock and clear mul-stats response
->   on entry verification failure.
->   https://lore.kernel.org/netdev/20260918050021.1359606-1-rkannoth@marvell.com/
+The reg value of a compute-cb node must match the SID (the lower
+nibble of its IOMMU stream ID) it is associated with. In the cdsp
+fastrpc node, compute-cb@10, compute-cb@11 and compute-cb@12 were
+mistakenly given reg values of 10, 11 and 12 instead of 12, 13 and
+14, which don't match their SIDs and leads to SMMU translation errors.
+Fix the reg values, and rename the nodes accordingly.
 
-Please ignore this version as it was sent with an incorrect commit message and changelog.
-Apologies for the noise.
+Fixes: cd1d174c75f7 ("arm64: dts: qcom: glymur: Add ADSP and CDSP for Glymur SoC")
+Co-developed-by: Mahima Bhattaram <mbhattar@qti.qualcomm.com>
+Signed-off-by: Mahima Bhattaram <mbhattar@qti.qualcomm.com>
+Reviewed-by: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+---
+Changes in v2:
+- Change unit adress to hex.
+- Link to v1: https://lore.kernel.org/r/20260922-glymur-dtfix-v1-1-159da6b0eed9@oss.qualcomm.com
+---
+ arch/arm64/boot/dts/qcom/glymur.dtsi | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-pw-bot: changes-requested
+diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/qcom/glymur.dtsi
+index de7c395d9c35..3219603372ce 100644
+--- a/arch/arm64/boot/dts/qcom/glymur.dtsi
++++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
+@@ -8471,9 +8471,9 @@ compute-cb@8 {
+ 
+ 					/* note: compute-cb@9 is secure */
+ 
+-					compute-cb@10 {
++					compute-cb@c {
+ 						compatible = "qcom,fastrpc-compute-cb";
+-						reg = <10>;
++						reg = <12>;
+ 
+ 						iommus = <&apps_smmu 0x240c 0x440>,
+ 							 <&apps_smmu 0x196c 0x0>,
+@@ -8481,9 +8481,9 @@ compute-cb@10 {
+ 						dma-coherent;
+ 					};
+ 
+-					compute-cb@11 {
++					compute-cb@d {
+ 						compatible = "qcom,fastrpc-compute-cb";
+-						reg = <11>;
++						reg = <13>;
+ 
+ 						iommus = <&apps_smmu 0x240d 0x440>,
+ 							 <&apps_smmu 0x196d 0x0>,
+@@ -8491,9 +8491,9 @@ compute-cb@11 {
+ 						dma-coherent;
+ 					};
+ 
+-					compute-cb@12 {
++					compute-cb@e {
+ 						compatible = "qcom,fastrpc-compute-cb";
+-						reg = <12>;
++						reg = <14>;
+ 
+ 						iommus = <&apps_smmu 0x240e 0x440>,
+ 							 <&apps_smmu 0x196e 0x0>,
+
+---
+base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
+change-id: 20260922-glymur-dtfix-6314526b4b02
+
+Best regards,
+-- 
+Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+
