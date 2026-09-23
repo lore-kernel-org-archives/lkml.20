@@ -1,148 +1,169 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1254F497B99;
-	Wed, 23 Sep 2026 12:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D1D515987
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165918; cv=none; b=ebj70iU5dra9D0zrXtIrXhE4N5UTrI0TxpR255t+sbKClncAGsu0TEYONSh0Na9FMdQ5LwzxO2hZHCqs5GRPNEIkCW11h55JjoVhI1Mxr7DQZY/u8VRn137/bHT88t1z3va7JkKfrJxQECPV3mCmIbE+kDi+A6rJ2/pPxc3dXms=
+	t=1790165924; cv=none; b=AE4UyObIxTqGUesF7y0ZT79FUFfGYFsbrvO4q4Y5sgB65AKhbe5hyExtLefszCNNHM+7wFBcM3ernB3Hi2mUQJrJLnCGgY9Aw9KDlNdhyAZ7Aks++/f6Uuvqv09bw3IgSzdr9skTvj9ZI4F2m2RpID9cScUavi2YPEjwlTJXrv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165918; c=relaxed/simple;
-	bh=5fGxk9HhwjCb6xTY1ZXljQ8LJNbL1+NlyXYyVEhbq/c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L6T5jVs9XmbV+cpwPGCtos2S6fKiX0OlafCDjmga+LOJASzU30KZSFxo5WdcQ8Xt54VavxVVn/qYHIyRsCi1RBSHwyTRPpHS84gQ1wfqE8I+j+vTvFGaLgNFnYqwdJcWYluwkmXKpkjz3jKM6abJARrKQ9OOL2E7KqXW3UN95xA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=MvwxdJ8T; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790165924; c=relaxed/simple;
+	bh=nycHpeqG+1oIMvtY0hvmEQQEnmXB7wjz8VXdVUhTNtA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V+t0Xolxdm5M53oG9rDew7ivd06kkwhSae72E/UNgsK/bP6HSQ6EkW7IAGQ69d/WN4S+wwfmgU9+rHVtuZUWeIvc9oe8pZ5HQIJZXwGkm3Sb9PUfRee9NGrkoym36lbgieDHnwTtr2sq+dfLi9NRRLAAXsOQgVZ9UCmX4XRuNhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1e7QXa/; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="MvwxdJ8T"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=rZ+t0r04A9n4IJdQ/W6j5U+mLAScXuxePRrybklmGrA=; b=MvwxdJ8TIg3NSfmiO5iN5pdkZG
-	JUO4RZhctuuY1g0lTouZ0uOHLv5w4RqCHLbA0DXxhwDKOGAocM5rWmVIifmRXQC+WIXDbh9MzSf6e
-	JF5C/3399TTWE7+MtoK8/EZDaYwMlJY8BXK2d9zhvyB4vO75g25SqsCYQFIt8vH/Dxr4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9LvV-006nYe-3Q; Wed, 23 Sep 2026 14:18:17 +0200
-Date: Wed, 23 Sep 2026 14:18:17 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Serge Semin <fancer.lancer@gmail.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Subject: Re: [PATCH RFC net-next 3/9] net: pcs: xpcs: add custom platform
- register accessors
-Message-ID: <be09d6dc-c1c0-4a0c-9836-2b686ad096f4@lunn.ch>
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
- <20260923-qcom_xpcs_nord_emac-v1-3-4b1c682af70f@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1e7QXa/"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so596770a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:18:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790165922; x=1790770722; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=prVpAsjmMpwAYd/WbDTNxRVVPniTFSqmZS7Z70kOMCc=;
+        b=K1e7QXa/QBF/QyewaN9uw5WVa86Pv7SkKvHjUGtdpIzeWBlxlaTJM/18DHjB/0dM58
+         ZCje/cCQRnSmXPe3mDZE3/rCf5zgDWEz6vjJFAxvbPi9kUsibFTLoTA6fluyp/QhQ0EU
+         6uxcMi+AMe5pivd36LssW7m6eVyevTFV8t9wH0hCC47gO6wlIV/QNpoqqZFaMDo1FV7b
+         L4ABEs6fQYarXreG+k32+aKphsT5mgOl1pM34CApC632iMtwwiDMW7iN5mIxAeQA50mz
+         daE0lp80u+8JX7krQvfJBHNlG7qYSyPRTxECGVCcSE0IJF8USFX4I12XZArYctjlX+1J
+         PoVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790165922; x=1790770722;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=prVpAsjmMpwAYd/WbDTNxRVVPniTFSqmZS7Z70kOMCc=;
+        b=CVUYrtsiXotSZnFqTdHrDDJNQPuSHiPjpkjty18X+9QAtFa4FP35C+wJ5IlWfBd0RE
+         3rAbwkt4SCr5nJiudY+joXFh8snRsTzH68YGqFNHnOLoIDirYj5s6sTrvXN5dNFRz3oB
+         8xXOy70Ahh4SoTuf2LTia0jLEjbCsl5TVspLDvefq+kauSigJ+CSHP+Wk94y86x89uXl
+         pKvo8OTqWTX8OOngc+l+1zpicL3DwSlCtbIz04wZvvFXYhAZl0N0RDvrqoCi1PEIUe9w
+         bCz82wUDFSvPAZZGlYnCgvL0UdwEGg7Q2tC8yvYzHwOUYDBvMSzM3Rp97R8Rf6OsZ3Nz
+         Imng==
+X-Forwarded-Encrypted: i=1; AKwUvByrnULaPeZQZ/mce/H4S/9wrsEDsEnEGn1tzrIwB4XUnfPLhaPHj1YFi+VguXbdOWUBZnkB4qnSD5dbfxo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kT8moGtj4b2hSFvnT/s1G9u9tt7ZkZ/Nrk6D4mn+Qj90EHLWF4
+	3JHfm+bO4fzrCwn1ncbKPaN4wzX265JkrnyLrMmaOVKevOlrOyUZD515
+X-Gm-Gg: AYBFou0ob4t7Iw0m7JaOMDFhoqu2Mw7SrnEUhQPANvpPEKX54iU1/D950gRLp+0258q
+	5O7ogHNZEPEYxTG9x2Y5rUNoIZGdquAhpqITf/HeIAPQJP18PQSgJABuCblUpE+cfZmdL2lQRS+
+	sIeyLw1H5ovuCoUwk2H51TUU5310b5LgD1GnaC9+3RUrsAlGg4vGGLNQLoQRJlT6gHlXzIUBT1o
+	ZLSpbWYS9xfvI8W6BoFFNYjzEsuCA7rYj7C9x71yPWHKt+fRKizRyMrukfZFO56jQowWmAVh710
+	iuq5IubV9D4ykuOWLdSjlERWCeeHirVm+xgOELOSk17hOTu0OhvQVkJz4VPF6QO3JdqECvvgyZ6
+	BE62wxUZsD6EJ30rnNIQkFekjmq5HfuHQYeLcLlbGLKpuTyZXm0zNouMGOfOkL4qbkol9EllJlg
+	FcObZrHRf1BV/fQvF61hb9J2t4bZeRmWuxOFgq3GvK7XDdV13x7E29A9uwaSVhhyILpiLKCf5gS
+	yLNRA==
+X-Received: by 2002:a17:90b:2b45:b0:39d:f189:48d6 with SMTP id 98e67ed59e1d1-3a07e5690efmr2138760a91.4.1790165922326;
+        Wed, 23 Sep 2026 05:18:42 -0700 (PDT)
+Received: from ROGZephyrusG16Air ([240e:b8f:977f:f400:ec2a:b15e:fef8:70a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dbc013fsm5867255a91.5.2026.09.23.05.18.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 05:18:40 -0700 (PDT)
+From: Liang Haowen <nbg2974@gmail.com>
+To: linux-leds@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	linux-scsi@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Denis Benato <denis.benato@linux.dev>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>
+Subject: [RFC v8 0/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver for ROG NVMe enclosures
+Date: Wed, 23 Sep 2026 20:18:31 +0800
+Message-ID: <20260923121832.2613187-1-nbg2974@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-qcom_xpcs_nord_emac-v1-3-4b1c682af70f@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 06:37:29AM +0530, Mohd Ayaan Anwar wrote:
-> Some XPCS integrations do not expose the standard direct or indirect
-> register layout. Allow the platform driver to use optional register read
-> and write callbacks for both Clause 22 and Clause 45 accesses, while
-> retaining the existing access paths when no callbacks are supplied.
-> 
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> ---
->  drivers/net/pcs/pcs-xpcs-plat.c | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
-> diff --git a/drivers/net/pcs/pcs-xpcs-plat.c b/drivers/net/pcs/pcs-xpcs-plat.c
-> index e669a7b248ac4677aeb5cd1874108f5c87f837d2..e78a233fb198d940951064a71e8597c6c666bc9d 100644
-> --- a/drivers/net/pcs/pcs-xpcs-plat.c
-> +++ b/drivers/net/pcs/pcs-xpcs-plat.c
-> @@ -24,8 +24,16 @@
->  /* Page select register for the indirect MMIO CSRs access */
->  #define DW_VR_CSR_VIEWPORT		0xff
->  
-> +struct dw_xpcs_plat_ops {
-> +	int (*reg_read)(struct platform_device *pdev, void __iomem *reg_base,
-> +			int dev, int reg);
-> +	int (*reg_write)(struct platform_device *pdev, void __iomem *reg_base,
-> +			 int dev, int reg, u16 val);
-> +};
-> +
->  struct dw_xpcs_plat {
->  	struct platform_device *pdev;
-> +	const struct dw_xpcs_plat_ops *ops;
->  	struct mii_bus *bus;
->  	bool reg_indir;
->  	int reg_width;
-> @@ -169,6 +177,10 @@ static int xpcs_mmio_read_c22(struct mii_bus *bus, int addr, int reg)
->  	if (addr != 0)
->  		return -ENODEV;
->  
-> +	if (pxpcs->ops)
-> +		return pxpcs->ops->reg_read(pxpcs->pdev, pxpcs->reg_base,
-> +					    MDIO_MMD_VEND2, reg);
-> +
->  	if (pxpcs->reg_indir)
->  		return xpcs_mmio_read_reg_indirect(pxpcs, MDIO_MMD_VEND2, reg);
->  	else
+Hello,
 
-Ugly.
+v8, as its own thread. It addresses every comment from Lee's v6
+review and Ilpo's line review; the notes below say what was done per
+comment and where I think a comment rests on a misunderstanding, I
+say so instead of silently keeping the code.
 
-How about changing pxpcs->reg_indir to an enum, with values indirect, direct.
+The submission format is git send-email from v7 on, the driver lives
+in drivers/leds/rgb/, and it still has no Kconfig wiring: it is the
+verified out-of-tree module, the wiring lands with the agreed SCSI
+split. On the SCSI device handler itself: it is an out-of-tree
+expedient, not a design statement. The enclosure exposes a single
+mass-storage interface that usb-storage owns, so a USB interface
+driver cannot claim it without taking the disk down, and hooking the
+SCSI bus from a module needs the unexported scsi_bus_type. The
+device handler is the one hook that observes the sdev without
+claiming it. For in-tree, the attachment should move under
+drivers/scsi in whichever form the SCSI side prefers, notifier or an
+exported attach helper, and I will rework it accordingly.
 
-One patch.
+Changes against the review comments:
 
-Then look at
+- Includes sorted alphabetically, linux/err.h added (Ilpo).
 
-	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "direct") ?:
-	      platform_get_resource_byname(pdev, IORESOURCE_MEM, "indirect");
-	if (!res) {
-		dev_err(dev, "No reg-space found\n");
-		return -EINVAL;
-	}
+- The vendor CDB is now struct ene_cdb, __packed, with named fields
+  and a __be16 register set with cpu_to_be16() (Lee, Ilpo), plus a
+  static_assert on the 16-byte size.
 
-	if (!strcmp(res->name, "indirect"))
-		pxpcs->reg_indir = true;
+- The ENE register defines carry plain comments; the R,B,G wire
+  order has named indices (ENE_WIRE_R/B/G) so the reordering against
+  the R,G,B subleds no longer relies on magic numbers (Lee, Ilpo).
 
-	if (pxpcs->reg_indir)
-		spc_size = pxpcs->reg_width * SZ_256;
-	else
-		spc_size = pxpcs->reg_width * SZ_2M;
+- struct asus_aura_zone became struct asus_aura, the per-enclosure
+  context; the dirty bitmask is gone, each LED carries its own
+  pending flag (Lee: LED-level attribute, faux indexing removed).
 
-Look how easy it is to cleanly extend this with a new resource name?
-And add accessors using the funky mapping your device has. Another
-patch.
+- The work item returns before touching the device when nothing is
+  pending: an unlocked scan first, since a colour arriving after the
+  scan re-queues the work (Lee). The locked snapshot follows.
 
-    Andrew
+- The write payload is copied into a DMA-safe per-device buffer
+  before blk_rq_map_kern(); no stack memory is ever mapped for DMA
+  (Lee, VMAP_STACK).
 
----
-pw-bot: cr
+- ene_write() became ene_write_reg() with a tx buffer argument, the
+  arg_count branch is gone (never false), and it returns 0/-EIO
+  instead of the raw SAM status; the rationale for not using
+  scsi_execute_cmd() moved to the commit message (Lee).
+
+- The 10 s timeout dropped to 5 s, the development-history comments
+  are gone, declarations are unwrapped, loop variables are declared
+  in the loop, lines are reflowed to 100 columns, the code is grouped
+  with blank lines, and
+  asus_aura_register_led() frees its own name on failure (Lee).
+
+- dev_err_ratelimited() instead of dev_err() on the work error path
+  (Ilpo); _once() would hide a persistently failing device, and
+  there is no caller to report to, the work runs detached from the
+  LED core (Lee).
+
+- strscpy() uses the 2-arg form (Ilpo).
+
+Two comments I did not act on:
+
+- .module = THIS_MODULE in the device handler: the in-tree handlers
+  (scsi_dh_alua, scsi_dh_emc) set it explicitly as well, so I kept
+  it, but I am happy to drop it if the subsystem prefers.
+
+- kzalloc_obj() stays: checkpatch on 7.2 prefers it over kzalloc()
+  with sizeof, and the sashiko report against it is based on an
+  older tree (it has been in include/linux/slab.h since v7.0).
+
+v8 was verified on hardware again: the four LEDs, per-LED colours,
+60 sequential updates, unplug under load (zero splats, zero leaked
+nodes, clean rmmod).
+
+Comments on the interface shape and on folding this into the shared
+Aura work with Denis remain very welcome.
+
+Liang Haowen (1):
+  leds: asus-aura-scsi: Add ASUS Aura RGB LED driver for ROG NVMe
+    enclosures
+
+-- 
+2.55.0
+
