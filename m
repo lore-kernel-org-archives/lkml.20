@@ -1,108 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603653403E3;
-	Wed, 23 Sep 2026 18:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16E45275BB
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188385; cv=none; b=hJ0X3UxrzEh1NtShbkKu9l6m4im7tU5OKpvwagdpwZqGhIfOEzb9CWLwv3ry1Cucjgj6QHVJ311TzT0RkWT2Pw8J+9wSg3s5tDqFaHG06dHiluzBpwS/KkewGYiw0/2yqFS9mDUsCIK2DMEOjpGaOc6z+eEeWm6xN3x23N6qh0c=
+	t=1790188417; cv=none; b=ieZxrFTAJSPbVZpFXMUA34Cgjdqe51XLWbxhjaPHae2uMQhfdPctV3BrewYdA6zLZgnX63s9ChAagBxLVVXB8EswYgpOmC9ytZvqbXmVfAzj6fhAD7wxx/c8At/NfF4vEWNwRM2iIxac7b51T/Ne57tqMMNBNpv3hHvWwTh4gEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188385; c=relaxed/simple;
-	bh=GEAi4xeAEC51Fc8Gn4Dcl4ApqKGP/X6rOTK4lpnrAKM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SISsyYHOz4Y/v+4v3lB8Ofxz14q/kYbyElPRmBea/Nlp6LObLFc4Cs++m+lJWGEEZULguqVd8ATdWuESJAg2aBA463G4LtFSGVWYbRAfIeM5o2VW2mvTjqX+/Rvp+/D4vOKtgyt/S6YRYqX8JIjdYyM1r5pevbx8rcmsr8ZLA0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HpazltQB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HpazltQB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CD8D1F000FF;
-	Wed, 23 Sep 2026 18:33:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790188383;
-	bh=Enjrv+zX99iRDKabfV95D0AkoKz5ER3qyGx4elVKSDk=;
-	h=From:Date:Subject:To:Cc;
-	b=HpazltQBD/yfYyjLHV8T1J/Y2isUm6P+9KikSrfjPZKikkXm51ZRfdRFXE7Xm+Kz+
-	 9TJc9VMFOWZI2Sj9fpVv24cWuJVj9rSB+0es2aLjzhICweLjm73r5VcsBCts/VsrAx
-	 ScH8UA80SES3eIp74jS3q0e3wbZ9H1AFaSY+j2WJ3oCu5YzzSOXz5uXi58Brs6KIml
-	 Ftx+orgeHKmhWRKxabiVZ/n6PejxC47d9RYVkjieUKZo2OkzZqLjmLTuhLs29THx94
-	 aCvvUZGH8SZF7ueHIUQ+xlWml3R97W8cb1U95v0drMB0RcPMiH6b0T3AhFCMptYAB7
-	 38+GhRi+0vE+w==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-Date: Wed, 23 Sep 2026 20:32:50 +0200
-Subject: [PATCH] rust: sync: fix safety comment for `Arc::from_raw`
+	s=arc-20240116; t=1790188417; c=relaxed/simple;
+	bh=FK3MqZuR+VAo+Zg02gc46BX0ZpW/+rFTrzF4iXr1qF4=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=QmGnqxmz2tFrmlHhe9hv/+18hHpOItzs+WDQJYuHF9/ln/2aWxXv3gZaMm+AtmYkMKU/yRc6rsvgBhLQrClqYBEuf+5iO+FZdj+ekFaxb04gErK+Jh0kgiaH/uRZX2m5rHBZxhz3+cpB0OdH9qyNDdn5if2aWIy47RWUD6v1XlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-6b1bf394d3bso297439eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:33:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790188413; x=1790793213;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nIQIjfmnTCGxAmmHaCJpZ50YUZ8tHFhIK4QdBhPLVMw=;
+        b=l8qG3r+/LycZNRF7KN3JcdsTXAd4oLKjvU753Lpgeb7ixYE/z07ciYFwI2JoyMsgCB
+         WFg+Ngw2NPOObIwF7amslgzH1TRBILZP/6Gl8WKs2P1dxj+qkTpJGMDk79mNG+3Ky8p1
+         sdRKggz5mySme96LRmCFndeRgSogrUUDuTNxGw8sM2pSicKtAXwmgMU9nVV4LM5Qeqct
+         yDDA+H8FSR+vXZ1lrnKIvdI5Wykj6Lu/WC02RfPXDxZTLlNohhOMF+vAuyx0TiCi4Q9c
+         Rz/5SYcRdYvTkX/SBRBdxAQTeBuuWnqzHUkYDic8KWx0YyVH3OmNn20kAxkYD+FrJ1ZD
+         R5dQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz8oT/93EPvykvHZRidYtsl4EFIbcvWDE9H5irNlFrHNegcHtt6Exv5+rpiLSUPIsxBBsyutBIEZUQql/k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUnYUQ2E+5vNH7pUavi+h2oYSeCN48GToALk9icP6M3xhNFucv
+	FJjaTnPuMdPavPQkwU4EKXmqhGdJIxIfdeTzECTlxtdHDCPcUiHonQIVwSXr36hixxi4RRsvPZk
+	jzqs6la696mvUY9cqszD5EjBr8XEUPbh/ihEoGKMg4UEXPtEpgTkti6byqb0=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-aref-from-raw-safety-v1-1-e34f0da04145@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAFEbtGoC/yXMQQ6CQAyF4auQrm2CJWHQqxgXBTpaE8G0A2gId
- 2fU5Ze896/gYioO52IFk1ldxyHjeCigu/NwE9Q+G6ikujxRhWwSMdr4ROMFnaOkD4aGAzVVTSE
- y5Osrj/T9y16uf/vUPqRL3xZs2w5l2W0seAAAAA==
-X-Change-ID: 20260923-aref-from-raw-safety-78a7283627fa
-To: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- Alice Ryhl <aliceryhl@google.com>, Lyude Paul <lyude@redhat.com>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Miguel Ojeda <ojeda@kernel.org>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- Andreas Hindborg <a.hindborg@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1438; i=a.hindborg@kernel.org;
- h=from:subject:message-id; bh=GEAi4xeAEC51Fc8Gn4Dcl4ApqKGP/X6rOTK4lpnrAKM=;
- b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqtBtSPY1FWi8HAT5LGSV4NdS9zTJNM62RNoYY7
- A1y2ml66CaJAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCarQbUgAKCRD6UCkIqsW9
- 0LAID/9bdR8MkOceKQ8wcu/m6/ODge7ztHN2ZRnRObivAuWgB+1J6q+fRiGZLitVByTQJIM4P+O
- mHBOKGBcADehWjom4FkGhiL79FYglzSTHMb3OgAqwC7TLsxJoeXppVfD1BpmBlgUf84uwynln1n
- ZpNxN6AtA1YyKwDusgv5OZEFQjKoMWFG8JTtuG8eW0rJvtBsjX/zN/2ML7awQr4PEthJ+kIPATA
- qkon8GnGKhYX5WXB91GQr+Xl9s3i9S1JBDV+7vAuEsM/jj8NLyQF3llvKFHbQfeoeBzYj15PIPm
- ezwS7DK4Y39KKY4cQ+yA6b89REmSlT8Z8PsGcBrsnpb0VGZpCV8uFHwEV+d+rlrhiIRCj/dGubd
- KOVQJq+7Ja7+vOHjYskI/aFxr37WBmjDk2EC5HQlkLZMKIaBgUHaMqyCdqvq3juPw8Zvso5GGtQ
- eINB+mK7hgRJEMlHITeLDf/fBTSt1LzieHsHHImVN/UldnhOJoJlwkYhSnSP5drr5Q92EXOaWXv
- cdMO44qFOPTFr22CeLQLZ9Va7QwUqGPfWRKJMafLA9XsgnUyPq7aERsp6Aa5hQHbejB3/MAkwX6
- UT4wuYQVoAk7NapCxHZYGtwEn5UIX1/TYEOALUq3LE21R3LqU+ZHs/vDGCMWudQjF6CUC1PPUAq
- xHiZ0QnG0ktXNDg==
-X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
- fpr=3108C10F46872E248D1FB221376EB100563EF7A7
+X-Received: by 2002:a05:6820:2916:b0:6c9:80d8:a1e8 with SMTP id
+ 006d021491bc7-6d43fd7bf45mr111141eaf.37.1790188413606; Wed, 23 Sep 2026
+ 11:33:33 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:33:33 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab41b7d.e548f532.1ca396.0020.GAE@google.com>
+Subject: [syzbot] [ocfs2?] possible deadlock in vfs_rename (3)
+From: syzbot <syzbot+c73ff6790f3d6c635abc@syzkaller.appspotmail.com>
+To: jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
+	linux-kernel@vger.kernel.org, mark@fasheh.com, ocfs2-devel@lists.linux.dev, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-`Arc::from_raw` does not require `T: Send`. But if `Arc::from_raw` was
-executed on a different thread than `Arc::into_raw`, `T` must implement
-`Send` for the API to be sound. If this is not the case, ownership of `T`
-may be sent across a thread boundary even if `T: !Send`.
+Hello,
 
-Augment safety comment for `Arc::from_raw` to close this gap.
+syzbot found the following issue on:
 
-Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+HEAD commit:    40288c9206c1 Merge tag 'drm-fixes-2026-09-19' of https://g..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=120d6ff9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5a2529faa72a9438
+dashboard link: https://syzkaller.appspot.com/bug?extid=c73ff6790f3d6c635abc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/9ec4bf87ffd8/disk-40288c92.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/30e34b18bd6f/vmlinux-40288c92.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/122f601f5b36/bzImage-40288c92.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c73ff6790f3d6c635abc@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G             L     
+------------------------------------------------------
+syz.1.4093/19971 is trying to acquire lock:
+ffff888077a8eba0 (&sb->s_type->i_mutex_key#25){++++}-{4:4}, at: inode_lock include/linux/fs.h:1024 [inline]
+ffff888077a8eba0 (&sb->s_type->i_mutex_key#25){++++}-{4:4}, at: vfs_rename+0x566/0x2000 fs/namei.c:6162
+
+but task is already holding lock:
+ffff888077a8cfa0 (&sb->s_type->i_mutex_key#25/2){+.+.}-{4:4}, at: inode_lock_nested include/linux/fs.h:1069 [inline]
+ffff888077a8cfa0 (&sb->s_type->i_mutex_key#25/2){+.+.}-{4:4}, at: vfs_rename+0x542/0x2000 fs/namei.c:6160
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #3 (&sb->s_type->i_mutex_key#25/2){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_write_nested+0x94/0x200 kernel/locking/rwsem.c:1757
+       inode_lock_nested include/linux/fs.h:1069 [inline]
+       __ocfs2_reflink.isra.0+0x328/0x1c50 fs/ocfs2/refcounttree.c:4198
+       ocfs2_reflink+0x5cf/0xbb0 fs/ocfs2/refcounttree.c:4297
+       ocfs2_vfs_reflink fs/ocfs2/refcounttree.c:4423 [inline]
+       ocfs2_reflink_ioctl+0x7cd/0xa60 fs/ocfs2/refcounttree.c:4463
+       ocfs2_ioctl+0x5e8/0x6e0 fs/ocfs2/ioctl.c:920
+       vfs_ioctl fs/ioctl.c:51 [inline]
+       __do_sys_ioctl fs/ioctl.c:597 [inline]
+       __se_sys_ioctl fs/ioctl.c:583 [inline]
+       __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #2 (&ocfs2_quota_ip_alloc_sem_key){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+       ocfs2_reflink+0x596/0xbb0 fs/ocfs2/refcounttree.c:4296
+       ocfs2_vfs_reflink fs/ocfs2/refcounttree.c:4423 [inline]
+       ocfs2_reflink_ioctl+0x7cd/0xa60 fs/ocfs2/refcounttree.c:4463
+       ocfs2_ioctl+0x5e8/0x6e0 fs/ocfs2/ioctl.c:920
+       vfs_ioctl fs/ioctl.c:51 [inline]
+       __do_sys_ioctl fs/ioctl.c:597 [inline]
+       __se_sys_ioctl fs/ioctl.c:583 [inline]
+       __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (&oi->ip_xattr_sem){++++}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_read+0x99/0x4c0 kernel/locking/rwsem.c:1574
+       ocfs2_xattr_get+0x10f/0x270 fs/ocfs2/xattr.c:1578
+       __vfs_getxattr+0x13d/0x1a0 fs/xattr.c:446
+       cap_inode_need_killpriv+0x40/0x60 security/commoncap.c:331
+       security_inode_need_killpriv+0x87/0x1e0 security/security.c:2186
+       notify_change+0x779/0x1330 fs/attr.c:481
+       chown_common+0x51e/0x6e0 fs/open.c:825
+       do_fchownat+0x18e/0x1f0 fs/open.c:853
+       __do_sys_chown fs/open.c:873 [inline]
+       __se_sys_chown fs/open.c:871 [inline]
+       __x64_sys_chown+0x7b/0xc0 fs/open.c:871
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&sb->s_type->i_mutex_key#25){++++}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+       inode_lock include/linux/fs.h:1024 [inline]
+       vfs_rename+0x566/0x2000 fs/namei.c:6162
+       filename_renameat2+0x754/0xa60 fs/namei.c:6326
+       __do_sys_rename fs/namei.c:6370 [inline]
+       __se_sys_rename fs/namei.c:6366 [inline]
+       __x64_sys_rename+0x81/0xb0 fs/namei.c:6366
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &sb->s_type->i_mutex_key#25 --> &ocfs2_quota_ip_alloc_sem_key --> &sb->s_type->i_mutex_key#25/2
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&sb->s_type->i_mutex_key#25/2);
+                               lock(&ocfs2_quota_ip_alloc_sem_key);
+                               lock(&sb->s_type->i_mutex_key#25/2);
+  lock(&sb->s_type->i_mutex_key#25);
+
+ *** DEADLOCK ***
+
+locks held by syz.1.4093/19971: 5, last CPU#1:
+ #0: ffff88802476a460 (sb_writers#14){.+.+}-{0:0}, at: filename_renameat2+0x3af/0xa60 fs/namei.c:6290
+ #1: ffff88802476a768 (&type->s_vfs_rename_key#5){+.+.}-{4:4}, at: lock_rename fs/namei.c:3789 [inline]
+ #1: ffff88802476a768 (&type->s_vfs_rename_key#5){+.+.}-{4:4}, at: __start_renaming+0x111/0x520 fs/namei.c:3878
+ #2: ffff88804fd1c1a0 (&type->i_mutex_dir_key#10/1){+.+.}-{4:4}, at: inode_lock_nested include/linux/fs.h:1069 [inline]
+ #2: ffff88804fd1c1a0 (&type->i_mutex_dir_key#10/1){+.+.}-{4:4}, at: lock_two_directories+0x162/0x2d0 fs/namei.c:3765
+ #3: ffff888077a8f9a0 (&sb->s_type->i_mutex_key#25/5){+.+.}-{4:4}, at: inode_lock_nested include/linux/fs.h:1069 [inline]
+ #3: ffff888077a8f9a0 (&sb->s_type->i_mutex_key#25/5){+.+.}-{4:4}, at: lock_two_directories+0x199/0x2d0 fs/namei.c:3766
+ #4: ffff888077a8cfa0 (&sb->s_type->i_mutex_key#25/2){+.+.}-{4:4}, at: inode_lock_nested include/linux/fs.h:1069 [inline]
+ #4: ffff888077a8cfa0 (&sb->s_type->i_mutex_key#25/2){+.+.}-{4:4}, at: vfs_rename+0x542/0x2000 fs/namei.c:6160
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 19971 Comm: syz.1.4093 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/26/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+ inode_lock include/linux/fs.h:1024 [inline]
+ vfs_rename+0x566/0x2000 fs/namei.c:6162
+ filename_renameat2+0x754/0xa60 fs/namei.c:6326
+ __do_sys_rename fs/namei.c:6370 [inline]
+ __se_sys_rename fs/namei.c:6366 [inline]
+ __x64_sys_rename+0x81/0xb0 fs/namei.c:6366
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f3e8219e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f3e82fa2028 EFLAGS: 00000246 ORIG_RAX: 0000000000000052
+RAX: ffffffffffffffda RBX: 00007f3e82425fa0 RCX: 00007f3e8219e159
+RDX: 0000000000000000 RSI: 0000200000002440 RDI: 0000200000002340
+RBP: 00007f3e8223506b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f3e82426038 R14: 00007f3e82425fa0 R15: 00007fffbb292648
+ </TASK>
+(syz.1.4093,19971,1):ocfs2_double_lock:1202 ERROR: status = -2
+(syz.1.4093,19971,1):ocfs2_rename:1311 ERROR: status = -2
+(syz.1.4093,19971,1):ocfs2_rename:1711 ERROR: status = -2
+
+
 ---
- rust/kernel/sync/arc.rs | 3 +++
- 1 file changed, 3 insertions(+)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/rust/kernel/sync/arc.rs b/rust/kernel/sync/arc.rs
-index 8ae0fe6f19ec..06838ecf633c 100644
---- a/rust/kernel/sync/arc.rs
-+++ b/rust/kernel/sync/arc.rs
-@@ -276,6 +276,9 @@ pub fn as_ptr(this: &Self) -> *const T {
-     ///
-     /// `ptr` must have been returned by a previous call to [`Arc::into_raw`]. Additionally, it
-     /// must not be called more than once for each previous call to [`Arc::into_raw`].
-+    ///
-+    /// If [`Arc::into_raw`] was executed on a different thread than the one executing
-+    /// [`Arc::from_raw`], `T` must implement [`Send`].
-     pub unsafe fn from_raw(ptr: *const T) -> Self {
-         // SAFETY: The caller promises that this pointer originates from a call to `into_raw` on an
-         // `Arc` that is still valid.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260923-aref-from-raw-safety-78a7283627fa
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Best regards,
---  
-Andreas Hindborg <a.hindborg@kernel.org>
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
+If you want to undo deduplication, reply with:
+#syz undup
