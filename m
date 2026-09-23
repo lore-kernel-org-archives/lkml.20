@@ -1,83 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2C83B895A;
-	Wed, 23 Sep 2026 21:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9F8414429
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790198551; cv=none; b=dhlYgozrdbAkz3ywavUBsO3WJH06HpwuzoBc+CIWfhWm8kHGgCZ2NG9IVZCMPLpjO4tVeYiwTS8fKtrHbOdmIaAHQaOCflnTirFQcnm7RiywCbGhJdjBjBiSld4JJ3DOoRokpm4DFoWtQBYxyjbXHuRaUF7up8GZUXIpEEy2AJ0=
+	t=1790198565; cv=none; b=hsiZZxR8sWp3egzoDYPXdhRVsTriWCG8SIGrk4ka96Dd3i04+4DTPp0IyPrZ1KYtIJ7VyWV2tW4OMhBl4tNSKD/q8F1Sudycilo1DISoMCEX1Ck5JLuA/sKkaMvOl05SOl//MOyxszc1IBu8NI/T9FhMMdiGPunImIcCYZRP6XI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790198551; c=relaxed/simple;
-	bh=3VDMq1yRySAjrvpFfTz3Kcr+OFso2eX52PyUckI5VHs=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=I1JUb4MmsZexnqjXPe+/MTMwlp6CqdT6kcPasmTpzytCaWATIFECwI5qksfpVAfjvADrshpFFdASpPeWwot3brPYEMEN1Z5Y4VrOGTe+REhC0mqgXcUTeIPFxohFnEHBnEltTBmFyNbIW0jO7pS2TTXIkCZQV6TRD1fI99e0f/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=bRhoKlt3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790198565; c=relaxed/simple;
+	bh=Hw9vFtfLNadtKGcW37IdGOgqwKhIf5argLx7FSCLVNE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RKNnpx7aHuQr+D7hJZLpnJmjFaIgT0LFZSdeOcbL69nPJuk/WZNzBGANi0HUbRicuZcyWWC4fCBVajF//bCfXCfD9GCFbb1jXS94IPwK8A1KOMLbeo/H5DfBYdEvtIPvmZM/5LnqC/3mCkYxvjFIhoq29CtsPN/C9rxyvSNXYeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=dl5+EOLf; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="bRhoKlt3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE3A1F000FF;
-	Wed, 23 Sep 2026 21:22:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="dl5+EOLf"
+Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93a2dea320fso125442085a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:22:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790198547;
-	bh=mDuuDfWt5XPUEfsZUsZ3e2fdKp/gTNRlThYQAeTCgTE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bRhoKlt3sY3+1NVHrwQsWoaaWIKhJ+/PLG27/s+v7Ih7m63V3IpU4XdBECnsuemdf
-	 mYYvJ2XHrJ/yXyywI9owIrYwlEmcTd4OZS2o11YYSRDjEDW9UV2wanqgCjbM9ehAX8
-	 DLdW/JwEGHq+NjgOBXqOYUS18obohja+LSzSTKF8=
-Date: Wed, 23 Sep 2026 14:22:26 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, Mark Fasheh
- <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, Cen Zhang
- <zzzccc427@gmail.com>, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] ocfs2/cluster: hold a reference on the heartbeat thread
-Message-Id: <20260923142226.9a4d0eb4c71128b34e9aa10c@linux-foundation.org>
-In-Reply-To: <e06390dc-fdfb-4bad-85ba-6baf361fac18@linux.alibaba.com>
-References: <20260923010149.14391-1-kmehltretter@gmail.com>
-	<e06390dc-fdfb-4bad-85ba-6baf361fac18@linux.alibaba.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=gourry.net; s=google; t=1790198559; x=1790803359; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6JszVb+RTu6ALEMMDucuPIFOfd98yGFKjSHhbkgHgjU=;
+        b=dl5+EOLfz+6ghzeb3ZMIe1VMfK+/ddoyHUT4H6XZM5TyY2WwAqNnWnGJP9PpGJ/lqU
+         2Hn7MtvUHcYDwas6eouw2TCs4dB/592o+l9omfa4/G/4+XxMqRmT9w1tDvQVfTW7M1EO
+         1krm7AfxA4uqME8K6uDuiz4vCmGRCI0qN1niIrQqi4I0B4lJpdjkGpudT7++yDY81LUJ
+         LtTNT31KA8lDOTNKM/CAW5KinWLSmH/zPleCAM3KS5o2fXrhPEd1XicpXludiAtybYCx
+         y3itvVQuZhrq9WqY5zVPNhId1Phfa525vRocAYNjm6i8sX545aP06kG2h3AQ4Cux0hqB
+         RgHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790198559; x=1790803359;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6JszVb+RTu6ALEMMDucuPIFOfd98yGFKjSHhbkgHgjU=;
+        b=quQUB4ECaLdyiIs015EpuBBpvQdJLDT9knXQejXFqcNqAekghy9pdqXUulAE62071/
+         r5K2VboJITfDcIpYzWXHgj/vtGk3r4Fa7rTRc6ctj9cgQJjfKhMTM79huaFXGpBjJ19R
+         nFH3Xygn0s/2D9u+2Brd/YdO9iTPcUB/mC/SyaeEK/KcNDXh9wZCeweib8bzurxURVJw
+         EkAUK/U8BjLt7TiiodCOAarqdazk5RxT76LRiKwpSuhNtgTghubegomG1A/y8U7Kpmqg
+         UL+ZUwSEjiL5WaYGHBO2DaYWQHE0diWTMFtw9REZmxiO2QyqHc3sSS4nh+u1MJjsKK57
+         anig==
+X-Forwarded-Encrypted: i=1; AKwUvBz3PLqAk9smgDJjwe8ebdEmjIOp+AITqtEBMoGMXHFVo9ObFA2gNVDdzAwz7u0KtWCkmGdy0ZnbR2Z52qc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmYTYqNJph+q4wrJE+ivDrIeYC3bcrybzhDwghExu5W9hFj0os
+	CzegsEaYoT5XsKQ0RG2hf8NntdbkUbAN8W83CMkCz6W74HLevkuOEwvFsTHFzZHwFQg=
+X-Gm-Gg: AYBFou0pzy5Mi0kFT26IDa8YBYJgH3+2fm+v408Mv4wRCqmKI/T5mXsYJCYh9wDuyPG
+	W0IjN/VIBdK/h7j3vH01x8JYs8JYDQtU5eRykgnQE3qAFSbLcEB5EMi0AKXpNfvFo5LwmqBjdH2
+	nFSUeRQHOxQtmoRBemcS2tNDBNfIu1areW/0805hfX625Hs7nqWIvVyoxRC/cXJZpd/nm+Dr82H
+	brG2JQy3HMLh97xIOTyvnTyOMlvX2Ef1U/vnnGAofGICYsCfn44ttof/jXW4iEK/jqm5e4WsG+x
+	mvd6iZcXAdkX7HUgqQ3BWVni8zKPjiGdFq3rEpf/xkrTXssN59a7Lts6RhcsQz/U35aX390UfsH
+	gFMIVRScKhJGWegr+pj6iolmm6ashKxIbZDrtoWJh6H+VMD0UaJVhUIHJePRTRpKJF4KfCCx8OO
+	9ZL45+Vsp7dTc125JIoF3lKoap5jhWdEFKqwd+EMzK6Brd9UTdewVIPRrpYYJB4BVZJczgXfaeS
+	20IDNd6F5aoxBi9h1mYZfKqfLycC15ren3PXT4G9ZqPC2/Qbj9P5cAAMQyHIopNSw==
+X-Received: by 2002:a05:620a:225b:10b0:93c:b10:7243 with SMTP id af79cd13be357-93c346c2cabmr50513785a.5.1790198558842;
+        Wed, 23 Sep 2026 14:22:38 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c248cf620sm315660985a.43.2026.09.23.14.22.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 14:22:38 -0700 (PDT)
+Date: Wed, 23 Sep 2026 17:22:36 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vma: predicate setting mmap_prepare VMA fields on new
+ vma alloc
+Message-ID: <arRC6lU7yJCrosDp@gourry-fedora-PF4VCD3F>
+References: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-fix-mmap-prepare-overwrite-v1-1-3b3f1bfcdf5e@kernel.org>
 
-On Wed, 23 Sep 2026 10:45:10 +0800 Joseph Qi <joseph.qi@linux.alibaba.com> wrote:
-
+On Wed, Sep 23, 2026 at 06:45:41PM +0100, Lorenzo Stoakes (ARM) wrote:
+> It only makes sense to manipulate VMA fields if a new VMA was allocated,
+> rather than merged.
 > 
+> VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
+> keeps its own, which is also what the legacy f_op->mmap path does since it
+> never touches an existing VMA.
 > 
-> On 9/23/26 9:01 AM, Karl Mehltretter wrote:
-> > Since commit 688bc88e2046 ("ocfs2/cluster: keep heartbeat local node
-> > stable"), o2hb_thread() leaves its loop and returns when the local node
-> > changes, for example after "echo 0 > node/<name>/local". The thread
-> > was started with kthread_run() and nothing holds a reference to its
-> > task_struct, so the task is freed once it exits, while reg->hr_task
-> > still points to it.
-> > 
-> > Reading the region's pid attribute then reads the freed task, and
-> > removing the region calls kthread_stop() on it:
-> > 
-> >   BUG: KASAN: slab-use-after-free in o2hb_region_pid_show+0xb3/0xc0
-> >   refcount_t: addition on 0; use-after-free.
-> >   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
-> >   RIP: 0010:kthread_stop+0xb1/0x390
-> > 
-> > The thread could already return by itself before, when heartbeat start
-> > was aborted or on an unclean stop, but the local node change makes it
-> > reachable from userspace at any time.
-> > 
-> > Create the thread parked, take a reference on it and only then wake it,
+> Currently, these fields will get overwritten by whatever state is
+> established in the mmap_prepare hook, and if the VMA was merged,
+> vm_ops->mapped will not have been called, so this could destructively clear
+> existing state without replacing it with anything valid.
 > 
-> Just a wording nit. kthread_create() doesn't leave the thread parked in
-> the kthread_park() sense. __kthread_parkme() only runs after the first
-> wake_up_process(), so "parked" here may be a little confused.
+> There is an implicit requirement that vm_private_data and vm_ops are
+> fungible across VMAs which means that losing the 'new' state is
+> fine.
+> 
+> However in this case the 'old' state is being overwritten by potentially
+> invalid 'new' state, so this must be rectified.
+> 
+> Additionally constify have_mmap_prepare while here.
+> 
+> All existing in-tree users either derive state for the tree or are
+> unmergeable due to VMA flags, so this has no direct impact.
+> 
+> Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-I simply did s/parked //.
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
-> The change looks fine to me.
-> Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-
-Thanks as always.
