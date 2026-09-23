@@ -1,114 +1,145 @@
-Received: from mail-pj2-f15.google.com (mail-pj2-f15.google.com [74.125.227.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D612A433E61
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:19:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.143
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155166; cv=pass; b=NH8ky+YpIPOPaFjC7HNhcVNaLFvCEXasTxlo0by/VQyANEf1ozYoVrhzwPjbQwobFIAcWeNcxaJtSlpp8Mrtgsme+F/bTDErepO2SDilaL3VHZqBFJwcsmzlAXjBs6rkbEaRuXJXUOnK55DrSj3hzePMA08TjjY2pKUigZjy5Oc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155166; c=relaxed/simple;
-	bh=E7p8lZpe9yUss1JCyusAvCgXZuyW7BMmLd/S5jJ26Ew=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lclYM4G9NaeRBLqRXesyhlR7YUSZL85PFZzE9UEGFLVN0q8HO7pgZUqOCR8JMJL/zYa6C8i0mc6wmfk7/MBanq5tDX6BbCkbs7cTShGxuy0IQqduLp7YIFeeNNvT1PCH+c96N3e4G/zmqN54qRoydtLab52kQWTqDQDI2oM4JfM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org; spf=pass smtp.mailfrom=fooishbar.org; dkim=pass (2048-bit key) header.d=fooishbar.org header.i=@fooishbar.org header.b=l2nHTo32; arc=pass smtp.client-ip=74.125.227.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fooishbar.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFF843B3EF;
+	Wed, 23 Sep 2026 09:19:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790155191; cv=none; b=Tsz6Tz7mi6XP8KC2396rYbV5IVrbV7t3P97Ot0siaxauzt6z13twdxuecEVWuIMGgOv0dyUcYnLoNUwnTwNp15/Xnmbvc7XDCTW2vGNsx/MnprHlw0YoJNezIdQp7ul9MGx0Qnsl9bEziOnwOLb5xRSiWjLYTMe4V3tbaXXeI4I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790155191; c=relaxed/simple;
+	bh=QoOgO/A2U5dtm7QoQT4ErByB/CY9vpIhJBSi3Us/+JE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f88xMqq3cjWElRLMXj/7zkUanEwLNUL/uZBFqrcQSmWL+G99azVuDPFcBZLJOG5nMlHgAUDo3bTkV+N6zZyDy4f9nWGuV/BEW6QNu4RARBIooi0bK/DdMEjH8zspJwrRZlFyc0idKA6/1jcsoe9J4EUmWVIzMPBanNuBVmqdvqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i935KHZ0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fooishbar.org header.i=@fooishbar.org header.b="l2nHTo32"
-Received: by mail-pj2-f15.google.com with SMTP id d9443c01a7336-2d747f01363so3988185ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:19:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790155164; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Gx5pRjrDeVq0Vm/3UcTwdcgCwJjCzugEassv7wY1l2cBZcupx67mLu8ZjTD72F4OlM
-         rGFlwgaTaE/F8bkN0UKrMpF/ddoSzXUSCB7EF6oAw4KDRdRXboeK9UCgdGmkz2j9dj6x
-         ZdVlSlSS+Su923Ltw31vcwVxzPLKGJbXW0aQPMxJ8fvtXuCtIx0Ultm8ScgSxbP94FzH
-         xUFzA7ndq3pniIB31KuDiLqctYa9Cjzydbe9HjL2aBZilMDTzhEBdSxcQB+BDkTmnr9s
-         WZmp5DGzjicS19TlNAWha0DIX6Qe8aKia3M1h0J7lNaWZzcTCkzm6ZVdn+4wO56v28qd
-         SGNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=E7p8lZpe9yUss1JCyusAvCgXZuyW7BMmLd/S5jJ26Ew=;
-        fh=vXYefiIni89ggoZ7LscNDRCNZfnAHjsJNSIcVYxdok0=;
-        b=SS7p1ndKmrgUsCmDYz/KzB+zgAmWa5bSrYiPLTjRksAVcl0JMTVWM3f+zm2CXyp4br
-         fuGfKUrVRFRjCQrNIw4wt+XOc4HI5KCT2jEm2DN7HwSIZLC7yHecl0n9tnncY0hlNat/
-         qR8NHhlDw+xgPtvfdZkaKIOfOW2BqHAzs++praLUE4wWp1sxh/JGXDC/tPvQAcKRhjt0
-         zIortQ5xVRX+0GenUa6Y3T3+g0gKbp7EENCv73dp9P6rs9MF0qL51ugc96/JgItkwUXs
-         L1/uy3yKH2DSCj3hRv9XI1wHZZAZhZhODYCkSYe65h6/xkvpi6wHHIGYbEuZzR+daaQt
-         LE1w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fooishbar.org; s=google; t=1790155164; x=1790759964; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E7p8lZpe9yUss1JCyusAvCgXZuyW7BMmLd/S5jJ26Ew=;
-        b=l2nHTo32BPhtiedic38BVcm6T9XRBakvPqGqTU26C28efhDPYJb9l7h1w4FTlWzPrh
-         svLqtvyy54afKdkXqGCzXdydRotrti2WhoAa7WJ/EuTyCsqLk5DkZSzWSKBq7nZQOBEE
-         wB4iOSxXSY7pWmVBefDNP1sKEqrOSM+LVKWC5hb4m20zQcDproRkiQ0vjYppOiThKitb
-         KyYZt8Pm+CFx0Z6jxwJS0ZppPODUkBdPlgaO4mba1jxLVrNG9mV9rEh7Kt4uoSebZaND
-         XiFOhAu2HIQFqLCXbG8HNx5QOtXl9lKysL+lmMpdyEtLcYoC7yefK1+U651ijmT3CaVo
-         i84g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790155164; x=1790759964;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=E7p8lZpe9yUss1JCyusAvCgXZuyW7BMmLd/S5jJ26Ew=;
-        b=NS07Pui741/GH80AJBnYA41NJ6Yon3CVxvdbGtTdlpftx8MgCroE8BdRJisbNPfWj2
-         WKlwQHJqCR8k+ER4vGTBqBol5+UaY+1LGUU8Zv588KE8Sy2eRvScvAOY9j67Oi9vhuGx
-         s4Etba87TIAaj8IQX8530PzVafZHFY76omfH0Chk6ehWzAfGkuCcC2mHRC8EQNUBRUIk
-         lfkxltIe97GRs4NMDDVAfhzluxwalRMQMFto/bWJ6LC5CQmY85HcyJ0W5gFcTxgSYd+d
-         WmoydjfDYhjBIIKwKWVzt9SiK7MoVAvXHyZraOMxi+LfoumFU9988Xikk3CIdopCA6YM
-         qDSw==
-X-Forwarded-Encrypted: i=1; AKwUvBwdOSXvwM4hjc6SmjlK7THRwqQ9QC14BtDVOKsr24yEiw3oClWKA+vgev6SQpANQZrhb+IE79/RpQtK454=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKvyqc9f/l1UrvLh4GC5kPs08hGiT9D7JktBewBllmGpcUOPpe
-	8n1mHpyHfZhEuP1m9bcaAOCtw+e/8txZQrRcyxEhQmTOYHHvrptgoog2O5Jd9uzdcIGz36hEn2g
-	XwTUv6jHgqgjegvv6b1LuUw6GOGH9IiGLiteVd7Jh9g==
-X-Gm-Gg: AYBFou32hc9xCiHo3VkwFf15LHwF5Sh+T6qwUnZbmRtw34pwf6LD3hwobd7rUkrvi7A
-	C3YigYjYcKz+t6x1NQIAxTwL69G3pwsnKGA6TnpMtFL5ywVDc1ezYZ5WrQyDyDxngyI0bZwzCcr
-	c84pz3Mv2G9mMi4WZa/kVOgFdqEAFtIv/Oeq2NcqCd/AusLEpsu+gW3CZQfKkwRRkEQqrwAbKlZ
-	2ghBpWsGdSwTvcqqgK29FtwTFyc6emrzzLImB73cdtbHfnmIkH3P3gkgyL4kEjZUhxf2PxsFN8K
-	+FS6rbFIB9rJEwKRAoORMHFFQjWBneP0B0KlsdvJflfiOzl9r7Tt
-X-Received: by 2002:a17:903:3c28:b0:2dd:c053:9c72 with SMTP id
- d9443c01a7336-2df69dce3f1mr16258365ad.40.1790155163811; Wed, 23 Sep 2026
- 02:19:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i935KHZ0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 465CD1F000FF;
+	Wed, 23 Sep 2026 09:19:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790155189;
+	bh=szozd7BSlCRG6SBcZcvnaC59iOuE2gZVQMEdYxaAPfg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i935KHZ03UQCOH4iIXqvpXzISRCnQkyg/7sekoDfNzFScbwNm9ckk0hABoKJ4MivO
+	 4PVX5vSdjD8HGmskfgBtcNDkI8qvRU8v5/w3PkwoUvgmZ17uCo75xWaxQaK9Mleuhh
+	 78BPW4fvbSD9Fzat6DcWvAb4K7OFR3z+TnYuIFxAI7BLwiiLTnLA+fvF/Xxogg9kWu
+	 ojjUK6uDDp1zJyv/DcHgGv0bvoIqwp9lKyFkmCn8PCT4za8eUYdsIcaxYcgADguYMm
+	 F6cIZ8f+dI4Uyue/PLV1oc1e2KAMFSYI+UoZCHFacoLvBgH9vLGXzpBDyqachCkMFz
+	 wvxTQ0rPS6eag==
+Date: Wed, 23 Sep 2026 12:19:34 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Marco Elver <elver@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	David Hildenbrand <david@kernel.org>,
+	David Rientjes <rientjes@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>, Jann Horn <jannh@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	KP Singh <kpsingh@kernel.org>, Kees Cook <kees@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Matteo Rizzo <matteorizzo@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	linux-hardening@vger.kernel.org, Nicolas Schier <nsc@kernel.org>,
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>, Harry Yoo <harry@kernel.org>,
+	Hao Li <hao.li@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+	Alexander Potapenko <glider@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	kasan-dev@googlegroups.com, llvm@lists.linux.dev,
+	Guo Ren <guoren@kernel.org>, linux-csky@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>
+Subject: Re: csky ICe (was: Re: [PATCH v4 2/3] slab: improve
+ KMALLOC_PARTITION_RANDOM randomness)
+Message-ID: <arOZpqat_rT6rExk@kernel.org>
+References: <20260511200136.3201646-1-elver@google.com>
+ <20260511200136.3201646-2-elver@google.com>
+ <6106aefa-47c7-4bda-a51f-8a2fba3bf715@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org> <20260918-drm-reset-state-flag-v4-9-5ad106370f05@kernel.org>
-In-Reply-To: <20260918-drm-reset-state-flag-v4-9-5ad106370f05@kernel.org>
-From: Daniel Stone <daniel@fooishbar.org>
-Date: Wed, 23 Sep 2026 10:19:11 +0100
-X-Gm-Features: AcwNN1WcrMpUMY7WrxQBLpWPrZ8BZzqWRprFtRJhz4ki4ZfJwZKD54zFU1R2wsY
-Message-ID: <CAPj87rMT5vnYMJ-MVk2z_etH+zHK+poac17TD+Yz4SnMZFbsBA@mail.gmail.com>
-Subject: Re: [PATCH v4 09/13] drm/atomic: Add drm_atomic_implements_create_state()
- helper
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Louis Chauvet <louis.chauvet@bootlin.com>, Haneen Mohammed <hamohammed.sa@gmail.com>, 
-	Melissa Wen <melissa.srw@gmail.com>, Daniel Stone <daniels@collabora.com>, 
-	Harry Wentland <harry.wentland@amd.com>, Jocelyn Falempe <jfalempe@redhat.com>, 
-	=?UTF-8?B?Sm9uYXMgw4VkYWhs?= <jadahl@redhat.com>, 
-	=?UTF-8?Q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
-	Pekka Paalanen <pekka.paalanen@collabora.com>, Sebastian Wick <sebastian.wick@redhat.com>, 
-	Simon Ser <contact@emersion.fr>, Victoria Brekenfeld <victoria@system76.com>, 
-	Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6106aefa-47c7-4bda-a51f-8a2fba3bf715@roeck-us.net>
 
-Hi Maxime,
+On Tue, Sep 22, 2026 at 07:58:56AM -0700, Guenter Roeck wrote:
+> Hi,
+> 
+> On Mon, May 11, 2026 at 10:00:49PM +0200, Marco Elver wrote:
+> > When using CONFIG_KMALLOC_PARTITION_RANDOM, _RET_IP_ was previously used
+> > to identify the allocation site. _RET_IP_, however, evaluates to the
+> > caller's parent's instruction pointer rather than the actual allocation
+> > site; this would lead to collisions where a function performs multiple
+> > allocations.
+> > 
+> > With the generalization to kmalloc_token_t, we now generate the token at
+> > the outermost macro, and using _THIS_IP_ would fix this for all cases.
+> > 
+> > Unfortunately, the generic implementation of _THIS_IP_ relies on taking
+> > the address of a local label, which is considered broken by both GCC [1]
+> > and Clang [2] because label addresses are only expected to be used with
+> > computed gotos. While the generic version more or less works today, it
+> > is known to be brittle. For example, Clang -O2 always returns 1 when
+> > this function is inlined:
+> > 
+> >         static inline unsigned long get_ip(void)
+> >         { return ({ __label__ __here; __here: (unsigned long)&&__here; }); }
+> > 
+> > To provide a reliable unique identifier without breaking architectures
+> > relying on the generic _THIS_IP_, introduce _CODE_LOCATION_: it resolves
+> > to _THIS_IP_ where architectures provide a safe implementation, and
+> > falls back to a zero-cost static marker where _THIS_IP_ is broken.
+> > 
+> > Link: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=120071 [1]
+> > Link: https://github.com/llvm/llvm-project/issues/138272 [2]
+> > Signed-off-by: Marco Elver <elver@google.com>
+> 
+> With this patch in the tree, I get ICE erors when trying to build
+> csky:allmodconfig.
+> 
+> Example:
+> 
+> Error log:
+> sound/core/oss/mixer_oss.c: In function 'snd_mixer_oss_proc_write':
+> sound/core/oss/mixer_oss.c:1202:1: error: could not split insn
+>  1202 | }
+>       | ^
+> (insn 183 400 184 (set (reg:SI 0 a0 [orig:307 _55 ] [307])
+>         (xor:SI (reg:SI 3 a3 [orig:308 random_kmalloc_seed ] [308])
+>             (const:SI (plus:SI (symbol_ref:SI ("*.LANCHOR0") [flags 0x182])
+>                     (const_int 132 [0x84]))))) "include/linux/slab.h":759:52 288 {cskyv2_xorsi3}
+>      (expr_list:REG_DEAD (reg:SI 3 a3 [orig:308 random_kmalloc_seed ] [308])
+>         (nil)))
+> during RTL pass: final
+> sound/core/oss/mixer_oss.c:1202:1: internal compiler error: in final_scan_insn_1, at final.cc:2813
+> 0x779b51e2a1c9 __libc_start_call_main
+> 	../sysdeps/nptl/libc_start_call_main.h:58
+> 0x779b51e2a28a __libc_start_main_impl
+> 	../csu/libc-start.c:360
+> 
+> This happens with lots of files, not just this one. It is seen with all
+> versions of gcc starting with at least v13.x. Reverting this patch fixes
+> the problem. Bisect log is attached for reference.
+> 
+> Any idea what I could do to avoid the problem other than stopping to build
+> csky:allmodconfig ?
 
-On Fri, 18 Sept 2026 at 15:18, Maxime Ripard <mripard@kernel.org> wrote:
-> +bool drm_atomic_can_create_state(struct drm_device *dev);
+Maybe it's time to say goodbye to csky? ;-)
+ 
+> Thanks,
+> Guenter
 
-This is misnamed here, and fixed up in the next commit.
-
-Cheers,
-Daniel
+-- 
+Sincerely yours,
+Mike.
