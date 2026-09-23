@@ -1,144 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CD13FB077
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7907D3F86E0;
+	Wed, 23 Sep 2026 17:32:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184710; cv=none; b=owqrTS5pbXjK5miz5/KuraDcV4qliAgpR8UsJh71bln/8mf5b76FVPfz/cw+hWfvkjDRF8Cgor2SNUmqTtaL5Gl76m2p5RUrl/eZmpKqac/AEal4BuYe2zoqdvffxOsDo3riMAi13SNjRKpJrPrk1uandBUNaelnY2kt7NfTXGs=
+	t=1790184777; cv=none; b=C9klZu3zUGc74Dhp+nyfgKniA5bOG10q5uwScaLEFuk3pPdtG4JciH32uCx6veRMXxLEHdd5981VXy+XtfraE2nMYIFwTl1UeKJfRlnhq6H86fPyiZWRF+ZuQJjeOCEcSY69jyxaWJc365RBAX/rBBYpYP5YCSQ4Tc6Otz6zWpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184710; c=relaxed/simple;
-	bh=pkNbgr2LUmHMl+CKmjuAT6b3smEiL2sJ/WOqbTV9Hy8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MBiB2PwBIk72GyuE57z5laN9eOgups3BHJU7zi6Jysl8hzcLLvA87pKMawu4wB8DPGJnGYnrgi2ePghyD1jfIYY1jTYuSzjGlYm68BRZwqVhjy8GzEdz3FsFK6uuHsejtYl9zpr5fblzcMmZv6lkDtrAYl2XfrFqewwEKo809tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ScbxxvBR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790184777; c=relaxed/simple;
+	bh=FP0Mb8KeKMNrSPUoYIGOFn3+H3dFxB84MIyTNC+Sdfk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VaXRWUmIDWwaDH9CPC2vPicUlEV64pNTXi9Upv54UHhKzcP0EW/PkVwGuXDJXV+v17UupeLFqI5ZgqjlWr8R2wEhgYPPtBbVT5U0+e6zuEoP2nZPWYGdrq7ogjUpcrIVzukPomeNCbCQFsQJdrXttQofYFggSs4D0sIEOcGIXn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OnX9gc31; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ScbxxvBR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 508541F000FF;
-	Wed, 23 Sep 2026 17:31:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790184708;
-	bh=9ztFypob8+v7bqoaovVuZeu+/7Jm2lEmBO7VJHep2Dg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ScbxxvBRpAdFZuiSETOeJ7ZucBRejGxBfnvJ827xcpmX0MZbEIRrVr6zKFYE/Gksy
-	 zYyb7ZVSMbcveapHESmbc9MOeDm4/FC7oFmP83/YUCVXgmu6TCafRSmRIT6UMj66us
-	 lH3sVLOmmAI+8gwni6OpYl/RFprUXg7t8FkqecTMZsScQZgWABPGSWNBxUaMPpCq7z
-	 WRgd/ZuHH9CcXbJEtapBhjdUzWP6Ck63AwD3/K6LOVAK2c4RUUQbnnAqA3GAWATb5v
-	 S9BF72zPzLQaiWadA3fx3rdVHXis89SA2N8l37zj/vCvJi7/a6YLjE+czxTbuwJjCU
-	 msPlDB1bkSgHw==
-Date: Wed, 23 Sep 2026 18:31:41 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Bence =?UTF-8?B?Q3PDs2vDoXM=?= <bence.csokas@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Conor Dooley
- <conor@kernel.org>, Yicong Yang <yangyicong@hisilicon.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC] cache: Make cpu_cache_invalidate_memregion() error
- out if there are no handlers
-Message-ID: <20260923183141.5a9b9c44@jic23-hlaptop>
-In-Reply-To: <a5456d59-aad5-40cc-ac89-5c0c113b560a@arm.com>
-References: <20260922-cci_enxio-v1-0-00bade212729@arm.com>
-	<20260922-cci_enxio-v1-1-00bade212729@arm.com>
-	<20260922191808.b82fa138c8bc80a1285e8ba4@linux-foundation.org>
-	<a5456d59-aad5-40cc-ac89-5c0c113b560a@arm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OnX9gc31"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790184775; x=1821720775;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=FP0Mb8KeKMNrSPUoYIGOFn3+H3dFxB84MIyTNC+Sdfk=;
+  b=OnX9gc3196253KunqBjVPbzIJYp+ICGWUGyNE0PIXAL3+Z3mLDZd6Kb0
+   cIgb9mKsJVnAuPUAEwNPeRM0TxEcp3jS3sfhbh1nIrdOBLxJbMWG3INbF
+   U8Nh/YJ44/a4op7GkMYCybQOlBSNHFjspXLIsi5NhC0XY5wJskmHqQstR
+   HGX1oNfwR+ppQq3sur5vwvksMY0lxNSsLKA8slZ5mRp7N3aMSvxtS/X4L
+   qjRylbmKUOVZP8Oa4LJVZfmmhhiHgNDYm2Fj+4cvBbh27q30VboyLgXaL
+   mZzrUUU8/kw96esdjmXfGKKq2+dfdNXtFti9ULoBW2VfwTC/wGzWjhCLi
+   g==;
+X-CSE-ConnectionGUID: VZgNpU7aSf2gkZ1Wvh1taw==
+X-CSE-MsgGUID: GNkUXj77T92PP37+PNlnGg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89823713"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="89823713"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 10:32:54 -0700
+X-CSE-ConnectionGUID: FrZCBLnQS4+PQXR1v0NzsQ==
+X-CSE-MsgGUID: Y87W2wcrRv2Xh0SamGduoQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="301645996"
+Received: from spandruv-desk2.jf.intel.com ([10.24.80.14])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 10:32:54 -0700
+Message-ID: <6f4801cacb3f4c81905bd85567c32b0b4e3aaa5a.camel@linux.intel.com>
+Subject: Re: [PATCH] thermal: intel: int340x: Fix use-after-free in
+ proc_thermal_pci
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Fan Wu <fanwu01@zju.edu.cn>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>, Zhang Rui
+ <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Song Li <songl@zju.edu.cn>
+Date: Wed, 23 Sep 2026 10:32:53 -0700
+In-Reply-To: <20260923072730.487900-1-fanwu01@zju.edu.cn>
+References: <20260923072730.487900-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, 23 Sep 2026 10:21:15 +0200
-Bence Cs=C3=B3k=C3=A1s <bence.csokas@arm.com> wrote:
+On Wed, 2026-09-23 at 07:27 +0000, Fan Wu wrote:
+> proc_thermal_pci_remove() cancels pci_info->work before disabling the
+> interrupt sources that schedule it. A threshold IRQ which arrives
+> after
+> the cancel but before the THRES_0 and INT_ENABLE_0 MMIO mask makes
+> proc_thermal_irq_handler() reschedule the work, so
+> proc_thermal_threshold_work_fn() runs after devm cleanup has freed
+> pci_info and dereferences pci_info->tzone and proc_priv->mmio_base.
+> The
+> shared IRQ is never freed in remove(), which widens the window, and
+> the
+> probe error paths never cancel the work either.
+>=20
+> Fix this by cutting off the producers before draining: mask the
+> THRES_0
+> and INT_ENABLE_0 registers, free the MSI interrupts or the shared
+> IRQ,
+> and only then cancel the delayed work. The probe error paths cancel
+> the
+> work before the thermal zone is unregistered.
+>=20
+> The work function re-enables the INT_ENABLE_0 bit, but the IRQs are
+> already freed when it is cancelled and THRES_0 stays cleared, so
+> nothing
+> can schedule the work again.
+>=20
+> This issue was found by an in-house static analysis tool.
+>=20
+> Fixes: acd65d5d1cf4 ("thermal/drivers/int340x/processor_thermal: Add
+> PCI MMIO based thermal driver")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 
-> Hi,
->=20
-> On 2026. 09. 23. 4:18, Andrew Morton wrote:
-> > On Tue, 22 Sep 2026 09:29:31 +0200 Bence Csokas <bence.csokas@arm.com> =
-wrote:
-> >  =20
-> >> Currently, if there are no registered handlers,
-> >> cpu_cache_invalidate_memregion() returns 0. Callers are expected to ch=
-eck
-> >> cpu_cache_has_invalidate_memregion() and return -ENXIO themselves, ins=
-tead
-> >> of calling this function. If a caller forgets to do this, they may
-> >> erroneously think the operation succeeded. This is in contrast to x86,
-> >> where cpu_cache_invalidate_memregion() itself checks if the operation =
-is
-> >> supported, and returns -ENXIO if it is not. =20
-> >=20
-> > Do you expect any callers to be altered as a result of this change?
-> >=20
-> > If so, full details would be helpful. =20
->=20
-> Current callers, not necessarily. Future callers, maybe.
+Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
 
-There is a race condition if someone unbinds the handlers that might
-expose an error after this (correctly) when it didn't before.
-
-In general that race exists in the setup path as well because we don't have
-any way to know 'how many' devices to expect with assumption being
-they have all turned up if any have.  Not great, but short of adding
-something to the firmware specification there wasn't a solution and
-that process would be slow.  We can revisit that if it becomes a problem
-in practice.
-
-
+> ---
+> =C2=A0.../processor_thermal_device_pci.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 10 ++++++++--
+> =C2=A01 file changed, 8 insertions(+), 2 deletions(-)
 >=20
-> Presently, as far as I see, there are 2 consumers: CXL and NVDIMM, with=20
-> 3 call sites in total.
->=20
-> 2 of these call sites [1] [2] are in the form of:
->=20
-> 	if (!has_invalidate()) {
-> 		if (TEST)
-> 			return 0;
-> 		return -ENXIO;
-> 	}
-> 	invalidate();
->=20
-> These types of call sites can stay as-is.
->=20
-> The remaining one [3] is in a void function, and in the form:
->=20
-> 	if (has_invalidate())
-> 		invalidate();
->=20
-> Lastly, while not a consumer, here's what x86 [4] does. It's possible a=20
-> future caller will want to replicate this:
->=20
-> 	if (!has_invalidate())
-> 		return -ENXIO;
-> 	invalidate();
->=20
-> These types of call sites can do away with calling has_invalidate()=20
-> going forward.
-
-I'd be against any callers doing that as would rely on future implementatio=
-ns
-of the interface.  No support vs got an error tend to need different handli=
-ng
-and relying on particular error codes is likely to bite us eventually.
-
-
-Jonathan
-
->=20
-> [1]=20
-> https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/cxl/core/region.=
-c#L242
-> [2]=20
-> https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/nvdimm/region_de=
-vs.c#L93
-> [3]=20
-> https://elixir.bootlin.com/linux/v7.3-rc3/source/drivers/nvdimm/region.c#=
-L113
-> [4]=20
-> https://elixir.bootlin.com/linux/v7.3-rc3/source/arch/x86/mm/pat/set_memo=
-ry.c#L372
->=20
-> Bence
-
+> diff --git
+> a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
+> c
+> b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
+> c
+> index c693d93..1856e76 100644
+> ---
+> a/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
+> c
+> +++
+> b/drivers/thermal/intel/int340x_thermal/processor_thermal_device_pci.
+> c
+> @@ -409,7 +409,10 @@ static int proc_thermal_pci_probe(struct pci_dev
+> *pdev, const struct pci_device_
+> =C2=A0err_free_vectors:
+> =C2=A0	if (msi_irq)
+> =C2=A0		proc_thermal_free_msi(pdev, pci_info);
+> +	else
+> +		devm_free_irq(&pdev->dev, pdev->irq, pci_info);
+> =C2=A0err_ret_tzone:
+> +	cancel_delayed_work_sync(&pci_info->work);
+> =C2=A0	thermal_zone_device_unregister(pci_info->tzone);
+> =C2=A0err_del_legacy:
+> =C2=A0	if (!pci_info->no_legacy)
+> @@ -424,13 +427,16 @@ static void proc_thermal_pci_remove(struct
+> pci_dev *pdev)
+> =C2=A0	struct proc_thermal_device *proc_priv =3D
+> pci_get_drvdata(pdev);
+> =C2=A0	struct proc_thermal_pci *pci_info =3D proc_priv->priv_data;
+> =C2=A0
+> -	cancel_delayed_work_sync(&pci_info->work);
+> -
+> =C2=A0	proc_thermal_mmio_write(pci_info, PROC_THERMAL_MMIO_THRES_0,
+> 0);
+> =C2=A0	proc_thermal_mmio_write(pci_info,
+> PROC_THERMAL_MMIO_INT_ENABLE_0, 0);
+> =C2=A0
+> =C2=A0	if (msi_irq)
+> =C2=A0		proc_thermal_free_msi(pdev, pci_info);
+> +	else
+> +		devm_free_irq(&pdev->dev, pdev->irq, pci_info);
+> +
+> +	/* Cancel after the IRQs are freed, or the handler may
+> reschedule it. */
+> +	cancel_delayed_work_sync(&pci_info->work);
+> =C2=A0
+> =C2=A0	thermal_zone_device_unregister(pci_info->tzone);
+> =C2=A0	proc_thermal_mmio_remove(pdev, pci_info->proc_priv);
