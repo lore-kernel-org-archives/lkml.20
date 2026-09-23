@@ -1,90 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605F446D551;
-	Wed, 23 Sep 2026 08:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACA93B3BEC
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152837; cv=none; b=J2gS+0ItFwMA7navSVuYDj5KFoA11Swyg+UPJZOm9iSMc39Y5jB6YiACP18MRIMHVUXYYk5ewweYqT05GhBpV9feGsR0C+NWGjZOfr+ViTDRt5Mh7g6u3JxV/yW3phjQB2fr3TNc/rXC70i+Yaqnue/Jz5gl4vrDHghVPbHQrT8=
+	t=1790152890; cv=none; b=AkiPfjk73Xe7mlWdh9eHFOAxIXvZbeoFwxGZ4Y01BHhSO7xt1X9RWcTWcG0yeg/A0amYEDC0wuyrlD99rfr/4XCm2I/w+ZjjhO8UXTnUHhbAOfR160AfVzBLWPf+Nk3AvqJkkBnlr11ymen/KiR3OtExAz0yLhwohcpN4IxqQW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152837; c=relaxed/simple;
-	bh=K38GKIhYygo40OSAIx5jp4HreWHfMJpznywxecd+EBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pNiL8fOAqY6fu4sWctVl7G5uBQxKBvQq94KwK/X9vluZDBZI322/UhWI3epsxMHOZRtm33wlGLH7qNlflAt8p8/DYWlATqGQdfp7vclbduAdftZWXj/ULKzB74c5YiU/iNadqYYta5yleaeJ2hADnPvfAO6Tcu+CZt9HzjdbJaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2ZLm6b/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790152890; c=relaxed/simple;
+	bh=MtElMJ8fbL766bC95A8ZzPRkioZPIOD0KBOOEsCnNBU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Po3gxaoScl+AD7IeKj5DoMy4QOn5b+028pR200QUvspMDSAfspcs4tdWP0vWc5JXecFR4+mQV6qmHKn6DC/odgCmduzPTMRPD/ANOk1ICaQOUWof2jZUFQdZX3cgvv93CNn+qkLT1XEX3Ap/cSxacwZfLT3/w/gsQ0YIXFYE7dE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jz7BOztW; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2ZLm6b/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9EE11F00893;
-	Wed, 23 Sep 2026 08:40:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790152820;
-	bh=4/p/6NzABfZh2W4lA/ZfbZiaJjOtmu4YBNzB36CjHBE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=l2ZLm6b/EI4CvUZmROWPI/SqMxY/QSpl89lkgz9wNf8GnG+Lsb+gfl67mDRt6sJ05
-	 hPFcyQt/foxrR8cGAC4pebexm6WxaKdxSZh/Uk9spJU3ozviD8Fe4t35fJ6bpm3jin
-	 syumUjlGgCmtBj7664n0qqiFOV3IJAS3Qmte+FtoLqLNm6CmiUJAzl/suH0h1wGrJ0
-	 d+U63KGBO7kj/J76vkYGjE1R7LfIHUdLy/HnHSYY2mcybF2If5wgK4NJmFhp1D34pk
-	 sKPHhyNfLnYHDofP8lqDqKV8tl53T0hrMDv5YWGRmEo5AxIdA76nO6nkT4nsi9qw9L
-	 34xO6HYm4eStg==
-Date: Wed, 23 Sep 2026 09:40:16 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: dakr@kernel.org, driver-core@lists.linux.dev,
-	Sudeep Holla <sudeep.holla@kernel.org>, gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org, rafael@kernel.org,
-	rob.herring@calxeda.com, lkml@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 5/6] driver core: cpu: Fix OF node reference leak in
- register_cpu() error path
-Message-ID: <20260923-uncovered-worthy-capuchin-a75edc@sudeepholla>
-References: <20260915043523.1725991-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jz7BOztW"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398c066106cso403363a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:41:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790152865; x=1790757665; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FFMFjnfJDGF+mkKV4NlETqKvpStxbHkejYuXiptoDT8=;
+        b=Jz7BOztW05YtqM24OhZpJabutmbXTXX6pYw434qjpjj+rdWCREpg+bDawCVeUw9nc6
+         YYyB7R28H58WDxoKxCdWyMKGnSxcfRveqrO/hzC0bnmE9Oa5lfosP0dhyF1xvelhK+LC
+         ic1dOvI6jxYDBRveiTYNc+QDlak7hFYkWHVSdQJXmgHwqCHqNOvD/ohA9+8npspw4hrd
+         RV/Ly3HS3dnFmnIkI6HTGtodi4Gmw37ePePOvgwvuhzO0GesBQrMguq8OuAxYFfBo/9B
+         hgt7jL4ZNzZWxMjn3MD9cMlfvRUJXTDm2iJU+9sbMSAqqKvVAzU9w59BkOc8zoTZASFl
+         CErA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790152865; x=1790757665;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FFMFjnfJDGF+mkKV4NlETqKvpStxbHkejYuXiptoDT8=;
+        b=oaHC3KuOOTF2kPc3W24O3g/raTCTfpoYZxtpj/8l67cpk/F5ppuUmgaJZ3V7oBBsTm
+         C3Vy4OEnusMikScegr3VbEw9bPe1TKkvww3m2zgLoK0wvHx5W1qra+jdrSgnwdRPZ0ff
+         l1dxh1AMnHQNu+5YoIz/9thOurWIeRRcqf6934WaHCeLpjvuUdbIUYmaqpO6da5cT/9q
+         dznTDZSyRcr+TaHYmJBv9cLSVX620UUH7V3EmBOnMQ1dFiMlXuVVRHMAanPJe0ebFX7Z
+         iqIbgsiyGj6FyLkKpDBNPiU6n84SJLxBsWzkv+SbwuoisIwcOvKkDIRW6rg5ABQe1gNP
+         OHVg==
+X-Forwarded-Encrypted: i=1; AKwUvByWi+zhesU55XBYETPsv8Xhx39xYqc39GNGZBH5FeI4xe7gZM79svfDPjo8CsBmuAv9/pCT6bUcuCIOlLI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/jSpPNiWpTPZmWuPPirDtW9y9CD2pVB9/rnbIXUHpmwluohsv
+	ARBVABxc7RuZXBUq9ZbaWM0tusYAtZtd4p3yAJjzxH/Qlg5IitR3Q52p
+X-Gm-Gg: AYBFou2dDqGzdWot6KUKMLjl1gGLqloW4aHBbfmgwLXPBoxrKE6SGLKg8If7Gh2tsRR
+	W1QVHkNliiZlrZXjm8UPAr+I2JIOdeSSxhEJHUqZrcC7Bq9LpxGej8nk9KlMp9yUgHGSI7vG7Qo
+	QsWyXb227bhGtxX1FFkKEl1dFOyi32wjS3hPUsvktgkRZBHirwA3pJ0XjT3ZYHQ5vowF+V9Ongv
+	V4g+6jDOn5frunSBnhaSJrnNvSXVKhhx8wPsNyT+L08OKTbCdMHoZMSU0llHkfiN6B/xIRKsMtY
+	n48rOMRCfxFfIYl5K8CighurzLJrigTtQojIEUopg2mzTwSjTys09soHsXQ3N0lhMdTmBpo1Qvi
+	ZE0Tp5EVn4TdVDrr9A8XGkj3/dMGsVn0d78LnfzDyPY5A3F834CxpA1vMaWQeJ2HWjbj37ehaTd
+	+yo9PnHDXJw5OlOKhrxNxstYw2Z+W1nBTrM5VkslpVSJIFtRzfLpo5ipR1lZ+ubRiR47Hg04Jeg
+	pcOGAS5Fq9O7Y1jDf0HhbYSjABDWcItLSiAJ30jeK4Hs/aMRyKzffiiYGxEEK+gW3kVFyrOLICH
+	mQ==
+X-Received: by 2002:a17:90a:d645:b0:39d:f317:44cd with SMTP id 98e67ed59e1d1-3a07e554e0dmr1667962a91.14.1790152865102;
+        Wed, 23 Sep 2026 01:41:05 -0700 (PDT)
+Received: from localhost.localdomain (ec2-13-212-242-176.ap-southeast-1.compute.amazonaws.com. [13.212.242.176])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0812a1eb2sm1105330a91.4.2026.09.23.01.41.02
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 23 Sep 2026 01:41:04 -0700 (PDT)
+From: Ginger Li <ginger.jzllee@gmail.com>
+To: netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: dm9000: Fix a recursive lockup in the TX timeout path
+Date: Wed, 23 Sep 2026 16:40:55 +0800
+Message-ID: <20260923084055.65091-1-ginger.jzllee@gmail.com>
+X-Mailer: git-send-email 2.46.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915043523.1725991-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 04:35:23AM +0000, Wentao Liang wrote:
-> register_cpu() assigns the device node returned by of_get_cpu_node(),
-> which comes with a reference, to cpu->dev.of_node.  If device_register()
-> fails, the error path calls put_device() and returns, but nothing ever
-> drops the OF node reference: cpu_device_release() is empty and the
-> driver core does not put dev->of_node on the failure path, so each
-> failed registration leaks a reference on the device node.
-> 
-> Release the OF node with of_node_put() on the error path.  It is safe
-> to access cpu->dev.of_node after put_device(), since the statically
-> allocated struct cpu is never freed by cpu_device_release().
-> 
+dm9000_timeout() takes db->lock with interrupts disabled and then calls
+dm9000_init_dm9000(), which expects the caller to hold that lock and accesses
+the chip registers directly.  For DM9000B devices dm9000_init_dm9000() also
+calls dm9000_phy_write(), and that function takes db->lock again, so the TX
+timeout path deadlocks on the same CPU.
 
-If this is part of a series, I can't find 5 other patches or the cover
-letter anywhere.
+dm9000_phy_write() already skips db->addr_lock when db->in_timeout is set,
+because in that case the caller holds db->lock and sleeping is not allowed
+either.  Skip db->lock as well then, so that the nested call from
+dm9000_init_dm9000() works as intended.
 
-> Fixes: f86e4718f24b ("driver/core: cpu: initialize of_node in cpu's device struture")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/base/cpu.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/base/cpu.c b/drivers/base/cpu.c
-> index 875abdc9942e..bc96725c8d4c 100644
-> --- a/drivers/base/cpu.c
-> +++ b/drivers/base/cpu.c
-> @@ -431,6 +431,7 @@ int register_cpu(struct cpu *cpu, int num)
->  	error = device_register(&cpu->dev);
->  	if (error) {
->  		put_device(&cpu->dev);
-> +		of_node_put(cpu->dev.of_node);
+Fixes: 6741f40 ("DM9000B: driver initialization upgrade")
+Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
+---
+ drivers/net/ethernet/davicom/dm9000.c | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
 
-I would also set the of_node to NULL as I see some archs like PPC is
-making some decisions based on non-NULL pointer. I want to prevent any
-further OF reference operations on that pointer.
-
+diff --git a/drivers/net/ethernet/davicom/dm9000.c b/drivers/net/ethernet/davicom/dm9000.c
+--- a/drivers/net/ethernet/davicom/dm9000.c
++++ b/drivers/net/ethernet/davicom/dm9000.c
+@@ -325,10 +325,10 @@ dm9000_phy_write(struct net_device *dev,
+ 	unsigned long reg_save;
+ 
+ 	dm9000_dbg(db, 5, "phy_write[%02x] = %04x\n", reg, value);
+-	if (!db->in_timeout)
++	if (!db->in_timeout) {
+ 		mutex_lock(&db->addr_lock);
+-
+-	spin_lock_irqsave(&db->lock, flags);
++		spin_lock_irqsave(&db->lock, flags);
++	}
+ 
+ 	/* Save previous register address */
+ 	reg_save = readb(db->io_addr);
+@@ -344,11 +344,14 @@ dm9000_phy_write(struct net_device *dev,
+ 	iow(db, DM9000_EPCR, EPCR_EPOS | EPCR_ERPRW);
+ 
+ 	writeb(reg_save, db->io_addr);
+-	spin_unlock_irqrestore(&db->lock, flags);
++	if (!db->in_timeout)
++		spin_unlock_irqrestore(&db->lock, flags);
+ 
+ 	dm9000_msleep(db, 1);		/* Wait write complete */
+ 
+-	spin_lock_irqsave(&db->lock, flags);
++	if (!db->in_timeout)
++		spin_lock_irqsave(&db->lock, flags);
++
+ 	reg_save = readb(db->io_addr);
+ 
+ 	iow(db, DM9000_EPCR, 0x0);	/* Clear phyxcer write command */
+@@ -356,9 +359,10 @@ dm9000_phy_write(struct net_device *dev,
+ 	/* restore the previous address */
+ 	writeb(reg_save, db->io_addr);
+ 
+-	spin_unlock_irqrestore(&db->lock, flags);
+-	if (!db->in_timeout)
++	if (!db->in_timeout) {
++		spin_unlock_irqrestore(&db->lock, flags);
+ 		mutex_unlock(&db->addr_lock);
++	}
+ }
+ 
+ /* dm9000_set_io
 -- 
-Regards,
-Sudeep
+2.43.0
