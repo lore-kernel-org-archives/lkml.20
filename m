@@ -1,165 +1,222 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274485187FB;
-	Wed, 23 Sep 2026 13:41:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170904; cv=none; b=N7I+FLmlxMMO+wmU07s+n947bdk5+NL4alteFn3rjWO2T8v3mCtPUV2qW04DjIePmWCXZ3u7aVdUVEKxLH3Df5D3ASfjJl5uOD76H5FhAPHPn5ReyYG2BRkZ/jjmmPsMIhez/489UYFP7U6MHn8VGin6XXazZItKJ9VtGvdNarI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170904; c=relaxed/simple;
-	bh=G1spfjpgWviRSTlbP6VXZuP6fam2iEYyv5RZg84jlzQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=GqDIjjhZMC1pzoHFvlBS2NRh5DqjD6O9jGbTtSEeLzPlDctA6XTEPOm+wGLc7nt5yTM8aTeA2GYAk0afJS1n1TfAJbX94tkR/utVgY6VAImu99o5tdhmc7ry/b7zvTb+2XeAMv3+8c6qduXDQunaMzSKJs7xeIypCqs3UWjB5Ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I9L97RHs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFC051DDF9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790170931; cv=pass; b=EyNmqGmTvWS2NSPaZ4ROmMRVokJ1rba4j+INttXGuqoXIQStFINFfpd+AEL/gaHN4rr3Eg5z85Gz4PjUDPMwc4DKhGSdtSGI7vBIDnXCBQHahgGMeSOcmuJD9OajQCCLeqJu3Z2Oh1VSOwIxRdt6hHe0nVTnrUmrCJlSNyj44UU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790170931; c=relaxed/simple;
+	bh=xv9ucU4YRdbUBDfAYkIA3JSvD5XSlmVKrP6os4daOsQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e8ohVTVqjlsMX27lKP9cDN0mbvmG28kAFOVuB/j+v7NFLOidhfc2umoZAv4TcOAmuJ4+jc4CFd0gelyZ0Nx6sA6ZT6bCSg6IQhW72O/bsX9e+LoZ4Et1aathMka5fzbbe+yNFERQs9KOtDf9L0IE2u9T8oL+Mbf4wFNqKvAVPHI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwyQbJq+; arc=pass smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I9L97RHs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4651F000FF;
-	Wed, 23 Sep 2026 13:41:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790170901;
-	bh=R1111ZceQdFQzUTUi6fV0m1rrG+DBNgBo4SqYrilYmw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=I9L97RHscVvDKTG/nr6/k8z2HkKgbxcIKkT5Vbx8rbIdSBWZOs7mtLxrFTooPDbEw
-	 tj+n4JTFQW0kGVnlrLhdJ8YNtsIiphjZnmyzgtMe6bEf8Jvrwz7ShH2HWkU7Cy9QDF
-	 lqGNIJqP9pmBC58/rLpXB0atRXXd90pvuS0YGkQq4/CPSxdUy7qE0YH41O42P+XehC
-	 Dbwkfsg8nt7ExTtA4kBgtEwJtMXUjCB27nxmql0GND0NhadqUWOaa2QSwihqpCtzQ5
-	 f05Tu8ofycq91q5AmhVY6A4R2vnZhh+iA1cGX7qHO4P/m6REkb+FAyGXB5ByuLomU4
-	 qSgzVAryRRVgg==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Yilin Chen <1479826151@qq.com>, ojeda@kernel.org
-Cc: boqun@kernel.org, gary@garyguo.net, bjorn3_gh@protonmail.com,
- lossin@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
- dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org,
- acourbot@nvidia.com, work@onurozkan.dev, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org, Yilin
- Chen <1479826151@qq.com>
-Subject: Re: [PATCH v2] rust: configfs: require thread-safe callback data
-In-Reply-To: <tencent_5449081195EDDF5726C709CF648DD4044A08@qq.com>
-References: <87v788t7xh.fsf@kernel.org>
- <aC94ccT3un1EKctso2G_kliI1gc8wSausWGU_X9r-V4YAhGjsYXsQCgdJxkzK8r17dZZlWTNqshNIMN3xs1LBw==@protonmail.internalid>
- <tencent_5449081195EDDF5726C709CF648DD4044A08@qq.com>
-Date: Wed, 23 Sep 2026 15:41:30 +0200
-Message-ID: <87ik3w2igl.fsf@t14s.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwyQbJq+"
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-895353e9051so12107007b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:42:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790170928; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ppM7tKjHS2Je7NrhelvuyLzm8cVJjI7mBgXmEO922k9B0M1lSFSW+RXjW6LcBZIGLa
+         tLNbR98aENFhnVihJZk/HJimFX4hHs63xHcFP+naHPaLv8M06q8Ho+XD48Gy39rg4IAN
+         MEDKM9CLjHPGsMOcR0kp2eUtL/T0q21O4rzrgh8Thbb3AHKZUz01nxZbAWuESOqHFVqm
+         E6J4eZcdJGAKCB6+0FurlWbQ1BeTg+xnh1Bq7bQFP0PQlwX6ykGb/z1yzr6IQrdAI6HE
+         4bV6Sdr6ZgM7mUqAwSdSNfHl1/9vuxfeQboESD9ncNjcmEXlD9zYW9Jy7qUkCfdR5EsV
+         3n4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gUppNMSnE+FI5UWVFsCQivlVTUZFB5M60mvANc0iVpM=;
+        fh=3RUwiZc5cuQpvnTpZoyu2p9jd+Roc0PPl3GuwdD1/dI=;
+        b=E5pdIGhA3N+KmQwjWL0NmnZFKk5x5L9yJhzKf2ldkj8ChFDZ48a0lFmEMGGuNHoSjk
+         Tcv6KKSI8yAQnuauyylpMdpk8jweaOPEwy7p+GjeEuLrp2XfzTzJMN6QGsyeAR9uulmD
+         cIBFUiUMqvkYlJDlWsNBC+CtI/eFnndXWPvM0yFUIja3WL6ii1g/lDQrEejsu5/KkQ0P
+         bCLepD3eoGZWTixaowP4sEvjl1Sddk+1Sb0JKmBZR/x/hqr3sju+FXaZhLJ3R5wNO3AT
+         6e8Zzp9EOxCsC/CSoeGKqHHPmE8fYEEUQM9dL9aUXmhNsTO9ro5M0nrddGwH3WaoWlox
+         RvVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790170928; x=1790775728; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gUppNMSnE+FI5UWVFsCQivlVTUZFB5M60mvANc0iVpM=;
+        b=rwyQbJq+l0tkyofv5rlLPNrnOjNUjjW667r206Et/FFqa13865pNrxufVuK/OV02YS
+         UeheoNa/oa+arMeXvNcHskBqBjAOfemc/QY3d5qSuB/aatD1DMJLF/hAuWO7fjbHJfOp
+         hrcdB5LPvI4zAoaQWhN9hzrEBB1F08a7jJPhPpPdDmpZq4FaoAtfA2MROe5uMfahBYSq
+         sncW89ys5jVHhOB2FaIdRJZDqvtKzFzin51Nx7Qo+qox8UxhcstSebk9PXROzVKm/N6y
+         dkiOYNEEAY5rgc2hB/v/poU944iM1ADHgMAJWkfs/sbx04AifNuwLB4SGPYUKdjFQ3D8
+         IgQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790170928; x=1790775728;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gUppNMSnE+FI5UWVFsCQivlVTUZFB5M60mvANc0iVpM=;
+        b=iIOlrWh6iWuuLkPjCPcEk5hdK+Y7R/aMdv5A2vxC4NwCRRGKzMeosVrTwzhwbpTjaw
+         +nBQ5CuYNH1xwySscFyMtyBF1ItuVIsvfhrj34L+zczdCG3Ubn57Few4n5R/ezNvuiUA
+         M1/UoGyHe9nSFqHHbjOGIPC2wZX+XotbITIBKOH2MdEVfGY3UXRgX6Tu7mpAqljMnSOV
+         ScmKHUqV/Kdc8tdMkXTqSdi3WT3cw3ASh6hLUiA8dOkGXKxrJQz1BflQOEe8rfwty3BH
+         ctU3T97DoRlnbuKJZ5HweWAPR4tm6KdOpUYeOz57jyylRvgFGsOI2t7T9vNkUMsE6avO
+         uCxg==
+X-Forwarded-Encrypted: i=1; AKwUvBxJmFr0IlO4jT5edhDdMHrWG3ZgfWmmxtJ9Fhb+dcSRsXMagzWw6Og9DGAjCyLvQB3kdx6eeNU85iQjytM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlAW9tqYDXv+RyMEXlOqmBfL5kyK82wgfG4a+rn/V/Ha6vOpPr
+	QLomBY8YTHrfK4ZJOLl9oXdzbKFbDSrkdA/tdKOX86/pUwQ2cxBMTZWW5cavimHIHzNHeFqg95P
+	nnAwhoIMnGGMbY3m2No+qdagks9OZH4o=
+X-Gm-Gg: AYBFou1N3Ca3tvNRNRqyUFzMO1m8Ht4n2A4xwhAz2j6lGOe7e5Zpvm4cS9lKkHeVMlQ
+	hNc+Msqucnkt4ZqFiqfZauWAqR4B6KRhOs7wWDvq4uQQx9vUHp548eRPEPpgzcXfTr9zzyNQ1Wj
+	XpIHcp0nIoFDmO5pwnLSmsc0ZG0XRib8dadkXNnWL6SNps25/QWHP1kPuniy83gkZWrCvbhYg+S
+	09e9b6+HlJDld6v1JyUWh09jrXZw9p11SiGB39JgTmWdb3zXRtMLVkt3yE2+wFg7GhdBLyAsKNL
+	WhTz1NXPJh0B9cyoCuXwdN2+M7fBJHhAsrcNlvYVdqIEodXsZ0jh7m3HqRYL71CqCNBdPmpdUh1
+	v2clr2UsSNQ93txgP8k6+tMk7rLbVt4v0Ynr8gl44NH4=
+X-Received: by 2002:a05:690c:c3e4:b0:872:1e2e:b496 with SMTP id
+ 00721157ae682-8a45b0a1042mr11972247b3.31.1790170928179; Wed, 23 Sep 2026
+ 06:42:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20260907173000.1254045-1-nithibert@gmail.com> <2026092308-stinger-number-5fe7@gregkh>
+In-Reply-To: <2026092308-stinger-number-5fe7@gregkh>
+From: Nicolas Thibert <nithibert@gmail.com>
+Date: Wed, 23 Sep 2026 15:41:55 +0200
+X-Gm-Features: AcwNN1WBTtTV6R4K2fgHwGlqy86R2x4Y5knHaNxQ49lSd0hs6xEZ-pIfBOpA5nM
+Message-ID: <CAKA8V_8vpizeoH+FNY+tK2c6=mdPGV_1VBN9C3d_+Gibe_dS0Q@mail.gmail.com>
+Subject: Re: [PATCH] serial: 8250_of: set UART_CAP_NOTEMT for rts-gpios RS485 direction
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: jirislaby@kernel.org, linux-serial@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-"Yilin Chen" <1479826151@qq.com> writes:
+Hello,
 
-> The Rust configfs abstractions do not fully constrain callback data for
-> cross-thread use. Add the missing `Send` and `Sync` requirements.
+Comment was just to understand the modification done. I think the
+double submission is because I first try in standard mail but then
+with git-email
+I tested it on my QCA4531 (QCA953x base) board with an RS485 converter
+(CA-IS2092A). The converter use a standard GPIO to drive the bus
+between input and output. When declaring such device in dts, the GPIO
+was not used remaining in a steady state and preventing from receiving
+RS485 answers
+Mod neede for such a dts :
+&uart {
+    pinctrl-names =3D "default";
+    rts-gpios =3D <&gpio 3 GPIO_ACTIVE_HIGH>;
+    linux,rs485-enabled-at-boot-time;
+    status =3D "okay";
+};
+
+Regards
+
+Nicolas
+
+Le mer. 23 sept. 2026 =C3=A0 14:20, Greg KH <gregkh@linuxfoundation.org> a =
+=C3=A9crit :
 >
-> Specifically, make the following changes:
+> On Mon, Sep 07, 2026 at 07:30:00PM +0200, Nicolas Thibert wrote:
+> > __stop_tx() (8250_port.c) only calls the RS485 rs485_stop_tx() hook
+> > (which de-asserts the direction GPIO/RTS line) once it has observed
+> > both UART_LSR_THRE and UART_LSR_TEMT for the last byte. If TEMT is
+> > never seen and the driver hasn't set UART_CAP_NOTEMT, the function
+> > returns without scheduling any retry -- the direction line is left
+> > asserted (driver enabled) forever, with nothing to un-stick it short
+> > of another kernel-visible LSR event.
+> >
+> > of_platform_serial_setup()/of_platform_serial_probe() unconditionally
+> > wire up the generic em485 GPIO-RTS RS485 support
+> > (rs485_config/rs485_start_tx/rs485_stop_tx) for every port they
+> > register, but never set UART_CAP_NOTEMT, so any board using this
+> > driver whose 16550-compatible core doesn't reliably surface TEMT for
+> > its shift register hits the stuck-direction-GPIO case above.
+> >
+> > Confirmed live on an ath79 QCA9531 board (SoC-internal ns16550a-
+> > compatible UART, RS485 transceiver DE/RE tied together on a GPIO via
+> > rts-gpios, linux,rs485-enabled-at-boot-time): the direction GPIO
+> > correctly asserts for the duration of a transmit, but never
+> > de-asserts afterwards -- confirmed by sampling the GPIO's debugfs
+> > state through and after a multi-hundred-byte write, on both the first
+> > transmit and repeated back-to-back transmits. Setting
+> > UART_CAP_NOTEMT, which makes __stop_tx() fall back to a frame-time-
+> > based timer instead of waiting indefinitely on TEMT, makes the
+> > direction GPIO reliably return low right after each transmit
+> > completes.
+> >
+> > Scope the fix to ports that declare a GPIO-controlled direction line
+> > (rts-gpios), rather than setting it unconditionally for every port
+> > this driver registers: this is the class of hardware actually
+> > affected (RTS state has to be explicitly un-stuck by software, unlike
+> > a UART's native RTS pin), and it avoids adding the extra frame-time
+> > margin to ports relying on the native RTS pin, which this has not
+> > been observed to need.
+> >
+> > Set it in of_platform_serial_probe(), after the existing
+> > "if (port8250.port.fifosize) port8250.capabilities =3D UART_CAP_FIFO;"
+> > assignment, rather than in of_platform_serial_setup(): that later
+> > plain assignment (not "|=3D") unconditionally overwrites
+> > port8250.capabilities on any port whose "fifo-size" DT property is
+> > set, silently discarding a capability bit set earlier in setup(). Not
+> > observed on the reporter's own board (it has no "fifo-size" property,
+> > so port.fifosize stays 0 and that assignment is skipped), but a real
+> > regression waiting to happen on any other of_platform_serial user
+> > that does set "fifo-size" -- which is a common, documented property
+> > for this binding.
 >
-> 1. Require `Data: Send` when implementing `Send` for `Subsystem<Data>`,
->    since the subsystem stores its data by value.
-> 2. Make `GroupOperations` a `Sync` supertrait because `make_group` and
->    `drop_item` receive `&self` from foreign threads. Require `Child: Send`
->    because configfs may release child groups on an arbitrary thread.
-> 3. Require `AttributeOperations::Data: Sync` because its callbacks receive
->    `&Data` from foreign threads.
-> 4. Update the safety comments in FFI callbacks that call `get_group_data`
->    to cite these bounds as justification for sharing the returned
->    references with the callback thread.
-> 5. Remove redundant `Child: 'static` bounds from `GroupOperationsVTable`
->    and `new_with_child_ctor`.
+> Please rewrite this to be in english and says things properly.
 >
-
-I would add the diff below and update the commit message. OK with you?
-
-Best regards,
-Andreas Hindborg
-
-
-
-
-diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
-index 0534b5054fc8..ec295ab965da 100644
---- a/rust/kernel/configfs.rs
-+++ b/rust/kernel/configfs.rs
-@@ -250,6 +250,13 @@ pub struct Group<Data> {
-     data: Data,
- }
- 
-+// SAFETY: We do not provide any operations on `Group`.
-+unsafe impl<Data> Sync for Group<Data> {}
-+
-+// SAFETY: Ownership of `Group` can safely be transferred to other threads if
-+// its data can be transferred as well.
-+unsafe impl<Data: Send> Send for Group<Data> {}
-+
- impl<Data> Group<Data> {
-     /// Create an initializer for a new group.
-     ///
-@@ -326,6 +333,9 @@ unsafe fn get_group_data<'a, Parent>(this: *mut bindings::config_group) -> &'a P
- impl<Parent, Child> GroupOperationsVTable<Parent, Child>
- where
-     Parent: GroupOperations<Child = Child>,
-+    // We transfer `Arc<Group<Data>>` across a thread boundary in `make_group`
-+    // and `drop_item`.
-+    Arc<Group<Child>>: Send,
- {
-     /// # Safety
-     ///
-@@ -405,7 +415,9 @@ impl<Parent, Child> GroupOperationsVTable<Parent, Child>
- 
-         if Parent::HAS_DROP_ITEM {
-             // SAFETY: We called `into_raw` to produce `r_child_group_ptr` in
--            // `make_group`.
-+            // `make_group`. This function may be executing on a different
-+            // thread than `into_raw`. As `Arc<Group<Child>>: Send` this
-+            // ownership transfer is safe.
-             let arc: Arc<Group<Child>> = unsafe { Arc::from_raw(r_child_group_ptr.cast_mut()) };
- 
-             Parent::drop_item(parent_data, arc.as_arc_borrow());
-@@ -436,6 +448,8 @@ const fn vtable_ptr() -> *const bindings::configfs_group_operations {
- impl<Data> ItemOperationsVTable<Group<Data>, Data>
- where
-     Data: 'static,
-+    // We transfer `Arc<Group<Data>>` across a thread boundary in `release`.
-+    Arc<Group<Data>>: Send,
- {
-     /// # Safety
-     ///
-@@ -452,8 +466,9 @@ impl<Data> ItemOperationsVTable<Group<Data>, Data>
-         // embedded within a `Group<Data>`.
-         let r_group_ptr = unsafe { Group::<Data>::container_of(c_group_ptr) };
- 
--        // SAFETY: We called `into_raw` on `r_group_ptr` in
--        // `make_group`.
-+        // SAFETY: We called `into_raw` on `r_group_ptr` in `make_group`. This
-+        // function may be running on a different thread than the thread that
-+        // called `into_raw`. As `Arc<Group<Data>>: Send`, this is safe.
-         let pin_self: Arc<Group<Data>> = unsafe { Arc::from_raw(r_group_ptr.cast_mut()) };
-         drop(pin_self);
-     }
-@@ -755,6 +770,8 @@ pub const fn new_with_child_ctor<const N: usize, Child>(
-             ) -> Self
-             where
-                 Data: GroupOperations<Child = Child>,
-+                Arc<Group<Child>>: Send,
-+                Arc<Group<Data>>: Send,
-             {
-                 Self {
-                     item_type: Opaque::new(bindings::config_item_type {
-@@ -772,7 +789,10 @@ pub const fn new_with_child_ctor<const N: usize, Child>(
-             pub const fn new<const N: usize>(
-                 owner: &'static ThisModule,
-                 attributes: &'static AttributeList<N, Data>,
--            ) -> Self {
-+            ) -> Self
-+            where
-+                Arc<Group<Data>>: Send,
-+            {
-                 Self {
-                     item_type: Opaque::new(bindings::config_item_type {
-                         ct_owner: owner.as_ptr(),
--- 
-2.51.2
-
-
+> >
+> > Signed-off-by: Nicolas Thibert <nithibert@gmail.com>
+> > Assisted-by: LLM (Claude Sonnet 5, Anthropic)
+>
+> signed-off-by goes last.
+>
+> > ---
+> >  drivers/tty/serial/8250/8250_of.c | 18 ++++++++++++++++++
+> >  1 file changed, 18 insertions(+)
+> >
+> > --- a/drivers/tty/serial/8250/8250_of.c
+> > +++ b/drivers/tty/serial/8250/8250_of.c
+> > @@ -233,6 +233,24 @@ static int of_platform_serial_probe(struct platfor=
+m_device *ofdev)
+> >                       &port8250.overrun_backoff_time_ms) !=3D 0)
+> >               port8250.overrun_backoff_time_ms =3D 0;
+> >
+> > +     /*
+> > +      * This generic driver never enables a dedicated line-status
+> > +      * interrupt on TEMT, so for ports whose RS485 direction is
+> > +      * controlled via a GPIO (rts-gpios) rather than the native RTS
+> > +      * pin, __stop_tx() (8250_port.c) can see THRE without TEMT on th=
+e
+> > +      * last byte and bail out without ever retrying -- leaving the
+> > +      * direction GPIO stuck asserted after the last byte sent, on
+> > +      * hardware whose shift register doesn't reliably surface TEMT.
+> > +      * UART_CAP_NOTEMT makes it fall back to a frame-time-based timer
+> > +      * instead of waiting on that interrupt. Scoped to rts-gpios user=
+s
+> > +      * only, to avoid changing timing for ports relying on the native
+> > +      * RTS pin, which this has not been observed to affect. Set here,
+> > +      * after the fifosize-based capabilities assignment above, so it
+> > +      * isn't clobbered by it.
+> > +      */
+>
+> Is this comment really needed?
+>
+>
+> > +     if (of_property_present(ofdev->dev.of_node, "rts-gpios"))
+>
+> What will change from this now on existing systems?
+>
+> How was this tested?
+>
+> And why was this sent twice?
+>
+> thanks,
+>
+> greg k-h
