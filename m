@@ -1,143 +1,137 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EBEE447207D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:28:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D0C471437
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152111; cv=none; b=dDcKgXYaGe6GI7YdYxUAmgZBsN9XNpreiWPs76/Xgjp+JilbKTmtPCI6DvihzH+5xtfB8hgBV4ZykQ4h0i+87O48OmkMGdqva+DTGq8SRfcg4LPQnV7v2NCuBSa3BajBwqAR02+aLhBI/Sh2t7tY+jqJ/73YGd84srfKwPp6Vv8=
+	t=1790152119; cv=none; b=s/1pcDsZkWTd/+b/X+I7cpNIm00GQxdZ698c0VSelmhSUMwEEqh0UjzfS9fSfQ6Te0iGCrNopwjJHSMFEsJrsdQjTEL5OwivZsBlZYWUjOB+0D+IrvgTL0ErQXZu/SAFzFBwxEwml5pHe/r8MWJDrQjFAE7kRyyr/ejWVydwRFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152111; c=relaxed/simple;
-	bh=ZmcWXyE8OSGuPHUEtqU5eUiWHkkA6mdXQ9j6oCOCq/o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pT4d5+8E94waFoTofUrHf2MIKmysGBORVhcLkTVclva5ezV1fJRsSKcWujf1nO1vorgAM6nUvWY7fCDcqhdi9wVC4IsyIDE+2wtc71QxIRvr+6WIJNB9jEailzd50UwpENGuSGU+QmsEJB8K4FPfgDwBt+1ty5b0zDyf3vd+58Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn; spf=pass smtp.mailfrom=phytium.com.cn; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
-Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
-	by hzbj-icmmx-7 (Coremail) with UTF8SMTP id AQAAfwCHjcGpjbNqKovbAA--.31110S2;
-	Wed, 23 Sep 2026 16:28:25 +0800 (CST)
-Received: from WIN-B62RPRBL2BM.localdomain (unknown [218.76.62.144])
-	by mail (Coremail) with SMTP id AQAAf8DwSnOijbNq5NjbAA--.47885S3;
-	Wed, 23 Sep 2026 16:28:18 +0800 (CST)
-From: Zhu Ling <zhuling2709@phytium.com.cn>
-To: maz@kernel.org,
-	tglx@kernel.org
-Cc: radu@rendec.net,
-	zenghui.yu@linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Zhu Ling <zhuling2709@phytium.com.cn>
-Subject: [PATCH v3] irqchip/gic: Fix UBSAN shift-out-of-bounds in GIC helpers
-Date: Wed, 23 Sep 2026 16:28:04 +0800
-Message-ID: <20260923082804.13197-1-zhuling2709@phytium.com.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6b668efe-ef7a-474a-957c-893755ebba46@linux.dev>
-References: <6b668efe-ef7a-474a-957c-893755ebba46@linux.dev>
+	s=arc-20240116; t=1790152119; c=relaxed/simple;
+	bh=YRCLV58be6NjW8OlZzqG/rK3JAZ9VTl86comdCqpr7A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=fNu1W9OmusOvdsOgAFM1I1iURxQfhWhuRBzbJU9upZfrRk/8Moav+AroHCQsPBY74lq0Aqvj4VN/RPBsJlym7DdZAgCwaBgIp/xxs2davyaB1FKUHX/iYyWI2HW5mg/NVRzjIyp8CqA3KVT7l5OQzMvE/yzTc/yYB3xxdMVs5I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=bZte0lkp; arc=none smtp.client-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="bZte0lkp"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=9oVka1MTkYLJyYEXxEVGc8usytEu4OISAfUOoUqqfxE=;
+	b=bZte0lkp3UMXEL24UQm0EdyQHRIFnrEo7BU8EDhLthwSY2Zwgew3HwIqZSfZQDTG+143l4ypW
+	tAzcGu1hqwVJc+yh7PHipuiJ+cGPObrwvDaQmzJZO1PRMWl6Lw1XvhNmTbolpAfErEMS2n9N93b
+	pFCyMEdNm6KGcM4/sOTY1LY=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hqVD75nCXzLlTm;
+	Wed, 23 Sep 2026 16:16:23 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 2FC4C40561;
+	Wed, 23 Sep 2026 16:28:29 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 23 Sep 2026 16:28:28 +0800
+Message-ID: <40c729ba-8df0-4ec4-9987-e4096106e968@huawei.com>
+Date: Wed, 23 Sep 2026 16:28:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 01/14] arm64: ptrace: Fix redundant syscall exit stop
+ for PTRACE_SYSEMU_SINGLESTEP
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<oleg@redhat.com>, <kees@kernel.org>, <luto@amacapital.net>,
+	<wad@chromium.org>, <peterz@infradead.org>, <ada.coupriediaz@arm.com>,
+	<linusw@kernel.org>, <yeoreum.yun@arm.com>, <kevin.brodsky@arm.com>,
+	<anshuman.khandual@arm.com>, <james.morse@arm.com>, <thuth@redhat.com>,
+	<vladimir.murzin@arm.com>, <tglx@kernel.org>, <broonie@kernel.org>,
+	<liqiang01@kylinos.cn>, <ryan.roberts@arm.com>, <pengcan@kylinos.cn>,
+	<kmehltretter@gmail.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260922035510.1090299-1-ruanjinjie@huawei.com>
+ <20260922035510.1090299-2-ruanjinjie@huawei.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260922035510.1090299-2-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:AQAAf8DwSnOijbNq5NjbAA--.47885S3
-X-CM-SenderInfo: x2kxzxlqjsliuz6sx5pwlxzhxfrphubq/1tbiAQAHAWqy10oDhAAAsF
-Authentication-Results: hzbj-icmmx-7; spf=neutral smtp.mail=zhuling270
-	9@phytium.com.cn;
-X-Coremail-Antispam: 1Uk129KBjvJXoWxXrWxKw45Gr1kXrW8uFW5GFg_yoW5tryxpF
-	W5J34Iyr4Iy3WjgF4DCF1DZry5t3ZakrZFkrWxJasxZry5Gas5Aayavr9aq3WqqrZrCa45
-	Cw4aqF1Uu3WUAFDanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvTs0mT0YCTnIWj
-	DUYxn0WfASr-VFAU7a7-sFnT9fnUUIcSsGvfJ3UbIYCTnIWIevJa73UjIFyTuYvj4RJUUU
-	UUUUU
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-When running with UBSAN enabled, enabling a GPIO controller that uses a
-GIC interrupt as its parent triggers several shift-out-of-bounds warnings:
+Will fix the pseudo-singlestep problem as sashiko pointed as below.
 
-  shift-out-of-bounds in drivers/irqchip/irq-gic-common.c:50:21
-  left shift of 2 by 30 places cannot be represented in type 'int'
+https://sashiko.dev/#/patchset/20260922035510.1090299-1-ruanjinjie%40huawei.com
 
-Similar reports are emitted from gic_poke_irq() and gic_peek_irq() in
-drivers/irqchip/irq-gic-v3.c. The corresponding GICv2 helpers use the
-same signed-shift pattern. These masks are generated by shifting signed
-integer constants, which invokes undefined behavior when bit 31 is
-selected.
+在 2026/9/22 11:54, Jinjie Ruan 写道:
+> PTRACE_SYSEMU_SINGLESTEP sets both _TIF_SYSCALL_EMU and _TIF_SINGLESTEP.
+> arm64 currently reports a syscall exit stop whenever _TIF_SINGLESTEP is
+> set, regardless of emulation state.
+> 
+> This violates the ptrace man page (Syscall-stops section):
+> 
+> 	"If the tracee was restarted by PTRACE_SYSCALL or PTRACE_SYSEMU,
+> 	the tracee enters syscall-enter-stop just prior to entering any
+> 	system call (which will not be executed if the restart was using
+> 	PTRACE_SYSEMU, regardless of any change made to registers at this
+> 	point or how the tracee is restarted after this stop). ...
+> 	If the tracee is continued using any other method (including
+> 	PTRACE_SYSEMU), no syscall-exit-stop occurs. Note that all mentions
+> 	PTRACE_SYSEMU apply equally to PTRACE_SYSEMU_SINGLESTEP."
+> 
+> Fix by introducing report_single_step(), which returns false when
+> _TIF_SYSCALL_EMU is set, skipping the redundant exit stop.
+> 
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: Oleg Nesterov <oleg@redhat.com>
+> Fixes: ac2081cdc4d9 ("arm64: ptrace: Consistently use pseudo-singlestep exceptions")
+> Reviewed-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+> Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> ---
+>  arch/arm64/kernel/ptrace.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
+> index f743cbec1c3a..96462de75d4b 100644
+> --- a/arch/arm64/kernel/ptrace.c
+> +++ b/arch/arm64/kernel/ptrace.c
+> @@ -2482,16 +2482,26 @@ int syscall_trace_enter(struct pt_regs *regs)
+>  	return regs->syscallno;
+>  }
+>  
+> +static inline bool report_single_step(unsigned long flags)
+> +{
+> +	if (flags & _TIF_SYSCALL_EMU)
+> +		return false;
+> +
+> +	return flags & _TIF_SINGLESTEP;
+> +}
+> +
+>  void syscall_trace_exit(struct pt_regs *regs)
+>  {
+>  	unsigned long flags = read_thread_flags();
+> +	bool step;
+>  
+>  	audit_syscall_exit(regs);
+>  
+>  	if (flags & _TIF_SYSCALL_TRACEPOINT)
+>  		trace_sys_exit(regs, syscall_get_return_value(current, regs));
+>  
+> -	if (flags & (_TIF_SYSCALL_TRACE | _TIF_SINGLESTEP))
+> +	step = report_single_step(flags);
+> +	if (step || flags & _TIF_SYSCALL_TRACE)
+>  		report_syscall_exit(regs);
+>  
+>  	rseq_syscall(regs);
 
-Use BIT() to generate the masks with an unsigned type and make their
-intent explicit.
-
-Signed-off-by: Zhu Ling <zhuling2709@phytium.com.cn>
----
-Changes in v3:
-- Fix the same issue in the GICv2 gic_poke_irq() and gic_peek_irq()
-  helpers, as pointed out by Zenghui.
-
-Changes in v2:
-- Use BIT() instead of explicit unsigned shifts, as suggested by Marc.
-- Drop the redundant introductory text from the email.
-- Update the author email address.
-
-Link: https://lore.kernel.org/r/2fJDwUUYdEf2_eaRa041L9xkT8RkSWFeo7euOnqMbbPhUatLlEaAvGfB6sOspDmXaxO87Eh7bQLV9UolyjbMtZBT1wB2UGypjPOo0Z-RC0Q=@proton.me
----
- drivers/irqchip/irq-gic-common.c | 2 +-
- drivers/irqchip/irq-gic-v3.c     | 4 ++--
- drivers/irqchip/irq-gic.c        | 4 ++--
- 3 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/irqchip/irq-gic-common.c b/drivers/irqchip/irq-gic-common.c
-index c776f9142610..8bd1eaa54295 100644
---- a/drivers/irqchip/irq-gic-common.c
-+++ b/drivers/irqchip/irq-gic-common.c
-@@ -48,7 +48,7 @@ void gic_enable_quirks(u32 iidr, const struct gic_quirk *quirks,
- int gic_configure_irq(unsigned int irq, unsigned int type,
- 		       void __iomem *base)
- {
--	u32 confmask = 0x2 << ((irq % 16) * 2);
-+	u32 confmask = BIT(((irq % 16) * 2) + 1);
- 	u32 confoff = (irq / 16) * 4;
- 	u32 val, oldval;
- 	int ret = 0;
-diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-index 6e1fa5b247fc..15110d47ddb0 100644
---- a/drivers/irqchip/irq-gic-v3.c
-+++ b/drivers/irqchip/irq-gic-v3.c
-@@ -457,7 +457,7 @@ static int gic_peek_irq(struct irq_data *d, u32 offset)
- 	u32 index, mask;
- 
- 	offset = convert_offset_index(d, offset, &index);
--	mask = 1 << (index % 32);
-+	mask = BIT(index % 32);
- 
- 	if (gic_irq_in_rdist(d))
- 		base = gic_data_rdist_sgi_base();
-@@ -473,7 +473,7 @@ static void gic_poke_irq(struct irq_data *d, u32 offset)
- 	u32 index, mask;
- 
- 	offset = convert_offset_index(d, offset, &index);
--	mask = 1 << (index % 32);
-+	mask = BIT(index % 32);
- 
- 	if (gic_irq_in_rdist(d))
- 		base = gic_data_rdist_sgi_base();
-diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
-index f6bc29f515fb..fb7a55f5b394 100644
---- a/drivers/irqchip/irq-gic.c
-+++ b/drivers/irqchip/irq-gic.c
-@@ -178,14 +178,14 @@ static inline bool cascading_gic_irq(struct irq_data *d)
-  */
- static void gic_poke_irq(struct irq_data *d, u32 offset)
- {
--	u32 mask = 1 << (irqd_to_hwirq(d) % 32);
-+	u32 mask = BIT(irqd_to_hwirq(d) % 32);
- 
- 	writel_relaxed(mask, gic_dist_base(d) + offset + (irqd_to_hwirq(d) / 32) * 4);
- }
- 
- static int gic_peek_irq(struct irq_data *d, u32 offset)
- {
--	u32 mask = 1 << (irqd_to_hwirq(d) % 32);
-+	u32 mask = BIT(irqd_to_hwirq(d) % 32);
- 
- 	return !!(readl_relaxed(gic_dist_base(d) + offset + (irqd_to_hwirq(d) / 32) * 4) & mask);
- }
 -- 
-2.43.0
+Best regards,
+Jinjie
 
