@@ -1,56 +1,56 @@
 Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A4B1522F0F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:14:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1404E77EF
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:14:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187275; cv=none; b=eFXxVcnrTQsvINlXc2bFAGrgO8eomV6qcfkaGxRjuOhd6UrhA2P2Co1vzDvjFsnIuqha4a8hSZCIL2TD2gktZ7Qo5hk1QdjaJENihQpalUXNoX0RgvXMujhcWmdfpH3TwF+9f/Iq6EWw+5F/54FN7T9DqQ1IWt24u1gmU27LggE=
+	t=1790187288; cv=none; b=qL+5RmcvICYUKzhPO3G0qXc3++QW2ZU+pWgGrm+nRlmJ3w6RLw3QvKV5U4TO8v5svJeNp4vDaDM78urvyz9XNvrVOxP7QbnCEmRwJsoGaieH1EeogaFsOZNtxipBMzsplAja/UdXZb7Hnkv9AhUs0mXulEfs6+G24Wc1gGA9Gb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187275; c=relaxed/simple;
-	bh=/BxuMm0UcVb0A145X/jIhYElf1ayahADT/dRWCXXP4w=;
+	s=arc-20240116; t=1790187288; c=relaxed/simple;
+	bh=8XIaRrxZy/o7eJC6ehfY2haOlAh2xXoszY8sZR5v/zY=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=FRfqEzMFMDTga+3kzvAt26CSvSj5ILU++HPk7rIY0xtlBUIVWfDHkASNhi2sMB9nl0HUI706eWHAfoARENi3wMU3b91owKtYM6oL5uiMh0kkUl0cOSHp1lyukGx5VVPsxIT43PizkbVVS8Zc1K4lSx2sF8wjGsWj+CcDB+DBQVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Dir45VQ4; arc=none smtp.client-ip=74.125.82.71
+	 To:Cc:Content-Type; b=lAPTkgrqfNTTuWz17sL/+CPsXKZbRibtj+JytcACSGvdClugK+I9zJNgA/GWd5FAGAZhExDeQbhcnla/5qy1eDjNIpMCy1zD/C+papbccNQ2cLF72zTjkNjQX/creppj63C2ZOeQ1nckLmn4hSbYmuQSV5L/yzBkIoxVI6ryhjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=psRmKrGk; arc=none smtp.client-ip=74.125.82.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Dir45VQ4"
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-139b62317d0so332725c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:14:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="psRmKrGk"
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-14383177746so2651368c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:14:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790187254; x=1790792054; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790187277; x=1790792077; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Plv4qE5jtOJTQdkdOSuzOHoGPbuzUrB67J3w3vGM39Y=;
-        b=Dir45VQ4ghwTokiB5sEqNL6g9cymseF20JG3icnbpwWG4aSleQClOzbG0kDnad4LrP
-         PVSjge67z9c1/mTYEJXNd1Cj6/Wt5qkM9IsFR3hmdZl9nBy8KJMY6CYIpkew5Qtc7Nnk
-         Ij7fSX6z3JnGO5hDH2qybDO14/e6wKhCHrfgeyDQkFOPNIiRnyGb7SbBxwSaRmrPnN3h
-         AlseDmrxwSTffU5cAAC8K92B8xNnoYdv/JUGOP1a5ibTFQHL35ccWBdCc4vUYE+vNfzB
-         D1SQgGxDeVHjFwiUJKQmx6XB42UA6VderFdRph0BJW8sLtw9de39YkjGzLZlQB3kpdve
-         yAAQ==
+        bh=1ERAE4xDHfx1Qx4kvlPl8ZVdiATuUJKf6O+/6VV1f7E=;
+        b=psRmKrGkyQwa0MfrTqPMWgW2UD0WJVXbDFi2IWuQV/eg6vC0d09EF0rRxd1bbA4UHs
+         5FEj5CMIhEOuNqe347e+lshNs4mANKUueRJ5D+/ggg8dyCzsHTdwO3+pM3SnEdBaSTN5
+         I38S98YZzk1PraV9rKP0WseprV45s7H/LSHLk5GhvXw7CF35fWgAza15u/YeNpJASjN3
+         UtVcD63Tuh9CgE8CjKxHzlhhuLvfwNDyCpyXSrTrNU3s6yqimtTiUbwhnWQ3hLxXlFN1
+         sdsrFkPkcGBdggbicLmVWwj8t/QqTtkLA7E81gJ8m2+tpPUgSRr/CcSX2jstSS8PrHrZ
+         ABBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187254; x=1790792054;
+        d=1e100.net; s=20260707; t=1790187277; x=1790792077;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Plv4qE5jtOJTQdkdOSuzOHoGPbuzUrB67J3w3vGM39Y=;
-        b=soJ5/vTb6FKYpeH719H1SdJl9LliExpOHwvD7ogXAAk3P9DPaZYneWxFH/1wc6zxFL
-         tBaYf18snn9CJwYHn3f9sJz5mDVJhA9S2w5cHsbFnFYJtapxwdTDAX0SbXhplf/6CevR
-         HyIYgx6vCXhqZTOLqd5bdn6YEbc9F+iGlwu7TxHye7TJHl4higKAfVPsCDWNTV4QZNz3
-         unEt0PYcxdJEIT4O2iOhHYt2cVGiAoTOBMDsZLBduYJLibAjXjq1Vk9wFZ27qS3vD24K
-         xxpY0PV22KgLiStmqcWoE8fwcM4PBMceBkx5E8gnRAKe9F10pryqj5Jpz52+N7AeQvDk
-         yfvw==
-X-Forwarded-Encrypted: i=1; AKwUvBxQdN1YhmpwOO0BMVdP5Z8W9nctpWTreFuqfGT4NouFP3cBK1iwaZthARAETxOjDapKRyKUtB2seV56xRc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nV2uVsl4DjAPoWDHb+ZnpmZnkJsfjuczZ4BdCywxz+E3Ec27BD
-	W/24VA0lJKzVtVTrv58eI4MhEfonPWvIVLlVVR9rgRI92hvoArSj4H3sYIzptDrRSwZlgxk3Yuf
-	ABBSXXQPUYA==
-X-Received: from dlag14.prod.google.com ([2002:a05:701b:250e:b0:143:77d0:b6d4])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:205b:10b0:143:7330:7fbc
- with SMTP id a92af1059eb24-144f90e8af0mr3344012c88.21.1790187253821; Wed, 23
- Sep 2026 11:14:13 -0700 (PDT)
-Date: Wed, 23 Sep 2026 11:11:50 -0700
+        bh=1ERAE4xDHfx1Qx4kvlPl8ZVdiATuUJKf6O+/6VV1f7E=;
+        b=rOh0Cm6ppqInvRHE42iiHDWq8+h0tq1SYpoM0YtS2NsRu/zty+QtOSX7410Nntftt1
+         Ww8yMttzs4JyitQKGTdNYFJb8XiwbykEK0t9m9SkqzNg/AdY7pSqULh7neRF7wL/vTvn
+         ffqd2XNQx/qh6Lw+h8rZ2PDa7jA40aihWvYWkf4uDxsXSVuIK9rPt5lCoNbYwCscTACn
+         3OXw1svdYuLHN0FOTlmZAB3qqL+xgjB9wfZlLHWadZqagXHqn/bqd7MPycO7Y/OlgKwC
+         dOr+iQLteN3VUxlR2WJl5zii1Q9eNR7GvON5PqpqQJgcx07NZq0piZEUJ2VihUbGULSJ
+         i83A==
+X-Forwarded-Encrypted: i=1; AKwUvBzRx/sBVbAWGQWggsGBVHIfhFQWRsOJYtIpqEmy6KvHFSNj1F8OZVms7Mfk2kZQ341UbHfKSmG55aWhlIM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nD//9syy/3dMiGTs0f9DfuPVUvl15p7FpfiHE3qtfW3GytriHV
+	L48VK0gT+T9kz/VuJ1Q6T7/5EztxIsWS6EZKHJDr0hOvFlBoJi2ucqUDjsnJxXp5yt0CQIu2DIW
+	4+zxme6Hbug==
+X-Received: from dlec1-n1.prod.google.com ([2002:a05:701b:4281:10b0:143:83fd:ad8a])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4244:10b0:144:c112:5f24
+ with SMTP id a92af1059eb24-144f91794e8mr3544226c88.25.1790187276718; Wed, 23
+ Sep 2026 11:14:36 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:11:56 -0700
 In-Reply-To: <20260923181213.3032038-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789966896.git.irogers@google.com> <20260923181213.3032038-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260923181213.3032038-28-irogers@google.com>
-Subject: [PATCH v3 27/49] perf python: Port rw-by-file from Perl to perf module
+Message-ID: <20260923181213.3032038-34-irogers@google.com>
+Subject: [PATCH v3 33/49] perf python: Port wakeup-latency from Perl to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	namhyung@kernel.org
@@ -71,38 +71,42 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Replace the legacy Perl script rw-by-file.pl with a standalone Python
-script in tools/perf/python/rw-by-file.py using the perf Python module.
+Replace the legacy Perl script wakeup-latency.pl with a standalone
+Python script in tools/perf/python/wakeup-latency.py using the perf
+Python module.
 
 Improvements compared to the legacy Perl script:
 - Remove the dependency on libperl and Perf::Trace::Util.
-- Encapsulate per-file-descriptor read/write byte and call count
-  aggregation in an RwByFile class using perf.session and resolve thread
-  command names via session.find_thread(pid, sample_tid).
-- Add argparse CLI support (-i/--input and target program filter) and
-  full type annotations.
+- Track wakeup timestamps per-task (keyed by the wakee PID on
+  sched:sched_wakeup and matched against next_pid on sched:sched_switch)
+  rather than per-CPU, avoiding mixed latencies when multiple wakeups
+  occur on a CPU before a context switch.
+- Guard print_totals() when total_wakeups == 0 (printing 'N/A' instead
+  of dividing by zero when a trace contains no matched wakeup/switch
+  pairs).
+- Add argparse CLI options (-i/--input) and full type annotations.
 
 Add a shell test
-(test_rw_by_file_python.sh) to verify the standalone script.
+(test_wakeup_latency_python.sh) to verify the standalone script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/rw-by-file.py               | 113 ++++++++++++++++++
- .../tests/shell/test_rw_by_file_python.sh     |  68 +++++++++++
- 2 files changed, 181 insertions(+)
- create mode 100755 tools/perf/python/rw-by-file.py
- create mode 100755 tools/perf/tests/shell/test_rw_by_file_python.sh
+ tools/perf/python/wakeup-latency.py           | 103 ++++++++++++++++++
+ .../tests/shell/test_wakeup_latency_python.sh |  82 ++++++++++++++
+ 2 files changed, 185 insertions(+)
+ create mode 100755 tools/perf/python/wakeup-latency.py
+ create mode 100755 tools/perf/tests/shell/test_wakeup_latency_python.sh
 
-diff --git a/tools/perf/python/rw-by-file.py b/tools/perf/python/rw-by-file.py
+diff --git a/tools/perf/python/wakeup-latency.py b/tools/perf/python/wakeup-latency.py
 new file mode 100755
-index 000000000000..b33330261606
+index 000000000000..f77045d02734
 --- /dev/null
-+++ b/tools/perf/python/rw-by-file.py
-@@ -0,0 +1,113 @@
++++ b/tools/perf/python/wakeup-latency.py
+@@ -0,0 +1,103 @@
 +#!/usr/bin/env python3
 +# SPDX-License-Identifier: GPL-2.0-only
-+"""Display r/w activity for files read/written to for a given program."""
++"""Display avg/min/max wakeup latency."""
 +from __future__ import annotations
 +
 +import argparse
@@ -111,16 +115,14 @@ index 000000000000..b33330261606
 +from typing import Optional, Dict
 +import perf
 +
-+class RwByFile:
-+    """Tracks and displays read/write activity by file descriptor."""
-+    def __init__(self, comm: str) -> None:
-+        self.for_comm = comm
-+        self.reads: Dict[int, Dict[str, int]] = defaultdict(
-+            lambda: {"bytes_requested": 0, "total_reads": 0}
-+        )
-+        self.writes: Dict[int, Dict[str, int]] = defaultdict(
-+            lambda: {"bytes_written": 0, "total_writes": 0}
-+        )
++class WakeupLatency:
++    """Tracks and displays wakeup latency statistics."""
++    def __init__(self) -> None:
++        self.last_wakeup: Dict[int, int] = defaultdict(int)
++        self.max_wakeup_latency: int = 0
++        self.min_wakeup_latency: Optional[int] = None
++        self.total_wakeup_latency = 0
++        self.total_wakeups = 0
 +        self.unhandled: Dict[str, int] = defaultdict(int)
 +        self.session: Optional[perf.session] = None
 +
@@ -129,55 +131,46 @@ index 000000000000..b33330261606
 +        event_name = str(sample.evsel)
 +        if event_name.startswith("evsel(") and event_name.endswith(")"):
 +            event_name = event_name[6:-1]
-+        event_name = "".join(c if c.isprintable() else "?" for c in event_name)
++        sample_time = sample.sample_time
 +
-+        pid = sample.sample_pid
-+        assert self.session is not None
-+        try:
-+            thread = self.session.find_thread(pid, sample.sample_tid)
-+            comm = (thread.comm() if thread else None) or "unknown"
-+        except (TypeError, AttributeError):
-+            comm = "unknown"
-+
-+        if comm != self.for_comm:
-+            return
-+
-+        if event_name == "syscalls:sys_enter_read":
++        if "sched:sched_wakeup" in event_name:
 +            try:
-+                fd = sample.fd
-+                count = sample.count
-+                self.reads[fd]["bytes_requested"] += count
-+                self.reads[fd]["total_reads"] += 1
++                pid = sample.pid
++                self.last_wakeup[pid] = sample_time
 +            except AttributeError:
 +                self.unhandled[event_name] += 1
-+        elif event_name == "syscalls:sys_enter_write":
++        elif "sched:sched_switch" in event_name:
 +            try:
-+                fd = sample.fd
-+                count = sample.count
-+                self.writes[fd]["bytes_written"] += count
-+                self.writes[fd]["total_writes"] += 1
++                next_pid = sample.next_pid
++                wakeup_ts = self.last_wakeup.get(next_pid, 0)
++                if wakeup_ts:
++                    latency = sample_time - wakeup_ts
++                    self.max_wakeup_latency = max(self.max_wakeup_latency, latency)
++                    if self.min_wakeup_latency is None:
++                        self.min_wakeup_latency = latency
++                    else:
++                        self.min_wakeup_latency = min(self.min_wakeup_latency, latency)
++                    self.total_wakeup_latency += latency
++                    self.total_wakeups += 1
++                    del self.last_wakeup[next_pid]
 +            except AttributeError:
 +                self.unhandled[event_name] += 1
 +        else:
 +            self.unhandled[event_name] += 1
 +
 +    def print_totals(self) -> None:
-+        """Print summary tables."""
-+        print(f"file read counts for {self.for_comm}:\n")
-+        print(f"{'fd':>6s}  {'# reads':>10s}  {'bytes_requested':>15s}")
-+        print(f"{'-'*6}  {'-'*10}  {'-'*15}")
-+
-+        for fd, data in sorted(self.reads.items(),
-+                               key=lambda kv: kv[1]["bytes_requested"], reverse=True):
-+            print(f"{fd:6d}  {data['total_reads']:10d}  {data['bytes_requested']:15d}")
-+
-+        print(f"\nfile write counts for {self.for_comm}:\n")
-+        print(f"{'fd':>6s}  {'# writes':>10s}  {'bytes_written':>15s}")
-+        print(f"{'-'*6}  {'-'*10}  {'-'*15}")
-+
-+        for fd, data in sorted(self.writes.items(),
-+                               key=lambda kv: kv[1]["bytes_written"], reverse=True):
-+            print(f"{fd:6d}  {data['total_writes']:10d}  {data['bytes_written']:15d}")
++        """Print summary statistics."""
++        print("wakeup_latency stats:\n")
++        print(f"total_wakeups: {self.total_wakeups}")
++        if self.total_wakeups:
++            avg = self.total_wakeup_latency // self.total_wakeups
++            print(f"avg_wakeup_latency (ns): {avg}")
++            print(f"min_wakeup_latency (ns): {self.min_wakeup_latency}")
++            print(f"max_wakeup_latency (ns): {self.max_wakeup_latency}")
++        else:
++            print("avg_wakeup_latency (ns): N/A")
++            print("min_wakeup_latency (ns): N/A")
++            print("max_wakeup_latency (ns): N/A")
 +
 +        if self.unhandled:
 +            print("\nunhandled events:\n")
@@ -191,20 +184,21 @@ index 000000000000..b33330261606
 +        self.session = perf.session(perf.data(input_file), sample=self.process_event)
 +        try:
 +            self.session.process_events()
++        except KeyboardInterrupt:
++            pass
 +        finally:
-+            # Break the reference cycle between perf.session and self.process_event
-+            # because perf.session lacks cyclic GC support (tp_traverse).
++            # Break the reference cycle between self.session and the bound
++            # self.process_event callback so the C perf.session object is freed.
 +            self.session = None
 +        self.print_totals()
 +
 +def main() -> None:
 +    """Main function."""
-+    parser = argparse.ArgumentParser(description="Trace r/w activity by file")
-+    parser.add_argument("comm", help="Filter by command name")
++    parser = argparse.ArgumentParser(description="Trace wakeup latency")
 +    parser.add_argument("-i", "--input", default="perf.data", help="Input file")
 +    args = parser.parse_args()
 +
-+    analyzer = RwByFile(args.comm)
++    analyzer = WakeupLatency()
 +    try:
 +        analyzer.run(args.input)
 +    except IOError as e:
@@ -213,15 +207,15 @@ index 000000000000..b33330261606
 +
 +if __name__ == "__main__":
 +    main()
-diff --git a/tools/perf/tests/shell/test_rw_by_file_python.sh b/tools/perf/tests/shell/test_rw_by_file_python.sh
+diff --git a/tools/perf/tests/shell/test_wakeup_latency_python.sh b/tools/perf/tests/shell/test_wakeup_latency_python.sh
 new file mode 100755
-index 000000000000..98218bf8a39e
+index 000000000000..fc39ac117609
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_rw_by_file_python.sh
-@@ -0,0 +1,68 @@
++++ b/tools/perf/tests/shell/test_wakeup_latency_python.sh
+@@ -0,0 +1,82 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# rw-by-file python test
++# wakeup-latency python test
 +
 +set -e
 +
@@ -234,36 +228,41 @@ index 000000000000..98218bf8a39e
 +	exit 2
 +fi
 +
-+script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/rw-by-file.py"
-+
-+if ! perf check feature -q libtraceevent > /dev/null 2>&1; then
++if ! perf check feature -q libtraceevent; then
 +	echo "Skipping test, libtraceevent is disabled"
 +	exit 2
 +fi
 +
++script_dir="$(dirname "$0")/../../python"
++script_path="${script_dir}/wakeup-latency.py"
++
 +if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, rw-by-file.py not found at $script_path"
++	echo "Skipping test, wakeup-latency.py not found at $script_path"
 +	exit 2
 +fi
 +
 +err=0
++temp_data=""
++temp_out=""
++
 +cleanup() {
 +	rm -f "${temp_data}" "${temp_out}"
 +}
 +trap 'cleanup' EXIT TERM INT
++
 +temp_data=$(mktemp /tmp/perf.data.XXXXXX)
 +temp_out=$(mktemp /tmp/perf.out.XXXXXX)
 +
-+echo "Testing rw-by-file.py..."
++echo "Testing wakeup-latency.py..."
 +
 +# Create a perf.data file. Try to get tracepoint data.
-+if perf list | grep -q "syscalls:sys_enter_read"; then
-+	perf record -e syscalls:sys_enter_read,syscalls:sys_enter_write -a -o "${temp_data}" \
-+		-- dd if=/dev/urandom of=/dev/null bs=1M count=10 >/dev/null 2>&1 || \
++if perf list | grep -q "sched:sched_wakeup"; then
++	ev="sched:sched_wakeup,sched:sched_wakeup_new,sched:sched_switch"
++	perf record -e "$ev" -a -o "${temp_data}" \
++		-- sleep 0.1 >/dev/null 2>&1 || \
 +		{ echo "Skipping test, perf record failed"; exit 2; }
 +else
-+	echo "Skipping test, no syscalls:sys_enter_read event"
++	echo "Skipping test, no sched:sched_wakeup event"
 +	exit 2
 +fi
 +
@@ -272,16 +271,25 @@ index 000000000000..98218bf8a39e
 +	exit 2
 +fi
 +
-+# Check that the script executes - filtering for "dd" since that's what we ran
-+if ! "$PYTHON" "$script_path" -i "${temp_data}" "dd" > "${temp_out}"; then
-+	echo "rw-by-file.py test failed"
++# Check that the script executes
++if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
++	echo "wakeup-latency.py test failed"
 +	err=1
 +else
-+	if ! grep -E -q "^ *[0-9]+" "${temp_out}"; then
++	if ! grep -E -q "avg_wakeup_latency.*[0-9]+" "${temp_out}"; then
 +		echo "Failed to find metric data rows"
 +		err=1
 +	else
-+		echo "rw-by-file test passed."
++		echo "wakeup-latency test passed."
++	fi
++fi
++
++# Also test zero-wakeups / unhandled events path to verify division-by-zero protection
++if perf record -e cycles -o "${temp_data}" -- perf test -w noploop >/dev/null 2>&1; then
++	if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}" || \
++	   ! grep -q "avg_wakeup_latency (ns): N/A" "${temp_out}"; then
++		echo "wakeup-latency zero-wakeups guard test failed"
++		err=1
 +	fi
 +fi
 +rm -f "${temp_out}"
