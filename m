@@ -1,1083 +1,162 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D065326C3
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81E652120D;
+	Wed, 23 Sep 2026 18:30:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188211; cv=none; b=gbadSHtmfyxoHDLeecJw7MUYa07XUYGTjoQhnBMdwyIGW3rAe0e5mrOJ5pK7AyorOMSiezMpHs03cSw1Vp69eKfhuBJGISJ7pSkzcsoO5TTTwbNqZ/uc/Y42YtBGsAx9C4s6q9tEQzAROzBlA6OwRdJvhIZfx0/J0fxCyQ/qnFw=
+	t=1790188218; cv=none; b=fcVslyhJABc2LaATZidxmNUYx4YFvlTrV6RGavVdZyzCu66394QSh78NUcLfRvJSB5ah+r6LeETTIckU9KJWbe3GgciJh+rqw93W5IL8OG9YDOcpvYBDqb3keQcJcoJ0qXaJeCT79/VCVMEuar+VWqyjh6HXYASpJrA2uZTyMys=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188211; c=relaxed/simple;
-	bh=mtaDzwOOefyyi+FqiqQxrHAqnQQo3gmbQhcZynFjgb4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RrA3B3q1Qal31MkJwc/WcvPVBYiKT3Z95xMZha3XTga9mv82XyfY9DeGSJq46wfGnfGD063w0irOanVlGfuheZSeQStKt5BkORppBCoeAhn1c5/e4VKSSwi+sXugGJ+8ZYCEif/XwgY6iWb4LF/KNvrxxRpT6xYasCrkfVlcxSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZAyROa7n; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790188218; c=relaxed/simple;
+	bh=QrL7s1L07E+hDgPq4jr4STH+66HbgawTnYeKQXBrTSc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nUVwClh8AqMS0+2fOaUcYVx/0QdeLhe7q+NX8iuDY/Jsf3ygdl3OXvSwuNgC5vCdr6MATFd4z/IIRRW58+ZOv9FIvEBIUKSLAWE0pdCNGhLs+A7lX15zXEvhM0GUvfUcpHx6rpvtdSUWlZY8vUdutFy4fLUEDb7hkFQ8697ZA2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=TbA70Nlj; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZAyROa7n"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd5462b69so7219625e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:30:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790188204; x=1790793004; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dt7Z1/Y1SF2YcaDjj8EVKBl0+6gDhUSuvfn56m6J+pU=;
-        b=ZAyROa7nVaxjCoZ6BwbtBRJM5VN+R/Zwb1/2alpN40NFTXdDhMrXo+LCcUwBCIFSB4
-         shsti43jOLPdtWKuZHltHJsvT3ne5CFFiYtedA35KoKVoEUsymG73ufc2m8T7OxCjWtq
-         dk+DerPmu2FVO3u6mU/2W1/dP0wwoEDHPOKGlrta16EZbGfLD1wBrRAyoAX/q7Fp285o
-         gILxLXBY2xNxWP4k0c23tESUS9zXtx9R5nkWVdQodaFzY+4OKCjZChCVs/t+ln6jjhBH
-         ZQPBomaaT1TiOR6IYnq0KzHtWL8rE9TzGh8Hm4EfxXjkZCtCQ6Iui78N2ampPSOXKQ/U
-         6UqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790188204; x=1790793004;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dt7Z1/Y1SF2YcaDjj8EVKBl0+6gDhUSuvfn56m6J+pU=;
-        b=VbZMR9vbUPIxQal+d9qBoote2cI7sUZdssnCCBFBlsdgIgbK5i0S+XXX+lYGi+ZIKK
-         7/r2dNRAkO7RVtac1QLo31Eth9v+YmNJ/nDiKX9D/C0WLpu3LllZXz0zb5xk0GEXBa0O
-         gR3QdUHwBUYrGEaaTaX2ov/fY8ypHSAwJGVXKyNQIdGzyIvK6lRssPG0G9bqGhJbvf/M
-         fyNmrDmnVUIQotX+8Ey/KA++mThaN+MxLy01nuAPcPylAYEsAqIKYUFoa43FhrlfgjE1
-         dYaS9fLQ2VBVoewj2Z6p4qVTvcUARjmSjtT9JiOLK5G3TOdqzV8+CXq4X9xREnl6Z9Y2
-         1Nlg==
-X-Forwarded-Encrypted: i=1; AKwUvBxfItUrnrw9nWhj5JguMxEqWQQa3SV4Jf+b/XaGkZyOohSkTEC98KD4ncAWjWAZbK+BCNMvz/dh5oKEiSs=@vger.kernel.org
-X-Gm-Message-State: AFuF++ludT3+RbUPrQgKZmVeiZyT9/Xfz7UiQg2AzOMLkS4IofxWnqq9
-	bfUdwmYE75SbrPn+1opO9Zj0Rx0bbZwOIC6Ae55YJGhf8SPqITfLBNXusQvF/bVxhv8//w==
-X-Gm-Gg: AYBFou2rghSesaJLqL3Ot0WuAF177QGSgLAueZ9k0RWXEvrioyb0bHMT+Fs1fhcG2P0
-	tsLnEu7LnOqwyGaC1WKVg93Vrgt7vUlo7RoQhJOYzyPAZBtYDFcr6qJbu5Nhwiu+7YzYFr2Tqes
-	uBa5u+oSMxtUY3WpOXpB7Wf/UJKmktwZB5oluZkJyBXTlG5kxOfucrfQyP8aU85VOOOOrKguks1
-	nJvgGhuashB1mlgu2yV4U+WWfI04sXMEqQr+VVqhbvtIBZG4rAF+OOA5/9qYIQlFudFcgi24EgK
-	7l1/A+z61ZjW9HVZLcekZe2g8QmJ4eUZRbdRUq/9JZAwvu1uuBCWPqvRLcuULPeksf2tXhzikxN
-	C57X7ZcJWSkBfW8C8LbCBpvuiegtZBM4SaNjmpCfr5haBF69LMmtoH6U984HP3yYcHPEZaWoYPT
-	MlE7gndhK++jER2w4sE2rx1a1M6KDC91uvySjEQvNHaoSRBXxHfqW5foo54k0gSLQ81OcVg+xZ6
-	A2v
-X-Received: by 2002:a05:600c:4e86:b0:49f:bc0d:2e9 with SMTP id 5b1f17b1804b1-49fe668419dmr1924855e9.0.1790188203544;
-        Wed, 23 Sep 2026 11:30:03 -0700 (PDT)
-Received: from [192.168.0.2] ([197.250.51.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd3d5csm4711835e9.14.2026.09.23.11.29.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 11:30:03 -0700 (PDT)
-From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-Date: Wed, 23 Sep 2026 21:28:54 +0300
-Subject: [PATCH v12 08/12] clk: zte: Introduce a driver for zx297520v3 top
- clocks
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="TbA70Nlj"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGZeWh2748809;
+	Wed, 23 Sep 2026 18:30:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=V8FKdjbglwkp6JeUw
+	/gWkGs8RKEryyBfh04FHL13StI=; b=TbA70NljE3q3EtTp6g/Omu+9daTUPCJzA
+	fdl4cCHWmojL2zGYsj4FNawPk8XUlw7nHIErIkkYoI23fQ8gtremtvNx8DQP5dMd
+	vmB6d6hLshi6eTTWslf9Ik9HHy1tPUMLk5jjEWx1i0RhyeIiHilMojarbLDUgsPY
+	Zl088EuOJ5vY0K9ulN83Y/q/oRXL7iVPG3jcherEw9wLCE2kIKNVbRPfkhVc7Ftp
+	kvWAnQ3eSqg21ALFc+BujXB30VWooAa2sNoHAJQOnYdD4iW1olsUJZ79kNw7fpxi
+	/2Zo2BAX7s/Ul3LpgvP21dtDPNA2OEQM3HmNwLdjhScNSmA29wceg==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgqmcbe-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 18:30:04 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGWxfY682244;
+	Wed, 23 Sep 2026 18:30:03 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb6qj9xa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 18:30:03 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NITvxp35062226
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 23 Sep 2026 18:29:58 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id DBAD22004B;
+	Wed, 23 Sep 2026 18:29:57 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id BCD9820043;
+	Wed, 23 Sep 2026 18:29:52 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.83.254])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 23 Sep 2026 18:29:52 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linuxppc-dev@lists.ozlabs.org
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+        christophe.leroy@csgroup.eu, nayna@linux.ibm.com, gjoyce@linux.ibm.com,
+        ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        linux-kernel@vger.kernel.org, rnsastry@linux.ibm.com,
+        ssrish@linux.ibm.com, stable@vger.kernel.org
+Subject: [PATCH 09/12] pseries/plpks: hide wrapping_features when unsupported
+Date: Wed, 23 Sep 2026 23:58:13 +0530
+Message-ID: <20260923182816.151451-10-ssrish@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923182816.151451-1-ssrish@linux.ibm.com>
+References: <20260923182816.151451-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260923-zx29clk-v12-8-9c243796b6d2@gmail.com>
-References: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
-In-Reply-To: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-phy@lists.infradead.org, mfd@lists.linux.dev, 
- =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=43190;
- i=stefandoesinger@gmail.com; h=from:subject:message-id;
- bh=mtaDzwOOefyyi+FqiqQxrHAqnQQo3gmbQhcZynFjgb4=;
- b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBqtBpuPivSLdu/624OG+j3AYflKGL95aQWdpNMh
- ay5g6714LmJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCarQabhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiKO6w/6A73V9ppZUBweYgSArZqtsmzuCdA4FDz
- KqX8rGKBmAfsiV6SxptpKfzpIKENLyBugmocke3xot3zyZViz61K7j8yeVgfJaEaC89xpeyn8b3
- I8STswgpJOv00B+X6ynNKMNro6Y4VoyqzNcVCNRN251XJZAiGQ8oTmupCwnBOSvOvSZ6cBTaBTg
- RWigVP1sfQ4dexUhSR9GJ2kX735eOjg4gi+MNW7a2JiPrpE2G1yTbk0zSSfDgK9T35MHDleGgnG
- Pqy4/Jk5aULiOpPmNnRaTD9iFFVPB94Otn2gTxGDDqlW2sUK6adKZKW7uQmMJNMtde9U/ueloH4
- o0rt8YTxF+RQpfuv0msouKCt/GXDydcAn3ha9qWtYvy2PtxyO6LITHBe9B0gkySw450Geluvrcl
- dfRE5OSfC71Jew6Uf0GBdToBWu+1FtWWHAwN8UIZmyIvMOK5Vk2keGKj+0wJErnnPkpYytvrDX1
- P7cuAQvKTjdvD2xaCbjsDzJTH6QsXIr5OnJWZdoPVVxzx8egFaeJsqWoOm+LaPp4baaFaH14RPH
- 04ddxOlBrCyKbALsNiJVd2C7wIOEW0BzeHz8N0UN7xn84Q/R9iEZl1S+KT2eV0c8tPAaGsuwKhg
- 1kXUijTrfAYRx4m4euQqV2VSlKOaJeTXJhb1rUv1yk366VNXwgCw=
-X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
- fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=G+OJgNk5 c=1 sm=1 tr=0 ts=6ab41aac cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=Lnrgi2ogIeW2OlIaXxgA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA3MiBTYWx0ZWRfX3bUJz79CUo1k
+ kyFllup6jF18G/dmEYgpaVeZRvzeXZ6vOJv+WQC0Tqc0dpX10uRG9JX92yCyMS/YA4cEJU/hKzJ
+ gDDa8j0JW88zlIhLSSx1BTsCFlJfSA/2ws8+5Vc5T7ebplk2guSanx27mzIcTtHAxfIq6Ab6XNi
+ 5dTMCVUSUl7hj2HhE+dlCvbgSXNlDZ8EZkujcRqx+jBLB2Y7szWnQ6IbJ4nrj59Cnow+UxfHVhG
+ bw8KF3ZBM1Mu9TFCaWJ8UwmIQ0sabUkBm7CB9iFU6GtnGASll2ERHUtf9EFNL3sdvNvzhCkqbpL
+ itVbo3FIL6mz9wuUL4O8JowHmm1WPrMBOvpenJsC3LDRFrg3yH8DrIDJzxEYli1H/HWHsyI9zAQ
+ ucz3uKlCRB4PzIpZF4TMZ/+sZCqnDEOZcjylh5QKJX/cdG7+T+TOSDUp4HiOicItWs8bjUjabsy
+ nQblRVECyoCjqVZtiAw==
+X-Proofpoint-ORIG-GUID: QW7iC57hErNGErSPMKJzBhgkoI269dXZ
+X-Proofpoint-GUID: 5eRUMSLeBeUtEqrBrcPgrzQdtvOBZpNp
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA3MiBTYWx0ZWRfX++zTutXSxTlD
+ gbX/etK04WeEwgspq0zA4uyW59/aj9zOU3i0ti4KOzF0hhKK7aFkfRlMRa2vaYt16QtqkwsOP+5
+ tEtoH5mQYh+q6tOwecL7LBgq43lZ7+I=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230072
 
-This register space controls core devices: PLLs, the AHB bus, a lot of
-timers, the USB controller, the Cortex M0 processor that boots the board
-and a few other devices. For some reason the LTE coprocessor is also
-partially controlled by it. The main application processor and DDR
-memory are not found here though.
+The PLPKS wrapping features config is only valid on systems that support
+the "Key Wrapping" feature. Currently the config is always exposed, even
+when the feature is unavailable.
 
-The register to reboot the board is found here, as well as a register to
-control whether watchdog expiries cause a board reset.
+Add an is_visible() callback to suppress the wrapping_features sysfs
+attribute when the "Key Wrapping" feature is not supported. Declare the
+attribute group static const, as it is not modified after initialization.
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
-Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
+Fixes: 447eb1d5ef00 ("pseries/plpks: expose PowerVM wrapping features via the sysfs")
+Cc: stable@vger.kernel.org # 7.0
+Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 ---
+ arch/powerpc/platforms/pseries/plpks-sysfs.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-Version 12:
-Improvements on the GSM and LTE related clocks. The GSM clocks in 0x68
-are exports for yet another clock controller, which in turn feeds a
-Infineon PMB8877 based GSM IP. The SIM card reader is a part of this, so
-it is necessary hardware even if one doesn't care about 2G network
-access. This work also uncovered one of the previously unknown clocks in
-the 0x140 distribution gates.
-
-The LPM_* clocks have osc26m as their parents. I also updated the
-comment a bit to reflect new knowledge I found when poking at LTE
-support.
-
-Version 11:
-Unchanged
-
-@Sashiko: As far as my reverse engineering understanding goes AHB_PCLK
-and AHB_WCLK have the correct parents. With AHB_WCLK gated off either
-directly or via one of its parents, the USB registers are no longer
-readable.
-
-AHB_PCLK on the other hand is clocking whatever hardware is responsible
-for eventually transferring the data from the AHB/M0/USB subsection of
-the board to DDR ram, so clocking AHB_PCLK lower causes lower USB
-transfer speeds. It doesn't affect the USB controller directly though.
-
-Version 9:
-Link internal parents by an (internal) clock ID rather than names.
-
-There should be no difference in the built clock tree compared to
-Version 8.
-
-Version 8:
-Rename the expected clock name of the fixed oscillators to clock-26m and
-clock-32k. Sashiko pointed out that "oscXXm" is deprecated, although
-widespread in existing drivers.
-
-Add a define indirection for the AXI candidate=critical protection.
-While it holds true in a system with running rprocs, I find it useful
-for stress testing the clock tree to disable it.
-
-Double-checked pclk and wclk bits, fixed incorrect assignments in
-register 0x54.
-
-Version 7:
-
-The register at top+0x140 contains a series of gates that control PLL
-input into the top controller and PLL and osc26m work clock forward into
-matrix. This allowed further insight into the clock tree.
-
-The PLL subdivision list was replaced with fixed factor clocks that
-divide PLLs before and after the input gate (and some fixed factor divs
-go into matrix in the next patch). The number of clocks exported to
-Matrix is actually relatively small.
-
-As for Sashiko's suggestion about out of bound parents for dpll and
-unknownpll: I have never seen a parent != 0. If that happens on a device
-I want to know about it. At this stage of development I'd rather have
-clearly visible orphaned clock than silently continuing at an unexpected
-frequency.
-
-"osc26m" -> "clock-26m" as "oscXX", although widespread, is deprecated.
-In doing so, change underscores in clock names to dashes (Sashiko).
-
-Version 5:
-
-*) Make it a MFD child driver instead of binding to the node directly
-*) Correct parents for dpll
-*) Correct HSIC work clock parent
----
- drivers/clk/zte/Kconfig          |  11 +
- drivers/clk/zte/Makefile         |   1 +
- drivers/clk/zte/clk-zx297520v3.c | 846 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 858 insertions(+)
-
-diff --git a/drivers/clk/zte/Kconfig b/drivers/clk/zte/Kconfig
-index 152c2423b8f0..0ccc6edf3c5b 100644
---- a/drivers/clk/zte/Kconfig
-+++ b/drivers/clk/zte/Kconfig
-@@ -15,3 +15,14 @@ config COMMON_CLK_ZTE
- 	  of this.
+diff --git a/arch/powerpc/platforms/pseries/plpks-sysfs.c b/arch/powerpc/platforms/pseries/plpks-sysfs.c
+index c2ebcbb41ae3..f2436229f323 100644
+--- a/arch/powerpc/platforms/pseries/plpks-sysfs.c
++++ b/arch/powerpc/platforms/pseries/plpks-sysfs.c
+@@ -45,6 +45,16 @@ static const struct attribute *config_attrs[] = {
  
- 	  Enable this if you are building a kernel for a ZTE designed board.
-+
-+config CLK_ZTE_ZX297520V3
-+	tristate "Clock driver for ZTE zx297520v3 based SoCs"
-+	depends on COMMON_CLK_ZTE && (MFD_ZTE_ZX297520V3_CRM || COMPILE_TEST)
-+	default SOC_ZX297520V3
-+	help
-+	  This driver supports ZTE zx297520v3 basic clocks.
-+
-+	  Enable this if you want to build a kernel that is able to run on
-+	  boards based on this SoC. You can safely enable multiple clock
-+	  drivers. The one(s) matching the device tree will be used.
-diff --git a/drivers/clk/zte/Makefile b/drivers/clk/zte/Makefile
-index 27db07293165..2c073512e919 100644
---- a/drivers/clk/zte/Makefile
-+++ b/drivers/clk/zte/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
+ static struct kobject *plpks_kobj, *plpks_config_kobj;
  
- obj-$(CONFIG_COMMON_CLK_ZTE) += clk-zte.o
-+obj-$(CONFIG_CLK_ZTE_ZX297520V3) += clk-zx297520v3.o
- 
- clk-zte-y += clk-zx.o pll-zx.o clk-regmap.o
-diff --git a/drivers/clk/zte/clk-zx297520v3.c b/drivers/clk/zte/clk-zx297520v3.c
-new file mode 100644
-index 000000000000..68bfeab84d74
---- /dev/null
-+++ b/drivers/clk/zte/clk-zx297520v3.c
-@@ -0,0 +1,846 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 Stefan Dösinger
-+ *
-+ * There are no public datasheets for zx297520v3. The controls on this clock controller have been
-+ * extracted from ZTE's kernel and U-Boot sources and a LOT of manual testing. Some clocks can be
-+ * found in the power management (evb_cpurpm.img) and LTE (cpko.ko) blobs shipped with the routers.
-+ *
-+ * Because ZTE's sources are wrong or misleading in some parts and testing can be misinterpreted,
-+ * this file contains a LOT of comments on how particular clocks were tested and how the impact of
-+ * changes to them can be observed.
-+ */
-+
-+#include <dt-bindings/clock/zte,zx297520v3-clk.h>
-+#include <linux/errno.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+
-+#include "clk-zx.h"
-+
-+MODULE_IMPORT_NS("ZTE_CLK");
-+
-+/*
-+ * AXI speed is either determined by a fixed selection in matrix+0x0, bits 0:2 or by a voting system
-+ * with ballots in matrix+0x120, 0x124, 0x128. The voting system is enabled by setting matrix 0x12c
-+ * to 1. Otherwise the selection in 0x0 applies.
-+ *
-+ * The fastest selected speed wins. This holds true for values 0 (26 MHz) and 7 (6.5 MHz) too, so it
-+ * isn't a case of lowest selector wins. I haven't tested what happens if mpll is changed to output
-+ * 5x the normal clock, so 7 beats 0. Presumably value 0 would still win the election.
-+ *
-+ * AXI speed 6.5 is a child of matrix-osc26m, not a PLL. This can be seen by gating it off in
-+ * topcrm+0x140.
-+ *
-+ * The system initializes with voting disabled and all preferences set to the lowest setting, 7.
-+ * The zx297520v3_matrix_init function transfers the global mux to our vote and enables voting.
-+ *
-+ * Because rprocs may change their selection without notice, all possible parents of the AXI mux are
-+ * marked critical. This can however obscure bugs in the clock tree. Define ZX297520V3_AXI_CANDIDATE
-+ * to 0 to disable this protection for testing and either not run anything on the rprocs or make
-+ * sure Linux votes for the fastest rate.
-+ */
-+#define ZX297520V3_AXI_CANDIDATE CLK_IS_CRITICAL
-+
-+/*
-+ * Top and matrix clocks are chaotic - I haven't found a consistent pattern behind their register
-+ * and bit locations. Generally there are two gates (pclk, wclk), one mux, two resets and sometimes
-+ * one divider, but exceptions apply. For some devices there is only a reset and some general
-+ * (parent) clocks need setup. This structure plus macro handles the somewhat regular parts.
-+ *
-+ * There are some patterns that can be observed.
-+ * mux 0x3c, div 0x48, gate 0x54
-+ * mux 0x40, div 0x4c, gate 0x5c
-+ * mux 0x44, div 0x50, gate 0x60
-+ *
-+ * For a 0 - 0xc - 0x18 pattern. Muxes from 0x3c to 0x44, dividers from 0x48 to 0x50, gates 0x54 to
-+ * 0x60. The pattern is broken for timer t17 though.
-+ *
-+ * Gates have 4 bits per clock - usually, but not always, bit 0 for wclk, bit 1 for pclk, bit 2 for
-+ * something the ZTE kernel calls "gate" (the bits we use here are called "en"), which presumably
-+ * enables automatic clock gating. Bit 3, if settable, seems unused. E.g. offset 0x54 accepts all
-+ * bits in 0xF77F7F7F - suggesting RTC, I2C0 have an extra gate bit.
-+ *
-+ * The default mpll settings multiply the 26 MHz reference clock times 24. A mux selection of 26 MHz
-+ * could mean using the 26 MHz oscillator directly, or passing it through the PLL and divide by 24.
-+ *
-+ * If a UART is set to mpll-d6 (default 104 MHz), changing the mpll multipliers does affect UART
-+ * timing as it should. This does not happen when the UART is set to 26 MHz input or timers that
-+ * read 26 MHz input. This suggests 26 MHz clocks use the reference clock directly.
-+ *
-+ * The general clock flow on this board goes from osc26m into the PLLs. The PLL output is
-+ * branched into a small number of divided frequencies (mpll, mpll-d4, mpll-d5, mpll-d6, mpll-d8,
-+ * gpll, gpll-d2, gpll-d4) at a high level. These divided frequencies as well as osc26m go
-+ * through a series of gates at offset 0x140 in topcrm. The output of these gates provide wclks for
-+ * everything.
-+ *
-+ * At least 3 of those gate outputs (mpll, dpll, gpll-d2) are further divided behind those gates,
-+ * presumably in the matrix controller. There are multiple paths how 104 and 78 MHz are derived,
-+ * some specific to topcrm (0x140 bits 1 and 4), some specific to matrix (0x140 bit 9). There are
-+ * likely 3 "copies" of the 78 MHz clock and two 50 MHz ones.
-+ *
-+ * Pclk is not gated by the 0x140 gates at all. Likewise osc32k is fed to the timers without
-+ * passing through this gate, even for consumers on matrix/LSP. Topcrm osc26m wclks are not gated
-+ * either, but top-consumed PLL clocks are.
-+ */
-+
-+enum top_clock_ids {
-+	ZX_CLK_MPLL,
-+	ZX_CLK_UPLL,
-+	ZX_CLK_DPLL2,
-+	ZX_CLK_DPLL2_D2,
-+	ZX_CLK_DPLL,
-+	ZX_CLK_GPLL,
-+
-+	ZX_CLK_OSC26M_D2,
-+	ZX_CLK_TOP_MPLL_D2_PREGATE,
-+	ZX_CLK_TOP_MPLL_D4_PREGATE,
-+	ZX_CLK_TOP_MPLL_D5_PREGATE,
-+	ZX_CLK_TOP_MPLL_D6_PREGATE,
-+	ZX_CLK_TOP_MPLL_D8_PREGATE,
-+	ZX_CLK_TOP_UPLL_D12_PREGATE,
-+	ZX_CLK_TOP_GPLL_D2_PREGATE,
-+	ZX_CLK_TOP_GPLL_D4_PREGATE,
-+
-+	ZX_CLK_TOP_MPLL_D2,
-+	ZX_CLK_TOP_MPLL_D8,
-+	ZX_CLK_TOP_MPLL_D6,
-+	ZX_CLK_TOP_MPLL_D4,
-+	ZX_CLK_TOMATRIX_MPLL_D5,
-+	ZX_CLK_TOMATRIX_MPLL,
-+	ZX_CLK_TOMATRIX_DPLL,
-+	ZX_CLK_TOP_UPLL_D12,
-+	ZX_CLK_TOP_UPLL,
-+	ZX_CLK_TOP_GPLL_D4,
-+	ZX_CLK_TOMATRIX_GPLL_D2,
-+	ZX_CLK_TOMATRIX_GPLL,
-+	ZX_CLK_TOMATRIX_OSC26M,
-+
-+	ZX_CLK_TOP_MPLL_D2_D4,
-+	ZX_CLK_TOP_MPLL_D2_D13,
-+	ZX_CLK_TOP_UPLL_D12_D2,
-+	ZX_CLK_TOP_GPLL_D4_D2,
-+
-+	ZX_CLK_M0_MUX,
-+	ZX_CLK_AHB_MUX,
-+	ZX_CLK_TIMER_T08_MUX,
-+	ZX_CLK_TIMER_T09_MUX,
-+	ZX_CLK_TIMER_T12_MUX,
-+	ZX_CLK_TIMER_T13_MUX,
-+	ZX_CLK_TIMER_T14_MUX,
-+	ZX_CLK_TIMER_T15_MUX,
-+	ZX_CLK_TIMER_T16_MUX,
-+	ZX_CLK_TIMER_T17_MUX,
-+	ZX_CLK_WDT_T18_MUX,
-+	ZX_CLK_I2C0_MUX,
-+	ZX_CLK_UART0_MUX,
-+	ZX_CLK_OUT0_MUX,
-+	ZX_CLK_OUT1_MUX,
-+	ZX_CLK_OUT2_MUX,
-+	ZX_CLK_RMIIPHY_MUX,
-+
-+	ZX_CLK_TIMER_T08_DIV,
-+	ZX_CLK_TIMER_T09_DIV,
-+	ZX_CLK_TIMER_T12_DIV,
-+	ZX_CLK_TIMER_T13_DIV,
-+	ZX_CLK_TIMER_T14_DIV,
-+	ZX_CLK_TIMER_T15_DIV,
-+	ZX_CLK_TIMER_T16_DIV,
-+	ZX_CLK_TIMER_T17_DIV,
-+	ZX_CLK_WDT_T18_DIV,
-+	ZX_CLK_USIM1_DIV,
-+
-+	ZX_CLK_AHB_PCLK,
-+	ZX_CLK_AHB_WCLK,
-+	ZX_CLK_SRAM1_PCLK,
-+	ZX_CLK_SRAM2_PCLK,
-+	ZX_CLK_PMM_WCLK,
-+	ZX_CLK_PMM_PCLK,
-+	ZX_CLK_TIMER_T08_WCLK,
-+	ZX_CLK_TIMER_T08_PCLK,
-+	ZX_CLK_TIMER_T09_WCLK,
-+	ZX_CLK_TIMER_T09_PCLK,
-+	ZX_CLK_TIMER_T12_WCLK,
-+	ZX_CLK_TIMER_T12_PCLK,
-+	ZX_CLK_TIMER_T13_WCLK,
-+	ZX_CLK_TIMER_T13_PCLK,
-+	ZX_CLK_TIMER_T14_WCLK,
-+	ZX_CLK_TIMER_T14_PCLK,
-+	ZX_CLK_TIMER_T15_WCLK,
-+	ZX_CLK_TIMER_T15_PCLK,
-+	ZX_CLK_TIMER_T16_WCLK,
-+	ZX_CLK_TIMER_T16_PCLK,
-+	ZX_CLK_TIMER_T17_WCLK,
-+	ZX_CLK_TIMER_T17_PCLK,
-+	ZX_CLK_WDT_T18_WCLK,
-+	ZX_CLK_WDT_T18_PCLK,
-+	ZX_CLK_I2C0_WCLK,
-+	ZX_CLK_I2C0_PCLK,
-+	ZX_CLK_UART0_WCLK,
-+	ZX_CLK_UART0_PCLK,
-+	ZX_CLK_USB_WCLK,
-+	ZX_CLK_USB_PCLK,
-+	ZX_CLK_HSIC_WCLK,
-+	ZX_CLK_HSIC_PCLK,
-+	ZX_CLK_RTC_WCLK,
-+	ZX_CLK_RTC_PCLK,
-+	ZX_CLK_USIM1_WCLK,
-+	ZX_CLK_USIM1_PCLK,
-+	ZX_CLK_LPM_GSM_WCLK,
-+	ZX_CLK_LPM_GSM_PCLK,
-+	ZX_CLK_LPM_LTE_WCLK,
-+	ZX_CLK_LPM_LTE_PCLK,
-+	ZX_CLK_LPM_TD_WCLK,
-+	ZX_CLK_LPM_TD_PCLK,
-+	ZX_CLK_LPM_W_WCLK,
-+	ZX_CLK_LPM_W_PCLK,
-+	ZX_CLK_OUT0_WCLK,
-+	ZX_CLK_OUT1_WCLK,
-+	ZX_CLK_OUT2_WCLK,
-+	ZX_CLK_OUT32K_WCLK,
-+	ZX_CLK_RMIIPHY_WCLK,
-+	ZX_CLK_GSM_32K,
-+	ZX_CLK_GSM_26M,
-+	ZX_CLK_GSM_48M,
-+	ZX_CLK_GSM_104M,
-+	ZX_CLK_GSM_156M,
-+	ZX_CLK_ABB_WCLK,
-+};
-+
-+/* Used for gates where we don't know the parent input(s). Assume general oscillator */
-+static const struct zx_parent_desc clk_unknown = PARENT_FW("osc26m");
-+
-+/* For clocks that are known to use the ungated osc26m input */
-+static const struct zx_parent_desc clk_main[] = {
-+	PARENT_FW("osc26m"),
-+};
-+
-+static const struct zx_parent_desc dpll_parents[] = {
-+	PARENT_ID(ZX_CLK_DPLL2_D2),
-+	PARENT_FW("osc26m"),
-+};
-+
-+/*
-+ * AHB: The clock mux works and impact can be tested e.g. with iperf speed testing of the USB
-+ * network connection. Values 2 and 3 give the same speed and depend on the same bit (3) in 0x140.
-+ * The mpll-d6 rate is gated off by the same bit in 0x140 as m0's mpll-d6, but the d8 is different.
-+ * This may indicate that one of the two uses a different clock rate than documented in ZTE's
-+ * kernel. The M0 speed is easy to measure, so I am confident in the M0's 78 MHz rate. AHB looks
-+ * like 78 rather than 52, but confidence is lower because RAM read tests are influenced by CPU
-+ * overhead too.
-+ */
-+
-+static const struct zx_parent_desc ahb_sel[] = {
-+	PARENT_FW("osc26m"),
-+	PARENT_ID(ZX_CLK_TOP_MPLL_D6),	/* 104 MHz */
-+	PARENT_ID(ZX_CLK_TOP_MPLL_D8),	/* 78 MHz */
-+	PARENT_ID(ZX_CLK_TOP_MPLL_D8),	/* 78 MHz */
-+};
-+
-+static const struct zx_parent_desc timer_top_sel[] = {
-+	PARENT_FW("osc32k"),
-+	PARENT_FW("osc26m"),
-+};
-+
-+static const struct zx_parent_desc uart_top_sel[] = {
-+	PARENT_FW("osc26m"),
-+	PARENT_ID(ZX_CLK_TOP_MPLL_D6),	/* 104 MHz, sharing M0's and ahb's 0x140 gate */
-+};
-+
-+/*
-+ * The Cortex M0 coprocessor. It is responsible for booting the board and runs some power management
-+ * helper code on the stock firmware. The M0 rproc itself is not critical, but most of topcrm's
-+ * registers become unreadable if this is gated off or become slow when clocked at 32 kHz, e.g. GPIO
-+ * becomes borderline unusable at 32 kHz.
-+ *
-+ * There is no dedicated M0 gate. Disabling ahb-wclk looks like the M0 stops from A53's point of
-+ * view, but it merely breaks the A53's ability to communicate with it, and M0's ability to
-+ * communicate with the standard UART on LSP. M0 keeps running with both ahb-wclk and ahb-pclk
-+ * gated off and can re-enable the gates.
-+ */
-+static const struct zx_parent_desc m0_sel[] = {
-+	PARENT_FW("osc26m"),
-+	PARENT_ID(ZX_CLK_TOP_MPLL_D6),		/* 104 MHz */
-+	PARENT_ID(ZX_CLK_TOP_MPLL_D2_D4),	/* 78 MHz, but different gate than the ahb 78 MHz */
-+	PARENT_FW("osc32k"),			/* Yes, tested. It is SLLLLOOOOOWWW. */
-+};
-+
-+/*
-+ * Clk-out0/1/2/32k: These clocks are exposed on GPIOs 15, 16, 17 and 18 respectively. They are used
-+ * in ZTE's camera and sound code, by directly poking into the clock registers from the device
-+ * drivers. Until the respective devices are supported they can safely be switched off.
-+ *
-+ * For clk-out1 ZTE's camera code says the following:
-+ *
-+ * 0 -> 20 MHz
-+ * 1 -> 40 MHz
-+ * 2 -> 13 MHz
-+ * 3 -> 26 MHz
-+ *
-+ * 0 and 1 read from upll. I confirmed their rates (upll-d24 and upll-d12) by setting upll to a very
-+ * low frequency and sampling the clock by GPIO reads. The outputs of 2 and 3 are way too high to
-+ * test that way. Neither is reading from any PLL, they keep oscillating when all PLLs are disabled.
-+ * I am fairly sure that 3 is just direct osc26m because it perfectly matches what out2 is
-+ * showing in its 26 MHz setting.
-+ *
-+ * Clk-out2 is similar, but it has only one control bit in top 0x34 bit 8. Neither setting selects
-+ * a PLL output. When setting *0x34 = 0x080, clk-out1 and clk-out2 are in lockstep, presumably
-+ * running at 13 MHz. 0x1c0 also runs in lockstep, presumably 26 MHz.
-+ *
-+ * clk-out0 has a mux in bit 5. Value 0 most likely selects osc26m. I am not entirely sure about
-+ * value 1 (which is the default), but the m0 mux has an impact on it. It looks like a debug pin
-+ * that exposes some core clock.
-+ */
-+static const struct zx_parent_desc out0_sel[] = {
-+	PARENT_FW("osc26m"),
-+	PARENT_ID(ZX_CLK_M0_MUX),
-+};
-+
-+static const struct zx_parent_desc out1_sel[] = {
-+	PARENT_ID(ZX_CLK_TOP_UPLL_D12_D2),	/* 20 MHz */
-+	PARENT_ID(ZX_CLK_TOP_UPLL_D12),		/* 40 MHz */
-+	PARENT_ID(ZX_CLK_OSC26M_D2),		/* 13 MHz */
-+	PARENT_FW("osc26m"),
-+};
-+
-+static const struct zx_parent_desc out2_sel[] = {
-+	PARENT_ID(ZX_CLK_OSC26M_D2),		/* 13 MHz */
-+	PARENT_FW("osc26m"),
-+};
-+
-+/*
-+ * Clk-o is similar to clk-out*, providing a clock on GPIO 20, presumably for driving a (R)MII phy.
-+ * The 50 MHz value is documented in a stray comment in ZTE's GMAC driver. I tested it similarly to
-+ * the above pins. Mux setting 0 gives half the count as setting 1 and setting 1 gives gpll divided
-+ * by 4 - matching the 50 MHz suggested by the ZTE comment at the default gpll settings. Gating gpll
-+ * stops the clock for values 0 and 1.
-+ *
-+ * Settings 2 and 3 are possible, but seem to return garbage. It is generally pulsing up and down,
-+ * except if both gpll and upll are stopped. I suspect it just reads random electrical fluctuation
-+ * from other places in the board. Yes, I had a pull-down enabled when testing this.
-+ *
-+ * I am not aware of any board that uses this though. The Ethernet-equipped ones I have all run the
-+ * PHY with its own oscillator.
-+ */
-+static const struct zx_parent_desc rmii_sel[] = {
-+	PARENT_ID(ZX_CLK_TOP_GPLL_D4_D2),	/* 25 MHz */
-+	PARENT_ID(ZX_CLK_TOP_GPLL_D4),		/* 50 MHz */
-+};
-+
-+#define PLL(_name, _parents, _rate, _reg, _flags)		\
-+	{							\
-+		.type = ZX_CLOCK_PLL,				\
-+		.pll = {					\
-+			.name = _name,				\
-+			.parents = _parents,			\
-+			.num_parents = ARRAY_SIZE(_parents),	\
-+			.rate = _rate,				\
-+			.reg = _reg,				\
-+			.flags = _flags,			\
-+		},						\
-+	}
-+
-+#define FIXED_DIV(_name, _parent, _div)				\
-+	{							\
-+		.type = ZX_CLOCK_FIXED_DIV,			\
-+		.fixed_div = {					\
-+			.name = _name,				\
-+			.parent = _parent,			\
-+			.div = _div,				\
-+		},						\
-+	}
-+
-+#define MUX(_name, _parents, _reg, _shift, _size)		\
-+	{							\
-+		.type = ZX_CLOCK_MUX,				\
-+		.mux = {					\
-+			.name = _name,				\
-+			.parents = _parents,			\
-+			.num_parents = ARRAY_SIZE(_parents),	\
-+			.reg = _reg,				\
-+			.shift = _shift,			\
-+			.size = _size,				\
-+		},						\
-+	}
-+
-+#define DIV(_name, _parent, _reg, _shift, _size)		\
-+	{							\
-+		.type = ZX_CLOCK_DIV,				\
-+		.div = {					\
-+			.name = _name,				\
-+			.parent = _parent,			\
-+			.reg = _reg,				\
-+			.shift = _shift,			\
-+			.size = _size,				\
-+		},						\
-+	}
-+
-+#define GATE(_name, _parent, _reg, _shift, _flags)		\
-+	{							\
-+		.type = ZX_CLOCK_GATE,				\
-+		.gate = {					\
-+			.name = _name,				\
-+			.parent = _parent,			\
-+			.reg = _reg,				\
-+			.flags = _flags,			\
-+			.shift = _shift,			\
-+		},						\
-+	}
-+
-+static const struct zx_clock zx297520v3_top_clocks[] = {
-+	/*
-+	 * Default setting: 0x48040c11. 624/312/156. Only a single possible parent. This is the
-+	 * PLL for pretty much everything, including CPU, RAM and USB.
-+	 *
-+	 * Changing this PLL makes it possible to overclock the CPU or do more fine grained
-+	 * underclocking than the CPU's mux allows. It does run into two problems though: The USB
-+	 * device uses this PLL's output directly and is *very* sensitive to differences. DRAM
-+	 * is also fed by this clock and needs to be re-trained on larger changes, which needs to
-+	 * be done by the stage 1 boot loader.
-+	 */
-+	[ZX_CLK_MPLL]              = PLL("mpll", clk_main, 0, 0x8, 0),
-+
-+	/*
-+	 * ZTE's code calls this PLL "upll". The only possible consumers I found are clk-out1,
-+	 * which outputs this clock on GPIO 16 and HSIC. HSIC doesn't have anything connected to
-+	 * it on the devices I tested. The device that consumes clk-out1 seems to be an SPI
-+	 * camera, which I haven't seen in any device so far. ZTE manipulates this PLL directly out
-+	 * of the camera code, so it is unlikely to have another consumer.
-+	 *
-+	 * Long story short, shut it off.
-+	 */
-+	[ZX_CLK_UPLL]              = PLL("upll", clk_main, 0, 0x10, 0),
-+
-+	/*
-+	 * Default value 0x4834902d. Feeds dpll. 46.08 MHz. Bit 25 can be set, so two parents are
-+	 * possible. It looks like both values select the 26 MHz oscillator though.
-+	 *
-+	 * Since dpll's prepare may depend on this clock generating a usable signal, it needs to be
-+	 * enabled when prepared.
-+	 *
-+	 * It isn't named anywhere in ZTE's code, but cpko.ko has the string "dpll2" somewhere in
-+	 * its clock tables.
-+	 */
-+	[ZX_CLK_DPLL2]             = PLL("dpll2", clk_main, 0, 0x100, CLK_ZX_PLL_PREPARE_IS_ENABLE),
-+	[ZX_CLK_DPLL2_D2]          = FIXED_DIV("dpll2-d2", PARENT_ID(ZX_CLK_DPLL2), 2),
-+
-+	/*
-+	 * The documentation says 491.52 MHz and measurement with the LSP TDM device supports this.
-+	 * The default value is 0x480c2011, but not all boot loaders set it up. To get to 491.52
-+	 * with these settings it needs a 23.04 MHz reference clock, which matches dpll2-d2. If
-+	 * dpll2 is disabled, dpll loses its lock. We set the frequency on this PLL if we find it is
-+	 * not prepared by the boot loader.
-+	 *
-+	 * The proprietary LTE driver and/or rproc prepare and unprepare it. TDM and I2S can use it.
-+	 *
-+	 * It accepts parent values 0, 1, 2 and 3. Parent 0 is dpll2-d2. The others look like
-+	 * osc26m. With a parent != 0 dpll never loses its lock even when all other PLLs are off
-+	 * and the TDM counter register increases at a rate consistent with a 26.0/23.04 clock
-+	 * increase.
-+	 */
-+	[ZX_CLK_DPLL]              = PLL("dpll", dpll_parents, 491520000, 0x18, 0),
-+
-+	/*
-+	 * "g" is either for "general" or "gigahertz". The VCO runs at 1 GHz. Output clocks are 200,
-+	 * 100, 50, 25, ... MHz. It is used optionally by SDIO and QSPI and can drive a GPIO clock
-+	 * output for RMII, so it doesn't seem very general.
-+	 */
-+	[ZX_CLK_GPLL]              = PLL("gpll", clk_main, 0, 0x110, 0),
-+
-+	/* osc26m division for clk_outX */
-+	[ZX_CLK_OSC26M_D2]         = FIXED_DIV("osc26m-d2", clk_main[0], 2),
-+
-+	/* Pre-0x140 distribution fixed divs */
-+	[ZX_CLK_TOP_MPLL_D2_PREGATE]  = FIXED_DIV("mpll-d2", PARENT_ID(ZX_CLK_MPLL), 2),
-+	[ZX_CLK_TOP_MPLL_D4_PREGATE]  = FIXED_DIV("mpll-d4", PARENT_ID(ZX_CLK_MPLL), 4),
-+	[ZX_CLK_TOP_MPLL_D5_PREGATE]  = FIXED_DIV("mpll-d5", PARENT_ID(ZX_CLK_MPLL), 5),
-+	[ZX_CLK_TOP_MPLL_D6_PREGATE]  = FIXED_DIV("mpll-d6", PARENT_ID(ZX_CLK_MPLL), 6),
-+	[ZX_CLK_TOP_MPLL_D8_PREGATE]  = FIXED_DIV("mpll-d8", PARENT_ID(ZX_CLK_MPLL), 8),
-+	[ZX_CLK_TOP_UPLL_D12_PREGATE] = FIXED_DIV("upll-d12", PARENT_ID(ZX_CLK_UPLL), 12),
-+	[ZX_CLK_TOP_GPLL_D2_PREGATE]  = FIXED_DIV("gpll-d2", PARENT_ID(ZX_CLK_GPLL), 2),
-+	[ZX_CLK_TOP_GPLL_D4_PREGATE]  = FIXED_DIV("gpll-d4", PARENT_ID(ZX_CLK_GPLL), 4),
-+
-+	/*
-+	 * topcrm distribution gates. These are complicated, but shed a lot of light on the board's
-+	 * clock distribution.
-+	 *
-+	 * Settable mask: 0x017333FF. Generally one nibble per PLL, except for MPLL that has more.
-+	 * One for osc26m work clock. pclk and osc32k are not gated globally here or anywhere else
-+	 * as far as I can see.
-+	 *
-+	 * If you want to test your understanding of this board, try to manually configure it into a
-+	 * setup where bit 24 or bit 9 are off without crashing it.
-+	 */
-+
-+	/* Bit 0: No known consumer */
-+	/* Bit 1: M0's 78 MHz selection, but somehow also involved in USB too */
-+	[ZX_CLK_TOP_MPLL_D2]       = GATE("top-mpll-d2", PARENT_ID(ZX_CLK_TOP_MPLL_D2_PREGATE),
-+					  0x140, 1, 0),
-+	/* Bit 2: No known consumer, named "mpll_48m_clk" in ZTE's cpko.ko blob */
-+	[ZX_CLK_TOP_MPLL_D8]       = GATE("top-mpll-d8", PARENT_ID(ZX_CLK_TOP_MPLL_D8_PREGATE),
-+					  0x140, 3, 0),
-+	[ZX_CLK_TOP_MPLL_D6]       = GATE("top-mpll-d6", PARENT_ID(ZX_CLK_TOP_MPLL_D6_PREGATE),
-+					  0x140, 4, 0),
-+	[ZX_CLK_TOP_MPLL_D4]       = GATE("top-mpll-d4", PARENT_ID(ZX_CLK_TOP_MPLL_D4_PREGATE),
-+					  0x140, 5, 0),
-+	[ZX_CLK_TOMATRIX_MPLL_D5]  = GATE("matrix-mpll-d5", PARENT_ID(ZX_CLK_TOP_MPLL_D5_PREGATE),
-+					  0x140, 6, ZX297520V3_AXI_CANDIDATE),
-+	/* Bit 7: No known consumer */
-+	/* Bit 8: Has a consumer, LTE depends on it. But unknown what and how. */
-+	/*
-+	 * Bit 9: Big MPLL provider for Matrix. It is an AXI voting candidate, but it is protected
-+	 * in Matrix's 0x118 gates.
-+	 */
-+	[ZX_CLK_TOMATRIX_MPLL]     = GATE("matrix-mpll", PARENT_ID(ZX_CLK_MPLL), 0x140, 9, 0),
-+	/* Bit 10: Always 0 */
-+	/* Bit 11: Always 0 */
-+
-+	/* Bit 12: No known consumer. Existing patterns indicate a dpll consumer in top itself */
-+	[ZX_CLK_TOMATRIX_DPLL]     = GATE("matrix-dpll", PARENT_ID(ZX_CLK_DPLL), 0x140, 13, 0),
-+	/* Bit 14: Always 0 */
-+	/* Bit 15: Always 0 */
-+
-+	[ZX_CLK_TOP_UPLL_D12]      = GATE("top-upll-d12", PARENT_ID(ZX_CLK_TOP_UPLL_D12_PREGATE),
-+					  0x140, 16, 0),
-+	[ZX_CLK_TOP_UPLL]          = GATE("top-upll", PARENT_ID(ZX_CLK_UPLL), 0x140, 17, 0),
-+	/* Bit 18: Always 0 */
-+	/* Bit 19: Always 0 */
-+
-+	[ZX_CLK_TOP_GPLL_D4]       = GATE("top-gpll-d4", PARENT_ID(ZX_CLK_TOP_GPLL_D4_PREGATE),
-+					  0x140, 20, 0),
-+	[ZX_CLK_TOMATRIX_GPLL_D2]  = GATE("matrix-gpll-d2", PARENT_ID(ZX_CLK_TOP_GPLL_D2_PREGATE),
-+					  0x140, 21, 0),
-+	[ZX_CLK_TOMATRIX_GPLL]     = GATE("matrix-gpll", PARENT_ID(ZX_CLK_GPLL), 0x140, 22, 0),
-+	/* Bit 23: Always 0 */
-+
-+	/*
-+	 * Bit 24 covers all 26 MHz on matrix, but not pclks. Osc26m consumers on topcrm do not
-+	 * use this, they get the ungated osc26m. It is an AXI voting candidate, but does not
-+	 * need protection because it is the slowest speed. It will only be used if every processor,
-+	 * including us, votes for it.
-+	 */
-+	[ZX_CLK_TOMATRIX_OSC26M]   = GATE("matrix-osc26m", clk_main[0], 0x140, 24, 0),
-+
-+	/*
-+	 * Post-140 divisions. They enter through the same bit and can be selected by different mux
-+	 * values of their consumers or get piped to multiple consumers with different documented
-+	 * rates - in particular, USB wclk (24 MHz according to ZTE) shares bit 1 with M0's 78 MHz.
-+	 */
-+	[ZX_CLK_TOP_MPLL_D2_D4]    = FIXED_DIV("top-mpll-d2-d4", PARENT_ID(ZX_CLK_TOP_MPLL_D2), 4),
-+	[ZX_CLK_TOP_MPLL_D2_D13]   = FIXED_DIV("top-mpll-d2-d13", PARENT_ID(ZX_CLK_TOP_MPLL_D2),
-+					       13),
-+	[ZX_CLK_TOP_UPLL_D12_D2]   = FIXED_DIV("top-upll-d12-d2", PARENT_ID(ZX_CLK_TOP_UPLL_D12),
-+					       2),
-+	[ZX_CLK_TOP_GPLL_D4_D2]    = FIXED_DIV("top-gpll-d4-d2", PARENT_ID(ZX_CLK_TOP_GPLL_D4), 2),
-+
-+	/* Device-specific Muxes */
-+	[ZX_CLK_M0_MUX]            = MUX("m0-mux",        m0_sel,            0x38,  0, 2),
-+	[ZX_CLK_AHB_MUX]           = MUX("ahb-mux",       ahb_sel,           0x3c,  4, 2),
-+	[ZX_CLK_TIMER_T08_MUX]     = MUX("timer-t08-mux", timer_top_sel,     0x40,  1, 1),
-+	[ZX_CLK_TIMER_T09_MUX]     = MUX("timer-t09-mux", timer_top_sel,     0x40,  0, 1),
-+	[ZX_CLK_TIMER_T12_MUX]     = MUX("timer-t12-mux", timer_top_sel,     0x3c,  0, 1),
-+	[ZX_CLK_TIMER_T13_MUX]     = MUX("timer-t13-mux", timer_top_sel,     0x44,  0, 1),
-+	[ZX_CLK_TIMER_T14_MUX]     = MUX("timer-t14-mux", timer_top_sel,     0x44,  1, 1),
-+	[ZX_CLK_TIMER_T15_MUX]     = MUX("timer-t15-mux", timer_top_sel,     0x3c,  3, 1),
-+	[ZX_CLK_TIMER_T16_MUX]     = MUX("timer-t16-mux", timer_top_sel,     0x44,  2, 1),
-+	[ZX_CLK_TIMER_T17_MUX]     = MUX("timer-t17-mux", timer_top_sel,    0x120,  0, 1),
-+	[ZX_CLK_WDT_T18_MUX]       = MUX("wdt-t18-mux",   timer_top_sel,     0x3c,  6, 1),
-+	[ZX_CLK_I2C0_MUX]          = MUX("i2c0-mux",      uart_top_sel,      0x3c,  1, 1),
-+	[ZX_CLK_UART0_MUX]         = MUX("uart0-mux",     uart_top_sel,      0x40,  2, 1),
-+	[ZX_CLK_OUT0_MUX]          = MUX("out0-mux",      out0_sel,          0x34,  5, 1),
-+	[ZX_CLK_OUT1_MUX]          = MUX("out1-mux",      out1_sel,          0x34,  6, 2),
-+	[ZX_CLK_OUT2_MUX]          = MUX("out2-mux",      out2_sel,          0x34,  8, 1),
-+	[ZX_CLK_RMIIPHY_MUX]       = MUX("rmiiphy-mux",   rmii_sel,         0x11c,  0, 2),
-+
-+	/* Device-specific dividers */
-+	[ZX_CLK_TIMER_T08_DIV]     = DIV("timer-t08-div", PARENT_ID(ZX_CLK_TIMER_T08_MUX),
-+					 0x4c, 8, 4),
-+	[ZX_CLK_TIMER_T09_DIV]     = DIV("timer-t09-div", PARENT_ID(ZX_CLK_TIMER_T09_MUX),
-+					 0x4c, 0, 4),
-+	[ZX_CLK_TIMER_T12_DIV]     = DIV("timer-t12-div", PARENT_ID(ZX_CLK_TIMER_T12_MUX),
-+					 0x48, 0, 4),
-+	[ZX_CLK_TIMER_T13_DIV]     = DIV("timer-t13-div", PARENT_ID(ZX_CLK_TIMER_T13_MUX),
-+					 0x50, 0, 4),
-+	[ZX_CLK_TIMER_T14_DIV]     = DIV("timer-t14-div", PARENT_ID(ZX_CLK_TIMER_T14_MUX),
-+					 0x50, 4, 4),
-+	[ZX_CLK_TIMER_T15_DIV]     = DIV("timer-t15-div", PARENT_ID(ZX_CLK_TIMER_T15_MUX),
-+					 0x48, 4, 4),
-+	[ZX_CLK_TIMER_T16_DIV]     = DIV("timer-t16-div", PARENT_ID(ZX_CLK_TIMER_T16_MUX),
-+					 0x50, 8, 4),
-+	[ZX_CLK_TIMER_T17_DIV]     = DIV("timer-t17-div", PARENT_ID(ZX_CLK_TIMER_T17_MUX),
-+					 0x124, 0, 4),
-+	[ZX_CLK_WDT_T18_DIV]       = DIV("wdt-t18-div", PARENT_ID(ZX_CLK_WDT_T18_MUX),
-+					 0x48, 8, 4),
-+	[ZX_CLK_USIM1_DIV]         = DIV("usim1-div", clk_unknown,
-+					 0x48, 12, 1),
-+
-+	/* Device specific gates */
-+
-+	/*
-+	 * AHB clock gates: Disabling these cuts off the A53 from register access into 0x130000/
-+	 * 0x140000, including the topcrm region, so it can't be re-enabled. Mark them critical for
-+	 * that reason.
-+	 *
-+	 * Gating this off does not stop the M0 rproc, nor does it stop M0 from accessing topcrm. It
-+	 * does however gate off M0 from the AXI interconnect, so it can't read RAM, Matrix, etc. So
-+	 * these bits here merely gate the bus, not the actual devices.
-+	 */
-+	[ZX_CLK_AHB_PCLK]          = GATE("ahb-pclk", PARENT_ID(ZX_CLK_AHB_MUX), 0x54, 12,
-+					  CLK_IS_CRITICAL),
-+	[ZX_CLK_AHB_WCLK]          = GATE("ahb-wclk", PARENT_ID(ZX_CLK_M0_MUX), 0x54, 13,
-+					  CLK_IS_CRITICAL),
-+
-+	/* SRAM1 and 2 clocks. Leave them on for now, as turning them off carelessly hangs the M0 */
-+	[ZX_CLK_SRAM1_PCLK]        = GATE("sram1-pclk", clk_main[0], 0x54, 18, CLK_IS_CRITICAL),
-+	[ZX_CLK_SRAM2_PCLK]        = GATE("sram2-pclk", clk_main[0], 0x54, 16, CLK_IS_CRITICAL),
-+
-+	/*
-+	 * Pinmux (AON, TOP, IOCFG but not PDCFG). Critical as well until we have a driver that
-+	 * consumes it. I don't think we'll realistically shut this off ever.
-+	 *
-+	 * Setting either bit 0 or 1 in register 0x58 makes the device work.
-+	 */
-+	[ZX_CLK_PMM_WCLK]          = GATE("pmm-wclk", clk_main[0], 0x58, 0, CLK_IS_CRITICAL),
-+	[ZX_CLK_PMM_PCLK]          = GATE("pmm-pclk", clk_main[0], 0x58, 1, CLK_IS_CRITICAL),
-+
-+	/*
-+	 * Timers. We don't use any of them, just shut them off. The timers are named and sorted
-+	 * by the IO address of the main timer controls. Some of the controls are documented in
-+	 * ZTE's kernel, the others I found by trial and error. Timers in register 0x54 have the
-+	 * pclk first, the others have the wclk first.
-+	 *
-+	 * Timer T17 is used by the ZSP firmware. The rproc driver will enable it as needed.
-+	 */
-+	[ZX_CLK_TIMER_T08_WCLK]    = GATE("timer-t08-wclk", PARENT_ID(ZX_CLK_TIMER_T08_DIV),
-+					  0x5c, 8, 0),
-+	[ZX_CLK_TIMER_T08_PCLK]    = GATE("timer-t08-pclk", clk_main[0], 0x5c, 9, 0),
-+	[ZX_CLK_TIMER_T09_WCLK]    = GATE("timer-t09-wclk", PARENT_ID(ZX_CLK_TIMER_T09_DIV),
-+					  0x5c, 4, 0),
-+	[ZX_CLK_TIMER_T09_PCLK]    = GATE("timer-t09-pclk", clk_main[0], 0x5c, 5, 0),
-+	[ZX_CLK_TIMER_T12_WCLK]    = GATE("timer-t12-wclk", PARENT_ID(ZX_CLK_TIMER_T12_DIV),
-+					  0x54, 5, 0),
-+	[ZX_CLK_TIMER_T12_PCLK]    = GATE("timer-t12-pclk", clk_main[0], 0x54, 4, 0),
-+	[ZX_CLK_TIMER_T13_WCLK]    = GATE("timer-t13-wclk", PARENT_ID(ZX_CLK_TIMER_T13_DIV),
-+					  0x60, 0, 0),
-+	[ZX_CLK_TIMER_T13_PCLK]    = GATE("timer-t13-pclk", clk_main[0], 0x60, 1, 0),
-+	[ZX_CLK_TIMER_T14_WCLK]    = GATE("timer-t14-wclk", PARENT_ID(ZX_CLK_TIMER_T14_DIV),
-+					  0x60, 4, 0),
-+	[ZX_CLK_TIMER_T14_PCLK]    = GATE("timer-t14-pclk", clk_main[0], 0x60, 5, 0),
-+	[ZX_CLK_TIMER_T15_WCLK]    = GATE("timer-t15-wclk", PARENT_ID(ZX_CLK_TIMER_T15_DIV),
-+					  0x54, 21, 0),
-+	[ZX_CLK_TIMER_T15_PCLK]    = GATE("timer-t15-pclk", clk_main[0], 0x54, 20, 0),
-+	[ZX_CLK_TIMER_T16_WCLK]    = GATE("timer-t16-wclk", PARENT_ID(ZX_CLK_TIMER_T16_DIV),
-+					  0x60, 8, 0),
-+	[ZX_CLK_TIMER_T16_PCLK]    = GATE("timer-t16-pclk", clk_main[0], 0x60, 9, 0),
-+	[ZX_CLK_TIMER_T17_WCLK]    = GATE("timer-t17-wclk", PARENT_ID(ZX_CLK_TIMER_T17_DIV),
-+					  0x128, 0, 0),
-+	[ZX_CLK_TIMER_T17_PCLK]    = GATE("timer-t17-pclk", clk_main[0], 0x128, 1, 0),
-+
-+	/*
-+	 * This watchdog is set up by ZTE's bootloader and in ZTE's OS the m0 firmware will feed the
-+	 * dog. The m0 firmware in turn wants to be fed in its own way. Since we normally don't run
-+	 * any m0 firmware we shut it off by default and expose it to userspace via the watchdog
-+	 * driver.
-+	 */
-+	[ZX_CLK_WDT_T18_WCLK]     = GATE("wdt-t18-wclk", PARENT_ID(ZX_CLK_WDT_T18_DIV),
-+					 0x54, 25, 0),
-+	[ZX_CLK_WDT_T18_PCLK]     = GATE("wdt-t18-pclk", clk_main[0], 0x54, 24, 0),
-+
-+	[ZX_CLK_I2C0_WCLK]        = GATE("i2c0-wclk", PARENT_ID(ZX_CLK_I2C0_MUX), 0x54, 9, 0),
-+	[ZX_CLK_I2C0_PCLK]        = GATE("i2c0-pclk", clk_main[0], 0x54, 8, 0),
-+	[ZX_CLK_UART0_WCLK]       = GATE("uart0-wclk", PARENT_ID(ZX_CLK_UART0_MUX), 0x5c, 12, 0),
-+	[ZX_CLK_UART0_PCLK]       = GATE("uart0-pclk", clk_main[0], 0x5c, 13, 0),
-+
-+	/*
-+	 * ZTE says the USB input is a 24 MHz clock based on mpll. Testing shows that upll is not
-+	 * involved. The USB register space can be accessed with ahb-pclk gated, but not with
-+	 * ahb-wclk gated. ZTE also lists ahb-wclk as parent for the second clock.
-+	 *
-+	 * There doesn't seem to be a separate PHY clock. usb-wclk stops controller registers from
-+	 * updating, but doesn't cause the USB device to disconnect like asserting the PHY reset
-+	 * does. Bit 0 in this register can't be set, so no PHY clock is hiding there either.
-+	 */
-+	[ZX_CLK_USB_WCLK]         = GATE("usb-wclk", PARENT_ID(ZX_CLK_TOP_MPLL_D2_D13), 0x6c, 3, 0),
-+	[ZX_CLK_USB_PCLK]         = GATE("usb-pclk", PARENT_ID(ZX_CLK_AHB_WCLK), 0x6c, 4, 0),
-+	/*
-+	 * The HSIC hardware is listed in ZTE's code with a physical address of 0x01600000. Unlike
-+	 * the USB controller, it does consume upll. ZTE says 240 MHz, but 480 is the usual one for
-+	 * HSIC.
-+	 */
-+	[ZX_CLK_HSIC_WCLK]        = GATE("hsic-wclk", PARENT_ID(ZX_CLK_TOP_UPLL), 0x6c, 1, 0),
-+	[ZX_CLK_HSIC_PCLK]        = GATE("hsic-pclk", PARENT_ID(ZX_CLK_AHB_WCLK), 0x6c, 2, 0),
-+
-+	/*
-+	 * How does this RTC work? I don't know, the ZTE kernel does not talk to it. The actual RTC
-+	 * is on the I2C-connected PMIC.
-+	 */
-+	[ZX_CLK_RTC_WCLK]         = GATE("rtc-wclk", clk_unknown, 0x54, 1, 0),
-+	[ZX_CLK_RTC_PCLK]         = GATE("rtc-pclk", clk_main[0], 0x54, 0, 0),
-+
-+	[ZX_CLK_USIM1_WCLK]       = GATE("usim1-wclk", PARENT_ID(ZX_CLK_USIM1_DIV), 0x54, 29, 0),
-+	[ZX_CLK_USIM1_PCLK]       = GATE("usim1-pclk", clk_main[0], 0x54, 28, 0),
-+
-+	/*
-+	 * LTE: gate only as far as I can see. I looked for resets and did not find any. There may
-+	 * be mux/div, but without understanding the behavior of this hardware it is impossible to
-+	 * tell. They are sorted by physical MMIO address of the devices, which happens to be the
-+	 * inverse order of the bits.
-+	 *
-+	 * Like PMM in this register, either bit enables register access, whether they control pclk
-+	 * or wclk cannot be distinguished.
-+	 *
-+	 * The work parent of GSM, TD and W is without doubt osc26m. The mmio space has registers
-+	 * that count up at an integer fraction of 26000000. Gating PLLs does not affect them,
-+	 * including gating mpll.
-+	 *
-+	 * LPM_LTE has some interaction with LTE_MODEM_WCLK. If LTE_MODEM_WCLK is disabled, LPM_LTE
-+	 * stops counting, and just flips between two states. This makes it look like LPM_LTE in
-+	 * topcrm has a clock parent in matrixcrm, which wouldn't make much sense. I think this
-+	 * behavior is a result of the devices interacting rather than a clock parentage.
-+	 *
-+	 * As for what these devices do? I am not sure. They generate a lot of IRQs, but the IRQs
-+	 * are independent of actual radio activity. The ZSP firmware programs them
-+	 */
-+	[ZX_CLK_LPM_GSM_WCLK]     = GATE("lpm-gsm-wclk", clk_main[0], 0x58, 10, 0),
-+	[ZX_CLK_LPM_GSM_PCLK]     = GATE("lpm-gsm-pclk", clk_main[0], 0x58, 11, 0),
-+	[ZX_CLK_LPM_LTE_WCLK]     = GATE("lpm-lte-wclk", clk_unknown, 0x58, 8, 0),
-+	[ZX_CLK_LPM_LTE_PCLK]     = GATE("lpm-lte-pclk", clk_main[0], 0x58, 9, 0),
-+	[ZX_CLK_LPM_TD_WCLK]      = GATE("lpm-td-wclk", clk_main[0], 0x58, 6, 0),
-+	[ZX_CLK_LPM_TD_PCLK]      = GATE("lpm-td-pclk", clk_main[0], 0x58, 7, 0),
-+	[ZX_CLK_LPM_W_WCLK]       = GATE("lpm-w-wclk", clk_main[0], 0x58, 4, 0),
-+	[ZX_CLK_LPM_W_PCLK]       = GATE("lpm-w-pclk", clk_main[0], 0x58, 5, 0),
-+
-+	[ZX_CLK_OUT0_WCLK]        = GATE("out0-wclk", PARENT_ID(ZX_CLK_OUT0_MUX), 0x34, 0, 0),
-+	[ZX_CLK_OUT1_WCLK]        = GATE("out1-wclk", PARENT_ID(ZX_CLK_OUT1_MUX), 0x90, 2, 0),
-+	[ZX_CLK_OUT2_WCLK]        = GATE("out2-wclk", PARENT_ID(ZX_CLK_OUT2_MUX), 0x94, 2, 0),
-+	[ZX_CLK_OUT32K_WCLK]      = GATE("out32k-wclk", PARENT_FW("osc32k"), 0x34, 1, 0),
-+	[ZX_CLK_RMIIPHY_WCLK]     = GATE("rmiiphy-wclk", PARENT_ID(ZX_CLK_RMIIPHY_MUX),
-+					 0x11c, 2, 0),
-+
-+	/*
-+	 * GSM clocks - they feed the 2G/3G radio components and SIM controller.
-+	 *
-+	 * The names are from the clock table in cpko.ko. The parents of gsm-104m and gsm-156m are
-+	 * experimentally verified. The gsm-48m parent is likely bit 2 in topcrm+0x140. I have not
-+	 * found an consumer that I understand well enough to say if it is running or not, so I have
-+	 * not been able to confirm this yet.
-+	 */
-+	[ZX_CLK_GSM_32K]          = GATE("gsm-32k", PARENT_FW("osc32k"), 0x68, 0, 0),
-+	[ZX_CLK_GSM_26M]          = GATE("gsm-26m", PARENT_FW("osc26m"), 0x68, 1, 0),
-+	[ZX_CLK_GSM_48M]          = GATE("gsm-48m", clk_unknown, 0x68, 2, 0),
-+	[ZX_CLK_GSM_104M]         = GATE("gsm-104m", PARENT_ID(ZX_CLK_TOP_MPLL_D6), 0x68, 3, 0),
-+	[ZX_CLK_GSM_156M]         = GATE("gsm-156m", PARENT_ID(ZX_CLK_TOP_MPLL_D4), 0x68, 4, 0),
-+
-+	/* Analog Baseband, probably. cpko.ko enables it for LTE, and LTE scans come back empty
-+	 * without it. The MMIO location of the device is unknown. It is likely connected only to
-+	 * ZSP and inaccessible to the main CPU.
-+	 */
-+	[ZX_CLK_ABB_WCLK]         = GATE("abb-wclk", clk_unknown, 0x144, 1, 0),
-+};
-+
-+static const unsigned int zx297520v3_top_exports[] = {
-+	[ZX297520V3_M0_WCLK] =		ZX_CLK_M0_MUX,
-+	[ZX297520V3_SRAM1_PCLK] =	ZX_CLK_SRAM1_PCLK,
-+	[ZX297520V3_SRAM2_PCLK] =	ZX_CLK_SRAM2_PCLK,
-+	[ZX297520V3_UART0_WCLK] =	ZX_CLK_UART0_WCLK,
-+	[ZX297520V3_UART0_PCLK] =	ZX_CLK_UART0_PCLK,
-+	[ZX297520V3_I2C0_WCLK] =	ZX_CLK_I2C0_WCLK,
-+	[ZX297520V3_I2C0_PCLK] =	ZX_CLK_I2C0_PCLK,
-+	[ZX297520V3_RTC_WCLK] =		ZX_CLK_RTC_WCLK,
-+	[ZX297520V3_RTC_PCLK] =		ZX_CLK_RTC_PCLK,
-+	[ZX297520V3_LPM_GSM_WCLK] =	ZX_CLK_LPM_GSM_WCLK,
-+	[ZX297520V3_LPM_GSM_PCLK] =	ZX_CLK_LPM_GSM_PCLK,
-+	[ZX297520V3_LPM_LTE_WCLK] =	ZX_CLK_LPM_LTE_WCLK,
-+	[ZX297520V3_LPM_LTE_PCLK] =	ZX_CLK_LPM_LTE_PCLK,
-+	[ZX297520V3_LPM_TD_WCLK] =	ZX_CLK_LPM_TD_WCLK,
-+	[ZX297520V3_LPM_TD_PCLK] =	ZX_CLK_LPM_TD_PCLK,
-+	[ZX297520V3_LPM_W_WCLK] =	ZX_CLK_LPM_W_WCLK,
-+	[ZX297520V3_LPM_W_PCLK] =	ZX_CLK_LPM_W_PCLK,
-+	[ZX297520V3_TIMER_T08_WCLK] =	ZX_CLK_TIMER_T08_WCLK,
-+	[ZX297520V3_TIMER_T08_PCLK] =	ZX_CLK_TIMER_T08_PCLK,
-+	[ZX297520V3_TIMER_T09_WCLK] =	ZX_CLK_TIMER_T09_WCLK,
-+	[ZX297520V3_TIMER_T09_PCLK] =	ZX_CLK_TIMER_T09_PCLK,
-+	[ZX297520V3_MPLL] =		ZX_CLK_TOMATRIX_MPLL,
-+	[ZX297520V3_MPLL_D5] =		ZX_CLK_TOMATRIX_MPLL_D5,
-+	[ZX297520V3_DPLL] =		ZX_CLK_TOMATRIX_DPLL,
-+	[ZX297520V3_GPLL] =		ZX_CLK_TOMATRIX_GPLL,
-+	[ZX297520V3_GPLL_D2] =		ZX_CLK_TOMATRIX_GPLL_D2,
-+	[ZX297520V3_GATED_OSC26M] =	ZX_CLK_TOMATRIX_OSC26M,
-+	[ZX297520V3_PMM_WCLK] =		ZX_CLK_PMM_WCLK,
-+	[ZX297520V3_PMM_PCLK] =		ZX_CLK_PMM_PCLK,
-+	[ZX297520V3_OUT0_WCLK] =	ZX_CLK_OUT0_WCLK,
-+	[ZX297520V3_OUT1_WCLK] =	ZX_CLK_OUT1_WCLK,
-+	[ZX297520V3_OUT2_WCLK] =	ZX_CLK_OUT2_WCLK,
-+	[ZX297520V3_OUT32K_WCLK] =	ZX_CLK_OUT32K_WCLK,
-+	[ZX297520V3_RMIIPHY_WCLK] =	ZX_CLK_RMIIPHY_WCLK,
-+	[ZX297520V3_TIMER_T12_WCLK] =	ZX_CLK_TIMER_T12_WCLK,
-+	[ZX297520V3_TIMER_T12_PCLK] =	ZX_CLK_TIMER_T12_PCLK,
-+	[ZX297520V3_TIMER_T13_WCLK] =	ZX_CLK_TIMER_T13_WCLK,
-+	[ZX297520V3_TIMER_T13_PCLK] =	ZX_CLK_TIMER_T13_PCLK,
-+	[ZX297520V3_TIMER_T14_WCLK] =	ZX_CLK_TIMER_T14_WCLK,
-+	[ZX297520V3_TIMER_T14_PCLK] =	ZX_CLK_TIMER_T14_PCLK,
-+	[ZX297520V3_TIMER_T15_WCLK] =	ZX_CLK_TIMER_T15_WCLK,
-+	[ZX297520V3_TIMER_T15_PCLK] =	ZX_CLK_TIMER_T15_PCLK,
-+	[ZX297520V3_TIMER_T16_WCLK] =	ZX_CLK_TIMER_T16_WCLK,
-+	[ZX297520V3_TIMER_T16_PCLK] =	ZX_CLK_TIMER_T16_PCLK,
-+	[ZX297520V3_TIMER_T17_WCLK] =	ZX_CLK_TIMER_T17_WCLK,
-+	[ZX297520V3_TIMER_T17_PCLK] =	ZX_CLK_TIMER_T17_PCLK,
-+	[ZX297520V3_WDT_T18_WCLK] =	ZX_CLK_WDT_T18_WCLK,
-+	[ZX297520V3_WDT_T18_PCLK] =	ZX_CLK_WDT_T18_PCLK,
-+	[ZX297520V3_USIM1_WCLK] =	ZX_CLK_USIM1_WCLK,
-+	[ZX297520V3_USIM1_PCLK] =	ZX_CLK_USIM1_PCLK,
-+	[ZX297520V3_AHB_WCLK] =		ZX_CLK_AHB_WCLK,
-+	[ZX297520V3_AHB_PCLK] =		ZX_CLK_AHB_PCLK,
-+	[ZX297520V3_USB_WCLK] =		ZX_CLK_USB_WCLK,
-+	[ZX297520V3_USB_PCLK] =		ZX_CLK_USB_PCLK,
-+	[ZX297520V3_HSIC_WCLK] =	ZX_CLK_HSIC_WCLK,
-+	[ZX297520V3_HSIC_PCLK] =	ZX_CLK_HSIC_PCLK,
-+	[ZX297520V3_GSM_32K] =		ZX_CLK_GSM_32K,
-+	[ZX297520V3_GSM_26M] =		ZX_CLK_GSM_26M,
-+	[ZX297520V3_GSM_48M] =		ZX_CLK_GSM_48M,
-+	[ZX297520V3_GSM_104M] =		ZX_CLK_GSM_104M,
-+	[ZX297520V3_GSM_156M] =		ZX_CLK_GSM_156M,
-+	[ZX297520V3_ABB_WCLK] =		ZX_CLK_ABB_WCLK,
-+};
-+
-+static const struct zx_clk_data zx297520v3_topclk_data = {
-+	.clocks = zx297520v3_top_clocks,
-+	.num_clocks = ARRAY_SIZE(zx297520v3_top_clocks),
-+	.exports = zx297520v3_top_exports,
-+	.num_exports = ARRAY_SIZE(zx297520v3_top_exports),
-+};
-+
-+static int clk_zx297520v3_probe(struct platform_device *pdev)
++static umode_t plpks_config_attr_is_visible(struct kobject *kobj,
++					    struct attribute *attr, int n)
 +{
-+	const struct platform_device_id *id = platform_get_device_id(pdev);
++	if (attr == &attr_wrapping_features.attr &&
++	    !plpks_wrapping_is_supported())
++		return 0;
 +
-+	if (!id)
-+		return -ENODEV;
-+
-+	return zx_clk_common_probe(&pdev->dev, pdev->dev.parent->of_node,
-+				   (const struct zx_clk_data *)id->driver_data);
++	return attr->mode;
 +}
 +
-+static const struct platform_device_id clk_zx297520v3_ids[] = {
-+	{
-+		.name = "zx297520v3-topclk",
-+		.driver_data = (kernel_ulong_t)&zx297520v3_topclk_data,
-+	},
-+	{ }
+ int plpks_config_create_softlink(struct kobject *from)
+ {
+ 	if (!plpks_config_kobj)
+@@ -52,13 +62,13 @@ int plpks_config_create_softlink(struct kobject *from)
+ 	return sysfs_create_link(from, plpks_config_kobj, "config");
+ }
+ 
++static const struct attribute_group config_group = {
++	.attrs = (struct attribute **)config_attrs,
++	.is_visible = plpks_config_attr_is_visible,
 +};
-+MODULE_DEVICE_TABLE(platform, clk_zx297520v3_ids);
 +
-+static struct platform_driver clk_zx297520v3 = {
-+	.probe = clk_zx297520v3_probe,
-+	.driver = {
-+		.name = "clk-zx297520v3",
-+	},
-+	.id_table = clk_zx297520v3_ids,
-+};
-+module_platform_driver(clk_zx297520v3);
-+
-+MODULE_AUTHOR("Stefan Dösinger <stefandoesinger@gmail.com>");
-+MODULE_DESCRIPTION("ZTE zx297520v3 clock driver");
-+MODULE_LICENSE("GPL");
-
+ static __init int plpks_sysfs_config(struct kobject *kobj)
+ {
+-	struct attribute_group config_group = {
+-		.name = NULL,
+-		.attrs = (struct attribute **)config_attrs,
+-	};
+-
+ 	return sysfs_create_group(kobj, &config_group);
+ }
+ 
 -- 
-2.55.0
+2.52.0
 
