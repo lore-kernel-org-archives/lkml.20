@@ -1,180 +1,235 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF85494816;
-	Wed, 23 Sep 2026 10:41:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9133A495050
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:41:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790160077; cv=none; b=CxaVoD6by6BjBONwwFvSzQ0sFgK4ewT+XpXDS3TfsooqvxfH0sVMgoch/sA0pb2xI3WFGzL+WKG0HbOZTKkqd/ysxDzNSweqaFMSnBFoFg0RDop3i1e0+cTudLQ2Z9TtMkOEYaIevYXXHlNbmhlbExRGcm68MPCm64g4NgCVfPg=
+	t=1790160071; cv=none; b=vF5ZLtWemT+0xuijPoKn20NSf9eR20Bxh8nrg7/0Yv/Rhtbsbm2JBGMs3RoC4DwPjoVaDHBYGqlr7HeIidPCMDGC8PHKLXn8ktDhELQ/eSF28eydJBCgftPr5j07/lmECblewpA+qaRd1uFRJYxfkSLasS2R0qOOydkPXp/4AYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790160077; c=relaxed/simple;
-	bh=46tmE3Ve/Nk87FjWMhpAuTzX3HjMfVusUTFEdxS2Q7Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H9cih+xyS9CzMdhHxYcJnXejsu9tvVckwwnFY7k0yYGObWv7wN8onpCbFhlprLrCYt2FYyBe1Faov6QhSCEJ+sttC1Bd54m0VkkFywn6H0/8cXwk7VHlIY8o3kY8EyrtidL7+ZRN8iELGyotqmLbyrNILE7YnJN4B44c1U7gwck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=BPwZpArg; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=kLBDNicC; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=h7lzvjM0; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=jQxrD/jE; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1790160071; c=relaxed/simple;
+	bh=X1jAYThF13X8I2rqIxQ8X7qe4GN151gAbYtT21h/NrE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a+/cIRBYsDRHjfD2PJxyI97oER4JtlZ68I2iUE0Mz9uemo8dynqY2+Qfn1Yv/JIhg6pxVE/MhgcUzoP6fKyEP5ynFRLywMJGriKCckkQsVVz0LmTS3bb8V2cw7zgzg5gb7hqNWrTsVeArE2RXgABZ1Nyf22zLUfGQGTA3wGbp6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bda7NUQ1; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="BPwZpArg";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="kLBDNicC";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="h7lzvjM0";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="jQxrD/jE"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 89FBF21A29;
-	Wed, 23 Sep 2026 10:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790160052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jdlLWRMURnyFzXNNGpWG5gQwOZdkQCfoP7TBERvJXHk=;
-	b=BPwZpArgWiz5VJJpy5wZ0xqH9wYyFZtKluK1MCUYPV3Ll6sH5lZVy7UVdxNhuywsSGn4px
-	3ED+ZXfZ7bboQVio206HWOCG610dPOeAO1BYbgXP3DUXveb/tkkKiByDaAkj6hwYdBLgcZ
-	rXYzB3ZeHWPJAgoUUFJvhZrb3HMhGRc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790160052;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jdlLWRMURnyFzXNNGpWG5gQwOZdkQCfoP7TBERvJXHk=;
-	b=kLBDNicCM1/r04ryQHA0MfYMrRBjafwkIyTXFd1HMcuFyZz7Gk3km4ESsE8mqwuJHoIs9h
-	zRLFhDs5NaZrHXDA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=h7lzvjM0;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="jQxrD/jE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790160048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jdlLWRMURnyFzXNNGpWG5gQwOZdkQCfoP7TBERvJXHk=;
-	b=h7lzvjM0xXmB5bZTo+jOfDiQCPyF6+hdvGvf2Um67eWT1/bbY7aSnJmHR6mQ/QA+ypfGTc
-	fK6PWUXWnICAbOw5Hy536DmKYWGgQeH8FKFNI9elt04A6X+6nEtXwGPgbabGX9D3wEL4zK
-	vk98p1MAn3UeCluAbA3r0FFAmwX2i14=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790160048;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jdlLWRMURnyFzXNNGpWG5gQwOZdkQCfoP7TBERvJXHk=;
-	b=jQxrD/jEb8CJzM5R6OlODXRvwUFfY1qCO8mZvumsIYMTJxSW6Uo9GdiipVWuuOYkAb7eYy
-	wf7bTwrsDSZ7fwCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5BEC513432;
-	Wed, 23 Sep 2026 10:40:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id QinLDbCss2p9aAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 23 Sep 2026 10:40:48 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id DFDAEA13D4; Wed, 23 Sep 2026 12:40:43 +0200 (CEST)
-Date: Wed, 23 Sep 2026 12:40:43 +0200
-From: Jan Kara <jack@suse.cz>
-To: Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] fs: remove unused vfs_empty_path()
-Message-ID: <aki35tz5ddykjr7xgmqs6pgmqgopqgcrlstei6okzhionqgcu4@uivzxkbbabg6>
-References: <20260918165105.1013792-1-ekffu200098@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bda7NUQ1"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so3896545e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:41:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790160063; x=1790764863; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GoGtYfI6mbncqB1kvt8xB8OWSjQJ5DXHu4pe4unlWr4=;
+        b=Bda7NUQ1iqN5KGhTSPDJ35nHq7cg3MQFM4vmOXEmNkMN1FrjgQQeM50oR/kLxDRe++
+         4qRnIel/u7eE5fkEVXyX4pT4w6tehntWnF54+YLWmSynAl6A5xyjImJDt5cZMvMS3QcM
+         6WrCCvCfYkcWuiYi2P9RlrivSxa84LuO0XlOWK04hu0v009NoutFAzun6kr1c0WoDtfm
+         aHvFXcGUAU/Bh5QqlSsenmP0ObYY16Dt7NKDYv4eWeakN5D9/ll8uMaA8hvihPEUhPf9
+         oRu98h2w/Oe4ZDvS6KwwD2SLkKyRHviapJ0L54924f+KDKT6njzqCxmLZmxJDVdQiF9m
+         gw6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790160063; x=1790764863;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GoGtYfI6mbncqB1kvt8xB8OWSjQJ5DXHu4pe4unlWr4=;
+        b=cfq3uUiw9LsehUru00ozzPX7Yj04rfyuLiwD2rCmrMF5St8Cw7zsZDRW9PzJXCb+x1
+         KQYP+LotAhFhGOY22zZOL0H9TMeZeCOFGv1MoyJWQfgCyBcw1mwgUcElpNPDTawzKN5l
+         GXpyU7RVpswJ5vQTa3D5s7uXwjc/ngn6eKOsQG0KlpAjMvlUC74m7KWb7FGP6vh/l+Cg
+         lIizd36MQDmZ73aUMihhn35fn0Gdd58YNOuCWVlNQU3yv3Lgp1GZVRVUSmp9o1HH95JG
+         k5Prrwb8z8N52kffvZqjs++NNx/P+/g/2Nm/36nUmw9k4REOCch7CCeN0gwFFD4SZYkP
+         V7jg==
+X-Forwarded-Encrypted: i=1; AKwUvByyksvVvG/U//0Y+pq4ktdBbGvqvCdSmjcI/HyJSoShtKbmN1V3jk2xr6SaFaptuSo7u2N68jFDVHhTmGM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m7/v6+/j1Afq9pfvGir4B9ta7y8bI3NsT/j5w/72kAH4C+aoYx
+	dmE7hB1kNE7GXe4WK8VJyxk9j7GvdSIJDNblUvT4aDWNFIj/JAQHjSQ2
+X-Gm-Gg: AYBFou1eN4m232Y1HdSOtdddZN1rv3/VPMjgUbO0U6joR+R+ir6aRnHYFFKXliIC7uf
+	HIQ2I+SSiooWGMsxsGFBVgA7eIXoLgYgWym1wTB4dNLe5/iW2AN3TYuSUqwMM9Z5Ssc4Hz89ZZE
+	kgstZBHomjq+MDBkn2QB5BaG9WuyklX3AH7WO3uCOZym65ZgOaMJYCevb72U9KYUm2hcEls5A3o
+	UGYgaDxjykoAOdUHouRjdpazS//2Ul86zoFApLeuITIDByd6EZBcRrHLMEXhJ7N/m/owlrQXqV8
+	m/Cc5wDy1j50rSXJqatihk5r1EqNHnE/rzWTV8byETcbqLoiQRosaI+G45ERkZyb7i4fb7l8M/X
+	JDx0tEIUuFrIU9R2RFAxG8mS5FpD666i9iQUdkHAXzkAa2SYlNhSvyJKk1pCbAb8n870ShXB6lB
+	vo8GQgYxyWIrkO69gSpp3MCvYDnlby2gOpe1HLMtEON4q6aLXuyyeWNNPCOiKJ96ySwhDgSllmN
+	yMOQ+Fs5+vYfB3mCG3fpSSbxm0n2gr5ZhGmA1qU5M5edjY3dPc5ilSoABbS+UwpOtrw0/2DBx7A
+	OwWMyMSp
+X-Received: by 2002:a05:600c:8489:b0:49e:73e7:888c with SMTP id 5b1f17b1804b1-49fdee0b7e7mr27113165e9.4.1790160063078;
+        Wed, 23 Sep 2026 03:41:03 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:885e:6ade:cc5e:a35e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1acb91sm65170415e9.15.2026.09.23.03.41.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 03:41:02 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v6 5/8] watchdog: rzv2h: Convert WDTDCR handling to regmap
+Date: Wed, 23 Sep 2026 11:40:51 +0100
+Message-ID: <20260923104054.3324830-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918165105.1013792-1-ekffu200098@gmail.com>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 89FBF21A29
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+Content-Transfer-Encoding: 8bit
 
-On Sat 19-09-26 01:51:03, Sang-Heon Jeon wrote:
-> Since commit e896474fe485 ("getname_maybe_null() - the third variant of
-> pathname copy-in"), vfs_empty_path() has no callers.
-> 
-> So remove it.
-> 
-> No functional change.
-> 
-> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Looks good. Feel free to add:
+Convert the WDTDCR register access from raw readl/writel variants over to
+the regmap framework using devm_regmap_init_mmio().
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+This conversion serves as a preparatory refactoring step. It allows the
+driver to subsequently support syscon-based system controllers natively
+by passing along alternative regmap handles without forcing messy
+architectural branching at runtime.
 
-								Honza
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
+v5->v6:
+- No change
 
-> ---
->  include/linux/fs.h | 17 -----------------
->  1 file changed, 17 deletions(-)
-> 
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index 05d05bb9c951..ef8eb5af06c5 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -3653,23 +3653,6 @@ extern int vfs_fadvise(struct file *file, loff_t offset, loff_t len,
->  extern int generic_fadvise(struct file *file, loff_t offset, loff_t len,
->  			   int advice);
->  
-> -static inline bool vfs_empty_path(int dfd, const char __user *path)
-> -{
-> -	char c;
-> -
-> -	if (dfd < 0)
-> -		return false;
-> -
-> -	/* We now allow NULL to be used for empty path. */
-> -	if (!path)
-> -		return true;
-> -
-> -	if (unlikely(get_user(c, path)))
-> -		return false;
-> -
-> -	return !c;
-> -}
-> -
->  int generic_atomic_write_valid(struct kiocb *iocb, struct iov_iter *iter);
->  
->  static inline bool extensible_ioctl_valid(unsigned int cmd_a,
-> -- 
-> 2.43.0
-> 
+v4->v5:
+- Handled the regmap locking in the driver and introduced nolock
+  version to be used in the restart path.
+
+v2->v3:
+- Dropped unwinding changes to patch#1.
+- Set use_raw_spinlock to true in regmap config as certain watchdog operations
+  runs in an atomic panic context.
+---
+ drivers/watchdog/rzv2h_wdt.c | 54 ++++++++++++++++++++++++++----------
+ 1 file changed, 39 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
+index a65e5d6c48ad..bf46e239751c 100644
+--- a/drivers/watchdog/rzv2h_wdt.c
++++ b/drivers/watchdog/rzv2h_wdt.c
+@@ -4,6 +4,7 @@
+  *
+  * Copyright (C) 2024 Renesas Electronics Corporation.
+  */
++#include <linux/cleanup.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/io.h>
+@@ -12,7 +13,9 @@
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/regmap.h>
+ #include <linux/reset.h>
++#include <linux/spinlock.h>
+ #include <linux/units.h>
+ #include <linux/watchdog.h>
+ 
+@@ -65,7 +68,8 @@ struct rzv2h_of_data {
+ 
+ struct rzv2h_wdt_priv {
+ 	void __iomem *base;
+-	void __iomem *wdtdcr;
++	struct regmap *wdtdcr_regmap;
++	spinlock_t regmap_lock; /* Protects access to the wdtdcr_regmap */
+ 	struct clk *pclk;
+ 	struct clk *oscclk;
+ 	struct reset_control *rstc;
+@@ -89,20 +93,19 @@ static int rzv2h_wdt_ping(struct watchdog_device *wdev)
+ 
+ static int rzt2h_wdt_wdtdcr_count_stop(struct rzv2h_wdt_priv *priv)
+ {
+-	u32 reg = readl(priv->wdtdcr + WDTDCR);
+-
+-	writel(reg | WDTDCR_WDTSTOPCTRL, priv->wdtdcr + WDTDCR);
++	guard(spinlock_irqsave)(&priv->regmap_lock);
++	return regmap_set_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTOPCTRL);
++}
+ 
+-	return 0;
++static inline int rzt2h_wdt_wdtdcr_count_start_nolock(struct rzv2h_wdt_priv *priv)
++{
++	return regmap_clear_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTOPCTRL);
+ }
+ 
+ static int rzt2h_wdt_wdtdcr_count_start(struct rzv2h_wdt_priv *priv)
+ {
+-	u32 reg = readl(priv->wdtdcr + WDTDCR);
+-
+-	writel(reg & ~WDTDCR_WDTSTOPCTRL, priv->wdtdcr + WDTDCR);
+-
+-	return 0;
++	guard(spinlock_irqsave)(&priv->regmap_lock);
++	return rzt2h_wdt_wdtdcr_count_start_nolock(priv);
+ }
+ 
+ static void rzv2h_wdt_setup(struct watchdog_device *wdev, u16 wdtcr)
+@@ -235,8 +238,11 @@ static int rzv2h_wdt_restart(struct watchdog_device *wdev,
+ 			WDTCR_RPES_75 | WDTCR_TOPS_1024);
+ 
+ 	if (priv->of_data->wdtdcr) {
+-		/* best effort, ignore ret */
+-		rzt2h_wdt_wdtdcr_count_start(priv);
++		/*
++		 * Best effort, ignore return value and use the unlocked
++		 * variant of the function to avoid potential deadlocks.
++		 */
++		rzt2h_wdt_wdtdcr_count_start_nolock(priv);
+ 	}
+ 
+ 	rzv2h_wdt_ping(wdev);
+@@ -255,14 +261,32 @@ static const struct watchdog_ops rzv2h_wdt_ops = {
+ 	.restart = rzv2h_wdt_restart,
+ };
+ 
++static const struct regmap_config rzv2h_wdtdcr_regmap_config = {
++	.name = "wdtdcr",
++	.reg_bits = 32,
++	.val_bits = 32,
++	.reg_stride = 4,
++	.max_register = WDTDCR,
++	.max_register_is_0 = true,
++	.disable_locking = true,
++};
++
+ static int rzt2h_wdt_wdtdcr_init(struct platform_device *pdev,
+ 				 struct rzv2h_wdt_priv *priv)
+ {
++	void __iomem *wdtdcr;
+ 	int ret;
+ 
+-	priv->wdtdcr = devm_platform_ioremap_resource(pdev, 1);
+-	if (IS_ERR(priv->wdtdcr))
+-		return PTR_ERR(priv->wdtdcr);
++	wdtdcr = devm_platform_ioremap_resource(pdev, 1);
++	if (IS_ERR(wdtdcr))
++		return PTR_ERR(wdtdcr);
++
++	spin_lock_init(&priv->regmap_lock);
++
++	priv->wdtdcr_regmap = devm_regmap_init_mmio(&pdev->dev, wdtdcr,
++						    &rzv2h_wdtdcr_regmap_config);
++	if (IS_ERR(priv->wdtdcr_regmap))
++		return PTR_ERR(priv->wdtdcr_regmap);
+ 
+ 	ret = pm_runtime_resume_and_get(&pdev->dev);
+ 	if (ret)
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.55.0
+
