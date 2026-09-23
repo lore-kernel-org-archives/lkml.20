@@ -1,47 +1,48 @@
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322B038F630
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:12:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D24534444
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:12:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790179983; cv=none; b=RmGoIYSYnCk9Rp52APOmY8cIxbNj66uLD/Fu+P39TjDXhygakFoJ1xTERdN+YS6tQ/eUVdF+0E0agv/KDKr6Ny6YIx5cLKilbNA2bbEW4ZD4X432lIvlLlJm6JTySBUNRtlPBvsIy1RkMcyo11HPt088WUnT81iLs9LmSAxUFY4=
+	t=1790179983; cv=none; b=hfi877xRfQ0qV/Y4B/j3t65W5C3IKMG8MXH/Jk+zmCXAFo8W7HHJxDOZLBOoDNVazJRj/smtgoXZU3W4fn4IFb4riR97aI9AjBwGp4e4YqVjf+w1f7GvF/XVCByJMYyToKZBqugx8ZcGKVQVH/kxGyNBtKtk+ei1VrWSaqKp9yU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790179983; c=relaxed/simple;
-	bh=MIroo+oWA41krNykMcWeeH2okdAemzXl5AQpxiZX6u4=;
+	bh=kf1msQs5AJ3pdC/u2OPA1+KOX+hbHG6bACNwC5arPKo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RZ846oTQB9CWh8Le7vY4Z+31wha3w24lEujqPU81kr92VaZgoFgSKpWTkxNU0QdeYnJOF8FxUYHqyCZZSL6EFR09ImMiO9wBYoDPc7r6QGDgwaz97HvnzHit8wTetcxUqzumKauClhK4Uir46EC7zweVK/AcdvNADrJiLiqHFqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=a4IA+8r1; arc=none smtp.client-ip=213.97.179.56
+	 MIME-Version; b=JzyTrRpHl1uXgcS7Mwe1dkoWEN/2JhmwlsZKGGqmdBfPIssx3fRrVj9iwhHX0MRmkDthjH5RriTHhpPcgIHh6rxbhl9XDdBdz1Jz0AtzVpfx5M6VaV5x+zZmgTx6PTsnBa5VUYZgpnq9Ark2WHRzXRIHDixNVUT0yu5mJt7TqEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=N+h/4g6Z; arc=none smtp.client-ip=213.97.179.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="a4IA+8r1"
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="N+h/4g6Z"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
 	s=20170329; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:From:Reply-To; bh=ASsJvhG8AELMQ5KQkM/mNhuNT0ZTjSHv2ZrjZjXvQHU=; b=
-	a4IA+8r1G3AZXW/0m9pNceRstLs+LvkVvDoIByxik6O5Moc5Awnfbr1o/wijDKPH4kiXz5M1A78zX
-	caBcvcPeRxcsDThe8EQbcNe4VXSFTpXnhiUkJ7JuUbEXyn4f+Y32AHsCK1IjeaavT/bYGccJrW3gW
-	zynYuqDLLoNS3/fWv8V239VtsyZU1SHwCLduGCZ/V/Eg2oMdbAPcgSzIqV1QUGiQYyBLMG2XvDy2Z
-	opEj14lnBf9GpbsDz1nk4xdEjn71b2n2MCI75JILoB4ANJjj7LLKhMgwpOV0ALxcWluvJI5153CeA
-	3e1t6zAlL7Tif3lORdHaVv9bP1nyFCk+HQ==;
+	Cc:To:From:From:Reply-To; bh=05CpQ6ZHUsiawKuttLrdc0kN5L7r+NIJwjGGxvBIGpw=; b=
+	N+h/4g6Zp5srQnehOeIF5jJ1PuBgOIwJAt8lA6/7CXj+tX3kKyt1m8pSkKtRbBdupCGZGlogKjQdu
+	TB9zZizjK+4IBg50ncAGgwDrl9oKP91rBz9ueoefvLoq5d7CJmJnNlOZE62JeUNBNfIJKyokIfDqP
+	Xt8vai+lSIIUq8LkTh2vjs0quwQtiWe0sODGjv6RjD1CVmTf4OwDqiAmFQ1xF4XlH+699KQeB2LNs
+	BREQ/IO4bEebxS4hwFVimEX7i58AgZnifYGbXh5x3XnZvYDNueqT5F3GJfaPn+Vmwwff9CuWFWBxT
+	W53+b3TrTnLdH/g6b73PV7Es8PQ33m7OzA==;
 Received: from [81.79.79.1] (helo=localhost)
 	by fanzine2.igalia.com with esmtpsa 
 	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x9Pab-006ECW-48; Wed, 23 Sep 2026 18:12:56 +0200
+	id 1x9PaZ-006ECN-KI; Wed, 23 Sep 2026 18:12:55 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: linux-kernel@vger.kernel.org
 Cc: kernel-dev@igalia.com,
 	dri-devel@lists.freedesktop.org,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
 	Boris Brezillon <boris.brezillon@collabora.com>,
+	Bradley Morgan <include@grrlz.net>,
 	Chia-I Wu <olv@google.com>,
 	Liviu Dudau <liviu.dudau@arm.com>,
 	Matthew Brost <matthew.brost@intel.com>,
 	Steven Price <steven.price@arm.com>,
 	Tejun Heo <tj@kernel.org>
-Subject: [RFC v5 3/3] drm/panthor: Create per queue priority workqueues
-Date: Wed, 23 Sep 2026 17:12:51 +0100
-Message-ID: <20260923161251.45428-4-tvrtko.ursulin@igalia.com>
+Subject: [RFC v5 1/3] workqueue: Simplify unbound sysfs attribute registration
+Date: Wed, 23 Sep 2026 17:12:49 +0100
+Message-ID: <20260923161251.45428-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923161251.45428-1-tvrtko.ursulin@igalia.com>
 References: <20260923161251.45428-1-tvrtko.ursulin@igalia.com>
@@ -53,102 +54,205 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Split the single workqueue shared between the driver internal logic and
-DRM scheduler use into separate ones, where the DRM scheduler one is
-created per GPU priority level using the appropriate mapping to
-workqueue priorities.
-
-Low and medium GPU priority are served by a normal workqueue,
-high is server by a WQ_HIGHPRI instance, while realtime GPU priority is
-using the newly added WQ_RTPRI flag for lowest possible latency.
-
-These workqueues are device global and for all three we set the maximum
-concurrency to two in order to keep the GPU optimally fed with work.
+Instead of manually registering each attribute we can put them in an
+attribute group with a visibility check and device core will handle the
+rest, which simplifies the registration and error unwind.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Bradley Morgan <include@grrlz.net>
 Cc: Chia-I Wu <olv@google.com>
 Cc: Liviu Dudau <liviu.dudau@arm.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Steven Price <steven.price@arm.com>
 Cc: Tejun Heo <tj@kernel.org>
 ---
- drivers/gpu/drm/panthor/panthor_sched.c | 37 ++++++++++++++++++++++---
- 1 file changed, 33 insertions(+), 4 deletions(-)
+ kernel/workqueue.c | 98 ++++++++++++++++++++++++----------------------
+ 1 file changed, 52 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-index 5b34032deff8..de32ad68230c 100644
---- a/drivers/gpu/drm/panthor/panthor_sched.c
-+++ b/drivers/gpu/drm/panthor/panthor_sched.c
-@@ -152,11 +152,18 @@ struct panthor_scheduler {
- 	 *
- 	 * Used for the scheduler tick, group update or other kind of FW
- 	 * event processing that can't be handled in the threaded interrupt
--	 * path. Also passed to the drm_gpu_scheduler instances embedded
--	 * in panthor_queue.
-+	 * path.
- 	 */
- 	struct workqueue_struct *wq;
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index e618108c6127..e3a4ad56dae8 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -7599,8 +7599,8 @@ static const struct attribute_group wq_sysfs_group = {
+ };
+ __ATTRIBUTE_GROUPS(wq_sysfs);
  
-+	/**
-+	 * @submit_wq: Per priority workqueues for the DRM scheduler
-+	 *
-+	 * Passed to the drm_gpu_scheduler instances embedded
-+	 * in panthor_queue based on the queue priority.
-+	 */
-+	struct workqueue_struct *submit_wq[PANTHOR_CSG_PRIORITY_COUNT];
+-static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
+-			    char *buf)
++static ssize_t nice_show(struct device *dev, struct device_attribute *attr,
++			 char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	int written;
+@@ -7627,8 +7627,8 @@ static struct workqueue_attrs *wq_sysfs_prep_attrs(struct workqueue_struct *wq)
+ 	return attrs;
+ }
+ 
+-static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
+-			     const char *buf, size_t count)
++static ssize_t nice_store(struct device *dev, struct device_attribute *attr,
++			  const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7652,8 +7652,8 @@ static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
+ 	return ret ?: count;
+ }
+ 
+-static ssize_t wq_cpumask_show(struct device *dev,
+-			       struct device_attribute *attr, char *buf)
++static ssize_t unbound_cpumask_show(struct device *dev,
++				    struct device_attribute *attr, char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	int written;
+@@ -7665,9 +7665,9 @@ static ssize_t wq_cpumask_show(struct device *dev,
+ 	return written;
+ }
+ 
+-static ssize_t wq_cpumask_store(struct device *dev,
+-				struct device_attribute *attr,
+-				const char *buf, size_t count)
++static ssize_t unbound_cpumask_store(struct device *dev,
++				     struct device_attribute *attr,
++				     const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7689,8 +7689,8 @@ static ssize_t wq_cpumask_store(struct device *dev,
+ 	return ret ?: count;
+ }
+ 
+-static ssize_t wq_affn_scope_show(struct device *dev,
+-				  struct device_attribute *attr, char *buf)
++static ssize_t affn_scope_show(struct device *dev,
++			       struct device_attribute *attr, char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	int written;
+@@ -7708,9 +7708,9 @@ static ssize_t wq_affn_scope_show(struct device *dev,
+ 	return written;
+ }
+ 
+-static ssize_t wq_affn_scope_store(struct device *dev,
+-				   struct device_attribute *attr,
+-				   const char *buf, size_t count)
++static ssize_t affn_scope_store(struct device *dev,
++				struct device_attribute *attr,
++				const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7731,8 +7731,8 @@ static ssize_t wq_affn_scope_store(struct device *dev,
+ 	return ret ?: count;
+ }
+ 
+-static ssize_t wq_affinity_strict_show(struct device *dev,
+-				       struct device_attribute *attr, char *buf)
++static ssize_t affinity_strict_show(struct device *dev,
++				    struct device_attribute *attr, char *buf)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 
+@@ -7740,9 +7740,9 @@ static ssize_t wq_affinity_strict_show(struct device *dev,
+ 			 wq->attrs->affn_strict);
+ }
+ 
+-static ssize_t wq_affinity_strict_store(struct device *dev,
+-					struct device_attribute *attr,
+-					const char *buf, size_t count)
++static ssize_t affinity_strict_store(struct device *dev,
++				     struct device_attribute *attr,
++				     const char *buf, size_t count)
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+@@ -7762,14 +7762,40 @@ static ssize_t wq_affinity_strict_store(struct device *dev,
+ 	return ret ?: count;
+ }
+ 
+-static struct device_attribute wq_sysfs_unbound_attrs[] = {
+-	__ATTR(nice, 0644, wq_nice_show, wq_nice_store),
+-	__ATTR(cpumask, 0644, wq_cpumask_show, wq_cpumask_store),
+-	__ATTR(affinity_scope, 0644, wq_affn_scope_show, wq_affn_scope_store),
+-	__ATTR(affinity_strict, 0644, wq_affinity_strict_show, wq_affinity_strict_store),
+-	__ATTR_NULL,
++static DEVICE_ATTR_RW(nice);
++static DEVICE_ATTR_RW(affn_scope);
++static DEVICE_ATTR_RW(affinity_strict);
++/* Avoid naming clash with the other cpumask */
++static struct device_attribute dev_attr_unbound_cpumask =
++	__ATTR(cpumask, 0644, unbound_cpumask_show, unbound_cpumask_store);
 +
- 	/**
- 	 * @heap_alloc_wq: Workqueue used to schedule tiler_oom works.
- 	 *
-@@ -3582,8 +3589,14 @@ group_create_queue(struct panthor_group *group,
- 		goto err_free_queue;
++static struct attribute *wq_sysfs_unbound_attrs[] = {
++	&dev_attr_nice.attr,
++	&dev_attr_unbound_cpumask.attr,
++	&dev_attr_affn_scope.attr,
++	&dev_attr_affinity_strict.attr,
++	NULL,
+ };
+ 
++static umode_t wq_sysfs_unbound_group_visible(struct kobject *kobj,
++					      struct attribute *attr, int n)
++{
++	struct device *dev = kobj_to_dev(kobj);
++	struct workqueue_struct *wq = dev_to_wq(dev);
++
++	if (!(wq->flags & WQ_UNBOUND))
++		return SYSFS_GROUP_INVISIBLE;
++
++	return attr->mode;
++}
++
++static const struct attribute_group wq_sysfs_unbound_group = {
++	.is_visible = wq_sysfs_unbound_group_visible,
++	.attrs = wq_sysfs_unbound_attrs,
++};
++
++__ATTRIBUTE_GROUPS(wq_sysfs_unbound);
++
+ static const struct bus_type wq_subsys = {
+ 	.name				= "workqueue",
+ 	.dev_groups			= wq_sysfs_groups,
+@@ -7907,14 +7933,9 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
+ 	wq_dev->wq = wq;
+ 	wq_dev->dev.bus = &wq_subsys;
+ 	wq_dev->dev.release = wq_device_release;
++	wq_dev->dev.groups = wq_sysfs_unbound_groups;
+ 	dev_set_name(&wq_dev->dev, "%s", wq->name);
+ 
+-	/*
+-	 * attrs are created separately.  Suppress uevent until
+-	 * everything is ready.
+-	 */
+-	dev_set_uevent_suppress(&wq_dev->dev, true);
+-
+ 	ret = device_register(&wq_dev->dev);
+ 	if (ret) {
+ 		put_device(&wq_dev->dev);
+@@ -7922,21 +7943,6 @@ int workqueue_sysfs_register(struct workqueue_struct *wq)
+ 		return ret;
  	}
  
-+	if (group->priority >= ARRAY_SIZE(group->ptdev->scheduler->submit_wq) ||
-+	    !group->ptdev->scheduler->submit_wq[group->priority]) {
-+		ret = -EINVAL;
-+		goto err_free_queue;
-+	}
-+
- 	sched_args.name = queue->name;
+-	if (wq->flags & WQ_UNBOUND) {
+-		struct device_attribute *attr;
 -
-+	sched_args.submit_wq = group->ptdev->scheduler->submit_wq[group->priority];
- 	ret = drm_sched_init(&queue->scheduler, &sched_args);
- 	if (ret)
- 		goto err_free_queue;
-@@ -4073,6 +4086,15 @@ static void panthor_sched_fini(struct drm_device *ddev, void *res)
- 	if (!sched || !sched->csg_slot_count)
- 		return;
+-		for (attr = wq_sysfs_unbound_attrs; attr->attr.name; attr++) {
+-			ret = device_create_file(&wq_dev->dev, attr);
+-			if (ret) {
+-				device_unregister(&wq_dev->dev);
+-				wq->wq_dev = NULL;
+-				return ret;
+-			}
+-		}
+-	}
+-
+-	dev_set_uevent_suppress(&wq_dev->dev, false);
+-	kobject_uevent(&wq_dev->dev.kobj, KOBJ_ADD);
+ 	return 0;
+ }
  
-+	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM])
-+		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM]);
-+
-+	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH])
-+		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH]);
-+
-+	if (sched->submit_wq[PANTHOR_CSG_PRIORITY_RT])
-+		destroy_workqueue(sched->submit_wq[PANTHOR_CSG_PRIORITY_RT]);
-+
- 	if (sched->wq)
- 		destroy_workqueue(sched->wq);
- 
-@@ -4174,7 +4196,14 @@ int panthor_sched_init(struct panthor_device *ptdev)
- 	 */
- 	sched->heap_alloc_wq = alloc_workqueue("panthor-heap-alloc", WQ_UNBOUND, 0);
- 	sched->wq = alloc_workqueue("panthor-csf-sched", WQ_MEM_RECLAIM | WQ_UNBOUND, 0);
--	if (!sched->wq || !sched->heap_alloc_wq) {
-+	sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] = alloc_workqueue("panthor-drm", WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
-+	sched->submit_wq[PANTHOR_CSG_PRIORITY_LOW] = sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM];
-+	sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] = alloc_workqueue("panthor-drm-high", WQ_HIGHPRI | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
-+	sched->submit_wq[PANTHOR_CSG_PRIORITY_RT] = alloc_workqueue("panthor-drm-rt", WQ_RTPRI | WQ_MEM_RECLAIM | WQ_UNBOUND, 2);
-+	if (!sched->wq || !sched->heap_alloc_wq ||
-+	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_MEDIUM] ||
-+	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_HIGH] ||
-+	    !sched->submit_wq[PANTHOR_CSG_PRIORITY_RT]) {
- 		panthor_sched_fini(&ptdev->base, sched);
- 		drm_err(&ptdev->base, "Failed to allocate the workqueues");
- 		return -ENOMEM;
 -- 
 2.55.0
 
