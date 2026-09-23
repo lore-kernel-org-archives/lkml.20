@@ -1,64 +1,64 @@
 Received: from mail-dl2-f42.google.com (mail-dl2-f42.google.com [74.125.229.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CCE45D5FF
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:42:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55878446070
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:42:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790206923; cv=none; b=bLzBg0cu+oKLt9jkU1sD8Kcn+6oSKf1W5ZsCFygXkqj3lI2O5f6PRAsxzsudkJi4alHJAJ9esINuC+rcQRRXVsKZ2DYF3bp4Ir40ALzOQ5QCfsjFi3GzjyyjKIHlJVKJpw9TBd4jUPL9CFqvwcaQxRIuI8jiJ4FFkzIofNj5HD8=
+	t=1790206925; cv=none; b=vD5/WeoMS9e5RFzgSVXdOmZjHYDxrpUjOKX2yiJ0f4l8CSIjXuopYGPbh6kh1Bog/f3yLTHnEAjy0mVXjBj3TvX+oi83ytszTC7KGlbXBg9okuBdPTqv5c+m6ud2HQiqXSOUaAAUeGpYH7KjEYtioWRJrf1ADuQawx17P+1ZxVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790206923; c=relaxed/simple;
-	bh=jTYEu6ZtAgdC7ZQ9hXWoQvkVklAqgHKUxm3ZPmigkbU=;
+	s=arc-20240116; t=1790206925; c=relaxed/simple;
+	bh=JRbEo3jDUGdpUHqM8S0YjNO5l1q03hO4AFqJdccpCWc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tkpNMnTOcUhlKtFqXaGBRPTyTxKl1eYMzBSU4H2MuP5WA791y76DpHrQ1czEWdQu70+QfhSzUqD9KZU94JIduKtYKTpxIo+5s/xSamiO4qey7sZ16s7iWarxVE/gnID5chr5idIwKqS4+PI8zFqVLk6vwxVfuSF7nIo2MiO76lI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TupQMrUY; arc=none smtp.client-ip=74.125.229.170
+	 MIME-Version; b=sQY4u7ZHrhSYoCPmVrkmZnXue11ZHaEbLoSp7t9k2aXbMTzJ41+vhddqc2FVhiFDrxa/Y/X7CgYlWGRo8aIP7/HQ8mCxksBaOPJ0hy6j/rhTy3XSBX9J8sCZkIDibsqYX5lO82WDk5Lft+j21/EdkpVOpFfb7tEfVowWm+pBZkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b3brL0/J; arc=none smtp.client-ip=74.125.229.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TupQMrUY"
-Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-144f089b1e3so1317897c88.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:42:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b3brL0/J"
+Received: by mail-dl2-f42.google.com with SMTP id a92af1059eb24-1438cb9b3a3so1494153c88.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:42:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790206919; x=1790811719; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790206922; x=1790811722; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HlIw0ZbHp60RrT00NlXN0W+bJLKDe7Nj/Yt5yJjNy0Y=;
-        b=TupQMrUY1lVUKn6+fxYvS4oQJ4Eyiaz5vK0BL2GIxbdPaKieZb5EY5E174v7HDevVE
-         TpRVPsY2aoOWtn4V4HFIQyclkSjz9Oy0r/ssAWUu7sknmQ6VxafK9InK/pgCoTmnAYGu
-         7pnnoq0trl+xCqRzI7dcQ8l/EwrRO4vLEAm3YnrrI7xXdBeJaywVP43d/dtAToh8frhV
-         loVhgk+MzpoKiE3jv4ZNn6aPpSh+nIbVRk4pCUTPVM7/7K69boqo3XJfsnKGjJGu2ueG
-         aMPjQt0TZJJCOWIxNaUYtte3WQzGhsbASFL3bKEeqxyHOQ2LtnpsI/pJHs2ENXXTzW6M
-         hIQg==
+        bh=N7+t2VISKOFozXNbp7BqWZhipJ/lcJUoqiKturNJLsY=;
+        b=b3brL0/JaxwzysuSUxAt3Lyr1f5USQ4J64i5URlKx5gmywjUqrbk0nOcyzFMzEELJT
+         5XzQ3LGBy6Uj1tBV1Tcz8RQxBlpYPsF13LVHU0S1yRN5litYnXXH9wlSxqGdOAbgkzjH
+         0NAg/BjS8eHef9c3Ljr4J+mNpVYxIWIO0OpnGZy/Q/G80kvavMzGjfKXKvxJQUgE7jF6
+         ruAQiGhGc+bmAEhQ9EdXeTWqcwkG+QwZdfCUtW4TK04hBhmswdNV1ViNey1A+/DzG3k4
+         pALBidpLSNkLvSARcb7nSXEyhlxStPgkgJf3X0aJqiyI4doXsbK4JMz8RrlmyTEGnIeo
+         USCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790206919; x=1790811719;
+        d=1e100.net; s=20260707; t=1790206922; x=1790811722;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HlIw0ZbHp60RrT00NlXN0W+bJLKDe7Nj/Yt5yJjNy0Y=;
-        b=j0S/ye1NsSfzHXdG2Uo7Rax4QT3Oj1u37pSeOB6Lb7HkI4YXVa1X2kC8HId47DWiyr
-         28WwJ5ZnJTfCgIMWhtlp/9EQ2mkn9iAQSIosOBJvO+22JTuBXP9Kyn5Jctjdits7TanT
-         jd70W4rl6F0OjXFYFj40XFgRCWzUU1QK+7Ctie//i0XQi/YEfbqE4KDaPEOHAVfT/KMX
-         Wev8QHaW9QfUudOW/UIpF1M5TD8RHT76SiVvz40i532EEwNJkqlbI6U6BWwGcq3z1sYn
-         TKoyxg9UwtILZ/ZupRyX4op0OheVe8fuFbKfMvOpFRdEXixM5f2wd3eKNiWZwrcRk+ya
-         E9fg==
-X-Forwarded-Encrypted: i=1; AKwUvBzb6CGcIdTgCax1m8KsQJ3PcLwkg9ECG7dF4MNRNrZXcpdFDQ6/jc68vK/V5/abwWewB+ppv1pZsuxEKSI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3QawK6aXJaTxLdFzQDdDCMscPAETAlQJJUdau9xpfzFAYzQ4F
-	w5Ce619FWM/uTacDTHuP4OBe6mhUo+C1gtikWA1e5mYsYj2djgCZ6v1T
-X-Gm-Gg: AYBFou1XEP7w4Ql7PvwL+enIWDOilGMwDteRoVyW+tDrgri+8ouxwFgp0JPpqXc7uXP
-	XS3L4w6NPtgqrBZeguHTFpcGJ5dLZyMhI3ELwBQMY18yW20zSDRR3Ix+X446PJB+roOrslblXZL
-	WRjrXFWtgt1qHBEe6ypazte8pi78KyHKJ7/7cbtOcOmfUqR7pa3oToOpB6U64Yl9+5qiCXKK+jp
-	YuOnceA0Y2b4cucMggAJ0kkpaD5D300byztu38udmPQSMt48PdKlvZ/s78niRXzUb6hwwJvOvlY
-	Arxhs980oP3qLikmAd661nNLZcUbLQBzd7PKBCoshSVYmcO9mMdYbGa7/EF6XrGQvC+iwhN+fsL
-	MPX6Z8DPvGqtHcZfpKz39XIh1M39ZrPDrjSvLHJw3KEyEFnkuvwGyhUIguADFA0SIUfeNkDaBgR
-	z2TUQ/VCLvBhJcodWaJkIZWQKt7U7NLeuirO+nmXGcRdlPkCUy1ohgjiLMSkw/6KU3D6vkWpHwC
-	nvuDGEXv+wzHfFBS7A8GrC18qVdQt5Pe11b
-X-Received: by 2002:a05:701b:418c:20b0:143:2982:1045 with SMTP id a92af1059eb24-14504adaed5mr276046c88.38.1790206919445;
-        Wed, 23 Sep 2026 16:41:59 -0700 (PDT)
+        bh=N7+t2VISKOFozXNbp7BqWZhipJ/lcJUoqiKturNJLsY=;
+        b=Bv3PfBEkp2UQj7SZq09vs8Xszvvj3PPVyr157gI7zFwlTl4Xgy+ozygENprnvSnUiP
+         hBR3TCv8F8o+P+miIqPD59ahVaSJXUdkWQIFJWKgULfMCQIXAOE93+7M80gDWbp/ac20
+         8gEVZiVzghdyumUFPIyqAlKtP9CLXGZKOX8KfQpbci3xIn3/ZzRQ4keyt6LWYwG4Dps6
+         kdApvdeFY4vIcX8IZmZQ4Psfr4ds5khQ1ojBaa8as4rEUVKNA/Lrvc804tMrDshLM+1R
+         ZrniiTVJFWcrQjz4ABtp6l6fRdNa31C6iXSNMgiY4Yq/fYV0J2ijUtOC64rc5lUb/HDf
+         9Dqw==
+X-Forwarded-Encrypted: i=1; AKwUvBzw0/ehRtFRqvFBItWeoKMtLnF8+QpSlCHyOJYdaMLmkeYz2JBKN3FpefnEdUcXX+W9/T/A7AT9X31WstQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nv2M0ue4JKifV24CSbF/AXVRTlDGMYglX7OsCUbxq7PpFqlzj6
+	cetF29pizHNi4SXCX2Ny8YiiYpB0BtUj+94at2pZ4jYDv1MhamIuzfgZ
+X-Gm-Gg: AYBFou1MMnkAS45BG9QemaXX74+EDD1U9mXLZfg51uGHKLBgKKTgAGuA+ZQIRVO0eaG
+	j5xQNRguRkkjyejQhs/kP8VJXWY9yKvIPhpqsF/vwtRcsIeiT8Pr0qzipZEZVUbIhkun8VW7SDD
+	DGvt37V5pb6i3fKJGY5wur/vJ8EvRopFXwgOhvz56NOYDZHMqQqeMXHV0+Q12NCPXKBi6tlRqKa
+	aPqGKf8vTrFJUbW2U0PJberYjJ1woXF9QqylQgx4yQtHbIGuPPyqNxJPSkA8WC/DbMXzKddr8BZ
+	vSmIXQq7ooMz3FRrm1tZjc8VuwCTkteZgnXWWiDb+GHGrxECzxLVTr1N2pD4NQoEAaiDnZ8NV1/
+	25NB0D1HnNo/OASKIScWXu1kVoBN8o3wD5DIUKMn0zoNZNfJMW/1eHSrGuc5H4xUSLOuKR9/9sy
+	wReu6rIc5MDbugSgoTK+OxPO+Ey0AOjfP45S8TxNbs823M5DcAKyrFPZDuStEGzfJ2+iL3K8eTd
+	KWoPpMSskVrd8lM4pNU0bOB1V1c/1K/LWvA
+X-Received: by 2002:a05:7022:b885:b0:144:c11b:6de8 with SMTP id a92af1059eb24-14503fc6fd9mr431913c88.29.1790206922160;
+        Wed, 23 Sep 2026 16:42:02 -0700 (PDT)
 Received: from archsung (186-244-17-112.user3p.vtal.net.br. [186.244.17.112])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98209ffsm8100182c88.4.2026.09.23.16.41.57
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98209ffsm8100182c88.4.2026.09.23.16.41.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 16:41:59 -0700 (PDT)
+        Wed, 23 Sep 2026 16:42:01 -0700 (PDT)
 From: Felipe Calliari <calliarifelipe@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -70,9 +70,9 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-kernel@vger.kernel.org,
 	Felipe Calliari <calliarifelipe@gmail.com>,
 	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: [PATCH v3 1/5] media: ov02c10: Drop duplicate register write
-Date: Wed, 23 Sep 2026 20:40:56 -0300
-Message-ID: <20260923234100.318151-2-calliarifelipe@gmail.com>
+Subject: [PATCH v3 2/5] media: ov02c10: Implement get_selection
+Date: Wed, 23 Sep 2026 20:40:57 -0300
+Message-ID: <20260923234100.318151-3-calliarifelipe@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923234100.318151-1-calliarifelipe@gmail.com>
 References: <20260923144257.119076-1-calliarifelipe@gmail.com>
@@ -85,28 +85,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sensor_1928x1092_30fps_setting[] writes {0x395f, 0x00} twice in a row.
-The second write is redundant; drop it. No functional change.
+The driver does not implement .get_selection, so userspace cannot query
+the sensor's native size or active crop rectangle. libcamera reports
+"Unable to get rectangle N on pad 0/0: Inappropriate ioctl for device"
+and "The sensor kernel driver needs to be fixed" (see libcamera's
+Documentation/sensor_driver_requirements.rst).
+
+Implement .get_selection returning the fixed geometry of the sensor:
+
+ - V4L2_SEL_TGT_NATIVE_SIZE / V4L2_SEL_TGT_CROP_BOUNDS: the full
+   1928x1092 pixel array.
+ - V4L2_SEL_TGT_CROP / V4L2_SEL_TGT_CROP_DEFAULT: the 1920x1080 active
+   area, centred in the 1928x1092 output size programmed in
+   sensor_1928x1092_30fps_setting[] (registers 0x3808-0x380b), i.e.
+   offset by (4, 6).
+
+The crop is fixed, so sd_state is not consulted.
 
 Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
 Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Tested-by: Mars-Wave <tmorolias@gmail.com> # Samsung Galaxy Book3 Pro NP960XFG (github.com/MarsWave)
 ---
- drivers/media/i2c/ov02c10.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/media/i2c/ov02c10.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
 diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-index d622f5dca..730a40e94 100644
+index 730a40e94..cdccbdef3 100644
 --- a/drivers/media/i2c/ov02c10.c
 +++ b/drivers/media/i2c/ov02c10.c
-@@ -209,7 +209,6 @@ static const struct reg_sequence sensor_1928x1092_30fps_setting[] = {
- 	{0x395d, 0x05},
- 	{0x395e, 0x02},
- 	{0x395f, 0x00},
--	{0x395f, 0x00},
- 	{0x3960, 0x00},
- 	{0x3961, 0x00},
- 	{0x3962, 0x00},
+@@ -10,6 +10,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <media/v4l2-cci.h>
++#include <media/v4l2-common.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+@@ -18,6 +19,13 @@
+ #define OV02C10_MCLK			19200000
+ #define OV02C10_RGB_DEPTH		10
+ 
++#define OV02C10_NATIVE_WIDTH		1928
++#define OV02C10_NATIVE_HEIGHT		1092
++#define OV02C10_ACTIVE_WIDTH		1920
++#define OV02C10_ACTIVE_HEIGHT		1080
++#define OV02C10_ACTIVE_LEFT		4
++#define OV02C10_ACTIVE_TOP		6
++
+ #define OV02C10_REG_CHIP_ID		CCI_REG16(0x300a)
+ #define OV02C10_CHIP_ID			0x5602
+ 
+@@ -768,11 +776,37 @@ static const struct v4l2_subdev_video_ops ov02c10_video_ops = {
+ 	.s_stream = v4l2_subdev_s_stream_helper,
+ };
+ 
++static int ov02c10_get_selection(struct v4l2_subdev *sd,
++				 const struct v4l2_subdev_client_info *ci,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_selection *sel)
++{
++	switch (sel->target) {
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++		sel->r.top = 0;
++		sel->r.left = 0;
++		sel->r.width = OV02C10_NATIVE_WIDTH;
++		sel->r.height = OV02C10_NATIVE_HEIGHT;
++		return 0;
++	case V4L2_SEL_TGT_CROP:
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++		sel->r.top = OV02C10_ACTIVE_TOP;
++		sel->r.left = OV02C10_ACTIVE_LEFT;
++		sel->r.width = OV02C10_ACTIVE_WIDTH;
++		sel->r.height = OV02C10_ACTIVE_HEIGHT;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
+ static const struct v4l2_subdev_pad_ops ov02c10_pad_ops = {
+ 	.set_fmt = ov02c10_set_format,
+ 	.get_fmt = v4l2_subdev_get_fmt,
+ 	.enum_mbus_code = ov02c10_enum_mbus_code,
+ 	.enum_frame_size = ov02c10_enum_frame_size,
++	.get_selection = ov02c10_get_selection,
+ 	.enable_streams = ov02c10_enable_streams,
+ 	.disable_streams = ov02c10_disable_streams,
+ };
 -- 
 2.55.0
 
