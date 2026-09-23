@@ -1,62 +1,64 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4023346BE
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:19:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D482744F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:20:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130000; cv=none; b=olKn9SsXlMhNmKY9H1n8RDujCgQkp9d5Z4fXrWZbQ3PRBKDvpPUVj1dkOtnhbc8fuHKybb3Yg1E2aygXLt3FI6zjXa7SHovFqKI6eq0lCy0Z7ZpIiXkJm2/+OzuL2NtTnRwIXHHAqBuIuE9tKxv/aFPfTF4i/9QQeZcjyk09AKw=
+	t=1790130004; cv=none; b=uqRUvdnpeXEl1zliBc4CWuunqhorxKpuSj8fk5/ANe2/OSnOg8isJyIMh55NBd/d+7Gvzp3H/pEF7MEE6E4Nbl0elYSD2OhnGKmXTdKdfOOCvHmffBhrPzt+AXLJMJEA+g3ylW35ew5F9QMZlRWnGJCz0biYyM3pNDgEzx47Lz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130000; c=relaxed/simple;
-	bh=LcXQdWRW2GsS5I8GuOOeQZtsFoiw+GjNN+se5mePlKU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q4AadV+jINPLn/inMWUs9TNKS1o2wkdZEAHpdAXnt4Xevm8eTJ/JNRyTjvYpZxv3WdGO4mFsX6qr6bcFquVUk8R/cwyOM8p1nUZQk5tBwpnNHUCs3JaDp9uH+A0Oq/gGp2RtXmbhbJE9+PP0U03X4cX7Hnksjd+lMM6hkMjRkJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hiaeL965; arc=none smtp.client-ip=74.125.228.43
+	s=arc-20240116; t=1790130004; c=relaxed/simple;
+	bh=RYEvLF9yW7LNBWAkSdNa2U/lQe3026MEqVhKRa6xStk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Mt4bbIo7guVI+j9kAHq2G2qn+25vp/cNvHtih0bEdwUYK9pxI2iPeTGtrXF1FvxrWYQtRMEyAk/6TZbBrqNbwZaEcSXaWWmMf/+XKhq9YiqW3zi4FXFWXHOObb2jghl9SLeQN0eD6EzWWzr6J03Ftts8rvk7aOOljMZtnhs0dOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UCgiR/ET; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hiaeL965"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469f204f6so288928b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:19:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UCgiR/ET"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86b90133ae8so281040b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:20:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790129998; x=1790734798; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=INaxH1K5pqrMxiyJhIWa4Nj2ZwXkK6QpSGkNU2jCGiE=;
-        b=hiaeL965MDC5qSnfkhMsBISJMV6YdJjZoT5uXAzP8TJghOmq9pEKPma9oRPJLroDkZ
-         xVcuS7lvxcBRB098rYjT8ONvhzA1edqBxCYCNXn9MkJtwxgSm3yGUU7q+zrHoQ3Z9Ken
-         KsAIg/apzr3soec46Opw87fmLyKJZd0JRG0ivXfuyoZr2rIsuPJ1gYRnqOwelJldy0l9
-         V1BMNbAkfEJiJQSDaw6rhuJsDZvIPUVlPjV26MAnJy28MbIGStA3okOJfiRMwEXrEdEn
-         aZgDh5pAV/sGVL9nubHRjsgPzVxaOIRSQffLCI8QBcCEucNasYFUTsTbcmdv/dnPm/zV
-         ISvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790129998; x=1790734798;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790130002; x=1790734802; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=INaxH1K5pqrMxiyJhIWa4Nj2ZwXkK6QpSGkNU2jCGiE=;
-        b=VsdekfsmNvwbPgm9hMaZw12tEKgj4K2UWRWGfWGGqer2ntkoYlF+XzQH6xCrlQ3qGh
-         fkIIWt7uEoksSoQnGzMQnuJknR6KsNim5B90kU1mz1azSKqenOIr9bgTTWqej8q/JNsb
-         2YsuzODyv9HKhykiwdgp87FdByeYlwWdZtYk8w6mWrf8Qbnr5f/mu70/p24MdzdRJhlm
-         tvemfE0Uad+7Abzt9vjcuslr6kga16jU0r4BYrE2rgS8KkrTefURZFDSVEWj8wFMsnRk
-         GbVH2e1MLOSLLg8vGlgaJSO1ZPhIjQhizONwN5W7FYjGuAJy3a6jPs4Q+7LJA1QARv5N
-         HspA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDY/oIdl3pucPZLapOauYZ5fdRCOXwX8G9LLCMzSJBliFelYwPi0n9118sWe13Xzg+2mPplg00kD2SwBY=@vger.kernel.org
-X-Gm-Message-State: AFuF++krKv5MxT9KKbtY7bQ9SzF7x+D7Y0xNRB5SLWPB1bkDctDjNd7N
-	jOJj64itYJbF5LcEdPOdgwMtK8U2caQbIgse8lI/NjCemriK1dyrVb+H
-X-Gm-Gg: AYBFou1j0+lEIhpo6KYt9PEOPflZ1jiRiJvXSh2Md1vjc8CuBdGDUiq3+MTWkgdSYeQ
-	xXmIpwatuJwgWSQYIGcJejjrTuvVZMBSU/US9UFDk+E2UTS7AqrZt3+cqzTNCGwMJqgTlNxxeZp
-	GdZAtiLVP/X+n/wlCIrbEPPP2TtdjUc2MXjYUOD0Gvfn929IfizeBAtP8jkN6Imc1eeWIXyTctl
-	S7+mZCQHe0ZhVoOk+1yjGe8K7stW/KEIsadTfjx+7skWXnODZJQ3GXZveVq8wHOfQ9HqsUrGN04
-	3GUEDWrspP9hRyC6j0NZBaty/CDmEUrQIKqsKPYkLYKmG33g4haFNaa3E3whN8TKJXuVZ2uKrkD
-	b75hnKLdTPSZnZoFyzjYpIf3tcu7EBA8+Iapi/BYMxJp+chnnKS3gGCKiMHGRkcqSPzzHxIPlA3
-	93VS9SPN5rppkUvEMUrpdFvaiwF03KiqkvUnb2wm0lX4mxwL3fA8jRCVKNAAxM5bgwKN5PsCFJJ
-	pI8JpI4whN4jlm3/TN/shro
-X-Received: by 2002:a05:6a00:2ea0:b0:878:3658:23db with SMTP id d2e1a72fcca58-87d1d9d2934mr1261390b3a.52.1790129998428;
-        Tue, 22 Sep 2026 19:19:58 -0700 (PDT)
+        bh=ieg2P/Lax1Eakf07DndW01SMJ/nBQVYMTevnVB+sbhI=;
+        b=UCgiR/ETM4nMrq7fmAHTr+NNC5JdCgHEgNr1rGY8eZBidGxOhww4UdSoSlLv3w7DKA
+         uoElI0/UajVmz48GZhgR6LZlD/UII5hFiFo5KElRLjSprBU7EquAHHKcGJ5FgnFLBjpn
+         Ppuy7fQ3rEBpfmCOlp/lBt03b5YtOroBQcl84EWYgmJayFLmMgvtxa73ZuCTAcQYIV+i
+         wMF9HCZBvU2lgZqKJTVMI4ZmsVjSefo3RvlOjxt0f8iIVkwztLcWdQlJHDXMBnf8kgBV
+         1qnzpQTdMNUPSYyaNzX9ZolBVinDiS/ofxECeYM+TDHoHnmAQCIrvUJbVwZIlgrYo/Xr
+         WAdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790130002; x=1790734802;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ieg2P/Lax1Eakf07DndW01SMJ/nBQVYMTevnVB+sbhI=;
+        b=0+m0I04NDkqYHCbFOrm3jpFS3F2cGYuUKF1viO6O3jJhJGs6VpXLFAY87CgLCGClU1
+         sMn50koOJHFEhtiafR8DvvvOrZPo6RhB2fF++ynEGK/r3GonK7EQCcLEg41z6GJA9I/o
+         AuMiqyNfLLafxaFYe9tCpyen65T05mYCHVU1aQtOqCHsZZ0+F4CiHouLUVtWlPt76Bh4
+         GOF5J7W9yE8rp29LMJMIBKNBVqAybY6xylQ5srAGuCzUpY/+IATL5sDFdhj9d+jbhdZV
+         sFczqOMjPKZ5kt9zjs08V2Qe5zERLOSa7j7mDFC9mzl7L6lYnT11EWQ3FBVsjS0+u2IC
+         x1/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzauArBbShvxjdNLhFc0T15xuW6PKPYbMwz2AUP1QuyJC68stse823we33HY4/gdBjCW0Bt5r4RSzm4Cps=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqRLjDzDtmIHS6L0KwH+ND85q7sPTQlRmrA5YaBFSvny/hWAeR
+	SU76ePG22amQneksqEruXn8iFR0UXAndcq75204mhyqqtL73DAnrvAqF
+X-Gm-Gg: AYBFou27yIfVfotUn1KI7qFfSiH2HNZn1jVlX67A/6mAwaZAm3qgKV9T1tUnjNE5wjT
+	5W4MYbR6LoVXXtbVJceCMz0C1Jb3gDbrMcR4NewBTZfGsSByXAoIsbQlkE94XoP4tcu4IsIA1um
+	g5AkM2fvlWFHpwHd6mV2OSYRyL+Nd04MLtaAXLh1c7MirnAzCsWQGR7W77U7kBT08a4FYDF/3/U
+	o5T1OK67yqu8RrmWfw3xQ4wK+S6XQY/RWkBUDf4Wx+9lFQJSdhS07NFVYd9MPD/Ys5hUOTDm/Ve
+	EXekogzY6d0xFo3WnH8TW6209b5ueCB+uZS9kqXjzB848RMwHXLu1EYp2t9C/YUTaGSCwt9Jm/7
+	Eco1Z1fR4bXviJ38I80mERcVapy+k/8if/rYR4f4hrGkfQqmhaPhz+MGuertzgO8Z0r5dF/jW/y
+	4/Z/BAd467ipEnEyXaAh1735CHckUxzc/5poWc/7utc0QJOd0biANjzmSRbaEqVjRYqMUHScbVN
+	QI54/DBVJzkbu57Hkb6KY+FTt3r+bJCrKA=
+X-Received: by 2002:a05:6a00:4c99:b0:874:705d:f63f with SMTP id d2e1a72fcca58-87d1c1c839bmr1274917b3a.33.1790130002435;
+        Tue, 22 Sep 2026 19:20:02 -0700 (PDT)
 Received: from d.home.yangfl.dn42 ([2a09:bac1:76c0:d30::4d0:61])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e0f4fe8sm502924b3a.51.2026.09.22.19.19.54
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e0f4fe8sm502924b3a.51.2026.09.22.19.19.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 19:19:57 -0700 (PDT)
+        Tue, 22 Sep 2026 19:20:01 -0700 (PDT)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
@@ -68,10 +70,12 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Russell King <linux@armlinux.org.uk>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v4 0/8] net: dsa: motorcomm: Add SerDes PCS
-Date: Wed, 23 Sep 2026 10:19:32 +0800
-Message-ID: <20260923021945.2203368-1-mmyangfl@gmail.com>
+Subject: [PATCH net-next v4 1/8] net: dsa: motorcomm: Remove YT921X_PORT_MASK_* macros
+Date: Wed, 23 Sep 2026 10:19:33 +0800
+Message-ID: <20260923021945.2203368-2-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923021945.2203368-1-mmyangfl@gmail.com>
+References: <20260923021945.2203368-1-mmyangfl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,46 +84,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Rework chip_info to tell SERDES ports from xMII ones, identify the port type
-at runtime from the pad configuration, and add a phylink PCS driver for the
-internal SerDes, so that the link of SERDES ports can be established through
-in-band negotiation instead of a fixed configuration.
+Remove YT921X_PORT_MASK_* macros since they are only thin wrappers
+around BIT() and GENMASK() and are not used in other places (plain BIT()
+and GENMASK() are used there). No functional change.
 
-v4:
-  - fix 1000basex
-  - YT921X_SPEED_NUM -> YT921X_SPEED_INVALID
-  - reword commit message
-v3: https://lore.kernel.org/r/20260917185010.3189199-1-mmyangfl@gmail.com
-  - fix build error
-v2: https://lore.kernel.org/r/20260916164310.3168269-1-mmyangfl@gmail.com
-  - Remove YT921X_PORT_MASK_* macros
-  - code style nits
-  - unconditionally write BMCR_ANRESTART
-v1: https://lore.kernel.org/r/20260909190541.466476-1-mmyangfl@gmail.com
+Signed-off-by: David Yang <mmyangfl@gmail.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+---
+ drivers/net/dsa/motorcomm/chip.c | 31 +++++++++++++------------------
+ 1 file changed, 13 insertions(+), 18 deletions(-)
 
-David Yang (8):
-  net: dsa: motorcomm: Remove YT921X_PORT_MASK_* macros
-  net: dsa: motorcomm: Split xMII and SERDES port masks
-  net: dsa: motorcomm: Identify port type at runtime
-  net: dsa: motorcomm: Fix register bit field names
-  net: dsa: motorcomm: Introduce yt921x_speed
-  net: dsa: motorcomm: Hoist port_to_priv helper into chip.h
-  net: dsa: motorcomm: Split MDIO bus module
-  net: dsa: motorcomm: Add SerDes PCS
-
- drivers/net/dsa/motorcomm/Makefile   |   2 +
- drivers/net/dsa/motorcomm/chip.c     | 524 +++++++--------------------
- drivers/net/dsa/motorcomm/chip.h     | 106 +++---
- drivers/net/dsa/motorcomm/leds.c     |  14 +-
- drivers/net/dsa/motorcomm/mdio_bus.c | 301 +++++++++++++++
- drivers/net/dsa/motorcomm/mdio_bus.h |  54 +++
- drivers/net/dsa/motorcomm/pcs-921x.c | 247 +++++++++++++
- drivers/net/dsa/motorcomm/pcs.h      |  13 +
- 8 files changed, 805 insertions(+), 456 deletions(-)
- create mode 100644 drivers/net/dsa/motorcomm/mdio_bus.c
- create mode 100644 drivers/net/dsa/motorcomm/mdio_bus.h
- create mode 100644 drivers/net/dsa/motorcomm/pcs-921x.c
- create mode 100644 drivers/net/dsa/motorcomm/pcs.h
-
---
+diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
+index 8b0ac5fc8c8b..825e0bfcff86 100644
+--- a/drivers/net/dsa/motorcomm/chip.c
++++ b/drivers/net/dsa/motorcomm/chip.c
+@@ -108,46 +108,41 @@ struct yt921x_info {
+ 	u16 external_mask;
+ };
+ 
+-#define YT921X_PORT_MASK_INTn(port)	BIT(port)
+-#define YT921X_PORT_MASK_INT0_n(n)	GENMASK((n) - 1, 0)
+-#define YT921X_PORT_MASK_EXT0		BIT(8)
+-#define YT921X_PORT_MASK_EXT1		BIT(9)
+-
+ static const struct yt921x_info yt921x_infos[] = {
+ 	{
+ 		"YT9215SC", YT9215_MAJOR, 1, 0,
+-		YT921X_PORT_MASK_INT0_n(5),
+-		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
++		GENMASK(4, 0),
++		BIT(8) | BIT(9),
+ 	},
+ 	{
+ 		"YT9215S", YT9215_MAJOR, 2, 0,
+-		YT921X_PORT_MASK_INT0_n(5),
+-		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
++		GENMASK(4, 0),
++		BIT(8) | BIT(9),
+ 	},
+ 	{
+ 		"YT9215RB", YT9215_MAJOR, 3, 0,
+-		YT921X_PORT_MASK_INT0_n(5),
+-		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
++		GENMASK(4, 0),
++		BIT(8) | BIT(9),
+ 	},
+ 	{
+ 		"YT9214NB", YT9215_MAJOR, 3, 2,
+-		YT921X_PORT_MASK_INTn(1) | YT921X_PORT_MASK_INTn(3),
+-		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
++		BIT(1) | BIT(3),
++		BIT(8) | BIT(9),
+ 	},
+ 	{
+ 		"YT9213NB", YT9215_MAJOR, 3, 3,
+-		YT921X_PORT_MASK_INTn(1) | YT921X_PORT_MASK_INTn(3),
+-		YT921X_PORT_MASK_EXT1,
++		BIT(1) | BIT(3),
++		BIT(9),
+ 	},
+ 	{
+ 		"YT9218N", YT9218_MAJOR, 0, 0,
+-		YT921X_PORT_MASK_INT0_n(8),
++		GENMASK(7, 0),
+ 		0,
+ 	},
+ 	{
+ 		"YT9218MB", YT9218_MAJOR, 1, 0,
+-		YT921X_PORT_MASK_INT0_n(8),
+-		YT921X_PORT_MASK_EXT0 | YT921X_PORT_MASK_EXT1,
++		GENMASK(7, 0),
++		BIT(8) | BIT(9),
+ 	},
+ 	{}
+ };
+-- 
 2.53.0
+
