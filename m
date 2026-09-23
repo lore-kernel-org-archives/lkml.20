@@ -1,182 +1,298 @@
-Received: from pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.83.148.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59AA446074;
-	Wed, 23 Sep 2026 09:26:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.83.148.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB313A3809
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:26:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155583; cv=none; b=K7+G/Chv6HVydMY8lTiw1AFrKZVBpaXxgAT06r48Se2gpZwSZQoIimw0A9werFC4xF0I8JtxGmBC+nqDVJ0aLSgRiZjrt3khSdBc0uHirM7KF5WmPcjSxO9uT+uIBv3dtqzgU7SXA9c8P61x5B97aS08ngC11EMKyciSW8Tir1c=
+	t=1790155608; cv=none; b=r7GFjZelcrPh/a0KVqArAEPyhOT+lcXmdfqudgkwRuEIbiiulzPnhv7Vu09JOsUi6HRa1lLEkhA/R6NcdkzHw+sL1NRDhT8ettHFMe77yVWO2gw2ZQtU8Up/jUkFRwBMSX+PEnPfBS3FogivePMSMA8o2z6WfaGgiRKLQOELdnA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155583; c=relaxed/simple;
-	bh=YZHzbEixna3Eo+/4Y7t3C4H7+hX+/vEpExN0RBbdF8g=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KC47bTo4KIWRgnfiEXfU+IfJXof81EhLjOItHIUaD5tgDu1DRhl5XlU9AtQRcI+K/Gbc8GfRNSvVjOe1JA+9fFQChaNMf5aI+5SRV5/aVV+3gAZV8OdP+PHyseInHAwn1XnkxnHOcq/AKaKKPWmxaDoZdSl1AlaVTquqdb37X14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it; spf=pass smtp.mailfrom=amazon.it; dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b=tHRCIe6z; arc=none smtp.client-ip=35.83.148.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.it
+	s=arc-20240116; t=1790155608; c=relaxed/simple;
+	bh=gDkGHtVuOGyiCNM/KOJ6y139mx3vXj7oIyTL88PrJNA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AEaYJbMWuRl6uyykCIz9le2BLIJvLSfSDTq24gQF3S0nfN4U9au0bHcmHHZ3WktH0kAvYXGVIwIsG/jCDmLlIn/yWFl50BiIYVX0ngbAJs9zt1q7cO8oLhS7he9GzyWVNFl94hKAjm9nnDkHi+WVn+1ItHu0ItiXgBWhb+AoX9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SXu2bGdD; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.it header.i=@amazon.it header.b="tHRCIe6z"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SXu2bGdD"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cebad4adso372640a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:26:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.it; i=@amazon.it; q=dns/txt; s=amazoncorp2;
-  t=1790155581; x=1821691581;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=cN5MLZiwNeqRdcxWX8m8G6mrJrXWNABdWnBEab4FCPQ=;
-  b=tHRCIe6zHPBgtJBX5x9OZu4OqU8lwtIDi3Ef/Ipa/dQLZ6IHSuyVkeP+
-   IobN4wDQTXEoYH22k0XRuLPU7BS64VoeWBwtuRQBKwNq4n03Oqr0XMVgz
-   zxVPCM8RJK394dd5s2nyINU04TMvjq0UPySJtGLPwa2DshA5eZiv9Uz6r
-   t/C1eOaJghKyzC+Pyr4ftCueHvaUpQCXdjyC1LwhzACoea2s50SCFHXsn
-   BqejQSz14Cbi95zuiyVj6A4RfNFpbcAL9h1qSYkZguxFAERfsdSkrtWQS
-   eLj40drnLD+hjA+PnWlQQFpqra267cBfK7RzwSg2rKjoPGBoMITU31dgI
-   A==;
-X-CSE-ConnectionGUID: Swfc1b/cRayzY0r31UWeqw==
-X-CSE-MsgGUID: rikSOqHrQaeO+po9b2UnIw==
-X-IronPort-AV: E=Sophos;i="6.27,118,1787011200"; 
-   d="scan'208";a="29214507"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-014.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 09:25:29 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:5405]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.59.1:2525] with esmtp (Farcaster)
- id cd567582-b90f-43f2-a34a-5f02aae20a7f; Wed, 23 Sep 2026 09:25:29 +0000 (UTC)
-X-Farcaster-Flow-ID: cd567582-b90f-43f2-a34a-5f02aae20a7f
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 23 Sep 2026 09:25:29 +0000
-Received: from dev-dsk-dipiets-1b-77b833da.eu-west-1.amazon.com
- (10.253.66.177) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Wed, 23 Sep 2026
- 09:25:25 +0000
-From: Salvatore Dipietro <dipiets@amazon.it>
-To: <vbabka@kernel.org>, <akpm@linux-foundation.org>, <willy@infradead.org>
-CC: <abuehaze@amazon.com>, <alisaidi@amazon.com>, <blakgeof@amazon.com>,
-	<brauner@kernel.org>, <brendan.jackman@linux.dev>, <david@redhat.com>,
-	<dgc@kernel.org>, <dipietro.salvatore@gmail.com>, <dipiets@amazon.it>,
-	<djwong@kernel.org>, <hannes@cmpxchg.org>, <hch@infradead.org>, <hch@lst.de>,
-	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, <linux-xfs@vger.kernel.org>, <mhocko@suse.com>,
-	<ritesh.list@gmail.com>, <rvvandan@amazon.com>, <stable@vger.kernel.org>,
-	<surenb@google.com>, <ziy@nvidia.com>
-Subject: Re: [PATCH v4] mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
-Date: Wed, 23 Sep 2026 09:25:12 +0000
-Message-ID: <20260923092512.101833-1-dipiets@amazon.it>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <6c94405a-48e4-4842-a096-e2fbbbaa862f@kernel.org>
-References: <6c94405a-48e4-4842-a096-e2fbbbaa862f@kernel.org>
+        d=gmail.com; s=20251104; t=1790155606; x=1790760406; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RYEBkNdsAvF45qpnvlTmS2AB5A8WDSA5/DwkjxH8zII=;
+        b=SXu2bGdDhAu+avS2jFBBYxk+NSp7YIs/FaWRYH5DHVcSGUVeDfd3zuvHsP0DItpDof
+         jyQIxHfC2aZm5pv+hz1LgC2OktpApHUu/44nM2w6CyfF10mqFQxlk7CNzKvK4Ls4yIfI
+         oHqr7lyJoq41UK9XCUBc+JH1QkHMJUIO4EveFY7b8QPwt+mgEjDzspuOMeh6njTPqrKh
+         E2+bq/vQ0Sg1y8bseKCzBf6cnCZvBVNHw6wXRA0l9xgUfCcsx1F8mBIgg4JAnUjnEvGj
+         9BAd2lIH/1SWPiKCv7GNjnKTUmfcQdYvRZptsCOA8YGumTRyUrrijCUOP+Iino4ZMKF9
+         BYsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790155606; x=1790760406;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RYEBkNdsAvF45qpnvlTmS2AB5A8WDSA5/DwkjxH8zII=;
+        b=N4Tf8dPhE3FmdItzmEwtXmre8ZmQyOVjZlnVYELUziQMlKmhanF/A6UKH5YH2Sk00H
+         Kduvm1vdt16gdI5ISwbpznFFtLt0OQD9JyYZ6eKU/jKjzXNpyIMD1boAcz+IT/Y6UFvI
+         DTbB+fF061D9u2JsmmMPJtf2NYHkZtZ1+tDJvLLwajFH3rwG01j2bh8iUu8r+iZNMXB3
+         pCZfUpNT9oSYbgciyv8AevMfSUA+2THzFA+IRpQRurqzimi0ctVmKGnkGAyGNzL70a20
+         4V5mlaj+CyKxjKQXyTKTcxMjvVNgqKlFlXux3h636kKlvE2AhuiIt/2tq7yzFvh7ZGEf
+         TwNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzCGQZmoGE3HuZYiGz3BV11jBXjyCHfUUX8sk8jRan+Tc5dHdJno5el2HAj4v1sW/n+rZ/KEEIgykB0xNM=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/lgw58tBjpYzeOs2DDNG5PWLh8vb1SFT3vBV4hTIc0SXngSDS
+	SfjsS5EoLYE/aUkWG4LYLnrPcT0fDuGLebito3mtGpolCmdpB3OTZg3+
+X-Gm-Gg: AYBFou1U8a8p3D01QgHkp1KDF8nJEpu7YUaSRo3oDDAemKpS2XeQ15JAYwOzeS/2pRC
+	RNk+hurxK7sEJ6YfigjuoRUlm997bj1qD8NgPNaZeDyafK7sy505kN+nIdy9RFjjM4biV5USi0n
+	dBTgmy10A9d8ILi14hojlH1j/8Ffb0fKutE0UwapVUeqQvKRtHFaZ7D0LfLXU7uG5TXgPEoUvws
+	XKd2WAqmLbW7V6dl4OFVD6L23ylVYz7xGCuQV8dPo8SsX2FonDt2Y3cC+ieBA/7U1/YKybHgr6i
+	pned2chggdqat6s3TtSBsK4AEv0Nbmlgq2rCzHFdceDHr5zP/bcS1iU+dXislIJmgz2toh4d63Q
+	Tplae7oySLfeOjWes3Oyg6IaHybYWoxCUuq22NQpVwqzPhjnEyevgzHUrl3nmHwnFRexuS7a91J
+	RwmIdmPwJvQwvWq7KOSOYqYFXxj8Vlz1+HSxaybHBDe3kvUfcUQgycgXkeoeFBZe6Z1oQjbo4lK
+	rVuQWBS4Eau5FWCeTsOZUYIp4zIj4vLAdDpMEd13kDhpZDXSAthF9Qy4Y3UPU3xMemNN2n/LddV
+	4my5HzJvhCLnT0fmKi/5
+X-Received: by 2002:a17:90b:2f88:b0:39e:6c69:7773 with SMTP id 98e67ed59e1d1-3a07e6cc58fmr1704432a91.28.1790155606220;
+        Wed, 23 Sep 2026 02:26:46 -0700 (PDT)
+Received: from Gracelands.reavernet (180-150-12-158.b4960c.syd.static.aussiebb.net. [180.150.12.158])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc32086sm4053794a91.13.2026.09.23.02.26.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 02:26:45 -0700 (PDT)
+From: Stephen Bancroft <stevereaver@gmail.com>
+To: linux-mtd@lists.infradead.org
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-kernel@vger.kernel.org,
+	Stephen Bancroft <stevereaver@gmail.com>
+Subject: [PATCH v4] mtd: maps: add INT0800 firmware-flash map driver
+Date: Wed, 23 Sep 2026 19:26:24 +1000
+Message-ID: <20260923092626.873202-1-stevereaver@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260921021459.283023-1-stevereaver@gmail.com>
+References: <20260921021459.283023-1-stevereaver@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: EX19D032UWB003.ant.amazon.com (10.13.139.165) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Add a read-only mapping driver that binds the ACPI INT0800 "Intel
+82802 firmware hub" device and exposes the system firmware flash as an
+MTD ROM device.
 
-On 9/19/26 06:13, Matthew Wilcox wrote:
-> This patch is still piling hack on hack.  We haven't made a serious
-> effort to understand what's going on, we're just adjusting flags until
-> things stop sucking.
+On x86 machines the boot flash is decoded into the physical address
+space below 4 GB, so a plain ioremap() of the declared resource window
+is sufficient for reads - no SPI or LPC controller access is needed.
+The window may be larger than the real flash; undecoded holes read as
+0xff.
 
-I have tested two new kernel patches on v7.3-rc1, each isolating one behaviour
-(diffs at the bottom), and ran the same pgbench simple-update workload
-(1024 clients / 96 threads / 1200s, 3 iterations each).  Baseline is the
-unpatched regressed kernel; target is ~135k, the pre-5d8edfb900d5 number.
+This gives userspace a clean, safe way to read firmware flash contents
+without flashrom or relaxed /dev/mem access - for firmware analysis,
+and for extracting option ROMs stored inside EFI firmware volumes
+(e.g. the NVIDIA VBIOS on EFI-booted Apple machines, which can then be
+fed to nouveau via nouveau.config=NvBios=). There is deliberately no
+write or erase support.
 
-  Config                                          Avg TPS   % vs baseline
-  v7.3-rc1 baseline (no patch)                      59,408            -
-  (a) post-reclaim drain step skipped               70,615       +18.9%
-  (b) compaction disabled only                     107,210       +80.5%
-  (c) v4 (full non-blocking, reference)            154,835      +160.6%
+Tested on a MacBookPro4,1 (ICH8M): /dev/mtd0 reads are byte-identical
+to a flashrom dump of the 2 MiB SST25VF016B, except for live NVRAM
+variable-store regions.
 
-
-We can notice that:
-
-1. The drain_all_pages() IPI is not the driver.  (a) skips the whole
-   post-reclaim drain step for costly __GFP_NORETRY -- that is
-   unreserve_highatomic_pageblock(), drain_all_pages() and the retry
-   together -- and the entire step is worth only ~11k of the ~96k gap.
-   Whatever the split between the three, the cross-CPU drain cannot
-   account for the bulk of it.
-
-2. Turning compaction off is not enough.  Your gfp_compaction_allowed()
-   one-liner (b) gets about half the gap, and it declines across
-   iterations (135k -> 98k -> 89k).  It drops compaction for
-   __GFP_NORETRY at every order that can use it, __GFP_THISNODE
-   excepted, not only at the costly order v4 gates on; the decline is
-   consistent with the zone no longer being repaired.  (c) only makes
-   the costly attempt non-blocking and leaves kswapd/kcompactd working,
-   and it does not show the decline.
-
-3. We have collected metrics to understand how often the
-   allocator stalls and normalised to a million page writebacks (nr_written),
-   over the same 3 x 1200s iterations as above:
-
-                                        compact_  allocstall_   pgscan_
-                                           stall      movable    direct
-     v7.3-rc1 baseline                       513          277    90,230
-     (a) post-reclaim drain skipped          912          472   129,249
-     (b) compaction disabled                   0          778    44,737
-     (c) v4 (full non-blocking)                5           39     4,407
-
-   The baseline enters stall compaction ~100x more often per page written
-   than (c) does.  (a) makes all three metrics worse.  (b) removes direct
-   compaction entirely (0 stalls) but does not remove the work: it enters
-   direct reclaim 2.8x more often than the baseline (778 vs 277
-   allocstall_movable), and still does half the baseline's direct scanning
-   (44,737 vs 90,230 pgscan_direct).  (c) cuts both instead -- reclaim
-   stalls 7x lower and direct scanning 20x lower (39 and 4,407).
-   That is why (b) recovers only half the gap -- the stall moves from
-   compaction into reclaim instead of going away.
-
-If you agree this is the right direction, I am happy to send a v6 with
-(c)'s behaviour plus the defrag_mode fix discussed in the v5 thread.
-
-
-Thanks,
-Salvatore
-
-
+Signed-off-by: Stephen Bancroft <stevereaver@gmail.com>
 ---
-For reproducibility, here is the exact diff behind each measured row
-above (all against v7.3-rc1).
+Changes in v4:
+- Set .suppress_bind_attrs: remove() frees the mtd_info and lets
+  devres unmap the window unconditionally, so a sysfs driver unbind
+  while a /dev/mtdX fd is still open would leave userspace holding a
+  dangling pointer into freed/unmapped memory (Sashiko AI review).
+  Module unload is now the only teardown path and is already blocked
+  by open fds via mtd->owner.
 
-(a) post-reclaim drain step skipped -- 70,615 tps:
+Changes in v3:
+- MODULE_AUTHOR: use full author identity (per Miquèl Raynal's review)
 
-  diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-  --- a/mm/page_alloc.c
-  +++ b/mm/page_alloc.c
-  @@ -4487,7 +4487,8 @@ __alloc_pages_direct_reclaim(gfp_t gfp_mask, unsigned int order,
-   	 * pages are pinned on the per-cpu lists or in high alloc reserves.
-   	 * Shrink them and try again
-   	 */
-  -	if (!page && !drained) {
-  +	if (!page && !drained &&
-  +	    !(order > PAGE_ALLOC_COSTLY_ORDER && (gfp_mask & __GFP_NORETRY))) {
-   		unreserve_highatomic_pageblock(ac, false);
-   		drain_all_pages(NULL);
-   		drained = true;
+Changes in v2:
+- Per-device state via devm_kzalloc instead of globals (fixes shared
+  state corruption with multiple INT0800 devices)
+- Clean up map probe on mtd_device_register() failure (fixes
+  memory/mapping leak)
+- Use %pa for resource_size_t in dev_info (fixes format string on
+  32-bit)
+- Add missing Signed-off-by
 
-(b) compaction disabled only -- 107,210 tps:
+ drivers/mtd/maps/Kconfig   |  17 ++++++
+ drivers/mtd/maps/Makefile  |   1 +
+ drivers/mtd/maps/int0800.c | 115 +++++++++++++++++++++++++++++++++++++
+ 3 files changed, 133 insertions(+)
+ create mode 100644 drivers/mtd/maps/int0800.c
 
-  diff --git a/include/linux/gfp.h b/include/linux/gfp.h
-  --- a/include/linux/gfp.h
-  +++ b/include/linux/gfp.h
-  @@ -380,7 +380,8 @@ static inline bool gfp_has_io_fs(gfp_t gfp)
-    */
-   static inline bool gfp_compaction_allowed(gfp_t gfp_mask)
-   {
-  -	return IS_ENABLED(CONFIG_COMPACTION) && (gfp_mask & __GFP_IO);
-  +	return IS_ENABLED(CONFIG_COMPACTION) && (gfp_mask & __GFP_IO) &&
-  +		(!(gfp_mask & __GFP_NORETRY) || (gfp_mask & __GFP_THISNODE));
-   }
-
-
-
-AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
-
-
+diff --git a/drivers/mtd/maps/Kconfig b/drivers/mtd/maps/Kconfig
+index 1bb3dba2631d..649fd145e15d 100644
+--- a/drivers/mtd/maps/Kconfig
++++ b/drivers/mtd/maps/Kconfig
+@@ -161,6 +161,23 @@ config MTD_AMD76XROM
+ 
+ 	  BE VERY CAREFUL.
+ 
++config MTD_INT0800
++	tristate "Read-only BIOS/firmware flash via ACPI INT0800"
++	depends on X86 && ACPI
++	select MTD_ROM
++	help
++	  Support for reading the system firmware (BIOS/EFI) flash chip
++	  through the memory window described by the ACPI INT0800
++	  "82802 firmware hub" device, present on most x86 machines.
++
++	  The flash is exposed read-only via the ROM chip driver, e.g.
++	  for firmware analysis or extracting option ROMs (such as
++	  video BIOS images embedded in EFI firmware volumes). There is
++	  no write or erase support.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called int0800.
++
+ config MTD_ICHXROM
+ 	tristate "BIOS flash chip on Intel Controller Hub 2/3/4/5"
+ 	depends on X86 && MTD_JEDECPROBE
+diff --git a/drivers/mtd/maps/Makefile b/drivers/mtd/maps/Makefile
+index 01745eca1f73..2f1a7375e13c 100644
+--- a/drivers/mtd/maps/Makefile
++++ b/drivers/mtd/maps/Makefile
+@@ -14,6 +14,7 @@ obj-$(CONFIG_MTD_L440GX)	+= l440gx.o
+ obj-$(CONFIG_MTD_AMD76XROM)	+= amd76xrom.o
+ obj-$(CONFIG_MTD_ESB2ROM)	+= esb2rom.o
+ obj-$(CONFIG_MTD_ICHXROM)	+= ichxrom.o
++obj-$(CONFIG_MTD_INT0800)	+= int0800.o
+ obj-$(CONFIG_MTD_CK804XROM)	+= ck804xrom.o
+ obj-$(CONFIG_MTD_TSUNAMI)	+= tsunami_flash.o
+ obj-$(CONFIG_MTD_PXA2XX)	+= pxa2xx-flash.o
+diff --git a/drivers/mtd/maps/int0800.c b/drivers/mtd/maps/int0800.c
+new file mode 100644
+index 000000000000..c5f108aa3479
+--- /dev/null
++++ b/drivers/mtd/maps/int0800.c
+@@ -0,0 +1,115 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Read-only MTD access to the system firmware flash behind the ACPI
++ * INT0800 "Intel 82802 firmware hub" device.
++ *
++ * On x86 systems the boot flash is decoded into the physical address
++ * space below 4 GB, so a plain ioremap() is sufficient to read it -
++ * no SPI or LPC controller access is required.  The declared _CRS
++ * window may be larger than the real flash (the whole top-16MiB
++ * decode range is commonly claimed); undecoded holes read as 0xff.
++ *
++ * The device is exposed read-only via the ROM chip driver; there is
++ * deliberately no write or erase support.
++ */
++
++#include <linux/module.h>
++#include <linux/acpi.h>
++#include <linux/io.h>
++#include <linux/mtd/mtd.h>
++#include <linux/mtd/map.h>
++#include <linux/platform_device.h>
++#include <linux/slab.h>
++
++/* top-of-4GB firmware decode, used when _CRS reports no window */
++#define INT0800_DEFAULT_PHYS	0xffe00000UL
++#define INT0800_DEFAULT_SIZE	SZ_2M
++
++struct int0800 {
++	struct map_info		map;
++	struct mtd_info		*mtd;
++};
++
++static int int0800_probe(struct platform_device *pdev)
++{
++	struct resource *res;
++	struct int0800 *fw;
++	resource_size_t end;
++	int ret;
++
++	fw = devm_kzalloc(&pdev->dev, sizeof(*fw), GFP_KERNEL);
++	if (!fw)
++		return -ENOMEM;
++
++	fw->map.name = dev_name(&pdev->dev);
++	fw->map.bankwidth = 1;
++
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (res) {
++		fw->map.phys = res->start;
++		fw->map.size = resource_size(res);
++	} else {
++		fw->map.phys = INT0800_DEFAULT_PHYS;
++		fw->map.size = INT0800_DEFAULT_SIZE;
++	}
++
++	/*
++	 * Plain ioremap on purpose: the window is already claimed by the
++	 * ACPI/pnp resource reservation, so devm_ioremap_resource() would
++	 * fail with -EBUSY.
++	 */
++	fw->map.virt = devm_ioremap(&pdev->dev, fw->map.phys, fw->map.size);
++	if (!fw->map.virt)
++		return -ENOMEM;
++
++	simple_map_init(&fw->map);
++	fw->mtd = do_map_probe("map_rom", &fw->map);
++	if (!fw->mtd)
++		return -ENODEV;
++	fw->mtd->dev.parent = &pdev->dev;
++	platform_set_drvdata(pdev, fw);
++
++	end = fw->map.phys + fw->map.size - 1;
++	dev_info(&pdev->dev, "mapped firmware window %pa-%pa\n",
++		 &fw->map.phys, &end);
++
++	ret = mtd_device_register(fw->mtd, NULL, 0);
++	if (ret)
++		map_destroy(fw->mtd);
++	return ret;
++}
++
++static void int0800_remove(struct platform_device *pdev)
++{
++	struct int0800 *fw = platform_get_drvdata(pdev);
++
++	mtd_device_unregister(fw->mtd);
++	map_destroy(fw->mtd);
++}
++
++static const struct acpi_device_id int0800_ids[] = {
++	{ "INT0800", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(acpi, int0800_ids);
++
++static struct platform_driver int0800_driver = {
++	.probe	= int0800_probe,
++	.remove	= int0800_remove,
++	.driver	= {
++		.name			= "int0800",
++		.acpi_match_table	= int0800_ids,
++		/*
++		 * remove() frees the mtd_info and unmaps the window even
++		 * while /dev/mtdX fds are still open; the only safe
++		 * teardown path is module unload, which open fds block
++		 * via mtd->owner.
++		 */
++		.suppress_bind_attrs	= true,
++	},
++};
++module_platform_driver(int0800_driver);
++
++MODULE_AUTHOR("Stephen Bancroft <stevereaver@gmail.com>");
++MODULE_DESCRIPTION("Read-only MTD map over the INT0800 firmware flash window");
++MODULE_LICENSE("GPL");
+-- 
+2.43.0
 
