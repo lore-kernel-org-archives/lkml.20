@@ -1,49 +1,68 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37F6A4D0CC5
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:29:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728625304B2
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170199; cv=none; b=s94ghhJ/z+y/Vm6pJBwd/gadEOgTysikNHCMecYwi7il0mAGUR2TQTihRYexDyagf+4iLqJBLjhYXQK+OzM7eDc1+rUCbSx7jaSYEVTEFkdDmFudzAUfcttF9ZLy/YKWpKWPPEpqTn8xe+V2UUmolwSzpOLCMssulgdYekDNxa8=
+	t=1790170219; cv=none; b=IXGOj/nptBPCl7wA6J9h4RLw03NABm91S9jObR8tdLsmSEckwYHBWyRxvZ/cPhcGJ9JN1WayEuAeh1BQdJYXwF5ZFpJljWOZ2JUg7CLHDAsmI/XAX/J0aSjXeG9vHTfH2J1Ww8S6oxNokm3EGC7Trm+ER/IG6yEC1KRWH9oU854=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170199; c=relaxed/simple;
-	bh=iUV++2k/E9kKUp3tG7hZGZ9mAOmRuWQIGJIJZ96Q26U=;
-	h=Message-ID:Date:MIME-Version:From:To:Subject:Content-Type; b=J6r90p/I/6TpvW1B0j9QIgp5O1pP5yDtIT7wNURlNMj8snFuI3K0ilWWFZe+2/DBE7s49+fQG9EWft6wNsRdCc2xSGbMsQDtHiXdDbidYzMiheFuAZx1ZZXcXGNtS1bS0JU8RPkm2k9lcCmV9385jgs26c6Yhd23/xKs6JBGRV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mNOYueq9; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790170219; c=relaxed/simple;
+	bh=tFpSLJd4KzT2EQLI4Mnw+jxQCxhohjwg8m7rnfH6i3A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EaDPrEax6ZO9R9fncjvExicNVJj4mUsw+tKP3IPLMqxvg0DDIBHGKIC52kM/TN396sJEUPmAOSbQskPYfCexkXZjIhAFMmUCzOAHQloVEWDsKjc74oo0CsFsriqCdKyePrC0RzlL+CsHjnB4fOezi6GZWk35srXUh2wfB7qTxS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lWlC+3UG; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mNOYueq9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790170197; x=1821706197;
-  h=message-id:date:mime-version:from:to:subject:
-   content-transfer-encoding;
-  bh=iUV++2k/E9kKUp3tG7hZGZ9mAOmRuWQIGJIJZ96Q26U=;
-  b=mNOYueq92D6GuXRThzQGmaTaMfBHUEVpxi3U0QVn3Ng3jXq5SCXGpiDU
-   NOb7MJPuVN+y3QovrvfedxLIKK9ClR/Gwkvmc4ooVT2SBvEro1l02Ssck
-   WP870EoJkur5f4J7DgCPn4hY5TuSJOrZ6B0aCWxFVrHNkMi/hPgNYTwId
-   bmX1cCwyGFGWesL/b7zsXIP3qMv9Tegfa+6h6Z5TINisAza3OqN9NkFHQ
-   3wwstLeXGW2wGXpw3kril07UfClyTqCwnSP4idDzBaADKJPwZXNs9uNHx
-   Sko4TFtqWbFpGkMbv/cshhlHvQ6eLbotszC+nJvI5Rh43lP5YuiiUWtX9
-   Q==;
-X-CSE-ConnectionGUID: dny5tgRkTz6rRhrXjaWWtA==
-X-CSE-MsgGUID: eMu0ayVQSOOu6AFfE9rwlg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90732696"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="90732696"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 06:29:56 -0700
-X-CSE-ConnectionGUID: hVFwfW9uS1u+UcC+v0125w==
-X-CSE-MsgGUID: ffpiXT5QSIK5P2WllINhFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="273804799"
-Received: from gmitchel-mobl2.amr.corp.intel.com (HELO [10.125.110.75]) ([10.125.110.75])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 06:29:55 -0700
-Message-ID: <d49f2e1a-1f19-49e8-a2a0-98b839274b69@intel.com>
-Date: Wed, 23 Sep 2026 06:29:56 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lWlC+3UG"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85e68bdbcc1so9889367b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:30:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790170217; x=1790775017; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zidhQFtMBqWpP4LRT4RaIsC3YDKSMIQiZYuG7TAn+KU=;
+        b=lWlC+3UGvBh/nsEnuwWYxBhHp0VhkD61/qc3vfpVbTBwZAMidL6XvvQ9q59jVnV4F1
+         hpL03Y03v0Vig1driAwF2h84iIA+6XXDOgrB/2+1jMSVxIZhMKvWGOKR1EouVVEjmwKd
+         2gl0cVFr/NK4wgjQnezfb3XCAfDf0yMfLCMHoZwYVwxkVi0hzhS0pUaRwZkCCDW/IIL/
+         sLSmC9MNm0qldzon56tMxks6nTc0AqifoQruEocX4WnDVLVF0kzSNlJbVJ9bAQL+yEFD
+         FsS+l+YPFJL3mYW16kLyDv8GSndcLdgBOF/JqRMp3aZCrWEQ9e72LQnWmmlb2s+NHSev
+         9+hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790170217; x=1790775017;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zidhQFtMBqWpP4LRT4RaIsC3YDKSMIQiZYuG7TAn+KU=;
+        b=UqycI+lxl0f0nJWXq6oPT/ql17GtBq62fSoBd/HealnbBMTKr05mYmO13LHwRObnap
+         tYn6662VD9FVnBkc36zwE07C/ORs25eS9fArC9dQBntWyNZ8QQPVxNr2jqbK+RL2iVX0
+         8qBtoqnN2CUXiTn+oM93nqpi/2+eNHRj/dvl+p2F/VpUxAhNxLDFN8G03wESS+2MbTzc
+         gU05u5h9vr1k7uXpy/T+T7KmLNjpsxSuCOajZ7PfRPpiQSaPez8rAY6gSKSMK4QWzXwC
+         9lYfOJcox0xExv8I0P4JragVoj/KA6+bJgRN/lQuOOvdJR44EsT1ni+9gA4STtrTjZ8F
+         QG9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz500YZLIKtDy3EZcS7DZVMi+VDnwHRlJJ0m6mvqN+LlQmmtb/bMWwHAoXTLvb6maUFrt5yjvacBcl3RKQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxSaCj06c8A7gRcG7PJWE30M7odC1ZEtFL9GnAGZ7F9dW7WacL
+	c+j+j9VXVWe8ZeLxs5WSdEMc+nGSferaPAs6CXfboT/lEUCCyE0Hq7mh
+X-Gm-Gg: AYBFou3naJQHCyZsOZ2zs4KGDcdA4qkfmU3bfriK/VgS3Nwvs2rwTbymwizUTIMGD1+
+	I0xNXjB+5H4LcdibnKhQGxZsMFwUcHkKQQEjclY7FDTveCp/vuC2y3uSTQP51kEFcSiPvKIfTv0
+	FeQPClRu89UbTpAZX3Fowh5gcQHrPyIFFMpJKY+PMVzt6zVw47cW5PU+ZEJEqs/tFvf1DLs7tQP
+	4hhPXk5QgdJM1yvpkcsrY7pLr7fOexf7jUgBDBlxBIqmY1TMqNCggqKJk1eS92hbLA3hTlSD9id
+	Q1CyG/5ng3z7cfHBBxqQ5u9+8r/CuLwV4iQH3EsmvznBGIy5fkAHEaAZ3Ti6z7esX+PBReHzsTi
+	tGyL3mxjsWEsl4OrNFW3rItJqIjAPeZGkkrkXBWuPJJlTBybinA41YWdqKoHEg6HmUjcc5AGiVX
+	MDjgbJ0oh9VtiuN+7/CwEhmyiwx5VT3S5VFxPTay2IJBRBmgmp5pn/Li6zrKX7uj/ECkykFGP5w
+	otcEwPUFR5kBGFeK4tWItaJqtOvcA==
+X-Received: by 2002:a05:690c:4004:b0:89a:63da:cbec with SMTP id 00721157ae682-8a45c270a06mr12544017b3.50.1790170217243;
+        Wed, 23 Sep 2026 06:30:17 -0700 (PDT)
+Received: from [100.125.248.95] ([124.70.231.46])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a466ab7e7csm9385007b3.44.2026.09.23.06.29.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 06:30:16 -0700 (PDT)
+Message-ID: <5419d3e7-bd3e-40a5-a15d-397e9019b3d5@gmail.com>
+Date: Wed, 23 Sep 2026 21:29:56 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,93 +70,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/4] mm/truncate: clarify return value of
+ truncate_inode_partial_folio()
+To: Jan Kara <jack@suse.cz>, Zhang Yi <yi.zhang@huaweicloud.com>
+Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, hughd@google.com, baolin.wang@linux.alibaba.com,
+ willy@infradead.org, ziy@nvidia.com, bfoster@redhat.com,
+ joannelkoong@gmail.com, djwong@kernel.org, yi.zhang@huawei.com,
+ yangerkun@huawei.com, chengzhihao1@huawei.com, wangkefeng.wang@huawei.com,
+ yukuai@fnnas.com
+References: <20260922110703.468389-1-yi.zhang@huaweicloud.com>
+ <20260922110703.468389-5-yi.zhang@huaweicloud.com>
+ <5pthbyxtn7q6xi4fmkofvksmcjzfnujcw2g4fxmxjzfin5pbgf@zui3vcimb4cv>
 Content-Language: en-US
-From: Dave Hansen <dave.hansen@intel.com>
-To: Steve Wahl <steve.wahl@hpe.com>, Justin Ernst <justin.ernst@hpe.com>,
- Kyle Meyer <kyle.meyer@hpe.com>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Russ Anderson <russ.anderson@hpe.com>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- linux-kernel@vger.kernel.org
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-Subject: Dead arch/x86 UV code?
-Content-Type: text/plain; charset=UTF-8
+From: Zhang Yi <yizhang089@gmail.com>
+In-Reply-To: <5pthbyxtn7q6xi4fmkofvksmcjzfnujcw2g4fxmxjzfin5pbgf@zui3vcimb4cv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Folks,
+On 9/22/2026 7:58 PM, Jan Kara wrote:
+> On Tue 22-09-26 19:07:03, Zhang Yi wrote:
+>> From: Zhang Yi <yi.zhang@huawei.com>
+>>
+>> With the earlier rework the callers no longer rely on the return value
+>> of truncate_inode_partial_folio() to decide whether to adjust the
+>> truncation range. The pstart/pend out-parameters carry that information
+>> instead. The callers now only use the return value as a flag indicating
+>> whether the loop should be reset to pick up newly split sub-folios on
+>> the shmem path.
+>>
+>> Return true if at least one split succeeded, and false otherwise.
+>> This clarifies the existing confusing return value semantics.
+>>
+>> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
+> 
+> Looks good to me. Feel free to add:
+> 
+> Reviewed-by: Jan Kara <jack@suse.cz>
+> 
+> Just as I'm checking the only use of the return value of
+> truncate_inode_partial_folio() in shmem_undo_range(), the code there looks
+> fishy. It does:
+> 
+>          } else if (truncate_inode_partial_folio(folio, lstart, lend)) {
+>                  /*
+>                   * If we split a page, reset the loop so
+>                   * that we pick up the new sub pages.
+>                   * Otherwise the THP was entirely
+>                   * dropped or the target range was
+>                   * zeroed, so just continue the loop as
+>                   * is.
+>                   */
+>                  if (!folio_test_large(folio)) {
+>                          folio_unlock(folio);
+>                          index = start;
+>                          break;
+>                  }
+>          }
+> 
+> However if folio was say order-2 (4 pages), lstart is inside the 3rd page,
+> then the split done by truncate_inode_partial_folio() can result in order-1
+> folio, and two order-0 folios. Hence the !folio_test_large(folio) check
+> fails and we won't pickup the new smaller folios so that we can free the
+> 4th one... So I think we need to unconditionally reset the loop if
+> truncate_inode_partial_folio() returned true.
+> 
+> 								Honza
 
-I threw a silly LLM at arch/x86 trying to find unused code. One of the
-things that stood out was UV:
+Indeed, that's a good point. Since this is a pre-existing and
+independent issue, I'll send a separate patch to fix it.
 
- arch/x86/include/asm/uv/bios.h       |    3
- arch/x86/include/asm/uv/uv_hub.h     |  156 ---------------
- arch/x86/include/asm/uv/uv_irq.h     |   37 ---
- arch/x86/kernel/apic/x2apic_uv_x.c   |  187 ------------------
- arch/x86/platform/uv/bios_uv.c       |   44 ----
- arch/x86/platform/uv/uv_irq.c        |  210 ---------------------
- b/arch/x86/include/asm/hw_irq.h      |   15 -
- b/arch/x86/include/asm/uv/bios.h     |   11 -
- b/arch/x86/include/asm/uv/uv.h       |    2
- b/arch/x86/include/asm/uv/uv_geo.h   |    2
- b/arch/x86/include/asm/uv/uv_hub.h   |  156 ---------------
- b/arch/x86/kernel/apic/x2apic_uv_x.c |   70 -------
- b/arch/x86/kernel/cpu/common.c       |    4
- b/arch/x86/platform/uv/Makefile      |    2
- b/arch/x86/platform/uv/bios_uv.c     |    4
- 16 files changed, 15 insertions(+), 891 deletions(-)
+Thanks,
+Yi.
 
-It looks like a big chunk of it was just there to support some drivers
-that are now gone with:
 
-  dbf69afe320e ("misc: sgi-xp: Remove SGI XP drivers")
-  85de4712bccf ("misc: sgi-gru: Remove SGI GRU driver")
 
-I spot checked some of LLM spew. It didn't all seem to be noise. Could
-folks find some time to go through and see if this really is dead code?
-
-LLM spew is here:
-
-	https://sr71.net/~dave/intel/uv/
