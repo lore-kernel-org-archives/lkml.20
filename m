@@ -1,308 +1,118 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF13644682F;
-	Wed, 23 Sep 2026 07:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935B244BC97
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149486; cv=none; b=pv3cI/IlsCnPM2j+MFxB3VwDDREANURQBk1HjefjtTBQQ0AYPkMjVvGQc05nxmRYu6Uz0zlk2tZ8ahHEy6weMNK/1sq16RlvgR6wqVF9kiAvdP5T2gPxlAWMhVXfH6pM8CzIjVr/RbozSKBRqo0W9305dftM7zqI03zUVjTWdW0=
+	t=1790149491; cv=none; b=KKbG1BoYh8PGWqXFrtlpF4mNqW25nphOSZv9XxsgqwbaTZqpvuef3baCGc45NeWpelNetLb/ch51T8SVBNuMbvORUgo76GM6+grNlBu2NJ4tVq0zOJWCLKDmx1ZG148wgDle7+m5OrNFKi3S4fwqV7WFwwuRMVMrCBnvl53mS00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149486; c=relaxed/simple;
-	bh=/2gTemkZVCx765RzD8+vg/si9R+RsMdUhgwTOizrnsU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=opvMqTPeFkDe7GEw9lmzGJV9tFAwT2h+xu1ZlOgoJpC3bgE8Y+cJmbS0f4/ZIrnWwfFP4vAhfNo/vFt4QtB5lP5bnEisJpwxU/1vvA8Gcrt/8xBsktFKtAV+Os1bL3gvdlRzPCoGSVyQ0JeSv4GEJSXr1Sy4n3VS16+95fbvo6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Krr3MOtI; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790149491; c=relaxed/simple;
+	bh=NYrLhfZTuLWO9786X74rj8Oc2nWE4LCd9wsqz+3EZTE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EAmJwVABImjWwpR0NyhIX0m3oYZA3qN62BZdqsfWGXXAgHKyw7InJe/Eh6/OoDT2NYtx0Lox0e1qbSjQ41SQczBZ7q96qnSjUC5fu85jA4Fn9EoXTVwYD2T8OQz0Gg4Du5f3fGdbLHjgUnaGiN5U1kzTjDh81tsyQOqKy406RfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XpkRIhER; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Krr3MOtI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=QZ
-	2CklEPM41fBCBH4wMrs2bqusIBHz8n45dNOsqwuuM=; b=Krr3MOtISiN8CanmkK
-	MogyM2xLXQg8yg6bMaaBnZRMlfvyT8Gbf4Ff9krgL4Eot0MQT7kVDnstiTF4jz4l
-	9brbj4QCrPuZ7+DV+oQE1cLn+eNaTyuGLpTcapDE/zGzAmr9ofi+fcuNMhBpVrYl
-	ZoWDctCWf5w9iivdb0/hrBET8=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgB3eHMzg7NqoFfKAw--.49100S2;
-	Wed, 23 Sep 2026 15:43:49 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Chris Zhong <zyw@rock-chips.com>,
-	Zhang Qing <zhangqing@rock-chips.com>,
-	mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	quchaosheng000406@163.com
-Subject: [PATCH] dt-bindings: mfd: rockchip,rk805: Convert pinctrl to DT schema
-Date: Wed, 23 Sep 2026 15:43:37 +0800
-Message-ID: <20260923074337.575122-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XpkRIhER"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36AD71F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:44:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790149490;
+	bh=NYrLhfZTuLWO9786X74rj8Oc2nWE4LCd9wsqz+3EZTE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XpkRIhERG5CHFtcKDo0+j+mrpOsQ5yfCxODXBVvkHiTrWmVDnzG3N+KWJIak3vsOA
+	 YA88ByUfUJovQXCLTrb8+cdfVg8nOxprF/lMcYKz7YCSfkOyesbhpDv8G7nWIyo5Gy
+	 Go+WlNr81vlTZoxWABvrIvNFB8Y1gjfhamsvQoYaOv84fcqK/c2M1v4Ed/PgwIQTwT
+	 YakGmc9iKYpP9EOMcRjYOop9Isez541rkojict/k7QBYL4dZReyYiLefH2koBeeKkB
+	 g4QHlY90xLOGLgLyVXAv+9CzUuwD82OPAqV7gcu+FROdUt8z6gBQYnOqn4A4CjXUzr
+	 qCwAQX+H3T+zA==
+Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-66e4ab201ebso627076d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:44:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxehlD2MEEBJSIG84qBtHc/QnVPtmV1zR121Bi1RHYI2ImC+k3NAHVU1t3HJQajkGwsmDt0uBlCY6aMB+k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEbjpO8X54qa1rWG2CJu9oud73Ibn2ADfej9wTwhmCz7kFpJ/h
+	5piYxn5j3bw6e0nO/KdS8dIaeACGg4T04uODOBtY9uTuE0BCPgO5hIy9kJcfnYzNH/R8DomTPUU
+	faj+1ZTA7Nu4hi6g6DRIWrO/Z+GEyuntrgXL35F14XQ==
+X-Received: by 2002:a05:690e:450d:20b0:672:99e1:11f4 with SMTP id
+ 956f58d0204a3-672d59729dcmr476582d50.145.1790149489550; Wed, 23 Sep 2026
+ 00:44:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgB3eHMzg7NqoFfKAw--.49100S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuw47tr47AF45GF47CF4fAFb_yoWfGr47pF
-	ZxAF4fJrn2gF43uw48tw18Cw1fuan7Ar4UC3WUKryIqan8uryjyr13Kw1rZFyDGFW0va4a
-	vr15Wr98XwnrC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUj2NZUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BZ16mqzgzZcmwAA3G
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+ <aqJXx2vtbKaRLt3x@fedora> <aqLZ5TVDAqEbIeMN@linux.dev> <aqP81aqNbwAbs2P0@fedora>
+ <aqQrPLPXHXiuKup0@linux.dev> <aqjcFb6MFNiA6n4V@fedora> <aqjpYHbZ14A8xRtK@fedora>
+ <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
+ <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+ <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com> <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+In-Reply-To: <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+From: Chris Li <chrisl@kernel.org>
+Date: Tue, 22 Sep 2026 21:44:37 -1000
+X-Gmail-Original-Message-ID: <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
+X-Gm-Features: AcwNN1WZdLmRO50k_DT1C2XXWd6awldXtQl_BApHlgNKLP6uIu8v4FQYJXq3Og4
+Message-ID: <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Rik van Riel <riel@surriel.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-pinctrl-rk805.txt describes the pinmux controller that is part of the
-Rockchip RK805 PMIC. The PMIC itself is already described by
-rockchip,rk805.yaml, so the pinmux part belongs there as well: the
-pinctrl node is a child of the PMIC node, not a separate device.
+On Tue, Sep 22, 2026 at 7:54=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
+:
+>
+> On Sun, Sep 20, 2026 at 5:13=E2=80=AFPM Chris Li <chrisl@kernel.org> wrot=
+e:
+> >
+> > That is not what I have in mind. The example I have in mind is that
+> > zswap is charged to swap counters. Changing that behavior will break
+> > our current deployment and that of many other. Kairui give some
+> > example as well. That behavior should not change.
+>
+> We already have a knob to select vswap. Users can turn it off
+> initially, and/or update their software to handle the transition
+> based on this knob.
+>
+> Otherwise, you'd never be able to introduce any behavior into the
+> kernel. Hugetlb accounting/charging is a new behavior, and there were
+> softwares written before that assumed hugetlb usage is not charged. If
+> it's not a good argument to block the implementation of hugetlb
+> accounting then, it's not a good argument now.
 
-Fold the pinmux description into rockchip,rk805.yaml and drop the
-standalone text binding.
+My original intent is that 200% of RAM for zswap is too much.
 
-While doing so, add the missing child node schema. The rockchip,rk805.yaml
-schema ends with 'additionalProperties: false' but did not describe the pin
-configuration child nodes at all, so a valid pinmux node like the one shown
-in pinctrl-rk805.txt was rejected:
+It seems you are talking about a different topic: the vswap charging issue.
+There is a golden rule that we should follow: don't break existing
+users. At least with the same persistence, this rule should apply
+universally.
+In the swap tiers discussion, the UAPI was such a big deal that we
+couldn't implement new UAPI. On the other hand here we argue for
+liberally changing user-space visible behavior.
 
-    pmic@18 (rockchip,rk805): 'rk805-default-pins' does not match any of
-    the regexes: '^pinctrl-[0-9]+$'
+BTW, I already shared that changing swap counter charging will break
+our and others' existing deployments.
 
-The pin configuration nodes require 'pins'; without it a node that names
-no pin is accepted silently, while the text binding it replaces listed
-'pins' as required. The RK805 exposes two output-only GPIOs, so 'pins' is
-an enum of gpio0 and gpio1 and a typo such as "gpio2" is caught.
-
-The nodes may be direct children of the PMIC, or sit one level deeper
-inside a "pinmux" grouping node, which is the layout the example of the
-text binding used. pinctrl-bindings.txt allows the configuration nodes to
-be grandchildren of the pin controller, and the driver reaches both
-layouts: pinconf_generic_dt_node_to_map() parses the referenced node and
-then walks its children. The example shows both.
-
-The example also regains the gpio-controller and #gpio-cells lines that the
-example of the text binding had.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260923034245.396417-1-quchaosheng000406@163.com?part=1
-Link: https://sashiko.dev/#/patchset/20260923062746.516666-1-quchaosheng000406@163.com?part=1
-Assisted-by: LLM
-Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
----
-Changes in v4:
-- Describe the pin configuration nodes both as direct children and inside a
-  "pinmux" grouping node. Only the flat form was described, so the layout
-  used by the example of the text binding this replaces was still rejected:
-
-    pmic@18 (rockchip,rk805): 'pinmux' does not match any of the regexes:
-      '-pins$', '^pinctrl-[0-9]+$'
-
-  The nodes are now one definition referenced from both places, and the
-  example shows the flat node and a "pinmux" node holding one.
-- Name the binding in the summary. dt-bindings: mfd: <binding>: is the form
-  Documentation/devicetree/bindings/submitting-patches.rst asks for on
-  conversions, and 364 of the 385 dt-bindings: mfd: commits in the tree name
-  a binding there.
-
-Changes in v3:
-- Capitalize the summary phrase. dt-bindings: mfd: titles are capitalized
-  after the subsystem prefix (Add 61, Convert 20 against convert 6).
-- Add gpio-controller and #gpio-cells to the example, which the text
-  binding's example had and the conversion dropped.
-- gpio-controller and #gpio-cells are deliberately *not* added to the
-  required list. rv1108-evb, rv1108-elgin-r1 and rk3328-a1 do not set
-  them, so requiring them breaks three in-tree boards:
-
-    rv1108-evb.dtb: pmic@18 (rockchip,rk805): 'gpio-controller' is a required property
-
-  No rk8xx PMIC schema requires the pair, and gpio.yaml already enforces
-  that they appear together ("'#gpio-cells' is a dependency of
-  'gpio-controller'"). The pinctrl driver calls devm_gpiochip_add_data()
-  unconditionally, so the property is not what makes the GPIO controller
-  work either.
-
-Changes in v2:
-- Require 'pins' in the pin configuration nodes. Without it a node that
-  names no pin passes validation, while the text binding listed 'pins'
-  as required.
----
- .../bindings/mfd/rockchip,rk805.yaml          | 65 ++++++++++++++++++-
- .../bindings/pinctrl/pinctrl-rk805.txt        | 63 ------------------
- 2 files changed, 64 insertions(+), 64 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
-
-diff --git a/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml b/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
-index da2391530c16..aafc80212c48 100644
---- a/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
-+++ b/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
-@@ -77,6 +77,21 @@ properties:
-     description:
-       The input supply for LDO_REG3.
- 
-+  # pinctrl-bindings.txt allows the pin configuration nodes to be grandchildren
-+  # of the pin controller, and the text binding this replaces used that layout:
-+  # a "pinmux" node holding the nodes that carry "pins". The driver reaches both
-+  # layouts, because pinconf_generic_dt_node_to_map() parses the referenced node
-+  # and then walks its children.
-+  pinmux:
-+    type: object
-+    additionalProperties: false
-+    patternProperties:
-+      '^.+$':
-+        if:
-+          type: object
-+        then:
-+          $ref: '#/$defs/rk805-pin-config'
-+
-   regulators:
-     type: object
-     patternProperties:
-@@ -86,6 +101,38 @@ properties:
-         unevaluatedProperties: false
-     unevaluatedProperties: false
- 
-+$defs:
-+  rk805-pin-config:
-+    type: object
-+    description:
-+      The RK805 has two output-only GPIOs which can be muxed to the GPIO
-+      function and driven low or high at boot.
-+    additionalProperties: false
-+
-+    properties:
-+      pins:
-+        description:
-+          List of GPIO pins to configure.
-+        items:
-+          enum: [gpio0, gpio1]
-+        minItems: 1
-+        maxItems: 2
-+
-+      function:
-+        description:
-+          The RK805 only supports the GPIO function.
-+        enum: [gpio]
-+
-+      output-low: true
-+      output-high: true
-+
-+    required:
-+      - pins
-+
-+patternProperties:
-+  '-pins$':
-+    $ref: '#/$defs/rk805-pin-config'
-+
- allOf:
-   - if:
-       properties:
-@@ -125,9 +172,11 @@ examples:
-             interrupt-parent = <&gpio2>;
-             interrupts = <RK_PA6 IRQ_TYPE_LEVEL_LOW>;
-             pinctrl-names = "default";
--            pinctrl-0 = <&pmic_int_l>;
-+            pinctrl-0 = <&pmic_int_l>, <&rk805_default>, <&rk805_grouped>;
-             rockchip,system-power-controller;
-             wakeup-source;
-+            gpio-controller;
-+            #gpio-cells = <2>;
-             #clock-cells = <0>;
- 
-             vcc1-supply = <&vcc_sys>;
-@@ -137,6 +186,20 @@ examples:
-             vcc5-supply = <&vcc_io>;
-             vcc6-supply = <&vcc_io>;
- 
-+            rk805_default: rk805-default-pins {
-+                pins = "gpio0";
-+                function = "gpio";
-+                output-high;
-+            };
-+
-+            rk805_grouped: pinmux {
-+                gpio01 {
-+                    pins = "gpio1";
-+                    function = "gpio";
-+                    output-low;
-+                };
-+            };
-+
-             regulators {
-                 vdd_logic: DCDC_REG1 {
-                     regulator-name = "vdd_logic";
-diff --git a/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt b/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
-deleted file mode 100644
-index 6ad49e51c72e..000000000000
---- a/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
-+++ /dev/null
-@@ -1,63 +0,0 @@
--Pincontrol driver for RK805 Power management IC.
--
--RK805 has 2 pins which can be configured as GPIO output only.
--
--Please refer file <devicetree/bindings/pinctrl/pinctrl-bindings.txt>
--for details of the common pinctrl bindings used by client devices,
--including the meaning of the phrase "pin configuration node".
--
--Optional Pinmux properties:
----------------------------
--Following properties are required if default setting of pins are required
--at boot.
--- pinctrl-names: A pinctrl state named per <pinctrl-bindings.txt>.
--- pinctrl[0...n]: Properties to contain the phandle for pinctrl states per
--		<pinctrl-bindings.txt>.
--
--The pin configurations are defined as child of the pinctrl states node. Each
--sub-node have following properties:
--
--Required properties:
--------------------
--- #gpio-cells: Should be two. The first cell is the pin number and the
--  second is the GPIO flags.
--
--- gpio-controller: Marks the device node as a GPIO controller.
--
--- pins: List of pins. Valid values of pins properties are: gpio0, gpio1.
--
--First 2 properties must be added in the RK805 PMIC node, documented in
--Documentation/devicetree/bindings/mfd/rockchip,rk808.yaml
--
--Optional properties:
---------------------
--Following are optional properties defined as pinmux DT binding document
--<pinctrl-bindings.txt>. Absence of properties will leave the configuration
--on default.
--	function,
--	output-low,
--	output-high.
--
--Valid values for function properties are: gpio.
--
--There are also not customised properties for any GPIO.
--
--Example:
----------
--rk805: rk805@18 {
--	compatible = "rockchip,rk805";
--	...
--	gpio-controller;
--	#gpio-cells = <2>;
--
--	pinctrl-names = "default";
--	pinctrl-0 = <&pmic_int_l>, <&rk805_default>;
--
--	rk805_default: pinmux {
--		gpio01 {
--			pins = "gpio0", "gpio1";
--			function = "gpio";
--			output-high;
--		};
--	};
--};
--- 
-2.43.0
-
+Chris
