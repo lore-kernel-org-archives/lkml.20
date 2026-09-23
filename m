@@ -1,132 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FCC940A940;
-	Wed, 23 Sep 2026 10:11:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C50147C0E6;
+	Wed, 23 Sep 2026 10:11:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158268; cv=none; b=nC2Z9FV8cRggDHb8UJJQsRbUoLhjTLydKd378N8JFSfw3s8lkU1uCTywtIcAae6SxYCmAsgyVJ0mbjaNUcdms0srFPzoV2v+PTlSq9SpaiOF5XPQul/UtFAoa/xJoXRFabwBOg7ZgiH0QNqpES3YD4bYq8kPunZnBmddO/E3nSs=
+	t=1790158312; cv=none; b=Y17N2txACi8XpB+FVTm4jjyItTDUAbd+q6nYh0oquunOy445AcoC21deIIRD5P37p8JqnHNLbOIH9ky88HvSXz5VIVnxkt3w1IP95YIh8J9NloNoHkvYmDBHXaNOXzDoskBJ8LNlsEvhtmYreovam2uPvv1hdFxf6g3yqrx4Ll0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158268; c=relaxed/simple;
-	bh=hfN6bb/BccbmHX3jGfTSR+iEBq4Mtu3l+Vb1SdaEcpU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bMdGng+Wdq/EUWAXq7kphhWmJi1dOZnhomJPyqjqAaVkC5ACt36bOTSxjcYL6e7U8tWDtxY+kp3JkoQPe3uT4ZQ2Xh4JT8/Iz/93Pq8xHmr4Tz61UV6Y8xcwMXmzWMd8SHGQ74fpAb1heck3ThnbI6G5zrZdq11a5TFFgWmWXgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XtDYZfly; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790158312; c=relaxed/simple;
+	bh=tHmBpHwXmyrUocCjeB90xHJBo5pUu7l+/ZjvyWUDw4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mps+e1X7UINAYd+9YaM3iU1SdgwgAajl6Jfsg0Z+yCsAkA7FiWsKIfZ0uHXIX6EvRfHwqYfOVj4k81l5Xh+e5032MDhurkbdSsrVs36pdQ4W7cu1ZmfkGPuAg3fP2AR8CnE+134fARBg339PZTFp2th4cbZ9oeZSgRnf+uZkJws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VuKt3nUv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XtDYZfly"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 186EF1F000FF;
-	Wed, 23 Sep 2026 10:10:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VuKt3nUv"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5AF7F1F00893;
+	Wed, 23 Sep 2026 10:11:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790158259;
-	bh=y/Lsy3aQo8ST6yfvqxJfwQZYt7hLNGAoRopvtUmrCXo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XtDYZflyMBVa12YMJtw+/y4wcdfl/F1RLqNVmHCV706DNSXHaNvuUBrLzLnuV/3jt
-	 m2cTdNutk2RdWWzmE4kuWiE8YHva8EYheJW4jz/1Jl14HMyGhOyX3x8GYGdOg9NUtW
-	 zw9rOEKnEOU9L8uFRFB//uutMz7tbFHY0cJ2+//giUe6HcgC1RnNgQHS1f8hPG7f5X
-	 ehxFqkgeeKbzdhCNKUzWa1mH1UBPTLjUpjkW6me1Zrm5ivSDuF7+5K9ffb0sYo6qu+
-	 fluqlpZnXO/zxgUnl0BMKqbnq951cAXvsGRmIMgpD8d3+Uyf0qOg7HOyQKRDCTmeZm
-	 FHu9jVuJvE/0A==
-Message-ID: <4ed926ae-9e9b-45d7-9ba3-a24431522bb2@kernel.org>
-Date: Wed, 23 Sep 2026 12:10:52 +0200
+	s=k20260515; t=1790158301;
+	bh=Lzwi0Mawi31RemVumzSqchu9DrI7b9hCSXz46KflOoA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VuKt3nUvlo/v/IzT+Tj47tvuL6nA4HV3Q7NBHHdCS/G6dVIGJM0CxYOYjHPdAOtaS
+	 +i/+FuwrpRzaq2oBfaxfyeApTyHcdp5v87ynMCNYRiGhMf7uLOZP1YwenSYSNYQq+s
+	 8X5GmDzrvjIA/Aj0uAYCVm7Foyz8wV1RBm+OelSBSSO9n+IYA6NLrqoh1dH8vOj8OH
+	 nO07S6eJ90f4pDGHhtHOFuMqIUiMOFhJJ65YhsNkWCmQFwSx1cfvOWsuulqZA/lbGe
+	 0JS9c3Q2tTA9Idu3LlClILtxjjSKSeeOxmUGgnpXVvOOYmfE2ZEez2exncC2AbhmVj
+	 8g5oWxnfs5hoA==
+Date: Wed, 23 Sep 2026 12:11:39 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Richard GENOUD <richard.genoud@bootlin.com>
+Cc: James Hilliard <james.hilliard1@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Maxime Ripard <mripard@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Paul Kocialkowski <paulk@sys-base.io>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	John Stultz <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>, bigunclemax@gmail.com, 
+	linux-clk@vger.kernel.org
+Subject: Re: [PATCH v8 2/4] pwm: sun8i: Add H616 PWM support
+Message-ID: <arOif-bN6JgLeWd3@monoceros>
+References: <20260804-h616-pwm-v8-v8-0-db37ab8624ae@gmail.com>
+ <20260804-h616-pwm-v8-v8-2-db37ab8624ae@gmail.com>
+ <arFMta6PPwmzSk86@monoceros>
+ <CADvTj4r1sFjPko7G5DwrPUw9x1tPzQspJhCUmHSMtrudn7SXEQ@mail.gmail.com>
+ <33e760ca-2bb4-4f1d-a736-7e74a97e60c4@bootlin.com>
+ <CADvTj4rBUNF6EaKXbsy5t1cS0iakpWVdpQ5sQF2qLS4YyHM2aQ@mail.gmail.com>
+ <58145d8f-dd16-4cc2-b2ea-d475462241ab@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] hibernation: ensure secretmem pages don't reach a
- snapshot
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Dmitry Vyukov <dvyukov@google.com>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>, kasan-dev@googlegroups.com,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org
-References: <20260917-hibernation-v1-0-7f7dfae3dbe0@kernel.org>
- <20260917-hibernation-v1-2-7f7dfae3dbe0@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20260917-hibernation-v1-2-7f7dfae3dbe0@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fd6ngstaj7r33ymy"
+Content-Disposition: inline
+In-Reply-To: <58145d8f-dd16-4cc2-b2ea-d475462241ab@bootlin.com>
 
-On 9/17/26 08:07, Mike Rapoport (Microsoft) wrote:
-> hibernation_available() checks for active secretmem users, but a secretmem
-> file can be created after this check and its pages may get into the
-> hibernation snapshot although they should not.
-> 
-> Recheck secretmem state after userspace is frozen and abort hibernation if
-> secretmem is active.
-> 
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> ---
->  kernel/power/hibernate.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-> index d2479c69d71a4..281ad49411481 100644
-> --- a/kernel/power/hibernate.c
-> +++ b/kernel/power/hibernate.c
-> @@ -412,6 +412,11 @@ int hibernation_snapshot(int platform_mode)
->  	if (error)
->  		goto Close;
->  
-> +	if (secretmem_active()) {
-> +		error = -EBUSY;
-> +		goto Thaw;
-> +	}
-> +
 
-Should we instead recheck hibernation_available() like we do at the beginning of
-hibernate() before freezing?
+--fd6ngstaj7r33ymy
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v8 2/4] pwm: sun8i: Add H616 PWM support
+MIME-Version: 1.0
 
--- 
-Cheers,
+On Wed, Sep 23, 2026 at 09:16:28AM +0200, Richard GENOUD wrote:
+> Le 22/09/2026 =E0 17:46, James Hilliard a =E9crit=A0:
+> > The resolution tradeoff is real, but the waveform API currently specifi=
+es
+> > the ordering: choose the largest period not exceeding the request, then
+> > the largest compatible duty length not exceeding the request, then the
+> > offset. That's the ordering implemented in v9.
+>
+> The ordering stated by pwm_round_waveform_might_sleep() documentation is
+> period_length_ns, duty_length_ns and then duty_offset_ns, but what about
+> duty steps?
+> It's not stated in there because it's not a user input, but still, it's a
+> quite important value for a pulse width *modulator*.
 
-David
+=46rom my POV as someone who cares about many PWM lowlevel drivers, it
+would be ideal if there would be a generic function that only relies on
+conforming and ideally simple lowlevel drivers and work out a good
+period that makes the required amount of duty steps available.
+
+When I designed the requirements for the round-to-hw function I had in
+mind that it should be possible to find the next higher possible period
+for a given lower bound (and that works, only lacks implementation).
+Working out a period that has finegrained duty steps is harder but
+doable:
+
+But something like that should work:
+
+ - Pick a period P
+ - P*, D*, _ =3D round_to_hw(period=3DP, duty_cycle=3DP-1, duty_offset=3D0)
+ - Either take P* - D* as a measure for the finegrainedness, or continue
+   to research available steps using round_to_hw(period=3DP*,
+   duty_cycle=3DP*-1, duty_offset=3D0)
+ - If there are too little steps pick a different P and retry.
+
+Best regards
+Uwe
+
+--fd6ngstaj7r33ymy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqzpdkACgkQj4D7WH0S
+/k7BfQgAr7KMuPAtN/IKDLW/9x3RqwTMy0tlPrFOQzqERY7t/kxB0cw+TGg3fkiZ
+oInOoNbriO+IGxdXHfBaVdmzS3XSF/EnOW4xETeqEsIqjRLnB14+38m9iF8Spi7t
+/2lHC5ceG7fFfdLEI96+DUY179JZ83zzy5JgLWXXs6uQNrY+Lo7+ApQDip3IeV9m
+apd+gqxBpPvAoytV6ffgVSga/pffZArLfoKStB0PfeNKFi5S07gBSL1FzCjd82c9
+hLWzLR5dA3gtIGDOOVH1SOOrgcElqzIYbaHed30mEy4W62fifUEHexz0oe9VzbqV
+JR5xSciGikOWhpchtrzM0b8rIfy4bQ==
+=LEUc
+-----END PGP SIGNATURE-----
+
+--fd6ngstaj7r33ymy--
