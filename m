@@ -1,126 +1,110 @@
-Received: from mta0.migadu.com (out-87.mta0.migadu.com [91.218.175.87])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AC446A5F0
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E251837F32F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:51:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790203826; cv=none; b=j8kJ4RYCu+42aJO4Z/aIyojeuR94R5hwFwuDjX4lR0HWwuUIlulM0kVUVnMybmWJqqL/ADVExwub/fnlgtYw8azVC7tP0Tp7FIByhKa/uhNiezFnhBJPJMuH9P5alxEP8gExnhb92SeBtlbbVnW84AD4z74WNrGrNxKad02dEos=
+	t=1790203877; cv=none; b=Voua3Bpst7F1Jt3BjSuuO+R1oZOjoaXUJ3ewIiO93dhFIACcXGFq0YrhlGTapUOdTU42gZJ2zpp6BfPYtXRt7UUjHbhW4o9nWCB+KvW/cmtKUNtsRqFGNgJ9o9UB8GDpvozclg3j0F8SotfsW7ojofXnVtbeUzCAaFPHxvh4WL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790203826; c=relaxed/simple;
-	bh=cAHW9pR8nlR6sk+Upl/hizK55XCqRvMPrhN2PbL0DKc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UOlGgrZGmQnIQP1nk6T1AGktmbCVAv+rd6dIwdYFPiCnHt+XcX6tuzZsclzEGTEmUrWNjJ3/GLfWlBf9o2Sfyl6cXP6rE+srRIpqz9uA4BsWvbv7WS1Knreqfl+DCxiSxjQZ9kEfYKDuYTxMiIg+O7XEtDxQn4Kuthan05ZTPh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Et25QBmL; arc=none smtp.client-ip=91.218.175.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790203877; c=relaxed/simple;
+	bh=EKX35ie9/USsn0Lh1pIBDFxv7amLEruPOvFxMnWeGnI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IDzDrJEQ7Uto7n0UsSpzDkPrXtXU/s9SMgtGhlIC/pHEKrQM0Qy6ZhHJKQ75wwYY1U0QkO8N2ursgaDq+tA895iWlYm5ExvTczsdxpGuzrKbitRTRReDqkj4899QdAOp7fYDERrF3vEDgzCpixfhKcUlL9PjAVpUBDkKIk20Ups=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q7P36F21; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Et25QBmL"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cAHW9pR8nlR6sk+Upl/hizK55XCqRvMPrhN2PbL0DKc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790203821; v=1; x=1790808621;
- b=Et25QBmLSzqTYSkcLMCSSFS4TkXc1IC11nlXWMkLNUYS9yB3+2J2S7FGkzaSBlq7UGOe2M5R
- uynUrDnCuUchmjmfSGBuU1hFB92gtMijghJZrenS7Eq0h3ug+Fk2+jbec0DR7DAhGWzjz2Xcyhj
- /GKcu5Hthb4mO+K9IDmZePcs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 81f228547fa01915;
-	Wed, 23 Sep 2026 22:50:21 +0000
-X-Mizu-Trace-ID: 81f228547fa01915
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a126a34f-3d47-48d3-842c-14cb9e4b943a@linux.dev>
-Date: Wed, 23 Sep 2026 15:50:14 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q7P36F21"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49e73611928so2286855e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:51:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790203874; x=1790808674; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mI1/ZYE5YHBF2sXaFTZzYUzCnN//3DiBm/zH9LcBkPw=;
+        b=q7P36F21o8SR9xcYCLCdLlzodnr/WLXRH3eQy77uiPD1la8KmWVLJpczwS36SDjxz3
+         WjqMrm3e5Tq+zY7m8dB92immHr+Y52qat2rwiCO5ILWnABEd9eWCZoDfaIe4omahsXu4
+         OEyRfurBc01MmD7qj7GxH4PDciCVoXOM+L4Ul1Ayod71ZYCiz6wLApQqHtMG3ZaJjRsy
+         On+ey/i6RvKmYhd7sNIR3gHrKWi88u5i9NTXBmjtsx3q/2V8X7LeBOvXkvR+zFk3PZul
+         maCDCs6yQjo8ZPVFJSFmwZ0D4DF5MM9/Tk0ICrQ4FRxa3Rmb6tI7fNeXlBgD+S7xnZVJ
+         BEMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790203874; x=1790808674;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mI1/ZYE5YHBF2sXaFTZzYUzCnN//3DiBm/zH9LcBkPw=;
+        b=pys0nRH4Y73+2W1guJHq+C3RMYwEnT4Gaa2zBrwivIaA3chdW3hoWdtISv+MLMScJb
+         QS0rIEOTwHY33ALhEMOk2QDqrIiKsZd5m1Rp3tJc9C2Ky21t9IKGqTYcW2Z8YYzpO/Fw
+         6STDBf0gupBn/8W+IE7DPC6bRmJtZmox7TkNY+xW/vGWhpadbNzbA7eB5IPRz7im3f74
+         dQ3SKJlJSAr5SQN42rR8swvgtTzcx/xKYng7+EHnGMbmQUBtUTWI6oxuIWzrQM22t/p9
+         0zHbngrXzCEM+1+sRXg2VAiTCgrlIZgBaYkVIlGNEZLpTEc/WQVBDF7C4aou97fC9/g9
+         R+AA==
+X-Forwarded-Encrypted: i=1; AKwUvBxweOpRZB7d2kcdirC8U/xHO7BHqr02kFIKSyWgsS9gP4z+CGVgzZh+1l0alWjHjFvXE3CMDinlS1NKIKk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFwXPwsZIgHTf6kqsSCO8LnXtPZ16CH1mllRNZpvx/9dP/EuZ9
+	zmpOmcSbyz+FLEGt0PHMb9dtMPpv/f/2st2omw/0H9b6S1BIR5aaQsYk
+X-Gm-Gg: AYBFou0fZagJieZdCf3kI2ILOSgl53kBhYi4dSG0s/JeIhWMviM676FXkquHPDgCgZO
+	yflX7uMZtWg2kKWPbLxLf0P8g1L4ExCFUM8wQ8QdS5LHLDpXCnpAQ6WuoVnMnR/LemxO1p/fPpj
+	JigxBtEAwd1HPpIHJQ72yza6uOe/f7z46eTKXbAOCK+8+zyM2uzHwfA9IkQe2eXHgJSUtArjL86
+	HhYsFAw3m+D3hxPUBzs2EbzF6zv3a+gBOHootvrvjUsirwXygFA9YSea5w4nh96nXGfFp1IivCa
+	un/PDYvA/zyqXmm01U4JkbnPosjPh6E1VcCCRHja07KWBRarkSB+pUQW5l4LINQi/wSZWe6Du0h
+	AUe/cJQDborJSsoRn9FauLFWGMge4PC9gZhst8DoGCLvXWMqS5xdHOIBBUSTK1KgTGRBhGLY3nd
+	xoiRs9Rf7bVCcmwpD8CR493FOklvxnXZxVkK1hoIzVwF+kn3HWXdJm2fKH4iLDG6DrnXGTEVjUS
+	WcDVK4jt9ZOKJNVdUS2lKoDzUVnm/JmtQ==
+X-Received: by 2002:a05:600d:8642:10b0:49f:c305:f4ce with SMTP id 5b1f17b1804b1-49fe6705708mr6898435e9.16.1790203873928;
+        Wed, 23 Sep 2026 15:51:13 -0700 (PDT)
+Received: from x230 (gw1.ms-free.net. [185.243.124.10])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488682673bdsm9822109f8f.2.2026.09.23.15.51.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 15:51:12 -0700 (PDT)
+From: Petr Vorel <petr.vorel@gmail.com>
+To: devnull+david.ixit.cz@kernel.org
+Cc: abelvesa@kernel.org,
+	airlied@gmail.com,
+	andersson@kernel.org,
+	conor+dt@kernel.org,
+	david@ixit.cz,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	dsankouski@gmail.com,
+	jesszhan0024@gmail.com,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	phone-devel@vger.kernel.org,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	Petr Vorel <petr.vorel@gmail.com>
+Subject: Re: [PATCH 04/11] drm/panel: s6e3ha8: Introduce AMB577PX01 panel
+Date: Thu, 24 Sep 2026 00:51:07 +0200
+Message-ID: <20260923225107.191388-1-petr.vorel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260920-crosshatch-panel-v1-4-de6e9512da96@ixit.cz>
+References: <20260920-crosshatch-panel-v1-4-de6e9512da96@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] RDMA/rxe: Reject prefetch of a non-ODP MR
-To: norbert@doyensec.com, Zhu Yanjun <zyjzyj2000@gmail.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Bob Pearson <rpearsonhpe@gmail.com>, Daisuke Matsuda <dskmtsd@gmail.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260923-rxe-advise-mr-v3-v3-0-95e1a4077e4d@doyensec.com>
- <20260923-rxe-advise-mr-v3-v3-2-95e1a4077e4d@doyensec.com>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20260923-rxe-advise-mr-v3-v3-2-95e1a4077e4d@doyensec.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-在 2026/9/23 7:40, Norbert Szetei via B4 Relay 写道:
-> From: Norbert Szetei <norbert@doyensec.com>
-> 
-> rxe_ib_advise_mr_prefetch() and rxe_ib_prefetch_sg_list() look up the MR
-> by lkey and hand it to rxe_odp_do_pagefault_and_lock() without checking
-> that it is an ODP MR. That path runs to_ib_umem_odp() on mr->umem, and
-> for a non-ODP MR mr->umem is a plain struct ib_umem from ib_umem_get(),
-> so the container_of() in to_ib_umem_odp() lands past the end of the
-> object and ib_umem_odp_map_dma_and_lock() reads its ib_umem_odp fields
-> out of bounds.
-> 
-> lookup_mr() validates the lkey, PD, access and state but not the MR
-> type, and IB_UVERBS_ADVISE_MR_ADVICE_PREFETCH is accepted for any MR.
-> 
->   BUG: KASAN: slab-out-of-bounds in ib_umem_odp_map_dma_and_lock+0x884/0x8a0
->   Read of size 8 at addr ffff88810a3ebcf0 by task advi/921
->    ib_umem_odp_map_dma_and_lock+0x884/0x8a0
->    rxe_ib_advise_mr+0x543/0xad0
->    ib_uverbs_handler_UVERBS_METHOD_ADVISE_MR+0x446/0x530
->    ib_uverbs_cmd_verbs+0x2b3c/0x3b20
->    ib_uverbs_ioctl+0x1e3/0x310
->   Allocated by task 921:
->    __ib_umem_get_va+0x13e/0xae0
->    rxe_mr_init_user+0x2ae/0xb00
->    rxe_reg_user_mr+0x337/0x510
->   The buggy address belongs to the object at ffff88810a3ebc80
->    which belongs to the cache kmalloc-96 of size 96
-> 
-> Ask lookup_mr() for IB_ACCESS_ON_DEMAND in both the synchronous and
-> the asynchronous prefetch arm. mr->access carries that flag only for
-> an MR registered as ODP, so the existing
-> (access & mr->access) != access test rejects a plain MR and the
-> prefetch fails with -EINVAL.
-> 
-> Fixes: 3576b0df1588 ("RDMA/rxe: Implement synchronous prefetch for ODP MRs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+...
+> +++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
+...
+>  static const struct of_device_id s6e3ha8_amb577px01_wqhd_of_match[] = {
+> -	{ .compatible = "samsung,s6e3ha8" },
+> +	{ .compatible = "samsung,s6e3ha8" }, /* deprecated */
+> +	{ .compatible = "samsung,s6e3ha8-amb577px01" },
 
-Thanks a lot.
-It is fine with me.
+Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
 
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-
-Zhu Yanjun
-
-> ---
->   drivers/infiniband/sw/rxe/rxe_odp.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/infiniband/sw/rxe/rxe_odp.c b/drivers/infiniband/sw/rxe/rxe_odp.c
-> index e870efa7a0a3..f8ffd6a3219a 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_odp.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_odp.c
-> @@ -463,7 +463,7 @@ static int rxe_ib_prefetch_sg_list(struct ib_pd *ibpd,
->   		struct rxe_mr *mr;
->   		struct ib_umem_odp *umem_odp;
->   
-> -		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE,
-> +		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE | IB_ACCESS_ON_DEMAND,
->   			       sg_list[i].lkey, RXE_LOOKUP_LOCAL);
->   
->   		if (!mr) {
-> @@ -529,7 +529,7 @@ static int rxe_ib_advise_mr_prefetch(struct ib_pd *ibpd,
->   
->   	for (i = 0; i < num_sge; ++i) {
->   		/* Takes a reference, which will be released in the queued work */
-> -		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE,
-> +		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE | IB_ACCESS_ON_DEMAND,
->   			       sg_list[i].lkey, RXE_LOOKUP_LOCAL);
->   		if (!mr) {
->   			mr = ERR_PTR(-EINVAL);
-> 
-
+Kind regards,
+Petr
