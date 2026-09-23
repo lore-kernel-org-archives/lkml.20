@@ -1,236 +1,331 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010059.outbound.protection.outlook.com [52.101.84.59])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C90495046;
-	Wed, 23 Sep 2026 15:08:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176123; cv=fail; b=jXVnBG3O/yoHrm7FLHk1UD9BzahQr2XaztzhxCyymOGGD/EtMJOraxJccsK1mQDUNe2kD+dW4I+pjPkxY+aBRv3lo8AKiTH3dyDlE8mmu2NnW40ipFHTOtYKOZbixEY/QtMOj3eV19ejRnKu/2mouGeZ641h+QrPYlkd6NQkY18=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176123; c=relaxed/simple;
-	bh=XLBKUuvoKgonxMeLv5QLwImo/sJ9q/v7RKKs/fo/Sx4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=LmfXNw3XCYQ1Qssr1End/bA68o6g8JWSd42LlDE3P0oiHJRgaNbNxY7kipHr7YMyYk5cngN6sY1WEF6l/V3vUyAR9NiLwRN+jJP6NYKzMS1iOd8v2+qmHuvVLtb92FsqofnZR8Bdro09jzByjlkESuZ2bxBpNL+Dl31gYIa7qeE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=baYoY0tr; arc=fail smtp.client-ip=52.101.84.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE6D4F403E;
+	Wed, 23 Sep 2026 15:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790176152; cv=none; b=tGHjzrEp9LYAVwUGi0luv8+1CwM/haAvO9srzEd2cnlJDDTAPYTZicD4VJFR5eN/sNQc8ggMUGfr2JeOwqejr9TS1zMx9X0xAQstcSUc48aLDurItxqDVV6Znvu2SQeQ6sTNiR5TQswg+ra2h+3Vmom90QZS9plrRS8xC3fL868=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790176152; c=relaxed/simple;
+	bh=kbjEPQisOMReKzVuwlvcs8Tj08ueB5cETOFLgl9aBZY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=tf+tk0kFL8ksb6mZHiDkMSPHw/yKtg7h21H9xa02BdAgz3QwV4hgxHv1vY61tKMD3ZJxfzL2Dv0PPWT5t6KNI2XYxWhIpRtzzetMBm4kEDc1l3P8AHPXeIJ307BvNcoY9MIzLLpZeinq/UePywjOQ+80g/mTjM3r9mn7CNHrEYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=XODfHCz8; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="baYoY0tr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DN8lD8ahpxWtWeIBwlBh30QwbUpEggTIe64Y8Rs51ihEQfY+0ThiTRQWVWEMkdwrj2oNf2p/nFSTBybHHtZMpmyqlhq8Yyd0CxTwsACdWBegrTHbrPu0tk5QqK0y5IZvdblyxaba416tPnjCEtxOhHzj795kZlZe6L7B+LuxDkjjEOYAYacRVBpXwsrHUX3P2Wey1LMWUY/uU61RAvoDFS7Xxe4hJe+rgqEyqBV2efI0hPbvx/eko507G9F95cGqqXxay+nBV+Ll8f7kRC1B1/LS+YVWUBKuUi9XsnFdjvxvntJNzwKqgDr4Abmpdn77Yl1bUSinM6eWQTV2LjuWUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=elBhrpslL5Ps9jJgKzLQtJhwo/p61Ei6ZDK29RqE4lc=;
- b=W28bJSOwFAnY54H2BX0GpPHWY9RVmU2rhLe7yTxCE78ocSxB3I6WDXSWisRQK4tE54fHsNPUlvCR2TqX3woq35qv+KfKzfuswQKKKODYv2KK4Kv6m/TmqRbv0asLD8ZqRUM5KCuV1YygpOgvwHrvjTuPUoduk604vrekb73oFtX0Co9uV7KAcgyKqe0ySBq3cINK3KUZd+33xEuzF0W8l1c6N/+pEIh+XcFsH/Tc83z2BWXwjvbJPKllCL8Gs7z3qQFpXkB7jGHyCQdLHHNq7PY2xnQQ0RGBWxEjXxzUwp+wxZqMlLV2S50Y++3GYopxC6qlnJvFZaN+GeR/Es8vOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=elBhrpslL5Ps9jJgKzLQtJhwo/p61Ei6ZDK29RqE4lc=;
- b=baYoY0trKRg9sdyMdlTReLEJWHydzUG1Tfpq4slPOlyMJzjryC/uch6bMltrUEsF+9G42ecjWH3m9RO40OfYrcxy3vYEeQmEZZB3A4WtkGnOqFQ0NEEbye7KXndaIrIWdHCE+h3HWrBagI/DyJEgHkK/V6Wt33UPaUOslOISwJf/33+ainWHCFfocRmEBuc3mNA2lac/ehylRbFy8uY6ETAyI084ppv7fp7OBnB0UJV81ft4VHdyC6n18O+w2j1EYlDx96CI34guhZ0N3RzII19CQvr00nSrUucQnJnaJQeFn+6VDil3MR1t32g2rBsj3ajuheAClTiPVo00Kfm2BA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MI3PR04MB12657.eurprd04.prod.outlook.com (2603:10a6:290:81::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
- 2026 15:08:39 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
- 15:08:39 +0000
-Date: Wed, 23 Sep 2026 10:08:27 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: shengjiu.wang@oss.nxp.com
-Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
-	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
-	shawnguo@kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
-	nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com,
-	linuxppc-dev@lists.ozlabs.org,
-	Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [RESEND PATCH v5 1/5] ASoC: dt-bindings: fsl,imx-asrc: update
- port binding to support multiple paths
-Message-ID: <arPra2x4OcFbTKq2@SMW015318>
-References: <20260922033428.1690822-1-shengjiu.wang@oss.nxp.com>
- <20260922033428.1690822-2-shengjiu.wang@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922033428.1690822-2-shengjiu.wang@oss.nxp.com>
-X-ClientProxiedBy: PH7P223CA0008.NAMP223.PROD.OUTLOOK.COM
- (2603:10b6:510:338::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="XODfHCz8"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8ZftW2742262;
+	Wed, 23 Sep 2026 15:09:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=hxgNtc
+	od0dYCrLZEfQ82+TO+k/62tLZFxNN7ZVmniu8=; b=XODfHCz8sIJ5yaUUvTsIxp
+	v5CJagy8/HwtK+GXTr8Z0VP7zRA/rQxRHZweh0/jYRCIcaINFxGCEKBXnqfCexOH
+	iuSekeykE5fyW/W1ej9BGjAm3QK3wistsVeRu2Q5ZrYVEe8Hqv0qKxkZqfkbCH79
+	FabePCd1QBiUm6UbrVQK7P+0gfo9Tcq8qVhOQtwaVN7poSJb4Rog0GEvrxAZS8Ni
+	ozCQXjoXsXlOdV7JbyyJZd2pkP23PgCjt20nTiValEx22OaWGAXDQ/VBAhQuUcRR
+	JoEILi8fATKggu5I4M4uIxvs0fIUtzF4z2ZKKxlvrDarUVfuSdCDYSidiQ0Z95Zw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gske1km4q-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 15:09:08 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68NCoQds008141;
+	Wed, 23 Sep 2026 15:09:07 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbt2sdg0-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 15:09:07 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NF93Jb47841638
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 23 Sep 2026 15:09:03 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7B06D20043;
+	Wed, 23 Sep 2026 15:09:03 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 43DCC20040;
+	Wed, 23 Sep 2026 15:09:03 +0000 (GMT)
+Received: from [9.224.92.241] (unknown [9.224.92.241])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 23 Sep 2026 15:09:03 +0000 (GMT)
+Message-ID: <d5a32ced819407ae370da37803e30acf541bc5d3.camel@linux.ibm.com>
+Subject: Re: [PATCH v7 2/4] s390/pci: Reuse FMB buffer and preserve state in
+ device re-enablement
+From: Gerd Bayer <gbayer@linux.ibm.com>
+To: Omar Elghoul <oelghoul@linux.ibm.com>, linux-s390@vger.kernel.org,
+        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
+        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
+        mjrosato@linux.ibm.com, alifm@linux.ibm.com, farman@linux.ibm.com,
+        pasic@linux.ibm.com, alex@shazbot.org
+Date: Wed, 23 Sep 2026 17:09:03 +0200
+In-Reply-To: <20260922195141.94548-3-oelghoul@linux.ibm.com>
+References: <20260922195141.94548-1-oelghoul@linux.ibm.com>
+		 <20260922195141.94548-3-oelghoul@linux.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI3PR04MB12657:EE_
-X-MS-Office365-Filtering-Correlation-Id: eea24b70-cd5c-4e09-6c8d-08df19848bfe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|19092799006|7416014|376014|10067099003|56012099006|3023799007|4143699003|6133799003|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	EO8tI73wRtmFbEJz1I55JFvuC/oFv906lSCEGPoMEB27BJPYqT7gLZVeewfutSdCtgW8aNbxSTxgLTyf4E+lGs7Uz7UQELmG/rc/9QoF9RHiNq/ti/tyc3aAJlVKRxG33a7M6ddDyYclFxMq6naOHm67uXn+Gh8NsGo0Z6+MWmXHITfRX/Elt6r0tvG7AVJmHD+4SPqhldgDVdxN1BZnuG+nXUdndvyDRJxUX9eefCh2OP5n8QULmQTF6AcL/7zyAuqhTTkxZC6OFO/Md73uOVwmF3aht+n81/afKwMflohHrCg9xqYMsZtEcPM8k0kSkf3mq4BFyYcNc0GFltdkUzHl/LqW2dan7qcwRLgOwmrBa0EP124ETBvs9nYkIZJTmn14xsKikvqcmIE/lw859Z06ByWqLMzc2FfyFE0sKIjpF/AjOUyHnMyUyBTCa5HCFbdLO6ui9+c1j+iq1YlzWfl5A0VbWs5aBalkWjoIg4gR8OE9RELQW2c+ciG6RbHcQTFgp9lcApZwo04/BBdeECP/ChyrQgoRemJMm2nAE5oAo3ZOYhDu7RvCRE4JZOF9lnf9SB2y4qJcNNeYbwPBS/f9i4HhnbvXXHHLGLBPgxBdoFFhLlj5Dwm3awUqI3x6L9vF1J3YIrqn9wYeGP8abvSXC8b8Tm9pyDj5HtwFNdA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(19092799006)(7416014)(376014)(10067099003)(56012099006)(3023799007)(4143699003)(6133799003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?57w5/ZPCn49+NPV2/gzE+e3jXMtk+nVTXS3ZCuA6ZdYzZQGO3pB6JlmKYJJi?=
- =?us-ascii?Q?ZYG5wontZqcb3v5yGmCnV9m0+uvQrXx2K9s0uJ0l7LtYp+2J+F7j1qVBg6tG?=
- =?us-ascii?Q?ScOtU/ZczxNCDWJ6pr8InD216jd/XwG8dDHQVcNWcKSYiFuDyX7dBobOqPF4?=
- =?us-ascii?Q?nuGKq+30fauD+mYo84tmz9ohxfNclh8FcXfdqRp93FJGHDP3cJ0E+jK54gQY?=
- =?us-ascii?Q?+oIHBhxUJ/qMAlIsKqzYak+If0zNe/UKfZgwbHaXa07GE6McpqSl49jMED6q?=
- =?us-ascii?Q?Rn3cLXMlXyBg5owsjejztLsXn/159CLUIeQXbVpQle2/6njw5vsLdJ3H0sFV?=
- =?us-ascii?Q?FDdWA1ma2Ildh0CJXGvrdgPEbeNQq6Qk9ljdrJeQbP/g7VugwMMEOxRj6pz5?=
- =?us-ascii?Q?8/dOkiIy18ECmc7RBHbKyme3gYkqwHKZtu60XCnqMx8fU3K5ewhKhx5lDAjG?=
- =?us-ascii?Q?bhGfPJZg1p8SZPsDlFLMCpL3JHhXOlivUkIQ8h+wfiai0n9T1uwwGUTH1O+8?=
- =?us-ascii?Q?/+nmvXgvTgP0u7m80G9oSqxin+jAOxbndaqg3zn/97n8w8VajB3RqReXsVOv?=
- =?us-ascii?Q?KxCh1fbU8m7x7ZvToXVqRYMDYojeA5oIrirU0CSChC1rU9xBKr2OgSaRkXE5?=
- =?us-ascii?Q?HkJyJUtVz17t/3YRwP38OKhpTe0rJihmOATJTnHl3VnbUQ47zqCuyoaWRFiI?=
- =?us-ascii?Q?gSEhZv2tbYLEb9Qo9xn+zTNQnPKhSPiZaIDLSPK/xB3CJQI5nd5KJNm+0g2n?=
- =?us-ascii?Q?D9ZzuG2D6FiQff+eyb9dOeyr+S/meqU0w0TIadnAwv/prpSinoE5HfEabbCn?=
- =?us-ascii?Q?1/6CqXhX13P5a0jq5U0O6pBEo/IzTSiPQAfC6BRyL4SUbli4E+wLHUZxMbd9?=
- =?us-ascii?Q?1AVMrBeqSMNc22q8dbsAgTWPY8OqyoJByq8TD3O6s730VP6X1XUeyYGICzc5?=
- =?us-ascii?Q?xyqCwAaZwy1rQJI9/ks+61IR7FXh9yVchfTEoPaG0zcacxBx77VEfiwPxWu8?=
- =?us-ascii?Q?pTiOs3acgtTFyZ+n+/l5Sc12vXF3eXngnhBA79JrkpTwP+StmOp0AR+d5BZX?=
- =?us-ascii?Q?14ZMhYC9WfXQnHSdkg1uwovz7TVDIV9/IS/7sd06yOQoL4iDx91e/pdjrb/n?=
- =?us-ascii?Q?+otB/9jinHJgUTE5Nr5xTvzS+mRdbYPrbovinrroPOMiQLMpRIv5JVm6QgaK?=
- =?us-ascii?Q?2UFCUva4YV5sPcbS5uErh9lhimUKfFAOUNM9hJV4ZyT/vk1iUjhHydJa30Gd?=
- =?us-ascii?Q?Uyaj397wGjLtOmS/3ha5f6uOKzmc/oTko5D+UGBfjKkARk7QbDf7RxONidub?=
- =?us-ascii?Q?hz8weFJc6ux7lhQqDDFv78cnyXemt7kP3gtM/B201wGwS6xFzme8m8uljfSM?=
- =?us-ascii?Q?vhheojhjH6WLYIVL3I8r7Etd2D/NGD/obrZ0GRHhbAGCRVCL4gtkY3Lgn6My?=
- =?us-ascii?Q?lHLjpX4iSY9nPYX6jW08IhDCdXCSakWqPFbZR3D2dIdd36aqg78N2G348xx9?=
- =?us-ascii?Q?NwbzC10+VwW2It2m9BCCy3Ie0mwk08bSIuiDCElSSsVIrmDQoaEx9lylLcIF?=
- =?us-ascii?Q?PU1iTpTmMTqfEX7lZ9wFUNGUK5K3dY0pa7i9goAfUA0jlrHL4bCXD36AaoYE?=
- =?us-ascii?Q?QIZYo8qtVc4U3eDqpJ2o/qdn76bEbBKJ0QMoBOpJwbb3DC2A4JZ/x/VETBhR?=
- =?us-ascii?Q?dG9qeCRZA3ti6+KIh5V35uVtpy7E+mlJKixaeQyexKMLFbzhxO2tDuyoSBZP?=
- =?us-ascii?Q?JkghVrezFiBXbT7xHVD8Kaj8413CwZQhtYBUVOJ+NBh6Y4Ve+2oa?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eea24b70-cd5c-4e09-6c8d-08df19848bfe
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:08:38.8966
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MDqy4awaI15i/agsQAFeY5R6qxHgxo4zm4H0Y/iHO4Mq8Mgql4dGTWwaSFEGLeOtE45xuIzbSdVdqPM3tyn1U5kWzp8VG36+WRngiohwTrH7LApolhEpxWFK2Nk9/Qul
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI3PR04MB12657
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: byX7xD6VCr9YM67JN-N1c1v1A2P4bhuo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2MCBTYWx0ZWRfX4eRYWUFBeEgp
+ vaAoLtzwEKLBcRDTQnrMRiM2ahcto0s/G/kO7t1QTbUmJciUNNXNOzFtz5m2p/NEswg81JYzvS5
+ Aa/1b8HsJMkNF5/XazL/p5t5atu5Eos7wCvDEnufU2QtUX1JoLzd0tkH5Y//i4OyljeFvxG6uz4
+ D/0I6Yc0Wycypzo8rExSWINrGPW/flN2tpBHZOc2g8MeqY0VVMuT9NSnV10094HbBX/rFVtIFqv
+ JU8UfGiAdhgRzpFl/PIkTRP6JNLZBZb+AOwSpLpe2ntcUG2D+uxsDzsn3BG0viV4zwfXFEOKGXD
+ GPuCK6rE3b6/kZPk1XO7wrNRP3pmrtrMsV/JsFjhxS6ozO5aNdFkwsnU/F2JuIcB/JRNyEvgxqa
+ glFHv5D8a2oF/RfawORn5PebYwHzScIvEk8cnnScNzZBN6SPLhyQXf2ww5SK8bBAXW9sOArv0z7
+ zVyNQLwwPTE6kWlP6Jw==
+X-Authority-Analysis: v=2.4 cv=O/KsLx9W c=1 sm=1 tr=0 ts=6ab3eb94 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
+ a=ciMhaqKDz8H6mv_B3WcA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2MCBTYWx0ZWRfX++caJmu/1zA8
+ vS+N4CNS054xebZ29xymFMHRzzvTyjI+eONypNeXu/ojM/0CS82XXMQYIVWXaIzqdElvyFx70TO
+ kz1zPbSt0edCn4FbPjP9gjjpdIp4Ty0=
+X-Proofpoint-GUID: byX7xD6VCr9YM67JN-N1c1v1A2P4bhuo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230060
 
-On Tue, Sep 22, 2026 at 11:34:24AM +0800, shengjiu.wang@oss.nxp.com wrote:
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
->
-> All i.MX ASRC variants (imx35 through imx952) support up to three
-> conversion pairs (A, B, C). The existing binding exposed only a single
-> generic audio-graph port, which cannot represent independent conversion
-> paths when multiple pairs are in use simultaneously.
->
-> Add a ports container that enumerates up to three sub-ports, each
-> representing an independent conversion path:
->   port@0 -- conversion path 0
->   port@1 -- conversion path 1
->   port@2 -- conversion path 2
->
-> Each sub-port references audio-graph-port.yaml as before. Hardware pairs
-> are allocated dynamically at stream open time; each active stream
-> direction (playback or capture) on a port consumes one hardware pair.
->
-> For backwards compatibility, keep the old single port property but mark
-> it deprecated. A schema constraint (not: required: [port, ports]) ensures
-> that both forms cannot be used at the same time. The binding example is
-> updated to show the preferred ports form.
->
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+On Tue, 2026-09-22 at 15:51 -0400, Omar Elghoul wrote:
+> Introduce the function zpci_fmb_reenable_device() that checks the state
+> of function measurement and ensures it is enabled. Reset the counters to
+> zero, disable, and re-enable the FMB if it was already enabled. Call
+> this function from zpci_reenable_device().
+>=20
+> Don't free the FMB buffer during disabling and reuse it when re-enabling
+> measurement. Instead, free the buffer upon device teardown, allowing the
+> same buffer to be reused in the enable path and add the bit fmb_enabled
+> to struct zpci_dev. Audit the only consumer of zdev->fmb and update it
+> to reflect the change in semantics.
+
+While I understand how this evolved, this commit message reads upside-
+down for me. Shouldn't we consider the changes described in this second
+part of the commit message as a preparatory step for the introduction
+of zpci_fmb_reenable_device() and put this paragraph first - or even
+into a separate commit of its own?
+
+Or, do you want to capture some (the outcome) of the prior discussion
+about the "grace period" that architecture imposes on re-using the
+memory that was ever registered as FMB with a PCI function? As
+rationale why this patch changes when the FMB memory is freed.
+
+>=20
+> Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
 > ---
+>  arch/s390/include/asm/pci.h |  2 +
+>  arch/s390/pci/pci.c         | 77 +++++++++++++++++++++++++++++--------
+>  arch/s390/pci/pci_debug.c   |  2 +-
+>  3 files changed, 63 insertions(+), 18 deletions(-)
+>=20
+> diff --git a/arch/s390/include/asm/pci.h b/arch/s390/include/asm/pci.h
+> index 88a125b92bdd..b8162f7a8968 100644
+> --- a/arch/s390/include/asm/pci.h
+> +++ b/arch/s390/include/asm/pci.h
+> @@ -175,6 +175,7 @@ struct zpci_dev {
+>  	u8		util_str_avail	: 1;
+>  	u8		tid_avail	: 1;
+>  	u8		rtr_avail	: 1; /* Relaxed translation allowed */
+> +	u8		fmb_enabled	: 1;
+>  	unsigned int	devfn;		/* DEVFN part of the RID*/
+> =20
+>  	u8 pfip[CLP_PFIP_NR_SEGMENTS];	/* pci function internal path */
+> @@ -351,6 +352,7 @@ void zpci_remove_parent_msi_domain(struct zpci_bus *z=
+bus);
+>  /* FMB */
+>  int zpci_fmb_enable_device(struct zpci_dev *);
+>  int zpci_fmb_disable_device(struct zpci_dev *);
+> +int zpci_fmb_reenable_device(struct zpci_dev *zdev);
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Nothing wrong in this patch, but apparently there's no common "style"
+in this file regarding whether parameters are named in the function
+prototypes.
 
->  .../bindings/sound/fsl,imx-asrc.yaml          | 43 +++++++++++++++++--
->  1 file changed, 39 insertions(+), 4 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml b/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
-> index cd69bad107c7..67d2826eef3f 100644
-> --- a/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
-> +++ b/Documentation/devicetree/bindings/sound/fsl,imx-asrc.yaml
-> @@ -78,9 +78,19 @@ properties:
->    power-domains:
->      maxItems: 1
->
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +    patternProperties:
-> +      "^port@[0-2]$":
-> +        $ref: audio-graph-port.yaml#
-> +        unevaluatedProperties: false
-> +        description: port for an independent conversion path
+> =20
+>  /* Debug */
+>  int zpci_debug_init(void);
+> diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+> index c055a9ad0972..815257ddb6c8 100644
+> --- a/arch/s390/pci/pci.c
+> +++ b/arch/s390/pci/pci.c
+> @@ -175,13 +175,18 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
+> =20
+>  	lockdep_assert_held(&zdev->fmb_lock);
+> =20
+> -	if (zdev->fmb || sizeof(*zdev->fmb) < zdev->fmb_length)
+> +	if (zdev->fmb_enabled || sizeof(*zdev->fmb) < zdev->fmb_length)
+>  		return -EINVAL;
+> =20
+> -	zdev->fmb =3D kmem_cache_zalloc(zdev_fmb_cache, GFP_KERNEL);
+> -	if (!zdev->fmb)
+> -		return -ENOMEM;
+> -	WARN_ON((u64) zdev->fmb & 0xf);
+> +	if (!zdev->fmb) {
+> +		zdev->fmb =3D kmem_cache_zalloc(zdev_fmb_cache, GFP_KERNEL);
+> +		if (!zdev->fmb)
+> +			return -ENOMEM;
+> +		WARN_ON((u64) zdev->fmb & 0xf);
+
+Already before this patch: Is this WARN_ON necessary, with the
+alignment on struct zpci_fmb when zdev_fmb_cache is created in
+zpci_mem_init()?
+
+> +	} else {
+> +		/* FMB buffers are intentionally persistent for later reuse */
+
+How about changing this comment to: /* reuse same FMB buffer as long a
+zdev lives */
+
+> +		memset(zdev->fmb, 0, sizeof(*zdev->fmb));
+> +	}
+> =20
+>  	/* reset software counters */
+>  	spin_lock_irqsave(&zdev->dom_lock, flags);
+> @@ -199,11 +204,11 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
+>  	fib.fmb_addr =3D virt_to_phys(zdev->fmb);
+>  	fib.gd =3D zdev->gisa;
+>  	cc =3D zpci_mod_fc(req, &fib, &status);
+> -	if (cc) {
+> -		kmem_cache_free(zdev_fmb_cache, zdev->fmb);
+> -		zdev->fmb =3D NULL;
+> -	}
+> -	return cc ? -EIO : 0;
+> +	if (cc)
+> +		return -EIO;
 > +
->    port:
->      $ref: audio-graph-port.yaml#
->      unevaluatedProperties: false
-> +    deprecated: true
-> +    description: deprecated, use ports instead
->
->    fsl,asrc-rate:
->      $ref: /schemas/types.yaml#/definitions/uint32
-> @@ -125,6 +135,10 @@ required:
->    - fsl,asrc-width
->
->  allOf:
-> +  - not:
-> +      required:
-> +        - port
-> +        - ports
->    - $ref: dai-common.yaml#
->    - if:
->        properties:
-> @@ -180,11 +194,32 @@ examples:
->          fsl,asrc-rate = <48000>;
->          fsl,asrc-width = <16>;
->
-> -        port {
-> -            playback-only;
-> +        ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
+> +	zdev->fmb_enabled =3D 1;
+> +	return 0;
+>  }
+> =20
+>  /* Modify PCI: Disable PCI function measurement */
+> @@ -215,7 +220,7 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
+> =20
+>  	lockdep_assert_held(&zdev->fmb_lock);
+> =20
+> -	if (!zdev->fmb)
+> +	if (!zdev->fmb_enabled)
+>  		return -EINVAL;
+> =20
+>  	fib.gd =3D zdev->gisa;
+> @@ -224,13 +229,39 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
+>  	cc =3D zpci_mod_fc(req, &fib, &status);
+>  	if (cc =3D=3D 3) /* Function already gone. */
+>  		cc =3D 0;
+> +	if (cc)
+> +		return -EIO;
+> =20
+> -	if (!cc) {
+> -		kmem_cache_free(zdev_fmb_cache, zdev->fmb);
+> -		zdev->fmb =3D NULL;
+> -	}
+> -	return cc ? -EIO : 0;
+> +	zdev->fmb_enabled =3D 0;
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(zpci_fmb_disable_device);
 > +
-> +            port@0 {
-> +                reg = <0>;
-> +                playback-only;
-> +                endpoint {
-> +                    remote-endpoint = <&fe00_ep>;
-> +                };
-> +            };
+> +int zpci_fmb_reenable_device(struct zpci_dev *zdev)
+> +{
+> +	u64 req =3D ZPCI_CREATE_REQ(zdev->fh, 0, ZPCI_MOD_FC_SET_MEASURE);
+> +	struct zpci_fib fib =3D {0};
+> +	u8 cc, status;
 > +
-> +            port@1 {
-> +                reg = <1>;
-> +                capture-only;
-> +                endpoint {
-> +                    remote-endpoint = <&fe01_ep>;
-> +                };
-> +            };
->
-> -            asrc_endpoint: endpoint {
-> -                remote-endpoint = <&fe00_ep>;
-> +            port@2 {
-> +                reg = <2>;
-> +                capture-only;
-> +                endpoint {
-> +                    remote-endpoint = <&fe02_ep>;
-> +                };
->              };
->          };
->      };
-> --
-> 2.34.1
->
->
+> +	lockdep_assert_held(&zdev->fmb_lock);
+> +
+> +	if (!zdev->fmb_enabled)
+> +		return zpci_fmb_enable_device(zdev);
+> +
+> +	fib.gd =3D zdev->gisa;
+> +	cc =3D zpci_mod_fc(req, &fib, &status); /* Disable function measurement=
+ */
+> +
+> +	/* Unlike in zpci_fmb_disable_device(), cc =3D=3D 3 is not a valid stat=
+e here
+> +	 * because we are re-enabling function measurement for the same functio=
+n
+> +	 * handle.
+> +	 */
+> +	if (cc)
+> +		return -EIO;
+> +
+> +	zdev->fmb_enabled =3D 0;
+> +	return zpci_fmb_enable_device(zdev);
+>  }
+> +EXPORT_SYMBOL_GPL(zpci_fmb_reenable_device);
+
+I see a little imbalance of the semantics of "reenable" in
+zpci_fmb_reenable_device() vs. zpci_reenable_device():
+zpci_reenable_device() "just" enables + registers existing data
+structures with the underlying system - while
+zpci_fmb_reenable_device() does both the disablement + the enablement.
+
+Since zpci_disable_device() includes the disablement of FMB per
+architecture, I wonder if it would suffice to set zdev->fmb_enabled =3D 0
+in that function, and drop the explicit disable FMB there?
+
+> =20
+>  static int zpci_cfg_load(struct zpci_dev *zdev, int offset, u32 *val, u8=
+ len)
+>  {
+> @@ -737,8 +768,14 @@ int zpci_reenable_device(struct zpci_dev *zdev)
+>  	}
+> =20
+>  	rc =3D zpci_iommu_register_ioat(zdev, &status);
+> -	if (rc)
+> +	if (rc) {
+>  		zpci_disable_device(zdev);
+> +		return rc;
+> +	}
+> +
+> +	guard(mutex)(&zdev->fmb_lock);
+> +	if (zdev->fmb_enabled)
+> +		zpci_fmb_reenable_device(zdev);
+> =20
+>  	return rc;
+>  }
+> @@ -1003,6 +1040,12 @@ void zpci_release_device(struct kref *kref)
+>  	if (zdev->has_resources)
+>  		zpci_cleanup_bus_resources(zdev);
+> =20
+> +	if (zdev->fmb) {
+> +		zdev->fmb_enabled =3D 0;
+> +		kmem_cache_free(zdev_fmb_cache, zdev->fmb);
+> +		zdev->fmb =3D NULL;
+> +	}
+> +
+>  	zpci_bus_device_unregister(zdev);
+>  	zpci_destroy_iommu(zdev);
+>  	zpci_dbg(3, "rem fid:%x\n", zdev->fid);
+> diff --git a/arch/s390/pci/pci_debug.c b/arch/s390/pci/pci_debug.c
+> index c7ed7bf254b5..44f026ead414 100644
+> --- a/arch/s390/pci/pci_debug.c
+> +++ b/arch/s390/pci/pci_debug.c
+> @@ -97,7 +97,7 @@ static int pci_perf_show(struct seq_file *m, void *v)
+>  		return 0;
+> =20
+>  	mutex_lock(&zdev->fmb_lock);
+> -	if (!zdev->fmb) {
+> +	if (!zdev->fmb_enabled) {
+>  		mutex_unlock(&zdev->fmb_lock);
+>  		seq_puts(m, "FMB statistics disabled\n");
+>  		return 0;
+
+Thank you,
+Gerd
