@@ -1,94 +1,163 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68148414413;
-	Wed, 23 Sep 2026 14:11:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFD752CCC9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:11:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172702; cv=none; b=t802KL/ahzzdgmuNohLR943vhR8xiBICixs85eCWIKniQhgM3aIb6NZoPh4gaK2JD575Pg27WttyC293GH4HOwAOSvhbN3Tf/2q5r0wcoQ/b3lqLjb0ZQLQjFqqd84dAuJuJBnADa5ZPqnKeEdhMLdoPiW+B/2ZxEJ1wRJc9qJ4=
+	t=1790172712; cv=none; b=EFdwE17rotm9f/bu0yraoaluDix9T6I28GTYOl/AKoNL0aJ58+8snL/PAbywsbwVoOdwlkqxEEpv17cLFC2oPcjcY1v7amln7uCUuWFLIPX6iWHXzinHvGY9ZLi5je7aPn1x7sesP7WqoMrGNhM7xrhuA52L3Rbh2wIVTcH5TQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172702; c=relaxed/simple;
-	bh=Tfc/aNXPT7HqcpR/RZX4WVD/veNojBwN8DR+YT9tww4=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=oqNsXXZ406cl644tVUjWAlhHZ6/DnRSZjUXFUHE7yi+OmZA48NBvxhghVXg3Ea2r9Qc67CV7UApyPvlA4Vdx2oazJAmqae7aEFlF+dZzw2GA3+KaVbwS1dU9QFRbHWreEX9/smxNPpC311ImgGPdCuOn8XdFMfV4Zrpkit7YZ6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ozGhBASy; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790172712; c=relaxed/simple;
+	bh=LGkkGMO9TERbEvKb8FRwlBQ0y/VcZh7QYYRvUrUUVgI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gz5s/HpXu0xzgpSRLfgpOdUr1e7e0Quvnxl5yVwaVMCzxgpdyV84Votl41QqGx1X9S2sbFFrhJeIObf4GyXg+ulkBwzOIwsQjKWB3zZDKkiE53nvsgQTzP1zgZWTlExwTSqqkeI6pli9UqvaYEegqPcikwW1OnuHHsu3Pk6RCd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=PXIaWXRp; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ozGhBASy"
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A7C671F8;
-	Wed, 23 Sep 2026 16:09:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790172592;
-	bh=Tfc/aNXPT7HqcpR/RZX4WVD/veNojBwN8DR+YT9tww4=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=ozGhBASyhT0gvtiobFspx38ZM9kVEt1VNAawzv0VKVPAAU/ahFZ4KySyLa0SbDD0Z
-	 wsNw0ZfbFX9XEG4L+2sbNMvRuz102AuRd0NmZpCSrmTSLilchWdXvGDLnx1IKEY+0k
-	 uOhAR4Ifh/9EODe6cwhPPeKdlEQl1+4IQQ14GSbM=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="PXIaWXRp"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43f9b119so15827317b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:11:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1790172708; x=1790777508; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f7LX2hgCSw8Eo3VcIXgLYrzvPbWMXRZn6yDRkmN7Gj0=;
+        b=PXIaWXRpfdMN1dWxL76T7IGNzWwT1jFAoAeoqw4qgOcsevgKXY6Xu5LIS9/4fHhptH
+         hz3NaQI6+AHCLwfAaRMyyVxPdQT9PvoAJB135dna7knuRHzS34RsUuISpAsk/adV6eDi
+         mOibJWB8ODVC2Vet9ZQKUbV4Ghzm17vCkPVWLjNm0S/KIKkWA4aNaBjV5x2uB+wGLoNE
+         1CHOdYdgCVPbbmN2f+AjW91W/79lChW3pFCLkbsypCxenmLkNyoJwmQ2PFbVFIlvYNIp
+         p6tvEx2DZOFJ31aPqamHnyvF4GRXoS8hrmlD6fIl42WxeOR2t5dso3yvtlipv8hDjG8p
+         eJBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790172708; x=1790777508;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=f7LX2hgCSw8Eo3VcIXgLYrzvPbWMXRZn6yDRkmN7Gj0=;
+        b=P7V5wdITJlxLsrDfAkRl0KiUwtQniouS/PB4ARYIhoBlBDcHeYkLB0zlBR8XcVPel+
+         SLG0plRW7RZFQIHUPRfNvvzbhcbrpNvponfYBlMK+Py2XaRLckzyaFzWhKE3xhSR6Q3E
+         sZnoCc80h1dvneyMxXr8i2ebXgNsI3WEfvoefgRHTBeFg/p2uAqNfH+Nz6sgLdJaFGDK
+         wOALHPXr3eV3byhVbXSlZAHtoQMnX9oXkY1wRXLiXya0D2hJVM1qhEJO9Wpd4QptRY0S
+         ysxjSabxDr0vivC9fdektcdVEth+uVXCit65Z1DI6X8XkZgp3RX956R7bSPxwBg5L/0X
+         7Ffg==
+X-Forwarded-Encrypted: i=1; AKwUvByB7ZGh3Yc0k3M4A929g8Y+DvbHoBJ2vvb9MGX1MLodZqM94cCb5fcpQzvncLzGw7nWxpWj3DVAb4BWrdE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQsEV1LN9og3jcNxJgOtiPpqESSnTE29kuTeZoLXhCMcp8o6hV
+	00OGInkOrZu7u3jVNjCJY+vFLecEuVyQUG/WYRl+3adAtpTnJflXPCAS0V0whjrRLX8=
+X-Gm-Gg: AYBFou37tNguewz+AQXmGLPNxO6/l85b6GqfRjyidtg3l4Q8X1pBH44StNJnPui4LRe
+	pC4fXQJ50Vf5AsEYtFJLk+zxiPsAcSrAW+MNVUYInbwQvN0Q7e/MW9S3Qdtl9WP3q8F5xwNawr0
+	0lscGMi1+4saj82Rgo1Y4419D5KLoIhD9d/0NXLWxcehsChitUMl6gAFOTVbTViNXUqbBCkfOYW
+	1M6eDO6RDez66FzkG91CpmQmuypCPviIx7Lq2vDBuKTBNb/09/bHTstmJP4Hvbvhr/mlk/o0fSF
+	ydK9DiGDWKPnVAiRjKpiqW6O63UwG8X6TuFeyZpyZdHLLfvSRLGoP8npRFHHsUdgDB/YKhlK90P
+	4RxazYV62HB0W3a1/JcrV+ULGji8uj7/5VAnddeENmqfGozGsSMCrm7EAZHuAyoREONPzAAunRS
+	GDBTLxcuGjKtJ04w9h4WDaZGbE5rWNb9XeniYTdEXt9rPp5noXC5efm2Pc07R0uYgZlPm07Isk+
+	2W1eE0=
+X-Received: by 2002:a05:690c:5705:b0:89a:63da:faaa with SMTP id 00721157ae682-8a45c8372f3mr11122287b3.101.1790172708255;
+        Wed, 23 Sep 2026 07:11:48 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eb3396f6sm20644991cf.19.2026.09.23.07.11.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:11:47 -0700 (PDT)
+Date: Wed, 23 Sep 2026 10:11:43 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Chris Li <chrisl@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>, Rik van Riel <riel@surriel.com>,
+	Gregory Price <gourry@gourry.net>,
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <kasong@tencent.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Barry Song <baohua@kernel.org>,
+	YoungJun Park <youngjun.park@lge.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Wenchao Hao <haowenchao22@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Tejun Heo <tj@kernel.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Meta kernel team <kernel-team@meta.com>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	linux-doc@vger.kernel.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <ryncsn@gmail.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <arPeH5MPDaD95aDp@cmpxchg.org>
+References: <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
+ <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
+ <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
+ <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
+ <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
+ <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
+ <a75b2eac4297ca6b238dde6f9246d2c1807b935f.camel@surriel.com>
+ <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com>
+ <CAKEwX=NrN7-u7gnGvWX3qfHaBQcN6FKsFP-4-k76F=sxM1LJqg@mail.gmail.com>
+ <CACePvbVuFULQVvi4UOrvKaJ-5kdWWU5iJH20gH-9nZ-6ZbEqMQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260923015631.44973-1-ginger.jzllee@gmail.com>
-References: <20260923015631.44973-1-ginger.jzllee@gmail.com>
-Subject: Re: [PATCH] media: i2c: ov5648: Fix a data race on state->streaming
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Ginger Li <ginger.jzllee@gmail.com>, mchehab@kernel.org, sakari.ailus@linux.intel.com
-Date: Wed, 23 Sep 2026 15:11:35 +0100
-Message-ID: <179017269592.2497080.16397128200359093970@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACePvbVuFULQVvi4UOrvKaJ-5kdWWU5iJH20gH-9nZ-6ZbEqMQ@mail.gmail.com>
 
-Quoting Ginger Li (2026-09-23 02:56:31)
-> ov5648_s_stream() updates state->streaming after it has released
-> sensor->mutex, while ov5648_resume() reads that field with sensor->mutex
-> held.  A concurrent resume can therefore observe a stale streaming state =
-and
-> leave the sensor in standby while the software believes that it is stream=
-ing,
-> or the other way around.
->=20
-> Keep the update inside the sensor->mutex protected section that already
-> programs the standby mode.
->=20
-> Fixes: e43ccb0a045f ("media: i2c: Add support for the OV5648 image sensor=
-")
-> Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
-> ---
->  drivers/media/i2c/ov5648.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/media/i2c/ov5648.c b/drivers/media/i2c/ov5648.c
-> --- a/drivers/media/i2c/ov5648.c
-> +++ b/drivers/media/i2c/ov5648.c
-> @@ -2145,12 +2145,12 @@ static int ov5648_s_stream(struct v4l2_subdev *su=
-bdev,
-> =20
->         mutex_lock(&sensor->mutex);
->         ret =3D ov5648_sw_standby(sensor, !enable);
-> +       if (!ret)
-> +               state->streaming =3D !!enable;
+On Tue, Sep 22, 2026 at 09:37:48PM -1000, Chris Li wrote:
+> On Tue, Sep 22, 2026 at 7:33 AM Nhat Pham <nphamcs@gmail.com> wrote:
+> >
+> > On Tue, Sep 22, 2026 at 8:23 AM Chris Li <chrisl@kernel.org> wrote:
+> > >
+> > > On Tue, Sep 22, 2026 at 4:59 AM Rik van Riel <riel@surriel.com> wrote:
+> > >
+> > > Yes, I can agree on what you observed. You are using anon + zswap on
+> > > that app alone. That is not what I originally asked.
+> > >
+> > > My original request was for the whole system: what percentage of the
+> > > total system RAM size has been swapped out to zswap.
+> > >
+> > > Because when you have 100% of zswap out, it will likely trigger
+> > > different kernel code path on allocating memory. You might suffer
+> > > global memory pressure you did not observe in the single app memory
+> > > pressure case.
+> >
+> > What does this 100% figure refer to? Pre- or post- compression size? I
+> > legitimately cannot tell.
+> 
+> The 100% I mentioned above refers to the pre-compression size. See my
+> previous email in this thread for details. I have been asking for a
+> max(%) number in your fleet for more than six emails now.
 
-I see streaming is accessed in ov5648_suspend and ov5648_resume with the
-lock held indeed, so I think this makes sense:
+Because people keep telling you that it's immaterial. The job of the
+compression layer is to make pages smaller. It has no business
+deciding what is "too much", what is "too hot". That's the job of
+reclaim and OOM killing. That's the job of cgroup residency controls,
+of things like MGLRU's min_ttl.
 
+You have absolutely no way of knowing what a safe threshold is for
+every usecase now and in the future.
 
-Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+The argument isn't we need a bigger limit. And I refuse to haggle with
+you over what the precise value should be.
 
->         mutex_unlock(&sensor->mutex);
-> =20
->         if (ret)
->                 return ret;
-> -
-> -       state->streaming =3D !!enable;
-> =20
->         if (!enable)
->                 pm_runtime_put(sensor->dev);
-> --=20
-> 2.43.0
->
+The argument is a to use an xarray and keep making pages smaller while
+the policy layers deem it reasonable to do so.
