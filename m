@@ -1,142 +1,212 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011038.outbound.protection.outlook.com [40.107.208.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386E053A89A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:34:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177679; cv=none; b=JHU2cb92F0UujVI+i/JT40yK6nAWLQWW3w138Aw+DMQOW1QC7UaAskwwCLErqh0dC0j8d/US30cYzzqJPCmqJbcZjZXyHUPSSldTUTsKQKrJ1Da9YEzYlvLuRfG5lCR8swXEAWSoUqy7wvIAK69DkdgNAkuqDQygpI/ADfUUxFk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177679; c=relaxed/simple;
-	bh=3jv+OGdcF/n4qHmwlEq3KZQYwc1fd09Z6ADzFn5Bb9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lrxJHFhUEa6xoyyRblHfGz/H2acI2NfMAnxKv/e4165Or99OyUaDKYxvVXqZDLFNQt8mKiQVbt7GGhABQUS5WFNa6GXZmfCcuifI3MpGCl92k1GvMoZsIZQqrro/LcA4MqsWnJfnoT4CXempBsVbTPi2EHCBfG5sk4+++vUX+1Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I4Zz6v9b; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226802931F5;
+	Wed, 23 Sep 2026 15:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.38
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790177738; cv=fail; b=pkQs/FoTuCXFcaoAGS2AB3SqnMA1GJivBvpE7u6i9qzIHJ2JYXdI1oyGm7fAIDq7cWCAFo6Bf1f+LWfc3zDqnf5Bwoacf/RklWuofzwSbQTfoeBYyzeRgD8kpbWYJ4OPYyCJAw/LcyeiCrpTGBeVeNWJy1tWXVUsG1Iwoyh46ao=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790177738; c=relaxed/simple;
+	bh=oD6jBpT1J2cujFQh64lQE62T+LO5ah8dW4R8f0aXWuI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=rsr5nUfqzrobyU6fykmYmds/+jXi4L9Ejntnfrc4jcupNmPpvyEhRphRwnTf0hszhYj1oucfh+Npu2UFhwn4IVyK4iOSLhNNfgFTpS+RR3ewuUcWClFjVQnhrtS6g4bqk1SpuRXedCllfcZjMfxGpSVbcjtCr/hxv8JSEVd65Mw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0VMJDPo2; arc=fail smtp.client-ip=40.107.208.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I4Zz6v9b"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85f0fc1fd8eso575450b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:34:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790177677; x=1790782477; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RmWPw9HQP1XagMM9TGKgOpF0w9bX79g0MmpHkabvFyc=;
-        b=I4Zz6v9b/TEzdVMfkaoQjcir0RzYsWPKoXWHcOr2YwRha24FBlMOAg2zJ/QSZ2gT1c
-         OW0BiFPYlMJVD9VoHfbhDEwOxM5tzO2gGLlP9jnhQcIyVj+xKwzzY4WK6Zn4AknBacyJ
-         /MTfcO9i9pDdWgHXsky9+9MBV7jVZ1g3S0oz5k/Z7si3Yplk0EtPzM2Xb38iVIE2CyHa
-         Xg8+RbN9C70ZSzVXuSGTf2tA9cSxfRO9TCBKfS6CBEzfoylcjzbatL1ePj5nMB2jaYuQ
-         f4YDyfNhGSe5SbkLySkZeEMmAhcuU8kak57ksgoJY+uRkeRg6P5sX4K/mqBLcEiHpsIQ
-         F7mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790177677; x=1790782477;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RmWPw9HQP1XagMM9TGKgOpF0w9bX79g0MmpHkabvFyc=;
-        b=Dy3e7NM3FZ8Rh/OycQDBi3YxTjkeIGvvdPUKfmSbETGOmwSK0x5B7Whv2Q8S+HuBXT
-         0CD/PEKPgScp4/4W3NVGB7yit4H1vhLSmpRbyiE7BEa5z3UZBrwrgWmxEYuc2c1UTX4+
-         QsK/veNksTKkYyb6CJmPCfAuY09mlTly/0pPZwyAjKWZcx5YBUn+2cVNHcQWjB5Dwy/m
-         2DuZrakc5Jlg+e/pmP0ecpVTOR05qCrbc/ECI4eK9fMxkZt6xpBf3FRwGjl5BzSa0eXp
-         fcdjur3YAZCb5H74jWORt8LnWZkdUJo7RoFopIppsitIbPOBKFE+k7plKA9gvqUD4apq
-         t9Fg==
-X-Forwarded-Encrypted: i=1; AKwUvBzA8fSBGJZ2wsPld5yUA1ZWALlB0O/ehTVYDUVTw+VoMiRKMrPw/H85B/NUVcvPx1HtB2qUMHtjdEZqIF0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwuDEiQpWIcBYxGMdnBv/dHej+Qu+QV+fhcSUYHETc9hkQRwZX
-	ufrOacUHjjYjwdAhuO4/dDYZ4IZ+0uPFlZXDP2rXJnD9Mn+E/o9mtfJw
-X-Gm-Gg: AYBFou1mTBO0u+ns6kuNl/QsmGxV67tcPLTOxFcQfbWn6X7SFaFle6iVzTnmdCiSbtC
-	u3xG6OBxELCAx5YWcYx3TqAWk4UnoeJvTFQytWwZ8LGdx15P1vuWGS859q7/x3qAfNm4tu9JLfl
-	bdlY6AdgbNKLtMSlHTNGK/z4Oh8Nws+cQmMrcE7+DYYueIGcMSIk35mILjdR27OqvIa7U3Y04RJ
-	Jkm6u83EbDTCKhUuk8hmZ0koLzC8zYQUUYCOs6fmNeHOvPxOo6n8/SVAJjAzojedib6AQeIr2Pm
-	BgyyuFN5UtpYp+d2B/rzCHXvcFACPW6Ym4Dsheanf4J5xRdrJWbtplIor0iXzNpHPwO/V2Advft
-	B3Oili7kSkoccmLuXgzZReDyZQmnQNOEi2MKryxAsL1Urt+GB86OdghnfPGmhnSuFe1GTEZlcUY
-	s+m/wXj9FxlnbPRU5Da/D24nzSqlTEfprA6sy3hJM6dLX5NCxsoeiiSkEFzSujJkJSyzCJOQ7RZ
-	2LOm6YIDFX6YEG9aNwwRacIkRCVNDQGbMpZkixXza0=
-X-Received: by 2002:a05:6a20:c70e:b0:3dd:a197:7360 with SMTP id adf61e73a8af0-3ddf8296639mr2981172637.57.1790177676973;
-        Wed, 23 Sep 2026 08:34:36 -0700 (PDT)
-Received: from arch.localdomain (123202092053.ctinets.com. [123.202.92.53])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3f5e79sm1318844a12.25.2026.09.23.08.34.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:34:36 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Jun Yan <jerrysteve1101@gmail.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org
-Subject: [PATCH] drm/bridge: analogix_dp: use devm_phy_optional_get() for the DP PHY
-Date: Wed, 23 Sep 2026 23:34:22 +0800
-Message-ID: <20260923153423.804759-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0VMJDPo2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=l65GZEdAHzfctijuN1VwBwmsWuEI/B8XgywtKGznnlw4SVLoBofHaSA70Evb5Y9e+ME+FBBySJLAnJXh2Uev3osnNrCVXDFDz10sWcaOkQpZDLX3oj7bR9zVAKw9VnDfFOjblfFpk+XlBF8YI9Q3XnThksvK7bfla+ALmRqZ4uKLHCf2uvzToXP4HzQk9lUtYQEQc6PyJ+9LtbuO07+VqBhhpTs8b2/KxQfjES0A2Krjv6JDkti3v4eSYEL5n0qJs3lif7IRDn1A9+d0Z/qzdQN0nRDbLo9PGFV8/qTwqkSlYmj/jKjUZ50vhUZNIwzlpXfFmfAWplXJ928JSJIN0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lslTJMbaoWGmu5jtc143L8t4cb5oNX4pFRUUXPOy3+M=;
+ b=yl0CBHk52veXXoSIvXk7KKe+aJhRs14Cmu2JcRU8bDTw4fYp0pD9XfBQiUfmwhU58AYFRox6Gj7z7Cz7MZQkRP/Z+4Tvzmmf1txySOXdA7FWtsBlb+XbaVu5WJhYNLjJKvg2nBb3t6oXnrUkzwXTbU5yqwuVRIsP5ZvxJy3gzrLlwNrGlPg5DlQnRfT4O6/6uAc7UatfW1gkQ61islEP6JqHbKdcsZBVsb4PTkopLEhbIf/Kg39R3+0Ko1rlU9v4Er21Gohbhzff2o8EUJxtQGN0LOgknRjSyGWEGG141EouKMr3uEDGsRZCn8Hpa7lWVXxr07XIQur3+y+LufjTKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lslTJMbaoWGmu5jtc143L8t4cb5oNX4pFRUUXPOy3+M=;
+ b=0VMJDPo2t4rBysLVjGCJcprbO3QVKga2QvbWBDhHnaHSWHXu9ST16yofa7R5xQErTOT5MAqbJ0azN15nugGkiS1B6yAipgZcLfFMwNF4GF1iayV31LTts4cT9vZ13cgeRVe/Yyv4UAMgzNsUoG2N2j7YWx9YPlH9ujAFbJnnQFo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY1PR12MB9649.namprd12.prod.outlook.com (2603:10b6:930:106::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 15:35:28 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 15:35:28 +0000
+Message-ID: <c400f12a-04db-45eb-853b-629f19e3060e@amd.com>
+Date: Wed, 23 Sep 2026 17:35:24 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf/dma-fence: Mark two callbacks as deprecated
+To: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260923150308.1294592-2-phasta@kernel.org>
+ <3983b2de-b6ee-4674-be22-9ecb2525a055@amd.com>
+ <469d5deb2ef644b5d77d21bc2d700443f00c0b4d.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <469d5deb2ef644b5d77d21bc2d700443f00c0b4d.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0191.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a4::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY1PR12MB9649:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c1276f1-e2dc-4e24-af4f-08df19884b75
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|6133799003|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	gLwadnGosCOfN9/N/I8n+VKawFZZj6tBZIUhq0900zm7iiC0sZX9ZdpgqkZ/JGOosxLrIE343ex+lidTE+GD7yfNkNaAZ49Asd9zlXDM+w1tUfKRq9M+id/Juo1RlvKqclWnsJ7/7ra4eX+kB7bQgfME5E5PP0e9OcTCJWftC5qzaw8Djiso7O4hVkjAjXROF2W0i5Sl7u07JulPjMf+I6Py+DXiVhNvKElRHCH+PB6h7BRAP1TjXYeAi867btMDe5HKatJ2hDjY5DKd84u3ku3PFZ+xmv6oNciRKU42VIZcKCMmhJ07TSWDsFbguscru0qve7706smIStZlaD7x4ig9gz6TnojkAgJO5vYdj2hNUVPrnrBjXEi7CRYor5vVvv9VjwiBGxLHGNAS2hU0sHkfB8cig6P+HrpikkqUp/Ucb68EjfSNDlfDXcvEqBF2nv338167s1snwWy6kg/WV/z/rKcvANYRWeRXoGkAFrjeh7ab62IGLcTEHMy7D8uLwe7rbuR9pDzMf7YXYxJOe1ha1SKy8z4+rbkccFrtSW+PsowlLX1paPkF1zHHthUqFajLrmJviXMuWiDKh+wnJz4l5k+K9V6gh/tkfkbMZBUcEdPS8zVSvC2yuTOH0Fnhhx6+Hw7xisrcDBWi/Qcvt8FUtbdpnYRscJ7NqyVZ9p0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VzdaOUFyeG5XbUVUZURiUk02SU0zZ2tYVUFRSUZJYVBnWnRLQ0ZJbFpJNjMv?=
+ =?utf-8?B?MmFVWlNKRWc4Y2IvVTRYcnYxQVZnb1Y2VVVsb2V5d1FOSjkvK0lObUxxRzBS?=
+ =?utf-8?B?dTk3UzVsdjlRdk9VK3k1RFFsa0tLNTZNNW00V01xblptUCtVelJrbTVVKzFx?=
+ =?utf-8?B?N2NUL09ueGNZWitlRmo5QktQUHJpS0VONnozRTV3dHEzZ1NteVpQT1VKTUxJ?=
+ =?utf-8?B?Skt2a0ZsY0RwcHFRZW1Lc0tlWVVnTloxVWlWeTdnVDRKcVFwY0NvekhJSHFY?=
+ =?utf-8?B?eWtuaG5IVFFtTnJZVklVVEtVOXlIM1psQU9IajNBa0ZOWTJFTUZ4Z3hpUk9p?=
+ =?utf-8?B?UHg5QnY1S0p3c0gvcTFqVVF4TGlKbDAwL01iRGkvTkZrNnNrblJ2dW9lWDBw?=
+ =?utf-8?B?SGkwRlQzTVpUbG05N2F6Y0pkdWN1M0s3OWtNWUl4R1lvdzhVR3dITkwxZk1K?=
+ =?utf-8?B?c0JXRk5qalJWL0Z3emFJcTdNUnJ5Rk5uSmVXZE02OTcrSkh0TDFPYzBTYVB6?=
+ =?utf-8?B?Y1ZLb25VTi9sTGFaUGE3OVJNTWtXNTFKb2ZaUjJsTUx5dGI1MGJ1dUljL3Mv?=
+ =?utf-8?B?THpxTUR1cE9kTUc1b0FZSTJkNHV5emFlWERRVUNxU0gxZ1FoUm56VW5qS2Fs?=
+ =?utf-8?B?bk5Zd01BWGh6NGFMZkdvUGdqT25xTnNlUzRaQzZVblZFbGVTZkpPMjZzUHdX?=
+ =?utf-8?B?Ykp4VmFYcmxzZ2k1b2NHQXA1M3UzMG1JekUvNlp4UnhMU0gvczRyeE9HMHYz?=
+ =?utf-8?B?SGF5T204NXpHREtqY0xZMy8yTXRDc0ZVYXNWeVM0aGpmbkpUU0tWTG92blhD?=
+ =?utf-8?B?TTFER0phbGppT3IwVzl3TkJvY3ozbHNiMHR2Wm5PY0VwZDhCVUJKTDVjMkR4?=
+ =?utf-8?B?UzFYVWNLM2l3TDgzR3ZXR29DNWJESC9YcVZQOU9PRHI5eWlSaXNnWStkajQ5?=
+ =?utf-8?B?aXlIYXJIcGd2dDZFUFdTZklSYWx5SzlHZk5ySXB4OWlpS1JDUURXZXRiWHVO?=
+ =?utf-8?B?d083OHNWaEZ3UmRiQTVJVndHdkdCSURKNDNBWHZNaUxkenpJUWZxRlhFbXhn?=
+ =?utf-8?B?QXZ3OThLcXRNRlN6enUxWXpQMHdxU0hJRkYwdGFhaE9CbExESDc2TlA1U2lT?=
+ =?utf-8?B?aFZlZnF6aTE3RE5HQ1Z2cGJXbHFXVExMeElWQWFSNk1uY0ZYM0pyYjZqdVly?=
+ =?utf-8?B?TWZjTVFsWVRMS2FvNDJFVVMxeFF5bjN4ZTNXSEhWaWkwQ2V5WEIyMlBybzc5?=
+ =?utf-8?B?Y2ZHZktGV1JpQjgyVVI3YTRuM3hsNHhZZGZROVZvazJGc3FhakpBdGlPZkhw?=
+ =?utf-8?B?bnJvQUdOdUthUk9qSThhcmVzNFFLY2hHTkFLVk02dEdqVGVZb0N4eWpTRXhE?=
+ =?utf-8?B?L1p1cm11VUJiU1JGRnhWekxVaFMxa21hd2VERlo3b2VyZElBSXU4SHZoRXNN?=
+ =?utf-8?B?bWlQcGl2V1lGaE10aUMvUHFxeGVJeUFna2xsVFBOMXVsOG9vR3k4K3MvQVVJ?=
+ =?utf-8?B?aC91TmJWSGR6L3FSS01kQnpOczgyVVUzUUZhSHJneXVjcmxacGlheTZqT1VS?=
+ =?utf-8?B?bFFsRDFMMkVFRWllU2hEbkpNZ1JGejVyZlFLWUdnK0cveEJGazZkeW1wTldv?=
+ =?utf-8?B?M0kzVXdWT1dNRnlKYWRzdFIrTjd2UGRBS0hLeFNWL3lVZG1RRWpKTVNrZ1Fr?=
+ =?utf-8?B?RHIrSGNEbXJoRnc2bTZkVEZlTmJwRVpjTnczU29BTjFxd3VvdUtmTEtDVTg2?=
+ =?utf-8?B?M3VBUkJQSEZxcWFJZmFOVC9qVXUwOGN5cFNEandpbkRNeDJWNCszcUM5Sk10?=
+ =?utf-8?B?VTZVMVBFbGR0N1d2d3BOeVNQWnRhRTBqSHNiV3g4L3JhVWVtZDRhYkYzRW1R?=
+ =?utf-8?B?blJyTHFFYytxNW9ZbWo0d1N2MnBEc3ZpZlE4WWd3dlRLRy9QN0hxazV1RFdj?=
+ =?utf-8?B?NHJTMGc5QXNYSG9pOEF2SmQzSFl5UnFUcUgxSm1La2ZQL0FONHErRHlBMUhT?=
+ =?utf-8?B?eGVmSWVQVEhzK2ZNSVk2M1k3TzJkQW9mY1h3LzlYbXVwU2FXNXBZZ3RiSE5a?=
+ =?utf-8?B?YlBnUVRyYnFTb0xmdkFXSnVpazFnWXdUZkppZ1FzL0ZUcWZ2M2ZIZEJnNUcy?=
+ =?utf-8?B?V3l5SndETnlWN3QvM2RxT042OVBTZi9LWSs0bWZtNFlua053YTE3VVF0dElJ?=
+ =?utf-8?B?SG1TR3lWaEtsTlZQbUlyazZiMytuVUtKcjZCNnJDN3BHdHVLcnBhZFdBR0Zp?=
+ =?utf-8?B?MGxwMEtJVUNyNEFCL3c5YXhHWHorTjFvRmZnZ2Q4eWwwUVBUc2RGMEhYUU1m?=
+ =?utf-8?Q?72vTeq15Cmz1ELgsx2?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c1276f1-e2dc-4e24-af4f-08df19884b75
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:35:28.3559
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WHxAwq4h/f2yidhq7t4JmFaQpW2vxS3oXBhbRaghI2pVrcWVya5tkMma0d0s+pt8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9649
 
-The DP PHY is optional: the Rockchip RK3399 eDP controller (used as the
-internal eDP port) has no separate PHY device and relies on its built-in
-PHY, which is programmed directly through the GRF registers, so its DT
-node carries no "phys"/"phy-names" property.
+On 9/23/26 17:27, Philipp Stanner wrote:
+> On Wed, 2026-09-23 at 17:13 +0200, Christian König wrote:
+>> On 9/23/26 17:03, Philipp Stanner wrote:
+>>>
+> 
+> […]
+> 
+>>
+>>> 	Consumers of a fence can instead notify themselves by
+>>> +	 * registering a callback on the fence.
+>>
+>> Mhm, the wait callback is transparent to consumers it's just that implementations used it for quite a number of different hacks.
+> 
+> Right…
+> 
+> but doesn't the question then become why dma_fence_wait_timeout() even
+> exists? IOW, shall we deprecate it, too?
 
-Requesting the PHY with devm_phy_get() therefore returns -ENODEV (or
--ENOSYS when CONFIG_GENERIC_PHY is disabled) and the driver logs a
-misleading "no DP phy configured" error at probe time before falling back
-to a NULL phy.
+Yes, without the wait callback it is only a wrapper to block the current thread for a dma_fence to signal using a callback.
 
-Use devm_phy_optional_get() instead, which returns NULL when the PHY is
-absent and otherwise behaves identically, and drop the manual -ENODEV/
--ENOSYS handling. This also removes the spurious error message.
+It's still quite useful to have a common function for that I think.
 
-Assisted-by: Claude:deepseek-v4-flash
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
----
- .../gpu/drm/bridge/analogix/analogix_dp_core.c | 18 +++---------------
- 1 file changed, 3 insertions(+), 15 deletions(-)
+> It seems to be a reimplementation of waitqueues. The driver could get
+> this functionality by using a waitqueue whose event gets triggered by a
+> fence callback.
+> 
+> dma_fence_default_wait() interacts directly with the task state with
+> __XX_task() functions which looks very.. deep to me :)
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 18e76d1e78e1..28eb668d3e3f 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1427,21 +1427,9 @@ analogix_dp_probe(struct device *dev, struct analogix_dp_plat_data *plat_data)
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	dp->phy = devm_phy_get(dp->dev, "dp");
--	if (IS_ERR(dp->phy)) {
--		dev_err(dp->dev, "no DP phy configured\n");
--		ret = PTR_ERR(dp->phy);
--		if (ret) {
--			/*
--			 * phy itself is not enabled, so we can move forward
--			 * assigning NULL to phy pointer.
--			 */
--			if (ret == -ENOSYS || ret == -ENODEV)
--				dp->phy = NULL;
--			else
--				return ERR_PTR(ret);
--		}
--	}
-+	dp->phy = devm_phy_optional_get(dp->dev, "dp");
-+	if (IS_ERR(dp->phy))
-+		return ERR_CAST(dp->phy);
- 
- 	dp->clock = devm_clk_get(&pdev->dev, "dp");
- 	if (IS_ERR(dp->clock)) {
--- 
-2.55.0
+That is *exactly* what I pointed out as well >10 years ago before that stuff was merged upstream :)
+
+A wait_event based implementation would be tons of cleaner if you ask me.
+
+>>
+>> I would just drop that sentence.
+>>
+>>>  	 */
+>>>  	signed long (*wait)(struct dma_fence *fence,
+>>>  			    bool intr, signed long timeout);
+>>> @@ -243,6 +249,8 @@ struct dma_fence_ops {
+>>>  	/**
+>>>  	 * @release:
+>>>  	 *
+>>> +	 * DEPRECATED!
+>>> +	 *
+>>>  	 * Called on destruction of fence to release additional resources.
+>>>  	 * Can be called from irq context.  This callback is optional. If it is
+>>>  	 * NULL, then dma_fence_free() is instead called as the default
+>>> @@ -254,6 +262,12 @@ struct dma_fence_ops {
+>>>  	 *
+>>>  	 * If the callback is implemented the memory backing the dma_fence
+>>>  	 * object must be freed RCU safe.
+>>> +	 *
+>>> +	 * Deprecated because it prevents the producer of a fence from
+>>> +	 * unloading. No new users must be implemented. Parties with a
+>>> +	 * hypothetical need for this callback can instead simply and directly
+>>> +	 * perform their custom release operations one RCU grace period after
+>>> +	 * they have signaled the fence.
+>>
+>> Yeah that is a bit problematic.
+>>
+>> We need my patch set to explicit signal fences instead of returning true/false from callback for that so that a backend can properly implement this.
+> 
+> Well, what I'm trying to say in this docu is that the driver can kick
+> off custom operations that shall be performed once everyone is "done"
+> with the fence after signaling it. Any driver data that might still be
+> around cannot be accessed by fence consumers after signaling anymore.
+> So the driver could trigger cleanup work after a graceperiod, as long
+> as it does not involve kfree()-ing the fence itself.
+
+That sounds sane to me, but I'm not sure how to phrase it cleaner either.
+
+For now I'm ok with it, maybe somebody else has a better idea to how write this.
+
+Thanks,
+Christian.
+
+> 
+> 
+> P.
 
