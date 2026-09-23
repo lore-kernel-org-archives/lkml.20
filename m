@@ -1,139 +1,159 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1658E3749F7;
-	Wed, 23 Sep 2026 14:42:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174524; cv=pass; b=uwPeHAqparnxsBDXf4WykQkFHcZeZlbpWFLIUZWp4lUmA3si0AQTIjQzmXK0jfuhFXBQ9zApSrnAvnFFBh6XYi4ufZHE9FCM56Bn3e8lNGaj/v1iVAvJrD6VfYEwzAJHScxKwRiByEp6BtQ1yS8j/54kGx+MqK7/b+sXVupwGEE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174524; c=relaxed/simple;
-	bh=F2aXbujIxoCyt7cj9H0Rb9VCuMUSDgRr3VpYMtadM1g=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCC95383E2
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:42:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790174537; cv=none; b=u+0GAk9lcwzCsEFMGKyg+tR/7wgkbNXDDVzBkx8U7adXJck467Z1gzxBxfBi/jh0HWSMdwKhh2vXGcxyvFW/MjKKTlLvb4ej9ERVDQkQZQ1J+vwAUEPBEate3UBqxE9F3WaZDP9QoKSlia5FYRNwd2uMDzNbFzNyKn+iOjXea5k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790174537; c=relaxed/simple;
+	bh=3Uj+B1NgxgU58OpZlj2YX/Lnv7Y6GkrNPSxd8oQ7guQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BsnPKiOuyy777N0JsEzWReOTS0HxnoU7p42OKVu5wzr/4MVKrYdxo520Z5qIqOQi3IRASpuoyXCy7WXdhU0FrdyFsvPOHXBCbSXvQpdU94wjh2OK88ww8vhReifeiXNms+6Gt3tdB2PLUnzcBFU4utcI/SmJNZeMnkQ9MdDr/os=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=Gv6B+QMS; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 MIME-Version:Content-Type; b=iDqwcZvcLvXdMKUQ4rgktHIx1RdfTTOFXdz6lj038ZwvhGr1yuh/I8KYAWUb7CCryFMEVXXr18WIcGqFQWkHwNK7IASanyEWjsZEQvNaMzVISL7Eij+YWQJoNyA4GivL85/nT1U075jlEuwAxBSe39LC2qPCVicf9Qi2pB6jlMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ksc0vwm0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=akgVYc5s; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Gv6B+QMS"
-ARC-Seal: i=1; a=rsa-sha256; t=1790174432; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=e5OkvZYukIt5GiTQhW6G+Kt1c269AMGHFXpP3r7i+CLvslhzze3rX4ILzx5pTKxgBRIk4eGy2F5HaUWIQuzEmjWHV2bh0li4VAw5VV3vgx58YZezIfbSNX3mvz04KJRvYDlIcdq25Kp7+aL0OkmwqjFMeVYFhQKb9NXxvlicAf0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790174432; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=pAuvWDVYVwhz9FttWiM1t3wAMo1yh0IBF3GPtqoFkZA=; 
-	b=ddYCwNc0m34CAPczGPwkeH3AcvGPgdXzFqRZh6b8tu6HRgdBLSyoKd1k+BgSfZT8VhNkaMponBaq8nwYgKFU9o35+0FOliOdAf/BzJJOcTlQuvzxhRBhmW2NjqGnHQLHbf/tQYiFxSkyMRQDGxMi0/J9VrrjnYY0aleWunJAIL4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790174432;
-	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=pAuvWDVYVwhz9FttWiM1t3wAMo1yh0IBF3GPtqoFkZA=;
-	b=Gv6B+QMS10z3axRJLGhhpi3sf27EvZHXCdFXjbFmfzCs9qJg3pQk9aS/Yk9UJaPi
-	SLUfnU66bwh4D4qSZKNaxfUGEmDj5eTCix712HE5alCc2nZV+3gwqhIU/a8i6VS0FLY
-	nyguwDqV8p9OR2I5z9STawWqE/wrdi7EY/f1vV+s=
-Received: by smtp.zohomail.com with SMTPS id 1790174426791143.0815861883815;
-	Wed, 23 Sep 2026 07:40:26 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <michel.daenzer@mailbox.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- Derek Foreman <derek.foreman@collabora.com>,
- wayland-devel@lists.freedesktop.org
-Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
-Date: Wed, 23 Sep 2026 16:39:57 +0200
-Message-ID: <YozwdeJLQh-0GBcK9P3QvQ@collabora.com>
-In-Reply-To: <588442c7-2589-4026-a8f8-e03f944318c3@mailbox.org>
-References:
- <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
- <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
- <588442c7-2589-4026-a8f8-e03f944318c3@mailbox.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ksc0vwm0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="akgVYc5s"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBbUmJ3413862
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:42:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zGf+MRsaXm8VLXvKHe+lyfwUTfJuXmVtuDhAYC8JphA=; b=ksc0vwm0bbTIijxq
+	3o5bW273wzguMNDnOnaaZrH9ilPdnHjTF9CD1yX8g1i3r3N77Afg+gZSbXduibkn
+	1zbn20CVDYWevvd6RYf91VEELDjvX+94i0ePS9kITvm9seFjLZjqNM8V4EtTwgKG
+	qFzgsVqkPS//FdCWRWTGmXR33ziGGz55vtbEoedQQ0gSP2bKiS0LqZoOREJAr53f
+	ExSzqfCD5nSOlvRuacxMi5HfMtNM2nGzfIjxnqaaDFs193CcfhHY8tjsvQLmB9/A
+	tWM2I7wfd3ePtcqBveN4zXkof3+gY0zxBoeYSsz2evUdu662gj2m+C9zGj8ssc+h
+	FEylNg==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv78n2h2t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:42:14 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7a77961b860so262880137.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:42:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790174534; x=1790779334; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zGf+MRsaXm8VLXvKHe+lyfwUTfJuXmVtuDhAYC8JphA=;
+        b=akgVYc5sovooQs1vCGcu6LhOAcSl2ohO/1OuoMdaaqYAS4ZfSqL8nUGN2CIzvxsYn+
+         28I/Ys+cPniX/fx434JtSQ9BvNRP9N4tKiBDYFYNasdWK1wNzWaZDCAiH+4duPyG2564
+         uzThh0CrZnhH9TSujlZaw8qPWvQMN2UzY2dOlvlvflmNeD+c9i0judB1O5HZTEkjXooc
+         Jpy/fg2lO1vwWMEhsyCwmLIDc+iJKtbm7ZKKLIAu2rPBEJxIWnDmD+6+RbZmd8eIWnwq
+         XG/4Avi93gqH+qZ6TISFHccmsKUo0Xw+yQ7Ds9LGkNvD05q9uUYr9OwhVscgcYsg14MI
+         gqXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790174534; x=1790779334;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zGf+MRsaXm8VLXvKHe+lyfwUTfJuXmVtuDhAYC8JphA=;
+        b=tzbfzbc79Z8uGqxugTKSqhQpZgB1eURJj1CCDpRAafuW37wxc/vAR/iJN6YxpKGkvH
+         WyKV1XBDwsrOo7QrKhJoWRN8WBAYRytKWsPiJgoCP8yhX014xhcjqbz9HJK9tovMXmIQ
+         7O1yiDNbK4WDk5KSMErpvhKza+Uwij8+EdLIQMvntMlqVI+8TbRccC2B/4on7sOkqJwN
+         vWCj0EMIH7KBE9T5L0seUKxZ5z5c0kUrQlxQ+TqHfxQa1zizLq8FigK/OuF/lWzikkGy
+         hVIFr+IUvaBhGTQQjwSeaJzN8EYBm3vI4RmvxGVsYlvt4jjgpjtq/sAexIl30Tbktiy2
+         qnZA==
+X-Forwarded-Encrypted: i=1; AKwUvBxTh2W0Nlq75rLrDt9euN3ug6bD2qy7QwKJqiDhn063W0zUSprAaJllswgk+p6fg/8FVY7EIMDxtAWFJ+I=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltVRiAvRoqjNWvVsP5YMqR0nBXnaeWVOTtmS4DAmXPpQai+JoX
+	CM8J1Gxkx8HLNM58K5kY6EIU6TAg084wrBPCRy7+uQwDSVMaBOxaCgVYZE9JkFlGcA6LyttzLJc
+	K8eGwiAbxeW/rBLB9k1fwxexDEpxp/tpOcfv7ZCdVpiiOQbUTT/0A60N6ms5bHiqVLt0=
+X-Gm-Gg: AYBFou0SyXOh80cwrth1r5rqXrBw2dbnnLDC7Ryyr3dlah+54AeWYokB0XIgWGDdZ5i
+	i809ELKW/4O7kl80RRa2xk6BQ2sqkBtLr2EYeqho/wEO7o8O20Zik9KdnogzvlYuaUq7KHyPujd
+	bwArMYk5pyIjHt+KSQrQaoVYgLLiE0/SdzJe/WYPFO8aF5TweZwy1O618rKvjg5bLmutk3WhYVp
+	EHHo4ObeoFZT3ykvFHAxYAjpRDqW2MXWUZ5UDqgwYdcuhQCbAGVzPpcEyX01eDb19LyMO9Dbki9
+	0VGCpHn+dp7QZSctshhRvL11EQVVM325JO2ODQ78K1k0PEE4tcKgv3j00IJeCK6wa4DKGRpafRc
+	lxAKdSIpEi2vvKBcGa7JGZpZ3K4k=
+X-Received: by 2002:a05:6102:162a:b0:7a8:2a34:432e with SMTP id ada2fe7eead31-7ac1b81cb78mr2670601137.9.1790174533710;
+        Wed, 23 Sep 2026 07:42:13 -0700 (PDT)
+X-Received: by 2002:a05:6102:162a:b0:7a8:2a34:432e with SMTP id ada2fe7eead31-7ac1b81cb78mr2670574137.9.1790174533193;
+        Wed, 23 Sep 2026 07:42:13 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:34c6:dbd6:5b58:a3fe])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde134739sm76935275e9.0.2026.09.23.07.42.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:42:12 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Jerome Neanne <jneanne@baylibre.com>,
+        Jonathan Cormier <jcormier@criticallink.com>,
+        Andy Shevchenko <andy.shevchenko@gmail.com>,
+        Shree Ramamoorthy <s-ramamoorthy@ti.com>,
+        Aaro Koskinen <aaro.koskinen@iki.fi>,
+        Andreas Kemnade <andreas@kemnade.info>,
+        Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
+        Tony Lindgren <tony@atomide.com>, linux-omap@vger.kernel.org,
+        linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] gpio: tps65219: Fix TPS6521x GPIO handling
+Date: Wed, 23 Sep 2026 16:42:09 +0200
+Message-ID: <179017452737.62498.16565807565260585932.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260919171100.90430-1-kmehltretter@gmail.com>
+References: <20260919171100.90430-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-
-On Wednesday, 23 September 2026 11:51:45 Central European Summer Time Miche=
-l D=C3=A4nzer wrote:
-> On 9/21/26 17:51, Nicolas Frattaroli wrote:
-> >=20
-> > + * .. _VRR-MIN-NUMERATOR:
-> > + *
-> > + * "VRR_MIN_NUMERATOR":
-> > + *	Default &drm_crtc integer property forming the numerator of a
-> > + *	numerator/denominator pair of a frame rate to set as the minimum VRR
-> > + *	target rate. Set to 0 to disable.
-> > + *
-> > + * "VRR_MIN_DENOMINATOR":
-> > + *	Default &drm_crtc integer property forming the denominator of a
-> > + *	numerator/denominator pair of a frame rate to set as the minimum VRR
-> > + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
-> > + *	zero, it must be non-zero.
-> > + *	Otherwise, must also be zero.
-> > + *
-> > + * .. _VRR-MAX-NUMERATOR:
-> > + *
-> > + * "VRR_MAX_NUMERATOR":
-> > + *	Default &drm_crtc integer property forming the numerator of a
-> > + *	numerator/denominator pair of a frame rate to set as the maximum VRR
-> > + *	target rate. Set to 0 to disable.
-> > + *
-> > + * "VRR_MAX_DENOMINATOR":
-> > + *	Default &drm_crtc integer property forming the denominator of a
-> > + *	numerator/denominator pair of a frame rate to set as the maximum VRR
-> > + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
-> > + *	zero, it must be non-zero. Otherwise, must also be zero.
-> >   */
->=20
-> Is there a reason that DENOMINATOR must be 0 when the corresponding NUMER=
-ATOR is? 0 divided by any number is still 0.
-
-No, I think that's an arbitrary convention I settled on and don't enforce. I
-guess it should be "Otherwise, may also be zero", because the only situation
-I'm making userspace avoid is x/0 where x !=3D 0.
-
-> > Either way, should these rules be enforced in drm_atomic_crtc_set_prope=
-rty?
->=20
-> Or rather in atomic_check.
-
-Due to complicating factors like EDID, CinemaVRR, and QMS TFRmin/TFRmax, ch=
-ecking
-the properties for sensible values is done in the HDMI state helpers at the=
- moment.
-
-If/when there is a similar mechanism for DP, we can probably factor the com=
-mon
-parts out. I really do hope all drivers (including those that don't use the=
- HDMI
-state helpers) can at least share the hdmi_validate_vrr() logic, but I have=
-n't
-factored this out into an exported function yet because I don't know how si=
-milar
-the DisplayPort-equivalent mechanisms requirements are, or how much of the =
-state
-derivation non-state-helper drivers (i.e. i915 and amdgpu) need.
-
-Kind regards,
-Nicolas Frattaroli
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1OCBTYWx0ZWRfX/0fN/uyMXc2G
+ xxDt6vox/vksQqRI/x8AJkzjJKkUH0vQIgA0Uo4TvG5GURYyzTWgDUc1YIF3ZXJyjwQ477uYylq
+ 1TThhymZbYP+ASeoShnTU1NiF2KJsSo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1OCBTYWx0ZWRfX8F14bos9Fefj
+ XSrFLmodwsgxVyR7vhOhbYTqTAcQyTz+mmfiDx8UaNDAm2SDNfOfc3eSz5zPY3VjKEEZb5AhTKy
+ lFGgkxKZVA/NwQDeVIwRlb3PZx87X6WERhl0jGgSuIuydw6lqwVE2672iVmp95kNZuc+8KydcVn
+ YvTnRkdMNR9oplDP6dvC2ep6AyKuz24xBO5gYCnFNUFyRCC7msz8gXt7SFTawTCbcVkxSbSDGec
+ om9/dTN0Ts0VrH2JeY0WFGCe7gJ1d4jUFK1g+hWMv9cVrvcXGXRsO5+V6lRt4y/y2EhOHYGVu0g
+ k7BRiPTKrSkHsA2+gX6D20mOnC5IdRzLUZw/lG4vLr9UYCaTnKJaX5YoUW4U30Ovv9CbkM7cZi5
+ E5/GIr9dfjjbBtyyqwx1ifmsElqayb4eXQZesSn9kSa8mECkPPtI0EaxTyjBCAXUIHppwQ13wEZ
+ d3vbtk0xjPZ2uUHK+3w==
+X-Proofpoint-ORIG-GUID: ycnOaOS8b6ax9lj3lGelsipSteW78b5F
+X-Authority-Analysis: v=2.4 cv=aNFlOr9m c=1 sm=1 tr=0 ts=6ab3e546 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=ZxkUJIZQlAJGTDoIxtwA:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-GUID: ycnOaOS8b6ax9lj3lGelsipSteW78b5F
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 phishscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230058
 
 
+On Sat, 19 Sep 2026 19:10:57 +0200, Karl Mehltretter wrote:
+> I found patch 1 while looking through the tree for code that mixes up
+> bit numbers and bit masks. Patches 2 and 3 turned up while checking the
+> nearby TPS65214 code.
+> 
+> Patch 1 fixes TPS65219 input reads. Patches 2 and 3 fix TPS65214
+> direction handling.
+> 
+> [...]
+
+Applied, thanks!
+
+[1/3] gpio: tps65219: Fix GPIO input value reads
+      https://git.kernel.org/brgl/c/4cbe530c0233c7413aaaeb029a4f32dd6aadacbb
+[2/3] gpio: tps65219: Use the variant-specific direction callback
+      https://git.kernel.org/brgl/c/93cf8cedeaaa05714f709b539cfb976e0b80c830
+[3/3] gpio: tps65219: Fix TPS65214 GPIO direction programming
+      https://git.kernel.org/brgl/c/270437f3fe62516f16482742a7762a075e7a9457
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
