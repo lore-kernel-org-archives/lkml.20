@@ -1,452 +1,211 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0863A538D91
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:44:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174699; cv=pass; b=H89s7JC8BnDu4oY5RSNxc5IBex+ZkyKtegkSMBzd8CkXsOZJq/2TmjXe/qq+VOlZ27cBU64XRRDWALb2W9tuE7gLWUiEcYhMPFcaY0C7Ip10/dPbYiy/RcyRTl7BCiovsOsgRqILDSUiQ5k1+Gq25TAqx9DtB/jBTxHe4dgaCrY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174699; c=relaxed/simple;
-	bh=I4CXC8CBXPsAi9J4cmSHK94u4GgKkC4ll7iirgr4BVU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7887936212E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:45:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790174711; cv=none; b=CPH6eUS/LNYrl5pH+1QWk07LDWLnmXlIO0RU8bezpwuW1R5+Z8nmt2wqrAoob1cbsPZaPwgDYfqO2WtZ/v8BPdwFUpwRB0Uu/fnMSre3AJOgJlVYRNGpZnuvQNJyFEEsszhxsvnS0lGqWn5/ZKx8rg7UsuDfjdcis+ei25iqb4Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790174711; c=relaxed/simple;
+	bh=/U1MgBD6VoBqJ/8qiTtjqod/dz4JUJFqpqKojTxWot0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mDnJGjvVh+EjjWcijREr+qoDH/nOooNWVT3Qmf8wxMn3gMSilyuWjpFaYWWnmJTvVBE3AGoSSnpWR47pQLPyEaUmL0RZCuuOhMQRPQbnnkVdwtA4cIT5f4bW/jHg1Of4pCR+ZI8R968ZyIcJa+z2lL888SPu1t9JKYJfyw9VVrc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=y9rblD8S; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="y9rblD8S"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a803458ba0so1388451a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:44:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790174695; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HkoRGEKGM9VqkF75TjuElvSX4W+DY1yKXtivnpOLu+Py/MHaMrdn74ZDFWieD1ekpi
-         NhUPwvPLgH4+W37xNFP+ndXviSuuC1twcGPJOH2UdxemalV+js0eWRHZia/NUYnfdn09
-         O0xYLT2QU/MC02fuyT7eIJOF0pOyG+nGx0OpBuPtAicCMcZgzZowUFiTMLAZncdIldPE
-         9B3aegv26M9Fv86uF6GeUupTnSe2geaDRN6vXzDL435qVQCq4GAGIgsQ21P5zjRSao4F
-         qmVDBkLaudjmYQIxYTL2AsZHC3mYaSkHvHAmyA7fE63leM0XzbAEAKNUFZP9jdl3bobE
-         Kicg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=M4aBOtPsfRM3OiglhHgFceP8oaWfGnoSKrcjXOznF1Q=;
-        fh=AKtRos7mwUz/ekGXz2nlGR/NdcBVzMhC5ejRjgBKCi0=;
-        b=Ld0NeFRpNeCUM/NvN3gHn97zopW8lOeX3yuPCkAiXbiVP8mcSgQ3DIdBwfQ81S9oCz
-         bOcK2bp3xDqCis34MsQWc5FeWUELCGShiT7eTz+zXe+g9FQiJ45sHF53YtqpWivZGhpB
-         tP8MzEQAofpLqIQ7eJTEwcuTqepMdVOw6Ar2sa7lXr2/rjkLgVRQaal4KMklUj/R8+Dd
-         3isgL6kZkyFD2O7edzfYIAvT+oSgIOxA8O7/L4j/zhTrW98scniOSIAJkejlI5PrsPqZ
-         IFKhGTp5MOmLHK3NxBvBGIKkAYuHEPnnU/6M6KN41kgPUeNtOm7ik7jb9wGVGLJ5+Ulj
-         k9Cg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790174695; x=1790779495; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M4aBOtPsfRM3OiglhHgFceP8oaWfGnoSKrcjXOznF1Q=;
-        b=y9rblD8S13fR2oMy4fWiX8dM2/TAcI6Jqmw2jUQQ9pv/gDVVmsmxRCUQbwSPpPrzwK
-         lnC6FgzTSP+4Q0H5v2KNuNSbNd6827A5QSOtiigkpL6/F0E8XUVQmvEjQVIckwSgZcYs
-         jLlA1etvlQF4efiMTiVm+vKq1KqK8JyZ7vGO/bOwHpFg1y53fYb1mK3NjqHsK9jALjAL
-         WnUkX5k+2qqsZn4++ThU6AjI/pV5tQVB+ao9Y48ICNYU55tqPBkR8KT4FzbftabPUWf7
-         nyEv3aBrlyjg2N9MdxyTQPFDnqIxRHw23YB1PDNe+XLzaYMNFvOAEAOF3TrgDsXsRKny
-         CzWQ==
+	 To:Cc:Content-Type; b=IyOZyPXrlFfV6PPY+eha84nDhHdIYefSM+0ixLaplog30VNEcmOoCc0GZgtm6H0GHfUVcy8HZe2rKzzwfna5ntglT54yvZFrXG7z3saUFeU09Do7Ti3AjNOXYAMMaUju+XftH1b7BPGGNdM6GcAHzvu/iT5DB/mXO3dSeADHStI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4aa8d882so1182324d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:45:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790174695; x=1790779495;
+        d=1e100.net; s=20260707; t=1790174709; x=1790779509;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=M4aBOtPsfRM3OiglhHgFceP8oaWfGnoSKrcjXOznF1Q=;
-        b=V/4I/Kif+8VrCRDhoBggpLAufY0sfxByvLeCe7aAygmejJl+eA9lu+JeDz3MGdG1qe
-         BGbWpmyPwQlF31QWOYeNkYjQvEFsHh1b0EBziwPlGCQecBjM2gCMGZ+nxtJd7eDvI7uJ
-         o1NbP8c568mRfvQF8ETiNiy4ZHg/7hAni3FaYM+4HpbJblCNbZ8WxqK40OxkfaBzZGwr
-         McpEzviGKLDQ2egrwqy1AzvBhEs7FAQi1K+jcqbYI6p2l7HtufCSQ7h40DMW7D++d08w
-         +JLtPqFyS+89oz5CwJm8PzroNjU4ab832STgTp8kYwn6NYMzOHDl032TdrC55yZ1xuOM
-         WclQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwpum0+ulF9cGI9OIihcFGkcAk3YUiixlqWfgpJFwLd2Yk3d/cUFEwmN94G2lf8NdWKsQ5pr3R9aBIpgp8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nElF4eWKkVfOQFF7IJLrTJcJKYTGyFrm8lbdrYWtd8vL4v6kXY
-	Z7VXfk6ns33LosL/89IfHNxDX90GRxqyF0dgOlY8iw+pTge5TX4vG04WZe6kn+ZVnV2cOXKC8fu
-	SDKmQgk0pqnLn+JVBxn6gVTE+68xnBvUVlJQPRjvjcA==
-X-Gm-Gg: AYBFou2wWSe7qHgXMHozUTLdW4twr5wFmXbG/rX4eUw44X7BNFYjjS74033BC7TPnE3
-	MBc+IjBs81E+6DHV7PIRIlx3MjXmUEz+BKvVWIEUwZS5sLOv2bjKzR1u12hC3/nzmkz3MHBD6WN
-	W9J9iwWS5XLMq8srP+x5tlJZwfNybzEHbxakCettoRcCj7jPn7mn7WI2Hbf57z9672Q/4jU7ZdF
-	LIgSXz3w7wADdutpUSTJUhL5OrqIq+iEz481zlZ+EF8jRMxkGyO6/RNi8jKOZ8/86NZ6BP1X0Ky
-	GBdQkmEy/Xj2FstINeMocsEAcDLU6zL8LAOcg3uY7ulKqw7PIjPn/mqmXdQ4dvoEzWdakuEB1DP
-	CD/3Exyj/DXk=
-X-Received: by 2002:a05:6402:378a:b0:6aa:9851:6d5c with SMTP id
- 4fb4d7f45d1cf-6aab3b2954fmr2562437a12.19.1790174694197; Wed, 23 Sep 2026
- 07:44:54 -0700 (PDT)
+        bh=uSSwLrH/CqP5v9Ad6ht8i1AuRmzB1BOZysjgQqfiEm0=;
+        b=QF6O15R1uboAOx7kyeA3dxqKw7zUYkV8eQfwWerhZoARrrQxJ+WNpQFrmWr4MJEP8X
+         B+prLlEXfCTUVC9hyOBzrdavCX7BunShXrdXAI08O9kBY9lohx38wIQ/3dtK7+oYs7s8
+         KhxuZiabrYwD5vuKeOcFl+LEP9TXt3x4pFaZEFVvXpNCOmv7BMR3Fw5WTvt+Pup7nxGa
+         kt6OirVD4KsF9RsAUl5tvjQroxBCh6pv1d24Wu3sHGO4gYUjfzrtpmbJWd3q/xkf1nxR
+         hkRM6bDzPoSTcrW1e7CPIIp/1ajGVFZFttzp7mg7Z88Q0ifxoY6HZhsRG7qszQ1Mq5Hp
+         r2rw==
+X-Forwarded-Encrypted: i=1; AKwUvByIHBvLs48ZKmbPkyzFdG/zD3bVJQSBRGIQIgP8iYPLA5W3LT1feB45BNlobj4XZYKlQuSFXfcalVt1POU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMDzjAt6Z2hUzwagtd2oLGxBUiwN0jU9Bzq48Ws2vFg4S0OBTT
+	F/ykXVYQJ5LIFah65dsv5QcRPU6RPnT1rMj81HUAcpeAuxwAHRJystDcO1vRYh7q0MU=
+X-Gm-Gg: AYBFou0u9FXS4+Z7vGusHgsy4+hArtPGpNgjsoWNghI6WrGnIoODOKu4VwWE8jifwLL
+	vlfL4G6u1dyVp8QerOfAGxnAJjDzWFEf9KE7XTgKaOuHETmHpdm/6Sl/iUZy38N5/b2Q+Cxdy1F
+	aaFSr4/DiGb9EahwnPL/qrnfc+B6T2QdwLOyMjP3Z9G55GWDM5cWaCgTBQ41AqK4tlcBCgZFAeS
+	g5+APXpsbill3mzg4lgVVDPNYY2xt/06HnXdbidv5vB10SOv8e2Q8cikS4ftHCaTdHxEVmlahg7
+	Plg1AMcXUMCeL/QBGM9IDwYpLm2CB3nJ/+GSxnz+N5tmuoQhaxgfqxVHeEswD5i5Eh+Rv0Q+BH+
+	NPAfcXN1Zm26aES4idRr2C2niTq41T5LMl7QxMVhHyNzviim0IKY/wgZ4eCeWXyxzE68WG1OfFB
+	uWnkT4Swgu9fNn62YlbpF59I10NzcqhUhsCPsF1yq1Y28zzZ4OGpIrblvmapjCijbxeyHck7ZkX
+	Ab0XU5sVuRL2iSt5xzOv5daNbksgR/1z1y9+B1aGgyohvK0ZUkGBgVGJxk=
+X-Received: by 2002:a05:690e:4393:b0:672:bc9c:6e88 with SMTP id 956f58d0204a3-672d575a0f3mr1384895d50.16.1790174709165;
+        Wed, 23 Sep 2026 07:45:09 -0700 (PDT)
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com. [74.125.224.171])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672d9089322sm979724d50.21.2026.09.23.07.45.08
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 07:45:09 -0700 (PDT)
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d43ac608dso12723667b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:45:08 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzUWuFZCYLjkN+ufD/zZkbI5wG9y9lJTMIyJivtqzMtg5Ug+7d9gL8D+sTeQPU/1gbY+8vWG5WwKAZgTyY=@vger.kernel.org
+X-Received: by 2002:a05:6102:2922:b0:7a7:198a:c2bd with SMTP id
+ ada2fe7eead31-7ac1da2015fmr2739749137.37.1790174262272; Wed, 23 Sep 2026
+ 07:37:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-6-dac8c5eb4aa9@valla.it>
- <arKlvZGqu2nt6Ci0@p14s> <arLXthhYbKkwZ9zY@bywater>
-In-Reply-To: <arLXthhYbKkwZ9zY@bywater>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Wed, 23 Sep 2026 08:44:41 -0600
-X-Gm-Features: AclHuK98k2uTxSqJLFP90Hvvkb8R20Qb9iAi3e_cMJ5VQjy6TOoZ99TlQSDABtg
-Message-ID: <CANLsYkwNOukGX68=NVvwNP7iudP3EcKN6C2L2o9nVCTRxFVxFg@mail.gmail.com>
-Subject: Re: [PATCH RFC 06/12] remoteproc: virtio: add bounce buffering for
- data buffers
-To: Francesco Valla <francesco@valla.it>
-Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, virtualization@lists.linux.dev, 
-	imx@lists.linux.dev, iommu@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org
+References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-4-94c4674927e8@solid-run.com>
+In-Reply-To: <20260904-rzg2-sr-boards-v8-4-94c4674927e8@solid-run.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 16:37:31 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUGOLr6TQvfS9i2W1ihBWUUuTG0=TcfyZ-Seb02+XW_3w@mail.gmail.com>
+X-Gm-Features: AclHuK-Y4yRPc5ygPTDjA1xgXgYnA6hz3s-S6a8gc_ggzPpYCTe_qr4a-TZ4I5w
+Message-ID: <CAMuHMdUGOLr6TQvfS9i2W1ihBWUUuTG0=TcfyZ-Seb02+XW_3w@mail.gmail.com>
+Subject: Re: [PATCH v8 04/11] arm64: dts: renesas: add support for solidrun
+ rzg2l som and hb-iiot evb
+To: Josua Mayer <josua@solid-run.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
+	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 22 Sept 2026 at 13:39, Francesco Valla <francesco@valla.it> wrote:
->
-> On Tue, Sep 22, 2026 at 09:58:53AM -0600, Mathieu Poirier wrote:
-> > On Wed, Sep 16, 2026 at 11:10:51PM +0200, Francesco Valla wrote:
-> > > Depending on the driver originating them, data buffers used for virtio
-> > > communication can either:
-> > >
-> > >   - already be allocated from the coherent memory area that is
-> > >     accessible by the remote processor; this is the case of rpmsg
-> > >     and the rproc flavor of virtio-console;
-> > >   - be allocated from generic kmem, and thus not accessible directly by
-> > >     the remote processor.
-> > >
-> > > Exploiting the map operations, which are used by the virtio framework
-> > > when VIRTIO_F_ACCESS_PLATFORM is part of a vdev's feature flags, add
-> > > bounce buffering for the second case: when the map() callback is called
-> > > for a buffer, one or more pages of coherent memory are allocated and
-> > > data is copied to them, then they are exposed to the remote processor;
-> > > the data is  then bounced back on unmap().
-> > >
-> > > The first case is not impacted, since buffers already suitable for
-> > > remote transmission are passed through.
-> > >
-> > > With the bounce buffering in place, any kind of virtio device can be
-> > > supported through the remoteproc-virtio transport, at least from a
-> > > data exchange standpoint.
-> >
-> > Is this _necessary_ for the imx93 platform you are implementing feature for?
-> >
->
-> If I don't want to fundamentally change how the remoteproc integration
-> works (i.e.: using buffers only from a pre-shared area), yes. While in
-> my test environment the Cortex-M33 serving as remoteproc is able to
-> access the whole RAM space, that is not always the case.
+Hi Josua,
 
-The first sentence tells me it is mandatory while the second says it
-is not.  I understand the use case but don't want to bloat the
-subsystem with code that is trying to address a problem you currently
-don't have.
+On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
+> Add support for the SolidRun RZ/G2L SoM [1] on HummingBoard IIoT [2].
+>
+> The SoM features:
+> - 2x 1Gbps Ethernet with PHY
+> - eMMC
+> - 1/2GB DDR
+> - WiFi + Bluetooth
+> - SDHI Mux switching between eMMC and Carrier Board
+>
+> The HummingBoard IIoT features:
+> - 3x USB-2.0 Type A connector
+> - 2x 1Gbps RJ45 Ethernet
+> - USB Type-C Console Port
+> - microSD connector
+> - RTC with backup battery
+> - RGB Status LED
+> - 1x M.2 B-Key connector with USB-2.0 + SIM card holder
+> - 1x DSI Display Connector
+> - GPIO header
+> - 2x RS232/RS485 ports (configurable)
+> - 2x CAN
+>
+> Descriptions for eMMC, microSD and RS485 are provided as overlays due to
+> their dependency on configurable mux states.
+>
+> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2l-som/
+> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+>
+> Signed-off-by: Josua Mayer <josua@solid-run.com>
 
+Thanks for your patch!
 
-> This is even more important for mixed-criticality-ready processors (say:
-> i.MX95), where access to different memory areas si defined even before
-> the various application cores are started.
->
-> For the sake of completeness, there *might be* a completely different
-> approach that would work: modify every virtio driver to make sure they
-> allocate buffers from the pre-shared memory area (that is, the coherent
-> memory pool). That approach would even avoid the bounce buffering and
-> allow for zero-copy transmission. I even started working on that,
-> defining virtio helpers to do the allocations instead of using raw
-> kmallocs, but then I dropped the idea because of the magnitude of the
-> changes required.
->
-> > >
-> > > Signed-off-by: Francesco Valla <francesco@valla.it>
-> > > ---
-> > >  drivers/remoteproc/remoteproc_virtio.c | 182 +++++++++++++++++++++++++++++++--
-> > >  include/linux/remoteproc.h             |  14 +++
-> > >  2 files changed, 190 insertions(+), 6 deletions(-)
-> > >
-> > > diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
-> > > index cfd66d9d1c9e..d21b3b8044df 100644
-> > > --- a/drivers/remoteproc/remoteproc_virtio.c
-> > > +++ b/drivers/remoteproc/remoteproc_virtio.c
-> > > @@ -241,7 +241,14 @@ static void rproc_virtio_reset(struct virtio_device *vdev)
-> > >     dev_dbg(&vdev->dev, "reset !\n");
-> > >  }
-> > >
-> > > -/* provide the vdev features as retrieved from the firmware */
-> > > +/* Provide the vdev features as retrieved from the firmware, plus the following
-> > > + * additional ones:
-> > > + *   - VIRTIO_F_VERSION_1 that is required by some non-rpmsg virtio devices
-> > > + *   - VIRTIO_F_ACCESS_PLATFORM to force usage of the map operations
-> > > + */
-> > > +#define RPROC_VIRTIO_STATIC_FEATURES \
-> > > +   ((1ULL << VIRTIO_F_VERSION_1) | (1ULL << VIRTIO_F_ACCESS_PLATFORM))
-> > > +
-> > >  static u64 rproc_virtio_get_features(struct virtio_device *vdev)
-> > >  {
-> > >     struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
-> > > @@ -249,7 +256,7 @@ static u64 rproc_virtio_get_features(struct virtio_device *vdev)
-> > >
-> > >     rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
-> > >
-> > > -   return rsc->dfeatures | (1ULL << VIRTIO_F_VERSION_1);
-> > > +   return rsc->dfeatures | RPROC_VIRTIO_STATIC_FEATURES;
-> > >  }
-> > >
-> > >  static void rproc_transport_features(struct virtio_device *vdev)
-> > > @@ -275,16 +282,16 @@ static int rproc_virtio_finalize_features(struct virtio_device *vdev)
-> > >     /* Give virtio_rproc a chance to accept features. */
-> > >     rproc_transport_features(vdev);
-> > >
-> > > -   /* Make sure we don't have any features > 32 bits except VIRTIO_F_VERSION_1 */
-> > > +   /* Make sure we don't have any features > 32 bits */
-> > >     if (WARN_ON_ONCE((u32)vdev->features !=
-> > > -                    (vdev->features & ~(1ULL << VIRTIO_F_VERSION_1))))
-> > > +                    (vdev->features & ~RPROC_VIRTIO_STATIC_FEATURES)))
-> > >             return -1;
-> > >
-> > >     /*
-> > >      * Remember the finalized features of our vdev, and provide it
-> > >      * to the remote processor once it is powered on.
-> > >      */
-> > > -   rsc->gfeatures = vdev->features & ~(1ULL << VIRTIO_F_VERSION_1);
-> > > +   rsc->gfeatures = vdev->features & ~RPROC_VIRTIO_STATIC_FEATURES;
-> > >
-> > >     return 0;
-> > >  }
-> > > @@ -337,6 +344,151 @@ static const struct virtio_config_ops rproc_virtio_config_ops = {
-> > >     .set            = rproc_virtio_set,
-> > >  };
-> > >
-> > > +static inline unsigned int rproc_virtio_bounce_slot(struct device *dma_dev,
-> > > +                                               dma_addr_t dma_handle)
-> > > +{
-> > > +   const dma_addr_t dma_base = dma_dev_coherent_base(dma_dev);
-> > > +
-> > > +   return (dma_handle - dma_base) >> PAGE_SHIFT;
-> > > +}
-> > > +
-> > > +static dma_addr_t rproc_virtio_map_page(union virtio_map map, struct page *page,
-> > > +                                   unsigned long offset, size_t size,
-> > > +                                   enum dma_data_direction dir,
-> > > +                                   unsigned long attrs)
-> > > +{
-> > > +   struct device *dev = map.dma_dev;
-> > > +   struct rproc_vdev *rvdev = dev_get_drvdata(dev);
-> > > +   dma_addr_t dma_base = dma_dev_coherent_base(dev);
-> > > +   size_t dma_size = dma_dev_coherent_size(dev);
-> > > +   phys_addr_t paddr = page_to_phys(page) + offset;
-> > > +   void *vaddr = page_to_virt(page) + offset;
-> > > +   struct rproc_map_record *record;
-> > > +   dma_addr_t map_handle;
-> > > +   void *bounce;
-> > > +
-> > > +   // No need to allocate a bounce buffer if the memory to map is already
-> > > +   // part of the device's coherent pool.
-> > > +   if (paddr >= dma_base && paddr < (dma_base + dma_size)) {
-> > > +           // The allocation details will be recorded also in this case,
-> > > +           // indicating that no bounce buffer was allocated.
-> > > +           map_handle = (dma_addr_t)paddr;
-> > > +           bounce = NULL;
-> > > +   } else {
-> > > +           // Allocate bounce buffer from device coherent memory
-> > > +           bounce = dma_alloc_coherent(dev, size, &map_handle, GFP_KERNEL | __GFP_ZERO);
-> > > +           if (!bounce)
-> > > +                   return DMA_MAPPING_ERROR;
-> > > +
-> > > +           // Copy data to bounce buffer
-> > > +           memcpy(bounce, vaddr, size);
-> > > +   }
-> > > +
-> > > +   // Save bounce details
-> > > +   record = &rvdev->map_records[rproc_virtio_bounce_slot(dev, map_handle)];
-> > > +
-> > > +   record->original = vaddr;
-> > > +   record->size = size;
-> > > +   record->bounce = bounce;
-> > > +
-> > > +   return map_handle;
-> > > +}
-> > > +
-> > > +static void rproc_virtio_unmap_page(union virtio_map map, dma_addr_t map_handle,
-> > > +                               size_t size, enum dma_data_direction dir,
-> > > +                               unsigned long attrs)
-> > > +{
-> > > +   struct device *dev = map.dma_dev;
-> > > +   struct rproc_vdev *rvdev = dev_get_drvdata(dev);
-> > > +   unsigned int slot = rproc_virtio_bounce_slot(dev, map_handle);
-> > > +   struct rproc_map_record *record = &rvdev->map_records[slot];
-> > > +
-> > > +   WARN_ON(size != record->size);
-> > > +
-> > > +   // If a bounce buffer was used, copy data back to original one
-> > > +   if (record->bounce) {
-> > > +           memcpy(record->original, record->bounce, record->size);
-> > > +
-> > > +           dma_free_coherent(dev, record->size, record->bounce, map_handle);
-> > > +   }
-> > > +
-> > > +   record->original = NULL;
-> > > +   record->size = 0;
-> > > +   record->bounce = NULL;
-> > > +}
-> > > +
-> > > +static void rproc_virtio_sync_single_for_cpu(union virtio_map map,
-> > > +                                        dma_addr_t map_handle,
-> > > +                                        size_t size,
-> > > +                                        enum dma_data_direction dir)
-> > > +{
-> > > +   struct device *dev = map.dma_dev;
-> > > +
-> > > +   dma_sync_single_range_for_cpu(dev, (map_handle & PAGE_MASK),
-> > > +                                 offset_in_page(map_handle), size, dir);
-> > > +}
-> > > +
-> > > +static void rproc_virtio_sync_single_for_device(union virtio_map map,
-> > > +                                           dma_addr_t map_handle,
-> > > +                                           size_t size,
-> > > +                                           enum dma_data_direction dir)
-> > > +{
-> > > +   struct device *dev = map.dma_dev;
-> > > +
-> > > +   dma_sync_single_range_for_device(dev, (map_handle & PAGE_MASK),
-> > > +                                    offset_in_page(map_handle), size, dir);
-> > > +}
-> > > +
-> > > +static void *rproc_virtio_alloc(union virtio_map map, size_t size,
-> > > +                           dma_addr_t *map_handle, gfp_t gfp)
-> > > +{
-> > > +   struct device *dev = map.dma_dev;
-> > > +
-> > > +   return dma_alloc_coherent(dev, size, map_handle, gfp);
-> > > +}
-> > > +
-> > > +static void rproc_virtio_free(union virtio_map map, size_t size, void *vaddr,
-> > > +                         dma_addr_t map_handle, unsigned long attrs)
-> > > +{
-> > > +   struct device *dev = map.dma_dev;
-> > > +
-> > > +   dma_free_coherent(dev, size, vaddr, map_handle);
-> > > +}
-> > > +
-> > > +static bool rproc_virtio_need_sync(union virtio_map map, dma_addr_t map_handle)
-> > > +{
-> > > +   struct device *dev = map.dma_dev;
-> > > +
-> > > +   return dma_need_sync(dev, map_handle);
-> > > +}
-> > > +
-> > > +static int rproc_virtio_mapping_error(union virtio_map map, dma_addr_t map_handle)
-> > > +{
-> > > +   if (unlikely(map_handle == DMA_MAPPING_ERROR))
-> > > +           return -ENOMEM;
-> > > +
-> > > +   return 0;
-> > > +}
-> > > +
-> > > +static inline size_t rproc_virtio_max_mapping_size(union virtio_map map)
-> > > +{
-> > > +   struct device *dev = map.dma_dev;
-> > > +
-> > > +   return dma_dev_coherent_size(dev);
-> > > +}
-> > > +
-> > > +static const struct virtio_map_ops rproc_virtio_map_ops = {
-> > > +   .map_page = rproc_virtio_map_page,
-> > > +   .unmap_page = rproc_virtio_unmap_page,
-> > > +   .sync_single_for_cpu = rproc_virtio_sync_single_for_cpu,
-> > > +   .sync_single_for_device = rproc_virtio_sync_single_for_device,
-> > > +   .alloc = rproc_virtio_alloc,
-> > > +   .free = rproc_virtio_free,
-> > > +   .need_sync = rproc_virtio_need_sync,
-> > > +   .mapping_error = rproc_virtio_mapping_error,
-> > > +   .max_mapping_size = rproc_virtio_max_mapping_size,
-> > > +};
-> > > +
-> > >  /*
-> > >   * This function is called whenever vdev is released, and is responsible
-> > >   * to decrement the remote processor's refcount which was taken when vdev was
-> > > @@ -355,6 +507,8 @@ static void rproc_virtio_dev_release(struct device *dev)
-> > >     of_reserved_mem_device_release(&rvdev->pdev->dev);
-> > >     dma_release_coherent_memory(&rvdev->pdev->dev);
-> > >
-> > > +   kvfree(rvdev->map_records);
-> > > +
-> > >     put_device(&rvdev->pdev->dev);
-> > >  }
-> > >
-> > > @@ -429,13 +583,29 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
-> > >             of_reserved_mem_device_init_by_idx(dev, np, 0);
-> > >     }
-> > >
-> > > +   /* Allocate one tracking record for each page of the device reserved
-> > > +    * memory. Contiguous memory is not required for this array, which can
-> > > +    * also be quite big (depending on the size of the coherent memory), so
-> > > +    * let's use vmalloc for this allocation.
-> > > +    */
-> > > +   rvdev->map_records = kvcalloc(dma_dev_coherent_size(dev) >> PAGE_SHIFT,
-> > > +                                 sizeof(*rvdev->map_records),
-> > > +                                 GFP_KERNEL);
-> > > +   if (!rvdev->map_records) {
-> > > +           dev_err(dev, "failed to allocate memory for map records\n");
-> > > +           return -ENOMEM;
-> > > +   }
-> > > +
-> > >     /* Allocate virtio device */
-> > >     vdev = kzalloc_obj(*vdev);
-> > > -   if (!vdev)
-> > > +   if (!vdev) {
-> > > +           kvfree(rvdev->map_records);
-> > >             return -ENOMEM;
-> > > +   }
-> > >
-> > >     vdev->id.device = id;
-> > >     vdev->config = &rproc_virtio_config_ops;
-> > > +   vdev->map = &rproc_virtio_map_ops;
-> > >     vdev->dev.parent = dev;
-> > >     vdev->dev.release = rproc_virtio_dev_release;
-> > >
-> > > diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
-> > > index c3ba51fe9e54..2ff48b505ac0 100644
-> > > --- a/include/linux/remoteproc.h
-> > > +++ b/include/linux/remoteproc.h
-> > > @@ -339,10 +339,23 @@ struct rproc_vring {
-> > >     struct virtqueue *vq;
-> > >  };
-> > >
-> > > +/**
-> > > + * struct rproc_map_record - remoteproc map record
-> > > + * @original:      original virtual address
-> > > + * @num: allocation size
-> > > + * @bounce: bounce buffer virtual address (NULL if not used)
-> > > + */
-> > > +struct rproc_map_record {
-> > > +   void *original;
-> > > +   size_t size;
-> > > +   void *bounce;
-> > > +};
-> > > +
-> > >  /**
-> > >   * struct rproc_vdev - remoteproc state for a supported virtio device
-> > >   * @subdev: handle for registering the vdev as a rproc subdevice
-> > >   * @pdev: remoteproc virtio platform device
-> > > + * @map_records: array of map records
-> > >   * @id: virtio device id (as in virtio_ids.h)
-> > >   * @node: list node
-> > >   * @rproc: the rproc handle
-> > > @@ -358,6 +371,7 @@ struct rproc_vdev {
-> > >     unsigned int id;
-> > >     struct list_head node;
-> > >     struct rproc *rproc;
-> > > +   struct rproc_map_record *map_records;
-> > >     u32 rsc_offset;
-> > >     u32 index;
-> > >     unsigned int num_vrings;
-> > >
-> > > --
-> > > 2.55.0
-> > >
->
-> Regards,
-> Francesco
->
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/rzg2l-hummingboard-iiot-common.dtsi
+
+> +       aliases {
+> +               gpio1 = &tca6408_u48;
+> +               gpio2 = &tca6408_u37;
+> +               gpio3 = &tca6416_u20;
+> +               gpio4 = &tca6416_u21;
+
+The TCA64xx driver does not seem to support gpio aliases, so please
+drop these.
+
+> +               i2c3 = &i2c_exp;
+> +               i2c4 = &i2c_csi;
+> +               i2c5 = &i2c_dsi;
+> +               i2c6 = &i2c_lvds;
+> +               rtc0 = &carrier_rtc;
+> +               rtc1 = &pmic;
+> +               serial3 = &scif3;
+> +       };
+
+> +       v_1_2: regulator-1-2 {
+
+Preferred node name is "regulator-1v2"...
+
+> +               compatible = "regulator-fixed";
+> +               regulator-name = "1v2";
+> +               regulator-max-microvolt = <1200000>;
+> +               regulator-min-microvolt = <1200000>;
+> +       };
+> +
+> +       v_3_3: regulator-3-3 {
+
+... "regulator-3v3".
+
+> +               compatible = "regulator-fixed";
+> +               regulator-name = "3v3";
+> +               regulator-max-microvolt = <3300000>;
+> +               regulator-min-microvolt = <3300000>;
+> +       };
+
+> +&i2c0 {
+> +       /* highest i2c clock supported by all peripherals is 400kHz */
+
+We have a DT propery for that ;-)
+
+    clock-frequency = <400000>;
+
+Same for i2c1.
+
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/rzg2l-sr-som.dtsi
+> @@ -0,0 +1,480 @@
+> +// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +/*
+> + * Device Tree Source for the RZ/G2L Solidrun SoM
+> + *
+> + * Copyright 2023 SolidRun Ltd.
+> + * Copyright 2025 Josua Mayer <josua@solid-run.com>
+> + */
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/pinctrl/rzg2l-pinctrl.h>
+> +
+> +/ {
+> +       aliases {
+> +               ethernet0 = &eth0;
+> +               ethernet1 = &eth1;
+> +               gpio0 = &pinctrl;
+
+The pin control driver does not support gpio aliases, so please
+drop this.
+
+> +               i2c0 = &i2c0;
+> +               i2c1 = &i2c1;
+> +               i2c2 = &i2c3;
+> +               mmc0 = &sdhi0;
+> +               mmc1 = &sdhi1;
+> +               rtc0 = &pmic;
+> +               serial0 = &scif0;
+> +               serial1 = &scif1;
+> +               serial2 = &scif2;
+> +       };
+
+I didn't compare with the board schematics, but the rest LGTM.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
