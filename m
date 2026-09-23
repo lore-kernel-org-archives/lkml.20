@@ -1,172 +1,138 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010050.outbound.protection.outlook.com [52.101.201.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2993FFF94
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166074; cv=fail; b=dWRPp79rnF5bpwumZwyMKEznKDAjNHDrcn6c+vs9MqOHE8/tO3ipYPglZZfQ5709l0UHL0FT6MIVqk7jXZD+W0LIfcQu63k+eX5dAaimF3wE47UBGEw7C0US1V98xFADu+LN7aBbSlzdmts0HaJkYLNXzfymoAgkewlcPabqTHg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166074; c=relaxed/simple;
-	bh=pMuaF4uu2dHB120Ji6JGB1m5nTxl7qionDWkh4jCUAg=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=Dr63vQUCPE0ZGQZ3zrmSPbWkDPBVTk4UbiaN4kB5dFyjG5MippZKjhcBWo7IAXXTHcnQnsf06yyqY5Ykq6+MEzM/VwSZmY0FgVNvygwEi/YiYdDOZGaYQdAj513z7LwTOpdrOLcT/j9uwLqPc44MWZ0+dsR8r44gXXj02N5DPSc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=e5wb81nW; arc=fail smtp.client-ip=52.101.201.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B8249B21F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790166078; cv=none; b=rjOfcPhfY7MeTJo0DHylOe9y/VEhtHiSFAtbdyJgTmN4yTSZModym8b+Njqe1n2D5OtvIP85zRLJR/iLqagG0oMlEVuSeXH9DQnXkEPJF0+hRbnlfq+S3CQqtcu3eKqlNjdIb80B1y72kq8p1MMAiLMt1UOtmBep/Gt+X8kCUCc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790166078; c=relaxed/simple;
+	bh=wjuk4NCrie5dMBbhM88AldrzUZxv3A0d8nLHTH6WJX0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hLINyqtZGb1ov0XkGiBC1FmjEnZ1OslaYyhVLDto9/fhPMSD2hRkjk1L27V0kOwWKpN92bfxq8TQmnyqTTrT7WNqJJRYinpLdJlrUE6cLnv1ucPAEN1AIPWtaz0wNK8IV2ofcT+UpemTEhOyMFKIAzkBZNiGPhJ+vRk0Blw6rpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FD+qgMfm; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="e5wb81nW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NRZ/wgW00t19fxgF09OlDM85WTxLB4NM5wwU3W8c+DjSLdCHH3GlLsrdluIi2cRqlZBwsRpziNk7GsFdZBgP+b3YdyyKL7L6KYzh/0Y7E1ilK8vbQmngM0Xh0a4TzHST4kR8NVL8A5eLFVmEV7qJnr7eh16JCRRoZjorhN6LS4YOdyjDx6A7KnKnY+RwLrD7UO5vq75Ge+1GRNtomDE4bDGaXgH0+0VHTrnf2KNvRGMzgpJMWJ4OS0XOjeaWB0e4xJZv5a+/u/x4EmW9mRLoHqaF6HLLJsrkCHX/B/WyTfGsOCKPulyUVSGaWWM+cx7I7xxFow/ezV9cvuf26nwYFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+9BDX4srMzRpbu2v3FfW973KAHH9x9yLYGq9cv/+6CE=;
- b=hCeL5hjJsBD+B8jjebzq+WBFl9a2ivUNJTT4nlmsqExwRJZ/m2oylRq4V59dQfsKL8ywuM3FBdI000aIAzGa7LGW3TurJbDIUYY6jcG5JAPRIpijtqj54Rt1uh0Y+AECDDjkD6j5OpGu5+Oxdz3r7/K9Q21o899dBWYl+o7/WJfqx+1uo7mL7XV9Ty9l8GRjBcedmkc/zLVpK56/vMCpPXBn63L+/psAthIcO5Mpx10nJg5tkbxeqsgHN3ZgOYVoRDyifJrUpv1Y8b4bHmRu03oKU7oH5mZi9LGk9j3RIhhefpautgDgg/AZDopkzQW4jZXxNUAdsVmVckOFfAFesQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+9BDX4srMzRpbu2v3FfW973KAHH9x9yLYGq9cv/+6CE=;
- b=e5wb81nWdyNUSdunYbus9PrgDE2bHSv0+LLLyw9Q1m6WECpwBfGbzBExB0kFKNRWfhcwQLdoSqQrQ0s2r6FgdwtNWrY5Ca/sg8Dr4xOKjg8011ov4G8n33sPhvf+CcdQOjGVGEooAMaE6HKMRl82CfmVQWSELjwuN6mC1wy+zozmAl9RD5VM5Skjn1WnV84J1mtPMznavJD8vrbDG1VXxm+Zz4ehg/w6alprObY+VPaEYbl/QWQrGXT+osC7zb8TR1rWjeZUej8XvoAPLpi957qfexo/Ass4n3Y6mml6kV3p3Fsw69qeJskLAc19Lrd+t/ugc95RTfZxZvSpuW2Vyg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB6858.namprd12.prod.outlook.com (2603:10b6:510:1b4::20)
- by LV8PR12MB9449.namprd12.prod.outlook.com (2603:10b6:408:204::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 12:21:05 +0000
-Received: from PH7PR12MB6858.namprd12.prod.outlook.com
- ([fe80::a550:dbcf:2fcf:463d]) by PH7PR12MB6858.namprd12.prod.outlook.com
- ([fe80::a550:dbcf:2fcf:463d%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 12:21:05 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 21:20:58 +0900
-Message-Id: <DLMOWLTWLMT2.1CF8Z8JXTRDZ6@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 05/33] gpu: nova-core: regs: add msgq v2 BAR0
- register declarations
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260918010719.1176945-1-jhubbard@nvidia.com>
- <20260918010719.1176945-6-jhubbard@nvidia.com>
-In-Reply-To: <20260918010719.1176945-6-jhubbard@nvidia.com>
-X-ClientProxiedBy: OS0P286CA0011.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:9c::16) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FD+qgMfm"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac898fa4so885921f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790166074; x=1790770874; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/TL+zy+izjVx2cYsJok0G732OpLexLuuUAzyKfEF0o8=;
+        b=FD+qgMfmGmQjMb6al383LngVUsQv/APWkPsxecLMsoS+7EzTfir7ucBOUAfi/lhqbW
+         XfKz8UMkoBSckLyKHqXHG5bcGBJIhml0v3gCf7iXJRaT+S3PalcCJcicUeem7fIjGQKK
+         bE8he8XTtSbbUW7xZjQ9f7DP1wCDCMID6FSdPKksB4ihRRlZnn1tOSTTWQgetsBzoG+U
+         n+MT0gR7d/KrY0KdsI0MXb4W3JkZ6Q2A3SEPIte0psPv/koqtLL+VoCIBYELmZzXPj13
+         6OfOdiavlw0oIK5QNGaccGjjX2iWi3d73ki3X3B9xsTtaOFqQqPC3vtI9uGjYxvNY48m
+         NJzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790166074; x=1790770874;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/TL+zy+izjVx2cYsJok0G732OpLexLuuUAzyKfEF0o8=;
+        b=rwIz0osxr4NLOyy3muJHB+FEwTkcYoityGfP2Tgj5DTmPB0eAdzpHSXWMQYqqhTuAP
+         1IVgv6vnAl80ScFXWwUA8S/yNZmyE9G9HaUoFQ2KyH0/C3fuvW/1jRHeGGsD8RHQ9TBU
+         nt/Ok+d1ccJyarTkMo1cW6yPR/sHN8UGyIAbOXyAmgwN+YTMnzBBe++OpAXujtp332nz
+         ++29oRaxDQbujOqQ5ecyRNIc2vTTRBg2svV/1+uyy6n/ImriSZOAcpy3P/VEWHP0cF7O
+         qA3oPCw4I65rbf/nYZw2wYLKMCPkCTjoe5WVt0KmH4n0kEqJmtjDRpVXSUMc6BdfRIxy
+         aM3g==
+X-Forwarded-Encrypted: i=1; AKwUvBySf6NEa3Td1yS7pGOoOtA0z6hgFo2wJYFArwYaKNGOFuyECxJSQxPrb7gpkdIP85vaxibesiL8HQrps2E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kh4zUDBqJUZaSbCutbp0eOESm6o2tSkz7WSy9fLbxPp61wNanv
+	ZshoC3wMl6TIh8scK03oZGAVaGlwEduFUcZ5DxGFeN4RZQiQ19SV+IKl
+X-Gm-Gg: AYBFou1+A01ywtcVR3Lgz3SR7yqPEcz9qJph/V8iGc83+JH74b98LLtT85ztdHkLsyO
+	BZ0ESMIULgfjxisAmAT0xCxoRFxKQYjXckpCkpTAmhqQahXgWxsKN+m8XBemb1gF6YqHxEM3CXl
+	bBfGpfgR0XV498Jmas/ICJNP08RnkOWjd4oV90bQAqFQIDeFMSRlm4szx5uzRB2yd4kyKACOzFC
+	X8CPkmT0FdeUuWDp5NF9bIzwgxO2BLy4l04CVjfBrWNDoVwJb4U+hRc7ZPeeMoHJFRrNT25oIpC
+	64RYp7SF4h+lTJ0xJsNxEILLEowuWBCSkoxcLCBZFzGfb3A4twVKay/Rg60I7JLRtiniBLBqqoZ
+	bLWiqvhCLQzhjaxdNldp82glQBV3OW2OH9vy/69E9VMes9c5/uoRFz7Is+EyKfYFmLtGwgub2JD
+	JXcO8io5p30ergKGUZCK0EvLTLqTCMFP48vuwGeHSCODJ/IJh9QtrY8XUXwKBvHx9C3mB4+ZxSj
+	lih//DdQBq/5TABG/qd/dnbXhc/yH3p5GHcKchfiPBfMKCnHe2km+BCpkNcY83KfDRYuQ==
+X-Received: by 2002:adf:e18c:0:b0:487:aff:c060 with SMTP id ffacd0b85a97d-4886709d0f8mr3962430f8f.48.1790166074377;
+        Wed, 23 Sep 2026 05:21:14 -0700 (PDT)
+Received: from KASONG-MC4 (11.pool90-167-203.static.orange.es. [90.167.203.11])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886848636asm6261900f8f.6.2026.09.23.05.21.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 05:21:12 -0700 (PDT)
+Date: Wed, 23 Sep 2026 14:21:08 +0200
+From: Kairui Song <ryncsn@gmail.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: kasong@tencent.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+	Yeoreum Yun <yeoreum.yun@arm.com>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+	Shivam Kalra <shivamkalra98@zohomail.in>
+Subject: Re: [PATCH v5 09/17] mm/huge_memory: rename remap_page() to
+ remap_anon_folio()
+Message-ID: <arPD3ztCpw0r0mBu@KASONG-MC4>
+References: <20260915-swap-thp-cleanup-v5-0-39878b37dfb0@tencent.com>
+ <20260915-swap-thp-cleanup-v5-9-39878b37dfb0@tencent.com>
+ <6e542162-fe6c-47da-b0c4-a36251242950@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB6858:EE_|LV8PR12MB9449:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f0cf4bb-ae23-43d8-8e5e-08df196d2177
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|7416014|1800799024|10070799003|4143699003|3023799007|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	rzFyk55uuXVXC7GVqnJXj0UZ32K1LP7kmag77htxAbWjHigw/29KxdvssDpidTY7ubRJAi2cx/pmUbMWv6SKVyUxYbQeoThCaQp1Xb8L9iqyGsZ67nmfwqwI3HQ3rUXhLgdmUOpgaWpeexsbCxnNV9wfL5utdw9D4wEpDvJfbv/is2tTD4BPRmZhDN4mZ8BYEp0m7I96YMHrRSPDhgxmvMx26z634aoL6VSOe3b0OMlDhObbxQ9g4XnVLKAQ/fcQAET3+3qVTixYp6ajj3Bege4ktPOhFp7O8un/ElGTcjqYhtHknyCdFYtsstaOaKza8Yl1pSPmB67gaG8rfQy2UgZ4MxZTOvJErZTaYc1Qef5Y83ZxfYrkTGvw0cTCXgTn5JKnMiAbakVfSeMx96X4ItOJM/2rZafxZQMouy4UQn4r8oEMg3OvsW8pkS+V0rnVx0+koRXuMp7SMnzEi/tF0LjG95rt6NUc2fpMtThZmfRba5KwViuDw3y54KpWYQpB/NSA2yEFQAImf+ECIoE3cqJHRxr56IQApsD5B/Hcdw2YSSiF25p0fAfHIm8C9TvOT64SYu2ZZmlFzFaHR7U9ekUn8fRzxXUZTD+rqLrWBRhE6/ApQ4RO23shtOLLDI02LDO69tPB0AwrQqPQhqEGwDA1bcgAcgFs4mJ5eT9WY2g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB6858.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(7416014)(1800799024)(10070799003)(4143699003)(3023799007)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YThwSGlWOFpESm50b1NlRjJZWDNIUGdiL2VxSmpNUlAwWS9YdmhOandFemNs?=
- =?utf-8?B?NVYyZmFWOVdtbWNvMHV6bVlTRWxTSVAzd3R0ODNnM2FTSW9ENThIUUQ0Yi9U?=
- =?utf-8?B?WGMwckFkNmJxaHR1ekRBWnBwb1ZaRlBjenAzNU1WcVU0Zi9teWdLMGFQMEtn?=
- =?utf-8?B?WWZCZ0RxMGsvdDVlWE44WWZEeHpvazhJOHVEc3dycmY1MGV0dHNDa2ZwY053?=
- =?utf-8?B?aDlBa1VXWm1kNWhnR2VzVlFNbXErQTdzNm8rQmwrVlZGTjBOY3JFZ0gxS2Ix?=
- =?utf-8?B?bnRBWEhHcmZIV0hwZDFCbVVkZTJ2Z1JBck84U2wySzEzdTRIeWtzUkEyUGx5?=
- =?utf-8?B?Qy9uczllSGhMZFdUVzVocDB4TWE0ZDlnTVRjVXNwUG9uVDBPSjhZYW5hVUhG?=
- =?utf-8?B?UjFXNTFSc3V5bHYrRnB6R0ZGbERwRzN2UjZXSC96RWhpVW83aGRyZk9yb0Na?=
- =?utf-8?B?cFpDYTF3a3p2bkJHb0NiUVJ5emNHR1E5bllCUEJPQVh1NytIMHFtY0QyVkdG?=
- =?utf-8?B?T0tYei9idjltcUZuWTBIaWZ3QnoybHdCZTc0TStCdkVsRWhHRXZFOW5LQlcx?=
- =?utf-8?B?bDRFM0dlSDgxeEZpRUNvektPM1hvc09XcEFvcWMwWEZaRTJaVFU0eithYU91?=
- =?utf-8?B?T3A1QXUwOSs4K0pObEJnQzVkR1hMSzZvS3VETm5TYUVkbkNST3ZUWmtSZ2k0?=
- =?utf-8?B?OTFXYXVTZENaNWI3YzFzUC9VTy9Xc3c0QzZrdTZuMldkRnUyeTZqMzBOckEw?=
- =?utf-8?B?UWNIOGtodjVpUXdpUER6R0Z5R1BPWGExZnhSS2dtME9Yd0t3d1V0MzVKWmVS?=
- =?utf-8?B?OWFUaSt1cFNFN2xZN2xNR2IvbExZMmdoN1FpRkhBNG5oMlBoN3NtWEhPM2sr?=
- =?utf-8?B?emFiZCt6aE85VmNrL3pJc1BqZ2Q5WXNMZEhjcGNSa0hiQmJmSUVlc2t4TFc1?=
- =?utf-8?B?aW40b3lIK1pFQnJ5MWJaZlFIbU9odkhkSkVKa0hMbXVUR1dVc0lrakQ0QklX?=
- =?utf-8?B?ZThmV1p5aWVib0hsSnF1elI0WmxJNzUzUjQrY1JBTUpERk9lSzVkZTVPM1BD?=
- =?utf-8?B?Q0NwNjFpWlQ4VUxvaVQ3cnhXN1pYSUdqMDNZQ3oydTI4UldhWFZWdzFncERS?=
- =?utf-8?B?djIyMkRCWCs3Y0NBdjZWc2RSblRxcFNyMUs3Q3NuaXV2eFdNcjNmc3laelhW?=
- =?utf-8?B?YnplOFQvaU9jOEVPL2l0RjJhRFdobE9Ob28rUEI4N3A4NUR3bmhxV0xCY2po?=
- =?utf-8?B?aUE5OVA0Q1cybWV5TXNpODkwblBOYkQ1WmhpZkV4L0VNRFlBSCtkSk5kdW12?=
- =?utf-8?B?VDltQmRPOS9ad1NvRWEzRnhHVGRjbjU3UlFxb1lmajVLcUtidlVmU0dWSWxX?=
- =?utf-8?B?UzFZMnVLV0ZjeTQ2MkFjZlRka2ZVcVN6TFprdW5kemhqNDJjclhBQXVRbXQ3?=
- =?utf-8?B?L1FraXdIdDVtUDMzdDRFbFJRMFpJWWZnbm4yY1YveE9Id0daMU03blJrQmhM?=
- =?utf-8?B?ZG1QU3U4MlFpWjk0RVN1YWlFU1g0MU5VWEh3VTBtYWs5NGJBSWZJdEZvbis5?=
- =?utf-8?B?YVRkdGpBRDRvK1BWVXZuM3dXZVNWSHFDblNEbCs0V3VhRUxVTS8rZ1puYzBq?=
- =?utf-8?B?SGxIU050OEV6TE0zam8vN1lTb3hhL0EwOHh2TXZRdEZJQk1xNlMrV28xSXNG?=
- =?utf-8?B?a2FKMk1vbktNVUhPL0ZhVFN3YVYvMjkxNWRLRnlhU0xjVWF2cFVNL001OVZY?=
- =?utf-8?B?UlFDdTdZSy85TkYwM1hqWjhiTTlkN3owajlSb29hUXJkNldqT1pFeVowejJa?=
- =?utf-8?B?cHFiblgvS0tYZ2dEUkl5b1VIR3VLdS81Z3NUZkZUcm9FUTE4eVAyQ0gwSlRs?=
- =?utf-8?B?WWFJSUtNV2ozUlFUeHluZmZIa1MzSkpnbGxQTTZJbjIwcGFzT1QvcFdDaW5t?=
- =?utf-8?B?d25zd2RhUWtTNVBJV1hSZEVSYU0vYU1sY1k1OURjWGZzaUFEN1ZWQktNYWlO?=
- =?utf-8?B?aGx0RndRNFV5aGlLVWhtc250QWg4VWxDZG9KbTJnVGNnOTNBdU9kVHZPOGM3?=
- =?utf-8?B?bEN0M0JDclJneThudnNVY0YybXZLRnJpdWFPY09jNFJxTE03bFpaYU1KNHUz?=
- =?utf-8?B?Z3hjWXpQOEdrbVkyRUNjYzl1S2tQRTQvdVM1SnhzZVZwUzF3TkJDbU8wQXk1?=
- =?utf-8?B?R2lWQlJCRjNWZThjUGlLc1AwVnhjY0xKV0ZkaDRxSHd2VUdpeVFFVm41M05n?=
- =?utf-8?B?OWlHMDdORlF3UEtoam9kY2FNOStwMzhna09IREtQWnlGakZtRFVJdW9BRUg2?=
- =?utf-8?B?NmlQL1lHWDBZNjlCRFU4bW9ZRkl4RE1hWG14Z1dGWjJSakRpbllKTmI4NDFX?=
- =?utf-8?Q?0EWHsaFIj7GsU1xFVK8hz7mu4v1tyFQCEB97qAPdpZp3a?=
-X-MS-Exchange-AntiSpam-MessageData-1: 7YAC9etIz7a1ZQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f0cf4bb-ae23-43d8-8e5e-08df196d2177
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 12:21:05.3533
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y59V00hilIdgLzwiZmqE+JTCWZ7R/hsqwgO9lKn2DxaqQBFbve6FOrqhJlFKnrHlGcc9CFvOf4jT2ChR8+l5EQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9449
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6e542162-fe6c-47da-b0c4-a36251242950@kernel.org>
 
-On Fri Sep 18, 2026 at 10:06 AM JST, John Hubbard wrote:
-> Msgq is the pair of ring buffers in shared memory through which the
-> driver and GSP-RM communicate. The command queue carries commands from
-> the driver to GSP-RM, and the message queue carries messages from GSP-RM
-> to the driver. Each ring buffer has a write pointer and a read pointer.
->
-> Msgq v0, which the r570 firmware uses, keeps both pointers of each ring
-> buffer in that ring buffer's header, in shared memory. Msgq v2, which
-> the r000 firmware uses, keeps the four pointers, two per ring buffer, in
-> four BAR0 registers instead:
->
->     NV_PGSP_QUEUE_HEAD    command queue write pointer
->     NV_PGSP_QUEUE_TAIL    command queue read pointer
->     NV_PGSP_MSGQ_HEAD     message queue write pointer
->     NV_PGSP_MSGQ_TAIL     message queue read pointer
->
-> The GSP numbers its queues 0 through 7, and each numbered queue is one
-> such pair of ring buffers with its own four pointer registers, so the
-> hardware has 32 pointer registers in all. Nova-core uses queue 0 only.
->
-> A write to NV_PGSP_QUEUE_HEAD also interrupts the GSP. Msgq v0 uses that
-> write as the doorbell, so nova-core already declares NV_PGSP_QUEUE_HEAD.
->
-> Declare the other three, NV_PGSP_QUEUE_TAIL, NV_PGSP_MSGQ_HEAD and
-> NV_PGSP_MSGQ_TAIL, each as a scalar at its queue 0 offset rather than as
-> an array of eight.
+On Fri, Sep 18, 2026 at 10:46:55PM +0100, David Hildenbrand (Arm) wrote:
+> On 9/14/26 19:14, Kairui Song via B4 Relay wrote:
+> > From: Kairui Song <kasong@tencent.com>
+> > 
+> > remap_page() now only has one caller, __folio_freeze_split_anon(),
+> > and is only ever called for anon folios: unmap_folio() currently
+> > leaves file folios unmapped after the split, so they need no
+> > remapping.
+> > 
+> > Rename it to remap_anon_folio() to make that explicit, and add a
+> > VM_WARN_ON_FOLIO() documenting it.
+> > 
+> > Reviewed-by: Zi Yan <ziy@nvidia.com>
+> > Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> > Signed-off-by: Kairui Song <kasong@tencent.com>
+> > ---
+> >  mm/huge_memory.c | 17 ++++++++++++-----
+> >  1 file changed, 12 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > index 1749905ade6a..77bf68c9b9af 100644
+> > --- a/mm/huge_memory.c
+> > +++ b/mm/huge_memory.c
+> > @@ -3552,7 +3552,7 @@ static void unmap_folio(struct folio *folio)
+> >  	/*
+> >  	 * Anon pages need migration entries to preserve them, but file
+> >  	 * pages can simply be left unmapped, then faulted back on demand.
+> > -	 * If that is ever changed (perhaps for mlock), update remap_page().
+> > +	 * If that is ever changed (perhaps for mlock), update remap_anon_folio().
+> 
+> See my comment below, delete that comment about "what if X" entirely. Also, we
+> wouldn't want to update remap_anon_folio().
 
-I understand that at the moment we are only using the first of these
-registers (and `NV_PGSP_QUEUE_HEAD` was already declared that way), but
-technically they are arrays of 8 - let's take the opportunity to declare
-them accurately and stop deriving from the hardware definition.
+Sure, it was added due to some previous reviews, but things are cleaner
+now with the renaming so just remove it is indeed better.
+
+...
+
+> 
+> Add remap_anon_folio for file folios? Just delete this entire code comment.
+> Whoever wants to implement that can look into the pieces that are actually needed.
+> 
+> 
+> With the comments sorted
+
+Thanks!
