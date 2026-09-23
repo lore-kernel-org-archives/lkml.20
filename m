@@ -1,164 +1,357 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1523C2BA4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B00D3A3E72
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790205898; cv=none; b=uNR8HdVqqbkPlUWgwUqcDkWDbBLBSh9VUvsyRI25KAxdCpixFtu7In3sG4aa0WBhC2hh3QidOYVKfv/I87CA2TVvjyhYzMzL9Jv88wsLG/QfSOIGkMoUQxZnvKbKEsMzEGcLLf5PUzZsHfVb03gskYgN340iglu0Vw5j8VVj9w0=
+	t=1790205958; cv=none; b=CwMjWwbGKGOu4fTmNtpdSn62BEduHojNW+BsWecWlL5h1up2KFINLcqBvxzlLA/UvTf0QDse5+Kg3KSR97zqFe/hBOFJz+KLAF5lSn0/deJOKllOmlvG5mI+wG1p1XN4TMQEdRX/PSmLOMpagtHzSdwMaFJFQh5dvc430js/rQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790205898; c=relaxed/simple;
-	bh=YP+HaHZiSayNoB99gQgkKGP0qHM6YuP4LC/EvJtCTcI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NzWL5CM8klgPyUvPEddWSVbDp3KM/tazXd62wB5b9fxmIZdJFscB82Ml3dxU/+dQGwrLTHXtmaPJGTsu3k2mB3GsLCYRYzpRAo0LiehxmQZLi4HcuCqk70L7qGr1gLt+pcpG5Bk/SkP49ul5SCdEjeirsLm+RTBL+r+hZD1IcUM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMIRNr4O; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMIRNr4O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCC0C1F000FF;
-	Wed, 23 Sep 2026 23:24:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790205897;
-	bh=U9YKFd/Hl7YhdOyAieKBjsie7xEHxxz4e55B/x6uzdo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OMIRNr4OLiUixLKnhBolSnExmjDFWiRUOgWv20SvZaXjb2auAnjVO7paMjuqxwVUh
-	 gAznIr7cxA8iwbMkmKDqKHfpe1TD8i+ljP6YUolouKAwsl4f7+f1rOlXQVB0XCdwbH
-	 zyqskPgnBxQTHf32dDgeBvVOID2t7ytyP4gz5du6Is0yMc5oUiSqdo18GwgRg6AGe4
-	 ExTY00SKLiY9HVRr3LlDd7XhgF4nLqikcaON2hjaUoR0iYwBwr+xjA1FfSfDhUATqS
-	 W/bTglH0wjmNowS+kVve+Q8JaSPv3Vhw8YXbWFuO3I97nSsjIRd8+ETJemkQbLwLdK
-	 92jaAVSIpl77A==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 5/6] mm/memfd_luo: allow preserving a tmpfs file
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Mike Rapoport" <rppt@kernel.org>, "Andrew
- Morton" <akpm@linux-foundation.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Pratyush
- Yadav" <pratyush@kernel.org>, "Baolin Wang" <baolin.wang@linux.alibaba.com>, "Samiullah
- Khawaja" <skhawaja@google.com>, "Hugh Dickins" <hughd@google.com>, "David
- Hildenbrand" <david@kernel.org>, "David Matlack" <dmatlack@google.com>, "Alexander
- Graf" <graf@amazon.com>
-Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-In-Reply-To: <20260923224408.3745689-6-pratyush@kernel.org>
-References: <20260923224408.3745689-1-pratyush@kernel.org>
- <20260923224408.3745689-6-pratyush@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 23:24:56 +0000
-Message-Id: <20260923232456.BCC0C1F000FF@smtp.kernel.org>
+	s=arc-20240116; t=1790205958; c=relaxed/simple;
+	bh=UDMYcoFOtKBAIydWZlFUmiGQh998nMACarhzwVJvnPQ=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=dBxcHhIIqbwYJI9Wxm1v+JKubkIZD3WehY/L/mZAw4pnPlh+Y8bWj54lI5kuLPvPa4Fo2p0acg5Ul5+oysHAepjIojgNzDLIxcSB27Pxnc85C6tE3WJF5Zg/+V61k+nE/3Swj32qgrA9FbXMZkUh9y8sKWZ4ZxDKH5f8CCiFA9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cb254da90eso2664258b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:25:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790205955; x=1790810755;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=dkazD8KibbfYcEsOUr3qllPGXLP/mYEbB5Yc3z7dgGw=;
+        b=NsWmTrQw27gGbp7FFL3zNCjs6mDoA0zNjAd7rt0DIklMbULrY+47ITUwUyP4W+gbmt
+         kQNG5vKes0EyMM4dFfoySq/UH/vCO+xCFuFlenQ/AiuGDnEvMIVCRIbonszg3+42QU8U
+         472PA1vGdfWU3EP7e8BpPjaZh5M69vh2DnhN2bFjJTBg/89QQTgOsQ2modB+e/WG/x1t
+         PbY0ZKXJmmzaA5QaJsEvi9VkwSfenGq1S8wX6UzEoq8iEdITf42YD4dctDMvFPNHOIpf
+         Bir0n/r7N3t/k0XthzfXnYYhJ0jMaqNsp+FuWDJ1AesL4701xq83jNvJ2PNLoy1h9VlK
+         q1Sg==
+X-Gm-Message-State: AFuF++lcx7Oti7BoHK0sm2RUtler7jYF6Ke7rx4NGMWGHWO6m+wsdvd1
+	g3dnrVSg1NaEKFweI+t3cqgss8boReBFwun/bwxuAi4/WvyKpOpolvY2VdInDiX1rAk+Mce5+fR
+	xrcwPOEfV7foJdjb0ml90v7EhmRQwTKPRAeppWqJ2LluDJTNslmzSrla6kMs=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Received: by 2002:a05:6808:4f69:b0:4c5:7d0d:7a5f with SMTP id
+ 5614622812f47-4d72c1440bbmr860561b6e.6.1790205955216; Wed, 23 Sep 2026
+ 16:25:55 -0700 (PDT)
+Date: Wed, 23 Sep 2026 16:25:55 -0700
+In-Reply-To: <6ab152fc.71f81b7d.15fa6d.002f.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab46003.80e1c6cc.1e8e5f.0005.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [usb?] INFO: task hung in usbatm_usb_disconnect
+ (2)
+From: syzbot <syzbot+9ca2c9f85bd8b5e46516@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] mm: restored file permission bits are corrupted by current_umask()
-- [High] mm: TOCTOU race allows unprivileged userspace to disrupt tmpfs fil=
-e retrieve
-- [High] mm: memory leak of KHO folios on tmpfs_luo_file_retrieve failure
-- [Medium] mm: potential double free / UAF of ser and folios on successful =
-retrieve
---
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-commit 4087da995ba7fe7684120abaf9ec59deb366b97b
-Author: Pratyush Yadav (Google) <pratyush@kernel.org>
+***
 
-mm/memfd_luo: allow preserving a tmpfs file
+Subject: Re: [syzbot] [usb?] INFO: task hung in usbatm_usb_disconnect (2)
+Author: valigurasm@gmail.com
 
-This commit introduces tmpfs file preservation across kexec live updates.
-It preserves regular files within a tmpfs mount by serializing their
-properties and memory folios, and restores them when the mount is
-retrieved.
+#syz test: upstream master
 
-> diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
-> --- a/mm/memfd_luo.c
-> +++ b/mm/memfd_luo.c
-> @@ -1005,62 +1005,51 @@ static int tmpfs_luo_file_retrieve(struct liveupd=
-ate_file_op_args *args)
-[ ... ]
-> 	err =3D liveupdate_get_file_incoming(args->session, ser->mnt_token,
-> 					   &mnt_file);
-> 	if (err) {
-> 		pr_err("failed to retrieve tmpfs mount: %pe\n", ERR_PTR(err));
-> 		goto free_ser;
-> 	}
+On Thu, 24 Sept 2026, 01:01 syzbot, <
+syzbot+9ca2c9f85bd8b5e46516@syzkaller.appspotmail.com> wrote:
 
-[Severity: High]
-If this path jumps to the free_ser error label, does it permanently leak
-the physical memory reserved for the KHO folios?
-
-The free_ser error label frees the ser metadata, but does not discard
-the physical folios or the ser->folios vmalloc region. Because the function
-returns an error, tmpfs_luo_file_finish() may skip its cleanup logic if
-args->retrieve_status is set to a non-zero error code. This would permanent=
-ly
-leak the memory of all files preserved inside that mount.
-
-[ ... ]
-> 	/*
-> 	 * TODO: This is racy. This will link the file in the mount so after
-> 	 * this call userspace can already open the file and write to it.
-> 	 * Ideally we should first create the inode and set it up, and only
-> 	 * then link it to the root.
-> 	 */
-> 	file =3D file_open_root(&mnt_file->f_path, ser->name,
-> 			      O_RDWR | O_CREAT | O_EXCL | O_LARGEFILE,
-> 			      ser->mode);
-
-[Severity: High]
-Does this code inadvertently strip the file permissions via the
-orchestrator's umask?
-
-VFS creation functions like file_open_root(O_CREAT) will apply
-~current_umask() to the newly created file, which could alter the
-preserved ser->mode. Since the kernel code lacks a subsequent chmod()
-or vfs_setattr() step to enforce the exact preserved mode, the restored
-file might have incorrect permission bits.
-
-[Severity: High]
-Does linking the file into the namespace here open a TOCTOU race window?
-
-Since file_open_root() immediately links the restored file into the tmpfs
-namespace, unprivileged userspace could potentially open and write or mmap
-the file before memfd_luo_retrieve_folios() is called. This would instantia=
-te
-page cache folios, causing the subsequent shmem_add_to_page_cache() inside
-memfd_luo_retrieve_folios() to hit an -EEXIST collision and permanently drop
-the preserved data folios.
-
-[ ... ]
-> 	args->file =3D file;
-> 	kho_restore_free(ser);
->=20
-> 	return 0;
-
-[Severity: Medium]
-Could this lead to a double-free or use-after-free regression of the KHO
-folios on a successful retrieve?
-
-This code frees the ser object but leaves args->serialized_data as a
-dangling pointer.
-
-[ ... ]
-> static void tmpfs_luo_file_finish(struct liveupdate_file_op_args *args)
-> {
-> 	struct memfd_luo_folio_ser *folios_ser;
-> 	struct tmpfs_luo_file_ser *ser;
->=20
-> 	/*
-> 	 * A successful retrieve() already consumed the preserved memory, and a
-> 	 * failed one cleaned up what it could. Only a file that was never
-> 	 * retrieved is left to discard here.
-> 	 */
-> 	if (args->retrieve_status || !args->serialized_data)
-> 		return;
-
-[Severity: Medium]
-If the LUO core framework sets args->retrieve_status to 0 upon a successful
-return, tmpfs_luo_file_finish() might bypass this early return, dereference
-the dangling args->serialized_data pointer, and mistakenly double-free the
-folios. Could args->serialized_data be explicitly cleared after it is freed
-to prevent this?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923224408.3745=
-689-1-pratyush@kernel.org?part=3D5
+> Hello,
+>
+> syzbot tried to test the proposed patch but the build/boot failed:
+>
+> lost connection to test machine
+>
+>
+>
+> Warning: Permanently added '10.128.1.106' (ED25519) to the list of known
+> hosts.
+> 2026/09/23 21:58:53 parsed 1 programs
+> 2026/09/23 21:58:53 serving rpc on tcp://36741
+> [  108.303160][  T923] cfg80211: failed to load regulatory.db
+> [  112.594660][ T5628] cgroup: Unknown subsys name 'net'
+> [  112.732732][ T5628] cgroup: Unknown subsys name 'cpuset'
+> [  112.746517][ T5628] cgroup: Unknown subsys name 'rlimit'
+> Setting up swapspace version 1, size = 127995904 bytes
+> [  114.653895][ T5628] Adding 124996k swap on ./swap-file.  Priority:0
+> extents:1 across:124996k
+> [  118.241459][ T5649] soft_limit_in_bytes is deprecated and will be
+> removed. Writing any value to this file has no effect. Please report your
+> usecase to linux-mm@kvack.org if you depend on this functionality.
+> [  118.312791][ T5649] ebtables: xtables 32bit compat interface no longer
+> supported in namespaces and will be removed soon.
+> [  118.342551][ T5649] arp_tables: xtables 32bit compat interface no
+> longer supported in namespaces and will be removed soon.
+> [  118.935095][ T1161] wlan0: Created IBSS using preconfigured BSSID
+> 50:50:50:50:50:50
+> [  118.935132][ T1161] wlan0: Creating new IBSS network, BSSID
+> 50:50:50:50:50:50
+> [  119.314186][   T60] wlan1: Created IBSS using preconfigured BSSID
+> 50:50:50:50:50:50
+> [  119.314208][   T60] wlan1: Creating new IBSS network, BSSID
+> 50:50:50:50:50:50
+> [  119.514008][ T5659] ip_tables: xtables 32bit compat interface no longer
+> supported in namespaces and will be removed soon.
+> [  119.514671][ T5659] ip6_tables: xtables 32bit compat interface no
+> longer supported in namespaces and will be removed soon.
+> [  120.499036][ T5685] Bluetooth: hci0: unexpected cc 0x0c03 length: 249 >
+> 1
+> [  120.504897][ T5685] Bluetooth: hci0: unexpected cc 0x1003 length: 249 >
+> 9
+> [  120.505931][ T5685] Bluetooth: hci0: unexpected cc 0x1001 length: 249 >
+> 9
+> [  120.507278][ T5685] Bluetooth: hci0: unexpected cc 0x0c23 length: 249 >
+> 4
+> [  120.541791][ T5685] Bluetooth: hci0: unexpected cc 0x0c38 length: 249 >
+> 2
+> [  122.840866][ T5680] bridge0: port 1(bridge_slave_0) entered blocking
+> state
+> [  122.841743][ T5680] bridge0: port 1(bridge_slave_0) entered disabled
+> state
+> [  122.842082][ T5680] bridge_slave_0: entered allmulticast mode
+> [  122.862531][ T5680] bridge_slave_0: entered promiscuous mode
+> [  122.889547][ T5680] bridge0: port 2(bridge_slave_1) entered blocking
+> state
+> [  122.889656][ T5680] bridge0: port 2(bridge_slave_1) entered disabled
+> state
+> [  122.889794][ T5680] bridge_slave_1: entered allmulticast mode
+> [  122.891937][ T5680] bridge_slave_1: entered promiscuous mode
+> [  122.984739][ T5680] bond0: (slave bond_slave_0): Enslaving as an active
+> interface with an up link
+> [  123.001661][ T5680] bond0: (slave bond_slave_1): Enslaving as an active
+> interface with an up link
+> [  123.051936][ T5680] team0: Port device team_slave_0 added
+> [  123.055615][ T5680] team0: Port device team_slave_1 added
+> [  123.112267][ T5680] batman_adv: batadv0: Adding interface:
+> batadv_slave_0
+> [  123.112288][ T5680] batman_adv: batadv0: The MTU of interface
+> batadv_slave_0 is too small (1500) to handle the transport of batman-adv
+> packets. Packets going over this interface will be fragmented on layer2
+> which could impact the performance. Setting the MTU to 1532 would solve the
+> problem.
+> [  123.112327][ T5680] batman_adv: batadv0: Not using interface
+> batadv_slave_0 (retrying later): interface not active
+> [  123.116516][ T5680] batman_adv: batadv0: Adding interface:
+> batadv_slave_1
+> [  123.116534][ T5680] batman_adv: batadv0: The MTU of interface
+> batadv_slave_1 is too small (1500) to handle the transport of batman-adv
+> packets. Packets going over this interface will be fragmented on layer2
+> which could impact the performance. Setting the MTU to 1532 would solve the
+> problem.
+> [  123.116558][ T5680] batman_adv: batadv0: Not using interface
+> batadv_slave_1 (retrying later): interface not active
+> [  123.261249][ T5680] hsr_slave_0: entered promiscuous mode
+> [  123.262263][ T5680] hsr_slave_1: entered promiscuous mode
+> [  123.471857][ T5680] netdevsim netdevsim8 netdevsim0: renamed from eth0
+> [  123.487856][ T5680] 8021q: adding VLAN 0 to HW filter on device
+> netdevsim0
+> [  123.489120][ T5680] netdevsim netdevsim8 netdevsim1: renamed from eth1
+> [  123.493156][ T5680] 8021q: adding VLAN 0 to HW filter on device
+> netdevsim1
+> [  123.494176][ T5680] netdevsim netdevsim8 netdevsim2: renamed from eth2
+> [  123.504829][ T5680] 8021q: adding VLAN 0 to HW filter on device
+> netdevsim2
+> [  123.507973][ T5680] netdevsim netdevsim8 netdevsim3: renamed from eth3
+> [  123.548418][ T5680] 8021q: adding VLAN 0 to HW filter on device
+> netdevsim3
+> [  123.652099][ T5680] 8021q: adding VLAN 0 to HW filter on device bond0
+> [  123.685093][ T5680] 8021q: adding VLAN 0 to HW filter on device team0
+> [  123.702139][   T60] bridge0: port 1(bridge_slave_0) entered blocking
+> state
+> [  123.702279][   T60] bridge0: port 1(bridge_slave_0) entered forwarding
+> state
+> [  123.730774][   T78] bridge0: port 2(bridge_slave_1) entered blocking
+> state
+> [  123.730885][   T78] bridge0: port 2(bridge_slave_1) entered forwarding
+> state
+> [  124.170694][ T5680] 8021q: adding VLAN 0 to HW filter on device batadv0
+> [  124.430316][ T5680] veth0_vlan: entered promiscuous mode
+> [  124.447342][ T5680] veth1_vlan: entered promiscuous mode
+> [  124.488229][ T5680] veth0_macvtap: entered promiscuous mode
+> [  124.492929][ T5680] veth1_macvtap: entered promiscuous mode
+> [  124.527631][ T5680] batman_adv: batadv0: Interface activated:
+> batadv_slave_0
+> [  124.540115][ T5680] batman_adv: batadv0: Interface activated:
+> batadv_slave_1
+> execution of simple program fails: NOTFAIL: arptable checkpoint:
+> getsockopt(ARPT_SO_GET_ENTRIES) failed. table=filter (errno 22: Invalid
+> argument).
+> [  124.647568][ T1161] netdevsim netdevsim8 netdevsim0: set [1, 0] type 2
+> family 0 port 6081 - 0
+> [  124.647619][ T1161] netdevsim netdevsim8 netdevsim1: set [1, 0] type 2
+> family 0 port 6081 - 0
+> [  124.647655][ T1161] netdevsim netdevsim8 netdevsim2: set [1, 0] type 2
+> family 0 port 6081 - 0
+> [  124.647690][ T1161] netdevsim netdevsim8 netdevsim3: set [1, 0] type 2
+> family 0 port 6081 - 0
+> [  124.806492][ T1161] netdevsim netdevsim8 netdevsim3 (unregistering):
+> unset [1, 0] type 2 family 0 port 6081 - 0
+> [  124.903314][ T1161] netdevsim netdevsim8 netdevsim2 (unregistering):
+> unset [1, 0] type 2 family 0 port 6081 - 0
+> [  124.980877][ T1161] netdevsim netdevsim8 netdevsim1 (unregistering):
+> unset [1, 0] type 2 family 0 port 6081 - 0
+> [  125.116872][ T1161] netdevsim netdevsim8 netdevsim0 (unregistering):
+> unset [1, 0] type 2 family 0 port 6081 - 0
+> [  125.883310][ T1161] bridge_slave_1: left allmulticast mode
+> [  125.883361][ T1161] bridge_slave_1: left promiscuous mode
+> [  125.884401][ T1161] bridge0: port 2(bridge_slave_1) entered disabled
+> state
+> [  125.920237][ T1161] bridge_slave_0: left allmulticast mode
+> [  125.920268][ T1161] bridge_slave_0: left promiscuous mode
+> [  125.920607][ T1161] bridge0: port 1(bridge_slave_0) entered disabled
+> state
+> [  126.095488][ T1161] bond0 (unregistering): (slave bond_slave_0):
+> Releasing backup interface
+> [  126.110922][ T1161] bond0 (unregistering): (slave bond_slave_1):
+> Releasing backup interface
+> [  126.112236][ T1161] bond0 (unregistering): Released all slaves
+> [  126.223248][ T1161] hsr_slave_0: left promiscuous mode
+> [  126.226835][ T1161] hsr_slave_1: left promiscuous mode
+> [  126.233387][ T1161] batman_adv: batadv0: Interface deactivated:
+> batadv_slave_0
+> [  126.233431][ T1161] batman_adv: batadv0: Removing interface:
+> batadv_slave_0
+> [  126.241512][ T1161] batman_adv: batadv0: Interface deactivated:
+> batadv_slave_1
+> [  126.241585][ T1161] batman_adv: batadv0: Removing interface:
+> batadv_slave_1
+> [  126.286396][ T1161] veth1_macvtap: left promiscuous mode
+> [  126.286461][ T1161] veth0_macvtap: left promiscuous mode
+> [  126.286648][ T1161] veth1_vlan: left promiscuous mode
+> [  126.286760][ T1161] veth0_vlan: left promiscuous mode
+> [  126.654559][ T1161] team0 (unregistering): Port device team_slave_1
+> removed
+> [  126.682089][ T1161] team0 (unregistering): Port device team_slave_0
+> removed
+> [  126.875676][ T5279] 8021q: adding VLAN 0 to HW filter on device eth1
+> [  127.409335][ T5279] 8021q: adding VLAN 0 to HW filter on device eth2
+> [  127.993497][ T5279] 8021q: adding VLAN 0 to HW filter on device eth3
+> [  128.438182][ T5279] 8021q: adding VLAN 0 to HW filter on device eth4
+> [  139.019729][ T1313] ieee802154 phy0 wpan0: encryption failed: -22
+> [  139.019831][ T1313] ieee802154 phy1 wpan1: encryption failed: -22
+>
+>
+> syzkaller build log:
+> go env (err=<nil>)
+> AR='ar'
+> CC='gcc'
+> CGO_CFLAGS='-O2 -g'
+> CGO_CPPFLAGS=''
+> CGO_CXXFLAGS='-O2 -g'
+> CGO_ENABLED='1'
+> CGO_FFLAGS='-O2 -g'
+> CGO_LDFLAGS='-O2 -g'
+> CXX='g++'
+> GCCGO='gccgo'
+> GO111MODULE='auto'
+> GOAMD64='v1'
+> GOARCH='amd64'
+> GOAUTH='netrc'
+> GOBIN=''
+> GOCACHE='/syzkaller/.cache/go-build'
+> GOCACHEPROG=''
+> GODEBUG=''
+> GOENV='/syzkaller/.config/go/env'
+> GOEXE=''
+> GOEXPERIMENT=''
+> GOFIPS140='off'
+> GOFLAGS=''
+> GOGCCFLAGS='-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=0
+> -ffile-prefix-map=/tmp/go-build3081947690=/tmp/go-build
+> -gno-record-gcc-switches'
+> GOHOSTARCH='amd64'
+> GOHOSTOS='linux'
+> GOINSECURE=''
+> GOMOD='/syzkaller/jobs-2/linux/gopath/src/
+> github.com/google/syzkaller/go.mod'
+> GOMODCACHE='/syzkaller/jobs-2/linux/gopath/pkg/mod'
+> GONOPROXY=''
+> GONOSUMDB=''
+> GOOS='linux'
+> GOPATH='/syzkaller/jobs-2/linux/gopath'
+> GOPRIVATE=''
+> GOPROXY='https://proxy.golang.org,direct'
+> GOROOT='/usr/local/go'
+> GOSUMDB='sum.golang.org'
+> GOTELEMETRY='local'
+> GOTELEMETRYDIR='/syzkaller/.config/go/telemetry'
+> GOTMPDIR=''
+> GOTOOLCHAIN='auto'
+> GOTOOLDIR='/usr/local/go/pkg/tool/linux_amd64'
+> GOVCS=''
+> GOVERSION='go1.26.0'
+> GOWORK=''
+> PKG_CONFIG='pkg-config'
+>
+> git status (err=<nil>)
+> HEAD detached at 853b104bb45
+> nothing to commit, working tree clean
+>
+>
+> tput: No value for $TERM and no -T specified
+> tput: No value for $TERM and no -T specified
+> Makefile:31: run command via tools/syz-env for best compatibility, see:
+> Makefile:32:
+> https://github.com/google/syzkaller/blob/master/docs/contributing.md#using-syz-env
+> go list -f '{{.Stale}}' -ldflags="-s -w -X
+> github.com/google/syzkaller/prog.GitRevision=853b104bb454141a5b0fc0e4218ec78e9f34ffb1
+> -X github.com/google/syzkaller/prog.gitRevisionDate=20260918-062331"
+> ./sys/syz-sysgen | grep -q false || go install -ldflags="-s -w -X
+> github.com/google/syzkaller/prog.GitRevision=853b104bb454141a5b0fc0e4218ec78e9f34ffb1
+> -X github.com/google/syzkaller/prog.gitRevisionDate=20260918-062331"
+> ./sys/syz-sysgen
+> make .descriptions
+> tput: No value for $TERM and no -T specified
+> tput: No value for $TERM and no -T specified
+> Makefile:31: run command via tools/syz-env for best compatibility, see:
+> Makefile:32:
+> https://github.com/google/syzkaller/blob/master/docs/contributing.md#using-syz-env
+> bin/syz-sysgen
+> <https://github.com/google/syzkaller/blob/master/docs/contributing.md#using-syz-envbin/syz-sysgen>
+> touch .descriptions
+> GOOS=linux GOARCH=amd64 go build -ldflags="-s -w -X
+> github.com/google/syzkaller/prog.GitRevision=853b104bb454141a5b0fc0e4218ec78e9f34ffb1
+> -X github.com/google/syzkaller/prog.gitRevisionDate=20260918-062331"  -o
+> ./bin/linux_amd64/syz-execprog
+> github.com/google/syzkaller/tools/syz-execprog
+> mkdir -p ./bin/linux_386
+> x86_64-linux-gnu-g++ -o ./bin/linux_386/syz-executor executor/executor.cc \
+>         -m32 -O2 -pthread -Wall -Werror -Wparentheses
+> -Wunused-const-variable -Wframe-larger-than=16384 -Wno-stringop-overflow
+> -Wno-array-bounds -Wno-format-overflow -Wno-unused-but-set-variable
+> -Wno-unused-command-line-argument -static-pie -std=c++17 -I.
+> -Iexecutor/_include   -DGOOS_linux=1 -DGOARCH_386=1 \
+>         -DHOSTGOOS_linux=1
+> -DGIT_REVISION=\"853b104bb454141a5b0fc0e4218ec78e9f34ffb1\"
+> /usr/bin/ld: /tmp/cctVKtvW.o: in function `Connection::Connect(char
+> const*, char const*)':
+> executor.cc:(.text._ZN10Connection7ConnectEPKcS1_[_ZN10Connection7ConnectEPKcS1_]+0x145):
+> warning: Using 'gethostbyname' in statically linked applications requires
+> at runtime the shared libraries from the glibc version used for linking
+> ./tools/check-syzos.sh 2>/dev/null
+> [INFO] Unsupported architecture '386', skipping check.
+>
+>
+>
+> Tested on:
+>
+> commit:         fe2ec837 Merge tag 'hid-for-linus-2026092202' of git:/..
+> git tree:       upstream
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=9d4242cb1c54cdf7
+> dashboard link:
+> https://syzkaller.appspot.com/bug?extid=9ca2c9f85bd8b5e46516
+> compiler:       Debian clang version 22.1.8
+> (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> userspace arch: i386
+> patch:
+> https://syzkaller.appspot.com/x/patch.diff?x=11123405580000
+>
+>
