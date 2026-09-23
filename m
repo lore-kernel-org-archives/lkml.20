@@ -1,83 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF62331EB7;
-	Wed, 23 Sep 2026 02:08:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C54E36494F;
+	Wed, 23 Sep 2026 02:09:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790129333; cv=none; b=ZZhS11ZIlQ0zUVxlEioS/wgz8XrvO1FHDeozND2j7UpDOWJv/qCMIa1p00eGGoonItKAPZ4vg007p4REqZTHe48aRSCIKmpm5Rj8KiaF6ZdJ+H7+WsPuBJ9XPEM2jv3glR82a5jjTwWWD9lZ18MLQYpPYWzm4c7Wwiy9ne8G+N4=
+	t=1790129345; cv=none; b=eDrOkmed7yBL1O7paYaAh1dPkjf5CxOW+N5Her/X6/iCuHz8RJyfwDxeUQ+IKobj6uEnh9zvmbwpvlPGLsF14Uj4VnmqWD5OJ7HDC+YmG3BGjqOgythLKB6B8IqqxXuUSuYQbKe9VoeO5n/8wf7UZCfiibYRVKUhtFiZNGxfjzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790129333; c=relaxed/simple;
-	bh=PmTjRKDBXgh+W5tWEsZYZ9KHLKFUVFFLh0ZRc6EnRQY=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=LtGwk9wGuEsDTAGfqoS7VASiz2OVdWf5S7vt1+yBIsC+BV8gvoc2lE43AwGvfmPpOqB6hACWsXIAs5XdWYSdczc/w06pOcQp2LalwG2Je67RuRpcglnRt1RyQd7dRMC1seY7/fuY3U/dtNrhsmqC98VTz8XIJEMkWug8rmIipfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=LCZRO966; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790129345; c=relaxed/simple;
+	bh=GZiUxFupbuyEo0FjKSmPTDQkjThuwo3ha4HInzxKB/w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SabV2DmjmhcHL4xg0HfvOvVK0h7y6gUSKYrGpRvYR4gYA+BXpdUeJZhEXZF2crRqwIwOUXpRmfcasX0/alTcNDfsJPFWZBbUfFkj/9gG7sgHvEnCE8JpZls2Tz4STWzoGlUQ5pkDNyHn3KiVr+tPy0Ox7JUz/TfQcscd7Bpg2ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLf8ijAz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="LCZRO966"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6BCF1F000FF;
-	Wed, 23 Sep 2026 02:08:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790129331;
-	bh=/Xadl+2XfugsueWfpjgIKjzsO4w2kEQaJhd+prKQ42Q=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLf8ijAz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 864A81F000FF;
+	Wed, 23 Sep 2026 02:09:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790129343;
+	bh=ycumX+CH/+RPPTODlC1GsiI59VcEmP8dxst+sGpgO8c=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LCZRO966MJXtXlmSnshT6skldVpCIVltLpzcANgImksrNBMw4dR0xcJfeHpjJixW6
-	 /kLRDerxNAmBzlCUo+jtAldaykUQ3uGfcpfuCWVlmpjJjSz0B6vjzyBddSxi6twTrE
-	 RUbUTdwWJBLX58EqtVnMHKXUEFgHN+FjKK1xGa1U=
-Date: Tue, 22 Sep 2026 19:08:50 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Dominique Martinet <asmadeus@codewreck.org>
-Cc: syzbot <syzbot+de6fd6789748a8aa64a0@syzkaller.appspotmail.com>,
- apopple@nvidia.com, byungchul@sk.com, david@kernel.org, gourry@gourry.net,
- joshua.hahnjy@gmail.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- matthew.brost@intel.com, rakie.kim@sk.com, syzkaller-bugs@googlegroups.com,
- ying.huang@linux.alibaba.com, ziy@nvidia.com, Eric Van Hensbergen
- <ericvh@kernel.org>, Latchesar Ionkov <lucho@ionkov.net>, Christian
- Schoenebeck <linux_oss@crudebyte.com>, v9fs@lists.linux.dev, Nguyen Ngoc
- Thang <ngocthang2710.1999@gmail.com>
-Subject: Re: [syzbot] [mm?] WARNING in v9fs_fid_get_acl (2)
-Message-Id: <20260922190850.02e782b7196791602163a3a9@linux-foundation.org>
-In-Reply-To: <arJAGlhkDJbcy2sw@codewreck.org>
-References: <6aae188b.71f81b7d.15fa6d.0004.GAE@google.com>
-	<20260919031451.3f47a8da8405e88fa1ab5398@linux-foundation.org>
-	<arJAGlhkDJbcy2sw@codewreck.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	b=YLf8ijAzOZWjJPwm4nm6X/uDlYp7/JgbjfSOro5nTUsP7F5faD7ZHRE3ma5sKw5pI
+	 5YNY1YfDSUeqSBTX6GwkaPe9+PXXSk/YGw+S6n/WElyqvvl6pZn/Gkyo5iEme04fyi
+	 eQHlLBhbikGh91zCMjTKDSXc0GUi5Df0zeHf7XTwYDGGZxv7u4MO8vz9xwTN7bdycp
+	 JWU6AQc+rqoQupjM9RHCHGv/L2wG3zBy0ZYM4jf03k4vkw3ViS5XX3MoacwvAmFYaC
+	 qp8K2x+atIC2Jx89dYbbH65b0xOODBuseYQBcHEHaAfQRq1rUE1Q35Yq64ZRQxh6Kf
+	 MyghOfHHx6t4Q==
+Date: Tue, 22 Sep 2026 19:09:02 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: "Yilin Zhang" <yilinzhang@moonshot.ai>
+Cc: "David S. Miller" <davem@davemloft.net>, "Eric Dumazet"
+ <edumazet@google.com>, "Neal Cardwell" <ncardwell@google.com>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Kimi Security
+ Team" <bug-report@moonshot.ai>, "Weiming Shi" <shiweiming@moonshot.ai>
+Subject: Re: [PATCH] tcp: fix use-after-free of retransmit_skb_hint in
+ tcp_send_synack()
+Message-ID: <20260922190902.0094ee4f@kernel.org>
+In-Reply-To: <20260920063419.3587332-1-yilinzhang@moonshot.ai>
+References: <20260920063419.3587332-1-yilinzhang@moonshot.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Tue, 22 Sep 2026 17:45:14 +0900 Dominique Martinet <asmadeus@codewreck.org> wrote:
+On Sun, 20 Sep 2026 14:34:19 +0800 Yilin Zhang wrote:
+> +			if (skb == tp->retransmit_skb_hint)
+> +				tp->retransmit_skb_hint = nskb;
+>  			tcp_highest_sack_replace(sk, skb, nskb);
+>  			tcp_rtx_queue_unlink_and_free(skb, sk);
+> -- 
 
-> (+Nguyen in Cc as he tried resending sloppy patches after this)
-> 
-> Andrew Morton wrote on Sat, Sep 19, 2026 at 03:14:51AM -0700:
-> > > WARNING: mm/page_alloc.c:5340 at alloc_order_allowed mm/page_alloc.c:5340 [inline], CPU#0: syz.1.357/7872
-> > > WARNING: mm/page_alloc.c:5340 at __alloc_frozen_pages_noprof+0x2137/0x3300 mm/page_alloc.c:5397, CPU#0: syz.1.357/7872
-> > 
-> > Thanks.  Caused by an old v9fs bug.  A fix was proposed but never merged:
-> > https://lists.openwall.net/linux-kernel/2024/02/02/806?utm_source=chatgpt.com
-> 
-> Right, we've been going in circle with this since forever, and nobody
-> answered Christian Schoenebeck's question[1] about what the limit should
-> be, and while I don't care much ultimately I sort of agree with him
-> (e.g. limit should be XATTR_SIZE_MAX for anything that the VFS layer
-> touches, but acl are converted within the 9p subsystem and could be
-> arbitrarily large so status quo of a KMALLOC_MAX_SIZE limit because they
-> could come from something else)
-> 
-> Andrew, if you have an opinion on whether we should cap the acl sizes
-> anyway, please say...
-
-whome.  Well, if the converted ACLs can be large and it's hard to
-figure out how large then yes, some pre-canned limit is difficult.  So
-it's OK to leave the decision up to kmalloc() and just put a (nicely
-commented!) __GFP_NOWARN in there.
-
-otoh, if we're permitting workloads to trigger a large number of large
-allocations then that might be a problem from a utilization or even DoS
-point of view.
-
+this patch has been mangled, please repost if it's relevant
+-- 
+pw-bot: cr
