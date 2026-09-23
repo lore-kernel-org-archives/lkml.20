@@ -1,83 +1,75 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637323806B6
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:34:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65AD13822B1
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130862; cv=none; b=NG2Axe7nZrqSHQzxcd3tjy80h7dmklHpG/ZFnVf/EKUdEFUPu9CiQMWPv4JTG5HCDnqyP+JwCuV+kbe27Hln8EeAHLd7FKPwkp4r9VdmShlBYkgfl9bZO7lwrslIkkiBX/WfgtZKZRm8eK25ek1opMEjWwfxCpm7axb9S5cACfc=
+	t=1790130872; cv=none; b=GGfdm4YmnKKa5aM81+qJXj7i7+x8dKoawF8WwYMr8HC3m2QEtyQZGSu3a7cZkTHSdm2S8A63/5F4G1d5flMZ0QyeTgZ7xGUu9EaI6odlxgAy9eJyIX2nSnStM/lvss3garRScWzlkz9FQUSYUQJZz0S4el2hHzQFfBw1PwQGbLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130862; c=relaxed/simple;
-	bh=KAHvlzNsX2RSyag5xWzRHXQ55ITbwrvDX57hYu6PuRw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ae51DdWgJcuE9xNr8BRRJikVSyQB/AKUe53tzDL/T9PVz7zzYyjYTBWyV40EyHbxyPpURe4FKC5WxYn5IASA2vv4Um6lnJX+N0qEBbxB5heEalwCbfmpzMNY62EvEXMH7rb9jA8meodPD3U69EUHR9voJ/w0hEnRt4nzZ9wHg2g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k8MkN9VM; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1790130872; c=relaxed/simple;
+	bh=RuC+pKhSD2K/27dctlbOdpdt9wqEB4Yvn2GPASfZbfk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YLStuzEQK5adLHfLLi78Bh2BKvjHQ/BER5tzfyHnQhx1fWKkdvrtw2FwOvzsEob8rtM6K5v6CKWk54P6AOrMXdLg0ymA4GPJXBvBrxu2hQx4Zs35s0nryML7G1GC4pmoJf4P/D45LUZI+JgvV7DYsJELbgJ21sXonDw8s+IbNKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rvLBIntM; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k8MkN9VM"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2cso372856a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:34:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rvLBIntM"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so1919145e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:34:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790130860; x=1790735660; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xnrcjxk0kzIW2dBkRTKNaLCxSo8UzYbysB1rR/EfFJo=;
-        b=k8MkN9VMrRU9sPd9dtcMWT0cF4KpSTEZQyWhl1CC2eG0KRCQvOfuMPs4HiASEB0yEA
-         LwFsqsEYOdap3mxGXGFCQ2TM7bkEpsqPBrev+EpcyC4RDOaxF86BT/OPu3H0psYnuA8G
-         tmud/Dqy4ZW02HxvEhQejRbukiuvTYBh6VnijTOfQDZ/sSIi3JRSStHdoqXBWYFvOe7u
-         SFj28cvc9xghEqBqYULCC22OxCB2JehDz24CV/ARJjP8FW/Gkcy6XRt5B4eG7CkG26c7
-         ERuJpBr/cW1KSM/TEv77aUFS1EMqn5YMXidTOPd/lXUFLesbWU/+EDvoJAycAoQFQU2r
-         xTOg==
+        d=gmail.com; s=20251104; t=1790130868; x=1790735668; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QW+BLYCi+D5tYXln7s8opXbqlHXi6CiL8jzKDo+UXSI=;
+        b=rvLBIntMAekS9O1AbzM9PEup92sVggrk5Yl67nX7yzHdl2NGlK1vDmO5aqk8W9PUdd
+         k5t8p6KQxEx4bgiaCpGoruZhDEieLvFXt8Ji2xN326rXzRAz1lHFiS759wP0Fd7Id87V
+         oQbqYvEvpUFe8//UC+xjbUpCWvPMOJhkzSDMUq3o7x/s4Q3cvUyKffseI7taOLIfaMVO
+         oKqdTjIjqDffNFMRX212fZA1ffwXHeV8AuNFXJ7OtrAN5oT/s/c70mskulf+EfmR4bUE
+         pPEYsdIrjmD1h5IyI3QNN/FRkcdC3EhBLuzrK3wTDjTieYVF0g74d3yJKbbxP1kPEuci
+         fjNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790130860; x=1790735660;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xnrcjxk0kzIW2dBkRTKNaLCxSo8UzYbysB1rR/EfFJo=;
-        b=IqbW/meRkH/C6IrXTxk+qAdaz5akqdWSJ/lxbYxAv+p3pGg7TZ3kvI1w7pSWS6u+O6
-         QvWPyPT088yNlNQYiOb/w2O4s3Uj6/6wfj7ywBFCKhBitKbRy/jsjqgqktmxzZ6KiQja
-         WxO+gPhJaGfGE9gIz7QgjfbHYyTi/ElkGeDVD26Cd8eQ0AEO38feaygKIp4sGYwMXLvN
-         hjDjTWFPpKQ10bRvB+ad49UpFsB58UUQdfSXVBQeZE5RHvDTgqSHGouI3YwfEomPNn2X
-         9Gvba39r6KCAlay7rbNHeA3y5cLevVwFDnQLJGtudGxcEPQHQJPkKbu9vlXWLWcQ/orO
-         ++Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBy0K3WL7dMRCs3HqkEq2Ao9bx2k9unWyQWeP9bH1pIwofAJrq7OXacD6C5uF4jqPVsLKuguGlIl7PEHAqc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRB6U7COjtqsV58foaTljuUcdfEfQkjW3DiluYxbaVULuEIQ21
-	TX3DDQyFZSrxzBcMJesYpF1GT4B1zurZjwkO8+o/U62oNuc/VNhfR/5A
-X-Gm-Gg: AYBFou3smDL1zsFgIBD68JJSIewx/erAoakg9LbFjc946wBl6fg+U5XoVkclC2Vk+Zd
-	wHZnOE+gFdVJTXbcKctiA0vFHzbtjt5uW/Ouf2EZoCvPmgj51aXoKGXH3RwANH1Z6z1cIVen5Oc
-	NuiLIQAESbzKlqVJx8SB3fzHT2BZA96IIQfTGkXwJ55PEFZij9jCjLbhzX/mj+P2YI07rhv+wk2
-	GONbQvW9RRddDcWUurnRmuND0hId8ayvNegGrrT9RdCiHXnpfowO+981I1EQ9GxB+UCSZjaXMBq
-	Ck1DZdB5XPI1rgF0KiYWckcUgAgl8s8YvsOWhJIa6xMhgFQLcL4pd6R7qz+O5tL1cK0rPDcJRTw
-	tLkxYcUFeL8bDWa8jvcY14cF08Tv5+t5wDMgTMxuz5zAG5sLvin1i/7xmSe9MuEodeVxR2Vhocw
-	fm8W3W8/ALBgC8lKPCi/y1YJ0gJxE1qas1uqPcsQVGVxXJz1ILmubnmyQWMOho3bPqDLlQ
-X-Received: by 2002:a05:6a20:3c9f:b0:3dd:a196:53a8 with SMTP id adf61e73a8af0-3ddf82fd72emr1311152637.74.1790130859652;
-        Tue, 22 Sep 2026 19:34:19 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3d5ce8sm316506a12.17.2026.09.22.19.34.18
+        d=1e100.net; s=20260707; t=1790130868; x=1790735668;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QW+BLYCi+D5tYXln7s8opXbqlHXi6CiL8jzKDo+UXSI=;
+        b=X8E5NLWOrmA3/nVHc6CvP09nOkdljvUhcxU08roAosImNmpy1YPsQX9MMdgQMHC4AC
+         Epvo3uYJiyfoX/dGPYgEkneJfKQXJuHS0wbgSEUfMG/EMu1IR7pm18F+EjIYuGzPmHAF
+         fR5mvqCQVsaTI40MZB3cwQ4L9Sc3sn7x8E1PQLFIKhopGe98YlmicgUsfYMEgZTmyLaK
+         CS4xQpGie/6MDnA+oPah+f8jZPYvK+3buTuaNVtsyBmQ2E2/b/HkDWMc7wLItiJErlrM
+         hqSag7Mo4fEVx2A+Y/jbMZ0dL2RZPVFqH4CLl/gmCPAhej85/XKHjv3ccazY0JLvBOFj
+         LUNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwjPR+kjynhoEfVPG4NKVm+Du9bFiSRkVAkYbuZKTrZbyaqjP7Dgj1Yu/czrJGdNoEegezG8fAdzrAQM+M=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsqLMKiwzThp88TReGzWEOCTLz8doMwWZbjYS1KKCpxt3csPqR
+	ByI8Vzy/l6vcLppTbjn2aNNesYLgR7J4C73Mq01LtxEhtoEB43diJhur
+X-Gm-Gg: AYBFou1638I4bP+Zf5bAxgMaGY3ZjERNbKkn+W8s1q7IcNsds+liOcork+ZaH8VV/nD
+	18X5FKgtEgbMbW/TZP/6PoYjJ9yVbISIbKQc729W7IQxhgELgPWzDb9lJxuwJDSUm1mKDzi7yqG
+	AbJ6tXZlyQnRkkwyUbW6x0uf9r6o2piSn9SfAlnY5ZRclcS4RalXPDNxl4mB7rBApQq8cQnSEFC
+	UaudmK2tmy8mJz9ady1jb2lUAywI0IJbN3vxnGXayTc14NnS5PCuxaAjJCdqiSxU5g7LoorrkCX
+	JYvs4mwT7Fv6ALBvc6xWU2mXAj+DeLohtXNdCpjwh/MYQYWaIRLJF5rbDQMTd345Q9V3d3OcCBI
+	5C27ta8n5egTwX7ac7KdVwQgmraUayNhBuKY6OiazFEjrp8UBYGjKYZd5sKBmrIxHM9NNQ+VYpz
+	g2VADaatWfOp8A5M3KYYm5g3mpz98NFWEeFEAI1z1uxyokAsT0LndRilmeOwN/K5td
+X-Received: by 2002:a05:600c:3b84:b0:49c:ff8d:b548 with SMTP id 5b1f17b1804b1-49fdecd5957mr14036365e9.11.1790130868455;
+        Tue, 22 Sep 2026 19:34:28 -0700 (PDT)
+Received: from linux ([205.237.104.28])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c500sm2879532f8f.19.2026.09.22.19.34.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 19:34:19 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rhys Tumelty <rhys@tumelty.co.uk>,
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: linux-doc@vger.kernel.org,
+        Tue, 22 Sep 2026 19:34:28 -0700 (PDT)
+From: Eduard Zateev <hackerowskiy@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Vaibhav Agarwal <vaibhav.sr@gmail.com>,
+	Mark Greer <mgreer@animalcreek.com>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v3 5/5] doc: phy: Document some bulk helper functions
-Date: Wed, 23 Sep 2026 10:33:03 +0800
-Message-ID: <20260923023304.78428-6-inochiama@gmail.com>
+	Eduard Zateev <hackerowskiy@gmail.com>
+Subject: [PATCH] staging: greybus: avoid snprintf truncation in audio topology
+Date: Wed, 23 Sep 2026 04:34:05 +0200
+Message-ID: <20260923023405.41700-1-hackerowskiy@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923023304.78428-1-inochiama@gmail.com>
-References: <20260923023304.78428-1-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,73 +78,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document all newly added bulk helper function, it can be used to manage
-a set of PHYs automatically. This is useful when the driver want to
-simplify the management of multiple PHYs.
+Building with W=1 reports format truncation warnings when prefixing
+the Greybus device id to widget and control names.
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+The destination buffers are NAME_SIZE bytes, while the copied topology
+names may already take most of that space. Split the operation into
+writing the prefix first and then copying the remaining name into the
+space left in the destination buffer.
+
+This avoids the -Wformat-truncation warnings while preserving bounded
+string handling.
+
+Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
 ---
- Documentation/driver-api/phy/phy.rst | 29 ++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ drivers/staging/greybus/audio_topology.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/driver-api/phy/phy.rst b/Documentation/driver-api/phy/phy.rst
-index 0865c2e94eec..c5d3d7cc1a74 100644
---- a/Documentation/driver-api/phy/phy.rst
-+++ b/Documentation/driver-api/phy/phy.rst
-@@ -114,6 +114,10 @@ it. This framework provides the following APIs to get a reference to the PHY.
- 	struct phy *devm_of_phy_get_by_index(struct device *dev,
- 					     struct device_node *np,
- 					     int index);
-+	int devm_phy_bulk_get_all(struct device *dev,
-+				  struct phy_bulk_data **phys);
-+	int devm_of_phy_bulk_get_all(struct device *dev, struct device_node *np,
-+				     struct phy_bulk_data **phys);
+diff --git a/drivers/staging/greybus/audio_topology.c b/drivers/staging/greybus/audio_topology.c
+index 76146f91cddc..72a71fd38312 100644
+--- a/drivers/staging/greybus/audio_topology.c
++++ b/drivers/staging/greybus/audio_topology.c
+@@ -1019,6 +1019,7 @@ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
+ 	struct gbaudio_control *control, *_control;
+ 	size_t size;
+ 	char temp_name[NAME_SIZE];
++	int name_len;
  
- phy_get, devm_phy_get and devm_phy_optional_get can be used to get the PHY.
- In the case of dt boot, the string arguments
-@@ -129,6 +133,13 @@ Some generic drivers, such as ehci, may use multiple phys. In this case,
- devm_of_phy_get or devm_of_phy_get_by_index can be used to get a phy
- reference based on name or index.
+ 	ret = gbaudio_validate_kcontrol_count(w);
+ 	if (ret) {
+@@ -1087,7 +1088,8 @@ static int gbaudio_tplg_create_widget(struct gbaudio_module_info *module,
  
-+When a controller needs every PHY listed in a device node's ``phys`` property,
-+devm_phy_bulk_get_all() obtains them from the controller's device node.
-+devm_of_phy_bulk_get_all() does the same for an explicitly supplied device
-+node. On success, these functions return the number of PHYs and store an array
-+of ``struct phy_bulk_data`` in ``*phys``. The PHY references and array are
-+managed by devres and are released when the device is detached.
-+
- It should be noted that NULL is a valid phy reference. All phy
- consumer calls on the NULL phy become NOPs. That is the release calls,
- the phy_init() and phy_exit() calls, and phy_power_on() and
-@@ -149,6 +160,19 @@ The general order of calls should be::
-     phy_exit()
-     [[of_]phy_put()]
+ 	/* Prefix dev_id to widget control_name */
+ 	strscpy(temp_name, w->name, sizeof(temp_name));
+-	snprintf(w->name, sizeof(w->name), "GB %d %s", module->dev_id, temp_name);
++	name_len = scnprintf(w->name, sizeof(w->name), "GB %d ", module->dev_id);
++	strscpy(w->name + name_len, temp_name, sizeof(w->name) - name_len);
  
-+For a set of PHYs acquired with devm_phy_bulk_get_all() or
-+devm_of_phy_bulk_get_all(), the corresponding order is::
-+
-+    devm_[of_]phy_bulk_get_all()
-+    phy_bulk_init()
-+    phy_bulk_power_on()
-+    ...
-+    phy_bulk_power_off()
-+    phy_bulk_exit()
-+
-+The bulk get-all APIs release the PHY references and the array automatically
-+when the device is detached.
-+
- Some PHY drivers may not implement :c:func:`phy_init` or :c:func:`phy_power_on`,
- but controllers should always call these functions to be compatible with other
- PHYs. Some PHYs may require :c:func:`phy_set_mode <phy_set_mode_ext>`, while
-@@ -221,3 +245,8 @@ DeviceTree Binding
+ 	switch (w->type) {
+ 	case snd_soc_dapm_spk:
+@@ -1144,6 +1146,7 @@ static int gbaudio_tplg_process_kcontrols(struct gbaudio_module_info *module,
+ 	struct gbaudio_control *control, *_control;
+ 	size_t size;
+ 	char temp_name[NAME_SIZE];
++	int name_len;
  
- The documentation for PHY dt binding can be found @
- Documentation/devicetree/bindings/phy/phy-bindings.txt
-+
-+Missing Bulk Helpers
-+====================
-+Currently, Only a few bulk helper functions are added as they have users.
-+Function not upstreamed can be found at https://lore.kernel.org/linux-phy/20260904083709.425893-1-inochiama@gmail.com/
+ 	size = sizeof(struct snd_kcontrol_new) * module->num_controls;
+ 	dapm_kctls = devm_kzalloc(module->dev, size, GFP_KERNEL);
+@@ -1169,8 +1172,10 @@ static int gbaudio_tplg_process_kcontrols(struct gbaudio_module_info *module,
+ 		control->id = curr->id;
+ 		/* Prefix dev_id to widget_name */
+ 		strscpy(temp_name, curr->name, sizeof(temp_name));
+-		snprintf(curr->name, sizeof(curr->name), "GB %d %s", module->dev_id,
+-			 temp_name);
++		name_len = scnprintf(curr->name, sizeof(curr->name), "GB %d ",
++				     module->dev_id);
++		strscpy(curr->name + name_len, temp_name,
++			sizeof(curr->name) - name_len);
+ 		control->name = curr->name;
+ 		if (curr->info.type == GB_AUDIO_CTL_ELEM_TYPE_ENUMERATED) {
+ 			struct gb_audio_enumerated *gbenum =
 -- 
 2.55.0
 
