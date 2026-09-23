@@ -1,99 +1,121 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-55.mta0.migadu.com [91.218.175.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2915483829;
-	Wed, 23 Sep 2026 10:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE66A492E58
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159866; cv=none; b=VsMMjkf8thqwShGAqIfrYCkp3YMst6EE2VVKG0X4dv3YuBI7rSipGfbDKUsQLA7n+D/QNMoLCLMJxZ3Jl1ISc0/XJPRaazpeUBtju1BoLwM8HhBBGC6l6N/L25N0CjAn+7+5eGy2g8BZuY7usoAWnQ8c/7B2yd1a1yPH3zAXtzY=
+	t=1790159879; cv=none; b=Yo131wuH/ELL5BPgukx80LRfJ/IbF+IMQ6xmp/wkLoJqE3Lf2Mk7RK2vgdDiHLdQtEDAD97lJGDaqmOyvNLUMVLC0+LbWfpV0z5MN6Ox6We1fs76SMOvLn7WLaWyKh4oLbVwIWgwWosdzLqCHFM30mlkPD33W+QF95LiJ32Qv5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159866; c=relaxed/simple;
-	bh=ivPKQO275bIHoaGWzftuJz4sePC704OiJnvhK7pEW3w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fsmPIneW0NUkacVGepKhsEtVCBvGACv+AMbT0cx3Pd0kJREgeUGvAg3ZQ8y+EGZk9S2KicQy1etCyuSF7NrXKWdkAdeUp3qoP0hVSC98jRsiIvKY/4cPs/f62Ebw9b09fI1zKDcFaamDMkcqI8Ep/vCuXFPEf7xVhZSoFT78u0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=MG1ZQJTl; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=weFnxqoV; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790159879; c=relaxed/simple;
+	bh=Bq0ff2gv/UHRjarH2GN7xGen9tMW4H7bNXzTOHWysEQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l4E5wGoHyzRAMODbBvRDM6gK0zji5RyJ92BpFsSaokIDu5CcgdVMyjyH9CjyU5FRgheEJeKA/KVAJvnYBLWr7EejdSztRp/45HNw8cMPfiwMIlXXISGMEGA55dYqsulKzqrDokHX/hRJ0XcPHt5gjjdAkf5Qxv++WJeMDxtfpSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K3EfguS3; arc=none smtp.client-ip=91.218.175.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="MG1ZQJTl";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="weFnxqoV"
-Date: Wed, 23 Sep 2026 12:37:25 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790159846;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ys+yTlQA084sSegBBXyRjp6onu4OnYNCVWTZ5FFWaVI=;
-	b=MG1ZQJTl7q03HKAJcsqgk0eGbUiFnn7cuEm4rUxYBAIRxnSJhIHI7fsc1SaPdQpQVXQlw8
-	lOCrZcM56htDIvaVL0JUJeF/rfd+ypjvs+mcnHPL9k3KBLF5SCSIdsQ8iSZ5F7ideTokhb
-	GzdXjn5dwpDYosw5GcH8QWkzZXdYHOcNajmnWigt0+P7Nr/7pKPKbhqNsJapQimaog6nZt
-	AWfKzjQD5ttlr2v/MdMCxzs+xSYEPyL9+exGLzKh8PsPj/f3vfBOiBk3jgIzAC6pjYWjeX
-	R2kkq4RrCZ9Ox+0SFOIf/ksCP6EjsjE2is/5NRNhTG4ngQeIJc0kQG/BMqZv5Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790159846;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ys+yTlQA084sSegBBXyRjp6onu4OnYNCVWTZ5FFWaVI=;
-	b=weFnxqoVKcZ+r17KfN0QO+bvu4v3xYLk8M2pRppLWR1u6rycwD+w+2AATu1iksblC9NUAc
-	lBJGAwihmY5ezPAQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Xin Xie <xiexinet@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
-	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
-	fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
-	skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
-	sdf.kernel@gmail.com,
-	syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
-Subject: Re: [PATCH 2/4] net: hsr: shrink seqnr_lock to sequence counter
- updates
-Message-ID: <20260923103725.kB_5-sDD@linutronix.de>
-References: <20260809121455.1745-1-xiexinet@gmail.com>
- <20260809121455.1745-3-xiexinet@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K3EfguS3"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Bq0ff2gv/UHRjarH2GN7xGen9tMW4H7bNXzTOHWysEQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790159826; v=1; x=1790764626;
+ b=K3EfguS3Cl1NhWUozDiSVUFS0U/tvshJmQv0xSHvgpX0B5pcxoflv4OZEWrhpdp+O15pLbRg
+ x/Am/kxErAjte0bSHtzoUFDrgu4iGFB5F5KaZ2AWNTGf6CIwAhGGU0edFLecLEvd4koSyBqUR6R
+ pNmMJYbKS7o6Vw5G1ZBM+L/8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 68f248386876b284;
+	Wed, 23 Sep 2026 10:37:06 +0000
+X-Mizu-Trace-ID: 68f248386876b284
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH] cgroup/cpuset: Invalidate remote partition on housekeeping conflict
+Date: Wed, 23 Sep 2026 18:36:57 +0800
+Message-ID: <20260923103657.186937-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260809121455.1745-3-xiexinet@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-08-09 14:14:52 [+0200], Xin Xie wrote:
-> Commit 06afd2c31d33 ("hsr: Synchronize sending frames to have always
-> incremented outgoing seq nr.") and commit 430d67bdcb04 ("net: hsr: Use
-> the seqnr lock for frames received via interlink port.") hold
-> seqnr_lock across the whole forwarding path. Transmitting while
-> holding the lock can create lock-dependency issues when HSR devices
-> are stacked with other net devices, up to a real deadlock (see
-> Reported-by/Closes).
-> 
-> Since commit aae9d6b616b5 ("hsr: Implement more robust duplicate
-> discard for HSR"), duplicate discard is order-independent (sparse
-> bitmaps), so only the sequence counter updates need serialization.
-> Limit seqnr_lock to the counter updates in handle_std_frame(); the
-> master TX path (hsr_dev_xmit()) and the interlink RX path
-> (hsr_handle_frame()) drop their outer lock, and the supervision frame
-> builders release it right after their counter update.
-> 
-> Concurrent forwarding may emit frames out of allocation order, which
-> sparse-bitmap discard tolerates. The master/interlink tx statistics are
-> no longer serialized; consistent per-cpu/per-queue statistics for all
-> HSR paths are handled in a separate series.
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-This fix relies on the bitmap seq nr handling while the Fixes commits
-below do not have it. Doesn't this revert the synchronisation change
-leading to the problem it tried to solve at least in the stable kernels?
+Widening an ancestor's exclusive CPU mask can add a boot-isolated CPU
+to a valid remote partition root without touching the partition's own
+control files. The partition then load balances that CPU, silently
+defeating isolcpus=domain for it.
 
-> Fixes: 06afd2c31d33 ("hsr: Synchronize sending frames to have always incremented outgoing seq nr.")
-> Fixes: 430d67bdcb04 ("net: hsr: Use the seqnr lock for frames received via interlink port.")
-> Reported-by: syzbot+fbf74291c3b7e753b481@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=fbf74291c3b7e753b481
-> Cc: <stable@vger.kernel.org> # aae9d6b616b5: hsr: Implement more robust duplicate discard for HSR
-> Signed-off-by: Xin Xie <xiexinet@gmail.com>
+This can be reproduced on a 32-CPU system booted with
+isolcpus=domain,4:
 
-Sebastian
+    cd /sys/fs/cgroup
+    echo +cpuset > cgroup.subtree_control
+    mkdir -p A/B
+    echo +cpuset > A/cgroup.subtree_control
+    echo 2-4 > A/cpuset.cpus
+    echo 2-3 > A/cpuset.cpus.exclusive
+    echo 2-4 > A/B/cpuset.cpus
+    echo 2-4 > A/B/cpuset.cpus.exclusive
+    echo root > A/B/cpuset.cpus.partition
+    cat A/B/cpuset.cpus.effective               # 2-3
+    echo 2-4 > A/cpuset.cpus.exclusive
+    cat A/B/cpuset.cpus.partition               # root
+    cat A/B/cpuset.cpus.effective               # 2-4
+
+The last write returns 0 and leaves the hierarchy in this state:
+
+    root (cpuset.cpus.effective=0-1,5-31)
+    |
+    \-- A (member):           cpuset.cpus=2-4
+        |                     cpuset.cpus.exclusive=2-4
+        \-- B (root, remote): cpuset.cpus=2-4
+                              cpuset.cpus.effective=2-4
+
+B is a remote partition: it takes its CPUs directly from the root
+cpuset, and A only passes its exclusive list down. Before the last
+write, that list is 2-3, so B holds 2-3 and CPU 4 stays in the
+root cpuset as a boot-isolated CPU. The write widens A's exclusive
+list to 2-4, which additionally grants CPU 4 to B. Nothing rejects
+the grant: B remains a valid root partition, and CPU 4 is still
+listed in cpuset.cpus.isolated while sitting in a load-balanced
+partition.
+
+remote_partition_enable() and validate_partition() already call
+prstate_housekeeping_conflict() before granting CPUs. The ancestor
+update path in remote_cpus_update() does not. Add the missing check so
+that the existing prs_err path invalidates the remote partition instead
+of adding the boot-isolated CPU.
+
+Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & make update_cpumasks_hier() handle remote partition")
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+---
+ kernel/cgroup/cpuset.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 753aa65afcd7..362e5b5dccaa 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -1699,6 +1699,8 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+ 		else if ((prs == PRS_ISOLATED) &&
+ 			 !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
+ 			WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
++		else if (prstate_housekeeping_conflict(prs, tmp->addmask))
++			WRITE_ONCE(cs->prs_err, PERR_HKEEPING);
+ 		if (cs->prs_err)
+ 			goto invalidate;
+ 	}
+-- 
+2.43.0
+
