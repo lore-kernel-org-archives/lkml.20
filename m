@@ -1,205 +1,774 @@
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013060.outbound.protection.outlook.com [40.107.162.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D118415F17
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:11:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143870; cv=none; b=hXCQfMeUe62mRhS7b2VvV4rqwQxxK/OPv1X1Keg0SHtyYkowo+TpiPYbMLIlKVzaL07287aHi/dXIytaXIDj6hzqz+1ovJ9SFfbkHL58E9ZVgSRxeZCe+KxrG47pcbiz7VXuuGxvV8A0Nf+lP/5eqVyQ5/CLt+olrZeh0yyL/vE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143870; c=relaxed/simple;
-	bh=y1I5rOf7OrXfFm3V0abeMQKoeg6ZpFE9wFa86V6vDmA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jrXqKpqIEM/1SML8d8igLyPYoAkNhCkqjCHyzqWqZ1gcIVVmTUse+2+4/uwWinbwZ6tGxfguGF4YfAqIQI2BpFN9E4O7HGVLE+zOO6PLDKHIlNks2mfU5Kl+yQCZ8lwoZEgcPwNS9ACPtvRnWxcYja22N+tpFXbWAqRpDOYvDI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=czG9+e4K; arc=none smtp.client-ip=44.202.169.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E207417BDE;
+	Wed, 23 Sep 2026 06:12:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790143929; cv=fail; b=R/K4zu5x2ODmx47h4UhhxDshzxQKNF1Nbgv+ALc64uXPZ8P76+h1iSXrVqjprt+VH7spBc1mKGTulgQPBI4xlD/z+X8AonocicKsYbUYAkZByx7VtAGUYUKbd4brfc36p/JSQ4iL91AfAW0v1b1SoBDma6mt10dKpPUkQzpdZUY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790143929; c=relaxed/simple;
+	bh=0O0lxQCNQyGIfbJx8HgfDDkD2deLylh20gzEOtMGBxc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=DeMOj/vqxeoB3pqxwq+s2VYTi1+HE0C7zudbWXRvreB9U3/M2Ls/geJFL6nOVeUPgkQyGbcvfNGnXxP+fpDESPPUkpUBxZXeiICtryYSKABT7m9Iy/STvXuw7z0tikWgMbU2NN6YmwPqvGK1lxZbsDpyHCo9ejReb9ZVaIHnHk8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=BBBbWMca; arc=fail smtp.client-ip=40.107.162.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="czG9+e4K"
-Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
-	by cmsmtp with ESMTPS
-	id 9BLAx410UJFmF9GCCxmVHK; Wed, 23 Sep 2026 06:11:08 +0000
-Received: from gator4166.hostgator.com ([108.167.190.91])
-	by cmsmtp with ESMTPS
-	id 9GCBxq3IZIRv99GCBxhth0; Wed, 23 Sep 2026 06:11:07 +0000
-X-Authority-Analysis: v=2.4 cv=GIUIEvNK c=1 sm=1 tr=0 ts=6ab36d7b
- a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=1XWaLZrsAAAA:8
- a=VwQbUJbxAAAA:8 a=tBmdgtp83pJHOttqeXgA:9 a=QEXdDO2ut3YA:10
- a=2aFnImwKRvkU0tJ3nQRT:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=t8eoLHfrw7hclX5j0eUpFdmOPOJ4bJnLXLBr2WWB5ws=; b=czG9+e4KAvvC
-	hZOshRvg7+XoxLTfjB2ycCnfidNdp7qsExT1C0ZPqtEZY8BXO/UkbNQ1/OqhQGtNjR0WajLWFk4u7
-	HfX826I9glD6K6c7zzHjrpad7Jhnu1Y15/3FcElFwBKVTmmED9ymekxMtM/rML0N+IpJ8aSr1t2Mu
-	WdclcbI13wVh/u5BplxWyw7gGoJ8xjkLKimFHH74bJeL0T3pFPKWmuH2FeLRaOccg0EjGASMx7gsI
-	lRYVSYpZTzh54OZ+nKlnpmSCUQtPPgyu1cPolUukTb4Gbpz8cpNTXbdgMNTtrPhiC9U5A0IbjGUNV
-	z6Wg/YNmu7McP/j5+U5tPw==;
-Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:54380 helo=[10.203.100.34])
-	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <gustavo@embeddedor.com>)
-	id 1x9GCA-00000002MGj-0UfR;
-	Wed, 23 Sep 2026 01:11:06 -0500
-Message-ID: <abbd8862-cb64-4c58-a78b-c971fdada7be@embeddedor.com>
-Date: Wed, 23 Sep 2026 15:11:01 +0900
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="BBBbWMca"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YtyUSA1TOvG3M7UQtRTrqEOsJbrQcHOxl+yEuhdcAAawumb/IdtsDjz5bRfz5gZRxZoBfqhJGT8iCB1Z/XWAgcUNqmgDRPtp4+bJ69qU4BBEJP+zXhnYNCLDZfaRVXSG7YwbDQo9hMO0SID6WRXs4pvnKWKOdf7VoVYqVC2ImAl1tEFkK9vRnqyU2WS5b/lcSh6BiRvlYGQjKyv9t4U9a0/3G537HbmKD6c7/MtmadLMIS4BecFn3m8miDoOK//szLWKXRZmqdql9auaCxQSCuP7qJxY7WQUrH1MH2uIS40abLlaXvhSYs0dYvdNhRz7wzy6GzaEu5Bwqo4d9NCKdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iQbEdxHK+Cx8f+Fpy98onb8+B0McGTZq5BkbddEj9uA=;
+ b=jBz/Ibug7Ft8J7dMZ4kUpBmKtwQx/DMkMIoAilLvc3UtmJRfOQuz5gVCVqppgciZwtb0hrlzZ535CSTiLeMXmCsBqT1QcpV98Q6qFWxrvCQPAIQoukved/EdZrfa3J1V8n38ZeKO5O0AEhDODfyzOMXjjWM7pNjnTuDD6A7PwidNIph4zOZhINHj+/kuyfUDTbRcH+ab2mKpanjAGiSsarqt9YOQleOpwFoO/oAX2Cjuru+JI/Sj6Zwp+Z8WehhyaTnl18WRcCF0M4DZYqHP6GJcdsIagYWNZKImmrwRXn+iqRt6xzyGRLBZsGIA0TaNLVCV8oo1V4sYuWqOLZcW6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iQbEdxHK+Cx8f+Fpy98onb8+B0McGTZq5BkbddEj9uA=;
+ b=BBBbWMcaIzY0Ux737sRg2x3Rbv3TDdi8JnNDmBR4LbDriSwFjrOc8DmySgZ1+Z29G7ZndpB7zlFuKCJMCscafNCW4A+BK88SlyiUR5dsRik3qqyQs4v0hFO2WOuAfwjTHoN94lRLzaWt9/qiYXM4hY/K9B0x7JAixacVR48fWIqfml57e9JsktC3p5pusgQc0lUp8wexxp4OM9hpO4t58kv11FrJvDncCV0zJm0EK/UBMeIvOqNSus9hznxKu2O1xpPAGgYawhs8kE43qr/sH3tEjK4bVBsDng1oKS1QRPSsYySIPhQfzaJAUccBZjKLp/soDNpw2ohwo2Zqmny9bg==
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com (2603:10a6:20b:4e6::17)
+ by AS5PR04MB9894.eurprd04.prod.outlook.com (2603:10a6:20b:655::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 06:11:57 +0000
+Received: from AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680]) by AS4PR04MB9338.eurprd04.prod.outlook.com
+ ([fe80::7c4c:9c56:8552:f680%6]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
+ 06:11:57 +0000
+From: Wei Fang <wei.fang@nxp.com>
+To: "netdev-bot+sashiko@kernel.org" <netdev-bot+sashiko@kernel.org>, "Wei Fang
+ (OSS)" <wei.fang@oss.nxp.com>
+CC: Clark Wang <xiaoning.wang@nxp.com>, "andrew@lunn.ch" <andrew@lunn.ch>,
+	"olteanv@gmail.com" <olteanv@gmail.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"horms@kernel.org" <horms@kernel.org>, "richardcochran@gmail.com"
+	<richardcochran@gmail.com>, "linusw@kernel.org" <linusw@kernel.org>,
+	"linux@armlinux.org.uk" <linux@armlinux.org.uk>, "imx@lists.linux.dev"
+	<imx@lists.linux.dev>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: RE: [PATCH v4 net-next 8/8] net: dsa: netc: add PTP one-step
+ timestamping support
+Thread-Topic: [PATCH v4 net-next 8/8] net: dsa: netc: add PTP one-step
+ timestamping support
+Thread-Index: AQHdRz7mJNvdwL5OkEKz7kxCT3KMQbbaSYCAgAE/EDA=
+Date: Wed, 23 Sep 2026 06:11:56 +0000
+Message-ID:
+ <AS4PR04MB9338EB87E61CBBF0C797E85688822@AS4PR04MB9338.eurprd04.prod.outlook.com>
+References: <20260918072852.501420-9-wei.fang@oss.nxp.com>
+ <179006555987.2160803.11394642259806679085@kernel.org>
+In-Reply-To: <179006555987.2160803.11394642259806679085@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS4PR04MB9338:EE_|AS5PR04MB9894:EE_
+x-ms-office365-filtering-correlation-id: 42ce5146-3445-42a5-0b3d-08df19399266
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|7416014|1800799024|366016|376014|19092799006|10067099003|3023799007|6133799003|56012099006|11063799006|4143699003|18002099003|22082099003|5023799004|38070700021;
+x-microsoft-antispam-message-info:
+ Do1BNmTZ9kzZ8yH6ft2m1ENajvMhmg04FULpoqKc5TfnhEbqTDG8l0HK0I7KMRpTNIK3QnZLoQd/XgPRFtbh48n9G2MsgNmX2U2BDtJjX1FZQrhq21qBvf8mkJAsDKpuKfnyqCNIG5MhCeKmIz9H+jcOgWjsVN/wzrSQX/LQYQTBGt2y4gUKyLET+YulKvcnH4q5vPy7OfUL3T21ibaohMoa+4npuli92jl85+i/d0E7fiH8+OR5n7fLxXj2qdS/BxMXIbcgqbx2iexEJpScMcPW9hG2Fj84c7D9A0ri4iNUQ9R3NmwtE7kibEm0zBHIqxCO8yD5G5LHqg6JZ1NFmRgd4jZSicxCbjW3KiCX3Z+BOxZm+gnMfIvn0XYn3E5ipR5cr9gTrnQ21xolVnm/Mxr1we/2VYzGMzQ8acDfAierdpNGoeT6JjbDtmWlIyCnmtq5woYjoA3wmNSoiwUDV0m1S1+a8nFYd0whVZNq/Ia7+VJ9BHNbXBRPzQxeZh+cBP0f85HIHj++jXLSYiJjn8ABZLGJLN7fn/qOol20dKQGUWGqiCP820G4y9eU+s0jHFOWhTKJ9qXEVKwsBTxhExLGnXC1XJU+ZITfbcOSHj0tkF+A/DWcC19tkf96tM3QFUQGClNUlcXBoy7SW5vKM2+3i/AObbugDffjlI4zWMMWVHLb2hkpy2i/xfTovQNSnR9xkew0Ca/67mU1m47C5ESzVcQHigfSv0Wdgzny3ZU=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9338.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(1800799024)(366016)(376014)(19092799006)(10067099003)(3023799007)(6133799003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(5023799004)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?IlRSe9C8ZO0vo6DMN1bkOxjH582pIQUuAA3QurS3u+/yhbluiOg6tIzWcksA?=
+ =?us-ascii?Q?Qh5s7LZ3vv4Iad1xyyH/OOeV1WMBuWSu3Pfa37M+JPauWcekLw8huJTS2Pji?=
+ =?us-ascii?Q?6Wp3Lni5NXBlu4quX9xRy+8NpTCDVEzp4FCNLCdi39GLF9H1ZgYuCOs/wUTI?=
+ =?us-ascii?Q?Im4AKsJonDs5Nr8KLYzNcNP80yuYu0edB5ECCPav9V4bbbfN5NwEN6eXveFy?=
+ =?us-ascii?Q?zDZY1upnBtj5m2U2vpj53/ryUGypU/r6VoW/h+WRezVd/dlRCHJltwEuOnOw?=
+ =?us-ascii?Q?0aJp4EOToyaaq2KPRu1WC7exRUG9vQf2g7tV9KM5TfCafEYV3MRxPbQeRPUz?=
+ =?us-ascii?Q?UidZBTBoGvxfuDmBAWwWEmRCrMGLnBXm0ZT78L4QIveQ/dblW+CAz/evn5tr?=
+ =?us-ascii?Q?SA8fWK+uhisHLCTLZfcAmyFcWA3r0LeQFoEnKxfTuQbE+FgcKf4pGs+e+KlW?=
+ =?us-ascii?Q?sIAKu8cVzHWgXWCULhh8mdF63XasOADPG7XlhBf5WfjULJVjeYYtt8+eZuZg?=
+ =?us-ascii?Q?lX8Y69V3YAfdU68uOPWMd2U/3/7zO8ufjYSjBkhODH3d7+Ui3PYh5cWzagJe?=
+ =?us-ascii?Q?QdG0quKbl1t0wD65UKqoJwvBWVzS5fPW/0vjCDsARaQOgYyTTyqc+IffT47U?=
+ =?us-ascii?Q?m4D1qMjATfO/utdVIOy7ybB1SvHkaImerytDZdp+PuC1T9xDXVb/kBuBvRhS?=
+ =?us-ascii?Q?p8N3U9GKhXNGq+ZRUw9nOInvdCpihXHh7+deQdaOVzWHb3v4B4nxOxnGUVci?=
+ =?us-ascii?Q?aZfHnmadmfUIkVRnlYIFGHrVqsSoe4iROZ4A6JuGOb5G4hecgY/RCL9T3sCf?=
+ =?us-ascii?Q?WIx+guY4jG7gKQ4fELVZmAk+noiz5bnx2WtFbHG5Ly7J4PEKZOshJTYSF4mt?=
+ =?us-ascii?Q?JWXb1bea1emqiFbxN2ahH/fYKOhvrcwi2astX6PD5G/H37as6mh3mcQwYdFZ?=
+ =?us-ascii?Q?7xXJxmxMLZbbcFClpitdhPPvm46OufAc0XqAV1YStdVnwZ48Rg7q2aVeGY17?=
+ =?us-ascii?Q?QCN4eQDXSXn+qoRPteQGuZeAk12L4UqFElUyoex8qO+mAEXjDHuBG5KDFNhD?=
+ =?us-ascii?Q?a6SrQ9zvOXvzfSNLev45KUFwiiuoqMJCyxcmrSIpT7GelmcE+2a30gy+rukT?=
+ =?us-ascii?Q?ZK7qSTN0PcVGmjTnTjKhKCmK0aulWGZQTKxMsWnoU8gZp/AbSqhfg1cWcAbP?=
+ =?us-ascii?Q?KfjJrMsYMgKhK6ZCVz/Flb7GGXlrSdjanOJbuX3wRBVU4hKks876c4EF9k1M?=
+ =?us-ascii?Q?6h6uhPhhC2RBW6CdZYud0LJxx/Rm5XmJVfa1XePce44qp8X+bflcKxpz2/dy?=
+ =?us-ascii?Q?8UBkalDkqgmpkC1zAkDDpmyx4K94QrL4nQMGeDOCM8fTCXBbcAXPe88FyoLi?=
+ =?us-ascii?Q?4qGaPJ3Rvc/qmnHOA3jH3YKD63RWZPoBos/TOuC2Y/xLpB/5u5w2PT17Yx2t?=
+ =?us-ascii?Q?4pgwCErv47UEV/fkdI6o88gyQYnT2Ld2TtAOsXrGuZjf5LXmkgoy92c0Iop7?=
+ =?us-ascii?Q?Fi50raDIH1cztpkrvc5uFVJtXQxcGQMLesNTTzwszr8bgn9X2unG7KGZNMva?=
+ =?us-ascii?Q?c+a5r4l4MJDeuJncMmBDQuVyWDJMjdEbrElv8bR4ZrzVHdGqkMt4w8TZtABA?=
+ =?us-ascii?Q?z1aMjIXMFStJWAP+vhAlWX/NVkg7IdDzT35AN1ygn+/BJerAsRYeqWoQcnzD?=
+ =?us-ascii?Q?/rv9GZ2Nhg3qH36Yju+2cx8Q9rUovM8y+5Gdexd51B9KXgiB?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] crypto: hisilicon/qm - annotate cap_tables with
- __counted_by_ptr
-To: Bill Wendling <morbo@google.com>, Zhiqi Song <songzhiqi1@huawei.com>,
- Longfang Liu <liulongfang@huawei.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, Weili Qian <qianweili@huawei.com>,
- Zhou Wang <wangzhou1@hisilicon.com>,
- Chenghai Huang <huangchenghai2@huawei.com>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva"
- <gustavoars@kernel.org>, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- codemender-patching+linux@google.com
-References: <20260923060114.2605310-1-morbo@google.com>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20260923060114.2605310-1-morbo@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 125.195.69.90
-X-Source-L: No
-X-Exim-ID: 1x9GCA-00000002MGj-0UfR
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:54380
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 19
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfDeFjpEA879lTzX2IqVqAWjkUJTLOPqndidYyoJTiYXLVW7aBOdm1M7R7svuI1CjHX+ybljpwX28BVE66/VhnAkT0RF+lpWSROL3AXFrmMLjLJw6AHfb
- L3oyqFI2RDgmN8BDqx+6FN4htUaKgeA/MuEAKcmlh81YnwUc7ROardfb4TZyB9J9LKWmXjWX4SNmPgMZ0YZ7BoVr5TFbf/WXQWWTFpm8PtCQT0LFWYQVtgxv
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9338.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 42ce5146-3445-42a5-0b3d-08df19399266
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 06:11:56.9454
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3U6IVoQteFCaMlcjnTFcXU5dsHGKItDEg7s2S3NjjeylQW3DETBSEuhSAviUK//y+SF7NDgG1OY6bg7AIVOUmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS5PR04MB9894
 
+> > diff --git a/drivers/net/dsa/netc/netc_ptp.c b/drivers/net/dsa/netc/net=
+c_ptp.c
+> > index 2e743443ca03..1bc0f0956206 100644
+> > --- a/drivers/net/dsa/netc/netc_ptp.c
+> > +++ b/drivers/net/dsa/netc/netc_ptp.c
+> > @@ -11,6 +11,15 @@
+> >
+> >  #define NETC_NUM_TS_REQ_ID		16
+> >  #define NETC_TSTAMP_TIMEOUT		(5 * HZ)
+> > +#define NETC_MAX_STEP_OFFSET		0x1ff
+> > +#define NETC_ONESTEP_QTH		512
+> > +/* The 30-bit timestamp of the To_Port subtype 3 tag lets the hardware
+> > + * account for a single wrap, so the correction field of a one-step Sy=
+nc
+> > + * frame is only correct if it is sent out within 2^30 ns after the
+> > + * software timestamp is read. Past this window the frame is beyond
+> > + * repair, and PM_SINGLE_STEP becomes safe to reprogram.
+> > + */
+>=20
+> [Severity: Medium]
+> This comment argues that the correction value is beyond repair after 2^30=
+ ns,
+> but PM_SINGLE_STEP also carries the correction-field offset and the
+> "update UDP checksum" bit, which the hardware still applies at SFD time t=
+o
+> whatever frame is being transmitted.
+>=20
+> If the previously programmed frame is still sitting in the switch or port
+> egress path (egress congestion, flow control, TAS gating), the next
+> netc_port_set_onestep_control() call can change offset and CH under it.  =
+For
+> an L2 PTP frame the correction offset is around 22, for UDP/IPv6 around 7=
+4,
+> so the MAC would write 8 bytes of correction data at the wrong position
+> inside the pending frame and may recompute its UDP checksum.
+>=20
+> The "no ts_req_id available" branch of netc_port_onestep_work() has the s=
+ame
+> shape: it overwrites np->onestep_state with NETC_ONESTEP_SCHEDULED,
+> which
+> erases the record that a frame is in flight at all.
+>=20
+> Would it be safer to only reprogram the register when the new frame's
+> offset/CH match the pending one, or to hold off until the pending frame i=
+s
+> known to be gone?
 
+As stated in the comment, "Past this window the frame is beyond repair",
+that is to say, when the sync frame leaves the port, the correction field
+is not correct. When PM_SINGLE_STEP is programmed after a timeout,
+there are essentially two possibilities: either the value of PM_SINGLE_STEP
+remains unchanged, with no impact; or PM_SINGLE_STEP changes, in this
+case the frame will be corrupted and either discarded by the sender or
+receiver, which is as expected.
 
-On 9/23/26 15:01, Bill Wendling wrote:
-> Annotate the 'qm_cap_table' and 'dev_cap_table' pointer fields in
-> 'struct hisi_qm_cap_tables' with the '__counted_by_ptr' attribute.
-> This improves bounds checking via CONFIG_UBSAN_BOUNDS and
-> CONFIG_FORTIFY_SOURCE, allowing KASAN and compiler diagnostics to
-> detect out-of-bounds accesses.
-> 
-> The 'qm_cap_table' pointer is associated with 'qm_cap_size' which
-> specifies its element count. Similarly, 'dev_cap_table' is associated
-> with 'dev_cap_size'.
-> 
-> To ensure safety under compiler instrumentation, the assignments in the
-> initialization paths have been updated to set the 'size'/'count' fields
-> prior to setting the pointer fields. This prevents any transient state
-> where the pointer is valid but the count is 0 (or uninitialized),
-> ensuring that subsequent accesses to these tables do not trigger
-> false-positive bounds check panics.
-> 
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
+>=20
+> > +#define NETC_ONESTEP_VALID_WINDOW	0x40000000 /* ns */
+> >
+> >  static void netc_port_tstamp_timeout_work(struct work_struct *work)
+> >  {
+> > @@ -68,12 +77,276 @@ static int netc_get_ts_req_id(struct netc_port *np=
+)
+> >  	return ts_req_id;
+> >  }
+> >
+> > +static int netc_get_phc_time(struct netc_switch *priv, u64 *ns)
+> > +{
+> > +	if (unlikely(!priv->tmr_dev))
+> > +		return -ENODEV;
+> > +
+> > +	return netc_timer_get_current_time(priv->tmr_dev, ns);
+> > +}
+> > +
+> > +static void netc_port_set_onestep_control(struct netc_port *np,
+> > +					  bool csum_update, int offset)
+> > +{
+> > +	u32 val;
+> > +
+> > +	val =3D PM_SINGLE_STEP_EN | FIELD_PREP(PM_SINGLE_STEP_OFFSET,
+> offset);
+> > +	if (csum_update)
+> > +		val |=3D PM_SINGLE_STEP_CH;
+> > +	netc_mac_port_wr(np, NETC_PM_SINGLE_STEP(0), val);
+>=20
+> [Severity: Low]
+> This isn't a bug on today's hardware, but netc_mac_port_wr() returns with=
+out
+> touching the register when is_netc_pseudo_port(np) is true, and it report=
+s
+> nothing back to the caller.
+>=20
+> The one-step machinery is gated only on dsa_port_is_user(), and
+> netc_get_ts_info() advertises HWTSTAMP_TX_ONESTEP_SYNC unconditionally,
+> so a
+> user port with caps.pseudo_link set would get its originTimestamp rewritt=
+en
+> and a subtype-3 tag attached while the MAC single-step engine was never
+> enabled.
+>=20
+> That combination looks impossible right now: imx94_switch_phylink_get_cap=
+s()
+> only marks port 3 (the CPU port) as internal, and the binding requires
+> ethernet-port@3 to carry the ethernet =3D <&enetc3> phandle.  Would it st=
+ill be
+> worth refusing one-step on pseudo-link ports explicitly so a future platf=
+orm
+> cannot silently drop the register write?
 
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+Currently, for i.MX94 only the CPU port is pseudo MAC, so no need to add
+a such check in this stage. It is better to be added when future NETCs supp=
+ort
+pseudo MAC on user port.
 
-Thanks
--Gustavo
+>=20
+> > +}
+> > +
+> > +static void netc_port_program_onestep(struct netc_port *np,
+> > +				      struct sk_buff *skb)
+> > +{
+> > +	u16 correction_offset =3D NETC_SKB_CB(skb)->correction_offset;
+> > +	u16 tstamp_offset =3D NETC_SKB_CB(skb)->timestamp_offset;
+> > +	u64 tstamp =3D NETC_SKB_CB(skb)->tstamp;
+> > +	u8 *hdr =3D skb_mac_header(skb);
+>=20
+> [ ... ]
+>=20
+> > +	if (NETC_SKB_CB(skb)->is_udp) {
+> > +		__be32 old_sec_l, old_ns;
+> > +		struct udphdr *uh;
+> > +		__be16 old_sec_h;
+> > +
+> > +		if (skb->ip_summed =3D=3D CHECKSUM_PARTIAL) {
+> > +			csum_update =3D true;
+> > +			goto update_timestamp;
+> > +		}
+> > +
+> > +		if (unlikely(!skb_transport_header_was_set(skb)))
+> > +			uh =3D (struct udphdr *)(hdr + tstamp_offset -
+> > +					       sizeof(struct ptp_header) -
+> > +					       sizeof(struct udphdr));
+> > +		else
+> > +			uh =3D udp_hdr(skb);
+>=20
+> [Severity: High]
+> Can udp_hdr(skb) be trusted here?  netc_port_prepare_onestep_sync() deriv=
+es
+> and bounds-checks the PTP offsets itself:
+>=20
+> 	if (unlikely(tstamp_offset + 10 > skb_headlen(skb) ||
+> 		     correction_offset > NETC_MAX_STEP_OFFSET))
+> 		goto set_ptp_flag_drop;
+>=20
+> but skb->transport_header is never validated against skb_headlen(), and t=
+he
+> safe computed expression is only used when the transport header was not s=
+et.
+> The code then reads uh->check at offset 6 and writes 2 bytes there throug=
+h
+> inet_proto_csum_replace2()/inet_proto_csum_replace4().
+>=20
+> Two AF_PACKET paths can leave transport_header at or past the tail while =
+the
+> frame still parses as a valid PTPv2 Sync over UDP with ip_summed =3D=3D
+> CHECKSUM_NONE:
+>=20
+> packet_snd()
+>   packet_parse_headers()
+>     skb_probe_transport_header()
+>       __skb_flow_dissect()
+>         key_control->thoff =3D min_t(u16, nhoff, skb ? skb->len : hlen);
+>=20
+> The dissector runs with skb->protocol taken from the user-supplied
+> sll_protocol and nhoff =3D 0, so a frame whose declared ethertype disagre=
+es
+> with its real headers can walk attacker-chosen IPv6 option hdrlen bytes a=
+nd
+> end with thoff clamped to skb->len, i.e. transport_header =3D=3D tail.
+>=20
+> The other path is PACKET_VNET_HDR:
+>=20
+> virtio_net_hdr_to_skb()
+>   skb_partial_csum_set()   /* csum_start =3D headlen - 2 accepted */
+> ...
+> skb_checksum_help()        /* flips ip_summed to CHECKSUM_NONE,
+>                               transport_header left as-is */
+>=20
+> With the frame length tuned so tailroom is under 8 bytes, wouldn't the
+> uh->check read go past skb_tail_pointer() and the csum-replace write land
+> inside struct skb_shared_info (flags/meta_len/nr_frags/tx_flags/gso_size)=
+?
+>=20
+> Since the validated expression is already computed just above, could it b=
+e
+> used unconditionally instead of udp_hdr(skb)?  The same udp_hdr() pattern
+> exists in drivers/net/ethernet/freescale/enetc/enetc.c, but this path is =
+new
+> here.
 
-> ---
->   drivers/crypto/hisilicon/hpre/hpre_main.c | 2 +-
->   drivers/crypto/hisilicon/qm.c             | 2 +-
->   drivers/crypto/hisilicon/sec2/sec_main.c  | 2 +-
->   drivers/crypto/hisilicon/zip/zip_main.c   | 2 +-
->   include/linux/hisi_acc_qm.h               | 4 ++--
->   5 files changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/crypto/hisilicon/hpre/hpre_main.c b/drivers/crypto/hisilicon/hpre/hpre_main.c
-> index b6903fce6071..4a1b2de476f5 100644
-> --- a/drivers/crypto/hisilicon/hpre/hpre_main.c
-> +++ b/drivers/crypto/hisilicon/hpre/hpre_main.c
-> @@ -1234,8 +1234,8 @@ static int hpre_pre_store_cap_reg(struct hisi_qm *qm)
->   		return -EINVAL;
->   	}
->   
-> -	qm->cap_tables.dev_cap_table = hpre_cap;
->   	qm->cap_tables.dev_cap_size = size;
-> +	qm->cap_tables.dev_cap_table = hpre_cap;
->   
->   	return 0;
->   }
-> diff --git a/drivers/crypto/hisilicon/qm.c b/drivers/crypto/hisilicon/qm.c
-> index c01966a4a33f..7d13476451e3 100644
-> --- a/drivers/crypto/hisilicon/qm.c
-> +++ b/drivers/crypto/hisilicon/qm.c
-> @@ -5743,8 +5743,8 @@ static int qm_pre_store_caps(struct hisi_qm *qm)
->   							i, qm->cap_ver);
->   	}
->   
-> -	qm->cap_tables.qm_cap_table = qm_cap;
->   	qm->cap_tables.qm_cap_size = size;
-> +	qm->cap_tables.qm_cap_table = qm_cap;
->   
->   	return 0;
->   }
-> diff --git a/drivers/crypto/hisilicon/sec2/sec_main.c b/drivers/crypto/hisilicon/sec2/sec_main.c
-> index 752565200c16..ac423d016998 100644
-> --- a/drivers/crypto/hisilicon/sec2/sec_main.c
-> +++ b/drivers/crypto/hisilicon/sec2/sec_main.c
-> @@ -1285,8 +1285,8 @@ static int sec_pre_store_cap_reg(struct hisi_qm *qm)
->   				     i, qm->cap_ver);
->   	}
->   
-> -	qm->cap_tables.dev_cap_table = sec_cap;
->   	qm->cap_tables.dev_cap_size = size;
-> +	qm->cap_tables.dev_cap_table = sec_cap;
->   
->   	return 0;
->   }
-> diff --git a/drivers/crypto/hisilicon/zip/zip_main.c b/drivers/crypto/hisilicon/zip/zip_main.c
-> index 706a73656977..10091ad4a6a8 100644
-> --- a/drivers/crypto/hisilicon/zip/zip_main.c
-> +++ b/drivers/crypto/hisilicon/zip/zip_main.c
-> @@ -1400,8 +1400,8 @@ static int zip_pre_store_cap_reg(struct hisi_qm *qm)
->   				     i, qm->cap_ver);
->   	}
->   
-> -	qm->cap_tables.dev_cap_table = zip_cap;
->   	qm->cap_tables.dev_cap_size = size;
-> +	qm->cap_tables.dev_cap_table = zip_cap;
->   
->   	return 0;
->   }
-> diff --git a/include/linux/hisi_acc_qm.h b/include/linux/hisi_acc_qm.h
-> index f7570a409905..8dc49fa2123b 100644
-> --- a/include/linux/hisi_acc_qm.h
-> +++ b/include/linux/hisi_acc_qm.h
-> @@ -332,9 +332,9 @@ struct hisi_qm_cap_record {
->   
->   struct hisi_qm_cap_tables {
->   	u32 qm_cap_size;
-> -	struct hisi_qm_cap_record *qm_cap_table;
-> +	struct hisi_qm_cap_record *qm_cap_table __counted_by_ptr(qm_cap_size);
->   	u32 dev_cap_size;
-> -	struct hisi_qm_cap_record *dev_cap_table;
-> +	struct hisi_qm_cap_record *dev_cap_table __counted_by_ptr(dev_cap_size);
->   };
->   
->   struct hisi_qm_list {
+The AF_PACKET + flow-dissector path is real (transport_header can be clampe=
+d
+to tail), but the OOB write can't happen:
+
+All real reads/writes are mac-header relative, not transport_header relativ=
+e.
+ptp_parse_header() + ptp_classify_raw() work on actual content, and
+tstamp_offset + 10 > skb_headlen() after skb_linearize_cow() bounds the who=
+le
+region. The correct UDP header is at ptp_hdr - sizeof(udphdr), so uh->check=
+ is
+always in-bounds.
+
+Hitting the udp_hdr(skb) branch as an exploit needs a frame that both passe=
+s
+the mac-header bounds check and has transport_header at tail with a non-zer=
+o
+uh->check - mutually inconsistent. So: not a High OOB write.
+
+That said, your suggestion is right. The skb_transport_header_was_set() bra=
+nch
+is redundant and trusts an unvalidated transport_header. I'll drop it and u=
+se the
+already-validated expression unconditionally.
+
+>=20
+> > +
+> > +		/* For IPv4, a UDP checksum of zero on the wire means "no
+> > +		 * checksum". For IPv6, its UDP checksum is mandatory and
+> > +		 * never zero.
+> > +		 */
+> > +		if (!uh->check)
+> > +			goto update_timestamp;
+> > +
+> > +		old_sec_h =3D __get_unaligned_t(__be16, hdr + tstamp_offset);
+> > +		old_sec_l =3D __get_unaligned_t(__be32, hdr + tstamp_offset + 2);
+> > +		old_ns =3D __get_unaligned_t(__be32, hdr + tstamp_offset + 6);
+> > +		inet_proto_csum_replace2(&uh->check, skb, old_sec_h,
+> > +					 new_sec_h, false);
+> > +		inet_proto_csum_replace4(&uh->check, skb, old_sec_l,
+> > +					 new_sec_l, false);
+> > +		inet_proto_csum_replace4(&uh->check, skb, old_ns,
+> > +					 new_ns, false);
+> > +		csum_update =3D true;
+> > +	}
+> > +
+> > +update_timestamp:
+>=20
+> [ ... ]
+>=20
+> > +static void netc_port_onestep_work(struct work_struct *work)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +skb_dequeue:
+> > +	skb =3D __skb_dequeue(&np->onestep_queue);
+> > +	if (!skb)
+> > +		goto set_onestep_state_idle;
+> > +
+> > +	/* Clone is a ts_req_id token only; its payload is never read, so
+> > +	 * sharing the buffer with the mutated original is fine.
+> > +	 */
+> > +	clone =3D skb_clone(skb, GFP_ATOMIC);
+> > +	if (unlikely(!clone)) {
+> > +		kfree_skb(skb);
+> > +		goto skb_dequeue;
+> > +	}
+> > +
+> > +	spin_lock_bh(&np->tstamp_lock);
+> > +	ts_req_id =3D netc_get_ts_req_id(np);
+> > +	if (unlikely(ts_req_id < 0)) {
+> > +		spin_unlock_bh(&np->tstamp_lock);
+> > +
+> > +		/* Re-queuing the frame and immediately rescheduling the work
+> > +		 * would busy-loop on system_percpu_wq and burn CPU until an
+> > +		 * ID is freed, so drop this frame and move on to the next one
+> > +		 * in the queue instead.
+> > +		 */
+> > +		np->onestep_state =3D NETC_ONESTEP_SCHEDULED;
+> > +		schedule_work(&np->onestep_work);
+> > +
+> > +		goto onestep_unlock;
+> > +	}
+>=20
+> [Severity: Medium]
+> The comment says re-queuing plus rescheduling would busy-loop, but the wo=
+rk
+> does reschedule itself here unconditionally, and each pass destroys one
+> queued one-step Sync frame at onestep_unlock.  With NETC_ONESTEP_QTH at
+> 512,
+> can this discard the entire backlog in quick succession?
+
+That is intention if there is no available ts_req_id. If we do not discard =
+the skb,
+the work will be busy-loop until there is an available ts_req_id. But the i=
+ssue is
+that we do not know how long it will take to an available ts_req_id. So dro=
+p the
+skb is a better choice.
+
+>=20
+> The 16-entry ts_req_id pool is shared with the two-step path:
+> netc_port_prepare_twostep() takes an ID for every PTP frame that is not a
+> one-step Sync (Announce, Follow_Up, Delay_Resp still flow in one-step mod=
+e),
+> and holds it for up to NETC_TSTAMP_TIMEOUT when a response is lost.  So a
+> burst of two-step requests can drive this branch.
+>=20
+> The only trace is the dev_dbg_ratelimited() inside netc_get_ts_req_id().
+> Should ID exhaustion apply backpressure (leave the frame queued and arm a
+> delayed retry) rather than dropping frames, and should the changelog ment=
+ion
+> that exhaustion means one-step Sync frames are discarded?
+
+I don't think this makes much sense. Under normal circumstances, the frame =
+is
+sent out quickly, and if a situation arises where ts_req_id is unavailable,=
+ it will
+recover quickly. Discarding the sync frame won't cause any problems, and
+subsequent sync frames will still maintain PTP synchronization. If a timeou=
+t
+occurs, PTP synchronization is already affected, so discarding the message =
+is
+even less of a problem.
+
+>=20
+> > +
+> > +	/* PHC is unavailable, drop the whole queue */
+> > +	if (unlikely(netc_get_phc_time(priv, &tstamp))) {
+> > +		spin_unlock_bh(&np->tstamp_lock);
+> > +		goto set_onestep_state_idle;
+> > +	}
+> > +
+> > +	NETC_SKB_CB(skb)->tstamp =3D tstamp;
+> > +	NETC_SKB_CB(skb)->ts_req_id =3D ts_req_id;
+> > +	NETC_SKB_CB(skb)->ptp_flag =3D NETC_PTP_FLAG_ONESTEP;
+> > +	NETC_SKB_CB(clone)->ts_req_id =3D ts_req_id;
+> > +	NETC_SKB_CB(clone)->ptp_tx_time =3D jiffies_64;
+> > +	NETC_SKB_CB(clone)->ptp_flag =3D NETC_PTP_FLAG_ONESTEP;
+> > +	np->onestep_tx_time =3D NETC_SKB_CB(clone)->ptp_tx_time;
+> > +	np->onestep_ts_req_id =3D ts_req_id;
+> > +
+> > +	__skb_queue_tail(&np->tstamp_queue, clone);
+> > +	if (!delayed_work_pending(&np->tstamp_timeout_work))
+> > +		schedule_delayed_work(&np->tstamp_timeout_work,
+> > +				      NETC_TSTAMP_TIMEOUT);
+> > +
+> > +	spin_unlock_bh(&np->tstamp_lock);
+> > +
+> > +	np->onestep_state =3D NETC_ONESTEP_IN_FLIGHT;
+> > +	spin_unlock_bh(&np->onestep_lock);
+> > +
+> > +	netc_port_program_onestep(np, skb);
+> > +	tagger_data =3D priv->ds->tagger_data;
+> > +	tagger_data->onestep_sync_xmit(skb, np->dp->user);
+> > +
+> > +	return;
+> > +
+> > +set_onestep_state_idle:
+> > +	np->onestep_state =3D NETC_ONESTEP_IDLE;
+> > +purge_onestep_queue:
+> > +	__skb_queue_purge(&np->onestep_queue);
+> > +onestep_unlock:
+> > +	spin_unlock_bh(&np->onestep_lock);
+> > +	kfree_skb(skb);
+> > +	kfree_skb(clone);
+> > +}
+> > +
+> > +static bool netc_onestep_timeout(struct netc_port *np)
+> > +{
+> > +	u64 expire_time;
+> > +
+> > +	/* Use monotonic jiffies_64, as the PHC may be stepped backwards.
+> > +	 * Add one tick since the ns-to-jiffies conversion rounds down, so
+> > +	 * the software window is never shorter than the hardware window.
+> > +	 */
+> > +	expire_time =3D np->onestep_tx_time + 1 +
+> > +		      nsecs_to_jiffies64(NETC_ONESTEP_VALID_WINDOW);
+> > +	if (np->onestep_state =3D=3D NETC_ONESTEP_IN_FLIGHT &&
+> > +	    time_after64(jiffies_64, expire_time))
+> > +		return true;
+> > +
+> > +	return false;
+> > +}
+> > +
+> > +void netc_port_onestep_sync_enqueue(struct dsa_switch *ds, int port,
+> > +				    struct sk_buff *skb)
+> > +{
+> > +	struct netc_port *np =3D NETC_PORT(ds, port);
+> > +
+> > +	spin_lock_bh(&np->onestep_lock);
+> > +	if (unlikely(np->onestep_state =3D=3D NETC_ONESTEP_PORT_INACTIVE)) {
+> > +		kfree_skb(skb);
+> > +		goto onestep_unlock;
+> > +	}
+> > +
+> > +	if (unlikely(skb_queue_len(&np->onestep_queue) >=3D NETC_ONESTEP_QTH)=
+)
+> {
+> > +		dev_dbg_ratelimited(np->switch_priv->dev,
+> > +				    "The onestep_queue of port %d is full\n",
+> > +				    port);
+> > +		kfree_skb(skb);
+> > +		goto onestep_unlock;
+> > +	}
+> > +
+> > +	__skb_queue_tail(&np->onestep_queue, skb);
+> > +	if (likely(np->onestep_state =3D=3D NETC_ONESTEP_IDLE) ||
+> > +	    netc_onestep_timeout(np)) {
+> > +		np->onestep_state =3D NETC_ONESTEP_SCHEDULED;
+> > +		schedule_work(&np->onestep_work);
+> > +	}
+> > +
+> > +onestep_unlock:
+> > +	spin_unlock_bh(&np->onestep_lock);
+> > +}
+>=20
+> [Severity: High]
+> Can the port get stuck in NETC_ONESTEP_IN_FLIGHT forever?
+
+Yes, this is a potential issue, I will fix it.
+
+>=20
+> Once netc_port_onestep_work() sets IN_FLIGHT and hands the frame to
+> onestep_sync_xmit(), only three things can resume the drain:
+>=20
+>   1. a matching response in netc_port_txtstamp_handler()
+>   2. netc_onestep_timeout(), which is evaluated only from
+>      netc_port_onestep_sync_enqueue()
+>   3. the ts_req_id exhaustion self-reschedule
+>=20
+> The changelog says:
+>=20
+>     A dropped frame produces no response, so reuse tstamp_timeout_work to
+>     reclaim its request ID after 5 seconds
+>=20
+> but netc_port_tstamp_timeout_work() only unlinks and frees the timed-out
+> clone:
+>=20
+> 	__skb_unlink(skb, &np->tstamp_queue);
+> 	__skb_queue_tail(&free_list, skb);
+> 	...
+> 	if (!skb_queue_empty(&np->tstamp_queue))
+> 		schedule_delayed_work(&np->tstamp_timeout_work,
+> 				      NETC_TSTAMP_TIMEOUT);
+>=20
+> It never touches np->onestep_state and never schedules np->onestep_work.
+> And once the clone has been reaped, a late response takes the !skb_match
+> early return in netc_port_txtstamp_handler(), so it cannot clear IN_FLIGH=
+T
+> either.
+>=20
+> Concretely: frame A goes IN_FLIGHT with id X, frame B is enqueued inside =
+the
+> window and only appended, A is dropped in the switch so no response arriv=
+es,
+> 5 seconds later the timeout work frees A's clone and leaves IN_FLIGHT set=
+.
+> If the sender then stops, or falls below one frame per window, doesn't B =
+and
+> everything behind it stay queued and unfreed until link-down, port disabl=
+e
+> or a hwtstamp reconfiguration?  These are the original TX skbs and still
+> hold skb->sk, so the owning socket stays charged.
+>=20
+> The queue-full branch above also returns before the netc_onestep_timeout(=
+)
+> check, so once 512 frames have accumulated even continued traffic can no
+> longer recover the port.
+>=20
+> Would it work to reset onestep_state and schedule onestep_work from the
+> timeout path, or to arm a delayed work for the validity deadline, so
+> recovery does not depend on new traffic arriving?
+>=20
+> Separately, the changelog says the work is scheduled "when the PTP time h=
+as
+> advanced beyond NETC_ONESTEP_VALID_WINDOW", while
+> netc_onestep_timeout()
+> compares monotonic jiffies_64 and only at enqueue time.
+>=20
+> [ ... ]
+>=20
+> > @@ -395,6 +673,66 @@ int netc_port_hwtstamp_get(struct dsa_switch *ds,
+> int port,
+> >  	return 0;
+> >  }
+> >
+> > +static void netc_port_prepare_onestep_sync(struct netc_port *np,
+> > +					   struct sk_buff *skb,
+> > +					   u32 ptp_class, bool *twostep)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +	if (unlikely(skb_linearize_cow(skb)))
+> > +		goto set_ptp_flag_drop;
+> > +
+> > +	ptp_hdr =3D ptp_parse_header(skb, ptp_class);
+> > +	if (unlikely(!ptp_hdr))
+> > +		goto set_ptp_flag_drop;
+> > +
+> > +	msg_type =3D ptp_get_msgtype(ptp_hdr, ptp_class);
+>=20
+> [ ... ]
+>=20
+> > +set_ptp_flag_drop:
+> > +	/* Drop instead of falling back to two-step: if it is a Sync,
+> > +	 * one-step offload will not be executed, the timestamp in the
+> > +	 * frame is inaccurate, which may affect PTP synchronization.
+> > +	 */
+> > +	NETC_SKB_CB(skb)->ptp_flag =3D NETC_PTP_FLAG_DROP;
+> > +	dev_dbg_ratelimited(priv->dev,
+> > +			    "Port %d: PTP frame dropped in error\n",
+> > +			    np->dp->index);
+> > +}
+>=20
+> [Severity: Medium]
+> The skb_linearize_cow() failure is evaluated before the message type is
+> known, so a plain ENOMEM destroys any PTP frame on the port, including a
+> Delay_Req that this code would otherwise have sent two-step.  Should the
+> linearize failure fall back to two-step, or at least be handled after the
+> Sync check?
+
+No, first, the frame might be a sync frame, if fall back to two-step, that =
+means
+one-step offload will not take effect, so the timestamp of the sync frame i=
+s not
+correct. If the PTP clocks are already synced, a frame with an incorrect ti=
+mestamp
+may cause the clocks desynchronization. In this case, drop the frame is bet=
+ter
+than sending it.
+
+Second, the purpose of skb_linearize_cow() is to ensure that the required
+data is in the linear buffer. If a check is performed first, it defeats the=
+ purpose
+of using skb_linearize_cow(), because it cannot be guaranteed that the
+required data is in the linear buffer at this time.
+
+>=20
+> None of the new drop paths are accounted anywhere.  dsa_user_xmit() has
+> already counted the frame as transmitted via dev_sw_netstats_tx_add() bef=
+ore
+> the tagger frees it, so from userspace the frames just vanish:
+>=20
+>   netc_port_prepare_onestep_sync() -> NETC_PTP_FLAG_DROP -> kfree_skb()
+> in
+>     netc_xmit()                               (linearize/parse/offset
+> checks)
+>   netc_port_onestep_sync_enqueue()            (queue full, port inactive)
+>   netc_port_onestep_work()                    (clone failure, no
+> ts_req_id,
+>                                                PHC read failure
+> purges all)
+>   netc_port_purge_onestep_queue()             (hwtstamp
+> reconfiguration)
+>=20
+> netc has no .get_stats64, so dsa_user_get_stats64() falls back to
+> dev_get_tstats64(), which folds dev->stats into rtnl_link_stats64 - could
+> these paths bump dev->stats.tx_dropped?
+>=20
+> The changelog only says "Frames that are not one-step Sync still fall bac=
+k
+> to two-step timestamping", which does not tell a reader that enabling
+> one-step turns a degraded timestamp into a frame that is never transmitte=
+d.
+>=20
+> [ ... ]
+>=20
+> > @@ -449,6 +787,21 @@ void netc_port_txtstamp_handler(struct dsa_switch
+> *ds, int port,
+> >  		dev_dbg_ratelimited(np->switch_priv->dev,
+> >  				    "Port %d ts_req_id %u which seems lost\n",
+> >  				    port, ts_req_id);
+> > +
+> > +		return;
+> > +	}
+> > +
+> > +	if (NETC_SKB_CB(skb_match)->ptp_flag =3D=3D NETC_PTP_FLAG_ONESTEP) {
+> > +		spin_lock_bh(&np->onestep_lock);
+> > +		if (likely(np->onestep_state =3D=3D NETC_ONESTEP_IN_FLIGHT &&
+> > +			   np->onestep_ts_req_id =3D=3D ts_req_id) ||
+> > +		    np->onestep_state =3D=3D NETC_ONESTEP_IDLE) {
+> > +			np->onestep_state =3D NETC_ONESTEP_SCHEDULED;
+> > +			schedule_work(&np->onestep_work);
+> > +		}
+> > +		spin_unlock_bh(&np->onestep_lock);
+> > +		consume_skb(skb_match);
+> > +
+> >  		return;
+> >  	}
+>=20
+> [Severity: Medium]
+> Can the ts_req_id comparison here match a different frame?  The clone is
+> unlinked from np->tstamp_queue under tstamp_lock earlier in this function=
+,
+> which immediately makes the 4-bit id reusable, and onestep_lock is only
+> taken afterwards:
+>=20
+> CPU0 (work, frame A response overdue past the window)
+>   netc_port_onestep_sync_enqueue()
+>      netc_onestep_timeout() -> true, schedule_work()
+>   netc_port_onestep_work()
+>      spin_lock_bh(&np->onestep_lock);
+>=20
+> CPU1 (A's response arrives)
+>   netc_port_txtstamp_handler()
+>      __skb_unlink(clone_A, &np->tstamp_queue);   /* id X now free */
+>      spin_unlock_bh(&np->tstamp_lock);
+>      spin_lock_bh(&np->onestep_lock);            /* blocks */
+>=20
+> CPU0 continues
+>      netc_get_ts_req_id() -> X again for frame B
+>      np->onestep_ts_req_id =3D X;
+>      np->onestep_state =3D NETC_ONESTEP_IN_FLIGHT;
+>      spin_unlock_bh(&np->onestep_lock);
+>      onestep_sync_xmit(B)
+>=20
+> CPU1 then sees IN_FLIGHT with onestep_ts_req_id =3D=3D X and treats A's
+> response as B's completion, sets SCHEDULED and re-arms the work, which ca=
+n
+> transmit frame C and reprogram PM_SINGLE_STEP while B is still pending in
+> hardware.  Workqueue non-reentrancy serializes the worker, not frame
+> completion.
+>=20
+> Would retiring the id and moving the one-step state under a single lock
+> order (onestep_lock then tstamp_lock), or matching on a generation counte=
+r
+> instead of the reusable 4-bit id, close this?
+>=20
+
+This is a hardware limitation, the response frame only contains ts_req_id
+and timestamp. the driver can only use the ts_req_id to match the skb from
+the queue. The incorrect matches can occur, but only in the event of a
+timeout. In the event of a timeout, PTP synchronization has already been
+affected, so incorrect matches will not cause any worse consequences.
+Once the link recovers, the timeout disappears, and subsequent PTP
+synchronization resumes. Therefore, it's a trade-off.
 
