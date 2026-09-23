@@ -1,375 +1,131 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640FE4E323D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD37D3ACA4B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166837; cv=none; b=QNkHixX3UvkPV8YW9VPZWm2cC27hYXo9I1iEO33WdyPdpDFEYGVMaYz+IqgOJlJ1UErI/QmFC62qrYMohNTEqJTk584EqP0UszyRSXdfmWu4CYfK0fZxdoN144gzlbkpBFVsCO5UOBtPxe3dXCVZ3Uw8XITT4+SH37fgXmSXUkI=
+	t=1790166856; cv=none; b=H5I6Te7kxzDbrWMdQpIme9q19jZ2Z3+ZRxwWU0PpNbBikVLJhIvmxnAWq+PwX4dkRPVxxgZADn+PdZr6mpf8/80XvX/ryzyXqFqvKhMLXORXCEySyhTiCewc3T3o+l44w5LPJI4VfzqF0bvVnRaaYo/zin17BnIquiZG6a8Sx78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166837; c=relaxed/simple;
-	bh=Yqaq1Hk7u4nrzYHc+3CVcf4COPL1wBi/iltVI2RQc7w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FJTrATdthbGGAfVe44HimqQtswmtMKmvE8YhtVDIqPBeHiJztQffl3LHt54UdBKhHKY/nORnRLNTDkNjOShKHD2iNiPrhtyrzG0CQtY7DRX4Fjawz1O144QkvDqRMEpVbVLtKDDS3PXsthaGFfIC3fpdhdUn9eYv2GKPPmJR4Oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k99u3pUO; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1790166856; c=relaxed/simple;
+	bh=dr3B9v0iddAzN+nnrzd/py7hgbR4j0MN2r71CzkQ8V4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=C3U0bnx4v11LS7BYOFoGGSUREGwussg5kZZaq3uP8W56MP2xYk0bKjhhwlvNkyxET7bLeZzopXaD19bwfvZGIRfZVXpMUoYX3fTIfVMIwupXVYzyNfv8xGKwLVLAQ4MvuMhtMsYYqPBZ3xYpkN2oDF7b1iPdoAKfAVEoEcgaPT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PDlNseLq; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k99u3pUO"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f05ffdso3694165ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:33:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PDlNseLq"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so4608065e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:34:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790166833; x=1790771633; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qR79KzzQEHA1BCgom4FGsnXuKP2YSduNO1GGm9Xb7l8=;
-        b=k99u3pUOQ1Fq5cHzCmeiYmpYwizrheSFhtStDmlYnyqbd2qF7icoG8Nfr6l+lfSKon
-         jQ77hGQ85HbLNEM18pGONYECi7Ni2A+n9xPUAjaAcBWrM4WjNEgddAtyTsvQPzW7v7kD
-         2XvPYHFSe8mm1R6/b39TEUGq+OPuWR3ItcLDU5qGuWTNLpcf/0hRQEJ0XSa71Y4VGtJH
-         UiMzRXlHHr0ua4gWptvd3ujHzDYexSJCzbrfRJY/MR8cgKMIpOhpnn7+zfOzCAy3osio
-         nWX9K6jhG891N2NkFrTuglAxjetiDOo7kKpxYtOp5tt5qn7Zwx8cLP9mgracwyQIykj1
-         GJFA==
+        d=gmail.com; s=20251104; t=1790166850; x=1790771650; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jEhSiL9cqS//xo4EeR9yQCOXgVP2pICmibg8gvVxe8k=;
+        b=PDlNseLqd3tvMfkbHP0EXk2o2uP6NZVxV7NK+ddTBrV1vnAyn1ZetLn9MIiTTTppF2
+         TL92dpyit+XQtxjfJwNrtQmydadx/R4CNDtvEOEjfOs3Lh5ubc4w5NRljggm2hIZ1sPa
+         nxojHyz1qmmwEV+g6ypYJkFV74t9z+WSmnb+A6x2A4qqLKPseWEArVyoqgNxLnvxyFPm
+         mqp9Ry/cOBTklUYUbR19mb5swP9sJN6GQdr5AcWfrJNJAuk7osd7w+m1i4+HVUwbveNZ
+         DOdPtsPof5KJL34In6oKPhEDe/OmA7WWTO8OKfppzQ0jgaDAqDWwqHPNMHmRXGu0jBpn
+         Npfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790166833; x=1790771633;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qR79KzzQEHA1BCgom4FGsnXuKP2YSduNO1GGm9Xb7l8=;
-        b=W1Lr0RaGaSDvI4024uJW7m1WrxVUw3bQsMZBM7qTT0o0DwmJRQLzBIOiUcclF4W2ji
-         v8Lr5pBl/2cWp6LSWvwX2Zz6esXeGgH0tiPVUz6CgCz/7FJYEC4Qjh1a5chzIKRtMROf
-         lpwaaClOaGEmaE2HtZudIyz3lL7r0kJCrA7sl2bOh08txoJfsBE6j7OqFXRcIcIzBbz6
-         VBx4X39qWbW3Ma2DquyEx843rdPY4PJoKYIhvg3+tDE+8O1SMKk4c7j+8IxgeNPzFYLi
-         NB3l7bWsw+Zr+jLjhSkLtuaxyHsRGuEzM+1jIcpJgfynE3spkgaBsfyF1QsxD+58Ot3Q
-         8cXA==
-X-Forwarded-Encrypted: i=1; AKwUvBxKn+tLPD4fTBJKm+Nnm/WZsiBb2sivAedg7FTC5evWz5JANBki7Jwr6zot9whZInISxuFtW35DUu7K+b8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYLFMog8wNeDo0Q0fBsayEbQyz86/OxAvn84erk/BK4mkZNrKl
-	538K1gyNsWGzJUxpjqfFIEwIjRDlRcaulDzeEP8bBwbU5rT1wB20zPHi
-X-Gm-Gg: AYBFou3apLALSmTDqwrHQ/JVq5aJP1vqubT4UVCySmWTAaN+23SIHRwMHDyAoNeJlPo
-	zcErBo511em3creP0U+3Cz9ElUgnvkPQ2ANFH/2Qz2lOyUCnH4PaboDar43GLUzKIZA+WnMoV+G
-	K+izu53/4Ijj5xrU7V4lxoZ2DyPvsNcbQsn0ghfX9/KSPgjladzHPRbfTFSTiep1JzkOYimMyHo
-	HsYleslpw94BlaGtSWlj+ubuvCPkZUD2ChYC8UWfSlxqKd6vlTSiaCEc9WqqV9NwTcnrzA0x8KK
-	KpBj3RzdUzIgwmtcQrVRbUrz0BmMHm3hGA074Xf1gEqRt/owdypKV78Xtelec3pSrLy8VeZP2tC
-	jPpJdtEBdd7Bf52sQqA4weCpkDRyiKUD8jWW2LR1JzDY4mnFTvm7XqWjRdFnWufF1FjkQUtMAeZ
-	gjlh6bhzwYkIU//8RW1Xvtr/W84ZT2DSGYeFLylOXSHpqaeI4GfTI4a7by9G2GyehhMYOIGzsDP
-	qJECaJz7sVJ
-X-Received: by 2002:a17:903:2f8c:b0:2dd:c053:e0f8 with SMTP id d9443c01a7336-2df69de16b5mr21644485ad.39.1790166831747;
-        Wed, 23 Sep 2026 05:33:51 -0700 (PDT)
-Received: from localhost.localdomain ([47.100.192.162])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a6d35sm9510475ad.19.2026.09.23.05.33.48
+        d=1e100.net; s=20260707; t=1790166850; x=1790771650;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jEhSiL9cqS//xo4EeR9yQCOXgVP2pICmibg8gvVxe8k=;
+        b=zE8ZGmSkPzrOtxd7HscvFAStbba+R1xXBUZhX7vIPAy8Muy4lhckBLGWughqDtSlRo
+         Lyv5IduRTgPbT05XcXoaP9E6Vctm5S0bbXiz501sI8FKTKHaGn4MBUbH6QdXzVTgofkS
+         dJU8gICJK0Rvb9x0yZUaSXEl1zXf2DOZoLO+h0SI2wiBnj59h0yVz6Ay5dw63r27DtIT
+         WClgy0aH+bFJPlrTIEXiHIa/o1dS62AH1kZDYnw7YLqOFERVpf2FKMbH6LrWaUjacKKS
+         JqhTPGsPRyPyppH9il6Dmg3WGzVUsgMzDORRNoj1nEZoAZbTVi697pWC5gNOBIcOej+r
+         X13Q==
+X-Forwarded-Encrypted: i=1; AKwUvBySXDAEMYVIj+ZxYuBwEvuWbXfUzIAYjx05oyZmgMRT0dmPLFmogWN2R+3CU3aB0t0thuREeGuJAG2Bgck=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZKjcld520wu9kC2PiOTwke0gNwuFc8NRM+BurzmwbukNZ56IB
+	h/xmUzJjZ8c2pvZDyWXpn0z05+7hKjgVq5V3zzpNj+hZyApT4p7hQlF9Wp25QWWR
+X-Gm-Gg: AYBFou2QU3XaR2u2bNmUVCLEi5IzM8dzkS8MYS28BFjmvQCpIumw6j+TV/lNtB0oQK5
+	GAxAel3FQSmuEmz9AnDpQwoFtAaVRagftV57BoziVVY68ecg5/c/RZEr5Xpxkd+GYBtDWcfry1H
+	jyOdQ14ALqe6+RjYOOcJrNzI7nEJCfyaSoMa6co2uAfHDgPWowD5IBwE47NnFG0y6LboDlDAzpU
+	Sjo4k7Ko/TrYh5tpzS9D7S1KLqcjvZdDzqUk6LlLgNZkjsGoTcflVlaFRmS/9oUvyN+qKvwliIh
+	pp5eMW3lPJntNW5cgtP6fOIQbbVHsw6lr38520pjpBaxv2bMubf9ROh2GA9jmANPW3DSkS2NVFY
+	nD5jEkzx+13ij6rgycgZ+66Xf8e6J7BIXAbX5+rT9AHoiBhAo2yOhipExpjeGhfcL/aHVUgTg6X
+	pXTyc0X/33KllEpi7YfEAVCBvwvaniYgbYHdrW/ii0iC8pXaoT8Da8MHSvH5zkzn/bKAertWTd/
+	YK7bcdrZWI7bA6Ym1FMdngc7hvyP7lLUuseOyahYiPrnQ==
+X-Received: by 2002:a05:600c:c490:b0:49e:715e:ec1f with SMTP id 5b1f17b1804b1-49fdf150fb7mr30227215e9.30.1790166849316;
+        Wed, 23 Sep 2026 05:34:09 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1aca52sm75405065e9.14.2026.09.23.05.34.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 05:33:51 -0700 (PDT)
-From: Yang Wen <anmuxixixi@gmail.com>
-To: linkinjeon@kernel.org,
-	sj1557.seo@samsung.com,
-	chizhiling@163.com
-Cc: yuezhang.mo@sony.com,
-	exfat@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yang Wen <anmuxixixi@gmail.com>
-Subject: [PATCH v6 3/3] exfat: reclaim name filters under memory pressure
-Date: Wed, 23 Sep 2026 20:33:00 +0800
-Message-Id: <20260923123300.1626723-4-anmuxixixi@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260923123300.1626723-1-anmuxixixi@gmail.com>
-References: <20260923123300.1626723-1-anmuxixixi@gmail.com>
+        Wed, 23 Sep 2026 05:34:08 -0700 (PDT)
+Date: Wed, 23 Sep 2026 13:34:07 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>, Linux Next Mailing List
+ <linux-next@vger.kernel.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [built failure] aicdb.h / __udivdi3
+Message-ID: <20260923133407.7411334a@pumpkin>
+In-Reply-To: <0aa303bc-d3e9-4670-91e5-8299ddfcb6db@infradead.org>
+References: <1ccf42a99c89502a7a5e7038ed2ab2aa5a24dd7a.camel@mailbox.org>
+	<0aa303bc-d3e9-4670-91e5-8299ddfcb6db@infradead.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Each active large directory can hold a 64 KiB name filter. Add a
-per-superblock LRU and shrinker so filters can be reclaimed when memory is
-tight.
+On Tue, 22 Sep 2026 12:25:09 -0700
+Randy Dunlap <rdunlap@infradead.org> wrote:
 
-Signed-off-by: Yang Wen <anmuxixixi@gmail.com>
----
- fs/exfat/dir.c      | 145 +++++++++++++++++++++++++++++++++++++++++++-
- fs/exfat/exfat_fs.h |  10 +++
- fs/exfat/super.c    |   8 +++
- 3 files changed, 160 insertions(+), 3 deletions(-)
+> Hi--
+> 
+> On 9/22/26 11:13 AM, Manuel Ebner wrote:
+> > Hi,
+> > 
+> > I did some built testing with randconf and got some build errors.
+> > 
+> > First error is:
+> >   
+> >> $ make KCFLAGS=-Werror -j8 > make_output.txt
+> >> aicasm_symbol.c:47:10: fatal error: aicdb.h: No such file or directory
+> >>    47 | #include "aicdb.h"
+> >>       |          ^~~~~~~~~  
+> > 
+> > This could be fixed by installing libdb-devel.
+> > But than I got this error with the same configuration:
+> >   
+> >> $ make KCFLAGS=-Werror -j8 > make_output.txt
+> >> date
+> >> drivers/scsi/aic7xxx/aicasm/aicasm: 880 instructions used
+> >> drivers/scsi/aic7xxx/aicasm/aicasm: 25 of 37 register definitions used
+> >> /usr/bin/ld.bfd: fs/exfat/super.o: in function `exfat_set_vol_flags.isra.0':
+> >> super.c:(.text+0x622): undefined reference to `__udivdi3'
+> >> make[2]: *** [scripts/Makefile.vmlinux:72: vmlinux.unstripped] Error 1
+> >> make[1]: *** [/home/manuel/skripts/next/Makefile:1390: vmlinux] Error 2
+> >> make: *** [Makefile:248: __sub-make] Error 2  
+> > 
+> > What can I do about it?
+> > Is it me/ my system or the kernel?  
+> 
+> For the fs/exfat/ build error:
+> 
+> What is the target (x86_64, i386, arm64, arm, etc.)?
+> What is the compiler and its version?
 
-diff --git a/fs/exfat/dir.c b/fs/exfat/dir.c
-index 08b7a50de871..013b7e43a289 100644
---- a/fs/exfat/dir.c
-+++ b/fs/exfat/dir.c
-@@ -9,6 +9,7 @@
- #include <linux/buffer_head.h>
- #include <linux/filelock.h>
- #include <linux/hash.h>
-+#include <linux/shrinker.h>
- #include <linux/stringhash.h>
- 
- #include "exfat_raw.h"
-@@ -91,12 +92,144 @@ static void exfat_name_filter_indexes(struct super_block *sb,
- 			     EXFAT_NAME_FILTER_ORDER);
- }
- 
-+static unsigned long *
-+exfat_name_filter_detach_locked(struct exfat_sb_info *sbi,
-+				struct exfat_inode_info *ei)
-+{
-+	unsigned long *filter = ei->name_filter;
-+
-+	if (!filter)
-+		return NULL;
-+
-+	ei->name_filter = NULL;
-+	list_del_init(&ei->name_filter_lru);
-+	sbi->name_filter_count--;
-+	return filter;
-+}
-+
-+static void exfat_name_filter_touch(struct exfat_inode_info *ei)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(ei->vfs_inode.i_sb);
-+
-+	spin_lock(&sbi->name_filter_lock);
-+	if (ei->name_filter)
-+		list_move_tail(&ei->name_filter_lru, &sbi->name_filter_lru);
-+	spin_unlock(&sbi->name_filter_lock);
-+}
-+
- void exfat_name_filter_free(struct inode *inode)
- {
- 	struct exfat_inode_info *ei = EXFAT_I(inode);
-+	struct exfat_sb_info *sbi;
-+	unsigned long *filter;
- 
--	kvfree(ei->name_filter);
--	ei->name_filter = NULL;
-+	if (!READ_ONCE(ei->name_filter))
-+		return;
-+
-+	sbi = EXFAT_SB(inode->i_sb);
-+	spin_lock(&sbi->name_filter_lock);
-+	filter = exfat_name_filter_detach_locked(sbi, ei);
-+	spin_unlock(&sbi->name_filter_lock);
-+	kvfree(filter);
-+}
-+
-+static unsigned long
-+exfat_name_filter_count_objects(struct shrinker *shrinker,
-+				struct shrink_control *sc)
-+{
-+	struct exfat_sb_info *sbi = shrinker->private_data;
-+	unsigned long count;
-+
-+	spin_lock(&sbi->name_filter_lock);
-+	count = sbi->name_filter_count;
-+	spin_unlock(&sbi->name_filter_lock);
-+
-+	return count ? count : SHRINK_EMPTY;
-+}
-+
-+static unsigned long
-+exfat_name_filter_scan_objects(struct shrinker *shrinker,
-+			       struct shrink_control *sc)
-+{
-+	struct exfat_sb_info *sbi = shrinker->private_data;
-+	unsigned long freed = 0;
-+
-+	/* Avoid reclaim recursion from a GFP_NOFS allocation under s_lock. */
-+	if (!mutex_trylock(&sbi->s_lock)) {
-+		sc->nr_scanned = 0;
-+		return SHRINK_STOP;
-+	}
-+
-+	while (freed < sc->nr_to_scan) {
-+		struct exfat_inode_info *ei;
-+		unsigned long *filter;
-+
-+		spin_lock(&sbi->name_filter_lock);
-+		if (list_empty(&sbi->name_filter_lru)) {
-+			spin_unlock(&sbi->name_filter_lock);
-+			break;
-+		}
-+
-+		ei = list_first_entry(&sbi->name_filter_lru,
-+				      struct exfat_inode_info,
-+				      name_filter_lru);
-+		filter = exfat_name_filter_detach_locked(sbi, ei);
-+		spin_unlock(&sbi->name_filter_lock);
-+
-+		kvfree(filter);
-+		freed++;
-+		cond_resched();
-+	}
-+
-+	mutex_unlock(&sbi->s_lock);
-+	sc->nr_scanned = freed;
-+	return freed;
-+}
-+
-+void exfat_name_filter_shrinker_register(struct super_block *sb)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(sb);
-+	struct shrinker *shrinker;
-+
-+	shrinker = shrinker_alloc(SHRINKER_NONSLAB,
-+				  "exfat-name-filter:%s", sb->s_id);
-+	if (!shrinker) {
-+		exfat_warn(sb, "failed to allocate name filter shrinker");
-+		return;
-+	}
-+
-+	shrinker->count_objects = exfat_name_filter_count_objects;
-+	shrinker->scan_objects = exfat_name_filter_scan_objects;
-+	shrinker->private_data = sbi;
-+	shrinker_register(shrinker);
-+	sbi->name_filter_shrinker = shrinker;
-+}
-+
-+void exfat_name_filter_shrinker_unregister(struct super_block *sb)
-+{
-+	struct exfat_sb_info *sbi = EXFAT_SB(sb);
-+	struct shrinker *shrinker = sbi->name_filter_shrinker;
-+
-+	sbi->name_filter_shrinker = NULL;
-+	shrinker_free(shrinker);
-+
-+	for (;;) {
-+		struct exfat_inode_info *ei;
-+		unsigned long *filter;
-+
-+		spin_lock(&sbi->name_filter_lock);
-+		if (list_empty(&sbi->name_filter_lru)) {
-+			spin_unlock(&sbi->name_filter_lock);
-+			break;
-+		}
-+
-+		ei = list_first_entry(&sbi->name_filter_lru,
-+				      struct exfat_inode_info,
-+				      name_filter_lru);
-+		filter = exfat_name_filter_detach_locked(sbi, ei);
-+		spin_unlock(&sbi->name_filter_lock);
-+		kvfree(filter);
-+	}
- }
- 
- bool exfat_name_filter_maybe_contains(struct inode *inode,
-@@ -108,6 +241,7 @@ bool exfat_name_filter_maybe_contains(struct inode *inode,
- 	if (!ei->name_filter)
- 		return true;
- 
-+	exfat_name_filter_touch(ei);
- 	exfat_name_filter_indexes(inode->i_sb, name, indexes);
- 	return test_bit(indexes[0], ei->name_filter) &&
- 	       test_bit(indexes[1], ei->name_filter) &&
-@@ -123,6 +257,7 @@ void exfat_name_filter_add(struct inode *inode,
- 	if (!ei->name_filter)
- 		return;
- 
-+	exfat_name_filter_touch(ei);
- 	exfat_name_filter_indexes(inode->i_sb, name, indexes);
- 	__set_bit(indexes[0], ei->name_filter);
- 	__set_bit(indexes[1], ei->name_filter);
-@@ -145,7 +280,7 @@ static void exfat_build_name_filter(struct super_block *sb,
- 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
- 	int i;
- 
--	if (ei->name_filter ||
-+	if (!sbi->name_filter_shrinker || ei->name_filter ||
- 	    exfat_bytes_to_dentries(i_size_read(inode)) <
- 					EXFAT_NAME_FILTER_MIN_DENTRIES)
- 		return;
-@@ -195,7 +330,11 @@ static void exfat_build_name_filter(struct super_block *sb,
- 	}
- 
- complete:
-+	spin_lock(&sbi->name_filter_lock);
- 	ei->name_filter = filter;
-+	list_add_tail(&ei->name_filter_lru, &sbi->name_filter_lru);
-+	sbi->name_filter_count++;
-+	spin_unlock(&sbi->name_filter_lock);
- 	return;
- abort:
- 	kvfree(filter);
-diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
-index 3bbfa7092c0d..b3edb6fdfca6 100644
---- a/fs/exfat/exfat_fs.h
-+++ b/fs/exfat/exfat_fs.h
-@@ -14,6 +14,8 @@
- #include <uapi/linux/exfat.h>
- #include <linux/buffer_head.h>
- 
-+struct shrinker;
-+
- #define EXFAT_ROOT_INO		1
- 
- /*
-@@ -263,6 +265,11 @@ struct exfat_sb_info {
- 
- 	spinlock_t inode_hash_lock;
- 	struct hlist_head inode_hashtable[EXFAT_HASH_SIZE];
-+	/* Protects name_filter_lru and name_filter_count. */
-+	spinlock_t name_filter_lock;
-+	struct list_head name_filter_lru;
-+	unsigned long name_filter_count;
-+	struct shrinker *name_filter_shrinker;
- 	struct rcu_head rcu;
- };
- 
-@@ -294,6 +301,7 @@ struct exfat_inode_info {
- 	struct exfat_hint_femp hint_femp;
- 	/* Complete, in-memory Bloom filter of directory names */
- 	unsigned long *name_filter;
-+	struct list_head name_filter_lru;
- 
- 	spinlock_t cache_lru_lock;
- 	struct list_head cache_lru;
-@@ -635,6 +643,8 @@ bool exfat_name_filter_maybe_contains(struct inode *inode,
- void exfat_name_filter_add(struct inode *inode,
- 			   const struct exfat_uni_name *name);
- void exfat_name_filter_free(struct inode *inode);
-+void exfat_name_filter_shrinker_register(struct super_block *sb);
-+void exfat_name_filter_shrinker_unregister(struct super_block *sb);
- 
- static inline int exfat_chain_advance(struct super_block *sb,
- 		struct exfat_chain *chain, unsigned int step)
-diff --git a/fs/exfat/super.c b/fs/exfat/super.c
-index 4924f0fad836..465e33c9ba49 100644
---- a/fs/exfat/super.c
-+++ b/fs/exfat/super.c
-@@ -46,6 +46,7 @@ static void exfat_put_super(struct super_block *sb)
- {
- 	struct exfat_sb_info *sbi = EXFAT_SB(sb);
- 
-+	exfat_name_filter_shrinker_unregister(sb);
- 	mutex_lock(&sbi->s_lock);
- 	exfat_clear_volume_dirty(sb);
- 	exfat_free_bitmap(sbi);
-@@ -210,6 +211,7 @@ static struct inode *exfat_alloc_inode(struct super_block *sb)
- 		return NULL;
- 
- 	ei->name_filter = NULL;
-+	INIT_LIST_HEAD(&ei->name_filter_lru);
- 	return &ei->vfs_inode;
- }
- 
-@@ -746,6 +748,8 @@ static int exfat_fill_super(struct super_block *sb, struct fs_context *fc)
- 		goto free_table;
- 	}
- 
-+	exfat_name_filter_shrinker_register(sb);
-+
- 	return 0;
- 
- put_inode:
-@@ -845,6 +849,10 @@ static int exfat_init_fs_context(struct fs_context *fc)
- 
- 	mutex_init(&sbi->s_lock);
- 	mutex_init(&sbi->bitmap_lock);
-+	spin_lock_init(&sbi->name_filter_lock);
-+	INIT_LIST_HEAD(&sbi->name_filter_lru);
-+	sbi->name_filter_count = 0;
-+	sbi->name_filter_shrinker = NULL;
- 	ratelimit_state_init(&sbi->ratelimit, DEFAULT_RATELIMIT_INTERVAL,
- 			DEFAULT_RATELIMIT_BURST);
- 
--- 
-2.34.1
+What strange set of build options are being used?
+
+> That error usually means that the target is a 32-bit CPU
+> and the code in question is doing an unsupported divide or
+> modulus function.
+> 
+> It possibly should be using a kernel macro from <linux/math.h>
+> or other headers.
+> 
 
