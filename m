@@ -1,130 +1,87 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B22457E53
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149315; cv=pass; b=TpCtzN7B8Sa/NZ6y1Ujl5RId7B4I6zixAJIviu4qeXwXG9ceN/nCTESxdE520QrWZsSB/zDNJQctxxKUWwvMhV4IK7GG3KMrDrs35ATmJWnllzL6ALWnFRL5ruhej+6mOinnuTmSs5B+5Dq1R0dGEYCJmL1sj6BF0rFDOZdgfVs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149315; c=relaxed/simple;
-	bh=meb1bAvawCq/Ib8QpyVS9dzYsYkDPtpweSxQpaNTp0U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WvbgnNubXSJ+sdKsz52JYWPjXGvGm+YEaa1G3cvd0fgR4+JxdYfCD7cZCIZBgZQNTdmU8vwH/syiHXrr8Mw4I8eaLcXWaR+6JfRw4aE9AOSuGtqt4qw0SjJuBK3RYaOKcTPMbryOxBh1Yfnp9rHGBOG4jpTpZVg2VKmQTclCRx0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=W8mQfAi5; arc=pass smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4D0448D1F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:42:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790149350; cv=none; b=gptXmr2QDV9KBQ5/eqEwo4uTAl7vg/uuaMeMm0861KRI6IK6jY4PzmQzsO++1ziEmheM4IICotVK5JVTCfXh8v0QfmuXP6XlEXnS7mxPyLx3ZN2j5scGhHzDzDsgYeI7enOxcoNMaVS581B2WF4dla4aqFUTuuUJwZVvZj3ZiCQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790149350; c=relaxed/simple;
+	bh=YMyLmGEnwKFDxzmdHh0N11WIuaHQ/byRCKCpA1/x4r4=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=PGURexb+8m6v4/0mlmQ2+XLkRCzZHCFQ6UijtaSjpP88Ykf701zFOfZLLz4UDFynFp2lSXKsDN6qAU8L07A+Mc3I3oS1wE3OBAfIz8pXYqdXlGz2xCQpnJyfsvPGO6CT72c5Dyxgr0H8xKqbJRQZIrTKqTGzOW8bYcpXiU8mDso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KXOUtDTZ; arc=none smtp.client-ip=209.85.128.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="W8mQfAi5"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-53113d72966so136391cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:41:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790149305; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jtmeRQHEYe0lJCFvMUElXeUqSEGt9YHyC0XOFyrmi7wNGn6McG4wAAvVJOAYa+5PAk
-         MRGPSmsU2vfK/AHIUIdqI5PmptWeNNeNRW4gK1L7dgalp47AV/nPwHh2q1NL/7iUcUMr
-         6ZdqIrg/U7sRkhDXJOb5kSJS8x9ErGcZeeqcUH11YSNyfxuCYN8FaYIQQNDM3EN3RtKW
-         Y2dcVjD7kNMjgyozebd1yBrldrKDoczOIQiRzo5eNFAWSvkycXstGDPwiHrDLV0GF0JX
-         X+GuTqntzQzCm/YqWlxAfiB7zChKeywLrC9HX+TC+p+U687+5NhV5JVFybotUpn118GS
-         9wGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=meb1bAvawCq/Ib8QpyVS9dzYsYkDPtpweSxQpaNTp0U=;
-        fh=B6d6er2DAVCQtknLjR/TJ27UsuHkvc41FpGXkQcPWac=;
-        b=MODw0egdj1EX8migyLFO9EcfVEmtiUtDtR04PLumiH23F8aRjun8Ce3gTc6h+jAYaE
-         HhyGIrD6c0MNThpTUe2ghbnViCWUrkf5qgvWsNEww5ME/GuA1m/T/V6Owr4e/MFdLXyF
-         j0BpAFGk1mxmxTEse/+ra7t7GSNuqB+rM0Al62RGJ4ct+vLjE3gora7hWprjIfZDaC3W
-         2JUgvtmnYL3eJaoOVGounX+LzSqj98IuT0Y+OREATgWVXEpYoXfDjpkoRQC7WmnEJ80h
-         xWHxRYZhOh8s/ZTejCpFzPDM7TmR9sMrLL/isapm3o76zWMHYoUKLadNatZeWoOImbfQ
-         Y7Kw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KXOUtDTZ"
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49e6422198fso3356275e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:42:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790149305; x=1790754105; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=meb1bAvawCq/Ib8QpyVS9dzYsYkDPtpweSxQpaNTp0U=;
-        b=W8mQfAi5fknrVsqLQojpfMuUz7nqIsVD9eU8Q/KsRk9ncgzi1eD0ZgzLelurwrKXus
-         7I5SHiSUa55RMsci2iURrYte/QzO+1Jueun0FR/jlb22+Yin1ODVKm5ezw7AKaBwVeTM
-         DjuCY9kXxiX4cEqEaMSmlBdfSly8DDP9k3i4isA2hkP2HgVZO1RKntA72e1J0Q0aofPw
-         wbFe/pgEDZjtkG0/C2SH4nDBbjnvgnQobDLYmlJ+8ofNHk5pz0vXHyjZnfU4jU9iV42i
-         9+OmneFUQdEvZny0w41v9fXMemTiPqkW++GdrvU/97bvUQlN/SYeLJjGhJdZ33p4tqIn
-         Ydvw==
+        d=google.com; s=20251104; t=1790149342; x=1790754142; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SKMAy2InHjp3FXMfVN35EHq0oszHWkWnOoyikT1MYuk=;
+        b=KXOUtDTZ+tblaceljyq0dfbcMXuqh5QBOQj9D+clCblw8SMlaIg1s8kvMUbcljJzeT
+         XOGgds6gwoq9NkKmB3/rWV8lcKGAbcxiO9bCeoDeAfA7VZnxv9g8qyYlRr9K2DWR0cSe
+         higETK7KLbN6knNQ4IsuqyiSiMiGkgibQZhA9Rd5ZGr/Cos5ZB31a6M/CvNwYAjJQUhu
+         ywf3y13qTElGdKh6CeQZ6hcDZtjwhxBsTJqnkzd5QlDIKnJdio/u4UVspfFanZ4nBf3n
+         IWf5Q7oL7qb+NRBOuc/O6EiMV+Kx575N8YYzKo8GlhtHadz/Gj8fo4aofB2+YMGVbevg
+         5Hug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790149305; x=1790754105;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790149342; x=1790754142;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=meb1bAvawCq/Ib8QpyVS9dzYsYkDPtpweSxQpaNTp0U=;
-        b=RKut4jkAELbWfTrvR57Dg9Ve1JenWaLcaCHoTwd7X5E5MRNm9EK/kUlXGoKjfLFc7u
-         meUYCW8sHDHScY09ogKOIpPULkXBbZv75aID+cuPc/G95ofI0bZKkAJ1P6Jshba+aoKo
-         NhPTtg+zYAmwbRWJ8SyhqwgHK5k6HpFO6oYEKO4BI/x60GB8GpkpvdKTdL7QmqE3JxvM
-         E5qwNv7Yi6b7yHqzOQf0fS+KrrpaHg5FPkg/hjSyfD8tSO747/7ytGUCmRDt5pIaD5gP
-         8wUamV59WcvL8Ny1ODVJRpXcYqe/H2pxSaE85HUkuIzT3ypwVSSznhMA1l1ZyhIkhTSl
-         0avQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjzr3qz4/CMy2l9ko/apM4cdXwj9QuXw0bhp1nOqiUDbPPbjd0Ni25grXPlplGeg5uKpUpDY3q+fq0elk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBFY47BS3XIHI1Qur37X3xxlEsjgVdis74rmqjYeb0qkL94BTe
-	IXHS2R/diaqadJNdkAMOn/b8zNnYx0qy8AiVkYe6ZVcw1jNM759OZ7jzUocsGBqHHXPofyJJ4Y1
-	7/MhM4hv+y8WblJLwpsxvWnXwMd4R4OAjwhmpdGij
-X-Gm-Gg: AYBFou1RG/v+JGud9p7no3QxX6QWCBygIp9gLNogO6I85tKMmnVO5IuWrqUA6rdrOeX
-	yy32s7GRCWHlpI0spKrSZDoDuJ/shR/KitTTizgTqN9GTQszxAOrruHajRbzDXkimSs3eQzBxiJ
-	TORb6koyufSTRwNBNU9r0MaNUeYkVcHvg/EQqcLghniWSC/f+TUNsNUMzY+fYexsZ2zGedt0s0v
-	3yHlpGpmSQQhUStzzeF3BVRECO83m3I8fHGDW4r3QKFvrbZPrVUOAJ+2mIfKs662WmW2HYBX2+k
-	mWp1FyPTlmmSJYbWq3qD7jzxFCkvhKqnBit5oSoaVg1UAtG2fQh2Rfw=
-X-Received: by 2002:ac8:7f43:0:b0:532:ad75:e432 with SMTP id
- d75a77b69052e-532ebc71886mr11204181cf.8.1790149304297; Wed, 23 Sep 2026
- 00:41:44 -0700 (PDT)
+        bh=SKMAy2InHjp3FXMfVN35EHq0oszHWkWnOoyikT1MYuk=;
+        b=QDz6FyA6VBTl4sFzE52hbU/bAXpa38QT5SUqdPd/znGKKzYVYMaHCHIoTSEiFDVrgC
+         HPXf9TybO9tDSRNAKTnSNZ2UtyLT/Tf6SDmxFE1ByqFYlEanDme3ZVRUbBgpJAOhaJv1
+         BwebaGV1NkhTSpNKnOI2wD8NjqnctEgfHp4+hEmO3BAf06tpw/9uH9OmA6V0Z/L68tue
+         9arTuZmtCPgQe2oPwYPDplqy6yIeqUevWk4d9IGAR5Q90a3uDzmXL2NUyD6K69P1Urff
+         CLoRGygPNs2Ex5x3ronfH+rkiN0WhXZRfOQwyOYuWmbpd8eQo+BMzuc6Io3pqy8YdvZ2
+         FzQA==
+X-Forwarded-Encrypted: i=1; AKwUvBzqLmnlveL9W5WziFjj/iSoVKjEODCkR6f7TvpFGuq11+E8QNOOCKnm1Z55HYKXxoAu3VH5yoqAGFkqIsA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVNk1Ywaxk7l6Q8EiPxjoV+TZGAz8QdQAfm09xYeRs//skcT3s
+	yq5WDPPpiQWkMpc7j6eu87TJU2JCpB3PZvc+7VwR6GGIDvV/5E5P4diBl8lTOLyUasmC9wdMBLy
+	LiaqNWcVDs6cq1K4VEdjcsQ==
+X-Received: from wmmu21.prod.google.com ([2002:a05:600c:d5:b0:49e:71f4:5b79])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:3e14:b0:49f:ce78:3567 with SMTP id 5b1f17b1804b1-49fdeffd80cmr20298145e9.24.1790149341765;
+ Wed, 23 Sep 2026 00:42:21 -0700 (PDT)
+Date: Wed, 23 Sep 2026 08:42:10 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260922215548.398541-1-chrismelnu@gmail.com>
-In-Reply-To: <20260922215548.398541-1-chrismelnu@gmail.com>
-From: Ian Rogers <irogers@google.com>
-Date: Wed, 23 Sep 2026 00:41:31 -0700
-X-Gm-Features: AcwNN1VapWtcX2GGSDCIJrm4EXoEzaxFJtfKpxb1AM3c9K7F1JzWeyqMfOzL1aE
-Message-ID: <CAP-5=fV0-yvc68BUSKoSajHjHY_A6COgbEJYiFxRg+G-8LeJhQ@mail.gmail.com>
-Subject: Re: perf stat: worth documenting task-clock/cpu-clock in perf-stat.txt?
-To: Christian Melendez <chrismelnu@gmail.com>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, linux-perf-users@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260923074213.3077182-1-vdonnefort@google.com>
+Subject: [PATCH 0/3] tracing: Fix simple_ring_buffer symbol checking on parisc
+ and sparc64
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 2:56=E2=80=AFPM Christian Melendez <chrismelnu@gmai=
-l.com> wrote:
->
-> Hello Arnaldo,
->
-> I'm learning performance engineering and ran into this while playing
-> around with perf stat. perf-stat.txt's TIMINGS section explains "time
-> elapsed" and "user"/"sys", but I couldn't find task-clock itself
-> documented anywhere, even though it appears in the first command
-> example, as the very first metric shown.
->
-> This apparently came up unanswered on this list before, in 2013 and
-> 2015 (2015: https://www.spinics.net/lists/linux-perf-users/msg02405.html)=
-,
-> where users asked about cpu-clock too, without anything ever being
-> added to the docs. Would it be worth documenting task-clock/cpu-clock
-> there? Happy to send a patch if so.
+Here's a series of fixes following Guenter report [1] of build
+failures on parisc and sparc64 with allmodconfigs.
 
-Extra documentation always sounds good to me. We added json
-documentation for software events not long ago (it shows up in `perf
-list`):
-https://web.git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.gi=
-t/tree/tools/perf/pmu-events/arch/common/common/software.json
-There is also documentation of cpu-clock and task-clock in the
-perf_event_open man page.
+[1] https://lore.kernel.org/all/5574c9e6-9ed2-4ee6-a2b2-fb6ee81e83a1@roeck-us.net/
 
-Thanks,
-Ian
+Vincent Donnefort (3):
+  tracing: Fix empty symbol names in simple_ring_buffer undef check
+  tracing: Fix simple_ring_buffer undef check on parisc
+  tracing: Fix simple_ring_buffer undef check on sparc64
 
-> Best regards,
-> Christian
->
+ kernel/trace/Makefile         | 5 +++--
+ kernel/trace/undefsyms_base.c | 5 ++++-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+
+base-commit: 93f51579e7df248780214094418f205253383cc5
+-- 
+2.55.0.1082.g2b9226bbc0-goog
+
