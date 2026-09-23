@@ -1,49 +1,33 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A0C2701D9;
-	Wed, 23 Sep 2026 01:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E356A334C3B;
+	Wed, 23 Sep 2026 01:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126686; cv=none; b=SV2fZrkMzIlDZPbAkPCkLFYjivZ8hEvK28SMwDNmhOOrcOoDWb+t4aKojlqDUbRTtQXJ8hJRU3i5PY9+S+XYBVTcdLKy+tpi2crdlO47gAWFTJE5CPDSZdDS6Yhohtz27OfhJDgrveTH8T3UrVWU81RJCK94uniZ9fRYnSpeUas=
+	t=1790126729; cv=none; b=jtAM7yeUFOU8jkwTSAQ8T6/hoS51XNGZA1F2USWyzO9BECYh5lSjvm1l9sy2GMECJL3dK96ffGtebiqJwX7wrcUBfBlE07kRnhJAYx8VECWRyNknmEL9cAgkYV/4g6ByTEO1eXrIn5bJr50z3yj9xo58BzapbvaHwYh40GXxTfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126686; c=relaxed/simple;
-	bh=b3c5Ia1AWvjLt2to6fKpPfhbksG3n/HircdG9CPUJUM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=la9vGnnJCs9ayDa1ikW804zRErzV0Ycd8IBp0+meIm8SSfriE/+kZnsTbjah/+Nr20rPAKEeSTIVtgOzWpt/gCmmH5fIY8mAfZAxpcVUglGMlzZAhIojbRTqSlxU/fDnH2qmLD5iqcNt0Sm+7/oYUAkF3ke1IAEkvk9kDZuoj44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=pHjVGAtd; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="pHjVGAtd"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=ncO+0ljpVZ+Qg+Yo2lC5Wdk3yJUYrQn60Hlf5stdXf0=;
-	b=pHjVGAtdbR3hqFEjfMvq9yoZdMSr7L/w4FZpjabNO6oFPCuWFxZ9U1lleHYGdlE7zfv1U6H8k
-	4L88GHX3ZMHBZoxVK78ZFGYPLgmgxxCB7qZadsif8LuCqInBkfSW3Zo2i3hLyrqn7xog/tZNUty
-	WBABx0iJw0gfJ3KOBEnYFLM=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hqJr66PxqzKm8V;
-	Wed, 23 Sep 2026 09:13:26 +0800 (CST)
-Received: from dggpemr500006.china.huawei.com (unknown [7.185.36.185])
-	by mail.maildlp.com (Postfix) with ESMTPS id 627A04057A;
-	Wed, 23 Sep 2026 09:24:33 +0800 (CST)
-Received: from localhost.localdomain (10.50.85.180) by
- dggpemr500006.china.huawei.com (7.185.36.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 23 Sep 2026 09:24:32 +0800
-From: Yao Kai <yaokai34@huawei.com>
-To: <asml.silence@gmail.com>
-CC: <axboe@kernel.dk>, <io-uring@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <liuyongqiang13@huawei.com>,
-	<yaokai34@huawei.com>
-Subject: [PATCH v2] io_uring: initialize task context before running the BPF loop
-Date: Wed, 23 Sep 2026 09:43:10 +0800
-Message-ID: <20260923014310.591292-1-yaokai34@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <d6d9cb28-50f1-474c-ba11-d634fcaad394@gmail.com>
-References: <d6d9cb28-50f1-474c-ba11-d634fcaad394@gmail.com>
+	s=arc-20240116; t=1790126729; c=relaxed/simple;
+	bh=yC39ZVBmE6KWA4Bz6dca0X886Ye+9W/oGTKx3N9Tk0I=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pEyEIoDGKsAYTbTXrs006c0Y+YGJpqtfnPbIVrVgzedGM5Aw3MRtPe3PqCcwGsBcB9iYXkXFhdiwc1foOU6QDYhgcHVttmrW3cTpXP+i4GaQMCg4ABOG47ryol+EHf/NDiES984xeqGcVxEFV5jVVTxDADyyYLWgSsgE3luZCqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.2.5.213])
+	by gateway (Coremail) with SMTP id _____8CxPtOEKrNqS9wOAA--.43380S3;
+	Wed, 23 Sep 2026 09:25:24 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.2.5.213])
+	by front1 (Coremail) with SMTP id qMiowJBx6c2EKrNqyQIkAA--.45699S2;
+	Wed, 23 Sep 2026 09:25:24 +0800 (CST)
+From: Bibo Mao <maobibo@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>,
+	kvm@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH v2 0/2] LoongArch: KVM: Code cleanup with MSI intterupt injection
+Date: Wed, 23 Sep 2026 09:18:01 +0800
+Message-Id: <20260923011803.1057945-1-maobibo@loongson.cn>
+X-Mailer: git-send-email 2.39.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,77 +35,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- dggpemr500006.china.huawei.com (7.185.36.185)
+X-CM-TRANSID:qMiowJBx6c2EKrNqyQIkAA--.45699S2
+X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
+X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
+	ZEXasCq-sGcSsGvfJ3UbIjqfuFe4nvWSU5nxnvy29KBjDU0xBIdaVrnUUvcSsGvfC2Kfnx
+	nUUI43ZEXa7xR_UUUUUUUUU==
 
-Submitting SQEs through an io_uring BPF loop can trigger a NULL pointer
-dereference in io_submit_sqes(), as shown by the following arm64 report:
-
-  [ 2049.380301] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-  [ 2049.388788] pc : io_submit_sqes+0x48/0x6c4
-  [ 2049.389153] lr : bpf_io_uring_submit_sqes+0x10/0x1c
-  [ 2049.396310] Call trace:
-  [ 2049.396531]  io_submit_sqes+0x48/0x6c4 (P)
-  [ 2049.396893]  bpf_io_uring_submit_sqes+0x10/0x1c
-  [ 2049.397293]  bpf_prog_1a2a95cb199202b5+0x3c/0x68
-  [ 2049.397699]  bpf__io_uring_bpf_ops_loop_step+0x5c/0x94
-  [ 2049.398149]  io_run_loop+0x70/0x2e4
-  [ 2049.398461]  __arm64_sys_io_uring_enter+0xf0/0x710
-  [ 2049.398882]  invoke_syscall+0x54/0x10c
-  [ 2049.399414]  el0_svc_common.constprop.0+0x40/0xe0
-  [ 2049.399829]  do_el0_svc+0x1c/0x28
-  [ 2049.400125]  el0_svc+0x38/0x1d0
-  [ 2049.400409]  el0t_64_sync_handler+0xa0/0xe4
-  [ 2049.400779]  el0t_64_sync+0x198/0x19c
-
-io_uring_enter() dispatches to io_run_loop() before reaching the normal
-submission path's io_uring_add_tctx_node() call. The loop only checks
-whether the caller is allowed to run task work; it does not initialize
-current->io_uring or associate the task with the ring. A BPF call to
-bpf_io_uring_submit_sqes() then reaches io_get_task_refs(), which assumes
-that current->io_uring is valid.
-
-A ring created with IORING_SETUP_R_DISABLED, IORING_SETUP_SINGLE_ISSUER
-and IORING_SETUP_DEFER_TASKRUN can be enabled by a different task that
-has never used io_uring. Enabling the ring makes that task the submitter
-without allocating its io_uring task context. Its first BPF-driven
-submission of a pending SQE can therefore cause a kernel Oops.
-
-Call io_uring_add_tctx_node() in io_run_loop() before invoking the loop
-and propagate any initialization error. Do this before acquiring
-uring_lock, since task context setup may acquire the same mutex. This
-also establishes the task-to-ring association used for cancellation.
-
-Fixes: 033af2b3eb19 ("io_uring: introduce callback driven main loop")
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Here is to remove some unnecessary parameter checking when injecting
+MSI interrupt, include MSI level parameter and vcpu::arch::dmsintc_state
+NULL pointer etc.
 ---
- io_uring/loop.c | 5 +++++
- 1 file changed, 5 insertions(+)
+v1 ... v2:
+  1. Remove function dmsintc_deliver_msi_to_vcpu() and inline it in
+     dmsintc_set_irq().
 
-diff --git a/io_uring/loop.c b/io_uring/loop.c
-index bbbb6ef14e6a..3d472b7827fa 100644
---- a/io_uring/loop.c
-+++ b/io_uring/loop.c
-@@ -2,6 +2,7 @@
- #include "io_uring.h"
- #include "wait.h"
- #include "loop.h"
-+#include "tctx.h"
- 
- static inline int io_loop_nr_cqes(const struct io_ring_ctx *ctx,
- 				  const struct iou_loop_params *lp)
-@@ -81,6 +82,10 @@ int io_run_loop(struct io_ring_ctx *ctx)
- {
- 	int ret;
- 
-+	ret = io_uring_add_tctx_node(ctx);
-+	if (unlikely(ret))
-+		return ret;
-+
- 	if (!io_allowed_run_tw(ctx))
- 		return -EEXIST;
- 
+  2. Keep return value with -1 rather than -EINVAL when level == 0
+     in kvm_set_msi(). Return value with 0 is one option also, now keep
+     similar with other architectures, will modify this in future when the
+     final solution is made.
+---
+Bibo Mao (2):
+  LoongArch: KVM: Remove parameter line when inject MSI
+  LoongArch: KVM: Remove duplicated checking with DMSI irq injection
+
+ arch/loongarch/include/asm/kvm_dmsintc.h |  3 +-
+ arch/loongarch/include/asm/kvm_pch_pic.h |  2 +-
+ arch/loongarch/kvm/intc/dmsintc.c        | 37 +++++-------------------
+ arch/loongarch/kvm/intc/pch_pic.c        |  6 ++--
+ arch/loongarch/kvm/irqfd.c               |  4 +--
+ 5 files changed, 15 insertions(+), 37 deletions(-)
+
+
+base-commit: 93f51579e7df248780214094418f205253383cc5
 -- 
-2.43.0
+2.39.3
 
