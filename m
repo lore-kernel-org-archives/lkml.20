@@ -1,140 +1,106 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-136.mta1.migadu.com [95.215.58.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B01499F2E
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:35:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D52647F3CD
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:35:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166936; cv=none; b=cG0IXOa1FXogjQ/ZjJv3nTeNhA4dTWyp0A5QYyWuEPdqmKPVxjQWS0UAXcPY3yXsR1FrfpJCS5c31YtQfwb5zz3dwsKYBScr+TZkPV7zo0lj0r9bfwz1K6fj3cdhcgHX3/G5GJ3KOztlnybtcwAd522LKP45DU+oqDm2iWikRNI=
+	t=1790166941; cv=none; b=lYoUZ0V7T/Lrwh03Y35xK/3GW81vMC48wQ4OHNjHhlS2dJAK/po6Klj5S/cKhPVoJerSMGvNxEYmhfAjtYbBOBltV7Va0mB1qcSBhUM2IA+O001QILmf9yTeRrJpkcZHjxMxcDYHo5wl5JSMc4jbMK6aP4lxi3aowrSAFMHa0Jw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166936; c=relaxed/simple;
-	bh=x7Apl9ihKaoaWZi5tsiyj9XdsN5NTj65ZbJChWnAXUw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=rVRZcEIWzl+CbeZ4QVMT7QW00Djh5KOa2lSjKeBBHocQ7w3X12QceZ7vMBXtSE7f3Wrez+gG7eC3KAaebl1aK+z9wPjOGlXCtSJMP7KNdrXlTDDrdnpwzOS4hExB0VoaPPpUz/Dmw9l3oAL1S2reMxExoCqwQxoY44aiWaJwov0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Uklwd6d0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=a60OyogU; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790166941; c=relaxed/simple;
+	bh=e5yFryqU9aWRWdP5mY3XA6cqBcLkh/0eNT0p0eSXlZ8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jcs3qW8tBCPZmwQOXIjbAqB0t7GK01VQj358JUFGtDW1XGOS9F+gaG8YMazEOcUyLqmsOguHI9RkedAT0Bv94MTO5PJxGHhqa468nKsqWo/dxmuo/qhTfPrOkYBQ5L1uZLU/9IxCZnw9gIOVqsElkWNWxPYBfUub+MjAN/IwflU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SF7XW5sh; arc=none smtp.client-ip=95.215.58.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Uklwd6d0";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="a60OyogU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790166933;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UDQWN+qvZeX1gaIgZOYdsKlCuMncX8rgK5IP5SLXF5I=;
-	b=Uklwd6d0eRA+Eyy2vAggML6T0CSrcFOyGz/uLDNGkTBXEtKvXHVdxMzfrbcAJJ8MZsKS4o
-	nbB5R+KH1+FMPRg61ri+N7lC6HmQ1KtlRDnY5WQSlRuguud2ZTNpS/mmBVrJSYlm+ehv84
-	VqzDyxgzwJwRVtOkWI4iLvyS0EFne7w=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-124-dF0HPRydOSSJonf9mFpc1Q-1; Wed, 23 Sep 2026 08:35:31 -0400
-X-MC-Unique: dF0HPRydOSSJonf9mFpc1Q-1
-X-Mimecast-MFC-AGG-ID: dF0HPRydOSSJonf9mFpc1Q_1790166930
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e6b5c5f44so12544225e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:35:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790166930; x=1790771730; darn=vger.kernel.org;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=UDQWN+qvZeX1gaIgZOYdsKlCuMncX8rgK5IP5SLXF5I=;
-        b=a60OyogUZ+HcW76z3sOpzu0sYxAgSCaskaeDeHAHgy3uDs6dg3MVYweUmRazLxr3rR
-         ky25sj+3BYPckeFqZ9/ZZAv+9ODycMinEgwZb6RqHSNr2d50qhNyYAOmje8D4d5e6LrC
-         XuU6GKQkOPeiN7oSjzbhmnI/IPU1710iM0z+X6+0pTw6gT5HIQonOsxQM8KXSG/8+354
-         V6kpUuxqqeazPwnWB9C3OuRTFGCscX+sDk0vtTg6UdjNkgVN3ucskiq9xdNUDZHd162i
-         hR19Gxv3BEd/vld7hxOsrMoW5mQlRZVo5whjeLwaclQf+DYVVCiy4YqU9fpKCczVboiL
-         LhdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790166930; x=1790771730;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=UDQWN+qvZeX1gaIgZOYdsKlCuMncX8rgK5IP5SLXF5I=;
-        b=wMqTmoJZDPtnjpXcARWcYYxAMdo9XE9OwUalL67u/ngVJ/s1KiyzsnZvTrRgibvGK6
-         LURYsOI4p3UmpjseUU/NfdScQJu50Eopb6G5bjADZBiR8StHyEcJ0rq+XDryuK9gD2AF
-         BkqUJnXEgzMw9nhf0tO7Ptza8g070F9BnBFuGyxgrCc1xtsWpETZDeqnGDxp849zmfIT
-         XYEWarVe2dmZ0YlAK8Ub0bDKYFdBJPAUw3S5nqXUZP2jE0qcv3lODTQl1Wk9P1mUkAHv
-         ZrFJR2/GfNc3a0G8TjSYMV9yAwRHadd2wY0URi3Tnp7OgzmFE2MwlL9mry9M3W7unVYn
-         GWrQ==
-X-Forwarded-Encrypted: i=1; AKwUvByOVxhJHD+aI+BTbYicozhVcdu3GOGYHxiSBGmEAzFh7wBlkc6W0gOkk3gbIkY5IJxs/Hpo9sBzjQEIAmo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m3KkeV0V66Lqrpx4nxpxz3pc9NiOjuqhGuehoPq7NH98awM9RA
-	UhEAFoTP0g48ueHsqIY3uaeRyFp5HHG4Ge2C+ql7dCF4zKC3BeYFtsAVXBVrfAW4oZM46pMtSWn
-	31MmP7m82SdliMdp60g4QnFHDhrLuBY/kvhpCPKFzzyAlKIBU+VTX1qGWY0sL2oU4mQ==
-X-Gm-Gg: AYBFou0Wi20unoMfzFvcAvgPny2eA0kygB7saf9fxGoABF5poNRARHgXkBlFG3Qzd9L
-	/NuT8Da2P2vp1UYRAnKW7zHFqE5S3l9Da+PrCO9thNqOu+fgrpUU9Lj2CNFpxGQb1UmlzsiDHto
-	eAOlqTxlunk5wvl43df0BUcWUHTSVWrCAvm2iRxfDyIgDgGPQrddBznar9MTu8Pxs4e0QUDedQF
-	7uKlcPVHYGTF3ggDFt1wlTPSvDoJXXnrSsnCf1BM8zOt4RN6VOSlYx51GSVNFPlWFpFEQEeDujT
-	tLXr32I3AzqIETKOLEMWQs/JTqZ8nn5GV7OasnQ9FyfaywwwVTs+y8S/2JHf1/JyZtTXTppwhom
-	G8q3ATdKK7zBjTLbR2TMr2ZYgemW8ixSzWqxbM3U=
-X-Received: by 2002:a05:600d:1:b0:49f:e3d4:4c1f with SMTP id 5b1f17b1804b1-49fe3d44c52mr16737145e9.8.1790166930505;
-        Wed, 23 Sep 2026 05:35:30 -0700 (PDT)
-X-Received: by 2002:a05:600d:1:b0:49f:e3d4:4c1f with SMTP id 5b1f17b1804b1-49fe3d44c52mr16736585e9.8.1790166930125;
-        Wed, 23 Sep 2026 05:35:30 -0700 (PDT)
-Received: from aconole-thinkpadt14gen4.rmtusnh.csb ([216.212.25.12])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1ccb90sm75125185e9.6.2026.09.23.05.35.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 05:35:29 -0700 (PDT)
-From: Aaron Conole <aconole@redhat.com>
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: netdev@vger.kernel.org,  Pablo Neira Ayuso <pablo@netfilter.org>,
-  Florian Westphal <fw@strlen.de>,  Phil Sutter <phil@nwl.cc>,  "David S.
- Miller" <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,  Jakub
- Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,  Simon
- Horman <horms@kernel.org>,  Eelco Chaudron <echaudro@redhat.com>,  Jamal
- Hadi Salim <jhs@mojatatu.com>,  Jiri Pirko <jiri@resnulli.us>,  Xin Long
- <lucien.xin@gmail.com>,  Marcelo Ricardo Leitner
- <marcelo.leitner@gmail.com>,  netfilter-devel@vger.kernel.org,
-  coreteam@netfilter.org,  linux-kernel@vger.kernel.org,
-  dev@openvswitch.org,  stable@vger.kernel.org,  Axel Mierczuk
- <axel.mierczuk@1password.com>
-Subject: Re: [PATCH net 6/6] net/sched: act_ct: fix helper UAF due to
- extensions realloc
-In-Reply-To: <20260921145655.3167436-7-i.maximets@ovn.org> (Ilya Maximets's
-	message of "Mon, 21 Sep 2026 16:55:48 +0200")
-References: <20260921145655.3167436-1-i.maximets@ovn.org>
-	<20260921145655.3167436-7-i.maximets@ovn.org>
-Date: Wed, 23 Sep 2026 08:35:26 -0400
-Message-ID: <f7ta4p89mcx.fsf@aconole-thinkpadt14gen4.rmtusnh.csb>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SF7XW5sh"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=e5yFryqU9aWRWdP5mY3XA6cqBcLkh/0eNT0p0eSXlZ8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790166937; v=1; x=1790771737;
+ b=SF7XW5sh1WFtJT7BJdkZw07r+9k7h1F/18HojftC7uZTmVxlSJK7zi8x7j7s9lUunFQfI6D7
+ m4EdRutBrfl3Xzr8Ql53pthEyhcizPYJIam15bW1n1cfkMCcRxXCSSBCHwrl4J1ggN6p0LlXdTX
+ l+YrKRY52I0mXiuxwsq4hk3Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1a2c5c2b78d5a3af;
+	Wed, 23 Sep 2026 12:35:37 +0000
+X-Mizu-Trace-ID: 1a2c5c2b78d5a3af
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <52904b48-a5fa-4872-b9bf-a05b1b7bdea2@linux.dev>
+Date: Wed, 23 Sep 2026 14:35:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC v7 0/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver
+ for ROG NVMe enclosures
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Liang Haowen <nbg2974@gmail.com>
+Cc: linux-leds@vger.kernel.org, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, "Martin K . Petersen" <mkp@kernel.org>,
+ linux-scsi@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, Armin Wolf <W_Armin@gmx.de>,
+ Hans de Goede <hansg@kernel.org>, "Derek J. Clark"
+ <derekjohn.clark@gmail.com>, Marco Scardovi <scardracs@disroot.org>,
+ Ahmed Yaseen <yaseen@ghoul.dev>
+References: <20260923103015.2365773-1-nbg2974@gmail.com>
+ <d6cd20f2-dbad-58c5-d356-b9d1fa97ea44@linux.intel.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <d6cd20f2-dbad-58c5-d356-b9d1fa97ea44@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Ilya Maximets <i.maximets@ovn.org> writes:
 
-> While calling the helpers, a raw pointer to the extensions area is
-> wired into expectations list:
+On 9/23/26 12:41, Ilpo Järvinen wrote:
+> On Wed, 23 Sep 2026, Liang Haowen wrote:
 >
->   -> nf_ct_helper()
->    -> helper->help()
->     -> nf_ct_expect_related_report()
->      -> nf_ct_expect_insert()
->       -> hlist_add_head_rcu(&exp->lnode, &master_help->expectations)
+>> Hello,
+>>
+>> v7, as its own thread, addressing Lee's review of v6.
+> No, you didn't address Lee's comments but only a small part of them. :-(
 >
-> In case the connection is not confirmed yet, more extensions can be
-> added afterwards with *_ext_add() calls reallocating the extension
-> space and leaving the now invalid pointer in the expectations list
-> that is later accessed while removing the expectation.
+> Please slow down so you've time to address all feedback properly and 
+> double check before the next submission you've addressed all feedback 
+> you've received, not just part of it.
 >
-> Make sure that helpers are called at the end after all the other
-> extensions are already added.
+> In case you think there's a comment where the reviewer is wrong, do not 
+> just silently ignore reviewer comments but engage by explaining why you 
+> think the patch is fine as is.
 >
-> Note that the helper rejection now leaves the mark and labels set,
-> but that's not different from how the NAT was handled before or how
-> the mark and the labels were handled on confirmation failure.  And
-> there are no atomicity guarantees provided by the API anyway.
->
-> Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
-> Cc: stable@vger.kernel.org
-> Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
-> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
-> ---
 
-Reviewed-by: Aaron Conole <aconole@redhat.com>
+Hi all,
 
+This person is currently in asus-linux discor and he's doing what I asked him
+to do: move LEDs commands from asusd (userspace) to the kernel and
+for me the important part (and what I suggest review focus on) is having
+a verified hardware handling code, while the led interface won't be final.
+
+The weirdness of the driver comes from the fact that we agree on touching
+the least amount possible of SCSI code since the storage part works
+very well already and we simply want to bolt LEDs on top of it without
+risking regressions on essential functionality.
+
+Marco has drafted and is working on the new interface and published
+a first version that I haven't got the time to review yet (university exams
+period).
+
+Anyway this interface should also be able to support what lenovo legion go
+drivers currently do and when accepted it should be used by at the very least
+asus, msi, lenovo but work will be long.
+
+Liang please coordinate with Marco to use that interface (or draft a
+version that can do that today). This will make like of userspace
+tools developers (including other members of asus-linux) much easier.
+Thanks.
+
+Link: https://github.com/OpenGamingCollective/linux-unstable/pull/17
+
+Best regards,
+Denis Benato
