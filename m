@@ -1,56 +1,56 @@
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0736560AA0
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:14:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A4B1522F0F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:14:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187271; cv=none; b=D/28Lq8WF0sfPtfO6rrRvm6hfoNvK+Rwcfp4BGVTB3Lb67N0mo6kB65jbOi1JJIs9F77ksHx5+Xk7/twOYcpvoPR21OqWfqK56S1J0jZy2BnbkSfiTN4P8CSCMO3zJAqtBuRpl1EtuoKCU8s7hTWdyrZJUDTL9/ijOySk8oz49M=
+	t=1790187275; cv=none; b=eFXxVcnrTQsvINlXc2bFAGrgO8eomV6qcfkaGxRjuOhd6UrhA2P2Co1vzDvjFsnIuqha4a8hSZCIL2TD2gktZ7Qo5hk1QdjaJENihQpalUXNoX0RgvXMujhcWmdfpH3TwF+9f/Iq6EWw+5F/54FN7T9DqQ1IWt24u1gmU27LggE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187271; c=relaxed/simple;
-	bh=D7mHfkJZGmpCgmnuSmVmwJlDlWYIp4EmUfdaZx0vOIs=;
+	s=arc-20240116; t=1790187275; c=relaxed/simple;
+	bh=/BxuMm0UcVb0A145X/jIhYElf1ayahADT/dRWCXXP4w=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ppdDThsekpvhKYI5zvuUPdvwLoGOqsw/PAYmD8RJ2rUxzpbZIH1XsdNibL8jdi+SMJKBv5ZDDiXc7zBFq6A5LryFCHk37AWeHPM4puw4NzNy9f6o3zk6rgB+S6IyQQMOdIae+0d4/+0NyeHqvW9nulkt8LNSxsskhhZKlfiiyhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=S19TVgVM; arc=none smtp.client-ip=74.125.82.197
+	 To:Cc:Content-Type; b=FRfqEzMFMDTga+3kzvAt26CSvSj5ILU++HPk7rIY0xtlBUIVWfDHkASNhi2sMB9nl0HUI706eWHAfoARENi3wMU3b91owKtYM6oL5uiMh0kkUl0cOSHp1lyukGx5VVPsxIT43PizkbVVS8Zc1K4lSx2sF8wjGsWj+CcDB+DBQVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Dir45VQ4; arc=none smtp.client-ip=74.125.82.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="S19TVgVM"
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-338c2e27430so1005914eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:14:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Dir45VQ4"
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-139b62317d0so332725c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:14:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790187264; x=1790792064; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790187254; x=1790792054; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=22nImBXUTtgNCV0RoR9YGrAxDBAJvu+tLjxkWm5Ubg8=;
-        b=S19TVgVMZCf4GTPL2iU3NJzsnHwuvTqvpBuQeVY3v6Xkne31OKRLvUK3Gnpiw12BEN
-         MaHZyAroPpEC74EOurPlEvxQNzutsS2uoFfg4FqXWbY76vmIf+HWtqBf2RbgBZmWmyjV
-         u3KQN33KSq7n9bD/CBqlUBuQ5MM+f6Pzb7wdjHlBDNOrWp63tmqqBhpfyPG1EUOgQEl2
-         h3ectmGq8BzXoouYnucZ5F5uc3Tqp8O9p9UebhPu+5qQfbmQCAKgVfRXGF/UPvVyfLQJ
-         15p2aLIda9m+dv5puIiwz0JhFTMFNLu0Dh5uhRD8GOX7HtIdBeOL4n8Xus7Z+xy3caYo
-         zZdw==
+        bh=Plv4qE5jtOJTQdkdOSuzOHoGPbuzUrB67J3w3vGM39Y=;
+        b=Dir45VQ4ghwTokiB5sEqNL6g9cymseF20JG3icnbpwWG4aSleQClOzbG0kDnad4LrP
+         PVSjge67z9c1/mTYEJXNd1Cj6/Wt5qkM9IsFR3hmdZl9nBy8KJMY6CYIpkew5Qtc7Nnk
+         Ij7fSX6z3JnGO5hDH2qybDO14/e6wKhCHrfgeyDQkFOPNIiRnyGb7SbBxwSaRmrPnN3h
+         AlseDmrxwSTffU5cAAC8K92B8xNnoYdv/JUGOP1a5ibTFQHL35ccWBdCc4vUYE+vNfzB
+         D1SQgGxDeVHjFwiUJKQmx6XB42UA6VderFdRph0BJW8sLtw9de39YkjGzLZlQB3kpdve
+         yAAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187264; x=1790792064;
+        d=1e100.net; s=20260707; t=1790187254; x=1790792054;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=22nImBXUTtgNCV0RoR9YGrAxDBAJvu+tLjxkWm5Ubg8=;
-        b=XHea6pmHOZzMlrOdGeuf/E5vtYr8wyNqkAhytAo+xPRwJ0pBmY5RXUrXsVtJDD4Pbo
-         2p5eE2iGrkEqRy1lqnQ87WoPN43zhL5aCywDdCT5+ZhoOOXmKafb3v3Lo2vQFLtEl19w
-         +0KvlVGTD8ge9G8g3Hc5hBthd7ujnIqvwC0QbQxthCITydNrb3G7STDrA2srXCpx1gWB
-         HcBbYs7MnLYeuL2sLnuSXrCOXyqbIseJxni5hZcf3n5YygP1bnDUw5dt+7uYFRCF7FZj
-         1lV8iE1Ic9o4uOlEHE05d7+4+ojP/sbNVKEvk60/1bTYViRRJ6mjh3KAJjHxjfiu1n3K
-         rM/Q==
-X-Forwarded-Encrypted: i=1; AKwUvByOBy5ljHmDXaQpIf3Zz4v+rzooQMdqrd6FJ5tzf0KC2+R/z8x9jgaTHAfPaA7Z89PWsC47ICvWqrH2KKc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYioqJbdZFtNWs3PoxoFPeChGw0EF748zIYhFxCCGzrGtJ+Ipn
-	+NEbw+g84rD/kmaypDM8R1Rgl2mlHhJo0KzxORk8ZqZn/DTfZxhFqYw1FXRryFTnBIqLeRh1q5i
-	FcyGLYLK8yw==
-X-Received: from dybim48.prod.google.com ([2002:a05:7301:2d30:b0:33e:5482:b701])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:1803:b0:334:3227:652a
- with SMTP id 5a478bee46e88-33e8e6a1233mr3365775eec.41.1790187263593; Wed, 23
- Sep 2026 11:14:23 -0700 (PDT)
-Date: Wed, 23 Sep 2026 11:11:53 -0700
+        bh=Plv4qE5jtOJTQdkdOSuzOHoGPbuzUrB67J3w3vGM39Y=;
+        b=soJ5/vTb6FKYpeH719H1SdJl9LliExpOHwvD7ogXAAk3P9DPaZYneWxFH/1wc6zxFL
+         tBaYf18snn9CJwYHn3f9sJz5mDVJhA9S2w5cHsbFnFYJtapxwdTDAX0SbXhplf/6CevR
+         HyIYgx6vCXhqZTOLqd5bdn6YEbc9F+iGlwu7TxHye7TJHl4higKAfVPsCDWNTV4QZNz3
+         unEt0PYcxdJEIT4O2iOhHYt2cVGiAoTOBMDsZLBduYJLibAjXjq1Vk9wFZ27qS3vD24K
+         xxpY0PV22KgLiStmqcWoE8fwcM4PBMceBkx5E8gnRAKe9F10pryqj5Jpz52+N7AeQvDk
+         yfvw==
+X-Forwarded-Encrypted: i=1; AKwUvBxQdN1YhmpwOO0BMVdP5Z8W9nctpWTreFuqfGT4NouFP3cBK1iwaZthARAETxOjDapKRyKUtB2seV56xRc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nV2uVsl4DjAPoWDHb+ZnpmZnkJsfjuczZ4BdCywxz+E3Ec27BD
+	W/24VA0lJKzVtVTrv58eI4MhEfonPWvIVLlVVR9rgRI92hvoArSj4H3sYIzptDrRSwZlgxk3Yuf
+	ABBSXXQPUYA==
+X-Received: from dlag14.prod.google.com ([2002:a05:701b:250e:b0:143:77d0:b6d4])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:205b:10b0:143:7330:7fbc
+ with SMTP id a92af1059eb24-144f90e8af0mr3344012c88.21.1790187253821; Wed, 23
+ Sep 2026 11:14:13 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:11:50 -0700
 In-Reply-To: <20260923181213.3032038-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789966896.git.irogers@google.com> <20260923181213.3032038-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260923181213.3032038-31-irogers@google.com>
-Subject: [PATCH v3 30/49] perf python: Port futex-contention to perf module
+Message-ID: <20260923181213.3032038-28-irogers@google.com>
+Subject: [PATCH v3 27/49] perf python: Port rw-by-file from Perl to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	namhyung@kernel.org
@@ -71,169 +71,157 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Port tools/perf/scripts/python/futex-contention.py to a standalone
-script in tools/perf/python/ using the perf module. Avoiding the
-embedded interpreter overhead improves execution speed by ~3.2x:
+Replace the legacy Perl script rw-by-file.pl with a standalone Python
+script in tools/perf/python/rw-by-file.py using the perf Python module.
 
-```
-$ perf record -e syscalls:sys_*_futex -a sleep 1
-...
-$ time perf script tools/perf/scripts/python/futex-contention.py
-...
-real    0m1.007s
-user    0m0.935s
-sys     0m0.072s
-$ time python3 tools/perf/python/futex-contention.py
-...
-real    0m0.314s
-user    0m0.259s
-sys     0m0.056s
-```
+Improvements compared to the legacy Perl script:
+- Remove the dependency on libperl and Perf::Trace::Util.
+- Encapsulate per-file-descriptor read/write byte and call count
+  aggregation in an RwByFile class using perf.session and resolve thread
+  command names via session.find_thread(pid, sample_tid).
+- Add argparse CLI support (-i/--input and target program filter) and
+  full type annotations.
 
-Additional improvements compared to the legacy script:
-- Consolidate per-(tid, uaddr) contention count, total_time, min_time,
-  and max_time into a single LockStats class instead of maintaining
-  three separate dictionaries.
-- Validate that uaddr and op tracepoint attributes are present on
-  syscalls:sys_enter_futex samples rather than silently attributing
-  missing fields to uaddr=0, op=0 (FUTEX_WAIT).
-- Add -i/--input CLI option support via argparse and full type
-  annotations.
-
-Add a shell test (test_futex_contention_python.sh) to verify the
-standalone script.
+Add a shell test
+(test_rw_by_file_python.sh) to verify the standalone script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/futex-contention.py         | 107 ++++++++++++++++
- .../shell/test_futex_contention_python.sh     | 115 ++++++++++++++++++
- 2 files changed, 222 insertions(+)
- create mode 100755 tools/perf/python/futex-contention.py
- create mode 100755 tools/perf/tests/shell/test_futex_contention_python.sh
+ tools/perf/python/rw-by-file.py               | 113 ++++++++++++++++++
+ .../tests/shell/test_rw_by_file_python.sh     |  68 +++++++++++
+ 2 files changed, 181 insertions(+)
+ create mode 100755 tools/perf/python/rw-by-file.py
+ create mode 100755 tools/perf/tests/shell/test_rw_by_file_python.sh
 
-diff --git a/tools/perf/python/futex-contention.py b/tools/perf/python/futex-contention.py
+diff --git a/tools/perf/python/rw-by-file.py b/tools/perf/python/rw-by-file.py
 new file mode 100755
-index 000000000000..097663d929b7
+index 000000000000..b33330261606
 --- /dev/null
-+++ b/tools/perf/python/futex-contention.py
-@@ -0,0 +1,107 @@
++++ b/tools/perf/python/rw-by-file.py
+@@ -0,0 +1,113 @@
 +#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+"""Measures futex contention."""
++# SPDX-License-Identifier: GPL-2.0-only
++"""Display r/w activity for files read/written to for a given program."""
 +from __future__ import annotations
 +
 +import argparse
 +from collections import defaultdict
-+from typing import Dict, Tuple
++import sys
++from typing import Optional, Dict
 +import perf
 +
-+class LockStats:
-+    """Aggregate lock contention information."""
-+    def __init__(self) -> None:
-+        self.count = 0
-+        self.total_time = 0
-+        self.min_time = 0
-+        self.max_time = 0
++class RwByFile:
++    """Tracks and displays read/write activity by file descriptor."""
++    def __init__(self, comm: str) -> None:
++        self.for_comm = comm
++        self.reads: Dict[int, Dict[str, int]] = defaultdict(
++            lambda: {"bytes_requested": 0, "total_reads": 0}
++        )
++        self.writes: Dict[int, Dict[str, int]] = defaultdict(
++            lambda: {"bytes_written": 0, "total_writes": 0}
++        )
++        self.unhandled: Dict[str, int] = defaultdict(int)
++        self.session: Optional[perf.session] = None
 +
-+    def add(self, duration: int) -> None:
-+        """Add a new duration measurement."""
-+        self.count += 1
-+        self.total_time += duration
-+        if self.count == 1:
-+            self.min_time = duration
-+            self.max_time = duration
++    def process_event(self, sample: perf.sample_event) -> None:
++        """Process events."""
++        event_name = str(sample.evsel)
++        if event_name.startswith("evsel(") and event_name.endswith(")"):
++            event_name = event_name[6:-1]
++        event_name = "".join(c if c.isprintable() else "?" for c in event_name)
++
++        pid = sample.sample_pid
++        assert self.session is not None
++        try:
++            thread = self.session.find_thread(pid, sample.sample_tid)
++            comm = (thread.comm() if thread else None) or "unknown"
++        except (TypeError, AttributeError):
++            comm = "unknown"
++
++        if comm != self.for_comm:
++            return
++
++        if event_name == "syscalls:sys_enter_read":
++            try:
++                fd = sample.fd
++                count = sample.count
++                self.reads[fd]["bytes_requested"] += count
++                self.reads[fd]["total_reads"] += 1
++            except AttributeError:
++                self.unhandled[event_name] += 1
++        elif event_name == "syscalls:sys_enter_write":
++            try:
++                fd = sample.fd
++                count = sample.count
++                self.writes[fd]["bytes_written"] += count
++                self.writes[fd]["total_writes"] += 1
++            except AttributeError:
++                self.unhandled[event_name] += 1
 +        else:
-+            self.min_time = min(self.min_time, duration)
-+            self.max_time = max(self.max_time, duration)
++            self.unhandled[event_name] += 1
 +
-+    def avg(self) -> float:
-+        """Return average duration."""
-+        return self.total_time / self.count if self.count > 0 else 0.0
++    def print_totals(self) -> None:
++        """Print summary tables."""
++        print(f"file read counts for {self.for_comm}:\n")
++        print(f"{'fd':>6s}  {'# reads':>10s}  {'bytes_requested':>15s}")
++        print(f"{'-'*6}  {'-'*10}  {'-'*15}")
 +
-+process_names: Dict[int, str] = {}
-+start_times: Dict[int, Tuple[int, int]] = {}
-+session = None
-+durations: Dict[Tuple[int, int], LockStats] = defaultdict(LockStats)
++        for fd, data in sorted(self.reads.items(),
++                               key=lambda kv: kv[1]["bytes_requested"], reverse=True):
++            print(f"{fd:6d}  {data['total_reads']:10d}  {data['bytes_requested']:15d}")
 +
-+FUTEX_WAIT = 0
-+FUTEX_PRIVATE_FLAG = 128
-+FUTEX_CLOCK_REALTIME = 256
-+# Mask out FUTEX_PRIVATE_FLAG and FUTEX_CLOCK_REALTIME so variants such as
-+# FUTEX_WAIT_PRIVATE (0 | 128) match the base FUTEX_WAIT command.
-+FUTEX_CMD_MASK = ~(FUTEX_PRIVATE_FLAG | FUTEX_CLOCK_REALTIME)
++        print(f"\nfile write counts for {self.for_comm}:\n")
++        print(f"{'fd':>6s}  {'# writes':>10s}  {'bytes_written':>15s}")
++        print(f"{'-'*6}  {'-'*10}  {'-'*15}")
 +
++        for fd, data in sorted(self.writes.items(),
++                               key=lambda kv: kv[1]["bytes_written"], reverse=True):
++            print(f"{fd:6d}  {data['total_writes']:10d}  {data['bytes_written']:15d}")
 +
-+def handle_start(pid: int, tid: int, uaddr: int, op: int, start_time: int) -> None:
-+    """Handle a futex sys_enter event."""
-+    if (op & FUTEX_CMD_MASK) != FUTEX_WAIT:
-+        return
++        if self.unhandled:
++            print("\nunhandled events:\n")
++            print(f"{'event':<40s}  {'count':>10s}")
++            print(f"{'-'*40}  {'-'*10}")
++            for event_name, count in self.unhandled.items():
++                print(f"{event_name:<40s}  {count:10d}")
++
++    def run(self, input_file: str) -> None:
++        """Run the session."""
++        self.session = perf.session(perf.data(input_file), sample=self.process_event)
++        try:
++            self.session.process_events()
++        finally:
++            # Break the reference cycle between perf.session and self.process_event
++            # because perf.session lacks cyclic GC support (tp_traverse).
++            self.session = None
++        self.print_totals()
++
++def main() -> None:
++    """Main function."""
++    parser = argparse.ArgumentParser(description="Trace r/w activity by file")
++    parser.add_argument("comm", help="Filter by command name")
++    parser.add_argument("-i", "--input", default="perf.data", help="Input file")
++    args = parser.parse_args()
++
++    analyzer = RwByFile(args.comm)
 +    try:
-+        if session:
-+            process = session.find_thread(pid, tid)
-+            if process:
-+                process_names[tid] = process.comm() or "unknown"
-+    except (TypeError, AttributeError):
-+        pass
-+    if tid not in process_names:
-+        process_names[tid] = "unknown"
-+
-+    start_times[tid] = (uaddr, start_time)
-+
-+def handle_end(tid: int, end_time: int) -> None:
-+    """Handle a futex sys_exit event."""
-+    if tid not in start_times:
-+        return
-+    (uaddr, start_time) = start_times[tid]
-+    del start_times[tid]
-+    durations[(tid, uaddr)].add(end_time - start_time)
-+
-+def process_event(sample: perf.sample_event) -> None:
-+    """Process a single sample event."""
-+    event_name = str(sample.evsel)
-+    if event_name.startswith("evsel(") and event_name.endswith(")"):
-+        event_name = event_name[6:-1]
-+    if event_name.startswith("syscalls:sys_enter_futex"):
-+        uaddr = getattr(sample, "uaddr", None)
-+        op = getattr(sample, "op", None)
-+        if uaddr is None or op is None:
-+            return  # Tracepoint fields missing, skip silent attribution to 0
-+        handle_start(getattr(sample, "sample_pid", sample.sample_tid),
-+                     sample.sample_tid, uaddr, op, sample.sample_time)
-+    elif event_name.startswith("syscalls:sys_exit_futex"):
-+        handle_end(sample.sample_tid, sample.sample_time)
-+
++        analyzer.run(args.input)
++    except IOError as e:
++        print(e, file=sys.stderr)
++        sys.exit(1)
 +
 +if __name__ == "__main__":
-+    ap = argparse.ArgumentParser(description="Measure futex contention")
-+    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
-+    args = ap.parse_args()
-+
-+    try:
-+        session = perf.session(perf.data(args.input), sample=process_event)
-+        try:
-+            session.process_events()
-+        except KeyboardInterrupt:
-+            pass
-+
-+        for ((t, u), stats) in sorted(durations.items()):
-+            avg_ns = stats.avg()
-+            print(f"{process_names.get(t, 'unknown')}[{t}] lock {u:x} contended "
-+                  f"{stats.count} times, {avg_ns:.0f} avg ns "
-+                  f"[max: {stats.max_time} ns, min {stats.min_time} ns]")
-+    finally:
-+        # Break the reference cycle between the global session and the
-+        # process_event callback so the C perf.session object is freed.
-+        session = None
-diff --git a/tools/perf/tests/shell/test_futex_contention_python.sh b/tools/perf/tests/shell/test_futex_contention_python.sh
++    main()
+diff --git a/tools/perf/tests/shell/test_rw_by_file_python.sh b/tools/perf/tests/shell/test_rw_by_file_python.sh
 new file mode 100755
-index 000000000000..26b13d263d20
+index 000000000000..98218bf8a39e
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_futex_contention_python.sh
-@@ -0,0 +1,115 @@
++++ b/tools/perf/tests/shell/test_rw_by_file_python.sh
+@@ -0,0 +1,68 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# futex-contention python test
++# rw-by-file python test
 +
 +set -e
 +
@@ -241,14 +229,13 @@ index 000000000000..26b13d263d20
 +# shellcheck source=lib/setup_python.sh
 +. "${shelldir}"/lib/setup_python.sh
 +
-+# If we don't have the perf python module, we can't test
 +if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
 +	echo "Skipping test, perf python module not found"
 +	exit 2
 +fi
 +
 +script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/futex-contention.py"
++script_path="${script_dir}/rw-by-file.py"
 +
 +if ! perf check feature -q libtraceevent > /dev/null 2>&1; then
 +	echo "Skipping test, libtraceevent is disabled"
@@ -256,94 +243,48 @@ index 000000000000..26b13d263d20
 +fi
 +
 +if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, futex-contention.py not found at $script_path"
++	echo "Skipping test, rw-by-file.py not found at $script_path"
 +	exit 2
 +fi
 +
 +err=0
-+temp_data=""
-+temp_out=""
-+
 +cleanup() {
 +	rm -f "${temp_data}" "${temp_out}"
 +}
-+
 +trap 'cleanup' EXIT TERM INT
-+
 +temp_data=$(mktemp /tmp/perf.data.XXXXXX)
 +temp_out=$(mktemp /tmp/perf.out.XXXXXX)
 +
-+test_synthetic() {
-+	echo "Testing futex-contention.py synthetic events..."
-+	if ! "$PYTHON" - "$script_path" << 'EOF'
-+import importlib.util
-+import sys
-+from types import SimpleNamespace
++echo "Testing rw-by-file.py..."
 +
-+spec = importlib.util.spec_from_file_location("futex_contention", sys.argv[1])
-+mod = importlib.util.module_from_spec(spec)
-+spec.loader.exec_module(mod)
++# Create a perf.data file. Try to get tracepoint data.
++if perf list | grep -q "syscalls:sys_enter_read"; then
++	perf record -e syscalls:sys_enter_read,syscalls:sys_enter_write -a -o "${temp_data}" \
++		-- dd if=/dev/urandom of=/dev/null bs=1M count=10 >/dev/null 2>&1 || \
++		{ echo "Skipping test, perf record failed"; exit 2; }
++else
++	echo "Skipping test, no syscalls:sys_enter_read event"
++	exit 2
++fi
 +
-+enter_sample = SimpleNamespace(
-+    evsel="evsel(syscalls:sys_enter_futex:k)",
-+    sample_pid=1234,
-+    sample_tid=1234,
-+    uaddr=0xdeadbeef,
-+    op=mod.FUTEX_WAIT | mod.FUTEX_PRIVATE_FLAG,
-+    sample_time=1000,
-+)
-+exit_sample = SimpleNamespace(
-+    evsel="evsel(syscalls:sys_exit_futex:k)",
-+    sample_pid=1234,
-+    sample_tid=1234,
-+    sample_time=2500,
-+)
++if [ ! -s "${temp_data}" ]; then
++	echo "Skipping test, perf record failed to create data"
++	exit 2
++fi
 +
-+mod.process_event(enter_sample)
-+mod.process_event(exit_sample)
-+
-+stats = mod.durations.get((1234, 0xdeadbeef))
-+assert stats is not None and stats.count == 1, f"Unexpected stats: {stats}"
-+assert stats.min_time == 1500 and stats.max_time == 1500 and stats.avg() == 1500.0
-+line = (f"{mod.process_names.get(1234, 'unknown')}[1234] lock {0xdeadbeef:x} "
-+        f"contended {stats.count} times, {stats.avg():.0f} avg ns "
-+        f"[max: {stats.max_time} ns, min {stats.min_time} ns]")
-+expected = "unknown[1234] lock deadbeef contended 1 times, 1500 avg ns [max: 1500 ns, min 1500 ns]"
-+assert line == expected, line
-+EOF
-+	then
-+		echo "Synthetic test failed."
++# Check that the script executes - filtering for "dd" since that's what we ran
++if ! "$PYTHON" "$script_path" -i "${temp_data}" "dd" > "${temp_out}"; then
++	echo "rw-by-file.py test failed"
++	err=1
++else
++	if ! grep -E -q "^ *[0-9]+" "${temp_out}"; then
++		echo "Failed to find metric data rows"
 +		err=1
 +	else
-+		echo "Synthetic test passed."
++		echo "rw-by-file test passed."
 +	fi
-+}
-+
-+test_file_mode() {
-+	echo "Testing futex-contention.py..."
-+	# Some systems might not have syscalls:sys_enter_futex
-+	if ! perf list | grep -q syscalls:sys_enter_futex; then
-+		echo "Skipping file mode test, syscalls:sys_enter_futex not found"
-+		return
-+	fi
-+
-+	# Generate some futex events
-+	if ! perf record -e syscalls:sys_enter_futex,syscalls:sys_exit_futex -a -o "${temp_data}" \
-+		-- sleep 0.5 2>/dev/null; then
-+		echo "Skipping file mode test (record failed)"
-+		return
-+	fi
-+
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
-+		echo "File mode test failed."
-+		err=1
-+	else
-+		echo "File mode test passed."
-+	fi
-+}
-+
-+test_synthetic
-+test_file_mode
++fi
++rm -f "${temp_out}"
 +
 +exit $err
 -- 
