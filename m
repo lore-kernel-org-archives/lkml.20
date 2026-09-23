@@ -1,194 +1,160 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0783B993F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:10:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63C89351C10;
+	Wed, 23 Sep 2026 07:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147425; cv=none; b=W+ovtAD6OR1i84zD8kznwsoq06vLOiTFaB+97Ocoj3NNsQG4ZyRZrdcZQn8Lva0ro5HSedpTsT4NlCPWAa6LLG9EqG8hm0fyRPc9IysvvIXBJdVV2YcsfA7Yzzlsl1scheunG0hU0S7zddnivxl2e+Piphlxk/mD8uOv7HTDHKM=
+	t=1790147430; cv=none; b=TwyrOdsiLwce7yMS/MfrBaIBxPLBixKdiV1gvwvqyDMvvLcZnUYUBgu0mFdCqo8iarS7ZhT7CT5a/ZF5sCM3MnKOTnVHKod4XnzGJI8I0qJQRxjXYAyRm56q9oUS1zplbWsuFy1zOmX9t4FtNbNg8myktU/UZlIm7WEfcU5Ai88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147425; c=relaxed/simple;
-	bh=gzs/ykbYiiQK5T5opupS3eRpbDSPpyLEU1OIwR2+utQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZifHQoL3B5Q56xr+p2kOP4pyRzow66Q07Ys1qzvj2qNYdY+Nq/VQYZ7cY7m4xdjUlcWWkbpd1uQ9UnqP8hH3Y8VcMJlTP4+4OZZUXipJ4XZTQAKEwWUEg1FI4soQ3Yvv4hdqdESwX7wTwxhNxWSjrFtN/57ZSr3K1z2bNpZCC0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=qiYdWCuQ; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1790147430; c=relaxed/simple;
+	bh=VTdI0rXHU7Plo8YxQMJKEND7jVUrNgvlc4MHG7bDktY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rrp+VevgG7UocEsZpb90qj3E+d4oSN6NlIJqrK4HwpOzKpvixHOTaJYAsZBbPW9CKF2BAexDigQ0LHVNmd1/DEDxe4Aotcw+BNg3ya4LFoFgMxxJTkM0I8x0seyOxL92xj12FsC8MobcB4rg3+9Dy3Gwf1FtzPM/3/W/EURurDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZktHXeeV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="qiYdWCuQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790147417;
-	bh=gzs/ykbYiiQK5T5opupS3eRpbDSPpyLEU1OIwR2+utQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=qiYdWCuQ1wudhH1YcdizWhh87WHf1yz9g46Um3EECmndkz1lRpD5nacDwbcyM9ke0
-	 Jd/ToyFmST80scCtFocslGM4GcmeoytwNBRmu84yTCTf41U6Rc+IgEX2pn0zJRc0Q6
-	 u93NweNlWTqNCeDr1Ui6qky7lzPl5xcN6NOiFJLHKnOls5vcF+me8CtZ2muh3RhNVZ
-	 IEtCUeDw5QKdiYFy2IZdV9Zs8wYpzm09sFryaax5YDN3s+S8/TveBONaZHddWD13gr
-	 pAnN5qwRsRdIfQ8dYLBx6YFKMiXp8wWlJVZG2IVn9yEREWi+3KE/pH+UiSXjUQ2Ccg
-	 ZG/Tk4FEO5fFw==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0E44B17E0803;
-	Wed, 23 Sep 2026 09:10:17 +0200 (CEST)
-Date: Wed, 23 Sep 2026 09:10:10 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v9 10/16] drm/panfrost: Add debugfs knob for manually
- triggering a GPU reset
-Message-ID: <20260923091010.58b8e677@fedora-21.home>
-In-Reply-To: <arGKAk8ZWGOGDWEY@sobremesa>
-References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
-	<20260912-claude-fixes-v9-10-e588feaa61ef@collabora.com>
-	<20260914113946.69936104@fedora-21.home>
-	<arGKAk8ZWGOGDWEY@sobremesa>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZktHXeeV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF7D1F00893;
+	Wed, 23 Sep 2026 07:10:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790147422;
+	bh=t9RAe9ZjvGj6dYOYWWXV4UowTJ/0wUjk9Zi0mnvN1Ks=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZktHXeeVHUdVX84HQm0s5eTwxdjCgV+/1qk2ubVk78nV17YKtFkiFazEoAUDTsoXc
+	 M9HCiTHUQ7J69MHTAi4rLJyLVgYuyNbgSZJz+v4NLmOvNpB/bSTDv4lHPBz5Q4Gbdm
+	 cw1DRtF+qN9ZW+I8gS7aCogIW950qmkzAO26UzPGSnMSRMFt2p6bBCYM4H0oUIHroz
+	 jtcloLZ16zE9tgGKnollzIYQBpif6cPAzGzXl2ECvovYLZTpgksOX/6bxn4RAYnBNk
+	 G5I4qUhKiokal3pqf0QgZTJFeUKOfYndJa8L1dZhaKM+4yq8dKa2tMGYzCO83fHsqT
+	 OShYOOxxd3Q4Q==
+Date: Wed, 23 Sep 2026 08:09:58 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, 
+	guoren@kernel.org, bcain@kernel.org, geert@linux-m68k.org, dinguyen@kernel.org, 
+	schuster.simon@siemens-energy.com, jonas@southpole.se, stefan.kristiansson@saunalahti.fi, 
+	shorne@gmail.com, dalias@libc.org, glaubitz@physik.fu-berlin.de, pjw@kernel.org, 
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, linux@armlinux.org.uk, 
+	vgupta@kernel.org, monstr@monstr.eu, chris@zankel.net, jcmvbkbc@gmail.com, 
+	will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com, peterz@infradead.org, 
+	davem@davemloft.net, andreas@gaisler.com, richard.henderson@linaro.org, 
+	mattst88@gmail.com, linmag7@gmail.com, catalin.marinas@arm.com, mark.rutland@arm.com, 
+	chenhuacai@kernel.org, kernel@xen0n.name, tsbogend@alpha.franken.de, 
+	James.Bottomley@hansenpartnership.com, deller@gmx.de, maddy@linux.ibm.com, mpe@ellerman.id.au, 
+	chleroy@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com, 
+	borntraeger@linux.ibm.com, svens@linux.ibm.com, richard@nod.at, 
+	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net, tglx@kernel.org, mingo@redhat.com, 
+	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
+	arnd@arndb.de, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, jgg@ziepe.ca, jhubbard@nvidia.com, peterx@redhat.com, 
+	ysato@users.sourceforge.jp, shakeel.butt@linux.dev, corbet@lwn.net, rdunlap@infradead.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, 
+	linux-hexagon@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+	linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sparclinux@vger.kernel.org, linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-s390@vger.kernel.org, linux-um@lists.infradead.org, hughd@google.com, 
+	qi.zheng@linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 01/12] mm/khugepaged: deposit a newly allocated page
+ table on collapse
+Message-ID: <arN6TnhWK0j61E3q@gremlin>
+References: <20260922-rcu-pagetable-freeing-v4-1-fe1ad1f1e303@kernel.org>
+ <20260923022436.61930-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923022436.61930-1-lance.yang@linux.dev>
 
-On Tue, 22 Sep 2026 20:54:11 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+On Wed, Sep 23, 2026 at 10:24:36AM +0800, Lance Yang wrote:
+> > mm/khugepaged.c | 32 ++++++++++++++++++++++++++++++--
+> > 1 file changed, 30 insertions(+), 2 deletions(-)
+> >
+> >diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> >index f49a6710933b..dab421f8233e 100644
+> >--- a/mm/khugepaged.c
+> >+++ b/mm/khugepaged.c
+> >@@ -1278,6 +1278,23 @@ static enum scan_result alloc_charge_folio(struct folio **foliop, struct mm_stru
+> > 	return SCAN_SUCCEED;
+> > }
+> >
+> >+static pgtable_t alloc_deposit_pte(struct mm_struct *mm)
+> >+{
+> >+	/*
+> >+	 * khugepaged is run from a kernel thread, so need to manually set the
+> >+	 * correct memcg so the allocation gets charged correctly.
+> >+	 */
+> >+	struct mem_cgroup *memcg = get_mem_cgroup_from_mm(mm);
+> >+	struct mem_cgroup *old_memcg = set_active_memcg(memcg);
+> >+	pgtable_t pgtable;
+> >+
+> >+	pgtable = pte_alloc_one(mm);
+> >+
+> >+	set_active_memcg(old_memcg);
+> >+	mem_cgroup_put(memcg);
+> >+	return pgtable;
+> >+}
+> >+
+> > /*
+> >  * collapse_huge_page() expects the mmap_lock to be unlocked before entering and
+> >  * will always return with the lock unlocked, to avoid holding the mmap_lock
+> >@@ -1293,7 +1310,7 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+> > 	LIST_HEAD(compound_pagelist);
+> > 	pmd_t *pmd, _pmd;
+> > 	pte_t *pte = NULL;
+> >-	pgtable_t pgtable;
+> >+	pgtable_t pgtable = NULL;
+> > 	struct folio *folio;
+> > 	spinlock_t *pmd_ptl, *pte_ptl;
+> > 	enum scan_result result = SCAN_FAIL;
+> >@@ -1310,6 +1327,12 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+> > 		goto out_nolock;
+> > 	}
+> >
+> >+	if (is_pmd_order(order)) {
+> >+		pgtable = alloc_deposit_pte(mm);
+> >+		if (!pgtable)
+> >+			goto out_nolock;
+>
+> One small thing: result is still SCAN_SUCCEED after alloc_charge_folio(),
+>
+> 	result = alloc_charge_folio(&folio, mm, cc, order);
+> 	if (result != SCAN_SUCCEED)
+> 		goto out_nolock;
+>
+> 	if (folio_memcg_alloc_deferred(folio)) {
+> 		result = SCAN_ALLOC_HUGE_PAGE_FAIL;
+> 		goto out_nolock;
+> 	}
+>
+> 	if (is_pmd_order(order)) {
+> 		pgtable = alloc_deposit_pte(mm);
+> 		if (!pgtable)
+> 			goto out_nolock;
+> 	}
+>
+> so if alloc_deposit_pte() fails, collapse_huge_page() returns success
+> without installing a PMD.
+>
+> I see sashiko pointed that out too :)
+>
+> Cheers, Lance
 
-> On 14.09.2026 11:39, Boris Brezillon wrote:
-> > On Sat, 12 Sep 2026 00:28:11 +0100
-> > Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
-> >  =20
-> > > This will be of great help when testing potential races between the G=
-PU
-> > > reset sequence and other parts of the code accessing HW registers.
-> > >=20
-> > > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> =20
-> >=20
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> >=20
-> > One comment below.
-> >  =20
-> > > ---
-> > >  drivers/gpu/drm/panfrost/panfrost_device.c | 37 ++++++++++++++++++++=
-++++++++++
-> > >  1 file changed, 37 insertions(+)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu=
-/drm/panfrost/panfrost_device.c
-> > > index d75566a45392..0aee1d87a7ab 100644
-> > > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> > > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > > @@ -2,6 +2,7 @@
-> > >  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
-> > >  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
-> > > =20
-> > > +#include <linux/debugfs.h>
-> > >  #include <linux/clk.h>
-> > >  #include <linux/reset.h>
-> > >  #include <linux/platform_device.h>
-> > > @@ -583,9 +584,45 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) =3D {
-> > >  };
-> > > =20
-> > >  #ifdef CONFIG_DEBUG_FS
-> > > +static int reset_get(void *data, u64 *val)
-> > > +{
-> > > +	struct panfrost_device *pfdev =3D
-> > > +		container_of(data, struct panfrost_device, base);
-> > > +
-> > > +	*val =3D atomic_read(&pfdev->reset.pending);
-> > > +	return 0;
-> > > +}
-> > > +
-> > > +static int reset_set(void *data, u64 val)
-> > > +{
-> > > +	struct panfrost_device *pfdev =3D
-> > > +		container_of(data, struct panfrost_device, base);
-> > > +	int ret =3D pm_runtime_get_if_active(pfdev->base.dev);
-> > > +
-> > > +	if (ret) {
-> > > +		panfrost_device_schedule_reset(pfdev); =20
-> >=20
-> > It feels weird to schedule a reset if the device is suspended, because
-> > a suspend/resume cycle already acts as a reset. Any particular reason
-> > you'd want to do that? If not, I'd suggest going for: =20
->=20
-> That's been my goal all along, for the knob to trigger a reset only when
-> the device isn't suspended. pm_runtime_get_if_active() docs states that:
->=20
-> """
-> Increment the runtime PM usage counter of @dev if its runtime PM status is
-> %RPM_ACTIVE, in which case it returns 1. If the device is in a different
-> state, 0 is returned. -EINVAL is returned if runtime PM is disabled for t=
-he
-> device, in which case also the usage_count will remain unmodified.
-> """
->=20
-> So (ret !=3D 0) means the device either doesn't support RPM or else it
-> was in the ACTIVE state. In both cases, that means the device is powered
-> so we can proceed with the reset. However, I only decrement the usage
-> counter when kernel RPM is enabled (ret > 1).
+Sigh ack yeah oops :) I think SCAN_ALLOC_HUGE_PAGE_FAIL is the closest though
+it's not allocating a huge page so much as the page table, but gets the correct
+MADV_COLLAPSE -ENOMEM back.
 
-Okay, I see. Can we have a comment explaining that? Also, I think I
-prefer an early bail out over the extra indentation level added here.
+(Another case of local AI review not catchign something btw! Sashiko does lean
+towards over-reporting/hallucinating but catches more)
 
-	if (!ret)
-		return 0;
+Will ask Andrew to update in reply to this patch as a quick thing rather than
+respin so quick, and fix up on any respin.
 
-Oh, and we should probably make this knob inactive in the device removal
-path (with a disable_work()?), otherwise -EINVAL will be returned as
-soon as pm_runtime_disable() is called, and this might cause a reset to
-be scheduled, which we probably don't want, since it would interfere
-with our device_fini() logic.
-
->=20
-> > 	if (ret <=3D 0)
-> > 		return ret;
-> >=20
-> > 	panfrost_device_schedule_reset(pfdev);
-> > 	pm_runtime_put(pfdev->base.dev);
-> > 	return 0;
-> >  =20
-> > > +		flush_work(&pfdev->reset.work);
-> > > +		if (ret > 0)
-> > > +			pm_runtime_put(pfdev->base.dev);
-> > > +	}
-> > > +
-> > > +	return 0;
-> > > +}
-> > > +
-> > > +DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
-> > > +			 reset_get, reset_set,
-> > > +			 "0x%08llx\n");
-> > > +
-> > > +static void panfrost_reset_debugfs_init(struct drm_minor *minor)
-> > > +{
-> > > +	debugfs_create_file("reset", 0600, minor->debugfs_root,
-> > > +			    minor->dev, &panfrost_reset_debugfs_fops);
-> > > +}
-> > > +
-> > >  void panfrost_device_debugfs_init(struct drm_minor *minor)
-> > >  {
-> > >  	panfrost_gem_debugfs_init(minor);
-> > >  	panfrost_sched_debugfs_init(minor);
-> > > +	panfrost_reset_debugfs_init(minor);
-> > >  }
-> > >  #endif // CONFIG_DEBUG_FS
-> > >  =20
->=20
-> Adrian Larumbe
-
+--
+Cheers, Lorenzo
