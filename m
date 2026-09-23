@@ -1,84 +1,71 @@
-Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625524399FB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9625121A459;
+	Wed, 23 Sep 2026 05:40:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.218.115.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142026; cv=none; b=PYZipcuaA+ajpMRseDlXdYOPMnN0o0frUixR6PQc849PMI+yM3AKBBefU6boqCExnBqiJp43TWbt6KH1zGnCjYM45J4pXUDmiAI8l+E9WR2Lmi3mOq2TuDYCNObIiB2UIwwerO0jejQOOycSrwULpzKOxRTqHqT55BayRgT9s3c=
+	t=1790142038; cv=none; b=UVUiuM25ubndXaSeAbQ9bQH7cB0jOc5DRHneemZ2elkGTKtHg0tWz/vBFzjW7v/TuEeyy//Y3BqMF0d2xuUDPJRPaUhCGoYDyaP05nYyt3gloFvR/u7+TZP3ZOe8ytrbgkz2m5fWdwF76fcM59JjSUF38zr7Bqip/IlQlON67jo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142026; c=relaxed/simple;
-	bh=s3xFOpyusB+gbcdNu45N3zv7siv6m0mWV55Nz23kMrw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ox9Yf3FPGb6ShMaZ2IeIqKXLKZaTsNu0yctnF4ODW5N4z6b+8HjoiUDyh7OGwoIUFLGRtQA/h1dG85Tiog7PtQIZWkIcoE5JiSb27yjXmcTvWGDPMCfM0ja8HsqWZtnD/epqPfDX8WMLSyH7f5aN49Hz2kgh++923BqLINGxviU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ReiNCX2W; arc=none smtp.client-ip=74.125.230.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790142038; c=relaxed/simple;
+	bh=Tfn8qvtEMA3bVae84++iK1W+N2jp6kiBt73YYSQudGM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=b37LIfOsjl5y7fE1d18yTEzWXZwD1ihg8KRixHcvANy2Ef8Wvn1VkImi08jaPRjIF5SZhU7CxqH1/eByplcKCzbc0LRJvpaN+G1ES1jht0yb+WCbxh2+WbJNWRx6s3SKxqEGfngDvX3jl1x/KAIS1OAV4kF8J1u1UAwwyAiakPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=dWTNutNd; arc=none smtp.client-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ReiNCX2W"
-Received: by mail-qk2-f42.google.com with SMTP id af79cd13be357-93bd580489dso64074785a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:40:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="dWTNutNd"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790142023; x=1790746823; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4t2QKwvgTvrUqgLrxmE0i6NBCj41D7R9VJyZdg6puRQ=;
-        b=ReiNCX2Wknwb02PTP7CnNJBfhVDaCcNxdzWqxlhROjyjnu01WsOs1zUtP1ueFYT1IE
-         tnjog2Vidu6pzfnZ7R/OH+4qvPC/RTm0ZXm1ipiaVDIgbaQI2D39gGtsR2MmaVmNMtVQ
-         syxLvMdXdSHTAOg9KlPedGRBqPX9slpmdcra/4fy99zR8ZGKQ84dXjv88B+AmBKLgG01
-         Olu0e5dEFXJjVHWt63+jURAbOWmRhWtzyXP6r+RuZBKTvFv+mB5NpLsjMbhLUUGxymKF
-         IX48R3i7EnAcBdy0gI2A9+2XY1oxJmLT8x50Ca4PD041csmSKYlZZtRRKSYwZK/gCNX0
-         LAWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790142023; x=1790746823;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4t2QKwvgTvrUqgLrxmE0i6NBCj41D7R9VJyZdg6puRQ=;
-        b=nL6Ch4KOLh4OpO1RD2timg1148hyBJw/tiISQ6yp201ZjujhV+7o9vv5QOpTqoslIT
-         lZoNHEgDCgiFOgNgBTu916Tjjnrv4PVsyvRGxprh5ECMuKImkLhTHF31cFiussCoeVF8
-         DpxSSfvP789d1sZWgJKbZzwbCJhVGKslWGrM78hhADZ5HKrGCKtVTA8VpCnq92lOn5SA
-         4VWZ10uNvoALALB+SWqijnc8hOcKBz/QKfTq8QymtTa2DNXAUQog1eZOgAaCJbP8qjD2
-         aCnNmU1uwWlrBRTlT+Yo+UwmcHpcaiv+vRfWJLfjQRbHhJcvnejgckWBpyxGoL4wDcXM
-         HZ6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzphLdA+tQ4MoZg9KDAqqg/8QN72PDcWG3RA3ilVYd/Mt92uEYCDpwbkX8ZujA4PWjNNUWkBc5lfJTeZdc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mA9vyBUvGKHKhOpT21fqw3GtapSzUbsV3PfG9DH/M2KXwsugch
-	9vXrYZDgqTkE6tvRQgBqS7h9hVi0lfdLQ66BBZNLKAg3lDbiz2HgbDU=
-X-Gm-Gg: AYBFou2pNS0L/zJyOW37C76ET6nfY83R4cEwQ8uYLeQaHxrrAKfxCiHK6+HCyNs8ZMj
-	RyE++xR2WeZt93gcwtoDK1brQZWazl0T/23q4biT0Sk7cEem6Sf1Q22V8VruslEgFQ+VTteF3JW
-	Mku+nq3QSk0NBfUwANbq9UjN5FE6V8X31Yx1PJmeCWjAMoJSCmY/sH71bQR9fK2PUVEkpVFjnuA
-	xD+dDSpq+eahXWncvLkpY5SKpLuQIdYo4fS+M8N4dn7ecgUnOs+aUA6BSpg4TgWDJEsSJfo5nUn
-	p8ZISwRIb2Gyt8odp59MeY4V39xn5FdLw5G2eFPnU+1BQo13nTAGjFdg7alYBfnnhyWICf+cHnK
-	gj2l3/MKk6Aat5afthzgI0N0ODn9UFNwxdv4ZkEkz6bpSiHItQf3tX2cPnpQwFg8ytSfzR01tcE
-	ZmdL/g4OjSHJW1P/qQ8MKpDmRdhJKp1/0Nbm8RCNoHzcUqhF4KMGyn/qIaQPr5AJRcNxcNjXnYI
-	j18U8E3cRHEyHfNs5RmMrFR5pOp3tKQ0K1PBMLpniE8mr2oggttbHxKyqWqI7GPeFo+lcfQs/iq
-	pw2rfeo+dkVjB9tq46j8Y9+gZuVN44f4Lo+WDkcjuufspPQVtsEqMVT81XwvuTzupo4LjWe1YRh
-	/iQ==
-X-Received: by 2002:a05:620a:6409:b0:939:1483:55c with SMTP id af79cd13be357-93c25118d3fmr276086185a.19.1790142023287;
-        Tue, 22 Sep 2026 22:40:23 -0700 (PDT)
-Received: from localhost.localdomain (h16.44.55.139.dynamic.ip.windstream.net. [139.55.44.16])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c277636e4sm88496685a.41.2026.09.22.22.40.18
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 22 Sep 2026 22:40:20 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@gmail.com>,
-	Shengjiu Wang <shengjiu.wang@nxp.com>,
-	Xiubo Li <Xiubo.Lee@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Myeonghun Pak <mhun512@gmail.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Nicolin Chen <nicoleotsuka@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] ASoC: fsl_xcvr: free IRQ before canceling reset work
-Date: Wed, 23 Sep 2026 01:40:17 -0400
-Message-ID: <20260923054017.93553-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1790142036; x=1821678036;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=mNOFMcm0ALQtx8uNz3E+ErHcgScbjyXVRxmwiRpaAqs=;
+  b=dWTNutNdYX5MvjpmeEqbwtcNvivNU1edMSQjbUF5flQjjwkqIYGb1HV/
+   1M1J4z7koUCEuDBoSX9rCVz+SqGVn/39SuZEaE46JjziSMwv9Zh0Bi9QJ
+   DYXAKYWLkmrwQy54JLcRJMYjGBMQGlDX7cFhYb3gQwOjaFvjP7/vkYEln
+   NG/qBassS/nYcshneYdUvKWXAOMlbrh2Qi2qeJT/B6ewBXZEvyudGSI5T
+   tnBSyp1O9J5jKKkRaMKpDrTiB4i3eDu4aBOL2pSHZgy7fzyxByIoqSWgv
+   WM3ErQsTus/dAca8nPiPmh92b9yLyoXXZgX+MKG1Qn0Abxjq7mA//PezH
+   Q==;
+X-CSE-ConnectionGUID: SBWtaKhPSbOjzZ252NTu3w==
+X-CSE-MsgGUID: XhJ/DhJTTymXN7+atpYlng==
+X-IronPort-AV: E=Sophos;i="6.27,117,1787011200"; 
+   d="scan'208";a="29195618"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 05:40:36 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:23925]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.60.208:2525] with esmtp (Farcaster)
+ id 8069c48d-6f98-4c16-adc6-07f7fb2f3ce0; Wed, 23 Sep 2026 05:40:35 +0000 (UTC)
+X-Farcaster-Flow-ID: 8069c48d-6f98-4c16-adc6-07f7fb2f3ce0
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 23 Sep 2026 05:40:35 +0000
+Received: from dev-dsk-wanjay-2c-d25651b4.us-west-2.amazon.com (172.19.198.4)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Wed, 23 Sep 2026 05:40:35 +0000
+From: Jay Wang <wanjay@amazon.com>
+To: <bpf@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>, "Daniel
+ Borkmann" <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+	"Eduard Zingerman" <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi
+	<memxor@gmail.com>
+CC: Alan Maguire <alan.maguire@oracle.com>, Martin KaFai Lau
+	<martin.lau@linux.dev>, Yonghong Song <yonghong.song@linux.dev>, "Nathan
+ Chancellor" <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	<linux-kbuild@vger.kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, "Petr
+ Pavlu" <petr.pavlu@suse.com>, <linux-modules@vger.kernel.org>, Arnd Bergmann
+	<arnd@arndb.de>, <linux-kernel@vger.kernel.org>, Hazem Mohamed Abuelfotoh
+	<abuehaze@amazon.com>, Bjoern Doebel <doebel@amazon.de>,
+	<jay.wang.upstream@gmail.com>
+Subject: [PATCH bpf-next 3/6] bpf: fetch the vmlinux BTF where kernel types enter a program
+Date: Wed, 23 Sep 2026 05:39:45 +0000
+Message-ID: <20260923053948.30617-4-wanjay@amazon.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260923053948.30617-1-wanjay@amazon.com>
+References: <20260923053948.30617-1-wanjay@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,99 +73,184 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D038UWB004.ant.amazon.com (10.13.139.177) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-irq0_isr() schedules work_rst on a preamble error, and reset_rx_work()
-touches regmap.  remove() cancels that work while the IRQ is still
-registered, so the handler can queue it again during teardown.  The IRQ
-is also requested before INIT_WORK() and spin_lock_init().  Probe
-failure does not call remove(), so freeing the IRQ leaves queued work
-running, and an earlier interrupt schedules uninitialized work.
+bpf_check() fetches the vmlinux BTF up front for every program, whether
+the program uses kernel types or not.  With the upcoming
+CONFIG_DEBUG_INFO_BTF=m that fetch loads a module and parses 5 MiB of
+BTF, and since systemd loads socket filters at boot, it would happen on
+every system, whether anything uses BTF or not.
 
-Initialize the lock and devm_work_autocancel() before the IRQ.  Failed
-probe then frees the IRQ and cancels the work.  Unbind frees the IRQ
-before cancel_work_sync() and pm_runtime_disable().
+Stop fetching up front and fetch at the points where kernel types enter
+the verifier state instead:
 
-Fixes: 1e5d0f106164 ("ASoC: fsl_xcvr: reset RX dpath after wrong preamble")
-Cc: stable@vger.kernel.org # 6.13+
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+ - bpf_add_kfunc_call(), for the first kfunc call of a program;
+ - check_pseudo_btf_id(), for ldimm64 of a kernel variable;
+ - check_ptr_to_map_access(), for accessing a map pointer's fields;
+ - check_helper_call(), when the helper's prototype takes or returns a
+   PTR_TO_BTF_ID (helper_uses_vmlinux_btf()).
+
+Together with the existing fetch in bpf_prog_load() for attach_btf and
+the struct_ops map creation, every PTR_TO_BTF_ID register a program can
+hold originates from one of these sites.  A program that uses none of
+them, such as a socket filter, no longer touches the vmlinux BTF.
+
+bpf_snprintf_btf() and bpf_seq_printf_btf() run in program context and
+cannot afford a fetch that may sleep.  Add bpf_peek_btf_vmlinux(), which
+returns the parsed vmlinux BTF or NULL without parsing anything, and use
+it there; the helpers fail with -EINVAL if the BTF is not parsed, as they
+do on a kernel without BTF.
+
+With CONFIG_DEBUG_INFO_BTF=y the vmlinux BTF is parsed at boot by the
+first kfunc registration, so nothing changes.  Without BTF, a helper that
+takes or returns a kernel pointer is now rejected with -ENOTSUPP at the
+call rather than with -EINVAL for its zero return type id.
+
+Signed-off-by: Jay Wang <wanjay@amazon.com>
 ---
- sound/soc/fsl/fsl_xcvr.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+ include/linux/bpf.h      |  1 +
+ kernel/bpf/verifier.c    | 54 +++++++++++++++++++++++++++++++++++-----
+ kernel/trace/bpf_trace.c |  3 ++-
+ 3 files changed, 51 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
-index 9828272..29929df 100644
---- a/sound/soc/fsl/fsl_xcvr.c
-+++ b/sound/soc/fsl/fsl_xcvr.c
-@@ -3,6 +3,7 @@
+diff --git a/include/linux/bpf.h b/include/linux/bpf.h
+index e7c5e203eddd..a3c4caad5dfc 100644
+--- a/include/linux/bpf.h
++++ b/include/linux/bpf.h
+@@ -3165,6 +3165,7 @@ static inline s32 bpf_call_args_imm(s16 idx)
+ #endif
  
- #include <linux/bitrev.h>
- #include <linux/clk.h>
-+#include <linux/devm-helpers.h>
- #include <linux/firmware.h>
- #include <linux/interrupt.h>
- #include <linux/module.h>
-@@ -57,6 +58,7 @@ struct fsl_xcvr {
- 	struct snd_aes_iec958 tx_iec958;
- 	u8 cap_ds[FSL_XCVR_CAPDS_SIZE];
- 	struct work_struct work_rst;
-+	int irq;
- 	spinlock_t lock; /* Protect hw_reset and trigger */
- 	struct snd_pcm_hw_constraint_list spdif_constr_rates;
- 	u32 spdif_constr_rates_list[SPDIF_NUM_RATES];
-@@ -1617,7 +1619,7 @@ static int fsl_xcvr_probe(struct platform_device *pdev)
- 	struct fsl_xcvr *xcvr;
- 	struct resource *rx_res, *tx_res;
- 	void __iomem *regs;
--	int ret, irq;
-+	int ret;
+ struct btf *bpf_get_btf_vmlinux(void);
++struct btf *bpf_peek_btf_vmlinux(void);
  
- 	xcvr = devm_kzalloc(dev, sizeof(*xcvr), GFP_KERNEL);
- 	if (!xcvr)
-@@ -1705,12 +1707,22 @@ static int fsl_xcvr_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(xcvr->reset),
- 				     "failed to get XCVR reset control\n");
+ /* Map specifics */
+ struct xdp_frame;
+diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+index a7c9e2d8965d..2425ea74b61d 100644
+--- a/kernel/bpf/verifier.c
++++ b/kernel/bpf/verifier.c
+@@ -2873,7 +2873,8 @@ int bpf_add_kfunc_call(struct bpf_verifier_env *env, u32 func_id, u16 offset)
+ 	tab = prog_aux->kfunc_tab;
+ 	btf_tab = prog_aux->kfunc_btf_tab;
+ 	if (!tab) {
+-		if (!btf_vmlinux) {
++		/* with CONFIG_DEBUG_INFO_BTF=m this is where the vmlinux BTF gets loaded */
++		if (IS_ERR_OR_NULL(bpf_get_btf_vmlinux())) {
+ 			verbose(env, "calling kernel function is not supported without CONFIG_DEBUG_INFO_BTF\n");
+ 			return -ENOTSUPP;
+ 		}
+@@ -6257,7 +6258,8 @@ static int check_ptr_to_map_access(struct bpf_verifier_env *env,
+ 	u32 btf_id;
+ 	int ret;
  
-+	/*
-+	 * irq0_isr() schedules work_rst. Prepare the work and its lock
-+	 * before the IRQ, and register the cancel action first so a failed
-+	 * probe frees the IRQ and then cancels any queued work.
-+	 */
-+	spin_lock_init(&xcvr->lock);
-+	ret = devm_work_autocancel(dev, &xcvr->work_rst, reset_rx_work);
-+	if (ret)
-+		return ret;
+-	if (!btf_vmlinux) {
++	/* with CONFIG_DEBUG_INFO_BTF=m this is where the vmlinux BTF gets loaded */
++	if (IS_ERR_OR_NULL(bpf_get_btf_vmlinux())) {
+ 		verbose(env, "map_ptr access not supported without CONFIG_DEBUG_INFO_BTF\n");
+ 		return -ENOTSUPP;
+ 	}
+@@ -11568,6 +11570,20 @@ static int release_reg(struct bpf_verifier_env *env, struct bpf_reg_state *reg,
+ 	return err;
+ }
+ 
++/* Does calling @fn bring kernel BTF types into the program state? */
++static bool helper_uses_vmlinux_btf(const struct bpf_func_proto *fn)
++{
++	int i;
 +
- 	/* get IRQs */
--	irq = platform_get_irq(pdev, 0);
--	if (irq < 0)
--		return irq;
-+	xcvr->irq = platform_get_irq(pdev, 0);
-+	if (xcvr->irq < 0)
-+		return xcvr->irq;
- 
--	ret = devm_request_irq(dev, irq, irq0_isr, 0, pdev->name, xcvr);
-+	ret = devm_request_irq(dev, xcvr->irq, irq0_isr, 0, pdev->name, xcvr);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to claim IRQ0\n");
- 
-@@ -1751,8 +1763,6 @@ static int fsl_xcvr_probe(struct platform_device *pdev)
- 			fsl_xcvr_comp.name);
++	if (base_type(fn->ret_type) == RET_PTR_TO_BTF_ID)
++		return true;
++	for (i = 0; i < MAX_BPF_FUNC_ARGS; i++) {
++		if (base_type(fn->arg_type[i]) == ARG_PTR_TO_BTF_ID)
++			return true;
++	}
++	return false;
++}
++
+ static int check_helper_call(struct bpf_verifier_env *env, struct bpf_insn *insn,
+ 			     int *insn_idx_p)
+ {
+@@ -11637,6 +11653,16 @@ static int check_helper_call(struct bpf_verifier_env *env, struct bpf_insn *insn
+ 		return err;
  	}
  
--	INIT_WORK(&xcvr->work_rst, reset_rx_work);
--	spin_lock_init(&xcvr->lock);
- 	return ret;
++	/*
++	 * Helpers that take or return kernel BTF pointers need the vmlinux
++	 * BTF; with CONFIG_DEBUG_INFO_BTF=m this is where it gets loaded.
++	 */
++	if (helper_uses_vmlinux_btf(fn) && IS_ERR_OR_NULL(bpf_get_btf_vmlinux())) {
++		verbose(env, "helper %s#%d is not supported without vmlinux BTF\n",
++			func_id_name(func_id), func_id);
++		return -ENOTSUPP;
++	}
++
+ 	if (fn->might_sleep && !in_sleepable_context(env)) {
+ 		verbose(env, "sleepable helper %s#%d in %s\n", func_id_name(func_id), func_id,
+ 			non_sleepable_context_description(env));
+@@ -19235,12 +19261,13 @@ static int check_pseudo_btf_id(struct bpf_verifier_env *env,
+ 			return -EINVAL;
+ 		}
+ 	} else {
+-		if (!btf_vmlinux) {
++		/* with CONFIG_DEBUG_INFO_BTF=m this is where the vmlinux BTF gets loaded */
++		btf = bpf_get_btf_vmlinux();
++		if (IS_ERR_OR_NULL(btf)) {
+ 			verbose(env, "kernel is missing BTF, make sure CONFIG_DEBUG_INFO_BTF=y is specified in Kconfig.\n");
+ 			return -EINVAL;
+ 		}
+-		btf_get(btf_vmlinux);
+-		btf = btf_vmlinux;
++		btf_get(btf);
+ 	}
+ 
+ 	err = __check_pseudo_btf_id(env, insn, aux, btf);
+@@ -21153,6 +21180,17 @@ struct btf *bpf_get_btf_vmlinux(void)
+ 	return btf;
  }
  
-@@ -1760,6 +1770,8 @@ static void fsl_xcvr_remove(struct platform_device *pdev)
- {
- 	struct fsl_xcvr *xcvr = dev_get_drvdata(&pdev->dev);
++/*
++ * The vmlinux BTF if it has been parsed already, else NULL.  Unlike
++ * bpf_get_btf_vmlinux() this never loads or parses anything, so it is safe
++ * to call from a running BPF program.
++ */
++struct btf *bpf_peek_btf_vmlinux(void)
++{
++	/* Pairs with the smp_store_release() in bpf_get_btf_vmlinux() */
++	return smp_load_acquire(&btf_vmlinux);
++}
++
+ /*
+  * The add_fd_from_fd_array() is executed only if fd_array_cnt is non-zero. In
+  * this case expect that every file descriptor in the array is either a map or
+@@ -21724,7 +21762,11 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
+ 	if (ret)
+ 		goto err_prep;
  
-+	/* Free the IRQ first so irq0_isr() cannot requeue work_rst. */
-+	devm_free_irq(&pdev->dev, xcvr->irq, xcvr);
- 	cancel_work_sync(&xcvr->work_rst);
- 	pm_runtime_disable(&pdev->dev);
- }
+-	bpf_get_btf_vmlinux();
++	/*
++	 * The vmlinux BTF is not fetched up front: with CONFIG_DEBUG_INFO_BTF=m
++	 * it is loaded on demand, at the points where kernel types enter the
++	 * program (attach_btf, kfuncs, ksyms, map pointers, BTF-typed helpers).
++	 */
+ 
+ 	/* Serialize verification of unprivileged programs. */
+ 	if (!is_priv)
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index 195f78db9bda..c022b2877f0b 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -1015,7 +1015,8 @@ static int bpf_btf_printf_prepare(struct btf_ptr *ptr, u32 btf_ptr_size,
+ 	if (btf_ptr_size != sizeof(struct btf_ptr))
+ 		return -EINVAL;
+ 
+-	*btf = bpf_get_btf_vmlinux();
++	/* Called from a running program: only use the BTF if it is parsed. */
++	*btf = bpf_peek_btf_vmlinux();
+ 
+ 	if (IS_ERR_OR_NULL(*btf))
+ 		return IS_ERR(*btf) ? PTR_ERR(*btf) : -EINVAL;
+-- 
+2.47.3
+
