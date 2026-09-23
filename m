@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF5C53D0A6
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:45:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91E853E31E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:45:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178336; cv=none; b=Mk4dfTcOHOrgh2hidMHAgohm/vTmQSaEeYCXMz3gYelGTg6pQNvoilv9tfxcawFeUFB8stRFofT8OC2dn0Kgmv2QN8q5MyLczbF78ypewTOH/qZ26qke0C7EsEIP5m7XCEZE7nMM7TQv3WJllAGMof6Sf08mApwSXPJyGJ3YWzI=
+	t=1790178337; cv=none; b=CLA35PZuBVXt6Pw5mTHuoRJRolngBK5+FJHOBYIIIYT77bhOjt2R4fp6uJb8B+Ncsagq8xcGpO5Uvndlww6HJgcWCWtQoxIhQRKw1Z9hOM9MwYD7sxVYnZBOxDMRfYVQO/z9qjDMIGtMxx9xRSaKgYLN3O4Mld4tCg22tVmNzlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178336; c=relaxed/simple;
-	bh=vqbRjdBNGswfQFfPyJ+V4zNIV90PXQwfAxpwZB+a1Zs=;
+	s=arc-20240116; t=1790178337; c=relaxed/simple;
+	bh=hScDQprsw5+sgrdz7qxkFNYcYfaoJi0oQcN1B/bnk+s=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bwBoE1PXO6XfxqpHPdIVS7b6zoTWXA7mgWYBCPAz83AQyM40lEYOR5zsCRazsx8ZwZSOLHYgmv9ahvwWyrPnYZdgeG98msoJDU5a3/rkFGlc9D3R8X0FHSlQbmr/xGk7rNMjWRMgb6nBda9TlUt1vVqCocihkTOeQIHihIvilho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YRPzTi0t; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=A1g6AP6dAimySQACpzxwHL+poX6/IMb5kpZif80jo1FfGW7uH5R1XJIHe85BOln61Uw+x1UU4WfoJR3bzMS1ZaYW2EVQ1wLCg108s8ZaiM7Z6f2E2q7NdqotMzMHB94B9vNJnTSLfpWh7Dx4vnYlAh4AT/xJX2YGcpWGI8zxm5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MWrqf1sz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YRPzTi0t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91DE1F000FF;
-	Wed, 23 Sep 2026 15:45:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MWrqf1sz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DB611F00893;
+	Wed, 23 Sep 2026 15:45:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790178333;
-	bh=EMIQ8REFMb6acQ/FvLPkwRl4y6xpfycLIc9I6w2Z8IA=;
+	s=k20260515; t=1790178336;
+	bh=ZH/DiEqRWfRpDNmn9lxvEBbuNmwbYZYpFCH81u3DETY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=YRPzTi0t/aNV2USi5quM29/LcexoXRiBzJyVHc9Cl1NZCUu6aGOkFA5NIXTzkBGGG
-	 6f44I48FlewUg0O3N6WPXf/un48KDg2WhoHiT5YGYI3jL7Zdgw1ggOaK38pg+wZV9P
-	 WaP/ezP/ugqgqP3VGWtVnn9ZSbKDjpdCZEIdxiSRYP/dK6VqS+YKOA8r0vdx2i4XZd
-	 9RTd86EzJ009yfGLrGbMYV/4vqlKryoBdV4OxV9flX+3ALsrKpm9/+k9SUFVTOipfc
-	 o3eZdGIFs9qvAqvURHcZsRJNp1r0QF9TLs1bYbzWuW9MfdoMmt2elyJErc4DuDxkXT
-	 cKUAZ9xA/yJoA==
+	b=MWrqf1szrP2VTEzbeFhP8yt/m4eHDnd56LMUoI0iQ8NSaD7hoNlznfPH6hGXRwTyC
+	 Gmt1XvqQYWyzVpG1evAdvVrx74St4RGjVdHaMRIl35J+oQyRPqc98znaEzqIZJwyBV
+	 fJ2K9jJE4R2QxfScBPgnl/Te0Kl484+s2rn48mU/z1A+is6OLmzZARx4Zh6gjT3j3r
+	 C3H0Ime1n+jNMwiJy4UNkpVYZxiPPlOZymqaE6MLiro58CLw0OOabHARBQs19ehr5H
+	 ydQqa04m1yr9FkphxYMbl68OXnWw78uDT3St/AUf68njsX6IGriQBp4H9AhPjpWfSQ
+	 lipCntGlXeAMg==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Wed, 23 Sep 2026 17:45:11 +0200
-Subject: [PATCH RFC 6/8] mm, slab: remove remaining compile-time checks for
- CONFIG_SLUB_TINY
+Date: Wed, 23 Sep 2026 17:45:12 +0200
+Subject: [PATCH RFC 7/8] mm, slab: add slab_tiny boot param
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-slub_tiny_rework-v1-6-a0e66d536eb5@kernel.org>
+Message-Id: <20260923-slub_tiny_rework-v1-7-a0e66d536eb5@kernel.org>
 References: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
 In-Reply-To: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
 To: Harry Yoo <harry@kernel.org>
@@ -50,89 +49,68 @@ Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
  linux-kernel@vger.kernel.org, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 X-Mailer: b4 0.16.0
 
-Remove several minor aspect of CONFIG_SLUB_TINY to allow it to be fully
-a boot-time decision:
+In order to deprecate the CONFIG_SLUB_TINY option, introduce an early
+boot param slab_tiny to control the value of slab_tiny_enabled.
 
-- remove check in cache_has_sheaves(), with no change to functionality
-  but only on code elimination
-
-- remove SLAB_SUPPORTS_SYSFS dependency on !CONFIG_SLUB_TINY, thus
-  /sys/kernel/slab will exist as long as CONFIG_SYSFS is enabled
-  (for now leave SLAB_SUPPORTS_SYSFS around, can be cleaned up later)
-
-- remove the control of __fastpath_inline so it's just a wrapper of
-  __always_inline. Leave it also around for documenting the intent, can
-  be revisited later.
-
-- remove a comment for SLAB_NO_MERGE as we don't want new checks for
-  CONFIG_SLUB_TINY
-
-This leaves the only usage of CONFIG_SLUB_TINY in slab code to set the
-value of slab_tiny_enabled around.
-
-net/core/skbuff.c keeps using it to control SLAB_NO_MERGE but that can
-be dealt with independently after the config is deprecated.
+As long as CONFIG_SLUB_TINY is still around and enabled, this boot param
+can also override it to be disabled.
 
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- include/linux/slab.h | 2 +-
- mm/slab.h            | 7 +++----
- mm/slub.c            | 4 ----
- 3 files changed, 4 insertions(+), 9 deletions(-)
+ Documentation/admin-guide/kernel-parameters.txt | 4 ++++
+ Documentation/admin-guide/mm/slab.rst           | 5 +++++
+ mm/slub.c                                       | 7 +++++++
+ 3 files changed, 16 insertions(+)
 
-diff --git a/include/linux/slab.h b/include/linux/slab.h
-index 930dd64b9ad6..ad645967a3ee 100644
---- a/include/linux/slab.h
-+++ b/include/linux/slab.h
-@@ -188,7 +188,7 @@ enum _slab_flag_bits {
-  * - general caches created and used by a subsystem, only when a
-  *   (subsystem-specific) debug option is enabled
-  * - performance critical caches, should be very rare and consulted with slab
-- *   maintainers, and not used together with CONFIG_SLUB_TINY
-+ *   maintainers
-  */
- #define SLAB_NO_MERGE		__SLAB_FLAG_BIT(_SLAB_NO_MERGE)
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 33cd30996e47..0100ab00388a 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -7031,6 +7031,10 @@ Kernel parameters
+ 			NUMA kernel object placement which helps with slow
+ 			interconnects in NUMA systems.
  
-diff --git a/mm/slab.h b/mm/slab.h
-index 23017a5d10d1..065de2b92586 100644
---- a/mm/slab.h
-+++ b/mm/slab.h
-@@ -296,16 +296,15 @@ struct kmem_cache {
- /*
-  * Every cache has !NULL s->cpu_sheaves but they may point to the
-  * bootstrap_sheaf temporarily during init, or permanently for the boot caches
-- * and caches with debugging enabled, or all caches with CONFIG_SLUB_TINY. This
-+ * and caches with debugging enabled (or all caches with slab_tiny). This
-  * helper distinguishes whether cache has real non-bootstrap sheaves.
-  */
- static inline bool cache_has_sheaves(struct kmem_cache *s)
- {
--	/* Test CONFIG_SLUB_TINY for code elimination purposes */
--	return !IS_ENABLED(CONFIG_SLUB_TINY) && s->sheaf_capacity;
-+	return s->sheaf_capacity;
- }
++	slab_tiny=	[MM, EARLY]
++			Minimize the slab allocator memory footprint at the
++			expense of SMP scalability.
++
+ 	slram=		[HW,MTD]
  
--#if defined(CONFIG_SYSFS) && !defined(CONFIG_SLUB_TINY)
-+#ifdef CONFIG_SYSFS
- #define SLAB_SUPPORTS_SYSFS 1
- void sysfs_slab_unlink(struct kmem_cache *s);
- void sysfs_slab_release(struct kmem_cache *s);
+ 	smart2=		[HW]
+diff --git a/Documentation/admin-guide/mm/slab.rst b/Documentation/admin-guide/mm/slab.rst
+index 0beeae71d472..6c005d3de0b2 100644
+--- a/Documentation/admin-guide/mm/slab.rst
++++ b/Documentation/admin-guide/mm/slab.rst
+@@ -94,6 +94,11 @@ kdump kernels where scalability is not a concern, but memory has to be
+ 
+ 	slab_debug=N
+ 
++Note that for this purpose you can instead use an option that can achieve
++slightly better memory savings (by not creating separate kmalloc-rcl caches)::
++
++        slab_tiny=1
++
+ You can apply different options to different list of slab names, using blocks
+ of options. This will enable red zoning for dentry and user tracking for
+ kmalloc. All other slabs will not get any debugging enabled::
 diff --git a/mm/slub.c b/mm/slub.c
-index c6a0422e055d..4814f025fde5 100644
+index 4814f025fde5..d672809fa2f6 100644
 --- a/mm/slub.c
 +++ b/mm/slub.c
-@@ -196,11 +196,7 @@ enum slab_flags {
- 	SL_pfmemalloc = PG_active,	/* Historical reasons for this bit */
- };
+@@ -8726,6 +8726,13 @@ void __init kmem_cache_init_late(void)
+ #endif
+ }
  
--#ifndef CONFIG_SLUB_TINY
- #define __fastpath_inline __always_inline
--#else
--#define __fastpath_inline
--#endif
- 
- DEFINE_STATIC_KEY_MAYBE(CONFIG_SLUB_DEBUG_ON, slub_debug_enabled);
- 
++static int __init early_slab_tiny(char *buf)
++{
++	return kstrtobool(buf, &slub_tiny_enabled);
++}
++
++early_param("slab_tiny", early_slab_tiny);
++
+ int do_kmem_cache_create(struct kmem_cache *s, const char *name,
+ 			 unsigned int size, struct kmem_cache_args *args,
+ 			 slab_flags_t flags)
 
 -- 
 2.55.0
