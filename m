@@ -1,108 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7A84508E0;
-	Wed, 23 Sep 2026 07:32:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384B23D4121
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:32:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790148728; cv=none; b=QImRx4tppkHVu+ahXyjtufk4BcCEGCyIVvvd3OHcIHB1auOXA9mi3Q0w6lB1vr0uZrPCDnXDBfs4nbA47m8gPKzLkXXxr/whZ/9ghdj3FPyMpnTk+9OlMSiwfmzhGh0954YONXuoclz2yTYcfhL5aF41sCVXqSSOblTMqSTp9tE=
+	t=1790148752; cv=none; b=f1ffVpRnEBGcYuB5EyPgaruHtfREafZNlolwJeibNWhe5nL/HySLFzIqjDGjU6sCk6+0v+djN0ZDdRBBtBohze9sdRK9MPWtkqa+kxQwxeDBGKuKwVDY/rQwn9gzd0ZgnPRqYRhIzQu52VLo14T9Z/KlUIr3jbVbO5IlvGxGvXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790148728; c=relaxed/simple;
-	bh=SHoV46IGp0r1Mgw9p20NaWVqyYQSQSikZbfLmgAsLa4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jH/uhj2nNZ+zTcsuZl/zjRLfS1TrQNFrJ/GNmmsfM53Cjew/WDg6av/gU2mcM/LrCVKX/4SdGxGzm59e/KPWEDH0mKP89YPJxF8oXmSdFuEeRuHymP6Pa6VhK9AvDJ4zIDRw73PTQS/EntcffcP9r5rkkeg2DIyDuX6ORXXsQ5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SogCKDo8; arc=none smtp.client-ip=192.198.163.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790148752; c=relaxed/simple;
+	bh=nj4ZzwUvAOkZMBrzgklCswTw3PmjVyBwhU+8VdYjpJc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=obPgyMFwnO14cxJh5RgZhKrTK7lmonhdFoRFh+Y1otK6v99K2cHku3N4trD5uLUDXp38rytGyHq2pSoxs4MeV6l0ZKChYrZenbCt6Ijizf/gE+8yNqiXTymhiLBgcWWedMFCeMJr0w/FGTdSg1jo0MPli7y2SdDjjCXxv47LGbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otszdD8O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SogCKDo8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790148725; x=1821684725;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SHoV46IGp0r1Mgw9p20NaWVqyYQSQSikZbfLmgAsLa4=;
-  b=SogCKDo8Gfr6qUMOnKcqit1XA/9cgECEvFF+Xyl5NXradzz4GqQesfD7
-   Ixp399yTNb+bI/9AyJAjIpq+BK+dl1O/Ll8F3g/tiomyUy9N9m6H1zLJI
-   jCimPGZlEn2m5KzNdPx/BwYInQne1hpvVNRLGfZsbBghQ5+t0u/iZImLC
-   S1iP3kvjX/ARsp2ewoUVgdjXYUyLwERhhxpgxWLK9EwMipAHFGJcDhVcT
-   e2haSnVXu2f4UbciFCtJBRuExdRnNb7AP0puR+pe1X91qui4n0iGi7NXu
-   GQq3byqTbyFKoxY78VZQJvmbXknExKuwfrsV+iXEtCxuJ89uzomjhJ4kF
-   g==;
-X-CSE-ConnectionGUID: Q9PATbWXRMudQQSMs0Ix+Q==
-X-CSE-MsgGUID: xR2N23XYT5qw75P2RvwTQQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="1320714"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="1320714"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 00:32:05 -0700
-X-CSE-ConnectionGUID: 4DfhbtCoSZeiI95kED0xJA==
-X-CSE-MsgGUID: TJSv5C3BQleQTGNgnnwlOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="272978551"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa007.fm.intel.com with ESMTP; 23 Sep 2026 00:31:59 -0700
-Date: Wed, 23 Sep 2026 15:30:55 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Tony Lindgren <tony.lindgren@linux.intel.com>
-Cc: x86@kernel.org, linux-coco@lists.linux.dev,
-	linux-kernel@vger.kernel.org, kas@kernel.org,
-	rick.p.edgecombe@intel.com, yilun.xu@intel.com,
-	xiaoyao.li@intel.com, sohil.mehta@intel.com,
-	adrian.hunter@intel.com, kishen.maloor@intel.com,
-	peter.fang@intel.com, baolu.lu@linux.intel.com,
-	zhenzhong.duan@intel.com, chao.gao@intel.com,
-	artem.bityutskiy@linux.intel.com, kvm@vger.kernel.org,
-	nik.borisov@suse.com
-Subject: Re: [PATCH v2 2/5] x86/virt/tdx: Configure add-on features on TDX
- module init
-Message-ID: <arOAL2Klu+L91JiI@yilunxu-OptiPlex-7050>
-References: <20260915102658.713079-1-yilun.xu@linux.intel.com>
- <20260915102658.713079-3-yilun.xu@linux.intel.com>
- <arIqtGbSRHGw8fiT@tlindgre-MOBL1>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otszdD8O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12C31F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:32:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790148750;
+	bh=nj4ZzwUvAOkZMBrzgklCswTw3PmjVyBwhU+8VdYjpJc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=otszdD8Os0bzZ8eXh2j6csvFV0p8ptu8cTdhSBMGgfBuWsr1n3mD+qbDtKphb/SRV
+	 PM5RBJZDZw3IWPVHD5bYyFVRJysL/qYhR3qpFd10j/UyZaCPY5XJDbz657KZBu7BsZ
+	 WHxDF0dLpP5qVYJQWwPNamOQnNe2je/E4DjQZliA8AhR1H9ss9JBjBK8sMyZSpw4lZ
+	 FkKTma1zeCkI+0gg81spvDl9lhESMQCeL71oabrM2FnGlud8KIG36R2f3J2Ha0FLap
+	 3kNORyNYExctlvOryvhm0KLGYOkBU6FIv31qBW4HEhE/P8qOWpa294w2nKOJsIVQdz
+	 cVpCXtEZ1eaeg==
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-85d43f9b120so8930407b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:32:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxXdCy2YGL6+gMJLkryiyA9mkMDwR7wCh+3b/et5YehriJa8EjFGF6WqSngYrAMFo7Sd0Pork+yucRr2vM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFsJDwpkGvPRmmBupNys+crugJu6uJu5U3preJqWdQkmnStO/5
+	KivuDvHJQKUqmS2Yle9ehV6U0Nk2AnQiu8KIIrczuFOmunU1snRfZhVc9WUjHkEId8wPsAIr2Cy
+	elTuYKb+574T+sA7fLNrTHNV4r/lBtLwFGX80etY8UA==
+X-Received: by 2002:a05:690e:1247:b0:66d:2e0e:ef59 with SMTP id
+ 956f58d0204a3-672d5827acemr761335d50.25.1790148750115; Wed, 23 Sep 2026
+ 00:32:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arIqtGbSRHGw8fiT@tlindgre-MOBL1>
+References: <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org>
+ <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
+ <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
+ <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F> <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
+ <arEVDBlfsUYKK004@gourry-fedora-PF4VCD3F> <CACePvbXG5kjZmRsdd0a4HfbnNa6w5s9b_1OCySbwvY+HuCqOVg@mail.gmail.com>
+ <ad1c4de51f1fbbfc7345036af8f39fb450c1f3c7.camel@surriel.com> <arK7gLYD0GJwzKFq@cmpxchg.org>
+In-Reply-To: <arK7gLYD0GJwzKFq@cmpxchg.org>
+From: Chris Li <chrisl@kernel.org>
+Date: Tue, 22 Sep 2026 21:32:17 -1000
+X-Gmail-Original-Message-ID: <CACePvbW9=HTg69J1JTAUROZui4vD00g4=xbFk8QfL5Xdrg6pAQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XZ0IsprA-C8dqObJkA-pxjPDodoFJH1SBPupUOnBC57SVyi9s-WU2Mdio
+Message-ID: <CACePvbW9=HTg69J1JTAUROZui4vD00g4=xbFk8QfL5Xdrg6pAQ@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>, 
+	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
+	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 10:13:56AM +0300, Tony Lindgren wrote:
-> On Tue, Sep 15, 2026 at 06:26:55PM +0800, Xu Yilun wrote:
-> > --- a/arch/x86/virt/vmx/tdx/tdx.c
-> > +++ b/arch/x86/virt/vmx/tdx/tdx.c
-> > @@ -998,6 +998,15 @@ static __init int construct_tdmrs(struct list_head *tmb_list,
-> >  	return ret;
-> >  }
-> >  
-> > +/* List all kernel supported add-on features0 bits here */
-> > +#define TDX_KERNEL_SUPPORTED_ADDON_FEATURES0	(0)
-> > +
-> > +static __init u64 get_tdx_addon_features0(void)
-> > +{
-> > +	return tdx_sysinfo.features.tdx_features0 &
-> > +		TDX_KERNEL_SUPPORTED_ADDON_FEATURES0;
-> > +}
-> 
-> How about get_tdx_supported_addon_features() for the above? It makes the
+On Tue, Sep 22, 2026 at 7:31=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.org=
+> wrote:
+>
+> On Tue, Sep 22, 2026 at 01:14:31PM -0400, Rik van Riel wrote:
+> > On Mon, 2026-09-21 at 06:11 -1000, Chris Li wrote:
+> > > On Mon, Sep 21, 2026 at 2:53=E2=80=AFAM Gregory Price <gourry@gourry.=
+net>
+> > > > That should tell you that your model of reasoning about this issue
+> > > > is
+> > > > ill-suited to address the problem.
+> > >
+> > > That is what I'm suspecting. Nobody in a sane mind would want to
+> > > zswap
+> > > 100% of the RAM and maintain reasonable SLO.
+> > >
+> > It could make a lot of sense to have some default
+> > limit upstream, that says the zswap pool is not
+> > allowed to take more than half of memory, because
+> > at that point the compressed content will be
+> > crowding other things out of memory.
+> >
+> > That seems like the kind of limit that is large
+> > enough that very few people will run into it,
+> > while also being small enough to prevent actual
+> > corner case trouble.
+>
+> Just to be sure we're all on the same page:
+>
+> Zswap *backing memory*, the space needed for compressed data, is not
+> the problem. It actually has a limit that defaults to 20% of
+> memory. And there is memory.zswap.max for users to define everybody's
+> fair share of that limited backing storage.
 
-mm.. I think this would make a bit confusion. "tdx_supported" reads like
-the module supported features, which is just .tdx_features0. But here we
-want both the module & kernel support. I'm thinking of:
+Just curious, how is the 20% determined? May I apply the same argument
+used in this thread: since you haven't surveyed all users in the world
+so you can't determine that 20% is a good value. Let's make that 200%
+for safety.
 
- get_tdx_addon_features0(), just as is
+Clarify, I am not actually challenging the 20% value. I am trying to
+see if I can use the same method you used to decide on 20% to convince
+you that there can be a similar upper bound for the amount of swap
+space.
 
- or
+> The point of conflict is the pre-compressed side. How many swap
+> entries can vswap hand out. Hard limiting this is the point of
+> conflict. Any given swap entry can refer to several things: a page
+> full of zeroes that has no backing space; a compressed page in zswap
+> that consumes some amount of backing space; a page that was written
+> back from zswap and now consumes physical swapfile space.
+>
+> All mapped by the same address space.
+>
+> I don't see why you would limit this at all. I don't see how you would
+> pick a sane default. And if you limit it and workloads run into it,
+> there are no cgroup controls to manage fair access.
 
- tdx_get_supported_addon_features0(), maybe this is better?
+I am not using a limit to enforce the workload. I am just using the
+limit with a safe margin to set the vmalloc max size for xswap. This
+is similar to the 20% for the compressed pool. I do believe the app
+will suffer if too much of its memory is swapped out. e.g. 100% of
+system RAM.
 
-> calling code a bit more readable without having to figure out what it
-> returns.
-> 
-> Other than that:
-> 
-> Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
+> (Despite what has been said in this thread, memory.swap.max is for
+> those entries that compete over physical swapfile space. It must not
+> and can not control vswap space used for all sorts of backends.)
+
+Doesn't memory.swap.max limit existing zswap? Then that is a
+user-visible behavior change to make zswap don't go through the swap
+counter. That is a change we need to avoid.
+
+Chris
