@@ -1,171 +1,92 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA9A52EFDA4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39EDF3101A5;
+	Wed, 23 Sep 2026 06:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146459; cv=none; b=AND+0f4ZgiiuuEraHXKvRGMxcdVaX6IXC3V7o5JV4Ni67pPwdZ4GyrbTDTZO07y184FislBQb6FiaKj5tra5NyN8t/ccwbXyU6bviA9yBt32E7fDty2ZQWIAdgUUT8+TkSUYG5tmm8OJ5BfcVpR9ioGKTniJouOZu0kVxaqjiRM=
+	t=1790146551; cv=none; b=hRQfM3Bbu0kPyUYhNZc3uwtQiqSHwGfSxoCVPdjPpvs2qBg/u7FKlBeo4oy8bSJVXq3wE8/PUmdIIsoHTteKtzD23+mnr1IqMkCtlSl51lmgNHilPLzZ0ZACoO3VOdaDYLcX86bqg4DQLxKUMtixQ8cLHSRoFEHKIVjeeNls0lQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146459; c=relaxed/simple;
-	bh=ub9lmV/vJgIvt/52cHA9hak78+wXdVZ+Y0e9MlYNLQg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XQlq1VpcNQiQGnyunjTr3d72wteoPDhdaJJQxjc6A0VGQy0XgJsDrl/oitJMTTPhDB1eLVi9DaKJIxGkPpIww2SoXnPQUnQ2NJKedLeE+LMMC+/YlQxv0KG64WzjLtI1tNzGeFqTTWofIjKN1hICtwmCcMUc7cnTASw04psBs4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NRDZBxYA; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790146551; c=relaxed/simple;
+	bh=Rln868J2mdYBx7nxT+SrCO2JAPRVb5QNzuX+gN/f59E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E8uZMjLeV4hfd6K0Vgz2KMHhJeTYWB5lcQL9BHASLSRrg40EoaffYgbjRJtbqXVmdcsC/d/XNTB8GmZ3AGRCvzj8+s9Mt1LFzaTodF2gDDT3t6r0Pw8fvoOWXx9yxJd9iWm42j9RZBOeP6Bim11oQMnl5NLnp9UjV8jsrO2e6cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=kP1FoJGt; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NRDZBxYA"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so444618a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:54:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790146455; x=1790751255; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cBPFJ7pxrxjtZgenSu8SvKuqY5moK00ZFB2fToeyYWc=;
-        b=NRDZBxYAy2bPOWNeTf5QXaE/7XzsdGjWfJLlNnNvz6ifxZM9DD6f7z97XheeW0xr0i
-         MzTKfFyh7LE1X6AOzvlkV83TJRVpqFvq3Ph/8poL+sTmzvY4DilZhplT6Z+umr4aTmy5
-         4VWLwoItw8L1qg0UFBriZi07FdvvAQlb5DFwTYMWvwbFfrAGuWwxFKCKO42iI50duK7N
-         j0AGEk7Tga0SjpPa/wsL8Pn+CX2+mi8lb8LWpNUAvFLWIMwZ7Q9k9gpurKLQZQaTs91R
-         AqEBx2iBdiDrbWm4ryBsGp/zh44/UWofiEa5776aKh12EAfqWT9iXAezNTipSL+hsli3
-         vrpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790146455; x=1790751255;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cBPFJ7pxrxjtZgenSu8SvKuqY5moK00ZFB2fToeyYWc=;
-        b=H/oepKiCC76Teoq4vi3xwdV3Y2iJk7Z2EkuRstTVBY9H3nhLwzG5dzZPdp8fgzgSDA
-         hg7o9H763jRH74F8aGcHnz4P8ZuraJdbUt8SEDlMJObQeXwIukANPAaX80qDqW1swohQ
-         OGGI/jIHzwo+7ofGe5plUCEcwAkzk96/mQ4ovLxEkLmPldNuWQhTUg8SkCSWE2J/0wRC
-         wESs6EEp3X1Rzs54lMGWfl7nFKRhcrwf2xcoTfjAlc4cIqGw6qaVo8qPzrScwpjOaJu2
-         DAjdPPRcj5LW4RZdckNJsxzXzXFCBMA6yLljeidtVmXEVZwWYQIGruMk/lW0Wz6EsUoq
-         PWBA==
-X-Forwarded-Encrypted: i=1; AKwUvBx5XoJ+Iud6q7MPFFItxucQWjVqrAJ92hrcGIYNTTZCedZqEbRLe85DanjWQ/2SBydUTfO82rvF25nc55w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcwiFRZ5uTA8XHEs7RS6/+E+7kWf48IfwaDo1DpUfRTVYscMBl
-	SgwWb5u6qgbq6wGYs3N8ByjNGqnaOqUHe7fMRZ+TKlONfUv3kn6WbP2d
-X-Gm-Gg: AYBFou0DdixjCGTh/4eK+ZR5YlaqpwXEXF4Sfb6ygHtJfGgtcAvrb1dUHabhNf9oSdj
-	qOAjoh+aruJJIHyUwQMK2If82xmyYum8efO/8eig5UdHmNnw92Dx0n/ZqhgQSPXTpBTDLCtX1ww
-	Gc1OKmb8ebrDUGZjN7eIvgHP6Dmv04m4nniRYBD1ee7/hsiYGfJRWI5/GyhgSjJZS0j1B9bK5v8
-	+kcWhLX5xmA32i56tGNmOGY0xBL+bHHBBpLTAceEqxDqa5vdl5IQ+8jCOOcjtgNt80QcAsxOIWh
-	9IedUIhSzjhsMrkxpbhalSDBKtBYV6AOlQ80aMebEs3Mv/tt/6OmyqqtBxDaLATwznfz1oCf8d6
-	0Hib/Psqy1jjOuHDZF0kK3fyk8tQyqzHDufIms2OwmY72b50UNyQQ1w3tQjHJAj6rBh+cQlqWXj
-	TOfu3ZVOrrAd0oJM+lYD8NC4cwUCq70BwqcLF6pkqMscDlRghyoWE6c8iMw49dzYi7RpEFgR+z/
-	6+Y/UOPx0SB
-X-Received: by 2002:a17:90b:3d8e:b0:39d:c3bb:98e7 with SMTP id 98e67ed59e1d1-3a07e568935mr1435549a91.6.1790146455101;
-        Tue, 22 Sep 2026 23:54:15 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc2b2fdsm3321787a91.12.2026.09.22.23.54.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 23:54:14 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-To: Qais Yousef <qyousef@layalina.io>
-Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	John Stultz <jstultz@google.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	"Chen, Yu C" <yu.c.chen@intel.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v2 04/13] sched/fair: Remove magic hardcoded margin in fits_capacity()
-Date: Wed, 23 Sep 2026 14:54:06 +0800
-Message-ID: <20260923065407.3451520-1-zhanxusheng@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260504020003.71306-5-qyousef@layalina.io>
-References: <20260504020003.71306-1-qyousef@layalina.io> <20260504020003.71306-5-qyousef@layalina.io>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="kP1FoJGt"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790146542; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=MSHfleQDJgNVV/fzOPiv6iN0a6sYi73P6TvrUGvr60g=;
+	b=kP1FoJGtq1gRQ9ahc6sviTygKlCeZdp1zN254Wxz0QLB9nEkPR9K1mPfDga7lg1B1kSS79xKIZyPBTwLUp7Ea1McsfMzmRZCnhK68u8X6YXCl2ZQ7GwbPwtOvaWlib/9ypaizklpUiFbprAb4DtHl2K/vCyPs0bzlDI5UayGn3c=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XBWAyqu_1790146539;
+Received: from 30.74.144.107(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XBWAyqu_1790146539 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 23 Sep 2026 14:55:40 +0800
+Message-ID: <ea81ccb2-d316-47fe-93ae-ef32af2a7330@linux.alibaba.com>
+Date: Wed, 23 Sep 2026 14:55:39 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 12/19] selftests/mm: parameterize the mixed-source
+ collapse case by source order
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Muhammad Usama Anjum <usama.anjum@arm.com>, Usama Arif
+ <usama.arif@linux.dev>, "Nico Pache (Red Hat)" <nico.pache@linux.dev>,
+ Zi Yan <ziy@nvidia.com>, Barry Song <baohua@kernel.org>,
+ Dev Jain <dev.jain@arm.com>, Hugh Dickins <hughd@google.com>,
+ Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Michal Hocko <mhocko@suse.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Shuah Khan <shuah@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, kernel-team@meta.com
+References: <20260919002451.496763-1-kirill@shutemov.name>
+ <20260919002451.496763-13-kirill@shutemov.name>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260919002451.496763-13-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 05/04/26 02:59, Qais Yousef wrote:
-> -#define fits_capacity(cap, max)	((cap) * 1280 < (max) * 1024)
-> +static inline bool fits_capacity(unsigned long util, int cpu)
-> +{
-> +	return util < cpu_rq(cpu)->fits_capacity_threshold;
-> +}
 
-This does not hold on current tip anymore: fits_capacity() has picked up
-a second caller that does not pass a capacity, and the new signature
-accepts it silently.
 
-kernel/sched/fair.c, invalid_llc_nr():
+On 9/19/26 8:24 AM, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> collapse_order_mixed_sources() faults its region as order-2 folios and
+> collapses them to the -c target.  Order 2 is below the contpte size on
+> every arm64 page size, so nothing in this suite collapses a contpte-mapped
+> source on purpose.
+> 
+> Let -s name the source order alongside -c.  The case then faults at that
+> order, keeping order 2 when -s is absent, and the source order has to be a
+> supported mTHP order below the target.  The other mTHP cases are
+> unaffected: mthp_push_target_order() enables only the target order.
+> 
+> A -c at or below -s is refused before any case runs: the sources would
+> already be the size being asked for.  Without the check the generic cases
+> fail on that one by one instead of saying why.
+> 
+> "-s 5 -c 7" on arm64/64K then collapses contpte-mapped sources into a
+> larger mTHP.
+> 
+> Assisted-by: LLM
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
 
-	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
-			(scale * per_cpu(sd_llc_size, cpu)));
-
-The second argument is a scaled count of the CPUs in an LLC. sd_llc_size
-is a per-CPU int and scale is an int, so the product binds to the new @cpu
-parameter with no conversion and no warning, and the test becomes
-
-	cpu_rq(scale * per_cpu(sd_llc_size, cpu))->fits_capacity_threshold
-
-With the defaults (CONFIG_SCHED_CACHE=y, sysctl_sched_cache_user=1,
-llc_aggr_tolerance=1) scale is 1, so this is cpu_rq(sd_llc_size), which is
-not a valid CPU id on a machine with a single LLC. invalid_llc_nr() is
-called from account_mm_sched(), task_cache_work() and
-can_migrate_llc_task().
-
-Separating the two uses first makes 04/13 safe to apply. Something like
-the below, against tip/sched/urgent (3cb0243767fd, where the cache-aware
-fixes have just landed; sched/core still has the older mm->sc_stat form).
-It is a no functional change, since x * 1280 < y * 1024 is equivalent to
-x * 100 < y * 80. Built with CONFIG_SCHED_CACHE=y and =n, no new warnings.
-
-I can post it as a standalone patch if you would rather not carry it in
-the series.
-
----
- kernel/sched/fair.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 57360f5cdde4..97ce56fcaf85 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -1526,6 +1526,21 @@ static bool exceed_llc_capacity(struct sched_cache_group *grp, int cpu)
- 	return false;
- }
- 
-+/*
-+ * The margin used when comparing the number of a process' active threads
-+ * with the number of CPUs in an LLC.
-+ *
-+ * Mirrors the ~20% margin of fits_capacity(), but is kept separate because
-+ * fits_capacity() describes a utilization versus CPU capacity relation,
-+ * which this is not.
-+ *
-+ * (default: ~80% of the LLC's CPUs)
-+ */
-+static inline bool fits_llc_nr(u64 nr_threads, unsigned int nr_cpus)
-+{
-+	return nr_threads * 100 < (u64)nr_cpus * 80;
-+}
-+
- static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
- 			   int cpu)
- {
-@@ -1542,8 +1557,8 @@ static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
- 	if (scale == INT_MAX)
- 		return false;
- 
--	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
--			(scale * per_cpu(sd_llc_size, cpu)));
-+	return !fits_llc_nr(READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads,
-+			    scale * per_cpu(sd_llc_size, cpu));
- }
- 
- /*
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
