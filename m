@@ -1,67 +1,81 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012032.outbound.protection.outlook.com [52.101.43.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f23.google.com (mail-dy2-f23.google.com [74.125.229.23])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796C849BD78;
-	Wed, 23 Sep 2026 11:20:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790162438; cv=fail; b=e9G69Ft+APex2Aspt0mWQh0rWErXMxUIs+0nLX/GbRwme7NIkPLJEKFny4GCbY2TDpe1fKwI5dVGV4F6B+JG6Wd66B+h8ePGiWliIZrfRC0G5W8zCSzKbIFoAD6H5N0p5jvnQlD+TIGlVXi6jsXdJT6G7aYCBZ8O6kYrSaqL2PY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790162438; c=relaxed/simple;
-	bh=qeGxbHHxNnUiP53eq9frnSBG0RSYOG5hYM4XN3qoYAg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dzpOVkEtakHsp7hP9dI2sIb47/wHnzaeP0hOWExc7+6fX1oOdIvuHSXc1/Iz0MHbphPdwPQ1QaOLLyHJZExF2D3JBb5JDP7/TFme02vbZKGl2uPmnNt8HfArfJ/ECq42xOXVvwDAZtgzsPQw4t3HC1aKr186U6MURP9glzs98zA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=XTeFhSkl; arc=fail smtp.client-ip=52.101.43.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE5A49B211
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:20:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.23
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790162455; cv=none; b=fmpvo7YwlJKnouCwJGRqxAQ1QiQFz3OneoBAiJUORo1b52RnL6ibFhZ/wQc1rV9xt7kI7MfFH+rVqAeby0/yPL+m52pCdc/70FLKBtr/9haNiWYHJlZEGKPfgpzWwHkt154t+F+JHroEXOanFIKKN/7AIkYuTED+9vY/RJef0zU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790162455; c=relaxed/simple;
+	bh=ljPZGMW3EOOyQDGbBFq6Gu4+MAFs0+T56XB1zZrbm2E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=okEUbKqDV/hmSSgnY9jSRaTOjoFhZTJFLjKkQd0/wyCWxwPJboKikUU9r3v1IOjpp1bQqixLx+KHc5amVZyh2PIXq+MoXVYt8aywsduR1c7d/v1Uwza11qgULyjwX8BszlmmKDdRzAgEs2UuVvJdSzpMqcc/IJGIlEaExbIbZro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BVWOiFIK; arc=none smtp.client-ip=74.125.229.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="XTeFhSkl"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Okj9+X2laXa+ZQ7yVa9efuD2PExU5KjE+oq/dQ446zbUkI23tHLXSiXR6jpBddcF9Q+pGbNaryrSFfeSENyghyhzGhqR3SYIbvanWNJV2dz5f3mxYvF1Iy6LUjpJ3DtpY4IZfy9jOJOokTcm1WVPEaRQol9w7nxMW6QaW4jxRROyZJdDTfHBjHz1etDeNNLYeTGlmsPr9y/ua/XlXKDr+Y88dz+vzEHfYZt5dbbZjlxSplQQEnAdkpKxRNQ1cDyyk8b76TTaxPb+Drin1LeHw1SiIKzGX9TNGgzdpqYYa6wUxJ+R8PpLMSrQJYxL+/eSZZBYagfxTWCt92USs6HNhw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ejPA5+ubjs92tOymWfWuLq9XG4mQaRoYMA015as5XCY=;
- b=KmxwBy8neWmhkOXDhwMqNbqQtLE5cTYvrtVSAawJmnA9ftB13xcgWDPbotSH4gnpcPIcrlZ33b/kUid77u3PUcmQYNC0DJaE8JSh229uVy+6QCTM7BlzRO86Zz2Q2DZBFZrcLULDd983eEVViaVxbttqJG1DclEJsTj3wAjhof2S7VyawapO656WghyJT8GuLrH2I/OG6x5CPdADEjfHJQMLxRKZ+DFwq8csepNQ2glZlZEXZxJYAYYf22QXEfWxPzo8wDVBz4oLx5jAhfkKvKQ+VGrLw8e4UnEvJJ5BmYHVLqzr58rbgWIapiJrJLHpNSyV2eeOtqAr2+1sTnGWYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ejPA5+ubjs92tOymWfWuLq9XG4mQaRoYMA015as5XCY=;
- b=XTeFhSklxC24bTNc6shv4vNv81B81zqZVC792DQKbHojVya+6mjGSN7wqCrVyZgE8sWqn8Ym2Y6ahem/wETAM207lysSWDKm2D4CK1DqySG/58vEY6+vSgTae9j/uZ7h3OhVJOAV/9j9yPEDpe5rflxhvKDJ7ba3ATNVKc9lju4=
-Received: from BN0PR04CA0109.namprd04.prod.outlook.com (2603:10b6:408:ec::24)
- by CH1PPFDB1826343.namprd12.prod.outlook.com (2603:10b6:61f:fc00::628) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 11:20:25 +0000
-Received: from BN6PEPF00000073.namprd03.prod.outlook.com
- (2603:10b6:408:ec:cafe::84) by BN0PR04CA0109.outlook.office365.com
- (2603:10b6:408:ec::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
- 23 Sep 2026 11:20:25 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN6PEPF00000073.mail.protection.outlook.com (10.167.248.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 11:20:24 +0000
-Received: from airavat.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 06:20:21 -0500
-From: Vishal Badole <Vishal.Badole@amd.com>
-To: <bp@alien8.de>, <yazen.ghannam@amd.com>, <tony.luck@intel.com>,
-	<linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Vishal Badole <Vishal.Badole@amd.com>
-Subject: [PATCH Intenal 0/2] EDAC/amd64: Add Family 1Ah Model 80h-8Fh support and fix csrow decode
-Date: Wed, 23 Sep 2026 16:50:01 +0530
-Message-ID: <20260923112003.3677719-1-Vishal.Badole@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BVWOiFIK"
+Received: by mail-dy2-f23.google.com with SMTP id 5a478bee46e88-32be7127c64so81925eec.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:20:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790162452; x=1790767252; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M3A4c/xbFZ6e0tq+hH+/3HeXVXMCnlcmFGa/+buKPU0=;
+        b=BVWOiFIKs2ja0GMbAE2WuwcWnyFcW3E1bmvWj/P1Z4sHdFzevPgXnMLf6U+4SChNRK
+         ThMpxkMNan5bX1AZ904J4qOgvBHI+bvo7Wa3R2jS8W0mhkhuCIOhCZ+t2YAgD9gaW5Ub
+         zVD7Jwz8oDk0rE4qOBeWvnpjD9dwVG1M7YCZBKeAGmtIChPbY+ZZAXnOBTSL9ok+IQN0
+         LD7s0I0nEBWlKZ7vOBMgUkeJqrIWaZ+8rqGcJkq3wQRfedt4qrowVvH3ODniEF24JtkB
+         d6MwreZxeMkp3AfN9Dz+//01pDqy5eL55GmfJfRAwzJUXgoWU7jW+vOHKcHrFHPkFkoZ
+         QjeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790162452; x=1790767252;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M3A4c/xbFZ6e0tq+hH+/3HeXVXMCnlcmFGa/+buKPU0=;
+        b=cd8ttMjhcCq8DONDrKs7agER7eFYF65wa8SHZF2TMlfkM7D6Wm2RpUW5h8r8y6oSSt
+         9H95Xxh5SC33YSstBSeFwYL+PCmxHeKfxE781IUux2syhB1sNc/ojzhEWHFtxPzpxros
+         P746i33KAKKkWs093olRvqVNjxu6FGkjoQzhpItipxbogIJjRBI7l9SSQjjDJ6+3kzFZ
+         ws26JzHa+vpNGG+dZLNQr9VjuDyYmxHEWGI1EBc2QQwYbkcJ6Jo+XixP9GKtmE8ql7QH
+         1RSlg422GmPjeVNJS31Q5hBLVvFA3A38v/ccG++oiuHQ/2BuYLXAscg0xMCE0Put1WQ4
+         bI9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwvDNZsM7J/th3ox/xpbI0WdCfS2UvHXSzi3lqpmHHtBzewM9vL1PJOsuU5cT87z0xr3MjbNWa5fG6a/kk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRjMBsnAP410nWrdA4amoJchV2juF/5hp/ycGtrYHNKgzh7GDT
+	2khWEmlzY91/MsmYRwNRpIInnwjgZ8wChHE+cngXbUmAjuWXAEQ/QDl1iTvcWtzo
+X-Gm-Gg: AYBFou2LRTMUW76Iw2726GCdYaeI2/Sbz5wdBQwrLzg9GQofuzf8KzsPQKjkEy82/xS
+	DCRtaL0M1NtE7bpwIWPshDiBvI+Ysa1fQUMPEnD4+hk5xgRBFKhxImkAaF0AHYYJSR7F7joWhN8
+	61Cvdp0k+uMqWJSvegQ1ZOff+d3WgAXc+ATuKKBxKMwWTPbE/++5axvJ/FbV2/gYvP+ki0H43YD
+	hfmvbx2vorrMRjVsNPtC98WvAiCxekHoLajuLV0k7PdLsJM0LGEiOQd8KpRPr/aFFVQy2K1B30E
+	N1JQe3H3vdaEOWT+fRtC8/QEgwN77rxYIOGIQUwchetvuT+2ZuxR6R19svxEcCqlaOligFpXrRb
+	6d+sVvCSA7SZkgau4Dc7egl8cbKgAZGs6NKzymNlozFoe2lSL+imaRx5n4FahrPXO0fK9aX4vQ6
+	XmRQ7qFXqBTr/zKzK3+2LxcnByg5LLklv4DWGa9xI6ChnKg4gnBeMegewoiqRNYtUmgffJuFzGI
+	JOoUcbqphckcu3e+8cn1HHEfYpMNo9WnFqA5x9KJJTTrytSvlrQfrcC95YdeqZDUg84GyUBPWIT
+	VmPuSm9nFyfqIEYr5Q==
+X-Received: by 2002:a05:7300:c8c7:b0:33f:3750:4e22 with SMTP id 5a478bee46e88-33f3750519cmr1326580eec.0.1790162451512;
+        Wed, 23 Sep 2026 04:20:51 -0700 (PDT)
+Received: from cachyos-aura ([45.112.148.98])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96d46f48sm11925271eec.23.2026.09.23.04.20.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 04:20:51 -0700 (PDT)
+From: Navon John Lukose <navonjohnlukose@gmail.com>
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Mario Limonciello <Mario.Limonciello@amd.com>,
+	linux-pci@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] PCI/PM: Skip the suspend_noirq config save if runtime-suspended
+Date: Wed, 23 Sep 2026 16:50:44 +0530
+Message-ID: <20260923112044.187266-1-navonjohnlukose@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <arOpj4C67BnrNreM@wunner.de>
+References: <20260923022511.24932-1-navonjohnlukose@gmail.com> <arOpj4C67BnrNreM@wunner.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,57 +83,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PEPF00000073:EE_|CH1PPFDB1826343:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1cc00c49-efb4-4e83-b2e5-08df1964a9cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|10067099003|56012099006|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	Afg4Ho8rO45RhPy0BqMb6XjYBo4fAaTI3IM9ssmB/Rntuczi/sTQCl510e9srVbJIzc+IRDiSpg4hdbZ51Qmvypt9/eEBHliOj5ApShZxcsiIRysPGzMztZLXAAL8nGaZBT1wmQgQc5hHVnGIYxndh8JkJnRPLnaGfj8MERe1aKahZI9SV9kcgpRGN2UjJjHqINZ3sZK1PEWXsagvBMSoJN5T6N4gvX2w1FEm3sZAwJejOjo+K2W0uyy8zFDsr4y8bpsHH4kP9sSBJ3mw3T4Emp/4836tOD6xSlGJFgoRZf8CaHHgHW18bLYgYkqU/iHS/UF7NQfK7+P2Vpq+qNzkJ0pb52vpHaJ/zNT70MyAmVDMP0aKf/3s8fjt+zlG4cFgTUMyV2eFjMhl+OKLQKHBj+tx4b158Db5jPUZSeqqPHK2WzAP46aZ8lJMe/Ckj3thstaVLvI8Uggs19cSXpVsAbB3ZU+DnZ+oocaWi5QX0i7AZ9+N8udSPj62k2lCsD4h6/pGkKq7o+inQIsr3q9QRMh7KpSQQK8OzgSieC6HwpYREc70YswChNTYe7RodQwx9mImUTgy/s3zLOWCnmsmTykBnUdC8OIk8vsmEpNVCNJFXRJ8ZAWYkNypL++LBoBwGc9d4XLRBv8O+vpG40/gl4oSsUIVqBEeiGrvB9ikZFjiNTVuCNFE9XRiryX5lzKGT5K3nOVaB9IKTDLIZGTzg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(10067099003)(56012099006)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	W5GSvGyIpYO4uTnCt5gziHKqGgfI7nUHKN4tI9ziXJ0ElHnCrX0xmhfs7y4S+nnnvJz7OFb+5se58FIbFruqrRh4mP25mDBQRmevUPNef6V7VvlVgHAHdvUSdCLhmrWgMlO7epFhl93sYWIeXcseeSQEUi0iAGVei4Pn69OI8EXOraGCjvWPdx0DWMLJOtvxFH5y937un+gIQ0u+OLizZhm7s+f0c2C2fEQyHl56NuVN8pQK24/0ZJV0D2ReF4pDb98vHYU3nzGqu4yG4Kdu6C3xVf1Y+4XqA+S/KNl0z2t0r+vo7rvZoav3lGKzBwsrnooYbhUq08bwD3Kwti/6kvwTJSboHZBNydKF1ilxL71BhY2z359uXK+mrHd0Qghuh4XwOybJ88SfLvSkOSCJg5LPF/b1qN83l3hHHRK6BVXy17rdNEdDzQe+SLcbXDr4
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 11:20:24.5600
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cc00c49-efb4-4e83-b2e5-08df1964a9cb
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN6PEPF00000073.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPFDB1826343
 
-This series adds AMD Family 1Ah Model 80h-8Fh support to the amd64_edac
-driver and fixes a UMC csrow decode issue seen on that part.
+On Wed, Sep 23, 2026 at 12:27:27PM +0200, Lukas Wunner wrote:
+> Hm, pci_pm_suspend_noirq() should bail out earlier because of the
+> dev_pm_skip_suspend() check.  That check resolves to:
+>
+>   dev_pm_smart_suspend(dev) && pm_runtime_status_suspended(dev)
+>
+> The code comment in device_prepare_smart_suspend() explains that
+> smart_suspend is true for devices without PM callbacks.  But only
+> if the parent has smart suspend enabled as well.  I guess that's
+> the sticking point?  That the port above the card reader doesn't
+> have smart suspend enabled?
 
-Patch 1 adds support for Family 1Ah Model 80h-8Fh.
+It is that check, but it fails on the card reader itself, before the
+parent is looked at.  no_pm_callbacks is only set when the bus has no
+PM ops either, and pci_bus_type always has pci_dev_pm_ops, so no PCI
+device ever counts as having no callbacks.  With no driver to set
+DPM_FLAG_SMART_SUSPEND, the reader never gets smart_suspend.
 
-Patch 2 fixes the chip select decode for DRAM ECC errors. The syndrome
-field was masked assuming eight chip selects while the controller
-implements four, producing an out-of-range csrow and an error reported
-against "unknown memory". Mask with the number of chip selects the
-controller actually implements.
+pcieport does set the flag for the port, and on this machine the port
+stays in D3hot through suspend.
 
-Tested on a Family 1Ah Model 88h board with injected ECC errors.
-
-Vishal Badole (2):
-  EDAC/amd64: Add support for AMD family 1Ah models 80h-8Fh
-  EDAC/amd64: Limit UMC csrow decode to the implemented chip selects
-
- drivers/edac/amd64_edac.c | 17 +++++++++++------
- drivers/edac/amd64_edac.h |  2 +-
- 2 files changed, 12 insertions(+), 7 deletions(-)
-
--- 
-2.34.1
-
+Thanks,
+Navon
