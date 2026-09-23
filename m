@@ -1,126 +1,268 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3E92949DBA4;
-	Wed, 23 Sep 2026 11:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oi2-f8.google.com (mail-oi2-f8.google.com [74.125.231.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2343C497B8B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:06:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790161583; cv=none; b=seLX+7KvOCq8uw2kMsj4Tu5cIdk13WCGRpYgvK7FvPi+OED76SgaCAmFhUIW5OJcz+c6yapbGtKJO/WvhUrcsjHsR51f/1iFR2IkRaSu7jajQuNxcAEuHb+uje0QEyZb+XJOPsoIdQZoe8mv3nS7Pq2Hnbv2BNQyYgPsXyDlSu0=
+	t=1790161593; cv=none; b=RtRGZq8daAYaklHbG7jtI8pNxs4clyjTlZvqBjPxZrlyLU+GiytmDpjNFMx7Z3Q5a7WNwijZvlgHxZFBxqRZPmdwYPbZVxYKPxeZNMJWMEf0r2INqzDVvWJzwVjYgGG6H35zTWjyXHVMw4R1hoKKulvlAUBLgUv8kUdOjwNb8q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790161583; c=relaxed/simple;
-	bh=AiLb+XIqqeogh5YIbkCt/ug3YDrQxWlGcnRvc7/OSzg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=auvT2lbsXrnnLB24s3yDbhqFdwY4k+WJUdmsx+6EDr4ETWCSmM/WHN1BF8Ft02W2VTg6EYqqDWXpN+11D7nqBuT6DfO/EvU3+Nh7F2KXyFWTaFyTETVMnSe1yBMCf6VtQoPtGmP7fAk5EWbBoTYRK9SbaLId5YQFZdYdX1x1HYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RZd6PDCE; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RZd6PDCE"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 06D531516;
-	Wed, 23 Sep 2026 04:06:17 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F314F3F86F;
-	Wed, 23 Sep 2026 04:06:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790161580; bh=AiLb+XIqqeogh5YIbkCt/ug3YDrQxWlGcnRvc7/OSzg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RZd6PDCElzn8tIotWwrvT9WVNfhaf+E0nsTzPz7biVZvPKwP8gDLv/16qknBwwCeE
-	 XZqVX7rtPhnEOmnIpGuocfxi5mPtjFIoFr3VFosboC1I/0xJVnx9XIJolkmsXAj5+B
-	 BQkCyZnQEJkrsTacXF5+UJGQn1YF7TiEHuz/UsaY=
-Date: Wed, 23 Sep 2026 12:06:15 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Will Deacon <will@kernel.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev, maz@kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
-	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
-	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com
-Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
-Message-ID: <arOyp8WUrYBAjrGH@arm.com>
-References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
- <arK3tsTV6EDhI-nt@willie-the-truck>
+	s=arc-20240116; t=1790161593; c=relaxed/simple;
+	bh=A81CnD//LelK+rpDTgG70N+3T49ZnBLB+VHdPi3TpwM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=S+MAh54bl91M3FrMG185Fmc6Pkg3XfXLm4QLmgeLKkKIXb5nwDH7i3ITPy9+M8EViJcbLp9J8i/m+4/4p5EYM3Cgzut6jslWIbIAKqfZKWb4xs+wDuql4BaXKtHSIfVo2Rz9dJ76v42EaI85RED3oXhZTC6ToSJxsQ0cKc2N0yE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f8.google.com with SMTP id 5614622812f47-4d3834b9ed5so202630b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:06:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790161591; x=1790766391;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JZG5zIGQty22IAFkW8fqWEpwWaN0Bixa8GTPSWd2FpA=;
+        b=PwRpJzZ2y/Q5ZEB5+s9V3/nd9yU58JbHDG2TV395GVzTM87m+Jh1ToLu7zjXl4LVnj
+         pJjeih82lXCJD9QPeh6/pWORaLl+A1nYwdoMbpc9WZKMqz4+I3UhMwMwdyxjZdOEPm7r
+         bxwBcQDbTO76dpWqo9jjfWGF1DFOly1oz/5n3Na6fdTyKGboZk0i8VWrGQAqud1bjB8w
+         HL3SGsMo+5wDz+PMpkZThbyqfA1uFOXBS6K8RnQdvDQsw1vts+tpS9lCmHzYBzZ1Bvbp
+         ujIE6SIMVmqGL0lkWsSwcM1aETxwgA5iH7z1B/My0P4H6MV4RevapMDbrwuOkCG8kOuS
+         FHag==
+X-Forwarded-Encrypted: i=1; AKwUvBwgvuMkgr+natGqA7g4TXi37YJi2/CMPcL8iqhhvz7lD/YznvqLgRCkklG4ixHzZBSHq5ilwTd36LltT0Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiQI9AQOWT+iByBt1OGq+g/N3jX5Aziwzh9VExRqykbyrBabL7
+	J3Es+NBgyoaIDWXOFGJeQAplZK7t8ZU27doRnqCyhPlW5eMM/HHIGjyiOu/Ti/8xDcsalb9O2WD
+	SiOj0/qam0+35mtTk+8YNvYx+OJ/DSLwiDUYruHXgV+MfKaH+jBcjsHjmkmM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arK3tsTV6EDhI-nt@willie-the-truck>
+X-Received: by 2002:a4a:ee0c:0:b0:6c9:e0a0:af1b with SMTP id
+ 006d021491bc7-6d2d034451bmr1816366eaf.27.1790161591082; Wed, 23 Sep 2026
+ 04:06:31 -0700 (PDT)
+Date: Wed, 23 Sep 2026 04:06:31 -0700
+In-Reply-To: <6aa23178.f81106d8.2ab401.0006.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab3b2b7.a6af0033.177e91.0026.GAE@google.com>
+Subject: Re: [syzbot] [autofs?] possible deadlock in anon_pipe_prefill_and_lock
+From: syzbot <syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com>
+To: autofs@vger.kernel.org, linux-kernel@vger.kernel.org, raven@themaw.net, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 22, 2026 at 06:15:34PM +0100, Will Deacon wrote:
-> On Sun, Sep 13, 2026 at 08:04:58AM +0100, Suzuki K Poulose wrote:
-> > From: Steven Price <steven.price@arm.com>
-> > 
-> > If the host attempts to access granules that have been delegated for use
-> > in a realm these accesses will be caught and will trigger a Granule
-> > Protection Fault (GPF).
-> > 
-> > A fault during a page walk signals a bug in the kernel and is handled by
-> > oopsing the kernel. A non-page walk fault could be caused by user space
-> > having access to a page which has been delegated to the kernel and will
-> > trigger a SIGBUS to allow debugging why user space is trying to access a
-> > delegated page.
-> > 
-> > There is work in progress to unmap the guest_memfd backed private pages from the
-> > linear map. Until we get that support, we could get spurious GPFs from within
-> > the kernel, e.g., load_unaligned_zeropad(). So, try to fix them up for now.
-> > 
-> > Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> > Reviewed-by: Gavin Shan <gshan@redhat.com>
-> > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> > Signed-off-by: Steven Price <steven.price@arm.com>
-> > Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> > ---
-> > Changes since v17:
-> >  * Pass untagged address to die_kernel_fault() - Sashiko
-> >  * Explicitly check !user_mode() for fixups - Catalin
-> >  * Switch to BUS_OBJERR for si_code from SI_KERNEL - Catalin
-> >  * Clarify the commit description about the upcoming work on
-> >    unmapping guest_memfd backed pages from linear map
-> > Changes since v16:
-> >  * Update the commit description to indicate why we try to fixup GPFs
-> > Changes since v10:
-> >  * Don't call arm64_notify_die() in do_gpf() but simply return 1.
-> > Changes since v2:
-> >  * Include missing "Granule Protection Fault at level -1"
-> > ---
-> >  arch/arm64/mm/fault.c | 30 ++++++++++++++++++++++++------
-> >  1 file changed, 24 insertions(+), 6 deletions(-)
-> 
-> I still don't think we should do this, given that the plan is to unmap
-> the memory from the linear map. If this thing fires, it's a kernel bug
-> and it should be fatal.
+syzbot has found a reproducer for the following issue on:
 
-If the linear unmapping gets merged first, I agree, no need to handle
-these faults. I haven't followed that series, so no idea where it is at.
+HEAD commit:    fe2ec83746e5 Merge tag 'hid-for-linus-2026092202' of git:/..
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=16b78d25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
+dashboard link: https://syzkaller.appspot.com/bug?extid=002fb7b2d0bc53bf7e75
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14854405580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11c0f4c9580000
 
-However, I'd still keep part of this patch - the reporting and panic but
-without the actual exception table recovery. There's some value in
-killing user-space and WARN (or pr_ratelimited) without a full panic, it
-helps with debugging. That's what do_bad() via arm64_notify_die() gives
-us currently anyway.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/cd25f1c33d2a/disk-fe2ec837.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/2c35e3694ae6/vmlinux-fe2ec837.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/1ff8b2a62fde/bzImage-fe2ec837.xz
 
-So maybe we can keep it to just:
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+002fb7b2d0bc53bf7e75@syzkaller.appspotmail.com
 
-static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
-{
-	if (user_mode(regs)) {
-		pr_alert_ratelimited("%s[%d]: granule protection fault at 0x%016lx\n",
-				current->comm, task_pid_nr(current),
-				untagged_addr(far));
-		mem_abort_decode(esr);
-	}
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz-executor105/5614 is trying to acquire lock:
+ffff888037550c60 (&pipe->mutex){+.+.}-{4:4}, at: anon_pipe_prefill_and_lock+0x16c/0x580 fs/pipe.c:165
 
-	return 1;
-}
+but task is already holding lock:
+ffff8880247ac938 (&sbi->pipe_mutex){+.+.}-{4:4}, at: autofs_write fs/autofs/waitq.c:55 [inline]
+ffff8880247ac938 (&sbi->pipe_mutex){+.+.}-{4:4}, at: autofs_notify_daemon+0x4f8/0xd90 fs/autofs/waitq.c:164
 
-and we get the SIGBUS or panic via do_mem_abort(). No recovery for
-uaccess though, we get the same kernel panic.
+which lock already depends on the new lock.
 
--- 
-Catalin
+
+the existing dependency chain (in reverse order) is:
+
+-> #2 (&sbi->pipe_mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       autofs_write fs/autofs/waitq.c:55 [inline]
+       autofs_notify_daemon+0x4f8/0xd90 fs/autofs/waitq.c:164
+       autofs_wait+0x10fd/0x1b50 fs/autofs/waitq.c:426
+       autofs_mount_wait+0x132/0x3b0 fs/autofs/root.c:256
+       autofs_d_automount+0x490/0x950 fs/autofs/root.c:410
+       follow_automount fs/namei.c:1565 [inline]
+       __traverse_mounts+0x1b9/0x8a0 fs/namei.c:1618
+       traverse_mounts fs/namei.c:1647 [inline]
+       handle_mounts fs/namei.c:1749 [inline]
+       step_into_slowpath+0xb7e/0xf90 fs/namei.c:2104
+       step_into fs/namei.c:2152 [inline]
+       walk_component fs/namei.c:2288 [inline]
+       lookup_last fs/namei.c:2789 [inline]
+       path_lookupat+0x58b/0xc40 fs/namei.c:2813
+       filename_lookup+0x202/0x590 fs/namei.c:2842
+       kern_path+0x37/0x50 fs/namei.c:3036
+       lookup_bdev+0xd8/0x2a0 block/bdev.c:1268
+       resume_store+0x1d6/0x460 kernel/power/hibernate.c:1278
+       kobj_attr_store+0x58/0x80 lib/kobject.c:842
+       sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x6af/0x1050 fs/read_write.c:687
+       ksys_write+0x12a/0x250 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (&of->mutex){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
+       iter_file_splice_write+0x830/0x10b0 fs/splice.c:736
+       do_splice_from fs/splice.c:936 [inline]
+       do_splice+0x109c/0x1fa0 fs/splice.c:1349
+       __do_splice+0x33b/0x370 fs/splice.c:1431
+       __do_sys_splice fs/splice.c:1634 [inline]
+       __se_sys_splice fs/splice.c:1616 [inline]
+       __x64_sys_splice+0x187/0x250 fs/splice.c:1616
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (&pipe->mutex){+.+.}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+       lock_acquire kernel/locking/lockdep.c:5942 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+       anon_pipe_prefill_and_lock+0x16c/0x580 fs/pipe.c:165
+       anon_pipe_write+0x164/0x1b50 fs/pipe.c:534
+       __kernel_write_iter+0x6bb/0x930 fs/read_write.c:621
+       __kernel_write+0xf6/0x140 fs/read_write.c:641
+       autofs_write fs/autofs/waitq.c:57 [inline]
+       autofs_notify_daemon+0x50d/0xd90 fs/autofs/waitq.c:164
+       autofs_wait+0x10fd/0x1b50 fs/autofs/waitq.c:426
+       autofs_mount_wait+0x132/0x3b0 fs/autofs/root.c:256
+       autofs_d_automount+0x490/0x950 fs/autofs/root.c:410
+       follow_automount fs/namei.c:1565 [inline]
+       __traverse_mounts+0x1b9/0x8a0 fs/namei.c:1618
+       traverse_mounts fs/namei.c:1647 [inline]
+       handle_mounts fs/namei.c:1749 [inline]
+       step_into_slowpath+0xb7e/0xf90 fs/namei.c:2104
+       step_into fs/namei.c:2152 [inline]
+       walk_component fs/namei.c:2288 [inline]
+       lookup_last fs/namei.c:2789 [inline]
+       path_lookupat+0x58b/0xc40 fs/namei.c:2813
+       filename_lookup+0x202/0x590 fs/namei.c:2842
+       kern_path+0x37/0x50 fs/namei.c:3036
+       lookup_bdev+0xd8/0x2a0 block/bdev.c:1268
+       resume_store+0x1d6/0x460 kernel/power/hibernate.c:1278
+       kobj_attr_store+0x58/0x80 lib/kobject.c:842
+       sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+       kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x6af/0x1050 fs/read_write.c:687
+       ksys_write+0x12a/0x250 fs/read_write.c:739
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  &pipe->mutex --> &of->mutex --> &sbi->pipe_mutex
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&sbi->pipe_mutex);
+                               lock(&of->mutex);
+                               lock(&sbi->pipe_mutex);
+  lock(&pipe->mutex);
+
+ *** DEADLOCK ***
+
+locks held by syz-executor105/5614: 4, last CPU#0:
+ #0: ffff888037ff0460 (sb_writers#8){.+.+}-{0:0}, at: ksys_write+0x12a/0x250 fs/read_write.c:739
+ #1: ffff8880781ea480 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x2c2/0x5f0 fs/kernfs/file.c:336
+ #2: ffff888020adbe18 (kn->active#57){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #2: ffff888020adbe18 (kn->active#57){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x332/0x5f0 fs/kernfs/file.c:337
+ #3: ffff8880247ac938 (&sbi->pipe_mutex){+.+.}-{4:4}, at: autofs_write fs/autofs/waitq.c:55 [inline]
+ #3: ffff8880247ac938 (&sbi->pipe_mutex){+.+.}-{4:4}, at: autofs_notify_daemon+0x4f8/0xd90 fs/autofs/waitq.c:164
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 5614 Comm: syz-executor105 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2087
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2219
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3209
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x1528/0x1f40 kernel/locking/lockdep.c:5288
+ lock_acquire kernel/locking/lockdep.c:5942 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5899
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x1a4/0x1bd0 kernel/locking/mutex.c:821
+ anon_pipe_prefill_and_lock+0x16c/0x580 fs/pipe.c:165
+ anon_pipe_write+0x164/0x1b50 fs/pipe.c:534
+ __kernel_write_iter+0x6bb/0x930 fs/read_write.c:621
+ __kernel_write+0xf6/0x140 fs/read_write.c:641
+ autofs_write fs/autofs/waitq.c:57 [inline]
+ autofs_notify_daemon+0x50d/0xd90 fs/autofs/waitq.c:164
+ autofs_wait+0x10fd/0x1b50 fs/autofs/waitq.c:426
+ autofs_mount_wait+0x132/0x3b0 fs/autofs/root.c:256
+ autofs_d_automount+0x490/0x950 fs/autofs/root.c:410
+ follow_automount fs/namei.c:1565 [inline]
+ __traverse_mounts+0x1b9/0x8a0 fs/namei.c:1618
+ traverse_mounts fs/namei.c:1647 [inline]
+ handle_mounts fs/namei.c:1749 [inline]
+ step_into_slowpath+0xb7e/0xf90 fs/namei.c:2104
+ step_into fs/namei.c:2152 [inline]
+ walk_component fs/namei.c:2288 [inline]
+ lookup_last fs/namei.c:2789 [inline]
+ path_lookupat+0x58b/0xc40 fs/namei.c:2813
+ filename_lookup+0x202/0x590 fs/namei.c:2842
+ kern_path+0x37/0x50 fs/namei.c:3036
+ lookup_bdev+0xd8/0x2a0 block/bdev.c:1268
+ resume_store+0x1d6/0x460 kernel/power/hibernate.c:1278
+ kobj_attr_store+0x58/0x80 lib/kobject.c:842
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f02d5f9ea29
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fffe4dfde98 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f02d5f9ea29
+RDX: 0000000000000012 RSI: 0000200000000040 RDI: 000000000000000b
+RBP: 0000000000000000 R08: 0000000000000009 R09: 0000000000000000
+R10: 0000000000000007 R11: 0000000000000246 R12: 00007f02d6006042
+R13: 00007fffe4dfded0 R14: 00007fffe4dfdf10 R15: 0000000000000000
+ </TASK>
+PM: Image not found (code -6)
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
