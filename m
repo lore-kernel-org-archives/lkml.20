@@ -1,134 +1,118 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA4F472522
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:14:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F00293FF8B6;
+	Wed, 23 Sep 2026 07:15:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147700; cv=none; b=AEv/p1w5fGUSHl15uJXRf9Qk80uapMSaUqjEi+0QOHUDLetfEUM9niGVProioH/jQKF7/rEQJHzh5ux14BtLtdmFQHmHoUn3xCglH+hxdpRC2estcAbDhuL4H7QEzO8OqLfSszsIiuZUkhM31GfFUmcaSgrhhdcaDgzUfmppayU=
+	t=1790147748; cv=none; b=KQLBYYj3PiEVRo5WNAP91AQClNG2vYfadtblrkyDLIemwadyLzEZAJCC7USAMyHXtZ+dtyjP1SQQkGScK+wKR1iffQFybA9Jxat/XFVqEuIO1gNss/YVqlG+P9yeeG8nLpkj92upiwy8wWlDdlYp/PgO2d2/AiJcSE+lyL9uarw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147700; c=relaxed/simple;
-	bh=UCqIOtZD2Jk+dE2LdYvz/qydnzUWZKhTuMhrInWOg2A=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=jY1IdzG3ia5mzKROTniuUwMjTOlweCatFoWGxoNQ10GiDV0BhT3hoB7PJgCuPsdB+upD9V9dXdrx9HiFK0FAwYLurciPUhiEN285havo2KUI7iQow7DuyFn4z7tdgPDqvUJbnCxvKq3T0LJKsLZK8qrlzKiCPbPXALWttgRLUBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n/XfQGo5; arc=none smtp.client-ip=74.125.82.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n/XfQGo5"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-32b8c2b30c4so897947eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:14:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790147698; x=1790752498; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/S2yM1Svvahmk7vRSW6vJVb9Ri5nPE1b8txEEKj5AbM=;
-        b=n/XfQGo5zd48p7KYb5lH6haQ1Qjg/kJP36NWOrMv7GDa0blITIHhpM9FfPWKoimo9P
-         rsv2g6V8vefS4B3TkGySagt+dQdFLWH5ZK4MWcRRVa2/r84K+0VJQN2TQUdbt6s5u6Pf
-         qEpx9CAiEhwlc/iybJoRSt+br/vMKtXwf3WZ9NB8Wcfh/n2keIuXBJ841tapZQlf1/lG
-         i62Qct57ABYRM/QZh6QziLApMTCxbfO5QGL5AxD0AaXgWIoxhsGu5E8rrBdxIA7puE/m
-         i84XBRL6aWFZMXt4iqqE4+dz5IHv3X2dPRvb4KVv/nUn/AygsO5Yet+2cLglFljjBUls
-         ZpqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790147698; x=1790752498;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/S2yM1Svvahmk7vRSW6vJVb9Ri5nPE1b8txEEKj5AbM=;
-        b=GtreLBzYN4T1SNe+BF0r61O8BXrIhLSV6MdKGXI+NwOPO0gsf8HxbPMwHzhDoqJ9qZ
-         lYqONx2EewwJv4GUyDPhLZNCt/SvShQHeZUS2x15F2jSvEe2sBvHo+yL2EHLvzlKjCbn
-         i+zy7SgK4ORy3IyrFbhC4QEOs7bwe2V8DFmErfJv0zA6I7JtZySDug9ZC9R8fUG08uPk
-         XKpByi9rll2j25J+JJ6yI/yeViFPZzl9rqT4aL2jqJNz9L9wfo1YcPSdYmfUCGUT1i+y
-         r5rSWMbeF0cL3d+zDtV5VUA1Ww1pxSSr6iDH/qtbrtrvHlCvWBBbyPpx7yKbTuHz9Cj7
-         4pkw==
-X-Forwarded-Encrypted: i=1; AKwUvBybV5ppzdcfWqoe8Mh+SQljLOUy4dNnEFswSxA0hbD7HxzIq8V0gSvTOH4siwm3LY4CQB587eIZ/evJenw=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6KQE8Ha3pEneMPHx+OIJOvEFjJFVZ4TdOjtdsxgba8z1ejpx2
-	XN5DiEQUMWE1AGfXdruggTbOGC2jgvax5zrH2icGxyXYhZAR4P+lmL7ZeMsNQIWYjo600Ir9/xp
-	SRUmi+DNrFw==
-X-Received: from dybut4.prod.google.com ([2002:a05:7301:e0c4:b0:33f:53bb:bb62])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:60d2:b0:33c:1f21:2337
- with SMTP id 5a478bee46e88-33e8d9cd47emr2040530eec.25.1790147697744; Wed, 23
- Sep 2026 00:14:57 -0700 (PDT)
-Date: Wed, 23 Sep 2026 00:14:03 -0700
-In-Reply-To: <cover.1790145937.git.irogers@google.com>
+	s=arc-20240116; t=1790147748; c=relaxed/simple;
+	bh=vZuxlwRpnrfiw2XnOOnbK05Vv1F8TcWxDpr/OMYOFp0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mocflb281tR16KJw67FdqG+0ruMCjrtJGVh+tzFbXJ9JfyOuXAlU0z8FmQ/dvic4pG5xFQXOMRZBsh5Jh5742hmo0lQYwZsdyWx3Bttj07ikv8Oo3un8Im6iVt7Y8x+EHNM8gy3L/9fAFVWpgfe6ytX0iYVpGVW1Y4FBHs7s+2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wA3EX6QfLNqptcwAQ--.6008S3;
+	Wed, 23 Sep 2026 15:15:29 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgAXy9KPfLNq+hSWBA--.44834S2;
+	Wed, 23 Sep 2026 15:15:27 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: Elie Morisse <syniurge@gmail.com>,
+	Shyam Sundar S K <shyam-sundar.s-k@amd.com>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] i2c: amd-mp2: Synchronize IRQ handler on callback unregister
+Date: Wed, 23 Sep 2026 07:14:32 +0000
+Message-Id: <20260923071432.487741-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1790145937.git.irogers@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <0cb69731888e5d32afa9b517d3456d66a99dedb5.1790145937.git.irogers@google.com>
-Subject: [PATCH v5 23/23] perf test uprobe_from_different_cu: Scope probe name
- to PID
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, howardchu95@gmail.com, 
-	namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgAXy9KPfLNq+hSWBA--.44834S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?as2ZGQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI1WXnYUE6Iac3H707PoH6LkwsQ8ncJF0C3+57Q5r70gUnGd
+	neRwZM6hBr/dGuJHJDfN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoW7tFyxXFWfGF1DJw13WrykWFX_yoW8tF4fpF
+	WfWrsayrs8JFs093WDAa1Fvry5Xws3XayUC34Uu39rZanYyrZ5Cry8tasIvFn8AryxJ3Wj
+	yFW5t343CayjyFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8aQ6JUUUUU==
 
-The test builds a binary in a per-run temporary directory and probes
-its foo function. The directory name is unique, but perf probe derives
-the event name from the probed function and the group name from the
-binary's basename, so every run registers the same probe_testfile:foo
-event.
+amd_mp2_irq_isr() dereferences the per-bus i2c context stored in
+privdata->busses[] and calls its cmd_completion() callback.
+i2c_amd_remove() clears that pointer with amd_mp2_unregister_cb()
+without any synchronization, so a handler that already loaded the
+pointer can still write i2c_common->eventval and call
+cmd_completion() after devres frees the struct amd_i2c_dev embedding
+the context.
 
-Running the test concurrently with itself, as 'perf test -r3' does,
-therefore fails in all but one of the runs with:
+Fix this by calling synchronize_irq() in amd_mp2_unregister_cb()
+after the pointer is cleared: handler instances that started earlier
+finish before the caller frees the object, and handlers that run
+later observe the NULL entry and skip the bus.
 
-  Error: event "foo" already exists.
-   Hint: Remove existing event by 'perf probe -d'
+The interrupt handler keeps reading the slot without any lock, so the
+clear and the handler's read use WRITE_ONCE()/READ_ONCE() to mark
+the access as intentionally concurrent.
 
-and a losing run's cleanup goes on to delete the winning run's probe
-out from under it.
+synchronize_irq() can sleep, but its callers hold only the sleepable
+adapter bus lock, which the interrupt handler never takes.
 
-Name the event after the pid, foo_$$, so that parallel runs no longer
-collide. This lets the test stay in the parallel pass rather than
-having to be marked (exclusive).
+This issue was found by an in-house static analysis tool.
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
+Fixes: 529766e0a011 ("i2c: Add drivers for the AMD PCIe MP2 I2C controller")
+Cc: stable@vger.kernel.org
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- .../perf/tests/shell/test_uprobe_from_different_cu.sh | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/i2c/busses/i2c-amd-mp2-pci.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/tools/perf/tests/shell/test_uprobe_from_different_cu.sh b/tools/perf/tests/shell/test_uprobe_from_different_cu.sh
-index 7adf9755d6de..47c99d93436b 100755
---- a/tools/perf/tests/shell/test_uprobe_from_different_cu.sh
-+++ b/tools/perf/tests/shell/test_uprobe_from_different_cu.sh
-@@ -18,12 +18,19 @@ fi
+diff --git a/drivers/i2c/busses/i2c-amd-mp2-pci.c b/drivers/i2c/busses/i2c-amd-mp2-pci.c
+index 60edbab..8c81247 100644
+--- a/drivers/i2c/busses/i2c-amd-mp2-pci.c
++++ b/drivers/i2c/busses/i2c-amd-mp2-pci.c
+@@ -209,7 +209,7 @@ static irqreturn_t amd_mp2_irq_isr(int irq, void *dev)
+ 	enum irqreturn ret = IRQ_NONE;
  
- temp_dir=$(mktemp -d /tmp/perf-uprobe-different-cu-sh.XXXXXXXXXX)
+ 	for (bus_id = 0; bus_id < 2; bus_id++) {
+-		i2c_common = privdata->busses[bus_id];
++		i2c_common = READ_ONCE(privdata->busses[bus_id]);
+ 		if (!i2c_common)
+ 			continue;
  
-+# The name of the uprobe added and removed below. The probe is placed on
-+# ${temp_dir}/testfile, but perf probe derives the event name from the probed
-+# function and the group name from the binary's basename, so every run would
-+# otherwise share one probe_testfile:foo event, and a concurrent run would
-+# fail with 'event "foo" already exists'. Scope the event name to the pid.
-+probe_name="foo_$$"
-+
- cleanup()
+@@ -268,7 +268,9 @@ int amd_mp2_unregister_cb(struct amd_i2c_common *i2c_common)
  {
- 	trap - EXIT TERM INT
- 	if [[ "${temp_dir}" =~ ^/tmp/perf-uprobe-different-cu-sh.*$ ]]; then
- 		echo "--- Cleaning up ---"
--		perf probe -x ${temp_dir}/testfile -d foo || true
-+		perf probe -x ${temp_dir}/testfile -d ${probe_name} || true
- 		rm -f "${temp_dir}/"*
- 		rmdir "${temp_dir}"
- 	fi
-@@ -84,6 +91,6 @@ gcc -g -Og -c ${temp_dir}/testfile-main.c -o ${temp_dir}/testfile-main.o
- gcc -g -Og -o ${temp_dir}/testfile ${temp_dir}/testfile-foo.o ${temp_dir}/testfile-main.o
+ 	struct amd_mp2_dev *privdata = i2c_common->mp2_dev;
  
- perf probe -x ${temp_dir}/testfile --funcs foo | grep "foo"
--perf probe -x ${temp_dir}/testfile foo
-+perf probe -x ${temp_dir}/testfile ${probe_name}=foo
+-	privdata->busses[i2c_common->bus_id] = NULL;
++	WRITE_ONCE(privdata->busses[i2c_common->bus_id], NULL);
++
++	synchronize_irq(privdata->dev_irq);
  
- cleanup
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+ 	return 0;
+ }
 
