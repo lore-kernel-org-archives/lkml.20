@@ -1,384 +1,203 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2FF3F58E8;
-	Wed, 23 Sep 2026 20:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790195017; cv=none; b=rJyo7h1eJh9HMnKxXl4QJkG7QhSnUsKr2b19uUAlAtKueM8/PFZXxirR1CPWXqulXoK/mKTDnit7m06Yg2s1Ew2BpK7H3MBua8GH5AYscMpQKcJsAGwzyJXsVHQZFwrfbgNWLxIDhCkWDyvTZsz34bnIr8tAplZHo8q0avCeR00=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F48945C70F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790195017; cv=pass; b=A5xt3v3j++xh7pRDs7g4X1f8IVWoQOF4QP4/3gVwwP27BIZC2R9hdlZ7/AwwppXBGZFyr8iwRfGmpn86pFzBjXrU8myq0oadJODmocXY4vEVLj2tboExDXaeh1JYbTG0aYyA6jB4mm2dofPo3FT3vxdX7m0RdgLCy798pi3SS7c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790195017; c=relaxed/simple;
-	bh=N3ZtQzKMoF3t3mjzucPKwU7WpmStxEm6lmVi7hsw5pk=;
+	bh=6o6rafjvmkjvA0xw6ARscJMbF1kGXdIRN73/+HyeBzQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hiDnEjg8vffraSPcv5+yHAmhOGhH5ZkLAd2tjSmzBv/MpHn1Eda8gLBbZrreNVBeZZOkkuyRO++iw4mjfPH2/F6jC3t8vilzYc1TsjEiWHJ36TcGCd9j8CKTYw9ljoeiYXw75nOIhQA1kt1NTopHn5INFkF6Cdkmg0k83dusImg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vKgZQ+68; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=3sEAlWav; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=z6E9OOdj; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SLDbMTC1; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	 Content-Type:Content-Disposition:In-Reply-To; b=iqVIPK24jNyFl5FEVA7bE7ziLtDT2ZvfPYhUwoRTH8l7kRpqx1EAdJmmcFmvkL293kTMd12ZQyB43AH3KZbo1E8nBdC8rpGm2KCAyS6cseMIzlJ4bsQULXP8yepENemqz8j+422yRRMaGTe0xnVpGMXyIJczNQbHHZ+29VBxtoM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=NSuW96iw; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vKgZQ+68";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="3sEAlWav";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="z6E9OOdj";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SLDbMTC1"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id DC3FB1FFA4;
-	Wed, 23 Sep 2026 20:23:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790195001;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3txnbGXjnEMcg6Tno2syRovR7ra61zaqYc6U6PNPcNQ=;
-	b=vKgZQ+68d+onAg5VOUJixIXtms4eXf+hza8Qn3xv/AvsNgyCtxmQp18M6XHL3Z9JY8m7xM
-	8SNJ13ig30VoYFWMk0wy0bUfxrVD8Rac3m936gOPjIo3YKcJ8bH397E3qdFYtRAfQPwYu0
-	TTqYIA+6kmZltcISt5Lf5s+3uBgats0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790195001;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3txnbGXjnEMcg6Tno2syRovR7ra61zaqYc6U6PNPcNQ=;
-	b=3sEAlWavfBWdcIItajuaFaync5u0jBk+q3AKoXwL2HfwRu/iNbi1c7+QFRj3T7GB9CmYLq
-	4LPbJu3/2n6/iBAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1790194996;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3txnbGXjnEMcg6Tno2syRovR7ra61zaqYc6U6PNPcNQ=;
-	b=z6E9OOdjcpH2C2T8Rpt182pYh6dsDlwjw7HApaUSh+V21JuNeWiTu+a5xZuGFEN3U2BYLu
-	tj+69PiplLD4eGKBo1hcXPsnVVwY/M94HJKLYr3A8LvI0JREzQZqhzJZ3vErkv/r65rtJZ
-	AaZvmYa5lbBo8VBGel3UmLsNGcN8x7k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1790194996;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3txnbGXjnEMcg6Tno2syRovR7ra61zaqYc6U6PNPcNQ=;
-	b=SLDbMTC1RdHneptx0VcM/nsqdHn4285bwd15Wonz6ZaaUMeo1Lrs3UUbANafD7dollNxsB
-	v9aTOBc6qjs8OADQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 088FC13354;
-	Wed, 23 Sep 2026 20:23:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ZHICMjM1tGpMYwAAD6G6ig
-	(envelope-from <pvorel@suse.cz>); Wed, 23 Sep 2026 20:23:15 +0000
-Date: Wed, 23 Sep 2026 22:23:14 +0200
-From: Petr Vorel <pvorel@suse.cz>
-To: Narcisa Vasile <narcisav.kernel@gmail.com>
-Cc: netdev@vger.kernel.org, kuba@kernel.org, daniel.zahka@gmail.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"Ricardo B. Marliere" <rbm@suse.com>,
-	Sebastian Chlad <sebastian.chlad@suse.com>
-Subject: Re: [PATCH net-next] selftests: drv-net: add BIG TCP coverage to TSO
- test
-Message-ID: <20260923202314.GA177730@pevik>
-Reply-To: Petr Vorel <pvorel@suse.cz>
-References: <20260921201145.49875-1-narcisav.kernel@gmail.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="NSuW96iw"
+ARC-Seal: i=1; a=rsa-sha256; t=1790194958; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=lLqx2yAUq6o+M8/7F+UMx8DvBUKS2Ma9FpNQBhh87qJE+JQSU3SdiYX5AMYXTqQiZWWx+7UhAUgzPA30uNx0q5rnUicPYdvqZkLiE5g0JR7WFUUUd/QhlH+xajoa1dEvwBfZxDHxg9LUUDur6VYtrl6dpBlAA9Va+Bh1RGWGTk4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790194958; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=g+YIuk+4WIpshSahF8eOV7IWdfFGOw6fxHq1Lq9U6Ao=; 
+	b=JfK7hLfSZz3pfankwaTwEop71ESoAiFtVaCdVsShUkJkOI3TQGcTPby3l+haIcyDcAYoT0nYweZQ0zotUjA+x6Nc+nr7McWYKROsWVZ0g3iaIav5LOVdiYOZf81aMHIXOk03KRw8/K4jtgNslGiuGVochgdkl0QNpS0lTEBqWaI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790194958;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=g+YIuk+4WIpshSahF8eOV7IWdfFGOw6fxHq1Lq9U6Ao=;
+	b=NSuW96iwCPwTSl4mcg+Hji4Z35UcW4wIQBUE9BPLfjxRSG64yoQ8y/yT/68As0fD
+	ITGj1Y6P21HeucZ3XblOF0EYLnk/lof/+uIK7jbxJRJAGc2TtG7qfXkafx26pdpSCfH
+	uh/eRg4HP972fL/NkLyhYdk1jhW9EOmn26kBD6k0=
+Received: by smtp.zohomail.com with SMTPS id 1790194957839653.7404759552567;
+	Wed, 23 Sep 2026 13:22:37 -0700 (PDT)
+Date: Wed, 23 Sep 2026 21:22:32 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
+	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 10/16] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
+Message-ID: <arQzC4I98fFgVelc@sobremesa>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+ <20260912-claude-fixes-v9-10-e588feaa61ef@collabora.com>
+ <20260914113946.69936104@fedora-21.home>
+ <arGKAk8ZWGOGDWEY@sobremesa>
+ <20260923091010.58b8e677@fedora-21.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921201145.49875-1-narcisav.kernel@gmail.com>
-X-Spam-Level: 
-X-Spam-Score: -2.00
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.00 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	HAS_REPLYTO(0.30)[pvorel@suse.cz];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,gmail.com,lunn.ch,davemloft.net,google.com,redhat.com,broadcom.com,suse.com];
-	MISSING_XM_UA(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TAGGED_RCPT(0.00)[netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lib.py:url,imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.cz:replyto];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	REPLYTO_EQ_FROM(0.00)[]
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260923091010.58b8e677@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.183.46
 
-Hi Narcisa,
+> On 23.09.2026 09:10, Boris Brezillon wrote:
+> On Tue, 22 Sep 2026 20:54:11 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > On 14.09.2026 11:39, Boris Brezillon wrote:
+> > > On Sat, 12 Sep 2026 00:28:11 +0100
+> > > Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> > >   
+> > > > This will be of great help when testing potential races between the GPU
+> > > > reset sequence and other parts of the code accessing HW registers.
+> > > > 
+> > > > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>  
+> > > 
+> > > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> > > 
+> > > One comment below.
+> > >   
+> > > > ---
+> > > >  drivers/gpu/drm/panfrost/panfrost_device.c | 37 ++++++++++++++++++++++++++++++
+> > > >  1 file changed, 37 insertions(+)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > > index d75566a45392..0aee1d87a7ab 100644
+> > > > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > > @@ -2,6 +2,7 @@
+> > > >  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+> > > >  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
+> > > >  
+> > > > +#include <linux/debugfs.h>
+> > > >  #include <linux/clk.h>
+> > > >  #include <linux/reset.h>
+> > > >  #include <linux/platform_device.h>
+> > > > @@ -583,9 +584,45 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
+> > > >  };
+> > > >  
+> > > >  #ifdef CONFIG_DEBUG_FS
+> > > > +static int reset_get(void *data, u64 *val)
+> > > > +{
+> > > > +	struct panfrost_device *pfdev =
+> > > > +		container_of(data, struct panfrost_device, base);
+> > > > +
+> > > > +	*val = atomic_read(&pfdev->reset.pending);
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +static int reset_set(void *data, u64 val)
+> > > > +{
+> > > > +	struct panfrost_device *pfdev =
+> > > > +		container_of(data, struct panfrost_device, base);
+> > > > +	int ret = pm_runtime_get_if_active(pfdev->base.dev);
+> > > > +
+> > > > +	if (ret) {
+> > > > +		panfrost_device_schedule_reset(pfdev);  
+> > > 
+> > > It feels weird to schedule a reset if the device is suspended, because
+> > > a suspend/resume cycle already acts as a reset. Any particular reason
+> > > you'd want to do that? If not, I'd suggest going for:  
+> > 
+> > That's been my goal all along, for the knob to trigger a reset only when
+> > the device isn't suspended. pm_runtime_get_if_active() docs states that:
+> > 
+> > """
+> > Increment the runtime PM usage counter of @dev if its runtime PM status is
+> > %RPM_ACTIVE, in which case it returns 1. If the device is in a different
+> > state, 0 is returned. -EINVAL is returned if runtime PM is disabled for the
+> > device, in which case also the usage_count will remain unmodified.
+> > """
+> > 
+> > So (ret != 0) means the device either doesn't support RPM or else it
+> > was in the ACTIVE state. In both cases, that means the device is powered
+> > so we can proceed with the reset. However, I only decrement the usage
+> > counter when kernel RPM is enabled (ret > 1).
+> 
+> Okay, I see. Can we have a comment explaining that? Also, I think I
+> prefer an early bail out over the extra indentation level added here.
+> 
+> 	if (!ret)
+> 		return 0;
 
-[ Cc Ricardo and Sebastian ]
+Will do.
 
-> Add IPv4 and IPv6 test cases that exercise GSO packets under BIG TCP
-> size limits.
+> Oh, and we should probably make this knob inactive in the device removal
+> path (with a disable_work()?), otherwise -EINVAL will be returned as
+> soon as pm_runtime_disable() is called, and this might cause a reset to
+> be scheduled, which we probably don't want, since it would interfere
+> with our device_fini() logic.
 
-> 1..2
-> ok 1 tso.big_tcp_ipv4
-> ok 2 tso.big_tcp_ipv6
+I think replacing cancel_work_sync() with disable_work_sync() in panfrost_jm_fini()
+should be enough to this end. In that case, both queue_work() and flush_work()
+will do nothing and no PM reference will be taken, so the whole thing effective
+becomes a NOP.
 
-> Both of them run the existing tx-tcp-segmentation
-> and tx-tcp6-segmentation tests at the increased TSO maximum.
-
-> Additionally, reserve a hugepage and transmit its content using
-> MSG_ZEROCOPY to produce skb fragments larger than 65536.
-> Check that the number of retransmissions represents a small
-> percentage of the total packets sent. Record the number of drops
-> before and after the send to catch issues with large frag
-> handling during segmentation.
-
-> Signed-off-by: Narcisa Vasile <narcisav.kernel@gmail.com>
-
-LGTM, but I'm not really an expert on network drivers testing.
-
-Acked-by: Petr Vorel <pvorel@suse.cz>
-
-Kind regards,
-Petr
-
-> ---
->  tools/testing/selftests/drivers/net/hw/tso.py | 161 ++++++++++++++++++
->  1 file changed, 161 insertions(+)
-
-> diff --git a/tools/testing/selftests/drivers/net/hw/tso.py b/tools/testing/selftests/drivers/net/hw/tso.py
-> index 67f6c9ca9a64..176ddf97fabb 100755
-> --- a/tools/testing/selftests/drivers/net/hw/tso.py
-> +++ b/tools/testing/selftests/drivers/net/hw/tso.py
-> @@ -4,6 +4,7 @@
->  """A simple test for TSO."""
-
->  import fcntl
-> +import mmap
->  import socket
->  import struct
->  import termios
-> @@ -15,6 +16,87 @@ from lib.py import EthtoolFamily, NetdevFamily, NetDrvEpEnv
->  from lib.py import bkg, cmd, defer, ethtool, ip, rand_port, wait_port_listen
-
-
-> +MAP_HUGETLB = getattr(mmap, "MAP_HUGETLB", 0x40000)
-> +MSG_ZEROCOPY = getattr(socket, "MSG_ZEROCOPY", 0x4000000)
-> +SO_ZEROCOPY = getattr(socket, "SO_ZEROCOPY", 60)
-> +
-> +GSO_LEGACY_MAX_SIZE = 65536
-> +
-> +# Pool of the default hugepage size, the one /proc/meminfo reports on.
-> +NR_HUGEPAGES = "/proc/sys/vm/nr_hugepages"
-> +
-> +
-> +def default_huge_page_size():
-> +    """Return the hugepage size in bytes"""
-> +    try:
-> +        with open("/proc/meminfo", encoding="utf-8") as meminfo:
-> +            for line in meminfo:
-> +                if line.startswith("Hugepagesize:"):
-> +                    return int(line.split()[1]) * 1024
-> +    except OSError:
-> +        pass
-> +
-> +    return 2 * 1024 * 1024
-> +
-> +
-> +def hugepages_free():
-> +    """Return the number of unused hugepages of the default size."""
-> +    try:
-> +        with open("/proc/meminfo", encoding="utf-8") as meminfo:
-> +            for line in meminfo:
-> +                if line.startswith("HugePages_Free:"):
-> +                    return int(line.split()[1])
-> +    except OSError:
-> +        pass
-> +    return 0
-> +
-> +
-> +def set_nr_hugepages(count):
-> +    with open(NR_HUGEPAGES, "w", encoding="utf-8") as sysctl:
-> +        sysctl.write(f"{count}\n")
-> +
-> +
-> +def tx_dropped(ifname):
-> +    with open(f"/sys/class/net/{ifname}/statistics/tx_dropped",
-> +              encoding="utf-8") as counter:
-> +        return int(counter.read())
-> +
-> +
-> +def setup_hugepage():
-> +    """Reserve one hugepage, and put the pool back afterwards."""
-> +    if hugepages_free() >= 1:
-> +        return
-> +
-> +    try:
-> +        with open(NR_HUGEPAGES, encoding="utf-8") as sysctl:
-> +            old_count = int(sysctl.read())
-> +        set_nr_hugepages(old_count + 1)
-> +    except OSError as error:
-> +        raise KsftSkipEx(f"Unable to reserve a hugepage: {error}") from error
-> +
-> +    defer(set_nr_hugepages, old_count)
-> +
-> +    if hugepages_free() < 1:
-> +        raise KsftSkipEx("Unable to reserve a hugepage")
-> +
-> +
-> +def mmap_large_buffer():
-> +    """Allocate a buffer backed by one huge page."""
-> +    size = default_huge_page_size()
-> +
-> +    setup_hugepage()
-> +
-> +    try:
-> +        return mmap.mmap(-1, size,
-> +                         flags=mmap.MAP_PRIVATE |
-> +                               mmap.MAP_ANONYMOUS |
-> +                               MAP_HUGETLB,
-> +                         prot=mmap.PROT_READ)
-> +    except OSError as e:
-> +        raise KsftSkipEx(f"Unable to allocate a {size >> 20}MB hugepage "
-> +                         f"buffer: {e}") from e
-> +
-> +
->  def sock_wait_drain(sock, max_wait=1000):
->      """Wait for all pending write data on the socket to get ACKed."""
->      for _ in range(max_wait):
-> @@ -33,6 +115,32 @@ def tcp_sock_get_retrans(sock):
->      return struct.unpack("I", info[100:104])[0]
+> > 
+> > > 	if (ret <= 0)
+> > > 		return ret;
+> > > 
+> > > 	panfrost_device_schedule_reset(pfdev);
+> > > 	pm_runtime_put(pfdev->base.dev);
+> > > 	return 0;
+> > >   
+> > > > +		flush_work(&pfdev->reset.work);
+> > > > +		if (ret > 0)
+> > > > +			pm_runtime_put(pfdev->base.dev);
+> > > > +	}
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
+> > > > +			 reset_get, reset_set,
+> > > > +			 "0x%08llx\n");
+> > > > +
+> > > > +static void panfrost_reset_debugfs_init(struct drm_minor *minor)
+> > > > +{
+> > > > +	debugfs_create_file("reset", 0600, minor->debugfs_root,
+> > > > +			    minor->dev, &panfrost_reset_debugfs_fops);
+> > > > +}
+> > > > +
+> > > >  void panfrost_device_debugfs_init(struct drm_minor *minor)
+> > > >  {
+> > > >  	panfrost_gem_debugfs_init(minor);
+> > > >  	panfrost_sched_debugfs_init(minor);
+> > > > +	panfrost_reset_debugfs_init(minor);
+> > > >  }
+> > > >  #endif // CONFIG_DEBUG_FS
+> > > >   
+> > 
+> > Adrian Larumbe
 
 
-> +def setup_big_tcp(cfg):
-> +    """Lift the GSO ceiling to what the device advertises for TSO."""
-> +    if cfg.dev["tso_max_size"] <= GSO_LEGACY_MAX_SIZE:
-> +        raise KsftSkipEx("Device does not support BIG TCP")
-> +
-> +    ip(f"link set dev {cfg.ifname} "
-> +       f"gso_max_size {cfg.dev['tso_max_size']} "
-> +       f"gso_ipv4_max_size {cfg.dev['tso_max_size']}")
-> +
-> +    defer(ip, f"link set dev {cfg.ifname} "
-> +              f"gso_max_size {cfg.dev['gso_max_size']} "
-> +              f"gso_ipv4_max_size {cfg.dev['gso_ipv4_max_size']}")
-> +
-> +
-> +def sock_send_zerocopy(sock):
-> +    """Send with MSG_ZEROCOPY, return the bytes queued."""
-> +    try:
-> +        sock.setsockopt(socket.SOL_SOCKET, SO_ZEROCOPY, 1)
-> +    except OSError as e:
-> +        raise KsftSkipEx(f"SO_ZEROCOPY not supported: {e}") from e
-> +
-> +    with mmap_large_buffer() as tx_buf:
-> +        sock.sendall(tx_buf, MSG_ZEROCOPY)
-> +        return len(tx_buf)
-> +
-> +
->  def run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso):
->      cfg.require_cmd("socat", local=False, remote=True)
-
-> @@ -96,6 +204,46 @@ def run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso):
->                          500, comment="Number of LSO wire-packets with LSO disabled")
-
-
-> +def run_big_tcp_stream(cfg, ipver, remote_v4, remote_v6):
-> +    """Send with MSG_ZEROCOPY out of a huge page, so the frags exceed 64kB."""
-> +    cfg.require_cmd("socat", local=False, remote=True)
-> +
-> +    # No clamping, as it would keep the frags under 64kB
-> +    port = rand_port()
-> +    listen_opts = f"{port},reuseport"
-> +    listen_cmd = f"socat -{ipver} -t 2 -u TCP-LISTEN:{listen_opts} /dev/null,ignoreeof"
-> +
-> +    with bkg(listen_cmd, host=cfg.remote, exit_wait=True):
-> +        wait_port_listen(port, host=cfg.remote)
-> +
-> +        if ipver == "4":
-> +            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-> +            sock.connect((remote_v4, port))
-> +        else:
-> +            sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
-> +            sock.connect((remote_v6, port))
-> +
-> +        # Small send to make sure the connection is working.
-> +        sock.send("ping".encode())
-> +        sock_wait_drain(sock)
-> +
-> +        retrans_old = tcp_sock_get_retrans(sock)
-> +        drops_old = tx_dropped(cfg.ifname)
-> +
-> +        sent = sock_send_zerocopy(sock)
-> +        sock_wait_drain(sock)
-> +
-> +        drops = tx_dropped(cfg.ifname) - drops_old
-> +        retrans = tcp_sock_get_retrans(sock) - retrans_old
-> +        sock.close()
-> +
-> +        ksft_eq(drops, 0, comment="Driver TX drops during BIG TCP send")
-> +
-> +        # Same best effort bound as the plain stream.
-> +        total_lso_wire = sent * 0.90 // cfg.dev["mtu"]
-> +        ksft_lt(retrans, total_lso_wire / 16)
-> +
-> +
->  def build_tunnel(cfg, outer_ipver, tun_info):
->      local_v4  = NetDrvEpEnv.nsim_v4_pfx + "1"
->      local_v6  = NetDrvEpEnv.nsim_v6_pfx + "1"
-> @@ -147,6 +295,11 @@ def test_builder(name, cfg, outer_ipver, feature, tun=None, inner_ipver=None):
->          if feature not in cfg.hw_features:
->              raise KsftSkipEx(f"Device does not support {feature}")
-
-> +        # Run non-tunnel test cases under the BIG TCP limits too.
-> +        big_tcp = "big_tcp" in name
-> +        if big_tcp:
-> +            setup_big_tcp(cfg)
-> +
->          ipver = outer_ipver
->          if tun:
->              remote_v4, remote_v6 = build_tunnel(cfg, ipver, tun)
-> @@ -159,6 +312,9 @@ def test_builder(name, cfg, outer_ipver, feature, tun=None, inner_ipver=None):
->          ethtool(f"-K {cfg.ifname} {feature} off")
->          run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso=False)
-
-> +        if big_tcp:
-> +            run_big_tcp_stream(cfg, ipver, remote_v4, remote_v6)
-> +
->          ethtool(f"-K {cfg.ifname} tx-gso-partial off")
->          ethtool(f"-K {cfg.ifname} tx-tcp-mangleid-segmentation off")
->          if feature in cfg.partial_features:
-> @@ -171,6 +327,9 @@ def test_builder(name, cfg, outer_ipver, feature, tun=None, inner_ipver=None):
->          ethtool(f"-K {cfg.ifname} {feature} on")
->          run_one_stream(cfg, ipver, remote_v4, remote_v6, should_lso=True)
-
-> +        if big_tcp:
-> +            run_big_tcp_stream(cfg, ipver, remote_v4, remote_v6)
-> +
->      f.__name__ = name + ((outer_ipver + "_") if tun else "") + "ipv" + inner_ipver
->      return f
-
-> @@ -230,6 +389,8 @@ def main() -> None:
->              # name,       v4/v6  ethtool_feature               tun:(type, args, inner ip versions)
->              ("",           "4", "tx-tcp-segmentation",         None),
->              ("",           "6", "tx-tcp6-segmentation",        None),
-> +            ("big_tcp_",   "4", "tx-tcp-segmentation",         None),
-> +            ("big_tcp_",   "6", "tx-tcp6-segmentation",        None),
->              ("vxlan",      "4", "tx-udp_tnl-segmentation",     ("vxlan", "id 100 dstport 4789 noudpcsum", ("4", "6"))),
->              ("vxlan",      "6", "tx-udp_tnl-segmentation",     ("vxlan", "id 100 dstport 4789 udp6zerocsumtx udp6zerocsumrx", ("4", "6"))),
->              ("vxlan_csum", "", "tx-udp_tnl-csum-segmentation", ("vxlan", "id 100 dstport 4789 udpcsum", ("4", "6"))),
+Adrian Larumbe
