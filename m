@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A625335AA
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:45:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901E6538D81
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:45:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178330; cv=none; b=QFcvicC+eZ+24dY9D9XlhFl9+ELKJEXkjyXjNrV7fmAxdohPKxxFHhr2n7OhdWEcCwCrSqsKWVU3szzF1d4r+vIUrgMud1krdV59WO/2vhKrYE8Pz4k9/++P9mweUUbmBFFgjlSB4HcCzQNMehnMl+xE0yPO04yyVU5n73qT1aU=
+	t=1790178332; cv=none; b=C/jqTmb2JOoQuzRLuHl+HmNZXDgLP8OGs0Hjn3xrW9RHBBZSdbCM7LefNI4dA4RClNizsmXu1hXkkisCHPT3y2yreJL7r5CK2LxxAVMFtGhueQS0Io70wZQcEktCokBqf5Qs8YXjwqLq+JYcoq0t071GOcXPRoIuHIJPAGepZO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178330; c=relaxed/simple;
-	bh=33FdYS7LcHQOUuVVbB724hi3rHicKValZW5fZAPUwE4=;
+	s=arc-20240116; t=1790178332; c=relaxed/simple;
+	bh=VPi15PsOqWVBx9nDmNt6QjdRuJxbnsvb4+NwLBJjDZ0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sPpqVLZGEczeIiqMXfOR8EY90JSczlpPOjGP8qjqICIuCR3WbYF3Yeq8eBjfF9BtjA+kw3RiKxTp3ER2CbmNfgckztJeLc8+tMQZECsl8wgxgTy2wU6Md9tMQyg5QlrpLUFPF5zsUMJQRvuRjVveimiejzjMZ4FhpyXebSuKT9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7OTHLD4; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=PcXP2cBnYEeBfNPBaAUAvvW2b2iHawYKUfHbAA+oT/hJxD6xqUMukwqPohf6bif/AG/fSaJCJMT2q/a3anMufbL7NBn8RwTxrhTlqrXu4LuwrV5rq1s33u/NzGL+YwFO5bYSppPdi6p/oQdItYdUhuYycvp5eDO8ZnMp4qKu5e8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UbAbL/u0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7OTHLD4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87F671F000FF;
-	Wed, 23 Sep 2026 15:45:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UbAbL/u0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2055D1F00893;
+	Wed, 23 Sep 2026 15:45:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790178328;
-	bh=NzT0YNZekEUjP9R0sb5doBa5YOLmVvxQILIsqj1HgT8=;
+	s=k20260515; t=1790178331;
+	bh=cf8h14QuICV9AFXO/du43rKQzztTKxLUCWiq2pXLLBo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=h7OTHLD4zH6KwJ6BLFqpcKrGs3/t4gr+WYAn8O9Bo6UWEIK717FJcpQcPPo6FNOfL
-	 As19/HSnO6zPWKxjEbIjEZrAgstc+GM7B+ikA2oa8Q+UYxtlCRBhuca6Lkb5PI7I1g
-	 jpH4nyb9ASSYfAcWLvUiaOEM9z/dHG8Inr1gSxHLN13im1WQ4KK9nBgCDT4p960R96
-	 mNcWU+OSWHFlUAjOyCO53HZHLgyLF/GhZALDFdPhq87GITelC3l52X2UEqERId29qn
-	 wAGkz6H2+VvUk0NniOL6loNnfSem0f6VeI3P0tGaXVHY2IQRinHG7n23mREDpV4w3V
-	 VEPH/eFmvOWgw==
+	b=UbAbL/u0JvZsUlgMBthQ9AwH/tO5dqygUtU92S1O4NBxtmdXFyrl3cRipSBmjz6Ye
+	 zDtjhRBPD1uZguo51h9n7WpVJVIuqZp5XCWn+6ORbau3BmWymNXUSqSQL4QhipCEBF
+	 fSxKkUWh/1Z0tkoC10Mq7lBPNpx3V8pHY+HobR4m1qA2xulcoYXSqox91RmMBCcHGC
+	 3Mk1i4JtKXzx1n4krOIJ0pILM0tegZ3ms3ZSARbUtJ29EUR7DIu9WTo1/8rvHWruA0
+	 X8nvOsDQNsy3tLWbAnLUOxZQmdM9wocYFlvq5NDOYSJ0O3vOWsQtEuycARKu0gJP/v
+	 pdKQxOunPuyLg==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Wed, 23 Sep 2026 17:45:09 +0200
-Subject: [PATCH RFC 4/8] mm, slab: make SLUB_TINY handling dynamic for
- sizing decisions
+Date: Wed, 23 Sep 2026 17:45:10 +0200
+Subject: [PATCH RFC 5/8] mm, slab: convert CONFIG_SLUB_TINY checks to
+ kmem_cache_debug()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-slub_tiny_rework-v1-4-a0e66d536eb5@kernel.org>
+Message-Id: <20260923-slub_tiny_rework-v1-5-a0e66d536eb5@kernel.org>
 References: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
 In-Reply-To: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
 To: Harry Yoo <harry@kernel.org>
@@ -50,81 +50,194 @@ Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
  linux-kernel@vger.kernel.org, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 X-Mailer: b4 0.16.0
 
-Enabling CONFIG_SLUB_TINY results in the caches' min partial slabs
-threshold to be zero, thus every slab where all objects become free is
-freed immediately. It also sets the default slab_max_order to 1, with
-the goal of reducing the potential of internal slab fragmentation.
+CONFIG_SLUB_TINY shares several slowpaths with debugging as both of them
+avoid percpu caching of objects. With the goal of replacing the config
+with a boot-time decision, extend this sharing by hooking
+slab_tiny_enabled into kmem_cache_debug() check itself.
 
-Rework both of these decisions to be based on the newly introduced
-slab_tiny_enabled flag instead of #ifdefs. It's still possible to
-override the reduced slab_max_order with the boot parameter, as before.
+This is made possible by the new SLAB_DEBUG_NOOP debug flag. Make
+slub_debug_enabled static key always available (not just with
+CONFIG_SLUB_DEBUG enabled) and have slab_tiny_enabled add
+SLAB_DEBUG_NOOP to all caches in kmem_cache_flags(). Do this also in the
+CONFIG_SLUB_DEBUG variant, which is currently exclusive with
+CONFIG_SLUB_TINY, but that will be lifted later.
+
+Remove the various IS_ENABLED(CONFIG_SLUB_TINY) checks that
+complement kmem_cache_debug() checks as they are no longer necessary.
+
+While removing/adjusting the CONFIG_SLUB_DEBUG #ifdefs, also convert
+CONFIG_SLUB_DEBUG_ON to *_STATIC_KEY_MAYBE().
 
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- mm/slub.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ mm/slab.h | 18 ++++++------------
+ mm/slub.c | 38 ++++++++++++++++++--------------------
+ 2 files changed, 24 insertions(+), 32 deletions(-)
 
+diff --git a/mm/slab.h b/mm/slab.h
+index 00d49ac0d93f..23017a5d10d1 100644
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -520,26 +520,20 @@ struct slabinfo {
+ 
+ void get_slabinfo(struct kmem_cache *s, struct slabinfo *sinfo);
+ 
+-#ifdef CONFIG_SLUB_DEBUG
+-#ifdef CONFIG_SLUB_DEBUG_ON
+-DECLARE_STATIC_KEY_TRUE(slub_debug_enabled);
+-#else
+-DECLARE_STATIC_KEY_FALSE(slub_debug_enabled);
+-#endif
+-extern void print_tracking(struct kmem_cache *s, void *object);
+-long validate_slab_cache(struct kmem_cache *s);
++DECLARE_STATIC_KEY_MAYBE(CONFIG_SLUB_DEBUG_ON, slub_debug_enabled);
++
+ static inline bool __slub_debug_enabled(void)
+ {
+ 	return static_branch_unlikely(&slub_debug_enabled);
+ }
++
++#ifdef CONFIG_SLUB_DEBUG
++extern void print_tracking(struct kmem_cache *s, void *object);
++long validate_slab_cache(struct kmem_cache *s);
+ #else
+ static inline void print_tracking(struct kmem_cache *s, void *object)
+ {
+ }
+-static inline bool __slub_debug_enabled(void)
+-{
+-	return false;
+-}
+ #endif
+ 
+ /*
 diff --git a/mm/slub.c b/mm/slub.c
-index 2a7b3b3b91b5..2c8477033700 100644
+index 2c8477033700..c6a0422e055d 100644
 --- a/mm/slub.c
 +++ b/mm/slub.c
-@@ -272,7 +272,6 @@ void *fixup_red_left(struct kmem_cache *s, void *p)
- /* Enable to log cmpxchg failures */
- #undef SLUB_DEBUG_CMPXCHG
+@@ -202,13 +202,7 @@ enum slab_flags {
+ #define __fastpath_inline
+ #endif
  
--#ifndef CONFIG_SLUB_TINY
- /*
-  * Minimum number of partial slabs. These will be left on the partial
-  * lists even if they are empty. kmem_cache_shrink may reclaim them.
-@@ -285,10 +284,6 @@ void *fixup_red_left(struct kmem_cache *s, void *p)
-  * sort the partial list by the number of objects in use.
-  */
- #define MAX_PARTIAL 10
+-#ifdef CONFIG_SLUB_DEBUG
+-#ifdef CONFIG_SLUB_DEBUG_ON
+-DEFINE_STATIC_KEY_TRUE(slub_debug_enabled);
 -#else
--#define MIN_PARTIAL 0
--#define MAX_PARTIAL 0
+-DEFINE_STATIC_KEY_FALSE(slub_debug_enabled);
 -#endif
+-#endif		/* CONFIG_SLUB_DEBUG */
++DEFINE_STATIC_KEY_MAYBE(CONFIG_SLUB_DEBUG_ON, slub_debug_enabled);
  
- #define DEBUG_DEFAULT_FLAGS (SLAB_CONSISTENCY_CHECKS | SLAB_RED_ZONE | \
- 				SLAB_POISON | SLAB_STORE_USER)
-@@ -7604,8 +7599,7 @@ EXPORT_SYMBOL(kmem_cache_alloc_bulk_noprof);
-  * take the list_lock.
+ #ifdef CONFIG_NUMA
+ static DEFINE_STATIC_KEY_FALSE(strict_numa);
+@@ -1040,11 +1034,7 @@ static inline void *restore_red_left(struct kmem_cache *s, void *p)
+ /*
+  * Debug settings:
   */
- static unsigned int slab_min_order;
--static unsigned int slab_max_order =
--	IS_ENABLED(CONFIG_SLUB_TINY) ? 1 : PAGE_ALLOC_COSTLY_ORDER;
-+static unsigned int slab_max_order = PAGE_ALLOC_COSTLY_ORDER;
- static unsigned int slab_min_objects;
+-#if defined(CONFIG_SLUB_DEBUG_ON)
+-static slab_flags_t slub_debug = DEBUG_DEFAULT_FLAGS;
+-#else
+-static slab_flags_t slub_debug;
+-#endif
++static slab_flags_t slub_debug = IS_ENABLED(CONFIG_SLUB_DEBUG_ON) ? DEBUG_DEFAULT_FLAGS : 0;
+ 
+ static const char *slub_debug_string __ro_after_init;
+ static int disable_higher_order_debug;
+@@ -2017,6 +2007,9 @@ slab_flags_t kmem_cache_flags(slab_flags_t flags, const char *name)
+ 	slab_flags_t block_flags;
+ 	slab_flags_t slub_debug_local = slub_debug;
+ 
++	if (slab_tiny_enabled)
++		flags |= SLAB_DEBUG_NOOP;
++
+ 	if (flags & SLAB_NO_USER_FLAGS)
+ 		return flags;
+ 
+@@ -2087,6 +2080,9 @@ static inline void remove_full(struct kmem_cache *s, struct kmem_cache_node *n,
+ 					struct slab *slab) {}
+ slab_flags_t kmem_cache_flags(slab_flags_t flags, const char *name)
+ {
++	if (slab_tiny_enabled)
++		flags |= SLAB_DEBUG_NOOP;
++
+ 	return flags;
+ }
+ #define slub_debug 0
+@@ -3942,7 +3938,7 @@ static void *get_from_partial_node(struct kmem_cache *s,
+ 		if (!pfmemalloc_match(slab, gfp_flags))
+ 			continue;
+ 
+-		if (IS_ENABLED(CONFIG_SLUB_TINY) || kmem_cache_debug(s)) {
++		if (kmem_cache_debug(s)) {
+ 			object = alloc_single_from_partial(s, n, slab,
+ 							ac->orig_size);
+ 			if (object)
+@@ -4556,7 +4552,7 @@ static unsigned int alloc_from_new_slab(struct kmem_cache *s, struct slab *slab,
  
  /*
-@@ -7924,7 +7918,7 @@ static unsigned int calculate_sheaf_capacity(struct kmem_cache *s,
- 	size_t size;
+  * Slow path. We failed to allocate via percpu sheaves or they are not available
+- * due to bootstrap or debugging enabled or SLUB_TINY.
++ * due to bootstrap or debugging enabled.
+  *
+  * We try to allocate from partial slab lists and fall back to allocating a new
+  * slab.
+@@ -4610,7 +4606,7 @@ static void *___slab_alloc(struct kmem_cache *s, gfp_t gfpflags, int node,
  
+ 	stat(s, ALLOC_SLAB);
  
--	if (IS_ENABLED(CONFIG_SLUB_TINY) || s->flags & SLAB_DEBUG_FLAGS)
-+	if (slab_tiny_enabled || s->flags & SLAB_DEBUG_FLAGS)
- 		return 0;
+-	if (IS_ENABLED(CONFIG_SLUB_TINY) || kmem_cache_debug(s)) {
++	if (kmem_cache_debug(s)) {
+ 		object = alloc_single_from_new_slab(s, slab, ac);
  
- 	/*
-@@ -8660,6 +8654,9 @@ void __init kmem_cache_init(void)
+ 		if (likely(object))
+@@ -5764,7 +5760,7 @@ static void __slab_free(struct kmem_cache *s, struct slab *slab,
+ 	unsigned long flags;
+ 	bool on_node_partial;
+ 
+-	if (IS_ENABLED(CONFIG_SLUB_TINY) || kmem_cache_debug(s)) {
++	if (kmem_cache_debug(s)) {
+ 		free_to_partial_list(s, slab, head, tail, cnt, addr);
+ 		return;
+ 	}
+@@ -7471,7 +7467,7 @@ static bool __kmem_cache_alloc_bulk(struct kmem_cache *s, gfp_t flags,
+ {
+ 	int i;
+ 
+-	if (IS_ENABLED(CONFIG_SLUB_TINY) || kmem_cache_debug(s)) {
++	if (kmem_cache_debug(s)) {
+ 		const struct slab_alloc_context ac = {
+ 			.caller_addr = _RET_IP_,
+ 			.orig_size = s->object_size,
+@@ -7772,7 +7768,7 @@ static int init_percpu_sheaves(struct kmem_cache *s)
+ 		 * cache.
+ 		 *
+ 		 * We keep bootstrap_sheaf for kmem_cache and kmem_cache_node,
+-		 * caches with debug enabled, and all caches with SLUB_TINY.
++		 * and caches with debugging enabled.
+ 		 * For kmalloc caches it's used temporarily during the initial
+ 		 * bootstrap.
+ 		 */
+@@ -8588,7 +8584,7 @@ static void __init bootstrap_cache_sheaves(struct kmem_cache *s)
+ 
+ 	capacity = calculate_sheaf_capacity(s, &empty_args);
+ 
+-	/* capacity can be 0 due to debugging or SLUB_TINY */
++	/* capacity can be 0 due to debugging */
+ 	if (!capacity)
+ 		return;
+ 
+@@ -8654,8 +8650,10 @@ void __init kmem_cache_init(void)
  
  	slab_obj_ext_has_codetag_init();
  
-+	if (slab_tiny_enabled)
-+		slab_max_order = 1;
-+
+-	if (slab_tiny_enabled)
++	if (slab_tiny_enabled) {
+ 		slab_max_order = 1;
++		static_branch_enable(&slub_debug_enabled);
++	}
+ 
  	if (slab_max_order_param <= MAX_PAGE_ORDER)
  		slab_max_order = slab_max_order_param;
- 
-@@ -8783,6 +8780,8 @@ int do_kmem_cache_create(struct kmem_cache *s, const char *name,
- 	 */
- 	s->min_partial = min_t(unsigned long, MAX_PARTIAL, ilog2(s->size) / 2);
- 	s->min_partial = max_t(unsigned long, MIN_PARTIAL, s->min_partial);
-+	if (slab_tiny_enabled)
-+		s->min_partial = 0;
- 
- 	s->cpu_sheaves = alloc_percpu(struct slub_percpu_sheaves);
- 	if (!s->cpu_sheaves) {
 
 -- 
 2.55.0
