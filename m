@@ -1,110 +1,290 @@
-Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1A956510E
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.147.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC62555D88C;
+	Wed, 23 Sep 2026 15:32:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177526; cv=none; b=cJt/Nwsvd4fl/nXXgg2w+nUt4TlaxRsa2gXoRgFTo3gL1yIpfGiYpKOF5V8mRsluoiTvyzjREckjc9tC+P7WSBC3Wiuc2BO2BeBeIr/p2wZazhnWBM53AMcGhxAwZbR/lK5TH1sHCQYao+9vbHum4mIrdmzsNWQPp/15R00Z/24=
+	t=1790177525; cv=none; b=N/eu9PcZTfxF+z7+oTMJ8zbCLSlYNVWf7jrIBOuC/XLHs577UJvuvHXB3rdqjrKKaG+jtNCwcGNqH3W5xg+2USRLctgVhEzFd6qNUjhLQzw7V5Lg4thfDc5cFaPhDrVYNI9fpXMvASPRVfzhSPXHcvVkOgpl8z+Hq9v3iF1ebUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177526; c=relaxed/simple;
-	bh=s03aIwng+onu3oDOKgOOuo1eiloxafJcjx/tPyNlwtM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r6w4jy5ACcpcBbMRUsMZH8AcFNpSNPoPHf3+lSLuaze759qDBXv5FTnpmvOAYHBdY6JiLTlnYUM0ZuxfSIOo1iBfLLwCi5pDgw5wMjebrY8F/1CPSTIX3JATRtm+8EjsJCBd+OZgN+9JWvf9CdsBIsPzBMCO+pEMWl2VzOFOIOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com; spf=pass smtp.mailfrom=hpe.com; dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b=FBTlZ0Jn; arc=none smtp.client-ip=148.163.147.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
+	s=arc-20240116; t=1790177525; c=relaxed/simple;
+	bh=JsPo+YU0MuEfP3CdDiarzkzLbbh+DS3W3mn9L4o0Mws=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=E4XvVYC1RCXW6+sjl13CEXQSEdxlhafOLf5lGi4rq26YCWGUHFd017YY6gmBpMj2QlP7IXLcT2XDbZJS67lyPhL7X6gue4Ue+GSIjHHtAVeETwA9MkTFsCS7sD1tx/FsnsAZhe+U4HBj26R2yaNPG6QYmFkhDHXXOqcL6Poo4cE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dU1NV+fg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b="FBTlZ0Jn"
-Received: from pps.filterd (m0134421.ppops.net [127.0.0.1])
-	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NEWC3B1026955;
-	Wed, 23 Sep 2026 15:31:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pps0720; bh=9DvkkM+rEk/yRIWiW1LKXVYDxU
-	l1gUuqrsbK5lwOeOU=; b=FBTlZ0JnrDwQSZFOFTKxEAPH/X5JIXjO/P2iwnKboc
-	5Zz+ySZ1TGT5jYbEqXxU492hNFawX0hiDcFQjC0WVDP9n/5boiODNUBKsC0Vzbvk
-	yOD7tOvEtq6WbnGj/yxDevrdNSMQVPyg+bIO7YPd7b0nAhQh+i6QVtwFBjBkPPR2
-	sU8nutJG1ti/4LJU91HY1lRRi01ugreCUl4nblUDJrl2+wm+Y0rWvF9e6L3vs6g7
-	zqzBtZ7Y3X2FCqsW5uC0nnl8oeywlFTJrF5J4iI8pePKY+9mC7KIhcyWeWIBSav3
-	EOlrfqp7ApL4RCp7PaG1ZTFWZwyz3bXDs+2Zvind44Mw==
-Received: from p1lg14878.it.hpe.com (p1lg14878.it.hpe.com [16.230.97.204])
-	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4gvfcvj9bv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 15:31:21 +0000 (GMT)
-Received: from p1lg14886.dc01.its.hpecorp.net (unknown [10.119.18.237])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by p1lg14878.it.hpe.com (Postfix) with ESMTPS id BE85E147B8;
-	Wed, 23 Sep 2026 15:31:20 +0000 (UTC)
-Received: from swahl-home.5wahls.com (unknown [16.231.227.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by p1lg14886.dc01.its.hpecorp.net (Postfix) with ESMTPS id 8419D800EFB;
-	Wed, 23 Sep 2026 15:31:18 +0000 (UTC)
-Date: Wed, 23 Sep 2026 10:30:55 -0500
-From: Steve Wahl <steve.wahl@hpe.com>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Steve Wahl <steve.wahl@hpe.com>, Justin Ernst <justin.ernst@hpe.com>,
-        Kyle Meyer <kyle.meyer@hpe.com>,
-        Dimitri Sivanich <dimitri.sivanich@hpe.com>,
-        Russ Anderson <russ.anderson@hpe.com>,
-        Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
-Subject: Re: Dead arch/x86 UV code?
-Message-ID: <arPwr2hqcQos-TFY@swahl-home.5wahls.com>
-References: <d49f2e1a-1f19-49e8-a2a0-98b839274b69@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dU1NV+fg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B6911F00893;
+	Wed, 23 Sep 2026 15:31:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790177518;
+	bh=WC1P3wTXESA6BgqvPPiBmdyDCM54RO/X3Gr7C82V1sQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=dU1NV+fgr3k1lggAXGPqTBUYmrZiYmi7lzDqkzEWCcdWleAZNy9IJOieScVK5YPrz
+	 +uf9F4bIxA+IIHiI49WWYGoL6/UMsNnd0uwcXqQRUoKcCtIh/L2mkwta/6xMukjJ8R
+	 ekd55pEWdgkg3VCWcl28pAzPcqGegzwIkSJzMKfPjiW5B+Tb+/DeZwGYMazjblPUA+
+	 gIHve/UaNYA/a5BIAXrZRzX1JEnaSkucn7XK/gSoxWJDmf5i7Qyts0Wr2bRS4LiZzf
+	 lzm24AsUIjNzKQQRJCEwcAeLDGGSG+8lKK/r3Kx5JUr21mZL9zVaPd6q3+0oGGavR5
+	 i6X7VokIBU58A==
+Subject: Re: [PATCH] phonet: pep: fix out-of-bounds reads in
+ pep_ctrlreq_error() and pep_sock_accept()
+From: netdev-bot+sashiko@kernel.org
+To: benquike@gmail.com
+Cc: courmisch@gmail.com, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 23 Sep 2026 15:31:57 +0000
+Message-ID: <179017751768.2160803.16464935071666517964@kernel.org>
+In-Reply-To: <20260919212852.3240704-1-benquike@gmail.com>
+References: <20260919212852.3240704-1-benquike@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d49f2e1a-1f19-49e8-a2a0-98b839274b69@intel.com>
-X-Authority-Analysis: v=2.4 cv=TfYDJhQh c=1 sm=1 tr=0 ts=6ab3f0c9 cx=c_pps
- a=UObrlqRbTUrrdMEdGJ+KZA==:117 a=UObrlqRbTUrrdMEdGJ+KZA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=gQcMVamqm3wCPoSYhaRC:22 a=ay80y3fxfMS_JZZz1qJy:22 a=QIa9-b6dbVQTm6vAbSQA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2MSBTYWx0ZWRfX0ZO1WjcEUejg
- 8fpzKeC4m1gsQF87vrL4lKsgLGqWqlxOGqJ4DJ3m6GlTmx5psjlE3PdzAKW1vUqgUyOXU19s+rm
- j1f2MEZqkaz3wtekQWv/G9yu9EmYqNM=
-X-Proofpoint-ORIG-GUID: GDaUOK2r4SuDOHBXg2fDcEVJBFdojaCR
-X-Proofpoint-GUID: GDaUOK2r4SuDOHBXg2fDcEVJBFdojaCR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2MSBTYWx0ZWRfX032wbHDZfQgJ
- O1JVmnAEmszlol+0/T8DH6vkuPf6slF3zwiNohyaoTGVw/mRIXHAvQjGA6nNtg16AF/1bst6n3J
- brcbLC68nAewJef2DFJ8sO6ko25tZ9sEaaoBzFzFJKf8d61y8DZ37S+pMjKN5unmSaEg6EmAvQQ
- uc5LPVFHF7DuOMmumPAUfM1Ggf/dvuxJVuyDFaDVaJNNq48eHb+5aDI4DIjAW/18B0NRae9nd/u
- vseRYRtrPnQbVPxKwZhT7tpzwnOxJ50qKxKgdD91ySHcYuOx5oADdxbT/aXVOZNXeerE9DtOPCN
- Yx7NK6cC/Tw3Gc925cV0YkN74raDanOgMoRboc19edNWukaq7YY+jx+ch9pohpLdaAdwTMuKO2A
- HiBCjNYed6JNp2g6P8pMTUfIXgZ++un+8GQTBIRUyiBUDz/8n2bMEtUgQ4l6B0QcBXVQNtyXy7E
- 9+kdzlAvWDw6JHuaI8A==
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 adultscore=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 clxscore=1011 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230061
 
-On Wed, Sep 23, 2026 at 06:29:56AM -0700, Dave Hansen wrote:
-> Hi Folks,
-> 
-> I threw a silly LLM at arch/x86 trying to find unused code. One of the
-> things that stood out was UV:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Thanks, Dave, we (HPE folk you listed) will look at these.  It may
-take a few days to get to them, so I wanted to send a short note so
-you'd know you weren't being ignored!
+Critical: 0 · High: 0 · Medium: 2 · Low: 0 (5)
 
---> Steve
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The patch bundles three logically independent changes into one
+  commit: (a) the 1-byte OOB-read hardening in pep_ctrlreq_error() /…
+- [Medium] The changelog misidentifies the out-of-bounds read it fixes.
+
+Pre-existing issues:
+- [Low] In-tree sender and receiver of PNS_PEP_CONNECT_REQ disagree on
+  the 4-byte payload layout that follows the pnpipehdr.
+- [Low] The file-level locking-policy comment for struct pep_sock in
+  net/phonet/pep.c (lines 33-37: 'pep_sock locking: - sk_state, hlist:…
+- [Low] Documentation/networking/phonet.rst describes PNPIPE_HANDLE as 'a
+  read-only integer value', but pep_setsockopt() accepts it: when…
+- [Low] Documentation/networking/phonet.rst states 'The pipe protocol
+  provides two socket options at the SOL_PNPIPE level' and then…
+- [Low] The new writer-side locking in pep_setsockopt() does not remove
+  the data race on pn->ifindex with getsockopt readers:…
+
+--
+
+phonet: pep: fix out-of-bounds reads in pep_ctrlreq_error() and pep_sock_accept()
+
+This adds pskb_may_pull() coverage for the control-request path in
+pep_ctrlreq_error() and pipe_do_rcv(), adds the missing __skb_pull() plus a
+length check before the sub-block loop in pep_sock_accept(), and re-acquires
+the socket lock around the pn->ifindex assignment in the PNPIPE_ENCAP case of
+pep_setsockopt().  No Link: tags are present in the commit header.
+
+A few questions below.
+
+> diff --git a/net/phonet/pep.c b/net/phonet/pep.c
+> index bd1cdd00edfa..5511770bb21c 100644
+> --- a/net/phonet/pep.c
+> +++ b/net/phonet/pep.c
+> @@ -192,15 +192,21 @@ static int pep_reject_conn(struct sock *sk, struct sk_buff *skb, u8 code,
+>  static int pep_ctrlreq_error(struct sock *sk, struct sk_buff *oskb, u8 code,
+>  				gfp_t priority)
+>  {
+> -	const struct pnpipehdr *oph = pnp_hdr(oskb);
+> +	const struct pnpipehdr *oph;
+>  	struct sk_buff *skb;
+>  	struct pnpipehdr *ph;
+>  	struct sockaddr_pn dst;
+> -	u8 data[4] = {
+> -		oph->pep_type, /* PEP type */
+> -		code, /* error code, at an unusual offset */
+> -		PAD, PAD,
+> -	};
+> +	u8 data[4];
+> +
+> +	oph = pnp_hdr(oskb);
+> +	if (!pskb_may_pull(oskb, (unsigned int)((oph->data + 1) - oskb->data)))
+> +		return -EINVAL;
+> +
+> +	oph = pnp_hdr(oskb);
+> +	data[0] = oph->pep_type; /* PEP type */
+> +	data[1] = code; /* error code, at an unusual offset */
+> +	data[2] = PAD;
+> +	data[3] = PAD;
+
+[Severity: Medium]
+The new check looks correct, but does the changelog name the wrong read?  It
+says:
+
+   1. In `pep_ctrlreq_error()`, `oph = pnp_hdr(oskb)` is dereferenced at
+      `oph->pep_type` (`oph->data[0]`, offset 4 from `pnp_hdr(oskb)`)
+
+struct pnpipehdr in include/net/phonet/pep.h is made only of u8 members:
+
+struct pnpipehdr {
+	u8			utid;
+	u8			message_id;
+	u8			pipe_handle;
+	union {
+		u8		state_after_connect;
+		...
+		u8		pep_type;
+		u8		data0;
+	};
+	u8			data[];
+};
+
+So pep_type is at offset 3, data[] begins at offset 4 and sizeof(*hdr) is 4.
+The caller pep_do_rcv() already guarantees those four bytes:
+
+	if (!pskb_may_pull(skb, sizeof(*hdr)))
+		goto drop;
+
+which means oph->pep_type was in bounds.  The read that was not covered is
+the later one in the same function:
+
+	ph->data0 = oph->data[0]; /* CTRL id */
+
+That touches offset 4 and needs five linear bytes, which is exactly what the
+new pskb_may_pull(oskb, (oph->data + 1) - oskb->data) provides.  Could the
+changelog point at oph->data[0] instead of oph->pep_type, so a reader
+checking the named expression does not conclude there is nothing to fix?
+
+>  
+>  	skb = pep_alloc_skb(sk, data, 4, priority);
+>  	if (!skb)
+
+[ ... ]
+
+> @@ -823,6 +831,7 @@ static struct sock *pep_sock_accept(struct sock *sk,
+>  
+>  	/* Parse sub-blocks (options) */
+>  	n_sb = hdr->data[3];
+> +	__skb_pull(skb, sizeof(*hdr) + 4);
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but the new __skb_pull() fixes the
+sub-block offset according to the receiver's reading of the message, and the
+in-tree sender disagrees with it.  pep_sock_connect() builds the connect
+request payload as:
+
+	u8 data[4] = { 0 /* sub-blocks */, PAD, PAD, PAD };
+
+so the sub-block count goes at data[0] (header offset 4), while
+pep_sock_accept() decodes peer_type from hdr->other_pep_type (also data[0])
+and the count from hdr->data[3] (offset 7).
+
+The connect-response pair is self-consistent: pep_accept_conn() emits
+PAD, PAD, PAD, 2 and pep_connresp_rcv() reads hdr->data[3].
+
+Nothing misbehaves today since the kernel always announces zero sub-blocks
+and PAD is zero.  Is the request sender's layout worth a separate fix?
+
+>  	while (n_sb > 0) {
+>  		u8 type, buf[1], len = sizeof(buf);
+>  		const u8 *data = pep_get_sb(skb, &type, &len, buf);
+
+[ ... ]
+
+> @@ -1048,8 +1059,16 @@ static int pep_setsockopt(struct sock *sk, int level, int optname,
+>  			release_sock(sk);
+>  			err = gprs_attach(sk);
+>  			if (err > 0) {
+> -				pn->ifindex = err;
+> -				err = 0;
+> +				lock_sock(sk);
+> +				if (sock_flag(sk, SOCK_DEAD) || pn->ifindex) {
+> +					release_sock(sk);
+> +					gprs_detach(sk);
+> +					err = -EINVAL;
+> +				} else {
+
+[Severity: Medium]
+Item 3 of the changelog states:
+
+   3. In `pep_setsockopt()` (`PNPIPE_ENCAP`), `release_sock(sk)` is dropped
+      around `gprs_attach(sk)`, and `pn->ifindex` is assigned afterwards
+      without re-acquiring `lock_sock(sk)`
+
+The release_sock(sk) ahead of gprs_attach() is already present in the
+baseline and this diff keeps it unchanged; only the lock_sock()
+re-acquisition and the SOCK_DEAD / pn->ifindex recheck are new.  Could that
+sentence be reworded?
+
+Separately, this hunk changes what userspace sees: a
+setsockopt(SOL_PNPIPE, PNPIPE_ENCAP, PNPIPE_ENCAP_IP) that previously
+returned 0 can now return -EINVAL and, via gprs_detach(), unregister the
+gprs netdev that gprs_attach() just created and drop the socket reference.
+
+That is unrelated to the parsing changes in pep_ctrlreq_error() /
+pipe_do_rcv() and in pep_sock_accept(), and all three share one Fixes: tag.
+Would splitting this into one logical change per patch make the parsing
+fixes easier to pick up for stable?
+
+> +					pn->ifindex = err;
+> +					err = 0;
+> +					release_sock(sk);
+> +				}
+
+[Severity: Low]
+This is a pre-existing issue and not introduced by this patch, but the store
+to pn->ifindex is now marked while the readers still are not.
+do_pep_getsockopt() reads it for two options:
+
+	case PNPIPE_ENCAP:
+		val = pn->ifindex ? PNPIPE_ENCAP_IP : PNPIPE_ENCAP_NONE;
+		break;
+
+	case PNPIPE_IFINDEX:
+		val = pn->ifindex;
+		break;
+
+and neither pep_getsockopt() nor sock_common_getsockopt() takes the socket
+lock on the way in, so KCSAN can still flag the pair.  Would converting
+these accesses to READ_ONCE()/WRITE_ONCE() while here be reasonable?
+
+>  			}
+>  		} else {
+>  			pn->ifindex = 0;
+
+Two further notes that need no diff context:
+
+[Severity: Low]
+This is a pre-existing gap rather than something this patch introduced, but
+the pep_sock locking policy comment near the top of net/phonet/pep.c reads:
+
+ * pep_sock locking:
+ *  - sk_state, hlist: sock lock needed
+ *  - listener: read only
+ *  - pipe_handle: read only
+
+ifindex is not listed there, even though the fix in pep_setsockopt() relies
+on it being read and written under lock_sock().  Could a line for ifindex be
+added while touching this?
+
+[Severity: Low]
+This is pre-existing and untouched by the patch, but
+Documentation/networking/phonet.rst describes PNPIPE_HANDLE as "is a
+read-only integer value", while pep_setsockopt() accepts it:
+
+	case PNPIPE_HANDLE:
+		if ((sk->sk_state == TCP_CLOSE) &&
+			(val >= 0) && (val < PN_PIPE_INVALID_HANDLE))
+			pn->pipe_handle = val;
+
+Should the documentation say it is writable while the socket is closed?
+
+[Severity: Low]
+Also pre-existing and not caused by this patch: the same file says "The pipe
+protocol provides two socket options at the SOL_PNPIPE level" and then
+documents three of them (PNPIPE_ENCAP, PNPIPE_IFINDEX, PNPIPE_HANDLE).
+PNPIPE_INITSTATE is exported by include/uapi/linux/phonet.h and handled by
+both pep_setsockopt() and do_pep_getsockopt(), but is not documented.  Could
+the count and the missing option be fixed up?
+
 -- 
-Steve Wahl, Hewlett Packard Enterprise
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919212852.3240704-1-benquike%40gmail.com
