@@ -1,180 +1,116 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900E257D23E
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87DE3C0A13
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:09:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790201367; cv=none; b=Sxotwcg2f/r/RzIZWZQ2odVAlhV/AvhmLwGLdcQjOuvbwD9oeai+yOHGjY6g8JysIns2sZH54YHL/Bqi2fA3KJlHlJUV0swml1LC5Mk1NuR8yOKp2OHHSoC7J1awqyMlgkm4S/jr2QPfKz8JwpsG1TFjavtlAy65EPdqfePx3Vw=
+	t=1790201382; cv=none; b=XZMQRfnJ0/iuz0Kk3lw274dPtdTlxvcwEVM62Xy1wzTHmI1dFfzNH4tu76UDo67RadFGDRZA1BHWLpYNhqjgwfhLIz7cqGi5pW13IAVGOi6H66lJmG9NtJtcPL8gCX6oXK6cEPXCXYEWr5WlZsoVrFnndSRW+BhPo29UKoMmyA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790201367; c=relaxed/simple;
-	bh=b0TAtr57yWE+QSO16pjO+nrOxPN+Pz6dGmFJGAl5jPA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RGBQp+QyUq72qPxXYqzk3Hq67RCXoBhIu9OZlCS6mO/DvPM7ZQioWbiEZwZXweyEVF72mj0VJEXxPDJE1q4lGci+SdF9WJuTZhMrWN3F/bFrxlibyPGgJY4oHf1lU7gM1cFerZ0lRjUZSVhh1u4AQdS1qcnObkUkmy4kyXtGmWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hcM78zUf; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790201382; c=relaxed/simple;
+	bh=Fd7arL5gD//WV/QNV8gMH5UiaR36OMO6q0zoeLWvhC0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nctB0vB+y/yf0avJcu+x4bErlpC2lE8T+V/hT7aBQIpE9zWqPem7SbqohKlYEQ3K6UWCHv/5vkwc7pdXhr2LOFzgHeVoCohtld2T0+sVDqrPBOKTcASTM33m6CT/z5cJ/faUdojRwdC12CoezfA2U6RW9hGe8R5b3M6Ewf04PCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kwc0Bod2; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hcM78zUf"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso17471855e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:09:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kwc0Bod2"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2db33db4de9so30915ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:09:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790201364; x=1790806164; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0vfvvH4VnMd4dK0iJViHA204XuBKefpDpGV2LA9qE58=;
-        b=hcM78zUf/OarTJnCAvLnhcMARyxhZZB1YqM21ZpU2+InWJXd4saJi85V3wPxwjSGpg
-         rFa9BC0CaR/QZuuJXNzEg51AqCH9tzkPQVifIhYM+5ujMndca7+TLNmt6yWebOVBA0hd
-         DsGTbQYoh5Op/1g4Lm2jgaishy6Rsx9fu10v+flgiTeIiFVgkN6GM9Jt12HSXFz8Owh4
-         mFa6w2gv6YEnhKKZJBdtVvop7pnAokHL4MCyDECDrT9ayMNzHc9eG31KC+6fiJvbPp1H
-         g4bHyAI7/kjfaHWh3HmE3SkyzWq+rLzRmBkl9ndYIAscbRnt3tnaW1xVtJ1mDrZ/xdsB
-         22Kw==
+        d=google.com; s=20251104; t=1790201380; x=1790806180; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+IZRsj3puzmZNAPUNV3XzHF/8z5xEyYXKGsh0zAy4Kg=;
+        b=kwc0Bod2l+ycWttYn65uzEjhsswrRqp32NhtuxWGbRoTaZJMslzD+0TFiU+3w3JFtT
+         OyswI5vvNtPoZ9EdW+IS2lEY1gyHchN7BK7vFnL5U04cP10I6JQzM36CR6zn13zmdeop
+         XZMxMRHfBp4GJEJwZ8nop5UhwoUvLypam+l7omVTvpmqsPPmWc2HwWjZbEs5L/J+QWDS
+         dXDmSs5SPlKZQ+sQNMRf20/064+7UmhatPRw09YKKZ7WVXkIT4C3VVWOra+JT5VTdH5i
+         9y4P0e9NHvYW2XRBgfBCyQmSzSRpd9mQMaPiNaiugn9HPx/VvBwUKWXxE47iOehftRYU
+         ZeCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790201364; x=1790806164;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0vfvvH4VnMd4dK0iJViHA204XuBKefpDpGV2LA9qE58=;
-        b=cp5mINEZzCWVLQgb+VieA+zTornYPmABnLLcRbCcZQAsud3evX/RejEtsCFoqojENS
-         hkRlODB3iTlsmjYYcfuv2M0AEAhpkBw6iSevoleZa38tLt6Ayr5WZRbydqrVgRWxU0xp
-         qsyTvWSKS8Lsbbznzg21LT0slbfr1cWsaDKbYlurMVhKkKVoa/a6Ib807PcyhhMc1D3R
-         9IbAmCrTxMp9COr+BzXRy2b70AdrxUePSez84WYlj0tk/uvSMeKi8HFyM79z8i12ELfc
-         1Yvcgg20ElqZ49ukVeth7qm/oNDzQzY50xgYciXkBjQi9EoIPLFK7Y9L36I+lhFUMZPG
-         9X+w==
-X-Forwarded-Encrypted: i=1; AKwUvBy6pjRRheDck06CsO3kWPMNITfQw02A+aVcQVEwigtICkMYxbS+frIUKnmlCx2ugrhehFwEGdX/OVDRsJo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4xHo2QOF+eTMf1kafbDMeJ2IFUuj3erVZ0ap43Oi9peyI/TvV
-	5564HRkeTFmlP6nD+NcLSxsev1CoscTHLiyT4KelI+nHVr4YPRgl2C7t
-X-Gm-Gg: AYBFou3mN1fl3BdvfsP4eJukcUewXEA7Xt5N243RUKamExBxojD4FmVrA31cHMU4Kiq
-	1dt7kSzXNYlnAUv06/ijW1/Bt3wujv5q6ESj1eLmsvcYQECZTlEpF12SC7jHfyBkgd0VIkggnr0
-	NcEMMtgzTM7qK+zwt/MdeXNkgJl2EaDUmm6AFwie6C5aZtl6ZoDK2EmJvHqi8q3zYvzBFswZRF1
-	jNB0cF4ijSdilA/MPKdu9sOAGpReMD5078pJtN2A1oD5fSY5smirguAYBRNEd7DB/MiGwpL/g3y
-	ICDOV1AeDkV2d6CehNcjh1Fd5hS7YpVz+vRfrCtK5bNkxaxLAi9Tirqwi/qw4hBZGbH1OW1ishx
-	0bBL5WYFQa/gV6s7xVYbklvAwjwyjwW3zZNwJnJ1gA1g7cvunFtj785QFYFDT5lnBqRpHSuo8+F
-	GuBne2Y1EJvo29Kvkvt/maMvZIh2d2o5ydrLmCxBq3UENz5UQl5ZodbI//O1ze5e1aoEVwVrmMJ
-	xSa5fqbLvCZRwpiCLOoad2H7bJ4jMhlwyoWosMR3b+xy+asX//uO9v2YycMXC+X7FuDLVSpAJjC
-	G5LoQVpFE7KFLFpPuBqbvzI1t8Kz6OSXGHDu81mqBnoMyvTrOEaVMCStyp1xUorlcjGF46t/A4X
-	P7ePUGKObFU4b
-X-Received: by 2002:a05:600c:138f:b0:49e:602a:b4ec with SMTP id 5b1f17b1804b1-49fe66d2700mr8501195e9.8.1790201363197;
-        Wed, 23 Sep 2026 15:09:23 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a4a2-9601-c082-2dcb-3f3b-92b8.310.pool.telefonica.de. [2a02:3100:a4a2:9601:c082:2dcb:3f3b:92b8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf3541aesm57899075e9.0.2026.09.23.15.09.21
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 23 Sep 2026 15:09:22 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Zhao Li <enderaoelyther@gmail.com>,
-	Jinmeng Zhou <zhoujinmeng@bytedance.com>,
-	Alex Shi <alexs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Dongliang Mu <dzm91@hust.edu.cn>,
-	Hongxiang Lou <louhongxiang@huawei.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Peter Xu <peterx@redhat.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Wupeng Ma <mawupeng1@huawei.com>,
-	Yanteng Si <si.yanteng@linux.dev>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	fvdl@google.com,
-	jthoughton@google.com,
-	rientjes@google.com,
-	vannapurve@google.com,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
-Date: Thu, 24 Sep 2026 00:09:12 +0200
-Message-Id: <20260923220912.46905-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
-References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com> <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
+        d=1e100.net; s=20260707; t=1790201380; x=1790806180;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+IZRsj3puzmZNAPUNV3XzHF/8z5xEyYXKGsh0zAy4Kg=;
+        b=F/xZQWeSmrn/1Jo/ikVJc6F6IYEPlnU7QsIKpsPkJAUR/OoEh3xw1AAT7VIc/dQOBq
+         B6Rf0FR7TUDVTURRNyw8XzXGjS+skiDfQhjvoeqjLo4jsM/HGYqgbQxPWvHwVwnHTb3H
+         Ijnvp0GqcWcNcTOkGi9Z9O0kFLh2j67lrnkBK+bycLVrLmk6Xzmkl3k8J6OFooT7wxTu
+         WCmvqmMkGOi30RVZHMfDf7wBa96kWfmjh0wQ+mOvGMkocqGDY5tnxRVALiZfDOxBJ9ls
+         5D31aIfqRRPYZj6umxIo17DxbvE+kY7s0rKUCpVNKlxVXrOBLSf1zyY+TSB+Ph7aYK3G
+         0wvA==
+X-Forwarded-Encrypted: i=1; AKwUvBzjDpT3N9Ds0n5IFkkKmoMZ+zgYKgtXN14MCRL+EqcolZJ+5Q70T0+m/CChmN/RNHSLL1lnUZn9KxsJEOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvR6dmec92esscaN8WSVMkSlcYy4GLlIYUTFjC/GabKJ/5+6H0
+	0BBT9InQpMEvpx9VTnouT3SNRlKVK4T9IDt02MYloWm77H2w4JjUbwtkHhVl9xAWaA==
+X-Gm-Gg: AYBFou2PLso/3zk0yzh0xa+Gl+P/SlKO3ilfNn7KG+d6vrLeqI4w3YFPRQOSU8i6TqO
+	cQ3I69Y/zDgwfVJ7p23EdMSnYJRhEfx33hWFjhDRb5aqCSYD1EKMRxHqlz92kc/eWqyOMFDz41h
+	RAlxcIqNf4rQwKnoNstvUrnPwYxtBwBn3I9AjjwL0x8viOaMtQRy2xiADirMIyxt/Slc4bbopBy
+	R/h5+e2KMqou00eUroqKFznZGwi2v39emzXE8Z/If6ATZUBzmP1lGBnpFnlPxJ3uhkZvHKge7M4
+	GBiAb88zJY3AN/moF0OePPiHYnGv2kkEkp15WpUHPA7SPPVpdNi3NdIAgPqGQP05W9CELBw3Wav
+	BPxdnjUkdzkYIx0JiR+FxRdPfhUn5LLOWwv0lWQtQu/rV4QJG184Lffy/iSMTdn80h4zoYJchjQ
+	zYfBz+0zkl2mwx4t+IqP1Pkx997eUsszKMFvoMcomheY1N/2mmeSYzLnGfmMrKtmZgaLcahenBC
+	sBvLmpMk45KCsyojz0RKignSYqbKJAi8zXbaukKna7Zsb5fzr0RK8kbPT5mY1U1jhGwJEY8xK4U
+	DVM+q66EHjQ7nAnropBGev/mN5A83Oe4sQ42aCr6S4ogT48=
+X-Received: by 2002:a17:902:ef4c:b0:2df:42af:2f9f with SMTP id d9443c01a7336-2df7bb2f8femr2192835ad.1.1790201379697;
+        Wed, 23 Sep 2026 15:09:39 -0700 (PDT)
+Received: from google.com (99.95.125.34.bc.googleusercontent.com. [34.125.95.99])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5164c0sm17368465ad.6.2026.09.23.15.09.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 15:09:38 -0700 (PDT)
+Date: Wed, 23 Sep 2026 22:09:34 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com,
+	brauner@kernel.org, aliceryhl@google.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] binder: roll back frozen state and enqueue freeze work
+ on BINDER_FREEZE error
+Message-ID: <arROHg886j_usQk-@google.com>
+References: <20260919213652.3317208-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919213652.3317208-1-benquike@gmail.com>
 
-On Wed, 16 Sep 2026 20:13:07 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
-> So if downstream people (-stable maintainers, others) follow our
-> recommendations, some kernels will get two of these patches, other
-> kernel versions will get three and some lucky kernels might get all
-> four.  Are you confident that the patches can be split apart in this
-> fashion and still produce a good result?
+On Sat, Sep 19, 2026 at 09:36:52PM +0000, Hui Peng wrote:
+> Fix two state rollback bugs when `BINDER_FREEZE` fails with `-EAGAIN`:
+> 
+> 1. In `binder_ioctl_freeze()`, `target_proc->is_frozen = true` is set
+>    before waiting for pending transactions to drain. If
+>    `wait_event_interruptible_timeout()` times out with `-EAGAIN`,
+>    `binder_ioctl_freeze()` resets `target_proc->is_frozen = false` but
+>    omits calling `binder_add_freeze_work(target_proc, false)`, leaving
+>    any `BINDER_WORK_FROZEN_INFO` state queued during the freeze window
+>    un-cleared.
 
-Two things I noticed while testing this series on v7.3-rc3 (x86_64
-QEMU, one CPU):
+This is incorrect. The current implementation doesn't add the work for
+"proc->is_frozen = true" until _after_ the timeout has passed. So adding
+another binder_add_freeze_work(target_proc, false) is incorrect.
 
-1. It overlaps with two fixes already queued in mm.git, so I've added
-   their authors to Cc:
+> 2. In `binder_ioctl()` (`BINDER_FREEZE`), a single PID can own multiple
+>    `binder_proc` instances (`target_procs[]`). If
+>    `binder_ioctl_freeze()` succeeds on `target_procs[0]` (`is_frozen =
+>    true`) and then fails with `-EAGAIN` on `target_procs[1]`, the loop
+>    exits and returns `-EAGAIN` to userspace while leaving
+>    `target_procs[0]` permanently frozen. Unfreeze any previously frozen
+>    `target_procs[0..i-1]` when `binder_ioctl_freeze()` fails.
 
-   - 3/4 rewrites the same out_subpool_put: block as Zhao Li's
-     "mm/hugetlb: fix max-only subpool accounting on
-     alloc_hugetlb_folio failure" (mm-hotfixes-unstable), and has the
-     same Fixes: tag.
-   - 2/4 rewrites the same out_put_pages: block as Jinmeng Zhou's
-     "mm/hugetlb: fix subpool minimum reservation rollback"
-     (mm-unstable).
+This is a real issue. However, I'm already fixing this and _other_
+issues with this API here:
 
-   3/4 doesn't apply to mm-hotfixes-unstable, and 2/4-4/4 don't apply
-   to mm-unstable. If I read them right, the queued fixes only handle
-   mounts with size=, while 2/4 and 3/4 also cover min_size mounts, so
-   they would probably replace them.
+https://r.android.com/4254406
 
-2. On splitting: 1/4 applies cleanly on top of both queued fixes, but
-   in my tests it made min_size-only mounts worse on its own. As far
-   as I can tell, that's because it starts tracking used_hpages on
-   those mounts, while the two error paths only release it after 2/4
-   and 3/4.
-
-   HugePages_Rsvd, expected value in parentheses. Q = the two queued
-   fixes, wrap = 18446744073709551615:
-
-                                   rc3   +Q  +1/4  +Q+1/4  +1/4..4/4
-   min_size=4M only:
-     SIGBUS faults [1], no files (2)  2    2     0      0      2
-   min_size=8M only:
-     failed mmap [2], umounted (0)    0    0     3      3      0
-   size=8M,min_size=4M:
-     SIGBUS faults [1], no files (2)  0    0     0      0      2
-   size=10M,min_size=8M:
-     failed mmap [2], umounted (0)  wrap   0  wrap      0      0
-
-   With 1/4 alone, the min_size-only mount loses its reservation, and
-   in the failed-mmap case three huge pages stay reserved after umount,
-   presumably because the subpool is never freed.
-
-So it looks to me like 1/4 shouldn't go anywhere without 2/4 and 3/4.
-I haven't tested older stable trees. With all four patches applied,
-all the cases above give the expected values, and so does the
-partial-truncate case from the 1/4 changelog (Rsvd drops to 0 after
-the truncate instead of staying at 1).
-
-I'm happy to rerun these tests on a rebased v4.
-
-[1] https://lore.kernel.org/r/20260923065714.20781-1-kmehltretter@gmail.com/
-[2] the scenario from Jinmeng's changelog:
-    https://lore.kernel.org/20260907132055.26696-1-zhoujinmeng@bytedance.com
-
-Thanks,
-Karl
+> 
+> Fixes: 432ff1e91694 ("binder: BINDER_FREEZE ioctl")
+> Fixes: d579b04a52a1 ("binder: frozen notification")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
