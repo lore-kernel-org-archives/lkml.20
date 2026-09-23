@@ -1,521 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FA83E6DFF;
-	Wed, 23 Sep 2026 17:20:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B9393E51CB
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184059; cv=none; b=EvqQwt3wWyBLuW+clYJRdp0m998FBJdqK/29ACyzjU1AT3+KxzX/f1IvZsdK5YqDPq1DusvRvv6u+QoQrNCI9Ymex/MIVE/5XuVBWwLqpY8whCO5qdJU5q/0rTw90OmpOzUiGYI3/yyv4pgWDfbDNYrcEiUxGSLvGt/z62qb2Wg=
+	t=1790184064; cv=none; b=pqJS/sohgfM/Q6EgsULEZI6LMpZsLbrd2ayjJZkF/ItgmHkPhpEGxRq+FLGfdDlXAoJ0OTn6jRV/PYAE2nLAgbBZysuMaibNAG5fLDkTm+Cn9iQflZULHPFLmFBdUBD8IjWSiiV9n3EuBGk4sylqNFeeQ2KYPvoKMBbHdvb7JDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184059; c=relaxed/simple;
-	bh=PDJB8j9sKc9Q/yg7cUV7TTvciusJhucipt52hAU2ZhY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AeFFN2URadWO+hqWqvnlwp3Ze6tmafAMR5sEy1pMAN/80XVnGLiQqNB/da06Oc9NGVXJXo5/oiL7pCzcDokVFJ46v9Y3yxMh3b+B3+JhdAyCALza7y66BOZEFB3Z0T4RuqefigiFTiSdMLFsNmsRpt5yfXvVZm3ioECDLEI8ANk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4ivzPGH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790184064; c=relaxed/simple;
+	bh=CuFkbyS1Fi1t7CjLqy7uYRqaRAUsmKrLCabBPvlCDMM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=n+/67enG5dCrkDx4YaMN7wEXiIEgQ6YbTfhqHJ/9R0g3aGC0+cP+AKbvU+P24PRHfNnCUvJ8KzN9SLcDelCKBQdAbikF/bn4ASRJWF0A4KxUPGPCDQdR/VQP/dSHX0be5a3khdEzbb1DazkRIhena5j7VFPaBR4oKX/QWi/S1b4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mc4f0uJY; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4ivzPGH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B380F1F00893;
-	Wed, 23 Sep 2026 17:20:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790184056;
-	bh=B1ULND6qUkIjbcoTYBYFJ2YhtgqM4e1Z1reiowbMJ8k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=n4ivzPGHFOaVKa0QM4qp2cl2pNZbc5XzOdstT6g/HfEo5a5jBkxSx30mSH+AdQFxy
-	 qh/4kP+atkWGJ12sRHfF5BC4Hr40Yq971TO+GkE3/7UuXYYYUHrw9CmjdZz34wiivg
-	 E1qlleJKnrfo8QwtUxJHyuKWZbPtfF51cCvHLxgEsoHy8Vp8T65suXiIZck7r6LD1h
-	 nC0g+CpMaK5vaKpiwnO0J5JTrm8C8zfj3v+u4Bz8Ol2C2vBLHCef/fj/MYg9WKN2H6
-	 HT/aItgJrz80pPqDJlwkiKjHdRx0pQd/NDS2rvmAZxi0dCVok5YDDuO/0HKCr38Akj
-	 vRAPLlEhkZvuw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 23 Sep 2026 18:18:01 +0100
-Subject: [PATCH v4 12/22] kbuild: avoid re-running compiler and linker
- probes
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mc4f0uJY"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8686f46e4adso847226b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:20:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790184058; x=1790788858; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qNOkSNmL+icguC7yTBQfebOAy9435FAObGtk9UHbSdM=;
+        b=mc4f0uJYqrasouSCBlfZBJBRWxR4cgAJCfXV74P23ezhGpYuPNdt3hW/w6EK7KPlc7
+         PdIxVh1nmIZ2nSWrREZbOllI4NTPwkkDPUB4ZVHd5gGh/luNHwQhX1nK9uS3FVWeCgPJ
+         CMBypz5h2rQ3OpHZHp0jiAevvb/d0W5DkTZxZmFBHOZxyGPIFrAwtrDRdeUHxV8znHoy
+         pRFl+TVmWAIUXRitp80rwoDSteWGFlHNZb33YjZLNR4oroAMgTmrsh6Ijt4UHgoo+SN0
+         0+f77MFe5PpYbsl5tZmaNzvFy0fFNXr6CDaow7sebcikgidBao4xMKwxq9M6Ir0+4YK4
+         P5fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790184058; x=1790788858;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qNOkSNmL+icguC7yTBQfebOAy9435FAObGtk9UHbSdM=;
+        b=lydE0nCJpyQlRaKh9rhsrtRhQ5CKMK/VnjombsuNTAUe0skRNmA/qNYmBnz8GnUaTt
+         yrVqrv6HE2NGpcL8bSEDg0IsnX/W3n27Mrx6JRrcxbE5Tm2CYFGB3fgAsY7/K30sR+Wh
+         CiuZPYQ5X67YjFn0dQPrzIcY7ppSQalT7B7sTW4tyXy3MG5uWko3AYci/EYPNY9K4v/Y
+         0NMdv36iIGTYXJT/m3+KVuChe1XmI/oaRyFk/2oCqdt4EFN4eI9nrgQliGVTLVSCX5CU
+         D0h5iTIgPq5yctH7vxeEYdrTmbeiAkXqfEYMblyA9MSoFNB/T8mQhRs4qlcKltniRrTX
+         PCeQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxSJG8W9P/Mf++b8tDKRnuef3sHnJTFc/et0mSot6Kgyp9YSGV06w6sdmBfehso4RD1PH3Ec26QUq9T7B4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kni9czcyrJICF4y/oGQYGU81gvg2Jd5SZ1O/yvE2CNzkIZXDLT
+	A1UoSpqEK5BmNPeiivQ4y9LeNPjFeMs1DKYF9Qv519+DP6CScnZ3PjuC
+X-Gm-Gg: AYBFou2idsLZOVw3jQVz5QrojbOIup4rOQVu1v0+Nn1fELb4CveU/aj6VbaJmfPYgBv
+	AtnqfmXR650W4+fgG5TVMteNWcSDBy4sHndiep2HanoYnsLAm8bIhFe8JKz/FMhiFklZwCH21sw
+	+KM3Iogo4yqVefYKxmYq1ZGWkwZ2L9Y500FMHw9Gtwr+Ulj7MU617BdBvKDsLPT3F0G2SGZThEF
+	cDaqDfTuA4iqg2tVhfwEOcWBRXqeatlv1icSj+cD2NBxnnPRCzxHd/+0qxyesanI8XmCn+5Fvaw
+	aQqT0urgSymVUPYhR2WZUVCgj1YUTZfohs6CWyWusuE+wmaMpJfi44WxOd9eUO02HXshSa107P5
+	jnRPcre15cjRSpQXYMWRR36ICrCtVMeo0dI7ii+EyY30MHKjLMnEw7aiMgiPfK/6Rcr45kVf63U
+	iI8CIPPifp3JnEVQEhGfI1RFM9NquTVS+ynBa5Rc2lrpHlRF5gKDiWKrA6E5/L60w8bwdEe4dW/
+	fmQ69voiVvteqxw8g==
+X-Received: by 2002:a05:6a00:1595:b0:87d:f8af:894a with SMTP id d2e1a72fcca58-87df8af8d85mr1205748b3a.31.1790184057336;
+        Wed, 23 Sep 2026 10:20:57 -0700 (PDT)
+Received: from kernel-vm.. ([117.28.251.176])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1d5c1ab4sm1682918b3a.27.2026.09.23.10.20.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 10:20:56 -0700 (PDT)
+From: Chengfeng Lin <lin2530632123@gmail.com>
+To: Joseph Salisbury <joseph.salisbury@oracle.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched/rt: Rebuild domains only after successful RT sysctl writes
+Date: Wed, 23 Sep 2026 17:20:36 +0000
+Message-ID: <179018297078.3.9126136955304841169@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260313183716.990792-1-joseph.salisbury@oracle.com>
+References: <20260313183716.990792-1-joseph.salisbury@oracle.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/mixed; boundary="===============2044294105914805542=="
+Content-Transfer-Encoding: 8bit
+
+--===============2044294105914805542==
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-build-speedup-v4-12-73128809a4a4@kernel.org>
-References: <20260923-build-speedup-v4-0-73128809a4a4@kernel.org>
-In-Reply-To: <20260923-build-speedup-v4-0-73128809a4a4@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
- linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
- linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
- linux-hardening@vger.kernel.org, Petr Pavlu <petr.pavlu@suse.com>, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=18854; i=ljs@kernel.org;
- h=from:subject:message-id; bh=PDJB8j9sKc9Q/yg7cUV7TTvciusJhucipt52hAU2ZhY=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLK2cF5+cW7Oi8ofPw/7TXxRM1M57JnkyW/PVSU9Xv9yz
- zQQ2Cv4s6OUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATmfGd4X+a+5E7fKf/5cZe
- db9Y3GV04dtJfpmHWRymkRWX3Dy3bLvEyPBtR15Bo/riG8w3D/1PLmVO/bwz6f865sSpRtueTnt
- jUcoGAA==
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Each kernel make invocation begins with ~30 compiler and linker runs each
-of which performs duplicate probe for a number of compiler and linker
-options.
+Hi Joseph,
 
-This is useless work - the compiler and its version is known, so use these
-to determine which options are available, once.
+I tested your patch on v7.2. It reduced repeated RT sysctl read latency
+from about 8.57 us to 0.264 us, a 96.9% reduction. I found the patch while
+investigating higher read latency between v6.12.95 and v7.2.
 
-Using the newly introduced cc-option-str, track the result of each probe in
-CC_OPT_*, LD_OPT_* variables and have Makefile's simply append the symbol.
+I adjusted only the patch context because v7.2 no longer has the
+sched_rt_do_global() call. Your patch's logic is unchanged.
 
-Some care has to be taken around negative options, i.e. -Wno-xxx, as gcc
-accepts an unknown -Wno- without complaint and only complains later, so
-instead probe the positive form for these cases.
+The machine was a bare-metal i7-12700KF with all 20 logical CPUs online.
+Both builds used v7.2, GCC 15.2.0 and the same config except for
+CONFIG_LOCALVERSION. Runtime settings were full preemption, performance
+governor/EPP and Turbo disabled. CONFIG_RT_GROUP_SCHED was disabled.
+The RT period and runtime were 1000000 and 950000 us on both kernels.
 
-Use CC_HAS_* For those probes that gate a Makefile conditional rather than
-a simple option, as per the established pattern for this.
+I ran original A -> patched -> original B, with a fresh boot at each
+point. One reader was pinned to CPU 2. Each sample made 4096 pread() calls
+at offset zero on an already-open FD and checked every returned value.
+Each case had 3 warm-up and 9 measured samples per boot. The timed loop
+included the reads and value checks, but not open/close or tracing.
 
-This change avoids a subtle issue with ppc32 (big endian) - clang doesn't
-accept -fno-stack-clash-protection on this sub-target, so keep this option
-in the Makefile.
+Mean results in ns/read were:
 
-With gcc and clang, defconfig and allmodconfig, the recorded command
-lines are unchanged, a build with nothing to do rebuilds nothing and W=1
-continues to function correctly.
+  parameter                  original A     patched    original B
+  sched_rt_period_us           8547.294      264.575      8576.337
+  sched_rt_runtime_us          8574.240      263.690      8566.828
+  sched_rr_timeslice_ms          253.400      250.268       251.304
 
-Doing this improves all builds, but has a particularly positive impact on
-no-op builds (builds where nothing has changed).
+Against the original A/B midpoint, the two RT read times fell by 96.91%
+and 96.92%. Their maximum within-boot CV was 0.89%, and the original
+kernel's A/B drift was at most 0.34%. Dropping the first measured sample
+at each point gave the same conclusion. The RR control changed by 0.83%.
 
-Whole build, 128-thread Threadripper 9980X, best of N runs:
+Separate untimed probes confirmed that patched RT reads skipped
+rebuild_sched_domains() and deadline bandwidth re-accounting. The original
+kernel reused the existing domains: build_sched_domains() was not
+called. Successful writes, including same-value writes, still performed
+the global update and rebuild with the patch.
 
-                                         before   after     delta
-                                         -------------------------------
-  x86 defconfig, no-op make, gcc           0.78s    0.60s    -0.18s (-23%)
-  x86 defconfig, no-op make, clang         0.94s    0.66s    -0.28s (-30%)
-  x86 defconfig, touch mm/vma.c, gcc        8.6s     8.5s    -0.16s (-2%)
-  x86 defconfig, touch mm/vma.c, clang      8.0s     7.7s    -0.24s (-3%)
-  x86 defconfig, clean, clang              29.8s    29.4s    -0.37s (-1%)
-  x86 allmodconfig, no-op make, gcc        12.9s    12.7s    -0.23s (-2%)
-  x86 allmodconfig, no-op make, clang      14.2s    13.9s    -0.29s (-2%)
-  x86 allmodconfig, touch mm/vma.c, clang  32.2s    31.9s    -0.30s (-1%)
+Valid changes, invalid text, out-of-range values and invalid period/runtime
+combinations had matching return values and readback on both kernels.
+Rejected writes left the old values intact. They also skipped the rebuild
+with the patch. No kernel warnings were observed.
 
-Assisted-by: LLM
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- Makefile                              | 23 +++++------
- arch/arm64/kernel/pi/Makefile         |  2 +-
- arch/riscv/kernel/pi/Makefile         |  2 +-
- arch/x86/Kconfig                      | 17 ++++++++
- arch/x86/Makefile                     | 12 +++---
- drivers/firmware/efi/libstub/Makefile |  2 +-
- scripts/Kconfig.toolchain             | 74 +++++++++++++++++++++++++++++++++++
- scripts/Makefile.warn                 | 28 ++++++-------
- 8 files changed, 126 insertions(+), 34 deletions(-)
+These are read-loop microbenchmark results, not application timings.
+I have not tested concurrent writes, CPU hotplug or DL admission failure
+with active SCHED_DEADLINE tasks. The attached reader is the one used for
+the test; it does not change any sysctl values.
 
-diff --git a/Makefile b/Makefile
-index 554c9003a4d9..cbfee8d325a5 100644
---- a/Makefile
-+++ b/Makefile
-@@ -946,8 +946,8 @@ KBUILD_RUSTFLAGS += -Coverflow-checks=$(if $(CONFIG_RUST_OVERFLOW_CHECKS),y,n)
- ifdef CONFIG_CC_IS_GCC
- # gcc-10 renamed --param=allow-store-data-races=0 to
- # -fno-allow-store-data-races.
--KBUILD_CFLAGS	+= $(call cc-option,--param=allow-store-data-races=0)
--KBUILD_CFLAGS	+= $(call cc-option,-fno-allow-store-data-races)
-+KBUILD_CFLAGS	+= $(CONFIG_CC_OPT_ALLOW_STORE_DATA_RACES_PARAM)
-+KBUILD_CFLAGS	+= $(CONFIG_CC_OPT_NO_ALLOW_STORE_DATA_RACES)
- endif
- 
- ifdef CONFIG_READABLE_ASM
-@@ -1011,18 +1011,20 @@ endif
- endif
- 
- # Explicitly clear padding bits during variable initialization
--KBUILD_CFLAGS += $(call cc-option,-fzero-init-padding-bits=all)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_ZERO_INIT_PADDING_BITS)
- 
- # While VLAs have been removed, GCC produces unreachable stack probes
- # for the randomize_kstack_offset feature. Disable it for all compilers.
-+# Probed here rather than in Kconfig as clang only accepts it for some
-+# sub-targets, so the architecture's flags matter.
- KBUILD_CFLAGS	+= $(call cc-option, -fno-stack-clash-protection)
- 
- # Get details on warnings generated due to GCC value tracking.
--KBUILD_CFLAGS	+= $(call cc-option, -fdiagnostics-show-context=2)
-+KBUILD_CFLAGS	+= $(CONFIG_CC_OPT_DIAGNOSTICS_SHOW_CONTEXT)
- 
- # Show inlining notes for __attribute__((warning/error)) call chains.
- # GCC supports this unconditionally while Clang 23+ provides a flag.
--KBUILD_CFLAGS	+= $(call cc-option, -fdiagnostics-show-inlining-chain)
-+KBUILD_CFLAGS	+= $(CONFIG_CC_OPT_DIAGNOSTICS_SHOW_INLINING_CHAIN)
- 
- # Clear used registers at func exit (to reduce data lifetime and ROP gadgets).
- ifdef CONFIG_ZERO_CALL_USED_REGS
-@@ -1033,7 +1035,7 @@ ifdef CONFIG_FUNCTION_TRACER
- ifdef CONFIG_FTRACE_MCOUNT_USE_CC
-   CC_FLAGS_FTRACE	+= -mrecord-mcount
-   ifdef CONFIG_HAVE_NOP_MCOUNT
--    ifeq ($(call cc-option-yn, -mnop-mcount),y)
-+    ifdef CONFIG_CC_HAS_MNOP_MCOUNT
-       CC_FLAGS_FTRACE	+= -mnop-mcount
-       CC_FLAGS_USING	+= -DCC_USING_NOP_MCOUNT
-     endif
-@@ -1051,8 +1053,7 @@ ifdef CONFIG_FTRACE_MCOUNT_USE_RECORDMCOUNT
-   endif
- endif
- ifdef CONFIG_HAVE_FENTRY
--  # s390-linux-gnu-gcc did not support -mfentry until gcc-9.
--  ifeq ($(call cc-option-yn, -mfentry),y)
-+  ifdef CONFIG_CC_HAS_MFENTRY
-     CC_FLAGS_FTRACE	+= -mfentry
-     CC_FLAGS_USING	+= -DCC_USING_FENTRY
-   endif
-@@ -1160,7 +1161,7 @@ NOSTDINC_FLAGS += -nostdinc
- # the kernel uses only C99 flexible arrays for dynamically sized trailing
- # arrays. Enforce this for everything that may examine structure sizes and
- # perform bounds checking.
--KBUILD_CFLAGS += $(call cc-option, -fstrict-flex-arrays=3)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_STRICT_FLEX_ARRAYS)
- 
- # disable invalid "can't wrap" optimizations for signed / pointers
- KBUILD_CFLAGS	+= -fno-strict-overflow
-@@ -1243,11 +1244,11 @@ LDFLAGS_vmlinux += --build-id=sha1
- # COMDAT-deduplicated sections. Use --force-group-allocation to resolve these
- # groups when linking modules. The option is available from ld.bfd 2.29 and
- # ld.lld 19.1.0.
--KBUILD_LDFLAGS_MODULE += $(call ld-option,--force-group-allocation)
-+KBUILD_LDFLAGS_MODULE += $(CONFIG_LD_OPT_FORCE_GROUP_ALLOCATION)
- 
- KBUILD_LDFLAGS	+= -z noexecstack
- ifeq ($(CONFIG_LD_IS_BFD),y)
--KBUILD_LDFLAGS	+= $(call ld-option,--no-warn-rwx-segments)
-+KBUILD_LDFLAGS	+= $(CONFIG_LD_OPT_NO_WARN_RWX_SEGMENTS)
- endif
- 
- ifeq ($(CONFIG_STRIP_ASM_SYMS),y)
-diff --git a/arch/arm64/kernel/pi/Makefile b/arch/arm64/kernel/pi/Makefile
-index be92d73c25b2..4a0cbedfdcd6 100644
---- a/arch/arm64/kernel/pi/Makefile
-+++ b/arch/arm64/kernel/pi/Makefile
-@@ -9,7 +9,7 @@ KBUILD_CFLAGS	:= $(subst $(CC_FLAGS_FTRACE),,$(KBUILD_CFLAGS)) -fpie \
- 		   -include $(srctree)/include/linux/hidden.h \
- 		   -D__DISABLE_EXPORTS -ffreestanding -D__NO_FORTIFY \
- 		   -fno-asynchronous-unwind-tables -fno-unwind-tables \
--		   $(call cc-option,-fno-addrsig)
-+		   $(CONFIG_CC_OPT_NO_ADDRSIG)
- 
- # this code may run with the MMU off so disable unaligned accesses
- CFLAGS_map_range.o += -mstrict-align
-diff --git a/arch/riscv/kernel/pi/Makefile b/arch/riscv/kernel/pi/Makefile
-index bc098edac898..4c8e52b3f176 100644
---- a/arch/riscv/kernel/pi/Makefile
-+++ b/arch/riscv/kernel/pi/Makefile
-@@ -8,7 +8,7 @@ KBUILD_CFLAGS	:= $(subst $(CC_FLAGS_FTRACE),,$(KBUILD_CFLAGS)) -fpie \
- 		   -include $(srctree)/include/linux/hidden.h \
- 		   -D__DISABLE_EXPORTS -ffreestanding \
- 		   -fno-asynchronous-unwind-tables -fno-unwind-tables \
--		   $(call cc-option,-fno-addrsig)
-+		   $(CONFIG_CC_OPT_NO_ADDRSIG)
- 
- # Disable LTO
- KBUILD_CFLAGS	:= $(filter-out $(CC_FLAGS_LTO), $(KBUILD_CFLAGS))
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 15fd9ec5ecac..0fea2fc4ba1d 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -2364,6 +2364,23 @@ config CC_HAS_KCFI_ARITY
- 	def_bool $(cc-option,-fsanitize=kcfi -fsanitize-kcfi-arity)
- 	depends on CC_IS_CLANG && !RUST
- 
-+config CC_OPT_INDIRECT_BRANCH_CS_PREFIX
-+	def_string "$(cc-option-str,-mindirect-branch-cs-prefix)"
-+
-+config CC_OPT_CF_PROTECTION_NONE
-+	def_string "$(cc-option-str,-fcf-protection=none)"
-+
-+# with jump tables off: the compilers use NOTRACK for them, which kernel IBT
-+# does not allow
-+config CC_OPT_CF_PROTECTION_BRANCH
-+	def_string "$(cc-option-str,-fcf-protection=branch -fno-jump-tables)"
-+
-+config CC_OPT_FALIGN_JUMPS
-+	def_string "$(cc-option-str,-falign-jumps=1)"
-+
-+config CC_OPT_FALIGN_LOOPS
-+	def_string "$(cc-option-str,-falign-loops=1)"
-+
- config FUNCTION_PADDING_CFI
- 	int
- 	default 59 if FUNCTION_ALIGNMENT_64B
-diff --git a/arch/x86/Makefile b/arch/x86/Makefile
-index 598f178102ee..aac30ba51b2f 100644
---- a/arch/x86/Makefile
-+++ b/arch/x86/Makefile
-@@ -20,7 +20,7 @@ ifdef CONFIG_CC_IS_CLANG
- RETPOLINE_CFLAGS	:= -mretpoline-external-thunk
- RETPOLINE_VDSO_CFLAGS	:= -mretpoline
- endif
--RETPOLINE_CFLAGS	+= $(call cc-option,-mindirect-branch-cs-prefix)
-+RETPOLINE_CFLAGS	+= $(CONFIG_CC_OPT_INDIRECT_BRANCH_CS_PREFIX)
- 
- ifdef CONFIG_MITIGATION_RETHUNK
- RETHUNK_CFLAGS		:= -mfunction-return=thunk-extern
-@@ -52,7 +52,7 @@ REALMODE_CFLAGS	:= $(CC_FLAGS_DIALECT) -m16 -g -Os \
- 		   -DDISABLE_BRANCH_PROFILING -D__DISABLE_EXPORTS \
- 		   -Wall -Wstrict-prototypes -march=i386 -mregparm=3 \
- 		   -fno-strict-aliasing -fomit-frame-pointer -fno-pic \
--		   -mno-mmx -mno-sse $(call cc-option,-fcf-protection=none)
-+		   -mno-mmx -mno-sse $(CONFIG_CC_OPT_CF_PROTECTION_NONE)
- 
- REALMODE_CFLAGS += -ffreestanding
- REALMODE_CFLAGS += -fno-stack-protector
-@@ -99,10 +99,10 @@ ifeq ($(CONFIG_X86_KERNEL_IBT),y)
- #
- #   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=104816
- #
--KBUILD_CFLAGS += $(call cc-option,-fcf-protection=branch -fno-jump-tables)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_CF_PROTECTION_BRANCH)
- KBUILD_RUSTFLAGS += -Zcf-protection=branch $(if $(call rustc-min-version,109300),-Cjump-tables=n,-Zno-jump-tables)
- else
--KBUILD_CFLAGS += $(call cc-option,-fcf-protection=none)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_CF_PROTECTION_NONE)
- endif
- 
- ifeq ($(CONFIG_X86_32),y)
-@@ -138,10 +138,10 @@ else
-         KBUILD_CFLAGS += -m64
- 
-         # Align jump targets to 1 byte, not the default 16 bytes:
--        KBUILD_CFLAGS += $(call cc-option,-falign-jumps=1)
-+        KBUILD_CFLAGS += $(CONFIG_CC_OPT_FALIGN_JUMPS)
- 
-         # Pack loops tightly as well:
--        KBUILD_CFLAGS += $(call cc-option,-falign-loops=1)
-+        KBUILD_CFLAGS += $(CONFIG_CC_OPT_FALIGN_LOOPS)
- 
-         # Don't autogenerate traditional x87 instructions
-         KBUILD_CFLAGS += -mno-80387
-diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
-index 77a2b2d74f3f..415f63105b48 100644
---- a/drivers/firmware/efi/libstub/Makefile
-+++ b/drivers/firmware/efi/libstub/Makefile
-@@ -40,7 +40,7 @@ KBUILD_CFLAGS			:= $(subst $(CC_FLAGS_FTRACE),,$(cflags-y)) \
- 				   -D__NO_FORTIFY \
- 				   -ffreestanding \
- 				   -fno-stack-protector \
--				   $(call cc-option,-fno-addrsig) \
-+				   $(CONFIG_CC_OPT_NO_ADDRSIG) \
- 				   -D__DISABLE_EXPORTS
- 
- #
-diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
-index fac36246451f..d708a175fe48 100644
---- a/scripts/Kconfig.toolchain
-+++ b/scripts/Kconfig.toolchain
-@@ -144,6 +144,80 @@ config CC_HAS_ASSUME
- config CC_HAS_NO_PROFILE_FN_ATTR
- 	def_bool $(success,echo '__attribute__((no_profile_instrument_function)) int x();' | $(CC) -x c - -c -o /dev/null -Werror)
- 
-+config CC_OPT_ZERO_INIT_PADDING_BITS
-+	def_string "$(cc-option-str,-fzero-init-padding-bits=all)"
-+
-+config CC_OPT_NO_ADDRSIG
-+	def_string "$(cc-option-str,-fno-addrsig)"
-+
-+config CC_OPT_DIAGNOSTICS_SHOW_CONTEXT
-+	def_string "$(cc-option-str,-fdiagnostics-show-context=2)"
-+
-+config CC_OPT_DIAGNOSTICS_SHOW_INLINING_CHAIN
-+	def_string "$(cc-option-str,-fdiagnostics-show-inlining-chain)"
-+
-+config CC_OPT_STRICT_FLEX_ARRAYS
-+	def_string "$(cc-option-str,-fstrict-flex-arrays=3)"
-+
-+# gcc-10 renamed --param=allow-store-data-races=0 to -fno-allow-store-data-races
-+config CC_OPT_ALLOW_STORE_DATA_RACES_PARAM
-+	def_string "$(cc-option-str,--param=allow-store-data-races=0)" if CC_IS_GCC
-+
-+config CC_OPT_NO_ALLOW_STORE_DATA_RACES
-+	def_string "$(cc-option-str,-fno-allow-store-data-races)" if CC_IS_GCC
-+
-+config CC_HAS_MNOP_MCOUNT
-+	def_bool $(cc-option,-mnop-mcount)
-+
-+# s390-linux-gnu-gcc did not support -mfentry until gcc-9.
-+config CC_HAS_MFENTRY
-+	def_bool $(cc-option,-mfentry)
-+
-+config LD_OPT_FORCE_GROUP_ALLOCATION
-+	def_string "$(ld-option-str,--force-group-allocation)"
-+
-+config LD_OPT_NO_WARN_RWX_SEGMENTS
-+	def_string "$(ld-option-str,--no-warn-rwx-segments)"
-+
-+config CC_OPT_WNO_ADDRESS_OF_PACKED_MEMBER
-+	def_string "-Wno-address-of-packed-member" if $(cc-option,-Waddress-of-packed-member)
-+
-+config CC_OPT_WNO_FORMAT_OVERFLOW_NON_KPRINTF
-+	def_string "-Wno-format-overflow-non-kprintf" if CC_IS_CLANG && $(cc-option,-Wformat-overflow-non-kprintf)
-+
-+config CC_OPT_WNO_FORMAT_TRUNCATION_NON_KPRINTF
-+	def_string "-Wno-format-truncation-non-kprintf" if CC_IS_CLANG && $(cc-option,-Wformat-truncation-non-kprintf)
-+
-+config CC_OPT_WNO_DEFAULT_CONST_INIT_UNSAFE
-+	def_string "-Wno-default-const-init-unsafe" if CC_IS_CLANG && $(cc-option,-Wdefault-const-init-unsafe)
-+
-+config CC_OPT_WNO_DANGLING_POINTER
-+	def_string "-Wno-dangling-pointer" if $(cc-option,-Wdangling-pointer)
-+
-+config CC_OPT_WVLA_LARGER_THAN
-+	def_string "$(cc-option-str,-Wvla-larger-than=1)"
-+
-+config CC_HAS_WSTRINGOP_OVERFLOW
-+	def_bool $(cc-option,-Wstringop-overflow)
-+
-+config CC_OPT_WNO_UNTERMINATED_STRING_INITIALIZATION
-+	def_string "-Wno-unterminated-string-initialization" if $(cc-option,-Wunterminated-string-initialization)
-+
-+config CC_OPT_WERROR_DESIGNATED_INIT
-+	def_string "$(cc-option-str,-Werror=designated-init)"
-+
-+config CC_OPT_WENUM_CONVERSION
-+	def_string "$(cc-option-str,-Wenum-conversion)"
-+
-+config CC_OPT_WNO_PACKED_NOT_ALIGNED
-+	def_string "-Wno-packed-not-aligned" if $(cc-option,-Wpacked-not-aligned)
-+
-+config CC_OPT_WNO_FORMAT_OVERFLOW
-+	def_string "-Wno-format-overflow" if $(cc-option,-Wformat-overflow)
-+
-+config CC_OPT_WNO_STRINGOP_TRUNCATION
-+	def_string "-Wno-stringop-truncation" if $(cc-option,-Wstringop-truncation)
-+
- config CC_HAS_COUNTED_BY
- 	bool
- 	# clang needs to be at least 20.1.0 to avoid potential crashes
-diff --git a/scripts/Makefile.warn b/scripts/Makefile.warn
-index 35af7d6c6d18..556fa249ca07 100644
---- a/scripts/Makefile.warn
-+++ b/scripts/Makefile.warn
-@@ -17,7 +17,7 @@ KBUILD_CFLAGS += -Werror=strict-prototypes
- KBUILD_CFLAGS += -Wno-format-security
- KBUILD_CFLAGS += -Wno-trigraphs
- KBUILD_CFLAGS += -Wno-frame-address
--KBUILD_CFLAGS += $(call cc-option, -Wno-address-of-packed-member)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WNO_ADDRESS_OF_PACKED_MEMBER)
- KBUILD_CFLAGS += -Wmissing-declarations
- KBUILD_CFLAGS += -Wmissing-prototypes
- 
-@@ -30,8 +30,8 @@ KBUILD_CFLAGS-$(CONFIG_CC_NO_ARRAY_BOUNDS) += -Wno-array-bounds
- ifdef CONFIG_CC_IS_CLANG
- # Clang checks for overflow/truncation with '%p', while GCC does not:
- # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=111219
--KBUILD_CFLAGS += $(call cc-option, -Wno-format-overflow-non-kprintf)
--KBUILD_CFLAGS += $(call cc-option, -Wno-format-truncation-non-kprintf)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WNO_FORMAT_OVERFLOW_NON_KPRINTF)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WNO_FORMAT_TRUNCATION_NON_KPRINTF)
- 
- # Clang may emit a warning when a const variable, such as the dummy variables
- # in typecheck(), or const member of an aggregate type are not initialized,
-@@ -43,7 +43,7 @@ KBUILD_CFLAGS += $(call cc-option, -Wno-format-truncation-non-kprintf)
- # disabled with this same switch, there should not be too much coverage lost
- # because -Wuninitialized will still flag when an uninitialized const variable
- # is used.
--KBUILD_CFLAGS += $(call cc-option, -Wno-default-const-init-unsafe)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WNO_DEFAULT_CONST_INIT_UNSAFE)
- else
- 
- # gcc inanely warns about local variables called 'main'
-@@ -54,7 +54,7 @@ endif
- KBUILD_CFLAGS += -Wno-type-limits
- 
- # These result in bogus false positives
--KBUILD_CFLAGS += $(call cc-option, -Wno-dangling-pointer)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WNO_DANGLING_POINTER)
- 
- # Stack Variable Length Arrays (VLAs) must not be used in the kernel.
- # Function array parameters should, however, be usable, but -Wvla will
-@@ -62,7 +62,7 @@ KBUILD_CFLAGS += $(call cc-option, -Wno-dangling-pointer)
- # types, so depend on GCC for now to keep stack VLAs out of the tree.
- # https://github.com/llvm/llvm-project/issues/57098
- # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=98217
--KBUILD_CFLAGS += $(call cc-option,-Wvla-larger-than=1)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WVLA_LARGER_THAN)
- 
- # disable pointer signed / unsigned warnings in gcc 4.0
- KBUILD_CFLAGS += -Wno-pointer-sign
-@@ -73,11 +73,11 @@ KBUILD_CFLAGS += -Wno-pointer-sign
- KBUILD_CFLAGS += -Wcast-function-type
- 
- # Currently, disable -Wstringop-overflow for GCC 11, globally.
--KBUILD_CFLAGS-$(CONFIG_CC_NO_STRINGOP_OVERFLOW) += $(call cc-option, -Wno-stringop-overflow)
--KBUILD_CFLAGS-$(CONFIG_CC_STRINGOP_OVERFLOW) += $(call cc-option, -Wstringop-overflow)
-+KBUILD_CFLAGS-$(CONFIG_CC_NO_STRINGOP_OVERFLOW) += $(if $(CONFIG_CC_HAS_WSTRINGOP_OVERFLOW),-Wno-stringop-overflow)
-+KBUILD_CFLAGS-$(CONFIG_CC_STRINGOP_OVERFLOW) += $(if $(CONFIG_CC_HAS_WSTRINGOP_OVERFLOW),-Wstringop-overflow)
- 
- # Currently, disable -Wunterminated-string-initialization as broken
--KBUILD_CFLAGS += $(call cc-option, -Wno-unterminated-string-initialization)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WNO_UNTERMINATED_STRING_INITIALIZATION)
- 
- # The allocators already balk at large sizes, so silence the compiler
- # warnings for bounds checks involving those possible values. While
-@@ -100,10 +100,10 @@ KBUILD_CFLAGS += -Werror=date-time
- KBUILD_CFLAGS += -Werror=incompatible-pointer-types
- 
- # Require designated initializers for all marked structures
--KBUILD_CFLAGS += $(call cc-option,-Werror=designated-init)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WERROR_DESIGNATED_INIT)
- 
- # Warn if there is an enum types mismatch
--KBUILD_CFLAGS += $(call cc-option,-Wenum-conversion)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WENUM_CONVERSION)
- 
- KBUILD_CFLAGS += -Wunused
- 
-@@ -125,12 +125,12 @@ else
- # Suppress them by using -Wno... except for W=1.
- KBUILD_CFLAGS += -Wno-unused-but-set-variable
- KBUILD_CFLAGS += -Wno-unused-const-variable
--KBUILD_CFLAGS += $(call cc-option, -Wno-packed-not-aligned)
--KBUILD_CFLAGS += $(call cc-option, -Wno-format-overflow)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WNO_PACKED_NOT_ALIGNED)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WNO_FORMAT_OVERFLOW)
- ifdef CONFIG_CC_IS_GCC
- KBUILD_CFLAGS += -Wno-format-truncation
- endif
--KBUILD_CFLAGS += $(call cc-option, -Wno-stringop-truncation)
-+KBUILD_CFLAGS += $(CONFIG_CC_OPT_WNO_STRINGOP_TRUNCATION)
- 
- KBUILD_CFLAGS += -Wno-override-init # alias for -Wno-initializer-overrides in clang
- 
+The data, configs and v7.2 patch are available here:
+https://github.com/lcf0399/linux-regression-evidence/tree/b937265884a2f3c28403634c2bc7e309f83f7153/sched-rt-sysctl-read-rebuild
 
--- 
-2.55.0
+Are you planning to update or resend this patch? I can test an updated
+version if that would help.
 
+Thanks,
+Chengfeng
+
+--===============2044294105914805542==
+Content-Type: text/plain
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="rt_sysctl_read.c"
+MIME-Version: 1.0
+
+Ly8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb25seQojZGVmaW5lIF9HTlVfU09V
+UkNFCiNpbmNsdWRlIDxlcnJuby5oPgojaW5jbHVkZSA8ZmNudGwuaD4KI2luY2x1ZGUgPGludHR5
+cGVzLmg+CiNpbmNsdWRlIDxsaW1pdHMuaD4KI2luY2x1ZGUgPHNjaGVkLmg+CiNpbmNsdWRlIDxz
+aWduYWwuaD4KI2luY2x1ZGUgPHN0ZGludC5oPgojaW5jbHVkZSA8c3RkaW8uaD4KI2luY2x1ZGUg
+PHN0ZGxpYi5oPgojaW5jbHVkZSA8c3RyaW5nLmg+CiNpbmNsdWRlIDxzeXMvcHJjdGwuaD4KI2lu
+Y2x1ZGUgPHRpbWUuaD4KI2luY2x1ZGUgPHVuaXN0ZC5oPgoKLyogU3RhYmxlIHByb2JlIGJvdW5k
+YXJpZXM6IGV4YWN0bHkgb25lIHByZWFkKCkgYmV0d2VlbiBlYWNoIHBhaXIuICovCl9fYXR0cmli
+dXRlX18oKG5vaW5saW5lLCBub2Nsb25lLCB1c2VkKSkKdm9pZCB0cl9yZWFkX2JlZ2luKHVuc2ln
+bmVkIHNlcSwgdW5zaWduZWQga2luZCwgaW50IGZkKQp7Cglhc20gdm9sYXRpbGUoIiIgOiA6ICJy
+IihzZXEpLCAiciIoa2luZCksICJyIihmZCkgOiAibWVtb3J5Iik7Cn0KCl9fYXR0cmlidXRlX18o
+KG5vaW5saW5lLCBub2Nsb25lLCB1c2VkKSkKdm9pZCB0cl9yZWFkX2VuZCh1bnNpZ25lZCBzZXEs
+IHVuc2lnbmVkIGtpbmQsIHNzaXplX3QgcmVzdWx0KQp7Cglhc20gdm9sYXRpbGUoIiIgOiA6ICJy
+IihzZXEpLCAiciIoa2luZCksICJyIihyZXN1bHQpIDogIm1lbW9yeSIpOwp9CgpzdGF0aWMgdm9p
+ZCBkaWUoY29uc3QgY2hhciAqd2h5KQp7CglmcHJpbnRmKHN0ZGVyciwgInJ0LXN5c2N0bC1yZWFk
+OiAlcyAoZXJybm89JWQpXG4iLCB3aHksIGVycm5vKTsKCWV4aXQoMSk7Cn0KCnN0YXRpYyB2b2lk
+IGFsYXJtX2V4aXQoaW50IHNpZ25vKQp7Cgkodm9pZClzaWdubzsKCXN0YXRpYyBjb25zdCBjaGFy
+IG1lc3NhZ2VbXSA9ICJydC1zeXNjdGwtcmVhZDogd2F0Y2hkb2cgdGltZW91dFxuIjsKCXNzaXpl
+X3Qgd3JpdHRlbiA9IHdyaXRlKFNUREVSUl9GSUxFTk8sIG1lc3NhZ2UsIHNpemVvZihtZXNzYWdl
+KSAtIDEpOwoJKHZvaWQpd3JpdHRlbjsKCV9leGl0KDEyNCk7Cn0KCnN0YXRpYyBsb25nIG51bWJl
+cihjb25zdCBjaGFyICp0ZXh0LCBsb25nIG1pbiwgbG9uZyBtYXgpCnsKCWNoYXIgKmVuZDsKCWVy
+cm5vID0gMDsKCWxvbmcgdmFsdWUgPSBzdHJ0b2wodGV4dCwgJmVuZCwgMTApOwoJaWYgKGVycm5v
+IHx8ICEqdGV4dCB8fCAqZW5kIHx8IHZhbHVlIDwgbWluIHx8IHZhbHVlID4gbWF4KQoJCWRpZSgi
+aW52YWxpZCBpbnRlZ2VyIGFyZ3VtZW50Iik7CglyZXR1cm4gdmFsdWU7Cn0KCnN0YXRpYyB1aW50
+NjRfdCBjbG9ja19ucyhjbG9ja2lkX3QgY2xvY2spCnsKCXN0cnVjdCB0aW1lc3BlYyB0czsKCWlm
+IChjbG9ja19nZXR0aW1lKGNsb2NrLCAmdHMpKQoJCWRpZSgiY2xvY2tfZ2V0dGltZSIpOwoJcmV0
+dXJuICh1aW50NjRfdCl0cy50dl9zZWMgKiAxMDAwMDAwMDAwVUxMICsgdHMudHZfbnNlYzsKfQoK
+aW50IG1haW4oaW50IGFyZ2MsIGNoYXIgKiphcmd2KQp7CglpZiAoYXJnYyAhPSA2ICYmIGFyZ2Mg
+IT0gNykgewoJCWZwcmludGYoc3RkZXJyLCAidXNhZ2U6ICVzIHNlbWFudGljfHByb2JlfHRpbWlu
+Z3xmaXh0dXJlIHBlcmlvZHxydW50aW1lfHJyIG9wcyBjcHUgZXhwZWN0ZWQgW2ZpeHR1cmUtZmls
+ZV1cbiIsIGFyZ3ZbMF0pOwoJCXJldHVybiAyOwoJfQoJaW50IGZpeHR1cmUgPSAhc3RyY21wKGFy
+Z3ZbMV0sICJmaXh0dXJlIik7CglpbnQgcHJvYmUgPSAhc3RyY21wKGFyZ3ZbMV0sICJwcm9iZSIp
+OwoJaW50IHRpbWluZyA9ICFzdHJjbXAoYXJndlsxXSwgInRpbWluZyIpOwoJaWYgKCghZml4dHVy
+ZSAmJiAhcHJvYmUgJiYgIXRpbWluZyAmJiBzdHJjbXAoYXJndlsxXSwgInNlbWFudGljIikpIHx8
+CgkgICAgKGZpeHR1cmUgIT0gKGFyZ2MgPT0gNykpKQoJCWRpZSgidW5rbm93biBtb2RlIG9yIGZp
+eHR1cmUgcGF0aCBvdXRzaWRlIGZpeHR1cmUgbW9kZSIpOwoJaWYgKHRpbWluZyAmJiAoIWdldGVu
+digiS1NfQUxMT1dfU1lTQ1RMX1RJTUlORyIpIHx8CgkJICAgICAgIHN0cmNtcChnZXRlbnYoIktT
+X0FMTE9XX1NZU0NUTF9USU1JTkciKSwgIjEiKSkpIHsKCQlmcHJpbnRmKHN0ZGVyciwgInRpbWlu
+ZyByZXF1aXJlcyBhIHNlcGFyYXRlbHkgYXV0aG9yaXplZCBleHBlcmltZW50XG4iKTsKCQlyZXR1
+cm4gMjsKCX0KCWNvbnN0IGNoYXIgKm5hbWVzW10gPSB7InBlcmlvZCIsICJydW50aW1lIiwgInJy
+In07Cgljb25zdCBjaGFyICpwYXRoc1tdID0geyIvcHJvYy9zeXMva2VybmVsL3NjaGVkX3J0X3Bl
+cmlvZF91cyIsCgkJIi9wcm9jL3N5cy9rZXJuZWwvc2NoZWRfcnRfcnVudGltZV91cyIsCgkJIi9w
+cm9jL3N5cy9rZXJuZWwvc2NoZWRfcnJfdGltZXNsaWNlX21zIn07Cgl1bnNpZ25lZCBraW5kOwoJ
+Zm9yIChraW5kID0gMDsga2luZCA8IDM7ICsra2luZCkKCQlpZiAoIXN0cmNtcChhcmd2WzJdLCBu
+YW1lc1traW5kXSkpCgkJCWJyZWFrOwoJaWYgKGtpbmQgPT0gMykKCQlkaWUoInVua25vd24gY2Fz
+ZSIpOwoJdW5zaWduZWQgb3BzID0gbnVtYmVyKGFyZ3ZbM10sIDEsIDQwOTYpOwoJaW50IGNwdSA9
+IG51bWJlcihhcmd2WzRdLCAwLCBDUFVfU0VUU0laRSAtIDEpOwoJbG9uZyBleHBlY3RlZCA9IG51
+bWJlcihhcmd2WzVdLCAtMSwgSU5UX01BWCk7CglpZiAoKHByb2JlIHx8ICFzdHJjbXAoYXJndlsx
+XSwgInNlbWFudGljIikpICYmIG9wcyA+IDY0KQoJCWRpZSgicXVhbGlmaWNhdGlvbiBpcyBsaW1p
+dGVkIHRvIDY0IHJlYWRzIHBlciBpbnZvY2F0aW9uIik7CgljcHVfc2V0X3QgYWxsb3dlZCwgY2hv
+c2VuOwoJaWYgKHNjaGVkX2dldGFmZmluaXR5KDAsIHNpemVvZihhbGxvd2VkKSwgJmFsbG93ZWQp
+IHx8ICFDUFVfSVNTRVQoY3B1LCAmYWxsb3dlZCkpCgkJZGllKCJDUFUgbm90IGluIGluaXRpYWwg
+YWZmaW5pdHkiKTsKCUNQVV9aRVJPKCZjaG9zZW4pOwoJQ1BVX1NFVChjcHUsICZjaG9zZW4pOwoJ
+aWYgKHNjaGVkX3NldGFmZmluaXR5KDAsIHNpemVvZihjaG9zZW4pLCAmY2hvc2VuKSkKCQlkaWUo
+InNjaGVkX3NldGFmZmluaXR5Iik7CglzdHJ1Y3Qgc2lnYWN0aW9uIHNhID0gey5zYV9oYW5kbGVy
+ID0gYWxhcm1fZXhpdH07CglpZiAoc2lnYWN0aW9uKFNJR0FMUk0sICZzYSwgTlVMTCkgfHwgcHJj
+dGwoUFJfU0VUX1BERUFUSFNJRywgU0lHS0lMTCkpCgkJZGllKCJ3YXRjaGRvZyBzZXR1cCIpOwoJ
+YWxhcm0oMTApOwoJY2hhciB3YW50ZWRbNjRdLCBhY3R1YWxbNjRdOwoJaW50IGJ5dGVzID0gc25w
+cmludGYod2FudGVkLCBzaXplb2Yod2FudGVkKSwgIiVsZFxuIiwgZXhwZWN0ZWQpOwoJaW50IGZk
+ID0gb3BlbihmaXh0dXJlID8gYXJndls2XSA6IHBhdGhzW2tpbmRdLCBPX1JET05MWSB8IE9fQ0xP
+RVhFQyB8IE9fTk9GT0xMT1cpOwoJaWYgKGZkIDwgMCkKCQlkaWUoIm9wZW4iKTsKCXVpbnQ2NF90
+IHN0YXJ0ID0gMCwgd2FsbCA9IDAsIGNwdV9zdGFydCA9IDAsIGNwdV90aW1lID0gMDsKCWlmICh0
+aW1pbmcpIHsKCQljcHVfc3RhcnQgPSBjbG9ja19ucyhDTE9DS19USFJFQURfQ1BVVElNRV9JRCk7
+CgkJc3RhcnQgPSBjbG9ja19ucyhDTE9DS19NT05PVE9OSUNfUkFXKTsKCX0KCWZvciAodW5zaWdu
+ZWQgc2VxID0gMDsgc2VxIDwgb3BzOyArK3NlcSkgewoJCWlmIChwcm9iZSkKCQkJdHJfcmVhZF9i
+ZWdpbihzZXEsIGtpbmQgKyAxLCBmZCk7CgkJc3NpemVfdCBnb3QgPSBwcmVhZChmZCwgYWN0dWFs
+LCBzaXplb2YoYWN0dWFsKSAtIDEsIDApOwoJCWlmIChwcm9iZSkKCQkJdHJfcmVhZF9lbmQoc2Vx
+LCBraW5kICsgMSwgZ290KTsKCQkvKiBObyByZXRyaWVzLCBwYXJ0aWFsLXJlYWQgbG9vcCwgbHNl
+ZWsoKSwgd3JpdGVzIG9yIGltcGxpY2l0IEVPRiByZWFkLiAqLwoJCWlmIChnb3QgIT0gYnl0ZXMg
+fHwgbWVtY21wKGFjdHVhbCwgd2FudGVkLCBieXRlcykpCgkJCWRpZSgidW5leHBlY3RlZCByZWFk
+IHJlc3VsdCIpOwoJfQoJaWYgKHRpbWluZykgewoJCXdhbGwgPSBjbG9ja19ucyhDTE9DS19NT05P
+VE9OSUNfUkFXKSAtIHN0YXJ0OwoJCWNwdV90aW1lID0gY2xvY2tfbnMoQ0xPQ0tfVEhSRUFEX0NQ
+VVRJTUVfSUQpIC0gY3B1X3N0YXJ0OwoJfQoJaWYgKHNjaGVkX2dldGNwdSgpICE9IGNwdSB8fCBz
+Y2hlZF9nZXRhZmZpbml0eSgwLCBzaXplb2YoYWxsb3dlZCksICZhbGxvd2VkKSB8fAoJICAgIENQ
+VV9DT1VOVCgmYWxsb3dlZCkgIT0gMSB8fCAhQ1BVX0lTU0VUKGNwdSwgJmFsbG93ZWQpIHx8IGNs
+b3NlKGZkKSkKCQlkaWUoImZpbmFsIGFmZmluaXR5IG9yIGNsb3NlIik7CglhbGFybSgwKTsKCXBy
+aW50Zigie1wic2NoZW1hXCI6XCJydC1zeXNjdGwtcmVhZC12MVwiLFwibW9kZVwiOlwiJXNcIixc
+ImNhc2VcIjpcIiVzXCIsIgoJICAgICAgICJcImNhc2VfaWRcIjoldSxcInBpZFwiOiVkLFwiY3B1
+XCI6JWQsXCJyZWFkc1wiOiV1LFwiZXhwZWN0ZWRcIjolbGQsIgoJICAgICAgICJcImJ5dGVzX3Bl
+cl9yZWFkXCI6JWQsXCJ0b3RhbF9ieXRlc1wiOiV1LFwic2VtYW50aWNfcGFzc1wiOnRydWUsIgoJ
+ICAgICAgICJcInBlcmZvcm1hbmNlX2V2aWRlbmNlXCI6JXMsXCJ3YWxsX25zXCI6JSIgUFJJdTY0
+ICIsXCJ0aHJlYWRfY3B1X25zXCI6JSIgUFJJdTY0ICJ9XG4iLAoJICAgICAgIGFyZ3ZbMV0sIG5h
+bWVzW2tpbmRdLCBraW5kICsgMSwgZ2V0cGlkKCksIGNwdSwgb3BzLCBleHBlY3RlZCwgYnl0ZXMs
+CgkgICAgICAgb3BzICogYnl0ZXMsIHRpbWluZyA/ICJ0cnVlIiA6ICJmYWxzZSIsIHdhbGwsIGNw
+dV90aW1lKTsKCXJldHVybiAwOwp9Cg==
+
+--===============2044294105914805542==--
