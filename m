@@ -1,139 +1,161 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 156F03806AB;
-	Wed, 23 Sep 2026 04:22:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B363C4B68
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:25:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790137381; cv=none; b=jjlecxVjZjlYOG61jMd59RLF1GFxRnGYUCKenu1IxVp0DsHkkFrNfDVg0ZnXsAqoepTFmVBWxv3TCaeOg6cTLvSUzN29VI9Xrf5NuKUsMHopU2MxhZ+t50N7maA/VPqGkQ/CORC/l6jQtPVS1L/n4qyZZfXYRuPLd17f2fkiNz4=
+	t=1790137536; cv=none; b=Orykz7kvxSjcRDnydousJOnD+U0VqJhRGn57caqJ1lSMDeNUovdzRDwjxywW8FqP4Ea/Qp7+Zfl9CEA0KYYFIGHuGRIpaoVEw6i3avRSND5H+K9/p+soAL3uqsOm4AAuNxGOUtnqvP+aTI3gRrlHp0EffCQw1xopbaTRORBm+hU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790137381; c=relaxed/simple;
-	bh=kERN3nirdCDImWuZxrGf0a3UcWYedwQ+gqhAnShPMzM=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=LD7VbsjR/tdt8UGg8he7JX39Cw5FOKw8pnv9mSyOQMPKFzNwAh/pK6Bp7pUsxfxHKSrajMBc2Xjv+lg5dDNvvmFNhPGJbR6CHd2ZMWjWheTY+R8lF8A2EpzTrcyPVOBO0CtF70tU7LMCC2Ag6lLxxoMYk6HJ/ro/8a7RSkLQk4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GFWEyvM5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790137536; c=relaxed/simple;
+	bh=nDIffy8Ui7Ukkiv/ZMLwEc0YmNmvoSTvU/vOMCTpJuQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LUenXDnS7J0wmvQRVfU9M7/z683fnbe6R6V6Tq9V29eB3Y5OtwY99Kpxkt5bt2nMegWREwTl5ZlV9m61Gk9E2JJjvPOXGPbfISIiHrMFyTOlYzqIGc7CbC9+IpoAnvzwfjyXDd1MpPlQ4NqDv4JTAP/S4pxxgZQ63ptscv5nSWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bj93yS6z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GFWEyvM5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9380B1F000FF;
-	Wed, 23 Sep 2026 04:22:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bj93yS6z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F128C1F00899
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:25:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790137379;
-	bh=2YJ89MmcjHMt5JvaeKT4zxPvjJxnsv18Y2TXX1vLqa8=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=GFWEyvM5ptV4i5St00T5s73Ph8IwEX5LReXEzjG2ro78nCuu84nR3nF4vKJS9Cp3s
-	 FlLu44l91GjfLgE2d+ElPp86jLchZ5CfHt5FET1pB5CsmUAIwXTAdigDKMWAhaw7Ah
-	 jgc9EeNzwxDzZCplYqEbKs3oVIiMZIjICqf69GdSOWBdhYRnlCu6oe17xEuA5TycGr
-	 aJWMq7axJpLQiWNXVTNVqA2K3CE2JMNyVWZp1hcS8aeIaxa1AdrAzBwipjZEIUZ6Gv
-	 bps0tqewDomKDfvDkPFgUOzzx234D/lN+MwoRaDnmgJQsSB0Sj0LWwHpkQL+loSozB
-	 7r0RhmCT2rwhA==
-Content-Type: multipart/mixed; boundary="===============2323606412187480710=="
+	s=k20260515; t=1790137535;
+	bh=Vdpf3PCZFlhl4pkSGtgF1HJjNWl2NcPykL1HMPHL2Wo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Bj93yS6zZuQznlcBxkUfgSIso3pb0Vh9g6Ow8iZEBlHfQEAm4570P9dSvVA+4SHgC
+	 VYQY3J4M0YPZzp4oJJ3ADMPaAnH/LHZJ3em35gvUvE8tBqXdxJRqo9e1wtTtL8SgfP
+	 AaHOZn73Lh3JSo3G9eqy7ThwDtrumHUE9tTI+KBx2OpyXM0SCLkjXppMfWURKkBxRT
+	 aRc9ua9VaAsPJasuxnGOPFZQA2vKxObJW58hBOBy2uT2fWMChhILF3fa79GA6TMKIX
+	 0LcIl5cnYJ8qF5U32rbU4GvTBlAkEQesTNEhR3uGQgmPnUTmxZs1jNBopuTXTthGv2
+	 UGlCSWYCbnhbw==
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a64c7cdb46so781880a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:25:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByUhzS5rWZKAprj5jw9k3ZAxvxCPnbT9pGwTrXthpc+WlqfpObHNk7VbszxxMIx+xEyvwtUenRhMcpcrVE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKeZIAT56sphMB9HlIG4w3CTSp45mkmEwrjZqROa3prtI0XQZD
+	0nkR1ObVBQkBbJXZ1wYCh6oqfVm6vONWkS6LqJ+wHmmckYog06KzZGFO9ieDekMltOsSAKQrBax
+	ccXq/twowc6bkQ4NqHXOm97EOd+4fbGs=
+X-Received: by 2002:a05:6402:11c8:b0:6a9:bc61:7f80 with SMTP id
+ 4fb4d7f45d1cf-6aab3b4b9fdmr980413a12.27.1790137533480; Tue, 22 Sep 2026
+ 21:25:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <a5e07fdd93b0f6b38dfce4cf977e88eac653bed08ee713372bf31bc6cff349e7@mail.kernel.org>
-In-Reply-To: <20260923032703.59816-1-ebiggers@kernel.org>
-References: <20260923032703.59816-1-ebiggers@kernel.org>
-Subject: Re: [PATCH bpf-next v4] bpf: crypto: Use AES-CBC and AES-ECB libraries
-From: bot+bpf-ci@kernel.org
-To: ebiggers@kernel.org,bpf@vger.kernel.org,vadim.fedorenko@linux.dev,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: linux-crypto@vger.kernel.org,linux-kernel@vger.kernel.org,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,john.fastabend@gmail.com,kmehltretter@gmail.com,ebiggers@kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 23 Sep 2026 04:22:57 +0000 (UTC)
+References: <20260923012356.1058379-1-maobibo@loongson.cn>
+In-Reply-To: <20260923012356.1058379-1-maobibo@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 23 Sep 2026 12:25:21 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H4AvjyfmjPiUBxBsWjRNFpP5c4sWK0+ZH-e1gjtrxBhMg@mail.gmail.com>
+X-Gm-Features: AcwNN1XAxUjeFmeUumiR-_MQxzHbJq692GVJ7naocC1NZSnNV46eKHaXQPViLcA
+Message-ID: <CAAhV-H4AvjyfmjPiUBxBsWjRNFpP5c4sWK0+ZH-e1gjtrxBhMg@mail.gmail.com>
+Subject: Re: [PATCH] KVM: LoongArch: selftests: Enable HW PTW by auto
+ detection method
+To: Bibo Mao <maobibo@loongson.cn>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Shuah Khan <shuah@kernel.org>, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---===============2323606412187480710==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi, Bibo,
 
-> diff --git a/kernel/bpf/crypto.c b/kernel/bpf/crypto.c
-> index 51f89cecefb4..784e2bd5ca92 100644
-> --- a/kernel/bpf/crypto.c
-> +++ b/kernel/bpf/crypto.c
-
-[ ... ]
-
-> @@ -36,94 +30,53 @@ struct bpf_crypto_params {
->  	u32 authsize;
->  };
+On Wed, Sep 23, 2026 at 9:31=E2=80=AFAM Bibo Mao <maobibo@loongson.cn> wrot=
+e:
 >
-> +enum bpf_crypto_algo_id {
-> +	BPF_ALGO_AES_CBC,
-> +	BPF_ALGO_AES_ECB,
-> +};
+> Add HW PTW feature when VM is created. This feature is detected firstly,
+> enable it if it is available on host machine. With HW PTW feature enabled=
+,
+> refill exception will not happen and it is not necessary to set refill
+> exception entry.
+>
+> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
+> ---
+>  .../selftests/kvm/include/loongarch/processor.h  |  3 +++
+>  .../selftests/kvm/lib/loongarch/processor.c      | 16 ++++++++++++++--
+>  2 files changed, 17 insertions(+), 2 deletions(-)
+>
+> diff --git a/tools/testing/selftests/kvm/include/loongarch/processor.h b/=
+tools/testing/selftests/kvm/include/loongarch/processor.h
+> index 0e59daa8024e..8d9fabdc89e3 100644
+> --- a/tools/testing/selftests/kvm/include/loongarch/processor.h
+> +++ b/tools/testing/selftests/kvm/include/loongarch/processor.h
+> @@ -79,6 +79,7 @@
+>  #define  CPUCFG2_LASX                  BIT(7)
+>  #define  CPUCFG2_LLFTP                 BIT(14)
+>  #define  CPUCFG2_LLFTPREV              GENMASK(17, 15)
+> +#define  CPUCFG2_PTW                   BIT(24)
+>
+>  /* LoongArch Basic CSR registers */
+>  #define LOONGARCH_CSR_CRMD             0x0 /* Current mode info */
+> @@ -128,6 +129,8 @@
+>  #define LOONGARCH_CSR_PGD              0x1b
+>  #define LOONGARCH_CSR_PWCTL0           0x1c
+>  #define LOONGARCH_CSR_PWCTL1           0x1d
+> +#define  CSR_PWCTL1_PTW_SHIFT          24
+> +#define  CSR_PWCTL1_PTW                        BIT_ULL(CSR_PWCTL1_PTW_SH=
+IFT)
+>  #define LOONGARCH_CSR_STLBPGSIZE       0x1e
+>  #define LOONGARCH_CSR_CPUID            0x20
+>  #define LOONGARCH_CSR_KS0              0x30
+> diff --git a/tools/testing/selftests/kvm/lib/loongarch/processor.c b/tool=
+s/testing/selftests/kvm/lib/loongarch/processor.c
+> index 47bbde3e205a..35e35c62759f 100644
+> --- a/tools/testing/selftests/kvm/lib/loongarch/processor.c
+> +++ b/tools/testing/selftests/kvm/lib/loongarch/processor.c
+> @@ -282,6 +282,7 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
+>         unsigned int cfg;
+>         unsigned long val;
+>         struct kvm_vm *vm =3D vcpu->vm;
+> +       bool has_ptw =3D false;
+>
+>         switch (vm->mode) {
+>         case VM_MODE_P36V47_16K:
+> @@ -300,6 +301,12 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
+>         ret =3D __kvm_has_device_attr(vm->fd, KVM_LOONGARCH_VM_FEAT_CTRL,=
+ KVM_LOONGARCH_VM_FEAT_LASX);
+>         if (!ret)
+>                 cfg |=3D CPUCFG2_LASX;
+> +       ret =3D __kvm_has_device_attr(vm->fd, KVM_LOONGARCH_VM_FEAT_CTRL,=
+ KVM_LOONGARCH_VM_FEAT_PTW);
+> +       if (!ret) {
+> +               cfg |=3D CPUCFG2_PTW;
+> +               has_ptw =3D true;
+> +       }
 > +
-> +/**
-> + * struct bpf_crypto_ctx - refcounted BPF crypto context structure
-> + * @algo:	The crypto algorithm ID
-> + * @key:	The crypto key
-> + * @rcu:	The RCU head used to free the crypto context with RCU safety.
-> + * @usage:	Object reference counter. When the refcount goes to 0, the
-> + *		memory is released back to the BPF allocator, which provides
-> + *		RCU safety.
-> + */
-> +struct bpf_crypto_ctx {
-> +	enum bpf_crypto_algo_id algo;
-> +	union {
-> +		struct aes_key aes;
-> +	} key;
-> +	struct rcu_head rcu;
-> +	refcount_t usage;
-> +};
-
-This isn't a bug, but struct aes_enckey pads itself so the round keys
-can be 16-byte aligned for better performance (as documented in
-include/crypto/aes.h). Putting the 4-byte algo enum before the key union
-means key.aes lands at offset 4, so the round keys can never hit that
-alignment. Would putting key first (or aligning it) be worth considering
-here?
-
-[ ... ]
-
-> +static int bpf_aes_cbc_crypt(u8 *dst, u32 dst_len, const u8 *src, u32 src_len,
-> +			     u8 *iv, u32 iv_len,
-> +			     const struct bpf_crypto_ctx *ctx, bool decrypt)
-> +{
-> +	if (iv_len != AES_BLOCK_SIZE)
-> +		return -EINVAL;
-> +	if (src_len % AES_BLOCK_SIZE || dst_len < src_len)
-> +		return -EINVAL;
-> +	if (decrypt)
-> +		aes_cbc_decrypt(dst, src, src_len, iv, &ctx->key.aes);
-> +	else
-> +		aes_cbc_encrypt(dst, src, src_len, iv, &ctx->key.aes);
-> +	return 0;
-> +}
+>         loongarch_set_cpucfg(vcpu, LOONGARCH_CPUCFG2, cfg);
+>         cfg =3D read_cpucfg(LOONGARCH_CPUCFG6);
+>         loongarch_set_cpucfg(vcpu, LOONGARCH_CPUCFG6, cfg);
+> @@ -338,6 +345,9 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
+>
+>         /* PGD page shift and width */
+>         val =3D (vm->page_shift + width * (vm->mmu.pgtable_levels - 1)) |=
+ width << 6;
+> +       if (has_ptw)
+> +               val |=3D CSR_PWCTL1_PTW;
 > +
-> +static int bpf_aes_ecb_crypt(u8 *dst, u32 dst_len, const u8 *src, u32 src_len,
-> +			     u8 *iv, u32 iv_len,
-> +			     const struct bpf_crypto_ctx *ctx, bool decrypt)
-> +{
-> +	if (iv_len != 0)
-> +		return -EINVAL;
-> +	if (src_len % AES_BLOCK_SIZE || dst_len < src_len)
-> +		return -EINVAL;
-> +	if (decrypt)
-> +		aes_ecb_decrypt(dst, src, src_len, &ctx->key.aes);
-> +	else
-> +		aes_ecb_encrypt(dst, src, src_len, &ctx->key.aes);
-> +	return 0;
-> +}
+>         loongarch_set_csr(vcpu, LOONGARCH_CSR_PWCTL1, val);
+>         loongarch_set_csr(vcpu, LOONGARCH_CSR_PGDL, vm->mmu.pgd);
+>
+> @@ -345,8 +355,10 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
+>          * Refill exception runs on real mode
+>          * Entry address should be physical address
+>          */
+> -       val =3D addr_gva2gpa(vm, (unsigned long)handle_tlb_refill);
+> -       loongarch_set_csr(vcpu, LOONGARCH_CSR_TLBRENTRY, val);
+> +       if (!has_ptw) {
+Why not just check CPUCFG2_PTW in cfg? In this way we can drop has_ptw.
 
-This isn't a bug, but both helpers repeat the same src_len %
-AES_BLOCK_SIZE and dst_len < src_len checks. Could that validation stay
-in bpf_crypto_crypt() next to the existing length checks, leaving only
-the iv_len check per mode?
+Huacai
 
-Also, bpf_aes_ecb_crypt() takes an iv parameter but never uses it (only
-iv_len is checked). Would it read more clearly to drop the iv argument
-from this function, or drop both iv and iv_len and do the iv_len != 0
-check in the ECB arm of bpf_crypto_crypt()?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35815287581
---===============2323606412187480710==--
+> +               val =3D addr_gva2gpa(vm, (unsigned long)handle_tlb_refill=
+);
+> +               loongarch_set_csr(vcpu, LOONGARCH_CSR_TLBRENTRY, val);
+> +       }
+>
+>         /*
+>          * General exception runs on page-enabled mode
+>
+> base-commit: 93f51579e7df248780214094418f205253383cc5
+> --
+> 2.39.3
+>
