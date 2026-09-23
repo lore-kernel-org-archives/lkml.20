@@ -1,212 +1,260 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19012010.outbound.protection.outlook.com [52.103.23.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6573052E07A;
-	Wed, 23 Sep 2026 13:11:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169117; cv=fail; b=AC66dxS1nZdi48sImCvNCQy40GFxN67yT0FayvPRFpG1pM5YSbKUunrTTQP9N5EOFD/WABF5v30KSBxA11p5RNJpoZRSkuxrJwiSzijRNKXFx2YdD0SPj3QyRyhVbKWsrEX+OP2m0KX1CK8lF5x+uMQkB/EHMZDqFIvXWbjpLwA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169117; c=relaxed/simple;
-	bh=oIVQsfU8kEaozWdfV8LSMDiEh7uhpLDDp8u1thXueF0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VvK7qXsTi4UvrX4VNSVvTwfbHlJZIy/6PFy95bSqkVSTA1fjrkALnZIHyHYRzL5V+YxHQPSvkkxdbY/lQ5zLQGOC5Sh20MPaNBZQMA50bCiXng0cy5mg/qud/ffLnD/Zzxbszw5Qm0U+LY0Mx+kaqIfuFs1/wJtEFE5A2I1yHeM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it; spf=pass smtp.mailfrom=outlook.it; dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b=NQ2gapKr; arc=fail smtp.client-ip=52.103.23.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.it
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0B58522EEB;
+	Wed, 23 Sep 2026 13:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790169152; cv=none; b=Ph4/EMgcwayl6lBkuLB3E+zykyhXmjUb6g0E0bVUs4oulANHZzAGB8FCN0VGkKvdOvuzMOW6BbG7yrfSqV78kM7Fz40jGZNGmxs95Y53R5f6CgZ+f8Dsg0s1XRtj5BE46MZbVUCn7B3OLU8WckWak5gSHNPgUaPA2Kq8rZFurhc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790169152; c=relaxed/simple;
+	bh=SmFHo2nDPpKUONOshPa8YT9u4NS/UwmA8+HdpmeKeFY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pK/VEZ404yXYgHkzRkKqOhTnHtuePPdOwZ0yXGCos6lb+7WbQPw9aMwDtQB3v9KhbZEpqWmbM8/QaM9wnWmIePu2+peZd/cC+p0NfHccqiMLkM1b3W27ROhX1mdEeDaj+03rsdFODzgDfVFYAPXJe0RlIdxMlx6acI2PGLu9jMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=aYmen1TR; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.IT header.i=@OUTLOOK.IT header.b="NQ2gapKr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p+JzE69aHVm9i8SXvQmoSzxrggAp3F/6eaSoaPgnK3Fo5UpNcRnLpJVenpM7ifPlTeQEMNU29xccNbUuE1ztiXOlxOJZXyhA0yMboId4g95np8o8Bng8ezw7EWf9SY4wc3pRA+6hvmb+iUMMBEvJeBrZDuLDt49s6iV53d4bcZpdAAwwsnuqFIR886UVU6BRrXOY9E8zEYNxC2eVuGu5Dd/HoaQUopx1u1za/KYxFbc1XyDdJ7IgHUZlWpDvNNR0Rk4NonvGg+97EYom17ckljDrnUuo7AJbgy+51cg23SWoQfZm33SBSPcv6NNlAa6BvHm5m2bvpS1QT/9vHjLTjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XZd6fZdNdb5ukGaZl7HeAynNgx5bmGy7kVes5DAc8No=;
- b=yDNc7iG7p371cDR1rL2G/bmi/G5rMa7QJytsYChgxouMCArBaO6+H2OfPihe+ZMmB8SC0DTcojm3Vn2qXdpzagg/BM7HyMd8/MGsjLsiTHib9S5uu+V5NNQwPGeA5tUnQ9mp46SAQTgR9tZ2PfoY7ahrexleqyM0HvO37ucUjw5R9ax+jhDztzrsDCW+Cqp6wpodUVfmtxHR0ayH87Chb19A53Xkaij5FWAtnvZns1tBXwVJfr9OIoZZbbw9U2uimoWB8Ki34ZmKIQP5DPenLjHweogPX0tayO3dzRJx6ZU32ks8yf++MvxAtby620HxISoSuiiK0UhPFrZP7FcSbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IT;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XZd6fZdNdb5ukGaZl7HeAynNgx5bmGy7kVes5DAc8No=;
- b=NQ2gapKrNJZxDeGBkbp+RcNh2B4U1PdkO7XFyzn6RLvwGZ+eGDCiX5RkK02SQaFvNcLA3CT9H71rM1WYIwPwOeCSVU82UVdrV0MB3jT7Z+vjV87KEvB4TiIK6Xbh5067UTecCA02F1zuP51ZXHOIzzWFsMqQLX3gEVWKSvxNYn6bDhYB0+/1fG6GL1SxX8+DzUP7dzWqJLJpWR8WRV/wSNh0EpPXHZcljSpLNOynZcbwOiEG1vmnvWlqUJOMf3OtYKaZr1t1OkVCpDzz0foCBBz8Fz5NpfrY55EXJSCyJeFBEizfFLkRXEVRtCjY1QlZb063T1mHkVYGzAMIGxVY0Q==
-Received: from SN6PR19MB2303.namprd19.prod.outlook.com (2603:10b6:805:56::19)
- by CH6PR19MB677206.namprd19.prod.outlook.com (2603:10b6:610:30a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 13:11:50 +0000
-Received: from SN6PR19MB2303.namprd19.prod.outlook.com
- ([fe80::805c:7f80:c69f:876a]) by SN6PR19MB2303.namprd19.prod.outlook.com
- ([fe80::805c:7f80:c69f:876a%5]) with mapi id 15.21.0451.012; Wed, 23 Sep 2026
- 13:11:50 +0000
-From: Marco Giunta <marco_giunta@outlook.it>
-To: i@rong.moe
-Cc: derekjohn.clark@gmail.com,
-	hansg@kernel.org,
-	huangwei@kylinos.cn,
-	ikepanhc@gmail.com,
-	ilpo.jarvinen@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	marco_giunta@outlook.it,
-	mpearson-lenovo@squebb.ca,
-	platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v2] platform/x86: ideapad-laptop: Report camera switch as SW_CAMERA_LENS_COVER
-Date: Wed, 23 Sep 2026 15:11:39 +0200
-Message-ID:
- <SN6PR19MB2303D1D68AF234EBC6C95113FC822@SN6PR19MB2303.namprd19.prod.outlook.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <356cc2817ce72c4f2d7b4f623ae73b979d314ac8.camel@rong.moe>
-References: <356cc2817ce72c4f2d7b4f623ae73b979d314ac8.camel@rong.moe>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR0P278CA0200.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:6a::11) To SN6PR19MB2303.namprd19.prod.outlook.com
- (2603:10b6:805:56::19)
-X-Microsoft-Original-Message-ID:
- <20260923131139.45247-1-marco_giunta@outlook.it>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="aYmen1TR"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AA44F1570;
+	Wed, 23 Sep 2026 06:12:26 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DECAE3F86F;
+	Wed, 23 Sep 2026 06:12:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790169150; bh=SmFHo2nDPpKUONOshPa8YT9u4NS/UwmA8+HdpmeKeFY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=aYmen1TRM7QwJGqc4OFo5787lJ46tKHEUhwYkPXWOHO78pDyWHT/ftcomcAC4QiiM
+	 uwuv2AuQKHBDvvrSfp103KDdhV9+AKBs552MKlmOb12iwVrK22hWi7KXM5UOO/7Th9
+	 hwFueBx+pgNbLEPuAMRwfKDJM8gVQxNzs1TUlr4A=
+Message-ID: <26dd45d3-067a-4999-9cf6-8a0633a594f8@arm.com>
+Date: Wed, 23 Sep 2026 14:12:21 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR19MB2303:EE_|CH6PR19MB677206:EE_
-X-MS-Office365-Filtering-Correlation-Id: b67d7b9d-adbf-407b-4d86-08df19743a2d
-X-MS-Exchange-SLBlob-MailProps:
-	znQPCv1HvwUXBahuwteIkQeW30lJPuxOwO3pf6IWOGyOI28cUKxQy3cLVGoSnEseeVzbQb1/Lm1EN8dWo9H32DOSMoUdnmODAlUTUyQAHn1tj5gAvRzmgqC9FK99CeGzH6FUd7YO/QOTQCbW5ggeEU3AnfbZW8sjM2ShHWW+5NchPMAqXqp2JYdmHHRNcN6KT6GN3Qyg2OFo0pQBL6HHEg40M4tHDaB++CHDg1Y7d58kwCkeIcSCMFhL/Enx9bbACzV0R9qg6aA6yHLt9B5vcG+W/0ccfVbY/eCNEUz9VgWkDbqwYkFHBX6ZInscRy3HphtCRQON+TcTLFtZ2PKUIghMoZZrl9SznhLRyCSj75cownyrQCjC+7ise2OUcUnIFbdse2vsL6V/whn0DDCf8x4F0vYDw6vBPCk6+0OLkuKzcYn+cfev8YlIXVVWPrbroVOXIe8fD4bapy0jQC+RSVUHIpx+YU2wVm74g8X+1bk+CEnJ0MiZtA/honBr7zJNSZ2q3fVryesG4wnoxjJ0vQrsfE08r6zrHqT6sQK3eWoY6W8wY8yEEgbvXgCpAsraLamla1MNPDeWY1boY1e+Gp9LhoBbDpQazlGrQy+jJYAEpO+hqPRuTluPickcjlWWi8oJ9JFVgpcWGUY7pL9UqV86ASDa0Cc9VQCoRgO6I7BsFZwoIotiQLIAUqZyVHWoRt99WM1czCwUlMhfaSvp7qgwIyztp5/TMph5N6NpVsTLfFDJeCX2xeFEJk1SBEXCN8ZavKv5aTI=
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|23021999003|51005399006|25010399006|19110799012|12121999013|8060799015|55001999006|24021099003|15080799012|5072599009|40105399003|12091999003|10035399007|2607281247196008|56899033|3412199025|440099028|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?ui36LqqjG5pBzcB4G0Us9CHhZolm+osvQ+eJXXBMK0b8UXmKUQwBV1zB8w0/?=
- =?us-ascii?Q?nJpJHxpy6LCKrNge70wzOhLgCtwuKaHSSgQSUpeUlCICNZW8Cym+rnQU9DJT?=
- =?us-ascii?Q?gF3vLxZ+C6iUS7ZRCobUthYoFSL7Rm4mSNZHCmClOBHu62jjPWNZsAa4pBpR?=
- =?us-ascii?Q?ELPCcR9D9YU+NOxQXm82GK9uULTYA2R1xgszSKGlH4wg2CJ7tB1M76f/xRBN?=
- =?us-ascii?Q?Rt9o4/XrW0xfjwgyv2WPOvmtv4nRxzEVgEzOy95yeEtkdlT+3lARn2JbE+Q2?=
- =?us-ascii?Q?Gq2FwXwqcyHxisHfcImASWycqktoSD6gazSfAGDzIrKvbnhyqv5hj10PEnyk?=
- =?us-ascii?Q?kUOtAPoS/NQrt1yPoHEcoRCr/JbbA5hgaU60JnkjxeabaasXfhEQZcQLY8aV?=
- =?us-ascii?Q?FSluoB6k3SB+BmOqidC2s4LWtFwjBUR2i8zH+naZqcl1EJe77uVXs68JdSD1?=
- =?us-ascii?Q?mqE45fmsLo58jn2Puh0b0qn6rtLBJetmI2T+ZQbLsoz38tC2iZ53Jo8pkkSL?=
- =?us-ascii?Q?ZytJZc5dhowf2FFQyu1+wFJL0fNZuU3jN4N2noGYU4Hk9QQcyJSk8agZNXUt?=
- =?us-ascii?Q?o7HBoXiR/M2nYfb9Eb7u9x7Ktp62hGk2BwDatbWfVWPKsqIAVrk7kC7Oy79S?=
- =?us-ascii?Q?dOCh8k8Il198db37WYf5doQ+gAJGY31VvH6PgFPtIbCZApGg9D8Pg7KFL3Pz?=
- =?us-ascii?Q?HNAfopI6H/3E0EJgzPYkAD9Znmm00STEJENmo1mqq4uBIKDKGEXfxRVkrbIS?=
- =?us-ascii?Q?Mr3gP6Zx/W5PCP//5XOS+Ugn71M0X1grkf/Oh6VFzNEkeR388Xm6WZzmnKKK?=
- =?us-ascii?Q?V+xrZ526ANLn/u3HzOoMB9OCvAccVnG2nlHsm5i0maoFl+wLTGfZxVP5tz21?=
- =?us-ascii?Q?3o9Nvz2oce7Wsf/uC1HFO7ow3Ojc2yQVWeNGZXmafRItFGK44Sc+B4349Kod?=
- =?us-ascii?Q?vik55C9KQvMIgbxOgBLP6SeqB5PBN1xzWc76xll1ftby5XGp90Xf+GACDgoc?=
- =?us-ascii?Q?P0Vl8gjCTOlsFiHTdu/i25T3W5AEKAXUfJlP86DisHb2uBc=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?gqBHxD5i/vP/yk4dyvjNce/3pS8aB7kOALCRKhwTkm00wEi7Woc+Hrpz7Xu8?=
- =?us-ascii?Q?LhOl7B8A3cCOr5mLPyiQC8TE8dpWYnwYD3pXspxBTGzA1kYkoZ89PR8gbuoc?=
- =?us-ascii?Q?IeaId5skTETUUfgJ+TDzCpL9pbstCmvCtK0TQUm5PzdesNFrf6HFGXn8EDtf?=
- =?us-ascii?Q?HWpS2MrzXlkTUeP7Mgf7ezpgzB4meevNMRu1u1i5oljcWYLF0G2G19ybwJUr?=
- =?us-ascii?Q?xx96Q35QR2SFC0XiFvAlrMwwNBb+8NMT0sOMW4LM6Os7DaD9JuXO+V1OnYfx?=
- =?us-ascii?Q?pa+Nj3TirWhhZrRyMsleT/2hQCIM0/956ZXeOosQl2nlyuE+u3pGgwvCg7wA?=
- =?us-ascii?Q?VU7m4HKtwxx6N+8DtoF8GFEgpHfASVGsGtGkDzXEvliFqqkSpj/rGZJX6bKU?=
- =?us-ascii?Q?ewWnVistkSK/pUF4+fhokbkVWWwTwpsPkTjBg14m5mjjYaz4DiKpKp5dZjAb?=
- =?us-ascii?Q?bMuAl+LvXsf/Pg6SyJltojR3TGr5QXuFYRsQpCdqtTL48RGvB9nmqhADSX24?=
- =?us-ascii?Q?TSVgr0WXf2KqDoOPEQkXIfeY9Psw0y6P5Ct64EF/MbeSxBdyP/Kb7molKN9w?=
- =?us-ascii?Q?eq4mm8mLbXoqiUqJUHIBvBLOwAGReEs5TExFL9q0KIClAmKeM1ZLBc/+wExw?=
- =?us-ascii?Q?XH9m4LSPYjfjWuFAER5YUYVmUKShzdFh6uEx73RrFNDVTgScMMM8LWueMsEo?=
- =?us-ascii?Q?L9D97mNpYJuOmlyU4JzAKH8WCcBT5H9R1LOtzHWjQB4jEhc39htbh+/rfvFN?=
- =?us-ascii?Q?Q4ZC8aOomJpf3mo5bTaczwBQ9Vn4MKZMK4opHyV1PYxyvzTdhLJjTy/2k0mI?=
- =?us-ascii?Q?EdNg2rM/qHJ51dQm++kJeJ1gOHmTr14nbqqNh0BU8RPIr6U1D0riZ0VraouM?=
- =?us-ascii?Q?A75AZDIynXPNrxCcK8LtCmDURrDxqFBoHNvZW9lku9KbxJqmUD4kp8OavVg7?=
- =?us-ascii?Q?p95m4aNqkNus6/vFhNsl1fP//IjfQTE6rC37M4VWNOK+IvvNPGcAkpSPm23y?=
- =?us-ascii?Q?7eGiovrgP3bC992+NhOxdQGeIW9VRySvt8crQh2cGaA4p2GotxIHPT5LvQVy?=
- =?us-ascii?Q?4LxbKVpsrzIY1aWbyI3R4EMqmpYQUjyOEjxt4ILsF61YyLIwaqeVJ5BtYWSO?=
- =?us-ascii?Q?Yips9IpnFdyw7F/5PlIid7hLC23h3dv+PbiIi9cTNJ3BDJZvxmI9AIa9jWoj?=
- =?us-ascii?Q?180IsKwWU01FeBUzxiHIRbpkxjni/L/T3b6oD9Hb61+qnJz7Jd+vXmkB3ou7?=
- =?us-ascii?Q?qp0Vy42c7myKIh3af+ztFFRq8pFEJAQsnhG4ZJFvGbIfKC2sMLA1kk9vAfRA?=
- =?us-ascii?Q?ha7RP9AvuOMfs+UXtJZ0IBVhwsGag71iaLYU8kzc+Pm+caVsqGr4wZrXR4Xh?=
- =?us-ascii?Q?NY5S5kMRWCnuzBOerqNxSX5I971f?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: b67d7b9d-adbf-407b-4d86-08df19743a2d
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR19MB2303.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 13:11:50.7139
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH6PR19MB677206
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 6/6] dma: swiotlb: Remove SWIOTLB_ANY
+To: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Will Deacon
+ <will@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Steven Price <steven.price@arm.com>,
+ Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Jiri Pirko <jiri@resnulli.us>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Mostafa Saleh <smostafa@google.com>,
+ Petr Tesarik <ptesarik@suse.com>, Alexey Kardashevskiy <aik@amd.com>,
+ Dan Williams <dan.j.williams@intel.com>, Xu Yilun
+ <yilun.xu@linux.intel.com>, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Russell King <linux@armlinux.org.uk>,
+ Huacai Chen <chenhuacai@kernel.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Jiaxun Yang <jiaxun.yang@flygoat.com>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+ linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, x86@kernel.org
+References: <20260921063628.362078-1-aneesh.kumar@kernel.org>
+ <20260921063628.362078-7-aneesh.kumar@kernel.org>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260921063628.362078-7-aneesh.kumar@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Rong,
-
-> >
-> > 1. overall I changed my mind regarding the conditional switch registration.
-> > I no longer really see it as particularly problematic in practice; as Rong
-> > said earlier, in practice it's mostly a theoretical concern given the
-> > typical userspace usage of this switch.
-> >
-> > I do agree that if we can find a smart way to filter for switch presence
-> > based on a good criterion, like a suitable wmi method, it would
-> > definitively be an improvement to patch v3. And I also appreciate that
-> > gaining a better understanding of these issues may improve other lenovo
-> > drivers. Finally, in general, I am certainly not trying to stifle the
-> > useful discussion going on here; what I'm trying to say is: as far as the
-> > camera switch patch is concerned, I am perfectly fine with the simple
-> > approach of v3 (at least for now, we can add more complexity later IMO).
+On 21/09/2026 7:36 am, Aneesh Kumar K.V (Arm) wrote:
+> swiotlb pools are currently allocated below the architecture's low
+> address limit by default. SWIOTLB_ANY overrides this and permits
+> allocation anywhere in directly mapped memory.
 > 
-> Agreed. More comments below.
-
-Nice. Mark, any thoughts on this?
-
+> SWIOTLB_INIT_ADDRESSING_LIMIT now explicitly identifies callers which
+> need a pool that is reachable by devices with limited DMA addressing.
+> Use it as the placement constraint and remove SWIOTLB_ANY.
 > 
-> >
-> > 2. here https://github.com/marco-giunta/lenovo-acpi-dump you can find
-> > all raw & decompiled ACPI tables and bmof files from both my yoga and my
-> > legion. Feel free to ask for more data.
+> This changes the default behavior for callers which do not set either
+> flag. Previously, omitting SWIOTLB_ANY placed the default pool below the
+> architecture's low address limit and also constrained dynamically
+> allocated pools to the same range. After this change, omitting
+> SWIOTLB_INIT_ADDRESSING_LIMIT permits both static and dynamic pools to
+> use any directly mapped memory.
+
+While it's rather dependent on some of the other aspects wanting a bit 
+more work still, this part I do entirely agree with :)
+
+Reviewed-by: Robin Murphy <robin.murphy@arm.com>
+
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+> ---
+>   Documentation/core-api/swiotlb.rst |  8 ++++----
+>   arch/powerpc/mm/mem.c              |  6 ++++--
+>   arch/riscv/mm/init.c               | 16 ----------------
+>   arch/s390/mm/init.c                |  2 +-
+>   arch/x86/kernel/pci-dma.c          |  2 +-
+>   include/linux/swiotlb.h            |  7 +++----
+>   kernel/dma/swiotlb.c               | 17 ++++++-----------
+>   7 files changed, 19 insertions(+), 39 deletions(-)
 > 
-> Good job. They are exactly what I want to cross-check with. They'll also
-> be useful when I develop future patches for lenovo-wmi-*.
+> diff --git a/Documentation/core-api/swiotlb.rst b/Documentation/core-api/swiotlb.rst
+> index 71b4e4c27eb5..06d9f88fdf7b 100644
+> --- a/Documentation/core-api/swiotlb.rst
+> +++ b/Documentation/core-api/swiotlb.rst
+> @@ -148,10 +148,10 @@ may also be adjusted
+>   due to other conditions, such as running in a CoCo VM, as described above. If
+>   CONFIG_SWIOTLB_DYNAMIC is enabled, additional pools may be allocated later in
+>   the life of the system. Each pool must be a contiguous range of physical
+> -memory. The default pool is allocated below the 4 GiB physical address line so
+> -it works for devices that can only address 32-bits of physical memory (unless
+> -architecture-specific code provides the SWIOTLB_ANY flag). In a CoCo VM, the
+> -pool memory must be decrypted before swiotlb is used.
+> +memory. The default pool is allocated below the architecture's low address
+> +limit when it is needed for devices with limited DMA addressing. Otherwise,
+> +it may be allocated anywhere in directly mapped memory. In a CoCo VM, the pool
+> +memory must be decrypted before swiotlb is used.
+>   
+>   Each pool is divided into "slots" of size IO_TLB_SIZE, which is 2 KiB with
+>   current definitions. IO_TLB_SEGSIZE contiguous slots (128 slots) constitute
+> diff --git a/arch/powerpc/mm/mem.c b/arch/powerpc/mm/mem.c
+> index 006ed41097e9..1bdea6c03848 100644
+> --- a/arch/powerpc/mm/mem.c
+> +++ b/arch/powerpc/mm/mem.c
+> @@ -295,9 +295,11 @@ void __init arch_mm_preinit(void)
+>   		/*
+>   		 * Since the guest memory is inaccessible to the host,
+>   		 * devices always need to use the SWIOTLB buffer for DMA
+> -		 * even if dma_capable() says otherwise.
+> +		 * even if dma_capable() says otherwise. The hypervisor has
+> +		 * no addressing limitation, so the buffer may be allocated
+> +		 * anywhere.
+>   		 */
+> -		ppc_swiotlb_flags |= SWIOTLB_ANY;
+> +		ppc_swiotlb_flags &= ~SWIOTLB_INIT_ADDRESSING_LIMIT;
+>   	}
+>   
+>   	/*
+> diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
+> index 96856114b387..734712230f35 100644
+> --- a/arch/riscv/mm/init.c
+> +++ b/arch/riscv/mm/init.c
+> @@ -165,27 +165,11 @@ static void print_vm_layout(void) { }
+>   
+>   void __init arch_mm_preinit(void)
+>   {
+> -	bool swiotlb = max_pfn > PFN_DOWN(dma32_phys_limit) &&
+> -		       memblock_start_of_DRAM() < dma32_phys_limit;
+>   	unsigned int swiotlb_flags = SWIOTLB_VERBOSE;
+>   #ifdef CONFIG_FLATMEM
+>   	BUG_ON(!mem_map);
+>   #endif /* CONFIG_FLATMEM */
+>   
+> -	if (IS_ENABLED(CONFIG_DMA_BOUNCE_UNALIGNED_KMALLOC) && !swiotlb &&
+> -	    dma_cache_alignment != 1) {
+> -		/*
+> -		 * No 32-bit DMA bouncing needed (either all DRAM is within
+> -		 * the 32-bit limit, or it all starts above it), but
+> -		 * kmalloc() buffers whose sizes are not cache-line-aligned
+> -		 * still require bouncing for non-coherent DMA.  Use
+> -		 * SWIOTLB_ANY so that the buffer can be allocated from high
+> -		 * memory when DRAM starts above dma32_phys_limit.  Allocate
+> -		 * ~1 MB per 1 GB of RAM.
+> -		 */
+> -		swiotlb_flags |= SWIOTLB_ANY;
+> -	}
+> -
+>   	if ((max_pfn > PFN_DOWN(dma32_phys_limit)) &&
+>   	     (memblock_start_of_DRAM() < dma32_phys_limit))
+>   		swiotlb_flags |= SWIOTLB_INIT_ADDRESSING_LIMIT;
+> diff --git a/arch/s390/mm/init.c b/arch/s390/mm/init.c
+> index 78f507e24ceb..ce10292447f1 100644
+> --- a/arch/s390/mm/init.c
+> +++ b/arch/s390/mm/init.c
+> @@ -166,7 +166,7 @@ static void __init pv_init(void)
+>   	virtio_set_mem_acc_cb(virtio_require_restricted_mem_acc);
+>   
+>   	/* make sure bounce buffers are shared */
+> -	swiotlb_init(SWIOTLB_VERBOSE | SWIOTLB_ANY);
+> +	swiotlb_init(SWIOTLB_VERBOSE);
+>   	swiotlb_update_mem_attributes();
+>   }
+>   
+> diff --git a/arch/x86/kernel/pci-dma.c b/arch/x86/kernel/pci-dma.c
+> index ce257b20ea9c..74e92b457758 100644
+> --- a/arch/x86/kernel/pci-dma.c
+> +++ b/arch/x86/kernel/pci-dma.c
+> @@ -90,7 +90,7 @@ static void __init pci_xen_swiotlb_init(void)
+>   	/* Xen can use a SWIOTLB pool anywhere in directly mapped memory. */
+>   	x86_swiotlb_flags &= ~(SWIOTLB_INIT_ADDRESSING_LIMIT |
+>   			       SWIOTLB_INIT_DEFAULT_OFF);
+> -	x86_swiotlb_flags |= SWIOTLB_INIT_REMAP | SWIOTLB_ANY;
+> +	x86_swiotlb_flags |= SWIOTLB_INIT_REMAP;
+>   	swiotlb_init_remap(x86_swiotlb_flags, xen_swiotlb_fixup);
+>   	dma_ops = &xen_swiotlb_dma_ops;
+>   	if (IS_ENABLED(CONFIG_PCI))
+> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
+> index 466c33795db0..503e1446e0d8 100644
+> --- a/include/linux/swiotlb.h
+> +++ b/include/linux/swiotlb.h
+> @@ -15,13 +15,12 @@ struct page;
+>   struct scatterlist;
+>   
+>   #define SWIOTLB_VERBOSE	(1 << 0) /* verbose initialization */
+> -#define SWIOTLB_ANY	(1 << 1) /* allow any memory for the buffer */
+>   /* Initialize a default-sized pool for devices with limited DMA addressing. */
+> -#define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 2)
+> +#define SWIOTLB_INIT_ADDRESSING_LIMIT	(1 << 1)
+>   /* Initialize a default-sized pool that requires architecture remapping. */
+> -#define SWIOTLB_INIT_REMAP		(1 << 3)
+> +#define SWIOTLB_INIT_REMAP		(1 << 2)
+>   /* Do not initialize a pool unless SWIOTLB is explicitly required. */
+> -#define SWIOTLB_INIT_DEFAULT_OFF		(1 << 4)
+> +#define SWIOTLB_INIT_DEFAULT_OFF	(1 << 3)
+>   
+>   /*
+>    * Maximum allowable number of contiguous slabs to map,
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index 46b789eb0806..77d7c320de28 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -450,15 +450,10 @@ static void __init *swiotlb_memblock_alloc(unsigned long nslabs,
+>   	size_t bytes = PAGE_ALIGN(nslabs << IO_TLB_SHIFT);
+>   	void *tlb;
+>   
+> -	/*
+> -	 * By default allocate the bounce buffer memory from low memory, but
+> -	 * allow to pick a location everywhere for hypervisors with guest
+> -	 * memory encryption.
+> -	 */
+> -	if (flags & SWIOTLB_ANY)
+> -		tlb = memblock_alloc(bytes, PAGE_SIZE);
+> -	else
+> +	if (flags & SWIOTLB_INIT_ADDRESSING_LIMIT)
+>   		tlb = memblock_alloc_low(bytes, PAGE_SIZE);
+> +	else
+> +		tlb = memblock_alloc(bytes, PAGE_SIZE);
+>   
+>   	if (!tlb) {
+>   		pr_warn("%s: Failed to allocate %zu bytes tlb structure\n",
+> @@ -604,10 +599,10 @@ void __init swiotlb_init_remap(unsigned int flags,
+>   #ifdef CONFIG_SWIOTLB_DYNAMIC
+>   	if (!remap)
+>   		io_tlb_default_mem.can_grow = true;
+> -	if (flags & SWIOTLB_ANY)
+> -		io_tlb_default_mem.phys_limit = virt_to_phys(high_memory - 1);
+> -	else
+> +	if (flags & SWIOTLB_INIT_ADDRESSING_LIMIT)
+>   		io_tlb_default_mem.phys_limit = ARCH_LOW_ADDRESS_LIMIT;
+> +	else
+> +		io_tlb_default_mem.phys_limit = virt_to_phys(high_memory - 1);
+>   #endif
+>   
+>   	/* if we have host or guest memory encryption */
 
-Thanks, I'm happy to contribute this data (I assume no one has assembled
-a general database of this stuff)
-
-> Then we can't query the switch's state via WMI on the Yoga.
-> Then we can't query the switch's state via WMI on the Legion.
-
-yeah, that leaves only the v1/v2 approach as feasible for a conditional
-registration AFAICT. If a maintainer prefers that, it's easy to revert
-to the older patch, but my guess is that the simplified v3 is overall
-preferable.
-
-> > 5. I have basically no experience parsing WMI data and very little with
-> > ACPI tables in general. Please feel free to correct me! And in general
-> > take the above with a pinch of salt.
-> > I hope the linked files will prove more useful than me in this regard.
-> 
-> Your interpretation is well done and impressive!
-
-Thanks, I spent the last few days studying acpi and wmi documentation/code
-to be able to parse these files.
-
-> 
-> In conclusion, I agreed that we should take the simple approach, i.e.,
-> exposing KEY_SW unconditionally. If we see a report for a 0x00200000-
-> capable device, we can add support for it then. For the time being, let's
-> focus on what we have first.
-> 
-> >
-> >
-> > Thanks again for your work on this, I am learning a lot from this thread.
-> 
-> Thanks a lot for your help, too.
-
-Happy to help.
-I'll make sure to CC you for future pd/x86 patches targeting the Legion.
-
-> 
-> I will submit my patch with your C-d-b, S-o-b, and T-b.
-> 
-
-Looking forward to that. And don't forget to cc Huang, so they can offer
-their reviewed-by for v3 as well.
-
-Best regards,
-Marco
