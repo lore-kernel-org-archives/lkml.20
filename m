@@ -1,138 +1,104 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45F045D92D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:30:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BFB2F0C62;
+	Wed, 23 Sep 2026 09:30:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155805; cv=none; b=KwHFn0LQ1d+fCMzxLwmR2A7aQRmVNLrqib8i+1LiUYH65/16zkaN1gjXcOZLXRjHbrNtzjiZzJotEKoiJNsjvo+U94TG6pQz5URTybNqn7aOvI6le0YTrlwPO9O4VTMY1YNH7SbkJxbefqWFK5DQQnUWN/fBItfbO2VorZsn9cg=
+	t=1790155826; cv=none; b=l+eutqVfQSqX4AH+Ls73Iv9wxX20+DUZLdztlxhXfmnpUu3vUQh4BsOdDx6zFKiyswHcLchy69fdxr7V7ThdldKJZ+QsaijuXq76Ef3x/t9y49nJgEVHWxNmy/bGOEiQilB4pLzi3ZSVDf8+Ez4U/wkQy/lka66PZi5OrIHyjx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155805; c=relaxed/simple;
-	bh=eWLeqpbbXtrRAv+whCfpPs+DG5cjmoOBUDqsuCtZP2E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=InZFa7vWdnGVMo9LUREigmRdG4OBheeWwv23NS+NyQOk8vzXgWKsgVUJXyffNiKWCErGkBIqT8+vwj3XONmDiXA4F9Tyd6uc+noUH+adpzGTsUx1g9rTvkmQoqZYuzrs00klZDkoe0K+Q9mE9UFafHlcCsxdJ06Ln2srTMplqyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HPhhJM5n; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1790155826; c=relaxed/simple;
+	bh=LO6Qi7dMoppLkP2fh8f91hO/tTo7FR05Vgw2/yiijxg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UHYbDw+ZUwemHplcMaQXkQJ64LC7YE5wA1yB/9qOAMW5c6LizR8pTRBlYsgOmA8VlHRCTKcL6bx4FPrkjQgF/tbopVBOoSRaS0RtNFhF3avfoj0Q9EY/UrYPhnWy8x2DxI2SynZCUl/m02J2NXDE6eXrrlOg3HrlmYX/VEQRTUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xe7wLBNl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HPhhJM5n"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so3510195e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:30:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1790155800; x=1790760600; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j85Q0Due/RmRnLWXRpqKRsR1ZBPGAvBYI24rxRoo9rM=;
-        b=HPhhJM5nppNeWupr6AHkaQ50W/Wibrdr+jAxhN7jmUjHfF79MJHIa6Z3PE9uOE7Xo0
-         V/A+2GrPRwc6TA/1zmHtfqHZGK6k9gfebPxmIULJH+HUUdUGV+57CyQYCxj0BDEvyVg2
-         V0Pn6QXRCNC4mIk77IPAYQsoOHaN14k3IUAz8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790155800; x=1790760600;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j85Q0Due/RmRnLWXRpqKRsR1ZBPGAvBYI24rxRoo9rM=;
-        b=MAys56NUpi4TPuXp1mTHAuSAxI1zT8piCwUZ+TLrLc8/t1FG9vdbwiGMgdW1IJxlJf
-         MxddtIqfeVoO8EB/eYDFKFQp9ARhWWi29XmKJ0e75A6b1R7A6a7hIqOI8sdxY/jS5opP
-         rIO6SZlL4lB/O1kHxAoJ9fKXHNuwXJuXPuHPmN6v78rdyoaWtiaQjFdB52JOKrSFg75W
-         SNMfac8rE2ZvcTNk6xY5UloZIRithxTUbcuSsalPIIkVzfjQ40dE0PWM+9t1cBUzNMvZ
-         SWN/SfitqNKIb8PGRBencsCxUSK4NSzdCebSvluJM7mRN5ZVR1aa/6DA5P5N7jVWLimR
-         sLvw==
-X-Forwarded-Encrypted: i=1; AKwUvBw7kLwTZpWZSB2tgifFtp2PYGQlPoSY0cbmMKGNgNCDO36SPtGNm+dO1dkzyMh1+z9xsvtXKWGQz/zIXtE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqP9M7MB9AtpJlGJI1gjbHhim9Idu/9E+LdbJx+L5m8Yfj8m4s
-	vhPlSXSOPowDcXsB+19UebUdwD2f2eTp3yGm2f0IJLVevL50bNIKrXdeAbDJ/KQr/luWTr1wtXG
-	MRYT6VANJKQ==
-X-Gm-Gg: AYBFou0rz65PJJZJBVAm7Pxmy/dIzLdopxXBThEJmBKnkLo74wVX+AVFdLYokzqkbcL
-	IRs7sEqYyfEtbqQvhswxfFHeoEx8DW8d/gARHIRRrohHiMUXaFUuC9Mz8AttjFyeKXj/ISiI2O+
-	sddj6GpeCpFfkmEn0dDWnGEmaNPlyLegxTzhRrQ6mHL3NY2QAOrTwBaDZv99CZFtqnGNennynA5
-	Y0G4HmS9vRrRobHq/z/V1aklTOnIkLc8EfaBmORsT+NWutgeB3m21jMhQ+qndcyyJUUtUSLVsMD
-	mcj33upEbUIW4WL4DN2IgvWukBSILbfDFh2e7iUeifqQlL2c+l0XfBeZiDRxzasBriiZeVuQql8
-	BopUtrEMce6KfeTCM9kD5ZeGAX6OpbGo36XiK1vi+58GvG0BSnlGRmiOGJT/Iv0Zd6xYOzzawRb
-	Az8vmQTZd7L4I86cHFgHQOmAnUflgOuBKvPz3+NVLO0wagOBejT9HfKC10XVMX5y/3bBcDVm7US
-	oe4/2muX1KOdYSvcA==
-X-Received: by 2002:a05:600c:1553:b0:49e:81a7:9fbc with SMTP id 5b1f17b1804b1-49fdf13a117mr21651785e9.24.1790155800017;
-        Wed, 23 Sep 2026 02:30:00 -0700 (PDT)
-Received: from [10.214.128.75] ([149.7.5.83])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde197466sm58177785e9.7.2026.09.23.02.29.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 02:29:59 -0700 (PDT)
-Message-ID: <c80ca0bc-1398-4f6f-bfcc-c49089a51082@linuxfoundation.org>
-Date: Wed, 23 Sep 2026 03:29:50 -0600
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xe7wLBNl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46D101F000FF;
+	Wed, 23 Sep 2026 09:30:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790155825;
+	bh=w4RZpTpwH+86+MlalggS3frcHNH26NoLVkMIGSVHUAg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Xe7wLBNlLFPx0gk74fc2Y7stp2cmjm6TdZQNSFVe+hNlXcqL1TargvtfuzSqEj/ET
+	 AW852IBnOlnJuMiAsxxwRJca6S/T9xPkn9DvFVz3ZM4KN4wLlqtshQ5EM7rH5CxYgE
+	 Z6F6p/9xtik7YIWDnjEE5M+KtfvOwp0CGtlsJzg/AMaBsB8Ig5mOy+2z6r9SKBWiIK
+	 Nin9mIdax8QqRb7X3tAtRSf6wTgFGDgRZyvhIgYevc2G7ITO01NCXUUHrsqjm9U+z8
+	 0/lTYwkM1whz12G7d8YlwunPnDQuy3K8s4ZQkDwkddI6VSw4gZed9gbxNYAaR4m5BW
+	 tuCq5g7AAFJzA==
+Date: Wed, 23 Sep 2026 10:29:50 +0100
+From: Simon Horman <horms@kernel.org>
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	aleksander.lobakin@intel.com, wojciech.drewek@intel.com,
+	marcin.szycik@linux.intel.com, linux-kernel@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Subject: Re: [PATCH net v1] pfcp: fix socket lifetime on netdevice
+ registration failure
+Message-ID: <20260923092638.GS13925@horms.kernel.org>
+References: <20260918123158.5631-1-xuanqiang.luo@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usbip: stub: keep URB array state consistent on errors
-To: Weiming Shi <bestswngs@gmail.com>,
- Valentina Manea <valentina.manea.m@gmail.com>, Shuah Khan
- <shuah@kernel.org>, Hongren Zheng <i@zenithal.me>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Suwan Kim <suwan.kim027@gmail.com>, co+66c3f58096d0bde8@bugs.sh,
- Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260912083925.587987-2-bestswngs@gmail.com>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260912083925.587987-2-bestswngs@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918123158.5631-1-xuanqiang.luo@linux.dev>
 
-On 9/12/26 02:39, Weiming Shi wrote:
-> stub_priv_alloc() links a zeroed stub_priv to priv_init before the URB
-> array is allocated.  The error handler may therefore consume the object
-> after stub_recv_cmd_submit() reports SDEV_EVENT_ERROR_MALLOC.
+On Fri, Sep 18, 2026 at 08:31:58PM +0800, Xuanqiang Luo wrote:
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 > 
-> Do not publish num_urbs until the array exists.  If a later URB allocation
-> fails, clear the freed array pointer and count before the event handler can
-> walk them.  This prevents a NULL dereference on array-allocation failure
-> and freed-array reads that can lead to invalid URB use or a double free on
-> later failures.
-
-How is this problem reproduced? Why is this a problem in this code path?
-
+> pfcp_newlink() creates the UDP socket before register_netdevice().
+> If registration fails after pfcp_dev_init() succeeds, the core calls
+> pfcp_dev_uninit(), which releases the socket and clears pfcp->sk.
+> The newlink error path then releases it again, causing a NULL pointer
+> dereference. This was observed with failslab fault injection:
 > 
-> Fixes: ea44d190764b ("usbip: Implement SG support to vhci-hcd and stub driver")
-> Cc: stable@vger.kernel.org # 5.4+
-> Reported-by: co+66c3f58096d0bde8@bugs.sh
-> Closes: https://lore.kernel.org/all/J3vQPnNHSkQ6YUiFvu1bk8ai3Q8aZ7a9J1Y7%40bugs.sh/
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+>   FAULT_INJECTION: forcing a failure.
+>   kobject: kobject_add_internal failed for pfcp0 (error: -12 parent: net)
+>   BUG: KASAN: null-ptr-deref in udp_tunnel_sock_release+0x1c/0x50
+>   Read of size 8 at addr 0000000000000120 by task ip/1037
+>   Call trace:
+>    show_stack+0x18/0x24 (C)
+>    dump_stack_lvl+0x78/0x90
+>    print_report+0x468/0x5cc
+>    kasan_report+0xa4/0xf0
+>    __asan_load8+0x7c/0xd0
+>    udp_tunnel_sock_release+0x1c/0x50
+>    pfcp_newlink+0x128/0x184
+>    rtnl_newlink+0x848/0xe44
+>    rtnetlink_rcv_msg+0x468/0x514
+>    netlink_rcv_skb+0xc0/0x1f0
+>    rtnetlink_rcv+0x18/0x24
+>    netlink_unicast+0x4b8/0x558
+>    netlink_sendmsg+0x2b8/0x584
+>    ...
+> 
+> Create the socket in pfcp_dev_init() after initializing the GRO cells,
+> and let pfcp_dev_uninit() release it on registration failure or removal.
+> 
+> Move the RCU wait into pfcp_dev_uninit(), using synchronize_net() after
+> socket release to drain receive callbacks before destroying the GRO cells.
+> 
+> Fixes: 76c8764ef36a5 ("pfcp: add PFCP module")
+> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 > ---
->   drivers/usb/usbip/stub_rx.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/usbip/stub_rx.c b/drivers/usb/usbip/stub_rx.c
-> index 1e9ae578810d9..33058fb05b2f4 100644
-> --- a/drivers/usb/usbip/stub_rx.c
-> +++ b/drivers/usb/usbip/stub_rx.c
-> @@ -534,10 +534,10 @@ static void stub_recv_cmd_submit(struct stub_device *sdev,
->   	}
->   
->   	/* allocate urb array */
-> -	priv->num_urbs = num_urbs;
->   	priv->urbs = kmalloc_objs(*priv->urbs, num_urbs);
->   	if (!priv->urbs)
->   		goto err_urbs;
-> +	priv->num_urbs = num_urbs;
->   
->   	/* setup a urb */
->   	if (support_sg) {
-> @@ -641,6 +641,8 @@ static void stub_recv_cmd_submit(struct stub_device *sdev,
->   
->   err_urb:
->   	kfree(priv->urbs);
-> +	priv->urbs = NULL;
-> +	priv->num_urbs = 0;
->   err_urbs:
->   	kfree(buffer);
->   	sgl_free(sgl);
+> A NULL check would fix the crash. Moving socket creation into ndo_init
+> also removes the duplicate cleanup and ensures the receive state is
+> initialized before enabling the socket's receive callback.
 
-thanks,
--- Shuah
+Assuming the NULL check is significantly simpler than this patch,
+and that it resolves the bug, think that we should consider:
+
+1. A patch that minimal NULL check for net
+2. Follow-up with the approach taken by this patch in net-next
+
+I say this because this seems to be lower risk than skipping to applying
+2 to net.
+
+Also, please consider CCing stable on bug fixes.
+
+Link: https://docs.kernel.org/process/maintainer-netdev.html#stable-tree
