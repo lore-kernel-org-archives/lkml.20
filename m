@@ -1,170 +1,213 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C7043DEBC
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:28:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CD644065B;
+	Wed, 23 Sep 2026 06:28:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790144929; cv=none; b=gCyzTV/HIKVv+x2ZuGTY72fBZ9wtfd6PzgMiUmyFgaU1PhuDQpGMuHMmwC1I+YpRzZVa0xbt/5KTEfVKG7/XXCiFMxFRGpJpulEyuevmew2Vh3Q+7euGNtJX8xpKobcFbrYekzrp70njxG17hxZkBoiJpjE+RJeV0pm+OZzrg1g=
+	t=1790144930; cv=none; b=LHgboYSgi4Qa+9Iqi+0mu9UDSRAGJDaK50WuhWlmLTsXJhQqkJ/MVF3LInCg+sPojLoeB+zl7SL5zK3UCV/O2AWMUfjKlpQZRh/WlVsLw7np7YYj1GH/0SDnKl/7T/ZUN3LPpsl5UGPpOksxEd/2VKNkQj9XSOJFuiVzQMwaMfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790144929; c=relaxed/simple;
-	bh=TZIuyM87cT1jcfLZCH3Gw/sQ620Bhi+JwxUTofKDHIU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=q6UO8y4zqZjByrHkggqKy4r+bVOOQqhU4hbqQVIMdjl7Een28eeiFqphxesryQrhZu2S0+5yJSvpGQkHuMpZvO0rTLjK0XjsUSKhHv8oOu7/hxaJluVxaE/ie9kqykCJ0qRA6bfSpJW+3KZ3PN2pxGunsrjsNQcFNVKBpP1B5Ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n8gJCFBq; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790144930; c=relaxed/simple;
+	bh=b3K674XacfU9HJDGPP3f22Z84mjfKdkKProo6csmN0w=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=fVQXKcu0pYigkIfhmPf2QI8taTOLTlnLBlzg8+XKUVqtHSEPdD2di6spjZZwLN9YAZakovrRkP3/n+KtPwid0JYBpq/zyLBroVF3kUPUgcYUzv8SZqqa2F+TW5uNPMxy/6A7zOH34ZEhrIlCG0QkQ+4lX86y+kpZ/RM5asGrdfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E2LDhSM3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n8gJCFBq"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db22383fe8so2352745ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:28:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790144926; x=1790749726; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7/fcB7RWsYoduiGVrXMcsoy9SKXwqPZ/B+Usu82ABAo=;
-        b=n8gJCFBq66UpQqJLP8pvq8e0uwC93oJwq15KLVHFG7K0xKY7K/CQ9q1tJbhw4PF2mA
-         6ATT0wxN6K0TnqdUnBOMriG2MoEDt4ONoK62u7/A0Re4lW/4OYeq6pVpGyvgUJwZjDWG
-         jTkw/5vhGWzyISIaN0+MtYYqJy6P/PjZdLfClya38G3hFJnIopTPQB3GeSIU1/Y/uQO1
-         6O4r2v1ewk/wi4IsMXVpNW+/x1ddMYbGt1s9Y0rCVFY9clEr0pNhqBveCgfB8R8UH659
-         mfsQAm9MZmHy1Vt+4zjohvPCzFc/MeMzdLq48RaHQtmhQWQyEkoj0CjSKGFGp9sfZsfa
-         dLkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790144926; x=1790749726;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7/fcB7RWsYoduiGVrXMcsoy9SKXwqPZ/B+Usu82ABAo=;
-        b=Nb7ga3k4A9zzOOdFgUvEu35NxtgurEmbcBBVgvtKTP5PSSNUI0HHcT5VXxanpeR/KF
-         QmMlW7MpCwung/4BRbUSVTggFqC/dWQoD4tZSfrBTRWzbQJRn1pIgKEFkcM9vPg+eORZ
-         m0sTMd8hjq4rT1/Ldw83L6+MihWR5UZDWtiN0+hD2N4JPwkansJqMd2LXJ3AtpRpdzez
-         PgdqSaW75Audc6762e74qv0qS/HWmdzd9RdO0j4G+A+F9hon+2US+gH7t5fiC44E6EH1
-         ZItEC+E6rZhHu2fZ6p4tkt+H65GR+pqBrk3Zq+98ttY2Qg7+ZlUPM1Sh+3jgob9Nxi7C
-         S7IQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxF4Xir6cPhhLBS+E0zTiTiIN9g/L+awBqytgbF+LmKGANsVla634l2Nopkq5uuxdPCgFvcsjvrrSCIjIs=@vger.kernel.org
-X-Gm-Message-State: AFuF++krLSBELToWuHfXD/YvdbWjIIcO9wyCutgGlcyM5jh2d1olqW0z
-	u4Q7INlNaHi9c4BnBtguPAdRv7Y2288eSMlKW4yxkvA0CLznYn4oTOB8
-X-Gm-Gg: AYBFou0WHM62bjVK4qFKOQlhQvQSt5bmKnh061e6jLxukIA93mz8WK+l6LQPrgKZnAF
-	4Cqy0IVTyzKpVZhazcSRF9/7vbjh9AabVTjtlrbP78A960r0/I042WY+KFR/7ebHGOxc53XH6A8
-	drZyK2BPTbfxK2qFPizdIRJqJvIJJ3d3Fg1G54nmz+Q9SVh2w2sJ8MsZn0hJwkX/2snHjIa7hV2
-	ZXyUZGKlA3LHW7mDfpqS8T3wV0qQ5ZfDF8XPHCBJ34bzS+PQEvJi5tmYaHzPcHJ1eYllh1I5Gl9
-	LarcJpSbYOKC39cd5smfDShbWrJrMIT9v15KlOGMCuUAQQtTSTy9+A9h+k2j1qvD8xogAlYhPdc
-	8nXJuwLi0J6KWM/RYVh7jqepUevZz7x+yKjs8XXlgypg37X/vNh9vd+9Oluhn6eTaCDJTNlG7JZ
-	k6fyIV2witreKEVEqixK0QrPpa5VnNCqvilHzxKP6o9jJd3HKSzXMunt6176uB35pjPHH+nG+q5
-	6wCej65mRQ4JpvUdHEtwA==
-X-Received: by 2002:a17:902:d2c2:b0:2dd:c0ff:e724 with SMTP id d9443c01a7336-2df69de446amr13040735ad.54.1790144926198;
-        Tue, 22 Sep 2026 23:28:46 -0700 (PDT)
-Received: from mi-OptiPlex-7060.mioffice.cn ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516bfdsm5620465ad.5.2026.09.22.23.28.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 23:28:45 -0700 (PDT)
-From: Wen Jiang <jiangwenxiaomi@gmail.com>
-X-Google-Original-From: Wen Jiang <jiangwen6@xiaomi.com>
-To: akpm@linux-foundation.org,
-	catalin.marinas@arm.com,
-	linux-mm@kvack.org,
-	urezki@gmail.com,
-	will@kernel.org
-Cc: Xueyuan.chen21@gmail.com,
-	ajd@linux.ibm.com,
-	anshuman.khandual@arm.com,
-	baohua@kernel.org,
-	chleroy@kernel.org,
-	david@kernel.org,
-	dev.jain@arm.com,
-	jiangwen6@xiaomi.com,
-	leo.yan@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	rppt@kernel.org,
-	ryan.roberts@arm.com
-Subject: [PATCH v9 01/10] arm64/mm: add pte_set_huge() and pte_clear_huge()
-Date: Wed, 23 Sep 2026 14:28:23 +0800
-Message-Id: <20260923062832.479455-2-jiangwen6@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260923062832.479455-1-jiangwen6@xiaomi.com>
-References: <20260923062832.479455-1-jiangwen6@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E2LDhSM3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2951F00893;
+	Wed, 23 Sep 2026 06:28:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790144926;
+	bh=eI6+XHcjsk+Aomoq3O+3u/S9cWaPPzDXPaoa4YU8VL4=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=E2LDhSM3PpD0MkV00TYcoliypTLubCqwFI6LJFK91oEyrg/57Gy7h/OcWb6+kfZfP
+	 3aTuZQvfoRYlXRdwqF76kUQ+tj9I+2ATTk7pSm36p8oHy4dwCqc+vwbAXzWAt1Bf6z
+	 nVzCise2kn7SLe8xWVgpFmOlzO+JapnX/yFodht20zT2/hsQBEozR6mEhvUAoajztz
+	 5utTZ51r6HgkDgz7VGoMqTr/+IK8X/orwj6X8Lw7xVXRk+JkpF1W9qL8hUnZhR3KJt
+	 uLDwOV3TKDFDClS3sy5ZIX+ILTwmh377YNzcmbjQGpK3pGFf6mQYobKlaXGOCfBLyT
+	 3Hwyv0d5wZKOw==
+Content-Type: multipart/mixed; boundary="===============1161609189727594346=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <39f6151d364d966f70b7802cfd4bbca15734a7945478265ecc681f1779e50abb@mail.kernel.org>
+In-Reply-To: <20260923053948.30617-4-wanjay@amazon.com>
+References: <20260923053948.30617-4-wanjay@amazon.com>
+Subject: Re: [PATCH bpf-next 3/6] bpf: fetch the vmlinux BTF where kernel types enter a program
+From: bot+bpf-ci@kernel.org
+To: wanjay@amazon.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
+Cc: alan.maguire@oracle.com,martin.lau@linux.dev,yonghong.song@linux.dev,nathan@kernel.org,nsc@kernel.org,linux-kbuild@vger.kernel.org,mcgrof@kernel.org,petr.pavlu@suse.com,linux-modules@vger.kernel.org,arnd@arndb.de,linux-kernel@vger.kernel.org,abuehaze@amazon.com,doebel@amazon.de,jay.wang.upstream@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 23 Sep 2026 06:28:43 +0000 (UTC)
 
-vmap installs PTE-level block mappings (PTE_CONT on arm64) by reusing
-set_huge_pte_at() and huge_ptep_get_and_clear(), which are HugeTLB
-helpers gated by CONFIG_HUGETLB_PAGE. This makes the feature silently
-unavailable on CONFIG_HUGETLB_PAGE=n kernels and couples mm/vmalloc.c to
-HugeTLB internals it does not otherwise need.
+--===============1161609189727594346==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Add pte_set_huge()/pte_clear_huge() to arm64, joining the existing
-pmd_set_huge()/pud_set_huge() family in mm/mmu.c. They build on
-__set_ptes() and __get_and_clear_full_ptes() directly, so they do not
-depend on CONFIG_HUGETLB_PAGE.
+> diff --git a/include/linux/bpf.h b/include/linux/bpf.h
+> index e7c5e203eddd..a3c4caad5dfc 100644
+> --- a/include/linux/bpf.h
+> +++ b/include/linux/bpf.h
+> @@ -3165,6 +3165,7 @@ static inline s32 bpf_call_args_imm(s16 idx)
+>  #endif
+>
+>  struct btf *bpf_get_btf_vmlinux(void);
+> +struct btf *bpf_peek_btf_vmlinux(void);
+>
+>  /* Map specifics */
+>  struct xdp_frame;
 
-There is no caller yet: mm/vmalloc.c is converted later in this series,
-once the generic fallbacks are in place.
+[ ... ]
 
-Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index a7c9e2d8965d..2425ea74b61d 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+
+[ ... ]
+
+> @@ -21724,7 +21762,11 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
+>  	if (ret)
+>  		goto err_prep;
+>
+> -	bpf_get_btf_vmlinux();
+> +	/*
+> +	 * The vmlinux BTF is not fetched up front: with CONFIG_DEBUG_INFO_BTF=m
+> +	 * it is loaded on demand, at the points where kernel types enter the
+> +	 * program (attach_btf, kfuncs, ksyms, map pointers, BTF-typed helpers).
+> +	 */
+>
+>  	/* Serialize verification of unprivileged programs. */
+>  	if (!is_priv)
+
+Does removing this unconditional bpf_get_btf_vmlinux() call break
+program-context type resolution? The removed call was the sole caller of
+btf_parse_vmlinux(), which is the only place that populates the file-scope
+bpf_ctx_convert.t table needed by find_canonical_prog_ctx_type().
+
+On a CONFIG_DEBUG_INFO_BTF=m kernel where the BTF hasn't been parsed yet,
+consider this chain:
+
+bpf_check() -> do_check_subprogs() -> do_check_common() ->
+btf_prepare_func_args() -> btf_is_prog_ctx_type() ->
+find_canonical_prog_ctx_type()
+
+At this point, find_canonical_prog_ctx_type() returns NULL because
+conv_struct = bpf_ctx_convert.t is still NULL. Then btf_is_prog_ctx_type()
+logs "btf_vmlinux is malformed" and returns false.
+
+A global subprog argument like 'struct __sk_buff *skb' or 'struct xdp_md
+*ctx' then falls through to the 'generic user data pointer' branch and gets
+typed ARG_PTR_TO_MEM instead of ARG_PTR_TO_CTX. At the call site
+btf_check_func_arg_match() -> check_mem_reg() rejects the caller's
+PTR_TO_CTX register with a confusing type error.
+
+When libbpf emits the common 'arg:ctx' decl tag, btf_prepare_func_args()
+-> btf_validate_prog_ctx_type() returns -EINVAL directly with "btf_vmlinux
+is malformed".
+
+The same NULL bpf_ctx_convert.t also breaks btf_ctx_access() ->
+btf_translate_to_vmlinux() for BPF_PROG_TYPE_EXT programs loaded with
+attach_prog_fd, so ctx member access in the replacement program fails.
+
+The changelog lists the new fetch sites: kfuncs, ksyms, map_ptr access,
+BTF-typed helpers, attach_btf. None of these cover the program-context
+path, which needs the vmlinux BTF but never touches a PTR_TO_BTF_ID
+register. The claim that "every PTR_TO_BTF_ID register a program can hold
+originates from one of these sites" is true but insufficient as a coverage
+argument.
+
+The failure is non-deterministic: if anything else (a kfunc-using program,
+mounting bpffs, BPF_BTF_GET_NEXT_ID) already forced the parse, the same
+program loads fine. Programs that work on CONFIG_DEBUG_INFO_BTF=y
+intermittently fail on =m.
+
+Commits later in this series make this reachable: d80d57b4ec13 defers
+kfunc registration until the BTF is available (removing the boot-time parse
+from the first kfunc registration), and 2f5aab95d2b8 makes
+CONFIG_DEBUG_INFO_BTF=m selectable. A search of the forward range
+90fe51b6b36a..2f5aab95d2b8 for bpf_ctx_convert, find_canonical_prog_ctx_type,
+btf_is_prog_ctx_type and btf_prepare_func_args finds only
+comment/documentation text - no fix.
+
+> @@ -21790,0 +21832,5 @@ int bpf_check(struct bpf_prog **prog, union bpf_attr *attr, bpfptr_t uattr,
+>  	if (IS_ERR(btf_vmlinux)) {
+>  		/* Either gcc or pahole or kernel are broken. */
+>  		verbose(env, "in-kernel BTF is malformed\n");
+>  		ret = PTR_ERR(btf_vmlinux);
+>  		goto skip_full_check;
+>  	}
+
+This check a few lines below the deleted fetch was the consumer of that
+fetch: bpf_get_btf_vmlinux() stores an error pointer with
+smp_store_release(&btf_vmlinux, btf) on parse failure, and bpf_check() then
+converted it into the "in-kernel BTF is malformed" diagnostic.
+
+With the fetch gone, this check reads a global that this program hasn't
+caused to be populated. Whether a malformed-BTF kernel reports the clear
+error or a confusing downstream one now depends on whether some earlier,
+unrelated program already triggered the parse.
+
+It also reads btf_vmlinux directly rather than through the new
+bpf_peek_btf_vmlinux() accessor, so the load is not ordered against the
+smp_store_release() that publishes it.
+
+Could this check either move next to a real fetch or be dropped and let the
+per-site IS_ERR_OR_NULL() handling report the failure?
+
+> diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+> index 195f78db9bda..c022b2877f0b 100644
+> --- a/kernel/trace/bpf_trace.c
+> +++ b/kernel/trace/bpf_trace.c
+> @@ -1015,7 +1015,8 @@ static int bpf_btf_printf_prepare(struct btf_ptr *ptr, u32 btf_ptr_size,
+>  	if (btf_ptr_size != sizeof(struct btf_ptr))
+>  		return -EINVAL;
+>
+> -	*btf = bpf_get_btf_vmlinux();
+> +	/* Called from a running program: only use the BTF if it is parsed. */
+> +	*btf = bpf_peek_btf_vmlinux();
+>
+>  	if (IS_ERR_OR_NULL(*btf))
+>  		return IS_ERR(*btf) ? PTR_ERR(*btf) : -EINVAL;
+
+Swapping bpf_get_btf_vmlinux() for bpf_peek_btf_vmlinux() is correct as a
+sleeping-in-program-context fix, but does anything in this commit arrange
+for the BTF to have been parsed by the time bpf_snprintf_btf() or
+bpf_seq_printf_btf() run?
+
+The compensating verifier-time fetch in check_helper_call() is gated on
+helper_uses_vmlinux_btf(), which only matches base_type(ret_type) ==
+RET_PTR_TO_BTF_ID or base_type(arg_type[i]) == ARG_PTR_TO_BTF_ID.
+
+bpf_snprintf_btf_proto and bpf_seq_printf_btf_proto contain neither: their
+arguments are ARG_PTR_TO_MEM / ARG_CONST_SIZE / ARG_ANYTHING and the return
+is RET_INTEGER, because the BTF type id travels inside the struct btf_ptr
+the program passes by value rather than in a register type.
+
+So helper_uses_vmlinux_btf() returns false for exactly the two helpers
+whose runtime fetch was just weakened.
+
+On a CONFIG_DEBUG_INFO_BTF=m kernel where the BTF is present but not yet
+parsed, bpf_peek_btf_vmlinux() returns NULL and the helper returns -EINVAL.
+A working bpf_snprintf_btf() or bpf_seq_printf_btf() call silently starts
+failing, depending on whether unrelated activity already triggered the
+parse.
+
+The changelog frames this as behaving "as they do on a kernel without BTF",
+but the BTF is available, just unparsed, and the previous code would have
+produced correct output.
+
+Should the fix be at verify time - teaching helper_uses_vmlinux_btf(), or
+check_bpf_snprintf_call(), or the *_btf protos, to force the fetch? The
+forward range 90fe51b6b36a..2f5aab95d2b8 contains no code change for this.
+
+
 ---
- arch/arm64/include/asm/pgtable.h |  6 ++++++
- arch/arm64/mm/mmu.c              | 20 ++++++++++++++++++++
- 2 files changed, 26 insertions(+)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index 6000905a2e865..9b762eb68cff0 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -1978,6 +1978,12 @@ static inline void clear_young_dirty_ptes(struct vm_area_struct *vma,
- 
- #endif /* CONFIG_ARM64_CONTPTE */
- 
-+#define __HAVE_ARCH_PTE_SET_HUGE
-+void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
-+		  pgprot_t prot, unsigned long size);
-+#define __HAVE_ARCH_PTE_CLEAR_HUGE
-+pte_t pte_clear_huge(pte_t *ptep, unsigned long addr, unsigned long size);
-+
- #endif /* !__ASSEMBLER__ */
- 
- #endif /* __ASM_PGTABLE_H */
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index 79d90226fd5dc..4a3d084bb7556 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -1912,6 +1912,26 @@ int pmd_clear_huge(pmd_t *pmdp)
- 	return 1;
- }
- 
-+void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
-+		  pgprot_t prot, unsigned long size)
-+{
-+	unsigned long pfn = __phys_to_pfn(phys);
-+	pte_t pte = pte_mkcont(pfn_pte(pfn, prot));
-+	unsigned int nr = size >> PAGE_SHIFT;
-+
-+	VM_WARN_ON(!IS_ALIGNED(size, CONT_PTE_SIZE));
-+	VM_WARN_ON(!IS_ALIGNED(addr, CONT_PTE_SIZE));
-+	VM_WARN_ON(!IS_ALIGNED(pfn, CONT_PTES));
-+
-+	__set_ptes(&init_mm, addr, ptep, pte, nr);
-+}
-+
-+pte_t pte_clear_huge(pte_t *ptep, unsigned long addr, unsigned long size)
-+{
-+	return __get_and_clear_full_ptes(&init_mm, addr, ptep,
-+					 size >> PAGE_SHIFT, 0);
-+}
-+
- int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
- {
- 	pte_t *table;
--- 
-2.34.1
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35824427607
+--===============1161609189727594346==--
