@@ -1,122 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-8fac.mail.infomaniak.ch (smtp-8fac.mail.infomaniak.ch [83.166.143.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43563F410D;
-	Wed, 23 Sep 2026 10:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75454570FD
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157756; cv=none; b=Rjxzlsd7T8BgK2kCNcxu5qU448Eu4ZG8F1h+rhRvXyOkFUMhQnmvkhlLAh0cRoilVSpP02ttEbPTGYi4C+cw/W0cK2k7dAFRRdSJn70kFeJPZ0kqKKI7beApO6G7Jcn1YD3idR2El3cKVvphqx6eqilzvyMxKmsmBlfLXlXVPzc=
+	t=1790157835; cv=none; b=b30jTgIqxvi0GJgFxnSkZsQoNY7KooqKoamj7EpWzGGRcxfYL9PjMsP/q5cZ42Dxfr+gN4yZovFUlNiurtBS2+Y4P75ovwl022cAx99mb5m2YzpsQKoNknF4owN5AfjhRN3pBf+htp8Tg6c/qXdZGWn7oEubGvBWaE4yv8w//f0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157756; c=relaxed/simple;
-	bh=iOD3PwH4qwahsgETt1kiYgDQbW8M1f2vcyjKv9K/0yU=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=tQWJ5K4RXit2O/gQpMrsHXganHt5/23lheHz/Zz35sA2xKnJafAxE2SROYrkt9IqoARR9yQRFmcz7s//Z5yyL+QF1mNthOq+KOdfHc9tW5TwF4cPD52v7CCCOboS9ae8NjCby6XgnieTtPRD5ttz8ApKjIkZzdXHAXwvGU5SaLw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d7DQQSxX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790157835; c=relaxed/simple;
+	bh=PVOIsDn6pcFMAnCEhiCYpLCKy7D9K3ZTe6HdGtIuI10=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uHNRZHhkWY5N2H4KzVjSOms/eHiYbUnxZ20r5z/zhqixYhPsytjR+nktYlfVTD29zZmk1rOY4mnaNBOVcovLVSQDpuKYlCjPAJcQ0jehxf3/EAV61rypXPxzbeby6pIeUyjBPu78WGQ4ceSOALZ5vP88ueBax7xAb9T0db+IChw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=ly8X49xa; arc=none smtp.client-ip=83.166.143.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d7DQQSxX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D3251F000FF;
-	Wed, 23 Sep 2026 10:02:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790157754;
-	bh=ANJRHDY6wuCQqsDJ6dO6555qMtOZWbhayloXTSeZhGQ=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=d7DQQSxXxrrPyH5RPCDJgFQ1MdEzHgh8a1AgDJqT3aur/cAxYAbwEe4FEcUU8SlBC
-	 i9lBl8gTkPxIEPhkBhu2vtyZgOnTx3WQUeHRzZcempM1TmqRxPLe/6YaKlcL+1RJO3
-	 tUETiZYPLuqNTwcYT+cTCZjMZajxE46GPX0W/nODY+l7UjBEhmjjN0DfghTA81fE2d
-	 Xe9PZ2zjWFAdFkE9CzpuY6gmNSg9BBAKyG6rrwI22esRzVETIkOkfktcOIN5XjmG+g
-	 KGOKt6gV/T6PymmD3AYJ2L9zbPf4TBeN4dFoylrzcv/yT5hwdH0CBwt8+AMrOsWPwI
-	 kTTtaDFJKNikw==
-Content-Type: multipart/mixed; boundary="===============8539735582135443100=="
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="ly8X49xa"
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hqXbz6w7nzTfW;
+	Wed, 23 Sep 2026 12:03:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1790157823;
+	bh=jo5BAFeQ+LQMNxWpXBTUI1R+keGwdWmCoZUbkfVBPP0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ly8X49xaBN00w1Yusa2OTlLmc1kPySCRdt+LFYEYasvgHYTjOB5ZFecuPP7M1L7/v
+	 isFSZo6xT4odfBnqvkysYLoITYDBqhMOAxlDwEGc2c7XbeARMxpUL9xKJdBgLuoA8R
+	 9+cR6+wgyVsUx+FE3DMyMV1eRfF0Q0nGDMIklb2s=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hqXby4P0Hzxfk;
+	Wed, 23 Sep 2026 12:03:42 +0200 (CEST)
+Date: Wed, 23 Sep 2026 12:03:38 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Christopher Lusk <clusk@northecho.dev>
+Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack3000@gmail.com>, 
+	=?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, Oleg Nesterov <oleg@redhat.com>, 
+	Jiri Slaby <jirislaby@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Tahera Fahimi <fahimitahera@gmail.com>, Paul Moore <paul@paul-moore.com>, 
+	Casey Schaufler <casey@schaufler-ca.com>, John Johansen <john.johansen@canonical.com>, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Subject: Re: [RFC PATCH 0/2] Landlock signal scope and TIOCSIG
+Message-ID: <20260923.eehieph7UaX1@digikod.net>
+References: <20260913221958.839429-1-clusk@northecho.dev>
+ <20260914.b8a029f9abb8@gnoack.org>
+ <20260914134013.1457130-1-clusk@northecho.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <aa9703467e35f52305c33ee831cfcf56d9b9237ada65eb942e19d44b78451020@mail.kernel.org>
-In-Reply-To: <20260923090635.368488-2-chenyuan_fl@163.com>
-References: <20260923090635.368488-2-chenyuan_fl@163.com>
-Subject: Re: [PATCH bpf-next 1/2] bpf: Keep target extended until its last freplace link detaches
-From: bot+bpf-ci@kernel.org
-To: chenyuan_fl@163.com,bpf@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,alexei.starovoitov@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,chenyuan@kylinos.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 23 Sep 2026 10:02:32 +0000 (UTC)
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260914134013.1457130-1-clusk@northecho.dev>
+X-Infomaniak-Routing: alpha
 
---===============8539735582135443100==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Christopher,
 
-> diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-> index e7c5e203eddd..d5a20974a8aa 100644
-> --- a/include/linux/bpf.h
-> +++ b/include/linux/bpf.h
+I agree with Günther and I'd like to bring, from my point of view, the
+most important thing about TTY master FDs: they are mean to send
+arbitrary data/signals to TTY slaves, and in most cases this mean inject
+keys and then commands.  So TTY master FDs should be seen as a
+(legitimate) way to control another process, even if that might not
+always be the case.
 
-[ ... ]
+A case in point would be an SSH or sudo/su command attached to a slave
+TTY.  The process able to write on the related master TTY FD should be
+considered as privileged as the slave command.  This illustrates why
+human-computer interfaces (including TTYs, desktop interfaces...) are so
+critical.
 
-> diff --git a/kernel/bpf/arraymap.c b/kernel/bpf/arraymap.c
-> index 0ce26b538075..0fe9afd4a591 100644
-> --- a/kernel/bpf/arraymap.c
-> +++ b/kernel/bpf/arraymap.c
+Also, just adding these LSM hook changes would break exisiting LSM's
+security policies.
 
-[ ... ]
+Updating the Landlock doc with this rationale is defenitely a good idea.
 
-> diff --git a/kernel/bpf/trampoline.c b/kernel/bpf/trampoline.c
-> index 90b70ea0d370..f6e6533deb0b 100644
-> --- a/kernel/bpf/trampoline.c
-> +++ b/kernel/bpf/trampoline.c
-> @@ -843,7 +843,7 @@ static enum bpf_tramp_prog_type bpf_attach_type_to_tramp(struct bpf_prog *prog)
->  	}
->  }
->
-> -static int bpf_freplace_check_tgt_prog(struct bpf_prog *tgt_prog)
-> +static int bpf_freplace_link_tgt_prog(struct bpf_prog *tgt_prog)
->  {
->  	struct bpf_prog_aux *aux = tgt_prog->aux;
->
-> @@ -857,7 +857,7 @@ static int bpf_freplace_check_tgt_prog(struct bpf_prog *tgt_prog)
->  		 */
->  		return -EBUSY;
->
-> -	aux->is_extended = true;
-> +	aux->freplace_link_cnt++;
->  	return 0;
->  }
+Testing this invariant is also valiable, so it would be nice to tweak a
+bit your test and include it with the doc update.
 
-This isn't a bug, but would it be worth keeping this fix minimal for
-backporting and doing the rename as a separate follow-up patch?
-
-The rename from bpf_freplace_check_tgt_prog() to
-bpf_freplace_link_tgt_prog() is independent of the counting fix: the
-only functional change in this helper is 'aux->is_extended = true'
-becoming 'aux->freplace_link_cnt++', which does not require a new name.
-
-Since the patch carries a Fixes: tag for d6083f040d5d, it is a
-stable-backport candidate, and folding a rename into it adds conflict
-surface for no behavioural reason.
-
-If the rename stays, does something like bpf_freplace_get_tgt_prog() or
-bpf_freplace_reserve_tgt_prog() read less ambiguously next to
-__bpf_trampoline_link_prog(), where 'link' means 'attach a program to a
-trampoline'?
-
->
-> @@ -970,7 +970,7 @@ static int __bpf_trampoline_link_prog(struct bpf_tramp_node *node,
->  		/* Cannot attach extension if fentry/fexit are in use. */
->  		if (cnt)
->  			return -EBUSY;
-> -		err = bpf_freplace_check_tgt_prog(tgt_prog);
-> +		err = bpf_freplace_link_tgt_prog(tgt_prog);
->  		if (err)
->  			return err;
->  		tr->extension_prog = node->link->prog;
-
-[ ... ]
+Regards,
+ Mickaël
 
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35842777159
---===============8539735582135443100==--
+On Mon, Sep 14, 2026 at 09:40:13AM -0400, Christopher Lusk wrote:
+> Hello Günther,
+> 
+> Thanks for digging into this so carefully, and for the clear write-up.
+> 
+> Your capability framing convinces me.  Controlling who may attach to (or
+> open a master for) the PTY is the right layer, and the master FD is best
+> thought of as the capability, the same way socketpair() is.
+> 
+> You are also right that the series is incomplete as a fix: the same three
+> signals arrive through the n_tty control-character path (Ctrl-C / Ctrl-\ /
+> Ctrl-Z) that my patch does not touch, and PTYs additionally raise SIGWINCH,
+> SIGHUP and SIGCONT.  That reinforces your point rather than mine.  Chasing
+> individual signal-delivery paths inside the TTY layer is the wrong layer,
+> and a per-ioctl hook would only paper over one entry into a mechanism that
+> is working as designed.
+> 
+> One question, mostly so I have the line right in my own notes rather than
+> to relitigate: how do you see this relative to the SIGIO/fowner path that
+> 4b80320ca7ed brought under SCOPE_SIGNAL?  My read of the distinction is
+> that in the SIGIO case the sandboxed process unilaterally selects the target
+> by arming the owner, whereas here the recipients have voluntarily attached
+> to the terminal and the TTY driver delivers job-control signals over that
+> attachment.  If that is the intended boundary, it is a clean one, and I am
+> happy to treat TTY-driven signals as outside the guarantee.
+> 
+> If it is useful, I would be glad to send a small documentation patch making
+> that explicit: a note in the SCOPE_SIGNAL / IPC-scoping section of
+> landlock.rst that TTY-driver signal delivery (TIOCSIG and the
+> control-character path) is not mediated by SCOPE_SIGNAL, with the practical
+> guidance to control PTY attachment instead.  I will drop the task_kill
+> approach.
+> 
+> Thanks again for the thorough look.
+> 
+> Christopher
+> 
