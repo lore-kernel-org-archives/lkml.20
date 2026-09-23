@@ -1,177 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-27.ptr.blmpb.com (va-2-27.ptr.blmpb.com [209.127.231.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070783F1640
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79AF9415F2E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790145900; cv=none; b=gBYSXd+IPUCdoS82HJ63idW1GUN8TPQqEREO8qbWyWX9r0SbcSkCp9Fjyo7GGfxQrG1qZpQQuYDoCjIOtMPGvcFvKWAifD+BGCn9r0I1+Iq5uD8nfI1MsJXLs6o8ErKIRpc8V2bbJoZCCOprrRSTY0A17sPYh0LiZ7XWpK+EVEQ=
+	t=1790145914; cv=none; b=gyvS8BFErx2LwqxzIvOyqFwu2GH1aWGoIPw8fSpIWDO7JtsFzJ8LPv2uHalwYCZCu0zKUelTxSEMnnGDRBjXdWfQcryKg1sTzM352JdbNsLZKHdKhd5js/xxCqVYGBiyyddsF8grNntXNe34febWK+9IG4i3rF4gVugzkSTWrog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790145900; c=relaxed/simple;
-	bh=U3Fe3GZkBaknJJQrEX2RpwW4P0WOBIbz21H+JhSeOuc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bWc7pztnbPKN6V7NQkurG+JXZDDaV0+tI0gFcbxh5VwRjJl+k8yIeeMC6S1T4/GI56pZeALLM1kyRqm/OpXW0xIMIQBIlJOdArlPt2sPAT8WYizM9Xs2x2AO/hrCg2EG11NMI7cOQS6Nhhkm7PGM8y+UEGaUvH6IEvqKnYH2zhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KH+6SRSN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790145914; c=relaxed/simple;
+	bh=mfwKAVk2tgsaRf3EcqdDECyLiqTSD7GjUlH9PDB78fo=;
+	h=Subject:References:Content-Type:Date:To:Cc:In-Reply-To:Message-Id:
+	 From:Mime-Version; b=care7Tja9IL/PFYPghIlLEkZdOuUulME/5uu7Hm/TSYVfYc9xPUboxhWpKoMQ36vNPZVHcaqJR1pbLrCzwKXj+a/Jh2IrvsNnkVomkY5Mq7G5jRPgdR43GsLzehUvaUFtR58jB+BOSy831woVCiVkrOHuBIDLfNXvve9zsvsbe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=GgujK1/I; arc=none smtp.client-ip=209.127.231.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KH+6SRSN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77AFA1F00898
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:44:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790145895;
-	bh=U3Fe3GZkBaknJJQrEX2RpwW4P0WOBIbz21H+JhSeOuc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KH+6SRSNEvqMduDQyrAk1/m5V6SS0ddO7ePNHzpfLJs8HzeRvVSi0MYcTbY4ASQYX
-	 wpbI2WceWE2GFNraMR5MG8cOZPwg3dsaUpf2jzzvfRnW8RbzTJliBFcwM7aakKm/pa
-	 rDVBbrblG0sQAVQ1/QB1x7vYTpcyBqdPmO2tkufLwdnZkekzWJLQArwe3c8Z+LIlaR
-	 J3Au44TJJMbFiRsw9v00qM2/UtbkbXUriIjohRWxBxd24lKUprGOM5ozhLJh+z41WA
-	 auoSIMkEGV/BhM69FLPP/47DiQMJi5PEEqK+oNovw6q/Scd9wIfxSEegEY2whp0+wM
-	 8/5+3fw+fxJuw==
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-6713d20d375so557067d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:44:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByYd5jgWwjqEFDYPNH03Ci+EhHj2wK5pZbT4hv9tPmNuiU4QuktCJ5L8I3tvdex0rZNPShUjEAy5d3ZKtQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZtRLUH49CNDiOIXGGeE3cW43GApERC66gGqUKEpUwnYic4e6M
-	EqqN0626sbN6+AsLfUoJIRY3aIu05iiRyiMD66cwjtOpN1o9MKirl3z2jNV+2H+vOGXVgcoQGaF
-	RLz+t2Jq23wDoYp1P2DWpLFuHfVCNi+voY7gety/QwA==
-X-Received: by 2002:a05:690e:1909:b0:672:c9eb:4755 with SMTP id
- 956f58d0204a3-672d5765c2bmr1091423d50.23.1790145894673; Tue, 22 Sep 2026
- 23:44:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="GgujK1/I"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1790145899;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=mfwKAVk2tgsaRf3EcqdDECyLiqTSD7GjUlH9PDB78fo=;
+ b=GgujK1/IVLZBna5OOZMywCOZSsTVGew5L3F0W0/VkM1dFlzQrUtvjeLJGjXOATZNyvkUif
+ eZD/qI9qvc4uAdAB85c1AtLWUFZEwdmdooxoY+8k3YcOcnQ27Zy5I+fcPS4gCJ8EHChJno
+ njC9rtkl3RE+RJFW4gzt4gky6AwFUkkqdKeUZgKg47N1hj+BRN0h1ualRvg/4gFu/UeR/r
+ rvJ2g97qU7tpe9Uk6KretbVvG3S4Jr+H0F2iADLEM4iXRm6x84h8pcIGY1pNnP3FJL7XPe
+ 2r7pEhu7PGKDvWb8LxOOf5+klOYf+rO3ZokDUqoNZXPmsNxnhZ2SZCgfAd4k7Q==
+Subject: Re: [PATCH 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add USB controller and USB phy support
+X-Lms-Return-Path: <lba+16ab37569+38461e+vger.kernel.org+sandie.cao@deepcomputing.io>
+References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io> <20260922110434.3426051-1-sandie.cao@deepcomputing.io> <DLMC322TOCGJ.2GTJG14AFBACW@linux.spacemit.com> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.b414918c.4333.4215.b208.49d99e9be044@feishu.cn>
+	<DLMHKHTDP2W9.3GX33KSJ2YIJM@linux.spacemit.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 14:44:56 +0800
+To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
+	"Yixun Lan" <dlan@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, 
+	"Rob Herring" <robh@kernel.org>, 
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
+	<devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
+	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+In-Reply-To: <DLMHKHTDP2W9.3GX33KSJ2YIJM@linux.spacemit.com>
+Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.87aa009f.6c8d.46bc.aa71.f3065515c380@feishu.cn>
+From: "Sandie Cao" <sandie.cao@deepcomputing.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
- <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
- <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
- <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
- <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
- <arKRdaNEaKvFOtMg@linux.dev> <CACePvbX7aM45SE9H0hg1_uXBt1i4W7Pgk+d33Z2sG5bj8cHudA@mail.gmail.com>
- <arKZpJDpsavixjPx@cmpxchg.org> <CACePvbUmVLVk=w1sJinBfKVYoXcO57A163RrXv7C_QLzM4yQZQ@mail.gmail.com>
- <arKgladcnmeTWUKb@linux.dev>
-In-Reply-To: <arKgladcnmeTWUKb@linux.dev>
-From: Chris Li <chrisl@kernel.org>
-Date: Tue, 22 Sep 2026 20:44:40 -1000
-X-Gmail-Original-Message-ID: <CACePvbUYhwSjOEXCM08Na_5bccOo6Oz-9BatRSPDO7R310YjaA@mail.gmail.com>
-X-Gm-Features: AcwNN1U76kw9ArcfhXgJlon_Ze0jFZEqulu20gcTSrQsz-WCh9osS09uot1Y_ic
-Message-ID: <CACePvbUYhwSjOEXCM08Na_5bccOo6Oz-9BatRSPDO7R310YjaA@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
 
-On Tue, Sep 22, 2026 at 5:46=E2=80=AFAM Shakeel Butt <shakeel.butt@linux.de=
-v> wrote:
->
-> On Tue, Sep 22, 2026 at 05:30:44AM -1000, Chris Li wrote:
-> > On Tue, Sep 22, 2026 at 5:07=E2=80=AFAM Johannes Weiner <hannes@cmpxchg=
-.org> wrote:
-> > >
-> > > On Tue, Sep 22, 2026 at 04:56:48AM -1000, Chris Li wrote:
-> > > > On Tue, Sep 22, 2026 at 4:43=E2=80=AFAM Shakeel Butt <shakeel.butt@=
-linux.dev> wrote:
-> > > > >
-> > > > > People can speak for themselves and suggest other time slots. You=
- do not speak
-> > > > > for anyone but yourself here. At this point this is derailing the=
- conversation.
-> > > > >
-> > > >
-> > > > I am expressing my opinion, freedom of speech. As you can see in th=
-e
-> > > > previous discussion, Baoquan wasn't able to join that time slot. He=
- is
-> > > > a major shareholder in XSwap. I worry that alignment vswap vs xswap
-> > > > without Baoquan is ineffective. That is my opinion.
-> > >
-> > > Actually, he said he is not sure if he can make it, and before Nhat
-> > > could respond to that soft push you drew a hard line without actually
-> > > proposing a workable alternative that made Nhat give up instead.
-> >
-> > Please consider that it is 1AM in Beijing if I remember correctly. I
-> > don't consider that is a workable and reasonable ask.
-> >
-> > > So my free speech opinion is the same as Shakeel's: you're speaking
-> > > for others and thereby derailing efforts to align on something.
-> >
-> > I sympathize with asking Baoquan to join a meeting at midnight.
-> >
-> > >
-> > > We all want Baoquan in the room.
-> >
-> > In Chinese we have this saying: don't apply things to others that you
-> > wouldn't want applied to yourself. Do you want to participate in a
-> > technical meeting at 1 AM?
->
-> Three emails in, you have rejected the proposed slot and proposed
-> none, and your own conclusion was to drop the meeting and keep this on
-> the list. That is not inclusiveness, it is a veto, and the outcome
+Hi, Troy:
 
-You skip an important step. I raised the concern that the time zone
-does not work for Asian developers; we should find a time zone
-friendly to Asia.
+> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
+> Date:=C2=A0 Wed, Sep 23, 2026, 14:36
+> On Wed, Sep 23, 2026 at 12:07:20PM +0800, Sandie Cao wrote:
+> > Please note: usb3d_u2phy also use CLK_APMU_USB2_BUS.
+>=C2=A0
+> Could you share which tree and commit this snippet comes from? I checked
+> k3.dtsi at the base-commit listed in your cover letter,
+> 3f2425f5b5bbbdd991ca9cdfd5502e68d8895998 [1], and usb3d_u2phy has:
+>=C2=A0
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 clocks =3D <&syscon_apmu CLK_APMU_USB3_PORTD_=
+BUS>;
+>=C2=A0
+> Are we looking at different versions?
 
-Nhat still suggested the original time slot, disregarding my concern.
-Which implicitly exclude Baoquan from the discussion. That is the fact
-that you missed.
+I'm sorry, I check the wrong version of v7.2.=C2=A0 I will correct it in ne=
+xt patch.
 
-Then I suggested using email discussion instead, because the key
-shareholder couldn't attend. There is no veto. I suggested the same
-approach Nhat suggested. If you call my suggestion a veto, Nhat veto
-first. Nhat issued the first veto. Mine was only a response to Nhat's
-insistence.
+Best regards
+Sandie
 
-> serves Baoquan and xswap worse than any hour of the day would have.
-
-Baoquan can't make it at 1AM. It is not a reasonable ask.
-
-> Baoquan said he was not sure he could make it. He is perfectly capable
-> of declining himself, or of sending alternative timeslots to the list.
-
-In Baoquan's own words:
-"About the meeting time. I am in UTC+8. If the meeting is before 23:00
-my time, I can join. If it is later than that, it is too late for me,
-and I can only discuss in the mailing list."
-
-He already made it very clear he will not be able to join that time
-slot. It is not a maybe. It is a 'can't'. His reply was very clear
-before you sent yours. I don't know what part of "not sure" you read
-from his email. What is your motivation for twisting this?
-
-Suggesting a 1 AM meeting without considering the time zone difference
-is an understandable mistake. Insisting on that time, as Nhat and you
-do, reveals more about you. Attacking me for point it out?
-
-> You turned his "not sure" into a hard no on his behalf, then argued
-> with everyone who pointed that out.
-
-It is a hard no. 1AM is not a reasonable ask in the first place. Even
-after I pointed out it is not Asia friendly, Nhat is still insisting
-on it. That was before I suggested we discuss it via email instead.
-Get your facts straight.
-
-Chris
-
-> Please reply with two or three specific windows in UTC that work for
-> people not in US timezone. If they overlap with the other participants,
-> we use one of them.
+>=C2=A0
+> Link: https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux=
+-next/+/3f2425f5b5bbbdd991ca9cdfd5502e68d8895998/arch/riscv/boot/dts/spacem=
+it/k3.dtsi [1]
+>=C2=A0
+> --=C2=A0
+> Troy Mitchell
+>=C2=A0
