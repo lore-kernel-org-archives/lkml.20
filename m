@@ -1,163 +1,108 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE229331200;
-	Wed, 23 Sep 2026 13:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790171846; cv=pass; b=S+31bqwanydZISqZqbJ3cnvBKn2X04OJ4qSMjLkL9GsLPH/TbURHHmr09eItVeWc/hqvtCN92zKatNKrlcoVsx8Pb1t6hh2KBjauGqTFCtMceby9dI7NVmY8X3u88cBhyu9fc8pISP5NF3of62QWNKFTCL3KYNCt/Jb7/QNy7yY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790171846; c=relaxed/simple;
-	bh=7ctvCYwI5EOgkWDfemV0LbfUzIJ7h92g+QbkkR76WMU=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=jHFaQQNW+vcZZvCTB+E2uomUMboFL7YhgRqRhEXHWzLmCvCDji0uWrDJzVHTtoJ3Xh2XqYAnCoKay5T+g9qMvZ+t/uF4QlE69iwPj0oIX26zdGuplCw1+vt1S+cp3aKT/PP/waSB4Dubj/Nc0EQBjNggfXROIMBrrjbcmW6yPGo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=kJC+rtPm; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46F35304AA;
+	Wed, 23 Sep 2026 13:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790171872; cv=none; b=sD3Yb2MKIqi9vremkg8dNoelW3aiqDu7jxORxt44OzQTVWckEAoSkrsajgWatVYkHjNL18JRi9uFZgWMl0yxy7uO50DzPxC652dtpA9f9O60DoWDmk5eXwMj3KVvrVkuwnV3MbTpiIr6OwXCeJxtvN/bVs2KJFnxQLmkIXwoOWU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790171872; c=relaxed/simple;
+	bh=tyz0BiFVO82wO/XNplEEOJL0mTV8TvyIUHvpIGOsmug=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JlS78xZhM1mVFwpL5x6yYY2rpwN+e2L39ET0aGZWgBPlsI3wJeqra7rXWVSTfQWzwQWrjmDKtRdT0gTcPFdY0gGU+rbFYYbwdlvkYIXmyWR/WfXJtIMaPQto2j8WMN/Metf7KZjyf2dGqvdhUjMZqFA+zXg9gtAVRN2mfwM/UbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=luk0N+K/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="kJC+rtPm"
-ARC-Seal: i=1; a=rsa-sha256; t=1790171822; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=new2IeUfms7ocQDP7VRlh52saNi/+RdS4IdwsafB7RzjRIaTVXvOmJQQEgW341XfGQ3sDDgtgIDCCwCmJUU2b4/MydEkv2pvydwcxHbijR2WpBtMFSRu7l4a6tjH+nnYkoV9n77HgjH5XMoaxak+wPjydpjpoj7e+hROQxkMEBA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790171822; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ZCZBtkL2O2YQdBpYXU7IxaL83zFU6P8vJ4uvyW4n0Og=; 
-	b=NLh8h1ZLqukbUxV6RHpif+1FXb7TOMVsLhSJE7ezYJVGw5QM9l0Ysw+xGYdUZxOBkC3tL2L5YreDsaE9F4FWnoiinRT9mmSWkIwnnuQSN/UGlGcF/YydOqYl65u0m1hVzGzhsRbep4bTNCQre4ecYWxFEW6H1XanDJ51//2zX3E=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
-	dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790171822;
-	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
-	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
-	bh=ZCZBtkL2O2YQdBpYXU7IxaL83zFU6P8vJ4uvyW4n0Og=;
-	b=kJC+rtPmc87WweOf8gsqwcs2gMhNZWMznZKSTUZJR9/f5M3pNL512pLrfcvjRwSk
-	pQpRwApc4x4mBCTUzqpQisxFx09MB2rv5RRVSxZGI1DVjKjC79mWF022y/Lzp36L648
-	fYHbbhemjIimdgTMhcvQNrh1/GNz06fa1pPQpG9o=
-Received: by smtp.zohomail.com with SMTPS id 1790171822100855.2696120518375;
-	Wed, 23 Sep 2026 06:57:02 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="luk0N+K/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B49361F000FF;
+	Wed, 23 Sep 2026 13:57:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790171869;
+	bh=BbFjKfa6cjDaUB70sEAzwfZM9AeSS7CkCNUtSMzzdwU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=luk0N+K/Afk3lqLrjNhkd/S4PkjxoqsPqCr/z7G6TxUR2UD7Gg+Te4ePqByxLMfGw
+	 EFtedxgrK1AfMo7bGU58LWGaGjCtJ/PJyPXLoc1F2KCbjMOOl/Mnw5VC53LLiTUMQ5
+	 +DRv/h+yQLDw/tz+YvkcpXH2X8Gg4xRde4N+29HGhB8Ks23sbzqyw4brvoH3jOopxI
+	 45uSOTylB9ih29xbhwb/SdHdsJldo0s1YOkY5LSzsnpZqJ3B3YrA39o/2pVHa1S+T7
+	 Rmt5NW5jTDMla3bwTtuI3R0yZ1BA0MWwp3nF8p7f0Y4LXmqefEPNgmJxns57az7n+Y
+	 zfJ5XzBof0JdA==
+Message-ID: <2aab7e02-037c-4216-9bf4-4a737ec48d57@kernel.org>
+Date: Wed, 23 Sep 2026 15:57:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
-Subject: Re: [PATCH v7 0/3] drm/tyr: GPU reset infrastructure
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev>
-Date: Wed, 23 Sep 2026 10:56:48 -0300
-Cc: linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- dakr@kernel.org,
- aliceryhl@google.com,
- airlied@gmail.com,
- simona@ffwll.ch,
- ojeda@kernel.org,
- boqun@kernel.org,
- gary@garyguo.net,
- bjorn3_gh@protonmail.com,
- lossin@kernel.org,
- a.hindborg@kernel.org,
- tmgross@umich.edu
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <70AFEE33-C637-4D49-88F1-9DF3A9BBF097@collabora.com>
-References: <20260912-tyr-reset-impl-v7-0-077ce72084eb@onurozkan.dev>
-To: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-X-Mailer: Apple Mail (2.3901.100.1.1.11)
-X-ZohoMailClient: External
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: gpio: gpio-davinci: Add the tda54
+ support
+To: Aniket Limaye <a-limaye@ti.com>, Keerthy <j-keerthy@ti.com>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: vigneshr@ti.com, u-kumar1@ti.com, nm@ti.com, linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260923-upstream-tda54-gpio-v1-0-d1a0a199c836@ti.com>
+ <20260923-upstream-tda54-gpio-v1-1-d1a0a199c836@ti.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260923-upstream-tda54-gpio-v1-1-d1a0a199c836@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+On 23/09/2026 14:56, Aniket Limaye wrote:
+> New version of GPIO IP used in TDA54 SoCs adds support for level-triggered
+> interrupts via extended registers.
+> Add the device binding for ti,tda54-gpio.
+> 
+> Signed-off-by: Aniket Limaye <a-limaye@ti.com>
 
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-> On 12 Sep 2026, at 07:39, Onur =C3=96zkan <work@onurozkan.dev> wrote:
->=20
-> Add support for scheduling GPU resets on a dedicated workqueue. Track
-> the reset state to avoid queueing another reset while one is already
-> pending or in progress.
->=20
-> Use an SRCU based gate with mutex-protected reader admission to block
-> hardware accesses while reset work runs and wait for current users
-> before resetting.
->=20
-> Stop new reset requests during teardown and drain any queued or =
-running
-> reset work before releasing the device resources.
->=20
-> This is the initial reset infrastructure only. It is not wired to a =
-reset
-> source yet as those will follow in separate work.
->=20
-> Based on 'commit 53441a9cae3c ("drm/tyr: program CSF global =
-interface")'
-> from tyr-for-upstream with the following patch series on the ML:
->  - rust: add SRCU abstraction [1]
->  - rust: workqueue: add cancel_sync support [2]
->=20
-> TODOs:
->  - On reset failure, we don't do anything for now. We should unplug
->    the GPU.
->  - In schedule(), similar to panthor_device_schedule_reset(), we =
-should
->    have a PM check but similar to the note above, we don't have the
->    infrastructure for that yet.
->=20
-> Changes since v6:
->  - Acquire the hardware gate once per address-space operation and pass
->    the guarded iomem reference to helpers to avoid deadlocks.
->  - Clone the gate Arc before acquiring a guard so mutating =
-address-space
->    helpers can retain their &mut self receivers as suggested by =
-Daniel.
->=20
-> Link: =
-https://lore.kernel.org/all/20260613065348.96750-1-work@onurozkan.dev =
-[1]
-> Link: =
-https://lore.kernel.org/all/20260807165252.3849875-1-dakr@kernel.org [2]
-> Link: =
-https://lore.kernel.org/all/20260708114358.957305-1-work@onurozkan.dev
-> Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/28
-> Signed-off-by: Onur =C3=96zkan <work@onurozkan.dev>
-> ---
-> Onur =C3=96zkan (3):
->      drm/tyr: clear stale IRQ state before soft reset
->      drm/tyr: add GPU reset infrastructure
->      drm/tyr: put iomem behind the hardware gate
->=20
-> drivers/gpu/drm/tyr/driver.rs            |  65 ++++-----
-> drivers/gpu/drm/tyr/fw.rs                |  16 +-
-> drivers/gpu/drm/tyr/mmu.rs               |   9 +-
-> drivers/gpu/drm/tyr/mmu/address_space.rs |  90 +++++++-----
-> drivers/gpu/drm/tyr/reset.rs             | 242 =
-+++++++++++++++++++++++++++++++
-> drivers/gpu/drm/tyr/reset/hw_gate.rs     | 106 ++++++++++++++
-> drivers/gpu/drm/tyr/tyr.rs               |   1 +
-> 7 files changed, 436 insertions(+), 93 deletions(-)
-> ---
-> base-commit: 53441a9cae3c4be552fa8aefa6e61b0f1bceb8a5
-> change-id: 20260813-tyr-reset-impl-93e951f996b4
-> prerequisite-message-id: <20260807165252.3849875-1-dakr@kernel.org>
-> prerequisite-patch-id: 4275f7d6e3cf96d61221d47f2398ebfb896db0c7
-> prerequisite-patch-id: f5e24f7b3717f2ab0445b5395c7f12b554861d78
-> prerequisite-patch-id: 0bf6ae4abcef7090d0e48921d6ec627a59dc6a7a
-> prerequisite-patch-id: 8dc24064e858240a6bb5411a261a987a7eae3fad
-> prerequisite-patch-id: eefbd4a72ed6da0083e20811882738cc3b05604f
-> prerequisite-patch-id: 7502236d334b13c547a8b47f0be9bf7171b5ca6b
-> prerequisite-message-id: <20260613065348.96750-1-work@onurozkan.dev>
-> prerequisite-patch-id: 9e1efee190d212ba1b01cd0acb5a4357e0b4da42
-> prerequisite-patch-id: 26aba035f4d1e212fa6ea7078095febefff5c5ba
-> prerequisite-patch-id: ffa25d5aadec4c04589af2bdd59a9c022f0fc9b0
-> prerequisite-patch-id: c2e05a4ac9d665d331952b291a622df6be673e41
-> prerequisite-patch-id: c14a4bd8a68b045356d61f7fa94690bd037ad08b
->=20
-> -- =20
->=20
-
-
-Alice, if you are ok with this series, feel free to merge. At least from =
-my side it looks ok.
-
-=E2=80=94 Daniel
-
+Best regards,
+Krzysztof
