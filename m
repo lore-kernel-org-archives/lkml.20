@@ -1,137 +1,113 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D0C471437
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:28:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6A5353A8A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:29:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152119; cv=none; b=s/1pcDsZkWTd/+b/X+I7cpNIm00GQxdZ698c0VSelmhSUMwEEqh0UjzfS9fSfQ6Te0iGCrNopwjJHSMFEsJrsdQjTEL5OwivZsBlZYWUjOB+0D+IrvgTL0ErQXZu/SAFzFBwxEwml5pHe/r8MWJDrQjFAE7kRyyr/ejWVydwRFQ=
+	t=1790152151; cv=none; b=k8iuNJElmIgabR0SXrf0lirHpY2UBVIPyaLriD4sXGWwDvJn9TzOMb3i+g6lUeBJ2BW2GNn2gjAp3AOaUfTUnOtOyB5rFL7U99Q1VkDXOKS9RXj/ouhbuRz5QXsKYrdmR0jke1JpmKu03kOnykOFZPc+oVcsQvBN5N6MGpNU8ZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152119; c=relaxed/simple;
-	bh=YRCLV58be6NjW8OlZzqG/rK3JAZ9VTl86comdCqpr7A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=fNu1W9OmusOvdsOgAFM1I1iURxQfhWhuRBzbJU9upZfrRk/8Moav+AroHCQsPBY74lq0Aqvj4VN/RPBsJlym7DdZAgCwaBgIp/xxs2davyaB1FKUHX/iYyWI2HW5mg/NVRzjIyp8CqA3KVT7l5OQzMvE/yzTc/yYB3xxdMVs5I8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=bZte0lkp; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790152151; c=relaxed/simple;
+	bh=tUacAQlkKVSQfQjUzaLm2lm7YcF6fCoS64CLbnNXJP0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SzK6sgPPdyQyevYHuSWPLXKoN+Ewb6tS1Jizcat8L9NtOuv1ZL/hvzdx+CqhJfJhGGBS+6NxgG6jy+a/1ObUaRgITRxm5qD3H7mPe9zWEbGidpKS2Z8qiiRuatNBMURtyiehTT0u/ymx27CqxgUmtNNtmiiyHJhuVpNtg7pVfsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=C/w3JtkO; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="bZte0lkp"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=9oVka1MTkYLJyYEXxEVGc8usytEu4OISAfUOoUqqfxE=;
-	b=bZte0lkp3UMXEL24UQm0EdyQHRIFnrEo7BU8EDhLthwSY2Zwgew3HwIqZSfZQDTG+143l4ypW
-	tAzcGu1hqwVJc+yh7PHipuiJ+cGPObrwvDaQmzJZO1PRMWl6Lw1XvhNmTbolpAfErEMS2n9N93b
-	pFCyMEdNm6KGcM4/sOTY1LY=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hqVD75nCXzLlTm;
-	Wed, 23 Sep 2026 16:16:23 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 2FC4C40561;
-	Wed, 23 Sep 2026 16:28:29 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 23 Sep 2026 16:28:28 +0800
-Message-ID: <40c729ba-8df0-4ec4-9987-e4096106e968@huawei.com>
-Date: Wed, 23 Sep 2026 16:28:27 +0800
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="C/w3JtkO"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48442ea8f59so812164f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:29:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1790152148; x=1790756948; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=tUacAQlkKVSQfQjUzaLm2lm7YcF6fCoS64CLbnNXJP0=;
+        b=C/w3JtkObuzwpZouop36oa9BGFBg9n/apU+pq2LsrtiMUhjLNCKAHGU2fT6IyL2qrm
+         JUHWhJa4202fdwY/OXkRH5xacZtlAqtefIL+vN3uK5EYj9gqSXl7am2KKBJyKD53DZmW
+         0QKtostJVFw8JAFAzDBWslXU8Uo26D28pnr0DeRweBcmxIvHnJHVnA73DW4DSL9ZocZz
+         8M/EXNY2afwbvlMRPVnp0XjZxPS1Zok1nNGldkj30h23+ANPlaJQ4Vz6PaCAV9uZZi5l
+         MaiUJXni3JW3Aaihtftm6/Oojr7s6pKGPF2RlmiXCinH2zrisO0DowZZHhRGqSi1ddQK
+         U5Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790152148; x=1790756948;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tUacAQlkKVSQfQjUzaLm2lm7YcF6fCoS64CLbnNXJP0=;
+        b=RooQ01L1DhxeIA58xUT+gRQf8RiSjCUfOcLjo44HAjEZB40FygTPIFi6c555WAVwXX
+         W0WXh5ZIVSag6iPxu5sVHql+WT+Xa1kKRygKFJpovZ/cBiTf+OKKlaUjktZ2dscXt1w4
+         DAHUZ6PVU5yHmcmGluvFIkcM2GOXwGAdbFLQDbp1ekyBfILXO1swCKKyygl2A36yTEoo
+         i/SjdyvhDYIrsTksmV5WGxgKqJoe//Lnp1dVfe2yfPOiTnchri4QnEurPjPN6zuNSW4F
+         AaL5Ul3h/H/FXhj0PDGcN9zH+7u3UNi17gvFVrEbNSzheKW9Ukv6UR5AHjHLZ3uvb7/J
+         pCpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwed7PBSGmFej6MGLCVav92vMLW2EetJ0P1PIjBVGX7GF39rZJwyCxyMmtNSXHsWgvSXHNpUIrroHiF/SU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mlDTt2Zi4mUq9SqxznM0tj77j2nAoExvVtDf0DswDZYNf6UCBw
+	ENc/0WgRx6WbjEV8t4ga2WjMZdW/db3Nh9i+SBnJIRAOmtIUztiwfDz5RWmdcKtdLuOI7+FD2en
+	LOIDMANo=
+X-Gm-Gg: AYBFou2umE0mALly200e45r7sSuduU788ugpdVhpS4ke93+S9IfiFiuLEnEtd8mCeIp
+	Nne2gCOvSkUs1xBtMlJfE/5YK5KxIXDWd2uXpODdTOYLgioCHgFPuF9DUW2ZPpiroDZb9AhhE7h
+	mXERIO1XzECuJdLU/2vKQQh9tTdCxLTs4nKlvHEdnKCvAqQw9lNYztT0qASwoq8RtK21s9QJ+BE
+	SnC4InkDLYBfdm3T66S0MLoDSo+EtqSPm/qPB9Bx6YhpfL5sUc6bLzx1EMB6XzkQW6s2uOCfm/A
+	gWgB0S56IlJj4Nt0x9zVPiP1c6S67/yFed43tJupy0YNCwa4SUcMMYebD7bA75dNGvJrb2psDon
+	A3Z/8m3GS8fj1pmNLWI7x4Xh9S0PY1oRrK7H/B9d81m/1SIakHim0HqrZHlJz444EAfLvaEZFq6
+	WMhzUSEbnuHS2KBYbMObcavTGVyIFUzDlfcphvAD5PMKRUkC0TZ93WRPdd8V4VUC23tXvTy9q4c
+	Jzpo1jZcF1+NLMoY8RXTZqbLq4xpqTYW+6EbE6iu+LQYedR0VTAl0COUNBh9ELlQSgYpQcH+Yvy
+	f8WFHeNNAbJIIJ2KTBmBundff8Bh/W7wI/gJjnSMSkJw/A==
+X-Received: by 2002:a05:6000:27ce:b0:488:654a:981f with SMTP id ffacd0b85a97d-488654a984dmr3676033f8f.10.1790152147758;
+        Wed, 23 Sep 2026 01:29:07 -0700 (PDT)
+Received: from p200300de37172700e7f885d729fa4be7.dip0.t-ipconnect.de (p200300de37172700e7f885d729fa4be7.dip0.t-ipconnect.de. [2003:de:3717:2700:e7f8:85d7:29fa:4be7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868486461sm5136850f8f.8.2026.09.23.01.29.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 01:29:07 -0700 (PDT)
+Message-ID: <adf11fcf1435728f98b4f94c1821d86b83866c14.camel@suse.com>
+Subject: Re: [PATCH v6 1/2] md: Don't set MD_BROKEN for RAID1 and RAID10
+ when using FailFast
+From: Martin Wilck <martin.wilck@suse.com>
+To: Kenta Akagi <k@mgml.me>, Xiao Ni <xiao@kernel.org>, Li Nan
+	 <magiclinan@didiglobal.com>
+Cc: linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
+ song@kernel.org, 	yukuai@fnnas.com, shli@fb.com, mtkaczyk@kernel.org
+Date: Wed, 23 Sep 2026 10:29:06 +0200
+In-Reply-To: <010601a0cc7347e3-ff9a517e-b03b-4de5-bd38-93b664f3425c-000000@ap-northeast-1.amazonses.com>
+References: 
+	<010601a0cc7347e3-ff9a517e-b03b-4de5-bd38-93b664f3425c-000000@ap-northeast-1.amazonses.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 01/14] arm64: ptrace: Fix redundant syscall exit stop
- for PTRACE_SYSEMU_SINGLESTEP
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<oleg@redhat.com>, <kees@kernel.org>, <luto@amacapital.net>,
-	<wad@chromium.org>, <peterz@infradead.org>, <ada.coupriediaz@arm.com>,
-	<linusw@kernel.org>, <yeoreum.yun@arm.com>, <kevin.brodsky@arm.com>,
-	<anshuman.khandual@arm.com>, <james.morse@arm.com>, <thuth@redhat.com>,
-	<vladimir.murzin@arm.com>, <tglx@kernel.org>, <broonie@kernel.org>,
-	<liqiang01@kylinos.cn>, <ryan.roberts@arm.com>, <pengcan@kylinos.cn>,
-	<kmehltretter@gmail.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20260922035510.1090299-1-ruanjinjie@huawei.com>
- <20260922035510.1090299-2-ruanjinjie@huawei.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260922035510.1090299-2-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
-Will fix the pseudo-singlestep problem as sashiko pointed as below.
+Hi Kenta,
 
-https://sashiko.dev/#/patchset/20260922035510.1090299-1-ruanjinjie%40huawei.com
+On Wed, 2026-09-23 at 04:08 +0000, Kenta Akagi wrote:
+>=20
+>=20
+> Hi Martin,
+>=20
+> I have not given up on it, but I have not managed to post v7 yet.
+> I still think failfast should be usable even in setups like that.
+>=20
+> It has been a while, but I intend to resume work on it.
 
-在 2026/9/22 11:54, Jinjie Ruan 写道:
-> PTRACE_SYSEMU_SINGLESTEP sets both _TIF_SYSCALL_EMU and _TIF_SINGLESTEP.
-> arm64 currently reports a syscall exit stop whenever _TIF_SINGLESTEP is
-> set, regardless of emulation state.
-> 
-> This violates the ptrace man page (Syscall-stops section):
-> 
-> 	"If the tracee was restarted by PTRACE_SYSCALL or PTRACE_SYSEMU,
-> 	the tracee enters syscall-enter-stop just prior to entering any
-> 	system call (which will not be executed if the restart was using
-> 	PTRACE_SYSEMU, regardless of any change made to registers at this
-> 	point or how the tracee is restarted after this stop). ...
-> 	If the tracee is continued using any other method (including
-> 	PTRACE_SYSEMU), no syscall-exit-stop occurs. Note that all mentions
-> 	PTRACE_SYSEMU apply equally to PTRACE_SYSEMU_SINGLESTEP."
-> 
-> Fix by introducing report_single_step(), which returns false when
-> _TIF_SYSCALL_EMU is set, skipping the redundant exit stop.
-> 
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Oleg Nesterov <oleg@redhat.com>
-> Fixes: ac2081cdc4d9 ("arm64: ptrace: Consistently use pseudo-singlestep exceptions")
-> Reviewed-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
->  arch/arm64/kernel/ptrace.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/kernel/ptrace.c b/arch/arm64/kernel/ptrace.c
-> index f743cbec1c3a..96462de75d4b 100644
-> --- a/arch/arm64/kernel/ptrace.c
-> +++ b/arch/arm64/kernel/ptrace.c
-> @@ -2482,16 +2482,26 @@ int syscall_trace_enter(struct pt_regs *regs)
->  	return regs->syscallno;
->  }
->  
-> +static inline bool report_single_step(unsigned long flags)
-> +{
-> +	if (flags & _TIF_SYSCALL_EMU)
-> +		return false;
-> +
-> +	return flags & _TIF_SINGLESTEP;
-> +}
-> +
->  void syscall_trace_exit(struct pt_regs *regs)
->  {
->  	unsigned long flags = read_thread_flags();
-> +	bool step;
->  
->  	audit_syscall_exit(regs);
->  
->  	if (flags & _TIF_SYSCALL_TRACEPOINT)
->  		trace_sys_exit(regs, syscall_get_return_value(current, regs));
->  
-> -	if (flags & (_TIF_SYSCALL_TRACE | _TIF_SINGLESTEP))
-> +	step = report_single_step(flags);
-> +	if (step || flags & _TIF_SYSCALL_TRACE)
->  		report_syscall_exit(regs);
->  
->  	rseq_syscall(regs);
+My thinking is that, in the fastfail case, code to prevent total
+failure could be placed in the end-IO code code path, e.g. by
+attempting a retry directly from the md layer when the last rdev fails,
+instead of setting failing the device. But I haven't thought it
+through.
 
--- 
-Best regards,
-Jinjie
+Thanks
+Martin
 
+--=20
+Dr. Martin Wilck <mwilck@suse.com>
+SUSE Software Solutions Germany GmbH, Frankenstr. 146, 90461 N=C3=BCrnberg,
+Germany
+Gesch=C3=A4ftsf=C3=BChrer: Stefan Gaiser, Jochen Jaser, Abhinav Puri (HRB
+36809,AG N=C3=BCrnberg)
