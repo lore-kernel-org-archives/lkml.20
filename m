@@ -1,181 +1,144 @@
-Received: from mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36667449985
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:39:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099093769F5
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:40:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156396; cv=none; b=AyQiWM1ak2CphE2J23ndTWjHvov+B0CRTsBAjWIniUOQWez8eQA6O+caGTAH3Ukcl3psN03rzPJyG8Wz7PAMOCNb1AQ75PTJkxjLGtEXIpHG41+IiM0bIsyfjf6joUbqamtF2N9qpBkpcW97ROddfqJQlYvbCjhRkVonroavJmQ=
+	t=1790156424; cv=none; b=FRGL0VsZTCZRVtz4lX5ehTzVEUWeWJSGiBXgIH1OMGEyW9EPVvl7sZ4IPO9M4aw8AyAODyz85J+uaUE6pOey0bTyEDnqOpctdFR9nNIgNYX+5t1JNkVZi+LXbzQEq9leAn5iwblJcXtn8pZz+3MlBG2p4sk6eucQZrEpCQYuSxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156396; c=relaxed/simple;
-	bh=MzOAhLKmbJiSI4FocgslvkepFbs+VNzpkEibZW2q3/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q56JgMmu/ltAr02G8GADlBZtt3qxckTyj+2+P+A6zPsFC7F9uRflDh8m7hB9zJEP9gVK83Wh5w6OhdKm4GEPAfQzJaomD07pB+EaLlZC7Cf5OOvBrZ8xJs4s/Ci3eM2N77i7H1hmjONLnsicnsK5npKmswr0lVtn8ERv8/UsZII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=OcD3OH9r; arc=none smtp.client-ip=91.218.175.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790156424; c=relaxed/simple;
+	bh=uzU7RaY2K9+73Q6YK9gtNJvyk4mkQ/ySuzyx9byGgIQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nV9QRAWjcUScy8lqXConf6gK7U1YaYcOMIpmRCwl+NMJXAJ1rDNxJlLtHNCS8mUJixD0MiXnSU66M0+pAfCNyToa1HNR2UBxrZi5u+9jE45hWsrjpyhZZqKA1NpcL0IhTxlfTcccUlweRkI2aiG4p7qpf9SUAtabHd9aKqACL+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DsESacbh; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="OcD3OH9r"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MzOAhLKmbJiSI4FocgslvkepFbs+VNzpkEibZW2q3/8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790156392; v=1; x=1790761192;
- b=OcD3OH9r5GDLa1RAtiQXePDtbn32B679l5paNIzso95xSS7zE5uSQ49AcjrQCyAadzN7S+NY
- 5+ZPJKTWZyRM2K1EV1GqeNtE6PTFzZG9NDvmsDPrGpVLhuL2mb2qoHmXNHGpMnc5FAzJ4Nk5aRG
- SqaDdHpDF56hmsHUtnCUyLlQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 637d28ad337e819f;
-	Wed, 23 Sep 2026 09:39:51 +0000
-X-Mizu-Trace-ID: 637d28ad337e819f
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 23 Sep 2026 17:39:44 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Gregory Price <gourry@gourry.net>
-Cc: Chris Li <chrisl@kernel.org>, Kairui Song <ryncsn@gmail.com>,
-	Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Barry Song <baohua@kernel.org>,
-	YoungJun Park <youngjun.park@lge.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Rik van Riel <riel@surriel.com>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arOeYHEf9aO7AU5X@MiWiFi-R3L-srv>
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora>
- <aqLi6cIjD2wJwk0B@cmpxchg.org>
- <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
- <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <CAMgjq7CJBHkoZmg9oKNgGA8czL0djyBTCAkPz8ETm-tX=Qci4g@mail.gmail.com>
- <arEotFqE7ZZoxMHd@gourry-fedora-PF4VCD3F>
- <CACePvbXb1WLz=OAAzVawf3oc3+dE3Z7qfPdagQ2dYuf3OALc2g@mail.gmail.com>
- <arFe215hUcjLhvmS@gourry-fedora-PF4VCD3F>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DsESacbh"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso607611a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:40:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790156422; x=1790761222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MnQHrDxAyd1yhTRUYQ1mkIzupirTqXVm+66Gi8J/eBw=;
+        b=DsESacbh0dRI66xu2NzwLZxlRdW+armDGeYolMnRwBWt60G2n18BwQ+S8/vRrxIWVW
+         /cBeIfKdUiX5iAt3PkW3D7lDNFlgHpPukSxZ9XLcfw/KWSbRyf8ElBW5W2R+YYkPRssm
+         ER78MU5KYWkhNW8OElrXTcDLPd26iojs5lKx7d8dTxFgxD7SlF1rktZFZ+od1ziVE4iJ
+         J7I0y9JnUMssqP6MXLG3eI9oWvKbEf3e8Ycj7rcFtreDAzDAyUjRXr4JtmggLfEh5H74
+         TkvNbC11NWlVzzJoZSZDBfOszCS+RFH6yZbyA3U/2t+9iu9ldHYI6vqBfHUuOnDe2aTG
+         oLRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790156422; x=1790761222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MnQHrDxAyd1yhTRUYQ1mkIzupirTqXVm+66Gi8J/eBw=;
+        b=af2HWEq5g9U5I8Ec/FjPaG0Prr+uxOYuFI/XrsmH1/Divs9jt5hZa9yhcyELtHzK7v
+         fjxSYugWCVAq234jE+RgVSbyh0rWf9/I7G7+YYM8nWj9ZaB4hFhXRfu0N7M0MDNprUY8
+         atLKrSe+LpTPU5y84gWJlo2ZShrAqpypX4KxL3awpAxymS9212bzKYjTpvn3GuwxAIET
+         fjgd1wPZhZdPUJg6CSkIlkWenDhX9h6L+mXNC/278HvhMts0cwRCiO4HnEvJadUUVwyY
+         wmu5TjiSNMggSMVMkIEUr0+gMtafSVAfFVBAvsJZw9FCyvyBScW7F+tVZi+pWtPrcR1d
+         jhSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzcoDKRi69W/ofCOSkAmV8BGEI4CGkCEAnQq0O2P36FcYoZf+6CkY7ni6XJLjDymFnq3seFs0rt8Q3O/8E=@vger.kernel.org
+X-Gm-Message-State: AFuF++liPFN5fYkffWNsZQUCoquqiSoUOfoV1u076rNTj6OG0hASwbPn
+	eHIKbqTUMUJdG6YKsSdY2bYqqI+FKhUie5PZF31rTxvE0HX2HDyxn9HM
+X-Gm-Gg: AYBFou1/ruZfTsugZ8qAc5PQM5+OzZHOMNmt3kvGh7Tla+vP758aI8DmqWSWKUqfJLu
+	7Uynzf6gNm+iOjpMLsfZ+YcaQPRww9FcW91mHfs9yuMx+hMwOyDNAvPXn2EiAsV0DCWIYDiDvPP
+	HN0wBci8kcwyYES6DX0/9xJOot68yobJtXyBk+toqvU847HmG+CiSue54C70ZuTb1Zd6Xo9oJKl
+	4hHiruaEIZrOM1M6zZVXAdanIgYlE0XnedGev1jk9nTsQVErquWorZmsjczgJHUjtXH9lG/7aRi
+	8hfvr9Si+VAeNSlnmEu0Qz3ki4VRzQ7+G+8UPcHxUU1z+8uY5t613IQWZ0ZtS7vSoqGBxV7+0+l
+	mSlYzjix2RQjdM9m6UjW8zHLFQ7+g+VfVOd1s6EUf4fI/sBI1clTHmWQQpE3iArvndpDN9c8mmM
+	NdQtWvB+v4WOhspRecmPgFWHaicJV9g9HccDoIJrebnpn9r7kymQdoEk6X0QFhEncPMdF2WhBG2
+	GTFjGq1zyCavWGQiQ==
+X-Received: by 2002:a17:90a:e704:b0:39e:6c69:9b8f with SMTP id 98e67ed59e1d1-3a07e693a28mr1695259a91.52.1790156422193;
+        Wed, 23 Sep 2026 02:40:22 -0700 (PDT)
+Received: from fedora.tail6c1c0e.ts.net ([2405:201:c411:b12f:aef2:6452:fd6:d00e])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07fa5fd15sm1333168a91.1.2026.09.23.02.40.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 02:40:21 -0700 (PDT)
+From: Tarun Noonemunthala <ntarun2000@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tarun Noonemunthala <ntarun2000@gmail.com>
+Subject: [PATCH] ALSA: hda/realtek: Add quirk for HP ENVY 13-aq1xxx
+Date: Wed, 23 Sep 2026 15:10:14 +0530
+Message-ID: <20260923094014.58867-1-ntarun2000@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <arFe215hUcjLhvmS@gourry-fedora-PF4VCD3F>
 
-On 09/21/26 at 01:02pm, Gregory Price wrote:
-> On Mon, Sep 21, 2026 at 06:32:56AM -1000, Chris Li wrote:
-> > On Mon, Sep 21, 2026 at 3:27 AM Gregory Price <gourry@gourry.net> wrote:
-> > >
-> > > This would preserve the existing memory.swap semantics while allowing
-> > > both backing resources to be constrained independently.
-> > 
-> > It sounds like you want memory.tiers have limit enforced.
-> > 
-> > I suppose it is possible. Again I want to see how people would
-> > actually use this feature.
-> > 
-> 
-> Possible, but arguably not needed. the swap and zswap counters already
-> work for this existing interaction.
-> 
-> As I pointed to in my response to Rik, in every reasonable use of
-> pswap+zswap the global swap counter is pointless.
-> 
-> So then pswap=swap and we're left with zswap and swap.
-> 
-> And I'm not convinced your reading of the swap counter as a limit on the
-> *logical* memory allowed to be swapped out is actually accurate.
-> 
->   memory.swap.current
->         The total amount of swap currently being used by the cgroup
->         and its descendants.
-> 
->   memory.swap.max
->         Swap usage hard limit.  If a cgroup's swap usage reaches this
->         limit, anonymous memory of the cgroup will not be swapped out.
-> 
-> There is no documentation I can find that has ever documented these
-> counters as "the amount of memory requiring a fault".  If you put a
-> compression system in front of physical swap - the counters as-described
-> would still be accurate, while your reading would be broken.
-> 
-> "swap" here is highly implied to mean "storage" as opposed to memory,
-> which is why "zswap" defines its limits in terms of memory.
-> 
->   memory.zswap.current
->         The total amount of memory consumed by the zswap compression
->         backend.
-> 
->   memory.zswap.max
->         Zswap usage hard limit. If a cgroup's zswap pool reaches this
->         limit, it will refuse to take any more stores before existing
->         entries fault back in or are written out to disk.
-> 
-> If you're presently using swap.max to mean the "logical amount of memory
-> allowed to be swapped" - then your usage does not meet the definition of
-> the knob.  You need to justify that your use case cannot be expressed
-> via memory.min/low controls:
-> 
->   memory.min
->         Hard memory protection.  If the memory usage of a cgroup
->         is within its effective min boundary, the cgroup's memory
->         won't be reclaimed under any conditions. If there is no
->         unprotected reclaimable memory available, OOM killer
->         is invoked. Above the effective min boundary (or
->         effective low boundary if it is higher), pages are reclaimed
->         proportionally to the overage, reducing reclaim pressure for
->         smaller overages.
-> 
-> That's an SLO interface.  memory.swap is a provisioning interface.
-> 
-> As it stands, I'm left viewing zswap's counter inclusion in swap as more
-> of a bug than a feature - they account for different things (memory vs
-> storage usage).
+The HP ENVY Laptop 13-aq1xxx (PCI SSID 103c:86ad) uses an ALC285 codec
+with two speaker pairs: front (pin 0x14) and bottom (pin 0x17).
 
-It's hard to say. When 37e84351198b ("mm: memcontrol: charge swap to
-cgroup2") introduced memory.swap.*, it was clearly defined as charging
-"the actual number of swap entries used by a cgroup". Please see the
-commit log. With that, zswap still reserved a swap slot even when the
-data never reached disk. And not to mention zram, it's backend is RAM,
-but not physical disk.                                          
-                                                                                                      
-Now some deployments do use memory.swap.* as an SLO signal, and that is                             
-real use cases as Chris and Kairui told. So I don't think this is about
-who is right and who is wrong.
-                                                                                                      
-To keep the existing deployment working and at the same time give the
-physical slot its own knob, I think the solution is to add a memory.pswap.*
-counter as you suggested. And that is not something we think of from a
-brain storm, it comes from real deployments which already depend on the
-current memory.swap.* behavior.
+The BIOS leaves pin 0x14 as [N/A] ("not connected"), so the generic
+parser never enables the front pair and only the bottom speakers are
+audible.  The vendor driver (RTKVHD64.sys) programs that pin with the
+value 0x90170150 and runs the HP amplifier initialization, which is
+already implemented in the driver as ALC285_FIXUP_HP_GPIO_AMP_INIT.
 
-Thanks
-Baoquan
+Add a board fixup that applies the pin configuration for 0x14 and chains
+to the existing amplifier init fixup.
+
+The pin value was recovered from the vendor driver's own configuration
+data.  The patch and this changelog were prepared with an AI coding
+assistant (see the Assisted-by tag below); the change was reviewed and
+tested by the submitter on the affected machine.
+
+Tested on an HP ENVY 13-aq1xxx by rebuilding snd-hda-codec-alc269 from
+the Fedora 7.1.10 source and loading it: the codec now reports
+"line_outs=2 (0x14/0x17)", pin 0x14 comes up as an output (Pin-ctls
+0x40) with its amplifier unmuted, and both speaker pairs play.
+
+Assisted-by: OpenCode:deepseek-v4.1-flash checkpatch
+Signed-off-by: Tarun Noonemunthala <ntarun2000@gmail.com>
+---
+ sound/hda/codecs/realtek/alc269.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index 8f55c3c00..35d7d2f87 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -4139,6 +4139,7 @@ enum {
+ 	ALC285_FIXUP_HP_SPECTRE_X360_EB1,
+ 	ALC285_FIXUP_HP_SPECTRE_X360_DF1,
+ 	ALC285_FIXUP_HP_ENVY_X360,
++	ALC285_FIXUP_HP_ENVY_13AQ,
+ 	ALC288_FIXUP_DELL_HEADSET_MODE,
+ 	ALC288_FIXUP_DELL1_MIC_NO_PRESENCE,
+ 	ALC288_FIXUP_DELL_XPS_13,
+@@ -6412,6 +6413,15 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC285_FIXUP_HP_GPIO_AMP_INIT,
+ 	},
++	[ALC285_FIXUP_HP_ENVY_13AQ] = {
++		.type = HDA_FIXUP_PINS,
++		.v.pins = (const struct hda_pintbl[]) {
++			{ 0x14, 0x90170150 }, /* front speakers */
++			{ }
++		},
++		.chained = true,
++		.chain_id = ALC285_FIXUP_HP_GPIO_AMP_INIT,
++	},
+ 	[ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc285_fixup_ideapad_s740_coef,
+@@ -7400,6 +7410,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x861f, "HP Elite Dragonfly G1", ALC285_FIXUP_HP_GPIO_AMP_INIT),
+ 	SND_PCI_QUIRK(0x103c, 0x864f, "HP Laptop 15-dy0xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+ 	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
++	SND_PCI_QUIRK(0x103c, 0x86ad, "HP ENVY 13-aq1xxx", ALC285_FIXUP_HP_ENVY_13AQ),
+ 	SND_PCI_QUIRK(0x103c, 0x86c1, "HP Laptop 15-da3001TU", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+ 	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPIO),
+ 	SND_PCI_QUIRK(0x103c, 0x86c8, "HP Laptop 14s-dr1xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
+-- 
+2.55.0
+
