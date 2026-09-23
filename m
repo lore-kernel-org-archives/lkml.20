@@ -1,217 +1,145 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC74C57C731
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:58:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9C657ED83
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197139; cv=none; b=TKMeGEJ3kNMwj0bY98LTXfYoWLsNjihi5veybCo+m6e8ZekPp3fepu6zeRvYdMELqdjnw2J0h2KuKb4M66t4IvwG6x/hzaCagdBfUybcHmoylf0DIWTajsJt30o4nHxl5tDNv8OhjDgptRZUcnnqd6Taxs+ZXXvbBD5njPKRJZc=
+	t=1790197142; cv=none; b=GQQ0BJQNe0YzHKeyIqDSvFIeqe3zfqawCEbq1eiluuwHOSpy/uYq5LKR9Qj+lV/vJOQWvlnTA+H7BjTglBvXMOF6ucvhoei74J69hfDdAZS1POY+x1XwE8k1b/gGSwyeZ7KhDsHVjOh1TQPCYYL2hhyCAu8mVESXEPIqwUmF4vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197139; c=relaxed/simple;
-	bh=vXmFA334QELe6ci7/KaCWn8302UvmFUJuxHATZA3VvM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gP7CqDAn/yCpNMbO31LcEKFjkMyvfrh3NkoYIrS+/HhqEXu+mi1CfK/oFEzrKy6ABTCPji3FnXwt1+5kkeZV3rR1dAi/Ez6O4+ammQOb9mSicn9a0lrMVm9UhL8eEaXFoAprxfJnGRAmf40V4Pu0VXOuH7Bpsf7o4JS5OVIwL1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NRPJ/LYX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kw0berKi; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790197142; c=relaxed/simple;
+	bh=gjNgjwY8I5O0y8agYmSnDrcD/S4hWPeAuTwuDDRiAnE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PEQ0N90c4ve8vi/bubSr49gGdkryq7Esh1MRN5pNLkaUOJ1W46Lcu20185qqTsRsMo7h3nSUf1gQsVuNoYyJpg64xNT/8etGA1j8bdV6dCFaEChSN93pD2ftnqaXeUXOMA1C1KTVuLn5z42Fzs17bwv/w4kZJ8X3wUTNTmZimXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kZPlmDOI; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NRPJ/LYX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kw0berKi"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NJlIQA3513976
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:58:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ov2H0d6cnBTnjw7zlHO6OeG9tF0HJ7AcJiwrP6JidQk=; b=NRPJ/LYX0U54OgoJ
-	g+VLOhVg3+gUpxMhVOirA+IR+q22MtJdnylA9VJX2oDP07y5UqGO3L9PxrnaRy6U
-	3JAUVFOt/t44h3aFWJzE2MbhDLY47uv7A1URB2720RIRUXx2YYP5nJKRNNyoqhI9
-	xapuPAdFspqTsJZ3VsEDk9pwu1wQ/vSG5bxQY72GihUD4pznEJFoQemg16NgQv6k
-	17+piWr3c+n9ovlf3lEg8nSZkK9V6GjDm8zhHnyzennnBuGoPqml8jy+941vxpWt
-	4GuTWZj06Ggot9Pp5RJ0dtZQHpXKPEu4/Iqr8tr4PVoyb+JwJLYGRNw4G9z4Rzd+
-	Psc0nw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvbx7jx3f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:58:56 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a0312937eso164182685a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:58:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kZPlmDOI"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43ac608dso19242337b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:59:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790197136; x=1790801936; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ov2H0d6cnBTnjw7zlHO6OeG9tF0HJ7AcJiwrP6JidQk=;
-        b=kw0berKid1mnEZcFDMXrXMCX+g3Kfox5AVgtbMte6wCMgOn8db/NGMBnS8xjLo/E/p
-         qWCGjb+n4CWFoYWN9f2qIqtySxhICSLdp1rPzRfoqsBHPS24cU80ahSJoZXKbw/yt7TL
-         SoTUU+BWVCnf5RmTX3Cu4wQ+VdZpPQ15TT8szNesKI8ZL6k4qNtnaB25QUCKrsOoDEeE
-         IMLtRKNqGU/M+Z8tJakH6RT3T4PmA+kjH2qVtC0cdW9/Xo9I/DvyrnYRlneMYsDS80ZZ
-         m9jyWnxlN8W+zqgb/VS7DIDu5RDgVILuaeWQulkEi+xKJzb5nye4VM9b6b0Mnb5UlUEQ
-         B1xQ==
+        d=gmail.com; s=20251104; t=1790197139; x=1790801939; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LFuywSZ0HejhAW2U3ki+Jb3nu+U7WqN5bFOUzp+xE1s=;
+        b=kZPlmDOIJyu+F89a+bWHiPAvWadIDX7ZcZIF767+iIijArk4RrsvSKpMKH/hlbxlok
+         8MMXclIfVuYjI+HxBB1GFBaflQHkG7q4/BpsoeKotAnRjuaiLb3SW5eDsRaSjfUcacUM
+         ao66QSKfPRKv+by8OwpQKA8LkDoiPLxFd7bvqPqcX+zDPhOlJA/3hy091xEF5U3wUMWI
+         a7JRcsrXcN976LGg2SQvnMtweVuATIIxm2R+ija/AzuPIH99cE5rBX+yLtmwaHW7qJxE
+         jSmig+CfY0B2gaGk5Oy1jTJP0uB2nmqg6FxXPi0ORY9m/Wvtn3uVGtOL2vVfr5A6k9Yk
+         HrwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790197136; x=1790801936;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ov2H0d6cnBTnjw7zlHO6OeG9tF0HJ7AcJiwrP6JidQk=;
-        b=oKuGO/dXeLYQuzvn6l4Hd+yOXoMe1cTyYf8vPiYhhyE+pRR8O91nUDVggtgbBUpfny
-         /PSrEouvc+gqEzTJ7gE30XbAOgOSkEWHKKCPZUH2GyYIcHCg/v/WUnCq+AAEa3RJ425p
-         50726dGSXocfggNBBQ7l+Me2TvTQ3rhK/duThCAsP+S1TjbwERzcaV7zP3uWdJ5jxAjJ
-         IwcXcwWsTLRY3SJtaCywbv5h5b0WX0ejSkDRUKFD6ufV8VRtPH4NCCUNDoW0KJxbDe+f
-         INu0cgcZrsx79GL/Wnz30qmuCNPyjbMJpvH5nSpcMeXfuOKCQX4zxdbOHAcH0SPwIH0i
-         eA8g==
-X-Forwarded-Encrypted: i=1; AKwUvBw5yt+O0gWe0SWTUrG1/N7UHgAaIzCln5X3TEXPcYLxEyKFFpE0IwRN0tJ5NyL0oHmPH7rxrUmQ2frC0NA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwOqfjxoqxbfTiSRp3w8GpLSL2Rdv/u/xBBrb37QxdCmQaAXr8
-	4lIlf8hbrMbOzpBH+xctOZvVJLc6W4hKq75D9VL19iBMWfKyCmbpE9o4Z6HumitLuVySbu7+PyL
-	DLDBty3qqdgPQo2Ez3aM9lgPYsD6J3eqMIl5iS3sHmRCmmoP4sbJ9XAh80bZOaJ8qeds=
-X-Gm-Gg: AYBFou3QWExVIB5IpVY5ytppwBX5q0aRgKmcGfnNo6a+fejfESBHXZnqyhU236Bb4x0
-	EVYQt4eUE2RqHcajbkzEy9CArFA7pBDie7uRoCI9faJTllNOzL8Rep6zPdy5byPZh6VNJ5SmfDW
-	tjVb+lJs9g47b9QxlpjAQ8OmqYJRX0y6KQXG6FAGQsj888jU8WOwMUb46yfSpr/a3k86JR2LzEm
-	8Jt7rU+muoetKWac4PTpKrdh6UvrkcLaZ6psccWExZ2d0PTizpRzh2Bz/EwgoBHNGVUZj0X3sDP
-	Ltq422R63es0AfLoBiXLxdfZDLaZvXEyHAriIfug3stuxJsKqPJntC+Jk8LUGxl8IV7+NdHCERw
-	NO6bXsdlK4W25XjYGoVPAOL9fXL7jJCbNmIKznH5JVVtgTwmSqTYi5oa8wJU785BMdl13xccy1l
-	wBIwBZCM6mpBkf
-X-Received: by 2002:a05:620a:4415:b0:93b:d7a2:dd32 with SMTP id af79cd13be357-93c348282c5mr60118085a.66.1790197135576;
-        Wed, 23 Sep 2026 13:58:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:4415:b0:93b:d7a2:dd32 with SMTP id af79cd13be357-93c348282c5mr60113685a.66.1790197134958;
-        Wed, 23 Sep 2026 13:58:54 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d9b9972asm705666e87.18.2026.09.23.13.58.52
+        d=1e100.net; s=20260707; t=1790197139; x=1790801939;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LFuywSZ0HejhAW2U3ki+Jb3nu+U7WqN5bFOUzp+xE1s=;
+        b=1jIJda4T21ofoOzfrbNKWP4+Bc+Jp9bSWiUeHUjrlcuBLlXi5bHGFKJjqiHcq5rq74
+         PDR+zqbUmtD4DscgvaEH1HJaQocRZvoUM9CleAejLF41HrPdBCBPU+GXaHChwmIY5N18
+         T5ggGEQXW9m6LCF8y7DCsKQ60zqpZlv/XDBVzFOI0gHfZ8Oyko395VbAlx69WJzdmAR5
+         Ox15l+vBfjt3ZstSqNYJ0h0fXNU9BszWED5qBf8DrVvIHd6hASx53tPpRLwuClZOv+e0
+         gPzdd+SoiO+SqWijhkpYDwksSn9PDebB3hhXA9D8cAGzZikGZBlzHnRIglv9XZKfmJ8X
+         ixOA==
+X-Forwarded-Encrypted: i=1; AKwUvBzcutDRgxEYViHiv079azNQT4q5OT4h6kvkpJFp+74I22+KFRGg/EfXbSuZ24nTlSmO0FVdLZqVUw39A+I=@vger.kernel.org
+X-Gm-Message-State: AFuF++luul9PLsdWqkoMJzMYNOrWKHcKNsxgHH349tPiMWWy+wzmkewf
+	3Q4dSz0QSsDv3wVVcC79rCwKZwV7Pz+60Jn9Vi370GGYxwZDOdSosLVT
+X-Gm-Gg: AYBFou1m4DhM+r/w1GXB1eTtelKm9iqs73PAUKY4XqRLFSjFGzV9JjX0HG6jDZs4czm
+	bG18boJO6fu4WPXQaSKE94WiUQDqs0/M++NYfzALr184E0e9kuCyYNrLlMO8m9TL+MHU13t9ldU
+	XujdTpRhmSHYxa+QiEu2HuCiBF6CrjajBAeb+wdRCkuUbndBMCze1e6U9OVzs72mu4g7W1cb+Ah
+	9ayVz4lcteW9ETo2djDu4LI9F6jt/cmStNykksoZA+XXITyRSVd+Cdx7a5PpwKVO2bmyDbo8RPl
+	hSb5vL6YKwGr8PaqT8OAwjGf9SnlNMDs9TMy9drrZ8jZ1/hYBgMOkltzs3yYGI1a1P8HK4cS9b4
+	s1BUMHYg2AdEa0tI/0IsZtVYL7+IQ2aqbqE2OxwUaFmCMKGn3vzbF/2XkIr5vCHE1v50+fyAfof
+	CrhI3ZAwNLOpomOXq4mzM0FK7WZaFu+nylicvIt1i4RVMQTmFlWBtRyZpTVa6C+3RRoJqbmO7PB
+	G//0y5CNQ==
+X-Received: by 2002:a05:690c:ec5:b0:884:b55c:312 with SMTP id 00721157ae682-8a648ec512fmr3446857b3.16.1790197139130;
+        Wed, 23 Sep 2026 13:58:59 -0700 (PDT)
+Received: from DESKTOP-TLFH1MG ([76.255.203.42])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a65270b1e2sm1073467b3.41.2026.09.23.13.58.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:58:53 -0700 (PDT)
-Date: Wed, 23 Sep 2026 23:58:51 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Thorsten Leemhuis <regressions@leemhuis.info>,
-        Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        vishnu.saini@qualcomm.oss.com,
-        Linux kernel regressions list <regressions@lists.linux.dev>
-Subject: Re: [REGRESSION] Resolutions broken after "drm/msm: dsi: fix PLL
- init in bonded mode"
-Message-ID: <y64m2frbbg67zfukyuuds5cx65fx3rjxfujbckoerv7sswhk2u@i6p4k3ul4aec>
-References: <20251027-topic-sm8x50-fix-dsi-bonded-v1-1-a477cd3f907d@linaro.org>
- <ae07cef84AmXK43H@hu-mdsor-hyd.qualcomm.com>
- <wrhuksrzlxw2pjlvjm37dwjuztcv7qs5t6mqiav4ujecwqdkwj@ozbfxpbgaimt>
- <CAJfMnmEVwUwt=wMJ-8HKH1yz9+erWLrRGB+6wVYCdSGDK+_T_Q@mail.gmail.com>
- <114b9be8-1fca-4762-822e-1d53838d5de5@leemhuis.info>
- <o64cxeq5f4ffqpdmbai5cvsmxei2cnw3p6acvu55xl3cj5w3z3@6o6kokszvng7>
- <akt6z1irWlXA5UIy@hu-mdsor-hyd.qualcomm.com>
- <493b8d4c-164e-43c9-93c8-40cc251b1c3b@leemhuis.info>
- <d7v4kwmc42k5ymgdt4mn2qc7dkrf5jj2l5afgyjqrm3pxterl4@guulk22xwlzs>
- <f77e53d3-fb80-4832-aff7-4ab1244ee4a4@linaro.org>
+        Wed, 23 Sep 2026 13:58:58 -0700 (PDT)
+From: Jonathan Frazin <frazinjonathan@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	kamlesh.gurudasani@gmail.com,
+	lanzano.alex@gmail.com,
+	phil@raspberrypi.com,
+	linux-kernel@vger.kernel.org,
+	Jonathan Frazin <frazinjonathan@gmail.com>
+Subject: [PATCH v3 0/2] drm/mipi-dbi: display a cropped region of an oversized framebuffer
+Date: Wed, 23 Sep 2026 15:58:32 -0500
+Message-ID: <20260923205835.3505-1-frazinjonathan@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f77e53d3-fb80-4832-aff7-4ab1244ee4a4@linaro.org>
-X-Proofpoint-ORIG-GUID: woAO4hMIoi9KsnbGOX41N59mlQ_Sza9f
-X-Authority-Analysis: v=2.4 cv=J4s/fwnS c=1 sm=1 tr=0 ts=6ab43d90 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=Gbw9aFdXAAAA:8
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=f6ktmeKAyBHkVzSEkbUA:9 a=3ZKOabzyN94A:10
- a=wPNLvfGTeEIA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=9vIz8raoGPyDa4jBFAYH:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA4MyBTYWx0ZWRfX9HO2LSTLB+L4
- VWgftlG8cXh5I+vIWhKdYPleYtfnGoI8f3CI9aTcCASQwVShN+IkX0luw0pNZgGW7E8i1sR3HEc
- i6EeH/L9ESN7QBjpmPCltoZi1KM1wSNQkGlOjJ7GIxJBUuGEo1b3rBw6vDfyrwPwgTJp+KGi8AH
- vqGQEv2TkSxs3OL9q/KNg6/me2hRQisY754yZ+f5doJLg970LZWRy4a5fOIVjBfQfUH1f7zkb0Q
- 6YCTc/tyY9OSdBeKdUhNzaiaoEBQRn0S2qZjO7VmGIlATia8SPBYURJiuKbdPmFmdrlIBwcX/HU
- iJncRk2YMhujmobyNmkkfQB2T0tjfMEUXlkK7Tvn9pIW5Fe3dkmGk60HyhUcVh93RMqVYCFv2pb
- WZGRfqq+vVDTgyV7esXIPiJyLn4+od/BUVal9nNdnInjaxpwmkBsIZpcArpEAw7VUiIaBRvBN4S
- q3jbBPIT13Mm9QlR6Uw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA4MyBTYWx0ZWRfX6F1bAyj4XVIx
- 17YxgRqbMNCpnxszXDw4wnrfaiUo+cUOnBPNDLKS8S5X7glbAuhQA/t3TIyXlM8W9Y8uVS28z8W
- r7ni9el3g5VZRcm2usX6lkYTzoedpso=
-X-Proofpoint-GUID: woAO4hMIoi9KsnbGOX41N59mlQ_Sza9f
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_07,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 spamscore=0 impostorscore=0 priorityscore=1501
- phishscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230083
 
-On Wed, Sep 23, 2026 at 12:48:21PM +0200, neil.armstrong@linaro.org wrote:
-> Hi,
-> 
-> On 7/8/26 15:31, Dmitry Baryshkov wrote:
-> > On Wed, Jul 08, 2026 at 09:26:04AM +0200, Thorsten Leemhuis wrote:
-> > > On 7/6/26 11:52, Mohit Dsor wrote:
-> > > > On Wed, Jun 03, 2026 at 03:11:34PM +0300, Dmitry Baryshkov wrote:
-> > > > > On Wed, Jun 03, 2026 at 11:56:15AM +0200, Thorsten Leemhuis wrote:
-> > > > > > On 5/4/26 22:09, Mohit Dsor wrote:
-> > > > > > > Sorry for the late reply. I am attaching clk_summary and reg_dump in
-> > > > > > > working and non working case. Lilliput is just a normal display working
-> > > > > > > with hdmi and has 720p as preferred mode. Yes, I was talking about RB3
-> > > > > > > Gen2 only.
-> > > > > > 
-> > > > > > Neil, Dmitry, and Mohit: what's the status here? From the outside it
-> > > > > > looks like this regression is still unfixed with nothing happening for
-> > > > > > weeks now. Or has progress been made and I just missed it?
-> > > > > 
-> > > > > Thanks as a reminder. Unfortunately, it takes some more time (and I've
-> > > > > been a bit overloaded lately). Worst case I will send a revert soon.
-> > > > > 
-> > > > Just wanted to check if you had a chance to look into this issue and whether there's any update on the investigation from your side.
-> > > Hmm, no reply. Given that we are entering holiday season and are way
-> > > past what Linus expects in a situation like this[1] I'd say we should go
-> > > for a revert, unless some fix shows up really soon now.
-> 
-> Sorry I'm very late to the party, and checked again, reverting this breaks all dual-DSI setup
-> on SM8650, and probably other similar SoCs.
-> 
-> Here's a complete log of the breakage which appears on the Ayaneo PS2 running v7.3-rc3 with mainline panel driver: https://gitlab.postmarketos.org/-/snippets/65
-> 
-> I don't see why my fix did break this use case since it reverted the way the dual DSI PHYs
-> were initialized to actually allow the dual-DSI setup.
+A drm/tiny MIPI DBI panel can currently only scan out a framebuffer that is exactly panel-sized, always from the origin. This series lets a client allocate a larger framebuffer and choose the displayed region via the plane source rectangle - a crop / pan with no scaling.
 
-See commit cb55f39bf7b1. Without PLL_SHUTDOWNB and DIGTOP_PWRDN_B most
-of the PLL registers read as zero. Currently the regs are handled
-correctly (almost). With your patch in place the SHUTDOWNB gets dropped,
-making PLL loose reg contents (and return 0 to CCF as the selected divisor).
-Current code depends on those two bits being set across host_power_on.
+Motivation: feeding hardware-decoded video to a small SPI panel. The video decoder emits a fixed frame size; being able to point the panel at a panel-sized window of that buffer avoids a full-frame CPU copy on every flush and lets userspace pan/centre the image.
 
-> 
-> Thanks,
-> Neil
-> 
-> > > 
-> > > Ciao, Thorsten
-> > 
-> > Please send a revert.
-> > 
-> > > 
-> > > [1] To quote Linus statements from
-> > > https://www.kernel.org/doc/html/latest/process/handling-regressions.html#on-how-quickly-regressions-should-be-fixed
-> > > 
-> > > """
-> > >  From 2026-01-22:
-> > > 
-> > >   But a user complaining should basically result in an immediate fix -
-> > >   possibly a "revert and rethink".
-> > > 
-> > > With a later clarification on 2026-01-28:
-> > > 
-> > >   It's also worth noting that "immediate" obviously doesn't mean "right
-> > >   this *second* when the problem has been reported".
-> > > 
-> > >   But if it's a regression with a known commit that caused it, I think
-> > >   the rule of thumb should generally be "within a week", preferably
-> > >   before the next rc.
-> > > """
-> > 
-> 
+Patch 1 is the actual fix - mipi_dbi_fb_dirty() addressed the controller in framebuffer coordinates, which is only correct while src_x/src_y are zero. It now subtracts the plane source origin.
 
--- 
-With best wishes
-Dmitry
+Patch 2 raises mode_config.max_width/height (pinned to the panel size) on the six drm/tiny drivers that flush through the shared drm_mipi_dbi_plane_helper_atomic_update(). ili9225 is excluded - it has its own flush path that does not carry the source offset.
+
+Open question for patch 2: the six drivers each set the limits identically in their probe. This could instead be a shared helper (or folded into drm_mipi_dbi_dev_init / the DRM_MIPI_DBI_MODE_CONFIG_* macros) so future drivers get it for free. Happy to respin that way if preferred - the per-driver form is what is shown here because it is the smaller diff and easier to review a first pass.
+
+The min_width/min_height, the fixed mode, the connector and the mode-sized transfer buffer are all unchanged, and drm_mipi_dbi_plane_helper_atomic_check() still enforces DRM_PLANE_NO_SCALING and no repositioning, so the flushed rectangle stays bounded by the panel regardless of the framebuffer dimensions.
+
+Tested on hardware: ILI9341 and ST7789V (through panel-mipi-dbi), both 240x320 - an oversized framebuffer is accepted and a non-zero-offset panel-sized window scans out correctly; a panel-sized framebuffer is unchanged. HX8357D was tested during the downstream review by Dave Stevenson (Cc'd). ili9486, mi0283qt, ili9163 and st7735r are build-tested only.
+
+Both patches have been carried in the Raspberry Pi kernel (rpi-7.2.y) and in use there: https://github.com/raspberrypi/linux/pull/7589. The v1/v2 heap-overflow fix (see below) has also been folded back into that downstream kernel: https://github.com/raspberrypi/linux/pull/7643.
+
+Applies to current mainline / drm-misc-next; the touched files are identical there.
+
+Changes since v2:
+- Patch 1: a damage clip that lies entirely within the one-pixel sliver
+  the v2 clamp cuts off collapses the clamped rectangle to zero width or
+  height. That was still being passed to mipi_dbi_set_window_address(),
+  producing an inverted (start past end) address window ahead of a
+  zero-length write - undefined behaviour per the MIPI DCS spec. Skip
+  the flush when the clamped rectangle is empty.
+- Patch 2: st7735r also flushes through the shared
+  drm_mipi_dbi_plane_helper_atomic_update() but was missed from the
+  original list - it lives under drivers/gpu/drm/sitronix/ rather than
+  drivers/gpu/drm/tiny/. Added it, and confirmed by grepping the whole
+  tree for DRM_MIPI_DBI_PLANE_HELPER_FUNCS that no other driver shares
+  this path. Thanks again to the automated review for catching both of
+  these on v2.
+
+Changes since v1:
+- Patch 1: clamp the damage rectangle to the panel's fixed mode before
+  using it, instead of trusting it to already be panel-sized. src_x/src_y
+  are the plane source origin truncated to whole pixels, but the
+  rectangle from drm_atomic_helper_damage_merged() is clipped against
+  that origin's exact 16.16 fixed-point value - when the origin has a
+  fractional part, the rectangle's far edge could land up to a pixel past
+  where the truncated origin would place the panel's own width/height,
+  overflowing the panel-sized tx_buf. Thanks to the automated review for
+  catching this.
+- Patch 2: unchanged.
+
+Jonathan Frazin (2):
+  drm/mipi-dbi: honour the plane source offset when flushing
+  drm/tiny: allow a framebuffer larger than the panel on MIPI DBI
+    drivers
+
+ drivers/gpu/drm/drm_mipi_dbi.c        | 43 +++++++++++++++++++++++----
+ drivers/gpu/drm/sitronix/st7735r.c    |  8 +++--
+ drivers/gpu/drm/tiny/hx8357d.c        |  8 +++--
+ drivers/gpu/drm/tiny/ili9163.c        |  8 +++--
+ drivers/gpu/drm/tiny/ili9341.c        |  8 +++--
+ drivers/gpu/drm/tiny/ili9486.c        |  8 +++--
+ drivers/gpu/drm/tiny/mi0283qt.c       |  8 +++--
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c |  8 +++--
+ 8 files changed, 80 insertions(+), 19 deletions(-)
+
+--
+2.53.0
