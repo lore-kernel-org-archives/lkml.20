@@ -1,164 +1,247 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A928F414A27;
-	Wed, 23 Sep 2026 06:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08463546C8;
+	Wed, 23 Sep 2026 06:43:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790145753; cv=none; b=eJi2SA5APV7fcNu5AL+8m+J8k1JChaD87o8EcjPUsr2CA14ctRQCowSaqGM86pydtoralXy/eLULtQYccfMfFfDDeA+vrKP27F1mcGFpLaTnHAggwOF9zH0i/IQqT4bIVeK9Wy1nyiZzuRb/OR6pri1fxOl8gmo4M3h3Kh3gyZU=
+	t=1790145786; cv=none; b=akR6c9pGcO3wzhY+8ksyWhXm0/OEvV4+rSGUCc52erFj/nIfU8eeygCDSnuCQfw1wqteKn9SgKfq+nMhlsY2VeMw/4REsBg87ug03XQNxUtIJUE4evmAFaBlvpEDrOZfnyqVpqd/w7qBdwcIpZkJIODiBstvFuRpxc72ahxugmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790145753; c=relaxed/simple;
-	bh=Z3gPbuK5qepuqx2fCRdB3pvyPoSFEwvQ7ryb6Thvrxs=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=rDE4b5Fg+nxW2nuwMxKH8oMvEsgWeQ6mGyjteCEJKO3ytjQZ95GvVotBTwxYLyUgjjvuB3Am6qu9LfOa7oJiEIWnbdtLWH4R1qiFjUlfsiVGTGMdyaELtgGsCAXIqhRL+s4vN9/5w5xHcOdSLxiG/N0PTSblnjrN/sv2fRDwZg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8AxYdHQdLNqUfEOAA--.44198S3;
-	Wed, 23 Sep 2026 14:42:24 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJAxlMzMdLNqOBckAA--.49011S2;
-	Wed, 23 Sep 2026 14:42:22 +0800 (CST)
-Subject: Re: [PATCH] KVM: LoongArch: selftests: Enable HW PTW by auto
- detection method
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
- Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>,
- kvm@vger.kernel.org, loongarch@lists.linux.dev,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260923012356.1058379-1-maobibo@loongson.cn>
- <CAAhV-H4AvjyfmjPiUBxBsWjRNFpP5c4sWK0+ZH-e1gjtrxBhMg@mail.gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <0b746444-df7f-1edd-8fd0-1736c96ac366@loongson.cn>
-Date: Wed, 23 Sep 2026 14:43:46 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1790145786; c=relaxed/simple;
+	bh=phfjwCDGsiKVmGSZKI1mGtXLs0G7Y+WZWBvquSg+j/0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=A/zEmNu92tfX4+vbXQN2wfdCuYavr3PLPZm487SvSRJm8e7kDJE4u1gH2cLXgKa0QWVhqtI5ejc36n1upq5U9NZWhDptkFQviAei6Mq6f5mb7a/NSg2dm0bcrGVObDHegKe+xyieX67jKblwjrCsKkL0EbBq42pQd90NT6ZBJyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d2zDkzil; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d2zDkzil"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E96061F000FF;
+	Wed, 23 Sep 2026 06:42:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790145780;
+	bh=JpJUkbdqflJFtc5l5vjcMmpvXN2qmIgs1NCpcKAB7J8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=d2zDkzilhuGh2A6Aaza3bUhWyFOMIY+E70zhsmiEKRxjKSPbBbvzcesVXbpLq7Pnu
+	 hdvrRAxI/00vDQQcRIZkU4fUTDKmnN7/6IiG5UcUNpnnZfG6F5BUVUUa63d5gMieEa
+	 0sGly0HvjfObSnWxtLPxe3ZVZltlsxMuHfaDTC8uNIsqoWht4U529bsWvwoppFaLDD
+	 bAN/hnF81Ruper5iglQ2POLmQPhrzEvnCpx2dyAVpAtszKlM0Isufzq8550SKOkAfv
+	 KhzZZ7Ej4MnrYlRFy2+ukCKH9OhC4CGSreNxcWsaeqSoj4r82/W7NsnmA7M0sKEHtZ
+	 Hb662nasIyWqw==
+Subject: Re: [PATCH v2 1/2] net: ena: fix PHC cleanup on probe failure
+From: netdev-bot+sashiko@kernel.org
+To: lgs201920130244@gmail.com
+Cc: akiyano@amazon.com, darinzon@amazon.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ ioana.ciornei@nxp.com, ekffu200098@gmail.com, dawei.feng@seu.edu.cn,
+ amitbern@amazon.com, netanel@annapurnalabs.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 23 Sep 2026 06:42:59 +0000
+Message-ID: <179014577949.2160803.8278125695896398851@kernel.org>
+In-Reply-To: <20260921154202.471662-2-lgs201920130244@gmail.com>
+References: <20260921154202.471662-2-lgs201920130244@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H4AvjyfmjPiUBxBsWjRNFpP5c4sWK0+ZH-e1gjtrxBhMg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxlMzMdLNqOBckAA--.49011S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxGF47Aw4fWryxAr18ArW7ZFc_yoWrXF17pF
-	yvkF4Ygr48KF17Ka4kXwn09F1aqrs2kr4xKry3trZ0yr1UZryfXryxKF9xuFy5XwsYq3WS
-	v3Z7Ca13ZF4DX3cCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
-	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y
-	6r17McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr4
-	1lc7I2V7IY0VAS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
-	JVW8JwCFI7km07C267AKxVWUXVWUAwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
-	vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IY
-	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
-	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAF
-	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jFa0PUUUUU=
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0 (1)
 
-On 2026/9/23 下午12:25, Huacai Chen wrote:
-> Hi, Bibo,
-> 
-> On Wed, Sep 23, 2026 at 9:31 AM Bibo Mao <maobibo@loongson.cn> wrote:
->>
->> Add HW PTW feature when VM is created. This feature is detected firstly,
->> enable it if it is available on host machine. With HW PTW feature enabled,
->> refill exception will not happen and it is not necessary to set refill
->> exception entry.
->>
->> Signed-off-by: Bibo Mao <maobibo@loongson.cn>
->> ---
->>   .../selftests/kvm/include/loongarch/processor.h  |  3 +++
->>   .../selftests/kvm/lib/loongarch/processor.c      | 16 ++++++++++++++--
->>   2 files changed, 17 insertions(+), 2 deletions(-)
->>
->> diff --git a/tools/testing/selftests/kvm/include/loongarch/processor.h b/tools/testing/selftests/kvm/include/loongarch/processor.h
->> index 0e59daa8024e..8d9fabdc89e3 100644
->> --- a/tools/testing/selftests/kvm/include/loongarch/processor.h
->> +++ b/tools/testing/selftests/kvm/include/loongarch/processor.h
->> @@ -79,6 +79,7 @@
->>   #define  CPUCFG2_LASX                  BIT(7)
->>   #define  CPUCFG2_LLFTP                 BIT(14)
->>   #define  CPUCFG2_LLFTPREV              GENMASK(17, 15)
->> +#define  CPUCFG2_PTW                   BIT(24)
->>
->>   /* LoongArch Basic CSR registers */
->>   #define LOONGARCH_CSR_CRMD             0x0 /* Current mode info */
->> @@ -128,6 +129,8 @@
->>   #define LOONGARCH_CSR_PGD              0x1b
->>   #define LOONGARCH_CSR_PWCTL0           0x1c
->>   #define LOONGARCH_CSR_PWCTL1           0x1d
->> +#define  CSR_PWCTL1_PTW_SHIFT          24
->> +#define  CSR_PWCTL1_PTW                        BIT_ULL(CSR_PWCTL1_PTW_SHIFT)
->>   #define LOONGARCH_CSR_STLBPGSIZE       0x1e
->>   #define LOONGARCH_CSR_CPUID            0x20
->>   #define LOONGARCH_CSR_KS0              0x30
->> diff --git a/tools/testing/selftests/kvm/lib/loongarch/processor.c b/tools/testing/selftests/kvm/lib/loongarch/processor.c
->> index 47bbde3e205a..35e35c62759f 100644
->> --- a/tools/testing/selftests/kvm/lib/loongarch/processor.c
->> +++ b/tools/testing/selftests/kvm/lib/loongarch/processor.c
->> @@ -282,6 +282,7 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->>          unsigned int cfg;
->>          unsigned long val;
->>          struct kvm_vm *vm = vcpu->vm;
->> +       bool has_ptw = false;
->>
->>          switch (vm->mode) {
->>          case VM_MODE_P36V47_16K:
->> @@ -300,6 +301,12 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->>          ret = __kvm_has_device_attr(vm->fd, KVM_LOONGARCH_VM_FEAT_CTRL, KVM_LOONGARCH_VM_FEAT_LASX);
->>          if (!ret)
->>                  cfg |= CPUCFG2_LASX;
->> +       ret = __kvm_has_device_attr(vm->fd, KVM_LOONGARCH_VM_FEAT_CTRL, KVM_LOONGARCH_VM_FEAT_PTW);
->> +       if (!ret) {
->> +               cfg |= CPUCFG2_PTW;
->> +               has_ptw = true;
->> +       }
->> +
->>          loongarch_set_cpucfg(vcpu, LOONGARCH_CPUCFG2, cfg);
->>          cfg = read_cpucfg(LOONGARCH_CPUCFG6);
->>          loongarch_set_cpucfg(vcpu, LOONGARCH_CPUCFG6, cfg);
->> @@ -338,6 +345,9 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->>
->>          /* PGD page shift and width */
->>          val = (vm->page_shift + width * (vm->mmu.pgtable_levels - 1)) | width << 6;
->> +       if (has_ptw)
->> +               val |= CSR_PWCTL1_PTW;
->> +
->>          loongarch_set_csr(vcpu, LOONGARCH_CSR_PWCTL1, val);
->>          loongarch_set_csr(vcpu, LOONGARCH_CSR_PGDL, vm->mmu.pgd);
->>
->> @@ -345,8 +355,10 @@ void loongarch_vcpu_setup(struct kvm_vcpu *vcpu)
->>           * Refill exception runs on real mode
->>           * Entry address should be physical address
->>           */
->> -       val = addr_gva2gpa(vm, (unsigned long)handle_tlb_refill);
->> -       loongarch_set_csr(vcpu, LOONGARCH_CSR_TLBRENTRY, val);
->> +       if (!has_ptw) {
-> Why not just check CPUCFG2_PTW in cfg? In this way we can drop has_ptw.
-Variable cfg is overwritten by the later sentence
-  cfg = read_cpucfg(LOONGARCH_CPUCFG6);
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> 
-> Huacai
-> 
->> +               val = addr_gva2gpa(vm, (unsigned long)handle_tlb_refill);
->> +               loongarch_set_csr(vcpu, LOONGARCH_CSR_TLBRENTRY, val);
->> +       }
->>
->>          /*
->>           * General exception runs on page-enabled mode
->>
->> base-commit: 93f51579e7df248780214094418f205253383cc5
->> --
->> 2.39.3
->>
+- [Medium] The bug the commit message describes is not reachable: on
+  every `ena_probe()` error path there is nothing for the newly added…
 
+Pre-existing issues:
+- [High] Use-after-free of `phc_info` (vfree()d vmalloc memory) that the
+  PTP class driver still references, because `ena_phc_destroy()` ->…
+- [Low] Pre-existing leak of the coherent DMA buffer allocated by
+  `ena_com_mmio_reg_read_request_init()` on `ena_probe()` failure: at…
+
+--
+
+net: ena: fix PHC cleanup on probe failure
+
+This adds a call to ena_phc_destroy() to the err_device_destroy label in
+ena_probe(), so that the PHC is torn down before ena_phc_free() frees the
+PHC private data on a probe failure after ena_device_init() succeeded.
+
+> diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> index ea89619039d89..5f0864d16dd3c 100644
+> --- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> +++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> @@ -4122,6 +4122,7 @@ static int ena_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  err_device_destroy:
+>  	ena_com_delete_host_info(ena_dev);
+>  	ena_com_admin_destroy(ena_dev);
+> +	ena_phc_destroy(adapter);
+
+[Severity: Medium]
+Is there actually anything for this new call to destroy on the probe error
+paths?
+
+The commit message says:
+
+  "if probe fails after ena_device_init() succeeds, the error path reaches
+   ena_phc_free() without unregistering the PTP clock or destroying the
+   device PHC resources."
+
+Following the probe-time flow, ena_phc_init() appears to bail out before
+either ena_com_phc_init() or ptp_clock_register() runs:
+
+drivers/net/ethernet/amazon/ena/ena_phc.c:ena_phc_init() {
+	/* Validate PHC feature is enabled by the kernel */
+	if (!ena_phc_is_enabled(adapter)) {
+		netdev_dbg(netdev, "PHC feature is not enabled by the kernel\n");
+		goto err_ena_com_phc_init;
+	}
+	...
+}
+
+ena_phc_alloc() uses vzalloc(), so phc_info->enabled starts false, and
+ena_devlink_configure_params() seeds the DRIVERINIT enable_phc value from
+that same state:
+
+drivers/net/ethernet/amazon/ena/ena_devlink.c:ena_devlink_configure_params() {
+	value.vbool = ena_phc_is_enabled(adapter);
+	devl_param_driverinit_value_set(devlink,
+					DEVLINK_PARAM_GENERIC_ID_ENABLE_PHC,
+					&value);
+}
+
+ena_device_init() reads it back through ena_devlink_params_get(), which
+calls ena_phc_enable(adapter, false).  The only way to get a true value is
+userspace via devlink, and devl_register() happens at the end of a
+successful ena_probe(); later devlink reloads go through
+ena_restore_device(), not ena_probe().
+
+So on the error path ena_phc_is_active() is false (clock is NULL) and
+ena_com_phc_destroy() returns immediately:
+
+drivers/net/ethernet/amazon/ena/ena_com.c:ena_com_phc_destroy() {
+	/* In case PHC is not supported by the device, silently exiting */
+	if (!phc->virt_addr)
+		return;
+	...
+}
+
+If that reading is right, both halves of the added call are no-ops here.
+Would it make sense to drop the Fixes: e0ea34158ee8 and
+Cc: stable@vger.kernel.org tags and describe this as a consistency cleanup
+instead, or to include the sequence that actually leaves a registered PTP
+clock behind on a probe failure?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does ena_phc_destroy() give
+the caller what the commit message assumes, namely a guaranteed unregister
+before the private data is freed?
+
+ena_phc_unregister() skips ptp_clock_unregister() whenever
+ENA_FLAG_TRIGGER_RESET is set:
+
+drivers/net/ethernet/amazon/ena/ena_phc.c:ena_phc_unregister() {
+	/* During reset flow, PHC must stay registered
+	 * to keep kernel's PHC index
+	 */
+	if (ena_phc_is_active(adapter) &&
+	    !test_bit(ENA_FLAG_TRIGGER_RESET, &adapter->flags)) {
+		ptp_clock_unregister(phc_info->clock);
+		phc_info->clock = NULL;
+	}
+}
+
+In ena_destroy_device() the flag is cleared only after ena_phc_destroy()
+has already run, and ena_reset_device() (ena_netdev.h) sets that flag
+lock-free from NAPI/xmit/timer contexts.
+
+One sequence on unbind/rmmod: ena_timer_service() queues reset_task with
+the flag already set, then __ena_shutoff() does
+
+	timer_delete_sync(&adapter->timer_service);
+	cancel_work_sync(&adapter->reset_task);
+	...
+	ena_destroy_device(adapter, true);
+
+	ena_phc_free(adapter);
+
+cancel_work_sync() cancels the queued work but nothing clears
+ENA_FLAG_TRIGGER_RESET, so ena_phc_destroy() skips the unregister and
+ena_phc_free() then vfree()s phc_info with the clock still registered.
+
+A second sequence: a FW reset where ena_destroy_device(adapter, false)
+skipped the unregister, then ena_device_init() fails in
+ena_restore_device() and the err: label clears ENA_FLAG_DEVICE_RUNNING:
+
+drivers/net/ethernet/amazon/ena/ena_netdev.c:ena_restore_device() {
+err:
+	clear_bit(ENA_FLAG_DEVICE_RUNNING, &adapter->flags);
+	...
+}
+
+A later unbind then hits the early return in ena_destroy_device():
+
+	if (!test_bit(ENA_FLAG_DEVICE_RUNNING, &adapter->flags))
+		return 0;
+
+which never reaches ena_phc_destroy() at all, and ena_phc_free() frees
+phc_info anyway.
+
+In both cases /dev/ptpN stays alive with ptp_clock_info ops pointing into
+freed vmalloc memory, and any clock_gettime or PTP_SYS_OFFSET on it enters
+
+drivers/net/ethernet/amazon/ena/ena_phc.c:ena_phc_gettimex64() {
+	struct ena_phc_info *phc_info =
+		container_of(clock_info, struct ena_phc_info, clock_info);
+	...
+	spin_lock_irqsave(&phc_info->lock, flags);
+	rc = ena_com_phc_get_timestamp(phc_info->adapter->ena_dev, &timestamp_nsec);
+}
+
+Can this dereference freed memory?  Should the teardown paths distinguish
+reset-preserving teardown from final teardown, for example a forced
+unregister variant used by ena_phc_free()/__ena_shutoff(), rather than
+adding another call to the reset-conditional helper?
+
+[Severity: Low]
+This is a pre-existing issue, but does this cleanup chain leak the coherent
+DMA buffer allocated by ena_com_mmio_reg_read_request_init()?
+
+The err_device_destroy label goes ena_com_delete_host_info() ->
+ena_com_admin_destroy() -> ena_phc_destroy() -> ena_devlink_free() -> ... ->
+vfree(ena_dev) -> pci_disable_device() with no
+ena_com_mmio_reg_read_request_destroy(), while both peer teardown sites do
+call it:
+
+drivers/net/ethernet/amazon/ena/ena_netdev.c:ena_device_init() {
+err_mmio_read_less:
+	ena_com_mmio_reg_read_request_destroy(ena_dev);
+	...
+}
+
+drivers/net/ethernet/amazon/ena/ena_netdev.c:ena_destroy_device() {
+	ena_phc_destroy(adapter);
+
+	ena_com_mmio_reg_read_request_destroy(ena_dev);
+	...
+}
+
+so mmio_read->read_resp stays allocated and the device's MMIO_RESP_LO/HI
+registers still hold the freed DMA address.
+
+Note this is addressed by the following patch in the same series,
+"net: ena: fix MMIO read buffer leak on probe failure", which inserts
+ena_com_mmio_reg_read_request_destroy(ena_dev) directly after the line
+added here, so no separate action looks necessary for the series as a whole.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921154202.471662-1-lgs201920130244%40gmail.com
