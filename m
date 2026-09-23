@@ -1,129 +1,194 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010061.outbound.protection.outlook.com [52.101.56.61])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B058B449ED6;
-	Wed, 23 Sep 2026 11:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790162433; cv=fail; b=OglzqaEPd314uR60hpumpiLfI/5XH3w7913jXHbEMPVvHb9TV1tftrdjx3qYF3nnHzU3fa6kh/+N9/Wn+IAcjiGXeltK2/jtKaochZQ3kWwmz2MW2HynPYZPIDLg2gIK6U9Aswah80Gnxf2KMGNn2D3r90nt9kdKQjLmdIIveL4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790162433; c=relaxed/simple;
-	bh=H6xzcoYbfIL6X5LrqWJ2oZvqbXl4RFtntcTCHh5bFBs=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uAzDaIuA3LbLe7mcI+yO9w91IQvl3eXSc7xWJlKyzspOuy6L78slg845tQT86+fP7nzChsuIdkMo83pS0MFDZMFXspGc/UJH2ivv24zNguq2ayy2s11XBj18knm+mKwJvstHl5iUyHD8VOe3rRa3qYjSuDUWfM0jat1lNswfyxY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=BsuHFxDR; arc=fail smtp.client-ip=52.101.56.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690F6499F2F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790162435; cv=none; b=Z6DWoh7aA8VnNtGxvdjt5qLN/Gd0AfEC9KWkUPIYk6ISKf2ig5TZUwmQvnjmRYvTOO/PrN3++4O5npZYCIfsHgCQSuqTA8z71Mx5o8Qaq1qbUrqmmMaYRQ0U37ymqc8BOD/3Uiul0IrEbG7ptHh6E2w9Fn+ReaW336KNwNp8SIg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790162435; c=relaxed/simple;
+	bh=rFUaC1WdxxLQ9Q7b8x3yzLqeoCkKGkIzB/VC4T+rId0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eGo9NTlJBY5jpWeiag8T1zb2qQQsWSeGBy3b5tmCv+W3A4DCWDdmUE81B9FZq8QL/Uxq5VSZrNmVPTuGtGz/O4FqgYXGmW3GyGy9pFxoP0aTG6omT8iMr2+LIU/V6l7VymUuXc22BvY9Bs8Vxx7OMAJc3NmApPNhdIF7FSHA/Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eqUA7PDy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="BsuHFxDR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mzZwrcjpoF/Hn96KYnWg6OkK7y02VOwL4xXHXjnOtgAzQ+jdY264AU0531RMqCAI/EeiQ0RrAouvJuTG+LXHdtp4kUzpDGP19Gd2+L6iQZCSaj7o0KljZ3Oj3cn4H4fuaEsSeaGT0F/D+txC7WXLEelWnojY7gcm0uXjFq4k27+nZn3qO6pzgD38fRX3CZ3lgYQUrXKy5eM4jqFzHoiSGaWh5UTNVcGvnW3o6p8KIFmXeMtqYBwmpg1i2a/6pLrWkHYNqiyC8LaVpDL7t2z3lDAOGFkHcMZb5az5Hb+Exomc+EecyMB5YaDdBTiB0UO93sJTmnkjubvIV0Q4eGoehA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C6enbWSkhgXZ7JP4RO+kyuvVz/QWsfPC+QLqvfkCd5A=;
- b=IgjFBD4BaKa0ubps9nvBEKyCOb9U5MqiCuGFblKMZp+7x/hR91fQbN6D+l/FJDsxr0LkBYwUPjWMlbcc2IJkDNmODlppkYPpIYzKSTJgaiZZ4I538KykhsaZto3a8TM1kNU8th+bQAkTLGP96lfPyrldoFPmgUJ9omk8RXdY2FlRaVM+G9EPUWDUzuZfM/mDARX4SfIk3MvCC0Km7uQBmpkWCvSDAo7vEHLnABlN128cFM6PYAs5DtRmLgm+1lZV/ekzwAlmH6PIrDcy0CoqGhENPjau+0xbb1kpVvbRUYQz7BEw6B0Hy98haPBszFBq/2SGGxngFPACz/YEQQxLYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C6enbWSkhgXZ7JP4RO+kyuvVz/QWsfPC+QLqvfkCd5A=;
- b=BsuHFxDR8Af05HCSHUt3VB9hnbozCJg9dkXQtXOvZBWhORRExHW4RHQgn7TikgwVh6TOlJ5vSgoYJ3PmXEoLFhbFZ0nsGS+FzKNTQbrsWCBNEjyM110xcHw7UKRAVIvRUaTtTeRNLYc2TvKgNABvKsvCByxDJYNDxtaoOeVxWSI=
-Received: from BN0PR04CA0096.namprd04.prod.outlook.com (2603:10b6:408:ec::11)
- by DM6PR12MB4451.namprd12.prod.outlook.com (2603:10b6:5:2ab::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
- 2026 11:20:26 +0000
-Received: from BN6PEPF00000073.namprd03.prod.outlook.com
- (2603:10b6:408:ec:cafe::38) by BN0PR04CA0096.outlook.office365.com
- (2603:10b6:408:ec::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.16 via Frontend Transport; Wed,
- 23 Sep 2026 11:20:26 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN6PEPF00000073.mail.protection.outlook.com (10.167.248.200) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 11:20:26 +0000
-Received: from airavat.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 06:20:23 -0500
-From: Vishal Badole <Vishal.Badole@amd.com>
-To: <bp@alien8.de>, <yazen.ghannam@amd.com>, <tony.luck@intel.com>,
-	<linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: Vishal Badole <Vishal.Badole@amd.com>
-Subject: [PATCH Intenal 1/2] EDAC/amd64: Add support for AMD family 1Ah models 80h-8Fh
-Date: Wed, 23 Sep 2026 16:50:02 +0530
-Message-ID: <20260923112003.3677719-2-Vishal.Badole@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260923112003.3677719-1-Vishal.Badole@amd.com>
-References: <20260923112003.3677719-1-Vishal.Badole@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eqUA7PDy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 753231F00899;
+	Wed, 23 Sep 2026 11:20:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790162434;
+	bh=T2qpMYdJaz4fAIUSyChAch/nEGjd4wrkfVeBx+WLlqE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=eqUA7PDy7+NmO2fWXgUCRHcoL1aj0mu7vVZbrUFneUJJPmUViNaxyE8PJHIGrPZE2
+	 9n9iqQHrvoL62Kl/NT0aYPUgPpVaeyliUeCz2vSWumqe/atTO/49JC7WOOJmCFgwHY
+	 SuMNbNxXgRR1u1CAXxK9vqVkFSzR2UEekJh+lsaewxP5/wMtTjFJRA4xXTTqp4RAyj
+	 x/OeR5zlFZRPdsS2hm+RasuEnMhYgHxzxaUj2mVV+uY1mKxM9kgtVH7VYXWhV7YCTw
+	 gXWF7hnk/6+zaIqacb5EF1hM0zzkfQGUmqZ9En+UTSOxscNRAzmk2ySFf05tQGqKsc
+	 BusVO1RhbN62g==
+Message-ID: <7f6eb404-8139-4208-88eb-03ea8a4bf3a9@kernel.org>
+Date: Wed, 23 Sep 2026 13:20:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN6PEPF00000073:EE_|DM6PR12MB4451:EE_
-X-MS-Office365-Filtering-Correlation-Id: 27c10d04-7a17-4ae4-7602-08df1964ab23
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|23010399003|22082099003|18002099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	HyZHXyq5fwIVtCD1sENxIv99ta3BdKWiio7usK6wpCi66tDuV5fubEo9F0fDdBOhXZes0UfCmV5/5UmyfVv0rNFJaBFeJvkfsLww/AWYGBkIjZWLIjS+jnUNJNULhbDkKS02xaXA5AUr1JaSg3+UhSY1ix8pwwqJwGQ/efEj01aaMw+0srtrqqUstyVaxYu87k5EednT8ylzWYAxmOY2cza4ZTdXjeTI5APOTISEQxe87O5zkfb+qTzQa7oDha4VaY3h083ZeiGrT8EcOoAYZfb+UUL9tuFYce2Xg/63OGIIs/xhsGxQS/7qHZ69idSMTSxshAYOlalhKfUz8QqSSojd8hiLcByZ9igMMf4UWwXcLXn2M3bfjX6oUxuGe70NPhxBQGg0VLxdcJUSRF9Jy/Cg9rXNC7pM2U77z46ARhp/e4ucxkATe3vyXF0N7RFIPbBoLfA6s0TXW6DUbDA+hRC0rvrrQLRtLEOr1qjwlo+KRYVOOvsMEnbTtXBRS0OzNwwP54rh2jx3QDy3AlUbsqZOLM5F+m5SA2ZSayzqPFZux4bDhacJOgRjH952AV/Q+KwGKGWjm1uSOZuRGXELyJ+hTbPzFdnAV5QYRpUY80mWJu94afzLfj1Vw4R1Nbc/3XtZjD9kOoRYRd0e8oYSgfwUc28Lgb1k0Jj6ChZLGNCaiZxXM1yxJIksPaqV8+zm7+Q4QUZKg4nzx4+IpwTTNA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(23010399003)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LLojzfaxakvcvVpdOrMvVBIAkarjdNWya9ZHmbyXmU+p1MZPBSW6ocOyRDAcau/BlDIQVWHTz6zA2HX2Jw6aNKQqDywv+ruH0dCMJlzQ5sAW39XtRiuoOiJeodElF37atbT/3TZNqjnNPbBKSvke6ZRu17GkqErkFLiLxhlRRrIYFelWmsba+Zw7wjpyqgt0oB7EYQxo5UPE1dJ0/goFbLwL9bO31qztCOOPB1uq6e9BaeJOK+Db3g3K0jh45fY8A2RXFzZt1/u6Ulf0X+9uYF2RKe8cO2O5Ya7tCcNwYIkQQ3qhs+vPeWgDEuqXCQmpx63mDgZ5UGPiSsOY9ukxl3FIRBZhzPXV3S1fuiiMev9Rpvj5ibE5FWNubtq5faok6p63sEyo49kvsiuI6tWXsgcf3yjht7tyUVeX8DAAN6v+zPQfnsOt1ryLIidiMNSD
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 11:20:26.8124
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 27c10d04-7a17-4ae4-7602-08df1964ab23
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN6PEPF00000073.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4451
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND v7 11/29] mm: split PMD swap entries into PTE swap
+ entries
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
+ kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
+Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
+ willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
+ riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
+ baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
+ lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
+ shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
+ luizcap@redhat.com, kernel-team@meta.com
+References: <20260914122950.3283997-1-usama.arif@linux.dev>
+ <20260914122950.3283997-12-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260914122950.3283997-12-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Add support for family 1Ah-based models 80h-8Fh.
+On 9/14/26 14:28, Usama Arif wrote:
+> Once a PMD can hold a swap entry, everything that splits a PMD - mprotect()
+> or munmap() over part of the range, MADV_FREE, a pagewalk with no PMD
+> handler - has to be able to split that entry too, or the callers that rely
+> on split_huge_pmd() to hand them a PTE table would find the PMD unchanged.
+> 
+> No reference counting is needed: a swap entry pins no folio, and swap_map
+> is already one per slot, so the PTEs simply take over what the PMD held.
+> 
+> The migration-only entry point cannot reach the new branch, because
+> page_vma_mapped_walk() never hands back a swap PMD for the folio being
+> migrated. Warn if that ever changes, and force the regular split anyway,
+> since the branch leaves folio and page uninitialised.
+> 
+> Test the pre-split old_pmd rather than re-reading *pmd in the trailing
+> folio_remove_rmap_pmd() gate, so every entry-type test in the function
+> interrogates the same snapshot. That part is cosmetic: pmdp_invalidate()
+> leaves the PMD present as far as software is concerned.
+> 
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
+>  mm/huge_memory.c | 36 +++++++++++++++++++++++++++++++++++-
+>  1 file changed, 35 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 873887aed0bc2..0e347a545588c 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -3304,6 +3304,21 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+>  			folio_add_anon_rmap_ptes(folio, page, HPAGE_PMD_NR,
+>  						 vma, haddr, rmap_flags);
+>  		}
+> +	} else if (pmd_is_swap_entry(*pmd)) {
+> +		/*
+> +		 * A PMD swap entry has no page, so it cannot be turned into
+> +		 * PTE migration entries.  page_vma_mapped_walk() never hands
+> +		 * one back for the folio being migrated, so this should not
+> +		 * happen; warn, but also force the regular split so that a
+> +		 * broken invariant cannot make the code below dereference the
+> +		 * uninitialised folio and page.
 
-Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
----
- drivers/edac/amd64_edac.c | 4 ++++
- 1 file changed, 4 insertions(+)
+I disagree with the force (and the comment). We cannot make each and every
+assertion that never happens (unless someone messes up real bad and would find
+this during early testing) have recovery code.
 
-diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
-index c6aa69dbd9fb..ff0ebc8e15f6 100644
---- a/drivers/edac/amd64_edac.c
-+++ b/drivers/edac/amd64_edac.c
-@@ -3900,6 +3900,10 @@ static int per_family_init(struct amd64_pvt *pvt)
- 			pvt->max_mcs            = 16;
- 			pvt->flags.zn_regs_v2   = 1;
- 			break;
-+		case 0x80 ... 0x8f:
-+			pvt->max_mcs            = 2;
-+			pvt->flags.zn_regs_v2   = 1;
-+			break;
- 		case 0x90 ... 0x9f:
- 		case 0xa0 ... 0xaf:
- 			pvt->max_mcs            = 8;
+The real bug would be calling split_pmd_to_migration_entries() with something
+unexpected. See my reply to #10 where we bail out earlier
+
+
+> +		 */
+> +		VM_WARN_ON_ONCE(use_migration_entries);
+> +		use_migration_entries = false;
+
+Can we just have on the beginning of the function a check that
+use_migration_entries is only ever set on present PMDs or device-private entries.
+
+> +		old_pmd = *pmd;
+> +		soft_dirty = pmd_swp_soft_dirty(old_pmd);
+> +		uffd_wp = pmd_swp_uffd(old_pmd);
+> +		anon_exclusive = pmd_swp_exclusive(old_pmd);
+>  	} else {
+>  		/*
+>  		 * Up to this point the pmd is present and huge and userland has
+> @@ -3440,6 +3455,25 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
+>  			VM_WARN_ON(!pte_none(ptep_get(pte + i)));
+>  			set_pte_at(mm, addr, pte + i, entry);
+>  		}
+> +	} else if (pmd_is_swap_entry(old_pmd)) {
+> +		const softleaf_t old_entry = softleaf_from_pmd(old_pmd);
+> +		pte_t pte_swp_entry;
+> +		swp_entry_t entry;
+> +
+> +		for (i = 0, addr = haddr; i < HPAGE_PMD_NR;
+> +		     i++, addr += PAGE_SIZE) {
+
+Just squeeze it into one line like the other instances.
+
+> +			entry = swp_entry(swp_type(old_entry),
+> +					  swp_offset(old_entry) + i);
+
+Didn't we have a helper to advance by a delta? Ah, yes, pte_move_swp_offset().
+
+I guess one could construct the initial pte and then advance one by one through
+pte_move_swp_offset(). Won't remove a lot of code, though, so just a thought.
+
+Apart from that LGTM.
+
 -- 
-2.34.1
+Cheers,
 
+David
