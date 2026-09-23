@@ -1,157 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38864481FC7;
-	Wed, 23 Sep 2026 20:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60DEF481FC7
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:59:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197171; cv=none; b=nnY3qx8I+0qB94cIaqshijlJDKX13aCEHWiqFo9G7jIxpFmxjRjAvL7e0/ZzSeHhr1JJemubo7viGr8BDf65XSOn0Cut7AfZgCc6RDVh7mdCUHwHeHGgwuAafLRQGLS7D0ZVQ0nlEhfnzHcmO1/p0FnJfyiapjINTXESVGFFZjU=
+	t=1790197176; cv=none; b=qsxwIrCDtZP7+RTpFuZT7L2mB7Px3S7N8b1pUO53cWfiQeywHnRNU7JpDl5uHzohZbTU9tmF57nz6MSl5Z3sswBAHLJLvuFUnqbvgVFumsFf2pLaCeMNZNGJLxF9cSDfZ79sEmBt5HXzd7vbRaNSw5VtNmvUkE2JlXh4euzVQa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197171; c=relaxed/simple;
-	bh=XjLg0A25jRw5IumqJVTczAk25TCLJcI4jyt9XoU+w/0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=EDZw1lyD64iYKOzh0IKfVVaxhx78D3XP30jLFINhxcnrATmwtdxEFx7iN9O/bNTfW9HCHHN6x5a738cvKyGMiRRJkBqndZEfit+P46LUZWOGimvhGDQu2Tp5wu0g+I+p95QxtDbmcCmqmmDRdpsRLNlj7fdcCAX2vCNmiu+iN6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QqomW+yl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790197176; c=relaxed/simple;
+	bh=KgY8MHecWP1QTzvk8/yhoISCx0XO/mUI+M+KPqGjYxA=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=gOaFHd1f2kBHUjG3jz4/GhWhpwQFdqjeL9JltuvFoBjatpOVLHGbaJAHnElr8qx44Hp1eGTly3eI5KDf7lMOFC7lqKshEElH6KWq1aMuKMfqn0I8kbfub5IYnLGXkdG8S3UXjteAmb0gqi5KDmzsGSxQBM2vsdsWo9ndKZ3HSxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A5SkMJm/; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QqomW+yl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 602181F000FF;
-	Wed, 23 Sep 2026 20:59:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790197169;
-	bh=IEdNn3aUwe4HImBS9dDjkJ7weHk8oU+emztUHcnANtw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=QqomW+ylpw/PDwHN9aiavnvl81CPHF9/3wUqB+c4utej/ylTCBDXi9PwjpqywO48f
-	 qpoH7O7V2ClBBAc6veRhtMn+YFtMQU57vfRRpftyeQqjMJfAsiI9koqG0HNVwhCxgx
-	 R2GvCdoiPC4W9beZtTMPNobd5zj6RbzdrEwxEVKM1eZUatzQEvrfrNBVdeiQPs/LpV
-	 DwdHrQgMIQpCmpB/94BNzCIP6mSvzojtmhqdzFOsMOPHldJz4VxIcOTMjPZNGq7I+K
-	 PLTTmlIUxjLF+suBD4fBrd4SJ3YFZXArduF8R+tUZnRjDKVw2i5gzgIa3K7+IjzRot
-	 egDJ2t3wrj7MQ==
-Date: Wed, 23 Sep 2026 15:59:28 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Alexey Kardashevskiy <aik@amd.com>
-Cc: x86@kernel.org, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-pci@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ashish Kalra <ashish.kalra@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jini Susan George <jinisusan.george@amd.com>,
-	Kees Cook <kees@kernel.org>, Michael Ellerman <mpe@ellerman.id.au>,
-	Nikunj A Dadhania <nikunj@amd.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Eric Biggers <ebiggers@kernel.org>,
-	Kim Phillips <kim.phillips@amd.com>, Joerg Roedel <jroedel@suse.de>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	"Tycho Andersen (AMD)" <tycho@kernel.org>,
-	Liam Merwick <liam.merwick@oracle.com>,
-	Michael Kerrisk <mtk.manpages@gmail.com>,
-	Suresh Siddha <suresh.b.siddha@intel.com>,
-	Xiaotian Feng <dfeng@redhat.com>,
-	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
-	Andi Kleen <ak@linux.intel.com>, Kiryl Shutsemau <kas@kernel.org>,
-	Tony Luck <tony.luck@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Lu Baolu <baolu.lu@linux.intel.com>,
-	Xu Yilun <yilun.xu@linux.intel.com>,
-	Carlos =?utf-8?B?TMOzcGV6?= <clopez@suse.de>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
-	Ian Campbell <ian.campbell@citrix.com>,
-	Jeremy Fitzhardinge <jeremy.fitzhardinge@citrix.com>,
-	Petr Tesarik <ptesarik@suse.com>,
-	David Howells <dhowells@redhat.com>,
-	Haavard Skinnemoen <hskinnemoen@atmel.com>,
-	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Ilias Stamatis <ilstam@amazon.com>,
-	Sumanth Korikkar <sumanthk@linux.ibm.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	Toshi Kani <toshi.kani@hp.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Jiang Liu <jiang.liu@linux.intel.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Kefeng Wang <wangkefeng.wang@huawei.com>,
-	Palmer Dabbelt <palmerdabbelt@google.com>,
-	linux-coco@lists.linux.dev, xen-devel@lists.xenproject.org,
-	iommu@lists.linux.dev, linux-mm@kvack.org, aik@ozlabs.ru,
-	Santosh Shukla <santosh.shukla@amd.com>,
-	"Pratik R . Sampat" <prsampat@amd.com>,
-	Scott Soule Cheloha <scott.cheloha@amd.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Fuad Tabba <tabba@google.com>
-Subject: Re: [RFC PATCH kernel 02/17] pci/tsm: Fix stale comment about TDI
- report range start
-Message-ID: <20260923205928.GA1942391@bhelgaas>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A5SkMJm/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790197174; x=1821733174;
+  h=date:from:to:cc:subject:message-id;
+  bh=KgY8MHecWP1QTzvk8/yhoISCx0XO/mUI+M+KPqGjYxA=;
+  b=A5SkMJm/oQZeYwmmQpxW6oOoCE+KHHqre+ZCqqG2cK6jfM+bY0e8kntC
+   BOJKsP365QgG5GpIG+Kks7gWGcJMHwUKmU0oxTQVdBCVxm2M7Zmt0w8ix
+   ZxGHFfwsa0e4++81M0UPlkrFN32yHNKF5jov2q8aCQVzlVmZ+sVHLGE03
+   /HAJX7/X/Y6x+iIxqJYC+cN7otxNkuLoBviH63sAEkuLNiBC6qYItohCe
+   xu3+UD9U2dWHFCZJuVDi/dQut6/e1tc3uB1qAM2sseLvoPWmug+OzAY2h
+   Mx9ii5854i4crpxNlFUUIk8GZUc8voobTbqU+o3mZxZQBuWLIBWDuftlF
+   g==;
+X-CSE-ConnectionGUID: 3zB2LZVaRr2fq/u7gLpylw==
+X-CSE-MsgGUID: FDU9K+dASySLJAKiC6xtEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="101517863"
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="101517863"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 13:59:34 -0700
+X-CSE-ConnectionGUID: ffsSfDmkQWeTXwSdeSJnDA==
+X-CSE-MsgGUID: VgTrJ3g1SqqX2fobck6gfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
+   d="scan'208";a="4867264"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa011.fm.intel.com with ESMTP; 23 Sep 2026 13:59:33 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x9U3t-00000000HjS-3lhD;
+	Wed, 23 Sep 2026 20:59:29 +0000
+Date: Thu, 24 Sep 2026 04:59:25 +0800
+From: kernel test robot <lkp@intel.com>
+To: Eric Dumazet <edumazet@google.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>
+Subject: include/linux/jiffies.h:449:36: sparse: sparse: cast
+ truncates bits from constant value (7fffffffffffffff becomes ffffffff)
+Message-ID: <202609240410.96llJ8tB-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916115159.1938195-3-aik@amd.com>
 
-On Wed, Sep 16, 2026 at 09:51:42PM +1000, Alexey Kardashevskiy wrote:
-> The PCIe spec r6 and later defines the MMIO range start in 4K units which
-> was not the intention. The upcoming change makes it a byte address.
-> The structure is already fixed to match the new definition but the comment
-> is stale, fix it.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   fe2ec83746e501645709761605c2464a44fd2929
+commit: b777b5e09eabeefc6ba80f4296366a4742701103 time/jiffies: Inline jiffies_to_msecs() and jiffies_to_usecs()
+date:   8 months ago
+config: x86_64-randconfig-r1308-20260923 (https://download.01.org/0day-ci/archive/20260924/202609240410.96llJ8tB-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+sparse: v0.6.5-rc1
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609240410.96llJ8tB-lkp@intel.com/reproduce)
 
-Please include specific reference to current spec, e.g.,
-"PCIe r7.0, sec x".
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: b777b5e09eab ("time/jiffies: Inline jiffies_to_msecs() and jiffies_to_usecs()")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609240410.96llJ8tB-lkp@intel.com/
 
-I'm not sure who's intention is referred to here.
+sparse warnings: (new ones prefixed by >>)
+   drivers/gpu/drm/i915/gt/intel_engine_cs.c: note: in included file (through include/linux/ktime.h, include/linux/timer.h, include/linux/uprobes.h, include/linux/mm_types.h, ...):
+>> include/linux/jiffies.h:449:36: sparse: sparse: cast truncates bits from constant value (7fffffffffffffff becomes ffffffff)
+>> include/linux/jiffies.h:449:36: sparse: sparse: cast truncates bits from constant value (7fffffffffffffff becomes ffffffff)
+>> include/linux/jiffies.h:449:36: sparse: sparse: cast truncates bits from constant value (7fffffffffffffff becomes ffffffff)
+>> include/linux/jiffies.h:449:36: sparse: sparse: cast truncates bits from constant value (7fffffffffffffff becomes ffffffff)
 
-Please make the subject line match others in drivers/pci in style,
-including capitalization.  Use "git log --oneline drivers/pci" to see.
+vim +449 include/linux/jiffies.h
 
-> Signed-off-by: Alexey Kardashevskiy <aik@amd.com>
-> ---
->  drivers/pci/tsm/core.c | 1 -
->  1 file changed, 1 deletion(-)
-> 
-> diff --git a/drivers/pci/tsm/core.c b/drivers/pci/tsm/core.c
-> index 9ac216ad896d..2a18be5be56e 100644
-> --- a/drivers/pci/tsm/core.c
-> +++ b/drivers/pci/tsm/core.c
-> @@ -623,7 +623,6 @@ EXPORT_SYMBOL_GPL(pci_tsm_mmio_teardown);
->  #define PCI_TSM_DEVIF_REPORT_MMIO_ATTR_IS_UPDATABLE BIT(3)
->  #define PCI_TSM_DEVIF_REPORT_MMIO_ATTR_RANGE_ID GENMASK(31, 16)
->  
-> -/* An interface report 'pfn' is 4K in size */
->  struct pci_tsm_devif_mmio {
->  	__le64 phys;
->  	__le32 nr_pfns;
-> -- 
-> 2.55.0
-> 
+   433	
+   434	/*
+   435	 * Convert various time units to each other:
+   436	 */
+   437	
+   438	#if HZ <= MSEC_PER_SEC && !(MSEC_PER_SEC % HZ)
+   439	/**
+   440	 * jiffies_to_msecs - Convert jiffies to milliseconds
+   441	 * @j: jiffies value
+   442	 *
+   443	 * This inline version takes care of HZ in {100,250,1000}.
+   444	 *
+   445	 * Return: milliseconds value
+   446	 */
+   447	static inline unsigned int jiffies_to_msecs(const unsigned long j)
+   448	{
+ > 449		return (MSEC_PER_SEC / HZ) * j;
+   450	}
+   451	#else
+   452	unsigned int jiffies_to_msecs(const unsigned long j);
+   453	#endif
+   454	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
