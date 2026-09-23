@@ -1,102 +1,129 @@
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8448713D53C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134C43803E9;
+	Wed, 23 Sep 2026 07:04:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147068; cv=none; b=J4WiiBtK0iEiSo1Vy64xaeaSCfo/KSUATbXlKHBEy4u0nJnNai1b4yywCjsLhMOn1CPKFksDza61OJJjo1kVcqOnC7V0RqH+xYM872bcZ4gTlCFnqHx04AhQWiDOruTXMRiXeFWdexgtXQrpgs8KLLg90RCL6S4/p02AhEDdlNw=
+	t=1790147090; cv=none; b=I1ZnsI2EcJFkk9MzTxVMGvEz0BK2Nedk9Ay2MFeUDdpE0QK52AXGde87rcrGNOka2MGQYTeJsdEj8gTYD26Fzu5hUb7cg+TLPFajn0RrDYPRLJ4eJ63S0lI9x06efMKPKbtWRQ0Df3PsGDO3I4C9DXVOgdoKWJ1yvUKMN1/obU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147068; c=relaxed/simple;
-	bh=ykxKnSBJcsvvZwLLY6xuHQabaFPv1CdXP69zplrPXIo=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=hWjadP/tU/BcVrltPbeJvC+zLBDwgniqdbObN6EIrylXPmxW2hiP88eMAHdl+efS5qr4/KisueMcl4625uBaELiwW1vTRvLFhZ2VJMH8uEYOUuDqHYyPVo589Ox+LWjpENpm2+Pdsb0TYb+7GDrg+oe7sv5Esjpij4Ykp/YIbs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=mve9PMTv; arc=none smtp.client-ip=113.46.200.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1790147090; c=relaxed/simple;
+	bh=fCyshOxPXkFEeMlzi8xkK2UXp9YDkuXLHcY24xSqgDk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XWJxH8EXOiFuYH/TLajBGwd39thYmeyLpj24cBYvCTXkUbLdhgJfH3/qnRqdEA/DwU1Jv56fr20I6M1s4D1XEV7GyPTdIqFG0U70It0x1x0MSZKocUxN5Hfmxb2su62ZDk2kQnzJ6s2Q8Hj4KfnGr6Wahb2Qv90PijRxVHbxIdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H8oyDQGw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="mve9PMTv"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=u+h8E1QKWSZDpJwCxpdRnKnG35J6P/3C8VA+1n19Xdo=;
-	b=mve9PMTvFtE9KLyj5595nFR4Gtto9AwDKfJyqHeyAf2Z5gmF2V+oK13d05KTmeo8cHGCgkNw1
-	bvfUaY+nCurpYTXQjccE5JvOXfxR6PG+JLnTh/gXjcAJHh9hbVrKXnbddAhxGgMEpFko9NPS1Ih
-	/sCZMYdlM8xHZJQomv5DbmE=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hqSLw4T89z1K9B2;
-	Wed, 23 Sep 2026 14:52:08 +0800 (CST)
-Received: from whupemk100014.china.huawei.com (unknown [7.152.184.20])
-	by mail.maildlp.com (Postfix) with ESMTPS id 181C84055B;
-	Wed, 23 Sep 2026 15:04:14 +0800 (CST)
-Received: from [10.67.121.110] (10.67.121.110) by
- whupemk100014.china.huawei.com (7.152.184.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 23 Sep 2026 15:04:12 +0800
-Subject: Re: [PATCH v3 11/13] crypto: hisilicon/sec2: Remove check of
- CONFIG_CPU_LITTLE_ENDIAN
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
- Biesheuvel <ardb@kernel.org>, Eric Biggers <ebiggers@kernel.org>, Daniel
- Borkmann <daniel@iogearbox.net>, Catalin Marinas <catalin.marinas@arm.com>,
-	Alexei Starovoitov <ast@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	Herbert Xu <herbert@gondor.apana.org.au>, Marc Zyngier <maz@kernel.org>,
-	Chenghai Huang <huangchenghai2@huawei.com>, Weili Qian
-	<qianweili@huawei.com>, Zaibo Xu <xuzaibo@huawei.com>, Kai Ye
-	<yekai13@huawei.com>, Wei Zhang <zhangwei375@huawei.com>
-References: <20260918145217.1669-1-will@kernel.org>
- <20260918145217.1669-12-will@kernel.org>
-From: liulongfang <liulongfang@huawei.com>
-Message-ID: <0c929b0a-8d92-2d2c-79c2-4d9f7c0c29e5@huawei.com>
-Date: Wed, 23 Sep 2026 15:04:11 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H8oyDQGw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0130B1F00893;
+	Wed, 23 Sep 2026 07:04:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790147088;
+	bh=oz5tjSOW6xs6i9tD5UOCcck5s2CW+80N4Q8wcMKT5sM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H8oyDQGwjdSkW3glHIqkT28nkitvMUMujDtTwYtl7NQTMOYKIQgyBXIBx/3pBcxQp
+	 OQx1IfM7QGlBJelJ3xjxNUlH8jpNUFnb0na487Y1eI8TwCVG7O+g9eVm696P4c9Lkn
+	 aCl/OQhO8JIKOOGyXPjrtfuqIh3bXqO1m3IPe7xySJze9zoxTzoj9eqsqbwfNB2PPf
+	 KZLSxApcdSOpZNedomZsma7BVhAHXnP9rgV0Ce68rLQVaFKnh48hNKmYa63LQnOWUm
+	 E0o5KeQEcNqrGDR/FBqK5/X0rFNwJJhXI+RvWEPR42lgPqvGO9/t+gXs/3Tt6R2T/G
+	 9FzYEi/Z4AjuA==
+Date: Wed, 23 Sep 2026 08:04:25 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Brian Cain <bcain@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Dinh Nguyen <dinguyen@kernel.org>, Simon Schuster <schuster.simon@siemens-energy.com>, 
+	Jonas Bonn <jonas@southpole.se>, Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+	Stafford Horne <shorne@gmail.com>, Rich Felker <dalias@libc.org>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Russell King <linux@armlinux.org.uk>, 
+	Vineet Gupta <vgupta@kernel.org>, Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+	linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+	linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 00/12] mm: make userland page table freeing RCU-safe
+Message-ID: <arN3iaw7VDIA-bWf@gremlin>
+References: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
+ <20260922160021.a2fc65d05d9b867a141e5457@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260918145217.1669-12-will@kernel.org>
-Content-Type: text/plain; charset="gbk"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- whupemk100014.china.huawei.com (7.152.184.20)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922160021.a2fc65d05d9b867a141e5457@linux-foundation.org>
 
-On 2026/9/18 22:52, Will Deacon wrote:
-> The hisilicon "sec" driver targets arm64 but can be compile-tested on
-> other 64-bit architectures. In preparation for removing the definition
-> of CONFIG_CPU_LITTLE_ENDIAN for arm64 (since it will be little-endian
-> only), invert the check in sec_set_endian() so that it behaves as
-> little-endian by default.
-> 
-> Cc: Chenghai Huang <huangchenghai2@huawei.com>
-> Cc: Weili Qian <qianweili@huawei.com>
-> Cc: Zaibo Xu <xuzaibo@huawei.com>
-> Cc: Longfang Liu <liulongfang@huawei.com>
-> Cc: Kai Ye <yekai13@huawei.com>
-> Cc: Wei Zhang <zhangwei375@huawei.com>
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  drivers/crypto/hisilicon/sec2/sec_main.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/crypto/hisilicon/sec2/sec_main.c b/drivers/crypto/hisilicon/sec2/sec_main.c
-> index 752565200c16..03523cfbb28e 100644
-> --- a/drivers/crypto/hisilicon/sec2/sec_main.c
-> +++ b/drivers/crypto/hisilicon/sec2/sec_main.c
-> @@ -484,7 +484,7 @@ static void sec_set_endian(struct hisi_qm *qm)
->  	if (!IS_ENABLED(CONFIG_64BIT))
->  		reg |= BIT(1);
->  
-> -	if (!IS_ENABLED(CONFIG_CPU_LITTLE_ENDIAN))
-> +	if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN))
->  		reg |= BIT(0);
+On Tue, Sep 22, 2026 at 04:00:21PM -0700, Andrew Morton wrote:
+> On Tue, 22 Sep 2026 16:35:31 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 >
+> > The majority of architectures in the kernel defer page table freeing until
+> > an RCU grace period has elapsed, this series converts all remaining
+> > architectures to do so too and eliminates CONFIG_MMU_GATHER_RCU_TABLE_FREE
+> > altogether.
+> >
+> > This is important because it enables safe lockless page table walking under
+> > RCU alone.
+>
+> Do we have reason to believe that anyone is seeing any effects from
+> their arch's failure to rcu-free the page tables?
 
-Reviewed-by: Longfang Liu <liulongfang@huawei.com>
+We have reason to believe that it completely blocks other work like
+scalable CoW :)
 
-Thanks.
+>
+> This sounds like a rather long-standing wart, yes?
 
->  	writel_relaxed(reg, qm->io_base + SEC_CONTROL_REG);
-> 
+Not really, if you read the cover letter you can see the history of people
+working on this, this is the final piece of the puzzle and despite the
+rather muted reception this change is a big deal (TM).
+
+>
+> The patchset is thinly reviewed and mm.git is bursting at the seams
+> again.  I'll play wait-and-see on this series.  Feel free to cluebat me
+> if that's a bad call.
+
+Err, Kiryl reviewed the entire series, I sent it in -rc1 of this cycle, and
+it's been in -next forever?
+
+Lance is reviewing now, presumably maybe David will review based on the
+fact I updated on his feedback to _expand_ some functionality here.
+
+So I'd argue this is contender for one of the top priority series for this
+cycle, actually! [and is CRITICAL for my scalable CoW work, easily the most
+important this cycle]
+
+--
+Cheers, Lorenzo
