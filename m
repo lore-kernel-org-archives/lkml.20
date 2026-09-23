@@ -1,64 +1,64 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1EF57D236
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:11:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA29E580389
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:11:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194269; cv=none; b=b3Mp7kFZ4agB5OpRrZPFQkr8Wkf1fpXnqdT5sNqCr2XuS6jau8E+liG7B0DMHMvPSDo8OYD/1KrreTTSuqPSeZvWWaJzm2XJ3uilB9OU2dVnCldxEYvIi6c/GnBTm5n25bxM2GMvgOuiQP6XbbgQbLZAUM5vxty+wnhHBvVWv1g=
+	t=1790194274; cv=none; b=syeaX4jPUnfAJdK4Y/4791E97QotCXJvtI2Ggd7Cb97MEncWpTSF5Peml7UbTRfwsOmSBR6D+RVQOxBVvvIE1agb9tEINcd2ntCaU1xJH+qidX6qU0dwPBkWKDbFg494RkT2iQH6EObGQJi81PHQXlcfVaAIJOETpqvVidjNiMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194269; c=relaxed/simple;
-	bh=mFQyvIj6reChEL67BBSeB3Wkx8Rn724plptNKQo7mR4=;
+	s=arc-20240116; t=1790194274; c=relaxed/simple;
+	bh=zt6hSECodB5WF8/06/9r9WG9bP75OayoZGseUD1mFAM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=c+Ri38ysoRKHRiVOrkNJuBr+5D+N3yC71yHUBpfwPI8+MfS0gNPxhmXDxIZdK3uhC0lzeaf8lLP8LEwFar/8Pnta/D7evcLKYFN8UhhH/s2ME3HPa/Bywl585Hjujj3Hd9aWyZxkRYlCKgogYDM4QCXGtvJDKZp1BAcNqwZWwzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kegrsdY2; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=pfwh7ZK/Xwmidp3f3jHsnf9deLGrg8/pry/esLXFvmqHgXZQ0LEDvdbqHNFswsiqiS5rtji901g2Ysy1QJEIiZgFMGvkvC8ZABGi/9/mgrLY07yHNj0D0TGij4rizbCUBF0si6V0evYj8tgOddwC55vq+reuzpYTQe3UCJxX/xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FP/hOT9t; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kegrsdY2"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d8239so10040595e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:11:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FP/hOT9t"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccfd61ecaso10694885e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:11:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790194260; x=1790799060; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790194255; x=1790799055; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=i2OOLJKEASfUrtwVJ4InIXktjShhe/Ob36b0n3ix6zY=;
-        b=kegrsdY29H3k5aBzxWO5TR8bqhrk0Ehn5vBhXEH3OFigqwq4fKZuPpBC+J5nrVrjXd
-         WhOBriRfHAVO12QYu00mqbIyFT16BJzBOEF0zd9fEiyKcjmoBpVZJOMWCsYFE/r+RDoD
-         7NLIKXRnBNN/Btp3CDSYDh3zrbMJaihfD0OXXwiFJZzLx8dNbnHMlYpsJ7ElBvw2Q7mC
-         S7WLKLqHHawbb+DuyeVgaDGlc8vLU77ffI/T4VID1A9BrE4UDKv8FuG20lLyO2oUyJc/
-         Zbyuqy2zXgQBH28JEVGy/OjlA+W45LcTLjQMDSsD1F1sOEKMcC9+E3sA9LBD74w2Nahl
-         ddMA==
+        bh=Z5ud7C6Q7hzdhSrMZ0UnmI/lSmzd22+sOaMu+2pIMXc=;
+        b=FP/hOT9t6AENCmlVY+cwKC4aAhbgY1oTXmFtvmbMalrBfTFIwSYrWTjC3mmyp5fMDG
+         sfd152MN9mHGHdxNrUcry6+dxCZGE2qOjXtYzt1dRQFIoguCn2BvHTvccqGHHOERy3WL
+         Qx1OWyrN74/exQ73vnY2PFK7qKDsB2o/NChi/Bpgseiub/O/V1v7eDgY8p8NJc9hktFW
+         8JSl5ZsG8oRUTWGwSU6cWNj3FAqkJsgARvHL82vtzYp/cD8acdnKA2B49UngI3XAEr95
+         QYxgwLnl1+IKPzu5yD5t7Y5gwxbXhaWjz6kobA1+DDv9SnVdnd1FUHpoHysY/3r8hKEH
+         nyVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790194260; x=1790799060;
+        d=1e100.net; s=20260707; t=1790194255; x=1790799055;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i2OOLJKEASfUrtwVJ4InIXktjShhe/Ob36b0n3ix6zY=;
-        b=bs/ku1wORBQ7LFfe2JUxmpPyDfXTWXZP2yUsJnHgHEMQ8KVBqvR7atm5UycaQFm/zf
-         ebFTJyw1y5PVAD3GBMMUhH5aVu/sXoSWEbNkmqOLPRc7OdKjpvLgkr4S3dM1BOIbSDW6
-         Y5oySRtWlAcbZhPFjXYAbsItxXQoKaJHEJzUEVJSBYf63UsvxQgpWfb45UKC0TVUxqDb
-         ZzzhmDjWGpiSTfUZH8jjMtGbpfVK3g+M7jIAwHE/dZkyTaTwwwOJ6eVfUKbDKZ7Nm5c+
-         6475rkTJ28Dq+EkZC/XO+M8dE6nPtgXAQqb9M4D4HP9IpVe1ncLD69b8pBnm2sAb/7p8
-         TTIw==
-X-Forwarded-Encrypted: i=1; AKwUvBwwCsNZSxQdeTn93+SfyzeKVFzUw3vHDleeyR8vzriK1XqEFG/Nl+ThI78vianxiPiHYcn5o5zWAliZnwI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQC/LGLNZ7AxmsLav3dgcm9vkeI+IJnNqFGLxjBglK2pM3dLEc
-	J8HIdfze58o+mbuqto/8ihZO59m7lXj19Ev+NqjqyX7a2yxAfBPSlOmB
-X-Gm-Gg: AYBFou23fnCAmYlgdGMKnLvHJpvaZOipteitnJiGErf1Ei+g/ry/CS1sXXzkAeoiawH
-	cI+M7Mf/M5fSVdJmmQVwyKLGB1S22cx3OsnyjhNybAvtp4UcEnp6+aEsvpIjhy8PQ61MXhm1B+E
-	82/Bp7j5EXJr5BgDUxLJFECg02hoa+Dkd2BlRPS0g90J9OxWdQYxIH29QQLPEU9GZobk7aFeAI5
-	UlTRscxR+p8QIdsDZDTTL9Hxe8QcZAMSULl+NeDMF2Pbvjdz7bYYlR0vx2LNjQuPZHjVFDbx3Oh
-	Ns+QmKD6aK9j+TWEWtQqxA92Eo7PKG5sa52XTaTt+sDaheoAwEeGB3ksw046+MePtFEMTPAt9Xx
-	rFlnNu/Wb1PfHdhZcEeyzNPv7bVmyDfDYAqI0sJHAVyGjJBKchEZ0yhCtgxeCpwsWzi+cTdX/ZR
-	FjF/sMMWNCU0dg4FPM1JCS8P+4KGMDYOmbrS3xSY0odhx5TXXSbwnFSfimJTqp4bGw7VLl2UIJI
-	DiHQM0guu6/0llot5sQSbrs0owvKG4X0UA=
-X-Received: by 2002:a05:600c:310e:b0:49e:8377:c880 with SMTP id 5b1f17b1804b1-49fe6716468mr4217415e9.33.1790194260255;
-        Wed, 23 Sep 2026 13:11:00 -0700 (PDT)
+        bh=Z5ud7C6Q7hzdhSrMZ0UnmI/lSmzd22+sOaMu+2pIMXc=;
+        b=Plj6nYzWFc7THubZPdw4/542rihoCMaBRkaTmkYXdZZI0jVgbAw8NOoDtQ8K/wDEIs
+         iPLBvyEo9s+oaNdliio6FCEvVi0u8jr3EcJWzf0YZG/t8BH1uR9zEXJ87Ht+/Bl30XvK
+         Qxpgc2v7N+JXxxM5ijSPwoRn7Ov/ldhFz/6JTR3bMTk7iL/umSbsMWeRMiLikqlyDSDk
+         83OUC4fIzXsDwpgKESZp6wvjosd9b4lnUb1Pq+iWd9IhmMANBwhUaMrXoIrL59RWSutz
+         1p1E71UWblPN7QbYAnVj0ajfP6ODlm+tMAmpQLY88drKJhSQJg8iSxyqhQZNOKt0xlXp
+         R++A==
+X-Forwarded-Encrypted: i=1; AKwUvBxLQ8BHlBk6bnMnnTTezPyOmotpdAXJ27goMurJKEno9JM61NvlRY7mexCR09bpLAKBYs/0f1E6hougvKs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8KeBamiSTTLjbOKN4xa59ZqJ8419W1ifytK90oQrcQUhy1OPM
+	g2sKwo5gMcgvis8BxcNMy1+FnlZgIYwLhBVKuwNyE5cd0H9wjS4a4voN
+X-Gm-Gg: AYBFou3yUImyzv9cmekN6yLPctjxu0cdckxhrC7PSM0lDefyHoSHuTO3h8lqFlx+fw1
+	FwtmldUZa60ezHXjUSumsdQfRIBmJwfR+uo1yhBJWTTw/GEj905G0xzU4Zy1vyvRQood6Y1jkJm
+	ts3xbXqg+UpG/F88LR6Kio8UEBoONwCRv0Dq1rLapNLl2PVxnBKDLwx7cCQ9b8PuH3bgNxg9bmd
+	NkAXFM3aSek0uIwxVkdHbRTHuyn1wjMcKJGA5xTAa6i6SxQo1NS3h+vWM6+QmSr0/007afsZKhO
+	+zkhPBzWb9CPRcTJBtvkeceHwWYc66fjcitFWcp0EN7VW+Dq+lJ/wbo2/dV6RDYLmYS5VNbxd4z
+	M7q+/Oq0CMEOfRbe/NO0AQuQeQ9dBVfeN3Q/q2Gi+aou7oOkgkugyKAhlqEPw/OVXhOvrYojTH0
+	hiOX3fUDeccVzOm/BVVdgwMOCy2EoJMEh2SaECGVbA42xB5WcxHjt6YkqjgyG1eovr6molcc8KQ
+	4/NqymP8ce93GA62akR/hYt
+X-Received: by 2002:a05:600c:4fc7:b0:49e:799e:c1c3 with SMTP id 5b1f17b1804b1-49fe66f1444mr4525325e9.17.1790194255204;
+        Wed, 23 Sep 2026 13:10:55 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4c8dsm13559295e9.3.2026.09.23.13.10.59
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4c8dsm13559295e9.3.2026.09.23.13.10.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:10:59 -0700 (PDT)
+        Wed, 23 Sep 2026 13:10:54 -0700 (PDT)
 From: Max Pedraza <maximpedraza@gmail.com>
 To: Helge Deller <deller@gmx.de>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
@@ -72,9 +72,9 @@ Cc: linux-fbdev@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Max Pedraza <maximpedraza@gmail.com>
-Subject: [PATCH v3 6/7] video: logo: allow the boot logo to come from a reserved memory region
-Date: Wed, 23 Sep 2026 22:10:34 +0200
-Message-Id: <20260923201035.51007-7-maximpedraza@gmail.com>
+Subject: [PATCH v3 2/7] dt-bindings: display: add a device tree supplied boot logo
+Date: Wed, 23 Sep 2026 22:10:30 +0200
+Message-Id: <20260923201035.51007-3-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260923201035.51007-1-maximpedraza@gmail.com>
 References: <20260923201035.51007-1-maximpedraza@gmail.com>
@@ -86,259 +86,203 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Take the image from the region a "memory-region" phandle points at, when
-the node has one, instead of from the width, height, clut and data
-properties.
+Embedded products frequently need a product specific boot logo. Today that
+means pointing CONFIG_LOGO_LINUX_CLUT224_FILE at a different image, which
+bakes it into the kernel image: a change of branding, or a second product
+sharing the same board support package, requires a separate kernel build,
+and requalifying that kernel for what is a cosmetic change.
 
-Only a declared region is accepted, never a bare physical address. That
-matters for more than tidiness: the region is reserved before the allocator
-starts, so the logo code can never be pointed at memory the kernel is using
-for something else, and a size is known, so every field can be bounds
-checked. The region is mapped with memremap(), which copes with a no-map
-reservation and fails cleanly instead of handing back a bogus pointer the
-way phys_to_virt() on an arbitrary address would.
+Add a binding for a "boot-logo-clut224" node, which carries the logo
+in the same paletted format the built-in CLUT224 logos already use, plus a
+few optional properties describing where on the screen it is drawn.
 
-The image is validated and copied out rather than used in place: the magic
-number has to match, the geometry has to be sane, the palette and pixels
-have to fit inside the reserved region, and every pixel has to reference an
-existing palette entry. Anything else is reported and ignored, falling back
-to the built-in logo. Copying also means nothing that happens to the region
-afterwards can affect what has already been validated, and it keeps the
-pixel data in the same shape both paths produce.
+The node lives under /chosen because a logo is configuration handed over by
+firmware rather than a description of the hardware. Open Firmware, which
+the device tree descends from, carried a boot logo in the same spirit as
+the oem-logo variable under /options, and simple-framebuffer nodes live
+under /chosen today for the same reason.
+
+The palette size is derived from the length of the "clut" property rather
+than spelled out separately, and "data" holds plain palette indices; the
+32 entry offset the frame buffer layer reserves for the console is an
+implementation detail and is applied by the kernel, not by the binding.
+
+"logo-position" takes -1 on an axis to mean centre on that axis rather than
+carrying a separate boolean for it. A boolean can only centre both axes or
+neither, and next to explicit coordinates it would have to override them
+silently when a device tree gave both.
+
+A rotation turns the logo, not the screen. "logo-position" and
+"logo-offset" are screen pixels whatever "logo-rotation" says, and a
+quarter turn only changes how much room the logo takes up. Placing the
+logo in a frame that turns with it would make the same pair of
+coordinates mean different places on the same panel, decided by a
+property that is meant to describe the image.
+
+Every coordinate is bounded. The kernel clamps them anyway, since it cannot
+trust a device tree, but a value that cannot possibly be meant is worth
+catching in dtbs_check rather than on the panel.
 
 Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
 ---
- drivers/video/logo/logo.c | 176 ++++++++++++++++++++++++++++++--------
- 1 file changed, 138 insertions(+), 38 deletions(-)
+ .../bindings/display/boot-logo-clut224.yaml   | 135 ++++++++++++++++++
+ MAINTAINERS                                   |   1 +
+ 2 files changed, 136 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
 
-diff --git a/drivers/video/logo/logo.c b/drivers/video/logo/logo.c
-index b600fc3aab..6f0adcd34e 100644
---- a/drivers/video/logo/logo.c
-+++ b/drivers/video/logo/logo.c
-@@ -10,8 +10,10 @@
-  *  Copyright (C) 2003 Geert Uytterhoeven <geert@linux-m68k.org>
-  */
- 
-+#include <linux/io.h>
- #include <linux/linux_logo.h>
- #include <linux/of.h>
-+#include <linux/of_reserved_mem.h>
- #include <linux/sizes.h>
- #include <linux/slab.h>
- #include <linux/stddef.h>
-@@ -38,9 +40,19 @@ MODULE_PARM_DESC(nologo, "Disables startup logo");
- /*
-  * Sanity limit on the image size, a device tree is not a good place for more:
-  * a 4K screen is 8.3M pixels, and the copy is kept for the life of the kernel.
-- * One byte per pixel, so this is a byte count as well.
-+ * One byte per pixel, so this is a byte count as well. Keep in step with
-+ * MAX_PIXELS in ppmtodtlogo.
-  */
- #define LOGO_DT_MAX_PIXELS	SZ_16M
-+/* "LOGO", little endian, at the start of a handed over memory region */
-+#define LOGO_DT_MAGIC		0x4f474f4c
+diff --git a/Documentation/devicetree/bindings/display/boot-logo-clut224.yaml b/Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
+new file mode 100644
+index 0000000000..9dc3471763
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
+@@ -0,0 +1,135 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/boot-logo-clut224.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+struct logo_dt_header {
-+	__le32 magic;
-+	__le32 width;
-+	__le32 height;
-+	__le32 clutsize;
-+};
- 
- static struct linux_logo logo_dt_clut224 = {
- 	.type		= LINUX_LOGO_CLUT224,
-@@ -49,59 +61,42 @@ static struct linux_logo logo_dt_clut224 = {
- static unsigned char *logo_dt_clut;
- static unsigned char *logo_dt_data;
- 
--static int logo_dt_parse(struct device_node *np)
-+/* Reject geometries that cannot describe a sane image before using them */
-+static int logo_dt_check_geometry(u32 width, u32 height, u32 clutsize)
- {
--	unsigned int clutsize, npixels, i;
--	unsigned char *clut, *data;
--	u32 width, height;
--	int len, ret;
--
--	ret = of_property_read_u32(np, "width", &width);
--	if (ret)
--		return ret;
--
--	ret = of_property_read_u32(np, "height", &height);
--	if (ret)
--		return ret;
--
- 	if (!width || !height || (u64)width * height > LOGO_DT_MAX_PIXELS)
- 		return -EINVAL;
- 
--	npixels = width * height;
--
--	len = of_property_count_u8_elems(np, "clut");
--	if (len < 3 || len % 3)
-+	if (!clutsize || clutsize > LOGO_DT_MAX_CLUT)
- 		return -EINVAL;
- 
--	clutsize = len / 3;
--	if (clutsize > LOGO_DT_MAX_CLUT)
--		return -EINVAL;
-+	return 0;
-+}
- 
--	ret = of_property_count_u8_elems(np, "data");
--	if (ret < 0)
--		return ret;
--	if ((unsigned int)ret != npixels)
--		return -EINVAL;
-+/*
-+ * Take a private copy of an image that has already been range checked, so
-+ * that nothing else can change it under us, and shift the pixels into the
-+ * palette slots the frame buffer layer leaves to the logo.
-+ */
-+static int logo_dt_store(u32 width, u32 height, u32 clutsize,
-+			 const u8 *clut_src, const u8 *data_src)
-+{
-+	unsigned int npixels = width * height;
-+	unsigned char *clut, *data;
-+	unsigned int i;
-+	int ret;
- 
--	clut = kmalloc(len, GFP_KERNEL);
-+	/* The palette is at most 672 bytes, the pixels can be megabytes */
-+	clut = kmemdup(clut_src, clutsize * 3, GFP_KERNEL);
- 	if (!clut)
- 		return -ENOMEM;
- 
--	/* The palette is at most 672 bytes, the pixels can be megabytes */
--	data = kvmalloc(npixels, GFP_KERNEL);
-+	data = kvmemdup(data_src, npixels, GFP_KERNEL);
- 	if (!data) {
- 		ret = -ENOMEM;
- 		goto err_free_clut;
- 	}
- 
--	ret = of_property_read_u8_array(np, "clut", clut, len);
--	if (ret)
--		goto err_free_data;
--
--	ret = of_property_read_u8_array(np, "data", data, npixels);
--	if (ret)
--		goto err_free_data;
--
- 	for (i = 0; i < npixels; i++) {
- 		if (data[i] >= clutsize) {
- 			ret = -ERANGE;
-@@ -128,6 +123,111 @@ static int logo_dt_parse(struct device_node *np)
- 	return ret;
- }
- 
-+static int logo_dt_parse_properties(struct device_node *np)
-+{
-+	const u8 *clut, *data;
-+	u32 width, height;
-+	int len, ret;
++title: Boot logo supplied by the device tree
 +
-+	ret = of_property_read_u32(np, "width", &width);
-+	if (ret)
-+		return ret;
++maintainers:
++  - Max Pedraza <maximpedraza@gmail.com>
 +
-+	ret = of_property_read_u32(np, "height", &height);
-+	if (ret)
-+		return ret;
++description: |
++  Embedded systems commonly need a product specific boot logo. Today that
++  means pointing CONFIG_LOGO_LINUX_CLUT224_FILE at a different image, which
++  bakes it into the kernel image: changing the logo means building and
++  deploying a new kernel.
 +
-+	len = of_property_count_u8_elems(np, "clut");
-+	if (len < 3 || len % 3)
-+		return -EINVAL;
++  This node lets the boot logo be described by the device tree instead, so that
++  a single kernel image can serve several products, or several revisions of the
++  same product, that only differ in branding.
 +
-+	ret = logo_dt_check_geometry(width, height, len / 3);
-+	if (ret)
-+		return ret;
++  Since a logo is configuration rather than a description of the hardware, the
++  node lives under /chosen, next to the other things firmware hands to the
++  operating system. Open Firmware, which the device tree descends from, carried
++  a boot logo in the same spirit as the oem-logo variable under /options.
 +
-+	if (of_property_count_u8_elems(np, "data") != width * height)
-+		return -EINVAL;
++  The image is stored in the same paletted format the in-kernel CLUT224 logos
++  use: a palette of at most 224 RGB entries plus one palette index per pixel.
 +
-+	clut = of_get_property(np, "clut", NULL);
-+	data = of_get_property(np, "data", NULL);
-+	if (!clut || !data)
-+		return -EINVAL;
++properties:
++  $nodename:
++    const: logo
 +
-+	return logo_dt_store(width, height, len / 3, clut, data);
-+}
++  compatible:
++    const: boot-logo-clut224
 +
-+/*
-+ * Image handed over by the bootloader in a reserved memory region. Only a
-+ * region the device tree declared is accepted, never a bare address, so the
-+ * kernel can never be pointed at memory it is using for something else, and
-+ * so that a size is known and every access can be bounds checked.
-+ */
-+static int logo_dt_parse_memory_region(struct device_node *np)
-+{
-+	u32 width, height, clutsize;
-+	const struct logo_dt_header *hdr;
-+	struct device_node *mem_np;
-+	struct reserved_mem *rmem;
-+	size_t clutlen, datalen;
-+	const u8 *payload;
-+	void *mem;
-+	int ret;
++  width:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Logo width in pixels.
++    minimum: 1
++    maximum: 65535
 +
-+	mem_np = of_parse_phandle(np, "memory-region", 0);
-+	if (!mem_np)
-+		return -ENOENT;
++  height:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Logo height in pixels.
++    minimum: 1
++    maximum: 65535
 +
-+	rmem = of_reserved_mem_lookup(mem_np);
-+	of_node_put(mem_np);
-+	if (!rmem)
-+		return -EINVAL;
++  clut:
++    $ref: /schemas/types.yaml#/definitions/uint8-array
++    description:
++      Colour lookup table, as consecutive red, green and blue bytes per entry.
++      The number of entries is derived from the property length and must not
++      exceed 224.
++    minItems: 3
++    maxItems: 672
 +
-+	if (rmem->size < sizeof(*hdr))
-+		return -EINVAL;
++  data:
++    $ref: /schemas/types.yaml#/definitions/uint8-array
++    description:
++      One byte per pixel, left to right and top to bottom, each byte being an
++      index into the colour lookup table. The property length must be equal to
++      width multiplied by height.
 +
-+	mem = memremap(rmem->base, rmem->size, MEMREMAP_WB);
-+	if (!mem)
-+		return -ENOMEM;
++  logo-position:
++    $ref: /schemas/types.yaml#/definitions/int32-array
++    description:
++      X and Y coordinates, in pixels, of the top left corner of the logo.
++      A value of -1 on an axis centres the logo on that axis instead.
++      Defaults to the top left corner of the screen.
++    items:
++      - description: X coordinate, or -1 to centre horizontally
++        minimum: -1
++        maximum: 65535
++      - description: Y coordinate, or -1 to centre vertically
++        minimum: -1
++        maximum: 65535
 +
-+	hdr = mem;
-+	if (le32_to_cpu(hdr->magic) != LOGO_DT_MAGIC) {
-+		ret = -EINVAL;
-+		goto out_unmap;
-+	}
++  logo-offset:
++    $ref: /schemas/types.yaml#/definitions/int32-array
++    description:
++      X and Y displacement, in screen pixels, applied after the logo has been
++      placed.
++      Mostly useful together with a centred axis, to land the logo somewhere
++      other than the middle of a panel whose usable area is not its centre.
++    items:
++      - description: X displacement
++        minimum: -65535
++        maximum: 65535
++      - description: Y displacement
++        minimum: -65535
++        maximum: 65535
 +
-+	width = le32_to_cpu(hdr->width);
-+	height = le32_to_cpu(hdr->height);
-+	clutsize = le32_to_cpu(hdr->clutsize);
++  logo-rotation:
++    $ref: /schemas/types.yaml#/definitions/string
++    description:
++      Rotation applied to the logo before it is drawn. It turns the logo and
++      not the screen, so a quarter turn swaps how much room the logo takes
++      up, but logo-position and logo-offset stay in screen pixels either
++      way.
++    enum: [none, cw, ccw, ud]
++    default: none
 +
-+	ret = logo_dt_check_geometry(width, height, clutsize);
-+	if (ret)
-+		goto out_unmap;
++required:
++  - compatible
++  - width
++  - height
++  - clut
++  - data
 +
-+	clutlen = (size_t)clutsize * 3;
-+	datalen = (size_t)width * height;
++additionalProperties: false
 +
-+	/* Everything the header promises has to fit inside the region */
-+	if (sizeof(*hdr) + clutlen + datalen > rmem->size) {
-+		ret = -EINVAL;
-+		goto out_unmap;
-+	}
++examples:
++  - |
++    // A 4x2 logo using three colours, centred on both axes.
++    / {
++        compatible = "foo";
++        model = "foo";
++        #address-cells = <1>;
++        #size-cells = <1>;
 +
-+	payload = (const u8 *)(hdr + 1);
-+	ret = logo_dt_store(width, height, clutsize, payload, payload + clutlen);
-+
-+out_unmap:
-+	memunmap(mem);
-+	return ret;
-+}
-+
-+static int logo_dt_parse(struct device_node *np)
-+{
-+	if (of_property_present(np, "memory-region"))
-+		return logo_dt_parse_memory_region(np);
-+
-+	return logo_dt_parse_properties(np);
-+}
-+
- static const struct linux_logo *logo_dt_find(void)
- {
- 	static bool probed;
++        chosen {
++            logo {
++                compatible = "boot-logo-clut224";
++                width = <4>;
++                height = <2>;
++                clut = /bits/ 8 <0xff 0x00 0x00
++                                 0x00 0xff 0x00
++                                 0x00 0x00 0xff>;
++                data = /bits/ 8 <0x00 0x01 0x01 0x00
++                                 0x02 0x00 0x00 0x02>;
++                logo-position = <(-1) (-1)>;
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index c241444789..804a48e9bc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -10339,6 +10339,7 @@ L:	dri-devel@lists.freedesktop.org
+ S:	Maintained
+ Q:	http://patchwork.kernel.org/project/linux-fbdev/list/
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git
++F:	Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
+ F:	Documentation/fb/
+ F:	drivers/video/
+ F:	include/linux/fb.h
 -- 
 2.39.5
 
