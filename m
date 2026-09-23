@@ -1,109 +1,117 @@
-Received: from mail-dy2-f23.google.com (mail-dy2-f23.google.com [74.125.229.23])
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE5A49B211
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:20:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264CC49BD74
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790162455; cv=none; b=fmpvo7YwlJKnouCwJGRqxAQ1QiQFz3OneoBAiJUORo1b52RnL6ibFhZ/wQc1rV9xt7kI7MfFH+rVqAeby0/yPL+m52pCdc/70FLKBtr/9haNiWYHJlZEGKPfgpzWwHkt154t+F+JHroEXOanFIKKN/7AIkYuTED+9vY/RJef0zU=
+	t=1790162457; cv=none; b=ZIStfxSZFiN4etIAFs4PIBJm4p3E2JCkJLtd19C7rhAN5xft+7SWpAK6S+GmSMQGyoF4OluP8bd3OkM4sBFNV0yM+arBMtZiRO0Ys43lRjs5UMpYnZjB6zxkUaSDTXOcNeZOjMJLoMeTf43ztJi4Y+RpnfmQEyuCSrLYxExawB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790162455; c=relaxed/simple;
-	bh=ljPZGMW3EOOyQDGbBFq6Gu4+MAFs0+T56XB1zZrbm2E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=okEUbKqDV/hmSSgnY9jSRaTOjoFhZTJFLjKkQd0/wyCWxwPJboKikUU9r3v1IOjpp1bQqixLx+KHc5amVZyh2PIXq+MoXVYt8aywsduR1c7d/v1Uwza11qgULyjwX8BszlmmKDdRzAgEs2UuVvJdSzpMqcc/IJGIlEaExbIbZro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BVWOiFIK; arc=none smtp.client-ip=74.125.229.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790162457; c=relaxed/simple;
+	bh=dkCYIGy7ewfey/y0ZE5AeYeLuJJKgxHtBTLg5EbYDFQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=ABgq+NvfWz2Ye4ezGREaVbfuW/p2Q4Hrh9svswSaThY6JTVhtLwgas2uN5DWJ+/UbdH92bWUBQUETK7VXk8Sw6M5gF2ul4fvKwimjT2ne0ST12MJpAorl3YWd24LCeL/Z6QHf93Y4nXzmaVKbcOUlt/vEkPw6SJU2lFb2qH1Vk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=OFy2faL7; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BVWOiFIK"
-Received: by mail-dy2-f23.google.com with SMTP id 5a478bee46e88-32be7127c64so81925eec.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:20:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="OFy2faL7"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-333868a177fso326967eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:20:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790162452; x=1790767252; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790162454; x=1790767254; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M3A4c/xbFZ6e0tq+hH+/3HeXVXMCnlcmFGa/+buKPU0=;
-        b=BVWOiFIKs2ja0GMbAE2WuwcWnyFcW3E1bmvWj/P1Z4sHdFzevPgXnMLf6U+4SChNRK
-         ThMpxkMNan5bX1AZ904J4qOgvBHI+bvo7Wa3R2jS8W0mhkhuCIOhCZ+t2YAgD9gaW5Ub
-         zVD7Jwz8oDk0rE4qOBeWvnpjD9dwVG1M7YCZBKeAGmtIChPbY+ZZAXnOBTSL9ok+IQN0
-         LD7s0I0nEBWlKZ7vOBMgUkeJqrIWaZ+8rqGcJkq3wQRfedt4qrowVvH3ODniEF24JtkB
-         d6MwreZxeMkp3AfN9Dz+//01pDqy5eL55GmfJfRAwzJUXgoWU7jW+vOHKcHrFHPkFkoZ
-         QjeQ==
+        bh=aAEFPeLOj1rrdsBvLBB3+8Aa2ZZ3RTslVOp08bnnZyo=;
+        b=OFy2faL7RphRkuZlM9rCGZZdBDH65oW1bkhK3HZgNh9JYrPclnpVqcFXCLbL+OuHEi
+         TgF+KTr8/eGaZBuljnlNEWc7NTFiyrTknEMJqHwFdNYeBX9zZynhM1KHOqpNa+c4X/zs
+         l5MxL1seBlGb3PKZUoD5BtkVGxNPjfuu9lX4LqQJdsTNtzHHzle+nJK2LLxoHAILjObC
+         opRj2GI2tQ7xLAG1odHsbQX+UYgNimKnk+DOGLRdN17ghH7zmh5IRneksScThZITdF8u
+         37/ZdX94gzIPqmh6psHAEP2IBr8GnY7OH0y3hpGrBop5+w4yyN9mgfcK7kG7l+c6DEiM
+         EN8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790162452; x=1790767252;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M3A4c/xbFZ6e0tq+hH+/3HeXVXMCnlcmFGa/+buKPU0=;
-        b=cd8ttMjhcCq8DONDrKs7agER7eFYF65wa8SHZF2TMlfkM7D6Wm2RpUW5h8r8y6oSSt
-         9H95Xxh5SC33YSstBSeFwYL+PCmxHeKfxE781IUux2syhB1sNc/ojzhEWHFtxPzpxros
-         P746i33KAKKkWs093olRvqVNjxu6FGkjoQzhpItipxbogIJjRBI7l9SSQjjDJ6+3kzFZ
-         ws26JzHa+vpNGG+dZLNQr9VjuDyYmxHEWGI1EBc2QQwYbkcJ6Jo+XixP9GKtmE8ql7QH
-         1RSlg422GmPjeVNJS31Q5hBLVvFA3A38v/ccG++oiuHQ/2BuYLXAscg0xMCE0Put1WQ4
-         bI9g==
-X-Forwarded-Encrypted: i=1; AKwUvBwvDNZsM7J/th3ox/xpbI0WdCfS2UvHXSzi3lqpmHHtBzewM9vL1PJOsuU5cT87z0xr3MjbNWa5fG6a/kk=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRjMBsnAP410nWrdA4amoJchV2juF/5hp/ycGtrYHNKgzh7GDT
-	2khWEmlzY91/MsmYRwNRpIInnwjgZ8wChHE+cngXbUmAjuWXAEQ/QDl1iTvcWtzo
-X-Gm-Gg: AYBFou2LRTMUW76Iw2726GCdYaeI2/Sbz5wdBQwrLzg9GQofuzf8KzsPQKjkEy82/xS
-	DCRtaL0M1NtE7bpwIWPshDiBvI+Ysa1fQUMPEnD4+hk5xgRBFKhxImkAaF0AHYYJSR7F7joWhN8
-	61Cvdp0k+uMqWJSvegQ1ZOff+d3WgAXc+ATuKKBxKMwWTPbE/++5axvJ/FbV2/gYvP+ki0H43YD
-	hfmvbx2vorrMRjVsNPtC98WvAiCxekHoLajuLV0k7PdLsJM0LGEiOQd8KpRPr/aFFVQy2K1B30E
-	N1JQe3H3vdaEOWT+fRtC8/QEgwN77rxYIOGIQUwchetvuT+2ZuxR6R19svxEcCqlaOligFpXrRb
-	6d+sVvCSA7SZkgau4Dc7egl8cbKgAZGs6NKzymNlozFoe2lSL+imaRx5n4FahrPXO0fK9aX4vQ6
-	XmRQ7qFXqBTr/zKzK3+2LxcnByg5LLklv4DWGa9xI6ChnKg4gnBeMegewoiqRNYtUmgffJuFzGI
-	JOoUcbqphckcu3e+8cn1HHEfYpMNo9WnFqA5x9KJJTTrytSvlrQfrcC95YdeqZDUg84GyUBPWIT
-	VmPuSm9nFyfqIEYr5Q==
-X-Received: by 2002:a05:7300:c8c7:b0:33f:3750:4e22 with SMTP id 5a478bee46e88-33f3750519cmr1326580eec.0.1790162451512;
-        Wed, 23 Sep 2026 04:20:51 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.98])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96d46f48sm11925271eec.23.2026.09.23.04.20.47
+        d=1e100.net; s=20260707; t=1790162454; x=1790767254;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aAEFPeLOj1rrdsBvLBB3+8Aa2ZZ3RTslVOp08bnnZyo=;
+        b=AmJGDrfwv7fpehpC6qusOrksvBe2AD06pKNMe2ZAS9APhiPrzBLQtqYqGNQx0M+OZB
+         yiLAMt2VjXv9HApEk5p5GBeed2S4AZvpUCqru7siR5DYxKxi37qw9VWecOaykoEIARs5
+         B3tlmIVG2hoqAoJii5iTfM6iH9OH0HJIXccOrRcM9jjlQ7XcGBfVVcG6TsYvQ90Vo3Xt
+         ncwX8geWAETagfJISNkT+mLaEL6TteBIUxwQ5kvaOtbP9drLEw0T9OodKhowUJZJ4elh
+         L+q55UapKPcvfZdfSzG9Pvp0gPylR+kfUYQ9bWrguRNRvCEfbKcFJ08LLJ3Z3tap9ZGn
+         qmUw==
+X-Forwarded-Encrypted: i=1; AKwUvBw9QpHL7pz0aMiqUIV1K1CwqhfgwxWD/6wFXmSeZt0/Xe1HqyNhuWIzsPqDJAd9t+ESkATifSH/thHJ2XA=@vger.kernel.org
+X-Gm-Message-State: AFuF++msiCvjNALRabKJXgzYW+fnkjiKVbROsB7A2KgCjw/ZMVD1/aoF
+	iwD9+Xx0SEm507mFVx2ReQd5VrVPryJR7Sk/a+uEgTQU0x5vPkoHwDzMA4JBHOD1Qa0=
+X-Gm-Gg: AYBFou2CmAwtqKse3QJGJoO2ZOLvSxxALYnXLiFlADAyahGrde0xpWEUQGP57xBhd6E
+	n7iNaS6UEKzDStUuG6CHnxMMjUJ4TT8CEjyXqb1OwJiE8Zl0wIvQL8mR5KK9+Kqd3VQjDsXQIZa
+	CbTJ7FKKfWCG62O/nMQrPeEGaZTU1WOR9PgdHnKL2u+H2ElYCIs7zM255wLqrrn5N3TFxsq695Y
+	H1paTtmS6Enzr5pbA+9i9PwgrcCYIn+D7/iAVUAK3uT2uFq2eV7J1Wfpyd3u9wnYYbCZfk0DKTe
+	Mztmz1iVlWlmlGGHoanzI/mz6Ab9qyGAiT3Oe1V1/Vuj2xyzLEwXnJ83dqvH0ZwK+mAZyQah13d
+	CXEZb3HLLrALR1X9cbgLUAKZKDw4H2I9IUjRIiKDNlQ98VIoRS2kgwGX1eDCgvum4BebBbFqAkt
+	A4NDaL/VwpGhlaposcjAvyGn156oBnkfQyDHWQ+svrIibOuf1N+thrIkE4/1botmQGEF2qyfusn
+	X56x0gRMBEnHYeWMfiZCEiA36LxCVd5vPBuob1alWcZD/nNGxLbQLax2u7ufhg=
+X-Received: by 2002:a05:7022:b88d:b0:143:37b8:5007 with SMTP id a92af1059eb24-144f8d4c260mr2325173c88.2.1790162453502;
+        Wed, 23 Sep 2026 04:20:53 -0700 (PDT)
+Received: from xps16.local ([198.8.77.157])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm9585269c88.13.2026.09.23.04.20.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 04:20:51 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: Lukas Wunner <lukas@wunner.de>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Mario Limonciello <Mario.Limonciello@amd.com>,
-	linux-pci@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] PCI/PM: Skip the suspend_noirq config save if runtime-suspended
-Date: Wed, 23 Sep 2026 16:50:44 +0530
-Message-ID: <20260923112044.187266-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <arOpj4C67BnrNreM@wunner.de>
-References: <20260923022511.24932-1-navonjohnlukose@gmail.com> <arOpj4C67BnrNreM@wunner.de>
+        Wed, 23 Sep 2026 04:20:52 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: asml.silence@gmail.com, Yao Kai <yaokai34@huawei.com>
+Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ liuyongqiang13@huawei.com
+In-Reply-To: <20260923014310.591292-1-yaokai34@huawei.com>
+References: <20260923014310.591292-1-yaokai34@huawei.com>
+Subject: Re: [PATCH v2] io_uring: initialize task context before running
+ the BPF loop
+Message-Id: <179016245270.15533.17265529698615728091.b4-ty@b4>
+Date: Wed, 23 Sep 2026 05:20:52 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Wed, Sep 23, 2026 at 12:27:27PM +0200, Lukas Wunner wrote:
-> Hm, pci_pm_suspend_noirq() should bail out earlier because of the
-> dev_pm_skip_suspend() check.  That check resolves to:
->
->   dev_pm_smart_suspend(dev) && pm_runtime_status_suspended(dev)
->
-> The code comment in device_prepare_smart_suspend() explains that
-> smart_suspend is true for devices without PM callbacks.  But only
-> if the parent has smart suspend enabled as well.  I guess that's
-> the sticking point?  That the port above the card reader doesn't
-> have smart suspend enabled?
 
-It is that check, but it fails on the card reader itself, before the
-parent is looked at.  no_pm_callbacks is only set when the bus has no
-PM ops either, and pci_bus_type always has pci_dev_pm_ops, so no PCI
-device ever counts as having no callbacks.  With no driver to set
-DPM_FLAG_SMART_SUSPEND, the reader never gets smart_suspend.
+On Wed, 23 Sep 2026 09:43:10 +0800, Yao Kai wrote:
+> Submitting SQEs through an io_uring BPF loop can trigger a NULL pointer
+> dereference in io_submit_sqes(), as shown by the following arm64 report:
+> 
+>   [ 2049.380301] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+>   [ 2049.388788] pc : io_submit_sqes+0x48/0x6c4
+>   [ 2049.389153] lr : bpf_io_uring_submit_sqes+0x10/0x1c
+>   [ 2049.396310] Call trace:
+>   [ 2049.396531]  io_submit_sqes+0x48/0x6c4 (P)
+>   [ 2049.396893]  bpf_io_uring_submit_sqes+0x10/0x1c
+>   [ 2049.397293]  bpf_prog_1a2a95cb199202b5+0x3c/0x68
+>   [ 2049.397699]  bpf__io_uring_bpf_ops_loop_step+0x5c/0x94
+>   [ 2049.398149]  io_run_loop+0x70/0x2e4
+>   [ 2049.398461]  __arm64_sys_io_uring_enter+0xf0/0x710
+>   [ 2049.398882]  invoke_syscall+0x54/0x10c
+>   [ 2049.399414]  el0_svc_common.constprop.0+0x40/0xe0
+>   [ 2049.399829]  do_el0_svc+0x1c/0x28
+>   [ 2049.400125]  el0_svc+0x38/0x1d0
+>   [ 2049.400409]  el0t_64_sync_handler+0xa0/0xe4
+>   [ 2049.400779]  el0t_64_sync+0x198/0x19c
+> 
+> [...]
 
-pcieport does set the flag for the port, and on this machine the port
-stays in D3hot through suspend.
+Applied, thanks!
 
-Thanks,
-Navon
+[1/1] io_uring: initialize task context before running the BPF loop
+      commit: a3bdf68feecc57af5c11fb599f860ac9790ffad9
+
+Best regards,
+-- 
+Jens Axboe
+
+
+
