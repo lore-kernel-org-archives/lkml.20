@@ -1,117 +1,112 @@
-Received: from va-2-37.ptr.blmpb.com (va-2-37.ptr.blmpb.com [209.127.231.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A72D4756C1
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:51:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0034570FA;
+	Wed, 23 Sep 2026 09:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157088; cv=none; b=fes+h5c8xigR0eHh1LKpIoDUy4+U+tomiwQj4ZqhB/vd7JH6iQhNHNOBAU9rFnBHZWgscVW7gEG1ZIQf0R7xjKmwj+9HsUmy0qTl6XouElK4KroLIVZ2RHOH3Lcv60oal8jUUyaWtZR18thPISpTI2dDKKTvSylUSbeYyKHSVEU=
+	t=1790157121; cv=none; b=adKC16iUE67NoYIBEN/MwlmHkXl1Fupwan9/1Z8/LS4KZBrfEhnl4vjhVK8H0otJ7cHaXsLUhhC4YwDCXZcynGLM+Ns3CY3lubdibiwoRrK4ZyasWZvqtfkNj2lOj63h29DIz4VNSUF20OzzP0XMWw87tvnMUniVKUPHNfUQF9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157088; c=relaxed/simple;
-	bh=UuWqsWA9strdMyWMxsoB9b/nhWJSlI8PVXRAHFyk1to=;
-	h=To:References:In-Reply-To:Mime-Version:Content-Type:Date:
-	 Message-Id:Cc:Subject:From; b=nwciDK97OYBhqNFOfZcx7ikH6LcTChwtgEvsxuK1Gj4q0PF5RzfSrSZLeP4oZYGFUJ8+V/K3GDcZ4Hj+Oxd6XbWfX/eDe7JGdDyfd5ayPPabvs4UtcfIcGhRKgcAWcSRI+foTIdzo+6uH1SlwPNG3Rw3Ac2ph1FOWxf79N1Ltjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=WnxS+DCF; arc=none smtp.client-ip=209.127.231.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	s=arc-20240116; t=1790157121; c=relaxed/simple;
+	bh=OXBQm4V4eJgEVpad6/p+Mp7d9HIfL1PDI9hjlsHu7CA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JhLCkWTjxj4/i1lyI9oGAWqhH36PT0t8GZ8CH87RBQNC1cc57poUQcObROZqMuOHDG5YYZgjZd8c3evrJcfm4IYv6BmjgryJ+18q3yWJZWru3LJuBsFsuqldkODkPiK/cZ60Df1ScXDUnWTrH9es/PGRlKSbZdYbQ7D9elzPGHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=CZKCgZbG; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="WnxS+DCF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1790157074;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=UuWqsWA9strdMyWMxsoB9b/nhWJSlI8PVXRAHFyk1to=;
- b=WnxS+DCFCfrWFGqGc6/fJguG9Mj2C+tQEIBB1e1GmDFs3W9wyGSDBGeOhHaoNUY5i5amYL
- O8LJpQyqT1hYHrgqZ9Izp2B1LQTzk6YkRyBCI5R51RvVvS/YpAX7HxBiV8bVFRlxC+UWOP
- U+/jokkmse36ePfKibmeAM5rv28ak81MMh1oF2fDc4kjBgjPd0KtxfTVFJbNVv8rPExPUo
- B7Gig1g2fg6kKB1t4i1ZL6Wa47enOpZilFr6Ps6blX+Dk812NrKJI4QFDH+96Gp0hmPVSC
- N9vMeSu2n8uGbH8ZHJ92Gu+d5T8A0niFJ+sO5RbjmUcdlORbnAXjDJHr6O+87g==
-To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io> <20260922110450.3426070-1-sandie.cao@deepcomputing.io> <DLMC741RLFU5.3FF1DL7YEIFK9@linux.spacemit.com> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.2bcc8e57.b8bf.421b.9230.3eea00252952@feishu.cn> <DLMI4JHT5Q8L.2MHI30VCCP3W9@linux.spacemit.com> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.64156e26.f1af.46d5.a18c.19bc541257f8@feishu.cn>
-	<DLMKXCP8EDNL.JW6NFGCTMJVN@linux.spacemit.com>
-In-Reply-To: <DLMKXCP8EDNL.JW6NFGCTMJVN@linux.spacemit.com>
-X-Lms-Return-Path: <lba+16ab3a10e+98bdf8+vger.kernel.org+sandie.cao@deepcomputing.io>
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CZKCgZbG"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hqXLM2X8GzKn9j;
+	Wed, 23 Sep 2026 11:51:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1790157115;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kGmQmcU6nGcC18gst/c1lOQz4TJAHzdj/MA0mXZlKY4=;
+	b=CZKCgZbG6y8Jh6iBQuevbo4X2YLgYdqoLdnnKeV63ytkSZhkQRlEhm7ANMYuMNF/Tdk9AW
+	vuaYVsoL/ac9vOFodcOrZSxjcgxcfc7DWIh1rJ+65P2wTTaoOXEXH8iX3k2kFF4cCT77Em
+	btpAFaRXLI8ThR+pzkPiddIfIpQ6/Qrg3JhPmj1E2vjlbwJ3wgIlhT7C2fqAZZFRYHpkbu
+	xCBYiYj5xNFlg0NNGMq0bK72YlK0VNExo4bYyRLwN+9iEArDvEBS7S3oUwkGh499B+u1vg
+	TX+66Wx25gBpWNsfbCRAdPsVjKQPXo7MiK5k17yGv3ImqXFgg5enhFsAFliAmg==
+Message-ID: <588442c7-2589-4026-a8f8-e03f944318c3@mailbox.org>
+Date: Wed, 23 Sep 2026 11:51:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Subject: Re: [PATCH RFC 13/25] drm: Add VRR target frame rate properties
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ Leo Li <sunpeng.li@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Helge Deller <deller@gmx.de>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
+ Derek Foreman <derek.foreman@collabora.com>,
+ wayland-devel@lists.freedesktop.org
+References: <20260921-vrr-limiter-uapi-v1-0-2fcd7d011646@collabora.com>
+ <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
+Content-Language: en-CA
+From: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
+In-Reply-To: <20260921-vrr-limiter-uapi-v1-13-2fcd7d011646@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 17:51:09 +0800
-Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.a37d568d.f88e.4fdb.8c5f.8da4b148415f@feishu.cn>
-Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Yixun Lan" <dlan@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	<devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
-	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card support
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 079bfa1140171f5da20
+X-MBO-RS-META: 3rdb1snwyxz3ufm4r4fm5o4bk18hbw86
 
-Hi, Troy:
+On 9/21/26 17:51, Nicolas Frattaroli wrote:
+> 
+> + * .. _VRR-MIN-NUMERATOR:
+> + *
+> + * "VRR_MIN_NUMERATOR":
+> + *	Default &drm_crtc integer property forming the numerator of a
+> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
+> + *	target rate. Set to 0 to disable.
+> + *
+> + * "VRR_MIN_DENOMINATOR":
+> + *	Default &drm_crtc integer property forming the denominator of a
+> + *	numerator/denominator pair of a frame rate to set as the minimum VRR
+> + *	target rate. If :ref:`VRR_MIN_NUMERATOR <VRR-MIN-NUMERATOR>` is not
+> + *	zero, it must be non-zero.
+> + *	Otherwise, must also be zero.
+> + *
+> + * .. _VRR-MAX-NUMERATOR:
+> + *
+> + * "VRR_MAX_NUMERATOR":
+> + *	Default &drm_crtc integer property forming the numerator of a
+> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
+> + *	target rate. Set to 0 to disable.
+> + *
+> + * "VRR_MAX_DENOMINATOR":
+> + *	Default &drm_crtc integer property forming the denominator of a
+> + *	numerator/denominator pair of a frame rate to set as the maximum VRR
+> + *	target rate. If :ref:`VRR_MAX_NUMERATOR <VRR-MAX-NUMERATOR>` is not
+> + *	zero, it must be non-zero. Otherwise, must also be zero.
+>   */
 
-> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
-> Date:=C2=A0 Wed, Sep 23, 2026, 17:14
-> On Wed Sep 23, 2026 at 4:01 PM +08, Sandie Cao wrote:
-> > Hi, Troy:
-> >
-> >> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
-> >> Date:=C2=A0 Wed, Sep 23, 2026, 15:02
-> >> On Wed, Sep 23, 2026 at 02:35:20PM +0800, Sandie Cao wrote:
-> >> > FML13V05 SD card slot is inside the board, it doesn't need cd-gpio,
-> >> > FML13V05 Keeps GPIO88 to low, Then SD card is always on for SD Card
-> >> > driver.
-> >>=C2=A0
-> >> An internal slot does not necessarily mean the card is non-removable.
-> >> I don't think its location alone justifies keeping card detect asserte=
-d:
-> >> GPIO88 would report a card present even when the slot is empty.
-> >
-> > Yes. The FML13V05 hardware is designed for this. We can't change it.=C2=
-=A0
->=C2=A0
-> I may not have been clear: an internal card slot does not necessarily
-> mean the card is non-removable. If GPIO88 is connected to the
-> card-detect switch, it still needs a pull-up. Is GPIO88 tied low on
-> the board, or does it reflect the state of that switch?
+Is there a reason that DENOMINATOR must be 0 when the corresponding NUMERATOR is? 0 divided by any number is still 0.
 
-The FML13V05 SD card slot doesn't have cd-gpio. But the K3 SD card driver n=
-eed it, so the GPIO88 is tied low on board.=C2=A0
-=C2=A0
->=C2=A0
-> >
-> >>=C2=A0
-> >> > We check the vmmc-supply is p3v3. We have the same SDK DTS config wi=
-th
-> >> > k3_com260[1] , so, this patch follows the SD card patch of k3_com260
-> >> > dts[2].
-> >> >
-> >> > If this is not correct, we will change it.
-> >>=C2=A0
-> >> Could you confirm from the schematics that the SD power wiring matches
-> >> CoM260 and that the card's VDD is actually connected to ALDO4? If so,
-> >> this supply reference is fine. The same SDK configuration alone does
-> >> not establish the wiring.
-> >>=C2=A0
-> >> If the card instead uses a fixed, always-on supply with no software po=
-wer
-> >> control, vmmc-supply is optional for the MMC core; it should not point=
- to
-> >> an unrelated ALDO4 rail.
-> >
-> > We check the schematics both of COM260 and FML13V05, both use p3v3 (a f=
-ixed, always-on supply with no software power control), not ALDO4. ALD04 is=
- only for USB.
-> > We will correct it in next patch.
-> I'll send a separate patch to fix the CoM260 vmmc-supply reference.
-> You can focus on FML13V05 in this series.
 
-Got it. Thanks
+Either way, should these rules be enforced in drm_atomic_crtc_set_property?
 
-Best regards
-Sandie
 
+-- 
+Earthling Michel Dänzer       \        GNOME / Xwayland / Mesa developer
+https://redhat.com             \               Libre software enthusiast
