@@ -1,131 +1,353 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31D71E51E0;
-	Wed, 23 Sep 2026 02:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2FB2744F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:23:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130222; cv=none; b=tJXuVrQSo8ZHYdWl9bmAfAD+zTQFY12iiDuwXeNs/EsAEzCXnBQQ6h8zCbQTOOggiRbbgeof8xZDWu1zV16l6hegR9RuSivMj4jo/4XMjRbknAwucQIHg1xStkzWjV1AMJoLmMBRz1ZvD4Vu5pWECJMA4j6lxVIE3NmNpJPwvUA=
+	t=1790130239; cv=none; b=Zg/bioq1yAf5tnImfFAAbIS3F2PViE6A5EKEb28iMVZXVVqkwrjFfbR3tiz/Dkidwq8XwGQihz/KUE0Wc0j7adVl2ccHUmq8wQrUKzukPhFAM8L+nJSfgo5753JeYD65IPO8aE8wOZh/Osg+RYMKZEAWptxzVqbCsfFGzsIrF7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130222; c=relaxed/simple;
-	bh=Bml4a70sKO3apn4qfj3MyjAUF6TLbi3VSLOK2FiWnkE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 In-Reply-To:References; b=bi/L4ymmGwBfD9qapnOUfrP0zOuatagMwJDTel08o6Qc4w+O0g/+r3b7xGt5nJN8ILVukKqacflyT+73jNNm76Bpz1tQ+FFVU3jKtM5ABVSAlxparY0jN17HoLICFeHI4PUCjM7fD/JrJ/AyMJiO5fBvaH1C5OlDKGxfSGvw9uU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=mIoSzk1h; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790130239; c=relaxed/simple;
+	bh=oAFjTQfUKulQLWM7YiS29Zl4JeiiE5zmnGIXqAlTlxA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=grxvRIVIz5W54mYb/l/BUUQUL7xFWjILPUTCQSGJ6O5kWcK2CGaEIwkHzDgyuTTTvYbi4MVKQkDf0P5ygAUMFdfx/z7PS8q5+7iPFdF7DGaGe0ZKKkPxWArczsy68vA+rzg6bI48bPeC92HrNoaMMr0h+ImDkYtqnOfosaB/yLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WyNbrWli; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PkKd4Ulu; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="mIoSzk1h"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790130213;
-	bh=8eBwOgT/P+WBWiIFGIYRyTHNte9OZxM1YATGcOp6ONg=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=mIoSzk1hT4Z2Wu9/iLeLe6pZevO87wOXIt7NSzaHnu8cWWmSZ2WTsU6R8NoUvwbDW
-	 pTnytW5u4EZAh4YZLCcdh6YRPac2J5Sr+fbJY7XASOQeGhvgTPurEIhTCeiFgUZycY
-	 dKBWXVgsF/YFAo5o9GL9eWmvNmWCyfh3rsvobJpM=
-X-QQ-mid: zesmtpsz6t1790130211ta5ccfb27
-X-QQ-Originating-IP: Hv1VSePmG7o57TixVmzrTLL07Q9k+KrYHHFrBMvoc4Y=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 23 Sep 2026 10:23:29 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 10725776021509883648
-EX-QQ-RecipientCnt: 14
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WyNbrWli";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PkKd4Ulu"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MI7CBB368025
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:23:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	AX2Nle44Lv8ybfqYcCzu93O+KbWu3Hg1NB0Oi0gGgoQ=; b=WyNbrWli/8KG39EM
+	0SdHfzufOO/i/WBjfV3LbpNtptLDb6Ls5zr5PJgLnM9nFQdUEDkdQ3yr81uKmPT2
+	B2z39q5ivlbOlWRTVFa/CLTj4Uc7gMbRCG4bm4cj9yhj93EwD7yOZTBHFRxpjqu5
+	bQQrAH0hesMpJXCzG5DgyRDZEj9u2AjmAN2N98VpbWnBNmxUGDo3T5H+GZU3O40m
+	b3AXzxUAeKDgIfChMCGmHjKPhtO+72+o4V53XoBqciH8kQPr4LWW1ezA39pDZmAT
+	28JJFQj1OTTdZFEGYONej1w/g2Pkc3KkS/4cWWaqBdOW64d8BZJT8x08/00M81My
+	05yhMw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gurntbyk9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:23:56 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc7348bd56fso430398a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:23:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790130236; x=1790735036; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AX2Nle44Lv8ybfqYcCzu93O+KbWu3Hg1NB0Oi0gGgoQ=;
+        b=PkKd4UlumPSL68tUIiaNEzWHAelCH804MrQzwAiCsLd7yvQWmrV0SAq3SDp/YQuQKZ
+         dXzfbkklVUn2XszT5iBFGNaZlqzPJCnSTw23jzBhaZ0BVHHeZEo8htK3vAqXvDyIHJTw
+         ZEabcOfbVpye3TdjD8qYd5y6O9MtEsTKnjuigWiEeD4Q+ExXA6fKcOj8v/Za1B/VquWV
+         Ek2mrmdUsFRUlzgFdv3+EIreSy3SMdtgoI7qV1vhPQPCsEd9E2p8Hxs5oq2D5c5PBv33
+         ssRPoV/x9UNNxO1ZBv98dVV9AettjGRLCNh2fi+YZwrHHdfpBCPb88g1KC51710pQ3KS
+         w5+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790130236; x=1790735036;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AX2Nle44Lv8ybfqYcCzu93O+KbWu3Hg1NB0Oi0gGgoQ=;
+        b=EoUA+fwnBWu/LwFcvRpK5O+Lgen25Y33cWX90txlMZwlpCqhMm/RMr3OGkfWqQzBmS
+         9ucYXq6bmZh8DI9cGCf6akgDm3uGwcvOeyFccqkBgv17yB1kcFfiZYuTmfrIYzJZn7e0
+         ELD9AmL3I+fCs4jCsTXaxVriJTsv8Oby7LC2hIoaVfvMGnUfqvQYEFBs9pFiP/5TuEpS
+         UZmDJy+j4wZh08fQl5pz0zKSRq2z3gerXdRerumMLPHnvk3X0E3blWZFkhpy0aSJ/FND
+         cb2TFTtHzI33jfADloslquTElgC7+NiI7zPy6mNLFQ27YZOiCw2vsPOq02b3osmWxuoK
+         7OLw==
+X-Forwarded-Encrypted: i=1; AKwUvBwS6/W064dtsg3MPI0EtT7mnSM79ytMDu34aTWw+s/SKQMZNsH6Nacy9dE0FJpNJ738xI6lbOjUw1CBUBQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/Up88/TATvxhIsTIBX3t4BCoau/qj8xVeJfBd1kYQIl9QSS4D
+	hDJdiUUFgkKNn5k3XG9LzW3fIfqOCawfuNeUqpEyliFOVjUh2mbG8X2Md83LVY+iEX/0lIBcq4p
+	aIFmJSQDx/W8qaPmH4gWpseA8M78Wyubwl+Ws2my10Q8v2IPn9ZS+SUoTTmSUNa033mROwR4uHw
+	n8aWFQ
+X-Gm-Gg: AYBFou398BJvjK+SiWbEbIi6hNnHpnwZddVVIai17eXDO7xLgQFBfhLKeQ0SiFvALxU
+	Atr8EpQ+mH+8m6N7TWt79XLSxBKOtXSmIXaHpqy+Adaj5RJyFdaBQ4DNCX7sfh1WF8zYcRHbOj+
+	hTv/P5BuaFoyciDLfT5kdT7H11JvDIYjUSY2OV8pX78irnTJYy2/P3bmcM6TU1bJVMhNjTaPC74
+	oyB8+dF7fhGu9eJIf0vCDd8SZ6g5KBbiUiaAEgeU6VKQquAZmTWQclWRZq3ESJzQpmTM9GpM7C6
+	FoiHHh39JSXcvvUePhCj84ju3qTCUHAO9ovSMxmjT3ufM4SxvHaOWmNMhoD+LJ6fELed6Hj12v1
+	fIfjWM/SJxZfXQPdpWzeWRpePDFAuwkI0XXnniZt2NMbJYufPGuWtpOkXjBbJHeG2eD8=
+X-Received: by 2002:a17:90b:3e4b:b0:39e:6c69:34d4 with SMTP id 98e67ed59e1d1-3a07e793f0dmr1094061a91.56.1790130235984;
+        Tue, 22 Sep 2026 19:23:55 -0700 (PDT)
+X-Received: by 2002:a17:90b:3e4b:b0:39e:6c69:34d4 with SMTP id 98e67ed59e1d1-3a07e793f0dmr1094043a91.56.1790130235472;
+        Tue, 22 Sep 2026 19:23:55 -0700 (PDT)
+Received: from [10.133.33.151] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc5f3d7sm2197098a91.16.2026.09.22.19.23.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 19:23:55 -0700 (PDT)
+Message-ID: <87097a5e-d334-49a7-865b-f4660f9a8cc4@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 10:23:51 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=ac315c91ecc3c3395b0dbb991c1f84a289bae2ebd6cf0113e2bb44b50761;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 23 Sep 2026 10:23:26 +0800
-Message-Id: <DLMC741RLFU5.3FF1DL7YEIFK9@linux.spacemit.com>
-Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, "Sandie Cao" <sandie.cao@deepcomputing.io>
-Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
- Enable SD card support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Sandie Cao" <sandie.cao@deepcomputing.io>, "Yixun Lan"
- <dlan@kernel.org>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
- "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>
-In-Reply-To: <20260922110450.3426070-1-sandie.cao@deepcomputing.io>
-References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
- <20260922110450.3426070-1-sandie.cao@deepcomputing.io>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH ath-next v4] wifi: ath12k: advertise interface MAC address
+ pool
+To: Vitor Soares <ivitro@gmail.com>, Jeff Johnson <jjohnson@kernel.org>
+Cc: Vitor Soares <vitor.soares@toradex.com>, linux-wireless@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
+        baochen.qiang@oss.qualcomm.com
+References: <20260922200643.1133491-2-ivitro@gmail.com>
+Content-Language: en-US
+From: Kang Yang <kang.yang@oss.qualcomm.com>
+In-Reply-To: <20260922200643.1133491-2-ivitro@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OOYO4i1Nbl+H8jeivgJACakzyOD0ErbrXh5EjLKpnWt1cQdZgFKQnBXV
-	3t3q+l2EYlHsI+pTAKgg8n4csJs2Jl5tEXrI68RzaGIVTwst2Cc8g00SAeyBU5fdjUp8Djj
-	o6n1z8+BDcJL8l1uHNeL13csk29byMipGKpwkKsHpej8hS9PSxFM1lQ1F6+IvL/bmDWDsQq
-	ye2Vrz80lmR+wI643rszkQblqSnVc9k0z10vLsNpP1fFLRrb+yTgdGbmTTAGCkzqNyEl+VT
-	unYxC9aYX9+bA0IuZePo/KN9f+UteVMM5EZij7jZd0cebfmzjJkAoz7gGEBeVfxLhdcaCZj
-	0Obzd/xH9W0uoNFftZ/5cINQv71smTvgNT8EByf8rzAbxUNrZUz0AEQNFqkgTLXeoValjTI
-	yokbG0VXZZaZrOzGbj6O3HAicjDh6zqaFEVCzw21nUzfQN1NiYiFHQY5vfHeUoOZY6lk2Xb
-	IOsItq/wZwGWLRpRelsrOxLTXmPrTgqX7sxRe9fNJjEBB1ZkITmRXNWRO/sGglHNGXoLapi
-	dv9on3KWLyey11GXkbjNavoyxEUMnBWvQAPR1kmamwtU9vyw5s7+sJ4mMK2C5foCSA1I5nS
-	oxqw42hGDOegqzjOagqG2/Gv3NbDoiycdBA0z+X/APd8Wjt/afTdYS+Mc3Uzpky6wucU8FE
-	hvefdcAlcMY508OMY2FRGkTWVSqSyEzLhGWlToo3wxJUWigb6CZqZEZcfBaUJ8QHBKG4Dwf
-	bE/3jScp1tOZYwHh7JyXG2ECHLqBTWRz2j4e5OLr8PQBZFZ4qAsYkpBm68DyivPdk1SLQgt
-	O2HDeASVHlIpLgGtfejGMQRlYBzbviFfC97LyhBen3vEFWcOmC8HGz3DK86YKBdhJ59hl9b
-	3MTwpwB5pm9r3VshNSyxJn73V+Xy8eGO/iPgzZIgB5NEl13PePQ79a7GVcrRaNmG6iSnbsg
-	fGwEthUTIItrYqPa0RscZ8Mo751W9oelZZBQ+HvKgizrOVlDEGYpjr2QWO8V5SpjR8/o9VH
-	lnFAob1VSvOzI83eT2fJofGAUswrheHRWIgIbr0RFD4fUHtO4I5oJ7E65N2VWJVxW+ZzdoT
-	D19WZKP9iSkaX4tyX3LUkvjV5xiwSQIji/oeHdF3knq
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+X-Proofpoint-ORIG-GUID: R5zhOWB3LBM4zUGGlENAr8ZMVXsoXwZI
+X-Authority-Analysis: v=2.4 cv=eauo7LEH c=1 sm=1 tr=0 ts=6ab3383c cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=m8ToADvmAAAA:8 a=EUspDBNiAAAA:8
+ a=XWmW6VCIqsrZXVgdJaoA:9 a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
+ a=kCrBFHLFDAq2jDEeoMj9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAwOSBTYWx0ZWRfX815jY/TuTS9l
+ pKC/lao5BkidANg29NMwxFxxlGdnoKIAPLY3zQGHtKuHzt/JSwlnV+zQPxRKTEbz49boLtyjSQq
+ GA6gmKW1jgL2L7JpoZU7OoB6F+I2G8Yn2tkD/FkFLw9/XBMw3w80jk+zgz+ciy+hHxzXoPnyWiC
+ DxRLW1R7WEj3Z/Bk9Xn3qJKbTDEUh0Fd0N8j+yPh8dFGvI8y8xdtaX3pmJYUEP3Fu+3nV82d1pV
+ rKW6peLgsdn6vykRLfPpPksEUzZT02Zpwfib+v7zwMETx9u4ktLkb7DPYF0YNcsegk58U8RgyE6
+ obYZ3DZiJae2nxewmDs/9OB9p6fFlyC4LIxvfX64BfTNNgtd42NBJyJuXheq+NuXwGSb9h10YA2
+ Dv6RcgTpe5vzq9n84AJbDi7G2rkFtVmiCgnnB4EzZaINDkoA7JmyKTJizWnndHNJ2S5Z3emw51N
+ 6t7N3Cl0DaCeIizc9sw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAwOSBTYWx0ZWRfXyQNKlkd4BUcq
+ JuqghAmxjCR/oL0ASVQDCW2wirjfY3zAhSv5L3J1Aj7pdhrM3Z0GDhHfa2S5vpcbjx1NRyzcNBv
+ qNKWVfVXKpAAzGAE/5/dtoh0gW0CJo8=
+X-Proofpoint-GUID: R5zhOWB3LBM4zUGGlENAr8ZMVXsoXwZI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015
+ spamscore=0 malwarescore=0 bulkscore=0 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230009
 
---ac315c91ecc3c3395b0dbb991c1f84a289bae2ebd6cf0113e2bb44b50761
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
 
-On Tue, Sep 22, 2026 at 07:04:50PM +0800, Sandie Cao wrote:
-> @@ -184,6 +185,24 @@ &combophy {
-> [...]
-> +&sdhci0 {
-> +	pinctrl-names =3D "default","uhs";
-> +	pinctrl-0 =3D <&mmc1_cfg>;
-> +	pinctrl-1 =3D <&mmc1_uhs_cfg>;
-> +	bus-width =3D <4>;
-> +	cd-gpios =3D <&gpio K3_GPIO(88) GPIO_ACTIVE_LOW>;
 
-Does GPIO88 have an external pull-up? The SDK DTS [1] also includes
-mmc1_cd_cfg in both pinctrl states, with a pull-up and 3.3 V configuration.
-Neither mmc1_cfg nor mmc1_uhs_cfg covers this pin. Is that configuration
-unnecessary on this board?
+On 9/23/2026 4:06 AM, Vitor Soares wrote:
+> From: Vitor Soares <vitor.soares@toradex.com>
+> 
+> ath12k supports creating vdevs with addresses provided by mac80211.
+> Userspace can already make concurrent interfaces work by explicitly
+> assigning different locally administered addresses.
+> 
+> However, ath12k does not advertise an address list, so when a second
+> interface is created without an explicit address, mac80211 has nothing
+> to pick from and falls back to the permanent address. If the first
+> interface is already running with that address, bringing up the second
+> one fails with -ENOTUNIQ.
+> 
+> As in ath11k, provide a list of usable addresses so
+> ieee80211_assign_perm_addr() can hand each new interface an unused one.
+> Keep the first entry as the wiphy's permanent MAC address. Generate the
+> remaining entries as locally administered variants by changing only the
+> upper nibble of the first octet, which naturally limits the pool to 16
+> unique addresses.
+> 
+> The cfg80211 definition of wiphy->addresses does not specify where the
+> addresses must come from. Some ath12k platforms use it as an interface
+> MAC address pool, while others use it for firmware-provided per-radio
+> addresses. Gate the generated address pool behind
+> advertise_iface_mac_pool and enable it for WCN7850 and QCC2072. The flag
+> is read from the first radio, as all radios behind a wiphy are
+> expected to have the same setting.
+> 
+> Other platforms keep the existing behavior.
+> 
+> Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+> Tested-on: QCC2072 hw1.0 PCI WLAN.COL.1.0.c2-00074-QCACOLSWPL_V1_TO_SILICONZ-1
+> 
+> Assisted-by: LLM
+> Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+> Tested-by: Kang Yang <kang.yang@oss.qualcomm.com>
+> ---
+> v4:
+> - Document why the first radio's hw_params is used.
+> - Add QCC2072 Tested-on and Kang Yang's Tested-by.
+> - Link for v3: https://lore.kernel.org/ath12k/20260921173033.846332-2-ivitro@gmail.com/
+> 
+> v3:
+> - Rename host_alloc_iface_mac to advertise_iface_mac_pool.
+> - Clear wiphy->addresses and wiphy->n_addresses during cleanup.
+> - Drop the single-radio check and rely on hw_params gating.
+> - Enable the generated interface MAC pool for WCN7850 and QCC2072
+>    (QCC2072 compile-tested only).
+> - Follow kernel block comment style.
+> - Link for v2: https://lore.kernel.org/all/20260915152815.254016-2-ivitro@gmail.com/
+> 
+> v2:
+> - Gate generated interface MAC address list behind hw_params
+>    host_alloc_iface_mac, as suggested by Kang Yang.
+> - Enable it only for WCN7850, the only part available for testing here.
+> - Add Assisted-by: tag.
+> - Link for v1: https://lore.kernel.org/all/20260902082219.3010793-2-ivitro@gmail.com/
+> ---
+>   drivers/net/wireless/ath/ath12k/hw.h       |  1 +
+>   drivers/net/wireless/ath/ath12k/mac.c      | 54 ++++++++++++++++++++++
+>   drivers/net/wireless/ath/ath12k/wifi7/hw.c |  6 +++
+>   3 files changed, 61 insertions(+)
+> 
+> diff --git a/drivers/net/wireless/ath/ath12k/hw.h b/drivers/net/wireless/ath/ath12k/hw.h
+> index e790de5737db..c58db8482aa4 100644
+> --- a/drivers/net/wireless/ath/ath12k/hw.h
+> +++ b/drivers/net/wireless/ath/ath12k/hw.h
+> @@ -238,6 +238,7 @@ struct ath12k_hw_params {
+>   	} client;
+>   
+>   	bool host_alloc_ml_id;
+> +	bool advertise_iface_mac_pool;
+>   };
+>   
+>   struct ath12k_hw_ops {
+> diff --git a/drivers/net/wireless/ath/ath12k/mac.c b/drivers/net/wireless/ath/ath12k/mac.c
+> index d4116ba0da08..c131358efb69 100644
+> --- a/drivers/net/wireless/ath/ath12k/mac.c
+> +++ b/drivers/net/wireless/ath/ath12k/mac.c
+> @@ -14743,6 +14743,56 @@ static void ath12k_mac_cleanup_unregister(struct ath12k *ar)
+>   	kfree(ar->mac.sbands[NL80211_BAND_6GHZ].channels);
+>   }
+>   
+> +static void ath12k_mac_cleanup_mac_address_list(struct ath12k_hw *ah)
+> +{
+> +	kfree(ah->hw->wiphy->addresses);
+> +	ah->hw->wiphy->addresses = NULL;
+> +	ah->hw->wiphy->n_addresses = 0;
+> +}
+> +
+> +static void ath12k_mac_setup_mac_address_list(struct ath12k_hw *ah,
+> +					      const u8 *mac_addr)
+> +{
+> +	struct mac_address *addresses;
+> +	struct ath12k *ar;
+> +	u16 n_addresses;
+> +	int i;
+> +
+> +	/*
+> +	 * wiphy->addresses is per wiphy, so the generated interface MAC
+> +	 * pool is advertised for the whole ath12k_hw. The hw_params flag is
+> +	 * expected to be consistent across all radios in an ath12k_hw, so
+> +	 * use the first radio as the source.
+> +	 */
+> +	ar = ath12k_ah_to_ar(ah, 0);
+> +	if (!ar->ab->hw_params->advertise_iface_mac_pool)
+> +		return;
+> +
+> +	/*
+> +	 * Only the upper nibble of the first octet is varied, so at most 16
+> +	 * addresses can be derived from one base.
+> +	 */
+> +	n_addresses = min_t(u16, TARGET_NUM_VDEVS(ar->ab), 16);
+> +	if (n_addresses <= 1)
+> +		return;
+> +
+> +	addresses = kzalloc_objs(*addresses, n_addresses);
+> +	if (!addresses)
+> +		return;
+> +
+> +	ether_addr_copy(addresses[0].addr, mac_addr);
+> +	for (i = 1; i < n_addresses; i++) {
+> +		ether_addr_copy(addresses[i].addr, mac_addr);
+> +		/* set Local Administered Address bit */
+> +		addresses[i].addr[0] |= 0x2;
+> +
+> +		addresses[i].addr[0] += i << 4;
+> +	}
+> +
+> +	ah->hw->wiphy->addresses = addresses;
+> +	ah->hw->wiphy->n_addresses = n_addresses;
+> +}
+> +
+>   static void ath12k_mac_hw_unregister(struct ath12k_hw *ah)
+>   {
+>   	struct ieee80211_hw *hw = ah->hw;
+> @@ -14762,6 +14812,7 @@ static void ath12k_mac_hw_unregister(struct ath12k_hw *ah)
+>   		ath12k_mac_cleanup_unregister(ar);
+>   
+>   	ath12k_mac_cleanup_iface_combinations(ah);
+> +	ath12k_mac_cleanup_mac_address_list(ah);
+>   
+>   	SET_IEEE80211_DEV(hw, NULL);
+>   }
+> @@ -14878,6 +14929,7 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
+>   	wiphy->available_antennas_tx = antennas_tx;
+>   
+>   	SET_IEEE80211_PERM_ADDR(hw, mac_addr);
+> +	ath12k_mac_setup_mac_address_list(ah, mac_addr);
+>   	SET_IEEE80211_DEV(hw, ab->dev);
+>   
+>   	ret = ath12k_mac_setup_iface_combinations(ah);
+> @@ -15120,6 +15172,8 @@ static int ath12k_mac_hw_register(struct ath12k_hw *ah)
+>   		ath12k_mac_cleanup_unregister(ar);
+>   	}
+>   
+> +	ath12k_mac_cleanup_mac_address_list(ah);
+> +
+>   	SET_IEEE80211_DEV(hw, NULL);
+>   
+>   	return ret;
+> diff --git a/drivers/net/wireless/ath/ath12k/wifi7/hw.c b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
+> index ae8df80928b0..ad362244ed9b 100644
+> --- a/drivers/net/wireless/ath/ath12k/wifi7/hw.c
+> +++ b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
+> @@ -445,6 +445,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>   		},
+>   
+>   		.host_alloc_ml_id = true,
+> +		.advertise_iface_mac_pool = false,
+>   	},
+>   	{
+>   		.name = "wcn7850 hw2.0",
+> @@ -539,6 +540,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>   		},
+>   
+>   		.host_alloc_ml_id = false,
+> +		.advertise_iface_mac_pool = true,
+>   	},
+>   	{
+>   		.name = "qcn9274 hw2.0",
+> @@ -629,6 +631,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>   		},
+>   
+>   		.host_alloc_ml_id = true,
+> +		.advertise_iface_mac_pool = false,
+>   	},
+>   	{
+>   		.name = "ipq5332 hw1.0",
+> @@ -713,6 +716,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>   		},
+>   
+>   		.host_alloc_ml_id = true,
+> +		.advertise_iface_mac_pool = false,
+>   	},
+>   	{
+>   		.name = "qcc2072 hw1.0",
+> @@ -808,6 +812,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>   		},
+>   
+>   		.host_alloc_ml_id = false,
+> +		.advertise_iface_mac_pool = true,
+>   	},
+>   	{
+>   		.name = "ipq5424 hw1.0",
+> @@ -895,6 +900,7 @@ static const struct ath12k_hw_params ath12k_wifi7_hw_params[] = {
+>   		},
+>   
+>   		.host_alloc_ml_id = true,
+> +		.advertise_iface_mac_pool = false,
+>   	},
+>   };
+>   
 
-> +	no-mmc;
-> +	no-sdio;
-> +	disable-wp;
-> +	cap-sd-highspeed;
-> +	vmmc-supply =3D <&aldo4>;
-> +	vqmmc-supply =3D <&aldo1>;
+LGTM
 
-Could you confirm which rail supplies the card's VDD? The SDK DTS [1]
-uses p3v3 for vmmc rather than aldo4. Does that RPMI regulator map to
-ALDO4, or is the card powered by a different rail?
 
-Link: https://github.com/spacemit-com/linux-6.18/blob/k3-br-v1.0.y/arch/ris=
-cv/boot/dts/spacemit/k3-deepcomputing-fml13v05.dts [1]
 
---=20
-Troy Mitchell
-
---ac315c91ecc3c3395b0dbb991c1f84a289bae2ebd6cf0113e2bb44b50761
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCarM4Hg0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvSEoA/3IWr2MzSgk80d2GUorlzgVL9dN5Z5Dsq+DhOJvZ
-9VreAQDXTpwPqeRJwGQFCrvEkytE3PdxYiCDEuGXLDFlGMaZCg==
-=Za92
------END PGP SIGNATURE-----
-
---ac315c91ecc3c3395b0dbb991c1f84a289bae2ebd6cf0113e2bb44b50761--
