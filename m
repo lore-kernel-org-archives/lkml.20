@@ -1,160 +1,177 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21DA730ACEE;
-	Wed, 23 Sep 2026 06:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790145805; cv=pass; b=IF6Oa+9YG5L/RJNiFxKFNfGjecVwYKNQFPESXmL47rp+1qhvKtCKfZAhqw2c190QhJhb/GhXVXdikY0ujbHwo8ZIJ5fXuRL2apZmulao0q2Acy5FWOaaFVQPg5XfFsuvwQ2xkCaQHu5v8k88cXyimsc/SvwlRbUM/hfJnLIYaqY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790145805; c=relaxed/simple;
-	bh=rYNUtYVo/DE4BajXfdVfAGUQ1KL8Prik0dfzkqOMPgg=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=QjdIwiwEJKvXjiOdYqV0xv6Fh7GSuw/vLfycM+AUB8VONrLp6rqSopgNGW0Gqzcb9LCreo4davxlLG8rau7ej81n5ADIa1xviV/BTudK6wUYUBxN+VsbHe/2l9wSvQIE2QxvNKs4okmJgrXaS24Rp6Doa4F6EiT439ACEatE3NA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=L2J86SbM; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070783F1640
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790145900; cv=none; b=gBYSXd+IPUCdoS82HJ63idW1GUN8TPQqEREO8qbWyWX9r0SbcSkCp9Fjyo7GGfxQrG1qZpQQuYDoCjIOtMPGvcFvKWAifD+BGCn9r0I1+Iq5uD8nfI1MsJXLs6o8ErKIRpc8V2bbJoZCCOprrRSTY0A17sPYh0LiZ7XWpK+EVEQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790145900; c=relaxed/simple;
+	bh=U3Fe3GZkBaknJJQrEX2RpwW4P0WOBIbz21H+JhSeOuc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bWc7pztnbPKN6V7NQkurG+JXZDDaV0+tI0gFcbxh5VwRjJl+k8yIeeMC6S1T4/GI56pZeALLM1kyRqm/OpXW0xIMIQBIlJOdArlPt2sPAT8WYizM9Xs2x2AO/hrCg2EG11NMI7cOQS6Nhhkm7PGM8y+UEGaUvH6IEvqKnYH2zhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KH+6SRSN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="L2J86SbM"
-Received: from fauth-c2-smtp.messagingengine.com (fauth-c2-smtp.messagingengine.com [204.75.18.201])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hqS8b0Gh5z49Q7P;
-	Wed, 23 Sep 2026 09:43:10 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1790145791;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7wOWxYY4eY9XU25OMHVx3sfwNw2fYVAY+jnGCl+7xTA=;
-	b=L2J86SbMjEGywVetJbAFl10zJowdDWQM07D3vE1cwVZkYPyJWIqJfDNKv3jQgY+IVSD/RO
-	+iJP90HJFNiC5aHlBhfOefGRnCY54oQs6AL5AKoYU79V9iYSZsm9gY1vGWkUkM4OS1nz2I
-	XMG1OfZSbcJlki4EPKroRJ4n5Z1/F4ymhKmJGpHc9JVVuqwG0ZLbeVdYp4LxHGy5YcsMSa
-	zqOZUNPqwH3ooRAqyRmZANqWmxB1J4FPJ8GHHEiChAOMUg7uNKG9dNoZkdnmQ4x5dNzWuO
-	FLv3srBQxPf7Tup4E0qr1n9WkfUDgYszoTT1CMJuNDu3Vdznozd9S8GpxyG46w==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1790145791;
-	b=X3JZL2SuTJ9/lESUDZV8bqVUsqxTkRL/F7XS+ZgXAqoXzJDayZfkB6z8FLdUhihoErC7pQ
-	PJhxAvraTvXrFn0OhU3d/dep8GJax5UE+ybqTthzoU9ef1ROTCWEeBygCf7CX96KYjlAXw
-	y5aZS21pg50MhtyTILUMFwIttUILUatYELk/ft9Dv+qAQFd2+JPNC8dnNc5XMoqxSGm727
-	HVFNHbUghp3dGYh+QIIURoscOkD7Rajjv76lIppyN/Wafq0tQHUYidDODmBNGI7bBHWDhz
-	lzi7C4XRDUyFjWgvfH0gDQninCOsptaek1I5D2GG4I++juTDK1kNNbn0N/rSzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1790145791;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7wOWxYY4eY9XU25OMHVx3sfwNw2fYVAY+jnGCl+7xTA=;
-	b=tccHAp6omQj8HSZMFOMZAiBvDg/Isjj4Drl75SRdZeoEH0eQTX5v0a5bOd8E8fHOUIy8Ez
-	MvOwEaPNdJkIVhgUM8QwhTZE7p9CHg4P/j0URJt3zZHj6nlaEWWDpBlXUJaV7OqzVkJcyr
-	Ak5ldbd0ACyW+IffvJpIH9RxFzkSNL1XbZWw/81OJVHF1ZieYWTfRhRtBXw3sFc1wf1XX0
-	0pw/0qGD+3LSbCAQofVi0hQ5Nis9Jp0HUJRFiAnRxZHsdVnsmhq2Rs4NdbgoZvmFGFoAeO
-	CJ6IRY5E3WWtn3Gy94NuXNizstndWwXzuB2rgHM1OxgA3Mvovw/1VbFCSmt2AA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 47C9C198004A;
-	Wed, 23 Sep 2026 02:43:10 -0400 (EDT)
-Received: from ams-imap-13 ([10.64.2.33])
-  by ams-compute-02.internal (MEProxy); Wed, 23 Sep 2026 02:43:10 -0400
-X-ME-Sender: <xms:-3SzakVwe1VxyDXHb413WQaKDq6_3zS5KetTsI54C_mSAwQH0mt_sA>
-    <xme:-3Szajafl31YUfXA6zZn9bh6EicH2OMotgMoN4ROKMs4jH_N-D7ceHqCbHsjzolOu
-    sDl_DA72TNnX6OjN3J1xer5Ma-yJC6sXTf3IB8fogpEbNvdVw_yRvM>
-X-ME-Proxy-Cause: dmFkZTFZGTj3GjzbP5lYRKQxP+eSpNJWuoi9GAhHtMOeLYfiHKA0AKIj1Kd2GGDDkxTBLQ
-    4MDet04aCmyUWslVn60gIvcdy66Uw/Kl9xZ4fbg5csse8A1LyE3KT+sl+WNTnWti4S34vi
-    K3VAMHoqN0HOf7wqh2GI7+SjgeXMDlXjJSADQctWRxmn28w9PzX6kZFYR+BkQoKkIXXri4
-    DxYtKkj90b18TYFd2Y+VPF3EYEpE+NhRRtWYRkHrpclSqpVjwDFI/hjvCrZN97Wr/OrU9o
-    HRvNsq+S+iEsP+6E8AEjSgtkw+nmJ/A5ZhtfcHVDlPmeTCkRMMNLbNEgiFeNWnLihnXTOj
-    u+Z4YjcR7unRGpzGBPc15f1rg0udjNxofqmGerLDYFu1uTWwVjN76Z1Q6/Aixb6poAxTO5
-    vY1QNdSzmFNIuu29EHc6qFe6ZFPiFDwpIs2BjrB+vWrPbg9dchmr4vxgYCnvFtXUvyLkf5
-    64jzDe6/rnpD/DO9oTypgquLbQApXc+GF1dmAcZSLeppr//4+S7Vma+EXXsyExj77GEHmL
-    DpcfNh8DDKGX7vU9m6d6XVqYk8sqOIsX5buSn3UfGZRuHVq3bYX0Qe0Neca+PwRKZh2vZd
-    xCXvBqu6UlKeUniQNtLDNsRaKdZf976LYb5BHQNxCUb8SUB6zvxCxEcgrvew
-X-ME-Proxy: <xmx:_nSzas1dJCHZrnRNJjNGhY-P-tN9iTd28AuGv2pcygktRRX2JZi2HQ>
-    <xmx:_nSzarW6uNVDeY5Ma5O7pAZiV2v5NtMrGWWiYJNuXB3GrrWiOu2iYQ>
-    <xmx:_nSzaocQkw6MFOLUVjXGq-H3U2BIb3LIOGChOniranpEf1pta-u_eQ>
-    <xmx:_nSzak9kF_xpDo5CtpZP9WJtwp3JHcWPWbi5ZveYyqvRRRG9B37BPg>
-    <xmx:_nSzaoZ_i2H8ufpkLRt4jBZSPqE0pmWboi2feJDFtcKu7x6eS2f8YheB>
-Feedback-ID: i02414972:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 15044F8008B; Wed, 23 Sep 2026 02:43:07 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KH+6SRSN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77AFA1F00898
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:44:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790145895;
+	bh=U3Fe3GZkBaknJJQrEX2RpwW4P0WOBIbz21H+JhSeOuc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KH+6SRSNEvqMduDQyrAk1/m5V6SS0ddO7ePNHzpfLJs8HzeRvVSi0MYcTbY4ASQYX
+	 wpbI2WceWE2GFNraMR5MG8cOZPwg3dsaUpf2jzzvfRnW8RbzTJliBFcwM7aakKm/pa
+	 rDVBbrblG0sQAVQ1/QB1x7vYTpcyBqdPmO2tkufLwdnZkekzWJLQArwe3c8Z+LIlaR
+	 J3Au44TJJMbFiRsw9v00qM2/UtbkbXUriIjohRWxBxd24lKUprGOM5ozhLJh+z41WA
+	 auoSIMkEGV/BhM69FLPP/47DiQMJi5PEEqK+oNovw6q/Scd9wIfxSEegEY2whp0+wM
+	 8/5+3fw+fxJuw==
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-6713d20d375so557067d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:44:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByYd5jgWwjqEFDYPNH03Ci+EhHj2wK5pZbT4hv9tPmNuiU4QuktCJ5L8I3tvdex0rZNPShUjEAy5d3ZKtQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kZtRLUH49CNDiOIXGGeE3cW43GApERC66gGqUKEpUwnYic4e6M
+	EqqN0626sbN6+AsLfUoJIRY3aIu05iiRyiMD66cwjtOpN1o9MKirl3z2jNV+2H+vOGXVgcoQGaF
+	RLz+t2Jq23wDoYp1P2DWpLFuHfVCNi+voY7gety/QwA==
+X-Received: by 2002:a05:690e:1909:b0:672:c9eb:4755 with SMTP id
+ 956f58d0204a3-672d5765c2bmr1091423d50.23.1790145894673; Tue, 22 Sep 2026
+ 23:44:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ArNQnYYOpCrZ
-Date: Wed, 23 Sep 2026 09:42:46 +0300
-From: "Juha-Matti Tilli" <juha-matti.tilli@iki.fi>
-To: "Manivannan Sadhasivam" <manivannan.sadhasivam@oss.qualcomm.com>,
- "Manivannan Sadhasivam" <mani@kernel.org>,
- "David S . Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
- "Jeff Johnson" <jjohnson@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
- ath11k@lists.infradead.org, ath12k@lists.infradead.org,
- "Bjorn Andersson" <andersson@kernel.org>,
- "Chris Lew" <christopher.lew@oss.qualcomm.com>,
- "Deepak Kumar Singh" <deepak.singh@oss.qualcomm.com>,
- "Raj Kumar Bhagat" <raj.bhagat@oss.qualcomm.com>,
- "Jeff Hugo" <jeff.hugo@oss.qualcomm.com>,
- "Vasanthakumar Thiagarajan" <vasanthakumar.thiagarajan@oss.qualcomm.com>
-Message-Id: <f4cba44d-d566-45d7-8772-c08af41dfdbf@app.fastmail.com>
-In-Reply-To: <20260922-qrtr-multi-ep-v3-4-c00831e88957@oss.qualcomm.com>
-References: <20260922-qrtr-multi-ep-v3-0-c00831e88957@oss.qualcomm.com>
- <20260922-qrtr-multi-ep-v3-4-c00831e88957@oss.qualcomm.com>
-Subject: Re: [PATCH v3 4/4] wifi: ath12k: Connect to the QMI server belonging to the
- device owned by this driver
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+References: <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <arKRdaNEaKvFOtMg@linux.dev> <CACePvbX7aM45SE9H0hg1_uXBt1i4W7Pgk+d33Z2sG5bj8cHudA@mail.gmail.com>
+ <arKZpJDpsavixjPx@cmpxchg.org> <CACePvbUmVLVk=w1sJinBfKVYoXcO57A163RrXv7C_QLzM4yQZQ@mail.gmail.com>
+ <arKgladcnmeTWUKb@linux.dev>
+In-Reply-To: <arKgladcnmeTWUKb@linux.dev>
+From: Chris Li <chrisl@kernel.org>
+Date: Tue, 22 Sep 2026 20:44:40 -1000
+X-Gmail-Original-Message-ID: <CACePvbUYhwSjOEXCM08Na_5bccOo6Oz-9BatRSPDO7R310YjaA@mail.gmail.com>
+X-Gm-Features: AcwNN1U76kw9ArcfhXgJlon_Ze0jFZEqulu20gcTSrQsz-WCh9osS09uot1Y_ic
+Message-ID: <CACePvbUYhwSjOEXCM08Na_5bccOo6Oz-9BatRSPDO7R310YjaA@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <ryncsn@gmail.com>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026, at 16:41, Manivannan Sadhasivam via B4 Relay wrote:
-> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> 
-> When two identical ath12k PCIe devices are connected to the same host, both
-> advertise the WLFW service with the same service and instance id. The QMI
-> lookup reports both servers to each device, so a device may connect to the
-> firmware running on the other device.
-> 
-> But now, QRTR provides each MHI endpoint a unique node id which is
-> different from the node id announced by the device. So use the same id to
-> pick the correct server. Add a get_qrtr_node_id() HIF callback that returns
-> the node id derived from the MHI controller index and zero for transports
-> that do not assign one. In the new_server callback, skip any service whose
-> node id does not match. A node id of zero disables the check, so transports
-> that do not assign one keep their current behavior.
-> 
-> Tested-on: 2x WCN7850 hw2.0 WLAN.IOE_HMT.1.1-00018-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1
-> Tested-on: 1x WCN6855 ath11k + 1x WCN7850 ath12k
-> 
-> Tested-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-> Reviewed-by: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+On Tue, Sep 22, 2026 at 5:46=E2=80=AFAM Shakeel Butt <shakeel.butt@linux.de=
+v> wrote:
+>
+> On Tue, Sep 22, 2026 at 05:30:44AM -1000, Chris Li wrote:
+> > On Tue, Sep 22, 2026 at 5:07=E2=80=AFAM Johannes Weiner <hannes@cmpxchg=
+.org> wrote:
+> > >
+> > > On Tue, Sep 22, 2026 at 04:56:48AM -1000, Chris Li wrote:
+> > > > On Tue, Sep 22, 2026 at 4:43=E2=80=AFAM Shakeel Butt <shakeel.butt@=
+linux.dev> wrote:
+> > > > >
+> > > > > People can speak for themselves and suggest other time slots. You=
+ do not speak
+> > > > > for anyone but yourself here. At this point this is derailing the=
+ conversation.
+> > > > >
+> > > >
+> > > > I am expressing my opinion, freedom of speech. As you can see in th=
+e
+> > > > previous discussion, Baoquan wasn't able to join that time slot. He=
+ is
+> > > > a major shareholder in XSwap. I worry that alignment vswap vs xswap
+> > > > without Baoquan is ineffective. That is my opinion.
+> > >
+> > > Actually, he said he is not sure if he can make it, and before Nhat
+> > > could respond to that soft push you drew a hard line without actually
+> > > proposing a workable alternative that made Nhat give up instead.
+> >
+> > Please consider that it is 1AM in Beijing if I remember correctly. I
+> > don't consider that is a workable and reasonable ask.
+> >
+> > > So my free speech opinion is the same as Shakeel's: you're speaking
+> > > for others and thereby derailing efforts to align on something.
+> >
+> > I sympathize with asking Baoquan to join a meeting at midnight.
+> >
+> > >
+> > > We all want Baoquan in the room.
+> >
+> > In Chinese we have this saying: don't apply things to others that you
+> > wouldn't want applied to yourself. Do you want to participate in a
+> > technical meeting at 1 AM?
+>
+> Three emails in, you have rejected the proposed slot and proposed
+> none, and your own conclusion was to drop the meeting and keep this on
+> the list. That is not inclusiveness, it is a veto, and the outcome
 
-Ok, you can retain my Tested-by tag despite the changes to v3.
+You skip an important step. I raised the concern that the time zone
+does not work for Asian developers; we should find a time zone
+friendly to Asia.
 
-Backported to kernel 6.18.53, all regdb issues are gone, and when I
-attached antennas to the secondary WiFi card, the statistics fetching
-dmesg issues are gone now.
+Nhat still suggested the original time slot, disregarding my concern.
+Which implicitly exclude Baoquan from the discussion. That is the fact
+that you missed.
 
-I have two cards, both of them work simultaneously, on the v3 patchset.
+Then I suggested using email discussion instead, because the key
+shareholder couldn't attend. There is no veto. I suggested the same
+approach Nhat suggested. If you call my suggestion a veto, Nhat veto
+first. Nhat issued the first veto. Mine was only a response to Nhat's
+insistence.
 
-The only remaining issue I have is this on the access point card:
+> serves Baoquan and xswap worse than any hour of the day would have.
 
-ath12k_pci 0001:01:00.0: dp_tx: failed to find the peer with peer_id 2
+Baoquan can't make it at 1AM. It is not a reasonable ask.
 
-Google's AI (Gemini) tells me it's not worrying if the connection works
-(like it does for me).
+> Baoquan said he was not sure he could make it. He is perfectly capable
+> of declining himself, or of sending alternative timeslots to the list.
 
-Thank you for the effort! I'll take the 6.18.53 LTS version into use
-with these patches.
+In Baoquan's own words:
+"About the meeting time. I am in UTC+8. If the meeting is before 23:00
+my time, I can join. If it is later than that, it is too late for me,
+and I can only discuss in the mailing list."
 
-BR, Juha-Matti
+He already made it very clear he will not be able to join that time
+slot. It is not a maybe. It is a 'can't'. His reply was very clear
+before you sent yours. I don't know what part of "not sure" you read
+from his email. What is your motivation for twisting this?
+
+Suggesting a 1 AM meeting without considering the time zone difference
+is an understandable mistake. Insisting on that time, as Nhat and you
+do, reveals more about you. Attacking me for point it out?
+
+> You turned his "not sure" into a hard no on his behalf, then argued
+> with everyone who pointed that out.
+
+It is a hard no. 1AM is not a reasonable ask in the first place. Even
+after I pointed out it is not Asia friendly, Nhat is still insisting
+on it. That was before I suggested we discuss it via email instead.
+Get your facts straight.
+
+Chris
+
+> Please reply with two or three specific windows in UTC that work for
+> people not in US timezone. If they overlap with the other participants,
+> we use one of them.
