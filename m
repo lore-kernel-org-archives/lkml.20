@@ -1,142 +1,140 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011016.outbound.protection.outlook.com [52.101.62.16])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CEB4EB85E
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:34:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166895; cv=fail; b=olpyAcsCQIpGmjJKC07D/sPW80U7PCUrIwNXDmlg39HSP+UwxFbS7v8palR29PPfZdzKZtvktRntogImhKr7cW1JmD7qYRzc/Bo9EUcBahZIuHUT34dZ0TZ9j6dVaGDTzp/zXs8Vk9NxRoe7fAwi5lRktp6nVobl6az9O1mIpCI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166895; c=relaxed/simple;
-	bh=xq8U72PmaU50iP8Rfwm9JvhobEp4btmjzkV+c3vj7x0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Sn1tl/gCe7zdZQGfT6AfOkE2/MxhSkhJoP7yKW4dMjkivdOTcIiJBVvELBzCULU9cVggvkThYU6NC0J0utHgEyeHufhH/GxIujtfpM5ScKEnv+m3o+fxiVrVe9wVWyuZHotOf9YrAV5wgKsOiJ/SbY+f5FSFgf4YLeKrjX6woik=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BdTBsDtY; arc=fail smtp.client-ip=52.101.62.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B01499F2E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:35:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790166936; cv=none; b=cG0IXOa1FXogjQ/ZjJv3nTeNhA4dTWyp0A5QYyWuEPdqmKPVxjQWS0UAXcPY3yXsR1FrfpJCS5c31YtQfwb5zz3dwsKYBScr+TZkPV7zo0lj0r9bfwz1K6fj3cdhcgHX3/G5GJ3KOztlnybtcwAd522LKP45DU+oqDm2iWikRNI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790166936; c=relaxed/simple;
+	bh=x7Apl9ihKaoaWZi5tsiyj9XdsN5NTj65ZbJChWnAXUw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=rVRZcEIWzl+CbeZ4QVMT7QW00Djh5KOa2lSjKeBBHocQ7w3X12QceZ7vMBXtSE7f3Wrez+gG7eC3KAaebl1aK+z9wPjOGlXCtSJMP7KNdrXlTDDrdnpwzOS4hExB0VoaPPpUz/Dmw9l3oAL1S2reMxExoCqwQxoY44aiWaJwov0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Uklwd6d0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=a60OyogU; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BdTBsDtY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HY16sIxnB3DnjbxytUpjftP7v9ox69Tt+H6Fkr3gwZtXvqxLJUHidsWLXlZnuOeQl9yjnNOnv9kx/TTCjnso6Vvjotn7Ahp1EG/z+nRLVQ0ZWhtPWxKI929+7FnbQYI1J/4e2GB48sd8pEErrztFXJmgwLbQ0i0m/vbdtZ8EmEXtiepMdiiuFNMI+KYyTO0e0fjKCdKWFi8kWq37zIc0DrvgO5+IuAz4V9FHbTFGSs+N/PKflDedcv1L4eEYtzynaxswHaMjpZ+ewMLl78Uc+2ztmlx1vRIzJVBquQ6qHIfh5JaJJRYgu1KPpIqijtUxDPXyIoiz1PZMZjm1UzD3YQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gCoCW5O2nLttnmjDwMxedUuejmkAjIqMAF7cGJXatP4=;
- b=dJfB5IDQ/w1ScGzKfUIzZnCKnIE9l1OZiXh2lfk8nZK9+ZcJVTnjidBeBjJWbfwt8AxRqwXOxaXvse6XAHIgGNPY/dKNOVXSepuEnfxNbXrez6qnJy5Ic/LKltI0W45P1Ih67/CB9Olm2u6miLYUQdF3bjfk/aLI/chUS7lyE8yCGqXX9mhYQ/7rbXuzuQBuiugGOV06vKTTjZrubNlFtmgy5QzJ1gGAryCt5BYbzPeTp+52CtownibbEqEytHIVo4NSzrIjDn/CM6QSh5d7dIIoiGjPAIqXzt2F62CkRTA8Ru7E9pqBumpWj9V3OR1KG/4md4YyAHIFKvneWXui4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gCoCW5O2nLttnmjDwMxedUuejmkAjIqMAF7cGJXatP4=;
- b=BdTBsDtYpH3sjpWgUKbtFpCGEIR0XyGHZ/uani+c+y6h2h+t6m2lwwfzgWaUiaxvVTyNTNbsETjovCoVP+iTxGAkELM2hplpT53bdLdeGx+i+sK2gyDatVOq4zWF7306dQf0e33OWLYm45g794olWY8XUPahSs+yEyhDTL4Zo8wN9QX892176dEBUvVECuhrR2dOTFudJnJFA7bls8dtYkHS4+UCRGzKHLJohRVweyJKz+b9MHnwC5wcnp/DI6j1fMvxY/bHBSyjtyRhjny/bjel8dEhOYBT/MpNg2L0qxk/Ol8fc4nUgxAPJLgGi+pqg1YZR50z5ONRuanhhzbMcw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by CY8PR12MB7609.namprd12.prod.outlook.com
- (2603:10b6:930:99::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 12:34:33 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 12:34:32 +0000
-Date: Wed, 23 Sep 2026 09:34:30 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: Nicolin Chen <nicolinc@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
-	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
-	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
-	yuzenghui@huawei.com, joro@8bytes.org, mark.rutland@arm.com,
-	qperret@google.com, tabba@google.com, vdonnefort@google.com,
-	sebastianene@google.com, keirf@google.com
-Subject: Re: [PATCH v8 04/25] iommu/arm-smmu-v3: Move IDR parsing to common
- functions
-Message-ID: <20260923123430.GF2545495@nvidia.com>
-References: <20260922131259.2975334-1-smostafa@google.com>
- <20260922131259.2975334-5-smostafa@google.com>
- <arLa0E3xq5dGuPpd@nvidia.com>
- <arOlQtPYzF5yT8fP@google.com>
- <20260923115257.GC2545495@nvidia.com>
- <arPDn5c815X72PSF@google.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arPDn5c815X72PSF@google.com>
-X-ClientProxiedBy: SA1PR03CA0019.namprd03.prod.outlook.com
- (2603:10b6:806:2d3::21) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Uklwd6d0";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="a60OyogU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790166933;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UDQWN+qvZeX1gaIgZOYdsKlCuMncX8rgK5IP5SLXF5I=;
+	b=Uklwd6d0eRA+Eyy2vAggML6T0CSrcFOyGz/uLDNGkTBXEtKvXHVdxMzfrbcAJJ8MZsKS4o
+	nbB5R+KH1+FMPRg61ri+N7lC6HmQ1KtlRDnY5WQSlRuguud2ZTNpS/mmBVrJSYlm+ehv84
+	VqzDyxgzwJwRVtOkWI4iLvyS0EFne7w=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-124-dF0HPRydOSSJonf9mFpc1Q-1; Wed, 23 Sep 2026 08:35:31 -0400
+X-MC-Unique: dF0HPRydOSSJonf9mFpc1Q-1
+X-Mimecast-MFC-AGG-ID: dF0HPRydOSSJonf9mFpc1Q_1790166930
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49e6b5c5f44so12544225e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:35:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790166930; x=1790771730; darn=vger.kernel.org;
+        h=content-type:mime-version:user-agent:message-id:date:references
+         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=UDQWN+qvZeX1gaIgZOYdsKlCuMncX8rgK5IP5SLXF5I=;
+        b=a60OyogUZ+HcW76z3sOpzu0sYxAgSCaskaeDeHAHgy3uDs6dg3MVYweUmRazLxr3rR
+         ky25sj+3BYPckeFqZ9/ZZAv+9ODycMinEgwZb6RqHSNr2d50qhNyYAOmje8D4d5e6LrC
+         XuU6GKQkOPeiN7oSjzbhmnI/IPU1710iM0z+X6+0pTw6gT5HIQonOsxQM8KXSG/8+354
+         V6kpUuxqqeazPwnWB9C3OuRTFGCscX+sDk0vtTg6UdjNkgVN3ucskiq9xdNUDZHd162i
+         hR19Gxv3BEd/vld7hxOsrMoW5mQlRZVo5whjeLwaclQf+DYVVCiy4YqU9fpKCczVboiL
+         LhdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790166930; x=1790771730;
+        h=content-type:mime-version:user-agent:message-id:date:references
+         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=UDQWN+qvZeX1gaIgZOYdsKlCuMncX8rgK5IP5SLXF5I=;
+        b=wMqTmoJZDPtnjpXcARWcYYxAMdo9XE9OwUalL67u/ngVJ/s1KiyzsnZvTrRgibvGK6
+         LURYsOI4p3UmpjseUU/NfdScQJu50Eopb6G5bjADZBiR8StHyEcJ0rq+XDryuK9gD2AF
+         BkqUJnXEgzMw9nhf0tO7Ptza8g070F9BnBFuGyxgrCc1xtsWpETZDeqnGDxp849zmfIT
+         XYEWarVe2dmZ0YlAK8Ub0bDKYFdBJPAUw3S5nqXUZP2jE0qcv3lODTQl1Wk9P1mUkAHv
+         ZrFJR2/GfNc3a0G8TjSYMV9yAwRHadd2wY0URi3Tnp7OgzmFE2MwlL9mry9M3W7unVYn
+         GWrQ==
+X-Forwarded-Encrypted: i=1; AKwUvByOVxhJHD+aI+BTbYicozhVcdu3GOGYHxiSBGmEAzFh7wBlkc6W0gOkk3gbIkY5IJxs/Hpo9sBzjQEIAmo=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3KkeV0V66Lqrpx4nxpxz3pc9NiOjuqhGuehoPq7NH98awM9RA
+	UhEAFoTP0g48ueHsqIY3uaeRyFp5HHG4Ge2C+ql7dCF4zKC3BeYFtsAVXBVrfAW4oZM46pMtSWn
+	31MmP7m82SdliMdp60g4QnFHDhrLuBY/kvhpCPKFzzyAlKIBU+VTX1qGWY0sL2oU4mQ==
+X-Gm-Gg: AYBFou0Wi20unoMfzFvcAvgPny2eA0kygB7saf9fxGoABF5poNRARHgXkBlFG3Qzd9L
+	/NuT8Da2P2vp1UYRAnKW7zHFqE5S3l9Da+PrCO9thNqOu+fgrpUU9Lj2CNFpxGQb1UmlzsiDHto
+	eAOlqTxlunk5wvl43df0BUcWUHTSVWrCAvm2iRxfDyIgDgGPQrddBznar9MTu8Pxs4e0QUDedQF
+	7uKlcPVHYGTF3ggDFt1wlTPSvDoJXXnrSsnCf1BM8zOt4RN6VOSlYx51GSVNFPlWFpFEQEeDujT
+	tLXr32I3AzqIETKOLEMWQs/JTqZ8nn5GV7OasnQ9FyfaywwwVTs+y8S/2JHf1/JyZtTXTppwhom
+	G8q3ATdKK7zBjTLbR2TMr2ZYgemW8ixSzWqxbM3U=
+X-Received: by 2002:a05:600d:1:b0:49f:e3d4:4c1f with SMTP id 5b1f17b1804b1-49fe3d44c52mr16737145e9.8.1790166930505;
+        Wed, 23 Sep 2026 05:35:30 -0700 (PDT)
+X-Received: by 2002:a05:600d:1:b0:49f:e3d4:4c1f with SMTP id 5b1f17b1804b1-49fe3d44c52mr16736585e9.8.1790166930125;
+        Wed, 23 Sep 2026 05:35:30 -0700 (PDT)
+Received: from aconole-thinkpadt14gen4.rmtusnh.csb ([216.212.25.12])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1ccb90sm75125185e9.6.2026.09.23.05.35.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 05:35:29 -0700 (PDT)
+From: Aaron Conole <aconole@redhat.com>
+To: Ilya Maximets <i.maximets@ovn.org>
+Cc: netdev@vger.kernel.org,  Pablo Neira Ayuso <pablo@netfilter.org>,
+  Florian Westphal <fw@strlen.de>,  Phil Sutter <phil@nwl.cc>,  "David S.
+ Miller" <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,  Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,  Simon
+ Horman <horms@kernel.org>,  Eelco Chaudron <echaudro@redhat.com>,  Jamal
+ Hadi Salim <jhs@mojatatu.com>,  Jiri Pirko <jiri@resnulli.us>,  Xin Long
+ <lucien.xin@gmail.com>,  Marcelo Ricardo Leitner
+ <marcelo.leitner@gmail.com>,  netfilter-devel@vger.kernel.org,
+  coreteam@netfilter.org,  linux-kernel@vger.kernel.org,
+  dev@openvswitch.org,  stable@vger.kernel.org,  Axel Mierczuk
+ <axel.mierczuk@1password.com>
+Subject: Re: [PATCH net 6/6] net/sched: act_ct: fix helper UAF due to
+ extensions realloc
+In-Reply-To: <20260921145655.3167436-7-i.maximets@ovn.org> (Ilya Maximets's
+	message of "Mon, 21 Sep 2026 16:55:48 +0200")
+References: <20260921145655.3167436-1-i.maximets@ovn.org>
+	<20260921145655.3167436-7-i.maximets@ovn.org>
+Date: Wed, 23 Sep 2026 08:35:26 -0400
+Message-ID: <f7ta4p89mcx.fsf@aconole-thinkpadt14gen4.rmtusnh.csb>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CY8PR12MB7609:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7696a7d-e2c1-4159-c06b-08df196f050f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|4143699003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	PLX/f5EQQn0qqVdREvDsr4ylyedztfwq97jwmu8WL9t9TLGblJRSHvzzTK6KfG5SeG4sfutZGy9NlH9M/+OZ7Tdp4KTyorfGWrYhtXPkeFfaw/x88ex4rVNJ7PxOkDvwcrrAWNWJw3Uw3s8GAknrlbQQjDw1geSuzYH77nRm4nkimEv8twRq2QHu2IdBn0oCap4JVh5ZRIE0Pq8o/SIW97dJYbrtlvmvWu4r4PKx9WPru1XLh9QB1wPCEmujMiq24kAI7l9OvqIqDg1D8ND9lMxXXIDaCuhXEmigEfQ7lL3mPRWsUNfnLGcS4sVojBYRgkv+TVUNpAll2dEn+IGlyKBj/u9FwhgVqtqD4C003TQFg/78KiIyNopd6fjdBYfZgD6jkKYStFM83DH0CoHlj1pI5uUGpLf7dSA9EUsaR4VJYFc8iqW4+sOqSUnsUQMlrK5fDnCJJrYuK0CkZEjk3blbMa50GSvgYu8eiLwm+lci3Gm41qF+HMjR6dNRMTpnX6XPkmy8JFSzzAfmMOTFCGP9UF4TMSahmsRIN9PaMe/8WAJj/vS3cM4rVmIRG0xNhs7oB+Fe7NcQTKPbRbzt+m9TjylEpVTq5Wt3Me4sQV0j8i9lJ13EMhijAQRM/3OIPOefeB+6bu6UfO4NGYL5xkYD/l+UWDzXkHyCokwrtRE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(4143699003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cJcRknsVV9IjlD1Whwu0nZTWHo+T9NbalmUzFRtEhfYg1k0YmDa63KWIJHlR?=
- =?us-ascii?Q?oSXVXeA1TXS+UOzmYu1EogJ9L9nj6Jdt+p3s/nvMY30Bl9TzziF8ol/QSZgI?=
- =?us-ascii?Q?Oy8ayAyK1yAnn8Z2KvJySru4PvKFoVola4VGYBfyuJL65eHyQaytzOPqE9vi?=
- =?us-ascii?Q?JL8gMJAPAkJ4cwA6hcu+h3nEcBq/2isu96OKAxlctozIjnDe0WqIayIyru3X?=
- =?us-ascii?Q?49ifjKtGY8ZsKZq0kFWb6V6Vrii0HDRvmoQqbOnnI76NZhYOAjY0QteFjD3G?=
- =?us-ascii?Q?Sqx7JI0rzkjpYqFEflusHMVudox+J7O6bEDTU0u4GGCo2M/bLiouF3k1xBbm?=
- =?us-ascii?Q?XraS2VwSjPS8y5wriv1QHhwJ+cQ+Gn10FGgy2ksCmOxmnM4GoyAZSnHX0+r8?=
- =?us-ascii?Q?N1TG0j40AA2w1YTfNtBfobPdkFR/WNmuVkGtpicHtiVPxfynxg4Nub2DJ3/e?=
- =?us-ascii?Q?ShfN5awwf5zz6dfkfx825us+JoVv4RQ1j5FcewZ+fFnEWGUEGnXuqIRRmD+L?=
- =?us-ascii?Q?sOvb39uLqoQ/llehs8KDBveYvmQWfXvHM/4/7I/e5HeyV26zWyTiPyu4WR+H?=
- =?us-ascii?Q?RV885N25IO9d33Ad5ffTrDq53XHG0NY5DlR9nlADfkKAiLtZ+myICJaZPtHs?=
- =?us-ascii?Q?1k7/4zBpYzm9e0UgFZAoJdYkstoepNhCSu0cwSiMUvDXMh9n89wmLjSyPdoQ?=
- =?us-ascii?Q?UnD/kyqXKXwGYajdbPU+4+zC8tkio75PNoClqdvMW/dku5atd8kNn9+p0VyB?=
- =?us-ascii?Q?qobovReImkHlxSatNjGgvnYkDN6L1VdUUWBnrmFmuYrNp+BSQ81tfckQdeNF?=
- =?us-ascii?Q?h3/S7B3V/G3tR4R9x9o9NRQpVUgrLQ0zgCu8APBsOKYIGAx8sK9lzIpsfw9L?=
- =?us-ascii?Q?hlXRanVcgbbXOakdgHA4d3NoOcq9e3O8gICeWiO/1jNPYH2DMtYJI7AEfadi?=
- =?us-ascii?Q?gyApGxHYD2GTGhouFWfBrXrbntMoUjE2P6kEaOTxFX/8r389RX6oFMsoCNIu?=
- =?us-ascii?Q?6u9mCKWmoIl7q5ev2+0vk8kt8aMWUEWFecLnts8l44o4ehsnnl7AVvaGf1tY?=
- =?us-ascii?Q?TM9j5HmXD4WRZgO/hmfkR5j121kOK9ZaChulAxJ7HATnutHEi0sM0k3OotjB?=
- =?us-ascii?Q?EvXL7cvbYF3Rk6Ojk5ygMKVu1DMIh7+Icb0wx87fPnBpM73+TdHzuziHeg4T?=
- =?us-ascii?Q?4oYrEQel21k7OqkKafSIAimB0metGv1/UD1POH0X4KO3C3q1p+otRWnyVdOv?=
- =?us-ascii?Q?RA7q8mAE8QqvWIxMCetRTxN2fmi4rlTzhOGjG8Qp5F4/HIc3lg9tDtRbEh36?=
- =?us-ascii?Q?CfpNGdCZnFepCtGSOke57+jbaw5kQVLMssejSeTqyg4kp6RrQJ5gBcS+uwSF?=
- =?us-ascii?Q?JD48DCb+92PVSqj59TzdeZkNIdcLW2d46KyHGbXgnux4K/SPdG9iEgmw3G2a?=
- =?us-ascii?Q?288x9wgdKDpNWS7AQ9Z/x1edJ1CLr34IU6ucAKTVG5ci47m6teoTkMiiFtuq?=
- =?us-ascii?Q?3o5wEx8evxoxaRE3fxuzB61vpgztsGWjaao56eOYeak3vhi6MNlcQuPEUcxO?=
- =?us-ascii?Q?2NBh263SU7gY2Rk/3tzU/eEf5bbie4xpoSThIpW/AVk1MGeC0uTyhSLQZ42f?=
- =?us-ascii?Q?2hsSsK05liqQTADhsnlKLrZ+uJeUwIEoNRvqZ7oFQyGL59rHogCenV+BeqJf?=
- =?us-ascii?Q?NMbHJHKeJlQFLOPdGeJHiNCdvypNKlM08FQOckgS2QZnHK2b?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7696a7d-e2c1-4159-c06b-08df196f050f
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 12:34:32.7882
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5qGFqhTJBoL8DbZi9IAK0CCXSPmYGTQSXxn+h7kQUUzAguFIhi87I7GQQKgzYrRw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7609
+Content-Type: text/plain
 
-On Wed, Sep 23, 2026 at 12:18:39PM +0000, Mostafa Saleh wrote:
-> > But don't you need this FEAT to issue invalidations correctly?
-> > pkvm never issues a S1 invalidation?
-> 
-> No, STRW is enforced to zero (NS-EL1) with pKVM as the kernel must be
-> running in EL1.
+Ilya Maximets <i.maximets@ovn.org> writes:
 
-Hmmm. Ok, that is what the iommufd flow ends up doing too, but still,
-I would expect the hypervisor to have ARM_SMMU_FEAT_E2H, though it
-would never read it.
+> While calling the helpers, a raw pointer to the extensions area is
+> wired into expectations list:
+>
+>   -> nf_ct_helper()
+>    -> helper->help()
+>     -> nf_ct_expect_related_report()
+>      -> nf_ct_expect_insert()
+>       -> hlist_add_head_rcu(&exp->lnode, &master_help->expectations)
+>
+> In case the connection is not confirmed yet, more extensions can be
+> added afterwards with *_ext_add() calls reallocating the extension
+> space and leaving the now invalid pointer in the expectations list
+> that is later accessed while removing the expectation.
+>
+> Make sure that helpers are called at the end after all the other
+> extensions are already added.
+>
+> Note that the helper rejection now leaves the mark and labels set,
+> but that's not different from how the NAT was handled before or how
+> the mark and the labels were handled on confirmation failure.  And
+> there are no atomicity guarantees provided by the API anyway.
+>
+> Fixes: a21b06e73191 ("net: sched: add helper support in act_ct")
+> Cc: stable@vger.kernel.org
+> Reported-by: Axel Mierczuk <axel.mierczuk@1password.com>
+> Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+> ---
 
-Jason
+Reviewed-by: Aaron Conole <aconole@redhat.com>
+
