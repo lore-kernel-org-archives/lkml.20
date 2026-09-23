@@ -1,260 +1,141 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C8D30596F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09AE54788
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:37:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790123841; cv=none; b=oL7MnBNT3bNXFzq85o6WCuDRMOXV9Nv99zdek7Rr2REgMh5fzRZiizwB/mdMEbNY7rRpIdc3jWTdIOrXyQ9dDek5JEy4sgo74t4qKNxyBjpKwngZfD8rcJFJfHl3GVq5qtv/HPLUtwyVcqlOu+9T9IjXP7zgfZuoeQxXMuNjm9U=
+	t=1790123876; cv=none; b=XKFYcLZraW16jDDEis5T/Xt9ELnWXfPKSoTtkkvsjfu34aPaCugUfzSYokTWxHNNCrRvlmQJQms0VunpPF83ZHcSyuGzGX+5+sEheuO0/6cbFEe3LS9T94CngYf3QvHBAL14/e5tX43F7hzd0X305SVCz9BHWD9mv1zTHdlAtG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790123841; c=relaxed/simple;
-	bh=qkeQzWOWaxxISsl4uCQPDbfJ2pwDKTr/UDzPD99oQ98=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QBheg9Ju0lpgF0s0PJJhYg8OCWjbZNGvh+R1Mstgx3XPktC6WcMmcEmByNfk7upKKmDwoZcjhqTLRsEt+RvCoqJM0cwZgZejdUI6XObbcuizIU3g8MSfFseGMGvpcoxSAGttigjGGDKV4KQCG1OkWhFcpSyIVoyOg+uWK/RnWls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=haUnb6/u; arc=none smtp.client-ip=74.125.228.43
+	s=arc-20240116; t=1790123876; c=relaxed/simple;
+	bh=mLB37Exj08/433G+3BazeafnfFxR6CqGB3+a9cQSS5g=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=YpEwsDphprTdLbrZ1TbVn8iFeMCI2pfyCWecsdBZfNYP7Xa3klr5OFkdQSz2/MEkE59xZhVNJHJ7F0+kj9BX/JunvlN8PB7LcihhGDujqx5rUJIy6XNW9v4byWMxchHtfiulshhoI2iADRXZ5fx8ZjMAYBR22IrXhtUl/XUony4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kzfhNqVr; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="haUnb6/u"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8623e5d435cso140015b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:37:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kzfhNqVr"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d249c4so351525b3a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:37:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790123838; x=1790728638; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vQQTGO16FXbzJluwZGxhoyxw7BVm8s40aDo/D7gXx7E=;
-        b=haUnb6/umygpdhvmg/IzQrNUoYsT83fOZ3GTKlimFvLPhVNNle57N6zvV5U/XEHStV
-         uIE7NXWgbFDP7jLarAU3vuyqbKWlmtcQtkhRzmHJ3CcijaM0xF5f+TCaE8voDLpJohkZ
-         bUOjCBWthkD7SacGPtnpeJpqoPJR1Qf5hPvq1QXbiYBX5BsxPrsFeQauA0szqG3LYKlj
-         W41AI2YMjXtRB20OW8ja+yqZwV9LMho69z7VqAxiGwEjlyehXJlf3BMF4LBlAZJXdJ8j
-         1DpO3Juo9ElGk9lmZmrfKfwRcA6RCL4AAgKYRpf1s28hU1vJvNo3czb1Pf1J/h+UVWLQ
-         uxiw==
+        d=gmail.com; s=20251104; t=1790123874; x=1790728674; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IwcZc6dV/wJdORGfLDctznTgTbvt9ax2XJYGP2ZitOo=;
+        b=kzfhNqVrrobPRdQM8WhVaBsRcdEmk5WmiapAxAXfiiXVwJ8Lt90vavG/0JT3wnIu8Y
+         cnEPsMMo0ylXmuyRusSJyEGyaQ0OybkbQpxDjtt4wsEvqS1mnm4RrD5R2v9aUGA6boHL
+         Pb5v1haeofXhPZ7svjFUsGLRayw2Jon4UOkzWZI+scCqmQO7+LTxT0Ibh8CdggLTB3jy
+         2kLYHg6boHTHMV4ApithnA3o3FGrRwivI/uBr0wPQOm3etzp5QtsUMw9qMSVwVFWZM+3
+         dAG+mdQhJM45zRdVqzbJehBwkzHmaTt2OKBgNGVaY8HkRribkZeDEsLvycrVL+ZXlTj8
+         amvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790123838; x=1790728638;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790123874; x=1790728674;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vQQTGO16FXbzJluwZGxhoyxw7BVm8s40aDo/D7gXx7E=;
-        b=LUk0d12OQJ71csC0LULjjGo/qTEdHlbyEuh80FF9rwI5NfItl6nPh0nXPDW9aL3RPk
-         APnzuKheVM5w4FP+dynVEcIzCWTs5UBM5B3DcZobos/wgbrlo5b9oRRLY3U3DdrS+SJh
-         jDG/VCAHTGdW+kvbIx188YXH7mZfv09cmWBZxlcbZzrvYFEXFoaZ/HjImYxafKTzuLod
-         hvSwSDaHOZWelZ+DOjUD/BNguvdytfHZDNSRqxMYN/AcRXHrZFKd8rxEZVLTuHTy6Mwh
-         nS0RNfccx5VoDP4sMdz/gvVM1GzAwVwYIq1cJtQN9PLhtbEbiFPoVHVjgw9Ex4wLvE5Q
-         5RUw==
-X-Forwarded-Encrypted: i=1; AKwUvBxdfDrWTPwBKMXOtbQzcSTscKwZU3qPO0YbKZ/6fRxcm/FFuQJXBqs/wwOjs2GRB+tKBgSykcyw74S6ZME=@vger.kernel.org
-X-Gm-Message-State: AFuF++lisGzYrbb+eg8nVQ3Y4Y4G0z4XQuWByzujOoDOh451SsdZ0BLv
-	sBXcVcG10DPRJkJMMWf1idlCxm+0QPaEP46dNPJ3bfpk2sr1QpKlaVGT
-X-Gm-Gg: AYBFou1zhs/ADs1wDoY1G5SBOU9zUw3Dgm4tKimePKZwmDvvbcXpkGMkuft2C312yg0
-	q9GENHDdBlIlXF9G6nAwCOHdN3DxokNZ0St9NGY0U4CS8vft+yiQoFSdmqxUJ7ttoIwA/ZBm2VO
-	IQbVHdCpPOwyB3ZwcCrU2pCbAEbEMukL9KUgzavXbQibRr/ZEORFMPwZkPCy2aNJppyEPyZXb3a
-	Nf/qqYD6nU1/kGfgkCI2M/PAmcL4Vab37xCSyJ93lkO6q3o5byDESEaC4G0/Ize4boj88gZqk6O
-	fhzph6Qs4eC9j2NJ3fL6BcNO7CWGzab93qXE83k5u4dsfvirvd9ZEkWVEVLD+WNEzVh2p3/nuQC
-	MyJezustuVLl2Qn3i9O1+aX1nhQPmHQwLQP4cUr9IzfPETFLmou+Y/dM+wHBOxkN3VH40bGOBmL
-	BfsHM6EWe1SpnN7lys70AOsjr4VzOPSXzkQocBozox0AhlaHJ+JXkrguvUtAQeUEUF7lzjvjRj0
-	kyieQGxGlQ=
-X-Received: by 2002:a05:6a21:1398:b0:3dd:a196:ffcd with SMTP id adf61e73a8af0-3ddf8354fd9mr736411637.29.1790123837960;
-        Tue, 22 Sep 2026 17:37:17 -0700 (PDT)
-Received: from [163.43.103.131] ([163.43.103.131])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1dff9778sm427895b3a.49.2026.09.22.17.37.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 17:37:16 -0700 (PDT)
-From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-Date: Wed, 23 Sep 2026 09:36:59 +0900
-Subject: [PATCH net 4/4] selftests: net: add lwtunnel route save and
- restore test
+        bh=IwcZc6dV/wJdORGfLDctznTgTbvt9ax2XJYGP2ZitOo=;
+        b=TH+lHIAI7FOCrSAxqB5PNbJY5JFIbmdHWECWFsx1wOwjcvwjt2f04jKfLepDpCXPQy
+         ziqkFKtR557x3uHJshDub4iKGiAt+lxAl5vVGwsfRVN2H1LP0V7/I6fWZAbOx10u7Evt
+         pCBBzPg08DN8R8R07Y5KxDmmHj1HfMi8a68f3U2H5opX51M8phhne0g0tIgT3G1a2KLh
+         U3Qsp8qK+sYyDY96uG+DAs8LSID7Qp0w3LmyV+84VlBRoNLnZaaTk77dbin1cbesJ1fI
+         2cq9anuj+eE6gJa4ah2hmF8sbcuWz2C77ERmLLHA1dvwLabSmDOaX0Nb3bOg7VTO6FaG
+         rXmw==
+X-Forwarded-Encrypted: i=1; AKwUvBy8GvdEEosTw7MWfDdlue6szX5vE0XayQsjY7yacJ3FviEI5TGd1sS1GNaGghNf6fbwY9pzXwWRXGigyZk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMiYMmd+DzOLQXf0GeEoPYIj6a078ogpW0v1QJ/dYYhnZot70J
+	T+t+9/4maFQieheTY7RpDM9ISklusaiJkqRlqMYX8k/1tg+HREB0pTbQ
+X-Gm-Gg: AYBFou2L1vUuGy+i3Tax4bm1eUnfCGUgczqBONBvOuQ1eA9v8w25PdgfCk6rIB+ElMT
+	a11gutBBZyPYRZccrTbMXb6tObGTzdPKJ25SmvfTgN90oxpNp8Qfdoz79V4f8Ly+fzknHWV7jx3
+	uzWhRCwccFSp/VH0t5LeKqkEnDcFMhNUzNLrx2S06SUyZbgaktNHfodPReMsda7vZSeOPBdQWzH
+	Olkbg8l6FU5o1xq2eGd1ASTij3JjvGsCqcq9LKvtYRNEj19oVNr6NOZWBIeUKnPnduMTr5LhiER
+	1Q7JsPlS8sJ3ywo0YgpvyzhTvSWUZB7CPk6wa4wUV5x3XEQAE6zdFx8fUjgoVUCU4x5e1J2d4P7
+	0E6MUPG/FbJAoHnXQUG4H6IVdnS/txLAttcbx33hNsTmaaFmsRi+obyztrf0MNRoQSKrybRaTVn
+	rN5V6j0giICLgw1q+gPvMDG17Ax3udgQy9cxtpBvFQm9lfUZq7oJ6c21PaPT18uVXN5Ldu+D8Hj
+	j49lb125r3/oI8Ebwcj1DfIZ1wU1oE=
+X-Received: by 2002:a05:6a20:748d:b0:3dd:a196:53a2 with SMTP id adf61e73a8af0-3ddf82f113fmr927824637.68.1790123873965;
+        Tue, 22 Sep 2026 17:37:53 -0700 (PDT)
+Received: from smtpclient.apple ([14.139.251.98])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1cfc0843sm449618b3a.12.2026.09.22.17.37.50
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 22 Sep 2026 17:37:53 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-lwt-encap-noflag-v1-4-8de7ab6c86e9@gmail.com>
-References: <20260923-lwt-encap-noflag-v1-0-8de7ab6c86e9@gmail.com>
-In-Reply-To: <20260923-lwt-encap-noflag-v1-0-8de7ab6c86e9@gmail.com>
-To: David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Justin Iurman <justin.iurman@gmail.com>, 
- Alexander Aring <alex.aring@gmail.com>, 
- Steffen Klassert <steffen.klassert@secunet.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- Nikolay Aleksandrov <razor@blackwall.org>, 
- Eyal Birger <eyal.birger@gmail.com>, 
- Nicolas Dichtel <nicolas.dichtel@6wind.com>, 
- Xin Long <lucien.xin@gmail.com>, Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, Yuya Kusakabe <yuya.kusakabe@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4135;
- i=yuya.kusakabe@gmail.com; h=from:subject:message-id;
- bh=qkeQzWOWaxxISsl4uCQPDbfJ2pwDKTr/UDzPD99oQ98=;
- b=owEBbQKS/ZANAwAIASrX0XUqXRtNAcsmYgBqsx8qGYKDa+Moa334x7rJOG8r+GdYWjOJwUmhN
- grU+ne16wCJAjMEAAEIAB0WIQTaB7usAfxNKMeqa6Yq19F1Kl0bTQUCarMfKgAKCRAq19F1Kl0b
- TeNREACzYs5nzq43SdXpSUP7sd70DgWFhqYY2j6yuqOeQuMUnL1l8Ns2/hYo8bUe1LyfpRm1Uys
- G+vTYT9fpVAdhWAuDzB9EX7W9HJIzC8lqj/ft831DL1Clj7q2ZidVRMhaBkTUxB8vSHMQIUuNuN
- Ahger3YtSbcD2GspOweoLVGUcQIzksNKxtfVs+O9RHcLjuq4FYwiR+XtyIixehGvDbl0doOeGc1
- b6ksWyKalDqCsuBzD+XekRBVAyo1i2jGUNp156DU+XQ4hJWbsInJpMWngR6nM66UrTuP+5vFUKI
- Pc8i1hchxqENQfggrd7/ThhXcMTZiZnQJtPllFk3UEXTgw1wn8RjRniDSUz4SJJYRKVWLLS7g8m
- snB/FZl1sOtj1oyjQyrTYCUgcgHRlgxSGBZxj03qTVTmXGr1QE+CK+8yNoCFO5V1DwWeDp0EXy0
- 5YwmH7TYib1kGb09ODRkG4j7lTvP2E7x9+REmMrDFsT09pqnQJ5G4zK24Y5nMlvH4edHotm1pt1
- rj4mpvNwUuVTQVFprgKWLFKlG2M5mCojH2eTKL2IbVSRgVj239y/y4n1gkhroIq7WQ0Y77hLJ4Y
- VFkoTvY6uwO2RGp6Lq/a4L/tY+Fos5FM5QbZ3A/1dH2t1axGFw287r16snDgGh+ktF8LFIMkUQS
- 0ph8PWetfqEVV5A==
-X-Developer-Key: i=yuya.kusakabe@gmail.com; a=openpgp;
- fpr=DA07BBAC01FC4D28C7AA6BA62AD7D1752A5D1B4D
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH] nfsd: prevent NFSv4.1 SEQUENCE reply-cache overflow
+From: Mayank Jangid <mayank.jangid.moon@gmail.com>
+In-Reply-To: <29830200-dcb0-452f-9e19-80a595b46fe7@slotpi15m67>
+Date: Wed, 23 Sep 2026 06:07:38 +0530
+Cc: jlayton@kernel.org,
+ neil@brown.name,
+ okorniev@redhat.com,
+ Dai.Ngo@oracle.com,
+ tom@talpey.com,
+ linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ security@kernel.org,
+ Kushal Khemka <kushalkhemka559@gmail.com>,
+ Kkartik Aggarwal <aggarwalkkartik@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <A0CE2B28-0875-43AE-95A2-18AA7FB758B4@gmail.com>
+References: <20260922112608.1256363-1-mayank.jangid.moon@gmail.com>
+ <29830200-dcb0-452f-9e19-80a595b46fe7@slotpi15m67>
+To: Chuck Lever <cel@kernel.org>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-Add an encap route, save it with "ip route save", delete it and send
-the dump back with "ip route restore".  The restored route must match
-the original one.  The test covers the rpl, ioam6 and xfrm encaps and
-the ip encap with geneve, vxlan and erspan options.  A case is skipped
-when the kernel or iproute2 does not support its encap.
+Hi Chuck,
 
-Assisted-by: LLM
-Signed-off-by: Yuya Kusakabe <yuya.kusakabe@gmail.com>
----
- tools/testing/selftests/net/Makefile            |   1 +
- tools/testing/selftests/net/lwt_save_restore.sh | 116 ++++++++++++++++++++++++
- 2 files changed, 117 insertions(+)
+Thanks for pointing me to J=C3=A9r=C3=A9my's series.
 
-diff --git a/tools/testing/selftests/net/Makefile b/tools/testing/selftests/net/Makefile
-index 3ee3378f8b26..496aed9ca57b 100644
---- a/tools/testing/selftests/net/Makefile
-+++ b/tools/testing/selftests/net/Makefile
-@@ -62,6 +62,7 @@ TEST_PROGS := \
- 	l2tp.sh \
- 	link_netns.py \
- 	lwt_dst_cache_ref_loop.sh \
-+	lwt_save_restore.sh \
- 	macvlan_mcast_shared_mac.sh \
- 	msg_zerocopy.sh \
- 	nat6to4.sh \
-diff --git a/tools/testing/selftests/net/lwt_save_restore.sh b/tools/testing/selftests/net/lwt_save_restore.sh
-new file mode 100755
-index 000000000000..9666386c622d
---- /dev/null
-+++ b/tools/testing/selftests/net/lwt_save_restore.sh
-@@ -0,0 +1,116 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Check that routes with a lightweight tunnel encap survive "ip route save"
-+# followed by "ip route restore", which sends the dumped RTA_ENCAP back to
-+# the kernel unchanged.
-+
-+# shellcheck disable=SC1091,SC2034,SC2154,SC2317
-+source lib.sh
-+
-+ALL_TESTS="
-+	save_restore_rpl
-+	save_restore_ioam6
-+	save_restore_xfrm
-+	save_restore_geneve_opts
-+	save_restore_vxlan_opts
-+	save_restore_erspan_opts
-+"
-+
-+setup_prepare()
-+{
-+	setup_ns NS
-+	defer cleanup_all_ns
-+
-+	ip -n "$NS" link add name dummy0 up type dummy
-+}
-+
-+# save_restore <description> <prefix> <ip route add arguments>
-+#
-+# The description starts with the encap type.
-+save_restore()
-+{
-+	local desc=$1; shift
-+	local prefix=$1
-+	local encap=${desc%% *}
-+	local before after dump out rc
-+	local family=-4
-+
-+	[[ $prefix == *:* ]] && family=-6
-+
-+	RET=0
-+
-+	if ! ip route help 2>&1 | grep "^ENCAPTYPE" | grep -qw "$encap"; then
-+		log_test_skip "$desc" "iproute2 lacks the encap"
-+		return
-+	fi
-+
-+	out=$(ip -n "$NS" "$family" route add "$@" 2>&1)
-+	rc=$?
-+	if ((rc)) && [[ $out == *"encapsulation type"* ||
-+			$out == *CONFIG_LWTUNNEL* ]]; then
-+		log_test_skip "$desc" "kernel lacks the encap"
-+		return
-+	fi
-+	check_err "$rc" "Failed to add route: $out"
-+
-+	dump=$(mktemp)
-+	defer rm -f "$dump"
-+
-+	before=$(ip -n "$NS" "$family" route show "$prefix")
-+	ip -n "$NS" "$family" route save "$prefix" > "$dump"
-+	check_err $? "Failed to save route"
-+
-+	ip -n "$NS" "$family" route del "$prefix"
-+	ip -n "$NS" "$family" route restore < "$dump"
-+	check_err $? "Failed to restore route"
-+
-+	after=$(ip -n "$NS" "$family" route show "$prefix")
-+	[ "$before" = "$after" ]
-+	check_err $? "Restored route differs from the saved one"
-+
-+	log_test "encap $desc route save and restore"
-+}
-+
-+save_restore_rpl()
-+{
-+	save_restore rpl 2001:db8:1::/64 \
-+		encap rpl segs 2001:db8::2 dev dummy0
-+}
-+
-+save_restore_ioam6()
-+{
-+	save_restore ioam6 2001:db8:2::/64 \
-+		encap ioam6 trace prealloc type 0x800000 ns 1 size 12 dev dummy0
-+}
-+
-+save_restore_xfrm()
-+{
-+	# iproute2 takes every argument after "encap xfrm" as an xfrm one
-+	save_restore xfrm 2001:db8:3::/64 dev dummy0 encap xfrm if_id 1
-+}
-+
-+save_restore_geneve_opts()
-+{
-+	save_restore "ip geneve_opts" 192.0.2.0/26 \
-+		encap ip id 1 dst 198.51.100.2 geneve_opts 0:0:12121212 \
-+		dev dummy0
-+}
-+
-+save_restore_vxlan_opts()
-+{
-+	save_restore "ip vxlan_opts" 192.0.2.64/26 \
-+		encap ip id 1 dst 198.51.100.2 vxlan_opts 456 dev dummy0
-+}
-+
-+save_restore_erspan_opts()
-+{
-+	save_restore "ip erspan_opts" 192.0.2.128/26 \
-+		encap ip id 1 dst 198.51.100.2 erspan_opts 1:123:0:0 dev dummy0
-+}
-+
-+trap defer_scopes_cleanup EXIT
-+setup_prepare
-+tests_run
-+
-+exit "$EXIT_STATUS"
+I tested the queued fix against our reproducer, and it resolves the =
+issue. I can no longer reproduce the reply buffer overflow with the two =
+patches applied.
 
--- 
-2.50.1
+Please feel free to add:
+Tested-by: Mayank Jangid (OpenSec Intelligence) =
+mayank.jangid.moon@gmail.com <mailto:mayank.jangid.moon@gmail.com>
+
+Thanks,
+Mayank Jangid
+OpenSec Intelligence
+
+> On 22 Sep 2026, at 7:36=E2=80=AFPM, Chuck Lever <cel@kernel.org> =
+wrote:
+>=20
+> On 9/22/26 7:26 AM, Mayank Jangid (OpenSec Intelligence) wrote:
+>> nfsd4_sequence() narrows the reply buffer to the session =
+cached-response
+>> limit before accepting the slot sequence ID. A client can negotiate
+>> ca_maxresponsesize_cached down to NFSD_MIN_HDR_SEQ_SZ, leaving no =
+storage
+>> in the slot trailing sl_data[] array.
+>=20
+> Thanks for the report and the patch. J=C3=A9r=C3=A9my Jean reported =
+the same
+> issue in August, and a fix for it is already queued in the =
+nfsd-testing
+> branch:
+>=20
+>  =
+https://lore.kernel.org/linux-nfs/20260817-jean-v1-0-9e356596ab85@kernel.o=
+rg/
+>=20
+> Patch 1/2 there adds the same pre-flight check of the SEQUENCE reply
+> size before nfsd4_sequence() narrows the buffer and accepts the slot,
+> and patch 2/2 sets op->status when an operation header cannot be
+> encoded. Your patch does the same two things, so I won't apply it on
+> top of that series.
+>=20
+> If you can test the queued fix against your reproducer and confirm it
+> addresses the overflow you found, a Tested-by: on that thread would be
+> welcome.
+>=20
+> --=20
+> Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
 
