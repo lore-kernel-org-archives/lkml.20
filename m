@@ -1,123 +1,144 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from mta0.migadu.com (out-144.mta0.migadu.com [91.218.175.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B236D429037
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:53:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2DC4334D8
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:53:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142805; cv=none; b=Aai5MRy7X/buNMAMwWrEu1nKB+7EQm7SPyM7yTJ7c6BbI0P8/9ayjKIFLG23aEsPdRguVzCc694d5BuLmpRzz23kpeSj1fEY5b4I7Sg+2QyW1vg1HKQKdZfe3Z1cHHOldpw2Y4NFrc93TRSvIYF4H0D9oFwbBWcYboOY8JoaOj0=
+	t=1790142814; cv=none; b=PxXvRz14yjrch5ewmXwakRMZzLMfEahrSbUjEbrnK8suQcZ7fsJZAcyXU62zYlZSE4gzQJXKqfsbEKfg6Mge+xCpzpIDw8fMNcd63f+dykmoFnJs6Sx4Zsms+EpRNrmyMb0yXIroRc4kGNCTCmKSL/gwv9CKCiJvHzST+ejMRkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142805; c=relaxed/simple;
-	bh=xX83Qv2GNCSFmPnn+MxtgCfH/8/LCmxa144mvyxtVdg=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=NOj+qnkz7FteEUS0Scj0tQUi88TyAoJV1UpcmgYWbWnkRFO9lHBjuhmwrgb8poDcnWpfdpAQEkbGLGPeaERAQMzDBtD8kJyx4feQgoWUObaVFjBxGwYuXNA3MHIz0EFDnX610ZUbcnw49mfhPGk5/UrLWZBqIc54+M42E2BKJZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=wnlBdlTx; arc=none smtp.client-ip=209.85.214.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	s=arc-20240116; t=1790142814; c=relaxed/simple;
+	bh=GtzyIimaRhdHKGvlttK2axmNG4AJfexvcRRfGpY2ECk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=neSb6j7FNYFiyWGsv+GEtcNkzoDOYSC+j0dpTn8sLQErukCk3oCxrwEVREpz1YNm1r2gL1xXJbajEDPvHqm4BYZ2WN41nBci2YqyEIJjOtyJPphaWTJtydz87z6Ry8PmXmbMufUlOinc8C1+27EraWXEloe5k0rNtyEW/VwexSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xcVDaIA6; arc=none smtp.client-ip=91.218.175.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="wnlBdlTx"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d55d8cd938so8678415ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:53:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790142803; x=1790747603; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GR47YdXkcI+qC2x+J3l7J/ws+MnB/O9JS80C2XvYteI=;
-        b=wnlBdlTxED5z4Ybjn1dVsjk+R/0rQQSqhojdfCDwJYGGbJIvinpwjGXOq+RK9orgGd
-         f1sTe72f799hW0lz1u4+9Kngafi1qTX6Jn0D6ZG7qxokIVbbs6TAHLK3C7aT3eUyz7/k
-         8iIbupyhvi5wBSZJTOUWcnOgs/x6JhXl/u+0Inv3VubbrR5lsM1rtw6TBVedbrxaaoj4
-         unl4ngp5s9aZBiWlSHLH7H5guHMdOXU5QmpvO8lEMkasaY41JyFi7KEfDrn8TaRMvhj2
-         Mrr41Z6nHwQHDFXLx3SUWWYUkrqCjnORE2OkM3oobJliSpiLIGR1f8vlnDS/LtuG/eDP
-         0hVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790142803; x=1790747603;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GR47YdXkcI+qC2x+J3l7J/ws+MnB/O9JS80C2XvYteI=;
-        b=0ECM528lAqePr9Vam4GuYJ4y/OhxkEXSI2z6Vvsi0AMqhQIGBaBP2iUtjPLyqYHzoB
-         xpS/O7maR65Ftjpfnt1s+qkOaos2/YGOq7DYP7BfGn1MhktsMS0DCo/vr62ExDawCxFD
-         /1Hajojs458K7zL0uIfFJDIKaaWYZywv7iYKJOgo+tUoyokObnWYNXa+GHKbnw14Hbj+
-         qLEeLOsW8RsmW+L6alRZHUURtxWO7tPGGwk5lck5DZnDAUDyiyW/SjqODnREUQo5R4Zb
-         ULnvgU6r/nI0Ko63uzT3CY56ATOr35beV1VNTUp09AyBoffOwpesjIb6Mh81x5cRSJ3z
-         BeMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBymBrQRXvZTm5XgNunFICbZ14lbdTDf/oJiUQm/GUZ2UZK9iOcFHuYvO58IzDHaROW9RHd6YrssO4ObfrI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZXSe3MU0tmoOycleCuqww4LGzwLwz/LTiTEjqZcCSarY8iIEi
-	GzhIyh//9GsqjkTRU9UqE9TL7Nc/a6g6HgVte2uTSznWj+uNIzbzmiAqxA6Dxbn2TnS9qlOCTy1
-	N
-X-Received: from plmm2.prod.google.com ([2002:a17:902:c442:b0:2df:4477:df93])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:946:b0:2d5:e3ce:3988
- with SMTP id d9443c01a7336-2df69d3255cmr15603695ad.11.1790142802442; Tue, 22
- Sep 2026 22:53:22 -0700 (PDT)
-Date: Wed, 23 Sep 2026 05:53:20 +0000
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xcVDaIA6"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=GtzyIimaRhdHKGvlttK2axmNG4AJfexvcRRfGpY2ECk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790142810; v=1; x=1790747610;
+ b=xcVDaIA6AxJGFyl59gR9e+k4n6ll3IV+Ux5WtvjeEy7Uqvr9qSjbHiEbS4u701fHPsgb4MF3
+ 3WqOxoxDpUxacdcTKFiA3B63AJSLpbG3pM5hg1XYuBZPCNBId9XqzuCuQ9/OGIUbZEOkcqWxbRE
+ 3rWw06t2Zb0ebyMbx6R0GkPU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4e0d178c503526e4;
+	Wed, 23 Sep 2026 05:53:30 +0000
+X-Mizu-Trace-ID: 4e0d178c503526e4
+X-Migadu-Flow: FLOW_OUT
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Dan Williams <djbw@kernel.org>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Ira Weiny <iweiny@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	linux-mm@kvack.org,
+	nvdimm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Kaitao Cheng <chengkaitao@kylinos.cn>,
+	Oscar Salvador <osalvador@suse.de>
+Subject: [PATCH v2] nvdimm/pmem: remove test_and_clear_pmem_poison()
+Date: Wed, 23 Sep 2026 13:53:18 +0800
+Message-ID: <20260923055318.57485-1-kaitao.cheng@linux.dev>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260923055320.2602534-1-morbo@google.com>
-Subject: [PATCH] Drivers: hv: vmbus: annotate struct vmbus_gpadl with __counted_by_ptr
-From: Bill Wendling <morbo@google.com>
-To: "K. Y. Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
-	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Justin Stitt <justinstitt@google.com>, linux-hyperv@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	llvm@lists.linux.dev, Bill Wendling <morbo@google.com>, 
-	codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Add the "__counted_by_ptr" attribute to the buffer field of "struct
-vmbus_gpadl". This allows compilers (GCC and Clang) to perform
-compile-time and runtime bounds-checking when KASAN is enabled, preventing
-potential out-of-bounds accesses to the GPADL buffer.
+From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-The fields "buffer" and "size" of "struct vmbus_gpadl" are assigned
-exactly once, during GPADL establishment inside
-"__vmbus_establish_gpadl()" in "drivers/hv/channel.c".
+The pmem driver provides test_and_clear_pmem_poison() only to handle
+the CONFIG_MEMORY_FAILURE dependency of TestClearPageHWPoison().
+The wrapper has no other pmem-specific behavior.
 
-To ensure that the count field ("size") is initialized before the
-pointer field ("buffer") is assigned, we reorder the assignments in
-"__vmbus_establish_gpadl()" so that "gpadl->size" is written before
-"gpadl->buffer".
+Define the HWPoison test-and-change helpers to return false when
+CONFIG_MEMORY_FAILURE is disabled.  This allows pmem to call
+TestClearPageHWPoison() directly in all configurations.
 
-Cc: codemender-patching+linux@google.com
-Assisted-by: LLM
-Signed-off-by: Bill Wendling <morbo@google.com>
+Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Reviewed-by: Oscar Salvador <osalvador@suse.de>
 ---
- drivers/hv/channel.c   | 2 +-
- include/linux/hyperv.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Changes in v2 (David Hildenbrand, Oscar Salvador):
+- squash patch#1 into patch#2.
 
-diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
-index 7e4cc6f55237..7042de2dd481 100644
---- a/drivers/hv/channel.c
-+++ b/drivers/hv/channel.c
-@@ -548,8 +548,8 @@ static int __vmbus_establish_gpadl(struct vmbus_channel *channel,
+Link to v1:
+https://lore.kernel.org/all/20260903053535.17611-1-kaitao.cheng@linux.dev/
+---
+ drivers/nvdimm/pmem.c      |  2 +-
+ drivers/nvdimm/pmem.h      | 12 ------------
+ include/linux/page-flags.h |  1 +
+ 3 files changed, 2 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
+index 30a51c365ce8..5fb86595e8bd 100644
+--- a/drivers/nvdimm/pmem.c
++++ b/drivers/nvdimm/pmem.c
+@@ -80,7 +80,7 @@ static void pmem_mkpage_present(struct pmem_device *pmem, phys_addr_t offset,
+ 		 * here since we're in the driver I/O path and
+ 		 * outstanding I/O requests pin the dev_pagemap.
+ 		 */
+-		if (test_and_clear_pmem_poison(page))
++		if (TestClearPageHWPoison(page))
+ 			clear_mce_nospec(pfn);
+ 	}
+ }
+diff --git a/drivers/nvdimm/pmem.h b/drivers/nvdimm/pmem.h
+index a48509f90196..76870505dd79 100644
+--- a/drivers/nvdimm/pmem.h
++++ b/drivers/nvdimm/pmem.h
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+ #ifndef __NVDIMM_PMEM_H__
+ #define __NVDIMM_PMEM_H__
+-#include <linux/page-flags.h>
+ #include <linux/badblocks.h>
+ #include <linux/memremap.h>
+ #include <linux/types.h>
+@@ -31,15 +30,4 @@ long __pmem_direct_access(struct pmem_device *pmem, pgoff_t pgoff,
+ 		long nr_pages, enum dax_access_mode mode, void **kaddr,
+ 		unsigned long *pfn);
  
- 	/* At this point, we received the gpadl created msg */
- 	gpadl->gpadl_handle = gpadlmsg->gpadl;
--	gpadl->buffer = kbuffer;
- 	gpadl->size = size;
-+	gpadl->buffer = kbuffer;
- 
- 
- cleanup:
-diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
-index 9e109d91aa14..408748a05440 100644
---- a/include/linux/hyperv.h
-+++ b/include/linux/hyperv.h
-@@ -780,7 +780,7 @@ struct vmbus_device {
- struct vmbus_gpadl {
- 	u32 gpadl_handle;
- 	u32 size;
--	void *buffer;
-+	void *buffer __counted_by_ptr(size);
- 	bool decrypted;
- };
+-#ifdef CONFIG_MEMORY_FAILURE
+-static inline bool test_and_clear_pmem_poison(struct page *page)
+-{
+-	return TestClearPageHWPoison(page);
+-}
+-#else
+-static inline bool test_and_clear_pmem_poison(struct page *page)
+-{
+-	return false;
+-}
+-#endif
+ #endif /* __NVDIMM_PMEM_H__ */
+diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
+index ae2ebaed6d4d..3dc79c0c5adf 100644
+--- a/include/linux/page-flags.h
++++ b/include/linux/page-flags.h
+@@ -655,6 +655,7 @@ TESTSCFLAG(HWPoison, hwpoison, PF_ANY)
+ #define __PG_HWPOISON (1UL << PG_hwpoison)
+ #else
+ PAGEFLAG_FALSE(HWPoison, hwpoison)
++TESTSCFLAG_FALSE(HWPoison, hwpoison)
+ #define __PG_HWPOISON 0
+ #endif
  
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.54.0 (Apple Git-157)
 
