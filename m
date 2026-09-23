@@ -1,372 +1,206 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146DE53CA70
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:34:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.235
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790192077; cv=pass; b=g81BobuBT0lXgSklxuhHU92MCsigCxVfJh82FyLs/3pg7L3IoN1niLO1JoegAtBBos1u/NA+1kcUh/6pabqMKutbHJds9XiWMnLUHHpXScX0uVmKx13UJt94lbS0tqZ5F4UtsqsR44us1pdcxUvPfilWP6ez50OhCtfGX0Y2FG8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790192077; c=relaxed/simple;
-	bh=pAqWUx6AzBFQNsHd7DUTP3HpGUe9QZgfXeNZTkFXyqY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H8ijCtYa+r0bU2VWUjXPVPwMJrudOcZBVBrQoM474T6qezCRYEFDCIgdKz0JOImEter47rapdyYfq7W78ljpZwnVUKbWbgwFNuTG/Qd/v1z/Sm7wcZNfuwHJITzycj13gF4fJ9MdhqYgZzUbxYrvIWYmot2C9KlKwSl7sqiKrrw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TEhEObbh; arc=pass smtp.client-ip=74.125.226.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FC356B869;
+	Wed, 23 Sep 2026 19:34:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790192098; cv=none; b=fo4HmHr94eyZSgEIueG2kzu8fwuYJhbjCeEwssWf46CNhewjBfhuE+m3gRUAL9oe+pb3dCb8fK5Qcc0yGZIEQne5OqcoXnt3DmgpuKuQrpR8wzwucbuUwfbWTWoX9k4VNqsCWvud8boYzPzD1Mj0BdyWNDpvBWhPMY0efNPYMBw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790192098; c=relaxed/simple;
+	bh=wrGL0wwVyGK9nHh96veEfJ4JJ5Jk4X09XOinQDnsvTg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O+pWKq5dk0sZqQ5GEmrWODCkoMW8H3Oom5KpbrpgKfNPPfGQv/LQ2ADpnspOKpz6SZ6zWdm7Ubs21OEfGn8uVrBH9vuQs0uJzzD1Yje6r2pn6QJ7FKojHBkx8FdNf1IaC/9H6KJPNgPsQeYEILll5jD7M2lezQCVQ+7/fkFGBho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=hTYmp3hk; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TEhEObbh"
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-98514b4115eso691162241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:34:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790192072; cv=none;
-        d=google.com; s=arc-20260327;
-        b=c+EYbn9FvSz7sPH6wX0U7vblxcV5H3M6LYqV2cxXnLIvGsekOoGMzUD+4ugzEJd6a2
-         CoxltCLvn2CpgQI7Q5pLyc+ps76S5uoTKZw4ADYRZMnKmauFLbM5fYprL4A3pgZU95uV
-         QH2/nIiNMYXMjjF0cP1evJrgCMQ+KW7XbOUd3KANFXtE5QH/R8c+7tGSh6QqDbV8z90C
-         lczaA6RVlcoIijgKUdnelk31gw17eADjXQka67sZU2AuDmIMEk6hlED9Es37GnfZE7Ie
-         Q86ZiR7Xbn4vxkJx+5K3i/x/iHPIsyEU0AFlh3q+QtKZAn2uRXNfEoxz8ItBeeZ47ivI
-         PP8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TzkqngvnnBJ2lTRSA3pqgjWogtTkPcUi8AUpETG5Ups=;
-        fh=d9UKuac8tgY0JnF1R36pC7vEPf11nJsWQnI4C+k0BkA=;
-        b=E2AwCTWjGtoakPfsxq62EZUasTPyQjfXxC3QxwJ26Z1QMIA3+66Y11Tw0ryg2z9t1Z
-         jteY+IEHvVMtXFV7XGMLsFl1RkEHmTCMD0SOTtmz7I9mjtVXX3ARJ52wQKoxnMqHtTsI
-         zPR7L3aUGVKM6djcmSQWn33QFMPmckYUBcmDgnak8QLVYvInsGoYqXYQQ8ew++LaIC72
-         A5MNFp08tawf9J/OfMlBjgFSq8718bpTBFPEdYNnBj031r6JRi8zwBS9pLa+E3jOnDL7
-         RmPOsEP2fkSF5AyWNLge2amkYvN+/0jnf9X90bBOQcluYlgWLMtDebp3C+t7m9IiVl+p
-         1T+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790192072; x=1790796872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TzkqngvnnBJ2lTRSA3pqgjWogtTkPcUi8AUpETG5Ups=;
-        b=TEhEObbhdRk0rVoCOfuU9h+GzwyZAKpF6fqZB/nzsuJDAKyXmrBtGfw/DWIhO2UcsF
-         7qasmVTp2Hr/wyFKbsTR8SZtw/nbIuITHQR3BhFjWTcXJPKkJDm8UUWRSMRkoRVnEtzw
-         YcxljeTQ8O3pm3HwLbEmlnQdeRjV/8asvo98Q0ivbokoregpBq02afPwW4zWDa20IqZl
-         pY1RHGhYIOVyBJuCN5TW27se/LARN7TNc7rzeSt+uwLyOauKiHVyqVaJhxIHaLNO7/V8
-         6xMjlwZU0hFLFSQnPFPsJF0K4230s9b43YuufVM88dDfz+UiIs2ZE6YxrPv8FewNj/Tv
-         1GAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790192072; x=1790796872;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TzkqngvnnBJ2lTRSA3pqgjWogtTkPcUi8AUpETG5Ups=;
-        b=lDoyekAtDogtSW/hpn79iapk/tlc2UBtP7Ucu+GoFmygiab7ALs55vj3bgfMANTbjM
-         7mdI6sA98JiIxCtINvY3EQGlBQgcJIOj6o93p8AZhwJCvYj5O1H1tBMmsd37GCVKlpdX
-         kIt2v7CVK2EA5t/5eESVaVgO32exsjUJRN1uan8jMlWis2O6MNh4PaS9Sxp59R6wXWyT
-         WAv54+M/eeVsdKc6eczUDWT8SfEgnzwrzXEGebRpBf/7hD9/I3ox4s+Px3/wPiCmbAxi
-         ePz0SIUNYzxBZBTzOiN6TsgmU8Ia05yJHiImvYiwCIe0WdOdtxltQL3wJJA/X5knxjYP
-         Wrog==
-X-Forwarded-Encrypted: i=1; AKwUvBx93k8HaPeumUIlgTZfw3C6OfI30k6LXArF2j1KDEqyz9RDe4FufVGFB61Z8PkPHQ8X6awHQTWfHQHaMfY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mI5ZzpZozo/DqOLeuemdIZM2a2mZrLpBjRwsX4UNvIFj674/yl
-	K5JuJO9igEwX7C/v8MRP7EBnbwsg92tvoS2o0FltlAv6rP+a9yz7+OOBRjuXGkqFNHhxIrnPKS4
-	ggGjyjROExU2jTO4OpTIl5SFVKU4T+/ZlW1HIZWs=
-X-Gm-Gg: AYBFou37NCWmPoGEQfxlWvQ602aK5ahCklZFOiHbmadfdOq4QFInu9DfPmgtX+qRWPo
-	g0fHTZWXjoNFoXSKkT+RaJLoYdh7y5/qtbKijGL6NBappzvGmPCgVmNvaKgBj74bMM9S4Tro4oo
-	0meJMemwa5k6NZe5+VxThsjWo8LrSOWnnD7QF7OUiggEN7EPZppyXQC0VQSL5UncFz6UyUKBLvQ
-	hiEFFhoCan98iaPJaF5edYO58qVIgLucGZnz8PIqtYCSxlifpLVXz8Sy97jOdmzZHByvoXZcgM2
-	D28CcQA1QpLQNZJG4ZGq3xbLJm6lbDaoA1fOre0yHaUE1/Fc57A/Zkyc3jhsYcf//8AJJohFLCs
-	KVpY38U3oHANuqbZq7Rzzbcpb1v6v9Xi0QFKm5pjZ5P17eO0CcSL2
-X-Received: by 2002:a05:6102:8098:b0:7a7:198a:c2b8 with SMTP id
- ada2fe7eead31-7af1e0e9449mr203050137.32.1790192070902; Wed, 23 Sep 2026
- 12:34:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="hTYmp3hk"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1790192082;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+hb5O2E4A9GdhWtVdSbQkcDJZ9Y5yRBtqWH3lfgyqQs=;
+	b=hTYmp3hkvPTw25eOYyoYrAVeYWxidds5iwf4RXBCq5499p+fW1vRMItJT7GuqjULYwt6Fr
+	vltj6NUyvPGMcEtAhNhqLCPikk9Rrrh7+p/GqoM37vmhRp5o3QKlIvEoKcSC2nXSeBgRzA
+	DrC5C+65AxNJ6GuDBs7VRDBpnqNDmmg=
+To: Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>
+Cc: Ian Rogers <irogers@google.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	linux-perf-users@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Stian Halseth <stian@itx.no>
+Subject: [PATCH] perf unwind-libdw: Fix reading the stack of a 32-bit task
+Date: Wed, 23 Sep 2026 21:34:32 +0200
+Message-ID: <20260923193432.2489729-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922112111.1970872-1-morbo@google.com> <202609230033.E3A658F@keescook>
-In-Reply-To: <202609230033.E3A658F@keescook>
-From: Bill Wendling <morbo@google.com>
-Date: Wed, 23 Sep 2026 12:34:14 -0700
-X-Gm-Features: AclHuK_FDnLkerbidmEgg_OB-0u1hTNPlJDFNATUFt9JsrV4a_M7hEOJM9pfkwU
-Message-ID: <CAGG=3QW+N1FoUL2GOLfU=U1Pj-eb_o99Z_Mq76ocrZ29S-NyZg@mail.gmail.com>
-Subject: Re: [PATCH] iio: st_sensors: add __counted_by_ptr to struct st_sensor_settings
-To: Kees Cook <kees@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 12:52=E2=80=AFAM Kees Cook <kees@kernel.org> wrote:
-> On Tue, Sep 22, 2026 at 11:21:11AM +0000, Bill Wendling wrote:
-> > Annotate the "ch" pointer member of "struct st_sensor_settings" with th=
-e
-> > "__counted_by_ptr" attribute. The elements of "ch" are counted by the
-> > "num_ch" member in the same struct.
-> >
-> > All instances of "struct st_sensor_settings" are defined as "static
-> > const" arrays across the ST sensor core drivers. For pressure sensors,
-> > "num_ch" is explicitly initialized with the size of the respective
-> > channel array using "ARRAY_SIZE(...)" during static definition.
->
-> I wanted to understand this so, in drivers/iio/accel/st_accel_core.c:
->
-> static const struct st_sensor_settings st_accel_sensors_settings[] =3D {
-> ...
->                 .ch =3D (struct iio_chan_spec *)st_accel_12bit_channels,
-> ...
-> }
->
-> static const struct iio_chan_spec st_accel_12bit_channels[] =3D {
->         ST_SENSORS_LSM_CHANNELS_EXT(IIO_ACCEL,
->                         BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE)=
-,
->                         ST_SENSORS_SCAN_X, 1, IIO_MOD_X, 's', IIO_LE, 12,=
- 16,
->                         ST_ACCEL_DEFAULT_OUT_X_L_ADDR,
->                         st_accel_mount_matrix_ext_info),
->         ...
->         IIO_CHAN_SOFT_TIMESTAMP(3)
-> };
->
-> #define IIO_CHAN_SOFT_TIMESTAMP(_si) (struct iio_chan_spec) {           \
->         .type =3D IIO_TIMESTAMP,                                         =
- \
->         .channel =3D -1,                                                 =
- \
->         .scan_index =3D _si,                                             =
- \
->         .scan_type =3D {                                                 =
- \
->                 .sign =3D 's',                                           =
- \
->                 .realbits =3D 64,                                        =
- \
->                 .storagebits =3D 64,                                     =
- \
->         },                                                              \
-> }
->
-> So .ch is assigned an array of items which looks to end with a terminatio=
-n
-> sentinel. And .num_ch is unassigned:
->
-> $ git grep '\.ch =3D ' drivers/iio/accel/st_accel_core.c | wc -l
-> 16
-> $ git grep '\.num_ch =3D ' drivers/iio/accel/st_accel_core.c | wc -l
-> 0
->
-> > For accelerometer, gyroscope, and magnetometer sensors, "num_ch" is not
-> > explicitly initialized (and thus defaults to 0). This is because those
-> > drivers hardcode the channel count to "ST_SENSORS_NUMBER_ALL_CHANNELS"
-> > rather than using "num_ch" from the settings struct.
->
-> Yeah, checks out:
->
-> $ git grep '\.ch =3D ' | cut -d: -f1 | sort | uniq -c
->      16 accel/st_accel_core.c
->       4 gyro/st_gyro_core.c
->       5 magnetometer/st_magn_core.c
->       6 pressure/st_pressure_core.c
-> $ git grep '\.num_ch =3D ' | cut -d: -f1 | sort | uniq -c
->       6 pressure/st_pressure_core.c
->
-> Interestingly, the pressure/st_pressure_core.c uses both assigned .num_ch
-> _and_ a sentinel.
->
-> > Since these structures are static const, both "ch" and "num_ch" are
-> > fully initialized at compile time and available immediately at boot
-> > time.  The only accesses to the "ch" field of "st_sensor_settings" occu=
-r
-> > when assigning it to "indio_dev->channels" during device probing.
->
-> Heh, so the bounds check gets laundered. :) Even pressure:
->
-> pressure/st_pressure_core.c:    press_data->num_data_channels =3D press_d=
-ata->sensor_settings->num_ch - 1;
-> pressure/st_pressure_core.c:    indio_dev->num_channels =3D press_data->s=
-ensor_settings->num_ch;
->
-> > Because "sensor_settings->ch" is never dereferenced or accessed as an
-> > array, adding the "__counted_by_ptr" annotation does not cause any
-> > runtime panics or false-positive bounds checks under KASAN or UBSAN.
->
-> I would argue that either __counted_by_ptr has no use here ("accidentally
-> safe because no one dereferences .ch" isn't a great justification)
-> or that the accelerometer, gyroscope, and magnetometer sensors should
-> have their .num_ch assigned correctly so that the "contract" is correct,
-> even if nothing does the deref.
->
-This is all very weird. Below is the full output from CodeMender. It
-might give some insight into this, but perhaps we should just NACK
-this patch?
+memory_read() hands libdw 8 bytes whatever the sampled task's ABI. For a
+32-bit task libdw keeps the low 32 bits (__libdwfl_frame_reg_set()), so
+on a big-endian machine each word read from the stack or a DSO is the
+one at addr + 4, and unwinding stops at the first frame restored from
+the stack. On sparc the 8-byte load from a stack address that is only
+4-byte aligned even traps, and perf dies with SIGBUS. Read 4 bytes for a
+PERF_SAMPLE_REGS_ABI_32 sample.
 
--bw
+A recording of the other byte order has each sample swapped in 8-byte
+units when it is read (perf_event__all64_swap()), which leaves the
+4-byte words of a 32-bit stack dump reversed and paired up wrongly.
+Undo the swap of the unit holding the word and swap the word itself, as
+__evsel__parse_sample() does for PERF_SAMPLE_CPU.
 
------------------8<----------------
-iio: st_sensors: Add __counted_by_ptr to struct st_sensor_settings
+Suggested-by: Ian Rogers <irogers@google.com>
+Signed-off-by: Stian Halseth <stian@itx.no>
+---
+Ian raised the cross-endian case in review of the sparc64 perf_regs
+series:
+https://lore.kernel.org/all/CAP-5=fUuRm3dWra4a-6eNF3F=tafcHvvDipqmDEXN5+ti-sW0A@mail.gmail.com/
 
-Annotate the `ch` pointer member of `struct st_sensor_settings` with the
-`__counted_by_ptr` attribute. The elements of `ch` are counted by the
-`num_ch` member in the same struct.
+Tested with 32-bit sparc programs (static, dynamic and multithreaded) on
+top of that series, with a local change so perf recognises sparc32plus
+binaries: natively on sparc64 perf died with SIGBUS before and unwinds
+complete chains after; cross-endian on x86 no call chain was complete
+before and all are after. 64-bit unwinding is unchanged in both.
 
-All instances of `struct st_sensor_settings` are defined as `static
-const` arrays across the ST sensor core drivers:
-- `drivers/iio/accel/st_accel_core.c`: `st_accel_sensors_settings`
-- `drivers/iio/gyro/st_gyro_core.c`: `st_gyro_sensors_settings`
-- `drivers/iio/magnetometer/st_magn_core.c`: `st_magn_sensors_settings`
-- `drivers/iio/pressure/st_pressure_core.c`: `st_press_sensors_settings`
+Words read from a DSO rather than the stack dump are still not swapped
+for a recording of the other byte order, whatever the word size, as
+before this change.
 
-For pressure sensors, `num_ch` is explicitly initialized with the size of
-the respective channel array using `ARRAY_SIZE(...)` during static
-definition:
-```c
-static const struct st_sensor_settings st_press_sensors_settings[] =3D {
-{
-...
-.ch =3D (struct iio_chan_spec *)st_press_1_channels,
-.num_ch =3D ARRAY_SIZE(st_press_1_channels),
-...
-},
-```
+ tools/perf/util/unwind-libdw.c | 46 ++++++++++++++++++++++++++++------
+ 1 file changed, 39 insertions(+), 7 deletions(-)
 
-For accelerometer, gyroscope, and magnetometer sensors, `num_ch` is not
-explicitly initialized (and thus defaults to 0). This is because those
-drivers hardcode the channel count to `ST_SENSORS_NUMBER_ALL_CHANNELS` (4)
-rather than using `num_ch` from the settings struct.
+diff --git a/tools/perf/util/unwind-libdw.c b/tools/perf/util/unwind-libdw.c
+index 4ccfcc7c2dfc..d49901b1571e 100644
+--- a/tools/perf/util/unwind-libdw.c
++++ b/tools/perf/util/unwind-libdw.c
+@@ -4,6 +4,7 @@
+ #include <elfutils/libdw.h>
+ #include <elfutils/libdwfl.h>
+ #include <inttypes.h>
++#include <byteswap.h>
+ #include <errno.h>
+ #include "debug.h"
+ #include "dso.h"
+@@ -17,6 +18,8 @@
+ #include <linux/types.h>
+ #include <linux/zalloc.h>
+ #include "event.h"
++#include "evsel.h"
++#include "memswap.h"
+ #include "perf_regs.h"
+ #include "callchain.h"
+ #include "util/env.h"
+@@ -203,9 +206,10 @@ static bool get_thread(Dwfl *dwfl __maybe_unused, pid_t tid, void *arg,
+ }
+ 
+ static int access_dso_mem(struct unwind_info *ui, Dwarf_Addr addr,
+-			  Dwarf_Word *data)
++			  Dwarf_Word *data, size_t len)
+ {
+ 	struct addr_location al;
++	union u64_swap u;
+ 	ssize_t size;
+ 	struct dso *dso;
+ 
+@@ -218,15 +222,38 @@ static int access_dso_mem(struct unwind_info *ui, Dwarf_Addr addr,
+ 	if (!dso)
+ 		goto out_fail;
+ 
+-	size = dso__data_read_addr(dso, al.map, ui->machine, addr, (u8 *) data, sizeof(*data));
++	size = dso__data_read_addr(dso, al.map, ui->machine, addr, (u8 *)&u, len);
+ 
+ 	addr_location__exit(&al);
+-	return !(size == sizeof(*data));
++	if (size != (ssize_t)len)
++		return 1;
++	*data = len == sizeof(u32) ? u.val32[0] : u.val64;
++	return 0;
+ out_fail:
+ 	addr_location__exit(&al);
+ 	return -1;
+ }
+ 
++/*
++ * libdw expects a 32-bit task's words zero-extended.  A recording of the
++ * other byte order was swapped in 8-byte units when it was read (see
++ * perf_event__all64_swap()), so a 4-byte word is picked out of its unit with
++ * that swap undone, as for PERF_SAMPLE_CPU in __evsel__parse_sample().
++ */
++static Dwarf_Word stack_word(struct stack_dump *stack, int offset, size_t len,
++			     bool swapped)
++{
++	union u64_swap u;
++
++	if (len == sizeof(u64))
++		return *(Dwarf_Word *)&stack->data[offset];
++	if (!swapped)
++		return *(u32 *)&stack->data[offset];
++
++	u.val64 = bswap_64(*(u64 *)&stack->data[offset & ~7]);
++	return bswap_32(u.val32[(offset & 4) / 4]);
++}
++
+ static bool memory_read(Dwfl *dwfl __maybe_unused, Dwarf_Addr addr, Dwarf_Word *result,
+ 			void *arg)
+ {
+@@ -234,11 +261,16 @@ static bool memory_read(Dwfl *dwfl __maybe_unused, Dwarf_Addr addr, Dwarf_Word *
+ 	struct unwind_info *ui = dwfl_ui_ti->ui;
+ 	struct stack_dump *stack = &ui->sample->user_stack;
+ 	u64 start, end;
++	bool swapped;
++	size_t len;
+ 	int offset;
+ 	int ret;
+ 
+ 	if (!ui->sample->user_regs)
+ 		return false;
++	len = ui->sample->user_regs->abi == PERF_SAMPLE_REGS_ABI_32 ?
++	      sizeof(u32) : sizeof(u64);
++	swapped = ui->sample->evsel && ui->sample->evsel->needs_swap;
+ 
+ 	ret = perf_reg_value(&start, ui->sample->user_regs,
+ 			     perf_arch_reg_sp(ui->e_machine));
+@@ -248,11 +280,11 @@ static bool memory_read(Dwfl *dwfl __maybe_unused, Dwarf_Addr addr, Dwarf_Word *
+ 	end = start + stack->size;
+ 
+ 	/* Check overflow. */
+-	if (addr + sizeof(Dwarf_Word) < addr)
++	if (addr + len < addr)
+ 		return false;
+ 
+-	if (addr < start || addr + sizeof(Dwarf_Word) > end) {
+-		ret = access_dso_mem(ui, addr, result);
++	if (addr < start || addr + len > end) {
++		ret = access_dso_mem(ui, addr, result, len);
+ 		if (ret) {
+ 			pr_debug("unwind: access_mem 0x%" PRIx64 " not inside range"
+ 				 " 0x%" PRIx64 "-0x%" PRIx64 "\n",
+@@ -263,7 +295,7 @@ static bool memory_read(Dwfl *dwfl __maybe_unused, Dwarf_Addr addr, Dwarf_Word *
+ 	}
+ 
+ 	offset  = addr - start;
+-	*result = *(Dwarf_Word *)&stack->data[offset];
++	*result = stack_word(stack, offset, len, swapped);
+ 	pr_debug("unwind: access_mem addr 0x%" PRIx64 ", val %lx, offset %d\n",
+ 		 addr, (unsigned long)*result, offset);
+ 	return true;
 
-Since these structures are static const, both `ch` and `num_ch` are fully
-initialized at compile time and available immediately at boot time.
-The only accesses to the `ch` field of `st_sensor_settings` occur when
-assigning it to `indio_dev->channels` during device probing, such as:
-```c
-indio_dev->channels =3D adata->sensor_settings->ch;
-```
+base-commit: edd8a9fe2eca009599e013a29c421c7a6b5ad1b9
+-- 
+2.55.0
 
-Because `sensor_settings->ch` is never dereferenced or accessed as an
-array, adding the `__counted_by_ptr` annotation does not cause any runtime
-panics or false-positive bounds checks under KASAN or UBSAN.
-
-HUMAN REVIEWER INSTRUCTIONS: REMOVE BEFORE SUBMITTING
-
-This change annotates the `ch` pointer in `struct st_sensor_settings`
-with `__counted_by_ptr(num_ch)`.
-
-Comprehensive Testing Plan:
-
-- Compile the kernel and IIO ST sensors driver files to verify there are
-  no build errors or warnings.
-- Run:
-  make_kernel_build_single_file \
-    drivers/iio/common/st_sensors/st_sensors_core.c
-  make_kernel_build_single_file \
-    drivers/iio/accel/st_accel_core.c
-  make_kernel_build_single_file \
-    drivers/iio/gyro/st_gyro_core.c
-  make_kernel_build_single_file \
-    drivers/iio/magnetometer/st_magn_core.c
-  make_kernel_build_single_file \
-    drivers/iio/pressure/st_pressure_core.c
-- This driver cannot be KUnit tested because it strictly requires
-  physical ST sensor hardware devices (I2C/SPI) and Regmap register
-  accesses (e.g. WHOAMI `.wai_addr` check), which cannot be mocked in a
-  UML environment.
-
-Sashiko: https://sashiko.example.com/placeholder
-
-END HUMAN REVIEWER INSTRUCTIONS
-
-Cc: codemender-patching+linux@google.com
-Assisted-by: LLM
-
-Full summary:
-## Walkthrough of Analysis & Root Cause
-
-### 1. Structure Analysis
-We analyzed the structure `struct st_sensor_settings` defined in
-`include/linux/iio/common/st_sensors.h`. The structure contains a
-pointer field `struct iio_chan_spec *ch` and an integer field `int
-num_ch` representing the element count of the array pointed to by
-`ch`:
-```c
-struct st_sensor_settings {
-u8 wai;
-u8 wai_addr;
-char sensors_supported[ST_SENSORS_MAX_4WAI][ST_SENSORS_MAX_NAME];
-struct iio_chan_spec *ch __counted_by_ptr(num_ch);
-int num_ch;
-...
-```
-
-### 2. Allocation & Assignment Verification
-All instances of `struct st_sensor_settings` are declared as static,
-global arrays of constants within the subsystem core files:
-- `drivers/iio/accel/st_accel_core.c`: `st_accel_sensors_settings`
-- `drivers/iio/gyro/st_gyro_core.c`: `st_gyro_sensors_settings`
-- `drivers/iio/magnetometer/st_magn_core.c`:
-  `st_magn_sensors_settings`
-- `drivers/iio/pressure/st_pressure_core.c`:
-  `st_press_sensors_settings`
-
-At boot/probe time, the settings are retrieved from these static
-arrays and assigned to pointers inside the device private data (e.g.
-`adata->sensor_settings`, `press_data->sensor_settings`). There are no
-dynamic allocations, reallocations, or post-allocation assignments.
-
-### 3. Execution Path & Access Invariants
-The only reads of the `ch` field of `st_sensor_settings` occur when
-assigning it to `indio_dev->channels` during device probing:
-- Accelerometer (`drivers/iio/accel/st_accel_core.c`):
-  ```c
-  indio_dev->channels =3D adata->sensor_settings->ch;
-  indio_dev->num_channels =3D ST_SENSORS_NUMBER_ALL_CHANNELS;
-  ```
-- Gyroscope (`drivers/iio/gyro/st_gyro_core.c`):
-  ```c
-  indio_dev->channels =3D gdata->sensor_settings->ch;
-  indio_dev->num_channels =3D ST_SENSORS_NUMBER_ALL_CHANNELS;
-  ```
-- Magnetometer (`drivers/iio/magnetometer/st_magn_core.c`):
-  ```c
-  indio_dev->channels =3D mdata->sensor_settings->ch;
-  indio_dev->num_channels =3D ST_SENSORS_NUMBER_ALL_CHANNELS;
-  ```
-- Pressure (`drivers/iio/pressure/st_pressure_core.c`):
-  ```c
-  indio_dev->channels =3D press_data->sensor_settings->ch;
-  indio_dev->num_channels =3D press_data->sensor_settings->num_ch;
-  ```
-
-Because `sensor_settings->ch` is never dereferenced or accessed as an
-array within the drivers, adding the `__counted_by_ptr` annotation
-does not cause any runtime false-positives or panics under KASAN or
-UBSAN, even though `num_ch` defaults to 0 for accelerometer,
-gyroscope, and magnetometer settings. For pressure sensors, `num_ch`
-is correctly initialized to the exact size of the array pointed to by
-`ch` using `ARRAY_SIZE(...)`.
-
-### 4. Build and Style Verification
-The modified files were successfully compiled and verified:
-```bash
-make_kernel_build_single_file drivers/iio/common/st_sensors/st_sensors_core=
-.c
-make_kernel_build_single_file drivers/iio/accel/st_accel_core.c
-make_kernel_build_single_file drivers/iio/gyro/st_gyro_core.c
-make_kernel_build_single_file drivers/iio/magnetometer/st_magn_core.c
-make_kernel_build_single_file drivers/iio/pressure/st_pressure_core.c
-```
-The patch was also validated with `checkpatch_run` to ensure standard
-coding style compliance.
-
-### 5. Test Exemption Justification
-The modified code strictly requires hardware registers or specific
-driver state to run. Mocking the STMicroelectronics sensor chips (like
-LSM303D, LIS3DH, LSM330D, LPS331AP, etc.), their respective
-`i2c_client` / `spi_device` interfaces, and Regmap register
-reads/writes (e.g., WHOAMI `.wai_addr` checks) in a User Mode Linux
-(UML) unit test suite is not feasible due to the lack of hardware
-mocks for these physical ST sensor chips. Hence, a test exemption
-applies under the specified guidelines.
