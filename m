@@ -1,131 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B220311C1B;
-	Wed, 23 Sep 2026 13:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD253F3263;
+	Wed, 23 Sep 2026 13:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170509; cv=none; b=JgJKoZ8RDPEd08Zbbp1pLQRQwi7+XvCb+rBL4ryfjBi1thHy7ZH3MWEuY/z6hYDYHr0OCsyHfbTwxXqIhHNXLvWrk/bhfPF4tWmxI47HSyxnmtsav077tTSFK5WCiRvG0+H135cZjOdkIv9ez71FFIyYZ8i1TA1b9YZswczhbos=
+	t=1790170595; cv=none; b=pYUlesnoZ79rx83q3cuc5oxnJC+f1kqGqnoiWoHnEd/jGKT0qlU1jqPxrtvcveIQRqcHM238FAGoUC8bNuFfOaYQ1gYdpXDTjBsg6tIqjrbZ49lZbn1HuDCDdKAQ3Ng7/DkrCuZwzSMI54jRynTyVoLZZYPteheUSQ5YTwZfEHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170509; c=relaxed/simple;
-	bh=IE1CuXor81z1qGkDbGdu7bZdzLklzCqhn5JlmVLhexw=;
+	s=arc-20240116; t=1790170595; c=relaxed/simple;
+	bh=v6sU/OMdzPpuatwwNDBvlqfARUR910C7YyewI/5MOug=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=avlk3S6aEXTY64qNcJXKd81htpz3syQFH5HKshsU+8Rug58rVHTdtItuaoP80aVgvsfcnOCn1V7oNy0PoJpqC26EMg68CeOlviq1ShAbcXNIS5lgLt774A2NJF4+oWaUjY3BRpvzVdv7WIx9l7OCWEAaD0bAHC9V0WlO3LdJxGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XY7MoQk4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ap+xqb6VJ622o2KGvsAvpiOjKaPG1eBRxbnOUks8h5J6CL7C2InQrgDDGt4qy9hBFej5WYZOVkCcpo0uMaXf5CfeoAvJE0M24fjvwsfiolvMlbszSI/8zV3eAGi5PNIulsawHyd4No9fLU8a78IGNrC/LgM+QXymMhdSnOT8PEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KJlx3T4s; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XY7MoQk4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37B1B1F000FF;
-	Wed, 23 Sep 2026 13:35:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790170507;
-	bh=4xT/YzFyvnuyh1yzxeON1Odr6fQx0euTNrCwJ9fiFgo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XY7MoQk4zLMbNFWTtbSCki/adwKa98jx4phtw69C0/cLYhxZhvugDxq+uYlpdTdCd
-	 XCogBvdKFZZjVzXsKHYYRXn9t10TqAPGkuf6Hp65RgzrHX1OEQXJwQKWH1w8CGsUOo
-	 MY7iatiyfENPg3oExaa6JlxtGn3iLrmgClkPkGBMlw3P9wmncnTIGMFkqknItoVbZl
-	 EPl9ngXVzb1tTdwNfslHut15f9SS6KVC9jb9AI82WaRmfSiItnXTVzvUjN+8BNmPCo
-	 D6Mqgn3kA0D1oaTiUrn5h3LTiLslA2yYwQlPUj1jz4RwZynJMSMNxn7nAp/3hQ+ZF+
-	 ndU66ryW4OOww==
-Date: Wed, 23 Sep 2026 15:35:01 +0200
-From: Joel Granados <joel.granados@kernel.org>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: kees@kernel.org, kuniyu@google.com, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, zhanxusheng@xiaomi.com, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] sysctl: Negate before converting in the int read path
-Message-ID: <n7aysvb5tfk6hwrprghurpkq37hfzvubfqh4vlucwwxbxjy64n@w7ow6rmljgiz>
-References: <20260922031229.2300283-1-zhanxusheng@xiaomi.com>
- <20260922031229.2300283-2-zhanxusheng@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KJlx3T4s"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790170593; x=1821706593;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=v6sU/OMdzPpuatwwNDBvlqfARUR910C7YyewI/5MOug=;
+  b=KJlx3T4sPZ19dc7RU9dROkp0Z0MDD879iqrVVrF2Kn+Jmvn0J8JJDS6F
+   jY791yrUGY1mDD5DYzKEwkGc2uy43wlIXj7OTSvG8cN9oKvLt2mrVQx6j
+   W5zwEvlbB6XXw9kYJFcor9Hk387wmXB0QHUlS7MsGMOAQ7Hkr1e98VVo+
+   MnAaAl56fuEbhPvXmi2BusbzFEksu1RN1wAkTvyUfCzs+un3xFnmTrzCX
+   OqlV7l8J7X0pLf8PDRrT0hyJGKljXvelVYByNfVgiFV4B8dcffL7acUFw
+   WTEeFmLvw7eJ+a1qHAEHiIJkzqfD1YAngtQsFk2K4mLY90rT0+mR0JoLQ
+   w==;
+X-CSE-ConnectionGUID: PZN2KxfSRkyBrCWUljC7Cg==
+X-CSE-MsgGUID: LaIaY7htQuucojnEheL/Yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="1381643"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="1381643"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 06:36:32 -0700
+X-CSE-ConnectionGUID: MJImz0ZNTZSW3L7JPsPViw==
+X-CSE-MsgGUID: AoVnFZqzSsWckOJL1i0Tuw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="299862783"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa002.fm.intel.com with ESMTP; 23 Sep 2026 06:36:31 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id D207299; Wed, 23 Sep 2026 15:36:29 +0200 (CEST)
+Date: Wed, 23 Sep 2026 15:36:29 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Navon John Lukose <navonjohnlukose@gmail.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] i2c: designware: size the RX FIFO threshold to the
+ queued transfer
+Message-ID: <20260923133629.GI106095@black.igk.intel.com>
+References: <20260919232647.448748-1-navonjohnlukose@gmail.com>
+ <20260921120526.GV106095@black.igk.intel.com>
+ <20260921170456.53354-1-navonjohnlukose@gmail.com>
+ <20260922065041.GC106095@black.igk.intel.com>
+ <20260922121238.46016-1-navonjohnlukose@gmail.com>
+ <20260922122902.GE106095@black.igk.intel.com>
+ <20260922132334.34682-1-navonjohnlukose@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="m6zszdv7iwb3uois"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260922031229.2300283-2-zhanxusheng@xiaomi.com>
+In-Reply-To: <20260922132334.34682-1-navonjohnlukose@gmail.com>
 
+Hi,
 
---m6zszdv7iwb3uois
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, Sep 22, 2026 at 06:53:34PM +0530, Navon John Lukose wrote:
+> On Tue, Sep 22, 2026 at 02:29:02PM +0200, Mika Westerberg wrote:
+> > Yeah I don't think 0.7ms is much but we have things like touchscreens and
+> > the like with various report sizes so at least it would be good to check if
+> > those have any issues.
+> >
+> > Unfortunately I don't have any of such devices anymore but I asked our
+> > validation to check if they have something that could be used to test this.
 
-On Tue, Sep 22, 2026 at 11:12:27AM +0800, Zhan Xusheng wrote:
-> proc_int_k2u_conv_kop() reports the sign through *negp and the magnitude
-> through *u_ptr, but for a negative value it hands the sign-extended int to
-> the converter and negates the result:
->=20
-> 	*u_ptr =3D k_ptr_op ? -k_ptr_op((ulong)val) : -(ulong)val;
->=20
-> With div_hz() and HZ=3D1000 a stored -1000 becomes
-> (ulong)-1000 / 1000 =3D=3D 18446744073709550, and negating that wraps:
->=20
-> 	# echo -1 > /proc/sys/net/ipv4/tcp_fin_timeout
-> 	# cat /proc/sys/net/ipv4/tcp_fin_timeout
-> 	-18428297329635842066
-Good catch. I'm testing in sysctl-next.
+Turns out they don't have touch screens either :(
 
-Would you be up for creating a test for this? It would need to be on top
-of the new selftests [1] and it requires you to create a similar
-situation to the one you corrected lib/test_sysctl.c.
+> I have a Goodix touchscreen on a second controller on the same machine, so
+> I ran it at three report sizes. GET_REPORT at 100 Hz, 2000 transfers per
+> cell, three interleaved passes, ~normal desktop use in the background:
+> 
+>     bytes   interrupts/report      mean latency
+>        7      4.17 ->  2.00     1776 -> 2093 us
+>       21     10.06 ->  2.00     2131 -> 2676 us
+>       64     63.97 ->  3.21     2303 -> 3512 us
+> 
+> 64 bytes is past rx_fifo_depth on this part, so that is also the first
+> exercise of the half-FIFO cap.
 
-Best
+Okay thanks for checking this. If the latency stays in low single digit ms
+I think that's fine.
 
-[1] https://lore.kernel.org/20260914-lklm-sysctl-selftests-v1-1-160d90bf8f3=
-e@kernel.org
+> So the latency is not a fixed 0.7 ms as I implied earlier, it grows with
+> the report size. Breaking down where it goes, with kprobes on i2c_dw_xfer
+> and i2c_dw_isr, for 64 bytes:
+> 
+>     segment                       stock   patched
+>     xfer start -> first ISR          78       146
+>     first ISR -> last ISR          2157      2748
+>     last ISR -> xfer return         101       147
+>     i2c-hid and ioctl overhead       12        49
+> 
+> 84% of it is between the first and last interrupt. Stock's 65 interrupts
+> are 33 us apart, too close together for the CPU to idle deeply, so each
+> wakeup is cheap. Patched leaves 3 gaps of around 900 us, deep enough to
+> idle properly, and pays the exit latency on each one.
+> 
+> So the power saving and the added latency are the same effect seen from
+> either end. Lowering the cap trades one back for the other at roughly the
+> same rate, so if the latency needs bounding (I personally think it is
+> overkill) it wants a QoS request as Andy suggested.
 
->=20
-> Take the magnitude first and convert that, which is what the open-coded
-> version did before commit 2dc164a48e6f ("sysctl: Create converter
-> functions with two new macros") folded it into a macro.  The
-> k_ptr_op =3D=3D NULL branch was already correct.
->=20
-> proc_dointvec_jiffies() and proc_dointvec_ms_jiffies() are affected.
->=20
-> Fixes: 2dc164a48e6f ("sysctl: Create converter functions with two new mac=
-ros")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> ---
->  kernel/sysctl.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-> index f7b75985d542..38597f26b34c 100644
-> --- a/kernel/sysctl.c
-> +++ b/kernel/sysctl.c
-> @@ -483,7 +483,7 @@ int proc_int_k2u_conv_kop(ulong *u_ptr, const int *k_=
-ptr, bool *negp,
-> =20
->  	if (val < 0) {
->  		*negp =3D true;
-> -		*u_ptr =3D k_ptr_op ? -k_ptr_op((ulong)val) : -(ulong)val;
-> +		*u_ptr =3D k_ptr_op ? k_ptr_op(-(ulong)val) : -(ulong)val;
->  	} else {
->  		*negp =3D false;
->  		*u_ptr =3D k_ptr_op ? k_ptr_op((ulong)val) : (ulong) val;
-> --=20
-> 2.43.0
->=20
+I agree. Just wanted to check that there are no user visible (negative)
+side-effects.
 
---m6zszdv7iwb3uois
-Content-Type: application/pgp-signature; name="signature.asc"
+So no objections from me,
 
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmqz1YUACgkQupfNUreW
-QU85Ugv/dqQCe4h/HgieC1WW2Siay0nM68lk8qrek821AFJz6eD5KtAyUOiGfnt1
-7qmSRLsNiy4+KH7ybtCdw4t2UVR7PNg/iD2Ee95ln/EgCDQ4oUfbRgbQbSb5GIMx
-CwtvXm4DDBMxyuMpz1FTYagHhn4TDMfxfmd3Wo+8AofCv+GoOvgMbxW2B66G/t/L
-LZwIW1obJdBhHppXDSCma1nHDSqoUu3hITwJR79gbtHoHtwA58TFPZvQLRW2TBqi
-6sJrHJ2162NacgYMmd8kMHkffSGELqMjdnhTrsqVMEFDLNm+Zq0yM2iedeg9u8Nd
-VNEfBRI0vGqRVVgUuEhI52ot4zJi1xB6Eq0mx8G2ZqPYEhSQPjqbsbjrbLpGH6eE
-BMZXjNqmI+8qd4yMol23Fo76oJQm/Ed2jmnikPTfKiwgFOEds3VGe1te5uraf1rP
-e4tSdygVkHQDIT42lSB+6nVNndM+ufmBJL7H78w4cZvHZO/lBGHKeqWMws7sFPeM
-S669wszc
-=FKK+
------END PGP SIGNATURE-----
-
---m6zszdv7iwb3uois--
+Acked-by: Mika Westerberg <mika.westerberg@linux.intel.com>
