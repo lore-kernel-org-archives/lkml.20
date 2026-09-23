@@ -1,154 +1,127 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 716E238F25C;
-	Wed, 23 Sep 2026 04:20:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B9A3B8930
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:20:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790137211; cv=none; b=GpnvasOthjLLUs0uplyDI7Fimhg8yIdtRooCZAEQpI3qUb1+5lsjLIgPY/I9DHh60NUxgzHFC+iDLb68qoaVB7gB2POlpdXVvcjCMv9MNhme0h0f/pvYV2tjkatZebbi8v9b1H3KmlU4HauDPFpX7b8tUiYZVj8s16u3Z7oeCN0=
+	t=1790137234; cv=none; b=cFDQeGqqVCR8XhfYKTdalajpwc7mRahnlzIhtB8J0QwqmXJUb2x3dxebZgjvHq76kvZcKx4fEPeAPZ1qGrYTG66KnSzsvLfBOOsDLFDqrs+PJlNJl5do2rik+sOyY22b5MC85QVJVfuNKPJA5Du5vo6CrMEElpF20kDhhS2roJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790137211; c=relaxed/simple;
-	bh=5gZoE00uG48SxAB6q1up1WLM+4HS0b+PT7joXzrK5BY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WJXQvC251dBAO3AImDGinb5X19gzMLb/v5xn2Mw6kSSsEyUALQRO/xEZ7Aps+pBifWCfjycvI6x/x6oTdEUGWu21HfMUONJM7tDc2uTIjTSiv9HlvVEAzf70nePFBXixddeToqyOKRGk+aWKDc06JaF+dK0riJ9w6cYjP+V0/c4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=gWIcXOjO; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1790137234; c=relaxed/simple;
+	bh=kEXCmh5KjACa9jlo2r6L+uwToMUdSFNrNLsT/1Kvc9w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=q7jqqyaceaqZDAeJ4R0ZzGmk9q4+dmch/36LmgvALUWwiWsy822nJ8H+W+XjYkQeZhTvwmqD9TYoEG6KgVz4ZRem8a9DhcK6iiRRzNMjBaaHB1MaZR5Mg/Avm5dHtOK4qZe76WClI9oro3Bwu/LaDvB/NUt5IFixfjsFL2MQYwI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DooG22bG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="gWIcXOjO"
-Received: from [100.67.200.185] (unknown [4.194.122.162])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 0AEC520B7167;
-	Tue, 22 Sep 2026 21:19:17 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 0AEC520B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1790137161;
-	bh=Af0CwPE6fgHbBmxoY/Eezao4/Sn7v0Sx3xmR0fEB1MY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=gWIcXOjOzKZOHawitrLxQfyDot6TBwxCdxfgggbS6qDjz7JO5fVBbUqWuly5mAUPr
-	 8fvlTvdFYKf/UG4rMNQ5bAg4NJJnyD9cUSRumM6pM0Y8Tka+VvcoB8zXkr4kjWA3FH
-	 5Ac+aGfoGQ95OVaMSTpOc6XggLNLwLLGoovCIOk0=
-Message-ID: <fabfdde6-9b9a-4879-9de0-c6ff18045e02@linux.microsoft.com>
-Date: Wed, 23 Sep 2026 09:50:03 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DooG22bG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36B2E1F00893
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:20:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790137233;
+	bh=xRu4IFymWzU2DAq2/pstQkXppKLOwgDVdrPuqvOzeKg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DooG22bGzqj86xMITRCYrjpoW0RFqwnABVByxGQ4CZVPtrr1cDx9NkNBBxF0JPD+M
+	 Hz+F510Hq+9ODp+qe5tuF6anjMWjWba7hM4kjWuyjI605r6piR319gmu6NBtQ598IK
+	 4KGwvAUnyJmoBMNXXk47eDermkyxmW02HOsd/xKwBZE5Hx1B/nKy/1336M4+8Bkf4I
+	 gnzoFVhFQiHvWAsSTDlGM87AKN5fPjgl8b8d9FcBMtqoJcQt/esafLBle2kznTaEDK
+	 FTw+H35H2zo5rnEvQrU9vqWIDWNJVayesSaOWMSqUQ8cIlQ7m+RmwbVZHuILU1OFaE
+	 fNCeb6HGA/stw==
+Received: by mail-ed2-f35.google.com with SMTP id 4fb4d7f45d1cf-6a6056be4d2so393195a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:20:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByiObhtE0wWaMn6xka9T6oSGvVq9gXciKycj2+oHZ8sEWFEV35ViAbnPksjEfwkNnC98hzov2ofjhIKbXY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVjfaevIoHOmYmVwLwx7Jxw2s70l0RNyHcb/jUEDC61w9VCThL
+	jScrjUOI2KLA6/qT/qI6GZsnBmREzelb4XjBVpAZwW2d33dhSgu0TTF0KPWa0/Y72xPAWw84O88
+	41yRApi353EaQ/6kmHDt7WfXkFw39aOY=
+X-Received: by 2002:a05:6402:44d3:b0:6aa:aad5:9cef with SMTP id
+ 4fb4d7f45d1cf-6aab38337fdmr966870a12.6.1790137231703; Tue, 22 Sep 2026
+ 21:20:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: hv: Probe vPCI buses asynchronously
-To: Michael Kelley <mhklinux@outlook.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>
-Cc: "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260907054742.235389-1-namjain@linux.microsoft.com>
- <SN6PR02MB4157AB3B9404AF9CC43BF11FD4842@SN6PR02MB4157.namprd02.prod.outlook.com>
- <c3345afb-7491-42c9-9e9c-609860aea515@linux.microsoft.com>
- <SN6PR02MB41574C84E56157D1FC2E4F86D4832@SN6PR02MB4157.namprd02.prod.outlook.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <SN6PR02MB41574C84E56157D1FC2E4F86D4832@SN6PR02MB4157.namprd02.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260922103931.215091-1-nagachaithanya9911@gmail.com>
+In-Reply-To: <20260922103931.215091-1-nagachaithanya9911@gmail.com>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Wed, 23 Sep 2026 12:20:18 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5toptaidoEvkuSeqg8ufSOcMxNqO4nXUOcs=7M7MwivQ@mail.gmail.com>
+X-Gm-Features: AcwNN1UCQ1_Q9X_oEYpqr3iAEWtLdmB9_bsmlaQaWqFXwc6YN0IFf1Wsyqbm3Yg
+Message-ID: <CAAhV-H5toptaidoEvkuSeqg8ufSOcMxNqO4nXUOcs=7M7MwivQ@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: KVM: Return the actual error code in kvm_ipi_create()
+To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+Cc: Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, 
+	WANG Xuerui <kernel@xen0n.name>, Xianglai Li <lixianglai@loongson.cn>, kvm@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi, Chaithanya
 
+On Tue, Sep 22, 2026 at 6:39=E2=80=AFPM Chaithanya Lagisetty
+<nagachaithanya9911@gmail.com> wrote:
+>
+> kvm_ipi_create() registers the IPI device on the IOCSR bus and jumps to
+> the error label when that fails. The error path then discards the error
+> code that kvm_io_bus_register_dev() reported and returns -EFAULT
+> instead:
+>
+>         ret =3D kvm_io_bus_register_dev(kvm, KVM_IOCSR_BUS, IOCSR_IPI_BAS=
+E,
+>                                       IOCSR_IPI_SIZE, device);
+>         mutex_unlock(&kvm->slots_lock);
+>         if (ret < 0) {
+>                 kvm_pr_unimpl("%s: Initialize IOCSR dev failed, ret =3D %=
+d\n",
+>                               __func__, ret);
+>                 goto err;
+>         }
+>         ...
+> err:
+>         kfree(s);
+>         return -EFAULT;
+>
+> kvm_io_bus_register_dev() fails with -ENOMEM or -ENOSPC, so userspace
+> creating a KVM_DEV_TYPE_LOONGARCH_IPI device is told that it passed a
+> bad address when the real problem is that the host is out of memory or
+> out of IOCSR bus slots. -EFAULT is reserved for faulting user addresses,
+> and the remaining -EFAULT returns in this file are get_user() failures,
+> where it is correct.
+>
+> Return ret instead. It is guaranteed to hold a valid negative errno
+> because the ret < 0 branch above is the only path that reaches the error
+> label. This also matches kvm_eiointc_create(), which already propagates
+> the kvm_io_bus_register_dev() error code unchanged.
+>
+> Only compile-tested; the fix is a straight propagation of an error code
+> that the adjacent kvm_pr_unimpl() already logs.
+>
+> Fixes: c532de5a67a7 ("LoongArch: KVM: Add IPI device support")
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+> ---
+>  arch/loongarch/kvm/intc/ipi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/loongarch/kvm/intc/ipi.c b/arch/loongarch/kvm/intc/ipi.=
+c
+> index 7b333a4a0430..672ec053a997 100644
+> --- a/arch/loongarch/kvm/intc/ipi.c
+> +++ b/arch/loongarch/kvm/intc/ipi.c
+> @@ -431,7 +431,7 @@ static int kvm_ipi_create(struct kvm_device *dev, u32=
+ type)
+>
+>  err:
+>         kfree(s);
+> -       return -EFAULT;
+> +       return ret;
+Why not remove the "err" label and return at the "goto" statement?
 
-On 9/22/2026 8:12 PM, Michael Kelley wrote:
-> From: Naman Jain <namjain@linux.microsoft.com> Sent: Tuesday, September 22, 2026 2:09 AM
->>
->> On 9/22/2026 2:39 AM, Michael Kelley wrote:
->>> From: Naman Jain <namjain@linux.microsoft.com> Sent: Sunday, September 6, 2026 10:48 PM
->>>>
->>>> On Hyper-V guests each virtual PCI bus is enumerated by its own
->>>> hv_pci_probe() call. The probe performs several synchronous host
->>>> request/response exchanges while negotiating the protocol, querying bus
->>>> relations, entering D0, and reporting allocated resources. These waits
->>>> are latency-bound rather than CPU-bound.
->>>>
->>>> hv_pci registers as an ordinary VMBus driver, so driver_register() walks
->>>> matching vPCI buses and probes them sequentially while the driver's
->>>> initcall runs. On guests that expose several devices, each through its
->>>> own vPCI bus, this serialization adds the host round-trip latencies to
->>>> device initialization.
->>>>
->>>> Each bus is described by its own struct hv_pcibus_device, so
->>>> independent buses can be probed concurrently. Request asynchronous
->>>> probing via PROBE_PREFER_ASYNCHRONOUS, causing the driver core to
->>>> schedule matching buses for asynchronous probe work.
->>>>
->>>> On an Azure Standard_L32s_v3 guest with five vPCI targets (four NVMe
->>>> controllers and one Mellanox VF), Linux 7.2.3 was tested with one warm-up
->>>> and three measured boots per variant. The median interval from the first
->>>> hv_pci_probe() entry to the last return decreased from 2847.968 ms to
->>>> 2786.709 ms, a 61.259 ms (2.15%) improvement.
->>>
->>> The elapsed time improvement is rather disappointing given the
->>> complexity of the probing sequence and the number of interactions
->>> with the Hyper-V host. Do you have any insight into why there isn't a
->>> larger reduction? Is something mostly serializing the work even though
->>> PROBE_PREFER_ASYNCHRONOUS is specified?
->>>
->>> Michael
->>>
->>
->> I can see these reasons for not seeing great improvements:
->> 1. Timing of device offers from the host is beyond the control of guest
->> and the Hyper-V host may also be serializing the requests from the host.
-> 
-> Ah, right. This is probably the key factor.
-> 
->> 2. Shared locks that needs to be handled separately:
->>      * hyperv_mmio_lock during VMBus MMIO allocation.
-> 
-> This probably has minimal impact. While there's a decent amount
-> of code protected by the lock, I don't think there's any interaction
-> with the host (even via traps), so it should run quickly.
-> 
->>      * pci_rescan_remove_lock during PCI resource assignment and device
->> addition.
-> 
-> OK. I don’t know about this one.
-> 
->>
->>
->> I digged more into it, and it is indeed because of late offers from
->> Hyper-V. I was considering the start of first probe to the last return,
->> for time calculations.
->>
->> For the 4 PCI devices on my setup whose offers were delivered together,
->> the performance improvement was about 24%. However with the last offer
->> coming late for MLX PCI device, overall improvement in time was lesser
->> in terms of percentage.
-> 
-> For traditional configs where the VF NIC is paired with a netvsc
-> instance, the host doesn't offer the VF NIC to the guest until the
-> corresponding netvsc instance has been probed and the netvsc
-> driver has told the host it will accept a VF NIC. In these cases, the
-> Mellanox or MANA VF NIC device is always "late" and probably
-> shouldn't be included when determining the speed-up of doing
-> hv_pci probing asynchronously.
-> 
->>
->> Dexuan had removed pci_rescan_remove_lock in his previous upstream
->> attempt, but I ommitted it intentionally this time because from AI
->> review, I saw a potential race condition that we would introduce if we
->> remove it. Secondly, I did not observe any benefits of removing this
->> lock. But I am going to revisit it again.
-> 
-> Thanks for the discussion. Using PROBE_PREFER_ASYNCHRONOUS
-> is still a good thing to use, but the benefit will accrue the most when
-> there are a significant number of NVMe devices and when Hyper-V
-> is quick about offering them. As I described above, it will be harder
-> to get parallelism with the VF NIC.
-> 
-> Michael
+Huacai
 
-Thanks Michael, this makes sense now. I'm glad that you asked.
-
-Regards,
-Naman
+>  }
+>
+>  static void kvm_ipi_destroy(struct kvm_device *dev)
+> --
+> 2.43.0
+>
