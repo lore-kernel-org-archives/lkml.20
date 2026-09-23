@@ -1,150 +1,214 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013048.outbound.protection.outlook.com [52.101.72.48])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02895374756;
-	Wed, 23 Sep 2026 03:46:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790135189; cv=fail; b=rzyZIpywpgQXMOJeIzQP570VY4i68RbSjS2Ym6idJqmtwCHpHlm06BIrVzDeSXDXxZfL477Orh9WKSl794Dcc+zjBXsRg4pIQQSQbLypkpncFsaYbv3M+IBjEriQjA5XYAo61uLNSJS5fB/IpIf+rwIx6PFscQDZ5Z8SHLWY+Dc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790135189; c=relaxed/simple;
-	bh=vHCBiB0KYOZIBOVJhbRWM6BakG3t25BTTZ36vg0hDXk=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=OGyoJXeBUocqUWHQwWn+hsa3TUN8oV3ewpeIUt3q2TeVYay0Fsf4uFnoApbtf3sma9dCDgUqWoCd7tH8FcRJM3YTLUg3gNPITi8f1/ikAPKsHj0leOmOmuWg6+QIHN5pFagmJlfeEKzBsGUyAiUXpqKAMxZ1gbqYcK5iOK8gGfM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=K8abk2P3; arc=fail smtp.client-ip=52.101.72.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B0F3B14D9;
+	Wed, 23 Sep 2026 03:47:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790135239; cv=none; b=Dnf34z2dSFvNgV7z1+5nfl+36Hfax34RJK7Eh223jIb6w05AD3ZBbrlkxEyr9Ew+9qIgEsE+njs7pIU+EDUWprXGVLEsS3b9PK478jkDoBPh3+qi6FDy5PwVsVGabJlUpcMSOC4nnCwb0hBi+LTvLmU+tqXeCdwq6lUsnji/fUY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790135239; c=relaxed/simple;
+	bh=MsT50ykRT2U2TyfULlVQddIPZu9AgsTozHh5v66D5qQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BxnhQuy2SG2CRMsjUI9O2faRo7iRb2h+lYWR6kIH8SKr0D5lHiuYySwUsRUlzELOt0E1xdzfM53P/edoXzvaBVG4y5Ogmeqc/8clFl4hGCDMwhxz3cNh+hgd36t6Po7QmQ7Tlu/emgmC+vT0r50SqtR/f1PiEgHjx9Ad/tCl95c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FmcYwiUh; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="K8abk2P3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B3mAgaPx3gAa8ZZ0ybxli3dNoBWtM5qxZS/Djf5Ao6BJ21zuj1unbdrNRzPMvYoVBOYoR81ALXGNV2IbUNjk3jou4tVSTwTCnwHSRnRkHSJhbdf3QgzW/ofDpQXdTQ/wsddJO4oaKfeufYBsFYV1Wzf1j+S2PadvOrj29NtW9gUs+YGN72qikGh+P+5U9cMmEUA8R27jOS1yxRz6Xo5JU/tJu1znzI4KC+hwOf6we6t2fJ3NT3RAUvImJLGsYZwbmgEgorZaNI9XaOEcBN5wf9CdfM9/ro4EICZBrzJds1PfayAUgJFbj6QrhCOoINTXB/zTH0MAv4UUVOqqp49Nmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9LpmnAKDrZsGe7UqxhIo20OwaBtw6SN6CWYDmXjHQk8=;
- b=Qdy++vYmIZzxfjFUafEH6dlVDxTztOHps1p8+TskzO8srk9Xso7q7/u24/TrAhXi0u+Sr89poTiLBh0En5dX+CbNou8Bss6JXPERmkFHBdOtocOmbLITvQu0aqoJhrbvpqnR+JcPk/fq6fLobUTLfGzqYeYnfxutO1P5DGgOAsVVVo3ocNQGBom6ZkgIsNmurdwHDWR5moT3JuTYVMMkijX018nLhrEhiOzXOMLuGfX78293zCy7/OHDzA1sdliH4f+PlcuKt1FbJJ4RHgIoFOlX3XTRkHand7hnh9S0AIv2KMituIdz9m9ffEFd6x4LpJ3y9GtWOCpwP7NM81FLoA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
- dkim=pass header.d=est.tech; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9LpmnAKDrZsGe7UqxhIo20OwaBtw6SN6CWYDmXjHQk8=;
- b=K8abk2P3vyMv+HmqMD27wWAHIfgtHxch2T8tIK9yv73XefnoP7fPm9fouCfS42awstGzNECEwnf1N80Wlc/i5Pa9wLH0Dhg0/dbBy/AX/rck+2y3o4lRgTqNke9g9ZIx8mnxkwGRw4ZiS70wMSxkwwP96+051kvd75X8gle/0AJMvyPRRia14pLTBTsCfMpcVwvoiAy4PV1SocTuOYq6RgHN47DPTpRWTkVjoM9h2RKFy+LMt+PuiA0kHEL7dCasXoJJBsLzHyKR7wZ7WuWLjV5wYoA4BH9j12x4XTdK/NfZpsremK58ZdUVO3Gn1a3jgmNsIH3pxqx1jrKglQ/zoQ==
-Received: from DU4P189MB3750.EURP189.PROD.OUTLOOK.COM (2603:10a6:10:617::19)
- by PR3P189MB0954.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:29::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 03:46:23 +0000
-Received: from DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
- ([fe80::d422:dd3a:7c1e:f4f3]) by DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
- ([fe80::d422:dd3a:7c1e:f4f3%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 03:46:23 +0000
-From: Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-To: Ginger Li <ginger.jzllee@gmail.com>
-CC: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"tipc-discussion@lists.sourceforge.net"
-	<tipc-discussion@lists.sourceforge.net>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "jmaloy@redhat.com" <jmaloy@redhat.com>
-Subject: Re: [PATCH net] tipc: Fix a data race on mon->peer_cnt in
- mon_timeout()
-Thread-Topic: [PATCH net] tipc: Fix a data race on mon->peer_cnt in
- mon_timeout()
-Thread-Index: AQHdSmmsXnU97XITgkGix/x1s+3Q2rbbhtwD
-Date: Wed, 23 Sep 2026 03:46:23 +0000
-Message-ID:
- <DU4P189MB3750BC7727CAB912B9F51FF2C6822@DU4P189MB3750.EURP189.PROD.OUTLOOK.COM>
-References: <20260922080909.21123-1-ginger.jzllee@gmail.com>
-In-Reply-To: <20260922080909.21123-1-ginger.jzllee@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=est.tech;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DU4P189MB3750:EE_|PR3P189MB0954:EE_
-x-ms-office365-filtering-correlation-id: 5656b7b3-115a-442a-01a9-08df19253cc3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10070799003|38070700021|10067099003|56012099006|11063799006|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- Dgl/iUXpF9VRW8E/xsXSvg9nO+uErsTJm9Ix4NDREVcqu1YJmB2yyEt8YVjMlqknlz1cNo4ADqaP+k5hdG+NTBRDAfRJXGyUT2WZOJKZ6KUl1cnVhMkOKCHI4D8Lg4cXwrFm4hLdzsO0hMhan32smWqQwGCeWQqC6gUjwR1eAxQQn54zxGuwuj0718GvRlGTLQ7QGKvoxVKwEEiFhJ3DHj/2b5wwr5Cc4WJlqRY73mMFh5FDmRoOz+1plAjODrRl5eFIwEdE7wZLpCd3+MO0mn5Cn+IWgrkMoAvoMQXwcElui1t3jUNkMTjSwm4buNmxCbge8LCHRJ2qCl8BFF39OX+g8knBEmifCYFbpkS4zH8MB4cxd5a1N7sdjJAc4VTSMe1vU7vsdOzArMvvuYnpwxiWCN9RaNr5pV/gjD635Tb1168uiytaqVc/y9xkj84/1g6/7qxNxGfEfUtPt7CbFJqietmeKvvxi0aVPeaLzFAeifw+95jyCBcbDJKYszOsR6S2GhkI9vwn1uKbHXZ0mE1jJ1Vz9zpMTCBohpErifF0uDFYX6i4pyi+RF8hgYCOGvrW3IM04r1u/DOCI8W93rAZ3/8GiesJU9LtOJJ9gvA+Q+N+WgpfiZp7O3z1qWHD9KSETyQzd+j7SsG0iEHj+3r28sgwrU6DpzaE1NM31jxxuYqZ7IKZANW3d0zk31cXOcQpaFnf6bM44JDMCWr3mf7W5Cidu2zKDTu6+Wm3VOc=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU4P189MB3750.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10070799003)(38070700021)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?RP44y8C7Lx9NrqPJwzCtMyNg0fADOMeUHkwB/gQnzLBLmU7WEzcPVCm04v?=
- =?iso-8859-1?Q?0VAPRkOkPY9FTHoygW+N36mBa/YV95C/NNrL/H+Q73IMsTO1ZLpE6OA+Nv?=
- =?iso-8859-1?Q?Es3Cx9CoX1AOHRRHQr4pq4a3v8Qu9SsbBk3QAchh9YCLx8E0BL8grnwO/C?=
- =?iso-8859-1?Q?Y8eSuRSXk4o4p/3z17MvL8bl/gi6q98yTXCAbBN/cYLOQMoygU74tNJrZc?=
- =?iso-8859-1?Q?MI1aaQT7zUGtRUqBRySnL+DUTziCQXEa55Mf4GPFkCx6Dnm6vpHsUlaUrm?=
- =?iso-8859-1?Q?QqmcOGk74qXCGa/lAoo2G3yjUDAb4mW9g0rTDy9H8lwmEAP09yNMgmaby5?=
- =?iso-8859-1?Q?09L0rjx+79knoqr1tr3ET9oU4yTpCuttpprcR0kUNAqaU+Vc41xMK+g5by?=
- =?iso-8859-1?Q?TootUs7yVRRZdOZVCimiMqlkoPDPfJXR0tCcF4YIpehYKrUGbKVBccZGfh?=
- =?iso-8859-1?Q?N8O2nCpM7qJE/PRNHtox1mzeQ+Bx08Ub5YC0+s0+Pm6v1k8sauHTdWJE7T?=
- =?iso-8859-1?Q?3H05rssrfqWZ1yqzuU7lRRrvOoFtFGw9FKUAXFfddk1TT/LWTFx3ZbXA0K?=
- =?iso-8859-1?Q?DSPp/kF8qxaqDuiNEUiAeMYkj6qavk2u77osbwpsptYvKNdaH6TOOfVfA1?=
- =?iso-8859-1?Q?bByLX6ajGs2dtJbqmM57WuMKuNfjtdhyJFhqQhBxjfJnFTDGvRN/cUH4Xj?=
- =?iso-8859-1?Q?yQ4/bZMj5aCBa14wqL+WqsPmy0Ucg0GgSMv+8dwQi9TumFXH/rnnvS80Bo?=
- =?iso-8859-1?Q?L9iQdn/l3r6gDqtmJkm/7sXBSRq55XyUbKn0YneajDw6mGCi6ycxZuEqId?=
- =?iso-8859-1?Q?3FPZ9xVx4lLHxufJITequ8458owKjhRMwUNFr83obIu5KOx7AtY45aa/Ah?=
- =?iso-8859-1?Q?x6VauYRq15H0h49hpFrKNJQqyaTHtVVz+n7Z95acBXvHnm9Cdfw11A8Niw?=
- =?iso-8859-1?Q?DmuRaffMMo7z9OCkktVUFvep3baUlnbzSKT5Vgx3SMGGUxB9Qoq0BMGVRC?=
- =?iso-8859-1?Q?5DKXd3UcPwY0iPwX0OBeycArp7m4UOeWjB8UlMBlLH64ppDc7uJHh5PtKE?=
- =?iso-8859-1?Q?QhZv4z039+ON4zMzMXKyWzFINhxc5cUnuEIl654eU1w2IGJFCizSiixbBk?=
- =?iso-8859-1?Q?G0T3b1WRjCmiz7Fhu7bmcXQNRcyIzq7ycEbij13umBC6RtRtcIJJrpOacs?=
- =?iso-8859-1?Q?cr+bPsc2kDcjTY4smf2kFkqvrEvmXmcI6YI6rrpuQbZDQUAPXPkgi9BlaL?=
- =?iso-8859-1?Q?MpxOoEwY4dtfqFUXWrx91Jt2RMuOMohpwlojnymc/rY6gW240kp7aFznuZ?=
- =?iso-8859-1?Q?6v0rnmvgyX1r4yKvUvHFvwqMexvp0+lZa1mmMUOu8qvrgAfKeBAFyVppku?=
- =?iso-8859-1?Q?g9Wx+vbzwHoJPAMyBaRQDZ43ZnF7hzlStA4Mhk1LjkJYz40JcOdPGiFTgC?=
- =?iso-8859-1?Q?cBL7hUXoWqc5cJgSJdiSo7L2LW6XFpsuljzjgE8dMJdPGALE5+LsowqqxD?=
- =?iso-8859-1?Q?zc7J7/HFZ9Pniq4l+caCJzEBHdlaq+wgO6m3fihbRJQsA/OLSftZO3+cDu?=
- =?iso-8859-1?Q?IFlYx3S1oC8O6ffE8ngrB4ZGkoLsfKN2KFCyZvXL/OnZu2Vc1/MElS7VZi?=
- =?iso-8859-1?Q?F3FDVnQ66g7CZxtFoniwdc7MGaDLA7TNhiUX19zLr5BKqjF6KbfYLWxUn7?=
- =?iso-8859-1?Q?qFZcTgYDxagFo6mfErjF8wOqBZUcPv8VBJl1sIbLOXks/AZ9H7KaKjHhVH?=
- =?iso-8859-1?Q?xrnR8OycdrPNRyP2gU7vYpwe/hH0Nlm1hR4F5ePpTKqifR1wSw7dyLk4C3?=
- =?iso-8859-1?Q?wfCeNF1dFQR7uq9Nhb8Iu2I98LQnZqWGSeIUKRG8FNHOpye0s5PzpLiUYt?=
- =?iso-8859-1?Q?J+?=
-x-ms-exchange-antispam-messagedata-1: /vwBwwkdwZ9qQA==
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FmcYwiUh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=ab
+	kBJiVR5YpwctU3TiORsEzd+7xU2jt/7J8sfPyWYXA=; b=FmcYwiUhRR43o5Acwl
+	Lbnj1lLQiB/ZoFTfParwBZkQpNndb35FFv3tjPq74P0lguubiPvlExcKJqGBQ/3U
+	ILNViOvcAbPbfJFwdYbGP4tYDbGKMrYaXOFxRp5eOVW7riKWB4144SHzplSHRzDB
+	WzGtmcpr7kl7Q0I3E6pH5Ns2g=
+Received: from LUOBO-DINQG8T.hobot.cc (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3J8ywS7NqYjkLAQ--.11676S2;
+	Wed, 23 Sep 2026 11:46:58 +0800 (CST)
+From: Rui Wang <wr574332525@163.com>
+To: vkoul@kernel.org,
+	Eugeniy.Paltsev@synopsys.com
+Cc: Frank.Li@kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rui Wang <wr574332525@163.com>
+Subject: [PATCH v2] dmaengine: dw-axi-dmac: report paused state and residue in tx_status
+Date: Wed, 23 Sep 2026 11:46:53 +0800
+Message-ID: <20260923034653.1413-1-wr574332525@163.com>
+X-Mailer: git-send-email 2.53.0.windows.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: est.tech
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DU4P189MB3750.EURP189.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5656b7b3-115a-442a-01a9-08df19253cc3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 03:46:23.2718
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: rsMWf+WazuPxkEgd69bMU3Gh3UwCl4Oxf0DKsCQM32s/AbGRrdhjI46JvihKcgk6CPbCtkfcCtqIq2mMmjyZYanj4DHUSJ3+dRWh1kK6QH4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3P189MB0954
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3J8ywS7NqYjkLAQ--.11676S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxtr1rJr1kZr4DAFWDAF1rCrg_yoW7KFy5pa
+	y5GayrGrWDWrnavF45Jw4UJr4rZFWFqFW2yrWrJ3sIka1YgwnakFs3Ka4FqF1DGrn29342
+	9Fs0ya43Ca1UCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi8uctUUUUU=
+X-CM-SenderInfo: lzuvlkittskjqv6rljoofrz/xtbC9hOGH2qzS7PFGAAA3A
 
-> Subject: [PATCH net] tipc: Fix a data race on mon->peer_cnt in mon_timeou=
-t()=0A=
-=0A=
-> mon_timeout() evaluates dom_size(mon->peer_cnt) before it takes mon->lock=
-,=0A=
-> while mon->peer_cnt is updated under that lock by tipc_mon_add_peer() and=
-=0A=
-> tipc_mon_remove_peer().  The value can therefore be stale, and the decisi=
-on=0A=
-> whether the local domain has to be recomputed can be based on an outdated=
-=0A=
-> member count.=0A=
-=0A=
-> Read mon->peer_cnt inside the write_lock_bh(&mon->lock) protected region.=
-=0A=
-=0A=
-> Fixes: 35c55c9877f8 ("tipc: add neighbor monitoring framework")=0A=
-> Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>=0A=
-=0A=
-Reviewed-by: Tung Nguyen <tung.quang.nguyen@est.tech>=0A=
+The driver implements device_pause/device_resume, but device_tx_status
+keeps reporting DMA_IN_PROGRESS for a paused channel, so clients cannot
+tell a paused channel apart from a running one. Report DMA_PAUSED when
+the channel is paused and the cookie is still in flight, and clear the
+stale is_paused flag in dma_chan_terminate_all(), which disables the
+channel and thus implicitly cancels the paused state.
+
+Also, the residue of an in-flight transfer is currently derived from
+the number of completed LLI blocks, so it only advances in block-size
+steps and stays stale for the duration of a large block. Read the
+current hardware pointer (CH_SAR for MEM_TO_DEV and MEM_TO_MEM, CH_DAR
+for DEV_TO_MEM) and walk the descriptor's LLIs to compute how many
+bytes have actually been transferred. The 64-bit pointer is sampled
+with a tearing-safe double read, as the transfer may be running
+concurrently. When the transfer has just completed but the descriptor
+has not been reaped yet, the pointer sits at the end of the last block
+and the residue naturally reads as 0. Queued descriptors keep
+reporting their full length and cyclic descriptors keep the
+block-granular accounting.
+
+Tested on an FPGA platform.
+
+Signed-off-by: Rui Wang <wr574332525@163.com>
+---
+Changes in v2:
+- Sample the 64-bit SAR/DAR with a tearing-safe double read instead of
+  lo_hi_readq(), avoiding a torn pointer when the low half wraps.
+- Read the hardware pointer for the in-flight descriptor even after the
+  hardware has just completed it (channel enable self-cleared, IRQ not
+  yet handled), so the residue reads 0 instead of jumping back to the
+  full length.
+- Link to v1: https://lore.kernel.org/dmaengine/20260923030201.859-1-wr574332525@163.com/
+---
+ .../dma/dw-axi-dmac/dw-axi-dmac-platform.c    | 86 +++++++++++++++++--
+ 1 file changed, 79 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+index eebed2474..2475ff787 100644
+--- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
++++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+@@ -352,19 +352,73 @@ static void vchan_desc_put(struct virt_dma_desc *vdesc)
+ 	axi_desc_put(vd_to_axi_desc(vdesc));
+ }
+ 
++/*
++ * Read a 64-bit channel address register while the transfer may be
++ * running. A plain lo_hi_readq() tears if the low half wraps (carrying
++ * into the high half) between the two 32-bit reads, so sample the high
++ * half twice and re-sample the low half if it moved; a second 4 GiB
++ * wrap cannot happen within these few instructions.
++ */
++static u64 axi_chan_readq(struct axi_dma_chan *chan, u32 reg)
++{
++	u32 hi, lo, hi2;
++
++	hi = readl(chan->chan_regs + reg + 4);
++	lo = readl(chan->chan_regs + reg);
++	hi2 = readl(chan->chan_regs + reg + 4);
++	if (unlikely(hi != hi2)) {
++		/* Low half wrapped in between, take consistent samples */
++		lo = readl(chan->chan_regs + reg);
++		hi = hi2;
++	}
++
++	return (u64)hi << 32 | lo;
++}
++
++/*
++ * Return the number of bytes already transferred by the descriptor
++ * currently on the hardware (running, paused or just completed), based
++ * on the current read or write position: CH_SAR for MEM_TO_DEV and
++ * MEM_TO_MEM, CH_DAR for DEV_TO_MEM. Must be called with vc.lock held.
++ */
++static u32 axi_chan_get_xferred(struct axi_dma_chan *chan,
++				struct axi_dma_desc *desc)
++{
++	struct axi_dma_hw_desc *hw_desc;
++	bool dst = chan->direction == DMA_DEV_TO_MEM;
++	u64 pos, start;
++	u32 xferred = 0;
++	int i;
++
++	pos = axi_chan_readq(chan, dst ? CH_DAR : CH_SAR);
++
++	for (i = 0; i < desc->nr_hw_descs; i++) {
++		hw_desc = &desc->hw_desc[i];
++		start = le64_to_cpu(dst ? hw_desc->lli->dar : hw_desc->lli->sar);
++
++		/* Current position is inside this block: partial progress */
++		if (pos >= start && pos <= start + hw_desc->len)
++			return xferred + (u32)(pos - start);
++
++		xferred += hw_desc->len;
++	}
++
++	/* Position doesn't match any block, be conservative */
++	return 0;
++}
++
+ static enum dma_status
+ dma_chan_tx_status(struct dma_chan *dchan, dma_cookie_t cookie,
+ 		   struct dma_tx_state *txstate)
+ {
+ 	struct axi_dma_chan *chan = dchan_to_axi_dma_chan(dchan);
+ 	struct virt_dma_desc *vdesc;
++	struct axi_dma_desc *desc;
+ 	enum dma_status status;
+ 	u32 completed_length;
+ 	unsigned long flags;
+-	u32 completed_blocks;
+ 	size_t bytes = 0;
+ 	u32 length;
+-	u32 len;
+ 
+ 	status = dma_cookie_status(dchan, cookie, txstate);
+ 	if (status == DMA_COMPLETE || !txstate)
+@@ -374,13 +428,30 @@ dma_chan_tx_status(struct dma_chan *dchan, dma_cookie_t cookie,
+ 
+ 	vdesc = vchan_find_desc(&chan->vc, cookie);
+ 	if (vdesc) {
+-		length = vd_to_axi_desc(vdesc)->length;
+-		completed_blocks = vd_to_axi_desc(vdesc)->completed_blocks;
+-		len = vd_to_axi_desc(vdesc)->hw_desc[0].len;
+-		completed_length = completed_blocks * len;
+-		bytes = length - completed_length;
++		desc = vd_to_axi_desc(vdesc);
++		length = desc->length;
++
++		if (chan->cyclic)
++			completed_length = desc->completed_blocks *
++					   desc->hw_desc[0].len;
++		else if (vdesc == vchan_next_desc(&chan->vc))
++			/*
++			 * The descriptor is on the hardware: read the progress
++			 * from its pointer. If the transfer has just finished
++			 * but the interrupt has not reaped the descriptor yet,
++			 * the pointer sits at the end and the residue reads 0.
++			 */
++			completed_length = axi_chan_get_xferred(chan, desc);
++		else
++			/* Still queued, nothing transferred yet */
++			completed_length = 0;
++
++		bytes = length - min_t(u32, completed_length, length);
+ 	}
+ 
++	if (chan->is_paused && status == DMA_IN_PROGRESS)
++		status = DMA_PAUSED;
++
+ 	spin_unlock_irqrestore(&chan->vc.lock, flags);
+ 	dma_set_residue(txstate, bytes);
+ 
+@@ -1206,6 +1277,7 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
+ 	vchan_get_all_descriptors(&chan->vc, &head);
+ 
+ 	chan->cyclic = false;
++	chan->is_paused = false;
+ 	spin_unlock_irqrestore(&chan->vc.lock, flags);
+ 
+ 	vchan_dma_desc_free_list(&chan->vc, &head);
+-- 
+2.43.0
+
