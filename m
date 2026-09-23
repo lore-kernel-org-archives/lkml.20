@@ -1,134 +1,160 @@
-Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A81F55C1BB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB7A55616D5;
+	Wed, 23 Sep 2026 15:30:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177404; cv=none; b=jgMjnN7pqMb24KW7kwiHOXjNsOa6qvByAzvZCaLWRoH+41X/g8N8spSKhiBMQGcrzZRiPpL9r+bBxlCgAferwIQ7QeUY6W45dvZqPCI/iKrEpJ5SJKn3F5J+F43FfoMOj9F0cp/qjav7/IG+o06YhZsSvY9u84mIDE0de9wu2Co=
+	t=1790177412; cv=none; b=f3I5QQoh8Zd7xB+6+fyrZjUTW3VrYo9bN6DK/e4XE815zuyxxy6bX+0ofCBUlzq9es1enQqyw2AnibcfRuImpRiEKXgyLIpa0WYE8LtLARbJzsl+RZP0ajYSLZEGfmg0jsnkQtrMSPsQ7HoZ5eLP04NjfJtF9e1ZEgZmSpspAcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177404; c=relaxed/simple;
-	bh=H4k5SAbBBJbY1C36iAKTOOR5kopY6N9+yLJh32pB/mQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CpFFu7v9RwbYFtUjxpEN79iN0FjE0Rka6x+FVbpe3YTncV/xp/JKpTiXZzha8jhSUn8494g5SxwKXNf588ixd0zB1APoKPYIZOlQ1VHQrktBQ6r5zCTm7JVVAfjHI4MukwrJd85ciuH38RVSeI1bLUA6gixZpsxq0guMmL5FTSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EG5H5rz/; arc=none smtp.client-ip=74.125.229.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790177412; c=relaxed/simple;
+	bh=pIh12rnr/ckKT4a1lDC4z/x0jaw3aErYrMx1KjdCexA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SKM6omPDGB1W5wYg4xZ8F/eubrLYAUKnd1ZR8htVqPtKarDYcdKDxS9I3n03Lz//zwzUbjnP0Fl49ky5yy1DZLtSkfI1JS+2gyM6LQSnILrPwLb7ayJRzGAWkjy48JcouIskVs4HVP/VOzdNP7gnP8PKgLMqbhmuJ28nrX8dxt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WMGU16mr; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EG5H5rz/"
-Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664c1479so700818eec.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:29:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790177394; x=1790782194; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PN2f2r94Ra//aycP2t8ADfFvH0BcKZKW2u5vtKT3Aco=;
-        b=EG5H5rz/i5Yv0G1nMpJQzotsTIlJNRfLHYNnO4nEbIKWYPh8ZGPIL7iN/4E3asb0el
-         u/OorD2qMuIRkZisfL1B8tQUSFLSVLx+quYkcRodnyM9bh3EVHEC2/gJt/Vkb6Jt6xi0
-         JTTI6gDj8BWHCBFNIofaOnDBkBsevEDlQ6pSP/UOQHyX1RJ5I2NQkOxSmFg+S4n2yRyz
-         vdXEbpnU4qDFV4FgZFPWTzmBwlUgpfiEwNb2IOgJXb/FcryyuzoA9lQtIe6tQzqcorNi
-         ++DKrMigoeYXNFXMJqs0+Zlbu23RWF/jb5SW4rHSFRpL0EHHamtIHDn4v9r3fKYoXZOb
-         gi6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790177394; x=1790782194;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PN2f2r94Ra//aycP2t8ADfFvH0BcKZKW2u5vtKT3Aco=;
-        b=oIOFwmPe98b91EtIPTaKVHigJxaBFXXwWTQFTo0Yga2OOwm+Pe0QJsvZ9XAtKI60Cc
-         m8jVo0QxSellye3bl0kk/te5OovRcc+XpZwMxwo9/KJbs6GNrK3yMquNbstiP1RV8FIs
-         tn+tBnVAlWDpiJ1SK9aQC+BqmOqBCcUbsDlRY/bgvvdFjCOfOQG2S3msS8stGgs7Wunv
-         4nGmGyt/9YkMZ4iLo1efg9U1Q/BJ02VAwXz4amRnoxdWvuKFfVd+GHFSKrs4xpItg+kY
-         pvdAsBdkZ21NfY9MFSB9gtp6oXy2nQY7UbM/NtB6SsiOofZkSc2eh+zzXRbVbYbASxDE
-         wewA==
-X-Forwarded-Encrypted: i=1; AKwUvBwVWcxMKLfy6rCb/TheGlbTWZIMVNSG2RI5twHa7rqKtWA3fv3Kx6nRg6AOlCJf86CzqtZ8+jJxRHDPsrY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7s6Ifc2HTDGv08+ZG2fwy9rskfKfYtKLVn11zDeMbhqHbzEpB
-	fEzX7/HdRZLKq0ZJucEgnr/xubcSiGSPn8pgiP55WRKC8QkQdRtLgss+
-X-Gm-Gg: AYBFou0MB96jeEhFfK06jY+IDJZU49iemGBQLJaDSr3Shr30zWOnT7cPeqpaiTgctvM
-	hY7BCDtEaAeLSuKwBl/Z3OGgNVKhF4tUdym7S2bkqAqoTN9Vu9LunLtcI6fEh9TC5g13SICoAZV
-	8aurdJwiZgfNYcRso4Y8CdywTYZK96UIbx5JDbWoY0Oeh5xtqQTxYBAlEkfkhZ33gJ9ZidQELGB
-	OoAoDyDd4ndMwj/OvdHXvrnHGriUHVA3PWaLQ3vO2fi3GQ93aMVZcnU8Yyi1lWX6AX8toTtU1l1
-	j3VTWVBrIcxlsKFjdhZ856Krr/bhoxJNrxvTUifMispptOZkVVATr8dm+SpCI0hpmN30lqZfNIV
-	a/Tme7pkeOwyPRi8uGL1u3xp/Lp91WTpGym3xra22jG4OHWONtuzJRNigcfM1cqG0VkKKsd3CTm
-	ncy1wRAeK/ydBrzD0KR3IR6oC82Eq7LhvRplnlR7BVOF54i67F6MNCAdevyg90KRE=
-X-Received: by 2002:a05:7301:6187:10b0:33e:c164:b5d7 with SMTP id 5a478bee46e88-33ec164b694mr2165164eec.3.1790177393626;
-        Wed, 23 Sep 2026 08:29:53 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96d46f48sm14049750eec.23.2026.09.23.08.29.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:29:53 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: airlied@redhat.com,
-	kraxel@redhat.com
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH v2] drm/qxl: use correct offset when stamping drawable mm_time
-Date: Wed, 23 Sep 2026 12:29:37 -0300
-Message-ID: <20260923152941.1297199-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923145018.1244740-1-qwe.aldo@gmail.com>
-References: <20260923145018.1244740-1-qwe.aldo@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WMGU16mr"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1A2FE1576;
+	Wed, 23 Sep 2026 08:29:58 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 921953F86F;
+	Wed, 23 Sep 2026 08:29:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790177401; bh=pIh12rnr/ckKT4a1lDC4z/x0jaw3aErYrMx1KjdCexA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=WMGU16mr7jLNRHpkFcYQo2v89xd8hIf4Y5wEbe1MmX6kpBsNK4uZGLLUKj1tk2Ru0
+	 kcf5bj3yAQDI4uqDIOnnK5Jnv4tZUnbtzwE2wl937ccgJ2QAqzcrnJaWUWuCSIZgVo
+	 ojVST03iCdqh3wLEyOnfYLVkkPv7ttykOwRjlyE4=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Date: Wed, 23 Sep 2026 16:29:51 +0100
+Subject: [PATCH v3 1/2] kselftest: mm: return fail when child test result
+ is fail in khugepaged
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260923-fix_khugepagd_fail-v3-1-b387e92fe1a9@arm.com>
+References: <20260923-fix_khugepagd_fail-v3-0-b387e92fe1a9@arm.com>
+In-Reply-To: <20260923-fix_khugepagd_fail-v3-0-b387e92fe1a9@arm.com>
+To: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, 
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ Yeoreum Yun <yeoreum.yun@arm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3420; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=pIh12rnr/ckKT4a1lDC4z/x0jaw3aErYrMx1KjdCexA=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqs/ByJm0UJBg1OcjxXEu0FPW/W9n0wXsrir4m5
+ i3KrjLTtS2JAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCarPwcgAKCRBt1cPRWsUx
+ M/PgC/wLuFeWfUHYMoDjP+xiQ7jWCBT6B8SaFKYmvq39ggXdaPUl3cBbOqLa6ywtGWxsLXKkYFP
+ k5kw0u3iXrFZK0Z+RI6/cP8YYjpprR/N9n03XKUIMy2nY7o7weRI0+zxMbIva65YOIZ4/sfRn93
+ vxNcPACJ7BTT6TRQqPHtRaaJjoqEPE5wL9x0VDmFuR79iY+w1X09Ta75/IdF5XdOB5s0BGMwCHG
+ B3TopvF4xJnnC6kFNqv596Vak9R8qfa1tt9Q4+kiJE+F9QySoaLPjVS6EpWqC4uLURFPoxcDg2R
+ 2z4Ii/DuKL+7Tm9954R66NxPpifge2nxoacGq/nNBQQTCes9SAWzsSefUvjR/bqEKt+tQ2YeEWh
+ Ak8lQjWERBrSq/JnG55DtSthrpQ4UDjTBb1YeDvMNF/l4CrOqDTUkXVO4wlReemb+k2boCqRHOR
+ mLZygUoJaa6iTkrB2C6l4Y+r31qN9yndBNQsPU4+CchQj8mfB3MHDl+MQ9zaPV5KplMnI=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-qxl_process_single_command() maps the page containing the current
-release slot and copies the userspace command into it at the
-release_offset within the page:
+Although the child process in collapse_fork*() or collapse_max_ptes_shared()
+reports `KSFT_FAIL`, the result is ignored because the test only checks
+whether the parent’s page was collapsed into a huge page.
 
-    fb_cmd = qxl_bo_kmap_atomic_page(qdev, cmd_bo,
-                (release->release_offset & PAGE_MASK));
-    copy_from_user(..., fb_cmd + sizeof(union qxl_release_info) +
-                   (release->release_offset & ~PAGE_MASK), ...);
+As a result, the test is considered successful whenever the parent’s page
+is a huge page, even if the child test fails, as shown below:
 
-However, the subsequent mm_time stamp casts the page-start pointer
-directly:
+  #
+  # Run test: collapse_max_ptes_shared (khugepaged:anon)
+  # Allocate huge page... OK
+  # Share huge page over fork()... OK
+  # Trigger CoW on page 1023 of 2048... OK
+  # Maybe collapse with max_ptes_shared exceeded.... OK
+  # Trigger CoW on page 1024 of 2048... Fail
+  Bail out! Unexpected huge page
+  # Planned tests != run tests (26 != 23)
+  # Totals: pass:23 fail:0 xfail:0 xpass:0 skip:0 error:0  // child failed.
+  # Check if parent still has huge page... OK              // parent hpage success
+  ok 24 collapse_max_ptes_shared                           // considered as success
+  ...
+  # Totals: pass:26 fail:0 xfail:0 xpass:0 skip:0 error:0
 
-    struct qxl_drawable *draw = fb_cmd;
+To address this, propagate the child’s failure and skip the subsequent
+check in the parent.
 
-This writes mm_time at the page start rather than into the drawable
-that was just copied. The drawable begins at the page-relative
-release_offset (struct qxl_drawable embeds the release_info header
-as its first member, so no additional sizeof skip is needed for the
-struct pointer).
-
-Apply the page-relative offset so mm_time lands in the right place.
-
-Fixes: f64122c1f6ad ("drm: add new QXL driver. (v1.4)")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 ---
-v2: drop the sizeof(union qxl_release_info) term — qxl_drawable
-    embeds release_info as its first member, so the struct pointer
-    only needs the page-relative offset (found by Sashiko AI review).
+ tools/testing/selftests/mm/khugepaged.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
- drivers/gpu/drm/qxl/qxl_ioctl.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
+index a2ac3b3ca5de..2aa7c9197158 100644
+--- a/tools/testing/selftests/mm/khugepaged.c
++++ b/tools/testing/selftests/mm/khugepaged.c
+@@ -1053,6 +1053,8 @@ static void collapse_fork(struct collapse_context *c, struct mem_ops *ops)
+ 
+ 	wait(&wstatus);
+ 	exit_status = WEXITSTATUS(wstatus);
++	if (exit_status == KSFT_FAIL)
++		goto out;
+ 
+ 	ksft_print_msg("Check if parent still has small page...");
+ 	if (ops->check_huge(p, hpage_pmd_size, 0, hpage_pmd_size))
+@@ -1060,6 +1062,7 @@ static void collapse_fork(struct collapse_context *c, struct mem_ops *ops)
+ 	else
+ 		fail("Fail");
+ 	validate_memory(p, 0, page_size);
++out:
+ 	ops->cleanup_area(p, hpage_pmd_size);
+ 	ksft_test_result_report(exit_status, "%s\n", __func__);
+ }
+@@ -1100,6 +1103,8 @@ static void collapse_fork_compound(struct collapse_context *c, struct mem_ops *o
+ 
+ 	wait(&wstatus);
+ 	exit_status = WEXITSTATUS(wstatus);
++	if (exit_status == KSFT_FAIL)
++		goto out;
+ 
+ 	ksft_print_msg("Check if parent still has huge page...");
+ 	if (ops->check_huge(p, hpage_pmd_size, 1, hpage_pmd_size))
+@@ -1107,6 +1112,7 @@ static void collapse_fork_compound(struct collapse_context *c, struct mem_ops *o
+ 	else
+ 		fail("Fail");
+ 	validate_memory(p, 0, hpage_pmd_size);
++out:
+ 	ops->cleanup_area(p, hpage_pmd_size);
+ 	ksft_test_result_report(exit_status, "%s\n", __func__);
+ }
+@@ -1158,6 +1164,8 @@ static void collapse_max_ptes_shared(struct collapse_context *c, struct mem_ops
+ 
+ 	wait(&wstatus);
+ 	exit_status = WEXITSTATUS(wstatus);
++	if (exit_status == KSFT_FAIL)
++		goto out;
+ 
+ 	ksft_print_msg("Check if parent still has huge page...");
+ 	if (ops->check_huge(p, hpage_pmd_size, 1, hpage_pmd_size))
+@@ -1165,6 +1173,7 @@ static void collapse_max_ptes_shared(struct collapse_context *c, struct mem_ops
+ 	else
+ 		fail("Fail");
+ 	validate_memory(p, 0, hpage_pmd_size);
++out:
+ 	ops->cleanup_area(p, hpage_pmd_size);
+ 	ksft_test_result_report(exit_status, "%s\n", __func__);
+ }
 
-diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_ioctl.c
-index 591b026..65e9bfd 100644
---- a/drivers/gpu/drm/qxl/qxl_ioctl.c
-+++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
-@@ -188,7 +188,8 @@ static int qxl_process_single_command(struct qxl_device *qdev,
- 		 u64_to_user_ptr(cmd->command), cmd->command_size);
- 
- 	{
--		struct qxl_drawable *draw = fb_cmd;
-+		struct qxl_drawable *draw = (void *)fb_cmd +
-+			(release->release_offset & ~PAGE_MASK);
- 
- 		draw->mm_time = qdev->rom->mm_clock;
- 	}
 -- 
 2.43.0
+
