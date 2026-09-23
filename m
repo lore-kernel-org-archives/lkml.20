@@ -1,295 +1,115 @@
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E29535FBB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3502A5383CA;
+	Wed, 23 Sep 2026 14:38:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174298; cv=none; b=OSzVRa9A6+rnqZpaDQtn3Q6v1SGw+vkLym4SRUS1ppNkqnsiE7WEHor+A5o/us1nzz9vhoimkWR6ni6oJTicss4PuSKQpPHjOw8wqOiIMwJStqKFSdI9s19iDW0D34TaeYUARf7duiCZf5YZCDYxuzM3e97WkQbFrE0reKn27oI=
+	t=1790174321; cv=none; b=CDwhMC0GRkTrEqsRjadlR8RDu6KPkYx7Lwa29XJfBlWgTGpn/eV6X9NElGqorULuWz0WJidbTbZuHtrIESBaV83y+rxW8z+/fv1KBuwsgqCmrQiYWH4feKHjzgYkv2mV49f0bFCRDrc/SpaUtjPMQ+HgUfty7puqykuU/4lZkic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174298; c=relaxed/simple;
-	bh=hqx/pFG7rh8SHBraDxck/KZYHtT5hGzdRHybaJTJB/Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZCZ9vUuN9HUFqKdjeo37okkETdbbGsoENKvtFv4dHMbgLJZAYwcRISbR8Ft1k4G5ci/y56Y9iKnTNB0MhVnotQb526srbX+ZBm2OOtdrsEJwVGo+upTzrol4QCv8Gzxd4gHsRWumlXpcUvGmYZU7ABv8AdcfiOsx82I6hYnrnaU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=GRHoMqfd; arc=none smtp.client-ip=209.85.216.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1790174321; c=relaxed/simple;
+	bh=Y3h9ArEWxXcDcNW3RYT0QJFPRTqLKdurS6G4EidafJU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qFffhE2xa5WixvzxhTTZIsOsUSSxX4ANF7oWBO1v5DP82qNw+tJsJca79uhwJPbnzQPo76ZZRT+0h+JucPE5T7Xf/nK2k5PN4LFvS4AGAW6rOdpkWDhNDBtZ+aAjP+V4w11oeFVDSm2GGztdWiWujPEBxNk7/9dtUoy+hJT41qA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o2WgqJfq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="GRHoMqfd"
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-39647184c73so1561890a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:38:17 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790174296; x=1790779096;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wAyEMshv0bakkIvz5egKdJdTCKXOElPmdU5rFJ6c2G8=;
-        b=aTHHKcZqnsGTBaLuXgS9xDOpBjxbUrhn/9ZmE/OqUk4pS1vwcu4oDZxv4CufearPZD
-         Jxo/4Qz/6A5rk6VZUpROLVtGbrbW+7ogkeNdFVqsmf+7mRE7pfldCVVCMPZugsMxIUK+
-         L82zlnuRfIPAH+k2NhjOvrrwP2Nwcq9fjq8Wx3b0xscbQqJ/VsuDObQMME/j/Ha286pR
-         vsdK/jNxyYT8q0UkmoxArWy5TfYSAGnfzVTF0F7qjmgL7gpq59oofsbNilM+5QTmjQkH
-         Xsp2fSfNMKKXNIRXm30HisfqJmM75lgv3pcNuAj//nVptqmWP3pNXPkgblj2+y78CZUi
-         iYHg==
-X-Forwarded-Encrypted: i=1; AKwUvByQwmdLM2mW8EYq9wwhfXnwiz46r6Zu8nLTRjB+5/819G9KVEfun27WAo9t+zDK9wNmhG5w8IDZrAtAfck=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+rI7kfK5/MjkHrTvagFKpj3xjA1Txs219PRSx/vgfvEsDpxF8
-	9AkWPQ61LVMb4njC2znIt7CoUGBkZbw6EbILS0IU3/PgMiRS0fI7JleKs4buSBU2cDHz7qBvyhu
-	wBW/puDQvs+MMUPkgJncqOXtheug/YYyXi6tPQ3JRHsWKCAGrybA+vxT6tl0YAnhoqFGfsVPKo0
-	2rEAd0MmgTeDMalFjbCwkJchuwxxWFXRNLodEz8p9dW/cmpaElNY07fnVs9b827Nw4kY0hEeaNZ
-	RT7EnjcKsM2X2TM
-X-Gm-Gg: AYBFou02wvfLDlkLgWr92yeL9AmB4+QTHESO0IeZ0Dlr6AoNsQGizdHPD6WuOOOp9jN
-	8aBYrGQnB7AtDIxtOn6WhfYz02wxtFhjZb3HEn8ir9vSfUNyL24POXSx1dyB48gD7tl3+Id3LE2
-	s5VpWy3Wr0Y9wTmPIaNPiq9bGWElEJrlcWtoMfQh4GXoojYkerQXBW5H9ondgzc7vMXOvAX5wYn
-	FxBOr7WQtHQT2ituj2nNHdGSuddbo0x2nn6FMc5cAlG3KB3/o3EVKiS5ky5V/WLG9c79EapHBPC
-	B3flEODKn6undcW7dIjMr36jMBWl+1a2pdmtNLODl4Ni6KglYKsF9DOsq6eLM+6JP0Rg3KbFHsC
-	xKjzh8fh5o7QfJAmt8JfioDtiLoz37SMinBs1e+OH5MDYCtOL7FXJvwCnGgWSwDNutoKLtyWbtZ
-	Wntt9pUdnLjiBvXJVLKNd1p8Xtg4SJU32yL3Y=
-X-Received: by 2002:a17:90b:5890:b0:39e:6c68:fd8f with SMTP id 98e67ed59e1d1-3a07e6028famr1741533a91.36.1790174296257;
-        Wed, 23 Sep 2026 07:38:16 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-120.dlp.protect.broadcom.com. [144.49.247.120])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3a0812be9fcsm159721a91.3.2026.09.23.07.38.15
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 23 Sep 2026 07:38:16 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33bb08e80a8so941414eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:38:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1790174294; x=1790779094; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wAyEMshv0bakkIvz5egKdJdTCKXOElPmdU5rFJ6c2G8=;
-        b=GRHoMqfd+ndzl5tKu+jXJC3hQFd/Nb2GdFBaDs4AVSh3E7wM92qWdDhFG4SZ3wMdTR
-         33fDf5GPbRDOtNsJUIaJjR+8G/1cs52w1EcCq8R/UQXUCPE8oNpVujJHXE+saMvFZMS2
-         jK0305dTJ+VXNYR1hv+H5QSBShDDhxx1V8e4M=
-X-Forwarded-Encrypted: i=1; AKwUvByZpdXFLYAl7guJ7gO8ZsjSeGZNpVPW+Id72CYlys05wXcQTPlTWaC7ryoLOj1jUMKCbZu7vU/XVQRltKg=@vger.kernel.org
-X-Received: by 2002:a05:693c:8812:10b0:33c:1e4c:151d with SMTP id 5a478bee46e88-33e5c8903a9mr2696494eec.7.1790174294357;
-        Wed, 23 Sep 2026 07:38:14 -0700 (PDT)
-X-Received: by 2002:a05:693c:8812:10b0:33c:1e4c:151d with SMTP id
- 5a478bee46e88-33e5c8903a9mr2696422eec.7.1790174292822; Wed, 23 Sep 2026
- 07:38:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o2WgqJfq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D1D32C2BCC7;
+	Wed, 23 Sep 2026 14:38:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790174320;
+	bh=Y3h9ArEWxXcDcNW3RYT0QJFPRTqLKdurS6G4EidafJU=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=o2WgqJfqa407llRZ2YbXyervF75sAxZ0wwKbDrke6IdyoezjU+yhJkbGBlO524aEN
+	 cdur5LQ+y+6+5bUjw+MX7LmHUUFmOv5YzieAs84yKgY5TtyrtX4p5XVOuDhCDJrKBe
+	 e8TcCJWZ7Gur77ffTC74/WrKPZ+SBp8Bg8Lf2M9ZM8Qs2TWi20pNrHArJO1xdsqWFQ
+	 gcik2y9lah/m/P4ri7AzLFCQSmJPSzUCX0jMIklrFUfCtiUi+2UU7UBN73I06gyZ8P
+	 3C+ay+zVvgbC4LKj+0mBV0VKrO3bd/+LEl0hhNLPpH8LKaS4e29WVDpvUpu6XmXC0Z
+	 q61v5fJxjFchQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD3C4C9830B;
+	Wed, 23 Sep 2026 14:38:40 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Subject: [PATCH v2 0/2] Add bus clock for t7-thermal sensor
+Date: Wed, 23 Sep 2026 16:37:49 +0200
+Message-Id: <20260923-fix-t7-thermal-clock-v2-0-bff7a09eb487@aliel.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923122601.438892-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260923122601.438892-1-qwe.aldo@gmail.com>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Wed, 23 Sep 2026 10:37:54 -0400
-X-Gm-Features: AclHuK9I1sPWruKdTZ2g86ZtrDjy2iD85ODd7q3CWFNwDVQGdDpeOH1SDBnweS0
-Message-ID: <CABQX2QMUUf1ETuLmvrzQ9_rsX4+KG32YAQJ-9hV3uakAyPiYrg@mail.gmail.com>
-Subject: Re: [PATCH] drm/vmwgfx: do not hand the embedded sg_table to the
- PRIME core
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: bcm-kernel-feedback-list@broadcom.com, dri-devel@lists.freedesktop.org, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000eee142065c276e0b"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBBEf4Xs2TXtWgE5+R+GQy1b2VjBtIRoC
+ P9uJfHm8U1m3iyQOAonaIoFIs+SZBwy0K4A19vhxihdZiBFpToRoZcXThVOPceHDejC6O6oj9q
+ qqzeVKRny9Bk59zbtpc3cS5rG+N5eZv1Nf8LDf+GsUWHVGWfKmryu6WyDcNj7CO26rh8EHeEqt
+ wAAAA==
+X-Change-ID: 20260922-fix-t7-thermal-clock-151a0bf4746e
+To: Guillaume La Roque <glaroque@baylibre.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Conor Dooley <conor.dooley@microchip.com>, linux-pm@vger.kernel.org, 
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ronald Claveau <linux-kernel-dev@aliel.fr>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1800;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=Y3h9ArEWxXcDcNW3RYT0QJFPRTqLKdurS6G4EidafJU=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9bmJyEctuu2dqfnFzqvZN2sWn44N1h4mSj/3ZNv9Dhfz
+ dv0Uk2ro5SFQYyLQVZMkaV/ruWJd5ePnvm6Rz0FZg4rE8gQBi5OAZjIrXyG/5XHvwmcyOXX4Gc5
+ dOlmx//kLje14NkXpO7lZny0Vcldc5DhfzDr4xmlD82+6HTqvVhV7lTdsYjfaf/9NYvK18nuE2l
+ w5gMA
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
---000000000000eee142065c276e0b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The t7 thermal sensor requires a bus clock, gating register access to
+the sensor, in addition to the functional clock that is already
+described and shared between sensors on other Amlogic SoCs.
 
-On Wed, Sep 23, 2026 at 8:26=E2=80=AFAM Aldo Ariel Panzardo <qwe.aldo@gmail=
-.com> wrote:
->
-> vmw_gem_object_get_sg_table() returns vmw_tt->vsgt.sgt when the buffer
-> object has already been DMA mapped.  vmw_ttm_map_dma() sets that field
-> to &vmw_tt->sgt, which is a member embedded inside the struct
-> vmw_ttm_tt allocation and not a table of its own.
->
-> The core owns whatever .get_sg_table returns.  drm_gem_map_dma_buf()
-> takes the table and drm_gem_unmap_dma_buf() destroys it in full:
->
->         dma_unmap_sgtable(attach->dev, sgt, dir, DMA_ATTR_SKIP_CPU_SYNC);
->         sg_free_table(sgt);
->         kfree(sgt);
->
-> Both are ops of drm_gem_prime_dmabuf_ops, so the core ends up calling
-> kfree() on &vmw_tt->sgt, which is not the start of an allocation.  The
-> preceding sg_free_table() also destroys a scatterlist that vmwgfx still
-> considers its own and frees again from vmw_ttm_unmap_dma().
->
-> drm_gem_unmap_dma_buf() runs from dma_buf_detach(), including the
-> importer's error path, so a failed import is enough to reach it:
-> exporting a bound buffer with DRM_IOCTL_PRIME_HANDLE_TO_FD and
-> importing it on a second DRM device with DRM_IOCTL_PRIME_FD_TO_HANDLE
-> is sufficient.  Both ioctls are DRM_RENDER_ALLOW.
->
-> Observed on 6.12.101 with KASAN, as uid 65534:
->
->   BUG: KASAN: invalid-free in drm_gem_unmap_dma_buf+0xb3/0xf0
->   Free of addr ffff888008290450 by task poc_mm04_sgtabl/321
->   CPU: 1 UID: 65534 PID: 321 Comm: poc_mm04_sgtabl Not tainted 6.12.101 #=
-4
->    kasan_report_invalid_free+0x94/0xc0
->    check_slab_allocation+0x116/0x120
->    kfree+0x103/0x360
->    drm_gem_unmap_dma_buf+0xb3/0xf0
->    dma_buf_detach+0x165/0x510
->    drm_gem_prime_import_dev+0x33e/0x430
->   which belongs to the cache kmalloc-192 of size 192
->   The buggy address is located 80 bytes inside of
->    144-byte region [ffff888008290400, ffff888008290490)
->
-> 80 is offsetof(struct vmw_ttm_tt, sgt) and 144 is sizeof(struct
-> vmw_ttm_tt), which identifies the freed pointer as the embedded member.
->
-> Always return a table the core can own, as the other drivers do.
-> Reusing the cached representation would require copying it into a
-> freshly allocated sg_table, never returning the alias.
->
-> Fixes: 8afa13a0583f ("drm/vmwgfx: Implement DRIVER_GEM")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
->  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c | 11 +++++++----
->  1 file changed, 7 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx=
-/vmwgfx_gem.c
-> index 39f8c4655..a0233729b 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> @@ -73,10 +73,13 @@ static struct sg_table *vmw_gem_object_get_sg_table(s=
-truct drm_gem_object *obj)
->         struct vmw_ttm_tt *vmw_tt =3D
->                 container_of(bo->ttm, struct vmw_ttm_tt, dma_ttm);
->
-> -       if (vmw_tt->vsgt.sgt)
-> -               return vmw_tt->vsgt.sgt;
-> -
-> -       return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw=
-_tt->dma_ttm.num_pages);
-> +       /*
-> +        * Do not return &vmw_tt->sgt: the core owns what this returns an=
-d
-> +        * drm_gem_unmap_dma_buf() sg_free_table()s and kfree()s it, but =
-that
-> +        * sg_table is embedded in the vmw_ttm_tt allocation.
-> +        */
-> +       return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages,
-> +                                    vmw_tt->dma_ttm.num_pages);
->  }
->
->  static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *ma=
-p)
-> --
-> 2.43.0
->
+This series first extends the devicetree binding to describe this
+second clock, making it mandatory only for the t7-thermal compatible
+so other SoCs are unaffected, then updates the driver to use the
+clk_bulk API instead of a single struct clk, so it can transparently
+handle however many clocks a given compatible declares.
 
-Thank you. Because of the influx of llm patches it's very hard to
-reason about what's valid and what's not if it comes without a
-reproducible testcase. Could you please add an igt testcase for this
-and then include the full igt results for vmwgfx before and after this
-change? Same for your other change.
+`dt_binding_check DT_SCHEMA_FILES=amlogic,thermal.yaml` is ok
 
-z
+  CHKDT   ./Documentation/devicetree/bindings
+warning: python package 'yamllint' not installed, skipping
+  STYLE   ./Documentation/devicetree/bindings
+  DTEX    Documentation/devicetree/bindings/thermal/amlogic,thermal.example.dts
+  DTC [C] Documentation/devicetree/bindings/thermal/amlogic,thermal.example.dtb
 
---000000000000eee142065c276e0b
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+Changes in v2:
+- PATCH 1: Fix commit message. Thanks to Krzysztof review.
+- PATCH 2: Return an error when no clock provided. Thanks to sashiko's review.
+- Link to v1: https://lore.kernel.org/r/20260923-fix-t7-thermal-clock-v1-0-7d4c4682f182@aliel.fr
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIIS0
-rNNE9P30sw+FBt+AjjeL3Lj6F3KC3ngaSJqAlgF+MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDkyMzE0MzgxNFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAKOIiln/jacE5WFE7GbKUmLkyYyO3A2kfbpawb+g
-XEFbn5agBMJYo2amjt1m0elR7ucmC6WWtUukHq7RqllngQRPq6PwSjeAZoHWefGZWlj4ALB88QQk
-PFjxWLFqxMiMZIGKgpbZBOFRRSWBv3qnKQoeahEr7VoRS9g6j/30VZ7i6vo0AiH9RWCkyekpHFiL
-u8bQ79I3PkgIdRIQ+VQSbh8hwYoTWw+ME6e4+tzz+0hQRgtgRUoa5eULIj227nyniR+nrGXnsVsP
-SmRo6KYPS8i1mh0/joQ6dGFyFlSalzsNzDUp5jTYSG2TiPwcxFqG6ybpGYSBCspyG7w4qkOKSGM=
---000000000000eee142065c276e0b--
+---
+Ronald Claveau (2):
+      dt-bindings: thermal: amlogic: describe bus clock for t7-thermal
+      thermal/drivers/amlogic: switch to clk_bulk API to support multiple clocks
+
+ .../bindings/thermal/amlogic,thermal.yaml          | 29 ++++++++++++++++++++--
+ drivers/thermal/amlogic_thermal.c                  | 14 ++++++-----
+ 2 files changed, 35 insertions(+), 8 deletions(-)
+---
+base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
+change-id: 20260922-fix-t7-thermal-clock-151a0bf4746e
+
+Best regards,
+-- 
+Ronald Claveau <linux-kernel-dev@aliel.fr>
+
+
