@@ -1,138 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146C043CECB;
-	Wed, 23 Sep 2026 07:05:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FB51C5D72;
+	Wed, 23 Sep 2026 07:05:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147140; cv=none; b=FRFPgdxaswwr4rKa81kZnbidfVgmxl6epUkp72XdJn7QWTCvIropYGu+2eUK/ii7ZLLrRmb6Bm/cet/ikSfcyVfMowzm/nsSA8rcR+DTlr8zK9wGovD2Zyo3UUO54EYKsPoqO9d3BicXFuj9Lm7IEWdbSWimRcFzwrHrf5/WgxI=
+	t=1790147146; cv=none; b=T++GKFS9AWj3OIzNvRJPlHMPV/FhwBSUy4Pj61eipy36xwnnBxTPNhrWSV/v0NPfYBJDempL0QEH6HlHiYla2rFIWq9QXMIwLwTjgW/mHlEvu6CpmbtpG3znIWjdzdUCtNlrW+T+xMbF7S7mNMbtd2uPHiqeQK2RwmGURZHx2K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147140; c=relaxed/simple;
-	bh=27vpwdgl3OeoImEKbFkRdIhTD1sNRxWgus+Es2lrpjo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Jgdxrg+3JC62p/AENCy5K+Zo7vUXbL9okYuvQuPZWqt8M6bPk4YqJi/YMfSF5mDBmV5KN6EozQK58nCtbao7NK9s/4tkSI4vJia4klNp+3LtKIlRhDD1flOmLGeqlatcpmwpZUIoAVxLzp0Sa2S46Zke7qpAdvHSYWlOIFIna4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JMBM3EcN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790147146; c=relaxed/simple;
+	bh=WmR3kOZB3ACXfNo3laV3NfaLUopFF9HlVbP149Haq1Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C7feX+h9OdeZFi+QeY/9GE2YgwTU9jCJ1S9cZ7uzG9/dY9Nr1Pxhd/UcjBnpFiA24Fc31qUchxiPKKUjN+VcFsitC4TpoFgBiJgbTF2p9uerFjljGednZY2po179XQhCGt3Ug5rT+6uivjpJSDVR1ls+kOLkGUaxv4Ygn3jAaKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EAnwJUiA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JMBM3EcN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DBB1F00893;
-	Wed, 23 Sep 2026 07:05:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EAnwJUiA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 321A21F000FF;
+	Wed, 23 Sep 2026 07:05:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790147137;
-	bh=/sxulSnyvVD18U479eSRV3tTjaQVahI5tsiyX6mHLpI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JMBM3EcNDs+asutoja1zN4cCHn217CPpcLlK2Yt+FMC6gwRr1H2GN4XOfpCrB/yla
-	 PAHL3h/vV/mREpbGSLzM/tNAnrvrGEsUiM/o+D3DOggYbUq0PwcVh7ISJu4jmlOg/M
-	 8UJT4NqbfG1UeXsziqlgKWCPg0CCRbkuuuNh/uFg9SlBlWxYEtLhkssJO5zARSYW0g
-	 wTTq9KiVTUQgLu1Z2xRXcaq6jiEkKStozswU6+5A/a3tXv9GThFHpfJ806bSyDQjf7
-	 jSZ2E8WT0mZMzMu10byomk/nqyOXD9FjZ7Xd+TLGtCioQBn8x0HLW94RnJ0BSpNuJ4
-	 1TFNBLWMzKZcA==
-Message-ID: <fc0e0a9deffa162ac4599ee8ef94323d3d1ec2c4.camel@kernel.org>
-Subject: Re: [PATCH net v2] rds: ib: Clear the sg list when mapping an MR
- fails
-From: Allison Henderson <achender@kernel.org>
-To: Dongliang Qin <cccccccccccc777777@gmail.com>, netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>,  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- linux-rdma@vger.kernel.org, rds-devel@oss.oracle.com, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 23 Sep 2026 00:05:36 -0700
-In-Reply-To: <20260922031546.3874605-1-cccccccccccc777777@gmail.com>
-References: <20260922031546.3874605-1-cccccccccccc777777@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	s=k20260515; t=1790147144;
+	bh=WmR3kOZB3ACXfNo3laV3NfaLUopFF9HlVbP149Haq1Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EAnwJUiAqyojRKJf9KNQTwXny7L+XnGgJ0trGGXwGUbbfY4A9uWcu9K0SsUiWOgmc
+	 yb41CHhlT/HBuBnzVyYR5/fQuSR3XjSBl9uXtd/UfutbvMg5gyAst3woO5CUYyXhGy
+	 AD976W51iwZLDg5mT7WlRmgWnW6l1yj7+OPvlJqhBDwYsyITZldKacOLPw8X3r5iwh
+	 xdzP0DsHgF0BxH20eqFZEB0DFdFfRS+stF04cj498KEixAmiiwoIiMX7fOO4v2ki3T
+	 qJvjlyssz0DhAO2ce9/8NcZk01mVg0oHHUpA2uecyxQvoQ0UuWqDvbZALG/EIOlt5M
+	 hZKVkk39Tca+Q==
+Date: Wed, 23 Sep 2026 08:05:21 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, 
+	guoren@kernel.org, bcain@kernel.org, geert@linux-m68k.org, dinguyen@kernel.org, 
+	schuster.simon@siemens-energy.com, jonas@southpole.se, stefan.kristiansson@saunalahti.fi, 
+	shorne@gmail.com, dalias@libc.org, glaubitz@physik.fu-berlin.de, pjw@kernel.org, 
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, linux@armlinux.org.uk, 
+	vgupta@kernel.org, monstr@monstr.eu, chris@zankel.net, jcmvbkbc@gmail.com, 
+	will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com, peterz@infradead.org, 
+	davem@davemloft.net, andreas@gaisler.com, richard.henderson@linaro.org, 
+	mattst88@gmail.com, linmag7@gmail.com, catalin.marinas@arm.com, mark.rutland@arm.com, 
+	chenhuacai@kernel.org, kernel@xen0n.name, tsbogend@alpha.franken.de, 
+	James.Bottomley@hansenpartnership.com, deller@gmx.de, maddy@linux.ibm.com, mpe@ellerman.id.au, 
+	chleroy@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com, 
+	borntraeger@linux.ibm.com, svens@linux.ibm.com, richard@nod.at, 
+	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net, tglx@kernel.org, mingo@redhat.com, 
+	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
+	arnd@arndb.de, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, jgg@ziepe.ca, jhubbard@nvidia.com, peterx@redhat.com, 
+	ysato@users.sourceforge.jp, shakeel.butt@linux.dev, corbet@lwn.net, rdunlap@infradead.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, 
+	linux-hexagon@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+	linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sparclinux@vger.kernel.org, linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-s390@vger.kernel.org, linux-um@lists.infradead.org, hughd@google.com, 
+	qi.zheng@linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 03/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for MMU
+ riscv
+Message-ID: <arN6JBJixHUjX2CJ@gremlin>
+References: <20260922-rcu-pagetable-freeing-v4-3-fe1ad1f1e303@kernel.org>
+ <20260923061551.84398-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923061551.84398-1-lance.yang@linux.dev>
 
-On Tue, 2026-09-22 at 11:15 +0800, Dongliang Qin wrote:
-> rds_ib_map_frmr() stores the caller's scatterlist in the MR before DMA
-> mapping and registration can fail. On failure, __rds_rdma_map() unpins
-> the pages and frees the scatterlist, but rds_ib_free_frmr() can still
-> return the MR to the pool with the stale pointer set.
->=20
-> This leaves the pool with a dangling scatterlist and can lead to local
-> privilege escalation. KASAN detects the resulting use-after-free when the
-> MR is later torn down:
->=20
-> BUG: KASAN: slab-use-after-free in __rds_ib_teardown_mr
-> Read of size 8
->=20
-> Call Trace:
->  __rds_ib_teardown_mr
->  rds_ib_unreg_frmr
->  rds_ib_flush_mr_pool
->  rds_ib_flush_mrs
->  rds_free_mr
->  rds_setsockopt
->=20
-> Store the scatterlist in the MR only after DMA mapping succeeds. If DMA
-> mapping fails, return directly while the MR fields remain clear; the call=
-er
-> keeps ownership of the scatterlist and its pinned pages. If a later
-> registration step fails, unmap the scatterlist and clear the MR fields
-> before returning.
->=20
-> Fixes: 1659185fb4d0 ("RDS: IB: Support Fastreg MR (FRMR) memory registrat=
-ion mode")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Dongliang Qin <cccccccccccc777777@gmail.com>
+On Wed, Sep 23, 2026 at 02:15:51PM +0800, Lance Yang wrote:
+>
+> On Tue, Sep 22, 2026 at 04:35:34PM +0100, Lorenzo Stoakes (ARM) wrote:
+> >Currently riscv gates MMU_GATHER_RCU_TABLE_FREE on CONFIG_SMP and
+> >CONFIG_MMU.
+> >
+> >Commit 69be3fb111e7 ("riscv: enable MMU_GATHER_RCU_TABLE_FREE for SMP &&
+> >MMU") enabled CONFIG_MMU_GATHER_RCU_TABLE_FREE for CONFIG_SMP, CONFIG_MMU
+> >riscv builds.
+> >
+> >This is expressly for the safety of GUP-fast walkers (CONFIG_HAVE_GUP_FAST
+> >is enabled if CONFIG_MMU is enabled).
+> >
+> >Naturally a single core system does not encounter issues with software page
+> >table walkers being correctly synchronised across cores, as there is only a
+> >single core.
+> >
+> >However, CONFIG_PREEMPT_RCU is still available on a riscv UP system, so for
+> >a future RCU-only page table walker, this guarantee is required to prevent
+> >concurrent page table teardown.
+> >
+> >All page table freeing is already done via tlb_remove_ptdesc() so the
+> >conditions of CONFIG_MMU_GATHER_RCU_TABLE_FREE are already met.
+> >
+> >This forms part of an overall effort to switch every architecture to this
+> >mode.
+> >
+> >Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> >Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >---
+>
+> Yeah, for RISC-V, page-table freeing already goes through
+> tlb_remove_ptdesc() :) Tested on QEMU, no issues seen :)
+>
+> Tested-by: Lance Yang <lance.yang@linux.dev>
 
-New v2 looks good to me.  Thanks!
+Thanks! :)
 
-Reviewed-by: Allison Henderson <achender@kernel.org>
-Allison
+A cheeky A-b tag possible too? :P
 
-> ---
-> Changes in v2:
-> - Store the scatterlist in the MR only after DMA mapping succeeds.
-> - Return directly if DMA mapping fails, leaving the MR fields clear.
-> - Link to v1: https://lore.kernel.org/netdev/20260920063449.1594203-1-ccc=
-ccccccccc777777@gmail.com/
->=20
-> net/rds/ib_frmr.c | 11 +++++------
-> 1 file changed, 5 insertions(+), 6 deletions(-)
->=20
-> diff --git a/net/rds/ib_frmr.c b/net/rds/ib_frmr.c
-> index bd8611911..8397aa4a1 100644
-> --- a/net/rds/ib_frmr.c
-> +++ b/net/rds/ib_frmr.c
-> @@ -204,19 +204,16 @@ static int rds_ib_map_frmr(struct rds_ib_device *rd=
-s_ibdev,
->  	 */
->  	rds_ib_teardown_mr(ibmr);
-> =20
-> -	ibmr->sg =3D sg;
-> -	ibmr->sg_len =3D sg_len;
-> -	ibmr->sg_dma_len =3D 0;
->  	frmr->sg_byte_len =3D 0;
-> -	WARN_ON(ibmr->sg_dma_len);
-> -	ibmr->sg_dma_len =3D ib_dma_map_sg(dev, ibmr->sg, ibmr->sg_len,
-> +	ibmr->sg_dma_len =3D ib_dma_map_sg(dev, sg, sg_len,
->  					 DMA_BIDIRECTIONAL);
->  	if (unlikely(!ibmr->sg_dma_len)) {
->  		pr_warn("RDS/IB: %s failed!\n", __func__);
->  		return -EBUSY;
->  	}
-> =20
-> -	frmr->sg_byte_len =3D 0;
-> +	ibmr->sg =3D sg;
-> +	ibmr->sg_len =3D sg_len;
->  	frmr->dma_npages =3D 0;
->  	len =3D 0;
-> =20
-> @@ -264,6 +261,8 @@ static int rds_ib_map_frmr(struct rds_ib_device *rds_=
-ibdev,
->  	ib_dma_unmap_sg(rds_ibdev->dev, ibmr->sg, ibmr->sg_len,
->  			DMA_BIDIRECTIONAL);
->  	ibmr->sg_dma_len =3D 0;
-> +	ibmr->sg =3D NULL;
-> +	ibmr->sg_len =3D 0;
->  	return ret;
->  }
-> =20
 
+--
+Cheers, Lorenzo
