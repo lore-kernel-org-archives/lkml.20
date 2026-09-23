@@ -1,87 +1,68 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7383ACA40
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9839C3F23C5
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790179595; cv=none; b=r8ST2/7y07nZTA9OY6/3CMwqi42h9XCKbmg5BzWg/Z7I9nCkHv0UL72QYCW26h4z95Ck7ZMv3PeOb6Cj4CZmk8SUVUfw6JLxqtVpdG+HWrVcbe8rPTpsQAEsU1GeVqDESqrJu0LBBagFXlI1aotOu7Jjuji6Qh6RNKS638xZRfY=
+	t=1790179654; cv=none; b=BStML/4rmWAOFYfOD1cu46uf40jTOgdMjJmm8yNJ0QFOnVBcR5j0GNQobtZjQj3sNj43/Gb2oJngkZ8C+BHUcNJihPxYNFi4lB09Y9BlNP5SDylwuPJVTNFdL+9Yiezq/N11qgxlZhW19kegK8wbjSFNK8metM4u2alDWtfBurs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790179595; c=relaxed/simple;
-	bh=7RgeHwPYtMaSqi/p1KuO9xl5tU58oXts3DwvC8M1/GQ=;
+	s=arc-20240116; t=1790179654; c=relaxed/simple;
+	bh=Jodhr/tKAjxUnP7ZRiyHtp8mamlXTfQT7NtdWh8XbSo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i4AONNPLfvchhK2wOldx0dloILR7GGdQq3nCSvMllcCK/n/yn9QKvsLLuI3W8EFTxszqmS3SH/Y3K72qvpmirQ4xrqiuT5h76T+ZzKjUwIARrwTdGB5lPMN6QJzHW2a/mK/8uHvO5mcRPllk8ERLbVKBLXgRphHABVHzZuJrurA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jNjJZzh0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cdLIWrCY; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=RrJk/qV17hwtncZQx5xhyLShJtIJRm6blXa9dgOOprz3iY6lIZ9VbnwrPGYwr5KL7d0am+xvkryI11MGFJrqYs5OYOWj3BLgP/ACfdaL5PqZoCfEWI32NzYV5vNCa7E2Q0zuN44IIzW2M/kFFVGRD7wQ2xYRluGOocUWkrYmTg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lnjhDIYO; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jNjJZzh0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cdLIWrCY"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBbVB33772094
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:06:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	O/yCfoa8mb4CzHVcBi7sX7PexllZZB5Dkv2WxLFeVoY=; b=jNjJZzh04fJERPl+
-	tRbkqSodlHUB41rjwFfkJyTZXPmBULgi6MBWQXIzCRGQY7ZRyc/1hbZBxchE9AM9
-	COclNPuL7tk7b+9N8UP/7Y19X/UcLx1JkQTGvmPnTtWyrkOuH/5/yZCu3nOcVqv0
-	Mdp73GrnCud/66qF/DG26T2LuU34Nh8GRSWEc/SxIZxwast8WNhGq0/irskxeYXr
-	oJ4MDx5VVWv6GYGhvaH0N7mYaQKrV2NcPibcbGarIgPwRRBg1H4yXIgHy0x2yiUn
-	e+SZGbCZNEeMQlI3pcyeiefRRWhdBCRxwW3dylDF0WgSPsJLjd8N58ve1rVKVLmN
-	bLKHSA==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvdb61aqb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:06:32 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-9827fde53f3so11439241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:06:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lnjhDIYO"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a1a631f6aso138709066b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:07:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790179592; x=1790784392; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790179651; x=1790784451; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=O/yCfoa8mb4CzHVcBi7sX7PexllZZB5Dkv2WxLFeVoY=;
-        b=cdLIWrCYGerfLU74IoY3SC6q/yC+KyOVVR5QQuNmiAgbP3qi3/bgLzmk/H025E+tdh
-         bFsINYS3s4esl5cCJpV5ZWLOL/Hnle4SfKwpKM51CAN1+buN/b876JuHoaD27K/n/PWw
-         bNEdYse4BofLxPPdGXtpJfY+5Koo+3eTpHnch1VCsquW4iH9alnNyqJQXIG96xabcx7R
-         zaqWaD2LXRCiZpzEODKc+sgKuC0R8U82va+G30DFvH5n3ywvDqUSpumNcLOG1Z/F6aMo
-         /MWzUDfN4Zx3c1PExN9Qx8YeJPS9DPqegOcimmZA+dQL+80696pqzQQj+vPa763TEU0h
-         WT5g==
+        bh=p5jcS04GHIJRKuzdHI5fQPxE/Gjcri6O1kLmUfhhrCc=;
+        b=lnjhDIYOS1borpMSe3MFcPkaxW0ZgC0fe+mCjU1KJc5w0qvMfGaQfzmIZMu2KX/asd
+         /h9E5Qd7RRCpX7AsRhADCgvkr6nOWOYMMmRDZezhMpsEPhnUR0P+6ihJW6wkKJwlzogR
+         KC0l6nUPozwiNIF7WXltLejD+ftRycul48Tx9MuV5lAM5EZqsrLFLNsrDZJfEKmq9s9C
+         42V3pBns+f+77MLki6yw8MjuQ2r1CA0Z98UhRbkGaJM791Pz1TgzdIsw6u5SKTH5SqIr
+         TqN/rNXgjFW6008bBJMFg9ewJ2w6m0X6Sx5RSFMpRulWLpbxDGQZG5R8yjYkXxEasN3a
+         5qug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790179592; x=1790784392;
+        d=1e100.net; s=20260707; t=1790179651; x=1790784451;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O/yCfoa8mb4CzHVcBi7sX7PexllZZB5Dkv2WxLFeVoY=;
-        b=1un3AZS6WGZbaYN56A6fffw79Swk7B6/nONURyzgdi/dbD3wPnyNHO/Y0BIYageULr
-         F+wkdfllQYLBN8dNnha3BUoQ3YkhO1LopK4CblIDqLln8RGHiQEVOQnY8RuIu/6f7tBc
-         GY6bL9DRxUoAnMxcnTuGWLNGVJGAXUCILozKllrTL6kbm9GbhJHtWnblaToU+Iy3z0Hi
-         7Ay5ru8HVcDqc1pZ8faTIG4pD9MTPIDZuZFd+Bb4W0tASXq3dsbu67somzk9Pd6nIJ3w
-         iH6SaWpZZtIF3kSJM3U1jehWhDd9Gx15inj0ib/CkcbrN9b80I9Vua3xeyMMt0U4yg68
-         cdVg==
-X-Forwarded-Encrypted: i=1; AKwUvBzYZuPl2emYdJcxoIE7fQGZPT50YgreWkhj28pEIPVtC/fMrnEejOCzlAGNYSyynWvUBBPNsOfDy5AjxCQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ka394L4K1V4+251RM5/NWy9OPwFtkRJuIFh71x9Poq2R9d07xr
-	kvEXBRhBjJ20Bv7lYmWOLUUHaXnO8h1j81QxITqzQe764J25OWJ55zX29eMmkXWsAaEGQcBRZJ7
-	KP+eS74cnMaXQ3MHe1nPVRmJoux6vTddjRNxoWZMGx0JKVLXbrHE5VWLzCc7daz65JCA=
-X-Gm-Gg: AYBFou2hLkPYcDCMD44txQHJOIUJAXnchA8vMRCEvQO2PCxOYWi/cgeg9V1oIqgcoeg
-	H4DYWEtBgR6TOSBXiAzI1qZLhbobukulQB3G6EFndEIihn+A8zfc7SvCFSIdcKN0YDBkCFs5rrL
-	MaTGBzGifridvX415IOShy2o5wLf6itigWkUEB4tvFbPQKcaL2z2NW4fgnZ0jY+Vng+3FBX/dS4
-	91w5pP9TFZpPSsO3+mh+NrBPdIRzHu/bTk7Wu4tmuqyI1iVOWkhVx62hE2iBcdVfCGVQkZMF8lS
-	SU5TFD4w0SknSfF6CaQNxD8L74P8K3NisYsfhpxRb9Yo1fVWXxqwo9LNN9KZErR4CBkrRU8DNBn
-	pKuMER9tb0jHDRFbEDSmE/g==
-X-Received: by 2002:a05:6102:3c8d:b0:7ae:544d:b50b with SMTP id ada2fe7eead31-7ae544dcb90mr1032917137.3.1790179591869;
-        Wed, 23 Sep 2026 09:06:31 -0700 (PDT)
-X-Received: by 2002:a05:6102:3c8d:b0:7ae:544d:b50b with SMTP id ada2fe7eead31-7ae544dcb90mr1032853137.3.1790179591382;
-        Wed, 23 Sep 2026 09:06:31 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6dcf0dsm154081966b.61.2026.09.23.09.06.28
+        bh=p5jcS04GHIJRKuzdHI5fQPxE/Gjcri6O1kLmUfhhrCc=;
+        b=aRKHFV8FWcsu5tfixmkZ+BJEmzf7xebyRapU8xgFSAoS3+paMYqMyO+LdRXC4HRQzB
+         dGMUHIl3jB33WX2m7qQr7arXgvsASoy645OHUxSKZV99Yzd7kuvDuvWH7Enir21QSaD9
+         uXd/kj8tOUt0IFz/BQwn7igAwcRxbgYr8pgcTYWtpqBJ0S7++vDtJm0flI2hko4vdnR9
+         /ZYpPwxE5AblCISxQI8o+wa5xv/LzEJoHzQ6oWhjVFrVT5YkBAvdgIo3/AwjyAMHy6BY
+         hmj8i7jlJVUb5/heicpQVVW1iBdp/uZZYdBkH3QywImSTzhx4wYbDkT20FNBtBFaZ/6w
+         m5UA==
+X-Forwarded-Encrypted: i=1; AKwUvBxzUlJcPu+XcedM/B1Zk274mysNdpSwrhxAt2RN2UGmIZKcGV+hfWzHFtomASf/Hgd6lpF1SO78GXBDC1A=@vger.kernel.org
+X-Gm-Message-State: AFuF++n07w4WJT7/fE5dDZIW/g4dNx7yoiasDOp2pWRnTjVVPfAHE9FQ
+	LbXswLTJZ+k49dUR1oivz27t0QZPkdU+65Up5CcdMfy6Naf5Lavtu6Vc
+X-Gm-Gg: AYBFou1g5TUbc29TgxyHE66Yl0xGFsY+mBrUcUmhDQ75PkCQDHj7YtAEIVVNXLAY823
+	j4bZ8OtHB+bn6O32zzQY73zH4lgCcHTwvWio/JI0tkfY5iFbRwUYfeNS7Cvs8jGSmx3TWB8fBbn
+	+S1mWnxAGPrMYgHVKIz8Dd/Nr1Ht0d3yMPdLqWI8iRT9WCiv8JJ/R7v3Qypji1xTf++8RQsTeP0
+	N93F68bSpwpO+XloMAl0Tt0xZFtyMT5jYeIMXAFoondqh8YgMFV9xdhH/FYuTXGbUzLRi51bimd
+	XxsNalKtkY3Hq7p2HOQP+NBhbyDmSkOmOU3HRGqBSSEImojxtAKqgFPZdBrcs/0EFsssmF2SDg+
+	pNnvYe2OH5QLRCfwyz29i4bcarNQ0at034PEp3KqLoiNSSlTGCGF1nHwKIhhAkaWR7SIdN+8reL
+	L0JJ9nanWbNfLNbvAwXlg+Zge3ddsIcIHrKx3A0he+vlKO/yoRrqPEV/EWELuivCFedh29T1xAy
+	gRA6xY=
+X-Received: by 2002:a17:907:3f82:b0:c2a:ad55:b3fa with SMTP id a640c23a62f3a-c2aadeb4b50mr259256666b.7.1790179650477;
+        Wed, 23 Sep 2026 09:07:30 -0700 (PDT)
+Received: from [10.194.248.89] ([137.122.66.156])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae60e4c8sm152921166b.26.2026.09.23.09.07.27
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 09:06:30 -0700 (PDT)
-Message-ID: <4f7bea21-1fb2-4c10-9ec3-33f920cbe180@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 18:06:27 +0200
+        Wed, 23 Sep 2026 09:07:29 -0700 (PDT)
+Message-ID: <696580d8-cf2e-47aa-8616-7d930c2f5b82@gmail.com>
+Date: Wed, 23 Sep 2026 12:07:26 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,70 +70,118 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sm8650: Add initial Valve
- Deckard devicetree
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260923-topic-sm8650-deckard-initial-dt-v2-0-8361c4548efa@linaro.org>
- <20260923-topic-sm8650-deckard-initial-dt-v2-2-8361c4548efa@linaro.org>
+Subject: Re: [DRM] amdgpu: HDMI FreeSync not exposed on Samsung S22C31x
+ despite AMD VSDB
+To: =?UTF-8?B?QXRhIMSwbGhhbiBLw7ZrdMO8cms=?= <atailhan2006@gmail.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260923002718.5915-1-atailhan2006@gmail.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260923-topic-sm8650-deckard-initial-dt-v2-2-8361c4548efa@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: gkqkzC3mng20iyWIfCd6hF1_v7bMLWBL
-X-Proofpoint-ORIG-GUID: gkqkzC3mng20iyWIfCd6hF1_v7bMLWBL
-X-Authority-Analysis: v=2.4 cv=QeXzLcbv c=1 sm=1 tr=0 ts=6ab3f908 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=XKDLSxsrZXX4fVXGSQYA:9 a=QEXdDO2ut3YA:10 a=QYH75iMubAgA:10
- a=TD8TdBvy0hsOASGTdmB-:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2NCBTYWx0ZWRfX9Lqzsrra+zxh
- F76i88rx/Mk1H+BwehtJX23sxlOORMQUxsFyIj0Z6BSlyAQXsYxz+MFv68/sb5uo/3UZQyvDa4R
- 7T/oGAVIUsNDUvU2rYJiFV2P0GGSpnY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2NCBTYWx0ZWRfX8v6mb5N2HzaZ
- esVkCLAzpNx+ZFHAtfv3Gk1cwIAW3355uD//jO2vFCyZ50peDzOVH5sV5qxn0gsIb2dwSeiHExn
- KDIwkzRUGOQmj2abnvvKictibrEaPdT9Eq9C38q4+0T7TBQVytljbJpwcUqwYitl/dgDrJWU8OT
- uLuhs+uUpwFuMNB236U+NJY//LTfNB1Dv5ADlicUj3rRl8D9WUilHyEGk07hiJpMnqqCeaYBwXV
- vxTP68axsqo2UWTq1zjRIeyEqkS6Ma7ZsB0w8Q0qGJfagBsr3b8cHZ4Pp5rVRxMJDF6XYLMHSV/
- 6sBXHRTx1RTN7EkUXbmaV35uf+eqccyLZlL7Ixweynq0RYwfNaDtkD7SqDlvFCHNasc65aqX45R
- PeVjbhRq3WNWvlvs1j8o6QM2X/COT+/gPO7KLWxyNqj6lIN0lpm/7u7LqgEvGufEldKbSTXddkz
- zV+xtqYXJeKXkTHoawA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 adultscore=0 clxscore=1015 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230064
+From: teapot <huangalex409@gmail.com>
+In-Reply-To: <20260923002718.5915-1-atailhan2006@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 9/23/26 2:16 PM, Neil Armstrong wrote:
-> Add an initial DeviceTree for the Valve "Steam Frame"
-> codename Deckard. The Steam Frame is a virtual reality headset
-> based on the Qualcomm Snapdragon 8 Gen 3 SoC (SM8650).
 
-[...]
 
-> +/ {
-> +	model = "Valve Deckard";
-> +	compatible = "valve,deckard", "qcom,sm8650";
+On 2026-09-22 20:27, Ata İlhan Köktürk wrote:
+> Hi,
+> 
+> I am investigating an issue where HDMI FreeSync
+> is not exposed for a Samsung S22C31x monitor on
+> an AMD Picasso/Raven 2 GPU, although the monitor
+> advertises an AMD FreeSync range in its EDID and
+> VRR works under Windows.
+> 
+> Hardware/software:
+> 
+> * GPU: 03:00.0 VGA compatible controller [0300]:
+> Advanced Micro Devices, Inc. [AMD/ATI] Picasso/Raven 2
+> [Radeon Vega Series / Radeon Vega Mobile Series]
+> [1002:15d8] (rev c2)
+> * Kernel: 7.2.5-200.fc44
+> * Compositor: Sway (Wayland)
+> * Monitor: Samsung S22C31x
+> * Connector: HDMI-A-1
+> * EDID serial: H9DX100210
+> * Kernel command line includes: amdgpu.freesync_video=1
+> 
+> Observed:
+> 
+> * swaymsg -t get_outputs reports "Adaptive sync: disabled" for HDMI-A-1.
+> * Adaptive sync remains disabled at both 1920x1080@60 Hz and 1920x1080@75 Hz.
+> * The same monitor exposes and enables FreeSync under Windows.
+> 
+> The EDID contains the following AMD Vendor-Specific Data Block:
+> 
+> Vendor-Specific Data Block (AMD), OUI 00-00-1A:
+>      Version: 1
+>      Feature Caps: 0x01
+>      Minimum Refresh Rate: 48 Hz
+>      Maximum Refresh Rate: 75 Hz
+>      Flags 1.x: 0x00>
+> The HDMI VSDB therefore appears to advertise a 48-75 Hz FreeSync range.
+> 
+> There is also this message in dmesg:
+> 
+> amdgpu 0000:03:00.0: [drm] Failed to setup vendor infoframe on connector HDMI-A-1: -22
+> 
+> I believe this is the -EINVAL path from
+> drm_hdmi_vendor_infoframe_from_display_mode() for this timing and
+> is probably unrelated to the FreeSync issue.
+> 
+> The part I am currently investigating is amdgpu_dm_update_freesync_caps().
+> 
+> For HDMI, the driver calls parse_hdmi_amd_vsdb(), which
+> on this DCN configuration goes through the DMUB path:
+> 
+> parse_hdmi_amd_vsdb()
+>    -> parse_edid_cea()
+>       -> parse_edid_cea_dmub()
+>          -> dm_edid_parser_send_cea()
+>             -> output->amd_vsdb.freesync_supported
+> 
+> If the DMUB parser returns freesync_supported == 0,
+> the driver does not expose the connector as VRR capable.
+> 
+> What makes this interesting is that the DRM EDID parser also
+> contains the corresponding AMD VSDB information in
+> connector->display_info.amd_vsdb, while the DMUB result
+> does not result in FreeSync being exposed.
+> 
+> I am wondering about the following:
+> 
+> 1. Is the AMD VSDB layout above expected to be accepted by
+> the DMUB EDID parser, particularly with
+> Feature Caps 0x01, Flags 1.x == 0x00, and no MCCS VCP code byte?
+AFAIK the driver will consider HDMI FreeSync unavailable if MCCS VCP 
+code is 0x0. HDMI FreeSync needs this VCP code.>
+> 2. If the DMUB parser rejects this form of AMD VSDB, should amdgpu_dm
+> fall back to the software-parsed connector->display_info.amd_vsdb
+> when determining FreeSync capability?
+The amd_vsdb struct is currently only for the V2+ luminosity fields, and 
+don't affect FreeSync detection. I had added FreeSync fields support and 
+those changes are in drm-next, but haven't made it up to the Torvalds 
+tree yet.
+> 
+> I have a working kernel tree and can run diagnostic tests
+> or test a small patch. I can also provide drm.debug
+> output or DMUB-related traces if useful.
+I think this might be a case where the Windows FreeSync detection has 
+diverged from the Linux detection, maybe Harry would be able to provide 
+more insight on this?
 
-Sorry I missed this before, but you likely want
+The monitor's EDID would probably be useful too, I'm not quite sure how 
+to make sense of the edid-decode output since there's a few guessed 
+fields in the AMD VSDB block and hasn't been updated since 2024.>
+> Thanks,
+> Ata İlhan Köktürk
 
-chassis-type = "spectacles";
+Best,
+Alex
 
-otherwise
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
