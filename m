@@ -1,214 +1,316 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6D0A596503
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDBF583ADE
 	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202962; cv=none; b=LaIMF7PwjLSJlY5HWuzq886tG97P6sSoyCIMcITuMdBKe1KNF0ZMYflKjLx8o79NSkgAKYNvvrV14xfl9CgkNFt22+71Ywlfs/FhDUaLw+NANO3YA3zMPa0qJwLHI79U7o0BGzVO2NV/6GarZU7DbQs9ytS/50+d0NifWzM6Qvc=
+	t=1790202963; cv=none; b=ZhQgpo2IjhNk8xf+SnUAjG4JSCR/nXCfRiNZut/5/dbgspC7oXEVy7/ZrUaHKcjqHaW0bAQzEYBfvVH+5rKJz02W4Tg/Z60gpFMQakgp7js0sXFBixKcq2BKLzmz3HohU0lKtzj5Qa21qFstQatrNhv1EJOevPt6UJS/HqiEJnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202962; c=relaxed/simple;
-	bh=Ot25WLyqVRhsBXv9+FeXxetochqDJHUpqUPvyel2wpg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GdRMY+acxfhv0895sNyynbZ+Q40H21uNh0bpbBFz66eHjWpOPiX7OVcHYZoziiS8z++luHBBRdwJuc5VswHW+aJkEjHXrwmysgRYpVwrBd+GjMUO6jgPlv72e/3rk2TnA/KjxklMmEyFXQbvsy2rjbvt4fAV7/U0wPx3ytsL33I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flWNWFgi; arc=none smtp.client-ip=74.125.227.42
+	s=arc-20240116; t=1790202963; c=relaxed/simple;
+	bh=bDBlM3OKBf1bitIDxea2Srxslww3od17iV3usIW+vIY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=c8RaccaQym5G4RYoO1zt+pE4woxEIuFzMTKeC0hJG6sQRdeJb2iOpkFGee6P+ajcHWtxuE359ZFfQyz23UdA8HAhXGfgxXIl1JdnSk+97GT9D/XU6flppS7uyx1/O38h9nltMN5+9Csg6mshkU9Bqp556DAYH+Ff756DDmostuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jVdsGlz3; arc=none smtp.client-ip=74.125.231.167
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flWNWFgi"
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c98e1942dfso1239909e0c.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jVdsGlz3"
+Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6c72bd8a017so908995eaf.3
         for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:35:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1790202957; x=1790807757; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=E15zTz6LSPQ0+KOjqcr732bl7v4sHhRkFWWTNxNbp1E=;
-        b=flWNWFgiq2zZuJ8Knco5vhDc1+If3REpIIWfyGyLl6temXFn6r74AWhPEdzRAqkUPW
-         sT/p3Vzm9BIArdARoWO4KrqwIYs2fUXug/y4tYEwELhLrlZqdXwg3Teq1XIduKosJlBW
-         cxKLEmQifGHEi4H43DbNfEGoDJ891ff9o+DuC0B6rhXxqsUD2+/hvNOnxzrL2uWiDj3P
-         aq7lh+upgRqbW1QF2m2YssIUOBfeBlAsWTLowQe3uLIklmm08CzdNngH46fMsrlws/9U
-         gjVZt2KX5meOsyRnZ3xn/88wJcyeNHeriMFsfP4Qd74JlmcQOuv/cEybhTytIbvNwAWb
-         JbUQ==
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BzrePIK2UG1fsggT5lm/vt0wyrwfQ1fIWAnYfLJvTcU=;
+        b=jVdsGlz3FLlRzT4yrbyonY5QLlPd+LhKFai1+XxHnKtGM+VQ1PwnfOyMf9581RAaW8
+         YfYHRFvmAeUoaKjEqUxq10tsr+hrNGHqQ+mmf3EswxWL2VtimY2VpKNxXNfFsJVPyEFz
+         4NN15ScvLNyHNMw6iqYuGDhs/jXV1D7S9hucJHdBeGaA3Pbzzx8C26QvX/6QwdifBEXU
+         VSh73sRiawBQ98LfztZ3CaFmGdswCdla8NQ/A9lWFht/vDFAAtQpju4d4r4yo3FP8JAi
+         5JyRKLB46XME2YxfnHU75w7qtpOyob0dsTT4qU4nZdaKQvwyyr1oN+yO0FJM8ZU2Csor
+         WSCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790202957; x=1790807757;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=E15zTz6LSPQ0+KOjqcr732bl7v4sHhRkFWWTNxNbp1E=;
-        b=esPQrOweMIPabOgd8z8BxmmmJCpwL4HvAmhpnBM4ZO5HqD1PvrNjbOxLzVGzdmeWum
-         CaNnDmqEdDHG7K9QYWe3jFglvlh+U5/Z9kfrSuqhtHEcCqAjUdDPkUbWPUgIqL62aU4U
-         wtEJtIrCn8rcG6mdIFtyEHZ/dRb145SQ0vcYfvksnesHkuaALMs4ogz9lKV0KVMh9W5V
-         siJ79THALxdsKvMkb4qDMTjt1Ux0GJwezMvD/hZl47lrtMEKvt4hR7zbc1nbazIvUzsM
-         Iva9VuVBexeGXWNaVNoOetKimBkh4Ot8UlieAoI4V+rvlLqw8ePS3+mKTHhDExkkJqwr
-         GMdA==
-X-Forwarded-Encrypted: i=1; AKwUvBx6lO26FwJlCUMD6K4E3BjtSaVKrg+oKzH7tcA2p6ikpQJlUsQNt8K1HEbIqe4zfIdDkc6AOBad0+ZMKqk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvjPXlm4FTT7CYEc2V65ibrDlnScR1pZvzINnoIQufNBe4HPY6
-	by5lbK8LPWTs5M1JdagTAdl3VRaLRk3yS9SBO8nAM+nXgfoWk4P3tvk=
-X-Gm-Gg: AYBFou141FP1Y5mG5A0bZ8uEToXkkX1hvZLNCjQUK1h7PyAOyQuXd3xFz1NDj5E92Uf
-	7BplD4w5U8jLrrz7R6mgmACOnWCx9AJRh3wRWYCr7S6eiV31m3fPFqRO9lSVR7VqHAkm6h9sahb
-	Bd0KY2iu3S5SmfPSDrnM/9zaGuJiOalUaY6lrMCcoGxQ724MQFn5Jyjilt9nYLpYdHPKOOW1V2B
-	aZ4w5Wiz/VX9vKV5rKhpA+BEB1hQQUl1zSjrwNM1849924hDLMpgjJccjOlO5S5thmyU0vw/hLB
-	DYYzQjaMwD3Z1uVE39OdkCKkQZVgI+wYdMuOm9wZGHeq2ISmmgxAG8Lj+PKCwLoECmAlzXZqmXS
-	d0ixYYXkuOcMz7xuJJlrwKIGcD6godU/fS4pHXT5n/MyP23q7CDiwVEYUZKoD1Us0cjE2JHVFQ5
-	8PR2OLk1s0TQ4vmLsyWnyqc+PkoUDtb+lq8rDkk7FttOr7wUZvh2P238wf87WQwLeYdtdP2l30Z
-	X3V+oA+21E+SSx0QvXOC+tLcfOWsmGHIZ99kCpXNAA5zBlQSA==
-X-Received: by 2002:a05:6122:198d:b0:5c9:82a1:a6a3 with SMTP id 71dfb90a1353d-5cb08753a03mr590726e0c.6.1790202956828;
-        Wed, 23 Sep 2026 15:35:56 -0700 (PDT)
-Received: from localhost.localdomain ([186.158.238.108])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f04fb621sm5162983e0c.9.2026.09.23.15.35.51
+        bh=BzrePIK2UG1fsggT5lm/vt0wyrwfQ1fIWAnYfLJvTcU=;
+        b=qYufLITCUUG1Y2FEbNezasKOL16u5iFktj7jIlyLo9mq6S5SRc9pDRGi7bflCMD2Bm
+         /cjY2AL9GX3xJZeGw6NWX0/HHzEaxZckNwYLK0LLYxKnz4NqR5JLXL+IENfBA+p7QQCE
+         ilQ7JVwndzBFLc/+4GONkX/gu2WMuG+ZbuuSuezGQ1JcDdCYzD6996r+7ToiaWJc1fW/
+         KIjBgUylFRkivIdOeHl9GCuAFcI83z1cNyfB5Atr81magEXEtwmAsKlZRZdyOtr/hl+R
+         13wASGgDHx/JXuTvNkf3mNBC6tT0StxJ46fV8kf6yZR67BIVkS9dzNaUmb9Dx+ED4gjp
+         jPXw==
+X-Gm-Message-State: AFuF++kHXSwh1RFGESBhEyiqzuV+gkdEVwPfgUY5OAiBJG5KOgYSyPOy
+	2bqSySMB0L613T9vKz5uQ8WOxFIspkGY7bBxepGGtJ8gl5nfjbbXuJFL
+X-Gm-Gg: AYBFou28IMdZogZE9vhsQwtOo5pIXPvans1QsoN99zcdDs+TWTgyLFbmiyJBlHhoYbZ
+	ZLRpDiQxPX41dQOl11nPTYKZ8HgaWdSehLMzmUOI6/00cCLl+18wQu9cdGjKBDH20fqjNrccC7v
+	bziCJzhAQ5XLwo/a/0JTcQbUv/gnHZTW5lmAE0dJV6E7HyWSS1THlBwVhJxWjwQrpJ8vbk9RWHs
+	G1oPw+XLJRg80ULWRLeEQ+C4RJEcVxDXsCQSuiiWbm/5M7XgliqlClQGPZ0yOJPAwv4XRMcZ4AC
+	oRcRD6Kew86UwhivmuPxQ6knzgq2iPMLiL2a1LpTG8torEf1C9UIa/LnfDjdDVJKxSnf74uEEx8
+	F7yLrm8JQeECpUcCA4cyBdJOTfkwk+U9QwCafyGdAJPjk7H0JnsPplAJClaSwG7o3kREVgvkVc3
+	WOUyAa9mHt/hwczjMor1k7NNsVUkuzJWS7jD+Y+SMbstX9RM9iyF7ZpljuK8ODAZjyewggymtkT
+	yEOlOlXl4Bz5YJIuy2q+o71/hZ/d6r9BKavSnmYV2yaTOizFFZ6izC3vj5cUzoRKdNrm2LelSe5
+	qkTxC/tKCcDmAJO8fNRp5VETAR+Qyg==
+X-Received: by 2002:a05:6820:60b:b0:6c1:f832:9b42 with SMTP id 006d021491bc7-6d440a0ecaamr669237eaf.51.1790202957035;
+        Wed, 23 Sep 2026 15:35:57 -0700 (PDT)
+Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
+        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:35:55 -0700 (PDT)
-From: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?q?Nicol=C3=A1s=20Antinori?= <nico.antinori.7@gmail.com>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Jori Koolstra <jkoolstra@xs4all.nl>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v5 1/3] dt-bindings: display: add Chipwealth CH1115 OLED Controller
-Date: Wed, 23 Sep 2026 19:35:13 -0300
-Message-ID: <b961c25f0b67968b6ef891f2dd3527508a374261.1790200427.git.nico.antinori.7@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790200427.git.nico.antinori.7@gmail.com>
-References: <cover.1790200427.git.nico.antinori.7@gmail.com>
+        Wed, 23 Sep 2026 15:35:56 -0700 (PDT)
+From: Jim Cromie <jim.cromie@gmail.com>
+Date: Wed, 23 Sep 2026 16:34:58 -0600
+Subject: [PATCH v11 34/38] docs/dyndbg: add classmap info to howto
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-dd-cmap-part2-clean-v11-34-9b6c217fdf2f@gmail.com>
+References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
+In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
+To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Arnd Bergmann <arnd@arndb.de>, Luis Chamberlain <mcgrof@kernel.org>, 
+ Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+ Jonathan Corbet <corbet@net.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Petr Mladek <pmladek@suse.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ John Ogness <john.ogness@linutronix.de>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-arch@vger.kernel.org, 
+ linux-modules@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
+ Jim Cromie <jim.cromie@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=7938;
+ i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
+ bh=bDBlM3OKBf1bitIDxea2Srxslww3od17iV3usIW+vIY=;
+ b=fcWamNnVEKC0lE/IxMSCBV/GHM18pP+u9tgmuybiw6ZnxkLxSgqRg8tfTQCCvT2QFXuFSIJn0
+ eMcZi99HVQNDvFrMTdVU5XhsVkk/gIClmOUA4BHFcT1xUSE4h9tmEkw
+X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
+ pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 
-Chipwealth CH1115 is a controller for monochrome dot matrix OLED panels.
+Describe the 3 API macros providing dynamic_debug's classmaps
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Nicolás Antinori <nico.antinori.7@gmail.com>
+DYNAMIC_DEBUG_CLASSMAP_DEFINE - create & export a classmap
+DYNAMIC_DEBUG_CLASSMAP_USE    - refer to exported map
+DYNAMIC_DEBUG_CLASSMAP_PARAM  - bind control param to the classmap
+DYNAMIC_DEBUG_CLASSMAP_PARAM_REF + use module's storage - __drm_debug
+
+NB: The _DEFINE & _USE model makes the user dependent on the definer,
+just like EXPORT_SYMBOL(__drm_debug) already does.
+
+cc: linux-doc@vger.kernel.org
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-Notes:
-- Patch series based on 7.3-rc1
-- Carried "Reviewed-by: Krzysztof Kozlowski <...>" from v3 since this
-  patch did not change.
+v9:
+. fix typo in class keyword documentation.
+. document DYNAMIC_DEBUG_CLASSMAP_PARAM_REF.
+v2: RvB after SoB
+---
+ Documentation/admin-guide/dynamic-debug-howto.rst | 145 ++++++++++++++++++++--
+ 1 file changed, 135 insertions(+), 10 deletions(-)
 
- .../bindings/display/chipwealth,ch1115.yaml   | 81 +++++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
- 2 files changed, 83 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
+diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
+index a8962ab22aaf..f5b1470a4b88 100644
+--- a/Documentation/admin-guide/dynamic-debug-howto.rst
++++ b/Documentation/admin-guide/dynamic-debug-howto.rst
+@@ -146,6 +146,9 @@ keywords are::
+   "1-30" is valid range but "1 - 30" is not.
+ 
+ 
++Keywords
++--------
++
+ The meanings of each keyword are:
+ 
+ func
+@@ -193,16 +196,6 @@ format
+ 	format "nfsd: SETATTR"  // a neater way to match a format with whitespace
+ 	format 'nfsd: SETATTR'  // yet another way to match a format with whitespace
+ 
+-class
+-    The given class_name is validated against each module, which may
+-    have declared a list of known class_names.  If the class_name is
+-    found for a module, callsite & class matching and adjustment
+-    proceeds.  Examples::
+-
+-	class DRM_UT_KMS	# a DRM.debug category
+-	class JUNK		# silent non-match
+-	// class TLD_*		# NOTICE: no wildcard in class names
+-
+ line
+     The given line number or range of line numbers is compared
+     against the line number of each ``pr_debug()`` callsite.  A single
+@@ -217,6 +210,25 @@ line
+ 	line -1605          // the 1605 lines from line 1 to line 1605
+ 	line 1600-          // all lines from line 1600 to the end of the file
+ 
++class
++
++    The given class_name is validated against each module, which may
++    have declared a list of class_names it accepts.  If the class_name
++    is accepted by a module, callsite & class matching and adjustment
++    proceeds.  Examples::
++
++	class DRM_UT_KMS	# a drm.debug category
++	class JUNK		# silent non-match
++	// class TLD_*		# NOTICE: no wildcard in class names
++
++.. note::
++
++    Unlike other keywords, classes are "name-to-change", not
++    "omitting-constraint-allows-change".  See Dynamic Debug Classmaps
++
++Flags
++-----
++
+ The flags specification comprises a change operation followed
+ by one or more flag characters.  The change operation is one
+ of the characters::
+@@ -238,6 +250,11 @@ The flags are::
+   l    Include line number
+   d    Include call trace
+ 
++.. note::
++
++   * To query without changing	``+_`` or ``-_``.
++   * To clear all flags		``=_`` or ``-fslmpt``.
++
+ For ``print_hex_dump_debug()`` and ``print_hex_dump_bytes()``, only
+ the ``p`` flag has meaning, other flags are ignored.
+ 
+@@ -394,3 +411,111 @@ just a shortcut for ``print_hex_dump(KERN_DEBUG)``.
+ For ``print_hex_dump_debug()``/``print_hex_dump_bytes()``, format string is
+ its ``prefix_str`` argument, if it is constant string; or ``hexdump``
+ in case ``prefix_str`` is built dynamically.
++
++.. _dyndbg-classmaps:
++
++Dynamic Debug Classmaps
++=======================
++
++The "class" keyword selects prdbgs based on author supplied,
++domain-oriented names.  This complements the nested-scope keywords:
++module, file, function, line.
++
++The main difference from the others: classes must be named to be
++changed.  This protects them from unintended overwrite::
++
++  # IOW this cannot undo any drm.debug settings
++  :#> ddcmd -p
++
++This protection is needed; /sys/module/drm/parameters/debug is ABI.
++drm.debug is authoritative when dyndbg is not used, dyndbg-under-DRM
++is an implementation detail, and must not behave erratically, just
++because another admin fed >control something unrelated.
++
++So each class must be enabled individually (no wildcards)::
++
++  :#> ddcmd class DRM_UT_CORE +p
++  :#> ddcmd class DRM_UT_KMS +p
++  # or more selectively
++  :#> ddcmd class DRM_UT_CORE module drm +p
++
++That makes direct >control wordy and annoying, but it is a secondary
++interface; it is not intended to replace the ABI, just slide in
++underneath and reimplement the guaranteed behavior.  So DRM would keep
++using the convenient way, and be able to trust it::
++
++  :#> echo 0x1ff > /sys/module/drm/parameters/debug
++
++That said, since the sysfs/kparam is the ABI, if the author omits the
++CLASSMAP_PARAM, theres no ABI to guard, and he probably wants a less
++pedantic >control interface.  In this case, protection is dropped.
++
++Dynamic Debug Classmap API
++==========================
++
++DYNAMIC_DEBUG_CLASSMAP_DEFINE(clname,type,_base,classnames) - this maps
++classnames (a list of strings) onto class-ids consecutively, starting
++at _base.
++
++DYNAMIC_DEBUG_CLASSMAP_USE(clname) & _USE_(clname,_base) - modules
++call this to refer to the var _DEFINEd elsewhere (and exported).
++
++DYNAMIC_DEBUG_CLASSMAP_PARAM(clname) - creates the sysfs/kparam,
++maps/exposes bits 0..N as class-names.
++
++DYNAMIC_DEBUG_CLASSMAP_PARAM_REF(name,bits,var,flags) - connects an
++existing module parameter variable (e.g. __drm_debug) to a classmap.
++
++Classmaps are opt-in: modules invoke _DEFINE or _USE to authorize
++dyndbg to update those named classes.  "class FOO" queries are
++validated against the classes defined or used by the module, this
++finds the classid to alter; classes are not directly selectable by
++their classid.
++
++Classnames are global in scope, so subsystems (module-groups) should
++prepend a subsystem name; unqualified names like "CORE" are discouraged.
++
++NB: It is an inherent API limitation (due to class_id's int type) that
++the following are possible:
++
++  // these errors should be caught in review
++  __pr_debug_cls(0, "fake DRM_UT_CORE msg");  // this works
++  __pr_debug_cls(62, "un-known classid msg"); // this compiles, does nothing
++
++There are 2 types of classmaps:
++
++* DD_CLASS_TYPE_DISJOINT_BITS: classes are independent, like drm.debug
++* DD_CLASS_TYPE_LEVEL_NUM: classes are relative, ordered (V3 > V2)
++
++DYNAMIC_DEBUG_CLASSMAP_PARAM - modelled after module_param_cb, it
++refers to a DEFINEd classmap, and associates it to the param's
++data-store.  This state is then applied to DEFINEr and USEr modules
++when they're modprobed.
++
++The PARAM interface also enforces the DD_CLASS_TYPE_LEVEL_NUM relation
++amongst the contained classnames; all classes are independent in the
++control parser itself.  There is no implied meaning in names like "V4"
++or "PL_ERROR" vs "PL_WARNING".
++
++Modules or subsystems (drm & drivers) can define multiple classmaps,
++as long as they (all the classmaps) share the limited 0..62
++per-module-group _class_id range, without overlap.
++
++If a module encounters a conflict between 2 classmaps it is _USEing or
++_DEFINEing, it can invoke the extended _USE_(name,_base) macro to
++de-conflict the respective ranges.
++
++``#define DEBUG`` will enable all pr_debugs in scope, including any
++class'd ones.  This won't be reflected in the PARAM readback value,
++but the class'd pr_debug callsites can be forced off by toggling the
++classmap-kparam all-on then all-off.
++
++Self-Testing and Validation
++===========================
++
++Dynamic debug includes a regression test script in kselftest::
++
++  :#> make -C tools/testing/selftests TARGETS=dynamic_debug run_tests
++  # Or run directly on a running kernel:
++  :#> ./tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++
 
-diff --git a/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
-new file mode 100644
-index 000000000000..6b037c40242e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/chipwealth,ch1115.yaml
-@@ -0,0 +1,81 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/chipwealth,ch1115.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Chipwealth CH1115 Display Controller
-+
-+maintainers:
-+  - Nicolás Antinori <nico.antinori.7@gmail.com>
-+
-+description:
-+  Chipwealth CH1115 is a controller for monochrome dot matrix OLED
-+  panels.
-+
-+  https://datasheet4u.com/download/1576606/CH1115.html
-+
-+allOf:
-+  - $ref: panel/panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: chipwealth,ch1115
-+
-+  reg:
-+    maxItems: 1
-+
-+  chipwealth,inverted:
-+    type: boolean
-+    description:
-+      Display pixels are inverted, i.e. 0 is white and 1 is black.
-+
-+  chipwealth,offset:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    minimum: 0
-+    maximum: 63
-+    default: 0
-+    description:
-+      Display start line offset. Specifies the vertical alignment and row shift
-+      along the Y-coordinate.
-+
-+  width-mm: true
-+  height-mm: true
-+  flip-horizontal: true
-+  flip-vertical: true
-+  panel-timing: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - width-mm
-+  - height-mm
-+  - panel-timing
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        display@3c {
-+            compatible = "chipwealth,ch1115";
-+            reg = <0x3c>;
-+            width-mm = <12>;
-+            height-mm = <8>;
-+            chipwealth,offset = <8>;
-+            panel-timing {
-+                clock-frequency = <0>;
-+                hactive = <88>;
-+                vactive = <48>;
-+                hfront-porch = <0>;
-+                hback-porch = <0>;
-+                hsync-len = <0>;
-+                vsync-len = <0>;
-+                vfront-porch = <0>;
-+                vback-porch = <0>;
-+            };
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 73acf72c01f6..16a4a7a158ab 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -331,6 +331,8 @@ patternProperties:
-     description: ChipOne
-   "^chipspark,.*":
-     description: ChipSPARK
-+  "^chipwealth,.*":
-+    description: Chip Wealth Technology, Ltd.
-   "^chongzhou,.*":
-     description: Shenzhen Chongzhou Electronic Technology Co., Ltd
-   "^chrontel,.*":
---
-2.47.3
+-- 
+2.55.0
 
