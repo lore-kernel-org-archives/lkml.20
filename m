@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD09C4156EB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:03:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A403A1A23
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:03:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143423; cv=none; b=r+Ys9FhT4EuRYGADfxUYj4MydBwLloLY+kTwJHboAj7Ch5aVHko8YmhsmjnvSa8PwocAoy3jeb4NWLfcNFXPosRjFfysq1+Lj0SQg3SFObqDzsEHmZvvUa2jpYUrrfr0RN9PqXwRaHaQ5eBLpEebT2HxOA9n7VsbX6DC2ck6k3I=
+	t=1790143426; cv=none; b=qcreYSaCxvSUCZWCwkSLQCdwwJ/nmbii1wboyLZw05msLj8i7hAnUCC3zBdLI1MUTGmcyv6VCNKv7M+xuMSdhVSy7/HlWxiY1+qwR9V3ytU28/hIhVp6Ggm2P9OgYsRDIT8qHz17UURY3/tQyrad4FsI17tFp79T8+tRJkHPHPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143423; c=relaxed/simple;
-	bh=sBOlCUJEiFsTGPin5Ftx4LyMsLxa/4JQEqaw1fbH5tE=;
+	s=arc-20240116; t=1790143426; c=relaxed/simple;
+	bh=eW154vuwCnKz1c7KGfng2fP6i6tTVHMoUQoTPohS0FM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hswCAQreLeI5qnY62RRJtIQSWpCHlnfgnLd6d0bKEpZ9Vpm+pgWoDUvc4ijRuQ2SSBXYJAR9bhAtT6kaTZ/5hMN/73ybLBVAoTOuvLEyHhX5ulsmkT11DZcLTE5YiAFbl1aYqeT2V6N60YqqQPWXsezfdiqdmt533Tid5JuwcIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YsZx6SRz; arc=none smtp.client-ip=220.197.31.3
+	 MIME-Version; b=KgzdR00spMGI7dET8HaKVNHBuR2YcNPfS7I+S9F5Lx94gOfBS7GdMrMfp1OOoy+IpYY7hNhSN1uqcyJJ0FXc0+VZ4oGWZfi5adntNl+8qyKcTcBBgb7Gvw2d5qhs/92LwuVt+7hE+WUuK1Qht6VCkHZLg4lfyK8F/dOnLH4LnEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZLDJy1Mm; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YsZx6SRz"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZLDJy1Mm"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Cn
-	LdFu/70ahvxUxf+KGnrcWNDnhJLnBlLFh9tP9Tuko=; b=YsZx6SRz04u9CaxaOs
-	1aUmf/Ktl+LG6dnODXslWev5zgQnGFCDclOH+7TnlkGJ/UNftSuSqVEAhOl/HZ6A
-	LR/3DQODowcB531sw9e+ZGMkDFEQKoIMGObwsbopQu08KXBZ9jO5xmFpqJCZ8BHj
-	5Oc4M/pLU0qV5CHMUGseu9KK4=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=3U
+	NTJfnZWBERJSwwoqadnuJwoSrBHaFkDYINBMhHsH8=; b=ZLDJy1MmBRNzXEEaIt
+	z9xrGmGmynYVxuTwfBp+Y+TiWuRH+JKD/B3HSFMd+soXQE2ivF8QXarQ8wzpssBJ
+	UGieTv8B8pylcELjSsozIGLL7SEq3sthqtleDFqr09sk1k/pZr2n8f3CfifYs4JT
+	nQTtHYrmVAVh9IlCm7i+jZOzY=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgCH_E+Ia7NqXdW_Aw--.58316S7;
-	Wed, 23 Sep 2026 14:03:01 +0800 (CST)
+	by gzsmtp4 (Coremail) with SMTP id PygvCgCH_E+Ia7NqXdW_Aw--.58316S12;
+	Wed, 23 Sep 2026 14:03:09 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -32,9 +32,9 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	chenxiaosong@chenxiaosong.com,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 05/10] ntfs: distinguish empty EA values from removal
-Date: Wed, 23 Sep 2026 14:02:41 +0800
-Message-ID: <20260923060246.2499192-6-liubaolin12138@163.com>
+Subject: [PATCH v4 10/10] ntfs: persist nodump in the $LINUXFLAGS EA
+Date: Wed, 23 Sep 2026 14:02:46 +0800
+Message-ID: <20260923060246.2499192-11-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260923060246.2499192-1-liubaolin12138@163.com>
 References: <20260923060246.2499192-1-liubaolin12138@163.com>
@@ -45,96 +45,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgCH_E+Ia7NqXdW_Aw--.58316S7
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCr4UKrW5JF4UCw17AF4DXFb_yoW5WryDpF
-	W3CrW5tF1rXFyDGr1vyw1kW3W5Zry8Kry8K3s7K3Wfurnaqw1Dt3Z5KFyagF4SyFykJ3W0
-	ganYgws5Xa17JFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jjyIUUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hWHUmqza5USSAAA3X
+X-CM-TRANSID:PygvCgCH_E+Ia7NqXdW_Aw--.58316S12
+X-Coremail-Antispam: 1Uf129KBjvJXoWxKry7CF1xtrWfGrWfZF4ruFg_yoW7CF18pF
+	Z3GFyxKw4rXFy7W397CF4UWa1Fvrn3XFWUXr92qw18Aa4DJ3WSqFWfKF4rXa4kCrySk347
+	XayUtrWUXFWjv37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j4ApnUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwR6JVGqza56+iAAA3Y
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-The EA setter identifies removal using a zero value length together with
-XATTR_REPLACE. A replacement with a valid empty value is therefore
-mistaken for deletion.
+Store nodump in bit 2 of LINUXFLAGS and allow it through fileattr_set.
+Report the cached persistent bit through fileattr_get and
+STATX_ATTR_NODUMP, including the statx supported-attribute mask. Reuse
+the existing EA update and inode-load paths; nodump needs no additional
+inode flag enforcement.
 
-Use a NULL value to identify removal and keep zero-length values valid.
-Reject removal or XATTR_REPLACE for an absent entry before creating
-metadata, including when the file has no EA attributes.
+Document the complete immutable, append-only and nodump bitmask.
 
 Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 ---
- fs/ntfs/ea.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ Documentation/filesystems/ntfs.rst | 34 +++++++++++++++++-------------
+ fs/ntfs/ea.h                       |  3 ++-
+ fs/ntfs/file.c                     | 11 ++++++++--
+ 3 files changed, 30 insertions(+), 18 deletions(-)
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 6f7273f754ae..03117749728b 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -244,6 +244,8 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 	if (!err != !ea_err)
- 		return -EUCLEAN;
- 	has_ea = !err;
-+	if (!has_ea && (!value || (flags & XATTR_REPLACE)))
-+		return -ENODATA;
- 	if (has_ea) {
- 		p_ea_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
- 						&ea_info_size);
-@@ -308,7 +310,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 			err = -EEXIST;
- 			goto out;
- 		}
--		if ((flags & XATTR_REPLACE) && !val_size) {
-+		if (!value) {
- 			old_ea_info = *p_ea_info;
- 			old_ea_buf = kvmemdup(ea_buf, all_ea_size, GFP_NOFS);
- 			if (!old_ea_buf) {
-@@ -318,7 +320,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 		}
+diff --git a/Documentation/filesystems/ntfs.rst b/Documentation/filesystems/ntfs.rst
+index fb9c89b9b493..d305fd4314d2 100644
+--- a/Documentation/filesystems/ntfs.rst
++++ b/Documentation/filesystems/ntfs.rst
+@@ -38,21 +38,25 @@ The project is available at:
+ Linux file attributes
+ =====================
  
- 		/* Check the final $EA size before removing the old entry. */
--		if (val_size &&
-+		if (value &&
- 		    ntfs_attr_size_bounds_check(ni->vol, AT_EA,
- 					ea_info_qsize - ea_size + new_ea_size)) {
- 			err = -EFBIG;
-@@ -327,7 +329,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
+-The driver supports lsattr(1) and setting immutable and append-only with chattr(1).
+-Immutable is stored in bit 0 and append-only in bit 1 of a private ``$LINUXFLAGS`` extended attribute
+-within the standard NTFS ``$EA``/``$EA_INFORMATION`` attributes. Its value
+-is a 32-bit little-endian bitmask. Unknown bits are preserved; the entry
+-is removed when the entire value becomes zero. These settings survive
+-inode eviction, unmount and reboot. Direct writes or removal through
+-xattr interfaces are rejected; use chattr(1) instead.
+-
+-System metadata files and files protected by ``sys_immutable`` cannot
+-have their immutable protection cleared. Protection derived solely from
+-that policy is not stored in the EA. Compression, encryption
+-and mount-wide case folding are reported but cannot be changed through
+-chattr(1).
+-
+-Windows does not enforce the Linux immutable and append-only flags stored in this EA.
++The driver supports lsattr(1) and chattr(1). Immutable, append-only and
++nodump are stored in a private ``$LINUXFLAGS`` extended attribute within the
++standard NTFS ``$EA``/``$EA_INFORMATION`` attributes. Its value is a
++32-bit little-endian bitmask: bit 0 is immutable, bit 1 is append-only,
++and bit 2 is nodump. Unknown bits are preserved when updating the flags;
++the entry is removed when the entire value becomes zero. These settings
++survive inode eviction, unmount and reboot. Direct writes to this EA
++through setxattr(2) or removexattr(2) are rejected; use chattr(1) instead.
++
++System metadata files and files protected by the ``sys_immutable`` mount
++option cannot have their immutable protection cleared with chattr(1).
++Protection derived solely from the mount option is not stored in the EA.
++Case folding is reported according to the mount options and cannot be
++configured per file. Compression and encryption are reported but cannot
++be changed through chattr(1).
++
++These Linux flags are enforced by Linux. Storing them in an NTFS EA does
++not make Windows enforce immutable, append-only or nodump semantics.
++
  
- 		p_ea = (struct ea_attr *)(ea_buf + ea_off);
+ Supported mount options
+ =======================
+diff --git a/fs/ntfs/ea.h b/fs/ntfs/ea.h
+index b988b39f5f00..8f144fa4f9bb 100644
+--- a/fs/ntfs/ea.h
++++ b/fs/ntfs/ea.h
+@@ -10,8 +10,9 @@
+ /* $LINUXFLAGS stores these bits in a single little-endian 32-bit value. */
+ #define NTFS_LINUXFLAGS_IMMUTABLE	BIT(0)
+ #define NTFS_LINUXFLAGS_APPEND	BIT(1)
++#define NTFS_LINUXFLAGS_NODUMP	BIT(2)
+ #define NTFS_LINUXFLAGS_MASK	(NTFS_LINUXFLAGS_IMMUTABLE | \
+-				 NTFS_LINUXFLAGS_APPEND)
++				 NTFS_LINUXFLAGS_APPEND | NTFS_LINUXFLAGS_NODUMP)
  
--		if (val_size &&
-+		if (value &&
- 		    le16_to_cpu(p_ea->ea_value_length) == val_size &&
- 		    !memcmp(p_ea->ea_name + p_ea->ea_name_length + 1, value,
- 			    val_size))
-@@ -342,7 +344,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 		ea_info_qsize -= ea_size;
- 		p_ea_info->ea_query_length = cpu_to_le32(ea_info_qsize);
+ extern const struct xattr_handler *const ntfs_xattr_handlers[];
  
--		if ((flags & XATTR_REPLACE) && !val_size && !ea_info_qsize) {
-+		if (!value && !ea_info_qsize) {
- 			err = ntfs_attr_remove(ni, AT_EA, AT_UNNAMED, 0);
- 			if (err)
- 				goto out;
-@@ -357,7 +359,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 			goto out;
- 		}
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index cda8d02c130e..38309cbd98c2 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -159,6 +159,8 @@ int ntfs_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
+ 		flags |= FS_IMMUTABLE_FL;
+ 	if (vi->i_flags & S_APPEND)
+ 		flags |= FS_APPEND_FL;
++	if (ni->linuxflags & NTFS_LINUXFLAGS_NODUMP)
++		flags |= FS_NODUMP_FL;
+ 	if (!NVolCaseSensitive(ni->vol))
+ 		flags |= FS_CASEFOLD_FL;
  
--		if ((flags & XATTR_REPLACE) && !val_size) {
-+		if (!value) {
- 			err = ntfs_write_ea(ni, AT_EA, ea_buf, 0, ea_info_qsize,
- 					true);
- 			if (err) {
-@@ -378,7 +380,7 @@ static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 			goto out;
- 		}
- 	} else {
--		if (flags & XATTR_REPLACE) {
-+		if (!value || (flags & XATTR_REPLACE)) {
- 			err = -ENODATA;
- 			goto out;
- 		}
+@@ -190,7 +192,7 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+ {
+ 	struct inode *vi = d_inode(dentry);
+ 	struct ntfs_inode *ni = NTFS_I(vi);
+-	u32 allowed = FS_IMMUTABLE_FL | FS_APPEND_FL;
++	u32 allowed = FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL;
+ 	u32 readonly = 0;
+ 	u32 linuxflags = ni->linuxflags & ~NTFS_LINUXFLAGS_MASK;
+ 	unsigned int new_fl = 0;
+@@ -233,6 +235,8 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		new_fl |= S_APPEND;
+ 		linuxflags |= NTFS_LINUXFLAGS_APPEND;
+ 	}
++	if (fa->flags & FS_NODUMP_FL)
++		linuxflags |= NTFS_LINUXFLAGS_NODUMP;
+ 
+ 	mutex_lock(&ni->mrec_lock);
+ 	err = ntfs_ea_set_linuxflags(vi, linuxflags);
+@@ -507,9 +511,12 @@ int ntfs_getattr(struct mnt_idmap *idmap, const struct path *path,
+ 
+ 	if (inode->i_flags & S_APPEND)
+ 		stat->attributes |= STATX_ATTR_APPEND;
++	if (ni->linuxflags & NTFS_LINUXFLAGS_NODUMP)
++		stat->attributes |= STATX_ATTR_NODUMP;
+ 
+ 	stat->attributes_mask |= STATX_ATTR_COMPRESSED | STATX_ATTR_ENCRYPTED |
+-				 STATX_ATTR_IMMUTABLE | STATX_ATTR_APPEND;
++				 STATX_ATTR_IMMUTABLE | STATX_ATTR_APPEND |
++				 STATX_ATTR_NODUMP;
+ 
+ 	/*
+ 	 * If it's a compressed or encrypted file, NTFS currently
 -- 
 2.51.0
 
