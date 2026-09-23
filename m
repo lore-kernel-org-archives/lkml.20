@@ -1,230 +1,282 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208DF466B77
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:05:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFBB361949
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:05:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175917; cv=none; b=g/Vy3b9fzPwwlrqiyFj7jKkqR+tWs+226lacuEVVJjLipAqIwZ3aIfF2X9NH5Cnj1o/uy+CYPXSZJgFexU+zijtKUaAaxHhcXLNzT21L7p0YqbQ2hT0qLNhVarKZtAaieL4TVEXNniu2qCAw5e8Xt6gUJ/RdYglOfwrn5kH6lUI=
+	t=1790175921; cv=none; b=NAvaDxwbV20H4DdCh3AXfvPXC6y/ciFjPdo4/RlYVUfMbNuZBjXGNL8uPGXXQaLz7jzqHgLOOq2KwWLu2lfK4WAAxnqW2CDJ/urqP4YzgQnVCqjTysd9OIZimrtq0KQwt97h//dkfoy1vXITvkz9Ft5zJ43YZntu3OGLLhMTKnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175917; c=relaxed/simple;
-	bh=rp1KQ2VRmhfqZU9qSd57CBPBNtwA3aQtI0YNPDTfp7E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dKVWTSvvgGSI5M2oEpflISxfaxvsUZbfChRNSDxMA7yCZdTq5yCuD50EI+pOysVgJk72ljZKxuEI1fMe4Q9uyA9hjfFXVeHd2eHIxsVLZsrORHGqRFwFi+pIkvr1b19h1HwObHj7/EbbG7/FEZdE1bzWjUPawzTWt213N1WV2vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LijUIpRs; arc=none smtp.client-ip=74.125.228.140
+	s=arc-20240116; t=1790175921; c=relaxed/simple;
+	bh=wz5v6tqnETTrhq0ct0o1DXSnc9iKTEUsqX+mHmBe6IY=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=ITqPH/6ovIIy9dJXmAGw/zx6/IgTS/yKrCuH8hZshZ2Fs3VI0CE6sGhx3M7wHs5TW4zyiJWdOSWPEt1wfm2ejPqw7V6CxsJIYNOo1+bRKRFLa2fpeS9hjyYpZThq59+req1sZ4Ma/dBPPYEwi69JygqCvGZ/BbxhLtokILNCJvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q2KK+igT; arc=none smtp.client-ip=74.125.224.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LijUIpRs"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f6c7a4aso137029266b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:05:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q2KK+igT"
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-895eaf30817so15902857b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:05:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790175911; x=1790780711; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JUga4eXtCVg9VRjH/WIKSFqPpCVH1XzzVx2Gw8aeOLA=;
-        b=LijUIpRsXJZmBnxAmbrUMvq7r2YTvW9xpob6IPHL+98gR/RPGiJKU5VA7TJWkEunBC
-         m22egctjJDGMs0ED8kBm5aJsnuc7dvVl8J4W3hwA4PlPsbsvY7dZz4XnwCQAWbinQHqW
-         lSmOt+gzSOfTEgGSiIkQaUqjvzOIMHJDOpiV5C3KCSt0QfKpIAQBcjTRx02lnIF9moP6
-         So6vj0r5gTe/n45DS0fEL/f4dghLA/lEz3xHpH+zLs0G82ZlVDsts/qnw7uGfEAo6RQr
-         SrjHiQoaDbVXStepZuf1L5jW+sDo+srkXNTPf+wXMiSHGHfoy6451hdSnT4XN4oXfITY
-         QogA==
+        d=gmail.com; s=20251104; t=1790175917; x=1790780717; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V+RN9pGdf/MENO9Klpa0evnZ+IqaWvHGx3bi4rghzqc=;
+        b=q2KK+igTaH40e6h617pUWlEHaDTF/AvPTTCuwKCL1paMH0sWXSGhg7D19qy0pd9FXL
+         O5bX/FbNHLHhy5auXcRlivAUktGqTtbQ0sVdhb8LsqopgkTLA2NmimTTWN9wnbngSF7g
+         tD3aUrebv7lobDuCMHIrHZVKA2C1UYjTACpnLsKlAxEE4xHZpo9VpeKkaD3aE2idAgtL
+         toDeO8fugI0DDkf3j4Vd6oTz2EBhOFDVzT3QvM7hLCzCwp+t6Cz2G5llukkEpWfanYIU
+         wHGfLOUomgUF5JzTcsvPHBMUpPOfGeuEDIOiqaaa2ZIBedaEYzjrBVpJrxFYzu701oNO
+         PSXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790175911; x=1790780711;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JUga4eXtCVg9VRjH/WIKSFqPpCVH1XzzVx2Gw8aeOLA=;
-        b=ZCFfJxtlHF5i1eT83Mcq+1EwkCLnaEb1b88pj25KiYX3k9eJPULJsok0WYw5P4/yvy
-         Sr+SlyCDM5JpbQnjNwRULaejr8Y4xY0qenHFdlPRrLTCtfjJCFSBaljf4bHUwlywx3W9
-         4AANEekWDmsSv+5s3CMrACDizlq5IEZPUxTZL458186o30UERjFCPNNWFIhjnShzARaF
-         IkoVON9pv4kD2C26oV2DjZEWgEyISIaE+WDyLzLEHCfexGhKwQbE0TSGWeJ4EIuRzGdX
-         TWy681hqpUOx8uGy0G8YctsjBUW2OBzK0J+OFPu5fUtWHD+3dIv5QZ2vwP6u59uvCkax
-         cSNQ==
-X-Forwarded-Encrypted: i=1; AKwUvByuLjG89/GCGxt0qptJrEkRdHVGoI/2poapE5qrC4+WXzJJb0gYxHQEpZR7FYfM3LvvnBt6fYBL1de3JHY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgAUrS6t7skyvV+QYHywGCVrVjmI+fNOG24dC4tx9TyIlxVxDp
-	36A+I/yOK3nOTwh5Fa91NAFxL9pnt3RlQvKXzrHLxaPvAtDoUtANPN6K
-X-Gm-Gg: AYBFou3vEPoReWsOn76yjDZ9JpLMYCvECbdnkflhChYP21x1ZlMSwEXZPY2Apbsy6ju
-	Jo+6uvGDj8X5694oKr14XNa4jDJmyq+pSzI67HUwhs0ZO/ETk4uutinAi7PtFPkVNwsEtdIMuqP
-	Q2ZMKy2iDE+VoLrb/A1kozbzx2tBioivO1VQvwqe9DnMq5FQ5r09kxv2oeMA5iLDxnE8guAF0B6
-	OeWfCAZyNP+zsSPa1w8volu0GjcEai2dF5frFm3uSShTYt4RV43ZdId/jySkSWDg396chAuRoLM
-	A9RpU/11ToTEdnGkw1kw3Yv0Zx0vhubIwQiNuzcutqgAth9lEOU8CrsmNg35EvtXYyGlzRWSjmB
-	+I2+4dcDyg1hKwlya0HiS8krZEqfsOmUklwqZHWUR9nE/i/2gj9cfq+bF609ZRNh3S2KbVJSVDM
-	VM7jbrm+RbF1VSyqdS5to97H4QYg5Y9yBTwTkF0QA+Z8g2EjdnV4FDbmhUu0VZ/LXt/6yEcgG8z
-	Pz5CuU85LDg
-X-Received: by 2002:a17:907:7287:b0:c29:d31f:7d7a with SMTP id a640c23a62f3a-c2aadf37c48mr248950266b.21.1790175911358;
-        Wed, 23 Sep 2026 08:05:11 -0700 (PDT)
-Received: from [138.92.0.0] ([104.28.254.34])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c5524sm144401066b.21.2026.09.23.08.05.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 08:05:10 -0700 (PDT)
-Message-ID: <1edaa3cf-f3bb-4408-8777-3ff44a4a2209@gmail.com>
-Date: Wed, 23 Sep 2026 18:05:08 +0300
+        d=1e100.net; s=20260707; t=1790175917; x=1790780717;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V+RN9pGdf/MENO9Klpa0evnZ+IqaWvHGx3bi4rghzqc=;
+        b=HrdNI6IVzIbygM4vsdjL5MwbSgZfSTrsi3L6caQUb6NPO9SE+0fLgkey0PQbFLqckO
+         l+gxvU43INHoCZZnmAzhlVweadj4ZjurFmqtf61JmUABEgw2yLymMr7F+8zDa4ju7rmV
+         T5yS7cPpbFWqrDcJDlD4a9n2xMMyUox8XnEMzi8hpU97DoOsxVrClTZtT+b1qcS9qL1F
+         TrWF91yeX/az9yQSuXP4SdtIWrvpUSzhmF8IDN1KDhvHtl7RZsURsY/5D83vSLX8xPOE
+         nqeYD9taCDLZf16rS4LSdtGw3hMJF7U4JCkc4oDrL0KDSHvJ1LmSuVOOdXFF7tZLf1Ce
+         fLAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ4MpMwxxjGjwHQNjs7sraDJIPp/JKsY00bQj9XthfwcEH1PctYYyusCLldUi2YNJELrjhUHjR6Cizobw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlqJ994Tm946a/uIjYzk48CmKs7yOyMAD2WuWG8PR0Kx60dQXm
+	cNll5s6RK/peUiPt+fPg08ri0ennAKnmI9OVUjfer/qf2xte2G/XpKl9
+X-Gm-Gg: AYBFou1HO+uvALTu+I2d9knidJKbOe1x2O8MouIgHtOdAoZfOuhNgGPyaNmZaq5YCJj
+	8hUXSWme5vlwBfCO4PWQwM6EYQzvjuBexQwrhFyH8all8rybokWKCvBCOFxkfv/oFn0nKFbjNIx
+	71JQIcArP9ApfR3/TAO3ioC5oVO4v+xOiWZqjBaY0IyHI4dvZK5j8I0p8pfiR3FAo7/aR63n1wE
+	OE+dQNcodSv3Rtibf3G48qtJ3I/4MEn6XrYryw8aBm+QkiJFfYnssu4dCXaN+E7MEt92ZV23s58
+	G84Qx4z3rHF+kENLS1LgnC9S5aCkGn5M5egbHIWChPEw5++4db2pOlf+RDA0XSz8+GIhP/EWJQi
+	/0t5uTVgjEYoDW1WNtUQa43Gui+ktbqKj8zFhR36nrHBZYB+rP0OlssbVq345gjCB38cbxK81JV
+	SJ1DPhEM1wMByAEbMXrKUs/lhO/qVNyWSydrD0GZ0yDsDOKDO1Bat0SdiUGMmesrLorK6THFUAq
+	gVUZCXKj7/0lywyNSL24I/P3gk4I4ZuOjAddznJvBweZgSzpWdUlSiuFeFSsnh3bgNA3gCtwg==
+X-Received: by 2002:a05:690c:4990:b0:8a5:279:c4bb with SMTP id 00721157ae682-8a502892c37mr10292227b3.25.1790175917079;
+        Wed, 23 Sep 2026 08:05:17 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a465dc176dsm10757107b3.21.2026.09.23.08.05.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 08:05:16 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:05:15 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: netdev-bot+sashiko@kernel.org, 
+ benquike@gmail.com
+Cc: willemdebruijn.kernel@gmail.com, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.2ffc47a14776d@gmail.com>
+In-Reply-To: <178994135589.2160803.3896990579971629208@kernel.org>
+References: <20260919215237.3470987-1-benquike@gmail.com>
+ <178994135589.2160803.3896990579971629208@kernel.org>
+Subject: Re: [PATCH] net/packet: zero-pad spkt_device and preserve sa.origlen
+ across MSG_PEEK
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] HID: multitouch: add support for Goodix GXTP7863
- touchpad
-To: Benjamin Tissoires <bentiss@kernel.org>
-Cc: jikos@kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260814171247.16707-1-daminovruzal7@gmail.com>
- <20260819123326.3242-1-daminovruzal7@gmail.com> <aquWNXpJuQr8HLBU@beelink>
- <51055e02-5bf1-4b1e-b430-382d00d3d004@gmail.com> <aqwUYWPz_nORoFr6@beelink>
- <33a7c239-ede5-4091-ba72-ff429d97013c@gmail.com>
- <816a300c-1f63-4d4a-a0f9-8eef5bd7e748@gmail.com> <arJ-vvEvd93l_aAp@beelink>
- <41f8ed8e-1466-4002-8411-bf9871da2adc@gmail.com> <arPT9zIoypn5V3PT@beelink>
-Content-Language: en-US
-From: Ruzal <daminovruzal7@gmail.com>
-In-Reply-To: <arPT9zIoypn5V3PT@beelink>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 9/23/26 4:31 PM, Benjamin Tissoires wrote:
-> If you could work on it yourself that would be great
-> 
-> FWIW, I tried playing with the new HID_REPORT_DESCRIPTOR but if this
-> allows to read the current report descriptor, this doesn't allow to
-> amend it, making things a little bit too complex to implement properly.
-> So it would be simple enough to use the same old bits checking and
-> changing so you get the BPF quickly out.
-> 
-> Cheers,
-> Benjamin
+netdev-bot+sashiko@ wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential
+> issue(s) to consider.
+> =
 
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 2
+> =
 
-Hi Benjamin,
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchw=
+ork
+> know by including "pw-bot: cr" as a separate line at the end of your re=
+ply
+> (one such reply per series is enough).
+> =
 
-I implemented the BPF fix and verified it by toggling with `udev-hid-bpf remove`
-and `add`: without the BPF program the UNKNOWN keyboard node appears
-immediately, and with the BPF loaded it completely disappears.
+> - [Medium] Hunk #1 (strscpy() -> strscpy_pad() in packet_rcv_spkt(),
+>   net/packet/af_packet.c:1921) is a genuine kernel-memory information=E2=
+=80=A6
+> - [Low] The commit bundles two independent defects with different bug
+>   classes, different code paths and different regression lineages: (a)=E2=
+=80=A6
+> - [Low] The commit message mis-states the user-visible symptom of fix #=
+2.
+> =
 
-I wanted to open a Merge Request on GitLab, but my new account
-(@mounkastel) hit the anti-spam project limit barrier ("Limit reached:
-You cannot create projects in your personal namespace"). I have filed a user
-verification issue on freedesktop/freedesktop.
+> --
+> =
 
-In the meantime, here is the git patch below so you can review or apply it
-directly to udev-hid-bpf.
+> net/packet: zero-pad spkt_device and preserve sa.origlen across MSG_PEE=
+K
+> =
 
-Cheers,
-Ruzal
+> This changes packet_rcv_spkt() to use strscpy_pad() when filling
+> spkt->spkt_device, and moves the sll_family/sll_protocol assignments in=
 
-From d585a7cdb2f75dd0d22dda9d7701147d4290d191 Mon Sep 17 00:00:00 2001
-From: Ruzal Daminov <daminovruzal7@gmail.com>
-Date: Wed, 23 Sep 2026 17:42:10 +0300
-Subject: [PATCH] HID: bpf: Add Goodix GXTP7863 touchpad telemetry fix
+> packet_recvmsg() from PACKET_SKB_CB(skb) into the destination
+> msg->msg_name buffer so that the aliased sa.origlen is not clobbered.
+> =
 
-The Goodix GXTP7863 touchpad found on Honor MagicBook laptops emits a
-periodic 1-Hz telemetry heartbeat report on vendor page 0xFF01.
+> No Link: tags were present in the commit header.
+> =
 
-Because page 0xFF01 is historically mapped to HP vendor hotkeys in
-hid-input, changing telemetry payload bytes are misinterpreted as
-brightness keypresses, resulting in an endless KEY_BRIGHTNESSUP loop.
+> > diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> > index 50cae32ae269..15def2d16806 100644
+> > --- a/net/packet/af_packet.c
+> > +++ b/net/packet/af_packet.c
+> > @@ -1918,7 +1918,7 @@ static int packet_rcv_spkt(struct sk_buff *skb,=
+ struct net_device *dev,
+> >  	 */
+> >  =
 
-Remap the vendor telemetry page to an ignored vendor page to prevent
-hid-input from creating a bogus keyboard node, while keeping the raw
-reports available through hidraw for firmware updates.
+> >  	spkt->spkt_family =3D dev->type;
+> > -	strscpy(spkt->spkt_device, dev->name, sizeof(spkt->spkt_device));
+> > +	strscpy_pad(spkt->spkt_device, dev->name, sizeof(spkt->spkt_device)=
+);
+> >  	spkt->spkt_protocol =3D skb->protocol;
+> =
 
-Tested on Honor MagicBook X14 Plus (FMI-76, AMD Ryzen 8845HS).
+> [Severity: Medium]
+> Is this hunk actually closing a leak of uninitialized kernel memory to
+> userspace rather than just padding a buffer?
+> =
 
-Signed-off-by: Ruzal Daminov <daminovruzal7@gmail.com>
----
- src/bpf/testing/0010-Goodix__GXTP7863.bpf.c | 66 +++++++++++++++++++++
- src/bpf/testing/meson.build                 |  1 +
- 2 files changed, 67 insertions(+)
- create mode 100644 src/bpf/testing/0010-Goodix__GXTP7863.bpf.c
+> spkt here is PACKET_SKB_CB(skb)->sa.pkt, i.e. it is built in place at
+> offset 0 of skb->cb[48], which is never zeroed and carries residue from=
 
-diff --git a/src/bpf/testing/0010-Goodix__GXTP7863.bpf.c b/src/bpf/testing/0010-Goodix__GXTP7863.bpf.c
-new file mode 100644
-index 0000000..84372c7
---- /dev/null
-+++ b/src/bpf/testing/0010-Goodix__GXTP7863.bpf.c
-@@ -0,0 +1,66 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Copyright (c) 2026 Ruzal Daminov */
-+
-+/*
-+ * Goodix GXTP7863 Touchpad Telemetry Fix
-+ *
-+ * Problem: The touchpad sends periodic 1-Hz heartbeat reports on Report ID 8
-+ * with Vendor Usage Page 0xFF01. hid-input treats Usage Page 0xFF01 as
-+ * HID_UP_HPVENDOR2, misinterpreting changing telemetry bytes as phantom
-+ * KEY_BRIGHTNESSUP events.
-+ *
-+ * Fix: Remap the vendor telemetry collection to an ignored vendor usage page.
-+ * This prevents hid-input from creating a bogus keyboard input node while
-+ * keeping raw reports accessible via hidraw for firmware updates.
-+ */
-+
-+#include "vmlinux.h"
-+#include "hid_bpf.h"
-+#include "hid_bpf_helpers.h"
-+#include <bpf/bpf_tracing.h>
-+
-+#define I2C_VENDOR_ID_GOODIX		0x27c6
-+#define I2C_DEVICE_ID_GOODIX_01E0	0x01e0
-+
-+HID_BPF_CONFIG(
-+	HID_DEVICE(BUS_I2C, HID_GROUP_ANY, I2C_VENDOR_ID_GOODIX, I2C_DEVICE_ID_GOODIX_01E0)
-+);
-+
-+SEC(HID_BPF_RDESC_FIXUP)
-+int BPF_PROG(hid_fix_rdesc_goodix_touchpad, struct hid_bpf_ctx *hctx)
-+{
-+	__u8 *data = hid_bpf_get_data(hctx, 0, 4096);
-+
-+	if (!data)
-+		return 0;
-+
-+	if (hctx->size == 705) {
-+		/*
-+		 * Report 8: Change Usage Page from 0xFF01 (HID_UP_HPVENDOR2)
-+		 * to 0xFF09 (HID_UP_LOGIVENDOR2) at index 625.
-+		 */
-+		if (data[625] == 0x06 && data[626] == 0x01 && data[627] == 0xff &&
-+		    data[632] == 0x85 && data[633] == 0x08) {
-+			data[626] = 0x09;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+HID_BPF_OPS(goodix_touchpad_ops) = {
-+	.hid_rdesc_fixup = (void *)hid_fix_rdesc_goodix_touchpad,
-+};
-+
-+SEC("syscall")
-+int probe(struct hid_bpf_probe_args *ctx)
-+{
-+	if (ctx->rdesc_size != 705) {
-+		ctx->retval = -EINVAL;
-+		return 0;
-+	}
-+	ctx->retval = 0;
-+	return 0;
-+}
-+
-+char _license[] SEC("license") = "GPL";
-diff --git a/src/bpf/testing/meson.build b/src/bpf/testing/meson.build
-index 73158c9..97435ad 100644
---- a/src/bpf/testing/meson.build
-+++ b/src/bpf/testing/meson.build
-@@ -11,6 +11,7 @@ tracing_sources = [
-     '0010-Iiyama__ProLite-TE9804MIS.bpf.c',
-     '0010-XPPen__DecoSE.bpf.c',
-     '0010-Corsair__K70-CORE.bpf.c',
-+    '0010-Goodix__GXTP7863.bpf.c',
- ]
- 
- # 'sources' are BPF programs only compatible with
--- 
-2.55.0
+> earlier layers (for example qdisc_skb_cb on the transmit capture path v=
+ia
+> dev_queue_xmit_nit()).  strscpy() terminates but does not pad, so for a=
+
+> short name like "eth0" the remaining 9 bytes of the 14-byte spkt_device=
+
+> keep whatever was in skb->cb.
+> =
+
+> packet_recvmsg() then copies the whole struct out with no memset of the=
+
+> destination on the SOCK_PACKET branch:
+> =
+
+> 	if (sock->type =3D=3D SOCK_PACKET) {
+> 		__sockaddr_check_size(sizeof(struct sockaddr_pkt));
+> 		msg->msg_namelen =3D sizeof(struct sockaddr_pkt);
+> 		copy_len =3D msg->msg_namelen;
+> 	}
+> 	...
+> 	memcpy(msg->msg_name, &PACKET_SKB_CB(skb)->sa, copy_len);
+> =
+
+> so those bytes end up in the source address returned by
+> recvmsg()/recvfrom().
+> =
+
+> The sibling accessor packet_getname_spkt() already does:
+> =
+
+> 	memset(uaddr->sa_data, 0, sizeof(uaddr->sa_data));
+> 	strscpy(uaddr->sa_data, dev->name, sizeof(uaddr->sa_data));
+> =
+
+> which suggests the padding is a deliberate defence in this file rather
+> than hygiene.  The commit message only says "so trailing bytes after
+> dev->name's NUL terminator in the 14-byte buffer are zeroed" - could it=
+
+> name the user-visible disclosure and carry its own Fixes: tag so stable=
+
+> triage does not treat the hunk as cleanup?
+> =
+
+> [Severity: Low]
+> Should this hunk be a separate patch?  The single tag in the header:
+> =
+
+> 	Fixes: 2472d7613bd3 ("net: packet: use sockaddr_ll fields as storage f=
+or skb original length in recvmsg path")
+> =
+
+> only describes the packet_recvmsg() change.  Reading 2472d7613bd3, it
+> introduced the origlen/sockaddr_ll union and the recvmsg writes, and it=
+
+> did not touch packet_rcv_spkt() or this strscpy() call at all.
+> =
+
+> The two changes affect different socket types (SOCK_PACKET here,
+> SOCK_RAW/SOCK_DGRAM in packet_recvmsg()) and have different lineages, s=
+o
+> as submitted neither can be backported or reverted on its own.  Would
+> splitting this into two patches, each with its own Fixes: tag, work
+> better?
+> =
+
+> > @@ -3510,15 +3510,8 @@ static int packet_recvmsg(struct socket *sock,=
+ struct msghdr *msg, size_t len,
+> >  	if (err)
+> >  		goto out_free;
+> >  =
+
+> > -	if (sock->type !=3D SOCK_PACKET) {
+> > -		struct sockaddr_ll *sll =3D &PACKET_SKB_CB(skb)->sa.ll;
+> > -
+> > -		/* Original length was stored in sockaddr_ll fields */
+> > +	if (sock->type !=3D SOCK_PACKET)
+> >  		origlen =3D PACKET_SKB_CB(skb)->sa.origlen;
+> > -		sll->sll_family =3D AF_PACKET;
+> > -		sll->sll_protocol =3D (sock->type =3D=3D SOCK_DGRAM) ?
+> > -			vlan_get_protocol_dgram(skb) : skb->protocol;
+> > -	}
+> =
+
+> [Severity: Low]
+> Is the symptom described in the commit message the one this hunk fixes?=
+
+> The message says the clobbered value affects:
+> =
+
+> 	subsequent recvmsg(MSG_PEEK | MSG_TRUNC) calls
+> 	on the same skb
+> =
+
+> which reads as though the length reported for MSG_TRUNC is wrong.  The
+> return value of packet_recvmsg() does not use origlen:
+> =
+
+> 	err =3D vnet_hdr_len + ((flags&MSG_TRUNC) ? skb->len : copied);
+> =
+
+> The only consumer in net/packet/ is inside the PACKET_SOCK_AUXDATA bloc=
+k:
+> =
+
+> 	if (packet_sock_flag(pkt_sk(sk), PACKET_SOCK_AUXDATA)) {
+> 		...
+> 		aux.tp_len =3D origlen;
+> =
+
+> So the observable appears to be a garbage tp_len in the PACKET_AUXDATA
+> cmsg on a second recvmsg() of a peeked skb (the old code had written
+> AF_PACKET | protocol << 16 over the aliased bytes), and only when
+> setsockopt(PACKET_AUXDATA) is enabled.  Could the message mention that
+> precondition, so that someone reproducing with MSG_PEEK|MSG_TRUNC alone=
+
+> does not conclude the bug is not real?
+
+Agreed on all three points. Thanks for the fixes! Please do respin with
+
+1. Separate the two fixes, with separate Fixes tags
+2. For spkt_device describe that it solves a kernel mem leak through msg_=
+name
+3. For origlen, double check what the consequence of the peek overwrite i=
+s
