@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A00522F0F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:45:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A625335AA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:45:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178327; cv=none; b=tkV0n+fU+kReuvTkwfGCKN/a9UesY0/QdBFa4lUA/c0AqzOPJNaRMSUmlXJrVjbIjiAvX3supJLI48RvJb/kQcPSWFrfpXw1rP7lu2QKHtHIVHl1LPApbgeqZJP4nKTo4irlabi9f+2pl9OKLHIDrxAmrVnV3PPLCfTQu8JmIxU=
+	t=1790178330; cv=none; b=QFcvicC+eZ+24dY9D9XlhFl9+ELKJEXkjyXjNrV7fmAxdohPKxxFHhr2n7OhdWEcCwCrSqsKWVU3szzF1d4r+vIUrgMud1krdV59WO/2vhKrYE8Pz4k9/++P9mweUUbmBFFgjlSB4HcCzQNMehnMl+xE0yPO04yyVU5n73qT1aU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178327; c=relaxed/simple;
-	bh=cg22F4oWYlEmIpDCazd39kSV82zKWDDN8b6deVus19Y=;
+	s=arc-20240116; t=1790178330; c=relaxed/simple;
+	bh=33FdYS7LcHQOUuVVbB724hi3rHicKValZW5fZAPUwE4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lVAXsnEiE6zy5P5CC7a7dFXgZXAB3/PK6+mnsAYwrGpxzXOkOg8qDqe6xMZR6jy3bSN6iPsX18K7lG7pufpRLF++N5bzUZx9Ko5alr++v5MuMmID53GxQ1IpGEfcs3dlFAy0Jh5X4sBMBlXSZPVVmBio57qJ36OP01TdbV3torw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLn0rCcZ; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=sPpqVLZGEczeIiqMXfOR8EY90JSczlpPOjGP8qjqICIuCR3WbYF3Yeq8eBjfF9BtjA+kw3RiKxTp3ER2CbmNfgckztJeLc8+tMQZECsl8wgxgTy2wU6Md9tMQyg5QlrpLUFPF5zsUMJQRvuRjVveimiejzjMZ4FhpyXebSuKT9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7OTHLD4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLn0rCcZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F31911F00893;
-	Wed, 23 Sep 2026 15:45:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7OTHLD4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87F671F000FF;
+	Wed, 23 Sep 2026 15:45:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790178326;
-	bh=evsrLpPx+3ZMMMhVn053YC5QDyQsoD3UAb1BpOZ7Ewc=;
+	s=k20260515; t=1790178328;
+	bh=NzT0YNZekEUjP9R0sb5doBa5YOLmVvxQILIsqj1HgT8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=nLn0rCcZWtnRie2FV59JJMs9XVRpY5HnaIUTOb2mC5GCLbmtByEVJcFPQzr9elvM8
-	 lI7cb73x5uSEwwymSaBxb37s11aSIcS/PCCOvn2I2+2Xd6eg6sCZFkyEtnNe/98cXj
-	 zQ0htgsmDH9XHPc5RciveYGunT4BNdtXR/2HpWezWP7msphtQVKp0TaBSkyhdE1aUk
-	 UonsOUvqZbMcBP3hVMPvECP1mLe0JwOcrHdaHO6ViBL413m3fqCybyrW4hpDPIExOI
-	 TgAV5XLcZ6auagicNjbX6D0fNm1/oMh0iWth++pLF4aIg1lQm5U5qRhnrpMTzWSOk5
-	 Pr8hZo37zbYbA==
+	b=h7OTHLD4zH6KwJ6BLFqpcKrGs3/t4gr+WYAn8O9Bo6UWEIK717FJcpQcPPo6FNOfL
+	 As19/HSnO6zPWKxjEbIjEZrAgstc+GM7B+ikA2oa8Q+UYxtlCRBhuca6Lkb5PI7I1g
+	 jpH4nyb9ASSYfAcWLvUiaOEM9z/dHG8Inr1gSxHLN13im1WQ4KK9nBgCDT4p960R96
+	 mNcWU+OSWHFlUAjOyCO53HZHLgyLF/GhZALDFdPhq87GITelC3l52X2UEqERId29qn
+	 wAGkz6H2+VvUk0NniOL6loNnfSem0f6VeI3P0tGaXVHY2IQRinHG7n23mREDpV4w3V
+	 VEPH/eFmvOWgw==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Wed, 23 Sep 2026 17:45:08 +0200
-Subject: [PATCH RFC 3/8] mm, slab: rework KMALLOC_RECLAIM handling of
- SLUB_TINY
+Date: Wed, 23 Sep 2026 17:45:09 +0200
+Subject: [PATCH RFC 4/8] mm, slab: make SLUB_TINY handling dynamic for
+ sizing decisions
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-slub_tiny_rework-v1-3-a0e66d536eb5@kernel.org>
+Message-Id: <20260923-slub_tiny_rework-v1-4-a0e66d536eb5@kernel.org>
 References: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
 In-Reply-To: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
 To: Harry Yoo <harry@kernel.org>
@@ -50,153 +50,81 @@ Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
  linux-kernel@vger.kernel.org, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
 X-Mailer: b4 0.16.0
 
-One (relatively minor) aspect of CONFIG_SLUB_TINY is the assumption that
-letting reclaimable and non-reclaimable caches merge will save more
-memory, which is more important on small systems than the page allocator
-level fragmentation (where distinguishing reclaimable slabs should
-help).
+Enabling CONFIG_SLUB_TINY results in the caches' min partial slabs
+threshold to be zero, thus every slab where all objects become free is
+freed immediately. It also sets the default slab_max_order to 1, with
+the goal of reducing the potential of internal slab fragmentation.
 
-For now that has been achieved by #ifdefs that result in making the
-SLAB_RECLAIM_ACCOUNT no-op and aliasing KMALLOC_RECLAIM to
-KMALLOC_NORMAL on the enum values level.
-
-With the goal of converting CONFIG_SLUB_TINY to a boot-time decision,
-rework this so that SLAB_RECLAIM_ACCOUNT and KMALLOC_RECLAIM are
-distinctly defined always. Now, creation of kmalloc-rcl caches is
-avoided by assigning a pointer to the normal kmalloc cache on the
-kmalloc_caches array level.
-
-To prepare disconnecting of this boot-time decision (and the evaluation
-of the need for kmalloc_no_objext) from CONFIG_SLUB_TINY, introduce a
-slub_tiny_enabled variable that's initialized to the CONFIG_SLUB_TINY
-state.
-
-There is one minor functional change for CONFIG_SLUB_TINY: with
-SLAB_RECLAIM_ACCOUNT not being 0 anymore, caches with and without the
-flag will stop being mergeable. If that turns out to have a noticeable
-impact on memory footprint, we can adjust the merging decisions to
-ignore SLAB_RECLAIM_ACCOUNT when slub_tiny_enabled is true.
+Rework both of these decisions to be based on the newly introduced
+slab_tiny_enabled flag instead of #ifdefs. It's still possible to
+override the reduced slab_max_order with the boot parameter, as before.
 
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
- include/linux/slab.h | 10 ----------
- mm/slab.h            |  5 +++--
- mm/slab_common.c     | 12 ++++++------
- mm/slub.c            |  2 ++
- 4 files changed, 11 insertions(+), 18 deletions(-)
+ mm/slub.c | 15 +++++++--------
+ 1 file changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/slab.h b/include/linux/slab.h
-index ed949e8522be..930dd64b9ad6 100644
---- a/include/linux/slab.h
-+++ b/include/linux/slab.h
-@@ -55,9 +55,7 @@ enum _slab_flag_bits {
- #ifdef CONFIG_KFENCE
- 	_SLAB_SKIP_KFENCE,
- #endif
--#ifndef CONFIG_SLUB_TINY
- 	_SLAB_RECLAIM_ACCOUNT,
--#endif
- 	_SLAB_OBJECT_POISON,
- 	_SLAB_CMPXCHG_DOUBLE,
- #ifdef CONFIG_SLAB_OBJ_EXT
-@@ -241,11 +239,7 @@ enum _slab_flag_bits {
-  * pages are allocated with __GFP_RECLAIMABLE, which affects grouping pages by
-  * mobility, and are accounted in SReclaimable counter in /proc/meminfo
-  */
--#ifndef CONFIG_SLUB_TINY
- #define SLAB_RECLAIM_ACCOUNT	__SLAB_FLAG_BIT(_SLAB_RECLAIM_ACCOUNT)
--#else
--#define SLAB_RECLAIM_ACCOUNT	__SLAB_FLAG_UNUSED
--#endif
- #define SLAB_TEMPORARY		SLAB_RECLAIM_ACCOUNT	/* Objects are short-lived */
- 
- /* Slab caches without obj_exts array */
-@@ -724,11 +718,7 @@ enum kmalloc_cache_type {
- #endif
- 	KMALLOC_PARTITION_START = KMALLOC_NORMAL,
- 	KMALLOC_PARTITION_END = KMALLOC_PARTITION_START + KMALLOC_PARTITION_CACHES_NR,
--#ifdef CONFIG_SLUB_TINY
--	KMALLOC_RECLAIM = KMALLOC_NORMAL,
--#else
- 	KMALLOC_RECLAIM,
--#endif
- #ifdef CONFIG_ZONE_DMA
- 	KMALLOC_DMA,
- #endif
-diff --git a/mm/slab.h b/mm/slab.h
-index 77fcbf99b7b4..00d49ac0d93f 100644
---- a/mm/slab.h
-+++ b/mm/slab.h
-@@ -410,6 +410,8 @@ extern const struct kmalloc_info_struct {
- 	unsigned int size;
- } kmalloc_info[];
- 
-+extern bool slab_tiny_enabled;
-+
- /* Kmalloc array related functions */
- void setup_kmalloc_cache_index_table(void);
- void create_kmalloc_caches(void);
-@@ -590,8 +592,7 @@ static inline bool need_kmalloc_no_objext(void)
- 	if (!mem_alloc_profiling_permanently_disabled())
- 		return true;
- 
--	if (!mem_cgroup_kmem_disabled() &&
--			(KMALLOC_NORMAL == KMALLOC_RECLAIM))
-+	if (!mem_cgroup_kmem_disabled() && slab_tiny_enabled)
- 		return true;
- 
- 	return false;
-diff --git a/mm/slab_common.c b/mm/slab_common.c
-index 28bf035a58f3..38de7d50bfa7 100644
---- a/mm/slab_common.c
-+++ b/mm/slab_common.c
-@@ -826,11 +826,7 @@ EXPORT_SYMBOL(kmalloc_size_roundup);
- #define KMALLOC_CGROUP_NAME(sz)
- #endif
- 
--#ifndef CONFIG_SLUB_TINY
- #define KMALLOC_RCL_NAME(sz)	.name[KMALLOC_RECLAIM] = "kmalloc-rcl-" #sz,
--#else
--#define KMALLOC_RCL_NAME(sz)
--#endif
- 
- #ifdef CONFIG_KMALLOC_PARTITION_CACHES
- #define __KMALLOC_PARTITION_CONCAT(a, b) a ## b
-@@ -967,7 +963,11 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
- 	unsigned int aligned_size = kmalloc_info[idx].size;
- 	int aligned_idx = idx;
- 
--	if ((KMALLOC_RECLAIM != KMALLOC_NORMAL) && (type == KMALLOC_RECLAIM)) {
-+	if (type == KMALLOC_RECLAIM) {
-+		if (slab_tiny_enabled) {
-+			kmalloc_caches[type][idx] = kmalloc_caches[KMALLOC_NORMAL][idx];
-+			return;
-+		}
- 		flags |= SLAB_RECLAIM_ACCOUNT;
- 	} else if (IS_ENABLED(CONFIG_MEMCG) && (type == KMALLOC_CGROUP)) {
- 		if (mem_cgroup_kmem_disabled()) {
-@@ -1000,7 +1000,7 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
- 	 * KMALLOC_NO_OBJ_EXT cache.
- 	 */
- 	if (!mem_cgroup_kmem_disabled()) {
--		if (type == KMALLOC_NORMAL && KMALLOC_RECLAIM != KMALLOC_NORMAL)
-+		if (type == KMALLOC_NORMAL && !slab_tiny_enabled)
- 			flags |= SLAB_NO_MERGE;
- 		else if (!(flags & SLAB_NO_OBJ_EXT))
- 			flags |= SLAB_MAY_ACCOUNT;
 diff --git a/mm/slub.c b/mm/slub.c
-index bc593f0078c0..2a7b3b3b91b5 100644
+index 2a7b3b3b91b5..2c8477033700 100644
 --- a/mm/slub.c
 +++ b/mm/slub.c
-@@ -219,6 +219,8 @@ DEFINE_STATIC_KEY_MAYBE(CONFIG_MEM_ALLOC_PROFILING_ENABLED_BY_DEFAULT,
- 			slab_obj_ext_has_codetag_key);
- #endif
+@@ -272,7 +272,6 @@ void *fixup_red_left(struct kmem_cache *s, void *p)
+ /* Enable to log cmpxchg failures */
+ #undef SLUB_DEBUG_CMPXCHG
  
-+bool slab_tiny_enabled __read_mostly = IS_ENABLED(CONFIG_SLUB_TINY);
+-#ifndef CONFIG_SLUB_TINY
+ /*
+  * Minimum number of partial slabs. These will be left on the partial
+  * lists even if they are empty. kmem_cache_shrink may reclaim them.
+@@ -285,10 +284,6 @@ void *fixup_red_left(struct kmem_cache *s, void *p)
+  * sort the partial list by the number of objects in use.
+  */
+ #define MAX_PARTIAL 10
+-#else
+-#define MIN_PARTIAL 0
+-#define MAX_PARTIAL 0
+-#endif
+ 
+ #define DEBUG_DEFAULT_FLAGS (SLAB_CONSISTENCY_CHECKS | SLAB_RED_ZONE | \
+ 				SLAB_POISON | SLAB_STORE_USER)
+@@ -7604,8 +7599,7 @@ EXPORT_SYMBOL(kmem_cache_alloc_bulk_noprof);
+  * take the list_lock.
+  */
+ static unsigned int slab_min_order;
+-static unsigned int slab_max_order =
+-	IS_ENABLED(CONFIG_SLUB_TINY) ? 1 : PAGE_ALLOC_COSTLY_ORDER;
++static unsigned int slab_max_order = PAGE_ALLOC_COSTLY_ORDER;
+ static unsigned int slab_min_objects;
+ 
+ /*
+@@ -7924,7 +7918,7 @@ static unsigned int calculate_sheaf_capacity(struct kmem_cache *s,
+ 	size_t size;
+ 
+ 
+-	if (IS_ENABLED(CONFIG_SLUB_TINY) || s->flags & SLAB_DEBUG_FLAGS)
++	if (slab_tiny_enabled || s->flags & SLAB_DEBUG_FLAGS)
+ 		return 0;
+ 
+ 	/*
+@@ -8660,6 +8654,9 @@ void __init kmem_cache_init(void)
+ 
+ 	slab_obj_ext_has_codetag_init();
+ 
++	if (slab_tiny_enabled)
++		slab_max_order = 1;
 +
- /* Structure holding extra parameters for slab allocations */
- struct slab_alloc_context {
- 	unsigned long caller_addr;
+ 	if (slab_max_order_param <= MAX_PAGE_ORDER)
+ 		slab_max_order = slab_max_order_param;
+ 
+@@ -8783,6 +8780,8 @@ int do_kmem_cache_create(struct kmem_cache *s, const char *name,
+ 	 */
+ 	s->min_partial = min_t(unsigned long, MAX_PARTIAL, ilog2(s->size) / 2);
+ 	s->min_partial = max_t(unsigned long, MIN_PARTIAL, s->min_partial);
++	if (slab_tiny_enabled)
++		s->min_partial = 0;
+ 
+ 	s->cpu_sheaves = alloc_percpu(struct slub_percpu_sheaves);
+ 	if (!s->cpu_sheaves) {
 
 -- 
 2.55.0
