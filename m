@@ -1,71 +1,71 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010065.outbound.protection.outlook.com [52.101.193.65])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011009.outbound.protection.outlook.com [40.107.208.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0C244BCB0;
-	Wed, 23 Sep 2026 07:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF7B0455619;
+	Wed, 23 Sep 2026 07:16:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.9
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147809; cv=fail; b=rgW37+asDccOMCD/uaBeYm38eUVn8XYRr7BPXQscTWO1zA+cZn+vH16/M0z4PKeDpQAhymwqH/1/FiVqo8NkBd8SePzFy/LZLPx93cGf1rR/HGbuExua2XNny5z1YA0PdWvKSZRCMV3jNmdchrFILcEgUDqoJ72eE/Z4j1xqJ9E=
+	t=1790147819; cv=fail; b=a0V16V6METzbBYN5t78L2tXB5PXVcNGJqMTE4hxzk0wUn6bDd52ZndJkn2V6/YIkqURhMly0VyZveIXxxBAwTZoRAf1sltQdbTdXJe5/7bv8IR07WfK6mFrcDlZB0yhP5UzjT9GbYc38y6DgDsjSY1XpxLtsXL4TTSFcsP6IBco=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147809; c=relaxed/simple;
-	bh=qs+RJGX7afVx1/bACZN350qWgMS6MMc78bmGZgnGCU8=;
+	s=arc-20240116; t=1790147819; c=relaxed/simple;
+	bh=cd1s4Azjiaan3QJ6KCdCEE+IW2xrOsLFs8yNsIAxA64=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=iURXfLVY0IPRBApgYE4saQa9TSp8kcbfmX22rQT1mKmFBGdyQhQisXiUJ0QaL/p756JZOlz1UUUNDxxNm0DuS2iOYKO6gEazkCJPkNApM7ozD//9CsMhA57/wCD4ovBnvXQ7HGfZ07LDtfv/3Upip6cOxzU/wByUDxCfgfnU0eM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OpB0zLZ4; arc=fail smtp.client-ip=52.101.193.65
+	 In-Reply-To:To:CC; b=FQvPA/nIqT5p+BvJBDYnKmN5sX9SdGPE+M8dNBShqSlQX0ljnVJN71K0Mz7BiRTlLkOa6htl33eZRieHXRAgqtRYHLOLlXluymFsRg+qlwncgKr4q8brqYkv6bZ9GmLu0a1tZwNmGHoNVk9J5hB2ONzmweiUv7KCveizfzWcaiw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sjoO3zIE; arc=fail smtp.client-ip=40.107.208.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OpB0zLZ4"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sjoO3zIE"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M1WsiD+P3eH7w5KrDZ36xvQLImJSdAlngg2p30++PstMkEBlZaXW7uNiYdvvOKiPtCaRaithfuR/UeR8hWv9ymwh/lHHRt56dGSu2z4lRCufCY7V3QUVqoEeEBOE673cgYlOchR8oeiDg8Sdpa3hFzAIo9Z2NPFirmvBEBAv+dchSA/JEQs+XxJif68HrNbhK41QzlQBSMuaCrrBvKCA0K17qOZU7hLW6/yWnV05h8h5arkKIoKyqQ0abmb5oDWRIlUI3U6ZmqmPGGbFZthMwoaXKsICC4d0E9SxtwoA6oWITHMDSxZr+R0VsCbcEIhllgOi0+M7/aZeDAHkLBTvDg==
+ b=TSsyWBCVNb2oshyOnGKVWs590nv/vMAMiKHqq2lB93IrS2+pDQkNLN7y5yUN4R3um1U0+XPpDuM0gYyycqaMMrg3VTnRjHnMige7qDJuRoLuyBamhL1wal2aCDFR/Nn5RBU4kZXavw19ivgOSuEXWu1ShqMa1PYnS8bZWBorf2oHlOc+N8dixN2C0ZB/GqXG1EIOaJOg/qHku6pdOR9Snq1HVs2KkARupv5sg8s5tQg32UKCHUkuJPAQM9st74NqgZ3pmwCSt2ZWmGgw70gQj9QwAs+uJHFdYPWxJDqJo08z9uxyhD5j+x9XOi/9rGfHXwKCPSH60p11HZIou/ydTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b28VSkaiC+H5BMGCTosCuzPJZTw8xeVONBmQ25xxRQM=;
- b=rg0DzP7Ni1ifFuCONUiFlIWOES24D0qc3Qeqlx4H5yCuMJ/cNFhZHT9xvSMraWJWyBp0Iw+zK4UD8+koo2zJDVzPA31M4e2HsPR8VhGaQkbPlldIxIiSWMF2m5A/LKqF4JYUJhSmQ3KrceyTKc/dDVbre9KnQMYfW+HES3kwVtPBo4alBsu4doDWqmhl8/rEBJvg3X5g9Li0Ih79ICdiBTeCb7uSVad9NOtgSA7q7sLUbLHA8zib10mgoI93IgFgMEHN4lWUdRYxIhv4mVcjA1hO51l1asJciYIUZdURUM+uMUyjWV6TeE1TVHVzOlB2eRq64OHwC+24OfebLdpSag==
+ bh=p/bt75G82cMvb378MAxC3qJ8KBtckfkerQp+3s0MMbI=;
+ b=PUQzA001/tTzarlHuO0YcVk7h7n2j9N2Ob/CUxXjn9Tgdx0HEa5VCAkJiiwPrduLeAYhzTfkzPfUFF2Po3xSvVqIvm9SLrbmN9zkT6OIiNk1MkAVgqOX6TtCRhxhP2nEzDIEDpiTuGoFLz8W2Ae7QHRJsnNkkR/QiCYmL3Qzutv1pFsM1N1RDpEuN5cYQ58KGkM3WXehBnQuaEGfunbX/FZN1MrNLE1C1hBcZborj6bm/ppy5S5mTPbZSxz9BBjr/Ugnu8MAZFWEys/Pat06zurhp3cy5gZS/LlnbMhu5SvI+EO6u+56HyDdrhWRqQTErETTwim3tvgnjwi8KVeCFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b28VSkaiC+H5BMGCTosCuzPJZTw8xeVONBmQ25xxRQM=;
- b=OpB0zLZ4kWiai1t1Gz5cWF4X/KT4PVncsIBT1nKikUqYvRvq3PT0TgNPdOLEoofLFaoqPcZexpQU7NijE0jwugRazKox5sXHGstoK5oV08ilKUxf+rPqgOJZWLHkDDevJ+MF5YdfXK/FXsDGm8KiHxwUeCfi365XrDkN4wiJrC4=
-Received: from PH5P222CA0011.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:34b::15)
- by CY8PR12MB8314.namprd12.prod.outlook.com (2603:10b6:930:7b::6) with
+ bh=p/bt75G82cMvb378MAxC3qJ8KBtckfkerQp+3s0MMbI=;
+ b=sjoO3zIEi+Me8cvQNWik2yjZ4/eJM8cyRYa9cc0HGJ9iISLj9QFGupJ4+2KBX75G2/Qf0PZC5Q63BvXMtuAdza07YfQHA5G6JOnOnYNsXwLGaMu8dKWnh/lUn4/RHU7zI6cEvTqDLrOfqc9H2NhWbK5kWnwNQ2Vso4nxij7pJ90=
+Received: from CH0PR03CA0002.namprd03.prod.outlook.com (2603:10b6:610:b0::7)
+ by PH0PR12MB8176.namprd12.prod.outlook.com (2603:10b6:510:290::18) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
- 2026 07:16:43 +0000
-Received: from SJ1PEPF000037B9.namprd05.prod.outlook.com
- (2603:10b6:510:34b:cafe::53) by PH5P222CA0011.outlook.office365.com
- (2603:10b6:510:34b::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
- 23 Sep 2026 07:16:43 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 07:16:50 +0000
+Received: from BL02EPF0002992C.namprd02.prod.outlook.com
+ (2603:10b6:610:b0:cafe::2f) by CH0PR03CA0002.outlook.office365.com
+ (2603:10b6:610:b0::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.10 via Frontend Transport; Wed,
+ 23 Sep 2026 07:16:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF000037B9.mail.protection.outlook.com (10.167.244.198) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0002992C.mail.protection.outlook.com (10.167.249.57) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 07:16:42 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 07:16:50 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 02:16:42 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 02:16:45 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 02:16:41 -0500
+ 2026 02:16:44 -0500
 Received: from xhdtunimkar40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 23 Sep 2026 02:16:38 -0500
+ Transport; Wed, 23 Sep 2026 02:16:41 -0500
 From: Tushar Nimkar <tushar.nimkar@amd.com>
-Date: Wed, 23 Sep 2026 12:46:31 +0530
-Subject: [PATCH v3 1/2] dt-bindings: interrupt-controller: Add Xilinx
- Versal NET SMMU CSR
+Date: Wed, 23 Sep 2026 12:46:32 +0530
+Subject: [PATCH v3 2/2] irqchip: Add Xilinx Versal NET SMMU CSR interrupt
+ controller driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260923-smmu-changes-v2-v3-1-87bd09ba9605@amd.com>
+Message-ID: <20260923-smmu-changes-v2-v3-2-87bd09ba9605@amd.com>
 References: <20260923-smmu-changes-v2-v3-0-87bd09ba9605@amd.com>
 In-Reply-To: <20260923-smmu-changes-v2-v3-0-87bd09ba9605@amd.com>
 To: Anirudha Sarangi <anirudha.sarangi@amd.com>, Thomas Gleixner
@@ -85,139 +85,378 @@ CC: <git@amd.com>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, Tushar Nimkar
 	<tushar.nimkar@amd.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790147794; l=3182;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790147794; l=11062;
  i=tushar.nimkar@amd.com; s=20260917; h=from:subject:message-id;
- bh=/X0Y481AIlfdO5p17knYhpEmuAu/GMNgPmVrgnQCZKU=;
- b=PwmssJeL1LDRnvnq7Q8r9m/BYDKodYJ7tbVyyl9oEFMGI8INatnaBFRBBDKSEzFJhmt0Xx57S
- Jw3p9GL6gGQAGx3/YJCjSqsAsQxKqrLwZP0xhz8fMIOa5eGCBCH4l0I
+ bh=WyuIzVc50YtXxAnU4kOXkRWx8weDO8F0rXwCtnqZHfQ=;
+ b=aIQ0G/E85BEhWJn0Ojyx/czCvTiTAfvtOMBE4oa30HB9etCsP/J03PZMheoBjVA0MP6flRBl6
+ zJd76PGQYeKAIUZdRWMU4PG0fxDia7ial4GenPN90MHMy5ECWi6cQIW
 X-Developer-Key: i=tushar.nimkar@amd.com; a=ed25519;
  pk=Uirerl/gKBwPgdWL9awJAJkw5FM33ZF2TlUTJ58DEYA=
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037B9:EE_|CY8PR12MB8314:EE_
-X-MS-Office365-Filtering-Correlation-Id: e067c5cb-95fc-481b-7b16-08df19429e99
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992C:EE_|PH0PR12MB8176:EE_
+X-MS-Office365-Filtering-Correlation-Id: 97a7aac8-ad09-4cc6-7cb6-08df1942a2ea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|376014|82310400026|1800799024|10067099003|3023799007|22082099003|18002099003|56012099006|11063799006|13003099007;
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|56012099006|11063799006|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	5GjQ6jM1ysiETCUcoSftq4UvpEs2ROuURDWtDbUUMl+TVjuH3VC3lxt6gCOvF2BFFSpTowg6HIFeRKercFkmOtcC/Km6BplZr8ifOclZFHJbAAUanfxQbbiqtLKyzHKivDfmettFB7/UDGGdaRAUuTYfAkfqDE6iDj/onMdXnYxiGK57K/ypC9zEknvWA81LW3Fw0tywe9e//JTk+ji4y6z68Bp+o5eScq0JwUGncwlqmcvulNrIUnYtnw/aaV5DMfXMqy4sSS/xeLzds7XjKT8WBdqZm5adeAr2eB7b34+w0nkWnkJepbPQ21AC163gHlyPCWw/CDEvqf63SFTHTP+pMhgUtz9oxlLNUSaTr27ww+kIx80RImioS15d6wozNbdPghjjqNNX+8Hn3Jbh+MImbk7BtVk+3nBEonvlxjQVYLxcqJ0nJQY9mxccQhc7wyGajXy3ct857mzI7t/XhvUGlxJ/DIHg/dB7mTPGqIBMrGOVO4Pe/Wn6bxpSt72SiE7KavcMt7ll9humnbuebXNo8bDntaog92twxUtCaITTyp65Vkqal/f027i/24fvD3tvZbekw35hdm1QPZRuwlGBBTI8TEMbc84pEJv2q3b5P7OdFPAF++ZSnPNEWZNVZcFWpKtM/s+RPVDlME3WZA==
+	EB0uL2w76VrjrT8+uhI56L4cBbrmh764WUBVSrSFAPBvaCM2v1YLJ6CqLRXr9VCAOClF2jnUQa1HiaMEgau1sc1z5dmDBwNZJ2vwL2LWOFSirdufWe07K9Ob7Zgm6+sotnO3AyjmZqDlNbkmzX5ZVfE9n+0zG2V7KyAi76bg6ZCelm8PnHJHtoeE2QGLPVOllyIXuOeOuUMqgbTbi6jN/Cs/lP7a98NpHlkZ0FFds1Mg77TGZOkI5TLQ1ynSXCKBlpI7VGNsb3kz65KD1LsSZRKDa8T3p22gPxgMZZn9toh8/WXnsTcEVfwzMy92a6W1v1R3thnq1j0DOhfFZFpR+YZ4Z5IYEgzyubiCDpVpX5e5+DkGQHTn6DwrhKl26vCssZg5MA2lDYW8R3CWW51T+bbOv/SezIOMSEXEYAr484Jm1OLbcejCXdYzViH4LKJ7V1CL0BvBu0czpmszDWw9+I0q/Xq7bBA9gR66JFxnsIQShfgpPZGWJtQLxWn5zvjsZeQASmRF3J3JGNNknoKMY4q73UcFgU3/x6o/0VWjYabbq2io5dklopzmN4zDMVJXmszNBmN4hU5qzjlmDZNluNu/xLEXw6DLwvLXI6pVFG29dD3VHNGPezaLF4ldIqurXlCxICwAETaSIAKW+9O3ZQgIokoQlNddeYXb/wryF/uN5Bg9XDxh7IYGHPJJzvKucRaENvqtLlTjnL2aF2lZvg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(82310400026)(1800799024)(10067099003)(3023799007)(22082099003)(18002099003)(56012099006)(11063799006)(13003099007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	B0AFEdUqjNFp0GY0aQvIC+uNyol/wdkhP9hJPwg7R1/MyZH5EePU7058mRqb8cQMyqtIx/3pGXL+hHKPDcwzwdE+8DmXbUzk2fLgDi04PuF0AxzkgY5c3W49SYUWsFGUcXPi0wk/YKeqUNnSptO9iD/2IPYa4ImKZ4RCN0fQYgKDqu5Ntj8NJ1YhY5pmXpafMT0YiAetZpn1NHqEh2s970AVSRpbYZhQLYtM+f4lUalNAmlYrvFsqGl7nbfRmBewIIo+zQYnyaiv0RjMZhgc0FAhR3So73zlSCGQof/hDVRlEQUT9QLlBmxCRXR0n9tR8daBErCpJMQ616bjPzE6y8IXtQSmYTPP0Kie10+Hq56Fq40tZ+epLYh81dFmMZUfq43H+s6rtT7jHAL5eZ1elya4/cNEFzaTUfceGkqAeqOo3xzuqvD8pV98cxUvJLv0
+	Z/mnNW0DxcH/bg6n7ghSbZS3pRqvViWrnjcZaDiMleCDTsAafJXwnY851H3n2SG9HkjSuWpUwjhPeO6fGbAWSK/GP5SlN/9JSn7SwL1ejFFxT9OsWi1WCIqXgbwtrky7W1MscpnEK9yJW291L0JO2GXGONSVgA5AFeJiNH+AShmWjvfuaXHOzNwy3G9oeP9rBrm3v6VdMJW7LtF3UwPEI7LOt3cKJ+f1HFOUxcagZX4NIkn/L9gxum4sxyZ85l7pnkoF2kB5D8V/kJtGD4WVC3OAF+Q2sNExVwhK1/piKjKaezabiTdXSwqVoOs60PFbeBF9oH6oWFcFaZGCZK3Pe6m5ElT2qTu75W3MQSla7MshNu4pXtaz/0+1EBPXh+OD0pdnVFFgGMxZO+F/mMzMFRozaiJfhiMHNiUgS4+KqJDAbeFJjqKCPB+mZ65u8Be9
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 07:16:42.8012
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 07:16:50.1374
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e067c5cb-95fc-481b-7b16-08df19429e99
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97a7aac8-ad09-4cc6-7cb6-08df1942a2ea
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037B9.namprd05.prod.outlook.com
+	BL02EPF0002992C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8314
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8176
 
 From: Anirudha Sarangi <anirudha.sarangi@amd.com>
 
-Add a device tree binding schema for the Xilinx Versal NET SMMU CSR
-(Control and Status Register) interrupt controller.
+The Xilinx Versal NET SoC implements a Control and Status Register (CSR)
+block in front of the ARM SMMUv3 to manage EVENTQ, PRIQ and GLOBAL
+interrupts. Interrupts are enabled, cleared, and acknowledged
+through this block by writing to the relevant registers. Once an
+interrupt is acknowledged, it is forwarded to the parent interrupt
+controller for further processing.
 
-The SMMU CSR block acts as a vendor-specific interrupt controller
-in front of the ARM SMMUv3, providing registers to enable and clear
-standard SMMU interrupts such as EVENTQ, CMDQ_SYNC, GERROR and PRIQ.
-Interrupts must be acknowledged in this block before being forwarded
-to the parent interrupt controller (e.g. GIC).
+Add an irqchip driver for the CSR block. The driver registers as an
+interrupt controller and chains to the upstream SMMUv3 driver, so
+that the standard SMMUv3 driver does not require modification while still
+supporting Xilinx SoCs.
+
+The CSR block can also gate the SMMUv3 CMDQ_SYNC completion interrupt
+(bit 1), but it is intentionally left unsupported. The Linux arm-smmu-v3
+driver signals CMDQ_SYNC completion via polling or MSI and never requests
+a wired CMD_SYNC interrupt, so there is no in-kernel consumer for it.
+Exposing it as a child line would only risk spurious, never-acked
+interrupts, and it is omitted from the DT binding for the same reason.
+
+This driver is intended to operate in conjunction with the ARM SMMUv3
+driver and the kernel's IOMMU DMA infrastructure. These dependencies
+are not selected directly in Kconfig to avoid introducing dependency
+recursion.
 
 Signed-off-by: Anirudha Sarangi <anirudha.sarangi@amd.com>
 Co-developed-by: Tushar Nimkar <tushar.nimkar@amd.com>
 Signed-off-by: Tushar Nimkar <tushar.nimkar@amd.com>
 ---
- .../xlnx,versal-net-smmu-csr.yaml                  | 75 ++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
+ MAINTAINERS                           |  10 ++
+ drivers/irqchip/Kconfig               |  10 ++
+ drivers/irqchip/Makefile              |   1 +
+ drivers/irqchip/irq-xilinx-smmu-csr.c | 247 ++++++++++++++++++++++++++++++++++
+ 4 files changed, 268 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/xlnx,versal-net-smmu-csr.yaml b/Documentation/devicetree/bindings/interrupt-controller/xlnx,versal-net-smmu-csr.yaml
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6e50747a621c..40ef350285a6 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -30141,6 +30141,16 @@ F:	Documentation/misc-devices/xilinx_sdfec.rst
+ F:	drivers/misc/xilinx_sdfec.c
+ F:	include/uapi/misc/xilinx_sdfec.h
+ 
++XILINX SMMU CSR IRQ DRIVER
++M:	Anirudha Sarangi <anirudha.sarangi@amd.com>
++M:	Tushar Nimkar <tushar.nimkar@amd.com>
++L:	git@amd.com
++L:	linux-arm-kernel@lists.infradead.org
++L:	linux-kernel@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/interrupt-controller/xlnx,versal-net-smmu-csr.yaml
++F:	drivers/irqchip/irq-xilinx-smmu-csr.c
++
+ XILINX TRNG DRIVER
+ M:	Mounika Botcha <mounika.botcha@amd.com>
+ M:	Harsh Jain <h.jain@amd.com>
+diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
+index a8f8c423b795..81a2c9107601 100644
+--- a/drivers/irqchip/Kconfig
++++ b/drivers/irqchip/Kconfig
+@@ -842,4 +842,14 @@ config SUNPLUS_SP7021_INTC
+ 	  chained controller, routing all interrupt source in P-Chip to
+ 	  the primary controller on C-Chip.
+ 
++config IRQCHIP_XILINX_SMMU_CSR
++	bool "Xilinx SMMU CSR Interrupt Driver"
++	depends on ARCH_ZYNQMP
++	select IRQ_DOMAIN
++	help
++	  This driver does the initial handling of SMMU interrupts before
++	  forwarding them to the ARM SMMU v3 driver.  It is intended for
++	  ZynqMP-class platforms where a vendor CSR block mediates SMMU
++	  interrupts.
++
+ endmenu
+diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
+index ab33cccd8471..16a5fd126c9a 100644
+--- a/drivers/irqchip/Makefile
++++ b/drivers/irqchip/Makefile
+@@ -135,3 +135,4 @@ obj-$(CONFIG_APPLE_AIC)			+= irq-apple-aic.o
+ obj-$(CONFIG_MCHP_EIC)			+= irq-mchp-eic.o
+ obj-$(CONFIG_SOPHGO_SG2042_MSI)		+= irq-sg2042-msi.o
+ obj-$(CONFIG_SUNPLUS_SP7021_INTC)	+= irq-sp7021-intc.o
++obj-$(CONFIG_IRQCHIP_XILINX_SMMU_CSR)	+= irq-xilinx-smmu-csr.o
+diff --git a/drivers/irqchip/irq-xilinx-smmu-csr.c b/drivers/irqchip/irq-xilinx-smmu-csr.c
 new file mode 100644
-index 000000000000..38b63e51b732
+index 000000000000..b29aafd01dbe
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/interrupt-controller/xlnx,versal-net-smmu-csr.yaml
-@@ -0,0 +1,75 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/interrupt-controller/xlnx,versal-net-smmu-csr.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/irqchip/irq-xilinx-smmu-csr.c
+@@ -0,0 +1,247 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Xilinx Versal Net SMMU CSR interrupt controller driver
++ *
++ * Copyright (C) 2026 Advanced Micro Devices, Inc.
++ *
++ * Vendor CSR block that gates the ARM SMMUv3 wired interrupts. Chains
++ * off the single GIC parent line and demultiplexes the CSR status into
++ * three children (eventq, gerror, priq), each enabled/acked
++ * via SMMU_CSR_IER/IDR/ISR that the ARM SMMUv3 driver requests individually.
++ */
 +
-+title: Xilinx Versal NET SMMU CSR Interrupt Controller
++#include <linux/bitops.h>
++#include <linux/io.h>
++#include <linux/irqchip.h>
++#include <linux/irqchip/chained_irq.h>
++#include <linux/of_address.h>
++#include <linux/of_irq.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
 +
-+maintainers:
-+  - Anirudha Sarangi <anirudha.sarangi@amd.com>
-+  - Tushar Nimkar <tushar.nimkar@amd.com>
++/* Interrupt types */
++#define SMMU_INTR_EVENT		BIT(0)
++#define SMMU_INTR_GLOBAL	BIT(2)
++#define SMMU_INTR_PRI		BIT(3)
 +
-+description: |
-+  The Versal NET platform includes a Xilinx-specific SMMU CSR (Control and
-+  Status Register) block that acts as an intermediate interrupt controller
-+  for ARM SMMUv3.
++/* Mask for the SMMU interrupts this driver demultiplexes */
++#define SMMU_INTR_ALL		(SMMU_INTR_EVENT | \
++				 SMMU_INTR_GLOBAL | SMMU_INTR_PRI)
 +
-+  The block provides registers to enable, disable and clear the
-+  standard SMMUv3 interrupt sources (EVENTQ, CMDQ_SYNC, GERROR and PRIQ)
-+  before forwarding them to the parent interrupt controller,
-+  typically a GIC.
++/* Every interrupt source the CSR block implements (incl. unsupported CMD_SYNC) */
++#define SMMU_INTR_HW_ALL	GENMASK(3, 0)
 +
-+  The controller receives one parent interrupt and demultiplexes CSR
-+  status bits into the following child interrupt identifiers
-+    0 - EVENTQ
-+    1 - CMDQ_SYNC
-+    2 - GERROR (GLOBAL)
-+    3 - PRIQ
++#define SMMU_CSR_ISR		0x24	/* Interrupt Status (raw, W1C)   */
++#define SMMU_CSR_MASK		0x28	/* Interrupt Mask (RO): 1 = masked */
++#define SMMU_CSR_IER		0x2c	/* Interrupt Enable (W1 to unmask) */
++#define SMMU_CSR_IDR		0x30	/* Interrupt Disable (W1 to mask)  */
 +
-+allOf:
-+  - $ref: /schemas/interrupt-controller.yaml#
++/**
++ * struct xilinx_smmu_csr - SMMU CSR interrupt controller context
++ * @base:	MMIO base address of the CSR registers
++ * @domain:	Interrupt domain for the child interrupts
++ * @parent_irq:	parent (GIC) interrupt this block is chained to
++ * @lock:	protects the SMMU_CSR_IER/IDR/ISR read and writes
++ */
++struct xilinx_smmu_csr {
++	void __iomem		*base;
++	struct irq_domain	*domain;
++	int			parent_irq;
++	raw_spinlock_t		lock;
++};
 +
-+properties:
-+  compatible:
-+    const: xlnx,versal-net-smmu-csr
++enum xilinx_smmu_csr_irq {
++	SMMU_CSR_IRQ_EVENTQ = 0,
++	SMMU_CSR_IRQ_GERROR = 2,
++	SMMU_CSR_IRQ_PRIQ = 3,
++	SMMU_CSR_IRQ_NR,
++};
 +
-+  reg:
-+    maxItems: 1
++static u32 xilinx_smmu_csr_hwirq_mask(irq_hw_number_t hwirq)
++{
++	if (hwirq >= SMMU_CSR_IRQ_NR)
++		return 0;
 +
-+  interrupt-controller: true
++	return BIT(hwirq) & SMMU_INTR_ALL;
++}
 +
-+  "#interrupt-cells":
-+    const: 1
-+    description: |
-+     Single cell containing the child interrupt identifier
-+      0 - EVENTQ
-+      1 - CMDQ_SYNC
-+      2 - GERROR (GLOBAL)
-+      3 - PRIQ
++static void xilinx_smmu_csr_irq_mask(struct irq_data *d)
++{
++	struct xilinx_smmu_csr *csr = irq_data_get_irq_chip_data(d);
++	u32 mask = xilinx_smmu_csr_hwirq_mask(d->hwirq);
 +
-+  interrupts:
-+    maxItems: 1
++	if (!mask)
++		return;
 +
-+required:
-+  - compatible
-+  - reg
-+  - interrupt-controller
-+  - "#interrupt-cells"
-+  - interrupts
++	guard(raw_spinlock)(&csr->lock);
++	writel(mask, csr->base + SMMU_CSR_IDR);
++}
 +
-+additionalProperties: false
++static void xilinx_smmu_csr_irq_unmask(struct irq_data *d)
++{
++	struct xilinx_smmu_csr *csr = irq_data_get_irq_chip_data(d);
++	u32 mask = xilinx_smmu_csr_hwirq_mask(d->hwirq);
 +
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
++	if (!mask)
++		return;
 +
-+    interrupt-controller@eca10000 {
-+        compatible = "xlnx,versal-net-smmu-csr";
-+        reg = <0xeca10000 0x1000>;
-+        interrupt-controller;
-+        #interrupt-cells = <1>;
-+        interrupt-parent = <&gic>;
-+        interrupts = <GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>;
-+    };
++	guard(raw_spinlock)(&csr->lock);
++	writel(mask, csr->base + SMMU_CSR_IER);
++}
++
++static void xilinx_smmu_csr_irq_ack(struct irq_data *d)
++{
++	struct xilinx_smmu_csr *csr = irq_data_get_irq_chip_data(d);
++	u32 mask = xilinx_smmu_csr_hwirq_mask(d->hwirq);
++
++	if (!mask)
++		return;
++
++	guard(raw_spinlock)(&csr->lock);
++	writel(mask, csr->base + SMMU_CSR_ISR);
++}
++
++static struct irq_chip xilinx_smmu_csr_chip = {
++	.name		= "xlnx-smmu-csr",
++	.irq_mask	= xilinx_smmu_csr_irq_mask,
++	.irq_unmask	= xilinx_smmu_csr_irq_unmask,
++	.irq_ack	= xilinx_smmu_csr_irq_ack,
++};
++
++static void xilinx_smmu_csr_irq_handler(struct irq_desc *desc)
++{
++	struct xilinx_smmu_csr *csr = irq_desc_get_handler_data(desc);
++	struct irq_chip *chip = irq_desc_get_chip(desc);
++	u32 status, mask, active, pending, spurious;
++
++	chained_irq_enter(chip, desc);
++
++	/*
++	 * SMMU_CSR_ISR latches raw, pre-mask status, so gate it with the mask
++	 * register to only act on sources that are actually enabled.
++	 */
++	status = readl(csr->base + SMMU_CSR_ISR);
++	mask = readl(csr->base + SMMU_CSR_MASK);	/* 1 = masked */
++	active = status & ~mask;
++
++	/*
++	 * Defend against any enabled source this driver does not demultiplex
++	 * (e.g. CMD_SYNC). It would never be acked and would livelock the
++	 * parent line, so mask and clear it here.
++	 */
++	spurious = active & ~SMMU_INTR_ALL;
++	if (spurious) {
++		writel(spurious, csr->base + SMMU_CSR_IDR);
++		writel(spurious, csr->base + SMMU_CSR_ISR);
++	}
++
++	pending = active & SMMU_INTR_ALL;
++
++	while (pending) {
++		irq_hw_number_t hwirq = __ffs(pending);
++
++		if (generic_handle_domain_irq(csr->domain, hwirq)) {
++			/*
++			 * No mapped consumer: mask and clear so an unexpected
++			 * source cannot spin the parent line.
++			 */
++			writel(BIT(hwirq), csr->base + SMMU_CSR_IDR);
++			writel(BIT(hwirq), csr->base + SMMU_CSR_ISR);
++		}
++
++		pending &= ~BIT(hwirq);
++	}
++
++	chained_irq_exit(chip, desc);
++}
++
++static int xilinx_smmu_csr_domain_map(struct irq_domain *d, unsigned int virq,
++				      irq_hw_number_t hwirq)
++{
++	struct xilinx_smmu_csr *csr = d->host_data;
++
++	if (!xilinx_smmu_csr_hwirq_mask(hwirq))
++		return -EINVAL;
++
++	irq_set_chip_and_handler(virq, &xilinx_smmu_csr_chip, handle_level_irq);
++	irq_set_chip_data(virq, csr);
++	irq_set_status_flags(virq, IRQ_LEVEL);
++
++	return 0;
++}
++
++static const struct irq_domain_ops xilinx_smmu_csr_domain_ops = {
++	.map	= xilinx_smmu_csr_domain_map,
++	.xlate	= irq_domain_xlate_onecell,
++};
++
++static int __init xilinx_smmu_csr_init(struct device_node *node, struct device_node *parent)
++{
++	struct xilinx_smmu_csr *csr;
++	int ret;
++
++	if (WARN_ON_ONCE(!parent))
++		return -EINVAL;
++
++	if (irq_find_matching_fwnode(of_fwnode_handle(node),
++				     DOMAIN_BUS_ANY))
++		return -ENODEV;
++
++	csr = kzalloc(sizeof(*csr), GFP_KERNEL);
++	if (!csr)
++		return -ENOMEM;
++
++	raw_spin_lock_init(&csr->lock);
++
++	csr->base = of_iomap(node, 0);
++	if (!csr->base) {
++		ret = -ENOMEM;
++		goto free;
++	}
++
++	/*
++	 * Start from a known state: mask and clear *every* source the block
++	 * implements, including CMD_SYNC (bit 1) which this driver does not
++	 * service. The CSR ORs (status & ~mask) onto a single parent line, so
++	 * a source left unmasked and latched by a prior boot stage (firmware,
++	 * kexec) would assert the line forever with no one to ack it. Masking
++	 * the whole set here makes that impossible; the ARM SMMUv3 driver
++	 * unmasks the sources it needs via the child irq_unmask() callbacks.
++	 */
++	writel(SMMU_INTR_HW_ALL, csr->base + SMMU_CSR_IDR);
++	writel(SMMU_INTR_HW_ALL, csr->base + SMMU_CSR_ISR);
++
++	csr->domain = irq_domain_create_linear(of_fwnode_handle(node), SMMU_CSR_IRQ_NR,
++					       &xilinx_smmu_csr_domain_ops,
++					       csr);
++	if (!csr->domain) {
++		pr_err("%pOF: failed to create irq domain\n", node);
++		ret = -ENOMEM;
++		goto unmap;
++	}
++
++	csr->parent_irq = irq_of_parse_and_map(node, 0);
++	if (!csr->parent_irq) {
++		pr_err("%pOF: failed to map parent irq\n", node);
++		ret = -EINVAL;
++		goto remove_domain;
++	}
++
++	irq_set_chained_handler_and_data(csr->parent_irq,
++					 xilinx_smmu_csr_irq_handler, csr);
++
++	pr_debug("%pOF: Xilinx SMMU CSR interrupt controller registered\n", node);
++
++	return 0;
++
++remove_domain:
++	irq_domain_remove(csr->domain);
++unmap:
++	iounmap(csr->base);
++free:
++	kfree(csr);
++	return ret;
++}
++
++IRQCHIP_DECLARE(xilinx_smmu_csr, "xlnx,versal-net-smmu-csr",
++		xilinx_smmu_csr_init);
 
 -- 
 2.34.1
