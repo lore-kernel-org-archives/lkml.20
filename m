@@ -1,125 +1,243 @@
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C613E455603
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:14:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5683E5A0E;
+	Wed, 23 Sep 2026 07:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147667; cv=none; b=ZbJAfScI7oxYzI5av56+vSsnAOyebVhV0DlilvogfObAkFh2+xRXL7aQFNBgpz7z+65wNaCulZzaHLuAsqDDsX/A8nN7EyPhHwwhVqFnEYo9RJXuLKiWow4I0UHuLID29hLzBfgd9WblaMaFWhzoz+oWRufrQEnUgk2u6bsAYbk=
+	t=1790147666; cv=none; b=fSgef8xAuEUfIwllolwyt2Fy47fdf/D4b02ZsOQ9VDno9iOZfwFFfRogrS61GiuYxu4z5JaUCTi8LLJdaV1j33TT0YP7qbeL2Lzrf9Shr6GlIZcG/5Fm2eQ4gfc8d/wNICiFRiujPfMe7X3D7VwuU+3L1foKTcUr1Mi7S1h1ipE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147667; c=relaxed/simple;
-	bh=ZFu28bTIZtHoVVmRm8bIPfJIFnqmIuxAuxjddZbdwck=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=BGO9rjW9+VFEXUpjuLRaYMWvOaszQQlg8nhnoknYUUDL0Wa50C/qM6/B7kryTECkG2wJ3gJ9ZDEejLK3kyAp30wKYJJjSAYlzmYkhkv9Wx0N2B3daLETVX+HSusFD92UbAINhzLRusGcIn6JlxwaKp5Lhd4D4BfcwjVKVs9QhxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Cuq4fRJ+; arc=none smtp.client-ip=74.125.82.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1790147666; c=relaxed/simple;
+	bh=CSVa/MCpQ9vQSzj78rrZ51fQNfZnk0K/GxWsuGQr/ZQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LcguYiPHTt+1gLDWul9+r2t6kcgKNIb4T8ASt17JDFQI0fWqG/Bofv6a6aJLCXWm7zQmZNeF9KEFsOpsgaG0vuiHFo8d4ZX6f9WrRbuD0f+LqVXqEekUM/mfb/H3KX240Feae05CQHFoevB9Np6axj5jHgumt0aQFHtFIKatPEQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LGAn7A/u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Cuq4fRJ+"
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-14371f7ba1eso942390c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:14:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790147665; x=1790752465; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9AtiWY+mIovc0ii7uMQ428LIkWxsAI+yH5okNrkOa1c=;
-        b=Cuq4fRJ+wrr22Se61VE0RWjHB17vY+CvOZU/LQEk24Djm9WfdhQXhyoxa/qCfP5V0X
-         W6qsYxjnXd3qpF5uNSOM664Fe/ywTALqxbrSEc+dABwWYvaigCGxfdXcZl2gXBVKekGv
-         1XlyZaS+XnYGcbvbcLI1l3n0XgLlrukwWLjUirBHUZHwdRyiOcd7Jb/wmoV++y6GNd7d
-         NPtePQcwbt8DGmP20IcC9E4jemlGsydrzI1RbIPssmHNVVJn6mGDCgUpvV0CTN/jSs9T
-         ly0LF7WLR17AQ1arVEP3BQQnsvNq88IMljrELaR2YE4pFnMZKIrdiot7K0yqnyU7az3v
-         WrtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790147665; x=1790752465;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9AtiWY+mIovc0ii7uMQ428LIkWxsAI+yH5okNrkOa1c=;
-        b=yucya5vB8VdA5+LF8xLL8apw9YGeJPZYRGoB+8CC8osS98bn+B190S2OytRztGyLhe
-         9SYwil0TfcSeSbhjtmZbKncvGSdmTeBLDEctRTKlqmBD4ahvGQJhBX6XiWmktFPhKHkX
-         Z2obqDY0HRSIsemYnWaxVEY+X5C8OIDaS81VhKTKWTZi7bt3NAK2L3i5Xtn+Q8WsbPQA
-         mTMPRNq/OSClZdmHHmLP3CI8ZbxW+9eNkdoTyLRtfXnkHPePoWqil+Gh543bE+K+z9Jl
-         5sZXCfDv/fXpJxFymDD3lDmZQm1aLgyO+ThH+y1YmZE8X0NckEdu92PvZsbm28xaYacM
-         GnjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzlIRlaB6H8kYlbcS+aXlVVM2E2k4CirECH8wYS/KXTNp86PhPcVAL07QLRqYDW0fDfoN+ATLOqI+8xDfg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+FZe5slPa5wIfI+3mDwLuQGr0FqqhbakC8xzQERAZXOTPen2B
-	srpJEqHCVYTtsjI3pL6pyhtnybayJJTYoYgmijVFl6yg9Eq5HdfLd4eARopKtQNJb2Til10FiaT
-	V0cy/H19ddA==
-X-Received: from dlae4.prod.google.com ([2002:a05:701b:2304:b0:144:db76:3e5f])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:6298:b0:144:f096:4dda
- with SMTP id a92af1059eb24-144f916f00cmr3314921c88.43.1790147664407; Wed, 23
- Sep 2026 00:14:24 -0700 (PDT)
-Date: Wed, 23 Sep 2026 00:13:46 -0700
-In-Reply-To: <cover.1790145937.git.irogers@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LGAn7A/u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F5D21F000FF;
+	Wed, 23 Sep 2026 07:14:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790147665;
+	bh=eUbT4b8cpuhzpeO+5wvLG35IoWThWdBXchOpscPEUbo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LGAn7A/ufhqitMqo1pvJejNQDWdQFSBFm9O5wWGXBsgPApH8MsQd8GanjDi0vOklx
+	 JPgYDPGv92XgtwBRRfIxcfedlZc7mxw6avAAAZiYZAWCHR0kQGLCUYDlXWnt5v+Nih
+	 LrsMIAfrHao5oCPNM8rjGlCjqcZeY2jbCE7wVS3dd2Ur8Oq8OWK2URPvFmzGjgOGlU
+	 OE2f62zMcsXZqAtjnJkDBOw0xEMR4mVQwmtvwLDo9CW309HQIhS1xawhMcaQlXkyHd
+	 FYSeV6pMmios7JXgGp6FMQd67u3MhQvT3u9olACCz7hTHq7EBKXHgWba+J4ldFKNuc
+	 H9C4as6GwzkRg==
+Date: Wed, 23 Sep 2026 08:14:01 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Brian Cain <bcain@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Dinh Nguyen <dinguyen@kernel.org>, Simon Schuster <schuster.simon@siemens-energy.com>, 
+	Jonas Bonn <jonas@southpole.se>, Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+	Stafford Horne <shorne@gmail.com>, Rich Felker <dalias@libc.org>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Russell King <linux@armlinux.org.uk>, 
+	Vineet Gupta <vgupta@kernel.org>, Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+	linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sparclinux@vger.kernel.org, linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-s390@vger.kernel.org, linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 01/12] mm/khugepaged: deposit a newly allocated page
+ table on collapse
+Message-ID: <arN7q5nHz7iebA_e@gremlin>
+References: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
+ <20260922-rcu-pagetable-freeing-v4-1-fe1ad1f1e303@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1790145937.git.irogers@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <5289bf094c7e9d37990d2d36fdf2deb025478c1f.1790145937.git.irogers@google.com>
-Subject: [PATCH v5 06/23] perf trace: Start BPF summary before starting workload
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, howardchu95@gmail.com, 
-	namhyung@kernel.org
-Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, 
-	mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922-rcu-pagetable-freeing-v4-1-fe1ad1f1e303@kernel.org>
 
-When using --bpf-summary, trace_start_bpf_summary() sets
-skel->bss->enabled = 1. In trace__run(), trace_start_bpf_summary() was
-previously invoked after evlist__start_workload().
+Andrew - would it be possible to make one quick fix up below?
 
-Because evlist__start_workload() immediately unblocks the child process
-by writing to its go_pipe, short-lived workloads (such as `cat /dev/null`)
-can execute and complete their initial system calls before
-trace_start_bpf_summary() is reached by the parent process. Furthermore,
-under high system load, the child process may finish before the BPF
-summary tracking is enabled in the kernel at all, causing syscall
-summary tests to fail. Additionally, if initial_delay was configured,
-the workload was started before sleeping.
+On Tue, Sep 22, 2026 at 04:35:32PM +0100, Lorenzo Stoakes (ARM) wrote:
+> collapse_huge_page() deposits a PTE page table on PMD collapse in order
+> that it can be utilised for subsequent split operations, meaning that those
+> operations do not need to perform an allocation (as they are in a context
+> where it might be unwise).
+>
+> However the PTE page table which is deposited is the one which is currently
+> mapped by the PMD entry that is in the process of being collapsed.
+>
+> Once deposited, the PTE page table may be used in a split of any other
+> unrelated PMD entry.
+>
+> This is currently not an issue as this operation is performed with VMA/mmap
+> write lock + anon rmap locks held, so ordinary page table walkers will
+> never accidentally end up walking the wrong thing, and GUP-fast is
+> protected by an IPI via tlb_remove_table_sync_one().
+>
+> However, the series to which this commit belongs implements RCU-safe page
+> table traversal, at which point this becomes problematic.
+>
+> This can be resolved by using pte_offset_map_lock() which gates on a PTE
+> PTL and a pmd_same() check, but lockless walks are unsafe as things stand.
+>
+> Resolve this by simply allocating a new, zeroed, PTE page table to deposit
+> at the point of collapse.
+>
+> This path is already costly and an allocation has already been performed
+> for the huge folio, so this allocation is statistical noise in terms of
+> performance and memory usage at this point.
+>
+> With this PTE page table deposited, RCU-free the existing PTE page table
+> so it is safe for page table walkers to traverse within a grace period.
+>
+> This also brings this deposit case in line with all other page table
+> deposit logic which deposit a fresh page table.
+>
+> Additionally, this was the only place in the kernel that displaced a page
+> table like this, so eliminating it also helps consistency.
+>
+> An edge case for deposit exists for powerpc and its hash-based MMU - it
+> stores hash slot data in deposited page tables and zeroes them on withdraw,
+> so a zeroed deposited page table works correctly for it.
+>
+> Since khugepaged runs as a kernel thread, do a little dance in
+> alloc_deposit_pte() to correctly charge the allocation.
+>
+> This is already done for the folio allocation via alloc_charge_folio() but
+> no such wrapper exists for a page table allocation.
+>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  mm/khugepaged.c | 32 ++++++++++++++++++++++++++++++--
+>  1 file changed, 30 insertions(+), 2 deletions(-)
+>
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index f49a6710933b..dab421f8233e 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -1278,6 +1278,23 @@ static enum scan_result alloc_charge_folio(struct folio **foliop, struct mm_stru
+>  	return SCAN_SUCCEED;
+>  }
+>
+> +static pgtable_t alloc_deposit_pte(struct mm_struct *mm)
+> +{
+> +	/*
+> +	 * khugepaged is run from a kernel thread, so need to manually set the
+> +	 * correct memcg so the allocation gets charged correctly.
+> +	 */
+> +	struct mem_cgroup *memcg = get_mem_cgroup_from_mm(mm);
+> +	struct mem_cgroup *old_memcg = set_active_memcg(memcg);
+> +	pgtable_t pgtable;
+> +
+> +	pgtable = pte_alloc_one(mm);
+> +
+> +	set_active_memcg(old_memcg);
+> +	mem_cgroup_put(memcg);
+> +	return pgtable;
+> +}
+> +
+>  /*
+>   * collapse_huge_page() expects the mmap_lock to be unlocked before entering and
+>   * will always return with the lock unlocked, to avoid holding the mmap_lock
+> @@ -1293,7 +1310,7 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+>  	LIST_HEAD(compound_pagelist);
+>  	pmd_t *pmd, _pmd;
+>  	pte_t *pte = NULL;
+> -	pgtable_t pgtable;
+> +	pgtable_t pgtable = NULL;
+>  	struct folio *folio;
+>  	spinlock_t *pmd_ptl, *pte_ptl;
+>  	enum scan_result result = SCAN_FAIL;
+> @@ -1310,6 +1327,12 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+>  		goto out_nolock;
+>  	}
+>
+> +	if (is_pmd_order(order)) {
+> +		pgtable = alloc_deposit_pte(mm);
+> +		if (!pgtable)
+> +			goto out_nolock;
 
-Move trace_start_bpf_summary() to be invoked before
-evlist__start_workload(), matching evlist__enable(), and ensure it
-respects target.initial_delay.
+Fixup is here:
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
----
- tools/perf/builtin-trace.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+-		if (!pgtable)
+-			goto out_nolock;
++		if (!pgtable) {
++			result = SCAN_ALLOC_HUGE_PAGE_FAIL;
++			goto out_nolock;
++		}
 
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index f67557e7a254..f90c6bb4d8b4 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -4844,17 +4844,19 @@ static int trace__run(struct trace *trace, int argc, const char **argv)
- 	if (!target__none(&trace->opts.target) && !trace->opts.target.initial_delay)
- 		evlist__enable(evlist);
- 
-+	if (trace->summary_bpf && !trace->opts.target.initial_delay)
-+		trace_start_bpf_summary();
-+
- 	if (forks)
- 		evlist__start_workload(evlist);
- 
- 	if (trace->opts.target.initial_delay) {
- 		usleep(trace->opts.target.initial_delay * 1000);
- 		evlist__enable(evlist);
-+		if (trace->summary_bpf)
-+			trace_start_bpf_summary();
- 	}
- 
--	if (trace->summary_bpf)
--		trace_start_bpf_summary();
--
- 	trace->multiple_threads = perf_thread_map__pid(evlist__core(evlist)->threads, 0) == -1 ||
- 		perf_thread_map__nr(evlist__core(evlist)->threads) > 1 ||
- 		evlist__first(evlist)->core.attr.inherit;
--- 
-2.56.0.rc1.315.gc6ed9934b7-goog
+Thanks!
 
+> +	}
+> +
+>  	mmap_read_lock(mm);
+>  	result = hugepage_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
+>  					 &vma, cc, order);
+> @@ -1433,8 +1456,8 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+>  	spin_lock(pmd_ptl);
+>  	VM_WARN_ON_ONCE(!pmd_none(*pmd));
+>  	if (is_pmd_order(order)) {
+> -		pgtable = pmd_pgtable(_pmd);
+>  		pgtable_trans_huge_deposit(mm, pmd, pgtable);
+> +		pgtable = NULL;
+>  		map_anon_folio_pmd_nopf(folio, pmd, vma, pmd_addr);
+>  	} else {
+>  		/*
+> @@ -1453,6 +1476,9 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+>  	}
+>  	spin_unlock(pmd_ptl);
+>
+> +	if (is_pmd_order(order))
+> +		pte_free_defer(mm, pmd_pgtable(_pmd));
+> +
+>  	folio = NULL;
+>
+>  	result = SCAN_SUCCEED;
+> @@ -1463,6 +1489,8 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm, unsigned long s
+>  		anon_vma_unlock_write(vma->anon_vma);
+>  	mmap_write_unlock(mm);
+>  out_nolock:
+> +	if (pgtable)
+> +		pte_free(mm, pgtable);
+>  	if (folio)
+>  		folio_put(folio);
+>  	trace_mm_collapse_huge_page(mm, result == SCAN_SUCCEED, result, order);
+>
+> --
+> 2.55.0
+>
+
+--
+Cheers, Lorenzo
