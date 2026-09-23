@@ -1,208 +1,278 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEC42110E
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:11:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74024422540
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187077; cv=none; b=PbVEb1nMDAnC34FxChklPCsnNfEAP0qfMynmSHIWDf3/ydKOy7Jd+HYZDRj2HHQ08OgeO+st6YsR+VZUd24GZWxSqCGI4e/PBpLrap1h5xbz4LjNNwQdNYvzJN4z9eFCOx1q4fM0sUYYA+Ci1dYzoSXIAKnyeuGwPjsVUn3UInw=
+	t=1790187158; cv=none; b=R+O670FF4oeiEtPK9el8IAZ6TjTgF09ENuayQK/YwNBa3EX1lq5pw1vNFaSG00tBdETelp0F9LvSLPw5/OlKggXD8lpy2ZT1OL2+B7rRYOADzrk0e+OlMSom2r4KQmzVMKiI61aihWF7NtuQlYan5eimaBPIFmM3TtOYubRssDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187077; c=relaxed/simple;
-	bh=Nbf7J5/uQxjKUD4SiZ4Ipyp3eMxFGADZSKJEVPUUy4g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YH1x+kddhVKqoljLGKQ3OIxxfUZsNaUpVjVORypa8JWAcCMwXdRfnDJQ4mg2ZacXjeRAG9rlbck34Mgn+CEVc/4J0zEJW8xQcAZKGD9izJnwFTQcnNdY1QgVbhn68xpCtAX6WnjIbGO4p1MWacf916UZe6FDmLBjaCt9jIJ1kyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ltTHQEil; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790187158; c=relaxed/simple;
+	bh=MeFoiyK9aBByvzZF0hUbBOHobo1DVtP7VskXXC8rSdU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=Xv0dLCrzXpcTdNEvDoL6O3FTNt5S0eGEjGKutgOxbOxQxwIJVAfYDlEWCdPon4KtRsrti4wnvkGeMUtkOosoLsWHpWUi8g9FC+u/LCfnhOquO+vXKiKs90lU+8zYRiLq8FXPUPGqhy66TzsB5u1SemdIrht44+rVFKYN/IR2Uds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RRaypwt/; arc=none smtp.client-ip=74.125.82.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ltTHQEil"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-671563fb8beso1122970d50.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:11:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RRaypwt/"
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-14371f7ba1eso1903435c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:12:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790187075; x=1790791875; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ps7ykDSERcuXzXnfyskR5kOcFO84vVgX7+2fTS/wYAI=;
-        b=ltTHQEil8xVbciZ2FaY5W2Gb7VvGgpTbFDMC+Wf39f3hBZ8jBtSt2LKAs3l5hjU5pT
-         QHimi39Fmx91X+/exymwSELTszDoPQUpp5+L6vlQ2awGfvwO8HQfJQAMzh12alm/shn+
-         A4oJfxHSFiTDszI9Me8oFezncu9WxWZ2vOmdwgLWzOuT83C7+6x2rYWdlVeC4NeiSwMS
-         IXWe8u/Z8945oEhgWqtTDiiXFrwdMDU4dOgTpARuR5wK153QWUdN+eTQeqyjZpyXqCHb
-         x6lHglFhwkHAEAifWMG/It4HCUV+SRqsscd7OaY8mPmkFP95AoUAL1rtDXZwKzcBqvKx
-         b9jw==
+        d=google.com; s=20251104; t=1790187156; x=1790791956; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WW14NGzc/NEGWV8mfByYeJ/e2Khj11iCWX5m3BJGOq0=;
+        b=RRaypwt/aEUIZvnDrgXsmCgdH3waj+AZSpyuzy57SnxTP64B2rW0iZ8fANFDdzQ3XY
+         IsrQ0JIfSUvSnFfnGr4R3If2GCq4fQxvd+RXkV7fpwQ+rYebWadryHhf5tr5ZN/iHsgd
+         OGvuDeAjgn+63bJJ03VGZiXxt9L+e11yX69afPc8b79FgL6NKduBAug6tLZ0b0BZuWjH
+         O9GTdxGIIthYEA6SrTMwAx8mQBHGIvyMivhDnsVXeHklPyP0QMIT4MSxyZaLOIOyEoKn
+         j7vlBU85F0hluFG6cqvS/18w3wWeIB1AXU2Gjg1HbYe4ot/YB005YJaer579J9UpWsqC
+         Ie8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187075; x=1790791875;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790187156; x=1790791956;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ps7ykDSERcuXzXnfyskR5kOcFO84vVgX7+2fTS/wYAI=;
-        b=fDD+qpJdPdK8OewDZZFAkkiGf6L4HmI6qkfuBLLPkbNrq5DdaN0dmXrvBB7m98+AVS
-         8OfT57ivo9pFiQouuUZH3PpKp4XULF039Cb1jvCGEzGY9qeMxaaySYJefpIc+l2vQkZx
-         Sgt7Gv0SM57ESOTNxZUiZ1/aJ16HlA/4pjNVGHiHFlyOq2734IuJny8q+ySKf4bFQ67X
-         jEhDZfD5SSOohZG6c16OAeO8JstUQGazqd29dyYB9DYdv5RhyiMXBkSVitAZDsoyLOVn
-         hRPZXXrqbDhdqVtZTcBK4e+YMQsOU7cm8+LpNg9/Boyqe2d2O0qOy3zE3aG5pf4Y9a6b
-         FYbg==
-X-Forwarded-Encrypted: i=1; AKwUvBza+FUeqa+fNV0QJhDL0YFiVW/YUN55qv+dhDv8YGFYn504TV5NMDKxvn0IUrujP2CMoSx5J5A8fV83bN8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfLpMf3H8ShS85/T2tNzwU8CvRV2G5fv72xoUyQg7Odpj/vWgK
-	VPKiO66eWJc3Vgwd9z6bt/Aa5gGDbP00qbbWZ9uP4gboFo6Hqq0+oQN2/3n1Hd+VPd8=
-X-Gm-Gg: AYBFou04SSioAimELhe0i1SVkclASD4rg0UCd1Rr5WWPHuHVPnw9nZqNEIhH3z+E51p
-	AlEIyh7868H5JMkg7M1aAvTStdyxbbkHQmQdkSQGuNTzwP+zZ/yemCBjw+kYevVRoyDSOBG8rtK
-	IE2BQjY+mFEhZ8sVKN8SKgmbvRHerkOgXSwoVfzbIgbPzoSX7SrtCBfHi8rYHmOvvQu/lPLGTTZ
-	tMNJthUXJoAa4ntH50fFCya3++iUN6mwERXYRPaxuf8McwHlN3dmjXGYRWgFfpgMdTEYAYj/L6Z
-	e/oS+4ROzjfl8vftgSEngbKsUOvr0HaUpwZUhebU3zvzdmtXE03rCZo0NmZXIc2U1K19lQV2I5D
-	5QbuP0nWP4fYgOMCdcDxpa6372aT7TKm32XSWH6V89qbPn3b5FNDUQ3LAvXZxHbmSc7LBPwBK8g
-	UZqNSiv9gBby4GPheHDrnf5JNCkFYihyJdQbDZ6hVXVpjwM62cOmqnglZtYbD23tjQzREaWNdJt
-	BkN3KyCx5opk+g6GmX0MH2n7aQ0b1HvQIXO4KYnO+6hikJoLCA4EFcTXt1+Oh6OhzdFP3darLnk
-	HtH0Z3j3JyrtIDAM6hI8jpif8hbQhBXLfIZppRWw53JZ89ebbJ5e9J0N3K0U74XVm8XTrF1AJbG
-	zmMvTcVz7IlcdEQb2Uva0JDxzZcWPr3/WjKsbx28lgY071bFOgPS1w+1gM04xwCSlCA==
-X-Received: by 2002:a05:690e:1c09:b0:671:2a71:63ed with SMTP id 956f58d0204a3-672ed1d0186mr63223d50.34.1790187074782;
-        Wed, 23 Sep 2026 11:11:14 -0700 (PDT)
-Received: from edhar.longhair-great.ts.net (pool-173-48-206-252.bstnma.fios.verizon.net. [173.48.206.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9141e217944sm264136d6.9.2026.09.23.11.11.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 11:11:12 -0700 (PDT)
-From: Zack Gomez <zack.gomez@gmail.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: horms@kernel.org,
-	leitao@debian.org,
-	stephen@networkplumber.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zack Gomez <zack.gomez@gmail.com>
-Subject: [PATCH net v3] netpoll: bound the deferred transmit queue
-Date: Wed, 23 Sep 2026 14:11:11 -0400
-Message-ID: <20260923181111.1182838-1-zack.gomez@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=WW14NGzc/NEGWV8mfByYeJ/e2Khj11iCWX5m3BJGOq0=;
+        b=OVKqVf71Uld91HqMwd4NMQ4Bpd3lCvHCXD4T4gR5JJo/hygUr9kHxXoWgS3lWDYmAy
+         9ezyNvJLTv3qynomRkpU9laRtiN7dfHLtS1SRwe1MEKydORlJzXqoYtzd9vNV9ebKRLU
+         gmZIa2G9i/u7m5rb+FG11Qv/1nYdpnXb4+MPBsprXYUBNvbLhTjnu9NCSrKrnzmdlvva
+         YfJmIcro/U0qUEi6aGFAQnRDIogTVBQGGR4Dn1DI8pLB7iRiWvVNmqAs2Ui3nUleEr3k
+         E76kDJy9wMobATxvsjWLvddBa2xgXI6TL1tqn9wxtFuYQYOPMLSNomHsml4q8gy+edvK
+         +3cw==
+X-Forwarded-Encrypted: i=1; AKwUvBzpyDMczMxMlquFZxJlYkqBM0QP8f+KDKSKvqDYu1FR/qIbxuoWbcD7TzZulT7zUGlZrRl8j6OA9uwmo+I=@vger.kernel.org
+X-Gm-Message-State: AFuF++k4hv/1PanQdVH8gGrp/fBoaWAuww0xlXsvB+t21cM8n/MEYEcQ
+	K0K1+PNenY1luioKrVffVypD2OvLmrWjPKT3sVkYJDYe9fbaPLiDlK+gUaeix662CK5LWH+nUVD
+	6vL8b7iQBng==
+X-Received: from dlea7-n1.prod.google.com ([2002:a05:701b:4207:10b0:144:e5a6:137a])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:458e:10b0:144:e246:a0d8
+ with SMTP id a92af1059eb24-144f916a133mr3287893c88.40.1790187156051; Wed, 23
+ Sep 2026 11:12:36 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:11:24 -0700
+In-Reply-To: <20260923181213.3032038-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <cover.1789966896.git.irogers@google.com> <20260923181213.3032038-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+Message-ID: <20260923181213.3032038-2-irogers@google.com>
+Subject: [PATCH v3 01/49] perf python: Update syscall helpers and expose arch_strerrno
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
+	namhyung@kernel.org
+Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com, 
+	james.clark@linaro.org, leo.yan@linux.dev, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
+	tmricht@linux.ibm.com
+Content-Type: text/plain; charset="UTF-8"
 
-__netpoll_send_skb() parks an skb on npinfo->txq whenever the device
-cannot take it at once, and once the queue is non-empty every later skb
-goes straight there to keep ordering. queue_process() drains it from a
-workqueue and, unlike the direct path, never polls the device for
-completions: when the ring is stopped it backs off HZ/10. Nothing limits
-the queue length.
+Update the PyArg_ParseTupleAndKeywords format string for
+pyrf__syscall_name() and pyrf__syscall_id() from "i|$i" to "i|i" (and
+"s|$i" to "s|i"), allowing elf_machine to be passed as an optional
+positional argument as well as a keyword argument. Update syscall_id()
+and syscall_name() in perf.pyi to match, and set the return type of
+syscall_name() to Optional[str] as unknown syscall numbers return None.
 
-A producer that outruns that drain therefore grows the queue until the
-host is out of memory. Observed with netconsole forwarding a GPU driver
-that logged one line at ~1e5/s after a firmware hang. The NIC was
-moving ~17k packets/s: completions for each burst surfaced tens of ms
-later, outside the one-tick window, so queue_process() slept HZ/10 per
-ring while ~1e5 lines/s kept arriving. The queue grew at ~170 MB/s,
-unreclaimable slab reached 51 GiB in five minutes and the OOM killer
-ran from kswapd with 341 MiB of anonymous memory on the whole box. What
-the queue held was the flood itself; the OOM report never left the
-host.
+Also expose perf_env__arch_strerrno() as perf.arch_strerrno(err,
+elf_machine=None) so standalone Python scripts can resolve
+architecture-specific errno names directly from the auto-generated
+trace beauty tables instead of maintaining duplicate errno dictionaries
+in Python. Tighten the macro pattern in arch_errno_names.sh to
+E[A-Z0-9]+ so compiler -D flags containing underscores (such as LLVM's
+-DEXPERIMENTAL_KEY_INSTRUCTIONS=1) do not shadow EPERM (1), and add
+EM_SPARC32PLUS alongside EM_SPARC and EM_SPARCV9.
 
-Reproduced on the same host (netconsole over a 10G ConnectX-4 Lx) under
-the same slow-completion condition: 200k lines to /dev/kmsg in 0.12 s
-grew unreclaimable slab by 173 MiB, about 188k skbs, draining at
-~8-10k packets/s. With prompt completions the same burst drains at line
-rate; a stall on the link while lines keep arriving faster than the
-drain reproduces the growth.
-
-Until the 2006 netpoll rework [1] the deferred path drained through
-dev_queue_xmit(), with the stack's own backpressure, and was capped at
-16 skbs (MAX_QUEUE_DEPTH). That series moved it to a direct
-hard_start_xmit() with the HZ/10 back-off and made the queue
-per-device, dropping the cap on the way.
-
-Cap it at 1024 skbs per device and drop new skbs beyond that. The drop
-is counted in tx_dropped of the device whose queue is full and freed
-with SKB_DROP_REASON_FULL_RING. A netconsole target bound directly to
-that device also gets NET_XMIT_DROP and, with CONFIG_NETCONSOLE_DYNAMIC,
-counts it in xmit_drop_count. When a stacked device (bond, bridge,
-team, vlan, macvlan) passes the skb down and the lower device's queue
-is the one that fills, the return value does not reach netconsole and
-the lower device's tx_dropped is the record. The bound holds either
-way. Nothing is logged on the drop path because that would recurse
-into the console being drained.
-
-[1] https://lore.kernel.org/netdev/20061026225645.482978803@osdl.org/
-
-Fixes: b6cd27ed3388 ("netpoll per device txq")
-Assisted-by: Claude:claude-fable-5-1
-Signed-off-by: Zack Gomez <zack.gomez@gmail.com>
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
-v3:
- - no code change; the v2 mail was line-wrapped and whitespace-stripped
-   in transit and did not apply
-   https://lore.kernel.org/netdev/CAErB-w3Or6jkhsy9phjf5uo1O-T_hHQLx-XBFZeHX_8tqN38mw@mail.gmail.com/
-v2:
- - count the drop in tx_dropped of the device whose queue is full, so
-   it is visible when the sender ignores the return value or sits
-   above a stacked device (Breno, Sashiko)
- - free with SKB_DROP_REASON_FULL_RING (Breno)
- - skb_queue_len_lockless() for the unlocked length check; the cap is
-   a soft bound and the comment says so (Sashiko)
- - commit message: xmit_drop_count only covers a directly bound
-   target; slab figures described as what they are; dropped the
-   sentence about the 2006 list discussion
- - Cc Stephen Hemminger (Fixes: author)
-v1: https://lore.kernel.org/netdev/20260914041221.1028092-1-zack.gomez@gmail.com/
+ tools/perf/python/perf.pyi                  | 16 +++++-
+ tools/perf/trace/beauty/arch_errno_names.sh |  4 +-
+ tools/perf/util/python.c                    | 60 ++++++++++++++++++++-
+ 3 files changed, 74 insertions(+), 6 deletions(-)
 
-Tested on 7.2.5 with this patch applied, same host and reproducer as
-v1. Under the slow-completion condition the 200k-line burst that grew
-unreclaimable slab by 173 MiB on the unpatched kernel grows it by
-2 MiB, with 187229 drops counted in the target's transmit_errors and
-the same number in the device's tx_dropped; with prompt completions
-it drains at line rate with no drops and a sampled peak of ~1.1k
-skbs. Slab figures are deltas sampled at 4 Hz. W=1 build of
-netpoll.o and netconsole.o on this base is clean, checkpatch --strict
-clean.
-
-The first tx_dropped increment on a device allocates its core stats
-with GFP_ATOMIC, the same class of allocation find_skb() already does
-on this path; they could be allocated at netpoll setup instead if
-preferred.
-
-Still open from v1: tail drop keeps the oldest messages and loses the
-newest, which for a console are usually the ones wanted, so dropping
-from the head is a few more lines; and 1024 is arbitrary, about 1 MiB
-of skbs.
-
- net/core/netpoll.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/net/core/netpoll.c b/net/core/netpoll.c
-index fe1e0cda5d6..aafbb19a288 100644
---- a/net/core/netpoll.c
-+++ b/net/core/netpoll.c
-@@ -38,6 +38,15 @@
+diff --git a/tools/perf/python/perf.pyi b/tools/perf/python/perf.pyi
+index 58b0b3ed819d..c390e17708b1 100644
+--- a/tools/perf/python/perf.pyi
++++ b/tools/perf/python/perf.pyi
+@@ -20,7 +20,7 @@ def metrics() -> List[Dict[str, Union[str, List[str]]]]:
+     """
+     ...
  
- #define USEC_PER_POLL	50
+-def syscall_name(id: int, *, elf_machine: Optional[int] = None) -> str:
++def syscall_name(id: int, elf_machine: Optional[int] = None) -> Optional[str]:
+     """Convert a syscall number to its name.
  
-+/*
-+ * Cap on skbs parked in npinfo->txq while the device is busy. The queue
-+ * exists to ride out a transient stall; a producer that outruns the
-+ * device for longer than that must lose packets, not grow it without
-+ * bound. Checked without the queue lock, so the queue can overshoot
-+ * slightly.
-+ */
-+#define NETPOLL_TXQ_MAX	1024
+     Args:
+@@ -32,7 +32,7 @@ def syscall_name(id: int, *, elf_machine: Optional[int] = None) -> str:
+     """
+     ...
+ 
+-def syscall_id(name: str, *, elf_machine: Optional[int] = None) -> int:
++def syscall_id(name: str, elf_machine: Optional[int] = None) -> int:
+     """Convert a syscall name to its number.
+ 
+     Args:
+@@ -44,6 +44,18 @@ def syscall_id(name: str, *, elf_machine: Optional[int] = None) -> int:
+     """
+     ...
+ 
++def arch_strerrno(err: int, elf_machine: Optional[int] = None) -> Optional[str]:
++    """Convert an errno number to its symbolic name.
 +
- /*
-  * carrier_timeout is netconsole-specific and only kept here to preserve the
-  * netpoll.carrier_timeout module-parameter ABI. Its value is exposed to
-@@ -314,6 +323,12 @@ static netdev_tx_t __netpoll_send_skb(struct netpoll *np, struct sk_buff *skb)
- 	}
++    Args:
++        err: The errno number (positive or negative).
++        elf_machine: Optional ELF machine type.
++
++    Returns:
++        The symbolic name of the errno, or None if unknown.
++    """
++    ...
++
+ def parse_events(
+     event_string: str,
+     cpus: Optional[cpu_map] = None,
+diff --git a/tools/perf/trace/beauty/arch_errno_names.sh b/tools/perf/trace/beauty/arch_errno_names.sh
+index 8751bfa4a2b2..e75cd5bc4328 100755
+--- a/tools/perf/trace/beauty/arch_errno_names.sh
++++ b/tools/perf/trace/beauty/arch_errno_names.sh
+@@ -46,7 +46,7 @@ process_arch()
+ 	asm_errno=$(asm_errno_file "$arch")
  
- 	if (!dev_xmit_complete(status)) {
-+		if (skb_queue_len_lockless(&npinfo->txq) >= NETPOLL_TXQ_MAX) {
-+			dev_core_stats_tx_dropped_inc(dev);
-+			dev_kfree_skb_irq_reason(skb,
-+						 SKB_DROP_REASON_FULL_RING);
-+			goto out;
-+		}
- 		skb_queue_tail(&npinfo->txq, skb);
- 		schedule_delayed_work(&npinfo->tx_work,0);
- 	}
+ 	$gcc $CFLAGS $include_path -E -dM -x c $asm_errno \
+-		|grep -hE '^#define[[:blank:]]+(E[^[:blank:]]+)[[:blank:]]+([[:digit:]]+).*' \
++		|grep -hE '^#define[[:blank:]]+(E[A-Z0-9]+)[[:blank:]]+([[:digit:]]+).*' \
+ 		|awk '{ print $2","$3; }' \
+ 		|sort -t, -k2 -nu \
+ 		|IFS=, create_errno_lookup_func "$arch"
+@@ -69,7 +69,7 @@ arch_to_e_machine()
+ 	riscv)      printf '\tcase EM_RISCV:\n' ;;
+ 	s390)       printf '\tcase EM_S390:\n' ;;
+ 	sh)         printf '\tcase EM_SH:\n' ;;
+-	sparc)      printf '\tcase EM_SPARC:\n\tcase EM_SPARCV9:\n' ;;
++	sparc)      printf '\tcase EM_SPARC:\n\tcase EM_SPARC32PLUS:\n\tcase EM_SPARCV9:\n' ;;
+ 	x86)        printf '\tcase EM_386:\n\tcase EM_X86_64:\n' ;;
+ 	xtensa)     printf '\tcase EM_XTENSA:\n' ;;
+ 	esac
+diff --git a/tools/perf/util/python.c b/tools/perf/util/python.c
+index d8a842621cda..6ff0b4ed0bef 100644
+--- a/tools/perf/util/python.c
++++ b/tools/perf/util/python.c
+@@ -3,6 +3,7 @@
+ #include <Python.h>
+ 
+ #include <inttypes.h>
++#include <limits.h>
+ #include <string.h>
+ 
+ #include <linux/err.h>
+@@ -25,6 +26,7 @@
+ #include "dso.h"
+ #include "dwarf-regs.h"
+ #include "event.h"
++#include "env.h"
+ #include "branch.h"
+ #include "evlist.h"
+ #include "evsel.h"
+@@ -4104,14 +4106,35 @@ static int pyrf_session__setup_types(void)
+ 	return PyType_Ready(&pyrf_session__type);
+ }
+ 
++static int pyrf__parse_elf_machine(PyObject *obj, int *elf_machine)
++{
++	long val;
++
++	if (!obj || obj == Py_None) {
++		*elf_machine = EM_HOST;
++		return 0;
++	}
++	val = PyLong_AsLong(obj);
++	if (val == -1 && PyErr_Occurred())
++		return -1;
++	if (val <= 0 || val > UINT16_MAX)
++		*elf_machine = EM_HOST;
++	else
++		*elf_machine = (int)val;
++	return 0;
++}
++
+ static PyObject *pyrf__syscall_name(PyObject *self, PyObject *args, PyObject *kwargs)
+ {
+ 	const char *name;
+ 	int id;
+ 	int elf_machine = EM_HOST;
++	PyObject *elf_machine_obj = NULL;
+ 	static char *kwlist[] = { "id", "elf_machine", NULL };
+ 
+-	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "i|$i", kwlist, &id, &elf_machine))
++	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "i|O", kwlist, &id, &elf_machine_obj))
++		return NULL;
++	if (pyrf__parse_elf_machine(elf_machine_obj, &elf_machine) < 0)
+ 		return NULL;
+ 
+ 	name = syscalltbl__name(elf_machine, id);
+@@ -4125,9 +4148,12 @@ static PyObject *pyrf__syscall_id(PyObject *self, PyObject *args, PyObject *kwar
+ 	const char *name;
+ 	int id;
+ 	int elf_machine = EM_HOST;
++	PyObject *elf_machine_obj = NULL;
+ 	static char *kwlist[] = { "name", "elf_machine", NULL };
+ 
+-	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "s|$i", kwlist, &name, &elf_machine))
++	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "s|O", kwlist, &name, &elf_machine_obj))
++		return NULL;
++	if (pyrf__parse_elf_machine(elf_machine_obj, &elf_machine) < 0)
+ 		return NULL;
+ 
+ 	id = syscalltbl__id(elf_machine, name);
+@@ -4138,6 +4164,30 @@ static PyObject *pyrf__syscall_id(PyObject *self, PyObject *args, PyObject *kwar
+ 	return PyLong_FromLong(id);
+ }
+ 
++static PyObject *pyrf__arch_strerrno(PyObject *self, PyObject *args, PyObject *kwargs)
++{
++	const char *name;
++	int err;
++	int elf_machine = EM_HOST;
++	PyObject *elf_machine_obj = NULL;
++	static char *kwlist[] = { "err", "elf_machine", NULL };
++
++	if (!PyArg_ParseTupleAndKeywords(args, kwargs, "i|O", kwlist, &err, &elf_machine_obj))
++		return NULL;
++	if (pyrf__parse_elf_machine(elf_machine_obj, &elf_machine) < 0)
++		return NULL;
++
++	if (err == INT_MIN)
++		Py_RETURN_NONE;
++	if (err < 0)
++		err = -err;
++
++	name = perf_env__arch_strerrno((uint16_t)elf_machine, err);
++	if (!name || !strcmp(name, "(unknown)"))
++		Py_RETURN_NONE;
++	return PyUnicode_FromString(name);
++}
++
+ static PyObject *pyrf__config_get(PyObject *self, PyObject *args)
+ {
+ 	const char *config_name, *val;
+@@ -4202,6 +4252,12 @@ static PyMethodDef perf__methods[] = {
+ 		.ml_flags = METH_VARARGS | METH_KEYWORDS,
+ 		.ml_doc	  = PyDoc_STR("Turns a syscall name to a number.")
+ 	},
++	{
++		.ml_name  = "arch_strerrno",
++		.ml_meth  = (PyCFunction) pyrf__arch_strerrno,
++		.ml_flags = METH_VARARGS | METH_KEYWORDS,
++		.ml_doc	  = PyDoc_STR("Turns an errno number to a string.")
++	},
+ 	{ .ml_name = NULL, }
+ };
+ 
 -- 
-2.55.0
+2.56.0.rc1.310.g51773c2048-goog
 
