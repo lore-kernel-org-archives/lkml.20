@@ -1,121 +1,168 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1F241684B;
-	Wed, 23 Sep 2026 06:36:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21768430CD7
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:37:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790145386; cv=none; b=pH7hpy3dBHoBPVxTOwFlwj8YsQ+I534MVyoE/Nqo25U2qG6+A8FY40XxH5mRBVECIma4hzlqZlVFo1vx+kFWLzJoeiOCXD9DQZkHcGMiEBspC/7i/oQDijGK/dhc6SzmUNc4vMLs5OR6WEmOf75ftBFk2oC8S6+/YrKnz5wOtCU=
+	t=1790145431; cv=none; b=AodA+G/F/2UueGpZRcQcZYj2asKWaDE1bSGw8SwVlbN91rpU6AsktjoB28gC2Wj+/2j2+flcGOpAs/wXEkWT2UvIHL6OY9LWLlVxfYL4CHugTrAcVzg4CpEkPBmYMtKlWuVWRCrsbIpjhfxJQOr6BGOwGmKs7vFPB43kV165Udk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790145386; c=relaxed/simple;
-	bh=QXk6sqnpswcMUyDd2kkQEilIhi7zKKxDdYh0LaPA8n4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 In-Reply-To:References; b=ZkQ1YHppozquYM7b8c+QiP8oPOcl+GjUJyiZKP1vm1Rk2aN8S8ROCYaHSdT/VA9eWFiMTNm6V5zDlAZVLBb3FFt17ex+Grscblf8MkXhL+7+XJmmyMEJqAd3zkuuu0GgeppAgG2aOYpsrltx6zQ7yVsQLG8DyP9lhDl1ZozENN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=VG6ZLmJs; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790145431; c=relaxed/simple;
+	bh=q6FUjfAvrde7ObIfU3V3bTgB9v/JDqJhh9doDVfzOdI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T6e5nMgTE2ilYHeJ5glbJxlqP/cCvbX5Ig7nobEPIZgQX0uUpDUa5nfAmEdLJs+EDkneLoexVOpTnJZekMgFNBHZQbWcpOTFHwQ2CyN0gDGalGQI8UV5ucU0++h+EIZGjQI+D8RUY0Co4KH+03/Ni8MP42fV/IzMY0ONw8Y1Few=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YrsfIawT; arc=none smtp.client-ip=95.215.58.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="VG6ZLmJs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790145367;
-	bh=7TD6kaLOIkHCV7biWJRQxBpxr+dO2L1mtrMOe3kFMLE=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=VG6ZLmJsiH0JmvVI+mA8iYw5OWhsZZEYhG2FR28omQS4dqnFyUlqZHRIchJg3Vwdi
-	 HB8Xx1QsLj7ZRRSMGul+GhleVPw9Wir5mwVuYE8odIz90L2IMQwhfNAgmHKO7+6W70
-	 lWZs7K5vE0A3SNUzXhNCEKWBKu/XwmvrtKGwpCNA=
-X-QQ-mid: zesmtpsz4t1790145366t12895b09
-X-QQ-Originating-IP: iQ++3uqmOnABX9dDUWqAzmBVlnJU4UKa65BUSd0vL6E=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 23 Sep 2026 14:36:03 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7840022773498223728
-EX-QQ-RecipientCnt: 14
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YrsfIawT"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=q6FUjfAvrde7ObIfU3V3bTgB9v/JDqJhh9doDVfzOdI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790145425; v=1; x=1790750225;
+ b=YrsfIawTM4dJ2cxEBQ6nGgUQLQf+evC8T7fQ111YlZpIMVYNHFGXiYpBo97U1iN171gnOqsy
+ cOal7C4xbrzeeNTmG5j7dLfUrYf25luNdyiL74daiGSkzLmjflZ9VaJyFwoLeGsYp+U7pJgXqIw
+ WRoO50eXkj1KCeRXbeyO4rL8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7a7d515496bbdaf5;
+	Wed, 23 Sep 2026 06:37:02 +0000
+X-Mizu-Trace-ID: 7a7d515496bbdaf5
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>
+Cc: netfs@lists.linux.dev,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Hao Ge <hao.ge@linux.dev>,
+	Erhard Furtner <erhard_f@mailbox.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] netfs: Fix missing alloc tagging of direct mempool allocations
+Date: Wed, 23 Sep 2026 14:37:59 +0800
+Message-Id: <20260923063759.34667-1-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=93fc701ceb312486caf8efcda37d3e33c17510886787078030b0fde4394e;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 23 Sep 2026 14:36:01 +0800
-Message-Id: <DLMHKHTDP2W9.3GX33KSJ2YIJM@linux.spacemit.com>
-Cc: "Yixun Lan" <dlan@kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, "Conor Dooley" <conor+dt@kernel.org>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt"
- <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
- Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
- add USB controller and USB phy support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Sandie Cao" <sandie.cao@deepcomputing.io>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-In-Reply-To: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.b414918c.4333.4215.b208.49d99e9be044@feishu.cn>
-References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
- <20260922110434.3426051-1-sandie.cao@deepcomputing.io>
- <DLMC322TOCGJ.2GTJG14AFBACW@linux.spacemit.com>
- <407ce3d77416bb2522b7906b0df3d5adf02c27ee.b414918c.4333.4215.b208.49d99e9be044@feishu.cn>
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MF5EUprWCjQDzf6yuXnqKrRWC9+nueLk4HchkSxqDxHWgDGD76ek5lzL
-	l7UQibFIK1N1omV9jDMv0cRERRr3TYVMILedCqj/zQuxiRW7elyDarlWxmkb9oecvzaJG/u
-	xXlBYo7tS7bMKbsUDZRp0MbxF+zlDZBFmBIT0eG1RAvJq4o6T1kgUTdAE6Ug6BB2boXX/V1
-	dYk/K39JCYz4yr7d2gkASjiVlS9lbt+O4fpInjeUr2SGqHnNjxeFpRGGosIK4cc/A5u/IHP
-	zfYfKr/KKwzVrsMqCvxtoL9mAbE/qscxqXmi5CCCdCtWICUV3G/uYuXb5DiAltJakC3tb0U
-	FGMsHAgYtcrt6+bbU1YScEip6yQUkhpE2fY9U9aNkFBzFLWscC17d8G2VJtxzVCWJwW6g+i
-	08+rCMDAfD1dy2Npx8nCvCwfM9qLai9/DztFg7K4dcjpiowz7p6KxtDk7O0aoxI1qvsNynw
-	sRpOIjUXavbDN5CltYTM+1dCL6rqfGeJjNvNuKWXtDgCSjuZlISP2IHH/vrRKg2o/G7s0i5
-	DczeCtViBOtPNmvPn+LGvUse1PCmCrZVbsFSfeXUER2yQeRE+CB9HBv782qWCDwryNSajRx
-	DmevZ6jY+F2gmjhY5lR5B0lNVX42ujYpi0Dj8P9frOJfiFBAFGZjriUIi6ViRRz98+vsb+k
-	qPqa5nzV/64HaynTTv35q//Xp4tRJL7XNuDkrhCMrYVqwUI8vCJaeld9luEJSX020hY6qz3
-	NwhLCyp67oWwpsGZz6LVBAlgMY+b02ksr4me39KZ5K1A/mc9XiPAPpUFbunfmbWwgl6LkAA
-	ELYEjFqjoekytwJI9oS9s7WJ2KQS4c6jVSB8jSdbtCJMmOWw46sPrknou+h5pCil/2CpgXW
-	kTYC7Ir4r6yJ2bQt0bipbWvXBpd7X470ZVTt8SgOLOyha8j79rTvhYi1IrtfHRf4FKaywqf
-	xBL8FhLG89F/S0TbEl+JiNBaa059js38XSCHoPaI1GIyu9d7Q6LFSFkRQgylnw4BCgJLNAv
-	PSF5y25jQrP0aEcqRImXDJagl5Oi7XqyqDBXJTFD9XTxrDXhMrIToEePWRY1mnFTwEpdRyp
-	JtZbL9XQ2bB1sLGHYTsss/BogrZDXfwZJN443a4eqp3NmZIWuUksNGc+Wve/6rIjPaPrL/9
-	QMAzXrWuzsDjAbgwTLB/i1DsDfGSlTgup1UE
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---93fc701ceb312486caf8efcda37d3e33c17510886787078030b0fde4394e
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Commit 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in writeback by
+adding a mempool") added a mempool for the folio_queues and made the
+request, subrequest and folio_queue allocations distinguish between
+writeback and everything else.  Writeback is part of memory reclaim
+and must not fail due to ENOMEM, so it allocates under GFP_NOFS
+through mempool_alloc(), which may dip into the pool's reserve and,
+if that runs empty, wait for elements to be returned.  The
+GFP_KERNEL paths, which can return -ENOMEM to their callers, invoke
+the pool's ->alloc() callback directly instead.
 
-On Wed, Sep 23, 2026 at 12:07:20PM +0800, Sandie Cao wrote:
-> Please note: usb3d_u2phy also use CLK_APMU_USB2_BUS.
+The direct call, however, skips the alloc_hooks() wrapper that the
+mempool_alloc() macro provides.  The pool callbacks, mempool_alloc_slab()
+and mempool_kmalloc(), call kmem_cache_alloc_noprof() and kmalloc_noprof()
+and rely on current->alloc_tag having been set by the caller.  With
+CONFIG_MEM_ALLOC_PROFILING_DEBUG=y this leads to
 
-Could you share which tree and commit this snippet comes from? I checked
-k3.dtsi at the base-commit listed in your cover letter,
-3f2425f5b5bbbdd991ca9cdfd5502e68d8895998 [1], and usb3d_u2phy has:
+    current->alloc_tag not set
+    WARNING: ./include/linux/alloc_tag.h:161 at __alloc_tagging_slab_alloc_hook
+    alloc_tag was not set
+    WARNING: ./include/linux/alloc_tag.h:166 at __alloc_tagging_slab_free_hook
 
-        clocks =3D <&syscon_apmu CLK_APMU_USB3_PORTD_BUS>;
+at allocation and free time respectively, as reported when reading
+files on a CIFS mount.  The allocations are also missing from
+/proc/allocinfo.
 
-Are we looking at different versions?
+Wrap the direct ->alloc() invocations in alloc_hooks() with a new
+mempool_alloc_noreserve() helper in include/linux/mempool.h, next to
+the other alloc_hooks()-wrapped macros such as mempool_alloc().  The
+GFP_KERNEL paths keep their failable allocation semantics, they just
+get tagged now.
 
-Link: https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-n=
-ext/+/3f2425f5b5bbbdd991ca9cdfd5502e68d8895998/arch/riscv/boot/dts/spacemit=
-/k3.dtsi [1]
+Fixes: 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in writeback by adding a mempool")
+Reported-by: Erhard Furtner <erhard_f@mailbox.org>
+Closes: https://lore.kernel.org/all/0b004319-9ef7-437c-a4dd-174d6a9a83db@mailbox.org/
+Tested-by: Erhard Furtner <erhard_f@mailbox.org>
+Suggested-by: Suren Baghdasaryan <surenb@google.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+Changes in v2:
+- Move the alloc_hooks() wrapper from fs/netfs/internal.h into
+  include/linux/mempool.h as mempool_alloc_noreserve(), per Suren's
+  suggestion, so it is not netfs-specific.
 
---=20
-Troy Mitchell
+v1 Link: https://lore.kernel.org/all/20260922023541.51532-1-hao.ge@linux.dev/
+---
+ fs/netfs/objects.c        | 4 ++--
+ fs/netfs/rolling_buffer.c | 2 +-
+ include/linux/mempool.h   | 7 +++++++
+ 3 files changed, 10 insertions(+), 3 deletions(-)
 
---93fc701ceb312486caf8efcda37d3e33c17510886787078030b0fde4394e
-Content-Type: application/pgp-signature; name="signature.asc"
+diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
+index 7f6a3e912602..ad549daa9c79 100644
+--- a/fs/netfs/objects.c
++++ b/fs/netfs/objects.c
+@@ -34,7 +34,7 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
+ 
+ 		rreq = mempool_alloc(mempool, gfp);
+ 	} else {
+-		rreq = mempool->alloc(gfp, mempool->pool_data);
++		rreq = mempool_alloc_noreserve(mempool, gfp);
+ 		if (!rreq)
+ 			return ERR_PTR(-ENOMEM);
+ 	}
+@@ -214,7 +214,7 @@ struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq
+ 	struct kmem_cache *cache = mempool->pool_data;
+ 
+ 	if (rreq->gfp == GFP_KERNEL)
+-		subreq = mempool->alloc(rreq->gfp, mempool->pool_data);
++		subreq = mempool_alloc_noreserve(mempool, rreq->gfp);
+ 	else
+ 		subreq = mempool_alloc(mempool, rreq->gfp);
+ 	if (!subreq)
+diff --git a/fs/netfs/rolling_buffer.c b/fs/netfs/rolling_buffer.c
+index 424e77a9a109..d30d5ef6d86e 100644
+--- a/fs/netfs/rolling_buffer.c
++++ b/fs/netfs/rolling_buffer.c
+@@ -29,7 +29,7 @@ struct folio_queue *netfs_folioq_alloc(unsigned int rreq_id, gfp_t gfp,
+ 	struct folio_queue *fq;
+ 
+ 	if (gfp == GFP_KERNEL)
+-		fq = netfs_folioq_pool.alloc(gfp, netfs_folioq_pool.pool_data);
++		fq = mempool_alloc_noreserve(&netfs_folioq_pool, gfp);
+ 	else
+ 		fq = mempool_alloc(&netfs_folioq_pool, gfp);
+ 	if (fq) {
+diff --git a/include/linux/mempool.h b/include/linux/mempool.h
+index a0fa6d43e0dc..6da502aef2f7 100644
+--- a/include/linux/mempool.h
++++ b/include/linux/mempool.h
+@@ -70,6 +70,13 @@ int mempool_alloc_bulk_noprof(struct mempool *pool, void **elem,
+ #define mempool_alloc_bulk(...)						\
+ 	alloc_hooks(mempool_alloc_bulk_noprof(__VA_ARGS__))
+ 
++/*
++ * Allocate a new element without dipping into the pool's reserves or
++ * waiting.  Returns NULL on failure.
++ */
++#define mempool_alloc_noreserve(_pool, _gfp)				\
++	alloc_hooks((_pool)->alloc(_gfp, (_pool)->pool_data))
++
+ void *mempool_alloc_preallocated(struct mempool *pool) __malloc;
+ void mempool_free(void *element, struct mempool *pool);
+ unsigned int mempool_free_bulk(struct mempool *pool, void **elem,
+-- 
+2.25.1
 
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCarNzUQ0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvjqoBALC+90I9O3Z9aQ/60lX4RPaKN48M1FU69LCQe/6g
-LaTFAP42AzJ4bt274kIyxURFDfOEeXt9JY4yYAl2jx9atadhBQ==
-=Tjxm
------END PGP SIGNATURE-----
-
---93fc701ceb312486caf8efcda37d3e33c17510886787078030b0fde4394e--
