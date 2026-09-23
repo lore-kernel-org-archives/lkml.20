@@ -1,60 +1,187 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F075830E82D;
-	Wed, 23 Sep 2026 01:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B87345EBB
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126341; cv=none; b=eSrK+yKGcZJHLzhkRqmeUbM+5XfdQgy8znJoGmY25JaW+HA37tWbl19+090pFFUvfWgera1X4/bxO2nAyHiQ82Rvzm72O6xlCJjDgYlmRLOOYY0fLGZ6eg9MsEL01A5hi17xD+lDXlsZmgtFCmPcxzC1aQ/xyZU/cJZbc9lrQSU=
+	t=1790126441; cv=none; b=OiK9ikfT8WA1eU5fozBgNb+oDo4Tggau9BRMumU647CyKiNbAX0LMOgAvhUbhjG2AJR8DfWLWb4rCKiEmDRSV1F4Nw8dZPAvks+Pk1bcIJXcD9RwF9Q8AI4pXlRfLm78LJTyribaGtaBBjn6lLkzO906qcKcjbZrU45P0IO36Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126341; c=relaxed/simple;
-	bh=l6wavfWFqIPbHOP0VOBZlGD4ZV9dL1W6BaDPspxND4M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G5QyGxSsRpeQKfl/3Evo0j9ThploDqDpcLGaXBsevDlJUdMIYjB1mkEVsYDaEr41rodBwEF+L/3RLd1EBAyBIG1swmmkK6T5KcHsrM3od2MZZ7/nEesNnB8FUUJ0/yKLG4lhfEr6onb6iyEElGVXqX79BOyKYs+8nO+0Ow1yJ+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: bc1ee0b2b6ec11f19a56ed5b684f684d-20260923
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:dff04ed1-faf5-42b0-9e69-2ecbafa51e5a,IP:0,U
-	RL:0,TC:0,Content:18,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:18
-X-CID-META: VersionHash:7db8b62,CLOUDID:30e527e91fb5a7723ef191353456febf,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:4|15|50|99,EDM
-	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: bc1ee0b2b6ec11f19a56ed5b684f684d-20260923
-X-User: zhangheng@kylinos.cn
-Received: from [172.25.120.77] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 1324643357; Wed, 23 Sep 2026 09:18:50 +0800
-Message-ID: <6371971a-99d3-4c21-88bf-b3b0df2d8bd9@kylinos.cn>
-Date: Wed, 23 Sep 2026 09:18:48 +0800
+	s=arc-20240116; t=1790126441; c=relaxed/simple;
+	bh=I81iv3lczUS3G6IPpI6uKZ4DjFCsc5VGR7jHPqYVRgs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=ot54fGUhm11P7yIo5nJrf4bENySQymz8p0TOe2UWiV0d3MCWEJwx0VdLxQ1G4GB6y+4fwRO1nfp3L/3wlN4T9Lbjzmu8Il6wDJv52RCQdTCrXe7w9g/w5VSS81kopskQvYB5U1FXGDuizrqLkMPGZTjcMyKs9GTqDKXFOnCfWng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BuDUsr2i; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BuDUsr2i"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-328664d340aso230102eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:20:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790126438; x=1790731238; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bexp4Cp8y+5hA37h2dF2gaOO9AQzqDKE3dHgoAsDxks=;
+        b=BuDUsr2iFSI6goqLTQcNUXI2wUY6rHleI30cULIc5XYxmWUBbSLBePQgdhl02a0qfE
+         kefcvMTi5XTKPoANKdSykYk+0aPfMfkNLRc89wFh1FkoBB7Oeoq3VumV11NAYFlABqZe
+         N9ykxm/lA0jy0WDfFlE0OdVQcZpkqt4IjFfQEG0XhvjzZJjfe2mK6vMArZHwg+eQpRd0
+         qiXpnrtJr2+n3suEOQ4ad1cC38ZkpOZWe+roXDBJO/71sUrTFm4I11FJkpLWSX/6M+E+
+         t0FRdbeChzmmoqRcutl0ha0MyZybBvSh8opSEUcPFjOjANGi2tu2HLkZPyqI1WmUvSs6
+         PbYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790126438; x=1790731238;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bexp4Cp8y+5hA37h2dF2gaOO9AQzqDKE3dHgoAsDxks=;
+        b=LyA2JG5SStkOuRzWahFgJXt5CTxtPzShettPebTxOuJl3kH6uvmR9W4dp1BLwh3/SZ
+         0ZaES8US+evyRG2LRFViIdx4iUWim25WRTCAknMabbdwnbIAKbG7cAsmY+GcTNRLzfCm
+         COpr7pNZayRDHeGSo889iVWUDsVZVdq+coE4c9Ldr/v//47pDghP5yaTwNaM65bLKDg1
+         qltxT+I5eqDEbOn2VkcaL3If/DjkHclgYE0gt98T/aDMKd5N7BRJmakWihhhedxz1UjM
+         Dq7qvgiejwpXcXuEHOutLJH4hXw7HK+6CKJ8VF5ypmXwi+BBFN1kAuQHLgTLk8Di9zva
+         yKyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw5uvoK4pTe2j7Pe4FzZuZs1QqCyHbfZUlZ6qZ0L9Ri+MG/RAKtNhxCx4ymoyqHL00jIg6CeMurwQ8Uk7g=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKSUv2VsWbtCKr2kUIl/1Jl7V8QKpZQBlsOOVOnzd7V9elYS06
+	QJfbzwyZ7d57XCBysdiPK+cn9f1NcbqeTD+vuJJG/xhc/pMMdrhZlqEb
+X-Gm-Gg: AYBFou3mUvqt1ld+K6IR/fCilMVlALaQQX4WTwhFkX9hAadtYmjGMdg30VZbk4PDZVa
+	r9Ivww+y14zowQNhFH+520pYXP/fYlF/fnRq/KXny2Zzq2JWIPGiMfRn2ve4rDDVWRYoNjT4916
+	erGArE5Qh++98ao3NXr69KjPH4/HMHOhsCIEUnxmzo7WYoZSwYfbeXeIkam/PqKNCK+6lGUjjVb
+	dIbpmoJnHX34XRrWsxYfehEXH3iyCl3jzbnTAJulwtBPnwgdu1FljMzyV0QQAT1uDKW6nhhs1/u
+	vacQBZxrN/e5+PZnwqXtpzMa71IsfZ0K7eM11ol67Eot8j4eq5tUjik/O9VK8h63II8+Pmx9DRi
+	iYTO2qaNzcKVAFYa3PRG840UIfYvBPn29obrQSURx5JlNcT22QusLspdWPYLj5Sfim1D//5Bg4D
+	He0YrwoZl0dkTqRtpc74BAE0OyS7tgTCYdL5ecgeMFNOuRdHlT8GUjLO+Gd6zOSuZRyUcRAPr64
+	4GmmrV4xxAw43u8HrpdpbzmnA==
+X-Received: by 2002:a05:693c:60cd:b0:33b:e306:2e27 with SMTP id 5a478bee46e88-33ea3eb055bmr1139528eec.5.1790126437786;
+        Tue, 22 Sep 2026 18:20:37 -0700 (PDT)
+Received: from localhost ([13.93.150.60])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96f47d52sm1953755eec.28.2026.09.22.18.20.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 22 Sep 2026 18:20:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: amd: acp: Add DMI quirk for Lenovo Yoga Pro 7
- 14ASP9
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mikail <mikailb1998@gmail.com>
-References: <20260922123029.534152-1-zhangheng@kylinos.cn>
- <arKCdpOu3C85owdO@sirena.co.uk>
-Content-Language: en-US
-From: Zhang Heng <zhangheng@kylinos.cn>
-In-Reply-To: <arKCdpOu3C85owdO@sirena.co.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 01:20:35 +0000
+Message-Id: <DLMAUZF2EY4Z.2FZ7BR3O62LAS@gmail.com>
+Cc: <dsahern@kernel.org>, <idosch@nvidia.com>, <davem@davemloft.net>,
+ <edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+ <horms@kernel.org>, <rdunlap@infradead.org>, <netdev@vger.kernel.org>,
+ <aajith@arista.com>, <roopa@nvidia.com>, <jhpark1013@gmail.com>,
+ <corbet@lwn.net>, <skhan@linuxfoundation.org>, <shuah@kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v3 2/2] selftests: net: test untracked NA
+ recovery of FAILED neighbors
+From: "Lawrence Lee" <lfqlee314@gmail.com>
+To: <netdev-bot+sashiko@kernel.org>
+X-Mailer: aerc 0.17.0
+References: <7285b55a1e29d2f04de4e3fe1e723a9724e0377e.1789734885.git.lfqlee314@gmail.com> <179011668031.2160803.1030111847497325728@kernel.org>
+In-Reply-To: <179011668031.2160803.1030111847497325728@kernel.org>
 
-Since this commit was only from the author's side and doesn't link to 
-any URL, it's also hard to determine whether it was placed in the wrong 
-location.
+On Tue Sep 22, 2026 at 10:38 PM UTC,  wrote:
+> [Severity: Low]
+> tcpdump is now a background child, and cleanup_tcpdump() is the only plac=
+e
+> that kills and reaps it. Can that child be left running when the script
+> leaves through a path that never reaches cleanup()?
+>
+> cleanup_tcpdump() is reached only from cleanup(), which runs at the tail =
+of
+> test_unsolicited_na_combination() after log_test() returns:
+>
+> 	log_test "${rc}" 0 "${test_msg[*]}"
+> 	cleanup
+>
+> log_test() can exit first when the script is run with -p or -P and the
+> operator answers 'q':
+>
+> 	if [ "${PAUSE}" =3D "yes" ]; then
+> 		echo
+> 		echo "hit enter to continue, 'q' to quit"
+> 		read a
+> 		[ "$a" =3D "q" ] && exit 1
+> 	fi
+>
+> setup() also runs under set -e, so a failing sysctl there (for example
+> accept_untracked_na=3D2 on a kernel without mode 2) exits the shell direc=
+tly.
+> There is no trap cleanup EXIT INT TERM anywhere in the file, so in those
+> cases the two namespaces from setup_ns and both mktemp files are left
+> behind, and if the failure happens between start_tcpdump() and
+> wait_tcpdump() (for instance the new slowwait 5 grep for "listening on"
+> timing out, or host_link_up failing) a live timeout 15s tcpdump keeps a
+> packet socket and a netns reference until its own timeout expires.
+>
+> Would adding a trap that calls cleanup on EXIT, INT and TERM be reasonabl=
+e
+> here?
+>
+
+I would lean towards no, since tcpdump already times out on its own and=20
+any orphaned tempfiles or netns are a pre-existing issue. No change=20
+planned.
+
+> [Severity: Low]
+> This isn't a problem introduced by this patch, but the absent-entry branc=
+h
+> of verify_ndisc() still discards the exit status of ip neigh show and onl=
+y
+> tests that the output is empty. If the command itself fails, is the empty
+> output then reported as a pass without the neighbour table ever having be=
+en
+> read? The same pattern is present in the baseline version of the function=
+,
+> so this is pre-existing; the new expected_state branch fails closed. Woul=
+d
+> checking the exit status of the query in the else branch be worth folding
+> in while this function is being touched?
+>
+
+Pre-existing issue, will leave as-is
+
+> [Severity: Medium]
+> The new rc=3D$? capture also repairs a reporting bug that existed before =
+this
+> patch. In the baseline the sequence was:
+>
+> 	test_unsolicited_na_common $1 $2 $3
+> 	test_msg=3D("test_unsolicited_na: "
+> 		"drop_unsolicited_na=3D$1 "
+> 		"accept_untracked_na=3D$2 "
+> 		"forwarding=3D$3")
+> 	log_test $? 0 "${test_msg[*]}"
+>
+> The array assignment between the helper call and log_test sets $? to 0
+> (none of the assigned words contain a command substitution), so log_test
+> always received 0 and all eight existing combinations reported OK no matt=
+er
+> what verify_ndisc returned. Capturing rc immediately after
+> test_unsolicited_na_common() changes the pass/fail semantics of those eig=
+ht
+> pre-existing cases so they can now actually fail.
+>
+> The changelog describes only the new FAILED-neighbour coverage and does n=
+ot
+> mention that the existing reporting was broken, and there is no Fixes: ta=
+g
+> (git blame points the log_test $? line at f9a2fb73318eb).
+>
+> Would it make sense to split this into its own patch with a Fixes: tag, s=
+o
+> it can be applied and backported independently of the new mode 2 and
+> FAILED-state coverage, which needs kernel features not present in older
+> trees?
+>
+
+An entirely new patch submission seems like overkill for this. I'll=20
+update the commit message to mention this change and add the Fixes tag.
+
+pw-bot: changes-requested
+
