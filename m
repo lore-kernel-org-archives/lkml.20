@@ -1,32 +1,33 @@
-Received: from mta1.migadu.com (out-60.mta1.migadu.com [95.215.58.60])
+Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E3930D3E0
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3807531327F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:47:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790124436; cv=none; b=W65Otbli9D5Pc5Os01FNZNii8dY2B5XV08gbF/ttCSBgEPYew5brchopubfAtGZkTTzIz5JHQYiebX51n4mw7gRlHtu3uGdvrXUtWOA9hky7p/vMvETe57z54iHoTQvzSbT/HaYnGTZRjUwbPadj5mqEUa2CF8JhttkcRu68V2k=
+	t=1790124438; cv=none; b=qRGY05RYlOHpHm+g9fKg7eSh8wSs7Jr4NyUKjkxtobWPKD6oeaRBEx6s28bSWCrqJozxQKHLIJV/gMywbJJ1s1RxrX5qsQE+DPbVTmhxywgmD4JVfTjqv1GWxCczHvKUNdtV67O0JPyzflsQLCJGxfe09yxP0bxgdgB2hXjYZQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790124436; c=relaxed/simple;
-	bh=0D9ZWYXFf1dq9IifcE65i2/4kH6wGVj4nlhyX8uBOd4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZdChZ+Q/nY8D4UBSYc9Gl6y4nI5cnETXHVI74dTnyo2FtpLDldVv/SO7QOYL2Ni9dEBQGMMCYBFyv7wqbMMmqtj4+lPn7GAgbmnS8YDttbQZp62h/rYwnMxgx6NkJk1XPG/UNSqHtcVFVYkGciAdXhzDLBaOXh9fPv0qJvUBRMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AFoWqi63; arc=none smtp.client-ip=95.215.58.60
+	s=arc-20240116; t=1790124438; c=relaxed/simple;
+	bh=FhIw8yCAByP67BC4dQbuhW0LENXAGhz9fIxT0E/EZUI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eRay7MnHYG7OzeRPfYvdtW4YcSxIyLKXe88QVPbT1NC2vDgb5DR2OY+U3uUUEzrYhvvsZq7gB8neIA26QKH5IrDFv+HGow1MZWiLB6zNrXadAcDpyKYIkc1Cvv1uBRf9Of8dVm6ME16gqmuISLZZBigYHO3Ox65ctYLKqbWkwKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=KG11adFd; arc=none smtp.client-ip=95.215.58.68
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AFoWqi63"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="KG11adFd"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0D9ZWYXFf1dq9IifcE65i2/4kH6wGVj4nlhyX8uBOd4=;
+DKIM-Signature: a=rsa-sha256; bh=FhIw8yCAByP67BC4dQbuhW0LENXAGhz9fIxT0E/EZUI=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790124431; v=1; x=1790729231;
- b=AFoWqi63qwIRf3n1HpxKWvNAP5UJ1zBqQnaVMItBrT93KtU+t5KvccY7KSm956c6wQdNcbHg
- ACEpfeu+kmQO9E2+xqpxLFK1/w9kVDlid64NUluXrMjGWI5X4+V2ViaTnQHAezgQvC5V3YYsNsw
- 74JVIhWmz9LoBtbepfX6pTD0=
+ t=1790124433; v=1; x=1790729233;
+ b=KG11adFdBx4xMNBwCf1fwcLrRPk37mtXuV/T2l8cuVEGQf0Gr3SEQZ62Ou6vNJvpJMtPo39O
+ pl+HQmDlYfE0SlDCqXm3vpSEhOvWpR7z+G+01QVaxcCLaU8QnZFZ7kPdNctKtcy4WcvInmApjvW
+ 1MVrxg3pjIBrjYYTtHu7wzFQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1c20460528d8374e;
-	Wed, 23 Sep 2026 00:47:11 +0000
-X-Mizu-Trace-ID: 1c20460528d8374e
+Received: by smtp.migadu.com with ESMTPS id 120358fc2d05fb9f;
+	Wed, 23 Sep 2026 00:47:13 +0000
+X-Mizu-Trace-ID: 120358fc2d05fb9f
 X-Migadu-Flow: FLOW_OUT
 From: Denis Benato <denis.benato@linux.dev>
 To: platform-driver-x86@vger.kernel.org
@@ -38,10 +39,12 @@ Cc: linux-kernel@vger.kernel.org,
 	"busybox11" <busybox11th@gmail.com>,
 	"Denis Benato" <benato.denis96@gmail.com>,
 	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v2 0/2] platform/x86: asus-armoury: reorganize visibility and extend dgpu_disable
-Date: Wed, 23 Sep 2026 00:47:04 +0000
-Message-ID: <20260923004706.41256-1-denis.benato@linux.dev>
+Subject: [PATCH v2 2/2] platform/x86: asus-armoury: add dGPU disable fallback DEVID for ProArt H7606 series
+Date: Wed, 23 Sep 2026 00:47:06 +0000
+Message-ID: <20260923004706.41256-3-denis.benato@linux.dev>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260923004706.41256-1-denis.benato@linux.dev>
+References: <20260923004706.41256-1-denis.benato@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,43 +53,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+Newer ASUS ProArt laptops (e.g. H7606 series) implement dGPU power
+control on WMI DEVID 0x00090120 instead of the usual 0x00090020.
+The default DEVID returns 0xFFFFFFE2 on these models, so the
+dgpu_disable firmware attribute is never created and the dGPU cannot
+be re-enabled from Linux at all.
 
-This patchset reorganizes the visibility of attribute groups in the Asus
-Armoury driver and extends the dGPU disable functionality with a fallback
-DEVID for the ProArt H7606 series.
+Add a fallback probe for device ID 0x00090120 following the same
+approach as the gpu_mux_dev_id probe.
 
-This good idea comes from Ilpo and this patchset is the result of our
-productive exchange (link below).
+Details for 0x00090120 (confirmed on H7606W using direct WMNB calls
+and inspecting the DSDT DEVS handler):
+  - Reading DSTS returns 0x00010001 when the dGPU is off (CUMA=1),
+	or 0x00010000 when it's on.
+  - Writing DEVS: 0 enables the dGPU (calls PG00._ON() + Notifies
+	PEGP, Device Check), and 1 disables or ejects it.
 
-The original author of the patch has stated that he/she wants to remain
-anonymous, and asked me to respect that, therefore I will only reuse
-the DEVID information from that patch and the commit text as everything
-else has become irrelevant anyway after the reorganization of the driver.
+This behavior matches the dgpu_disable attribute (1 = disabled).
 
-Link: https://lore.kernel.org/all/20260810-asus_armoury_dgpu_new_devid-v1-1-0a5c845414e4@gmail.com/
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
+---
+ drivers/platform/x86/asus-armoury.c        | 2 ++
+ include/linux/platform_data/x86/asus-wmi.h | 3 +++
+ 2 files changed, 5 insertions(+)
 
-Changelog:
-
-Link v1: https://lore.kernel.org/all/20260916154210.181441-1-denis.benato@linux.dev/
-
-- v1
-  - platform/x86: asus-armoury: let attribute groups decide their own visibility
-    - simplify the .c source of the driver making extensive use of .is_visible
-
-Cc: busybox11 <busybox11th@gmail.com>
-
-Denis Benato (2):
-  platform/x86: asus-armoury: let attribute groups decide their own
-    visibility
-  platform/x86: asus-armoury: add dGPU disable fallback DEVID for ProArt
-    H7606 series
-
- drivers/platform/x86/asus-armoury.c        | 282 +++++++++------------
- drivers/platform/x86/asus-armoury.h        | 124 +++++++--
- include/linux/platform_data/x86/asus-wmi.h |   3 +
- 3 files changed, 218 insertions(+), 191 deletions(-)
-
+diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
+index 7812e93734b8..7c54f616d701 100644
+--- a/drivers/platform/x86/asus-armoury.c
++++ b/drivers/platform/x86/asus-armoury.c
+@@ -950,6 +950,8 @@ static int asus_fw_attr_add(void)
+ 	asus_armoury.dgpu_disable_dev_id = 0;
+ 	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU))
+ 		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_DGPU;
++	else if (armoury_has_devstate(ASUS_WMI_DEVID_GPU_MODE))
++		asus_armoury.dgpu_disable_dev_id = ASUS_WMI_DEVID_GPU_MODE;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(armoury_attr_groups); i++) {
+ 		err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
+diff --git a/include/linux/platform_data/x86/asus-wmi.h b/include/linux/platform_data/x86/asus-wmi.h
+index be4d2873ffc9..4ea1ccc1d0ee 100644
+--- a/include/linux/platform_data/x86/asus-wmi.h
++++ b/include/linux/platform_data/x86/asus-wmi.h
+@@ -139,6 +139,9 @@
+ /* dgpu on/off */
+ #define ASUS_WMI_DEVID_DGPU		0x00090020
+ 
++/* dgpu on/off - alternative to ASUS_WMI_DEVID_DGPU */
++#define ASUS_WMI_DEVID_GPU_MODE		0x00090120
++
+ #define ASUS_WMI_DEVID_APU_MEM		0x000600C1
+ 
+ #define ASUS_WMI_DEVID_DGPU_POWER_STATE	0x00120097
 -- 
 2.47.3
 
