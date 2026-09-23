@@ -1,361 +1,250 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EDF9D47798B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:01:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A0E493D40
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:02:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790161319; cv=none; b=AcIIgsMWoe+kxP0BAywxXQ4WFi2Kjw+96M53nNDwDJlIDHZEpla2IPifSuURGqgEynrZjOwpOEYmirJpq1qZgcfdAlkFI2x/wE4dfTcXLn18xyIva2wXfrKfEpGSsx695ZvEvoqoLFKvD+w/1/U1QTd+moVdHXd7jDVkjreJCKo=
+	t=1790161380; cv=none; b=GwLhio5swTo/ywQ3r2pV0lvO3AKSJ8ZB1yWhwUvoJWzmHJsPpn2js03GErMEFMx8I8cbEX1TKtD6NvECfrMsGsEi6cAF4g5Z3y64HfLpKTFnisWGg+twDz49lq6k7CB8H+jFdkXJaKdrKmg3cl1rLj2LrLTyIDTOO5w2jcL/la0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790161319; c=relaxed/simple;
-	bh=KuN+PtspFGa688QMuu8/lFpAFxbYErBT7hOORR2rBjA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LgXHed9kip2sja51cZNK9iZMIJ1lV7rzp31sv5xVFA7GxfjWqk1ARgqHQMVDAxMYi5tNOBr5+1VRXTIHHctRJuRSw3Bs5pBU/NU7hWe/lCwVRJY5KJbtCZRz1SVQmyLCPuMlK51rAufVtcoNCqf1MQGXfumLUnNmuNtpIhI7R10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UE6lu8dc; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790161380; c=relaxed/simple;
+	bh=Q2YLPUSRi1FMgeSQZaI3+vZ2bOUy2qKeiy1uQmOl4Fc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iTUML06VjPGRoRQsrzf2slPr2nGhNP7vCuTQ8gcWMBUQul4XNFqouiVvy6nkJnyFo73JKGriKcWRZuH2xAU2nGBoBNj1UjanDOvPN7bCIh8NZx91tYXHyAc1YdCCvouvSpyEjXQcmPQlriyv6Cw0aXYGEGx1+X5DlTShMoQ82Jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RVgGdHS0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g0S2hG8z; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UE6lu8dc"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4D0081576;
-	Wed, 23 Sep 2026 04:01:43 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 19AD53FA32;
-	Wed, 23 Sep 2026 04:01:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790161306; bh=KuN+PtspFGa688QMuu8/lFpAFxbYErBT7hOORR2rBjA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UE6lu8dcIQZhI1EmAOYv/KX1aVIiAXWRxPsoZFMRrus8JHojGI0QQphBd17GYS0zE
-	 A8LSrjinqKb3qHzDwdIZ9Z2tjVxI2R/CIltDyktAPUeLgNQSi/FgmaVfw55S8dGhim
-	 VrUNIt9wsIYX2w7oe+LnU3tW48Pp3WFgYM1I1aK0=
-Date: Wed, 23 Sep 2026 16:31:43 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, Mark Rtland <mark.rtland@arm.com>, 
-	linx-arm-kernel@lists.infradead.org, linx-kernel@vger.kernel.org, kasan-dev@googlegrops.com
-Subject: Re: [PATCH V2 1/4] arm64/mm: Use pmdp_get() for PMD accesses
-Message-ID: <m72rpspdg5cv7xptent4tglgd25zehx462nfmcx5uyjwi2ag7p@bc6hvhosgtfb>
-References: <20260922061638.3967467-1-anshuman.khandual@arm.com>
- <20260922061638.3967467-2-anshuman.khandual@arm.com>
- <212067fe-1b16-4b87-87a7-4ce50847eb24@arm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RVgGdHS0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g0S2hG8z"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NA2X4b2236558
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:02:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=4zDC52bRM9681hQxHZpw6K
+	B9r8MvxloFdAbrtwYj+4M=; b=RVgGdHS0wPBmLfu9uVRE7JaHsT4fdVklYsmM+c
+	1yoOJA272FkIXnNOVWWkAsnjewGw5zOtD09EVVCNNb6NxKu5CE5aI6NJgpfVSwem
+	bToK67fRvc7rn/XgR2YSpSDT1tjlOKWsjUNmlVYpMWHTcmXVYSiRPj+BaRhI5pH+
+	srAoaiB9ALMwzsQZUiW19WfO48rObk0Ty8/70wnKg3En79DvxZv2j6tqauxR3oGX
+	O8cZczQDDP2EQgANJ57zPoOt5DSq2TMLgVqJlGYNT5rfH9bZomjtSmKV2/mKF7qm
+	CHTCRfq/kK6zpSYg3YkExxwiR76cLfGqJbFTm5Yh9Lk1Wr/g==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvbx7gext-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:02:48 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-333543ac378so922431eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:02:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790161368; x=1790766168; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4zDC52bRM9681hQxHZpw6KB9r8MvxloFdAbrtwYj+4M=;
+        b=g0S2hG8ztqlgi5v/E5Geq/nXtVSXCMDixFNwFWu5xXXOWEQnHdf63ekrwpPe2aF+/S
+         /TVZ21FnA8Zm6Rt9Vex5X9tnrMW4aO4ggvSbvaFEtuIV8PYrXuITYLur63XwcKgzXuua
+         5OoLLkR9TNRPqGyiIWu8khfYU30xeiPuMBtZRlxTo8xpqFNL6JV3RfHG62caVWIQfpL6
+         HI8FunSK0NUKzYYC//zcLjSIDNQ90qMf5EotJPLpPOaOHKcn7pG1ERttqcdEl0ixnYRt
+         WMvlVZMhljhWoSSU2GW2n6VgV9RSapkcrbgydwv/A723i6LEeAm0E8zjhsmni5p4cXRU
+         WdUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790161368; x=1790766168;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4zDC52bRM9681hQxHZpw6KB9r8MvxloFdAbrtwYj+4M=;
+        b=jpybSN/UNIiPRoD+hj5A9MbU97PGeiQ5RPA80EoTkKdyuRFhIJjpCyU32Ov4eT22iF
+         92wMH6FOXAGEjU+JJsDU9thgeqS4wR2XrX2COXuc9DgmQqT7Z+3sXXQ4RG3yMoOPuBf0
+         ig879TEOJnZkwZ2pF1kTiA/dwtaE6zpviOog7qcJtmoazOi6OijaZtsTnwNGJ99YM3QW
+         9ijNcWcD/ZjLnj4kR3McDhuRiNJty8FejV42OGUbZn31DQio2Jj77PE+ItqIIb0T3WEd
+         t3JlUNWve4c65TaAZ8xOuvOtEtXBaOaCnvlZqTNtc8AuGlpFcob2CcSQDZPXQWSUCCd5
+         2JmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwlcMYRjU34JSpF1znuQyOnID8vlhn6FGqACb7CB5slh3fC+B9PM1muJ7jJf2Nxll+fyA/Yrk0MgmKQSj4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lsEPWbCUSeUHS10lgcMoqGHxyPSfOb0XXeYSPc8+A//EcIGdBB
+	e9cZ0TTy8ESnbFEU9RW1kr+PSDfiSWs/2D4CzbPBHoF8Z0pxijY2XHwIYki8Dmy/oeWsSfmKDlc
+	uVDupWlAXnp9SZQQBz1TQfgyj8XkrwYHBTHaC1SaQjA7PubDdQQiFYmxASZaYvIEWYqU=
+X-Gm-Gg: AYBFou0W0H0bKiHaOxcZSFS5lR69witlwPuzKMPvbwlNQyQI71B/9JthUqxnnlEafHc
+	ttit56UR5T1Z3UYvkloAUDHI5cvYrX9iKl4vONVZEFSB9APlq8jGIXs2s3szo9+ZtDr4STIHOEm
+	vTF6XBY8jUOJ9XCm5XMHxFEWuWJ6r8ztuKqBUP4VQvIBWJgjhaCp/b+Vz4oHPxfQGFwTaQdpRAx
+	vXtvuTfhkNEMhpjxxcx2UCNpfTwaa2VNSI7yFDxLuuL4CCDrvoT2bJzi39h1R/rMATLPX9hUlxq
+	YHrRIHhwzgbkHQtKG2lgsUdAJG1hwjnj6K1ZS/EvNM/GBw1fapdat3y09MzbjkilJ8Fi80Z4A8M
+	bsy9gQFzuBy50b0/U1l50GxBX7R+LCoYvAQgby9KW
+X-Received: by 2002:a05:7300:e31c:b0:339:79c9:a711 with SMTP id 5a478bee46e88-33e8e1b7258mr2578303eec.33.1790161367685;
+        Wed, 23 Sep 2026 04:02:47 -0700 (PDT)
+X-Received: by 2002:a05:7300:e31c:b0:339:79c9:a711 with SMTP id 5a478bee46e88-33e8e1b7258mr2578269eec.33.1790161366945;
+        Wed, 23 Sep 2026 04:02:46 -0700 (PDT)
+Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e9625825asm5905377eec.13.2026.09.23.04.02.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 04:02:42 -0700 (PDT)
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Subject: [PATCH RFC 00/15] Add CAMSS and S5KJN5 sensor support for Qualcomm
+ Hawi and Maili
+Date: Wed, 23 Sep 2026 16:32:31 +0530
+Message-Id: <20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <212067fe-1b16-4b87-87a7-4ce50847eb24@arm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMexs2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSyNj3YzE8kzd3MTMnEzd5MTc4mLdJNOUZBPjRAOD1BQjJaC2gqLUtMw
+ KsJHRSkFuzkqxtbUA591w9mcAAAA=
+X-Change-ID: 20260923-hawi-maili-camss-b5dc43a00ed2
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790161355; l=4947;
+ i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
+ bh=Q2YLPUSRi1FMgeSQZaI3+vZ2bOUy2qKeiy1uQmOl4Fc=;
+ b=WEI+GPot5SCnpANnfESBpz78wtFsNjpe0gNz7CznPtMEk+qVsfd5nc3VwttCkFg/R/uMmz1+g
+ 6lBrCGwa92fA2YwprsBRADySgLC/nMMERVTSHNRdUd8EG0Rou8jESSy
+X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
+ pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
+X-Proofpoint-ORIG-GUID: KN868_I2waVe-DxQ7Vj_33kMSIEAIson
+X-Authority-Analysis: v=2.4 cv=J4s/fwnS c=1 sm=1 tr=0 ts=6ab3b1d8 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=ETi28isEjJcgAAb20b0A:9
+ a=QEXdDO2ut3YA:10 a=6Ab_bkdmUrQuMsNx7PHu:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MyBTYWx0ZWRfX+iIKXR4X0w90
+ XNgKhwsPT8sBCCUPDAsjckkqslZ16yBgzxuMwRe3cQRVpKR1k3RxrHgAYyE/7xUBbrtPNVNSUHj
+ mGPOllEVEzCHYGVMkolUUbWP1x9Hc6nm6Dn8bZtp2S7Hkqd2N+Xvo8Ror41DOHHazZagxrh7Dxb
+ Pl4VAWUSzGfGet97A7ZmFZZsOU/2m468NBArTELLUH7AcVFSdofzTydnggbGnb8KSHT0vHFSdrK
+ RSluyzaG1t4mUlA6wI34gpRwwdMcRUYVV10LTBg2iNGR8RNF6aRUkWCEc+bALjvQ7IGflteCNag
+ dSPzPp1TRYZYGnb5AqV/B6pVK77ks+BL6sXLsQ0mr3EI6zBzmM2bhvwHti4vk6iwURuj2BnvuvH
+ T7QCTACPClKOSjAbZ0X3ZosPtP6xJQndx/O1tuIs6b2xjI3ouLJDigWZBuDQFAxgGiTEAnfM8w8
+ 6TnaAqDekDwnsvIVBOA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MyBTYWx0ZWRfX+Ob/I30cVLbK
+ XSSeHXopqaOLt1V0Isi93Z5JiNs1YT0enJBWThRJziq7PTULTq2pYPZBZhhYQ5bZyB4lh7Mg7nG
+ MmgMiFP7ICoQMujXpsJZc6M6fRVWFMQ=
+X-Proofpoint-GUID: KN868_I2waVe-DxQ7Vj_33kMSIEAIson
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 spamscore=0 impostorscore=0 priorityscore=1501
+ phishscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230043
 
-On Wed, Sep 23, 2026 at 09:32:17AM +0100, Ryan Roberts wrote:
-> On 22/09/2026 07:16, Anshuman Khandual wrote:
-> > Replace READ_ONCE() with pmdp_get() for PMD accesses in preparation for
-> > supporting both D64 and D128 translation table formats.
-> > 
-> > READ_ONCE() cannot currently be used for 128-bit page table entries on
-> > arm64 because it does not provide the required 128-bit single-copy
-> > atomicity, causing builds to fail for accesses wider than 64 bits.
-> > 
-> > Although LDP/STP provide the required atomicity when FEAT_LSE is
-> > available (as required by FEAT_D128), extending READ_ONCE() to support
-> > 128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
-> > so doing so could encourage other 128-bit users that would either fail
-> > to build in configurations without D128 support or, if D128 becomes a
-> > runtime option, silently permit tearing on systems without the required
-> > hardware support.
-> > 
-> > Instead, standardize PMD accesses on the existing page-table helpers.
-> > These can be overridden on arm64 to provide 128-bit single-copy
-> > atomicity when required. No functional change intended.
-> 
-> I notice you have an unconverted READ_ONCE(*pmdp) in
-> pmdp_test_and_clear_young(). Is that intentional?
+Hawi and Maili are recently announced Qualcomm Snapdragon SoCs [1].
+This series adds CAMSS, CSIPHY and Samsung S5KJN5 rear camera sensor
+support for the Hawi and Maili MTP reference boards.
 
-Converting the above READ_ONCE() instances as pmdp_get() cuases a build
-failure as pmpd_get() which is defined in generic pgtable header is not
-visible inside platform specific pgtable header, even with a forward
-declaration.
+On Hawi MTP the sensor is wired through CCI, requiring three CCI
+controller nodes to be added alongside the CAMSS and CSIPHY nodes.
+On Maili MTP the sensor uses QUP I2C in its default configuration
+and requires no additional rework.
 
-In D128 V2 series these conversions were performed later in the series,
-when platform specific pxdp_get() overrides were added via ptval_get(). 
+Tested on Hawi MTP and Maili MTP using the S5KJN5 sensor with the
+following pipeline setup:
 
-But to avoid this, we could just move pmdp_test_and_clear_young() inside
-arch/arm64/mm/mmu.c file instead. Folding in the following change builds.
+- media-ctl --reset
+- media-ctl -d /dev/media0 -V '"s5kjn5 0-0010":0[fmt:SGBRG10/4096x3072 field:none]'
+- media-ctl -d /dev/media0 -V '"msm_csiphy2":0[fmt:SGBRG10/4096x3072]'
+- media-ctl -d /dev/media0 -V '"msm_csid0":0[fmt:SGBRG10/4096x3072]'
+- media-ctl -d /dev/media0 -V '"msm_vfe0_rdi0":0[fmt:SGBRG10/4096x3072]'
+- media-ctl -d /dev/media0 -l '"msm_csiphy2":1->"msm_csid0":0[1]'
+- media-ctl -d /dev/media0 -l '"msm_csid0":1->"msm_vfe0_rdi0":0[1]'
+- yavta -B capture-mplane -c -I -n 5 -f SRGGB10P -s 4096x3072 -F /dev/video0
 
-diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-index ae41946c54f26..13ca85ec89f6a 100644
---- a/arch/arm64/include/asm/pgtable.h
-+++ b/arch/arm64/include/asm/pgtable.h
-@@ -1289,14 +1289,8 @@ static inline bool __ptep_clear_flush_young(struct vm_area_struct *vma,
+Also tested on Hawi and Maili using libcamera:
+- cam -c 1 --capture=10 --file
 
- #if defined(CONFIG_TRANSPARENT_HUGEPAGE) || defined(CONFIG_ARCH_HAS_NONLEAF_PMD_YOUNG)
- #define __HAVE_ARCH_PMDP_TEST_AND_CLEAR_YOUNG
--static inline bool pmdp_test_and_clear_young(struct vm_area_struct *vma,
--               unsigned long address, pmd_t *pmdp)
--{
--       /* Operation applies to PMD table entry only if FEAT_HAFT is enabled */
--       VM_WARN_ON(pmd_table(READ_ONCE(*pmdp)) && !system_supports_haft());
--       return __ptep_test_and_clear_young(vma, address, (pte_t *)pmdp);
--}
--#endif /* CONFIG_TRANSPARENT_HUGEPAGE || CONFIG_ARCH_HAS_NONLEAF_PMD_YOUNG */
-+bool pmdp_test_and_clear_young(struct vm_area_struct *vma, unsigned long address, pmd_t *pmdp);
-+#endif
+Sanity checks:
+- make -j32 W=1
+- checkpatch.pl
+- make DT_CHECKER_FLAGS=-m W=1 DT_SCHEMA_FILES=i2c/qcom,i2c-cci.yaml dt_binding_check
+- make DT_CHECKER_FLAGS=-m W=1 DT_SCHEMA_FILES=media/i2c/samsung,s5kjn5.yaml dt_binding_check
+- make DT_CHECKER_FLAGS=-m W=1 DT_SCHEMA_FILES=media/qcom,hawi-camss.yaml dt_binding_check
+- make CHECK_DTBS=y W=1 qcom/maili-mtp.dtb
+- make CHECK_DTBS=1 W=1 qcom/hawi-mtp.dtb
+- make CHECK_DTBS=y W=1 dtbs
 
- static inline pte_t __ptep_get_and_clear_anysz(struct mm_struct *mm,
-                                               unsigned long address,
-diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-index 76d8d320aeedf..b3fd06a623db5 100644
---- a/arch/arm64/mm/mmu.c
-+++ b/arch/arm64/mm/mmu.c
-@@ -2440,4 +2440,15 @@ void __check_safe_pte_update(struct mm_struct *mm, pte_t *ptep, pte_t pte)
-                     __func__, pte_str_old, pte_str);
- }
- #endif /* CONFIG_DEBUG_VM */
-+
-+#if defined(CONFIG_TRANSPARENT_HUGEPAGE) || defined(CONFIG_ARCH_HAS_NONLEAF_PMD_YOUNG)
-+#define __HAVE_ARCH_PMDP_TEST_AND_CLEAR_YOUNG
-+bool pmdp_test_and_clear_young(struct vm_area_struct *vma, unsigned long address, pmd_t *pmdp)
-+{
-+       /* Operation applies to PMD table entry only if FEAT_HAFT is enabled */
-+       VM_WARN_ON(pmd_table(pmdp_get(pmdp)) && !system_supports_haft());
-+       return __ptep_test_and_clear_young(vma, address, (pte_t *)pmdp);
-+}
-+#endif /* CONFIG_TRANSPARENT_HUGEPAGE || CONFIG_ARCH_HAS_NONLEAF_PMD_YOUNG */
-+
- #endif
+Sent as RFC because the following dependencies have not yet been merged.
+Each is actively being followed up on. This series will be reposted as
+a regular patch series once all dependencies land.
 
-> 
-> Thanks,
-> Ryan
-> 
-> 
-> > 
-> > Cc: Catalin Marinas <catalin.marinas@arm.com>
-> > Cc: Will Deacon <will@kernel.org>
-> > Cc: Ryan Roberts <ryan.roberts@arm.com>
-> > Cc: Mark Rtland <mark.rtland@arm.com>
-> > Cc: linx-arm-kernel@lists.infradead.org
-> > Cc: linx-kernel@vger.kernel.org
-> > Cc: kasan-dev@googlegrops.com
-> > Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
-> > Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
-> > ---
-> >  arch/arm64/include/asm/pgtable.h |  3 ++-
-> >  arch/arm64/mm/fault.c            |  2 +-
-> >  arch/arm64/mm/fixmap.c           |  2 +-
-> >  arch/arm64/mm/hugetlbpage.c      |  2 +-
-> >  arch/arm64/mm/kasan_init.c       |  4 ++--
-> >  arch/arm64/mm/mmu.c              | 22 +++++++++++-----------
-> >  arch/arm64/mm/pageattr.c         |  2 +-
-> >  arch/arm64/mm/trans_pgd.c        |  2 +-
-> >  8 files changed, 20 insertions(+), 19 deletions(-)
-> > 
-> > diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> > index 763c5a411d64..b953ea0ba3ed 100644
-> > --- a/arch/arm64/include/asm/pgtable.h
-> > +++ b/arch/arm64/include/asm/pgtable.h
-> > @@ -811,7 +811,8 @@ static inline unsigned long pmd_page_vaddr(pmd_t pmd)
-> >  }
-> >  
-> >  /* Find an entry in the third-level page table. */
-> > -#define pte_offset_phys(dir,addr)	(pmd_page_paddr(READ_ONCE(*(dir))) + pte_index(addr) * sizeof(pte_t))
-> > +#define pte_offset_phys(dir, addr)	(pmd_page_paddr(pmdp_get(dir)) + \
-> > +					 pte_index(addr) * sizeof(pte_t))
-> >  
-> >  #define pte_set_fixmap(addr)		((pte_t *)set_fixmap_offset(FIX_PTE, addr))
-> >  #define pte_set_fixmap_offset(pmd, addr)	pte_set_fixmap(pte_offset_phys(pmd, addr))
-> > diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-> > index 2cecf6ba6df7..2757ee0c4300 100644
-> > --- a/arch/arm64/mm/fault.c
-> > +++ b/arch/arm64/mm/fault.c
-> > @@ -188,7 +188,7 @@ static void show_pte(unsigned long addr)
-> >  			break;
-> >  
-> >  		pmdp = pmd_offset_lockless(pudp, pud, addr);
-> > -		pmd = READ_ONCE(*pmdp);
-> > +		pmd = pmdp_get(pmdp);
-> >  		ptval_to_str(pxd_str, pmd_val(pmd));
-> >  		pr_cont(", pmd=%s", pxd_str);
-> >  		if (pmd_none(pmd) || pmd_bad(pmd))
-> > diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-> > index f66a0016dd02..3cdac8021d4f 100644
-> > --- a/arch/arm64/mm/fixmap.c
-> > +++ b/arch/arm64/mm/fixmap.c
-> > @@ -42,7 +42,7 @@ static inline pte_t *fixmap_pte(unsigned long addr)
-> >  
-> >  static void __init early_fixmap_init_pte(pmd_t *pmdp, unsigned long addr)
-> >  {
-> > -	pmd_t pmd = READ_ONCE(*pmdp);
-> > +	pmd_t pmd = pmdp_get(pmdp);
-> >  	pte_t *ptep;
-> >  
-> >  	if (pmd_none(pmd)) {
-> > diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-> > index 8e799c1fe0aa..cdaa4500faf9 100644
-> > --- a/arch/arm64/mm/hugetlbpage.c
-> > +++ b/arch/arm64/mm/hugetlbpage.c
-> > @@ -304,7 +304,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
-> >  		addr &= CONT_PMD_MASK;
-> >  
-> >  	pmdp = pmd_offset(pudp, addr);
-> > -	pmd = READ_ONCE(*pmdp);
-> > +	pmd = pmdp_get(pmdp);
-> >  	if (!(sz == PMD_SIZE || sz == CONT_PMD_SIZE) &&
-> >  	    pmd_none(pmd))
-> >  		return NULL;
-> > diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-> > index 45fbdce684c8..7ca833c5de5e 100644
-> > --- a/arch/arm64/mm/kasan_init.c
-> > +++ b/arch/arm64/mm/kasan_init.c
-> > @@ -62,7 +62,7 @@ static phys_addr_t __init kasan_alloc_raw_page(int node)
-> >  static pte_t *__init kasan_pte_offset(pmd_t *pmdp, unsigned long addr, int node,
-> >  				      bool early)
-> >  {
-> > -	if (pmd_none(READ_ONCE(*pmdp))) {
-> > +	if (pmd_none(pmdp_get(pmdp))) {
-> >  		phys_addr_t pte_phys = early ?
-> >  				__pa_symbol(kasan_early_shadow_pte)
-> >  					: kasan_alloc_zeroed_page(node);
-> > @@ -138,7 +138,7 @@ static void __init kasan_pmd_populate(pud_t *pudp, unsigned long addr,
-> >  	do {
-> >  		next = pmd_addr_end(addr, end);
-> >  		kasan_pte_populate(pmdp, addr, next, node, early);
-> > -	} while (pmdp++, addr = next, addr != end && pmd_none(READ_ONCE(*pmdp)));
-> > +	} while (pmdp++, addr = next, addr != end && pmd_none(pmdp_get(pmdp)));
-> >  }
-> >  
-> >  static void __init kasan_pud_populate(p4d_t *p4dp, unsigned long addr,
-> > diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> > index e589fb00d1e3..95621913679e 100644
-> > --- a/arch/arm64/mm/mmu.c
-> > +++ b/arch/arm64/mm/mmu.c
-> > @@ -200,7 +200,7 @@ static int alloc_init_cont_pte(pmd_t *pmdp, unsigned long addr,
-> >  			       int flags)
-> >  {
-> >  	unsigned long next;
-> > -	pmd_t pmd = READ_ONCE(*pmdp);
-> > +	pmd_t pmd = pmdp_get(pmdp);
-> >  	pte_t *ptep;
-> >  
-> >  	BUG_ON(pmd_leaf(pmd));
-> > @@ -257,7 +257,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
-> >  	unsigned long next;
-> >  
-> >  	do {
-> > -		pmd_t old_pmd = READ_ONCE(*pmdp);
-> > +		pmd_t old_pmd = pmdp_get(pmdp);
-> >  
-> >  		next = pmd_addr_end(addr, end);
-> >  
-> > @@ -272,7 +272,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
-> >  			 * only allow updates to the permission attributes.
-> >  			 */
-> >  			BUG_ON(!pgattr_change_is_safe(pmd_val(old_pmd),
-> > -						      READ_ONCE(pmd_val(*pmdp))));
-> > +						      pmd_val(pmdp_get(pmdp))));
-> >  		} else {
-> >  			int ret;
-> >  
-> > @@ -282,7 +282,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
-> >  				return ret;
-> >  
-> >  			VM_WARN_ON_ONCE(pmd_val(old_pmd) != 0 &&
-> > -					pmd_val(old_pmd) != READ_ONCE(pmd_val(*pmdp)));
-> > +					pmd_val(old_pmd) != pmd_val(pmdp_get(pmdp)));
-> >  		}
-> >  		phys += next - addr;
-> >  	} while (pmdp++, addr = next, addr != end);
-> > @@ -293,7 +293,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
-> >  static bool pmd_range_has_valid_noncont(pmd_t *pmdp)
-> >  {
-> >  	for (int i = 0; i < CONT_PMDS; i++) {
-> > -		pte_t pte = pmd_pte(READ_ONCE(pmdp[i]));
-> > +		pte_t pte = pmd_pte(pmdp_get(pmdp + i));
-> >  
-> >  		if (pte_valid(pte) && !pte_cont(pte))
-> >  			return true;
-> > @@ -1553,7 +1553,7 @@ static void unmap_hotplug_pmd_range(pud_t *pudp, unsigned long addr,
-> >  	do {
-> >  		next = pmd_addr_end(addr, end);
-> >  		pmdp = pmd_offset(pudp, addr);
-> > -		pmd = READ_ONCE(*pmdp);
-> > +		pmd = pmdp_get(pmdp);
-> >  		if (pmd_none(pmd))
-> >  			continue;
-> >  
-> > @@ -1708,7 +1708,7 @@ static void free_empty_pmd_table(pud_t *pudp, unsigned long addr,
-> >  	do {
-> >  		next = pmd_addr_end(addr, end);
-> >  		pmdp = pmd_offset(pudp, addr);
-> > -		pmd = READ_ONCE(*pmdp);
-> > +		pmd = pmdp_get(pmdp);
-> >  		if (pmd_none(pmd))
-> >  			continue;
-> >  
-> > @@ -1729,7 +1729,7 @@ static void free_empty_pmd_table(pud_t *pudp, unsigned long addr,
-> >  	 */
-> >  	pmdp = pmd_offset(pudp, 0UL);
-> >  	for (i = 0; i < PTRS_PER_PMD; i++) {
-> > -		if (!pmd_none(READ_ONCE(pmdp[i])))
-> > +		if (!pmd_none(pmdp_get(pmdp + i)))
-> >  			return;
-> >  	}
-> >  
-> > @@ -1881,7 +1881,7 @@ int pmd_set_huge(pmd_t *pmdp, phys_addr_t phys, pgprot_t prot)
-> >  	pmd_t new_pmd = pfn_pmd(__phys_to_pfn(phys), mk_pmd_sect_prot(prot));
-> >  
-> >  	/* Only allow permission changes for now */
-> > -	if (!pgattr_change_is_safe(READ_ONCE(pmd_val(*pmdp)),
-> > +	if (!pgattr_change_is_safe(pmd_val(pmdp_get(pmdp)),
-> >  				   pmd_val(new_pmd)))
-> >  		return 0;
-> >  
-> > @@ -1906,7 +1906,7 @@ int pud_clear_huge(pud_t *pudp)
-> >  
-> >  int pmd_clear_huge(pmd_t *pmdp)
-> >  {
-> > -	if (!pmd_leaf(READ_ONCE(*pmdp)))
-> > +	if (!pmd_leaf(pmdp_get(pmdp)))
-> >  		return 0;
-> >  	pmd_clear(pmdp);
-> >  	return 1;
-> > @@ -1917,7 +1917,7 @@ int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
-> >  	pte_t *table;
-> >  	pmd_t pmd;
-> >  
-> > -	pmd = READ_ONCE(*pmdp);
-> > +	pmd = pmdp_get(pmdp);
-> >  
-> >  	if (!pmd_table(pmd)) {
-> >  		VM_WARN_ON(1);
-> > diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-> > index bbe98ac9ad8c..0ca07bd5ded9 100644
-> > --- a/arch/arm64/mm/pageattr.c
-> > +++ b/arch/arm64/mm/pageattr.c
-> > @@ -414,7 +414,7 @@ bool kernel_page_present(struct page *page)
-> >  		return pud_valid(pud);
-> >  
-> >  	pmdp = pmd_offset(pudp, addr);
-> > -	pmd = READ_ONCE(*pmdp);
-> > +	pmd = pmdp_get(pmdp);
-> >  	if (pmd_none(pmd))
-> >  		return false;
-> >  	if (pmd_leaf(pmd))
-> > diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-> > index cca9706a875c..b27b2d2c20c3 100644
-> > --- a/arch/arm64/mm/trans_pgd.c
-> > +++ b/arch/arm64/mm/trans_pgd.c
-> > @@ -74,7 +74,7 @@ static int copy_pmd(struct trans_pgd_info *info, pud_t *dst_pudp,
-> >  
-> >  	src_pmdp = pmd_offset(src_pudp, start);
-> >  	do {
-> > -		pmd_t pmd = READ_ONCE(*src_pmdp);
-> > +		pmd_t pmd = pmdp_get(src_pmdp);
-> >  
-> >  		next = pmd_addr_end(addr, end);
-> >  		if (pmd_none(pmd))
-> 
+- Series is based on next-20260916
+
+Dependencies
+------------
+[2] https://lore.kernel.org/all/20260917-x1e-csi2-phy-v18-0-6515b5255fa9@linaro.org/
+[3] https://lore.kernel.org/all/20260915-kaanapali-camss-v16-0-c9f3f6f4180c@oss.qualcomm.com
+[4] https://lore.kernel.org/all/20260914-sk5jn5-v4-0-386e84cfb2b3@oss.qualcomm.com
+[5] https://lore.kernel.org/all/20260916-maili_camcc-v2-0-f30b394bfd50@oss.qualcomm.com -- Maili CAMCC
+[6]  https://lore.kernel.org/all/20260915-camcc-hawi-v3-0-5b57f45477f1@oss.qualcomm.com -- Hawi CAMCC
+
+DTS dependencies
+[7] https://lore.kernel.org/all/20260923-hawi-dt-post-v1-0-e41473b6298b@oss.qualcomm.com -- Hawi Base DTS
+[8] https://lore.kernel.org/all/20260922-maili-dts-v1-0-ac2b1b76bfd9@oss.qualcomm.com -- Maili Base DTS
+
+Functional dependencies:
+[8] https://lore.kernel.org/all/20260917-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v18-0-f85c9103177e@linaro.org/
+
+[1] https://www.qualcomm.com/smartphones/products/8-series/snapdragon-8-elite-gen-6-mobile-platform
+
+Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+---
+Hangxiang Ma (8):
+      dt-bindings: i2c: qcom,i2c-cci: Add Hawi compatible
+      dt-bindings: media: Add CAMSS device for Hawi
+      media: qcom: camss: Add Hawi compatible camss driver
+      media: qcom: camss: vfe: Add support for VFE 1190
+      arm64: dts: qcom: hawi: Add CAMSS and CSIPHY nodes for Hawi
+      arm64: dts: qcom: hawi: Add CCI definitions for Hawi
+      arm64: dts: qcom: hawi: Add camera MCLK pinctrl for Hawi
+      arm64: dts: qcom: hawi-mtp: Enable camera subsystem for Hawi MTP
+
+Nihal Kumar Gupta (6):
+      dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Hawi and Maili compatibles
+      dt-bindings: media: Add CAMSS device for Maili
+      arm64: dts: qcom: maili: Add CAMSS and CSIPHY nodes for Maili
+      arm64: dts: qcom: maili: Add camera MCLK pinctrl for Maili
+      arm64: dts: qcom: maili-mtp: Enable S5KJN5 camera for Maili MTP
+      arm64: defconfig: Enable S5KJN5 camera sensor for Qualcomm boards
+
+Taniya Das (1):
+      arm64: dts: qcom: maili: Add support for cambistmclkcc and camcc
+
+ .../devicetree/bindings/i2c/qcom,i2c-cci.yaml      |   2 +
+ .../devicetree/bindings/media/qcom,hawi-camss.yaml | 310 +++++++++
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       |  12 +-
+ arch/arm64/boot/dts/qcom/hawi-mtp.dts              |  62 ++
+ arch/arm64/boot/dts/qcom/hawi.dtsi                 | 713 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/maili-mtp.dts             |  64 ++
+ arch/arm64/boot/dts/qcom/maili.dtsi                | 497 ++++++++++++++
+ arch/arm64/configs/defconfig                       |   1 +
+ drivers/media/platform/qcom/camss/camss-vfe-gen4.c |  49 +-
+ drivers/media/platform/qcom/camss/camss-vfe.c      |   2 +
+ drivers/media/platform/qcom/camss/camss.c          | 259 ++++++++
+ drivers/media/platform/qcom/camss/camss.h          |   1 +
+ 12 files changed, 1952 insertions(+), 20 deletions(-)
+---
+base-commit: 6f4f19def65d7c6cac6fa0b420bb34f1173afa83
+change-id: 20260923-hawi-maili-camss-b5dc43a00ed2
+
+Best regards,
+-- 
+Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+
