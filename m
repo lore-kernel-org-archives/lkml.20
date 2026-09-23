@@ -1,107 +1,179 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407C041684A;
-	Wed, 23 Sep 2026 10:48:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094AC47A88C;
+	Wed, 23 Sep 2026 10:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790160519; cv=pass; b=ixaL5zWITJIZcHhrRZ686yya8GBP57mjPXxlzd6/fypBwzjge4l9KEnmT6VoVwguplfRJGUb/ajD4kBJTxutXZJs8d8bI6WovDr85Jn9HHThXGqnJxf/7hchDSb2v3zB5JBCDWPMM5K0nUygUlbJrRu00mJr0cquS750Xt5QNbk=
+	t=1790160586; cv=pass; b=Y+zvzuGhfZ1sGPveiTwtkXUH/NEqu5v3V8AxRO7UDRVZ9Icq0TdZ9m+6x4WVpf9Jo095CMoZ49RbVeiUQZCH13OXL5QrnGEUQN8JJExvL9Irfxscg/Tl4KazzEDVG+1ZcVb7f0kyqu3SOhaw1pCAC+0GbL138BTTe2zrJQzTyYI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790160519; c=relaxed/simple;
-	bh=6USXCJ+TFK5HPKJBb2vd1CUZCECFTg5/Q5Y1jGN9nIY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Gjn2WBlEH4UQXUrPVeh5+IFo9UlWeHbluuDXy62mgUpwCybVeVyR+7Cl4Z1TZ77H486IkmMRTXxe25Ih+37inFO1F2Nd+5kJKMzvrj+ZU0JJQLQ+r5Ulfgqkj1Js2/wWRE3aHgcWgYXSNG+s33I4rKsKNTjfN5toxJqhwtrGvwI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=FE9Wr6vB; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	s=arc-20240116; t=1790160586; c=relaxed/simple;
+	bh=0ta1gj6fwaYOVU9PpSfSsCZn3orkTbOVs+NGRtgFYO0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dpRloTdbSHe00rL8kuOe/wwCcxBl8kYK1Fy3e49SKZRoewPz3OWgQPxdqBDgZNDGuq2XVQo0t+1fxvJvpUdZ6VH85qucAlIMXFTB2vruBEhi1U904nU17rTDoZgjsxukB3a9r1/007hYadazaCV8E1n9EjjTp4f99ApKW1uA3G0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=ES763K8e; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="FE9Wr6vB"
-Received: from [0.0.0.0] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: jre@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B34B720026F;
-	Wed, 23 Sep 2026 12:48:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790160502;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hfi1sq/lUmbingAlK5XjuIYG1I+OGynmIw4U0E/U+wE=;
-	b=FE9Wr6vBX+Q3QoL3NGRTmQBEpaej1nHtiDBEBEvP3fZTB7/LBdvHN9FxvMBdjJ+G5GTLCF
-	cheU8gpViJ6yYHRc53hyT5EBoGcQYZ/Mo5g1tXmGPwSWO6P8rjDKdlEAD8UMyTTKs/XcJN
-	wxiw+aUvKVBRKm0EPa+8VY2pn0R8OpcY6f7C6pzceEDo0VSQwi4YtGlyBA2Q65dmQXVYEb
-	cWNFa8pWnQftC/KbCjQmc4u4SZG4xvjjrynDzK0tTBib0cqXVtm9Yb/pY7rfw3+f4v3YpH
-	VZgZgV1tLEpr6uzczYJ2XTr007chNumNK+nnFgseGw8jFi/LaEukjoQlneZLRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1790160502;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hfi1sq/lUmbingAlK5XjuIYG1I+OGynmIw4U0E/U+wE=;
-	b=FJEEgVijFXKjF/Ai6roXDlMl1YmMaKg1Nyu9+wyccbTUpmvUUeeA8umg3jzE4iQKsqMWwq
-	s0MVE+R6JjYaHk9Y7vcHGDc3vRapifqRlRPbhqgHU7RqaIs8FVhMaDVx1FVRo4VAL/DB9G
-	HZsDKcanNgT+2vvLjonlTFPY/5Z3rTCALkPtF5jQN99S9xmt6gbLUUAVqgL/qUmuDd9QRM
-	Ax8Dxc7qSJOo5KO+TmyP3qzpzyllU2zYkE/TTFu6rBtRoopH4XTq2nrxZrpguyDnOkw0Br
-	ZU6SygYjSQnYqTXGPg4eUdpxk7ipBZGzVaxWVFLA3pbrrpCuHhjX00Vp9xNW5A==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790160502; a=rsa-sha256;
-	cv=none;
-	b=aaZOsF3jM6PxoO5Z1oz+/4occeCp5okG5mKb+L/ylfdQnCfjxIWS5MflNk2+L28hQAeWvB
-	jg2gvDrF29h5QGp6cPSB5qNdO9OHvmsVjKwyI0mVDfmyyCiJUBoobIWPyQdosxtKKOUfER
-	1/Y63l/Lt4vUfn4Ta56U4uRIWk0kzIyFG8PqHa6j79cM7divJ45eYiJ6iANnM9BqH8F3QF
-	FKmuYpaRARRQI4272+CJxH+Zjvj9Af9uIrfyrJVApdcPCeVm6SjjoEsypUoFPfeWgkhEcz
-	NW7s6a/OlrjxXMAi4D5e5SYD316n4cX47Ac7NdCC+4fp3fuK6/vsj3dfA65TZg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jre@pengutronix.de smtp.mailfrom=jre@pengutronix.de
-Message-ID: <a086f141-6f71-475c-93e2-9a40372fba08@pengutronix.de>
-Date: Wed, 23 Sep 2026 12:48:22 +0200
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="ES763K8e"
+ARC-Seal: i=1; a=rsa-sha256; t=1790160504; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=FygdenF/a3cqko2v1rNYJGgc3uugEJLQnWzFHloFqqxc1H/pLjBxY4bBdoqXPAHy6lXi7FA7lZwb6bf4RW2VKg4JuZiT6sGDbtLIn6A96htNbISnIFZtzheMDj1ErNJFJfzFBV4elrJT/VYKP/McQg00MeDlADIDCEFjKbIm8m4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790160504; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=mIg+mGPTkJrwKZp7jh3Yx1UEWvB7j/FRVm3hT3LKHP0=; 
+	b=SkIH6qhXY6y8z7JgEy5AYF96UL8JZCp1C2PchQjedzrY+BKBq95nm107sll5GyYF+0KSf55Lintw2y4TU1BjKh5+5LWEtbcycAAd2N3aYIk4sMMv9SVhIxmSng0voD/wDIFcoPtXoOXXmTLk9TLHpJCE12f9Wmxoct51pfN6Eec=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
+	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790160504;
+	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=mIg+mGPTkJrwKZp7jh3Yx1UEWvB7j/FRVm3hT3LKHP0=;
+	b=ES763K8e7KJG7NL47SgY7vc05zHwXHwoNSAQS9VFTb7dYKFHRvNpmI3nYs8BQ9wD
+	taFNsy/YIBgdS5RfE/4ACVbJkpqcJreLXdQGUtRvPHzCvg9fvA6vkhaBmsFmYzAaNW+
+	fmrKephj8NJSd8ik//DrNaedeGo0yFDlNhIk6tc0=
+Received: by smtp.zohomail.com with SMTPS id 1790160499035326.40614265928457;
+	Wed, 23 Sep 2026 03:48:19 -0700 (PDT)
+Message-ID: <7ebad26d21afabbf02e39d25c4491b1815a18865.camel@collabora.com>
+Subject: Re: [PATCH net-next 5/6] net: stmmac: mediatek: add support for TX
+ deallocation adjustment feature
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn	
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet	 <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni	 <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran	 <richardcochran@gmail.com>, Matthias Brugger
+ <matthias.bgg@gmail.com>,  AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, Biao Huang
+ <biao.huang@mediatek.com>, Maxime Coquelin	 <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: rmk+kernel@armlinux.org.uk, kernel@collabora.com,
+ netdev@vger.kernel.org, 	devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Date: Wed, 23 Sep 2026 12:48:08 +0200
+In-Reply-To: <e390664dc439043a43b6ded3c50c9a2bb5bbd2f6.camel@collabora.com>
+References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
+		 <20260707-dwmac-mediatek-mt8189-v1-5-17f345eaaca3@collabora.com>
+		 <2a421449-01eb-4066-8c19-d554ff8e4f6e@bootlin.com>
+	 <e390664dc439043a43b6ded3c50c9a2bb5bbd2f6.camel@collabora.com>
+Organization: Collabora Ltd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 6/9] spi: spidev_test: send predictable data
-From: Jonas Rebmann <jre@pengutronix.de>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
- Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de
-References: <20260918-spi-sun4i-spidev_test-v4-0-5ffacb1a4ebd@pengutronix.de>
- <20260918-spi-sun4i-spidev_test-v4-6-5ffacb1a4ebd@pengutronix.de>
- <arJtEvBA-cM7FB0l@sirena.co.uk>
- <4a65c4f5-84fb-4014-955b-b5e8fc14d1de@pengutronix.de>
-Content-Language: en-US
-In-Reply-To: <4a65c4f5-84fb-4014-955b-b5e8fc14d1de@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 2026-09-23 11:09, Jonas Rebmann wrote:
-> On 2026-09-22 13:57, Mark Brown wrote:
->> On Fri, Sep 18, 2026 at 05:22:52PM +0200, Jonas Rebmann wrote:
->>> From: Marc Kleine-Budde <mkl@pengutronix.de>
->>>
->>> Introduce a flag to test on a predictable byte sequence instead of
->>> random bytes. This is useful when comparing multiple runs with the same
->>> option set e.g. with an oscilloscope.
->>
->>> +		case 'P':
->>> +			predictable = 1;
->>> +			input_choices++;
->>> +			break;
->>
->> -z doesn't increment input_choices, seems one of them is wrong.
-> 
-> -z requires -S and -S increments input_choices so -z indirectly
-> conflicts -p, -i (--input), -t (--no-tx) and -P (--predictable)
-> 
+Hi Maxime,
 
-Ah, now I see it. In v5, input_choices++ is removed for -S. -P requires
--S, and should not conflict with it.
+On Wed, 2026-07-08 at 14:28 +0200, Louis-Alexis Eyraud wrote:
+> Hi Maxime,
+>=20
+> On Tue, 2026-07-07 at 11:11 +0200, Maxime Chevallier wrote:
+> > Hi,
+> >=20
+> > On 7/7/26 10:21, Louis-Alexis Eyraud wrote:
+> > > The MT8189 SoC has in the Ethernet control 0 register from the
+> > > peripheral configuration (pericfg) additional bits to adjust the
+> > > TX
+> > > deallocation.
+> > >=20
+> > > In preparation of MT8189 SoC support, add its definition, use in
+> > > the
+> > > set_delay_v2 callback, and a support flag in the platform data.
+> >=20
+> > Can you elaborate a bit on this ? I don't quite get what you mean
+> > by
+> > "tx deallocation", this seems to have to do with RGMII timings from
+> > the register access pattern, but the local boolean flag for the
+> > feature
+> > is named "use_stage_fine", I'm failing to connect all the dots here
+> > with the different terminology in use :(
+> >=20
+> The data sheets I have, don't have info regarding this register, so
+> I'll try to get more and improve commit and/or code description.
+>=20
+> I'll also check if the register definition name is consistent
+> (downstream driver and upstream u-boot use this stage fine term).
+> use TXC phase shift control bit (bit 22, MT8195_RGMII_TXC_PHASE_CTRL)
+> to insert the 2ns delay=20
+> The use_stage_fine feature flag could be renamed anyway to match what
+> it does.
+>=20
+Sorry for the delay on this topic.=C2=A0
+I did not get answers from Mediatek on this register until very
+recently and as you have suspected, the description I got on these bits
+the first time was incorrect and their usage was also incorrect.
 
--- 
-Pengutronix e.K.                           | Jonas Rebmann               |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
+These bits allow to insert a delay on TXC signal, to adjust the RGMII
+timings. The bits 6 to 10 are used to value step (100ps per step) and
+bit 11 to enable. So this patch inserts unconditionally this TX delay
+with max value in MT8189 case and that is wrong.
+
+There is an alternative way to insert this delay, as the MT8195 SoC
+also provides a different set of bits (bits 0 to 5) which support is
+already implemented in the driver (represented by
+MT8195_DLY_GTXC_ENABLE and MT8195_DLY_GTXC_STAGES definitions). The
+difference with the stage fine ones lies in the stage step value (280ps
+per stage for MT8195), thus the fine term use for the new bits.
+The MT8189 SoC also has these bits too but the stage step value is
+different for this SoC (180ps per stage). The equivalent bits for
+inserting a delay on RXC signal also have this same new stage
+step value.
+
+After discussing about these register bits use with a Mediatek
+engineer, I was recommended not to use these new stage fine bits but
+rather use the coarse ones (bit 0 to 5). I was also advised, that in
+RGMII cases, when the link speed is 1Gbits, to prefer the use of TXC
+phase shift control bit (bit 22, MT8195_RGMII_TXC_PHASE_CTRL) to insert
+a fixed 2ns delay, and use the tx delay bits otherwise (for 10M/100M).
+So, I'll drop this patch for v2.
+
+Instead, I'll add new patches to rework the TX and RX delay handling,
+to allow variants stage step values (the MT8195 stage step value use is
+hardcoded in the MT8195 callbacks), and add the TXC phase shift control
+use too.
+
+Regards,
+Louis-Alexis
+
+> > >=20
+> > > Signed-off-by: Louis-Alexis Eyraud
+> > > <louisalexis.eyraud@collabora.com>
+> > > ---
+> > > =C2=A0.../net/ethernet/stmicro/stmmac/dwmac-mediatek.c=C2=A0=C2=A0 | =
+25
+> > > ++++++++++++++++------
+> > > =C2=A01 file changed, 19 insertions(+), 6 deletions(-)
+> > >=20
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > > b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > > index bcc0baef3f71..6b0a42b5839f 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> > > @@ -37,7 +37,8 @@
+> > > =C2=A0#define ETH_FINE_DLY_RXC	BIT(0)
+> > > =C2=A0
+> > > =C2=A0/* Peri Configuration register for mt8189 */
+> > > -#define MT8189_CTRL0_TXC_OUT_OP		BIT(20)
+> > > +#define MT8189_CTRL0_TXC_OUT_OP			BIT(20)
+> >=20
+> > Extra whitespace inserted here :)
+> >=20
+> Oops, to be fixed in v2
+>=20
+> Regards,
+> Louis-Alexis
+>=20
+> > Thanks,
+> >=20
+> > Maxime
