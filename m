@@ -1,40 +1,33 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E103B470EB0;
-	Wed, 23 Sep 2026 08:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 154433B895A;
+	Wed, 23 Sep 2026 08:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152915; cv=none; b=P15MdReiX6r2aBNz9a4z1oF8s+RgAMFVoMhPUReRzy76iEDAp+CFK9fdq/CDFwsU8rIJmKJ4LwjO7EkEIjdpyqwMnSSCVWu9txDYfc1yX/p/eGZjqzBkaWydtYhB/mTLmmA+upbem0vSGxMvBLZc20P6LFswx4Uyy2WnRCtmg9M=
+	t=1790152932; cv=none; b=bj663/8T4C5oDX44nCWeawl4Wgj8gRd1vPNGXAmwIBhN43CWIhfL/6MVSM9BxG+A3wD5SXevZda/knrrytriSMiatrvEGqWfFcx/7V8sVzdh0VdsneZ3UT76Cu4i8/i3swnCYIeYJrGqcJpKefl3fw4Zb5zO5Bpw9HzFLKlzN28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152915; c=relaxed/simple;
-	bh=kX7iAJmyO1bpwYb9DvfVL8/FEwVM8F0j/LnFmfaVzfg=;
+	s=arc-20240116; t=1790152932; c=relaxed/simple;
+	bh=Ds0lLQIGD49qTqCt9AVXNHiaq076mulh0DHQmhYn+7A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Wmm9BT2/vcYSjRAfgp4cAaNulh7UvNtydmY3fGgMoLHvnw5FY7OKrdd+qA4GkUEH78mKrQcpxJP8aKD7FKPOzyh2DGHCvzxJcPGTu4qci9+znGgAp5+nMB3fOcmucjbnk3XhauCjFOn0b6d3D13GWOAeA1iCWGVPiSX+kFPlDhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=CLbDwQrs; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 In-Reply-To:Content-Type; b=Ky0JLZ5KETc4L6eCsxX4OsiC7GKCK6706WdAgJjq40YK0wycd92Qwa3jlM870NIKWP57DarazZuRyNMpRTEQ1H188gcXgVdMSBFo62+ZS/uyQ8+v/3n4K+dc7CwT0iJbQCjTB0WOZSdLF4LDOk2knt+qp8rF0TF08fw6XcWfuVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nn0Od+20; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="CLbDwQrs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790152901;
-	bh=kX7iAJmyO1bpwYb9DvfVL8/FEwVM8F0j/LnFmfaVzfg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CLbDwQrsmHZlSe9YtZAqw5iEfdQV50RBuBtDTODU9KZDn7ZTbkKDblU27B+7o8Qg7
-	 FyGJ1MSGJBNqhiKIIawa2c3dHM0OMxLxCrtrSlIqc7yCR2idaEZzXtt3NWNUDIMy6X
-	 F0+0+6OdoTifPeq+93kTxhC35vmyoRZZSxk9NNpgiaV5a5F/zlv+BrbS0IJ+g03wx8
-	 nS8B8kTe69po8si22A5IqAuh5BJ1ZUQZf7pvARJ4ZjC0vpY/rlW53pX594jx9tH3Tq
-	 BMq5QgGroEmQZxZqWKZX1pg5A48vlcYYBE7qRerErMqYoUJypM5hxa5xWMiTMs2e2K
-	 lwH5dfiU2S9Gw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E1D8B17E020C;
-	Wed, 23 Sep 2026 10:41:40 +0200 (CEST)
-Message-ID: <452ebde8-d2e8-467e-8121-69c96d7dd0e5@collabora.com>
-Date: Wed, 23 Sep 2026 10:41:40 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nn0Od+20"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAA1C1F00893;
+	Wed, 23 Sep 2026 08:42:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790152924;
+	bh=K6Uo4db4HWk/+QvAUhiXj4XqKpnQ/bjNVUnDoN3hjF8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Nn0Od+20VQkdv2wSYZ1+0yBmSt3WgA1djUlhxkDmYdXyicfGkHCPJ/SCMec6ENr61
+	 V19V9p5HSzZ9tzkqCKjV9kM/c2UjTJx5uVqBATZ8wSbZjP+UH9xgJtWWy9C+40Duq5
+	 SUKaAbgtpqP8tc5anrjgdbGGfuzM1g1FY6PRYS+7b27EUywLJ4LTkO2p03fFnghKGj
+	 YchqTnnn/qfV1DbOUZgi4+cRNi0Gu9EsQVEcYKAJAQGdD9ntVGhAVr2shiN1hc5kOA
+	 T6bGmx3itM99FOGhZGcrAIIfT0jODA92uUly41D1epP0xHUBeXJ8iTCcQxzyha3Lj3
+	 EPDv/CevH9ThA==
+Message-ID: <41d6bd7a-e4ea-4077-87e3-e60102ebfef3@kernel.org>
+Date: Wed, 23 Sep 2026 10:42:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,29 +35,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: pinctrl: Fix MT6797 pin nodes
-To: "Rob Herring (Arm)" <robh@kernel.org>, Sean Wang <sean.wang@kernel.org>,
- Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Andy Teng <andy.teng@mediatek.com>
-Cc: linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260922222439.1682749-1-robh@kernel.org>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260922222439.1682749-1-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v3] platform/wmi: Move ASUS platform drivers from x86 to
+ wmi/asus
+To: chipang_kao <prozac2734@gmail.com>, W_Armin@gmx.de,
+ ilpo.jarvinen@linux.intel.com
+Cc: corentin.chary@gmail.com, luke@ljones.dev, denis.benato@linux.dev,
+ scardracs@disroot.org, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <202609221954.123456@gmx.de>
+ <20260923082923.154732-1-chipang_kao@asus.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260923082923.154732-1-chipang_kao@asus.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/23/26 00:24, Rob Herring (Arm) wrote:
-> Allow MT6797 pinctrl state nodes named *-pins directly under the
-> pinctrl controller. The existing mt6797.dtsi uses nodes such as
-> i2c0-pins and uart0-pins, each with pins-* child nodes, while the
-> conversion only allowed numbered state nodes such as foo-0.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Hi,
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+On 23-Sep-26 10:29, chipang_kao wrote:
+> Hi Armin, Hans, and all,
+> 
+> Thank you for the feedback, Armin!
+> 
+> I completely agree that separating WMI core infrastructure from WMI client
+> drivers makes logical sense. The reason v3 relocated the drivers to
+> drivers/platform/wmi/asus/ was based on Hans's earlier suggestion to use the
+> WMI subsystem hierarchy. However, Armin's point about keeping client drivers in
+> a brand-specific directory like drivers/platform/asus/ also provides a very
+> clean, cross-architecture solution for all ASUS platform drivers.
+> 
+> Regarding the background: yes, the RTX Spark is indeed our target platform.
+> ASUS plans to provide user-space applications on Ubuntu to control platform
+> features via the WMI interface. During our bring-up on ARM64, we found that no
+> ASUS WMI modules were currently available for this architecture due to the
+> existing x86 Kconfig restriction. This patch series aims to enable
+> cross-architecture WMI support to address this gap.
+> 
+> I am happy to go with either path (wmi/asus/ vs. platform/asus/). Hans, Armin,
+> what would be the preferred target directory before I prepare [PATCH v4]?
+
+If I understand things correctly then Armin prefers drivers/platform/asus
+that is completely fine with me, so lets go with drivers/platform/asus .
+
+Having that will also be useful to share any platform specific drivers
+which directly use ACPI calls rather then WMI.
+
+E.g. I can see a drivers/platform/lenovo show up to use thinkpad_acpi
+on ThinkPad ARM64 laptops.
+
+Regards,
+
+Hans
+
+
 
