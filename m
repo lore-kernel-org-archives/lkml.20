@@ -1,501 +1,253 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B1B3C484251;
-	Wed, 23 Sep 2026 10:24:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159087; cv=none; b=gAKt1Tm3Nwjj1XRZTUMrgm2TU9sCvQRMpI9eTdEqDhL+vTRFCxsEj9WkH8vtc3HJKwmlp85XiBwM8aNjHmOsFoZaP/MYkkzPpFxAHabDCcAJn9JylbddrKLkHEy4LHmZWUOXup0Ytts7sBNAHdcexMV/0oZR0oYWTh6VV4tG488=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159087; c=relaxed/simple;
-	bh=NK2B1apxE4ck6GlDTUfY/2Mr2y4xPRerx9D86U3VCeU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p+Kr9ApFF4Tb4r5i2e1HFu6og2IDpxFzeKr/c2IwfZJZsuWcS9cAbtRPZAWJRZZYplXrwQRxrpNQFZa7Egn+Z+CuUy60UhRvXvHdyPMyNwgek3hh/68eBrOxoKjxKjcgfHU2EZ4Sy95wDj07igBio2ppPsMv3TVJMklvwtpcdSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=rahwRS75; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A9D248097B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790159088; cv=pass; b=Nep336rzPR6e6po6FjHSOP7qoDJf9ZSf65JNOByeadYGmXZY64QPUTl3WSsMla0W3k5cJERHSpiRgqIXaKzkACyul0N31OvDQKAI4bAUP6O0R7FD+K/P6trng1VfXVpLDMyuwMNMp920vYG+JrrVeuLSIo4zWmIdp0p0mpkD/zY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790159088; c=relaxed/simple;
+	bh=YU9M6lNB1ZyLCMAXQr0VzfJfxQQzH5Vll7bn07q18eY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lYelvdX1WAk5NvKl9Uk6xsqnLs/DN0uLbRIVSKpsnzPP+cUf7VcV0PeJpOFcidwD1FA/5RmNTDaDmsSokBCg60XcjCWON7ae0B8YILo1WcNLiYCtOToub0qnQi5XavJc/4mR/t4n/KEYxuLyp5isz+i0O1FbzQeeuShLJkbkaZE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BGKrGhm5; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="rahwRS75"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 58BBA1570;
-	Wed, 23 Sep 2026 03:24:26 -0700 (PDT)
-Received: from [10.0.128.141] (unknown [10.0.128.141])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1FDCE3F86C;
-	Wed, 23 Sep 2026 03:24:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790159069; bh=NK2B1apxE4ck6GlDTUfY/2Mr2y4xPRerx9D86U3VCeU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=rahwRS75EeAbdFvUVWvEh7ZNh9lgfg2/lrb05+mXw/vM0n2MrsIHjkBoqWJ1bK4+X
-	 bxl1XY7rCxei4uJJh5UOs1Iy9M/jViSIwPePeWVqfheJ2cl704IY4XQzVRRArksH5u
-	 9NnaFwVFH0iayeu2Arniiag8KBkBsSM78Ooe4Mrc=
-Message-ID: <672c4905-09c9-4e40-97ea-c87a987bda19@arm.com>
-Date: Wed, 23 Sep 2026 11:24:25 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BGKrGhm5"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76bcb1fso8179611cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:24:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790159073; cv=none;
+        d=google.com; s=arc-20260327;
+        b=o3JZNs3/nm1FFA+/CqiE+TTdZ82QKKPcZVIew5hzmwx0tuFPsFY2Z3rcC9Zv8svDts
+         /5vwXnCTqh48/F63P23/XrpTIat5epHNPbbOVQWfEWSh+3jDCFzTGrZy+mQ8Z6DzDG0c
+         EHmM4HfbSaVWVBjA16A3z3R6Xyc8BKG56rkiJ29cyFYnvsePaWjrc4rrmGQCRaYw5P0Q
+         qxE/UtgNXOgLYL4Ix3omCC3V3v12ARsmlltoAOlJcYEvDcMDhw/RhHjO8ctrl2ciyP3F
+         XxKrg0TNLS2upzVY8iBZ2B4z1CgVnEV6cXemuGtirWNxa7H5mAwcvLztENY/7EmfaK27
+         z3CA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3/9GamQb14FQdww9YB29iD9TGuTQWlceV4HeR/O69Gg=;
+        fh=+8BOpXMe0RLpuv/iR7xe7odLqf/t8WSaCqzSw2A/5Jg=;
+        b=CMtH/JBp4gaFEI6V0wT52w1slWiiTgFCjd8aS+fOqzDVD9LCXeJzuT1u6JGknzyOuN
+         QN6igDhizjeDpBVfGhztAYSlLI6+JFFRseopCB4YiuiHSsuxvYM8FObZdrx2N7A3EGlE
+         ECdYG8ZntwLpBtP/S3FFTKlY6zdvnmroS7w2Am5s7S22c2kZbn9wie8ZoDBm6l/m29Zx
+         xnrON3KMPFJQQRVlZqgss+1vbh3oJrQTs2j4FfUrLfkH8Rxn4Dg36s19ikk5UWmFlPEM
+         Nb4CrJvL/MROju420Io+nZZKAB+p7tWa/4WHDH9P9s6GF0Hy5TyvgymvMX/nisvQQH3V
+         qKiw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790159073; x=1790763873; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3/9GamQb14FQdww9YB29iD9TGuTQWlceV4HeR/O69Gg=;
+        b=BGKrGhm5Eln2f+cvu3+JF2ww7UueTjhQD/lklIcyZkC8FTHn+uPirB4X/hWxhqVmTP
+         baUaSszRiASLwa8tb/bA7jMxTwqcoEwcYNLffDa1D7vcOzpjt10s9Itj3TgAvY6SgcjS
+         vQYnR5IXHZAkaUjjKIS4bL66N08V7nhyDcnC5CVifFqkBKrHYQ5GrWyFaMBH2EoN7rBM
+         C/AQDOliW9YzpSA8PevAoI3tI9TLvRQYfLhfgDBH1p+boVLl4ddE+2ofS/pYOEP9ssVH
+         n7zVxjmDMFfbGnjPF1zpMryj6cEKh3DhkDcxoZWwwcEgJuhYXnMwL2byst7BbOskZtSg
+         Ay0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790159073; x=1790763873;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3/9GamQb14FQdww9YB29iD9TGuTQWlceV4HeR/O69Gg=;
+        b=He3ocrxiFQUyACLJJhNJLgwXxHMYDbQT++xjHH49fDPTDBSeuZ0DgSw31awyjlxjv2
+         IynFnTw9ybK7BVI66ODP7sz0JjFV/4rS4hin7gQM9ygcn41LP7b6+1FgcRvjbcqcOym4
+         QukVW6G3z0/E99EF0W8NrD+65XwEmu4J+0w5V1wWipaS67LIA9pkunICfI4t4LFqiOct
+         YqiPQCG8YifM7ckL5aMVjdqkOU28Y5wBe+o2FhmqV4MLbv6lvG9mO4LDJ5cacZsjcEAo
+         nApX9dDO2XJeW+jrOwx/tyz1opgUajq/j4sGrqJf8WihZOxrZ8gHtaUoTS0z3BmpLaXc
+         WZ7g==
+X-Forwarded-Encrypted: i=1; AKwUvBwepdWyZadoQn/im+TTG3dhScNVqlbw/15GIsgPC9GGo+LXB34sy1xalbyyNT7FwGGQGYDB0y9I8uJ41FQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbydDs5cVKzsSRKZXPW1mZX5kzr8MZIBBbn8Y0XLUKcVNrxhFD
+	bcvlbrWQ0LJ7cuO3+L7wnaopA8V8SsPYJ04vwM5YVJPUV/fl2rtUq65LFkwFh4lOd8SP98mq+J+
+	0OhsczexqcWvZMpmt1TEw7YQH3q+OaX6Uq/ey0SYr
+X-Gm-Gg: AYBFou0cJqluIJ4EhiqljqPec+WZB3Qp8lReJupjGDIQxJetvjMttjuLzRAan1TWGYW
+	hQwFNMtjAKHhorm4xEN0SR1fdUE218HuoGlgMSEzynfZHhwK2RFr6W4RAYBRtF62omkGwLeKw3F
+	q1Zhr26qoyLFYxXCk+NeD26uYETP+h6yqe2rgX3Utpnj3jygKzAUV5WjMQ8aKraBtwrePK5BkWG
+	ycPYTv469234mHyFYt+vRwJ91ATWFr/yUJeT2iVcpItwQY1sBOLZJIINe2jNw6BnXClsOfsMgJT
+	RzFCMa3wwlpMonem7ss4nOHH7tJakGn6mam7IGAe2Xjz4K3dFchjRjBYWS8BuihcZPmpMG92+V1
+	XC71e6Z5bAw77yPVtMlK+bFyA8WC0RgVYOOV1knWJm9bRxK22CbaOYQaTwI8+qFg7VgGmr6uMOe
+	0JwxE=
+X-Received: by 2002:a05:622a:4016:b0:52f:c0f4:8 with SMTP id
+ d75a77b69052e-532eadccdf0mr33028271cf.40.1790159072657; Wed, 23 Sep 2026
+ 03:24:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 05/20] KVM: arm64: Track the type of VM in kvm_arch
-Content-Language: en-GB
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260920212845.707-1-suzuki.poulose@arm.com>
- <20260920212845.707-6-suzuki.poulose@arm.com>
- <69ff265b-a110-46c5-a061-a875b2f86c03@redhat.com>
- <e1bd3155-acb2-4c80-b963-6cd7865c9ce3@redhat.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <e1bd3155-acb2-4c80-b963-6cd7865c9ce3@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260923060547.118748-1-jiayuan.chen@linux.dev>
+In-Reply-To: <20260923060547.118748-1-jiayuan.chen@linux.dev>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 23 Sep 2026 12:24:21 +0200
+X-Gm-Features: AcwNN1VNbaaMdh7EQrEDuWI6gfonqDQtcuBO60MQ7CxDiug3yN7KPVmA2XQ4Yz0
+Message-ID: <CANn89iKHH1s+kXqBXVKmDxmELU0fL-SwU4N8qHRUJjaNECMt_g@mail.gmail.com>
+Subject: Re: [PATCH net 1/2] udp: fix auto-selected port colliding with an
+ existing SO_REUSEPORT socket
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, Tom Herbert <therbert@google.com>, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 23/09/2026 07:19, Gavin Shan wrote:
-> On 9/23/26 4:05 PM, Gavin Shan wrote:
->> On 9/21/26 7:28 AM, Suzuki K Poulose wrote:
->>> KVM arm64 has different types of VMs with all the different modes in 
->>> which
->>> the hypervisor code can be run. e.g., VHE, nVHE, pKVM etc. Then there is
->>> protected VM and normal VMs with pKVM. We might soon add other types,
->>> e.g., Arm CCA Realm. So in an effort to make the handling of these
->>> different types of VMs a bit more friendly to the eyes, add a VM 
->>> flavor to
->>> the kvm_arch and we could then add handlers for different operations 
->>> based
->>> on the VM type.
->>>
->>> Keep the flavor initialisation at the beginning to allow for the 
->>> detection
->>> early enough and fail out on any unsupported requests.
->>>
->>> With that, add wrappers for checking the "type" of a VM and replace the
->>> existing users with the new wrappers.
->>>
->>> Given we already have the construct of "kvm_vm_is_protected" in the core
->>> KVM code, use that for all confidential compute guests including Realms
->>> that we are about to add.
->>>
->>> Adds __VM_PROTECTED marker vm flavor to generalize kvm_vm_is_protected()
->>> to predicate all confidential guests running on KVM. In later 
->>> patches, we
->>> would add Realm VMs, which would also be classified as protected.
->>>
->>> Add explicit helper to detect if a given VM is a "protected" VM under 
->>> pKVM.
->>> Change the existing users that precisely want to check the VM type. 
->>> These
->>> include :
->>>    - kvm_arch_prepare_memory_region - For preventing memslot changes 
->>> after
->>>      pVM creation.
->>>
->>> All the others are retained as a wider check for confidential guest VMs.
->>> These are:
->>>   - kvm_vm_ioctl_set_counter_offset - For disallowing timer offset
->>>     configuration
->>>   - io_mem_abort for dabt handling without valid syndrome information
->>>
->>> Both of which are true for Realms too.
->>>
->>> Realms support is restricted to VHE host and thus 
->>> "kvm_vm_is_protected()"
->>> checks in the pkvm hyp specific code doesn't need to change, as the only
->>> protected guests it deals with is "protected pKVM" guests. To tighten 
->>> this
->>> init_pkvm_hyp_vm() restricts the hyp copy of the vm_flavor to the 
->>> ones it
->>> supports.
->>>
->>> Suggested-by: Marc Zyngier <maz@kernel.org>
->>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>> ---
->>> Changes since v18:
->>>   - Merge the __VM_PROTECTED marker and the widening of 
->>> kvm_vm_is_protected()
->>>     to this patch.
->>>   - Merge the use of kvm_vm_is_unprotected_pkvm() for ! 
->>> kvm_vm_is_protected()
->>>     given the scope changes here.
->>>   - Drop Fuad's review tag, as this patch has multiple merges
->>>   - Restrict the VM flavors to the supported types in 
->>> init_pkvm_hyp_vm().
->>>   - Drop kvm_vm_hyp_is_pkvm() and revert to is_protected_kvm_enabled()
->>>   - Use is_protected_kvm_enabled() to make the pKVM guest flavor checks.
->>>   - s/PKVM/pKVM for commit descriptions too
->>>
->>> Changes since v17:
->>>   * s/PKVM/pKVM for the comments
->>>   * Drop type argument for pkvm_init_host_vm and also drop protected 
->>> variable.
->>>   * Add helpers for checking if the VM is running on pKVM 
->>> (kvm_vm_hyp_is_pkvm())
->>>   * Use kvm_vm_hyp_is_pkvm() to replace is_protected_kvm_enabled() 
->>> with valid
->>>     kvm instance
->>> ---
->>>   arch/arm64/include/asm/kvm_host.h | 22 +++++++++++++++++++---
->>>   arch/arm64/include/asm/kvm_pkvm.h |  4 ++--
->>>   arch/arm64/kvm/arm.c              | 31 ++++++++++++++++++++++++++-----
->>>   arch/arm64/kvm/handle_exit.c      |  2 +-
->>>   arch/arm64/kvm/hyp/nvhe/pkvm.c    |  6 +++++-
->>>   arch/arm64/kvm/mmu.c              |  2 +-
->>>   arch/arm64/kvm/pkvm.c             |  6 ++----
->>>   7 files changed, 56 insertions(+), 17 deletions(-)
->>>
->>
->> This causes broken nVHE mode. I applied PATCH[01-05] to v7.3.rc4 whose 
->> head commit
->> is f0100363d8c3, and kselftests/kvm/guest_print causes host crash (as 
->> below). I don't
->> see the crash if only PATCH[01-04] are applied.
->>
->> host$ cat /proc/cmdline | grep kvm-arm\.mode
->> BOOT_IMAGE=(hd0,gpt2)/vmlinuz-7.3.0-rc4-gavin+ root=/dev/mapper/ 
->> rhel_nvidia--grace--hopper--01-root ro 
->> crashkernel=2G-4G:406M,4G-64G:470M,64G-:726M rd.lvm.lv=rhel_nvidia- 
->> grace-hopper-01/root rd.lvm.lv=rhel_nvidia-grace-hopper-01/swap 
->> video=simplefb:off kvm-arm.mode=nvhe
->>
->> host$ cd linux/tools/testing/selftests/kvm
->> host$ ./guest_print_test
->> Random seed: 0x193a0ed3
->> [  192.754328] kvm [6674]: nVHE hyp panic at: [<ffff8000811da044>] 
->> __kvm_nvhe___timer_enable_traps+0x4/0x160!
->> [  192.754338] kvm [6674]: nVHE call trace:
->> [  192.754339] kvm [6674]:  [<ffff8000811dcf34>] 
->> __kvm_nvhe_hyp_panic+0xb4/0xe0
->> [  192.754342] kvm [6674]:  [<ffff8000811dcba4>] 
->> __kvm_nvhe___kvm_vcpu_run+0x164/0x440
->> [  192.754344] kvm [6674]:  [<ffff8000811dfe90>] 
->> __kvm_nvhe_handle___kvm_vcpu_run+0x40/0x1f0
->> [  192.754346] kvm [6674]:  [<ffff8000811e0238>] 
->> __kvm_nvhe_handle_trap+0x158/0x280
->> [  192.754347] kvm [6674]:  [<ffff8000811dd8fc>] 
->> __kvm_nvhe___skip_pauth_save+0x4/0x4
->> [  192.754348] kvm [6674]: ---[ end nVHE call trace ]---
->> [  192.754350] Code: d2818002 17fffff7 d503201f f9400001 (b94a6821)
->> [  192.754350] kvm [6674]: Hyp Offset: 0xfffeb0d7fe2e0000
->> [  192.754351] Kernel panic - not syncing: HYP panic:
->> [  192.754351] PS:834003c9 PC:0000cf2882efa044 ESR:0000000096000004
->> [  192.754351] FAR:ffff00009b286a68 HPFAR:8000000000000000 
->> PAR:1d00ec7edbadc8de
->> [  192.754351] VCPU:0000cf011848a350
->> [  192.845154] CPU: 12 UID: 0 PID: 6674 Comm: guest_print_tes Kdump: 
->> loaded Not tainted 7.3.0-rc4-gavin+ #7 PREEMPT(full)
->> [  192.856182] Hardware name:  GH200 P5042, BIOS 02.04.01 20250422
->> [  192.862231] Call trace:
->> [  192.864725]  show_stack+0x20/0x38 (C)
->> [  192.868471]  dump_stack_lvl+0x88/0xb8
->> [  192.872215]  dump_stack+0x18/0x30
->> [  192.875598]  vpanic+0x280/0x498
->> [  192.878806]  panic+0x68/0x70
->> [  192.881745]  nvhe_hyp_panic_handler+0x184/0x190
->> [  192.886372]  kvm_arm_vcpu_enter_exit+0x24/0x100
->> [  192.891003]  kvm_arch_vcpu_ioctl_run+0x254/0x7c0
->> [  192.895726]  kvm_vcpu_ioctl+0x174/0xb40
->> [  192.899645]  __arm64_sys_ioctl+0xb0/0x120
->> [  192.903745]  invoke_syscall.constprop.0+0xa8/0x100
->> [  192.908639]  do_el0_svc+0xb8/0xe0
->> [  192.912022]  el0_svc+0x48/0x1f8
->> [  192.915228]  el0t_64_sync_handler+0xa0/0xe8
->> [  192.919500]  el0t_64_sync+0x1ac/0x1b0
->> [  192.923243] SMP: stopping secondary CPUs
->> [  192.927653] Starting crashdump kernel...
->> [  192.931658] Bye!
->>
-> 
-> With the following changes applied after PATCH[01-05] on top of 
-> v7.3.rc4, the crash
-> is avoided.
-> 
-> In arch/arm64/include/asm/kvm_host.h:
-> 
-> -#define kvm_vm_is_protected(kvm)       ((kvm)->arch.vm_flavor >= 
-> __VM_PROTECTED)
-> +#define kvm_vm_is_protected(kvm)       \
-> +       (is_protected_kvm_enabled() && (kvm)->arch.vm_flavor >= 
-> __VM_PROTECTED)
+On Wed, Sep 23, 2026 at 8:06=E2=80=AFAM Jiayuan Chen <jiayuan.chen@linux.de=
+v> wrote:
+>
+> Observed with two independent servers in the same process:
+>
+>   fd1 =3D socket(AF_INET, SOCK_DGRAM, 0);
+>   setsockopt(fd1, SOL_SOCKET, SO_REUSEPORT, ...);
+>   bind(fd1, port 0);          /* got 40000 */
+>
+>   fd2 =3D socket(AF_INET, SOCK_DGRAM, 0);
+>   setsockopt(fd2, SOL_SOCKET, SO_REUSEPORT, ...);
+>   bind(fd2, port 0);          /* got 40000 as well */
+>
+> Both sockets end up on the same port and join the same reuseport
+> group, so each of them takes part of the other's datagrams. TCP does
+> not do this.
+>
+> udp_lib_lport_inuse() keeps the reuseport rule when it scans for a
+> free port: a socket with the same uid and SO_REUSEPORT set is not a
+> conflict, so its port is never marked in the bitmap and the scan can
+> hand it out again. That rule only makes sense when the user asks for
+> a specific port.
+>
+> TCP fixed the same thing in commit 0643ee4fd1b7 ("inet: Fix get port
+> to handle zero port number with soreuseport set"): reuseport is only
+> honoured for an explicit port, not during a port scan.
+>
+> Do the same for UDP. Mark compatible reuseport sockets in the bitmap
+> during a scan and only skip them when checking a specific port. Using
+> bitmap to tell the two modes apart is not explicit, but
+> udp_lib_lport_inuse() already does that for the port match itself.
+>
+> Note that this still collides when both sockets also have SO_REUSEADDR
+> set: udp_lib_lport_inuse() skips such a pair before it reaches the
+> reuseport check, so the port is never marked either. That is not a
+> common setup and is left as is here.
+>
+> Fixes: ba418fa357a7 ("soreuseport: UDP/IPv4 implementation")
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+>  net/ipv4/udp.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+>
+> diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
+> index b3887c42adfd..61cb1e3f5d93 100644
+> --- a/net/ipv4/udp.c
+> +++ b/net/ipv4/udp.c
+> @@ -147,11 +147,10 @@ static int udp_lib_lport_inuse(struct net *net, __u=
+16 num,
+>                     (!sk2->sk_bound_dev_if || !sk->sk_bound_dev_if ||
+>                      sk2->sk_bound_dev_if =3D=3D sk->sk_bound_dev_if) &&
+>                     inet_rcv_saddr_equal(sk, sk2, true)) {
+> -                       if (sk2->sk_reuseport && sk->sk_reuseport &&
+> +                       if (!bitmap && sk2->sk_reuseport && sk->sk_reusep=
+ort &&
+>                             !rcu_access_pointer(sk->sk_reuseport_cb) &&
+>                             uid_eq(uid, sk_uid(sk2))) {
+> -                               if (!bitmap)
+> -                                       return 0;
+> +                               return 0;
+>                         } else {
+>                                 if (!bitmap)
+>                                         return 1;
+> --
+> 2.43.0
+>
 
-That only papers over the problem. We can't use the vcpu_is_*
-constructs from nvhe hyp, without converting the vcpu->kvm to
-the hyp address, before accessing it. The fix is a bit more
-involved. One option is to define the vcpu_is_* helpers only
-for the !NVHE hyp code in the kvm_host.h (to avoid pulling
-in the asm/kvm_mmu.h in to kvm_host.h and then make a mess
-with header dependencies) and define the NVHE version in
-asm/kvm_hyp.h. Something like :
+The fix is right and matches what TCP does in inet_csk_find_open_port(),
+but it only covers one of the three cases where UDP's scan differs from TCP=
+'s.
+
+On an unpatched kernel, binding 8 sockets to port 0 inside an 8-port
+IP_LOCAL_PORT_RANGE:
+
+udp SO_REUSEPORT 7 distinct ports, 9th bind succeeds udp SO_REUSEADDR
+7 distinct ports,
+9th bind succeeds udp REUSEADDR+REUSEPORT 6 distinct ports, 9th bind succee=
+ds
+
+(TCP gets 8 distinct and EADDRINUSE in all three.) Your patch only
+fixes the first one;
+the SO_REUSEADDR cases bail out of the conflict test before the reuseport c=
+heck
+so the bitmap is never marked. SO_REUSEADDR on its own is pretty common for=
+ UDP,
+so I don't think we should leave it.
+
+TCP handles all three because inet_csk_find_open_port() passes relax=3Dfals=
+e,
+which disables both relaxations.
+
+Please add a comment on top of the loop saying that @bitmap means "scanning=
+",
+since it is not obvious =E2=80=94 or use !num, which is equivalent here sin=
+ce
+udp_lib_get_port()
+passes snum =3D=3D 0 on the scan path.
+
+Please also extend patch 2 to cover SO_REUSEADDR and SO_REUSEADDR|SO_REUSEP=
+ORT;
+the helper refactor is already there, just make the bool a flags argument.
+
+Given this is a 13 year old bind() behaviour change and the collision
+window is tiny
+with the default ephemeral range, net-next seems like the better target.
+
+Perhaps a good candidate for "Cc: stable+noautosel@kernel.org # lets
+not break applications..."
 
 
-diff --git a/arch/arm64/include/asm/kvm_host.h 
-b/arch/arm64/include/asm/kvm_host.h
-index 46a7f6c1e426c..4016d09ed39c3 100644
---- a/arch/arm64/include/asm/kvm_host.h
-+++ b/arch/arm64/include/asm/kvm_host.h
-@@ -1545,11 +1545,14 @@ struct kvm *kvm_arch_alloc_vm(void);
-  #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
 
-  #define kvm_vm_is_protected(kvm)       ((kvm)->arch.vm_flavor >= 
-__VM_PROTECTED)
-+
-+#ifndef __KVM_NVHE_HYPERVISOR__
-  #define vcpu_is_protected(vcpu) 
-kvm_vm_is_protected((vcpu)->kvm)
-+#define vcpu_is_protected_pkvm(vcpu) 
-kvm_vm_is_protected_pkvm((vcpu)->kvm)
-+#endif
-
-  #define kvm_vm_is_protected_pkvm(kvm)          \
-         (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == 
-VM_PROTECTED_PKVM))
--#define vcpu_is_protected_pkvm(vcpu)   kvm_vm_is_protected_pkvm(vcpu->kvm)
-
-  #define kvm_vm_is_unprotected_pkvm(kvm)                \
-         (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PKVM))
-diff --git a/arch/arm64/include/asm/kvm_hyp.h 
-b/arch/arm64/include/asm/kvm_hyp.h
-index 4974492744cc8..3bf87e81af430 100644
---- a/arch/arm64/include/asm/kvm_hyp.h
-+++ b/arch/arm64/include/asm/kvm_hyp.h
-@@ -137,6 +137,19 @@ int __pkvm_init(phys_addr_t phys, unsigned long 
-size, unsigned long *per_cpu_bas
-  void __noreturn __host_enter(struct kvm_cpu_context *host_ctxt);
-  #endif
-
-+#ifdef __KVM_NVHE_HYPERVISOR__
-+#define vcpu_is_protected(vcpu) 
-        \
-+       ({                                                              \
-+               struct kvm *__kvm = READ_ONCE((vcpu)->kvm);             \
-+               __kvm && kvm_vm_is_protected((kern_hyp_va(__kvm)));     \
-+       })
-+#define vcpu_is_protected_pkvm(vcpu)                                   \
-+       ({                                                              \
-+               struct kvm *__kvm = READ_ONCE((vcpu)->kvm);             \
-+               __kvm && kvm_vm_is_protected_pkvm((kern_hyp_va(__kvm)));\
-+       })
-+#endif
-+
-
-
-Or explicitly convert all nvhe accessors to a new "nvhe_vcpu_is_protected"
-
-The second one sounds like a better option to me.
-
-Cheers
-Suzuki
-> 
-> 
-> Thanks,
-> Gavin
-> 
->>> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/ 
->>> asm/kvm_host.h
->>> index 286489a69dff5..9b1cf9c59e81f 100644
->>> --- a/arch/arm64/include/asm/kvm_host.h
->>> +++ b/arch/arm64/include/asm/kvm_host.h
->>> @@ -257,7 +257,6 @@ struct kvm_protected_vm {
->>>       pkvm_handle_t handle;
->>>       struct kvm_hyp_memcache teardown_mc;
->>>       struct kvm_hyp_memcache stage2_teardown_mc;
->>> -    bool is_protected;
->>>       bool is_created;
->>>       /*
->>> @@ -306,9 +305,19 @@ enum fgt_group_id {
->>>       __NR_FGT_GROUP_IDS__
->>>   };
->>> +enum kvm_arm_vm_flavor {
->>> +    VM_NVHE,
->>> +    VM_VHE,
->>> +    VM_PKVM,        /* Normal guests on pKVM */
->>> +    MARKER(__VM_PROTECTED),
->>> +    VM_PROTECTED_PKVM,    /* Protected VM */
->>> +    VM_FLAVOR_MAX,
->>> +};
->>> +
->>>   struct kvm_arch {
->>>       struct kvm_s2_mmu mmu;
->>> +    enum kvm_arm_vm_flavor vm_flavor;
->>>       /*
->>>        * Fine-Grained UNDEF, mimicking the FGT layout defined by the
->>>        * architecture. We track them globally, as we present the
->>> @@ -1504,10 +1513,17 @@ struct kvm *kvm_arch_alloc_vm(void);
->>>   #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
->>> -#define kvm_vm_is_protected(kvm)    (is_protected_kvm_enabled() && 
->>> (kvm)->arch.pkvm.is_protected)
->>> -
->>> +#define kvm_vm_is_protected(kvm)    ((kvm)->arch.vm_flavor >= 
->>> __VM_PROTECTED)
->>>   #define vcpu_is_protected(vcpu)        kvm_vm_is_protected((vcpu)- 
->>> >kvm)
->>> +#define kvm_vm_is_protected_pkvm(kvm)        \
->>> +    (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == 
->>> VM_PROTECTED_PKVM))
->>> +#define vcpu_is_protected_pkvm(vcpu)    
->>> kvm_vm_is_protected_pkvm(vcpu->kvm)
->>> +
->>> +#define kvm_vm_is_unprotected_pkvm(kvm)        \
->>> +    (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PKVM))
->>> +
->>> +
->>>   int kvm_arm_vcpu_finalize(struct kvm_vcpu *vcpu, int feature);
->>>   bool kvm_arm_vcpu_is_finalized(struct kvm_vcpu *vcpu);
->>> diff --git a/arch/arm64/include/asm/kvm_pkvm.h b/arch/arm64/include/ 
->>> asm/kvm_pkvm.h
->>> index 54a618d887fa4..e4ea80711bec6 100644
->>> --- a/arch/arm64/include/asm/kvm_pkvm.h
->>> +++ b/arch/arm64/include/asm/kvm_pkvm.h
->>> @@ -17,7 +17,7 @@
->>>   #define HYP_MEMBLOCK_REGIONS 128
->>> -int pkvm_init_host_vm(struct kvm *kvm, unsigned long type);
->>> +int pkvm_init_host_vm(struct kvm *kvm);
->>>   int pkvm_create_hyp_vm(struct kvm *kvm);
->>>   bool pkvm_hyp_vm_is_created(struct kvm *kvm);
->>>   void pkvm_destroy_hyp_vm(struct kvm *kvm);
->>> @@ -49,7 +49,7 @@ static inline bool kvm_pkvm_ext_allowed(struct kvm 
->>> *kvm, long ext)
->>>       case KVM_CAP_ARM_SUPPORTED_BLOCK_SIZES:
->>>           return false;
->>>       default:
->>> -        return !kvm || !kvm_vm_is_protected(kvm);
->>> +        return !kvm || kvm_vm_is_unprotected_pkvm(kvm);
->>>       }
->>>   }
->>> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
->>> index db36815630790..8c784b266a8e8 100644
->>> --- a/arch/arm64/kvm/arm.c
->>> +++ b/arch/arm64/kvm/arm.c
->>> @@ -214,6 +214,26 @@ static int kvm_arm_default_max_vcpus(void)
->>>       return vgic_present ? kvm_vgic_get_max_vcpus() : KVM_MAX_VCPUS;
->>>   }
->>> +static int kvm_init_vm_flavor(struct kvm *kvm, unsigned long type)
->>> +{
->>> +    bool protected = type & KVM_VM_TYPE_ARM_PROTECTED;
->>> +
->>> +    if (is_protected_kvm_enabled()) {
->>> +        if (protected)
->>> +            kvm->arch.vm_flavor = VM_PROTECTED_PKVM;
->>> +        else
->>> +            kvm->arch.vm_flavor = VM_PKVM;
->>> +    } else if (protected) {
->>> +        return -EINVAL;
->>> +    } else if (has_vhe()) {
->>> +        kvm->arch.vm_flavor = VM_VHE;
->>> +    } else {
->>> +        kvm->arch.vm_flavor = VM_NVHE;
->>> +    }
->>> +
->>> +    return 0;
->>> +}
->>> +
->>>   /**
->>>    * kvm_arch_init_vm - initializes a VM data structure
->>>    * @kvm:    pointer to the KVM struct
->>> @@ -236,6 +256,10 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned 
->>> long type)
->>>       mutex_unlock(&kvm->lock);
->>>   #endif
->>> +    ret = kvm_init_vm_flavor(kvm, type);
->>> +    if (ret)
->>> +        return ret;
->>> +
->>>       kvm_init_nested(kvm);
->>>       ret = kvm_share_hyp(kvm, kvm + 1);
->>> @@ -257,12 +281,9 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned 
->>> long type)
->>>            * If any failures occur after this is successful, make 
->>> sure to
->>>            * call __pkvm_unreserve_vm to unreserve the VM in hyp.
->>>            */
->>> -        ret = pkvm_init_host_vm(kvm, type);
->>> +        ret = pkvm_init_host_vm(kvm);
->>>           if (ret)
->>>               goto err_uninit_mmu;
->>> -    } else if (type & KVM_VM_TYPE_ARM_PROTECTED) {
->>> -        ret = -EINVAL;
->>> -        goto err_uninit_mmu;
->>>       }
->>>       kvm_vgic_early_init(kvm);
->>> @@ -985,7 +1006,7 @@ int kvm_arch_vcpu_run_pid_change(struct kvm_vcpu 
->>> *vcpu)
->>>       if (is_protected_kvm_enabled()) {
->>>           /* Start with the vcpu in a dirty state */
->>> -        if (!kvm_vm_is_protected(vcpu->kvm))
->>> +        if (kvm_vm_is_unprotected_pkvm(vcpu->kvm))
->>>               vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
->>>           ret = pkvm_create_hyp_vm(kvm);
->>>           if (ret)
->>> diff --git a/arch/arm64/kvm/handle_exit.c b/arch/arm64/kvm/handle_exit.c
->>> index db37678dcb05c..384c5d258c7f8 100644
->>> --- a/arch/arm64/kvm/handle_exit.c
->>> +++ b/arch/arm64/kvm/handle_exit.c
->>> @@ -490,7 +490,7 @@ static void handle_exit_pkvm_state(struct 
->>> kvm_vcpu *vcpu, int exception_index)
->>>   {
->>>       int exception_code = ARM_EXCEPTION_CODE(exception_index);
->>> -    if (!is_protected_kvm_enabled() || kvm_vm_is_protected(vcpu->kvm))
->>> +    if (!kvm_vm_is_unprotected_pkvm(vcpu->kvm))
->>>           return;
->>>       /*
->>> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/ 
->>> nvhe/pkvm.c
->>> index 459bd9eb7e4bc..57e2eef6d7426 100644
->>> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
->>> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
->>> @@ -432,7 +432,11 @@ static void init_pkvm_hyp_vm(struct kvm 
->>> *host_kvm, struct pkvm_hyp_vm *hyp_vm,
->>>       hyp_vm->host_kvm = host_kvm;
->>>       hyp_vm->kvm.created_vcpus = nr_vcpus;
->>> -    hyp_vm->kvm.arch.pkvm.is_protected = READ_ONCE(host_kvm- 
->>> >arch.pkvm.is_protected);
->>> +    if (kvm_vm_is_protected(host_kvm))
->>> +        hyp_vm->kvm.arch.vm_flavor = VM_PROTECTED_PKVM;
->>> +    else
->>> +        hyp_vm->kvm.arch.vm_flavor = VM_PKVM;
->>> +
->>>       hyp_vm->kvm.arch.flags = 0;
->>>       pkvm_init_features_from_host(hyp_vm, host_kvm);
->>> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->>> index 9ba86450fe4af..0f4e8b71fa85d 100644
->>> --- a/arch/arm64/kvm/mmu.c
->>> +++ b/arch/arm64/kvm/mmu.c
->>> @@ -2624,7 +2624,7 @@ int kvm_arch_prepare_memory_region(struct kvm 
->>> *kvm,
->>>       hva_t hva, reg_end;
->>>       int ret = 0;
->>> -    if (kvm_vm_is_protected(kvm)) {
->>> +    if (kvm_vm_is_protected_pkvm(kvm)) {
->>>           /* Cannot modify memslots once a pVM has run. */
->>>           if (pkvm_hyp_vm_is_created(kvm) &&
->>>               (change == KVM_MR_DELETE || change == KVM_MR_MOVE)) {
->>> diff --git a/arch/arm64/kvm/pkvm.c b/arch/arm64/kvm/pkvm.c
->>> index 8e4c6e4bec123..8e9176a700926 100644
->>> --- a/arch/arm64/kvm/pkvm.c
->>> +++ b/arch/arm64/kvm/pkvm.c
->>> @@ -229,10 +229,9 @@ void pkvm_destroy_hyp_vm(struct kvm *kvm)
->>>       mutex_unlock(&kvm->arch.config_lock);
->>>   }
->>> -int pkvm_init_host_vm(struct kvm *kvm, unsigned long type)
->>> +int pkvm_init_host_vm(struct kvm *kvm)
->>>   {
->>>       int ret;
->>> -    bool protected = type & KVM_VM_TYPE_ARM_PROTECTED;
->>>       /* Reserve the VM in hyp and obtain a hyp handle for the VM. */
->>>       ret = kvm_call_hyp_nvhe(__pkvm_reserve_vm);
->>> @@ -240,8 +239,7 @@ int pkvm_init_host_vm(struct kvm *kvm, unsigned 
->>> long type)
->>>           return ret;
->>>       kvm->arch.pkvm.handle = ret;
->>> -    kvm->arch.pkvm.is_protected = protected;
->>> -    if (protected) {
->>> +    if (kvm_vm_is_protected(kvm)) {
->>>           pr_warn_once("kvm: protected VMs are experimental and for 
->>> development only, tainting kernel\n");
->>>           add_taint(TAINT_USER, LOCKDEP_STILL_OK);
->>>       }
->>
-> 
-
+diff --git a/net/ipv4/udp.c b/net/ipv4/udp.c
+index bb8cfc62cb00431faefd0371a9de9346b9bb..8628b723ec946eed6337209f62f683b=
+a4252
+100644
+--- a/net/ipv4/udp.c
++++ b/net/ipv4/udp.c
+@@ -143,21 +143,18 @@ static int udp_lib_lport_inuse(struct net *net, __u16=
+ num,
+                if (net_eq(sock_net(sk2), net) &&
+                    sk2 !=3D sk &&
+                    (bitmap || udp_sk(sk2)->udp_port_hash =3D=3D num) &&
+-                   (!sk2->sk_reuse || !sk->sk_reuse) &&
++                   (bitmap || !sk2->sk_reuse || !sk->sk_reuse) &&
+                    (!sk2->sk_bound_dev_if || !sk->sk_bound_dev_if ||
+                     sk2->sk_bound_dev_if =3D=3D sk->sk_bound_dev_if) &&
+                    inet_rcv_saddr_equal(sk, sk2, true)) {
+-                       if (sk2->sk_reuseport && sk->sk_reuseport &&
+-                           !rcu_access_pointer(sk->sk_reuseport_cb) &&
+-                           uid_eq(uid, sk_uid(sk2))) {
+-                               if (!bitmap)
++                       if (!bitmap) {
++                               if (sk2->sk_reuseport && sk->sk_reuseport &=
+&
++                                   !rcu_access_pointer(sk->sk_reuseport_cb=
+) &&
++                                   uid_eq(uid, sk_uid(sk2)))
+                                        return 0;
+-                       } else {
+-                               if (!bitmap)
+-                                       return 1;
+-                               __set_bit(udp_sk(sk2)->udp_port_hash >> log=
+,
+-                                         bitmap);
++                               return 1;
+                        }
++                       __set_bit(udp_sk(sk2)->udp_port_hash >> log, bitmap=
+);
+                }
+        }
+        return 0;
