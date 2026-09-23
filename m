@@ -1,121 +1,292 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF8C51E43D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:48:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F8F51E43D
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:48:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790167693; cv=none; b=UZfwHsnr8z9WaVrPwOyScrYr2FAeuRur0wilA/X6Bx1DnJ0aqvV4RsWMiW7bHmeZfq3A8TyGt86SxiQIMrzT80lH3bhV1383AYZuQlRkRg/dZR0ErkGuaIG907tYi4GO1LEyj3uX49AZiPnLvoreEx63XL2D9TgK+iTxS8Ledrc=
+	t=1790167699; cv=none; b=Yds4ARM5MuN4KluUVU2jyXoRkUhQlirZqN+0+QblpfbpDq+wmIr48eNFZBEM6WRTDq6SE4gHO2TuqgPUWV0jp0fpW9OMlzLYQNHdIbnQBy84S6JoMt/XcoUchgYgtdA0JWYguzO0gBEpWtsoVDVDfW3s4iFVe8NfhX9yZwMQZsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790167693; c=relaxed/simple;
-	bh=IY2o/9Zd0FHMEWHyc0k2wv+f7cAv88OH6tphokM1gso=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nrp93s5LV8Cjs38P3zKxWpmnJqge+Ytw9hcBbHUgHATXH2x3VXeVjm6RXD14TREu3pmyC8CeQ10A2yhKwuiC1/WYSVvyuUnX2IDCT8mDrs8j18PpQKcsa3oNGPNZsJKXUA8N+TaovPNI2b4fY9SxRW8cYEB7z7liNWFPb/9xhm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Comt8vul; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790167699; c=relaxed/simple;
+	bh=jPNtavFMI4q+FGbI7qJEzIBWSIDqEWdTuyso7m6gikQ=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SHfvx38+APtg1LE1OBXNtdgHT3Iz6iNsZW6ihWnqmWBT9MDnpiAggt9PMZ740ccSbLqtpy/0hnXqXlC0DWmSqINsD/ZM9Mm+axup75S/+bNR4p4TkqP2d88jjbkvrAyHG3Db4fGC4V/OVFuXVkKwfJmNHmxfCsDFcLxZmlQrTO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=aP/REoU+; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Comt8vul"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ef15d3so113464666b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:48:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="aP/REoU+"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885d4825adso588651f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:48:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790167690; x=1790772490; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SLuek/JnZcrHdEol8bs1CY5iS+EZUcbu/8zASCIc9oo=;
-        b=Comt8vulNJSzEfrWtzbQpLlA2WLwL8E+hI/7Vxzy3p4qTVogQ1pMHK3q45X/Z61pPp
-         gqB11bctP7gzA1H3LeZkx1Y9pxRxY5uRYkFFzrXuwGh262uxJwVODHKrIHxLLD6eXzNr
-         EBGweZBmTallHSNSkyXwmZ++huUu2d/M1+HLC9XV8ZJDOXl8bqDJAySM4Gic1sGMo4YS
-         EnOLKW8fyl7FPVh0a/WB6HIGXUJpg++K+dW9d11yOpr/WFBsMx0EJMJRAsrHAkqBMKQZ
-         zsVbaTKzO+KfJ3NRwpiWJrYbwQbPH9GPt8Y8bG45XLZI/3t+OH97yDCNewuxB0lBL+TX
-         hTyA==
+        d=suse.com; s=google; t=1790167695; x=1790772495; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ODeygWUoyfZFfVTkmoKD2nbDJdrzVQ9HvoPK8jlMnfI=;
+        b=aP/REoU+pbqj1Po5qdX43wyIII9rzCDorXWUCTz76wM00v/+d4SF+b/0wGeQ0eCilK
+         nrha7jo9IyTIKp3AF6E6B5WWr7N5fl/cv0YSO5gc7mYxKFy69fEQ4DDKgIxqMeIuPG9w
+         c3OW9bRhoPy6Tf2YJxdJUtXQafgNCY7rNIcySc0Pg9jhjkSg+xi1r1cbJbUHGglASqy4
+         8Og31XH4nEiLViQC4EUxaS9IblninMKhZ6bRdjtpiDmi8wfaBBY56N12cfmIQyvUqJJF
+         hCzKOjCjaiLl3gRsv25koO+lgPSrxD2YvUE86I6EaR3W0iZ+JetEKx79xLTALou8mGCf
+         1Xsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790167690; x=1790772490;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SLuek/JnZcrHdEol8bs1CY5iS+EZUcbu/8zASCIc9oo=;
-        b=ROMJR705btpPWdyIH8EoK2ne8NSplH4SpVJ9TymgqU8xUDljysvXo7w4OwkyxORKji
-         KNOI4vdB/s2jQ7KmOtDu2xA8gOnJ/a+HhjsIcJ6rC5/8rk/HZsEkjm2QpKL5rUO5q9Oy
-         6DzDfYb7gK7lILwhNBuFdwTWOlSsIE4aIqqztOsIRW738z1YQFgiEMD/jyjyHi8R2C0B
-         tH7Tww1hjoUeg4bvisoE+DBh7ooJvJimyaevCIlFIYDV0rS862Ks2WRgrQQrfTSijrIH
-         OgK9XrgpzE5lfIoptaHzfAwTm9H9HzAiHtH4NSgDOMmV3q2x9VmgiJAXLRL1DtUtqzv6
-         v10w==
-X-Forwarded-Encrypted: i=1; AKwUvBybEQp4ekG2RmyjPcOu7PZewjwxEGHqEqNvhZJaNr7+VYYgUWPLfurii2O9Op3qtfLAgrDi8HWSROTOaCE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNvqXlRQ+kDobMznRxX7uc6VMo0rxICxrZOyVY8Q0fxBeu5fYn
-	E/bu/YNz9kS63P2tf6lOdmXKY7MEGUzg8P14HiZqDLdlt9M2pny0O6ECHGX1+5pVRDE=
-X-Gm-Gg: AYBFou0dyOhfxr8zdF1u/ad1khJ3stJt3YFLfVnzMLnpPnovAwVGZHso069Yry/4767
-	YqCWswzuJSCks4M77Nb5nlkXjQ8UJAx1uT8KYSC9Splmgh9UOZpzW4EG7CeCML1zC/Vodrxm+Vy
-	OAgvL9Yj3UN/HMWzKIpgbRnIXX658cR5b8MXpmk+aB/I1Ju2yg3skoqbXFU9zhB7TJj273L+e/i
-	qSU4vk1DxqQD7S0hq3VxL85WmpCDGSsn4iliYeSkff3z13DJM0sCvy6RDS7eBskPRNtk4uzT1jy
-	4ICf8cKPUtLUT9ADzEKkvJcve7lBdlyL3rC0IebBLiWCFcFdfvNGx3ycWtyOdZpZ6IjAbP/ghT+
-	FdardYAUU6IoWwvG19u9+W8HcBOwhHNfPf3VNiLhuR8ZBOK+bxTlLtlWs/jJHFG7Je5tJ5X+TEK
-	O+YMp2oifpr6spyAVl2sZmEGtfkv6/OjluloaScSxl4L+dntyGcvNebtK+7IVuzsGv9KmWwaWcd
-	ofwz41IfhQc6NpxSX+U
-X-Received: by 2002:a17:906:9fd2:b0:c29:f5d5:5aa6 with SMTP id a640c23a62f3a-c2aae2b6a2amr198058466b.48.1790167690003;
-        Wed, 23 Sep 2026 05:48:10 -0700 (PDT)
-Received: from [192.168.0.167] ([51.37.94.232])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6ecd17sm112583666b.63.2026.09.23.05.48.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 05:48:09 -0700 (PDT)
-Message-ID: <97595856-b932-40fc-b39b-04016517069b@linaro.org>
-Date: Wed, 23 Sep 2026 13:48:07 +0100
+        d=1e100.net; s=20260707; t=1790167695; x=1790772495;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ODeygWUoyfZFfVTkmoKD2nbDJdrzVQ9HvoPK8jlMnfI=;
+        b=BCCYk68O+8B+9iPtmt12It4ft2+WJjeZCvcECy7aj9KG1uL+n1DXJocdyQurvo+rhB
+         DmVjx63o6kayzPw9dmq+UcCSVzm4ILyiownMmqLsqtTrwqF+Utf3e8QW0knP0Biy4Bcw
+         HgSQQ4Xh4qv2yukEAyqDoKgB3GjWpw+B0/QDTzB2pAtudACMpguc5mUJ4S+FP+S+6KqE
+         TWM72UmDceZuy3gLSyDGZU6RV3fNIkBd33T2Ua374jAGew8Nq8rB5KkArhMlnLQIMAoQ
+         CIrwElhnfBqa7CqiDl+26ipAHNRmrtwHcBa2gvrf6GyNs+ClBf86A96zJ2orejZM53+n
+         FNhA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7AxNcHBluSJF8fxZ0TAYpcAOEh8zTDSgZoyFodjIiUy6piCdNgsnU02vWhmHt+jhK+BeAlB39SK30ah0=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/KSTezuu8hCM1LB6SwSVqzE13sumITy4MWqKudEvvF0IkPGbU
+	/frRAVGnnKEbWHNq7ucB1OJkYm4HdUkGGbLhVj/jC/v9+0gdKIXYAPJ7nw/Fm4Ztg54=
+X-Gm-Gg: AYBFou2pRluhRt/tMWEcgI/n8onWvDeOQ8Jn9VAez3mM1sWfFITSdT367Mcw3ayJSIy
+	CMWqnVHKjTQlKwR3w3CZcePrqokyCqZv4O8ptiCX8IC93DBBAW9LWuwwXKLMm2H7LD3raU9yOjF
+	YQqlmYXTcjzJBYMzOipV3m/q34svjGm8L4JOEuiylXRsYPzq8UjnNF5XgnVsuyRaMjplfufT1Ys
+	jc20EZhhD/pKqj1mF0ttYAhZgvERwF86yBS3sH7EqXmmOCVAtYgj7vhDMDVy8FKh6w1FSMbuMkC
+	oOr3cqeVoBINbi5EORZgEnvkny2xUXmL8axGOkNr5/PSIt17hwJq783ZX5r1PfT7cbsq+bEWdEB
+	31p/0Kv6YTx3FoR2YGs7IuALwdcSjPC1E/KKnDwKxun3gYZeADHNUr6Sd2GzocIwLag2zJDdIjf
+	w4jSY503PPb6iwkbv45JE1xtNdbCRqJepuIsGbDRX5M5kmwlLxNZmFRVVlEYziRrMg57k8bw==
+X-Received: by 2002:a05:6000:240d:b0:484:39b4:5bc9 with SMTP id ffacd0b85a97d-48867093ba7mr4171210f8f.26.1790167694853;
+        Wed, 23 Sep 2026 05:48:14 -0700 (PDT)
+Received: from localhost ([195.94.147.179])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c267sm6932595f8f.16.2026.09.23.05.48.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 05:48:14 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Wed, 23 Sep 2026 14:51:55 +0200
+To: Gary Guo <gary@garyguo.net>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
+	Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: Re: [PATCH v9 2/3] pwm: rp1: Add RP1 PWM controller driver
+Message-ID: <arPLa_g4mAg1t2rq@apocalypse>
+References: <cover.1789724999.git.andrea.porta@suse.com>
+ <22f454003902173a7230d0aee5fbd7261fcc163e.1789724999.git.andrea.porta@suse.com>
+ <DLM3VDAEVVEO.1STV7HI3M3YXK@garyguo.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 15/15] arm64: defconfig: Enable S5KJN5 camera sensor
- for Qualcomm boards
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260923-hawi-maili-camss-v1-0-cbbb42e534ef@oss.qualcomm.com>
- <RbdPcB-QGL3Q9kH1vj2YTIDgS-JUQ3rmbo-QovaLqE1ij0XTZhsPpaet3uWWJI9Yag6wL3TciIvWVqVK4TcTzQ==@protonmail.internalid>
- <20260923-hawi-maili-camss-v1-15-cbbb42e534ef@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260923-hawi-maili-camss-v1-15-cbbb42e534ef@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DLM3VDAEVVEO.1STV7HI3M3YXK@garyguo.net>
 
-On 23/09/2026 12:02, Nihal Kumar Gupta wrote:
-> Enable the S5KJN5 driver which is used for the camera sensor on the
-> Qualcomm Hawi and Maili MTP boards.
+Hi Gary,
+thanks for your feedback!
+
+On 20:51 Tue 22 Sep     , Gary Guo wrote:
+> On Fri Sep 18, 2026 at 10:59 AM BST, Andrea della Porta wrote:
+> > From: Naushir Patuck <naush@raspberrypi.com>
+> >
+> > The Raspberry Pi RP1 southbridge features an embedded PWM
+> > controller with 4 output channels, alongside an RPM interface
+> > to read the fan speed on the Raspberry Pi 5.
+> >
+> > Add the supporting driver.
+> >
+> > Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
+> > Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
+> > Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 > 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->   arch/arm64/configs/defconfig | 1 +
->   1 file changed, 1 insertion(+)
+> Put yourself a Co-developed-by perhaps? You made significant changes.
+
+Ack.
+
 > 
-> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-> index 5217de386edc5e32289e453288db0bd9449d4c6f..fa35db683bb253e83af6bb25f702e3127761c086 100644
-> --- a/arch/arm64/configs/defconfig
-> +++ b/arch/arm64/configs/defconfig
-> @@ -960,6 +960,7 @@ CONFIG_VIDEO_IMX412=m
->   CONFIG_VIDEO_OV5640=m
->   CONFIG_VIDEO_OV5645=m
->   CONFIG_VIDEO_S5KJN1=m
-> +CONFIG_VIDEO_S5KJN5=m
->   CONFIG_AUXDISPLAY=y
->   CONFIG_SEG_LED_GPIO=m
->   CONFIG_DRM=m
+> I've tested the device on my Pi 5, and the fan is indeed spinning now :)
+
+Nice! Thanks for testing it :)
+
 > 
-> --
-> 2.34.1
+> > ---
+> >  drivers/pwm/Kconfig                       |   8 +
+> >  drivers/pwm/Makefile                      |   1 +
+> >  drivers/pwm/pwm-rp1.c                     | 499 ++++++++++++++++++++++
+> >  include/soc/bcm2835/raspberrypi-pwm-rp1.h |  10 +
+> >  4 files changed, 518 insertions(+)
+> >  create mode 100644 drivers/pwm/pwm-rp1.c
+> >  create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
+> >
+> > diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+> > index 7297760868790..e1baec8d294d1 100644
+> > --- a/drivers/pwm/Kconfig
+> > +++ b/drivers/pwm/Kconfig
+> > @@ -637,6 +637,14 @@ config PWM_ROCKCHIP
+> >  	  Generic PWM framework driver for the PWM controller found on
+> >  	  Rockchip SoCs.
+> >  
+> > +config PWM_RASPBERRYPI_RP1
+> > +	tristate "RP1 PWM support"
+> > +	depends on MISC_RP1 || COMPILE_TEST
+> > +	depends on HAS_IOMEM
+> > +	select REGMAP_MMIO
+> > +	help
+> > +	  PWM framework driver for Raspberry Pi RP1 controller.
+> > +
+> >  config PWM_SAMSUNG
+> >  	tristate "Samsung PWM support"
+> >  	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
+> > diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+> > index 5630a521a7cff..c07fd24f69f39 100644
+> > --- a/drivers/pwm/Makefile
+> > +++ b/drivers/pwm/Makefile
+> > @@ -57,6 +57,7 @@ obj-$(CONFIG_PWM_RENESAS_RZG2L_GPT)	+= pwm-rzg2l-gpt.o
+> >  obj-$(CONFIG_PWM_RENESAS_RZ_MTU3)	+= pwm-rz-mtu3.o
+> >  obj-$(CONFIG_PWM_RENESAS_TPU)	+= pwm-renesas-tpu.o
+> >  obj-$(CONFIG_PWM_ROCKCHIP)	+= pwm-rockchip.o
+> > +obj-$(CONFIG_PWM_RASPBERRYPI_RP1)	+= pwm-rp1.o
+> >  obj-$(CONFIG_PWM_SAMSUNG)	+= pwm-samsung.o
+> >  obj-$(CONFIG_PWM_SIFIVE)	+= pwm-sifive.o
+> >  obj-$(CONFIG_PWM_SL28CPLD)	+= pwm-sl28cpld.o
+> > diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
+> > new file mode 100644
+> > index 0000000000000..cfd38e46cc589
+> > --- /dev/null
+> > +++ b/drivers/pwm/pwm-rp1.c
+> > +
+> > +int rp1_pwm_read_tachometer(struct device *dev)
+> > +{
+> > +	struct pwm_chip *chip;
+> > +	struct rp1_pwm *rp1;
+> > +	u32 tach_val;
+> > +	int ret;
+> > +
+> > +	if (!dev)
+> > +		return -EINVAL;
+> > +
+> > +	device_lock(dev);
 > 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> You should use the device link mechanism for synchronizing unbind / runtime PM.
+> That can be done in your RP1 fan driver, and it doesn't need locking on this
+> driver.
+
+This does not enforce the locking though. Is it enough to just rely on
+caller to create the device link in advance? IOW, just add a documentation
+comment to the exported function prologue stating that the consumer is
+responsible to sync via a device link is acceptable?
+Otherwise the only way I see to protect it in any scenario is via the mutex
+I've already implemented and a second flag for the removing path (device_lock
+will be dropped, of course).
+
+> 
+> So Sashiko is kinda reporting a false positive here.
+> 
+> > +
+> > +	chip = dev_get_drvdata(dev);
+> > +	if (!chip) {
+> > +		ret = -ENODEV;
+> > +		goto err_dev_unlock;
+> > +	}
+> > +
+> > +	rp1 = pwmchip_get_drvdata(chip);
+> > +	if (!rp1) {
+> > +		ret = -ENODEV;
+> > +		goto err_dev_unlock;
+> > +	}
+> > +
+> > +	mutex_lock(&rp1->lock);
+> > +	if (!rp1->clk_enabled) {
+> > +		ret = -EBUSY;
+> > +		goto err_clk_unlock;
+> > +	}
+> > +
+> > +	ret = regmap_read(rp1->regmap, RP1_PWM_PHASE(2), &tach_val);
+> > +	if (ret)
+> > +		goto err_clk_unlock;
+> > +
+> > +	ret = (int)tach_val;
+> > +
+> > +err_clk_unlock:
+> > +	mutex_unlock(&rp1->lock);
+> > +err_dev_unlock:
+> > +	device_unlock(dev);
+> > +
+> > +	return ret;
+> > +}
+> > +EXPORT_SYMBOL_NS_GPL(rp1_pwm_read_tachometer, "RP1_PWM_FAN");
+> > +
+> > +static int rp1_pwm_probe(struct platform_device *pdev)
+> > +{
+> > +	struct device *dev = &pdev->dev;
+> > +	unsigned long clk_rate;
+> > +	struct pwm_chip *chip;
+> > +	void __iomem	*base;
+> > +	struct rp1_pwm *rp1;
+> > +	int ret;
+> > +
+> > +	chip = devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
+> > +	if (IS_ERR(chip))
+> > +		return PTR_ERR(chip);
+> > +
+> > +	rp1 = pwmchip_get_drvdata(chip);
+> > +	ret = devm_mutex_init(dev, &rp1->lock);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	base = devm_platform_ioremap_resource(pdev, 0);
+> > +	if (IS_ERR(base))
+> > +		return PTR_ERR(base);
+> > +
+> > +	rp1->regmap = devm_regmap_init_mmio(dev, base, &rp1_pwm_regmap_config);
+> > +	if (IS_ERR(rp1->regmap))
+> > +		return dev_err_probe(dev, PTR_ERR(rp1->regmap), "Cannot initialize regmap\n");
+> 
+> You mentioned "rework regmap error paths" in cover letter.
+> 
+> But the issue is that regmap doesn't need be used here at all. RP1 is on PCIe
+> so there is no need for bus abstraction, direct use of MMIO is sufficient.
+> MMIO accessors have no error paths, so you're saying yourself from having to
+> handle that, and also reduce the overhead by not having to go through an
+> abstraction w/ indirect funicton calls.
+>
+> I suppose regmap was used when syscon was there; but it's not needed anymore.
+
+True, and I don't have any issue in converting back to MMIO call and drop the conditional for
+error checking, but please consider the following, since the driver may be extended in the
+future to support more features:
+
+- regmap gives you free debugfs view on the registers, which may be useful to test
+  the new features.
+- regmap_write/read may still return an error in case the passed register is not in range.
+  This will be trapped at runtime only, but could still be useful during development
+- I expect the PWM driver to be a access with very low frequency, so I guess the overhead 
+  imposed by regmap is negligible.
+
+Since we already have it, I'd prefer to leave regmap if possible for the aforementioned reasons,
+but I'm obviously open to drop it in favor of direct MMIO calls in case you or anyone else are
+not seeing those as real benefits.
+
+Many thanks,
+Andrea
+
+> 
+> Best,
+> Gary
+> 
+> > +
+> > +	rp1->clk = devm_clk_get(dev, NULL);
+> > +	if (IS_ERR(rp1->clk))
+> > +		return dev_err_probe(dev, PTR_ERR(rp1->clk), "Clock not found\n");
+> > +
+> 
