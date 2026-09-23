@@ -1,68 +1,33 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3154528446
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:08:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6637524B1C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:09:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168908; cv=none; b=C7jE9M0ZBJEMqR7K4Jp9zHvmuuyvr0lnm+HTTlgnzaWsNhYX7MVIyU8YN7ojE/3gnKTxZkN5zB6Aso6afJb2eAs5W6XycJ6zERiov7/ulzQG8eWYAKuCAF6rit4qsOMWkLMiID17u40ystSHzAQJVjAYborB48WvwgHRZVEAWwM=
+	t=1790168949; cv=none; b=HSRkSIeZ5GHUjcXTgAFad+jcDtTacNBUVQx3JuaL5w0lClc2roruZioJ/1R0nQ5UaWBnrssXeoMml9WzlPiD+HrVvb7Kk856/m2be/AHMm62OwgwacTxz08XHhryGQPketjAdZ0cwSlSEc9OdV8W6knR8bCIKpIT4vIhjP60Stk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168908; c=relaxed/simple;
-	bh=/HHra1BHJ6Lap6FdGHG/9AjW1HZxA1wUUIn0kfdb25c=;
+	s=arc-20240116; t=1790168949; c=relaxed/simple;
+	bh=gcR+yRRMzT0WmnACfI4Mg1JwqHVFeqeGw4iLeqb8C3k=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pt8gBT+amJAS6K1gJLXe0utxykaDcyCHLMhbb+wykDEtzVZMsT2VTkw2BItL9j1pg79wUwrmYiRpgvRMTM3HGN7K90dQu38Mzi780rMdZP3byn+cn1en18gf2CMUlDZcvyZKLF7U5BmakgZnx1eXyq/LGK45TZszZh10tdhyQ0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M9Xgbpmo; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=P2DtKrPbXZb9337VYH3UhYOv46IxBFWSBLbZJiF3Xdb2nUk74psStxveyYlFUE5O4caOXo80e1gpdBEC6rBLMLoPh7b6jN59rELEUdtXKNHJ+eHdUkCJO4iRgG/S86ZIVtX3TOxoikcgCjhhaQdXHiQImFhdVDgFUUqZ9B275uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hqT0qz/7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M9Xgbpmo"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f88so660137f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:08:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790168901; x=1790773701; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k5Rtbe2FWP8r3Wsbc5nECqBcjzXxFELe6lCWc0D5RXw=;
-        b=M9XgbpmojTBPDHXmlSSXNg9dkKqkW4e5gMjXfE7UZMQDg1Ra1W429o+QfksUd8sLL3
-         +rNJv4THlvvsEeT/vijsXPRBLYVsgIOUEFzyDbOVrZ4n7I/Iq+xRxqq4B20XFU3/oNbB
-         v7m/scw8HLeLvn3xrtfRZLbKt1KDz/FqOHM61aQM5HwvPKS4NW3FLPw6/xnmFdcIcrua
-         sfUu/ZrThAmx5UMLzkBc/LR7r9vhnzUkhFRp/M4jrB2WYy4rFun/MNd6QRvLBP+8r61N
-         C2AEr9RDYc/Cph4SqSLcETMQaKahbGWnici0ta3rW8ZlgOPWBkD9/SajR952MbZpPMvR
-         UTOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790168901; x=1790773701;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=k5Rtbe2FWP8r3Wsbc5nECqBcjzXxFELe6lCWc0D5RXw=;
-        b=vpB+EMqaa8ofPgleyLTXuG1PlhCD6Xg/SCFAhz5eJZr6KQyRV/HeBuQhrzWbgOsExs
-         JCkXLS2Re6UEnneotBsl81mAexwpqtK+TI4TJw32LkUIH8ZpJzYdFvtsZ223KRTogQyX
-         NqJlyUXP6rLY4gpgnG6BvYumOv4XuGnz2is94RAALMPVSth3gGZwZS9HapJ3Aa2finpp
-         5rMeqayx6Fg66A6HXQgm6u0/8bEQQzdU/1k/qlMvkXFjdiR0qh8L5wdJgn+gtYyWqA31
-         Cndp9xhNN8fmJhPu1tw6xQw8UhClG6KZGsYkQ9IuG/SxvDirKXcsxEqx5W3oFHi7liQN
-         ZuKA==
-X-Forwarded-Encrypted: i=1; AKwUvBzFP4L5QMb2rfx3tR+IV68R6GjRj939IH6j6eyfG8a92E0Ev+hP/LLqPtRZGr/MsxtzaUYd+VD6z0W9EQw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWvzxumoYhsn53J0Lje/mUZYWpTBWYFyQMtYwftVTvkoz7ioXs
-	lGM73I4+MImInDVbJrHl2Nh1YFHGTvENX4EaNOegTr0d5HGhNiITNtlc
-X-Gm-Gg: AYBFou1t9zbISHsbJOveQK61k3gCKYkTKRVQNqKeSlJ5y2c/70N1d3ksRD07Rb8pNRu
-	n6YJhKHBCCSQrPrUACzeY/ZRGLsqBjkZg1xWTJol9j25G2LnH1/t0LzPnOBqK6g7cEYc6so0b87
-	2rLxGjzzRxJ9aTdgS9hhfodSPfzQtrLIizSHC0jDMNqPZvqh0v/5fPanTEx0Ds1IoV/KmaDy5uZ
-	lBDB5w0oUVjc9pZtJuwij/St7rm1n/iU6gjbOHgUIYDrX4ClnoMo6n26sZRVfTHQMFpnOENkdyy
-	oEtHTna1tMFGu7QuAiDPFBcXpVEGRKUEXsR++pOLGR9AR/NIT+Q3n5KiqigWSgighbiYmIXLpTC
-	qtbZfhZGPX77ZvArixNH0sy0r/VFUsoos/fXNOTfeTg/FDs9hvz4T9yjBM9FZbHFU4bKEumF3vt
-	Hb2E1E15hnPR8D180V+N8DHh+ts8ePhQdc3OisldlCPDXCvnT8ppFW7slsEwBfYgtX9EAAUT2Ry
-	kA=
-X-Received: by 2002:a05:6000:2006:b0:486:fe09:6918 with SMTP id ffacd0b85a97d-4886709f217mr4342908f8f.56.1790168900724;
-        Wed, 23 Sep 2026 06:08:20 -0700 (PDT)
-Received: from [10.80.0.99] ([151.49.78.59])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868889337sm7102766f8f.34.2026.09.23.06.08.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 06:08:20 -0700 (PDT)
-Message-ID: <bed70b13-ea7d-4170-9577-017a271b4585@gmail.com>
-Date: Wed, 23 Sep 2026 15:08:19 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hqT0qz/7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBDCA1F000FF;
+	Wed, 23 Sep 2026 13:08:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790168943;
+	bh=XQwnEEJJ9KivuXOXOPcFUQjvPID+bTdoFJ1xTtN2RfY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hqT0qz/7RjZjaIE3DfxuDW+Q0hgAZC0uyOdtIEc6zILRmwB9MY9YYa2aFmOCIfG4b
+	 kT97EwsI1B5oXFDCzJlORDRDio7YYz3qspDWM3GJTTrn9C7u9CbovVvYGGwxjY4yff
+	 zzQcDTAl7dC54ZrW8ujG9GdWflmw8hWqYNa2N0IREMio8fn1UjoaKnt98KOTNI2J9P
+	 1TJk8Qm4dWMOXJRwA1qqkVOSEHYGVh/yX7tXUPq/KKnXIIha1McfY0eK131/Krh/bA
+	 auOhovusMqeyXk3+/2abXa/bXkldqcpMferAGEl9zZc87BE0gWFkW48vt7uoqsDEoG
+	 GX1tCKkP8bdTQ==
+Message-ID: <0b421935-d83f-473b-a21a-e7f29f8585e3@kernel.org>
+Date: Wed, 23 Sep 2026 15:08:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,365 +35,104 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] platform/x86: asus-armoury: let attribute groups
- decide their own visibility
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Denis Benato <denis.benato@linux.dev>
-Cc: platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- Hans de Goede <hansg@kernel.org>, Corentin Chary <corentin.chary@gmail.com>,
- Luke Jones <luke@ljones.dev>, busybox11 <busybox11th@gmail.com>
-References: <20260923004706.41256-1-denis.benato@linux.dev>
- <20260923004706.41256-2-denis.benato@linux.dev>
- <89fb00c7-9fbf-c567-f081-5ae831f8915a@linux.intel.com>
+Subject: Re: [PATCH v3 09/12] mm/collapse: open-code collapse_single_pmd() in
+ its two callers
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>
+References: <20260916093145.4022188-1-kirill@shutemov.name>
+ <20260916093145.4022188-10-kirill@shutemov.name>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Denis Benato <benato.denis96@gmail.com>
-In-Reply-To: <89fb00c7-9fbf-c567-f081-5ae831f8915a@linux.intel.com>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260916093145.4022188-10-kirill@shutemov.name>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
+On 9/16/26 11:31, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> collapse_scan_pmd() and collapse_run_pmd() each have a clear locking
+> contract.  The scan is called with mmap_lock held for reading and returns
+> with it still held.  The collapse is called without it.
+> 
+> collapse_single_pmd() kept that boundary inside itself.  It dropped the
+> lock on some paths and not others, and reported which by way of a bool its
+> callers had to carry along and then act on.
+> 
+> Open-code it in the two callers.  Each scans under the lock it already
+> holds and, when the scan found work, gives the lock up before running the
+> collapse.
+> khugepaged's lock_dropped and madvise_collapse()'s mmap_unlocked both go:
+> the code dropping the lock is now the code that wanted to know.
+> 
+> khugepaged's walk carries on to the next table while the scan keeps
+> refusing, and ends once a collapse has taken the lock from under it.
+> madvise_collapse() re-finds its VMA after a collapse, which it did before,
+> and now uses a NULL vma to say that it has to.  It still reports the drop
+> to its own caller, from the line that does it.
+> 
+> The lock is given up and taken again at the same points as before.  No
+> functional change.
+> 
 
-On 9/23/26 11:52, Ilpo Järvinen wrote:
-> On Wed, 23 Sep 2026, Denis Benato wrote:
->
->> mini_led_mode, gpu_mux_mode and dgpu_disable are created by ad-hoc
->> conditional blocks in asus_fw_attr_add() which must be manually tracked
->> by the error and exit paths; those paths also re-probe WMI to know which
->> groups were actually created.
->>
->> Give every attribute group its own .is_visible() callback: all groups
->> are created unconditionally through the common loop and sysfs hides the
->> unsupported ones entirely. The plain group macros now gate their
->> visibility on the WMI presence of their device, the
->> ASUS_ATTR_GROUP_BOOL() and ASUS_ATTR_GROUP_ENUM() macros declare groups
->> backed by a device ID resolved at probe time, and the power tunable
->> macros are additionally gated on the platform limits defining a max
->> value, replacing the special-casing in asus_fw_attr_add() and with it
->> is_power_tunable_attr().
->>
->> The dgpu_disable attribute now goes through the same resolved device ID
->> scheme as mini_led_mode and gpu_mux_mode, storing the device ID to use
->> in asus_armoury.dgpu_disable_dev_id instead of always operating on
->> ASUS_WMI_DEVID_DGPU.
->>
->> No functional change is intended.
->>
->> Signed-off-by: Denis Benato <denis.benato@linux.dev>
->> ---
->>  drivers/platform/x86/asus-armoury.c | 280 +++++++++++-----------------
->>  drivers/platform/x86/asus-armoury.h | 124 +++++++++---
->>  2 files changed, 213 insertions(+), 191 deletions(-)
->>
->> diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
->> index 2d5ca75bc727..7812e93734b8 100644
->> --- a/drivers/platform/x86/asus-armoury.c
->> +++ b/drivers/platform/x86/asus-armoury.c
->> @@ -94,6 +94,7 @@ struct asus_armoury_priv {
->>  
->>  	u32 mini_led_dev_id;
->>  	u32 gpu_mux_dev_id;
->> +	u32 dgpu_disable_dev_id;
->>  
->>  	bool requires_fan_curve;
->>  };
->> @@ -110,11 +111,6 @@ static struct fw_attrs_group fw_attrs = {
->>  	.pending_reboot = false,
->>  };
->>  
->> -struct asus_attr_group {
->> -	const struct attribute_group *attr_group;
->> -	u32 wmi_devid;
->> -};
->> -
->>  static void asus_set_reboot_and_signal_event(void)
->>  {
->>  	fw_attrs.pending_reboot = true;
->> @@ -458,6 +454,12 @@ static ssize_t mini_led_mode_possible_values_show(struct kobject *kobj,
->>  		return -ENODEV;
->>  	}
->>  }
->> +
->> +static bool mini_led_mode_group_visible(struct kobject *kobj)
->> +{
->> +	return asus_armoury.mini_led_dev_id;
->> +}
->> +
->>  ASUS_ATTR_GROUP_ENUM(mini_led_mode, "mini_led_mode", "Set the mini-LED backlight mode");
->>  
->>  static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
->> @@ -471,8 +473,8 @@ static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
->>  	if (err)
->>  		return err;
->>  
->> -	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU)) {
->> -		err = armoury_get_devstate(NULL, &result, ASUS_WMI_DEVID_DGPU);
->> +	if (asus_armoury.dgpu_disable_dev_id) {
->> +		err = armoury_get_devstate(NULL, &result, asus_armoury.dgpu_disable_dev_id);
->>  		if (err)
->>  			return err;
->>  		if (result && !optimus) {
->> @@ -502,6 +504,12 @@ static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
->>  	return count;
->>  }
->>  ASUS_WMI_SHOW_INT(gpu_mux_mode_current_value, asus_armoury.gpu_mux_dev_id);
->> +
->> +static bool gpu_mux_mode_group_visible(struct kobject *kobj)
->> +{
->> +	return asus_armoury.gpu_mux_dev_id;
->> +}
->> +
->>  ASUS_ATTR_GROUP_BOOL(gpu_mux_mode, "gpu_mux_mode", "Set the GPU display MUX mode");
->>  
->>  static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
->> @@ -538,7 +546,8 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
->>  	}
->>  
->>  	scoped_guard(mutex, &asus_armoury.egpu_mutex) {
->> -		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL, ASUS_WMI_DEVID_DGPU);
->> +		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL,
->> +					   asus_armoury.dgpu_disable_dev_id);
->>  		if (err)
->>  			return err;
->>  	}
->> @@ -547,7 +556,13 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
->>  
->>  	return count;
->>  }
->> -ASUS_WMI_SHOW_INT(dgpu_disable_current_value, ASUS_WMI_DEVID_DGPU);
->> +
->> +static bool dgpu_disable_group_visible(struct kobject *kobj)
->> +{
->> +	return asus_armoury.dgpu_disable_dev_id;
->> +}
->> +
->> +ASUS_WMI_SHOW_INT(dgpu_disable_current_value, asus_armoury.dgpu_disable_dev_id);
->>  ASUS_ATTR_GROUP_BOOL(dgpu_disable, "dgpu_disable", "Disable the dGPU");
->>  
->>  /* Values map for eGPU activation requests. */
->> @@ -695,6 +710,12 @@ static ssize_t egpu_enable_possible_values_show(struct kobject *kobj, struct kob
->>  {
->>  	return armoury_attr_enum_list(buf, ARRAY_SIZE(egpu_status_map));
->>  }
->> +
->> +static bool egpu_enable_group_visible(struct kobject *kobj)
->> +{
->> +	return armoury_has_devstate(ASUS_WMI_DEVID_EGPU);
->> +}
->> +
->>  ASUS_ATTR_GROUP_ENUM(egpu_enable, "egpu_enable", "Enable the eGPU (also disables dGPU)");
->>  
->>  /* Device memory available to APU */
->> @@ -771,6 +792,12 @@ static ssize_t apu_mem_possible_values_show(struct kobject *kobj, struct kobj_at
->>  {
->>  	return armoury_attr_enum_list(buf, ARRAY_SIZE(apu_mem_map));
->>  }
->> +
->> +static bool apu_mem_group_visible(struct kobject *kobj)
->> +{
->> +	return armoury_has_devstate(ASUS_WMI_DEVID_APU_MEM);
->> +}
->> +
->>  ASUS_ATTR_GROUP_ENUM(apu_mem, "apu_mem", "Set available system RAM (in GB) for the APU to use");
->>  
->>  /* Define helper to access the current power mode tunable values */
->> @@ -782,6 +809,44 @@ static inline struct rog_tunables *get_current_tunables(void)
->>  	return asus_armoury.rog_tunables[ASUS_ROG_TUNABLE_DC];
->>  }
->>  
->> +/**
->> + * has_valid_limit - Checks if a power-related attribute has a valid limit value
->> + * @name: The name of the attribute to check
->> + * @limits: Pointer to the power_limits structure containing limit values
->> + *
->> + * This function checks if a power-related attribute has a valid limit value.
->> + * It returns false if limits is NULL or if the corresponding limit value is zero.
->> + *
->> + * Return: true if the attribute has a valid limit value, false otherwise
->> + */
->> +static bool has_valid_limit(const char *name, const struct power_limits *limits)
->> +{
->> +	u32 limit_value = 0;
->> +
->> +	if (!limits)
->> +		return false;
->> +
->> +	if (!strcmp(name, ATTR_PPT_PL1_SPL))
->> +		limit_value = limits->ppt_pl1_spl_max;
->> +	else if (!strcmp(name, ATTR_PPT_PL2_SPPT))
->> +		limit_value = limits->ppt_pl2_sppt_max;
->> +	else if (!strcmp(name, ATTR_PPT_PL3_FPPT))
->> +		limit_value = limits->ppt_pl3_fppt_max;
->> +	else if (!strcmp(name, ATTR_PPT_APU_SPPT))
->> +		limit_value = limits->ppt_apu_sppt_max;
->> +	else if (!strcmp(name, ATTR_PPT_PLATFORM_SPPT))
->> +		limit_value = limits->ppt_platform_sppt_max;
->> +	else if (!strcmp(name, ATTR_NV_DYNAMIC_BOOST))
->> +		limit_value = limits->nv_dynamic_boost_max;
->> +	else if (!strcmp(name, ATTR_NV_TEMP_TARGET))
->> +		limit_value = limits->nv_temp_target_max;
->> +	else if (!strcmp(name, ATTR_NV_BASE_TGP) ||
->> +		 !strcmp(name, ATTR_NV_TGP))
->> +		limit_value = limits->nv_tgp_max;
->> +
->> +	return limit_value > 0;
->> +}
-> This is a plain move, right? Can you move it in a preparatory patch to 
-> cut the extra churn from what is already a very complicated diff.
+I'm not sure I see the benefit. The code in the previous collapse_single_pmd()
+callers certainly gets more messy?
 
-Yes: pure move because it is included in a macro now.
+Is there some other patches in this series that depend on it or what's the
+motivation?
 
-I'll move it in its own patch.
+-- 
+Cheers,
 
->> +
->>  /* Simple attribute creation */
->>  ASUS_ATTR_GROUP_ENUM_INT_RO(charge_mode, "charge_mode", ASUS_WMI_DEVID_CHARGE_MODE, "0;1;2\n",
->>  			    "Show the current mode of charging");
->> @@ -819,103 +884,35 @@ ASUS_ATTR_GROUP_ROG_TUNABLE(nv_tgp, "nv_tgp", ASUS_WMI_DEVID_DGPU_SET_TGP,
->>  ASUS_ATTR_GROUP_INT_VALUE_ONLY_RO(nv_base_tgp, ATTR_NV_BASE_TGP, ASUS_WMI_DEVID_DGPU_BASE_TGP,
->>  				  "Read the base TGP value");
->>  
->> -/* If an attribute does not require any special case handling add it here */
->> -static const struct asus_attr_group armoury_attr_groups[] = {
->> -	{ &egpu_connected_attr_group, ASUS_WMI_DEVID_EGPU_CONNECTED },
->> -	{ &egpu_enable_attr_group, ASUS_WMI_DEVID_EGPU },
->> -	{ &dgpu_disable_attr_group, ASUS_WMI_DEVID_DGPU },
->> -	{ &dgpu_power_state_attr_group, ASUS_WMI_DEVID_DGPU_POWER_STATE },
->> -	{ &apu_mem_attr_group, ASUS_WMI_DEVID_APU_MEM },
->> -
->> -	{ &ppt_pl1_spl_attr_group, ASUS_WMI_DEVID_PPT_PL1_SPL },
->> -	{ &ppt_pl2_sppt_attr_group, ASUS_WMI_DEVID_PPT_PL2_SPPT },
->> -	{ &ppt_pl3_fppt_attr_group, ASUS_WMI_DEVID_PPT_PL3_FPPT },
->> -	{ &ppt_apu_sppt_attr_group, ASUS_WMI_DEVID_PPT_APU_SPPT },
->> -	{ &ppt_platform_sppt_attr_group, ASUS_WMI_DEVID_PPT_PLAT_SPPT },
->> -	{ &nv_dynamic_boost_attr_group, ASUS_WMI_DEVID_NV_DYN_BOOST },
->> -	{ &nv_temp_target_attr_group, ASUS_WMI_DEVID_NV_THERM_TARGET },
->> -	{ &nv_base_tgp_attr_group, ASUS_WMI_DEVID_DGPU_BASE_TGP },
->> -	{ &nv_tgp_attr_group, ASUS_WMI_DEVID_DGPU_SET_TGP },
->> -
->> -	{ &charge_mode_attr_group, ASUS_WMI_DEVID_CHARGE_MODE },
->> -	{ &boot_sound_attr_group, ASUS_WMI_DEVID_BOOT_SOUND },
->> -	{ &mcu_powersave_attr_group, ASUS_WMI_DEVID_MCU_POWERSAVE },
->> -	{ &panel_od_attr_group, ASUS_WMI_DEVID_PANEL_OD },
->> -	{ &panel_hd_mode_attr_group, ASUS_WMI_DEVID_PANEL_HD },
->> -	{ &screen_auto_brightness_attr_group, ASUS_WMI_DEVID_SCREEN_AUTO_BRIGHTNESS },
->> +static const struct attribute_group *armoury_attr_groups[] = {
->> +	&mini_led_mode_attr_group,
->> +	&gpu_mux_mode_attr_group,
->> +	&egpu_connected_attr_group,
->> +	&egpu_enable_attr_group,
->> +	&dgpu_disable_attr_group,
->> +	&dgpu_power_state_attr_group,
->> +	&apu_mem_attr_group,
->> +
->> +	&ppt_pl1_spl_attr_group,
->> +	&ppt_pl2_sppt_attr_group,
->> +	&ppt_pl3_fppt_attr_group,
->> +	&ppt_apu_sppt_attr_group,
->> +	&ppt_platform_sppt_attr_group,
->> +	&nv_dynamic_boost_attr_group,
->> +	&nv_temp_target_attr_group,
->> +	&nv_base_tgp_attr_group,
->> +	&nv_tgp_attr_group,
->> +
->> +	&charge_mode_attr_group,
->> +	&boot_sound_attr_group,
->> +	&mcu_powersave_attr_group,
->> +	&panel_od_attr_group,
->> +	&panel_hd_mode_attr_group,
->> +	&screen_auto_brightness_attr_group,
->>  };
-> This looks much better.
-
-Yeah... at first I tried making things having the least amount of changes
-to avoid this situation of "big changes all at once", but ultimately even
-reading my own code having { attribute, maybe_not_correct_devid }
-made my skin so itchy that I couldn't hold back myself from cleaning
-that out.
-
-> Now can you also add the terminating NULL to the array and try to use 
-> sysfs_create/remove_groups() so you can eliminate the create, rollback, 
-> and remove loops... I suggest you do it on top of this patch as this 
-> change is already quite complicated and logically 
-> sysfs_create/remove_group() -> sysfs_create/remove_groups() is a separate 
-> transition.
-
-Sure thing!
-
-Thanks for your feedback, I may take some more days due to university
-but I'll get it done as soon as possible.
-
-Best,
-Denis
-
->>  	for (i = 0; i < ARRAY_SIZE(armoury_attr_groups); i++) {
->> -		if (!armoury_has_devstate(armoury_attr_groups[i].wmi_devid))
->> -			continue;
->> -
->> -		/* Always create by default, unless PPT is not present */
->> -		should_create = true;
->> -		name = armoury_attr_groups[i].attr_group->name;
->> -
->> -		/* Check if this is a power-related tunable requiring limits */
->> -		if (ac_rog_tunables && ac_rog_tunables->power_limits &&
->> -		    is_power_tunable_attr(name)) {
->> -			limits = ac_rog_tunables->power_limits;
->> -			/* Check only AC: if not present then DC won't be either */
->> -			should_create = has_valid_limit(name, limits);
->> -			if (!should_create)
->> -				pr_debug("Missing max value for tunable %s\n", name);
->> -		}
->> -
->> -		if (should_create) {
->> -			err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
->> -						 armoury_attr_groups[i].attr_group);
->> -			if (err) {
->> -				pr_err("Failed to create sysfs-group for %s\n",
->> -				       armoury_attr_groups[i].attr_group->name);
->> -				goto err_remove_groups;
->> -			}
->> +		err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
->> +					 armoury_attr_groups[i]);
->> +		if (err) {
->> +			pr_err("Failed to create sysfs-group for %s\n",
->> +			       armoury_attr_groups[i]->name);
->> +			goto err_remove_groups;
->>  		}
->>  	}
->>  
->>  	return 0;
->>  
->>  err_remove_groups:
->> -	while (i--) {
->> -		if (armoury_has_devstate(armoury_attr_groups[i].wmi_devid))
->> -			sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
->> -					   armoury_attr_groups[i].attr_group);
->> -	}
->> -	if (asus_armoury.gpu_mux_dev_id)
->> -		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &gpu_mux_mode_attr_group);
->> -err_remove_mini_led_group:
->> -	if (asus_armoury.mini_led_dev_id)
->> -		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &mini_led_mode_attr_group);
->> -err_remove_file:
->> +	while (i--)
->> +		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
->> +				   armoury_attr_groups[i]);
->>  	sysfs_remove_file(&asus_armoury.fw_attr_kset->kobj, &pending_reboot.attr);
->>  err_destroy_kset:
->>  	kset_unregister(asus_armoury.fw_attr_kset);
->> @@ -1182,17 +1138,9 @@ static void __exit asus_fw_exit(void)
->>  {
->>  	int i;
->>  
->> -	for (i = ARRAY_SIZE(armoury_attr_groups) - 1; i >= 0; i--) {
->> -		if (armoury_has_devstate(armoury_attr_groups[i].wmi_devid))
->> -			sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
->> -					   armoury_attr_groups[i].attr_group);
->> -	}
->> -
->> -	if (asus_armoury.gpu_mux_dev_id)
->> -		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &gpu_mux_mode_attr_group);
->> -
->> -	if (asus_armoury.mini_led_dev_id)
->> -		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &mini_led_mode_attr_group);
->> +	for (i = ARRAY_SIZE(armoury_attr_groups) - 1; i >= 0; i--)
->> +		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
->> +				   armoury_attr_groups[i]);
+David
