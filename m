@@ -1,296 +1,430 @@
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E308E56C65D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:41:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A58746A60B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:43:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790203273; cv=none; b=jf9zP0hR574E06zrn0lbkxVqHWrYNKsTr15EPDfor2wHg3XDMM8GmS3JTTD9wgvDmq0Ueaw6LIcDSDtQ1zaaY7Loqy8d5ONsac0gK9Kc5sTUwDC8g579ebnGFt7UQbUBwVeFjPRcMFSQBNCn/xKlfNCFUh5PypRSuNhkE9zgIC0=
+	t=1790203387; cv=none; b=lbkGwpBKHIp7gVya5RugnV+Oip0q4MGNlh9Xo1vQIxqP+mq3lyXvdI4h/A8QPgVATvfdf6CApkoIn0jcgpOvvoEYi4LS5ccQvsp5w0A8F8hzoB1kPsBazX7N+t9/EySATsFYnIWbWdf7vCmtYiCG40XG3Fy14Enh+7RCLL3rN+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790203273; c=relaxed/simple;
-	bh=eZKn99eSGTXtiQncajeBvRTuYaIHCGPsJ/9iV1l85hI=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Content-Type; b=tfioaWfFcoFy/V7CWZT6FXGD6hLc0VQprjncuBR2Ub5waInPVHmwmlBm/AyCzjpBxppOiBKwRcotpZRh/iixkOADu0Gu/QCqpYzbOaqi1fw0c53v5yca3ZTAHxpUFt2Le97tbb/sNONUeCO0KTYpttTwgmoyTTKcopH9wwSbX4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QyVKccK+; arc=none smtp.client-ip=74.125.82.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1790203387; c=relaxed/simple;
+	bh=mlJx9ThzJFLUhajDVUTvdhWrZvQwfqaHhk1+paidAG8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=n1CjdjtKOFFI1ZxWXJWtPnN+vkJXl6d7Hkl9QTklHac5uDWsXjjPzHD5d3qTXdCqoVZPKYRTxXS2J69uuCmWfFHD+6RWgzJaFE12Tk/O2BqLAbiKtU4PJKvdDL7+UyEuCSHpiFGNE34qimvjoR5oVCRk1qLwJguKe85vB74sDH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HFjxGyHr; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QyVKccK+"
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-14373747468so2114771c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:41:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HFjxGyHr"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39dfcef2896so195800a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:43:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790203270; x=1790808070; darn=vger.kernel.org;
-        h=content-type:to:from:subject:message-id:mime-version:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=wfWrnRPUN9WvqwLjz7VeSW/3oGZTANoMbTk1u6T45mk=;
-        b=QyVKccK+98a9SG4wbzPfE1R1PAagRpg5bxgTTGv8Lms8jdb/lRNpkpxUVgtWaqS3SC
-         MhSAyBTDIwOZHsOI/2H8KGur/Ft/WQgrB51+sGH2WGutRk3ap+CCEhIsaWXhcvcWSU9i
-         v67v+EvSsAUJIyVQkXR+0IvnnJPvveE1l7ReeaW5plt+CwGIjejdJjkFfTM5vg5253/H
-         bCDZCZBkYiu3FZhuFuv/qDZVPepyRGwZAt4KaYyWb40OzU4AJHZ5hJ2tFXcqCPbHUT2Y
-         xVCnmU4MaH3QO6zkoCqsKPCt3ozvqAKRjA4E1f4CWeg+cSe5QF3YeTDvGERdxCnKhQVV
-         cvbA==
+        d=gmail.com; s=20251104; t=1790203385; x=1790808185; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=CZIA5ePGlTpEIKFyAUN7CPZp3Kr0IYcWKcmwyEbriD4=;
+        b=HFjxGyHrzVyPHe2rFKpbebRsMNVsMPczwryJJB+ASN6TihWHHM2bLTd+QEZdbHgKiv
+         5GhDiee3VPQ5Xjk/wUA0jnXlmskXqSEh/k/DibolYcQvXdr8Pm/CVWLLqYnfuEthMPzn
+         jTyeK5H3z6+650R5z+T7KOBB0WcAg+JyiiiVKK5Z/HxMzKdmISuacBs+he8QquwdfcJC
+         OumOctbQN6Wv3u2YpS5791n9rx75634ydk+m71RHBxbadxKdikn7ft+4mbe3oWhnpGbk
+         x/5uhNwX1udxRFPp09yeKGNes19LYvS7wcyJ5YSqD+6bAgNVJD5FIeKkqh66W99SaGTh
+         UlzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790203270; x=1790808070;
-        h=content-type:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wfWrnRPUN9WvqwLjz7VeSW/3oGZTANoMbTk1u6T45mk=;
-        b=BjCxJuB4Q7fJQx/8NkuexTwG8jFxZUNMhIqQM5fbShehdFKJRHSJqfx5XwT7iwcU3a
-         DdIlJZdPNzXsKEwl0J62LQ+shyCGvLch2CI0beQb8IvY29I2obPMqFVg6/fraYEq6HCv
-         t6kuMZ9E1EMOYrG7K3IdDCjyRHBTQZMwBBuRPMhAQMp8NxGZWTrhcVv/vSsXaqKeFS6a
-         iShZNXG4/1GbVyEgH9QJjRjYdNiIYc31LT01ZV2uLrA9jlQEoNWNuek7kk0ymq7X7Yvc
-         Z2SaMEeRcULM5D0n0oQJns5YQSkTXRk+eC+MeoaLlAVK9wRZb6IubXd+G6hFRHyNXr0M
-         YNTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtUBKoqGxfkx+HJo5jaX5f+3my52VcAvnBfFQ0kIgzyhU2e+wcNyqAtAmBhkbZYmtoQAIdcdXe1zqhejY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLjP1IOjS3hwS0E75kRmI8ZsgK9hIKuKhAuLcLDxYyJkNyU905
-	BsdWKUx1u1nzSI7/W4ioNdx4gSAMxmkONH3zsz3KeTmLZMuNYB6mvoIpcJtRxa8CMdFfkN2NYv5
-	B8bBfjyY2aA==
-X-Received: from dlx9.prod.google.com ([2002:a05:7022:89:b0:144:fc09:77a2])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4586:20b0:143:7001:7645
- with SMTP id a92af1059eb24-1450401c5damr356072c88.47.1790203269507; Wed, 23
- Sep 2026 15:41:09 -0700 (PDT)
-Date: Wed, 23 Sep 2026 15:41:06 -0700
+        d=1e100.net; s=20260707; t=1790203385; x=1790808185;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=CZIA5ePGlTpEIKFyAUN7CPZp3Kr0IYcWKcmwyEbriD4=;
+        b=qCC588zPdf1a/e0hZTe3tAfJuzLPK7q+tBrL5pm0za+qoYckK6Pa/c/kN0jUvrVZLx
+         6PIiK1/+AID352EPWm0pCloWAmneBzrBIYVzq6iKUGd84JZ+E4RkHw8hACln8V/2g7ti
+         596JTizo1B0KxUR3E7jhNCT60GTuQi+uuxr3XSlz27j6KkRDOwfmErGG7DautyU6ITUI
+         QxsKqXai/1i/edRhWUEA/5888q9HJNIMR2/3hdrgm/ctVjgbQnZbn6wzgaY/Wvz2RigJ
+         FvFzieGaEdKB5g9JhaIl+20GoblkWeuF6q4ETdillnQb404nsmOIPvSGd6oJ6PNQ8QUO
+         J07g==
+X-Forwarded-Encrypted: i=1; AKwUvBwgbfHgUrUfvyRnpdSt3SuAI54ENB3QrMKCLGPAoajOE52DvQRZ+DUJohf0Nh/Ck0PCKlvJc9F0wwj8/44=@vger.kernel.org
+X-Gm-Message-State: AFuF++ky9tXkrtt4IKCUAsSYBc4DEO3lNB6sXptpeT67vnpa86fo63rq
+	iUj3eLjWHPp6ceq4ZyCUp/JXT4B8o0mxEhbhGWsnmDPwzNV1hdEwpgwn
+X-Gm-Gg: AYBFou3LxJIZhy0rwBX/g5NlaZWdthut87KXg3vQkoI0SxShIGx9QpLjan5Lv/AxIio
+	ntSCLyZYZT4OI0nVRV7BNZkWBs0kiC8XtAPIsdC8i+R1LRPTVLX4XG3tLW7S2JW1J9zWgHTpqT1
+	+X6D6BeMc1USFSqH54y5cgjDKKUovynM5v2ME8ztYC6Ou8UMCIvUSbwS7yAmFOYDtMCdxX1L1fU
+	DcFSs15t7AFha8SxNaAC+Hc1OldC2v+HZrmXy38kGEXWnxM0z7k70FFdV57DTtF4JS3zr/GqfB3
+	eo33KzGPe1OOjhhGGsLBwGxfm7XOmY3SKu8IC0mC7gDNtTkfcklnhopFKshZY6+CHt7q9De5LVY
+	AYg+CoPYvIyEYC2+Cawz1jPXc8Bxdv6TtBBFguDpyq4hv85KWXGSlOJKy+PeavRD0wuSzTWKU9k
+	qJ/UWpt84MSBRfbDLGFfF06PWJwZCulvIx7WVS+9+Se09nuTvDh9pzYckEgrqTaQbLU67hpMNqg
+	G/quxk=
+X-Received: by 2002:a17:90b:3143:b0:3a0:60c0:7f8f with SMTP id 98e67ed59e1d1-3a098643a13mr786844a91.0.1790203385314;
+        Wed, 23 Sep 2026 15:43:05 -0700 (PDT)
+Received: from [10.197.48.252] ([2409:40c2:5047:8a3f:9ef:734:1515:aac8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a09738f2absm1106830a91.14.2026.09.23.15.42.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 15:43:03 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Thu, 24 Sep 2026 04:12:40 +0530
+Subject: [PATCH v5] spi: dt-bindings: ti,davinci-spi: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260923224106.3268925-1-irogers@google.com>
-Subject: [PATCH v1] perf test: Fix PMU metric parsing tests for unknown literals
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>, 
-	Chun-Tse Shao <ctshao@google.com>, Qinxin Xia <xiaqinxin@huawei.com>, Yu Peng <pengyu@kylinos.cn>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260924-ti-davinci-spi-v5-1-ed811dc6cd89@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33Mz4rCMBDH8VeRnDeSTJNp62nfY/GQPxMdWFtpJ
+ CjSdzftRVF2mdNv4PO9i0wTUxa7zV1MVDjzONRhvzYiHN1wIMmxbgEKUHUa5YVldIWHwDKfWRI
+ aqtd59CgqOk+U+LoGf/Z1Hzlfxum29otevn+mipZKujbZNqZoAeH7cHL8uw3jSSypAv9zqBwDJ
+ qtbbQD8O29eefvBm8qh6YwJyVtC987Nk/dKf3BTeQ/UB+WBdDSvfJ7nBxbqHohpAQAA
+X-Change-ID: 20260816-ti-davinci-spi-e64e4e48b6b6
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Nishanth Menon <nm@ti.com>, Santosh Shilimkar <ssantosh@kernel.org>
+Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790203367; l=11160;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=mlJx9ThzJFLUhajDVUTvdhWrZvQwfqaHhk1+paidAG8=;
+ b=ybD9wA5D8ZVdWrWWvhexlX1Z2bDFJJt/EfuOXmMAk0ig5EeGChOs3c57muOtvruVAkjExsm1R
+ W1S/2UXJ5ZHADbUVHS8YvxgToHmOvzhF5NILBgESrxIuTs53PEr61MY
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-On ARM the #slots literal may or may not be present, it won't be
-present on x86. As it is missing it causes the ampereone and
-ampereonex PMU metric tests to fail when run say on x86. Extend the
-fake_pmu logic so that in these test cases we fake the unknown
-literals like #slots as 1.0. When building with JEVENTS_ARCH=all the
-ampere metric tests no longer fail.
+Convert the TI DaVinci/Keystone SPI controller binding from text format
+to DT schema.
 
-Signed-off-by: Ian Rogers <irogers@google.com>
+Changes during the conversion:
+- Create a separate ti,davinci-spi-peripheral-props.yaml schema to
+  properly define the ti,spi-wdelay peripheral property.
+- Add missing dmas and dma-names properties.
+- Add constraints to ti,spi-wdelay based on the 6-bit width
+  of the SPIFMTn.WDELAY hardware register field.
+
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
- tools/perf/util/expr.c        |  5 ++++-
- tools/perf/util/metricgroup.c | 37 ++++++++++++++++++++++++-----------
- 2 files changed, 30 insertions(+), 12 deletions(-)
+Changes in v5:
+- Drop applied patch 1.
+- Use items in compatibles in if/then for ti,keystone-spi.
+- Rebased to latest mainline RC
+- Link to v4: https://lore.kernel.org/r/20260901-ti-davinci-spi-v4-0-92e9c0b2e1d4@gmail.com
 
-diff --git a/tools/perf/util/expr.c b/tools/perf/util/expr.c
-index 8aef3c7418f7..f1164c4666b1 100644
---- a/tools/perf/util/expr.c
-+++ b/tools/perf/util/expr.c
-@@ -431,7 +431,10 @@ double expr__get_literal(const char *literal, const struct expr_scanner_ctx *ctx
- 	}
+Changes in v4:
+- Fixed spacing in example.
+- Fixed commit title.
+- Rebasesd to latest mainline rc.
+- Link to v3: https://lore.kernel.org/r/20260817-ti-davinci-spi-v3-0-23844cfb5e6a@gmail.com
+
+Changes in v3:
+- patch 2: since old text binding required num-cs, #address-cells, and
+  #size-cells mark them as required
+- patch 2: davinci-spi don't work as spi-slave i.e address-cells 0 is
+  not applicable and spi-controller permits both 0 and 1 so explicitely
+  define #address-cells as 1
+- Link to v2: https://lore.kernel.org/r/20260816-ti-davinci-spi-v2-0-6c6f5171422b@gmail.com
+
+Changes in v2:
+
+- patch 1: Instead of deleting ti,davinci-spi-num-cs, renamed it to
+  num-cs to properly preserve the hardware's intended chip select
+  limits 
+- patch 2: Removed  maximum: 6 constraint from num-cs.
+- patch 2: Add standalone support for ti,dm6441-spi in compatibles.
+- Link to v1: https://lore.kernel.org/r/20260816-ti-davinci-spi-v1-0-a7f57dfd5262@gmail.com
+---
+ .../devicetree/bindings/spi/spi-davinci.txt        | 100 -----------------
+ .../bindings/spi/spi-peripheral-props.yaml         |   1 +
+ .../spi/ti,davinci-spi-peripheral-props.yaml       |  25 +++++
+ .../devicetree/bindings/spi/ti,davinci-spi.yaml    | 125 +++++++++++++++++++++
+ 4 files changed, 151 insertions(+), 100 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/spi/spi-davinci.txt b/Documentation/devicetree/bindings/spi/spi-davinci.txt
+deleted file mode 100644
+index f012888656eca..0000000000000
+--- a/Documentation/devicetree/bindings/spi/spi-davinci.txt
++++ /dev/null
+@@ -1,100 +0,0 @@
+-Davinci SPI controller device bindings
+-
+-Links on DM:
+-Keystone 2 - https://www.ti.com/lit/ug/sprugp2a/sprugp2a.pdf
+-dm644x - https://www.ti.com/lit/ug/sprue32a/sprue32a.pdf
+-OMAP-L138/da830 - http://www.ti.com/lit/ug/spruh77a/spruh77a.pdf
+-
+-Required properties:
+-- #address-cells: number of cells required to define a chip select
+-	address on the SPI bus. Should be set to 1.
+-- #size-cells: should be zero.
+-- compatible:
+-	- "ti,dm6441-spi" for SPI used similar to that on DM644x SoC family
+-	- "ti,da830-spi" for SPI used similar to that on DA8xx SoC family
+-	- "ti,keystone-spi" for SPI used similar to that on Keystone2 SoC
+-		family
+-- reg: Offset and length of SPI controller register space
+-- num-cs: Number of chip selects. This includes internal as well as
+-	GPIO chip selects.
+-- ti,davinci-spi-intr-line: interrupt line used to connect the SPI
+-	IP to the interrupt controller within the SoC. Possible values
+-	are 0 and 1. Manual says one of the two possible interrupt
+-	lines can be tied to the interrupt controller. Set this
+-	based on a specific SoC configuration.
+-- interrupts: interrupt number mapped to CPU.
+-- clocks: spi clk phandle
+-          For 66AK2G this property should be set per binding,
+-          Documentation/devicetree/bindings/clock/ti,sci-clk.yaml
+-
+-SoC-specific Required Properties:
+-
+-The following are mandatory properties for Keystone 2 66AK2G SoCs only:
+-
+-- power-domains:	Should contain a phandle to a PM domain provider node
+-			and an args specifier containing the SPI device id
+-			value. This property is as per the binding,
+-
+-Optional:
+-- cs-gpios: gpio chip selects
+-	For example to have 3 internal CS and 2 GPIO CS, user could define
+-	cs-gpios = <0>, <0>, <0>, <&gpio1 30 0>, <&gpio1 31 0>;
+-	where first three are internal CS and last two are GPIO CS.
+-
+-Optional properties for slave devices:
+-SPI slave nodes can contain the following properties.
+-Not all SPI Peripherals from Texas Instruments support this.
+-Please check SPI peripheral documentation for a device before using these.
+-
+-- ti,spi-wdelay : delay between transmission of words
+-	(SPIFMTn.WDELAY, SPIDAT1.WDEL) must be specified in number of SPI module
+-	clock periods.
+-
+-	delay = WDELAY * SPI_module_clock_period + 2 * SPI_module_clock_period
+-
+-Below is timing diagram which shows functional meaning of
+-"ti,spi-wdelay" parameter.
+-
+-             +-+ +-+ +-+ +-+ +-+                           +-+ +-+ +-+
+-SPI_CLK      | | | | | | | | | |                           | | | | | |
+-  +----------+ +-+ +-+ +-+ +-+ +---------------------------+ +-+ +-+ +-
+-
+-SPI_SOMI/SIMO+-----------------+                           +-----------
+-  +----------+ word1           +---------------------------+word2
+-             +-----------------+                           +-----------
+-                                          WDELAY
+-                                <-------------------------->
+-
+-Example of a NOR flash slave device (n25q032) connected to DaVinci
+-SPI controller device over the SPI bus.
+-
+-spi0:spi@20bf0000 {
+-	#address-cells			= <1>;
+-	#size-cells			= <0>;
+-	compatible			= "ti,dm6446-spi";
+-	reg				= <0x20BF0000 0x1000>;
+-	num-cs				= <4>;
+-	ti,davinci-spi-intr-line	= <0>;
+-	interrupts			= <338>;
+-	clocks				= <&clkspi>;
+-
+-	flash: flash@0 {
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		compatible = "st,m25p32";
+-		spi-max-frequency = <25000000>;
+-		reg = <0>;
+-		ti,spi-wdelay = <8>;
+-
+-		partition@0 {
+-			label = "u-boot-spl";
+-			reg = <0x0 0x80000>;
+-			read-only;
+-		};
+-
+-		partition@1 {
+-			label = "test";
+-			reg = <0x80000 0x380000>;
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+index 880a9f6245667..cb5d608998e18 100644
+--- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
++++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+@@ -155,5 +155,6 @@ allOf:
+   - $ref: fsl,dspi-peripheral-props.yaml#
+   - $ref: samsung,spi-peripheral-props.yaml#
+   - $ref: nvidia,tegra210-quad-peripheral-props.yaml#
++  - $ref: ti,davinci-spi-peripheral-props.yaml#
  
- 	pr_debug2("literal: %s = %f\n", literal, result);
--	return result;
-+	if (!ctx->is_test)
-+		return result;
-+	else
-+		return isnan(result) ? 1.0 : result;
- }
- 
- /* Does the event 'id' parse? Determine via ctx->ids if possible. */
-diff --git a/tools/perf/util/metricgroup.c b/tools/perf/util/metricgroup.c
-index 5a60cb95e31c..779fe56fe8d0 100644
---- a/tools/perf/util/metricgroup.c
-+++ b/tools/perf/util/metricgroup.c
-@@ -224,7 +224,8 @@ static struct metric *metric__new(const struct pmu_metric *pm,
- 				  bool metric_no_threshold,
- 				  int runtime,
- 				  const char *user_requested_cpu_list,
--				  bool system_wide)
-+				  bool system_wide,
-+				  bool fake_pmu)
- {
- 	struct metric *m;
- 
-@@ -256,6 +257,7 @@ static struct metric *metric__new(const struct pmu_metric *pm,
- 	}
- 	m->pctx->sctx.runtime = runtime;
- 	m->pctx->sctx.system_wide = system_wide;
-+	m->pctx->sctx.is_test = fake_pmu;
- 	m->group_events = !metric_no_group && metric__group_events(pm, metric_no_threshold);
- 	m->default_show_events = pm->default_show_events;
- 	m->metric_refs = NULL;
-@@ -699,6 +701,7 @@ static int add_metric(struct list_head *metric_list,
- 		      bool metric_no_threshold,
- 		      const char *user_requested_cpu_list,
- 		      bool system_wide,
-+		      bool fake_pmu,
- 		      struct metric *root_metric,
- 		      const struct visited_metric *visited,
- 		      const struct pmu_metrics_table *table);
-@@ -724,6 +727,7 @@ static int metricgroup__find_metric_callback(const struct pmu_metric *pm,
-  *                   user may override.
-  * @user_requested_cpu_list: Command line specified CPUs to record on.
-  * @system_wide: Are events for all processes recorded.
-+ * @fake_pmu: Are PMUs and events being faked for testing?
-  * @root_metric: Metrics may reference other metrics to form a tree. In this
-  *               case the root_metric holds all the IDs and a list of referenced
-  *               metrics. When adding a root this argument is NULL.
-@@ -739,6 +743,7 @@ static int resolve_metric(struct list_head *metric_list,
- 			  bool metric_no_threshold,
- 			  const char *user_requested_cpu_list,
- 			  bool system_wide,
-+			  bool fake_pmu,
- 			  struct metric *root_metric,
- 			  const struct visited_metric *visited,
- 			  const struct pmu_metrics_table *table)
-@@ -788,7 +793,7 @@ static int resolve_metric(struct list_head *metric_list,
- 	for (i = 0; i < pending_cnt; i++) {
- 		ret = add_metric(metric_list, &pending[i].pm, modifier, metric_no_group,
- 				 metric_no_threshold, user_requested_cpu_list, system_wide,
--				 root_metric, visited, table);
-+				 fake_pmu, root_metric, visited, table);
- 		if (ret)
- 			break;
- 	}
-@@ -809,6 +814,7 @@ static int resolve_metric(struct list_head *metric_list,
-  * @runtime: A special argument for the parser only known at runtime.
-  * @user_requested_cpu_list: Command line specified CPUs to record on.
-  * @system_wide: Are events for all processes recorded.
-+ * @fake_pmu: Are PMUs and events being faked for testing?
-  * @root_metric: Metrics may reference other metrics to form a tree. In this
-  *               case the root_metric holds all the IDs and a list of referenced
-  *               metrics. When adding a root this argument is NULL.
-@@ -825,6 +831,7 @@ static int __add_metric(struct list_head *metric_list,
- 			int runtime,
- 			const char *user_requested_cpu_list,
- 			bool system_wide,
-+			bool fake_pmu,
- 			struct metric *root_metric,
- 			const struct visited_metric *visited,
- 			const struct pmu_metrics_table *table)
-@@ -851,7 +858,7 @@ static int __add_metric(struct list_head *metric_list,
- 		 * metrics that are added recursively.
- 		 */
- 		root_metric = metric__new(pm, modifier, metric_no_group, metric_no_threshold,
--					  runtime, user_requested_cpu_list, system_wide);
-+					  runtime, user_requested_cpu_list, system_wide, fake_pmu);
- 		if (!root_metric)
- 			return -ENOMEM;
- 
-@@ -924,7 +931,7 @@ static int __add_metric(struct list_head *metric_list,
- 
- 		ret = resolve_metric(metric_list, pmu, modifier, metric_no_group,
- 				     metric_no_threshold, user_requested_cpu_list,
--				     system_wide, root_metric, &visited_node,
-+				     system_wide, fake_pmu, root_metric, &visited_node,
- 				     table);
- 	}
- 	if (ret) {
-@@ -944,6 +951,7 @@ static int add_metric(struct list_head *metric_list,
- 		      bool metric_no_threshold,
- 		      const char *user_requested_cpu_list,
- 		      bool system_wide,
-+		      bool fake_pmu,
- 		      struct metric *root_metric,
- 		      const struct visited_metric *visited,
- 		      const struct pmu_metrics_table *table)
-@@ -955,7 +963,7 @@ static int add_metric(struct list_head *metric_list,
- 	if (!strstr(pm->metric_expr, "?")) {
- 		ret = __add_metric(metric_list, pm, modifier, metric_no_group,
- 				   metric_no_threshold, 0, user_requested_cpu_list,
--				   system_wide, root_metric, visited, table);
-+				   system_wide, fake_pmu, root_metric, visited, table);
- 	} else {
- 		int j, count;
- 
-@@ -969,7 +977,7 @@ static int add_metric(struct list_head *metric_list,
- 		for (j = 0; j < count && !ret; j++)
- 			ret = __add_metric(metric_list, pm, modifier, metric_no_group,
- 					   metric_no_threshold, j, user_requested_cpu_list,
--					   system_wide, root_metric, visited, table);
-+					   system_wide, fake_pmu, root_metric, visited, table);
- 	}
- 
- 	return ret;
-@@ -1030,6 +1038,7 @@ struct metricgroup__add_metric_data {
- 	bool metric_no_group;
- 	bool metric_no_threshold;
- 	bool system_wide;
-+	bool fake_pmu;
- 	bool has_match;
- };
- 
-@@ -1047,7 +1056,7 @@ static int metricgroup__add_metric_callback(const struct pmu_metric *pm,
- 		data->has_match = true;
- 		ret = add_metric(data->list, pm, data->modifier, metric_no_group,
- 				 data->metric_no_threshold, data->user_requested_cpu_list,
--				 data->system_wide, /*root_metric=*/NULL,
-+				data->system_wide, data->fake_pmu, /*root_metric=*/NULL,
- 				 /*visited_metrics=*/NULL, table);
- 	}
- 	return ret;
-@@ -1065,6 +1074,7 @@ static int metricgroup__add_metric_callback(const struct pmu_metric *pm,
-  *                   user may override.
-  * @user_requested_cpu_list: Command line specified CPUs to record on.
-  * @system_wide: Are events for all processes recorded.
-+ * @fake_pmu: Are PMUs and events being faked for testing?
-  * @metric_list: The list that the metric or metric group are added to.
-  * @table: The table that is searched for metrics, most commonly the table for the
-  *       architecture perf is running upon.
-@@ -1072,7 +1082,7 @@ static int metricgroup__add_metric_callback(const struct pmu_metric *pm,
- static int metricgroup__add_metric(const char *pmu, const char *metric_name, const char *modifier,
- 				   bool metric_no_group, bool metric_no_threshold,
- 				   const char *user_requested_cpu_list,
--				   bool system_wide,
-+				   bool system_wide, bool fake_pmu,
- 				   struct list_head *metric_list,
- 				   const struct pmu_metrics_table *table)
- {
-@@ -1087,6 +1097,7 @@ static int metricgroup__add_metric(const char *pmu, const char *metric_name, con
- 		.metric_no_threshold = metric_no_threshold,
- 		.user_requested_cpu_list = user_requested_cpu_list,
- 		.system_wide = system_wide,
-+		.fake_pmu = fake_pmu,
- 		.has_match = false,
- 	};
- 
-@@ -1118,6 +1129,7 @@ static int metricgroup__add_metric(const char *pmu, const char *metric_name, con
-  *                   user may override.
-  * @user_requested_cpu_list: Command line specified CPUs to record on.
-  * @system_wide: Are events for all processes recorded.
-+ * @fake_pmu: Are PMUs and events being faked for testing?
-  * @metric_list: The list that metrics are added to.
-  * @table: The table that is searched for metrics, most commonly the table for the
-  *       architecture perf is running upon.
-@@ -1126,7 +1138,8 @@ static int metricgroup__add_metric_list(const char *pmu, const char *list,
- 					bool metric_no_group,
- 					bool metric_no_threshold,
- 					const char *user_requested_cpu_list,
--					bool system_wide, struct list_head *metric_list,
-+					bool system_wide, bool fake_pmu,
-+					struct list_head *metric_list,
- 					const struct pmu_metrics_table *table)
- {
- 	char *list_itr, *list_copy, *metric_name, *modifier;
-@@ -1145,7 +1158,8 @@ static int metricgroup__add_metric_list(const char *pmu, const char *list,
- 		ret = metricgroup__add_metric(pmu, metric_name, modifier,
- 					      metric_no_group, metric_no_threshold,
- 					      user_requested_cpu_list,
--					      system_wide, metric_list, table);
-+					      system_wide, fake_pmu,
-+					      metric_list, table);
- 		if (ret == -EINVAL)
- 			pr_err("Fail to parse metric or group `%s'\n", metric_name);
- 		else if (ret == -ENOENT)
-@@ -1403,7 +1417,8 @@ static int parse_groups(struct evlist *perf_evlist,
- 
- 	ret = metricgroup__add_metric_list(pmu, str, metric_no_group, metric_no_threshold,
- 					   user_requested_cpu_list,
--					   system_wide, &metric_list, table);
-+					   system_wide, fake_pmu,
-+					   &metric_list, table);
- 	if (ret)
- 		goto out;
- 
+ additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/spi/ti,davinci-spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/ti,davinci-spi-peripheral-props.yaml
+new file mode 100644
+index 0000000000000..1060f176c6cbd
+--- /dev/null
++++ b/Documentation/devicetree/bindings/spi/ti,davinci-spi-peripheral-props.yaml
+@@ -0,0 +1,25 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/spi/ti,davinci-spi-peripheral-props.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI DaVinci/Keystone SPI Peripheral Properties
++
++maintainers:
++  - Bartosz Golaszewski <brgl@kernel.org>
++
++description:
++  Peripheral-specific properties for SPI devices attached to a TI
++  DaVinci/Keystone SPI controller.
++
++properties:
++  ti,spi-wdelay:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 63
++    description:
++      delay between transmission of words (SPIFMTn.WDELAY, SPIDAT1.WDEL)
++      must be specified in number of SPI module clock periods.
++
++additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/spi/ti,davinci-spi.yaml b/Documentation/devicetree/bindings/spi/ti,davinci-spi.yaml
+new file mode 100644
+index 0000000000000..1c7544d31fb96
+--- /dev/null
++++ b/Documentation/devicetree/bindings/spi/ti,davinci-spi.yaml
+@@ -0,0 +1,125 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/spi/ti,davinci-spi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI DaVinci/Keystone SPI Controller
++
++maintainers:
++  - Bartosz Golaszewski <brgl@kernel.org>
++
++properties:
++  compatible:
++    oneOf:
++      - enum:
++          - ti,da830-spi
++          - ti,keystone-spi
++          - ti,dm6441-spi
++      - items:
++          - const: ti,keystone-spi
++          - const: ti,dm6441-spi
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  power-domains:
++    maxItems: 1
++    description:
++      Should contain a phandle to a PM domain provider node
++      and an args specifier containing the SPI device id
++      value.
++
++  num-cs:
++    minimum: 1
++    default: 1
++    description:
++      Number of chip selects supported by the controller. This
++      includes both internal and GPIO chip selects.
++
++  ti,davinci-spi-intr-line:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [0, 1]
++    description:
++      Interrupt line used to connect the SPI IP to the interrupt
++      controller within the SoC.  The SPI peripheral can route its
++      interrupt output to one of two lines (INT0 or INT1). Set
++      this based on the SoC-specific wiring to the interrupt
++      controller.
++
++  dmas:
++    items:
++      - description: RX DMA channel
++      - description: TX DMA channel
++
++  dma-names:
++    items:
++      - const: rx
++      - const: tx
++
++  "#address-cells":
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - ti,davinci-spi-intr-line
++  - num-cs
++  - "#address-cells"
++  - "#size-cells"
++
++allOf:
++  - $ref: spi-controller.yaml#
++  - if:
++      properties:
++        compatible:
++          items:
++            - const: ti,keystone-spi
++    then:
++      required:
++        - power-domains
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    spi@20bf0000 {
++        compatible = "ti,keystone-spi", "ti,dm6441-spi";
++        reg = <0x20bf0000 0x1000>;
++        num-cs = <4>;
++        ti,davinci-spi-intr-line = <0>;
++        interrupts = <338>;
++        clocks = <&clkspi>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        flash@0 {
++            compatible = "jedec,spi-nor";
++            spi-max-frequency = <25000000>;
++            reg = <0>;
++            ti,spi-wdelay = <8>;
++        };
++    };
++
++  - |
++    spi@41000 {
++        compatible = "ti,da830-spi";
++        reg = <0x41000 0x1000>;
++        num-cs = <6>;
++        ti,davinci-spi-intr-line = <1>;
++        interrupts = <20>;
++        dmas = <&edma0 14 0>, <&edma0 15 0>;
++        dma-names = "rx", "tx";
++        clocks = <&psc0 4>;
++        power-domains = <&psc0 4>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++    };
+
+---
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
+change-id: 20260816-ti-davinci-spi-e64e4e48b6b6
+
+Best regards,
 -- 
-2.56.0.rc1.310.g51773c2048-goog
+Bhargav
 
