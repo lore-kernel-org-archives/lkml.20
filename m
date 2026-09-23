@@ -1,135 +1,124 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-ej2-f1.google.com (mail-ej2-f1.google.com [74.125.228.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F8751CF70
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:40:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790167224; cv=none; b=eaBttcNBUvj3NOv6iwlLX1GU5g6RHQgmiHySVc/1g4CcMv4qXPlg26kpu4i8dF1E2PNU0ovj+e02l/QI09AEMY97iaIkmkV0EMuISPFvs5Uvg/p5CeWxsobhcRIy+RMFwN0FcA5s5MH3HgsnQivCgD8RzMmm9E3rzBCvI5S9GWs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790167224; c=relaxed/simple;
-	bh=OuZ8YWn9k/k6Oru5iFZlYbbmFNh1wlAXq+ln8CUZHXA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f8WAaXpe8ZCGwwqpV5V4TE8h2h8NGzciTnLK0uNpUsWsDWn6pAytxvdc44kw+mpN7jpNAtN8q4lqr6co75oz9Q5qRGyFEW9l3RgLRNRto25KZjn+LvoxTVTjSrXae3Yt3VMEgIKhSPLBt3ZTLuPGfcb4deR5rZYK0sEBNWdp4Oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=PfVZHEr2; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163F651CF7E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:40:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.129
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790167251; cv=pass; b=Z4BfD25yp/gf6cDXV+mL6YDVEnyPnMttLEI9UWPdj7pGOe4nmXZPuy2axpZleDZ/9Dg50OZZBwgwNlyKidap2sx6sc+WSYw2ipK9vi+izjN1AmC67nIeP8fNEz41v1yXawC0rOqgGrppv3U7IVSbS8DiYhBM64O/cIJSafbej7w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790167251; c=relaxed/simple;
+	bh=yrBXUqSfBJNVOGA4p1L4WG725TYm+nXRxrzQgFuRPz4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pA8RzDDGdk+NjOQ1rbukakh2whMjL/79GKf43JP6Nf5SQgsyg1Y8p7bNlplu6qJQn1A6jqQsP8AttK2zo/6SvtHfjS/nVTWg5V3+pg+4lUe69STLLe7k+fJmcQbur5gjwI/nNOsHUTCyuecg7RniPwO/d50TDsqg69PlNg1k6T4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mNVWlYwM; arc=pass smtp.client-ip=74.125.228.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="PfVZHEr2"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so4571245e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:40:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mNVWlYwM"
+Received: by mail-ej2-f1.google.com with SMTP id a640c23a62f3a-c1971f5efc3so48768166b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:40:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790167245; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LV7odR4eA2T7mpu/w2Npg0V6ldlyjeZ8fZGqUtDn11bVjVgTw7lnrSBiVPkldqm067
+         wW1+TFUTrsFQ/jO+oj972bdhj6LxyE+h6klV2/LipoyL8Cz4TJxyQPBy9xqirIbbj4TD
+         kqQKxxauRH6GZ49qzPgju6Cf9ceCf1Hgomprxw/7LBJI0VJcLZKjFWQnG9gLg+HkxOe+
+         7zIPhMPHG4jVZgF0+gIm5x+89B7DpLNV7mpWMRb71Z5nT5B35s3Wgj1CcBJnSJ2tLKDK
+         oDJP/Aj8abNj6niXFc+47qg9saEQ3FMT9cxMVjaxjjmLehGZ6vB/LJHIZDJ/hwDnXDCQ
+         m8/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yrBXUqSfBJNVOGA4p1L4WG725TYm+nXRxrzQgFuRPz4=;
+        fh=Wng4bFrvSnElKte9J9rSfnGHEnrfsBRrtg8JrIDkx1c=;
+        b=baUtrF1QpTcc/pDnPxBYXaHZZ/4oGLzhb/MxfWR426fW8xs1FPKHZN0BDIwVEgE49U
+         QFXcxbmq6qI3CvfY8LIw69Ef9z489nUlzpnMjwSOUzvidX7ndF0mHEWrpu5q+VRREpuh
+         iig5H7F9WQABM146ZCMwpz+D8GCCww8T86+7P5F/Wx4sumhDP2U9Yr6vv3uM1oTlHqCe
+         U8ZQ1TEW17XDb3GTdLizjomHV0O/WK8+AGNG9HZmx9qQ7GvQmjCPfCCIyg64TuCDcqYN
+         mcr3Pn4sFLB4A7rbe3CM5vmjexpRI8lY2Op856NfJttO41AbnpouemQx8oPxdBLULpuv
+         O2pQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790167221; x=1790772021; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790167245; x=1790772045; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=TdBLUyvMtWr6klMUk5a/hwwvszeiGBeUfZaFfQvLAEA=;
-        b=PfVZHEr2+mR/LU5erEQzBSM7jLkdibSU1Gb1niSmd//SoXb3aCz24BbGYYWr186gfg
-         ZBKWOW6nCVbnUntntaDmxCZMtJ2aYV8XItVawaH1s13poN9dCYgOCfzwOnYuJjgVX6in
-         xLSckdxBeU5G/vVVJaphgOWNQWGY9cuTwBJwjufOjeI6BxXvDjFgmYN8IF8shoXbHrKB
-         MKzp8/1Jkv2RB3HIQ3E2d6ihHlun6RFDodc3wwv0JGa5jK+HH9hMX6xbipMNlN7RBZ+I
-         HEQjz4kMuagSTz+MM4MkC2h9WvlSaCFtqI/qBa1DnUWe358hAEp5fqcywiYZhC1eNDzM
-         Ylzw==
+        bh=yrBXUqSfBJNVOGA4p1L4WG725TYm+nXRxrzQgFuRPz4=;
+        b=mNVWlYwMzpZ6XdVh6gnhcylaxl51TIH99pMipEXYbsjdb6U3HyDy+7+Mux+yYlrY8n
+         tAMNUR3OZJ2T4gS4BafREQ5OIUX179JKOOByjFTUWb8R5/hcungUbho65yJ4rV/SNOhP
+         0ajiuf9kM2THHOfOP+UFYk0R0vS3RM3arQ3y/MaID/B9K1FSPa8TKjGBrYfgZniYWZ8Y
+         WOBi9fi7Eem04EN4bjBeAa+WDy8b939piz+ce1gfpLa7MgQ/nRFJtIS/46LlwWKn7uca
+         pALtLSEcy8N93BTGd2Vd9A/JGwiFYL4DGiLmkCbK3sCoDr14KK22yikj5r6/1s3poe+p
+         AiOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790167221; x=1790772021;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790167245; x=1790772045;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TdBLUyvMtWr6klMUk5a/hwwvszeiGBeUfZaFfQvLAEA=;
-        b=0MgInwfKScLn3ZaOjGXG5BNkmkBC/2NJ6aL0qc3bPPPebfqsLZLvAhHtUgqdzkdtzY
-         WAKX7fo5TfbIKgtRfEbq6NMK0B4zuZElg47/C8ct6OlHyLJ0mjcHHGG2Krjow1vkLhlB
-         Vtn60wZ9Bj/iVCGW+vQiG7nquSH6FFGzBL0m7lOrz7rqYqGd13ZUI13DsoBI8D0BKrMt
-         24sc6GmzXarUNEo516m1aLbq7+1IdSsPsyyTNwgzJ5sxLFrgIBTuoG0YD/XmP8g8yl7f
-         ThBYCZF0LerszYIjvW94lbARakKqR4nVsT7Un4V33naC5FL7mEV1/hDUPIFP+ueeh6z6
-         UvdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw8vFgU00AFg+cDOwn2lPZ9+zhnsXFIz1Bnl5jLeXKeyDVZqd0ZGUetKN9pNaP2ton6TYLVfFdzbWnqmzk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lf4ZTfgWLoNBaHEaiLTYvz882q+91ZbjXI0zK4qdqI39TSAP0c
-	FjIsLBt3/oDQ7Dagyn1G64IuRVQyywpzHEM6spRkFwxV3GqXeWWesIbthczUR5aSBDA=
-X-Gm-Gg: AYBFou2lt1aD+HiJWgRv5m7eefbpNFjZzY/uYn+P4uIFVMtQ98g3vNJc9pLAewyVVH9
-	lQS25UFDDNO8BvlLNqJ7ayPMfk9Ujzn8sIqrEqh7j4M8FQu89trRO70mBGrRW0TGfNadAsh0sTe
-	snSuuWLaCEcL9oKnxRiicoZr6SGJX8tYQos0vGx28POqZCWLVUYzyINOyfptcu9bZI7m5qbUztT
-	bgYfHJYNyu+ALCA5hItLyQVNo3MvNJmO1XygUP7PO+iL8FJht00hYpV1YS2tOXUo2E0CZGMBuY3
-	AWfHzNblMes9VhSru84YvZecLLVUb3zAXbyHx2v12P+qiDJ+nK5kmAdzQLfxrmHcS+QxjHK5a3I
-	yr9K6ynzzKYKgIO1gydksK2Q5D70T4JakSmczcVT9C78DkhmfYL8gB1Txg0cAe4fHp1ow9MuugL
-	EfNCVX6SAM8aeeyyU5WnG23NprHlJ2xQ+lrt8wgbjMp9Od4WPY1ts37c/BzZn97x8WV7zSoXj8b
-	w==
-X-Received: by 2002:a05:600d:8643:20b0:49f:bc0d:2e9 with SMTP id 5b1f17b1804b1-49fdfd90205mr23203125e9.0.1790167221389;
-        Wed, 23 Sep 2026 05:40:21 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c119sm7240332f8f.15.2026.09.23.05.40.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 05:40:20 -0700 (PDT)
-Date: Wed, 23 Sep 2026 14:40:18 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Qinyun Tan <qinyuntan@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Usama Arif <usama.arif@linux.dev>, 
-	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
-	Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	Xunlei Pang <xlpang@linux.alibaba.com>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] mm: restore per-memcg reclaim for NONSLAB
- shrinkers under nokmem
-Message-ID: <arPGEda3po0-Mbh6@localhost.localdomain>
-References: <20260910080722.3961351-1-qinyuntan@linux.alibaba.com>
- <20260922183547.788d21b89868bf820e94cc62@linux-foundation.org>
+        bh=yrBXUqSfBJNVOGA4p1L4WG725TYm+nXRxrzQgFuRPz4=;
+        b=DQ0LdWbLhW28UsCQ61fRE/8zaDL5ltdd2Q2c19KCH71tjA3jjo36ysqZloityBMBY9
+         YlHH3z/fWP/btiF2spcjjd0WV2nEtxrNezuAKXyD6dUP30a6BW+ZaBboUroHhBmWdcH4
+         P7WXtnzVEBMNp8EWUFmxU7Gapp9bfgOIYW4xa2pVG+lgi7rtDJf+KqedowhEoV5XYpfL
+         1CHUX8pNWjxMfzWzaEaJhCxX+XwegKSRtxarpCSaJUkN+1r0EQUUPgDD6mhYWGErxhXL
+         sq9rLUHYRRT2VEovmJdS/63GVt8BlEvO2/GJ5wSeQgxUxcX0YlsfOaJvDet7DedbbR2u
+         AA2g==
+X-Forwarded-Encrypted: i=1; AKwUvBzLe+eVokr7UaQNZu3jslnqdiSircYCCWsNeMetn2D78ya7sHsSWV8Cap31BUz3XpaXrqx9Md5v0VGB9H8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nn937fp3t3A2tfho95HInxkrdyF7Ud2QA9yx2R1eJGUkzGUOpA
+	pKA+07GpgEWtD1+n0aXy2ss/ONhrzh7SRZEojXRYk4REJGRG5S7j6O/yTkkRGL4/J3u5WR5D0OD
+	ncaGJ06ny7iMVWw2+C8+4uJrNo1qfm6c=
+X-Gm-Gg: AYBFou2zGoxN2Y+cT5++f60K+0II7CfBCmfbzUqo5AKmJqnu6rRgndSi4QlcT8P9RqX
+	U2qI/VIvzzZed4zfygAbTU5ZbAVRKAdAB3xzDukvb2Wfnfh09iw9CrN9wvPcIqJzqXt4Fo1Xsk+
+	Z73qiF5oqEPZv8lPYzyZzGyhqisWmgIMaq+BMsb+DlUxy9gxSpB7KhapcenAz5ZX7BaeP49nwx3
+	n1rkqOSvqHc5FnSv/C0HYvKkiGNO2QKxEzvDgzwEQWSALTMJ3IayGzJMcagO1onQ6jduEEWk8IN
+	NlLachJL5LToG41jr4UnKxXF4tRvGEGTuGe+BZ1q9CzlWvCzAr1CXfbSkA==
+X-Received: by 2002:a17:907:d91:b0:c25:5faf:b207 with SMTP id
+ a640c23a62f3a-c2aadcf4484mr194861466b.3.1790167245181; Wed, 23 Sep 2026
+ 05:40:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jduqwrsbz2lze7tg"
-Content-Disposition: inline
-In-Reply-To: <20260922183547.788d21b89868bf820e94cc62@linux-foundation.org>
-
-
---jduqwrsbz2lze7tg
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
+References: <20260922200336.2201212-1-coiaprant@gmail.com> <20260922195006.79890f24@kernel.org>
+In-Reply-To: <20260922195006.79890f24@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Wed, 23 Sep 2026 20:40:33 +0800
+X-Gm-Features: AclHuK-io9PS85iIjo2RRKD7nlxq4FY18LSW8xzP9gnGJLLZJesN4MppzV2qPUE
+Message-ID: <CALj3r0hH6m7jUEweKMWGmCW9aOxShaqsV0E+z4ztBhXbJ+378w@mail.gmail.com>
+Subject: Re: [PATCH net-next v10 00/11] net: pcs: add basic support for RK3568 XPCS
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Romain Gantois <romain.gantois@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Russell King <linux@armlinux.org.uk>, 
+	Shawn Lin <shawn.lin@rock-chips.com>, David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 0/4] mm: restore per-memcg reclaim for NONSLAB
- shrinkers under nokmem
-MIME-Version: 1.0
 
-On Tue, Sep 22, 2026 at 06:35:47PM -0700, Andrew Morton <akpm@linux-foundat=
-ion.org> wrote:
-> On Thu, 10 Sep 2026 16:07:18 +0800 Qinyun Tan <qinyuntan@linux.alibaba.co=
-m> wrote:
->=20
-> > With cgroup.memory=3Dnokmem, the THP deferred split shrinker and the
-> > zswap shrinker are degraded in two ways.
->=20
-> Obvious question which may have recently been addressed:
->=20
-> Why are we keeping nokmem around?  How useful are its memory savings
-> and is anyone actually using it?
+Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8823=E6=97=
+=A5=E5=91=A8=E4=B8=89 10:50=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, 23 Sep 2026 04:03:24 +0800 Coia Prant wrote:
+> > This series adds proper SGMII support for the Rockchip RK3568 SoC
+> > using the integrated Synopsys DesignWare XPCS, along with necessary
+> > fixes and refactoring in the stmmac core and XPCS driver.
+>
+> Please slow down with the reposts.
+> Not more than 2 a week, and please wait for the AI review to finish
+> and be published before you repost.
 
-Besides (not so significant) memory savings, there are also runtime
-savings (not spending time with accounting of each kernel allocation)
-and environmnents where shared (not)accounting of kernel objects is
-preferred (as other resources than memory are shared anyways).
+Understood, sorry for the noise. I'll keep reposts within the limit and
+wait for the AI review to be published before reposting from now on.
 
-The above are IMO justifiable reasons and I know such users.
-
-HTH,
-Michal
-
---jduqwrsbz2lze7tg
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCarPImhsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AhuYwEAq+e3Y6FWb+6/NZTcNcD/
-OwbFXuc9bSQF8eyv2blq63IA/3OX78kjmj6FDtiaJ3JiP6ozQ4i+Uppjk/m6YUto
-JN8K
-=dA2e
------END PGP SIGNATURE-----
-
---jduqwrsbz2lze7tg--
+Coia
