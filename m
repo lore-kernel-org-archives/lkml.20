@@ -1,49 +1,49 @@
 Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52E829DB6E;
-	Wed, 23 Sep 2026 02:43:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E953B2F1FC7;
+	Wed, 23 Sep 2026 02:43:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790131410; cv=none; b=gzjsIehJeIAeLc3drmWD5w0M6LO5G7rL25HipXca94bwlPaU8WqHnp9Ng9rxl2i86vvFo9WD8d9QdfYFRVL8n4/g7musgCK8r65kU4dT+aT8hxwCwDW92Z7EV2H29bV2H/yp7zB+K77N1G5XHGnMdmO0F7+a0JHcQCXc83UUZj0=
+	t=1790131410; cv=none; b=ibolx7yvZc4sUl1MQ7JnBpve+msMFjmqbxhheouGIV/Xscg9OQ6kfo0/BSZwgQ7AZf2Y+Q3U/rxG7Xj/2YtFRQJx8EJFNIvncZg2pcYHoQBPaipIGbnCvyp3vLgSW+8TzNjFvVG5tiFi735MX2DFW3hjeyyV2sVx0jX/coQT1Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790131410; c=relaxed/simple;
-	bh=5JWzor2sLIEmv8k7c8heWyt9KXnyc1Xj1Z1fkVPCXo0=;
+	bh=qIbZyCk04Lk3vt6jxoyLZfyldvGy1Wnry7CXy8Jzt9c=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iGXzbl3dEsszYeskxRj4X9JPBSlatyHi33WttUK1AmPoByucTsN7VM/tlPx5QR0cgy8XAmBx7bCwEEE3lC5iE8zyxMPNrP2mRwn/tgmuG6IXNMDB9eqz5asesuA6jTsey3aCEosjc+ke8ufq8h3HytJtvyCBYFyESilHZmWahho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=bR0TKPch; arc=none smtp.client-ip=210.61.82.184
+	 MIME-Version:Content-Type; b=UOSt+2dCmu7xG93irnA+VRnoEuIygkTHa0jFXhnx1ptBvbvmQ0RqinsrD1g0B5w9URublLF1+wX7ExLdiVA+6EJUyDs4VtXahKsmd9L8J3OCnIeQBGR0A/d121q2VYNPUrFKATMXhrHAlwYvN9uD9rJSBAFefYDz+TQJn28pvyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=bCWEYpv3; arc=none smtp.client-ip=210.61.82.184
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="bR0TKPch"
-X-UUID: 87cac964b6f811f18dc8c9802ae25ab1-20260923
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="bCWEYpv3"
+X-UUID: 84e3fa5eb6f811f18dc8c9802ae25ab1-20260923
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=Ue2ZLcQ/4fV9Kg5iyvrROwfGWVYIy9oxSZkI1epq7+0=;
-	b=bR0TKPchCwz4mYq5RRFl9cPcBrnTwLZ1GPN+Wif7ZCJLwHKoOn7VRSM16eJLY0f0TTu8+oEYU3peDQ3CS5jlS7guApSwi3g/E/7lySduHYrOlQrkyt/dFj8q3zGCNx/CVnRD66GkJ/aE9x9A8fMQaXs/ScZN81mSyxQpN9benFc=;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=Sf1pQlbMbiIrjnz8/66tGMCRdtP6utc4O8nw4rUQzS8=;
+	b=bCWEYpv3piB7K/d7CiyQCmMz9Mj/lp5BiBKoEPyJxGyKKl8oVoSi+9NAveeF16rBcPwlleUwTjVHUPBt9Pc5c+tXt5BLIiGvYSLwu2R4k58l+CY9ju39mzbn1COqHeinkMBhJQrYO3b3U4BvHXaqIFPtXmyj/tDxkAXVtG4dFo4=;
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:64caf75c-d17f-43a4-a008-3a9e9d8833fe,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:4b6045ba-8825-408e-ae13-13bc2511f41e,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|136|836|865|888|898,TC:-5,Content:0|
-	15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL
-	:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.19,REQID:37ed66fd-e9b1-441b-961e-3f9a94798641,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:0482dafa-1cb6-4618-8a29-fa072b24d2a9,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 87cac964b6f811f18dc8c9802ae25ab1-20260923
-Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
+X-UUID: 84e3fa5eb6f811f18dc8c9802ae25ab1-20260923
+Received: from mtkmbs13n1.mediatek.inc [(172.21.101.193)] by mailgw02.mediatek.com
 	(envelope-from <kyrie.wu@mediatek.com>)
 	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1858662167; Wed, 23 Sep 2026 10:43:17 +0800
+	with ESMTP id 1349562127; Wed, 23 Sep 2026 10:43:12 +0800
 Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
  MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 23 Sep 2026 10:43:15 +0800
+ 15.2.2562.29; Wed, 23 Sep 2026 10:43:11 +0800
 Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
  mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 23 Sep 2026 10:43:14 +0800
+ 15.2.2562.29 via Frontend Transport; Wed, 23 Sep 2026 10:43:09 +0800
 From: Kyrie Wu <kyrie.wu@mediatek.com>
 To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
@@ -64,9 +64,9 @@ To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
 	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
 	<linux-mediatek@lists.infradead.org>
 CC: Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: [PATCH v7 09/14] media: mediatek: vcodec: add decoder compatible to support mt8196
-Date: Wed, 23 Sep 2026 10:42:52 +0800
-Message-ID: <20260923024258.257846-10-kyrie.wu@mediatek.com>
+Subject: [PATCH v7 06/14] media: mediatek: vcodec: add debug information
+Date: Wed, 23 Sep 2026 10:42:49 +0800
+Message-ID: <20260923024258.257846-7-kyrie.wu@mediatek.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260923024258.257846-1-kyrie.wu@mediatek.com>
 References: <20260923024258.257846-1-kyrie.wu@mediatek.com>
@@ -80,51 +80,62 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-MTK: N
 
-MT8196 is lat single core architecture. Support its compatible and
-use `mtk_lat_sig_core_pdata` to initialize platform data.
+Print hevc/av1 output format and 10bit capture format
+information to debug.
 
 Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 ---
- .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c   | 6 ++++++
- .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h   | 1 +
- 2 files changed, 7 insertions(+)
+ .../mediatek/vcodec/common/mtk_vcodec_dbgfs.c | 21 +++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-index ab5f6c01f..0d27adbf3 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-@@ -347,6 +347,8 @@ static void mtk_vcodec_dec_get_chip_name(struct mtk_vcodec_dec_dev *vdec_dev)
- 		vdec_dev->chip_name = MTK_VDEC_MT8186;
- 	else if (of_device_is_compatible(dev->of_node, "mediatek,mt8188-vcodec-dec"))
- 		vdec_dev->chip_name = MTK_VDEC_MT8188;
-+	else if (of_device_is_compatible(dev->of_node, "mediatek,mt8196-vcodec-dec"))
-+		vdec_dev->chip_name = MTK_VDEC_MT8196;
- 	else
- 		vdec_dev->chip_name = MTK_VDEC_INVAL;
- }
-@@ -566,6 +568,10 @@ static const struct of_device_id mtk_vcodec_match[] = {
- 		.compatible = "mediatek,mt8188-vcodec-dec",
- 		.data = &mtk_lat_sig_core_pdata,
- 	},
-+	{
-+		.compatible = "mediatek,mt8196-vcodec-dec",
-+		.data = &mtk_lat_sig_core_pdata,
-+	},
- 	{},
- };
+diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
+index 2da11521f..a9e52a320 100644
+--- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
++++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.c
+@@ -29,6 +29,14 @@ static void mtk_vdec_dbgfs_get_format_type(struct mtk_vcodec_dec_ctx *ctx, char
+ 		curr_len = snprintf(buf + *used, total - *used,
+ 				    "\toutput format: vp9 slice\n");
+ 		break;
++	case V4L2_PIX_FMT_HEVC_SLICE:
++		curr_len = snprintf(buf + *used, total - *used,
++				    "\toutput format: hevc slice\n");
++		break;
++	case V4L2_PIX_FMT_AV1_FRAME:
++		curr_len = snprintf(buf + *used, total - *used,
++				    "\toutput format: av1 slice\n");
++		break;
+ 	default:
+ 		curr_len = snprintf(buf + *used, total - *used,
+ 				    "\tunsupported output format: 0x%x\n",
+@@ -45,6 +53,14 @@ static void mtk_vdec_dbgfs_get_format_type(struct mtk_vcodec_dec_ctx *ctx, char
+ 		curr_len = snprintf(buf + *used, total - *used,
+ 				    "\tcapture format: MT21C\n");
+ 		break;
++	case V4L2_PIX_FMT_MT2110T:
++		curr_len = snprintf(buf + *used, total - *used,
++				    "\tcapture format: MT2110T (10bit tile mode)\n");
++		break;
++	case V4L2_PIX_FMT_MT2110R:
++		curr_len = snprintf(buf + *used, total - *used,
++				    "\tcapture format: MT2110R (10bit raster mode)\n");
++		break;
+ 	default:
+ 		curr_len = snprintf(buf + *used, total - *used,
+ 				    "\tunsupported capture format: 0x%x\n",
+@@ -122,9 +138,10 @@ static ssize_t mtk_vdec_dbgfs_read(struct file *filp, char __user *ubuf,
  
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-index 15e437323..53d1708b0 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h
-@@ -29,6 +29,7 @@ enum mtk_vcodec_dec_chip_name {
- 	MTK_VDEC_MT8188 = 8188,
- 	MTK_VDEC_MT8192 = 8192,
- 	MTK_VDEC_MT8195 = 8195,
-+	MTK_VDEC_MT8196 = 8196,
- };
+ 		if (dbgfs_index[MTK_VDEC_DBGFS_PICINFO]) {
+ 			curr_len = snprintf(buf + used_len, total_len - used_len,
+-					    "\treal(%dx%d)=>align(%dx%d)\n",
++					    "\treal(%dx%d)=>align(%dx%d) 10bit(%d)\n",
+ 					    ctx->picinfo.pic_w, ctx->picinfo.pic_h,
+-					    ctx->picinfo.buf_w, ctx->picinfo.buf_h);
++					    ctx->picinfo.buf_w, ctx->picinfo.buf_h,
++					    ctx->is_10bit_bitstream);
+ 			used_len += curr_len;
+ 		}
  
- /*
 -- 
 2.51.0.windows.2
 
