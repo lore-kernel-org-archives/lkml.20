@@ -1,165 +1,180 @@
-Received: from mta1.migadu.com (out-231.mta1.migadu.com [95.215.58.231])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013054.outbound.protection.outlook.com [40.107.201.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8F4538D69
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:39:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.231
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188777; cv=none; b=joMYJheubnuTYiNqLZixGj+UbN4m+u4wqXy/XePoH1J0zZNVNx6LIfLDmm1ks/dMBzakZWof93qJpgFgXcDjPN5gXF0RjE19xoUgbynWfqanLEo4MSqwEvcaDnhvb9uWeWKY1HzCxHWGku3DMMMv4XPt+c1t7p4kRmk+EzqZRJ0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188777; c=relaxed/simple;
-	bh=xvVfhU/rhBzON30v3lLER/H5XSDtA/5WCZuabwZWrT8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iSK7gOfKog28UOyWRaMtRlIE4U1VFR9+Z8QfJl+1vd/UHU4jYjdfvdNy7arM1B76chIfIAsj2tOMAuAt8EXy/Kmrf1NjI77Sez4WGPCiBDkPQM7ms7wVP56dpnln4mKLq1o85nCfye2WdDXrGcfwWmO6gUrQ20lYJ2hc0eTu0uQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NbHNLt2w; arc=none smtp.client-ip=95.215.58.231
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A23BA5172C2;
+	Wed, 23 Sep 2026 18:39:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790188804; cv=fail; b=f3PUOlCfi7lXyn0VQCRKvQQikTd+tJB0ZqYO+tzzRHRE5QbIODnCJ6bSN56VRrQQKBJDP01+ZcF89cYchqI8b9gnffI2V48CCD4+G8MCAxJ822Z4rWWEeYg+bBhH1ZyOWTsE0/R8AZ7BlA0zUsy155xC3f7xSnJj6AvIme9oE4s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790188804; c=relaxed/simple;
+	bh=qtkCO0SuzG8hEuD/mCaOHF6W/w5GWYBZnySmwVVjxl8=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=rRAWcHC29qqtwRJZzqoVkdm9zCVI8+/744QmZx/VHhGQnZ4CmkG4GbKNGYwgEDGWw3fYIeXVlbjn2Pbk+m0XNg0Bt9B/KzbJo4QNL3kREz8bfIFzgDTJ2xZD8+aM0b8+UGc3bKDBoiDwKXrhpz0iGzpvJFb8VmLxU22ieauzNsE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xIWF1bqy; arc=fail smtp.client-ip=40.107.201.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NbHNLt2w"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=xvVfhU/rhBzON30v3lLER/H5XSDtA/5WCZuabwZWrT8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790188768; v=1; x=1790793568;
- b=NbHNLt2w4rgF1oxC1LE0aT0NmaOaal6Q9Lfgw0h733K3uN4loKdnqHJIZL74lHUfSwVZgrrl
- noYk4XP5VONvDU0KsXPR6HgAsBFSAz5x1DFb3vcWIsODiD+/Z3DRG65xvqo72HBbfmlQnqv5ZJe
- WSXupxsOJTlemb6sncmlw0Xs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3ea29e3c32de8e0c;
-	Wed, 23 Sep 2026 18:39:28 +0000
-X-Mizu-Trace-ID: 3ea29e3c32de8e0c
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6c0a220c-7d9f-4b31-88b9-6882b1b09231@linux.dev>
-Date: Wed, 23 Sep 2026 11:39:26 -0700
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xIWF1bqy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lLvr26/mbfhee0FyzmdSFnmno7WDMeSASO2evoDn13/8vmuFIfs3cwnKTL5zHRvK4Ew/iSltVGVW727Dzau6ORQUbxi5fdhxfCrxFa7FznLeBSa6iqn20i5EoJAR09YzIK3fHpqcth5gUzvYWODcaO9unBfMWPR+tfdOB8b+GLrAaePVBKwFvdasFeDiNlQlc6/9cslmsE4si1OIy2loQ/hR3RfYLcp7t2JzRCm1Ymdh3bEkG6whbP+okenKSNw7I3U9CHpypq4+in2dGUGI4NZcSj/7ENL9MzrGUnbyaDVSIKx6Y0QghhT++MaMnMzoeYQxxhRY7Bsf1gEmO0RGhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H8x1OgKvRS8CdjblsWQyW1et15ZbsktNZkpmQBWCPKg=;
+ b=dmOk9xN0KjEfzGceL8lgHVfANlwHFbM3EAUq1PZdF3UY4SU5SCLbp+X69lAY4CHQAkDmpGCpID2ck2QLSVc73ISOJmIHhTxkEzbDe+R577LwprGiInWmCz/yP5q8lgo6CNVSw4oITK64AHmpHu4asSPWIs91bYxdQnpQ7QoEztdF4JguBRvhPEfE6ihII266v6oop5qoTwCRlAPsKI/yHw9NoeHVD1v4zDadY4Ok7WIgnBwL0RtVeZqhPYOIygy3YRXK2/qckEcoIYioQpvpH/rn+SYpV6Z2+8mFjRSdJPSqYMlVlLReifnDoz+GeUThZSi1UGL4vYWmgBPnInonBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H8x1OgKvRS8CdjblsWQyW1et15ZbsktNZkpmQBWCPKg=;
+ b=xIWF1bqydY0yojvPF60jQpcwHU2yp8FWaDtE6cLnoVwtBM4lMcJbRpnCE3dzqbc29f8uwkMxiqcD1pbGIBDTCDxEf1OYsfyHJ8CELddm5JpDVRe4TDvoGWY0cf9BK4eINruTByZMrHVWsTnd7oi/fvvHncq/gHiQTz9iqP6lvME=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MW4PR12MB6921.namprd12.prod.outlook.com (2603:10b6:303:208::8)
+ by SA1PR12MB6749.namprd12.prod.outlook.com (2603:10b6:806:255::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
+ 2026 18:39:49 +0000
+Received: from MW4PR12MB6921.namprd12.prod.outlook.com
+ ([fe80::cbf7:e2db:1d37:c83b]) by MW4PR12MB6921.namprd12.prod.outlook.com
+ ([fe80::cbf7:e2db:1d37:c83b%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 18:39:49 +0000
+Message-ID: <52e6bb87-1a64-405b-a11a-3b9f9bf95410@amd.com>
+Date: Wed, 23 Sep 2026 13:39:46 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] Fix for storage corruption w/ AMD IOMMU on 64-bit
+ addressing
+Content-Language: en-US
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Damien Le Moal <dlemoal@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ "maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+ "H . Peter Anvin" <hpa@zytor.com>,
+ "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+ "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
+ <linux-kernel@vger.kernel.org>,
+ "open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)"
+ <linux-ide@vger.kernel.org>
+References: <20260923183657.GA1900695@bhelgaas>
+From: Mario Limonciello <mario.limonciello@amd.com>
+In-Reply-To: <20260923183657.GA1900695@bhelgaas>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0PR04CA0078.namprd04.prod.outlook.com
+ (2603:10b6:610:74::23) To MW4PR12MB6921.namprd12.prod.outlook.com
+ (2603:10b6:303:208::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1] RDMA/rxe: unpublish the per-net tunnel socket before
-To: Binbin Deng <18983559317@163.com>, zyjzyj2000@gmail.com, jgg@ziepe.ca,
- leon@kernel.org, dsahern@kernel.org,
- "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260923051800.244740-1-18983559317@163.com>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20260923051800.244740-1-18983559317@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6921:EE_|SA1PR12MB6749:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90deab96-9c8c-46da-02a3-08df19a20c68
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|366016|23010399003|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	9py1PegvG/VvEpIAv+1XaYfFad2Ff7iJWLpUmsR6i2+5MMAXOaWqB4tjWwG8qvQnNWeryv1OvY/cNQ6vAIAXPFIFYrvye3Cw/1M3+EkagyLRaV4Q6aukUwQzhAljYp3QnBg75bUEWIWMimHUrLzlJQD1LCy6RFwCr/s3tRnX1Pn+vP2CRHemeh8BomFKL7YzXZi1J/F74RCbCdPwn9pjyu2uBiHt3H7aiLsgk+EaTrEP0ofZKNxq9dsuXlMlwbI6PEMIQv3w3nG1Y7Wz9TJx6kW2wKWjQyZQpkyJ0DaXKKBRc6zJXooLFJHfXe89S+PCd9Mc5gMBJ2LfuWl8F+5LToLskR8226fkhbSlTvhRMO2EoaXzVcgz6KUPoAKAeQKr4BaL5SI7zbi40P2tP45c2DuGBnDjjm6jDvf5TNQ+FXQ/Atye7pPhf4w8WKXmNdo7uKR5tjyMTWXhsuxtPJXQNoxVCPHWIe5qZINBl9oyADe5g3Jnv0wIlOR3NKml5LLU/Lh+cCIALdLU1t9vHk4N+ohNATb4TugRsL0ECvHvo1lcYGMbtTkFTOBAOaVpIWeYtwlnBaSAmd75hVv7iOTF6R9MGZLm8/UULT7BhPlZU+hkioMyU4VlVmEYdGVZFFJOcRCRFpPBXfvtVTlwBwv7xFWbIrIPNHDzoVf6TUODwSE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6921.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(366016)(23010399003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R0g1a3FrZjIwWVlXWkV2MHQ0TktVNnRIcUVXbkhyV2pLamRlZGM2T2hJc1BX?=
+ =?utf-8?B?SHRVRi9VTnNNa2VQU1g1a1dhd3A1Tnk1dG5OUVpZbzRNS3F2RHhpTW1GWjds?=
+ =?utf-8?B?TmRTU2xJNVBkN2ZrVlU3Q1pyUW84SisxSW1QSGpnS0ZpZXdGeXdOS210dDZG?=
+ =?utf-8?B?ZnNqZVZyVGQvYXFTaEdSQmExLzBuWG1QREdveHFhRWE3dzQ3Y3JDeHUxVk5L?=
+ =?utf-8?B?ODJ5MnY3M1ZSRzhHN1NZS0IxWkROZnZrUWQwc2hBNDlIMmx0MFBrRkoxZmlX?=
+ =?utf-8?B?UEhtaldxdTRLeEtKN05hOUp2WHRqSXhPNWUrWmFDSmRCbjZwQ3pBZGxDOTFj?=
+ =?utf-8?B?aHZxODNMSG4rNithQk55cGtKU0o5VHU2ZnIxZXBSeEZwdERISkJvZjFWekRE?=
+ =?utf-8?B?b0ZCZ2ZDQmViTENjK2RyVVVIU3F2ZW1laFZmSU1xMEZwYkxDUExtSmFuK0sw?=
+ =?utf-8?B?TmorMWVobkJnSUdnK2hxTmszY3IrT2szR21ETHR2aTUycmkwK0YvaEw0UTNI?=
+ =?utf-8?B?dGlmZVBnYzIyWVF4bmlyc0cvb28ySlVKNFI3UG1NU3hNRjhIelc2NDN6SFlM?=
+ =?utf-8?B?dzhjeGhCV1hqYWJDblhrV0IzZDBnS0xJbXFhZWUyWHRPUVMvK2hqcFd5WFoy?=
+ =?utf-8?B?QitDQ3VQY3pRMjA2ZWFqVHhJNklSeFo2OXNlWEI4RXVIV1pRb01ncFRTOWlJ?=
+ =?utf-8?B?d2wwUVlaV0VrdHRxU05IcGJXR3hOUEpiajJya1RObmRrZmRYTFcwR3VqbXd0?=
+ =?utf-8?B?VWpYY21EYXMzR04yVG16dHhYMmZ0SGxIdDBZZEhEOXdnTHhXWDhnRE5ac0Nk?=
+ =?utf-8?B?WFpjdHRlYVNhazlBRFZKN0NBYWpocGR2SG1pUlpMNlFmZnkydlF2dGFoRHhH?=
+ =?utf-8?B?R0F2QldkdlZwL3RPdUlGYis0Wm42SUY0SnZXWklYWHY3Z3RxUWJOZ0s5cmtm?=
+ =?utf-8?B?N2VwUWdvS09ZNlUwREdMUW9zbjF3RllvQW91L21QYkJ3ckVBbWEzeEsxcXBj?=
+ =?utf-8?B?RVo0c1lwckhIRzdyNzljejFJK0N2REhkQllsNVFZSDl4N0J5am5COXpOS3Zv?=
+ =?utf-8?B?RVdHVVBtd0FhVkhDRHVtNjlEcDljd1pzM0VpU1ZWaE5wVXZySmc4WnhaNStN?=
+ =?utf-8?B?SWdaVjM0OVUvb2tRVU03N0RVK0RxZVIyODQvTmN6SG5QQy9NSTFUR29aRFBE?=
+ =?utf-8?B?OTY1M0I4ekg5U2VJTzFNTTRDS0V5cDdWWnRIckZtKzk1TW0rWHI5VWs5WkpP?=
+ =?utf-8?B?eXBEOXhkSnVWRU9Dc3Y4aHQ5NlVzNXZLNWNkNDZsUm1rNTYvcFMwcmQwamZn?=
+ =?utf-8?B?Z0lTcjAzWVN1MmpVVHc5OWNNN2FqZ1d6LzdJYk5icnM0Y3N4QXB5TDY3aHY0?=
+ =?utf-8?B?UkpsdWVIdDdZZWJiZVZmV2NoMlVzazg3ZCt1bU5WQjQyV1E0ZWFpbTByTktk?=
+ =?utf-8?B?blU1dW1MeC83TG5KZi9WRmp5dC80akdLZEFVVS9aUFNjNEdqQjYrYjhFQWE1?=
+ =?utf-8?B?VjBRM3JRQkZXb2RSYzhmeWJaN3NrclhCVWdPMWR0bUR5VEhZb0xtWTBvbDRn?=
+ =?utf-8?B?YVZkL2pUVHR0SXhkLzVveXUxc2JocjZZSE5mWXUyTnBYVHd3TFZuVHV1N3Jv?=
+ =?utf-8?B?NW0wZEtIanlTNkdzMm5lbGhnbmZHMEkzVnZaVnRHOFBsMTVZaitCL3diblo2?=
+ =?utf-8?B?bEM0R1puQ0szVzlZcTEyUERrYTNGZU5kZFFJTmZSN1JOSU1YWHpjNjFJUTlG?=
+ =?utf-8?B?YzU0YWMwUmVnVXBvTG5oOHhoam14cFFOQ21MMWdtekF1MzMva1FYT1V2bkM5?=
+ =?utf-8?B?dDVBUVhKRE12MzFrZHR6RjNqWm9GdDQ4cFArYWc3WS9SN2Rpd2FTbGFSVDB1?=
+ =?utf-8?B?cHowZ0NUSFpOcGh1VHNOdW1NNzZYTGE5cUFyYzgrUEJncGVRejh3ald6Ykgv?=
+ =?utf-8?B?RzRlMVo1OXJHZEszNG42bEZJUUkxYjJRN3F4Mnh0bHhTclFTSVZ2cGNIcjJr?=
+ =?utf-8?B?bnJ0THlERGoyRkJsNm4yT2I2ZkhVOE5EZkt5OEZHMElEWENFSzVjcFljSVZk?=
+ =?utf-8?B?OWJCQkFWeCtoSnFhYVduUlpMUi9TNmNrRUR1TC81QitaSHFjNVM1WllPaFh6?=
+ =?utf-8?B?Zng3WE1SQ25LMHd0d1hkSGlla0k4T2hQYndPajZKUHhjbWcrdnBNeVNoa2cz?=
+ =?utf-8?B?TCtnRUFGUzhZRkZpd0c3NEl0ZHZlamVUdFRXWHY5b2V5QVpkUkJHMmN6N2l4?=
+ =?utf-8?B?RGd2YjVPVFN3d2V6NGNKSHhNditBQ2JxSGdCQS9CWmEyWmg0NGpGdzN0b1ll?=
+ =?utf-8?B?a0xKbGxWeTVndFJHdk9vRFZsdm5GRk5ueEJzRm9DWFFMbHdnUTVvUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90deab96-9c8c-46da-02a3-08df19a20c68
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6921.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 18:39:49.4523
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bB4W6Y0ChC+FontdtGnFG/6m60ibY4SANW90k8M+vrxF3UbxoqDytKCQUA6IY9PYQdW9wWFDkCD1bOxjEgFT8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6749
 
 
-在 2026/9/22 22:18, Binbin Deng 写道:
-> KASAN reports a slab-use-after-free in ip6_route_output_flags()
-> reached from rxe_find_route(), with the free in __sk_destruct() after
-> rxe_sock_put(), and a user with CAP_NET_ADMIN can remove the device with
-> "rdma link del rxe0" while RoCE v2 over IPv6 traffic keeps looking the
-> socket up.
->
-> BUG: KASAN: slab-use-after-free in ip6_route_output_flags+0x300/0x360
-> Read of size 4 at addr ffff888115ddd794 by task kworker/u32:6/309
-> Call Trace:
->   <TASK>
->   dump_stack_lvl+0x53/0x70
->   print_report+0xd0/0x630
->   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
->   ? ip6_route_output_flags+0x300/0x360
->   kasan_report+0xce/0x100
->   ? ip6_route_output_flags+0x300/0x360
->   ip6_route_output_flags+0x300/0x360
->   ip6_dst_lookup_tail.constprop.0+0x76c/0xcc0
->   ? ct_nmi_exit+0xc3/0xf0
->   ip6_dst_lookup_flow+0xf5/0x1e0
->   ? __pfx_ip6_dst_lookup_flow+0x10/0x10
->   rxe_find_route+0x426/0xa30
->   ? __kasan_slab_alloc+0x6e/0x70
->   ? __pfx_rxe_find_route+0x10/0x10
->   ? kmem_cache_alloc_node_noprof+0x141/0x370
->   ? kmalloc_reserve+0x103/0x2b0
->   ? rxe_icrc_generate+0x229/0x330
->   ? __pfx___alloc_skb+0x10/0x10
->   rxe_prepare+0x9e8/0x18b0
->   ? rxe_init_packet+0x3c7/0x4f0
->   rxe_requester+0x1a0f/0x51f0
->   ? rxe_completer+0x1de9/0x38c0
->   ? __pfx_rxe_completer+0x10/0x10
->   ? __queue_work+0x43e/0x11f0
->   ? __pfx_rxe_requester+0x10/0x10
->   ? irqentry_exit+0xd2/0x640
->   ? _raw_spin_lock_irqsave+0x85/0xe0
->   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
->   ? __pfx_rxe_sender+0x10/0x10
->   rxe_sender+0xe/0x30
->   do_work+0x144/0x470
->   process_one_work+0x633/0x1030
->   ? assign_work+0x11d/0x370
->   worker_thread+0x45b/0xd10
->   ? __pfx_worker_thread+0x10/0x10
->   kthread+0x2c6/0x3b0
->   ? recalc_sigpending+0x15c/0x1e0
->   ? __pfx_kthread+0x10/0x10
->   ret_from_fork+0x36e/0x5a0
->   ? __pfx_ret_from_fork+0x10/0x10
->   ? __switch_to+0x572/0xdd0
->   ? __pfx_kthread+0x10/0x10
->   ret_from_fork_asm+0x1a/0x30
->   </TASK>
->
-> Allocated by task 146020:
->   kasan_save_stack+0x33/0x60
->   kasan_save_track+0x14/0x30
->   __kasan_slab_alloc+0x6e/0x70
->   kmem_cache_alloc_noprof+0x130/0x360
->   sk_prot_alloc+0x56/0x210
->
-> Fix by clearing the per-net pointer before the last reference is dropped.
 
-Thanks a lot. I also confronted this problem. I fixed this problem with 
-a lock.
+On 9/23/26 13:36, Bjorn Helgaas wrote:
+> On Tue, Sep 08, 2026 at 02:05:58PM -0500, Mario Limonciello wrote:
+>> An issue has been reported by a number of people that corruption
+>> was occurring on storage for desktop systems.  It's notably reported
+>> on SATA, but the same issue also appears on NVME.
+>>
+>> At a glance it looks like an IOMMU issue as turning off the IOMMU helps
+>> the issue, but it's actually a problem that occurs specifically with any
+>> IOVA addressed >58 bits.
+>>
+>> This is because the BIOS on these systems is enabling a feature of the
+>> root port called 'enhanced atomics' which repurposes those upper 5 bits
+>> of address space.  That feature should only be enabled by the BIOS when
+>> the partner device supports it, but it's instead needlessly enabled on a
+>> number of root ports.
+>>
+>> As some of these systems probably won't receive BIOS updates and there is
+>> active reports of data corruption root caused to this add a quirk to
+>> disable it on affected models, and also remove the quirk that was
+>> introduced to work around this issue in drivers/ata.
+>>
+>> v2:
+>>   *  Added resume fixups for the affected AMD PCIe ports
+>>
+>> Mario Limonciello (2):
+>>    x86/PCI: Disable enhanced atomics on some AMD PCIe ports
+>>    Revert "ata: ahci: force 32-bit DMA for JMicron JMB582/JMB585"
+>>
+>>   arch/x86/pci/fixup.c | 99 ++++++++++++++++++++++++++++++++++++++++++++
+>>   drivers/ata/ahci.c   | 18 --------
+>>   2 files changed, 99 insertions(+), 18 deletions(-)
+> 
+> Applied to pci/for-linus for v7.3, thanks!
 
-It seems that this fix is better. If this fix is verified in your test 
-environment,
+Thanks!  Could you add to the commits:
 
-I am ok with this fix.
+Cc: stable@vger.kernel.org
 
-Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
-
-Thanks a lot.
-
-Zhu Yanjun
-
->
-> Fixes: f1327abd6abed ("RDMA/rxe: Support RDMA link creation and destruction per net namespace")
-> Signed-off-by: Binbin Deng <18983559317@163.com>
-> ---
->   drivers/infiniband/sw/rxe/rxe_net.c | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/infiniband/sw/rxe/rxe_net.c b/drivers/infiniband/sw/rxe/rxe_net.c
-> index 53daaf4c1eb2..4153f03ed69a 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_net.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_net.c
-> @@ -638,9 +638,15 @@ static void rxe_sock_put(struct sock *sk,
->   	if (refcount_read(&sk->sk_refcnt) > SK_REF_FOR_TUNNEL) {
->   		__sock_put(sk);
->   	} else {
-> +		/*
-> +		 * Clear the per-net pointer before the last reference is
-> +		 * dropped.  rxe_ns_pernet_sk4/6() returns the pointer to readers
-> +		 * that dereference it outside the RCU read-side critical section,
-> +		 * so it must not stay visible once the socket has entered the
-> +		 * teardown path.
-> +		 */
-> +		set_sk(net, NULL);
->   		rxe_release_udp_tunnel(sk);
-> -		sk = NULL;
-> -		set_sk(net, sk);
->   	}
->   }
->   
-
--- 
-Best Regards,
-Yanjun.Zhu
-
+We should take this back to any non EoL kernel as well.
