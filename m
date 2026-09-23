@@ -1,120 +1,282 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FF1414427
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:11:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD93D41B8D6;
+	Wed, 23 Sep 2026 05:12:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790140275; cv=none; b=SEgHkLyfo1g8/CA6leaqEvsTnaa9p9NjD9CN1KnFsJQECuBBoBRZcbFD+rsvLQC2XwY4kN7BW3fEFhPcCrNUWB6xn1f5jy9Zy75guuj7uB3GgwJuJsUVa4ozk0v28DryXnvBCWdb5e4aUClVYw5YoOWrxLC5MOAzTJwsJXtCdv0=
+	t=1790140337; cv=none; b=tFyIZ2RTAT7PoTz5IRml67htKvFSpMHosESpTBr1FPXRnd/UNgZKcIcdQOzDxXqBmahMU3xPWTHsMhud9527mvFNiUI/DtaMuXe7CaY7IncpKaR8RgXlmOsD9oUjVegeIpzQOeggUi2fbQCUPJwTX2SIvdjm0NWlWIvkIca3U3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790140275; c=relaxed/simple;
-	bh=sylCtSF2MlCfq1b39cak/n9U1b8c8EdsoicVmdhuVhk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AKvxksCG8TsUJ95UmkHN7s5by40+k3gMeKflQrqPlzEdJ/Sh1mjzhGXZaZYM9Oub/KeQOx4FUWizd1GqeZG8dBFQAwaRqVQT4UXmqXoSqvyUPp1DSvM8/kTbewNUqTsjPczP5Cn+Ha5VVzl0UQbopGKuGFxoCVwMfiBLxcnfo3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=morsemicro.com; spf=pass smtp.mailfrom=morsemicro.com; dkim=pass (2048-bit key) header.d=morsemicro-com.20251104.gappssmtp.com header.i=@morsemicro-com.20251104.gappssmtp.com header.b=hkDBI41l; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=morsemicro.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=morsemicro.com
+	s=arc-20240116; t=1790140337; c=relaxed/simple;
+	bh=ccDcc+vtxEOkADHIXag6afqQIkseu9nMQYgDHfiGGew=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OjA/SXoCv+NaZNRw0o5wi7yCa/o4lLUhyoKRV0IE9czqPoE387SK2cL1LbS7104fuSn/JPWK95MivVidJEdRvTXYXd+979nLUeJyx+fVyHCpj4BnKjnHa0ZrO4B8U7GsIAPmtFL6v1/2VGVv+t1FyrbbCGT6FqdjzGWCqCgFvM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WC+Mrlud; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=morsemicro-com.20251104.gappssmtp.com header.i=@morsemicro-com.20251104.gappssmtp.com header.b="hkDBI41l"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85a4329731cso324951b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:11:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=morsemicro-com.20251104.gappssmtp.com; s=20251104; t=1790140273; x=1790745073; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JoQb5pHgIxz8ZF+3NPp5p/PXUFzw+s+TYUg7wlblHUk=;
-        b=hkDBI41lKKn9Chq2Iu1D8GJJOw74FzWgCNOSY/PdPITZrLZW3xjObUtCtGJVBFqRwH
-         3XD2dF+/NzqHHzaYWeAiDhzGHY+ZlJiXZQeOsq9BkjwrowcGGP330es8AI3561KX60RB
-         wtT7Wofg4Xh5hu7ZDx7vwnlaLKvOUM0HIIZxfStpse6UaYabApX9mD7JRM9q/szrrNOG
-         Ic+8LeRz3MG5la3F3w7btJy3RaFEuomDNqSatmG/WopYCzwhrBqChSYJ4QQ2kpRS4zFK
-         gMxOxFFO1dn18enx2GC5ISkwmKNAO0nyUxZtmXy5wQR3tE+/e+R45b8dvfrB+PWCR18F
-         L0CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790140273; x=1790745073;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JoQb5pHgIxz8ZF+3NPp5p/PXUFzw+s+TYUg7wlblHUk=;
-        b=LugDzeMgXozc/Thks3FdPj4V0D7kvyXWreVyGBw7pkI94QV9VGTOwLayJbPF1exTrR
-         Kk3rGlSkf/rT7uYJdtCe9cDvmz3tbW1ugCVcsJSqceqtdjfHHiM4fNT8DKjgVxTWOJ+M
-         yygGCqcRW6ZIurvOaNGNswtu9BX2t9572I1eRWkbhxb+v1cC/X0Ag5FEGR3HnqIRDwp+
-         62tvVZAFq9FVuFu9gwj4hyk/QqhmJnS3WLY47LsYoip/oIrO49NZQ3jxf3i4Y0fsmmfW
-         RXoz2j0lADVUiZyuoZc9VT4kDt6UdPm+aACx54kkdTPtSrfxcYxASf165navlq+P0KLE
-         yRBA==
-X-Forwarded-Encrypted: i=1; AKwUvBw0dXEeJ0+r4msMAh5t7fzxJktwY+6dBzM2PVOulLGZFajxQP+zunr3z1fXSxwPUC7v4DOuPe9wYePCS8g=@vger.kernel.org
-X-Gm-Message-State: AFuF++ng51X+qrHrNbCs3MLYo8Zc0ZG9jyFqtX6sflkwHvfyfj2fcsN6
-	hN+Y9whJgPCDf8yWOafSHvzHFqyU6pOg8wUsE60Jm4lfs0edEjRikvQjW+JSww8rPGc=
-X-Gm-Gg: AYBFou21kcJ5LuuXENNaMnh6WsKn+bzPgH4Bn3Qm/WIxSdv31OJ1bCsEsSleLkVmSf5
-	0QBhMgZ/WOJYDSeVYqWXJN2gpwGA0nFp12f4SM413zZM0oecBxzCOc00B7NCDwjL8zRYTxvekH+
-	orD53U+Wfq+L7OYIXIt3o8o4kMK72V1G6p0+kxZklNlKKzr9YKkDt06uL4DHmKMCBJ4MpwkSmwy
-	aLjgaHiGCY6N0EMxWhtTYulwPewBIxCJ9BsTsS+MDyXOWgQvmVVpYTZ1w5iW+vkM2/gxoLc8ZUh
-	nnnhtjmD8hBMuzT/okSk1NsKXZjzjTmGv8aIcPmUia8uDQ0zv7eDBl9l9EtjgZcIj+wT5llignj
-	aElE9T0+mIRJmlSb9E/Tuw2kgMun5sXQ0JJLi3Drr9De5yc14C0c4eefZT1bSAK3V356j5Omctd
-	uSskbcHcsZSLJQKVL/VqHDx8hSei+Pxs+YLZpI4896IDi44sNlzn4+E3u+zAr5VcFfY1jIU3YZw
-	Iz7OxJDjAn6I4Ly3a3+flgczf58E8MCM2gg9z9DLmoHJVWoI6en+zzFVMb5Rdth2Hj6qys=
-X-Received: by 2002:a05:6a00:761a:b0:87d:3894:197d with SMTP id d2e1a72fcca58-87d3894223amr1197529b3a.40.1790140273603;
-        Tue, 22 Sep 2026 22:11:13 -0700 (PDT)
-Received: from localhost (60-242-93-14.static.tpgi.com.au. [60.242.93.14])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1cfc0a05sm693810b3a.10.2026.09.22.22.11.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 22:11:13 -0700 (PDT)
-Date: Wed, 23 Sep 2026 15:11:10 +1000
-From: Lachlan Hodges <lachlan.hodges@morsemicro.com>
-To: Bill Wendling <morbo@google.com>
-Cc: Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Bryam Vargas <hexlabsecurity@proton.me>, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	llvm@lists.linux.dev, codemender-patching+linux@google.com, johannes@sipsolutions.net, 
-	linux-wireless@vger.kernel.org
-Subject: Re: [PATCH] wifi: ieee80211: annotate struct s1g_tim_enc_block with
- __counted_by_ptr
-Message-ID: <lia5ezt3tyf6vcpe742sel3vz4w2fuxva25uxgnztc7rkftk56@4qrkx22hmx5v>
-References: <20260923045233.2579591-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WC+Mrlud"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E5551F000FF;
+	Wed, 23 Sep 2026 05:12:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790140335;
+	bh=aRCyzmLx4vT9ZmYbf/Bqh7Thxc/Lw7tIP307y1HBKfw=;
+	h=From:To:Cc:Subject:Date;
+	b=WC+MrludsL6f9O6uErmrFVS6pM4Dpzpjx6l6lm2uDapssOPAFVJ5LE7WqsxpmsxWL
+	 QNAKF/ufiprNPGsv7ZxqRLgQLydbIw40xDTZr8oUqd1GEdPfQjQesH5Pz5bPW2R6yM
+	 BoVJhPtEDK8aeGWXMXkKuRAA9dAOxPEdWehqAC0klP4x72ZICbgSrcNzU6Qn1MZ02q
+	 xdRcFF+mR5AWLBYT/Z+tlFQPHjxwbciwGfb+sTXp9n7F9vhIf52GwjILuybjHYGeI5
+	 N4lpdw3krkIJf6lpmzLGpnsbwgeQjTXUvLr3CTW1ogM8iuo9tYrWxbIvDi3uER3bRE
+	 MDS+tl4NF41NQ==
+From: Eric Biggers <ebiggers@kernel.org>
+To: linux-crypto@vger.kernel.org,
+	Herbert Xu <herbert@gondor.apana.org.au>
+Cc: linux-kernel@vger.kernel.org,
+	Tero Kristo <t-kristo@ti.com>,
+	Keerthy <j-keerthy@ti.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] crypto: sa2ul - Fix HMAC key preparation
+Date: Tue, 22 Sep 2026 22:11:16 -0700
+Message-ID: <20260923051116.92741-1-ebiggers@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923045233.2579591-1-morbo@google.com>
+Content-Transfer-Encoding: 8bit
 
-+CC Johannes
+sa_prepare_iopads() has multiple bugs, as discussed at
+https://lore.kernel.org/linux-crypto/20260831055141.1632832-1-s-vadapalli@ti.com/T/#u
 
-On Wed, Sep 23, 2026 at 04:52:33AM +0000, Bill Wendling wrote:
-> The GCC and Clang compilers support the "__counted_by_ptr" attribute on
-> pointer fields to associate them with an element count in the same
-> struct. This enables KASAN and UBSan bounds checking to detect
-> out-of-bounds accesses to the pointer.
-> 
-> In "include/linux/ieee80211-s1g.h", "struct s1g_tim_enc_block" has a
-> pointer member "ptr" of type "const u8 *" whose size is described by the
-> "len" member, which is correctly populated with the size of the buffer
-> before any pointer dereferences.
-> 
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
-> ---
->  include/linux/ieee80211-s1g.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/ieee80211-s1g.h b/include/linux/ieee80211-s1g.h
-> index 3f9626ad3d97..8f6107782c38 100644
-> --- a/include/linux/ieee80211-s1g.h
-> +++ b/include/linux/ieee80211-s1g.h
-> @@ -349,7 +349,7 @@ struct s1g_tim_aid {
->  struct s1g_tim_enc_block {
->  	u8 enc_mode;
->  	bool inverse;
-> -	const u8 *ptr;
-> +	const u8 *ptr __counted_by_ptr(len);
->  	u8 len;
+- Commit 3bf533787910 ("crypto: sha256 - Use the partial block API")
+  introduced a 1-byte buffer overflow in the SHA-256 case by making the
+  crypto_shash_export() write 1 more than sizeof(struct sha256_state).
 
-Sure
+- It never worked for HMAC keys longer than 64 bytes in the first place.
 
-Reviewed-by: Lachlan Hodges <lachlan.hodges@morsemicro.com>
+Fix both of these bugs by just using the crypto library to prepare the
+key, like what the chelsio and qat drivers do.  Also remove the
+pointless use of an indirect call.
+
+Fixes: 3bf533787910 ("crypto: sha256 - Use the partial block API")
+Fixes: d2c8ac187fc9 ("crypto: sa2ul - Add AEAD algorithm support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+---
+ drivers/crypto/sa2ul.c | 121 +++++++++--------------------------------
+ 1 file changed, 27 insertions(+), 94 deletions(-)
+
+diff --git a/drivers/crypto/sa2ul.c b/drivers/crypto/sa2ul.c
+index 0dce2b98886a8..b014350a3da0a 100644
+--- a/drivers/crypto/sa2ul.c
++++ b/drivers/crypto/sa2ul.c
+@@ -125,9 +125,7 @@ struct sa_cmdl_cfg {
+  * @mci_enc: Mode Control Instruction for Encryption algorithm
+  * @mci_dec: Mode Control Instruction for Decryption
+  * @inv_key: Whether the encryption algorithm demands key inversion
+- * @ctx: Pointer to the algorithm context
+  * @keyed_mac: Whether the authentication algorithm has key
+- * @prep_iopad: Function pointer to generate intermediate ipad/opad
+  */
+ struct algo_data {
+ 	struct sa_eng_info enc_eng;
+@@ -141,10 +139,7 @@ struct algo_data {
+ 	u8 *mci_enc;
+ 	u8 *mci_dec;
+ 	bool inv_key;
+-	struct sa_tfm_ctx *ctx;
+ 	bool keyed_mac;
+-	void (*prep_iopad)(struct algo_data *algo, const u8 *key,
+-			   u16 key_sz, __be32 *ipad, __be32 *opad);
+ };
+ 
+ /**
+@@ -381,86 +376,36 @@ static void sa_swiz_128(u8 *in, u16 len)
+ 	}
+ }
+ 
+-/* Prepare the ipad and opad from key as per SHA algorithm step 1*/
+-static void prepare_kipad(u8 *k_ipad, const u8 *key, u16 key_sz)
++static void sa_prepare_iopads(struct algo_data *data, const u8 *key, u16 key_sz,
++			      __be32 *ipad, __be32 *opad)
+ {
+-	int i;
+-
+-	for (i = 0; i < key_sz; i++)
+-		k_ipad[i] = key[i] ^ 0x36;
+-
+-	/* Instead of XOR with 0 */
+-	for (; i < SHA1_BLOCK_SIZE; i++)
+-		k_ipad[i] = 0x36;
+-}
+-
+-static void prepare_kopad(u8 *k_opad, const u8 *key, u16 key_sz)
+-{
+-	int i;
+-
+-	for (i = 0; i < key_sz; i++)
+-		k_opad[i] = key[i] ^ 0x5c;
+-
+-	/* Instead of XOR with 0 */
+-	for (; i < SHA1_BLOCK_SIZE; i++)
+-		k_opad[i] = 0x5c;
+-}
+-
+-static void sa_export_shash(void *state, struct shash_desc *hash,
+-			    int digest_size, __be32 *out)
+-{
+-	struct sha1_state *sha1;
+-	struct sha256_state *sha256;
+-	u32 *result;
+-
+-	switch (digest_size) {
+-	case SHA1_DIGEST_SIZE:
+-		sha1 = state;
+-		result = sha1->state;
++	union {
++		struct hmac_sha1_key sha1;
++		struct hmac_sha256_key sha256;
++	} k;
++
++	switch (data->aalg_id) {
++	case SA_AALG_ID_HMAC_SHA1:
++		hmac_sha1_preparekey(&k.sha1, key, key_sz);
++		cpu_to_be32_array(ipad, k.sha1.istate.h,
++				  ARRAY_SIZE(k.sha1.istate.h));
++		cpu_to_be32_array(opad, k.sha1.ostate.h,
++				  ARRAY_SIZE(k.sha1.ostate.h));
+ 		break;
+-	case SHA256_DIGEST_SIZE:
+-		sha256 = state;
+-		result = sha256->state;
++	case SA_AALG_ID_HMAC_SHA2_256:
++		hmac_sha256_preparekey(&k.sha256, key, key_sz);
++		cpu_to_be32_array(ipad, k.sha256.key.istate.h,
++				  ARRAY_SIZE(k.sha256.key.istate.h));
++		cpu_to_be32_array(opad, k.sha256.key.ostate.h,
++				  ARRAY_SIZE(k.sha256.key.ostate.h));
+ 		break;
+ 	default:
+-		dev_err(sa_k3_dev, "%s: bad digest_size=%d\n", __func__,
+-			digest_size);
++		dev_err(sa_k3_dev, "%s: bad aalg_id=%d\n", __func__,
++			data->aalg_id);
+ 		return;
+ 	}
+ 
+-	crypto_shash_export(hash, state);
+-
+-	cpu_to_be32_array(out, result, digest_size / 4);
+-}
+-
+-static void sa_prepare_iopads(struct algo_data *data, const u8 *key,
+-			      u16 key_sz, __be32 *ipad, __be32 *opad)
+-{
+-	SHASH_DESC_ON_STACK(shash, data->ctx->shash);
+-	int block_size = crypto_shash_blocksize(data->ctx->shash);
+-	int digest_size = crypto_shash_digestsize(data->ctx->shash);
+-	union {
+-		struct sha1_state sha1;
+-		struct sha256_state sha256;
+-		u8 k_pad[SHA1_BLOCK_SIZE];
+-	} sha;
+-
+-	shash->tfm = data->ctx->shash;
+-
+-	prepare_kipad(sha.k_pad, key, key_sz);
+-
+-	crypto_shash_init(shash);
+-	crypto_shash_update(shash, sha.k_pad, block_size);
+-	sa_export_shash(&sha, shash, digest_size, ipad);
+-
+-	prepare_kopad(sha.k_pad, key, key_sz);
+-
+-	crypto_shash_init(shash);
+-	crypto_shash_update(shash, sha.k_pad, block_size);
+-
+-	sa_export_shash(&sha, shash, digest_size, opad);
+-
+-	memzero_explicit(&sha, sizeof(sha));
++	memzero_explicit(&k, sizeof(k));
+ }
+ 
+ /* Derive the inverse key used in AES-CBC decryption operation */
+@@ -544,7 +489,7 @@ static void sa_set_sc_auth(struct algo_data *ad, const u8 *key, u16 key_sz,
+ 
+ 	/* Copy the keys or ipad/opad */
+ 	if (ad->keyed_mac)
+-		ad->prep_iopad(ad, key, key_sz, ipad, opad);
++		sa_prepare_iopads(ad, key, key_sz, ipad, opad);
+ 	else {
+ 		/* basic hash */
+ 		sc_buf[1] |= SA_BASIC_HASH;
+@@ -1697,8 +1642,7 @@ static void sa_aead_dma_in_callback(void *data)
+ 	aead_request_complete(req, err);
+ }
+ 
+-static int sa_cra_init_aead(struct crypto_aead *tfm, const char *hash,
+-			    const char *fallback)
++static int sa_cra_init_aead(struct crypto_aead *tfm, const char *fallback)
+ {
+ 	struct sa_tfm_ctx *ctx = crypto_aead_ctx(tfm);
+ 	struct sa_crypto_data *data = dev_get_drvdata(sa_k3_dev);
+@@ -1707,12 +1651,6 @@ static int sa_cra_init_aead(struct crypto_aead *tfm, const char *hash,
+ 	memzero_explicit(ctx, sizeof(*ctx));
+ 	ctx->dev_data = data;
+ 
+-	ctx->shash = crypto_alloc_shash(hash, 0, CRYPTO_ALG_NEED_FALLBACK);
+-	if (IS_ERR(ctx->shash)) {
+-		dev_err(sa_k3_dev, "base driver %s couldn't be loaded\n", hash);
+-		return PTR_ERR(ctx->shash);
+-	}
+-
+ 	ctx->fallback.aead = crypto_alloc_aead(fallback, 0,
+ 					       CRYPTO_ALG_NEED_FALLBACK);
+ 
+@@ -1744,14 +1682,12 @@ static int sa_cra_init_aead(struct crypto_aead *tfm, const char *hash,
+ 
+ static int sa_cra_init_aead_sha1(struct crypto_aead *tfm)
+ {
+-	return sa_cra_init_aead(tfm, "sha1",
+-				"authenc(hmac(sha1),cbc(aes))");
++	return sa_cra_init_aead(tfm, "authenc(hmac(sha1),cbc(aes))");
+ }
+ 
+ static int sa_cra_init_aead_sha256(struct crypto_aead *tfm)
+ {
+-	return sa_cra_init_aead(tfm, "sha256",
+-				"authenc(hmac(sha256),cbc(aes))");
++	return sa_cra_init_aead(tfm, "authenc(hmac(sha256),cbc(aes))");
+ }
+ 
+ static void sa_exit_tfm_aead(struct crypto_aead *tfm)
+@@ -1759,7 +1695,6 @@ static void sa_exit_tfm_aead(struct crypto_aead *tfm)
+ 	struct sa_tfm_ctx *ctx = crypto_aead_ctx(tfm);
+ 	struct sa_crypto_data *data = dev_get_drvdata(sa_k3_dev);
+ 
+-	crypto_free_shash(ctx->shash);
+ 	crypto_free_aead(ctx->fallback.aead);
+ 
+ 	sa_free_ctx_info(&ctx->enc, data);
+@@ -1785,7 +1720,6 @@ static int sa_aead_setkey(struct crypto_aead *authenc,
+ 	if (key_idx >= 3)
+ 		return -EINVAL;
+ 
+-	ad->ctx = ctx;
+ 	ad->enc_eng.eng_id = SA_ENG_ID_EM1;
+ 	ad->enc_eng.sc_size = SA_CTX_ENC_TYPE1_SZ;
+ 	ad->auth_eng.eng_id = SA_ENG_ID_AM1;
+@@ -1795,7 +1729,6 @@ static int sa_aead_setkey(struct crypto_aead *authenc,
+ 	ad->inv_key = true;
+ 	ad->keyed_mac = true;
+ 	ad->ealg_id = SA_EALG_ID_AES_CBC;
+-	ad->prep_iopad = sa_prepare_iopads;
+ 
+ 	memset(&cfg, 0, sizeof(cfg));
+ 	cfg.enc = true;
+
+base-commit: a9a2152d292fd0bc73814eb4a127278ee7dd3f6a
+-- 
+2.55.0
+
