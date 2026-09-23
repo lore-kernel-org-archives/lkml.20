@@ -1,116 +1,98 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EF844238B;
-	Wed, 23 Sep 2026 09:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9CF947D452
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:41:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156502; cv=none; b=A8qS3f2pVVfWg8BkVMkG5wVDd2pbS9Ocx87TiqodRz+8HWaq1Dmla62uDRBi7AQaVRsdjHXed8ghN3l44T75FU+o9llu9DV+kNFRTj0O6T4j0uXKAVC0/Gzrgv6bJ6/ezM6xcMDsLgUjj2OS+pyS68ed4xDlZ3tONDflw9Ck6IA=
+	t=1790156507; cv=none; b=lFeMNdxQ7oG9TH1kenIEigLXQEL/TNFDEP6bDPoDV9KPlmrMSa2YXOi6PC57Cmq4u889DebkBnwti3oREJGdN/gm14leVo85MKzF7nmbowjfc/E18tGT1v6y4mBJW+XXXdQYLSYRHBd5OIMQQhiQZHDLVfTOjmAFfvbH2c83tUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156502; c=relaxed/simple;
-	bh=H7g9+yDN3x5kwltj5KPOLI2Ok2pctzcjorpZkubHj0o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=imkCAxQggVyt9jDqmCCiIvJfQCAMNhLkHJB+MyVU2BeZpI/kh4PDmIHe1knTL3Vdjp3FgIM5/CX/ZEwOrithJ+fZgE7E7KOl1TPiiTdvx5TRAyN+/KS0rPv8FPkKrSdJDt7v5/IQdsaTVdJ/zjnYAtXO3xgbb53+us/a8BQe+TQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OLRLlN9l; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1790156507; c=relaxed/simple;
+	bh=UxFboLT3/CD8oM/4D1o7HhX26fNhcRUtc19vZW8uABU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ym13WnzYh7CbFAQHVJ5ZgbfQ9LNbGxfm/75yWAwpgtqsJdbLrJx+phQK82ENT8vb0SBUgudIv3lparWvCyuvxQSEZF6BjJ1QBRYaahSj2XaobaTGTfB3wqhvSMsmeiwAaF73klXoQ6/NurAabNHYH+WWKIHGkrmtF0YiNLsGSS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5i+AP0v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OLRLlN9l"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DD1F94E40ED1;
-	Wed, 23 Sep 2026 09:41:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 941C460580;
-	Wed, 23 Sep 2026 09:41:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 11D91103293EF;
-	Wed, 23 Sep 2026 11:41:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1790156495; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=14/vh+QzZPhsx5uvQM0Uz7p1ZDkGwAb8ilKyyQwVJng=;
-	b=OLRLlN9lAltV/1QbWWGR8Pkwn1w2rOSYmM9jOs/uT+NrrfciKSQQCasv29uuO5DEMaFR58
-	kiPMFvNV8H6IE3jBlcPiiCjNNx/R/Nqr7q04XX0GiAX23f/h6yviJEx+jFfsPPAqEmwuyY
-	a4SYRoP6aAFTY11A/ccCU1un7OFtTElsmd2lrlkZC5q9iPcW9SWiZ2VatsdINJfOxhKkgm
-	E3GL4eyV5t89ETSfKPYSgaPcJGOaWJlASpKxlHRm6aZhaBnOD95TDLcy11Cl565UDL4dnK
-	Z7zC92+KvlCltjZzeUQtLgh1HOnkzmlDpGYVQ6ysLRtkFvkjkVGCoyg1+HiMbg==
-Message-ID: <5135e15d-b6ac-476c-9a7d-b7d64e4eed5c@bootlin.com>
-Date: Wed, 23 Sep 2026 11:41:14 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5i+AP0v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E723B1F00893;
+	Wed, 23 Sep 2026 09:41:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790156505;
+	bh=KIWCajMiURS7WRviggJnv1QIOiNyOS+SklvACs0UUxw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K5i+AP0vSJzauqGLuX7zaQXc7Xfnmx4LtWEbRZKy0GpiMpyb0AVRC6XoyDJ+emV/y
+	 utNMYE9v9JirXDG72k+gGY3SOtkLQ40VrbcY34FEwYUbxegwTfZelrUAfPWKsy6Wmp
+	 UKIDUP9orIPONpumQf6tRWfbCfGj9gtL00fAqxmVQ6b85prFiuhVG1dbgCynfnp4vj
+	 Joae53lL2scx/qEPbJmh4cv1ffiixZ99/T/C67CkdZ6rKOLdzx9jxgbEwzCqmfzvaG
+	 ciO/SSPXvFp908BHh3+DRQ9JkqZZHN3vHGK5p35Fm56mexkCVwjkaDfAVf7KpgrMkM
+	 2ddThT4F2f0+w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] mtd: maps: add INT0800 firmware-flash map driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stephen Bancroft" <stevereaver@gmail.com>, linux-mtd@lists.infradead.org
+Cc: "Richard Weinberger" <richard@nod.at>, linux-kernel@vger.kernel.org, "Vignesh
+ Raghavendra" <vigneshr@ti.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
+In-Reply-To: <20260923092626.873202-1-stevereaver@gmail.com>
+References: <20260921021459.283023-1-stevereaver@gmail.com>
+ <20260923092626.873202-1-stevereaver@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 09:41:44 +0000
+Message-Id: <20260923094144.E723B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC net-next 0/9] net: introduce Qualcomm XPCS support and
- add Nord Ethernet plumbing
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Serge Semin <fancer.lancer@gmail.com>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>,
- Richard Cochran <richardcochran@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Coia Prant
- <coiaprant@gmail.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
- "Jose.Abreu@synopsys.com" <Jose.Abreu@synopsys.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
- Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
- Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mtd: maps: UAF of mtd_info and I/O memory on device unregistration
+--
 
-On 9/23/26 03:07, Mohd Ayaan Anwar wrote:
-> Hi,
-> 
-> This is an early RFC which adds the XPCS and ETHQOS plumbing required
-> to enable 10 Gigabit Ethernet on the Qualcomm Nord SoC. This is the
-> first time USXGMII together with an external PCS is being supported by
-> the dwmac-qcom-ethqos driver.
+commit ad3016fe3893b23f61acf9f96913ff51726ac3a0
+Author: Stephen Bancroft <stevereaver@gmail.com>
 
-There are currently 3 in-flight series that adds glues to DW XPCS and stmmac: 
+mtd: maps: add INT0800 firmware-flash map driver
+   =20
+Add a read-only mapping driver that binds the ACPI INT0800 "Intel
+82802 firmware hub" device and exposes the system firmware flash as an
+MTD ROM device.
 
-This one,
-The Rockchip one from Coia [1]
-The S32 one from Jan [2]
+> diff --git a/drivers/mtd/maps/int0800.c b/drivers/mtd/maps/int0800.c
+> new file mode 100644
+> index 0000000000000..c5f108aa34797
+> --- /dev/null
+> +++ b/drivers/mtd/maps/int0800.c
 
+[ ... ]
 
-[1] : https://lore.kernel.org/netdev/20260922200336.2201212-1-coiaprant@gmail.com/
-[2] : https://lore.kernel.org/netdev/20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com/
+> +static void int0800_remove(struct platform_device *pdev)
+> +{
+> +	struct int0800 *fw =3D platform_get_drvdata(pdev);
+> +
+> +	mtd_device_unregister(fw->mtd);
+> +	map_destroy(fw->mtd);
 
-MAINTAINERS entry for XPCS says :
+[Severity: High]
+Does this teardown path force a use-after-free if the device is removed
+while a file descriptor is open?
 
-SYNOPSYS DESIGNWARE ETHERNET XPCS DRIVER
-L:      netdev@vger.kernel.org          
-S:      Orphan                          
-F:      drivers/net/pcs/pcs-xpcs.c      
-F:      drivers/net/pcs/pcs-xpcs.h      
-F:      include/linux/pcs/pcs-xpcs.h    
+While the driver sets .suppress_bind_attrs =3D true to prevent manual sysfs
+unbinds, the driver core can still invoke remove() when the underlying
+device is unregistered. This can happen if root unbinds the parent bridge
+in sysfs, or via ACPI SSDT unloading.
 
-It would nice if some of you could help maintain the core XPCS driver, and make sure
-these series aren't stepping on one another :( I personnaly don't have any XPCS HW
-for tests.
+If int0800_remove() is invoked while userspace holds an open file
+descriptor, mtd_device_unregister() puts the kref but does not release
+the struct device because the character device retains an active reference.
 
-You don't have to do it alone, multiple people can co-maintain that :) Maybe
-Synopsys folks can also chime in ?
+Unconditionally calling map_destroy(fw->mtd) then frees the mtd_info
+structure. Could subsequent /dev/mtd0 reads or sysfs accesses dereference
+this freed memory and access unmapped devm I/O memory?
 
-Maxime
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923092626.8732=
+02-1-stevereaver@gmail.com?part=3D1
