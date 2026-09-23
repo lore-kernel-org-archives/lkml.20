@@ -1,122 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2845328AD
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:13:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790190792; cv=none; b=W70KLGFY/kWUfnoszEAdIZEq7GWSLq1LFyBQ8JiX6zLp7iJ6cDv595klGe0ycbqCN4xp/m9na5N1AbCR9hsivMiXrsUl5JHhA3nHpyVPE6/K54zbALQVoCR2PD/daqod1fZhxhFp3CJ9sTlmFFYytjCe1Y116CU+IEoBHxgoAFo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790190792; c=relaxed/simple;
-	bh=QkMRJqPJl7ePcYGGV7fY2eFNdHZRVJFUL4xJqCIlvU8=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC0A40D574
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790190883; cv=pass; b=KUWK1BsiJDy17JpHovNkbtyRWOgpsScPxaLhIUqfNuAXb/tq4/syo2R/tsoCH1CBkZnR8eCL4bPUp7MOKiFNeZ854KWp4gUBs6J6Ehd7INNdT6gACYz/rlT5jmy3w8atn+CdKm3B644u2FfDOQrO7hwhjcvegBHYHXe0fov5XsM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790190883; c=relaxed/simple;
+	bh=7gPCH1FawZYUr4HVUW56LhKmqq4sdZ/hZDa7tEp9rEU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rumM14LLKZ853a3A9Ej5FDKvAHX+MvcwkE4zgxDZKeMPmzv00Ro1NJsJrGKp9lWDLLN7N0FwCQqJ3ZlZheId17bpHra3KsNpOTukhaOCUDgD2Y1SaouWfzZ1TtUa7WBHNa3swLvN7cCKDvBsdKnzwJufxdH4S0tVxQXwFYW+0co=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8DGJ3tt; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=DNZ1aVjcBsy6eshXZx0z0VAUxmWAd3J1162yos/82QGglT9SHEnNr6TOUVQyEb/0+hisO2rIHHid+eOJgtsPr7clHbEcJBQzIdvIyt0GbdyLT7g1aEmcM6NT32ufSaN9wkkNbTchTdxwPKRMhYK3zTM7AQXtgRjS8g8Rh4ZDxpc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PN6/y9qs; arc=pass smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8DGJ3tt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E3B1F00899
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:13:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790190790;
-	bh=I76f4OHyDlcX5rVdz+1/GZlzDhbdolScIBFIjAnh+HA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=L8DGJ3tt3GYF2k6tfb6Ccw8S91G7x148MzspOh6k+eauNkAAOz3oV5gZuvUEbDo4w
-	 UkIdvB8Ffh7FG4n/WPMkRspVMz0+WGzeAXMY7Xa3Hfqc/VOqC+ZXpGpmYqC7UjLbWP
-	 g+SlNwnSpgZNeC9hoVItl64tKSl7Yr/0O5EbSK5pYZR57rvKL+REZVlvjxxqt79bH+
-	 o8xhOciG2Q4d6XODDqUU2ZpgR9K1kc1qrCK92GV8dP6ZgHuwGiN/0zUXd9fFUp9qtA
-	 WVtZaFz7480LHw4TXf2MVLCVXRKFs73gLUilFAriYNO+4DrHjNrEcVkAPaRSTnAGC3
-	 ZIrZoZxNPZzRA==
-Received: by mail-lr2-f30.google.com with SMTP id 38308e7fff4ca-3a318299b38so12118681fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:13:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzdjvkgDm0fHUAhlBCuwa141Ghu5wRYUiErV0eZQdwOlruXVf9zXjW7hNwt3eCo5s1eA6lHgUdIgi4vgfo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPmzcBUZNTF/PQerF2x3+7c3plElCFZs1WylDhh17xEqYHrLb5
-	odUJkOPkxGRt6FhYnZQb4/gWY1WxcrSIhPgQwOulPaDiygI4aiiOiLBY3AKEUbWvUDGsTRkSdBe
-	Is95H6pBZfJV4UBfozCaofmbdlq4zdrk=
-X-Received: by 2002:a2e:be90:0:b0:3a1:b658:feac with SMTP id
- 38308e7fff4ca-3a63c0df7a6mr418261fa.13.1790190788472; Wed, 23 Sep 2026
- 12:13:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PN6/y9qs"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52f9fc510e1so1254211cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:14:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790190880; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fbM0SR2/tXlPWPORhIpkPqfNwS/rlcQzs5ANXgF1NGJCwLl+vszU77sZlfiN6e/9Yb
+         ZhDWQkO3JxIhl2WTeigTGmDvXZQE132VgTL6wyZd16F3bGQtJEnQJ0DZgBKMkasLSkxj
+         GUNQGLi7oaE5pM0Acoir0x12uEWXZzJ04fwmIgCiK8VGox0LqgeqxiQAo8UpuE1yuBtG
+         H+Wm2rsBRHQ5gxTY92FzVJaZd9kenPwxXsG+16wFdy1a/eK50x7xxPcnvCFZQqj49viO
+         Gek2kNXG/mcN9Ugj5edIeNNDglvZaeyYNZsID59TddATnvwJHlWn+isAY6rIYVu77Ti0
+         MsrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7gPCH1FawZYUr4HVUW56LhKmqq4sdZ/hZDa7tEp9rEU=;
+        fh=1soW5h6FZNyeE3HeQnwte29LMpCYJY3j2BbHWkoNqZY=;
+        b=UUSWfGbR8nx3p+iVLp4b7IxRHpbcX6F+MHPyJ77zh8BEWhuWCfOSEcZTXR2PJx/2Ec
+         cUFXtZ8OV1dpSziiWnyLf2QgIh3EfnqIQsM4EOsR7bpHW45K8Ln9papOwZgM4o/fAApR
+         ZeX17vBp/WzCFqZxjAPjeRyYQTSKHnpGWJGdWQrCK2P2nRryxO2rg4T5V0Ogb3tw5Ih3
+         ZUZ7ZTyYGp9Wxt1Xwma472ZWY1B5STXWqF+flLBkpvot3cC4PdV3jGsU+79GpIcpSBZf
+         bSIO5FTFSrQ3WfoqXhkF9ttZczO+b3yGQUDZlywOzhyIgV5ydvrLshPK/PPYew+jPjyL
+         VKpg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790190880; x=1790795680; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7gPCH1FawZYUr4HVUW56LhKmqq4sdZ/hZDa7tEp9rEU=;
+        b=PN6/y9qsQJrB4EqOwn8c1Bbz7EoraFGwL3VZnlCG8TVJ4sZ+uCfICKKOORm0DRvGzf
+         zdrNOTG7UKDaQ7Kt6fR0tKYcqpbgMj6DxubsD+KX+saUnnMtJzc4KLceNgspEQUWge9a
+         vzyRWiAuFBNM4dRsHw/HBH3XF6vtiWoGtFLKhb2yFaSwyZ7w9rsqgqXJ3eyaIRoQ2I88
+         kr7uSVLlgUZMGBtRD+O18htCpxTdNl/w/hwyeqRP4qF4XJ+GcZfVFGsbtiv/RbYcT8It
+         WP/e0q2gGoRQ+Oj3EFOrvY4Z3tG60yOf8/IS8K+/orOvEo/a51h6ZE9dE4Yx8Fc0Wu0q
+         ph1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790190880; x=1790795680;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7gPCH1FawZYUr4HVUW56LhKmqq4sdZ/hZDa7tEp9rEU=;
+        b=FN8b04XrElT8FnE1KoaANLzbjK6TCXgBEqMMQZlF6eMPQN3MYBknUbbLT03zdMiEvv
+         DjrIPKpRVYtixYlnDnvO/Ib63pu68DhMe7p+oYUgOFxex1uL+rTNUMB0f5AYrWOGIJM/
+         LuzaN33nQbK5IVqnTZqWcWhOhXSnWbF3WXloFMwla5iPisc+kQf35HnbfbTFPd51Ywup
+         1IQ11v1s3pq6D4FCaKx9h00CYq8MTNv57Sd1EmaSJzxGUr1kFFf19Y8BNCpbPQAgrvwE
+         qEo071nzPnMslyZ2E0XgThgs3COj5oaoU4aQyUegaOkZpN0aooqr5EYQ/4U1G6lC+flb
+         Bctg==
+X-Forwarded-Encrypted: i=1; AKwUvBzgdEfMp4KnughEXXZ1pmpiTEURAhZfm2/bLxYmVPiTCzNzmKKiO5WgNczszLPuVuoW2RZZ447NgcFldjk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBLJNghCN1c+9iKpQLjAhNMdSxb+4k58rv4lecPen6GlS+1sjp
+	7Ai2RNBF79ijeZwn91KPl4ne3Hfm5cU4aFf5K5vWYOpiI8Rw6KT5zUL4OvOQUsmCtaIQTXamHsy
+	BJOv7yjnE5vD3nb/nE6rjwVV4jgrbLJo=
+X-Gm-Gg: AYBFou1bDYmU96OsOU38QS0IrUBpMe8Ylxz+ZLNu0c4jkW6Nm5Doy0VrE3VUfq/1tC/
+	H0KUMkqQKBrWFwbRFsZ6OriB92PQdreykAIE6cLvdHDObsRLFp2RjGl2lGxywwtxL4PGTmH2DAb
+	f0e3Xg4aIoVFyBbBscIs5kYP5bSjB6hmdCWeODk8T6zJMYx6Sv2rTiBmtiJ/m1+wKKl/+akjiRI
+	R33PBy4goic4kq+zeB6pokZoESaYLKl47xISc+Bsz8BnNgRZdFV7+qZjrQpgjE+tMLF3oJN8/JZ
+	fPcKs8qGw01cDvOVNFFjVNSLK3SHC44Ed4/Kp/pbpOL18r+8vwN0uKWV05Ns9qr2/juTJBVrH8Q
+	qSP3nYZ6Q0JAaR5sWxkIr/juUNVwmqRo=
+X-Received: by 2002:a05:622a:408c:b0:531:2087:63a7 with SMTP id
+ d75a77b69052e-532fb7485afmr1858331cf.19.1790190880383; Wed, 23 Sep 2026
+ 12:14:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6329043.lOV4Wx5bFT@rafael.j.wysocki> <SN6PR02MB41577ECCDB3E757B8859AE7FD4822@SN6PR02MB4157.namprd02.prod.outlook.com>
- <CAJZ5v0juW=oum7jULzHeTbaG2Ame=ge3nitsKDz_05Xs6wQqZA@mail.gmail.com>
- <CAJZ5v0gG30TSY=di+TULEvbB3GxxFNcLvx=xT2i1aFgfiNjnmA@mail.gmail.com> <CAJZ5v0i_SO7yJSQMJqENVnO1cYbkCSHzwzkO4EvxbriNQ_ksGQ@mail.gmail.com>
-In-Reply-To: <CAJZ5v0i_SO7yJSQMJqENVnO1cYbkCSHzwzkO4EvxbriNQ_ksGQ@mail.gmail.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 23 Sep 2026 21:11:34 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gt8+tRT92y3hPnGXmFvpG1AfqvFC6jRbfV6gxGMy8e1g@mail.gmail.com>
-X-Gm-Features: AclHuK8Jy2YHw6VOFjUIhdVb8r-z2f9I08RuDXiI3nHZDK0KyDP9zyBNWmx2rOc
-Message-ID: <CAJZ5v0gt8+tRT92y3hPnGXmFvpG1AfqvFC6jRbfV6gxGMy8e1g@mail.gmail.com>
-Subject: Re: [PATCH v2] driver core/ACPI: Introduce companion_bus_register()
-To: Michael Kelley <mhklinux@outlook.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Linux on Hyper-V List <linux-hyperv@vger.kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, 
-	Linux Driver Core Development <driver-core@lists.linux.dev>
+References: <20260915150739.284189-1-daniel@iogearbox.net> <20260915150739.284189-5-daniel@iogearbox.net>
+ <CAHC9VhR2Zp9LzDRwDOZoesOC7o8hretfgRH-PRqQRXA0EES2vA@mail.gmail.com>
+In-Reply-To: <CAHC9VhR2Zp9LzDRwDOZoesOC7o8hretfgRH-PRqQRXA0EES2vA@mail.gmail.com>
+From: David Windsor <dwindsor@gmail.com>
+Date: Wed, 23 Sep 2026 15:14:28 -0400
+X-Gm-Features: AclHuK9d5OdaJO5Ll7iOJ6jpvdM_SUqGbTaoCVRmfsl2t7C9t_IuciwujiuXmkw
+Message-ID: <CAEXv5_g1XQAwsydnbu9SUvxNBdYQf+xXjPaZMeC8hxgfThP+pw@mail.gmail.com>
+Subject: Re: [PATCH bpf-next 4/8] bpf, lsm: Let BPF LSM provide xattrs at
+ inode creation
+To: Paul Moore <paul@paul-moore.com>
+Cc: Daniel Borkmann <daniel@iogearbox.net>, alexei.starovoitov@gmail.com, brauner@kernel.org, 
+	john.fastabend@gmail.com, memxor@gmail.com, kpsingh@kernel.org, 
+	matt@bobrowski.net, bpf@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 8:50=E2=80=AFPM Rafael J. Wysocki (Intel)
-<rafael@kernel.org> wrote:
+On Wed, Sep 23, 2026 at 12:57=E2=80=AFPM Paul Moore <paul@paul-moore.com> w=
+rote:
+> @David, simply for my own understanding, did you ask Daniel to do
+> this, or was Daniel operating on his own with this patchset?
 >
-> On Wed, Sep 23, 2026 at 8:31=E2=80=AFPM Rafael J. Wysocki (Intel)
-> <rafael@kernel.org> wrote:
-> >
-> > On Wed, Sep 23, 2026 at 7:32=E2=80=AFPM Rafael J. Wysocki (Intel)
-> > <rafael@kernel.org> wrote:
-> > >
-> > > On Wed, Sep 23, 2026 at 7:06=E2=80=AFPM Michael Kelley <mhklinux@outl=
-ook.com> wrote:
-> > > >
-> > > > From: Rafael J. Wysocki <rafael@kernel.org> Sent: Wednesday, Septem=
-ber 9, 2026 9:41 AM
-> > > > >
-> > > > > The ACPI bus type does not allow drivers to be registered, so the=
- sysfs
-> > > > > attributes related to drivers created for it and its devices are
-> > > > > useless, and its drivers/ directory is always empty.  All of that=
- is
-> > > > > confusing and wasteful.
-> > > > >
-> > > > > To allow skipping the creation of those sysfs attributes, introdu=
-ce a
-> > > > > "companion" bus type concept and add a special registration funct=
-ion for
-> > > > > registering "companion" bus types, companion_bus_register().
-> > > > >
-> > > > > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> > > >
-> > > > As a heads up, this patch breaks Linux guests booting on Hyper-V.
-> > > > Something goes wrong in the VMBus driver getting loaded and
-> > > > initialized (drivers/hv/vmbus_drv.c).
-> > >
-> > > This patch doesn't affect anything except for bus registration and
-> > > driver addition and lookup for the ACPI bus type.
-> > >
-> > > > It may be that the VMBus
-> > > > driver is doing something wrong or making an invalid assumption.
-> > > > I'll debug the problem today or tomorrow, but any insight you can
-> > > > offer would be appreciated. I'm working with linux-next20260921.
-> > >
-> > > No idea what's going on.
-> >
-> > Actually, you may try to restore the stub .match() callback for
-> > acpi_bus_type because the lack of it causes 1 to be returned by
-> > driver_match_device(), so if any driver points to acpi_bus_type as its
-> > bus by mistake, the check will now succeed.
->
-> Which shouldn't matter though because driver_match_device() is only
-> called in 3 places and none of them is reachable for acpi_bus_type
-> after the $subject patch AFAICS.
 
-Well, not quite.
+Daniel and I work together and both have things written on top of this
+kfunc. He reached out to collaborate, I agreed. We're also going to
+send bpf_set_file_xattr shortly.
 
-If a driver with an incorrect bus is passed to driver_attach(), it
-will iterate over devices on that bus and call __driver_attach() for
-each of them.  If driver_match_device() succeeds then, the device will
-be passed to driver_probe_device() and it will not be good.
+This implementation was chosen due to its immediate mergeability (it
+only touches security/bpf), but was actually suggested by Kumar in v1
+or so of my original series.
 
-So it may be worth checking after all.
+That said, sorry for any confusion about this appearing as a new
+series rather than as v7 of my previous one.
