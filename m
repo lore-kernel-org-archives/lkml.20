@@ -1,24 +1,24 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 691F3572681;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F358E565110;
 	Wed, 23 Sep 2026 20:10:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194221; cv=pass; b=UOGZuQKHuuKztZ+DeDuLKLGBPSa45wvSKVSVRDj8h41NuiPZ29RXeyc5Lp80DATdVcCzUW8O+qyCSDWoD/dS9Op55El3fboG32yNsUTnZHxNReqpWraNI5SoF5DWs+ocUqRRMDoQr0djzoHz0CFKVFnOJGbRoJ3jwJGFrKsihzI=
+	t=1790194219; cv=pass; b=MvudU9iuYLi4y/J2cKZgbvNdjEtHu+NBf4iEBHVSOpQRAoNvmg0iPqq8W/cvO0lKLKLeIGzOMgjCdfgf0MqdHzTHX21mF6cZUv0kg12DJQHmYFgFIeZXitaeJwrbMZjzJ5/oQF5NvjUOCJsG6uBgr+4JrtQOhOztRZmx12mMBt0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194221; c=relaxed/simple;
-	bh=XzJjoVhnb/s7cdDvuM4wM0NdbOkb23/JUb5yHGelLtw=;
+	s=arc-20240116; t=1790194219; c=relaxed/simple;
+	bh=1siKSRvhnv/OXuPwSTYRUUqqoFhdX5XlEnfgnS3F6ds=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZcghDlSgNX2gGf2cmvzHMn8RiZW6HEki7aH+ebp11DFrSvDCiiZ5EecIMAnWNB5zMKUQvko2ufWDMVAweyJhcwFRb2AsfWapDPgAHfCBEFh8egsUDMB+sB+Ccx8k2OiTbDzhDhN7JFH8wZGhzZv3Av8nKWLHIe0SpH+upTPzA2Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=QENcceiO; arc=pass smtp.client-ip=185.203.200.13
+	 In-Reply-To:To:Cc; b=PzZWzL/vkgXTALqa9MqzxtZh7hXYeXWgdf6MHN5ct2/3azoxp2WfNWt8iFupwjjW4xTbh3HQAZwRtk+uw2C3ximjP1hpxubbrnWfyOx9A/JcoKKV464OtosWuEilvCJLXwRXDt45ftP2Bb9YerSeshhCl6NrJVWK5oWPcdGFlxo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Mo61Be8q; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="QENcceiO"
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Mo61Be8q"
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7819F201F09;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 83071201FAF;
 	Wed, 23 Sep 2026 22:10:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790194207;
@@ -26,42 +26,42 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fXC3cfYABYvUUoB5Rrruor3jNI2VcQ2LV9agEBgud0g=;
-	b=QENcceiOlNBoPloKPJKuH0odVJwdGPUAA+GTaApNnKYOg62323T11UrFGsnTUvGBPWNhQ9
-	AgfIB1rYMz8QO/Do1JkFQeWw5qHCJ/uazHgO89A9sP7if9pjDVUgSxwSPiillHhC1baLlL
-	pox/l+l/sDhxr06qeZyhf2NrZSpbcC5T1SeeW9GBfJmp0I+Uk8HRPGUHvIvG9alL+8re0c
-	n0IRgZk+VE3ud6v+yNXlA2pIZKp2XGjf0OmioI6fjeHi4tC9QGedo5sCeIuAP8kMu5c4SS
-	zNGyPKCavUKBukMVURbolnIKl9jAl0m99OuToRvrOZR0axs7U/UZ8Eco2oNqBA==
+	bh=AHynKvBUts0aZW3ptaf3U9h+p5xs2LODc3+D+ISVZ0o=;
+	b=Mo61Be8qQxWB/yHNHZvUxzCKuVuaD8MCva5rfQcLm01WfNQVAUdE+crPuMfc0W9jSBV3yC
+	MAVNAxgjHAgJaoNZKemp+wO3/nCw44wnS93o8F5pRy+IUSvFxek2jlL+xQ4KZWI/aCHrdR
+	DMTiqP6YH02fc6XNIEjxyui40CGJYBrH9PMN7CuNcd2uD1oMd+CylzKE/ZwWCnHYYH+Zso
+	DKNI0l2kWQlp8FTtNG6sHxVMF76nDYciXA4naDKpXxg9KfmUS9qOpbTmWoTr6ncjSktX5U
+	t4iuE5cjNvPhxpx7G9Ve5sQf3GVAGr1hlQxw5M3OVLa5OEvExJDzgrwkqS2npA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790194207;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fXC3cfYABYvUUoB5Rrruor3jNI2VcQ2LV9agEBgud0g=;
-	b=GXWlouSfBE6T88HPU57xQNFaH2TA3OQIR0cThn1k0EO/3G/Jm25OeUkilFQgQMl3vSdzzc
-	rSk1HvHUhc5tNn5Che9XQnDnJtRvGGe3ujT8TRa8g10Jsc3eXqykkBIE6PO0FB7xule9fb
-	iK9vyUbgCr0n3g5tUxnNd6wRTDAjbVnRYg641wXpQ9B36H5NJeU5P9WObzBj4TEJNndrM3
-	vCufku5HDBIeDbtpCJBRi6V0wieNPd0kfbAU3lkKhCQfxVZaYgDPVyFzKL4aI1MsnyaofR
-	ZHT54l5PSq6ftffPt6jI5Vi3XhvM8SZfhm/U/HmrhHApsGdvEKBkjPTTPt7arA==
+	bh=AHynKvBUts0aZW3ptaf3U9h+p5xs2LODc3+D+ISVZ0o=;
+	b=X8xb7kp6CniGgb12xnyRyyApwCXhd5TKUS1kvQ6dbW+TPlDWoRO41Ci6TPpGZeZy0rdY9f
+	7QYr8Y+z37ElCYADCx8fG61eS8r1HGgu3b7LfICbY4t7huQ0KL3ZHvOAzzTPqKsJINAJkK
+	8XXCph3gB1uvqKaLkAKz2fKM0zW1JGwxef1JHfXAGmAs72wdhLePSiafcrPTN/nFWUgJWY
+	+AHODAjk7Eloq0hULCIGiVY2z1Rtvi/mm1iemfQHQkgzcsxJIHzQPBAglD83L+jSFOJld8
+	JQNL9mB/dp2BYLDWdc/WIp8R3+dXx+WMRe++Vkc5fPFreFy3/eLA7tNKxKuiMA==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790194207; a=rsa-sha256;
 	cv=none;
-	b=NbAQBWnl7JTh5H2laqpBNBG5Hfqp5s3Qy4fdraW4oQas8OJBhbOsVV/gWcY0TOX/JqY81G
-	nsWHJJyHlbBJz0xXUDQZbkhODAi4Oww43U4g99qboUgaFUSX27LzmvjvF8B4MvnwKj4F/k
-	Dn1Tq+i6k2dgVlaAhjkNZWnoxA97wkZR4SzrxMkrlYdlOgdyzJkVtYAIpdtwjz9UrxgNJg
-	lJFk9AOoQDJj7c8iahgV5mgawhRmwf+YUkZm8xWHtS61Fabgj+FenCFdxVW2Gfq5r6iTCw
-	tnuS7WtoTPRljC8IJvm6jiY3ndQvW+UYZxhr1RyehFi1eqI9rcjmLcvhLvFwNg==
+	b=ISTc4m7FlyCLD6aZo3cMfGRhRdm7+3HrupYW+kUpLfVhJc4q7N+OZlEsK+XYy4M2jbqzaz
+	drkkRkg8EcknIyn1A753fQVwy/KCtCxEkL5rQnOlPdonVWKOWbQm8Rsv3U5GR6rQ9bfk+f
+	bdG/I+wkB9J1WZB8v97/PljlVLUxiIYZ+8rgq/gyRQwkvoqRDSHiHSJsgNU08Xkvi/H7LJ
+	DYqpEHrMoQqQemsO1aI+5yLgcffMtCz7+Yztw8govOm8/EGYGze2d5AfcHNufJL5ycLWhF
+	wUe9Oic8D6x+Iv/HFNjKk7aVVjIGv0qhxhTm4VdY9u9bWhaGmc3KKRB9O4QeaA==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=jre@pengutronix.de
 Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
 	(envelope-from <jre@pengutronix.de>)
-	id 1x9TI7-002SC3-1I;
+	id 1x9TI7-002SC3-1Q;
 	Wed, 23 Sep 2026 22:10:07 +0200
 From: Jonas Rebmann <jre@pengutronix.de>
-Date: Wed, 23 Sep 2026 22:09:56 +0200
-Subject: [PATCH v5 01/13] spi: spidev_test: include tools/include
+Date: Wed, 23 Sep 2026 22:09:57 +0200
+Subject: [PATCH v5 02/13] spi: spidev_test: clarify usage for --size
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-spi-sun4i-spidev_test-v5-1-25861c17426d@pengutronix.de>
+Message-Id: <20260923-spi-sun4i-spidev_test-v5-2-25861c17426d@pengutronix.de>
 References: <20260923-spi-sun4i-spidev_test-v5-0-25861c17426d@pengutronix.de>
 In-Reply-To: <20260923-spi-sun4i-spidev_test-v5-0-25861c17426d@pengutronix.de>
 To: Mark Brown <broonie@kernel.org>
@@ -78,66 +78,89 @@ Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
  Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
  Jonas Rebmann <jre@pengutronix.de>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1720; i=jre@pengutronix.de;
- h=from:subject:message-id; bh=XzJjoVhnb/s7cdDvuM4wM0NdbOkb23/JUb5yHGelLtw=;
- b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYsjaYiSx8/iMnzmxCvWiobezkhcprRaZGyP8iLf5Q2zBq
- jNsH2KTO0pZGMS4GGTFFFli1eQUhIz9r5tV2sXCzGFlAhnCwMUpABOZ3MrIcEHjw/FKPu68HNs5
- 82ZVV63rZXqq4bAgjYPj4MJrO+INOhn+px6auzP5X0D++q7a2Ulcb61nee7/23t304wG/pzmcN7
- L7AA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2489; i=jre@pengutronix.de;
+ h=from:subject:message-id; bh=1siKSRvhnv/OXuPwSTYRUUqqoFhdX5XlEnfgnS3F6ds=;
+ b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYsjaYiT5zfWF00TG/a9/Sk8ofut34EPSd9n5dlZdnxdk7
+ ZsSskjlfEcpC4MYF4OsmCJLrJqcgpCx/3WzSrtYmDmsTCBDGLg4BWAitmkM/4ss+P5crP72rYDT
+ eZPb0ktNhxa/Omj469YpuznCDltlOo8zMjz/a/Vi055jN6Z/XHPfZn3ytscx4XfvNXsfjbxckbx
+ y5l1WAA==
 X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
  fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
 
-Add tools/include to include paths to allow using macro helpers.
+By default, spidev_test transmits the predetermined message default_tx.
+Given the --size parameter, the given number of random bytes are
+transmitted instead.
 
-Use ARRAY_SIZE() from tools/include/linux/kernel.h instead of
-maintaining a copy.
+Make all the input options (random bytes, string, file) mutually
+exclusive.
 
-Remove the obsolete comment with cross-compile instructions from the
-header since spidev_test is integrated with the tools buildsystem since
-commit f325b73dc4db ("spi: tools: move to tools buildsystem").
+Clarify the help text for --size.
+
+While at it, make the -p help text consistently lowercase.
 
 Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
 ---
- tools/spi/Makefile      | 2 +-
- tools/spi/spidev_test.c | 5 +----
- 2 files changed, 2 insertions(+), 5 deletions(-)
+ tools/spi/spidev_test.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/tools/spi/Makefile b/tools/spi/Makefile
-index 7fccd245a535..8cf21ff8cd03 100644
---- a/tools/spi/Makefile
-+++ b/tools/spi/Makefile
-@@ -12,7 +12,7 @@ endif
- # (this improves performance and avoids hard-to-debug behaviour);
- MAKEFLAGS += -r
- 
--CFLAGS += -O2 -Wall -g -D_GNU_SOURCE -I$(OUTPUT)include
-+CFLAGS += -O2 -Wall -g -D_GNU_SOURCE -I$(OUTPUT)include -I$(srctree)/tools/include
- 
- ALL_TARGETS := spidev_test spidev_fdx
- ALL_PROGRAMS := $(patsubst %,$(OUTPUT)%,$(ALL_TARGETS))
 diff --git a/tools/spi/spidev_test.c b/tools/spi/spidev_test.c
-index f2135d619a0b..bd5ee7a6ac82 100644
+index bd5ee7a6ac82..3721ed15352f 100644
 --- a/tools/spi/spidev_test.c
 +++ b/tools/spi/spidev_test.c
-@@ -4,8 +4,6 @@
-  *
-  * Copyright (c) 2007  MontaVista Software, Inc.
-  * Copyright (c) 2007  Anton Vorontsov <avorontsov@ru.mvista.com>
-- *
-- * Cross-compile with cross-gcc -I/path/to/cross-kernel/include
-  */
+@@ -44,6 +44,7 @@ static int verbose;
+ static int transfer_size;
+ static int iterations;
+ static int interval = 5; /* interval in seconds for showing transfer rate */
++static int input_choices;
  
- #include <stdint.h>
-@@ -22,8 +20,7 @@
- #include <sys/stat.h>
- #include <linux/types.h>
- #include <linux/spi/spidev.h>
--
--#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-+#include <linux/kernel.h>
+ static uint8_t default_tx[] = {
+ 	0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+@@ -191,8 +192,8 @@ static void print_usage(const char *prog)
+ 		 "data:\n"
+ 		 "  -i --input          input data from a file (e.g. \"test.bin\")\n"
+ 		 "  -o --output         output data to a file (e.g. \"results.bin\")\n"
+-		 "  -p                  Send data (e.g. \"1234\\xde\\xad\")\n"
+-		 "  -S --size           transfer size\n"
++		 "  -p                  send data (e.g. \"1234\\xde\\xad\")\n"
++		 "  -S --size           transfer the given number of random bytes\n"
+ 		 "  -I --iter           iterations\n"
+ 		 "additional parameters:\n"
+ 		 "  -b --bpw            bits per word\n"
+@@ -262,6 +263,7 @@ static void parse_opts(int argc, char *argv[])
+ 			break;
+ 		case 'i':
+ 			input_file = optarg;
++			input_choices++;
+ 			break;
+ 		case 'o':
+ 			output_file = optarg;
+@@ -304,6 +306,7 @@ static void parse_opts(int argc, char *argv[])
+ 			break;
+ 		case 'p':
+ 			input_tx = optarg;
++			input_choices++;
+ 			break;
+ 		case '2':
+ 			mode |= SPI_TX_DUAL;
+@@ -316,6 +319,7 @@ static void parse_opts(int argc, char *argv[])
+ 			break;
+ 		case 'S':
+ 			transfer_size = atoi(optarg);
++			input_choices++;
+ 			break;
+ 		case 'I':
+ 			iterations = atoi(optarg);
+@@ -446,8 +450,8 @@ int main(int argc, char *argv[])
  
- static void pabort(const char *s)
- {
+ 	parse_opts(argc, argv);
+ 
+-	if (input_tx && input_file)
+-		pabort("only one of -p and --input may be selected");
++	if (input_choices > 1)
++		pabort("only one of -S (--size), -p, -i (--input) may be selected");
+ 
+ 	fd = open(device, O_RDWR);
+ 	if (fd < 0)
 
 -- 
 2.56.0.rc0.108.gf0ef1b96a0
