@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA7B30B53A;
-	Wed, 23 Sep 2026 00:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD5E530C637;
+	Wed, 23 Sep 2026 00:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790124215; cv=none; b=qaZAQQkSfJQ+6O6qa0JQqcI7ooYxYkY5EciIaYAJcMQ9cOe7QyzDohD9xEA3ns+ZupOWQo+yI/V/hLuh2OGcFxxlx+btGkHlK/xgRzUp4Ex8H+wrpJC5Lo5WgSBDmvXZz9QZxw4dhUEVWaZxdnFeZEaiCrzL+aEE6rkt9gIGmjU=
+	t=1790124221; cv=none; b=R6w2LR/ulvk5M2JXrt167U8RVXtuBBnwO3kHncYU7wpVJI4fa3J1E1G4IzsqrD+MxC23lij6xZv0fCJ2sBbWllriIgHGaP/rVrTrMeMl+5JeTU29wbqTmelq2Djqci08KLU20HMmoghQPzthAn0HquPljLja7gBeB5VP+hYMo6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790124215; c=relaxed/simple;
-	bh=sUIRsKaSeZ0yMKl2kn5zDUwFjtlPdvHl5YNSViE/ooA=;
+	s=arc-20240116; t=1790124221; c=relaxed/simple;
+	bh=usbFL1DwWzktdyMdm2JCWGjCtD9ckRjAU/8kFMZkk6k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GLSLa8xPLK0eukVd8v7qyT9XAcUp/xucy8jEqWZowdhNaBkEQtPBG+AS0I3xE0+c3qYqQjzT46mKCNhI6wj9ahC9QuYIwLCwfHQccaQC99lLoGJ/9mNxknkE7zpFbM7cdhnZC9kxHS46zSkqgPwboBr2ZI6fu9F5wI6IqETuCrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AtKmiQYh; arc=none smtp.client-ip=117.135.210.4
+	 MIME-Version; b=nJ8qt0zoDpbIcnY5gY4poy17lYKd8lDZbsRl+2+II4blcU5s1NtOudb0mYYefKtiyS+kdUsdwG1fGK8ecQAgl3Rq7oLLNBTEXwggQPzhYpFwDcnRuAnNLUOIo3BkUYMGASIj5ey/wCIwajgsLqaT1s1AE3jqetBKpLy/LSgk7pQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=epeufcNh; arc=none smtp.client-ip=117.135.210.5
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AtKmiQYh"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="epeufcNh"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=7/
-	z1GBdPU5aCuCWbgvYDJmkmcp4UL85NMhRsCDEt3KI=; b=AtKmiQYh4tuaiJezzL
-	0356v1mayEbYufYGhG6dCVMQG9va5AVuRT9/wW4kUFJ6/0R4LXenFBWltNIBXmiv
-	1a+5eJjQGuFjm9cRMx2V7iAgSKsopITUVaJSympkYnZ13lnYzjXLv5u/64aTB+lc
-	QqMUfRuDheZRhnyLtTL7dbtY4=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=2y
+	1YWmy+0mgj1bR1m3OpgvRq3vXmtj2/xJX/dVqKG+I=; b=epeufcNh1Q0UudDOyp
+	K37Mw1CZG2oDeXEo/kHO8EVeviCAus4yq0Aa/Ody42x0EgmZvvC7jioyUNU4O/lN
+	IrYvrQdeu++zgqOzVCA/4mZM/y++3aQsfhibZjoeTM0lXE4gnWf102QcXZ0/T5Ma
+	B+3fv/8HOmbhJJ2fumneO45UA=
 Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3dzGGILNqClfQAA--.40798S2;
-	Wed, 23 Sep 2026 08:42:47 +0800 (CST)
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDHT_iFILNqR8XfAA--.55586S2;
+	Wed, 23 Sep 2026 08:42:46 +0800 (CST)
 From: Hui Su <sh_def@163.com>
 To: bpf@vger.kernel.org
 Cc: qmo@kernel.org,
@@ -41,9 +41,9 @@ Cc: qmo@kernel.org,
 	ihor.solodrai@linux.dev,
 	linux-kernel@vger.kernel.org,
 	Hui Su <sh_def@163.com>
-Subject: [PATCH bpf-next v3 2/2] bpftool: Fix sparse CPU IDs in prog profile
-Date: Wed, 23 Sep 2026 09:42:43 +0900
-Message-ID: <20260923004243.969919-3-sh_def@163.com>
+Subject: [PATCH bpf-next v3 1/2] bpftool: Fix CPU IDs in per-CPU map output
+Date: Wed, 23 Sep 2026 09:42:42 +0900
+Message-ID: <20260923004243.969919-2-sh_def@163.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923004243.969919-1-sh_def@163.com>
 References: <20260923004243.969919-1-sh_def@163.com>
@@ -54,237 +54,374 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3dzGGILNqClfQAA--.40798S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxKw48Zw1xXFy8WryDXw18Zrb_yoW3Gw47pa
-	n5GFy3KF1kXryqkw13Ca1UWFs8GryxXw1DX34vg3yrZFWUXr93XF48XFWrKF1rWr4kZFy7
-	J3WqkrW7AayUX3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piXyCJUUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6gewEGqzIIdujQAA3Q
+X-CM-TRANSID:_____wDHT_iFILNqR8XfAA--.55586S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3ZFyrXrW3WF4xWw4xurW5Awb_yoWDZr47p3
+	y5t34kKr48XrW3Ww4fCa98uF45Krn7Gw17JasrG3yrZrWfXrn7ZF4UKF10kr15urWFva1j
+	krs0yryj9ayxAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUU8n5UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QawEGqzIIYpPAAA3l
 
-bpftool prog profile currently treats the number of possible CPUs as
-both the logical CPU ID range and the stride of the perf event array.
-That misses valid logical CPUs when the possible CPU mask is sparse,
-such as 0,2-3, and can use incorrect PERF_EVENT_ARRAY keys.
+bpftool uses dense per-CPU value-buffer slots when printing per-CPU map
+values. It also uses the slot index as the CPU ID, which produces
+incorrect labels when the possible CPU mask is sparse, such as 0,2-3.
 
-Keep the compact possible CPU count for per-CPU result buffers, while
-enumerating the actual logical CPU IDs when creating per-CPU perf event
-groups. Use the maximum logical CPU ID plus one as the metric stride in
-the PERF_EVENT_ARRAY.
+Parse the possible CPU mask and use the corresponding logical CPU ID in
+plain, JSON, and BTF-formatted output. Keep the dense slot index for
+accessing the per-CPU value buffer.
 
-This keeps the current per-CPU event grouping intact while separating
-the compact per-CPU buffer index from the logical CPU ID and event-array
-key. Report the logical CPU ID when a per-CPU event was not counted.
+Pass the parsed CPU count together with the CPU ID array so that the
+printed CPU IDs and loop bounds come from the same possible-CPU mask.
+Propagate CPU-ID lookup and map output errors through the shared output
+path to its callers.
 
-Fixes: 47c09d6a9f67 ("bpftool: Introduce "prog profile" command")
-Link: https://lore.kernel.org/bpf/20260813160858.1042834-3-sh_def@163.com/
+Fixes: 71bb428fe2c1 ("tools: bpf: add bpftool")
+Link: https://lore.kernel.org/bpf/20260813155131.1022745-3-sh_def@163.com/
 Signed-off-by: Hui Su <sh_def@163.com>
 ---
- tools/bpf/bpftool/prog.c                  | 51 +++++++++++++++--------
- tools/bpf/bpftool/skeleton/profiler.bpf.c |  8 ++--
- 2 files changed, 37 insertions(+), 22 deletions(-)
+ tools/bpf/bpftool/common.c | 40 ++++++++++++++++
+ tools/bpf/bpftool/main.h   |  1 +
+ tools/bpf/bpftool/map.c    | 95 +++++++++++++++++++++++++-------------
+ 3 files changed, 103 insertions(+), 33 deletions(-)
 
-diff --git a/tools/bpf/bpftool/prog.c b/tools/bpf/bpftool/prog.c
-index 000774835b10..24e40dfab469 100644
---- a/tools/bpf/bpftool/prog.c
-+++ b/tools/bpf/bpftool/prog.c
-@@ -2164,6 +2164,9 @@ struct profile_metric {
- };
+diff --git a/tools/bpf/bpftool/common.c b/tools/bpf/bpftool/common.c
+index ef366ccc9650..f9b87efa7c9a 100644
+--- a/tools/bpf/bpftool/common.c
++++ b/tools/bpf/bpftool/common.c
+@@ -31,6 +31,7 @@
+ #include <bpf/bpf.h>
+ #include <bpf/hashmap.h>
+ #include <bpf/libbpf.h> /* libbpf_num_possible_cpus */
++#include <bpf/libbpf_internal.h>
+ #include <bpf/btf.h>
+ #include <zlib.h>
  
- static __u64 profile_total_count;
-+static int profile_cpu_cnt;
-+static int *profile_cpu_ids;
-+static int profile_cpu_id_span;
- 
- #define MAX_NUM_PROFILE_METRICS 4
- 
-@@ -2200,7 +2203,7 @@ static int profile_parse_metrics(int argc, char **argv)
- 
- static int profile_read_values(struct profiler_bpf *obj)
- {
--	__u32 m, cpu, num_cpu = obj->rodata->num_cpu;
-+	__u32 m, cpu, num_cpu = profile_cpu_cnt;
- 	int reading_map_fd, count_map_fd;
- 	__u64 counts[num_cpu];
- 	__u32 key = 0;
-@@ -2235,8 +2238,8 @@ static int profile_read_values(struct profiler_bpf *obj)
- 		for (cpu = 0; cpu < num_cpu; cpu++) {
- 			val = &values[cpu];
- 			if (counts[cpu] && !val->running) {
--				p_err("perf event %s was not counted on CPU %u",
--				      metrics[m].name, cpu);
-+				p_err("perf event %s was not counted on CPU %d",
-+				      metrics[m].name, profile_cpu_ids[cpu]);
- 				return -EAGAIN;
- 			}
- 			metrics[m].val.enabled += val->enabled;
-@@ -2394,6 +2397,7 @@ static void profile_close_perf_events(void)
- 		close(profile_perf_events[i]);
- 
- 	free(profile_perf_events);
-+	profile_perf_events = NULL;
- 	profile_perf_event_cnt = 0;
+@@ -655,6 +656,45 @@ unsigned int get_possible_cpus(void)
+ 	return cpus;
  }
  
-@@ -2427,13 +2431,12 @@ static int profile_open_perf_event(int mid, int cpu,
- 
- static int profile_open_perf_events(struct profiler_bpf *obj)
- {
--	__u32 num_cpu = obj->rodata->num_cpu;
- 	__u32 map_key;
- 	unsigned int cpu, m;
- 	int group_fd, map_fd, pmu_fd;
- 	int err;
- 
--	profile_perf_events = calloc(num_cpu * obj->rodata->num_metric,
-+	profile_perf_events = calloc(profile_cpu_cnt * obj->rodata->num_metric,
- 				     sizeof(*profile_perf_events));
- 	if (!profile_perf_events) {
- 		p_err("failed to allocate memory for perf_event array: %s",
-@@ -2442,32 +2445,34 @@ static int profile_open_perf_events(struct profiler_bpf *obj)
- 	}
- 
- 	map_fd = bpf_map__fd(obj->maps.events);
--	for (cpu = 0; cpu < num_cpu; cpu++) {
-+	for (cpu = 0; cpu < (unsigned int)profile_cpu_cnt; cpu++) {
-+		int cpu_id = profile_cpu_ids[cpu];
++int get_possible_cpu_ids(int **cpu_ids)
++{
++	const char *possible_cpus_file = "/sys/devices/system/cpu/possible";
++	bool *mask = NULL;
++	int mask_sz, nr_cpus = 0;
++	int *ids = NULL;
++	int i, res;
 +
- 		group_fd = -1;
--		map_key = cpu;
-+		map_key = cpu_id;
- 		for (m = 0; m < ARRAY_SIZE(metrics); m++) {
- 			if (!metrics[m].selected)
- 				continue;
- 
--			pmu_fd = profile_open_perf_event(m, cpu, map_fd, group_fd,
-+			pmu_fd = profile_open_perf_event(m, cpu_id, map_fd, group_fd,
- 						     map_key);
- 			if (pmu_fd == -ENODEV && group_fd < 0)
- 				break;
- 			if (pmu_fd < 0) {
--				p_err("failed to add event %s to group on CPU %u: %s",
--				      metrics[m].name, cpu, strerror(-pmu_fd));
-+				p_err("failed to add event %s to group on CPU %d: %s",
-+				      metrics[m].name, cpu_id, strerror(-pmu_fd));
- 				return pmu_fd;
- 			}
- 			if (group_fd < 0)
- 				group_fd = pmu_fd;
--			map_key += num_cpu;
-+			map_key += profile_cpu_id_span;
- 		}
- 		if (group_fd < 0)
- 			continue;
- 		if (ioctl(group_fd, PERF_EVENT_IOC_ENABLE, PERF_IOC_FLAG_GROUP)) {
- 			err = -errno;
--			p_err("failed to enable perf event group on CPU %u: %s",
--			      cpu, strerror(-err));
-+			p_err("failed to enable perf event group on CPU %d: %s",
-+			      cpu_id, strerror(-err));
- 			return err;
- 		}
- 	}
-@@ -2486,6 +2491,10 @@ static int profile_print_and_cleanup(void)
- 
- 	close(profile_tgt_fd);
- 	free(profile_tgt_name);
-+	free(profile_cpu_ids);
-+	profile_cpu_ids = NULL;
-+	profile_cpu_cnt = 0;
-+	profile_cpu_id_span = 0;
- 	return err;
- }
- 
-@@ -2496,7 +2505,7 @@ static void int_exit(int signo)
- 
- static int do_profile(int argc, char **argv)
++	*cpu_ids = NULL;
++
++	res = parse_cpu_mask_file(possible_cpus_file, &mask, &mask_sz);
++	if (res) {
++		p_err("failed to parse possible CPU mask: %s", strerror(-res));
++		return res;
++	}
++
++	for (i = 0; i < mask_sz; i++)
++		nr_cpus += mask[i];
++
++	ids = calloc(nr_cpus, sizeof(*ids));
++	if (!ids) {
++		p_err("mem alloc failed");
++		res = -ENOMEM;
++		goto out;
++	}
++
++	for (i = 0, nr_cpus = 0; i < mask_sz; i++) {
++		if (mask[i])
++			ids[nr_cpus++] = i;
++	}
++	*cpu_ids = ids;
++	ids = NULL;
++	res = nr_cpus;
++out:
++	free(ids);
++	free(mask);
++	return res;
++}
++
+ static char *
+ ifindex_to_name_ns(__u32 ifindex, __u32 ns_dev, __u32 ns_ino, char *buf)
  {
--	int num_metric, num_cpu, err = -1;
-+	int num_metric, err = -1;
- 	struct bpf_program *prog;
- 	unsigned long duration;
- 	char *endptr;
-@@ -2527,11 +2536,12 @@ static int do_profile(int argc, char **argv)
- 	if (num_metric <= 0)
- 		goto out;
+diff --git a/tools/bpf/bpftool/main.h b/tools/bpf/bpftool/main.h
+index 9315a1db1f7c..48eedcb9f6c0 100644
+--- a/tools/bpf/bpftool/main.h
++++ b/tools/bpf/bpftool/main.h
+@@ -216,6 +216,7 @@ void print_hex_data_json(uint8_t *data, size_t len);
  
--	num_cpu = libbpf_num_possible_cpus();
--	if (num_cpu <= 0) {
-+	profile_cpu_cnt = get_possible_cpu_ids(&profile_cpu_ids);
-+	if (profile_cpu_cnt <= 0) {
- 		p_err("failed to identify number of CPUs");
- 		goto out;
- 	}
-+	profile_cpu_id_span = profile_cpu_ids[profile_cpu_cnt - 1] + 1;
+ unsigned int get_page_size(void);
+ unsigned int get_possible_cpus(void);
++int get_possible_cpu_ids(int **cpu_ids);
+ const char *
+ ifindex_to_arch(__u32 ifindex, __u64 ns_dev, __u64 ns_ino, const char **opt);
  
- 	profile_obj = profiler_bpf__open();
- 	if (!profile_obj) {
-@@ -2539,11 +2549,12 @@ static int do_profile(int argc, char **argv)
- 		goto out;
- 	}
+diff --git a/tools/bpf/bpftool/map.c b/tools/bpf/bpftool/map.c
+index 684a8fb72414..20d59eab09a1 100644
+--- a/tools/bpf/bpftool/map.c
++++ b/tools/bpf/bpftool/map.c
+@@ -70,7 +70,7 @@ static void *alloc_value(struct bpf_map_info *info)
  
--	profile_obj->rodata->num_cpu = num_cpu;
- 	profile_obj->rodata->num_metric = num_metric;
-+	profile_obj->rodata->cpu_id_span = profile_cpu_id_span;
+ static int do_dump_btf(const struct btf_dumper *d,
+ 		       struct bpf_map_info *map_info, void *key,
+-		       void *value)
++		       void *value, const int *cpu_ids, int cpu_cnt)
+ {
+ 	__u32 value_id;
+ 	int ret = 0;
+@@ -93,15 +93,15 @@ static int do_dump_btf(const struct btf_dumper *d,
+ 		jsonw_name(d->jw, "value");
+ 		ret = btf_dumper_type(d, value_id, value);
+ 	} else {
+-		unsigned int i, n, step;
++		unsigned int step;
++		int i;
  
- 	/* adjust map sizes */
--	bpf_map__set_max_entries(profile_obj->maps.events, num_metric * num_cpu);
-+	bpf_map__set_max_entries(profile_obj->maps.events,
-+				 num_metric * profile_cpu_id_span);
- 	bpf_map__set_max_entries(profile_obj->maps.fentry_readings, num_metric);
- 	bpf_map__set_max_entries(profile_obj->maps.accum_readings, num_metric);
- 	bpf_map__set_max_entries(profile_obj->maps.counts, 1);
-@@ -2589,6 +2600,10 @@ static int do_profile(int argc, char **argv)
- 		profiler_bpf__destroy(profile_obj);
- 	close(profile_tgt_fd);
- 	free(profile_tgt_name);
-+	free(profile_cpu_ids);
-+	profile_cpu_ids = NULL;
-+	profile_cpu_cnt = 0;
-+	profile_cpu_id_span = 0;
- 	return err;
+ 		jsonw_name(d->jw, "values");
+ 		jsonw_start_array(d->jw);
+-		n = get_possible_cpus();
+ 		step = round_up(map_info->value_size, 8);
+-		for (i = 0; i < n; i++) {
++		for (i = 0; i < cpu_cnt; i++) {
+ 			jsonw_start_object(d->jw);
+-			jsonw_int_field(d->jw, "cpu", i);
++			jsonw_int_field(d->jw, "cpu", cpu_ids[i]);
+ 			jsonw_name(d->jw, "value");
+ 			ret = btf_dumper_type(d, value_id, value + i * step);
+ 			jsonw_end_object(d->jw);
+@@ -130,7 +130,8 @@ static json_writer_t *get_btf_writer(void)
  }
  
-diff --git a/tools/bpf/bpftool/skeleton/profiler.bpf.c b/tools/bpf/bpftool/skeleton/profiler.bpf.c
-index 6685e7252fb5..0d47a9bdc5b4 100644
---- a/tools/bpf/bpftool/skeleton/profiler.bpf.c
-+++ b/tools/bpf/bpftool/skeleton/profiler.bpf.c
-@@ -10,7 +10,7 @@ struct bpf_perf_event_value___local {
- 	__u64 running;
- } __attribute__((preserve_access_index));
+ static void print_entry_json(struct bpf_map_info *info, unsigned char *key,
+-			     unsigned char *value, struct btf *btf)
++			     unsigned char *value, struct btf *btf,
++			     const int *cpu_ids, int cpu_cnt)
+ {
+ 	jsonw_start_object(json_wtr);
  
--/* map of perf event fds, num_cpu * num_metric entries */
-+/* map of perf event fds, cpu_id_span * num_metric entries */
- struct {
- 	__uint(type, BPF_MAP_TYPE_PERF_EVENT_ARRAY);
- 	__uint(key_size, sizeof(u32));
-@@ -38,8 +38,8 @@ struct {
- 	__uint(value_size, sizeof(u64));
- } counts SEC(".maps");
+@@ -150,12 +151,12 @@ static void print_entry_json(struct bpf_map_info *info, unsigned char *key,
+ 			};
  
--const volatile __u32 num_cpu = 1;
- const volatile __u32 num_metric = 1;
-+const volatile __u32 cpu_id_span = 1;
- #define MAX_NUM_METRICS 4
+ 			jsonw_name(json_wtr, "formatted");
+-			do_dump_btf(&d, info, key, value);
++			do_dump_btf(&d, info, key, value, cpu_ids, cpu_cnt);
+ 		}
+ 	} else {
+-		unsigned int i, n, step;
++		unsigned int step;
++		int i;
  
- SEC("fentry/XXX")
-@@ -60,7 +60,7 @@ int BPF_PROG(fentry_XXX)
- 						sizeof(*reading));
- 		if (err)
- 			return 0;
--		key += num_cpu;
-+		key += cpu_id_span;
+-		n = get_possible_cpus();
+ 		step = round_up(info->value_size, 8);
+ 
+ 		jsonw_name(json_wtr, "key");
+@@ -163,10 +164,10 @@ static void print_entry_json(struct bpf_map_info *info, unsigned char *key,
+ 
+ 		jsonw_name(json_wtr, "values");
+ 		jsonw_start_array(json_wtr);
+-		for (i = 0; i < n; i++) {
++		for (i = 0; i < cpu_cnt; i++) {
+ 			jsonw_start_object(json_wtr);
+ 
+-			jsonw_int_field(json_wtr, "cpu", i);
++			jsonw_int_field(json_wtr, "cpu", cpu_ids[i]);
+ 
+ 			jsonw_name(json_wtr, "value");
+ 			print_hex_data_json(value + i * step,
+@@ -183,7 +184,7 @@ static void print_entry_json(struct bpf_map_info *info, unsigned char *key,
+ 			};
+ 
+ 			jsonw_name(json_wtr, "formatted");
+-			do_dump_btf(&d, info, key, value);
++			do_dump_btf(&d, info, key, value, cpu_ids, cpu_cnt);
+ 		}
+ 	}
+ 
+@@ -245,7 +246,7 @@ print_entry_error(struct bpf_map_info *map_info, void *key, int lookup_errno)
+ }
+ 
+ static void print_entry_plain(struct bpf_map_info *info, unsigned char *key,
+-			      unsigned char *value)
++			      unsigned char *value, const int *cpu_ids, int cpu_cnt)
+ {
+ 	if (!map_is_per_cpu(info->type)) {
+ 		bool single_line, break_names;
+@@ -273,9 +274,9 @@ static void print_entry_plain(struct bpf_map_info *info, unsigned char *key,
+ 
+ 		printf("\n");
+ 	} else {
+-		unsigned int i, n, step;
++		unsigned int step;
++		int i;
+ 
+-		n = get_possible_cpus();
+ 		step = round_up(info->value_size, 8);
+ 
+ 		if (info->key_size) {
+@@ -284,9 +285,9 @@ static void print_entry_plain(struct bpf_map_info *info, unsigned char *key,
+ 			printf("\n");
+ 		}
+ 		if (info->value_size) {
+-			for (i = 0; i < n; i++) {
+-				printf("value (CPU %02u):%c",
+-				       i, info->value_size > 16 ? '\n' : ' ');
++			for (i = 0; i < cpu_cnt; i++) {
++				printf("value (CPU %02d):%c",
++				       cpu_ids[i], info->value_size > 16 ? '\n' : ' ');
+ 				fprint_hex(stdout, value + i * step,
+ 					   info->value_size, " ");
+ 				printf("\n");
+@@ -742,7 +743,7 @@ static int do_show(int argc, char **argv)
+ 
+ static int dump_map_elem(int fd, void *key, void *value,
+ 			 struct bpf_map_info *map_info, struct btf *btf,
+-			 json_writer_t *btf_wtr)
++			 json_writer_t *btf_wtr, const int *cpu_ids, int cpu_cnt)
+ {
+ 	if (bpf_map_lookup_elem(fd, key, value)) {
+ 		print_entry_error(map_info, key, errno);
+@@ -750,7 +751,7 @@ static int dump_map_elem(int fd, void *key, void *value,
+ 	}
+ 
+ 	if (json_output) {
+-		print_entry_json(map_info, key, value, btf);
++		print_entry_json(map_info, key, value, btf, cpu_ids, cpu_cnt);
+ 	} else if (btf) {
+ 		struct btf_dumper d = {
+ 			.btf = btf,
+@@ -758,9 +759,9 @@ static int dump_map_elem(int fd, void *key, void *value,
+ 			.is_plain_text = true,
+ 		};
+ 
+-		do_dump_btf(&d, map_info, key, value);
++		do_dump_btf(&d, map_info, key, value, cpu_ids, cpu_cnt);
+ 	} else {
+-		print_entry_plain(map_info, key, value);
++		print_entry_plain(map_info, key, value, cpu_ids, cpu_cnt);
  	}
  
  	return 0;
-@@ -100,7 +100,7 @@ int BPF_PROG(fexit_XXX)
+@@ -833,6 +834,8 @@ map_dump(int fd, struct bpf_map_info *info, json_writer_t *wtr,
+ 	void *key, *value, *prev_key;
+ 	unsigned int num_elems = 0;
+ 	struct btf *btf = NULL;
++	int *cpu_ids = NULL;
++	int cpu_cnt = 0;
+ 	int err;
  
- 	/* read all events before updating the maps, to reduce error */
- 	for (i = 0; i < num_metric && i < MAX_NUM_METRICS; i++) {
--		err = bpf_perf_event_read_value(&events, cpu + i * num_cpu,
-+		err = bpf_perf_event_read_value(&events, cpu + i * cpu_id_span,
- 						(void *)(readings + i),
- 						sizeof(*readings));
- 		if (err)
+ 	key = malloc(info->key_size);
+@@ -845,6 +848,14 @@ map_dump(int fd, struct bpf_map_info *info, json_writer_t *wtr,
+ 
+ 	prev_key = NULL;
+ 
++	if (map_is_per_cpu(info->type)) {
++		cpu_cnt = get_possible_cpu_ids(&cpu_ids);
++		if (cpu_cnt < 0) {
++			err = cpu_cnt;
++			goto exit_free;
++		}
++	}
++
+ 	if (wtr) {
+ 		err = get_map_kv_btf(info, &btf);
+ 		if (err) {
+@@ -876,7 +887,8 @@ map_dump(int fd, struct bpf_map_info *info, json_writer_t *wtr,
+ 				err = 0;
+ 			break;
+ 		}
+-		if (!dump_map_elem(fd, key, value, info, btf, wtr))
++		if (!dump_map_elem(fd, key, value, info, btf, wtr,
++				   cpu_ids, cpu_cnt))
+ 			num_elems++;
+ 		prev_key = key;
+ 	}
+@@ -893,6 +905,7 @@ map_dump(int fd, struct bpf_map_info *info, json_writer_t *wtr,
+ exit_free:
+ 	free(key);
+ 	free(value);
++	free(cpu_ids);
+ 	free_map_kv_btf(btf);
+ 
+ 	return err;
+@@ -1035,17 +1048,30 @@ static int do_update(int argc, char **argv)
+ 	return err;
+ }
+ 
+-static void print_key_value(struct bpf_map_info *info, void *key,
+-			    void *value)
++static int print_key_value(struct bpf_map_info *info, void *key,
++			   void *value)
+ {
+ 	json_writer_t *btf_wtr;
+ 	struct btf *btf;
++	int *cpu_ids = NULL;
++	int cpu_cnt = 0;
++	int err = 0;
+ 
+-	if (get_map_kv_btf(info, &btf))
+-		return;
++	if (map_is_per_cpu(info->type)) {
++		cpu_cnt = get_possible_cpu_ids(&cpu_ids);
++
++		if (cpu_cnt < 0) {
++			err = cpu_cnt;
++			goto out;
++		}
++	}
++
++	err = get_map_kv_btf(info, &btf);
++	if (err)
++		goto out;
+ 
+ 	if (json_output) {
+-		print_entry_json(info, key, value, btf);
++		print_entry_json(info, key, value, btf, cpu_ids, cpu_cnt);
+ 	} else if (btf) {
+ 		/* if here json_wtr wouldn't have been initialised,
+ 		 * so let's create separate writer for btf
+@@ -1055,7 +1081,7 @@ static void print_key_value(struct bpf_map_info *info, void *key,
+ 			p_info("failed to create json writer for btf. falling back to plain output");
+ 			free_map_kv_btf(btf);
+ 			btf = NULL;
+-			print_entry_plain(info, key, value);
++			print_entry_plain(info, key, value, cpu_ids, cpu_cnt);
+ 		} else {
+ 			struct btf_dumper d = {
+ 				.btf = btf,
+@@ -1063,13 +1089,16 @@ static void print_key_value(struct bpf_map_info *info, void *key,
+ 				.is_plain_text = true,
+ 			};
+ 
+-			do_dump_btf(&d, info, key, value);
++			do_dump_btf(&d, info, key, value, cpu_ids, cpu_cnt);
+ 			jsonw_destroy(&btf_wtr);
+ 		}
+ 	} else {
+-		print_entry_plain(info, key, value);
++		print_entry_plain(info, key, value, cpu_ids, cpu_cnt);
+ 	}
+ 	free_map_kv_btf(btf);
++out:
++	free(cpu_ids);
++	return err;
+ }
+ 
+ static int do_lookup(int argc, char **argv)
+@@ -1114,7 +1143,7 @@ static int do_lookup(int argc, char **argv)
+ 	}
+ 
+ 	/* here means bpf_map_lookup_elem() succeeded */
+-	print_key_value(&info, key, value);
++	err = print_key_value(&info, key, value);
+ 
+ exit_free:
+ 	free(key);
+@@ -1404,7 +1433,7 @@ static int do_pop_dequeue(int argc, char **argv)
+ 		goto exit_free;
+ 	}
+ 
+-	print_key_value(&info, key, value);
++	err = print_key_value(&info, key, value);
+ 
+ exit_free:
+ 	free(key);
 -- 
 2.55.0
 
