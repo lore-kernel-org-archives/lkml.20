@@ -1,307 +1,162 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012004.outbound.protection.outlook.com [52.101.53.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C732857D201
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:21:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B126581220
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:21:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.4
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202063; cv=pass; b=V8CVVo7mWMTkcQeIsFESfe445oRpU/qzvXhCxQ/I0y8AH2V1KC6VJRIGRW6F+wwX9nIU8MqP6DPZOydhizEMgA4yT8Usd1Ns99olz/xLDRkgIlHmAUuOEgf07g5B+nI1WECRL2IKIqEU3INDMB3OESuV9dVoIRK+vnZ6VAIreCg=
+	t=1790202064; cv=fail; b=ZTHWW3B0pG7z1yP/44PKWjNXvNTUqkJkmhj46sWPbErPqti9X+1v9f5qvNtPlqVuOR3qgnGThkkbVzP87VESy7hfCYFnMj4IV25/taenVqL4McFkf4caw9yCMRzWXf0QTmTPUr8DfTXeGTHijuEttYbhMu1mfxX2OJqfSJs+rW0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202063; c=relaxed/simple;
-	bh=ljpoITL+ddmUXtoxzFrCdARrrjkZ2MpJG8I2LiiH2vA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SCgstDL9TMHXBP2SHEhLgEjiXMnAUPyK9SZ28ZKMjWjRMUJPb7PqWZqnOE8OKmMM2oQRW3XpL1pCNLcUI3YUeCRwrlyYqbZLXRh6LHXBLTU7WAmSkRP9fz1YWcYpiHTqbuWlMvQdT5XxL+NowbQ/ST7w8u9YxNuE/EP1Q+9FURI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=j4rcZp+O; arc=pass smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790202064; c=relaxed/simple;
+	bh=ukwytGHLp4xwjCUl1fQIhxo+I/tziLbswCt49XRActk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=hYcYmk2jf36FMbQGnWVfsOti0V0TR8971JndI/bAA6/hhL/tNh22NNEmgRqKE9aoPvQb3IFq/eqSShh7QWkKrCcg7mRuyNU4WnN4D54ljVWTsGOV80HnmipJ76PkoH+g8HgbKG0OucXn5AYFd9m8veahgfb4vjc2kyh4sh7tEAo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=sV+YpgCS; arc=fail smtp.client-ip=52.101.53.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="j4rcZp+O"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a5f9b036f9so1764a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:21:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790202059; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DL0akVTy/focM7ghMIuYn7IqhQwwCId7Ss+9sIn/vqQq3req1iMLlp2FgF1Sv8lVhU
-         3Npng+ovH0wAOu3e6CVrxdzjaYVg9P78r4Hhl+9H0CRkc/KQ1RwmNQgzE8xlhiYUVDzL
-         WNGgBYCx89eD+xPo7DkfIaugCFaPEJlVoGxmzfyGbLUfhcmJ1HqtAjH055I7e0b9euDu
-         IT2MXYayuuv8Vu2e4H1co3FmiAFzxQmU/wMhAqVqdzIhC6/AgcSpakD/WgUKgg0pS5iy
-         QNkgVFrb2ZbS3trXkhcaPJGLpxmx0yC63X3bls2+6Gf8YsXETjsCSBZKnSlloUYYeyxA
-         XtDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=H78LtMLqPdutyOe/A+aVYBWCZPz7tjSiHvt4+KB9tTE=;
-        fh=aBh0WzADIsmETC/7A/i+kFsjJoUF+gg/zSMv8pAvENc=;
-        b=r2iZ6S2wYH3a622qOAkcpdgpE0UjiSfxqZhgndRurzxzskNSMeblvLw8e47St9txT5
-         GpaQ+Q1UClq2ul5s6kb0GSXzYnX72gp6pIzRLQkg7SPrOM7RHJGK9bF+iRhWStg1b4DW
-         a42qWOt+8us8PmwFci6aJ1YK5pKy7JySkdQ7/7jzjcLlmYxINBQy1fsbIgAwhImxZCuF
-         i5GI+hJiez1uphBSPRzZFIOZhplrWsxjiK3llq6wQTczFIi+rE+UKZ/HVXjOnJpX1D/e
-         eGXcfJrk/lk/RuIOXOk87DXPs/8ljx03hP83s9xrdBPcp2iy/aoLuImMiZrSfWBJ/vTv
-         oC7w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790202059; x=1790806859; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H78LtMLqPdutyOe/A+aVYBWCZPz7tjSiHvt4+KB9tTE=;
-        b=j4rcZp+ORSTGqd6kHKmHpb5pEjOnRqTuCIB6cLmY5YYyZhtXFDH/1D07P5lrRbz8Bi
-         w5qLNLIbgnqk6BThULEHdQwGPO3IxVArvxtTGXYxQfhzQC8SWReNbQhvev6GAWYq0E0g
-         Tf4cSSqEDso1ilef2cBxIhh34UgzeMG2/w4QVtrIMrcte16TOWqS0z3y59vKfvW/eA4f
-         bmipIAzDbToqB1esxp6brPXFmiEXRuN87eos0d/bNk0vTISO6evXUI5rvcc/th8WVC2F
-         7IMY5bz4wNTOgi/J73WraIon5XC1Ljuw8dEotpzfX5r3PVfUQxdU7NQ5RFgUK6CT0nrK
-         o82g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790202059; x=1790806859;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H78LtMLqPdutyOe/A+aVYBWCZPz7tjSiHvt4+KB9tTE=;
-        b=cgLK3Zk9UChSon1SfAit2wazrNHKm2Z0HK0s6jcTOr80MlGxIG7kdPc8W7WAQEU3gx
-         T4lInWbXJMDrZvm3S1m66u+GeR5RUP1nZe/IZ17IXI/OWdVkCnRA+kX42wx5NhBNMR7j
-         vNAOVvPBQD3lJ5eesd3u983ex9yVi/TlMJFjOP/+1VQ0SxY9m1r1vJ2TsNJuPQOWJ3ls
-         +IPKf4vpnbegsBiv87UXNzU+FnBWhN/E8bMjHdaBRZge/zv4+1WZA3jlOLMeeFDaT4xT
-         zxZgSjk5T4YhtwkUNVXQn+juCAC5Sc5IyCjWC1fwI4o3u7vlkXdkhtpaMKxrTH6Wwh0N
-         z0wA==
-X-Forwarded-Encrypted: i=1; AKwUvBymfsvNYTqKT1M3Zk57z8wdKXfAnhGDUrL4GKQV84WoUDC8He4Aisq1tFDlsZJlTlm3W/YW1ASWInQyDMQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kH0NetJsHFWkLJiC1JUxWTIeLqp1NuWXeT4lTsutd92PpxkuEN
-	OBpAh3Espv9lT/55rG0MajVKDjLCOhbCW1J05iuvXLL47++ZPT0JL/gBHJEs8z9ZM3BUA3KctIy
-	hfYNV+H5P7zQCjS7zkWR1farD6XHdOnZ0X0P4ZTAd+wlIrDY5NJ7bbGLAoP0=
-X-Gm-Gg: AYBFou2EetWYyVB7wZuIBbfXSTqJUxEo4fQbTQIvpekAnLpgy9wavxVMKgdKxpmO/zA
-	VWTKdCfdE/FVi1MmKT7do5TqbgJyQIUKCIOfGjnbU6kfcF81Ecg+e/6lpJHpZDBOFNc1oE/x2fw
-	TlXT1lzfZWN+kr4nAQvcXoP3rlG1LjYDpRiSSIlK98tQ0UeQn84BcEQP8gV37Pb/AQv1x/rDF87
-	P8rimr+UbV7kwpKdhSYIOWF/yK4vvBti4UjqPVGBs6MWRua8qTMTZPodWoS9dSNRtW1PYGulGbU
-	SS8wRBWQF4BTybqV7UoFlG3P7nOy6ygS2UbntSzi3liqiW8Lgw2/CpI=
-X-Received: by 2002:a05:6402:70d:b0:6aa:1cdf:d859 with SMTP id
- 4fb4d7f45d1cf-6aac7d2429dmr22782a12.14.1790202058283; Wed, 23 Sep 2026
- 15:20:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="sV+YpgCS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oYXVmIyu3qOOaklVD0joa9eeDNzywd5W1BwLi77gpsPXKfiqkgDka/MJIHe2umi8LAW+/lTzXf7SbaYuSYvKgZZWg+MsWCY+yZRuHBB/HmtOlORrNUvp9ZRgM6QX6A+yg37dgqqmEurgNdak2B5ctZdELA64/K4zL+/mZJEHrSDaIhTEsTw+c1s6gcTTsamtocNF0LNxdwhP6so2U5N2n6WFfvqaNFhiBl2KQTqjGXv9IOivThi1K4IvTO368N4LitdPmU/67la0NiNwJv3+7yXRaPuqopwzp196noWwyzhB1KqyJevBTp0g2aUOgab0u3xvgBAp8SVg8wONxiHFvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zipT3MM9Ee6OGz/yUbrox25/NqcxCZLg4MVzcO3xU+o=;
+ b=lK13d8uSkHVDzkZqEtmc9z7y71Du0vYAeiQDGfyrlSI4OdfdQBrtGtXRbveC8hwxZzih7jAEuIT6dST0wxP6WfXngeDTWWPV2+NDJeFVISKn3e9wvP/UnEwW8nzMrgxtkCO18Kvfqd0R18RUxep8m7vx2wqvLxp9DzMRSXqs30mpsTBbFBDXYEaM1O4ZUZgU24LqGk1RcB+DgUG26GDqGsHupQchVkPpd8qWc6wBgTYGxrfT/HTCTcBvUcgjxOm0hKY9Pj/y52YNuZCSMVc7Obxb7bKqcG+VkQDKwPGIVD4lBV2Gg4Z/Km/Ly+hPmfDuu2LG7RJSFrGRSZogO9ravw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zipT3MM9Ee6OGz/yUbrox25/NqcxCZLg4MVzcO3xU+o=;
+ b=sV+YpgCSOkc6FaCgzxQ0B6DSZGuowzn52h55q/icIUti1jEGeNwWksSQjJ1U6jhZdi3jWLkgk0RTEDpuETC+0jz0f6PxYgFSOinxdijvMNcOtg9mnIir7bgDXYAQT3W87Vs523m405KKUSpQSYLRD+i88vYxhw/OLmK33vjvLcQ4/SbcmDRToeU8ni7yh/VgsJ7woEm8jP6seIVOzwiHaQ4zw0dxI802j6ixMNPya5el+xNReJT4LA3AImAOSMQpcJVVQ++3MiLufEGddV9stB8zf1Wb6Y1bOo9+Df6Ia9/6alPmydgmXgxdSmO1OYApFuX6TC+EJHlxUrgM6Eh8SQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by DM6PR12MB4299.namprd12.prod.outlook.com (2603:10b6:5:223::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Wed, 23 Sep
+ 2026 22:20:58 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 22:20:58 +0000
+Date: Wed, 23 Sep 2026 18:20:55 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Janani Sunil <janani.sunil@analog.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] bitfield: Restore be16_replace_bits()
+Message-ID: <arRQswv-zAzN3FdV@yury>
+References: <20260923-bitfield-be16_replace_bits-v1-1-71b6388b8385@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-bitfield-be16_replace_bits-v1-1-71b6388b8385@kernel.org>
+X-ClientProxiedBy: BY3PR04CA0020.namprd04.prod.outlook.com
+ (2603:10b6:a03:217::25) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790171702.git.zhang_wei@open-hieco.net> <b614e927c6c1ce9265cb9a37b296b0b30598da72.1790171702.git.zhang_wei@open-hieco.net>
-In-Reply-To: <b614e927c6c1ce9265cb9a37b296b0b30598da72.1790171702.git.zhang_wei@open-hieco.net>
-From: Jim Mattson <jmattson@google.com>
-Date: Wed, 23 Sep 2026 15:20:46 -0700
-X-Gm-Features: AclHuK-m_XpDfXwZpbOInUSIvV8XfLNXMUuMKPM1PWOMbUcNZTtYq4cU9I3GuUk
-Message-ID: <CALMp9eT1qMk7V7=md68LEXvmWH5ecj1YBn-YHoQ-vzJziaP5VA@mail.gmail.com>
-Subject: Re: [PATCH v8 5/8] KVM: nSVM: Fetch DecodeAssist bytes for
- synthesized faults
-To: Tina Zhang <zhang_wei@open-hieco.net>
-Cc: Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, zhouyanjing@hygon.cn, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|DM6PR12MB4299:EE_
+X-MS-Office365-Filtering-Correlation-Id: 429182a1-293b-41ae-2627-08df19c0f147
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	XyCQBEKDnhkyK4D5E8PykzCx0pD1mQPH1em+hsW/rsG3egZMvHaq6HloKTSrneu69TMrXCGcVcua904mlGYa2oGE0EFywgXBG1kVHuK42/VnwiMnNifZCwXZooIdfAb9mSuZOORPuiXuMVq4XLbRc3nguLZXLfHXJuVUs1pUslr+R9tBfefnMW102K1cMwwLSDgCytqMgJvKTxwXouR+6e++wsJr9iPbJgArsy00s3obNwYZVVj0bBoL/xOMNQqDEDxFmam7C8Mm22S83tYqRbGrojCfbrrlj41+7ATtJ3YnvpNiaTOjWMIeuNbd9rTSHXP4jYXweYD3n5zWL0bTb5csTkwUDDbDNHNyKkPVocdkOqTkrBZv//zV3o/kravp0Kbq+e2O0xL9/c9RWrIDk19ofO6ZGCBiH9LIpRidiWxOtasJ3y8Y53qdRe3BZ7ninJMBic7rXyYD4mO4cRW8XxyoZW8MB5ancTH5O68VCaMHlThvk38khmYtO1lNPjJuh2E4FEHYQci/DQEoClIOxM4gvTkSn6/4X+yR2oAwuA/bMQSXQw3hRNSoywfmw2Va4KEepYidJQuBkanBNUyfV/sPrGZ3FnOTdZOEj0XE0TgOaELktrg1FaH1i7eeOuqgRG2VrFJrxvNaXG70c4rshaUwTyB/XwPeXBzk+Wdb1Dw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR12MB9356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Qh1iTza5q7hEUQZY6Gp+Pg6/4csDM/q1JzWrQwu1aytlaBAg3M3YdOdNEHZ5?=
+ =?us-ascii?Q?kL6ynhxb22RGtDxlcZ7X368SIioDvwtvPRKBnNvOsgDMz+JdV7IFUM3lrN8t?=
+ =?us-ascii?Q?T3tEYxDRfrXQ6TbN0NRy6sMZl7XJu77pHVFMA/FSIpvwVQrcOE9qUZkuNXfz?=
+ =?us-ascii?Q?iRxkF/jp2/2hD59FeY9wXBY+8EcBwBkWcSJV12rMpNNGbxSM8zziR8PPM2O/?=
+ =?us-ascii?Q?FpAo1XpqCQTBus25I+N/1Fnvoc8kLyekkwO6KXs0/y9hMO24ekZo1boyBlxS?=
+ =?us-ascii?Q?NwgHBE1ASdoPIvq0JPY90P19jWXbZkeEWh1f7hAvKoZ4Pq0eLB7f+dw4wOol?=
+ =?us-ascii?Q?OMfDkj0PeiiGI3oB3iof5jucJOfWrn+OUCzLtEv5kMgm5lm68kFYT3u9bI/N?=
+ =?us-ascii?Q?CoIphZkNvmTbx6GuD4daMh/kZMlqh+baDyuraef6mP94rC4Ld2oUlhVlDbJ6?=
+ =?us-ascii?Q?Q48GZwCpE4Qq+A7EQXw1NpS0PQNMT0toYo2ZME11N1XCcndpmUG2332BY8ZV?=
+ =?us-ascii?Q?YvwcK0n1jXjq3gDYQp/n+53YKbThG020N4vWxKmpy0jmoH3tpJ5bjP3QM7jz?=
+ =?us-ascii?Q?XzBwOxC0gShd6u6dZm8N20oJqIgzmSC1h5w4qbWUBLw7xLr+62zAhrBkO0ZE?=
+ =?us-ascii?Q?pd5u+7uXwT25YZ8UgOdLxmHuZYu6eJpXayyyVdEIhIhtoKV2HiA2Ok6ZZBkl?=
+ =?us-ascii?Q?Q0unb3+APzSGYoist6ZeQ1RiJI/wjOVfU7IkwXjs0GvvoMzTwhLn6BEJQMXP?=
+ =?us-ascii?Q?cekHsxqdCyreBfP1NLIMgbnpJHHADSNJrTosmDcgOknjI53oR6qCTYqOzIo8?=
+ =?us-ascii?Q?zK3Z/uJBZiNZeSx0s52AcbrFN/neLx/bvoFlIMxoyLRuPVdJP5wXqzCrSy24?=
+ =?us-ascii?Q?r9e3nF7Sz17zlIdBacJbPhWyARKTOQPWGGzjIgxigNMDfB3DTeSJYS2oyoWg?=
+ =?us-ascii?Q?5rZM9eDIq8SPum0vpGBq+a9zIDB44DAbeVSqeP4ZpLclgLaBcGNSW332oQF8?=
+ =?us-ascii?Q?I09dhsQ2wIHib/u8vNLtJPjkAf8AZyWkIJlvFGgg2Zz2oF70JrEBLSaqj/MZ?=
+ =?us-ascii?Q?QOjq0yx63Houu0j/xQM2oaq/YhozwqmQxSVSGrFRppi4xg/WFN9vfIZkGKnG?=
+ =?us-ascii?Q?s1H0Zb45kVszHGTxCCXBPJ2odILpW7aWMg9TfW0HN84lF8OkgHiS9FK3lZ5P?=
+ =?us-ascii?Q?+3GhZd2hb4KkYPKg+F4/SQORM/dRMnLTNNVcCwt99Z/0Rx5lX6jeID5NXPBg?=
+ =?us-ascii?Q?1X3sl3OU7ckVYBNtzIV/whz7PBmesBio5gZGXeQtQRv9NW/WYTHgWr0qzxkb?=
+ =?us-ascii?Q?X6DZ/b9EOPbTTuU6hkoA7YGKXR9Qr4FeAmI8/V7d4Z335GUhPiL2QPMCTP6L?=
+ =?us-ascii?Q?llMaU/Q5QKT1QXazKMBRt+2K2VFj060ejlN1QNb3CVQVhJ0XMUOVM+CBOFV6?=
+ =?us-ascii?Q?cajkWqquh5F6DKSPOnwpKtq2VltIZsPiyTYkCifkzE95tkqclSSxyJc7JwtT?=
+ =?us-ascii?Q?GjSXwVaaCoHaA3P0K83ukDf7ErWBkPYhn5Fp9ci2fI7mCWlkERijzvLVlAok?=
+ =?us-ascii?Q?q0cprO5xHuAsHOFCEAww8yhRmMysO+MSEMdlAz6CJuTPP9WDlkBEE/sCKSi+?=
+ =?us-ascii?Q?zpsnlpsnfZ3UV32RFHHAIaWT55KJnK0jaMYHMkxaid7g7B28wtCXzhsM2KyU?=
+ =?us-ascii?Q?MJUG4g5/NSdKeYWV/7Yv/XtACxKJ0qdBZHZnAPnBxcuvix3Yzemt9fjRHqXb?=
+ =?us-ascii?Q?Ec5uEdcEuw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 429182a1-293b-41ae-2627-08df19c0f147
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 22:20:58.4985
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BvP+vDZg0iMHqKQ4WitTCSi3KRowpVPX+gHcIdbKVsH67zbqA36ZM0a8+MXRzR4u11vjArzd9/C65nYmTgV87g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4299
 
-On Wed, Sep 23, 2026 at 7:03=E2=80=AFAM Tina Zhang <zhang_wei@open-hieco.ne=
-t> wrote:
->
-> Hardware-reflected #NPF and #PF VM-Exits can propagate instruction bytes
-> from VMCB02, but KVM-synthesized exits have no hardware-provided state fo=
-r
-> the current exit.
->
-> Extend kvm_read_guest_virt_helper() to optionally report the number of
-> bytes read, including partial reads.  Add kvm_fetch_guest_virt() to apply
-> instruction-fetch permissions and return that count, reusing the generic
-> helper's page-by-page read loop.
->
-> When a synthesized data #NPF or #PF has no valid VMCB02 instruction bytes=
-,
-> fetch up to 15 bytes from L2's RIP while constructing VMCB12.  Preserve
-> the bytes already read if a subsequent read cannot be completed.
->
-> For instruction fetches, truncate each linear address to 32 bits outside
-> 64-bit mode and stop at a non-canonical address in 64-bit mode.  Limit
-> the fetch window at the code-segment limit outside 64-bit mode.
->
-> Do not attempt the fallback for SEV guests, as KVM cannot read encrypted
-> guest memory directly.
->
-> Signed-off-by: Tina Zhang <zhang_wei@open-hieco.net>
+On Wed, Sep 23, 2026 at 11:09:53PM +0100, Mark Brown wrote:
+> Commit 1c88ceb09d5e5 ("bitfield: get rid of __MAKE_OP machinery")
+> removed a bunch of unused bitfield operations including
+> be16_replace_bits() but commit 508bdb4938928 ("iio: adc: Add AD7768 and
+> AD7768-4 core support") introduces a new user.  Restore the function so
+> the build still works once both branches are merged.
+> 
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+
+Applied, thanks!
+
 > ---
->  arch/x86/kvm/svm/nested.c | 41 +++++++++++++++++++++++++---
->  arch/x86/kvm/x86.c        | 56 +++++++++++++++++++++++++++++++--------
->  arch/x86/kvm/x86.h        |  2 ++
->  3 files changed, 85 insertions(+), 14 deletions(-)
->
-> diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-> index e839f61211c9..813b0fc663c6 100644
-> --- a/arch/x86/kvm/svm/nested.c
-> +++ b/arch/x86/kvm/svm/nested.c
-> @@ -78,22 +78,57 @@ static void nested_svm_invalidate_vmcb02_insn_bytes(s=
-truct vcpu_svm *svm)
->         svm->nested.vmcb02_insn_bytes_valid =3D false;
+>  include/linux/bitfield-fix-width.h | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/include/linux/bitfield-fix-width.h b/include/linux/bitfield-fix-width.h
+> index fba86bb76999..f73b8cd65601 100644
+> --- a/include/linux/bitfield-fix-width.h
+> +++ b/include/linux/bitfield-fix-width.h
+> @@ -93,6 +93,12 @@ u16 be16_get_bits(__be16 v, u16 field)
+>  	return (be16_to_cpu(v) & field) / field_multiplier(field);
 >  }
->
-> +static u8 nested_svm_get_insn_bytes_len(struct kvm_vcpu *vcpu, u8 max_by=
-tes)
+>  
+> +static __always_inline __must_check
+> +__be16 be16_replace_bits(__be16 old, u16 val, u16 field)
 > +{
-> +       if (!is_64_bit_mode(vcpu)) {
-> +               u32 eip =3D kvm_rip_read(vcpu);
-> +               u32 limit =3D to_svm(vcpu)->vmcb->save.cs.limit;
-> +
-> +               if (eip > limit)
-> +                       return 0;
-> +               max_bytes =3D min_t(u64, max_bytes, (u64)limit - eip + 1)=
-;
-> +       }
-> +
-> +       return max_bytes;
+> +	return (old & ~cpu_to_be16(field)) | be16_encode_bits(val, field);
 > +}
 > +
-> +static u8 nested_svm_fetch_insn_bytes(struct kvm_vcpu *vcpu, u8 *bytes,
-> +                                     u8 max_bytes)
-> +{
-> +       gva_t rip =3D kvm_get_linear_rip(vcpu);
-> +
-> +       max_bytes =3D nested_svm_get_insn_bytes_len(vcpu, max_bytes);
-> +
-> +       return kvm_fetch_guest_virt(vcpu, rip, bytes, max_bytes);
-> +}
-> +
->  static void nested_svm_update_vmcb12_insn_bytes(struct kvm_vcpu *vcpu,
->                                                 struct vmcb *vmcb12,
->                                                 const struct vmcb *vmcb02=
-)
+>  static __always_inline __must_check
+>  __u16 u16_encode_bits(u16 v, u16 field)
 >  {
->         struct vcpu_svm *svm =3D to_svm(vcpu);
-> +       const u8 max_bytes =3D sizeof(vmcb12->control.insn_bytes);
->
->         if (!guest_cpu_cap_has(vcpu, X86_FEATURE_DECODEASSISTS))
->                 goto out;
->
-> -       if (!nested_svm_vmexit_supports_insn_bytes(vmcb02) ||
-> -           !svm->nested.vmcb02_insn_bytes_valid) {
-> +       if (!nested_svm_vmexit_supports_insn_bytes(vmcb02)) {
->                 nested_svm_invalidate_insn_bytes(vmcb12);
->                 goto out;
->         }
->
-> -       nested_svm_copy_insn_bytes(vmcb12, vmcb02);
-> +       if (svm->nested.vmcb02_insn_bytes_valid) {
-> +               nested_svm_copy_insn_bytes(vmcb12, vmcb02);
-> +               goto out;
-> +       }
-> +
-> +       if (!is_sev_guest(vcpu))
-> +               vmcb12->control.insn_len =3D
-> +                       nested_svm_fetch_insn_bytes(vcpu,
-> +                                                   vmcb12->control.insn_=
-bytes,
-> +                                                   max_bytes);
-> +       else
-> +               nested_svm_invalidate_insn_bytes(vmcb12);
->
->  out:
->         svm->nested.vmcb02_insn_bytes_valid =3D false;
-> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
-> index 1705e7be46ec..ad8b35f2219d 100644
-> --- a/arch/x86/kvm/x86.c
-> +++ b/arch/x86/kvm/x86.c
-> @@ -4772,20 +4772,34 @@ gpa_t kvm_mmu_gva_to_gpa_system(struct kvm_vcpu *=
-vcpu, gva_t gva,
->
->  static int kvm_read_guest_virt_helper(gva_t addr, void *val, unsigned in=
-t bytes,
->                                       struct kvm_vcpu *vcpu, u64 access,
-> -                                     struct x86_exception *exception)
-> +                                     struct x86_exception *exception,
-> +                                     unsigned int *bytes_read)
->  {
->         struct kvm_pagewalk *gva_walk =3D &vcpu->arch.gva_walk;
->         void *data =3D val;
->         int r =3D X86EMUL_CONTINUE;
->
->         while (bytes) {
-> -               gpa_t gpa =3D gva_walk->gva_to_gpa(vcpu, gva_walk, addr, =
-access, exception);
-> +               gpa_t gpa;
->                 unsigned offset =3D addr & (PAGE_SIZE-1);
->                 unsigned toread =3D min(bytes, (unsigned)PAGE_SIZE - offs=
-et);
->                 int ret;
->
-> -               if (gpa =3D=3D INVALID_GPA)
-> -                       return X86EMUL_PROPAGATE_FAULT;
-> +               /* Apply address wrapping or canonicality checks before e=
-ach fetch chunk. */
-> +               if (access & PFERR_FETCH_MASK) {
-> +                       if (!is_64_bit_mode(vcpu))
-> +                               addr =3D (u32)addr;
-> +                       else if (is_noncanonical_address(addr, vcpu, 0)) =
-{
-> +                               r =3D X86EMUL_UNHANDLEABLE;
-> +                               goto out;
-> +                       }
-> +               }
-
-I hadn't anticipated the need for this special-case, and it's more
-intrusive than just returning the number of bytes read.
-
-I see now that it's complicated to match the behavior of the
-emulator's __do_insn_fetch_bytes(). You could clamp the number of
-bytes to read up-front to deal with the end of the address space, but
-you would still need a second call to handle the wrap.  Something like
-the following (mangled by my MUA):
-
-static unsigned int __kvm_fetch_guest_virt(struct kvm_vcpu *vcpu, gva_t add=
-r,
-  void *val, unsigned int bytes)
-{
-struct x86_exception exception =3D {};
-unsigned int bytes_read;
-u64 access =3D PFERR_FETCH_MASK;
-
-if (kvm_x86_call(get_cpl)(vcpu) =3D=3D 3)
-access |=3D PFERR_USER_MASK;
-
-kvm_read_guest_virt_helper(addr, val, bytes, vcpu, access,
-  &exception, &bytes_read);
-return bytes_read;
-}
-
-unsigned int kvm_fetch_guest_virt(struct kvm_vcpu *vcpu, gva_t addr,
- void *val, unsigned int bytes)
-{
-unsigned int first, bytes_read;
-bool wraps;
-u64 avail;
-
-/* An instruction-sized fetch can wrap at most once. */
-if (WARN_ON_ONCE(bytes > X86_MAX_INSTRUCTION_LENGTH))
-return 0;
-
-if (!is_64_bit_mode(vcpu)) {
-addr =3D (u32)addr;
-avail =3D BIT_ULL(32) - addr;
-wraps =3D true;
-} else if (is_noncanonical_address(addr, vcpu, 0)) {
-return 0;
-} else if (addr < BIT_ULL(63)) {
-avail =3D BIT_ULL(vcpu_virt_addr_bits(vcpu) - 1) - addr;
-wraps =3D false;
-} else {
-avail =3D -addr;
-wraps =3D true;
-}
-
-first =3D min_t(u64, bytes, avail);
-bytes_read =3D __kvm_fetch_guest_virt(vcpu, addr, val, first);
-
-if (wraps && bytes_read =3D=3D first && first < bytes)
-bytes_read +=3D __kvm_fetch_guest_virt(vcpu, 0, val + first,
-    bytes - first);
-
-return bytes_read;
-}
-
-I think this solution may be worse than what you have now, but I will
-defer to Sean. Maybe he will have a better idea. (Maybe my suggestion
-to return the number of bytes read was misguided.)
-
-Reviewed-by: Jim Mattson <jmattson@google.com>
+> 
+> ---
+> base-commit: 1c88ceb09d5e5506456a625043bc9b35ce86fc41
+> change-id: 20260923-bitfield-be16_replace_bits-1d6c48fb608b
+> 
+> Best regards,
+> --  
+> Mark Brown <broonie@kernel.org>
