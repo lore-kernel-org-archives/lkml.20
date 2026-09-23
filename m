@@ -1,156 +1,119 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-252.mta0.migadu.com [91.218.175.252])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6324C542ECF
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790180994; cv=pass; b=RlmAXzXo7XVpKQfIOhhr+VISjazl6TDQmrtFFGZuQO5jwQT9JZAOexnM37KchX4R/12ha54eqGxt9P5lBj2gO9ewRxVchxM7OeqdNoJAtOnkVPVo2XDhzZAkMzCPthvY3pDYX/s9t7O/1P3HiddHaGK6cPVAalkwTq2LBG8Nak4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790180994; c=relaxed/simple;
-	bh=N9h2IwPd9qDGS+CyPEwYvdhADj/9kHUcSG31TnFHTSA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A192358375
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.252
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790181048; cv=none; b=PUfOHFwZ7FRB9lj7xTA0mXkn6uwJ9KV/lv8Ij080//0JiIyqBjcxXHJ2n+mQxs9hTtzpsyUDiEcmGAJjz6aX1NcjtaxHihUCymVgme7VW2P1wlMqt7L+bY+PKbqkWYy/NA176iyFmB6Ipkv+5MzTN4w8DWl1ZzvZtu8JAlNJOoM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790181048; c=relaxed/simple;
+	bh=syhg4Xh/gTAUQZORWpezw8Y96tkhKRENMCokWTcj1JM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P1IY51v4hLB81rvmIMhvxVwRFaeAy0QaJLJLQpyYhTi8I4YITmjNrTZ5Wm6pFtD3SYbZ6UIQuM4gyyYWVd6Q981C7VGiyR8PKjkdtSsn0D53DXCGsFFdDe66hjJX/Ek9naayKZD211o6/sra4qus17dTYBDU0SVJKo8Mn3i96nA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=auF5lQbs; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=JocCe7Jw6NjuGYZxghfsb+XwmsYuY7Y8GbGFhct7OT7hv9V1Pj1a2svVqHY9lruelKlb/NqwN+bYFDP0PFIxoZxokWMVy47gaaiNanUCIx+T9n2fiYRKG5QNCxjQkGnqtnvNOnXon2aH2M+MrOFT9qcUUu7oyj9/np5hVaH6hDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=e56fLXSO; arc=none smtp.client-ip=91.218.175.252
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="auF5lQbs"
-ARC-Seal: i=1; a=rsa-sha256; t=1790180985; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=eMkK9jljnaAGA3UKMIQxdtAdzQx5+mQIPuJCRKLCCWCBCRyE0fvDoFiwxlmHclMLFLJfPOsa2x4aTpj38L+lJfitYhOvqGEHSyYUNV8cQCWmoJbPwyGwhQzhuXmbJUmvZTv4kU2EjTdqsrJrcPYzicGIANMga5Q/yabK1cZ0LU4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790180985; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=honOZdl9wry64JgMz31XKXdFoAX9aKnTxZ89OftIsLg=; 
-	b=exCsol+Hveja4UdKkALCkt9+j5mm3NRRMmQKgxk4yE+qPBmLdbsDreQ4S37fVXQvvjt36P+rHTc0Rn/13//ImgEH2rQAev+/C8ax97wtWTlgeuOKYjkVvf5+gG6NyjPUEXLQ/FYNZDVT5R5ftQJ+SG5qgfd2RJXMb0MFgHT5fZk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
-	dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790180985;
-	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=honOZdl9wry64JgMz31XKXdFoAX9aKnTxZ89OftIsLg=;
-	b=auF5lQbskSRsp1waSQO0xhG3D5F2kNSrQEbxS+U3Ky0hkSrw/LvMMfAWvptm6Kq+
-	l5cJRSYI3vDAlNRy/c2Sr/iVO5bZ41kcSmLQlv7ihq4raoSNj5p/py8QZI4UNJhjUy5
-	UdMt9TqPrhY9jlQTgqjus9ILX5pCqK7e8S8bFmRo=
-Received: by smtp.zohomail.com with SMTPS id 1790180982645897.526443803996;
-	Wed, 23 Sep 2026 09:29:42 -0700 (PDT)
-Date: Wed, 23 Sep 2026 09:29:41 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Gary Guo <gary@garyguo.net>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/tyr: use `bitfield!` instead of `register!` for
- non-registers
-Message-ID: <arP-dat7V0Rg70ok@um790>
-References: <20260910165734.80378-1-gary@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="e56fLXSO"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=syhg4Xh/gTAUQZORWpezw8Y96tkhKRENMCokWTcj1JM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790181043; v=1; x=1790785843;
+ b=e56fLXSO0dNEodGCADCluJC7/pc7/Ch7AsscjvuEp0s8yNT9ctnnFUcVNBfkKs/yvhXeZ4rj
+ oz+3SQnRv8I5zVPOixGqdMw7XDGU5t/zS1zlBWxqgk6IIDCS/AD/+IMr0lslwGcVvh6sM812+Cw
+ wCAYqfllMyxTL7UQSjRjjpjs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a4693e8db12b2407;
+	Wed, 23 Sep 2026 16:30:14 +0000
+X-Mizu-Trace-ID: a4693e8db12b2407
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 23 Sep 2026 09:30:12 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Chris Li <chrisl@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>, Rik van Riel <riel@surriel.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
+	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Kunwu Chan <kunwu.chan@linux.dev>, Meta kernel team <kernel-team@meta.com>, 
+	Linux Memory Management List <linux-mm@kvack.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+Message-ID: <arP8vXdJAL6ZJ1Os@linux.dev>
+References: <aqQrPLPXHXiuKup0@linux.dev>
+ <aqjcFb6MFNiA6n4V@fedora>
+ <aqjpYHbZ14A8xRtK@fedora>
+ <CACePvbUwTxcMPVK_1GAz5gPDdh0BV9JZSnKXaUFLqDHBzBmPQg@mail.gmail.com>
+ <7ee199ddee81bf8026688def82f78ad9db09be9e.camel@surriel.com>
+ <CACePvbVA+DnDJprMx3qOrGb98y1ORQ-LfaENy_Btfx3uW=E4eQ@mail.gmail.com>
+ <f3ca71f1c561f28a341de0e5a1b3f24bd4da3201.camel@surriel.com>
+ <CACePvbX5Oy98DygLZjC=Z03Lqb0nk50_OEKQCT9svbQOOwwDew@mail.gmail.com>
+ <CAKEwX=Mv+tnL8K4rfPuof6mKaLQp=tqR_qjtKrtY0-5L85FLfw@mail.gmail.com>
+ <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260910165734.80378-1-gary@kernel.org>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.142.6
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACePvbUF2QQMh_GiCNQn-RTmZNkkLWkmaHSYzdQwv2fupjNQiw@mail.gmail.com>
 
-On Thu, Sep 10, 2026 at 05:57:33PM +0100, Gary Guo wrote:
-> From: Gary Guo <gary@garyguo.net>
+On Tue, Sep 22, 2026 at 09:44:37PM -1000, Chris Li wrote:
+> On Tue, Sep 22, 2026 at 7:54 AM Nhat Pham <nphamcs@gmail.com> wrote:
+> >
+> > On Sun, Sep 20, 2026 at 5:13 PM Chris Li <chrisl@kernel.org> wrote:
+> > >
+> > > That is not what I have in mind. The example I have in mind is that
+> > > zswap is charged to swap counters. Changing that behavior will break
+> > > our current deployment and that of many other. Kairui give some
+> > > example as well. That behavior should not change.
+> >
+> > We already have a knob to select vswap. Users can turn it off
+> > initially, and/or update their software to handle the transition
+> > based on this knob.
+> >
+> > Otherwise, you'd never be able to introduce any behavior into the
+> > kernel. Hugetlb accounting/charging is a new behavior, and there were
+> > softwares written before that assumed hugetlb usage is not charged. If
+> > it's not a good argument to block the implementation of hugetlb
+> > accounting then, it's not a good argument now.
 > 
-> `SectionFlags` and `MMU_MEMATTR_STAGE1` are not registers themselves. Use
-> `bitfield!` directly.
+> My original intent is that 200% of RAM for zswap is too much.
 > 
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
->  drivers/gpu/drm/tyr/fw.rs   | 12 ++++--------
->  drivers/gpu/drm/tyr/regs.rs | 11 +++++------
->  2 files changed, 9 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
-> index 7edb5eff1707..aea151ff1f93 100644
-> --- a/drivers/gpu/drm/tyr/fw.rs
-> +++ b/drivers/gpu/drm/tyr/fw.rs
-> @@ -14,6 +14,7 @@
->  //! [`Section`]: crate::fw::Section
->  
->  use kernel::{
-> +    bitfield,
->      device::{
->          Bound,
->          Device, //
-> @@ -27,7 +28,6 @@
->      },
->      num::Bounded,
->      prelude::*,
-> -    register,
->      str::CString,
->      sync::{
->          Arc,
-> @@ -39,8 +39,7 @@
->  use crate::{
->      driver::{
->          IoMem,
-> -        TyrDrmDevice,
-> -        TyrRegisters, //
-> +        TyrDrmDevice, //
->      },
->      fw::parser::{
->          FwParser,
-> @@ -101,11 +100,8 @@ fn from(value: CacheMode) -> Self {
->      }
->  }
->  
-> -register! {
-> -    base: TyrRegisters;
-> -
-> -     #[allow(non_upper_case_globals)]
-> -    pub(super) SectionFlags(u32) @ 0x0 {
-> +bitfield! {
-> +    pub(super) struct SectionFlags(u32) {
->          0:0 read => bool;
->          1:1 write => bool;
->          2:2 exec => bool;
-> diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
-> index 0c419c4e1186..6f626957a010 100644
-> --- a/drivers/gpu/drm/tyr/regs.rs
-> +++ b/drivers/gpu/drm/tyr/regs.rs
-> @@ -986,6 +986,7 @@ pub(crate) mod mmu_control {
->      /// This array contains 16 instances of the MMU_AS_CONTROL register page.
->      pub(crate) mod mmu_as_control {
->          use kernel::{
-> +            bitfield,
->              num::Bounded,
->              prelude::*,
->              register, //
-> @@ -1130,14 +1131,12 @@ fn from(val: MemoryType) -> Self {
->              }
->          }
->  
-> -        register! {
-> -            base: TyrRegisters;
-> -
-> +        bitfield! {
->              /// Stage 1 memory attributes (8-bit bitfield).
->              ///
-> -            /// This is not an actual register, but a bitfield definition used by the MEMATTR
-> -            /// register. Each of the 8 bytes in MEMATTR follows this layout.
-> -            MMU_MEMATTR_STAGE1(u8) @ 0x0 {
-> +            /// Each of the 8 bytes in MEMATTR follows this layout.
-> +            #[allow(non_camel_case_types)]
-> +            struct MMU_MEMATTR_STAGE1(u8) {
->                  /// Inner cache write allocation policy.
->                  0:0     alloc_w => bool;
->                  /// Inner cache read allocation policy.
+> It seems you are talking about a different topic: the vswap charging issue.
+> There is a golden rule that we should follow: don't break existing
+> users. At least with the same persistence, this rule should apply
+> universally.
+> In the swap tiers discussion, the UAPI was such a big deal that we
+> couldn't implement new UAPI. On the other hand here we argue for
+> liberally changing user-space visible behavior.
 
-Reviewed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Johannes has already answered this very clearly but let me talk about your other
+claim.
 
 > 
-> base-commit: 73e5616f3d197c1af5a04a481fe0f13aa3913bd1
-> -- 
-> 2.54.0
-> 
+> BTW, I already shared that changing swap counter charging will break
+> our and others' existing deployments.
+
+What do you mean here by "break our deployment"? We are talking about
+memory.swap usage and limits here. Google is still on v1 and using memsw
+usage and limit and I don't see how vswap is breaking memsw?
+
+Are you making these false claims just to derail the conversation?
