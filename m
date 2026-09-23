@@ -1,104 +1,345 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-29.mta1.migadu.com [95.215.58.29])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468AA4A1396
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:30:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86D2483BD9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790163048; cv=none; b=pTjmj/X0OuuEZl9cutphRDYNvNCdvyYNtgEOmAWPNzb/NnOPICeeZKO0ZyvN32hGUl5vUX61A7VjCXdMW3W7HQn6V2SxFQGNhwK8P62kHtJjo9nehMoLEQT6BSUcF9Kz/jpBn2JsrGUo6gWjM3k76dxESctfDwi0B/mHymWcbmU=
+	t=1790163109; cv=none; b=EW1D5mDc5G88F99UqXKYFBAAVWSOmCQauq67e9k+lz8dwdIKWgWbK2piHqSzV6dE9NKnikLGDSHCqa5kPgJIqA8B/vbhTsNuvkCx+acPKHH3lUNdpEiG+Wnlsn3VB6gPCEubGE6VXU9DVld/Rx5vhC0Woij8PMB/O65zr3VWh7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790163048; c=relaxed/simple;
-	bh=xqQ+NYvyXWCfjlyvjvxmg1kCwOY0kqb1jeO3C2JsWsM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fDsMrEHpH6Dj4mU31SIVQk5RE/JaAyUdB6Cu3f3UXqldI2wE2WgiPFquLur9Sps1YKHbLAqEvYMe99Ph8qTaOeQprbyEPmc42XcrhiFcrfxq6iu8p7pUnIT4jmpvqSBKlOwkdCr9i3JTueQNamhXaoWzR71XF6eLGIYaqQvd2+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=amUrOR4Y; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790163109; c=relaxed/simple;
+	bh=dRRV4UmPvG3+M432ExTQaUHSvuzp5ixmXuLNEW7Fyxw=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=Va0EcjiVjjPijPemxZGw4f6CZtuL+xqOyXx9waUXJIRna9pjhk87kliuABWMmOCZSJCu3AqE37zFCQCbs8/Iv8GAg9tyLhFYULVNk/3/t8eX3sNycoKM19U6+QiLGfnJLF09MRr1+J6JTHCjiGfnj9CX4qHHbxjIHX4l9/I/NaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IRvWxpSP; arc=none smtp.client-ip=95.215.58.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="amUrOR4Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790163035;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xqQ+NYvyXWCfjlyvjvxmg1kCwOY0kqb1jeO3C2JsWsM=;
-	b=amUrOR4YepT/pQHD4uebGahobP6cmU91MXFYJEaemTJmXR6CBIeSfhvyspnd7Yn1qcRVJX
-	9zfHIYfhZzyMID//2qTUnOQtB9GVz7scvniaIdfXVrakWAC0n4uLtrNpeXLgAfpuHcKVkR
-	O6BsXTp2w0B7DeQUuzPnUpmutQ+a27A=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-330-hU8g012GMpKeOZhxZhxwBw-1; Wed,
- 23 Sep 2026 07:30:34 -0400
-X-MC-Unique: hU8g012GMpKeOZhxZhxwBw-1
-X-Mimecast-MFC-AGG-ID: hU8g012GMpKeOZhxZhxwBw_1790163029
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D1EA81955E8C;
-	Wed, 23 Sep 2026 11:30:26 +0000 (UTC)
-Received: from fedora (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 9573118002B6;
-	Wed, 23 Sep 2026 11:30:13 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Wed, 23 Sep 2026 13:30:26 +0200 (CEST)
-Date: Wed, 23 Sep 2026 13:30:12 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Ricardo Robaina <rrobaina@redhat.com>
-Cc: audit@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-csky@vger.kernel.org, linux-mips@vger.kernel.org,
-	linux-openrisc@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linux-sh@vger.kernel.org, sparclinux@vger.kernel.org,
-	linux-um@lists.infradead.org, bpf@vger.kernel.org,
-	paul@paul-moore.com, eparis@redhat.com, sgrubb@redhat.com,
-	richard.henderson@linaro.org, mattst88@gmail.com, linmag7@gmail.com,
-	linux@armlinux.org.uk, catalin.marinas@arm.com, will@kernel.org,
-	guoren@kernel.org, monstr@monstr.eu, tsbogend@alpha.franken.de,
-	jonas@southpole.se, stefan.kristiansson@saunalahti.fi,
-	shorne@gmail.com, James.Bottomley@hansenpartnership.com,
-	deller@gmx.de, ysato@users.sourceforge.jp, dalias@libc.org,
-	glaubitz@physik.fu-berlin.de, davem@davemloft.net,
-	andreas@gaisler.com, richard@nod.at,
-	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net,
-	chris@zankel.net, jcmvbkbc@gmail.com, tglx@kernel.org,
-	peterz@infradead.org, luto@kernel.org
-Subject: Re: [PATCH v3 14/14] audit: rename audit_syscall_entry_regs() to
- audit_syscall_entry()
-Message-ID: <arO4RArEfB5HJqR-@redhat.com>
-References: <cover.1790088067.git.rrobaina@redhat.com>
- <0bb32d256099870f3f9ca2632cccf58538f882ed.1790088067.git.rrobaina@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IRvWxpSP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dRRV4UmPvG3+M432ExTQaUHSvuzp5ixmXuLNEW7Fyxw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790163092; v=1; x=1790767892;
+ b=IRvWxpSPpyKgc5MN/vuy3WV+RkuU6usiqo+/6ZdA8xSDTNi9J+xuN+LtpyvDn0kSaQd9atui
+ MunDqqEm1sC063/bDfdTeVNif10kfnu0s2/yaH+Uv3a0Ih4NZzwx08MSKla0Kkebn39mrqf9f2i
+ swGPyuTcQQrKvrrtd1hE6hBg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 5edda2cd734faa91;
+	Wed, 23 Sep 2026 11:31:32 +0000
+X-Mizu-Trace-ID: 5edda2cd734faa91
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0bb32d256099870f3f9ca2632cccf58538f882ed.1790088067.git.rrobaina@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH v2 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
+ together with hugetlb folio
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <2f01bd33-6b51-4978-a19b-cd1fd0bd013c@linux.dev>
+Date: Wed, 23 Sep 2026 19:31:12 +0800
+Cc: Hongfu Li <lihongfu@kylinos.cn>,
+ Chris Down <chris@chrisdown.name>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ cgroups@vger.kernel.org,
+ stable@vger.kernel.org,
+ Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Nhat Pham <nphamcs@gmail.com>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <BD68F59A-FA10-4308-904C-EF82EF59C101@linux.dev>
+References: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
+ <20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn>
+ <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
+ <1835413c-e2de-41b0-8225-161afa50676a@linux.dev>
+ <10149B0C-4108-4DB6-84B7-A301E8158CA4@linux.dev>
+ <2f01bd33-6b51-4978-a19b-cd1fd0bd013c@linux.dev>
+To: Hongfu Li <hongfu.li@linux.dev>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-On 09/22, Ricardo Robaina wrote:
->
-> Now that every architecture has been converted to the pt_regs-based
-> audit_syscall_entry_regs(), the legacy audit_syscall_entry() and
-> __audit_syscall_entry() helpers that took the individual syscall
-> argument registers (a0-a3) no longer have any callers.
->
-> Remove those legacy helpers and rename audit_syscall_entry_regs() and
-> __audit_syscall_entry_regs() back to audit_syscall_entry() and
-> __audit_syscall_entry(), restoring the original naming.
->
-> The _regs variants were introduced separately, and the architectures
-> converted one per patch, specifically so this final rename is the only
-> step that removes the old prototype. That keeps the series bisectable:
-> every commit builds, and no caller is ever left referencing a helper
-> that has been removed.
->
-> Suggested-by: Will Deacon <will@kernel.org>
-> Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
 
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+
+> On Sep 23, 2026, at 17:55, Hongfu Li <hongfu.li@linux.dev> wrote:
+>=20
+>=20
+> On 9/23/26 3:56 PM, Muchun Song wrote:
+>>=20
+>>> On Sep 23, 2026, at 11:40, Hongfu Li <hongfu.li@linux.dev> wrote:
+>>>=20
+>>>=20
+>>> On 9/23/26 10:40 AM, Muchun Song wrote:
+>>>>=20
+>>>> On 2026/9/23 10:05, Hongfu Li wrote:
+>>>>> From: Hongfu Li <lihongfu@kylinos.cn>
+>>>>>=20
+>>>>> memory.numa_stat exposes per-node hugetlb counters from per-node =
+lruvec
+>>>>> stats. These stats are accounted against folio_nid(): incremented =
+on
+>>>>> the folio's node when handed to a user, decremented when the folio =
+is
+>>>>> returned to the pool.
+>>>>>=20
+>>>>> During hugetlb folio migration, mem_cgroup_migrate() moves the =
+charge
+>>>>> to the new folio and drops the memcg data of the old one, so the =
+free
+>>>>> of the old folio right after the migration skips the memcg =
+per-node
+>>>>> lruvec decrement. The hugetlb count stays attributed to the old =
+node
+>>>>> for the rest of the life of the charge, while the target folio =
+gets no
+>>>>> increment on the new node; its later free decrements a counter =
+that
+>>>>> was never incremented.
+>>>>>=20
+>>>>> Migrate the per-node lruvec accounting alongside migration. Global
+>>>>> memcg totals remain balanced because they track resource =
+consumption,
+>>>>> not node placement.
+>>>>>=20
+>>>>> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to =
+memcg")
+>>>>> Cc: stable@vger.kernel.org
+>>>>> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
+>>>>> Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+>>>>> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+>>>>> Reviewed-by: Oscar Salvador <osalvador@suse.de>
+>>>>> ---
+>>>>>   include/linux/memcontrol.h |  8 ++++++++
+>>>>>   mm/hugetlb.c               | 25 +++++++++++++++++++++++++
+>>>>>   mm/memcontrol.c            |  5 ++---
+>>>>>   3 files changed, 35 insertions(+), 3 deletions(-)
+>>>>>=20
+>>>>> diff --git a/include/linux/memcontrol.h =
+b/include/linux/memcontrol.h
+>>>>> index a8358f297b65..74110a324f9e 100644
+>>>>> --- a/include/linux/memcontrol.h
+>>>>> +++ b/include/linux/memcontrol.h
+>>>>> @@ -984,6 +984,9 @@ unsigned long =
+lruvec_page_state_monotonic(const struct lruvec *lruvec,
+>>>>>   unsigned long lruvec_page_state_local(const struct lruvec =
+*lruvec,
+>>>>>                         enum node_stat_item idx);
+>>>>>   +void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>>>> +                enum node_stat_item idx, int val);
+>>>>> +
+>>>>>   void mem_cgroup_flush_stats(struct mem_cgroup *memcg);
+>>>>>   void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup =
+*memcg);
+>>>>>   @@ -1452,6 +1455,11 @@ static inline unsigned long =
+lruvec_page_state_local(const struct lruvec *lruvec,
+>>>>>       return node_page_state(lruvec_pgdat(lruvec), idx);
+>>>>>   }
+>>>>>   +static inline void mod_memcg_lruvec_state(struct lruvec =
+*lruvec,
+>>>>> +                      enum node_stat_item idx, int val)
+>>>>> +{
+>>>>> +}
+>>>>> +
+>>>>>   static inline void mem_cgroup_flush_stats(struct mem_cgroup =
+*memcg)
+>>>>>   {
+>>>>>   }
+>>>>> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+>>>>> index 519c30b338a8..76d019594b39 100644
+>>>>> --- a/mm/hugetlb.c
+>>>>> +++ b/mm/hugetlb.c
+>>>>> @@ -23,6 +23,7 @@
+>>>>>   #include <linux/mmdebug.h>
+>>>>>   #include <linux/sched/signal.h>
+>>>>>   #include <linux/rmap.h>
+>>>>> +#include <linux/rcupdate.h>
+>>>>>   #include <linux/string_choices.h>
+>>>>>   #include <linux/string_helpers.h>
+>>>>>   #include <linux/swap.h>
+>>>>> @@ -7378,12 +7379,36 @@ void folio_putback_hugetlb(struct folio =
+*folio)
+>>>>>       folio_put(folio);
+>>>>>   }
+>>>>>   +static void move_hugetlb_lruvec_stat(struct folio *old_folio,
+>>>>> +                     struct folio *new_folio)
+>>>>> +{
+>>>>> +    struct mem_cgroup *memcg;
+>>>>> +    long nr_pages =3D folio_nr_pages(old_folio);
+>>>>> +    int old_nid =3D folio_nid(old_folio);
+>>>>> +    int new_nid =3D folio_nid(new_folio);
+>>>>> +
+>>>>> +    if (old_nid =3D=3D new_nid)
+>>>>> +        return;
+>>>>> +
+>>>>> +    guard(rcu)();
+>>>>> +
+>>>>> +    memcg =3D folio_memcg(new_folio);
+>>>>> +    if (!memcg)
+>>>>> +        return;
+>>>>> +
+>>>>> +    mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, =
+NODE_DATA(old_nid)),
+>>>>> +                   NR_HUGETLB, -nr_pages);
+>>>> Why not use mod_lruvec_state? mod_memcg_lruvec_state is an internal
+>>>> API for memcg, I don't want it to be exported.
+>>> Thank you for the review.
+>>>=20
+>>> mod_lruvec_state() would update the node counter a second time.  It =
+calls
+>>> mod_node_page_state() as well, and the target's node counter is =
+already
+>>> updated in alloc_hugetlb_folio_nodemask() (patch 1/2):
+>>>=20
+>>>     lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
+>>>=20
+>>> For an uncharged folio lruvec_stat_mod_folio() only updates the node
+>>> counter.  The target folio is not charged to any memcg at that =
+point; its
+>>> charge only appears later in mem_cgroup_migrate().  So the node side =
+is
+>>> already covered and only the per-memcg attribution has to follow the
+>>> charge here.
+>> Looking at the first patch again, I do not think the
+>> overall accounting is incorrect. My concern is where NR_HUGETLB
+>> accounting is performed.
+>>=20
+>> The low-level allocation helpers only take a folio from the
+>> hugetlb pool. They do not have enough context to decide how
+>> the folio should be accounted. That decision should be left
+>> to their callers, once the folio enters the relevant usage
+>> lifecycle.
+>>=20
+>> hugetlb_alloc_folio() is a good example. It first obtains a
+>> folio, then calls mem_cgroup_charge_hugetlb(), and only
+>> afterwards calls lruvec_stat_mod_folio(). At that point,
+>> the folio has the correct memcg and lruvec, so all relevant
+>> counters can be updated together.
+>>=20
+>> After this series, alloc_hugetlb_folio_reserve() and
+>> alloc_hugetlb_folio_nodemask() account NR_HUGETLB before
+>> returning the folio. This makes them unsuitable for callers
+>> that need to charge the folio afterwards. Before the charge,
+>> lruvec_stat_mod_folio() can update only the node counter.
+>> The later charge does not associate that earlier update with
+>> the new memcg.
+>>=20
+>> If a caller accounts again after charging, the node counter is
+>> updated twice. If it does not, the memcg and per-node lruvec
+>> counters remain missing. The caller then needs a memcg-only
+>> correction, creating a special accounting protocol between
+>> the helper and its callers.
+>>=20
+>> Migration exposes the same issue. The target gets node
+>> accounting before it inherits the source memcg. The second patch
+>> must update the lruvec state and then cancel its node changes,
+>> because the target allocation already updated the node counter.
+>> This works, but makes the accounting lifecycle harder to follow.
+>>=20
+>> Would it be cleaner to keep these helpers focused on allocation
+>> and let each caller account at the correct lifecycle point?
+>> Normal allocation can account after a successful memcg charge.
+>> Migration can move the complete lruvec state after it succeeds.
+>=20
+> Hi Muchun,
+
+Hi,
+
+>=20
+> Thanks a lot for the detailed explanation.
+>=20
+> One thing keeps the target accounting in =
+alloc_hugetlb_folio_nodemask(): the
+> node counter is paired with the folio's free, and a failed migration =
+frees its
+> target right away (put_new_folio()/folio_put() -> free_huge_folio(), =
+which
+> always decrements the node counter). If the target were accounted only =
+after a
+> successful migration, every failed migration would decrement a node =
+counter
+> that was never incremented.
+
+You're right, and HugeTLB is really tricky. I think HugeTLB might need =
+some cleanup
+in the future to better handle the accounting here. As a bug fix, the =
+current
+changes look good to me.
+
+Acked-by: Muchun Song <muchun.song@linux.dev>
+
+A future cleanup, might be to have all the underlying HugeTLB allocation =
+functions
+update only the global node statistics (use mod_node_page_state instead	=
+of
+lruvec_stat_mod_folio). Its caller, if it needs to charge memory
+cgroup, can then call mod_memcg_lruvec_state that updates only the =
+memory cgroup
+statistics.
+
+Thanks.
+
+>=20
+> Unless there is a way to let free_huge_folio() tell that the folio =
+comes
+> from a failed migration, and skip the decrement for it.
+>=20
+>> An uncharged path can explicitly update only the node counter
+>> if global accounting is still required.
+>>=20
+>> This would keep policy out of the low-level allocator and make
+>> the accounting lifecycle easier to follow.
+>>=20
+>> Thanks.
+>>=20
+>>>> Thanks.
+>>>>=20
+>>>>> + mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, =
+NODE_DATA(new_nid)),
+>>>>> +                   NR_HUGETLB, nr_pages);
+>>>>> +}
+>>>>> +
+>>>>>   void move_hugetlb_state(struct folio *old_folio, struct folio =
+*new_folio,
+>>>>>               enum migrate_reason reason)
+>>>>>   {
+>>>>>       struct hstate *h =3D folio_hstate(old_folio);
+>>>>>         hugetlb_cgroup_migrate(old_folio, new_folio);
+>>>>> +    move_hugetlb_lruvec_stat(old_folio, new_folio);
+>>>>>       folio_set_owner_migrate_reason(new_folio, reason);
+>>>>>         /*
+>>>>> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+>>>>> index 88824f783571..a5335da5d425 100644
+>>>>> --- a/mm/memcontrol.c
+>>>>> +++ b/mm/memcontrol.c
+>>>>> @@ -1015,9 +1015,8 @@ static void __mod_memcg_lruvec_state(struct =
+mem_cgroup_per_node *pn,
+>>>>>       put_cpu();
+>>>>>   }
+>>>>>   -static void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>>>> -                     enum node_stat_item idx,
+>>>>> -                     int val)
+>>>>> +void mod_memcg_lruvec_state(struct lruvec *lruvec,
+>>>>> +                enum node_stat_item idx, int val)
+>>>>>   {
+>>>>>       struct pglist_data *pgdat =3D lruvec_pgdat(lruvec);
+>>>>>       struct mem_cgroup_per_node *pn;
+>>>>>=20
+>>> --=20
+>>> Best regards,
+>>> Hongfu
+>=20
+> --=20
+> Best regards,
+> Hongfu
+
 
