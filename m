@@ -1,31 +1,31 @@
-Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADC73C1977
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:44:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364233DDAE2
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:45:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142260; cv=none; b=Ip86VZZ4toiO6/xMSV6vJQ5PPyYpNKMgGMoYU85SV2mmi9y4SqhVDZHt4cCxB2fqh3iOk0dCDPBeoQrOjULfOm/44qBCmTcb+RKcOf3G/phiBnrwV0QZQqM5M+P7zDZl6o6tZaKXn6pXhzOVSAXEnApzThBV3BJUtDX6vsVC3OI=
+	t=1790142343; cv=none; b=kzbcQXcvcbrhZtqPaV8r5ZCHuTJ9ZR+bVEwXnjd+fDI8Z6VU+JSuKIe8HSf4A3orVd6QB2y+Q0KBm14/XJA1ldceWhA/040P21/u0SWFvevUSJOeIfrnBPgD/9WaIoNFGXozy48RlNraKacqX1zeuu+Mi4d0o4/diadmcqMwxiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142260; c=relaxed/simple;
-	bh=H+S6QRvGqedLE40KpwbH09MLeOp4jRWCA9/C/tV2RNE=;
+	s=arc-20240116; t=1790142343; c=relaxed/simple;
+	bh=Hpchx+TeVg+3320N2ZLza2s70qLylkvHKlXE793d4Z4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rUo20DCzTs3uRjfErEm/EfFDsNaZlEPw5AukkquInCHOh3O6NZzBNBHvoF7w3L2hDWNvHNQ4h5A86BoN9nrtH3/fhDbmmksx/B5cf2rJqaNDStmSC5K6016Wh8HU18GA4+MwLYwTf5EHq94zoddDN4dfFkNrrLwPsjbnBFnhML4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=MKFFvNVU; arc=none smtp.client-ip=35.89.44.39
+	 In-Reply-To:Content-Type; b=ED6A4ozEFkqpuX0je2QHW7VhxzpyScVBXisKRK3onPqkURHKuj0nMATyXWahk9b4FXbU0y2Hd9kSAdyxggK8OdjbHWzHI/v/mq0TgWqhuGDrCnY83488wjk2V/Ji1Rxyg9WbTO4HKD40HqNnQ8AiQsdLY+dgCHmC5B0Iqa87mFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=U36gbV3M; arc=none smtp.client-ip=44.202.169.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="MKFFvNVU"
-Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="U36gbV3M"
+Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
 	by cmsmtp with ESMTPS
-	id 93Dvxra7Hc3Xs9Fm9x9bsR; Wed, 23 Sep 2026 05:44:13 +0000
+	id 9Bafx23dJFNWB9FnZxUaKA; Wed, 23 Sep 2026 05:45:41 +0000
 Received: from gator4166.hostgator.com ([108.167.190.91])
 	by cmsmtp with ESMTPS
-	id 9Fm8xGnexkH8b9Fm9xuP3b; Wed, 23 Sep 2026 05:44:13 +0000
-X-Authority-Analysis: v=2.4 cv=d6X1yQjE c=1 sm=1 tr=0 ts=6ab3672d
+	id 9FnYxiloL8TJY9FnYxnIpb; Wed, 23 Sep 2026 05:45:41 +0000
+X-Authority-Analysis: v=2.4 cv=S9vZwJsP c=1 sm=1 tr=0 ts=6ab36785
  a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=1XWaLZrsAAAA:8
- a=VwQbUJbxAAAA:8 a=8A-kgZgV7H4LFlDSZ1UA:9 a=QEXdDO2ut3YA:10
+ a=VwQbUJbxAAAA:8 a=4ffO35K8LLM2FldQJH0A:9 a=QEXdDO2ut3YA:10
  a=2aFnImwKRvkU0tJ3nQRT:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
@@ -33,20 +33,20 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
 	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=k8wIUYwoqdWcXq2+0C5aEKgDwMElrhdlsI09WmfuT9Y=; b=MKFFvNVULWUi
-	Asrp/9c8+Ui6BSFTdUfJwK9TPk+JVpUVmDAr3dHnoDzz2tWYKDYZqhB6adtd8yK/s/SXXMvxis3WS
-	1RkQVUM68f+TjNoxCsS3Lvcr0SOcWtUn3VjBmm6v+DXDiZnMeVBu7+UNGMl/4N2zOAGq4uZjtdAiU
-	YX0vDPvQ312uUQmp5jcJXnd9rqkpUQ8Fp9DFr6jVODSq95c0BgjMSHX0RzBj/510P4oE1iq6hfhc5
-	dUdrdGTp7Qc46Yb3amFXAgoCvlt9/4/nGkqG6yi+Jd6+UVbA79wQlqNEqUcEysJ+32A6KFYGoRiEo
-	ycpMLj+36+EYaW+r3dcHNQ==;
-Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:33808 helo=[10.203.100.34])
+	List-Archive; bh=/E5qcA3QzsXosiYS9VqPceYIRRHq3vwJ1GMOPH5S7j8=; b=U36gbV3Mix/x
+	WIQjz6KImRom22m14NU17nkw2Fz9/BzozX7h8i445DOlqIky7qEU2Ko0uaWY72P3QKkAB2vwMh3DV
+	z3GccUJyHkhSvmxM8MdZT9Dr2mByWNDmnsm5Uv64/k4mXHrwrZvUpQVro6qkg3CuafvSJ7ZyoARzF
+	yWnVDH2AFHAjE/g7CftfEa2a4b4EyrC7MPNSj/S0d79W9lMYod2wX3hHhmBhoMngx5GcdWnpWx2h4
+	UinxsBdLkVY0fMD6ot2o6xHlSzcgAS2BG3rxOUBLHbrlJPd0tB2IoWbjW+6/wCgzvMMDVTuNQ0Kym
+	jfgitaiY82MPrUluK+MEqg==;
+Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:36818 helo=[10.203.100.34])
 	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
 	(Exim 4.100)
 	(envelope-from <gustavo@embeddedor.com>)
-	id 1x9Fm7-00000001xsk-48IZ;
-	Wed, 23 Sep 2026 00:44:12 -0500
-Message-ID: <06c50171-16b8-4f9e-9b24-61c41f1325ad@embeddedor.com>
-Date: Wed, 23 Sep 2026 14:44:07 +0900
+	id 1x9FnX-00000001zQT-0WFg;
+	Wed, 23 Sep 2026 00:45:39 -0500
+Message-ID: <8d82177e-5347-4e7e-898b-01cfe244e1af@embeddedor.com>
+Date: Wed, 23 Sep 2026 14:45:34 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,19 +54,20 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] iio: st_sensors: add __counted_by_ptr to struct
- st_sensor_settings
+Subject: Re: [PATCH] iio: adc: qcom-adc5-gen3: Annotate struct
+ adc5_device_data with __counted_by_ptr
 To: Bill Wendling <morbo@google.com>, Jonathan Cameron <jic23@kernel.org>
 Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
  <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
  Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux-iio@vger.kernel.org,
+ Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
  codemender-patching+linux@google.com
-References: <20260922112111.1970872-1-morbo@google.com>
+References: <20260922220950.2267270-1-morbo@google.com>
 Content-Language: en-US
 From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20260922112111.1970872-1-morbo@google.com>
+In-Reply-To: <20260922220950.2267270-1-morbo@google.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
@@ -77,44 +78,37 @@ X-AntiAbuse: Sender Address Domain - embeddedor.com
 X-BWhitelist: no
 X-Source-IP: 125.195.69.90
 X-Source-L: No
-X-Exim-ID: 1x9Fm7-00000001xsk-48IZ
+X-Exim-ID: 1x9FnX-00000001zQT-0WFg
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:33808
+X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:36818
 X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 28
+X-Email-Count: 40
 X-Org: HG=hgshared;ORG=hostgator;
 X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
 X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfNK/JeSaroJpTnEzHN6v2/g8oc2rK5GjYhEJiYng5mtznnrMp1hv9ksUCskmczwed+YAIM1CjFo+lUF/D22kG1eQut2P+E4jQGwtZFH2OwTKGxYZqQHu
- jlauQwRa23VYYoNdOd6E9TBxbWHulN1UmfJYD4kY2kDDSY+w537gUIHWp9mgCCZHqxh9k08zIl/RZHUzhkwGBygEmmJLococDZ5qdgOapYwPvmsSSbgiZcR2
+X-CMAE-Envelope: MS4xfCo11tGPjSotJjfyRuGzZoP+G84t6CPJhqWzJJwA6p8LNAaZyiaWBSFKgtmJilC2gUrGy3gLevJDQtFFnSl05dXng0i+kNYltlBZaQ558v9eKi8byrgF
+ 8bOaxRAXFB7rsmVSSJi+5A1l6+sNz7d2tN4i/oWPSwybHrl+CDtGwJbjkdyy+Be8ykWFhlDMUAkVzAzYjS5B0HiwqGZkdfaD+ka+xDpQBNdl8rlbygHkn7cs
 
 
 
-On 9/22/26 20:21, Bill Wendling wrote:
-> Annotate the "ch" pointer member of "struct st_sensor_settings" with the
-> "__counted_by_ptr" attribute. The elements of "ch" are counted by the
-> "num_ch" member in the same struct.
+On 9/23/26 07:09, Bill Wendling wrote:
+> Under compiler-supported bounds checking (via KASAN or UBSAN), pointer
+> fields inside structures can be annotated with the '__counted_by_ptr'
+> attribute to specify which field in the same structure holds the element
+> count. This enables the compiler to perform runtime bounds checking on
+> the pointer.
 > 
-> All instances of "struct st_sensor_settings" are defined as "static
-> const" arrays across the ST sensor core drivers. For pressure sensors,
-> "num_ch" is explicitly initialized with the size of the respective
-> channel array using "ARRAY_SIZE(...)" during static definition.
+> Annotate the "base" pointer field in "struct adc5_device_data" with the
+> "__counted_by_ptr" attribute pointing to "num_sdams". The number of
+> SDAMs is determined from the device property and assigned to "num_sdams"
+> which is then used to initialize "base" via "devm_kcalloc".
 > 
-> For accelerometer, gyroscope, and magnetometer sensors, "num_ch" is not
-> explicitly initialized (and thus defaults to 0). This is because those
-> drivers hardcode the channel count to "ST_SENSORS_NUMBER_ALL_CHANNELS"
-> rather than using "num_ch" from the settings struct.
-> 
-> Since these structures are static const, both "ch" and "num_ch" are
-> fully initialized at compile time and available immediately at boot
-> time.  The only accesses to the "ch" field of "st_sensor_settings" occur
-> when assigning it to "indio_dev->channels" during device probing.
-> 
-> Because "sensor_settings->ch" is never dereferenced or accessed as an
-> array, adding the "__counted_by_ptr" annotation does not cause any
-> runtime panics or false-positive bounds checks under KASAN or UBSAN.
+> By ensuring "num_sdams" is set to the correct element count prior to
+> the "base" pointer allocation, and since the size of "base" is never
+> reallocated or changed, this annotation is safe and will not cause any
+> false-positive runtime bounds check panics or KASAN issues.
 > 
 > Cc: codemender-patching+linux@google.com
 > Assisted-by: LLM
@@ -126,20 +120,20 @@ Thanks
 -Gustavo
 
 > ---
->   include/linux/iio/common/st_sensors.h | 2 +-
+>   include/linux/iio/adc/qcom-adc5-gen3-common.h | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/include/linux/iio/common/st_sensors.h b/include/linux/iio/common/st_sensors.h
-> index 1ba496f0fea5..6e914ed49529 100644
-> --- a/include/linux/iio/common/st_sensors.h
-> +++ b/include/linux/iio/common/st_sensors.h
-> @@ -206,7 +206,7 @@ struct st_sensor_settings {
->   	u8 wai;
->   	u8 wai_addr;
->   	char sensors_supported[ST_SENSORS_MAX_4WAI][ST_SENSORS_MAX_NAME];
-> -	struct iio_chan_spec *ch;
-> +	struct iio_chan_spec *ch __counted_by_ptr(num_ch);
->   	int num_ch;
->   	struct st_sensor_odr odr;
->   	struct st_sensor_power pw;
+> diff --git a/include/linux/iio/adc/qcom-adc5-gen3-common.h b/include/linux/iio/adc/qcom-adc5-gen3-common.h
+> index 39cbfcbdb101..b3e2c2f50e8f 100644
+> --- a/include/linux/iio/adc/qcom-adc5-gen3-common.h
+> +++ b/include/linux/iio/adc/qcom-adc5-gen3-common.h
+> @@ -137,7 +137,7 @@ struct adc5_sdam_data {
+>    */
+>   struct adc5_device_data {
+>   	struct regmap *regmap;
+> -	struct adc5_sdam_data *base;
+> +	struct adc5_sdam_data *base __counted_by_ptr(num_sdams);
+>   	int num_sdams;
+>   };
+>   
 
