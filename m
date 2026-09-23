@@ -1,69 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD183911BD;
-	Wed, 23 Sep 2026 02:50:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5512EEB3;
+	Wed, 23 Sep 2026 02:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790131815; cv=none; b=tmGEvLZ4deXpv96VlEg7NbckTZgOmGUjyNpmZf9k0Bp7J2e0He1tec6E+oRPn7n/zXj9ia3qm3pVshUqy/JhGNJVmZPRTkFxlhmBhdtBge5Rl1opGXdIGgMkNzC2U3RviisN7CtNIcN9F7qVDMAs1ObIBPxJTOHXQPj/H7mStOU=
+	t=1790131825; cv=none; b=Lm05wNQ6tdBbnYXIiaf+n+x2r7Rn2bUTehU/glmvKRsDhyHpOAm5IwKj091zfW7PriaoFwx/IfoIHUg/WDkJprkuIRXpKupAq72/Lv1FlpX2Zofgsw/GS/Q8pgwDz+LGDalrnR9/g0HAmLbOeG9cxoLH1UVvk4g/I8nFmyv0wcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790131815; c=relaxed/simple;
-	bh=Eo5PNvzKKc4BFL3+MuJflE+BxX4YdcxoeglU+t5KwrY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WAiQ9nIguO6aadAHiy5tMFKhVJKzaGcCQBOiqgosRbBcVFeCkYadJ4r2bVcuF90ZtP6z9AFcSBDN7c3TmA4//l64EsZPv1cpHqov8ObjUNnR2WdY0VYGE3jo3bAypDTesugs3Y49hbwxwHsi/NufSrGQ2smbALJGqHzndZrXEqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZQ5CORt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790131825; c=relaxed/simple;
+	bh=3XHGou/JY5m26ieWaVO+buMJPmus+vVUwzyzXFaWBt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LfWiU5NtsfSlxgdqiHNVYPhlUWw8jGxfwFJbn6TqABsFQAKB4L96uMt/gOAStqJG9Y+F850r3nCQDopsNZjPjZL+2T67BWNkEHUmy6pg8ZwqNl/JjYUMUObal6A74JJpmaCXqtnB4cy3JfIDCoqcJF/sP0OzuuXyqre8jEP14bo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=GxMaExPc; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZQ5CORt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98D221F000FF;
-	Wed, 23 Sep 2026 02:50:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790131808;
-	bh=Eo5PNvzKKc4BFL3+MuJflE+BxX4YdcxoeglU+t5KwrY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JZQ5CORtA6ZeETmwbFwtxoC2CfxFDPqnS+RC7NQO9H6gNAWIrOqRx/Ufk0nd7fXBP
-	 iDsMlkWUtzAnjAvlhBCUMNzhaXQ/vkFLbfx2lrBgDBLqshGRoPTToU+UzQECX2lS7O
-	 3hOj1XpvCcXAc0DcB6YInNKaNEJ5699vb/l07V4BKzELxkLf2ZDEb+lTAyv47yBAPk
-	 ZhJnVtJSnQx768X8qVjVvdmubkx3JubAP3KHc5ZiF9vbvUNSKMN0r/kGszo4Y/4OhV
-	 aWR4snVHpOGntttMBDW8Y0zH6Od2jXwwQs9+77WD1uLLF6eFaDTxtom3jZjBRSsu18
-	 oaCSP+Zmih2Ow==
-Date: Tue, 22 Sep 2026 19:50:06 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, Maxime Chevallier
- <maxime.chevallier@bootlin.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>, Romain Gantois
- <romain.gantois@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Russell King
- <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>, David
- Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH net-next v10 00/11] net: pcs: add basic support for
- RK3568 XPCS
-Message-ID: <20260922195006.79890f24@kernel.org>
-In-Reply-To: <20260922200336.2201212-1-coiaprant@gmail.com>
-References: <20260922200336.2201212-1-coiaprant@gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="GxMaExPc"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+	Content-ID:Content-Description:In-Reply-To:References;
+	bh=+Y6h4pmvxoRdp3LLl2017wWzYpEXuN168o4EoOSoHyg=; b=GxMaExPcF59YBF2el+/btzWzE/
+	oQGN3uiieAjH+igq6tT4+p2nA9qnxMpyhS2zcJE8LUg10CYgZfizbmWDUNXn15BjN+C0GvgvZIdQn
+	9ZMA/uXHwhqGgUZY1RNhSTV/VgonppapASKee+4voEKVhvLs/zDPHDIvMpZ30U++EkYDp5qkW4DMB
+	BCFUP8i91lePriFKGzeku+YuF8arx1XsZu5EghkKWYsH/b6wRz/VZLPKVIxLvG/wuRPBhMCdK9IlD
+	c6WMDvoH6d0F2163b+NHBnhjypFbecwZGD37zc81TPdrHl0H6U7lPQ9e8nl4I/xpncsJrRazUeqwF
+	97kAHBbQ==;
+Received: from [50.53.43.113] (helo=bombadil.infradead.org)
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x9D3q-00000006zMW-2ZmK;
+	Wed, 23 Sep 2026 02:50:18 +0000
+From: Randy Dunlap <rdunlap@infradead.org>
+To: linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-doc@vger.kernel.org
+Subject: [PATCH] docs: ABI: sysfs-driver-xdata: use literal blocks for console commands
+Date: Tue, 22 Sep 2026 19:50:18 -0700
+Message-ID: <20260923025018.848769-1-rdunlap@infradead.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, 23 Sep 2026 04:03:24 +0800 Coia Prant wrote:
-> This series adds proper SGMII support for the Rockchip RK3568 SoC
-> using the integrated Synopsys DesignWare XPCS, along with necessary
-> fixes and refactoring in the stmmac core and XPCS driver.
+Use a literal block for console I/O so that the lines aren't merged
+together in the produced output.
 
-Please slow down with the reposts.
-Not more than 2 a week, and please wait for the AI review to finish
-and be published before you repost.
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+---
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org
+
+ Documentation/ABI/testing/sysfs-driver-xdata |   20 +++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+--- linux-next-20260921.orig/Documentation/ABI/testing/sysfs-driver-xdata
++++ linux-next-20260921/Documentation/ABI/testing/sysfs-driver-xdata
+@@ -9,15 +9,19 @@ Description:	Allows the user to enable t
+ 
+ 		Write y/1/on to enable, n/0/off to disable
+ 
+-		Usage e.g.
++		Usage e.g.::
++
+ 		 echo 1 > /sys/class/misc/dw-xdata-pcie.<device>/write
+-		or
++
++		or::
++
+ 		 echo 0 > /sys/class/misc/dw-xdata-pcie.<device>/write
+ 
+ 		The user can read the current PCIe link throughput generated
+ 		through this generator in MB/s.
+ 
+-		Usage e.g.
++		Usage e.g.::
++
+ 		 cat /sys/class/misc/dw-xdata-pcie.<device>/write
+ 		 204
+ 
+@@ -34,15 +38,19 @@ Description:	Allows the user to enable t
+ 
+ 		Write y/1/on to enable, n/0/off to disable
+ 
+-		Usage e.g.
++		Usage e.g.::
++
+ 		 echo 1 > /sys/class/misc/dw-xdata-pcie.<device>/read
+-		or
++
++		or::
++
+ 		 echo 0 > /sys/class/misc/dw-xdata-pcie.<device>/read
+ 
+ 		The user can read the current PCIe link throughput generated
+ 		through this generator in MB/s.
+ 
+-		Usage e.g.
++		Usage e.g.::
++
+ 		 cat /sys/class/misc/dw-xdata-pcie.<device>/read
+ 		 199
+ 
