@@ -1,121 +1,151 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011002.outbound.protection.outlook.com [52.101.70.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D42CC52FE48
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176171; cv=none; b=ZFmk7hpr6FDvwtTpJD+RdYnpwYYgQXwvhQTkDtOri9/hXeenR04SrFTq1HDYQu6gpuoMpenWOadJRYeN/e4vFO+RgUv6KblRlDbvWhakJqQacd3R/iWbK352/wX1vcKrJwZ/8AfvU0E6sl47P0fHJ67z+bWKmAu38c1DHrOzNCg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176171; c=relaxed/simple;
-	bh=3CAD3EBkGvkw8ITbSCbAKxzYiupi8Enwarxa/dgYn1Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=T5W7+QXLVqWOiP3KmuCcToRakTmJ6XZtzKbG3Yj4F94+IkL48JJvr1pY5EErRZYcp9knbXKLf+/Jx1TDat0Gkut9+i4+AVDjuxxOU3kNMVPTveoJ7NE0/xHPuXi0/ELsvH5wi0DSGSHLCeXBcD7PgGspCYKukI3rNTc6hKMi4y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-7856441f7d9so417336137.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:09:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790176169; x=1790780969;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6YS2k2hncr+GFNhOluY330WU9W5Yzfq4y1ZEwqZxKbc=;
-        b=tUp3o3x2fz69Qx15vc5gUUamPujLu9sGk3Pdgo+7OjjFnraKAgLDLxEaN82vuqLYxq
-         jpsT3VUFuUD1jCp6g3MqOG2TevHfXw0JpH1wy+aZiDXsNveWpLnkpjHW093qrIslsPLB
-         GLaHsz3gTtxKILMVJ/ZnxYj8dW8mf9F9ZEYMSp01mu77w3k0iMGLn1V7PeCRsZA4Cy3+
-         8iZyna+5xH0h7FC6EBU7vIUv5cEtxyeee9+BP28zPIyKJiR8ItkAwUpom9807IH6j1Ao
-         aMzEch5YnTsXzaC6X1T0VIYKfLqaZDjhx7KyM3KqbiYjsG6AE2ClrAO9v5WE4226BtdM
-         SQXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw6loH8i2LOe2mbYXC9yxVdrr3TqAbZPW/SmbKPWGuTBJO2uGrdWz65FAgXFOOOGG3zfU1RSkA+Cbbbxp4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgGW8ltuulfOrGjQ3oZWvIPjJi0JiYsQGBNAsN2hCC40FUscS/
-	MC2S7s/PHXrCgE1Ikaqe3Oi1kcTMg7qRSVpLRkJ+FF/SaDFTugnHOHbj4mhxcuZW9yE=
-X-Gm-Gg: AYBFou3irf0xD0nlzQnzsazv8heM1AYByZYxOjVgS0+s1RV+fm515tbA060WNySsWDO
-	Hac9MhdLMQrjWBVocZyM/x2zzwNRjXCVAI8y76Po91ABkgO1bByXjyinmpzZ7GnQ7eWs5yixGyG
-	PIkH8hf4WCvxYI7JfU3Ekb5VjXJUI30udvfV+XBTO4t+Hh+g1No0s4ZDezUwra2q8iru60pyw4O
-	QoEGIKPODq1WFrnjNyqGl/YyjSYr4X82R21hsVwwOPtYaBLA2uUCrVMQvtxhX7+g99awvxqlNC5
-	lzZM0yxLF1BzMI5+WouQK7bc4LjlwCbJXtjGxK2TbQmeO2hcofKXmxqed/yvp4IXBFDsTSXiezc
-	BASRmvqamaDXXbhJi6d4HUh1kekGO/4y9W47mv8/lKxGF3ZvDQSePtUxHlMMNV9CVv8uOWzZs9T
-	fv7eNtEyn8DXOLuw0X4i1QAOrmW7RXWQTXl+Bx8HPABoDDr2Sf1Z1dvQ+IozR9t1IJXjekiKwFZ
-	ZxpKX2HON6fjD8HhUPkeHbc0l553dbi21ivjA==
-X-Received: by 2002:a05:6102:2b9c:b0:7a7:c789:888 with SMTP id ada2fe7eead31-7ac1b0005f5mr3067583137.5.1790176168792;
-        Wed, 23 Sep 2026 08:09:28 -0700 (PDT)
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf65b6a0esm3849364137.12.2026.09.23.08.09.27
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 08:09:27 -0700 (PDT)
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c7b4ed2so635423241.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:09:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxvRntReMUK6sczxDlthcba8R8wQH9aSHZCFfRPW6L5xMAdStIb9t2crF84VcQiFqYiyKt1EH10RLa898s=@vger.kernel.org
-X-Received: by 2002:a05:6102:f83:b0:7a1:f7e2:aae3 with SMTP id
- ada2fe7eead31-7ac1d0cb103mr2545079137.21.1790176167279; Wed, 23 Sep 2026
- 08:09:27 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D27843FD3B;
+	Wed, 23 Sep 2026 15:09:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.2
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790176179; cv=fail; b=XbtUjiof+Ss89sx99DrT2+bvTIJ/XsJHQRBmzIAbgq5ZMl6ZUAn7IsYi3Njkdxu4j5ztrgP16dg9T1VtPA/VH2xb9oDuRNUWHxPMUuE6cnjNoJ2CR7EZe00ySDZ4GDcD9hPT0xTuHXySDW2AN0BQjzKYXqv94hSLdiciDdiwpOo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790176179; c=relaxed/simple;
+	bh=/l3+ZnjtoCspAMexWOSFaVId8NcIkcQwBMyE0XmNnA4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=e+H3BVr3693tWqQ6n0J40czwWcfP0sHeX9R+RdfjV7FplOymoU+CyqnBmKykpJ/qv2VXVjsCGD2QUxbTIsuSoe3p3pt9sNG8z+iTCzcDksEnljCN7vvzy6efGvuStn4emfUoqqZ8I0Hjgxamk+zQM6xlEdSSwFUn4P8aI07BFm4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=RNyr/hTp; arc=fail smtp.client-ip=52.101.70.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="RNyr/hTp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qLmVXPzZmyF8zBK8WosX94DXe4N/KMXmM19qr86QN54Llxp1BsK5dbkQ+tcoDuh9w2MKGltGmw/YGlX37bF+dEwkMteWzl9OUa8ls47b5qEU6C+GYSncnkAJJz5Z5h3ntj0Tfw2SpbK9R0n5HVsd3rXwow+v3xgT6UBYopyzAfmpyq83MygJl4+Za5C4gCQcCJUecNCFfNv/ztfgsVhkgsTh6x/n/AZ99hiaIIyFeElKn3bz6s4tpABkPZfFvcTTFM6QO4izib5poj09ArDCbXuB2JC8CXbhWWwoN01tjfRKdebrRSEU3JkL5Hp0yMQkzLXFBhWkYNECgI9dT1UVQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Re9zy3oSDhDTDDnTE7PIbVzv1+AXecNFo/2GbFD99rs=;
+ b=I56vt88u2MPINn7bzXozVVcBei07TqBJ+dKJjbHMebaU5kf4mtGGsr4FGKQjK3oVYm88xZQXR3uIyHQB3ig+9ET8b/ZQkJDExJH+JTFJNlbZDxw6nhfqG9aTDSyG8t+ZjNtVLKUIYoInydEnVkyXMNfrmjG++s1dKHEshyD3aHCgyOgnYMd8TUzBgQrOnaRC9xxw7QlZ1Ni7KSBh36lSBJatW0YgSmXIvJazTefBJucnWDeaK8Wbx3HazfevpkEWPjYew6Bp7GQiIfPsET45T22rsQcZJ1aR0Sti8wldxPf4+ng/ugwZDbY4mrv0B+xXhXIKZwLyfPvju7FPfYVXww==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Re9zy3oSDhDTDDnTE7PIbVzv1+AXecNFo/2GbFD99rs=;
+ b=RNyr/hTpNr1GG1jUYl39BnOrf+hkuE6tKrHo7iBM6525uJOnqyzLAANuKO/y2Zs79G0fDomMQSQb9+KfCf+A3ptbjcazrGIxjLZdAChhaE5eS+Q7IsZbq9F9Ng3sDKXnXsHhYpYCd3HOV2NgPySUIUvJgZVLYNXL364B7FOqLvr0hWMOg4FOyLSykCa0Q31cD2LqSRyNoRGLwBjHD2anloJzAf6lnnH9ljFVDbhKST5vQY8l4wmQkKeNZnDLIsfKAGr0y/D5z7GGcw4svR6vo8HpERvqqYpFJ/x6iv8KVk2w5zOO0JiBARFPzrSnVxrOZqk+PHk9608ho661uOrrtw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17) by AS1PR04MB9557.eurprd04.prod.outlook.com
+ (2603:10a6:20b:481::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
+ 2026 15:09:34 +0000
+Received: from MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8]) by MI9PR04MB019273.eurprd04.prod.outlook.com
+ ([fe80::263c:943a:dcb0:29d8%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 15:09:34 +0000
+Date: Wed, 23 Sep 2026 18:09:30 +0300
+From: Ioana Ciornei <ioana.ciornei@nxp.com>
+To: vjardin@free.fr
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Vladimir Oltean <vladimir.oltean@nxp.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/2] dpaa2-eth: devlink port number from the
+ DPMAC
+Message-ID: <rljgvjn3gbyq6ixikhnrwe6z6rlmfd3pepns4u2dujzjo6q6uv@kb7uozq52ozm>
+References: <20260923-for-upstream-dpaa2_ports-v1-0-b59c865edd00@free.fr>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-for-upstream-dpaa2_ports-v1-0-b59c865edd00@free.fr>
+X-ClientProxiedBy: FR3P281CA0200.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a5::15) To MI9PR04MB019273.eurprd04.prod.outlook.com
+ (2603:10a6:290:d3::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-8-94c4674927e8@solid-run.com>
-In-Reply-To: <20260904-rzg2-sr-boards-v8-8-94c4674927e8@solid-run.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 17:09:15 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUzDBMVEV7VP4JeoKFvbbYs6txYqHzw+j4qnvkKZJ3Zyw@mail.gmail.com>
-X-Gm-Features: AclHuK9TWKX7_LFBBJY6lEHypNQ2_JvEQbFVziKurEpWXaJo034l1OL9z_ll5Zs
-Message-ID: <CAMuHMdUzDBMVEV7VP4JeoKFvbbYs6txYqHzw+j4qnvkKZJ3Zyw@mail.gmail.com>
-Subject: Re: [PATCH v8 08/11] arm64: dts: renesas: add support for solidrun
- hb-ripple with rzg2l som
-To: Josua Mayer <josua@solid-run.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
-	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
-	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI9PR04MB019273:EE_|AS1PR04MB9557:EE_
+X-MS-Office365-Filtering-Correlation-Id: b1f7db9f-fb05-40eb-6f87-08df1984ad46
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|19092799006|366016|1800799024|11063799006|56012099006|10067099003|18002099003|22082099003|6133799003|41080700001;
+X-Microsoft-Antispam-Message-Info:
+	/shVG10nQYU319H0MuaZpUcj61ui70dV7cjm1eLYQOwTpNVGvFl6SWnNk34ZT1GQ4IcHPmOAZ5EkBwS9/acQzZ4BFW/MDjBsk9S7l+7tjgX6NqidCiUgszQxkL+KNeSkZ0juVIm4GTQcevH7bn2Vgt5kaHFCBQRZKQNhPpWcVA4+U1gJm7Uc8HF3hQcouyCmqTWZAVCw7IyqdLKb7vd4klVt54uK1RDEbRt0jcjXLV6j+3uzxQC42BbHX7uuV3r4Nj6Uva5Us57Y2DiocTvlrmGH8G1UzXrxCSVux11xqFRLeykbuUlJrwY85k/R6z8qd1dJNxJm572jzosKkjGf2McRDIH2SC3/mxUFvl6Jf5JasoIVAqDXNpc8Rl0Wbg9/RNJtydZysc+TQqhXaumu/aF1W/C6C8boUB9aNlhaz2LxduqxlF14lQgGcO9N4E1qxH7gOJqY/RQm4Xcp33Br616KNsliz6AqF24wo9MtTnKNnwHC1R0Rze72SkiWYV2SiSGm9qmpBV09m+BuEKnQC65AAMBSG04GL0h0vxbusQ+B7/S0trvY3mxarwtjqXFJir013LhUkQbb/R8kjd4G5MouQH41D0/VxAk6vQrmW58tK6fgCV78/q44EN0guwS+BH9C3wL4zY80EEB5oI8TccdH7pu1Ngzm6Xu9y8NdHGIWeckVOXq9yi0UUL7G+bqnzn12Kg7N10t/wJoFQh3E4A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB019273.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(19092799006)(366016)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(6133799003)(41080700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?80/2pOqNMQ2nANA7PHW9otb3f2S1CGlgNNUkuMJEiyu+/KxMPdoQAMRaVGen?=
+ =?us-ascii?Q?DFmJ9UxZNBIvxjqmuPq2U6o4nctAQ/BlAg8SRiYmZD7TNbaXxh04spU5iCM/?=
+ =?us-ascii?Q?vOySQ4IKu7gekKrkZMXT70wBYw+QjevS91zh+RWUhLWj2ApJxdMLl2HzezUO?=
+ =?us-ascii?Q?6whETsypo8WEovbf8RzALLTpcDsumROmzNmT7adCwbUGtc6lbOCgKlNAdH30?=
+ =?us-ascii?Q?PRutO/CGaOZof7GbEauhMSt6rbDetRsnS/e3SJKamgQuekrf+T+TrA57lglF?=
+ =?us-ascii?Q?cq77qQ/ezVf0omgDZOfFGp04w9vBf6uj43fkadmFondboQdD7KPj26c60HvJ?=
+ =?us-ascii?Q?nIDWTWv7MSY4OkR8Cr2h0adqfZQw6wkRDlRKhFkxsn60hs9vE9IOeuEgUd7M?=
+ =?us-ascii?Q?mYQqcyanETNCPs3Ul7HMbosKCbX8uEjL19KvTc54IaPG2rL3nJmK3qeETd7n?=
+ =?us-ascii?Q?qqeKTHhDyXC4o/+ipOaObcN0xODf0ScyrIGwyWvCEc9bzbQxANy5TnjICc30?=
+ =?us-ascii?Q?HgmuJZSKwov0GfJ9niA8QRJcJ5snD2OLqLr3ndiUPd0eyufSZT6h7oVIO5sq?=
+ =?us-ascii?Q?gdutdorYhfan7IAGDSTVC01w4kX+oywYBaef8k2r5GVaKtLKnP2nnT2iGBdp?=
+ =?us-ascii?Q?Yb1P9ySUUlETQ25Cctdy4pofbSxFlM8eKl14OWe/SxVZpDMaiIVx7+r13tmj?=
+ =?us-ascii?Q?bpMPqYbT6TGeIz17h/zlfiYutX3mpyH1QjMbOqLf+w0I8EJdkB4u8jp5pG6r?=
+ =?us-ascii?Q?iw2PZaeKSAmjNu/98BU9bR9tIUyD/FMXr+gW38wWeUjhiZ3lndP3Pd1nEMhc?=
+ =?us-ascii?Q?KjtKj0kKQRJttIimnnMsKGROwjzSTCgDjz5eqf0ccL9pWMPVuSUJH5ceB+Hi?=
+ =?us-ascii?Q?s3h6tQbLAfvuy4NiLql0Jpk1gUPPW7um+X4wGJ0NlmplNA1HGpMt7s9u94Rf?=
+ =?us-ascii?Q?j0duNZgJ004woCr9uqhnjX1EoaTfCGxaRLmiEONSQ/YjTA3t/YwhEsBXE5xd?=
+ =?us-ascii?Q?o41LhuHSFGYZXWdH2tEj/3c8AhR1yrYjD9SPY2acZd/3kyIUonsVXX+nftaz?=
+ =?us-ascii?Q?LwWuDb4MpSpcL/PePr75UQJ3bBXlVOKNe/U6J9RRF1mv1huv3dYLERGyfEp5?=
+ =?us-ascii?Q?0Fxman7jHQldSoXI+/oKy/gjSa0aiiX7s79Q+zcFoeJwoHo7OB7YIHrVZj2u?=
+ =?us-ascii?Q?yQ++Olla8awGgzB6azSHFyBbpLCqh6Ni3SXTwpCQdd7sHuTpj4d/ZPSxTjo6?=
+ =?us-ascii?Q?GUiJAh6Q2K6uoIVcMj3nYwW6WrtpJ5eDN6COatiYME2uSc7mZPxPLIppmwJ4?=
+ =?us-ascii?Q?C5N20UN9uASYgiBjs9aK5kE0RAg6nNKszSp+npjEdU8/NiH7E7GSwU5cZwuL?=
+ =?us-ascii?Q?n1/ph+d2etjoHLy2uQjyhbKfYN59wbjJTvfZG0X49FdOyugccwD2tgO3F7W9?=
+ =?us-ascii?Q?B2lQyiX9NVzXhKOe+HxJgGzoUpyFGY2BcB5UTPg+gODBjiRJBJE/bSW8932a?=
+ =?us-ascii?Q?NktNexgjxnEmYEZgXP1Lcf0ARDLbCt2UINzGiKsJywoSABlfyt6iSY0znuxC?=
+ =?us-ascii?Q?Z6r8uoqkF6rz+fjnY2ToJG81xwn0Rd+RMwR267hRU3lbZbM5kqaB8aIXIDjP?=
+ =?us-ascii?Q?I7lAX56CMzFxBaficnOaLwRjuHcVMDTro+LY14ydBdp+iY2rBCzTYUjVZz/7?=
+ =?us-ascii?Q?+Kzog5ESkmosEpLA32ByW+uxsNz7fWRwazTHyKvTMzF3hQp4wefOstm0qtyj?=
+ =?us-ascii?Q?ECuNVXSUZQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1f7db9f-fb05-40eb-6f87-08df1984ad46
+X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB019273.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:09:34.4007
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qXvGr77LSHdIbkvm//SVQt1BhZjOBjmBsupzcNPrShtFsj3Z4qL681lewuq5UuELGx3miCPpAP3UHvGljAdQTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9557
 
-On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
-> Add support for the SolidRun HummingBoard Ripple [2] with RZ/G2L
-> SoM [1].
->
-> The HummingBoard Ripple is a reduced version of HummingBoard Pulse,
-> featuring:
-> - 2x USB-2.0 Type-A connector
-> - 1x 1Gbps RJ45 Ethernet
-> - micro-HDMI connector
-> - microSD connector
-> - mini-PCI-E connector with SIM slot supporting USB-2.0 interface
-> - MIPI-CSI Camera Connector (not described without specific camera)
-> - RTC with backup battery
->
-> The carrier board is identical between RZ/G2L, RZ/G2LC, RZ/G2UL and
-> RZ/V2L SoMs, yet only the RZ/G2LC combination has a product page [2].
->
-> While the variant being supported here is named "Ripple", shared include
-> files are still named according to the full board for consistency with
-> schematics, silk screen labels and other SoMs on same board.
->
-> Description for microSD is shared with HummingBoard IIoT.
->
-> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2l-som/
-> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2lc-base/
->
-> Signed-off-by: Josua Mayer <josua@solid-run.com>
+On Wed, Sep 23, 2026 at 02:57:59PM +0200, Vincent Jardin via B4 Relay wrote:
+> dpaa2-eth registers every DPNI as a physical devlink port without a
+> port number, so all the DPAA2 interfaces report the same
+> phys_port_name "p0", including the DPNIs that have no DPMAC behind
+> them.
+> 
+> Patch 1 uses the DPMAC id as the physical port number. The attributes
+> of a registered devlink port cannot change, so when the DPNI endpoint
+> changes at runtime a warning says the number is stale until the DPNI
+> is rebound.
+> 
+> Patch 2 registers the DPNIs without a DPMAC as virtual ports. They
+> have no phys_port_name, so "p<dpmac id>" is unique.
+> 
+> With both patches, udev can name an interface using its DPMAC, for
+> instance:
+> 
+>   SUBSYSTEM=="net", ACTION=="add", DRIVERS=="fsl_dpaa2_eth", \
+>     ATTR{phys_port_name}=="p3", NAME="dpmac3"
 
-I didn't compare with the board schematics, but the rest LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Is consistent naming the end goal? Because renaming can already be done
+for DPAA2 network interfaces based on the of_node. I usually have
+something like below in my udev rules file:
 
-Gr{oetje,eeting}s,
+SUBSYSTEM=="net", ACTION=="add", DRIVERS=="fsl_dpaa2_eth", \
+	ENV{OF_FULLNAME}=="/soc/fsl-mc@80c000000/dpmacs/ethernet@1", NAME="endpmac1"
 
-                        Geert
+Anyhow, I will give the series a spin tomorrow.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Ioana
