@@ -1,224 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CDF1244687;
-	Wed, 23 Sep 2026 14:06:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBF75383E6
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172394; cv=none; b=MzFjS+vtp+EXRolq1G/PAvyymSHlAHupL1wLXNAqyCn2OruASS8IwCZ8NjidbTKdcg5g8GWPBG8dCveq99EmEo9rzIToKLN+ZZYuW87Of9ctLQQ2peG3GRslSiD/rWpwVz42nSALqyltizYcYANQnN2Yy53X6Z/Uzkn4XU+y8Zg=
+	t=1790172400; cv=none; b=YJHTGSkm+qYQFfpROYNfHd/RkaSL1kkaNqdhWObEmJbYyQ1oJMWBtPzLpfBVG3xkXtv+u6S9kTMShtQDA+ASfvrJqHVkqivvy3Tpm+ubJX36GOxUkMbJbB9yV0fbbVj/inQdXs4eOorKu7mEltTpueqUt0pRR017pcm0Un7xArw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172394; c=relaxed/simple;
-	bh=q8fCd9Z/XZucUQsh9gLexsvtOqoYnGlIMraaR/z6kCs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nJg47P3t2JPersg0CORn7t6ECygznnBs1ldsVzXqtx89u3fNoQU0w02tDy7J7skfYrCRhKwxK/4LQVhV72arlCPgmH3rlojcwag+fuj4G9zwVd2eBDlP5QdT259RFrnGQY67JofG4QhXUBhf0HaMoB79waUb96h34+z4vKPgHJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfbvFQ8t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790172400; c=relaxed/simple;
+	bh=oTN0UkvymfxfGzObUk2qVdjzgU9xGJX4xG3MjkmtUl4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=W7ZfBBp2HupqClb2nb8RNTySfvTUBpCxu/AIqQ/EQWImOYc160nHuE3SYlXE64dqHKKYZ0mYwI1R5NeVUj7MOQ8AO4+2GLCVXTiEKFQjfqcKALU9OCcRU4XzZQEbgZitYBOXlVyW6mJUMaMVPBonJ+prPyBYz1Wykhmbx9fglE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com; spf=pass smtp.mailfrom=linbit.com; dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b=FcWphHYq; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfbvFQ8t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E78961F000FF;
-	Wed, 23 Sep 2026 14:06:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790172392;
-	bh=K+DgeqwBXy16mXxOtEILhg0nQc96HCehJ64AnqqPWjA=;
-	h=From:To:Cc:Subject:Date:Reply-To;
-	b=UfbvFQ8t20iJN86zpaMJcK8P7WhNFPoh+Mg6hKG0BwyWTW2Z04o5B0ALSHbS9gecN
-	 QjvyO67yHmsPNYMfDXeCNlfgBA9C+PyBoTq3F1UgPUFevHpcu1GfTxMNjlYmGdV8iZ
-	 pk1vRrMspzVvCmrEEAV9sOyMUq3WApDBzzSBr845/MBEuB7nErG9/X+w2tXHeZuQuZ
-	 IQ7pz80lgfcBBmeLldEIfiES66rOsdMxnZSqDgOOP5oLn0Dq8WlwoYkLikaQ9Ay6NA
-	 e/H6/mlWcofoZ1MiAQOYOpAFW3/JaLIOGry6QawwSaBHmk1Skk/2T26kqm4nHguem5
-	 aQn5j7ELVDwCg==
-From: Gary Guo <gary@kernel.org>
-To: Benno Lossin <lossin@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/3] rust: pin-init: internal: handle item and expr diagnostics differently
-Date: Wed, 23 Sep 2026 15:06:13 +0100
-Message-ID: <20260923140618.1978181-1-gary@kernel.org>
-X-Mailer: git-send-email 2.54.0
-Reply-To: Gary Guo <gary@garyguo.net>
+	dkim=pass (2048-bit key) header.d=linbit-com.20251104.gappssmtp.com header.i=@linbit-com.20251104.gappssmtp.com header.b="FcWphHYq"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4b11so5951575e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:06:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linbit-com.20251104.gappssmtp.com; s=20251104; t=1790172396; x=1790777196; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yK7mZx0EiqY5laEgalU2cR5RMQsFjx+sycq1PNzq5sY=;
+        b=FcWphHYqyBpbrHqC9vZvL1islSasW+iiys0n87KxDaYdqQNgvFAbHEsfvkp7NxT28F
+         wyn2qEHNY0DJ0x6cLBtLk14XxOu1KAhT2/MwJTDwdypKVbJ5VQCJMdVY/L8NVhc/3WrU
+         G4KRuNmDC5gqdSfBrYbnIdB/fzkWwqMw89sNA/kCXkaQGrj3weJDkw4iE5Vr7YcnH4if
+         0wRjKp9HvBWX5AYt1I39uCbRX2yiNNHrldtylYcmnUzIS3LVM5x6qTQVGut8Nz+S9TeC
+         nTVlexs2zrW2GY3pFAfxyac0Kzl3ahKmL/pMVCEptROJogdfgEW1hpYENwI+CypjnzY5
+         oqaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790172396; x=1790777196;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yK7mZx0EiqY5laEgalU2cR5RMQsFjx+sycq1PNzq5sY=;
+        b=c29Ghxs4iI2PMWt4XH4UBcwkIqWieW/ce1Cp7cH0/9X5onM9a31+ch5/4f9M8X03PK
+         er5OqhQPCp3qLNhjQZBoc8elcabcc4olqGnnBRKRJJqCpy4NSE1+nVg+gE8MlznFdRJV
+         QSnAKL8hb/1Aat98SHPJvefK2Mohe4SF+M6/LyqicdvSfOziqsHlPzIQjmnFB0IEqjP2
+         qMQrA9sgHcNdmnnC/3+PYOGsumiU8j6r+W0huwNqEzHqABLGr/2Mn7zylBSdmjCJREPN
+         FfxeUCGXPVmsVEUlLR02DLr3xO6auHzHRNboZNaEa3FsVr25/6MBrCv4NXdJemkTcqDG
+         tlDA==
+X-Forwarded-Encrypted: i=1; AKwUvBw40sRv84eaJnpMRtVev4XumWSbuMRgymkLI6/ilzMwEsCkwgj5PSGlhC2GTLpM5loMQPy2N8Cv6yNpt/A=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/hL60V2VggY4hrmNu4KSw8UOIOsYIbUOHEOzV5fIrJznGpW8c
+	3taqUbsjahNnbAci4jH0Dh2dBiMoC6XPjOnYrevjwlFRBokP10uaqH52c1D7zDiiEzE=
+X-Gm-Gg: AYBFou3GkYVUmFy4E9SDIqqr0KXUlSuk1fW/p/BY73WhlLLLysFK3L7Ho51ip7LIFAn
+	PSYn+YLBRGqOTNRCE8DJIgxGUuOcBQU7biUFEcUzQJy9KCfk3q+888gomOtNVsyr+Tb7+pXdGPi
+	a3+qCa7FsrBZNwGKP3AEVXdR+j+wyQmBQjZm1VR0TIblJ8c1V4f5vdUAORuKc7UCi0pTGc6advY
+	3pd00fHcc6KboQMi2XHIfa9AqStZc5lLXOQOdf8jN9Z8Uo0dh0B7+t6Al5upcQqnW00XzTJh7Bo
+	eUdEKLqe6yHPGMK5EKdFSD1U9egohbniA6Awhz0XAtfU3SEW/p2Fm29jTayhcS5DZn5B6tDoy7H
+	FiNL6SXLRw+g5qIls3fqihkUC5DSLHPYiXX2DT/A2LZpEEFCVM/R38HQe2XggBIoWa178qZHQVP
+	naE14P0rf1ZUs9dP7es9pgS11jYv9gTQsx1NN6mpHVCPdLE2YWMUPS4f/2zCzeDmG9qjc/uBNk5
+	inmO6AqpTDyTZMQrsXZs2o9xlpS+2A=
+X-Received: by 2002:a05:600c:a416:b0:49f:df99:ff13 with SMTP id 5b1f17b1804b1-49fdf99ffd1mr35917295e9.21.1790172396347;
+        Wed, 23 Sep 2026 07:06:36 -0700 (PDT)
+Received: from localhost.localdomain ([2001:4bc9:b01f:2334:39d8:9506:1776:f780])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde18a8a0sm78087455e9.5.2026.09.23.07.06.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:06:35 -0700 (PDT)
+From: =?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Philipp Reisner <philipp.reisner@linbit.com>,
+	Lars Ellenberg <lars@linbit.com>,
+	drbd-dev@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Christoph=20B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>
+Subject: [PATCH 0/7] drbd: preparation for DRBD 9
+Date: Wed, 23 Sep 2026 16:06:01 +0200
+Message-ID: <20260923140608.1116713-1-christoph.boehmwalder@linbit.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Gary Guo <gary@garyguo.net>
+This series contains preparatory changes for bringing DRBD 9 upstream.
+Each patch moves a piece of the in-tree DRBD 8.4 code to the form it
+has in the out-of-tree DRBD 9 code. Doing these steps separately and
+up front keeps them out of the much larger rework that follows, so
+that rework shows only what DRBD 9 actually changes.
 
-Currently `DiagCtxt` is used to allow error recovery in the pin-init
-macros, by generating both a `compile_error!()` macro item and continue
-expansion, and then merge token streams together. This works very well for
-items, however for expressions, this will produce invalid expression and
-result in a confusing error message.
+The patches are a file rename, comment and internal cleanups, and two
+higher configuration maximums. Defaults are unchanged, all existing
+configurations remain valid, and apart from those limits only the
+wording of some log messages is visible to userspace.
 
-    error: macro expansion ignores `::` and any tokens following
-      --> tests/ui/compile-fail/zeroable/invalid_spread.rs:15:9
-       |
-    13 |       let _ = init!(Foo {
-       |  _____________-
-    14 | |         a: 0,
-    15 | |         ..MyZeroable::init_zeroed()
-       | |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    16 | |     });
-       | |______- caused by the macro expansion here
-       |
-       = note: the usage of `init!` is likely invalid in expression context
+Christoph Böhmwalder (7):
+  drbd: rename drbd_worker.c to drbd_sender.c
+  drbd: modernize the file header comments
+  drbd: raise the socket buffer size limits to 128 MiB
+  drbd: raise the maximum resync rate to 8 GiB/s
+  drbd: replace the drbd_interval bitfields with a type and flags
+  drbd: move the packet name table to drbd_strings.c
+  drbd: rate limit log messages per object
 
-Fix this by wrap the concatenated diagnostics in a block, with the
-generated expression in its tail position. This results in the desired
-error message.
+ drivers/block/drbd/Makefile                   |   2 +-
+ drivers/block/drbd/drbd_actlog.c              |  16 +-
+ drivers/block/drbd/drbd_bitmap.c              |  18 +-
+ drivers/block/drbd/drbd_debugfs.c             |   4 +
+ drivers/block/drbd/drbd_debugfs.h             |   4 +
+ drivers/block/drbd/drbd_int.h                 |  59 +++-
+ drivers/block/drbd/drbd_interval.c            |   4 +
+ drivers/block/drbd/drbd_interval.h            |  55 +++-
+ drivers/block/drbd/drbd_main.c                | 106 ++------
+ drivers/block/drbd/drbd_nl.c                  |  15 +-
+ drivers/block/drbd/drbd_polymorph_printk.h    | 256 ++++++++++++------
+ drivers/block/drbd/drbd_proc.c                |  10 +-
+ drivers/block/drbd/drbd_protocol.h            |   4 +
+ drivers/block/drbd/drbd_receiver.c            |  61 +++--
+ drivers/block/drbd/drbd_req.c                 |  40 ++-
+ drivers/block/drbd/drbd_req.h                 |  12 +-
+ .../drbd/{drbd_worker.c => drbd_sender.c}     |  42 ++-
+ drivers/block/drbd/drbd_state.c               |  15 +-
+ drivers/block/drbd/drbd_strings.c             | 138 ++++++++--
+ drivers/block/drbd/drbd_strings.h             |  27 +-
+ drivers/block/drbd/drbd_vli.h                 |  12 +-
+ include/uapi/linux/drbd.h                     |  12 +-
+ include/uapi/linux/drbd_limits.h              |  12 +-
+ 23 files changed, 534 insertions(+), 390 deletions(-)
+ rename drivers/block/drbd/{drbd_worker.c => drbd_sender.c} (98%)
 
-    error: expected nothing or `..Zeroable::init_zeroed()`.
-      --> tests/ui/compile-fail/zeroable/invalid_spread.rs:15:9
-       |
-    15 |         ..MyZeroable::init_zeroed()
-       |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
----
- rust/pin-init/internal/src/diagnostics.rs | 55 +++++++++++++++++++----
- rust/pin-init/internal/src/lib.rs         | 12 ++---
- 2 files changed, 53 insertions(+), 14 deletions(-)
-
-diff --git a/rust/pin-init/internal/src/diagnostics.rs b/rust/pin-init/internal/src/diagnostics.rs
-index c7d9b3e624fc..c42f1095ab10 100644
---- a/rust/pin-init/internal/src/diagnostics.rs
-+++ b/rust/pin-init/internal/src/diagnostics.rs
-@@ -3,7 +3,7 @@
- use std::fmt::Display;
- 
- use proc_macro2::TokenStream;
--use quote::quote_spanned;
-+use quote::{quote, quote_spanned};
- use syn::{spanned::Spanned, Error};
- 
- pub(crate) struct DiagCtxt(TokenStream);
-@@ -29,16 +29,55 @@ const fn warn() {}
-         ));
-     }
- 
--    pub(crate) fn with(
--        fun: impl FnOnce(&mut DiagCtxt) -> Result<TokenStream, ErrorGuaranteed>,
-+    fn with(
-+        f: impl FnOnce(&mut DiagCtxt) -> Result<TokenStream, ErrorGuaranteed>,
-+        merge_diag: impl FnOnce(TokenStream, TokenStream) -> TokenStream,
-+        convert_diag: impl FnOnce(TokenStream) -> TokenStream,
-     ) -> TokenStream {
-         let mut dcx = Self(TokenStream::new());
--        match fun(&mut dcx) {
--            Ok(mut stream) => {
--                stream.extend(dcx.0);
--                stream
-+        match f(&mut dcx) {
-+            Ok(stream) => {
-+                if dcx.0.is_empty() {
-+                    stream
-+                } else {
-+                    merge_diag(stream, dcx.0)
-+                }
-             }
--            Err(ErrorGuaranteed(())) => dcx.0,
-+            Err(ErrorGuaranteed(())) => convert_diag(dcx.0),
-         }
-     }
-+
-+    pub(crate) fn for_item(
-+        f: impl FnOnce(&mut DiagCtxt) -> Result<TokenStream, ErrorGuaranteed>,
-+    ) -> TokenStream {
-+        Self::with(
-+            f,
-+            |mut out, diag| {
-+                out.extend(diag);
-+                out
-+            },
-+            std::convert::identity,
-+        )
-+    }
-+
-+    pub(crate) fn for_expr(
-+        f: impl FnOnce(&mut DiagCtxt) -> Result<TokenStream, ErrorGuaranteed>,
-+    ) -> TokenStream {
-+        Self::with(
-+            f,
-+            |out, diag| {
-+                // Diagnostics that we generate are always items.
-+                // So for expressions create a block to place diagnostics in item position.
-+                quote!({
-+                    #diag
-+                    #out
-+                })
-+            },
-+            |diag| {
-+                quote!({
-+                    #diag
-+                })
-+            },
-+        )
-+    }
- }
-diff --git a/rust/pin-init/internal/src/lib.rs b/rust/pin-init/internal/src/lib.rs
-index c488019d6250..0410024ba1e6 100644
---- a/rust/pin-init/internal/src/lib.rs
-+++ b/rust/pin-init/internal/src/lib.rs
-@@ -25,31 +25,31 @@
- pub fn pin_data(args: TokenStream, input: TokenStream) -> TokenStream {
-     let args = parse_macro_input!(args);
-     let input = parse_macro_input!(input);
--    DiagCtxt::with(|dcx| pin_data::pin_data(args, input, dcx)).into()
-+    DiagCtxt::for_item(|dcx| pin_data::pin_data(args, input, dcx)).into()
- }
- 
- #[proc_macro_attribute]
- pub fn pinned_drop(args: TokenStream, input: TokenStream) -> TokenStream {
-     let args = parse_macro_input!(args);
-     let input = parse_macro_input!(input);
--    DiagCtxt::with(|dcx| pinned_drop::pinned_drop(args, input, dcx)).into()
-+    DiagCtxt::for_item(|dcx| pinned_drop::pinned_drop(args, input, dcx)).into()
- }
- 
- #[proc_macro_derive(Zeroable)]
- pub fn derive_zeroable(input: TokenStream) -> TokenStream {
-     let input = parse_macro_input!(input);
--    DiagCtxt::with(|dcx| zeroable::derive(input, dcx)).into()
-+    DiagCtxt::for_item(|dcx| zeroable::derive(input, dcx)).into()
- }
- 
- #[proc_macro_derive(MaybeZeroable)]
- pub fn maybe_derive_zeroable(input: TokenStream) -> TokenStream {
-     let input = parse_macro_input!(input);
--    DiagCtxt::with(|dcx| zeroable::maybe_derive(input, dcx)).into()
-+    DiagCtxt::for_item(|dcx| zeroable::maybe_derive(input, dcx)).into()
- }
- #[proc_macro]
- pub fn init(input: TokenStream) -> TokenStream {
-     let input = parse_macro_input!(input);
--    DiagCtxt::with(|dcx| {
-+    DiagCtxt::for_expr(|dcx| {
-         init::expand_with_cfg(input, Some("::core::convert::Infallible"), false, dcx)
-     })
-     .into()
-@@ -58,7 +58,7 @@ pub fn init(input: TokenStream) -> TokenStream {
- #[proc_macro]
- pub fn pin_init(input: TokenStream) -> TokenStream {
-     let input = parse_macro_input!(input);
--    DiagCtxt::with(|dcx| {
-+    DiagCtxt::for_expr(|dcx| {
-         init::expand_with_cfg(input, Some("::core::convert::Infallible"), true, dcx)
-     })
-     .into()
-
-base-commit: dfb6a037fd586f1ffcba3b143dab58f5c88294d1
+base-commit: 85bffad4d2fea373a72d68bed8012e8cbccb8ee7
 -- 
-2.54.0
+2.55.0
 
