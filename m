@@ -1,515 +1,249 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09D34A0138
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790190633; cv=none; b=uPEcG05Gp+hPiopz+m5yhC1cWB026II5xoIQuIrE9k48gosaAk4hT4OFFJC8DojNFjwmimpEvSUW42EvACOU1f3CIPVN7xEyaR8QOQw3DvRjALBeq1T5OH35cHaq84v62uuw6lPH6p39oNKMnB0kTVnuscRRbeq1ZRpvsRSdXic=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790190633; c=relaxed/simple;
-	bh=/HHu5mWoKQYJpp3qfSseBjpomgBAvf0wv5291K53EOw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VEUaKcFDRpQVvX9DQWHTmGoY/prkUeWZVmdJ9dNVRT2p/RWBOjDlYQTd3rgAxbbpiYisJ4F+xoy2c5U4IK+C0hdPPX+OZ5nuM/Gv8Hn5zX/24Jh7wHajV3iFzE/XdJQgFM4rAVIZtWJWmsGt5u7yOauDpPUXt5j1YPkofNFVlQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pcz0xiZH; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8963955820C;
+	Wed, 23 Sep 2026 19:11:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790190679; cv=fail; b=qkyZNaGyL3EZvl1fvRy/GVFAefR6OfATDjELs7Q4DtJcARnlRqNupJpxiYuKpS9GsnUs+sij6ct9V7gF4vskK8wFnMJfUA3rl/p9zRoQ8FrrXu0XTr31Qub4cTouS1lV6fxiBTan5Q8rHdYagZpfz/Tapzd0rhnWXBKYiElbvOE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790190679; c=relaxed/simple;
+	bh=QVWktU2/44Q1GIZpWHxPnmQWXGKl77kh3qtBt5Fk5hA=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HCPAzrz8fVmAfZIHhSNFjcbMXwrPIpQBUs5mlgIvoXCVQaRe4Ucd+XYHMx5KNJZaAEDQuXlJJTeguzDxLUcL+9wLc+uLj3FTlHCumkh5gOp8RKCofhiKRa4iJm/GPkHhDL3GQXovHQ2nibyQlQXXmIZ2UWLgw96E77cVOMRFaEk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=nNYpA5tg; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=YWjH7Fid; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pcz0xiZH"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so7226205e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:10:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790190628; x=1790795428; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bvqBKY0BSaSooNswT1/1l8FfXVAsC8BPEJKgqk/8tBg=;
-        b=pcz0xiZH0S0SHHRfbsxNKhCDrK7QC6oudmWqnzLlEJpY9qFK53cIj95/08iOC/jbtV
-         nishzaM7zTYmf9VOhetL9UxisJ7LcCSvIv2nNnrrdhn81XIdONYtgTKmFbBZkgk8vs2l
-         n0DMOzDLSLw1thblj6GJ/dwye4JXe+GDTUVJU+JrkYR9rL9MJkt3kPzeIJfEI8AnepSw
-         HxnDlBw9uXjYW+Bopg3VZOy9/5wdU/dtMlDrqC8w1MmtwH1Ow3bufvzVEAy/p4FmOWvA
-         c5TZAP3W2WmioUNCXZc6Q9o4bNK1++CcarmhGfNH4OcwJ+M47PCsCwIAQVCvi5enog+7
-         fs9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790190628; x=1790795428;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bvqBKY0BSaSooNswT1/1l8FfXVAsC8BPEJKgqk/8tBg=;
-        b=oxXHp3jtvMHhBUtWbqAWtwM0zCAF27DNQuSAx2kZrI0hoV1s+eEAQ0ZDToWUsoI5WT
-         dM5DSAKFiQcwvT2Ao7+8HZvgkYofYh3IL6rWKGz2Ec+w4d+x9mMAXwUyrODqMhEjaYZj
-         qVRJNqT2tfbzehNMGFdncZlggqYvF5WCaZoehdSWrnGFT/mTtHXlasZUP3zS+XzrFcST
-         ZHh3QzCytPCRuG0y7hKVHiDMhHDedi038WdOB2XavhlyLilg3D2kB+GZl3x0ExZjSthG
-         w1kr+dSRFDoi6TjwGdNMBgLBcB9oEtF2kAlv2R/i73BIGNdbn6DEKL7TomwidrkNCCRe
-         DcGw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1h3mq1f39VXU34BAasQXFteG0l2YsX9DQEO42/jcM2lOcfKfkyGUVUv1OxD0NBv738VwMEMo4L/uNKWY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzDGfbzu8eLO2ioeOhi/yyoXSVu/7YnYzQgsgVrVHr8cB+5xR+
-	4ZjAMzrjXFATMvMiEJ7xpylxCh/JFfqjJsBW8jOfarOdpbGc/dnlK95CxQ1rzuuRphQ=
-X-Gm-Gg: AYBFou379TWdBYw42Ety5w/qOGt2s8Tnq+Pf9lIODPBXRCwNA8gcJ/gVm5s81BOIfSE
-	y47LJYSLVhujQ4vEM+vqde7jtDDieZwQYy0D0KRvuK09cybL+eIBTH+P0OetAOJYNQVBdBAXu9q
-	yxACfTeqGygbKSgA25Lrz8e5Ntx4SeLOdPW7sDAPajJOOC54nnRdEaRE3ctyNL/FU50t9Sd4vp7
-	g7qDnxpiMzA94tjSXi1OWOtV+Y8ii29n9BrOw5lGUa2psQ6nfroC2utj+PerQx3Jjyf/aed97RJ
-	58rfb3iYcT9IRyVQVtTyzWSYa5m8hAh+Xg88Aq4rHOLVxBSZbH1ePX9KRzYuGEEQwFr3u4MdCIG
-	mPX71X2zuUxEF4yTKmNsC+Cd9uwbqj02wK4SrGSzYIoClREuFQnAPlodByYJUl9QcD7V/L1gN39
-	XFRhZ36GAi9koMz8kBy2NHrXixEiLOhfMRnc66Pc3cRGyvMe585AELymFhSjMdwVmHTodl0oHpE
-	nheJzcHY9UnUEgQ0z0=
-X-Received: by 2002:a05:600c:8b22:b0:49f:bbab:aa10 with SMTP id 5b1f17b1804b1-49fe66f13f6mr2377015e9.20.1790190627940;
-        Wed, 23 Sep 2026 12:10:27 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5bae53dsm7291815e9.4.2026.09.23.12.10.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 12:10:27 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Date: Wed, 23 Sep 2026 21:10:23 +0200
-Subject: [PATCH 2/2] iio: adc: add driver for the MAX34417 Four-Channel
- High Dynamic Range Power Accumulator
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="nNYpA5tg";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="YWjH7Fid"
+Received: from pps.filterd (m0374955.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NHI2V91818968;
+	Wed, 23 Sep 2026 14:11:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=proofpoint-05-2026; bh=7HWOvXI7BiLJNzO
+	e3BtmIIqm7Nvts3YzPamUxtLJRYI=; b=nNYpA5tgaCCDRgd4Q6R3sy8yrY+kA4E
+	qHcYwB+OxqvXU7FbvkZ+wqrK4wi9LZ9Z5MVi6+SFraUrepPKnEyj7by6c/lWE3px
+	aEW74+V6FR326Q/KOfv4T42SQ9ehciAnG4I3tdL+tYf0aHepGtvScm8dgFetPyOx
+	N/KYTT85+51FsE5EdXXAf37OKQKcVVopn0A+IQXnUVQUJZWnkEDtJt/9R3zY/hlQ
+	uC9s0AxYio2fdiXCbzTQcDqA47TIHZ0TvNMYo2hxfZimfYVUIR/Ur7wikISTfXZQ
+	r/6eHYknwMyk04i6Y3nVV4yAr4c/ixf1Z7D6lHsADVsg2bQRDlCcUqQ==
+Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012018.outbound.protection.outlook.com [40.107.200.18])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gv2ycxtaq-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 14:11:10 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CNziGsWRQOpvS7ILRb9jKfY85Y7SjHLbELaSFzVBs+8ggEdNsWFlJ1lxjsiLfwXTew1S1Uk0nndqHN44mHZKtxnbF9/fGE3370yuJ5kXqTyWfWIE/Fbt4Ha971vkUTKccFvEzGccY3J8YBQUwNdjIJrCaDJzBkkSXRH32uCe7KPBS8g7Zkj0FHSkZ6CRijKIdI0pzouOT9zpFRt/4MOO0KuBYjBxyDa0BUmT+r+P2yGQdTvXwaf/NbpaO3V/9SHU9WmficknepOzc9/PfkvLw2cRu6qKPwsAV3n75dz7NquI8cJeACBWvtub9hniS4Whj75Oiow4S9TjbhTWTlz/nQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7HWOvXI7BiLJNzOe3BtmIIqm7Nvts3YzPamUxtLJRYI=;
+ b=JBQ0cjhUEIQSLgONAJtyWd0EPWD3+nnvh2N+i5zvv1iAyKOGM0BUAadLo68jdhgo4a7hlbHd/o5l7WOctDc5EtVnhdgS7zJy4yPGO45syBZqT038SR27f4PPBbmWKHVG5mpJY3dcoqSDgLps6xxkAEBn7aRByMIEDZrYAPxBc/4oGh8dcEAXo0JocZ0AuRBBLUm8pVoQWyafzJocdXTS8LDQbjj1WsZSkSjHoSg0A8/HfDqBea96fUSDj1c3g9bVd09M/gfAkviY28A4X/JBCsnlsoRnMK+AoNNxdN+R28z4fPu/jCl0yJ3AKtxlv2wbbiuShjOUO+gbC0DBLUdPrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7HWOvXI7BiLJNzOe3BtmIIqm7Nvts3YzPamUxtLJRYI=;
+ b=YWjH7FidJ2ognilUTd5F7VM7ves5frbcVGMmGrykCPBs7xclhXVmoivXS52nKPdIVtTsAtSocymzlO30QTofa3L2SmGL+OxqUNnbQh+3y919N9O5MHs9w1391CWKVXMUlsumro98FEaJAwSmLm0+4DMrSCCr7U6sUZg72aL6pAE=
+Received: from CH2PR07CA0058.namprd07.prod.outlook.com (2603:10b6:610:5b::32)
+ by PH9PR10MB129233.namprd10.prod.outlook.com (2603:10b6:510:413::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.5; Wed, 23 Sep
+ 2026 19:11:04 +0000
+Received: from BL6PEPF00020E66.namprd04.prod.outlook.com
+ (2603:10b6:610:5b:cafe::5) by CH2PR07CA0058.outlook.office365.com
+ (2603:10b6:610:5b::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
+ 23 Sep 2026 19:11:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BL6PEPF00020E66.mail.protection.outlook.com (10.167.249.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 19:11:02 +0000
+Received: from DFLE201.ent.ti.com (10.64.6.59) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 23 Sep
+ 2026 14:10:19 -0500
+Received: from DFLE205.ent.ti.com (10.64.6.63) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 23 Sep
+ 2026 14:10:19 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE205.ent.ti.com
+ (10.64.6.63) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 23 Sep 2026 14:10:19 -0500
+Received: from localhost (uda0271908.dhcp.ti.com [128.247.77.70] (may be forged))
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68NJAJeR3517371;
+	Wed, 23 Sep 2026 14:10:19 -0500
+Date: Wed, 23 Sep 2026 14:10:19 -0500
+From: Bin Liu <b-liu@ti.com>
+To: Lucas Martins Alves <lucas.alves@lumal21.com.br>
+CC: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v6] usb: musb: dsps: implement vbus_status and set_vbus
+ platform ops
+Message-ID: <20260923191019.stgwfjlmm7qi4fq4@iaqt7>
+Mail-Followup-To: Bin Liu <b-liu@ti.com>,
+	Lucas Martins Alves <lucas.alves@lumal21.com.br>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260717194449.317520-1-lucas.alves@lumal21.com.br>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-topic-sm8x50-iio-max34417-adc-v1-2-41d4ba1bfc41@linaro.org>
-References: <20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org>
-In-Reply-To: <20260923-topic-sm8x50-iio-max34417-adc-v1-0-41d4ba1bfc41@linaro.org>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=12252;
- i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=/HHu5mWoKQYJpp3qfSseBjpomgBAvf0wv5291K53EOw=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqtCQhfSrckBRpWJmulGU2gDWZ8oVIDpUDzMV2QYKX
- 3OoOEU+JAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCarQkIQAKCRB33NvayMhJ0cW8D/
- oDQ4Xc7atPecuMC1DtuPKwV7WljqRmPhxfUngg706jvpK0PBG1dccPcyuXUbYvZQFWDNSJ3uln32s8
- g79HZDMg37TRlnND6POUTCDCShswD66nLPc7a1Ong8u15Pqir5VI9YdUCBD6Qt8IJVTAQf5Y7wcQGt
- FHorqG/XdW4DYIp9eCAmEtWhCJcvG4Ln7XtkGc797TXoulCZuMfQvkKc+SMwPxdgGM0xsAsSINUf1V
- Gwyudnxv4bQ64EVQ5N1oHaLw9mSCjZbB3+t/d5UpGbahW/k3m8ueRmI30NQWOvuxZ9cT42I4NgaAxE
- IXZ25jEVO1kUQM2QSxFifcQbeaO+Pdp2KKmZvQz0ZXNVaK2YnP4GKRa6AhOvzYyvBgBfDryVhTeBXb
- /3+PzQ7VmFZLWUYU8nx0rC74EEr/NttWbni19tHTraHu0996SZL7tSQbhDKy4I8ZWuYK72sOI1wJ01
- 45FJnsmKoY+CAPq+3xYrUITjj+Hc9mCWVLTl9YraYKq3se53LKIkbzQvc/xT6zptxGhWVWdBYfMhJG
- OWpeWQ2XI0/qzAOV084FpL1hubbk5XM6d+BRLGfd1gWdVb/MyDRa3UeSFNJ5yFgfrIaihuJwnLf6j/
- GdJyrMZR6kj4nHRg5vbcVWIgKoFj/Z+bX01jfYe3lqNuFGjgGunrXlBT0rRg==
-X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
- fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260717194449.317520-1-lucas.alves@lumal21.com.br>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E66:EE_|PH9PR10MB129233:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70dbd7cd-7869-42db-9d21-08df19a668e4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|10067099003|18002099003|56012099006|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	pXy6Dr8hB0MeqKIrd2DKZ18Zo+LC5ZpyCPYU40s4YJqY9sregb1nWAhFEHwHyRgeOGUDniE51jOXSmXzI4DJU8Z4uPMMW2JmKmPK89JlahSV1/XggjR5mcWhoAH7XhTOc6B4wg0sd/hDHkVgz9QQZ9AAsq2xrdH02o1sSjoS9jM1sPkHZ6bZDMrmQzIHu8I5e7WrZyllcGi8QhqekIuhiopV4wRB+pEFwKDcxCPVTsWdb9zH5BB7Epzkx8qXYUOL796xEA8emW07UdizUoOeM4WX0Gp9rZlTOpG9DzfyJJuvs/4eCGG4QeBfIZYgY23klRO4CV8n3oJct1NO7CxHMw54Xnys1nilcUQD55fsQ5eFe5W1SODqDRWJN4vvFprcEdFzvN1a+CqrVdGRc7GRkG3gP5qWwndFuNp4xTEH+DR9RjxpLJpAA3Cn3OpG/FPty3vUbQDwqemvXcKL4pWnZnZLInbjRADGYS2bbW4zU6tG//JkwqJwBetWS1kUvlFqNpYizi/vAHYiQxkErC03W4sjTfJ8hCMaBRb4c5D6vS1/gtA4BjoV6mmwceHLHmNlMxrRUAmkCbvA4A+VlNKAQhMzy2afjdNWSySHP0fv033lfbZnKCRpUh1ryejozznB4oG2cJzCWQV2xrtLhoF2bzxBxcsTW4FnyoYPrzxOdx2edblqIIp+R5sE6dTcLONgkW8VUYLynLBPe0l7q1FBFA==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(10067099003)(18002099003)(56012099006)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	1SU4u1pRuz1vn+EDOeCLBENsskgbBW+L6fzNWYXWnrHBdfHsU7jH0/MZ67Mm8Kxh6E7FeYGw1OmSJ4PubwcH7EH7PXDTvpihS2+lugrgFHXAXmm9KcYXFNzFqKBEK+2eY87KbD8Mj90cABi1XISK4T0cdxIHhutTCdDu9WYHqs6frRd7hBZB9XRbBWJt1pq2mVvInD7Y9JSqJyei6qPvt+2kMG386aOlGH1ZDJAFa9KjQewrmhPvm64K62WfCckOTgaNQjCQeIa/FoC/ORBkiU8iB3GA/6rgXXx6U0o3QRtCaIybDimnuX54rGqt9RaHblvidJu0GYlzXISnXIcaMTOjlUVg8lSZvyCJsgqMUxsa2tx2VIys25nETjJHM+UgpGWBhuI5SB1yvQqIs2fTvAWys3Uu7fD6tj9lkBCm8hZob6gZvXQ8BeKiO+YLCD2+
+X-Exchange-RoutingPolicyChecked:
+	riqJ/vHSR+rzlHDrQt4kr4QTWAwRb4YTlc/7xElkNTB/9KeLM1w/kw2zSfQ/eCZJ0h4SMDerQhwHpTjtPs/DV0FtPqRCLRKvnoatTL4/aqQIRhzydYxqQK3ljAnvxQMjnN5zID7v9m4FQ4ZzXsJY6UcrVLcshJWhNJpNN2KHL42zQvFoVPo2LAUoYpcGgE438KKckaSIk1efUsTK8T7vaDmtVp1pKfPbu6KEWVaYWoKZUYYokdoBYDmZecAcdCKuQsCIWYdA0Yyp6F+r9+Dhh1wGtkFPe1EjIoXi6nWSLRTbcPvPE6qcGv1+SskwXvQBlOtrBIy6D9W8UroTcGU8rA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 19:11:02.3798
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70dbd7cd-7869-42db-9d21-08df19a668e4
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF00020E66.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH9PR10MB129233
+X-Proofpoint-GUID: dosnm1ohYhoo5fggF9428lwqoldPF8Hu
+X-Authority-Analysis: v=2.4 cv=WZKZ+EhX c=1 sm=1 tr=0 ts=6ab4244e cx=c_pps
+ a=73h/HchST80NzqUzJRdbyQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=fPAWb5peG099m5CrUpKH:22 a=o5yqt_nIAAAA:8 a=6lXMRuIrz5I2L_ax1x4A:9
+ a=CjuIK1q_8ugA:10 a=B07-VD2Mcq5FU4IugDS-:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA3NiBTYWx0ZWRfX0CtQdwQqaYRG
+ KA3gmsMPXlo7cBJ2lkXR5CFMd+qPylewY+rRItpBWAfTbk4PFKcnppAtKlGJNfA0nYCc/XBRK1l
+ JbEv6k4iinH7otTL8RTZnIW7iX6wfz8PrLezeMVO5waIUFs69/WYT2kVAjAz7Bm2Fvo/jxEB5wU
+ br3yVCm9o/3qSNVOzfCvQ3wMbQc7dub0ipBNfJbVJl/eIyU/uAMO+nxKp4jxDEKp/jZcxUmWjyi
+ ApdtYMwqrGolO+a5g3fjfa9E+oWJwvk9PJNzSUpGIeLcfjtrP2YRKGhv3sn76zzvFAARxjCAoHh
+ yGGlII8D47r+UexK/mVRNQ0mkJbiOwKCSd//lX7tuuoadNVTfXVfHBmjPNrHkmq0h4l/uh9p1eY
+ 3Y9NQSlS74s+ohBriykE0BQPokG6SIqfCU/Yx/HgCPWqiPlwcZ9CZqxYAqSRNDIOEjdVuPXQr4h
+ k/U0Xvo2PJF0oYocF6A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA3NiBTYWx0ZWRfX7rVLiTzg+mhO
+ MkR1n53PiYd5pPkB47IKQusxpj1DQ2qgrbK/Pk3MVKCY9IUwAOVtvVK9aeNF8yQpmEjC3Ztyiqf
+ XN/iP7XH9dxTjYZv199Q3hkzqr7JEFY=
+X-Proofpoint-ORIG-GUID: dosnm1ohYhoo5fggF9428lwqoldPF8Hu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 suspectscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609230076
 
-The MAX34417 is a specialized current and voltage monitor used to
-determine power consumption of portable systems. The driver support
-getting the channels voltage and accumulated average power over an
-I2C/SMBUS serial interface.
+On Fri, Jul 17, 2026 at 07:44:53PM +0000, Lucas Martins Alves wrote:
+> From: Lucas Martins Alves <lucas.alves@lumal21.com.br>
+> 
+> The DSPS glue layer (used on TI AM335x SoCs) was missing implementations
+> for the vbus_status and set_vbus platform ops defined in struct
+> musb_platform_ops.
+> 
+> Add dsps_musb_vbus_status() to report VBUS presence by reading the VBUS
+> field of MUSB_DEVCTL, and dsps_musb_set_vbus() to drive the SESSION bit
+> on MUSB_DEVCTL, enabling or disabling the USB session.
+> 
+> Register both callbacks in dsps_ops to allow the MUSB core to control
+> VBUS on AM335x-based platforms. This enables the USB core to perform a
+> VBUS power cycle as a recovery mechanism when a USB error condition is
+> detected, and also allows userspace to control VBUS state via the
+> standard USB sysfs interface.
 
-Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
----
- drivers/iio/adc/Kconfig    |  11 ++
- drivers/iio/adc/Makefile   |   1 +
- drivers/iio/adc/max34417.c | 356 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 368 insertions(+)
+What you need is musb_softconnect_write() in musb_debugfs.c
+-Bin.
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 415e519ad4eb..4c559bafd1ce 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1116,6 +1116,17 @@ config MAX34408
- 	  To compile this driver as a module, choose M here: the module will be
- 	  called max34408.
- 
-+config MAX34417
-+	tristate "Maxim max34417 ADC driver"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Say yes here to build ADC support for Maxim max34417 Four-Channel High
-+	  Dynamic Range Power Accumulator.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called max34417.
-+
- config MAX77541_ADC
- 	tristate "Analog Devices MAX77541 ADC driver"
- 	depends on MFD_MAX77541
-diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
-index dcec0abb03b7..c667e7ecbc53 100644
---- a/drivers/iio/adc/Makefile
-+++ b/drivers/iio/adc/Makefile
-@@ -95,6 +95,7 @@ obj-$(CONFIG_MAX1241) += max1241.o
- obj-$(CONFIG_MAX1363) += max1363.o
- obj-$(CONFIG_MAX14001) += max14001.o
- obj-$(CONFIG_MAX34408) += max34408.o
-+obj-$(CONFIG_MAX34417) += max34417.o
- obj-$(CONFIG_MAX77541_ADC) += max77541-adc.o
- obj-$(CONFIG_MAX9611) += max9611.o
- obj-$(CONFIG_MCP320X) += mcp320x.o
-diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
-new file mode 100644
-index 000000000000..004401de6ce7
---- /dev/null
-+++ b/drivers/iio/adc/max34417.c
-@@ -0,0 +1,356 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * IIO driver for Maxim MAX34417 ADC, 4-Channels High Dynamic Range Power Accumulator
-+ *
-+ * Datasheet: https://www.analog.com/en/products/max34417.html
-+ *
-+ * TODO: Slow Mode, Continuous Accumulate Mode, Park Feature, Bulk Update, Perr_Verr Correction
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/cleanup.h>
-+#include <linux/init.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+#include <linux/units.h>
-+
-+#include <linux/iio/iio.h>
-+#include <linux/iio/types.h>
-+
-+#define MAX34417_UPDATE_REG		0x0
-+#define MAX34417_CONTROL_REG		0x1
-+#define MAX34417_ACC_COUNT_REG		0x2
-+
-+#define MAX34417_PWR_ACC_1_REG		0x3
-+#define MAX34417_PWR_ACC_2_REG		0x4
-+#define MAX34417_PWR_ACC_3_REG		0x5
-+#define MAX34417_PWR_ACC_4_REG		0x6
-+
-+#define MAX34417_V_CH1_REG		0x7
-+#define MAX34417_V_CH2_REG		0x8
-+#define MAX34417_V_CH3_REG		0x9
-+#define MAX34417_V_CH4_REG		0xa
-+
-+#define MAX34417_DID_REG		0xf
-+
-+#define MAX34417_BULK_POWER_READOUT_REG		0x10
-+#define MAX34417_BULK_VOLTAGE_READOUT_REG	0x11
-+
-+#define MAX34417_BULK_UPDATE_ADDRESS	0x2c
-+#define MAX34417_BULK_UPDATE_REG	0x0
-+
-+/* Bit masks for control register */
-+#define MAX34417_CONTROL_OVF		BIT(0)
-+#define MAX34417_CONTROL_SLOW		BIT(1)
-+#define MAX34417_CONTROL_PARK0		BIT(2)
-+#define MAX34417_CONTROL_PARK1		BIT(3)
-+#define MAX34417_CONTROL_PARK_EN	BIT(4)
-+#define MAX34417_CONTROL_SMM		BIT(5)
-+#define MAX34417_CONTROL_CAM		BIT(6)
-+#define MAX34417_CONTROL_MODE		BIT(7)
-+
-+#define MAX34417_DEFAULT_CMM_WIDE	(MAX34417_CONTROL_MODE | MAX34417_CONTROL_SMM)
-+
-+#define MAX34417_DEFAULT_RSENSE		1000
-+
-+#define MAX34417_PWR_CORRECTION_SCALE		24
-+#define MAX34417_PWR_AVG_FULL_SCALE_BITS	30
-+
-+#define MAX34417_VOLTAGE_CORRECTION_SCALE	24
-+#define MAX34417_VOLTAGE_FULL_SCALE_BITS	14
-+
-+#define MAX34417_CHANNEL_COUNT			4
-+
-+/**
-+ * struct max34417_data - max34417 specific data.
-+ * @regmap:	device register map.
-+ * @dev:	max34417 device.
-+ * @lock:	lock for protecting access to device hardware registers, mostly
-+ *		for reading common accumulator count and control register.
-+ * @input_correction:	Correction based on the Rsense value from channel nodes.
-+ * @input_label:	Channel label from channel nodes.
-+ */
-+struct max34417_data {
-+	struct regmap *regmap;
-+	struct device *dev;
-+	struct mutex lock;
-+	u32 input_correction[MAX34417_CHANNEL_COUNT];
-+	const char *input_label[MAX34417_CHANNEL_COUNT];
-+};
-+
-+static const struct regmap_config max34417_regmap_config = {
-+	.reg_bits	= 8,
-+	.val_bits	= 8,
-+	.max_register	= MAX34417_DID_REG,
-+};
-+
-+#define MAX34417_CHANNEL(_index, _v_address, _power_address)	\
-+	{							\
-+		.type = IIO_VOLTAGE,				\
-+		.info_mask_separate	= BIT(IIO_CHAN_INFO_RAW) | \
-+					  BIT(IIO_CHAN_INFO_SCALE), \
-+		.channel = (_index),				\
-+		.address = (_v_address),			\
-+		.indexed = 1,					\
-+	},							\
-+	{							\
-+		.type = IIO_POWER,				\
-+		.info_mask_separate	= BIT(IIO_CHAN_INFO_AVERAGE_RAW) | \
-+					  BIT(IIO_CHAN_INFO_SCALE), \
-+		.channel = (_index),				\
-+		.address = (_power_address),			\
-+		.indexed = 1,					\
-+	}
-+
-+static const struct iio_chan_spec max34417_channels[] = {
-+	MAX34417_CHANNEL(0, MAX34417_V_CH1_REG, MAX34417_PWR_ACC_1_REG),
-+	MAX34417_CHANNEL(1, MAX34417_V_CH2_REG, MAX34417_PWR_ACC_2_REG),
-+	MAX34417_CHANNEL(2, MAX34417_V_CH3_REG, MAX34417_PWR_ACC_3_REG),
-+	MAX34417_CHANNEL(3, MAX34417_V_CH4_REG, MAX34417_PWR_ACC_4_REG),
-+};
-+
-+/* TODO Implement trigger to update accumulator once and get all channels at once */
-+
-+static int max34417_accumulator_update(struct max34417_data *max34417)
-+{
-+	int rc;
-+
-+	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
-+	if (rc) {
-+		dev_err(max34417->dev, "Error (%d) writing update register\n", rc);
-+		return rc;
-+	}
-+
-+	/* Wait for accumulator update */
-+	usleep_range(1000, 2000);
-+
-+	return 0;
-+}
-+
-+static int max34417_read_voltage(struct max34417_data *max34417,
-+				 const struct iio_chan_spec *chan, int *val)
-+{
-+	uint16_t voltage;
-+	uint8_t buf[3];
-+	int rc;
-+
-+	guard(mutex)(&max34417->lock);
-+
-+	rc = max34417_accumulator_update(max34417);
-+	if (rc)
-+		return rc;
-+
-+	rc = regmap_noinc_read(max34417->regmap, chan->address, &buf, 3);
-+	if (rc)
-+		return rc;
-+
-+	voltage = buf[2] | ((uint64_t)buf[1] << 8);
-+	voltage >>= 2;
-+
-+	*val = voltage;
-+
-+	return IIO_VAL_INT;
-+}
-+
-+static int max34417_read_power(struct max34417_data *max34417,
-+				 const struct iio_chan_spec *chan, int *val, int *val2)
-+{
-+	uint32_t acc_count;
-+	uint64_t power;
-+	uint8_t buf[8];
-+	int rc;
-+
-+	guard(mutex)(&max34417->lock);
-+
-+	rc = max34417_accumulator_update(max34417);
-+	if (rc)
-+		return rc;
-+
-+	rc = regmap_noinc_read(max34417->regmap, MAX34417_ACC_COUNT_REG,
-+			       &buf, 4);
-+	if (rc)
-+		return rc;
-+
-+	acc_count = buf[3] | ((uint64_t)buf[2] << 8) | ((uint64_t)buf[1] << 16);
-+
-+	rc = regmap_noinc_read(max34417->regmap, chan->address, &buf, 8);
-+	if (rc)
-+		return rc;
-+
-+	power = buf[7];
-+	power |= ((uint64_t)buf[6] << 8UL);
-+	power |= ((uint64_t)buf[5] << 16UL);
-+	power |= ((uint64_t)buf[4] << 24UL);
-+	power |= ((uint64_t)buf[3] << 32UL);
-+	power |= ((uint64_t)buf[2] << 40UL);
-+	power |= ((uint64_t)buf[1] << 48UL);
-+
-+	power = div_u64(power, acc_count);
-+
-+	*val = FIELD_GET(GENMASK(31, 0), power);
-+	*val2 = FIELD_GET(GENMASK(55, 32), power);
-+
-+	return IIO_VAL_INT_64;
-+}
-+
-+static int max34417_read_raw(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan,
-+			     int *val, int *val2, long mask)
-+{
-+	struct max34417_data *max34417 = iio_priv(indio_dev);
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW:
-+		if (chan->type == IIO_VOLTAGE)
-+			return max34417_read_voltage(max34417, chan, val);
-+		return -EINVAL;
-+	case IIO_CHAN_INFO_AVERAGE_RAW:
-+		if (chan->type == IIO_POWER)
-+			return max34417_read_power(max34417, chan, val, val2);
-+		return -EINVAL;
-+	case IIO_CHAN_INFO_SCALE:
-+		if (chan->type == IIO_VOLTAGE) {
-+			/* Scale to mA */
-+			*val = MAX34417_VOLTAGE_CORRECTION_SCALE * MILLI;
-+			*val2 = MAX34417_VOLTAGE_FULL_SCALE_BITS;
-+
-+			return IIO_VAL_FRACTIONAL_LOG2;
-+		} else if (chan->type == IIO_POWER) {
-+			/* Scale to mW */
-+			*val = max34417->input_correction[chan->channel] * MILLI;
-+			*val2 = MAX34417_PWR_AVG_FULL_SCALE_BITS;
-+
-+			return IIO_VAL_FRACTIONAL_LOG2;
-+		}
-+		return -EINVAL;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int max34417_read_label(struct iio_dev *indio_dev,
-+			       struct iio_chan_spec const *chan,
-+			       char *label)
-+{
-+	struct max34417_data *max34417 = iio_priv(indio_dev);
-+	const char *input_label = max34417->input_label[chan->channel];
-+
-+	if (chan->type == IIO_VOLTAGE) {
-+		if (input_label)
-+			return sysfs_emit(label, "%s-voltage\n", input_label);
-+		return sysfs_emit(label, "channel%d-voltage\n", chan->channel);
-+	}
-+
-+	if (chan->type == IIO_POWER) {
-+		if (input_label)
-+			return sysfs_emit(label, "%s-power\n", input_label);
-+		return sysfs_emit(label, "channel%d-power\n", chan->channel);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct iio_info max34417_info = {
-+	.read_raw	= max34417_read_raw,
-+	.read_label	= max34417_read_label,
-+};
-+
-+static int max34417_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct max34417_data *max34417;
-+	struct fwnode_handle *node;
-+	struct iio_dev *indio_dev;
-+	struct regmap *regmap;
-+	int rc;
-+
-+	regmap = devm_regmap_init_i2c(client, &max34417_regmap_config);
-+	if (IS_ERR(regmap)) {
-+		dev_err_probe(dev, PTR_ERR(regmap),
-+			      "regmap_init failed\n");
-+		return PTR_ERR(regmap);
-+	}
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*max34417));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	/* Get and enable regulators */
-+	rc = devm_regulator_get_enable(dev, "vdd");
-+	if (rc)
-+		return dev_err_probe(dev, rc, "failed to get vdd regulator\n");
-+
-+	rc = devm_regulator_get_enable(dev, "vio");
-+	if (rc)
-+		return dev_err_probe(dev, rc, "failed to get vio regulator\n");
-+
-+	max34417 = iio_priv(indio_dev);
-+	max34417->regmap = regmap;
-+	max34417->dev = dev;
-+	mutex_init(&max34417->lock);
-+
-+	device_for_each_child_node(dev, node) {
-+		unsigned int correction;
-+		u32 rsense, index;
-+
-+		if (fwnode_property_read_u32(node, "reg", &index)) {
-+			dev_err(dev, "missing reg property of %pfwP\n", node);
-+			return -EINVAL;
-+		} else if (index >= MAX34417_CHANNEL_COUNT) {
-+			dev_err(dev, "invalid reg %d of %pfwP\n", index, node);
-+			return -EINVAL;
-+		}
-+
-+		fwnode_property_read_string(node, "label", &max34417->input_label[index]);
-+		if (fwnode_property_read_u32(node, "maxim,rsense-val-micro-ohms", &rsense))
-+			rsense = MAX34417_DEFAULT_RSENSE;
-+
-+		/* (100 milliOhm / rsense) * MAX34417_PWR_CORRECTION_SCALE */
-+		correction = (100 * MILLI * MAX34417_PWR_CORRECTION_SCALE) / rsense;
-+
-+		max34417->input_correction[index] = correction;
-+	}
-+
-+	indio_dev->channels = max34417_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
-+	indio_dev->name = "max34417";
-+	indio_dev->info = &max34417_info;
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	/* Set as default Manual Mode & Wide ADC */
-+	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, MAX34417_DEFAULT_CMM_WIDE);
-+	if (rc) {
-+		dev_err(max34417->dev, "Error (%d) writing control register\n", rc);
-+		return rc;
-+	}
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static const struct of_device_id max34417_of_match[] = {
-+	{ .compatible = "maxim,max34417" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, max34417_of_match);
-+
-+static const struct i2c_device_id max34417_id[] = {
-+	{ .name = "max34417" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, max34417_id);
-+
-+static struct i2c_driver max34417_driver = {
-+	.driver = {
-+		.name   = "max34417",
-+		.of_match_table = max34417_of_match,
-+	},
-+	.probe = max34417_probe,
-+	.id_table = max34417_id,
-+};
-+module_i2c_driver(max34417_driver);
-+
-+MODULE_AUTHOR("Neil Armstrong <neil.armstrong@linaro.org>");
-+MODULE_DESCRIPTION("Maxim MAX34417 ADC driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.34.1
-
+> 
+> Signed-off-by: Lucas Martins Alves <lucas.alves@lumal21.com.br>
+> ---
+> v1 -> v2:
+> - Remove the unintended musb context changes introduced in the first patch.
+> v2 -> v3:
+> - Corrects the text in the patch description.
+> v3 -> v4:
+> - Remove improperly attached patch file.
+> v4 -> v5:
+> - Re-send patch v4 in a new thread.
+> v5 -> v6:
+> - Corrects the history of the patch that was removed in v5.
+> ---
+>  drivers/usb/musb/musb_dsps.c | 25 +++++++++++++++++++++++++
+>  1 file changed, 25 insertions(+)
+> 
+> diff --git a/drivers/usb/musb/musb_dsps.c b/drivers/usb/musb/musb_dsps.c
+> index e3935f18dd56..efd1f0dbb926 100644
+> --- a/drivers/usb/musb/musb_dsps.c
+> +++ b/drivers/usb/musb/musb_dsps.c
+> @@ -618,6 +618,29 @@ static int dsps_musb_recover(struct musb *musb)
+>  	return session_restart ? 0 : -EPIPE;
+>  }
+>  
+> +static int dsps_musb_vbus_status(struct musb *musb)
+> +{
+> +	u8 devctl = musb_readb(musb->mregs, MUSB_DEVCTL);
+> +
+> +	return (devctl & MUSB_DEVCTL_VBUS) == MUSB_DEVCTL_VBUS;
+> +}
+> +
+> +static void dsps_musb_set_vbus(struct musb *musb, int is_on)
+> +{
+> +	u8 devctl;
+> +
+> +	devctl = musb_readb(musb->mregs, MUSB_DEVCTL);
+> +
+> +	if (is_on) {
+> +		devctl |= MUSB_DEVCTL_SESSION;
+> +	} else {
+> +		musb_root_disconnect(musb);
+> +		devctl &= ~MUSB_DEVCTL_SESSION;
+> +	}
+> +
+> +	musb_writeb(musb->mregs, MUSB_DEVCTL, devctl);
+> +}
+> +
+>  /* Similar to am35x, dm81xx support only 32-bit read operation */
+>  static void dsps_read_fifo32(struct musb_hw_ep *hw_ep, u16 len, u8 *dst)
+>  {
+> @@ -702,6 +725,8 @@ static struct musb_platform_ops dsps_ops = {
+>  
+>  	.set_mode	= dsps_musb_set_mode,
+>  	.recover	= dsps_musb_recover,
+> +	.vbus_status	= dsps_musb_vbus_status,
+> +	.set_vbus	= dsps_musb_set_vbus,
+>  	.clear_ep_rxintr = dsps_musb_clear_ep_rxintr,
+>  };
+>  
+> -- 
+> 2.53.0
+> 
