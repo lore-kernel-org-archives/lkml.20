@@ -1,64 +1,64 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A58D47F3C9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448A247F3B5
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157283; cv=none; b=sdAEvRXZF/7R6vu4IVF6kKZqqgs6kVkmPk/FxauSJ5vja4Q+85dqXB8rpDe/BFN4S8z6sEcRRIJ0/Fu8uPllf6+4I5gYe5huzWmt9LFawiwfMvATP4UvB8mAsa8NinVwEO09X4jX9a+wNbZkRl9z+Fwk1JM9oh5Hqm6w5JMoxxA=
+	t=1790157292; cv=none; b=iOjzDAlp/Wc5dJJ/vpMZgEf92S7rpPV+3IByP7sOHLb6N+9eOCAEvXtQ0TFMQuoaTh4gE5r2iK1fn75wpyyeBoWvGH9eAVoME1vqTkS4KmS4HOpNoLEMWXoo+UmfsHqsQBbcKotxy3m1SGAOLYOiaenZ26CTYCBFDBL6LMrARvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157283; c=relaxed/simple;
-	bh=+HYS3dvKzoXKXK40VmtMXbgr0IQRMY8SAmPFPgXydIc=;
+	s=arc-20240116; t=1790157292; c=relaxed/simple;
+	bh=IUticTq4foak3yxsGQl2vQDiakNmvntsdMGpOFGsCD8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k3ai08m4tPV2vDMw377kzFpwpRQWi1R4zt/VA5lVy+MGUGOVRhexjsHxiQBuJAJrKMwRoeNfJv5n3OWefgi99LV0DZt3pDrtiDWjHePipEOpQa5Ajt0/c7k/VjJRn/kiNUHrAbd3CsNoSe5z6IEJuC6XuvgXDJJqf53bTz5POUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=WUBJPao1; arc=none smtp.client-ip=74.125.228.40
+	 MIME-Version; b=glHwU7GgnnvUZ4x1EuGizLDMfpC4n3/eMirBqIEcncIK17eyPgEFPLljptZL7XYlaKzld89qYbvtsnMmhfEQ6YbyAv41EZ42C9jFG3WxgUmueuOPL9L1Fkv28FjT+rW7gjSkcAG4WCVVxEndbpT/dR+JUOY6lWs+GfGZ7lDE0sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=iisnueaK; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="WUBJPao1"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5256c2a4bso351254a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:54:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="iisnueaK"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f7so3133285ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:54:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790157280; x=1790762080; darn=vger.kernel.org;
+        d=nebusec.ai; s=google; t=1790157288; x=1790762088; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NcjbznsDNqQjucWemj8GXAQz8O/NVaZRIfNms8EzTJY=;
-        b=WUBJPao1nKCo6+v6kyemAzTI9rLczPqkO1XFflfuRQBEx37DSl7CId9ytkFjc5pMei
-         sdUvomRgPXuj/sIQT4AkMD/O+4N6GrkqvMVQ2EDlj57PVMGE4CD8Jn4pk0FA7DGFTb9j
-         fTCnlsdJiXzTkSlB6vpdAjbCypz/5RuHvoEJH/zVZJUtgmsP3/t4Y6MbZdHSZmLRvSFF
-         W0Gylz09fUihZkUk6EP5OlAz6HEc8LJ8meMHrLocHSTdIPWUtDXQGKrtkK1WFHVyxBfW
-         ZwJA1ekPG8q1kdzcyzxbKK/nR//MxJFPw28isSuKObJAFVR0ofL1fsZXhoDkUc29FI7n
-         7I2Q==
+        bh=aQDxycOIV80BPgrqxrzM7NANBApnebD30BToWezPxAI=;
+        b=iisnueaKSaCz7CXaV8b7t8il/3RUHIYzy6lPx6TVpmG9za1rfF1/0Je4dT+5Ut8icn
+         MDCQDiJ3nd2CFnN3rea8FYDjR42/I00+ZXLB+I0amPG2W87scf2m96JZ9n1w5+nFzJ0b
+         toCVyg4+DOWleDkqmhccJAFWDdnsdfz1Lwl+eCsdJcFDzyLOoMDOeuuczfH/WNdxmsif
+         j1PjijPDrKyO1I6DvULKYCDjVQF8BEhsvhXikiIkTqyGKxKYIdb1FaxQUZNBe3cahPGd
+         N6n0b+rajCoH3tcNnrdxv4+9hju/Tz760jp7p/gGY1E++LswVcYcsYZEcIVyL4cIgvwY
+         Myag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790157280; x=1790762080;
+        d=1e100.net; s=20260707; t=1790157288; x=1790762088;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NcjbznsDNqQjucWemj8GXAQz8O/NVaZRIfNms8EzTJY=;
-        b=lxvioY+xmYm9/ya9/HYagjelCjUj4ToqpZUQ9sN4qWk9SS2k9VQ6qxGe20vZ24JYFX
-         SvwFxYZxVy+I3j9+gZa4S5G4Pb3VKdsF403LfsMPbPl99sSoUmxK+9qCCGjLtV1JoAPL
-         A4l6WGAnu7lMX8vtbII3rgrLCGlBJtv7q5ANFgv1wFXncKwxw88rFajbpCpD4jhhtkn8
-         Sme4fHrNOc2wrjra1KbNvd0vch1CeTmM/brgk+ReK73EEzzQUdcPftKMhyJB7TkKWfRj
-         vF867itguroLmHSfYevx4RgVgvUqNY8n6uW9tWWzXNxqsSUSrE2JbN0yCAnF6lNDsN8V
-         6udA==
-X-Forwarded-Encrypted: i=1; AKwUvByKEsGxl4Aja2hYWM+zj+6Xx8R/VBR5zuFU2OMI+MgnpP4j5nGBgUSTxumCAUvq6EWlmsLMhUo1frXGVng=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndOnJwc5+Am7y/+W6YennIlXi3IZayE38Pn5ck3+sDHi9/wRb+
-	8BsMYsttJE7E96zZkjhga1Rj1eSuX+3nAKaqYhEmw4nytfa8BtK6GWUF+MAKf01XXhrJ
-X-Gm-Gg: AYBFou3GK+IXXFNGkzQNpfttOXKStIqEnOWwfkUdebC9eN1V0DVR6o1a0eBOEkV6wwT
-	dS2boOmhT4/KaUp5NzUByVToDZ0UD6nbqmkON/Yutcqqs+yxh4/IsIQ7iKsJ0gE+D9riWDI7pUg
-	dc6+YoEqxeK3NBoMsQ440j1ivx3lQrAJNJpAYxd2LO+s8YIgH+139SKOc14ETfpg1qlNqCTfFN2
-	1aZdpl9NMrtvk2pu5cFKkyzDtJPRfY8tyHZNS9UCwsBSmsSvFhyv7ZAr1C+ZwArbV6BOHL9d0tk
-	ajdc4bP6s66x8bYB1jGohVAGj8Qf1m327fcaJNOuFflkPq9KDRpzKdfdK2scZ1X2G/Po/xV/4wn
-	f0DpDl1/FCxQTzGWK5fhsmp6KuOg/kuDMqEfbRCEMh834DMTwPRuu7a5F1ZZaUuOxQAgwuF8LVt
-	X0NVn4U/mQLNyyUlKbVKiGv3rCX1frpico6WQ0Rddo9zB4xG4Z+mxg33tkIVFwWQxjeylxBK2pi
-	/EsRMFreoC8HRjzGUdRdiIpIW5SAg==
-X-Received: by 2002:a17:90b:164a:b0:39e:35a0:9c0f with SMTP id 98e67ed59e1d1-3a07e568a6fmr1766161a91.14.1790157279865;
-        Wed, 23 Sep 2026 02:54:39 -0700 (PDT)
+        bh=aQDxycOIV80BPgrqxrzM7NANBApnebD30BToWezPxAI=;
+        b=1C8wcNw9uXsQvhJySgYUUQ+hHcfUyFzfTzS6nKdD4z+mBcr/NZYpI2Ac3MyjcAlUGk
+         rZy4ZYA9JPPRW3QRW3Ilfh4bmyNUPOL2u4eKT0OQs/8j5FHxX/EWZuJKBfEQ2OUP498R
+         urVABdxXZrAr3x3wtV8kvBp51z9a9ycCfUDnSbIPkgNk8nclzD6UVMTj63YoZ4yMDORS
+         eFGBhpiZLmv1NPjYT4pNimI3IdVq86tODnuIzBC6bjJm7gBphSBd7dwiKa7RxLHhirc5
+         93d4L8wx4aKVvMsm2uBO031n1EvB4qw65/mLdpBNEKLiW4X6EIFBFs0WYWWqv5m/1kcm
+         637g==
+X-Forwarded-Encrypted: i=1; AKwUvBwJ8DwFOibO9Bg7c2/ypM3mXVZ5Gn9vo2BDVsmXMspWavmCZty3XA2EcdTWCfdpoh1hXHXyhjqYHdXOb7o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcCY/G79CLdtykWEd9mQSqCqiJVINdZyVAscpQ8aAjDuTddZSR
+	IeI8YhWJvjAXcUJr30o3vBTgbeK+6ju7azkXzGaexpUICpu4akzOjdZ51/TdDPpTfe70
+X-Gm-Gg: AYBFou3bFHQ4xnich4ez5cudlQuKibi2jfcXk5miYN71EA7/+I0k7Jrt5CJtxDw3Vhh
+	FdTYPT20dqtP/RuTPSRlTs5UHXvktbfH8B20bQpBco8iOsrjWnhayut3ys1CwpiyeOjFP5QwptR
+	Whmuo1oP4YsQN4A7GctgjLILqO990G/raHTcJfTHy9zWonZdahv3KTEkSlwG4t3VmHUyWGlIvMn
+	SWY2yW7PiwS7XhV0BJs1qsGY2iSRUG0qZql8TIy2hD1n0UOKmNjnbofHrnfpUObmYvAJ4BDE/j5
+	F9PNSqjwLvdxdUGNUU9ohIarlRQGxFS9ctBcLi/x4wd0zvEQ489Pyjd2UmQNuD7ck9oQPTM/fA+
+	RBuPDDOBLmdOy5lw83UHIDdUVtKb6NTRAcLNSM8S+NUzAe44d6GEGnTPcTsLoZcEWxJ+ofLpYq+
+	pbqa/u4Qq9GS2ieMTK+oeHTigx2VdezyFe15otOx7FBFJE9vnXXLGB68g7L0towSHsTprZKXMOP
+	cR/AH2UxEAAE1UmrOTYdNAaGitbvw==
+X-Received: by 2002:a17:903:234e:b0:2dd:ad73:c983 with SMTP id d9443c01a7336-2df69d595f0mr17906435ad.27.1790157287897;
+        Wed, 23 Sep 2026 02:54:47 -0700 (PDT)
 Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc5f3d7sm4793862a91.16.2026.09.23.02.54.34
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc5f3d7sm4793862a91.16.2026.09.23.02.54.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 02:54:39 -0700 (PDT)
+        Wed, 23 Sep 2026 02:54:47 -0700 (PDT)
 From: Zihan Xi <zihanx@nebusec.ai>
 To: netfilter-devel@vger.kernel.org
 Cc: netdev@vger.kernel.org,
@@ -78,9 +78,9 @@ Cc: netdev@vger.kernel.org,
 	stable@vger.kernel.org,
 	Vega <vega@nebusec.ai>,
 	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH nf v4 2/3] ipvs: avoid stack overflow from recursive connection expiration
-Date: Wed, 23 Sep 2026 09:54:14 +0000
-Message-ID: <8d33e2a83fa6f2fb6419b3f34cd3ff8677684a31.1790146910.git.zihanx@nebusec.ai>
+Subject: [PATCH nf v4 3/3] ipvs: reject FTP control ports as data ports
+Date: Wed, 23 Sep 2026 09:54:15 +0000
+Message-ID: <b5c5a01607eabe55a6a5a27a9ed40a0ac8ec65fe.1790146910.git.zihanx@nebusec.ai>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1790146910.git.zihanx@nebusec.ai>
 References: <cover.1790146910.git.zihanx@nebusec.ai>
@@ -92,22 +92,17 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a controlled IPVS connection expires, its controller may be expired
-synchronously if it has no remaining controlled connections. A chain of
-controlled connections can then recurse through ip_vs_conn_expire() and
-exhaust the kernel stack during namespace cleanup.
+ip_vs_ftp_out() creates a wildcard data connection from the
+server-advertised passive port. If that port is one of the configured FTP
+control ports, ip_vs_conn_new() binds the FTP helper to the new connection
+again. A subsequent wildcard lookup can then extend a controlled-connection
+chain.
 
-Continue expiration with the controller after the current connection has
-been fully cleaned up instead of calling ip_vs_conn_del() recursively. Keep
-the expiration walk under RCU, preserve the immediate-drop timeout for a
-controller with its own controller, and switch to deletion mode before the
-next iteration.
+Reject zero and configured control ports before creating passive
+connections. For active mode, reject a zero client port and a data port
+derived from a configured control port.
 
-This keeps controlled-connection cleanup synchronous while using one stack
-frame for the whole chain. The timer callback race during connection
-deletion is handled by the preceding refcount fix.
-
-Fixes: f9200a52eedf ("ipvs: avoid expiring many connections from timer")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Reported-by: Vega <vega@nebusec.ai>
 Assisted-by: LLM
@@ -116,86 +111,65 @@ Signed-off-by: Luxing Yin <root@tr0jan.top>
 Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 ---
 changes in v4:
-  - Rebase the iterative controller cleanup on the timer-callback fix.
-  - Keep the controller walk synchronous and switch to deletion mode for
-    the next iteration.
+  - Resend the FTP helper fix as patch 3/3 with the generic cleanup fixes.
   - v3 Link:
     https://lore.kernel.org/all/cover.1789877273.git.zihanx@nebusec.ai/
 changes in v3:
-  - Handle the timer-callback race while keeping controller cleanup
-    iterative and synchronous.
+  - Keep the active-mode guard for configured FTP control ports.
   - v2 Link:
     https://lore.kernel.org/all/cover.1789435989.git.zihanx@nebusec.ai/
 changes in v2:
-  - Replace recursive controller expiration with an iterative repeat path.
+  - Add the active-mode check for a data port derived from a configured
+    control port.
   - v1 Link:
     https://lore.kernel.org/all/cover.1789110326.git.zihanx@nebusec.ai/
 
- net/netfilter/ipvs/ip_vs_conn.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ net/netfilter/ipvs/ip_vs_ftp.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/net/netfilter/ipvs/ip_vs_conn.c b/net/netfilter/ipvs/ip_vs_conn.c
-index 32cfc02aa2912..f85752e79ed92 100644
---- a/net/netfilter/ipvs/ip_vs_conn.c
-+++ b/net/netfilter/ipvs/ip_vs_conn.c
-@@ -1357,6 +1357,9 @@ static void ip_vs_conn_expire(struct timer_list *t)
- 	struct ip_vs_conn *cp = timer_container_of(cp, t2, timer);
- 	struct netns_ipvs *ipvs = cp->ipvs;
+diff --git a/net/netfilter/ipvs/ip_vs_ftp.c b/net/netfilter/ipvs/ip_vs_ftp.c
+index 9e3e005a82635..4822a1a75212d 100644
+--- a/net/netfilter/ipvs/ip_vs_ftp.c
++++ b/net/netfilter/ipvs/ip_vs_ftp.c
+@@ -62,6 +62,17 @@ static unsigned short ports[IP_VS_APP_MAX_PORTS] = {21, 0};
+ module_param_array(ports, ushort, &ports_count, 0444);
+ MODULE_PARM_DESC(ports, "Ports to monitor for FTP control commands");
  
-+	rcu_read_lock();
++static bool is_control_port(u16 port)
++{
++	unsigned int i;
 +
-+repeat:
- 	/*
- 	 *	do I control anybody?
- 	 */
-@@ -1366,19 +1369,20 @@ static void ip_vs_conn_expire(struct timer_list *t)
- 	/* Unlink conn if not referenced anymore */
- 	if (likely(ip_vs_conn_unlink(cp, my_cb))) {
- 		struct ip_vs_conn *ct = cp->control;
-+		bool next = false;
++	for (i = 0; i < ports_count; i++) {
++		if (ports[i] == port)
++			return true;
++	}
++	return false;
++}
++
  
- 		/* does anybody control me? */
- 		if (ct) {
--			rcu_read_lock();
- 			ip_vs_control_del(cp);
- 			/* Drop CTL or non-assured TPL if not used anymore */
- 			if (!cp->timeout && !atomic_read(&ct->n_control) &&
- 			    (!(ct->flags & IP_VS_CONN_F_TEMPLATE) ||
- 			     !(ct->state & IP_VS_CTPL_S_ASSURED))) {
- 				IP_VS_DBG(4, "drop controlling connection\n");
--				ip_vs_conn_del(ct);
-+				if (ct->control)
-+					ct->timeout = 0;
-+				next = true;
- 			}
--			rcu_read_unlock();
- 		}
- 
- 		if ((cp->flags & IP_VS_CONN_F_NFCT) &&
-@@ -1405,7 +1409,12 @@ static void ip_vs_conn_expire(struct timer_list *t)
- 		else
- 			call_rcu(&cp->rcu_head, ip_vs_conn_rcu_free);
- 		atomic_dec(&ipvs->conn_count);
--		return;
-+		if (next) {
-+			cp = ct;
-+			my_cb = false;
-+			goto repeat;
-+		}
-+		goto out;
+ static char *ip_vs_ftp_data_ptr(struct sk_buff *skb, struct ip_vs_iphdr *ipvsh)
+ {
+@@ -319,6 +330,10 @@ static int ip_vs_ftp_out(struct ip_vs_app *app, struct ip_vs_conn *cp,
+ 		return 1;
  	}
  
-   expire_later:
-@@ -1422,6 +1431,9 @@ static void ip_vs_conn_expire(struct timer_list *t)
- 
- 		__ip_vs_conn_put_timer(cp);
- 	}
++	/* Do not redirect data to control ports */
++	if (!port || is_control_port(ntohs(port)))
++		return 0;
 +
-+out:
-+	rcu_read_unlock();
- }
+ 	/* Now update or create a connection entry for it */
+ 	{
+ 		struct ip_vs_conn_param p;
+@@ -529,6 +544,9 @@ static int ip_vs_ftp_in(struct ip_vs_app *app, struct ip_vs_conn *cp,
+ 		return 1;
+ 	}
  
- /* Modify timer, so that it expires as soon as possible.
++	if (!port || is_control_port(ntohs(cp->vport) - 1))
++		return 0;
++
+ 	/* Passive mode off */
+ 	cp->app_data = (void *) IP_VS_FTP_ACTIVE;
+ 
 -- 
 2.43.0
 
