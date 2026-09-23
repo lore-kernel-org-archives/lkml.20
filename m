@@ -1,99 +1,44 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D539248CD43
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:11:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4F333CCA02;
+	Wed, 23 Sep 2026 12:12:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165520; cv=none; b=M+3PJTJ1xxB1uDinsvBhWkHrCDE0dUtGgCzglLOw57BeA//0DzLL7LJsvbFKzODHUu6AF26KAew2DHJASSR5F2oZEXEHDPn27RU4zO4CXOjhCYIs3N+GSkmCjOhS6sP+9/Kp8OszRjKktDQf7StfD0LcRa34dNJ3H1+CAo2/N3c=
+	t=1790165527; cv=none; b=o3XTn7Q9bk2WMwmIGrIr32x6wcI7H1pKMIG6w6MDo/mY0gZT/Hl+r7Xzr1XIAoH6ICLMtV7RDsIjt20UVlw6LufHX1B3MPgrqZVuBveUGq+8ETh1MckJ1aIkYPbERL4HkQ1iXZprV4IXrNC5f4Y04mvPI3+/UD4C0sQrTPnC0X8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165520; c=relaxed/simple;
-	bh=P2mtw9GVAY2T2gTvi8dxKOiJYKSqx3tp1Lhkfn6w1rA=;
+	s=arc-20240116; t=1790165527; c=relaxed/simple;
+	bh=xi8NIofPhpB3H7iilBZyGWD0DeG69Ptc46KK7MjGIYc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F8U/1eUofG008Fk59ngTigvXj0NGeXAPjFT2R2nF24IotjcmMokQo8IeYkrjcFb0Orw//Mn34FnLPniIHgxselnfyiTl70vfBDvtAYXzZV1tvWz8ir9d7dachC+xComyYNdyXjwJsk705If8olyV0DnR46Lngb8isTrUX0IYm+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=c1rkrzIy; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=b4EV8hxZYEIiTWNwinXRCO3/KenwFN5aQWA1PU3M++Xq2Hl4iuGA050Ry2Tg0TpIODlWQnnVVgg4b8IErUTuTxqVMGrL0be7ukJ+F7IiT2Q11RDiT1FtF3grnqXixjBw6yHYeSM6V+2dKKAl30objMct/OAyETw/y9NLnZEK1uE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WfbrlIJc; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="c1rkrzIy"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb766bfd6so8398901cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:11:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790165516; x=1790770316; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IPMTUmIFbMagr41QpNmtzeOVUfCnU5evjD/bYrUNYz4=;
-        b=c1rkrzIySQbU93CNbfS377LzIrTwyFhZZ/kb9CP0v8160GnMg28+csQfrAZPOt1MUC
-         wBWLygo1DVVMN1ua6QjIXtqJt8i+ynjqDbq7W5IRXKhzJR4OGbQiV+qyN2pASYbTx8Ul
-         yqdoP41p3wOP5Gx9mEqxNW3Nd2IIvoGZM3iPsukNyD60S/8IU4ty8O+7JL2/WbQn+oo5
-         rzIh2qiyA1XS4u3oDPe8x1UEFpXrJWomEIKihyhAT+qafgGAgy/ZBj858T/Y6k+7BhNE
-         w6ZC2wnBisdHB4Kn4E054g9jm4lJldY/vl81N/mlO/70GenAKpKx8ZmOUkvx2E74IIMJ
-         VV6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790165516; x=1790770316;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IPMTUmIFbMagr41QpNmtzeOVUfCnU5evjD/bYrUNYz4=;
-        b=CSo8ou/Nfy/JVRlHluIrVcpHHS57zRaIO99ihfvsJCkVeTzLC/ifu60m8y0hSOtg8w
-         ElyE3OtLogsQpnYxGEksyIIaWW5pVIT7bMm2fKiBZebWxuSb1ZYSaSlmVBBWV9dhYX5J
-         Leh2FJVXRJx35mvdOCMeLgChKglS9B1OGGRxkh2a5+aOrQSeraYJmwIfLA5qowy+N9Kd
-         2T2sxqJ9A/k/SNYKyIBO/ez7DnR+9+Dj/tJWKk6Ni68X/uhfCm0lcTTAfWcc4PgteQ5v
-         TfwW2JVKawrAEGkcvc+0CFetLBimA9nSziwSiwz09t9WiLcI63JaRZRWACk51WTEjtDK
-         fSuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw6cz9MkP5iUx+szWQJhsUcp1C0Z12gDLipZstraxPzyCN8K625yamlL6FxI48CkavBb1tZ83kZqNawVeo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFOdqHZoUAF9GfGHyJ70lccl0bhif0YMGhSix6sJlcJVlp8sch
-	mI3gZ37tZLYhCenH85Rys9CRK7jSFxUjMGOYs9q1SLqYgG3lEm78FPlKgfkX29EqWs0=
-X-Gm-Gg: AYBFou2AuJXuyJlYj3QXDG1Y2xhpjiidnUpVmzFRG4ld6YQMxPDAsD5f3TrHphwlW7f
-	4ckhSg/J1sGEqeulbp5RutvWLPXZvMGqwohrEsz8wZStNsD4ZTa4CP7Exgi/Z5WT5UauWSNtAGT
-	s1kwFGviyYmtYkUEpOb45/u3AkCDaaYwMCrdvI7w4wrOGBtc951A0ag5D5FwQOdv5tflF0bmPkP
-	vlUwxLyOonYXjXCY2wYWbLiw2RCKFZ0nXppkgbGsMJdYrR+CbbBJw/tx/ITFe3h69k7gO8GLT07
-	M/U8SeiNrgCJ9fpYgmMYFgsF1NbsJSMtbYLPUOyIZB3V0q6z0lyZ05X204wHCWGMhtl1pltN7Ip
-	IKLLskvU8/mRSDtaJQfWFXm/4XCQRXVOGhBZUtPFMWJVjdIED6m17Uu7C9/d4AxldrggSdf3DNq
-	kpk/4CqYYcpQ4ScP1q+q0FByyilbpRWHVHeH1T6o6pe1Z+M1YpwPBeIIljDPBmkd36dDkOYhGgH
-	+hnznj9agDfe8+JxXzSn78xrjI0bRYZShVIqVZVhng8GguIisuPoyKoLAtbT/fWsg==
-X-Received: by 2002:ac8:5cd1:0:b0:531:a6d:dafd with SMTP id d75a77b69052e-532eabb3c23mr38720741cf.7.1790165516357;
-        Wed, 23 Sep 2026 05:11:56 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eaec166bsm18721651cf.4.2026.09.23.05.11.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 05:11:55 -0700 (PDT)
-Date: Wed, 23 Sep 2026 08:11:53 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Chris Li <chrisl@kernel.org>, Kairui Song <ryncsn@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arOtPQN5irtjXKh0@gourry-fedora-PF4VCD3F>
-References: <aqJXx2vtbKaRLt3x@fedora>
- <aqLi6cIjD2wJwk0B@cmpxchg.org>
- <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
- <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <CAMgjq7CJBHkoZmg9oKNgGA8czL0djyBTCAkPz8ETm-tX=Qci4g@mail.gmail.com>
- <arEotFqE7ZZoxMHd@gourry-fedora-PF4VCD3F>
- <CACePvbXb1WLz=OAAzVawf3oc3+dE3Z7qfPdagQ2dYuf3OALc2g@mail.gmail.com>
- <arFe215hUcjLhvmS@gourry-fedora-PF4VCD3F>
- <arOeYHEf9aO7AU5X@MiWiFi-R3L-srv>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WfbrlIJc"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 782041570;
+	Wed, 23 Sep 2026 05:12:00 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 44B4E3F86C;
+	Wed, 23 Sep 2026 05:12:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790165524; bh=xi8NIofPhpB3H7iilBZyGWD0DeG69Ptc46KK7MjGIYc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=WfbrlIJc6PIRO3QJdGN02l6yILN8LZNb5gXKSL0optlm3pfpEn+tM3q/hDkuH2wlp
+	 b7m0xt9GrefxYQL48XX0paq0rO+hkAkx9VGwwoGQs06sTvHhKkn6+2nLuuHUhWCUuO
+	 poloeD0oI3YcPeBHHqLRi6Bgs2yqbLb4hXKdEUic=
+Date: Wed, 23 Sep 2026 17:42:00 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: linux-mm@kvack.org, David Hildenbrand <david@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Helge Deller <deller@gmx.de>, loongarch@lists.linux.dev, 
+	linux-s390@vger.kernel.org, linux-parisc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] s390/mm: Drop all pxdp_get()
+Message-ID: <echvqvjj435meeh6gcrqewysdqbtkrsgayvsyfcr3q6h3bh7fn@hsa7xh22l4rj>
+References: <20260923043226.331880-1-anshuman.khandual@arm.com>
+ <20260923043226.331880-2-anshuman.khandual@arm.com>
+ <20260923091629.9636A36-hca@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,148 +47,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <arOeYHEf9aO7AU5X@MiWiFi-R3L-srv>
+In-Reply-To: <20260923091629.9636A36-hca@linux.ibm.com>
 
-On Wed, Sep 23, 2026 at 05:39:44PM +0800, Baoquan He wrote:
+On Wed, Sep 23, 2026 at 11:16:29AM +0200, Heiko Carstens wrote:
+> On Wed, Sep 23, 2026 at 10:02:20AM +0530, Anshuman Khandual wrote:
+> > Current platform specific pxdp_get() helpers are exact same as the default
+> > ones defined in the generic MM header (include/linux/pgtable.h) thus making
+> > them redundant. Just add required forward declarations.
 > > 
-> > That's an SLO interface.  memory.swap is a provisioning interface.
+> > Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+> > Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+> > Cc: linux-s390@vger.kernel.org
+> > Cc: linux-kernel@vger.kernel.org
+> > Cc: linux-mm@kvack.org
+> > Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
+> > ---
+> >  arch/s390/include/asm/pgtable.h | 35 +++++----------------------------
+> >  1 file changed, 5 insertions(+), 30 deletions(-)
 > > 
-> > As it stands, I'm left viewing zswap's counter inclusion in swap as more
-> > of a bug than a feature - they account for different things (memory vs
-> > storage usage).
+> > diff --git a/arch/s390/include/asm/pgtable.h b/arch/s390/include/asm/pgtable.h
+> > index e882663a58e77..0a0b0ec42b624 100644
+> > --- a/arch/s390/include/asm/pgtable.h
+> > +++ b/arch/s390/include/asm/pgtable.h
+> > @@ -25,6 +25,11 @@
+> >  #include <asm/page.h>
+> >  #include <asm/uv.h>
+> >  
+> > +static inline pte_t ptep_get(const pte_t *ptep);
+> > +static inline pud_t pudp_get(const pud_t *pudp);
+> > +static inline p4d_t p4dp_get(const p4d_t *p4dp);
+> > +static inline pgd_t pgdp_get(const pgd_t *pgdp);
+> > +
+> >  extern pgd_t swapper_pg_dir[];
+> >  extern pgd_t invalid_pg_dir[];
+> >  extern void paging_init(void);
+> > @@ -985,36 +990,6 @@ static inline void set_pte(pte_t *ptep, pte_t pte)
+> >  	WRITE_ONCE(*ptep, pte);
+> >  }
+> >  
+> > -#define ptep_get ptep_get
+> > -static inline pte_t ptep_get(pte_t *ptep)
+> > -{
+> > -	return READ_ONCE(*ptep);
+> > -}
 > 
-> It's hard to say. When 37e84351198b ("mm: memcontrol: charge swap to
-> cgroup2") introduced memory.swap.*, it was clearly defined as charging
-> "the actual number of swap entries used by a cgroup". Please see the
-> commit log. With that, zswap still reserved a swap slot even when the
-> data never reached disk. And not to mention zram, it's backend is RAM,
-> but not physical disk.
->
+> As reported by Sashiko, this results in a compile error due to conflicting
+> types; but I don't see too much value with this patch if a forward declaration
+> of the common code implementation needs to be added instead. Looks like s390
+> would be the only architecture which would have that.
 
-If you read the entire series, you will find this documentation update
-to go along with that commit:
+We could move pxdp_get() caller functions from this header inside C files
+like other platform changes proposed here. Would that be better instead ?
 
-https://lore.kernel.org/linux-mm/dbb4bf6bc071997982855c8f7d403c22cea60ffb.1450352792.git.vdavydov@virtuozzo.com/
-
-  For trusted jobs, on the other hand, a combined counter is not an
-  intuitive userspace interface, and it flies in the face of the idea
-  that cgroup controllers should account and limit specific physical
-  resources.  Swap space is a resource like all others in the system,
-  and that's why unified hierarchy allows distributing it separately.
-
-So the counter was also intended to be a limit on swap space - not a
-limit on the amount of virtual memory allowed to be swapped (via any
-backend).
-
-Johannes originally proposed this for the documentation:
-
-https://lore.kernel.org/linux-mm/20151211194254.GF3773@cmpxchg.org/
-
-  memory.swap.current
-
-       The amount memory of this subtree that has been swapped to
-       disk.
-
-  memory.swap.max
-
-       The maximum amount of memory this subtree is allowed to swap
-       to disk.
-
-
-It is clear from the outset that memory.swap was intended as a resource
-consumption control (how many swap entries may be used), not as a
-virtual memory consumption limit (how much memory can be swapped).
-
-all the v1 discussions you will find these counters talked about
-consistently in terms of "consumption":
-
-https://lore.kernel.org/linux-mm/20151214153037.GB4339@dhcp22.suse.cz/
-
-  I guess this was the reason why this approach hasn't been chosen before
-  but I think we can come up with a way to stop the run away consumption
-  even when the swap is accounted separately.
-
-https://lore.kernel.org/linux-mm/20151215145011.GA20355@cmpxchg.org/
-
-  Allowing the parent to exceed swap with separate counters makes even
-  less sense, because every page swapped out frees up a page of memory
-  that the child can reuse. For every swap page that exceeds the limit,
-  the child gets a free memory page! The child doesn't even have to
-  cause swapin, it can just steal whatever the parent tried to free up,
-  and meanwhile its combined memory & swap footprint explodes.
-
-https://lore.kernel.org/linux-mm/20151215202235.GB15672@cmpxchg.org/
-
-  As far as the high limit goes, its job is to contain cache growth and
-  throttle applications during somewhat higher-than-expected consumption
-  peaks; not to contain "large unreclaimable high limit excess" from
-  buggy or malicious applications, that's what the hard limit is for.
-
-https://lore.kernel.org/linux-mm/5670E147.8060203@jp.fujitsu.com/
-
-  The point is, at least for their customer, the swap is "resource",
-  which should be under control. With their use case, memory usage
-  and swap usage has the same meaning.
-
-
-Now, with vswap - zswap becomes detached entirely from disk swap.
-
-There's no (physical) swap slot being "reserved" by the zswap slot
-usage and the slot is now just another chunk of memory. It is correct,
-according to the definitions, to stop counting it in memory.swap.
-
-Without detatching zswap from swap, this would be blatant breakage.
-
-But, putting aside correctness, lets discuss usage of memory.swap as
-an SLO signal, and whether this use case has merit.
-
-> Now some deployments do use memory.swap.* as an SLO signal, and that is
-> real use cases as Chris and Kairui told. So I don't think this is about
-> who is right and who is wrong.
->
-> To keep the existing deployment working and at the same time give the
-> physical slot its own knob, I think the solution is to add a memory.pswap.*
-> counter as you suggested. And that is not something we think of from a
-> brain storm, it comes from real deployments which already depend on the
-> current memory.swap.* behavior.
 > 
+> Besides that the s390 implementation of ptep_get() will be filled with
+> more content "soon", when Alexander's lazy mmu work will be merged.
 
-Then let Chris make and defend a proposal for memory.pswap.* and
-justify the redefinition of memory.swap to mean the total virtual
-memory space eligible to be swapped.
-
-If memory.swap has existed with dual meaning for long enough that users
-depend on it to mean something other than the historical and documented
-meaning - we should have this discussion.
-
-That doesn't mean we should simply accept the redefinition, but the
-proposal has some merit considering some ambiguity dating back 10 years.
-
-
-I would like to know more about his use case and why it cannot be
-accomplished by memory.low/min. I can see there being limitations to
-those interfaces that need to be addressed, and maybe such a change to
-the definition is warranted and a new interface needs to grow out of it.
-
-This would also allow vswap=on or =off to work regardless of deployment.
-
-
-Chris has done none of this - he has offered no solution or constructive
-discussion. At best what Chris is doing is finding creative ways to say
-"No" without engaging good faith discourse.
-
-You'll notice Chris did not engage in the discussion around the
-proposal which intended to solve his concerns
-
-https://lore.kernel.org/linux-mm/CACePvbXb1WLz=OAAzVawf3oc3+dE3Z7qfPdagQ2dYuf3OALc2g@mail.gmail.com/
-
-He asked no questions, he brought up a completely unrelated idea,
-demanded justification for the unrelated idea, and then entirely
-disengaged. He continues to demand workload numbers completely
-detached from the discussion at hand, and makes dictations about what
-an "appropriate amount" of compressed memory is.
-
-He's more interested in fillibustering than finding a way forward,
-and this behavior is quite innapropriate.
-
-~Gregory
+Hmm, okay. I don't have strong opinion either way.
