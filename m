@@ -1,38 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4932495050;
-	Wed, 23 Sep 2026 11:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2927649A3C0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790162145; cv=none; b=WpxCdQ1w72DWnjhL3/66FR2pB7SbWCVJSHO34i6LNsMqFRJNV2Hq74Xnv1JzvzkI3eNeAkYA3MdTSFIJFlCEroEGo79eZU+p+7jHSjZ7AEu2ChNp6wnrNgmrLQybw0XssfpdgcSt9PxFdp554h7KniEHWuSP6/F+x5qr40ur6aI=
+	t=1790162156; cv=none; b=WYSgaLRuRt2vzRwRfKkXQW9B1EXQlmbpuBjVkJFch9xPGcBy+bTPY1y0OUpFxSY114DTqPSNkOw5ZeHdHMH9wWTofn3fC1CWcCgBfcvPEBJHVaNENOHazzzGJM3Cem+uKjBgv1CrFBEJp2+XAXkZFE2w5OoDh3WiBQc4a4f+khI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790162145; c=relaxed/simple;
-	bh=9V/M4QuDb1aTEKAcJYylTQN3hv5JlhRhajwreFSaOrk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gm0ejJh2bw+gzGuCbzZ46qqClwRTRHaDfKWxSKmSnUiQyUCJ8g5f99+lQl5JUgEut1b4GMBXijZXwS3ldJIF/BF5TkSEFAflyJuYlQSBgtpppDTfC3GWn7MQx1iC0/9zEbI4NgUjV359n47A1gpgSTy5T1Cjg1WdqkuZyAdoOl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AP128hEA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790162156; c=relaxed/simple;
+	bh=fpTgXc3xoF7NXSdZg3Az2P+X8RDV8yueEizFc2Q7iAQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=YtDfXpSMlRi6LkAdRBJDRP4YcUohpIZF/IrK0EBsHJoEhsOqqZX9ZyA45ieXF/BRhitD1H8NY/WmR86YOTch8DZll8TTrLJ9pWA18hmg2u2WlF0TGtacL8+cu5bbvH8v6HBvxsQ8y3w6VXJVnbuuDiE6ymFm2mStPuhAOS27Ybg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=0pKDkXuj; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AP128hEA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7420EC2BCFA;
-	Wed, 23 Sep 2026 11:15:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790162145;
-	bh=9V/M4QuDb1aTEKAcJYylTQN3hv5JlhRhajwreFSaOrk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=AP128hEAVEZfnKD89oVHKDOlVxOM2sjMKUyKyDCiPZh6q5F7Llj5OqjgmIiSITvth
-	 4SnHV3vktJpYDvnzxexU8FSEYipROctIhtrkwntmc0a2L2/SYZW+Uw1jZucgahdzb6
-	 nGAr0BQQH7IReZoDb01IaAZpGsdOFJhsr2paNGtOmBSjTDP48wYWqe+fAFVhvK8ebW
-	 bvC6HzOGjd9mVz73/ixnsC1L2xFZ2D+JGXWFGqb+4D1d5sViGzrVl111oUfdLcIz1I
-	 iDOlXmhMk8IakEjGoOIuvesTtB9+Ytygk8pF/aP7Q2UDK6qqDfv535JZxRzlJolGhH
-	 CH5xegmVuJh6w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56455C9830B;
-	Wed, 23 Sep 2026 11:15:45 +0000 (UTC)
-From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
-Date: Wed, 23 Sep 2026 19:14:49 +0800
-Subject: [PATCH RFC 3/3] clk: meson: t7: Model PLL pre-divider as a divider
- clock
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="0pKDkXuj"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33be7dfcfc1so861992eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:15:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790162153; x=1790766953; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k2RZKlHWzdwe4Eljq1oFXDUhjI0hVFgJE+l4Mm5J2Qk=;
+        b=0pKDkXujqFnA1BhW/4458P3odCo86TBmBmkrRPrkQO/Jnkf1HySDq6hegTnfFaxnC1
+         2x74A+eznnQ3JUMaYiUBgeRRDfDL/OLDxJigE0vIbBsUZBa9wk4lLquG37LE//Ap0u+u
+         Rz5cubhELIbSMxv8uEMmbzTBGkhOqELODinTNMqwDESs40BeE4ocWiw8fNEZ5Iabodg9
+         Z7moVH5/mNuSBDynjhfrBreZo+3igH8MnFyhcKFcyqPSZJlOU4PGhOyYr8et1Jx5FfQ8
+         BqDHoYbLDAheSngD6ep8bLrC6O8GUBP6YhuWG7FlO+tmYCptb/yg6B0n1WsYNZT20Mqj
+         /wYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790162153; x=1790766953;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k2RZKlHWzdwe4Eljq1oFXDUhjI0hVFgJE+l4Mm5J2Qk=;
+        b=Hp/3eXh/5Hl9G7G7I7KCLuEa1jUo2PkygXkLF5AfJGSg3qfP7oRzeMg5Ywoal2jZbW
+         M/8OdV7Yt6xFjJpp5VuYEqMdCRP1ifYo+0e12d6AfdWOmOQ+NknQkOKDBI8aqft8IFQf
+         nwmsGvJIIesYBuY+++0YRTik7Tfby1A69mV+RVEE+yEL1L5Q3m3/07TZr7/fEGZmSWSi
+         qx4TS2jGiR4mpIcXl1Ps/U3eqoh6cfVl9+HihZrr0fXk8NAiM9y3DhDAqBuL3XOt4d5d
+         CRzoorsaNlvE/5FFReV+IIVk2c0fgmrlCwtmdqRRHxRCB0AIZ2+KOQem2xKYwjVZMdkF
+         yrog==
+X-Forwarded-Encrypted: i=1; AKwUvBxNqJdcif4Kebmnn4LgsZS43VzC6VUwwmJg90oXvdSVa8Vg2LlsMn6jpe+ygOMmsWiYudVl15QalWyTqkc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6cy+joWP/Enlk3t+4cSGOWnR8RBcEMCWbspsLsbzuNmL7ltfG
+	9JPijlS6RxHIe6x/rLZPKcMo81cp4dfy2VDiSlq5uUKBygnewjWSsC4HZ2Q5ZMImdSdMcz1+H7Z
+	Xt/46Zwk=
+X-Gm-Gg: AYBFou193e3zgLZOy3SS0dZMq++7QWObnD6yCB2QZYoR2Y23SLZ0fZNDpC/Sj80dT2n
+	B6Wr3gVASwEoscPA+TwY03BQRhYec5UNNGgbj9lCA+tpVehvwTbw9bwgnY4r6oA5QK2KIdxaorU
+	jgsoUJlg6N64w5yPjdwrceeKIeiqgDJJughMAmBg15OMZ11bn5677sZhRxSTndfScPSzG//iqXh
+	HhJQ1VVscyoBx6a5WojlGvQbWQ3T1AQqxx7B/3AWXMlgRfXldMtjmWn3KaoVNsesf0gcf5YLfvS
+	a+sTXEPOltzrcQE8kf2JHTch+8wvsstgqtLiHDp6YVC1a2fyl8LSvf9Ye/j/7KMoAQDQS+AoLmG
+	9ibWbvZcDhdj4tLFwiRuU1NUjBXZqGUfhrGXEQAP41KPIUI1MXVJIecx+SJmi5ykBBmdf5Gf7eQ
+	ah9ZlT5I0weULkKUXTVRRx2+/z13fJnjNR53zUGs9+o5XcBL9KM/vqD2N8kYCiNG4kvPD1VoAh2
+	MyiCVHBaXt3B4uyZSRkfTV+Ffq0rzhdNfB5BrbMNJ3/Vd+YAB8msmeFK9lCUjHELtRhhZywcA==
+X-Received: by 2002:a05:7301:4e04:b0:33b:faec:b01e with SMTP id 5a478bee46e88-33e8c442e2amr3586526eec.17.1790162152023;
+        Wed, 23 Sep 2026 04:15:52 -0700 (PDT)
+Received: from xps16.local ([198.8.77.157])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fdd91sm6383650eec.4.2026.09.23.04.15.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 04:15:51 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: Laurent Vivier <laurent@vivier.eu>, Finn Thain <fthain@linux-m68k.org>
+Cc: Joshua Thompson <funaho@jurai.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ Omar Sandoval <osandov@fb.com>
+In-Reply-To: <cover.1788513996.git.fthain@linux-m68k.org>
+References: <cover.1788513996.git.fthain@linux-m68k.org>
+Subject: Re: [PATCH v3 00/33] block/swim: Fixes and improvements
+Message-Id: <179016215097.13005.11311816512162043252.b4-ty@b4>
+Date: Wed, 23 Sep 2026 05:15:50 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,393 +80,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-meson_refactor_n-v1-3-3a8ce27121a2@amlogic.com>
-References: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
-In-Reply-To: <20260923-meson_refactor_n-v1-0-3a8ce27121a2@amlogic.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jerome Brunet <jbrunet@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Jian Hu <jian.hu@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790162143; l=10156;
- i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
- bh=YqMo5icc69xckYBk4DLB/d4LRHXA7luoRj0+rYDAwok=;
- b=qvttVB6Wt2KwUtggaJdYIPBILVXCd2fyS/FGTvSDgbP/I6xP6IGz7a/ozA7UWV+8gM4OTCg+q
- +TAW7V5swB1Al3I4plkBLDEFqJ7bqjSEhE/oOn/o40mkh1IU/gxtdqw
-X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
- pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
-X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
- auth_id=735
-X-Original-From: Jian Hu <jian.hu@amlogic.com>
-Reply-To: jian.hu@amlogic.com
+X-Mailer: b4 0.15.2
 
-From: Jian Hu <jian.hu@amlogic.com>
 
-Replace the dedicated PLL pre-divider with a standalone
-divider clock. The PLL DCO now takes the pre-divider clock
-as its parent instead of the input clock directly.
+On Fri, 04 Sep 2026 19:26:36 +1000, Finn Thain wrote:
+> I recently had a need for the 'swim' driver but found that it was too buggy
+> to be useful for my purposes. I had two aims in mind--
+> 
+> Firstly, I needed this driver to help me test my new BMoW Floppy Emu for
+> emulation correctness. Being that Linux is open source and MacOS is not,
+> this driver should be ideal for that.
+> 
+> [...]
 
-Signed-off-by: Jian Hu <jian.hu@amlogic.com>
----
- drivers/clk/meson/t7-pll.c | 183 ++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 141 insertions(+), 42 deletions(-)
+Applied, thanks!
 
-diff --git a/drivers/clk/meson/t7-pll.c b/drivers/clk/meson/t7-pll.c
-index 0a622f45fa36..049f0c879c45 100644
---- a/drivers/clk/meson/t7-pll.c
-+++ b/drivers/clk/meson/t7-pll.c
-@@ -71,6 +71,34 @@
- #define MCLK_PLL_CNTL4		0x10
- #define MCLK_PLL_STS		0x14
- 
-+static const struct clk_div_table t7_prediv_div_table[] = {
-+	{ .val = 1, .div = 1 },
-+	{ /* sentinel */ }
-+};
-+
-+static struct clk_regmap t7_gp0_prediv = {
-+	.data = &(struct clk_regmap_div_data){
-+		.offset = GP0PLL_CTRL0,
-+		.shift = 10,
-+		.width = 5,
-+		.table = t7_prediv_div_table,
-+		/*
-+		 * The hardware reset value is 0. Allow it during clock registration
-+		 * to avoid a warning from the common divider code.
-+		 * set_rate() will program the valid divider value (1).
-+		 */
-+		.flags = CLK_DIVIDER_ALLOW_ZERO,
-+	},
-+	.hw.init = &(struct clk_init_data) {
-+		.name = "gp0_prediv",
-+		.ops = &clk_regmap_divider_ops,
-+		.parent_data = &(const struct clk_parent_data) {
-+			.fw_name = "in0",
-+		},
-+		.num_parents = 1,
-+	},
-+};
-+
- static const struct pll_mult_range t7_media_pll_mult_range = {
- 	.min = 125,
- 	.max = 250,
-@@ -97,11 +125,6 @@ static struct clk_regmap t7_gp0_pll_dco = {
- 			.shift   = 0,
- 			.width   = 8,
- 		},
--		.n = {
--			.reg_off = GP0PLL_CTRL0,
--			.shift   = 10,
--			.width   = 5,
--		},
- 		.l = {
- 			.reg_off = GP0PLL_STS,
- 			.shift   = 31,
-@@ -119,8 +142,8 @@ static struct clk_regmap t7_gp0_pll_dco = {
- 	.hw.init = &(struct clk_init_data){
- 		.name = "gp0_pll_dco",
- 		.ops = &meson_clk_pll_ops,
--		.parent_data = &(const struct clk_parent_data) {
--			.fw_name = "in0",
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&t7_gp0_prediv.hw
- 		},
- 		.num_parents = 1,
- 	},
-@@ -159,6 +182,25 @@ static const struct reg_sequence t7_gp1_init_regs[] = {
- 	{ .reg = GP1PLL_CTRL3,  .def = 0x00000000 },
- };
- 
-+static struct clk_regmap t7_gp1_prediv = {
-+	.data = &(struct clk_regmap_div_data){
-+		.offset = GP1PLL_CTRL0,
-+		.shift = 16,
-+		.width = 5,
-+		.table = t7_prediv_div_table,
-+		/* Same rationale as gp0_prediv. */
-+		.flags = CLK_DIVIDER_ALLOW_ZERO,
-+	},
-+	.hw.init = &(struct clk_init_data) {
-+		.name = "gp1_prediv",
-+		.ops = &clk_regmap_divider_ops,
-+		.parent_data = &(const struct clk_parent_data) {
-+			.fw_name = "in0",
-+		},
-+		.num_parents = 1,
-+	},
-+};
-+
- static struct clk_regmap t7_gp1_pll_dco = {
- 	.data = &(struct meson_clk_pll_data){
- 		.en = {
-@@ -171,11 +213,6 @@ static struct clk_regmap t7_gp1_pll_dco = {
- 			.shift   = 0,
- 			.width   = 8,
- 		},
--		.n = {
--			.reg_off = GP1PLL_CTRL0,
--			.shift   = 16,
--			.width   = 5,
--		},
- 		.l = {
- 			.reg_off = GP1PLL_STS,
- 			.shift   = 31,
-@@ -193,8 +230,8 @@ static struct clk_regmap t7_gp1_pll_dco = {
- 	.hw.init = &(struct clk_init_data){
- 		.name = "gp1_pll_dco",
- 		.ops = &meson_clk_pll_ops,
--		.parent_data = &(const struct clk_parent_data) {
--			.fw_name = "in0",
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&t7_gp1_prediv.hw
- 		},
- 		.num_parents = 1,
- 	},
-@@ -227,6 +264,25 @@ static const struct reg_sequence t7_hifi_init_regs[] = {
- 	{ .reg = HIFIPLL_CTRL6, .def = 0x56540000 }
- };
- 
-+static struct clk_regmap t7_hifi_prediv = {
-+	.data = &(struct clk_regmap_div_data){
-+		.offset = HIFIPLL_CTRL0,
-+		.shift = 10,
-+		.width = 5,
-+		.table = t7_prediv_div_table,
-+		/* Same rationale as gp0_prediv. */
-+		.flags = CLK_DIVIDER_ALLOW_ZERO,
-+	},
-+	.hw.init = &(struct clk_init_data) {
-+		.name = "hifi_prediv",
-+		.ops = &clk_regmap_divider_ops,
-+		.parent_data = &(const struct clk_parent_data) {
-+			.fw_name = "in0",
-+		},
-+		.num_parents = 1,
-+	},
-+};
-+
- static struct clk_regmap t7_hifi_pll_dco = {
- 	.data = &(struct meson_clk_pll_data){
- 		.en = {
-@@ -239,11 +295,6 @@ static struct clk_regmap t7_hifi_pll_dco = {
- 			.shift   = 0,
- 			.width   = 8,
- 		},
--		.n = {
--			.reg_off = HIFIPLL_CTRL0,
--			.shift   = 10,
--			.width   = 5,
--		},
- 		.frac = {
- 			.reg_off = HIFIPLL_CTRL1,
- 			.shift   = 0,
-@@ -267,8 +318,8 @@ static struct clk_regmap t7_hifi_pll_dco = {
- 	.hw.init = &(struct clk_init_data){
- 		.name = "hifi_pll_dco",
- 		.ops = &meson_clk_pll_ops,
--		.parent_data = &(const struct clk_parent_data) {
--			.fw_name = "in0",
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&t7_hifi_prediv.hw
- 		},
- 		.num_parents = 1,
- 	},
-@@ -312,6 +363,25 @@ static const struct reg_sequence t7_pcie_pll_init_regs[] = {
- 	{ .reg = PCIEPLL_CTRL2,	.def = 0x00001000 }
- };
- 
-+static struct clk_regmap t7_pcie_prediv = {
-+	.data = &(struct clk_regmap_div_data){
-+		.offset = PCIEPLL_CTRL0,
-+		.shift = 10,
-+		.width = 5,
-+		.table = t7_prediv_div_table,
-+		/* Same rationale as gp0_prediv. */
-+		.flags = CLK_DIVIDER_ALLOW_ZERO,
-+	},
-+	.hw.init = &(struct clk_init_data) {
-+		.name = "pcie_prediv",
-+		.ops = &clk_regmap_divider_ops,
-+		.parent_data = &(const struct clk_parent_data) {
-+			.fw_name = "in0",
-+		},
-+		.num_parents = 1,
-+	},
-+};
-+
- static struct clk_regmap t7_pcie_pll_dco = {
- 	.data = &(struct meson_clk_pll_data){
- 		.en = {
-@@ -324,11 +394,6 @@ static struct clk_regmap t7_pcie_pll_dco = {
- 			.shift   = 0,
- 			.width   = 8,
- 		},
--		.n = {
--			.reg_off = PCIEPLL_CTRL0,
--			.shift   = 10,
--			.width   = 5,
--		},
- 		.l = {
- 			.reg_off = PCIEPLL_CTRL0,
- 			.shift   = 31,
-@@ -345,8 +410,8 @@ static struct clk_regmap t7_pcie_pll_dco = {
- 	.hw.init = &(struct clk_init_data){
- 		.name = "pcie_pll_dco",
- 		.ops = &meson_clk_pcie_pll_ops,
--		.parent_data = &(const struct clk_parent_data) {
--			.fw_name = "in0",
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&t7_pcie_prediv.hw
- 		},
- 		.num_parents = 1,
- 	},
-@@ -633,6 +698,25 @@ static const struct reg_sequence t7_hdmi_init_regs[] = {
- 	{ .reg = HDMIPLL_CTRL6, .def = 0x56540000 }
- };
- 
-+static struct clk_regmap t7_hdmi_prediv = {
-+	.data = &(struct clk_regmap_div_data){
-+		.offset = HDMIPLL_CTRL0,
-+		.shift = 10,
-+		.width = 5,
-+		.table = t7_prediv_div_table,
-+		/* Same rationale as gp0_prediv. */
-+		.flags = CLK_DIVIDER_ALLOW_ZERO,
-+	},
-+	.hw.init = &(struct clk_init_data) {
-+		.name = "hdmi_prediv",
-+		.ops = &clk_regmap_divider_ops,
-+		.parent_data = &(const struct clk_parent_data) {
-+			.fw_name = "in0",
-+		},
-+		.num_parents = 1,
-+	},
-+};
-+
- static struct clk_regmap t7_hdmi_pll_dco = {
- 	.data = &(struct meson_clk_pll_data){
- 		.en = {
-@@ -645,11 +729,6 @@ static struct clk_regmap t7_hdmi_pll_dco = {
- 			.shift   = 0,
- 			.width   = 9,
- 		},
--		.n = {
--			.reg_off = HDMIPLL_CTRL0,
--			.shift   = 10,
--			.width   = 5,
--		},
- 		.l = {
- 			.reg_off = HDMIPLL_CTRL0,
- 			.shift   = 31,
-@@ -667,8 +746,8 @@ static struct clk_regmap t7_hdmi_pll_dco = {
- 	.hw.init = &(struct clk_init_data){
- 		.name = "hdmi_pll_dco",
- 		.ops = &meson_clk_pll_ops,
--		.parent_data = (const struct clk_parent_data []) {
--			{ .fw_name = "in0", }
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&t7_hdmi_prediv.hw
- 		},
- 		.num_parents = 1,
- 	},
-@@ -722,6 +801,25 @@ static const struct reg_sequence t7_mclk_init_regs[] = {
- 	{ .reg = MCLK_PLL_CNTL4, .def = 0x00180303 },
- };
- 
-+static struct clk_regmap t7_mclk_prediv = {
-+	.data = &(struct clk_regmap_div_data){
-+		.offset = MCLK_PLL_CNTL0,
-+		.shift = 16,
-+		.width = 5,
-+		.table = t7_prediv_div_table,
-+		/* Same rationale as gp0_prediv. */
-+		.flags = CLK_DIVIDER_ALLOW_ZERO,
-+	},
-+	.hw.init = &(struct clk_init_data) {
-+		.name = "mclk_prediv",
-+		.ops = &clk_regmap_divider_ops,
-+		.parent_data = &(const struct clk_parent_data) {
-+			.fw_name = "in0",
-+		},
-+		.num_parents = 1,
-+	},
-+};
-+
- static struct clk_regmap t7_mclk_pll_dco = {
- 	.data = &(struct meson_clk_pll_data){
- 		.en = {
-@@ -734,11 +832,6 @@ static struct clk_regmap t7_mclk_pll_dco = {
- 			.shift   = 0,
- 			.width   = 8,
- 		},
--		.n = {
--			.reg_off = MCLK_PLL_CNTL0,
--			.shift   = 16,
--			.width   = 5,
--		},
- 		.l = {
- 			.reg_off = MCLK_PLL_CNTL0,
- 			.shift   = 31,
-@@ -761,8 +854,8 @@ static struct clk_regmap t7_mclk_pll_dco = {
- 	.hw.init = &(struct clk_init_data){
- 		.name = "mclk_pll_dco",
- 		.ops = &meson_clk_pll_ops,
--		.parent_data = &(const struct clk_parent_data) {
--			.fw_name = "in0",
-+		.parent_hws = (const struct clk_hw *[]) {
-+			&t7_mclk_prediv.hw
- 		},
- 		.num_parents = 1,
- 	},
-@@ -939,21 +1032,25 @@ static struct clk_regmap t7_mclk_1 = {
- };
- 
- static struct clk_hw *t7_gp0_hw_clks[] = {
-+	[CLKID_GP0_PREDIV]		= &t7_gp0_prediv.hw,
- 	[CLKID_GP0_PLL_DCO]		= &t7_gp0_pll_dco.hw,
- 	[CLKID_GP0_PLL]			= &t7_gp0_pll.hw,
- };
- 
- static struct clk_hw *t7_gp1_hw_clks[] = {
-+	[CLKID_GP1_PREDIV]		= &t7_gp1_prediv.hw,
- 	[CLKID_GP1_PLL_DCO]		= &t7_gp1_pll_dco.hw,
- 	[CLKID_GP1_PLL]			= &t7_gp1_pll.hw,
- };
- 
- static struct clk_hw *t7_hifi_hw_clks[] = {
-+	[CLKID_HIFI_PREDIV]		= &t7_hifi_prediv.hw,
- 	[CLKID_HIFI_PLL_DCO]		= &t7_hifi_pll_dco.hw,
- 	[CLKID_HIFI_PLL]		= &t7_hifi_pll.hw,
- };
- 
- static struct clk_hw *t7_pcie_hw_clks[] = {
-+	[CLKID_PCIE_PREDIV]		= &t7_pcie_prediv.hw,
- 	[CLKID_PCIE_PLL_DCO]		= &t7_pcie_pll_dco.hw,
- 	[CLKID_PCIE_PLL_DCO_DIV2]	= &t7_pcie_pll_dco_div2.hw,
- 	[CLKID_PCIE_PLL_OD]		= &t7_pcie_pll_od.hw,
-@@ -973,12 +1070,14 @@ static struct clk_hw *t7_mpll_hw_clks[] = {
- };
- 
- static struct clk_hw *t7_hdmi_hw_clks[] = {
-+	[CLKID_HDMI_PREDIV]		= &t7_hdmi_prediv.hw,
- 	[CLKID_HDMI_PLL_DCO]		= &t7_hdmi_pll_dco.hw,
- 	[CLKID_HDMI_PLL_OD]		= &t7_hdmi_pll_od.hw,
- 	[CLKID_HDMI_PLL]		= &t7_hdmi_pll.hw,
- };
- 
- static struct clk_hw *t7_mclk_hw_clks[] = {
-+	[CLKID_MCLK_PREDIV]		= &t7_mclk_prediv.hw,
- 	[CLKID_MCLK_PLL_DCO]		= &t7_mclk_pll_dco.hw,
- 	[CLKID_MCLK_PRE]		= &t7_mclk_pre_od.hw,
- 	[CLKID_MCLK_PLL]		= &t7_mclk_pll.hw,
+[01/33] swim: Assert strobe with stable outputs
+        commit: adcc410bfb41715fef198a0975db4ed594a49bb7
+[02/33] swim: Select appropriate drive once only
+        commit: a2d22b3f25c388f9fbce7bf36a45a8900dce4aa3
+[03/33] swim: Enable the drive when probing
+        commit: 57d88c8f4ea34a4dd7c5351bd026e225c7283f3f
+[04/33] swim: Don't disable drive after every sector
+        commit: 05a7c4b197279cfb3ec3df26146ce085a2438aec
+[05/33] swim: Perform ISM/IWM mode switching according to specs
+        commit: 52981bb358d1b5c38040b00f81e2cf973f9148ad
+[06/33] swim: Configure parameter memory
+        commit: 994a778d966592d0e211deaf6e436fcb21413935
+[07/33] swim: Refactor SWIM setup
+        commit: 62977e8ea98e99dbf86609e65930e6607398e1c5
+[08/33] swim: Enable clock divider only where appropriate
+        commit: 3c02a14c89962c88ed0abb3cce4101021c63149c
+[09/33] swim: Don't start motor until medium is present
+        commit: dbbaaae83cb277d76e70426c0f0ce289e867ed77
+[10/33] swim: Recalibrate when drive is probed
+        commit: ba087774a1493ade524f8a783461fa8be9c75039
+[11/33] swim: Add track zero recalibration delay
+        commit: b9c1095048537cc9563f12d0a24f2f0df129e4d5
+[12/33] swim: Handle FIFO timeout error
+        commit: 2e9bcbecee68431b689d16b23bc5529db686f8d4
+[13/33] swim: Simplify return value initialization
+        commit: 385a44e78702762e2fce796cf37b6f465d86a87f
+[14/33] swim: Check for CRC errors
+        commit: 01bff87152e6748fbac9ccd645d3d5f490d75ddc
+[15/33] swim: Check error register during sector read
+        commit: d66bdef0a3083fed1a0fc4f0ee1c85b26476b21c
+[16/33] swim: Don't use the mark register to read data
+        commit: cb7923133ec18e67e2d6718e29426a4423af6b73
+[17/33] swim: Fix buffer overflow
+        commit: a54870a4ae4962acf341eb6ca010cae02af1a6ea
+[18/33] swim: Convert to blocking queue
+        commit: 92353a04763726f70fea6be90957c50fc18215e0
+[19/33] swim: Remove redundant RELAX actions
+        commit: 04cb277e6841b55b950b42063fe11501b5d1676a
+[20/33] swim: Deduplicate polling loops
+        commit: b736189c93c9ad1056521a4229ec2f252b714b5a
+[21/33] swim: Check drive ready bit
+        commit: abae04f5bed924590e98fe1519566a6e0144e6b5
+[22/33] swim: Revisit delays
+        commit: bbcd3e38a4f355d6b0320f3f6916df96c109f2ad
+[23/33] swim: Remove pointless mode0 register write
+        commit: 151848934fa4696067a8ca861cef5efe7aa1e046
+[24/33] swim: Don't needlessly re-read sectors
+        commit: 22fbea97bc18fd099730572bf9aeba9879d62b02
+[25/33] swim: Don't search beyond the first data mark
+        commit: 79eafa4ccb74be023fd2cae87d75425d6eb903bb
+[26/33] swim: Remove pointless specifiers
+        commit: c516ded6f6da38b64ce9f69c88e65a65927296bb
+[27/33] swim: Move swd initialization
+        commit: c0862cf48fae35571489b79b1c84db16691f2ad8
+[28/33] swim: Add some helpful references
+        commit: bd4a21b8452d48be48cbc66693d27ff3c1f88d9b
+[29/33] swim: Remove unused macro definitions
+        commit: 7d7c6d91f5657b2979cae7c7dcb49d2523efd894
+[30/33] swim: Clean up whitespace
+        commit: e97cbb470cf94ce018558c899bcad387f69c99f5
+[31/33] swim: Define macros for constants
+        commit: d4b2519065d6db2eb7cd36d178591058452da3e0
+[32/33] swim: Define symbols for constants
+        commit: 75f47f0910f4f4289c11409398c05999aec19f37
+[33/33] swim: Unexport global symbols
+        commit: e7a6727deab0d300171ee059b7dbcdbdb3c46797
 
+Best regards,
 -- 
-2.47.1
+Jens Axboe
+
 
 
