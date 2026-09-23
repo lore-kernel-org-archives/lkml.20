@@ -1,162 +1,127 @@
-Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A180381E8A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2019C381E8A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147198; cv=none; b=c6HzaVvGdvPeaU9Y/TGwzt/WbnYieL3dYaXgVMbo05MdpHaD6CwPiPM4XoYBAoNvwZZ5B/Xz6MWAikgBCPHVQiY4oWy8k/sRH1tvR+mOOrs8cbDvDtJ33Gq2C8y4nFdfRi/ghi7axsILPVaiIiC48oENkEFWn/awWuzGcC+A59c=
+	t=1790147246; cv=none; b=bXrUuCUhG13P4h6sfB57/CHiRQqTersoHd1jrzVfdEOrkH4HsVjNwMQqDTWMyWvqOGMJ6M2pbCzPpOxNYHvQw6PwV6ruSvdcvzu8gNI1ZCs5AvniYbGdyYHAbZBjnAf+zIX5aScKO0npqp+IKU6V+qCCAJ3mHiWu60rzEjin7Jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147198; c=relaxed/simple;
-	bh=IZcFXzKAcjAKi7rkJPkZAqcnKaAoBZJQUwd6ItCp7GQ=;
-	h=Date:Content-Type:Cc:To:From:Mime-Version:Subject:Message-Id; b=JYgdzWlmIpmglkCic10LWqTvFUPrHrmw8StelFR+OxvKvl339BCWn5CogBN5relhoQjQnPm3KLMU4LntS+TIa57QB2XFV4ll9bT7+lvr8U1NdZsyosNeubRxL50ePT1J2+l1wPtK83umZNbjLbEEqpAMlJy45QM+m1bzvqGTExY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com; spf=pass smtp.mailfrom=lanxincomputing.com; dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.b=m2k8U9SD; arc=none smtp.client-ip=209.127.231.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lanxincomputing.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lanxincomputing.com
+	s=arc-20240116; t=1790147246; c=relaxed/simple;
+	bh=LYBVKkcHNGxYQtKg+Za6MkgY2pL8kFHKawgXWYzSgOc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=FhAmCTh1Yu3TroRZFRaPFtVtVUVtP0K5nw5yTXLs+BlbEgronnQG85iB3RvItNE+/+2FIO+Ue0u+f/0Ds5zQTjNI+hODkAAC/McNNS5Rf0fwDlQnzZKKwtKPz2yIUe/tlMZCViOn0sKRLf7NPZs6Pn8ncvSxMUD5hR85VdUNiE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Hsjiv4ba; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lanxincomputing-com.20200927.dkim.feishu.cn header.i=@lanxincomputing-com.20200927.dkim.feishu.cn header.b="m2k8U9SD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=lanxincomputing-com.20200927.dkim.feishu.cn; t=1790147189;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=IozOCfZjbTL104g9rR2zsGuXkky764uBWGPbuf9IUio=;
- b=m2k8U9SD8LI7x/66sdsnXRezYqplwELqxk9wnOJpYWWPLwWitIcBFnh1gy8DepyT2d1WDj
- HWaA+GZ4aoEsz7wiMK7UqfM83uMxFeB7r97CWG8y7tGjQEWGhOZ4Enyk5/cBMLucih9R8t
- q5Bko8eLhLfF8i1ItLJPhT81du3rFL2FqW63Yz6vUosKX+jXjlJPqy2nabTgdG88M8vaZ8
- X4UmleQXY+1uQSZTOxN9xGhWSShDWKEyZvHEIr2+XMS97Iq9jVYmxORcE1+E97iuJt8pPr
- VUA4annBn+rJUUsMGr+kUyyKRsli70HuOQvQnYcS/6VowmhupcpjBWG+vofYiw==
-Date: Wed, 23 Sep 2026 15:03:32 +0800
-Content-Type: text/plain; charset=UTF-8
-Cc: <xb@ultrarisc.com>, <atish.patra@linux.dev>, <pjw@kernel.org>, 
-	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>, 
-	<pbonzini@redhat.com>, <graf@amazon.com>, 
-	<kvm-riscv@lists.infradead.org>, <kvm@vger.kernel.org>, 
-	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
-	<xiangwencheng@lanxincomputing.com>
-X-Original-From: BillXiang <xiangwencheng@lanxincomputing.com>
-Received: from lanxin-ThinkBook-16-G5-IRH ([123.120.5.129]) by smtp.feishu.cn with ESMTP; Wed, 23 Sep 2026 15:06:26 +0800
-To: <anup@brainfault.org>
-From: "BillXiang" <xiangwencheng@lanxincomputing.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Hsjiv4ba"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485ac898fa4so620708f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:07:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790147242; x=1790752042; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LYBVKkcHNGxYQtKg+Za6MkgY2pL8kFHKawgXWYzSgOc=;
+        b=Hsjiv4barW4vMiXygVwX2m9gVfk9pexOJi7OOgfjoHi8W7fYUdMnkPAEhvUAW7jPPA
+         AMcN3Au35cXyntKMYMHGN396UPNs7hCZdsY5hEfRg4CWxIkMGJsQtFmVmYFj1ZS2go80
+         yOkVN9aC72yeBNG0CEjKr9Vn/WIQ6Sl/+0Wko6eeB8UAM0YaaVgS5ynXt2sZOC8XQpCT
+         zKMfR4R+hEfqxgmON7qUtKAGiSTkFam62FNqr5cAKHawkHip7MDTH8fJ5jLT1hZ4AS4x
+         o5HszoFMl0OFJczc/nqRG9amPT6/93GYlQPnuYULFlkZJO3zClFl4FA+x4Mlec5xq9mY
+         QaFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790147242; x=1790752042;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LYBVKkcHNGxYQtKg+Za6MkgY2pL8kFHKawgXWYzSgOc=;
+        b=az2ykuRslsaA7OpKeEwtuyM1d5GmuTtt7cheaNZGABMgoaR6Gy3+P52d0jZPKYG07D
+         heUvECfhOBbwGCO7qPZGgjpCPyC2G3wVN72PeXLerD3czQHksYh9oO+1eFBgOwC1SsQ0
+         UkKUq0kXpmDnmhThNrj9m4FivmE+I8GvWRko4AIZmXKab+gb+/tMgcDtR6wVghuidKiK
+         ANm3/3rstLARZime9PhiglobJ3WyS/IAWLm5xEvOuGPeFkAxDQbJgXVYWSOUnbDaZGTr
+         muTTQwWA362z26wNC4rgJgEr9ucn/fsxUY1ofrSHrayqm4VuwN3PRnHcUPoq41hWdhku
+         A4Wg==
+X-Forwarded-Encrypted: i=1; AKwUvBx5ELgP6vzzCFShrprXg2LDRBXxXNW2Xw/seGt/Rq82wamqBaXyKO6EYg8npBtHFyF0dZ1gDU0QD2aMElc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktKdJVTty7tFO3ViJk2TD25AIFRf6wTLp1iq56M/vFu+VF7CHO
+	g7rOXSHgrwOVgD1mAGLyc6xiCIvxfXUkMY7L+YWAjTrbUV0ybcXy996eBZTh55isDxX7mRTerzJ
+	562AU
+X-Gm-Gg: AYBFou2058soj/ZFIljedV+nQwmmiIHq/RDZ03GvM0x9yKjVGMf1piTwT6dKnphHfwE
+	0lPDHw0rJM6qqIlMD3zJLwe6dIZOannTxAwdm7nx1+9SaP/jAlM+HPYTxRcOVo3Wj60xPoNl44q
+	tYjTzL4VtPxBYHGAe7gELCZy52Dy4aIOVc17kYN6pWoIGM5nlBku0hbZIscuzuLVN9dBTiLYckc
+	OQn+UbdlKJT+1/wPJeBTW2aD05KSY+jI/NTOzFbgoouc7J000OOyHZ4cwknAcxAz72fXlJEqNQA
+	c0PZMYNIPaBwZP0PjTundDDvPkXXjxYMGe/FBrUBLgx/HlmUWnhzDr1vYps2PJRLiWN8etA0CNC
+	jqLboMc1Uigv24dWuKbTes2mLbisKmC/YAzPaxGkBA42CyBiXnz7ip790iz20/KrYSL9ehvrcA6
+	ntoaZCoeo7AqXeD8Td/9HOLnyp2iefwC8ux/IwblEcC0WY5+i11JhYaeo8XpCykQtV
+X-Received: by 2002:a5d:5849:0:b0:487:489:7af0 with SMTP id ffacd0b85a97d-48867065ee4mr2508662f8f.17.1790147242310;
+        Wed, 23 Sep 2026 00:07:22 -0700 (PDT)
+Received: from localhost ([2001:4090:a244:8223:c4e6:4d28:61c:74bb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488688893a0sm4833745f8f.32.2026.09.23.00.07.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 00:07:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-X-Mailer: git-send-email 2.53.0
-Subject: [PATCH] RISC-V: KVM: Serialize and atomize the IMSIC's TOPEI read-and-clear operation
-Message-Id: <20260923070332.1376132-1-xiangwencheng@lanxincomputing.com>
-X-Lms-Return-Path: <lba+26ab37a73+0b75fb+vger.kernel.org+xiangwencheng@lanxincomputing.com>
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed;
+ boundary=b597186e58e521a28c53b6ab6430a085a4a819c333318ef3f8c1713c2dac;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Wed, 23 Sep 2026 09:06:59 +0200
+Message-Id: <DLMI87KFXHTQ.SWLSTWGCM2T4@baylibre.com>
+Cc: "Marc Kleine-Budde" <mkl@pengutronix.de>, "Vincent Mailhol"
+ <mailhol@kernel.org>, <linux-can@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] can: m_can: pci: add missing
+ pm_runtime_dont_use_autosuspend() call
+From: "Markus Schneider-Pargmann" <msp@baylibre.com>
+To: "Joshua Crofts" <joshua.crofts1@gmail.com>, "Markus Schneider-Pargmann"
+ <msp@baylibre.com>
+X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
+References: <20260916124236.1389-1-joshua.crofts1@gmail.com>
+ <DLIC0I1VQLHE.13KVAJJ5FUYZN@baylibre.com>
+ <20260918131504.00005d2a@gmail.com>
+In-Reply-To: <20260918131504.00005d2a@gmail.com>
 
-The TOPEI read-and-clear must be atomic with respect to
-interrupt injection (set_bit in EIP). Otherwise an
-interrupt injected between the topei read and the
-clear_bit could be silently dropped.
+--b597186e58e521a28c53b6ab6430a085a4a819c333318ef3f8c1713c2dac
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Signed-off-by: BillXiang <xiangwencheng@lanxincomputing.com>
----
- arch/riscv/kvm/aia_imsic.c | 48 +++++++++++++++++++++++++++-----------
- 1 file changed, 34 insertions(+), 14 deletions(-)
+On Fri Sep 18, 2026 at 1:15 PM CEST, Joshua Crofts wrote:
+> On Fri, 18 Sep 2026 11:24:09 +0200
+> "Markus Schneider-Pargmann" <msp@baylibre.com> wrote:
+>
+>> Hi Joshua,
+>>=20
+>> On Wed Sep 16, 2026 at 2:42 PM CEST, Joshua Crofts wrote:
+>> > m_can_pci_remove() forgets to call pm_runtime_dont_use_autosuspend() o=
+n
+>> > teardown, even though autosuspend is enabled in m_can_pci_probe().
+>> >
+>> > Add the missing function call.
+>> > =20
+>>=20
+>> Can you please add a Fixes: tag?
+>
+> I guess it's not a problem, however we had a discussion in the
+> USB subsystem whether this type of patch is a fix and ended up
+> agreeing that it's more hardening, hence no Fixes tag.
+>
+> Alright if I just append the tag here for b4 to collect?
 
-diff --git a/arch/riscv/kvm/aia_imsic.c b/arch/riscv/kvm/aia_imsic.c
-index c1af23e79ae0..1a936b39076d 100644
---- a/arch/riscv/kvm/aia_imsic.c
-+++ b/arch/riscv/kvm/aia_imsic.c
-@@ -607,26 +607,25 @@ static void imsic_vsfile_cleanup(struct imsic *imsic)
- 		kvm_riscv_aia_free_hgei(old_vsfile_cpu, old_vsfile_hgei);
- }
- 
--static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
-+static void __imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
- {
- 	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
- 	struct imsic_mrif *mrif = imsic->swfile;
--	unsigned long flags;
--
--	/*
--	 * The critical section is necessary during external interrupt
--	 * updates to avoid the risk of losing interrupts due to potential
--	 * interruptions between reading topei and updating pending status.
--	 */
--
--	raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
- 
- 	if (imsic_mrif_atomic_read(mrif, &mrif->eidelivery) &&
- 	    imsic_mrif_topei(mrif, imsic->nr_eix, imsic->nr_msis))
- 		kvm_riscv_vcpu_set_interrupt(vcpu, IRQ_VS_EXT);
- 	else
- 		kvm_riscv_vcpu_unset_interrupt(vcpu, IRQ_VS_EXT);
-+}
-+
-+static void imsic_swfile_extirq_update(struct kvm_vcpu *vcpu)
-+{
-+	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
-+	unsigned long flags;
- 
-+	raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
-+	__imsic_swfile_extirq_update(vcpu);
- 	raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, flags);
- }
- 
-@@ -912,12 +911,21 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *vcpu, unsigned long isel,
- 	struct imsic_mrif_eix *eix;
- 	int r, rc = KVM_INSN_CONTINUE_NEXT_SEPC;
- 	struct imsic *imsic = vcpu->arch.aia_context.imsic_state;
-+	unsigned long flags;
- 
- 	/* If IMSIC vCPU state not initialized then forward to user space */
- 	if (!imsic)
- 		return KVM_INSN_EXIT_TO_USER_SPACE;
- 
- 	if (isel == KVM_RISCV_AIA_IMSIC_TOPEI) {
-+		raw_spin_lock_irqsave(&imsic->swfile_extirq_lock, flags);
-+
- 		/* Read pending and enabled interrupt with highest priority */
- 		topei = imsic_mrif_topei(imsic->swfile, imsic->nr_eix,
- 					 imsic->nr_msis);
-@@ -934,16 +942,20 @@ int kvm_riscv_vcpu_aia_imsic_rmw(struct kvm_vcpu *vcpu, unsigned long isel,
- 					  eix->eip);
- 			}
- 		}
-+		if (wr_mask)
-+			__imsic_swfile_extirq_update(vcpu);
-+
-+		raw_spin_unlock_irqrestore(&imsic->swfile_extirq_lock, eflags);
- 	} else {
- 		r = imsic_mrif_rmw(imsic->swfile, imsic->nr_eix, isel,
- 				   val, new_val, wr_mask);
- 		/* Forward unknown IMSIC register to user-space */
- 		if (r)
- 			rc = (r == -ENOENT) ? 0 : KVM_INSN_ILLEGAL_TRAP;
--	}
- 
--	if (wr_mask)
--		imsic_swfile_extirq_update(vcpu);
-+		if (wr_mask)
-+			imsic_swfile_extirq_update(vcpu);
-+	}
- 
- 	return rc;
- }
-@@ -1050,9 +1062,17 @@ int kvm_riscv_vcpu_aia_imsic_inject(struct kvm_vcpu *vcpu,
- 	if (imsic->vsfile_cpu >= 0) {
- 		writel(iid, imsic->vsfile_va + IMSIC_MMIO_SETIPNUM_LE);
- 	} else {
-+		/*
-+		 * Serialize the EIP set + external-irq update against the
-+		 * TOPEI read-and-clear path so that an injected interrupt
-+		 * cannot be silently lost when the guest acknowledges a
-+		 * different (or the same) interrupt concurrently.
-+		 */
-+		raw_spin_lock(&imsic->swfile_extirq_lock);
- 		eix = &imsic->swfile->eix[iid / BITS_PER_TYPE(u64)];
- 		set_bit(iid & (BITS_PER_TYPE(u64) - 1), eix->eip);
--		imsic_swfile_extirq_update(vcpu);
-+		__imsic_swfile_extirq_update(vcpu);
-+		raw_spin_unlock(&imsic->swfile_extirq_lock);
- 	}
- 
- 	read_unlock_irqrestore(&imsic->vsfile_lock, flags);
--- 
-2.53.0
+Yes, that's ok for me.
+
+--b597186e58e521a28c53b6ab6430a085a4a819c333318ef3f8c1713c2dac
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCarN6kxsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlPK
+EQEAq8JaGnwxat9Mrazio0Qlb2f3n/P8XpRz+jp0ri+EmqYBAJ134slplunVJ/tr
+MN1cdvAnOLCqJhrhtWIARmgt3DkH
+=mE+2
+-----END PGP SIGNATURE-----
+
+--b597186e58e521a28c53b6ab6430a085a4a819c333318ef3f8c1713c2dac--
