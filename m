@@ -1,102 +1,104 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6986647FAF3;
-	Wed, 23 Sep 2026 10:32:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DAD46E01D
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:33:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159577; cv=none; b=TQu0ICUynR7GuE5dhEJGjHLQnT7AGcMRFpEe7Q1VcA8Bc5o9CgQae8pCV2p2qUAeLNZP84kgK76OTh1RGIVznuldylCBXXGBuzuNL60Gp+IjWMnsH6PjJUKXSkriFO9QeAGnjLx6LcQzPbZZOT912VtSFJk8QLS2corF9e8IiCg=
+	t=1790159642; cv=none; b=js2uoPdcjTXIctwj6Jre/Hj4slSbF3i5fdsWoJbM4N//KV+3j9Cjr54EIbdlldA7++oA5Zeha+gTTg0KmK9wlwTZoTUxeLPYNz2RaYtmXOFRb+iqhQI5B5NtDmLxtAo9Hq897yG+4/L3+4Jm8meaPS1z4Jz2HZE+1HBLN3PeeH4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159577; c=relaxed/simple;
-	bh=oNHTzgV7JKpt0LvtNzjrg8OrvNu0MI/d6ZrNFJymLPk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZHm3COxtmjID8I6WCZwYUAGjFOYzxYGloAz1o+BoxrxfjsIkyG+I4pSRmaorUrPQ9dFwXnfNoPmwhf0FfmO4Tygl2JslUHZFrAkS25fG4LOEt0NBSwQ2CLHw67EzBWn//r1dmn2m8g9MaKLxanHQSBpSO9DIgEuzpjUbEgOqdsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hrDrpkwv; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NAQh6+ab; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hrDrpkwv";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NAQh6+ab"
-Date: Wed, 23 Sep 2026 12:32:38 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790159559;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vZuQXlZdXPnXthUCF5TkgqX+BY9utsNp8eBeJtmM0jU=;
-	b=hrDrpkwv4CaTpvpRKJFHddvQxtd/CvRmB0E05rpUU6KE41KYEK20usDKvEVyZLdmz5AHWK
-	vLxh/eJqGAZXo5FbjQtmO4M/geoDpQKWRJ4ZRTK7H8UAJFGNh/3EkY1DNo7eZAaGqZ1KaR
-	rGkZCbP26d2brM+6w6mG/TiPZV+L4ZYYkqGTALxBlrtv4ZMQXaK3cDecwKTc1PwMHC6swF
-	O3QT7z1f2tF1hOV8ahE0JYOuPbcjVm+DFn99+28Uw2UzqHcFqE4gRY11XhwzIPAaLNZOS0
-	RzjafNNqto0hIoW3pJTBIASWFVsa1Luw9HIZUeUdTBt4mUdR4NRwl2E2fFTfcQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790159559;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vZuQXlZdXPnXthUCF5TkgqX+BY9utsNp8eBeJtmM0jU=;
-	b=NAQh6+ab/cNNTx3eDnm4YfWSZ8Od+zegTbJQvvyHPhOTnmAffJq4LrCVMFPHxw1oAndhTQ
-	xb2RRRkVu/CMoxDA==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Xin Xie <xiexinet@gmail.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
-	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
-	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
-	fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
-	skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
-	sdf.kernel@gmail.com
-Subject: Re: [PATCH 1/4] net: hsr: fix packet drops caused by GRO superpackets
-Message-ID: <20260923103238.cg3tr_40@linutronix.de>
-References: <20260809121455.1745-1-xiexinet@gmail.com>
- <20260809121455.1745-2-xiexinet@gmail.com>
- <20260813182111.088aee3d@kernel.org>
- <7c09a44a-19d9-43f5-a852-12f5b6579641@gmail.com>
+	s=arc-20240116; t=1790159642; c=relaxed/simple;
+	bh=6QiT+5Eti1IhGEvRyNE2dwG7QghpDhUduh0GYW+kW4U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F/oAvYUbTSUCLQKEpw2DXPSsQytgUOno+2wzbHM2911Bj6X5r0hJedicy1i/k2CgEu2bFGdwbpiWow9CS9pLuQyhixJse8Rfy0y4Gy65nXFU7NvoeJHHlhFs3Dgm6DhgpwuWFJXJFXjJYK1q8kqenUblSMdO9D+/5tO/4eZk6RE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f43.google.com with SMTP id 71dfb90a1353d-5c82bb05ddaso622818e0c.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:33:50 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790159628; x=1790764428;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YiOls8D0cbeW0kl5ScyFGGWv5xl1CQ8uKTuoQSqtSKM=;
+        b=Wnfaaq3oBuKo7i6Lmvg6FRXjEkiOwAnaGB0fYs1zzPPJ4sVw8AGVf0tFdHtvss1R+a
+         OsseVvfVSyUsk/SEwZC7Q+92w8exfPYkLxheHavNU6XADFO8fCVXyfUCyMvz4Mof5WVS
+         +cr+MOOA6cRX/2YfoSgGVCXY78+NwcKql5hpPUwSbdIGukRsE6wuTNLwykeMJLUSrbMp
+         NoLW3pWYzkko+aW4BRr9YLdVSWfkdrDswPt3OGLnwXnoasSMcbo9Q9ioKHwCzgxxxHSO
+         1LLi3x/XSPc0hNV56i4DPKBEQhL9CfrdS4zS4pOfxwI/M1Iy0bW2RfwymT/4EZNY1juo
+         KyTw==
+X-Forwarded-Encrypted: i=1; AKwUvBz9b12L91342Ya9JtPlboAuaqNoG1CAEOFiM967CuiBnE+QbWPt/U365yaLlUJh2EStIXhkwZvMYk2XtQ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAJWvFyYWimtbJm5HzM9oiRBBbYk6zwCudvGROg9GoLcgqpdXj
+	4Phgeh2GgNKWhNZ5EQAKsJ02gzfRMn8u/jojbIDDoecGvc/JZJmdGGFVj4PR1Twvuv0=
+X-Gm-Gg: AYBFou3WG6pqu52Au0QCvOmOhPcQmvovi2BBer3OcpmJUrHc8XnsjfjLS3o0lnbwck9
+	u3DpSThOCL3bq6zvzht4a4oCT25ML6OeQDsE+e87HnJS7XIDW0uNc7Bxf77Miqi0F7elsyZomuB
+	+d3m1zGA5DpdPThLxzIaF6KXMWhfBKMaZdNJlDytNzca5sM8Pgosj8zcH2q3OGk1dBhPthZpBay
+	Yko8cMhw8N2pmDgkvkT0MNcBCWRk/Bg6tWhKHPT2J/7rktdsfibhVzsGJtRRUfRgMz0HwqWDtUY
+	JboR9kJjLG9FV21fFqgXT2fgwGMplLIuXnDvowUCgUHZX7659T4wa62U/YSQzQ33B7XaEfLkJLd
+	v0s0KoSno/XmhB1f9na1XKztvfnlANwFdUyngFlucTf5T5SK3K1sCgJzrG8O9zuqAxKza53otQ8
+	mOpDoQ83W9obFuJqdRMgrdKIYp8J/+dlN02NXTz4IVnwODeelIq3DddtFKF5QNFlrNC9TreBX6I
+	J47bV4b/a0kUwxQwTIUz0SCJGAtA+OSaCx6rwqAPKp2MG34+HY72i7Tyw==
+X-Received: by 2002:a05:6122:3d49:b0:5c9:c60e:5cf9 with SMTP id 71dfb90a1353d-5c9f16cbf05mr2583857e0c.23.1790159628496;
+        Wed, 23 Sep 2026 03:33:48 -0700 (PDT)
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com. [74.125.227.41])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f053a418sm2506598e0c.13.2026.09.23.03.33.47
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 03:33:47 -0700 (PDT)
+Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-7856441f7d8so432885137.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:33:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxQ+lGG9HhpB3kaGdexx6qdCvd9kUM+eHAsIZxO8liu4z2lp9g/IGfgifDyDvBG6WA/82nmg+mXX6pHlCY=@vger.kernel.org
+X-Received: by 2002:a05:6102:3712:b0:7a1:f7e2:aae1 with SMTP id
+ ada2fe7eead31-7ac1d0ca801mr2003132137.19.1790159627332; Wed, 23 Sep 2026
+ 03:33:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <7c09a44a-19d9-43f5-a852-12f5b6579641@gmail.com>
+References: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com> <20260921134432.50338-4-ayman.chaudhry.kc@renesas.com>
+In-Reply-To: <20260921134432.50338-4-ayman.chaudhry.kc@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 12:33:36 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVkh_qpJKqD7N=njG+35gS+rE7cFfWQ-kS3aRoTByxH_Q@mail.gmail.com>
+X-Gm-Features: AclHuK_hGN_yWlJ6BENm_qv3b3xlhGSBd5j_07ozn_vS55vMXA_7UHHfcE0Hj3o
+Message-ID: <CAMuHMdVkh_qpJKqD7N=njG+35gS+rE7cFfWQ-kS3aRoTByxH_Q@mail.gmail.com>
+Subject: Re: [PATCH v2 3/9] pmdomain: renesas: rcar-sys: Add r8a774a3 support
+To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>, Ulf Hansson <ulfh@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Chris Paterson <Chris.Paterson2@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-09-19 01:46:34 [+0200], Xin Xie wrote:
-> On 14/08/2026 03:21, Jakub Kicinski wrote:
-> > 1) could you explain in more detail why GRO is breaking things?
-> > GRO shouldn't merge packets with different L2/L2.5 and packets
-> > with trailers?
-> The reproducer is plain SAN traffic entering a PRP RedBox's
-> interlink: matching Ethernet headers, no RCT yet, so GRO can merge it.
-> PRP then appends one RCT to the aggregate, using its length for
-> LSDU_size and assigning one sequence number. If the aggregate LSDU
-> exceeds 4095, the 12-bit field truncates it. Later TCP segmentation
-> cannot generate per-segment RCTs. An aggregate left unsegmented may
-> instead be dropped for exceeding the lower device's frame-size limit.
-> Our wire captures showed segments without RCTs and duplicate delivery
-> through the two LANs.Disabling interlink GRO raised single-stream TCP 
-> throughput from 27-37 Mbit/s to about 94 Mbit/s on the 100 Mbit/s rig.
-> 
-> > 2) the code seems inspired by LRO but LRO also has
-> > NETIF_F_UPPER_DISABLES. This change looks rather incomplete.
-> > Calling it "best effort" seems like an excuse.
-> NETIF_F_UPPER_DISABLES prevents a lower's ethtool request from
-> overriding an upper's LRO-off policy. GRO is outside that mask and
-> remains changeable; extending the global mask would affect other
-> stacked devices too. Patch 1 sets the GRO-off default, while patch 3
-> segments plain, trailer-free aggregates before tagging, including
-> when GRO is re-enabled or GSO arrives directly. GRO_HW can also be
-> fixed on, so feature disabling alone cannot exclude all aggregates;
-> device-specific hardware-coalesced formats remain outside v6's
-> segmentation guarantee. I should have explained this distinction
-> from LRO explicitly.
+On Mon, 21 Sept 2026 at 15:45, Ayman Chaudhry
+<ayman.chaudhry.kc@renesas.com> wrote:
+> Add support for Renesas RZ/G2M v3.0 (a.k.a. R8A774A3) SoC power areas
+> to the R-Car SYSC driver. The RZ/G2M v3.0 SYSC is similar to the RZ/G2M
+> v1.3 SYSC, however it lacks the A2VC0 power area.
+>
+> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> v1->v2:
+> - Added space before closing brace for `ca57-cpu1` area
+> - Updated include path to SYSC dt-bindings
+> - Added Reviewed-by tag
 
-Would adding a NETIF_F_HSR_SLAVE flag to slave device(s) and then filter
-invalid flags in netdev_fix_features() fix this? This should help
-against enabling and add a warning if a flag can not be removed.
+As this has a hard dependency on "[PATCH v2 2/9] dt-bindings: power:
+Add r8a774a3 SYSC power domain definitions", I will provide a shared
+branch with the dependency to Ulf.
 
-A netdev_change_features() might do the job then.
+Gr{oetje,eeting}s,
 
-Sebastian
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
