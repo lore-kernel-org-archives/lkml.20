@@ -1,200 +1,351 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E555034F497
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A74C39023F;
+	Wed, 23 Sep 2026 05:55:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142858; cv=none; b=Lav6J/YHcciRRHfYHkGRFk+VIuRSyXUXmjLmJN7FDjDOkV6ZiTOzhlPRBSE1afVpNtYreBVn0CXrXJctDbrhHtS6Z7gbWfitB8gp2tce6lU7jScaP0BxjkTNLog0ezLOO0lqoM3i+M8mfFxieIPkJgrpbVmtPX8PNKWfPCkx54g=
+	t=1790142911; cv=none; b=jB4scD+rM+WX34OJ8EZa0fzeHDJn1QBIbYFENfe+7BNTWofEtRV6aPOeFPV7ZSTdEQfqaPXhSGbvuOOCNbHSkpe8PLA75qGQcTsjgWJT3Vn1HUuUtxBKE+tw3vHHLGvx7JJF47STBBEJCBCxdIbYnQSyEhGF5pR5QJik/8BJo8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142858; c=relaxed/simple;
-	bh=nx72HZix5RJQGzqg2UiYbR8bywGzuswE6lXXmCOSpRs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pC7NaItiPSWymlCPPIi4bDx1/CC04cUz121QtiKZaSqkyk6xEUNY0cCr4buCiW0K0hM1CyS++Duod9rOeJof7Zq8FzosdH8HN7O9U5pgzS1yUt5I3okoYMHA/qyxJmfnc8GayJFr8bEivsWw3Pzvnn2NtcNdF3zBFnN+15C4nMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gs6N7DBd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=J86fdC+B; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790142911; c=relaxed/simple;
+	bh=oDL76qZe3pLsjMdiwLHE3eLhw+zujf3kzzYwe3mCEd0=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WDsg5gBTJHdQGtJhp6WFnas1qAd257jjOh2gK4BZvwcoOS0OfKyyv7u+3/P33xDcZc9roU0hvlzId4j/9MqItejnzw6c2qdDXsC0z2dlGKB2NMKym8HJcHIsK8Yg4IyABljSxFq7OO1DpYgJMUxKEwmaQyeTFf1EKn3KdVwT70s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h9SoH5iQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gs6N7DBd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="J86fdC+B"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3iIVQ3250337
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:54:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1qjLbtTDhsHiX99dZ4U9zPc7b9TIIVkqC+Y1oTNhL7I=; b=gs6N7DBdlGDdnTzF
-	J6NVzxTVIPUy88VXKo6EAbYiC6noCrTNvdM9E6DNFHc5S9bGvWyddl1rXMpRvaLp
-	TfUF9IEVfo2WBmS0BqHPpWOMSoEbBDuD0Om94aunEBQ91h/9c/hAAEESrH140Dj/
-	j45sKoMQp2hN76zSYykEeSw8QwB73dsLO+0z32CCBTbmCBKz169T6o4RGNn2opy8
-	+CW2A3Z8iWUn5SZrrdWCX9bT38Qr5FhRGUA9QNrFF1tNAhjD/EtOv2iUVYynfh6q
-	Tgr2G2Z40PIUPRYCKi0FIFdQU/hnUuEHuIsugjlPpgpFA56O1gWHQ9AZk9QqVNXa
-	oNnpTw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux8c2pt6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:54:16 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33bb08e80a8so552848eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:54:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790142855; x=1790747655; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1qjLbtTDhsHiX99dZ4U9zPc7b9TIIVkqC+Y1oTNhL7I=;
-        b=J86fdC+B6oklYT+HItgVTFQHvPF6SMGLwmzIjF2JaoSn3WEktat/l/a3CJJ6GPWgYZ
-         0Yg18uR+Uiql0aa+GxI1tLxG1U0XsBxTVd0EGYuam4eE8SmYA/lrc9OhyYGDd3AnWmP5
-         82iCvFHlvPLo31EHcS/sxxVMEzo0f2uuWtvVUFReMNxxW7npK0TzlZFfbQMVdrZfj6h+
-         qWfdpnHtdzhQ0fwrfkiodKPmi/eaUAJ56yOYYYYAjXkP9hlttwFQYKxnOBRLs7lzkWRa
-         FU6WWIYh3RRQrnkNAWdQZkSwl3odGFR5TnpjDCuLRTS+OCRENfipXfQKjZAZCCHHLM/V
-         Jt8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790142855; x=1790747655;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1qjLbtTDhsHiX99dZ4U9zPc7b9TIIVkqC+Y1oTNhL7I=;
-        b=JcQZUsoi+ZqZZboHDU08Jh9+nZvdCoxOBn9waWFyYy5To3cCK9VSQy+zGneLmSIsB3
-         yPIB2ZBCUkPacGNqorAcL/j5bSkhlmxtnYMsCflSIYHosWev7b/ycNaARwnBajZMji3D
-         v8YWoQYeYWUTM7tMcewrFcctDeHikYki/I0oPgkI1kiK2Q3EvM/3IQikjKOiB+/Ilww+
-         F8aKNV0RhKZGC5cuhzMqNxdjwa0DCRGPmFTCtmBPJVxTVBFXxJIexm7/wSQciyY9q4Wv
-         Ez4fxH8VrUSREIB9hh5UkdSzNzpxtTiIrxhtLAZecXGLiHocut1vw0QwHWmMDUh07R9b
-         pwcQ==
-X-Gm-Message-State: AFuF++mKIqVCMcwn1nAJwRZeHX/XwHG5ZqIheeG3VpQ/uvWdGO5WFaqt
-	Aq2E6LrvgoU6AWqoa6h0krR4BgJKxnPL3XKHRqLmztfd0Wb6s/XZRnmTman+OW3Cb2aGRzK8yQC
-	tdsmq4k2FM+bK0XMgm9Yxqkz/zIZ3eA5YtZhx01uBDtt1zB0pBaEOWQLVxe7ujTKPio4=
-X-Gm-Gg: AYBFou3VumoohCIPrCVlapxQhWq6Qh/Uxd05BNdQGAjrwyq2gUb0SNELMKoUwCKUOI6
-	Krm9bscLrGqN1Tm/c5PU4ppFjcmM3SdD7pINHSpERx0LkD3KdCIjdKZheL6Yhaab++ej4YOCwq4
-	uKS9C+72kwZSshoQMhtw38w2AqqW3blxS2YyfxxWG0MqH+ZwOnQcoV/k+/MV74JMui9eWEqO5oY
-	eaUx+33evLFvvI6P1NupHTw5EpGrNEXauJKnwY+rGMjm1KqLljQ184WYGqgfWd8cmwXGwrrcOk8
-	WxomGcJsX4LvvPFDQgul9VFzoWKoX5SR3oQcFNYdFN+f3et3gbOQEjeQEABzUFI+5hMq/RzwEGK
-	hsiC7Ym20uxxB+s19PQWY0f3dyeWPDUPWu+/HcVe9pj0gTCRu2o1orbHDR0oMG9EmWug=
-X-Received: by 2002:a05:693c:80cb:b0:33c:43c:f3dd with SMTP id 5a478bee46e88-33e7c426a71mr1660460eec.11.1790142855355;
-        Tue, 22 Sep 2026 22:54:15 -0700 (PDT)
-X-Received: by 2002:a05:693c:80cb:b0:33c:43c:f3dd with SMTP id 5a478bee46e88-33e7c426a71mr1660444eec.11.1790142854850;
-        Tue, 22 Sep 2026 22:54:14 -0700 (PDT)
-Received: from [10.217.219.121] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96258351sm3304240eec.12.2026.09.22.22.54.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 22:54:14 -0700 (PDT)
-Message-ID: <f4b3fb1e-4628-43c5-97da-8af96da4d642@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 11:24:08 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h9SoH5iQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA8151F000FF;
+	Wed, 23 Sep 2026 05:55:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790142909;
+	bh=TraGMeCA9pkffDDmCOvPFMTZm8A9mB7/rgVzunnJM6A=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=h9SoH5iQkl3t37QCkgDv34WeMmzNr8I+fr84AcprN4TyGLE5zwyd/4fPA1K7kPyVB
+	 o2kRvuEtiwvV3NOZglTkgN1d4nyUDUyc2LQsRDKd3E46/CGNXWIEgpItQyjJh+FWA7
+	 Q8niw17vXKEAQ881f488Tye6ZI1FWeeNImUz7DsVH2yteO+z5jNYlybWJAwoKNnyPh
+	 zpWPf+65Ka2+KTA2FKwgIIaSObAz7OxhBxrnEnYBNWAApgtB9dKYQWsmoNEJ94tVIh
+	 LvcySD6zUHyUBMJhFDQMkJIUjG7taPBtzhKAn0N3UUFRX4XB5jc2rKTxN8vDVxmKPQ
+	 BGL5f/aAhMFqg==
+Subject: Re: [PATCH v2] net: mediatek: fix PPE resource leak on remove
+From: netdev-bot+sashiko@kernel.org
+To: lgs201920130244@gmail.com
+Cc: nbd@nbd.name, lorenzo@kernel.org, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ stable@vger.kernel.org
+Date: Wed, 23 Sep 2026 05:55:08 +0000
+Message-ID: <179014290838.2160803.10190235889811039929@kernel.org>
+In-Reply-To: <20260921145421.443018-1-lgs201920130244@gmail.com>
+References: <20260921145421.443018-1-lgs201920130244@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] usb: dwc3: core: add post PHY registration hook for
- platform glue
-To: Sebastian Reichel <sebastian.reichel@collabora.com>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org,
-        kernel@collabora.com, Igor Paunovic <royalnet026@gmail.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-References: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-0-763bb546824e@collabora.com>
- <20260915-b4-rockchip-dwc3-rockchip-glue-v1-3-763bb546824e@collabora.com>
-Content-Language: en-US
-From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-In-Reply-To: <20260915-b4-rockchip-dwc3-rockchip-glue-v1-3-763bb546824e@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAyMyBTYWx0ZWRfX8CCwoTRznbTu
- Xz4UIprF4El9/z49qeyFbgWRXT8XeEBtRkDulJ9MxHnyAk1YgUTXjjnPY93EC92ADDBf8c7CPDB
- b9GgGbweW5vvsZVOJ+PeAdKTf1m1mvfpkbhyjM2WMPrHzW00qOlrRIiQBDhFbDpCR5CY0hYXSUR
- +VtLaP3Yfw8SGQSfiNVTm6T4tUrilLySvX21K86cmHkEaqAO6/ngW2SPC6PxD8z274gClJFwrAr
- pxyhRi9A6y9C5d7Cevs1BtG3g9Z+W8JG+L/s8inZgzjb/R4St1tyL+fKCcdPUX5hRqIgzGHdmp6
- zgTwuKJtBCuvwg2HVknRkOSwAz2wDOYFvzgK53a9EajXkQ+a+zG5iDT2P3+bdsUL8gj3KZb+SJo
- OWLPSzwWkPxqx3PUdk1McM9JBCi6KsS1UOHZJEqBPL10phyLicsmfUjJFo2l1vRgl9nBKTn2iA0
- QcKSBq0v3p5rrwiYAbw==
-X-Authority-Analysis: v=2.4 cv=P9evFSAu c=1 sm=1 tr=0 ts=6ab36988 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=pGLkceISAAAA:8 a=QX4gbG5DAAAA:8 a=EUspDBNiAAAA:8 a=fFHpL_doKWamrhBxXOoA:9
- a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22 a=AbAUZ8qAyYyZVLSsDulk:22
-X-Proofpoint-ORIG-GUID: yPXZsc9nVL-3s2y1s8L6YxeShUJpYwtF
-X-Proofpoint-GUID: yPXZsc9nVL-3s2y1s8L6YxeShUJpYwtF
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAyMyBTYWx0ZWRfX/+t+b11Hz1hL
- 2O+Ve/50jCffKM2GdyPL9vUul/Vr4JeExjtXgZyrqBqLPnsiweQw8dW7cjqOC0idxdfNXW8uM8i
- 7yQR94NkkrP7NISbXopporJWm5V7lOU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230023
 
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
+Critical: 0 · High: 2 · Medium: 1 (1) · Low: 0
 
-On 9/15/2026 8:47 PM, Sebastian Reichel wrote:
-> Add support for custom PHY handling steps in platform glue code
-> by adding a post registration hook. This will be used for handling
-> PHY reset notifications on the Rockchip platform.
-> 
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Reviewed-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+- [High] Teardown ordering bug: mtk_remove() calls the newly added
+  mtk_ppe_deinit(eth) *after* mtk_hw_deinit(eth), which has already…
+- [High] Use-after-free: mtk_remove() destroys the shared offload
+  rhashtable (mtk_ppe_deinit() -> mtk_eth_offload_deinit() ->…
+- [Medium] The WED reference drop added in mtk_flow_offload_free()
+  (mtk_wed_flow_remove(entry->wed_index)) is dead code on the remove…
 
-> ---
->   drivers/usb/dwc3/core.c | 2 +-
->   drivers/usb/dwc3/core.h | 9 +++++++++
->   2 files changed, 10 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-> index 4b7132887a03..daf5aec07fbf 100644
-> --- a/drivers/usb/dwc3/core.c
-> +++ b/drivers/usb/dwc3/core.c
-> @@ -1613,7 +1613,7 @@ static int dwc3_core_get_phy(struct dwc3 *dwc)
->   		}
->   	}
->   
-> -	return 0;
-> +	return dwc3_post_phy_registration(dwc);
->   }
->   
->   static int dwc3_core_init_mode(struct dwc3 *dwc)
-> diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-> index 608daeb7ef10..e9d8df0a298e 100644
-> --- a/drivers/usb/dwc3/core.h
-> +++ b/drivers/usb/dwc3/core.h
-> @@ -995,10 +995,12 @@ struct dwc3_scratchpad_array {
->    *				need to be passed on to glue layer
->    * @pre_set_role: Notify glue of role switch notifications
->    * @pre_run_stop: Notify run stop enable/disable information to glue
-> + * @post_phy_registration: Called directly after PHY got registered
->    */
->   struct dwc3_glue_ops {
->   	void	(*pre_set_role)(struct dwc3 *dwc, enum usb_role role);
->   	void	(*pre_run_stop)(struct dwc3 *dwc, bool is_on);
-> +	int	(*post_phy_registration)(struct dwc3 *dwc);
->   };
->   
->   /**
-> @@ -1655,6 +1657,13 @@ static inline void dwc3_pre_run_stop(struct dwc3 *dwc, bool is_on)
->   		dwc->glue_ops->pre_run_stop(dwc, is_on);
->   }
->   
-> +static inline int dwc3_post_phy_registration(struct dwc3 *dwc)
+Pre-existing issues:
+- [Medium] Pre-existing WED flow-reference leak in
+  mtk_flow_offload_replace(): after 'if (wed_index >= 0 && (err =…
+
+--
+
+net: mediatek: fix PPE resource leak on remove
+
+This patch drains eth->flow_table with rhashtable_free_and_destroy()
+during PPE teardown, removes the PPE debugfs directories, tracks whether
+the shared flow table was initialized, and calls mtk_ppe_deinit() from
+mtk_remove().
+
+A few questions about the new teardown ordering below.
+
+> diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> index 2ea5dfe85539b..0625be1b112f7 100644
+> --- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> +++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+> @@ -5410,6 +5410,7 @@ static void mtk_remove(struct platform_device *pdev)
+>  
+>  	netif_napi_del(&eth->tx_napi);
+>  	netif_napi_del(&eth->rx_napi);
+> +	mtk_ppe_deinit(eth);
+>  	mtk_cleanup(eth);
+>  	free_netdev(eth->dummy_dev);
+>  	mtk_mdio_cleanup(eth);
+
+[Severity: High]
+Can this new call site touch PPE registers after the clocks are gone?
+In mtk_remove(), mtk_hw_deinit() has already run before this point:
+
+drivers/net/ethernet/mediatek/mtk_eth_soc.c:mtk_hw_deinit() {
+	if (!test_and_clear_bit(MTK_HW_INIT, &eth->state))
+		return 0;
+
+	mtk_clk_disable(eth);
+
+	pm_runtime_put_sync(eth->dev);
+	pm_runtime_disable(eth->dev);
+	...
+}
+
+The new drain path reaches MMIO for every entry that still has a
+hardware slot:
+
+mtk_ppe_deinit() -> mtk_eth_offload_deinit() ->
+rhashtable_free_and_destroy(&eth->flow_table, mtk_flow_offload_free) ->
+mtk_foe_entry_clear() -> __mtk_foe_entry_clear()
+
+drivers/net/ethernet/mediatek/mtk_ppe.c:__mtk_foe_entry_clear() {
+	if (entry->hash != 0xffff) {
+		struct mtk_foe_entry *hwe = mtk_foe_get_entry(ppe, entry->hash);
+
+		hwe->ib1 &= ~MTK_FOE_IB1_STATE;
+		hwe->ib1 |= FIELD_PREP(MTK_FOE_IB1_STATE, MTK_FOE_STATE_INVALID);
+		dma_wmb();
+		mtk_ppe_cache_clear(ppe);
+	...
+}
+
+drivers/net/ethernet/mediatek/mtk_ppe.c:mtk_ppe_cache_clear() {
+	ppe_set(ppe, MTK_PPE_CACHE_CTL, MTK_PPE_CACHE_CTL_CLEAR);
+	ppe_clear(ppe, MTK_PPE_CACHE_CTL, MTK_PPE_CACHE_CTL_CLEAR);
+}
+
+mtk_ppe_stop() does not reset entry->hash, so the hash != 0xffff branch
+is reachable during unbind when offloaded flows are present.
+
+The probe unwind uses the opposite order, with mtk_ppe_deinit() running
+before mtk_hw_deinit() and mtk_wed_exit():
+
+err_deinit_ppe:
+	mtk_ppe_deinit(eth);
+	mtk_mdio_cleanup(eth);
+err_free_dev:
+	mtk_free_dev(eth);
+err_deinit_hw:
+	mtk_hw_deinit(eth);
+err_wed_exit:
+	mtk_wed_exit();
+
+Should the remove path place mtk_ppe_deinit() before mtk_wed_exit() and
+mtk_hw_deinit() to match?
+
+> diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.h b/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+> index 88a9b3b23bea5..2b33067345c39 100644
+> --- a/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+> +++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+> @@ -1346,6 +1346,7 @@ struct mtk_eth {
+>  
+>  	struct mtk_ppe			*ppe[3];
+>  	struct rhashtable		flow_table;
+> +	bool				flow_table_initialized;
+>  
+>  	struct bpf_prog			__rcu *prog;
+>  
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/mediatek/mtk_ppe.c b/drivers/net/ethernet/mediatek/mtk_ppe.c
+> index 8451dc3fd00aa..f41df3cf0e2b8 100644
+> --- a/drivers/net/ethernet/mediatek/mtk_ppe.c
+> +++ b/drivers/net/ethernet/mediatek/mtk_ppe.c
+
+[ ... ]
+
+> @@ -946,7 +947,17 @@ void mtk_ppe_deinit(struct mtk_eth *eth)
+>  
+>  	for (i = 0; i < ARRAY_SIZE(eth->ppe); i++) {
+>  		if (!eth->ppe[i])
+> -			return;
+> +			continue;
+> +
+> +		debugfs_lookup_and_remove(eth->ppe[i]->dirname, NULL);
+> +	}
+> +
+> +	mtk_eth_offload_deinit(eth);
+> +
+> +	for (i = 0; i < ARRAY_SIZE(eth->ppe); i++) {
+> +		if (!eth->ppe[i])
+> +			continue;
+> +
+>  		rhashtable_destroy(&eth->ppe[i]->l2_flows);
+>  	}
+>  }
+
+> diff --git a/drivers/net/ethernet/mediatek/mtk_ppe_offload.c b/drivers/net/ethernet/mediatek/mtk_ppe_offload.c
+> index 99b28aaa7cc47..5b14c7b3052f9 100644
+> --- a/drivers/net/ethernet/mediatek/mtk_ppe_offload.c
+> +++ b/drivers/net/ethernet/mediatek/mtk_ppe_offload.c
+> @@ -678,9 +678,42 @@ int mtk_eth_setup_tc(struct net_device *dev, enum tc_setup_type type,
+>  	}
+>  }
+>  
+> +static void mtk_flow_offload_free(void *ptr, void *arg)
 > +{
-> +	if (dwc->glue_ops && dwc->glue_ops->post_phy_registration)
-> +		return dwc->glue_ops->post_phy_registration(dwc);
-> +	return 0;
+> +	struct mtk_flow_entry *entry = ptr;
+> +	struct mtk_eth *eth = arg;
+> +
+> +	mtk_foe_entry_clear(eth->ppe[entry->ppe_index], entry);
+> +
+> +	if (entry->wed_index >= 0)
+> +		mtk_wed_flow_remove(entry->wed_index);
+
+[Severity: Medium]
+Does this mtk_wed_flow_remove() actually drop anything on the remove
+path?  mtk_remove() runs mtk_wed_exit() before the new
+mtk_ppe_deinit(), and mtk_wed_exit() tears down the WED registry:
+
+drivers/net/ethernet/mediatek/mtk_wed.c:mtk_wed_exit() {
+	...
+		hw_list[i] = NULL;
+		debugfs_remove(hw->debugfs_dir);
+		put_device(hw->dev);
+		of_node_put(hw->node);
+		kfree(hw);
+	...
+}
+
+so by the time the drain runs, mtk_wed_flow_remove() takes the early
+bail-out:
+
+drivers/net/ethernet/mediatek/mtk_wed.c:mtk_wed_flow_remove() {
+	struct mtk_wed_hw *hw = hw_list[index];
+
+	mutex_lock(&hw_lock);
+
+	if (!hw || !hw->wed_dev)
+		goto out;
+	...
+}
+
+hw->num_flows is never decremented, wlan.offload_disable() is never
+called and mtk_wed_set_ext_int() is never re-run, so the enable done by
+mtk_wed_flow_add() is left unpaired.  Is the commit message claim of
+"dropping the WED flow reference when necessary" reachable with this
+ordering?
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but while on the subject of
+WED flow references: mtk_flow_offload_replace() acquires one before the
+entry allocation and the allocation failure path returns without
+releasing it:
+
+drivers/net/ethernet/mediatek/mtk_ppe_offload.c:mtk_flow_offload_replace() {
+	if (wed_index >= 0 && (err = mtk_wed_flow_add(wed_index)) < 0)
+		return err;
+
+	entry = kzalloc_obj(*entry);
+	if (!entry)
+		return -ENOMEM;
+	...
+}
+
+mtk_wed_flow_add() has already incremented hw->num_flows and possibly
+called wlan.offload_enable(), and since no entry is inserted into
+eth->flow_table the new drain cannot balance it either.  Should this
+return go through the goto-based unwind further down the function, which
+does call mtk_wed_flow_remove()?
+
+> +
+> +	kfree(entry);
 > +}
 > +
->   #if IS_ENABLED(CONFIG_USB_DWC3_HOST) || IS_ENABLED(CONFIG_USB_DWC3_DUAL_ROLE)
->   int dwc3_host_init(struct dwc3 *dwc);
->   void dwc3_host_exit(struct dwc3 *dwc);
-> 
+>  int mtk_eth_offload_init(struct mtk_eth *eth, u8 id)
+>  {
+> -	if (!eth->ppe[id] || !eth->ppe[id]->foe_table)
+> +	int err;
+> +
+> +	if (!eth->ppe[id] || !eth->ppe[id]->foe_table ||
+> +	    eth->flow_table_initialized)
+>  		return 0;
+> -	return rhashtable_init(&eth->flow_table, &mtk_flow_ht_params);
+> +	err = rhashtable_init(&eth->flow_table, &mtk_flow_ht_params);
+> +	if (!err)
+> +		eth->flow_table_initialized = true;
+> +
+> +	return err;
+> +}
+> +
+> +void mtk_eth_offload_deinit(struct mtk_eth *eth)
+> +{
+> +	if (!eth->flow_table_initialized)
+> +		return;
+> +
+> +	mutex_lock(&mtk_flow_offload_mutex);
+> +	rhashtable_free_and_destroy(&eth->flow_table, mtk_flow_offload_free,
+> +				    eth);
+> +	mutex_unlock(&mtk_flow_offload_mutex);
+> +
+> +	eth->flow_table_initialized = false;
+>  }
 
+[Severity: High]
+Can this destroy the flow table while the offload block callbacks are
+still bound to live netdevs?
+
+In mtk_remove() the new mtk_ppe_deinit() runs before mtk_cleanup():
+
+	mtk_ppe_deinit(eth);
+	mtk_cleanup(eth);
+
+and the netdevs are only unregistered inside mtk_cleanup():
+
+drivers/net/ethernet/mediatek/mtk_eth_soc.c:mtk_cleanup() {
+	mtk_sgmii_destroy(eth);
+	mtk_unreg_dev(eth);
+	...
+}
+
+unregister_netdev() unbinds the ingress block and flushes the flowtable,
+which replays FLOW_CLS_DESTROY back into the driver through
+mtk_eth_setup_tc_block_cb() -> mtk_flow_offload_cmd() ->
+mtk_flow_offload_destroy(), where the freed table is dereferenced:
+
+	entry = rhashtable_lookup(&eth->flow_table, &f->cookie,
+				  mtk_flow_ht_params);
+
+rhashtable_free_and_destroy() kvfree()s the bucket tables and does not
+clear ht->tbl, so eth->flow_table.tbl is left dangling.
+
+mtk_flow_offload_cmd() only takes mtk_flow_offload_mutex and never
+consults the new flag:
+
+	mutex_lock(&mtk_flow_offload_mutex);
+	switch (cls->command) {
+	case FLOW_CLS_REPLACE:
+		err = mtk_flow_offload_replace(eth, cls, ppe_index);
+
+Since mtk_remove() holds no RTNL, a concurrent tc filter add ...
+skip_sw or an nf_flow_offload work item can also reach
+mtk_flow_offload_replace() -> rhashtable_insert_fast() on the freed
+table.
+
+Should the table be destroyed only after all netdevs are unregistered,
+and should mtk_flow_offload_cmd() check eth->flow_table_initialized
+under mtk_flow_offload_mutex?  Note the flag is also cleared outside
+the mutex here.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260921145421.443018-1-lgs201920130244%40gmail.com
