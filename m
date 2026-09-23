@@ -1,91 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-19.mta0.migadu.com [91.218.175.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8052F37DE9B;
-	Wed, 23 Sep 2026 02:42:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036BE33E346
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:43:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790131376; cv=none; b=UhNGmrA+YqxC4o6JDIhdO+0Ow3UHFSHEl7CAEB4A+EDaeNUxyQ8rA8sDAsqswbEOzxJ85eU04v19yD/xbFCMYpG3LeD1RB1yWcArBy/po05k0vu4gNjIwvcGGRIJdS3o8hlnA6fvSI6K9NO01M7g/z4uBJiQP5zMJ/ylE10WS1w=
+	t=1790131386; cv=none; b=Y9WWJDKHHJFzgORoi4mXk0j6YDTG3FcJ2rsXbzgBRJ7eBdBRHdrc59n/QD2Krwpo4tWwgpp2DPEUBE5rr8aQ/8lq0gY4ppqbFy2+d8vWgTcgOYghQa+EAPNSZDIebn5SMP4BlJUf4+/o7h1LFYPNDDfhPMBw2gz9JyOuPGOBysw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790131376; c=relaxed/simple;
-	bh=vJb9uf/jdi3jbki6AlcOolFNNk6fxf/X4UTvtcdcgs0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RJO8hbwPrMjJAQwrR3/7AzlN3p6m9j0YUH/KukIEP/tI1rlImNxRiyU8AcllPCRUfZXyVy2B6hRJTaq6nPWHCnaJHqmeYIvjmbXBx8PNqKDRb1WcLx+aHuiBRLpeGXKWHn5QRgWooo+j764wBYfsPnVGIcNSqQTiCMcF9z3KfXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CJ6Wb4c8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790131386; c=relaxed/simple;
+	bh=7DO70pOSnKfl2ZBvK6u/JIg2H0ORCq+ZJeqhlObG650=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=bXDlZFJWSOxjZdg4m2p5IyBjwXykQcwg0BJ5U0ZhxIb8KusdNL58btSyCMpHGaaic41/z3+T9+x6FnQ1o/bxTwLrkJqu2bBMW81cD4jPidIH4AKJMmpdsDBiFlpSDlYVckeUbTZvOgGHygig0lnNyhw//tHQ3zXgEiDMtX5ctR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eJzc0IdQ; arc=none smtp.client-ip=91.218.175.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CJ6Wb4c8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3CCD1F000FF;
-	Wed, 23 Sep 2026 02:42:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790131372;
-	bh=FTFpAHh4tW3apuxYTeVsLcNRDuDDUhJPLdMX2YZxx30=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=CJ6Wb4c8CX7La0KYXfPThYZR4K/rirKYFKbKZIcsAtH6zPSuaKCVjL5WwwvLR+zUw
-	 vTTG1utBFyyIw2l44lYStjKB+wD2PJTdjaYzTBxTcZ9HE6tKomx7IDoIIpsMGCH8Kv
-	 DRvJlAQp4zNsn0ZD1Q/3heNOtuaFMwYqr/Zhrm/fcBYEg045cwbx/xljUpda8CfkzE
-	 b2idF6Bg3FFs/Y/ayObDFBJEtR2jcSuj0pnjTtWxah36uszN9/jHu7x8eQsnBA4fXg
-	 QR1bQlODSdgzNaTjoslsgx3EuxeyOkpBB71vbD+ITC4Cjbzal8T1XOAL7AluItOYLJ
-	 ppPD1nS6ceROw==
-Date: Tue, 22 Sep 2026 19:42:51 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, davem@davemloft.net, Eric Dumazet
- <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, Heiner Kallweit
- <hkallweit1@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Oleksij Rempel <o.rempel@pengutronix.de>,
- Vladimir Oltean <vladimir.oltean@nxp.com>, Florian Fainelli
- <f.fainelli@gmail.com>, thomas.petazzoni@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH net-next 1/3] selftests: drv-net: Introduce a selftest
- for ethtool flow control
-Message-ID: <20260922194251.06e00e2e@kernel.org>
-In-Reply-To: <20260920164732.349744-2-maxime.chevallier@bootlin.com>
-References: <20260920164732.349744-1-maxime.chevallier@bootlin.com>
-	<20260920164732.349744-2-maxime.chevallier@bootlin.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eJzc0IdQ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7DO70pOSnKfl2ZBvK6u/JIg2H0ORCq+ZJeqhlObG650=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790131378; v=1; x=1790736178;
+ b=eJzc0IdQI2Gx9shnrH8ambz6QEno0qMBvK3H0qciolkTaUN3mKoaOTsN9A0B7TY4z7fbpu09
+ s9sLa3DsrLUKKYOnnJ2wlRSCbmNUwOx3dRIay2UgAU+y9hMyeeFlbuf16n3D0zZiAJqmLOY1RlK
+ Dp/a+EP5VKad0sBvdEbPT9nQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id f8f061495026a087;
+	Wed, 23 Sep 2026 02:42:58 +0000
+X-Mizu-Trace-ID: f8f061495026a087
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.700.51.1.1\))
+Subject: Re: [PATCH] hugetlbfs: fix stale comment in hugetlbfs_file_mmap()
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <tencent_AA61551D1F50E61F46C8542F5C8874512C05@qq.com>
+Date: Wed, 23 Sep 2026 10:42:41 +0800
+Cc: linux-mm@kvack.org,
+ Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: 7bit
+Message-Id: <7BFA772C-FC76-4414-88D8-A0E77087C533@linux.dev>
+References: <tencent_AA61551D1F50E61F46C8542F5C8874512C05@qq.com>
+To: Zhenghui Hao <zhenghui.hao@qq.com>
+X-Mailer: Apple Mail (2.3864.700.51.1.1)
 
-On Sun, 20 Sep 2026 18:47:27 +0200 Maxime Chevallier (Netdev
-Foundation) wrote:
-> Future ethtool selftests are expected to use the same, these helpers
-> are put in the net selftest lib.
 
-Please resist the urge to create libraries.
 
-If you're doing this I suspect you didn't even read the README and=20
-you expect people to search around for libraries?
+> On Sep 23, 2026, at 10:28, Zhenghui Hao <zhenghui.hao@qq.com> wrote:
+> 
+> The comment above the VMA flag setup in hugetlbfs_file_mmap() says the VMA
+> address alignment has already been checked by prepare_hugepage_range().
+> That function no longer exists: it was removed by commit eff41389d824
+> ("mm/hugetlb: remove prepare_hugepage_range()"), and the check now lives in
+> hugetlb_get_unmapped_area().
+> 
+> The comment also mentions ia64, which was removed from the tree by commit
+> cf8e8658100d ("arch: Remove Itanium (IA-64) architecture").
+> 
+> Point the comment at the current function and drop the ia64 reference.  The
+> rest of the comment, which tells future edits to add any error return only
+> after VM_HUGETLB has been set, is still accurate and is left untouched.
+> 
+> No functional change.
+> 
+> Signed-off-by: Zhenghui Hao <zhenghui.hao@qq.com>
 
-Put the code in your test, the duplication doesn't matter.
-If you _absolutely have to_ you can create a local lib under
-tools/testing/selftests/drivers/net/hw/ but please think really=20
-hard before you do.
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-> +    :param cfg: test config
+THanks.
 
-If you have nothing to say - don't say anything =F0=9F=A4=B7=EF=B8=8F
-
-> +    :returns: tuple containing :
-> +              - return code of the ethtool command,
-> +              - rx status,
-> +              - tx status,
-> +              - aneg status
-
-Have you seen much code in netdev selftests using this style=20
-of comments?
-
-> +        defer(cmd, f"ethtool -s {cfg.ifname} autoneg on", fail=3DFalse)
-
-Why are you putting fail=3DFalse on the defers? IIRC defer errors are
-logged and ignored. Is ethtool reporting an error when there's nothing
-to change?
-
-Those are just some things that immediately jump out :)
-Please also fix the pylint --disable=3DR issues?
