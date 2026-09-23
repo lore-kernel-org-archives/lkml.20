@@ -1,310 +1,178 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010052.outbound.protection.outlook.com [52.101.84.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517AF47CA90
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:22:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158961; cv=none; b=MKTADS6MAGBGa4yLTuBbGgq41RG/HzZVKcFMxTfkJn+dcPe8ktdTuMQWZOSLyc3JRM0FgADHeQ2d4pavl84jmjDh3HCmk05xNQzBkrkb/v6wk+75YpWJ9riEco58BVoU1Q6JB5/9l8ztSdUWx+Qau3YE4WNL90mKNgNPo5ylI+s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158961; c=relaxed/simple;
-	bh=0uVQEeQiDOjhujVhqkXbPmpsmORKxFy+xkuH/A1pwy8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ku4J7vK/2sbCC+Wr3L3Tv3S6o5iPpndZfsm6Ck0u6LB9fc0X95hfLH0IXPz9lmF8RL0WetIpHV673tCa3xPE/hPrl11hyVbfV8minIJcNjhyRzKRKKo+SuJdHuUlTvdyx7v6iNbsgbNg80K6PyDu85aZwCr9utJ2o0IdRuNeYXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ao65L2wB; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6524547DD50
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790158989; cv=fail; b=NyWAa6hF2wrynyUi1s951+zEgBh1r+iEGjm1VOE3o25TbrIjUXFvafDWRwP02C7i7IoxBBW5BhwlZNuq0qPgwkJOVKX/S1d27IkXEna8KA1oeBNQssZh/TXSjt1leb6vmweOfw9vhaXD/uP8O7FtTFxSQzlZ14OrfitG3jfL+eo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790158989; c=relaxed/simple;
+	bh=aD0suMpszGwUxoUcI/ScitoQyowWegiR3ggmK65yU+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=t0a5+6/Fo9gqb7gRvvA3eZmOlTFoL4VXO59R2rcnaXbFSc7epr4RFbZ0EFhLAo7d1kq31wiASFrl0of4SkM95USQpyL8704UN5QM+uPNgg0k6NLzwLzBjA/5UFcLpSuIUieEaGvGKAuVVJV+T7whxfOdhe4VhT2xjBlcPiYHQFU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Dm5/Lt6C; arc=fail smtp.client-ip=52.101.84.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ao65L2wB"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8ad2N1732116;
-	Wed, 23 Sep 2026 10:22:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=UJSxSK
-	DkUkpvf8mfl9N8qfOQL0311c7JKC2qECOIKk0=; b=Ao65L2wBUIitsZvGGAJG/o
-	Y2tsv4EeQcLb5UzhY0oYt4pEbRkNg5GLlY2TPKlurQ4zkotWbxknOD8cYaSJZosN
-	z3zXRnK8HfmlQv4tBTb3g/OIBUd0B3aCVRkD9lRa+lh2DH0IcQb62/NZHLVFw6ZB
-	CENE9tmnjMWb1FD9RLNjWGfDvfvuvYMjKatIuhWxh/K0FV2lalU0ythyrOF+mcFg
-	gZnGjT8IqdGxBW+Jl0+W6J4zXGiW+XOkMRHm/TTXZGN5IMP3gGiOMgohmvoCLh7x
-	47ahVkjIbiwHZ7o1vznRiSPn+4NtwD0gNmqNJf2ZklkQpgkO4Qja61l36e5ZpyEg
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgqj2ar-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 10:22:20 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8LwdM008054;
-	Wed, 23 Sep 2026 10:22:20 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb6qgdg8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 10:22:19 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NAMGbO56361380
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 10:22:16 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 500DE20043;
-	Wed, 23 Sep 2026 10:22:16 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A1FB520040;
-	Wed, 23 Sep 2026 10:22:13 +0000 (GMT)
-Received: from [9.123.14.142] (unknown [9.123.14.142])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 23 Sep 2026 10:22:13 +0000 (GMT)
-Message-ID: <23c0e185-c56b-4025-8136-326dae53ef4e@linux.ibm.com>
-Date: Wed, 23 Sep 2026 15:52:12 +0530
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Dm5/Lt6C"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AdaxN0D3aPoJqz2swppoQp5lIzYCZaNx5x/KDeM6xAUg+yAuyp8QGVTyRJolDcPDF570KEwDRuTS8/VA7uZjGSamKGBPOonNojjDJ2oiLmfKGPyV8iwqIiv+YD7s94pckDdztLkVmbv+zI/GGSIX15xfTdGwDsCdXqbSsmW72VomlmV5p3farRX4ypI0kNqUA1E4V1zNA3+24i/e8KMamYycCgKE0d7NtXaJlvuQa8VguHjiFd19i6hQHbwrPq6JUE2cPr4nkpO5wNgwkwACV9p3GyaF17EToLswEgGwo/pPUw2s74GzORvfg96yUvwacr2rpfSlSEj2UAdjyFMpPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0tPUr5Atf0SAYRFCH60bBXHrezE6NpTgRsKIYhsP9yM=;
+ b=ZrGmw1rcmWaI+UNKxB2NfClpNAhrdvr7PGpCIA6m2BccPV28r2f+XO7bsLk4Vv4wdTVRT7J+uqG1SXNMJQBZC2227VCKjAtBaEdoHriIY0uZGjYSXYkMycQr6GLlkEBtnFnJ9tNGbdLw+geJni+PY+xpouSFeTJ0vN/c7pABsQnySoA+XVCimQO2U9EdMMsNYqGjDjyhQXj+s7yG+uLBPc8MbSGXnL9W5gAXJkwsIe1Ox592jteI51NYoev8D4spEEdsi0jpHxGie2z269FOsygNoJ3oxqKO513SnAzrLqDCF37O97yGmQZjS25lcuNbMssgJPl4X5XVqajjXrxHzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0tPUr5Atf0SAYRFCH60bBXHrezE6NpTgRsKIYhsP9yM=;
+ b=Dm5/Lt6Cl569AJxAZQYhxpk43u/cEbNmjCDg0//xPhlUuRPZBJy7J5NyDeI4zOuvzJ8fT/va13+YUxSPZ6CLOjvOfg5TquNyuv1ez9AQsuIPDU8yqTWp7QNPx6+BwHtLkRkrZO5yQ0+7sDpwQXbHk60gYuUCgtcV1cphMKxlHNXGXFVh84cs9nBF5DtV6RpkI3w2+hCfNMNDv/YQFRL12RXmiDlQOMtx7VfqchLVuQJWhVFk4dsAyB0dlwPJy4rjfBDg1dap7rPlvnDRZUY6G97YAuVnpuYWmGHTA4ipmYpZe0whH3pdXWgjqk6YPEU6TZ0s3+NnOMQ5Ynh6C628wA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PA4PR04MB9222.eurprd04.prod.outlook.com (2603:10a6:102:2a1::18)
+ by GV2PR04MB11958.eurprd04.prod.outlook.com (2603:10a6:150:2f3::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
+ 2026 10:23:03 +0000
+Received: from PA4PR04MB9222.eurprd04.prod.outlook.com
+ ([fe80::4bc5:69c:dff8:17dd]) by PA4PR04MB9222.eurprd04.prod.outlook.com
+ ([fe80::4bc5:69c:dff8:17dd%4]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
+ 10:23:03 +0000
+From: ryan.zhang@oss.nxp.com
+To: boris.brezillon@collabora.com,
+	steven.price@arm.com,
+	liviu.dudau@arm.com
+Cc: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Ryan Zhang <ryan.zhang@oss.nxp.com>
+Subject: [PATCH v2] drm/panthor: dummy read to discard the stale first GPU_TIMESTAMP read
+Date: Wed, 23 Sep 2026 18:24:48 +0800
+Message-ID: <20260923102448.2279852-1-ryan.zhang@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260921102957.1024029-1-ryan.zhang@oss.nxp.com>
+References: <20260921102957.1024029-1-ryan.zhang@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: AS4PR10CA0020.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d8::10) To PA4PR04MB9222.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a1::18)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/5] powerpc/pseries/eeh: Implement RTAS-based EEH
- error injection
-To: Narayana Murty N <nnmlinux@linux.ibm.com>, mahesh@linux.ibm.com,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
-        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
-        alex@shazbot.org
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-        sbhat@linux.ibm.com, harshpb@linux.ibm.com
-References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
- <20260831065441.48654-5-nnmlinux@linux.ibm.com>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <20260831065441.48654-5-nnmlinux@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=G+OJgNk5 c=1 sm=1 tr=0 ts=6ab3a85d cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=nKMCb-GtO1_C_x72D5QA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MCBTYWx0ZWRfX887MkZ5rxaY8
- ZRevR9qVNjOO2jc/5G72rSmRSLaJ64Aqb/BoFTFJK2IPLQ953G6k10G7DYxSlJ35uSsxg2frjAd
- 4GFrl7M1N8LAovWqMvul81WJdJzTXblmEmUsc5X255L51E51GjD1zLSHe22f6ntdcY2vFZwN0tD
- nvri6RxaPw1VDixW9QiZZKfJDOfdarlO3AvKV7zIjCtqQtk70jni6GCPzIjpgRJ1k3xEaFvUvsL
- OKqMxFKiATSFMHHsNIjXr2bziTKsaZ2ms1I9kAQT4d5YkT46Nwa3RR2IWxVnplhOL5Y9LsZ2JC0
- 16XCPQApQCwwEyWahq+i9W/PZ8Oy8cDV8Ah9Eb3H5c8vMmsDRQNfTbsF3GO55vqVtK/raZUkkS1
- vxjoA19TE+pAn3+v/QT67kQBHsqfw+9icCad7ernV5HSGOG3wkyetQTMXcrqNcsoQlrtlu7ZqfG
- IDntXTWSmTIHvfc4bpw==
-X-Proofpoint-ORIG-GUID: GJSceuQl689lwc1HM24mvtd05fH_DZ17
-X-Proofpoint-GUID: 0-OWOJwmgeSb8ge42PUi4WE9ioduVk3b
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MCBTYWx0ZWRfX9XxmUJjb3W6b
- /BnCW94cZw/AnHaUIUFyqFo0qi8tqhf660xXJZkJ2PfM6APIXBQn3Lq4bDZPNY/4jm3Fw77MeQk
- KPpEI92b/yVsXMEJe454b3y1+ptY8TU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
- bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230040
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9222:EE_|GV2PR04MB11958:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d826739-1bb7-464f-84e9-08df195ca688
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|7416014|23010399003|1800799024|11063799006|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	YWx+Ar7b+sBno6ee7joedu5ab6oIjViVnJWmQEup7pz1Gbvs2z0W0Hkf1IoLT5vF/6FihNzXGi0jfp4tk4QJTrDLGP2RkA1iecmhFtXvTXy+aAkprxihqov04RDSbcRAEjds3uQCkzjRqNJBSrsySOPo7FChVarSQ1rzNJNlBjyy2hulESV8qSooG0IZzmQTRAYy/eyRr5I8MOFgVApG6zlrsFULilMEo/vrVJKsfrkO6OZJKZUZm+uOkDPp7iJHtd74HAM5eXwsD3yzuQn+MYIAe0e5+AK9n6DV/ALChVdLae5fNVvR23nkxe+nZxF/FGwbqnxAturD6IpJRzxohqGeC/8g2Vp8nHWDD9gmi6ulhqY2/1Xzcu/jeDjJIsz+QaIUG82fFVLzhq2EXjbGeWAyYVwFoXSWFF6kB9DWg0m4CQClx1ON2RXqjT+VXKr+LcrCBNwfDrEkIlUJDSzrEoP6WxYZwymT9DM/Pz4BdiDRt7N5OZ896O0wiUpXBzqRdFKM3WhEQ6q/DiB5errB8GdOzDh+g0NVAPMfNLOrawJl5I643u+rwH3ydlgIMleOjUl1T0dOBkQRs6lTRbblXqx4OEnzA7MosppkULrIzdHMPVYk4ysGqQgDFBGGh07aVkRPJiTxzANjAHArkEtp4dasnH8xKPvqBrXDxFnxBpk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9222.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(7416014)(23010399003)(1800799024)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?R4/VkuegaeCVeSkZkDJZC/QUAY4oN4tctfnIKKik91b4T9vSejAGYY4rlLS+?=
+ =?us-ascii?Q?A7GKbQqjsRf2SR9McIV3gDsS2PHSDE9JM1LRph6N1M0W3DuM3Rl6QuZcRa2b?=
+ =?us-ascii?Q?iP2xYOmkQmKsehAgBxFFejFD8JCDqUefi0qXcPIZEbCJ2daKzGT/6wqPnsCQ?=
+ =?us-ascii?Q?pUvVbnyqTt5ZSTGSNpcQJWixgO+McHzP51e2w508kwVyKWewt/hcyViP3HFF?=
+ =?us-ascii?Q?4H7n1CZN5ps12JEI3sFN4tZZ+42WHls9Yy6CBj4awuW70+PAUWM9lDu/r8oy?=
+ =?us-ascii?Q?wjKBOfmkj9S8brd+C8WnFc4fzXDnI/zKYuI2tYXX+5r4G4wOqm13Ytsfw3Z3?=
+ =?us-ascii?Q?LC6o9Ve8KYClzk6yqJdFFodQHJYKAC/sjWB2hxN90yZD4mrI2tk433oSaKB2?=
+ =?us-ascii?Q?niLCBWzPq/QjVNc+FAJ6mRhuwfQZE4cPvislK1aQXmam/8K6SyzR/GjRh0CS?=
+ =?us-ascii?Q?3RhgkxZIZlSY6yWRyrFP2w2HuOg/SEJ66tydzCSws5Sck7w1JwEKDBIALy6M?=
+ =?us-ascii?Q?HPIGvOcNfqRHPg5yHhi86uzFAF8h6iThu37TpyEvhj3/j7heswd2u5CsYC6R?=
+ =?us-ascii?Q?90HZhRC6RzdHAQNhZ9/SU2esEiqkZm7X6MjGegfC2LMXksNQMPJB01Yf8lzI?=
+ =?us-ascii?Q?6DEPsZRABn6uEaOFGok3VToirypgy++irPKgWzUNxiPvqEnLNDijgo5GZumn?=
+ =?us-ascii?Q?LfSb5H2kTvZENSjQp0mZcqySzFIYo2aztoIbkXhfM/to/Li+S7xrLX1LqSFR?=
+ =?us-ascii?Q?xQuMKSy+Q2pT45LXz47Z9tNo2Wzyrgvqn2Bae4iJaRDeuiHjSpBYHy1eXJan?=
+ =?us-ascii?Q?WNFM17peSHPIApewzeAUTdbWjlPXQy4zAeKESbgPUltqmWj5xukc1ownGsel?=
+ =?us-ascii?Q?rw//gn1WPYtXZwySIWXiYIQVKjejccvQq5djDcMBMVj/FSbjuLx2NXHcH4e8?=
+ =?us-ascii?Q?G2JlPWB1CMnFQNHe1Ax39Lag71KkwQgsfK2WOshj7WrCUxbUpvfjAkydx4mS?=
+ =?us-ascii?Q?Pb8jjjpaQWtDdlA3I1FxSe2o9kY9E7Ea+49S+E50X9nTfBih96tD3ze7vEZ0?=
+ =?us-ascii?Q?L/JEj3EE95KD5sINudSHxvgTla21uHa4BiZQE5TZpkxH3KFthi6/WU0UuS0h?=
+ =?us-ascii?Q?+yxqnMixpdf3lSt3aYWBL1OwuoTXrl7qYBDE8UzMzrv/Lxxl2W3RCB5T1z2e?=
+ =?us-ascii?Q?FOMOefdJVRITL+gAjm/zVUAx025PtJ6uXteco5sDTRWLouPZ0Gw5MjRR99er?=
+ =?us-ascii?Q?5T+64kab+RX3lwK60nETkE6iEVGDFKcCkUblAklRAsI+uejjIPV7IMA+u0WJ?=
+ =?us-ascii?Q?eFBCtUBjl10kNrjyaLbxNisLvuNaYeSdjjm3GYPej/oTYxdgn3bYEAc0Z4Po?=
+ =?us-ascii?Q?r6OUuzfZ0fOVpsjJHoxA/3V5Q8ctggMQYO4XVsOSeqMGNxuuIMnepztyIQYz?=
+ =?us-ascii?Q?+7Ayiw9zXyszaWEUjUi/Dg5z8X8gL4OWGDLrxY21KUSpTxrqCtewntdl5xBI?=
+ =?us-ascii?Q?g12C5uWj9GUT37mPitlLhKHAitVN2b6drO5LWCbL/t/T5axlSdM79QEPeWO9?=
+ =?us-ascii?Q?NbHxkAYoCWcNEw3gkVbA5q+nHqnrksF4FZUpd9u4lMFFJudlSfpcz3zuuGc+?=
+ =?us-ascii?Q?jXT++9r9++C/k3c/ViReYVxlzywHhdoxEaEHqVCwhsRzHGGCvVDHZjj5wDnd?=
+ =?us-ascii?Q?1/9zlg9NXigjl1VxMipeBS96gsSWe334r144bcceLu2ejl3+D8MCAUyn0sfF?=
+ =?us-ascii?Q?IgNdEEeZ4pFRG3xpB9R17Q3+B5s4ZnsEeXIABtzLnYAuclJp+BMB?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d826739-1bb7-464f-84e9-08df195ca688
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9222.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 10:23:03.5158
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: u2asheg6P9pLg2iMu6z+s09xMgB0DqizlSBUG7Ve5UZZHB+UWyQmtstNnCK/jFGq3Y93eQ+VKqoWZV1ZkMu5bTzLxgLDnkKvNtm1n/SNFwM2Uftj3EYfsG0+79kCkcmW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB11958
 
+From: Ryan Zhang <ryan.zhang@oss.nxp.com>
 
+The first read of GPU_TIMESTAMP after the GPU has been idle can return a
+value that lags the real counter, while a read issued immediately after is
+accurate.
 
-On 31/08/26 12:24, Narayana Murty N wrote:
-> Replace the legacy MMIO stub in pseries_eeh_err_inject() with a full
-> PAPR-compliant RTAS error injection path using the existing RTAS
-> work-area allocator.
->
-> The mutex is not a buffer lock; it serializes the firmware session
-> open/inject/close sequence as required by PAPR.  No global buffer
-> is allocated or used.
->
-> VFIO EEH error injection exposes a generic userspace ABI.  pSeries maps
-> the generic EEH error types to RTAS ibm,errinjct encodings via
-> pseries_eeh_type_to_rtas().  EEH_ERR_TYPE_32 and EEH_ERR_TYPE_64 are
-> unchanged; their values are defined in arch/powerpc/include/uapi/asm/eeh.h
-> and are not renumbered.
->
-> Tested with corresponding QEMU patches:
-> https://lore.kernel.org/all/20251029150618.186803-1-nnmlinux@linux.ibm.com/
->
-> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
-> ---
->   arch/powerpc/platforms/pseries/eeh_pseries.c | 123 ++++++++++++++-----
->   1 file changed, 95 insertions(+), 28 deletions(-)
->
-> diff --git a/arch/powerpc/platforms/pseries/eeh_pseries.c b/arch/powerpc/platforms/pseries/eeh_pseries.c
-> index fafe0004e738..fcb8c560d813 100644
-> --- a/arch/powerpc/platforms/pseries/eeh_pseries.c
-> +++ b/arch/powerpc/platforms/pseries/eeh_pseries.c
-> @@ -25,6 +25,7 @@
->   #include <linux/rbtree.h>
->   #include <linux/sched.h>
->   #include <linux/seq_file.h>
-> +#include <linux/mutex.h>
->   #include <linux/spinlock.h>
->   #include <linux/crash_dump.h>
->   
-> @@ -34,6 +35,7 @@
->   #include <asm/machdep.h>
->   #include <asm/ppc-pci.h>
->   #include <asm/rtas.h>
-> +#include <asm/rtas-work-area.h>
->   
->   /* RTAS tokens */
->   static int ibm_set_eeh_option;
-> @@ -958,8 +960,6 @@ static int prepare_errinjct_buffer(void *buf, struct eeh_pe *pe,
->   			return -EINVAL;
->   
->   		if (upper_32_bits(addr) || upper_32_bits(mask)) {
-> -			pr_err("32-bit IOA injection cannot encode addr=%#lx mask=%#lx\n",
-> -			       addr, mask);
->   			return -EINVAL;
->   		}
->   
-> @@ -992,50 +992,117 @@ static int prepare_errinjct_buffer(void *buf, struct eeh_pe *pe,
->   		break;
->   
->   	default:
-> -		pr_err("unsupported RTAS error injection type 0x%x\n", rtas_type);
-> +		pr_err("unsupported RTAS error injection type 0x%x\n",
-> +		       rtas_type);
->   		return -EINVAL;
->   	}
->   
-> -	pr_debug("errinjct buffer ready: rtas_type=0x%x func=%d addr=0x%lx mask=0x%lx\n",
-> -		 rtas_type, func, addr, mask);
->   	return 0;
->   }
->   
-> +/* pseries-local mutex serializes the open/inject/close RTAS session */
-> +static DEFINE_MUTEX(pseries_errinjct_mutex);
-> +
->   /**
->    * pseries_eeh_err_inject - Inject specified error to the indicated PE
->    * @pe: the indicated PE
-> - * @type: error type
-> - * @func: specific error type
-> - * @addr: address
-> - * @mask: address mask
-> - * The routine is called to inject specified error, which is
-> - * determined by @type and @func, to the indicated PE
-> + * @type: generic EEH error type (EEH_ERR_TYPE_32 or EEH_ERR_TYPE_64)
-> + * @func: specific error function
-> + * @addr: address argument (type-dependent, may be zero)
-> + * @mask: address mask (type-dependent, may be zero)
-> + *
-> + * Implements PAPR-compliant error injection using:
-> + *   ibm,open-errinjct -> ibm,errinjct -> ibm,close-errinjct
-> + *
-> + * A short-lived RTAS work area is allocated per call; no global buffer
-> + * is used.  pseries_errinjct_mutex serializes the open/inject/close
-> + * session sequence.
-> + *
-> + * Return: 0 on success, negative errno on failure.
->    */
->   static int pseries_eeh_err_inject(struct eeh_pe *pe, int type, int func,
->   				  unsigned long addr, unsigned long mask)
->   {
-> -	struct	eeh_dev	*pdev;
-> +	struct rtas_work_area *area;
-> +	phys_addr_t area_phys;
-> +	u32 buf_phys;
-> +	void *buf;
-> +	int open_token, errinjct_token, close_token;
-> +	int session_token;
-> +	int rtas_type;
-> +	int close_rc;
-> +	int rc;
-> +
-> +	rc = validate_errinjct_args(pe, type, func, addr, mask);
-> +	if (rc)
-> +		return rc;
->   
-> -	/* Check on PCI error type */
-> -	if (type != EEH_ERR_TYPE_32 && type != EEH_ERR_TYPE_64)
-> +	rtas_type = pseries_eeh_type_to_rtas(type);
-> +	if (rtas_type < 0)
->   		return -EINVAL;
->   
-> -	switch (func) {
-> -	case EEH_ERR_FUNC_LD_MEM_ADDR:
-> -	case EEH_ERR_FUNC_LD_MEM_DATA:
-> -	case EEH_ERR_FUNC_ST_MEM_ADDR:
-> -	case EEH_ERR_FUNC_ST_MEM_DATA:
-> -		/* injects a MMIO error for all pdev's belonging to PE */
-> -		pci_lock_rescan_remove();
-> -		list_for_each_entry(pdev, &pe->edevs, entry)
-> -			eeh_pe_inject_mmio_error(pdev->pdev);
+Userspace correlates this timestamp with the host clock, so a stale value
+shows up as skew between the device and host time domains and makes
+dEQP-VK.pipeline.monolithic.timestamp.calibrated.calibration_test fail
+whenever a query happens to hit a large first-read error.
 
-Only caller of eeh_pe_inject_mmio_erro() is getting removed here. Should 
-we remove the eeh_pe_inject_mmio_error() from the source?
-> -		pci_unlock_rescan_remove();
-> -		break;
-> -	default:
-> -		return -ERANGE;
-> +	open_token    = rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT);
-> +	errinjct_token = rtas_function_token(RTAS_FN_IBM_ERRINJCT);
-> +	close_token   = rtas_function_token(RTAS_FN_IBM_CLOSE_ERRINJCT);
-> +
-> +	if (open_token    == RTAS_UNKNOWN_SERVICE ||
-> +	    errinjct_token == RTAS_UNKNOWN_SERVICE ||
-> +	    close_token   == RTAS_UNKNOWN_SERVICE)
-> +		return -ENODEV;
-> +
-> +	area = rtas_work_area_alloc(RTAS_ERRINJCT_BUF_SIZE);
-> +	buf  = rtas_work_area_raw_buf(area);
-> +	area_phys = rtas_work_area_phys(area);
-> +
-> +	if (WARN_ON_ONCE(upper_32_bits(area_phys))) {
-> +		rc = -ERANGE;
-> +		goto out_free_area;
->   	}
->   
-> -	return 0;
-> +	buf_phys = lower_32_bits(area_phys);
-> +
-> +	rc = prepare_errinjct_buffer(buf, pe, rtas_type, func, addr, mask);
-> +	if (rc)
-> +		goto out_free_area;
-> +
-> +	mutex_lock(&pseries_errinjct_mutex);
-> +
-> +	do {
-> +		rc = rtas_call(open_token, 0, 2, &session_token);
-> +	} while (rtas_busy_delay(rc));
-> +
-> +	if (rc) {
-> +		pr_err("ibm,open-errinjct failed: status=%d\n", rc);
-> +		rc = rtas_error_rc(rc);
-> +		goto out_unlock;
-> +	}
-> +
-> +	do {
-> +		rc = rtas_call(errinjct_token, 3, 1, NULL,
-> +			       rtas_type, session_token, buf_phys);
-> +	} while (rtas_busy_delay(rc));
-> +
-> +	if (rc) {
-> +		pr_err("ibm,errinjct failed: status=%d\n", rc);
-> +		rc = rtas_error_rc(rc);
-> +	}
-> +
-> +	do {
-> +		close_rc = rtas_call(close_token, 1, 1, NULL, session_token);
-> +	} while (rtas_busy_delay(close_rc));
-> +
-> +	if (close_rc) {
-> +		pr_warn("ibm,close-errinjct failed: status=%d\n", close_rc);
-> +		if (!rc)
-> +			rc = rtas_error_rc(close_rc);
-> +	}
-> +
-> +out_unlock:
-> +	mutex_unlock(&pseries_errinjct_mutex);
-> +
-> +out_free_area:
-> +	rtas_work_area_free(area);
-> +	return rc;
->   }
->   
->   static struct eeh_ops pseries_eeh_ops = {
+Signed-off-by: Ryan Zhang <ryan.zhang@oss.nxp.com>
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+---
+v2:
+ - Added the r-b in commit msg.
+ - Rebased on drm-misc-next to resolve conflict.
+ - Moved the dummy read into panthor_gpu_get_timestamp() to align with
+   the refactored timestamp query code on drm-misc-next.
+Note: The original v1 patch was based on v6.18 and applied cleanly there.
+Could we also port v1 into 6.18?
+
+ drivers/gpu/drm/panthor/panthor_gpu.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+index a383b04f101e..b8df5663f04e 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.c
++++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+@@ -2,6 +2,7 @@
+ /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+ /* Copyright 2019 Linaro, Ltd., Rob Herring <robh@kernel.org> */
+ /* Copyright 2019 Collabora ltd. */
++/* Copyright 2026 NXP */
+ 
+ #include <linux/bitfield.h>
+ #include <linux/bitmap.h>
+@@ -470,6 +471,9 @@ void panthor_gpu_resume(struct panthor_device *ptdev)
+ 
+ u64 panthor_gpu_get_timestamp(struct panthor_device *ptdev)
+ {
++	/* Dummy read to avoid stale values. */
++	gpu_read64_counter(ptdev->gpu->iomem, GPU_TIMESTAMP);
++
+ 	return gpu_read64_counter(ptdev->gpu->iomem, GPU_TIMESTAMP);
+ }
+ 
+-- 
+2.43.0
 
