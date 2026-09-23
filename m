@@ -1,201 +1,110 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f7.google.com (mail-dl2-f7.google.com [74.125.229.135])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8021A46EF8D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:24:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E971A382292
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:25:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151882; cv=none; b=hOTjjZMVKVsxp4Ftfwesm6RmYbR7ZlPXLjhdKq74oHyWisVTbsoG57MsRjN2lRF7RSOrD4Kb2LM0cOfWPcuS2vNTCLvUREOoX4QMqr452z5dBdC8cVitmA8Pexy7PNkJ2v4o5QrdSbOodw9A2Q0BVpee5D7LhiGOWhF45zTpFAc=
+	t=1790151909; cv=none; b=BaQs8dka+i7zDEva5CIqfc9rJ2kfa50BWuXTzNmS5F1XAO7FByyJIePlQU8fh0j+8pGQKS5d5KkgdwXk5nlYHJ/k/CctLI6jGB365R4AHadgenmyGpHS83TIxSyDnvrfMw+L92gFBD4nCb80CBFMyGMo6lEqbgLFBGmeUzTYDpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151882; c=relaxed/simple;
-	bh=jzd33LVj47mWl9pVPPMzl/xI1CbS4cXQuMHq5iLNkKg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=HTic5cWkpJvo6smS56IwR/me1YviWnWb2gueMWQu4ryaueGci5I6BWjC4ixVC4RC9UgLQUZsqHS70b2R5x/0abZD+q7RD9fO6OVm0QfMIAfsssSZams7zgb7UDsrxVxU/D+lKuoLDuQAbxgk/XBYW8NW3qUMdIcbGg/2SIeuwIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G5rLqrTr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RJnuNjA5; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790151909; c=relaxed/simple;
+	bh=Kp58vexdkb6CDSoliXc7c0/69wiNNnH+JRab980sQIo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NOowNFIIuhuH6Lg33Mhj/YClxdaUiDjsdjx/Y+xHqF0EpvqlHGvbMf7tpYIQEoB5p2KTe5uKBfCZRsEK44V3YuCbzkiLYXVFnyN3hTaK8VzBD7UUVn3rrOnB+LW6veKZp/E14KQ6wvDTTkPT6IwgfqMOitwSMwQ6kuCh7z/ZOBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r9i13Ljq; arc=none smtp.client-ip=74.125.229.135
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G5rLqrTr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RJnuNjA5"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8JZ0x2028398
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:24:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=uzoEP2p4qzcZlCTTK8fJcd
-	zZzalvcNrfu9vrZl27VqE=; b=G5rLqrTrYwRprBdkrWs6+B9B9HkVhvJn5Rq1Ia
-	c1laLcrM/7UMxIivle4BSRCrIJoQiCxWz/jRKemL3sYyuqRHgAxDY+bPYmM7OU4T
-	oVofx9KThOOwiCPIyy6NY+eUKVwgm2JSh2NUfJ2r7yEH10BXVdXiTckBU5oOc7t1
-	D1Rt7eUNiQsorcEJ7sqapsUQLBwjwoTS2iqrKnYmbLDM9OUprbh/LHGjIXisCu5L
-	N+S/CYGOIH17i62NC5ryGuZQfb5BOshhhD6lb5P14Nr1s29uF58YHFqxBu/csPsv
-	DHoKEJJIVkSZKwO0RNaLojp+Yf8L/ShBmrkDtHS4M6aVu3vw==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guy2c30wx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:24:35 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33310847fcaso1156237eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:24:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r9i13Ljq"
+Received: by mail-dl2-f7.google.com with SMTP id a92af1059eb24-1433e7b05b0so51474c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:25:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790151875; x=1790756675; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uzoEP2p4qzcZlCTTK8fJcdzZzalvcNrfu9vrZl27VqE=;
-        b=RJnuNjA5Hg1ls2aChUmiHpX0/zj1AMCMidxOlUi+VIDZFyFnTmdJzG10xweZCqnmUL
-         LPIghTv8Ni7/oNQIsZthTBViL608m9AtUrK3DnuiXDRpB+ks4lVMRYsmlYGJLzrtc98L
-         NoJsQ9LlDOi12Kw9lvE3s6Jysp3+BWeTjNHcKZ0M4sn3M9EvFuJ4TfYQPJYZ6IdvxZs4
-         YsxhXaHieqAKJWEn7VSbFzkvAB8eaBkDxCabS7LoCW3HH8IrB02ntbF480cNP7GIX+Cp
-         mzw23l2XptWuYwwtevhn6OwecKy0pKS+pstvUvKeCOc4g6Xhy4BkmGms2EAU/LFtygYr
-         jZLQ==
+        d=gmail.com; s=20251104; t=1790151907; x=1790756707; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kp58vexdkb6CDSoliXc7c0/69wiNNnH+JRab980sQIo=;
+        b=r9i13LjqfIC+nlSWu+cTyjfJTGCs9nzcetdMAnPoqlQyvq+ibWVtJIVquwwMANVu4N
+         ycK40yJw0O5bAY/+X7Wnyk67ZOeVW7lFa4MwY2Bh7DyKyk0LVED2J7Rxc+3oSINg6eYq
+         HUkrHju4091LshHXR9cSA8dvSAWsrTRSpfR+1vB0o/B+WvrjcFeGkIxL9JRGNSCrsW6V
+         eBc2g2EDCiym1A0CIgDsS4eKOd1wVRQ98ruIdOUbGnJMNlPWKQg615mHLCNj+jZCX9su
+         LoJzp4YKYQMa8fdUSINNhriQ6/CVLm6CRDjeBK+0Va0tA3n8vasIdsmiArRCXWjcdFKf
+         XICg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790151875; x=1790756675;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=uzoEP2p4qzcZlCTTK8fJcdzZzalvcNrfu9vrZl27VqE=;
-        b=SwCQXaWdmTjCbLfIFuWt+0YRNczGCTb8fuXFBzqYEO11nTylIJTb9gSEiUdr7qrha9
-         f5VXqrUtcKnoIR7kDMJsWOxVEzTBEEA8BeYUyx+zr7HVoVkIHENocr2ONqxv/cm4Ea2Z
-         1micZIyAM0kqiT9x4XMMejXJPjGhgwmR2PZP4aOkckEV+RdWQpHpSjBm+kgR4Nd6hKRF
-         r4hnBNOapYza7RkN3ZeSsiMydpfVJJH/4RHWlExPVeshApeyoQLwVe9/w9xwP6WP/h5V
-         EF+IrdwMm34zSzEfhJsN0iLJ7eo9SUpa9FjWLBntrb4LIm/BCMYJN3Egu0+7u53VTuAH
-         o2bQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxIPOl6ELuuHwKC6LoFSiEQYFTqYSi0WkbPjtOhc7CiFTU4GCoeLDnmqaouBx49AGU8NMwJAL2QhItbfPg=@vger.kernel.org
-X-Gm-Message-State: AFuF++khAKkynb5pGCmfvQxVH6srUQQTC0S6iAFqJghQd0WPicOX9iD7
-	q6sicOslA+M8d7rDsNaD1uFvEDDa06C6KRD04KraAfU4Kl4c7Gh2HEH4coO+F0tZ+hsMHi+khYW
-	v6faAM/IuUTCM14Z+4XmqIp24/uMrUjYVo8x3vPB3lK87deu/hfHMfDrVxIJP2olcp2s=
-X-Gm-Gg: AYBFou1CmwMihvJKZrj0Zb/cZr73OkYh0n+JAOkJ9qq25FPHMlECO9dGJxhM+EdgUCU
-	cTp+rqzgPpDMXwJC0kzt0olEXSMRNKaGWUXrGAECe0MTIaC9Wi1MlrIUoRxQd6zlAXtgeZEMsKD
-	AxUMkeFnRhmFlJ7B6ZiwtGTRyKnXCycwIepSWJR2exV2pJ4lyQ+088cXXhfwdOsMaaB8HKL8Nx0
-	vr9pXv18oIKW24UUrJZqHYWF3X+7pY4m7VMVHP1UWViKuw0MKc0nMBA5axowWq73HRneeCb3GlO
-	WCyItePLQO1PlHr5ouDNwzi/dx/rt+agQQuxQU4t0nK+342eNH9bK9rMfttBKn8HsQ0tPedHboo
-	7cpaJkMId20Pba2jD3lVSzCGAjUYp03tqH+nGCxz/KBT1k76SgETgDVhxRYI=
-X-Received: by 2002:a05:693c:2518:b0:339:794b:c068 with SMTP id 5a478bee46e88-33e8e6a0a3amr1950213eec.40.1790151874568;
-        Wed, 23 Sep 2026 01:24:34 -0700 (PDT)
-X-Received: by 2002:a05:693c:2518:b0:339:794b:c068 with SMTP id 5a478bee46e88-33e8e6a0a3amr1950188eec.40.1790151873837;
-        Wed, 23 Sep 2026 01:24:33 -0700 (PDT)
-Received: from alfred-sh01-lnx.ap.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96946d0csm4859652eec.21.2026.09.23.01.24.30
+        d=1e100.net; s=20260707; t=1790151907; x=1790756707;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kp58vexdkb6CDSoliXc7c0/69wiNNnH+JRab980sQIo=;
+        b=IknsLjBhB4j99BWN0d18ZkwSCrf9YdZ67yFmefPcWwr/3t6PCi6PEFzS6eAQS34uYe
+         esnIcX/ZB0gVJgeKCEo1B6CiY7IwDF3GoT9jKoztnH1jrLmzq03jKQv3rpHdOX/co6Xt
+         imjVvUfd+aoRo29dLYN+oj/VjrC5SMYiMC+ZFvV4VjSUi1Bv+F9MNGRI2+84+COyuemS
+         sbIYKApS6YWLmggeKJ0njijrKU4b1wmZ8RL30vYF55RlQLAKlgWp3nowHUJ9xJA493Wn
+         yAkkhh6gKNkOET6Ircx0KgriX8CPZjngi6Fofc2WResChyE4gg6Z1Kitq3lU6Y/SGWNE
+         ZodA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+yXLfMpfTs+hsmeTlB/2K+/23ENwfiHxbaTIvSQG/nW1glrf9EGJDqtmHxex5qWd0ijkGzNLptkiRE3o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lwR1lEzgDB1ZzxNTsZS6mVU7b8TjVpDPMRRHQdO8yFYnNJKyp7
+	HA1EbUKcxx8QPOP2Oz0t90nanz5AH7Sv1eGsF45c27AkG4dWDRJvwjs=
+X-Gm-Gg: AYBFou0GoEe+87OBryT/8PGmwahZjemuS9cvXLN90+wdFo134k4zSCdvd+9t5sHQpKY
+	h/6UbvaBs43FCbRZABo7hdDKByemsgHFQ3cGoN2Lwy7BV4P+4Jt5ecZI4skdRbJfK8bUGTxgMn5
+	EvwXsr3m73yiabnhXIx35ic+BA9Ekvrk1GzWXWsSouTsLiOLqL9PkJgSGM3Z46EowHI6WY5ejXr
+	baH83qlpuL5+GbuZ6gLEqr06ZHJJc1Dome7PVxiNKexK+GV1h+G8LZwuQ2ivUsN9jM7atqa7gEP
+	SmuyQv08iy7Jm4EE4feOM6EBaBHo7nUC0yGKuoWqAKQkKDUPDDjUoDqnKlHC+nEL+WhsLqVmbRh
+	6eSZOdlY/UfQ5d53splRPqEWT2EsWlg1rfAhfrBMINmFft484pwCrFbBflArDqQSEHGIhaQSVcG
+	TX1v/KQYbjeKuZu+Uu+eH7kkm9c6m/3KK4ivqqSV6bp7knR6ntYcilKRfCgMuhrL+I7oavfJr4z
+	ZukEuP3vjYRzg==
+X-Received: by 2002:a05:7022:7e07:b0:144:c128:4c4b with SMTP id a92af1059eb24-144f91cfeedmr2268090c88.36.1790151906746;
+        Wed, 23 Sep 2026 01:25:06 -0700 (PDT)
+Received: from murali-Aspire-A515-58PT.. ([2a09:bac5:3fb3:11cd::1c6:c])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f983c5a1sm7587951c88.7.2026.09.23.01.25.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 01:24:33 -0700 (PDT)
-From: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 16:24:24 +0800
-Subject: [PATCH v2] net: phy: aquantia: Add support for 5GbaseR
+        Wed, 23 Sep 2026 01:25:06 -0700 (PDT)
+From: Murali Krishna <muralikrishna2444b@gmail.com>
+To: srini@kernel.org
+Cc: ekansh.gupta@oss.qualcomm.com,
+	gregkh@linuxfoundation.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Murali Krishna <muralikrishna2444b@gmail.com>
+Subject: misc: fastrpc: is a ctx_idr IDR -> XArray conversion wanted?
+Date: Wed, 23 Sep 2026 13:52:05 +0530
+Message-ID: <20260923082254.15312-1-muralikrishna2444b@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-aquantia-support-5gbaser-v2-1-4d789dc21418@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIALeMs2oC/42NQQ6CMBBFr0K6dghtg1BX3sOwaMsANUqxU4iGc
- HcLXsDNJC958/7KCINDYpdsZQEXR86PCcQpY3bQY4/g2sRMFOJcKCFBv2Y9RqeB5mnyIULZG50
- igJWouGlRdbVi6X0K2Ln3kb41P6bZ3NHGvbcbg6Pow+fYXvju/TGzcOBQyqqVypjayvLqifJkP
- 6x/PvN0WLNt2xcIz3s12QAAAA==
-X-Change-ID: 20260923-aquantia-support-5gbaser-e7271bde9f89
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Hongmei Xu <hongmei.xu@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790151870; l=2434;
- i=hongmei.xu@oss.qualcomm.com; s=20260917; h=from:subject:message-id;
- bh=jzd33LVj47mWl9pVPPMzl/xI1CbS4cXQuMHq5iLNkKg=;
- b=j/npe6FyuqJgX2aDH8GYzjz9Pe/aoIWlOeYwrBZo4S4VZwL/S1bfuJFbh4ASo+8i45yVS3ZRh
- h1HGcXl3SpXBBaPohyA1+r7xEioL1jIm1PV7G50QI9ZQovFFBdK1X+t
-X-Developer-Key: i=hongmei.xu@oss.qualcomm.com; a=ed25519;
- pk=8J3IzbyuOOHSwLvktng8AEQIdStEQDAGNCSOlkASmk4=
-X-Proofpoint-GUID: DauOIY5eL0bKlPxHV-e7jGJWqtc-DF-o
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAzMyBTYWx0ZWRfX0DJrdh9A9v56
- M7Jdj/3tMQd37q8fXcKJOk4u0Ufo+PFkKNVt9Hqa5XMphhnilf+4TPXkp69Z9cQneHWJUaegtkf
- 8gQVIP2oi7MJo0nIa/lzGFKF9aD5LDw=
-X-Authority-Analysis: v=2.4 cv=Zsh4uN7G c=1 sm=1 tr=0 ts=6ab38cc3 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=JMcY5lylPf_IzVq4k34A:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-ORIG-GUID: DauOIY5eL0bKlPxHV-e7jGJWqtc-DF-o
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAzMyBTYWx0ZWRfXxMnN5BFBBFIa
- heG+KRQtlwgDcsL1vbr1HOMNGaVTcb6RL5Zl1aOZZ+gFMk8mOBbugbaxrHwP99R5gzKTmJkEFbL
- KWywJ+8Nl5mnSQkNAk2frBFcOYtsSPwFj8ZUIDJSZ7B3e5hOBw/QiMefXRByOzQ88+WxA7u+CK/
- eBy/lwZ0oAXLUHSe6LnFe3ztvJ1YcsFKKZsKO0XMxNmW8onKreEb2sYevLC6VctC4Y0QZ9Yu/Co
- ZbBLfdaBihJoZxQ9vINmZEijCQkQSngmdZmnd43/D61grXq0XROfrqhIllh6Bjo/ZQkvyysB3v9
- hrMdr6dWq/qlhQ72kGEDWFAtc2kiJ9KVhFCn29qAejb4AC5lpezXoG3i8/sUfgC5Uv4D3etVxEN
- xDnapCs1fl3lo79gI7cC5p8qfosX8vSM1CzI5+nU9yXVChh0Z9wByfZBNesvFe5JYYyQyfKbQ47
- PJBW9rZsDmFOphLi1Eg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- bulkscore=0 suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230033
+Content-Transfer-Encoding: 8bit
 
-Add support for 5GbaseR within Aquantia phy driver.
+Hi Srini, Ekansh,
 
-Signed-off-by: Hongmei Xu <hongmei.xu@oss.qualcomm.com>
----
-Changes in v2:
-- EDITME: describe what is new in this series revision.
-- EDITME: use bulletpoints and terse descriptions.
-- Link to v1: https://patch.msgid.link/20260923-aquantia-support-5gbaser-v1-1-537d39bb8c35@oss.qualcomm.com
----
- drivers/net/phy/aquantia/aquantia_main.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+I am new to kernel development and would like to start contributing. I
+do not have much experience yet, but I am willing to learn and to put in
+the work properly.
 
-diff --git a/drivers/net/phy/aquantia/aquantia_main.c b/drivers/net/phy/aquantia/aquantia_main.c
-index e95d391a6dc2..0bcec88fcf72 100644
---- a/drivers/net/phy/aquantia/aquantia_main.c
-+++ b/drivers/net/phy/aquantia/aquantia_main.c
-@@ -49,6 +49,7 @@
- #define MDIO_PHYXS_VEND_IF_STATUS_TYPE_RXAUI	7
- #define MDIO_PHYXS_VEND_IF_STATUS_TYPE_OFF	9
- #define MDIO_PHYXS_VEND_IF_STATUS_TYPE_OCSGMII	10
-+#define MDIO_PHYXS_VEND_IF_STATUS_TYPE_USX_5G   12
- 
- #define MDIO_AN_VEND_PROV			0xc400
- #define MDIO_AN_VEND_PROV_1000BASET_FULL	BIT(15)
-@@ -585,6 +586,9 @@ static int aqr_gen1_read_status(struct phy_device *phydev)
- 	case MDIO_PHYXS_VEND_IF_STATUS_TYPE_OCSGMII:
- 		interface = PHY_INTERFACE_MODE_2500BASEX;
- 		break;
-+	case MDIO_PHYXS_VEND_IF_STATUS_TYPE_USX_5G:
-+		interface = PHY_INTERFACE_MODE_5GBASER;
-+		break;
- 	case MDIO_PHYXS_VEND_IF_STATUS_TYPE_OFF:
- 	default:
- 		phydev->link = false;
-@@ -786,7 +790,8 @@ static int aqr_gen1_config_init(struct phy_device *phydev)
- 	    phydev->interface != PHY_INTERFACE_MODE_10GKR &&
- 	    phydev->interface != PHY_INTERFACE_MODE_10GBASER &&
- 	    phydev->interface != PHY_INTERFACE_MODE_XAUI &&
--	    phydev->interface != PHY_INTERFACE_MODE_RXAUI)
-+	    phydev->interface != PHY_INTERFACE_MODE_RXAUI &&
-+	    phydev->interface != PHY_INTERFACE_MODE_5GBASER)
- 		return -ENODEV;
- 
- 	WARN(phydev->interface == PHY_INTERFACE_MODE_XGMII,
-@@ -1040,7 +1045,8 @@ static int aqr_gen2_get_rate_matching(struct phy_device *phydev,
- 				      phy_interface_t iface)
- {
- 	if (iface == PHY_INTERFACE_MODE_10GBASER ||
--	    iface == PHY_INTERFACE_MODE_2500BASEX)
-+	    iface == PHY_INTERFACE_MODE_2500BASEX ||
-+	    iface == PHY_INTERFACE_MODE_5GBASER)
- 		return RATE_MATCH_PAUSE;
- 	return RATE_MATCH_NONE;
- }
+Documentation/core-api/idr.rst states that the IDR interface is
+deprecated in favour of the XArray, and fastrpc's ctx_idr is still an
+IDR. I have a conversion prepared -- XA_FLAGS_ALLOC1, xa_alloc_cyclic()
+with the cursor kept in struct fastrpc_channel_ctx, xa_load() and
+xa_erase(), and cctx->lock left as it is -- with no intended functional
+change.
 
----
-base-commit: 944ae66642b726bd6b25ae71b1e9ff88a0e0bdb0
-change-id: 20260923-aquantia-support-5gbaser-e7271bde9f89
+Before posting it, I would rather ask than take up your review time: is
+such a conversion wanted in fastrpc, or is the IDR usage here fine as it
+is? I have seen similar conversions in other subsystems declined as
+unnecessary, so I did not want to assume.
 
-Best regards,
---  
-Hongmei Xu <hongmei.xu@oss.qualcomm.com>
+I should also say that it is build- and sparse-tested only (x86_64,
+COMPILE_TEST, W=1 C=1, no new warnings). I have no Qualcomm hardware, so
+the converted path has never actually run.
 
+I am aware of the accel/qda series, described as an alternative to this
+driver. If fastrpc.c is effectively in maintenance mode, that is a good
+reason to say no.
+
+If the answer is no, I would be grateful if you could point me towards
+something you would actually like to see worked on here. I am happy to
+start with something small and learn from the review.
+
+Thank you for your time,
+Murali Krishna
