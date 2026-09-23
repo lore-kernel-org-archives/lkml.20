@@ -1,168 +1,388 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5061DC198
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:51:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8452833A9F3
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:52:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790131886; cv=none; b=YhUL4qatP4omIGBi/ulfpu/jyOZku5VXej2MNnZda2trzkF6z3QxsXY5vrmtK6CdkUL5Rp8oOXLTbebdK7/73uvAA+cS0J8Zf1fCp6KkipvwkazW9S0UNsyzVrk5TxRKtzGgZSt2e5L9DtGZd836YbUd787tdrnJChPcWsY4huA=
+	t=1790131983; cv=none; b=SbzDPOPLn5/JiPLBu/nSgvU2OKt6em+IDSurHkMQI1HGLjFALBMUr8mF/CbN2+y3LTXud8BUaXilaUTidP2enepEjj6rlz6eRyYxEjd6srM4bDXQyV0UfOnH8O3CdK9F2Ra7qtxswWAIdtmLQx59TlQMYd7Tpb20wE95Qquj0q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790131886; c=relaxed/simple;
-	bh=dPIyDC4kmXx0bgJsrS71snyyRANApqdcqIvEx5YbC1w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AczjQF3FJthTuWjCEE+bYV3Uqqqx4Cpb5YJp2pkRyupx/nDZjwUZxu3WJpaxSypri/flq5esukbcN1MeAoFH2lQv70vCyqsFadHXs5hrjJsNja3nH5eU0E2fdgG3avAbcc8HACv86Xl22dMEVSMsDf4/yHdy5QPRuHdhx4K18hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=QFAw8cE3; arc=none smtp.client-ip=220.197.31.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1790131983; c=relaxed/simple;
+	bh=a7+pLpf6YkrQIyxveWCVHFRO1MNao1SDWaNEpRApMtI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AsWICTi6hSvEKvQJhsH70RGZkdA+PcYUthg70i9T/k1wJR+pVxxzoMDYKB78UNoPWAHRvRol1/KW7uuaOoLc8bzwW5tysozTT3de108iFyoqiKRHKI1ZxbQnpGRGl9ZNQOugQdv2/QM4pYYXlK2yNGYeb6BptpM7OWgtPNIA5i0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sny0b9Zh; arc=none smtp.client-ip=74.125.227.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="QFAw8cE3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Hq
-	A+80dRJCagJodpppCE+xKvVH7PzCWMIz5FXbwN7wg=; b=QFAw8cE3cpbQSRKDUp
-	BAfNB99heb+l8gZF4GkikZKi/vEr/ArxJjjUQKhlX2uF9jBhmtLsq5QVGPUyHXaK
-	FoEXWb4Cws8pH7cO94UM6MHRlegbBL79XtjerCQe9zqwI/r53jtIwBsWGcTKRrRm
-	XTk2G25n+dt5akjC+YrIcq23c=
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wD3P4R9PrNqIedMAA--.36282S2;
-	Wed, 23 Sep 2026 10:50:37 +0800 (CST)
-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: Chao Yu <chao@kernel.org>
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	Juan Yescas <jyescas@google.com>,
-	Dev Jain <Dev.Jain@arm.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sny0b9Zh"
+Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-791a9878aa9so178828137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:52:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790131977; x=1790736777; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K3s2p1CE2vkwr8sxWmng4sP6dTrRmCWsuND9yv4ilZA=;
+        b=sny0b9ZhEVdeax+v2frlIyF40uDMQV4T2M0B+RvdkYiTgRHm3Uc8mrKOmdFJx4SsAS
+         eYREtdlyK1muK7iIHNrICUe5TAEQcLcQ3Wqh9pzxVe46cO6u6JRha9fTRV0ES8AH6puB
+         VOGFP1k7vdNRfCzhGdXa4NWcw1dePBFj82OecCG6J3YNlhD6pD2YXbnYE0hmrRAfSRGz
+         PsxzM7I0bGOwfZZ6XN7lwWu/IDEVtRmTiTKaxcChd/cxgf3JlBuOFPMZUIoS60NMhvZ4
+         19Ll5nJ+hH5swMpZFuxCGzussEqBxhhJv1JleBZseTsi0sYskMHNkMzkqMxcNU8v4g+0
+         OAyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790131977; x=1790736777;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K3s2p1CE2vkwr8sxWmng4sP6dTrRmCWsuND9yv4ilZA=;
+        b=WZUYoJTU9ihklEnnt1Tybjd0jmX7HJBUWBL5epoBRu/3K2I2RDv6L1y0QQzswgdFdg
+         DKVJvufbRE6M2kauWwHI9HR+Bq+HP9Q4Je6SO7N8mWIx8S2DP3FNCwed+N65HfJHMkCg
+         XrZX0RCfIB7VxP6IJ0bXUoCIfaX5HPr4i5suwQMdJpUlUAP3Q0+u0T4waQXNrDnXl/43
+         Humz6W2lsV4qIT8B9f/PDY/gpxUFVb46z1LknhtlOqNT2r+ElStH6QWSeVebD5hBKunr
+         So/dUGtQZI8eZDtT6kU5QBassOgMT2VNqB0u1sXU2yHE0L6yWdanG171gEOCGn5EBtN/
+         1VEw==
+X-Forwarded-Encrypted: i=1; AKwUvByxu/pXSAm9UH2thFbsgbh7Zn/RuJql0/NAWboTU6o4uYmR2usbj7ky6Idae6Ky1oXRedsx5U70rpTdc04=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOtFel8REemVPKrt3oA0OfcsCkiCBUFnCNl2keWUPbBFPxLjVv
+	Xnj775k3ApYLmOLlg8i4NT0MU1KqKOdnlDX2p5o7aVdhigpmYjOm3+AF
+X-Gm-Gg: AYBFou1ID9qufle+91nRU8y9p+9HXV8dferrPdlEfsiE7iAyLN+PUHqqRq5RQh0dBA0
+	DZMuZHJ6x7bCmjlH1BDz8QP1CAJox/iJJFsGTNQ/NP0jTj/gz+4sIS54vPjY70hkPNcLXVsv3IV
+	aPd++ykG3h2cMhey8uA5j+wWjb3NUME6kL+I5xEldYjfjsRPu59BIbYuy36DdY3ToMMLrCkDIQb
+	v+JKvqPUIK81nCDl0/c5qVpbr3QHfDy5KI0gSFgWHMcbWbRT5nxZx31CwhUWKZFi0BgHycYhFWS
+	Yf/WTTLfEzrLUv6ZyBjGOWsp/DcwPqX9FmwJxF3RkSKUe6ii+3qXStoHpCJam3308P3L4WQu+BD
+	CINLXoOoIOE1EiPiROqYhQIxvFHw9BwEhYIlDvdXjMDulIh4BM/T82cwsojnx1556iQmTs4oklJ
+	J8mlRTQCnwGrGzd6k7TnhJiwxLQIWSfZcQuX0avMuFwT4eATQhVmQsb4FZnuJ4UaX70cn8P27Ap
+	YxKzLAZxIhQRs5pW2E=
+X-Received: by 2002:a05:6102:6b0a:b0:7a8:10eb:96c4 with SMTP id ada2fe7eead31-7ac1d4eb126mr1279244137.20.1790131977369;
+        Tue, 22 Sep 2026 19:52:57 -0700 (PDT)
+Received: from localhost.localdomain ([2804:7f0:9f80:9f3c:2a83:211a:9e77:570c])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf5a7fb17sm2031125137.7.2026.09.22.19.52.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 19:52:56 -0700 (PDT)
+From: vinihsr <vinicius.m1821@gmail.com>
+To: Daniel Pereira <danielmaraboo@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Nanzhe Zhao <nzzhao@126.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH v2 10/14] f2fs: handle partial truncate of large folio dirty subpages
-Date: Wed, 23 Sep 2026 10:50:35 +0800
-Message-ID: <20260923025035.2202070-1-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <c4e0c6d3-ad28-4e5e-a938-08b7658e9931@kernel.org>
-References: <c4e0c6d3-ad28-4e5e-a938-08b7658e9931@kernel.org>
+	Vinicius Henrique <vinicius.m1821@gmail.com>
+Subject: [PATCH v3] docs: translations: pt_BR: translate threat-model.rst
+Date: Tue, 22 Sep 2026 23:51:48 -0300
+Message-Id: <20260923025148.35637-1-vinicius.m1821@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260922031247.182335-1-vinicius.m1821@gmail.com>
+References: <20260922031247.182335-1-vinicius.m1821@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P4R9PrNqIedMAA--.36282S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw4fAw1rCw1UWw15Zr17trb_yoW5ZFW7pF
-	WUKF1DGr4DJ3WUurn7XFn0vw1Sk3srX3y7CFWxG34ft3WYq3s3KFn5t34FyF1fKryxAFs3
-	AF4jkay8XF4UGFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRCzuZUUUUU=
-Sender: nzzhao@126.com
-X-CM-SenderInfo: xq22xtbr6rjloofrz/xtbBox42BmqzPn4o6gAA3W
 
-On Thu, 17 Sep 2026 16:30:59 +0800, Chao Yu wrote:
-> Since gcing flag is per-folio, so if block #0 is on gcing, but block #1 is
-> truncated, it will drop on gcing flag of folio, result in triggering IPU on
-> such dirtied block of large folio? also it will affect f2fs_is_cp_guaranteed()?
+From: Vinicius Henrique <vinicius.m1821@gmail.com>
 
-Hi Chao,
+Translate threat-model.rst into Brazilian Portuguese,
+maintaining consistency with original formatting rules.
+And add it to the pt_BR process documentation index.
 
-Thanks for the review. I think I may should change like this?
+Assisted-by: LLM
+Signed-off-by: Vinicius Henrique <vinicius.m1821@gmail.com>
+---
+Changes in v3:
+- Fixed author name and grouped trailer tags.
+- Added SPDX-License-Identifier to threat-model.rst.
+- Fixed document title in the index.rst entry (changed to singular).
+- Corrected capitalization for "UNIX" and "Vazamentos".
+- Fixed verb agreement ("atribuam").
+- Standardized terminology to match other pt_BR documents ("namespace de usuário", "forks", "fortificado", "sem resposta").
+- v2: https://lore.kernel.org/r/20260922031247.182335-1-vinicius.m1821@gmail.com
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index f5421334ecf3..a94153be0533 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -351,6 +351,27 @@ static void f2fs_read_end_io(struct bio *bio)
- 	f2fs_verify_and_finish_bio(bio, intask);
- }
+ .../translations/pt_BR/process/index.rst      |   1 +
+ .../pt_BR/process/threat-model.rst            | 259 ++++++++++++++++++
+ 2 files changed, 260 insertions(+)
+ create mode 100644 Documentation/translations/pt_BR/process/threat-model.rst
+
+diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documentation/translations/pt_BR/process/index.rst
+index 2c63d82bf..de716743e 100644
+--- a/Documentation/translations/pt_BR/process/index.rst
++++ b/Documentation/translations/pt_BR/process/index.rst
+@@ -78,6 +78,7 @@ gerenciamento de bugs e vulnerabilidades.
+    :maxdepth: 1
+ =
+    Falhas de segurança <security-bugs>
++   Modelo de ameaças do kernel do Linux <threat-model>
+    Problemas de hardware sob embargo <embargoed-hardware-issues>
+    CVEs <cve>
  
-+static bool f2fs_ffs_has_dirty_subpage(struct folio *folio)
-+{
-+	struct f2fs_folio_state *ffs;
-+	unsigned long flags;
-+	unsigned int nr_subpages;
-+	bool dirty;
+diff --git a/Documentation/translations/pt_BR/process/threat-model.rst b/Documentation/translations/pt_BR/process/threat-model.rst
+new file mode 100644
+index 000000000..cae2d4e85
+--- /dev/null
++++ b/Documentation/translations/pt_BR/process/threat-model.rst
+@@ -0,0 +1,259 @@
++.. SPDX-License-Identifier: GPL-2.0
 +
-+	if (!f2fs_folio_has_ffs(folio))
-+		return false;
++O modelo de ameaças do kernel do Linux
++======================================
 +
-+	ffs = (struct f2fs_folio_state *)folio->private;
-+	nr_subpages = folio_nr_pages(folio);
++Existem muitas suposições sobre o que o kernel protege e o que não protege.
++Essas suposições tendem a causar confusão nos relatórios de bugs
++(:doc:`relacionados à segurança <security-bugs>` vs :doc:`não relacionados à
++segurança <../../../admin-guide/reporting-issues>`), e podem complicar a
++aplicação das medidas de segurança quando as responsabilidades por certos
++limites não estão claras entre o kernel, as distribuições, os administradores e
++os usuários.
 +
-+	spin_lock_irqsave(&ffs->state_lock, flags);
-+	dirty = find_next_bit(ffs->state, 2 * nr_subpages,
-+				nr_subpages) < 2 * nr_subpages;
-+	spin_unlock_irqrestore(&ffs->state_lock, flags);
++Este documento tenta esclarecer as responsabilidades do kernel neste domínio.
 +
-+	return dirty;
-+}
++As responsabilidades do kernel
++------------------------------
 +
- static void f2fs_write_end_bio(struct bio *bio)
- {
- 	struct f2fs_sb_info *sbi = bio->bi_private;
-@@ -410,7 +431,8 @@ static void f2fs_write_end_bio(struct bio *bio)
- 			wake_up(&sbi->cp_wait);
- 
- 		if (finished) {
--			folio_clear_f2fs_gcing(folio);
-+			if (!f2fs_ffs_has_dirty_subpage(folio))
-+				folio_clear_f2fs_gcing(folio);
- 			folio_end_writeback(folio);
- 		}
- 	}
-@@ -3575,11 +3597,10 @@ static int f2fs_write_single_data_folio(struct folio *folio, int *submitted,
- 
- 		fio.old_blkaddr = dn.data_blkaddr;
- 
- 		/* This page is already truncated */
- 		if (fio.old_blkaddr == NULL_ADDR) {
- 			ffs_clear_subrange_uptodate(folio,
- 					i << PAGE_SHIFT, PAGE_SIZE);
--			folio_clear_f2fs_gcing(folio);
- 			goto block_done;
- 		}
- 
-@@ -4122,6 +4143,7 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
- 		bool verity_in_progress;
- 		int folio_submitted = 0;
- 		bool bias_added = false;
-+		bool dirty;
- 
- 		submitted = 0;
- 		next = true;
-@@ -4224,15 +4246,19 @@ static int f2fs_write_cache_folios(struct address_space *mapping,
- 		 * partially written back), the folio must stay dirty so that
- 		 * the remaining subranges are written back later.
- 		 */
--		if (f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
--					(err ? pos : end_pos) - folio_pos(folio)))
-+		dirty = f2fs_ffs_clear_subrange_dirty_and_test(folio, 0,
-+					(err ? pos : end_pos) - folio_pos(folio));
-+		if (dirty)
- 			folio_redirty_for_writepage(wbc, folio);
- 		else
- 			inode_dec_dirty_pages(inode);
- 
- 		if (bias_added) {
--			if (atomic_dec_and_test(&ffs->write_pages_pending))
-+			if (atomic_dec_and_test(&ffs->write_pages_pending)) {
-+				if (!dirty)
-+					folio_clear_f2fs_gcing(folio);
- 				folio_end_writeback(folio);
-+			}
- 		} else if (!folio_submitted && folio_test_writeback(folio)) {
- 			folio_end_writeback(folio);
- 		}
-@@ -5054,6 +5080,8 @@ void f2fs_invalidate_folio(struct folio *folio, size_t offset, size_t length)
- 			f2fs_remove_dirty_inode(inode);
- 			folio_cancel_dirty(folio);
- 		}
-+		if (!dirty && !folio_test_writeback(folio))
-+			folio_clear_f2fs_gcing(folio);
- 		return;
- 	}
- 
++O kernel abstrai o acesso aos recursos de hardware locais e a sistemas remotos
++de forma a permitir que múltiplos usuários locais obtenham uma parcela justa dos
++recursos disponíveis concedidos a eles e, quando o hardware subjacente permitir,
++atribuam um nível de confidencialidade às suas comunicações e aos dados que
++estão processando ou armazenando.
++
++O kernel presume que o hardware subjacente se comporta de acordo com suas
++especificações. Isso inclui a integridade do conjunto de instruções da CPU, a
++transparência da unidade de previsão de desvios e das unidades de cache, a
++consistência da Unidade de Gerenciamento de Memória (MMU), o isolamento de
++periféricos com capacidade de DMA (por exemplo, via IOMMU), transições de estado
++nos controladores, intervalos de valores lidos dos registradores, o respeito às
++limitações de hardware documentadas, etc.
++
++Quando o hardware não consegue manter o isolamento especificado (por exemplo,
++falhas na CPU, canais laterais, resposta do hardware a entradas inesperadas), o
++kernel geralmente tenta implementar medidas de mitigação razoáveis. Trata-se de
++medidas de melhor esforço destinadas a reduzir a superfície de ataque ou elevar
++o custo de um ataque dentro dos limites dos recursos do hardware; elas não
++constituem uma garantia de segurança fornecida pelo kernel.
++
++Os usuários sempre realizam suas atividades sob a autoridade de um administrador
++capaz de conceder ou negar vários tipos de permissões que podem afetar a forma
++como os usuários se beneficiam dos recursos disponíveis ou o nível de
++confidencialidade de suas atividades. Os administradores também podem delegar
++todas ou parte de suas próprias permissões a alguns usuários, particularmente
++por meio de capacidades (capabilities), mas não apenas. Tudo isso é realizado
++por meio de configuração (sysctl, permissões do sistema de arquivos, etc.).
++
++O kernel do Linux aplica um determinado conjunto de configurações padrão que
++correspondem ao seu modelo de ameaças. As distribuições têm seu próprio modelo
++de ameaças e vêm com suas próprias predefinições de configuração, as quais o
++administrador pode ter que ajustar para melhor atender às suas expectativas
++(flexibilizar ou restringir).
++
++Por padrão, o kernel do Linux garante as seguintes proteções ao ser executado em
++processadores comuns que possuem níveis de privilégio e unidades de
++gerenciamento de memória:
++
++* **Isolamento baseado no usuário**: um usuário sem privilégios pode restringir
++  o acesso aos seus próprios dados por parte de outros usuários sem privilégios
++  que estejam executando no mesmo sistema. Isso inclui:
++
++  * dados armazenados, por meio de permissões do sistema de arquivos
++  * dados na memória (as páginas não são acessíveis, por padrão, a outros
++    usuários)
++  * atividade do processo (o ptrace não é permitido a outros usuários)
++  * comunicação entre processos (outros usuários não podem observar os dados
++    trocados por meio de UNIX domain sockets ou outros mecanismos de IPC).
++  * comunicações de rede dentro do mesmo sistema ou com outros sistemas
++
++* **Proteção baseada em capacidades**:
++
++  * usuários que não possuam capacidades elevadas (incluindo, mas não se
++    limitando a CAP_SYS_ADMIN) não podem alterar a configuração, a memória nem o
++    estado do kernel, modificar a visão de outros usuários sobre o layout do
++    sistema de arquivos, conceder a qualquer usuário capacidades que ele não
++    possua, nem afetar a disponibilidade do sistema (desligamento,
++    reinicialização, pânico, travamento ou tornar o sistema não responsivo por
++    esgotamento ilimitado de recursos).
++  * usuários que não possuam a capacidade ``CAP_NET_ADMIN`` não podem alterar a
++    configuração de rede, interceptar nem falsificar comunicações de rede de
++    outros usuários ou sistemas.
++  * usuários que não possuam ``CAP_SYS_PTRACE`` não podem observar as atividades
++    dos processos de outros usuários.
++
++Quando ``CONFIG_USER_NS`` está definido, o kernel também permite que usuários
++sem privilégios criem seu próprio namespace de usuário, no qual possuem todas as
++capacidades, mas com algumas restrições (eles não podem realizar ações que
++tenham impacto no namespace de usuário inicial, como alterar a hora, carregar
++módulos ou montar dispositivos de bloco). Consulte ``user_namespaces(7)`` para
++obter mais detalhes; as possibilidades dos namespaces de usuário não são
++abordadas neste documento.
++
++O kernel também oferece diversos recursos de solução de problemas e depuração,
++os quais podem constituir vetores de ataque quando caem em mãos erradas. Embora
++alguns deles tenham sido projetados para serem acessíveis a usuários locais
++comuns com baixo risco (por exemplo, logs do kernel via ``/dev/kmsg``), alguns
++exporiam informações suficientes para representar um risco na maioria dos casos,
++e a decisão de expô-los é de responsabilidade do administrador (eventos perf,
++rastreamentos), e outros não foram projetados para serem acessados por usuários
++sem privilégios (por exemplo, debugfs). O acesso a esses recursos por um usuário
++que tenha recebido permissão explícita de um administrador não constitui uma
++violação de segurança.
++
++Bugs que permitem violar os princípios acima constituem brechas de segurança.
++No entanto, bugs que permitem uma violação somente após outra já ter sido
++alcançada são apenas pontos fracos. O kernel aplica uma série de medidas de
++autoproteção cujo objetivo é evitar que um limite de segurança seja ultrapassado
++quando certas classes de bugs são encontradas, mas uma falha nessas proteções
++adicionais não constitui, por si só, uma vulnerabilidade.
++
++Quais classes de problemas não são consideradas vulnerabilidades
++----------------------------------------------------------------
++
++No modelo de ameaças do kernel do Linux, as seguintes classes de problemas
++**NÃO** são consideradas vulnerabilidades do kernel do Linux. No entanto,
++quando se acredita que o kernel poderia ser melhor, eles devem ser relatados,
++para que possam ser analisados e corrigidos sempre que razoavelmente possível,
++mas serão tratados como qualquer bug comum:
++
++* **Configuração**:
++
++  * kernels desatualizados e, particularmente, ramos em fim de vida útil estão
++    fora do escopo do modelo de ameaças do kernel: os administradores são
++    responsáveis por manter seus sistemas atualizados. Para que um bug seja
++    qualificado como uma vulnerabilidade, deve ser demonstrado que ele afeta
++    versões mantidas ativamente.
++
++  * nível de compilação: alterações na configuração do kernel que estejam
++    explicitamente documentadas como redutoras do nível de segurança (por
++    exemplo, ``CONFIG_NOMMU``), ou destinadas apenas a desenvolvedores.
++
++  * nível do sistema operacional: alterações nos parâmetros da linha de comando,
++    sysctls, permissões do sistema de arquivos, capacidades do usuário, e
++    exposição de interfaces privilegiadas que aumentem explicitamente a
++    exposição, seja oferecendo acesso não padrão a usuários sem privilégios,
++    seja reduzindo a capacidade do kernel de aplicar algumas proteções ou
++    medidas de mitigação. Exemplo: acesso de gravação ao procfs ou ao debugfs.
++
++  * problemas acionados apenas ao usar recursos destinados ao desenvolvimento ou
++    depuração (por exemplo, LOCKDEP, KASAN, FAULT_INJECTION): sabe-se que esses
++    recursos introduzem sobrecarga e instabilidade potencial e não se destinam
++    ao uso em produção.
++
++  * problemas que afetam drivers expostos sob CONFIG_STAGING, bem como recursos
++    marcados como EXPERIMENTAL na configuração.
++
++  * carregamento de módulos explicitamente inseguros/quebrados/staging
++    e, de modo geral, qualquer uso de subsistema marcado como experimental ou
++    não destinado ao uso em produção.
++
++  * execução de módulos fora da árvore ou forks não oficiais do kernel;
++    esses casos devem ser relatados ao fornecedor relevante.
++
++* **Excesso de privilégios iniciais**:
++
++  * ações realizadas por um usuário que já possui os privilégios necessários
++    para executar essa ação ou modificar esse estado (por exemplo,
++    ``CAP_SYS_ADMIN``, ``CAP_NET_ADMIN``, ``CAP_SYS_RAWIO``, ``CAP_SYS_MODULE``,
++    sem que nenhum outro limite seja ultrapassado).
++
++  * ações realizadas em um namespace do usuário que não contornam as restrições
++    impostas ao usuário inicial (por exemplo, uso de ptrace, envio de sinais,
++    uso de recursos, acesso a FS/dispositivo/sysctl/memória, vínculo de rede,
++    configuração do sistema/rede, etc.).
++
++  * qualquer ação realizada pelo usuário root no namespace inicial (por exemplo,
++    um oops do kernel ao gravar em um dispositivo privilegiado).
++
++* **Fora do uso em produção**:
++
++  Isso abrange ataques teóricos/probabilísticos que dependem de condições de
++  laboratório com ruído zero no sistema, ou aqueles que exigem um número
++  irrealista de tentativas (por exemplo, bilhões de tentativas) que seriam
++  detectadas pelo monitoramento padrão do sistema muito antes do sucesso,
++  tais como:
++
++  * previsão de números aleatórios que só funciona em um ambiente totalmente
++    silencioso (como ID de IP, portas TCP ou números de sequência que só podem
++    ser adivinhados em laboratório).
++
++  * observação de atividades e vazamentos de informações com base em abordagens
++    probabilísticas que são suscetíveis a ruído de medição e não são
++    realisticamente reproduzíveis em um sistema de produção.
++
++  * problemas que só podem ser desencadeados por ataques intensos (por exemplo,
++    força bruta) cujo impacto no sistema torna improvável ou impossível
++    permanecerem indetectáveis antes de serem bem-sucedidos (por exemplo,
++    consumir toda a memória antes de ter sucesso).
++
++  * problemas observados apenas em simuladores de desenvolvimento, emuladores ou
++    combinações que não existem em sistemas reais no momento do relato
++    (problemas envolvendo dezenas de milhões de threads, dezenas de milhares de
++    CPUs, frequências de CPU irrealistas, tamanhos de RAM ou capacidades de
++    disco, velocidades de rede).
++
++  * bem como problemas que podem ser acionados a um custo que é ordens de
++    magnitude superior aos benefícios esperados (por exemplo, um emulador de
++    teclado totalmente funcional apenas para recuperar 7 bytes não inicializados
++    em uma estrutura, ou um método de força bruta envolvendo milhões de
++    tentativas de conexão para adivinhar um número de porta).
++
++* **Falhas de fortificação (hardening)**:
++
++  * capacidade de contornar algumas das medidas de fortificação do kernel sem um
++    caminho de exploração demonstrável (por exemplo, contorno de ASLR,
++    sincronização de eventos ou sondagem sem consequências demonstráveis).
++    Trata-se apenas de pontos fracos, não de vulnerabilidades.
++
++  * falta de verificações de argumentos e falha ao relatar certos erros sem
++    consequências imediatas.
++
++* **Vazamentos aleatórios de informações**:
++
++  Isso diz respeito a vazamentos de pequenas partes de dados que simplesmente
++  estão presentes e que não podem ser escolhidas pelo invasor, ou que enfrentam
++  restrições de acesso:
++
++  * preenchimento (padding) de estruturas relatado por chamadas de sistema ou
++    outras interfaces.
++
++  * identificadores, dados parciais, strings não terminadas relatadas em
++    mensagens de erro.
++
++  * Vazamentos de endereços/ponteiros de memória do kernel não constituem um
++    vetor imediatamente explorável e não são vulnerabilidades, embora devam ser
++    relatados e corrigidos.
++
++* **Dispositivos e mídias em não conformidade**:
++
++  Os drivers são implementados com base em uma especificação. Quando um
++  dispositivo ou mídia de armazenamento viola a especificação para a qual o seu
++  driver foi escrito, o mau comportamento resultante é um bug comum a ser
++  corrigido, não uma vulnerabilidade, a menos que o driver esteja
++  especificamente documentado como sendo fortificado contra entradas hostis. Os
++  seguintes casos, portanto, não são considerados vulnerabilidades:
++
++  * bugs desencadeados pela montagem de uma imagem de sistema de arquivos
++    corrompida ou criada de forma maliciosa: a montagem de um dispositivo de
++    bloco é uma operação privilegiada (veja acima), e o administrador é
++    responsável pela mídia que ele monta. Isso inclui problemas que são
++    resolvidos, mitigados ou detectados pela execução de uma verificação de
++    consistência do sistema de arquivos (fsck) na imagem antes da montagem.
++
++  * bugs cuja reprodução requer modificação de hardware ou emulação,
++    incluindo dispositivos USB falsos que se passam por outros, ou
++    dispositivos que relatam valores fora dos seus limites documentados.
++
++* **Acesso físico**:
++
++  Problemas que exigem acesso físico à máquina, modificação de hardware ou o uso
++  de hardware especializado (por exemplo, analisadores lógicos, ferramentas de
++  ataque DMA via PCI-E/Thunderbolt) estão fora do escopo, a menos que o sistema
++  esteja explicitamente configurado com tecnologias destinadas a defender contra
++  tais ataques (por exemplo, IOMMU).
++
++* **Regressões funcionais e de desempenho**:
++
++  Qualquer problema que possa ser mitigado pela definição de permissões e
++  limites adequados não se qualifica como uma vulnerabilidade.
 -- 
-Nanzhe Zhao
+2.34.1
 
