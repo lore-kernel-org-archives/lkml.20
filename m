@@ -1,170 +1,120 @@
-Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1555477E37
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:13:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54117477999;
+	Wed, 23 Sep 2026 09:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154794; cv=none; b=TmKZEOIW3EDWXB34Vg6XWC0GoRo6XNcgP+/pClRuPiSYfeIim8jTAvTCaotaCmxIXl7Tk292/JNCQGVpbHPWGiF6vIywu+F+RG2Jym2JkjGdxPJ72hWdvJL3OOXxXPx01X7kzehkoMvPqU7qPWlHixn2ApfVGKQatcFv0zKkfQw=
+	t=1790154807; cv=none; b=Xz6nKe1rR8jXYptLeRpTdj9FAjacJh1gnMtjUKh5jI7HDdKy/qcbsLq04J+BSUl+8o7UGW9F9SDZj519fuFLcYiSha5VAWmPjkgkXZI5JoVO2N2iQc96TwyB4dR8QAeBseYpnj1YOzGfqUytQ/+x1FUJ5HLRQpbplmW6agDqpXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154794; c=relaxed/simple;
-	bh=MqDx2uNPV3E/fiWMTSd/dV4UjPLeNNzFK2C1QLD5Gus=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VMK9xIyeFR1N5s8otCleFVLPnMlN+7lpllk95a/8HfcAm9k0jksEqRhGSupe6D4ObuP+CqBW1Vz3usUdFMc6b/UlQmTSHhC0CCuhXnKdViN1GWjZSkNbJZ3QzyTElZxyYL9h6jKb77MvgZ7fvQmyvvHq+PTBQrHojt+2OK5LOB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jw0TmQ+i; arc=none smtp.client-ip=91.218.175.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790154807; c=relaxed/simple;
+	bh=qZY2QgNR0DDCBmL7/agNFQ+cU8n1KDmdfs730MvyFjw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=FHBoTlZRGUGzO53AZY58HyvhcV9pEb/p1roLsO3v9VsDR9IpIe4oLX0fZsbceI+YW74HwsYZkmIvzN7P+w5A9tnhdy20vd8rmO7mZZQSLvTyjgfJ7heRc9VV6KuIIMiE1PjOAhZyIrB8Nq5he2LeGppcGX654ZUTFKB6p0l668o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bxsEG+1J; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jw0TmQ+i"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MqDx2uNPV3E/fiWMTSd/dV4UjPLeNNzFK2C1QLD5Gus=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790154790; v=1; x=1790759590;
- b=jw0TmQ+ihNUftgMRlC3fIpvxvsR1ERvpc1kCIwpZ2zOWh18GaV+ycTAIAqfxFtrZlMVhdPpK
- g5lU9b+GSu+8NHF8YFXypn4YPzZxjwTAWNBdsNwKHhUwyIPCqUG2ouFk0StgSLnTDzSSCpUUvip
- q/X1A2QQJ25SIOh4U2DNLEeo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ad223138143f3bbe;
-	Wed, 23 Sep 2026 09:13:09 +0000
-X-Mizu-Trace-ID: ad223138143f3bbe
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: ljs@kernel.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	guoren@kernel.org,
-	bcain@kernel.org,
-	geert@linux-m68k.org,
-	dinguyen@kernel.org,
-	schuster.simon@siemens-energy.com,
-	jonas@southpole.se,
-	stefan.kristiansson@saunalahti.fi,
-	shorne@gmail.com,
-	dalias@libc.org,
-	glaubitz@physik.fu-berlin.de,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	linux@armlinux.org.uk,
-	vgupta@kernel.org,
-	monstr@monstr.eu,
-	chris@zankel.net,
-	jcmvbkbc@gmail.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	peterz@infradead.org,
-	davem@davemloft.net,
-	andreas@gaisler.com,
-	richard.henderson@linaro.org,
-	mattst88@gmail.com,
-	linmag7@gmail.com,
-	catalin.marinas@arm.com,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	tsbogend@alpha.franken.de,
-	James.Bottomley@HansenPartnership.com,
-	deller@gmx.de,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	chleroy@kernel.org,
-	hca@linux.ibm.com,
-	gor@linux.ibm.com,
-	agordeev@linux.ibm.com,
-	borntraeger@linux.ibm.com,
-	svens@linux.ibm.com,
-	richard@nod.at,
-	anton.ivanov@cambridgegreys.com,
-	johannes@sipsolutions.net,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	arnd@arndb.de,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	jgg@ziepe.ca,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	ysato@users.sourceforge.jp,
-	shakeel.butt@linux.dev,
-	corbet@lwn.net,
-	rdunlap@infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-csky@vger.kernel.org,
-	linux-hexagon@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-openrisc@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-snps-arc@lists.infradead.org,
-	linux-arch@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-alpha@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	hughd@google.com,
-	qi.zheng@linux.dev,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 07/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for m68k-coldfire
-Date: Wed, 23 Sep 2026 17:13:03 +0800
-Message-ID: <20260923091303.19671-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260922-rcu-pagetable-freeing-v4-7-fe1ad1f1e303@kernel.org>
-References: <20260922-rcu-pagetable-freeing-v4-7-fe1ad1f1e303@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bxsEG+1J"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 19A88C2BCFC;
+	Wed, 23 Sep 2026 09:13:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790154807;
+	bh=qZY2QgNR0DDCBmL7/agNFQ+cU8n1KDmdfs730MvyFjw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=bxsEG+1J9vHN0d+csNbr0GPTQpIMMvWU8WpG0mrU0BALplg5wm+feSoBrJGdtUVh6
+	 3d696PKClsZpZU2XqZRsx6tGjVRYx548Dbzs01PeVk08VVSaVyaMy6eBSfy3gsIi64
+	 GwBLPLV/bq5eIG5/dCiRBX8OXhaioh/UBF7BPerqhT+7R7GnDqKSALJIivxr+/O0nB
+	 iEpuTnpOqqrezXY4tVMu/UejqqLEmui0MyP5bMMRawZkiXuuzLTKVYSLH921iQUTYb
+	 oPjlKIuQ0uAbn0mixUvZDNe/dsvbc/sLBM1XmWQMi+LhqZPa+oFhmdw1SooVjcuJ+R
+	 JETNt67nO7WhA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3255C98309;
+	Wed, 23 Sep 2026 09:13:26 +0000 (UTC)
+From: Kim Wooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
+Date: Wed, 23 Sep 2026 18:13:26 +0900
+Subject: [PATCH net-next v2 2/3] net: macb: Enable RX timestamping for
+ specific PTPv1 filters
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260923-macb-hwtstamp-rework-v2-2-75c909b2676d@khu.ac.kr>
+References: <20260923-macb-hwtstamp-rework-v2-0-75c909b2676d@khu.ac.kr>
+In-Reply-To: <20260923-macb-hwtstamp-rework-v2-0-75c909b2676d@khu.ac.kr>
+To: netdev@vger.kernel.org, 
+ =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
+ Rafal Ozieblo <rafalo@cadence.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Nicolai Buchwitz <nb@tipi-net.de>, linux-kernel@vger.kernel.org, 
+ Kim Wooseok <5mghybrid@khu.ac.kr>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790154804; l=1851;
+ i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
+ bh=6FGYgmpXIFqBwfciSCD9Dq6gBdcnn4TCfNguIzs3JV0=;
+ b=oL/mBViDgcttRMU7A2keEjBUTtZ0Qizg4L59MbiZILPop9TKSS/n9jMQnA7s46+g9OV1uxKgZ
+ KZHydXlHXtAB28YV1HayygLMbA9NSepjkpOUM0qIfre0BRQ50lOF3m3
+X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
+ pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
+X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
+ with auth_id=1028
+X-Original-From: Kim Wooseok <5mghybrid@khu.ac.kr>
+Reply-To: 5mghybrid@khu.ac.kr
+
+From: Kim Wooseok <5mghybrid@khu.ac.kr>
+
+Selecting a PTPv1 Sync or Delay_Req filter in gem_set_hwtst() returns
+success, but leaves rx_bd_control at its initial value of
+TSTAMP_DISABLED. The requested filter therefore appears to have been
+applied, even though received packets have no hardware timestamps.
+
+The PTPv1 event case already enables timestamping for all frames, so
+use that path for Sync and Delay_Req as well. This enables timestamping
+for both requests and returns HWTSTAMP_FILTER_ALL to tell the caller
+which filter was actually applied.
+
+Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
+Tested-by: Nicolai Buchwitz <nb@tipi-net.de>
+Assisted-by: GPT-6 Astra
+Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
+---
+ drivers/net/ethernet/cadence/macb_ptp.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
+index 02face93a..af2e36f81 100644
+--- a/drivers/net/ethernet/cadence/macb_ptp.c
++++ b/drivers/net/ethernet/cadence/macb_ptp.c
+@@ -421,10 +421,6 @@ int gem_set_hwtst(struct net_device *netdev,
+ 	switch (rx_filter) {
+ 	case HWTSTAMP_FILTER_NONE:
+ 		break;
+-	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
+-		break;
+-	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
+-		break;
+ 	case HWTSTAMP_FILTER_PTP_V2_EVENT:
+ 	case HWTSTAMP_FILTER_PTP_V2_L2_EVENT:
+ 	case HWTSTAMP_FILTER_PTP_V2_L4_EVENT:
+@@ -439,6 +435,8 @@ int gem_set_hwtst(struct net_device *netdev,
+ 		ncr_mask |= MACB_BIT(SRTSM);
+ 		ncr_bits |= MACB_BIT(SRTSM);
+ 		break;
++	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
++	case HWTSTAMP_FILTER_PTP_V1_L4_DELAY_REQ:
+ 	case HWTSTAMP_FILTER_PTP_V1_L4_EVENT:
+ 	case HWTSTAMP_FILTER_ALL:
+ 		rx_bd_control = TSTAMP_ALL_FRAMES;
+
+-- 
+2.53.0
 
 
-On Tue, Sep 22, 2026 at 04:35:38PM +0100, Lorenzo Stoakes (ARM) wrote:
->Similar to sun3, the coldfire variant of m68k uses 2-level page tables.
->
->Update its __pte_free_tlb() function to use tlb_remove_ptdesc() in order
->that, with CONFIG_MMU_GATHER_RCU_TABLE_FREE, page tables are freed under
->RCU.
->
->The page tables occupy a page each and have no odd semantics, so this
->change suffices to allow enabling of CONFIG_MMU_GATHER_RCU_TABLE_FREE for
->m68k-coldfire, so do so.
->
->This forms part of an overall effort to switch every architecture to this
->mode.
->
->Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
->Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->---
-
-Yep, ColdFire PTE freeing now goes through tlb_remove_ptdesc() :)
-
-Feel free to add:
-
-Acked-by: Lance Yang <lance.yang@linux.dev>
