@@ -1,181 +1,298 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDDB47FAFE
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:54:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D456481A84
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:54:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157295; cv=none; b=r+8E1EoMWruJSWCncmxYkMuE8AuaugcWiQoBBGpNbCpmJEmnqhUUOA/0km0YQ8dP+ueSrEgdnnZRdDqVZ17WmRhH2Tbf6aI/E/KOG2+o1QKwMZD7No3sLpZzirU/GldAvKjaRCdBLSuOiUgx0wj2oKsg1WLyAGg98GaldqWqGyw=
+	t=1790157298; cv=none; b=BbkyIN2mZG5DPwyWLwkIH+qtmmG5iP510dUpA7Gni86fZaQU3xM9DggGt40kAwwNBPDmLSqMob95ZjhCv/n2yNedi8UYkjxmO04cd0m2ZypQZxByrIhMQvQlmjHs0RcDUd1UPm8vcYCaCde8biIq+Xv8j47DYf6WIsYRz7MGb8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157295; c=relaxed/simple;
-	bh=ORWzwlnjPxIPXwwIl71ibZqlgxSHR3cDOmeid8ApVjM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pupV2mUaFYFg1aHbzyty7KjFRTGhxePitiltrb+puvgHqNXJkpjh3V+uKYzf6BwKjM2tGeTbbNYH0pkbVuI1EBPDdmjfIIa7NZ7wN9IPsrrh3DC9Kw1Pir5xhrqWBW773F5YBE3nqCk/JwrBVOS4zezAF85DDn1uP28vFu+qPSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LFCwYKrB; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790157298; c=relaxed/simple;
+	bh=ZdxK1GCr48Qlv1c1Hfl+hnQ78vR6HcTlKqlOgjft1rs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DAwQvB8ZcqnloFYwtj3vjHjif+1/b7iS1H5f95ieCwtCwpNchWF84EXX+ghoB8sINXbS6RCbDonUM3PE56P77D9vwi1H7SQzptxpZKTZU2mGZWbpHE7U89gYLqPCibYWGRo4lgMVOLCmh5fTeYizVyMW6ju9ciKlT/OUpsKvF0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=EJiHz0Z/; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LFCwYKrB"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb1a98dso477307a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:54:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="EJiHz0Z/"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso4454215e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:54:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790157291; x=1790762091; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=baylibre.com; s=google; t=1790157294; x=1790762094; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=O/p+TOshpoie9dAYVqfiIsQZZYf+Pgovp0T9es4CnLs=;
-        b=LFCwYKrBB4mHn/nk1nuU63ZkQAuECsBU3jvaEOWmoGKY6SrYbkhMlCLr2dPAIm878e
-         UnJa9Llxg24VKLiyBTKUtHxEyssLjBEfFcUnlcn2O4ZXQRuFDur4QPk7pmSBVpbeiGFZ
-         XJmUsyTPwY3QpzcKKAnEF3RPPvDgomwUycTaIaMcdz22jpJDeXpkvuX2eLuHxoQ+LhYS
-         wNr75Yhw7s4h51YTsiIYH92NsIeTcCkx5OSpoKwdIaQpjEX8HdUXzsin3poSheHxcvxW
-         Y/kd9mkm6jKANhNS5V1r5dMlxqPDngTGisX3vAd1KrF2zilYWLXfkz86wb7WodSpVA0z
-         n/kw==
+        bh=WVluREN2i8gJSNJYukB9yRNDcg0zafIc1pXUaQsB6Uw=;
+        b=EJiHz0Z/Jhk0LDctIQOaQLTYeUOIW89zGmsIDTCVd2jNbczCmq4swQk1h+wZWno1kf
+         0JebobCzQSEdT/6CvPIp0IRoJ35iPzDgOUKWzXOXZC5evsnRBny4todNCXMDxMbi1pnW
+         z5j23bIuUSTSJXbKz6TvZ5vg7VPGMqHTVS/skPmTzETsHmjjHosBAyWRB03AeECdUKD4
+         QPdrT3KzgZlB450ReO10jzNu4AT/spvweTPOY1gsQ0TRIG/ZPfxZ0I+NUqlsHqVAGNrj
+         XXLVNL/kab/MoI1KCUadUO4eoRrUOjpFcECeVOzxOHJxQR6dBYBI5VNwEpwtvpcyvCS+
+         sCFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790157291; x=1790762091;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790157294; x=1790762094;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=O/p+TOshpoie9dAYVqfiIsQZZYf+Pgovp0T9es4CnLs=;
-        b=ovAW/OxFqpC2mQA/i09bNfn/k6E52hKhQ1bcqL0sljdGG1nhEHj2VYwg0WsTT2swbU
-         BkIHMIE5Cv1vImQWsrZj0euKNhbuK+x3eSnmNflywqcJAuZH0XK/8ZX5JDNtDYPYhgZG
-         9r+rPFuAWYQ3qNVRzbOyw9WSlcVm/Xm4teJpcGKh5oVcUVzDnKee2q+1pyh+CIi6N3Cd
-         rIc9D8aL4oh/azy8pLGaT7knV5+Ud3dC0oGaLiUMObL1iUfeOF0T1/5XkRspwtKPs4qq
-         BMQj5ljsmM8tcnK2D/acP/HCvWtnCy2wnPhOibhb8VA71z/dwwJV6Q8QQB8ES1n/+oCw
-         IAqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzLg9XdACca9wc6GNUB8xCqdPzSJqpT63lUHwMqdx6hHuiXrkLRFmQmrLWdPNONtr1uA/hRO8iXOYK+sbA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6u5mdSSnfVOw7w7kLwokzwjrqfv0ns7AbntZI8qOLjt5cWbhb
-	ex16BtDAJ52TIeqwlHnNXaUnMme1M9DERzHC13+WXts5EaFpgy++eZ2N
-X-Gm-Gg: AYBFou3lRMLB8NQiA7XNn13F1kO4g56szPwdIwmG80BnCwOA0eih5ZqNZzsNoA/Mkn+
-	2CmgV8Y4iQ92RocYfqrv/1LZXMiB74hdTw97a6aJHmvRZag3kwbZDd8b4dNgs66+8hg1C/LmvFS
-	pu0/plgDliB1hSuMIpoSwpPS8XCtBqwe+HRJXt9jAqkkNn/WNPg/rE8euXxfiKxVAY52ybIpPnz
-	40+mVPIgmOGqIdbBTjVPoZ44aS087SNou5nA0OPpfZVT1Y5h49DvgdOiDUzTutkA7Iy45T5LShK
-	bg6ZZ9qXos+z5V65ZE7Ca0l53vMT/huaM2WutMr2wyXB7S8/E+Ko54c/OR/DRxfFIqiTZy7FHNW
-	bnAbjiawPCUTVqciPpZFtIZZfKSGzKfz+Yr+/mCVAvRQG/RqqOigEXhwj4Oif+rAAv1sIMPjDRw
-	0EztB53s11UxB+puqHdi6fVl8Hwy3T3aNKV+/J3wdLobanmATYtltJVfTvVZ/JQ6VKx/+3ZjuXB
-	0DiuLmG
-X-Received: by 2002:a17:90b:1c09:b0:39e:237c:50e0 with SMTP id 98e67ed59e1d1-3a07e4a2554mr1921438a91.13.1790157290738;
-        Wed, 23 Sep 2026 02:54:50 -0700 (PDT)
-Received: from gmail.com ([185.220.238.43])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a982esm8000105ad.22.2026.09.23.02.54.46
+        bh=WVluREN2i8gJSNJYukB9yRNDcg0zafIc1pXUaQsB6Uw=;
+        b=IjqJCVH92LVtvASAy8XkatUywr8BJv8fBILdMto3bei+rVquK1NAwvans/FPsEPNVU
+         +PKKw7mDUsDAenodTFr23rauUr0RsHhZm4+gf8+16XKW/r1/JFL/4ERpqmdcD9cEte8o
+         wQh6MBDpobFBBNQAKi/MtMjC6M34MYg327qmuK+Ni89S1rCUAp+x2Vvtee1u661nddOp
+         q3Pm2F/n5JJ9ihwD9n8ochP0M7NKO0S/IlK98b9s1AEcF0Uu8XBJqBXbm2ce5ElCRyKX
+         N8MDsfgHGslxVk7DwmJxPU1Cb8tBkq57U3ExloEb+MvZdm0n4xnL1UwBvTrB5E/itECj
+         CRrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw2/17CVXesC4bTGliBR1Z/tD41nR37TBFzhbgp79AVGo7rVe5NduGa350C8YB+yodpqgk8eLZ5BTivQbk=@vger.kernel.org
+X-Gm-Message-State: AFuF++n33lOVxf46amh/47IVyftzEpgxeI5QFUlse9DeKDI/v8+pzkrX
+	XGviNiWXhwBauWV0+etbH1DeFsCICVPo/6+bHXP4lkv/Ihko+psUYMsmwGiJUzxSzzw=
+X-Gm-Gg: AYBFou1LNLL9IMmnxsJHgZ/ysMwhuVR0neU93V/kewvE5Nejvz5wRIlquz4VYe9ZWjA
+	hBf3rZyA+WDyCpWSRgJaw7qtz6xMrvjo7lja6nFLh4KjtWCFD52xONSQqPF0pjaf3KQmHJ3jLId
+	BxLrDcSGytM2PFmWAC4Va/N8n/jVKT5WEO6UJbs3AonSius9x32+mVVXB+CrvuhKn3GUWBh8KoB
+	p9yO9CQTiWote8WbqJT7pq/8D+hfPdsDxjtd8DHAY6L+LZK9GIMTeEDhK/eaMWgkBxedLhBWkDL
+	bMe1BV0XGaLanZ45uRSQoUMSGOm1UYcIffe78pZaXxN4R42cOu6QmdB4DkzNNACoEyCqPsL0dfZ
+	aaN7xQSgs/PmVJhQTLCRbzrEzwQsXdRiUXCbW8OwVFDYcyUmNeqB/UKkUixWK+v/9ZoZRRU81yF
+	LA3nzoUVgaNRNIiLExDefjPfph1rsxJu+Jz7FNEKyONLwr7v3qekzRL/1A5njem3RR61P/P/flk
+	aeTj8Z7ci0q+sKUP+lbPtNWkG21mcSYHI20oQdBYmvRRJeFyNW4BSqVZwDqhFV+R64KZPDT
+X-Received: by 2002:a05:600c:19d4:b0:49c:f89b:f82 with SMTP id 5b1f17b1804b1-49fdf0fd9a0mr28571275e9.12.1790157294284;
+        Wed, 23 Sep 2026 02:54:54 -0700 (PDT)
+Received: from localhost (p200300f65f19a904c64cc79e72c13204.dip0.t-ipconnect.de. [2003:f6:5f19:a904:c64c:c79e:72c1:3204])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fde1d978fsm58006955e9.9.2026.09.23.02.54.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 02:54:50 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Kunwu Chan <kunwu.chan@gmail.com>,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	rcu@vger.kernel.org,
-	pbonzini@redhat.com,
-	seanjc@google.com,
-	paul@xen.org,
-	paulmck@kernel.org,
-	kunwu.chan@linux.dev,
-	nh-open-source@amazon.com
-Subject: Re: [PATCH 00/17] KVM: Use atomic SRCU for gfn-to-pfn cache, reinstate guest mode for x86 nesting
-Date: Wed, 23 Sep 2026 17:54:33 +0800
-Message-ID: <20260923095435.591542-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <84e1f6c28becdf94ccb72f5c64c0001768167fc2.camel@infradead.org>
-References: 
+        Wed, 23 Sep 2026 02:54:53 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:54:50 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Armin Wolf <W_Armin@gmx.de>, David Lechner <dlechner@baylibre.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>, 
+	Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
+	Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Bradley Morgan <brads@mainlining.org>, 
+	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>, 
+	Richard Weinberger <richard@nod.at>, Thierry Reding <thierry.reding@kernel.org>
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <arOfHEsGGglNse7T@monoceros>
+References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
+ <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+ <arIvG0nx4LXG9nlW@monoceros>
+ <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
+ <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
+ <2026092321-province-yearly-44aa@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vo7ynkqqolpf7hnx"
+Content-Disposition: inline
+In-Reply-To: <2026092321-province-yearly-44aa@gregkh>
 
-On Tue, 22 Sep 2026 12:37:43 +0200 David Woodhouse <dwmw2@infradead.org> wrote:
 
-> On Tue, 2026-09-22 at 11:16 +0800, KunWu Chan wrote:
-> > Do you happen to have any numbers comparing the GPC invalidation
-> > latency with regular SRCU vs. `synchronize_srcu_atomic()`? If there
-> > are also numbers with the reader-free fastpath, that would be useful
-> > for understanding its impact as well.
-> 
-> Yeah, I built some latency tests and was posting results in the earlier
-> thread¹, on a few different test hosts.
-> 
-> I compared against the existing rwlock, as well as SRCU both with and
-> without the try_synchronize_srcu() fast path. Mostly looking at the
-> invalidation latency, since that was Sean's stated concern with the
-> original RCU-based proof of concept.
-> 
-> All from the same test: 12 concurrent guest-memory invalidation
-> reproducers hammering the Xen shinfo/vcpu_info caches, 300 second
-> windows, measuring the invalidation drain end-to-end.
-> 
-> 192-way Granite Rapids, PREEMPT_RT production config:
-> 
->   rwlock (before this series)              avg  4.4µs   max 3.85ms
->   synchronize_srcu_expedited() drain       avg  8.6µs   max 810µs
->   synchronize_srcu_atomic() + fastpath     avg  ~3µs    max 801µs
-> 
-> The A/B numbers I have for the reader-free fast path were on different
-> hardware (128-way Ice Lake, production-like config):
-> 
->   synchronize_srcu_atomic(), no fastpath   avg 8.0µs   max 6.0ms
->   with the inline no-readers proof         avg 3.6µs   max 326µs
-> 
-> If you want, it isn't much effort for me to tell my friend to redo any
-> of the measurements.
-> 
-> ¹ https://lore.kernel.org/all/0d4af6318ac67486858be1df8d436147b444a2d2.camel@infradead.org/
-> 
+--vo7ynkqqolpf7hnx
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+MIME-Version: 1.0
 
-Hi David,
+Hello Greg,
 
-Thanks, this is very helpful. I've put the results together below.
+On Wed, Sep 23, 2026 at 11:27:11AM +0200, Greg Kroah-Hartman wrote:
+> On Tue, Sep 22, 2026 at 11:04:46PM +0200, Armin Wolf wrote:
+> > Am 22.09.26 um 15:40 schrieb David Lechner:
+> >=20
+> > > On 9/22/26 2:39 AM, Uwe Kleine-K=F6nig wrote:
+> > > > On Fri, Sep 18, 2026 at 06:39:02PM +0200, Danilo Krummrich wrote:
+> > > > > On Mon Sep 14, 2026 at 4:30 PM CEST, Greg Kroah-Hartman wrote:
+> > > > > > The ability to add and remove devices from a driver through the=
+ sysfs
+> > > > > > "bind" and "unbind" files was created all those decades ago as =
+a way
+> > > > > > that kernel developers can iterate faster, and provide a debugg=
+ing way
+> > > > > > for users to attempt to add a new device to a driver without ha=
+ving to
+> > > > > > rebuild their kernel.
+> > > > > >=20
+> > > > > > This api over the years has been abused and recently come under=
+ a major
+> > > > > > fuzzing "attack" through tools like syzbot which decided that i=
+t would
+> > > > > > attempt to just randomly bind any driver to any type of device,=
+ causing
+> > > > > > loads of unneeded errors and pointless kernel patches to be gen=
+erated by
+> > > > > > unsuspecting new developers.
+> > > > > >=20
+> > > > > > Handle all of this by adding a new taint flag, TAINT_FORCED_BIN=
+D, which
+> > > > > > will be set on the driver if the bind/unbind sysfs files are ev=
+er
+> > > > > > written to.  This lets kernel developers "know" that a user is
+> > > > > > attempting to do something that is not normal, and as such, if =
+the
+> > > > > > kernel breaks they get to keep the shiny pieces laying around o=
+n the
+> > > > > > floor.
+> > > > > >=20
+> > > > > > The flag is 'Y' which was unused, and can remembered as the use=
+r is
+> > > > > > "yeeting" the device being operated on here (thrown with force =
+without
+> > > > > > regard for the thing being thrown).
+> > > > > >=20
+> > > > > > Note, the taint flag gets set _BEFORE_ the bind/unbind callback=
+ happens,
+> > > > > > as many times crashes/oops/warnings/failures happen within the =
+callback,
+> > > > > > and the taint flag needs to be there to show what was being att=
+empted.
+> > > > > > If it were to be set after the callback happens, the oops repor=
+t would
+> > > > > > not properly reflect what foolishness was being attempted.
+> > > > > >=20
+> > > > > > Fuzzing tools like syzbot, that doesn't have hand-crafted rules=
+ to keep
+> > > > > > the tool from hitting bind/unbind, should be run with panic_on_=
+taint
+> > > > > > enabled so that they fall over and don't continue on, thinking =
+that they
+> > > > > > actually found a real issue.
+> > > > > >=20
+> > > > > > Userspace operations that rely on the bind/unbind files
+> > > > > I agree that this should be avoided.
+> > > > >=20
+> > > > > But I also think the biggest offender really is driver_override. =
+Specifically,
+> > > > > on a hot-pluggable bus a driver must be complient with the device=
+ driver
+> > > > > lifecycle rules and hence shouldn't break on bind/unbind. I think=
+ it would be
+> > > > > nice to not taint the kernel for such busses, and only taint on d=
+river_override,
+> > > > > as I think we'd still want the bug reports for such cases.
+> > > > >=20
+> > > > > But I think this is fine to leave for a follow-up.
+> > > > I fully agree. I'm fine and support tainting on driver_override, but
+> > > > bind/unbind are used occasionally in my bubble and I consider drive=
+rs
+> > > > not handling that properly buggy.
+> >=20
+> > I fully agree with this, drivers should correctly implement the lifecyc=
+le model
+> > and not just break when being unbound at a improper time. Drivers suffe=
+ring from
+> > this can easily break this way when unloading the associated kernel mod=
+ule, so this
+> > taint is no solution.
+>=20
+> It's a "solution" in that it tells the developer "hey, the user did
+> something odd and unsupported".  rmmod is also not a normal operation,
+> there's no requirement that it actually work as it's usually a "best
+> effort" type of thing.
+>=20
+> > > In the IIO subsystem, unbind/rebind is the de-facto way to reset a we=
+dged
+> > > chip.
+> > >=20
+> > > A few examples where other reset methods were reject in favor of unbi=
+nd/bind:
+> > >=20
+> > > https://lore.kernel.org/linux-iio/20240727160216.2488ed29@jic23-huawe=
+i/
+> > >=20
+> > > 	This needs documenting as it's custom ABI. Note that we don't often
+> > > 	accept custom ABI. Particularly not a hook that seems to reset the
+> > > 	device. If you want to do that, unbind and rebind the whole drive[r]
+> > > 	so we are in a known state etc.
+> > >=20
+> > > https://lore.kernel.org/linux-iio/20240720163440.03c713dc@jic23-huawe=
+i/
+> > >=20
+> > > 	Firstly as stated below, we don't provide interfaces for this
+> > > 	because it's a heavy weight process that is most of the effort of
+> > > 	unbinding and rebinding the driver. So if you need to reset, do that.
+> > >=20
+> > > https://lore.kernel.org/linux-iio/20250505200609.54756520@jic23-huawe=
+i/
+> > >=20
+> > > 	The solution is to run it once at driver bind. Similar to reset
+> > > 	below, if the usecase needs to re do it then unbinding and rebinding
+> > > 	the driver reflects the fact we are taking it effectively offline
+> > > 	for a while.
+> > >=20
+> > I also consider bind/unbind to be an official API to interact with devi=
+ces,
+> > so i want to use them in the future with the WMI subsystem.
+>=20
+> Why?
+>=20
+> > AFAIK the underlying reason for this series is that some drivers break =
+when
+> > being bound to unsupported devices. However IMHO drivers should verify =
+that
+> > they support a given device inside their .probe callback, and the assoc=
+iated
+> > bus should only match devices with drivers that explicitly claim suppor=
+t for
+> > those devices (ignoring driver_override).
+>=20
+> No, drivers should NOT have to do that in their .probe() function,
+> that's what we moved away from decades ago!  The match function should
+> handle all of that for you, otherwise it's contant duplication
+> everywhere that is unneeded.
 
-KVM GPC invalidation drain latency
+Well then you have to accept that root can provoke a null pointer
+exception (e.g. by forcing the pwm-tegra driver on a device) because at
+least with today's platform bus match function such a match is ok.
+=20
+> Please, learn from our history, don't make the same mistakes.
+>=20
+> Now I might be convinced that driver_override is the way to go here, but
+> it still feels really odd as again, bind/unbind was created as a driver
+> debugging option only, it should NOT be a normal operation that any user
+> should rely on.  The driver should "just work" properly instead, without
+> requiring manual bind work, as that's not a good model at all.
 
-128-way Ice Lake:
-┌──────────────────────────────────┬──────────────┬──────────────┐
-│ Implementation                   │ Avg          │ Max          │
-├──────────────────────────────────┼──────────────┼──────────────┤
-│ Baseline (rwlock)                │ not provided │ not provided │
-├──────────────────────────────────┼──────────────┼──────────────┤
-│ synchronize_srcu_expedited()     │ not provided │ not provided │
-├──────────────────────────────────┼──────────────┼──────────────┤
-│ synchronize_srcu_atomic()        │ 8.0us        │ 6.0ms        │
-├──────────────────────────────────┼──────────────┼──────────────┤
-│ synchronize_srcu_atomic() +      │ 3.6us        │ 326us        │
-│   reader-free fastpath           │              │              │
-└──────────────────────────────────┴──────────────┴──────────────┘
+I agree in principle, but (in my case wifi) drivers are buggy sometimes
+(due to missing documentation and/or engineering effort) and being able
+to rebind the driver instead of rebooting to get a working device again
+is very useful.
 
-192-way Granite Rapids:
-┌──────────────────────────────────┬──────────────┬──────────────┐
-│ Implementation                   │ Avg          │ Max          │
-├──────────────────────────────────┼──────────────┼──────────────┤
-│ Baseline (rwlock)                │ 4.4us        │ 3.85ms       │
-├──────────────────────────────────┼──────────────┼──────────────┤
-│ synchronize_srcu_expedited()     │ 8.6us        │ 810us        │
-├──────────────────────────────────┼──────────────┼──────────────┤
-│ synchronize_srcu_atomic()        │ not provided │ not provided │
-├──────────────────────────────────┼──────────────┼──────────────┤
-│ synchronize_srcu_atomic() +      │ ~3us         │ 801us        │
-│   reader-free fastpath           │              │              │
-└──────────────────────────────────┴──────────────┴──────────────┘
-Note: Avg / Max are the average and maximum end-to-end invalidation drain latency.
-The measurements use 12 concurrent guest-memory invalidation reproducers 
-hammering the Xen shinfo/vcpu_info caches over 300-second windows.
+So yes, theoretically bind/unbind isn't needed, but theory and practise
+differ in practise.
 
-On the 128-way Ice Lake system, the reader-free fastpath reduces the
-average latency from 8.0us to 3.6us, and the maximum from 6.0ms to
-326us.
+OK, as a compromise: Let's keep the taint (after all that's not
+destroying any functionality, just adding a hint for bug reports),
+and make driver_override opt-in, which should close an attack surface
+(mostly for fuzzers?) and so reduce the amount of bug reports instead of
+marking a part of them as tainted only.
 
-The 192-way Granite Rapids result is from a separate hardware
-configuration, so I kept it separate from the 128-way A/B comparison.
+Best regards
+Uwe
 
-The only missing comparison is the 192-way Granite Rapids result for
-synchronize_srcu_atomic() without the reader-free fastpath. If you
-already have that result, it would be useful to add it. No need to
-rerun the measurement just for this table if you don't have it.
+--vo7ynkqqolpf7hnx
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Could you please confirm that I transcribed the numbers correctly?
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Kunwu
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqzoegACgkQj4D7WH0S
+/k5w2Af+Klg1x+XORKkNS2E1qxcAWBCsdnbQ0ltybNAmcLfI1d4qr0WgcoHuii5p
+WOu2bUorr148oQBqYv2Z04SSH27vPRJqVWVKDLwTKhhkDVXWYRvppS9Z+KZ5ZrMT
+Hx4Nviwt7SBmiNPvgElGvxqRTlKgA0yr0+7/GIBHtQrx4T+iwlNzFyWJu9Gyq2fq
+QoGKN32qy1ZBeU0daZPEWZtvgSgpG4CeMIFVI1553ejpwYCCl5XT3KqxcR++YULI
+Tajayk3xZoMfautfaS4E3OhBXrHVdjpKJgUCU5o2CZRFj4z/EqJhEO6I7EqinjJP
+scI9dJVSDNK/ONJmdXB+ghfK376ljw==
+=9woh
+-----END PGP SIGNATURE-----
 
+--vo7ynkqqolpf7hnx--
