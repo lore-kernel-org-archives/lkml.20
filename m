@@ -1,42 +1,80 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08264A0127;
-	Wed, 23 Sep 2026 16:17:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D663AB269
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790180233; cv=none; b=ZtKQlBhX7UfB3wBxKFXafCIy6NXsO1Bt+7ej4RT8ReUYPw0KJaTZdNp8jOZCOq2koNCSo34RPtX9yEGww/P5XUVibS7schPuioIyCYbwq0iV1m06rG3uuKDP+BvtGtMURSqEaaHFBOh79ow5vHfOmyfVVews0Mek4R0HeGC6D6w=
+	t=1790180255; cv=none; b=LuyNmHWiQt85PDBAufxO5bLeZ1W8StDPeb8+c6b83S3VmkbiL2HNjqCKDF82ozfg2N+jWYwh15iAVKKUTCgPPWz0SZaHJkg6hCvNetEnZAlD7VvVdwzFsvVQXzU+43ypdtNbkzcvH1kimOgmFvRE5hbAFlQSeC+j8ZzS/yffFkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790180233; c=relaxed/simple;
-	bh=9SmC5aOY/hUxQeyrIYv0C3+Fy6l/Sz4tVVS+3QCwrmw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i356meqFzWRDIwMoAJdunSwpPedJEhllpAOPFWva0f3Qhjd77caUg05Mr4uVcUl+9EukzXIHThWwsFeJetniRoHNdRxoMPalZTF+nekKS1VGmwNPE8hN1Xo4dJilX+2aMBaTWGdMAEURzdBbmVP1SEXQ8nepNTaUPsrlUVHEU6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=meMlvGJ+; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790180255; c=relaxed/simple;
+	bh=sbnmurq/uAX+vNJcFUT4c5jU9IwDiC579Dx07vz6Q7Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bkAwp0ar6KP7zMdvs5ITZ2IkRN6O23CZPbxHcjleUX41SNg9OkPm566qW4rUkHlCGOyg0W9gLzeEdI08DI8t8/Cd3eMXWb8odUaCBkIWtYOKgTljC7uGGgfUAK/+1wdbhD3wiPUzRK7jGCLybqDUO3uXZnj9lXwfZYruDP/fJas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q7DczvZl; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="meMlvGJ+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Tx
-	b5LXFQn7gIszUlW4nxlEDLbM5jUUd8LGBMMAfynXw=; b=meMlvGJ+RiH0b7BiRo
-	597ga1+Gfjp7LIviYoZyG5su4vqAKoCioZ9hY77nyfFGf/HIzI1rC7xCya6y14IO
-	u9gJ0CKokAVsik46Xg3zfmaH3/sneSyfhVeJuUyLgqDEg30mckcC8Q/TBThhEudB
-	F4SPhxsk/6KJB73Mae5IoJjJg=
-Received: from cason-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgDnFUVb+7Nqi3INBA--.3923S2;
-	Thu, 24 Sep 2026 00:16:28 +0800 (CST)
-From: Xiaochuan Li <chuanx2070@163.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: io-uring@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Xiaochuan Li <chuanx2070@163.com>
-Subject: [PATCH v2] io_uring/lock: Keep spinlock release before wake_up()
-Date: Thu, 24 Sep 2026 00:16:22 +0800
-Message-ID: <20260923161622.25737-1-chuanx2070@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260919123021.21318-1-chuanx2070@163.com>
-References: <20260919123021.21318-1-chuanx2070@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q7DczvZl"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48586861639so17051f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:17:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790180252; x=1790785052; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6FsqUSBp8jlzbulaQzZnxDz2zVSSSTOE4AXgMopXxYY=;
+        b=q7DczvZleVowyfmR//K2jhBCDx0FX6D86DjOCweqf0hKEE8zwvFpJUksV5TwmG+6AR
+         bclRVLedfwtMqBMN0xX9u2VmZ/IXgXaWTWqZ7zKfMVlzp8G7B66Km1HEEps2H5PsogK+
+         /V/d56NZRn3QkCUC17WIeiPPBcfSFTAFmX2H5IsRH0opIJ4343UMaicQXN6WeL96vONF
+         6QHlobj0fijbv3GNGdmyNso+9FtFwD5dTi6+bc5ZwQJb6IGi5AiU6WIN3P8hHlTkkkJM
+         ZCuYYoJVYgGI+GM4a99LJQDnD6OomFVCMqa4P/L+18wasKyjRtv11TP5CP8znIyUtuW9
+         raAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790180252; x=1790785052;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6FsqUSBp8jlzbulaQzZnxDz2zVSSSTOE4AXgMopXxYY=;
+        b=cQOijeUflsnHjkaVhJMiPcmM7uSdNjxQnnl0qJ8Pw2Jy0q2njOSyx7zap0FJEajMa3
+         glraGX5AViJHPdX4XzphjbFsqObGDqMMNihY2uBqGPr5Kkg2zyJW2C70amM7Bv7dR9Y+
+         AdBzqZndlvjNTKmmfQVoEqKpl3LKV1gorTV11iRkQsPHWDP0HaHb55V/cpwqxAlLPjhi
+         4waG4lbkwJ9I0CiWCm7+A1MkLW9B+LDrX9rpoZrZqeUXBV/EP+bkrhBsmi1B6qhygxR/
+         t+akXocvdf/AObPjrE+fmPnnp7ClzeTZqylIFYcNZ0b/MxiKknqpZ7XHDteTZFcctDT0
+         ytjQ==
+X-Gm-Message-State: AFuF++lpSvNZnrrmZs9TnCIiRyWxiTgkkUyRt5S8jX5LBlsScA5Jq/Il
+	bBUgf2qfG24D5b18WWekT1A8uazl3BFhuhoAQYdbHAlAycpgBIExUkj3bcg+J+G9QlahNw==
+X-Gm-Gg: AYBFou3Lyf9SFuvLTfNsQqF5dKuKzawmuTd6wXkgOpEWVO/aGdLqQi/R7SmbMwCWBTG
+	FGSgPm4aNLoLcI7YcxGE1pfIKl81dnaqUlvuwVVY1ouO54apOawTpJf764/XsnbGxtVNtAXKIHS
+	rJkcgXoLTV6cj5Hb9nAQBMBMlfbz4ax7oI6oueIeglwoysT06ajdjhjwkCBgVYsbAzAusnBo9WD
+	kSnQMf20WtxhQxQfL6uE0ml8R+uI8B+W25IXRSFmMbd72rize9mb1scr4jM6PfzaMFd69ZV1NkI
+	p+kjJFbhUmvPhueuhG56lxUW7vfjkMSzOWoiseZbumLMNYt4pGRjGSDBVnLqvRMcvcIYUp8yfQO
+	1iO+ST0uB8kXTa52gaFqE6XrQ42ugCuKxCqzzLdKxGdBq1oRCdvVjXk7IJUB2zzu2slOzA8cGhO
+	rNA4TaSe2BY3Vz8ZogNtV1eYZU8ZnAcr0/YC1k3dXCbH8mrPmVDgK7DHOFrZZVeejn1us2234Vi
+	cD6JF56O740Fx1tnxfx+DTSgrhuc1/dmk6bZIAJdQ4HCIH+3ZHUlQ5DONt2YBYqbFFiUe4BY4vR
+	RA==
+X-Received: by 2002:a05:6000:1788:b0:487:22b1:e511 with SMTP id ffacd0b85a97d-48860f8dca0mr13416589f8f.9.1790180251439;
+        Wed, 23 Sep 2026 09:17:31 -0700 (PDT)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48867b49661sm7602716f8f.0.2026.09.23.09.17.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 09:17:30 -0700 (PDT)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	raghunathpalla.0209@gmail.com,
+	syzbot+422b372cabfbaa528725@syzkaller.appspotmail.com,
+	Song Liu <song@kernel.org>,
+	Yu Kuai <yukuai@fygo.io>,
+	Li Nan <magiclinan@didiglobal.com>,
+	Xiao Ni <xiao@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	"Trela, Maciej" <Maciej.Trela@intel.com>,
+	linux-raid@vger.kernel.org
+Subject: [PATCH] md/raid0: don't BUG() on a bio that lands off the end of the array
+Date: Wed, 23 Sep 2026 17:17:28 +0100
+Message-Id: <20260923161729.122240-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,119 +82,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgDnFUVb+7Nqi3INBA--.3923S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXF18GFWDCFyUKryUZF45trb_yoWrJrW3pa
-	y3K3s8tF4rXasF9w47AF4jvw1akw4qgw4xGrs5KryrArW5Xr9xtw4kKFWF9F15urZ2vrWa
-	vF48t343Wa1UZa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UveHkUUUUU=
-X-CM-SenderInfo: pfkxt0j0sqlii6rwjhhfrp/xtbC7h2dgGqz+11DCwAA3Z
 
-When CONFIG_PREEMPT_RT enable, raw_spin_lock() will preempt_disable()
--> raw_spin_lock()
--> wake_up()
-  ...
-  -> spin_lock_irqsave()
+find_zone() looks for the strip zone holding a given sector and BUG()s if
+it can't find one.  That is only a safe assumption while the capacity the
+array advertises matches what the zones actually cover, and a personality
+takeover can break exactly that.
 
-which will trigger:
-BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:46
-in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 985654, name: iou-wrk-983605
-preempt_count: 1, expected: 0
-RCU nest depth: 0, expected: 0
-CPU: 3 PID: 985654 Comm: iou-wrk-983605 Tainted: G        O  6.1.83-rt28-g19631eb82f21
-stack:0        ppid:977479 flags:0x00000008
-tgid:977553 prio:120 preempt:0x100000001 rcu_read_lock_nesting:0
-used_cpu 3 wake_cpu 3 on_cpu 3 on_rq 1 migrate_dis 0
-arrive:17423426040675 queued:0 prev_sum:33955300 sum_exec:33955300
-Call trace:
- dump_backtrace.part.0+0xdc/0xec
- show_stack+0x1c/0x30
- dump_stack_lvl+0xac/0xc4
- dump_stack+0x14/0x30
- __might_resched+0x13c/0x170
- rt_spin_lock+0x34/0xc0
- __wake_up_common_lock+0x68/0xd0
- __wake_up+0x1c/0x24
- io_worker_handle_work+0x5b0/0x600
- io_wqe_worker+0xf4/0x310
- ret_from_fork+0x10/0x20
+level_store() lets you switch a live array to a different personality.
+The new ->run() recalculates mddev->array_sectors, but level_store() never
+tells the gendisk about it - it is the one place in md that changes the
+array size without a set_capacity_and_notify(), which do_md_run(),
+array_size_store(), update_size(), md_reap_sync_thread() and linear_add()
+all do.  So when a takeover makes the array smaller, the block device goes
+on advertising the old size and I/O sails off the end of the new mapping.
 
-Signed-off-by: Xiaochuan Li <chuanx2070@163.com>
+syzbot got there with a raid1 that had no metadata.  Such a member comes in
+through md_import_device(dev, -1, -1), which never sets rdev->sectors, and
+the check in bind_rdev_to_array() that keeps mddev->dev_sectors inside the
+member is skipped precisely when rdev->sectors is 0:
+
+	if (!test_bit(Journal, &rdev->flags) &&
+	    rdev->sectors &&
+	    (mddev->dev_sectors == 0 || rdev->sectors < mddev->dev_sectors)) {
+
+md/component_size had set dev_sectors to 2048, so raid1 came up with
+array_sectors = 2048 and the disk got a 2048 sector capacity.  Writing
+"raid0" to md/level then took the array over: create_strip_zones() rounded
+rdev->sectors (0) down to a chunk multiple, so the single strip zone ended
+at 0 and raid0_size() returned 0.  The capacity stayed at 2048, so the
+partition scan on the next open of /dev/md0 read sector 0 and fell over:
+
+  kernel BUG at drivers/md/raid0.c:318!
+  RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
+  RIP: 0010:raid0_map_submit_bio drivers/md/raid0.c:568 [inline]
+  RIP: 0010:raid0_make_request+0xf17/0x10b0 drivers/md/raid0.c:626
+  Call Trace:
+   <TASK>
+   md_handle_request+0xb0a/0xe60 drivers/md/md.c:417
+   __submit_bio+0x27f/0x340 block/blk-core.c:681
+   submit_bio_noacct_nocheck+0x4e8/0xa40 block/blk-core.c:792
+   block_read_full_folio+0x7a6/0x810 fs/buffer.c:2373
+   read_part_sector+0xb6/0x2b0 block/partitions/core.c:724
+   adfspart_check_ICS+0xb1/0x960 block/partitions/acorn.c:357
+   bdev_disk_changed+0x851/0x17a0 block/partitions/core.c:695
+   blkdev_get_whole+0x372/0x510 block/bdev.c:793
+   bdev_open+0x324/0xd70 block/bdev.c:1002
+   blkdev_open+0x461/0x600 block/fops.c:674
+   __x64_sys_openat+0x138/0x170 fs/open.c:1434
+
+Just refreshing the capacity in level_store() is not enough on its own.
+If the size is managed externally - md/array_size written while the array
+was stopped, which slips past array_size_store()'s -E2BIG check -
+md_set_array_sectors() does nothing, array_sectors keeps the larger value
+and we BUG() all the same.  level_store() cannot turn the takeover away
+the way do_md_run() does either, because ->takeover() has already run and
+the old personality has already been freed.
+
+md-linear has always just failed a sector outside its mapping instead of
+asserting, so do the same here: let find_zone() return NULL and have its
+two callers report the bio and end it with an I/O error.
+
+Tested both ways into this state - a takeover that leaves the array
+zero-length, and one where md/array_size pins array_sectors at 2048.
+Before, each panics in find_zone(); after, the read just fails:
+
+  md/raid0:md0: sector 0 out of bounds, array size 0
+  md/raid0:md0: sector 0 out of bounds, array size 2048
+
+Reported-by: syzbot+422b372cabfbaa528725@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=422b372cabfbaa528725
+Fixes: 9af204cf720c ("md: Add support for Raid5->Raid0 and Raid10->Raid0 takeover")
+Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
 ---
-Changes in v2:
-io_uring/io-wq: fix lockdep warning by deferring hash wake up outside acct->lock
+ drivers/md/raid0.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-The stall wake up path in io_get_next_work() holds acct->lock while
-calling wake_up() on the hash wait queue, which creates lock ordering
-acct->lock -> hash->wait.lock and triggers lockdep circular dependency
-warning.
-
-The previous approach of temporarily dropping and retaking acct->lock
-is racy and juggles the lock unnecessarily. Instead, add a need_wake
-output flag to io_get_next_work() and defer the wake_up() to the outer
-worker loop, after acct->lock has been released.
-
-This preserves the calling convention that io_get_next_work() returns
-with acct->lock held, removes the lock inversion, and avoids any racy
-sleeper checks outside of the lock. Drop the wq_has_sleeper check as
-bare wake_up is safe and the optimization is not worth the complexity.
-
- io_uring/io-wq.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/io_uring/io-wq.c b/io_uring/io-wq.c
-index 2ca223e47d41..7a167f409379 100644
---- a/io_uring/io-wq.c
-+++ b/io_uring/io-wq.c
-@@ -526,7 +526,8 @@ static bool io_wait_on_hash(struct io_wq *wq, unsigned int hash)
+diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
+index 35e103f0c2c3..04c022d74fae 100644
+--- a/drivers/md/raid0.c
++++ b/drivers/md/raid0.c
+@@ -301,6 +301,7 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
+ 
+ /* Find the zone which holds a particular offset
+  * Update *sectorp to be an offset in that zone
++ * Returns NULL if the sector is off the end of the array.
+  */
+ static struct strip_zone *find_zone(struct r0conf *conf,
+ 				    sector_t *sectorp)
+@@ -315,7 +316,16 @@ static struct strip_zone *find_zone(struct r0conf *conf,
+ 				*sectorp = sector - z[i-1].zone_end;
+ 			return z + i;
+ 		}
+-	BUG();
++	return NULL;
++}
++
++static void raid0_out_of_bounds(struct mddev *mddev, struct bio *bio)
++{
++	pr_err_ratelimited("md/raid0:%s: sector %llu out of bounds, array size %llu\n",
++			   mdname(mddev),
++			   (unsigned long long)bio->bi_iter.bi_sector,
++			   (unsigned long long)mddev->array_sectors);
++	bio_io_error(bio);
  }
  
- static struct io_wq_work *io_get_next_work(struct io_wq_acct *acct,
--					   struct io_wq *wq)
-+					   struct io_wq *wq
-+					   bool *need_wake)
- 	__must_hold(acct->lock)
- {
- 	struct io_wq_work_node *node, *prev;
-@@ -574,9 +575,8 @@ static struct io_wq_work *io_get_next_work(struct io_wq_acct *acct,
- 		unstalled = io_wait_on_hash(wq, stall_hash);
- 		raw_spin_lock(&acct->lock);
- 		if (unstalled) {
-+			*need_wake = true;
- 			clear_bit(IO_ACCT_STALLED_BIT, &acct->flags);
--			if (wq_has_sleeper(&wq->hash->wait))
--				wake_up(&wq->hash->wait);
- 		}
- 	}
+ /*
+@@ -471,6 +481,10 @@ static void raid0_handle_discard(struct mddev *mddev, struct bio *bio)
  
-@@ -607,6 +607,7 @@ static void io_worker_handle_work(struct io_wq_acct *acct,
+ 	orig_start = start;
+ 	zone = find_zone(conf, &start);
++	if (!zone) {
++		raid0_out_of_bounds(mddev, bio);
++		return;
++	}
  
- 	do {
- 		struct io_wq_work *work;
-+		bool need_wake = false;
+ 	if (bio_end_sector(bio) > zone->zone_end) {
+ 		bio = bio_submit_split_bioset(bio,
+@@ -566,6 +580,11 @@ static void raid0_map_submit_bio(struct mddev *mddev, struct bio *bio)
+ 	md_account_bio(mddev, &bio);
  
- 		/*
- 		 * If we got some work, mark us as busy. If we didn't, but
-@@ -615,7 +616,7 @@ static void io_worker_handle_work(struct io_wq_acct *acct,
- 		 * can't make progress, any work completion or insertion will
- 		 * clear the stalled flag.
- 		 */
--		work = io_get_next_work(acct, wq);
-+		work = io_get_next_work(acct, wq, &need_wake);
- 		if (work) {
- 			/*
- 			 * Make sure cancelation can find this, even before
-@@ -631,6 +632,9 @@ static void io_worker_handle_work(struct io_wq_acct *acct,
- 
- 		raw_spin_unlock(&acct->lock);
- 
-+		if (need_wake)
-+			wake_up(&wq->hash->wait);
+ 	zone = find_zone(mddev->private, &sector);
++	if (!zone) {
++		raid0_out_of_bounds(mddev, bio);
++		return;
++	}
 +
- 		if (!work)
- 			break;
- 
-
-base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
+ 	switch (conf->layout) {
+ 	case RAID0_ORIG_LAYOUT:
+ 		tmp_dev = map_sector(mddev, zone, bio_sector, &sector);
 -- 
-2.43.0
+2.34.1
 
