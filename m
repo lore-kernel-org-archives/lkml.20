@@ -1,139 +1,129 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86ED0349CD7
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BBB48422A;
+	Wed, 23 Sep 2026 10:16:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158558; cv=none; b=ahk6Vbdl72BEGn7Fh0CuS+ehpqiOidiXh7i2KCr+w+UkaXzpH5yRCeKuu9/Ch8u0vQwXYJLK13a33qcSvPoXS1n0kw/C7DJcJPME4n76FC4tTPg6iF2CXrITyk0pd3EISf3m0FAn/bnrmpYEs3sL3H7rDDThCn7lDYIVMhD3q5U=
+	t=1790158570; cv=none; b=kNoUhPyuZRg0uTdsAW87WT2gKZ78WKK30nMItDI9BZ2O7t6dslj5sZA7h0HgF5frF//nsFMfuCrnnjk3UXzgmeWoAEa2z2TgFDVf00XivC+yPVqaLlgnQOa/g21UeE9H4YONUuGtQQsXYFTFovUu5ASlUD53JmdzPG1B0S9/MmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158558; c=relaxed/simple;
-	bh=EIUUzLZaMLycy3iJsghOslrbsHk9RROoG95frX8jYxE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nyb0wzw9Fbalr+BLul9fNUFkYAPmyJiPOy9HWspOeI0pNGSNlNJ6ICbc06wU7vdOgMws6g/VUJxW4B3Xae4abo/4sDkvdy7BuOZlpSMsxHe/ILisdM28V2CbeM9ej2hVai+4Z+7RL38HrJ08zjtNrztHVIKuHc/zS2QDyiRtrlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=p+UjFKvA; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790158570; c=relaxed/simple;
+	bh=MaJskP6/diGjUwoycuIsFSR1MNaAh22N0ogA4RMv3v0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z7pv/fwWkt5xckliYPFy7vY1C2P32Xsi2lM7Bf62wvvowAv4BVj+tVhKfwLncJlmUI8+0as8YIlT6EZIOuCuibZWYA94awUSoFgDVudjBIb+xdTMTxn1oCbDsiJdluMXTf3jYaWhRUVcgkXOe/FaFSf+r45/h6q1NiAOxLKol0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=TDEJlpGl; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="p+UjFKvA"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49e65a8f70eso30985e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:15:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790158543; x=1790763343; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yZHQHfq1ph65L7qxzKlrPBl8SiUbUAuTYjQIuazmnA4=;
-        b=p+UjFKvAdAGBkI06GEz9sLyD/K3jPHUa6wQRWu3WabKfTcbdVVKvRGAjyCvwJeuFOi
-         eGuuPjjf4hkY5WLMCXyPAkbZwfLKHAPhuo8jKKiQo9fCjJyoyrqby1ZcIoBFhdEY8otj
-         dkyRKW9o0C5+1Z52kzD0ZX7I+B6auuvNsGEJZKHuEZH4qacrzdzk3rwAqLlMLjiHLba2
-         gbzDAonil5hMkUEYq9taNt9EWCyWA4fyKWAheIrVnfK3LXzODLy0CzP1EVxBS8ky4vqS
-         2Alxez2LZQlvol1o1cMikQquZOsrMC3PqXOlcmc+N1BV6KHHI7wISrFt2WNqldaQNTXz
-         sHcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790158543; x=1790763343;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yZHQHfq1ph65L7qxzKlrPBl8SiUbUAuTYjQIuazmnA4=;
-        b=Xr80hbzWtOTVSw0js34JRkemiH6BI2SNm2zSvqp78xpnIEqi5ms9zTdpACieM10xBF
-         ByapxgOA8K3vZf5ovlAwzY8UMkRdSoCxsii3/6s2p53w91JIlSOptrp5UafWJ3PrgHl1
-         i0ZhsUbqcacb8IwtrdpLVG+nMqRiD5Zc5hlkENd6yEfB/SEUVjZkzOLK8H34oczR5vQW
-         FKOZ6WpAP7DTShLehmxHM+k2nebCyeYj/9QIL2p5I9nKjOn7qnjAau2q9kRSRO/ETTPq
-         B/mXj2nPeKaOx+vZlLCgHphQOZGxnfVzo+vGU+GsncNSqluppO/Ifa5q7HkuTC3NEPMO
-         n/8w==
-X-Forwarded-Encrypted: i=1; AKwUvBw89GE9vJHcA6wuRehvGfHRv500k+cIJF3aBJHdBSwx/ah7PFtNCt0q/2Vo3v28sq2nDm6aU+toQ5FHUNU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqCSA8tvBTF/9zbYuhMxXQdek8d2+7mnfdBuO7lbSUtmjpSrAF
-	qJZ2YkKylrnG0EM5NejYUTKVT6LiQHdy5kp+BiS+sd6z55MGJyh7DS4FZpUukrUckg==
-X-Gm-Gg: AYBFou00pAN47lMHmlBadFZkx7EqbmZ/OFaIV4tFCiiT7wYUxKY2XPeO/8+GUJBtKjA
-	gmKnfvkqqz2W8CVmSwrDegK+BL4hr9gAKDaVPbfHq7fabvbTT7234Etyn9cL53ZioFMbn7h+pDj
-	8lALHqMKsGOFwcVdbUxJ88j+YKHBK1RvHjuCcnsg8ji8tL9rHX8vZ8BaLM2FK3gS6WF2X3LAQZp
-	/3ThgQzTrePTcYJUMdYUCycIaV+pxftP1zt1uY+PfGcOobZNnRlR2xf2aXY8rAaYR5RTY69fS4N
-	Zl3XT6CIhM+nifBa6r7yQlv4+qF4PzvjhCbvRG/zom2WBb7doYwFpnhrp+qIfGi6wJai/UQpoZl
-	uv+1Y8xBI3+B9ETSqPngVjGTVY6geE2PWpwv2yr202JTu4S/5ItOOSdkzOdEOeW8TvIR1vQh2Bk
-	BeCv6cryzuYkLeUOQut8TPQnOhqCe/zy9B6wrpQxHf2RvMgk7/vE0zUhiG0/Edek8tHkaYAf5AH
-	Sk+0FlUYjUjP22NoOaL42jyAZ5DF1aIAl23IP8K
-X-Received: by 2002:a05:600c:379a:b0:49f:c6ca:42d2 with SMTP id 5b1f17b1804b1-49fe0c0bad5mr679925e9.1.1790158543084;
-        Wed, 23 Sep 2026 03:15:43 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1e975asm71831925e9.14.2026.09.23.03.15.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 03:15:42 -0700 (PDT)
-Date: Wed, 23 Sep 2026 10:15:38 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
-	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
-	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
-	yuzenghui@huawei.com, joro@8bytes.org, jgg@ziepe.ca,
-	mark.rutland@arm.com, qperret@google.com, tabba@google.com,
-	vdonnefort@google.com, sebastianene@google.com, keirf@google.com
-Subject: Re: [PATCH v8 05/25] iommu/arm-smmu-v3: Move hitless machinery to
- common code
-Message-ID: <arOmyuQwuWkynORS@google.com>
-References: <20260922131259.2975334-1-smostafa@google.com>
- <20260922131259.2975334-6-smostafa@google.com>
- <arLeIO20VQZD80nr@nvidia.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="TDEJlpGl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1790158529;
+	bh=phlHMmByFQPe2QHmU6CchxcAyR99WoDvlE01J3a4vwI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=TDEJlpGlgFQ0DmddEgpzYrFiLjgTceREkkUb9wN+zgUE9pbJ/bOzy8L53eniNdq1M
+	 jzxVGwU7HURyCxGA5zt5RYK2k6WzEcJbZQ8iqxiRn93/6d3GxX6XPW5cjeoMd4uQF9
+	 hp1QXs+A/5jg1LVLnOFcMhtB6PPNHwxDt+Rf7eWk=
+X-QQ-mid: esmtpgz13t1790158510t9137bab9
+X-QQ-Originating-IP: 35IqI3CFwEkggQc9glO3TZdHFRGHYFK/fheLZhaLhqw=
+Received: from PEN002676 ( [124.126.19.250])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 23 Sep 2026 18:15:01 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 13859201302944247303
+EX-QQ-RecipientCnt: 11
+From: ZhaoJinming <zhaojinming@uniontech.com>
+To: =?UTF-8?q?Horia=20Geant=C4=83?= <horia.geanta@nxp.com>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	Gaurav Jain <gaurav.jain@nxp.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S . Miller" <davem@davemloft.net>
+Cc: Tudor Ambarus <tudor-dan.ambarus@nxp.com>,
+	Radu Alexe <radu.alexe@nxp.com>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	ZhaoJinming <zhaojinming@uniontech.com>
+Subject: [PATCH] crypto: caam - fix double-free in caam_rsa_set_priv_key_form()
+Date: Wed, 23 Sep 2026 18:14:57 +0800
+Message-ID: <FF2F0DC4D3930E6A+20260923101457.204629-1-zhaojinming@uniontech.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arLeIO20VQZD80nr@nvidia.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: N/bTtgZmY0ZebqJYj/R0e8ecSzVZCEFinVvecEZQ1w5f+HS8J6sNZ3Sy
+	0Bbao7F9S636y1zCeTdqkcjE8qX+GcmIW3wmjfIKpX3H4vrIflMxNfq3fCWsOot/SwV9zuz
+	sOTlDo8Q0g1a2getCGVjrj/OQ8I3EgAXUBXgc7jU2HicZdfLdA0vStzJN84TGerbyXQODmn
+	5cmc2rgrk6/maVCf0pHMGVXRnGe8mxQLcFgzMQrpKe5ZR2/kgP+WYUM4FFxEoUKoHljvBke
+	pfd201p+9BUe5E9i3c754wTG92hwI+USGHvvWqsDss4fOClxikSdkrUrqdPyqn8+ZfkuVp8
+	iC/TUOQmG5MbLBHoqAk2uQ4FzPkUPKmekjfgnPz7PQYvS11sRoke+ro8Rzi7tD4hzPtAqmH
+	hYF7lwj8CiHH7KRLkmrtAY7kVl1HXzOaNpnDIU94hevtQ7km3aHJFQrlwMoJyUXy4rvdtai
+	uzYkb92iWEQBNjbOwdzx/rYSsJE643JOBRd/7LrJjMb6otgLeB1Wf35C30E6eX6Lq3GVf1Z
+	6y5IprknrjUknhVh/bUHFuNJTr9vCELf06JvqIAHgpTAcqJ00VYM+RytPx4p3x3LtyXklOQ
+	EbuUQTC0Q/sYgPklAOablQbFAZvBq2rOKSx2+/KQSKzrqV+rPssDiG5zPRNT3uSGy19QtxG
+	FFiQD7ntjxaLhIC8H9wP9mo4GugC6uE3gefdFCTOAwG6wLqSxXCSOkAZr/0HG+Il9iPbZO8
+	N34folbkJSAHFrld7ZNEw3bgMJp+s6g6jdz7or0l7Jcp1XmJNpz7nxDy93+Qr+5HcjGH1Wc
+	e03yFzqefFXlhIIKEFLWE+36GWmddOPOmFeihI7x7A41tCCyXBac32rVnC5DhWedFCQsMpu
+	J5ecsMu/6LM/7LYLI3pK5N8YP1P78i3BHVPUPYH7RvQyajoLLtSo1zxWNDMPEEs6QNPkio4
+	XKzY4y1lbKQUlvmZauWsoJ6WO6WkhL+ul1iZUgEQLm5hwRv7M5ARw7/T1utjN8w57fYLVky
+	GhUMe/Bhda4ou7+1UUlEwbSL4Zb1o=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-On Tue, Sep 22, 2026 at 12:59:28PM -0700, Nicolin Chen wrote:
-> On Tue, Sep 22, 2026 at 01:12:38PM +0000, Mostafa Saleh wrote:
-> > Move the hitless STE functions to the common file so it can be
-> > reused by the hypervisor.
-> 
-> s/it/they
+caam_rsa_set_priv_key_form() frees the partially allocated key
+components (p, q, tmp1, tmp2, dp, dq) with kfree_sensitive() on its
+error path, but does not set those pointers to NULL afterward.
 
-Will do.
+When the function returns an error, caam_rsa_set_priv_key() jumps to
+its err label and calls caam_rsa_free_key(), which frees all of those
+same pointers again, resulting in a double-free.
 
-> 
-> > No functional change.
-> > 
-> > Signed-off-by: Mostafa Saleh <smostafa@google.com>
-> 
-> Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-> 
-> With some nits:
-> 
-> > +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> > @@ -59,10 +59,8 @@ enum arm_smmu_msi_index {
-> >  	ARM_SMMU_MAX_MSIS,
-> >  };
-> >  
-> > -#define NUM_ENTRY_QWORDS 8
-> >  static_assert(sizeof(struct arm_smmu_ste) == NUM_ENTRY_QWORDS * sizeof(u64));
-> >  static_assert(sizeof(struct arm_smmu_cd) == NUM_ENTRY_QWORDS * sizeof(u64));
-> > -
-> >  static phys_addr_t arm_smmu_msi_cfg[ARM_SMMU_MAX_MSIS][3] = {
-> 
-> This line removal seems unnecessary.
+This is reachable when the allocation of q, tmp1, tmp2, dp, dq or qinv
+fails, e.g. under memory pressure, or for a malformed key whose CRT
+members decode to zero length and make caam_read_rsa_crt() return NULL.
 
-Yes, I will fix it.
+Set each pointer to NULL right after freeing it so that the subsequent
+caam_rsa_free_key() call becomes a no-op for the already-freed fields.
 
-> 
-> > +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> > @@ -1321,6 +1316,8 @@ static inline u64 arm_smmu_tlb_inv_range_enc(u8 num, u8 scale)
-> >  		FIELD_PREP(CMDQ_TLBI_0_SCALE, scale & 0x1f);
-> >  }
-> >  
-> > +#define NUM_ENTRY_QWORDS 8
-> > +
-> 
-> Maybe we should drop the duplicated define in arm-smmu-v3-test.c?
+Fixes: 52e26d77b8b3 ("crypto: caam - add support for RSA key form 2")
+Cc: stable@vger.kernel.org
+Signed-off-by: ZhaoJinming <zhaojinming@uniontech.com>
+---
+ drivers/crypto/caam/caampkc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Makes sense, will do.
+diff --git a/drivers/crypto/caam/caampkc.c b/drivers/crypto/caam/caampkc.c
+index cb001aa1de66..ac515ed8c575 100644
+--- a/drivers/crypto/caam/caampkc.c
++++ b/drivers/crypto/caam/caampkc.c
+@@ -1033,16 +1033,22 @@ static int caam_rsa_set_priv_key_form(struct caam_rsa_ctx *ctx,
+ 
+ free_dq:
+ 	kfree_sensitive(rsa_key->dq);
++	rsa_key->dq = NULL;
+ free_dp:
+ 	kfree_sensitive(rsa_key->dp);
++	rsa_key->dp = NULL;
+ free_tmp2:
+ 	kfree_sensitive(rsa_key->tmp2);
++	rsa_key->tmp2 = NULL;
+ free_tmp1:
+ 	kfree_sensitive(rsa_key->tmp1);
++	rsa_key->tmp1 = NULL;
+ free_q:
+ 	kfree_sensitive(rsa_key->q);
++	rsa_key->q = NULL;
+ free_p:
+ 	kfree_sensitive(rsa_key->p);
++	rsa_key->p = NULL;
+ 	return -ENOMEM;
+ }
+ 
+-- 
+2.51.0
 
-Thanks,
-Mostafa
-
-> 
-> Nicolin
