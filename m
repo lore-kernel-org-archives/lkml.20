@@ -1,95 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C8A443C37
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0783B993F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:10:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147407; cv=none; b=fKbzCBvnx9UMzhN/NwJEmQL+5nNjrERtbey6zrmaxYxCYy0wigAFiSjyNcm2cHyCKivEHATz8nWrL+F2JmC4CQApLIWgRbLkyAdnGpPlGxDWxwVaQk8DYFyLlgdW4Jz1m2ApGTk0zim39nEbxB1Fz4atReSDvd4tIjjshS6x1No=
+	t=1790147425; cv=none; b=W+ovtAD6OR1i84zD8kznwsoq06vLOiTFaB+97Ocoj3NNsQG4ZyRZrdcZQn8Lva0ro5HSedpTsT4NlCPWAa6LLG9EqG8hm0fyRPc9IysvvIXBJdVV2YcsfA7Yzzlsl1scheunG0hU0S7zddnivxl2e+Piphlxk/mD8uOv7HTDHKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147407; c=relaxed/simple;
-	bh=DhI2MRY1UQ/Zf7dqRQLk43wzkaFYoYUrgRMX/hRmgdo=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bp5XSBGxYB6gsn22EiJHSEkc3MXvUs7Na0YJu5LqaGBWuMydCa4dvbUnNZCHWViXMS52Z2rb5Zu3ARCGMeoJih0joDJ4c9YPVa6Rteb41gKeoWec6dIKtELgHcvxXMk24W7kQcf1UPVBpn1b4SJ5ya8aOSgpA138L20Lg4rK7XQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WL+ERHJE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790147425; c=relaxed/simple;
+	bh=gzs/ykbYiiQK5T5opupS3eRpbDSPpyLEU1OIwR2+utQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZifHQoL3B5Q56xr+p2kOP4pyRzow66Q07Ys1qzvj2qNYdY+Nq/VQYZ7cY7m4xdjUlcWWkbpd1uQ9UnqP8hH3Y8VcMJlTP4+4OZZUXipJ4XZTQAKEwWUEg1FI4soQ3Yvv4hdqdESwX7wTwxhNxWSjrFtN/57ZSr3K1z2bNpZCC0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=qiYdWCuQ; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WL+ERHJE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CAA91F000FF
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:09:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790147399;
-	bh=Rd3saNaWRQvhb2nfvrpljjDsGSWwzcimmBZsD5ihbYI=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=WL+ERHJEdm0euXioV2kE9ydfANajxO+zSqfHSd0x3/KILW6LX7nihe+b9hnNZ0Nw7
-	 izGOsThNI2oaIevkZqbxFZwvVrLowoLlC5S3SCgFsAe3w+1Vr2QGfA0+ayjpHW2dHt
-	 pNFeDc9LL1+7ra/Tq/nXH1ATuC7GNpRxTOPhVMifyBXAttsaH/xOKTjMmwvjeTwkXB
-	 WUZQI7LMv7agJLHllR5FsIEJ1HBwdnSs/dLZXsnC0UeN0BxOVaXS1CBtaAmsGM28JJ
-	 vULhRy83wMCWVenXQnHBokZerJ03zhNdUL9dGN5rYQKMKn5sTrdqGTr0NUacaMq8/D
-	 /h6cz/3lq1UUg==
-Received: by mail-lr2-f24.google.com with SMTP id 38308e7fff4ca-3a2ff163f65so4158031fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:09:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwilsO3163qDO+/foK9FiqCmOziOyo0V0u7FeQf0EcpLYC2EXK/uuATSNncTCWgQl4sykSrEwj/GXj9ujM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0IxoYC//QvYUT/axCvwXkAWjk30tspUXHJG6AKOin++dTHIhR
-	D0IjuoFrHYGSHluW0rv9guD8ibYu0+Syn/WcJgAvxfpq482234zvkLoSDQgpnjYRbPMcCgw11a0
-	D4DGH9AomlTLSfJ0xGOZgNpJ2OTXANier69IhiCrR3A==
-X-Received: by 2002:a05:651c:a115:10b0:3a1:51e6:fe5c with SMTP id
- 38308e7fff4ca-3a63064a063mr2236601fa.13.1790147397757; Wed, 23 Sep 2026
- 00:09:57 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Sep 2026 00:09:56 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 23 Sep 2026 00:09:56 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260922100850.527109-2-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="qiYdWCuQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1790147417;
+	bh=gzs/ykbYiiQK5T5opupS3eRpbDSPpyLEU1OIwR2+utQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=qiYdWCuQ1wudhH1YcdizWhh87WHf1yz9g46Um3EECmndkz1lRpD5nacDwbcyM9ke0
+	 Jd/ToyFmST80scCtFocslGM4GcmeoytwNBRmu84yTCTf41U6Rc+IgEX2pn0zJRc0Q6
+	 u93NweNlWTqNCeDr1Ui6qky7lzPl5xcN6NOiFJLHKnOls5vcF+me8CtZ2muh3RhNVZ
+	 IEtCUeDw5QKdiYFy2IZdV9Zs8wYpzm09sFryaax5YDN3s+S8/TveBONaZHddWD13gr
+	 pAnN5qwRsRdIfQ8dYLBx6YFKMiXp8wWlJVZG2IVn9yEREWi+3KE/pH+UiSXjUQ2Ccg
+	 ZG/Tk4FEO5fFw==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0E44B17E0803;
+	Wed, 23 Sep 2026 09:10:17 +0200 (CEST)
+Date: Wed, 23 Sep 2026 09:10:10 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 10/16] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
+Message-ID: <20260923091010.58b8e677@fedora-21.home>
+In-Reply-To: <arGKAk8ZWGOGDWEY@sobremesa>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+	<20260912-claude-fixes-v9-10-e588feaa61ef@collabora.com>
+	<20260914113946.69936104@fedora-21.home>
+	<arGKAk8ZWGOGDWEY@sobremesa>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922100850.527109-1-shengchao.guo@oss.qualcomm.com> <20260922100850.527109-2-shengchao.guo@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 00:09:56 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Me4Qj_0tEPj5xTsLKwTKiOnVD0KHwdzSnYOzW3cyHdQrw@mail.gmail.com>
-X-Gm-Features: AcwNN1W6_YECrRbye3rSgapWE7Ke3y8Nd7IxIgYIXgcv06RcyUviXui6XI75xos
-Message-ID: <CAMRc=Me4Qj_0tEPj5xTsLKwTKiOnVD0KHwdzSnYOzW3cyHdQrw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom,coresight-ctcu: add Nord
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jie Gan <jie.gan@oss.qualcomm.com>, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bjorn Andersson <andersson@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 22 Sep 2026 12:08:49 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> From: Jie Gan <jie.gan@oss.qualcomm.com>
->
-> The CTCU device for nord shares the same configurations as SA8775p. Add
-> a fallback to enable the CTCU for nord to utilize the compatible of the
-> SA8775p.
->
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml b/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
-> index 335a8e1a5a9e..1d5bf79f4984 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom,coresight-ctcu.yaml
-> @@ -31,6 +31,7 @@ properties:
->            - enum:
->                - qcom,glymur-ctcu
->                - qcom,kaanapali-ctcu
-> +              - qcom,nord-ctcu
->                - qcom,qcs8300-ctcu
->                - qcom,shikra-ctcu
->                - qcom,sm8750-ctcu
-> --
-> 2.43.0
->
->
+On Tue, 22 Sep 2026 20:54:11 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> On 14.09.2026 11:39, Boris Brezillon wrote:
+> > On Sat, 12 Sep 2026 00:28:11 +0100
+> > Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+> >  =20
+> > > This will be of great help when testing potential races between the G=
+PU
+> > > reset sequence and other parts of the code accessing HW registers.
+> > >=20
+> > > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> =20
+> >=20
+> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+> >=20
+> > One comment below.
+> >  =20
+> > > ---
+> > >  drivers/gpu/drm/panfrost/panfrost_device.c | 37 ++++++++++++++++++++=
+++++++++++
+> > >  1 file changed, 37 insertions(+)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu=
+/drm/panfrost/panfrost_device.c
+> > > index d75566a45392..0aee1d87a7ab 100644
+> > > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+> > > @@ -2,6 +2,7 @@
+> > >  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+> > >  /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
+> > > =20
+> > > +#include <linux/debugfs.h>
+> > >  #include <linux/clk.h>
+> > >  #include <linux/reset.h>
+> > >  #include <linux/platform_device.h>
+> > > @@ -583,9 +584,45 @@ EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) =3D {
+> > >  };
+> > > =20
+> > >  #ifdef CONFIG_DEBUG_FS
+> > > +static int reset_get(void *data, u64 *val)
+> > > +{
+> > > +	struct panfrost_device *pfdev =3D
+> > > +		container_of(data, struct panfrost_device, base);
+> > > +
+> > > +	*val =3D atomic_read(&pfdev->reset.pending);
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static int reset_set(void *data, u64 val)
+> > > +{
+> > > +	struct panfrost_device *pfdev =3D
+> > > +		container_of(data, struct panfrost_device, base);
+> > > +	int ret =3D pm_runtime_get_if_active(pfdev->base.dev);
+> > > +
+> > > +	if (ret) {
+> > > +		panfrost_device_schedule_reset(pfdev); =20
+> >=20
+> > It feels weird to schedule a reset if the device is suspended, because
+> > a suspend/resume cycle already acts as a reset. Any particular reason
+> > you'd want to do that? If not, I'd suggest going for: =20
+>=20
+> That's been my goal all along, for the knob to trigger a reset only when
+> the device isn't suspended. pm_runtime_get_if_active() docs states that:
+>=20
+> """
+> Increment the runtime PM usage counter of @dev if its runtime PM status is
+> %RPM_ACTIVE, in which case it returns 1. If the device is in a different
+> state, 0 is returned. -EINVAL is returned if runtime PM is disabled for t=
+he
+> device, in which case also the usage_count will remain unmodified.
+> """
+>=20
+> So (ret !=3D 0) means the device either doesn't support RPM or else it
+> was in the ACTIVE state. In both cases, that means the device is powered
+> so we can proceed with the reset. However, I only decrement the usage
+> counter when kernel RPM is enabled (ret > 1).
+
+Okay, I see. Can we have a comment explaining that? Also, I think I
+prefer an early bail out over the extra indentation level added here.
+
+	if (!ret)
+		return 0;
+
+Oh, and we should probably make this knob inactive in the device removal
+path (with a disable_work()?), otherwise -EINVAL will be returned as
+soon as pm_runtime_disable() is called, and this might cause a reset to
+be scheduled, which we probably don't want, since it would interfere
+with our device_fini() logic.
+
+>=20
+> > 	if (ret <=3D 0)
+> > 		return ret;
+> >=20
+> > 	panfrost_device_schedule_reset(pfdev);
+> > 	pm_runtime_put(pfdev->base.dev);
+> > 	return 0;
+> >  =20
+> > > +		flush_work(&pfdev->reset.work);
+> > > +		if (ret > 0)
+> > > +			pm_runtime_put(pfdev->base.dev);
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
+> > > +			 reset_get, reset_set,
+> > > +			 "0x%08llx\n");
+> > > +
+> > > +static void panfrost_reset_debugfs_init(struct drm_minor *minor)
+> > > +{
+> > > +	debugfs_create_file("reset", 0600, minor->debugfs_root,
+> > > +			    minor->dev, &panfrost_reset_debugfs_fops);
+> > > +}
+> > > +
+> > >  void panfrost_device_debugfs_init(struct drm_minor *minor)
+> > >  {
+> > >  	panfrost_gem_debugfs_init(minor);
+> > >  	panfrost_sched_debugfs_init(minor);
+> > > +	panfrost_reset_debugfs_init(minor);
+> > >  }
+> > >  #endif // CONFIG_DEBUG_FS
+> > >  =20
+>=20
+> Adrian Larumbe
+
