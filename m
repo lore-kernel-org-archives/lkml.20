@@ -1,78 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF478496D33;
-	Wed, 23 Sep 2026 10:43:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC592488D86
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:43:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790160201; cv=none; b=cTKiQKIxqI+KnutU673V8cGY0bVchqA6y2N4K9Vhh9VSGCq1yPNEriAhfRytxtG3su9X1I07xPgU5Ellx8KorqK32evEgq6vq90yVFs7r4A6el0M2WpC+F9OpiFkk++g++MZxAVCaQ4T5398d2RL/zaficeSPUlysufLpp8tMNU=
+	t=1790160211; cv=none; b=vFjfMnwe3pIDCa/mbnz+7ukzEQKUjyI7ABEf/2zuU/HHMV/Wf1+8BlyZYfrUr8TGF12SXOYgJ6qFAXJ2GD+ci/skkpNRGeG38wwXy4HrIZClj+Wh8IHEOd62tHBY4H4IhGvBzWgPq6JuhBeRvra8sZADkZ4Q/MVDxDQKDQLA9JQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790160201; c=relaxed/simple;
-	bh=UzQAWVqpECBtJSeBBqlIc1ks1ChKKGMwKNz12UKFjVQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hIxVmB565lBMtZsGVwwY6DBCSiGMNRTTljOZk6byKb50OEvZsQgJqsdcLTPcw4u1hzjSla2PtQKY0Z/knJuLgRH5gvFuSjnavtA1keFXp0H4T9/r4w+wWzXesZeXvlsRotlKSUIyuVKO1o96TPFi+/E7Y5MkM+GVx5VX4PfT/Qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aq7KfXKa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790160211; c=relaxed/simple;
+	bh=/hAmY6yG2+OCPMJTvRs5ChswnMAkCdLCUN+/9Q9fZh4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZMkHuIH9XCTfwBmNwlLDhG+LhXY7oKEiaBkLVTLFWWTkZOMkbiGxFKwALOeLc9p3GsGpT1ExdFjeGLFGyf7wzXT3kyo+sIoHoI7n7NZimWg2aVfIMocXI29BTrDMj9vH3ciz6o3ssfUBqchv7xggvm60XBGFm9i79ROk9qBWJ/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CPn+PcDu; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aq7KfXKa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044531F00893;
-	Wed, 23 Sep 2026 10:43:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790160187;
-	bh=4oVf8DzdA35aYlTjZL9C99SgepL9G6bQsKftQLJ5+Ig=;
-	h=From:To:Cc:Subject:Date;
-	b=aq7KfXKamBL1ZhwwkniocrPwNXyC2k0vaHhCHlqUxCikNDGUjqQmX4PtcInxutw9C
-	 enPgJyqJ3L6ar0nkSTh/vy1G0wMAp9xalWPT+jRm0woB6/ASTUN0ElPnC8/xSNppag
-	 aG/AOPwGeR87P5O5uCEF8FGyrheMYnoDDyvFLMvSaFXK2AoRjSz5u6XTtH0JQ81IeI
-	 lq79cFr4O2KOAYln494+wcKdjxCxrPNVGHoWbv5tgasUExLD420y8MD3Rksg0spGu0
-	 YxqRwIf0lDtzb30g/gtond6jX2Hk/GSSPlSkiX+snyBU8VqdByg4s6YxyIxTWAkjE/
-	 9RXuRuQg385Cw==
-From: Thorsten Blum <blum@kernel.org>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Kees Cook <kees@kernel.org>
-Cc: Thorsten Blum <blum@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] hwrng: intel - declare warning string as const
-Date: Wed, 23 Sep 2026 12:42:35 +0200
-Message-ID: <20260923104237.82599-2-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CPn+PcDu"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48583cc7ab1so429634f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:43:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790160195; x=1790764995; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t1Z4i78iFUVYmXdwkSYq7EkiOAX8N+OcOOj8F5FsldA=;
+        b=CPn+PcDupM2GLmmXqlMvdfReA/3wAJMMUSYOaS0cjHThc+wAddPU6ProYKR6TX3Op8
+         s5yp4NHCPEyjnz7+u4HLA0GZuhA0Oj8otUoWv8l47UgGGRHC7RB+QKgleMtdEGjeacfa
+         cwEabG/Wu8LWuc8bIYyGd5xPBPTKhj+h6H/S0tmTY0FALjfJyBWvjhnn/7VulmBeSwdo
+         kCPPPwzI8RbocchihueTj+H9IkBO631KrCldStcev3UFlDv2I9e43Sa0IglFTP0ilagV
+         IGoXnifX2h3lYXLiIng8I1BlirUsIfWEbUsc2wBKREgeXUo6mN+LqTu5n8+SmdxH3DVi
+         7McQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790160195; x=1790764995;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t1Z4i78iFUVYmXdwkSYq7EkiOAX8N+OcOOj8F5FsldA=;
+        b=ojW2M9AYSjp7WJaUFvlmCMHYVoMHUQFKYSoIgcuKlePfcjdTilqkFTURqLDByruCrE
+         pXzeDjMSxmzeMdeR5q1/W95Ve2NJeG+gYFzw7KeyrZnp0KH10t+TG24cNT9ytCD6ptWU
+         Idhc1Ll0TNZbzsdAc31oXOFJmdR9sE1nAt1+ObrCoOey86J9kXdt1pnReKYJX/CYnaKp
+         a5teS3ODl1F5xvTmuW/Z2In3qPbj6eI8vGgvwLVp0inX2g2BMsCLiaA0PhPyo+waIfty
+         bog24TSM3oknEO2Y60IVSDa5YPS9GVhOgkHLnvmsaplPdN00i1uc0RH/njKogYoBz81V
+         2y0A==
+X-Forwarded-Encrypted: i=1; AKwUvBwlVvWG/ELOQMCu8QQsmKRepx+EgSEHfewvKkEyPR05sjVkkvGTf7tt7h60sCTe6HNXHsRXMe2+8GGxdi8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfvHbvI1OwTQjRrAs4fFZ6L7ai8ujDtrA8VaJHl6222kMV/pDs
+	jcHUCHf1dHc0B4kEuoqQH+FSZAwXtmkD1AzXNHIQTVF9MS8zUcBg+GLe
+X-Gm-Gg: AYBFou19tnFK5ergPu+iif7MZrwXCToLoTU6G/TIax47MxtURXRN3d89037z19q/Wfn
+	eb+irC/Zdlaeane3nHQoJu7X3jELDoDQJA0FjQJkd4bR4/RzH9uPwu0aEj8GodB2OyDlURTZ2Ue
+	Y9rFLuDyxZ5iPpAJbtBE73robzreGB12uCLV2zM2JYa9nN3TmVPbV9Y+Aj+1exBsxYrSBOaGfjX
+	h3RtdS2tl+hV3jBXoaqHG73J1dpvof2IsXrz4ukFPK4K+nur5vuhxvGFhKSmSkMWBDIxHROqDUs
+	jORwlmiu7B25LKoeqm6xOqV7FnwIcFaYX6HPkAvfEpv5h4mNf0ZWh3pa+UHhSjZKeQqA0N3IkEL
+	nMWoTE9xCGJbJ7EjEtt4mq6YcR7l4WWJ+KoMLMoBkyX2GE4DXDtGvDyhne7tG+tjvYnRZBHdAVo
+	TJNFvZEs7VL0A5hR5d8HBCzcWpYS6YHkJghBV1aB+dbAdLo1anF5IURwr38yyjBRjS/VfDXPpEN
+	mYSODnwCrjwZ9JYpyIUo0u3jKbxLOCtSCgt3/PbNjLnvQ==
+X-Received: by 2002:a5d:64cc:0:b0:487:81c:6de with SMTP id ffacd0b85a97d-48867093ce7mr3896298f8f.34.1790160194918;
+        Wed, 23 Sep 2026 03:43:14 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488687791cdsm5534038f8f.22.2026.09.23.03.43.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 03:43:14 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:43:13 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>, frederic@kernel.org,
+ neeraj.upadhyay@kernel.org, boqun@kernel.org, joelagnelf@nvidia.com,
+ rcu@vger.kernel.org, "Andrew Morton" <akpm@linux-foundation.org>, "Arnd
+ Bergmann" <arnd@arndb.de>, linux-arch@vger.kernel.org, "Vineet Gupta"
+ <vgupta@kernel.org>, linux-snps-arc@lists.infradead.org, "Russell King"
+ <linux@armlinux.org.uk>, linux-arm-kernel@lists.infradead.org, "Guo Ren"
+ <guoren@kernel.org>, linux-csky@vger.kernel.org, "Yoshinori Sato"
+ <ysato@users.sourceforge.jp>, "Rich Felker" <dalias@libc.org>, "John Paul
+ Adrian Glaubitz" <glaubitz@physik.fu-berlin.de>, linux-sh@vger.kernel.org,
+ "Chris Zankel" <chris@zankel.net>, "Max Filippov" <jcmvbkbc@gmail.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/6] lib: Add two-byte cmpxchg emulation function
+Message-ID: <20260923114313.75494970@pumpkin>
+In-Reply-To: <20260911192540.20983-2-brads@mainlining.org>
+References: <20260911192540.20983-1-brads@mainlining.org>
+	<20260911192540.20983-2-brads@mainlining.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1400; i=blum@kernel.org; h=from:subject; bh=UzQAWVqpECBtJSeBBqlIc1ks1ChKKGMwKNz12UKFjVQ=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmb18qGsMg2OG8znfzt1tzc5XLZMXUy9t0lObX/ePQe/ Nn9de7WjlIWBjEuBlkxRZYHs37M8C2tqdxkErETZg4rE8gQBi5OAZjI5CqG/y4VgssN5sz6fuit 2754YV1e84IregfZKrfpnYj7dcAreSHDX/Hm+ontDD9m5Zx9k7f2KsfKK53JJ9ZrOwo8mb76emf 8Qz4A
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The warning string is not modified and only used during initialization.
-Declare it as const, replace __initdata with __initconst, and indent the
-string.
+On Fri, 11 Sep 2026 19:25:34 +0000
+Bradley Morgan <brads@mainlining.org> wrote:
 
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/char/hw_random/intel-rng.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+> cmpxchg_emu_u8() emulates one-byte cmpxchg() in terms of four-byte
+> cmpxchg() for the architectures lacking native one-byte atomics.
+> The same architectures also lack native two-byte cmpxchg(), where
+> such an operation is not supported and either fails to compile via
+> BUILD_BUG() or fails to link, because the bad pointer sentinels
+> these architectures declare are never defined.
+> 
+> Add cmpxchg_emu_u16(), the two-byte sibling. It reads the enclosing
+> word with READ_ONCE(), splices the two target bytes through a union
+> and loops on cmpxchg() of the full word until the compare succeeds.
+> Like cmpxchg_emu_u8() it is fully ordered.
+> 
+> The Kconfig symbol gating this file is renamed from
+> ARCH_NEED_CMPXCHG_1_EMU to ARCH_NEED_CMPXCHG_1_2_EMU, as it now
+> selects both the one-byte and the two-byte emulation.
+> 
+> Suggested-by: Paul E. McKenney <paulmck@kernel.org>
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> ---
+>  arch/Kconfig                |  2 +-
+>  arch/arc/Kconfig            |  2 +-
+>  arch/arm/Kconfig            |  2 +-
+>  arch/csky/Kconfig           |  2 +-
+>  arch/sh/Kconfig             |  2 +-
+>  arch/xtensa/Kconfig         |  2 +-
+>  include/linux/cmpxchg-emu.h |  1 +
+>  lib/Makefile                |  2 +-
+>  lib/cmpxchg-emu.c           | 35 ++++++++++++++++++++++++++++++++---
+>  9 files changed, 40 insertions(+), 10 deletions(-)
+> 
+> diff --git a/arch/Kconfig b/arch/Kconfig
+> index 3bb2e568f5b1..d56064797e09 100644
+> --- a/arch/Kconfig
+> +++ b/arch/Kconfig
+> @@ -1817,7 +1817,7 @@ config CC_HAS_SANE_FUNCTION_ALIGNMENT
+>  	# strict alignment always, even with -falign-functions.
+>  	def_bool CC_HAS_MIN_FUNCTION_ALIGNMENT || CC_IS_CLANG
+>  
+> -config ARCH_NEED_CMPXCHG_1_EMU
+> +config ARCH_NEED_CMPXCHG_1_2_EMU
 
-diff --git a/drivers/char/hw_random/intel-rng.c b/drivers/char/hw_random/intel-rng.c
-index 828ed57f8500..dc3c7b6e1e59 100644
---- a/drivers/char/hw_random/intel-rng.c
-+++ b/drivers/char/hw_random/intel-rng.c
-@@ -305,11 +305,11 @@ static int __init intel_init_hw_struct(struct intel_rng_hw *intel_rng_hw,
- 	if ((intel_rng_hw->bios_cntl_val &
- 	     (BIOS_CNTL_LOCK_ENABLE_MASK|BIOS_CNTL_WRITE_ENABLE_MASK))
- 	    == BIOS_CNTL_LOCK_ENABLE_MASK) {
--		static __initdata /*const*/ char warning[] =
--PFX "Firmware space is locked read-only. If you can't or\n"
--PFX "don't want to disable this in firmware setup, and if\n"
--PFX "you are certain that your system has a functional\n"
--PFX "RNG, try using the 'no_fwh_detect' option.\n";
-+		static const char warning[] __initconst =
-+			PFX "Firmware space is locked read-only. If you can't or\n"
-+			PFX "don't want to disable this in firmware setup, and if\n"
-+			PFX "you are certain that your system has a functional\n"
-+			PFX "RNG, try using the 'no_fwh_detect' option.\n";
- 
- 		if (no_fwh_detect)
- 			return -ENODEV;
+Is it actually worth the churn of changing the name?
+Maybe just a comment that say it adds both 1 and 2 byte emulation?
+
+David
+
+>  	bool
+>  
+...
