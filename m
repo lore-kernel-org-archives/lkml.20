@@ -1,159 +1,107 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1C599481FA3;
-	Wed, 23 Sep 2026 10:31:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FB848662F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:31:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159516; cv=none; b=Zn3L81y84/tcRlMsAUcfUPk1ux31gfoj5DBUn+p5Sfwjw/69soGVhmgq2XvMsB/O0ZYgCD3cv1UpIbUYQ3NEw6VV6Pe/gs1CO4oamSJmSy+DqHsBquwOmxXvCisEzK8SGhoR9whH7aNI3VH3h/mPXYt9q05Fe8paJYMdBmAaAW0=
+	t=1790159520; cv=none; b=dBQPXJMLHVkPduNxxQmH34Yxe7Ia5OkuyDO8qe+TUnVc1o3b+RZ3fgMQzsHsYMOhcmOWyd6bKDEuTCPvLAuS2iFTgx8kFjcN6RJXAourtJmSpYMpAVFVgl56ngDQysIJkfrL2dtwWJX8tTiv+7sdkAbIOEUuqAH+SF65K+QRYDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159516; c=relaxed/simple;
-	bh=uYAgUWmDkt5tAnRAdtuAjtEyDUTVXyouusjoTlEzuDI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KFaqp4OZIkwsE2VMRJeSLDt7LkX4ak4hzIY3cB0L5dsIg8BcCg15hbuRPgypQH1+dL51+ITODECgtQduH9nOsrMLCCWSJ4An+owejy9LgduJEW9aE/8+YK9csa56hJoitGLOzZrdMBGseDl4M8aK1ueqILmxRaNu4oL57q4ZxP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=Q1xUV2Ua reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="Q1xUV2Ua"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=aN5+hXQh4QAljOgcLU7EeBC/zT8rIgkY33kRX/5zcK8=; b=Q1xUV2UaPWzYU
-	riUTrPkT/+IzbT8FUcdCiImLmPJ7KweeqOf9x8ZoaG2yfoqv1PmgANNcmkmGBl64
-	X4Jx7wc2g/8NN5PFZmgcrKnO7Biy1y88lU5WbUQIcebgG2l4Y60xW6zWHph4bYPY
-	lO584olAPL8F38Qs/HYGtHPJkRX1w8=
-Received: from localhost.localdomain (unknown [113.200.174.5])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with SMTP id BLQMCkCmK9qEqrNqdiYZAA--.17422S2;
-	Wed, 23 Sep 2026 18:31:34 +0800 (CST)
-From: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH 0/1] ALSA: bcd2000: fix use-after-free of MIDI URBs on disconnect
-Date: Wed, 23 Sep 2026 18:31:15 +0800
-Message-ID: <20260923103116.1666-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.45.1.windows.1
+	s=arc-20240116; t=1790159520; c=relaxed/simple;
+	bh=qHmJ0LuimTPz5IfDSza+MI0wTd/JNm6z/p09kQHUHlo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Rau6PZvKuPx6V9s3xcdsn4sP8ishuSVH62s4BnTq9BIurPb1R0fbdtzjDqoHML5geFWEnQBpnbf5D1OkwkI5DU8Sz9xq2B/rXzetjSxazIUOYQaSW+/3mfRFsTs20Ghnx6Mqu27LsweXacXMDXAsuLpHafpEj3vxLGAzDgWrB9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e529da9so309172e0c.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:31:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790159507; x=1790764307;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=otCNGSUWSvhuDPnjx1VVioLIbir8+cGg0W90YM641IM=;
+        b=WDWH6rPta0PW960xWu6zP0dzmA4JQpc+ZXleWIR75jZyOsM2jDwvUBKpgq2vvhZjST
+         /adrgwsd5A589n5ks6FYf6JuVmLadcFJFLBhTyHmPE50P4OjcN0S46hx2dVsWkhSks9D
+         ZKK8MVRS9YLWbPqrUChJEWA/y1qgJzueGm+B9zxc3BNSM76FI62itjHwwcfxu3FbJT45
+         LFZRNQFCnR9/sQ09K7a9p3C6IF3xhCyjBt1ZXUnua9FZHX43frHULshT5AUmTkh9WNcX
+         AP9JdNHebXYtH9TbqwAIL9Ath8sDzvYL3Cpu+Bhy1r5ORStzd64wScHYmIagOu9Zqssi
+         /pJA==
+X-Forwarded-Encrypted: i=1; AKwUvByA72+5+m7Jyz9mQHvb4sd9sBuiukJSjIkvWb+UI4gZnYxACQkd2REGVB2McPLLLA5ozxU9F0M3ZHvQakA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyYUL+cdUIJGanA84+Z6KMI+YbXIDBX72FdbODYDkUHMTmavwA
+	R8t2ICluG9LeWoQ2E9/Qe6F8pem8ONrobvmo9VnHCEPMA2KKHLYLtMPHlabC/8kYw+k=
+X-Gm-Gg: AYBFou2N9q6BVruiLI+LMPRaBmiJeUpkJo5uNLQobQwRYu7i2lD0TgmrmUWGwniJcwA
+	4KI0k0OkE+FULJHhutK00pmFTdPHDlEYZSRFXYcfUrsUwoYESamNPb/R9Gr4COskNK7SurnxaTT
+	pjUCWaKV0LALNIhRBSfMO2pFBcJZFxLLuyvjtmI0gxcPJJjpR/eMbXUHrfWSLHM6wOBbdngjBC3
+	DCzqZrKGHaQ3GAIhPw6K3vjC9RrtPXE9BQFdJ4kT4R07Vn8oL4iCfIo0uFVNng1DWSsAYy0iQ35
+	WpLkd7s8Z3r7PDu0rv9mgMZ5u6YJctWT2L1mrNuUd0T4xRFFP00cOYU4BIhqEerNdBdz3Nq1l2f
+	4ir2PDJtNRspkWIaX7+3BScPMlcyLL/b2bxdf8TxQEXs9zyL7e8RnA74qneQ/+F1HpRVYbaX+W6
+	zAEWbSpWtcq8e37iTMgCEXMBBeVE7vyq7p/uH1XUvN3Xlwp1ikjkRNhcQqbcrn4MiekNUyp+2T+
+	1EG4WxkcihUJGEG4v+yd1s7qS0Bc/Pf/E50AQ==
+X-Received: by 2002:a05:6122:6602:b0:5c9:67f9:652b with SMTP id 71dfb90a1353d-5c9f1580423mr2787340e0c.5.1790159507473;
+        Wed, 23 Sep 2026 03:31:47 -0700 (PDT)
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f04c161fsm2487566e0c.4.2026.09.23.03.31.46
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 03:31:46 -0700 (PDT)
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e80579b7dso253371241.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:31:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwgtXyPjU5LVacwRkTfmY+lQhxIVw4xT8ZCnPsva//V8DtyudGvtXtE6/bvo2w8PqmT3+38enp2jVaU2kU=@vger.kernel.org
+X-Received: by 2002:a05:6102:370b:b0:7a1:f971:78f3 with SMTP id
+ ada2fe7eead31-7ac1de3bd78mr2006784137.31.1790159506008; Wed, 23 Sep 2026
+ 03:31:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCmK9qEqrNqdiYZAA--.17422S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWF48Ww4rtrW5ur4rAFy8uFg_yoWrCrWrpF
-	WftrW7Ar1UZr9I9r42yF1kWr1Fyan7Aa4UurySq34FvFy5Zw17JF4xtFyruFW5CFy8J34Y
-	yF1DJay3WFs8CwUanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9C14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
-	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
-	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
-	0VAGYxC7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVAFwVW8twCF04k20xvY0x0EwIxGrw
-	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
-	14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
-	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxK
-	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI
-	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUDKs8UUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2qyxZua4gACsx
+References: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com> <20260921134432.50338-3-ayman.chaudhry.kc@renesas.com>
+In-Reply-To: <20260921134432.50338-3-ayman.chaudhry.kc@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 12:31:34 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV6w13GNnQFiCWGkmW-=mwxnkuKJvp7=AF_xpb462C=xA@mail.gmail.com>
+X-Gm-Features: AclHuK8KfViTXJxG4ecvsKtRjnbyEzEnCYUI_WTdfSW3Wds9FPM263MV1B6y2_Y
+Message-ID: <CAMuHMdV6w13GNnQFiCWGkmW-=mwxnkuKJvp7=AF_xpb462C=xA@mail.gmail.com>
+Subject: Re: [PATCH v2 2/9] dt-bindings: power: Add r8a774a3 SYSC power domain definitions
+To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, 
+	Chris Paterson <Chris.Paterson2@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Ulf Hansson <ulfh@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+CC Ulf
 
-this single-patch series addresses a slab-use-after-free in the
-snd-bcd2000 driver, observed on a Behringer BCD2000 USB DJ controller
-under a KASAN-enabled kernel (7.1.2, x86_64, CONFIG_SND_BCD2000=y).
+On Mon, 21 Sept 2026 at 15:45, Ayman Chaudhry
+<ayman.chaudhry.kc@renesas.com> wrote:
+> Add power domain indices for the Renesas RZ/G2M v3.0 (a.k.a. R8A774A3)
+> SoC.
+>
+> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+> v1->v2:
+> - Updated commit message
+> - Renamed file to include vendor prefix
+> - Added vendor prefix to include macros
+> - Added Reviewed-by tag
 
-Root-cause walkthrough
-----------------------
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in a branch shared by driver and DT source code.
 
-The bug is a lifetime mismatch between driver disconnect and ALSA rawmidi
-file lifetime:
+Gr{oetje,eeting}s,
 
-1. A userspace process (e.g. amidi) opens /dev/snd/midiC0D0.
-2. The USB interface is unbound (via USBDEVFS_DISCONNECT ioctl or physical
-   unplug).
-3. bcd2000_disconnect() runs:
-     snd_card_disconnect(bcd2k->card);
-     bcd2000_free_usb_related_resources(bcd2k, interface);
-   snd_card_disconnect() only marks the card disconnected and stops new
-   opens, but returns immediately while open file descriptors still exist.
-   bcd2000_free_usb_related_resources() proceeds to free both
-   bcd2k->midi_out_urb and bcd2k->midi_in_urb via usb_free_urb().
-4. Later, the process closes the rawmidi fd (or exits):
-     snd_rawmidi_release -> close_substream -> bcd2000_midi_output_close()
-   Because bcd2k->midi_out_active was set (and left set by completion
-   re-submissions), bcd2000_midi_output_close() calls
-   usb_kill_urb(bcd2k->midi_out_urb), reading the already-freed URB
-   object (slab-use-after-free at urb->dev).
+                        Geert
 
-Patch summary
--------------
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Patch 1 fixes the bug via two complementary changes:
-
- - Switch snd_card_disconnect() to snd_card_disconnect_sync(), which
-   waits for all open card files to be closed before returning. The
-   rawmidi close callbacks (and their usb_kill_urb()) run while the URBs
-   are still valid. devices_mutex held during disconnect is not taken by
-   rawmidi close, so the wait cannot deadlock.
-
- - Add an atomic shutdown flag set at the beginning of disconnect and
-   checked in bcd2000_midi_send() and both URB completions, preventing
-   URBs from being re-submitted after disconnect. Also NULL the URB
-   pointers after usb_free_urb() so any stray access becomes an
-   immediate NULL dereference rather than a silent UAF.
-
-Crash report addressed
-----------------------
-
-  Report 1: slab-use-after-free in usb_kill_urb (read of size 8 at urb->dev,
-            sound/usb/bcd2000/bcd2000.c:182 <- sound/core/rawmidi.c:560).
-            Condensed splat appended below the diffstat.
-
-Yuanzhe Liu (1):
-  ALSA: bcd2000: fix use-after-free of MIDI URBs on file close after
-    disconnect
-
- sound/usb/bcd2000/bcd2000.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
---
-Crash excerpt:
-
-  BUG: KASAN: slab-use-after-free in usb_kill_urb+0x74/0x80 drivers/usb/core/urb.c:706
-  Read of size 8 at addr ffff8880078e7d40 by task amidi/30287
-
-  Call Trace:
-   usb_kill_urb+0x74/0x80 drivers/usb/core/urb.c:706
-   bcd2000_midi_output_close+0xd4/0x140 sound/usb/bcd2000/bcd2000.c:182
-   close_substream.part.0+0x15f/0x8d0 sound/core/rawmidi.c:560
-   close_substream sound/core/rawmidi.c:585 [inline]
-   rawmidi_release_priv+0x21d/0x290 sound/core/rawmidi.c:580
-   snd_rawmidi_release+0x4e/0xa0 sound/core/rawmidi.c:610
-   __fput+0x3a6/0xac0 fs/file_table.c:510
-   task_work_run+0x158/0x220 kernel/task_work.c:233
-   do_exit+0x87b/0x22d0 kernel/exit.c:976
-
-  Allocated by task 34:
-   usb_alloc_urb+0x67/0x190 drivers/usb/core/urb.c:75
-   bcd2000_init_midi sound/usb/bcd2000/bcd2000.c:319 [inline]
-   bcd2000_probe+0x5a0/0x1350 sound/usb/bcd2000/bcd2000.c:401
-   usb_probe_interface+0x395/0x850 drivers/usb/core/driver.c:396
-
-  Freed by task 30294:
-   usb_free_urb+0xbb/0x100 drivers/usb/core/urb.c:96
-   bcd2000_free_usb_related_resources sound/usb/bcd2000/bcd2000.c:354 [inline]
-   bcd2000_disconnect+0xfc/0x280 sound/usb/bcd2000/bcd2000.c:433
-   usb_unbind_interface+0x188/0x770 drivers/usb/core/driver.c:458
-   usb_driver_release_interface+0x105/0x180 drivers/usb/core/driver.c:640
-   proc_ioctl drivers/usb/core/devio.c:2359 [inline]
-   usbdev_ioctl+0x6f05/0x86d0 drivers/usb/core/devio.c:2826
-
-  The buggy address belongs to the object at ffff8880078e7d00
-   which belongs to the cache kmalloc-192 of size 192
-  The buggy address is located 64 bytes inside of
-   freed 192-byte region [ffff8880078e7d00, ffff8880078e7dc0)
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
