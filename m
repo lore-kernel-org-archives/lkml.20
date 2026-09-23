@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3502A5383CA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6F85383E8;
 	Wed, 23 Sep 2026 14:38:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174321; cv=none; b=CDwhMC0GRkTrEqsRjadlR8RDu6KPkYx7Lwa29XJfBlWgTGpn/eV6X9NElGqorULuWz0WJidbTbZuHtrIESBaV83y+rxW8z+/fv1KBuwsgqCmrQiYWH4feKHjzgYkv2mV49f0bFCRDrc/SpaUtjPMQ+HgUfty7puqykuU/4lZkic=
+	t=1790174321; cv=none; b=Qltuc3iVsOjrECCWqtl0+Zj8FiNQffsOuee90OOyghliIgIy2Uonzrtl33YHMHlBLv0oEwfejOg+dii5s2d8D4gc0iRjM7PaWAloOFwh1U30MszNrznF6VPuuXSwpAW19H83WGk45BpU1yTS/z1xrT0h7dyYZt6xoti/6s0EqqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790174321; c=relaxed/simple;
-	bh=Y3h9ArEWxXcDcNW3RYT0QJFPRTqLKdurS6G4EidafJU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qFffhE2xa5WixvzxhTTZIsOsUSSxX4ANF7oWBO1v5DP82qNw+tJsJca79uhwJPbnzQPo76ZZRT+0h+JucPE5T7Xf/nK2k5PN4LFvS4AGAW6rOdpkWDhNDBtZ+aAjP+V4w11oeFVDSm2GGztdWiWujPEBxNk7/9dtUoy+hJT41qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o2WgqJfq; arc=none smtp.client-ip=10.30.226.201
+	bh=2cp5TqtnmLKuQQO6egpZp0WLgpqr652FwOWFnsG50JI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YmTsAvseEZ88lya8nwgQW/ZmAtIThAYhbsPvQBnF2JHJV4xaoP9PL63yRtAzXGEBqgsnmx/+tnwFQgJbBREmN4Zj7/jbVeup88tWlmsfDlSzUkOY3mRXzjsYrMKlB8xUJvJr9CkYDOAPJyQdoRBJf9Schi4wHzjm0P7mMs3yw1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LbMHK+Zk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o2WgqJfq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D1D32C2BCC7;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LbMHK+Zk"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id ECBA9C2BCF4;
 	Wed, 23 Sep 2026 14:38:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790174320;
-	bh=Y3h9ArEWxXcDcNW3RYT0QJFPRTqLKdurS6G4EidafJU=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=o2WgqJfqa407llRZ2YbXyervF75sAxZ0wwKbDrke6IdyoezjU+yhJkbGBlO524aEN
-	 cdur5LQ+y+6+5bUjw+MX7LmHUUFmOv5YzieAs84yKgY5TtyrtX4p5XVOuDhCDJrKBe
-	 e8TcCJWZ7Gur77ffTC74/WrKPZ+SBp8Bg8Lf2M9ZM8Qs2TWi20pNrHArJO1xdsqWFQ
-	 gcik2y9lah/m/P4ri7AzLFCQSmJPSzUCX0jMIklrFUfCtiUi+2UU7UBN73I06gyZ8P
-	 3C+ay+zVvgbC4LKj+0mBV0VKrO3bd/+LEl0hhNLPpH8LKaS4e29WVDpvUpu6XmXC0Z
-	 q61v5fJxjFchQ==
+	s=k20201202; t=1790174321;
+	bh=2cp5TqtnmLKuQQO6egpZp0WLgpqr652FwOWFnsG50JI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=LbMHK+ZkDZGRpGB7+udgFUr9y+GZxuHe3dnhcBdgGzk63weTQOuTGuu6m0l6LsEQ7
+	 r5YSliNyYmk55+va5u7XIESoQqZExsSuhDRxF6Nf066byG4HdTN/Ab1wFHF3i9uow7
+	 JlCfRdF0FJ6kcfcrzq10/hfyWmeZTeUB5HQIMpJFbKm5nhW1PfG9oLS7UK6VMJ6W2/
+	 pMi5TwAqYJ1rMnexZtVUAGp/tDH4tDyj+roKIRxDXE856eiUjfUk3Bp0KltMeebnDS
+	 HDx95iHKaGjXiw/R6U8qVzGzRG1wrWU0Wd2vMwN7teiUGxVYScQZ3RFIMQGUjL0bbo
+	 4x/ikiSCFrIQg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD3C4C9830B;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE823C9830C;
 	Wed, 23 Sep 2026 14:38:40 +0000 (UTC)
 From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Subject: [PATCH v2 0/2] Add bus clock for t7-thermal sensor
-Date: Wed, 23 Sep 2026 16:37:49 +0200
-Message-Id: <20260923-fix-t7-thermal-clock-v2-0-bff7a09eb487@aliel.fr>
+Date: Wed, 23 Sep 2026 16:37:51 +0200
+Subject: [PATCH v2 2/2] thermal/drivers/amlogic: switch to clk_bulk API to
+ support multiple clocks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,11 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBBEf4Xs2TXtWgE5+R+GQy1b2VjBtIRoC
- P9uJfHm8U1m3iyQOAonaIoFIs+SZBwy0K4A19vhxihdZiBFpToRoZcXThVOPceHDejC6O6oj9q
- qqzeVKRny9Bk59zbtpc3cS5rG+N5eZv1Nf8LDf+GsUWHVGWfKmryu6WyDcNj7CO26rh8EHeEqt
- wAAAA==
-X-Change-ID: 20260922-fix-t7-thermal-clock-151a0bf4746e
+Message-Id: <20260923-fix-t7-thermal-clock-v2-2-bff7a09eb487@aliel.fr>
+References: <20260923-fix-t7-thermal-clock-v2-0-bff7a09eb487@aliel.fr>
+In-Reply-To: <20260923-fix-t7-thermal-clock-v2-0-bff7a09eb487@aliel.fr>
 To: Guillaume La Roque <glaroque@baylibre.com>, 
  "Rafael J. Wysocki" <rafael@kernel.org>, 
  Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
@@ -54,16 +53,15 @@ To: Guillaume La Roque <glaroque@baylibre.com>,
  Neil Armstrong <neil.armstrong@linaro.org>
 Cc: Conor Dooley <conor.dooley@microchip.com>, linux-pm@vger.kernel.org, 
  linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ronald Claveau <linux-kernel-dev@aliel.fr>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org, Ronald Claveau <linux-kernel-dev@aliel.fr>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1800;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2489;
  i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=Y3h9ArEWxXcDcNW3RYT0QJFPRTqLKdurS6G4EidafJU=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9bmJyEctuu2dqfnFzqvZN2sWn44N1h4mSj/3ZNv9Dhfz
- dv0Uk2ro5SFQYyLQVZMkaV/ruWJd5ePnvm6Rz0FZg4rE8gQBi5OAZjIrXyG/5XHvwmcyOXX4Gc5
- dOlmx//kLje14NkXpO7lZny0Vcldc5DhfzDr4xmlD82+6HTqvVhV7lTdsYjfaf/9NYvK18nuE2l
- w5gMA
+ bh=d3X7NjHQSZTVQAEva268K6UvycI2mQfSqEccqomqrNU=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9bmJ7HPb1p8btvjlPvoXNjC7e8YnrUx5W5pqDwfua7rS
+ OnJDau/dpSyMIhxMciKKbL0z7U88e7y0TNf96inwMxhZQIZwsDFKQATOanDyDB/j4efWe4T5wlm
+ Uq0RB2RXbg40Ndlz+ULDKWduZ8N2WVdGhjvr5rxQ4e46tPZrBceLTsGNj837jiTo/dUWZZ/9dtX
+ ZdB4A
 X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
  fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
 X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
@@ -71,45 +69,71 @@ X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
 X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 Reply-To: linux-kernel-dev@aliel.fr
 
-The t7 thermal sensor requires a bus clock, gating register access to
-the sensor, in addition to the functional clock that is already
-described and shared between sensors on other Amlogic SoCs.
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-This series first extends the devicetree binding to describe this
-second clock, making it mandatory only for the t7-thermal compatible
-so other SoCs are unaffected, then updates the driver to use the
-clk_bulk API instead of a single struct clk, so it can transparently
-handle however many clocks a given compatible declares.
+The t7-thermal variant now exposes two clocks (bus and core) in its
+devicetree binding, but the driver only knows how to get and manage
+a single struct clk. Using devm_clk_get() would silently ignore the
+second clock, so switch to devm_clk_bulk_get_all() and the matching
+clk_bulk_prepare_enable()/clk_bulk_disable_unprepare() calls. This
+lets the driver transparently handle however many clocks a given
+compatible declares, without needing per-variant clock-handling code,
+and keeps working for existing SoCs that only have one.
 
-`dt_binding_check DT_SCHEMA_FILES=amlogic,thermal.yaml` is ok
-
-  CHKDT   ./Documentation/devicetree/bindings
-warning: python package 'yamllint' not installed, skipping
-  STYLE   ./Documentation/devicetree/bindings
-  DTEX    Documentation/devicetree/bindings/thermal/amlogic,thermal.example.dts
-  DTC [C] Documentation/devicetree/bindings/thermal/amlogic,thermal.example.dtb
-
+Fixes: 18d65de8157c ("thermal/drivers/amlogic: Add support for secure monitor calibration readout")
 Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
-Changes in v2:
-- PATCH 1: Fix commit message. Thanks to Krzysztof review.
-- PATCH 2: Return an error when no clock provided. Thanks to sashiko's review.
-- Link to v1: https://lore.kernel.org/r/20260923-fix-t7-thermal-clock-v1-0-7d4c4682f182@aliel.fr
+ drivers/thermal/amlogic_thermal.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
----
-Ronald Claveau (2):
-      dt-bindings: thermal: amlogic: describe bus clock for t7-thermal
-      thermal/drivers/amlogic: switch to clk_bulk API to support multiple clocks
+diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_thermal.c
+index a0b530624b60c..60728de6968ac 100644
+--- a/drivers/thermal/amlogic_thermal.c
++++ b/drivers/thermal/amlogic_thermal.c
+@@ -100,7 +100,8 @@ struct amlogic_thermal {
+ 	const struct amlogic_thermal_data *data;
+ 	struct regmap *regmap;
+ 	struct regmap *sec_ao_map;
+-	struct clk *clk;
++	struct clk_bulk_data *clks;
++	int num_clks;
+ 	struct thermal_zone_device *tzd;
+ 	u32 trim_info;
+ 	struct meson_sm_firmware *sm_fw;
+@@ -142,7 +143,7 @@ static int amlogic_thermal_enable(struct amlogic_thermal *data)
+ {
+ 	int ret;
+ 
+-	ret = clk_prepare_enable(data->clk);
++	ret = clk_bulk_prepare_enable(data->num_clks, data->clks);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -156,7 +157,7 @@ static void amlogic_thermal_disable(struct amlogic_thermal *data)
+ {
+ 	regmap_update_bits(data->regmap, TSENSOR_CFG_REG1,
+ 			   TSENSOR_CFG_REG1_ENABLE, 0);
+-	clk_disable_unprepare(data->clk);
++	clk_bulk_disable_unprepare(data->num_clks, data->clks);
+ }
+ 
+ static int amlogic_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
+@@ -323,9 +324,10 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
+ 	if (IS_ERR(pdata->regmap))
+ 		return PTR_ERR(pdata->regmap);
+ 
+-	pdata->clk = devm_clk_get(dev, NULL);
+-	if (IS_ERR(pdata->clk))
+-		return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get clock\n");
++	ret = devm_clk_bulk_get_all(dev, &pdata->clks);
++	if (ret <= 0)
++		return dev_err_probe(dev, ret ?: -ENOENT, "failed to get clocks\n");
++	pdata->num_clks = ret;
+ 
+ 	if (pdata->data->use_sm)
+ 		ret = amlogic_thermal_probe_sm(pdev, pdata);
 
- .../bindings/thermal/amlogic,thermal.yaml          | 29 ++++++++++++++++++++--
- drivers/thermal/amlogic_thermal.c                  | 14 ++++++-----
- 2 files changed, 35 insertions(+), 8 deletions(-)
----
-base-commit: a8c591ed6b672915e0be57843f943a2a723aff40
-change-id: 20260922-fix-t7-thermal-clock-151a0bf4746e
-
-Best regards,
 -- 
-Ronald Claveau <linux-kernel-dev@aliel.fr>
+2.49.0
 
 
