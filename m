@@ -1,201 +1,312 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013034.outbound.protection.outlook.com [40.107.162.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A58646AF1B;
-	Wed, 23 Sep 2026 20:16:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.34
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194618; cv=fail; b=o0ntkPnWwwvl5LMDeZWv1Nys1dRLPUyymyWnyskLBzVeGzHJjgEfLuTBoPlrL9a/BNUrBzUAjeC5iRnfUFj4HiG+HbAiIXDiONg63aHGN30K1OZRNft/OhV8UAj3gaCz46f41eCf2raDhtKeZtJU8z1ofMagI0OV5spIyCES1yc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194618; c=relaxed/simple;
-	bh=dGWeDvsPaaeWSDi+unmYyVqhFZciQkL20l77RcNtJ4I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=snlnUzDD7Qb7OtAkT17XkYtCo4rHbt8dDHaGhk5KkUlR/gNi7CjlND3+f/NlplYgVnBftMiAgTHXk2fV1Bm6h1Yk3lXLVn+AraqNKlhWBuGQOmEusYGiRWZ0ulEVlh4/VyyMFciL4W5tt46spli7fiXDE+i7cliu9WhK2vgCaIA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HuCP2dCk; arc=fail smtp.client-ip=40.107.162.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2851DC198
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790194661; cv=none; b=JyF1inMsVvSBhAGzkBmweLBjWEnybeiCqp5itCA9dKra9Mx7xrZQwW6vO60kzS3RyQMqzZZ3xMuPMbDzs8xo4nMBYuGWn2pM80jrxcbdsWQ5YzU5gg4V92y17llthoETC/kPkE9Y2dDSf3iZ2vqT+7j07ZzikKg22DNRCinvfTs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790194661; c=relaxed/simple;
+	bh=IRhuTM0kLZsYFMp3Lrgkw0bn0kAOxMdvDnoLmBzNWoo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nWBgKKN7ebbHBJmyH9SrfKQx149sxGGdih2/sw95eKss+pzWeKygJcVq0MFHvYAS6ooFf3q+U7lb25btUwI5enRWnolIye+qZ+UnIqBl1h6f1uFWR8X1Vs4OEq04YZU8ab9Ot3IEMSl0kti9DHb02a/f/EhJ1AheaPZlBKxLNxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZJL6yBLW; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HuCP2dCk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q8vxcB5/K+zcC7gP6b5YfHBJmbwDnGH1WY89vOic+qN2UkD9lJBqXpr9PHA0k9EOjFHfBtD4iPdl7U5veQGwkaKDVWglW4xW2yWRG/yO7kxBejwo7omNtnqT9JZ3Hk8XCenh1N4jKJLBq2DkHRbbd3XQhjspIBPWJYybSQCbRlt7P6zClckiB68ZuR48HH6a2X6YAX49g54ZAOH4H5H4OAGExNjmsw/L3xWSZ1haO04aMezAcgeayAw6VAI6o0Ccr9Z7GI5fZSCi0R14AdWAK4zPSksNRlIN4fPS1C0nBwsmbE/LLBlZMIDgyfYDklDM2j92VcB35sufoSrpiSqZ8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C1YzIONclGffYiuKAtKSov4mynmH/WVEWrAQXrYls7g=;
- b=zTioLhCqQJl6AFMJ6ntWacuD8ljg/2D1ekDS53iJsUOALMiT7ziekmackKqS8WxLe3EAjegYcZX3h1UFtFYnD2VFnecsQuYXYU82AzRBHxNR9iE+4Hp8bSKt2SbfvRUY+YAm1kwo4E8ERq1b1BsRtOMnhYolB4Mgz/svRgfTpS8xjH4opLvj213ragwT1buhICOeM2dQKElb612hcYFv2sj/wDjaY/S/7U6GGNzE/EeS/SgjIvomDftRWu+XlG+ulg4nnzpx3pnLc/TNAK16raO1ucsh7IdwaBOv0ZCYI8RRjVvTjCW+6eL/5MhEfS8sNOjHg/3XdSwpWN7tIeHMPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C1YzIONclGffYiuKAtKSov4mynmH/WVEWrAQXrYls7g=;
- b=HuCP2dCkPLBruKOh1FI2uQcGSD7LSDjiHyxhb3Q8uaU+5br2jg6kElQDmGspWqHCD0OLxNnBjh2GgTV84+dIwal1fxDCAsg7i1DH4E2ngqCAqP4ZtuJ5C4OTMC6B0ejRNVJIqaULG7bmFhZwBDG0gulxa1F+WvcLK155/zDn622rVhafPEvttQT/HTQvOs6HpqiR9PR8ABrGd6zXPqltc2tP1FnR6xNL4VZWfy3NUH387NHWlezBIfVYmKPUFqW47Tr+Q7WkO8BPoYU34Ro/d/rci5fwnBXYaaNctmyb5xC5gUA6GGPlz1u3FCDWVHGR3DkufBKIJFvhUjbqXjrEtw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PAXPR04MB8510.eurprd04.prod.outlook.com (2603:10a6:102:211::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Wed, 23 Sep
- 2026 20:16:43 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
- 20:16:43 +0000
-Date: Wed, 23 Sep 2026 16:16:34 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 0/7] arm64: dts: freescale: Add Toradex Lino and OSM
- iMX91/iMX93
-Message-ID: <arQzon7UJ8tA6L8u@lizhi-Precision-Tower-5810>
-References: <20260911091952.96233-1-francesco@dolcini.it>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911091952.96233-1-francesco@dolcini.it>
-X-ClientProxiedBy: PH7P220CA0087.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32c::35) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZJL6yBLW"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7db0so161721466b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:17:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790194654; x=1790799454; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HgPtV1IXszkLhG6uHST7dgneJNufVJJ9/BLgDeMeRlk=;
+        b=ZJL6yBLWkBcJzrLYyUTdEfCIA+QPROzG80OrQGmhnGm5TxpYKY5ZnsNw2Y09qciGfX
+         3eV2H8ffg5t+LX3xzHYr/8NJnEMkqZfWjQWMMKqoDkoNdZqzj0uXH9Uo1EQgL+H4Oo8k
+         cUOxEFuuP0D8/LQYNZjgkVSAhv+GvnE4NhZDbllSKsNrK8UaS3Afcf+g7oD/kP+J6mVj
+         VXFgUSX6fJA1D85JGezKrCPXEIUTLpSqld2TYYW2H++yQXsWYGktjfOXgOs0kbe58F+4
+         j8Rb5JyFK/aS9PYaHFxCPhpx4852Sy5oUUz4v+MFh1zGA/yynES7YltbBvYI0gRoJdRf
+         zBOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790194654; x=1790799454;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HgPtV1IXszkLhG6uHST7dgneJNufVJJ9/BLgDeMeRlk=;
+        b=sojp9BOcdjFhRbvhRY9Og3UsPwRVGZcSOp27+u5b44Ui5OL61CXNR33jWWnEtfZ98K
+         iynvceBgdvU/oPXXA9cXRSYZ59O3IwTpcw+4tVDHmX53x49/2DYXTMf4IDUaxE+y2bJ/
+         sBZ9kMxPzSgvNkocqxW9gwADs7EsirvYvlJs+PLMHTv2wctATchVKiP7MJpYqzhvdTOL
+         3miG+pgBgqeGwgTgOvyYfyxXMfTx2R0ByUmPY75ng0nqvSsgG15xeCIG2/hIwd65wXLV
+         ZjEctnhys2RXpZJxLdu9pp11DiD1kzllCFLM0ksvXbsQfkdTMLP1I2EnTDdtHuQ1go1Z
+         R9bw==
+X-Forwarded-Encrypted: i=1; AKwUvBxuLgKj2FcdQ6nSRTLcEM4cppLCYLiD0GapdFXzjw6oULI+rB2DzPdn0qMOGEqf0yaS1RUamVyGr35VTHU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mG3HzphTwMbmwMUZPsG1ADiN2n7BdrWZZGllQUaEsq3fFFevlQ
+	hpi3n90k6u/DIT2Gqnsi+QZGBOIAeMeszEDoCOXQGMfceazD7Q4bhcFL
+X-Gm-Gg: AYBFou3fm1pUfzfBleWjPW0yzBpuSjNxLTdFyyWfpkzIL7CH0Wy9LvQuF4CHHQSzTIP
+	KnV0n0Fj/0M9JUCWNudJdbXzzRQD6vRR7PRq7NMzUsaQ36HQngjpzZqG5OWdWlELN0kHCNnWzDx
+	FmO8/Lfs4LUgppN1n1PAlD4ZRNKEQnYeXHseVS5iFkXVOTjR6XHBtE6oTgvfKx4eJdwiTtmJltp
+	QksVCkbDQPR+gzGxN7J1zuEK37NOADm+Ywd3h1MlSYUVHQWg1BtMc1G7oTuo3pI/aFTkZzxg1x1
+	dKfM5IboStZB5Koh7vy1JVF80zfWAbVLaOloqksMRUe/+s897dYQC19miCtREKqORY8EAwH6Jng
+	ucMPIP80G8PGUYWW8TPMZcwKz0VxCr6nbAwAqjO2uY34qKwKO3rG+UJpo0yagB03NZ7h+wmsUU3
+	s5n/YSN8FSgtFUNM+U9tlUmM4gXL+3xu3eg79gepfESByTs6/kEzrMMqyfDyNyD+pmK7AJnb4VT
+	iC47hl4TE9+798q+Ld4pQFIQqrGAqfA
+X-Received: by 2002:a17:907:9452:b0:c29:4b79:e41a with SMTP id a640c23a62f3a-c2ac24cf5c4mr18473566b.20.1790194654447;
+        Wed, 23 Sep 2026 13:17:34 -0700 (PDT)
+Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c8a44sm177243566b.20.2026.09.23.13.17.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 13:17:33 -0700 (PDT)
+From: Pablo Mazzini <pmazzini@gmail.com>
+To: Brian Masney <bmasney+clk@redhat.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Ripard <mripard@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Samuel Holland <samuel@sholland.org>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Pablo Mazzini <pmazzini@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev
+Subject: [PATCH v1 01/11] dt-bindings: clock: add Allwinner B288 CCU
+Date: Wed, 23 Sep 2026 21:16:51 +0100
+Message-ID: <20260923201701.43391-1-pmazzini@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB8510:EE_
-X-MS-Office365-Filtering-Correlation-Id: 94e8f51b-1018-478a-da52-08df19af9578
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|19092799006|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	61fAPIGXisDUITkLBoj/KsXHygXy5EsCZQUUuNgTJCJaHvBw0yonfRgl5CEj90pFcr3fKmRBulym75RPc9w9vxACr3Rk4eElsdt4WkJq8NkRgo2H7/4kpzR0M7sOfP6Zd95BxsbnPshGpi6zwqUQxAdQJuZjsu6p3sY+XXkKBGu/VGjpnyIwB1daHllJlaYnmTeG1kdb/0QJ5wxbX92Nmjn6Ug3qvSSXxynAKLybNwOUIJIrAWsx9xzwG/Sz4l6JDzXLV7xGhTFmEolh67KIdQJAKmvnHpeuCc20xfsx85yw75KUG2twpiXXovrPPjsRj9DOGywrP0U8kzqdxAHWo82bnt8YO2BzHFk7ETKG2dRAEjdELl38jgBzOlhxgcuHb9G3fcGeAFS9O9KQO9MtRO5SpxkOLLtS8XSvBOA7L4xamlsFBoNRpLrjkPAK1ywr4mOwUs3whGDkwTROiZ5Mq7mlbHciJNJB7ZQ0UauNTGx24k8TIzxNTwiuju+ZhAUMr9OYF8AKc2RAhwOfVhf5BjSBoxwwvZl+eK671DB3NEq+r5fV7cpIrNcSWN+9cKNYXezkTNUdMxhJjCRoRPVqtW75FV5VxT2XpSBq6j1n0BI69dTXkKWAc7v169a4FnslVEjfpg4qHyQK0SefHJyDCabCLPWK2mLgW35O2VIyMuU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(19092799006)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GbECbL1R1lp0p4MTYsm2uIAJV8vAGeDKzTohyiN9e/uxBPp6evrmJ1cFgbn1?=
- =?us-ascii?Q?hECVqYLGPNSZj4/E8N/efenpH6SbMjoSY/90CjXj0SZ6HUAmYpQCIrsNG0W/?=
- =?us-ascii?Q?jGfPoYBhBhih8XgjC8dnXaPoNiF0zpT4YXiBZIK3und54G2sMJkwn1Wq3XEM?=
- =?us-ascii?Q?f+Xfogk16sCrVQeAl8/1oGUTA+FNmdPaJ6gz8I0Mkga5H7w+Witd3pv1myGW?=
- =?us-ascii?Q?llZSc6ccC6pXJma7l3zDD/4wMkDHehaMiexarF90jVOIb5R0WtXni6v/6R8b?=
- =?us-ascii?Q?qN3OA+/la5w1UkqpMA6PN8A7d9CdI0hHlxt2AVlSmGlMYGprCXQv9gqd7QyK?=
- =?us-ascii?Q?rN8oFluE86kAuHxMOi86okeHwFZIsw+xFq+Fbbd9Ghp+Pj4EQKHoL7IiR4z3?=
- =?us-ascii?Q?b8FRZHWHn7KD/kGoFCEjTCBiNUNulup9VBys6xawk+e0XPR12B0DGeKKvZeU?=
- =?us-ascii?Q?C6vCGXRxpI8wsuCHIrhMens8Lqx52hG156uc8A6Fmy85UJpva6N0/sIgpFKm?=
- =?us-ascii?Q?LHVKw/bEfejn7xH1rcRh+4r6RmB8CLUxJ2+Dp8bJ/kns+VJPu23kEIx0c5fr?=
- =?us-ascii?Q?jcPUE2Tqgk8pT1oy4CVoZZje0HcmuprBdsrMvwE2Po5b6M/logaYYuhMD21j?=
- =?us-ascii?Q?xwRSSk83r8UUgKrJP+2sFGftibq8vt6zvvMH3kfEIETmvX8EKOidtQx1ehBJ?=
- =?us-ascii?Q?L7O7XFHGjjBKgcmZz/4e4GEw+SSgV2uCvVe4Y2lX38+ZO5TtDLwPJEVM0W6Y?=
- =?us-ascii?Q?jQAT1GOxosCAV5930j01lMJcFruZ10PQ5bfDWH1Jmxzs8XXqIIfd9kAlB8Ft?=
- =?us-ascii?Q?B8/bK1LeZUv3ptHkceGDqYGQsI5FPIB8Q+WPgz7AhlBomMcA2Pim6o6H+9Oa?=
- =?us-ascii?Q?GefBQ5brSpEQNLch8DWTgaayWsWQkgBeuQfdfnN7wxz2haXeY0in2GjXvRNw?=
- =?us-ascii?Q?8oLa1ESfofGtH05ZGUGczBfD6/isvbcOsUsfMSREoDzehkw8e+iKUiv9SSF4?=
- =?us-ascii?Q?LW5pNw/vi8v3SEL5m0gfXsAINNSXNwEZlBiL3A2bpGOpaiG1wa1ZtoX4Rauy?=
- =?us-ascii?Q?cJFFzAhZxc7WZ0T/boxxDEtTIKn4z4h8tTBEmKLDU33/dKE5A8lgRxnTklo7?=
- =?us-ascii?Q?RFtV01oz8DqGvhxzOIDiIDrZZVD7XWKoAjmuKYKs9yFUol/yevugSewDjqL0?=
- =?us-ascii?Q?z1FrIeNxBb4OgniuKHez60ZXxn4BVQRVamCg87874CjmAomtdl0FS0jIgzEd?=
- =?us-ascii?Q?BpwHzFWNOcwxCDsy2mBSSnjub0AK5BTUQWOA6NEgiNhWarwGP+DIN1s4zOzC?=
- =?us-ascii?Q?iwRYuciFu8MEEE1WwwTx6UvFzNyxYrURlMEraOY6O2eKcSdbfqsHNhse8oHS?=
- =?us-ascii?Q?LoHKvtNe7JtowTer6coXE5bfJreCoohE5EuvsrkD2+yIgufcvww9DO9i8Wqx?=
- =?us-ascii?Q?WivMCgVmbftS2xyWu4Tz3+rIq+u8V6BvAte//1OIFDQZHAH3r6U68cjINlZw?=
- =?us-ascii?Q?pMFqGDihSELZ/bDoks1g2EcVZQoB7BZv8BRPJ+ZjqT/RFs3ue/78irvRwoTu?=
- =?us-ascii?Q?RmpVegmqyMMYlrhkMTudOcH54BaGzPMAuYWTfe8OqnWmN29Zw1WzF1fUdEzK?=
- =?us-ascii?Q?czjgh8J9RtdNgVbRMQAZCHSvJeK/aMcyp35iGtqXIEZbpddAsUgufFqK83M9?=
- =?us-ascii?Q?gMR1sX9rNgXYi9tdFacabOJ9ebFFtIs05f+gGFYi6jyQgFYjkRQnS1eDA2CA?=
- =?us-ascii?Q?gk78ELHukKIQFUyjf3cWTruqIuCzBIV7IxrnmN8A5bM01aVHsZS7?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94e8f51b-1018-478a-da52-08df19af9578
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:16:42.9121
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7O1TW6r/eeGoTKIqYkhcFjO+uubFTNww14yDU5j9YU4IUzOIoabfMxu8Aln+kaWe00xuPGZojL6V+UYhEz5smJWrg3zcz6Lm5rWABczFOVWs2ZyF2fbaa4R3XQnSQ2Ca
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8510
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 11, 2026 at 11:19:43AM +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
->
-> Add Device Tree support for the Toradex Lino and OSM SoM families,
-> based on the NXP i.MX91 and i.MX93 SoCs.
->
-> Both families are available with either i.MX91 or i.MX93 on the same
-> PCB. Since the two SoCs are pin compatible, common Device Tree files
-> are used to share the hardware description between the two variants.
->
-> For the Lino family, add support for the Lino-Verdin Adapter, which
-> allows Lino modules to be used with Verdin-compatible carrier boards.
-> This series supports the Verdin Development Board and Dahlia carrier
-> board.
->
-> For the OSM family, add support for the OSM Development Board.
+The B288 (sun8iw10p1) is a dual Cortex-A7 SoC used in e-book readers.
 
-Please rebase.
+Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+---
+ .../clock/allwinner,sun8i-b288-ccu.yaml       | 55 ++++++++++++
+ include/dt-bindings/clock/sun8i-b288-ccu.h    | 90 +++++++++++++++++++
+ include/dt-bindings/reset/sun8i-b288-ccu.h    | 45 ++++++++++
+ 3 files changed, 190 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-ccu.yaml
+ create mode 100644 include/dt-bindings/clock/sun8i-b288-ccu.h
+ create mode 100644 include/dt-bindings/reset/sun8i-b288-ccu.h
 
-Frank
->
-> v2:
->  - add acked-by
->  - removed #.*cells properties that are already set in the soc dtsi
-> v1: https://lore.kernel.org/all/20260910101616.139270-1-francesco@dolcini.it/
->
-> Francesco Dolcini (7):
->   dt-bindings: arm: fsl: Add Lino iMX91/iMX93
->   dt-bindings: arm: fsl: Add Toradex OSM iMX91/iMX93
->   arm64: dts: freescale: Add Lino iMX93
->   arm64: dts: freescale: imx93-lino: Add dahlia
->   arm64: dts: freescale: Add Lino iMX91
->   arm64: dts: freescale: Add Toradex OSM iMX93
->   arm64: dts: freescale: Add Toradex OSM iMX91
->
->  .../devicetree/bindings/arm/fsl.yaml          |  30 +
->  arch/arm64/boot/dts/freescale/Makefile        |   8 +
->  .../freescale/imx91-lino-verdin-dahlia.dts    |  24 +
->  .../dts/freescale/imx91-lino-verdin-dev.dts   |  24 +
->  arch/arm64/boot/dts/freescale/imx91-lino.dtsi | 305 ++++++++++
->  .../dts/freescale/imx91-toradex-osm-dev.dts   |  22 +
->  .../boot/dts/freescale/imx91-toradex-osm.dtsi | 303 ++++++++++
->  .../freescale/imx93-imx91-lino-common.dtsi    | 536 ++++++++++++++++++
->  .../imx93-imx91-lino-verdin-common.dtsi       | 175 ++++++
->  ...imx93-imx91-lino-verdin-dahlia-common.dtsi | 198 +++++++
->  .../imx93-imx91-lino-verdin-dev-common.dtsi   | 216 +++++++
->  .../imx93-imx91-toradex-osm-common.dtsi       | 526 +++++++++++++++++
->  .../imx93-imx91-toradex-osm-dev-common.dtsi   | 324 +++++++++++
->  .../freescale/imx93-lino-verdin-dahlia.dts    |  24 +
->  .../dts/freescale/imx93-lino-verdin-dev.dts   |  24 +
->  arch/arm64/boot/dts/freescale/imx93-lino.dtsi | 359 ++++++++++++
->  .../dts/freescale/imx93-toradex-osm-dev.dts   |  22 +
->  .../boot/dts/freescale/imx93-toradex-osm.dtsi | 357 ++++++++++++
->  18 files changed, 3477 insertions(+)
->  create mode 100644 arch/arm64/boot/dts/freescale/imx91-lino-verdin-dahlia.dts
->  create mode 100644 arch/arm64/boot/dts/freescale/imx91-lino-verdin-dev.dts
->  create mode 100644 arch/arm64/boot/dts/freescale/imx91-lino.dtsi
->  create mode 100644 arch/arm64/boot/dts/freescale/imx91-toradex-osm-dev.dts
->  create mode 100644 arch/arm64/boot/dts/freescale/imx91-toradex-osm.dtsi
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-imx91-lino-common.dtsi
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-imx91-lino-verdin-common.dtsi
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-imx91-lino-verdin-dahlia-common.dtsi
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-imx91-lino-verdin-dev-common.dtsi
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-imx91-toradex-osm-common.dtsi
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-imx91-toradex-osm-dev-common.dtsi
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-lino-verdin-dahlia.dts
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-lino-verdin-dev.dts
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-lino.dtsi
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-toradex-osm-dev.dts
->  create mode 100644 arch/arm64/boot/dts/freescale/imx93-toradex-osm.dtsi
->
-> --
-> 2.47.3
->
+diff --git a/Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-ccu.yaml b/Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-ccu.yaml
+new file mode 100644
+index 000000000000..22b59d5b652c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-ccu.yaml
+@@ -0,0 +1,55 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/allwinner,sun8i-b288-ccu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Allwinner B288 Clock Control Unit
++
++maintainers:
++  - Chen-Yu Tsai <wens@csie.org>
++  - Maxime Ripard <mripard@kernel.org>
++
++properties:
++  "#clock-cells":
++    const: 1
++
++  "#reset-cells":
++    const: 1
++
++  compatible:
++    const: allwinner,sun8i-b288-ccu
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: High Frequency Oscillator
++      - description: Low Frequency Oscillator
++
++  clock-names:
++    items:
++      - const: hosc
++      - const: losc
++
++required:
++  - "#clock-cells"
++  - "#reset-cells"
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++examples:
++  - |
++    ccu: clock-controller@1c20000 {
++        compatible = "allwinner,sun8i-b288-ccu";
++        reg = <0x01c20000 0x400>;
++        clocks = <&osc24M>, <&osc32k>;
++        clock-names = "hosc", "losc";
++        #clock-cells = <1>;
++        #reset-cells = <1>;
++    };
+diff --git a/include/dt-bindings/clock/sun8i-b288-ccu.h b/include/dt-bindings/clock/sun8i-b288-ccu.h
+new file mode 100644
+index 000000000000..3dc1704d001e
+--- /dev/null
++++ b/include/dt-bindings/clock/sun8i-b288-ccu.h
+@@ -0,0 +1,90 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
++#ifndef _DT_BINDINGS_CLK_SUN8I_B288_H_
++#define _DT_BINDINGS_CLK_SUN8I_B288_H_
++
++#define CLK_PLL_CPUX	0
++#define CLK_PLL_AUDIO_BASE	1
++#define CLK_PLL_VIDEO0	2
++#define CLK_PLL_DDR0	3
++#define CLK_PLL_PERIPH0	4
++#define CLK_PLL_VIDEO1	5
++#define CLK_PLL_24M	6
++#define CLK_PLL_PERIPH1	7
++#define CLK_PLL_DE	8
++#define CLK_PLL_DDR1	9
++
++#define CLK_PLL_PERIPH0_2X	10
++#define CLK_PLL_PERIPH1_2X	11
++#define CLK_CPUX	12
++#define CLK_AXI	13
++#define CLK_CPUAPB	14
++#define CLK_AHB1	15
++#define CLK_APB1	16
++#define CLK_APB2	17
++
++#define CLK_NAND	18
++#define CLK_MMC0	19
++#define CLK_MMC1	20
++#define CLK_MMC2	21
++#define CLK_MMC3	22
++#define CLK_SPI0	23
++#define CLK_SPI1	24
++#define CLK_SPI2	25
++#define CLK_DRAM	26
++#define CLK_DE	27
++#define CLK_EE	28
++#define CLK_EDMA	29
++#define CLK_TCON0	30
++#define CLK_MBUS	31
++
++#define CLK_BUS_THS	32
++#define CLK_BUS_NAND	33
++#define CLK_BUS_SDMMC0_BUS	34
++#define CLK_BUS_SDMMC1_BUS	35
++#define CLK_BUS_SDMMC2_BUS	36
++#define CLK_BUS_SDMMC3_BUS	37
++#define CLK_BUS_SPI0	38
++#define CLK_BUS_SPI1	39
++#define CLK_BUS_SPI2	40
++#define CLK_BUS_I2S0	41
++#define CLK_BUS_I2S1	42
++#define CLK_BUS_SPDIF	43
++#define CLK_BUS_DSD	44
++#define CLK_BUS_DMIC	45
++#define CLK_BUS_USBOHCI0	46
++#define CLK_BUS_USBEHCI0	47
++#define CLK_BUS_USBOTG	48
++#define CLK_BUS_DE	49
++#define CLK_BUS_EE	50
++#define CLK_BUS_TCON0	51
++#define CLK_BUS_CSI_S	52
++#define CLK_BUS_CSI_M	53
++#define CLK_BUS_CSI_MISC	54
++#define CLK_BUS_ADDA	55
++#define CLK_BUS_SDRAM	56
++#define CLK_BUS_PSRAM	57
++#define CLK_BUS_DMA	58
++#define CLK_BUS_UART0	59
++#define CLK_BUS_UART1	60
++#define CLK_BUS_UART2	61
++#define CLK_BUS_UART3	62
++#define CLK_BUS_UART4	63
++#define CLK_BUS_UART5	64
++#define CLK_BUS_TWI0	65
++#define CLK_BUS_TWI1	66
++#define CLK_BUS_TWI2	67
++#define CLK_BUS_PIO	68
++#define CLK_BUS_GPADC	69
++#define CLK_BUS_KEYADC	70
++
++/*
++ * mmc0 and mmc1 are v4p1x controllers driven in the old timing mode, which
++ * needs the sample and output phase clocks. mmc2 and mmc3 are newer blocks
++ * that do their own delay calibration and have none.
++ */
++#define CLK_MMC0_SAMPLE	71
++#define CLK_MMC0_OUTPUT	72
++#define CLK_MMC1_SAMPLE	73
++#define CLK_MMC1_OUTPUT	74
++
++#endif
+diff --git a/include/dt-bindings/reset/sun8i-b288-ccu.h b/include/dt-bindings/reset/sun8i-b288-ccu.h
+new file mode 100644
+index 000000000000..675145654548
+--- /dev/null
++++ b/include/dt-bindings/reset/sun8i-b288-ccu.h
+@@ -0,0 +1,45 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
++#ifndef _DT_BINDINGS_RST_SUN8I_B288_H_
++#define _DT_BINDINGS_RST_SUN8I_B288_H_
++
++#define RST_BUS_THS	0
++#define RST_BUS_NAND	1
++#define RST_BUS_MMC0	2
++#define RST_BUS_MMC1	3
++#define RST_BUS_MMC2	4
++#define RST_BUS_MMC3	5
++#define RST_BUS_SPI0	6
++#define RST_BUS_SPI1	7
++#define RST_BUS_SPI2	8
++#define RST_BUS_I2S0	9
++#define RST_BUS_I2S1	10
++#define RST_BUS_SPDIF	11
++#define RST_BUS_DSD	12
++#define RST_BUS_DMIC	13
++#define RST_USBPHY0	14
++#define RST_BUS_OHCI0	15
++#define RST_BUS_EHCI0	16
++#define RST_BUS_OTG	17
++#define RST_BUS_DE	18
++#define RST_BUS_EE	19
++#define RST_BUS_TCON0	20
++#define RST_BUS_CSI	21
++#define RST_BUS_ADDA	22
++#define RST_BUS_WLAN	23
++#define RST_MBUS	24
++#define RST_BUS_DRAM	25
++#define RST_BUS_PSRAM	26
++#define RST_BUS_DMA	27
++#define RST_BUS_UART0	28
++#define RST_BUS_UART1	29
++#define RST_BUS_UART2	30
++#define RST_BUS_UART3	31
++#define RST_BUS_UART4	32
++#define RST_BUS_UART5	33
++#define RST_BUS_I2C0	34
++#define RST_BUS_I2C1	35
++#define RST_BUS_I2C2	36
++#define RST_BUS_GPADC	37
++#define RST_BUS_KEYADC	38
++
++#endif
+-- 
+2.53.0
+
