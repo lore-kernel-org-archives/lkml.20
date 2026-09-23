@@ -1,132 +1,372 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6006B56B878
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790192067; cv=none; b=f3EtMvTzJ4jn/z1HiXRkHLVQRZzCqlLfe2aFod9nH/3wrKK7iMV1y4YORxfWDsLEwZY915O4ooQOQHEJajE57mVCx72I4ASUklCBfqgfN7jYtir+31SPDnK7bzwAo6tm/t2+OtnZjdk6PpV3punFdkuyZ0aN8TqhiogeBFTqS1E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790192067; c=relaxed/simple;
-	bh=PB95bkR8q0xqzq5Jacy8pzAJbKlvGJzOjPiJJrp2vys=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=eXxXAta4sNuc2YTMI3aoxYv7DkSnIYxmLjVkgwxig1XDqDCPl5L1hMS5UOI9P3AvD09qWfovyrpYQKZrStVHWyYF6YXrCHeDMJgyIMTGTEIOn2dQo5J1BrzV2DaFoMRsi1ejnSbfmvU8S2paLJEFbIE3RVAWoikAcIkRU3drB8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=N5FUZ56W; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=HHHOG3H4; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 146DE53CA70
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:34:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.226.235
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790192077; cv=pass; b=g81BobuBT0lXgSklxuhHU92MCsigCxVfJh82FyLs/3pg7L3IoN1niLO1JoegAtBBos1u/NA+1kcUh/6pabqMKutbHJds9XiWMnLUHHpXScX0uVmKx13UJt94lbS0tqZ5F4UtsqsR44us1pdcxUvPfilWP6ez50OhCtfGX0Y2FG8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790192077; c=relaxed/simple;
+	bh=pAqWUx6AzBFQNsHd7DUTP3HpGUe9QZgfXeNZTkFXyqY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=H8ijCtYa+r0bU2VWUjXPVPwMJrudOcZBVBrQoM474T6qezCRYEFDCIgdKz0JOImEter47rapdyYfq7W78ljpZwnVUKbWbgwFNuTG/Qd/v1z/Sm7wcZNfuwHJITzycj13gF4fJ9MdhqYgZzUbxYrvIWYmot2C9KlKwSl7sqiKrrw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TEhEObbh; arc=pass smtp.client-ip=74.125.226.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="N5FUZ56W";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="HHHOG3H4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790192064;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NIXvQ3GnvmhPwRTBSZG3po+BNh/ksNDKssG8uwTWus8=;
-	b=N5FUZ56W1nthtg/mUzpjs7OKkj/lXnvlmNr0ji2T7YLxUX8ekCtotlS19dQL7CHhIsIRG1
-	ZYzQlj3QTNETr7GD8AuvLdBoAblhPW9dcV8hzQzdkCdBXWTwX3PKrqSXXFTny0q8QccMwB
-	J3cg20Id0NsfgrBJHEvBiQgSKr6yJEQ=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-510-DQ7eqoYwPNqIELF9bTEb6Q-1; Wed, 23 Sep 2026 15:34:22 -0400
-X-MC-Unique: DQ7eqoYwPNqIELF9bTEb6Q-1
-X-Mimecast-MFC-AGG-ID: DQ7eqoYwPNqIELF9bTEb6Q_1790192062
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90cdc69a7b5so24119006d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:34:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TEhEObbh"
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-98514b4115eso691162241.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:34:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790192072; cv=none;
+        d=google.com; s=arc-20260327;
+        b=c+EYbn9FvSz7sPH6wX0U7vblxcV5H3M6LYqV2cxXnLIvGsekOoGMzUD+4ugzEJd6a2
+         CoxltCLvn2CpgQI7Q5pLyc+ps76S5uoTKZw4ADYRZMnKmauFLbM5fYprL4A3pgZU95uV
+         QH2/nIiNMYXMjjF0cP1evJrgCMQ+KW7XbOUd3KANFXtE5QH/R8c+7tGSh6QqDbV8z90C
+         lczaA6RVlcoIijgKUdnelk31gw17eADjXQka67sZU2AuDmIMEk6hlED9Es37GnfZE7Ie
+         Q86ZiR7Xbn4vxkJx+5K3i/x/iHPIsyEU0AFlh3q+QtKZAn2uRXNfEoxz8ItBeeZ47ivI
+         PP8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TzkqngvnnBJ2lTRSA3pqgjWogtTkPcUi8AUpETG5Ups=;
+        fh=d9UKuac8tgY0JnF1R36pC7vEPf11nJsWQnI4C+k0BkA=;
+        b=E2AwCTWjGtoakPfsxq62EZUasTPyQjfXxC3QxwJ26Z1QMIA3+66Y11Tw0ryg2z9t1Z
+         jteY+IEHvVMtXFV7XGMLsFl1RkEHmTCMD0SOTtmz7I9mjtVXX3ARJ52wQKoxnMqHtTsI
+         zPR7L3aUGVKM6djcmSQWn33QFMPmckYUBcmDgnak8QLVYvInsGoYqXYQQ8ew++LaIC72
+         A5MNFp08tawf9J/OfMlBjgFSq8718bpTBFPEdYNnBj031r6JRi8zwBS9pLa+E3jOnDL7
+         RmPOsEP2fkSF5AyWNLge2amkYvN+/0jnf9X90bBOQcluYlgWLMtDebp3C+t7m9IiVl+p
+         1T+Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790192062; x=1790796862; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NIXvQ3GnvmhPwRTBSZG3po+BNh/ksNDKssG8uwTWus8=;
-        b=HHHOG3H4Zr159ii67u/DIk3xOyJ4j1FGjWGTIrsp8YuX1P1btIkmeWWG089xlMBMwa
-         BIRCEoXD3c5UCD57NPtzZRCUXO9oDV/3y/Z8Yb54jL6FATq24g8vFps2Dx04NNpEPxwE
-         X4h/RE5X8No/r/o0IfOUC1vZHD3au1VIg25DeAnAl81l+y233n0zKlS4fOpczHYTMvmD
-         H9xEfAVvvEYmz3PMfGBVVpzsXwajIJ5HYna4xTeE+JBu2iRSpLHqX4uKzReI4AmfW470
-         rMZNkAcvlWhA8vIm0N5uz03nGNWlH1ewEQ9un/gpoyYuWHbF5WyOu/s2Io8HsZ6Nlvsi
-         eMMA==
+        d=google.com; s=20251104; t=1790192072; x=1790796872; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TzkqngvnnBJ2lTRSA3pqgjWogtTkPcUi8AUpETG5Ups=;
+        b=TEhEObbhdRk0rVoCOfuU9h+GzwyZAKpF6fqZB/nzsuJDAKyXmrBtGfw/DWIhO2UcsF
+         7qasmVTp2Hr/wyFKbsTR8SZtw/nbIuITHQR3BhFjWTcXJPKkJDm8UUWRSMRkoRVnEtzw
+         YcxljeTQ8O3pm3HwLbEmlnQdeRjV/8asvo98Q0ivbokoregpBq02afPwW4zWDa20IqZl
+         pY1RHGhYIOVyBJuCN5TW27se/LARN7TNc7rzeSt+uwLyOauKiHVyqVaJhxIHaLNO7/V8
+         6xMjlwZU0hFLFSQnPFPsJF0K4230s9b43YuufVM88dDfz+UiIs2ZE6YxrPv8FewNj/Tv
+         1GAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790192062; x=1790796862;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790192072; x=1790796872;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NIXvQ3GnvmhPwRTBSZG3po+BNh/ksNDKssG8uwTWus8=;
-        b=nuA3beg7pM198H8brLi/jXL+jIBe6B6VqXqqRgCxFQqidK6iwYBE5/awFYzcTOFJ+M
-         c4WNX5y4BBs7/HwLrp9W7c0JBtUuReTL5lxlBcMCt970PAd5EH+CkfvUR+wp7u1QCVTV
-         iqg0g4/uCJviBQ4S29fXz1pVq2JSUh5AldYbUCMRV7IFpp9o1ea8Gy4IyS9exwqkHqam
-         Yus0ifdg5HjbRBNDOlHjvRm4F9KfFlDTlYfrfcRr9IOPEArBaSRZpHLH04Gk1ZfEfWW+
-         0z39azSDHgDTFeYWjBZ1qlLtnyXYhB9CLlItuENjla3Enn7hoklaLM0HaYe7ctozxMG3
-         9h7g==
-X-Forwarded-Encrypted: i=1; AKwUvBx8KhQMccngwuD6kWzZ/pWxQpo5fYq+H8JkcYDjyS5pmZ3MGkoGfi9FqDWG4mTolPOreyvVpQyYGdgin2Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5UuxeXUaydVa1vcELc//lSoXeYgD/+vl4DBRuGAgUvsYE5zHM
-	VKVxmWVrlra62T4q3jJZLC+FxKxzbJfkpOy4jxHb6O9li0Pg3OUKWMwAYfncqnOsQQxG4vA7fax
-	TpHFXe4oDJ5sWfGfhzbbdEYNJIpfEucjfQQxIBwmKpAOE0qLnp80r0uKgtRsVPaPE6w==
-X-Gm-Gg: AYBFou3axJtPXzuBT5aeDvXafcoZNzHy7Ez21ZLzONlyPMJZOViPIYKxsvzYgLDIHAr
-	DbUq7Cb0mo6TDQhj7a4uJcjz6PDIY/f4X+mEc8QKTK0BGZZLG2oC17fJqEd3RJf1jMYJM6Gi3hj
-	XgmsO2QNemCcMQFCdPKCrPYUCCvtCexEEuRybRWWVqJQdtdhlg4/mLZRuxKIpQJGc0d+TJFBgpT
-	DrqvoPsVJjh87r5OyzYva5qg+9jS+CTKdcsNl7Q8J6VmSg5zAQdtXjTG+Vx2o0I3HranlwX8McB
-	zcDx4yGVifL7mj9egzYcGGI5bweEWx16iRzOOHoT7/JYWUSpA3O14M/tK4LixBwPGtk+0ZmbdaZ
-	t2I10mxo=
-X-Received: by 2002:a05:6214:5c08:b0:912:5c63:c401 with SMTP id 6a1803df08f44-9141e7d3cd7mr2405186d6.36.1790192062024;
-        Wed, 23 Sep 2026 12:34:22 -0700 (PDT)
-X-Received: by 2002:a05:6214:5c08:b0:912:5c63:c401 with SMTP id 6a1803df08f44-9141e7d3cd7mr2404576d6.36.1790192061413;
-        Wed, 23 Sep 2026 12:34:21 -0700 (PDT)
-Received: from [192.168.134.224] ([2600:382:8529:2779:5d36:56ab:46b2:2e62])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9141e0d44e7sm1828446d6.3.2026.09.23.12.34.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 12:34:20 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-clk@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260908225615.1732105-1-georgeandrout13@gmail.com>
-References: <20260908225615.1732105-1-georgeandrout13@gmail.com>
-Subject: Re: [PATCH] rust: clk: document overflow panics in `Hertz`
- constructors
-Message-Id: <179019195888.123225.14441141476200838196.b4-ty@b4>
-Date: Wed, 23 Sep 2026 15:32:38 -0400
+        bh=TzkqngvnnBJ2lTRSA3pqgjWogtTkPcUi8AUpETG5Ups=;
+        b=lDoyekAtDogtSW/hpn79iapk/tlc2UBtP7Ucu+GoFmygiab7ALs55vj3bgfMANTbjM
+         7mdI6sA98JiIxCtINvY3EQGlBQgcJIOj6o93p8AZhwJCvYj5O1H1tBMmsd37GCVKlpdX
+         kIt2v7CVK2EA5t/5eESVaVgO32exsjUJRN1uan8jMlWis2O6MNh4PaS9Sxp59R6wXWyT
+         WAv54+M/eeVsdKc6eczUDWT8SfEgnzwrzXEGebRpBf/7hD9/I3ox4s+Px3/wPiCmbAxi
+         ePz0SIUNYzxBZBTzOiN6TsgmU8Ia05yJHiImvYiwCIe0WdOdtxltQL3wJJA/X5knxjYP
+         Wrog==
+X-Forwarded-Encrypted: i=1; AKwUvBx93k8HaPeumUIlgTZfw3C6OfI30k6LXArF2j1KDEqyz9RDe4FufVGFB61Z8PkPHQ8X6awHQTWfHQHaMfY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mI5ZzpZozo/DqOLeuemdIZM2a2mZrLpBjRwsX4UNvIFj674/yl
+	K5JuJO9igEwX7C/v8MRP7EBnbwsg92tvoS2o0FltlAv6rP+a9yz7+OOBRjuXGkqFNHhxIrnPKS4
+	ggGjyjROExU2jTO4OpTIl5SFVKU4T+/ZlW1HIZWs=
+X-Gm-Gg: AYBFou37NCWmPoGEQfxlWvQ602aK5ahCklZFOiHbmadfdOq4QFInu9DfPmgtX+qRWPo
+	g0fHTZWXjoNFoXSKkT+RaJLoYdh7y5/qtbKijGL6NBappzvGmPCgVmNvaKgBj74bMM9S4Tro4oo
+	0meJMemwa5k6NZe5+VxThsjWo8LrSOWnnD7QF7OUiggEN7EPZppyXQC0VQSL5UncFz6UyUKBLvQ
+	hiEFFhoCan98iaPJaF5edYO58qVIgLucGZnz8PIqtYCSxlifpLVXz8Sy97jOdmzZHByvoXZcgM2
+	D28CcQA1QpLQNZJG4ZGq3xbLJm6lbDaoA1fOre0yHaUE1/Fc57A/Zkyc3jhsYcf//8AJJohFLCs
+	KVpY38U3oHANuqbZq7Rzzbcpb1v6v9Xi0QFKm5pjZ5P17eO0CcSL2
+X-Received: by 2002:a05:6102:8098:b0:7a7:198a:c2b8 with SMTP id
+ ada2fe7eead31-7af1e0e9449mr203050137.32.1790192070902; Wed, 23 Sep 2026
+ 12:34:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=334; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=C0P714IC2ygMz1RepkhOWhkiEsy2CAigGu+y7aDcJtA=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLK2aG5S+8H3/n7Y8keXeSU+5E9Lu7RKM7Xo0gzz1PZrp
- 66/6fG+0VHKwiDGxSArpsiyJNeoICJ1le29O5osMHNYmUCGMHBxCsBELDYzMhz7vSdu0ynlU1/v
- L/NbM9/d+0ts2Vx+/4dJPHvXnPohFvic4Z/u3NTrP18/uL36zT6GTcLiBx+sqj/CVd7POUnjfMW
- tfVtYAA==
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+References: <20260922112111.1970872-1-morbo@google.com> <202609230033.E3A658F@keescook>
+In-Reply-To: <202609230033.E3A658F@keescook>
+From: Bill Wendling <morbo@google.com>
+Date: Wed, 23 Sep 2026 12:34:14 -0700
+X-Gm-Features: AclHuK_FDnLkerbidmEgg_OB-0u1hTNPlJDFNATUFt9JsrV4a_M7hEOJM9pfkwU
+Message-ID: <CAGG=3QW+N1FoUL2GOLfU=U1Pj-eb_o99Z_Mq76ocrZ29S-NyZg@mail.gmail.com>
+Subject: Re: [PATCH] iio: st_sensors: add __counted_by_ptr to struct st_sensor_settings
+To: Kees Cook <kees@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-iio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	codemender-patching+linux@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Sep 23, 2026 at 12:52=E2=80=AFAM Kees Cook <kees@kernel.org> wrote:
+> On Tue, Sep 22, 2026 at 11:21:11AM +0000, Bill Wendling wrote:
+> > Annotate the "ch" pointer member of "struct st_sensor_settings" with th=
+e
+> > "__counted_by_ptr" attribute. The elements of "ch" are counted by the
+> > "num_ch" member in the same struct.
+> >
+> > All instances of "struct st_sensor_settings" are defined as "static
+> > const" arrays across the ST sensor core drivers. For pressure sensors,
+> > "num_ch" is explicitly initialized with the size of the respective
+> > channel array using "ARRAY_SIZE(...)" during static definition.
+>
+> I wanted to understand this so, in drivers/iio/accel/st_accel_core.c:
+>
+> static const struct st_sensor_settings st_accel_sensors_settings[] =3D {
+> ...
+>                 .ch =3D (struct iio_chan_spec *)st_accel_12bit_channels,
+> ...
+> }
+>
+> static const struct iio_chan_spec st_accel_12bit_channels[] =3D {
+>         ST_SENSORS_LSM_CHANNELS_EXT(IIO_ACCEL,
+>                         BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_SCALE)=
+,
+>                         ST_SENSORS_SCAN_X, 1, IIO_MOD_X, 's', IIO_LE, 12,=
+ 16,
+>                         ST_ACCEL_DEFAULT_OUT_X_L_ADDR,
+>                         st_accel_mount_matrix_ext_info),
+>         ...
+>         IIO_CHAN_SOFT_TIMESTAMP(3)
+> };
+>
+> #define IIO_CHAN_SOFT_TIMESTAMP(_si) (struct iio_chan_spec) {           \
+>         .type =3D IIO_TIMESTAMP,                                         =
+ \
+>         .channel =3D -1,                                                 =
+ \
+>         .scan_index =3D _si,                                             =
+ \
+>         .scan_type =3D {                                                 =
+ \
+>                 .sign =3D 's',                                           =
+ \
+>                 .realbits =3D 64,                                        =
+ \
+>                 .storagebits =3D 64,                                     =
+ \
+>         },                                                              \
+> }
+>
+> So .ch is assigned an array of items which looks to end with a terminatio=
+n
+> sentinel. And .num_ch is unassigned:
+>
+> $ git grep '\.ch =3D ' drivers/iio/accel/st_accel_core.c | wc -l
+> 16
+> $ git grep '\.num_ch =3D ' drivers/iio/accel/st_accel_core.c | wc -l
+> 0
+>
+> > For accelerometer, gyroscope, and magnetometer sensors, "num_ch" is not
+> > explicitly initialized (and thus defaults to 0). This is because those
+> > drivers hardcode the channel count to "ST_SENSORS_NUMBER_ALL_CHANNELS"
+> > rather than using "num_ch" from the settings struct.
+>
+> Yeah, checks out:
+>
+> $ git grep '\.ch =3D ' | cut -d: -f1 | sort | uniq -c
+>      16 accel/st_accel_core.c
+>       4 gyro/st_gyro_core.c
+>       5 magnetometer/st_magn_core.c
+>       6 pressure/st_pressure_core.c
+> $ git grep '\.num_ch =3D ' | cut -d: -f1 | sort | uniq -c
+>       6 pressure/st_pressure_core.c
+>
+> Interestingly, the pressure/st_pressure_core.c uses both assigned .num_ch
+> _and_ a sentinel.
+>
+> > Since these structures are static const, both "ch" and "num_ch" are
+> > fully initialized at compile time and available immediately at boot
+> > time.  The only accesses to the "ch" field of "st_sensor_settings" occu=
+r
+> > when assigning it to "indio_dev->channels" during device probing.
+>
+> Heh, so the bounds check gets laundered. :) Even pressure:
+>
+> pressure/st_pressure_core.c:    press_data->num_data_channels =3D press_d=
+ata->sensor_settings->num_ch - 1;
+> pressure/st_pressure_core.c:    indio_dev->num_channels =3D press_data->s=
+ensor_settings->num_ch;
+>
+> > Because "sensor_settings->ch" is never dereferenced or accessed as an
+> > array, adding the "__counted_by_ptr" annotation does not cause any
+> > runtime panics or false-positive bounds checks under KASAN or UBSAN.
+>
+> I would argue that either __counted_by_ptr has no use here ("accidentally
+> safe because no one dereferences .ch" isn't a great justification)
+> or that the accelerometer, gyroscope, and magnetometer sensors should
+> have their .num_ch assigned correctly so that the "contract" is correct,
+> even if nothing does the deref.
+>
+This is all very weird. Below is the full output from CodeMender. It
+might give some insight into this, but perhaps we should just NACK
+this patch?
 
-On Tue, 08 Sep 2026 18:56:15 -0400, Georgios Androutsopoulos wrote:
-> rust: clk: document overflow panics in `Hertz` constructors
+-bw
 
-Applied, thanks!
+-----------------8<----------------
+iio: st_sensors: Add __counted_by_ptr to struct st_sensor_settings
 
-[1/1] rust: clk: document overflow panics in `Hertz` constructors
-      commit: 45a68afbd4b632538a0956ba783fca45b8ceb446
+Annotate the `ch` pointer member of `struct st_sensor_settings` with the
+`__counted_by_ptr` attribute. The elements of `ch` are counted by the
+`num_ch` member in the same struct.
 
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
+All instances of `struct st_sensor_settings` are defined as `static
+const` arrays across the ST sensor core drivers:
+- `drivers/iio/accel/st_accel_core.c`: `st_accel_sensors_settings`
+- `drivers/iio/gyro/st_gyro_core.c`: `st_gyro_sensors_settings`
+- `drivers/iio/magnetometer/st_magn_core.c`: `st_magn_sensors_settings`
+- `drivers/iio/pressure/st_pressure_core.c`: `st_press_sensors_settings`
 
+For pressure sensors, `num_ch` is explicitly initialized with the size of
+the respective channel array using `ARRAY_SIZE(...)` during static
+definition:
+```c
+static const struct st_sensor_settings st_press_sensors_settings[] =3D {
+{
+...
+.ch =3D (struct iio_chan_spec *)st_press_1_channels,
+.num_ch =3D ARRAY_SIZE(st_press_1_channels),
+...
+},
+```
+
+For accelerometer, gyroscope, and magnetometer sensors, `num_ch` is not
+explicitly initialized (and thus defaults to 0). This is because those
+drivers hardcode the channel count to `ST_SENSORS_NUMBER_ALL_CHANNELS` (4)
+rather than using `num_ch` from the settings struct.
+
+Since these structures are static const, both `ch` and `num_ch` are fully
+initialized at compile time and available immediately at boot time.
+The only accesses to the `ch` field of `st_sensor_settings` occur when
+assigning it to `indio_dev->channels` during device probing, such as:
+```c
+indio_dev->channels =3D adata->sensor_settings->ch;
+```
+
+Because `sensor_settings->ch` is never dereferenced or accessed as an
+array, adding the `__counted_by_ptr` annotation does not cause any runtime
+panics or false-positive bounds checks under KASAN or UBSAN.
+
+HUMAN REVIEWER INSTRUCTIONS: REMOVE BEFORE SUBMITTING
+
+This change annotates the `ch` pointer in `struct st_sensor_settings`
+with `__counted_by_ptr(num_ch)`.
+
+Comprehensive Testing Plan:
+
+- Compile the kernel and IIO ST sensors driver files to verify there are
+  no build errors or warnings.
+- Run:
+  make_kernel_build_single_file \
+    drivers/iio/common/st_sensors/st_sensors_core.c
+  make_kernel_build_single_file \
+    drivers/iio/accel/st_accel_core.c
+  make_kernel_build_single_file \
+    drivers/iio/gyro/st_gyro_core.c
+  make_kernel_build_single_file \
+    drivers/iio/magnetometer/st_magn_core.c
+  make_kernel_build_single_file \
+    drivers/iio/pressure/st_pressure_core.c
+- This driver cannot be KUnit tested because it strictly requires
+  physical ST sensor hardware devices (I2C/SPI) and Regmap register
+  accesses (e.g. WHOAMI `.wai_addr` check), which cannot be mocked in a
+  UML environment.
+
+Sashiko: https://sashiko.example.com/placeholder
+
+END HUMAN REVIEWER INSTRUCTIONS
+
+Cc: codemender-patching+linux@google.com
+Assisted-by: LLM
+
+Full summary:
+## Walkthrough of Analysis & Root Cause
+
+### 1. Structure Analysis
+We analyzed the structure `struct st_sensor_settings` defined in
+`include/linux/iio/common/st_sensors.h`. The structure contains a
+pointer field `struct iio_chan_spec *ch` and an integer field `int
+num_ch` representing the element count of the array pointed to by
+`ch`:
+```c
+struct st_sensor_settings {
+u8 wai;
+u8 wai_addr;
+char sensors_supported[ST_SENSORS_MAX_4WAI][ST_SENSORS_MAX_NAME];
+struct iio_chan_spec *ch __counted_by_ptr(num_ch);
+int num_ch;
+...
+```
+
+### 2. Allocation & Assignment Verification
+All instances of `struct st_sensor_settings` are declared as static,
+global arrays of constants within the subsystem core files:
+- `drivers/iio/accel/st_accel_core.c`: `st_accel_sensors_settings`
+- `drivers/iio/gyro/st_gyro_core.c`: `st_gyro_sensors_settings`
+- `drivers/iio/magnetometer/st_magn_core.c`:
+  `st_magn_sensors_settings`
+- `drivers/iio/pressure/st_pressure_core.c`:
+  `st_press_sensors_settings`
+
+At boot/probe time, the settings are retrieved from these static
+arrays and assigned to pointers inside the device private data (e.g.
+`adata->sensor_settings`, `press_data->sensor_settings`). There are no
+dynamic allocations, reallocations, or post-allocation assignments.
+
+### 3. Execution Path & Access Invariants
+The only reads of the `ch` field of `st_sensor_settings` occur when
+assigning it to `indio_dev->channels` during device probing:
+- Accelerometer (`drivers/iio/accel/st_accel_core.c`):
+  ```c
+  indio_dev->channels =3D adata->sensor_settings->ch;
+  indio_dev->num_channels =3D ST_SENSORS_NUMBER_ALL_CHANNELS;
+  ```
+- Gyroscope (`drivers/iio/gyro/st_gyro_core.c`):
+  ```c
+  indio_dev->channels =3D gdata->sensor_settings->ch;
+  indio_dev->num_channels =3D ST_SENSORS_NUMBER_ALL_CHANNELS;
+  ```
+- Magnetometer (`drivers/iio/magnetometer/st_magn_core.c`):
+  ```c
+  indio_dev->channels =3D mdata->sensor_settings->ch;
+  indio_dev->num_channels =3D ST_SENSORS_NUMBER_ALL_CHANNELS;
+  ```
+- Pressure (`drivers/iio/pressure/st_pressure_core.c`):
+  ```c
+  indio_dev->channels =3D press_data->sensor_settings->ch;
+  indio_dev->num_channels =3D press_data->sensor_settings->num_ch;
+  ```
+
+Because `sensor_settings->ch` is never dereferenced or accessed as an
+array within the drivers, adding the `__counted_by_ptr` annotation
+does not cause any runtime false-positives or panics under KASAN or
+UBSAN, even though `num_ch` defaults to 0 for accelerometer,
+gyroscope, and magnetometer settings. For pressure sensors, `num_ch`
+is correctly initialized to the exact size of the array pointed to by
+`ch` using `ARRAY_SIZE(...)`.
+
+### 4. Build and Style Verification
+The modified files were successfully compiled and verified:
+```bash
+make_kernel_build_single_file drivers/iio/common/st_sensors/st_sensors_core=
+.c
+make_kernel_build_single_file drivers/iio/accel/st_accel_core.c
+make_kernel_build_single_file drivers/iio/gyro/st_gyro_core.c
+make_kernel_build_single_file drivers/iio/magnetometer/st_magn_core.c
+make_kernel_build_single_file drivers/iio/pressure/st_pressure_core.c
+```
+The patch was also validated with `checkpatch_run` to ensure standard
+coding style compliance.
+
+### 5. Test Exemption Justification
+The modified code strictly requires hardware registers or specific
+driver state to run. Mocking the STMicroelectronics sensor chips (like
+LSM303D, LIS3DH, LSM330D, LPS331AP, etc.), their respective
+`i2c_client` / `spi_device` interfaces, and Regmap register
+reads/writes (e.g., WHOAMI `.wai_addr` checks) in a User Mode Linux
+(UML) unit test suite is not feasible due to the lack of hardware
+mocks for these physical ST sensor chips. Hence, a test exemption
+applies under the specified guidelines.
