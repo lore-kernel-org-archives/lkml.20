@@ -1,43 +1,70 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB18B3E0C55
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1866361DA7
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:04:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143425; cv=none; b=r0jy/q6wR6zt2anGuQ5qry7ERsrfAvt3oKDeFz5kqJvqpJukYoOIldx2F7MvIGm4iiFYD7H0YrOQYoS/Q8935EqqJUB1ZfLdGR0sorGuuz2/SXE5hXFBx2XRxOtOoItrq1UCDPykNV6z8BUC/nk19Eu71COrH8Oq90ZdmWU+BpY=
+	t=1790143486; cv=none; b=vBbH8zOFmBwroEBmWnYRl73YrkLxi4Ozdu+c3RZ6jh+bPUw85VvRoJqMLfn5uq5gwjiCU9WEjJP2ignDQnSTDmzLRT4iAMyKxmJOCHDKcUqVNvx0JPVgsgFkyE4KPD+RW/psb6aOcmaI1tI4vfvIpolUMkP0OLelzR8NByNVpWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143425; c=relaxed/simple;
-	bh=MqzwoeFZEE+TllkMXFEbT0heP9+AL5eawgbPWbGNxpA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UHZJb55qPFT5NMuYJka6nQExhX1Ybx+R1BLj5a4RHtc6nx5hbJe9AejZ1p0sL7+Zf2qTTKsOrl/2t9ypx/K+tbPMMAsp2iONFWhuTqE2GhLlIvsbmtd54KXJBLbuNsmakMnTZT9rNIeZ4NBI+Se0in4aLyq0+jlKmsnF9tGRF70=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FBI7NAd2; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FBI7NAd2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=+L
-	kJBGVlVooo7JK7wOQ3HZSobplKnMQj45yigZbQwvo=; b=FBI7NAd2lC1DJWNe3/
-	JeeeoGFZ79ctYGRGXmOloG1Oos83ONWP1rlPMwlghquauNPVIQSwSByU5ssYDCF8
-	uQsdB65tr+5b779V9t0QTv07whzy9XL3ZJWlMLeUAYlxLE8oKPTO7PdEo2WEZ/2B
-	Ge2+7GQKpP1W00OBwNPmZnfo4=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgCH_E+Ia7NqXdW_Aw--.58316S8;
-	Wed, 23 Sep 2026 14:03:03 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
+	s=arc-20240116; t=1790143486; c=relaxed/simple;
+	bh=o67gcJbdQ2UXJQP3opDerED2sZ+FtGydcW8HVzy5LGU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YaIaOL6Q5eOmIzzO0nPT+HnzsyQp+JwaNY/Jz6LYKcyP4pSxMsYQM63KEpsK2woANQbGE4zyPqOs27ctUq58Dg0hJ+Z+i2vGdTq9JTqmncfWEyQlGLJu+zSCLE2OL8ESzMMDhKCqfSDBJ4EqFzX0JGaRgNFaAOjccs9hNEXyt6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: a6eef1b4b71411f19a56ed5b684f684d-20260923
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
+	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME
+	IP_TRUSTED, SRC_TRUSTED, SA_UNTRUSTED, SA_UNFAMILIAR, SN_UNTRUSTED
+	SN_UNFAMILIAR, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_BAD
+	CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
+	ABX_MISS_RDNS
+X-CID-UNFAMILIAR: 1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:3d88e1a1-1cb0-49d7-9bf1-907f6b91530b,IP:10,
+	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:5
+X-CID-INFO: VERSION:1.3.19,REQID:3d88e1a1-1cb0-49d7-9bf1-907f6b91530b,IP:10,UR
+	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:5
+X-CID-META: VersionHash:7db8b62,CLOUDID:5af9268b5c019df38064f5dd3d537d19,BulkI
+	D:260923140438MTI5JYX5,BulkQuantity:0,SF:16|19|38|66|78|102|127|136|850|86
+	5|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:0,File:nil,RT:nil,Bu
+	lk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:
+	0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_USA,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: a6eef1b4b71411f19a56ed5b684f684d-20260923
+X-User: lianyangyang@kylinos.cn
+Received: from localhost.localdomain [(39.156.73.11)] by mailgw.kylinos.cn
+	(envelope-from <lianyangyang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1618895294; Wed, 23 Sep 2026 14:04:35 +0800
+From: Yangyang Lian <lianyangyang@kylinos.cn>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: Dave Young <ruirui.yang@linux.dev>,
+	WANG Xuerui <kernel@xen0n.name>,
+	kexec@lists.infradead.org,
+	loongarch@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	chenxiaosong@chenxiaosong.com,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 06/10] ntfs: restore EA attributes when an update fails
-Date: Wed, 23 Sep 2026 14:02:42 +0800
-Message-ID: <20260923060246.2499192-7-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260923060246.2499192-1-liubaolin12138@163.com>
-References: <20260923060246.2499192-1-liubaolin12138@163.com>
+	Yangyang Lian <lianyangyang@kylinos.cn>,
+	Haoran Jiang <jianghaoran@kylinos.cn>,
+	George Guo <guodongtai@kylinos.cn>
+Subject: [PATCH] LoongArch: kdump: add arch_crash_save_vmcoreinfo() support
+Date: Wed, 23 Sep 2026 14:03:49 +0800
+Message-Id: <20260923060349.146780-1-lianyangyang@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,439 +72,114 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgCH_E+Ia7NqXdW_Aw--.58316S8
-X-Coremail-Antispam: 1Uf129KBjvAXoW3tFWkurW3uFyUAw13uryfZwb_yoW8JryfZo
-	Wa9r45Gw1kuryjkw17Kw4qyr9xXF95K3yUJw4YkanFkF4j9w1Dtwnxt3WFgaySg3WrKF4D
-	Ww1Sqwn7CF18Jryxn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUxNBMDUUUU
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6heHUmqza5cSbgAA3x
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+Since commit 23c85094fe18 ("proc/kcore: add vmcoreinfo note to
+/proc/kcore") the kernel has exported the vmcoreinfo PT_NOTE on
+/proc/kcore as wellas /proc/vmcore.
 
-Creating or replacing an EA can leave EA data and information out of
-sync if a later update fails. Existing deletion rollback ignores its own
-errors, and creation changes metadata before preparing the new list.
+LoongArch does not provide arch_crash_save_vmcoreinfo(), so the
+arch-specific values are missing from the vmcoreinfo PT_NOTE. The
+generic exporter in kernel/vmcore_info.c already provides
+NUMBER(VMALLOC_START), but tools like crash cannot derive the module
+and vmemmap ranges, VA_BITS, or the KASLR offset of a LoongArch dump.
 
-Prepare the complete new list while retaining both original attributes.
-Update EA data and information only after preparation succeeds, restore
-both on failure, and publish the cached presence state only on success.
-Keep structure errors as EUCLEAN and preserve operation errors. Mark the
-volume erroneous and shut it down if either restoration fails.
+Since commit 18210a104bb9 ("LoongArch: Expand module virtual address
+space to 2GB") the vmalloc and module boundaries are no longer stable
+across kernel versions either, so vmcoreinfo is the only reliable
+source for them.
 
-This handles synchronous failures; it does not make the two updates
-atomic across power loss or guarantee restoration on a failing device.
+Provide this function in a separate file that is built at the same time
+as its caller in kernel/vmcore_info.c, and add a LOONGARCH64 section to
+Documentation/admin-guide/kdump/vmcoreinfo.rst.
 
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+Reported-by: Haoran Jiang <jianghaoran@kylinos.cn>
+Suggested-by: Haoran Jiang <jianghaoran@kylinos.cn>
+Co-developed-by: George Guo <guodongtai@kylinos.cn>
+Signed-off-by: George Guo <guodongtai@kylinos.cn>
+Signed-off-by: Yangyang Lian <lianyangyang@kylinos.cn>
 ---
- fs/ntfs/ea.c | 349 ++++++++++++++++++++-------------------------------
- 1 file changed, 138 insertions(+), 211 deletions(-)
+ .../admin-guide/kdump/vmcoreinfo.rst          | 29 +++++++++++++++++++
+ arch/loongarch/kernel/Makefile                |  1 +
+ arch/loongarch/kernel/vmcore_info.c           | 21 ++++++++++++++
+ 3 files changed, 51 insertions(+)
+ create mode 100644 arch/loongarch/kernel/vmcore_info.c
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 03117749728b..8eafc7b53aab 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -204,262 +204,189 @@ static int ntfs_ea_attr_lookup(struct ntfs_inode *ni, __le32 type)
- 	return err;
- }
+diff --git a/Documentation/admin-guide/kdump/vmcoreinfo.rst b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+index 7663c610fe90..2ff921232616 100644
+--- a/Documentation/admin-guide/kdump/vmcoreinfo.rst
++++ b/Documentation/admin-guide/kdump/vmcoreinfo.rst
+@@ -594,3 +594,32 @@ va_kernel_pa_offset
  
-+/* A NULL value means that the attribute should not exist. */
-+static int ntfs_ea_update_attr(struct ntfs_inode *ni, __le32 type,
-+			       char *value, s64 size)
+ Indicates the offset between the kernel virtual and physical mappings.
+ Used to translate virtual to physical addresses.
++
++LOONGARCH64
++===========
++
++VA_BITS
++-------
++
++The maximum number of bits for virtual addresses. Used to compute the
++virtual memory ranges.
++
++PHYS_OFFSET
++-----------
++
++Indicates the physical address of the start of memory. Used to translate
++virtual to physical addresses.
++
++KERNELOFFSET
++------------
++
++The kernel randomization offset. Used to locate the kernel text in
++virtual memory. If KASLR is disabled, this value is zero.
++
++MODULES_VADDR|MODULES_END|VMALLOC_START|VMALLOC_END|VMEMMAP_START|VMEMMAP_END
++-----------------------------------------------------------------------------
++
++Used to get the correct ranges:
++	MODULES_VADDR ~ MODULES_END-1 : Kernel module space.
++	VMALLOC_START ~ VMALLOC_END-1 : vmalloc() / ioremap() space.
++	VMEMMAP_START ~ VMEMMAP_END-1 : vmemmap region, used for struct page array.
+diff --git a/arch/loongarch/kernel/Makefile b/arch/loongarch/kernel/Makefile
+index 001924877772..6260c15adaba 100644
+--- a/arch/loongarch/kernel/Makefile
++++ b/arch/loongarch/kernel/Makefile
+@@ -64,6 +64,7 @@ obj-$(CONFIG_RELOCATABLE)	+= relocate.o
+ obj-$(CONFIG_KEXEC_CORE)	+= machine_kexec.o relocate_kernel.o
+ obj-$(CONFIG_KEXEC_FILE)	+= machine_kexec_file.o kexec_efi.o kexec_elf.o
+ obj-$(CONFIG_CRASH_DUMP)	+= crash_dump.o
++obj-$(CONFIG_VMCORE_INFO)	+= vmcore_info.o
+ 
+ obj-$(CONFIG_UNWINDER_GUESS)	+= unwind_guess.o
+ obj-$(CONFIG_UNWINDER_PROLOGUE) += unwind_prologue.o
+diff --git a/arch/loongarch/kernel/vmcore_info.c b/arch/loongarch/kernel/vmcore_info.c
+new file mode 100644
+index 000000000000..1128f6cdfe0d
+--- /dev/null
++++ b/arch/loongarch/kernel/vmcore_info.c
+@@ -0,0 +1,21 @@
++// SPDX-License-Identifier: GPL-2.0
++
++#include <linux/vmcore_info.h>
++#include <asm/addrspace.h>
++#include <asm/pgtable.h>
++#include <asm/setup.h>
++
++void arch_crash_save_vmcoreinfo(void)
 +{
-+	int err = ntfs_ea_attr_lookup(ni, type);
-+
-+	if (err && err != -ENOENT)
-+		return err;
-+	if (!value)
-+		return err == -ENOENT ? 0 :
-+			ntfs_attr_remove(ni, type, AT_UNNAMED, 0);
-+	if (err == -ENOENT)
-+		return ntfs_attr_add(ni, type, AT_UNNAMED, 0, value, size);
-+	return ntfs_write_ea(ni, type, value, 0, size, true);
++	VMCOREINFO_NUMBER(VA_BITS);
++	/* NUMBER(VMALLOC_START) is exported by the generic code */
++	vmcoreinfo_append_str("NUMBER(VMALLOC_END)=0x%lx\n", VMALLOC_END);
++#ifdef CONFIG_64BIT
++	vmcoreinfo_append_str("NUMBER(MODULES_VADDR)=0x%lx\n", MODULES_VADDR);
++	vmcoreinfo_append_str("NUMBER(MODULES_END)=0x%lx\n", MODULES_END);
++	vmcoreinfo_append_str("NUMBER(VMEMMAP_START)=0x%lx\n", (unsigned long)vmemmap);
++	vmcoreinfo_append_str("NUMBER(VMEMMAP_END)=0x%lx\n", VMEMMAP_END);
++#endif
++	vmcoreinfo_append_str("NUMBER(PHYS_OFFSET)=0x%lx\n", PHYS_OFFSET);
++	vmcoreinfo_append_str("KERNELOFFSET=%lx\n", kaslr_offset());
 +}
-+
- /*
-- * Set a new EA, and set EA_INFORMATION accordingly
-- *
-- * This is roughly the same as ZwSetEaFile() on Windows, however
-- * the "offset to next" of the last EA should not be cleared.
-- *
-- * Consistency of the new EA is first checked.
-- *
-- * EA_INFORMATION is set first, and it is restored to its former
-- * state if setting EA fails.
-+ * Prepare the new EA list before changing either NTFS attribute. Keep the
-+ * original values until both updates succeed, so a failed update can be
-+ * rolled back. This does not provide atomicity across a crash or power loss.
-  */
- static int ntfs_set_ea(struct inode *inode, const char *name, size_t name_len,
- 		const void *value, size_t val_size, int flags,
- 		__le16 *packed_ea_size)
- {
- 	struct ntfs_inode *ni = NTFS_I(inode);
--	struct ea_information *p_ea_info = NULL;
--	int ea_packed, err = 0, ea_err;
--	bool has_ea;
--	struct ea_attr *p_ea;
--	u32 ea_info_qsize = 0;
--	char *ea_buf = NULL;
--	char *new_ea_buf;
--	char *old_ea_buf = NULL;
--	struct ea_information old_ea_info;
--	size_t new_ea_size = ALIGN(struct_size(p_ea, ea_name, 1 + name_len + val_size), 4);
--	s64 ea_off, ea_info_size, all_ea_size, ea_size;
--
--	if (name_len > 255)
-+	struct ea_information *old_info = NULL, info = {};
-+	char *old_ea = NULL, *ea = NULL;
-+	struct ea_attr *entry;
-+	s64 old_size = 0, info_size, offset = 0, entry_size = 0;
-+	u32 size = 0, new_size, next;
-+	size_t add_size;
-+	int err, info_err, ea_err, packed = 0, needed = 0;
-+	bool exists, remove = !value;
-+
-+	if (name_len > U8_MAX)
- 		return -ENAMETOOLONG;
-+	if (val_size > U16_MAX)
-+		return -E2BIG;
- 
- 	err = ntfs_ea_attr_lookup(ni, AT_EA_INFORMATION);
- 	if (err && err != -ENOENT)
- 		return err;
--	ea_err = ntfs_ea_attr_lookup(ni, AT_EA);
--	if (ea_err && ea_err != -ENOENT)
--		return ea_err;
--	if (!err != !ea_err)
-+	exists = !err;
-+	err = ntfs_ea_attr_lookup(ni, AT_EA);
-+	if (err && err != -ENOENT)
-+		return err;
-+	/* Do not silently discard an orphaned attribute. */
-+	if (exists != !err)
- 		return -EUCLEAN;
--	has_ea = !err;
--	if (!has_ea && (!value || (flags & XATTR_REPLACE)))
--		return -ENODATA;
--	if (has_ea) {
--		p_ea_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
--						&ea_info_size);
--		if (IS_ERR(p_ea_info)) {
--			err = PTR_ERR(p_ea_info);
--			p_ea_info = NULL;
--			goto out;
--		}
--		if (ea_info_size != sizeof(struct ea_information)) {
-+
-+	if (exists) {
-+		old_info = ntfs_attr_readall(ni, AT_EA_INFORMATION, NULL, 0,
-+					     &info_size);
-+		if (IS_ERR(old_info))
-+			return PTR_ERR(old_info);
-+		if (info_size != sizeof(*old_info)) {
- 			err = -EUCLEAN;
- 			goto out;
- 		}
--
--		ea_buf = ntfs_attr_readall(ni, AT_EA, NULL, 0, &all_ea_size);
--		if (IS_ERR(ea_buf)) {
--			err = PTR_ERR(ea_buf);
--			ea_buf = NULL;
-+		old_ea = ntfs_attr_readall(ni, AT_EA, NULL, 0, &old_size);
-+		if (IS_ERR(old_ea)) {
-+			err = PTR_ERR(old_ea);
-+			old_ea = NULL;
- 			goto out;
- 		}
--
--		ea_info_qsize = le32_to_cpu(p_ea_info->ea_query_length);
--	} else {
--		p_ea_info = kzalloc_obj(struct ea_information, GFP_NOFS);
--		if (!p_ea_info)
--			return -ENOMEM;
--
--		ea_info_qsize = 0;
--		err = ntfs_attr_add(ni, AT_EA_INFORMATION, AT_UNNAMED, 0,
--				(char *)p_ea_info, sizeof(struct ea_information));
--		if (err)
-+		size = le32_to_cpu(old_info->ea_query_length);
-+		if (size > old_size) {
-+			err = -EUCLEAN;
- 			goto out;
--
--		goto alloc_new_ea;
--	}
--
--	if (ea_info_qsize > all_ea_size) {
--		err = -EUCLEAN;
--		goto out;
-+		}
- 	}
- 
--	/* Validate the whole chain before modifying it, including its tail. */
--	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, NULL, 0, &ea_off,
--			     &ea_size);
-+	/* Validate even the entries following the one being replaced. */
-+	err = ntfs_ea_lookup(old_ea, size, NULL, 0, &offset, &entry_size);
- 	if (err != -ENOENT)
- 		goto out;
--	/* A zero tail offset must be linked before appending another EA. */
--	for (ea_off = 0; ea_off < ea_info_qsize; ea_off += ea_size) {
--		p_ea = (struct ea_attr *)(ea_buf + ea_off);
--		ea_size = le32_to_cpu(p_ea->next_entry_offset);
--		if (!ea_size) {
--			ea_size = ea_info_qsize - ea_off;
--			p_ea->next_entry_offset = cpu_to_le32(ea_size);
--		}
--	}
--
--	err = ntfs_ea_lookup(ea_buf, ea_info_qsize, name, name_len, &ea_off,
--			&ea_size);
-+	err = ntfs_ea_lookup(old_ea, size, name, name_len, &offset, &entry_size);
- 	if (err && err != -ENOENT)
- 		goto out;
--	if (ea_info_qsize && !err) {
-+	if (!err) {
- 		if (flags & XATTR_CREATE) {
- 			err = -EEXIST;
- 			goto out;
- 		}
--		if (!value) {
--			old_ea_info = *p_ea_info;
--			old_ea_buf = kvmemdup(ea_buf, all_ea_size, GFP_NOFS);
--			if (!old_ea_buf) {
--				err = -ENOMEM;
--				goto out;
--			}
--		}
--
--		/* Check the final $EA size before removing the old entry. */
--		if (value &&
--		    ntfs_attr_size_bounds_check(ni->vol, AT_EA,
--					ea_info_qsize - ea_size + new_ea_size)) {
--			err = -EFBIG;
--			goto out;
--		}
--
--		p_ea = (struct ea_attr *)(ea_buf + ea_off);
--
--		if (value &&
--		    le16_to_cpu(p_ea->ea_value_length) == val_size &&
--		    !memcmp(p_ea->ea_name + p_ea->ea_name_length + 1, value,
--			    val_size))
--			goto out;
--
--		le16_add_cpu(&p_ea_info->ea_length, 0 - ea_packed_size(p_ea));
--
--		if (p_ea->flags & NEED_EA)
--			le16_add_cpu(&p_ea_info->need_ea_count, -1);
--
--		memmove((char *)p_ea, (char *)p_ea + ea_size, ea_info_qsize - (ea_off + ea_size));
--		ea_info_qsize -= ea_size;
--		p_ea_info->ea_query_length = cpu_to_le32(ea_info_qsize);
--
--		if (!value && !ea_info_qsize) {
--			err = ntfs_attr_remove(ni, AT_EA, AT_UNNAMED, 0);
--			if (err)
--				goto out;
--
--			err = ntfs_attr_remove(ni, AT_EA_INFORMATION, AT_UNNAMED, 0);
--			if (err) {
--				/* Restore the original $EA if $EA_INFORMATION removal failed. */
--				ntfs_attr_add(ni, AT_EA, AT_UNNAMED, 0, old_ea_buf,
--					      all_ea_size);
--				ea_info_qsize = le32_to_cpu(old_ea_info.ea_query_length);
--			}
--			goto out;
--		}
--
--		if (!value) {
--			err = ntfs_write_ea(ni, AT_EA, ea_buf, 0, ea_info_qsize,
--					true);
--			if (err) {
--				ntfs_write_ea(ni, AT_EA, old_ea_buf, 0,
--					      all_ea_size, false);
--				goto out;
--			}
--
--			err = ntfs_write_ea(ni, AT_EA_INFORMATION, (char *)p_ea_info,
--					0, sizeof(struct ea_information), false);
--			if (err) {
--				ntfs_write_ea(ni, AT_EA, old_ea_buf, 0,
--					      all_ea_size, false);
--				ntfs_write_ea(ni, AT_EA_INFORMATION,
--					      (char *)&old_ea_info, 0,
--					      sizeof(old_ea_info), false);
--			}
--			goto out;
-+		entry = (struct ea_attr *)(old_ea + offset);
-+		if (!remove && le16_to_cpu(entry->ea_value_length) == val_size &&
-+		    !memcmp(entry->ea_name + name_len + 1, value, val_size)) {
-+			info = *old_info;
-+			goto done;
- 		}
- 	} else {
--		if (!value || (flags & XATTR_REPLACE)) {
-+		if (remove || (flags & XATTR_REPLACE)) {
- 			err = -ENODATA;
- 			goto out;
- 		}
-+		offset = size;
-+		entry_size = 0;
-+	}
- 
--		if (ntfs_attr_size_bounds_check(ni->vol, AT_EA,
--					ea_info_qsize + new_ea_size)) {
--			err = -EFBIG;
-+	add_size = remove ? 0 : ALIGN(sizeof(*entry) + name_len + 1 + val_size, 4);
-+	new_size = size - entry_size + add_size;
-+	if (new_size && ntfs_attr_size_bounds_check(ni->vol, AT_EA, new_size)) {
-+		err = -EFBIG;
-+		goto out;
-+	}
-+	if (new_size) {
-+		ea = kvzalloc(new_size, GFP_NOFS);
-+		if (!ea) {
-+			err = -ENOMEM;
- 			goto out;
- 		}
-+		if (offset)
-+			memcpy(ea, old_ea, offset);
-+		if (size > offset + entry_size)
-+			memcpy(ea + offset, old_ea + offset + entry_size,
-+			       size - offset - entry_size);
- 	}
--alloc_new_ea:
--	new_ea_buf = kvzalloc(ea_info_qsize + new_ea_size, GFP_NOFS);
--	if (!new_ea_buf) {
--		err = -ENOMEM;
--		goto out;
-+	size -= entry_size;
-+
-+	/* Link a zero-terminated old tail before appending the new entry. */
-+	for (offset = 0; offset < size; offset += next) {
-+		entry = (struct ea_attr *)(ea + offset);
-+		next = le32_to_cpu(entry->next_entry_offset);
-+		if (!next) {
-+			next = size - offset;
-+			entry->next_entry_offset = cpu_to_le32(next);
-+		}
-+		packed += ea_packed_size(entry);
-+		if (entry->flags & NEED_EA)
-+			needed++;
- 	}
--	if (ea_info_qsize)
--		memcpy(new_ea_buf, ea_buf, ea_info_qsize);
--	kvfree(ea_buf);
--	ea_buf = new_ea_buf;
--	p_ea = (struct ea_attr *)(ea_buf + ea_info_qsize);
--
--	/*
--	 * EA and REPARSE_POINT compatibility not checked any more,
--	 * required by Windows 10, but having both may lead to
--	 * problems with earlier versions.
--	 */
--	memcpy(p_ea->ea_name, name, name_len);
--	p_ea->ea_name_length = name_len;
--	p_ea->ea_name[name_len] = 0;
--	memcpy(p_ea->ea_name + name_len + 1, value, val_size);
--	p_ea->ea_value_length = cpu_to_le16(val_size);
--	p_ea->next_entry_offset = cpu_to_le32(new_ea_size);
--
--	ea_packed = le16_to_cpu(p_ea_info->ea_length) + ea_packed_size(p_ea);
--	p_ea_info->ea_length = cpu_to_le16(ea_packed);
--	p_ea_info->ea_query_length = cpu_to_le32(ea_info_qsize + new_ea_size);
--
--	if (ea_packed > 0xffff) {
-+	if (!remove) {
-+		entry = (struct ea_attr *)(ea + size);
-+		entry->next_entry_offset = cpu_to_le32(add_size);
-+		entry->ea_name_length = name_len;
-+		entry->ea_value_length = cpu_to_le16(val_size);
-+		memcpy(entry->ea_name, name, name_len);
-+		memcpy(entry->ea_name + name_len + 1, value, val_size);
-+		packed += ea_packed_size(entry);
-+	}
-+	if (packed > U16_MAX) {
- 		err = -EFBIG;
- 		goto out;
- 	}
--
--	/*
--	 * no EA or EA_INFORMATION : add them
--	 */
--	if (!has_ea) {
--		err = ntfs_attr_add(ni, AT_EA, AT_UNNAMED, 0, ea_buf,
--				ea_info_qsize + new_ea_size);
--		if (err)
--			goto out;
--	} else {
--		err = ntfs_write_ea(ni, AT_EA, ea_buf, 0,
--				ea_info_qsize + new_ea_size, true);
--		if (err)
--			goto out;
--	}
--
--	err = ntfs_write_ea(ni, AT_EA_INFORMATION, (char *)p_ea_info, 0,
--			sizeof(struct ea_information), false);
--	if (err)
-+	info.ea_length = cpu_to_le16(packed);
-+	info.need_ea_count = cpu_to_le16(needed);
-+	info.ea_query_length = cpu_to_le32(new_size);
-+
-+	/* All preparation is complete; errors from here require rollback. */
-+	err = ntfs_ea_update_attr(ni, AT_EA, ea, new_size);
-+	if (!err)
-+		err = ntfs_ea_update_attr(ni, AT_EA_INFORMATION,
-+					  new_size ? (char *)&info : NULL,
-+					  sizeof(info));
-+	if (err) {
-+		/* Try both restorations even if the first one fails. */
-+		ea_err = ntfs_ea_update_attr(ni, AT_EA, old_ea, old_size);
-+		info_err = ntfs_ea_update_attr(ni, AT_EA_INFORMATION,
-+					       (char *)old_info, sizeof(info));
-+		if (ea_err || info_err) {
-+			NVolSetErrors(ni->vol);
-+			NVolSetShutdown(ni->vol);
-+			ntfs_error(inode->i_sb,
-+				   "Failed to restore EAs of inode 0x%llx (%d, %d); shutting down.",
-+				   ni->mft_no, ea_err, info_err);
-+			err = -EIO;
-+		}
- 		goto out;
--
--	if (packed_ea_size)
--		*packed_ea_size = p_ea_info->ea_length;
--	ea_info_qsize += new_ea_size;
-+	}
-+	size = new_size;
- 	mark_mft_record_dirty(ni);
-+done:
-+	if (packed_ea_size)
-+		*packed_ea_size = info.ea_length;
-+	if (size)
-+		NInoSetHasEA(ni);
-+	else
-+		NInoClearHasEA(ni);
- out:
--	if (!err) {
--		if (ea_info_qsize > 0)
--			NInoSetHasEA(ni);
--		else
--			NInoClearHasEA(ni);
--	}
--
--	kvfree(ea_buf);
--	kvfree(old_ea_buf);
--	kvfree(p_ea_info);
--
-+	kvfree(ea);
-+	kvfree(old_ea);
-+	kvfree(old_info);
- 	return err;
- }
- 
 -- 
-2.51.0
+2.25.1
 
