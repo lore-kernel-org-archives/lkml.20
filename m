@@ -1,309 +1,86 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 60C3232B126
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277B7346E64;
+	Wed, 23 Sep 2026 08:32:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152345; cv=none; b=eDRMMfVw0v1sWcUXgTrOqAMk1CrgxOFig749ACXe4uqlJU+MlCWPO68llpHoTJELnMXAJqsOfG/sZFQQPH41AT0vJISlp4Vk7KmkG7Vryvn//GKCfGcEnPjQ7MpQ7z47Qbb68RZdkXErMNe6KsraANWXmts7F6ja0GDiAXlzQJg=
+	t=1790152355; cv=none; b=OrvOXE0zLJ8Yw3vOTl/jwGLIethP/CJb6NbbBPhQ+wpuU+NwO+ln1WnfEy8GV21qNGH8xP2e+RjOUt5b+/F1+ZxzJd4i9OobIfV8FUnDI26DMInOGq4cdOm6jxizC5WEu+HJ78qmW6HwE/mB/Bea6u2Kron4ZuRRGxDeiSxExXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152345; c=relaxed/simple;
-	bh=zzvJxrToN+5AqlqU0CvwWYmRdJMMAE6EqK1QaTzSNoY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q1BUOfR2pAwIlCnLjhHbufp0jObDEC2t3qRDRi005S8Hn995hl773On96oYR7QT8vZLrasYTaUQu3bUcjgz2fOjizf5I0qlgEZHCNy9mz23cNjidxOFfdQU10fYpEwoE4D7Ogch8q4dCt7dL0C2hCnAZ/p0gAM1vPZlScshNaWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=t8ia1hWn; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790152355; c=relaxed/simple;
+	bh=3p/rqBCsBPprrZNeSjqBfIwUGC801QEegj7JgtWieXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GIg3w1NygzAfdQ1E7VGcHwNSdWOLHXSgyfw5t9baA2OPxRt4pDbmjRR2YcTeEaVs3Yf/LAptE0aGxD7l/nii+6597N14mJ+E1d1MqEZ/QIrUvYXGyMEi4npyuXUZ4qf/CsAdsBsrnS9rkRwisRcslZIj3omXOBBFojBxCTf7F94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=RuRz/5CX; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="t8ia1hWn"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 44F581570;
-	Wed, 23 Sep 2026 01:32:19 -0700 (PDT)
-Received: from [10.0.138.135] (XHFQ2J9959-5.cambridge.arm.com [10.0.138.135])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C80563F86C;
-	Wed, 23 Sep 2026 01:32:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790152342; bh=zzvJxrToN+5AqlqU0CvwWYmRdJMMAE6EqK1QaTzSNoY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=t8ia1hWnCTKF6BgRjNTh6Q94B8/wFBEFP1mNHioecYtl12XVSfSCern/A1uvo/OZU
-	 TiCDYoVmCM3MzNfdFbfDWzlLLfsu5csrVYQMg3i2gkYqyGCYyFxz29vQWHWJDFa8Ha
-	 +uBVE/omKsioocOpkO9vW2NLdXR82bDe/iVQmYnM=
-Message-ID: <212067fe-1b16-4b87-87a7-4ce50847eb24@arm.com>
-Date: Wed, 23 Sep 2026 09:32:17 +0100
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="RuRz/5CX"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=AbgpJ6CKUtUVTx6r4Q/hXLIcgGWueg/e2MoP3w3eSac=; 
+	b=RuRz/5CXuGe8iCaC4esj2NRJ8JB7+ViG0qrh7vrEGr9K9UWBdMzLfMmdbSqXRyMtyqKqNXGOFag
+	q/o8+MRTeaw63FVUCTKLj1DaFCv2Oh3ytudTdbN+xCv7Vh9yIUnuDBvm2vwAsbwxDppY2DRMnsJQI
+	AZCsmSTX19/tRndIauxfkUJy9t76eqRNXFegj+oY0HhmbUbfaXtO8rm2ZBMo91zIlUe+o+cvg80Ge
+	87BXWGyJuLQ5FPw6RGy2TAKh+7AL/L2DxRACvahW+Yc4tryoXfAHU5z9KaI/vyCS/a8biZJ2XniFr
+	QL1W3DwtZ+T4Nm+7MjA1vzRl+/Xax+cnG7Kg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x9IOv-0000000Gxop-3682;
+	Wed, 23 Sep 2026 16:32:26 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 18:32:25 +1000
+Date: Wed, 23 Sep 2026 18:32:25 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Ralf Lici <ralf@mandelbit.com>
+Cc: linux-crypto@vger.kernel.org, Antoine Tenart <atenart@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH crypto 2/2] crypto: safexcel - Map AEAD buffers with
+ accurate DMA directions
+Message-ID: <arOOmSnC1NxvG1nw@gondor.apana.org.au>
+References: <arNj5SOwXf_TV6eK@gondor.apana.org.au>
+ <20260923072646.86229-1-ralf@mandelbit.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 1/4] arm64/mm: Use pmdp_get() for PMD accesses
-To: Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, Mark Rtland <mark.rtland@arm.com>,
- linx-arm-kernel@lists.infradead.org, linx-kernel@vger.kernel.org,
- kasan-dev@googlegrops.com
-References: <20260922061638.3967467-1-anshuman.khandual@arm.com>
- <20260922061638.3967467-2-anshuman.khandual@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260922061638.3967467-2-anshuman.khandual@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923072646.86229-1-ralf@mandelbit.com>
 
-On 22/09/2026 07:16, Anshuman Khandual wrote:
-> Replace READ_ONCE() with pmdp_get() for PMD accesses in preparation for
-> supporting both D64 and D128 translation table formats.
+On Wed, Sep 23, 2026 at 09:26:46AM +0200, Ralf Lici wrote:
+>
+> No, the regions do not need to occupy separate sg entries, the patch
+> selects the direction conservatively for the whole entry.
 > 
-> READ_ONCE() cannot currently be used for 128-bit page table entries on
-> arm64 because it does not provide the required 128-bit single-copy
-> atomicity, causing builds to fail for accesses wider than 64 bits.
+> For a completely linear in-place request, the entry overlaps the output
+> range and is therefore mapped DMA_BIDIRECTIONAL. For an out-of-place
+> request, the source is mapped DMA_TO_DEVICE. For example, a single
+> destination entry covering:
 > 
-> Although LDP/STP provide the required atomicity when FEAT_LSE is
-> available (as required by FEAT_D128), extending READ_ONCE() to support
-> 128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
-> so doing so could encourage other 128-bit users that would either fail
-> to build in configurations without D128 support or, if D128 becomes a
-> runtime option, silently permit tearing on systems without the required
-> hardware support.
+>     [ AAD | ciphertext | tag ]
 > 
-> Instead, standardize PMD accesses on the existing page-table helpers.
-> These can be overridden on arm64 to provide 128-bit single-copy
-> atomicity when required. No functional change intended.
+> has a logical output range covering only:
+> 
+>           [ ciphertext | tag ]
+> 
+> Since the entry also contains the preserved AAD prefix, it is classified
+> as mixed and mapped DMA_BIDIRECTIONAL. The same applies if an entry
+> extends beyond the end of the output range.
 
-I notice you have an unconverted READ_ONCE(*pmdp) in
-pmdp_test_and_clear_young(). Is that intentional?
+Wait, I think this suggests that the caller is giving us bogus
+input.
+
+If the input is out-of-place, it shouldn't contain overlapping
+data.
+
+Which caller is this?
 
 Thanks,
-Ryan
-
-
-> 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Mark Rtland <mark.rtland@arm.com>
-> Cc: linx-arm-kernel@lists.infradead.org
-> Cc: linx-kernel@vger.kernel.org
-> Cc: kasan-dev@googlegrops.com
-> Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
-> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
-> ---
->  arch/arm64/include/asm/pgtable.h |  3 ++-
->  arch/arm64/mm/fault.c            |  2 +-
->  arch/arm64/mm/fixmap.c           |  2 +-
->  arch/arm64/mm/hugetlbpage.c      |  2 +-
->  arch/arm64/mm/kasan_init.c       |  4 ++--
->  arch/arm64/mm/mmu.c              | 22 +++++++++++-----------
->  arch/arm64/mm/pageattr.c         |  2 +-
->  arch/arm64/mm/trans_pgd.c        |  2 +-
->  8 files changed, 20 insertions(+), 19 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> index 763c5a411d64..b953ea0ba3ed 100644
-> --- a/arch/arm64/include/asm/pgtable.h
-> +++ b/arch/arm64/include/asm/pgtable.h
-> @@ -811,7 +811,8 @@ static inline unsigned long pmd_page_vaddr(pmd_t pmd)
->  }
->  
->  /* Find an entry in the third-level page table. */
-> -#define pte_offset_phys(dir,addr)	(pmd_page_paddr(READ_ONCE(*(dir))) + pte_index(addr) * sizeof(pte_t))
-> +#define pte_offset_phys(dir, addr)	(pmd_page_paddr(pmdp_get(dir)) + \
-> +					 pte_index(addr) * sizeof(pte_t))
->  
->  #define pte_set_fixmap(addr)		((pte_t *)set_fixmap_offset(FIX_PTE, addr))
->  #define pte_set_fixmap_offset(pmd, addr)	pte_set_fixmap(pte_offset_phys(pmd, addr))
-> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-> index 2cecf6ba6df7..2757ee0c4300 100644
-> --- a/arch/arm64/mm/fault.c
-> +++ b/arch/arm64/mm/fault.c
-> @@ -188,7 +188,7 @@ static void show_pte(unsigned long addr)
->  			break;
->  
->  		pmdp = pmd_offset_lockless(pudp, pud, addr);
-> -		pmd = READ_ONCE(*pmdp);
-> +		pmd = pmdp_get(pmdp);
->  		ptval_to_str(pxd_str, pmd_val(pmd));
->  		pr_cont(", pmd=%s", pxd_str);
->  		if (pmd_none(pmd) || pmd_bad(pmd))
-> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-> index f66a0016dd02..3cdac8021d4f 100644
-> --- a/arch/arm64/mm/fixmap.c
-> +++ b/arch/arm64/mm/fixmap.c
-> @@ -42,7 +42,7 @@ static inline pte_t *fixmap_pte(unsigned long addr)
->  
->  static void __init early_fixmap_init_pte(pmd_t *pmdp, unsigned long addr)
->  {
-> -	pmd_t pmd = READ_ONCE(*pmdp);
-> +	pmd_t pmd = pmdp_get(pmdp);
->  	pte_t *ptep;
->  
->  	if (pmd_none(pmd)) {
-> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-> index 8e799c1fe0aa..cdaa4500faf9 100644
-> --- a/arch/arm64/mm/hugetlbpage.c
-> +++ b/arch/arm64/mm/hugetlbpage.c
-> @@ -304,7 +304,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
->  		addr &= CONT_PMD_MASK;
->  
->  	pmdp = pmd_offset(pudp, addr);
-> -	pmd = READ_ONCE(*pmdp);
-> +	pmd = pmdp_get(pmdp);
->  	if (!(sz == PMD_SIZE || sz == CONT_PMD_SIZE) &&
->  	    pmd_none(pmd))
->  		return NULL;
-> diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-> index 45fbdce684c8..7ca833c5de5e 100644
-> --- a/arch/arm64/mm/kasan_init.c
-> +++ b/arch/arm64/mm/kasan_init.c
-> @@ -62,7 +62,7 @@ static phys_addr_t __init kasan_alloc_raw_page(int node)
->  static pte_t *__init kasan_pte_offset(pmd_t *pmdp, unsigned long addr, int node,
->  				      bool early)
->  {
-> -	if (pmd_none(READ_ONCE(*pmdp))) {
-> +	if (pmd_none(pmdp_get(pmdp))) {
->  		phys_addr_t pte_phys = early ?
->  				__pa_symbol(kasan_early_shadow_pte)
->  					: kasan_alloc_zeroed_page(node);
-> @@ -138,7 +138,7 @@ static void __init kasan_pmd_populate(pud_t *pudp, unsigned long addr,
->  	do {
->  		next = pmd_addr_end(addr, end);
->  		kasan_pte_populate(pmdp, addr, next, node, early);
-> -	} while (pmdp++, addr = next, addr != end && pmd_none(READ_ONCE(*pmdp)));
-> +	} while (pmdp++, addr = next, addr != end && pmd_none(pmdp_get(pmdp)));
->  }
->  
->  static void __init kasan_pud_populate(p4d_t *p4dp, unsigned long addr,
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index e589fb00d1e3..95621913679e 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -200,7 +200,7 @@ static int alloc_init_cont_pte(pmd_t *pmdp, unsigned long addr,
->  			       int flags)
->  {
->  	unsigned long next;
-> -	pmd_t pmd = READ_ONCE(*pmdp);
-> +	pmd_t pmd = pmdp_get(pmdp);
->  	pte_t *ptep;
->  
->  	BUG_ON(pmd_leaf(pmd));
-> @@ -257,7 +257,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
->  	unsigned long next;
->  
->  	do {
-> -		pmd_t old_pmd = READ_ONCE(*pmdp);
-> +		pmd_t old_pmd = pmdp_get(pmdp);
->  
->  		next = pmd_addr_end(addr, end);
->  
-> @@ -272,7 +272,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
->  			 * only allow updates to the permission attributes.
->  			 */
->  			BUG_ON(!pgattr_change_is_safe(pmd_val(old_pmd),
-> -						      READ_ONCE(pmd_val(*pmdp))));
-> +						      pmd_val(pmdp_get(pmdp))));
->  		} else {
->  			int ret;
->  
-> @@ -282,7 +282,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
->  				return ret;
->  
->  			VM_WARN_ON_ONCE(pmd_val(old_pmd) != 0 &&
-> -					pmd_val(old_pmd) != READ_ONCE(pmd_val(*pmdp)));
-> +					pmd_val(old_pmd) != pmd_val(pmdp_get(pmdp)));
->  		}
->  		phys += next - addr;
->  	} while (pmdp++, addr = next, addr != end);
-> @@ -293,7 +293,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
->  static bool pmd_range_has_valid_noncont(pmd_t *pmdp)
->  {
->  	for (int i = 0; i < CONT_PMDS; i++) {
-> -		pte_t pte = pmd_pte(READ_ONCE(pmdp[i]));
-> +		pte_t pte = pmd_pte(pmdp_get(pmdp + i));
->  
->  		if (pte_valid(pte) && !pte_cont(pte))
->  			return true;
-> @@ -1553,7 +1553,7 @@ static void unmap_hotplug_pmd_range(pud_t *pudp, unsigned long addr,
->  	do {
->  		next = pmd_addr_end(addr, end);
->  		pmdp = pmd_offset(pudp, addr);
-> -		pmd = READ_ONCE(*pmdp);
-> +		pmd = pmdp_get(pmdp);
->  		if (pmd_none(pmd))
->  			continue;
->  
-> @@ -1708,7 +1708,7 @@ static void free_empty_pmd_table(pud_t *pudp, unsigned long addr,
->  	do {
->  		next = pmd_addr_end(addr, end);
->  		pmdp = pmd_offset(pudp, addr);
-> -		pmd = READ_ONCE(*pmdp);
-> +		pmd = pmdp_get(pmdp);
->  		if (pmd_none(pmd))
->  			continue;
->  
-> @@ -1729,7 +1729,7 @@ static void free_empty_pmd_table(pud_t *pudp, unsigned long addr,
->  	 */
->  	pmdp = pmd_offset(pudp, 0UL);
->  	for (i = 0; i < PTRS_PER_PMD; i++) {
-> -		if (!pmd_none(READ_ONCE(pmdp[i])))
-> +		if (!pmd_none(pmdp_get(pmdp + i)))
->  			return;
->  	}
->  
-> @@ -1881,7 +1881,7 @@ int pmd_set_huge(pmd_t *pmdp, phys_addr_t phys, pgprot_t prot)
->  	pmd_t new_pmd = pfn_pmd(__phys_to_pfn(phys), mk_pmd_sect_prot(prot));
->  
->  	/* Only allow permission changes for now */
-> -	if (!pgattr_change_is_safe(READ_ONCE(pmd_val(*pmdp)),
-> +	if (!pgattr_change_is_safe(pmd_val(pmdp_get(pmdp)),
->  				   pmd_val(new_pmd)))
->  		return 0;
->  
-> @@ -1906,7 +1906,7 @@ int pud_clear_huge(pud_t *pudp)
->  
->  int pmd_clear_huge(pmd_t *pmdp)
->  {
-> -	if (!pmd_leaf(READ_ONCE(*pmdp)))
-> +	if (!pmd_leaf(pmdp_get(pmdp)))
->  		return 0;
->  	pmd_clear(pmdp);
->  	return 1;
-> @@ -1917,7 +1917,7 @@ int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
->  	pte_t *table;
->  	pmd_t pmd;
->  
-> -	pmd = READ_ONCE(*pmdp);
-> +	pmd = pmdp_get(pmdp);
->  
->  	if (!pmd_table(pmd)) {
->  		VM_WARN_ON(1);
-> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-> index bbe98ac9ad8c..0ca07bd5ded9 100644
-> --- a/arch/arm64/mm/pageattr.c
-> +++ b/arch/arm64/mm/pageattr.c
-> @@ -414,7 +414,7 @@ bool kernel_page_present(struct page *page)
->  		return pud_valid(pud);
->  
->  	pmdp = pmd_offset(pudp, addr);
-> -	pmd = READ_ONCE(*pmdp);
-> +	pmd = pmdp_get(pmdp);
->  	if (pmd_none(pmd))
->  		return false;
->  	if (pmd_leaf(pmd))
-> diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-> index cca9706a875c..b27b2d2c20c3 100644
-> --- a/arch/arm64/mm/trans_pgd.c
-> +++ b/arch/arm64/mm/trans_pgd.c
-> @@ -74,7 +74,7 @@ static int copy_pmd(struct trans_pgd_info *info, pud_t *dst_pudp,
->  
->  	src_pmdp = pmd_offset(src_pudp, start);
->  	do {
-> -		pmd_t pmd = READ_ONCE(*src_pmdp);
-> +		pmd_t pmd = pmdp_get(src_pmdp);
->  
->  		next = pmd_addr_end(addr, end);
->  		if (pmd_none(pmd))
-
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
