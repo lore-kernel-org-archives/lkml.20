@@ -1,106 +1,221 @@
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E18554280D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 162ED560ABD
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:54:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790182372; cv=none; b=VV46meXGQPS8gLg5ryZsl3oS0P6P1U/dOQ8kCWYDqJCtlUdB+/2rrLMY6JFAjw1bfALRddbGT1qBtwtmxk85u7Tu4z5hUUg8JX8D8LtfS7IqFsyoPbeljvjph8Aj0TVcyn4++zczHeo5RUffHfMUcoY3FCLNOAdPxo4EwP5MZms=
+	t=1790182493; cv=none; b=GjiSxoquZK6ZblNtPqENBmDP+HGqsHqf/0fGY+wkvN2VmEqXOMqn+GtND/cYQrtMoErRySC5DpBJ/fjkat/3x8kyhxQlxC96oOFF3yJxB7Cdm9C3A74AnFyDh+eq2IuxLpmELSeW+XIdb5phaekghAKYZUjhEUXIG8KwGyW/AJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790182372; c=relaxed/simple;
-	bh=ZsB+iNtZ996/IRzwqCCTAIPrmIEIkRV+EK4V1lIlZc8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZWvvEqapO6Itvnb79kYlOith0UuRScWTYTW+tUN+sN7EXriIWQIHKp8A5IYLBRFQArZbbBN4Brs7aUyJQqTzGgCQTKnrwogZXOxsFuU73ZkH/VfeppLBIeHf6MExaTf9BiSm6kr/4F/6Sr5vRTeEKL1lUcfzx2RJCYDEESRvViE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=aIUt7wJj; arc=none smtp.client-ip=209.85.161.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1790182493; c=relaxed/simple;
+	bh=VrlzXIxy8Fp+qeOGPoQZqyU4YzmW9HF543x3NzyMjfA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=etOsszq/Mv8OEkwoRs9KoE+0PRC4kMvVMQnfk5G94NsHu2vWMaffRjxOAMstJ7P0qDZHdzmnO/Hr3wTq9W7VPGAbPCmNcyOiz4Vin1FDCujO9WkM07zdwDgq4rRYsbjnBCzrSBy92n7+ct2g6kifkIMAIqKIjhCqJ93YaXugVSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Seum9zPq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BNfXjaWs; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="aIUt7wJj"
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6c8f6a53fabso39317eaf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:52:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Seum9zPq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BNfXjaWs"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGTpgK063762
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:54:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zlDwEtbUvjpRubwATEGCqUpsne2yYQHkp6iqY3VINLE=; b=Seum9zPqFF1bAFs9
+	2SAgWuOtEzV4WMAmZskMjMP9xFgcocCq5t/P4Btc3uXm/yPP+5dFmh5MvrsC6Woe
+	cL0t9T8Uk0hJD7dxIFSFHKlwoz8kF0IlCF4G+vCAYHnQ5iI/2KTdeJcGSx2awi+g
+	zRh0sCoZKCovDiw8hhNMIlveeyEBS1Vj1OLdNgsBWkZcIG4Bx1Im5Y0tYnE2BZgY
+	80heXHTTt8VxnPYBz3mzkSgrfEctt7TgufuAh5IddJeFRDHIZOHddDlWhucY9Wj/
+	WeQF9cQwlA6a6DWFbbrnt6l8QhQDXPVALVsLhoBblQDFI7hp0SxbGW7fL6jVBLnP
+	KHIFfw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfkbgxht-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:54:50 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d94f086fedso10747235ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:54:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790182368; x=1790787168; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YIExK7C+1gjxck9oYfNX38MM4fuWrgyse7e3gdiUnPQ=;
-        b=aIUt7wJj/574RO80uOCIXCo5gUmXk5OmBl4YJDmIQD6OS2Q9Hkc28nKs+tCiO+CG/A
-         Db8oleF4h+0WTG/4UVcOqtDOGuSWI+XV1qMDztrXPaom0sz/+jbgQUzn1WS3OvtarSPj
-         V2S0enXCVm6mL0kDLTdMLz3iuROVUlRWcJKauPd7rdx0l4h96rtmW0GbH+ai5/EpHBps
-         Cuu7Fop1DN0QP8lddkZZfbkJoEowTKRd9gvNvf/2AxSRyH87DL1CMZo8eTyjGf99bHiq
-         mEGzNlZ6A1jKvP6hpIepESanRGok1ytupdIn6LsnKH7fIi1rozCvaR4JAiT8B5cApiO9
-         THdw==
+        d=oss.qualcomm.com; s=google; t=1790182490; x=1790787290; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=zlDwEtbUvjpRubwATEGCqUpsne2yYQHkp6iqY3VINLE=;
+        b=BNfXjaWsjq3Chm5i80npnbkvIjuFmphkUf1jnGWEGQ8q2nb0QGueD7KmdGDmzwPpAy
+         JJdx7JlsMjgyMxaQW940I7NXYQZX0ws/IUs7ul/Bg6dQprjdiaoZjRqQe2rs+C9ZxH9B
+         d4rmCDzdyB5efnBii3k6PYVG8PBwU66oN4tCk/OSQNEtNqZjUwZoq60m3QKzFlLGJPrK
+         570ohf0Bxj6tYsHDlqi4hFUEZnVeGfT/Ncx8AGJhF6f+/N18+a/uHLCKmG+8LZ6DR/t5
+         c2A9o7zeWhj4SgybQl2B2v81XpgJjS/e3XTGNDa1j8mXYK678XFtrwd+4+J3Y4GJcGAe
+         0q7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790182368; x=1790787168;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YIExK7C+1gjxck9oYfNX38MM4fuWrgyse7e3gdiUnPQ=;
-        b=dsIR88qKCHsYHyyvy2hQ0YB2L+R6bvDuqvK/k+3k1b3PuaMl3bA57VCaWccy1fbH70
-         0c9ktJbGhe2edrHqh0/Wsm9QtwU+z4ECRWnmlRmqDeC/YsoIFBpSHEx7u+Cqf/czs13z
-         ulko9sLPAHCObKi6NT2q499W57q4NbXPY2XCCIq2bQlyudSZsP2u65zJEAX1n+CLeBhE
-         G9Du9H31SIZMfZKrmjPoI8vioLjLiTPR5DQVDF2xcl6ncq3bXRwSm18yU+Maca95jcbK
-         y5rgqzbkmV0wZYc9aDLjakHtF2WVXRcvE4LrM0TPHRJ9lRzDWnsBkM9vov1LsqiSyGHU
-         hDcA==
-X-Forwarded-Encrypted: i=1; AKwUvBxoWRwqVPA6aCNZ9HhhcbX5lr2Q4dbsBc98BtiqCs7NZQE7l3JFrXzv9+KN57Y0ppjwy89qd4B3zuAASrE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lViFCWas0wn+bXvrHoNnRTgt0z3OgOf+h/VZ8u0Mjki47qLUiC
-	pLkwOv7Ag4dLsxxWn5xWaartxDWsR63tUwG2d01Z1TGoFJO+XRo9FhfWAV0/Zz4rowk=
-X-Gm-Gg: AYBFou3RCT+YerUsE22lzAH2WjDkNbf313wrRXsv/zZFb7unRoKclbii38va+ECk28u
-	VvX0NMcKW3qEOcv27vRvPpnSshqJhuy6SIYsILoxqo0Q9t2LHHECQ6P5riAdt0yHaLJdG9dUUzX
-	7pRxTk+BIeVP5F6RzfICGq3RfiioXJG0TXjPxLdUmIXZ1OrzvOEzOQY2Ntni1He3HuXxcQRogxF
-	zrrPpqAZcjNqkcUPvgi//a8KRtpp87GMyftH9jYd87/dD0V8klY9wmDoQqNrWZfGF1bnpUfH8Dl
-	WYVT+tBqpCvEYizD08l0lXIjWvb5OVyExoS6/+3rg5yGDmD/S/Y/zblZ9lF5U3HXfbdWRolddlc
-	nOTYUWB6qLtdG/T+t9AH5nuCxMPiIIpUUdp7rQpWyIS4FL6ErtzZizKZnBiIk6f6KDTKn7Y8FpJ
-	10pyhpSSLl/UT6ZCdp0GMmWh57UkFdhHMsfJBKxlXiK3up/yM9fRn77XVEtJH5H6rs8insi3t5X
-	Lv+KFHIQz+MubCqh8LOAPHbagOPszjcVjLAjmPK5Rz+VKxoAyFNjKY=
-X-Received: by 2002:a4a:ee06:0:b0:6bf:ebd9:6cb4 with SMTP id 006d021491bc7-6d157d8a169mr5153217eaf.8.1790182368245;
-        Wed, 23 Sep 2026 09:52:48 -0700 (PDT)
-Received: from [192.168.2.38] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4908efd9a67sm2238154fac.17.2026.09.23.09.52.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 09:52:47 -0700 (PDT)
-Message-ID: <35640d8a-4a6e-4e86-b553-5d5bdcba6e1c@kernel.dk>
-Date: Wed, 23 Sep 2026 10:52:46 -0600
+        d=1e100.net; s=20260707; t=1790182490; x=1790787290;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zlDwEtbUvjpRubwATEGCqUpsne2yYQHkp6iqY3VINLE=;
+        b=QZqvOXye2T4crijvhQ1Gqk/P2M4KbF78rVmvUuohbJKQBR7Fs0KXCxfoViUU0uFTfS
+         Cb63vMwvLqmjshwi8/zKT+DBbcUUWQXLJYM4CjPg1bzWhQTLmTbk3OwakaalXH+uD2DO
+         juPJcNpeH8/FvbK5a1+5eDnl8PEH6nvRdlI3yU3VtTBnVAF+4/lYAUeUf+ezl9o9C5ep
+         lyfQDqT9siS8LlOvSMelbO384U7JozeLjBHX5nNqOazh3ssdo3XQ8AjRNk0WgV7iWO/G
+         MLe9jTlUnaCBt8cbf0dmooPJ+G55Lx7XerAlxzE/ty13zupym+GyP0OAsJaeQtsz8Tgv
+         OtQg==
+X-Forwarded-Encrypted: i=1; AKwUvBxUBQJBqn4ssTkW7rQtfzydLDPMnLoEwyR/+iGWPu2COjuIIRNa7XCuZsAeVQo+iM4wUJ9k1okUW5Gebeg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nutdD0xuo3Q2TtG8e7sf9lHgDGWXatP2R4zG20vf/ildyy/6Ld
+	tDQJzbpKok86tVqJn93WPuVXkni6HMGlUn4CoWiX87RKgiVNsrlNd0iraZbSpvXgFeY+qm/uexN
+	4c5z/wbn4ONkbGieqHPFUs9exs5kOfhRJ6MCkfs4pgvrGz45RDsZM4SX2XIwroTMLbvM=
+X-Gm-Gg: AYBFou23iwamPiqLcqjM1yTxlW/kun+SawURHQGCw5PFDgsKsDckP9PCRGQUTwHoZ6e
+	L2qkdopI1NCdHKF4vk1Ee0O1wOatnJTLmE82vlryQ1pQ1QxvbN7HQaVS5/thXeDd3/pwPuqS067
+	aDvkiU8jnuc2blTsTFGYFxBiggGTYLmsELRP6kdSgdEDGd+4eIfm8UtHR9N7OrFarIqVGZC//PD
+	40VxJ3Pt76GA4ct5oYuFpAcQ+GiF7SGZTl16dOkOQxCwU06Lb1RaJZgsJ8jqxXJgRJ9Vp7kV7wO
+	NwEFEWIjBLJMnbyaRojyT4cS7DCLu4BDWPJy3lPhS6BEypqgkEhm9FtcNYxNhKTIvxGK/osO/5L
+	GxRQbcFudWoI+qmDhei4eAf4fBQddXZ9B/ZZDqMZzK5b+MvGbkHb0Lk6+9BGJ9A9wbQ==
+X-Received: by 2002:a17:902:f549:b0:2da:eb8f:b4e4 with SMTP id d9443c01a7336-2df69d261dfmr29630465ad.7.1790182489378;
+        Wed, 23 Sep 2026 09:54:49 -0700 (PDT)
+X-Received: by 2002:a17:902:f549:b0:2da:eb8f:b4e4 with SMTP id d9443c01a7336-2df69d261dfmr29630075ad.7.1790182488834;
+        Wed, 23 Sep 2026 09:54:48 -0700 (PDT)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5f4219sm14535985ad.68.2026.09.23.09.54.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 09:54:48 -0700 (PDT)
+Date: Wed, 23 Sep 2026 09:54:43 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v19 09/20] KVM: arm64: Add VM specific callback for S2
+ MMU operations
+Message-ID: <20260923095443.0000378c@oss.qualcomm.com>
+In-Reply-To: <0d5201f0-359e-4748-92da-946dedf51bcf@arm.com>
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+	<20260920212845.707-10-suzuki.poulose@arm.com>
+	<20260922152914.00001221@oss.qualcomm.com>
+	<0d5201f0-359e-4748-92da-946dedf51bcf@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] io_uring/lock: Keep spinlock release before wake_up()
-To: Xiaochuan Li <chuanx2070@163.com>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-References: <20260919123021.21318-1-chuanx2070@163.com>
- <20260923161622.25737-1-chuanx2070@163.com>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20260923161622.25737-1-chuanx2070@163.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2NyBTYWx0ZWRfX84yjUppbsTGv
+ ua+PzQ4uTgk0xMkCwBTGGUOd0e0MuLRL4D5pNFZQ2Qjf+/q4gbfkWkWz9DoRVWKR1mQZxzvQBq0
+ 1YQ8d2HxNUrEI5iU3zawThBRp6QHO7I=
+X-Proofpoint-GUID: W-3ACKvhuRIoVqaG_15_XIMbGtQWXY20
+X-Authority-Analysis: v=2.4 cv=RYMFmFtv c=1 sm=1 tr=0 ts=6ab4045a cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=OqzaOk1-375Rtnrp2FUA:9 a=CjuIK1q_8ugA:10
+ a=uG9DUKGECoFWVXl0Dc02:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2NyBTYWx0ZWRfX61T2ZtU9m3wj
+ iobImIragENhfvhk9Om6uj/9PpCnf1hLudV8DuDVoy/XbjVsqNi1sgVFy1G2GkCRQ3YPJYXTVxB
+ CKI8ae/Uv2wWsViYrpYwLtK9sfsM8fMn0v4xxqiDFPZxgGjsfrfCLI+gVGtsF7r6VWvt6oWG1XU
+ rXOgyoPtvLhKOHfBOMx7oYWrRr1QFqlMdY4BFjg6rNdCkdu61SmaHxUG2k6Ehfh3w4ft5szts68
+ 03muL2VUn6BKvMeQTHVVfI5rxnFoMn2VYTLTb/HyLs+EA6MRcQHlNwtGVbPYjffoEykBGPDN7v4
+ MvFbzDUCEjqY1UDy75yAqiLy7oOhC06VBeYRUHw9kIoRp/uwU1OJlaywmLh+Qq2RuEC48e8Ssgn
+ aDrHGyIUpMqAfWlrv0AmrJAuSJCW5kXEJBh02wNjRV1h6eZE6nS4aO8FDCAwS8Y52QM207bSInb
+ m2t7LHf/XVAo3iBj/ZA==
+X-Proofpoint-ORIG-GUID: W-3ACKvhuRIoVqaG_15_XIMbGtQWXY20
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ adultscore=0 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230067
 
-On 9/23/26 10:16 AM, Xiaochuan Li wrote:
-> @@ -574,9 +575,8 @@ static struct io_wq_work *io_get_next_work(struct io_wq_acct *acct,
->  		unstalled = io_wait_on_hash(wq, stall_hash);
->  		raw_spin_lock(&acct->lock);
->  		if (unstalled) {
-> +			*need_wake = true;
->  			clear_bit(IO_ACCT_STALLED_BIT, &acct->flags);
-> -			if (wq_has_sleeper(&wq->hash->wait))
-> -				wake_up(&wq->hash->wait);
->  		}
->  	}
+On Wed, 23 Sep 2026 00:21:58 +0100
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 
-*need_wake = wq_has_sleeper(&wq->hash->wait);
+> On 22/09/2026 23:29, Jonathan Cameron wrote:
+> > On Sun, 20 Sep 2026 22:28:34 +0100
+> > Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+> >   
+> >> Add VM type specific S2 MMU operation backends which can be initialized per
+> >> VM flavor, to keep the handling cleaner.
+> >>
+> >> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>  
+> > 
+> > A small suggestion inline that makes it explicit when there isn't
+> > range operation and a full flush of tlb is needed.
+> > 
+> > I don't mind either way, but thought I'd mention it anyway in case
+> > you hadn't already dismissed it.
+> > 
+> > Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> > 
+> >   
+> >> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> >> index 03f2017a7404a..d97a4a1bca23f 100644
+> >> --- a/arch/arm64/kvm/mmu.c
+> >> +++ b/arch/arm64/kvm/mmu.c
+> >> @@ -37,6 +37,8 @@ static unsigned long __ro_after_init io_map_base;
+> >>   
+> >>   #define KVM_PGT_FN(fn)		(!is_protected_kvm_enabled() ? fn : p ## fn)
+> >>     
+> >   
+> >>   /**
+> >>    * kvm_arch_flush_remote_tlbs() - flush all VM TLB entries for v7/8
+> >>    * @kvm:	pointer to kvm structure.
+> >> @@ -174,26 +188,36 @@ static bool memslot_is_logging(struct kvm_memory_slot *memslot)
+> >>    */
+> >>   int kvm_arch_flush_remote_tlbs(struct kvm *kvm)
+> >>   {
+> >> -	if (is_protected_kvm_enabled())
+> >> -		kvm_call_hyp_nvhe(__pkvm_tlb_flush_vmid, kvm->arch.pkvm.handle);
+> >> -	else
+> >> -		kvm_call_hyp(__kvm_tlb_flush_vmid, &kvm->arch.mmu);
+> >> -	return 0;
+> >> +	if (!kvm->arch.vm_s2_ops->vm_flush_remote_tlbs)
+> >> +		return 1;  
+> > 
+> > For consistency with other cases and because it looks nicer
+> > blank line here.  
+> 
+> Ack
+> 
+> >   
+> >> +	return kvm->arch.vm_s2_ops->vm_flush_remote_tlbs(kvm);
+> >>   }
+> >>   
+> >> -int kvm_arch_flush_remote_tlbs_range(struct kvm *kvm,
+> >> -				      gfn_t gfn, u64 nr_pages)
+> >> +static int pkvm_flush_remote_tlbs_range(struct kvm *kvm,
+> >> +					gfn_t gfn, u64 nr_pages)
+> >> +{
+> >> +	return pkvm_flush_remote_tlbs(kvm);  
+> > 
+> > For the cases where there isn't a range call, perhaps you should just
+> > not provide the op and have the wrapper fall back to
+> > calling the 'flush all' variant if there is no range one available?  
+> 
+> The core KVM falls back to flushing all TLBs if the range one
+> returns true anyways. So, I would leave it as it is.
 
-? And probably retain the sme ordering with the bit clear.
+That sounds like a reason to stub them to return true always rather
+than call the flush all so we don't have fallbacks added at two
+layers of the stack?
 
-Apart from that, I think it looks fine. The lock shuffling is somewhat
-annoying and inefficient, an unfortunate side effect of the raw vs
-normal spinlocks.
+> 
+> Cheers
+> Suzuki
+> 
+> 
+> >   
+> >> +}  
+> > 
+> >   
+> 
 
--- 
-Jens Axboe
