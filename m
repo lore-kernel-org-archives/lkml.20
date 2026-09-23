@@ -1,81 +1,126 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-87.mta0.migadu.com [91.218.175.87])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CDDD37F313;
-	Wed, 23 Sep 2026 22:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92AC446A5F0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.87
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790203799; cv=none; b=SpxzNeH3QAH3W9m6Yj4QZ6VqyI029rZoCJP4hlWJ9KHshkcrsQCc+m/QZjkb0BCF1GfLEKj02fHpCKW5KlrgwxeU7mxyo4CK4+Z8KPlqS1QUhJsi3N+AO4UAcVwdC6isgF6iupC6mwaEgSRnP34ezbBHBC6luHQrdwreCs8JfNU=
+	t=1790203826; cv=none; b=j8kJ4RYCu+42aJO4Z/aIyojeuR94R5hwFwuDjX4lR0HWwuUIlulM0kVUVnMybmWJqqL/ADVExwub/fnlgtYw8azVC7tP0Tp7FIByhKa/uhNiezFnhBJPJMuH9P5alxEP8gExnhb92SeBtlbbVnW84AD4z74WNrGrNxKad02dEos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790203799; c=relaxed/simple;
-	bh=7N+PHYhwYb4DDxIKQU9bG1rsHVF5yIkzKWglWZwr0YE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FWr2n/sYMMBmdxkuwdQcn+/GoCEUIr30rb+WBcfjVUC8V5ZqSAYVO0CZcnGYunn0IthqKj+httqNuHshtVC+v1dOeNROcRDvaO86t6fY4Epgvpmu9fan7i0luCVf6AStR1N/bhIPsOGQ5w1zFJmA7YkFgq/R+VkF7zGxjK7k+LQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=l8as964Z; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790203826; c=relaxed/simple;
+	bh=cAHW9pR8nlR6sk+Upl/hizK55XCqRvMPrhN2PbL0DKc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UOlGgrZGmQnIQP1nk6T1AGktmbCVAv+rd6dIwdYFPiCnHt+XcX6tuzZsclzEGTEmUrWNjJ3/GLfWlBf9o2Sfyl6cXP6rE+srRIpqz9uA4BsWvbv7WS1Knreqfl+DCxiSxjQZ9kEfYKDuYTxMiIg+O7XEtDxQn4Kuthan05ZTPh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Et25QBmL; arc=none smtp.client-ip=91.218.175.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="l8as964Z"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=+L5gxY5rh4nIH2Gf98GBghWlzuQmbFzFgvb3CQBZaFY=; b=l8as964ZT6nGCW65whU2xXAnqD
-	oXPLOPtXKMZ+QK8B4o9CEuIpg/98nkGFvLCUehUS/Q3lAiiqkdyH/5YT4kXNXnCzzkTXDMBYi6tPC
-	lf0qnh2TfnUFhU1CIfkHjVQ7CAkk9QVA0AhP9wrRQxqCRQC+Wm8IXjqBVk/uFH8ienYM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9VmY-006tGu-UH; Thu, 24 Sep 2026 00:49:42 +0200
-Date: Thu, 24 Sep 2026 00:49:42 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Liu Changjie <liucj1228@outlook.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Luo Jie <jie.luo@oss.qualcomm.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 0/2] net: phy: Add Maxio MAE0621A support
-Message-ID: <2ecfaee1-921b-4d2a-bac3-ce2467b24ea7@lunn.ch>
-References: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
- <2635661d-4be2-4abf-84aa-c3024941f787@arm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Et25QBmL"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cAHW9pR8nlR6sk+Upl/hizK55XCqRvMPrhN2PbL0DKc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790203821; v=1; x=1790808621;
+ b=Et25QBmLSzqTYSkcLMCSSFS4TkXc1IC11nlXWMkLNUYS9yB3+2J2S7FGkzaSBlq7UGOe2M5R
+ uynUrDnCuUchmjmfSGBuU1hFB92gtMijghJZrenS7Eq0h3ug+Fk2+jbec0DR7DAhGWzjz2Xcyhj
+ /GKcu5Hthb4mO+K9IDmZePcs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 81f228547fa01915;
+	Wed, 23 Sep 2026 22:50:21 +0000
+X-Mizu-Trace-ID: 81f228547fa01915
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a126a34f-3d47-48d3-842c-14cb9e4b943a@linux.dev>
+Date: Wed, 23 Sep 2026 15:50:14 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2635661d-4be2-4abf-84aa-c3024941f787@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] RDMA/rxe: Reject prefetch of a non-ODP MR
+To: norbert@doyensec.com, Zhu Yanjun <zyjzyj2000@gmail.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Bob Pearson <rpearsonhpe@gmail.com>, Daisuke Matsuda <dskmtsd@gmail.com>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260923-rxe-advise-mr-v3-v3-0-95e1a4077e4d@doyensec.com>
+ <20260923-rxe-advise-mr-v3-v3-2-95e1a4077e4d@doyensec.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20260923-rxe-advise-mr-v3-v3-2-95e1a4077e4d@doyensec.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> https://www.lcsc.com/datasheet/C49308069.pdf
+在 2026/9/23 7:40, Norbert Szetei via B4 Relay 写道:
+> From: Norbert Szetei <norbert@doyensec.com>
+> 
+> rxe_ib_advise_mr_prefetch() and rxe_ib_prefetch_sg_list() look up the MR
+> by lkey and hand it to rxe_odp_do_pagefault_and_lock() without checking
+> that it is an ODP MR. That path runs to_ib_umem_odp() on mr->umem, and
+> for a non-ODP MR mr->umem is a plain struct ib_umem from ib_umem_get(),
+> so the container_of() in to_ib_umem_odp() lands past the end of the
+> object and ib_umem_odp_map_dma_and_lock() reads its ib_umem_odp fields
+> out of bounds.
+> 
+> lookup_mr() validates the lkey, PD, access and state but not the MR
+> type, and IB_UVERBS_ADVISE_MR_ADVICE_PREFETCH is accepted for any MR.
+> 
+>   BUG: KASAN: slab-out-of-bounds in ib_umem_odp_map_dma_and_lock+0x884/0x8a0
+>   Read of size 8 at addr ffff88810a3ebcf0 by task advi/921
+>    ib_umem_odp_map_dma_and_lock+0x884/0x8a0
+>    rxe_ib_advise_mr+0x543/0xad0
+>    ib_uverbs_handler_UVERBS_METHOD_ADVISE_MR+0x446/0x530
+>    ib_uverbs_cmd_verbs+0x2b3c/0x3b20
+>    ib_uverbs_ioctl+0x1e3/0x310
+>   Allocated by task 921:
+>    __ib_umem_get_va+0x13e/0xae0
+>    rxe_mr_init_user+0x2ae/0xb00
+>    rxe_reg_user_mr+0x337/0x510
+>   The buggy address belongs to the object at ffff88810a3ebc80
+>    which belongs to the cache kmalloc-96 of size 96
+> 
+> Ask lookup_mr() for IB_ACCESS_ON_DEMAND in both the synchronous and
+> the asynchronous prefetch arm. mr->access carries that flag only for
+> an MR registered as ODP, so the existing
+> (access & mr->access) != access test rejects a plain MR and the
+> prefetch fails with -EINVAL.
+> 
+> Fixes: 3576b0df1588 ("RDMA/rxe: Implement synchronous prefetch for ODP MRs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Norbert Szetei <norbert@doyensec.com>
 
-Cool, thanks for the link.
+Thanks a lot.
+It is fine with me.
 
-24.13 1: A broadcast from MAC (A command with PHY address = 0) is
-valid. MDC/MDIO will respond to this command.
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
 
-Please ensure this is disabled. Doing that now before anything is
-merged will make life easier in the future.
+Zhu Yanjun
 
-I don't see any way to control the RGMII delays, or know how it has
-been strapped. So this PHY is going to be a real problem. DT
-developers make a mess of RGMII delays even when the MAC and PHY do
-the right think.
+> ---
+>   drivers/infiniband/sw/rxe/rxe_odp.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_odp.c b/drivers/infiniband/sw/rxe/rxe_odp.c
+> index e870efa7a0a3..f8ffd6a3219a 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_odp.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_odp.c
+> @@ -463,7 +463,7 @@ static int rxe_ib_prefetch_sg_list(struct ib_pd *ibpd,
+>   		struct rxe_mr *mr;
+>   		struct ib_umem_odp *umem_odp;
+>   
+> -		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE,
+> +		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE | IB_ACCESS_ON_DEMAND,
+>   			       sg_list[i].lkey, RXE_LOOKUP_LOCAL);
+>   
+>   		if (!mr) {
+> @@ -529,7 +529,7 @@ static int rxe_ib_advise_mr_prefetch(struct ib_pd *ibpd,
+>   
+>   	for (i = 0; i < num_sge; ++i) {
+>   		/* Takes a reference, which will be released in the queued work */
+> -		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE,
+> +		mr = lookup_mr(pd, IB_ACCESS_LOCAL_WRITE | IB_ACCESS_ON_DEMAND,
+>   			       sg_list[i].lkey, RXE_LOOKUP_LOCAL);
+>   		if (!mr) {
+>   			mr = ERR_PTR(-EINVAL);
+> 
 
-Unless a way is found to either control the delays, or at least know
-what it is doing, the only phydev->interface accepted should be
-PHY_INTERFACE_MODE_NA. This means 'don't touch'. We have to assume
-something else has correctly set the delays in a consistent way. That
-is likely to be strapping.
-
-	  Andrew
