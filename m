@@ -1,300 +1,434 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B255275B0
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168901; cv=pass; b=Lz593BGk5z4VXVWEsKIcMGltND0hCVjNAjkLEpWNbrlRb6THRa0f1OlU/+EqwkVEOIxmr3NhIMiHM4Dqn7T+4T6VQnemifKqWn5GOLktKk+96ws/fMNAlutzVvJcGtSnELweUnB9rilG5gi/NnPj032DYhdzVMqgPK3xXrxK9LU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168901; c=relaxed/simple;
-	bh=/RAtfZYaGrMgM0hFBipcgr1fQfwrDzFXi14Gl2TQCFk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jNo8H+A5CJaL0tJcgi/ZfAcjAEk4XZbSlekt3NFqKfhHzJWd2aBRYyx6N467KHfVooa6xwXdoWDXoJ0DMWMDqRoJQeuAmfOluazNXrVn87F+DD5ye8U3uTYAdEkZRT80ruuaCxAN1t7TvG4XurIjRABLkv6WMSHEKs9PLNtz4PI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mpySlabk; arc=pass smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3154528446
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790168908; cv=none; b=C7jE9M0ZBJEMqR7K4Jp9zHvmuuyvr0lnm+HTTlgnzaWsNhYX7MVIyU8YN7ojE/3gnKTxZkN5zB6Aso6afJb2eAs5W6XycJ6zERiov7/ulzQG8eWYAKuCAF6rit4qsOMWkLMiID17u40ystSHzAQJVjAYborB48WvwgHRZVEAWwM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790168908; c=relaxed/simple;
+	bh=/HHra1BHJ6Lap6FdGHG/9AjW1HZxA1wUUIn0kfdb25c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Pt8gBT+amJAS6K1gJLXe0utxykaDcyCHLMhbb+wykDEtzVZMsT2VTkw2BItL9j1pg79wUwrmYiRpgvRMTM3HGN7K90dQu38Mzi780rMdZP3byn+cn1en18gf2CMUlDZcvyZKLF7U5BmakgZnx1eXyq/LGK45TZszZh10tdhyQ0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M9Xgbpmo; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mpySlabk"
-Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43f9b119so14165877b3.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:08:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790168897; cv=none;
-        d=google.com; s=arc-20260327;
-        b=e4ExeStvjW/9yy3NkXGp72VhaMtq8flah478qikZ+CC7/k05QYDlFlAeE4nS+Al0xy
-         klewPE/4aoiRsny956Lpwm/jwsKWpDhQ0GkmLZLYGZ8ZclH7zsYPY/83ewhmRZoBMeCo
-         ViPdBNzxW9Ld5QbBAghcZXjpAxSqT2yMzsMUlFdAYEFE8pRiMnXEumDkwFjjPi+WyStE
-         Zb3HleULfUehX+Nrw4a1niZ3GVXKyYtFyYoqFWpZXFSajWbIPy9+0WVUymdPs5SHxOkQ
-         j4vxvk0Odk7HLbvWdlUv3Tf3CZvg/9spguD6zlh60gPMiWvR2PsV/LXYlC4D4ed+M7m7
-         48xA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=IHUbabRXBqdvbV25eXrArHoQuD9SOTIdcQ2oJXMH2as=;
-        fh=ekIiLZDIwDZHtmlThAhUukDtljd4tLj1U657vpurYF8=;
-        b=X13L0GCB4QJbhGvvEHvFOEEK7SJDzIU3pkG7w3x5zz0A6VBb7YXdcDuYDrJPcRorPI
-         2D8k94nbBOkTtxBEL5bAkLAm4oIuorBLIe0jkwaLaiX25CQpD7dgcxCXRvVCj3f/9OfS
-         T/z/KhFKE/z7mpazCbqEYkxuVhzSTxn1SWI90m9BPa7Vka1CO3GJbCpo2yMWwvcaMHuH
-         vSsb1lMYvRY59fwDTlAa45q3Er9tY240UNfeR0gNYFlD7vXMDt4O34Z3Zj0Ito/W4F0A
-         A0b2SxKJ5CeZqufBKxlBtc7+xvU31RnrPg9IYrVagssoIDIGCLSOt01ajn1WW4cyBR3/
-         oWEg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M9Xgbpmo"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f88so660137f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:08:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790168897; x=1790773697; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IHUbabRXBqdvbV25eXrArHoQuD9SOTIdcQ2oJXMH2as=;
-        b=mpySlabk+67WBHYYonxW93h5M/oebjNrbO8YhKE5Eaxtm4EAnxukVHCmtNuwy+BZCe
-         lQ183KmbuJQL8XzoTkya8bWd/Dxr1P8SQvwb5WHpyCg+bCCDRLcmOA7ylDw71/9rFH/o
-         AERfEoGc3NA56ogqxsaN/MRET0SOKkymjwMrHf6eFlucPoUhwxWuaQDD/bqf1rl3I4rj
-         Jb/9/4GjXKXloNompG9LedGS9P6+C20eXVGRKMywPkNDz/VcOPF1JrTysLF6e0K9QNZG
-         Ga6LESimDyGSdazypjYH+cXgVMnoAJ05i1a260WgGhQMQJJDPfE35AvH6HFDEIkjt44n
-         0cqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790168897; x=1790773697;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790168901; x=1790773701; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IHUbabRXBqdvbV25eXrArHoQuD9SOTIdcQ2oJXMH2as=;
-        b=d1JjGbC98tlqk8qGabOZ7wAOYxo8I1E02pwIpGNP5L7dNsxrk0JVLyl37AyZQF6/lA
-         N3dig07meOFQse4n8XF9hMb2kLSZG2MVR2isBHc5oU5ZcsTefVwVSubNtwDaknCwPnyQ
-         A3w1oordj+APdH2N6pebRD+PqCJXKBplcy2CqvQCsF/US4r9w84U7bYNcavRaRbR52/b
-         cTi0y7WvT5NHnuyRzoZQw5BIK4nhsretTpuRwYw7lLkegVkO4Lcks8xiOuadu3ictiDc
-         14aY9ymzeOmQhEnP43BZODx9uJ2m1GFOgocV4c9fCU38Dm/TfGbTDzkkoBTHPpnOHCin
-         uUAg==
-X-Forwarded-Encrypted: i=1; AKwUvBy6OE4lvj78vIRoGnw8/TJwxSNpzDIScSN2mN7eXqQkPa+GaydQF6n6KlX04KExAFlJjStd8V7phoUXbO4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nF5S7Qe1c5+2PhtHA9y6YEYTDxo0zyjxH+2VU5Gic6sfVc0DcI
-	oGFWyO96/lNUIQJ8M7qzu8WA0XfS2hQLrmBwG34IynnOonfZPG3NOEHyXnmCU0rlExHBIDAJVRz
-	LlpJmRXW0jhnL2s6xcB8VL4oXRqyluNysHxvK
-X-Gm-Gg: AYBFou21oiK8ZgTh0iU2vxC+uSgFmM0xERjSU1I9o246ngi/KzomodAEkAwZdepoE/1
-	JKn39IevcaSeJ7XqUA10EdVJ9MIDajLzt2u9keBlVVcFgAz/pdUQtd+BUs6I93kqZG/FMoa5abP
-	mW09o92gwHs/bWjsJ8fPjPbFmx+GbKxA8PU3PoYovPw39QEVOXHmL0UAm9KH8ZN/ZT1TlxwcvzG
-	wrGJ97oycv6mYpJJ0MIPcmaCQTlI1jEMWd7fS+JBPRK09HTrGr6n4gDDgOzqaVjV41JNeCuVTKh
-	Nd7Zn8R7GKVNkb0ek6Q+I6pNzvCSWDHmfoSVkoJ+kEtcvKB4mFYZwLHTe5Rs3yF7ZxJtLM/2K5h
-	Q6P7o+OT+S9sR5lp6p7SnCbgrAUWjNARtzA==
-X-Received: by 2002:a05:690c:7483:b0:8a5:1570:a2b2 with SMTP id
- 00721157ae682-8a51570a635mr6866957b3.89.1790168896597; Wed, 23 Sep 2026
- 06:08:16 -0700 (PDT)
+        bh=k5Rtbe2FWP8r3Wsbc5nECqBcjzXxFELe6lCWc0D5RXw=;
+        b=M9XgbpmojTBPDHXmlSSXNg9dkKqkW4e5gMjXfE7UZMQDg1Ra1W429o+QfksUd8sLL3
+         +rNJv4THlvvsEeT/vijsXPRBLYVsgIOUEFzyDbOVrZ4n7I/Iq+xRxqq4B20XFU3/oNbB
+         v7m/scw8HLeLvn3xrtfRZLbKt1KDz/FqOHM61aQM5HwvPKS4NW3FLPw6/xnmFdcIcrua
+         sfUu/ZrThAmx5UMLzkBc/LR7r9vhnzUkhFRp/M4jrB2WYy4rFun/MNd6QRvLBP+8r61N
+         C2AEr9RDYc/Cph4SqSLcETMQaKahbGWnici0ta3rW8ZlgOPWBkD9/SajR952MbZpPMvR
+         UTOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790168901; x=1790773701;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k5Rtbe2FWP8r3Wsbc5nECqBcjzXxFELe6lCWc0D5RXw=;
+        b=vpB+EMqaa8ofPgleyLTXuG1PlhCD6Xg/SCFAhz5eJZr6KQyRV/HeBuQhrzWbgOsExs
+         JCkXLS2Re6UEnneotBsl81mAexwpqtK+TI4TJw32LkUIH8ZpJzYdFvtsZ223KRTogQyX
+         NqJlyUXP6rLY4gpgnG6BvYumOv4XuGnz2is94RAALMPVSth3gGZwZS9HapJ3Aa2finpp
+         5rMeqayx6Fg66A6HXQgm6u0/8bEQQzdU/1k/qlMvkXFjdiR0qh8L5wdJgn+gtYyWqA31
+         Cndp9xhNN8fmJhPu1tw6xQw8UhClG6KZGsYkQ9IuG/SxvDirKXcsxEqx5W3oFHi7liQN
+         ZuKA==
+X-Forwarded-Encrypted: i=1; AKwUvBzFP4L5QMb2rfx3tR+IV68R6GjRj939IH6j6eyfG8a92E0Ev+hP/LLqPtRZGr/MsxtzaUYd+VD6z0W9EQw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWvzxumoYhsn53J0Lje/mUZYWpTBWYFyQMtYwftVTvkoz7ioXs
+	lGM73I4+MImInDVbJrHl2Nh1YFHGTvENX4EaNOegTr0d5HGhNiITNtlc
+X-Gm-Gg: AYBFou1t9zbISHsbJOveQK61k3gCKYkTKRVQNqKeSlJ5y2c/70N1d3ksRD07Rb8pNRu
+	n6YJhKHBCCSQrPrUACzeY/ZRGLsqBjkZg1xWTJol9j25G2LnH1/t0LzPnOBqK6g7cEYc6so0b87
+	2rLxGjzzRxJ9aTdgS9hhfodSPfzQtrLIizSHC0jDMNqPZvqh0v/5fPanTEx0Ds1IoV/KmaDy5uZ
+	lBDB5w0oUVjc9pZtJuwij/St7rm1n/iU6gjbOHgUIYDrX4ClnoMo6n26sZRVfTHQMFpnOENkdyy
+	oEtHTna1tMFGu7QuAiDPFBcXpVEGRKUEXsR++pOLGR9AR/NIT+Q3n5KiqigWSgighbiYmIXLpTC
+	qtbZfhZGPX77ZvArixNH0sy0r/VFUsoos/fXNOTfeTg/FDs9hvz4T9yjBM9FZbHFU4bKEumF3vt
+	Hb2E1E15hnPR8D180V+N8DHh+ts8ePhQdc3OisldlCPDXCvnT8ppFW7slsEwBfYgtX9EAAUT2Ry
+	kA=
+X-Received: by 2002:a05:6000:2006:b0:486:fe09:6918 with SMTP id ffacd0b85a97d-4886709f217mr4342908f8f.56.1790168900724;
+        Wed, 23 Sep 2026 06:08:20 -0700 (PDT)
+Received: from [10.80.0.99] ([151.49.78.59])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868889337sm7102766f8f.34.2026.09.23.06.08.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 06:08:20 -0700 (PDT)
+Message-ID: <bed70b13-ea7d-4170-9577-017a271b4585@gmail.com>
+Date: Wed, 23 Sep 2026 15:08:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921192559.2619635-1-shakeel.butt@linux.dev>
-In-Reply-To: <20260921192559.2619635-1-shakeel.butt@linux.dev>
-From: Yafang Shao <laoar.shao@gmail.com>
-Date: Wed, 23 Sep 2026 21:07:40 +0800
-X-Gm-Features: AclHuK_8Jda0panK7HLuZ7wwf7U44o1nunsdozOcDRu1nw23Gwnh2GufMO41nA0
-Message-ID: <CALOAHbA4EgGw_uWfbXD0Q87exP7ek=z9ENuU_ARgb+DgBgy1kQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/4] memcg_ext: memcg policy through cgroup-attached struct_ops
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, JP Kobryn <jp.kobryn@linux.dev>, 
-	Muchun Song <muchun.song@linux.dev>, Tejun Heo <tj@kernel.org>, Michal Koutny <mkoutny@suse.com>, 
-	Amery Hung <ameryhung@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	Jiri Olsa <jolsa@kernel.org>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	John Fastabend <john.fastabend@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, hui.zhu@linux.dev, 
-	Donet Tom <donettom@linux.ibm.com>, Greg Thelen <gthelen@google.com>, 
-	Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, bpf@vger.kernel.org, 
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] platform/x86: asus-armoury: let attribute groups
+ decide their own visibility
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Denis Benato <denis.benato@linux.dev>
+Cc: platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Hans de Goede <hansg@kernel.org>, Corentin Chary <corentin.chary@gmail.com>,
+ Luke Jones <luke@ljones.dev>, busybox11 <busybox11th@gmail.com>
+References: <20260923004706.41256-1-denis.benato@linux.dev>
+ <20260923004706.41256-2-denis.benato@linux.dev>
+ <89fb00c7-9fbf-c567-f081-5ae831f8915a@linux.intel.com>
+Content-Language: en-US
+From: Denis Benato <benato.denis96@gmail.com>
+In-Reply-To: <89fb00c7-9fbf-c567-f081-5ae831f8915a@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 3:30=E2=80=AFAM Shakeel Butt <shakeel.butt@linux.de=
-v> wrote:
->
-> This is the first series of memcg_ext, proposed at [1].  It adds
-> bpf_memcg_ops, a struct_ops type through which memory controller policy i=
-s
-> attached to a cgroup.  A charge runs the policies of its cgroup and of
-> every ancestor, and the kernel combines what they return.  BPF picks
-> between things the kernel already does; it never does the work itself and
-> never touches a page counter.
->
-> The plan is to grow this one member at a time, and to add a member only
-> when there is a concrete problem it solves and a measurement showing it
-> does.  Nothing is added because it might be useful later.  So this first
-> series adds one member, for one problem.
->
-> The problem
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> try_charge_memcg() calls __mem_cgroup_handle_over_high() before it return=
-s,
-> which reclaims and can throttle the task.  That happens wherever the char=
-ge
-> happens, so a task holding a kernel lock can be stuck there, and everythi=
-ng
-> waiting on that lock is stuck behind it.
->
-> One concrete scenario which can be resolved by this new feature is the
-> kernfs notify worker. It delivers notifications with the cgroup2
-> kernfs_rwsem held for read, and the charge for the delivery allocation go=
-es
-> to the cgroup that set the watch, usually one already under pressure. So
-> the worker reclaims while holding the lock, a waiting writer blocks every
-> later reader, and anything touching cgroupfs stalls for seconds. The patc=
-h
-> proposed in [2] fixes that one path in the kernel only for kernfs_rwsem.
-> The same path still takes kernfs_supers_rwsem.
->
-> One can make an argument that if we know the source of the issue in the
-> kernel, why not fix it similarly to [2] instead of having a generic
-> solution? The reason is that it will be an uphill and continuous battle a=
-s
-> the kernel keeps evolving and new sources of lock holders doing allocatio=
-ns
-> keep coming up. In addition, there will be cases where it might not be
-> possible to move the allocations out of locks, or where doing so would
-> make the code really ugly [3].
->
-> high_policy() lets a policy say where memory.high should be enforced
-> instead.  Its one request, BPF_MEMCG_HIGH_DEFER_INLINE, skips the inline
-> call, leaving the debt to be paid at the return to userspace.
->
-> Results
-> =3D=3D=3D=3D=3D=3D=3D
->
-> Measured on a kernel without [2], with a policy that marks cgroupfs kernf=
-s
-> lock holders.  Reproducer at [4].
->
->                                       baseline    policy    upstream fix
->   max kernfs_rwsem hold, worker        2.049 s     199 us   not taken
->   max kernfs_supers_rwsem hold         2.049 s     4.8 ms   2.056 s
->   max kernfs_rwsem write wait          4.096 s     6.2 ms   8.7 ms
->   walker passes over /sys/fs/cgroup        352       5711   6700
->   churn mkdir+rmdir ops                 13 059    364 832   415 488
->   churn max latency                     30.7 s    15.1 ms   12.7 ms
->
-> The policy matches the fix on the bystander numbers, and does better on
-> kernfs_supers_rwsem, which the fix does not help: it drops kernfs_rwsem
-> from the delivery loop, while the policy stops the worker stalling at all=
-,
-> so every lock it holds benefits.
->
-> The patches
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> Patch 1 is a build fix.  __cgroup_bpf_query() only works because
-> CGROUP_TCP_SOCK_OPS is the one struct_ops attach type; a second one break=
-s
-> the build and makes a query for type 0 return the wrong thing.
->
-> Patch 2 adds the type and its registration, with no members, so nothing i=
-s
-> dispatched and behaviour does not change.  It also moves the attach type
-> enum out of CONFIG_CGROUP_BPF and fixes the register_bpf_struct_ops() no-=
-op
-> stub, which never compiled because no caller reached it.
->
-> Patch 3 adds high_policy() and wires it into try_charge_memcg().
->
-> Patch 4 is the sample.  It tracks the two cgroupfs kernfs locks by hookin=
-g
-> the rwsem primitives rather than the forty-odd functions that take them.
->
-> Known open questions
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> The semantics of memory.high for remote chargers or kernel threads is a
-> grey area and this series does not aim to resolve that.
->
-> Another open question is whether a bound on debt deferral is needed. At
-> the moment, we think that rather than putting a limit on deferral for
-> memory.high, it will be better to handle that through an async worker lik=
-e
-> memcg->high_work.  We aim to introduce that later, along with the right C=
-PU
-> accounting for that async work.
 
-Hello Shakeel,
+On 9/23/26 11:52, Ilpo Järvinen wrote:
+> On Wed, 23 Sep 2026, Denis Benato wrote:
+>
+>> mini_led_mode, gpu_mux_mode and dgpu_disable are created by ad-hoc
+>> conditional blocks in asus_fw_attr_add() which must be manually tracked
+>> by the error and exit paths; those paths also re-probe WMI to know which
+>> groups were actually created.
+>>
+>> Give every attribute group its own .is_visible() callback: all groups
+>> are created unconditionally through the common loop and sysfs hides the
+>> unsupported ones entirely. The plain group macros now gate their
+>> visibility on the WMI presence of their device, the
+>> ASUS_ATTR_GROUP_BOOL() and ASUS_ATTR_GROUP_ENUM() macros declare groups
+>> backed by a device ID resolved at probe time, and the power tunable
+>> macros are additionally gated on the platform limits defining a max
+>> value, replacing the special-casing in asus_fw_attr_add() and with it
+>> is_power_tunable_attr().
+>>
+>> The dgpu_disable attribute now goes through the same resolved device ID
+>> scheme as mini_led_mode and gpu_mux_mode, storing the device ID to use
+>> in asus_armoury.dgpu_disable_dev_id instead of always operating on
+>> ASUS_WMI_DEVID_DGPU.
+>>
+>> No functional change is intended.
+>>
+>> Signed-off-by: Denis Benato <denis.benato@linux.dev>
+>> ---
+>>  drivers/platform/x86/asus-armoury.c | 280 +++++++++++-----------------
+>>  drivers/platform/x86/asus-armoury.h | 124 +++++++++---
+>>  2 files changed, 213 insertions(+), 191 deletions(-)
+>>
+>> diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
+>> index 2d5ca75bc727..7812e93734b8 100644
+>> --- a/drivers/platform/x86/asus-armoury.c
+>> +++ b/drivers/platform/x86/asus-armoury.c
+>> @@ -94,6 +94,7 @@ struct asus_armoury_priv {
+>>  
+>>  	u32 mini_led_dev_id;
+>>  	u32 gpu_mux_dev_id;
+>> +	u32 dgpu_disable_dev_id;
+>>  
+>>  	bool requires_fan_curve;
+>>  };
+>> @@ -110,11 +111,6 @@ static struct fw_attrs_group fw_attrs = {
+>>  	.pending_reboot = false,
+>>  };
+>>  
+>> -struct asus_attr_group {
+>> -	const struct attribute_group *attr_group;
+>> -	u32 wmi_devid;
+>> -};
+>> -
+>>  static void asus_set_reboot_and_signal_event(void)
+>>  {
+>>  	fw_attrs.pending_reboot = true;
+>> @@ -458,6 +454,12 @@ static ssize_t mini_led_mode_possible_values_show(struct kobject *kobj,
+>>  		return -ENODEV;
+>>  	}
+>>  }
+>> +
+>> +static bool mini_led_mode_group_visible(struct kobject *kobj)
+>> +{
+>> +	return asus_armoury.mini_led_dev_id;
+>> +}
+>> +
+>>  ASUS_ATTR_GROUP_ENUM(mini_led_mode, "mini_led_mode", "Set the mini-LED backlight mode");
+>>  
+>>  static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
+>> @@ -471,8 +473,8 @@ static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
+>>  	if (err)
+>>  		return err;
+>>  
+>> -	if (armoury_has_devstate(ASUS_WMI_DEVID_DGPU)) {
+>> -		err = armoury_get_devstate(NULL, &result, ASUS_WMI_DEVID_DGPU);
+>> +	if (asus_armoury.dgpu_disable_dev_id) {
+>> +		err = armoury_get_devstate(NULL, &result, asus_armoury.dgpu_disable_dev_id);
+>>  		if (err)
+>>  			return err;
+>>  		if (result && !optimus) {
+>> @@ -502,6 +504,12 @@ static ssize_t gpu_mux_mode_current_value_store(struct kobject *kobj,
+>>  	return count;
+>>  }
+>>  ASUS_WMI_SHOW_INT(gpu_mux_mode_current_value, asus_armoury.gpu_mux_dev_id);
+>> +
+>> +static bool gpu_mux_mode_group_visible(struct kobject *kobj)
+>> +{
+>> +	return asus_armoury.gpu_mux_dev_id;
+>> +}
+>> +
+>>  ASUS_ATTR_GROUP_BOOL(gpu_mux_mode, "gpu_mux_mode", "Set the GPU display MUX mode");
+>>  
+>>  static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
+>> @@ -538,7 +546,8 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
+>>  	}
+>>  
+>>  	scoped_guard(mutex, &asus_armoury.egpu_mutex) {
+>> -		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL, ASUS_WMI_DEVID_DGPU);
+>> +		err = armoury_set_devstate(attr, disable ? 1 : 0, NULL,
+>> +					   asus_armoury.dgpu_disable_dev_id);
+>>  		if (err)
+>>  			return err;
+>>  	}
+>> @@ -547,7 +556,13 @@ static ssize_t dgpu_disable_current_value_store(struct kobject *kobj,
+>>  
+>>  	return count;
+>>  }
+>> -ASUS_WMI_SHOW_INT(dgpu_disable_current_value, ASUS_WMI_DEVID_DGPU);
+>> +
+>> +static bool dgpu_disable_group_visible(struct kobject *kobj)
+>> +{
+>> +	return asus_armoury.dgpu_disable_dev_id;
+>> +}
+>> +
+>> +ASUS_WMI_SHOW_INT(dgpu_disable_current_value, asus_armoury.dgpu_disable_dev_id);
+>>  ASUS_ATTR_GROUP_BOOL(dgpu_disable, "dgpu_disable", "Disable the dGPU");
+>>  
+>>  /* Values map for eGPU activation requests. */
+>> @@ -695,6 +710,12 @@ static ssize_t egpu_enable_possible_values_show(struct kobject *kobj, struct kob
+>>  {
+>>  	return armoury_attr_enum_list(buf, ARRAY_SIZE(egpu_status_map));
+>>  }
+>> +
+>> +static bool egpu_enable_group_visible(struct kobject *kobj)
+>> +{
+>> +	return armoury_has_devstate(ASUS_WMI_DEVID_EGPU);
+>> +}
+>> +
+>>  ASUS_ATTR_GROUP_ENUM(egpu_enable, "egpu_enable", "Enable the eGPU (also disables dGPU)");
+>>  
+>>  /* Device memory available to APU */
+>> @@ -771,6 +792,12 @@ static ssize_t apu_mem_possible_values_show(struct kobject *kobj, struct kobj_at
+>>  {
+>>  	return armoury_attr_enum_list(buf, ARRAY_SIZE(apu_mem_map));
+>>  }
+>> +
+>> +static bool apu_mem_group_visible(struct kobject *kobj)
+>> +{
+>> +	return armoury_has_devstate(ASUS_WMI_DEVID_APU_MEM);
+>> +}
+>> +
+>>  ASUS_ATTR_GROUP_ENUM(apu_mem, "apu_mem", "Set available system RAM (in GB) for the APU to use");
+>>  
+>>  /* Define helper to access the current power mode tunable values */
+>> @@ -782,6 +809,44 @@ static inline struct rog_tunables *get_current_tunables(void)
+>>  	return asus_armoury.rog_tunables[ASUS_ROG_TUNABLE_DC];
+>>  }
+>>  
+>> +/**
+>> + * has_valid_limit - Checks if a power-related attribute has a valid limit value
+>> + * @name: The name of the attribute to check
+>> + * @limits: Pointer to the power_limits structure containing limit values
+>> + *
+>> + * This function checks if a power-related attribute has a valid limit value.
+>> + * It returns false if limits is NULL or if the corresponding limit value is zero.
+>> + *
+>> + * Return: true if the attribute has a valid limit value, false otherwise
+>> + */
+>> +static bool has_valid_limit(const char *name, const struct power_limits *limits)
+>> +{
+>> +	u32 limit_value = 0;
+>> +
+>> +	if (!limits)
+>> +		return false;
+>> +
+>> +	if (!strcmp(name, ATTR_PPT_PL1_SPL))
+>> +		limit_value = limits->ppt_pl1_spl_max;
+>> +	else if (!strcmp(name, ATTR_PPT_PL2_SPPT))
+>> +		limit_value = limits->ppt_pl2_sppt_max;
+>> +	else if (!strcmp(name, ATTR_PPT_PL3_FPPT))
+>> +		limit_value = limits->ppt_pl3_fppt_max;
+>> +	else if (!strcmp(name, ATTR_PPT_APU_SPPT))
+>> +		limit_value = limits->ppt_apu_sppt_max;
+>> +	else if (!strcmp(name, ATTR_PPT_PLATFORM_SPPT))
+>> +		limit_value = limits->ppt_platform_sppt_max;
+>> +	else if (!strcmp(name, ATTR_NV_DYNAMIC_BOOST))
+>> +		limit_value = limits->nv_dynamic_boost_max;
+>> +	else if (!strcmp(name, ATTR_NV_TEMP_TARGET))
+>> +		limit_value = limits->nv_temp_target_max;
+>> +	else if (!strcmp(name, ATTR_NV_BASE_TGP) ||
+>> +		 !strcmp(name, ATTR_NV_TGP))
+>> +		limit_value = limits->nv_tgp_max;
+>> +
+>> +	return limit_value > 0;
+>> +}
+> This is a plain move, right? Can you move it in a preparatory patch to 
+> cut the extra churn from what is already a very complicated diff.
 
-On the open question of how deferred debt eventually gets paid: would
-it make sense for the policy to also notify userspace (e.g. via
-ringbuf) when it defers, and have a userspace reclaimer do the reclaim
-through memory.reclaim?
+Yes: pure move because it is included in a macro now.
 
-I understand one of the concerns for the async worker is CPU
-accounting. If the concern is that the kworker's CPU usage is not
-charged to the target cgroup, the userspace reclaimer could instead be
-spawned with clone3(CLONE_INTO_CGROUP) so it runs inside the target
-cgroup, and both its CPU and memory usage get charged there.
+I'll move it in its own patch.
 
-One caveat: intermediate cgroups with the no-internal-process
-constraint cannot take processes, so this would only work for leaf
-cgroups.
+>> +
+>>  /* Simple attribute creation */
+>>  ASUS_ATTR_GROUP_ENUM_INT_RO(charge_mode, "charge_mode", ASUS_WMI_DEVID_CHARGE_MODE, "0;1;2\n",
+>>  			    "Show the current mode of charging");
+>> @@ -819,103 +884,35 @@ ASUS_ATTR_GROUP_ROG_TUNABLE(nv_tgp, "nv_tgp", ASUS_WMI_DEVID_DGPU_SET_TGP,
+>>  ASUS_ATTR_GROUP_INT_VALUE_ONLY_RO(nv_base_tgp, ATTR_NV_BASE_TGP, ASUS_WMI_DEVID_DGPU_BASE_TGP,
+>>  				  "Read the base TGP value");
+>>  
+>> -/* If an attribute does not require any special case handling add it here */
+>> -static const struct asus_attr_group armoury_attr_groups[] = {
+>> -	{ &egpu_connected_attr_group, ASUS_WMI_DEVID_EGPU_CONNECTED },
+>> -	{ &egpu_enable_attr_group, ASUS_WMI_DEVID_EGPU },
+>> -	{ &dgpu_disable_attr_group, ASUS_WMI_DEVID_DGPU },
+>> -	{ &dgpu_power_state_attr_group, ASUS_WMI_DEVID_DGPU_POWER_STATE },
+>> -	{ &apu_mem_attr_group, ASUS_WMI_DEVID_APU_MEM },
+>> -
+>> -	{ &ppt_pl1_spl_attr_group, ASUS_WMI_DEVID_PPT_PL1_SPL },
+>> -	{ &ppt_pl2_sppt_attr_group, ASUS_WMI_DEVID_PPT_PL2_SPPT },
+>> -	{ &ppt_pl3_fppt_attr_group, ASUS_WMI_DEVID_PPT_PL3_FPPT },
+>> -	{ &ppt_apu_sppt_attr_group, ASUS_WMI_DEVID_PPT_APU_SPPT },
+>> -	{ &ppt_platform_sppt_attr_group, ASUS_WMI_DEVID_PPT_PLAT_SPPT },
+>> -	{ &nv_dynamic_boost_attr_group, ASUS_WMI_DEVID_NV_DYN_BOOST },
+>> -	{ &nv_temp_target_attr_group, ASUS_WMI_DEVID_NV_THERM_TARGET },
+>> -	{ &nv_base_tgp_attr_group, ASUS_WMI_DEVID_DGPU_BASE_TGP },
+>> -	{ &nv_tgp_attr_group, ASUS_WMI_DEVID_DGPU_SET_TGP },
+>> -
+>> -	{ &charge_mode_attr_group, ASUS_WMI_DEVID_CHARGE_MODE },
+>> -	{ &boot_sound_attr_group, ASUS_WMI_DEVID_BOOT_SOUND },
+>> -	{ &mcu_powersave_attr_group, ASUS_WMI_DEVID_MCU_POWERSAVE },
+>> -	{ &panel_od_attr_group, ASUS_WMI_DEVID_PANEL_OD },
+>> -	{ &panel_hd_mode_attr_group, ASUS_WMI_DEVID_PANEL_HD },
+>> -	{ &screen_auto_brightness_attr_group, ASUS_WMI_DEVID_SCREEN_AUTO_BRIGHTNESS },
+>> +static const struct attribute_group *armoury_attr_groups[] = {
+>> +	&mini_led_mode_attr_group,
+>> +	&gpu_mux_mode_attr_group,
+>> +	&egpu_connected_attr_group,
+>> +	&egpu_enable_attr_group,
+>> +	&dgpu_disable_attr_group,
+>> +	&dgpu_power_state_attr_group,
+>> +	&apu_mem_attr_group,
+>> +
+>> +	&ppt_pl1_spl_attr_group,
+>> +	&ppt_pl2_sppt_attr_group,
+>> +	&ppt_pl3_fppt_attr_group,
+>> +	&ppt_apu_sppt_attr_group,
+>> +	&ppt_platform_sppt_attr_group,
+>> +	&nv_dynamic_boost_attr_group,
+>> +	&nv_temp_target_attr_group,
+>> +	&nv_base_tgp_attr_group,
+>> +	&nv_tgp_attr_group,
+>> +
+>> +	&charge_mode_attr_group,
+>> +	&boot_sound_attr_group,
+>> +	&mcu_powersave_attr_group,
+>> +	&panel_od_attr_group,
+>> +	&panel_hd_mode_attr_group,
+>> +	&screen_auto_brightness_attr_group,
+>>  };
+> This looks much better.
 
-What do you think?
+Yeah... at first I tried making things having the least amount of changes
+to avoid this situation of "big changes all at once", but ultimately even
+reading my own code having { attribute, maybe_not_correct_devid }
+made my skin so itchy that I couldn't hold back myself from cleaning
+that out.
 
->
-> There is no prog_tests harness, so the numbers above come from the
-> reproducer and not from the test suite.
->
-> The sample's lock tracking costs about 8% throughput, because it
-> instruments every rwsem operation on the system.  That is fine for a samp=
-le
-> that has to cover every path, but it argues for a cheaper way to track
-> locks that cause isolation problems between unrelated workloads.
->
-> Future work
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->
-> Asking the kernel to reclaim on the policy's behalf, so a task that canno=
-t
-> be throttled still pays. More members, each with a use case: hard-limit
-> policy, reclaim shaping, dynamic protection.
->
-> This builds on "bpf: A common way to attach struct_ops to a cgroup", whic=
-h
-> supplies attach, detach, ordering, update, query and the RCU rules.
-> bpf_memcg_ops is its second user.
->
-> [1] https://lore.kernel.org/20260307182424.2889780-1-shakeel.butt@linux.d=
-ev/
-> [2] https://lore.kernel.org/20260910045406.485295-1-shakeel.butt@linux.de=
-v/
-> [3] https://lore.kernel.org/20260917-wehten-achtfach-getarnt-c85a4812337d=
-@brauner/
-> [4] https://github.com/shakeelb/mempressure-repros/tree/main/kernfs-notif=
-y-memcg
->
-> Shakeel Butt (4):
->   bpf, cgroup: fix cgroup struct_ops query for a second attach type
->   memcg_ext: add cgroup-attached bpf_memcg_ops
->   memcg_ext: allow BPF to defer memory.high enforcement
->   selftests/bpf: add a cgroupfs lock-holder bpf_memcg_ops sample
->
->  MAINTAINERS                                   |   1 +
->  include/linux/bpf-cgroup-defs.h               |  22 +-
->  include/linux/bpf-cgroup.h                    |  14 +-
->  include/linux/bpf.h                           |   2 +-
->  include/linux/bpf_memcontrol.h                |  66 ++++++
->  include/linux/cgroup.h                        |   7 +
->  include/linux/sched.h                         |   4 +
->  kernel/bpf/cgroup.c                           |   3 +-
->  mm/bpf_memcontrol.c                           | 188 ++++++++++++++-
->  mm/memcontrol.c                               |  31 ++-
->  .../bpf/progs/memcg_ops_lockholder.c          | 222 ++++++++++++++++++
->  11 files changed, 546 insertions(+), 14 deletions(-)
->  create mode 100644 include/linux/bpf_memcontrol.h
->  create mode 100644 tools/testing/selftests/bpf/progs/memcg_ops_lockholde=
-r.c
->
->
-> base-commit: 6e36e099b15bed1e8e5b3e3136c5e3eb56a15aa7
-> --
-> 2.53.0-Meta
->
->
+> Now can you also add the terminating NULL to the array and try to use 
+> sysfs_create/remove_groups() so you can eliminate the create, rollback, 
+> and remove loops... I suggest you do it on top of this patch as this 
+> change is already quite complicated and logically 
+> sysfs_create/remove_group() -> sysfs_create/remove_groups() is a separate 
+> transition.
 
---=20
-Regards
-Yafang
+Sure thing!
+
+Thanks for your feedback, I may take some more days due to university
+but I'll get it done as soon as possible.
+
+Best,
+Denis
+
+>>  	for (i = 0; i < ARRAY_SIZE(armoury_attr_groups); i++) {
+>> -		if (!armoury_has_devstate(armoury_attr_groups[i].wmi_devid))
+>> -			continue;
+>> -
+>> -		/* Always create by default, unless PPT is not present */
+>> -		should_create = true;
+>> -		name = armoury_attr_groups[i].attr_group->name;
+>> -
+>> -		/* Check if this is a power-related tunable requiring limits */
+>> -		if (ac_rog_tunables && ac_rog_tunables->power_limits &&
+>> -		    is_power_tunable_attr(name)) {
+>> -			limits = ac_rog_tunables->power_limits;
+>> -			/* Check only AC: if not present then DC won't be either */
+>> -			should_create = has_valid_limit(name, limits);
+>> -			if (!should_create)
+>> -				pr_debug("Missing max value for tunable %s\n", name);
+>> -		}
+>> -
+>> -		if (should_create) {
+>> -			err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
+>> -						 armoury_attr_groups[i].attr_group);
+>> -			if (err) {
+>> -				pr_err("Failed to create sysfs-group for %s\n",
+>> -				       armoury_attr_groups[i].attr_group->name);
+>> -				goto err_remove_groups;
+>> -			}
+>> +		err = sysfs_create_group(&asus_armoury.fw_attr_kset->kobj,
+>> +					 armoury_attr_groups[i]);
+>> +		if (err) {
+>> +			pr_err("Failed to create sysfs-group for %s\n",
+>> +			       armoury_attr_groups[i]->name);
+>> +			goto err_remove_groups;
+>>  		}
+>>  	}
+>>  
+>>  	return 0;
+>>  
+>>  err_remove_groups:
+>> -	while (i--) {
+>> -		if (armoury_has_devstate(armoury_attr_groups[i].wmi_devid))
+>> -			sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
+>> -					   armoury_attr_groups[i].attr_group);
+>> -	}
+>> -	if (asus_armoury.gpu_mux_dev_id)
+>> -		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &gpu_mux_mode_attr_group);
+>> -err_remove_mini_led_group:
+>> -	if (asus_armoury.mini_led_dev_id)
+>> -		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &mini_led_mode_attr_group);
+>> -err_remove_file:
+>> +	while (i--)
+>> +		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
+>> +				   armoury_attr_groups[i]);
+>>  	sysfs_remove_file(&asus_armoury.fw_attr_kset->kobj, &pending_reboot.attr);
+>>  err_destroy_kset:
+>>  	kset_unregister(asus_armoury.fw_attr_kset);
+>> @@ -1182,17 +1138,9 @@ static void __exit asus_fw_exit(void)
+>>  {
+>>  	int i;
+>>  
+>> -	for (i = ARRAY_SIZE(armoury_attr_groups) - 1; i >= 0; i--) {
+>> -		if (armoury_has_devstate(armoury_attr_groups[i].wmi_devid))
+>> -			sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
+>> -					   armoury_attr_groups[i].attr_group);
+>> -	}
+>> -
+>> -	if (asus_armoury.gpu_mux_dev_id)
+>> -		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &gpu_mux_mode_attr_group);
+>> -
+>> -	if (asus_armoury.mini_led_dev_id)
+>> -		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj, &mini_led_mode_attr_group);
+>> +	for (i = ARRAY_SIZE(armoury_attr_groups) - 1; i >= 0; i--)
+>> +		sysfs_remove_group(&asus_armoury.fw_attr_kset->kobj,
+>> +				   armoury_attr_groups[i]);
