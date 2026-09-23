@@ -1,182 +1,120 @@
-Received: from mta0.migadu.com (out-230.mta0.migadu.com [91.218.175.230])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21DB46EC7C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C09247013F;
+	Wed, 23 Sep 2026 08:18:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151521; cv=none; b=Dtxxmnv+ZNC5eLBAEjif1PEPQYkjAkEoyY7pC7w4wW66PIEd6xPrW2E6qVDAtpJVYsNpgTWVkf+Ora3z/kTwywHv6tKS89AFXeM4mT28k0ef9kbAnqJU/NsqiXQW4QcUUXSCRwSgPpt3RjlU5+/QQv5BmasqLNYN4FKQMLuvVpM=
+	t=1790151525; cv=none; b=TZE5Wqw64rKIZKJNTlnn9YfUO27MvhtW8BqYoTxUg45n8i99Ll7zvqR/t2qxBUJSGW4m0K38/0bgWKsMsPdxqe8JuM+EQVWDcUDDXQjW34YZhrDl9+8wr+QPXgGoq81UEU8j7PKsKMXF0ZWqIUB12p43IPTZL8YldE6naS7L+B8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151521; c=relaxed/simple;
-	bh=rcg7i8alw+6pwIMR9PsQo8oSyi7qilX87QkYp2YVlUQ=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=qPW6eCSPc6YbKRlF/WO+YEnhOIbQqGGzlAoQyRWIwOOXi7ngnRQwArcVQakAsRkuDjCZC+/+AcVdkHE0yEr1qmasMSna3JqlUKXSZzxc9wKs5TkxdOcPbLgkzCWydQNRoWn0En5LOlg4WZf5FQk6faVV2Zetb8Kz0bAvgkK8TCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=My40XYNi; arc=none smtp.client-ip=91.218.175.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790151525; c=relaxed/simple;
+	bh=pp+y8AIGH416gMh+aNyYZZcmlZuRpVuvNk4IwyWOWdE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ORifYix2utrjVOK1Q13nX1HWpRMzMKe9i8YXMjRdyVhqby9b6qQDa2sVCNUmpNYK3DQxINgwItTRXWVxGeLaWep1zTRZbtB7lvuK15IOhfMrGQuWxJMwwrAWx6iZOAefY3t2KAZBp4jL3kZfmVIs5k9SCBtoMAgMnu2duhxfNdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=I2BBrSJU; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="My40XYNi"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rcg7i8alw+6pwIMR9PsQo8oSyi7qilX87QkYp2YVlUQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790151516; v=1; x=1790756316;
- b=My40XYNiu5S2Ev5qKWnPwEBFdJbwMmSwVTgSA9X6JPCaXCDc2pEMF9bcAsSffwQLMuF9+7fj
- F1GWLHag/BJIPRAG3IM0yoENdQMuqXWVniHJ9DSWrLNBaRHOrhOnrBAVPApbC3GBBFsFslmN8nQ
- EScDegREs2sSyqtwO0WRQTEM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 57f5298fc68db611;
-	Wed, 23 Sep 2026 08:18:36 +0000
-X-Mizu-Trace-ID: 57f5298fc68db611
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="I2BBrSJU"
+X-UUID: 603cdf5cb72711f18dc8c9802ae25ab1-20260923
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=VKD0tzlfwYTc9qy8WRCm8rz6TCg2dfvd3xri2V3Urdo=;
+	b=I2BBrSJU9CI0gBE8GTHe0TT3u0fLqci6ldmINJkHaNZRp3WSPDDfhZ6M4Cy4x0EtTrccKvoSMLs/Flk6j7AaFHmmnkfpQLxjy1BfS/jbvC0B8HHS5N/zG18cXMcippcZWpFI43YCgBg6bX9ZvE/8yPMYtDe3s6e/NNnYCgXAga8=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:fdc1401e-3523-421d-934d-85996b0d1b0d,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:f5408b94-3103-4fdb-b79c-08de0e281a5d,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 603cdf5cb72711f18dc8c9802ae25ab1-20260923
+Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 653574066; Wed, 23 Sep 2026 16:18:37 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 23 Sep 2026 16:18:35 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 23 Sep 2026 16:18:33 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
+	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
+	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
+ Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
+	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
+	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
+Subject: [PATCH v10 10/10] media: mediatek: encoder: Add MT8189 encoder compatible data
+Date: Wed, 23 Sep 2026 16:18:31 +0800
+Message-ID: <20260923081831.268342-1-kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 23 Sep 2026 08:18:36 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Tianchu Chen" <tianchu.chen@linux.dev>
-Message-ID: <fe549eb46f9f666f2778e7c50198528028cf9528@linux.dev>
-TLS-Required: No
-Subject: [PATCH v2] nfc: st95hf: validate device-reported response length
- before reading
-To: david@ixit.cz, sameo@linux.intel.com, shikha.singh@st.com
-Cc: oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <91f49a98dd42655829b7206f0d64cc31ef9c0e95@linux.dev>
-References: <91f49a98dd42655829b7206f0d64cc31ef9c0e95@linux.dev>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-From: Tianchu Chen <flynnnchen@tencent.com>
+add MT8189 compatible data to initialize platform data for encoder.
 
-st95hf_spi_recv_response() reads a 2-byte header from the device,
-derives the total response length from it (up to 1025 bytes via the
-long-frame encoding) and then blindly reads len - 2 more bytes into
-the caller's buffer, whose size it knows nothing about.
-
-Call sites can be overflowed by a device reporting a large length,=20
-for=20example, st95hf_irq_thread_handler() passes the data area of a
-280-byte skb.
-
-ST95HF datasheet states "In Reader mode it is possible to receive up to
-528 bytes of frame data from VICC and TypeB cards", so technically a bogu=
-s
-NFC tag may trigger the OOB-write if the card-reader's firmware allows
-large packets.
-
-Add a buff_len parameter and clamp the device-reported length that does
-not fit into the caller's buffer, Also modify callers to pass their
-real buffer sizes.
-
-Note that the clamped transfer must still run rather than bailing
-out early: the header transfer keeps chip select asserted via
-cs_change, and only completing a follow-up message lets the SPI
-core deassert it. The device simply discards the unread bytes
-at the chip select rising edge, then report the overflow with -E2BIG
-after the transfer completes.
-
-Discovered by Atuin - Automated Vulnerability Discovery Engine.
-
-Fixes: cab47333f0f75 ("NFC: Add STMicroelectronics ST95HF driver")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
-v2: clamp the payload read to the caller's buffer and let the second
-SPI transfer complete instead of returning early, so chip select (kept
-asserted by the header transfer's cs_change) is deasserted by the SPI
-core; report the overflow with -E2BIG after the transfer completes.
+ .../vcodec/encoder/mtk_vcodec_enc_drv.c         | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
- drivers/nfc/st95hf/core.c |  6 ++++--
- drivers/nfc/st95hf/spi.c  | 16 +++++++++++++---
- drivers/nfc/st95hf/spi.h  |  2 +-
- 3 files changed, 18 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/nfc/st95hf/core.c b/drivers/nfc/st95hf/core.c
-index 4d772a308bfff..0fbb60deada23 100644
---- a/drivers/nfc/st95hf/core.c
-+++ b/drivers/nfc/st95hf/core.c
-@@ -283,7 +283,8 @@ static int st95hf_send_recv_cmd(struct st95hf_context=
- *st95context,
- 		unsigned char st95hf_response_arr[2];
-=20
-=20		ret =3D st95hf_spi_recv_response(&st95context->spicontext,
--					       st95hf_response_arr);
-+					       st95hf_response_arr,
-+					       sizeof(st95hf_response_arr));
- 		if (ret < 0) {
- 			dev_err(dev, "spi error from st95hf_spi_recv_response(), err =3D 0x%x=
-\n",
- 				ret);
-@@ -800,7 +801,8 @@ static irqreturn_t st95hf_irq_thread_handler(int irq,=
- void  *st95hfcontext)
-=20
-=20	mutex_lock(&stcontext->rm_lock);
- 	res_len =3D st95hf_spi_recv_response(&stcontext->spicontext,
--					   skb_resp->data);
-+					   skb_resp->data,
-+					   skb_tailroom(skb_resp));
- 	if (res_len < 0) {
- 		dev_err(spidevice, "TISR spi response err =3D 0x%x\n", res_len);
- 		result =3D res_len;
-diff --git a/drivers/nfc/st95hf/spi.c b/drivers/nfc/st95hf/spi.c
-index ffaf2789c4069..a69f7c5e3695e 100644
---- a/drivers/nfc/st95hf/spi.c
-+++ b/drivers/nfc/st95hf/spi.c
-@@ -66,7 +66,7 @@ EXPORT_SYMBOL_GPL(st95hf_spi_send);
-=20
-=20/* Function to Receive command Response */
- int st95hf_spi_recv_response(struct st95hf_spi_context *spicontext,
--			     unsigned char *receivebuff)
-+			     unsigned char *receivebuff, int buff_len)
- {
- 	int len =3D 0;
- 	struct spi_transfer tx_takedata;
-@@ -106,9 +106,16 @@ int st95hf_spi_recv_response(struct st95hf_spi_conte=
-xt *spicontext,
- 	else
- 		len +=3D receivebuff[1];
-=20
--=09/* Now make a transfer to read only relevant bytes */
-+	/*
-+	 * Now make a transfer to read only relevant bytes, clamped to
-+	 * the caller's buffer.  The transfer must run even when the
-+	 * device overreports the length: the header transfer above kept
-+	 * chip select asserted via cs_change, and only completing this
-+	 * message lets the SPI core deassert it.  The device discards
-+	 * the unread bytes at the chip select rising edge.
-+	 */
- 	tx_takedata.rx_buf =3D &receivebuff[2];
--	tx_takedata.len =3D len - 2;
-+	tx_takedata.len =3D min(len, buff_len) - 2;
-=20
-=20	spi_message_init(&m);
- 	spi_message_add_tail(&tx_takedata, &m);
-@@ -122,6 +129,9 @@ int st95hf_spi_recv_response(struct st95hf_spi_contex=
-t *spicontext,
- 		return ret;
- 	}
-=20
-+=09if (len > buff_len)
-+		return -E2BIG;
+diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+index 716ae8dc51ad..a4cc5f2a9cff 100644
+--- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
++++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
+@@ -483,6 +483,22 @@ static const struct mtk_vcodec_enc_pdata mt8196_pdata = {
+ 	.ipi_id = VCP_IPI_ENCODER,
+ };
+ 
++static const struct mtk_vcodec_enc_pdata mt8189_pdata = {
++	.venc_model_num = 8189,
++	.capture_formats = mtk_video_formats_capture_h264,
++	.num_capture_formats = ARRAY_SIZE(mtk_video_formats_capture_h264),
++	.output_formats = mtk_video_formats_output,
++	.num_output_formats = ARRAY_SIZE(mtk_video_formats_output),
++	.min_bitrate = 64,
++	.max_bitrate = 100000000,
++	.core_id = VENC_SYS,
++	.uses_common_fw_iface = true,
++	.set_dma_bit_mask = true,
++	.fw_type = SCP,
++	.fw_init = mtk_vcodec_fw_scp_init,
++	.ipi_id = SCP_IPI_VENC_H264,
++};
 +
- 	return len;
- }
- EXPORT_SYMBOL_GPL(st95hf_spi_recv_response);
-diff --git a/drivers/nfc/st95hf/spi.h b/drivers/nfc/st95hf/spi.h
-index 3ab678734c174..443a5053c0128 100644
---- a/drivers/nfc/st95hf/spi.h
-+++ b/drivers/nfc/st95hf/spi.h
-@@ -45,7 +45,7 @@ int st95hf_spi_send(struct st95hf_spi_context *spiconte=
-xt,
- 		    enum req_type reqtype);
-=20
-=20int st95hf_spi_recv_response(struct st95hf_spi_context *spicontext,
--			     unsigned char *receivebuff);
-+			     unsigned char *receivebuff, int buff_len);
-=20
-=20int st95hf_spi_recv_echo_res(struct st95hf_spi_context *spicontext,
- 			     unsigned char *receivebuff);
---=20
-2.51.0
+ static const struct of_device_id mtk_vcodec_enc_match[] = {
+ 	{.compatible = "mediatek,mt8173-vcodec-enc",
+ 			.data = &mt8173_avc_pdata},
+@@ -493,6 +509,7 @@ static const struct of_device_id mtk_vcodec_enc_match[] = {
+ 	{.compatible = "mediatek,mt8192-vcodec-enc", .data = &mt8192_pdata},
+ 	{.compatible = "mediatek,mt8195-vcodec-enc", .data = &mt8195_pdata},
+ 	{.compatible = "mediatek,mt8196-vcodec-enc", .data = &mt8196_pdata},
++	{.compatible = "mediatek,mt8189-vcodec-enc", .data = &mt8189_pdata},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, mtk_vcodec_enc_match);
+-- 
+2.51.0.windows.2
+
