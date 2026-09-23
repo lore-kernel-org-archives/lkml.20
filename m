@@ -1,128 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311AE23EAB4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:11:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D118415F17
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143869; cv=none; b=IcN9EW03XoxgBTs/HrJYbZqSr02uD3qc5oBScaRDcLJllAVJCAplJVe1aaeqWS+ZTTUJNyGoPLhY9BaKNN7AcsGBrSBUJCseHyLYwivKs4XE+tQOBVGTslkuCnnvH1NsB0Io+BeWFetbZwfikl0cyyQaXI3xIzUgrRqTRYrCeSM=
+	t=1790143870; cv=none; b=hXCQfMeUe62mRhS7b2VvV4rqwQxxK/OPv1X1Keg0SHtyYkowo+TpiPYbMLIlKVzaL07287aHi/dXIytaXIDj6hzqz+1ovJ9SFfbkHL58E9ZVgSRxeZCe+KxrG47pcbiz7VXuuGxvV8A0Nf+lP/5eqVyQ5/CLt+olrZeh0yyL/vE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143869; c=relaxed/simple;
-	bh=36DkvQ40d2yR8/sYsHjVsChpTAqtkzflfa13QYZVKCI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sK+QNaMkLFj00piZUzc3FamHV7eLOj8Q8vci0PKfv4s5kin8xvaMYUw+HdPxRpqKNmOCnv1QQkLzHas1KuwxsrrPh91nZDwade+h+OguqKeceQAfjIrQfwlG3FjagIpziwO6bOLo9nd/GsUN541iUfbIgB9qsCS/T/4cvGDWrt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YsC81ZtB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790143870; c=relaxed/simple;
+	bh=y1I5rOf7OrXfFm3V0abeMQKoeg6ZpFE9wFa86V6vDmA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jrXqKpqIEM/1SML8d8igLyPYoAkNhCkqjCHyzqWqZ1gcIVVmTUse+2+4/uwWinbwZ6tGxfguGF4YfAqIQI2BpFN9E4O7HGVLE+zOO6PLDKHIlNks2mfU5Kl+yQCZ8lwoZEgcPwNS9ACPtvRnWxcYja22N+tpFXbWAqRpDOYvDI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=czG9+e4K; arc=none smtp.client-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YsC81ZtB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66E71F008A0
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:11:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790143867;
-	bh=36DkvQ40d2yR8/sYsHjVsChpTAqtkzflfa13QYZVKCI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=YsC81ZtB6p7Ye8J46St0nIWpDIGBXr6BqfcMKpWBw7i7WWStGXBNu4rTz+xt2hrr/
-	 DIAGBS33T1UQMR78d9BXCabEGL/VmdMdKbKAmx276njXWB+srosYnd3yS2QLyNets9
-	 jqiTOmvWxS3e3PzL7oa5QfPoLa012fZUlplwW2/6VE+kD8jMTNMyQyH5julGBbVHUa
-	 j09h5z94LvTKm9AAQO/XfK5gEiSXJ7nK3KQkEv1kDrtIvkoRnwmRyUzFEKkqMGKRfG
-	 nP8IE5JX4twuozutakMC9Kj+bBcZZNkEA21DOYZEpPCf56PaVqtjUeIFIXOE5kOnqv
-	 s6fsaaWCsL49g==
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab20f4bso633983d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:11:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByAMmCa7XfAU8h0hce75wTDS1tRUXVe7ZuxX0PrKT9Dz5dh1rOs4Svltifd5Pyu9dPtkb20snDaZ73E81I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYnJj8jK1919VN9IrLNxBzQYTwberh7d9XCUfWOVGVvBlCzR6+
-	8yTMNb85qOEaIy2Nwh5F+AYPGvpq54T+a+uE4hGMOFUiqiV9icJNGF2DLm3U7RpoX3vHG4IuIA/
-	6n6LnpwTOHYnHvbBk+MiRsn2cbopmsCSKgdoJVAFBeQ==
-X-Received: by 2002:a05:690e:806:20b0:671:4a50:cac8 with SMTP id
- 956f58d0204a3-672d57377eamr504474d50.32.1790143866547; Tue, 22 Sep 2026
- 23:11:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="czG9+e4K"
+Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
+	by cmsmtp with ESMTPS
+	id 9BLAx410UJFmF9GCCxmVHK; Wed, 23 Sep 2026 06:11:08 +0000
+Received: from gator4166.hostgator.com ([108.167.190.91])
+	by cmsmtp with ESMTPS
+	id 9GCBxq3IZIRv99GCBxhth0; Wed, 23 Sep 2026 06:11:07 +0000
+X-Authority-Analysis: v=2.4 cv=GIUIEvNK c=1 sm=1 tr=0 ts=6ab36d7b
+ a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=1XWaLZrsAAAA:8
+ a=VwQbUJbxAAAA:8 a=tBmdgtp83pJHOttqeXgA:9 a=QEXdDO2ut3YA:10
+ a=2aFnImwKRvkU0tJ3nQRT:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=t8eoLHfrw7hclX5j0eUpFdmOPOJ4bJnLXLBr2WWB5ws=; b=czG9+e4KAvvC
+	hZOshRvg7+XoxLTfjB2ycCnfidNdp7qsExT1C0ZPqtEZY8BXO/UkbNQ1/OqhQGtNjR0WajLWFk4u7
+	HfX826I9glD6K6c7zzHjrpad7Jhnu1Y15/3FcElFwBKVTmmED9ymekxMtM/rML0N+IpJ8aSr1t2Mu
+	WdclcbI13wVh/u5BplxWyw7gGoJ8xjkLKimFHH74bJeL0T3pFPKWmuH2FeLRaOccg0EjGASMx7gsI
+	lRYVSYpZTzh54OZ+nKlnpmSCUQtPPgyu1cPolUukTb4Gbpz8cpNTXbdgMNTtrPhiC9U5A0IbjGUNV
+	z6Wg/YNmu7McP/j5+U5tPw==;
+Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:54380 helo=[10.203.100.34])
+	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <gustavo@embeddedor.com>)
+	id 1x9GCA-00000002MGj-0UfR;
+	Wed, 23 Sep 2026 01:11:06 -0500
+Message-ID: <abbd8862-cb64-4c58-a78b-c971fdada7be@embeddedor.com>
+Date: Wed, 23 Sep 2026 15:11:01 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F> <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
- <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
- <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
- <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
- <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
- <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
- <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
- <a75b2eac4297ca6b238dde6f9246d2c1807b935f.camel@surriel.com>
- <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com> <arKiK06mfWTw9I9a@cmpxchg.org>
-In-Reply-To: <arKiK06mfWTw9I9a@cmpxchg.org>
-From: Chris Li <chrisl@kernel.org>
-Date: Tue, 22 Sep 2026 20:10:54 -1000
-X-Gmail-Original-Message-ID: <CACePvbWaNGKSZHdWtUw6JvaydvPqKmcUR52j+7CXt4_9w4uYuw@mail.gmail.com>
-X-Gm-Features: AcwNN1V7JRD8IWTWDQf-4vF0gQsA2D-aYRiLEM1ny74LPtNp-fFSHWF5S-AZcVU
-Message-ID: <CACePvbWaNGKSZHdWtUw6JvaydvPqKmcUR52j+7CXt4_9w4uYuw@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>, 
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, 
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] crypto: hisilicon/qm - annotate cap_tables with
+ __counted_by_ptr
+To: Bill Wendling <morbo@google.com>, Zhiqi Song <songzhiqi1@huawei.com>,
+ Longfang Liu <liulongfang@huawei.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>, Weili Qian <qianweili@huawei.com>,
+ Zhou Wang <wangzhou1@hisilicon.com>,
+ Chenghai Huang <huangchenghai2@huawei.com>
+Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva"
+ <gustavoars@kernel.org>, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ codemender-patching+linux@google.com
+References: <20260923060114.2605310-1-morbo@google.com>
+Content-Language: en-US
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+In-Reply-To: <20260923060114.2605310-1-morbo@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 125.195.69.90
+X-Source-L: No
+X-Exim-ID: 1x9GCA-00000002MGj-0UfR
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:54380
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 19
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfDeFjpEA879lTzX2IqVqAWjkUJTLOPqndidYyoJTiYXLVW7aBOdm1M7R7svuI1CjHX+ybljpwX28BVE66/VhnAkT0RF+lpWSROL3AXFrmMLjLJw6AHfb
+ L3oyqFI2RDgmN8BDqx+6FN4htUaKgeA/MuEAKcmlh81YnwUc7ROardfb4TZyB9J9LKWmXjWX4SNmPgMZ0YZ7BoVr5TFbf/WXQWWTFpm8PtCQT0LFWYQVtgxv
 
-On Tue, Sep 22, 2026 at 5:43=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.org=
-> wrote:
->
-> On Tue, Sep 22, 2026 at 05:23:31AM -1000, Chris Li wrote:
-> > In my experiment, 100% is already way above that bound, which is why
-> > I'm curious about your data point. How do you run and test your system
-> > at 100%? Please correct me if I am wrong, but it looks like you
-> > haven't.
->
-> You're conflating machine size with workingset residency.
->
-> Rik showed an example where the compressed set was twice as large as
-> the anon set, and it worked fine. And why is that surprising?
 
-Where did I say surprised? I am just saying that is not the metric I
-am looking for.
 
-> We know many applications have long tails of cold pages. Idle tmpfs
-> files and shmem segments. Things that get rarely used. memcache style
-> workloads have a small, hot index and a huge data segment with poor
-> access locality. Even if large parts of it are in compressed space
-> that's better than storage fetches.
+On 9/23/26 15:01, Bill Wendling wrote:
+> Annotate the 'qm_cap_table' and 'dev_cap_table' pointer fields in
+> 'struct hisi_qm_cap_tables' with the '__counted_by_ptr' attribute.
+> This improves bounds checking via CONFIG_UBSAN_BOUNDS and
+> CONFIG_FORTIFY_SOURCE, allowing KASAN and compiler diagnostics to
+> detect out-of-bounds accesses.
+> 
+> The 'qm_cap_table' pointer is associated with 'qm_cap_size' which
+> specifies its element count. Similarly, 'dev_cap_table' is associated
+> with 'dev_cap_size'.
+> 
+> To ensure safety under compiler instrumentation, the assignments in the
+> initialization paths have been updated to set the 'size'/'count' fields
+> prior to setting the pointer fields. This prevents any transient state
+> where the pointer is valid but the count is 0 (or uninitialized),
+> ensuring that subsequent accesses to these tables do not trigger
+> false-positive bounds check panics.
+> 
+> Cc: codemender-patching+linux@google.com
+> Assisted-by: LLM
+> Signed-off-by: Bill Wendling <morbo@google.com>
 
-So what is the max (%) in your fleet based on my metric definition?
->
-> Your "this will thrash after 7-10%" is an average based on common
-> workingsets that are actually hot. It doesn't mean there aren't cases
-> that benefit from much higher overcommit.
+Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 
-That is what I have been repeatedly asking for regarding your
-deployment setup. What is the amount of memory swapped out to zswap
-relative to the total system RAM? This should be a simple query on
-your end. Nobody has been able to provide a data point where that
-percentage reaches 100.
+Thanks
+-Gustavo
 
-> Why even get into this? Why even try to find some universal limit on
-> something that just costs memory anyway, when memory containment is
-> already a solved problem?
+> ---
+>   drivers/crypto/hisilicon/hpre/hpre_main.c | 2 +-
+>   drivers/crypto/hisilicon/qm.c             | 2 +-
+>   drivers/crypto/hisilicon/sec2/sec_main.c  | 2 +-
+>   drivers/crypto/hisilicon/zip/zip_main.c   | 2 +-
+>   include/linux/hisi_acc_qm.h               | 4 ++--
+>   5 files changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/crypto/hisilicon/hpre/hpre_main.c b/drivers/crypto/hisilicon/hpre/hpre_main.c
+> index b6903fce6071..4a1b2de476f5 100644
+> --- a/drivers/crypto/hisilicon/hpre/hpre_main.c
+> +++ b/drivers/crypto/hisilicon/hpre/hpre_main.c
+> @@ -1234,8 +1234,8 @@ static int hpre_pre_store_cap_reg(struct hisi_qm *qm)
+>   		return -EINVAL;
+>   	}
+>   
+> -	qm->cap_tables.dev_cap_table = hpre_cap;
+>   	qm->cap_tables.dev_cap_size = size;
+> +	qm->cap_tables.dev_cap_table = hpre_cap;
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/crypto/hisilicon/qm.c b/drivers/crypto/hisilicon/qm.c
+> index c01966a4a33f..7d13476451e3 100644
+> --- a/drivers/crypto/hisilicon/qm.c
+> +++ b/drivers/crypto/hisilicon/qm.c
+> @@ -5743,8 +5743,8 @@ static int qm_pre_store_caps(struct hisi_qm *qm)
+>   							i, qm->cap_ver);
+>   	}
+>   
+> -	qm->cap_tables.qm_cap_table = qm_cap;
+>   	qm->cap_tables.qm_cap_size = size;
+> +	qm->cap_tables.qm_cap_table = qm_cap;
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/crypto/hisilicon/sec2/sec_main.c b/drivers/crypto/hisilicon/sec2/sec_main.c
+> index 752565200c16..ac423d016998 100644
+> --- a/drivers/crypto/hisilicon/sec2/sec_main.c
+> +++ b/drivers/crypto/hisilicon/sec2/sec_main.c
+> @@ -1285,8 +1285,8 @@ static int sec_pre_store_cap_reg(struct hisi_qm *qm)
+>   				     i, qm->cap_ver);
+>   	}
+>   
+> -	qm->cap_tables.dev_cap_table = sec_cap;
+>   	qm->cap_tables.dev_cap_size = size;
+> +	qm->cap_tables.dev_cap_table = sec_cap;
+>   
+>   	return 0;
+>   }
+> diff --git a/drivers/crypto/hisilicon/zip/zip_main.c b/drivers/crypto/hisilicon/zip/zip_main.c
+> index 706a73656977..10091ad4a6a8 100644
+> --- a/drivers/crypto/hisilicon/zip/zip_main.c
+> +++ b/drivers/crypto/hisilicon/zip/zip_main.c
+> @@ -1400,8 +1400,8 @@ static int zip_pre_store_cap_reg(struct hisi_qm *qm)
+>   				     i, qm->cap_ver);
+>   	}
+>   
+> -	qm->cap_tables.dev_cap_table = zip_cap;
+>   	qm->cap_tables.dev_cap_size = size;
+> +	qm->cap_tables.dev_cap_table = zip_cap;
+>   
+>   	return 0;
+>   }
+> diff --git a/include/linux/hisi_acc_qm.h b/include/linux/hisi_acc_qm.h
+> index f7570a409905..8dc49fa2123b 100644
+> --- a/include/linux/hisi_acc_qm.h
+> +++ b/include/linux/hisi_acc_qm.h
+> @@ -332,9 +332,9 @@ struct hisi_qm_cap_record {
+>   
+>   struct hisi_qm_cap_tables {
+>   	u32 qm_cap_size;
+> -	struct hisi_qm_cap_record *qm_cap_table;
+> +	struct hisi_qm_cap_record *qm_cap_table __counted_by_ptr(qm_cap_size);
+>   	u32 dev_cap_size;
+> -	struct hisi_qm_cap_record *dev_cap_table;
+> +	struct hisi_qm_cap_record *dev_cap_table __counted_by_ptr(dev_cap_size);
+>   };
+>   
+>   struct hisi_qm_list {
 
-Because I suspect that if that number goes above 100 the machine is
-unusable. If this statement is true, then nobody would want to zswap
-100% of the RAM. I don't need to preserve that much a space. Asking
-for too large a value is ridiculous.
-
-Chris
