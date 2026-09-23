@@ -1,186 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A13844C4E2;
-	Wed, 23 Sep 2026 12:56:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168183; cv=none; b=CXEfz09W/fLpP/Yqm8r+fK6bxPyQRLbg2pGvTaK+BH/0ICQsY6KlzuQjn79iwTKKvtpohZQCuYDx1MJZmarFw9/cd/obS9xtbvIuSdK+ong3o10cYdwUQUof0BZljT1+GrZhiFFVl8uNjGDMzFeoLyxiCiJXEHHFXCh3m1AShng=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168183; c=relaxed/simple;
-	bh=LzJEruODDUPU73rqcnJtFWsHFPjSXRP/LTH0UAEBWnI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OKYmdymHrjiBcb00KaV8dOEJcnL4zotClVTTCyCLV/GNUuLpx6ehcXmP0ylP9Dk4gXlt4ZW6PzfJdiFsHZ+YMe2vJ0rBrbzBXfVWKDG1Bs7jeJUfQzNrvrCcERnPMjvdC/Tnh2nNiZmH3mVwJklTK2wU1ZSWWBQhEqRNS1UhaaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SvQiQUsf; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FBA44C4E2
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.153.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790168198; cv=fail; b=VEZ0Vqflj8ZQcPln/q+WyCiqv778ccybeRF3ralnY31+yT9Yl9nJLcyzPSJ5hIl2aWEvyIiZOTDo9LPik/1f+IvwytoKuXBx1zMIfI+Nt4vgyZNaeVMWvbjrKapJz6E32xeHi7XtDFmkTmZEHCHbeqmYgIuvi3WziSWrZZ4iQas=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790168198; c=relaxed/simple;
+	bh=1SRCHPmkk/MqpwfxYpDG6WpvHJw5t+UA+z5YMTQWaVQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=StoM7a/eI6VsNNxPZnvT5rROz1qh2SG7h1DFw01r0RcapQBEWkBH3PS/BcbrEALzwV8X20xwLYAoEUyHj2Fr/68flw/AWn+bmLSNkcMXCrjI8WX6jFChrfBSPs17JvDAql5QQGTy/xE9CePWYSt31VGZYDrIlxZYWi0adSoneMI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com; spf=pass smtp.mailfrom=meta.com; dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b=QM48kRVX; arc=fail smtp.client-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SvQiQUsf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870B21F000FF;
-	Wed, 23 Sep 2026 12:56:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790168182;
-	bh=3uUhtAR2k0hPaE4q7IxQRMBAokmtgKcz0lOtbcN/3eA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=SvQiQUsfVQZRXUO5/FwsLtxY+h0jo4b/6HpYlE6vmJ2SvkTIpI8X949Jn1bEH/yYV
-	 orCrR2RIXPB6OqNfTWt7nC58HzbuL4jNGxb3+Gm+zS0fw9ULufsMP2z0t8UQhm+KWJ
-	 vxbLhHKTuol4SaYIsB0C9B9P4UQ+zG085/0k+aJ9jeMU2CrcFjWG5ZOFn0PaV1+5Js
-	 aJOMIgr83zIt1CEtPDdiJRFhsZXYwO0OzZaWFYny5avLUmutE4MbpH7W6g/I5tK2V3
-	 UClqdPdIcbSpo5BzEgjsTdygqYqOvGSTjX+3AusKObMSEXhFQi/fTdgmKwCdtFPwch
-	 QSjlEvxEDEriw==
-Subject: Re: [PATCH v2 2/2] vsock/vmci: enforce per-netns mode on the datagram
- receive path
-From: netdev-bot+sashiko@kernel.org
-To: bartlomiej.dmitruk@isec.pl
-Cc: bryan-bt.tan@broadcom.com, vishnu.dasa@broadcom.com, sgarzare@redhat.com,
- bcm-kernel-feedback-list@broadcom.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- mst@redhat.com, virtualization@lists.linux.dev, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 23 Sep 2026 12:56:21 +0000
-Message-ID: <179016818112.2160803.16758605437197754903@kernel.org>
-In-Reply-To: <20260919123208.29032-2-bartlomiej.dmitruk@isec.pl>
-References: <20260919123208.29032-2-bartlomiej.dmitruk@isec.pl>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=meta.com header.i=@meta.com header.b="QM48kRVX"
+Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8J77X1427679
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:56:35 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=w6aYP/WGma+CZxHbYVrCOq+IGJ59B5MNaNiRl
+	taBsIY=; b=QM48kRVXKpecMA2HKZlUHYTYeblPj2PwDiXNYgaELcY+4blPJCHkl
+	WnOq74Qma6mHBWyL7kNLfzD5f724Bn70LINbKvPtz+tosR5For+dsSEdeWOJQz/o
+	GxeMcb1gbqjFQ8PoMzoLAteVIo0MU0JUHXxO8NIyAoIsB7jnm45Bl0vXFhMjbV+S
+	ptHDR2P3ppPkou99iHDsL/oxrV/hb0QuDiRdlSoPg3G4FYmrDfjzH0NbgHcNon4V
+	ShyLuLOEmp7pXksscyUIIMLPnAw0Fz2SUIBxqb+Uj7wzFzCrw1Q1addlXugfLhDY
+	OJFT5eTBaWiV1CbYkqR0lWIJzVvI7tmog==
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4guud9s7ua-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:56:35 -0700 (PDT)
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6aa1c4f3001so1161773a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:56:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790168194; cv=none;
+        d=google.com; s=arc-20260327;
+        b=A3xK2YjK77y7Fsg/CKiq60vBe3jajU6V2BpQPzTwUoVpfC1VVqXXivV/oXy3a7et3a
+         fpnzbewq8oeyuFs4RTnnYeXnekQby0dxCG9eoaMwm4edV0Ab7+mRi52/mTxMqgjAy+6m
+         cg0Ca/zVe/b33gpLGg7M9nallGdO0XxMTMR5LAHcVXoVw7INI8FJ9oSuKf7JK7i72KLs
+         eWe2q9aK+v9PVJnQdq+sLe2knaA6xgobgFqb25Km9O+qmR6W8QMOdCFmyGyYTyeT8Ckc
+         dPZPazt2i8MIDPY1hennBjsA3m/MvoVtNrayx3CDzK9qqUzxAEIN13/jgBj3L8iAV6l1
+         EEZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version;
+        bh=bqEiNZo3w6DxJ+jQKjV3KdDyTNPbxkoMRHGCPwXcb/s=;
+        fh=Y1bf2pSGwqzM/0AK4xoxn0jQBAcUaZYtYRiP059+rYM=;
+        b=jm9E16V8kMfIPSRT/pSHUIa53QSRmJVNHoUoe7M6UoIShZge2OEa2NZc1me3SrY3hl
+         hVAynyJEjXWeLgTGR/FBmMZbBfRn3TuOxvBo8kGmvQ/gD8bg0sE0e9H+ZYkS64NSzbdx
+         1g7v90w4gOh6ORmlAqluilI9+8M6dAdz2ZsphKArNKOGbMbWzVekgHNwtZiLlETrIc2o
+         SX3dHVavRhN7Lp+SXg78yp1Ar3wX2Ckv0+4F3eNVc07bLjw4tT/f5RtZjgY6OSxdmckT
+         z0/+MEX6EBHVyg7rnnhqAxLgqbdsxn7jJvwyrJOZpnURIfNGhkqRRSvzOLKCvuC44Wpc
+         yjJQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790168194; x=1790772994;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bqEiNZo3w6DxJ+jQKjV3KdDyTNPbxkoMRHGCPwXcb/s=;
+        b=nQ3y+DmVa0zO9XMYb6gh4lkHOBbJv52aLbDb+htmhgNWgYp10jM6uTl1gqL3uw4Lkn
+         h+2jxIfxOlXfB6TppOVUUfT8eaLadKDgO5iYB8r6oWD2uHgSPi/vcFBmnQilO9p1E2Kx
+         hAN5xlPln0xY1dErdsm0RAgiZ4549YSGzsaNOaH5U8phybFtCc4WYfczko7W1O48jy/a
+         nF0nkM4aef0HBZBMDU/E4pSXIencQK21yBJPX5zwXhhIS8hp/4+wHUWea+QhSt5Njs3q
+         GTyvmMkA2NbziqManb3sVyB0o/XBBMYhhcKevlib2Sy758b5K0oIVbelcQnQlVdyKTl2
+         I7Bw==
+X-Forwarded-Encrypted: i=1; AKwUvBxhGcuaddnJa4nzUJH3ZtLbfmxpYJuTORnXPcRu/cjQNYs61+HFsWmGE9DYbYd4MQdgM6zl4StRyYRwHPk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/eEtevYKI/hKLZGRUDrpzLWhd6fY42nI1rIEwrJNOttMR50DD
+	FB124/vz5+1s9mgpNR2qKZYSaK4PUx2ljmRkY1Bc6A7HaPG7ictiN9mE8G7BbNabjqEmYPnPUgG
+	q5R090L8feaBa+BRosj22mLzeX2UMEovid73R0QqMaYPq/W9Xb/9T3lnPQakHrLoccI1oMFvRbB
+	hiZGfDujon4ur3j7BAH7S9FopEoF2wswwTb33E7tM=
+X-Gm-Gg: AYBFou0MaTb9bHhpWwVhnNGY9ia0BjUny6YVW7wE3izxJCJpE7H06U+9wR/qSsR6Wtc
+	5BUY2pKJYLlnlebJo3bc8uQWfAU8gpOK4aBHGkqWJKFN+AwqfFfr3r6JJk4vFWAyZOE1mDFKHp0
+	2MROX0pBTQmLh9RD/o+CZJ5FI/XS+Y3uc97UkhAGGIpeoUxwmXWu4qHkfNPzZRVIO1x1/d9xOsj
+	zc4nox/hSSkNLY9/A==
+X-Received: by 2002:a05:6402:3549:b0:6a9:93cf:2367 with SMTP id 4fb4d7f45d1cf-6aab3b82acfmr2389943a12.41.1790168194094;
+        Wed, 23 Sep 2026 05:56:34 -0700 (PDT)
+X-Received: by 2002:a05:6402:3549:b0:6a9:93cf:2367 with SMTP id
+ 4fb4d7f45d1cf-6aab3b82acfmr2389903a12.41.1790168193603; Wed, 23 Sep 2026
+ 05:56:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260722163536.773166-1-alex@ghiti.fr> <20260722165907.784020-1-alex@ghiti.fr>
+ <CAKEwX=NJH2nM=vMPk_=ugJ26uNjH4AMdHXeaasuPrbSEGxpJOQ@mail.gmail.com>
+In-Reply-To: <CAKEwX=NJH2nM=vMPk_=ugJ26uNjH4AMdHXeaasuPrbSEGxpJOQ@mail.gmail.com>
+From: Alexandre Ghiti <alexghiti@meta.com>
+Date: Wed, 23 Sep 2026 14:56:22 +0200
+X-Gm-Features: AclHuK9iADqo6BDBUkusfSuGCdLOo-LJcD0oUEhsZ8PqoiomeOSbz6M_fQmGJPk
+Message-ID: <CAEmasaX8apLztgcRCpGxyDWAs9Vc6hU815o9AG5DZUU_5RpQbA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] mm: swap: overlap synchronous readahead
+ decompression with disk I/O
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, akpm@linux-foundation.org,
+        hannes@cmpxchg.org, yosry@kernel.org, chengming.zhou@linux.dev,
+        david@kernel.org, ljs@kernel.org, liam@infradead.org,
+        vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
+        kasong@tencent.com, ryncsn@gmail.com, chrisl@kernel.org,
+        baohua@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1MSBTYWx0ZWRfX8U9QeHsiv5r+
+ pQYZ7RNuJuHF0O/ovDDyiWDXdTZDh0sHLecGUrhKOSFVu2m3pbnY8VHoqZ9Vm2mBc3WBJi50BbG
+ nhjB3aXYx2xmba9vxwVQAd9AXiJ4UpU=
+X-Authority-Analysis: v=2.4 cv=VdBir1p9 c=1 sm=1 tr=0 ts=6ab3cc83 cx=c_pps
+ a=DTy5UCxgudPLKrSn28m7Kw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=wpfVPzegXHpEFt3DAXn9:22
+ a=pGLkceISAAAA:8 a=6U9HwWF0I8vdP4q4yZsA:9 a=QEXdDO2ut3YA:10
+ a=VzYV69SsQLkmnS9OQLw-:22
+X-Proofpoint-ORIG-GUID: aAlKySmLkYTJmPcawxQ8KKVBOYHHPhHv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1MSBTYWx0ZWRfX6QcWCFbrukQt
+ +ZHZapsonlCe4V4FCkIMF0cgAsQ/q+CoOrrHZX1RvT6BLd9fdczo+7fvCHdx51fEelbpBWlwRh/
+ vV0eIV06ruw1f00aqKh0I+7963wsVwvJRupP5xpJ1f0bIw18LtNOeapj7HmQYAmUgY/BIV5+8ap
+ OF2Cs9kNd3qScYOxCYREAqO6tE9ToNs321um/PmEC35vXGXhZp5ZrGgjFf2QQa/pwomCh6F+TNs
+ SwCb2rGRAsX/jIUjM1/mmBngMz/FgDileHgKKqJ41GDShL+kWbCRY83mw/doULewu5+3pc0Hf7t
+ q7VmJjxXqw9iCp4JpZkaLy9mVfmLWDbYdF6QANh6ITjXN+q4IEgKFBKQJm/g4gSy1hzxWEOv/8S
+ dzFoY8RCbCb6wVGx7DLEWc9JzZJeHxwDKN7mNn+OhPh5pYyL1EJI/QfMTo+8ESLxlPvdEex5vr9
+ CCrAtvn6cDRfzmC98gQ==
+X-Proofpoint-GUID: aAlKySmLkYTJmPcawxQ8KKVBOYHHPhHv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Nhat,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0 (1)
+On Tue, Sep 22, 2026 at 7:07=E2=80=AFPM Nhat Pham <nphamcs@gmail.com> wrote:
+>
+> >
+> On Wed, Jul 22, 2026 at 9:59=E2=80=AFAM Alexandre Ghiti <alex@ghiti.fr> w=
+rote:
+> >
+> > Swap readahead reads the whole window sequentially: the device I/Os are
+> > accumulated along the way while the synchronous, zswap-resident entries
+> > are decompressed inline. The I/O is only triggered afterwards, at
+> > blk_finish_plug(), so the synchronous zswap decompression is pure added
+> > latency in front of the read the fault is about to wait on.
+> >
+> > Trigger the I/O before decompressing the synchronous entries: split the
+> > window walk into two passes. Pass 1 issues the async device reads and
+> > defers the synchronous neighbours; pass 2 reads the deferred entries
+> > while pass 1's I/O is in flight, overlapping the CPU work with the disk
+> > reads instead of serialising it in front of them.
+> >
+> > swap_cluster_readahead() walks a contiguous offset range, which is chea=
+p.
+> > swap_vma_readahead() instead walks the page tables so we cache the
+> > entries we encounter in the first pass to reuse directly in the second
+> > pass.
+>
+> Hmmm does not seem like you're taking advantage of the device-level
+> contiguity of swap_cluster_readahead() either way? You're calling
+> swap_entry_synchronous() (i.e zswap_is_present(entry, 1)) one entry
+> (i.e one tree walk) at a time.
+>
+> If you're not taking advantage of contiguity, just share the logic haha.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I cannot stash the zswap entries in an array for the cluster readahead
+path since the window is not capped like it is for the vma readahead.
 
-- [High] Torn 64-bit lockless access to `vsock->cached_peer_access` on
-  32-bit builds defeats the access-control invariant the series claims…
+So I'll use the contiguity to avoid the zswap tree lookup on each entry, th=
+anks.
 
-Pre-existing issues:
-- [Low] Stale justification comments in both lockless callers of
-  `vmci_transport_allow_dgram()`.
+>
+> >
+> > Results [vm-scalability mixed zswap+disk swap-in, 256M zswap cap (~73%
+> > disk), Sapphire Rapids, zswap=3Dzstd, shrinker off, n=3D3]:
+>
+> Hmm how do you have disk swapin with shrinker off?
 
---
+The test workload I used filled the zswap pool so new folios were
+written to disk.
 
-vsock/vmci: enforce per-netns mode on the datagram receive path
+>
+> >
+> >   metric                  mm-new    +patch    delta
+> >   swap-in tput (KB/s)    119247    131261    +10.1%
+> >   swap-in wall (s)          106       100     -5.7%
+> >   swap readahead (pages)   1.56M      1.55M    ~same
+> >   zswap-in (MB)            1895       1872     ~same
+> >   disk swap-in (MB)        5207       5190     ~same
+> >   major faults            260148     260212    ~same
+>
+> Obviously this would help zswap, but what if the backend is disk swap,
+> and all of this is just pure overhead? How would the numbers look?
 
-This adds a vsock_net_mode_global() check at the top of
-vmci_transport_allow_dgram() so the receive path refuses datagrams when the
-socket's netns is not in global mode, matching the send hook
-vmci_transport_dgram_allow().  The check is placed before the
-VMADDR_CID_HYPERVISOR short-circuit so hypervisor datagrams are gated too.
+You're right, I assumed the overhead would be negligible but I haven't
+measured it, I'll come back with numbers (I'll test with the
+contiguity optimization you mentioned; the overhead should be even
+less visible).
 
-> diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
-> index 31728e26a770..d6791459e2fd 100644
-> --- a/net/vmw_vsock/vmci_transport.c
-> +++ b/net/vmw_vsock/vmci_transport.c
-> @@ -533,6 +533,14 @@ static bool vmci_transport_allow_dgram(struct vsock_sock *vsock, u32 peer_cid)
->  {
->  	u64 access;
->  
-> +	/* Enforce the per-netns mode first, symmetrically with the send hook
-> +	 * vmci_transport_dgram_allow(): a socket in a non-global (local) netns
-> +	 * must not receive datagrams it could never send (this also covers the
-> +	 * hypervisor CID).
-> +	 */
-> +	if (!vsock_net_mode_global(vsock))
-> +		return false;
-> +
->  	if (VMADDR_CID_HYPERVISOR == peer_cid)
->  		return true;
->  
+Thanks for your review Nhat!
 
-[Severity: High]
-While looking at the rest of vmci_transport_allow_dgram(), can the packed
-cached_peer_access word tear on 32-bit builds?
+Alex
 
-The helper reads and writes the decision as one u64:
-
-net/vmw_vsock/vmci_transport.c:vmci_transport_allow_dgram() {
-	access = READ_ONCE(vsock->cached_peer_access);
-	if ((access & VMCI_DGRAM_ACCESS_VALID) &&
-	    (u32)(access >> VMCI_DGRAM_ACCESS_CID_SHIFT) == peer_cid)
-		return !!(access & VMCI_DGRAM_ACCESS_ALLOW);
-	...
-	WRITE_ONCE(vsock->cached_peer_access, access);
-	return !!(access & VMCI_DGRAM_ACCESS_ALLOW);
-}
-
-and the comment above it, plus the field comment in include/net/af_vsock.h,
-state that using a single word means the race between the receive tasklet
-and the send path "can never return a stale allow for a restricted peer".
-
-include/asm-generic/rwonce.h says the opposite for a 64-bit access on a
-32-bit architecture:
-
- * Yes, this permits 64-bit accesses on 32-bit architectures. These will
- * actually be atomic in some cases (namely Armv7 + LPAE), but for others we
- * rely on the access being split into 2x32-bit accesses ... and a strong
- * prevailing wind.
-
-drivers/misc/vmw_vmci/Kconfig allows this on 32-bit x86:
-
-	depends on (X86 || ARM64) && !CPU_BIG_ENDIAN && PCI
-
-The reader runs with no socket lock held, from
-vmci_transport_recv_dgram_cb() and vmci_transport_recv_stream_cb(), while
-the writer can run concurrently from vmci_transport_dgram_enqueue() under
-lock_sock(), which does not exclude bottom halves.
-
-So on i386, with the cache holding {cid=B, VALID, ALLOW clear} for a
-RESTRICTED peer B, can this happen?
-
-CPU0 (sendmsg, trusted peer A) in vmci_transport_allow_dgram()
-	WRITE_ONCE(vsock->cached_peer_access, access);
-	  -> low word stored first: VALID|ALLOW
-	  -> high word still holds B
-
-CPU1 (receive tasklet, datagram from restricted peer B)
-	access = READ_ONCE(vsock->cached_peer_access);
-	  -> low = VALID|ALLOW, high = B
-	(u32)(access >> VMCI_DGRAM_ACCESS_CID_SHIFT) == peer_cid  /* matches */
-	return !!(access & VMCI_DGRAM_ACCESS_ALLOW);              /* true */
-
-That would accept a datagram from a VMCI_PRIVILEGE_FLAG_RESTRICTED context
-on a non-trusted socket, and the mirrored tear (new high word, old low word)
-would drop legitimate datagrams.
-
-Would an atomic64_t accessed with atomic64_read()/atomic64_set(), a
-seqcount, or plain serialization be needed here instead of u64
-READ_ONCE()/WRITE_ONCE()?
-
-[Severity: Low]
-This isn't an issue introduced by this patch, but since
-vmci_transport_allow_dgram() is being touched: both lockless callers still
-carry a justification that no longer matches the helper.
-
-vmci_transport_recv_dgram_cb() and vmci_transport_recv_stream_cb() both say:
-
-	 * NOTE: We access the socket struct without holding the lock here.
-	 * This is ok because the field we are interested is never modified
-	 * outside of the create and destruct socket functions.
-	 */
-	vsk = vsock_sk(sk);
-	if (!vmci_transport_allow_dgram(vsk, dg->src.context))
-		return VMCI_ERROR_NO_ACCESS;
-
-but the helper writes socket state on the ordinary receive and send paths:
-
-	WRITE_ONCE(vsock->cached_peer_access, access);
-
-and the field comment in include/net/af_vsock.h documents that both the
-receive tasklet and the lock_sock() send path update it.
-
-Could the NOTE be reworded to name the fields that really are immutable
-(trusted, owner) and mention that cached_peer_access has its own
-READ_ONCE()/WRITE_ONCE() protocol?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919123208.29032-1-bartlomiej.dmitruk%40isec.pl
+>
+> >
+> > Signed-off-by: Alexandre Ghiti <alex@ghiti.fr
+>
