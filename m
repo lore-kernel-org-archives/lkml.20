@@ -1,140 +1,115 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5173F48097B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:13:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA9247DFB0;
+	Wed, 23 Sep 2026 10:13:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158435; cv=none; b=LhOoBAY8wIpIiBVXB00Kms8YaBeoo+5ExnRhx8M//KJ6/oyyKLgUMfKq3h+EdrLn/n10oE+njFjK3fJg55puX1VJQ8ImpYTXvCEHQICa3t5yL31rxQu5lmfa4q16qZKHFLKGNaXz0m2vtyY+iSlGIBgu08Qa09xCt6bAWvLRQX8=
+	t=1790158443; cv=none; b=g81fPwAxLXQ9zaqCS1jjVnAg6pzgZ5x2J0g/i/dV06CcnfnfGcKdPYJ6C0CqzGpw2scVvDfEJreW6Vua8+e3Y20tm3eBd8vy3a3IbFB1TW803CzolkcSS7GJJqCLn6RazrU3ifZMw1esoKOC9KATINzyMF648KTIEXObrVDw5do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158435; c=relaxed/simple;
-	bh=86tGOrPEB/iivl/l0MEf2yHA5M2eh28fX8Zw5dM3jqY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JFIy1pRbKi0Uc6NahuAPBG7O3/WzmUrmbMFPAM5vAhsSs+GS6PTLR/1DHAaHBlqcI41MlBdbRE3KzN+m9ZZJBIWKXaXFrPGVYhhJ0Vdh+FisBV+1nMS8L5C2WlsiXX+9W5s6X9M1hNAtcmlUIlT3m6M9A/PTskdtH/IN3P5bqBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UluvbZAT; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790158443; c=relaxed/simple;
+	bh=uJXHXw2jx69ih4DAMrKNLWy++uwTIYy2WsgdE3k5d+s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fEX2H5qHOW8e7rEBRXEEp+emWHZ9ic1/uLJewkjm/1y9pKsuDIYrm1ZfrvPfqYFEY9+5IUzbFzKz3VFEq0dBNorrZkffz3dsTUgC9jEaEGxnz8brdI/sA0TuslXRNvzpzRa7dAiqz20DHVqRprDk7EBjb/rPQfbePQfRSL3CLp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HPhKOaCv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UluvbZAT"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49e6425f96eso35785e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:13:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790158416; x=1790763216; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vdEIBnHA/8T+E7XayOUCjgaZYlTP8ZfuwSF0Dftqz2M=;
-        b=UluvbZATTY/rSsKCRw3+gePcgsSmX+XmCzViNo/LaN1ctJdpZpCMUuKS09xwiAhppF
-         9RJEH10sscHgi3KdRLxZkH/bgvF6bry/hlpJOOklI3YROmChr20tBIbpH04LSFIuF0bA
-         K+8v+MV72DdOrMmWSqirrVci35KW3jPDtJXbOoTM93szCp/Q6aae+so46JI+8K2mQlXa
-         Wu/Onn/knXGXVn+8Aaf+OlkuL79abQ+raVX6juoDGeHMoLtsfoUtgmzc5gE9craTTRxb
-         1PjRkRaOIsUfKvvhh+s73j9TSZWIlyvkxzGdff8wjjjW/7b1Xzx6LEJ3ZyF6D3H51k7K
-         bATA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790158416; x=1790763216;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vdEIBnHA/8T+E7XayOUCjgaZYlTP8ZfuwSF0Dftqz2M=;
-        b=eWVSRIdSu5VfFciYU4drr9ZuHsSTJQiLazFhhsILYCFSwI34awHLMmdN6F/W4qLLzC
-         OC6mXOnMTI+KIAgy+m9VPNl0gmKlQleTrc5dRtzhRQ9L+qt6m+UVoVTQ+2j1AX/Fh88T
-         uufW95HO/xM0oCihbKK46fqhN6AAy3rB1mwjgvvuOKMwiu8Xc8lvn4p50dYqYHq8tTzu
-         Rs4YKKk10jSeNcG570Ff1//lUlRfiytQVAmWCrTwQ1o5R+glEhNUjLjbNIv/YPoLd8Ll
-         3YpCv4QV9znqoExoQv+A40TCAdDGSCl07vr2X0aOYv/i4DFcf+l8Pc0Ed0ItcetLRV+c
-         kJVg==
-X-Forwarded-Encrypted: i=1; AKwUvBzVr72FJQW5E633/duRnEKiw/SFIV7K3FIMT+BWo8/G/rIYRGW2DtV6PC5EqBcWArg52yXsz2XgHzjqrtY=@vger.kernel.org
-X-Gm-Message-State: AFuF++m9OFCtEkDki5O8nCrtBVzFPtTPkCW9h+l/zv258g7fZo1aGy5s
-	DGUWgW8CMiSzACWwTMVK7gtiuBrRRnAVV6aYdSKG0KFb5njZjJcFdmgYf08KmRhaEg==
-X-Gm-Gg: AYBFou0N4iXKzSGrErLSmf9zySUesYjuEEOybRunrSQW5twhA5pRE+p8G8RQm1gTORN
-	5vToWEeIE4i/VeCefNc1jBcMMJ1ZNsoiuToxZyIimBGao6cIMlEYdfOJHRv7bPPPoTRAriPGXRr
-	shZ9raC3KBKvOiouNXEg0pspqjXXCgRCReHzDMCA2taPCnE7nhWSB0bndElUZ3i7SdNc9MAnyGo
-	ow5C1N7d2Epz0mrLw1FgawJ30wMsUwJ9QAcFuoe5BccE1qPjxLKkAFN1BLbRKhr1YWbztdsrUhT
-	JJg/7fvhV5kb7w5Nt2N1fVI6tL4Wxc+QftSbXr5ys6zR1d//Ij/w60LCtW2M2fdazwiXhuFYnAP
-	eriAJwhPlJQDFB+VAaMHE1r7wye5/MuKTEa2qOIUeR8EwP7o50eUAOvCnjpeYYCgES+9BV2plZ8
-	LoVujb5U0fWdvrWJeHYLVQSHzG5PsZEY6/xOdxQLJOpoTMrC16JXYEtHuOUEmm7Blcj7RLqRmcy
-	SaG9yfxmERqzd3EqjIyjF5bvLEGbA9uct43+mVraQ==
-X-Received: by 2002:a05:600d:8653:20b0:49f:e0f7:257e with SMTP id 5b1f17b1804b1-49fe0f725e4mr416395e9.6.1790158415606;
-        Wed, 23 Sep 2026 03:13:35 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868486408sm5194076f8f.9.2026.09.23.03.13.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 03:13:34 -0700 (PDT)
-Date: Wed, 23 Sep 2026 10:13:31 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Nicolin Chen <nicolinc@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
-	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
-	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
-	yuzenghui@huawei.com, joro@8bytes.org, mark.rutland@arm.com,
-	qperret@google.com, tabba@google.com, vdonnefort@google.com,
-	sebastianene@google.com, keirf@google.com
-Subject: Re: [PATCH v8 04/25] iommu/arm-smmu-v3: Move IDR parsing to common
- functions
-Message-ID: <arOmSxqRxhd717Xy@google.com>
-References: <20260922131259.2975334-1-smostafa@google.com>
- <20260922131259.2975334-5-smostafa@google.com>
- <arLa0E3xq5dGuPpd@nvidia.com>
- <20260922214818.GA2545495@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HPhKOaCv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382301F00893;
+	Wed, 23 Sep 2026 10:13:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790158427;
+	bh=PREKX6Wfx3ocgL0Q8g3oQ27X39xtDWzJRCtGGTbSjy4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HPhKOaCvWCzYSlAAHvGPirT13fNYuHIJ2LWzRria8HssijiCd0iFrRZLIukuZ3FU1
+	 EGZe1X5rXLmLUkikEjc4K5RoUaBZoClgb2pTgfTI4HJ7jt7TaQzMKZ0gNMpD5x6xtx
+	 ZEfxcZsObvhR1V4IjHTAbT4cwCLbgsl9rQi6pqQW9kbO6lwtyacD7aVdFbNcpHH0JA
+	 df0thB5tKOtukXu8mCV2+Ivf+pVKMQf63PYEMuBByA8zBHaG7/xL49PfU+OhTZsU7d
+	 cT1ObMow7SOsSVrurB0qxnQ+lPfHkTK8LIhgWSx115Hb9ZGAmbrHzzHcEOrKmN0FC6
+	 J9QiqSXszvWXA==
+Message-ID: <5271866c-a334-453b-a95c-8bfbede1232b@kernel.org>
+Date: Wed, 23 Sep 2026 12:13:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922214818.GA2545495@nvidia.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] hibernate: handle potential errors in
+ hibernate_{map,unmap}_page()
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Dmitry Vyukov <dvyukov@google.com>, Len Brown <lenb@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, kasan-dev@googlegroups.com,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org
+References: <20260917-hibernation-v1-0-7f7dfae3dbe0@kernel.org>
+ <20260917-hibernation-v1-3-7f7dfae3dbe0@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260917-hibernation-v1-3-7f7dfae3dbe0@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 06:48:18PM -0300, Jason Gunthorpe wrote:
-> On Tue, Sep 22, 2026 at 12:45:20PM -0700, Nicolin Chen wrote:
+On 9/17/26 08:07, Mike Rapoport (Microsoft) wrote:
+> When safe_copy_page() had to map/unmap pages only because of
+> debug_pagealloc() there could be no errors in the kernel page table
+> updates.
 > 
-> > Also, Jason's suggestion in v7 was hyp_arm_smmu_v3_device, which
-> > looks nicer than ARM_SMMU_OBJ...
-> 
-> I guess the point is to emphasis the substition technique, I don't
-> mind.
-> 
-> > > +	if (coherent && !disable_msipolling &&
-> > > +	    smmu->features & ARM_SMMU_FEAT_MSI)
-> > > +		smmu->options |= ARM_SMMU_OPT_MSIPOLL;
-> > 
-> > Will pKVM ever use MSIPOLL?
-> 
-> Not sure I understood the approach in this patch, why was anything
-> left behind? I imagined everything would be moved?
-> 
-> Maybe a few more remarks in the commit message?
+> However, with the increasing desire to remove pages from the direct map
+> this assumption becomes a real stretch.
 
-As replied to Nicolin, because it is a module param, I am ok with
-adding this in the commit message, or passing disable_msipolling
-as a function arg and moving the logic.
+What's our general direction in that regard?
 
-> 
-> > > +	if (smmu->features & ARM_SMMU_FEAT_HYP &&
-> > > +	    cpus_have_cap(ARM64_HAS_VIRT_HOST_EXTN))
-> > > +		smmu->features |= ARM_SMMU_FEAT_E2H;
-> > 
-> > Why is ARM64_HAS_VIRT_HOST_EXTN left behind?
-> 
-> +1
-> 
-> And the TT_LE/BE and S1/S2 checks, and ...
-> 
-> If kvm doesn't want to dev_err log that's fine, we should able to
-> #define that away too shouldn't we? And maybe it does want to log?
+I'd assume we'd not want to modify the directmap from hibernation code and
+simply fail instead if we encounter that scenario.
 
-The hypervisor can not print to the kernel console, so dev_err()
-will not compile, I'd rather keep that outside and let the caller
-decide what is a probe failure and print it's own message that keeping
-the code and stubbing dev_err().
+-- 
+Cheers,
 
-Thanks,
-Mostafa
-
-> 
-> This seems pretty close otherwise
-> 
-> Jason
+David
