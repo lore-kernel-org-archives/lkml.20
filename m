@@ -1,79 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-252.mta1.migadu.com [95.215.58.252])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336C44195A3;
-	Wed, 23 Sep 2026 12:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F75137E310
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.252
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166168; cv=none; b=LCyizs/LonWHMEx9RHrQDqKFBTy5w51ZDZiCN2bvheoGts7BUaW5ltYjAf8uziMKajxBIeOR+Hcn9rGSLHQvu1ZeIbLLW9LdefQYjMbT/7J7WShGSP1+F584fw1JM8BOSsbzpcK3t500p1TvAo3z71T0BuARq9Jy4R1BsR/LlIA=
+	t=1790166174; cv=none; b=qW6vavVvyGYzifn4+BS4shy91auHwdtXRVlrmzIVrrrHpAde4ENR/Wr+w4ty8qoUlZluO4KfqT1DJoZE5/dgtBexOQxnfg0BSNC0MzuZjWQN6GmvTJ2yPtf36XVDdyki9jJE84qRpnegOtiy6rXEm8p8f2QCRw+9rJsTE0v833Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166168; c=relaxed/simple;
-	bh=Ynz8n82cKb8qNOjYgtw5wea9AeNPweqav6JbeUeKc74=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DUN0i0I5IYw9WGoRb+uT8YCb+Se6GkEuGCP9i9kozX/QSlDO68FRZ90ST+Il3RLgubstlP3FfZRVEprUPYhQ/NpJgTgZn6xBszy7wO9Gh9ZVLfYyRyBr22WMb1ZYA49Bxk/JgOLI00sdDuv/bgokg+72DqYn00dE/ajjRttDjNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=y5I705bN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790166174; c=relaxed/simple;
+	bh=Ti41zF+THtwv0JgUjuQNie+gLsggjY+88BQZXaD0uww=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FSZf4ogzP9psYJY/4scoJE2WuzU1u2vwK+z3nhDBzE21z6WkGc6GvJWwhDzlY/Iudjde9SNSSN2Q4Mh8HuCJeFIBlmR3cFF82eIfDgMohyD5IuMqmuwW9kjpmEwYX12UfeIhZDoJdwahaocAtGXmBCqUsJYt0cpRp0uyOpUgg2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=H90HUVDn; arc=none smtp.client-ip=95.215.58.252
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="y5I705bN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0457F1F000FF;
-	Wed, 23 Sep 2026 12:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790166166;
-	bh=S53TA+TJV/I4n6krgJsgFimWrl/5skEuuayyK3dEQ4w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=y5I705bNGJh6fklcWyRnmqveoHsSDKSD3/YFFkoe4LQ+zHD9oQAlJjKFCMNE7Aevn
-	 WId6MCTEk7bb5LlJnLRCXMHHjLwYJtzQC5IsiieZ089NC/ZQ1dWwc33UFF4yJsf+qK
-	 0XHm7Won+htUNFKRb/DuusPjCezTQwqy+lPLlmug=
-Date: Wed, 23 Sep 2026 14:22:40 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-serial@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] serial: 8250: Add Armada 38x earlycon support
-Message-ID: <2026092326-python-dugout-7b05@gregkh>
-References: <20260902221709.340393-1-rosenp@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="H90HUVDn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Ti41zF+THtwv0JgUjuQNie+gLsggjY+88BQZXaD0uww=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790166170; v=1; x=1790770970;
+ b=H90HUVDn/dGEscIWdxdtaPdTO3CMeI48oKVVPxNyH1Gn4vD4QlKBqfrfsb+eTfR+36i4G887
+ Ka2wuMC2OAOwZAMn8ybR+2/zwkbvY9BMX0rkK/QeQZKmOnNBa26C45dImaJLNHhisykXytlYkOx
+ jGgciibdDUgvAN3kpnLlsZYY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4504f534dee3e307;
+	Wed, 23 Sep 2026 12:22:49 +0000
+X-Mizu-Trace-ID: 4504f534dee3e307
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <da2c36f3-cc44-445f-a2ed-b2019ccdeb36@linux.dev>
+Date: Wed, 23 Sep 2026 14:22:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902221709.340393-1-rosenp@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] platform/wmi: Move ASUS platform drivers from x86 to
+ wmi/asus
+To: chipang_kao <prozac2734@gmail.com>, W_Armin@gmx.de, hansg@kernel.org,
+ ilpo.jarvinen@linux.intel.com
+Cc: corentin.chary@gmail.com, luke@ljones.dev, scardracs@disroot.org,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <202609221954.123456@gmx.de>
+ <20260923082923.154732-1-chipang_kao@asus.com>
+Content-Language: en-US
+From: Denis Benato <denis.benato@linux.dev>
+In-Reply-To: <20260923082923.154732-1-chipang_kao@asus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 03:17:09PM -0700, Rosen Penev wrote:
-> Register the Armada 38x UART compatible with the built-in 8250
-> earlycon implementation so stdout-path can enable an early console
-> without adding a generic ns16550a compatible to the device tree.
-> 
-> Keeping the vendor-specific compatible avoids exposing the UART to the
-> generic OF 8250 runtime driver while preserving the DesignWare driver
-> Armada-specific runtime handling.
-> 
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/tty/serial/8250/8250_early.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/tty/serial/8250/8250_early.c b/drivers/tty/serial/8250/8250_early.c
-> index 44ec209f37c4..265d49850e15 100644
-> --- a/drivers/tty/serial/8250/8250_early.c
-> +++ b/drivers/tty/serial/8250/8250_early.c
-> @@ -175,6 +175,7 @@ EARLYCON_DECLARE(uart8250, early_serial8250_setup);
->  EARLYCON_DECLARE(uart, early_serial8250_setup);
->  OF_EARLYCON_DECLARE(ns16550, "ns16550", early_serial8250_setup);
->  OF_EARLYCON_DECLARE(ns16550a, "ns16550a", early_serial8250_setup);
-> +OF_EARLYCON_DECLARE(uart, "marvell,armada-38x-uart", early_serial8250_setup);
->  OF_EARLYCON_DECLARE(uart, "nvidia,tegra20-uart", early_serial8250_setup);
->  OF_EARLYCON_DECLARE(uart, "snps,dw-apb-uart", early_serial8250_setup);
->  
-> -- 
-> 2.55.0
-> 
 
-How was this tested?
+On 9/23/26 10:29, chipang_kao wrote:
+> Hi Armin, Hans, and all,
+>
+> Thank you for the feedback, Armin!
+>
+> I completely agree that separating WMI core infrastructure from WMI client
+> drivers makes logical sense. The reason v3 relocated the drivers to
+> drivers/platform/wmi/asus/ was based on Hans's earlier suggestion to use the
+> WMI subsystem hierarchy. However, Armin's point about keeping client drivers in
+> a brand-specific directory like drivers/platform/asus/ also provides a very
+> clean, cross-architecture solution for all ASUS platform drivers.
+>
+> Regarding the background: yes, the RTX Spark is indeed our target platform.
+> ASUS plans to provide user-space applications on Ubuntu to control platform
+> features via the WMI interface. During our bring-up on ARM64, we found that no
+> ASUS WMI modules were currently available for this architecture due to the
+> existing x86 Kconfig restriction. This patch series aims to enable
+> cross-architecture WMI support to address this gap.
 
-thanks,
+So my intuition about RTX Spark having those was spot on...
 
-greg k-h
+Very good to know. Once those drivers are compiled for arm64
+we should be able to reuse the whole asusctl software to get
+the driver control every hardware that is there.
+
+> I am happy to go with either path (wmi/asus/ vs. platform/asus/). Hans, Armin,
+> what would be the preferred target directory before I prepare [PATCH v4]?
+>
+> Best regards,
+> Chipang Kao
+
+Thanks for taking care of this move: it was planned but with no
+product in my hands I decided to postpone this.
+
+Best regards,
+Denis
