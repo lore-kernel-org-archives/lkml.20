@@ -1,47 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45803BFE3B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:19:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2C83B895A;
+	Wed, 23 Sep 2026 21:22:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790198383; cv=none; b=iSsgI5vyEc9BHDiPYb3aeCEWkl9aUrMcwPoS1SHWNVd/Qgzk6GDf+3MebhWQ8PwowKsgg78XRG9KCQuuWwbjNdqOGJrLV74mL+IebzBv3JYUwztyl8zWFBBGsU6TaAf1DcIy6R2EAjORRzxoptSt/iHTvvjVh4z0ISAATFXcbZ0=
+	t=1790198551; cv=none; b=dhlYgozrdbAkz3ywavUBsO3WJH06HpwuzoBc+CIWfhWm8kHGgCZ2NG9IVZCMPLpjO4tVeYiwTS8fKtrHbOdmIaAHQaOCflnTirFQcnm7RiywCbGhJdjBjBiSld4JJ3DOoRokpm4DFoWtQBYxyjbXHuRaUF7up8GZUXIpEEy2AJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790198383; c=relaxed/simple;
-	bh=DC/siQjdpVjjUxFYgWe5Iu2gmALNA2b7IeWGvb8NhIk=;
+	s=arc-20240116; t=1790198551; c=relaxed/simple;
+	bh=3VDMq1yRySAjrvpFfTz3Kcr+OFso2eX52PyUckI5VHs=;
 	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=DTw/J7Wqamw7ZsRteURmX2I+la7TZqqfcuwqbpPHIm31X1mv2GXFY/Eo3QJYmNPrLJlF1p30fRyMQGR1y6IszWIHs7IIGX6frAoO3MAqYoSiDObbZfKHQQBizX8vhWlBgKliWiVTNWw7tq/xGI8kl6gLxeeG0m5HqYlKUoG0gDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Dj3qaJ8v; arc=none smtp.client-ip=100.103.45.18
+	 Mime-Version:Content-Type; b=I1JUb4MmsZexnqjXPe+/MTMwlp6CqdT6kcPasmTpzytCaWATIFECwI5qksfpVAfjvADrshpFFdASpPeWwot3brPYEMEN1Z5Y4VrOGTe+REhC0mqgXcUTeIPFxohFnEHBnEltTBmFyNbIW0jO7pS2TTXIkCZQV6TRD1fI99e0f/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=bRhoKlt3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Dj3qaJ8v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6FB1F000FF;
-	Wed, 23 Sep 2026 21:19:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="bRhoKlt3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DE3A1F000FF;
+	Wed, 23 Sep 2026 21:22:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790198377;
-	bh=ph4sZt22ESkzgUHNQP4jcUPEFYrI06GxwSPvp+2Uv18=;
+	d=linux-foundation.org; s=korg; t=1790198547;
+	bh=mDuuDfWt5XPUEfsZUsZ3e2fdKp/gTNRlThYQAeTCgTE=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Dj3qaJ8vVz3tbYuKzWpNoKIDnMaryNKKSoxyHIsS+W+h6TIcoEjSKJRD3V8y/Eqmn
-	 XhYpVjFwx40Qe9lJPvahTeuWdHm1VYb/4OMV3V5P56yKoK+vCq0OakJjRxkmE+/bNm
-	 CqBNsU46UizbrfNkUde86RE2+JrUxrlUX0foREb0=
-Date: Wed, 23 Sep 2026 14:19:36 -0700
+	b=bRhoKlt3sY3+1NVHrwQsWoaaWIKhJ+/PLG27/s+v7Ih7m63V3IpU4XdBECnsuemdf
+	 mYYvJ2XHrJ/yXyywI9owIrYwlEmcTd4OZS2o11YYSRDjEDW9UV2wanqgCjbM9ehAX8
+	 DLdW/JwEGHq+NjgOBXqOYUS18obohja+LSzSTKF8=
+Date: Wed, 23 Sep 2026 14:22:26 -0700
 From: Andrew Morton <akpm@linux-foundation.org>
-To: Mika =?ISO-8859-1?Q?Penttil=E4?= <mpenttil@redhat.com>
-Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org, David
- Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>, Leon
- Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>, Matthew Brost
- <matthew.brost@intel.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan
- <surenb@google.com>, Michal Hocko <mhocko@suse.com>
-Subject: Re: [PATCH 00/12] [PATCH v14 00/12] migrate on fault for device
- pages
-Message-Id: <20260923141936.d1f9e5b85355f0bdc6a6ecd2@linux-foundation.org>
-In-Reply-To: <5b1d0fa6-d183-446e-bc52-56e0afd3f398@redhat.com>
-References: <20260922053421.4092027-1-mpenttil@redhat.com>
-	<20260922192726.90dec3c4c77b8c9063dbf218@linux-foundation.org>
-	<5b1d0fa6-d183-446e-bc52-56e0afd3f398@redhat.com>
+To: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>, Mark Fasheh
+ <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>, Cen Zhang
+ <zzzccc427@gmail.com>, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] ocfs2/cluster: hold a reference on the heartbeat thread
+Message-Id: <20260923142226.9a4d0eb4c71128b34e9aa10c@linux-foundation.org>
+In-Reply-To: <e06390dc-fdfb-4bad-85ba-6baf361fac18@linux.alibaba.com>
+References: <20260923010149.14391-1-kmehltretter@gmail.com>
+	<e06390dc-fdfb-4bad-85ba-6baf361fac18@linux.alibaba.com>
 X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -49,48 +42,42 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=ISO-8859-1
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, 23 Sep 2026 08:29:34 +0300 Mika Penttil=E4 <mpenttil@redhat.com> wr=
-ote:
+On Wed, 23 Sep 2026 10:45:10 +0800 Joseph Qi <joseph.qi@linux.alibaba.com> wrote:
 
->=20
-> >> migration). It is also tricky to code correctly. One page table walk
-> >> could costs over 1000 cpu cycles on X86-64, which is a significant hit.
-> >>
-> >> We should be able to walk the page table once, faulting
-> >> pages in as required and replacing them with migration entries if
-> >> requested.
-> > Sounds sensible.
-> >
-> >> Tested in X86-64 VM with HMM test device, passing the selftests.
-> >> For performance, the migrate throughput tests from the selftests
-> >> show similar numbers (within error margin) as unmodified kernel.
-> > But no performance benefits are demonstrated?
->=20
-> There are no performance regressions for current tests.
-> Real benefits come if want to do migrate on fault.
-> For migrate on fault today missing pages are collected as not-present and
-> the caller has to fault them and re-run migrate_vma_setup(); folding=20
-> HMM_PFN_REQ_FAULT into the collecting walk removes that extra
-> fault+retry round-trip, dropping two page table walks. Page table walks
-> are not cheap. Not to mention simplified implementation for driver.
-> Also, the vma looked up as part of the walk is readily available for
-> migration, eliminating the need for explicit vma lookup - one more
-> performance benefit. Net effect two saved page table walks and
-> one vma lookup.
+> 
+> 
+> On 9/23/26 9:01 AM, Karl Mehltretter wrote:
+> > Since commit 688bc88e2046 ("ocfs2/cluster: keep heartbeat local node
+> > stable"), o2hb_thread() leaves its loop and returns when the local node
+> > changes, for example after "echo 0 > node/<name>/local". The thread
+> > was started with kthread_run() and nothing holds a reference to its
+> > task_struct, so the task is freed once it exits, while reg->hr_task
+> > still points to it.
+> > 
+> > Reading the region's pid attribute then reads the freed task, and
+> > removing the region calls kthread_stop() on it:
+> > 
+> >   BUG: KASAN: slab-use-after-free in o2hb_region_pid_show+0xb3/0xc0
+> >   refcount_t: addition on 0; use-after-free.
+> >   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+> >   RIP: 0010:kthread_stop+0xb1/0x390
+> > 
+> > The thread could already return by itself before, when heartbeat start
+> > was aborted or on an unclean stop, but the local node change makes it
+> > reachable from userspace at any time.
+> > 
+> > Create the thread parked, take a reference on it and only then wake it,
+> 
+> Just a wording nit. kthread_create() doesn't leave the thread parked in
+> the kthread_park() sense. __kthread_parkme() only runs after the first
+> wake_up_process(), so "parked" here may be a little confused.
 
-It certainly sounds that this series will result in performance
-improvements, but have those improvements been quantified?
+I simply did s/parked //.
 
-> This series also addresses the vanished/reborn page table while
-> collecting problem which can crash current implementation.
+> The change looks fine to me.
+> Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Oh.  I didn't get that message from the v14 changelogs, and crashes in
-the current implementation are not what we want.  In fact, addressing
-those is more important than speeding things up.
-
-Under what circumstances to these crashes occur?  Can/should we we fix
-those in a minimal -stable backportable fashion before moving on to speedup=
-s?
+Thanks as always.
