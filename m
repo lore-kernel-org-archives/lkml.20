@@ -1,197 +1,115 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E96946EC7F;
-	Wed, 23 Sep 2026 22:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8363A3E73
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202731; cv=none; b=OeccnQvj6cfAR9avUb6UWAduZQRhtYxXvtGLZ2jyMjFJx5IC16nmGJdliaUmwuGJk4o8CW9/Bc8Na5Yz0/0sJGxc7By1tgOvrmoslZwcdMt3EgYwsGISjeMfRaJ49gcCCuUfn2ySrvN2SDZl1m33KnLmQiKhiMpkzzVIUPTqJ00=
+	t=1790202746; cv=none; b=UbsPWBTHkU8sJTNZHfnvcTIAEsyEXJ99AjjW3qCqUoUeSl2Ieo6Lgv77/aw0XDCMfdxztMmTGH/O6dOdisrHMXMwWCevWkJqQEQB8zlbCcODA31kcHEuxt0pWZF1XSbnzuR0Z0QFYfkO/9Y70Irm+ALcvp3rP/zy4o5gB0udi3w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202731; c=relaxed/simple;
-	bh=1XPyZl7KcJ8iUJW3sUKhc204l0JzqrgROESCE9y4KLE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W7wVGI/zbG6eK/TMLTZmbK3jZHg8O5JCzgEMZoq5G8SFImKjRJ8NTEkAqaLV717voi7y5p9ow5Q7DBzsliXKYbBcZ6B/X9a6W93PRcFLoS0HKwDwuhu/ITVxc8mhmOHweClrbo9L8TB8GFM3u/H7JqtUYHkaktONZgVgtMhZqo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=T4zvA616; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790202746; c=relaxed/simple;
+	bh=dZKKBf1/yUjdqUoa4GqK26ilVjXq/Zm9pt5x/OdRU3g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cTBd82Y44/qNOcfm+w2Mp6lw3jNK9/jH/+5KAYm28NhJ8/2Fpmr3wme3NGAcCsY/ba3oHscj9gBZzo4YbHg2wnaDpnp8hxNYzJ47w1I7UH8+Kdt9WLUEEbRaIZBCXs7I+zoLqRyP0QNWFAoBG80Z7aJZ6XZaoRQRqX8fSUlEw1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HTbv97X7; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="T4zvA616"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9FBAE152B;
-	Wed, 23 Sep 2026 15:32:03 -0700 (PDT)
-Received: from [10.57.8.94] (unknown [10.57.8.94])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 222A43F632;
-	Wed, 23 Sep 2026 15:32:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790202727; bh=1XPyZl7KcJ8iUJW3sUKhc204l0JzqrgROESCE9y4KLE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=T4zvA616YRMKkA/8qFynJksx3CL52m7SBaF34fky4Pck+og5+fqKvcASybEilKkot
-	 ijT6stRUsS4dTQlogQOwuIs9kbZG0d1MrlloV46j/ZTIBReieWJvP7OicSZGg4OjML
-	 X6BvciaDfsJxBOwHqKV7/Vvo++g94RrgMOcXkVhc=
-Message-ID: <12024d6c-b8df-434c-8b63-29f5780a13a0@arm.com>
-Date: Wed, 23 Sep 2026 23:31:57 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HTbv97X7"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2db33db4de9so31885ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:32:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790202744; x=1790807544; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=buc8AIw70Q1k0d2thl18OR3X1pkLSFe06GlRsiO09uY=;
+        b=HTbv97X79BnpMZn+4k0Cw0HVM1hneGtXe5oEFthDv+VkJqxPvDzEyF8wce73+0P+Op
+         R85444p79iJ2ZK2A4+p4775nk3n+NO8FoTtux0dYEsCKPLZmo5asSuFIlmi7O12s0XdP
+         TugRwuytGvnBVWrS/fWBPOePqruCP3EeAwynnbeZXTmr3FR0Dc9sFMqy8YMOiuBBaB0j
+         Ieds69qOeZ35XQwgauccU8K4vm5ttsFBXbolF8sYK9joVlZEeyT06kqg7SrX73eo6hvD
+         L28AJqsAywE2TC7SoUVWlUVVJAN5I78gIakhrzKVUEBoKeXfUpOsc6txzv9rNTfA9S/x
+         mc5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790202744; x=1790807544;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=buc8AIw70Q1k0d2thl18OR3X1pkLSFe06GlRsiO09uY=;
+        b=uw6a63uboIoqjqv7Ie7ciFSjfKBKqHObM4u821jxa3h2cUFatXteMN0p4h1Tc+Lr2m
+         x5eceUXB/gkj95pA9Oel0805ZAHd+5CmZRO+1pWICFir6/8v/fIsTzZEp/QY/sSa2ToF
+         1GY65RFp+3ED7uz+N9cssLo/Ie060VXf4Zrz0yjff217+pa5gtGpkjbMu7FfIRYntIjn
+         gC15IEBZijhRTvZiqXAkY64wmhxCmmHyeqtCxPGNW1RIteXRprCfyu+Dw84FaVccxAlR
+         MlePGm2W7OuX3Kk0VBeiJLfVHEujhdtUfVD5Rt+7V1WOjb0Fg92udvK+riGlruKjF87g
+         lKGw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/yCxAKc/Qza77rQGJbj6kOmyQxo60Y1cQCiHLR3twucR+9QTnGmQRlf0hLpXhrf8p1Rn0ZTkH7TQymJI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzyjjWDxh8XHJrAbgUSO6Q7P10Qp3ltC5f4y4myUmrQ5/ybhE0
+	4eTkI+pXsoTkbhbW7IXzwSWd3makQDXtWwCvzjmnIjbQZQntpjWy7loIU7wlPSqF4Q==
+X-Gm-Gg: AYBFou29zoKa4CkDFIghqX+6jzLYPP8Gd6LF8mhZIqRMpEgQWLh54pFjFSTjHi3ALy5
+	y/c1Lg4NVU0BQQp7N2HsdoezFgdHJ7GWoLK4djCBAMVHGr3IASRule+nw2oLctG7wtppssQ7Nxm
+	11PM/Ia/QcUlyKHVB/t808AV55dhQlrQzaKbu8Nl+4c7mO/sShqXrrv27096cLqKoJnfTTPAZu3
+	GW46RYkyaxA+dhQcm3TBCnKhIbqjejSYy4AP70If1MbAYCovpa2bQD6RyaQtDxMP+KeyQrT1ctY
+	l0EWEmbgDZrKNwQ9uo3yBTDqo5Hcbu+3mKm3XMWtC71RbK/j8ao1GPDJkhRxJwXAVCNdUmDHgTZ
+	OSIlH9CuuqN7C//CZcCmrjC2WnXaqKx0+6SeOjTID744VepzqU7W18uHNaSn5xvvgsxORApEerF
+	i0OdNowo63J1PVD+sUjwIPDaBVYOe1gclXeuf//6W4LbcZpLxp3+BTs6rfrwhskFOdicpEHhQCf
+	uCpqribzeVl18RqyHbUmGsVvYcVvd5uxMUjP4larQiT7wRZRpItKjA95EFm0AIPGXjJ5VfqNGuQ
+	/EIzWYD7eK5A5nGDvHCdNlk1bAX/7JgIdbn0SmMsHngZsjQ=
+X-Received: by 2002:a17:903:1a10:b0:2d0:1aaf:daec with SMTP id d9443c01a7336-2df7bbc5139mr2206095ad.9.1790202743286;
+        Wed, 23 Sep 2026 15:32:23 -0700 (PDT)
+Received: from google.com (99.95.125.34.bc.googleusercontent.com. [34.125.95.99])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c8f8dsm1082589a91.12.2026.09.23.15.32.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 15:32:22 -0700 (PDT)
+Date: Wed, 23 Sep 2026 22:32:18 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com,
+	brauner@kernel.org, aliceryhl@google.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] binder: fix sender fd 0 close and file refcount leak on
+ TF_UPDATE_TXN
+Message-ID: <arRTcvuJ09EKWnAe@google.com>
+References: <20260919213648.3316566-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 2/7] firmware: arm_rmm: Check for RMI support at init
-Content-Language: en-GB
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260912083611.2513845-1-suzuki.poulose@arm.com>
- <20260912083611.2513845-3-suzuki.poulose@arm.com>
- <20260914-nano-narwhal-of-blizzard-dbc6a0@sudeepholla>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20260914-nano-narwhal-of-blizzard-dbc6a0@sudeepholla>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260919213648.3316566-1-benquike@gmail.com>
 
-Hi Sudeep,
-
-Apologies, this one took longer to address. Thanks for raising this,
-response inline.
-
-On 14/09/2026 11:27, Sudeep Holla wrote:
-> On Sat, Sep 12, 2026 at 09:36:05AM +0100, Suzuki K Poulose wrote:
->> From: Steven Price <steven.price@arm.com>
->>
->> Query the RMI version number and check if it is a compatible version.
->> The first two feature registers are read and exposed for future code to
->> use.
->>
->> We only support this for Little Endian kernels, the Big Endian kernel
->> support is anyway marked BROKEN and is being removed.
->>
->> Signed-off-by: Steven Price <steven.price@arm.com>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-
-> [...]
+On Sat, Sep 19, 2026 at 09:36:48PM +0000, Hui Peng wrote:
+> In `binder_proc_transaction()`, when a oneway transaction with
+> `TF_UPDATE_TXN` supersedes an outdated pending transaction
+> (`t_outdated`), the driver calls `binder_release_entire_buffer(proc,
+> NULL, buffer, false)` and `kfree(t_outdated)`.
 > 
->> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
->> new file mode 100644
->> index 0000000000000..9792bf0e00cb9
->> --- /dev/null
->> +++ b/include/linux/arm-rmi-cmds.h
->> @@ -0,0 +1,36 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +/*
->> + * Copyright (C) 2026 ARM Ltd.
->> + */
->> +
->> +#ifndef __LINUX_ARM_RMI_CMDS_H_
->> +#define __LINUX_ARM_RMI_CMDS_H_
->> +
->> +#include <linux/arm-smccc-rmi.h>
->> +#include <linux/bug.h>
->> +#include <linux/processor.h>
->> +#include <linux/types.h>
->> +
->> +
->> +/*
->> + * rmi_smccc_invoke: Invoke the RMI call and return the results in @regs_out
->> + * @regs_in: Registers with the arguments filled in.
->> + * @regs_out: Ouptput results from the call.
->> + */
->> +static inline void rmi_smccc_invoke(struct arm_smccc_1_2_regs *regs)
->> +{
->> +	struct arm_smccc_1_2_regs args = *regs;
->> +	unsigned long status;
->> +
->> +	while (1) {
->> +		arm_smccc_1_2_invoke(&args, regs);
->> +		status = RMI_RETURN_STATUS(regs->a0);
->> +		if (status != RMI_BUSY && status != RMI_BLOCKED)
->> +			break;
->> +		cpu_relax();
->> +	}
->> +}
+> Passing `is_failure = false` while `buffer->transaction` has already
+> been set to `NULL` causes two bugs when `t_outdated` contained
+> `BINDER_TYPE_FDA` or `BINDER_TYPE_FD` objects:
 > 
-> I haven't done a detailed review, this is just a drive through comment.
-> The while(1) gained my attention.
+> 1. For `BINDER_TYPE_FDA`, `binder_translate_fd_array()` never wrote
+>    recipient file descriptors into the buffer (it only appended `struct
+>    file *` entries to `t_outdated->fd_fixups`), so the FD array in
+>    `buffer` still contains zeros (or sender-supplied offsets). Because
+>    `is_failure` is `false`, `binder_transaction_buffer_release()`
+>    executes the `!is_failure` branch on `BINDER_TYPE_FDA` and calls
+>    `binder_deferred_fd_close(fd)` (closing `fd 0` in `current->files`,
+>    which is the **sender** process!).
+> 2. `t_outdated` is freed via `kfree(t_outdated)` without calling
+>    `binder_free_txn_fixups(t_outdated)`, permanently leaking every
+>    translated `struct file` reference in `t_outdated->fd_fixups`.
 > 
-> Should RMI_BLOCKED be returned to the caller instead of retried here?
-
-Short answer yes, to be safe.
-
+> Pass `is_failure = true` to `binder_release_entire_buffer()` and call
+> `binder_free_txn_fixups(t_outdated)` before freeing `t_outdated`.
 > 
-> RMM spec defines RMI_BLOCKED as persisting until the Host takes action.
-> It also says it is returned when another SRO on the same context is
-> incomplete. You may be running it on different CPUs and hence different
+> Fixes: 9864bb480133 ("Binder: add TF_UPDATE_TXN to replace outdated txn")
+> Fixes: bdc1c5fac982 ("binder: fix UAF caused by faulty buffer cleanup")
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
 
-I agree this is poorly documented and we are working on improving the
-documentation on this front.
-
-RMI_BLOCKED is a side effect of an incomplete operation (in other
-words long running) that has turned some "resource" into an
-intermediate state. e.g.
-
-The following operations could put objects into an intermediate
-state until the RMM completes it, to ensure correctness.
-
-  * Unmap a large IPA range triggering SMMU TLB invalidations.
-    For KVM, we serialize the unmap S2 with kvm->mmu_lock with
-    write lock. So two operations could not race (even a map
-    at the same location).
-
-  * Delegate/Undelegate, which again could end up in SMMU GPC
-    invalidations.
-    The only case where we race and do parallel "delegate" is
-    while handling concurrent VCPU faults on two different physical
-    CPUs. Even there a failing thread handles this by returning
-    to the guest and taking the fault again (if it wasn't
-    resolved by the other thread). We could additionally tighten
-    this by using write lock for the fault (just like pKVM).
-
-  * Change the tracking region granularity. e.g, convert from FINE
-    granulartiy to COARSE or INTERMEDIATE, causing all granules in
-    the target region to be locked. This is not something we do
-    in Linux. We mandate the firmware maintains FINE granularity,
-    at least for now. Even with dynamic tracking, we don't expect
-    to fold the tracking granularity for regions with "mixed"
-    entries (which would fail anyway due to the mismatch).
-
-  * An object bound SRO handle is active, while another SRO initiating
-    operation is issued. This possible with a buggy host.
-    e.g., RMI_REALM_ACTIVATE is called while RMI_RTT_INIT_RIPAS is
-    in progress. In KVM we serialize this with kvm->arch.config_lock.
-
-For all practical purposes the above operations should complete in
-a single try and another command observing the RMI_BLOCKED should
-be able to make progress. That said, for Linux it is better to
-return the RMI_BLOCKED back to the caller after an arbitrary
-tiny number of times. So I have updated the code to try for
-3 times for RMI_BLOCKED and return back to the caller.
-
-We could even drop that and just return back immediately to
-the caller. Like I described above, the only case where
-we expect to hit the RMI_BLOCKED in Linux is for parallel
-faults, which could be handled and/or prevented in Linux.
-
-
-
-> context I assume. But this loop takes no such action and hides the status
-> from the caller, so a command issued against that context if that can
-> happen can spin indefinitely while the operation which would unblock it
-> cannot run. Ignore me if it taken care not to happen elsewhere. I am
-> just looking at this in isolation.
-> 
-> Could this retry only RMI_BUSY and propagate RMI_BLOCKED so that the caller
-> can arrange for the incomplete operation to make progress if the above
-> scenario is possible ?
-
-Ack. I have made the changes in the next version.
-
-Cheers
-Suzuki
-
-
-> 
-
+It looks like this has also already been resolved by:
+https://lore.kernel.org/all/20260812195316.259136-3-tomerpo@gmail.com/
