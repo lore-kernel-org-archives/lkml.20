@@ -1,118 +1,242 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878FC387375;
-	Wed, 23 Sep 2026 16:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7C1B424D47
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:51:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790182278; cv=none; b=UVfZ6Slbhj54xWQg0pr4jWMPw64oHsa8775Pwdxf4Xh0IfeEXeurxevQGj8wAYVpYW/qzxpfhkdvVRPRuseEN+rNpVxj8COgd8MCrj9SSwE+fS9K9jMi/nzwig13mPl+JPVwm1yhL6JDmO4kerCV1U64gfi7zE9NvNcJAz33KUI=
+	t=1790182296; cv=none; b=KBerfwcBYVUyz8pVdbVX/BNf8+0+stjepX2rGV7fJ4Kjk1LvGZvxVMMipWMtsjcfVnT3/R+6rAlbojSaXfTpsn5bkwfe28bAE33Hytv4CdDSeAPHhKd5H2XoEHhjAwjrqjA+FAAHAeb5GLSw5cBm4qVzZJh9l7Gelpa8xFH/NL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790182278; c=relaxed/simple;
-	bh=yHcSAKYnyFanmMA9+XOMg2xoOgSVx86kSYFB+wuWVYw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bGupv0I4Z51r1sf+iTjZLVrRFN7BsohUYPQfC/zwkS/+PeoviFhJ/G7mZSKufGnJ7gsiJ969iX9oemnGRRit9XVCRWlppYyPQK0CVgkjNkJazJN4lWnH6t0ibO71pHDBLJNwFydb47sCRMYuPGAKokXa7uP83spsRXQ6h1NO1pM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=jYKywdZH; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1790182296; c=relaxed/simple;
+	bh=5uQE2nAN6JX8QjSvUav79qHnjIuloRrBM4/qaaznXm0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Okphi42uZv0ah+cibANyk8niKXhOW5eG/8MWQ6VuIZReGdVDdpjWfOQaoXFEl4ALw24hmTzC3NiJeKIhc4X6ypaUaII8UYK4JQNN7c+sSYWCqjVYzGHVOeU5wlBFh+TzAZ3il87AiOCq/1tQdyKJqPOD19RHwNrm2RkBImneK1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i9oRYKy3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MRT/Ty/q; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="jYKywdZH"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hqjf64Xctz1XM5kW;
-	Wed, 23 Sep 2026 16:51:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1790182262; x=1792774263; bh=q3dYgVcqByXC1PtTXHSMRdvS
-	TIQ5xlCtyu1cQTeyv64=; b=jYKywdZH3L+dM3USoss/JWzSBoyZY7/QQRCLi/2X
-	QdLhrzksP6xCNokDerzk3w4ZLRaXTjPoRcsceeB741aJ4Z5JZgFCJk8VR4zIsJrn
-	XSQhDM5oXAfmWSBJPhW7VMRb8K9o+mN58ROGPH8yGzHIXzVQ+HHUIvhPJqp82T3u
-	YgREy1qal11nEpRgg5Tyn/vtHBkcmvlOPi7okGMLb4ulOMrt/kLuMA0zwoysvyfF
-	vmo2pXJLkb6e3isa9TRJNDGnDJ4nVPhzqMyxulPKBMtPVq1r6GwgyyO/Xtkymcyx
-	CKwSmPCUSQL3qr4pYzqEQnv6d6w7coTT3A+42T6gPKEHbg==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id H_Yz6FrMipm4; Wed, 23 Sep 2026 16:51:02 +0000 (UTC)
-Received: from [100.80.231.125] (unknown [104.135.182.41])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hqjdv0Vp7z1XM4Sx;
-	Wed, 23 Sep 2026 16:50:58 +0000 (UTC)
-Message-ID: <edb755c1-5d45-4b38-abc6-02450b53a242@acm.org>
-Date: Wed, 23 Sep 2026 09:50:58 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i9oRYKy3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MRT/Ty/q"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGThJn3938135
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:51:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PBQUzucMPHhE43vcKCEgSbYL6NQCAu/bzyKeHz+O5EA=; b=i9oRYKy3vL47wL3Z
+	TQiRtvSmmPuInfzryvrI89KQN+dcSf+ocCQvznV+sZqK2iSvtcq7BXyS401jaGhT
+	zcGov9ln9gi/I7/ZYoQ/0o8keNSHp6Urwj3f6RXjyJYxmyCUBVijSDP0+K5VDMNq
+	rzDkITKd+6gVSxn5bpeWejr6OUPWFfTzlpnq9t4fxXp6UZuty8fwK9UrEXehmIZb
+	XUbz5eza6OybsyPp9UvlDbrkxWrQ194e83mOMXXPU0lmFAgm0qGatu1o/9U3yyLm
+	U++9FQu8kXv4higPKiI06eI6bFqf5wPHXQab6mqq91q/D4mDzOCDArwOW5GhxxVV
+	4IfuUw==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvbwm9xpa-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:51:33 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-86a74698972so963716b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:51:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790182293; x=1790787093; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=PBQUzucMPHhE43vcKCEgSbYL6NQCAu/bzyKeHz+O5EA=;
+        b=MRT/Ty/qJGvln5uOilb6NYTsUJk4Mb4xhMqMmBmuSdTs5hwnjxpkiyDjOhAqSoJW1e
+         goQJKVxXDQzhS0HBr5wmP9V9+fBzSNBx7n2rqsh1F5KsSvmypcXna+iHKk2d+LXR5CVi
+         FEJvGQCcEJZBCEeUzuuuxS7yI6Wh4kFCLDhagtn7uQYZaLTlPUSqMIt5SpZZ3uUICU9m
+         fwA5FKTvNvAJaHqnQY+dURgC4hPDQgnx2v+NyHkHhm/Q2DJd4TbX7WDs9vMNp6Dm8059
+         2m5E42Gud4CCkPSvWF2I2ITbXQDuJIoRIN3BVybf86WqrQ/+mABf+A7vqsuRjvTiCAJ2
+         +ntg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790182293; x=1790787093;
+        h=content-transfer-encoding:content-type:mime-version:organization
+         :references:in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PBQUzucMPHhE43vcKCEgSbYL6NQCAu/bzyKeHz+O5EA=;
+        b=uQMp5FiugGUkBl4VvcJ/SW4Oqa53gxRqDZzg5gmpGLnQcUIJ53zUo1o/9KnQM2QyLx
+         SbMt9fDqQ/2YBDUfQfISuPQYt5zgqJ1BfkUbZMqxHysmPguxVmlrRHk45pA7D5IhwrcM
+         e9V5wNlQWW53EKX2Xk/kL4ZKelrRHnA2oik9Ll8ZJiFemvB6+jNNAM4adTP8SB+l2IG2
+         T73bsqqgzWAMjdHwqO4NaViLKBicrt0/dfJrvhcJ0JB1foeZArDsG93ne05kBOkXIcQG
+         tWEkPhwNCVhpUzt5VD6A/zwRtl6b2vqrCwFsB2JcNkIpImR+nO1UQBtkL8dgj9sUkXMF
+         ss0A==
+X-Forwarded-Encrypted: i=1; AKwUvByu3EpbxafN8WD6fLjafaOiIIKBTOBT1496Nlx7SAvdMWe6CFLFIfGgkKMzpvieWwAD6gVneaiizmQ2GkQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++li8GDB8xYLZPfQB/qauoTD01qh30QG/Zb3fL3q9awpW4z+eG8/
+	UfT5c6TiKtO0cwDt4g9fsiAHwk+HAvCbq9Gocn5047BFL1WVbIaOCfdJGVbFuPmJqaiT4D/w+EM
+	m9GmnbWkxEkAQ04N3ShzkDddBXVa8orraXWaPyhDX944wQV0ORm7pMRiGm2xDIIXy3DU=
+X-Gm-Gg: AYBFou0zEi16X7QE/4nI3w5iFhCXugm5dND1GEOd2x1stXvsrizklOhw/D4QFwxHouv
+	j3zOyrUbBEsM+HHpHZHFXIPAgnL4wpxa37dvJqzZo2eAbRGFrRFdMHOwe2NwBSMxWdDjCcpEUVm
+	jdtMvx1F8PrbObjTSG1PObwiMax4rZr0bV/pj7YjmW6rgbI0Yvwt9L0XtLTB5+ndXU2Nx/tqdyB
+	n9SRBvsyB23hFBEMG3y7SJnSYHT3Lv5LWB8l9REFRKZ4HYP/0U9JV5E1GnLD/yKyRi7GoEg59n4
+	JL5e2hFHWL0W0cZqp3bjAgbZ6gtW7GbQSKDeRAIu4g2S6MZR+VBGmSLzoEQVgwdniI3YaH3PQXc
+	nNtK1xWRzf979jov4TC7pgBk3/cNDoHTJ+Jvj6VX84O8aqafqGsso0Q==
+X-Received: by 2002:a05:6a00:3316:b0:874:705d:f648 with SMTP id d2e1a72fcca58-87d1c9ba6femr2832632b3a.42.1790182293020;
+        Wed, 23 Sep 2026 09:51:33 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3316:b0:874:705d:f648 with SMTP id d2e1a72fcca58-87d1c9ba6femr2832601b3a.42.1790182292399;
+        Wed, 23 Sep 2026 09:51:32 -0700 (PDT)
+Received: from localhost (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1cfbbfb5sm1725238b3a.18.2026.09.23.09.51.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 09:51:31 -0700 (PDT)
+Date: Wed, 23 Sep 2026 09:51:26 -0700
+From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+        will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+        aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+        joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+        linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+        sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+        WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v19 01/20] KVM: arm64: protected VM: Handle user writes
+ to CNTVCT_EL0/CNTPCT_EL0
+Message-ID: <20260923095126.0000241d@oss.qualcomm.com>
+In-Reply-To: <fa2f4766-0795-464a-80ca-2f3fd1c5140b@arm.com>
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+	<20260920212845.707-2-suzuki.poulose@arm.com>
+	<20260922122542.00006868@oss.qualcomm.com>
+	<fa2f4766-0795-464a-80ca-2f3fd1c5140b@arm.com>
+Organization: Qualcomm
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] scsi: ufs: core: Decouple CQ sweep from request
- iterator in MCQ
-To: Peter Wang <peter.wang@mediatek.com>, Stanley Jhu <stanleyjhu@google.com>
-Cc: linux-scsi@vger.kernel.org, "Martin K. Petersen" <mkp@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman
- <avri.altman@sandisk.com>, Bean Huo <beanhuo@micron.com>,
- "Bao D. Nguyen" <quic_nguyenb@quicinc.com>,
- Can Guo <can.guo@oss.qualcomm.com>, Manivannan Sadhasivam <mani@kernel.org>,
- linux-kernel@vger.kernel.org
-References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
- <20260918143809.3034592-1-stanleyjhu@google.com>
- <20260918143809.3034592-3-stanleyjhu@google.com>
- <1ddc5181-f547-465c-bfbe-dbf14a91493e@acm.org>
- <20260920135014.3528082-1-stanleyjhu@google.com>
- <e3538f10-fb9e-48ce-b48f-bca25c8f3d6c@acm.org>
- <bab059b9a2dfed258db23993b5a6b4aceca2da49.camel@mediatek.com>
- <df31eb82-7211-415a-9ec1-53ecbc3e39b0@acm.org>
- <f116f82d28f7af4cfca76adf5cff6093fdf393a2.camel@mediatek.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <f116f82d28f7af4cfca76adf5cff6093fdf393a2.camel@mediatek.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2NyBTYWx0ZWRfXw9UKu7yHwB2A
+ GBEzeIrsjXatlc52zXHTav/uT5XPhzh7rmz8hQhG7q67vjtJtA3nkjyPytg4WoWFsSE/DDb2lEa
+ +CqCRyIZEdAXgJhw3OEgxDVRqoJQAV8=
+X-Authority-Analysis: v=2.4 cv=R/6WitRX c=1 sm=1 tr=0 ts=6ab40395 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=7CQSdrXTAAAA:8 a=7RKtW5IRJYTtfXkaynwA:9 a=CjuIK1q_8ugA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: AHvUiQs1KEW7GdiHV5lxGa81j4vdPau2
+X-Proofpoint-ORIG-GUID: AHvUiQs1KEW7GdiHV5lxGa81j4vdPau2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2NyBTYWx0ZWRfXz3pkS2GJrXi9
+ 22Fv+ntuAVQbnYvDTakM805+I9JUmKylV8gaFKh61OVfY7cIgZIBI1tdELBLXYXh3k5AWIZAAOR
+ Y6VhteZdv02Y/aF/PMX4l2wJMX/QS9ILPPFscAnERT/hl+XdOo1vBStVpMw8D6I+/3qPlD51zv+
+ 7lkoB8RGHcFdnHiQ3ip1HSm700yP5nVKLEwja+mUuxb+/Mw+r6GP6Hn66gqCmN4hm7/MjIezZ25
+ DA6EfIFtFNqkbpywivP2IsF7JZQnO3Bb4mnR1blBtujCqMX/23de30SBuN1aGZlXcrxI+yiE4Jc
+ uYEK521nNg5TkbErw0kCGdWwpHbRmGqUqc+Q648YpKhhjD/8JGl1NZjFzj3inXh2z21D7SOoU6e
+ 2ej3gNJPJRu4xtbWC2uA8jog7zfPef4kFHG3LTjSgX6B0OnUPJ8bPnLYUKJ9iwadTXFFux+Jez6
+ mDG8BM2Xu8gfr7OWrJA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0 priorityscore=1501
+ lowpriorityscore=0 spamscore=0 suspectscore=0 phishscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230067
 
-On 9/22/26 11:09 PM, Peter Wang wrote:
-> But whether the subsequent re-queue (DID_REQUEUE) violates, I
-> haven't seen any prohibition?
-While this is not written down explicitly anywhere as far as I
-know, requeuing from inside the host error handler is not allowed
-at all.
-> Because currently the UFS error handler (ufshcd_err_handler)
-> directly re-queues (By set DID_REQUEUE) the unfinish command,
-> and err handler might be triggered in many places, for example,
-> like UIC errors, directly resetting and re-queueing should be
-> reasonable and can be handled quickly.
+On Tue, 22 Sep 2026 23:04:42 +0100
+Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
 
-Have you noticed the following code in drivers/scsi/scsi_error.c?
+> On 22/09/2026 20:25, Jonathan Cameron wrote:
+> > On Sun, 20 Sep 2026 22:28:26 +0100
+> > Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
+> > 
+> > Hi Suzuki,
+> >   
+> >> Protected VMs doesn't allow setting offsets for virtual and phyiscal  
+> > 
+> > physical
+> >   
+> >> counters, as the offset is always fixed to 0. The VM ioclt is filtered  
+> > 
+> > ioctl
+> >   
+> >> out based on the cap. However we don't prevent the userspace from trying
+> >> to write to the CNTVCT/CNTPCT registers. This would lead to KVM triggering
+> >> a WARN() in timer_set_offset() as the vm_offset pointer is set to NULL.
+> >>
+> >> Fix this by always "fixing" the timer offsets to 0 and marking that the
+> >> timer offset is set in the kvm->arch.flags at KVM init time for protected
+> >> VMs. A userspace writing to the CNT*CT_EL0 would observe success, without
+> >> any real effect. This was chosen over preventing the writes to these
+> >> registers and returning -EPERM.  
+> > 
+> > Why?  I don't mind the decision but telling us what was chosen is something
+> > we can see in the code - patch description should give us the stuff we
+> > can't see.
+> > 
+> > One comment on the comment below.  
+> >>
+> >> Reported by Sashiko
+> >>
+> >> Link: https://lore.kernel.org/all/20260908164641.416911F00A3A@smtp.kernel.org
+> >> Fixes: f7d05ee84a6a ("KVM: arm64: Prevent host from managing timer offsets for protected VMs")
+> >> Suggested-by: Marc Zyngier <maz@kernel.org>
+> >> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> >> ---
+> >> Changes since v18:
+> >>   - Retain NULL vm_offset for protected VMs to avoid host tampering with the
+> >>     offset.
+> >>   - Moved the flag setting into kvm_timer_init_vm(), where it should have been
+> >>     in the first place
+> >> ---
+> >>   arch/arm64/kvm/arch_timer.c | 12 ++++++++++--
+> >>   1 file changed, 10 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/arch/arm64/kvm/arch_timer.c b/arch/arm64/kvm/arch_timer.c
+> >> index 6ac3321f4c575..226cd5a495c8b 100644
+> >> --- a/arch/arm64/kvm/arch_timer.c
+> >> +++ b/arch/arm64/kvm/arch_timer.c
+> >> @@ -1110,8 +1110,7 @@ void kvm_timer_vcpu_init(struct kvm_vcpu *vcpu)
+> >>   		timer_context_init(vcpu, i);
+> >>   
+> >>   	/* Synchronize offsets across timers of a VM if not already provided */
+> >> -	if (!vcpu_is_protected(vcpu) &&
+> >> -	    !test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &vcpu->kvm->arch.flags)) {
+> >> +	if (!test_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &vcpu->kvm->arch.flags)) {
+> >>   		timer_set_offset(vcpu_vtimer(vcpu), kvm_phys_timer_read());
+> >>   		timer_set_offset(vcpu_ptimer(vcpu), 0);
+> >>   	}
+> >> @@ -1133,6 +1132,15 @@ void kvm_timer_init_vm(struct kvm *kvm)
+> >>   	 */
+> >>   	for (int i = 0; i < NR_KVM_TIMERS; i++)
+> >>   		kvm->arch.timer_data.ppi[i] = get_vgic_ppi(kvm, default_ppi[i]);
+> >> +
+> >> +	/*
+> >> +	 * Protected VMs don't allow any offset being set from userspace,
+> >> +	 * either set via writes to the counters or using the dedicated  
+> > This sentence confused me.  Second clause isn't obviously the ways that
+> > are being blocked. Maybe shorten to:
+> > 
+> > 	Protected VMs don't allow the offset to be set from userspace,
+> > 	whether via writes to the counters or the dedicated ioctl.  
+> 
+> LLM suggests:
+> 
+> 
+>     * Protected VMs don't allow userspace to set counter offsets,
+>     * either via counter register writes or the dedicated ioctl.
 
-	scsi_queue_insert(scmd, SCSI_MLQUEUE_EH_RETRY);
+Hmm.  I'd not combine a negative with either.  Still good enough I think!
+Our Booker prize may be a way off yet :)
 
-> If it cannot directly re-queue, then ufshcd_eh_host_reset_handler
-> would need another similar function that does not handle re-queueing.
-> But this looks unnecessary, direct re-queuing seems safe?
+> 
+> Have updated the comment.
+> 
+> Cheers
+> Suzuki
+> 
+> >   
+> >> +	 * ioctl. Pretend the offset has already been set and rely on the
+> >> +	 * default offset being 0.
+> >> +	 */
+> >> +	if (kvm_vm_is_protected(kvm))
+> >> +		set_bit(KVM_ARCH_FLAG_VM_COUNTER_OFFSET, &kvm->arch.flags);
+> >>   }
+> >>   
+> >>   void kvm_timer_cpu_up(void)  
+> >   
+> 
 
-Requeuing from the .eh_host_reset_handler() is not safe at all. It may
-trigger list corruption as follows:
-1. The .eh_host_reset_handler() callback sets scmd->result to
-    DID_REQUEUE << 16 and calls scsi_done(scmd). This causes
-    blk_mq_requeue_request() to insert the SCSI command into
-    &q->requeue_list. The SCSI command stays there because the request
-    queue is not run immediately because the SCSI host is in the state
-    SHOST_RECOVERY.
-2. The .eh_host_reset_handler() callback finishes and returns SUCCESS.
-3. The SCSI EH thread in scsi_eh_host_reset() sees that the reset
-    succeeded and moves cmd to done_q.
-4. The SCSI EH thread executes scsi_eh_flush_done_q(done_q).
-5. scsi_eh_flush_done_q() invokes
-    scsi_queue_insert(scmd, SCSI_MLQUEUE_EH_RETRY) for the same scmd
-    that is already present on the request queue requeue list.
-6. scsi_queue_insert() calls __scsi_queue_insert(), which invokes
-    blk_mq_requeue_request() a second time. This causes list corruption.
-    Code that examines the corrupted requeue list will either crash or
-    trigger an infinite loop.
-
-Bart.
