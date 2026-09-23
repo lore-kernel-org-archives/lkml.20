@@ -1,104 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BFB2F0C62;
-	Wed, 23 Sep 2026 09:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70E0B435EFA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:30:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155826; cv=none; b=l+eutqVfQSqX4AH+Ls73Iv9wxX20+DUZLdztlxhXfmnpUu3vUQh4BsOdDx6zFKiyswHcLchy69fdxr7V7ThdldKJZ+QsaijuXq76Ef3x/t9y49nJgEVHWxNmy/bGOEiQilB4pLzi3ZSVDf8+Ez4U/wkQy/lka66PZi5OrIHyjx8=
+	t=1790155833; cv=none; b=Eah7/T7sfufVaBKwVqi3sEn2j7CGFlnQxSa4PfSLWlWvkS7eSg0VCmdVwqNmFXV+TJMZWzdXpVovh3HWeFOqVrO13xKMKPV2knV/0yvbMIam1fsi2hUVZDS0bf2GSeSoVbkZYFyRDVAFkjUQjFdA9CxzeoJDLmBimUGE2TphPUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155826; c=relaxed/simple;
-	bh=LO6Qi7dMoppLkP2fh8f91hO/tTo7FR05Vgw2/yiijxg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UHYbDw+ZUwemHplcMaQXkQJ64LC7YE5wA1yB/9qOAMW5c6LizR8pTRBlYsgOmA8VlHRCTKcL6bx4FPrkjQgF/tbopVBOoSRaS0RtNFhF3avfoj0Q9EY/UrYPhnWy8x2DxI2SynZCUl/m02J2NXDE6eXrrlOg3HrlmYX/VEQRTUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xe7wLBNl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790155833; c=relaxed/simple;
+	bh=vBPUuNMXa0dgJzwuDSTU7kuQyYIoV4Ak7Pjwd9e1PnY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Bo90dL8znJTmLoX5H+H3AcauBWsZu1Yjxl5l/L0lZYsgVLGugtOAlq7D7YKC1TxLX58q4cKWzGgjGTXpZ9EnsF2M/1AFL9EllWvUS7aeQy0vnLObNE9l/Q/s2kZ1H5DQ3VDP0gOvlPSaxAwBX7MNUp8chOojHikBx2NCoSJtFmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mZo1aBS9; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xe7wLBNl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46D101F000FF;
-	Wed, 23 Sep 2026 09:30:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790155825;
-	bh=w4RZpTpwH+86+MlalggS3frcHNH26NoLVkMIGSVHUAg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Xe7wLBNlLFPx0gk74fc2Y7stp2cmjm6TdZQNSFVe+hNlXcqL1TargvtfuzSqEj/ET
-	 AW852IBnOlnJuMiAsxxwRJca6S/T9xPkn9DvFVz3ZM4KN4wLlqtshQ5EM7rH5CxYgE
-	 Z6F6p/9xtik7YIWDnjEE5M+KtfvOwp0CGtlsJzg/AMaBsB8Ig5mOy+2z6r9SKBWiIK
-	 Nin9mIdax8QqRb7X3tAtRSf6wTgFGDgRZyvhIgYevc2G7ITO01NCXUUHrsqjm9U+z8
-	 0/lTYwkM1whz12G7d8YlwunPnDQuy3K8s4ZQkDwkddI6VSw4gZed9gbxNYAaR4m5BW
-	 tuCq5g7AAFJzA==
-Date: Wed, 23 Sep 2026 10:29:50 +0100
-From: Simon Horman <horms@kernel.org>
-To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	aleksander.lobakin@intel.com, wojciech.drewek@intel.com,
-	marcin.szycik@linux.intel.com, linux-kernel@vger.kernel.org,
-	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-Subject: Re: [PATCH net v1] pfcp: fix socket lifetime on netdevice
- registration failure
-Message-ID: <20260923092638.GS13925@horms.kernel.org>
-References: <20260918123158.5631-1-xuanqiang.luo@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mZo1aBS9"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso634203f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:30:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790155830; x=1790760630; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XpdOD7b7tZjf2YLODbEeqXbESzHRLhCJCCPyiQAoQpI=;
+        b=mZo1aBS9p45hjZPXMYgAS/IwXUHKZYyeBLuhZnxYXk+iTyUzi6lGbXjY/Ue+x7UU1R
+         rO4YpGbpylZLDW4711fn9YqCw7Z0K2KdiUHd5TJvGAtRXjWGapkkkKgidoZfG9f1qUOa
+         TKI5Ug6rcT1ryqpD7HEv/ea7F02wMs6YYo5TuOvml2V4AHktJm2smSKi54jsVWpV6q+5
+         dva+Ajd9TpId7R6x1Zf2ndPth5uWaU4+waRFwSHxKfmpGNDGIj8TOv0KQIrNfp5i6BxZ
+         t25ff0Tms2fy7nPSv8K7fW1cu6nqx9QHSE3BXWUuRPXhxN3hbY8rK042iIb/QGvSvoF+
+         t4Ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790155830; x=1790760630;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XpdOD7b7tZjf2YLODbEeqXbESzHRLhCJCCPyiQAoQpI=;
+        b=MgHRke3YX1OVFyaGd/8y7BsO7FzmoID/qm5wt66ziRB512zku5wT3/v9aF0dVUxMIB
+         Gb1laSlj/tnB+RHsORFtH6tdSa8LafPro5iNOwLO5HavbM0+WfjN9quPYIVYZgn+uWfs
+         i/vY+rwScVF4zbFZYIqhvrHB4PSULWf5dMvjtxN1QGfk4MOok2us6pheZY782rE7cXI2
+         kI+8yW4usvGrZnMWRNQb9DCp8iU79cAyCAC23/zRYrxQH4qww0Yj87i1f0W4PHlsSjgt
+         4WvSpEmHsjEgKoIznjVkM39efHgGhG/dUYm0Q92gw8Q05OqiHHP9Zo9fTSUpg5czIlFa
+         3czw==
+X-Forwarded-Encrypted: i=1; AKwUvBxYvLFqWmL77mXm33kvKjalQvhN2WsRR0LO/ls6FB2eJahlk1YHkN3WPnNbZDDGQSQAJ1+StKqGcET3MG4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lljr47VrjKME/XKdXSzURJI4JGOv4cLSg36nn79AOPzNC8kyQ6
+	TubqSf+7Ld+34t3FKPWaFSA7SGFZrPE6k0Z4oB+F7qzKfmCk5zDn7UfL
+X-Gm-Gg: AYBFou3GPbCIh49z+R7dXJfScwZAw/BKl3+zvE+yXARl7hRoDdrKNx26u6Q5TPT3QGr
+	i+YW7sa3siyo6wzXE1ox+X9vC1juScG9YG/8dPF13mwWyY9RB0dqHyCbfhzijr7CVgMe+TJc1/G
+	5TnkrtYymZn0kpuFNdBLW9Ptx/hv/900/BnWHCCZtW1skr4tYthiGOYTPYT+v8ZmmK+O0J9fSxG
+	JisJDOcLKs/p8jOX1PaDesujniKl1YmmCcyTkmyVJgyVPRUHrNTKCMtSr6YLm4Z1lVI5mph+a1t
+	S6euNfgDKGjKCAaimHfRN5VV9CJvzd9cqT5NNL9aJpc4kuYIQBwkeQgQtmx/Des8/ZzXCzXbdYX
+	fMPhKB5NzL0OOe0C+oLML0FVlZtBJzWkaWyCRb7LOQX9JixsDy5mKcGDKYQ5Xj8W+AukCm69IgS
+	w55KoTE7P8rFB70o59sGO8DScstBTu4uI1XM3wzhaDLyRdD+EyZYahT8gHNF7hCOQCOU0oOTCmp
+	/2ETkr3CbN24B/O1kbIXKI06rc0qYQizHqZTn0ZI9dC+eAsNSXwQRLu
+X-Received: by 2002:a05:6000:22c4:b0:487:35c:6e6b with SMTP id ffacd0b85a97d-4886704aa19mr3430312f8f.12.1790155829433;
+        Wed, 23 Sep 2026 02:30:29 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488684863d9sm5350009f8f.12.2026.09.23.02.30.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 02:30:28 -0700 (PDT)
+Date: Wed, 23 Sep 2026 10:30:27 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Vineet Gupta
+ <vgupta@kernel.org>, Guo Ren <guoren@kernel.org>, Yoshinori Sato
+ <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, Chris Zankel
+ <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>, Arnd Bergmann
+ <arnd@arndb.de>, "Paul E . McKenney" <paulmck@kernel.org>, John Paul Adrian
+ Glaubitz <glaubitz@physik.fu-berlin.de>,
+ linux-snps-arc@lists.infradead.org, linux-csky@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] ARC: Emulate two-byte cmpxchg
+Message-ID: <20260923103027.22bd9ef4@pumpkin>
+In-Reply-To: <20260922173354.14404-3-brads@mainlining.org>
+References: <20260922173354.14404-1-brads@mainlining.org>
+	<20260922173354.14404-3-brads@mainlining.org>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918123158.5631-1-xuanqiang.luo@linux.dev>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 08:31:58PM +0800, Xuanqiang Luo wrote:
-> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+On Tue, 22 Sep 2026 17:33:51 +0000
+Bradley Morgan <brads@mainlining.org> wrote:
+
+> ARC has no two-byte atomic compare and swap, so the arch_cmpxchg_relaxed()
+> macro switch lets case 2 fall through to BUILD_BUG() via default. Route case
+> 2 through the new cmpxchg_emu_u16(), which takes the old and new
+> values as unsigned long and narrows them itself, so the (uintptr_t)
+> casts on _o_ and _n_ are no longer needed and the case 2 call passes
+> them straight.
 > 
-> pfcp_newlink() creates the UDP socket before register_netdevice().
-> If registration fails after pfcp_dev_init() succeeds, the core calls
-> pfcp_dev_uninit(), which releases the socket and clears pfcp->sk.
-> The newlink error path then releases it again, causing a NULL pointer
-> dereference. This was observed with failslab fault injection:
+> The switch also now tests sizeof(*(_p_)) instead of sizeof((_p_)),
+> which switched on the pointer and made the size 1 and size 2 cases
+> dead code, routing every sub-word cmpxchg() through the 32-bit
+> llock/scond pair and comparing whole words against sub-word values,
+> so the compare almost never succeeded.
+
+Hmmm... that looks like it warrants a 'Fixes' tag.
+Clearly no one uses 'arc'.
+
+David
+
+> The old and new values are
+> now declared as unsigned long through (unsigned long)(0 ? *(_p_) :
+> (old)), the idiom David Laight suggested, which type checks the
+> arguments against the pointee, so cmpxchg(&p, 4, 5) no longer
+> compiles silently.
 > 
->   FAULT_INJECTION: forcing a failure.
->   kobject: kobject_add_internal failed for pfcp0 (error: -12 parent: net)
->   BUG: KASAN: null-ptr-deref in udp_tunnel_sock_release+0x1c/0x50
->   Read of size 8 at addr 0000000000000120 by task ip/1037
->   Call trace:
->    show_stack+0x18/0x24 (C)
->    dump_stack_lvl+0x78/0x90
->    print_report+0x468/0x5cc
->    kasan_report+0xa4/0xf0
->    __asan_load8+0x7c/0xd0
->    udp_tunnel_sock_release+0x1c/0x50
->    pfcp_newlink+0x128/0x184
->    rtnl_newlink+0x848/0xe44
->    rtnetlink_rcv_msg+0x468/0x514
->    netlink_rcv_skb+0xc0/0x1f0
->    rtnetlink_rcv+0x18/0x24
->    netlink_unicast+0x4b8/0x558
->    netlink_sendmsg+0x2b8/0x584
->    ...
-> 
-> Create the socket in pfcp_dev_init() after initializing the GRO cells,
-> and let pfcp_dev_uninit() release it on registration failure or removal.
-> 
-> Move the RCU wait into pfcp_dev_uninit(), using synchronize_net() after
-> socket release to drain receive callbacks before destroying the GRO cells.
-> 
-> Fixes: 76c8764ef36a5 ("pfcp: add PFCP module")
-> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
 > ---
-> A NULL check would fix the crash. Moving socket creation into ndo_init
-> also removes the duplicate cleanup and ensures the receive state is
-> initialized before enabling the socket's receive callback.
+>  arch/arc/include/asm/cmpxchg.h | 19 +++++++++++--------
+>  1 file changed, 11 insertions(+), 8 deletions(-)
+> 
+> diff --git a/arch/arc/include/asm/cmpxchg.h b/arch/arc/include/asm/cmpxchg.h
+> index 76f43db0890f..4596edfefa95 100644
+> --- a/arch/arc/include/asm/cmpxchg.h
+> +++ b/arch/arc/include/asm/cmpxchg.h
+> @@ -42,16 +42,19 @@
+>  #define arch_cmpxchg_relaxed(ptr, old, new)				\
+>  ({									\
+>  	__typeof__(ptr) _p_ = (ptr);					\
+> -	__typeof__(*(ptr)) _o_ = (old);					\
+> -	__typeof__(*(ptr)) _n_ = (new);					\
+> +	unsigned long _old_ = (unsigned long)(0 ? *(_p_) : (old));		\
+> +	unsigned long _new_ = (unsigned long)(0 ? *(_p_) : (new));		\
+>  	__typeof__(*(ptr)) _prev_;					\
+>  									\
+> -	switch(sizeof((_p_))) {						\
+> +	switch (sizeof(*(_p_))) {						\
+>  	case 1:								\
+> -		_prev_ = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *__force)_p_, (uintptr_t)_o_, (uintptr_t)_n_);	\
+> +		_prev_ = (__typeof__(*(ptr)))cmpxchg_emu_u8((volatile u8 *__force)_p_, _old_, _new_);	\
+> +		break;							\
+> +	case 2:								\
+> +		_prev_ = (__typeof__(*(ptr)))cmpxchg_emu_u16((volatile u16 *__force)_p_, _old_, _new_);	\
+>  		break;							\
+>  	case 4:								\
+> -		_prev_ = __cmpxchg(_p_, _o_, _n_);			\
+> +		_prev_ = (__typeof__(*(ptr)))__cmpxchg(_p_, _old_, _new_);			\
+>  		break;							\
+>  	default:							\
+>  		BUILD_BUG();						\
+> @@ -64,8 +67,8 @@
+>  #define arch_cmpxchg(ptr, old, new)				        \
+>  ({									\
+>  	volatile __typeof__(ptr) _p_ = (ptr);				\
+> -	__typeof__(*(ptr)) _o_ = (old);					\
+> -	__typeof__(*(ptr)) _n_ = (new);					\
+> +	unsigned long _old_ = (unsigned long)(0 ? *(_p_) : (old));		\
+> +	unsigned long _new_ = (unsigned long)(0 ? *(_p_) : (new));		\
+>  	__typeof__(*(ptr)) _prev_;					\
+>  	unsigned long __flags;						\
+>  									\
+> @@ -102,7 +105,7 @@
+>  	__typeof__(ptr) _p_ = (ptr);					\
+>  	__typeof__(*(ptr)) _val_ = (val);				\
+>  									\
+> -	switch(sizeof(*(_p_))) {					\
+> +	switch (sizeof(*(_p_))) {					\
+>  	case 4:								\
+>  		_val_ = __arch_xchg(_p_, _val_);			\
+>  		break;							\
 
-Assuming the NULL check is significantly simpler than this patch,
-and that it resolves the bug, think that we should consider:
-
-1. A patch that minimal NULL check for net
-2. Follow-up with the approach taken by this patch in net-next
-
-I say this because this seems to be lower risk than skipping to applying
-2 to net.
-
-Also, please consider CCing stable on bug fixes.
-
-Link: https://docs.kernel.org/process/maintainer-netdev.html#stable-tree
