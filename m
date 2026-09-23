@@ -1,56 +1,56 @@
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3732A526ABE
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF7A5293E7
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187239; cv=none; b=IA1CvwZ0dAUvdRxMZDEH9r9QgL/oV7HODkYWxVQnlCbsE2pXB4iWHy+OI36CqEq8Hlwf+lZB9jg2o/A06zxJIDc0qaKsHK0YPxgFiXP6YQbmeI8z9lUVU73ONoPU0IcNW6paic7lPQFhDDOzFf5THjgv62RkrsGkXFLWCzmeLoo=
+	t=1790187240; cv=none; b=QSP8FqmAeUHrt6n/j5R4On+W3A+2556T4M7HZnNNq5paswiUBdY28r2qpdl9OWt/TVfZwJpt0hgHrNBBsbuAeldBOjwmBrR8VkA6lpK+z36YGYJXNA8GwVXzt8MVbES6KW2CoisHjAwKQO88jpJLp9V3N2LNTeZ3yJJ0AA5mNNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187239; c=relaxed/simple;
-	bh=p8PUg6HN7vklxJbWJk46N9GL8KkbuJAjDrI5p8ZxjN8=;
+	s=arc-20240116; t=1790187240; c=relaxed/simple;
+	bh=GYtWOGFJKuRfOu3KqWGDgB3Gm1zGpLCl72ZCAP2q3+0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=B0/OjeWPbeHYlWcuOhecjLjuuTbt45fWa7eiiz2rZHJHk/P0xjHaqi6at7cmasosBXZykX4y/3b7CNtyGx8uUD37WB9o7dZL9gn7zONmrI+p+K5N14At5wjZ7CURTPYNMsf0OvdKKJVBnwi+byuOscmUB/zZhsn+u6FxnUe9alo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=X52zw67v; arc=none smtp.client-ip=74.125.82.70
+	 To:Cc:Content-Type; b=YqAxob6rVya+6+W+T/lknUm0PMdgQlQl5nc/N9n5boPQncjcocB1OJHQlg+Rzcnnxubj0/oQtJbjRRcPEJI78l1NgNp/azWZUSGLQv37Bwz/Fb8Pv9YxugP5uJMEJOl7Yeq0cR8tGq5fMWGhfVzKDQtJJyI1qm6LosbK820QP4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CpMZmo59; arc=none smtp.client-ip=74.125.82.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="X52zw67v"
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1437272611eso1908089c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:13:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CpMZmo59"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c0d568830so2220232eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:13:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790187226; x=1790792026; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790187234; x=1790792034; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ePdbl0HvDFpxQBUzNldgtJ3HVnfHf67hAn3LWddAfUE=;
-        b=X52zw67vUvgZ5U2QWrcnYTZ4Dt75KlS0DgJXshrUCUpvC9Gpvwpc3Lqwg0NO0FVM0J
-         5lao7PTSs1mBP7RA9hqGCnQnX8yTbzfqAw4aWmZvcFYJqzQ+u7PtLfQO7YapU3KkQmZn
-         mzAsgZI6lMjWcV8s42vuLcswooGukRfwn/hUiwJNPMEfGoQ+TlGIlE2SZ1ptcBqjUewy
-         /1G4KAE4eZjRc8Wf0gQGvf8Unml/Oz95DImZyRQbT+hDJVt5YPoMOQg1lp845kGeoK6r
-         sHOoQTG5QlM9/9/0kvcGv/Y1RJswHxQC9NJd5s4dGA0jGHweGP0fj9B4jZ/Ui8JdbTD5
-         nGFQ==
+        bh=CdWkqq5Py2/RE6rujplXydj2oxrlfwYzt8yfdoQJKEk=;
+        b=CpMZmo59UROvOeg1hIO/ZYq3V9U7uG7tPyYpufwy4UMhzqk55vhjiNIRhyI0Bc8MzB
+         GQXv/qK1Dwj0vAojRTnkwy11VY5CQCBjkx5jc8OfxnJPMaOQjdet5+D7kB1kzVY70G4U
+         E/UsZo2NEvlkUn2d0Gc5efLF7X7nFPqKik9ys7fJ0CLFNTg384W3Ib8bjNjS8iZ+/F4M
+         p5T3j7/is5Qbme6lBYF0k7V2fZ6YMDIs+eyv2nbYbsZV9Cf13oCJzhH1noGDoOFatleW
+         QIL5EDpXxorC4AFn3+gpgQnep9v2KiBXMuFDyjT4bDtqhhHEpMnfq8ZM8MpUvd6HXMSI
+         v/eg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187226; x=1790792026;
+        d=1e100.net; s=20260707; t=1790187234; x=1790792034;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ePdbl0HvDFpxQBUzNldgtJ3HVnfHf67hAn3LWddAfUE=;
-        b=Jb65yHa/JFQdGqXRIE+DjohnlccpIgR4wk18Jj1szmT43bHMxfKPKgoVthjpTrJNzX
-         cLy16O2+b1EckcgsLFA0p2CmOLQRjEBoGOxbQJbZCZAz8LQkQ8NQCrjgc7O1yWvpCctN
-         PPk+wGUOrpYA5txvtGnL4Hln8cgtXF8BIcM6O8ngW6dIhSlN7BywGd5zXjqWQJSsnLnc
-         mERRoM+K02jlJ7lTHO6FkcLoM2EEIQm7I3+Bsng9/vQTewg42SqtK1iXIVL34ixnV+fY
-         P9BsYoe6WRvXSGXUogbFFE53ADl8iQD02/c6Y1I+/t+ugu/vX/rvoIJlxTuc9EFVWYGq
-         t4UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBykb5UatUI6vROon9II18jvOYRc2aEcHDbFKFnjpNbB8izyvvk8dw3yI+hT0kRlUOeAaUnEHaZTzgGakaI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mA4EPUqhGJVGS9PnrllvUnRvjMkK5kc1wLwvf4aKzenq2dFhJC
-	Yhh35O+WuBdtpREqHcuMierIzjjRJ2CB4g4gZoW2h1RfCqLOx0NJWiPTD8eFdF48EqtJI1jOLKU
-	nrPD8xxREvA==
-X-Received: from dlbur12.prod.google.com ([2002:a05:7022:ea4c:b0:143:8d74:244a])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:20de:20b0:145:152:b54c
- with SMTP id a92af1059eb24-1450152b7ecmr1089341c88.23.1790187225442; Wed, 23
- Sep 2026 11:13:45 -0700 (PDT)
-Date: Wed, 23 Sep 2026 11:11:43 -0700
+        bh=CdWkqq5Py2/RE6rujplXydj2oxrlfwYzt8yfdoQJKEk=;
+        b=RamPCOPWBxiKFU/mASu9QL8vuXcInSOisyEhiwnJr7l4Eht2LNvePdeFAIa5ig6jY5
+         N/3lAfxXS5yfZovRyb0iCo7H/nIsJW8ivbpOUc2VvaPA0Rp7M4Q0R6TTKeOADGRUH7X8
+         XkMmdD9i/S90U/E7E4R8r+BQg3MtTO7G7WgoYKJVmI8tNRsMTsXJ1e0KK2BN0lRa7+Zm
+         PoaMGDOOwaZrakTPSVGA5GUA1vujH7l9l20WeduSbGbYWTqiYiFmPtKDKHF63p1Uwu2B
+         iwMN8hwhGtBxgs2cpv+3E8WxF0lvx3Fde83SiRQ5vrg0b49q33nGMm2Oflt8XpU/v0UK
+         98ow==
+X-Forwarded-Encrypted: i=1; AKwUvByLp2ARd7DiVXZLkK/3M9SUY4JTR2eEdS4veDP5ZdziL/dMmrjrXujxDUSSEiNKs0qNekT7tVYQlUi6CsY=@vger.kernel.org
+X-Gm-Message-State: AFuF++muAYVRVY+Zj6mW4VQJDPdGiKGowCTGKaIhNyQZ2Hv1qTWXOUSM
+	HOYxYi4ZN0aWVYUtMt45jA0yliYaR7liTHxgvb1wLclFsbmPQYDhMIsFdzY/Iii5uKc25oTYi7C
+	sLiTWQNHeRA==
+X-Received: from dlbsn12.prod.google.com ([2002:a05:7022:b90c:b0:144:c2f8:c025])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:3c16:b0:144:c11c:858e
+ with SMTP id a92af1059eb24-144f91ba1fbmr3521801c88.31.1790187233161; Wed, 23
+ Sep 2026 11:13:53 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:11:45 -0700
 In-Reply-To: <20260923181213.3032038-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789966896.git.irogers@google.com> <20260923181213.3032038-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260923181213.3032038-21-irogers@google.com>
-Subject: [PATCH v3 20/49] perf python: Port gecko to perf module
+Message-ID: <20260923181213.3032038-23-irogers@google.com>
+Subject: [PATCH v3 22/49] perf python: Port syscall-counts to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	namhyung@kernel.org
@@ -71,460 +71,155 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Port gecko.py to a standalone script in tools/perf/python/ that uses
-the perf module directly to convert perf.data profiles into Firefox
-Gecko profile format.
+Port tools/perf/scripts/python/syscall-counts.py to a standalone script
+in tools/perf/python/ using the perf module. Avoiding the embedded
+interpreter and per-event dictionary allocation overhead improves
+execution speed by ~4x:
 
-Improvements compared to the legacy script:
-- Encapsulate profiler state in GeckoCLI and CategoryData classes with
-  full type annotations, removing global variables.
-- Harden the local HTTP server in _write_and_launch(): write the
-  temporary profile to an isolated tempfile.TemporaryDirectory() with a
-  randomized UUID filename instead of the current working directory,
-  bind HTTPServer exclusively to 127.0.0.1 on an OS-assigned ephemeral
-  port (0), restrict CORS Access-Control-Allow-Origin to
-  'https://profiler.firefox.com' instead of '*', and restrict HTTP GET
-  requests exclusively to the randomized profile filename (returning
-  HTTP 403 for directory listings and any other path).
-- Add -i/--input and -e/--event CLI options via argparse.
+```
+$ perf record -e raw_syscalls:sys_enter -a sleep 1
+...
+$ time perf script tools/perf/scripts/python/syscall-counts.py perf
+...
+real    0m3.887s
+user    0m3.578s
+sys     0m0.308s
+$ time python3 tools/perf/python/syscall-counts.py perf
+...
+real    0m0.953s
+user    0m0.905s
+sys     0m0.048s
+```
 
-Add a shell test (test_gecko_python.sh) to verify the standalone script.
+Additional improvements compared to the legacy script:
+- Resolve syscall names using perf.syscall_name(id, session.e_machine)
+  instead of host python-audit / Util.py tables, enabling accurate
+  cross-architecture perf.data analysis without external dependencies.
+- Support both raw_syscalls:sys_enter (sample.id) and individual
+  syscalls:sys_enter_* tracepoints (sample.__syscall_nr / sample.nr),
+  filtering out invalid/corrupt (> 0xffff or negative) syscall numbers.
+- Add argparse CLI options (-i/--input and optional comm filter).
+
+Add a shell test (test_syscall_counts_python.sh) to verify the
+standalone script. The legacy script and its bin wrapper are retained
+temporarily during the transition to maintain bisectability and are
+removed once all scripts are migrated.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/gecko.py                  | 411 ++++++++++++++++++++
- tools/perf/tests/shell/test_gecko_python.sh |  95 +++++
- 2 files changed, 506 insertions(+)
- create mode 100755 tools/perf/python/gecko.py
- create mode 100755 tools/perf/tests/shell/test_gecko_python.sh
+ tools/perf/python/syscall-counts.py           | 91 +++++++++++++++++++
+ .../tests/shell/test_syscall_counts_python.sh | 81 +++++++++++++++++
+ 2 files changed, 172 insertions(+)
+ create mode 100755 tools/perf/python/syscall-counts.py
+ create mode 100755 tools/perf/tests/shell/test_syscall_counts_python.sh
 
-diff --git a/tools/perf/python/gecko.py b/tools/perf/python/gecko.py
+diff --git a/tools/perf/python/syscall-counts.py b/tools/perf/python/syscall-counts.py
 new file mode 100755
-index 000000000000..3427e0770156
+index 000000000000..005916542c26
 --- /dev/null
-+++ b/tools/perf/python/gecko.py
-@@ -0,0 +1,411 @@
++++ b/tools/perf/python/syscall-counts.py
+@@ -0,0 +1,91 @@
 +#!/usr/bin/env python3
 +# SPDX-License-Identifier: GPL-2.0
 +"""
-+gecko.py - Convert perf record output to Firefox's gecko profile format
++Displays system-wide system call totals, broken down by syscall.
++
++If a [comm] arg is specified, only syscalls called by [comm] are displayed.
 +"""
 +from __future__ import annotations
 +
 +import argparse
-+import functools
-+import json
-+import os
-+import sys
-+import tempfile
-+import threading
-+import urllib.parse
-+import uuid
-+import webbrowser
-+from dataclasses import dataclass, field
-+from http.server import HTTPServer, SimpleHTTPRequestHandler
-+from typing import Dict, List, NamedTuple, Optional, Tuple
-+
++from collections import defaultdict
++from typing import DefaultDict
 +import perf
 +
-+
-+# https://github.com/firefox-devtools/profiler/blob/53970305b51b9b472e26d7457fee1d66cd4e2737/src/types/gecko-profile.js#L156
-+class Frame(NamedTuple):
-+    """A single stack frame in the gecko profile format."""
-+    string_id: int
-+    relevantForJS: bool
-+    innerWindowID: int
-+    implementation: None
-+    optimizations: None
-+    line: None
-+    column: None
-+    category: int
-+    subcategory: Optional[int]
++syscalls: DefaultDict[int, int] = defaultdict(int)
++for_comm = None
++session = None
 +
 +
-+# https://github.com/firefox-devtools/profiler/blob/53970305b51b9b472e26d7457fee1d66cd4e2737/src/types/gecko-profile.js#L216
-+class Stack(NamedTuple):
-+    """A single stack in the gecko profile format."""
-+    prefix_id: Optional[int]
-+    frame_id: int
++def print_syscall_totals():
++    """Print aggregated statistics."""
++    if for_comm is not None:
++        print(f"\nsyscall events for {for_comm}:\n")
++    else:
++        print("\nsyscall events:\n")
 +
++    print(f"{'event':<40} {'count':>10}")
++    print("---------------------------------------- -----------")
 +
-+# https://github.com/firefox-devtools/profiler/blob/53970305b51b9b472e26d7457fee1d66cd4e2737/src/types/gecko-profile.js#L90
-+class Sample(NamedTuple):
-+    """A single sample in the gecko profile format."""
-+    stack_id: Optional[int]
-+    time_ms: float
-+    responsiveness: int
-+
-+
-+@dataclass
-+class Tables:
-+    """Interned tables for the gecko profile format."""
-+    frame_table: List[Frame] = field(default_factory=list)
-+    string_table: List[str] = field(default_factory=list)
-+    string_map: Dict[str, int] = field(default_factory=dict)
-+    stack_table: List[Stack] = field(default_factory=list)
-+    stack_map: Dict[Tuple[Optional[int], int], int] = field(default_factory=dict)
-+    frame_map: Dict[str, int] = field(default_factory=dict)
-+
-+
-+@dataclass
-+class Thread:
-+    """A builder for a profile of the thread."""
-+    comm: str
-+    pid: int
-+    tid: int
-+    user_category: int
-+    kernel_category: int
-+    samples: List[Sample] = field(default_factory=list)
-+    tables: Tables = field(default_factory=Tables)
-+
-+    def _intern_stack(self, frame_id: int, prefix_id: Optional[int]) -> int:
-+        """Gets a matching stack, or saves the new stack. Returns a Stack ID."""
-+        key = (prefix_id, frame_id)
-+        stack_id = self.tables.stack_map.get(key)
-+        if stack_id is None:
-+            stack_id = len(self.tables.stack_table)
-+            self.tables.stack_table.append(Stack(prefix_id=prefix_id, frame_id=frame_id))
-+            self.tables.stack_map[key] = stack_id
-+        return stack_id
-+
-+    def _intern_string(self, string: str) -> int:
-+        """Gets a matching string, or saves the new string. Returns a String ID."""
-+        string_id = self.tables.string_map.get(string)
-+        if string_id is not None:
-+            return string_id
-+        string_id = len(self.tables.string_table)
-+        self.tables.string_table.append(string)
-+        self.tables.string_map[string] = string_id
-+        return string_id
-+
-+    def _intern_frame(self, frame_str: str) -> int:
-+        """Gets a matching stack frame, or saves the new frame. Returns a Frame ID."""
-+        frame_id = self.tables.frame_map.get(frame_str)
-+        if frame_id is not None:
-+            return frame_id
-+        frame_id = len(self.tables.frame_table)
-+        self.tables.frame_map[frame_str] = frame_id
-+        string_id = self._intern_string(frame_str)
-+
-+        category = self.user_category
-+        if (frame_str.find('kallsyms') != -1 or
-+                frame_str.find('/vmlinux') != -1 or
-+                frame_str.endswith('.ko)')):
-+            category = self.kernel_category
-+
-+        self.tables.frame_table.append(Frame(
-+            string_id=string_id,
-+            relevantForJS=False,
-+            innerWindowID=0,
-+            implementation=None,
-+            optimizations=None,
-+            line=None,
-+            column=None,
-+            category=category,
-+            subcategory=None,
-+        ))
-+        return frame_id
-+
-+    def add_sample(self, comm: str, stack: List[str], time_ms: float) -> None:
-+        """Add a timestamped stack trace sample to the thread builder."""
-+        if self.comm != comm:
-+            self.comm = comm
-+
-+        prefix_stack_id: Optional[int] = None
-+        for frame in stack:
-+            frame_id = self._intern_frame(frame)
-+            prefix_stack_id = self._intern_stack(frame_id, prefix_stack_id)
-+
-+        if prefix_stack_id is not None:
-+            self.samples.append(Sample(stack_id=prefix_stack_id,
-+                                       time_ms=time_ms,
-+                                       responsiveness=0))
-+
-+    def to_json_dict(self) -> Dict:
-+        """Converts current Thread to GeckoThread JSON format."""
-+        return {
-+            "tid": self.tid,
-+            "pid": self.pid,
-+            "name": self.comm,
-+            "markers": {
-+                "schema": {
-+                    "name": 0,
-+                    "startTime": 1,
-+                    "endTime": 2,
-+                    "phase": 3,
-+                    "category": 4,
-+                    "data": 5,
-+                },
-+                "data": [],
-+            },
-+            "samples": {
-+                "schema": {
-+                    "stack": 0,
-+                    "time": 1,
-+                    "responsiveness": 2,
-+                },
-+                "data": self.samples
-+            },
-+            "frameTable": {
-+                "schema": {
-+                    "location": 0,
-+                    "relevantForJS": 1,
-+                    "innerWindowID": 2,
-+                    "implementation": 3,
-+                    "optimizations": 4,
-+                    "line": 5,
-+                    "column": 6,
-+                    "category": 7,
-+                    "subcategory": 8,
-+                },
-+                "data": self.tables.frame_table,
-+            },
-+            "stackTable": {
-+                "schema": {
-+                    "prefix": 0,
-+                    "frame": 1,
-+                },
-+                "data": self.tables.stack_table,
-+            },
-+            "stringTable": self.tables.string_table,
-+            "registerTime": 0,
-+            "unregisterTime": None,
-+            "processType": "default",
-+        }
-+
-+
-+class CORSRequestHandler(SimpleHTTPRequestHandler):
-+    """Enable CORS for requests from profiler.firefox.com."""
-+    def __init__(self, *args, allowed_file: Optional[str] = None, **kwargs):
-+        self.allowed_file = allowed_file
-+        super().__init__(*args, **kwargs)
-+
-+    def end_headers(self):
-+        self.send_header('Access-Control-Allow-Origin', 'https://profiler.firefox.com')
-+        super().end_headers()
-+
-+    def do_GET(self):
-+        if self.allowed_file and self.path.split('?')[0] != f'/{self.allowed_file}':
-+            self.send_error(403, "Access denied")
-+            return
-+        super().do_GET()
-+
-+    def list_directory(self, path):
-+        self.send_error(403, "Directory listing forbidden")
-+        return None
-+
-+
-+@dataclass
-+class CategoryData:
-+    """Category configuration for the gecko profile."""
-+    user_index: int = 0
-+    kernel_index: int = 1
-+    categories: List[Dict] = field(default_factory=list)
-+
-+
-+class GeckoCLI:
-+    """Command-line interface for converting perf data to Gecko format."""
-+    def __init__(self, args: argparse.Namespace) -> None:
-+        self.args = args
-+        self.tid_to_thread: Dict[int, Thread] = {}
-+        self.start_time_ms: Optional[float] = None
-+        self.session: Optional[perf.session] = None
-+        self.product = args.product
-+        self.cat_data = CategoryData(
-+            categories=[
-+                {
-+                    "name": 'User',
-+                    "color": args.user_color,
-+                    "subcategories": ['Other']
-+                },
-+                {
-+                    "name": 'Kernel',
-+                    "color": args.kernel_color,
-+                    "subcategories": ['Other']
-+                },
-+            ]
-+        )
-+
-+    def process_event(self, sample) -> None:
-+        """Process a single perf sample event."""
-+        if self.args.event_name and self.args.event_name not in str(sample.evsel):
-+            return
-+
-+        # sample_time is in nanoseconds. Gecko wants milliseconds.
-+        time_ms = sample.sample_time / 1000000.0
-+        pid = sample.sample_pid
-+        tid = sample.sample_tid
-+
-+        if self.start_time_ms is None:
-+            self.start_time_ms = time_ms
-+
-+        try:
-+            thread_info = self.session.find_thread(sample.sample_pid, sample.sample_tid) if self.session else None
-+            comm = (thread_info.comm() if thread_info is not None else None) or "[unknown]"
-+        except AttributeError:
-+            comm = "[unknown]"
-+
-+        stack = []
-+        callchain = sample.callchain
-+        if callchain:
-+            for entry in callchain:
-+                symbol = entry.symbol or "[unknown]"
-+                dso = entry.dso or "[unknown]"
-+                stack.append(f"{symbol} (in {dso})")
-+            # Reverse because Gecko wants root first.
-+            stack.reverse()
++    for sc_id, val in sorted(syscalls.items(),
++                             key=lambda kv: (-kv[1], kv[0])):
++        e_machine = getattr(session, "e_machine", 0) or 0
++        # Mask out the x86_64 x32 ABI bit (__X32_SYSCALL_BIT = 0x40000000) before
++        # resolving the syscall number in the architecture's syscall table.
++        raw_sc_id = sc_id & ~0x40000000
++        if e_machine:
++            name = perf.syscall_name(raw_sc_id, e_machine) or str(sc_id)
 +        else:
-+            symbol = sample.symbol or "[unknown]"
-+            dso = sample.dso or "[unknown]"
-+            stack.append(f"{symbol} (in {dso})")
++            name = perf.syscall_name(raw_sc_id) or str(sc_id)
++        print(f"{name:<40} {val:>10}")
 +
-+        thread = self.tid_to_thread.get(tid)
-+        if thread is None:
-+            thread = Thread(comm=comm, pid=pid, tid=tid,
-+                            user_category=self.cat_data.user_index,
-+                            kernel_category=self.cat_data.kernel_index)
-+            self.tid_to_thread[tid] = thread
-+        thread.add_sample(comm=comm, stack=stack, time_ms=time_ms)
 +
-+    def run(self) -> None:
-+        """Run the conversion process."""
-+        input_file = self.args.input or "perf.data"
-+        if input_file != "-" and not os.path.exists(input_file):
-+            print(f"Error: {input_file} not found.", file=sys.stderr)
-+            sys.exit(1)
++def process_event(sample):
++    """Process a single sample event."""
++    event_name = str(sample.evsel)
++    # raw_syscalls:sys_enter exposes the syscall number as 'id', whereas
++    # per-syscall syscalls:sys_enter_* tracepoints expose '__syscall_nr' (or 'nr')
++    # and may have an unrelated syscall argument named 'id' (e.g. sys_enter_clock_gettime).
++    if event_name.startswith("evsel(raw_syscalls:sys_enter"):
++        sc_id = getattr(sample, "id", -1)
++    elif event_name.startswith("evsel(syscalls:sys_enter"):
++        sc_id = getattr(sample, "__syscall_nr", None)
++        if sc_id is not None and not (0 <= (sc_id & ~0x40000000) <= 0xffff):
++            sc_id = None
++        if sc_id is None:
++            sc_id = getattr(sample, "nr", -1)
++    else:
++        return
 +
-+        try:
-+            self.session = perf.session(perf.data(input_file), sample=self.process_event)
-+        except (OSError, RuntimeError, ValueError) as e:
-+            print(f"Error opening session: {e}", file=sys.stderr)
-+            sys.exit(1)
++    # Mask out __X32_SYSCALL_BIT (0x40000000) when validating the syscall ID range.
++    if not (0 <= (sc_id & ~0x40000000) <= 0xffff):
++        return
 +
-+        if self.session:
-+            try:
-+                self.session.process_events()
-+            finally:
-+                # Break the reference cycle between perf.session and self.process_event
-+                # because perf.session lacks cyclic GC support (tp_traverse).
-+                self.session = None
++    comm = "unknown"
++    try:
++        if session:
++            proc = session.find_thread(sample.sample_pid, sample.sample_tid)
++            if proc:
++                comm = proc.comm() or "unknown"
++    except (TypeError, AttributeError):
++        pass
 +
-+        threads = [t.to_json_dict() for t in self.tid_to_thread.values()]
-+
-+        gecko_profile = {
-+            "meta": {
-+                "interval": 1,
-+                "processType": 0,
-+                "product": self.product,
-+                "stackwalk": 1,
-+                "debug": 0,
-+                "gcpoison": 0,
-+                "asyncstack": 1,
-+                "startTime": self.start_time_ms or 0,
-+                "shutdownTime": None,
-+                "version": 24,
-+                "presymbolicated": True,
-+                "categories": self.cat_data.categories,
-+                "markerSchema": [],
-+            },
-+            "libs": [],
-+            "threads": threads,
-+            "processes": [],
-+            "pausedRanges": [],
-+        }
-+
-+        output_file = self.args.save_only
-+        if output_file is None:
-+            self._write_and_launch(gecko_profile)
-+        else:
-+            print(f'[ perf gecko: Captured and wrote into {output_file} ]')
-+            with open(output_file, 'w', encoding='utf-8') as f:
-+                json.dump(gecko_profile, f, indent=2)
-+
-+    def _write_and_launch(self, profile: Dict) -> None:
-+        """Write the profile to a file and launch the Firefox profiler."""
-+        print("Starting Firefox Profiler on your default browser...")
-+
-+        with tempfile.TemporaryDirectory() as tmp_dir_name:
-+            profile_name = f'gecko_profile_{uuid.uuid4().hex}.json'
-+            filename = os.path.join(tmp_dir_name, profile_name)
-+
-+            with open(filename, 'w', encoding='utf-8') as f:
-+                json.dump(profile, f, indent=2)
-+
-+            handler = functools.partial(
-+                CORSRequestHandler, directory=tmp_dir_name, allowed_file=profile_name
-+            )
-+            try:
-+                httpd = HTTPServer(('127.0.0.1', 0), handler)
-+            except OSError as e:
-+                print(f"Error starting HTTP server: {e}", file=sys.stderr)
-+                sys.exit(1)
-+
-+            port = httpd.server_port
-+
-+            def start_server():
-+                httpd.serve_forever()
-+
-+            thread = threading.Thread(target=start_server, daemon=True)
-+            thread.start()
-+
-+            safe_string = urllib.parse.quote_plus(f'http://127.0.0.1:{port}/{profile_name}')
-+            url = f'https://profiler.firefox.com/from-url/{safe_string}'
-+            print(f"Please open the following URL in your browser to view the profile:\n\n{url}\n")
-+            launch_html = os.path.join(tmp_dir_name, 'launch.html')
-+            with open(launch_html, 'w', encoding='utf-8') as f:
-+                f.write(f'<!DOCTYPE html><html><head>'
-+                        f'<meta http-equiv="refresh" content="0;url={url}">'
-+                        f'<script>window.location.replace({json.dumps(url)});</script>'
-+                        f'</head><body>Redirecting to Firefox Profiler...</body></html>')
-+            if not webbrowser.open(f'file://{launch_html}'):
-+                print("Failed to open browser, please open the URL manually.")
-+
-+            print(f'[ perf gecko: Captured and wrote into {filename} ]')
-+            print("Press Ctrl+C to stop the local server.")
-+            try:
-+                # Keep the main thread alive so the daemon thread can serve requests
-+                stop_event = threading.Event()
-+                while True:
-+                    stop_event.wait(1)
-+            except KeyboardInterrupt:
-+                print("\nStopping server...")
-+                httpd.shutdown()
++    if for_comm and comm != for_comm:
++        return
++    syscalls[sc_id] += 1
 +
 +
 +if __name__ == "__main__":
-+    parser = argparse.ArgumentParser(
-+        description="Convert perf.data to Firefox's Gecko Profile format"
-+    )
-+    parser.add_argument('--product', default='perf', help='Product name (e.g. perf)')
-+    parser.add_argument('--user-color', default='yellow',
-+                        help='Color for the User category',
-+                        choices=['yellow', 'blue', 'purple', 'green', 'orange', 'red',
-+                                 'grey', 'magenta'])
-+    parser.add_argument('--kernel-color', default='orange',
-+                        help='Color for the Kernel category',
-+                        choices=['yellow', 'blue', 'purple', 'green', 'orange', 'red',
-+                                 'grey', 'magenta'])
-+    parser.add_argument('--save-only',
-+                        help='Save the output to a file instead of opening Firefox\'s profiler')
-+    parser.add_argument("-i", "--input", help="input perf.data file")
-+    parser.add_argument("-e", "--event", default="", dest="event_name", type=str,
-+                        help="specify the event to generate gecko profile for")
-+
-+    cli_args = parser.parse_args()
-+    cli = GeckoCLI(cli_args)
-+    cli.run()
-diff --git a/tools/perf/tests/shell/test_gecko_python.sh b/tools/perf/tests/shell/test_gecko_python.sh
++    ap = argparse.ArgumentParser()
++    ap.add_argument("comm", nargs="?", help="Only report syscalls for comm")
++    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
++    args = ap.parse_args()
++    for_comm = args.comm
++    try:
++        session = perf.session(perf.data(args.input), sample=process_event)
++        session.process_events()
++        print_syscall_totals()
++    finally:
++        # Break the reference cycle between session and process_event (whose module
++        # globals reference session) since perf.session lacks cyclic GC (tp_traverse).
++        session = None
+diff --git a/tools/perf/tests/shell/test_syscall_counts_python.sh b/tools/perf/tests/shell/test_syscall_counts_python.sh
 new file mode 100755
-index 000000000000..eac9b2f8e3c7
+index 000000000000..0c4b75499209
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_gecko_python.sh
-@@ -0,0 +1,95 @@
++++ b/tools/perf/tests/shell/test_syscall_counts_python.sh
+@@ -0,0 +1,81 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# gecko python test
++# syscall-counts python test
 +
 +set -e
 +
@@ -539,78 +234,64 @@ index 000000000000..eac9b2f8e3c7
 +fi
 +
 +script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/gecko.py"
++script_path="${script_dir}/syscall-counts.py"
++
++if ! perf check feature -q libtraceevent > /dev/null 2>&1; then
++	echo "Skipping test, libtraceevent is disabled"
++	exit 2
++fi
 +
 +if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, gecko.py not found at $script_path"
++	echo "Skipping test, syscall-counts.py not found at $script_path"
 +	exit 2
 +fi
 +
 +err=0
 +temp_data=""
-+temp_json=""
++temp_out=""
 +
 +cleanup() {
-+	rm -f "${temp_data}" "${temp_json}"
++	rm -f "${temp_data}" "${temp_out}"
 +}
 +
 +trap 'cleanup' EXIT TERM INT
 +
 +temp_data=$(mktemp /tmp/perf.data.XXXXXX)
-+temp_json=$(mktemp /tmp/perf.gecko.json.XXXXXX)
++temp_out=$(mktemp /tmp/perf.out.XXXXXX)
 +
 +test_file_mode() {
-+	echo "Testing gecko.py..."
-+
-+	# Generate some events with callchains
-+	if ! perf record -g -o "${temp_data}" -- perf test -w noploop >/dev/null 2>&1; then
-+		echo "Skipping test, perf record -g failed (permissions or lack of support)"
++	echo "Testing syscall-counts.py..."
++	# Some systems might not have raw_syscalls:sys_enter (e.g. stripped kernels or permissions)
++	if ! perf list | grep -q raw_syscalls:sys_enter; then
++		echo "Skipping test, raw_syscalls:sys_enter not found"
 +		exit 2
 +	fi
 +
-+	# Run the script in save-only mode with custom product and category colors
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" \
-+		--product "perf-test-product" --user-color blue --kernel-color red \
-+		--save-only "${temp_json}" >/dev/null; then
++	# Generate some syscall events
++	if ! perf record -e raw_syscalls:sys_enter -o "${temp_data}" -- sleep 0.5 2>/dev/null; then
++		echo "perf record failed (permissions?), skipping file mode test."
++		exit 2
++	fi
++
++	if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
 +		echo "File mode test failed."
 +		err=1
++	elif ! grep -E -q "^[a-zA-Z0-9_]+ +[0-9]+$" "${temp_out}"; then
++		echo "File mode output validation failed."
++		err=1
 +	else
-+		# Validate JSON schema and custom CLI option values
-+		if ! "$PYTHON" - "$script_path" "${temp_json}" << 'PYEOF'
-+import importlib.util
-+import json
-+import sys
++		echo "File mode test passed."
++	fi
 +
-+with open(sys.argv[2], encoding="utf-8") as f:
-+    data = json.load(f)
-+
-+assert data["meta"]["product"] == "perf-test-product"
-+assert data["meta"]["version"] == 24
-+assert isinstance(data["threads"], list) and len(data["threads"]) > 0
-+
-+spec = importlib.util.spec_from_file_location("gecko", sys.argv[1])
-+mod = importlib.util.module_from_spec(spec)
-+sys.modules[spec.name] = mod
-+spec.loader.exec_module(mod)
-+
-+class DummyHandler:
-+    headers = []
-+    error_code = None
-+    def send_header(self, k, v):
-+        self.headers.append((k, v))
-+    def send_error(self, code, _msg):
-+        self.error_code = code
-+
-+dummy = DummyHandler()
-+mod.CORSRequestHandler.list_directory(dummy, "/tmp")
-+assert dummy.error_code == 403
-+PYEOF
-+		then
-+			echo "Gecko JSON and CORSRequestHandler validation failed."
-+			err=1
-+		else
-+			echo "File mode JSON and CORSRequestHandler test passed."
-+		fi
++	# Test with a comm argument
++	if ! "$PYTHON" "$script_path" -i "${temp_data}" "sleep" > "${temp_out}"; then
++		echo "Comm filter test failed."
++		err=1
++	elif ! grep -E -q "^[a-zA-Z0-9_]+ +[0-9]+$" "${temp_out}"; then
++		echo "Comm filter output validation failed."
++		err=1
++	else
++		echo "Comm filter test passed."
 +	fi
 +}
 +
