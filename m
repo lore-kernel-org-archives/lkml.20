@@ -1,121 +1,165 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B811367F59
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FB53F4DD2;
+	Wed, 23 Sep 2026 07:25:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790148282; cv=none; b=U6gQnKQ6H3Es9kUU0CfXexJFEz16w33GU/XhCDeMGbWr5DRHHNn6hB4QxPrk5AuBVIUBXmHdkAHDQH6rsrQQUInx6wGgJRSSajOQ1NEl/qOWW1A5j5ddEUC8xOJtgdNSDSk8mpD/Q1aIuNdEMCPaSv+/PiF2d5zD4/YAog7i6V4=
+	t=1790148345; cv=none; b=u7V4cTtlBheSrrK0atNs5lzLjiikCk0JisA5657oaCUhJ0+FH/KZpOP+ZaLMd7/PKaweh7JQqMYItEo0tzJDG5E/0DgeD51MFGMysuk1/g7rJ8TCX/chN+3Zi9hwsGwcsLzgLbF5MGx+cP5PId5YIsr7FpQRTqRJJ7bbxX9hUiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790148282; c=relaxed/simple;
-	bh=jIfwlL6IpDoodjCU/e0KW6pY5aRNxKJ1LdDRRV7T+JM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ieyhQJEjAjh/f42WFzim02dB/d5OCEgac4sh4iiF7O8eB9X+GP959kEMeArMCd6xaegPIuiPkQWCWMdhm8TPAOuXaepMv7qzNWUn1fo86i5SdKOPMq1HNORpie4nNcQdtgIRC9EyhKd8x+1qIdDF5hyAnxitQZTAoi5LvSwwwKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fhq/UvgQ; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790148345; c=relaxed/simple;
+	bh=gjKAhENt8OS/KqIAW7SARRbkKsR3HmNYD+TAopC3l9k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=in3DrK/8/fOZ3k+eXJLI8+SF0jyx0NvRJs4blqzedc83eoT+32jfZoTSJEpWJzbOiND/5mremyOcGzYYZActNvywYXLfPQIqvvV/MCDQngWGM60sGMI2567MroCqymzxjk7y2atUxFI+5YEilWRugn0VSKXDRbomZ4K1hgQdQ/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PnTvaGXU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fhq/UvgQ"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so384210f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:24:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790148279; x=1790753079; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Zljvdkg9X0EUgJ5j+rWAKWva+ugjDQMquvKTJ3Hi/KU=;
-        b=Fhq/UvgQC0S2cG6vtdLL9/2dKWnH6y6k0D8fqyfZyEjF69SvbXu5wS1VW1G+n40LSn
-         iSycZ1c6nLIec0CxbZ6yzcRp0o7M+oPss8B5A/4OFUtt8JyO6MoeqCz9YcRSNeagtO8g
-         yey6+KKD+6oEH39ozZjvKEpYrZcPBsXEz6pLFgUb534+rIfvM+A568mSORhB0+chIFA5
-         +Cm2Dn/ThkctDt8JJXcEM3oJTT+y0+VMvcBoMhGWHYIyip8pOnlyHZTyY5r0/vnEavSy
-         oVppkDygNOb10saIFUbmT0cNi+/q/Br+rKlElO6g5toN3IYE/DShiWy9ntIcq85im0aB
-         qoWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790148279; x=1790753079;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zljvdkg9X0EUgJ5j+rWAKWva+ugjDQMquvKTJ3Hi/KU=;
-        b=xt80z9CLy5ePbQWQ45LP5QBhfXxXQr6Pr9bWsrvH56vG1aBO1ldu5nuUk1luhUSeod
-         Im6bVv5dLbD08mKI5lJLaYxe8sOuBjrV80JYD3T0vqnM1EsQe0rga5vdK0BhshN0CFAj
-         Cbt0RzeCE7ut1MqjWYy/vvVRJlmKlZkvCJ9bGmYnwRoyE0vQ11EdKIck+WRnLp1kx7IF
-         VICggUtnzkdz5VKzxwH6SkwahZcluxoGrMI6qfhjYPN1CINhQQ6+4aff9BNhi+eWFqXQ
-         fFoQM/hgoLLjSLCT3bBZ99qleF2gS2W+AM6MjBRCwdCtifFHHccIfuRduwSH7aSTAgxs
-         Hhgw==
-X-Forwarded-Encrypted: i=1; AKwUvBxLzyP1PwOFUmg2fxsdRJmng9fc34pf7bA3tkUFToAocpLRjRX7jXWAdrPQYzG6uPRk3y87sJkYj9ctkWo=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9Hm3Pb3XYMiBFYJAJ0yrv+GMvY818ZRknnaEP2l9S1KUx3C+7
-	3xqNQNjowuSxTLiAtXZCg13yPQH8YZz1UFF7OeofrR8A055yJy7Fg56TxOiUbQ==
-X-Gm-Gg: AYBFou1rEW0g/2IejY5iUhX4ffXoBakKj89A4xRDF5c36ZuisXRvTfexRid/6bKo4gq
-	XaANVBlHJ1RobotTlyJ+kRCK4rcd2w2NRmdZxIzKS3jsPBQ88Ia096vAVUJt9Fqr6eFuhiVlkg0
-	8FmlW8S2hrz0UmJyrpnU3AOSqCjdRMVLpU9ZsRz4hboK+EIO9nvQ/4bkyYry5yFbwMAkAmnHrfk
-	OTSrxo3gRPNNzthkrG1rOLhWOt2RA4arGA+nM8p/B/s+XfQUs2SCiusN/7MqR1KVBT7GFM8W94x
-	pg7BUPUQaSg0dZnMS6Hj68wN8VYQSpAjV9NBW1RTAuolj5crAUp/JQ8Fmdmb+3VZ5ot+cHpSbdA
-	+gyZHkeBbjQXAw85kYxOINUpXErXKj5aLpY8eltnOw4TeJ2dl7nyu5E9H8Q8kzCltGYaaGOjIoN
-	kUScTPsaCvI4SJKp67YU+lm4OszQuKeew6ZxQ30Jy76AO4RhECgyf0Vljqzl5w9Udi5ui+03caL
-	dE8Tbjj2lzObWWvslwbUuYvJSSILCPjVUfbOiG/hAGOK7iwHXFxk+C7hW3tpMtCt4Ha0FbHS4fk
-	DHmQXqQ0vO5DHeyyhaiHuMwBmhioMrC03LxlP7EUnrWpvamkavghcwS6mJd0GRGS2YkwajKPjKm
-	zPrUt76+y3IeTLtlxq/9BjlRo6ncYXkTdHsa5Fpwu9i9AfyLgr9zBLj229FqTdmD7kXBPugfUd8
-	sTzuPE
-X-Received: by 2002:a05:6000:4a0e:b0:487:8ec:1fc with SMTP id ffacd0b85a97d-488670493fdmr2579557f8f.12.1790148279173;
-        Wed, 23 Sep 2026 00:24:39 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488684862a3sm4461373f8f.7.2026.09.23.00.24.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 00:24:39 -0700 (PDT)
-Date: Wed, 23 Sep 2026 09:24:37 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: "Markus Schneider-Pargmann" <msp@baylibre.com>
-Cc: "Marc Kleine-Budde" <mkl@pengutronix.de>, "Vincent Mailhol"
- <mailhol@kernel.org>, <linux-can@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] can: m_can: pci: add missing
- pm_runtime_dont_use_autosuspend() call
-Message-ID: <20260923092437.00006b61@gmail.com>
-In-Reply-To: <DLMI87KFXHTQ.SWLSTWGCM2T4@baylibre.com>
-References: <20260916124236.1389-1-joshua.crofts1@gmail.com>
-	<DLIC0I1VQLHE.13KVAJJ5FUYZN@baylibre.com>
-	<20260918131504.00005d2a@gmail.com>
-	<DLMI87KFXHTQ.SWLSTWGCM2T4@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PnTvaGXU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5C91F000FF;
+	Wed, 23 Sep 2026 07:25:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790148343;
+	bh=nHU+klMl+6fj4IxcKpc7ReZXkRGsZ/M7dfsPEKrCLKE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=PnTvaGXUEepbUNJGYgo3QOK4ATe+VF/C8uPkFpcODBJG2+8AQajxzrLP9gSiT1cpN
+	 oqdoJh4cY7kJEcr2m69K9E87Y8ff2qQOhA73C5DmXfBv7i1WF7u06LJ3tKG17/ycaS
+	 wPSA9YdoCgh9YctF48BD1ljFpgbQ5ynzDGb3B4KWCZdC1eJ3v2Z4hzONnPMSLMC0nd
+	 38OjgtZXzVh4ccWsjkiIR6Fm8BGgCsYPDMyKR8FcEzjpv8mj8TlWc2V7svKF/hWGGP
+	 uyAFHMeWZk2IJPrfxD2ODwhF6dqj0o7YHfc7uIuwSogMPlgqR3nCoNjVX1Qhw7IVam
+	 VD5SqOjKsZI/g==
+Message-ID: <fbeac5ba-a28d-4d34-8d23-4946aef515ea@kernel.org>
+Date: Wed, 23 Sep 2026 09:25:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: mfd: introduce the TC9564 config syscon
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-2-elder@riscstar.com>
+ <20260920-fiery-fanatic-manticore-6abf0a@quoll>
+ <85b0e7de-e4a8-4e08-b801-a9664d366e1a@riscstar.com>
+ <7e32063f-f1a4-4259-96c9-fcbdd25c7f2f@riscstar.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <7e32063f-f1a4-4259-96c9-fcbdd25c7f2f@riscstar.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Wed, 23 Sep 2026 09:06:59 +0200
-"Markus Schneider-Pargmann" <msp@baylibre.com> wrote:
-
-> On Fri Sep 18, 2026 at 1:15 PM CEST, Joshua Crofts wrote:
-> > On Fri, 18 Sep 2026 11:24:09 +0200
-> > "Markus Schneider-Pargmann" <msp@baylibre.com> wrote:
-> >  
-> >> Hi Joshua,
-> >> 
-> >> On Wed Sep 16, 2026 at 2:42 PM CEST, Joshua Crofts wrote:  
-> >> > m_can_pci_remove() forgets to call pm_runtime_dont_use_autosuspend() on
-> >> > teardown, even though autosuspend is enabled in m_can_pci_probe().
-> >> >
-> >> > Add the missing function call.
-> >> >    
-> >> 
-> >> Can you please add a Fixes: tag?  
-> >
-> > I guess it's not a problem, however we had a discussion in the
-> > USB subsystem whether this type of patch is a fix and ended up
-> > agreeing that it's more hardening, hence no Fixes tag.
-> >
-> > Alright if I just append the tag here for b4 to collect?  
+On 22/09/2026 23:02, Alex Elder wrote:
+> On 9/21/26 4:46 PM, Alex Elder wrote:
+>>> I also have doubts that this is needed - I see no updates to the misc
+>>> binding, which would be referencing it. But then another point would be,
+>>> that you do not need separate child node, which has no properties.
 > 
-> Yes, that's ok for me.
+> Krzysztof, I've done some additional work on this based on
+> your feedback.
+> 
+> I think you are correct that there is no need to define
+> this as a special syscon with its own compatible string.
+> 
+> Instead, I can simply define a simple syscon with a label:
+> 
+>          tc9564_config_syscon0: syscon@0 {
+>                  compatible = "syscon";
+
+I never proposed anything like that. I asked to drop simple-mfd.
+
+>                  reg = <0x0 0x2000>;
+>          };
+> 
+> And then have the devices that need to use it, refer to
+> its label using a phandle:
+> 
+>          tc9564_clock0: clock@1004 {
+>                  compatible = "toshiba,tc9564-clock";
+>                  toshiba,config-syscon = <&tc9564_config_syscon0>;
+>                  #clock-cells = <1>;
+>                  #reset-cells = <1>;
+>          };
+> 
+>          tc9564_emac0: ethernet@40000 {
+>                  compatible = "toshiba,tc9564-xgmac";
+>                  reg = <0x40000 0x8000>;
+>                  toshiba,config-syscon = <&tc9564_config_syscon0 0x1070>;
+> 		. . .
+> 	};
+> 
+>          tc9564_emac1: ethernet@48000 {
+>                  compatible = "toshiba,tc9564-xgmac";
+>                  reg = <0x48000 0x8000>;
+>                  toshiba,config-syscon = <&tc9564_config_syscon0 0x1074>;
+> 		. . .
+> 	};
+> 
+> That simplifies things a bit, and requires no devicetree binding.
+> 
+> If you think this is incorrect, please let me know, otherwise it
+> is the direction I plan to go with the next version of this
+> series.
 > 
 
-Fixes: cab7ffc0324f ("can: m_can: add PCI glue driver for Intel Elkhart Lake")
+I think nothing behind PCI EP should be described in DT, because
+everything is internal to the device and implied by compatible (or
+vid/pid). We do describe internals of devices in DT usually for complex
+devices (like some display blocks with multiple subblocks) or when they
+are used outside of that device. That's why I asked how are all these
+clocks and resets exposed to the host. If the syscon is used only by the
+device itself, I don't quite get the benefits of describing it in DT.
 
--- 
-Kind regards,
-Joshua Crofts
+Best regards,
+Krzysztof
