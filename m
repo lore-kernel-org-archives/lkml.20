@@ -1,72 +1,106 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010029.outbound.protection.outlook.com [52.101.193.29])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F254A5ED2;
-	Wed, 23 Sep 2026 11:33:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC234A68B0;
+	Wed, 23 Sep 2026 11:34:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790163228; cv=fail; b=NW16JB8U7vyKQLjft5rsVbnz6VOqT5MB2BwDV4N/GAy+TOIsobT6YDF6j4ZCS9UMz268D1ue28D84KxFxa9uUS8psg2B47fSqTniqWlyJOw7EPY0Se+LSFjHv9jk9d8m9wMzjZefkPjqHg0l3IgHmm2q/DkEtuzNADfk3L3wUpQ=
+	t=1790163303; cv=fail; b=KWky8M5KhFWTmi0N/oU3GAxouKiEzIGud/QDVmwx9pmK5wb8siHuZtPZsN9dBs2plWprHhODJsGJsP1R0CPMJGMtqF2s47XVOlrpFASRny+xpvlmX4KpNwkTE2ysAyXTvyRU48AFw39DOnmcn2s4FelZrwkt6eZclQHlZgrrkqE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790163228; c=relaxed/simple;
-	bh=yAgqvL0jSD1jrq0mF7XcKBBVtCD4+/AWjrYCc935cC4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=nZxfja74gZakhDNmm7fCoMoqtvwXQTaw3YZoQgcUv16I/t5NZylRawSo9rY7RKNg4iOlg5y/XurZMII4vczsuUb9aidJCMXRtH5VfwpOJ2214KL1sN1PGRtF3/CWy8rtEz+JP07zfYcyRAbYFccdsPwj5ppijVxs96meTW5Ncns=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2sapQkcQ; arc=fail smtp.client-ip=52.101.193.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790163303; c=relaxed/simple;
+	bh=2HH8LfpCxFj5rZ2dw+UjxRgUH1ivtc4eZjU4MNcrC30=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=F70Z19u18afRw2nb87NaIvjMsqGkDi1ixx6JSlzS8XqPLk3i1MryG7xf6P2AcmNMQ9pIGKeI7h+52QbIS2TShGiVWG5ZeY2YG7GwRkli4L90JrhuTZQgjcQoW1wISctpGgnygnyHnoZF+AgoXkE6mm37olddxE/A9nX9pWmZcnI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LxssE4D/; arc=fail smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2sapQkcQ"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LxssE4D/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790163296; x=1821699296;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=2HH8LfpCxFj5rZ2dw+UjxRgUH1ivtc4eZjU4MNcrC30=;
+  b=LxssE4D/j3ByAyfgYihW2+bPJVHKd+TLecHE8jLC3xDjSlmbJSZ3JGOv
+   IiOcDo1E7AXAm9+gxk+WuBenfpoAah1kYNXHwN4njUF94Jsdy4xk+L3H5
+   jAWDNIPzMx7Xj+IDjxwt1XyBR2mbFUPAg3RnjyjeMSIhn6/otJ+XAnnu2
+   Lm7YJqCOcsEJD32q1Z5Ol1/rSPUHHZHJtS4JpBnQ3TnypR96UtoS6hN54
+   JrjU1kyfwR63O3uxbUS929nG4M6IHH9tW12ekr0uvNydIXsWhS7d08psZ
+   UkT9MBMOK13lpxXOWEVL3KU204D3kAzun0Syrzl9ebDj4zRXOR9MES89c
+   A==;
+X-CSE-ConnectionGUID: 7WKemmvBR/GzaA9g5rJLgQ==
+X-CSE-MsgGUID: 9iAn8TUbRduXLAsXaqBZjw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="89766723"
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="89766723"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 04:34:52 -0700
+X-CSE-ConnectionGUID: ErFgsm5pSHyXMIVR6fy7pg==
+X-CSE-MsgGUID: oH0nXo1mSsOeCG7KmcLH7g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
+   d="scan'208";a="273746033"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 04:34:51 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 23 Sep 2026 04:34:51 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 23 Sep 2026 04:34:51 -0700
+Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.9) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 23 Sep 2026 04:34:50 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PX0mKKmhE8CnhsNRfcyIE2sDI4VVsoDY0sHg3Jj8hXTfQWNAaAFGrHXkG0aiAti8M61OHew6YBv8Wk5TAzQ7vi5YEu1RwTCJgkDF+fh39EWwNVUjDSHzPilznz01KKCdcxyT2c+duhbZufbFX1svBRYpXQafjFO4vVr5wrjfmhWDxkO/LPc2LEPGK8/DMgWjrO8xPbf6NY1wNJS6TWN4nikJbFzaj4npX28IVRm2fXPmuMbXkfCQ4u5ww1FOsfsSrH266PRflk9C9gqnfC7D+kuf00hV0OmNjlLw1vOUU68Cq1stQ0I158Z6O85Q0iyLGS9T97jDHp1hojivPq+nig==
+ b=UlBJKJScRuDTaBTV1dXe/QPO9ki+hO78I+AymcrzZDdBfWuFayLB+7CCH8BRLyhTYKzrC0IZjuQaGfdUoHfL1uq1dGmANcVV36pTISl3eUp1mQaQmILSTPQudZ29kpH4Ej6wuiMCJCpsWbITOqMqJQs8JFuAgDxFqm8jhz52vcQgbTF+xoNks9Hnd0cydFIsivh8F3tp4JP5v6eEpkf6iJ1IxcZg5usnosCjrtJI0kEimAymwAgkLnTnQvjXJYHKZZ6fXRuH/tHP1mB3buOdlcYyhBhiYqk69qNK8ldvcKUWtzJC3etmJLURsiUPbx5S4L8juHwwWKdHnoI4TCSZNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wy39htXhRBIQNImTPInRBceyPX6pgSkIKJZFCbr1Pcw=;
- b=LG+Cls5kNaoXXtGmpmPc3jnx8O26QWMQKvYat6CJgkUVCq9Dbu7DFH9CKFoOjQsSGLRpTvZ0tN2X/zMnpGKdZ7VJEJvkkrWdgzp0tNvPZKtkOsLumgO2pj1luVgMbTe2UDLadm9SDyCtHFmVdL7FVCSybJXVbEWa0jFvFh1NgPEG+YHkS3DM9GFOUAvui0DMb1f60TPyujWZejH5F+SZ+oTZF/ct7c9/xeTy3Gnm4K0Rcxbzow66fh9X1CCCvIMFYOi1Hc6LmihDfjNaaTsbGmfQxk1r0pwJwD2m+UbDkhob603BlfkXCJyFv7orrnJkuQjmicPlWVjzrlPiGVQcfA==
+ bh=lL922/6PIa9unVwLc6i5hfNDdTkkv9QVec3BGD7zEM4=;
+ b=zKZHeBF8M/VM3nrmg5KsHQ9wFtAfvFpS8xVu50iZUPPDYaHh2di3sp2vS+ojQYLRul28SeyG2aebVlK9JBz6FcWYYn9xUvcbh6ejstrlsGm154EN9tL49paI5bqe3XqhtDMhdeDArgRblRYfBSMj9H0kK7JlLeUe/PYOn9Of+Ut+OZ1NIB3OeZNRtx3VdGxraaqu589OuyPf9Z1ImtTFimxkTx1tOC43bTgz+Zdt9Z/7Om+YJ//aucJWrANXbGRZnfSWXU68nj1FCO2POY0BKFiwAeUZVPFfP5WvMcxlTEF6PdlQEQ3WPYVEplj4H11lgY5vmvnIj53IU8Ad3aOX+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wy39htXhRBIQNImTPInRBceyPX6pgSkIKJZFCbr1Pcw=;
- b=2sapQkcQj7T0y4rikr8961iPpabNCeJVl+a+kM3dJ7XBtuJzy1nI61etV8iI1fg/hn6+uGC5rwDm8hYHb/cG2tcvt6u7Avj391G/gAEOTQJrYp3swQ/sHhyvmxCrQrD6KIcFvsi62/1sNT653pvcdKLjdFBk31+a2gYCWBvxHdI=
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB8408.namprd12.prod.outlook.com (2603:10b6:208:3db::13)
- by PH8PR12MB6986.namprd12.prod.outlook.com (2603:10b6:510:1bd::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Wed, 23 Sep
- 2026 11:33:27 +0000
-Received: from IA1PR12MB8408.namprd12.prod.outlook.com
- ([fe80::10cf:64f0:2de6:e466]) by IA1PR12MB8408.namprd12.prod.outlook.com
- ([fe80::10cf:64f0:2de6:e466%7]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 11:33:27 +0000
-Message-ID: <5c327774-b5fd-4f17-956d-40b732dbc7ac@amd.com>
-Date: Wed, 23 Sep 2026 17:03:18 +0530
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
+ DS0PR11MB7460.namprd11.prod.outlook.com (2603:10b6:8:142::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.14; Wed, 23 Sep 2026 11:34:47 +0000
+Received: from DM4PR11MB6020.namprd11.prod.outlook.com
+ ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
+ ([fe80::3058:1480:e4ac:5765%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 11:34:46 +0000
+Message-ID: <ac8a6383-3a8d-4fcd-bad1-dbb8dd6cc742@intel.com>
+Date: Wed, 23 Sep 2026 19:34:37 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
- capability properties
-To: Frank Li <Frank.li@oss.nxp.com>, Conor Dooley <conor@kernel.org>
-Cc: Michal Simek <michal.simek@amd.com>,
- Shubham Patil <shubhamsanjay.patil@amd.com>, alexandre.belloni@bootlin.com,
- Frank.Li@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-i3c@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, git@amd.com
-References: <aqKWTT47S_zPzvbN@squawk> <aqLQaHndX4t1kKLG@SMW015318>
- <778da629-2f23-412b-885f-e87827ce2b5c@amd.com>
- <20260922-ethics-flap-9760347e869d@spud>
- <20260922-bullpen-reprise-f62e01922d88@spud>
- <20260922-immersion-salvage-00450539f1ce@spud> <arKr-oapsl5qzo_E@SMW015318>
- <20260922-purple-overnight-2cdd2ddd5270@spud> <arLKWE1tJrKnzGdp@SMW015318>
- <20260922-unadvised-stalling-5cbeff8f982a@spud> <arL_Zgi1r1IFpNIO@SMW015318>
+Subject: Re: [PATCH v2 04/13] sched/fair: Remove magic hardcoded margin in
+ fits_capacity()
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+CC: Zhan Xusheng <zhanxusheng@xiaomi.com>, Ingo Molnar <mingo@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>, Vincent Guittot
+	<vincent.guittot@linaro.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+	"Viresh Kumar" <viresh.kumar@linaro.org>, Juri Lelli <juri.lelli@redhat.com>,
+	"Steven Rostedt" <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
+	"Dietmar Eggemann" <dietmar.eggemann@arm.com>, Tim Chen
+	<tim.c.chen@linux.intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>, Qais Yousef
+	<qyousef@layalina.io>
+References: <20260504020003.71306-1-qyousef@layalina.io>
+ <20260504020003.71306-5-qyousef@layalina.io>
+ <20260923065407.3451520-1-zhanxusheng@xiaomi.com>
 Content-Language: en-US
-From: "Patil, Shubham Sanjay" <shubpati@amd.com>
-In-Reply-To: <arL_Zgi1r1IFpNIO@SMW015318>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: "Chen, Yu C" <yu.c.chen@intel.com>
+In-Reply-To: <20260923065407.3451520-1-zhanxusheng@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0089.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d4::9) To IA1PR12MB8408.namprd12.prod.outlook.com
- (2603:10b6:208:3db::13)
+X-ClientProxiedBy: TPYP295CA0025.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:a::15) To DM4PR11MB6020.namprd11.prod.outlook.com
+ (2603:10b6:8:61::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,278 +108,147 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB8408:EE_|PH8PR12MB6986:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7d902fa-b870-4bc2-cc8d-08df19667bfa
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|DS0PR11MB7460:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d6d4d08-fc68-4742-4ccc-08df1966ab5a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|6133799003|3023799007|18002099003|10067099003|4143699003|56012099006|5023799004|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ss6IfTLRZIKp4v/5m+oo9D1hWk+Rn8eY3UJlX1khTtnOLLm20kCNCjdxpraoiz+/JMRI+N8pdGjc0aVruWInvj6lu5n0pb54jmebA7+PxVZoSmISnf5x0CgaVhSNd4lfNbOVkVu671z15m4VU9GsAjPys/oqcL71ZB//sjkR39k8Pxyh/rF3X64Z0YHq06PrZy1OLHnQiQSOrwuKnl4n9QvPLAFWMtdh37MbiDTjRa3H8hwyXAvi2+fFWK9/KwetBVVkXtEREkBNKUFKr9AiZC6XSlvgg8eGklhiLR+fK7w//SXRPZ7i+9efxGmEXHDoqtd6CLXZuSQA1ZK33iC42UvRJe3Ssrv+hVC06jH/hcv9WIAO8ZKTSdFUeM3xu7GXlMFDs13WRAH+J3ZO/AZP+x5MYovppD2CMoevNkNAJ2CrMeJpt4ypTXQ6vGNw6CvBxmMfMZ6Y6TCa/Ff7QKgt0385OXidla5jG4CGuI1zgDCMQ12Yq3VKoi+RffgaxILY9NgpCWA45sj5dR0hr+bqgfLQ6uAgXYpsIhjP1EO8ISB0SY+W3F0aN0kJ8vu/2vVjPXiqzBnZSzF0hGpl0esw2YjUN2ZNazOM3p/teg9F5S6RK+wgKqVy7JOQriJjioi8
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB8408.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(6133799003)(3023799007)(18002099003)(10067099003)(4143699003)(56012099006)(5023799004)(11063799006)(22082099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|18002099003|22082099003|11063799006|10067099003|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: 6kslgspGCTLfSOb5/CndQJvhD6QmBGXRmIs4hfLUAekRFaKsjqwu7oh6sgK/Pt0m7uCRS9/cin9DBZHCNL/wBpvADm9nAlixXwvSmkvEff3P+kUam6vU90kU72hwZWN9aNIf6ENLaxxGIhZ1lzBIKSii8ZKX3rRfzNRzvTK/J8XSYo88RjiZTEKOcMqOmdEbawJSHfGtp9e2FAKwilCoN/g7WtYkyPSffZsFgCl1cT2Po1YITcBHXS82dqn/PVdK9YzKIvxzwwmxi6rCakpE/qITTEt3rnukhHJiI+qIvMiJ46dHnZ7ZehiImq/lJgNynI1raZccreVCWvCXT+vjfrktExKAftO+b+sRRGGDIFO1MZbWEQh2Br/OSSlcciMwEYPj/cLR5PmCzkB3V2AdbIvlfb6PwBJ7FiDeOlCYSpAuGpQk9HOzw0/9DyhJfrxdjqio7PUsHaRSgwGb2uoqZZoC8e5s4Gt8kDpxtLa77QLnW/tqOtIYlzwQlJEs51o7EHxH2W/vJ3LqVqpL+u1QL4C8LDFQhBJqCvQf9Jb6gIlMLdVBeSLU7zOtSOu0iML9UPeQv+JBpecSLFRv2S1l6u8TTZMwOMd53PK6AgYQIR5ckiOJVvQLgIbpN0yHZ73LVhFk4FbcorsD7qFozQD2+RSMqmFvAfDgktUeWOg+/5I=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZEVvUlRxNWF4TlNpWFUzeUV3R1UvZ20wb0NqWi9qWUYwbTVwbGdvZFJNdlR5?=
- =?utf-8?B?OFdKWGpwYlcrTVRvN2QvQkpHbHFjenNHTzJZM2JsajZqOEhCN1hnNjgvMEhX?=
- =?utf-8?B?UGp5Z3AyS0dPbTBYOWtZUHJVcmwwZ1c3RHp3TGV1cU5XdGNYYVBCNStiaHpC?=
- =?utf-8?B?dlE3M0txUitpMTNEN21EN21GTHNGQ0FwanN1QlUzb1cxM1Y3VkVFdkR3Ym5t?=
- =?utf-8?B?ek5XL0h5TkRMbDUrVGdrVnNmVmhyUm5rNkU4RUVPKzRMS201R1dxeUxORjBZ?=
- =?utf-8?B?cFBzR3VqdkJxQ28vNHYxY0Jab01JWXhkQ0J2b3ZMRmtTU2libXc0Yzk1ZnAw?=
- =?utf-8?B?SExKdElJZ2QrSGx0SEF1YzhKTVRXbkkwSDZvam5HR0txQzlRRWdhNFFpeHFS?=
- =?utf-8?B?OE4xMnZHVDdLajhZNUhMdmg4Mkpzb1Mzek9nRGZJVThkU3RnN1hXaXozK1NE?=
- =?utf-8?B?NEFuTFZoWHptVUVyNFFvYzZ5NmdxdWxKL0pJd1BXRmx2S1ptaENvcHdWZE9H?=
- =?utf-8?B?MDNlNmlzNDZWSExZV2VNRzloVFZqVW5NczlveXBMYm16dUl3bUFRVWhkR0R1?=
- =?utf-8?B?RGdJWkhSc1JLcStKUjJNMGJ0WDBnamtKYnZpOWMvd2wvbDdnOXMyZ21BZ3Z0?=
- =?utf-8?B?VTd6YXQyZkNwWnJEZ1hGUXBsZm9YYmJ3b1FuWTFTZlB5VUszN25HN3RDWnZm?=
- =?utf-8?B?M1I4THg2RlB0VDEzeHF6NllGTW5jTS9GYmkvb05mS1ZBZ3ZMdkQ3TzJZU29n?=
- =?utf-8?B?SFpzNHRnbDM4QU5Eek41Z2JhZXJwcnJxS0ZiRnRFMDJ5ejFKMk90Rmh3NW16?=
- =?utf-8?B?c0dIUTVCaDNyMmE2bGpNWmlCZW1WUFZTb3BMK0JzQ2g2Mzk3N3pNbGJvMVl1?=
- =?utf-8?B?Tnplek5GZ0VjUlRyaWgyclpsTmZtWm16K21OeEl3QlJPRlVCc1g5WnQwOWx1?=
- =?utf-8?B?eGNIMUlpTVRkQ0ZZaDRRS3ovaEVxdDJuNEw0SUJkZ082M3prWHBvdkpMN2ln?=
- =?utf-8?B?bGFOcWJOa29SZDZIMVMwZmI0NFpwRXdidTJka2g1emkrRnZ6TDdyQzJ4bVpw?=
- =?utf-8?B?MGc0NmsrbWt1dEFEUTN4Z0dXOWtEa3oyaE9mUDFSTnRzZ3FOcHVkTFdtM1ow?=
- =?utf-8?B?S1J4VGtMMXM4TUw5bVkyamxVVDFTUlJocGRJenVqN1ZPR01XZDFpSDhHeUY2?=
- =?utf-8?B?RWRlY2Znd25YcHpwY2g0R1dHUHZnOE91WTdQQXF3MzdpbGV3WkR3SEFrWm83?=
- =?utf-8?B?OE5mNUQ4Q0M3SkNNSFhQWEtST3ZmK2R2T0dpb0tubGJlaCtCQkE3T1VWTktT?=
- =?utf-8?B?Sm12cGVyQlMyYTYrZm45N1oraDdON1ZtYXYxT1BBVEVFV3BYTGphMys1Wm54?=
- =?utf-8?B?TDE1YVdUb2JUSU15a3NxVEdQM0Vwc0gwVEt3ZFBRdXArUFl3bEIzUVB1cGFr?=
- =?utf-8?B?MjcyMjJ6RnFQS2VOd2JrN3RRMldXMUxzQkRuNHR4MnBrWTVYZ3VibE1xVmYr?=
- =?utf-8?B?WWgwUVk3UFQ2Yyt3OFVNVXVRWEFNNWxGcVJOaHpmNFZHYWtZK2owQTV2M3Zz?=
- =?utf-8?B?azBadGZpditrRzA5dHNNdnBMekxYVmxyM2o2Nk15QVBpVGhpTUNRZE40U2xi?=
- =?utf-8?B?TjY2U1JtN3hFYUZMSXZxQ3lkNkRPeTFvdEZVY0x2M2llRjdXYXBmRHYrdFZY?=
- =?utf-8?B?M3VscURYdHlSMjliZmFrdHcveXhkeUNTTXBrVFVTMW9raDlZTGZ4VjVQU1cv?=
- =?utf-8?B?ZkIrcUtMUHIyQzFzQmVUZW41U1c0Um8zT29qU01zSVhJSEhwT2pEWThaWFRu?=
- =?utf-8?B?YUF6cmVsd09MOGp0WWtNQURndi95bDUzNzRIUkZBMDNlN2pGZGo5R2hRUjBp?=
- =?utf-8?B?bWF1NmtBRktWLzhGdHVCWVczVWo2ckw4Z2xKVGpxLzZsVDBJU0hsN3Q4T0Qy?=
- =?utf-8?B?OU9WR0dtdFNmRTJKZkdFak5Ba2ZHbEdJTXR0L3RHSXhsRExVNUVKTG1qMVNP?=
- =?utf-8?B?S29mQStyTVJndCtpaFcrUXF0WnlyNmtkTUpKck1UWjl4ZUQ2REkvVFZqL014?=
- =?utf-8?B?M2xlUFZadTluaEFUSjFMYTYrTmhVZDZINGdnRVNRaFlBWSt6eVZoYnBVQXNZ?=
- =?utf-8?B?TXFLT0h3cC9sMHF3c080NWJvcE9FekQxYkh0WTRNK1oyRzBKYUlKTG5qemdw?=
- =?utf-8?B?UVIyc2diTWtSU0E0SXF6MU1TaDN1SVg5SVF6REJOOVdMaE9lczVQQXNjNjho?=
- =?utf-8?B?ZnZ1azBxckl2eVZ1ekkwZTg2NVNVN3gvMmJzbUMxSjhYUlo0NEpFNzg5eVhh?=
- =?utf-8?B?SW5oODlqYTA1RzB1c29mNkpVaWxUSm8wNllpTk01MCsxaUZMdjAvZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7d902fa-b870-4bc2-cc8d-08df19667bfa
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB8408.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHhaK2xTZnY1VklzdEhxbkVHdGhOdi9ySnhDdFJrZkZsc1hsMzV5LzZENWZh?=
+ =?utf-8?B?WDdPaG9QdkdBOTk3c1hLOE9iWFNKVXZkdVNicG1HaEZScndMV05LWDBsT0Z6?=
+ =?utf-8?B?ZzJTTkgwdE1VZk9nVnVDM2k0ZVA2WDE0ZUNZbXk2Zk4wQzlHaWR1NDYrOEFk?=
+ =?utf-8?B?UFpGNWdmdkdWc3V0OUM5VmhQN0VIelovZ0RCYytWYzMzVXFDamhRMW9sU1Ay?=
+ =?utf-8?B?MDlxSTlTcnRWdlRzTzV4MmFRbXhzdnNiMGNSTTd6MERQdnpObS82TWdGN3FN?=
+ =?utf-8?B?aXZpbXVTbHRsNHRNRXlqcjRrMUZWNlZrb2F4bzJjZjFMd3RFcEw0ZVRoVHNZ?=
+ =?utf-8?B?RnpvTCtlV3Jhb0xuVkVubU10U0NxQnhlYVFkY25mRXRaNnA0SUZiM3pPTDVl?=
+ =?utf-8?B?dFM4akNGQ0FoNU9NNG1TTXdtWWNuK2I4VGpmUno5Z3RxRVZrZW02Zit4aXls?=
+ =?utf-8?B?cFF2aXBNam5hZzduUVg5RXljYWU2R3RPTDJNTHBEbmlqK3dncWpIKzE1elNY?=
+ =?utf-8?B?a215RHlzT3c0bFdrTlBzY0ZkNzd3RE94VzRXQXk3OGtYZEt5cUQwTVE1R3FW?=
+ =?utf-8?B?TUVKb2ZCelFtWjVieTVZM2dvUUc1WEJZTnlFSGlhUWhXYVZqYktqZ1BTeTJi?=
+ =?utf-8?B?SlprZ3h4b3dtOS9RT1NqRUdKd216TnBRNmJiZnBxMTFNY3FZbm5UZDA3akV1?=
+ =?utf-8?B?OWp3eUFQdWFuR25NYXFFZ2QweGpSblVEb2ovSUQ0MUpsaGRtVXoyN3NMNWto?=
+ =?utf-8?B?M2lkQWxRWHJsL1NNZndSM0xWOVlndm1VK0tnazI0OG5ZR2VNYVFRSE1YNTZ0?=
+ =?utf-8?B?V0ttK0Z6OHl5cUIyWXJWSlNPV0VxVkRRSS9jOG4vNEJsM1VwclFLSjhBQUJW?=
+ =?utf-8?B?K3YzbVFVaGFUeVljdzFpek1MMWwzKzNjVXZDRFNxaDFMaWxjVTRuaFJRWlZm?=
+ =?utf-8?B?RW43bU1zYlkvUDRUT2xsRTRjVG0wNUZrNlNaTzFMeGFqM1JmOW1pUURIYzJp?=
+ =?utf-8?B?VUNSQXJITU56eStIZ01XRnU2WUsreGJtRXdaNENpTEduN3g2bXlTcW1sK0ZD?=
+ =?utf-8?B?VDJvQk9MUEwwbDlzSEJUampsb3YvWVBWd1RmcjV3OE5qYnczdHJQY1Rvd3V2?=
+ =?utf-8?B?bVlOS0ZkMlU1TUNTSFpDNzF6dy9BVnEvTU90dEJCQmNGWHMrNTZMWGpNSU1H?=
+ =?utf-8?B?anNZUTZkV2FQT2s5NElYODRMR1BYM1JsaWE3bDUwNUdrc1N4RU1TL0diQjFE?=
+ =?utf-8?B?QWFjdTV3RE5zUE5mYmM5VmMrdGh3ckJvM1oyclQwaVpaaG9UNGx6ZGxNZzZC?=
+ =?utf-8?B?NVA0SmI2WVcxOU9hK3RWUGFudUkzWTJ4QTRoSXdkblJyeEdqNE5QL2JiZ0NO?=
+ =?utf-8?B?QzRmeGV2d1dXdEN6UXBhV05yejA2d3BYUzZaRTl2ZzNKNkFPR0pNY0pZeHVy?=
+ =?utf-8?B?SEE4U0lRd3F5UHEvS1ljaFJWM3Bjd0gvdmlNeWRVR1QvaUtTZFBqSkk3WjlI?=
+ =?utf-8?B?eFZOUU0waEpldFNvU29yMDFEeGlpaHRzbHJBUG8wWlBJNXd1OC92cEtHVU9L?=
+ =?utf-8?B?UW50ZkFmRU1rSjFaWHEzQmg2YWxkT2NwSVAyMURWREdBVG5hL2IzNnN2U1Rn?=
+ =?utf-8?B?bjlYMjJQeTEraXp2K3lwZnhsV0dBMUdlY0dYcExrYTVoWUIyVHdUeFpDWFY4?=
+ =?utf-8?B?RkIwMTJQWmdSSVBNckJmWVJwb1U5Y0F4bVozTTdkTlFnV0NpbGhqb3ljK2VB?=
+ =?utf-8?B?eE1ncm4yNVloZTFpSUNLWjBXSnAzd0huemxneTA5OUhCWisyd2lPZC9FeTV3?=
+ =?utf-8?B?eitqQkZZWUJGVkdLY2xYSEV3MlZiUzFsM2FST1poQzk1S0l4NU9xWXBXSVg4?=
+ =?utf-8?B?WG81UmtIZTJsU1JUdzRhUGJKanVuY2VLaGpPMDc0Z0VEeDQ5bkhDcHE5NHpL?=
+ =?utf-8?B?Nm1VTlhNN1hBODJtVHZ5ZFFZKzllOW9peGRleDdWY0Nid2JNekVRRFI0TWN0?=
+ =?utf-8?B?VlNEak15NC9CZjJTM1BXR3U3T1RQaXJlMDRBS2x6dk8zTnNwNlFFMWdyVS9H?=
+ =?utf-8?B?RjRhTFk5aUJ4Y2lDdzJnTEFxeTJyU0hYUlNTNTNGc1dqMFVienFJYmRNQzdu?=
+ =?utf-8?B?OXJXTi9VWWRPekYwd1VmYW1DdHBjcmR2djJiTitHN0hIa0xRbzdjcE15Mkxl?=
+ =?utf-8?B?U0pLOXlHZ1FvQUVMMzZXL2FOcU0wNk5qMjlIZm5WNk1GTGoyalFlK1JzTjBI?=
+ =?utf-8?B?SlhISjZzR2paYmphQkp4S1g2L0xOdE1rS3JRYjN3QlZ2TDR0MWxMa2Z0bXFX?=
+ =?utf-8?B?Y0U5Y1ZZNjd5R2wzUEluVDhmWnlMa2dOalNhNEljYnoxS1Z3N2ZnZz09?=
+X-Exchange-RoutingPolicyChecked: 3F4bRUieYlx6tMvKAUm/gZP56Spn2Mo74wg/3Xw4JmkFfeoBJK5G76gYiJadPbDbR4nIW6ZKU6gEUxwaaUIv+8nWpidkHxyYWoP2nqZXnJtWch3N6dR68MJKIsXRgxWpTloaPmXLaLy2kFor+Go4fxxq7mUXfONVqt5wpQv+0VfRAj3pBO8EJQ/qplAE1/JxBToHfnLrRqw4q85UuRzD6yiRj74R3hlRWIRjxqW6ZaMnxDeXMMHTBwZ66AeVa3qPF5Ld+hRxQGPW/1F9Ryfa62pU7UuctgUL2BC9ZfEiknToW/ECYP0tCWC3ZHypar0tZk3EFfaLgiTHLnLAupAlHA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d6d4d08-fc68-4742-4ccc-08df1966ab5a
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 11:33:27.1091
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 11:34:46.7340
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cU3IEGzcaNCJ+uOhxQRr2xHnCNsEtdPAIUDF8DMAe8ILGZJYhskCxw+rY7OQd3kc6l2SVdjD7SPM8vP06fD5cw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6986
+X-MS-Exchange-CrossTenant-UserPrincipalName: DTz4wioS1iywCDEkxqUkf11bDxAmHl3iHhX6PGaEbaO+zzpUKHYpOygHihQCwAutclLusoEieMaJ4M1V6GX35A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7460
+X-OriginatorOrg: intel.com
 
-
-
-On 9/23/2026 3:51 AM, Frank Li wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+On 9/23/2026 2:54 PM, Zhan Xusheng wrote:
+> On 05/04/26 02:59, Qais Yousef wrote:
+>> -#define fits_capacity(cap, max)	((cap) * 1280 < (max) * 1024)
+>> +static inline bool fits_capacity(unsigned long util, int cpu)
+>> +{
+>> +	return util < cpu_rq(cpu)->fits_capacity_threshold;
+>> +}
 > 
+> This does not hold on current tip anymore: fits_capacity() has picked up
+> a second caller that does not pass a capacity, and the new signature
+> accepts it silently.
 > 
-> On Tue, Sep 22, 2026 at 10:29:31PM +0100, Conor Dooley wrote:
->> On Tue, Sep 22, 2026 at 01:35:04PM -0500, Frank Li wrote:
->>> On Tue, Sep 22, 2026 at 06:24:52PM +0100, Conor Dooley wrote:
->>>> On Tue, Sep 22, 2026 at 11:25:30AM -0500, Frank Li wrote:
->>>>> On Tue, Sep 22, 2026 at 10:39:23AM +0100, Conor Dooley wrote:
->>>>>> On Tue, Sep 22, 2026 at 10:38:17AM +0100, Conor Dooley wrote:
->>>>>>> On Tue, Sep 22, 2026 at 10:33:44AM +0100, Conor Dooley wrote:
->>>>>>>> On Thu, Sep 17, 2026 at 01:23:19PM +0200, Michal Simek wrote:
->>>>>>>>>
->>>>>>>>>
->>>>>>>>> On 9/10/26 17:44, Frank Li wrote:
->>>>>>>>>> On Thu, Sep 10, 2026 at 12:36:45PM +0100, Conor Dooley wrote:
->>>>>>>>>>> On Wed, Sep 09, 2026 at 11:21:41AM -0500, Frank Li wrote:
->>>>>>>>>>>> On Tue, Sep 08, 2026 at 06:54:31PM +0100, Conor Dooley wrote:
->>>>>>>>>>>>> On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham Patil wrote:
->>>>>>>>>>>>>> In-Band Interrupt and Hot-Join are synthesis-time options of the AXI I3C
->>>>>>>>>>>>>> IP. Describe them with two boolean properties.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> A Hot-Join request is acknowledged by the IBI machinery, so a hot-join
->>>>>>>>>>>>>> capable design is always IBI capable as well. Both events are reported
->>>>>>>>>>>>>> through the controller interrupt, which is therefore required whenever
->>>>>>>>>>>>>> the capability is present.
->>>>>>>>>>>>>>
->>>>>>>>>>>>>> Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
->>>>>>>>>>>>>> ---
->>>>>>>>>>>>>> Changes in V3:
->>>>>>>>>>>>>> - Move in-band-interrupt-capable and hot-join-capable into the common
->>>>>>>>>>>>>>     i3c.yaml schema and drop the xlnx, prefix.
->>>>>>>>>>>>>> - Keep dependencies in the AMD binding.
->>>>>>>>>>>>>> - Update the commit description accordingly.
->>>>>>>>>>>>>> - Conor Dooley acked v2 with the xlnx,-prefixed properties in the AMD
->>>>>>>>>>>>>>     binding [1].
->>>>>>>>>>>>>>     That Acked-by is not carried here: the names lost the vendor prefix
->>>>>>>>>>>>>>     and the definitions moved to i3c.yaml after Frank Li's comment.
->>>>>>>>>>>>>>     [1]:https://lore.kernel.org/all/20260824-tightwad-impose-495476599087@spud/
->>>>>>>>>>>>>
->>>>>>>>>>>>> I disagree with Frank. These properties make sense for Xilinx because it
->>>>>>>>>>>>> is an FPGA IP and synthesis options impact this. For other devices, this
->>>>>>>>>>>>> should be determined from the compatible.
->>>>>>>>>>>>> Please revert to how things were done in v2, especially as no rationale
->>>>>>>>>>>>> was provided for why these should be common.
->>>>>>>>>>>>
->>>>>>>>>>>> It is common problems, when IP intergrate by SOC, which may defeature some
->>>>>>>>>>>> part, It is not appeared now just because IBI and HJ have not enabled
->>>>>>>>>>>> widely.
->>>>>>>>>>>>
->>>>>>>>>>>> IBI and HJ is optional features of I3C. Ideally it should be indicated by
->>>>>>>>>>>> some registers. But not all vendor implement provide this CAP registers.
->>>>>>>>>>>>
->>>>>>>>>>>> IBI and HJ depend on some slow clocks, which monitor SDA line change.
->>>>>>>>>>>> Some instances of IP may not have such slow clocks. Some IP's IBI and HJ
->>>>>>>>>>>> use seperate IRQ line, but these irq line may not connect of difference
->>>>>>>>>>>> instances.
->>>>>>>>>>>
->>>>>>>>>>> All of this should be able to be dealt with by appropriate use of
->>>>>>>>>>> specific compatibles.
->>>>>>>>>>
->>>>>>>>>> I understand compatible can cover most cases. Need variance for property.
->>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>>> like previous SPI vendor customized property, we takes efforts to convert
->>>>>>>>>>>> to common one and also meet back compatiblity problem at convert. I don't
->>>>>>>>>>>> want to do it again. This kind property is most likely as below.
->>>>>>>>>>>
->>>>>>>>>>> What SPI controller specific properties are you talking about here?
->>>>>>>>>>> There are relatively few properties in spi-controller.yaml, and none of
->>>>>>>>>>> them deal with these kinds of capabilities.
->>>>>>>>>>
->>>>>>>>>> num-cs vs fsl,espi-num-chipselects. Total number CS of IP is fixed, but
->>>>>>>>>> some instances have not route all CS to pad.
->>>>>>>>>>
->>>>>>>>>>>
->>>>>>>>>>>>
->>>>>>>>>>>> default:  decide by comaptible string or hardware cap
->>>>>>>>>>>> force-disabled: force disable for some reason, like, miss connect irq line
->>>>>>>>>>>> or missed some clock, or IP bugs, or board desgin's some level shift chip
->>>>>>>>>>>> broken IBI/HJ timing requirements.
->>>>>>>>>>>
->>>>>>>>>>> Of these, only the last would be a valid reason for having a property
->>>>>>>>>>> for it. Missing interrupts, clocks or IP bugs should all be dealt with
->>>>>>>>>>> using device specific compatibles.
->>>>>>>>>>> If board wiring causes the breakage, the property may be more
->>>>>>>>>>> appropriate at the i3c device level rather than the controller given
->>>>>>>>>>> that wiring to some devices on the bus may not have the problems?
->>>>>>>>>>
->>>>>>>>>> I3C.yaml is for both master controller and devices now. I3C is bus, which
->>>>>>>>>> connect many devices, if wiring issue, whole bus can't support IBI. And
->>>>>>>>>> if any broken devices happen at address arbitation, whole bus can't support
->>>>>>>>>> IBI.
->>>>>>>>>>
->>>>>>>>>> at beging, I suggest 3 state,
->>>>>>>>>>
->>>>>>>>>> [default, enable, disable], but now I think IBI_broken, HJ_broken is more
->>>>>>>>>> reasonable to disable it, default value should be set by compatible
->>>>>>>>>> string or DCR of I3C regiser.
->>>>>>>>>>
->>>>>>>>>> And some I3C device may be failure to work with IBI even DCR of I3C register
->>>>>>>>>> show it support IBI.
->>>>>>>>>>
->>>>>>>>>> I don't want to appear two similar property between vendor and common, like
->>>>>>>>>> num-cs vs fsl,espi-num-chipselects.
->>>>>>>>>>
->>>>>>>>>> such as IBI-broken can be used for controller and devices case.
->>>>>>>>>>
->>>>>>>>>>> That said, I think that problem should be dealt with when it arises,
->>>>>>>>>>> rather than starting a trend of adding capabilities properties at the
->>>>>>>>>>> controller level when I am not convinced that there's going to be other
->>>>>>>>>>> users in the same vein.
->>>>>>>>>>
->>>>>>>>
->>>>>>>>>> Understand, I3C is realtive new protocal. 'IBI-broken' is more easy
->>>>>>>>>> understand,  logically equial to in-band-interrupt-capable.
->>>>>>>>> Conor: Any update on this one? I think this thread is stuck at this stage.
->>>>>>>>
->>>>>>>> I didn't think there was any need to reply. I took the first sentence of
->>>>>>>> this snippet to be acceptance of what I was saying.
->>>>>>>>
->>>>>>>> If yous desperately want to have a generic property, the negative
->>>>>>>> connotation of the "-broken" is probably better in that it'd be more
->>>>>>>> likely to make people set stuff by compatible rather than have to use a
->>>>>>>> property with that word in it.
->>>>>>>
->>>>>>> That said, technically this platform could be both
->>>>>>> "amd,in-band-interrupt-capable" and "ibi-broken" at the same time, since
->>>>>>> one describes the way the IP has been compiled and the other wiring. I'm
->>>>>>> not entirely sure whether conflating the two is possible? Depends on if
->>>>>>> your IP's programming model changes if the option is enabled even if it
->>>>>>> cannot be used. Not beyond the realms of possibility.
->>>>>>>
->>>>>>> Also, ibi-broken doesn't work for your platform, since the default
->>>>>>> before this patch is no ibi and requiring a property for no ibi would be
->>>>>>> an ABI break.
->>>>>>
->>>>>> The perils of FPGA IP I suppose, and not being quite careful enough to
->>>>>> document all of the relevant options from the start. Been guilty of that
->>>>>> myself.
->>>>>>
->>>>>
->>>>> Check impliment code
->>>>>
->>>>> +       /*
->>>>> +        * The interrupt only carries IBI events, so it is only described for
->>>>> +        * designs synthesized with that feature.
->>>>> +        */
->>>>> +       if (master->ibi_capable) {
->>>>> +               xi3c_master_init_ibi_ops(master);
->>>>> +
->>>>> +               master->irq = platform_get_irq(pdev, 0);
->>>>> +               if (master->irq < 0)
->>>>> +                       return master->irq;
->>>>> +
->>>>> +               ret = devm_request_irq(master->dev, master->irq,
->>>>> +                                      xi3c_master_irq_handler, IRQF_NO_AUTOEN,
->>>>> +                                      dev_name(master->dev), master);
->>>>> +               if (ret)
->>>>> +                       return dev_err_probe(master->dev, ret,
->>>>> +                                            "Failed to request IRQ\n");
->>>>> +       }
->>>>>
->>>>> They can use master->irq is determinate if support IBI.
->>>>
->>>> That seems viable. Where does that leave them for hot join though?
->>>
->>> No reason to keep hj because the difference between HJ and IBI is the
->>> address when address arbitration. If hardware support IBI, it should support
->>> HJ. HJ just use special address 0x2.
->>
->> For this IP, they appear to be controlled by different configuration time
->> parameters, so I don't think conflating the two is the right thing to do
->> here:
->> https://docs.amd.com/r/en-US/pg439-axi-i3c/Configuration-Tab
->> Per this doc, and the original commit, hotjoin configuration is not
->> permitted when ibi is not supported but can be enabled and disabled
->> separately when it is.
+> kernel/sched/fair.c, invalid_llc_nr():
 > 
-> I am not sure why provide such flexiblity, only difference is that compare
-> address 2 or other value.
+> 	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
+> 			(scale * per_cpu(sd_llc_size, cpu)));
 > 
-> This feature may be quite common for i3c, if other soft IP provider such
-> flexiblity, still common property is the better than vendor specific one.
+> The second argument is a scaled count of the CPUs in an LLC. sd_llc_size
+> is a per-CPU int and scale is an int, so the product binds to the new @cpu
+> parameter with no conversion and no warning, and the test becomes
 > 
-> Frank
+> 	cpu_rq(scale * per_cpu(sd_llc_size, cpu))->fits_capacity_threshold
+> 
+> With the defaults (CONFIG_SCHED_CACHE=y, sysctl_sched_cache_user=1,
+> llc_aggr_tolerance=1) scale is 1, so this is cpu_rq(sd_llc_size), which is
+> not a valid CPU id on a machine with a single LLC. invalid_llc_nr() is
+> called from account_mm_sched(), task_cache_work() and
+> can_migrate_llc_task().
+> 
+> Separating the two uses first makes 04/13 safe to apply. Something like
+> the below, against tip/sched/urgent (3cb0243767fd, where the cache-aware
+> fixes have just landed; sched/core still has the older mm->sc_stat form).
+> It is a no functional change, since x * 1280 < y * 1024 is equivalent to
+> x * 100 < y * 80. Built with CONFIG_SCHED_CACHE=y and =n, no new warnings.
+> 
 
-For this AXI I3C IP, IBI and Hot-Join are separate synthesis options,
-but Hot-Join is only configurable when IBI Capable is YES.An instance 
-can be built with IBI and without Hot-Join; it cannot be built with
-Hot-Join and without IBI.
-
-At run time they also stay separate. IBI ACK is CONTROL IBI_EN (bit 3)
-with IBI status/IRQ; Hot-Join ACK is CONTROL HOTJOIN_EN (bit 4) with
-HJ_STS / its own IRQ mask. Enabling IBI does not enable Hot-Join, so I
-do not want to treat "IBI present" as "Hot-Join present" for this
-controller.
-
-On using the interrupt line as the IBI capability: that does not work
-for this IP. The controller IRQ can be present without IBI or Hot-Join
-synthesized. The current driver only uses that IRQ for IBI/Hot-Join and
-still polls TX/RX; it has no data-completion IRQ path yet. Presence of
-interrupts in DT therefore cannot mean IBI is built in. Probe still
-needs an explicit IBI property. Hot-Join still cannot be inferred from
-the IRQ.
+How about x * 5 < y * 4 ?  The y * 4 is a left-shift which could be faster.
 
 Thanks,
-Shubham
-
+Chenyu
+> I can post it as a standalone patch if you would rather not carry it in
+> the series.
+> 
+> ---
+>   kernel/sched/fair.c | 19 +++++++++++++++++--
+>   1 file changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 57360f5cdde4..97ce56fcaf85 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1526,6 +1526,21 @@ static bool exceed_llc_capacity(struct sched_cache_group *grp, int cpu)
+>   	return false;
+>   }
+>   
+> +/*
+> + * The margin used when comparing the number of a process' active threads
+> + * with the number of CPUs in an LLC.
+> + *
+> + * Mirrors the ~20% margin of fits_capacity(), but is kept separate because
+> + * fits_capacity() describes a utilization versus CPU capacity relation,
+> + * which this is not.
+> + *
+> + * (default: ~80% of the LLC's CPUs)
+> + */
+> +static inline bool fits_llc_nr(u64 nr_threads, unsigned int nr_cpus)
+> +{
+> +	return nr_threads * 100 < (u64)nr_cpus * 80;
+> +}
+> +
+>   static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
+>   			   int cpu)
+>   {
+> @@ -1542,8 +1557,8 @@ static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
+>   	if (scale == INT_MAX)
+>   		return false;
+>   
+> -	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
+> -			(scale * per_cpu(sd_llc_size, cpu)));
+> +	return !fits_llc_nr(READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads,
+> +			    scale * per_cpu(sd_llc_size, cpu));
+>   }
+>   
+>   /*
