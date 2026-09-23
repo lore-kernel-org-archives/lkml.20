@@ -1,92 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787384A0904;
-	Wed, 23 Sep 2026 12:55:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E44948EC9C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168111; cv=none; b=FYylaWNA5C4LMdzOOLfdNu0mTZBDYEjYHB6x3vwPZoasjmt/sRjuZI53SVHweQbFXb9fovvb5p/acZmn6c1i60SouhVX0zViMOt37hUVohegWZGYfJrPBU0pwAAYTI0m+iV4uwnaiNtZFKk/1O7Mg7GDCRiQ1banJw1/5TPQBTU=
+	t=1790168134; cv=none; b=tkIWXuERKDB6Q9R3owygGi4ZxkI+latLSvWfy/lAq7PAl8/we3zCUoM1yAFhIQigr0KuaL3sKEnOMUlfAy9aDia3gFjoHR4w3GuDd8KRyhcokE9sYX7EhG7UswuiwB+n8LgT1DeVI4QDw4oDEGDn5Rdk27RXShHrI57gEqHLlEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168111; c=relaxed/simple;
-	bh=ewgQahr390TzVb6MmAWj4RoBL/NNZ+4Sp+7ieTmGsbk=;
+	s=arc-20240116; t=1790168134; c=relaxed/simple;
+	bh=Lwt36zS62yRZ6vCK1BD8pkNCQA1zr2fjHFHmb2IlsjU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lPwtYuHNDtA5GQNtE+C+K07v9vfEY0j/UldiBxK2VLsNxZRt9SQksV0crxlQrY+9tIMh+ZJ21mGX+MxY+rj63NCupPFA6U1UfFGwLpTSMYaXKM8MK+stWRKWzALHL0iPKu2WXr7e0NqqiuPMSwAguMNx+WdYsK5gxm+Pl68U5WM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZYcrNT7P; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=pgw1BdvDkIWzqQIupkpBuhK6XoRHM1u8ZPaD3vH3P2tR/O7LzHNy5wTXdFHNvPiLpErGLG8W0RG1vhIv5LAaC6WLa5K6XE/dIBE1Z2HNyoY3biZ+xVlaSYz5iC13y0Hb8TwVgBvtu6EMjqdzSjVTSiyZdfOJMNqjHq/o5NZAmN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=h7zZjekR; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZYcrNT7P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2801F000FF;
-	Wed, 23 Sep 2026 12:55:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790168110;
-	bh=FRi3C+epsIdutFBlhwS+gFpit1TLgJroCohgwHrl8Ns=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZYcrNT7P0hjDlcFWhTnT6+Mxr6YY6Iiktuhuedn/b37B8n+/jnAQd7UEma7I6Gkz/
-	 hgCoughMEp760bK5dumjUrd8WmsOyZaShg4e4uSPR1v18S6XRaCA1wF4LW+XcQ/ar/
-	 jRVTbV5/bnhbKBwk61V2FmWW2pvfHaEU6V9Psd74=
-Date: Wed, 23 Sep 2026 14:55:07 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jan =?utf-8?B?xIxlcm3DoWs=?= <sairon@sairon.cz>
-Cc: jirislaby@kernel.org, florian.fainelli@broadcom.com, rjui@broadcom.com,
-	sbranden@broadcom.com, phil@raspberrypi.com, stefan@agner.ch,
-	bcm-kernel-feedback-list@broadcom.com, linux-serial@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] serial: 8250_bcm2835aux: Add support for RTS/CTS
- auto flow control
-Message-ID: <2026092346-snap-kosher-b487@gregkh>
-References: <cover.1786030659.git.sairon@sairon.cz>
- <7e5ed3fb37ee4e113706c258d792121b868861a9.1786030659.git.sairon@sairon.cz>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="h7zZjekR"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b965f447cso6666625e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:55:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790168129; x=1790772929; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Lwt36zS62yRZ6vCK1BD8pkNCQA1zr2fjHFHmb2IlsjU=;
+        b=h7zZjekRjKB/fNX58WS4XfFDDb6hb1VDFk44Tlxf8gihKEmKcpux0r7+lhnUwvpLUf
+         TwAr7yvPhCYFZc0pczYfGfi1ZXJ0nhI39D7RG1XsUjSDZauVO96D/YfRvEEaD7qQkmCg
+         harhPAUGHcVPJZbmHeOjgN/D4Q/PBqiQ51UlfKPQochFUsDz77Sb2MRzYmuTint//9UM
+         pIXb4sBog3tjkkwdLcRKpsC5bAu0DKAKzkRMnMkogTdBAhRaZaVkXxh6bfZWba1oQhXo
+         KmapCqmvmrepxiXF44Kpuk8+wV+xvlh+Nms/vGeOgbNRqpgr+Ape2IxAW98JoggMeg13
+         xQAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790168129; x=1790772929;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lwt36zS62yRZ6vCK1BD8pkNCQA1zr2fjHFHmb2IlsjU=;
+        b=kxD9lyvChH8Xw2da/KenFyqeuA6bCwLpwKmKoqXS3QPZjiCUBoHINbrfqeqzrL5yjh
+         YXlIawfwof+12eFySKtL5j9DecuWhr3YmhN3iilcpsD6XuRCL0uCr6uYSjZ0ReJkjmxR
+         PD9hPUkBUxJi81mFEhpMSUZbRAdy0DR/RgSlxZL24vcx4QuafMKlRFYFE3ym0eNM2SQD
+         p9vkW6t387C4DvsqqPKwkYbweaYbDMlqU6if864EjZOf+ncFXS/LsTSjyewWHh1vXREg
+         O0NGvNUndEbRYCS6PX6Wqkn5Jk6C/FcmvX8kFbgtoqBu6cjzrMqBrqfmdrdT/7IC/b2C
+         p4DA==
+X-Forwarded-Encrypted: i=1; AKwUvBzJWKBf2Y59Bo6+tg5k/vmNYCOPgN2jnwpLBLp5pWSaraD/xZYpdF+g9HrUqD0UwALPr17SlfKYwq+hPWw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSuiv8x4urVdQIRDPDF1oZN72/P8E5he0MYrALSXSHDdx/bSSN
+	m4sCrwxVII+O+eci3GFbpRO35FKMgtytYrA2dN8l2N3fWmm+zEIIpC2zCoWt7pj11jc=
+X-Gm-Gg: AYBFou2v8PT02ScdaC9Qam3SfeyV4ebR3/yQcHp+PcA9UWXHFVZS38HmFIHfVHVNnhe
+	7e04Ys/vKQvhF8bIbJJcJLCLBl19rTBX3Ve57m8gv/JCiv7yG73kMRv00BJZZx4LQOozzqwUjMG
+	r/6J4gNLbLN70YyzRZcXX9miVLQl0FyA2N+z+jsI9ZJN1podRxLR1kgs/Efeio6tVmAHHNNb30Y
+	YferXozwAtX7Ntn3MXJb3k4vZZD+vbf1VwXhLX4e6jq31HI75bULSdWGxrrfEqa14ZuSsClwKnM
+	Ikt0nOAfU6q0Bu9njryeJ/ijSoVFFfy33B5SffSB1Q6o43m1nK9nAOgfOvU3c41EoYwhSiUMTp4
+	tBsWtTm42f88u7R4v1N1RXEB8jO7xGP3Ve7HsG5p0UkI0uFBf/2xukdce0YBaaUOVKfqLZcE7mM
+	PVAfJWFVAp9WWEegFZuRK0XbLclZkjxK4CBUM7L8u6CJBLSEIOiULA4FV8H8rypiRoaRhB58rj8
+	Pc52VtviXJcugGRsWOHAhC0pNDki16ekU5CF1eF/X3vaHSB2D57Xqw1oJIc
+X-Received: by 2002:a05:600c:4505:b0:49e:6249:268b with SMTP id 5b1f17b1804b1-49fdf1578a7mr31453415e9.32.1790168128729;
+        Wed, 23 Sep 2026 05:55:28 -0700 (PDT)
+Received: from localhost (p200300f65f19a9046bef90cd97470407.dip0.t-ipconnect.de. [2003:f6:5f19:a904:6bef:90cd:9747:407])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49fde1c159esm84444015e9.4.2026.09.23.05.55.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 05:55:27 -0700 (PDT)
+Date: Wed, 23 Sep 2026 14:55:26 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Cristian Marussi <cristian.marussi@arm.com>, 
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, 
+	Frank.Li@kernel.org, arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, imx@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] module: add SCMI device table alias support
+Message-ID: <arPMAXs4jjUeu1DE@monoceros>
+References: <20260918092951.5656-1-johannes.goede@oss.qualcomm.com>
+ <20260918092951.5656-2-johannes.goede@oss.qualcomm.com>
+ <arFKVhlgJge5EZyj@monoceros>
+ <20260923-sceptical-mauve-firefly-f5456d@sudeepholla>
+ <6b5a8300-ebf9-4717-bd39-952e89fc5e78@oss.qualcomm.com>
+ <20260923-snake-of-magic-satiation-c3b857@sudeepholla>
+ <a5e56180-b96f-4fac-980e-e837e84cd5a5@oss.qualcomm.com>
+ <20260923-calculating-positive-inchworm-28d3cc@sudeepholla>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="p23qdzzba3kphtno"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7e5ed3fb37ee4e113706c258d792121b868861a9.1786030659.git.sairon@sairon.cz>
+In-Reply-To: <20260923-calculating-positive-inchworm-28d3cc@sudeepholla>
 
-On Thu, Aug 06, 2026 at 05:42:04PM +0200, Jan Čermák wrote:
-> The bcm2835aux mini UART can automatically de-assert RTS based on the RX
-> FIFO fill level and gate the transmitter on CTS, but the driver never
-> made use of it. Wire it up:
-> 
-> - Enable AUTORTS/AUTOCTS (with the RTS4 threshold and inverted, i.e.
->   conventional active-low, polarity) whenever CRTSCTS is set on ports
->   declaring the "uart-has-rtscts" property, advertised via
->   UPF_HARD_FLOW.
-> 
-> - Gate the AUTORTS function on TIOCM_RTS in set_mctrl() so that
->   clearing RTS (port close, TIOCMBIC, B0) actually de-asserts the pin
->   while auto flow control is active.
-> 
-> - Implement throttle()/unthrottle() by disabling the RX interrupts and
->   letting the FIFO fill up, making the hardware de-assert RTS - the
->   same approach as in 8250_omap. Re-sync this state on termios and
->   rs485 changes, as those paths may re-enable the RX interrupts (or
->   leave them disabled) behind the throttle's back.
-> 
-> - Never enable auto flow control together with rs485, which uses RTS
->   as the transceiver direction control. As the software CTS fallback
->   of the serial core cannot work without a modem status interrupt,
->   strip CRTSCTS whenever it cannot be handled in hardware.
-> 
-> - Restore RXEN when rs485 is disabled, as the emulation may be torn
->   down without the rs485_stop_tx() callback ever being called, which
->   would leave the receiver disabled.
-> 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Jan Čermák <sairon@sairon.cz>
-> ---
->  drivers/tty/serial/8250/8250_bcm2835aux.c | 160 +++++++++++++++++++++-
->  1 file changed, 156 insertions(+), 4 deletions(-)
 
-There are some bot review comments on this:
-	https://sashiko.dev/#/patchset/7e5ed3fb37ee4e113706c258d792121b868861a9.1786030659.git.sairon@sairon.cz
+--p23qdzzba3kphtno
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v7 1/2] module: add SCMI device table alias support
+MIME-Version: 1.0
 
-Can you address them and submit a new version?
+On Wed, Sep 23, 2026 at 01:01:44PM +0100, Sudeep Holla wrote:
+> If Uwe is fine, yes I can take v7 as is.
 
-thanks,
+Fine for me.
 
-greg k-h
+Acked-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+
+The nice thing is that the device_id structs are not API, so this can
+also be addressed later if someone comes up with a clever idea how to
+implement it.
+
+Best regards
+Uwe
+
+--p23qdzzba3kphtno
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqzzDsACgkQj4D7WH0S
+/k6svggAp6Jdfc+Xv2nUfAqFVfbCWZPZ88qKW1qMOteW0gWpuiaNHYYP2davG6FM
+Wm9f4BcMIVB5SEWCvqqMT+zvwMxy8614yA4/sd756UX1mJZDA/nvw8+ZkMPnkXNa
+IBp2GTVwH1XF7O91KL9nZCsC52taJ7wE2yrBojLRNEB/+KIw164n7lbXO3XrBIoE
+h0QLxyatblxOchoALTVDIFb9u664jBtlTFzDKepLyyGaeHbSBk+RJ8Uz/v8ls3Kd
+3fFPADN4IEJAnHIDOCExNdpreKhCW/1aRhZf5YZJX300ZH3x59s8UKvsg2iYEzm6
+BGRNNyDjN4kR+bqzxKfXqWs9TXUpFg==
+=Uvoh
+-----END PGP SIGNATURE-----
+
+--p23qdzzba3kphtno--
