@@ -1,106 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47FF752CCC4;
-	Wed, 23 Sep 2026 13:25:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B97452B1F7
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169929; cv=none; b=ugI1bAme4QLbmhleDzl3WTE/axn6PuBdKQw9qrgOS9/MSip5EGkL4b5HyIUjv7ksgOpl8eXdEXV/ILmpUQ/fIB7l7bSMtN1EBGNJW6wOJVDYwi79Bi6IlfDtoII6k0/hmH1FMVIK1B5mBHMOdnVsEFQ0bnII9HaiVL8ujttFps8=
+	t=1790169929; cv=none; b=eS68CBy8VQg3DW/LLfX+tG5h0eFVJe8DEn0vOAaT+WfNdGOiuPx8G8o71n2cvZYDz7OXkqqyY0r60X/1ugCzujgIEwCBX5jKxFyhBJg4z3sgGnR8BaN11bUDGb82cfgWbIdzdqLMaKnAPTVV34FVY8nv2o/kq0Vk48hZrLcJWZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790169929; c=relaxed/simple;
-	bh=9aZzikd819n7ah0HgFlOZiZPPEbx5i4A3ezCtLWd1fI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=ln8Oet5ggkbi+6B4QySFAfrlBHwDka2i9WubBR9bP5hMLV0NAPx8sGRNRMRKIBpmNndOOpuDFbfak9VZTVqn+EYkWWGHT45Yg0lJkfkIIOArW0vMK90h8YwDfcH4aKF7UGVobi+g+wM3rMaPOF+rCKHwKhyZUeJXpQnaCCn65/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nv9+vQJ4; arc=none smtp.client-ip=100.103.45.18
+	bh=eX0EMAdgzlWJwq/2HWNye7UTxaEWtnJ84b/9Qdva1sc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=q9dfuyJgYXw3P+Ekk6ryiQC6CJGbXZLvPq5mzFJD4cFbdAiJfm4iaYVTJZhd4pW6WQ2YdvJCe/3Q9cIUyg9mr+LnOyfKWIdtmYrSIcQGqiPJDOzEWaHzXc6gCCxKamCF9KgqXsQnuI3eWx7XOQ33cSqeKBbHYcJWfS0ueZ6dDd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=emWUySjX; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nv9+vQJ4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00C91F000FF;
-	Wed, 23 Sep 2026 13:25:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790169928;
-	bh=zlWa1e2jWcfiiYfu+fJY+2gOtdAjpcg6EpsI0gyoG1M=;
-	h=Date:From:To:Cc:Subject;
-	b=Nv9+vQJ4X1ZPR4LjImDulZSo8D7/jmLZDpa9NesjKRqgcJH9yrUPZXyjOH1hXpFrg
-	 Esif4bWydfMzQOEVLOZgkL3cqqsh5VxtSKP/Lq4lc+tLG+4z3i59TzjSMQdkx7gIM/
-	 6m546sdQTDrcbxXaiK7Jl8+rmgGsjdizMLCZdt1MjJOfRf5wn2El1q41PUj/fFQoTO
-	 FsKUuiZAIaaSukQ+n5WXssbE7bqYiBPqQD0AKafVWiCMr9snimVBjIyK37RCtyYAu8
-	 koaAZJ4Ba/XnQHAvezbFhEMyHKrpaDDk+aRwq2SDMSHZDOsyyqUwAJPb/stjY/oeT0
-	 VtmjT+x2oQHAA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 033191AC573B; Wed, 23 Sep 2026 14:25:24 +0100 (BST)
-Date: Wed, 23 Sep 2026 15:25:24 +0200
-From: Mark Brown <broonie@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@redhat.com>,
-	Alex Deucher <alexdeucher@gmail.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	Intel Graphics <intel-gfx@lists.freedesktop.org>,
-	DRI <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <arPTRF4qS6o1Q3vD@sirena.co.uk>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="emWUySjX"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so5105555e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:25:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1790169924; x=1790774724; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UbqTmyvAXsPMX/OWViL/BojYfy+amNPgcnI6jZ+rUSM=;
+        b=emWUySjXpygiP1Cinddy3IujnpvW/szmXnkSAEud46C53jhYg7ViBXVS5UyQ5cFC2I
+         e60tTwLNoPmL1VTNRJShtJzMZQIyIEnBnjqYmzQ0S9Khv0WxTj2pBzLw8WwWxu9Kb9sX
+         pmdWFd7egf3UI5sbjkjgYP3CqkHpkf1K+PzuQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790169924; x=1790774724;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UbqTmyvAXsPMX/OWViL/BojYfy+amNPgcnI6jZ+rUSM=;
+        b=Pzj0UzYl0KyCH678sj821FfO0BTQSMhVcTSekx7gvdWOo1MgcYROTNSEyroBM0lDt2
+         5S2p3nrqBIxsYardOSg2x2C7x4PcfM7tzWzz3R6fmVZZywumA132A091BbKU7E9p0KFa
+         HdbmrcT+BCZYnYeaTMBLVcUyaB0HryKQ/8HirksVcFPZR5LX/LePvoobnHu7yZavVEwc
+         ieNRXcecwh7g2UxcjXYSUdI99+XBi3F476Iis2d6RE7eQzqzurV73RTHcFl+nLNmyOSP
+         8XSD5kb/ajlqErEgGBIxDS1bZp5bkmorfM0bsU65sBA+qwP91+CreIEFoXbpeD1D7F9I
+         Uq4g==
+X-Forwarded-Encrypted: i=1; AKwUvBw0bZd5f8IWUZgThLUqdilvX6YwmlMwaL2UGFqVYEnZBcDSpeF1D8fmMrxIs0W1sfRniIlaRJFNxDuzuCc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcpmaWUlosI0nuEzOETj/OjVz4GJhAPqw4kFuirj6/pDGptGpe
+	zsR4MF49McVX71646Kpgr9Wz+w8fEImN/yERuGSgBXjDqTUCQuQYcSjiApZoygY8peg=
+X-Gm-Gg: AYBFou2IGto26r3b3fJU1UvRekPIYjHBPyHSYt3wsfvNvUZSxZO03qaBpVRlbdl8bsK
+	gkkKM/EM/oPoFq2H4+pJsgFwmSqWjCueCDHjdecOUXenLTPdwWBqTRN/Zt5YjnFElReSiIKJHhx
+	9lLst1CvIEjswwhW/xlZY/wlDark7OyqVjwBb/k0MxjF0cMk6Y0wsMQ9S6ZFLSpDqVtNnkkWMUE
+	1KFUaArsOLp4k46/eTSx9pV4MdUuDyytZzg6SGSsamMdPunwiyUEhMZfVV7LKiIO5PQISZXRqip
+	vDzSDRrVga6Yw8ONyw58noOoy0PlxpXlLEobA2p9F5fcKp/8HlE/adROvLXMZCoCese5xkE7eIM
+	8z24pRAIPCGQLsTJDXxHu6Qx3rJMs0/ytAw9/qPDE4d8oz7dGHQlzLx+FaF3gjzpGYQgIrOh7SN
+	9tojtWgzKo5k29J4Ux65h4OCY4gjbjXI5LRAypttsOGby9fXl4X5lCysbvl0LAdi67tBCZui6yb
+	90tHT8=
+X-Received: by 2002:a05:600c:c48e:b0:49f:ce78:356a with SMTP id 5b1f17b1804b1-49fdeffdc94mr35490545e9.27.1790169924310;
+        Wed, 23 Sep 2026 06:25:24 -0700 (PDT)
+Received: from [10.214.128.75] ([149.7.5.167])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1ccb90sm77720025e9.6.2026.09.23.06.25.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 06:25:22 -0700 (PDT)
+Message-ID: <13686465-879b-4afe-8b33-486fc84d9307@linuxfoundation.org>
+Date: Wed, 23 Sep 2026 07:25:09 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="u4iB4BPRsdxcH5TP"
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usbip: prevent priv from uaf in cmd submit
+To: Edward Adam Davis <eadavis@sina.com>,
+ syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com
+Cc: gregkh@linuxfoundation.org, i@zenithal.me, linux-kernel@vger.kernel.org,
+ linux-usb@vger.kernel.org, shuah@kernel.org,
+ syzkaller-bugs@googlegroups.com, valentina.manea.m@gmail.com,
+ suwan.kim027@gmail.com, Shuah Khan <skhan@linuxfoundation.org>
+References: <6a8f1920.1d9ded08.62e62.00b7.GAE@google.com>
+ <20260827012153.138991-1-eadavis@sina.com>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260827012153.138991-1-eadavis@sina.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 8/26/26 19:21, Edward Adam Davis wrote:
+> The num_urbs is 1, and the request is not special, so it is not tweaked.
+> After stub_complete() executes, priv is added to the tx queue.
+> stub_tx_loop() immediately dequeues it and frees priv; the subsequent
+> loop iteration then checks priv->num_urbs, which ultimately triggers [1].
+> 
+> Use num_urbs directly to avoid accessing the already-freed priv.
+> 
+> [1]
+> BUG: KASAN: slab-use-after-free in stub_recv_cmd_submit drivers/usb/usbip/stub_rx.c:609 [inline]
+> Read of size 4 at addr ffff888034999db0 by task stub_rx/6028
+> Call Trace:
+>   stub_recv_cmd_submit drivers/usb/usbip/stub_rx.c:609 [inline]
+>   stub_rx_pdu drivers/usb/usbip/stub_rx.c:688 [inline]
+>   stub_rx_loop+0x2d3b/0x31c0 drivers/usb/usbip/stub_rx.c:707
+> 
+> Allocated by task 6028:
+>   stub_priv_alloc drivers/usb/usbip/stub_rx.c:314 [inline]
+>   stub_recv_cmd_submit drivers/usb/usbip/stub_rx.c:490 [inline]
+>   stub_rx_pdu drivers/usb/usbip/stub_rx.c:688 [inline]
+>   stub_rx_loop+0x638/0x31c0 drivers/usb/usbip/stub_rx.c:707
+> 
+> Freed by task 6029:
+>   stub_free_priv_and_urb+0x427/0x570 drivers/usb/usbip/stub_main.c:321
+>   stub_send_ret_submit+0xecf/0x1810 drivers/usb/usbip/stub_tx.c:333
+>   stub_tx_loop+0xe2/0x3e0 drivers/usb/usbip/stub_tx.c:437
+> 
+> Fixes: ea44d190764b ("usbip: Implement SG support to vhci-hcd and stub driver")
+> Reported-by: syzbot+06fa667a0931a3430026@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=06fa667a0931a3430026
+> Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+> ---
+>   drivers/usb/usbip/stub_rx.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/usbip/stub_rx.c b/drivers/usb/usbip/stub_rx.c
+> index 1e9ae578810d..85370b3bc600 100644
+> --- a/drivers/usb/usbip/stub_rx.c
+> +++ b/drivers/usb/usbip/stub_rx.c
+> @@ -606,7 +606,7 @@ static void stub_recv_cmd_submit(struct stub_device *sdev,
+>   		return;
+>   
+>   	/* urb is now ready to submit */
+> -	for (i = 0; i < priv->num_urbs; i++) {
+> +	for (i = 0; i < num_urbs; i++) {
+>   		if (!is_tweaked) {
+>   			ret = usb_submit_urb(priv->urbs[i], GFP_KERNEL);
+>   
 
---u4iB4BPRsdxcH5TP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This fix is incorrect. if priv is being free'd it has to be handled differently
+and not by using num_urbs. priv is accessed in this loop.
 
-Hi all,
-
-After merging the drm-misc tree, today's linux-next build (x86_64
-allmodconfig) failed like this:
-
-/tmp/next/build/drivers/gpu/drm/amd/amdgpu/../display/dc/dc_memory_pool.c:8=
-7:37: error: stack frame size (8264) exceeds limit (2048) in 'dc_memory_poo=
-l_create' [-Werror,-Wframe-larger-than]
-   87 | __must_check struct dc_memory_pool *dc_memory_pool_create(size_t si=
-ze,
-      |                      =20
-
-which I am exceptionally frustrated to see was caused by commit
-
-  bc3f07516a992 (Merge drm/drm-next into drm-misc-next)
-
-which merged the bug I originally reported in the amdgpu tree:
-
-  https://lore.kernel.org/r/aq0vYhZXtMqA41wZ@sirena.org.uk
-
-and then in the drm tree when that was sent upstream without the report
-having been addressed in any way:
-
-  https://lore.kernel.org/r/arJoCiRM1hRbgRb5@sirena.co.uk
-
-neither of which have had any response at all.  It really seems like
-there is some room for improvement in your processes here, currently
-that's three drm trees all held out of -next with the same fairly simple
-build issue.  Can I suggest at least check to see if the code you are
-trying to merge is in -next, the drm merge was done after amdgpu had
-been held out of -next for several days.
-
---u4iB4BPRsdxcH5TP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqz0zsACgkQJNaLcl1U
-h9BLTAf9EIijiMYDxEApkxScDx3f4Bi3xFEdhyaF/pQC0o575r2k4NOF7iZA3cTA
-Az6mwVvR/OYFKgiWlMud0jcrwYH8F3oPL714/AlXxlrkGQFPQlHrjo8tk+DdWJoU
-RX3gZP7VDGoNe9Ag20ZvcFUvUyPiBSp5NJENkGwaEBLzYwnmBjPluldBbHJPQ5Bh
-D/HK0N+S+HWHq1/d8Jvbo9yaUKg3ZM+hNu37MMQjCuXCLREmwpfRg5mVtBwk99aI
-jkx9SxUnZ665U0cPxMYskag0aiHxsdbDqkKXhafCLVJRooZpSGvNtDmbPSnl25rT
-9N0YB0GV4MGYCpWVkpKIJUFaoCyqTQ==
-=c41z
------END PGP SIGNATURE-----
-
---u4iB4BPRsdxcH5TP--
+thanks,
+-- Shuah
