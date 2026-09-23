@@ -1,123 +1,207 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2881849892B;
-	Wed, 23 Sep 2026 10:41:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41D64A015C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:41:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790160082; cv=none; b=m/RoiENeAs6sMAGadnjGW5Ud5zTQiNrA3VKH6um7olA8HKMAhMdK/GxkPND45dheo/jmjOyyPbohGdbm9uvnrHvPh2RF0ZzaJHAW9Ll7+KO6NvekJ1OkwT9clwnKGAGxmyDnyjs+zOXwEoT+By8JID6dxYqyNVr9+OmRDAbRuhg=
+	t=1790160088; cv=none; b=lwbJDz2nJGQWKwdtpLlLWjBXPS9LZ5uJKAfyzU+bIL/NRz9PyEsOCWtOeT2dajGgV2AdrN3dzonbsl+rZE65IVN5aYtQo3sjGoSDiatUhtG2B93ehUuc15fflyoZFDPD9hVvyblBISrZJnhTssh374sGInw4u0dzI3aDes1r1TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790160082; c=relaxed/simple;
-	bh=YbExH4H+VywVj0LlHnauiCI7bN1MNBtpB0WFNy9TNrU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=hMcILURx9r9z8xmb5gPHl7Rwjldas1GX0Sf2uX7U9ciltBgVKjuW5AwUGRUDoTEav10bWRTmHP2JBpsVeCZVxxjjWq3WLfjRPauWgmIcqdM05U6Pkl6P5FHICzraJlim6utSkwBjQGI0ORP8l5sa9hMSjsDtqbSzBq6byMHhNmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kLZ3Dhxx; arc=none smtp.client-ip=192.198.163.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790160088; c=relaxed/simple;
+	bh=1lFgLtLwiG9ZlazEhqgrw6NCUNeBFzcT8X96+NwLVuc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cV8XGrt+TesAUzMl7qn8dSbMhqy/z5YVG2ttIgmf24PotUeuePb6qx3SXyx84amII+Jr8mqthACce1zhDt2b92SW21vtg5h8gL3adkjCnJj2exJYYdh3exUN2gexLK2fuZqnABgno/wi/xiQHIu2OzPwV23/KEckz7yki65O5Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f9woJsjF; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kLZ3Dhxx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790160068; x=1821696068;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version:content-transfer-encoding;
-  bh=YbExH4H+VywVj0LlHnauiCI7bN1MNBtpB0WFNy9TNrU=;
-  b=kLZ3DhxxRS6j7VsxzlbCtAB5qrWQISWgZL75vAiSukYirxFqGvwHnqEJ
-   sDcJS/D4BLDL+6TSFR2pApXsDHl7Pz7uhKV8Dt2v7AaEpaAGnGtsMZ9tO
-   hsvr41PvXathmpSDkEu8F50NkKZlseDkw69aZnGGA0kZtw5P05hBjLNM1
-   7jgDDCewZ0L2ZGAGbZ4n8RBHSpNGV/m40tekwDL6vDqYjGHcPPajBWPij
-   IGsfjoqOG5n4xz6rrc0CXkN2h06lt09Pl0UC8PwdQJ76dwYllGFuk/44O
-   81r+ypCehQLrR5MCtSZYAGMIJAD8lGHDqbMv7Trf/yv0Fu3NyP5RHg3q/
-   A==;
-X-CSE-ConnectionGUID: X0JQ+locTrWw6hhRPL7nzw==
-X-CSE-MsgGUID: yt2/sqx4TpS5YJcUJ1lXoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="1334486"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="1334486"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa116.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 03:41:02 -0700
-X-CSE-ConnectionGUID: mWAnkwTERbumH6v+ijE1jg==
-X-CSE-MsgGUID: SkQU3ri2TYq+jaUEdNumqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="278285762"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.253])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 03:40:59 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Nathan Chancellor <nathan@kernel.org>, Thomas =?utf-8?Q?Wei=C3=9Fschuh?=
- <linux@weissschuh.net>
-Cc: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- Linus Torvalds <torvalds@linux-foundation.org>, Nicolas Schier
- <nsc@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>, Masahiro Yamada
- <masahiroy@kernel.org>, linux-kbuild@vger.kernel.org
-Subject: Re: [PATCH] kbuild: add header check facility as a manually run
- static analyzer
-In-Reply-To: <20260917171722.GA356152@ax162>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260915104331.255636-1-jani.nikula@intel.com>
- <211fcac1-d85d-4680-8e55-598b2064a002@infradead.org>
- <20260916231319.GA550816@ax162>
- <71a8b988-3977-44e4-93d6-782e4447f160@t-8ch.de>
- <20260917171722.GA356152@ax162>
-Date: Wed, 23 Sep 2026 13:40:57 +0300
-Message-ID: <80690e33ca5d2eb3cdbe5b84f75b2af39e3b8423@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f9woJsjF"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso4124565e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:41:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790160065; x=1790764865; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RLPiGOv8BG6J6N1wsKC4oaWQ6OSRmNQqyKq1m7eGBCg=;
+        b=f9woJsjFIC+/W69h3fOGepQxMKPqkIl/oy9U8WCqFxQ3EVNem36QDllPRbko/dc6du
+         U2WzfG2L9cfRpSQkxHgjjmlAmCdNowP9eG4ufKNyG0DaIkkUgqgQNHwLjM/QTZVY8gig
+         qpyqFwEhi1jlJFOZDCHzFULs2NGZqOiJjalaWMJUDpNlhMIfq4/btRB+JdRStZDTRc5D
+         0UCey/LAoqdO+enMUCOe28Ueb9G1dm0l9KZ85bgP8xqaSAKDNcObqcbpQ1zbsR8VojjX
+         Rw8nqV9wUXGk0hY71AdMnPz9Yn7bHUrFCMTvoudegag6BgSTfiMZZXr7KVv53KSm+Ujw
+         ulPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790160065; x=1790764865;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RLPiGOv8BG6J6N1wsKC4oaWQ6OSRmNQqyKq1m7eGBCg=;
+        b=r9vimUD8QcnMrOUhBmPCESRfof8aFUdb24mVmRSSmGgU5DETZRbi7es0gPGST9yUjQ
+         KjsNVqFrEB8RFiLz38R5av64YWdpDdOU+HLzJltkVemkZpUY02zI/AsARUP/eHmJdXjc
+         3z1FgJnRELbOnAg2HZEsqkTK6TpiwHG1o8R9SHUdXKCh4gNiOTc7jQmlLGn2V+wbi4sE
+         azjxZHgyJj8DkXr8ULbNqPF98SLd/O8o2JZm8LBINh4ybCFUF4AgmXSYFaaWqguCkVHc
+         bASVwHDG3wtQcUen3oBU10OeK3INTIS18Tyo1NTQduo+Zj5xTlz4DoWpZTgD4T8OPrF+
+         FHag==
+X-Forwarded-Encrypted: i=1; AKwUvByeyuDyUdiDNrxNC9wocLpgghnzeCLHxKI7tcA0lHkZeqm+vZbp+c+1SUDC9K8syq8MMtesZjLNmQD3yNI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3SlautyEefImVhwyh2/qcFdHudjEshCKkq8egOQrxD5izaQ7w
+	f7/C+Nbs7jklmZGi0v8hapMymuAlbmZH8HqoT8YIGJe85XQnbxAQZHu8
+X-Gm-Gg: AYBFou2WKpYr4SU8vACKhZcC690TDc2Wx1BRq0KVeMpcMEMYNBiH8nXZlWoqymWMUyZ
+	t61D+juxP1ouCnm3O0BIrO6WANRP9AgSfeA8uOXIRcKeSS+ekfvs9AcF4WX3fhFNr/InQp6e4eZ
+	EFV1ooIipu3NSBWTBKhoA1R4Gj/QHNV/eFL8BFEj/7xFRtxLFRFH7soxuLpYZdwwJb01U2eX869
+	XL5KfWnXaRoP8bBdMOHcMKMddMHRsTIVYaRV3CHjht1vrfCzPTUkVrEnuKiTmz7dDBNUNuMmTIQ
+	sxYG1W5S6ISuZb/ABsMYBqJiKTGZMyN4sCFg9ebS0qOacygeX8N5eSxOORmm7+8hOEFHleOSexi
+	+kqYkFuCmpFSOf3qDRkAYmQKaCHPcGaKxRP3ExWqLISDmm6trukVBJvSFO6Z/Rac7yr2WW6RICU
+	asiGjfmt88NM0MzIBJ7DilwjJpELuQhRsCQ0Ww1Ax60tM9oE6/2OcK6BjdbsYMV+wechIJvkLjB
+	oFaMByo6fERrR0nrUkjo79dnrtXazXeoms484/kNyX0icYeH1RsT95HyNHRt1jMddCU23/P4OII
+	KYCZIVDm
+X-Received: by 2002:a05:600c:4704:b0:49e:799e:c1c3 with SMTP id 5b1f17b1804b1-49fdf12d3dbmr24470955e9.17.1790160064510;
+        Wed, 23 Sep 2026 03:41:04 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:885e:6ade:cc5e:a35e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1acb91sm65170415e9.15.2026.09.23.03.41.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 03:41:04 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-watchdog@vger.kernel.org,
+	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v6 7/8] arm64: dts: renesas: r9a09g077: Use CPG/MSSR syscon for WDTDCR access
+Date: Wed, 23 Sep 2026 11:40:53 +0100
+Message-ID: <20260923104054.3324830-8-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, 17 Sep 2026, Nathan Chancellor <nathan@kernel.org> wrote:
-> On Thu, Sep 17, 2026 at 11:05:32AM +0200, Thomas Wei=C3=9Fschuh wrote:
->> On 2026-09-16 16:13:19-0700, Nathan Chancellor wrote:
->> > include/uapi already has its own header checking infrastructure under
->> > CONFIG_UAPI_HEADER_TEST and usr/include/Makefile, which avoids this wi=
-th
->> > a no-header-test list that includes many of the files listed in these
->> > messages. To be honest, we should probably forbid HEADER_CHECK from
->> > including 'include/uapi' and refer people to use CONFIG_UAPI_HEADER_TE=
-ST
->> > instead, as there are other differences like being built under a
->> > different C standard or C++ and such that the existing infrastructure
->> > handles.
->>=20
->> Testing the UAPI headers here too would still be valuable.
->> CONFIG_UAPI_HEADER_TEST tests the headers from the perspective of
->> userspace after they have undergone processing. The kernel build
->> might see the same headers quite differently.
->>=20
->> For instance the example from above:
->>=20
->> ./../include/uapi/linux/input.h:29:6: warning: =E2=80=98__BITS_PER_LONG=
-=E2=80=99 is not defined, evaluates to =E2=80=980=E2=80=99 [-Wundef]
->>    29 | #if (__BITS_PER_LONG !=3D 32 || !defined(__USE_TIME_BITS64)) && =
-!defined(__KERNEL__)
->>       |      ^~~~~~~~~~~~~~~
->> ./../include/uapi/linux/input.h:34:9: error: unknown type name =E2=80=98=
-__kernel_ulong_t=E2=80=99
->>    34 |         __kernel_ulong_t __sec;
->>       |         ^~~~~~~~~~~~~~~~
->>=20
->> These are legitimate issues, the inclusion of the necessary header is
->> gated behind #ifndef __KERNEL__ although it should not be.
->
-> Hmmm, fair enough. I guess we can leave this functionality in place for
-> UAPI headers then but I just worry about people doing what Randy did and
-> reporting these issues when they are already known and handled in some
-> other way. Maybe the UAPI header test could grow an "internal kernel
-> usage" check similar to the other checks that it has at some point then
-> we could forbid HEADER_CHECK=3Dinclude/uapi but it is fine for now.
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Do you think the patch at hand is good to go, then? Anything further you
-need from me?
+The WDTDCR registers for wdt0-wdt5 reside in the second register region of
+the CPG/MSSR block. This multi-function block is now exposed via a unified
+syscon regmap interface.
 
-BR,
-Jani.
+Replace the direct mapping of the individual WDTDCR registers with the
+new "renesas,sysc" phandle property pointing to the CPG/MSSR block syscon
+node.
 
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+---
+v5->v6:
+- No change
 
---=20
-Jani Nikula, Intel
+v4->v5:
+- Added review-by tag.
+
+v3->v4:
+- No change
+
+v2->v3:
+- Renamed the "renesas,sys" property to "renesas,sysc"
+- Updated commit message
+
+v1->v2:
+- No change.
+---
+ arch/arm64/boot/dts/renesas/r9a09g077.dtsi | 24 +++++++++++-----------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+index 674e35e4f242..18d748661a60 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
++++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+@@ -327,61 +327,61 @@ channel1 {
+ 
+ 		wdt0: watchdog@80082000 {
+ 			compatible = "renesas,r9a09g077-wdt";
+-			reg = <0 0x80082000 0 0x400>,
+-			      <0 0x81295100 0 0x04>;
++			reg = <0 0x80082000 0 0x400>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
+ 			clock-names = "pclk";
+ 			power-domains = <&cpg>;
++			renesas,sysc = <&cpg 0>;
+ 			status = "disabled";
+ 		};
+ 
+ 		wdt1: watchdog@80082400 {
+ 			compatible = "renesas,r9a09g077-wdt";
+-			reg = <0 0x80082400 0 0x400>,
+-			      <0 0x81295104 0 0x04>;
++			reg = <0 0x80082400 0 0x400>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
+ 			clock-names = "pclk";
+ 			power-domains = <&cpg>;
++			renesas,sysc = <&cpg 1>;
+ 			status = "disabled";
+ 		};
+ 
+ 		wdt2: watchdog@80082800 {
+ 			compatible = "renesas,r9a09g077-wdt";
+-			reg = <0 0x80082800 0 0x400>,
+-			      <0 0x81295108 0 0x04>;
++			reg = <0 0x80082800 0 0x400>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
+ 			clock-names = "pclk";
+ 			power-domains = <&cpg>;
++			renesas,sysc = <&cpg 2>;
+ 			status = "disabled";
+ 		};
+ 
+ 		wdt3: watchdog@80082c00 {
+ 			compatible = "renesas,r9a09g077-wdt";
+-			reg = <0 0x80082c00 0 0x400>,
+-			      <0 0x8129510c 0 0x04>;
++			reg = <0 0x80082c00 0 0x400>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
+ 			clock-names = "pclk";
+ 			power-domains = <&cpg>;
++			renesas,sysc = <&cpg 3>;
+ 			status = "disabled";
+ 		};
+ 
+ 		wdt4: watchdog@80083000 {
+ 			compatible = "renesas,r9a09g077-wdt";
+-			reg = <0 0x80083000 0 0x400>,
+-			      <0 0x81295110 0 0x04>;
++			reg = <0 0x80083000 0 0x400>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
+ 			clock-names = "pclk";
+ 			power-domains = <&cpg>;
++			renesas,sysc = <&cpg 4>;
+ 			status = "disabled";
+ 		};
+ 
+ 		wdt5: watchdog@80083400 {
+ 			compatible = "renesas,r9a09g077-wdt";
+-			reg = <0 0x80083400 0 0x400>,
+-			      <0 0x81295114 0 0x04>;
++			reg = <0 0x80083400 0 0x400>;
+ 			clocks = <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
+ 			clock-names = "pclk";
+ 			power-domains = <&cpg>;
++			renesas,sysc = <&cpg 5>;
+ 			status = "disabled";
+ 		};
+ 
+-- 
+2.55.0
+
