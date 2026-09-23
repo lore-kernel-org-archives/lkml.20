@@ -1,133 +1,71 @@
-Received: from mta0.migadu.com (out-28.mta0.migadu.com [91.218.175.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7395846EC60
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:20:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.28
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49EFA1A6803
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:21:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151632; cv=none; b=H3cn1lbIRo4Ob7a3Jjrag6GaQqOQ2ChoONah39AjERHxlottEV0ix5CwbyA+mj2a2jj+vbD41hG00OZt+bT74I56rqgNOdal0Puo37qH3uvJqIxN/bN3c10t7nO3aVwBjZk/9zVxWkzkIaQtEvzTRXY6VSV4L8WwM+oJ/mLbfTY=
+	t=1790151717; cv=none; b=bVtkXlT4nb0tyLwIi76WOZwg3t3kfKOFckJn+kfNGhYDV0kXJY3dRbtXu6MksMBTqQXfxxEMup7vnbndJBZC4I7oKia8VfJqE/0fhz4wLKj6uRHX5CDIPKUnygLozAr4byBbtGeOtkPSDv1YJSCAZ/q03KUam/lKqRujvKt/MlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151632; c=relaxed/simple;
-	bh=R+Ds6U5wuCAiLnCQzIIklrn9HSyxI6h07yL9Uj6bAjY=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=LlpVVfIRvK9CmOL2EYS+XUn0fEGCBXxJd3upPFkcPgmJw8qmJHb4wkgm1L9hFOWGsTaUo5rrc2Ya5LugPkl7GDQJAbnNt5wxg4RamZhI7ftUsTlJS3YGyM9YUK1TuxThNjfphzbaxh6/F39VXyewGWey8Bz2JWmSV/L0ONlVhRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uBvAQZ6L; arc=none smtp.client-ip=91.218.175.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uBvAQZ6L"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=R+Ds6U5wuCAiLnCQzIIklrn9HSyxI6h07yL9Uj6bAjY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790151628; v=1; x=1790756428;
- b=uBvAQZ6LvzkhU8O0it4LoQH6vtJTqAYiBgpCwtZ65OZyahH/QG6VjSIGZ+1WV+UmXCRLK10p
- UZNO5h3L4HIFbbxtDL0Rj8DDg1hcXFnCvpU2s1k0gkcoAWhPKfKDlDnhBNVW2p9OpCWlHLtYZxt
- NUReADSNyYwGk0d5NjPH9kRE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9cc9c67abd34d5ab;
-	Wed, 23 Sep 2026 08:20:27 +0000
-X-Mizu-Trace-ID: 9cc9c67abd34d5ab
-X-Migadu-Flow: FLOW_OUT
+	s=arc-20240116; t=1790151717; c=relaxed/simple;
+	bh=7cWYj8nUimPQgLWMnVkDgPNsgpaXAYF17iaSLoeAjd8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=QvUcvX7yfUlCbXHYyyl/GnQZPerALwnBrcBrU+j9rT6d0/6cinvDqwc9toCNTzpWDNqiDoHnpCrdf1flO9pYKbrpeYNWp7yfp6dTxyD79mYWr9eT8p3Xqk0GfHcV3SfF+RjneCjjMPcVjPzmQDwTA7DZ6UcR4gnX2WoRFaJxF0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn; spf=pass smtp.mailfrom=phytium.com.cn; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=phytium.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytium.com.cn
+Received: from prodtpl.icoremail.net (unknown [10.12.1.20])
+	by hzbj-icmmx-7 (Coremail) with UTF8SMTP id AQAAfwCnrcEWjLNqvGfbAA--.31051S2;
+	Wed, 23 Sep 2026 16:21:42 +0800 (CST)
+Received: from zhuling2709$phytium.com.cn ( [218.76.62.144] ) by
+ ajax-webmail-mail (Coremail) ; Wed, 23 Sep 2026 16:21:32 +0800 (GMT+08:00)
+Date: Wed, 23 Sep 2026 16:21:32 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5pyx6aKG?= <zhuling2709@phytium.com.cn>
+To: "Zenghui Yu" <zenghui.yu@linux.dev>
+Cc: maz@kernel.org, tglx@kernel.org, radu@rendec.net,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] irqchip/gic: Fix UBSAN shift-out-of-bounds in GIC
+ helpers
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.3-cmXT6 build
+ 20250512(e7b47ee3) Copyright (c) 2002-2026 www.mailtech.cn OP_ICM_ICMVM
+In-Reply-To: <6b668efe-ef7a-474a-957c-893755ebba46@linux.dev>
+References: <86ldjlp0qi.wl-maz@kernel.org>
+ <20260921022101.20941-1-zhuling2709@phytium.com.cn>
+ <6b668efe-ef7a-474a-957c-893755ebba46@linux.dev>
+Content-Transfer-Encoding: base64
+X-CM-CTRLDATA: dO2y/GZvb3Rlcl90eHQ9MjEyOjM4Mw==
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 23 Sep 2026 08:20:22 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Tianchu Chen" <tianchu.chen@linux.dev>
-Message-ID: <26701790d50be92af358c7c136948accad963946@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] nfc: st95hf: validate device-reported response length 
- before reading
-To: "David Heidelberg" <david@ixit.cz>, sameo@linux.intel.com,
- shikha.singh@st.com
-Cc: oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org
-In-Reply-To: <e026f741-3c19-47b2-b731-f257361e471c@ixit.cz>
-References: <91f49a98dd42655829b7206f0d64cc31ef9c0e95@linux.dev>
- <e026f741-3c19-47b2-b731-f257361e471c@ixit.cz>
+Message-ID: <dda9852.22f.1a0cd5b128e.Coremail.zhuling2709@phytium.com.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:AQAAf8Dw8nUNjLNqzNbbAA--.37064W
+X-CM-SenderInfo: x2kxzxlqjsliuz6sx5pwlxzhxfrphubq/1tbiAQAFAWqwNEoBFQAI
+	s9
+Authentication-Results: hzbj-icmmx-7; spf=neutral smtp.mail=zhuling270
+	9@phytium.com.cn;
+X-Coremail-Antispam: 1Uk129KBjvdXoWruw1UAF1DCry8tr13uF4DArb_yoWkGrXEyr
+	4qyr47tr1vyF1kWayrtF43Xr18WrykJF1jyr4qq3ZrGa4UJ345Ja4kua1jyw1rZr9rGw1D
+	tF13W343Jr1DJjkaLaAFLSUrUUUU1b8apTn2vfkv8UJUUUU8wcxFpf9Il3svdxBIdaVrnU
+	Uv73VFW2AGmfu7jjvjm3AaLaJ3UjIYCTnIWjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRUUUUU
+	UUUU=
 
-September 21, 2026 at 7:02 AM, "David Heidelberg" <david@ixit.cz mailto:d=
-avid@ixit.cz?to=3D%22David%20Heidelberg%22%20%3Cdavid%40ixit.cz%3E > wrot=
-e:
+PiBnaWNfe3Bva2UscGVla31faXJxIGluIGRyaXZlcnMvaXJxY2hpcC9pcnEtZ2ljLmMgaGF2ZSBh
+IHNpbWlsYXIKPiBwYXR0ZXJuLgo+Cj4gTWluZCBmaXhpbmcgdGhlbSBhcyB3ZWxsPwoKWWVzLCB0
+aGFua3MgZm9yIHBvaW50aW5nIHRoaXMgb3V0LiBJIGhhdmUgZml4ZWQgYm90aCBoZWxwZXJzIGFu
+ZCB3aWxsCnNlbmQgdjMgc2hvcnRseS4KClRoYW5rcywKWmh1IExpbmcNCg0K5L+h5oGv5a6J5YWo
+5aOw5piO77ya5pys6YKu5Lu25YyF5ZCr5L+h5oGv5b2S5Y+R5Lu25Lq65omA5Zyo57uE57uH5omA
+5pyJLOWPkeS7tuS6uuaJgOWcqOe7hOe7h+WvueivpemCruS7tuaLpeacieaJgOacieadg+WIqeOA
+guivt+aOpeaUtuiAheazqOaEj+S/neWvhizmnKrnu4/lj5Hku7bkurrkuabpnaLorrjlj68s5LiN
+5b6X5ZCR5Lu75L2V56ys5LiJ5pa557uE57uH5ZKM5Liq5Lq66YCP6Zyy5pys6YKu5Lu25omA5ZCr
+5L+h5oGv44CCDQpJbmZvcm1hdGlvbiBTZWN1cml0eSBOb3RpY2U6IFRoZSBpbmZvcm1hdGlvbiBj
+b250YWluZWQgaW4gdGhpcyBtYWlsIGlzIHNvbGVseSBwcm9wZXJ0eSBvZiB0aGUgc2VuZGVyJ3Mg
+b3JnYW5pemF0aW9uLlRoaXMgbWFpbCBjb21tdW5pY2F0aW9uIGlzIGNvbmZpZGVudGlhbC5SZWNp
+cGllbnRzIG5hbWVkIGFib3ZlIGFyZSBvYmxpZ2F0ZWQgdG8gbWFpbnRhaW4gc2VjcmVjeSBhbmQg
+YXJlIG5vdCBwZXJtaXR0ZWQgdG8gZGlzY2xvc2UgdGhlIGNvbnRlbnRzIG9mIHRoaXMgY29tbXVu
+aWNhdGlvbiB0byBvdGhlcnMu
 
->=20
->=20On 19/08/2026 16:55, Tianchu Chen wrote:
->=20
->=20>=20
->=20> From: Tianchu Chen <flynnnchen@tencent.com>
-> >  st95hf_spi_recv_response() reads a 2-byte header from the device,
-> >  derives the total response length from it (up to 1025 bytes via the
-> >  long-frame encoding) and then blindly reads len - 2 more bytes into
-> >  the caller's buffer, whose size it knows nothing about.
-> >  Call sites can be overflowed by a device reporting a large length,
-> >  for example, st95hf_irq_thread_handler() passes the data area of a
-> >  280-byte skb.
-> >  ST95HF datasheet states "In Reader mode it is possible to receive up=
- to
-> >  528 bytes of frame data from VICC and TypeB cards", so technically a=
- bogus
-> >  NFC tag may trigger the OOB-write if the card-reader's firmware allo=
-ws
-> >  large packets.
-> >  Add a buff_len parameter and reject a device-reported length that do=
-es
-> >  not fit into the caller's buffer before issuing the second SPI
-> >  transfer. Also modify callers to pass their real buffer sizes.
-> >  Discovered by Atuin - Automated Vulnerability Discovery Engine.
-> >  Fixes: cab47333f0f75 ("NFC: Add STMicroelectronics ST95HF driver")
-> >  Cc: stable@vger.kernel.org
-> >  Signed-off-by: Tianchu Chen <flynnnchen@tencent.com>
-> >  ---
-> >  drivers/nfc/st95hf/core.c | 6 ++++--
-> >  drivers/nfc/st95hf/spi.c | 7 ++++++-
-> >  drivers/nfc/st95hf/spi.h | 2 +-
-> >  3 files changed, 11 insertions(+), 4 deletions(-)
-> >=20
->=20Hello Tianchu,
->=20
->=20please check and address the Sashiko output.
->=20
->=20Thank you
-> David
->=20
->=20[ ... ]
->  > @@ -106,6 +106,11 @@ int st95hf_spi_recv_response(struct st95hf_spi_=
-context *spicontext,
->  > else
->  > len +=3D receivebuff[1];
->  >
->  > + if (len > buff_len) {
->  > + mutex_unlock(&spicontext->spi_lock);
->  > + return -E2BIG;
->  > + }
->  > +
->=20
->=20Does this early return path leave the spi chip select (CS) permanentl=
-y
-> asserted?
->=20
->=20The first spi transfer uses .cs_change =3D 1 to keep the chip select =
-active.
-> Skipping the second transfer would prevent the chip select from being
-> deasserted, potentially deadlocking the device.
->=20
->=20 > /* Now make a transfer to read only relevant bytes */
->  > tx_takedata.rx_buf =3D &receivebuff[2];
->  > tx_takedata.len =3D len - 2;
->
-
-Hi David,
-
-Yes, Sashiko was right on this case, we should gracefully end the spi tra=
-nsfer.
-
-V2 patch has been sent: https://lore.kernel.org/all/fe549eb46f9f666f2778e=
-7c50198528028cf9528@linux.dev/
-
-Best regards,
-
-Tianchu
