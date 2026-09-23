@@ -1,153 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE4219005E
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F095A19005E;
+	Wed, 23 Sep 2026 05:34:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790141666; cv=none; b=MgLmk+yp7HM4RMjXYevV1dbv9N0BGKI19VFBNiopChtASKQE0usOwdCDCoJRjyV9Oaedtgg0SJG+csCE76OXfAQ7+aSuERMHFnt+d9ID0qGtsd025Dh5f1YJwAXIyMIbEA9k6ndRGpZOTPkUqetgeBzhzW5HYA7W3MIAZR6x0jI=
+	t=1790141682; cv=none; b=JA5nOrus4wWIfEzYqM/uFkQiGYq67Xr1hXq6hBj4Q4Mah30S4X6BKbsr5uAjwmVSXKlNj94iHDDRvJxkpKp+4dUJqQIGK5TbO+gE5kkUmw4am2W7m/4sdc+LWjKXZolaGQ927tU+eiolnPlU4ZctnJYWEyfHqqspXafSmfA7OY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790141666; c=relaxed/simple;
-	bh=+Zd3h5u6N+N5Ms7Szim1Fw+hrsr+ojwPPp/37WoWfI0=;
+	s=arc-20240116; t=1790141682; c=relaxed/simple;
+	bh=wD1a4x6mD9hhadF4dyvfpfIKtRaH+naN8bZd0dwjoz8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PZjmMZYaOKkggV8Lrx8D3WH+6tTEiDZnH/7EgxlWq4oYBhBB8uOAZFNAz/WqvMOrQugOJGbkEaUn08ZlXh6XB5FXqMUlM/HHjFew1/OkkPyaUlu/MNq49yAbdQDzj/cdok6SXXugNf/DDtTyJeJLsC+HVaqSxb/PRRWE1k8IvCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4ONNA1d; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=mXuF9lLbtZjLpXWnwM6QK2CmD1zjn+KRvgJXf7WwPWIctv8qZGLtBCx6Awu81y6UeSqT1szNNXvNQe4RBN9kxnUOHhymWK9ORQWnoQaDFf6Rf7+u3wtKA+5LM0UWu7ttWFLRZyZwM4q9+ciWjrLzR2NbcNGYARs6LWE6Z8Ao1+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=HiiBMhoj; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4ONNA1d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7304F1F00898;
-	Wed, 23 Sep 2026 05:34:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790141664;
-	bh=M5qIhAjSX1NSy0AvzqnkHxwmMfSEPWJSFmMa4qL9iMM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G4ONNA1dZoq/yr93y343aEaiUpDPnZiwRawbVrY7ed096MYGtO+Kdk1uAc6nrYoOS
-	 VVeRQ9+iwLaJO8+lyH3YJSqVM/nHMHVEKkYsf9Kpwiwbmyea3DzUVnS34NtvKzTKBK
-	 5Rqb+qFV7ampKZzlhYwZ49ESeNw2Z+jKfAdi5K28gGuIOCTRAmDvYYGoN3B5NrCRcq
-	 g8grf4al4Mp2y/uRvxFRS6aTiZWAdX5OYdTyhbKgdHr/VwH/+soYbmq5mbwkm9bYQ0
-	 zipp84svI52KqnlC/LnsTLAurMZKVSMHlS+3+cAWpbFEmCF1xVRD70x/iCrx3clyUR
-	 uVIHXqgeOt/Fw==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.phl.internal (Postfix) with ESMTP id A532FF40066;
-	Wed, 23 Sep 2026 01:34:23 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Wed, 23 Sep 2026 01:34:23 -0400
-X-ME-Sender: <xms:32Szah1fupPskjX3LDhVX9Hnf6yCViFa7lB0c2tJH0pDefQsgrKhzg>
-    <xme:32Szaik1Rtd02He-6QnJaoqHdd2-osFNVDxLQGl47K7J7m07dMBVzyrHi-IDTDG9A
-    9-eIyNMF_JRHlPVApBV0891HkQsu6DY-W8Li8M9Uyx_n0c8CEoKwAU>
-X-ME-Received: <xmr:32Szau0VmZLV5pMAz4ewWzcyEnL54rwBaqAE1rriyUnEFy_-9gJWcnnM5bOAR8vRgEzMlfLlHRlGkIhLvF7-0XKeHIOy6UerYdbBaC7nkb7WmHX-2G503HPo>
-X-ME-Proxy-Cause: dmFkZTEQDudFIUlzSD9LylPJ3BOxVkG7BdYtkVRlhef6vQpZn2CP8M+xdcB0Xnip6noRBy
-    6lkEKhqtF8BIcGjfAFbMve/DITNFQE3eyIbaxUZLQSOZwIS70IrYT/WHozBsKooDflAwhE
-    39VY8OEqjEWPf3nIcoDXom0nFUJSd7OS3yag1Y4E/vVTLvTw74PGAA6UPkKZaMshEKcEXh
-    HuzAIUUNlSFtKRk4dnJSg7lX/fbAF4hlEmW5xRAkVjqbXNJjVL+pOe0BYRmIMV3bv0wiS5
-    YQruk/eft1kOzXyBCyjrUFjHzv4rseGHMxIZBkPYJtSCOkRSsFT5hXMgh1+qUsGhJXbhUw
-    3v5796LwlNf0sgol29iSA+DG2C4znad2xCKB/enaQcF2/dLfEOHLAz4lwMYJfTLULRUH3t
-    A9zFaHDqoCrXfuy3PSjvFcgd6FkhZCb0rifxPwgXEX9uDOdSPemPKF5/tGHW+WgIcGaz8I
-    pvBYo7mxu7LLKDWV+AwwoIQ88kMtadoO9j0MAQR+sZtJ8UsPmJNxq5z950wBE+WvlQMF1f
-    FuxPCByTwLWvfZ0h0SXXGdW72mIHgFao4yh0BdKcsw635Y9oa+aU2rPe9VUaYmLimhcAlY
-    YjeZu6+ggNzD/WaOBjT58cE+gV3Ji4PnJha4IWMRsfPVF0coBerL2dsajM/w
-X-ME-Proxy: <xmx:32SzahgLysx8EtUavA66p5ABOnZZ-tl9PZ8UKvfbWPbv594dOE7Anw>
-    <xmx:32SzasWM3JZMY_HvcAAlFB-JQQVCDgj0NL_fvh_ETBUkJmq606Ktqw>
-    <xmx:32SzatxENRSJts3gCimw7__mY4T7u3zYRwxMeK_JxL7SqA8fZ-kwCQ>
-    <xmx:32Szak5yE7EroL7S-aANY4c8k9KBB_L1EYSvha9kmp_pZwVSP8khOg>
-    <xmx:32SzanjGqvdBvg2vWLvAn753Uk1I73M2FzeRQJl4E5AzZJ9V65D4Yj5Z>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Sep 2026 01:34:23 -0400 (EDT)
-Date: Wed, 23 Sep 2026 07:34:22 +0200
-From: Boqun Feng <boqun@kernel.org>
-To: Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
-Cc: rust-for-linux@vger.kernel.org, lossin@kernel.org, lyude@redhat.com,
-	ojeda@kernel.org, alex.gaynor@gmail.com, boqun.feng@gmail.com,
-	gary@garyguo.net, a.hindborg@kernel.org, aliceryhl@google.com,
-	tmgross@umich.edu, dakr@kernel.org, peterz@infradead.org,
-	mingo@redhat.com, will@kernel.org, longman@redhat.com,
-	felipe_life@live.com, daniel@sedlak.dev,
-	daniel.almeida@collabora.com, thomas.hellstrom@linux.intel.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 2/7] ww_mutex: add ww_class field unconditionally
-Message-ID: <arNk3mN8Uq9cU5bz@MacBook-0RXW5>
-References: <20260102175302.194435-1-work@onurozkan.dev>
- <20260102175302.194435-3-work@onurozkan.dev>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="HiiBMhoj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=t4crrsEFisREJ9CrGFW/zlKz2wTGxjmssg7rdlE5LvY=; 
+	b=HiiBMhojD6Wxko1Hu1dUPrLa4SD2rQC8octaGtTL8DJocM+Jd0EJ+jkWS4vGpMZ3MY1Wv0JYF7r
+	sWIMjH3DzrfKsaQxOYeJOgGDAP9Jn80eIHclUldE1VSa7TXk/b4nmYAjFp24yaebNxMhcMndykLMa
+	x/yuekGdXYXIy/UFejWFlQ1T5CT0YXV1bIfdOKcdwRZs9P8D3XCwHfThyoYg2nqJT2GN9Y6q1mXJY
+	xIV4+WBBIb+Kuzz8WM5tKHIdj24OpgB2hql2KT0AsI6+7Fh78bPtr9RJK0bnfne19jhhMfYBWuoyk
+	xaiMofjIGXN8Wv8oG3tUuzTyjCApAvaCnJWA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x9Fco-0000000Gucq-1rSt;
+	Wed, 23 Sep 2026 13:34:35 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 15:34:34 +1000
+Date: Wed, 23 Sep 2026 15:34:34 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: ayush.sawal@chelsio.com, davem@davemloft.net, harsh@chelsio.com,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] crypto: chelsio - Fix wrcount leak in chcr_aes_decrypt()
+Message-ID: <arNk6ujyrvTsFBfS@gondor.apana.org.au>
+References: <20260916092359.2001753-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260102175302.194435-3-work@onurozkan.dev>
+In-Reply-To: <20260916092359.2001753-1-vulab@iscas.ac.cn>
 
-On Fri, Jan 02, 2026 at 08:52:57PM +0300, Onur Özkan wrote:
-> Removes DEBUG_WW_MUTEXES guard around the ww_class field
-> in struct ww_mutex and struct ww_acquire_ctx to always
-> initialize it.
+On Wed, Sep 16, 2026 at 09:23:59AM +0000, Wentao Liang wrote:
+> chcr_aes_decrypt() increments the device inflight count with
+> chcr_inc_wrcount() before building the work request, but it returns
+> early without dropping the count when the tx queue is full or when
+> process_cipher() fails and returns no skb. The count is only dropped
+> by the completion handlers, so every failed request permanently skews
+> the count and eventually blocks the device from being detached, with
+> the detach worker warning "CHCR:request Still Pending".
 > 
-> Keeping the class pointer available unconditionally allows
-> Rust abstractions to keep from_raw() simple on Mutex and
-> AcquireCtx, simplify AcquireCtx reinitialization logic and
-> validate Mutex and AcquireCtx class pairing in much simpler way.
+> Add an error label that calls chcr_dec_wrcount(), mirroring
+> chcr_aes_encrypt(), and jump to it on the failure paths.
 > 
-
-@Peter and @Waiman, any dispute on this patch? I would like to make some
-progress on this since it'll be needed for GPUVM and KMS if I understand
-correctly.
-
-Regards,
-Boqun
-
-> Link: https://lore.kernel.org/all/ECC0425A-8B18-4626-8EA8-2F843C45E0A1@collabora.com/
-> Signed-off-by: Onur Özkan <work@onurozkan.dev>
+> Fixes: fef4912b66d6 ("crypto: chelsio - Handle PCI shutdown event")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  include/linux/ww_mutex.h | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
-> 
-> diff --git a/include/linux/ww_mutex.h b/include/linux/ww_mutex.h
-> index 45ff6f7a872b..c9835035b6d6 100644
-> --- a/include/linux/ww_mutex.h
-> +++ b/include/linux/ww_mutex.h
-> @@ -47,9 +47,7 @@ struct ww_class {
->  struct ww_mutex {
->  	struct WW_MUTEX_BASE base;
->  	struct ww_acquire_ctx *ctx;
-> -#ifdef DEBUG_WW_MUTEXES
->  	struct ww_class *ww_class;
-> -#endif
->  };
->  
->  struct ww_acquire_ctx {
-> @@ -58,9 +56,9 @@ struct ww_acquire_ctx {
->  	unsigned int acquired;
->  	unsigned short wounded;
->  	unsigned short is_wait_die;
-> +	struct ww_class *ww_class;
->  #ifdef DEBUG_WW_MUTEXES
->  	unsigned int done_acquire;
-> -	struct ww_class *ww_class;
->  	void *contending_lock;
->  #endif
->  #ifdef CONFIG_DEBUG_LOCK_ALLOC
-> @@ -110,9 +108,7 @@ static inline void ww_mutex_init(struct ww_mutex *lock,
->  {
->  	ww_mutex_base_init(&lock->base, ww_class->mutex_name, &ww_class->mutex_key);
->  	lock->ctx = NULL;
-> -#ifdef DEBUG_WW_MUTEXES
->  	lock->ww_class = ww_class;
-> -#endif
->  }
->  
->  /**
-> @@ -147,8 +143,8 @@ static inline void ww_acquire_init(struct ww_acquire_ctx *ctx,
->  	ctx->acquired = 0;
->  	ctx->wounded = false;
->  	ctx->is_wait_die = ww_class->is_wait_die;
-> -#ifdef DEBUG_WW_MUTEXES
->  	ctx->ww_class = ww_class;
-> +#ifdef DEBUG_WW_MUTEXES
->  	ctx->done_acquire = 0;
->  	ctx->contending_lock = NULL;
->  #endif
-> -- 
-> 2.51.2
-> 
+>  drivers/crypto/chelsio/chcr_algo.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+
+Plesae combine this with the encrypt patch and repost.
+
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
