@@ -1,30 +1,30 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE8043B6E7
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A933B3F65E0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143421; cv=none; b=EdDfhndA5RyOQCCeiZTTVnjivFJ4DLhRhVwGBnQzb3g+9BKHovF2L2tp3LP6ftjAA/1b81Xsj4RI1c+tD5A9BIJqPRzQX/ZR5wj0+IyePPGHODXlYtSARk8/NfX7smB4DZ1hiZRTzUxKICRB7k3Sf31Cu0KHKMcAVlkcmbBi0R4=
+	t=1790143424; cv=none; b=t4SYd6c478UKe5ttwQT4md2Z7hTQgpJTIniGUGAeTR6V/6TMSna3xgDag24fWTBBXOADeqDem4l9wMaSFrb2rYtLlpNsju5iQnrvqnVf28OxQkDWGCBRLgzK7yEjr2qHPAYNs6nolI0gbmGZjhyS3Uaa2Q2+TsYQGjixaads61E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143421; c=relaxed/simple;
-	bh=dJEHobYU4RAHvYMcm55K9ocTqTIw/eTQ1MP9+/bomEI=;
+	s=arc-20240116; t=1790143424; c=relaxed/simple;
+	bh=SLvIRF/BQQYJeKvS9wwLImD5kOoExEE25bLIsUlvVXc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QHZ9mWsNpkxHXqm+oDtS04GyEcdoHq2Mb89d//mw4F6NXOqamOap5uVzoZ7aONLIeb7TllzqS9qdjDsZqZz8QyLE5XUcEN0XHl+R6vJkaOl4y8bTP9UPG6WbQy2ABw6t85NJJ58fJL2zLzPEGAXwStpMrqoe4STV5q/JA8gZUBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=JXqywgaU; arc=none smtp.client-ip=117.135.210.5
+	 MIME-Version; b=hKyf9vazBuxQdFMi3VIaDBrtGgToGsDuhF+JlFUEoFe60H1tGj1mPbRmkolj5V1nCSGT4Eg/gVzaNl7SR9YsBjZs3KCwFvgvVz9/zlFV/s7WcGLntexEx7eQoQWeuQ5jCblDWlYvQM+ZFdIbYNUKunEmnWqEsS4A+E+875o70Ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MK6Tc/0C; arc=none smtp.client-ip=220.197.31.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="JXqywgaU"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MK6Tc/0C"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=d2
-	V/uhA5Nr+uRfziR+eTgIF69MwF6vW6j3mSPlkQWts=; b=JXqywgaUFeeClJZSXx
-	mSqZu428DXcW0wPcCMvc6/B6tfeekiBQw4g6fCxpwkP50+hfWNV0D7Bm4dEmbmgR
-	x9NHEZb6/oYCm5gcyvFkzLiYRitoJsFqlDvPMCHK+2/XPdKr3EiGAEuorN7rN82q
-	4U5HkDY+1n37qEXrYdr5PjI3g=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=by
+	VHPD1vO1LiJiOEAeBdTEB0gw669olCIOtfkHmfpt4=; b=MK6Tc/0CIdhpY/3Vsx
+	YjRCCRnmGxZkOjCj7K9qnYLHjDmDdlAfnzgUW2F02qZMzo59hrnM7vY5+smigl3F
+	j0AmRgSoyXekm/8QdYpjFiuLVAPmmjBlZFJ52wFIllu0kmMlIGlMa9oPjpGGvqJv
+	f6I0cr1cOkyBYA+8s0XBDbNX4=
 Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgCH_E+Ia7NqXdW_Aw--.58316S5;
-	Wed, 23 Sep 2026 14:02:57 +0800 (CST)
+	by gzsmtp4 (Coremail) with SMTP id PygvCgCH_E+Ia7NqXdW_Aw--.58316S9;
+	Wed, 23 Sep 2026 14:03:04 +0800 (CST)
 From: Baolin Liu <liubaolin12138@163.com>
 To: linkinjeon@kernel.org,
 	hyc.lee@gmail.com
@@ -32,9 +32,9 @@ Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	chenxiaosong@chenxiaosong.com,
 	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v4 03/10] ntfs: propagate EA write and truncate errors
-Date: Wed, 23 Sep 2026 14:02:39 +0800
-Message-ID: <20260923060246.2499192-4-liubaolin12138@163.com>
+Subject: [PATCH v4 07/10] ntfs: add fileattr query support
+Date: Wed, 23 Sep 2026 14:02:43 +0800
+Message-ID: <20260923060246.2499192-8-liubaolin12138@163.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260923060246.2499192-1-liubaolin12138@163.com>
 References: <20260923060246.2499192-1-liubaolin12138@163.com>
@@ -45,47 +45,154 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgCH_E+Ia7NqXdW_Aw--.58316S5
-X-Coremail-Antispam: 1Uf129KBjvdXoW7GFyfWFW7ZF4DXF17XF17Awb_yoWkZwc_X3
-	WxZF1kKw4qqF1kGanrArnI9r1qqa18ZF1qvwn5K3Wvy34Dtryqyrn8Wrs5KFsF9a1vkr98
-	Gwn3WF13AF13GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUnEtC3UUUUU==
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hKGUWqza5IR4wAA39
+X-CM-TRANSID:PygvCgCH_E+Ia7NqXdW_Aw--.58316S9
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAry8Zr4DZw43uF48GFWxZwb_yoWrZw43pF
+	Z3CFyfKa1rXFy2g392kFWjv3WY9ryxWw4UXryxX34IkFnrtr93KF1fK3WruFn5KrZ5A3yU
+	XF1YqrWUGr45ZwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j4Q6LUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6RmIU2qza5nHOgAA39
 
 From: Baolin Liu <liubaolin@kylinos.cn>
 
-ntfs_write_ea() replaces negative write errors with EIO and ignores
-errors when shrinking the attribute after writing a shorter list. This
-can report success even though the final resize failed.
+Add fileattr_get operations for files and directories, as well as the
+existing symlink and special inode operation tables. Report compression,
+encryption, immutable and append-only from cached inode state, and
+FS_CASEFOLD_FL from the mount-wide case sensitivity policy.
 
-Preserve negative write errors, use EIO for short writes, and return
-truncate failures to the caller.
+This introduces querying only. It neither reads a private flag EA nor
+allows userspace to change the reported flags.
 
 Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
 ---
- fs/ntfs/ea.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ Documentation/filesystems/ntfs.rst |  8 ++++++++
+ fs/ntfs/file.c                     | 33 ++++++++++++++++++++++++++++++
+ fs/ntfs/namei.c                    |  1 +
+ fs/ntfs/ntfs.h                     |  2 ++
+ 4 files changed, 44 insertions(+)
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 2ee700f8227e..98ca9e4f8d25 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -32,12 +32,12 @@ static int ntfs_write_ea(struct ntfs_inode *ni, __le32 type, char *value, s64 ea
+diff --git a/Documentation/filesystems/ntfs.rst b/Documentation/filesystems/ntfs.rst
+index 4bfa392daec6..0a4c43d6c890 100644
+--- a/Documentation/filesystems/ntfs.rst
++++ b/Documentation/filesystems/ntfs.rst
+@@ -9,6 +9,7 @@ The Linux NTFS filesystem driver
  
- 	written = ntfs_inode_attr_pwrite(ea_vi, ea_off, ea_size, value, false);
- 	if (written != ea_size)
--		err = -EIO;
-+		err = written < 0 ? written : -EIO;
- 	else {
- 		struct ntfs_inode *ea_ni = NTFS_I(ea_vi);
+    - Overview
+    - Utilities support
++   - Linux file attributes
+    - Supported mount options
  
- 		if (need_truncate && ea_ni->data_size > ea_off + ea_size)
--			ntfs_attr_truncate(ea_ni, ea_off + ea_size);
-+			err = ntfs_attr_truncate(ea_ni, ea_off + ea_size);
- 		mark_mft_record_dirty(ni);
- 	}
  
+@@ -34,6 +35,13 @@ The project is available at:
+   https://github.com/ntfsprogs-plus/ntfsprogs-plus
+ 
+ 
++Linux file attributes
++=====================
++
++The driver supports querying compression, encryption, immutable, append-only
++and mount-wide case folding through lsattr(1). Case folding is reported
++according to the mount options.
++
+ Supported mount options
+ =======================
+ 
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index 99a2c7a5cf81..e5846bf498b0 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -15,6 +15,7 @@
+ #include <linux/posix_acl_xattr.h>
+ #include <linux/compat.h>
+ #include <linux/falloc.h>
++#include <linux/fileattr.h>
+ 
+ #include "lcnalloc.h"
+ #include "ntfs.h"
+@@ -136,6 +137,35 @@ static int ntfs_file_release(struct inode *vi, struct file *filp)
+ 	return 0;
+ }
+ 
++/*
++ * ntfs_fileattr_get - inode_operations::fileattr_get
++ * @dentry:	dentry to report the flags of
++ * @fa:		filled in with the flags of @dentry
++ */
++int ntfs_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
++{
++	struct inode *vi = d_inode(dentry);
++	struct ntfs_inode *ni = NTFS_I(vi);
++	u32 flags = 0;
++
++	if (NVolShutdown(ni->vol))
++		return -EIO;
++
++	if (NInoCompressed(ni) || NInoWofCompressed(ni))
++		flags |= FS_COMPR_FL;
++	if (NInoEncrypted(ni))
++		flags |= FS_ENCRYPT_FL;
++	if (vi->i_flags & S_IMMUTABLE)
++		flags |= FS_IMMUTABLE_FL;
++	if (vi->i_flags & S_APPEND)
++		flags |= FS_APPEND_FL;
++	if (!NVolCaseSensitive(ni->vol))
++		flags |= FS_CASEFOLD_FL;
++
++	fileattr_fill_flags(fa, flags);
++	return 0;
++}
++
+ /*
+  * ntfs_file_fsync - sync a file to disk
+  * @filp:	file to be synced
+@@ -1234,6 +1264,7 @@ const struct file_operations ntfs_file_ops = {
+ };
+ 
+ const struct inode_operations ntfs_file_inode_ops = {
++	.fileattr_get	= ntfs_fileattr_get,
+ 	.setattr	= ntfs_setattr,
+ 	.getattr	= ntfs_getattr,
+ 	.listxattr	= ntfs_listxattr,
+@@ -1243,12 +1274,14 @@ const struct inode_operations ntfs_file_inode_ops = {
+ };
+ 
+ const struct inode_operations ntfs_symlink_inode_operations = {
++	.fileattr_get	= ntfs_fileattr_get,
+ 	.get_link	= ntfs_get_link,
+ 	.setattr	= ntfs_setattr,
+ 	.listxattr	= ntfs_listxattr,
+ };
+ 
+ const struct inode_operations ntfs_special_inode_operations = {
++	.fileattr_get	= ntfs_fileattr_get,
+ 	.setattr	= ntfs_setattr,
+ 	.getattr	= ntfs_getattr,
+ 	.listxattr	= ntfs_listxattr,
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index 3e0adb9a0ea4..ee451700b766 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -1548,6 +1548,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
+  * Inode operations for directories.
+  */
+ const struct inode_operations ntfs_dir_inode_ops = {
++	.fileattr_get	= ntfs_fileattr_get,
+ 	.lookup		= ntfs_lookup,	/* VFS: Lookup directory. */
+ 	.create		= ntfs_create,
+ 	.unlink		= ntfs_unlink,
+diff --git a/fs/ntfs/ntfs.h b/fs/ntfs/ntfs.h
+index dd56894762a9..a5c5c18671d2 100644
+--- a/fs/ntfs/ntfs.h
++++ b/fs/ntfs/ntfs.h
+@@ -183,6 +183,8 @@ extern const struct inode_operations ntfs_dir_inode_ops;
+ extern const struct  file_operations ntfs_empty_file_ops;
+ extern const struct inode_operations ntfs_empty_inode_ops;
+ 
++int ntfs_fileattr_get(struct dentry *dentry, struct file_kattr *fa);
++
+ extern const struct export_operations ntfs_export_ops;
+ 
+ /*
 -- 
 2.51.0
 
