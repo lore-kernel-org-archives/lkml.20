@@ -1,52 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81A0C511E8A;
-	Wed, 23 Sep 2026 14:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74F25304DD
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790173960; cv=none; b=R2tBHVzbH++Ub3rKT1Dm+hhRy4P4duuWBYk3kqMrIe36riEDJRPCX3K3VzqScv62+6l1D0pdaZw9NXAfr67IABMwFmeAPL6CVeJKyuNaITroUR1ZsCcGHOiPSXxSL6edkf2lkwMTlAZY8rCh2apXwfBInLr2dz4IARjtyjFXkHU=
+	t=1790173968; cv=none; b=ROwsPG5kaMvM3pWAAU1bDY80JOPPcGxUuMonH/Yy9owbFpSLqaYCGT3LKO4/TiHfjxKpladwseDRbUM0gPqxOGXXYCwGnCiYIEjbf/zggMz1nR9o3f3ei/lM0zCdRmbI9t4SBaD84QIPQhtobuP043nd0wehF2ZfizlLUY3xu/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790173960; c=relaxed/simple;
-	bh=lbYV1LSybyMNBPEhgM4YVhUd3BoeQAweKneYDrc6bXo=;
+	s=arc-20240116; t=1790173968; c=relaxed/simple;
+	bh=S7rAkPuZSZMbYQIfkDVKURs4Ono2lI5WQLQVCr5CGDI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TKI53ajoiHvmvXtzaeLQg91tLdV62ezFPLX/1Vsg1J1jzjU2QHXxrdqo4X2AJW4nBJQ/t8lfcDV8Z5JKBCdRWbuTtmTm5H4jq1vQGfTIciHnyJHB+RUMUe6ch6PibnoLDo07Cd9f0DpjlcohV6dfddrVsc8CwujzWQsmw7lTsJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fO6eOMs5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=uxbxLWA8wNrjdzU5mhH4nrbeTq7BDMzeY44+rXgdtJ3Lhb8tk2xDwBhNPk5ZZdm0kXPExkGzDLzeg0ZxTOp1AcouhjHPJjRKIFWiiESjJUVCnWLPl46THcft0zsdJrJQjCw1UQXqgOgqbGPv/V6eAmcitMUxEeoucKUK5BtVJvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mdmqPp28; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fO6eOMs5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B361A1F000FF;
-	Wed, 23 Sep 2026 14:32:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790173959;
-	bh=nszf8PUF4EQzPBEcCjZZ0KgFF4eI3s+mniEiPsNVXR0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fO6eOMs56OPjiajrTw8h9zElAg5bsvjL3NdV0Lj3D+elgi0B10cQK/wFJf+VT7suo
-	 PttohCYnc4gvkNCaSmInmQ5DMYL3LFRmjbfrpSrTvvKbRkWxIUjIC0e2k8CB3R68nm
-	 ptBmaJYKoNbP7DFT9sEvrW2aISPaujLyRgLlgqk5RxOfgGZgIh6DO5nY/V9Nem7mPn
-	 sLoVxHwnbfTB1WHMzMwV3+CwdcGtXhGjp4B6CSMF5mijVcrvS0e6WrnU3SprFKTQLY
-	 oYd2caHTiQHgOHbwj9M8xeWWtT4yPPw17E1I7TSfgNgd/z/OawhaUqyPVjFm/0ggTN
-	 lmW6WHkxmwxYA==
-Date: Wed, 23 Sep 2026 16:32:33 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Manikanta Maddireddy <mmaddireddy@nvidia.com>,
-	Koichiro Den <den@valinux.co.jp>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof Wilczynski <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Vidya Sagar <vidyas@nvidia.com>,
-	Marco Crivellari <marco.crivellari@suse.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 11/11] PCI: endpoint: test: Do not relocate fixed MSI-X
- tables
-Message-ID: <arPjAeYzVbe5_qo8@ryzen>
-References: <20260923072237.1139013-1-mmaddireddy@nvidia.com>
- <20260923072237.1139013-12-mmaddireddy@nvidia.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mdmqPp28"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b5b07ec78so571393a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:32:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790173966; x=1790778766; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7rhO8zdKOr8jmD+SfzN1wHrIhUden50az9FhzT+ZY8k=;
+        b=mdmqPp28IGHF+NKj9wAayNk7MVkLgVlCNCkixI5BktES03GMQ55V/dYOl5TJicpb2/
+         rx5S2YVwHAa0dxHRCK263IEdo7J7HelyXNyXHcFWuHUtzMqXpYsv5fZ2W9T7zIQGxeau
+         pQICE4fjlR89YLOoiP/MOut3o5YqXOuE54PprAO18ZKtOJ/Gu5ueyLwcp9IrykmS3g5i
+         BrmsFEIspOhCUM4s5qRKzsV4MxYzVwxuz0IH5VGmofBNtoJou3hqnDm+SCTUHKQfbolC
+         b3aO4AwR2+AJMKREOAIJk6p1SdWEkAdxkAKDB9fV9XkLqspEuCg4nZkS4OPZQtC7Boh1
+         CEow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790173966; x=1790778766;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7rhO8zdKOr8jmD+SfzN1wHrIhUden50az9FhzT+ZY8k=;
+        b=NAQHKospCc2AcO5cU+gLLVXlylwB/C94A2Tqml+Uc4whmZpdjH4sCuzK0526YfHfGZ
+         MjqBbYTnTD6pcQkCeVpCDnYLlCP+vqSp1OZh9NhmdAdu+eABvZIj/UAwKyq7afIxKA+r
+         hZJPIhsJYVrVgeVTAStjlwDwLNXZKFJfEMHZu+9KvLl9bDj4MqfpELvTpAtQdDovdtBW
+         /5Xtg0lNaZi9oPw9447jgsP3C8Py666LmSSP96VqBhaVipo0jnMwg2p4PvRvB6ltcuoj
+         8Dr/4lzzm2dHTIBtVze/L8khGd0SLFDXYVTGFyRfRnZcsIq0wZn240D2n+l9dghhF0ep
+         qQMA==
+X-Forwarded-Encrypted: i=1; AKwUvBynwflFFcsjSa4bX+GwbZgNwi8B2I5HzRrECPPbh24oXm9Dx5K1O3L9825jBZXOsthpOY6EUBHYu8KVrXU=@vger.kernel.org
+X-Gm-Message-State: AFuF++klI05hS3yQpIlJjwVW24jm0Nt8sGUK7yz3vHvIFoO9FtT1Uf2X
+	h//fAnXI0nhpXxbGYORYC0Yd7fycilDxvoXli0LamIXRZMawCC3zRIM/S1bncc3bJFQ=
+X-Gm-Gg: AYBFou2fy9ld64eUULch9bmLbedurVzgSDam88Sr6okXicA+hFm0XWlCbnB0YZP8Zy8
+	wuvS3j3ZYK+6sBi3/0l+7wFoTnHP7jJz/foJyjFPYG3rlS4xGQatM6TjBUYNuzbFq5n8DhyNxxL
+	UYgSHi/Tdda0WhWWTCccPn27gCx9MeVtMDQe6HWVTulu76DtZXf4WgFTatH/OrgFfjZB4qHxt9H
+	7OInEJh2vSGt4X7QV3jyX+f/s12bFMPMYjijxxjNMoeuaS7vLU8IqWDJqEht6VT8/fZ0s9pX30q
+	AfyUiJWiL7mkBVmPJQ/aZD6+Nt/rqG4CFGkHzhCjsAs8nUhzhvyGvU4lnq3ufZQGgShji13Sg0g
+	FxGtNZOCFJxNvsMZSFn28xIe+fL7xM28oaJqtqd+y9bCqGrcVtvcMQ9ExQPMGNwRRPdvnSxFMdo
+	zOdCygt/zvx7X2NHdv4DLyHcI/JtGan+rn67e2H4O8QQFMBm5IpXyDCzyXIJABqRvYX0hz4F21m
+	VXay5jkiw==
+X-Received: by 2002:a17:90b:2552:b0:398:9c39:520f with SMTP id 98e67ed59e1d1-3a07e51cf1fmr2382544a91.15.1790173965946;
+        Wed, 23 Sep 2026 07:32:45 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:b4a:dc6a:68e:2592])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07db882a5sm5446811a91.1.2026.09.23.07.32.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:32:45 -0700 (PDT)
+Date: Wed, 23 Sep 2026 08:32:41 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev, maz@kernel.org, will@kernel.org,
+	catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+	oupton@kernel.org, gshan@redhat.com, joey.gouly@arm.com,
+	tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v18 00/23] KVM: arm64: CCA: Add basic plumbing for Realms
+Message-ID: <arPjCZL2IfvTKMml@p14s>
+References: <20260915160141.3543048-1-suzuki.poulose@arm.com>
+ <aqrsmUTxDVbKJn8k@p14s>
+ <yq5aecel3aj3.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,116 +85,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923072237.1139013-12-mmaddireddy@nvidia.com>
+In-Reply-To: <yq5aecel3aj3.fsf@kernel.org>
 
-On Wed, Sep 23, 2026 at 12:52:37PM +0530, Manikanta Maddireddy wrote:
-> Some endpoint controllers expose MSI-X table/PBA storage at fixed,
-> hardware-owned BARs. Such BARs are described to endpoint functions as
-> BAR_RESERVED with PCI_EPC_BAR_RSVD_MSIX_TBL_RAM, so the function driver
-> must not reprogram the MSI-X Table/PBA capability to point into ordinary
-> function BAR memory.
+On Tue, Sep 22, 2026 at 02:52:56PM +0530, Aneesh Kumar K.V wrote:
+> Mathieu Poirier <mathieu.poirier@linaro.org> writes:
 > 
-> pci_epf_test always allocates MSI-X storage after its test registers and
-> calls pci_epc_set_msix(). On controllers with fixed MSI-X storage, this
-> overwrites the controller-defined MSI-X layout. For example, the generic
-> DesignWare path derives the PBA offset from the number of vectors, which
-> can make the host program the wrong MSI-X storage and prevent MSI-X
-> delivery.
+> > Hi Suzuki,
+> >
+> > On Tue, Sep 15, 2026 at 05:01:18PM +0100, Suzuki K Poulose wrote:
 > 
-> Detect fixed MSI-X table BARs and leave the controller-owned MSI-X
-> capability layout unchanged. Keep allocating and programming MSI-X
-> storage in the test BAR only for controllers that do not advertise fixed
-> MSI-X table storage.
+>  [ ... 42 lines skipped ... ] 
 > 
-> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-> ---
->  drivers/pci/endpoint/functions/pci-epf-test.c | 27 +++++++++++++++++--
->  1 file changed, 25 insertions(+), 2 deletions(-)
+> >> 
+> >> [0] Arm CCA KVM Support v16 : https://lore.kernel.org/all/20260803134403.80630-1-steven.price@arm.com
+> >> [1] Linux firmware RMI https://lore.kernel.org/all/20260912083611.2513845-1-suzuki.poulose@arm.com
+> >> [2] Linux GPF Host https://lore.kernel.org/all/20260913070459.2547407-1-suzuki.poulose@arm.com
+> >> [3] https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/kvm-v18/integration
+> >> [4] https://support.arm.com/documentation/den0137/2-0bet3/
+> >
+> > When testing on the FVP model with the above baselines, I get the following
+> > error messagaes in a loop, preventing the system from reaching the command line:
+> >
+> > [    3.112577] Freeing unused kernel memory: 3520K
+> > [    3.115398] Run /sbin/init as init process
+> > [    3.142926] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+> > total 512 (slots), used 511 (slots)
+> > [    3.150111] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+> > total 512 (slots), used 511 (slots)
+> > [    3.177190] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+> > total 512 (slots), used 511 (slots)
+> > [    3.197194] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+> > total 512 (slots), used 511 (slots)
+> > [    3.217188] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+> > total 512 (slots), used 511 (slots)
+> > [    3.237194] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+> > total 512 (slots), used 511 (slots)
+> > [    3.257181] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+> > total 512 (slots), used 511 (slots)
+> > [    3.277189] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+> > total 512 (slots), used 511 (slots)
+> > [    3.297193] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+> > total 512 (slots), used 511 (slots)
+> > [    3.317188] virtio-pci 0000:00:02.0: swiotlb buffer is full (sz: 4096 bytes),
+> > total 512 (slots), used 511 (slots)
+> > [    8.157185] swiotlb_tbl_map_single: 241 callbacks suppressed
+> >
+> > I get the same result with v17.  Have you seen this before?  Perhaps a kernel
+> > option that needs to be adjusted?
+> >
 > 
-> diff --git a/drivers/pci/endpoint/functions/pci-epf-test.c b/drivers/pci/endpoint/functions/pci-epf-test.c
-> index d4905aa8e4c0..82d4714e998c 100644
-> --- a/drivers/pci/endpoint/functions/pci-epf-test.c
-> +++ b/drivers/pci/endpoint/functions/pci-epf-test.c
-> @@ -83,6 +83,7 @@ struct pci_epf_test {
->  	struct config_group	group;
->  	enum pci_barno		test_reg_bar;
->  	size_t			msix_table_offset;
-> +	bool			msix_table_fixed;
->  	struct delayed_work	cmd_handler;
->  	struct dma_chan		*dma_chan_tx;
->  	struct dma_chan		*dma_chan_rx;
-> @@ -98,6 +99,26 @@ struct pci_epf_test {
->  	size_t			bar_size[PCI_STD_NUM_BARS];
->  };
->  
-> +static bool pci_epf_test_msix_table_fixed(const struct pci_epc_features *features)
-> +{
-> +	enum pci_barno bar;
-> +	int i;
-> +
-> +	for (bar = BAR_0; bar < PCI_STD_NUM_BARS; bar++) {
-> +		const struct pci_epc_bar_desc *desc = &features->bar[bar];
-> +
-> +		if (desc->type != BAR_RESERVED)
-> +			continue;
-> +
-> +		for (i = 0; i < desc->nr_rsvd_regions; i++) {
-> +			if (desc->rsvd_regions[i].type == PCI_EPC_BAR_RSVD_MSIX_TBL_RAM)
-> +				return true;
-> +		}
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  struct pci_epf_test_reg {
->  	__le32 magic;
->  	__le32 command;
-> @@ -1214,7 +1235,7 @@ static int pci_epf_test_epc_init(struct pci_epf *epf)
->  		}
->  	}
->  
-> -	if (epc_features->msix_capable) {
-> +	if (epc_features->msix_capable && !epf_test->msix_table_fixed) {
->  		ret = pci_epc_set_msix(epc, epf->func_no, epf->vfunc_no,
->  				       epf->msix_interrupts,
->  				       epf_test->test_reg_bar,
-> @@ -1282,7 +1303,9 @@ static int pci_epf_test_alloc_space(struct pci_epf *epf)
->  
->  	test_reg_bar_size = ALIGN(sizeof(struct pci_epf_test_reg), 128);
->  
-> -	if (epc_features->msix_capable) {
-> +	epf_test->msix_table_fixed = pci_epf_test_msix_table_fixed(epc_features);
-> +
-> +	if (epc_features->msix_capable && !epf_test->msix_table_fixed) {
->  		msix_table_size = PCI_MSIX_ENTRY_SIZE * epf->msix_interrupts;
->  		epf_test->msix_table_offset = test_reg_bar_size;
->  		/* Align to QWORD or 8 Bytes */
+> This is due to a change in the swiotlb setup.
+> 
+> https://lore.kernel.org/all/yq5azeyxyfol.fsf@kernel.org
+> 
+> You can increase the swiotlb size using the swiotlb= kernel command-line
 
-Here you are only updating pci-epf-test. What about the other EPF drivers?
+What size do you recommend setting it at?
 
-
-Also, if you run then pci_endpoint kselftest, with the default 2048 MSI-X
-interrupts. Are really all 2048 MSI-X successful?
-
-It seems that often the "hardware owned" MSI-X table is much smaller than
-that. See e.g. Koichiro's series which tries to use "hardware owned" MSI-X
-table, but if the "hardware owned" MSI-X table is too small to hold all
-2048 MSI-X IRQs, then "hardware owned" MSI-X table would not be used:
-
-https://lore.kernel.org/linux-pci/20260830151948.3547577-2-den@valinux.co.jp/
-
-+	if (layout->table_size < table_size || layout->pba_size < pba_size)
-+		return -ENOSPC;
-
-
-
-Apparently NTB EPF needs to read the MSI-X table from RAM:
-https://lore.kernel.org/linux-pci/pj5vpwwd5tr5tuvhdq3bcpefnq27r6ljvwoysguz2o4tglcqx5@l7zmb6wjnhla/
-
-Which is why he also decided to let an EPF driver choose if it should
-use "hardware owned" MSI-X table or not.
-
-
-Kind regards,
-Niklas
+> option. I also have a patch series in progress to address this issue:
+> 
+> https://lore.kernel.org/all/20260921063628.362078-1-aneesh.kumar@kernel.org
+> 
+> -aneesh
+> 
