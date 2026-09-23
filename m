@@ -1,133 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80D0554281F;
-	Wed, 23 Sep 2026 22:12:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F6751DAE6
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:14:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790201559; cv=none; b=BydhPNUrrbOyhC12xuOPSrDvZtfGRtRGBe5FligZkDclAGtRC6r51CJWDXG3g4bTwIPvx6/eXgtuIQcYy26KPVdFGY+jwtDDOayq9mmQ4Aw/DuUvG1PwU2l1tKEMJTIHpH4Ur5OCQyc10OPmpRRKEd/QMyWmX1YpI+4eWr4v1Oc=
+	t=1790201679; cv=none; b=jEJmaFJkloeaUf9BAY6SbWblq7VbXLsXH5EPB80FW/qumLLW98MMI3UqGuWv2QAJul0dhqseFfNkPR4i9mud3ZZ1Es825y4SIAORkj9FiCGXVvpeVppqnB1PIXrjqCkhSDAj4tgusBykCoe0halhsRdHZeyB2b5an37EyInJcn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790201559; c=relaxed/simple;
-	bh=n49NSHSRHam8eZXrlL4TZ2hZcCdsvpimB6jWVXLuduY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=nLl0EXxrrIuvjrQ2DEEXJojjpEkT8MgUfxXWJeXyuS/03JURFrdH47UIZiLtMKL/TdEJaZwqAZyCB/7mQj0fH3mjGZWq1N9ul//u2I8TojFaRscMNDYV25tO0fUCKDuKwvhN0ahgt5nx5cV3ZRFrSlQXMzsKiGtc0ssDdLg4Tco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S88K1izt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790201679; c=relaxed/simple;
+	bh=uJ9Ja/yw3DCK+Q8bIovnQGbdgYhEbxK9PA4FsD7RXXE=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=MxFCYKUJQmYEby8ZRwhd+qzkCRlQTmqwsVCId57twQD81L6+TZdhxeKvGA6459nO5Vm1qcueZY3LxgfWLqOT58Q2HbcNrBYkHlmr1R/haK6PzO4WHAjSBtOekSJGRClYjJYxEw9ip+lcW3O+xtWaN354AR9tOZJ97dvT898FRTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XdJHqS6H; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S88K1izt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024941F000FF;
-	Wed, 23 Sep 2026 22:12:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790201558;
-	bh=dou7S7Tg8BcLleRG75nWjmDv7eyBLGo7wlB5b1rcOUk=;
-	h=Date:From:To:Cc:Subject;
-	b=S88K1iztLNbrDYk+WG5rjVJEc84y7/68frIReF9VQxVGBHQFz3/CfNCepswUk66nR
-	 AIKtbznaNY8YqnAkIdNVQpf96XajeeWKHcB8xwCc5kmvVhwbL4atog6lvDLXHbAYoL
-	 qpyguTiFK4tsmXeyyQBIBpPSiLV3hVy5j5vY1iXFcKd/mr8apcetegQ+TmEfHNK/1R
-	 SFU0N5YsQMyUM1K/vcuzaV+vhLhm9x0bvm6Oc6Kvto848C/Ko3EH/U7QtJFxQj9gJ0
-	 mE9FeVrtDPQU9PjDveFm3FdCkxxF4jPqkwaQ/gE/L9uXMFMadzO2ybI/3l30LYH6Cr
-	 t1mAS9/B6E7AA==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id B21091AC57C3; Wed, 23 Sep 2026 23:12:35 +0100 (BST)
-Date: Wed, 23 Sep 2026 23:12:35 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>, Yury Norov <ynorov@nvidia.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build failure after merge of the bitmap tree
-Message-ID: <arRO00VFHgqajmoD@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XdJHqS6H"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398a1676000so905369a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:14:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790201678; x=1790806478; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6EYOTy+QnW26hbR5HcrXAKWXiAYxeIUHU6uN6hbrPqA=;
+        b=XdJHqS6HDCfkdZn7Mo0OIKwZynepCer74nEIhXiLe67o+fYf8Ax568JL/peG4JyaN1
+         NFDNQhYnPi5i3ygaFZrK49tk/2u4VWSMWJRHfu1nklG/2WJjzNOcqk8NWjRCg+zym4Oh
+         9Jxio1BAVtYpJDn+JIEby7fVT0ST7ryfhqcF7EmOtjofu43z0Le8ZOPm+xieJkOWAhcy
+         bgKRYQfMcmpIh79ZEmXMfnM7yHHd7kTF5EFARhYnm3PFYRo7fXdGTwzHbKtm8r/2kZuw
+         4Lb85PJJ4G5nSPYoM8b+1XlNcgCfUdFI2DjuY1uk8v9+Wl46VgVPek8Dx95nW4wzEFg8
+         TqLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790201678; x=1790806478;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6EYOTy+QnW26hbR5HcrXAKWXiAYxeIUHU6uN6hbrPqA=;
+        b=V0abVHT4nE/t8O+eCedCXpv9b3CbbC6H+YjeUTsqJgOYqp1Zf5NqfaEaf1gVI9S7Q/
+         yXXzM/0oYu9QtuYjsfEhk3nlH+t9ZCECfZNEMz/3/3ipA3zABjhDQdwhZR1kXTuAvGBX
+         RqrATD4DmVJzxdcqiQde0yZP3ZSQpZab0HxXrYK17nMobi3fwnACg8V0KFElHqUGGJLG
+         +JnQh9beEO1uwO6sRHuTielCmOKCw+KCwCQbowKTnEEUTqejlfmCpVEp9Uj8P23bwti8
+         hGNySdgpRfQK7tMOKYpKYOXrjEp2Cl0DFkFC1aDClTIbAAcgLs+MxZezTAUlRo6DbDW0
+         WJ0w==
+X-Gm-Message-State: AFuF++kI7Pd7ZOauHaT5wFp+OAXmReHRMzIMrtvsFmEJsRpgDDUmA2Bq
+	azYUcFbZ3K/UlTRyg1isM/BrtOU2SsgnlJIQ775m/BsUvjXsUEjmmlDX
+X-Gm-Gg: AYBFou2OPkII3Rywt6xvjB/65UIqnHSGg9W70nb+g+PLNlrANLYnVzCeWBImVSA3IX2
+	x2ZAGHu4x2+WidyVyzt4jcXwwTNMB2u3/ZZMkxdKUbKdOZYoBfa8yk99/JyXQQFgHGOiDfH3kcg
+	xM4yj4Mv9HMTQw5Hir+HU7WXvGQX0cpDXn2fdQh3trqU9IVJuK6jIHrrtu1U8l9991bUDid6IdS
+	acJBRuq/DDXZmkrKo9Ho8/WOTAQNttDQpypVzkO9mwXw9FNWqvuCChtW41rqQVMn09LE5nuq/7O
+	oi1xOQE84wBnnrQL0k6kdYcY4AuvYgG6+6qMqgHUV7DWfb19mXgLRns8OLfqJUbyepbnuKdxLsW
+	3LzEWzj+p06yQeBc8rOAoE/qudzg38BWaEoptFY2XwMT/mdcaAPzIkmpxHXxKT+hLqxWrjslorQ
+	z1zqSb7Lm5AXY1vyr5pySLZ3PAC2CyfOZzM5ZwCEqTj736mDpLWreeR08j6DeGvpiqQ8saOOUUh
+	sqqLJwEilrwFivsG++dcE28qN2IBmDIV+EvVRzWYJwCC0mffzgP6HFFsuxTWsve9bpL+sd5ODNP
+	EXe0dTttMfb3Zps=
+X-Received: by 2002:a17:90b:2e49:b0:3a0:94af:19f2 with SMTP id 98e67ed59e1d1-3a0986e8093mr382567a91.5.1790201677809;
+        Wed, 23 Sep 2026 15:14:37 -0700 (PDT)
+Received: from localhost ([153.61.198.249])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0974ec5c4sm1012390a91.5.2026.09.23.15.14.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 15:14:37 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 22:14:37 +0000
+Message-Id: <DLN1J4YTAX4I.15CNAUSP5LQC8@gmail.com>
+Cc: <linux-kernel@vger.kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
+ <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
+ <jolsa@kernel.org>, "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Yuan Chen"
+ <chenyuan@kylinos.cn>
+Subject: Re: [PATCH bpf-next 1/2] bpf: Keep target extended until its last
+ freplace link detaches
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: <chenyuan_fl@163.com>, <bpf@vger.kernel.org>
+In-Reply-To: <20260923090635.368488-2-chenyuan_fl@163.com>
+References: <20260923090635.368488-1-chenyuan_fl@163.com> <20260923090635.368488-2-chenyuan_fl@163.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KNPaPQkxmv30PiYG"
-Content-Disposition: inline
 
+On Wed, Sep 23, 2026 at 05:06 PM chenyuan_fl@163.com <chenyuan_fl@163.com> wrote:
+> +	u64 freplace_link_cnt; /* counts freplace links extending this prog */
 
---KNPaPQkxmv30PiYG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+u64 ? It's bounded by BPF_MAX_SUBPROGS.
 
-Hi all,
-
-After merging the iio tree, today's linux-next build (x86_64
-allmodconfig) failed like this:
-
-/tmp/next/build/drivers/iio/adc/ad7768.c:470:12: error: call to undeclared =
-function 'be16_replace_bits'; ISO C99 and later do not support implicit fun=
-ction declarations [-Wimplicit-function-declaration]
-  470 |         st->d16 =3D be16_replace_bits(cpu_to_be16(AD7768_SPI_READ_C=
-MD), reg,
-      |                   ^
-
-due to commit
-
-   508bdb4938928 ("iio: adc: Add AD7768 and AD7768-4 core support")
-
-interacting with
-
-   1c88ceb09d5e5 ("bitfield: get rid of __MAKE_OP machinery")=20
-
-=66rom the bitmap tree, that removed a bunch of function including
-be16_replace_bits() which had no in kernel users but the new driver adds
-a user.  I have applied the fixup below (which I'll send a a proper
-patch shortly) and can carry as required.
-
-=46rom 8eac82a4d67b29972540fdbf603768f222f870ea Mon Sep 17 00:00:00 2001
-=46rom: Mark Brown <broonie@kernel.org>
-Date: Wed, 23 Sep 2026 22:49:22 +0100
-Subject: [PATCH] bitfield: Restore be16_replace_bits()
-
-Commit 1c88ceb09d5e5 ("bitfield: get rid of __MAKE_OP machinery")
-removed a bunch of unused bitfield operations including
-be16_replace_bits() but commit 508bdb4938928 ("iio: adc: Add AD7768 and
-AD7768-4 core support") introduces a new user.  Restore the function so
-the build still works once both branches are merged.
-
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- include/linux/bitfield-fix-width.h | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/include/linux/bitfield-fix-width.h b/include/linux/bitfield-fi=
-x-width.h
-index fba86bb76999f..f73b8cd656010 100644
---- a/include/linux/bitfield-fix-width.h
-+++ b/include/linux/bitfield-fix-width.h
-@@ -93,6 +93,12 @@ u16 be16_get_bits(__be16 v, u16 field)
- 	return (be16_to_cpu(v) & field) / field_multiplier(field);
- }
-=20
-+static __always_inline __must_check
-+__be16 be16_replace_bits(__be16 old, u16 val, u16 field)
-+{
-+	return (old & ~cpu_to_be16(field)) | be16_encode_bits(val, field);
-+}
-+
- static __always_inline __must_check
- __u16 u16_encode_bits(u16 v, u16 field)
- {
---=20
-2.47.3
-
-
---KNPaPQkxmv30PiYG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq0TtIACgkQJNaLcl1U
-h9D3CAf9FGSc9LSr/A5D1K8pEmgQ1HaTlbx9THJF9rnPJUDx7UQUSRr8WKWpTVFb
-go/hQChXKHsx4FhjUlFHHPqDbltIqWk/+xEWjPBEnXFdUSIXxMwYse/EwDR2geBx
-IhIe+ySEoIoFUADyqjCjc58QkVryUwqPS8QO/NNDmws2NkAujrQLHcqW3qAcrhTY
-YwVXEQtChYRM15wJbGoWPIMkx5xQziJd/n1HWZC5x32KHSr5pkBVoUsjdWrwmp0n
-0AwBpOmati9SOGZErkUu2xqbgRB4FGPoRzHBRJ8zgWSWpFy8XIdXb1Bp1mN1cnKz
-5K9fLDlqUJwd/FEPh1sy61EhbW4hdA==
-=IOEZ
------END PGP SIGNATURE-----
-
---KNPaPQkxmv30PiYG--
+pw-bot: cr
