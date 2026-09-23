@@ -1,121 +1,296 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012024.outbound.protection.outlook.com [52.101.66.24])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60DA53B5E2
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176231; cv=none; b=TwAYvbXJBJRnubV1QlzCHxTvr+IbaTMLD1d3p1/Lt5kfjw7orX2seTHqkg9vEpVE0Z8jxFSpLzzNOBW/fPbz81mRx9ibM7yFimE2IbS18b4q+KsT1ke4rH5uOjgQQUo+1XiG7tMVU/y4Kq3cS5aIgklwORhaOp5sRcdfeZ1xwjA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176231; c=relaxed/simple;
-	bh=EhjWSKImZwoAXYfqAyTmCpINsx0oSO9M/RawkNvcdAI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=obRJ71M20n5jHk8kC5LDaXAvkr4BxOL+xwEvosw2B4MQWCcBneaILK0/FI3//lEoV9ulZpb002glVjsX7mzrl+haMAldKJyr9wSrTNoHqQ597U6LtUoqAXp5hCkeJ66qGvQLzj6jD5brzrpFZ2aqyBBC7PMIG55Tn0/53xd26dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-79028ca9371so403087137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:10:29 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790176228; x=1790781028;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sDvgyyoRqIDDfI9/dyDxtj/9kppA0KcEIyfQ/4/NmrM=;
-        b=sWRpOrveCQIp6oJLNP0Ey7i6OTvWN17oJUiUe6+JtSHZzTlEmhuEhONiObKPywvSzV
-         hcgT/ZiQIknO/qKDDFirkg+XoUTYmrMZgbOcmoXybCkH1MDfircDuWipKodLr1krebqM
-         aeM9M5sC9udNuVBigDGGa53ewhX6NnKN6U737SwizS+/oe5pCwzfWUbKoWafGwDFQqMu
-         r7arZ4OqfA1rkQw3oQCwXbZwzi1VzY727iSY3PNgXKf1/nWrP2SiPhK2uIHpVLRtkVod
-         4LKOTpCAynRnhxfNClbycZqaGan1DoLSIAVxiwu8lbiroYqf67c1c9Aj/pMH7+CSlf3K
-         54yw==
-X-Forwarded-Encrypted: i=1; AKwUvBzrks/388zu2vYRej9iCEzhFVnAto7mo0bUdIzcUwrT19P9XOHhSuKOO5HbHe8U66LlqARrNHrNMO8+dWU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lBgA8w1wW2gnL+79AL7m00iFnYpDPjjMLkp1LANHVVq1nOZ6Y6
-	iDP7y/IzGi1K4UxO4MD0DEi8pIOTdL+szbPpJHrUI5RS6U5/DWrHn+d+FQDlvw4I+r0=
-X-Gm-Gg: AYBFou1zX8z6jtTeV1l8SHqGMs9Yl0y4L3wIxKTMnlDC6w34pqA6VsaXTl7g2esXsd6
-	jYHpgraKgKAIOe5xy9NncwZq4A87JuBiNBlCddUKYqlU3RXn10neuCE7c8ebCLc7JVyUx+PBsQm
-	/STPo3T0YnCZbB3BTBjGAeYsAxA0U78BtfoloVy8BA8rB+Grm7bnjdP02IbYAFXiNSp5VJa/Puq
-	Bi4UBBAtXAe95AzRHt02l4/XpfKLY3q/wIHpExak5PudQNH86UphpzqBKSIUTh6RjH6cNShppbu
-	BCz1P0Jm8o4RWEJ1liQtGMbcTJp7Y+7WBJrfxxmRXVj9Den2I2vqqMFXlsCuAUo7xDTxj3IMwC3
-	whRGqAF1zc3qcxAZ3ih6u2dGfqmfF62eOZctn6up8rhckXSpgZRIgmrOXzNMSBlgAGvJ8/lFyGo
-	60wLTlpT9R2Yr2HLzJEQp1c+nPNr87lf7/8T80b2uraDnlF1BGleP8sy2li9ETcZ82CUGFcmRD/
-	CGuJ6+o6zfQyqBk35v2FGLNI1tpPmKtsYTD
-X-Received: by 2002:a05:6102:dc9:b0:7a7:19aa:f0d6 with SMTP id ada2fe7eead31-7ac1de3a457mr2483660137.35.1790176227965;
-        Wed, 23 Sep 2026 08:10:27 -0700 (PDT)
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com. [74.125.227.12])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf61931c3sm3809383137.11.2026.09.23.08.10.27
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 08:10:27 -0700 (PDT)
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-785686d2764so253033137.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:10:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzOeV7YTmQjSNibzq2+qzLVvpupokMtq3FsoQHfY8U7U8a3rXn5ibZH77qeQm/dWEGa4vsxllBuSKpqv90=@vger.kernel.org
-X-Received: by 2002:a05:6102:26d3:b0:7a6:accf:72c1 with SMTP id
- ada2fe7eead31-7ac17ff1a5cmr2593444137.0.1790176226764; Wed, 23 Sep 2026
- 08:10:26 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C440C3AC0FF;
+	Wed, 23 Sep 2026 15:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790176242; cv=fail; b=VLGgsl9i3/b1ygbK5rlTjr0Rjnz3g07BSK94BPn13aDvao8iuu3mUgt7q8dmn8N41IWbkEA2FW29uev8rcqfX8B3Lqh9gfccjQQ/THKmhsD1hLlpO/2T2zxpNHXI0mOgS66oyfpjmAJPeIy58O0hYsVbHyvdI46xlRccOuT2dK0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790176242; c=relaxed/simple;
+	bh=tmaHVQo3KCGU/9bOM6eLFmueok5trKOYUV6h3UvhHso=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=TTrGOxG7GuciMfAMihPyr9LtdJ5O0Bsmgrue3THLA4wbzvkz/IrVbp3QX5Z2stIniX2eqUvUSavPNLZGgurQl/ZtNdRkVNmG3uneZiEah9aD7Y/fNr/9Odt/YuzSfGC/KKXhTXvlf35GXNEZ1ddLl/NfVoOMgC8v/hkGYvcfMnU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=nTrtQf5E; arc=fail smtp.client-ip=52.101.66.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="nTrtQf5E"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WV+Acti90leYTR3ti5lWYOqqNovkHWImBYcrqPu8znoBwrjCVy9Nl4QzWc0fe7HPHz6L8evSMqSSM011xXbP8sUyLDIsGpx2nfoWj4LQMVNLmQKkZUpJRjbFOuCa6PesktNFbulIH8eiQt+fyaKKpK2Ui0JO8AalpCZ1+zyWO9F0D8vAZhCBep2+a+PAR1IsxUApT5yCBFwDKfhHW1baIv4NfiwBEQaxcntfFtC7WK8OiWAXzd2xbhDK30N9fsIvD9Lv+ouEN7N1f4q/48qVJuWRSh6JIsuCnlQqn+n2XUr5xir4gRduWZoHnN4mgfEUiB+hAkkRiJ4RHoQzxdK9iQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=szuavJgdiAHXIZylIJ7/GuO29imw5mxqqNiL18haC0k=;
+ b=wp1lBkYF+ZL304Ee4NeOb6P8NBr+14jasM9nlffpDg3BJN/PESSRO4dsYq2GyEqNoqIlIN7PZsUlGkmdnzvjPm00urJKLJ2+1kYJh6F5ekifckTIyQU2szMI84LtK/zgsFI13TQO2CX3GoHZ6+Kcz3npyF85YTV17vBYjkvHBLXeZuoMwXtirruyg/NmO8eN3NJka31mlBwydoA8+qwNfHEKYvXj7m1D2V69H5g6XHltqHRhCU5xUegWisZMszevZS2xZT6yILX+mm9CQ43ntnUV4ITzQuGKiQXNjUaP7nO3QcdM8FuoF+E574rLuLDnLSH9HoTv4uYrCMyYSWoUYg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=szuavJgdiAHXIZylIJ7/GuO29imw5mxqqNiL18haC0k=;
+ b=nTrtQf5EkHijqxW6Iwv0HbomyccUpyjvRBLGyegUly9eNnfMRR84g/MMlsrdeXVNfqYbXec/+gwi1shoooxrXctiApfn02ZKvQtK4bL/Z8fat+OEEMgLcJeTSS52UQyouFxUib1oq3qczyJYSJkfOxtgoOsaB0KQH6NZFqe8R/GJwmvuA+ak8JRlnBv6bnNP7oFqKgc1l943kUqEKA8X3jXp0igGD69POd3lOrms9cw4frhIUKuy9dVaXRSTTpRFTjoz2ro2MvSkZGl+lOqZ0aezgls1tpYX/+M6A18bCS3INq6CEYMx+KXg2UBpN96SNfeotik4O2f0QXLvT+ErBA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by DBBPR04MB7962.eurprd04.prod.outlook.com (2603:10a6:10:1e7::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 15:10:37 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
+ 15:10:36 +0000
+Date: Wed, 23 Sep 2026 10:10:25 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: shengjiu.wang@oss.nxp.com
+Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
+	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
+	shawnguo@kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
+	nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com,
+	linuxppc-dev@lists.ozlabs.org,
+	Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [RESEND PATCH v5 5/5] ASoC: fsl_easrc: expose individual DAIs
+ per conversion path
+Message-ID: <arPr4ftU4XuYUzDi@SMW015318>
+References: <20260922033428.1690822-1-shengjiu.wang@oss.nxp.com>
+ <20260922033428.1690822-6-shengjiu.wang@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922033428.1690822-6-shengjiu.wang@oss.nxp.com>
+X-ClientProxiedBy: CY5PR15CA0118.namprd15.prod.outlook.com
+ (2603:10b6:930:68::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-9-94c4674927e8@solid-run.com>
-In-Reply-To: <20260904-rzg2-sr-boards-v8-9-94c4674927e8@solid-run.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 17:10:15 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVQ47vaVRKRGvwSY1Sy5B9VADC6YOJ7XMt9ruPZdd+hrg@mail.gmail.com>
-X-Gm-Features: AclHuK9nr5QPs8sC-PMKUOwR3cdMhCa7cZVvTQqDSW5Li8NuNQleAMbNnooakSU
-Message-ID: <CAMuHMdVQ47vaVRKRGvwSY1Sy5B9VADC6YOJ7XMt9ruPZdd+hrg@mail.gmail.com>
-Subject: Re: [PATCH v8 09/11] arm64: dts: renesas: add support for solidrun
- hb-ripple with rzv2l som
-To: Josua Mayer <josua@solid-run.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
-	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
-	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DBBPR04MB7962:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a8f7ba0-c064-4a9a-d506-08df1984d236
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|23010399003|376014|10067099003|56012099006|11063799006|6133799003|22082099003|18002099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	1P4Pe0OpYdVhGmdrxWS5o4H5zhZOsvlvveUwYOnMnELALkfnx/ZCv1Pa8J562UHG171d2gk6ACr0cP1v8goj/8oZmOEMSaneevwrwqGEL4hgwYQGsCIZE9U21U+LOJn2MT78jaodcFx2h6ag5L8O0EldvfI4e6sZ58kMwRhAuyVrlfBc0VBTRo73CpmcJIswhxkLeOEu7xxNGKZLpyJyzWrDYpEicsnWyjMYQzbJzAWvnTOxu/eF4J8bWXWifXR9hiUpr1uXUCFZl4YN2iEkmioCjq4ZMk6amdD57QuzxRvt9F0+cZEnTPwlh6tHNiEjiYuG3wcxnMw5Y+SoDv1aZAaBG5+nHQy2j4MLaJR6vMAht/01BJOSh6D4VfuaKeUBeI+2dp/pyCYejFnmxgScpZ2rqOy0cJ3EDlerIaw0xN81O41tcF96Aeslup6mcshS0d+HbflnSY1Nu3Eb3Nl6JGECZ1YWnAxjJaRA7bG18TYaTLjJ9egdK2ojrVxbUj01gd8NSUE5k0fLMi7FWTqdxaidwPnoxmZasPu6hWrUCzZbmyjfTp5eCqEcokvfcQ8nVsyAiVCCBh98mq3pm4lA+AHjvrXogO8QJv7k9capWkpjQv7DEIw8EpfwX8Mrf76fBPt1WD/z2GOI0hWNPa7snirvHGdyXLYGE83JNnDSbM8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Nyh3VrFdcyx4EPS4dpM+ls+yFAiYs4wrtv4t0j+F69MJSJCX0A4teqHDunRq?=
+ =?us-ascii?Q?/Y0ukZLf4/d8lV+aiye54rD/s3y4np0gGbAp1dQPo4zhcuUk2XWnQx1DfPik?=
+ =?us-ascii?Q?PBJ5I1SeD0SWB6Q3DBBEqB/dCsIdY0QWHb+F0KvpZpgMvYgiqUZLnu1VQcsc?=
+ =?us-ascii?Q?7qMOjTlcEVIxwISoDKopDDgUilhu2De3+ZMz6xM4HSpY3qNt/f6yDQFsKj+1?=
+ =?us-ascii?Q?NJOjP4OZpmE6xdSrdnWSmFWR2V6zmlOo3s7W0myyXV+s+8DemXE5Y+xKUZkl?=
+ =?us-ascii?Q?oM5heWKGVXVD82z/5G9xskxYtuRoVPO+HQMF7IShiTt1KHE/eWmMuoGz5WtJ?=
+ =?us-ascii?Q?jnOXKmdp0h1eB4XriZbjyuchc84ZMDGoLzs5g5CyNfm9qJ4cof97rfmnFv0H?=
+ =?us-ascii?Q?pXJyDhrwwGsGJDzk+jNJaoeupefRDGKj775LYuQevMePziHuu5FcbJFyTFFU?=
+ =?us-ascii?Q?7I15eenLEwVxQqZyGwgDu+l3xOwE6EXY5ViCIbkHtA7G9aT/hLsMz7FRVI02?=
+ =?us-ascii?Q?16EbhGxZ8ywGIvr851uyeRiRkg/MbsjBrVnW1LdEf9acobNve4tUTtlwu8L0?=
+ =?us-ascii?Q?H2K+LS1Kmf1aofJG7HD6uFGyhhZRrFjFMA+U/BDAB2nNty9wOSLYUN9yvmnb?=
+ =?us-ascii?Q?hEiK0GeOhzKl8dnzjpZonV7h3FmWRjTYyaQ+P2I1tTYC6Q6mshyWI5OTAd4n?=
+ =?us-ascii?Q?cHcU3/QD3+aaJZWUHFgg8K09I/ZcEiakjfA2sxyVYsD6k8RuxvN7Hqj3Rh0Q?=
+ =?us-ascii?Q?BQJ1wSATtmPKhVhFu/IqU9Q57t6xQi3itz3YZ9G5CfPW6lgnDyUVDThSzwDw?=
+ =?us-ascii?Q?wo4SZ2FwZ7WeSzs6EWw5Tmp+h78P8avjk1S7vJaQrZ3iffkkqeSJHrwteQ/U?=
+ =?us-ascii?Q?/2jUw7WqRkofhr5U7RYV+s8Q6H8uNffi+P3KC5obkL/vz1IwkQnpsAkzQTyj?=
+ =?us-ascii?Q?TTCaUeQLe0xys8pPQIWB48KNLg4gPSve3knalyQurSFvjNZU8VmbP0+QnQfY?=
+ =?us-ascii?Q?J54fQFNp7qaE1VitlV6o+8NP9DR43mG1zik8dgFYsWGHQGMJjQtmjjUzpjbT?=
+ =?us-ascii?Q?fYC0iEkQ/GHVH6LulAJMa3qy1EvLmkBe4FhtckfzWvjRgB8tzVB5C0gBPle2?=
+ =?us-ascii?Q?Q9dJVpFqmealdIS2l5pGlSMWbEDiJwl9hqnxuxFSsF21b/cwWtnpI3CFngaD?=
+ =?us-ascii?Q?FsZiFeqIhC1VBG3J7TPtB9msyBURh4Va9AsuKtFDKQug8sxt/u7vm5DkLhfo?=
+ =?us-ascii?Q?dpPxtRV+c9AyREfp4KLhmMlnDDdyckiMi0CobqVaKAiEz/ZeDf8bFiTWbYPD?=
+ =?us-ascii?Q?pog6PgDylBxFwqdPUIKVYSa9piZDcODhsyDmC/PnkHQqNu1VpCC8vQWP551M?=
+ =?us-ascii?Q?tDgRWa9iZy82xF24XNX+N8AOQMf4qrwfRDuhlrb+XXDrdIDOuMyGyQQRlLOr?=
+ =?us-ascii?Q?ABTA7koOOzZRSCe8xqBKPex4guznQlDyDnL6wo1lK8K/Gl7ZY1FwbFS249E3?=
+ =?us-ascii?Q?Jnt7RLoRJyHzAxMBezJ8eS17bhEL7JDVxDRVAkQ/IbRCo2rVIhqgtIBdtTBi?=
+ =?us-ascii?Q?9dlGX0REIHV20O/20Y+oI6UsmuH7R8SABawqKHsHZpt5mY70BM6f1swcy37r?=
+ =?us-ascii?Q?oFuGLZ5ekyP1o6Rw1dqvEMrkbKdbO6NmMrIRQCqP21sNsYmVzSMaJrxkW/Av?=
+ =?us-ascii?Q?Syc3bLdX+3+GRWtRczS22KYjvdWfFLZHi1e2OuT4JhymrJiL9h+ZGnL3Oc4j?=
+ =?us-ascii?Q?CxnScsa6stK96zXjZRe5gubLnawlkV+MAwX34ZocAt/v9k1OIotl?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a8f7ba0-c064-4a9a-d506-08df1984d236
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:10:36.6324
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mbevDbFGivY3pOVf0L0yxRe5VYV8QLJlem9+6DwND3rTN84Dzk8XB/5sIerlSrMyYNyGFtANdqEFmYupPj3VhF7qPtGvbbNVcq4zV+ncSJuzaDrMLerGUHfvpKh5EPQm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7962
 
-On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
-> Add support for the SolidRun HummingBoard Ripple [2] with RZ/V2L
-> SoM [1].
+On Tue, Sep 22, 2026 at 11:34:28AM +0800, shengjiu.wang@oss.nxp.com wrote:
+> From: Shengjiu Wang <shengjiu.wang@nxp.com>
 >
-> The HummingBoard Ripple is a reduced version of HummingBoard Pulse,
-> featuring:
-> - 2x USB-2.0 Type-A connector
-> - 1x 1Gbps RJ45 Ethernet
-> - micro-HDMI connector
-> - microSD connector
-> - mini-PCI-E connector with SIM slot supporting USB-2.0 interface
-> - MIPI-CSI Camera Connector (not described without specific camera)
-> - RTC with backup battery
+> The i.MX EASRC hardware supports four independent conversion contexts
+> (A, B, C, D). The driver previously registered a single DAI with generic
+> stream names "ASRC-Playback" and "ASRC-Capture", which prevents
+> multiple independent conversion paths from being used simultaneously.
 >
-> The carrier board is identical between RZ/G2L, RZ/G2LC, RZ/G2UL and
-> RZ/V2L SoMs, yet only the RZ/G2LC combination has a product page [2].
+> Replace the single fsl_easrc_dai instance with an array of four DAI
+> drivers to allow up to four independent conversion paths to be active
+> at the same time:
 >
-> The RZ/V2L SoM shares PCB with RZ/G2L, differing only in the SoC itself.
-> RZ/V2L is adding a powerful DRP-AI NPU which G2L lacks.
+>   easrc-0 -- ASRC-Playback / ASRC-Capture (backward compatible)
+>   easrc-1 -- ASRC1-Playback / ASRC1-Capture
+>   easrc-2 -- ASRC2-Playback / ASRC2-Capture
+>   easrc-3 -- ASRC3-Playback / ASRC3-Capture
 >
-> Due to the similarities, all descriptions except SoC are shared with
-> RZ/G2L.
+> easrc-0 retains the original generic stream names to preserve backward
+> compatibility with existing machine drivers and board configurations.
+> Each DAI retains the same channel, rate and format capabilities as the
+> original, including IEC958 subframe support on the capture side. Update
+> the devm_snd_soc_register_component() call to register all four DAIs.
 >
-> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/
-> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2lc-base/
->
-> Signed-off-by: Josua Mayer <josua@solid-run.com>
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> ---
 
-I didn't compare with the board schematics, but it LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+>  sound/soc/fsl/fsl_easrc.c | 112 +++++++++++++++++++++++++++++++-------
+>  1 file changed, 92 insertions(+), 20 deletions(-)
+>
+> diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
+> index a6ac94055b17..cd22ea3e03bc 100644
+> --- a/sound/soc/fsl/fsl_easrc.c
+> +++ b/sound/soc/fsl/fsl_easrc.c
+> @@ -1589,27 +1589,99 @@ static const struct snd_soc_dai_ops fsl_easrc_dai_ops = {
+>  	.hw_free	= fsl_easrc_hw_free,
+>  };
+>
+> -static struct snd_soc_dai_driver fsl_easrc_dai = {
+> -	.playback = {
+> -		.stream_name = "ASRC-Playback",
+> -		.channels_min = 1,
+> -		.channels_max = 32,
+> -		.rate_min = 8000,
+> -		.rate_max = 768000,
+> -		.rates = SNDRV_PCM_RATE_KNOT,
+> -		.formats = FSL_EASRC_FORMATS,
+> +static struct snd_soc_dai_driver fsl_easrc_dai[] = {
+> +	{
+> +		.name = "easrc-0",
+> +		.playback = {
+> +			.stream_name = "ASRC-Playback",
+> +			.channels_min = 1,
+> +			.channels_max = 32,
+> +			.rate_min = 8000,
+> +			.rate_max = 768000,
+> +			.rates = SNDRV_PCM_RATE_KNOT,
+> +			.formats = FSL_EASRC_FORMATS,
+> +		},
+> +		.capture = {
+> +			.stream_name = "ASRC-Capture",
+> +			.channels_min = 1,
+> +			.channels_max = 32,
+> +			.rate_min = 8000,
+> +			.rate_max = 768000,
+> +			.rates = SNDRV_PCM_RATE_KNOT,
+> +			.formats = FSL_EASRC_FORMATS |
+> +				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
+> +		},
+> +		.ops = &fsl_easrc_dai_ops,
+>  	},
+> -	.capture = {
+> -		.stream_name = "ASRC-Capture",
+> -		.channels_min = 1,
+> -		.channels_max = 32,
+> -		.rate_min = 8000,
+> -		.rate_max = 768000,
+> -		.rates = SNDRV_PCM_RATE_KNOT,
+> -		.formats = FSL_EASRC_FORMATS |
+> -			   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
+> +	{
+> +		.name = "easrc-1",
+> +		.playback = {
+> +			.stream_name = "ASRC1-Playback",
+> +			.channels_min = 1,
+> +			.channels_max = 32,
+> +			.rate_min = 8000,
+> +			.rate_max = 768000,
+> +			.rates = SNDRV_PCM_RATE_KNOT,
+> +			.formats = FSL_EASRC_FORMATS,
+> +		},
+> +		.capture = {
+> +			.stream_name = "ASRC1-Capture",
+> +			.channels_min = 1,
+> +			.channels_max = 32,
+> +			.rate_min = 8000,
+> +			.rate_max = 768000,
+> +			.rates = SNDRV_PCM_RATE_KNOT,
+> +			.formats = FSL_EASRC_FORMATS |
+> +				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
+> +		},
+> +		.ops = &fsl_easrc_dai_ops,
+> +	},
+> +	{
+> +		.name = "easrc-2",
+> +		.playback = {
+> +			.stream_name = "ASRC2-Playback",
+> +			.channels_min = 1,
+> +			.channels_max = 32,
+> +			.rate_min = 8000,
+> +			.rate_max = 768000,
+> +			.rates = SNDRV_PCM_RATE_KNOT,
+> +			.formats = FSL_EASRC_FORMATS,
+> +		},
+> +		.capture = {
+> +			.stream_name = "ASRC2-Capture",
+> +			.channels_min = 1,
+> +			.channels_max = 32,
+> +			.rate_min = 8000,
+> +			.rate_max = 768000,
+> +			.rates = SNDRV_PCM_RATE_KNOT,
+> +			.formats = FSL_EASRC_FORMATS |
+> +				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
+> +		},
+> +		.ops = &fsl_easrc_dai_ops,
+> +	},
+> +	{
+> +		.name = "easrc-3",
+> +		.playback = {
+> +			.stream_name = "ASRC3-Playback",
+> +			.channels_min = 1,
+> +			.channels_max = 32,
+> +			.rate_min = 8000,
+> +			.rate_max = 768000,
+> +			.rates = SNDRV_PCM_RATE_KNOT,
+> +			.formats = FSL_EASRC_FORMATS,
+> +		},
+> +		.capture = {
+> +			.stream_name = "ASRC3-Capture",
+> +			.channels_min = 1,
+> +			.channels_max = 32,
+> +			.rate_min = 8000,
+> +			.rate_max = 768000,
+> +			.rates = SNDRV_PCM_RATE_KNOT,
+> +			.formats = FSL_EASRC_FORMATS |
+> +				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
+> +		},
+> +		.ops = &fsl_easrc_dai_ops,
+>  	},
+> -	.ops = &fsl_easrc_dai_ops,
+>  };
+>
+>  static const struct snd_soc_component_driver fsl_easrc_component = {
+> @@ -2234,7 +2306,7 @@ static int fsl_easrc_probe(struct platform_device *pdev)
+>  	regcache_cache_only(easrc->regmap, true);
+>
+>  	ret = devm_snd_soc_register_component(dev, &fsl_easrc_component,
+> -					      &fsl_easrc_dai, 1);
+> +					      fsl_easrc_dai, ARRAY_SIZE(fsl_easrc_dai));
+>  	if (ret) {
+>  		dev_err(dev, "failed to register ASoC DAI\n");
+>  		goto err_pm_disable;
+> --
+> 2.34.1
+>
+>
