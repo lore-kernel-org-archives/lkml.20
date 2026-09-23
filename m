@@ -1,240 +1,74 @@
-Received: from mail-oi2-f35.google.com (mail-oi2-f35.google.com [74.125.231.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF49A1E1024
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:01:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.227
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790139683; cv=pass; b=MaIALatLgXnwfNAdxivZwCDfNvU3yhqZYjKi/X0fBDpkx6onbhl3lbr7cG3C4O6hm/Y3wGY/NpiVUV2Dq6GBxB3PRjDgm+bSJoQObPSa5iXWz1SFQy4H0mBBnYkBT/LlYeV0jX/vZxL0rR4h46Vj826aCvMN4IpGbA0POinqK3Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790139683; c=relaxed/simple;
-	bh=VaTQ0YbR4J1XE64Y2Zx/iJej5LoqYmr2rAZ8s8R7enI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BxeMkpkMLBRRTCfau2uJajJkM1YEQqXyRbu0Wu2fy4wA0vJBurp5yo5X3uVKPTLOwRFejYkirEwss4oycaBjT8REuRUtkdjCpZWKKfBm8v5h6fXgEnjbmxqt1jnyioRz4WfVNwFEpkhS7uDZuYsU6EWGFHvhOdWeNtcORQORWeA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rY2Waihv; arc=pass smtp.client-ip=74.125.231.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7A039280D;
+	Wed, 23 Sep 2026 05:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790139688; cv=none; b=B+utT4up83kt5bqWj3P3YzK+P7ORiYkBc0ddeliwDviYdbUinTeyBXIdfG/nGYtcuWR5lRElQq1GgQaHaroetymQJriEsQcRIp8xqUHpEfcFRTICpli7hj4OddEHCvQAz2fLWDTMNWoUewFO/FCY/271DF2uyIZ0WhBoaJJbdPM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790139688; c=relaxed/simple;
+	bh=P/1ngG6hntaphfy8LnE37qJXAAGi8yHhAJzztWYFxWE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=BaYg/3kcdJcTJINPPJhRP/5k869GPLcIO7X7iGuN1Bqzmpqa1FJmBsKEuEX5H5p3y5OrPaIspXG5NUB6UZbBRQD6RYIpoNhV6ndCjuyPDF/WWBia+bYyBiKT7Eo0E/6F13wPRlOtB5mYchJIyMfcxeFIRUIkaxaEKKM7q3ZVwPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f+uE8f47; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rY2Waihv"
-Received: by mail-oi2-f35.google.com with SMTP id 46e09a7af769-8055dcba0a5so147070a34.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 22:01:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790139679; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ONiLkYc6S8kb2B6R0WA4Vm///8LZpgGvTb/smVLT2qusnNVwXFIupESi/HmEyjJ//e
-         +KT+rQd+SkohR6ky6qTDxm/I48Dmx23dMOmDRcejONhnqvQde/HLFm3E+Z21DXxW82/l
-         8/EH5ltasIIwfIvDXct1542U1Me9wCIdpCZ6L6iDaPaqYylnUSQxSynbLkZyANIWPQPO
-         ABinZISfGtjl4Qm0MqZqvIPvStlKe4u3zJNl8DIBZiLOVSR2+dTLWhiKIMfcu8UTUAVC
-         2WyfbngE+Pi978J9+h1ETIKtoiqUomZsjFCuod1qwp1kZsFqX0SZMNmNQ6RVcOuVgGfx
-         ZYKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s9t+pGf5Jdws57vhvMQ8eJxDP4MEnxA9XvPVPFGvtB4=;
-        fh=CRz7/RSvi2NI1Rq4koYCB0kNCXkl05kp1mBI4fFhGks=;
-        b=S1czsjZfeqWB5Q1lHS0RPHL6jDTjxz2m9uBOMlUXfPOHsQO19lRYXjrIUuwhIZTX0q
-         utUqu6w2MotvE4tO6sGLvHlHW4F4oFsO+1x5uErqX1ctJdHZKcUI2TwNTFgnL4ovcfav
-         Dyxaz4hatw8k9lHIN9T/8hFppniwDC8cAOGxgFynXA0zeK9GuTyODv3XYmkTfVTgjI/b
-         roM1nB4cO6tCtE1/pz96rD/mSOVcYAn0VCvGYgeNMtGsbY0joCB7DmIufH6Vie6q3MWm
-         qnKpgn0xRK1hRf1wlpn6IvtWP/Bzn3zkM+boXZCjfTE7ySrVP/yeOsJVV3wcnSFoUjrr
-         qDWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790139679; x=1790744479; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s9t+pGf5Jdws57vhvMQ8eJxDP4MEnxA9XvPVPFGvtB4=;
-        b=rY2WaihvHCYF1qUiD+VnCqVNCZ2Y0inQVHQV+3AVW6i37Ax12cWxIKhOXGARWUiDhB
-         Q6nYXucxPjRCrY23nY6EnihXhN9KpYZ1lUO9pH/ls+Xn6wVVoWRc79NlN4t1TMkXp8T2
-         QR6M+ZMGKekkJCIReAudzMeJWzREVI4pW7EykFtOtzdGRuLE6oIzWT7Y2g95rc+35Ppt
-         8FLn2/ozAJBqhEtQu6NmJVJgRik+NQlQ1BS3S5QmfKSV4uf4iKpRpPbscbrJzT722/wM
-         2ta68cgsXRfYnk7P92fUKZqGN+AjDBrSU6ImLvBwtT3vtiUu9LSwm8rnaGi3lVU3l1g0
-         He/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790139679; x=1790744479;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s9t+pGf5Jdws57vhvMQ8eJxDP4MEnxA9XvPVPFGvtB4=;
-        b=veXLB2nqUw5ZuYgm0vPl8EdvjtA/ADoRJWdA3lohruDujZF2IksWJhPeLZfTTCuxdx
-         +3bEixf82+aOyXWCcSg52yPmbUj4gPN1ALsjoxcmk1SbfTKvsYPocC+yxBOh8Ry3WcDM
-         cIWJaeK7KTsRpezD/ZPCa1Zl/n6w9+vvbP0g2EaX4QJ3BNr+22az9VSgsfhnP8e8oujH
-         ucd2hjtDHe72S6HpyXymNrOTUm4kyZSFfbE48fvdHhxw+q25LDy7mIiAaUfXN0u2XKB1
-         R7KgSmrFpQRI8ysUyUkAhuLNws48zSviVCM++cg5GUCaakjlwYymp0YucrwZZJ6u9HDk
-         k9Vg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2tKip2eIK19E3kX3q5yKgj9BuEqx22l57U84lKs9QwsfVXlazjmmAxly9Z6Ms1bBcCx2EjGlZF6Hkepg=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0Rj6oN1stFnOFyqG43qG1AqJ71Hk8ETrISW1wM7WT8BYR7Aiu
-	v9EKs1gXca/e7YDSP0RFAA8WWInz/8cEEHEMOtswpJRPtV3Ez27QFM+6spEs1MvdE87KeSqvGrT
-	hcKx2QHiDqF1DcJ812u/GYdIusF/Kgas=
-X-Gm-Gg: AYBFou2sytUKE+1i20mOVQpJwaOUGAj6XY7qNmE0imzs3q2rZNtfoEEacbwZrpTJHHE
-	xpOSgNVbVx7REQOE8X+L9AcrPDK33+pyQk9xmsmrCtvsRznLJMLFd2pRvKSMDKyUExVixGS/9It
-	4WanS1QU3X43eP4yntaVHKxeAh9193p4AV/+mOQnAnM6ctAuUBV2DMyE8S0mff5J4EeaizDQeb0
-	HW0+lHzY+ftBT4YubxTNL7252DbWKDiUzY/6241Cajjp2UhauQzsPe9PoKVlFvlrTMJ5dkk/0jF
-	LNVaMZFhNyFGOBJvGc0PuQIcLFKMT+MW81o08pWnlamqlwPL5KQERzZWvmo782J7qA==
-X-Received: by 2002:a05:6830:2105:b0:814:fd96:b005 with SMTP id
- 46e09a7af769-815fa7a3aa8mr1368055a34.10.1790139679573; Tue, 22 Sep 2026
- 22:01:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f+uE8f47"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57C81F00893;
+	Wed, 23 Sep 2026 05:01:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790139687;
+	bh=QLmF0v8QtglTj6lhzt+VYTF5WKRtG/i0I5+a8Z9D+Pw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=f+uE8f473BmHUYPtfP+DSAO/2PPTToyTXGdy7kfluD3JI6wZ+WhsIKuDhHY7DM1/8
+	 8ZZr/GE9D1f3n3vrsWRuTKMphi/wltWB6A+RgrE/kkVzrKvtCG/cAAfOkdo1qhFlsJ
+	 C0cfngBRQ7EtBdiv1INAQ0CaK9I24pB7EgRU91x9GMj8oVqTPcXJh+IpX9RezahEYN
+	 Qn8foUFcTCPV47tgDPfVx9L3JIY9oSXWCbzZf7oOWji2Xaba5fxpWohjWmQbDitrRc
+	 iCd3KNeOHayR5T1B1pSqdr5WwP7wXk6fvgr5Qpiz1psLOZAezZipEBGm3rXdKoz0sx
+	 rFU+XdHdMPX8w==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>
+Subject: Re: [PATCH v6 0/9] coco: guest: Enforce host page-size alignment
+ for shared buffers
+In-Reply-To: <20260918165754.GG11599@ziepe.ca>
+References: <20260904103452.1197239-1-aneesh.kumar@kernel.org>
+ <aq1sT2EDsGaomqST@arm.com> <20260918165754.GG11599@ziepe.ca>
+Date: Wed, 23 Sep 2026 10:31:19 +0530
+Message-ID: <yq5ao6do36jk.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260724025959.142826-1-W_Armin@gmx.de> <20260724025959.142826-3-W_Armin@gmx.de>
- <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
- <86d0e015-a8f4-4e10-a9b6-a9714d3e0f07@gmx.de> <80c4bb47-936b-976b-6ba8-b366f7a455cf@linux.intel.com>
- <11976ed3784675ad241646287a909286a42675a8@intel.com> <3ef68773-e07e-437a-98fb-a3c5fc08539c@gmx.de>
- <62d7da838e7042df8456e76190db792093065b57@intel.com> <06550473-63c2-4a3e-a5ad-7e23d7b6b050@kernel.org>
- <d696d85c44930d2124054ce11a06d3096c0db04a@intel.com> <CADnq5_PT7s6ixTqDSwe9ai9tUQa04z7UnwhMn7bo7CcsH5Qf0w@mail.gmail.com>
- <154fc984-5c29-4a23-ab8b-736471f419a1@gmx.de>
-In-Reply-To: <154fc984-5c29-4a23-ab8b-736471f419a1@gmx.de>
-From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Date: Wed, 23 Sep 2026 07:01:07 +0200
-X-Gm-Features: AclHuK9iIINoALCOYPcubT5-e7bSzbMlB0XgN7hLaVHol59ylJMeoZCRLCs4o-M
-Message-ID: <CAMeQTsZw8P+__EXsUSW8G6LONN85HPwmG1+zQXwpmHEC=npWyw@mail.gmail.com>
-Subject: Re: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from nvidia_wmi_ec_supported()
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: Alex Deucher <alexdeucher@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	"Deucher, Alexander" <Alexander.Deucher@amd.com>, 
-	"platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"linux@weissschuh.net" <linux@weissschuh.net>, "rafael@kernel.org" <rafael@kernel.org>, 
-	"lenb@kernel.org" <lenb@kernel.org>, "linux-acpi@vger.kernel.org" <linux-acpi@vger.kernel.org>, 
-	"Koenig, Christian" <Christian.Koenig@amd.com>, "airlied@gmail.com" <airlied@gmail.com>, 
-	"simona@ffwll.ch" <simona@ffwll.ch>, 
-	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
-	"maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>, 
-	"mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de" <tzimmermann@suse.de>, 
-	"joonas.lahtinen@linux.intel.com" <joonas.lahtinen@linux.intel.com>, 
-	"rodrigo.vivi@intel.com" <rodrigo.vivi@intel.com>, "tursulin@ursulin.net" <tursulin@ursulin.net>, 
-	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, 
-	"matthew.brost@intel.com" <matthew.brost@intel.com>, 
-	"thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>, 
-	"intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Tue, Sep 22, 2026 at 9:57=E2=80=AFPM Armin Wolf <W_Armin@gmx.de> wrote:
->
-> Am 18.09.26 um 15:03 schrieb Alex Deucher:
->
-> > On Fri, Sep 18, 2026 at 7:01=E2=80=AFAM Jani Nikula <jani.nikula@linux.=
-intel.com> wrote:
-> >> On Fri, 18 Sep 2026, Hans de Goede <hansg@kernel.org> wrote:
-> >>> Hi,
-> >>>
-> >>> On 16-Sep-26 09:16, Jani Nikula wrote:
-> >>>> On Wed, 16 Sep 2026, Armin Wolf <W_Armin@gmx.de> wrote:
-> >>>>> Am 15.09.26 um 14:31 schrieb Jani Nikula:
-> >>>>>
-> >>>>>> On Tue, 15 Sep 2026, Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel=
-.com> wrote:
-> >>>>>>> GPU people heads up!!
-> >>>>>>>
-> >>>>>>> On Wed, 2 Sep 2026, Armin Wolf wrote:
-> >>>>>>>
-> >>>>>>>> Am 01.09.26 um 23:30 schrieb Deucher, Alexander:
-> >>>>>>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> >>>>>>>>>> b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> >>>>>>>>>> index 12e4a41bf1f0..50305630f533 100644
-> >>>>>>>>>> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
-> >>>>>>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
-> >>>>>>>>>> @@ -30,9 +30,7 @@ config DRM_AMDGPU
-> >>>>>>>>>>          # ACPI_VIDEO's dependencies must also be selected.
-> >>>>>>>>>>          select INPUT if ACPI
-> >>>>>>>>>>          select ACPI_VIDEO if ACPI
-> >>>>>>>>>> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
-> >>>>>>>>>> -     select X86_PLATFORM_DEVICES if ACPI && X86
-> >>>>>>>>> The change below makes sense, but this one looks like it should=
- remain
-> >>>>>>>>> unless X86_PLATFORM_DEVICES is handled some other way?
-> >>>>>>>>>
-> >>>>>>>>> Alex
-> >>>>>>>> AFAIK the dependency on X86_PLATFORM_DEVICES was only necessary =
-because
-> >>>>>>>> ACPI-WMI depended on it in the past.
-> >>>>>>>> By now ACPI-WMI neither depends on X86_PLATFORM_DEVICES or X86 a=
-nymore.
-> >>>>>>> Hi all,
-> >>>>>>>
-> >>>>>>> Could more GPU people besides Alex take a look on this. I'd want =
-to make
-> >>>>>>> progress with this series within this cycle but would prefer to h=
-ave Acks
-> >>>>>>> from GPU side.
-> >>>>>> I share the same concern with Alex. It seems to me we could now en=
-d up
-> >>>>>> with x86 configurations without X86_PLATFORM_DEVICES, which handle
-> >>>>>> e.g. backlight on a lot of platforms.
-> >>>>>>
-> >>>>>> I think the safer option might be to go for:
-> >>>>>>
-> >>>>>>     depends on X86_PLATFORM_DEVICES || !X86
-> >>>>>>
-> >>>>>> in all of the cases that select/depend on X86_PLATFORM_DEVICES in =
-drm.
-> >>>>>>
-> >>>>>> The alternative is to find out, and handle the fallout, if any.
-> >>>>>>
-> >>>>>>
-> >>>>>> BR,
-> >>>>>> Jani.
-> >>>>> Alright, should i leave the original "select X86_PLATFORM_DEVICES i=
-f ..." statements
-> >>>>> as-is or should is change them to "depends on X86_PLATFORM_DEVICES =
-|| !X86" everywhere?
-> >>>> There are some places that depends on X86_PLATFORM_DEVICES. I think =
-it's
-> >>>> almost always a mistake to have some places select and some places
-> >>>> depends on, and select should anyway be used with care. I'd go for
-> >>>> depends on.
-> >>> I'm a bit late to the party here, sorry.
-> >>>
-> >>> Note that X86_PLATFORM_DEVICES is an option which enables / disables
-> >>> a menu and does nothing more.
-> >>>
-> >>> Enabling it or depending on it by itself does nothing.
-> >>>
-> >>> The select used to be there since it must be selected to be able
-> >>> to select ACPI_WMI (which is no longer the case after this series).
-> >>>
-> >>> To depends on in XE was probably copy pasted from the existing
-> >>> select-s and then changed to a depends and already was a completely
-> >>> no-op since depending on ACPI_WMI was enough as that itself
-> >>> dependend on ACPI_WMI.
-> >>>
-> >>> As for X86_PLATFORM_DEVICES being needed for some backlight
-> >>> interfaces, depending on it by itself does not result in those
-> >>> interfaces being there. That requires enabling the actual drivers
-> >>> providing those interfaces.
-> >>>
-> >>> And I don't think that the GPU drivers should start depending
-> >>> on those since that will become very unyielding.
-> >>>
-> >>> TL;DR: I believe Armin's original patch is fine and this is
-> >>> a welcome cleanup / simplification of the DRM drivers Kconfig
-> >>> bits.
-> >> Your explanation makes sense, thanks.
-> > Yeah, sounds good.  Thanks!
-> >
-> > Alex
->
-> Nice, i suppose we can apply this series as-is then?
+Jason Gunthorpe <jgg@ziepe.ca> writes:
 
-Sorry I'm a bit late here, but for the gma500 part:
-Acked-by: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+> On Fri, Sep 18, 2026 at 05:52:31PM +0100, Catalin Marinas wrote:
+>
+>> TBH, I'm tempted not to support this configuration at all, just fail
+>> gracefully if the realm page size doesn't match the host's. However, if
+>> that's a real world configuration, 
+>
+> realm != host is going to be fairly common.
+>
+> host > realm is probably not that common, I would guess.
+>
 
->
-> Thanks,
-> Armin Wolf
->
-> >> BR,
-> >> Jani.
-> >>
-> >>
-> >> --
-> >> Jani Nikula, Intel
+Wouldn't it be more common to run a distro with a 4K page size as the
+guest on a custom hypervisor with a 4K or larger page size?
+
+-aneesh
