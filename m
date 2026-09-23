@@ -1,133 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f38.google.com (mail-vs2-f38.google.com [74.125.227.38])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 979623F99FA
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:38:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94B3455602
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149082; cv=none; b=QnX5ngBAs/mlQHm3INFfUhNQ+r79B8FL/BcCwTtGNzQIIDSaiRsMF+61lGji+Db/EBrdgl31n8rtZq7xHMuhkJ/UVxmjiAM/DhLXC9n8Ki6IjlXQJQ7eT/R66YuFuRgOMnw9kP26XctMSpxOXFfXpNJPnEEX6EVfjE0875vBZns=
+	t=1790149086; cv=none; b=n0TkBSjYz94CAdjyn/ASeLy+BrE/bmJNMbdoPsQpjHefQDMfYkbuwSJ23GjEiNCpOf+NkjHqEqnBSYMsWVdut/9uI/2SFQUexzUUxx5B/nnPPA8GANJa9fcsgxEEcRNI2p+7GYvuQCZzrDWjiGL3ZrXo1AylwGLaq5RXUB9K6co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149082; c=relaxed/simple;
-	bh=t+JD/7Tcgy/5lybTqPMDYJ6GPVVkUaRj+hbtOcdXe80=;
+	s=arc-20240116; t=1790149086; c=relaxed/simple;
+	bh=pn8GhlML0JvQlv8XCkL1gN9RQZWKQflTUH6iKyoTXWc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=p3pe2DMTtSUYOBduHshBQ2hi1RqsrgMSmXDJBV4ChFrYiQiNjFsYzLpWqT0EjDWYKKY1jVfLqoxeOEYQ6ZIGv69KCWvQAMlaXzHYhrY9RXwZHCvSJTSI99pPNfuuNC5YkC8MrrMDqVg3y/lRDgrPOWkj7vMiLyt8XLY+OMsMWt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WQoQ2QbP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WQoQ2QbP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51AAC1F00899
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:38:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790149081;
-	bh=t+JD/7Tcgy/5lybTqPMDYJ6GPVVkUaRj+hbtOcdXe80=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=WQoQ2QbPoqGGLb0jX9Z7J1mDTu8MsvOh/Ibh7LcqJkke//dYJpmH6tdDcgX/eFknC
-	 T00oeG+czRPKBl97PDh4H8ZHcAtFbyS9yImIzOh5KLiBVQy3uapLFhxwpP5ixQGDda
-	 QsqckjOhvusczlD2A6sFr+EPdkSRFVikbaw3XmcPa+JOvsrpcsUIStYIlZcsqioa77
-	 V1SEXPDfsnUq1jRfkYV1GaMrc0Ncqh540aCMK+l3SP7Oi4eQWrTqXq03rnUDD02r8G
-	 3VnbxAw22uDzFQ+enwXaCU3ShJJ2D8ZUu54gCQeOFQSoaCqzIVhRgzGeVx0zI0eLwh
-	 f0GnC82BIPHaA==
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66fb93aee5eso609693d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:38:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxkD3KeXGHUhXjkEQUc28FNSlrxVa7y+72sT8f9nzy+2ihRalIkj2Q4oeDJCIP1KIFmmDUiNu3M6BIHl6o=@vger.kernel.org
-X-Gm-Message-State: AFuF++n76AeiADU51YLhz/Xn1lPyXcxc6L/AAvym6XbOVzs+H4QBDwxB
-	zfMw/5SGxfDLgxfAA/oWlDoSQaIGhdaG3gJiUj/uxPCjYC85rb/yS9Qrv8S2PDhUalXHiAvIIjo
-	KTyzmVtXWemOW2YamHpOI2z5yDHUKQOPgGX1qGAbn+A==
-X-Received: by 2002:a53:ee08:0:b0:672:bbc4:2b97 with SMTP id
- 956f58d0204a3-672d57e7a7emr628072d50.11.1790149080540; Wed, 23 Sep 2026
- 00:38:00 -0700 (PDT)
+	 To:Cc:Content-Type; b=Yq3CmJsDnImg81P9QipCSu7qPKOYUj5I4K+VAWZNUmnuEe56dvnwAKwbJ+ol0kQKClP3VVw6HWz4evZDDf+x7ZCu6Xvvh5iMrHwnXyRTcy2UW+ri0Ka8voHAz5nGjyKZsiCof8hL4z/HuWJdVyCn8gu/pGTWVPyTGr+9tZvnxho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.38
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f38.google.com with SMTP id 71dfb90a1353d-5c67e2ff27bso433385e0c.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:38:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790149083; x=1790753883;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gPyyWITg2Eop/iHLzqVBwj4t8oamM1QAzgzHz2VN9cs=;
+        b=r4Uz8SUl13uIMDsIYF8TBWmaBSd81cSS7Q1hSKSwH0s4glwVChsahRuQYe/PmigTb6
+         AeNRGvdT1XvYDigptph9pNMJ1HpE/BKx2abD6/MVhrxWQNvV4ehuYxC0WGchLOJg+t9m
+         gsAIbEJ/LuWDxo4xWsYNz2+0LJ9TfQlhmeCm3u4OkmQwwWbVvXxkbxNXYbYwJhVHv2DA
+         sE8K8hbv3JEJB8cQiOQXmglcnbqFwGkV0R+2htXBnskRgpGeICFEMEZ97E5n331puM3H
+         9EWLYmHwSLYYuetyivTirhK+rSVxejNIyOIfHU+lDXubYxOY5eo88791DjRx+61zdoFK
+         VSxg==
+X-Forwarded-Encrypted: i=1; AKwUvByixlOv+C55aRITt0f5iIhlSGPm74fUtuSIL2VQQqa+MbaAxI4SMosCBuCS68IebtJHHd4CxINt3ACu4Yo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mkk1CBygSc39vmpDk1dPxgZfB2g9Dcb5uEWbPrcGEtR3BjYFt5
+	uw8ue+sOwMT12cVVO/BUsHUY24d4YhoXBnmTDC3RApNjjmpRwcZ+W8mhM5kN65+I74s=
+X-Gm-Gg: AYBFou1E3EKyYCO/2f6lm9ZP7iTRW2uc3qb0/1YmG+EWLZ4sRfYqtpNf64e4RYrumFM
+	IsBhD9otxpV1NZ5TXBaA/yiHFd30WYidB25aMb8VV97+MupFMsO7tepmM+/kH3kZIWSIZJCUswO
+	Fk5sbNcHNVGJRnq9ueSL0onK6SNifN5WhUXL7A0sOOQ5JpLuaZRZgsRKtTpXeBRTPzNNPCc1mxP
+	+pxjUwURDjOuzmBWSV75pK2OOACE3dphHtLL9U7p0hjUzsD8f83qkxR5DwRfRmCdw0mi2T+HaGP
+	kDBBASN5aGOYvfwgGhPIPZkaSQS7Pc+AFyRYVHLKppF6NUlJJWBBzAoBRg/rirnI3aBR/ZfQlbY
+	Z3DLLpGdZMW+AZX9t4zOm8doHh96Jtk80aC4jBS3OYo/qFNjJfG978gaE/iu3QePlJ8BJMwXrsZ
+	QKTXFFtH/BszBnod/truFaDw+dyyKmkTR/xoHGrbIf56A50fRm+7YFoT1uhTF76A1q5+UHhgOuG
+	B8drCDwTKBvycqcmjSc5pGDilqJadAmLOPrjEgdn1QNA4tc
+X-Received: by 2002:a05:6122:c95:b0:5c6:8480:35c8 with SMTP id 71dfb90a1353d-5c9f15c86admr2392314e0c.8.1790149083460;
+        Wed, 23 Sep 2026 00:38:03 -0700 (PDT)
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com. [74.125.226.235])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f04fb621sm2438490e0c.9.2026.09.23.00.38.02
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 00:38:02 -0700 (PDT)
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97eaa1155b1so340892241.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:38:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxIi3DKzaNeGa70ZFxXpwcV4FaRkXK7ToHOYzgVOMVbtL5tr8mXiQiPcBI1v0Atqx3fHzDIs/ZC3Cqgz6s=@vger.kernel.org
+X-Received: by 2002:a05:6102:50a6:b0:7a4:fb71:25d1 with SMTP id
+ ada2fe7eead31-7ac1a6c6e37mr1941921137.7.1790149082786; Wed, 23 Sep 2026
+ 00:38:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora> <aqLi6cIjD2wJwk0B@cmpxchg.org> <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F> <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <aq8dja2-timYBwyB@gourry-fedora-PF4VCD3F> <CACePvbXudjxQ5vrrY4D1nOXKaFNQUn-tL+p3O0zfxtHXK99ojQ@mail.gmail.com>
- <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
- <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
- <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
- <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
- <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
- <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
- <a75b2eac4297ca6b238dde6f9246d2c1807b935f.camel@surriel.com>
- <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com> <CAKEwX=NrN7-u7gnGvWX3qfHaBQcN6FKsFP-4-k76F=sxM1LJqg@mail.gmail.com>
-In-Reply-To: <CAKEwX=NrN7-u7gnGvWX3qfHaBQcN6FKsFP-4-k76F=sxM1LJqg@mail.gmail.com>
-From: Chris Li <chrisl@kernel.org>
-Date: Tue, 22 Sep 2026 21:37:48 -1000
-X-Gmail-Original-Message-ID: <CACePvbVuFULQVvi4UOrvKaJ-5kdWWU5iJH20gH-9nZ-6ZbEqMQ@mail.gmail.com>
-X-Gm-Features: AcwNN1V1Nf19r8H9CLvnn_CymxrAvElR4yk3NvHm23MKZiCoXBt2sr9xUuj-IWI
-Message-ID: <CACePvbVuFULQVvi4UOrvKaJ-5kdWWU5iJH20gH-9nZ-6ZbEqMQ@mail.gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Rik van Riel <riel@surriel.com>, Gregory Price <gourry@gourry.net>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Barry Song <baohua@kernel.org>, 
-	YoungJun Park <youngjun.park@lge.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
-	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
+References: <20260916220801.240796-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260916220801.240796-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 09:37:51 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWdv5up6d7rhhRyc7of9M5MthWFoeXCRWiTPSo+5B22Mg@mail.gmail.com>
+X-Gm-Features: AclHuK-KliAgyjEnFc7fc7G0ednHxc9gvY5BOag4zMrSEzrWijgeZD9Diiyx23U
+Message-ID: <CAMuHMdWdv5up6d7rhhRyc7of9M5MthWFoeXCRWiTPSo+5B22Mg@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: ironhide: Align inline ECC carveout
+ sizes with bootloader settings
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 7:33=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote=
-:
+On Thu, 17 Sept 2026 at 00:08, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> The DBSC5 DRAM controller protects DRAM content using inline ECC. The
+> current set of carveouts follows SoC documentation, which describes the
+> three trailing carveouts as larger than the rest.
 >
-> On Tue, Sep 22, 2026 at 8:23=E2=80=AFAM Chris Li <chrisl@kernel.org> wrot=
-e:
-> >
-> > On Tue, Sep 22, 2026 at 4:59=E2=80=AFAM Rik van Riel <riel@surriel.com>=
- wrote:
-> >
-> > Yes, I can agree on what you observed. You are using anon + zswap on
-> > that app alone. That is not what I originally asked.
-> >
-> > My original request was for the whole system: what percentage of the
-> > total system RAM size has been swapped out to zswap.
-> >
-> > Because when you have 100% of zswap out, it will likely trigger
-> > different kernel code path on allocating memory. You might suffer
-> > global memory pressure you did not observe in the single app memory
-> > pressure case.
+> Both the downstream IPL and mainline U-Boot on RSIP configure the ECC
+> carveouts to the same size for all eight carveouts. Align the carveout
+> sizes with the controller configuration set by the bootloader.
 >
-> What does this 100% figure refer to? Pre- or post- compression size? I
-> legitimately cannot tell.
-
-The 100% I mentioned above refers to the pre-compression size. See my
-previous email in this thread for details. I have been asking for a
-max(%) number in your fleet for more than six emails now. My point is
-that 100% is not a usable metric. I suspect your deployment doesn't
-have machine zswap even close to that amount. Glad to be proven wrong
-with some real data points.
-
+> This makes 1638 MiB of DRAM available for each of the three carveouts,
+> which adds up to a total of 4915 MiB of newly accessible DRAM on this
+> platform with this fix.
 >
-> "Trigger different kernel code path on allocating memory" what do you
-> mean by this? This reads like you're referring to post-compression
-> size, where one cgroup eats up the RAM of the host, affecting other
-> tenants in that host. But putting a limit on the virtual device
-> capacity limits the PRE-compression footprint. It is a very
-> unpredictable way to prevent the effect you're referring to above,
-> because compression ratio is unpredictable ahead of time.
+> Making this memory available does not pose a danger, since the current
+> set of carveouts were carefully set to a larger size to prevent any
+> possible issues until a confirmation from the hardware team become
+> available, that it is safe to apply these less restrictive settings.
+>
+> Fixes: 6fa6ee724d8d ("arm64: dts: renesas: ironhide: Describe inline ECC carveouts")
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-I mean triggering the direct reclaim path because zswap itself can't
-allocate memory for the swap cache to serve the page fault.
+From the review thread on the original:
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Chris
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4.
 
-> For post-compression size, I can make arguments on why we should not
-> also gate it, but regardless we already have zswap.max and the global
-> zswap pool limit.
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
