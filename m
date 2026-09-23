@@ -1,124 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829733BE652;
-	Wed, 23 Sep 2026 23:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D7B334C1C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790207383; cv=none; b=Axh3CzbQ4QRZ1rAm5lhYESqGAR/A07AZZIcVUDvo/T4PokSN6++YdeImVBIhzmwfNDeY6QY/w/obp7gsOfe6cSjUz7YJVSAILuf/fJtcE5yo0cbUb9p19kufJsUYQLh9lHyf8vZJdcnJJx8a56gBt2SC198ezPRCMczHvwMCsFA=
+	t=1790207468; cv=none; b=ZPVfkVP35CzTfna+isy10WMDm5bJ2ogrnEkUI0djTl+17AfxiZZb8QTzyzGt/hF1YCmnpXIJjZ0PtuscybfXOi7EkSLDIVqjSe0t+KxzrpeUu+sdNlTAXomgUmsQrERTKSv8n4XREt+0QW9Y8iAF87X8tlyQu9wHBJW1yfI9zxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790207383; c=relaxed/simple;
-	bh=3uJRhCmRf9TZqNHbk1Lck7Ez2IIoOIVenwDt4RQ4zoM=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=fQWvke1BhH1TJQup1FUc45KIhylONy8PfL+oudltJsjsP02zAK2O1dxgbkVZD/r6xgLQOlL6ET9SbBVO+SUFEyMd8lvtRftzVRpBPyjYUBHSWarH5DKZwlCQfU+7UIedF1uv1XkrosdklfwVkTgq0pNJRI2Q8iBOUiB8bOj6zqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fFCBWeg/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790207468; c=relaxed/simple;
+	bh=VgbmQzkSocoxdOZDZi/gjzkF9LcNvq+8MxsAhKJwtGw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=oziXJBX16N7jCvYscNZTpoh/5rVNKyUx+iYptb/9pnVF07DV8I6pAL7o5gmk7z4CypOw2Odi0qBogACgIdrqXWTGLcJ3JvGeIYsiesh8dPRR75kOESev48smKqSryIxaMgtkBtyuugyvX9A3N4HqWzU2fPHZ/XZLJ+flFCt3Zik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CWE9ROJp; arc=none smtp.client-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fFCBWeg/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31DD51F000FF;
-	Wed, 23 Sep 2026 23:49:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790207382;
-	bh=zsUXdHEO17CAVecZMWe0/oL/2w5uWrT/pyQM07ZO4Zc=;
-	h=Date:From:To:Cc:Subject;
-	b=fFCBWeg/wuhh1w+d7YWYmhIoIwugFI/A+uhfAv/v++2wIaIGLyJRJJz5NVEAaRwcm
-	 ZB+NUn2i8j1DFV+Mn86tQGmpnqZ+wf5NvEFC2NHj1XFsWwQhw5b8d5tsrMR4IvbzzE
-	 Qr23qCZhUos6y+TUz2V3eMNfp7m3DjmuI+6KtY0/EEidUSvcj/tmphGtWjYoWadW5V
-	 oJP1oioDt1udqshr022StzDeYNj170Y7tCCfcv49x3xdu8MgfQBLsfcNH9MiRL5Jkv
-	 4O+/Btzas4+dGOrEKZbxjl+GUzcxHQOhanNiuFolGXJgl/pbwnR7HRRKysmTfPzanH
-	 UNqi8u/2l43zQ==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 37FB11AC57C3; Thu, 24 Sep 2026 00:49:40 +0100 (BST)
-Date: Thu, 24 Sep 2026 00:49:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Linux Next Mailing List <linux-next@vger.kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: linux-next: Tree for Sep 23
-Message-ID: <arRllEFKd0N1unr-@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CWE9ROJp"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4c1fc9ceaso807744a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:51:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790207466; x=1790812266; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZL0v8EpU+Yx8SlmaaQwfQoS5AEmcrF7Pnr1vJ2jpOzg=;
+        b=CWE9ROJpe7OTV9Bz6Wqse0ha/iHSesBvEre4oVE/PPVXeM2t6WlkTmKmjbOg+p8iOV
+         UN7Z1o6gnqCW1CYLBnH57qpI/sbd53Iyn/uhrHfOdpvvvW2jWq5CvrpfqOMoGHzp9rYA
+         fCsFchjd71Xk99NM/liKgF88vqPpuMPyzt1eHUSQcyNzC6Je5JBJRAXPmzZAI5gM+3R2
+         HollK8lj3hIeFhI3alvs7oXoznlLiQie+6nX8avPhftSovwCfP3zVgToX1XMBl/ilZy9
+         A2vlj+pLRqvno/CBDMRestSkrHTBhdp+8IchK2ic99UsJG2to2uZU2olWvJcgZoxGT15
+         cLDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790207466; x=1790812266;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZL0v8EpU+Yx8SlmaaQwfQoS5AEmcrF7Pnr1vJ2jpOzg=;
+        b=DESNEeii1SfdX+yjX4s2yMcORoxe3clVo6UNnDNyHSXOLJtRG5JzyHwJ9tE5poiSS9
+         VVl+5JkP3IdhSi+yGrlEHI8dt86BFkS+D8Cu04DOed7vj1tG+4BJGggJMrfgo/vJXCLM
+         xXWXo+SHJ4z2G7Cbkq5q2/PyWqiJMd91UpJZqarTbNj51XsVbDAYJ/NAsnMfGjrFyKGt
+         SuPTsXSZTccC/Dql5uDy4ezR50IRmB0hzTmKJTekUd1p0/C7BhSoUfehcxMLsodxB025
+         cOsSQQQSNef0QuvZWojE4UGHKoeJJdCi3G0TfnKJO37x7r2e2WEA+JTnHMvMY8IsEKMh
+         EsKA==
+X-Forwarded-Encrypted: i=1; AKwUvBwj4GPe0K4GQXl9JHBB+NfD9eV+HSEAFU/hg716p6RJsB0CDv4iOvgdHZEArbNg45wpsQhsNUqJ4O8evKs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiwxwlObXSAMB6dvHElV8C5SDIGGkYIqubXgTfisrR4mw8KKV+
+	uyA5wY/5F/xGpMGU8lYNTiuFQ30KQeaCxH4J1RS7SxxwjI3j/RFmCFbON4+bs5yW8PyotlyFl/9
+	TEHT5WA==
+X-Received: from pfbfr11.prod.google.com ([2002:a05:6a00:810b:b0:87b:c228:1bd6])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:3d81:b0:3cc:b26a:7686
+ with SMTP id adf61e73a8af0-3de0e713696mr681743637.6.1790207465622; Wed, 23
+ Sep 2026 16:51:05 -0700 (PDT)
+Date: Wed, 23 Sep 2026 16:51:04 -0700
+In-Reply-To: <8c9922a47e3044683322a5a8755fccca1a1a129a.camel@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VOu8k32yvxaWKkSq"
-Content-Disposition: inline
+Mime-Version: 1.0
+References: <20260923163315.1580860-1-seanjc@google.com> <8c9922a47e3044683322a5a8755fccca1a1a129a.camel@intel.com>
+Message-ID: <arRl6HECqNVOL_cH@google.com>
+Subject: Re: [PATCH] KVM: TDX: Synthesize SHUTDOWN instead of returning -EIO
+ on unhandled EPT violation
+From: Sean Christopherson <seanjc@google.com>
+To: Rick P Edgecombe <rick.p.edgecombe@intel.com>
+Cc: "pbonzini@redhat.com" <pbonzini@redhat.com>, "kas@kernel.org" <kas@kernel.org>, 
+	"jthoughton@google.com" <jthoughton@google.com>, 
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>, 
+	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Yan Y Zhao <yan.y.zhao@intel.com>, 
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, 
+	"ackerleytng@google.com" <ackerleytng@google.com>, Vishal Annapurve <vannapurve@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Sep 23, 2026, Rick P Edgecombe wrote:
+> On Wed, 2026-09-23 at 09:33 -0700, Sean Christopherson wrote:
+> > Synthesize a triple fault, i.e. exit to userspace with KVM_EXIT_SHUTDOW=
+N,
+> > instead of returning -EIO from KVM_RUN if KVM encounters an EPT Violati=
+on
+> > due to a guest access to a pending page.=C2=A0 Returning -EIO implies K=
+VM is
+> > buggy, and most VMMs will respond by completely terminating the VM, ver=
+sus
+> > rebooting the VM in response to KVM_EXIT_SHUTDOWN.=C2=A0 I.e. give the =
+VMM the
+> > option of trying to keep the VM (from the end user's perspective) alive=
+.
+>=20
+> Why not just return KVM_EXIT_SHUTDOWN directly when the pending ept viola=
+tion is
+> detected? The synthetic triple fault makes it harder to trace what is hap=
+pening.
+> I guess there is some centralization, but harder to trace.
 
---VOu8k32yvxaWKkSq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Because it didn't even cross my mind that that's on option.  :-)  This woul=
+d be
+a great opportunity to do some centralization, e.g. do the below, and then =
+use
+kvm_prepare_shutdown_exit() for this case as well.
 
-Hi all,
+diff --git arch/x86/kvm/svm/svm.c arch/x86/kvm/svm/svm.c
+index f5aa3d7d3a10..34e5bc283479 100644
+--- arch/x86/kvm/svm/svm.c
++++ arch/x86/kvm/svm/svm.c
+@@ -2164,7 +2164,6 @@ static int mc_interception(struct kvm_vcpu *vcpu)
+=20
+ static int shutdown_interception(struct kvm_vcpu *vcpu)
+ {
+-       struct kvm_run *kvm_run =3D vcpu->run;
+        struct vcpu_svm *svm =3D to_svm(vcpu);
+=20
+=20
+@@ -2188,7 +2187,7 @@ static int shutdown_interception(struct kvm_vcpu *vcp=
+u)
+                kvm_vcpu_reset(vcpu, true);
+        }
+=20
+-       kvm_run->exit_reason =3D KVM_EXIT_SHUTDOWN;
++       kvm_prepare_shutdown_exit(vcpu);
+        return 0;
+ }
+=20
+diff --git arch/x86/kvm/vmx/tdx.c arch/x86/kvm/vmx/tdx.c
+index 7173ef3fc398..0faa7cfd0433 100644
+--- arch/x86/kvm/vmx/tdx.c
++++ arch/x86/kvm/vmx/tdx.c
+@@ -2091,8 +2091,7 @@ int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t=
+ fastpath)
+=20
+        switch (exit_reason.basic) {
+        case EXIT_REASON_TRIPLE_FAULT:
+-               vcpu->run->exit_reason =3D KVM_EXIT_SHUTDOWN;
+-               vcpu->mmio_needed =3D 0;
++               kvm_prepare_shutdown_exit(vcpu);
+                return 0;
+        case EXIT_REASON_EXCEPTION_NMI:
+                return tdx_handle_exception_nmi(vcpu);
+diff --git arch/x86/kvm/vmx/vmx.c arch/x86/kvm/vmx/vmx.c
+index e8af5e57e1cc..5411eb7f3f26 100644
+--- arch/x86/kvm/vmx/vmx.c
++++ arch/x86/kvm/vmx/vmx.c
+@@ -5587,8 +5587,7 @@ static __always_inline int handle_external_interrupt(=
+struct kvm_vcpu *vcpu)
+=20
+ static int handle_triple_fault(struct kvm_vcpu *vcpu)
+ {
+-       vcpu->run->exit_reason =3D KVM_EXIT_SHUTDOWN;
+-       vcpu->mmio_needed =3D 0;
++       kvm_prepare_shutdown_exit(vcpu);
+        return 0;
+ }
+=20
+diff --git arch/x86/kvm/x86.c arch/x86/kvm/x86.c
+index 1705e7be46ec..e433aa7ee603 100644
+--- arch/x86/kvm/x86.c
++++ arch/x86/kvm/x86.c
+@@ -8082,8 +8082,7 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
+                                kvm_nested_call(triple_fault)(vcpu);
+=20
+                        if (kvm_check_request(KVM_REQ_TRIPLE_FAULT, vcpu)) =
+{
+-                               vcpu->run->exit_reason =3D KVM_EXIT_SHUTDOW=
+N;
+-                               vcpu->mmio_needed =3D 0;
++                               kvm_prepare_shutdown_exit(vcpu);
+                                r =3D 0;
+                                goto out;
+                        }
+diff --git include/linux/kvm_host.h include/linux/kvm_host.h
+index 284fc7d68c60..d133ad33776b 100644
+--- include/linux/kvm_host.h
++++ include/linux/kvm_host.h
+@@ -2523,6 +2523,12 @@ static inline void kvm_account_pgtable_pages(void *v=
+irt, int nr)
+ /* Max number of entries allowed for each kvm dirty ring */
+ #define  KVM_DIRTY_RING_MAX_ENTRIES  65536
+=20
++static inline void kvm_prepare_shutdown_exit(struct kvm_vcpu *vcpu)
++{
++       vcpu->run->exit_reason =3D KVM_EXIT_SHUTDOWN;
++       vcpu->mmio_needed =3D false;
++}
++
+ static inline void kvm_prepare_memory_fault_exit(struct kvm_vcpu *vcpu,
+                                                 gpa_t gpa, gpa_t size,
+                                                 bool is_write, bool is_exe=
+c,
 
-Changes since 20260922:
-
-The vfs-brauner tree acquired a conflict with the ksmbd tree.
-
-The mm-nonmm-unstable tree acquired a conflict with the vfs-brauner-fixes tree.
-
-The vfs-brauner tree acquired a conflict with the mm tree.
-
-The v4l-dvb tree acquired a build failure, I used the version from
-next-20260922 instead.
-
-The drm-misc tree merged the amdgpu build failure from the drm tree
-so it too is now held at an old version, next-20260922 in it's case.
-
-The security tree acquired a conflict with the vfs-brauner tree.
-
-The tip tree acquired a conflict with the ti tree.
-
-The bitmap tree acquired a sematic conflict with the iio tree for which
-I applied a fix.
-
-Non-merge commits (relative to Linus' tree): 8521
- 9234 files changed, 477955 insertions(+), 156105 deletions(-)
-
-----------------------------------------------------------------------------
-
-I have created today's linux-next tree at
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
-are tracking the linux-next tree using git, you should not use "git pull"
-to do so as that will try to merge the new linux-next release with the
-old one.  You should use "git fetch" and checkout or reset to the new
-master.
-
-You can see which trees have been included by looking in the Next/Trees
-file in the source.  There is also the merge.log file in the Next
-directory.  Between each merge, the tree was built with a defconfig
-for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
-an arm64 build of various kselftests, a KUnit build and run on arm64,
-and a native build of tools/perf.  After the final fixups (if any), I do
-an x86_64 modules_install followed by builds for x86_64 allnoconfig,
-arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
-ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
-sparc64 defconfig and htmldocs.
-
-Below is a summary of the state of the merge.
-
-I am currently merging 430 trees (counting Linus' and 135 trees of bug
-fix patches pending for the current release).
-
-Stats about the size of the tree over time can be seen at
-http://neuling.org/linux-next-size.html .
-
-Thanks to Paul Gortmaker for triage and bug fixes.
-
---VOu8k32yvxaWKkSq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmq0ZZMACgkQJNaLcl1U
-h9BvmQf/fu6VnvJzyUMRUV5jYatOmyNqf5dlKJLIVzJqzPg0FsJdNa9CyXZ2QOCH
-wF+tA8+5erLkJPNgXa74bcrzMv7+m5t3G2rvJ8cKaO4hRVugImOu+RNzqZZB/wwj
-qlRXYXzo4CQMeO7/6PXjXMhrAlGHpOJzCyqMATVosK9BM8PlvxNXRN31yg8vC99X
-S6kfY/2DCu9nz5dPWNseD7lqCtM4BF3pAz/9q2hOwEJF3KHCBx5JVTIcXZbrgvdq
-uukQT2vQ8aIjJoVbTH48Po234FRgAT/wcx4mskf/a0vsm6VFpZR85fndAV2y3Oz2
-lNwEpO66I+BrZKEWWHUAsRmtSADYpA==
-=X3LB
------END PGP SIGNATURE-----
-
---VOu8k32yvxaWKkSq--
