@@ -1,178 +1,141 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5229348BD4E
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164642; cv=pass; b=ORuZDjCUIUDagkmN73DStTG8e2B1Dda0JZ+PSUQ29BYHeAOaI3rwgi10KoK13f/JHdNEqf5sReImL1TQl44ZNQaxzuaGr5qHRMzSV7st5ce6U/nJpIpM+Sgj9wETwJcxKcAH6h4ihIiSy5XSaA6qX6PTbXFnCHHc5HV2IZtYf5E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164642; c=relaxed/simple;
-	bh=d3pIqDKjwzqjI/GWL4Iy6hIvXv3G/GiTWsez1fVu8C8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a6po/rLHzbSLJvWGEPtQHqWA5Dz+EtSTLm13Au8M5fk3cV2TpVaKAYygKitXz7yZ/Y0syQZmoNVQrGWQWKlm9eLdkKjHQOA9f8436xTLc8uY+jRNzebfsNniFLNntv2J95lr9qE8+nIlAq0QcbTEYY62SjycRsiszjK7zcV8QlE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Scs9TqAO; arc=pass smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08EFC4B7A4B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:57:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790164671; cv=none; b=U32a0JHbJL0TYaw6/xc2//87Km4dgB8rPI9cBUxzfnMc0T2CiIMjJbCu76EaNJiXnahPt+B6qyp3q1D+0p2OZd6M1SoRvlvXSINdHECJhj4GL4L5ZHJVN0BSPdE9ft1AW0CsBD9u82LiQy3YyjYohA00Fs11s8Q4x7dG02pVpBg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790164671; c=relaxed/simple;
+	bh=uCkvrVwi9MkF5f0wk0i1rEnOLVyI8BzXTlzhW5vddes=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U/ReeYV3DYsSKwvcfD+1dKgzLooSMbjEx8WBhQaRRRXvw4YHEQ1DgZzGYn0IvrpoUTeorUQGxNC9kXzcs4BznkVs+MsfiKxyspDVcG4EUA0+v8U61qTEdmfO0+OXpuOoFhmtUmZypVSRLG82lzof4M8ZAW5pFIZ5qMXsD+NVAPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Y2FuG1iR; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Scs9TqAO"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f17450so770271e87.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:57:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790164633; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Es8W2JmbafM1YoEtWtc+nbB/h9R5dwVwjWBxtHQRWT6A62ba+Z1BKj/jJUBPMZlPRV
-         sZbQryHMvprnuXkAAOeVzMD+tK1IIZrcGnlS+1CMtc5Lnh7WCGFpt5evNz+um0S7ndGt
-         zhU4bD6ofWjfhEVSUr+xJRz8jUzvyMZ9vuAjPdCLw8Z5oN0j9KpybyiqMBHu7auRPRno
-         PYsviN6VJg74ySwsFMAZvlXnTIJPBbPw51sbQTLHiGwu5uDBrTL59/BnhQqwaGceJHH+
-         K4yF25IS5dWbhoYT5e/SX7LRzMJ84RbXKYagKyB9Dsv6rwaACayd5k1tMiQ6jIxBoNlh
-         H+TQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=D20TpGH49qOv9/0QKKs9pgkC9gvT+RAFw0ynQyUTh4c=;
-        fh=iaFZXbLq0sMzCjUaKBw29Fm3U3rGWRVnG+SDcm29gm8=;
-        b=EnW+aZunAuToDArHVQ5PpdLW0PnZr/jph6b6u8DrUNrTljwfgxpFCUDYmJrKWalxFM
-         dJKlq3/nkaZ8QVZW+2e5lrpC9MUSM3N8JRD19MkpNtS6GESfa8fr+sciXY3Jb4dMdQKM
-         T5pjgj8p0D7EYdq+semX3O9ZPYYh0dG08Jk9p1vNTR3axCzJ8gd8569m7dK5eoybGBYq
-         vH0KCu4Z8fZt2cFYUPHaFs9MTrFGu+XWCcCUwLmdQuS2nTJl3LgJUGEt5hhO9eJWvW11
-         6hdZDd4tfQjoW2kG+cOXiylpsZYu0lYS89mNx8Q+bGD1P2+Q9VtRGBMO7aEBLdGKvUBf
-         CxgA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Y2FuG1iR"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso4588695e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:57:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790164633; x=1790769433; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=suse.com; s=google; t=1790164661; x=1790769461; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=D20TpGH49qOv9/0QKKs9pgkC9gvT+RAFw0ynQyUTh4c=;
-        b=Scs9TqAOeun6E3adqnKirTUb2uMGfPeDXH1RLZiEi24/AxnWgJpIPRoNeRD8DN2eWz
-         MBexJ3Qa8LxTsIuy+MQNTVLOK/ISFHgycX+COaHNGx+LC+kOAmh16SM2ZwlvlKKNu/86
-         AasTUQ6yLelHa70Zr+rQkps+4+D1GJquzRPJMyHWmUp3k2fDtGzZjVachKJKu27Jj+57
-         02xxpJcqW8kEWeRm8CE+BGHkYvdXw5zfsM8Kup+GL6wprkP9Y/zk9v0q92Q+1FA9aI6P
-         FDg5cP/3z3Q2nq9jlAQ4kDhd+x63GGzBOmH9r8JPBVfqzcKplORF273lMh1n4zIMyHP0
-         VJmw==
+        bh=FVwQjSeRV+WHLIKI+Gc/d9Xm57b6eO5AzlydiXLlru0=;
+        b=Y2FuG1iRzb7lhBPVLE3Mju18cnYLrw5m3QbqDr0iQc8m44SO9qEIF+Q3CsMkjNckbc
+         UyCyJsXTxiUnxAhYUKrAX+p5bfrvjNGJZL8qGON5HLDdGQcMRdHOcqOiOM06wwKbO0K6
+         iUbK9ii973RkGQU5S5B6cQuL3xsf1S3xS/np+5BkMH2YAHirn3QI4RvAADW0ZGCWy4eY
+         +QVZSazEeo3sS7TGEITzMdeOlDtPciQagaClPZlmzi4iaPYyD9k4e/OzSSfGKYbXwVdX
+         Baxg42q7EaMg6fk2DvyU468g+R8I8vRkqAqcsR+O9hkyduf7tDieEsG9ovXXoWRSgX+M
+         OAwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790164633; x=1790769433;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790164661; x=1790769461;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=D20TpGH49qOv9/0QKKs9pgkC9gvT+RAFw0ynQyUTh4c=;
-        b=qJq7nY7ieJY2qUDfGHzVfizL8OVvEYUTLkfIkR/ynbHN967snl/+YuHaV/M2F7ZQCm
-         GMsA/UWNPZO5ZkRoorHcRoLsXgPvZdkzenF0TWMC+zCT+JoUR+Uid4bovZJAmK99z4WB
-         stDx8yBn2Pqhmre7XCAbTzYZ03OEzsR4z0vWdUtOuo1IHtnyIEjihs2JEbtXvogZhL+2
-         iFVsDPPAkDVDTlP/Z1vQLnBDbBpzN2bX4S3lDdKE5Cfhq3xIT+fasBN9D+/SrMNvilcI
-         YKAlz6QU9iycD7s6BOpMi9/0KBerTVUrOMkz8CWz1Nbfeu2EauK3N1GVJT/rEyZ/JMPC
-         /aPA==
-X-Forwarded-Encrypted: i=1; AKwUvBzaCPdq4N4URYMMXQFvix0LZXgqlS0mKMYv6Y1m5KHFUhW2noplIRigY6YHWSjCxAzN3ltJS+LzwJDe1FQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltTo5+xM59wepI1YaP5eXIihJpYZh633MhrpRLwYeZVhcfXE9l
-	FtjlvThusC7AEvnqCd06584+vsUrliZAy5oUSqyrsTXl5zudTq4fxj9pyvy/GIXjU1oQzxoeyTW
-	DarZDvSMDCfz/yfUGung8rsNeCfxVphA=
-X-Gm-Gg: AYBFou3IPNMXKFF163Z3Rs0ClVhEEg5yqkzXKaVthAsOIXjpFdC6TFgitQB5nLHgGCw
-	Gox92zkm+f3qi0W/9DgtZvv7/TTbVaTGaCZT9gaDuGk47lMQYpNdgITN9JOJddwnYDDvlPelONo
-	E7FNE3LOLNM3dGVYqCYPNb6uG9lTPY+euYrFkiIhym8AH8v4a1+BeWMJwUYSCZ+iVkKfdwNEFcy
-	5M6T48W4ylnw9P9GpNPUaG0+yb6MdOmDZVDL9W8vSIO5Pp9yYgIllawAmLv++d8001mVG5+M9Nt
-	7jTG02X2U8/4pmAQXV5l3YQkDsXE8DZoroPjQQ78h1eCwHXgw+wDLlGX21HiGbU4p/X4AnWD8Cs
-	b5dcaOmAXkyR2
-X-Received: by 2002:a05:6512:3b1e:b0:5b8:999f:718b with SMTP id
- 2adb3069b0e04-5b8d89529a8mr775837e87.12.1790164632483; Wed, 23 Sep 2026
- 04:57:12 -0700 (PDT)
+        bh=FVwQjSeRV+WHLIKI+Gc/d9Xm57b6eO5AzlydiXLlru0=;
+        b=ac0urt7+Tjjv/MwiX1bgexWVumzPdyNScKPF0HY47RqFeFaFNraOiUcikkJpfKHJzz
+         5AbHqKIvjDNv7ZDQpGoeclmHebsaHJzZQLAMcEZjAl8zPV7IBwbXrQxfEuZgPy4ltHCZ
+         VFw7Ng6X2+vbetpOsjN96jgYved+htb8JztEjMc/WlQO+2O0NyPf0ew5YxU6NfB5z9jr
+         R4j9XhnZsXzgwSZKu8FhKyafEFM3Jf7/qs7zLoSOYlIN0EddHnWA4YbpcOGH2EFcFwGk
+         vA8SozjroiC2DqsAIMRNfUwLedIJDdO/faPII0q85jewcwc3oi9h1RrcjgBTiiNeFYV8
+         fZ1g==
+X-Forwarded-Encrypted: i=1; AKwUvBz9wIFy878cwNMUEfWHrT0bhIiF5AcuSd8dH5OA2x3FKVTJklNbe8200TlGC5P48wLeRgE/Y6tlu7LqeV0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksvXHWtadw2mVMuqdv4fcNYM3rfQve22CsK4WQCrqM4lbcjVkC
+	MBexovpRMNapQPFSKAVSnJbZxn6tsonQZ62bo6GzCifvXPAomHQvDwZH8GBEChJCS+g=
+X-Gm-Gg: AYBFou2ldcS8cqobqwLLp/gmP3zmLeTpW6ktLskT8RKBhfnsmLp5e7+XGPEfuls6wXF
+	FmNeHGC1G4siIJj4uxbngdJO0eWJbtldlREEq2nsNIRVlIFh+x5cQ3J/1RZ1rTIED24ckDs4p8W
+	WGGwNVQhtywRKvKHZo/ZOcdoSPm0ZRPWEPIH9SNpBGEXKobv7ZPBy66CFMMR1QwtX+CRDB7fKCH
+	sWeJ/+V1DInaFMNcKXXZiPssN0KlSQHIvqWvO7I1Cvh2D49rhN14DrljKcRH7/JBlxIoWmTTd7h
+	6V9DbeLAa2046AO7TbKkTFjra6ozdIyuhhcZ+fX1QqZOBRhNVOA5CSts7EoZwzLqT1JHljLWlle
+	272QHtzLpYdfrbtF9NcqMxedNGS37Gajpf/25HwGp1+iG0DBVIX5/h1wnVn5fOlx/XNnh2guThZ
+	/2edQL9bEH/QNevybITCJjGk+G/1xUL7mxHwMP7/WMoiew7Eh7lny8sW9cNlfJbdrA7oBQCLgY+
+	R1utM9SuqeXYig=
+X-Received: by 2002:a05:600c:8489:b0:49e:73e7:888c with SMTP id 5b1f17b1804b1-49fdee0b7e7mr30673975e9.4.1790164661458;
+        Wed, 23 Sep 2026 04:57:41 -0700 (PDT)
+Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe1432362sm30595675e9.1.2026.09.23.04.57.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 04:57:40 -0700 (PDT)
+Date: Wed, 23 Sep 2026 13:57:38 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: John Ogness <john.ogness@linutronix.de>, linux-kernel@vger.kernel.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: Re: [PATCH] printk: fix wrong number of CPUs required to increase
+ the ring buffer
+Message-ID: <arO-ssiDvVjJ7TIn@pathway.suse.cz>
+References: <20260921163828.111061-1-ekffu200098@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921021459.283023-1-stevereaver@gmail.com>
- <20260923092626.873202-1-stevereaver@gmail.com> <20260923094144.E723B1F00893@smtp.kernel.org>
-In-Reply-To: <20260923094144.E723B1F00893@smtp.kernel.org>
-From: Steve Reaver <stevereaver@gmail.com>
-Date: Wed, 23 Sep 2026 21:57:00 +1000
-X-Gm-Features: AcwNN1Vz4ppQFb3PfMiYiHwl33Vcr8dKREmMuo6U_3H7qEGvy_Pm4z2nh8h_0rk
-Message-ID: <CA+sfT55QcfAGP=ttb-YNvR85ggCyfmgBp9YJ4853KGg0da1aDQ@mail.gmail.com>
-Subject: Re: [PATCH v4] mtd: maps: add INT0800 firmware-flash map driver
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-mtd@lists.infradead.org, Richard Weinberger <richard@nod.at>, 
-	linux-kernel@vger.kernel.org, Vignesh Raghavendra <vigneshr@ti.com>, 
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921163828.111061-1-ekffu200098@gmail.com>
 
-The remaining removal paths don't apply to this device. The platform
-device is only unregistered via ACPI_RECONFIG_DEVICE_REMOVE, which
-requires the INT0800 ACPI node to leave the namespace. INT0800 is a
-static DSDT device: it has no _EJ0 (the eject sysfs attribute is never
-created for it), cannot live in an unloadable SSDT overlay, and has no
-hotplug notify source. Unbinding a parent device/driver does not
-invoke a child's remove(). With .suppress_bind_attrs the sysfs unbind
-is gone, and module unload is blocked by open fds via mtd->owner. The
-residual "rmmod -f with CONFIG_MODULE_FORCE_UNLOAD" bypasses
-refcounting for every driver. FWIW, the underlying limitation =E2=80=94 map
-providers freeing mtd_info while the core cannot wait for open fds =E2=80=
-=94
-is shared by all existing drivers/mtd/maps users; addressing it would
-be an MTD core lifetime change beyond this driver.
+On Tue 2026-09-22 01:38:27, Sang-Heon Jeon wrote:
+> The default LOG_BUF_SHIFT is 17, which means 128 KB, and
+> LOG_CPU_MAX_BUF_SHIFT is 12, which means 4 KB per CPU.
+> 
+> By default the ring buffer is increased when
+> (num_possible_cpus() - 1) * 4 KB > 64 KB, which requires 18 or more CPUs.
 
-On Wed, 23 Sept 2026 at 19:41, <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] mtd: maps: UAF of mtd_info and I/O memory on device unregistrati=
-on
-> --
->
-> commit ad3016fe3893b23f61acf9f96913ff51726ac3a0
-> Author: Stephen Bancroft <stevereaver@gmail.com>
->
-> mtd: maps: add INT0800 firmware-flash map driver
->
-> Add a read-only mapping driver that binds the ACPI INT0800 "Intel
-> 82802 firmware hub" device and exposes the system firmware flash as an
-> MTD ROM device.
->
-> > diff --git a/drivers/mtd/maps/int0800.c b/drivers/mtd/maps/int0800.c
-> > new file mode 100644
-> > index 0000000000000..c5f108aa34797
-> > --- /dev/null
-> > +++ b/drivers/mtd/maps/int0800.c
->
-> [ ... ]
->
-> > +static void int0800_remove(struct platform_device *pdev)
-> > +{
-> > +     struct int0800 *fw =3D platform_get_drvdata(pdev);
-> > +
-> > +     mtd_device_unregister(fw->mtd);
-> > +     map_destroy(fw->mtd);
->
-> [Severity: High]
-> Does this teardown path force a use-after-free if the device is removed
-> while a file descriptor is open?
->
-> While the driver sets .suppress_bind_attrs =3D true to prevent manual sys=
-fs
-> unbinds, the driver core can still invoke remove() when the underlying
-> device is unregistered. This can happen if root unbinds the parent bridge
-> in sysfs, or via ACPI SSDT unloading.
->
-> If int0800_remove() is invoked while userspace holds an open file
-> descriptor, mtd_device_unregister() puts the kref but does not release
-> the struct device because the character device retains an active referenc=
-e.
->
-> Unconditionally calling map_destroy(fw->mtd) then frees the mtd_info
-> structure. Could subsequent /dev/mtd0 reads or sysfs accesses dereference
-> this freed memory and access unmapped devm I/O memory?
->
-> > +}
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923092626.87=
-3202-1-stevereaver@gmail.com?part=3D1
+Good catch!
 
+> Fix the wrong comment and help text.
+> 
+> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+> ---
+>  init/Kconfig           | 2 +-
+>  kernel/printk/printk.c | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/init/Kconfig b/init/Kconfig
+> index 60448fd4ee12..446cbb59a43b 100644
+> --- a/init/Kconfig
+> +++ b/init/Kconfig
+> @@ -843,7 +843,7 @@ config LOG_CPU_MAX_BUF_SHIFT
+>  	  with more CPUs. Therefore this value is used only when the sum of
+>  	  contributions is greater than the half of the default kernel ring
+>  	  buffer as defined by LOG_BUF_SHIFT. The default values are set
+> -	  so that more than 16 CPUs are needed to trigger the allocation.
+> +	  so that 18 or more CPUs are needed to trigger the allocation.
 
+The number 18 is pretty ugly. It was supposed to be a power of 2.
+I would prefer to fix the computation instead.
+>  
+>  	  Also this option is ignored when "log_buf_len" kernel parameter is
+>  	  used as it forces an exact (power of two) size of the ring buffer.
+> diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
+> index 00f8e1291564..c7d961256c88 100644
+> --- a/kernel/printk/printk.c
+> +++ b/kernel/printk/printk.c
+> @@ -1087,7 +1087,7 @@ static void __init log_buf_add_cpu(void)
+>  
+>  	cpu_extra = (num_possible_cpus() - 1) * __LOG_CPU_MAX_BUF_LEN;
 
---=20
-Steve Reaver
-http://www.stevereaver.com/
-Electronic Music Production
+If we remove the minus one:
+
+	cpu_extra = num_possible_cpus() * __LOG_CPU_MAX_BUF_LEN;
+
+The it should be > 16 and we could keep init/Kconfig as is.
+
+> -	/* by default this will only continue through for large > 64 CPUs */
+> +	/* by default this will only continue through for 18 or more CPUs */
+
+Right, this should be > 16 with the current defaults.
+
+>  	if (cpu_extra <= __LOG_BUF_LEN / 2)
+>  		return;
+
+Would you like to prepare v2?
+
+Best Regards,
+Petr
