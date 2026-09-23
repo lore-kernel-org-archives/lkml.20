@@ -1,244 +1,115 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61F8379990
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1DC531F9B4;
+	Wed, 23 Sep 2026 02:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790129809; cv=none; b=Rr+NdMK9lga/O2XqLGwm6kRYG9iHy8HSkRo8ya9yDLxTYKpa+ripQr3S7Jo863FtCZuJf+lVQjrcqhs+cGCmCV3cXsQ3jzrXbVoEFpwmxaD+GlxTVU0yBXpYJHN+eiHRwy+VFZgvw5Fyi0NfJLNwEzowuXjRk6hE1S2N9F5Dp0Y=
+	t=1790129838; cv=none; b=YdqrtRdiinmFDthJNqY69L3eeoBf0UZKsUOZECTC2xt3xsZzCfRe1PUd2r9YEO38U68bJ35/1mvbJVYWapczqKKAKImzNM7bXR39f97frzclqX33V0sn+nFU2PfzICnJ243wUAK9OCiBdlrNWnqOZuuXDf35wm1gIc1u92FTngQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790129809; c=relaxed/simple;
-	bh=j0orzS41Ul+goT61z8fahX/NeWz2zFFlqB/sCOOKK+M=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=G6nhq23sT8J0el3uyuyrJl0/aBTQ1p/IB3IOQAAeP63AC07X16kpcNNH9X4RYVF8l7jDBa/CTxsWLCeNx573peyHoTlbxccb0JyFL+XmhyeeNqowYQyKSmSHjiXLgd9Af6tTip8LN3t+T3UR0bDMwDjeeyF+FsnkEa2tqPnHFVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=epklhb1J; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="epklhb1J"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc75e33cc69so231327a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:16:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790129807; x=1790734607; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5mLdHkKI/Hk3BqqZoW+gtkhvs5fryLWhkPrRSEcEKag=;
-        b=epklhb1JVVPAEIoT/WXb8FpeoS+tBP76FyEydJ9h49AfQtVlijJZxYKoKRz+XsCMNa
-         J3kHiWOtVapE3a70Ain9YUDy1o6MrZZjx8YDK4i3TRXRWu3IFWLjmpvzDrBSZvaMNf+c
-         rp6Th7xT++C5VGprr5cMRx/BqIptXmdTYvYTZVOPdYh5KAUF9k9TeKUw+l1foD0PfmWI
-         LAIRbZwj9Gd03M/9ZPIo9OaONTS3ko2ALjr7ocnR/DMkS/jpAo5Or4/zlwckSADmSuH4
-         cacUbWoi1FvOVl0DL4gBVrdatLyjzvGSkqf7bBUzmUH9u84RaSzgIJ0HU1/rkHAtqQbZ
-         8RBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790129807; x=1790734607;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5mLdHkKI/Hk3BqqZoW+gtkhvs5fryLWhkPrRSEcEKag=;
-        b=Cd/POIHYjeeP0BU4Tf95JRcagbjbsGoHMQVZxhMwEUHqv/Lnhw61BzFmB5X0RuNJuD
-         i+HFvNdI5ZvIjdtuxfYQrnOcJK8fp0hPvbev2Zc+sG5JBxtZyBtv2DMDEr9dEtvePo7i
-         OsLGx7bqRLebmcgcmzl5iSuvSfWEQceaqXWpIMMD4iuhBOrvY4OhnRwK/ZhacOjk5VHS
-         i96MrRUyztHO86lUgcTiS97FpE7mQs7SopYuevruxZKMkZKyvJzyLz9tOHjw937uIVh0
-         y5Wv/KRBI487JZwVKnU3W+Q6NeDu4sF6lMDbKK0eEb32fei/avF4FpqcmW3dy2Gi1/za
-         F4vg==
-X-Forwarded-Encrypted: i=1; AKwUvBymiCe0Mbp/nVct+2W5pLv5mHd6ujD/FCWB0oVm9lwYsHOOzXTV2vL6JIUtJ0vmxzBAP/SByt8HrzBcObs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8KiidW0/PbDlsZ9e3snHQ2OTGHujJEIEVNMK+Sul1C4SNB6KS
-	sUXsUJqGq15XIED4QeF5iY6oCv1iD2c3Za1kQCiQzUMfL0HTw/zj1Wje
-X-Gm-Gg: AYBFou2y6lqDySgtz+jgKtrKtMkgddxV7zsmQIGdeTkGJOq+EBpg/045BEmMRGf9dzu
-	TX7VO7nl9HyT5lUKmc18QCRZtKVf3Sg3QC+gw4jMyDrnlKd3JQezLcuI9yAdxSNr+JNjNURU7Pd
-	MxCK9xY9qXQxI8/gOBzJ0GzEEukI/swPI//aesZBbr1fBIJ4LArN6+QEwPeGYM9tNHykkeNMJz8
-	1MfcrOP5cKZzcvkezT/jQeijXMpruJDGmAaYoRwkWi59rSPGwx9NcOLN9H0EUdSyXeTYjzkafUG
-	s3LctVhgWnJftq8mmKGmKeuAy4iHPizpk753qeoNx5S+C9CNlJaLNs/eJZ+SmF/PTYI0lca9uel
-	bOnLdfodvOWXCy7lNIVJkVwz2MTSymwM1E042AgWSqjVH82DMMK5PrIP2LIz7+rSeth88mGQzjM
-	dUS+hsUE9yhNRjNYsNDz/SpZlonOaMhx5BIlrJ/IokEygVPns3CoY/7G5xLPtSAKTWH7uueIa8m
-	UJIC/deZz8298kE38IQ55ok1BljO8bfGRb3J97EqgQYMNBFqBiTSWut1PZW6vbI5NuD9ZTqHR+y
-	yklKbGvkCTXde28=
-X-Received: by 2002:a17:90b:2e0d:b0:39e:6c6a:4b6d with SMTP id 98e67ed59e1d1-3a07e6bc443mr1025420a91.55.1790129806696;
-        Tue, 22 Sep 2026 19:16:46 -0700 (PDT)
-Received: from localhost ([153.61.198.255])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07ddae723sm2013459a91.5.2026.09.22.19.16.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 19:16:46 -0700 (PDT)
+	s=arc-20240116; t=1790129838; c=relaxed/simple;
+	bh=o2ChluBE/4Fwa5nS12cY6ZuCjs5TyhlXL3NEnVfPuNw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=l5Vojkj5PpCk8fXibvtxwLsI6+2V2psGGb1q76Z7s/7S18ZwvqROH5lhB0kWdA/pH09Y5b+Zy2Ab/mMm+w0ylJQgR3LZifHszEdHgn9vJSiuag5rN466HSBxv+XrzUWYIHZ0JlYAnZ/tEurnE1NqhUn+Wibw/+2tJy8n8Auo6Wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqLFM6Z0DzTSdm;
+	Wed, 23 Sep 2026 10:16:55 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqLFM2QFXzTSdm;
+	Wed, 23 Sep 2026 10:16:55 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id 019FC102A;
+	Wed, 23 Sep 2026 10:16:50 +0800 (CST)
+Received: from [127.0.0.1] (10.0.235.124) by cncheex04.Hygon.cn
+ (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 23 Sep
+ 2026 10:16:54 +0800
+Message-ID: <f72c91f6-c32f-4b5e-a6d0-f828a3e19675@hygon.cn>
+Date: Wed, 23 Sep 2026 10:16:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 02:16:45 +0000
-Message-Id: <DLMC1ZMTWZYV.3H2LAOGONVAUQ@gmail.com>
-Cc: "Boqun Feng" <boqun@kernel.org>, "Masami Hiramatsu"
- <mhiramat@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, "Peter
- Zijlstra" <peterz@infradead.org>, "Thomas Gleixner" <tglx@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Puranjay Mohan" <puranjay@kernel.org>,
- <rcu@vger.kernel.org>, <bpf@vger.kernel.org>,
- <linux-trace-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 07/13] bpf, x86: Take a Tasks Trace reader in the
- trampoline around its call-outs
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Josef Bacik" <josef@toxicpanda.com>, "Paul E. McKenney"
- <paulmck@kernel.org>, "Frederic Weisbecker" <frederic@kernel.org>, "Alexei
- Starovoitov" <ast@kernel.org>, "Steven Rostedt" <rostedt@goodmis.org>
-X-Mailer: aerc 0.20.1-349-gb940a4174a3e-dirty
-References: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com> <20260922-b4-rcu-tasks-preempt-qs-v5-7-410f57770bad@toxicpanda.com>
-In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-7-410f57770bad@toxicpanda.com>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/2] perf/x86/amd/uncore: Add Hygon uncore PMU and JSON
+ events
+To: <peterz@infradead.org>, <mingo@redhat.com>, <namhyung@kernel.org>,
+	<alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>,
+	<sandipan.das@amd.com>, <ravi.bangoria@amd.com>, <irogers@google.com>,
+	<x86@kernel.org>
+CC: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<lijing@hygon.cn>
+References: <20260818100118.12944-1-liuqi@hygon.cn>
+Content-Language: en-US
+From: Qi Liu <liuqi@hygon.cn>
+In-Reply-To: <20260818100118.12944-1-liuqi@hygon.cn>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-On Tue Sep 22, 2026 at 2:23 AM UTC, Josef Bacik wrote:
-> On HAVE_RCU_TRAMPOLINE_READERS kernels Tasks RCU keeps a BPF trampoline
-> image allocated only while a task using it is a Tasks Trace RCU reader
-> or is executing text that rcu_tasks_trampoline_text() recognises.  The
-> image itself is such text, but the C glue and the programs it calls are
-> not, and only sleepable programs take rcu_read_lock_trace() today.
->
-> Have the x86-64 JIT open-code rcu_read_lock_trace() and
-> rcu_read_unlock_trace() in the trampoline, as ftrace_64.S does for
-> ftrace_caller: one reader from just after the frame is set up to just
-> before the original function is called, covering __bpf_tramp_enter()
-> and the fentry and fmod_ret programs, and a second one from just after
-> the original function returns to just before the final register
-> restore, covering the fexit programs and __bpf_tramp_exit().  The
-> original function itself runs outside both, since it may run for a long
-> time and the image is pinned by im->pcref across it.  Trampolines that
-> do not call the original function get a single reader around all their
-> programs.  The second reader is entered before ip_after_call, so the
-> ip_after_call -> ip_epilogue jump that bpf_tramp_image_put() patches in
-> is inside it, and the fmod_ret early-exit branch lands after that point
-> still holding the first reader, so exactly one is held on every path.
->
-> The sequence uses r10 and r11, which are scratch at each emission point,
-> and references current_task and rcu_tasks_trace_srcu_struct by absolute
-> sign-extended address, the form the JIT already relies on for
-> this_cpu_off.  Sleepable programs' own rcu_read_lock_trace() simply
-> nests.  Nothing is emitted on other configurations.
->
-> Suggested-by: Alexei Starovoitov <ast@kernel.org>
-> Assisted-by: LLM
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> ---
->  arch/x86/net/bpf_jit_comp.c | 107 ++++++++++++++++++++++++++++++++++++++=
-++++++
->  1 file changed, 107 insertions(+)
->
-> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
-> index 2853e87797a7..b77e29c9599d 100644
-> --- a/arch/x86/net/bpf_jit_comp.c
-> +++ b/arch/x86/net/bpf_jit_comp.c
-> @@ -14,6 +14,7 @@
->  #include <linux/memory.h>
->  #include <linux/sort.h>
->  #include <linux/execmem.h>
-> +#include <linux/rcupdate_trace.h>
->  #include <asm/extable.h>
->  #include <asm/ftrace.h>
->  #include <asm/set_memory.h>
-> @@ -722,6 +723,91 @@ static void emit_indirect_jump(u8 **pprog, int bpf_r=
-eg, u8 *ip)
->  	*pprog =3D prog;
->  }
-> =20
-> +/*
-> + * Open-coded rcu_read_lock_trace() / rcu_read_unlock_trace() for the
-> + * trampoline, see CONFIG_HAVE_RCU_TRAMPOLINE_READERS and the equivalent
-> + * macros in arch/x86/kernel/ftrace_64.S.  The image is not relocated, s=
-o
-> + * current_task and rcu_tasks_trace_srcu_struct are referenced by absolu=
-te
-> + * (sign-extended 32-bit) address, the form the JIT already relies on fo=
-r
-> + * this_cpu_off.  Uses r10 and r11, which are scratch at every emission
-> + * point, and clobbers flags.
-> + *
-> + * lock:                                  unlock:
-> + *   mov  r11, gs:[current_task]            mov  r11, gs:[current_task]
-> + *   mov  r10d, [r11+nesting_off]           mov  r10d, [r11+nesting_off]
-> + *   inc  dword ptr [r11+nesting_off]       sub  r10d, 1
-> + *   test r10d, r10d                        jnz  2f
-> + *   jnz  1f                                mov  r10, [r11+scp_off]
-> + *   mov  r10, [&srcu.srcu_ctrp]            mov  dword ptr [r11+nesting_=
-off], 0
-> + *   inc  qword ptr gs:[r10+locks_off]      (smp_mb)
-> + *   mov  [r11+scp_off], r10                inc  qword ptr gs:[r10+unloc=
-ks_off]
-> + *   (smp_mb)                               jmp  3f
-> + * 1:                                     2: mov [r11+nesting_off], r10d
-> + *                                        3:
-> + */
-> +static void emit_trace_rcu_reader(u8 **pprog, bool lock)
-> +{
-> +#ifdef CONFIG_TASKS_RCU_TRAMPOLINE_READERS
-> +	const u32 nesting_off =3D offsetof(struct task_struct, trc_reader_nesti=
-ng);
-> +	const u32 scp_off =3D offsetof(struct task_struct, trc_reader_scp);
-> +	const u32 locks_off =3D offsetof(struct srcu_ctr, srcu_locks);
-> +	const u32 unlocks_off =3D offsetof(struct srcu_ctr, srcu_unlocks);
-> +	const bool mb =3D !IS_ENABLED(CONFIG_TASKS_TRACE_RCU_NO_MB);
-> +	u8 *prog =3D *pprog;
-> +
-> +	/* The plain this_cpu_inc() form of __srcu_read_lock_fast(). */
-> +	BUILD_BUG_ON(IS_ENABLED(CONFIG_NEED_SRCU_NMI_SAFE));
-> +
-> +	/* mov r11, gs:[abs32 current_task] */
-> +	EMIT2(0x65, 0x4C);
-> +	EMIT3(0x8B, 0x1C, 0x25);
-> +	EMIT((u32)(unsigned long)&current_task, 4);
-> +	/* mov r10d, dword ptr [r11 + nesting_off] */
-> +	EMIT3_off32(0x45, 0x8B, 0x93, nesting_off);
-> +
-> +	if (lock) {
-> +		/* inc dword ptr [r11 + nesting_off] */
-> +		EMIT3_off32(0x41, 0xFF, 0x83, nesting_off);
-> +		/* test r10d, r10d */
-> +		EMIT3(0x45, 0x85, 0xD2);
-> +		/* jnz 1f */
-> +		EMIT2(X86_JNE, 8 + 8 + 7 + (mb ? 6 : 0));
-> +		/* mov r10, qword ptr [abs32 &rcu_tasks_trace_srcu_struct.srcu_ctrp] *=
-/
-> +		EMIT4(0x4C, 0x8B, 0x14, 0x25);
-> +		EMIT((u32)(unsigned long)&rcu_tasks_trace_srcu_struct.srcu_ctrp, 4);
-> +		/* inc qword ptr gs:[r10 + locks_off] */
-> +		EMIT4_off32(0x65, 0x49, 0xFF, 0x82, locks_off);
-> +		/* mov qword ptr [r11 + scp_off], r10 */
-> +		EMIT3_off32(0x4D, 0x89, 0x93, scp_off);
-> +		/* smp_mb(): lock add dword ptr [rsp - 4], 0 */
-> +		if (mb)
-> +			EMIT2_off32(0xF0, 0x83, 0x00FC2444);
-> +		/* 1: */
-> +	} else {
-> +		/* sub r10d, 1 */
-> +		EMIT4(0x41, 0x83, 0xEA, 0x01);
-> +		/* jnz 2f */
-> +		EMIT2(X86_JNE, 7 + 11 + (mb ? 6 : 0) + 8 + 2);
-> +		/* mov r10, qword ptr [r11 + scp_off] */
-> +		EMIT3_off32(0x4D, 0x8B, 0x93, scp_off);
-> +		/* mov dword ptr [r11 + nesting_off], 0 */
-> +		EMIT3_off32(0x41, 0xC7, 0x83, nesting_off);
-> +		EMIT(0, 4);
-> +		if (mb)
-> +			EMIT2_off32(0xF0, 0x83, 0x00FC2444);
-> +		/* inc qword ptr gs:[r10 + unlocks_off] */
-> +		EMIT4_off32(0x65, 0x49, 0xFF, 0x82, unlocks_off);
-> +		/* jmp 3f */
-> +		EMIT2(0xEB, 7);
-> +		/* 2: mov dword ptr [r11 + nesting_off], r10d */
-> +		EMIT3_off32(0x45, 0x89, 0x93, nesting_off);
-> +		/* 3: */
-> +	}
+Gentle ping for this patch. Any comments would be appreciated. :)
 
-I think lockdep is still broken due to inlining.
-lockdep enabled kernel will miss this rcu tasks CS.
+Thanks,
+Qi
 
-Instead let's add rcu_read_lock_trace() to __bpf_tramp_enter()
-and remove it from __bpf_prog_enter_sleepable*().
 
-Also add __bpf_tramp_before_call_orig()
-and __bpf_tramp_after_call_orig(), so that orig call
-can run outside for RCU tasks CS.
+On 8/18/2026 6:01 PM, Qi Liu wrote:
+> This series adds initial uncore PMU support for Hygon Family 18h
+> processors.
+> 
+> Hygon uncore PMUs use a programming model similar to AMD's, but
+> differ in MSR base addresses, event encodings, and counter allocation
+> semantics. Rather than embedding Hygon support in the AMD uncore
+> driver with vendor checks, a dedicated driver is introduced to keep
+> both drivers clean and independently maintainable.
+> 
+> The new driver provides hygon_df and hygon_df_iod PMUs covering the
+> Data Fabric on both the CPU die and the IO Die, together with perf
+> JSON events and metrics for three processor models. A per-context
+> hrtimer handles counter reads, and CPU hotplug callbacks manage
+> context lifecycle.
+> 
+> Changes since RFC:
+>    - Address sashiko bot review.
+> Changes since v1:
+>    - Rename the helper namespace to amd_uncore_common_* to avoid
+>      an generic uncore_common_* prefix, and to keep it distinct
+>      from the existing amd_uncore_* names.
+> Changes since v2:
+>    - Drop the common helpers refactoring. Keep the Hygon driver
+>      self-contained instead, avoiding unnecessary changes in the AMD
+>      uncore driver.
+> Changes since v3:
+>    - Address sashiko bot review.
+> Changes since v4:
+>    - Improve Hygon Data Fabric PMU event naming, descriptions, and scaling.
+> 
+> Qi Liu (2):
+>    perf/x86/amd/uncore: Add Hygon uncore PMU support
+>    perf vendor events hygon: Add Hygon Data Fabric PMU events and metrics
+> 
+>   arch/x86/events/Kconfig                       |  11 +
+>   arch/x86/events/amd/Makefile                  |   2 +
+>   arch/x86/events/amd/hygon_uncore.c            | 872 ++++++++++++++++++
+>   arch/x86/events/amd/uncore.c                  |  11 +-
+>   arch/x86/include/asm/msr-index.h              |   2 +
+>   arch/x86/include/asm/perf_event.h             |  20 +
+>   include/linux/cpuhotplug.h                    |   3 +
+>   tools/perf/pmu-events/Build                   |   2 +-
+>   .../arch/x86/hygonm1/data-fabric.json         |  95 ++
+>   .../arch/x86/hygonm4/data-fabric.json         | 134 +++
+>   .../arch/x86/hygonm6/data-fabric.json         | 170 ++++
+>   tools/perf/pmu-events/arch/x86/mapfile.csv    |   3 +
+>   tools/perf/pmu-events/jevents.py              |   2 +
+>   13 files changed, 1318 insertions(+), 9 deletions(-)
+>   create mode 100644 arch/x86/events/amd/hygon_uncore.c
+>   create mode 100644 tools/perf/pmu-events/arch/x86/hygonm1/data-fabric.json
+>   create mode 100644 tools/perf/pmu-events/arch/x86/hygonm4/data-fabric.json
+>   create mode 100644 tools/perf/pmu-events/arch/x86/hygonm6/data-fabric.json
+> 
 
-Better ideas?
 
