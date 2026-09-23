@@ -1,153 +1,93 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019883EEAE9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:15:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE4C3DC4CC
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:15:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790198126; cv=none; b=KATft19Kvk4usAQSirmovvHrPZCsr6rU0fHUZeHp679LTed3OX2YSa0lqlPx6mdOrERmKzk8kcVs3byNt0xvlsFhKvqX8cGen7xIDxq70ysVbvTc7oP5DfkF0gQn7TYC0Uh/vS8vej3UTB3CDgwkOB/D0/E2RuKszQKdIr9o0AM=
+	t=1790198124; cv=none; b=nw+nnjEbSWNwO2qs5qrpvsmGjthiSnUHFYDlAd5l06OnrqHmvbFZ0dDGTllhATnmsAwDgLwc2px91l5Pt3wfKrTr6Q+bC+1+QggztO5mWJoJm+tZcQ6Nm6PlM9YxzTwBZ0GIpsuoyjtPy/25QnM8j7A6g5qfokyUhHELH8Y+npE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790198126; c=relaxed/simple;
-	bh=QZ+gkZx8tRSal+D98Z1zyd1nQU4mdy4IUssMdZlDIBw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SrKcRltPY+Da3GwrCfg7syGksaMCLpiWqPB3trezA9Y9A5HQtBqrmmpC/sEA01P4rKqBFECrIGp0k1b1ZIS8Kr3ejnd5FxZPvHk5YcVr87OU6xtABuBAHlY0GBkCfye5VSyRYXp/mb95+YW9J3LLbOca7mO3mNl0U+KIJdryneA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=VLCTEytW; arc=none smtp.client-ip=74.125.231.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1790198124; c=relaxed/simple;
+	bh=UD2KMfzzPMYVRBtrH5Lyz7KKBIJRodXc/eF6QsKXCO8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HOxL6fKKdsnbKw/wZasoJRxQpe3bm2FN0O+imkj7oX55AeXvYtSdBDRUkkMaoBBfFWZJoWtzGajBQxzXP+VzFQOw69rWS8Rsowyw23xCr5hS5GK9n8zYwTv8rKpZlyB4rBjP1x7fc3/MBIBdxY4TA5FnVVSjxy4x1ysPxoWptp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=K3Jj7jzQ; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="VLCTEytW"
-Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6bff4d6504cso609488eaf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:15:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1790198120; x=1790802920; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Kg7IwIlD1kntpf1eauWWXgt0Gca3DfH40H5I52PyjHc=;
-        b=VLCTEytWTxlNSWyPtsXbL/hkKWe3414ZIt+qUX8h+VGRlg2cVoZ+FLKD5xJxQmU9HJ
-         vqIr7FF5Kt129NXwnU9xMiaXKjhzfSprXpqN4XvDPNBothmAezjFF2vP3cIUcTNyC8OF
-         9IyNMjGkN91Eb72z8J9naSKB/aeJn5vn1Y1b5z/CV2rcYmdJ8JyftUoAAqAniaVzI4yf
-         mUDQ5bnz7qloApdSvkk9C1SOedk+gieh/8NuGDrzXUgr9lY13wm5qRkKL+TL7c6Lbd6v
-         r2zP2gjmCgtx6Bw2JEDz1cKVpKzk1cxUrOo7B2xcXh2yq2Kb/Tnizh0lCzo4ehZ/vXWg
-         /wEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790198120; x=1790802920;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Kg7IwIlD1kntpf1eauWWXgt0Gca3DfH40H5I52PyjHc=;
-        b=QiEbrH9qdPT/ssUrvfTdjliOTum/UotRBkHAlf0em1nFuuM6dTAge5SI4r9oFKJ6li
-         LUDnEUHWb2O8RcVRWO3S2ojYsfmjHlp2Un+z2y1tr/+XR6izAKzL7tgJ6bTgvCoi1qtx
-         /n4nORBa/vuUufXvN43NocT4XQKu8TP5jNa4bwRreEljAyW1xOeZcUfo1WROry4k50HQ
-         sqZxJtbOz2M95W7D6KAsVGqAPLGu3liVsVYPOXjug+tCKzsk84vKyoXtifUnFXn/a4pk
-         ud0vAE/zdhjnG9HeMsXzsrihUUIDRFdxv49+876A0glhEl6HcsPSKnsnKa5ySkzyXuDM
-         mbLA==
-X-Forwarded-Encrypted: i=1; AKwUvBypmN3/tt5rP3h7lwGB8zeEn2n80ko5vuqMd4LU4IAZrxJU08yrdQg+eaNdSDyNPxMd4T2na5JeoaC917k=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwgD/G81ywmt4Z3D/UzJNtBQAwU3OMqRaPll+odDOVVMKzAXmq
-	DGAWwvExUm4e0hGG3/yfUGuOS+1ajgAN15wFZHvi46eAUMhVF8wKpeeEYHl6ew+LRNllt7+jmdw
-	cyUuQjZo=
-X-Gm-Gg: AYBFou3nRRF6styiIZnJTkjh9zU4pIJM0GY0GbxtYKqXrorhsZQSPYwUfnAEFaP6XKx
-	mR2ldHMZ0PUVRJZSHy3xV2E4kqFGpkwhXgUkb+/0rJFCdR+1vPlDAfo6NUu8xkX+rHWqXT4MJAq
-	ha9QOwqCSUCTLM2FKC1pVPILefHqOYo5YQtXv8Qvk3Org0miRxYdhhl1Ib4BJf6jLzi8JHGhhdp
-	7F5X/cF+TPWcQDgjcPMK/KgkqaH8NuIY25SiMZR3UFaUguElUzko5X6yqDvfWQmgnX9Uzup0+5i
-	+JjGfL3NO8PKxSG/OQDf6IXUlL7iB7osbSl2kySFqX01FAoe7Pfoq04wmskQrn2Qu02699L4QnK
-	Rv62x2qlykYeE8pzn3Ed18SzrJ1b6SrD8xtUfiWretEjygfcYCLTrMQsfChUXoIsSQPENt2c3dL
-	/gd0CNhBIWBiaY9X3+yzTcLlLlzKxDJtA5aPXfnQAbixNkoqxTMCywx9JGC0xClRtpk3a8B/iI/
-	XJDANs8I6cWn8r/HZ74It3TWG22Gx1JoIo++w58mpy9TcIOKGDjje8=
-X-Received: by 2002:a05:6820:61a:b0:6c9:80d8:a205 with SMTP id 006d021491bc7-6d4415b5912mr500249eaf.66.1790198120452;
-        Wed, 23 Sep 2026 14:15:20 -0700 (PDT)
-Received: from [192.168.2.38] ([96.43.243.2])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-491ee3c96a6sm321113fac.17.2026.09.23.14.15.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 14:15:19 -0700 (PDT)
-Message-ID: <6ceb9e88-c209-4b4a-963b-385199d91e11@kernel.dk>
-Date: Wed, 23 Sep 2026 15:15:18 -0600
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="K3Jj7jzQ"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 813E140E0173;
+	Wed, 23 Sep 2026 21:15:13 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id xgZOIdqLB7XL; Wed, 23 Sep 2026 21:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1790198102; bh=KmWnxQ54EHf62tGstuxqERWypFlevLz1loi5x8CI8SE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=K3Jj7jzQYpWcmlrnk7V3Db49GPFTMAr5pXwfsWyjyhKT4XwDJaAMUy8W/Ds3W181p
+	 MDFZJxjKLD45YkfYub/jvUczsCvhQlZV77oMkIX6wRZd1hUhEyTaRAKVIeB1UlOfaj
+	 Fua6QAjfvuX1v52ak8TU37JepBFNolzXZJO/VtdtUZN6KRg6db+ocGXKbuMFJtBVL7
+	 QiLHZB2N9jFe1xV42i0SuizERe2lOlF+TZ67H27LxJ9nd/GE0RdRfeBeGubUjZbzpO
+	 pxwLrvufIAyNOuU/5QWK9b+m8L++sbuFrJTfpUqL9oSf/91Uq3PnxbpHJyLjw9NH9s
+	 AwXWf+pw9SRCm+0zLeZimuG/9OHFlRUIehpNcbcq5UhmT4dHD3YU0AedG32JL2m7Vu
+	 UK7RqqBVNTgQ9uD+oIfhSl+yQGichHLY9ZgnRIUcqTTzhNgCgLP3jFcmWsDnXLPW/Q
+	 XqEx5ufhRrw9AhlwyYvJxaoL0i/lFdm0d/FVqPaVDAgPAVciXmYI7G9PkcVtjgi3H3
+	 vS12WHw4bev7wsTUBCfIee980C06bZbqLAzU4d8OZOj55GdgU1bAym7LKjJ43YsCF7
+	 pAMY62lNRdKEvJxAhC7aLbTve13XIw8OL6c2sxuqyBqqqpjTtdH09+arHZve9T83RS
+	 N+m1+EPAmk8x94TmYqg0dG+E=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5A0C640E016C;
+	Wed, 23 Sep 2026 21:14:54 +0000 (UTC)
+Date: Wed, 23 Sep 2026 14:14:50 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-kernel@vger.kernel.org, "H . Peter Anvin" <hpa@zytor.com>,
+	Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH] x86/fpu: Remove unnecessary checks for X86_FEATURE_FPU
+Message-ID: <20260923211450.GBarRBSoXGFKvUBwe7@fat_crate.local>
+References: <20260831185706.90103-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] io_uring/lock: Keep spinlock release before wake_up()
-To: Gabriel Krisman Bertazi <krisman@suse.de>,
- Xiaochuan Li <chuanx2070@163.com>
-Cc: io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-References: <20260919123021.21318-1-chuanx2070@163.com>
- <20260923161622.25737-1-chuanx2070@163.com>
- <87v77vzn6j.fsf@mailhost.krisman.be>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <87v77vzn6j.fsf@mailhost.krisman.be>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260831185706.90103-1-ebiggers@kernel.org>
 
-On 9/23/26 3:13 PM, Gabriel Krisman Bertazi wrote:
-> Xiaochuan Li <chuanx2070@163.com> writes:
+On Mon, Aug 31, 2026 at 11:57:06AM -0700, Eric Biggers wrote:
+> Since commit ab05214025ee ("x86/fpu: Remove MATH_EMULATION and related
+> glue code"), X86_FEATURE_FPU is mandatory.  If it's absent, the kernel
+> halts execution in fpu__init_system_early_generic().  Remove unnecessary
+> checks for X86_FEATURE_FPU that occur later in core x86 code.
 > 
->> When CONFIG_PREEMPT_RT enable, raw_spin_lock() will preempt_disable()
-> 
-> The subject prefix is wrong.  It should be "io_uring/io-wq".
-> 
-> Also, It might be that I just didn't find it, but was there a v1 of this
-> patch?  I can't find it on the list.
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> ---
+>  arch/x86/kernel/fpu/bugs.c   | 4 ----
+>  arch/x86/kernel/fpu/core.c   | 2 +-
+>  arch/x86/kernel/fpu/init.c   | 2 --
+>  arch/x86/kernel/fpu/xstate.c | 5 -----
+>  4 files changed, 1 insertion(+), 12 deletions(-)
 
-There should be a v1 and a v2, off the same thread.
+Sashiko might have a point here:
 
->> which will trigger:
->> BUG: sleeping function called from invalid context at kernel/locking/spinlock_rt.c:46
->> in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 985654, name: iou-wrk-983605
->> preempt_count: 1, expected: 0
->> RCU nest depth: 0, expected: 0
->> CPU: 3 PID: 985654 Comm: iou-wrk-983605 Tainted: G        O  6.1.83-rt28-g19631eb82f21
->> stack:0        ppid:977479 flags:0x00000008
->> tgid:977553 prio:120 preempt:0x100000001 rcu_read_lock_nesting:0
->> used_cpu 3 wake_cpu 3 on_cpu 3 on_rq 1 migrate_dis 0
->> arrive:17423426040675 queued:0 prev_sum:33955300 sum_exec:33955300
->> Call trace:
->>  dump_backtrace.part.0+0xdc/0xec
->>  show_stack+0x1c/0x30
->>  dump_stack_lvl+0xac/0xc4
->>  dump_stack+0x14/0x30
->>  __might_resched+0x13c/0x170
->>  rt_spin_lock+0x34/0xc0
->>  __wake_up_common_lock+0x68/0xd0
->>  __wake_up+0x1c/0x24
->>  io_worker_handle_work+0x5b0/0x600
->>  io_wqe_worker+0xf4/0x310
->>  ret_from_fork+0x10/0x20
->>
->> Signed-off-by: Xiaochuan Li <chuanx2070@163.com>
->> ---
->> Changes in v2:
->> io_uring/io-wq: fix lockdep warning by deferring hash wake up outside acct->lock
->>
->> The stall wake up path in io_get_next_work() holds acct->lock while
->> calling wake_up() on the hash wait queue, which creates lock ordering
->> acct->lock -> hash->wait.lock and triggers lockdep circular dependency
->> warning.
->>
->> The previous approach of temporarily dropping and retaking acct->lock
->> is racy and juggles the lock unnecessarily. Instead, add a need_wake
->> output flag to io_get_next_work() and defer the wake_up() to the outer
->> worker loop, after acct->lock has been released.
-> 
-> what previous approach?
-> 
->>
->> This preserves the calling convention that io_get_next_work() returns
->> with acct->lock held, removes the lock inversion, and avoids any racy
->> sleeper checks outside of the lock. Drop the wq_has_sleeper check as
->> bare wake_up is safe and the optimization is not worth the complexity.
-> 
-> Either way, these paragraphs should be part of the commit message. By
-> putting them after the ---, they get dropped at commit-time.
+https://sashiko.dev/#/patchset/20260831185706.90103-1-ebiggers%40kernel.org
 
-I rewrote most of the commit message when applying, fwiw. You can find
-it in my tree.
+Thx.
 
 -- 
-Jens Axboe
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
