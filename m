@@ -1,163 +1,129 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-dy2-f12.google.com (mail-dy2-f12.google.com [74.125.229.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFD752CCC9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C48D526ABE
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172712; cv=none; b=EFdwE17rotm9f/bu0yraoaluDix9T6I28GTYOl/AKoNL0aJ58+8snL/PAbywsbwVoOdwlkqxEEpv17cLFC2oPcjcY1v7amln7uCUuWFLIPX6iWHXzinHvGY9ZLi5je7aPn1x7sesP7WqoMrGNhM7xrhuA52L3Rbh2wIVTcH5TQs=
+	t=1790172731; cv=none; b=coGDzYHuK0GojL5BWjoaHq6AQYl7ucNruqSdpZjn5rgwYg7dHgzQg6D34RiqoVovbzfJ6IOiifz/88w9Gi+Ub0io1hRzx87VDvwbkY+kYrbXPTObLK/goNmiN3MP+7nykzwvlg/nm6zmUM/3qkTF2tu8s0sZ3i06j8X7Cdbppk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172712; c=relaxed/simple;
-	bh=LGkkGMO9TERbEvKb8FRwlBQ0y/VcZh7QYYRvUrUUVgI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gz5s/HpXu0xzgpSRLfgpOdUr1e7e0Quvnxl5yVwaVMCzxgpdyV84Votl41QqGx1X9S2sbFFrhJeIObf4GyXg+ulkBwzOIwsQjKWB3zZDKkiE53nvsgQTzP1zgZWTlExwTSqqkeI6pli9UqvaYEegqPcikwW1OnuHHsu3Pk6RCd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=PXIaWXRp; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1790172731; c=relaxed/simple;
+	bh=ktR9e2h8nCd9S0EFkl5DruJEUJcripKPI1tSmR1JOBs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bxha/3CEMoCIKaXemsk5DXASu6FDhodnmbVtpCxpHTf5bLTrhyw5wFAgtYWbQ1enDA0P7Ncf75WAjaG7luN7l6S4li0mfXLaWZjQszyAB/ywwflanOXOy3ErdIvbkERBQSmcKDTvwQtdmCYNsz0mHptp62U0jLj8EaaWcrG+0Co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pRp7RS61; arc=none smtp.client-ip=74.125.229.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="PXIaWXRp"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43f9b119so15827317b3.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:11:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pRp7RS61"
+Received: by mail-dy2-f12.google.com with SMTP id 5a478bee46e88-33175556ebbso579252eec.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:12:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1790172708; x=1790777508; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f7LX2hgCSw8Eo3VcIXgLYrzvPbWMXRZn6yDRkmN7Gj0=;
-        b=PXIaWXRpfdMN1dWxL76T7IGNzWwT1jFAoAeoqw4qgOcsevgKXY6Xu5LIS9/4fHhptH
-         hz3NaQI6+AHCLwfAaRMyyVxPdQT9PvoAJB135dna7knuRHzS34RsUuISpAsk/adV6eDi
-         mOibJWB8ODVC2Vet9ZQKUbV4Ghzm17vCkPVWLjNm0S/KIKkWA4aNaBjV5x2uB+wGLoNE
-         1CHOdYdgCVPbbmN2f+AjW91W/79lChW3pFCLkbsypCxenmLkNyoJwmQ2PFbVFIlvYNIp
-         p6tvEx2DZOFJ31aPqamHnyvF4GRXoS8hrmlD6fIl42WxeOR2t5dso3yvtlipv8hDjG8p
-         eJBw==
+        d=gmail.com; s=20251104; t=1790172729; x=1790777529; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+ZvYoYp7T3tg2JMG9Cckdchh+Egbf2tNmPcdBTT/ZU4=;
+        b=pRp7RS61spOd3YquanMz3ILiDZe8eHlW4x1rnIWd94D+4fOganFvcOPUe8A2kdakHK
+         4TBq6wSV11Otke9AyXZmkBBYvTEY6URiQVjYkEXZQpI2TBQyg7+VSXLkntRQ5pp0b6Te
+         fXpxsue7zMjEdWg678URa+ONc3SIeFx2s0PsP7mlWZKI4iQyVisjAAftV7SxpHjkkaeI
+         31iclWvQ04FX32JZ3a8a1LxcKxJC7H/uz5CEZxATZfKYw6k5s08bm4sZ+z9JRSFl+QzA
+         ImD0yuJmFtW6SRfX7gUhCwc3xq/HZkYTv2lM1xIqYKc3XFcgEueLb+7b9uNNL9DDfyH5
+         K0AQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790172708; x=1790777508;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=f7LX2hgCSw8Eo3VcIXgLYrzvPbWMXRZn6yDRkmN7Gj0=;
-        b=P7V5wdITJlxLsrDfAkRl0KiUwtQniouS/PB4ARYIhoBlBDcHeYkLB0zlBR8XcVPel+
-         SLG0plRW7RZFQIHUPRfNvvzbhcbrpNvponfYBlMK+Py2XaRLckzyaFzWhKE3xhSR6Q3E
-         sZnoCc80h1dvneyMxXr8i2ebXgNsI3WEfvoefgRHTBeFg/p2uAqNfH+Nz6sgLdJaFGDK
-         wOALHPXr3eV3byhVbXSlZAHtoQMnX9oXkY1wRXLiXya0D2hJVM1qhEJO9Wpd4QptRY0S
-         ysxjSabxDr0vivC9fdektcdVEth+uVXCit65Z1DI6X8XkZgp3RX956R7bSPxwBg5L/0X
-         7Ffg==
-X-Forwarded-Encrypted: i=1; AKwUvByB7ZGh3Yc0k3M4A929g8Y+DvbHoBJ2vvb9MGX1MLodZqM94cCb5fcpQzvncLzGw7nWxpWj3DVAb4BWrdE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQsEV1LN9og3jcNxJgOtiPpqESSnTE29kuTeZoLXhCMcp8o6hV
-	00OGInkOrZu7u3jVNjCJY+vFLecEuVyQUG/WYRl+3adAtpTnJflXPCAS0V0whjrRLX8=
-X-Gm-Gg: AYBFou37tNguewz+AQXmGLPNxO6/l85b6GqfRjyidtg3l4Q8X1pBH44StNJnPui4LRe
-	pC4fXQJ50Vf5AsEYtFJLk+zxiPsAcSrAW+MNVUYInbwQvN0Q7e/MW9S3Qdtl9WP3q8F5xwNawr0
-	0lscGMi1+4saj82Rgo1Y4419D5KLoIhD9d/0NXLWxcehsChitUMl6gAFOTVbTViNXUqbBCkfOYW
-	1M6eDO6RDez66FzkG91CpmQmuypCPviIx7Lq2vDBuKTBNb/09/bHTstmJP4Hvbvhr/mlk/o0fSF
-	ydK9DiGDWKPnVAiRjKpiqW6O63UwG8X6TuFeyZpyZdHLLfvSRLGoP8npRFHHsUdgDB/YKhlK90P
-	4RxazYV62HB0W3a1/JcrV+ULGji8uj7/5VAnddeENmqfGozGsSMCrm7EAZHuAyoREONPzAAunRS
-	GDBTLxcuGjKtJ04w9h4WDaZGbE5rWNb9XeniYTdEXt9rPp5noXC5efm2Pc07R0uYgZlPm07Isk+
-	2W1eE0=
-X-Received: by 2002:a05:690c:5705:b0:89a:63da:faaa with SMTP id 00721157ae682-8a45c8372f3mr11122287b3.101.1790172708255;
-        Wed, 23 Sep 2026 07:11:48 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532eb3396f6sm20644991cf.19.2026.09.23.07.11.47
+        d=1e100.net; s=20260707; t=1790172729; x=1790777529;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+ZvYoYp7T3tg2JMG9Cckdchh+Egbf2tNmPcdBTT/ZU4=;
+        b=GtYSU5gqqPJCDSEwnwgtQvVruBxLGtNSKY77Htz261LwvUYcS9CfKZzpjd2WVdf5BM
+         zFZUcaJPQkFiP7UnHJSiIOmDz2zMney9Z/imTu8x0yuMBTL0BeI7d+Qigz81z+qbH1DR
+         CZGq2DUZeaYuzQ75Rf2H5qqNPble0aiCoMLPJ7GTagRp1XevBRFQLkrh2oKRyPdANn1w
+         d0iFf9d2iVngDytjJEZ+Fla45QjMEuxuT+p+uuqd6xPhUhOPEvZzK6LNe6Bay04aB1ZY
+         O+uYtVqCRhGi6QwdzHIkfpQh7GGg7WUVJ595r1kZMhGT67X4Ob+KJa2q4rB+/P1rXI6p
+         JqjA==
+X-Forwarded-Encrypted: i=1; AKwUvBw8quL+MNygT0wAqIK9OxSiW8IZ5YsrmivO1aSjvwIf2D/Lj+s5x9DpEpe8v1PRh+gln84eiOQyG9bZc5c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAa7/E1i0ySI2TGNalJ6Q+85MfA73dGlj/yVlmeAT7OGqfiJez
+	UU7hw21AKOZwDj9VHJeHadaMyq4rKr16Lxq4bDibN+kelLBc9Zox03Lb
+X-Gm-Gg: AYBFou0ArQy95LmdwbyhL0cFkJO/icixA8MXrMDG5I5xfBkiDzNA1pjAl+Nzc2RCA2D
+	We+9ji5wVQdv9JuUyEUFoH/n7wCegOKF1oHb3mRuANGtZNZk9uQ5Hoas7AkjzzISpsXKO8SkaS+
+	QPzN8VAH4ww21mu/rkvfCGT3Rt7x6x8GwoES7DKOxcMh10vzGknx0ASyyi0FvDLdT3qMpirZ8ET
+	rRCY0kgfZIqLeH8KLdIcB7duKwbm44kEc0q8W23yVn019jWwgCsgAcowfIb+QN1mw+MFd+PA10z
+	7CVmAlXVSSFymaCaibJ/oc7GYLgnUbab7+Fifq9NPpq0fRJcvEYBX6lYEgDakPh0GUQDPXl39hw
+	G5TMkF9bsthaFSVwBCGdHUSmeCLhVrs641l94TEV7URSJDRw8bMb7YqxIA+9GXBZ1wIjpmmOhf3
+	c0g7b1t0Jha38GEj0Uhz85SNFVC61bcjhRzQI/ULQb2wOAkcQZy9W3iAMRIZHYsXvpeFVNhxlAo
+	w==
+X-Received: by 2002:a05:7301:6196:10b0:33b:fc9d:947f with SMTP id 5a478bee46e88-33e8ea87051mr2781245eec.40.1790172728561;
+        Wed, 23 Sep 2026 07:12:08 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e95c7cfd9sm7193489eec.5.2026.09.23.07.12.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:11:47 -0700 (PDT)
-Date: Wed, 23 Sep 2026 10:11:43 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Chris Li <chrisl@kernel.org>
-Cc: Nhat Pham <nphamcs@gmail.com>, Rik van Riel <riel@surriel.com>,
-	Gregory Price <gourry@gourry.net>,
-	Baoquan He <baoquan.he@linux.dev>, Kairui Song <kasong@tencent.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Yosry Ahmed <yosry@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Barry Song <baohua@kernel.org>,
-	YoungJun Park <youngjun.park@lge.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-	Wenchao Hao <haowenchao22@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Tejun Heo <tj@kernel.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Meta kernel team <kernel-team@meta.com>,
-	Linux Memory Management List <linux-mm@kvack.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	linux-doc@vger.kernel.org,
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <ryncsn@gmail.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arPeH5MPDaD95aDp@cmpxchg.org>
-References: <e879ac65cb0940325736df7984c737edf1c6be94.camel@surriel.com>
- <CACePvbXThspPYD8DZkAeiJtYuMV79vGgC1SGhpMwhn4COWOtcg@mail.gmail.com>
- <785353ef79844e81a8cd97e87b00ef1f785b15e5.camel@surriel.com>
- <CACePvbXZ4i-DsmbQdNtBQb79y59uwZC9J8qHD2wTWpcYaet3LQ@mail.gmail.com>
- <83539be885f15bb567b30264f5f62e718f4a9fd0.camel@surriel.com>
- <CACePvbXZQERwLF_f2FYTHsv--kq_-Aw2vVVFF+z+ovdnsHy1bA@mail.gmail.com>
- <a75b2eac4297ca6b238dde6f9246d2c1807b935f.camel@surriel.com>
- <CACePvbW_-6M63_a7Cp+09dTmpHeMEdj9VDQZf8g8qoYKQD=wvw@mail.gmail.com>
- <CAKEwX=NrN7-u7gnGvWX3qfHaBQcN6FKsFP-4-k76F=sxM1LJqg@mail.gmail.com>
- <CACePvbVuFULQVvi4UOrvKaJ-5kdWWU5iJH20gH-9nZ-6ZbEqMQ@mail.gmail.com>
+        Wed, 23 Sep 2026 07:12:08 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: wei.fang@nxp.com
+Cc: frank.li@nxp.com,
+	shenwei.wang@nxp.com,
+	imx@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH] net: fec: reject oversized fragments before bounce-buffer memcpy
+Date: Wed, 23 Sep 2026 11:11:54 -0300
+Message-ID: <20260923141154.2415545-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACePvbVuFULQVvi4UOrvKaJ-5kdWWU5iJH20gH-9nZ-6ZbEqMQ@mail.gmail.com>
 
-On Tue, Sep 22, 2026 at 09:37:48PM -1000, Chris Li wrote:
-> On Tue, Sep 22, 2026 at 7:33 AM Nhat Pham <nphamcs@gmail.com> wrote:
-> >
-> > On Tue, Sep 22, 2026 at 8:23 AM Chris Li <chrisl@kernel.org> wrote:
-> > >
-> > > On Tue, Sep 22, 2026 at 4:59 AM Rik van Riel <riel@surriel.com> wrote:
-> > >
-> > > Yes, I can agree on what you observed. You are using anon + zswap on
-> > > that app alone. That is not what I originally asked.
-> > >
-> > > My original request was for the whole system: what percentage of the
-> > > total system RAM size has been swapped out to zswap.
-> > >
-> > > Because when you have 100% of zswap out, it will likely trigger
-> > > different kernel code path on allocating memory. You might suffer
-> > > global memory pressure you did not observe in the single app memory
-> > > pressure case.
-> >
-> > What does this 100% figure refer to? Pre- or post- compression size? I
-> > legitimately cannot tell.
-> 
-> The 100% I mentioned above refers to the pre-compression size. See my
-> previous email in this thread for details. I have been asking for a
-> max(%) number in your fleet for more than six emails now.
+fec_enet_txq_submit_frag_skb() and fec_enet_txq_submit_skb() copy
+transmit data into a per-ring bounce buffer when the source address is
+misaligned or the FEC_QUIRK_SWAP_FRAME quirk is active. The bounce
+buffers are allocated as kmalloc(FEC_ENET_TX_FRSIZE) where
+FEC_ENET_TX_FRSIZE is 2048 bytes.
 
-Because people keep telling you that it's immaterial. The job of the
-compression layer is to make pages smaller. It has no business
-deciding what is "too much", what is "too hot". That's the job of
-reclaim and OOM killing. That's the job of cgroup residency controls,
-of things like MGLRU's min_ttl.
+However, skb_frag_size() can return up to PAGE_SIZE (4096 on most
+architectures) for scatter-gather fragments, and skb_headlen() can
+exceed 2048 for certain GSO packets. When this happens the memcpy
+overflows the bounce buffer by up to 2048 bytes, corrupting adjacent
+heap objects.
 
-You have absolutely no way of knowing what a safe threshold is for
-every usecase now and in the future.
+Add a length check before each bounce-buffer copy. If the data exceeds
+the bounce buffer capacity, fall through to the error path rather than
+performing the out-of-bounds write.
 
-The argument isn't we need a bigger limit. And I refuse to haggle with
-you over what the precise value should be.
+Fixes: 6605b730c061 ("FEC: Add alignment handling for FEC driver")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+ drivers/net/ethernet/freescale/fec_main.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-The argument is a to use an xarray and keep making pages smaller while
-the policy layers deem it reasonable to do so.
+diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
+index 794ec42..8614984 100644
+--- a/drivers/net/ethernet/freescale/fec_main.c
++++ b/drivers/net/ethernet/freescale/fec_main.c
+@@ -558,6 +558,8 @@ fec_enet_txq_submit_frag_skb(struct fec_enet_priv_tx_q *txq,
+ 		index = fec_enet_get_bd_index(bdp, &txq->bd);
+ 		if (((unsigned long) bufaddr) & fep->tx_align ||
+ 			fep->quirks & FEC_QUIRK_SWAP_FRAME) {
++			if (frag_len > FEC_ENET_TX_FRSIZE)
++				goto dma_mapping_error;
+ 			memcpy(txq->tx_bounce[index], bufaddr, frag_len);
+ 			bufaddr = txq->tx_bounce[index];
+ 
+@@ -634,6 +636,8 @@ static int fec_enet_txq_submit_skb(struct fec_enet_priv_tx_q *txq,
+ 	index = fec_enet_get_bd_index(bdp, &txq->bd);
+ 	if (((unsigned long) bufaddr) & fep->tx_align ||
+ 		fep->quirks & FEC_QUIRK_SWAP_FRAME) {
++		if (buflen > FEC_ENET_TX_FRSIZE)
++			goto release;
+ 		memcpy(txq->tx_bounce[index], skb->data, buflen);
+ 		bufaddr = txq->tx_bounce[index];
+ 
+-- 
+2.43.0
