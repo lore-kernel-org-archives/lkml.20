@@ -1,176 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8BB35E1AF
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECE235E1AF
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:56:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790182570; cv=none; b=UZiEpXc/qqh18EXK3JESzWw/58C+pfk8Vxyo6ljCdwVc1DdtbofHDV8AtezXZwX24UfXVSrTWfOHTDunsIhRPIt6aDd5XzjlkBhP/3AFQFf8j+zkI/St/4it0qRlM9N2/KOq/Y62q+h0ymVLiGPhDzBDsLHs0XxHxKjjunr06Us=
+	t=1790182604; cv=none; b=Ze27imLQpuGgEDjPvXP+FsrpkFQPVcgnMQmroUiD9JA8SnC/8GoSBMkutMXDWFNs5Prr0bnPDlhZPe2+C7BlZFoM+pnxLUs0IlhlcQq6cEHoE+/EXRXK+bsctmBV613G5bIDxGk9dQTJBxTFQTDNGX82nibmz/5+O52Cz84z1Tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790182570; c=relaxed/simple;
-	bh=6lokIIbRgQqoJSd4xebYCqEA8HJAy/wKbOQpg9NM8CM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mXc1WhKACGUmMgmMR11ttWDDRuPql7Do0Fii1nyS7E24Q4aJPx58sKmxekbSQaaAwOifjKPKLFWqHGmRDB43kHo0DsTzH3JnwqhCoQzR+s8lLHGweiHLVY3yKxG80zmXJnFcucMOD2VfZIr02gU2a95Qh6jsGwz7NXZcw5+S408=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bkk1Endm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790182604; c=relaxed/simple;
+	bh=SXLwIEv1wLDY/SjQuew2Mr9cNFckDSjzP5UQOUJn3/k=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=nJTEgG9dbHKKhQ6WDcsJrR7ysDLUrj22XD7Aym07PcHlEaa7iyoLzzcKKg/W5xaDu0XXQ7SeGu8E8Y6gHwKfAAtQtnKd6XiRKfZo/BnN7ydjhAKezbwoKBdM5FdLCwB4QbnLGW27P0pPZfyIEl/B+R2469yxi7ClOeMj1nW3QlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dsqQazf7; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bkk1Endm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC7821F000FF;
-	Wed, 23 Sep 2026 16:56:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790182568;
-	bh=st37PG8bv43+Ahi0BznKR1eeHBKgme3mMb7vth0Hkdc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Bkk1Endmqr0KQan28Cx/xcmkSJGYrh8gXPIBnRWC8Be5e/eKLKCXwPZSh4FJ1qI40
-	 sU2Bqf5LbkbwFxq2z4yKNtTVzQvWxeaicGSfXW+4O4HkQkLCaJEoTQyJ1bJ+iUatWq
-	 PMIw4FhKEyfOeXzpVlKV958yeWRlcj8XjtaQwVBGjha5rhfwo4UL1ItgjzMBfK9bz2
-	 BWsayhv6y5AJhJOvilLPlw2k3WbcvppC7B1vVqQpyluap/q234tX2oLOQkL2dBWA0a
-	 QUx8i7lot/f5pfGSHCd7aAMcAfMofZ0TZWJ7DBgyzOl25zNPloEXvuBXRl2Sl5bCMl
-	 sqlPNY0HiRr9A==
-Message-ID: <8f2a6acf-05d3-4463-92ae-d79f331ff4be@kernel.org>
-Date: Wed, 23 Sep 2026 11:56:06 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dsqQazf7"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso14841425e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:56:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790182601; x=1790787401; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=kr1MVzRgK4mAiK4oAoOCSLrh/zDQ2LAQZ54aeHcdQ74=;
+        b=dsqQazf72wnvXYgCMRGDuI63KD7GRr/bgNVJteCUU1VCHvzL5FAujzLPeUM6o92GUj
+         ChGgFB4VSC5UZcXn1LVfbZLadF+4zY2pFlSA+QKAljRgWHjB6cJwBNpOHhYBm5IJ8Od5
+         lXyFtPomQiO9GhBXeOqPe68w3uP5n0wfVnddk6xLXeh6VnOn+lA/ZtTeLY932no2b1nM
+         rHqAgz/OO2sFsF7rObzQRi3nISwAeCSIt0sxzLBgzINys+rHifmxY2CjuPtt8yVMXiQG
+         GmoXELhwkMlHCXKnvhLwrGSVcyTJXR0FKkEOVOHd71BrYYqx2kub6OCgdsXc4RJ+gh17
+         p7uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790182601; x=1790787401;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kr1MVzRgK4mAiK4oAoOCSLrh/zDQ2LAQZ54aeHcdQ74=;
+        b=zCWGTYxDSWOP3gs7L/XInSNTDc3a7xDPXV4gYpVjN52fpkNFdfnKaEfIq05aKZ3z8v
+         YYXESPadzj6NC1pMfuhaTpePXRVdBo4CBSpcpo6dDQgD+t8GN8+P2qYzJV560u12ptV9
+         KF+5Dtq5MCIPFsBytod3hE18e9sbO4KXYczww2craWySJRoyDk4qUR2WxhpZeQcYEtWO
+         2V0ThGQyiKI5Co9ZeO543ScUeJ/JRRZx5ksBx9u6VOj0SJswOUiz37oJSlrRn9mu9ND+
+         FSNK3Xj5OnQ07t+Pbnlzd4wkfo/xlgr7N+WxTBy/+QmLm87Sl5MDjMODGMiM7EKXS400
+         trBg==
+X-Forwarded-Encrypted: i=1; AKwUvBxpvRCO6eJHMm44AWsjQ+Ou+4ZrXNZSXp75eKP8cRMOMjzMW7QfIllr7M3qnckr6sQ08dsnUtyrm5RuMp8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mofNiQFw+VQVmogI+rXn1J2+LOak9UefTGMe1cyKsePLsd/9ue
+	j5/4jz6FM86owJ/V6PqNeoEKGJ66KqJ9rerZoTm3IURGzUp44fpF7ZYq
+X-Gm-Gg: AYBFou1G/Xff9yqSTwafmzayYKwg26HvxTGR8jb8hfvBshPbRcoE3kqg57y7lxn/ZEW
+	qASZv/rbln/bEJJLqFtfPP0Ow3MNLkwGqIi5R89IY7SP+GEQs2imV4m4U9r0qubkoe3gxXy0Wvy
+	8VbVKV+Lir4Rb5/GFeoEpU6+Cd+0HcjIOa1+Gnh6cKDTrxJalj2toke38hzQUqqCbPvioYISasJ
+	hERIQtNEIRXGF0rQBKYn0HovtXGmcSiJJMhphTbqpciPdaN0YSKs7nwbJtyzVQUiGmvH2vbd81F
+	BDPD3CF0gpiymze5c2H7bjzNxikDC48ekIYx9bGmmMf4hZLYUqcjbBCBp2XHV2u4qkiaE5Sn2WT
+	ofNK/E5/9Qalmofqm/GVhOfZQTz1PZYmfkMCbumEtFfjC+4v/9vwkdxYR/PDOTPNrVTE16dGxcC
+	ltIxv+qbUL/q55z5YwCvOrrkf08Gdl5T28S100tI8r61RgnfJ78t22SuWcjTPs8wiXCR7WQJBwD
+	Ejos+itHw==
+X-Received: by 2002:a05:6000:710:b0:487:27f9:840 with SMTP id ffacd0b85a97d-488670a09d6mr5921753f8f.53.1790182600803;
+        Wed, 23 Sep 2026 09:56:40 -0700 (PDT)
+Received: from [192.168.5.15] ([161.12.45.16])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48867b49661sm7815715f8f.0.2026.09.23.09.56.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 09:56:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/3] firmware: stratix10-svc: add FCS crypto-service
- commands for Agilex 5
-To: hang.suan.wang@altera.com, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- "Michael S . Tsirkin" <mst@redhat.com>, Huacai Chen <chenhuacai@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: muhammad.nazim.amirul.nazle.asmade@altera.com, tze.yee.ng@altera.com,
- chee.nouk.phoon@altera.com, genevieve.chan@altera.com,
- adrian.ho.yin.ng@altera.com
-References: <cover.1789448406.git.hang.suan.wang@altera.com>
- <7c566ebe4024ef5c827de37a26c950ce9c202769.1789448407.git.hang.suan.wang@altera.com>
-Content-Language: en-US
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <7c566ebe4024ef5c827de37a26c950ce9c202769.1789448407.git.hang.suan.wang@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: RE: [PATCH] EDAC/skx_base: Fix ambiguous bitwise and logical
+ operator style
+From: Bryan Chan <bchimhim15@gmail.com>
+To: "Luck, Tony" <tony.luck@intel.com>
+Cc: Bryan Chan <bchimhim15@gmail.com>, Borislav Petkov <bp@alien8.de>, 
+ "open list:EDAC-SKYLAKE" <linux-edac@vger.kernel.org>, 
+ open list <linux-kernel@vger.kernel.org>
+In-Reply-To: <SJ1PR11MB60834A6CB20792962CE05051FC822@SJ1PR11MB6083.namprd11.prod.outlook.com>
+References: <20260922231854.108188-1-bchimhim15@gmail.com>
+ <SJ1PR11MB6083B6CEC6BA730C18AD450FFC822@SJ1PR11MB6083.namprd11.prod.outlook.com>
+ <179013525089.122719.12798013417319991127.b4-reply@b4>
+ <SJ1PR11MB60834A6CB20792962CE05051FC822@SJ1PR11MB6083.namprd11.prod.outlook.com>
+Date: Wed, 23 Sep 2026 17:56:39 +0100
+Message-Id: <179018259977.122719.1860882880972360707.b4-reply@b4>
+X-Mailer: b4 0.15.2
 
-Hi Hang Suan,
+On 2026-09-23 16:35 +0000, Luck, Tony wrote:
+> > Sorry for my mistake, this is not compiler warning, but warning from the
+> > sparse, here is the warning message:
+> > drivers/edac/skx_base.c:359:46: warning: dubious: x | !y
+> 
+> Ok. I updated the commit message to say "sparse warning" and pasted
+> in that message.
+> 
+> Applied, thanks.
+> 
+> -Tony
+Thank you Tony, I will be more careful writing discriptions in the future.
 
-On 9/15/26 03:25, hang.suan.wang@altera.com wrote:
-> From: Hang Suan Wang <hang.suan.wang@altera.com>
-> 
-> The Agilex 5 Secure Device Manager (SDM 1.5) exposes an FPGA Crypto
-> Service (FCS) over the existing SIP SMC mailbox: a session-based
-> interface for crypto primitives such as SDOS (Secure Data Object
-> Service) encrypt/decrypt. The service layer has no command to drive it
-> yet.
-> 
-> Configure stratix10-svc about this interface so an in-kernel FCS client
-> can use it:
-> 
->    - add the client command codes COMMAND_FCS_CRYPTO_OPEN_SESSION,
->      COMMAND_FCS_CRYPTO_CLOSE_SESSION and COMMAND_FCS_SDOS_DATA_EXT (all
->      asynchronous)
-> 
->    - add the matching asynchronous SIP SMC function IDs
->      (INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION,
->      INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION and
->      INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT) with their register-usage
->      documentation;
-> 
->    - match "intel,agilex5-svc" and register a "stratix10-fcs" child
->      platform device, mirroring the existing RSU child, so an FCS client
->      driver can bind without a dedicated device-tree node;
-> 
->    - dispatch the new commands in the asynchronous send and response
->      paths; for the SDOS data command, translate the source and
->      destination buffers (allocated from the service-layer gen_pool) to
->      physical addresses and pass them, together with the session/context
->      IDs and owner ID, to the SDM.
-> 
-> The transport is unchanged: Agilex 5 reuses the SIP SMC calling
-> convention and async mailbox ABI the driver already implements, so no
-> new transport mechanism is required.
-> 
-> The SDOS SMMU-remapped address slots currently carry the buffer
-> physical addresses; SMMU remapping support is added in a follow-up
-> series.
-> 
-> This is a prerequisite for the SoCFPGA FCS driver, the first in-tree
-> consumer of these commands.
-> 
-> Signed-off-by: Hang Suan Wang <hang.suan.wang@altera.com>
-> Reviewed-by: Dinh Nguyen <dinguyen@kernel.org>
-> ---
->   drivers/firmware/stratix10-svc.c              | 59 +++++++++++++++--
->   include/linux/firmware/intel/stratix10-smc.h  | 64 +++++++++++++++++++
->   .../firmware/intel/stratix10-svc-client.h     | 16 +++++
->   3 files changed, 134 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
-> index 07345efeef0c..8ead4a3c4a1b 100644
-> --- a/drivers/firmware/stratix10-svc.c
-> +++ b/drivers/firmware/stratix10-svc.c
-> @@ -46,6 +46,7 @@
->   
->   /* stratix10 service layer clients */
->   #define STRATIX10_RSU				"stratix10-rsu"
-> +#define STRATIX10_FCS				"stratix10-fcs"
->   #define SOCFPGA_HWMON				"socfpga-hwmon"
->   
->   /* Maximum number of SDM client IDs. */
-> @@ -106,10 +107,12 @@ struct stratix10_svc_chan;
->   /**
->    * struct stratix10_svc - svc private data
->    * @stratix10_svc_rsu: pointer to stratix10 RSU device
-> + * @stratix10_svc_fcs: pointer to stratix10 FCS device
->    * @stratix10_svc_hwmon: pointer to stratix10 HWMON device
->    */
->   struct stratix10_svc {
->   	struct platform_device *stratix10_svc_rsu;
-> +	struct platform_device *stratix10_svc_fcs;
->   	struct platform_device *stratix10_svc_hwmon;
->   };
->   
-> @@ -1398,6 +1401,30 @@ int stratix10_svc_async_send(struct stratix10_svc_chan *chan, void *msg,
->   		STRATIX10_SIP_SMC_SET_TRANSACTIONID_X1(handle->transaction_id);
->   
->   	switch (p_msg->command) {
-> +	case COMMAND_FCS_CRYPTO_OPEN_SESSION:
-> +		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION;
-> +		break;
-> +	case COMMAND_FCS_CRYPTO_CLOSE_SESSION:
-> +		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION;
-> +		args.a2 = p_msg->arg[0];
-> +		break;
-> +	case COMMAND_FCS_SDOS_DATA_EXT:
-> +		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT;
-> +		args.a2 = p_msg->arg[0];
-> +		args.a3 = p_msg->arg[1];
-> +		args.a4 = p_msg->arg[2];
-> +		/* payloads are allocated from the svc gen_pool; pass phys addr */
-> +		args.a5 = gen_pool_virt_to_phys(ctrl->genpool,
-> +						(unsigned long)p_msg->payload);
-> +		args.a6 = p_msg->payload_length;
-> +		args.a7 = gen_pool_virt_to_phys(ctrl->genpool,
-> +						(unsigned long)p_msg->payload_output);
-
-These calls to gen_pool_virt_to_phys() can fail.
-
-<snip>
-
->    * Sync call to request temperature
-> diff --git a/include/linux/firmware/intel/stratix10-svc-client.h b/include/linux/firmware/intel/stratix10-svc-client.h
-> index 9bb46c3cb0f8..ffc1ac7c9785 100644
-> --- a/include/linux/firmware/intel/stratix10-svc-client.h
-> +++ b/include/linux/firmware/intel/stratix10-svc-client.h
-> @@ -7,6 +7,8 @@
->   #ifndef __STRATIX10_SVC_CLIENT_H
->   #define __STRATIX10_SVC_CLIENT_H
->   
-> +#include <linux/types.h>
-
-I don't think you need the above include.
-
-
-Dinh
+-Bryan
 
