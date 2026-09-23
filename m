@@ -1,174 +1,258 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011004.outbound.protection.outlook.com [40.93.194.4])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 371E8579836
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:46:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19C0E577E28
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790196412; cv=fail; b=OZUp8jtwaGcv7e1OmxiCHevTW6nLEAdDjx6Or/7afHBthermzi/ibFAxtNcVH4aL7U+gTq3IGRK0QvTABNOtDzNcpAqZo2yVhBDn7bQMPl4zI48EroaVb8j2V1LgJ7yv+zmK+zcsdXbonhKi69EGh9RMQidk0wjY4t9i9amb3+M=
+	t=1790196445; cv=pass; b=H/ZhT6eUrIOMJ13qEmyiFX6Z+wgjTZHDHyt7EGEWmKbi3tNEj5XWnVkrzNsI9Uo50glX35xy66w5Sx9BTyVBAV/RV6b3FsJDOSJCmHDrrP0LFnL4/6Eb8mDWbvTQ0MFNbpaZTJVK7x4LfEf+jDfVBjIhk78KB4IDfJx3quMYi/4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790196412; c=relaxed/simple;
-	bh=5YjkjMfWuDT161mPIWpjHSVpGwpEir1M1Xww2r+CBWM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=aDP96g/HO6WrP3/cqnQjFj9rnDhzkLm2DntKdqBbhG3GsJrEUilUnoX332yomdy5cB8VHTjBJr4B0riNwkw3x2cB1pg5lvcu3HCGzCAqm8Yywc9NJ0TPDi7nfM43jc7x9ZLv6nyvZf5IMIuNhj4lJX4MLkr1T5csvYC/T4ZHIr4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0BbvFy9T; arc=fail smtp.client-ip=40.93.194.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1790196445; c=relaxed/simple;
+	bh=Inld3CCVFNf4b7lhXdymCWRgHDXUFQMmBF4CdG1slP8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HkIjsIxnz7+BgZs+wAS9PKDN5Vh9rAwI72tnymhIgtnFgWEkOp6k20a1vudJQfQKAASExkOZqdln70RuVhjnVJbIWov7OhAXo07qEi0QYBjK4CL18g+eNZWf/Z9tllwFQinI/L8lE/KAIaWJnD1GMCsKScam/dokn6N+dBvbC0k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=knbAFSdY; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0BbvFy9T"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ckBFKWUUH0U2CKnOrZqbTmXDYBL/qv+BZZsEDBP0ooiYIRuTeX/wW0rTn3qvWYRMUHaPDZTqD8sAoE7EZ5l1WcF2iB2zvkZecYGmf7zUcJno2HIGBvM5+5jjiYQhNXOTBy67dNFdvbpzppNDvxhjvlzFnEkP99Arh8mJ/KeVRKzclAbKK0PcK+WN+hSYk5/driZ2VnllykBn1rp043wIjiVkBe+Tw7yTtKcXND/TXChDYW1Ky0MT27/BpFB+Ow5c6Tpd1844bekWzeou82erN0/Gs/CKNJwo6F+K+Uu7f2uFQMZKynIF3W5/wI5zeGQN+wJb1bVoNrJNjEf/eXyUDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LfMlBuUlwQwQZyiHFYkTVZpDECpudbgRNiRSrcc9614=;
- b=GJhf/N3jCVQIkDUhEq1UlfjybwKFH7WjkqpYXqC5lVkGUpV4KNxZYRdooQ36hFZ7HrAF+6LM0r9XqXSdOKQgcR3Ze7TU176QfjpIGKOXC4BhVtEnyh9LPGlAZZ+GRTX+WsoYiZcHdkMNt3GC+aFimquErRBSxHsslljvOql4YQXDPzCtyoOw2jkoxhrrRGexpHRCVmy74J2c0+nfAA0/7xHY7ZeLVzGSeIh1h1Zyld+/ibb4up2FUc+ZD8cRp01FUhGZmZQf28txH6+B6YZ8dc3bzRkFX4yS0iZt/7WBb7uF9z/2Hnc3tG8odH1zt2LwCa0HpGCQNkJXzrtwuRsG8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LfMlBuUlwQwQZyiHFYkTVZpDECpudbgRNiRSrcc9614=;
- b=0BbvFy9TXRwMQq9A2DqkRIBT0/7TvH5jX/aWh4cIIrBH3B6eSDidEwYLAt7PJ687WSgeddqICBBf7wiK8t1gk2QSvQGM4ap/V7eGt9rSrQJesS+WjhhVWC0aN06NSFMXfPQwBJOkyiVi8oj8LhFz9CR5lLldSAToXFD/N0SFzJA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY1PR12MB9558.namprd12.prod.outlook.com (2603:10b6:930:fe::13)
- by PH8PR12MB7136.namprd12.prod.outlook.com (2603:10b6:510:22b::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.18; Wed, 23 Sep
- 2026 20:46:49 +0000
-Received: from CY1PR12MB9558.namprd12.prod.outlook.com
- ([fe80::920f:8246:c48b:7ce9]) by CY1PR12MB9558.namprd12.prod.outlook.com
- ([fe80::920f:8246:c48b:7ce9%4]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 20:46:49 +0000
-Message-ID: <d54742a0-c95e-4c9f-bc24-51dd6586c451@amd.com>
-Date: Wed, 23 Sep 2026 13:46:48 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 6/8] x86/sev: Register the guest with the SVSM APIC
- protocol
-To: x86@kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
- Tom Lendacky <thomas.lendacky@amd.com>, ardb@kernel.org
-References: <cover.1789927246.git.huibo.wang@amd.com>
- <656edc5467df7d8c33676f0a80c3042885d95f9b.1789927246.git.huibo.wang@amd.com>
-Content-Language: en-US
-From: Melody Wang <huibo.wang@amd.com>
-In-Reply-To: <656edc5467df7d8c33676f0a80c3042885d95f9b.1789927246.git.huibo.wang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH8PR02CA0038.namprd02.prod.outlook.com
- (2603:10b6:510:2da::10) To CY1PR12MB9558.namprd12.prod.outlook.com
- (2603:10b6:930:fe::13)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="knbAFSdY"
+ARC-Seal: i=1; a=rsa-sha256; t=1790196393; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=C1P64JmQdnZ7KTsE5DWlaCZCRVwMf8WDZu3L+Z/v1Icp3TXPRINQ+Y3MWb3FcvcPsUckvoErI+QU7s0me6UFdP/ApPrwEjO2APwJwlk2jXSX6TrIzCwoZOVvxRePTpf/RxYIg+YssOVBqu+Gnr3+I7jFdhNAZYjzaHw8nhn1udE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790196393; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=dI1IRPaXAKV6euhKlFcYS2M7qRMLjuoyrJ5Z0Fdu1Jk=; 
+	b=ZSDVxc68qbmd/Md8dSaCpObns3FsAB43J8/OSCqhSNwXKP9Tymy7LNrkk16YuOWDd54o6n7ioryJaB/uF9x5pZq1AzCbUR7+Iiwk+R3IaFk4GJ7L2idurZTwzC8RcGZnk4UXa9bPH5c0ILNBNhIPLCRYcR1ENfMYuUj5yWUubH0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790196393;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=dI1IRPaXAKV6euhKlFcYS2M7qRMLjuoyrJ5Z0Fdu1Jk=;
+	b=knbAFSdY4muvskO60BsJDyIdfF2q0TUsTsTvcGM2BYJmjuTTylVnMmBcM7YNeOkF
+	aJoWXSUx4T+zbiC386j7PIwHzuH/kcWH7hn5QduKa+uqECN5e9x8zHNAd/Bu3a5kHwk
+	BRRDYqfCfObB31/gYYaEVAfwXwfS7SgyTwymXrTg=
+Received: by smtp.zohomail.com with SMTPS id 179019639108973.72346704231336;
+	Wed, 23 Sep 2026 13:46:31 -0700 (PDT)
+Date: Wed, 23 Sep 2026 21:46:25 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
+	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 06/16] drm/panfrost: Fix PM refcnt and autosuspend
+ issues at device probe/remove
+Message-ID: <arQ6dUZniIpdVnFq@sobremesa>
+References: <20260914112237.70dedb9c@fedora-21.home>
+ <arGhZayS8zH4y-61@sobremesa>
+ <20260923100049.6c127f3a@fedora-21.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY1PR12MB9558:EE_|PH8PR12MB7136:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc97b79d-d7a3-4e1d-e4dd-08df19b3ca00
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	DBmpsbP8niNoLQYsJhaJaoHlxoR3mG52a/Zjd73FJDWj8v6BQp/C+eX62tka6VQr/qSC5cFkEPELBP+LLzz/B8gS223/KqQjTFX9jZA+pZJw2Lo6fnqiOBAzzNq0RmJfB1DsGASQlMlb/jwZhJ4rOd21fM8obapDxMjFmlOl1TKMuY+ubw0H7HtsL+Ek5pS1WnxEyC4jFqSCdsD58WInltB2h+vTusRBRRLaBE7STiJdzO0PBtMwIdNBZ9NacrKTSXEgyo720dG+OFBssSu0iRUIxUuRl4+Qq5qxnz/5VlP5ysJuCzPOujWJdNo2Ae2S2nARoe/hPmgKYtveM5ytreuZu9eQC83pMs/TabhOUXv9SjIARV+Zqi7s0y9cEPPUlPQEoM8d+lEkZudgHK0oWwflLFF/8FDMg/q07UVJh4qSDyrxhCQrM/xWjq3uaWldEqQmsFSXMJ8ZFKuWtE+z84MXPAdUDWVsSS6A7JsZrb6q9zvG1/BdPICihJ3/uvzI+9XEnN1EwcnfEKpLFqTSjccq3cUMbmJrVy1/yvHN791tXXMtxvzaTCEXqkOUNM3OuPWiqd/FSt22jLm53vBRDiXIWqy/MsLh/tpIN/R/INKoV3KI0+2zuASOtnBo9pbqDrd1ITmGzKxxG67HCHKyFLTCt6ZD9IoJAcs+5mFA8yw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9558.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bStlRVlBSS96N01JQ016aDZ4eER1MVEra3d0S2RXY2M2SmlPNzFRNWpEbjha?=
- =?utf-8?B?QWF4SlBDNlMvSnVYVlBYbG1lN3psL2hMRGFOcnJpakFBcktpTjE0RDdlMis0?=
- =?utf-8?B?bGw2aU5yUTdHZ3ZSNVZqcGJFSnFER2NBWjU0WUNJN0xRVjMzYjBIQ3hFbVds?=
- =?utf-8?B?WUg0YnJqakg4OXg0Tkc5WXI4SGJTWXVxOWI0RlNDQUZNaER0R0RNR2lJM0xK?=
- =?utf-8?B?T1g1QW1sNmF2NkxMT0NBS2Y4S1lzaVVkWVJPZTJkcVU0SUxWeTJLODdSa2VI?=
- =?utf-8?B?bExlU3lSSUt0MElHUklJZ0hMMTVtaE9LbjFQaDlmaHNlcnFWM2JzUnZKYkw0?=
- =?utf-8?B?Y05BaUlOK25ScmJGMHBIR2I2WkcyR3ZEQ1VYS3diU05BeFJacjNhR1h4NkNx?=
- =?utf-8?B?UitXeHVxVFduYTJKWXovdVJZQjJ1c0tKem5lZXBudnc3N2lNRkNqZzR3cmpB?=
- =?utf-8?B?Q0FPZ2ZnS1Y4MVdlM0sxRkJadHZqRlp4QU1wR3JFVDhWUURjVU83MnVodG5E?=
- =?utf-8?B?UDFFWkpQSS9Ec2ZpYTRYaEVqVWttMlFQSE00UmJocDJTOXFKTTVZWnhpZFFy?=
- =?utf-8?B?cEZFWnVLc2hpVkJQM3FzWkJQL1NLTE9zajROaGdOSHd2QVFLSnBJTUcyM0pQ?=
- =?utf-8?B?ZWpJbWtlQkdJZnYxR0gvMGVJNEc0T2pVRytyNXNMOEZadGJuVU41aXh5K2Ru?=
- =?utf-8?B?OExrSXdTdGpwOGdMWlkvRnlGRHFQWm5TRURJNGp4NmdoYURUTm9iSjVsK2ds?=
- =?utf-8?B?NHB2T2xvTk9zcVZkSVhRL0tIVGt1WGVGK0VMZEhMS2hHWnI0cVpyQWNFWjRo?=
- =?utf-8?B?S2hZd0lEY09BL0VJM0RRU1lOTVNJaG5UeUlYR0lWNFNrUWhIUEtXaWQvb2p2?=
- =?utf-8?B?bmd6cEtzb1BwVERYV3pDcGVTVVJLekpOS0hUUmI2YzRjUHo5V2JMbUdmUWsr?=
- =?utf-8?B?WEJ6cWVPWFZZT1FWWnUwWmZLNmMxREsrMWtZWmxxeEMrUUxwSXVMZUdYZHdy?=
- =?utf-8?B?cHZRVU1GWlNLMkJEV2J6cm1LeVI4RVhycDJzZWlVN1Uyc2R3N3UzNmRkZGVW?=
- =?utf-8?B?MU5tQnNyaGpNZ0RGTXhkZ1F6NkxrZ3R6NUhwdWlwYy9MSjd6d0NhMzVtdHp5?=
- =?utf-8?B?TE56YXhlSXhxRDhsSXc2SVZFci9BOWVVQWs1UVlZaGtnR0xJaEVFSldISWNx?=
- =?utf-8?B?Q2lDbG80Ly9EbVp1V1hKb1drcVZDS0NwS3IzVldXT1lJU1huNG82bStRSTlH?=
- =?utf-8?B?N0VrbnZMTFpxeWRySVY2NXVickZrSlZURDlVMU93SkNnMWdqYURQQitKUWE2?=
- =?utf-8?B?eURBdWJwNkxJZ0IwWWUwUlNnbHNRUzdhaFJBWERrakFrQjF0d1NvMk5xNG5h?=
- =?utf-8?B?YW4weW1zR1lyU2JuNm9xMjNqcDYyVElsZWdlT01uMC9TTHNnZ21EQ3E5MEJE?=
- =?utf-8?B?SnJMaUlVeUxhRGVVQWlDNmMwVFgyNFpuaFhTeDhzUVVNR0NpTHdzdTFFU094?=
- =?utf-8?B?dUVzcjNkMmpwVXJUZW1pK0llWmJCT2dkeVAzdFc5MDc2aXVXNmlkZUp1dStB?=
- =?utf-8?B?dy9ERHRNYzhweVo2blU1ZnYrQWZiQnVMWWtUdTN6UWU3VVF0elIyT3lIamJ0?=
- =?utf-8?B?aWswQUxwWitmVFVKdmR1RFhqRVJaVU1FWnpoYTVUbTFSZ2E0RW9TUTk2Y0g1?=
- =?utf-8?B?VHBRTzl3c1hiTGErU3R3dEhMMUV4WW9qK3pudXlZMXNLTFA2WVIvUCtka2Iv?=
- =?utf-8?B?U0I0eGxaYjJNTDJzbFk1NGFIRHJrQkV6Z29EK1d3ZGtlVU9ZWjVqUUNDMm9q?=
- =?utf-8?B?dWlhK1FFelJVR3NZVDJHK0tFOGhTako2N0svQ3VNclpHMHVHaEtTQUpOUTg2?=
- =?utf-8?B?d2tlcTlBRS9XWlNTbEFYSmtUZ2lkZzZ6VFhuLytPR1B2ZVJhTmpKZUtrNmFM?=
- =?utf-8?B?bXh0K3pOLzcwVmNpT3Z5RmxiSEVpeHFVSm9HamRUYVAzV1diMkpKT2ltNnZy?=
- =?utf-8?B?WWpZdHBiaGpkQWJLMS9zUWpOYVJiTHI0ZUlGZGdyY0xTOGVaWnJWNk1VWXJo?=
- =?utf-8?B?cFZiRW8yWHdrSDkveURPMGpyaEZhODYxS2o3VWFITGUyYjBLZC9paDFJSmZ0?=
- =?utf-8?B?ZXBmaCs1bUdJTWsvR3hIaUo5S1VIL01Rek5MYXZhN3F1Z0NLMUZOZGt3Q3I5?=
- =?utf-8?B?ek4vUEtXT1B2S040RUxrQzlpU3BkUnhheDR0Y0dCdVBLVWFyR0Z4SC9GWFNp?=
- =?utf-8?B?TjlQVzN1ampJQ0h6WVpRTC9qZXN0WUlFWmNhRHhYeHd6MEdzcUFTVm94ZnhB?=
- =?utf-8?B?ZTAxZkNpaGFJQlZVYTd2RVpXekpFRTNwaWJrVjdmQlA4dER6RFF4Zz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc97b79d-d7a3-4e1d-e4dd-08df19b3ca00
-X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9558.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:46:48.9917
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0g/z8iAw5hPdMkTKbSJF06Q/3pWrQ5AwCkyw4xAXYkhycB+0pkB9zFkU8SCzig3cZ4XOL/DEbAlZnY2mGotjNw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7136
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260923100049.6c127f3a@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.183.46
 
-Hi all,
+On 23.09.2026 10:00, Boris Brezillon wrote:
+> On Tue, 22 Sep 2026 20:51:48 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > On 14.09.2026 11:22, Boris Brezillon wrote:
+> > > On Sat, 12 Sep 2026 00:28:07 +0100
+> > > Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> > >   
+> > > > During device probe(), failure to do a PM get() will leave the usage_count
+> > > > set to 0, which is the value assigned at device creation time. That means
+> > > > when the autosuspend delay expires, runtime suspend callback won't be
+> > > > invoked, so the device will remain powered on forever.
+> > > > 
+> > > > On top of that, failure to call PM put() during device unplug means
+> > > > Panfrost device's PM usage_count increases monotonically for every new
+> > > > module reload.
+> > > > 
+> > > > The outcome of both of the above meant that:
+> > > > 
+> > > > - Devfreq OPP transition notifications would be printed all the time,
+> > > >   even when no jobs are being submitted. This quickly fills the kernel
+> > > >   ring buffer with junk.
+> > > > - Because MMU interrupts are only enabled when the device is reset,
+> > > >   the very first job targeting the tiler heap BO after device probe()
+> > > >   would always time out, since the driver's PM runtime resume callback
+> > > >   would not be invoked.
+> > > > 
+> > > > To fix the above:
+> > > > - Manually adjust the PM refcnt at device probe and removal time.
+> > > > - Ensure pm_runtime_dont_use_autosuspend is called in the wind-down path.
+> > > > - Call pm_runtime_put_autosuspend() when device is ready to accept jobs
+> > > > - Move pm_runtime_set_suspended() before panfrost_device_fini() so that
+> > > >   resource unwinding happens in the opposite order as initialisation.
+> > > > 
+> > > > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > > > Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
+> > > > Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
+> > > > ---
+> > > >  drivers/gpu/drm/panfrost/panfrost_drv.c | 10 ++++++++--
+> > > >  1 file changed, 8 insertions(+), 2 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > > > index 55fc22e8d4d4..a3eff77add55 100644
+> > > > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > > > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> > > > @@ -854,6 +854,7 @@ static int panfrost_probe(struct platform_device *pdev)
+> > > >  
+> > > >  	pm_runtime_set_active(pfdev->base.dev);
+> > > >  	pm_runtime_mark_last_busy(pfdev->base.dev);
+> > > > +	pm_runtime_get_noresume(pfdev->base.dev);
+> > > >  	pm_runtime_enable(pfdev->base.dev);
+> > > >  	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+> > > >  	pm_runtime_use_autosuspend(pfdev->base.dev);
+> > > > @@ -866,13 +867,16 @@ static int panfrost_probe(struct platform_device *pdev)
+> > > >  	if (err < 0)
+> > > >  		goto err_out1;
+> > > >  
+> > > > +	pm_runtime_put_autosuspend(pfdev->base.dev);
+> > > >  
+> > > >  	return 0;
+> > > >  
+> > > >  err_out1:
+> > > > +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> > > >  	pm_runtime_disable(pfdev->base.dev);
+> > > > -	panfrost_device_fini(pfdev);
+> > > > +	pm_runtime_put_noidle(pfdev->base.dev);
+> > > >  	pm_runtime_set_suspended(pfdev->base.dev);
+> > > > +	panfrost_device_fini(pfdev);  
+> > > 
+> > > Not an issue per-se, because put_noidle() is a NOP, but I think it'd be
+> > > easier to reason about with this order:
+> > > 
+> > > 	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> > >   	pm_runtime_disable(pfdev->base.dev);
+> > > 	panfrost_device_fini(pfdev);
+> > >   	pm_runtime_set_suspended(pfdev->base.dev);
+> > > 	pm_runtime_put_noidle(pfdev->base.dev);
+> > > 
+> > > This makes it clear that panfrost_device_fini() assumes the device is
+> > > resumed when it's called and suspended when it returns.  
+> > 
+> > Your suggestion feels more natural, which makes me wonder why I decided to move
+> > panfrost_device_fini() to the end of the block. 
+> > 
+> > IIRC we chatted about where to place pm_runtime_put_noidle() and pm_runtime_set_suspended()
+> > in panfrost_device_init() when one of the subsystem initialisations failed. My intuition
+> > had been to leave them until the very bottom of it, in imitation of what you hinted here,
+> > but then it'd go against the notion that winding down must be done in the opposite order
+> > as initialisation. And so because panfrost_device_init() happens before all the pm_runtime_*
+> > incantations, I thought panfrost_device_fini() should be placed at the end in the error
+> > and driver remove paths.
+> > 
+> > That said, I think a more intuitive init order would be one that imitates what happens in
+> > Panthor when runtime PM is enabled:
+> > 
+> > 	/* First thing done in pm_runtime_resume_and_get -> pm_runtime_get_active -> __pm_runtime_resume */
+> > 	pm_runtime_get_noresume(pfdev->base.dev);
+> 
+> Panthor is a bit different in that it doesn't use noresume/noidle() at
+> all. What it does instead is teach the resume/suspend hooks about the
+> uninitialized device use case, and it skips some operations when a
+> resume/suspend() is done on an uninitialized dev. Panfrost, on the other
+> hand, just assumes that clks are enabled manually before any of the
+> subsystem _init() helpers are called. TLDR; this
+> pm_runtime_get_noresume() can be moved after all the _init() without
+> any downsides, and it keeps all PM related-init in just one place,
+> which I find neat.
+> 
+> > 	
+> > 	/* Now come subsystem initialisations */
+> > 	panfrost_gpu_init(pfdev);
+> > 	panfrost_mmu_init(pfdev);
+> > 	panfrost_jm_init(pfdev);
+> > 	panfrost_perfcnt_init(pfdev);
+> > 	panfrost_gem_init(pfdev);
+> > 	
+> > 	/* __pm_runtime_resume -> rpm_resume first invokes the resume callback and then
+> > 	 * updates runtime status to RPM_ACTIVE. */
+> > 	pm_runtime_set_active(pfdev->base.dev);
+> > 	
+> > 	pm_runtime_enable(ptdev->base.dev);
+> >         pm_runtime_mark_last_busy(pfdev->base.dev);
+> > 	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
+> > 	pm_runtime_use_autosuspend(pfdev->base.dev);
+> > 
+> > And then in the error and device remove path would be almost just like you suggest.
+> > 
+> >         pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> > 	pm_runtime_disable(pfdev->base.dev);
+> > 	pm_runtime_put_noidle(pfdev->base.dev);
+> > 	panfrost_device_fini(pfdev);
+> > 	pm_runtime_set_suspended(pfdev->base.dev);
+> > 
+> > The only difference is that pm_runtime_put_noidle() happens before device_fini
+> > because that's the same order as in __pm_runtime_suspend().
+> 
+> I really think we should keep the init/fini order consisten, so
+> put_noidle() should be after the _fini() calls. But as I said above,
+> I'd probably have get_noresume() called after all the _init() functions
+> instead, since we can afford it in Panfrost, and it helps keeping all
+> the PM-related calls in just one block.
+> 
+> > 
+> > However, that means in the commit where I move all DRM initialisation into
+> > panfrost_device_init(), in order to keep things consistent, I should move
+> > pm_runtime_set_suspended() to the very end of the error path.
+> 
+> It probably doesn't matter much actually, because as soon as
+> pm_runtime_disable() is called, nothing can change the RPM state
+> anymore. So maybe scratch all of my comments, and we stick to what you
+> had. It's just a transition state anyway, so, as long as it doesn't
+> regress the probe/remove logic, it's probably fine.
 
-On 9/20/26 11:16 AM, Melody Wang wrote:
-> diff --git a/drivers/firmware/efi/libstub/x86-stub.c b/drivers/firmware/efi/libstub/x86-stub.c
-> index 49388524a61f..35b8641119b9 100644
-> --- a/drivers/firmware/efi/libstub/x86-stub.c
-> +++ b/drivers/firmware/efi/libstub/x86-stub.c
-> @@ -793,6 +793,9 @@ static bool sev_prepare(void)
->   			unsupported);
->   		return true;
->   	}
-> +
-> +	svsm_register_alt_inj();
-> +
+I think I'll leave it the way it is and then add a comment that explains
+why the manual adjustment of PM references and status. 
 
-Sashiko said this:
+> > 
+> > > >  err_out0:
+> > > >  	return err;
+> > > >  }
+> > > > @@ -884,9 +888,11 @@ static void panfrost_remove(struct platform_device *pdev)
+> > > >  	drm_dev_unregister(&pfdev->base);
+> > > >  
+> > > >  	pm_runtime_get_sync(pfdev->base.dev);
+> > > > +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> > > > +	pm_runtime_put_noidle(pfdev->base.dev);
+> > > >  	pm_runtime_disable(pfdev->base.dev);  
+> > > 
+> > > Let's keep the order consistent with the probe path:
+> > > 
+> > > 	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+> > > 	pm_runtime_disable(pfdev->base.dev);
+> > > 	panfrost_device_fini(pfdev);
+> > > 	pm_runtime_set_suspended(pfdev->base.dev);
+> > > 	pm_runtime_put_noidle(pfdev->base.dev);
+> > > 
+> > > I also think this deserves comments to explain the noresume/noidle
+> > > dance (device_init/fini take care of clks internally, and when they
+> > > return the device is resumed/suspended, so all we have to is update the
+> > > state, and acquire a ref).  
+> > 
+> > I don't mind doing this, but I think the fact we're calling noresume/noidle
+> > functions already implies device power-up is being handled manually rather
+> > by having RPM invoke resume and suspend callbacks behind the scenes, so
+> > we've no choice other than adjusting PM user counter and status ourselves.
+> 
+> Fair enough.
 
-"Does this code handle non-EFI direct kernel boots correctly?
-When an SEV-SNP guest is booted directly and bypasses the EFI stub (such as
-when using QEMU's -kernel with a setup_data CC blob), sev_prepare() is
-skipped entirely.
-This completely bypasses the svsm_register_alt_inj() call.
-The main kernel checks for Alternate Injection support via
-cc_platform_has(CC_ATTR_SNP_ALTERNATE_INJECTION). This check relies
-strictly on the sev_status MSR hardware bit set by the SVSM and ignores
-whether the guest successfully registered the APIC emulation.
-Could this cause the APIC probe to issue SVSM APIC calls via
-__svsm_apic_msr_rw() that are rejected by the SVSM, leading to an
-unconditional crash via sev_es_terminate() early in the boot sequence?"
-
-Alternate Injection does not work without OVMF support so no need to 
-handle the non-EFI direct kernel boots.
-
-Thanks,
-Melody
->   	return false;
->   }
->   
-
--- 
-Thanks,
-Melody
-
+Adrian Larumbe
