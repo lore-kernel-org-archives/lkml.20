@@ -1,63 +1,63 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+Received: from mail-qv2-f20.google.com (mail-qv2-f20.google.com [74.125.230.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CAC3C2BB9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:10:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437FA3FD969
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197853; cv=none; b=uFUopGrmNh1WlQPUGR9gskUJLSGYRA46aN/pMMb0WmXhKyYwI9oHvr1sck9UpZ496c7DEH3tp7fbKopbpHnCIJv9zJM/avRnsuqfHvVIj4CNlTIGTIGJqD0bUJ3MdjZ9kadOS78dS3enDmER4g3GLSkY1+vuwDzcURBRRvgUCpA=
+	t=1790197856; cv=none; b=pUFs2mMawdZ5cyNvaFJrsywOC44lWYkHtRl8Vor1n7JLdtpWMdRtrGX+R0FwmNXLJ0ZYalk6BV0tYnt13Q2pswZT9QCZhwe9P9atL5LgozLyLoi8Pr0YZ+pGOouhwhvwXlH6HslN6gxzcrTEEgGebAk5FrB7TiA5idYSquxGJXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197853; c=relaxed/simple;
-	bh=6+p9c16JaWvd1hm6n4rhzqJqBx/gTTw/01UKuroqhmA=;
+	s=arc-20240116; t=1790197856; c=relaxed/simple;
+	bh=f7jLp3wHPMKJ2uLRlkyduFLNcqp1N3nkDtlgrZmrOxA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o4iG4/EZNs8B7hhYYB0nYm7zZuDQcYvstZtnQzChdKzGt87hgCRPAMDTHfO8mgQHCjR6AOnult6kfC21nrHB07Zk1jXqFbGsWjNaM7WNeQgnam8LxjjymrJd1gnCP0jDeFudI8FyJQxWcsJkr5QXWn3e4moObd+lR/6wpXb+r0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=uz8sfil1; arc=none smtp.client-ip=74.125.230.235
+	 MIME-Version; b=ldEgI+HcpNdXoIY0DJk0XsdB5uHedF3+RExJ6qCdu6foLZthIuQVrl6WQlqQ99W3KL6zl/KfxWQdcGt+asVzR7J8MQsW8qSMMzM3lhs1ikHmIv+x8thGATbf2Hb7wrl05yi1SpC7H4+Wm/1LnmHWtPvGxudnkz/OmG/sHtetXW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=BHqR8XBl; arc=none smtp.client-ip=74.125.230.148
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="uz8sfil1"
-Received: by mail-qk2-f43.google.com with SMTP id af79cd13be357-93910cc46c4so134834785a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:10:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="BHqR8XBl"
+Received: by mail-qv2-f20.google.com with SMTP id 6a1803df08f44-90cdfc9b6e4so13124986d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:10:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790197849; x=1790802649; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1790197850; x=1790802650; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xVr7KuSWyr8CUJERgbEEA0iI2fqWk3sHPjbcAbZFfj4=;
-        b=uz8sfil1N48qs4SpM6831TG710nH4VNPJXmYySjrhJ7Cy6EkA2UyinpfsnKx78dT3D
-         vJE+NdFypAXQw/W9ej1lKkKJo34nrU4y/Jk9sKIL6gAEpothK17WdBx9qk9fcHGwXAin
-         0eKaooFB6VYEq5Ar8IZ+pism6w7GZkEQwtR5Uzk/XjM3FycNSzqYlcNQdu0dFEtTVa9K
-         8z7v4NxGjnAHVx3Ul5l229ndO6zO4cCe41VmzXVRhfVDA4rpnx13W5A5txqwvjQsPvV2
-         CbMG5KqL8NOptIPnKp6pYuiHvmLZC5h7kCfr3F0dXgf2x7kZG3Ho/NjzCZm5NM8fDTIX
-         KDZw==
+        bh=C/Ioh0E0wp4TmybDNX/mkYZyZ5cUYapYs7dOai2tJpk=;
+        b=BHqR8XBlbOtqtefjkV+fJT9SncSAw/sxdhOfw+7rGGaU41TwxJnLH3+2XV/i6CP8jR
+         b46a4XbDeN6LOLro5NCa2eIE5WYkGSnkHnj1Dlk4yjYAa1XY9fIofA/gosw9NLVIY9x1
+         cawnmAganxt31/QJb0rDtPVvB9oESgZ5u3qKZrkPxGyX17v34wKtOSNqHX5Olve7wtZA
+         3TMIfSDsuujPly4Ht/d/eEax6E1M27bZVUZD2moFbwconVDTpo2IIIcmbJ8K7Nl6Be/e
+         TW3LdHgG9CRG/Ek6MEhRiHMZyBB0/oaVnUaT4/71ukzaSBJBGlxO4WI3gOwq8b4i/eF3
+         ZrHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790197849; x=1790802649;
+        d=1e100.net; s=20260707; t=1790197850; x=1790802650;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xVr7KuSWyr8CUJERgbEEA0iI2fqWk3sHPjbcAbZFfj4=;
-        b=StKi5P0vaDUOHMGNHJFQJCku/0cTLgL9avzl2hcWTdiGqKMprRyFSluGvSDuGQ4aN3
-         jedePc75DV4GOj9YO5KLmd/w4Qs3EaVr69Dj325E+ZK+vtwTSs4OalhfMuUD3rz6TDgj
-         Vd8R/ACbIwukAKYZ4PhMxW4pkcQfk+di6xZVl2Q95RXXCXx2GHbp96SZXvrI+0zjtXgk
-         jD1IyZ++P5iszinkpk8FQSmVD/aJQ74FntX13iF2Fuspam1JlzvOtPRvCVAOJsqt4YSA
-         HxssikMzn6JO9SubFvKAt6KP9rI8Uqf6xh2OMDjRKNVG8guMtaF/pFePfG4THn+PQkSl
-         9t0Q==
-X-Gm-Message-State: AFuF++le10XeIFj5C58ucc0yB7YDENsUsraQWc1REr80JptqaFoUO6jH
-	/ACWCJ+gaRK0mnIZkqgMfsMUNAqCdj5jHhhgWTr/jnyUcQO+ZAgsUtOeO/UzMIShboI=
-X-Gm-Gg: AYBFou1DD/UqB3pHk1G+LntKv6GRBcookxBjBpSfXgGD1Oj987AhWH6Fnna7ztUhY5f
-	XoTlfEZme60LRGOT/KDNkn6zc6CIDSZnC1GwCn1yKhMNb9+QSU6m8kOx1nI71BhWrwBigcopdj5
-	Lr0zHXeGJkZpxA5KsPe3iPDDowlcTbQQzS8MN6YN3etzojWMiXe1RBxm3YAnqAizlKS8HRWlrY2
-	Ckz1F+RD5RbYmG2J7BEer4UOdodlJH6ny947Ss7YnH1L7ES0zv3woYAbObWfopOURpUYQ9IYneh
-	JuA9MqdmddcentYMeg9+UeO7aOjNdzr2IGRjRuEz5ggxlduYPi/tmX3KSGDiDIgWiYAi81Kdg+/
-	eT5425OBQhf9eXgQlE3pzs+9VYcrMC7X6DEQ3cO5G1z+ggvQRx3FZ+en0rvexL0DfIwFASg1tcQ
-	3Z7jMpHNMvrDyg/ikjR3o8ooGHmZHhsSoUMZJeyQcb46feNJ43mvR9RKJZWfyt1zws/hP2YcelQ
-	xU4hppSCEISTgS3RHLU+PIa9oCr/ZVpBkrO/yuGIV1IpEr/tCxmWbtXYHn3
-X-Received: by 2002:a05:620a:880a:b0:934:ab73:ac53 with SMTP id af79cd13be357-93c34573b4fmr67685585a.0.1790197848646;
-        Wed, 23 Sep 2026 14:10:48 -0700 (PDT)
+        bh=C/Ioh0E0wp4TmybDNX/mkYZyZ5cUYapYs7dOai2tJpk=;
+        b=oFRSt1UUVW0900pxpsM9GKKU/L0WR+ICIvJirksBrhLZZnljRkIe05aBytJmjRtnbQ
+         z7bEYqq0mDsW2AyEbSKTpMBcM2rYK6F+P9INgBF7FdN8bo2JyG8EcF5kq5oTEX8Mc4h6
+         uWIjCysjNQeECAXQTXQIZKD5iJbjp/fmoTzNGUtiK1CcFATYDNuMYK8E7vcMWanxA08K
+         UM2BcMD4d15cco2QEo1hckS9So8/q/0RZc35p2UkDplPROQ9U7r+Sl2IHnFK7aq0QqK4
+         AfKhacRivdR9H72QJXlo7etD1P6SUKUbIkU5sYbdLKNh43H98g+gda+r68jkxp01o6l0
+         Jfhw==
+X-Gm-Message-State: AFuF++nSE0HzJfxH96p4dzTzvM1Q+fLbKbwtYhk6G7XLT7Q7KSFdsISo
+	tDJV/fOFjLYitDmTr3/ipjPRe/ETfXTHrw627sjz2c8VsmfnLyiq721jYlYleZA4iZ0=
+X-Gm-Gg: AYBFou10jL25RVGcYB7XpcoxxXhXJMHpgra8CE1kHzAwBTfRBjIfyjyo1JMgWR6yT5u
+	vD3zFhs1+5MCscEhFachZwN/U3v0zVwYs9rTFwlFV9sB7g7SazdgeyA5cdfm5TmMxVREelKdSqJ
+	FAMV4keWyEY2t2zesJHPMZDuBCKTPZnvUVF4V5MddL33+eQ1QwGjtIOA/7/Xd5UgSUrxKo6V9Id
+	A+pFHX9JNtNyEJ5vk0zGerVvMnqdef0QxvGkaYMoTnFhr2Na+ToCS0MgtOJWkR+3BZOvS5/YAB5
+	zBx1Jk4N7Ud8vou1kcRX84bONecY0zqIn773nLHRKXuzzGoP8wghnGKAEQE3/MjzalZNhARkTFV
+	ymXUI3Lpb/Gc9XiwU1ilZ8d7tKHJKes1c952AR1nQ8ivBKNfJkNbqpf0ZZ/BpwW0srcZWoLZ730
+	cDrNfLA0Azh5Vxn0UdqHeWOxrhOE2D4iADUXKEnvd/HI4duRlCQoBRIm61Xqz94wSHb4ODJL584
+	AJ2uMWn2OfwW90R3kmWEjlE3fGIuwy5FTfpT/uSFAZu9wLN3v5IoEqYqCO2tg==
+X-Received: by 2002:a05:620a:2690:b0:939:b55a:3c7 with SMTP id af79cd13be357-93c344ef4famr76423385a.41.1790197850184;
+        Wed, 23 Sep 2026 14:10:50 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2485926esm305893085a.19.2026.09.23.14.10.47
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2485926esm305893085a.19.2026.09.23.14.10.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 14:10:48 -0700 (PDT)
+        Wed, 23 Sep 2026 14:10:49 -0700 (PDT)
 From: Gregory Price <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org,
@@ -78,9 +78,9 @@ Cc: linux-kernel@vger.kernel.org,
 	brendan.jackman@linux.dev,
 	hannes@cmpxchg.org,
 	Brendan Jackman <brendan.jackman@google.com>
-Subject: [RFC PATCH 3/6] mm/page_alloc: add an alloc_flags-aware folio allocator
-Date: Wed, 23 Sep 2026 17:10:37 -0400
-Message-ID: <20260923211041.3127588-4-gourry@gourry.net>
+Subject: [RFC PATCH 4/6] mm/mempolicy: plumb alloc_flags through folio allocation
+Date: Wed, 23 Sep 2026 17:10:38 -0400
+Message-ID: <20260923211041.3127588-5-gourry@gourry.net>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923211041.3127588-1-gourry@gourry.net>
 References: <20260923211041.3127588-1-gourry@gourry.net>
@@ -94,68 +94,187 @@ Content-Transfer-Encoding: 8bit
 
 From: Brendan Jackman <brendan.jackman@google.com>
 
-The low-level page allocator accepts explicit allocator behavior flags,
-but the folio helper hard-codes ALLOC_DEFAULT.
+The NUMA policy allocation paths hard-code ALLOC_DEFAULT before reaching
+the page allocator.
 
-Add an MM-internal folio allocator that accepts alloc_flags. Keep the
-existing exported folio and node interfaces unchanged as ALLOC_DEFAULT
-wrappers.
+Add an alloc_flags argument to the MM-internal policy allocator and carry
+it through preferred-many, huge-page, and general policy allocation paths.
+Keep the public mempolicy folio interface as an ALLOC_DEFAULT wrapper.
 
-No functional change intended.
+Task policy selection is not safe in every interrupt context, so non-task
+ALLOC_NOLOCK requests bypass it and use the supplied preferred node
+directly.
 
+No existing caller behavior is changed.
+
+Link: https://lore.kernel.org/r/20260726-page_alloc-unmapped-v3-25-6f5729aa9832@google.com
 Signed-off-by: Brendan Jackman <brendan.jackman@google.com>
 Signed-off-by: Gregory Price <gourry@gourry.net>
 ---
- mm/page_alloc.c | 14 +++++++++++---
- mm/page_alloc.h |  6 ++++++
- 2 files changed, 17 insertions(+), 3 deletions(-)
+ mm/mempolicy.c | 44 ++++++++++++++++++++++++++++++++------------
+ mm/mempolicy.h | 28 ++++++++++++++++++++++++++++
+ 2 files changed, 60 insertions(+), 12 deletions(-)
+ create mode 100644 mm/mempolicy.h
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index b4a021fad183..feb9c64efd84 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -5510,13 +5510,21 @@ struct page *alloc_pages_node_noprof(int nid, gfp_t gfp_mask, unsigned int order
- }
- EXPORT_SYMBOL(alloc_pages_node_noprof);
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 4c0b8ff1a7e6..2c01699081b7 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -120,6 +120,7 @@
+ #include <linux/memory.h>
  
--struct folio *__folio_alloc_noprof(gfp_t gfp, unsigned int order, int preferred_nid,
--		nodemask_t *nodemask)
-+struct folio *__folio_alloc_flags_noprof(gfp_t gfp, unsigned int order,
-+		int preferred_nid, nodemask_t *nodemask,
+ #include "internal.h"
++#include "mempolicy.h"
+ #include "page_alloc.h"
+ 
+ /* Internal flags */
+@@ -2437,7 +2438,8 @@ bool mempolicy_in_oom_domain(struct task_struct *tsk,
+ }
+ 
+ static struct page *alloc_pages_preferred_many(gfp_t gfp, unsigned int order,
+-						int nid, nodemask_t *nodemask)
++						int nid, nodemask_t *nodemask,
++						unsigned int alloc_flags)
+ {
+ 	struct page *page;
+ 	gfp_t preferred_gfp;
+@@ -2451,10 +2453,10 @@ static struct page *alloc_pages_preferred_many(gfp_t gfp, unsigned int order,
+ 	preferred_gfp = gfp | __GFP_NOWARN;
+ 	preferred_gfp &= ~(__GFP_DIRECT_RECLAIM | __GFP_NOFAIL);
+ 	page = __alloc_frozen_pages_noprof(preferred_gfp, order, nid, nodemask,
+-					   ALLOC_DEFAULT);
++					   alloc_flags);
+ 	if (!page)
+ 		page = __alloc_frozen_pages_noprof(gfp, order, nid, NULL,
+-						   ALLOC_DEFAULT);
++						   alloc_flags);
+ 
+ 	return page;
+ }
+@@ -2466,11 +2468,13 @@ static struct page *alloc_pages_preferred_many(gfp_t gfp, unsigned int order,
+  * @pol: Pointer to the NUMA mempolicy.
+  * @ilx: Index for interleave mempolicy (also distinguishes alloc_pages()).
+  * @nid: Preferred node (usually numa_node_id() but @mpol may override it).
++ * @alloc_flags: ALLOC_* flags.
+  *
+  * Return: The page on success or NULL if allocation fails.
+  */
+ static struct page *alloc_pages_mpol(gfp_t gfp, unsigned int order,
+-		struct mempolicy *pol, pgoff_t ilx, int nid)
++		struct mempolicy *pol, pgoff_t ilx, int nid,
 +		unsigned int alloc_flags)
  {
- 	struct page *page = __alloc_pages_noprof(gfp | __GFP_COMP, order,
--					preferred_nid, nodemask, ALLOC_DEFAULT);
-+					preferred_nid, nodemask, alloc_flags);
+ 	nodemask_t *nodemask;
+ 	struct page *page;
+@@ -2478,7 +2482,8 @@ static struct page *alloc_pages_mpol(gfp_t gfp, unsigned int order,
+ 	nodemask = policy_nodemask(gfp, pol, ilx, &nid);
+ 
+ 	if (pol->mode == MPOL_PREFERRED_MANY)
+-		return alloc_pages_preferred_many(gfp, order, nid, nodemask);
++		return alloc_pages_preferred_many(gfp, order, nid, nodemask,
++					  alloc_flags);
+ 
+ 	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
+ 	    /* filter "hugepage" allocation, unless from alloc_pages() */
+@@ -2502,7 +2507,7 @@ static struct page *alloc_pages_mpol(gfp_t gfp, unsigned int order,
+ 			 */
+ 			page = __alloc_frozen_pages_noprof(
+ 				gfp | __GFP_THISNODE | __GFP_NORETRY, order,
+-				nid, NULL, ALLOC_DEFAULT);
++				nid, NULL, alloc_flags);
+ 			if (page || !(gfp & __GFP_DIRECT_RECLAIM))
+ 				return page;
+ 			/*
+@@ -2514,7 +2519,8 @@ static struct page *alloc_pages_mpol(gfp_t gfp, unsigned int order,
+ 		}
+ 	}
+ 
+-	page = __alloc_frozen_pages_noprof(gfp, order, nid, nodemask, ALLOC_DEFAULT);
++	page = __alloc_frozen_pages_noprof(gfp, order, nid, nodemask,
++					   alloc_flags);
+ 
+ 	if (unlikely(pol->mode == MPOL_INTERLEAVE ||
+ 		     pol->mode == MPOL_WEIGHTED_INTERLEAVE) && page) {
+@@ -2530,11 +2536,18 @@ static struct page *alloc_pages_mpol(gfp_t gfp, unsigned int order,
+ 	return page;
+ }
+ 
+-struct folio *folio_alloc_mpol_noprof(gfp_t gfp, unsigned int order,
+-		struct mempolicy *pol, pgoff_t ilx, int nid)
++struct folio *__folio_alloc_mpol_noprof(gfp_t gfp, unsigned int order,
++		struct mempolicy *pol, pgoff_t ilx, int nid,
++		unsigned int alloc_flags)
+ {
+-	struct page *page = alloc_pages_mpol(gfp | __GFP_COMP, order, pol,
+-			ilx, nid);
++	struct page *page;
++
++	if (unlikely((alloc_flags & ALLOC_NOLOCK) && !in_task()))
++		return __folio_alloc_flags_noprof(gfp, order, nid, NULL,
++						 alloc_flags);
++
++	page = alloc_pages_mpol(gfp | __GFP_COMP, order, pol, ilx, nid,
++				alloc_flags);
+ 	if (!page)
+ 		return NULL;
+ 
+@@ -2542,6 +2555,13 @@ struct folio *folio_alloc_mpol_noprof(gfp_t gfp, unsigned int order,
  	return page_rmappable_folio(page);
  }
-+
-+struct folio *__folio_alloc_noprof(gfp_t gfp, unsigned int order,
-+		int preferred_nid, nodemask_t *nodemask)
+ 
++struct folio *folio_alloc_mpol_noprof(gfp_t gfp, unsigned int order,
++		struct mempolicy *pol, pgoff_t ilx, int nid)
 +{
-+	return __folio_alloc_flags_noprof(gfp, order, preferred_nid, nodemask,
++	return __folio_alloc_mpol_noprof(gfp, order, pol, ilx, nid,
 +					 ALLOC_DEFAULT);
 +}
- EXPORT_SYMBOL(__folio_alloc_noprof);
- 
- /*
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index b9259deddb59..986e733b586e 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -258,6 +258,12 @@ struct page *__alloc_pages_noprof(gfp_t gfp, unsigned int order, int preferred_n
- 		nodemask_t *nodemask, unsigned int alloc_flags);
- #define __alloc_pages(...)			alloc_hooks(__alloc_pages_noprof(__VA_ARGS__))
- 
-+struct folio *__folio_alloc_flags_noprof(gfp_t gfp, unsigned int order,
-+		int preferred_nid, nodemask_t *nodemask,
-+		unsigned int alloc_flags);
-+#define __folio_alloc_flags(...) \
-+	alloc_hooks(__folio_alloc_flags_noprof(__VA_ARGS__))
 +
- extern void zone_pcp_reset(struct zone *zone);
- extern void zone_pcp_disable(struct zone *zone);
- extern void zone_pcp_enable(struct zone *zone);
+ /**
+  * vma_alloc_folio - Allocate a folio for a VMA.
+  * @gfp: GFP flags.
+@@ -2586,7 +2606,7 @@ struct page *alloc_frozen_pages_noprof(gfp_t gfp, unsigned order)
+ 		pol = get_task_policy(current);
+ 
+ 	return alloc_pages_mpol(gfp, order, pol, NO_INTERLEAVE_INDEX,
+-				       numa_node_id());
++			       numa_node_id(), ALLOC_DEFAULT);
+ }
+ 
+ /**
+diff --git a/mm/mempolicy.h b/mm/mempolicy.h
+new file mode 100644
+index 000000000000..8d2c07868f6e
+--- /dev/null
++++ b/mm/mempolicy.h
+@@ -0,0 +1,28 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * mm-internal API for mempolicy.c. Public API lives in
++ * include/linux/mempolicy.h.
++ */
++#ifndef __MM_MEMPOLICY_H
++#define __MM_MEMPOLICY_H
++
++#include <linux/gfp.h>
++#include <linux/mempolicy.h>
++
++#include "page_alloc.h"
++
++#ifdef CONFIG_NUMA
++struct folio *__folio_alloc_mpol_noprof(gfp_t gfp, unsigned int order,
++		struct mempolicy *pol, pgoff_t ilx, int nid,
++		unsigned int alloc_flags);
++#else
++static inline struct folio *__folio_alloc_mpol_noprof(gfp_t gfp,
++		unsigned int order, struct mempolicy *pol, pgoff_t ilx, int nid,
++		unsigned int alloc_flags)
++{
++	return __folio_alloc_flags_noprof(gfp, order, numa_node_id(), NULL,
++					 alloc_flags);
++}
++#endif
++
++#endif
 -- 
 2.55.0
 
