@@ -1,195 +1,177 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012029.outbound.protection.outlook.com [52.101.43.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755794ED1AC;
-	Wed, 23 Sep 2026 15:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178844; cv=fail; b=cpXLkSzU3cXl9sgFh6p98TCe90gUIoGsCVGCKyo3isU49oVdvR3EM/yKrOpZXpyYFNeEH12owVaVW5rqgUWuopPiXceE0jczx3ch6onndEkS7fY96E6SQAgTr2IR3uEjTlA6y+iBJEsJtvTVPW/beU4cSwxkW9xsHYV0rbPDQ4s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178844; c=relaxed/simple;
-	bh=GMisL7Yc8v8XEW+sDjP9fCc7wdHed9AYFOHIkqPjzmY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=u4ywKAJEKRInTH/6b3aJHjYt8B9Ihlh88Y0HATJOoLHbM+9nogLCoSX+Gapq3EeXMUdBXcG1m+Xo0MS2yHBS7nVbIJFhOyNTr34XcYf+1z4tfRNWTzg9w6VM1bc3cHAt6lEVMEDuyAWG45GeFBLdikHV4YY3ed+7v6tgQI2vVwY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fJv4o0tk; arc=fail smtp.client-ip=52.101.43.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A0053C3D2;
+	Wed, 23 Sep 2026 15:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790178847; cv=none; b=UK7KiHlHPMcx95JFhpXTcYBH7GDGmOUMFggzglJP2tMI5qCVhk3xox24s5DXWpVTV9RmZTc23ExJKqJxDrdeMqkh/UySaiMMJlk8RNatcHuL5khtffZYrL7sFD7LmaBFM8rSTxgRbkx6vDy+9Po94XKNxvVCqMFWKhsY2WWkzQs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790178847; c=relaxed/simple;
+	bh=J6iRxLrD4DDe9CKcU5VUOBrrbnObxkIIizlaLKxQ6Vs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WxYEXPgLYsZD9MjhXDPfCqF9E6MRnAWrJGvmqcfgA/DG0Rm2l1Lt2xvLtR/tZSfGX5IZR2Mi7cfnNGk9dx4ZStl3AWqpDpWQ8zqec6wLyNUcDvh5cA7nDlCCOnKVtlBw6f9JILzCHtJLRlz9bc5bmIPXvkWE+vCMsNMn62NVfcU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kO69tl0G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fJv4o0tk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UqybnJLVZ18mXAra2g68ZtcH/G6kKn541iOVZJ0Zjh/SBeL8hbnoey6o5iaXcHStraWG9hjKRb9WDi83jSSv00PKLygQZSnO1ibfjj6lXxnAHd4NkwbZnxcPp7K0bN3cItwGpD/DYyAELuQe3550tEwoh9iDC97U5wFIc3QCi26Fs6wMCwkzbJqqiJ5nRMmpyb2oX9YV73NEOWaxl1rvTkKmBt3jaz6qz0X1BXynIe+ub2mZAL7Yai97668XboDo+Lqqb8cMedywcUlli3geZ9r5cqaN86zNW/KVFuDesyfJr4/whoY/DumgglUEadKOWagh5WM14l2RXF80TozcJQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/8v31aI80OBc+djKG+pb61PxJm+4H5xGR4pbmO3AOq4=;
- b=FRy2E24eL+BVa3fI/j5jHD6GIXEhxIIMpTr/83hn4km3jJSnUOUbpPMEjVxNcRBze5uTJ9rEmpw8jvHoevQCt07RzAV3BcwZKXBFnj8BT8Q1SAbjygcDUianjG1B7O0CTJFE5AaU9c6lR6wTN7JjUu17AXvt+ncYqCX/QmqMaKbqEXb8T4lRlsIin6DM5kNd5iyFhWToyhzsd7y+nSN0SlfBMkbZMPWSTgYxA9XXqiVH8xG1N8jv+z/szQRI6/gL30K/kaT5POhoTCIymb7uXAIwpI/eN66RGLdnbeKhheNVQYlZ5bIY23cRiJgCf3Om3vudpJ9ID8aPIfk4BCE5PQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/8v31aI80OBc+djKG+pb61PxJm+4H5xGR4pbmO3AOq4=;
- b=fJv4o0tkNed3hpPL/lPrsEvzmnnylzQsdQy3WRqTR9YRFDrGeVrvWzAdUk+EQTT/ijSeh2RCxTRztZJJOIQizJ0GXkaIT5mVXD15Q4GPg4iiqg1cGNmuuXxehncnEntoydP44pTbTaC8Qe2rklim3f06t2nM36IVk9X6HWUR0keNeQb61Y6pPhVTdzySmKUoaz6Qa6gjOvPsLEu8Yipodl9cLeugzXZJDn3LiVjUvZpPP/glL79uD07qAfT0W7oDkpgSoCOXC4AqeQW6itE9m7v63sV0VBt+zB/NhqnF5zZd9HRTrRnbI0pi2envZwtS7ky0ooWlmxjGrPyr0EFQcQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SN7PR12MB7954.namprd12.prod.outlook.com (2603:10b6:806:344::7)
- by DS5PPF884E1ABEC.namprd12.prod.outlook.com (2603:10b6:f:fc00::658) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 15:53:50 +0000
-Received: from SN7PR12MB7954.namprd12.prod.outlook.com
- ([fe80::2567:531c:cdb8:f544]) by SN7PR12MB7954.namprd12.prod.outlook.com
- ([fe80::2567:531c:cdb8:f544%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 15:53:48 +0000
-Date: Wed, 23 Sep 2026 18:53:39 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Anton Danilov <littlesmilingcloud@gmail.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	David Ahern <dsahern@kernel.org>, Simon Horman <horms@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v4 07/10] ip_tunnel: add drop reasons to the
- transmit path
-Message-ID: <20260923155339.GB2880695@shredder>
-References: <20260922221507.3268127-1-littlesmilingcloud@gmail.com>
- <20260922221507.3268127-8-littlesmilingcloud@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922221507.3268127-8-littlesmilingcloud@gmail.com>
-X-ClientProxiedBy: TLZP290CA0009.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:9::18) To SN7PR12MB7954.namprd12.prod.outlook.com
- (2603:10b6:806:344::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kO69tl0G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EF3C1F000FF;
+	Wed, 23 Sep 2026 15:53:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790178845;
+	bh=wAV8stNGXVD0suD8B1a8qtsl7mm0RfyqHixhi/NZx3k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kO69tl0GVqEJBDtzXtj722GeS02r981KicvQg4cQHtdo8zYbHSuzX4xKugLSuxZ80
+	 hNKF+inpI1rG93f1F5QhrTtVFxLcKRCTL+snyRWCp/N/q3HEczsFeIqExmwrr7tt/Y
+	 BvYVVTOYIPgApkyrBXMn24Qh05xMwuFcGHVzqgJTNe/gle65zMUCXYN6+65S4HSHY7
+	 tGBuhIwWJ1Pazb14YseddKo0V64lXM6Wy4pe1LmUGi7p3l+GZYljbhlHPVyxqBuygF
+	 nqC8DLo3R+mPNhwr+2JNkPsIA6gODez9Nt0VUzmMq2DMdlQhA1/ymS6rMHMT1y9mfa
+	 Lr1sgEWelyeVQ==
+Date: Wed, 23 Sep 2026 16:53:33 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	Leon Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+	Stephen Smalley <stephen.smalley.work@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
+	Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+	Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, 
+	Vincent Guittot <vincent.guittot@linaro.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
+	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, selinux@vger.kernel.org, linux-sound@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
+	kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, fuse-devel@lists.linux.dev
+Subject: Re: [PATCH v3 02/40] mm/vma: predicate setting mmap_prepare VMA
+ fields on new vma alloc
+Message-ID: <arP0oJgrgZlgtrb6@gremlin>
+References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
+ <20260917-b4-mmap-prepare-vma-flag-sanify-v3-2-4583d8a23bca@kernel.org>
+ <CAJuCfpEa8tUmYJBjx-cRdAE8y-jcKY0C81kAOa1QZS7F6tKdfQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7954:EE_|DS5PPF884E1ABEC:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6390eb3-1189-46ab-a5a2-08df198adb1d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|10067099003|56012099006|11063799006|4143699003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	irHIbs0oxTAv8L1hoE2VunXePVsOZZbrvuHiKYSWX+qf8E41h9RPlhrqoxT/4hyjCtGplzdndC8Q7lc6nUIxCjFR5RU0a8y0Wn38XwI8Uv8/Y0METe9jARJnzdSfNhgGL4SkSBc+KWLpO4tr0ao3XrKCrZX0tTW2suK+pFErqAfkpZeZw3DCxkP942u1bbBt9q+LT0LQVwtzUkARHZf/Qr+DPgtqjrB/+S2QHP0qZNqXIig7/GKRFzjzdhSz3UKd8PbywNqtYSmSgXDup6wz7KIL7GvfXnyd8WORpULzqQ1Nz2iaV5Q78vAwEpeQKiBypxw6r7GUB3DJc600dTSyf+fV/C+e2o0C8nsUzgVnxcF8cr7Tq3FLbdZm5O7ScUY2JhsJOJsmL3duj24xlJEyxSTKm68P3Uq9bRZq7cGVGqP1bw9N+MsAkYHGyAWPoifJg3lroUpu508dsWy+zV8I9yPjUBAdU7E4IaIHnGiJIMm+pDQtIh0vW9Xio6lHwR1IPKiJqjQ1L5OlHevANGvmSu/Gh+c130oZHopjSDZsP0dENRSNIbpbtQelNkoG0QqzFvKhKUH/wSfxeAiBiiiBBSVClYMR+0QxF/gbunIlz1h2H4lMWNGoD9kkOKWtVp1qk04x0UwJJJbBt6r+t2+VWLo6sOvAeBglkcDEDrB/eRY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7954.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(10067099003)(56012099006)(11063799006)(4143699003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?xdKkpEAWLGWuJPI5dlN3dzvyPcRrmUmFL+IUfO2REgPqZkc+qO5VSDwE2dpp?=
- =?us-ascii?Q?8T6jaG/U5FSXlBO8srJn55/tGRFdWB3gf6glqy2+ym2mU+C+YEcl17Ve0DXX?=
- =?us-ascii?Q?FalP6QrGoj+IPyooIFFktn3uE/iCfEfbMZsbKyk9LrX3bc7tRWknK0CC1aw4?=
- =?us-ascii?Q?RCGGiNRjSEDTE1FlLbQK5wua4aS9FYYXNR4PadV42TasxaZvz9g2gbVuoGg9?=
- =?us-ascii?Q?aOoLQnROZ37GPL0OqtkwpEIMDkXQT2MST37ql3nr8ms60QfR5Io9jyZpGicO?=
- =?us-ascii?Q?u6BB5NWT9uUcqXd2KMJLISB1xGe6ojIRjgqczBLoOLlArijYkRkVFrv5LnBQ?=
- =?us-ascii?Q?yd9eStOkZeZzm896lK+i56RnK8RnlgGW2jvwdiV2P38HYnikSyMuItu3eAW3?=
- =?us-ascii?Q?IYy9gRIrMCXJF8KAuTcC7PeR2EpNbSOiRQpMEBBctrDLUfVGBqEP9kiuRBv8?=
- =?us-ascii?Q?84Qxi0gic4QhQ6vqjYBHSgfwcR2HDTUergzekG3MOnO/DNc5fKILSS5s/lqt?=
- =?us-ascii?Q?kbzpL9zfukeURit8om9fEav3A9u5lMVejwwHyC+rhVHzjmF8c/ztA9D+KuQe?=
- =?us-ascii?Q?YgrEC0lR+SYQl5C6kfW9lISE5ElHLoFTNvvS3WITdNAU2vETZmNJEI5ugK9o?=
- =?us-ascii?Q?RMMUAQTCkHU7RmIFint3K9n1Mb6wEDFxnpi+0lYunSU07Lm49XETSvaFsk4U?=
- =?us-ascii?Q?rdDGTLuUArNX9mNEgEnG0IJZsyDdn9Kvn/WNBomw3Tzkjtj80HhFlI7KAWpu?=
- =?us-ascii?Q?7iEJOj3idRg7tMrFTuK7dr6QJGJEIyTYFH/XOkETMkTcPG/Z04XwALheNyR1?=
- =?us-ascii?Q?/evWn7V9MKMjITH7ouUz4xL44WLR7JVEmoG0d/fsuXnPSBZuZAEK98YwOXuR?=
- =?us-ascii?Q?yVjSOq9IHkdxQD4x4jzVz24u7eaVUI5yvshMy/nwMse48J8xXewfHPto76rb?=
- =?us-ascii?Q?MCEj3keuzsSt83ws4UKCF9yhRjVNwhbMm4b19bwXa9dZVSeqFquMCor45vM5?=
- =?us-ascii?Q?6LIJAjGrduEZzXatJ7tAzr7Ih887J4avneAt7gsJlU6E41lrYl/zq3f08EBJ?=
- =?us-ascii?Q?4+bQclyUDU52kY0TZx58tDxQU2x8wkv+byL3CJNGHerN2NTCBgdrht3fdHyi?=
- =?us-ascii?Q?NwZkRXSH593pkuHP5KO3/Wkhasntkv5TVXEegWgzqEUwe9aDuLxnXGoVqcL1?=
- =?us-ascii?Q?5ea0GL5bbYuTjlHw1I4lR+LJel4cgTO1Lpondewn5dcuXszcnGlbSM48UuIU?=
- =?us-ascii?Q?PfK7XJXDozXdMSvyQH4wgUidGM6ski16C1TH1qf1Ua4RvaScNX3PTJKYswju?=
- =?us-ascii?Q?4cOk2izSktDwrwRUyBPF2KB+TKX4B7g7KGcw+Mr3IQKdWJzeTIMWslyLv39c?=
- =?us-ascii?Q?9E56zNpgVsuswswrrnBIFU3BaLQtmPJGrabeVr7nUJSwIJCQ60Lp2KujTsjD?=
- =?us-ascii?Q?2DgZHvcHhSm8BxeIzat83UHo9mnt59IrE6M/R03z237yHuWWnz3OBobxXGDd?=
- =?us-ascii?Q?e2cO4Qb23aK7fjkeajgtIBiELpqOU77rh/2iasz98Vba//1pwdz7mAZD1kPo?=
- =?us-ascii?Q?b/2y3I6C5IfjJD0dkCfYTuCFmSB4t7h3gxE9HyUA3Mfoj8K6giZWsGtBocF4?=
- =?us-ascii?Q?At7TjquHqlVeUpuF1C989G/65M9DAosE4V9T0kDT18zCzQD+cEKork63QVnQ?=
- =?us-ascii?Q?9SoNsKOAQk84xdvBxLSAvcd6G52/+x+5ogwHtNgYqHBTM5wp?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6390eb3-1189-46ab-a5a2-08df198adb1d
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7954.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:53:48.4860
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W3W6rl+j7iYFF1e6gaLN74NzbDQTsREoFIOg7Cri76CKQuuGKKO2fTe/ywlJ0RzQ7DSjGsAk9FT3ZUqS4oVsEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF884E1ABEC
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAJuCfpEa8tUmYJBjx-cRdAE8y-jcKY0C81kAOa1QZS7F6tKdfQ@mail.gmail.com>
 
-On Wed, Sep 23, 2026 at 01:15:04AM +0300, Anton Danilov wrote:
-> @@ -711,9 +721,15 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
->  
->  		if (!skb_dst(skb)) {
->  			DEV_STATS_INC(dev, tx_fifo_errors);
-> +			reason = SKB_DROP_REASON_NO_TX_TARGET;
->  			goto tx_error;
->  		}
->  
-> +		/* Only the branches below can derive a destination.  If
-> +		 * none of them matches, the payload protocol is not one
-> +		 * this tunnel can carry.
-> +		 */
-> +		reason = SKB_DROP_REASON_UNHANDLED_PROTO;
->  		tun_info = skb_tunnel_info(skb);
->  		if (tun_info && (tun_info->mode & IP_TUNNEL_INFO_TX) &&
->  		    ip_tunnel_info_af(tun_info) == AF_INET &&
-> @@ -734,8 +750,10 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
->  
->  			neigh = dst_neigh_lookup(skb_dst(skb),
->  						 &ipv6_hdr(skb)->daddr);
-> -			if (!neigh)
-> +			if (!neigh) {
-> +				reason = SKB_DROP_REASON_NEIGH_CREATEFAIL;
->  				goto tx_error;
-> +			}
->  
->  			addr6 = (const struct in6_addr *)&neigh->primary_key;
->  			addr_type = ipv6_addr_type(addr6);
-> @@ -752,8 +770,10 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
->  				dst = addr6->s6_addr32[3];
->  			}
->  			neigh_release(neigh);
-> -			if (do_tx_error_icmp)
-> +			if (do_tx_error_icmp) {
-> +				reason = SKB_DROP_REASON_NO_TX_TARGET;
->  				goto tx_error_icmp;
-> +			}
->  		}
->  #endif
->  		else
+On Wed, Sep 23, 2026 at 08:32:43AM -0700, Suren Baghdasaryan wrote:
+> On Thu, Sep 17, 2026 at 9:24 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
+> >
+> > It only makes sense to manipulate VMA fields if we allocated a new VMA,
+> > rather than merged it.
+> >
+> > VMA merging does not compare vm_ops or vm_private_data, so a merged VMA
+> > keeps its own, which is also what the legacy f_op->mmap path does since it
+> > never touches an existing VMA. Previously set_vma_user_defined_fields()
+> > overwrote the merged VMA's fields with those set for the new mapping. In
+> > practice these are the same values, with rare exceptions such as shmem
+> > selecting vm_ops based on whether the file has been unlinked, so no
+> > user-visible change is expected.
+> >
+> > Make this dependency explicit, and additionally constify have_mmap_prepare
+> > while we're here.
+>
+> The fact that we might be overriding attributes of an existing VMA
+> that we merged with is technically a bug even if we never hit it,
+> right? If so, should we have:
+>
+> Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
 
-Makes more sense:
+It's not a bug, it is an in-built assumption that the state used to assess
+mergeability implies the same properties.
 
-diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
-index 66cb0b86fa79..20b666fcca9a 100644
---- a/net/ipv4/ip_tunnel.c
-+++ b/net/ipv4/ip_tunnel.c
-@@ -725,11 +725,6 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
- 			goto tx_error;
- 		}
- 
--		/* Only the branches below can derive a destination.  If
--		 * none of them matches, the payload protocol is not one
--		 * this tunnel can carry.
--		 */
--		reason = SKB_DROP_REASON_UNHANDLED_PROTO;
- 		tun_info = skb_tunnel_info(skb);
- 		if (tun_info && (tun_info->mode & IP_TUNNEL_INFO_TX) &&
- 		    ip_tunnel_info_af(tun_info) == AF_INET &&
-@@ -776,8 +771,10 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_device *dev,
- 			}
- 		}
- #endif
--		else
-+		else {
-+			reason = SKB_DROP_REASON_UNHANDLED_PROTO;
- 			goto tx_error;
-+		}
- 
- 		if (!md)
- 			connected = false;
+And if it was, it'd need fixing a different way (check the field for instance)
+and would apply to the legacy mmap hook also.
+
+This change is needed for the series though.
+
+>
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+
+Thanks!
+
+>
+> > ---
+> >  mm/vma.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/mm/vma.c b/mm/vma.c
+> > index fa784f069da4..4b74b48c29b7 100644
+> > --- a/mm/vma.c
+> > +++ b/mm/vma.c
+> > @@ -2894,7 +2894,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+> >  {
+> >         struct mm_struct *mm = current->mm;
+> >         struct vm_area_struct *vma = NULL;
+> > -       bool have_mmap_prepare = file && file->f_op->mmap_prepare;
+> > +       const bool have_mmap_prepare = file && file->f_op->mmap_prepare;
+> >         VMA_ITERATOR(vmi, mm, addr);
+> >         const pgoff_t anon_pgoff = addr >> PAGE_SHIFT;
+> >         MMAP_STATE(map, mm, &vmi, addr, len, pgoff, anon_pgoff, vma_flags, file);
+> > @@ -2937,7 +2937,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+> >                 allocated_new = true;
+> >         }
+> >
+> > -       if (have_mmap_prepare && !map_is_anon(&map))
+> > +       if (have_mmap_prepare && allocated_new && !map_is_anon(&map))
+> >                 set_vma_user_defined_fields(vma, &map);
+> >
+> >         __mmap_complete(&map, vma);
+> >
+> > --
+> > 2.55.0
+> >
+
+--
+Cheers, Lorenzo
