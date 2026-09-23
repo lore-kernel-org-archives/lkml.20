@@ -1,164 +1,203 @@
-Received: from srv4.3e8.eu (srv4.3e8.eu [193.25.101.238])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57F2345CCA;
-	Wed, 23 Sep 2026 21:01:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.25.101.238
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197304; cv=none; b=ihx5S633di5Wk5wU3uowGHfS0Qa+nbupNEcl+T2CigkcNUX+7kELhphP1SYi9pFlgqp5PKSdN41eCrYBTzP3tZ8bwBnUeZXQGizPmXcJGKw8z20GUAcf87QArOJBgU7yhyGdjAE/uOFILaUm4+IAKgoSBv6xAcv+12AOp4+4M8o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197304; c=relaxed/simple;
-	bh=Dg/aeY7kTlwnOOtiNCmmG0bt1l4X6z/k5ayTLituIJA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZAp2yYLEzQ5yEpAKMF/xxNTKMfprhF12ty22KGGIVxPTJhef69Xel+k0vuTknfNC+zEKdC6zjLLsZQQPaqiomXdDhFbb2VpDkzgR9i5uYu1T08kehfj2m5A35DvFH+zepLTC3M/ZZZCD86JHOilG6aiRAxBnHBosCJ6wlI13O/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=3e8.eu; spf=pass smtp.mailfrom=3e8.eu; dkim=pass (2048-bit key) header.d=3e8.eu header.i=@3e8.eu header.b=O73ppuCx; arc=none smtp.client-ip=193.25.101.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=3e8.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=3e8.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FDA3A5E89
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:02:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790197330; cv=pass; b=oe2YcCiax/uKZGwcwarpFxcGa+23Wy4G5qIDwVybLwnsx+SLJAlOChCx4VtgBA8v+bK7nHWGQaUZQmrAfrvWuMBlvQwG9QbgHmhOIZ7MWLaqIHJtd7sW2cOFLlJODz4bOHXd4jcuv791xejZcP1Bz07xT2NyoCY0GZkdrbfAwJ0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790197330; c=relaxed/simple;
+	bh=/ivY9I/EG9+DSzOaxxM5obfKFkrp4hNLEWa7/4iEB2o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G7Tz6WF6Q2SVr3ypMRINF7t+sCjzL1a6z+7wzt2gKI1US+DWdaRsq4eIxi829o4aY4D1vq1KGe5vsB4XsCLmSyVnGafNnFXlITF/fSzZ45cGRiHb2H5dJkGIDCdVWiubO7CT1PNXJyJqqyLVqxwA6I3+25FYTQ9g6FgHLURJk6o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iVa9EvIM; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=n/CmEFhY; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=3e8.eu header.i=@3e8.eu header.b="O73ppuCx"
-Received: from [IPV6:2003:ed:4708:38a0:7b81:aa82:3807:35d8] (p200300ed470838a07b81aa82380735d8.dip0.t-ipconnect.de [IPv6:2003:ed:4708:38a0:7b81:aa82:3807:35d8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by srv4.3e8.eu (Postfix) with ESMTPSA id 22C37400AA;
-	Wed, 23 Sep 2026 23:00:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=3e8.eu; s=mail20211217;
-	t=1790197230;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iVa9EvIM";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="n/CmEFhY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790197326;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=iVE5wQUd/v2jDn02ZGJtFFXOibJs/w2KTJJLx/xoKW0=;
-	b=O73ppuCx/ainZ7EN1fkGbk7ql0xyhErqO0cle8n/260KkL7uIHMvbyJAMV1UUAhsvFTIL3
-	ivS3iyFqRr0ySNP1tL0Xgm9PGOYzpYsfOlJnhxx8VPEelGvaspXqVIXkGbBunm3EgQxiFf
-	Gig1CQajtcGb2NqAERT9Pp6lkHmTmmmLR3fKphyJJZQ8zM1k9pK08i8glrHNcINYHTrBzM
-	81+veFPcLljGJadUjudedPnYuReQyjch3s7Ya6o2zgwZdfVhJDHm3PDbikFzETyVy2AjG1
-	aBe35peHgeEGa/mTtni+ZONUsfIvQ++hH5c4GyauRit3/O7fxbUHujRzKXocDQ==
-Message-ID: <8a577d70-6038-45d4-821b-ddc3852feb13@3e8.eu>
-Date: Wed, 23 Sep 2026 23:00:27 +0200
+	 in-reply-to:in-reply-to:references:references;
+	bh=teMaf0NJPbuhvSvBaJzyDInJb+MTYgx/6C4I8crlQU8=;
+	b=iVa9EvIMSOmnDA9b474bHGTgWhK9mWBlyGQKdZQE95Fl4XI9BIsnvggctghhWj+sy7pem6
+	xGGy6iqdWcoKa7a0a2pYuF0GR1vTCxs9at+pTfTjxCJfE3MLhup9MRqLB8NNYBVVzD2C09
+	JFu3I0BtsFSnHHXt4+KQDU6TfjFWhyU=
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
+ [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-541-Fx-nfXRpNXWp0ja7GQiEdg-1; Wed, 23 Sep 2026 17:02:05 -0400
+X-MC-Unique: Fx-nfXRpNXWp0ja7GQiEdg-1
+X-Mimecast-MFC-AGG-ID: Fx-nfXRpNXWp0ja7GQiEdg_1790197324
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-671562ddec3so2239729d50.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:02:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790197324; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j/43HUjk57MnN6H05ebt0/4WjHlcb2Yfjvp1HkvONKb4mPU4PVd3sRYzNeKf+eDMuq
+         5kT5vN148jU+uafNvYLrR8XZvYKo8fFl5nz7JPWLPpkrCm4JBg3xo/Edy9kJnCfUipFx
+         vSSiOzYdaM9/ZVh2jiGRsVHmzrXP1oo7Q2cay6WKByF9oel6YzMdaUuGJPjCwQjLUw8E
+         JiJEZk+dfkFRphOrSU2p8xewnZ+HFVyrhpyQ/w9C5nB5hYUbxoU/3py7r3VbPoIt9laG
+         mH7afyu3Vbp55ckci36AmEkfJM2KQeWpN/Py/oEE1hlHKDqSaC71pgLYvI4M1HYONbtf
+         edbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=teMaf0NJPbuhvSvBaJzyDInJb+MTYgx/6C4I8crlQU8=;
+        fh=77v8FQurpmA8baDcjFuoMqdF4C31i4oVUR6T/HwWiuI=;
+        b=SPnU+b6W1HFWTR12QECNYAvRfMNFZZae6kXXmnp+BT/RJZvAVBtbgC6IFV48BtE8/j
+         WK7CLRKCccHUIQ8QHIHubQZNgGlDMX5zVRuq6r9Q/nrKVnuiyyH1veYXWQReHcuiN4Hi
+         NaoCfGViakt7N+Oxd31T4SHuq0MGrw70kN6VQlz2VAiDQ9dBcOHDQva3xPKjplxp/93U
+         ZEjoSkCmU5PfMhaDyQdqmPoBK+IJV24I4L/Z3e24/g9PoyN5niLIRw3EjMWEstUXIuEl
+         m5ymQYjT6qjvIcq8mpMuZtvTEbrCmqxYyw92BI83fIlfwE8rUgjmdYit1uKxmbhB6lai
+         g6aA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790197324; x=1790802124; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=teMaf0NJPbuhvSvBaJzyDInJb+MTYgx/6C4I8crlQU8=;
+        b=n/CmEFhYAJ6MW3O+wjQ17UzxqlCJ10jJz3Ge87DPMfsz+JewaXJ8mpe/bCrYblQt08
+         AxEhkb5gsvAtL2gCZtzLKhAyvPkNDudpQh3h9nLMGOEldlf+KJYpfBQ0+CMP7/vyGGQH
+         wsACfNLDGYY8fZLifo93OyIoYkXJIOr+ehjCzjCweIAi3uLpauw0oka1mxr2sJYITdAl
+         02jWqtjWwa9MCGZFN39Wws+eKs8UhSzxeEBXPb5lN7HX6Mok71MujcLawfSktjCc97WP
+         /8ZX+zot8DTfhFEszQJ+YuFMSmVn9thpkumAwZS8uTlZc2uEmVHsRC9HW5HZHljDGlS7
+         bTeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790197324; x=1790802124;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=teMaf0NJPbuhvSvBaJzyDInJb+MTYgx/6C4I8crlQU8=;
+        b=0Xg4h4If+v9/drNDNzLYlhIogkdsulsFvVvPoVQ0Wi764SZNJiDc1BUaffxl8Akx5s
+         nOyB2OUmHEITKlZZF3JYeLrl6CZSiXg367cUm4gM7HoW6vuSGNw2GQUasV9wj7N4j6lB
+         jd9RwjULArSNi2QJA5qM61Ssh0a5+G+Zh3iG3Z7Kfnt3YjAX7NotUcv9DmLstwwuyzDP
+         L9vWQcnSdjMzIBlucivWuMKELAV2Kmx7DRXs1WsETX533dxBPYUjajZiohl5yXcqrEaP
+         1EcIWFnqONg8WyEwmpk1OB4rOuk5izxZw59losLVB7VaHg9feaFMheuqY5r65TAV8blT
+         quTw==
+X-Forwarded-Encrypted: i=1; AKwUvBxjqynrZMu5yqgkyUtCYNWtYk8ep/+npgO7j2zffi9N5DOiXry6dKc3XPkvGgpuTYRiNl7OGDgEgokKcwI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mt5vc/YPdT6ljIIFEaQ9WbWanBL2wxZ9XnPly4P1Hu9xwEh/vz
+	DjGERFzJ7hSWdqPyWpmxrDQmxn3tMwt9Rbqv/NLmsQMLie8E26XfuKDVwJYP41ejJxOYP3oBTvf
+	fQBzuGLkiBnlZOPrsYWnv5Lzk/gfPTKXvIGPTx7U0tS/dfVPRDTJiDEF/uNLf0oUYqDEgKK0RTh
+	GLhPpbVPBq0nXPYLNuNkB9XUHlb5aconVAtj6eRTSn
+X-Gm-Gg: AYBFou05bYYgGXkzMqhsr5oib/9c6onWx4PxfN7tnLqxM9/V/cdHTOAVHUeKQxubBrD
+	4pHwBEcAs13DhTiERQap3HIeB1ZTmuQMjJOgzvwn4rUtnAiJxCWr7UYMLJu4nWEPTbDTPWooKss
+	86/FAZ5EjMud/OPZZHihDsYNo2Wcgf70vq0/kQ/LlHku5ug6H9jqkA3Ju5aU5J0IhhSN8+qtOXl
+	DYpVFzyJ64brtu1cMSR1ErDalla1VayX5Azwe7ZtLOP8A==
+X-Received: by 2002:a05:690e:408b:b0:671:70d1:d6d4 with SMTP id 956f58d0204a3-672ed8e80c4mr293365d50.70.1790197324204;
+        Wed, 23 Sep 2026 14:02:04 -0700 (PDT)
+X-Received: by 2002:a05:690e:408b:b0:671:70d1:d6d4 with SMTP id
+ 956f58d0204a3-672ed8e80c4mr293294d50.70.1790197323555; Wed, 23 Sep 2026
+ 14:02:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next] net: sfp: add quirk for XikeStor SKT-2.5G-100M
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Russell King <linux@armlinux.org.uk>,
- Heiner Kallweit <hkallweit1@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260920192632.72729-2-jan@3e8.eu>
- <b4a42595-295e-456b-82a0-91076f72407d@lunn.ch>
- <64e712bb-4c2a-4738-9f99-7c8496e2d4d9@3e8.eu>
- <640a7c34-38d2-48a9-a647-9298318f7c8e@lunn.ch>
-Content-Language: en-US
-From: Jan Hoffmann <jan@3e8.eu>
-Autocrypt: addr=jan@3e8.eu; keydata=
- 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
- AqNjQxfojjo=
-In-Reply-To: <640a7c34-38d2-48a9-a647-9298318f7c8e@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260921211712.1563575-1-agruenba@redhat.com> <rhj2uhowkjekxgi7tkxko5odxw3zikthtnlef5f5owrfjzrt3r@nul7b7ldcb2g>
+In-Reply-To: <rhj2uhowkjekxgi7tkxko5odxw3zikthtnlef5f5owrfjzrt3r@nul7b7ldcb2g>
+From: Andreas Gruenbacher <agruenba@redhat.com>
+Date: Wed, 23 Sep 2026 23:01:52 +0200
+X-Gm-Features: AcwNN1Wx3An96hJa8GxLoJV99l3BMwVJSGq56GeWtJeaT0vWl86MXKjtrRWGLfo
+Message-ID: <CAHc6FU4Rf9-r8m8SSb=e0k0zyoFhQAdjupHMWvT6rStBshntug@mail.gmail.com>
+Subject: Re: [PATCH] fs/gfs2: prevent premature evict in prune_icache_sb
+To: Jan Kara <jack@suse.cz>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	Christoph Hellwig <hch@infradead.org>, Matthew Wilcox <willy@infradead.org>, gfs2@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> I assume this PHY does have a valid ID in MMD 1-29?
+Jan,
 
-Yes, MMDs 1, 3, 7, and 31 all report the same same ID (0x001cc849).
+On Tue, Sep 22, 2026 at 1:22=E2=80=AFPM Jan Kara <jack@suse.cz> wrote:
+> Hello Andreas!
+>
+> On Mon 21-09-26 23:17:11, Andreas Gruenbacher wrote:
+> > Introduce a new I_NOPRUNE i_state flag for preventing prune_icache_sb()
+> > from pruning specific inodes.
+> >
+> > prune_icache_sb() prunes clean inodes under memory pressure ("direct
+> > reclaim").  An inode is considered clean when none of the i_state flags
+> > are set; the assumption is that evicting inodes that don't have any
+> > i_state flags set will be fairly cheap.
+> >
+> > Unfortunately, on gfs2, inodes can be clean in the sense that they won'=
+t
+> > require writing back to disk, but they may still have outstanding
+> > revokes (as indicated by the GLF_LFLUSH inode glock flag).  To evict on=
+e
+> > of those inodes, those outstanding revokes need to be written out first=
+.
+> >
+> > This requires flushing the log, which is already an expensive operation=
+.
+> > When in data=3Dordered mode, all the ordered data needs to be written o=
+ut
+> > before the log can be flushed, which makes things even worse.
+> >
+> > As previously discussed [*], we are currently also running into the
+> > following warning in iomap_writepages() when flushing ordered data:
+> >
+> >     /*
+> >      * Writeback from reclaim context should never happen except in the=
+ case
+> >      * of a VM regression so warn about it and refuse to write the data=
+.
+> >      */
+> >     if (WARN_ON_ONCE((current->flags & (PF_MEMALLOC | PF_KSWAPD)) =3D=
+=3D
+> >                     PF_MEMALLOC))
+> >             return -EIO;
+> >
+> > So we need to prevent prune_icache_sb() from evicting inodes that have
+> > any outstanding revokes.  This patch achieves that by introducing a new
+> > I_NOPRUNE i_state flag.  When that new flag (or any other flag) is set,
+> > prune_icache_sb() will skip those inodes.
+> >
+> > In the filesystem code, we set and clear the I_NOPRUNE flag in sync wit=
+h
+> > the GLF_LFLUSH inode glock flag.
+> >
+> > An alternative approach might be to allow filesystems to refuse evictin=
+g
+> > inodes that prune_icache_sb() has already selected.  This could be
+> > achieved by changing the ->evict_inode super operation to return a
+> > lru_status code or similar.  prune_icache_sb() would then have to
+> > resurrect inodes that were already marked I_FREEING and put them back
+> > onto the lru list.  This approach doesn't seem obviously better than
+> > introducing I_NOPRUNE, so I haven't pursued this any further.
+>
+> So for situations like this I've written a patch set to allow filesystem
+> to mark inode for deferred reclaim (from a workqueue) [1]. Would that wor=
+k
+> for you? It will definitely solve your problems with warnings in memory
+> allocator.
+>
+> I don't want to have two different mechanisms for the same issue so if my
+> solution doesn't quite work for you, let's discuss how to make it better
+> :).
 
-On MMD 30, the PHY ID registers return a seemingly random value (or 
-0xdead in the broken state). For other MMDs, the PHY ID registers are 
-all zero.
+thanks, this would solve some of my problems. In the gfs2 case, inodes
+are only in "deferred reclaim" state for a while (while they have
+outstanding revokes) before becoming directly reclaimable again. So
+I'd also need a way to clear the I_DEFER_RECLAIM flag again.
 
-> I wounder if we can make use of:
-> 
-> 	if ((devs_in_pkg & 0x1fffffff) == 0x1fffffff) {
-> 		/* If mostly Fs, there is no device there, then let's probe
-> 		 * MMD 0, as some 10G PHYs have zero Devices In package,
-> 		 * e.g. Cortina CS4315/CS4340 PHY.
-> 		 */
-> 		phy_reg = get_phy_c45_devs_in_pkg(bus, addr, 0, &devs_in_pkg);
-> 		if (phy_reg < 0)
-> 			return -EIO;
-> 
-> 		/* no device there, let's get out of here */
-> 		if ((devs_in_pkg & 0x1fffffff) == 0x1fffffff)
-> 			return -ENODEV;
-> 	}
-> 
-> I assume this is not hit for this device?
-
-The devices-in-package registers (5/6) have the same value of 0xc000008b 
-for all MMDs (0-31). So the variable devs_in_pkg already contains that 
-value at this point and the branch is not taken.
-
-> I _guess_ there are ~0 PHYs which probe based on ID values in
-> MDIO_MMD_VEND1 or MDIO_MMD_VEND2. So maybe move the code looking for
-> device present in MDIO_MMD_VEND1 or MDIO_MMD_VEND2 inside this clause?
-> Then in the normal case we never look in these registers.
-> 
-> If we don't look to see if the MDIO_MMD_VEND1 or MDIO_MMD_VEND2
-> devices are present, i assume the next loop:
-> 
-> 	/* Now probe Device Identifiers for each device present. */
-> 	for (i = 1; i < num_ids; i++) {
-> 		if (!(devs_in_pkg & (1 << i)))
-> 			continue;
-> 
-> will also leave them alone?
-
-Since bit 30 in devs_in_pkg is set, this loop is actually where the read 
-breaking the PHY takes place. Currently, it is phy_c45_probe_present 
-which breaks the PHY by reading register 8. But without that, the same 
-would happen when reading the PHY ID from registers 2/3.
-
-> But if there is an oddball PHY around which relies on MDIO_MMD_VEND1
-> or MDIO_MMD_VEND2 IDs, we still look there, if we failed to find
-> anything anywhere else, and so hopefully it does not cause a
-> regression?
-> 
-> 	Andrew
+The I_DEFER_RECLAIM flag setting and clearing code would be racy and
+ugly though, so I'm wondering if we can change the ->evict_inode()
+super operation to return a DIRECT / DEFERRED status code instead. The
+filesystem could then look at the filesystem-internal state and return
+how to proceed with the inode. For example, fs2_evict_inode() would
+probably request a DEFERED evict when GLF_LFLUSH is set, PF_MEMALLOC
+is set, and PF_KSWAPD is not set.
 
 Thanks,
-Jan
+Andreas
+
