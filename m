@@ -1,120 +1,230 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42AC52122B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208DF466B77
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175872; cv=none; b=DhK34ZjZQqOID+yh6S9i6kzwLJOsx5kdI/x6uESaW9W6eD1m+5Iu2ehtdDwVaf4kdc7g4Cyqzz9sGcJVJaLb5Fy4i10H2gVuOxZlQeRS0yO5OFnUudPdpI+2WBzE1A3pWQW0QV59P5DNMbHw0pRx/e/rcYiqkyJdQ0iOoz9467Q=
+	t=1790175917; cv=none; b=g/Vy3b9fzPwwlrqiyFj7jKkqR+tWs+226lacuEVVJjLipAqIwZ3aIfF2X9NH5Cnj1o/uy+CYPXSZJgFexU+zijtKUaAaxHhcXLNzT21L7p0YqbQ2hT0qLNhVarKZtAaieL4TVEXNniu2qCAw5e8Xt6gUJ/RdYglOfwrn5kH6lUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175872; c=relaxed/simple;
-	bh=FNdaQtDLXPhBhDneZAU5Xq3VTmYyqfMdIvCqNB5oh7c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b0Mt3jCg2EvZtBYMFOHrwWneXALkPT9sRL/Z3skDJ/M2H1165ThoiC2oO2/neet9TPHluRH1wdDtE0fBq/osHFrCL6NiUaFXpgzf4yhJuJ2e6xP0BDLdLlQEx3SG0QpyQamVQWTfHXQiiibgit2AhVtXnJ9i1iPGW6cZXn83F18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iKtqr3E6; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1790175917; c=relaxed/simple;
+	bh=rp1KQ2VRmhfqZU9qSd57CBPBNtwA3aQtI0YNPDTfp7E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dKVWTSvvgGSI5M2oEpflISxfaxvsUZbfChRNSDxMA7yCZdTq5yCuD50EI+pOysVgJk72ljZKxuEI1fMe4Q9uyA9hjfFXVeHd2eHIxsVLZsrORHGqRFwFi+pIkvr1b19h1HwObHj7/EbbG7/FEZdE1bzWjUPawzTWt213N1WV2vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LijUIpRs; arc=none smtp.client-ip=74.125.228.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iKtqr3E6"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so5830635e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:04:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LijUIpRs"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f6c7a4aso137029266b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:05:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790175869; x=1790780669; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QHYobJCB0QM9EQB8543tguRP7m9oT9qsRVNrSacw7So=;
-        b=iKtqr3E66lcWq5nTzK/gLhvX29zHjM/fG0/kOZJQc5lKqsk3M580WEyfDTq+DUlfvT
-         cio1oh1GBEgDxTX4Omm0nOGP0xTmXcO5tX7zDbfnQtejlCMwsdrX3hrGu/tR1d+SDnsF
-         I0epbhIoc0nmWnTnTtvkobMf4/YhK3parnLuLLZByyGcCzzdtGhM1pyQ0mLAiavxWZAr
-         Bb/kXVeuiT0IwxaDIhSlx+V7M1RgTbcwuEsDYzfo8AL/d4NKYu1lxQ7/ewMtJ/HKDObT
-         XnUS+sx71CDvSIS3hdEe+KHDBiYyba91aLcMlmiuBN+Z5qqPM2agznrhx5csEF+uAGzn
-         5bMA==
+        d=gmail.com; s=20251104; t=1790175911; x=1790780711; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JUga4eXtCVg9VRjH/WIKSFqPpCVH1XzzVx2Gw8aeOLA=;
+        b=LijUIpRsXJZmBnxAmbrUMvq7r2YTvW9xpob6IPHL+98gR/RPGiJKU5VA7TJWkEunBC
+         m22egctjJDGMs0ED8kBm5aJsnuc7dvVl8J4W3hwA4PlPsbsvY7dZz4XnwCQAWbinQHqW
+         lSmOt+gzSOfTEgGSiIkQaUqjvzOIMHJDOpiV5C3KCSt0QfKpIAQBcjTRx02lnIF9moP6
+         So6vj0r5gTe/n45DS0fEL/f4dghLA/lEz3xHpH+zLs0G82ZlVDsts/qnw7uGfEAo6RQr
+         SrjHiQoaDbVXStepZuf1L5jW+sDo+srkXNTPf+wXMiSHGHfoy6451hdSnT4XN4oXfITY
+         QogA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790175869; x=1790780669;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QHYobJCB0QM9EQB8543tguRP7m9oT9qsRVNrSacw7So=;
-        b=kFOItn90xrgR85tHvoSJ2xajUKbZkyXCd6pGKkSPeJDCbGAV+uTL9ggJic9VTa4+0g
-         EukmNxQygsMvAkB+TfKiSpfJ7S+rUWkm0+9vIYP9ttOg7ELnjyuT9weYi74RuAgMP8Uz
-         RJzVXw1sXJG6dCtqU+iAPre+cK/oUQDrWrROWq4P1qMANZU+9mev9ZtHKUCzetd3E9I1
-         7m0YTsHhBloxuL5fAYurryj3fibtaZK/bNBtBaeKbEsFGDvbEfzYGpkRZd+0jbRi9rwX
-         nncKjVqh0PEiNbYNpmLWJuM1UcQQb5G4ougDOV1MS5x28Pv3Hd144nwXHqsD8DTy7kkd
-         aMlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwE2JRKmsP+Rywl/vwAhCPwREL5cAl6wSLt6Px1DTAWb9KVz40XX4acfzNG091JqIfjw9t6r0dOxt4tm0s=@vger.kernel.org
-X-Gm-Message-State: AFuF++k6QTegqRx2IlKHSkWaSdvaWW6xAp52d75f4OFrW4ZfXDH9xRER
-	6urX3Q+ZTafIQH9VSoe5Gl+IHN45fSBN1O8qEh5E1Qq7jkImKaswBBoL
-X-Gm-Gg: AYBFou33yHnT/r4JXNn2q6vciQVGLrdUWkuWr1PUCDS73IbinyNjrc/QQ3UqN183oRI
-	LVOjKBmN5XUVodHpiJ6MUomSik1Rr0a0iEimhAJ6owD+0ta9jo0EKntmOQGczg26Nb74XkV1w7x
-	ckp5h/975WzKh64cGH0o5Op0Y+PCLRYCRoNXFZ9jBVoTfwOAbTreQx+B472kBviZmxrR3qkuMPd
-	BvEFwcS3SyodWmvQmkoNIBk5FDD9x2kGnlN3Ft8Hr7hTBndg5o0PUUuwlbJtCY8ymA35gqK5+ud
-	Ts6rR2RpL9iunOJueBhIZJsSXQXMdlJ+ipd1Ceqq5x7TiNXkC2JMx3P0LILrKNo5eS54jb+1tg6
-	0QiVeyee6kHkA/wZuNNnfkTWdqYtqBeQRHP+J24wAxJ/I9fQpX9wS48f7D9+V4RNswyLJy5Fbx8
-	zu04dtN0Fg+s9vOEjBUbuzdXs8MzbZPX9qSqTt0xI57PRBk+hK4vSnd3+Kg991jyH5BiezrpBFM
-	qZgqH5UOcVEhf9ltfUD/1ou8OgZ8+duWdQIoNE4APQFr+8LxNplRMPWe3o47ezqof+Q160YRnXr
-	2XGqUSvZ4kXiLeVyhlSvsoo=
-X-Received: by 2002:a05:600d:644e:10b0:49f:e441:d61f with SMTP id 5b1f17b1804b1-49fe441d6c9mr12105775e9.21.1790175868945;
-        Wed, 23 Sep 2026 08:04:28 -0700 (PDT)
-Received: from omarchy ([2a02:ff0:1e10:93f:ce47:40ff:fef1:ce77])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde18093csm94979015e9.3.2026.09.23.08.04.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:04:28 -0700 (PDT)
-From: abkarada <abdurrahmankaradag19@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: pkshih@realtek.com,
-	kvalo@kernel.org,
-	briannorris@chromium.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH rtw-next] wifi: rtw88: pci: recover from a stalled TX ring
-Date: Wed, 23 Sep 2026 18:04:03 +0300
-Message-ID: <20260923150403.184831-1-abdurrahmankaradag19@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <6f2a314798c64ccfbfd59ac8a8ee6e01@realtek.com>
-References: <6f2a314798c64ccfbfd59ac8a8ee6e01@realtek.com>
+        d=1e100.net; s=20260707; t=1790175911; x=1790780711;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JUga4eXtCVg9VRjH/WIKSFqPpCVH1XzzVx2Gw8aeOLA=;
+        b=ZCFfJxtlHF5i1eT83Mcq+1EwkCLnaEb1b88pj25KiYX3k9eJPULJsok0WYw5P4/yvy
+         Sr+SlyCDM5JpbQnjNwRULaejr8Y4xY0qenHFdlPRrLTCtfjJCFSBaljf4bHUwlywx3W9
+         4AANEekWDmsSv+5s3CMrACDizlq5IEZPUxTZL458186o30UERjFCPNNWFIhjnShzARaF
+         IkoVON9pv4kD2C26oV2DjZEWgEyISIaE+WDyLzLEHCfexGhKwQbE0TSGWeJ4EIuRzGdX
+         TWy681hqpUOx8uGy0G8YctsjBUW2OBzK0J+OFPu5fUtWHD+3dIv5QZ2vwP6u59uvCkax
+         cSNQ==
+X-Forwarded-Encrypted: i=1; AKwUvByuLjG89/GCGxt0qptJrEkRdHVGoI/2poapE5qrC4+WXzJJb0gYxHQEpZR7FYfM3LvvnBt6fYBL1de3JHY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgAUrS6t7skyvV+QYHywGCVrVjmI+fNOG24dC4tx9TyIlxVxDp
+	36A+I/yOK3nOTwh5Fa91NAFxL9pnt3RlQvKXzrHLxaPvAtDoUtANPN6K
+X-Gm-Gg: AYBFou3vEPoReWsOn76yjDZ9JpLMYCvECbdnkflhChYP21x1ZlMSwEXZPY2Apbsy6ju
+	Jo+6uvGDj8X5694oKr14XNa4jDJmyq+pSzI67HUwhs0ZO/ETk4uutinAi7PtFPkVNwsEtdIMuqP
+	Q2ZMKy2iDE+VoLrb/A1kozbzx2tBioivO1VQvwqe9DnMq5FQ5r09kxv2oeMA5iLDxnE8guAF0B6
+	OeWfCAZyNP+zsSPa1w8volu0GjcEai2dF5frFm3uSShTYt4RV43ZdId/jySkSWDg396chAuRoLM
+	A9RpU/11ToTEdnGkw1kw3Yv0Zx0vhubIwQiNuzcutqgAth9lEOU8CrsmNg35EvtXYyGlzRWSjmB
+	+I2+4dcDyg1hKwlya0HiS8krZEqfsOmUklwqZHWUR9nE/i/2gj9cfq+bF609ZRNh3S2KbVJSVDM
+	VM7jbrm+RbF1VSyqdS5to97H4QYg5Y9yBTwTkF0QA+Z8g2EjdnV4FDbmhUu0VZ/LXt/6yEcgG8z
+	Pz5CuU85LDg
+X-Received: by 2002:a17:907:7287:b0:c29:d31f:7d7a with SMTP id a640c23a62f3a-c2aadf37c48mr248950266b.21.1790175911358;
+        Wed, 23 Sep 2026 08:05:11 -0700 (PDT)
+Received: from [138.92.0.0] ([104.28.254.34])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c5524sm144401066b.21.2026.09.23.08.05.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 08:05:10 -0700 (PDT)
+Message-ID: <1edaa3cf-f3bb-4408-8777-3ff44a4a2209@gmail.com>
+Date: Wed, 23 Sep 2026 18:05:08 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] HID: multitouch: add support for Goodix GXTP7863
+ touchpad
+To: Benjamin Tissoires <bentiss@kernel.org>
+Cc: jikos@kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260814171247.16707-1-daminovruzal7@gmail.com>
+ <20260819123326.3242-1-daminovruzal7@gmail.com> <aquWNXpJuQr8HLBU@beelink>
+ <51055e02-5bf1-4b1e-b430-382d00d3d004@gmail.com> <aqwUYWPz_nORoFr6@beelink>
+ <33a7c239-ede5-4091-ba72-ff429d97013c@gmail.com>
+ <816a300c-1f63-4d4a-a0f9-8eef5bd7e748@gmail.com> <arJ-vvEvd93l_aAp@beelink>
+ <41f8ed8e-1466-4002-8411-bf9871da2adc@gmail.com> <arPT9zIoypn5V3PT@beelink>
+Content-Language: en-US
+From: Ruzal <daminovruzal7@gmail.com>
+In-Reply-To: <arPT9zIoypn5V3PT@beelink>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Sorry for the slow reply. I wanted to answer your questions with
-measurements rather than with an opinion, and that took a while.
+On 9/23/26 4:31 PM, Benjamin Tissoires wrote:
+> If you could work on it yourself that would be great
+> 
+> FWIW, I tried playing with the new HID_REPORT_DESCRIPTOR but if this
+> allows to read the current report descriptor, this doesn't allow to
+> amend it, making things a little bit too complex to implement properly.
+> So it would be simple enough to use the same old bits checking and
+> changing so you get the BPF quickly out.
+> 
+> Cheers,
+> Benjamin
 
-> > +               stopped = ring->queue_stopped;
-> > +               ring->last_rp = cur_rp;
->
-> Does software pointer cause driver doesn't restart queue?
-> Or without changes of this chunk, the stuck can be resolved?
 
-No. last_rp and stall_cnt are detection state only; they never touch the
-data path. The only action in the patch is the kick below.
+Hi Benjamin,
 
-> I mean just doing this kick is enough to resolve the stuck?
+I implemented the BPF fix and verified it by toggling with `udev-hid-bpf remove`
+and `add`: without the BPF program the UNKNOWN keyboard node appears
+immediately, and with the BPF loaded it completely disappears.
 
-No, and you were right to ask twice.
+I wanted to open a Merge Request on GitLab, but my new account
+(@mounkastel) hit the anti-spam project limit barrier ("Limit reached:
+You cannot create projects in your personal namespace"). I have filed a user
+verification issue on freedesktop/freedesktop.
 
-I taught my watchdog to rewrite the TXBD host index during a real stall
-and then measure whether the hardware read index moves. Three live
-occurrences since:
+In the meantime, here is the git patch below so you can review or apply it
+directly to udev-hid-bpf.
 
-  2026-09-06 03:17   BE rp 0x00b7 before and after the rewrite
-  2026-09-14 17:48   BE rp 0x00c9 before and after (wp 0x6c -> 0x6d)
-  2026-09-14 19:09   BE rp 0x009e before and after (wp 0x50 -> 0x51)
+Cheers,
+Ruzal
 
-In all three the read index never moved and traffic stayed at 100% loss.
-The premise of this patch is wrong: the hardware is not waiting to be
-told about new descriptors, it has stopped consuming them, and writing
-the doorbell again changes nothing.
+From d585a7cdb2f75dd0d22dda9d7701147d4290d191 Mon Sep 17 00:00:00 2001
+From: Ruzal Daminov <daminovruzal7@gmail.com>
+Date: Wed, 23 Sep 2026 17:42:10 +0300
+Subject: [PATCH] HID: bpf: Add Goodix GXTP7863 touchpad telemetry fix
 
-Please drop this patch. I will not resend it in this form.
+The Goodix GXTP7863 touchpad found on Honor MagicBook laptops emits a
+periodic 1-Hz telemetry heartbeat report on vendor page 0xFF01.
 
-I have sent a longer reply in the bug thread with the rest of the data,
-including the fact that the stall also happens on 7.0.12, so my earlier
-good/bad version claim was wrong as well. It also proposes a different
-direction for the driver side, which I would rather agree with you
-before writing.
+Because page 0xFF01 is historically mapped to HP vendor hotkeys in
+hid-input, changing telemetry payload bytes are misinterpreted as
+brightness keypresses, resulting in an endless KEY_BRIGHTNESSUP loop.
 
-Thanks for the review, and for pushing back on the mechanism.
+Remap the vendor telemetry page to an ignored vendor page to prevent
+hid-input from creating a bogus keyboard node, while keeping the raw
+reports available through hidraw for firmware updates.
+
+Tested on Honor MagicBook X14 Plus (FMI-76, AMD Ryzen 8845HS).
+
+Signed-off-by: Ruzal Daminov <daminovruzal7@gmail.com>
+---
+ src/bpf/testing/0010-Goodix__GXTP7863.bpf.c | 66 +++++++++++++++++++++
+ src/bpf/testing/meson.build                 |  1 +
+ 2 files changed, 67 insertions(+)
+ create mode 100644 src/bpf/testing/0010-Goodix__GXTP7863.bpf.c
+
+diff --git a/src/bpf/testing/0010-Goodix__GXTP7863.bpf.c b/src/bpf/testing/0010-Goodix__GXTP7863.bpf.c
+new file mode 100644
+index 0000000..84372c7
+--- /dev/null
++++ b/src/bpf/testing/0010-Goodix__GXTP7863.bpf.c
+@@ -0,0 +1,66 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright (c) 2026 Ruzal Daminov */
++
++/*
++ * Goodix GXTP7863 Touchpad Telemetry Fix
++ *
++ * Problem: The touchpad sends periodic 1-Hz heartbeat reports on Report ID 8
++ * with Vendor Usage Page 0xFF01. hid-input treats Usage Page 0xFF01 as
++ * HID_UP_HPVENDOR2, misinterpreting changing telemetry bytes as phantom
++ * KEY_BRIGHTNESSUP events.
++ *
++ * Fix: Remap the vendor telemetry collection to an ignored vendor usage page.
++ * This prevents hid-input from creating a bogus keyboard input node while
++ * keeping raw reports accessible via hidraw for firmware updates.
++ */
++
++#include "vmlinux.h"
++#include "hid_bpf.h"
++#include "hid_bpf_helpers.h"
++#include <bpf/bpf_tracing.h>
++
++#define I2C_VENDOR_ID_GOODIX		0x27c6
++#define I2C_DEVICE_ID_GOODIX_01E0	0x01e0
++
++HID_BPF_CONFIG(
++	HID_DEVICE(BUS_I2C, HID_GROUP_ANY, I2C_VENDOR_ID_GOODIX, I2C_DEVICE_ID_GOODIX_01E0)
++);
++
++SEC(HID_BPF_RDESC_FIXUP)
++int BPF_PROG(hid_fix_rdesc_goodix_touchpad, struct hid_bpf_ctx *hctx)
++{
++	__u8 *data = hid_bpf_get_data(hctx, 0, 4096);
++
++	if (!data)
++		return 0;
++
++	if (hctx->size == 705) {
++		/*
++		 * Report 8: Change Usage Page from 0xFF01 (HID_UP_HPVENDOR2)
++		 * to 0xFF09 (HID_UP_LOGIVENDOR2) at index 625.
++		 */
++		if (data[625] == 0x06 && data[626] == 0x01 && data[627] == 0xff &&
++		    data[632] == 0x85 && data[633] == 0x08) {
++			data[626] = 0x09;
++		}
++	}
++
++	return 0;
++}
++
++HID_BPF_OPS(goodix_touchpad_ops) = {
++	.hid_rdesc_fixup = (void *)hid_fix_rdesc_goodix_touchpad,
++};
++
++SEC("syscall")
++int probe(struct hid_bpf_probe_args *ctx)
++{
++	if (ctx->rdesc_size != 705) {
++		ctx->retval = -EINVAL;
++		return 0;
++	}
++	ctx->retval = 0;
++	return 0;
++}
++
++char _license[] SEC("license") = "GPL";
+diff --git a/src/bpf/testing/meson.build b/src/bpf/testing/meson.build
+index 73158c9..97435ad 100644
+--- a/src/bpf/testing/meson.build
++++ b/src/bpf/testing/meson.build
+@@ -11,6 +11,7 @@ tracing_sources = [
+     '0010-Iiyama__ProLite-TE9804MIS.bpf.c',
+     '0010-XPPen__DecoSE.bpf.c',
+     '0010-Corsair__K70-CORE.bpf.c',
++    '0010-Goodix__GXTP7863.bpf.c',
+ ]
+ 
+ # 'sources' are BPF programs only compatible with
+-- 
+2.55.0
