@@ -1,212 +1,430 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3C12446BFA
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:57:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF79756E056
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:58:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197035; cv=none; b=jVlHgqo5goxwUbQh+xQcJFgFN28m6cjiZ0NFF6FgEnY8kSGaarVHrMORjtWIirEGB15QCNSMcvSiqGSnVdjuoLnnWNQM1wv3h+UOUwRpPPrXuKs8OAR+e90+I/HrjkT/J5jQ+FGERlshRm5POjMYuCV3lCCPx35nejrLIvCWrks=
+	t=1790197109; cv=none; b=pVrUdIxA4bTivJ1HddScLoqYnkiYNmQYiI2Up5rYbXAy3Gyo9LAUNqxp/FVTQUCS8CinpDPvWNfuqu9Htji8hYf/Q7l95g23gw8WjuLwQlOtgPBWB3IVclTEUyMzgXutjMoR3cCDIYS+//Y5YZk+CBYJfKlUzRQLc6rrr/QQSqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197035; c=relaxed/simple;
-	bh=idLSmzoJn/OFwsvxENjCPxZ9RwvuDZ2ZJgdZ/G0M0/E=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=KMi6V4EQVbjl79S+0y9d0kaFALvTD7Zi4i3dZkHKnWG1L5AChzFVB/4s8sS5GEjGHd7mYoCM4+0xgPuHAdiBr3XsdcKC4Ugm5ZvrbNJuCECz2jBrxFXWOpWUJFBwh26CdcjLlJ59e5JsGhjafvn0+Nu8VULKAFJpPBG9OJXbsWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ElyIKXMI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790197109; c=relaxed/simple;
+	bh=CnMF7v4cVD2NWW476ulng2IfM18YIgH5scwjktb+jms=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=QwWufBsl5nLW13AQapWvPFGgZyM9VeNiuCNiUDL9/Mo9CtOO/mvYbkQ+TZ6l1CDMQmaR381N/0WH2eVeFhcS/gniOvjvwKbp/fNBODiSwBX4S2b4+1WaNoLfyCUwLNgH04OB6B3BsjNYXq03zgaPw9IW2ihUVxna42sGNQHPVrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NvOuet18; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ElyIKXMI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6413D1F000FF;
-	Wed, 23 Sep 2026 20:57:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790197032;
-	bh=A71ynVy0IxtX/6OXERxjMrX71OhmcVL7CyV6ob58IkU=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=ElyIKXMIheI/ImR1F9B3YcXdI2lC2BbcYKYkYlDP09pKbYoAoBCtSh25sJqqIO2Jv
-	 WSKP6qbUluZDL28VhirbVXT3hrOIl5sljjzy0pqLGHLJOmW+sahcFZpeu5biYOjlgJ
-	 +82R7kqK6+ZxtyMZqnCMS7BhZp/AED+ZBU1iQJ69tInkWP6oejsm/1dD6y41xT5u3A
-	 C89uc4g/wzFx22HERDHBjxmFmwq/xpXCRd8hL9YByZ3n5z3p5/VPjiQrjkb2aAtUb6
-	 Ha6og7C4FvIu2tWOdfWpzCZ2ecYmT0Sav9Y1wbYAxpS5BUMnhHv6Jihpj5sBCblN+F
-	 EoGFyyOb1BVQQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id D50E21980058;
-	Wed, 23 Sep 2026 16:57:10 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Wed, 23 Sep 2026 16:57:10 -0400
-X-ME-Sender: <xms:JT20ajOd_7ZrUIO0J6vyMZixsuWeNVqs-HkSASpuATiyUAi9IutgYg>
-    <xme:JT20aoyUpJK6PKZtfBACUjtGgEjCcDhQEMP2Xqnop3rKkuDWyVljQjnDA1odUz0wL
-    aghFqsSwW6gwYxxYzIrM_bXyEHdqDPtELabtg72V4XgblJQDzou3yAk>
-X-ME-Proxy-Cause: dmFkZTFti4aaQMbVQ3GQkPHccGXm8wJue25y/YJW5qYg5aouBTLi61Sz2Vd4btFKrgBPSi
-    E1oC5rwp2uE1fYldoe/Yw28gUjLv2ZJfJBBMTLANdK5RE21wuT25OoJZib4TH8w0aU8srk
-    b93QW84H8KhdGv1IL6dEW1XnXz7x6RLDVNkcI+Z16L51Ji7ceaO4KAjNh1dCga00DQ7vw7
-    UJsuQGC4arHj9daHeda8jDYJb7p5uxH6bPKz5ntpPF/OFnuLHvxzAFf74u5a8m+muB6ixE
-    KCgciLG4ql+WwgY4HjwS42TL+DXvf0Zeejh+K+HC1/o1+THmwOAEgLjxZnuwTJRs9Q1UXP
-    zECivnd81nTrhAgyiOkppj7mPG4vscoDM/qeKTnugTE3g4BxKZ/HaBXGgrWR/tiZP1j9mS
-    jUbOiWCuteevxnh3obUaA10/o+NKAy7yb1RBasrtW/jpHaKi4QN8uZn99Bto/ahZcmdtgc
-    iUYKGw26yNSHUrgSs/PtAqwet+8RuhsDXbupw72ZxxC+T1qAt6G4K/ZWC14kBRu+PGogku
-    60DCD5XNn1JlxYIUWKgt2M3iisjp/bEZ93TIPfIM/gAzy8khd5EVC/wzicx/ISjS5K+v7Q
-    JdL5uFgVEBAqDjhHsd7T5T+RU1sVkS/zdezks6UZl8W2Cx1QTB99OBhyAH1Q
-X-ME-Proxy: <xmx:Jj20ai2T3XelYw5rHt1L2cIZA_wWShT25Rn6vj5a9_0mYREGVU0FJw>
-    <xmx:Jj20ai4mLqiK9g5SrnCYhbQ80pQlYHKbziovSSIRGE_llYDeqI3pVA>
-    <xmx:Jj20alXLnNX3aKAZLrvjK-vDAcmszq_igNQ2bifEdHSBSXei5NA2eA>
-    <xmx:Jj20ahA_Y0mf3_xXlABRmwxsZoRf7IT0fTmtS1zvo5HHdhweprM1rQ>
-    <xmx:Jj20ak5NlfRypSM9ZnfgaDh5NT1brA7ftgoxfG9iSVf3Qf25cPSHCWuu>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 899EAF8007E; Wed, 23 Sep 2026 16:57:09 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NvOuet18"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ca5b0d6so9242405e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:58:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790197103; x=1790801903; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z4Mxoo0BjytpbcPdlZ9wg50FxPDTNNYaSFfcT2mT85c=;
+        b=NvOuet18ag6cuq2O65ZBbBn+J9q2Vihac91rIOl5eww0tiKs1X31bJH/enZC37IfjH
+         py7PIZWzNX8sXe27jWwcasWfW3qvz2dAYgqIh8xEimCXCRlRP3dQkB6Y+3GqNk4W3x1F
+         6+6rnw8AqVEfYGKLGLdf4PRLXn+Z5Rm4dQC5W79q9q9JAF1SdLhrHEIlcjOLcqAO/B0E
+         N5syi61UAc0HRm2zF9h5iPDP+vEVlmmMPFIgnuvEmWMPz8F5qG0TA30eTDv6Cid0Lafb
+         haoBH1+diXOmkjQvRv3DmhDSZYlQTrpUJ4W+4EgCfv8frTkvrmWt5+Y3zQHXzjQZYZv7
+         Rw5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790197103; x=1790801903;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z4Mxoo0BjytpbcPdlZ9wg50FxPDTNNYaSFfcT2mT85c=;
+        b=KQqZzvylQxX47zHJub/33SdOdQX1OipcdskkZ3qNHvkMGrKodWFeLM7X0FIPDomrcR
+         R1kc8JMykDdJsHMxi4CHQWLJ5PbvPCdu/yWv7LdznClZZwKCwtbGDOXr1ZqtzOZUEmHo
+         oUZ33WKrgpgPSKYrkvF3CJVt59d3jwOZ+B0p33+I8Z0ToCgSNycMNgftp4EW/+RTB07p
+         cKz4XE+Ytfvmurq82Mpr8yleqD2XK1TRSXewjM+GwpSawSXLDAKdPOK1KUbZ3qI8LpHW
+         M3wiiR7CMCnWXiMMpKeJyCbQ4wY2jysuf0PDGu+mRH5TjUbgGTOWyHp81X16DIYI4+e9
+         obiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPcHyWI95kKONz0rh4Otu/DLFxDX3gtIu1MuXOmfIiffBwCyaz4dz6E0e4RWaXDxsS2VlUGHkmvIpEinw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nct9dS7VdYm9lHhqBmNiR59UlDxVm5iDXALfEChUuyDpZZSPBY
+	23/U09NIAhhMpSI9LHTNr495juvzTqW/CJxZeTDar/As0+zwBrqDSASvagHr8dK5r9Y=
+X-Gm-Gg: AYBFou2zSxhIopOzKzrOR1n91Y7nrwqmSRTZ1YNSmIkdo/9jYZXwchkaHaptyb3wjVG
+	gaHcSg78obt88Sw55PGsF1n8O+Tdir33dFoa0p+QP0OdU5c4pNA6NgsP7go/w8RqOYhpeLGQb5H
+	vBSzwu6IIO2AznZTnA4bhx/plrzVvLfwA8VQUAM+Tz41npNbvkyMeeTzpkDMZgQubFrFaKKweHn
+	Coj4ex3PdTREsJeyAqOWR32nlgG2Nxod6jvOScV/tu8UY5wqoXIK4Yz9p+lF8bSM+WvJ9kwJNy+
+	7Ib12938fNpkYj/B5NqvHw2WaKJvDM7E7AAA5838Gn9Oi8CmKFDbFQ7acGWehw+SY/NbGxI6UNM
+	iBn0JhVeej9o4Oj/sOrjW3Ho7ckJggtkpcTpeqBmHmO+vEdlSVlXjyUtZM5+X37ASPfI87lDx9O
+	dsn2U/uwQ7sVNr6KJ5a0xxfbUHErW9T9QXEgp0z+5BPtw8QtPANGp8oYJv0oOmnkhJuPxoB2jB2
+	J0/pd2f4NzW1BZBYAs=
+X-Received: by 2002:a05:600c:4689:b0:499:be2d:c290 with SMTP id 5b1f17b1804b1-49fe66b4001mr7015405e9.9.1790197103011;
+        Wed, 23 Sep 2026 13:58:23 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5ded2b7sm12132335e9.10.2026.09.23.13.58.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 13:58:22 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Alex Elder <elder@riscstar.com>, Brian Masney <bmasney@redhat.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and
+ reset driver
+In-Reply-To: <0785235b-de06-44d4-9068-ec706eeba848@riscstar.com>
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-4-elder@riscstar.com> <arG238GS8bMB6DkW@redhat.com>
+ <0785235b-de06-44d4-9068-ec706eeba848@riscstar.com>
+Date: Wed, 23 Sep 2026 22:58:21 +0200
+Message-ID: <1jcxu3adn6.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 23 Sep 2026 22:56:49 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Melody Wang" <huibo.wang@amd.com>, x86@kernel.org
-Cc: LKML <linux-kernel@vger.kernel.org>,
- "Tom Lendacky" <thomas.lendacky@amd.com>
-Message-Id: <1a64a4fb-c14b-454f-a89c-43112b01d187@app.fastmail.com>
-In-Reply-To: <cover.1789927246.git.huibo.wang@amd.com>
-References: <cover.1789927246.git.huibo.wang@amd.com>
-Subject: Re: [PATCH v3 0/8] Alternate Injection: Secure Interrupt Delivery for SEV-SNP
- Guests - Guest Support
 Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-Hi all,
+On mar. 22 sept. 2026 at 08:33, Alex Elder <elder@riscstar.com> wrote:
 
-On Sun, 20 Sep 2026, at 20:16, Melody Wang wrote:
-> Hi all,
+> On 9/21/26 5:59 PM, Brian Masney wrote:
+>> Hi Alex,
+>> 
+>> On Fri, Sep 18, 2026 at 11:52:32AM -0500, Alex Elder wrote:
+>>> Define a new platform driver that manages clock and reset signals
+>>> within the TC9564 SoC.  There are 21 clocks, which can only be
+>>> enabled and disabled, as well as 13 reset signals.
+>>>
+>>> Two registers manage the state of the clocks and two others manage
+>>> the state of the resets.  The registers are accessed via a regmap
+>>> supplied by a system controller, which coordinates access to a
+>>> region of memory that will be shared with another driver.
+>>>
+>>> Access to the memory region is provided via a BAR on a PCIe endpoint
+>>> function embedded in the TC9564 SoC.  For that reason, neither the
+>>> PCIe clock nor PCIe reset can be manipulated by this driver (they
+>>> are assumed always on and deasserted, respectively).
+>>>
+>>> Similarly, control is not available for the I2C clock and reset,
+>>> because the PCIe subsystem on the TC9564 relies on I2C
+>>>
+>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>>> ---
+>>>   MAINTAINERS              |   1 +
+>>>   drivers/clk/Kconfig      |  11 ++
+>>>   drivers/clk/Makefile     |   1 +
+>>>   drivers/clk/clk-tc9564.c | 366 +++++++++++++++++++++++++++++++++++++++
+>>>   4 files changed, 379 insertions(+)
+>>>   create mode 100644 drivers/clk/clk-tc9564.c
+>>>
+>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>> index 66d0e7e65adcb..39346a5cd9a7f 100644
+>>> --- a/MAINTAINERS
+>>> +++ b/MAINTAINERS
+>>> @@ -27675,6 +27675,7 @@ M:	Alex Elder <elder@kernel.org>
+>>>   M:	Daniel Thompson <danielt@kernel.org>
+>>>   S:	Maintained
+>>>   F:	Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+>>> +F:	drivers/clk/clk-tc9564.c
+>>>   F:	include/dt-bindings/clock/toshiba,tc9564.h
+>>>   
+>>>   TOSHIBA TC9564 PCI DRIVER
+>>> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+>>> index f9592fd9ec2bb..50efa10d48450 100644
+>>> --- a/drivers/clk/Kconfig
+>>> +++ b/drivers/clk/Kconfig
+>>> @@ -292,6 +292,17 @@ config COMMON_CLK_S2MPS11
+>>>   	  clock. These multi-function devices have two (S2MPS14) or three
+>>>   	  (S2MPS11, S5M8767) fixed-rate oscillators, clocked at 32KHz each.
+>>>   
+>>> +config COMMON_CLK_TC9564
+>>> +	tristate "Toshiba TC9564 clock support"
+>>> +	depends on TC9564_PCI
+>> 
+>> select RESET_CONTROLLER
 >
-> This revision addresses all review comments from version 2.
+> Thank you.  The reset and clock drivers were previously separate
+> and the reset only became available if RESET_CONTROLLER was enabled.
+> Combining them means I need this.  I will add it.
+
+Why did you combine them ?
+
+it would be a lot better if the reset were handled in
+drivers/reset rather than in clock. There has already been some work to
+move reset from clock back to reset. This often involve auxiliary drivers.
+
 >
-> The changes include:
+> I also need to select MFD_SYSCON to get syscon_node_to_regmap()
+> (or perhaps something similar, depending on the answers to my
+> questions about the proper way to define the syscon).
+>> 
+>>> +	default m
+>> 
+>> default n
 >
-> 1. Moved sev_prepare() from decompressor to EFI stub.
+> This depends on TC9564_PCI, and if TC9564_PCI is enabled I would
+> like this to (automatically) be available (at least as a module).
+>
+> Why do you recommend "n"?
+>
+>>> +	help
+>>> +	  This enables support for the clock and reset controller embedded
+>>> +	  in the Toshiba TC9564 (and Qualcomm QPS615) SoC.  The state of
+>>> +	  clock and reset lines is controlled by MMIO to a region managed
+>>> +	  by a system controller; this ensures access to the region is
+>>> +	  coordinated between this and other drivers.
+>> 
+>> Rather than 'other drivers', outline specifically which other drivers.
+>
+> I was intentionally vague at this point because the one other driver
+> has not yet gone out for upstream review for this iteration of the
+> code.  But I do agree with you, so I'll change this to say:
+>
+>     ... between this and the XGMAC (stmmac) driver.
+>
+> Then it will be correct without modification once that driver goes
+> out for review.  Is that better, or do you suggest something else?
+>
+>>> +
+>>>   config CLK_TWL
+>>>   	tristate "Clock driver for the TWL PMIC family"
+>>>   	depends on TWL4030_CORE
+>>> diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
+>>> index b18af485d7f03..a98ea8ff92066 100644
+>>> --- a/drivers/clk/Makefile
+>>> +++ b/drivers/clk/Makefile
+>>> @@ -110,6 +110,7 @@ obj-$(CONFIG_COMMON_CLK_SI570)		+= clk-si570.o
+>>>   obj-$(CONFIG_COMMON_CLK_SP7021)		+= clk-sp7021.o
+>>>   obj-$(CONFIG_COMMON_CLK_STM32F)		+= clk-stm32f4.o
+>>>   obj-$(CONFIG_COMMON_CLK_STM32H7)	+= clk-stm32h7.o
+>>> +obj-$(CONFIG_COMMON_CLK_TC9564)		+= clk-tc9564.o
+>>>   obj-$(CONFIG_COMMON_CLK_TPS68470)      += clk-tps68470.o
+>>>   obj-$(CONFIG_CLK_TWL6040)		+= clk-twl6040.o
+>>>   obj-$(CONFIG_CLK_TWL)			+= clk-twl.o
+>>> diff --git a/drivers/clk/clk-tc9564.c b/drivers/clk/clk-tc9564.c
+>>> new file mode 100644
+>>> index 0000000000000..4f900bc8994a7
+>>> --- /dev/null
+>>> +++ b/drivers/clk/clk-tc9564.c
+>>> @@ -0,0 +1,366 @@
+>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>> +
+>>> +/*
+>>> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
+>>> + */
+>>> +
+>>> +#include <linux/bits.h>
+>>> +#include <linux/clk-provider.h>
+>>> +#include <linux/mfd/syscon.h>
+>>> +#include <linux/mod_devicetable.h>
+>> 
+>> Uwe already pointed out removing this.
+>
+> Yes, done.
+>
+>> 
+>>> +#include <linux/module.h>
+>>> +#include <linux/platform_device.h>
+>>> +#include <linux/regmap.h>
+>>> +#include <linux/reset-controller.h>
+>>> +
+>>> +#include <dt-bindings/clock/toshiba,tc9564.h>
+>>> +
+>>> +#define CLK_CTRL0_OFFSET	0x1004
+>>> +#define RST_CTRL0_OFFSET	0x1008
+>>> +#define CLK_CTRL1_OFFSET	0x100c
+>>> +#define RST_CTRL1_OFFSET	0x1010
+>>> +
+>>> +struct tc9564_clock_init {
+>>> +	const char *name;	/* NULL means unused entry */
+>>> +	u32 offset;
+>>> +	u32 mask;
+>>> +};
+>>> +
+>>> +struct tc9564_clock {
+>>> +	struct clk_hw hw;
+>>> +	u32 which;
+>>> +	u32 offset;		/* CLK_CTRL0_OFFSET or CLK_CTRL1_OFFSET */
+>>> +	u32 mask;		/* Zero means undefined clock */
+>>> +};
+>>> +
+>>> +struct tc9564_reset {
+>>> +	u32 offset;		/* RST_CTRL0_OFFSET or RST_CTRL1_OFFSET */
+>>> +	u32 mask;		/* Zero means undefined reset */
+>>> +};
+>>> +
+>>> +struct tc9564_clocks {
+>>> +	struct device *dev;
+>>> +	struct regmap *regmap;
+>>> +	struct reset_controller_dev rcdev;
+>>> +	size_t clock_count;
+>>> +	struct tc9564_clock clocks[] __counted_by(clock_count);
+>>> +};
+>>> +
+>>> +#define TC9564_CLOCK_INIT0(_name, _bit)	__TC9564_CLOCK_INIT(_name, 0, _bit)
+>>> +#define TC9564_CLOCK_INIT1(_name, _bit)	__TC9564_CLOCK_INIT(_name, 1, _bit)
+>>> +
+>>> +#define __TC9564_CLOCK_INIT(_name, _reg, _bit)		\
+>>> +	[CLOCK_##_name] = {				\
+>>> +		.name	= #_name,			\
+>>> +		.offset	= CLK_CTRL ## _reg ## _OFFSET,	\
+>>> +		.mask	= BIT(_bit),			\
+>>> +	}
+>>> +
+>>> +#define TC9564_RESET_INIT0(_name, _bit)	__TC9564_RESET_INIT(_name, 0, _bit)
+>>> +#define TC9564_RESET_INIT1(_name, _bit)	__TC9564_RESET_INIT(_name, 1, _bit)
+>>> +
+>>> +#define __TC9564_RESET_INIT(_name, _reg, _bit)		\
+>>> +	[RESET_##_name] = {				\
+>>> +		.offset	= RST_CTRL ## _reg ## _OFFSET,	\
+>>> +		.mask = BIT(_bit),			\
+>>> +	}
+>>> +
+>>> +static const struct tc9564_clock_init tc9564_clock_init[] = {
+>>> +	TC9564_CLOCK_INIT0(MCU, 0),
+>>> +	TC9564_CLOCK_INIT0(INTC, 4),
+>>> +	/* TC9564_CLOCK_INIT0(PCIE, 9), */
+>>> +	/* TC9564_CLOCK_INIT0(I2C, 12), */
+>> 
+>> A comment would be useful here to outline why these are commented out.
+>> Is the PCIE one comment out because of what's outlined in the commit
+>> message?
+>
+> Yes, that is why.  We are downstream of PCIe, and PCIe in this
+> case depends on I2C.  So we don't want to mess with these two
+> clocks or their reset counterparts.
+>
+> I only provide this for the benefit of documentation.  If someone
+> happens to see bit 9 set in this register, it means the PCIe clock
+> is enabled.
+>
+> Anyway, others have suggested simply removing these comments.
+> So I'll do what you suggest, but I'm interested to know whether
+> you would favor just deleting them instead.
+>> 
+>>> +	TC9564_CLOCK_INIT0(SRAM, 13),
+>>> +	TC9564_CLOCK_INIT0(UART, 16),
+>>> +	TC9564_CLOCK_INIT0(MSIGEN, 18),
+>>> +	TC9564_CLOCK_INIT0(PLL, 24),
+>>> +	TC9564_CLOCK_INIT0(SGMII, 25),
+>>> +	TC9564_CLOCK_INIT0(REFCLKO, 26),
+>
+> . . .
+>
+>>> +static const struct reset_control_ops tc9564_reset_control_ops = {
+>>> +	.assert		= tc9564_reset_assert,
+>>> +	.deassert	= tc9564_reset_deassert,
+>> 
+>> I'd rather not have the extra spaces because sometimes these get out of
+>> line with new members that need more space. Also tc9564_clk_ops above
+>> doesn't have the extra spaces.
+>
+> That's OK with me.  I normally align assignments like this for
+> readability, but it's obviously an arbitrary stylistic choice.
+> I'll just use one space, no alignment (just as the clk_ops do
+> above).  I'll do the same in the platform driver structure
+> assignments.
+>> 
+>>> +};
+>>> +
+>>> +static void tc9564_reset_assert_all(struct tc9564_clocks *clocks)
+>>> +{
+>>> +	for (u32 id = 0; id < TC9564_RESET_COUNT; id++)
+>>> +		if (tc9564_reset[id].mask)
+>>> +			tc9564_reset_manage(&clocks->rcdev, id, true);
+>>> +}
+>>> +
+>>> +static int tc9564_reset_init(struct tc9564_clocks *clocks)
+>>> +{
+>>> +	struct reset_controller_dev *rcdev = &clocks->rcdev;
+>>> +
+>>> +	rcdev->ops = &tc9564_reset_control_ops;
+>>> +	rcdev->owner = THIS_MODULE;
+>>> +	rcdev->dev = clocks->dev;
+>>> +	rcdev->of_node = dev_of_node(clocks->dev);
+>>> +	rcdev->nr_resets = TC9564_RESET_COUNT;
+>>> +
+>>> +	return devm_reset_controller_register(clocks->dev, rcdev);
+>>> +}
+>>> +
+>>> +static int tc9564_clk_probe(struct platform_device *pdev)
+>>> +{
+>>> +	struct device *dev = &pdev->dev;
+>>> +	struct tc9564_clocks *clocks;
+>>> +	int ret;
+>>> +
+>>> +	if (!dev_of_node(dev))
+>>> +		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
+>>> +
+>>> +	clocks = tc9564_clk_init(dev);
+>>> +	if (IS_ERR(clocks))
+>>> +		return dev_err_probe(dev, PTR_ERR(clocks),
+>>> +				     "failed to initialize clocks\n");
+>>> +
+>>> +	ret = tc9564_reset_init(clocks);
+>>> +	if (ret)
+>>> +		return dev_err_probe(dev, ret, "failed to initialize resets\n");
+>>> +
+>>> +	/* Force all resets to be initially asserted */
+>>> +	tc9564_reset_assert_all(clocks);
+>>> +
+>>> +	/* Force all clocks to be initially disabled */
+>>> +	tc9564_clock_disable_all(clocks);
+>>> +
+>>> +	platform_set_drvdata(pdev, clocks);
+>>> +
+>>> +	return 0;
+>>> +}
+>>> +
+>>> +static void tc9564_clk_remove(struct platform_device *pdev)
+>>> +{
+>>> +	struct tc9564_clocks *clocks = platform_get_drvdata(pdev);
+>>> +
+>>> +	/* Leave all resets to be deasserted when done */
+>>> +	tc9564_reset_assert_all(clocks);
+>> 
+>> The comment says deasserted but the code calls assert_all.
+>
+> Oops.  Will fix.  Thank you very much for your review Brian.
+>
+> 					-Alex
+>
+>> 
+>> Brian
+>> 
+>> 
+>>> +
+>>> +	/* Leave all clocks disabled when done */
+>>> +	tc9564_clock_disable_all(clocks);
+>>> +}
+>>> +
+>>> +static const struct of_device_id tc9564_clk_ids[] = {
+>>> +	{ .compatible = "toshiba,tc9564-clock" },
+>>> +	{ },
+>>> +};
+>>> +MODULE_DEVICE_TABLE(of, tc9564_clk_ids);
+>>> +
+>>> +static struct platform_driver tc9564_clk_driver = {
+>>> +	.probe	= tc9564_clk_probe,
+>>> +	.remove	= tc9564_clk_remove,
+>>> +	.driver	= {
+>>> +		.name		= KBUILD_MODNAME,
+>>> +		.of_match_table = tc9564_clk_ids,
+>>> +		.probe_type	= PROBE_PREFER_ASYNCHRONOUS,
+>>> +	},
+>>> +};
+>>> +module_platform_driver(tc9564_clk_driver);
+>>> +
+>>> +MODULE_DESCRIPTION("Toshiba TC9564 Clock and Reset Driver");
+>>> +MODULE_LICENSE("GPL");
+>>> -- 
+>>> 2.53.0
+>>>
+>> 
 >
 
-This may be a bit of a 'back to the drawing board' remark, but if opting
-in to this alternate injection scheme can only be done from the EFI firmware
-before ExitBootServices(), couldn't we wrap all this logic into an OVMF
-protocol instead? That way, the EFI stub can just invoke it if it exists,
-and what happens under the hood as a result is entirely under the control of
-the firmware.
-
-
-
-> 2. Changed "Register Alternate Injection" and "configure all interrupt
->    vectors" as two APIs located in compressed/sev.c since they are
->    self-contained, avoiding exporting functions. 
->
-> 3. Added more comments for better understanding.
->
-> Thanks,
-> Melody
->
-> Changelog:
-> v2
-> --
->
-> This revision fixes all the review comments from version 1.
->
-> The changes include:
->
-> 1. Changed a few comments for better understanding, deleted some unnecessary
->    code, corrected some typos, and some minor code fixes from the review
->    comments by Sashiko and Boris.
->
-> 2. Unified sev_apic_ghcb_msr_write() and sev_apic_ghcb_msr_read(). 
->
-> 3. Move x2apic_svsm.o after x2apic_savic.o so that the secure AVIC gets
->    preferred on machines supporting it.
->
-> 4. Reworked svsm_apic_probe() as Boris suggested.
->
-> 5. Updated tools with renamed MSR_AMD64_SNP_ALTERNATE_INJ_BIT and
->    MSR_AMD64_SNP_ALT_INJ for completeness' sake.
->
-> 6. Changed svsm_apic_send_IPI_self() with writing to the dedicated
->    APIC_SELF_IPI instead of writing to APIC_ICR.
->
-> v1
-> --
->
-> The revision fixes all of the review comments from version 0.
-> 
-> The changes include:
-> 
-> 1. Changed a few commit messages, new file names, variables name and order,
->    function names and more comments for better understanding.
-> 
-> 2. Added a pre-patch to fix the problem that in two functions in the the SVSM
->    vTPM guest implementation do not disable preemption when fetching CAA. It
->    is moving the CAA fetching operation inside svsm_perform_call_protocol().
->
->    This series relies on this fix too.
->
->
-> 3. Removed svsm_do_call() helper function and some intermediary layer
->    functions in SVSM APIC driver.
->
-> 4. Removed the Secure AVIC check in SVSM APIC driver since it will never be
->    touched. 
->
-> 5. Terminate boot when Alternate Injection is enabled in vmpl0.
->
-> 6. Added a common function for SVSM APIC read and write.
->
-> 7. Added a new SEV_TERM_SET_LINUX value for Alternate Injection and APIC ghcb
->    msr read/write.
->
-> 8. Reworked sev_prepare() to reflect the error conditions correctly. 
->
-> 9. Moved allowing all of interrupts right after registering the SVSM APIC
->    protocol.
->
-> v0
-> --
->
-> Alternate Injection is a method to provide secure interrupt delivery for
-> SEV-SNP guests against malicious injection attacks. By handing over the
-> control of the interrupt injection to the guest itself, the security is
-> applied. Alternate Injection use Secure VM Service Module (SVSM), and APIC
-> emulation in the SVSM to secure interrupt delivery.
->
-> This is the guest side patches. The patch set includes the following:
-> 1. Add support for enabling Alternate Injection.
-> 2. Add support for the SVSM APIC protocol which uses a subset of the
->    X2APIC MSRs.
-> 3. Add support to allow the guest OS to request Alternate
->    Injection.
->
-> Melody Wang (8):
->   x86/sev: Make SVSM calls preemption-safe
->   x86/sev: Add support for Alternate Injection
->   x86/apic: Add an SVSM APIC driver
->   x86/sev: Route unsupported APIC register accesses to the hypervisor
->     APIC emulation
->   x86/sev: Add a function to contain all SEV-specific setup operations
->   x86/sev: Register the guest with the SVSM APIC protocol
->   x86/sev: Allow the guest to configure interrupt vectors for the
->     hypervisor
->   x86/sev: Indicate that Alternate Injection is supported in the guest
->
->  arch/x86/Kconfig                        |  14 ++
->  arch/x86/boot/compressed/sev.c          |  58 +++++-
->  arch/x86/boot/compressed/sev.h          |  13 ++
->  arch/x86/coco/core.c                    |   3 +
->  arch/x86/coco/sev/core.c                |  48 ++---
->  arch/x86/coco/sev/svsm.c                |  10 +-
->  arch/x86/include/asm/msr-index.h        |   4 +-
->  arch/x86/include/asm/sev-common.h       |   2 +
->  arch/x86/include/asm/sev.h              |  21 +-
->  arch/x86/kernel/apic/Makefile           |   1 +
->  arch/x86/kernel/apic/x2apic_savic.c     |   8 +-
->  arch/x86/kernel/apic/x2apic_svsm.c      | 243 ++++++++++++++++++++++++
->  drivers/firmware/efi/libstub/x86-stub.c |   9 +-
->  include/linux/cc_platform.h             |   8 +
->  tools/arch/x86/include/asm/msr-index.h  |   4 +-
->  15 files changed, 398 insertions(+), 48 deletions(-)
->  create mode 100644 arch/x86/kernel/apic/x2apic_svsm.c
->
-> -- 
-> 2.43.0
+-- 
+Jerome
