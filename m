@@ -1,78 +1,83 @@
-Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D733E49C8
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:23:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672143815FD
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:23:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184216; cv=none; b=mbTqXdmPR4qutNJtHLQc2MaUyufBLMsduygqjDBj+LLpPDpEVfSm7P+b60lzBNhBmfx3iQ3aZBNYxCmoi1zN8J5xUoTzYVFDbHk2+nXnkMU3kHAMKRRHpvSNPQVp8u0OoScw9a00Td5PO/rEBFubxGY01w8mttbtqp66Ga0jvA4=
+	t=1790184217; cv=none; b=ITXYxzGfjvrtp6lHsic17+6qjfoeaiz+X+r5yWtM1cx2NdlFucKdEoyNL4QJKdSlYhJqbi6/grSNrsizz3vM5uLmiWpM0GnwyDzvp4K5LPlOmutlGnlTLA4h0t9j8A+CUKVUon58iISM0GaIjkKRgkIShqYGGfo7kl4IqcMSDFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184216; c=relaxed/simple;
-	bh=J5/KF/+v0NyFlqQylPJlQovlsBLXV2sqWmq4lTWNg5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gh/N7wja5tQWUicu2rgKi+Me6PN8m/FoIBrafLf2xbyU9zxBYhx4qOEoC5nbJWfK2JqCxg+sFNRa7/5rz8WKpkxZogm1gPX0a89RZsErESpFIqA1akdJiPwXQJ+NJZeaqQK5s3fNLZzPph8T+hMEoJykNxP1P9yhIcI2jHZ8q2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=iETmO5tC; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=B0lPuG25; arc=none smtp.client-ip=103.168.172.146
+	s=arc-20240116; t=1790184217; c=relaxed/simple;
+	bh=1safN3GRZqc6aPrQj4LJpCTgwlsNWsgMoAcYEcFfNd8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=l0zTntlIy7dlACbGTU/xAwzGvTVycK3YBxM6A6i9zKOH5VWBab4u1RSj9UjdQkNWQIRLU1Dfe3Jd/XE12MjPnsXr/PFFKYqADXFF/nvC+YF7JRBexxT2tBA/9TQUi69205l3bmBKfBRB2MdcOnMw5Bgfbnw+cdigAQ/q4JwTyao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp; spf=pass smtp.mailfrom=sakamocchi.jp; dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b=haw2UZOi; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wTXGVO6y; arc=none smtp.client-ip=103.168.172.159
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sakamocchi.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="iETmO5tC";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="B0lPuG25"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.phl.internal (Postfix) with ESMTP id 1E8C0EC02A7;
-	Wed, 23 Sep 2026 13:23:33 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp header.b="haw2UZOi";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wTXGVO6y"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 873791400140;
+	Wed, 23 Sep 2026 13:23:34 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Wed, 23 Sep 2026 13:23:33 -0400
+  by phl-compute-06.internal (MEProxy); Wed, 23 Sep 2026 13:23:34 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to; s=fm1; t=1790184213; x=1790270613; bh=Jek+CieuMQ
-	2lP30DpdpudqUEpUq0NdIrKVu9Y/BlgCE=; b=iETmO5tC2VGePpc3Obx4wRG6PY
-	xaHQSe/ZW1EXOjTn1ATQw6acD1dJ9+yGNuci9HlGuTS/1xM6Hs51kIo4OHSrz16l
-	UNaBN5GHLelI79c3Gp/DSoPTv4ktuQkI1qyfK22IckgCF/M7zOCHdWlyOp3m9j4z
-	P5kL+cmO4dzekxITohOAL3Pex5ww0xglFjCD+QLQOt1cldajo8iOKdMKk6RxTiSS
-	fnH4VyyL991EqttADf6s+ky1I0kE+Zf3qXBy73Cujsv5NqQhq2orwdKnhIMkd98i
-	P1w9ojbNOb3h3XJcG7YntubRGHVhAthVvslUZtTEUZ/pVKrW2sVhXPAWfyuQ==
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1790184214; x=
+	1790270614; bh=HBY4HPF+vQfyFxx3H/SDvF3xkXyFwgp1v5OH/yHITpY=; b=h
+	aw2UZOiAjUyghnG2kiClVlEWdBb+S4md9GdK2yOzdO/n2YPJDC4M6YD9Tv/YrZr7
+	DUOkHq2XKX57ZxbZSGfT7ZcCrdIAZ/BIbGr6vMcF0w+UH9ztiV2uCq3HAhiX5rjs
+	gpF7hsO+Kr34cXXPtvcHZUp0wnuoHy1sZlOhTh0yNKKyxsX/wc26wRpWK2DIPoIK
+	WcJJ5IarM77KlLrQ+AgrQEA9HaqW/VOCqrWheo27agIxVKy4pSQ1rOvqPLa1d4zY
+	Gw8HA838ixQe71u4wMU8P+oSoEiz8RR6J54mj9LMi7P1hjysFGD9dq5UPgJkN0+u
+	0ytJOAMTdxVLUEaJzQnfQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790184213; x=1790270613; bh=Jek+CieuMQ2lP30DpdpudqUEpUq0NdIrKVu
-	9Y/BlgCE=; b=B0lPuG25DbhqpSPDv//9nANgL0kT9py8MZfP7rHhqRXRu1xiORC
-	rs03tA7X9Of9VmuWkedZVej9RvqPZmK7DNxJ/pVeyqc+I1RMxtbTsHB2ReM94hbn
-	D/2rPhLZZ2kXDf1wUD1jxrHB5RwnYZqZlu8R904A3SXm6LWs38/JeBh3h4R2yB1y
-	RaF0S0yNcU4UyoXJwasSMSKjuoaSRzkHeGaCk4JZPf4dG5hhX+MRi3hU0F1/kBto
-	Ee5cWVL/i5ReH2W8meBEdMSZDcLA6RF/P2ejeS/oVSzG83u3nqJ9ZU2gqKUTdxBl
-	C8JLlpazBeX0jy210TjjgBcg83U95eoDTJw==
-X-ME-Sender: <xms:FAu0alD4EwmFZSEd7PhAteCjmcY4yPWCtTPo4p_yOqqaduyhu8tqmw>
-    <xme:FAu0arQdIwFR8d5i_Bqgx3jZ1N512oo6TW4xk00yR4_piXuSJZnx2kSSW8REYgA8I
-    fJhcx-r83JSRx0YfFySla8i-3gNlyzRepNqDLPBBtQNGIFo5SV-gt7b>
-X-ME-Received: <xmr:FAu0ajrZ9OwfZv4uwBACldYKE19qgyNiH9A_4SbPndMijHhgzWpBDdwgaH-J--SNCPZ_psB1pfVPSBRCdmTsjslvUBLGW_CBbXtlwi9MYFqj>
-X-ME-Proxy-Cause: dmFkZTGPrfyqPpi1DZZmjnACLc/fQx5mrQa5OwiAEzAytUDUBUQtvV5SS/k6DUQt1SYKwK
-    RAu2HGpy+5KlDlXeVSQBLyUVWcM8OhgG0A6305k9NyH6/Tt3DeKM8EL0lF/rRU9fGVlGQg
-    u0pMojUTiQk+dv6fvs4xT5mc7pz7CDsPauymo0RE6nBsyhQVN4J2yfQd/F5c0Z8Kjvv5s+
-    /rUIZkMKMxzjlP7Se/Af6toKLESOMlZBE+81bobY17HcbeD9on+PgStwzRkOKHgaAaLzza
-    vwCw4Yv5z/ktHSfmqYfdhT8HF4ax80kVY/6HguOOEKRijQf+gRKWBi49u4J2EWc75LPqNg
-    pvd0+GbhG33+cPxlmO940XR4N8TUUIfZIIqXLQn1GKnJzZLlZBR1Gf9Ko+uQrHqpBo6ZVx
-    b6vAfxMd62erXraPwiHYytDis/RfX2GAYppsR7/jFpXuEpjpqNlg5Hiz/ztiWbEYgXvyz+
-    FIRxF92wkAhLl21Obn5cl9hQDgz7mOWNRKNgNmgYXs3bIX5IRbf/Tzkx5baYH5z6r4SiGB
-    YK1pjibu2/VxIYuNB+J7knVDSrZpTJFPEox+KAcTnboFCfkaxuCnnRf/Df5MDuI2Vc3e6x
-    Tdjw9KjXjbCsq+8J1/c3JNPQakGC6SbwApz04E9sV7xa+5IT20z09D9OyV4w
-X-ME-Proxy: <xmx:FAu0atwadHdV5kiVH4S0lqjgJa8lp8SFp70eBIk0D_FYZZfKOrFuRw>
-    <xmx:FAu0aoIhNCWhrb_vu4z9CSfwwuUKMKwiwXTircfl2Ek2p57XWFFIdw>
-    <xmx:FAu0avLQU7DWm9NnDrQNATRIuQAZtcITA-EAE1buOTVF0qwng3gkwA>
-    <xmx:FAu0attwa0r4TXJ_0uahqx5r_2NAxKWIktxOLUJ9dzA3lV3_XYX43A>
-    <xmx:FQu0akppF7DfxY3nwHdgudayh8SC6Y_KpU7Ri4I2jf3lXbc47yiDtdZ8>
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm1; t=1790184214; x=1790270614; bh=H
+	BY4HPF+vQfyFxx3H/SDvF3xkXyFwgp1v5OH/yHITpY=; b=wTXGVO6yU6B8WFQTE
+	rXNsD/K9nGUu4jXA+c+lZOB5VL5GABIsCvHH29S0xhP1e/liSQLsJ1GsjJ3Lmnpl
+	CV7nJxWPLjnqfYTChcy1Wg4BcUkILEzXp2WOaruqxQ+b7Sq9aCHM5Zyc5/66TUoa
+	MXvZlMTeKGB2rLQhgrjAomsD162iNH+c309GGo6qdcMduKe3FyOZ8P1zhfOoFcYk
+	y1ma75ut9cjtUMLbWkmv/rHuHlAbBgxivyo/pWCO5QM+6x3blr8GVpllazOGLf+B
+	pUnPxCAmexFSdU74KnduNPYHlsI1WARGd5h157KcF9/Dkn9DfqkncziQpFDhJj1A
+	qP7Cw==
+X-ME-Sender: <xms:Fgu0ar1zfbXVjszQLg_0uVqyW9rLMAe_GVGvCFkg6r4AR2ABNF3Dqw>
+    <xme:Fgu0ah2ZbH04B8iIMXdg1s4h5Q_IRxX2VIadEUdekz3OESHoKcHTaFVMRBmp-pPQU
+    8iaoTSMwX2jnk0rv9iXKnrqk9x7FYbACvJk42-S8SGIowEDc3AIRxI>
+X-ME-Received: <xmr:Fgu0au-66q9rpdsJeyd7obSPP77caUmyyVOrUroCyXjI7OwXdApyH09-04O_Q5kz3T31DhH3fWLvbi_Z4ggvNuQ2iXlIWfgTNCcKkLK0Bp4C>
+X-ME-Proxy-Cause: dmFkZTFOSPiV9S4Tym9ufogoWa+BoZ59lx2mKns53WukYdMm/vQLVUZ2Udve0Uu55Bdgrm
+    4B0QZM7RJLORxjeR58nDPzDGrIQs6R+n18otjxXbNmmTgY/+cm4nBRdd5XH5nR9WiBSWfr
+    8Z1OBAS8prrW1R8mkcUlKW0Lz/MQNKuR1vQnHzNaTfVAJZem0E9nuWUdIC6VwUQbfStAYp
+    juMLekbBnyAtw2UWTAkTZmBLmE2Cj3C9muNuCFzO50IlVCqOn/ZEa795gmuyLb6wb/1bMQ
+    NyfP9QiEblhLIv/CUCQ4MKmt5enqeDzJ3uWRCLWsjBeB0m/e67o1V/OPBuYFexTzI1jIMy
+    CJkwmE8xYtQ4D/k47Q25gsJ3JevwUG3FvfPlUUDRhEyV8Cw0WnWpLIfEcGu6sBkRYTnqzo
+    JX5XR76p2P0sYKHXD535JuSwGcjAYywKKjRzS+dp2Hv53Af35ih5hPLFUU0fFUqfqROoIL
+    jbJyMGjr4tZjzDLe2Lly6Sp1rdAOrr1Z4I4/MRi0ACU3/YbSfqlGtO56cJgLRlZxr77Ha1
+    wUI5X4EsS2VdSWA4wsumq9/iSMOhb7/79OJkARO7g9Kikw+5ysR3Rh9mgsJq60sqQKsyN+
+    ualWwbPnJJSuwDZvWgyNxDHJ0mjv2nCly0MYYHOqMHc7XiKh8vhfOE24UZCw
+X-ME-Proxy: <xmx:Fgu0au3SyWtzpsM4a5T6Ao5eEmWKOr1NGgsGDFyo-Qj2ozjNXLZ60Q>
+    <xmx:Fgu0ar_Gvp7z_usmJmDfo5Ni-STzk5Xl1fgFG1Cc-HoeyTIXqH6Qdw>
+    <xmx:Fgu0auv5DDsedKCVDDCVFpVaVjkBO7CPS34SCcgvU0aoIGryNKs2Ng>
+    <xmx:Fgu0auCYnWmRhmQBCXKeDW1h-KNdO9EOy89Ii_8DoxpkggrW5ZpPuQ>
+    <xmx:Fgu0alCzG--eb1zlvsj1W5Sytzen2S6hx6UYxt8wu4_Lu4HkWS0ScM1T>
 Feedback-ID: ie8e14432:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Sep 2026 13:23:31 -0400 (EDT)
+ 23 Sep 2026 13:23:33 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: linux1394-devel@lists.sourceforge.net
 Cc: dingiso.kernel@gmail.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] firewire: cdev: fix client refcount leak in iso_resource_auto_work()
-Date: Thu, 24 Sep 2026 02:23:26 +0900
-Message-ID: <20260923172328.277232-1-o-takashi@sakamocchi.jp>
+Subject: [PATCH 1/2] firewire: cdev: hold client reference for fw_iso_resource_auto lifetime
+Date: Thu, 24 Sep 2026 02:23:27 +0900
+Message-ID: <20260923172328.277232-2-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923172328.277232-1-o-takashi@sakamocchi.jp>
+References: <20260923172328.277232-1-o-takashi@sakamocchi.jp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,27 +86,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+The fw_iso_resource_auto object can outlive the operation that created
+it since hte main operation for it is done in a work item. This work and
+release paths access members of the client structure, therefore the
+client structure must remain valid for the lifetime of an
+fw_iso_resource_auto object.
 
-This series fixes client reference counting for fw_iso_resource_auto
-objects, reported by Dingisoul[1].
+Hold a reference to the client structure for the lifetime of the
+fw_iso_resource_auto object.
 
-The issue is caused by ad-hoc client reference counting when scheduling a
-work item to handle the iso_resource_auto client resource. This series
-holds a client reference for the lifetime of the fw_iso_resource_auto
-object instead.
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ drivers/firewire/core-cdev.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-[1] https://sourceforge.net/p/linux1394/mailman/message/59317811/
-
-Takashi Sakamoto (2):
-  firewire: cdev: hold client reference for fw_iso_resource_auto
-    lifetime
-  firewire: cdev: fix client refcount leak in iso_resource_auto_work()
-
- drivers/firewire/core-cdev.c | 19 ++++++++++---------
- 1 file changed, 10 insertions(+), 9 deletions(-)
-
-
-base-commit: 4eea44fefc15929ac2de10bd9b12319ea42e0e0f
+diff --git a/drivers/firewire/core-cdev.c b/drivers/firewire/core-cdev.c
+index 50419f10b04f..9964c66f2989 100644
+--- a/drivers/firewire/core-cdev.c
++++ b/drivers/firewire/core-cdev.c
+@@ -1406,6 +1406,7 @@ static void iso_resource_auto_work(struct work_struct *work)
+ 			// xarray and prepare for deletion, unless the client is shutting down.
+ 			scoped_guard(spinlock_irq,  &client->lock) {
+ 				if (!client->in_shutdown && xa_erase(&client->resource_xa, index)) {
++					// For the incrementation by add_client_resource().
+ 					client_put(client);
+ 					free = true;
+ 				}
+@@ -1445,6 +1446,9 @@ static void iso_resource_auto_work(struct work_struct *work)
+ 		kfree(r->e_alloc);
+ 		kfree(r->e_dealloc);
+ 		kfree(r);
++
++		// For the incrementation by ioctl_allocate_iso_resource().
++		client_put(client);
+ 	}
+  out:
+ 	client_put(client);
+@@ -1491,6 +1495,7 @@ static int ioctl_allocate_iso_resource(struct client *client, union ioctl_arg *a
+ 	if (err < 0)
+ 		return err;
+ 	request->handle = r->resource.handle;
++	client_get(client);
+ 
+ 	retain_and_null_ptr(e1);
+ 	retain_and_null_ptr(e2);
 -- 
 2.53.0
+
