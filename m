@@ -1,150 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8877E414414;
-	Wed, 23 Sep 2026 10:32:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6986647FAF3;
+	Wed, 23 Sep 2026 10:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159535; cv=none; b=Jl/AWAQ1D+RCAUR00UifH7U0ofIwH/muawC/7U3+S8YBs35ErZzuIzH+GwWn+lkzxgviwmXnvHmqHv/DDXGmqZhGm+FVADmZp1/pb45cuiUIgW0bbY3cZP08aD21V/ajuYw1Upto9BWeFObXUxgP6qo7WCqT6abZ5dPBbw9WrG8=
+	t=1790159577; cv=none; b=TQu0ICUynR7GuE5dhEJGjHLQnT7AGcMRFpEe7Q1VcA8Bc5o9CgQae8pCV2p2qUAeLNZP84kgK76OTh1RGIVznuldylCBXXGBuzuNL60Gp+IjWMnsH6PjJUKXSkriFO9QeAGnjLx6LcQzPbZZOT912VtSFJk8QLS2corF9e8IiCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159535; c=relaxed/simple;
-	bh=cF/njPo9j8sWXcdGcEVgzeYY4ZHTPdGLMqVhs94iLH4=;
+	s=arc-20240116; t=1790159577; c=relaxed/simple;
+	bh=oNHTzgV7JKpt0LvtNzjrg8OrvNu0MI/d6ZrNFJymLPk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B6teFvaLwlXfymouttei1lPiukBPjsB6eMNoKy2NgbiDgBv8NzszscVUlIZP333XC1GEC59A6Z/QyXEwcfeC9tVO7dz9smKwL/tmh5fNE7ADfyGnpT9LUxAYMNIdiCk+uvcigHrz3zTS/BsGR7441+Rfk7esYvh5pnstw8X0xE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0FmDAODm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZHm3COxtmjID8I6WCZwYUAGjFOYzxYGloAz1o+BoxrxfjsIkyG+I4pSRmaorUrPQ9dFwXnfNoPmwhf0FfmO4Tygl2JslUHZFrAkS25fG4LOEt0NBSwQ2CLHw67EzBWn//r1dmn2m8g9MaKLxanHQSBpSO9DIgEuzpjUbEgOqdsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=hrDrpkwv; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NAQh6+ab; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0FmDAODm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42EC11F000FF;
-	Wed, 23 Sep 2026 10:32:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790159522;
-	bh=cpuCu5v1M9XfKbLexcgtG6aXcXIggBSNrBJURPKiOI8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=0FmDAODmcxVfwZLNR9rZEXlbpRpomC44Gv6lT+IXPYnPTrPF1FGN1X6M9Qa0bERtQ
-	 dhm1mluz8WLI+JNEYy23F3cAxWpybSWy8lKwFDOOdaCkHD/Yw9ZNTGReUWQIJBN2ki
-	 uUUTW9ybj4ow/kSuc6soxXEfNKp2t5XM0CXrNPtQ=
-Date: Wed, 23 Sep 2026 12:31:58 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Ginger Li <ginger.jzllee@gmail.com>
-Cc: jirislaby@kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Maarten.Brock@sttls.nl
-Subject: Re: [PATCH v2] serial: max3100: Fix a data race on s->rts in
- max3100_work()
-Message-ID: <2026092348-police-filth-8d32@gregkh>
-References: <20260922053151.11260-1-ginger.jzllee@gmail.com>
- <20260922170239.33485-1-ginger.jzllee@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="hrDrpkwv";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NAQh6+ab"
+Date: Wed, 23 Sep 2026 12:32:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1790159559;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vZuQXlZdXPnXthUCF5TkgqX+BY9utsNp8eBeJtmM0jU=;
+	b=hrDrpkwv4CaTpvpRKJFHddvQxtd/CvRmB0E05rpUU6KE41KYEK20usDKvEVyZLdmz5AHWK
+	vLxh/eJqGAZXo5FbjQtmO4M/geoDpQKWRJ4ZRTK7H8UAJFGNh/3EkY1DNo7eZAaGqZ1KaR
+	rGkZCbP26d2brM+6w6mG/TiPZV+L4ZYYkqGTALxBlrtv4ZMQXaK3cDecwKTc1PwMHC6swF
+	O3QT7z1f2tF1hOV8ahE0JYOuPbcjVm+DFn99+28Uw2UzqHcFqE4gRY11XhwzIPAaLNZOS0
+	RzjafNNqto0hIoW3pJTBIASWFVsa1Luw9HIZUeUdTBt4mUdR4NRwl2E2fFTfcQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1790159559;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vZuQXlZdXPnXthUCF5TkgqX+BY9utsNp8eBeJtmM0jU=;
+	b=NAQh6+ab/cNNTx3eDnm4YfWSZ8Od+zegTbJQvvyHPhOTnmAffJq4LrCVMFPHxw1oAndhTQ
+	xb2RRRkVu/CMoxDA==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Xin Xie <xiexinet@gmail.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
+	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+	fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
+	skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
+	sdf.kernel@gmail.com
+Subject: Re: [PATCH 1/4] net: hsr: fix packet drops caused by GRO superpackets
+Message-ID: <20260923103238.cg3tr_40@linutronix.de>
+References: <20260809121455.1745-1-xiexinet@gmail.com>
+ <20260809121455.1745-2-xiexinet@gmail.com>
+ <20260813182111.088aee3d@kernel.org>
+ <7c09a44a-19d9-43f5-a852-12f5b6579641@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260922170239.33485-1-ginger.jzllee@gmail.com>
+In-Reply-To: <7c09a44a-19d9-43f5-a852-12f5b6579641@gmail.com>
 
-On Wed, Sep 23, 2026 at 01:02:39AM +0800, Ginger Li wrote:
-> max3100_set_mctrl() stores the new RTS state and raises s->rts_commit to tell
-> max3100_work() that it has to program it:
+On 2026-09-19 01:46:34 [+0200], Xin Xie wrote:
+> On 14/08/2026 03:21, Jakub Kicinski wrote:
+> > 1) could you explain in more detail why GRO is breaking things?
+> > GRO shouldn't merge packets with different L2/L2.5 and packets
+> > with trailers?
+> The reproducer is plain SAN traffic entering a PRP RedBox's
+> interlink: matching Ethernet headers, no RCT yet, so GRO can merge it.
+> PRP then appends one RCT to the aggregate, using its length for
+> LSDU_size and assigning one sequence number. If the aggregate LSDU
+> exceeds 4095, the 12-bit field truncates it. Later TCP segmentation
+> cannot generate per-segment RCTs. An aggregate left unsegmented may
+> instead be dropped for exceeding the lower device's frame-size limit.
+> Our wire captures showed segments without RCTs and duplicate delivery
+> through the two LANs.Disabling interlink GRO raised single-stream TCP 
+> throughput from 27-37 Mbit/s to about 94 Mbit/s on the 100 Mbit/s rig.
 > 
-> 	spin_lock(&s->conf_lock);
-> 	if (s->rts != rts) {
-> 		s->rts = rts;
-> 		s->rts_commit = 1;
-> 	}
-> 	if (s->loopback_commit || s->rts_commit)
-> 		max3100_dowork(s);
-> 	spin_unlock(&s->conf_lock);
-> 
-> max3100_work() consumes s->rts_commit under s->conf_lock, but reads s->rts
-> itself outside of the lock, both when it services that pending update and when
-> it later transmits a character, so the state it programs into the hardware can
-> be stale.
-> 
-> Read s->rts into a local variable in the s->conf_lock protected snapshot at
-> the top of the loop, before s->rts_commit is consumed, in the same way as
-> s->conf is read before s->conf_commit.
-> 
-> Fixes: 7831d56b0a35 ("tty: MAX3100")
-> Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
-> ---
-> v2:
->  - read s->rts into "rts" before s->rts_commit is consumed, as suggested by
->    Maarten
->  - mention s->rts_commit in the commit message
->  - left the s->rts / s->rts_commit split alone; folding both into one byte
->    would be a separate cleanup
-> ---
->  drivers/tty/serial/max3100.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/max3100.c b/drivers/tty/serial/max3100.c
-> --- a/drivers/tty/serial/max3100.c
-> +++ b/drivers/tty/serial/max3100.c
-> @@ -236,6 +236,7 @@ static void max3100_work(struct work_struct *w)
->  	struct tty_port *tport = &s->port.state->port;
->  	unsigned char ch;
->  	int conf, cconf, cloopback, crts;
-> +	bool rts;
->  	int rxchars;
->  	u16 tx, rx;
->  
-> @@ -249,6 +250,7 @@ static void max3100_work(struct work_struct *w)
->  		s->conf_commit = 0;
->  		cloopback = s->loopback_commit;
->  		s->loopback_commit = 0;
-> +		rts = s->rts;
->  		crts = s->rts_commit;
->  		s->rts_commit = 0;
->  		spin_unlock(&s->conf_lock);
-> @@ -258,7 +260,7 @@ static void max3100_work(struct work_struct *w)
->  			max3100_sr(s, 0x4001, &rx);
->  		if (crts) {
->  			max3100_sr(s, MAX3100_WD | MAX3100_TE |
-> -				   (s->rts ? MAX3100_RTS : 0), &rx);
-> +				   (rts ? MAX3100_RTS : 0), &rx);
->  			rxchars += max3100_handlerx(s, rx);
->  		}
->  
-> @@ -277,7 +279,7 @@ static void max3100_work(struct work_struct *w)
->  			}
->  			if (tx != 0xffff) {
->  				max3100_calc_parity(s, &tx);
-> -				tx |= MAX3100_WD | (s->rts ? MAX3100_RTS : 0);
-> +				tx |= MAX3100_WD | (rts ? MAX3100_RTS : 0);
->  				max3100_sr(s, tx, &rx);
->  				rxchars += max3100_handlerx(s, rx);
->  			}
-> -- 
-> 2.43.0
-> 
+> > 2) the code seems inspired by LRO but LRO also has
+> > NETIF_F_UPPER_DISABLES. This change looks rather incomplete.
+> > Calling it "best effort" seems like an excuse.
+> NETIF_F_UPPER_DISABLES prevents a lower's ethtool request from
+> overriding an upper's LRO-off policy. GRO is outside that mask and
+> remains changeable; extending the global mask would affect other
+> stacked devices too. Patch 1 sets the GRO-off default, while patch 3
+> segments plain, trailer-free aggregates before tagging, including
+> when GRO is re-enabled or GSO arrives directly. GRO_HW can also be
+> fixed on, so feature disabling alone cannot exclude all aggregates;
+> device-specific hardware-coalesced formats remain outside v6's
+> segmentation guarantee. I should have explained this distinction
+> from LRO explicitly.
 
-Hi,
+Would adding a NETIF_F_HSR_SLAVE flag to slave device(s) and then filter
+invalid flags in netdev_fix_features() fix this? This should help
+against enabling and add a warning if a flag can not be removed.
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
+A netdev_change_features() might do the job then.
 
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- You have marked a patch with a "Fixes:" tag for a commit that is in an
-  older released kernel, yet you do not have a cc: stable line in the
-  signed-off-by area at all, which means that the patch will not be
-  applied to any older kernel releases.  To properly fix this, please
-  follow the documented rules in the
-  Documentation/process/stable-kernel-rules.rst file for how to resolve
-  this.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
+Sebastian
