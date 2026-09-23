@@ -1,116 +1,240 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FEB423E87
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:00:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32355372DA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:01:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790190013; cv=none; b=kVLmTK6qbFup0Ke3AFbiqFS02wyqREwSgxnNfdffnnWu9cTjQIZg3qzcO/CI6Hj97kHDECy8eeYRgF7KD+j4K52tK/WezmdgTmvZT5CqhBKFrN+I7UnKlhAv9hxXZyGKoCY5FrYzUkgIIyhm1RZHZZH6gQV2WBPkgv6nRtzR9qo=
+	t=1790190107; cv=none; b=JYPIVSb28s8lSunppUhJkWrabCivJEYs1I9DBaqb/9fjNOg1awruUbbm2HN9R7YxA7CK49Upio5Y5w3tZ4bl14chE/Aw7JphTz7QDfQyu78vxn73R/wGt7OOCItNV3BFBRdbWGPAXcPBPCExT8BM+5b0dxRj5Im+CRT9H+wnvbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790190013; c=relaxed/simple;
-	bh=dIYxx7dcorRCck/K56ttjlPJHl0ldcGdQEDj9lKWAHM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=epzRj1PTiTpXzbnnfoZNP3dUNXhCONl1vOkAyhMRvTliPEpHQneOzv917WZHNxEarI09mC3pcggvRmJYB/tWjCibTUDMlIgKfH1j87H3L6i9ykUkS4dMGU4u6RJ6JgRByx8zfU/sv3k6SaOMFWKRDoJyTfkzKIdypmnwSJEC4FQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h5eKUJUj; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1790190107; c=relaxed/simple;
+	bh=2+sAdtNYkAUmzvkU5wTVUo7h5W67JxWtzAbCnDD1E+8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PhGxWPr3MTrOY8B70MjThChDEEKQpiNizRo7wjXTmi86imtMIyXLdkB6HB4356O847D83a47ounUu4oM648Jc9MYOiofog9n6arvMX7pFD+7MbuM9ib1wKdakFfFCGl7z8EQStEozT1pzbgQpJ4vv6NWwBuEuSr1UtTstDMpc9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hZxhkhaz; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h5eKUJUj"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91a931f66so6993765ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:00:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hZxhkhaz"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d097b4939so7114365e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:01:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790190011; x=1790794811; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ih7vExqheyZRzWcSD/M9fF0f5NUhzIJn0g8tstyB/pc=;
-        b=h5eKUJUjHhOD9CL2T44KpeSMf8hR7EIk0ZYU97GJQt5runCc35KzHjggngZcKEka78
-         TzKQW81ZeiTON2ySyDKxA55swBl+bMVIulIGEg2SKAWMlXfopmf+Vc9Q1nGnXMcvMaJO
-         sHK+1w8Cxi+xTJvQS0qgZYeWv7hAfImAztXnWdYwGi8tddxYjX+YPqM5buTg17b0Xusr
-         JpGwvPVnQzVmUdOdGJLhmhc7k+bXNPOgXIOYi9cVC4dQR2QrJn8TJPoP6bF+ItMQWuWH
-         GDJV5qwVoa/mTxUyOWmTYwucjXwPOxiigvgwOxDzjJaB4VEWDOkX0LjMopiNTW/PxdCE
-         fKkQ==
+        d=gmail.com; s=20251104; t=1790190104; x=1790794904; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q6Scvv3eUeE3my9e5y7jMPOIpDoXcixl5UFkPjL5a7k=;
+        b=hZxhkhaz6FbBTfwXco1yTZw0zaPS9NakPKO+YG4vs6iAVhBjndfFHP6kM8f2RBonk1
+         UWfCbuRwU3uuitgbW3eO4tGfXHWHHhli8tk8Qc3wxuBpt0f7vGp1rMu+xjg/n7+HnW6h
+         txvvw7+nuNWbdeOvF4rboL4gYOXzHCHlQrZA7PnbwfVtOWv7lJVLUyl+G/FeZ+CoerZp
+         Z9bs1v1gy8YFEuvzjqJJoA61tNStQ4AKO2g1PVVluL/mQUOv7AHyfivfcEfxkglevOre
+         G5PNXbPQQjN33MPNjeenCKsXRWTccNBGQJ3fBfWye1cmsOUh9GhE1T1KgclQCkmG8uVp
+         nzgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790190011; x=1790794811;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790190104; x=1790794904;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ih7vExqheyZRzWcSD/M9fF0f5NUhzIJn0g8tstyB/pc=;
-        b=Sh7TblJUcQXhZOLSRsIopOGzQVHHCLBD5QAn4Lw1sU/1OKzPYbsN0NiY4mfZJ0gePt
-         1+pocTUdnzpVwxlWLzNGJoDaV9kuqLCeSVcvjZ0WWA5CY7bheGzy5lTsfd+wVds04lXt
-         2j8XACukYUCqkSUWTFek+2Ns+FhZrle9HhafXaVRdT08f9Cm1ibZjJiNYnsOKVlToFMP
-         /CGaRaVVhoGwqVOp/OE/MrFjG3ug8RkbvUJcRo0xPI3FmT4ZMtlur6qAvt2C9vYtweWy
-         q5UgvpoKoTwrLkYuJhysmEjPg49nN0dOjc2WfGPkSHZwgXGfwrvou4eFSJRQks+wKqAt
-         37VQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz3J2xq0g/wqTksP5o+RxpSV6o+8Egha+HuXwJbOZSJIbCrFrzJLjQT2IUDlz6EGfpxH2D3hqxp/upJ4Ow=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXkdNB3jVJzX8wGSZBOapEvn5gE1U0J2QVcA0bcZBeq2SwkJJy
-	IRuJ+plY337nv8f/bd17jhzISCynV+8nQbuzAGqnYzFUG0pS2/aeYmsG
-X-Gm-Gg: AYBFou1rFm5ATpZTNR+6Qg2ux4H+LfqMwmBc2JDRrdBVCTjD18YfEqCoNAl0LV7Cueg
-	r9K837ITWm9HKi1kPWtHIB2By8SOiQDGiETcLdeSZE+yh1NG+52fX6yvW0AT7850Nju3JUqBJu1
-	YF7BtUELCM0SUiNpAfY2mg8j/tduzyxKieyIcWs+ZZ1waCPJJI6Dx8djGj+ddv4B7hgqQi41i9Z
-	yzD6nsEo6a/sH3+KK3PzJOChSEiQuIxBRNW4Y+HQvwoMPFNT2WqLk3pLx5gfGXOySoOQQp0tGWT
-	RwAqWZ25mDHYsQw12+eaDvW3+F7bbyDqZe2cahrSOMFT4c+CF6bZFg8GCBvXVMz7M/8sx4eF66v
-	EJ4A8LfnFly35UnsdLW7jRjUbEqt2jlkun9UYPqvxgu7zUlj1WIz43LaU8ENpwPcliocTrCpztb
-	btMmZkh7pzeGULOScOZg4FJ+BJg7LhXDJJAGKWxaTEEHjTTzM+4P47zO0UoAa5MfYi9aYkw3Hrm
-	sTGrfmPlbaVB+k6uYr0IL0=
-X-Received: by 2002:a17:903:907:b0:2dd:c053:d740 with SMTP id d9443c01a7336-2df7dc387e7mr822995ad.39.1790190011161;
-        Wed, 23 Sep 2026 12:00:11 -0700 (PDT)
-Received: from [10.14.5.0] ([192.19.161.248])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5d7a48sm15827145ad.48.2026.09.23.12.00.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 12:00:09 -0700 (PDT)
-Message-ID: <e0e7baf9-185a-4608-8dab-ddaa693d26bc@gmail.com>
-Date: Wed, 23 Sep 2026 12:00:10 -0700
+        bh=Q6Scvv3eUeE3my9e5y7jMPOIpDoXcixl5UFkPjL5a7k=;
+        b=zMHZBMOvPkJGGL+5d9ELUhb7hK/nIWxN8PciTlTY/UN6GXTCfBEJmtKEHbnsU1RgPq
+         HlVjW+HF44fF9fva52ZnDOx0XfxWVvl/+EkH4TDHsIurO4JRuITyQPIi3gnfpHg+P+eW
+         ABdxSmbyGtY8reUPtKu2yU5bFO15NxAvZk52u+l9NC8fUTih/YGBd+4oOaYasBLLegLj
+         pzZs69Nklsnniyj2SH7qYF6GUvOg3u8xSZILaswQva1CBSWImwv8sZsVho0sUJGIiJSK
+         FVuxFMJrKijFJi9TvcnuA4zFbtZBc90+MFENtJW+Khq2e9iqd2sTFDNpKHEPW/liTnx5
+         8tiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxyf5Grlx5bbsh1xmD7CRIZqjD/AaCNmdLBb0iCC2Ln1RO5bxqSAuhHDlD79LOZ84FctYKpdddPjnao7EY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFinZmN1pIW3KgS+Mq2bsyRnQizzag9AWyPXhzeDR/i7YCxoWg
+	M3WABCdjiv60Njg9obVOnr2lCB3L84JM5nR1QcaKQ95YgyjyB1IvHGAz
+X-Gm-Gg: AYBFou0hOCe8aSnH2NHoanI4br1g3fGhrEgtXo/71KEewi4UhdsVlNE+pdacuIzRGW2
+	rVLIkNypuWmy0tNoXnD35rwUb6Q3I9f5a6EmTfryp1BP7oqe6KZX4KPTBYnzVFIP5tcK9L7X9Hl
+	JvFVdkWXHfloFnD+WUIfbDeQtLMgoLZpYH6jbvpp0pa4j1RbfSnpKTzEo9U1lXrsyXvQW6KzXor
+	vDLKJrfjm30YwJIPiHHbX5Yo7vsm2ltfGcAJ+3ggdQedLs6TNk20ExU6/5kE7MznUbChp4R5BRr
+	St4RKbOIsOnxAggj9aY8JjM/VUQOLO03xtKtHsg10FW7mjQH3/RBGGlIDPNEZ4CwbZChWcjKK/A
+	AlAQ7024SI09JTuVdSQ14EtsUr71T/5ANZMt2VjP1Dmz2OhmqbexZAgiGaeRjaxniWzTkmeqPaA
+	AyJYGDk/hV9dLJJSoTZvdyG3ZUEyVaohG2V5BH/dkykWcg0wZc6UrgQAZzdLfbWzlGNM8dbCMhQ
+	tZulKlwNVPlm9vgVTeba9/GI777dooHXBizbBVTfX6L
+X-Received: by 2002:a05:600c:4ec6:b0:49d:e0c:e55e with SMTP id 5b1f17b1804b1-49fe66f9ddcmr2113795e9.23.1790190103535;
+        Wed, 23 Sep 2026 12:01:43 -0700 (PDT)
+Received: from cachyos-x8664 (213-225-11-125.nat.highway.a1.net. [213.225.11.125])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd3d5csm6639235e9.14.2026.09.23.12.01.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 12:01:42 -0700 (PDT)
+From: Roman Stingler <roman.stingler@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Roman Stingler <roman.stingler@gmail.com>,
+	Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
+	Erik Hakansson <erikhakan@gmail.com>,
+	Filipe Lains <lains@riseup.net>,
+	Bastien Nocera <hadess@hadess.net>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: [PATCH v2] HID: logitech-hidpp: do not overwrite the device's hi-res wheel mode
+Date: Wed, 23 Sep 2026 21:01:27 +0200
+Message-ID: <20260923190128.10394-1-roman.stingler@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/398] 6.18.54-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260923140643.441954610@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260923140643.441954610@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+hi_res_scroll_enable() unconditionally puts HID++ 2.0 devices supporting
+the HiRes Wheel feature (0x2121) into high-resolution mode on every
+connect event.
 
+On at least the MX Master 4 that mode is persistent state in the device.
+With hid-logitech-hidpp unloaded, a mode set from userspace survives
+switching the mouse off and on again. Writing it at connect therefore
+destroys a setting the user configured, and does so on every probe --
+cold boot, receiver replug or module reload -- so userspace cannot
+reliably keep it either: it gets no indication that the mode it set has
+been changed underneath it.
 
-On 9/23/2026 7:01 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.54 release.
-> There are 398 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 25 Sep 2026 14:05:48 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.54-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+This became visible when Bolt receivers gained support in 7.3. Before
+that these devices were driven by hid-generic, hid-logitech-hidpp never
+bound to them, and nothing in the kernel wrote the setting.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+0x2121 exposes getWheelMode alongside setWheelMode. Read the current
+mode instead of forcing high resolution, and scale by the multiplier
+only while the wheel is actually in high-resolution mode.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+The multiplier itself is queried regardless of the current mode, because
+hidpp20_hires_wheel_raw_event() uses the cached hires_wheel_multiplier
+when userspace later switches the wheel to high resolution; leaving it
+at 1 would make each sub-detent tick report a full detent.
+
+Note this changes behaviour for devices sitting at a low-resolution
+factory default -- the kernel will no longer switch those to
+high-resolution scrolling.
+
+Link: https://lore.kernel.org/all/20260920094508.39682-1-roman.stingler@gmail.com/
+Signed-off-by: Roman Stingler <roman.stingler@gmail.com>
+---
+v2: always query the wheel multiplier, not only when the device is
+    already in high-resolution mode. In v1 a device probed in low
+    resolution cached hires_wheel_multiplier = 1, so a later switch to
+    high resolution from userspace scaled every sub-detent tick as a
+    full detent. Caught by Sashiko AI review on v1.
+v1: https://lore.kernel.org/all/20260923181203.422097-1-roman.stingler@gmail.com/
+
+Lovekesh Solanki proposed an alternative in the report thread which
+remembers the last mode seen from userspace. That fixes suspend/resume
+but not the probe cases above, and he suggested sending this instead:
+https://lore.kernel.org/all/arJs7GjCP3r4IaM-@eggarch/
+
+Tested with an MX Master 4 (WPID B042) behind a Bolt receiver, built as
+a module and loaded at boot:
+
+                        stock   this patch
+  suspend/resume          no        yes
+  module reload           no        yes
+  cold boot               no        yes
+
+The v2 change cannot be exercised behind Bolt: there the wheel reports
+arrive on the receiver's generic mouse interface rather than through
+hid-logitech-hidpp, so the driver's multiplier is not in the path (that
+is the separate unscaled scrolling problem being addressed elsewhere on
+the list). I tested it over Bluetooth instead, where hid-logitech-hidpp
+receives the wheel reports itself:
+
+  - wheel set to low resolution, link dropped to force a fresh probe;
+    with dynamic debug on, the driver logs
+      wheel multiplier = 15, hi-res = 0
+    (v1 would have cached a multiplier of 1 here)
+  - switched to high resolution from userspace, with no further
+    hi_res_scroll_enable() call logged afterwards, so scaling comes
+    only from the cached multiplier
+  - one physical detent then reports REL_WHEEL_HI_RES totalling 120
+    and a single REL_WHEEL, i.e. correctly scaled
+
+The same probe also left the low-resolution setting untouched over
+Bluetooth, as it does behind Bolt.
+
+ drivers/hid/hid-logitech-hidpp.c | 33 ++++++++++++++++++++------------
+ 1 file changed, 21 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
+index 493763a12518..53b344c9b741 100644
+--- a/drivers/hid/hid-logitech-hidpp.c
++++ b/drivers/hid/hid-logitech-hidpp.c
+@@ -2044,6 +2044,7 @@ static int hidpp_hrs_set_highres_scrolling_mode(struct hidpp_device *hidpp,
+ #define HIDPP_PAGE_HIRES_WHEEL		0x2121
+ 
+ #define CMD_HIRES_WHEEL_GET_WHEEL_CAPABILITY	0x00
++#define CMD_HIRES_WHEEL_GET_WHEEL_MODE		0x10
+ #define CMD_HIRES_WHEEL_SET_WHEEL_MODE		0x20
+ 
+ static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
+@@ -2072,12 +2073,10 @@ static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
+ 	return ret;
+ }
+ 
+-static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
+-	bool high_resolution, bool use_hidpp)
++static int hidpp_hrw_get_wheel_mode(struct hidpp_device *hidpp, u8 *mode)
+ {
+ 	u8 feature_index;
+ 	int ret;
+-	u8 params[1];
+ 	struct hidpp_report response;
+ 
+ 	ret = hidpp_root_get_feature(hidpp, HIDPP_PAGE_HIRES_WHEEL,
+@@ -2085,13 +2084,14 @@ static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
+ 	if (ret)
+ 		return ret;
+ 
+-	params[0] = (invert          ? BIT(2) : 0) |
+-		    (high_resolution ? BIT(1) : 0) |
+-		    (use_hidpp       ? BIT(0) : 0);
++	ret = hidpp_send_fap_command_sync(hidpp, feature_index,
++					  CMD_HIRES_WHEEL_GET_WHEEL_MODE,
++					  NULL, 0, &response);
++	if (ret)
++		return ret;
+ 
+-	return hidpp_send_fap_command_sync(hidpp, feature_index,
+-					   CMD_HIRES_WHEEL_SET_WHEEL_MODE,
+-					   params, sizeof(params), &response);
++	*mode = response.fap.params[0];
++	return 0;
+ }
+ 
+ /* -------------------------------------------------------------------------- */
+@@ -3908,9 +3908,16 @@ static int hi_res_scroll_enable(struct hidpp_device *hidpp)
+ {
+ 	int ret;
+ 	u8 multiplier = 1;
++	u8 mode = BIT(1);	/* the other paths always end up in hi-res */
+ 
+ 	if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_WHEEL) {
+-		ret = hidpp_hrw_set_wheel_mode(hidpp, false, true, false);
++		/*
++		 * The wheel mode is persistent state in the device, so read it
++		 * rather than overwriting it. The multiplier is fetched either
++		 * way, so that it is already known if userspace switches the
++		 * wheel to high resolution later on.
++		 */
++		ret = hidpp_hrw_get_wheel_mode(hidpp, &mode);
+ 		if (ret == 0)
+ 			ret = hidpp_hrw_get_wheel_capability(hidpp, &multiplier);
+ 	} else if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_SCROLL) {
+@@ -3933,8 +3940,10 @@ static int hi_res_scroll_enable(struct hidpp_device *hidpp)
+ 	}
+ 
+ 	hidpp->hires_wheel_multiplier = multiplier;
+-	hidpp->vertical_wheel_counter.wheel_multiplier = multiplier;
+-	hid_dbg(hidpp->hid_dev, "wheel multiplier = %d\n", multiplier);
++	hidpp->vertical_wheel_counter.wheel_multiplier =
++		(mode & BIT(1)) ? multiplier : 1;
++	hid_dbg(hidpp->hid_dev, "wheel multiplier = %d, hi-res = %d\n",
++		multiplier, !!(mode & BIT(1)));
+ 	return 0;
+ }
+ 
+
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
 -- 
-Florian
+2.55.0
 
