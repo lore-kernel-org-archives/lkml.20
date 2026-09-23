@@ -1,301 +1,239 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3757488762
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8AF48C8AE
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:27:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159268; cv=none; b=BLo9J3jfOjiusQWzA6vDqrNFT/a+CKJ5xz1SJBvvLluNfCBNXj9XyKUa/sO8BuzchazMfdGx22fc1jJ5n2KVuGzNyawxxjtQRwR1qsSnYrNTD4WCystlkZApGrqrqXB5V7xbsHmwv4pWzSuuZKSnIjLqN470Ii66MEhgjFAYmoc=
+	t=1790159272; cv=none; b=heUPlNlpssCxpZSaCmDnQyE1TsYyZIq/MyuIDgkEGPaQstABy0LhZ+2G6De3jIkLLCUKIaVngXWOa3Pprd75z3Oo3eIDgkJK/HhPMSMYMlmd5kP8ZmcVFTn14NyVWR7yWFS4AQKG27o0EEeAsYCx5+ZqDTpCuD+11wJxRI3nXH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159268; c=relaxed/simple;
-	bh=dPgaamYjOu93/yM3gV2qF9nzfgiS4ZPKow7lnCe+mLs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=grXqr4o4LpqqyadUVoHIrNGMdrDRkz4uUPfM8QH7p0/juwArI8eVccrl5sObWl60CxuRLvFI8j7e0pm1CZa8x61UaH9OKb15bsp3c+HHqHIgPnKxYLSORmTAst3qzM1Cgoc4go4YIQUhfqA1ny7LFhSnjyWhEJCvXF/wsB4gHyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Trx4Xl6U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JbmHYqcB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790159272; c=relaxed/simple;
+	bh=Z/PsIyyNVNfE/wcNawpmZtDNjPKPmx3aX/xgRi4nO38=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=jY2H2TxGDlQ3fv6r1pOPvmgtmzgcEPLtdhgM5u3YEsuMZAaBOsHMLZw7oxbt9T+aPLKdEDXV2iOJ/Dqg2RKskx4zfzXYxr2wYk5lBuZqGZBR9pf6s79+vgYjNTtVcyh7a6GjIueaVzv1/x/d+siGnVGlCcTVbWv6+6hNOAaYoVU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com; spf=pass smtp.mailfrom=airkyi.com; dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b=X8gWwXOn; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airkyi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Trx4Xl6U";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JbmHYqcB"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NA2hKs3208436
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:27:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1NuOH1NXcB2AiI/hLtOWQM1XgjcXBrhm8FLEPIqXD8M=; b=Trx4Xl6UZKDhwbvB
-	eChrg8GkrK1mFLFBmIrEvDMVX0t8RTkR21kvIGY8qvKVyur/LyYRza4GDeDo2rvb
-	KRVf4mb7VSOkjrdSOZVcjb7jpUztFUTGNn6Me+1/JYoKR7LbWvDOtdrvFGTRycsF
-	eoZS4vzTGk7nAx6OgeEbho/96E44Uuk+Yh/X6rm5tpMajQtGh9XVqyL1zEp7Olr/
-	BiU+ttXtpvcnSJO5KLXYmIWHpwDC3aZtr/mRZq7SN97/Nn2EIfDvuIs6hbx28oZY
-	XT8bF3H5wRFYhwraK7Qh6enTlhhC/5dR3hQV1yV1NoEksWGRt6HhiLnzpcGP4Aor
-	06ChCg==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv78n1gq8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:27:33 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1384427c3efso1297184c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:27:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790159253; x=1790764053; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1NuOH1NXcB2AiI/hLtOWQM1XgjcXBrhm8FLEPIqXD8M=;
-        b=JbmHYqcBT5WXl9wYJDFteZ04+i5sHEB9dMooxBuj1ApqKVsOb+hckYIs8R+4u2Wwyj
-         /xKTZit/NOjtYlgOK2kQGSoYkyf3CFPUA+kx9MViaLpKQJ56mne3we4fqu/U7Ki/t5Jt
-         O95TIEKGzQFQz9GwHnqn5XqHy8H69MOqNTaBWFbSTkgUtz16MEap+9st0YvAiCerWdl9
-         K59zd71N/Adr5ltuvtmPjpP7lu5h3J7abwT5EE6tFkHiiVR6nieESheViuZKUQVZzZeq
-         0cdvPw82Mmf1mbEr5DLby/hAxNgvH+Qi3L+3Z10bTmXpYbvyTDlTaDp/lqQZjn7Thhmi
-         GheA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790159253; x=1790764053;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1NuOH1NXcB2AiI/hLtOWQM1XgjcXBrhm8FLEPIqXD8M=;
-        b=JLsQWXbZpL0WrQZyqcgDfMT1geeAkSjoTlkmsuPrTdYe/JRLe7GsS9oJSxlJkesHPB
-         /jAk2jcHimt0uvzQi3XhujkNLSze54b//jQ3Iyt1Klt7ep5/Oiy7K14wzprRie4EgRfU
-         iliFfgv3mw53Ptknzbs+B0RDw5P50rp7yOZZp4zbHKVX1vXM48gV9DzUNZOnumlq2feo
-         D/KgBcsZE2gPcjp+LlLc6nR4HmOiB4nc6LrMPuqCVqz6GY7Tu1q3ybYPENfECiupIbHP
-         vzsgvnWwixjiJiBK464gAr7mHRkfI4DsF7NaQ9umy8Z/WZ+X6wjX5FVSBM8uRDuK+MLw
-         qqsw==
-X-Forwarded-Encrypted: i=1; AKwUvBwEQeHEen3r4k2I/aEgdHLFU+gmfELrV/f9vyTjWT/hmXWeEUEgFXkzgPVxt8NZVOHh5r1SDU7j0RkLqyM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjLh5l3Ns4v2K0QN+dUfMXqoP+75x8LAocTh7q7pubbMN4/7ez
-	lYsmih85yaCg/4OVPz+sHGW3rANzwwaaou47cfOdnIs5ztCI63ijQIsmGsDPxL3K0VuW5Mk47Ma
-	Hof+sHbxdkUpA+lxcUxviKvz5zyyz/TU0BJbXFzG65s43fZ99dXo7sUEX1q/yT/Qzxp8=
-X-Gm-Gg: AYBFou2yERepuwFFxjI64dxpEw+Y7XWaT8MrLIO2LIx/S4qHm9UnWcYLqgggXNkRZn4
-	i9uEVYBYkxgDKQlffKKs+e3oEBhTR2swwOo8s1KnrDFQXPTez/KFvkqEi37r/sQ6h+VIioO+IBq
-	Zc81UwaafNyj1OP4VR1Zt5y31fY2Mdppk0Ps+TCW1J/gg/01xuI6v4uQpl+EYAPm7iuY95ou2aK
-	EHhRptKyJ+DWCJc+E4yeQPGrPHIEtffX/KjewJsCFHJm+xlR6d/Bi2k8XBsDfRxTMhb7a1TSLdM
-	7vtlNjxagwLXFdJrDgsTDE2Xb/Iu4v0tsNDyR4XWAeHJzhXbpjaaR4MEMaRISAj1a1uloh9GPbO
-	5fb4j3fz0bJhGhUFHLk3RFnM=
-X-Received: by 2002:a05:701b:4187:10b0:144:ff51:2d5f with SMTP id a92af1059eb24-144ff512f97mr576928c88.33.1790159252598;
-        Wed, 23 Sep 2026 03:27:32 -0700 (PDT)
-X-Received: by 2002:a05:701b:4187:10b0:144:ff51:2d5f with SMTP id a92af1059eb24-144ff512f97mr576909c88.33.1790159252108;
-        Wed, 23 Sep 2026 03:27:32 -0700 (PDT)
-Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm8766646c88.13.2026.09.23.03.27.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 03:27:31 -0700 (PDT)
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 15:55:51 +0530
-Subject: [PATCH 11/15] dt-bindings: display/msm: Document A845 GPU and GMU
+	dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b="X8gWwXOn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
+	s=altu2504; t=1790159199;
+	bh=XbULw6ULJcXEN7r4HzVKK0xQN1onNLhHJdUNgVvLQ2I=;
+	h=From:To:Subject:Date:Message-Id;
+	b=X8gWwXOnt0SQ3QQ0c5Ga5ykT4dSi9wuLYGSN6vf0X3OnO1Errblkk+aL9jgBfJ3rq
+	 WoSxeKYbvqhqncw80Wdd9MeINcJEsZ81fbBMqwTaGKvCsDvBqb8VgZueMZQiYH5cAm
+	 XBs+fhd+LwUjtt3BnMqJxbCCJDfyaB7VB135DYdk=
+X-QQ-mid: zesmtpgz3t1790159191te5b87cc4
+X-QQ-Originating-IP: WUrZ5XmnOzoxgdtPF6VWy10ah40RwA+e8WcsItuKrhQ=
+Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 23 Sep 2026 18:26:29 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 14866682389088076304
+EX-QQ-RecipientCnt: 10
+From: Chaoyi Chen <kernel@airkyi.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Chaoyi Chen <kernel@airkyi.com>
+Subject: [PATCH] drm/display/dsc: Add YCbCr 4:2:2 and 4:2:0 computation for DSC 1.2 RC parameters
+Date: Wed, 23 Sep 2026 18:26:16 +0800
+Message-Id: <20260923102616.215-1-kernel@airkyi.com>
+X-Mailer: git-send-email 2.17.1
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MX+1SEN3H+wAZ6YLcAduUSOcyRfX2CiPwqZuU1xrNgWlKgAjb/nWgmR3
+	0w4kaTI2V9W9UZ84NlGyhrsSqkGborapcGHltw6MLU3bLXiSILhqrdvk46lce3wx4/7opmP
+	kEM+bKpro8UU4jok5Bm/H80HsmztX3KWIt6hcFNymNWpI2HjgPT9DUHPF40GazIULCZUd0s
+	0Gdmr1eAtE/waGMuVeJeBW4Enrw0FyiBe+IP3HjsRLJO9rlYe/1TCK1ynvPlPO0nOpgYPeS
+	96yTL7TVpdjyWF04R/eLO29f86hW9esui9plPMCBSfR/ff1quZgDofQa/kEirEXA3P+iIg3
+	94L/OCJk+AKgUOdvkifZ5xwFIRhch2c9DRCqn4D+gjekCZCwKx0S5286YcfT9C2k765kDOX
+	kOqkBCQVInK3LsSzo8hv13PxAd4TTmM/br91+SfDkTPYzjuLc+v8l+AswFVxsQQGRtYzhd5
+	KduY0uY/5/AdgSF408DrxjSWV6/mvm4qvjTPY72I/4+QA+MHaa5khAVZ+UyAQoeoNIb4xE1
+	HRnP9gLvc6DLieKUpw6LfjZFTzvsuzTg9mZzrreacnWVf6pHw8Yz+1tK+q5Xm9mhyvgqNgW
+	aKWkA0ZPQBGIZUkiDKOze7VbFDLsTetHXqHFoIYJn4jA949Tmkln8IS4hivX/qwz2E22VC/
+	KgaplhNg2OmPbwyK0MmYBP1Rj5ijDV7/1KejHw96tZKjZF7oiYKK2Jf3ScdfPu2I7VBvPlc
+	OPxbL1xSq20JwAKRlhh+wzAjK7yWBKVDRJJGwQiL1AcDBwBe/SxTQoOBsMhjzwdxjWpvDNK
+	hFtSDTyzK+mw552W17Yhq1EoTLKlnc2oXXlJ3TzK77gSokII6wMvJJ+21ksQhT+pkHIjrl3
+	VSI2pym7rf2jQfzBsfD2k1Foup0HcTyVD9aBaSIhOB2swoDgJKUdxBoiLZ1nDbA0DgK7YcE
+	DBbyITccR3jo/77S5HlGpdYXyhcowzd5GnHxqBkcX8jY+UPJBWDV0145jdmeO1Ye+dvs=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-hawi-gpu-v1-11-0c3c79a1a470@oss.qualcomm.com>
-References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
-In-Reply-To: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jordan Crouse <jordan@cosmicpenguin.net>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790159163; l=4840;
- i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=Di/O0uiu9sPfgbWZQ+DWpyFRPmaRlm3RFUo2LVR7Grs=;
- b=oSIRTIhIZTWgDC4dXD32uIpXePSFy6yeSCHpm1fL/BJX72Hrv/9/RdQGTvztY59Hyg5ntcCm4
- jHdUKpXw1dgALp5yZOyf/ttjpjDm4SFkpgAu8+0TssXWGH1uhbPRZd8
-X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX+PPwmqK+dgJl
- c0lRklz1Igyj4lDRUbo//zxCYJii0hMihpaoIRM2DLXzT4dHxHieWK8G0lh7RQukoOqG3Mp9PpD
- e5IWHrJK4rpw+Pot3MmAuhg3gzIq2aI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX/0mKkUkZGqZp
- yor4Y52zG8dI7ccXpHz3xEUBcrZm9cFJA7AbKoyZhAnBSfnX3UKiv5GFmwILI1iYnRvhrjAISQ6
- eylxXKSQLUr7ZhnDjpj8ppkHmTrgxr0jIUt1GPgS5hds0KjZG28a+yK0HHfF5Tg7yiVmvB29e7m
- dwYeI0yN9IUd/PH0gSb0BiI0lm0z2G5ud/pIHdMhm6FPbXcZITzITJeGheAx7KzbJA1aENsRp4G
- 9J48O+Urs+Wfkjpmp9/QkN5OC5B4aFnj4CA8TBN7K4aWNhCH5ehV989s9TO8qSvCUk04h8vs6QC
- a0JMgqT08JhmclqN3XtlEYdV2qF5YACI6vIW3h9CgbMe0ralutgzgu5PAaW9WQ7WoV4yzJDLHte
- nCiPuRE3kIsU2H08LY+O+td1Za+iHRkIhhibvWw/91kcUwRcw1fJKtALiFl2RUdQxosYI6haxhd
- yr7dgOmrJkX+qsSxjGA==
-X-Proofpoint-ORIG-GUID: vb2XN4_O6-tTz-GpzUWUYo-rIFAbnPSi
-X-Authority-Analysis: v=2.4 cv=aNFlOr9m c=1 sm=1 tr=0 ts=6ab3a995 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=0V7fMRHxbeNora9F6bUA:9 a=QEXdDO2ut3YA:10
- a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-GUID: vb2XN4_O6-tTz-GpzUWUYo-rIFAbnPSi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230041
 
-From: Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
+drm_dsc_compute_rc_parameters() still derives the rate control
+parameters that depend on native 4:2:0/4:2:2 operation using the
+DSC 1.1 model.
 
-Adreno 845 GPU is present in the Maili SoC which is very similar to the
-A850 GPU, except the MALU block. It has different set of power
-configurations and the GMU clock list. Document this GPU and its GMU.
+Bring the helper in line with the latest DSC 1.2 reference
+implementation (C model 20211213, version 1.67):
+- Compute second_line_bpg_offset, second_line_offset_adj and
+nsl_bpg_offset for native 4:2:0.
+- Compute rbsMin for DSC 1.2 native 4:2:0/4:2:2 using the optimized
+method of the C model.
 
-Signed-off-by: Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Signed-off-by: Chaoyi Chen <kernel@airkyi.com>
 ---
- .../devicetree/bindings/display/msm/gmu.yaml       | 54 ++++++++++++++--------
- .../devicetree/bindings/display/msm/gpu.yaml       |  2 +
- 2 files changed, 38 insertions(+), 18 deletions(-)
+ drivers/gpu/drm/display/drm_dsc_helper.c | 114 ++++++++++++++++++++++-
+ 1 file changed, 109 insertions(+), 5 deletions(-)
+ mode change 100644 => 100755 drivers/gpu/drm/display/drm_dsc_helper.c
 
-diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-index 875fd1242528..be4feb87f274 100644
---- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-@@ -367,7 +367,7 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: qcom,adreno-gmu-850.1
-+            const: qcom,adreno-gmu-845.0
-     then:
-       properties:
-         reg:
-@@ -380,7 +380,7 @@ allOf:
-           items:
-             - description: GMU clock
-             - description: GPU CX clock
--            - description: GPU MEMNOC clock
-+            - description: GPU SMMU Vote clock
-             - description: GPU AHB clock
-             - description: GPU MXG AHB clock
-             - description: GMU HUB clock
-@@ -388,7 +388,7 @@ allOf:
-           items:
-             - const: gmu
-             - const: cxo
--            - const: memnoc
-+            - const: smmu_vote
-             - const: ahb
-             - const: mxg_ahb
-             - const: hub
-@@ -407,7 +407,7 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: qcom,adreno-gmu-x285.1
-+            const: qcom,adreno-gmu-850.1
-     then:
-       properties:
-         reg:
-@@ -418,42 +418,60 @@ allOf:
-             - const: gmu
-         clocks:
-           items:
--            - description: GPU AHB clock
-             - description: GMU clock
-             - description: GPU CX clock
-             - description: GPU MEMNOC clock
-+            - description: GPU AHB clock
-+            - description: GPU MXG AHB clock
-             - description: GMU HUB clock
--            - description: GMU RSCC HUB clock
-         clock-names:
-           items:
--            - const: ahb
-             - const: gmu
-             - const: cxo
-             - const: memnoc
-+            - const: ahb
-+            - const: mxg_ahb
-             - const: hub
--            - const: rscc
-+        power-domains:
-+          items:
-+            - description: CX power domain
-+            - description: GX power domain
-+            - description: GMU MX power domain
-+        power-domain-names:
-+          items:
-+            - const: cx
-+            - const: gx
-+            - const: gmu_mx
- 
-   - if:
-       properties:
-         compatible:
-           contains:
--            const: qcom,adreno-gmu-wrapper
-+            const: qcom,adreno-gmu-x285.1
-     then:
-       properties:
-         reg:
-           items:
--            - description: GMU wrapper register space
-+            - description: Core GMU registers
-         reg-names:
-           items:
-             - const: gmu
--    else:
--      required:
--        - clocks
--        - clock-names
--        - interrupts
--        - interrupt-names
--        - iommus
--        - operating-points-v2
-+        clocks:
-+          items:
-+            - description: GPU AHB clock
-+            - description: GMU clock
-+            - description: GPU CX clock
-+            - description: GPU MEMNOC clock
-+            - description: GMU HUB clock
-+            - description: GMU RSCC HUB clock
-+        clock-names:
-+          items:
-+            - const: ahb
-+            - const: gmu
-+            - const: cxo
-+            - const: memnoc
-+            - const: hub
-+            - const: rscc
- 
- examples:
-   - |
-diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-index 3438eebf2fa4..a11a4dba838d 100644
---- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-@@ -415,6 +415,7 @@ allOf:
-             enum:
-               - qcom,adreno-44010000
-               - qcom,adreno-44050a01
-+              - qcom,adreno-44041400
-               - qcom,adreno-44051401
-               - qcom,adreno-44070001
-     then:
-@@ -453,6 +454,7 @@ allOf:
-               - qcom,adreno-43051401
-               - qcom,adreno-44010000
-               - qcom,adreno-44050a01
-+              - qcom,adreno-44041400
-               - qcom,adreno-44051401
-               - qcom,adreno-44070001
- 
+diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
+index 05996c526a8a..90b088335997
+--- a/drivers/gpu/drm/display/drm_dsc_helper.c
++++ b/drivers/gpu/drm/display/drm_dsc_helper.c
+@@ -1300,6 +1300,59 @@ int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params
+ }
+ EXPORT_SYMBOL(drm_dsc_setup_rc_params);
 
--- 
-2.55.0
++/**
++ * __drm_dsc_compute_buffer_offset - Compute the rate buffer offset at a given
++ * group position within a slice, following the method of the DSC 1.2 C model.
++ *
++ * @vdsc_cfg: DSC Configuration data partially filled by driver
++ * @groups_per_line: number of groups used to code each line of a slice
++ * @grpcnt: group position to compute the offset for
++ *
++ * Return: the offset value for the group @grpcnt.
++ */
++static long
++__drm_dsc_compute_buffer_offset(const struct drm_dsc_config *vdsc_cfg,
++				unsigned long groups_per_line,
++				unsigned long grpcnt)
++{
++	unsigned long grpcnt_id = DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay,
++					       DSC_RC_PIXELS_PER_GROUP);
++	long offset;
++
++	if (grpcnt <= grpcnt_id)
++		offset = DIV_ROUND_UP(grpcnt * DSC_RC_PIXELS_PER_GROUP *
++				      vdsc_cfg->bits_per_pixel, 16);
++	else
++		offset = DIV_ROUND_UP(grpcnt_id * DSC_RC_PIXELS_PER_GROUP *
++				      vdsc_cfg->bits_per_pixel, 16) -
++			 (((grpcnt - grpcnt_id) *
++			   vdsc_cfg->slice_bpg_offset) >> 11);
++
++	if (grpcnt <= groups_per_line)
++		offset += grpcnt * vdsc_cfg->first_line_bpg_offset;
++	else
++		offset += groups_per_line * vdsc_cfg->first_line_bpg_offset -
++			 (((grpcnt - groups_per_line) *
++			   vdsc_cfg->nfl_bpg_offset) >> 11);
++
++	if (vdsc_cfg->native_420) {
++		if (grpcnt <= groups_per_line)
++			offset -= (grpcnt * vdsc_cfg->nsl_bpg_offset) >> 11;
++		else if (grpcnt <= 2 * groups_per_line)
++			offset += (grpcnt - groups_per_line) *
++				   vdsc_cfg->second_line_bpg_offset -
++				 ((groups_per_line *
++				   vdsc_cfg->nsl_bpg_offset) >> 11);
++		else
++			offset += (grpcnt - groups_per_line) *
++				   vdsc_cfg->second_line_bpg_offset -
++				 (((grpcnt - groups_per_line) *
++				   vdsc_cfg->nsl_bpg_offset) >> 11);
++	}
++
++	return offset;
++}
++
+ /**
+  * drm_dsc_compute_rc_parameters() - Write rate control
+  * parameters to the dsc configuration defined in
+@@ -1391,6 +1444,36 @@ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg)
+ 	else
+ 		vdsc_cfg->nfl_bpg_offset = 0;
+
++	/*
++	 * According to DSC 1.2 spec in Section 4.1 if native_420 is set:
++	 * -second_line_bpg_offset is 12 in general and equal to 2*(slice_height-1) if slice
++	 * height < 8.
++	 * -second_line_offset_adj is 512 as shown by emperical values to yield best chroma
++	 * preservation in second line.
++	 * -nsl_bpg_offset is calculated as second_line_offset/slice_height -1 then rounded
++	 * up to 16 fractional bits, we left shift second line offset by 11 to preserve 11
++	 * fractional bits.
++	 */
++	if (vdsc_cfg->native_420) {
++		if (vdsc_cfg->slice_height >= 8)
++			vdsc_cfg->second_line_bpg_offset = 12;
++		else
++			vdsc_cfg->second_line_bpg_offset =
++				2 * (vdsc_cfg->slice_height - 1);
++
++		vdsc_cfg->second_line_offset_adj = 512;
++	} else {
++		vdsc_cfg->second_line_bpg_offset = 0;
++		vdsc_cfg->second_line_offset_adj = 0;
++	}
++
++	if (vdsc_cfg->native_420 && vdsc_cfg->slice_height > 2)
++		vdsc_cfg->nsl_bpg_offset =
++			DIV_ROUND_UP(vdsc_cfg->second_line_bpg_offset << 11,
++				     (vdsc_cfg->slice_height - 1));
++	else
++		vdsc_cfg->nsl_bpg_offset = 0;
++
+ 	/* Number of groups used to code the entire slice */
+ 	groups_total = groups_per_line * vdsc_cfg->slice_height;
+
+@@ -1410,7 +1493,9 @@ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg)
+ 		vdsc_cfg->scale_increment_interval =
+ 				(vdsc_cfg->final_offset * (1 << 11)) /
+ 				((vdsc_cfg->nfl_bpg_offset +
+-				vdsc_cfg->slice_bpg_offset) *
++				vdsc_cfg->slice_bpg_offset +
++				(vdsc_cfg->native_420 ?
++				 vdsc_cfg->nsl_bpg_offset : 0)) *
+ 				(final_scale - 9));
+ 	} else {
+ 		/*
+@@ -1425,10 +1510,29 @@ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg)
+ 	 * bits/pixel (bpp) rate that is used by the encoder,
+ 	 * in steps of 1/16 of a bit per pixel
+ 	 */
+-	rbs_min = vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset +
+-		DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay *
+-			     vdsc_cfg->bits_per_pixel, 16) +
+-		groups_per_line * vdsc_cfg->first_line_bpg_offset;
++	if (vdsc_cfg->dsc_version_minor == 2 &&
++	    (vdsc_cfg->native_420 || vdsc_cfg->native_422)) {
++		/* Optimized computation of rbsMin for DSC 1.2 */
++		unsigned long grpcnt_id =
++			DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay,
++				     DSC_RC_PIXELS_PER_GROUP);
++		long max_offset;
++
++		max_offset = __drm_dsc_compute_buffer_offset(vdsc_cfg, groups_per_line, grpcnt_id);
++		max_offset = max(max_offset,
++				 __drm_dsc_compute_buffer_offset(vdsc_cfg, groups_per_line,
++								 groups_per_line));
++		max_offset = max(max_offset,
++				 __drm_dsc_compute_buffer_offset(vdsc_cfg, groups_per_line,
++								 2 * groups_per_line));
++
++		rbs_min = vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset + max_offset;
++	} else {
++		rbs_min = vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset +
++			DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay *
++				     vdsc_cfg->bits_per_pixel, 16) +
++			groups_per_line * vdsc_cfg->first_line_bpg_offset;
++	}
+
+ 	hrd_delay = DIV_ROUND_UP((rbs_min * 16), vdsc_cfg->bits_per_pixel);
+ 	vdsc_cfg->rc_bits = (hrd_delay * vdsc_cfg->bits_per_pixel) / 16;
+--
+2.53.0
 
