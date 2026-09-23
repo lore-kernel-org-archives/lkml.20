@@ -1,164 +1,180 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E32849CF29
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF85494816;
+	Wed, 23 Sep 2026 10:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790160069; cv=none; b=Hd4F4ap+unRGjHtUsAqwZ9c1oWEaS9mFQ6vFjSAd+gnrL8gM+zBPe9QzAnvf1STVXShjFfKH8z7sA3O5unH0AgTWOs0pfpjCy/a2RX3ySYZ+Nd4NWFdaYU9rOY+FDtHVhPO6Ko+Tb0kmPcO5exDqGqdP6/3pQr1bggsnAnryBmA=
+	t=1790160077; cv=none; b=CxaVoD6by6BjBONwwFvSzQ0sFgK4ewT+XpXDS3TfsooqvxfH0sVMgoch/sA0pb2xI3WFGzL+WKG0HbOZTKkqd/ysxDzNSweqaFMSnBFoFg0RDop3i1e0+cTudLQ2Z9TtMkOEYaIevYXXHlNbmhlbExRGcm68MPCm64g4NgCVfPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790160069; c=relaxed/simple;
-	bh=zrebjrYHLxlkcLbOWhLADCVn448m5K5z0EZUcGG0+0E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ILq5/BwLY3JJQityFcSt33rpoUZOMVeWoaLm+vv+hl1sT9yvCiErhNDmIQkV1dFot40kV5Vi5Hr8h+8k59AsDUS6TYzfFn83V90H4fQZWiGK1DKdYqJ5/Y4yum9MmDSLGK/cYoLsF002uYgP+AsOmy3AJvt1G4cmHZmQKqSNlGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bj9mLHOT; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790160077; c=relaxed/simple;
+	bh=46tmE3Ve/Nk87FjWMhpAuTzX3HjMfVusUTFEdxS2Q7Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=H9cih+xyS9CzMdhHxYcJnXejsu9tvVckwwnFY7k0yYGObWv7wN8onpCbFhlprLrCYt2FYyBe1Faov6QhSCEJ+sttC1Bd54m0VkkFywn6H0/8cXwk7VHlIY8o3kY8EyrtidL7+ZRN8iELGyotqmLbyrNILE7YnJN4B44c1U7gwck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=BPwZpArg; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=kLBDNicC; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=h7lzvjM0; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=jQxrD/jE; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bj9mLHOT"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e620fa473so4389225e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:41:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790160061; x=1790764861; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ix3tO+d9OZKaRLRpGMWc7HAXEvurMPfFvhpnn2QHvZs=;
-        b=Bj9mLHOTsWcq1mlqYhEDwsulSgdRbgCRu8/8iaA1wliFOoVt2mziwustNaO0W9CNdc
-         UyjvOofDNHi2b31xFLrYTe5wraaZnpUayJRwdGFZeuDt1b6hSYlr+vNkBTPoHXbMqZsh
-         8HR4s9eLKSsnELfJvPz2/AzX7vEv8o0/IyKHI/p5xqaUzKYNb/RE5Gkv29cnMafZBhf7
-         S2jAZZPFa5JKEmo8d0VAq9WkgvkBJncpMCZD0oJfcpKvuW3MuoHkGLUACTc4GSS4y+BA
-         ylzynqK36LXH5o61vadQtu3LVhfpKdqDCXY20WQU7JckqAxIijZCEVdnhEpZpekSOpzm
-         fc4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790160061; x=1790764861;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ix3tO+d9OZKaRLRpGMWc7HAXEvurMPfFvhpnn2QHvZs=;
-        b=WRPf472rsJm0EgISaIfLR9jtxCtRLI3q1zzaoe1shZWtpmB+JUG8OHLaphhuLywNWo
-         YGjw19sqZs3mh+vy9smehcT9f202R2K7wyG0ZOF6ykhzQ6IntHPfsWIKjuBVyTDyAiWk
-         yiXC1Tc6TVx/GU/KDZNH9n3hYPepoyXpzxJzJqmy7rn0SELIuE2LETq25bS0LJD1OcJj
-         Eu41iKOGGOKF9dEys9j0bhsC1dzw3baOks3f42rRCDPrgvPsskYjeoQMiTxnyrABzrUz
-         QvKV2bej7kAi4wKYtze+N4PDFGXgqZ336gxiMSxpuG7OV/WbSlaPuGLzmYlWqNwwGtVP
-         SSjA==
-X-Forwarded-Encrypted: i=1; AKwUvBx6g0TKSUCsS4sQ5ToHCE6n/t/1XaRXWEnChFGOdYXTT8onAVZKZef/Ruy3sYhlWv6caFRzuVWcTCwmM3o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMC9SbBgg+0fj1wDfwQJqULPzAN/VimIroSy8z3RO/U/4jKvCd
-	r4tUbmpOBtD3kCbUTOYDmLr/kGMSWjQd8qkkD0Sv3Xko/DxK9vN5MfNE
-X-Gm-Gg: AYBFou1zkYq59HbLYKTFS2Dl5OX/CO/zH7u1zpaNRCZIl2eYj+FXkxwbIdhXIHfULwA
-	56lX5fOz5N0RglMkKUnwKe0wgqh+nzKfr/NVfE+3dIyYKHiVtyDWv/qBqQ+k7tpvJjlLR63mC2H
-	+YNr/3BD691jRWF3K3yReknOL0fge2CP4eZ2C3ThhwoYXiuNShB/ozUYQ31nanBc83nNESX+Bap
-	Gy+gd8GfybQtqCx8fvMYSgDKLlmlqzHS1RPlh7I42zHiNJC7BC1z30C4fAJ9zittRijo83OOC7W
-	E2GIMJPz+kfvIiW/gcEPLQu1OWnGbGY2Gl/ZOmEB3WIjRsrXVaXWP5jkHu6p1JPIidsc4zhZa4p
-	qnXtADDPhMzlwTryyd4BYbEI+T79XZik8qAMwL0IQq1a5I17js32ojTPMFryv+EflRKw6GPJjOK
-	4ezBw2tr2DjBx08UgghPx0JkcNjgrZ3nUButmHVuIT/JHRRZ6LqnRHAbsFz0QF6ZXEyYMZ0C7ne
-	lvFzkhIFcmCuE8T4iM814L9y/qX3MdU3H3zf98qI5GvPNLNd56OM5oqDBybxzGdVVsbch3Acykm
-	81MySbCJ
-X-Received: by 2002:a05:600c:1396:b0:49d:93c:d903 with SMTP id 5b1f17b1804b1-49fdf135413mr28275625e9.20.1790160060973;
-        Wed, 23 Sep 2026 03:41:00 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:885e:6ade:cc5e:a35e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1acb91sm65170415e9.15.2026.09.23.03.41.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 03:41:00 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v6 2/8] watchdog: rzv2h: Drop enabling clocks in the restart handler
-Date: Wed, 23 Sep 2026 11:40:48 +0100
-Message-ID: <20260923104054.3324830-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260923104054.3324830-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="BPwZpArg";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="kLBDNicC";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="h7lzvjM0";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="jQxrD/jE"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 89FBF21A29;
+	Wed, 23 Sep 2026 10:40:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790160052; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jdlLWRMURnyFzXNNGpWG5gQwOZdkQCfoP7TBERvJXHk=;
+	b=BPwZpArgWiz5VJJpy5wZ0xqH9wYyFZtKluK1MCUYPV3Ll6sH5lZVy7UVdxNhuywsSGn4px
+	3ED+ZXfZ7bboQVio206HWOCG610dPOeAO1BYbgXP3DUXveb/tkkKiByDaAkj6hwYdBLgcZ
+	rXYzB3ZeHWPJAgoUUFJvhZrb3HMhGRc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790160052;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jdlLWRMURnyFzXNNGpWG5gQwOZdkQCfoP7TBERvJXHk=;
+	b=kLBDNicCM1/r04ryQHA0MfYMrRBjafwkIyTXFd1HMcuFyZz7Gk3km4ESsE8mqwuJHoIs9h
+	zRLFhDs5NaZrHXDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=h7lzvjM0;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="jQxrD/jE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1790160048; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jdlLWRMURnyFzXNNGpWG5gQwOZdkQCfoP7TBERvJXHk=;
+	b=h7lzvjM0xXmB5bZTo+jOfDiQCPyF6+hdvGvf2Um67eWT1/bbY7aSnJmHR6mQ/QA+ypfGTc
+	fK6PWUXWnICAbOw5Hy536DmKYWGgQeH8FKFNI9elt04A6X+6nEtXwGPgbabGX9D3wEL4zK
+	vk98p1MAn3UeCluAbA3r0FFAmwX2i14=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1790160048;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jdlLWRMURnyFzXNNGpWG5gQwOZdkQCfoP7TBERvJXHk=;
+	b=jQxrD/jEb8CJzM5R6OlODXRvwUFfY1qCO8mZvumsIYMTJxSW6Uo9GdiipVWuuOYkAb7eYy
+	wf7bTwrsDSZ7fwCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5BEC513432;
+	Wed, 23 Sep 2026 10:40:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id QinLDbCss2p9aAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 23 Sep 2026 10:40:48 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id DFDAEA13D4; Wed, 23 Sep 2026 12:40:43 +0200 (CEST)
+Date: Wed, 23 Sep 2026 12:40:43 +0200
+From: Jan Kara <jack@suse.cz>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fs: remove unused vfs_empty_path()
+Message-ID: <aki35tz5ddykjr7xgmqs6pgmqgopqgcrlstei6okzhionqgcu4@uivzxkbbabg6>
+References: <20260918165105.1013792-1-ekffu200098@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918165105.1013792-1-ekffu200098@gmail.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 89FBF21A29
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Sat 19-09-26 01:51:03, Sang-Heon Jeon wrote:
+> Since commit e896474fe485 ("getname_maybe_null() - the third variant of
+> pathname copy-in"), vfs_empty_path() has no callers.
+> 
+> So remove it.
+> 
+> No functional change.
+> 
+> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
 
-The watchdog restart handler runs from do_kernel_restart() with
-interrupts disabled and after smp_send_stop() has halted the other CPUs.
-Calling clk_enable() from the !watchdog_active() path takes the clock
-framework's global enable_lock. If a stopped CPU held this lock, the
-CPU executing the restart handler can spin indefinitely and prevent the
-watchdog from resetting the system.
+Looks good. Feel free to add:
 
-Keep pclk and oscclk enabled for the lifetime of the watchdog device by
-using devm_clk_get_enabled() and devm_clk_get_optional_enabled().
-Remove the conditional clock enable/disable operations from the restart
-handler so it does not acquire any clock framework locks.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
-v5->v6:
-- No change
+								Honza
 
-v4->v5:
-- New patch
----
- drivers/watchdog/rzv2h_wdt.c | 19 +++----------------
- 1 file changed, 3 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
-index 057b890de0b0..ee1649e0edae 100644
---- a/drivers/watchdog/rzv2h_wdt.c
-+++ b/drivers/watchdog/rzv2h_wdt.c
-@@ -191,22 +191,9 @@ static int rzv2h_wdt_restart(struct watchdog_device *wdev,
- 	int ret;
- 
- 	if (!watchdog_active(wdev)) {
--		ret = clk_enable(priv->pclk);
--		if (ret)
--			return ret;
--
--		ret = clk_enable(priv->oscclk);
--		if (ret) {
--			clk_disable(priv->pclk);
--			return ret;
--		}
--
- 		ret = reset_control_deassert(priv->rstc);
--		if (ret) {
--			clk_disable(priv->oscclk);
--			clk_disable(priv->pclk);
-+		if (ret)
- 			return ret;
--		}
- 	} else {
- 		/*
- 		 * Writing to the WDT Control Register (WDTCR) or WDT Reset
-@@ -291,11 +278,11 @@ static int rzv2h_wdt_probe(struct platform_device *pdev)
- 	if (IS_ERR(priv->base))
- 		return PTR_ERR(priv->base);
- 
--	priv->pclk = devm_clk_get_prepared(dev, "pclk");
-+	priv->pclk = devm_clk_get_enabled(dev, "pclk");
- 	if (IS_ERR(priv->pclk))
- 		return dev_err_probe(dev, PTR_ERR(priv->pclk), "Failed to get pclk\n");
- 
--	priv->oscclk = devm_clk_get_optional_prepared(dev, "oscclk");
-+	priv->oscclk = devm_clk_get_optional_enabled(dev, "oscclk");
- 	if (IS_ERR(priv->oscclk))
- 		return dev_err_probe(dev, PTR_ERR(priv->oscclk), "Failed to get oscclk\n");
- 
+> ---
+>  include/linux/fs.h | 17 -----------------
+>  1 file changed, 17 deletions(-)
+> 
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index 05d05bb9c951..ef8eb5af06c5 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -3653,23 +3653,6 @@ extern int vfs_fadvise(struct file *file, loff_t offset, loff_t len,
+>  extern int generic_fadvise(struct file *file, loff_t offset, loff_t len,
+>  			   int advice);
+>  
+> -static inline bool vfs_empty_path(int dfd, const char __user *path)
+> -{
+> -	char c;
+> -
+> -	if (dfd < 0)
+> -		return false;
+> -
+> -	/* We now allow NULL to be used for empty path. */
+> -	if (!path)
+> -		return true;
+> -
+> -	if (unlikely(get_user(c, path)))
+> -		return false;
+> -
+> -	return !c;
+> -}
+> -
+>  int generic_atomic_write_valid(struct kiocb *iocb, struct iov_iter *iter);
+>  
+>  static inline bool extensible_ioctl_valid(unsigned int cmd_a,
+> -- 
+> 2.43.0
+> 
 -- 
-2.55.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
