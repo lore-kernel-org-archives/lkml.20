@@ -1,178 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E16953F6A3
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:45:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF99353F6A3;
+	Wed, 23 Sep 2026 15:45:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178341; cv=none; b=jZ3g/8lqoC3QvH1euP7ruFKT8tQdsZTxpCRzHa78fRycJHK9CaMSpQzIKaaEwDF6YR3OkwxpFgy4mPNSETpUg/yrHx/qExrbPhNoI576MTO8113jTSqxgwItey7mP0i6MMZ18m9JXjQpA0sBBCbiyaYJ2wq1RGEswDDTpqDfFHo=
+	t=1790178345; cv=none; b=SDmDMZON07cSy+/ebBO9qzd5rUdYFSqF8Epy5YbFzN8PgQYNqT+2VQ+W8oT+7bfDZM4x+U/wDDli0bPuQy4i2hiwllT/2FWRlwphfbt6g0zR7MCiMYsEvWPZ9PrWV85jcT6Pl4kP7BVd7Gn1NiUXpbkTiQpdyAaP5BvAXvX4jzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178341; c=relaxed/simple;
-	bh=2Dc5Bfk0Rj9RNVBdjgldw7t9gZvHixfkRyh1nIxHxVw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oCtiT6wguxAUej3B3iPc77vv4n4EaRQKMJUdKjLTz8Uo7OVgdKOplj/xRcu7/rlVr2m6FUfxkt7zveIMt0MQikc6mntEQFSndMu5jkm20Rl5J/U+hhhOlTe3AJd7ta84fdZsObhDdbmv5DM75CRw2o0MKtlDtRT20wTPxIc0BSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5lR8OKn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790178345; c=relaxed/simple;
+	bh=oNky5tLCjol95LoJjVzCouM1AqenJcOzo/Hm66wzqaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R1ZkbWbOQ/l0cxP3L3xEs80jQjpzJGMjvAVn3rLqAmSbZgHkUoi5Z/wlbzJuUsZFy7IkyLJ9sBMn/pFY+OrOjZ1aEY2OLDCvsb042T9Dmo551FaslRWMrlhCS6CQwSu+MwUuD+T/MP/IOs0ltD25/9FZ0iu90GXaibJy/Oi+/8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KapfSIup; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5lR8OKn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D4C1F0089E;
-	Wed, 23 Sep 2026 15:45:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KapfSIup"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5741F00893;
+	Wed, 23 Sep 2026 15:45:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790178338;
-	bh=ndf5eV8Fv81ukOHNfSKozUzjOHGtJEUSne1n2V5ZgcI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=c5lR8OKnJT4jmtwR73IkOvXqTMfO1KzNkUM0tHa0jX4ycvfPBwCUgK9uiWPRQcIlR
-	 fP/+/vp9BrmECh988I7fFDMTg2DNRJ9zhLyhplQR2sP38LLBE6fdGkwz3CXrmFNRTl
-	 EtNHSLdvAEd3dbt4Ztv4Wo7BgGilRRiKZyxaELSoCe5r+PLoU8qcc7H2Y5maZ2mIV3
-	 EyJD0jN7vMAdbMr0UoAmv0GOOnk3ZyJKIzsrv0G8btzYPPBy2FeHkItFUqD1uCQr+8
-	 DtGS5HCypt6vSzLr4abeVSTy2eGQYnPQMi/qDqNi5ameOhv6UxDDR4OW3YoedW1ueT
-	 Lguuzn69uHV3Q==
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Wed, 23 Sep 2026 17:45:13 +0200
-Subject: [PATCH RFC 8/8] mm, slab: deprecate CONFIG_SLUB_TINY and reduce
- its Kconfig effects
+	s=k20260515; t=1790178343;
+	bh=xBhwM6wbqAw5a+cVNgYvlXlXJxCKVG4pNRvbUVKP8IA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KapfSIupahzymrJQOac0ZZru85avmkuCFsYN2BBX6hl8axXNJnffgnyqlm+GAqWFQ
+	 xzT7HNgoPLukmPtZQiUBGjAAgsMTd8mBODvU/qvqBoVlLs8WPfPnrRxVZn6ihew8bP
+	 vmmMP0HpYQBzSv0xarrSJFoDT0NNFmAVaJN5trYsm/T8kdBaP69tAOT9Jceqe5C9/t
+	 LV8Gui+KCanV+FtQ1aix6tIz7u0R/FbAIq7lEskqqpVMZDrB8GsXpeMSh9MekmkAQ3
+	 7ZMPHiPPDsji0EEtsNO5GjhuQJSJsjKHq/vLBxDvftss4APctbzOGdwKH6KmH4FoDW
+	 ATZpPB7e1lFyQ==
+Date: Wed, 23 Sep 2026 16:45:36 +0100
+From: Will Deacon <will@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev, maz@kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
+	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org, enju.kohei@fujitsu.com
+Subject: Re: [PATCH v18] arm64: mm: Handle Granule Protection Faults (GPFs)
+Message-ID: <arP0IF0MjFUv36AP@willie-the-truck>
+References: <20260913070459.2547407-1-suzuki.poulose@arm.com>
+ <arK3tsTV6EDhI-nt@willie-the-truck>
+ <arOyp8WUrYBAjrGH@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-slub_tiny_rework-v1-8-a0e66d536eb5@kernel.org>
-References: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
-In-Reply-To: <20260923-slub_tiny_rework-v1-0-a0e66d536eb5@kernel.org>
-To: Harry Yoo <harry@kernel.org>
-Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
- David Rientjes <rientjes@google.com>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, Conor Dooley <conor@kernel.org>, 
- Damien Le Moal <damien.lemoal@opensource.wdc.com>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arOyp8WUrYBAjrGH@arm.com>
 
-At this point CONFIG_SLUB_TINY only affects the default value of
-slab_tiny_enabled which has a boot-time parameter. Thus deprecate it in
-the Kconfig description.
+On Wed, Sep 23, 2026 at 12:06:15PM +0100, Catalin Marinas wrote:
+> On Tue, Sep 22, 2026 at 06:15:34PM +0100, Will Deacon wrote:
+> > On Sun, Sep 13, 2026 at 08:04:58AM +0100, Suzuki K Poulose wrote:
+> > > From: Steven Price <steven.price@arm.com>
+> > > 
+> > > If the host attempts to access granules that have been delegated for use
+> > > in a realm these accesses will be caught and will trigger a Granule
+> > > Protection Fault (GPF).
+> > > 
+> > > A fault during a page walk signals a bug in the kernel and is handled by
+> > > oopsing the kernel. A non-page walk fault could be caused by user space
+> > > having access to a page which has been delegated to the kernel and will
+> > > trigger a SIGBUS to allow debugging why user space is trying to access a
+> > > delegated page.
+> > > 
+> > > There is work in progress to unmap the guest_memfd backed private pages from the
+> > > linear map. Until we get that support, we could get spurious GPFs from within
+> > > the kernel, e.g., load_unaligned_zeropad(). So, try to fix them up for now.
+> > > 
+> > > Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> > > Reviewed-by: Gavin Shan <gshan@redhat.com>
+> > > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> > > Signed-off-by: Steven Price <steven.price@arm.com>
+> > > Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> > > ---
+> > > Changes since v17:
+> > >  * Pass untagged address to die_kernel_fault() - Sashiko
+> > >  * Explicitly check !user_mode() for fixups - Catalin
+> > >  * Switch to BUS_OBJERR for si_code from SI_KERNEL - Catalin
+> > >  * Clarify the commit description about the upcoming work on
+> > >    unmapping guest_memfd backed pages from linear map
+> > > Changes since v16:
+> > >  * Update the commit description to indicate why we try to fixup GPFs
+> > > Changes since v10:
+> > >  * Don't call arm64_notify_die() in do_gpf() but simply return 1.
+> > > Changes since v2:
+> > >  * Include missing "Granule Protection Fault at level -1"
+> > > ---
+> > >  arch/arm64/mm/fault.c | 30 ++++++++++++++++++++++++------
+> > >  1 file changed, 24 insertions(+), 6 deletions(-)
+> > 
+> > I still don't think we should do this, given that the plan is to unmap
+> > the memory from the linear map. If this thing fires, it's a kernel bug
+> > and it should be fatal.
+> 
+> If the linear unmapping gets merged first, I agree, no need to handle
+> these faults. I haven't followed that series, so no idea where it is at.
+> 
+> However, I'd still keep part of this patch - the reporting and panic but
+> without the actual exception table recovery. There's some value in
+> killing user-space and WARN (or pr_ratelimited) without a full panic, it
+> helps with debugging. That's what do_bad() via arm64_notify_die() gives
+> us currently anyway.
+> 
+> So maybe we can keep it to just:
+> 
+> static int do_gpf(unsigned long far, unsigned long esr, struct pt_regs *regs)
+> {
+> 	if (user_mode(regs)) {
+> 		pr_alert_ratelimited("%s[%d]: granule protection fault at 0x%016lx\n",
+> 				current->comm, task_pid_nr(current),
+> 				untagged_addr(far));
+> 		mem_abort_decode(esr);
+> 	}
+> 
+> 	return 1;
+> }
+> 
+> and we get the SIGBUS or panic via do_mem_abort(). No recovery for
+> uaccess though, we get the same kernel panic.
 
-Also remove its interactions with other Kconfig option, as they are not
-necessary:
+But how can this ever occur in user mode? I'm fine with making that part
+unconditional.
 
-- KASAN, SLUB_DEBUG or SLUB_STATS support does not need !SLUB_TINY
-
-- KVFREE_RCU_BATCHED can simply depend on !TINY_RCU
-
-- various hardening options do not need to be excluded, although it's
-  unlikely that somebody would enable those with extra memory overhead
-  together with slab_tiny
-
-- SLAB_MERGE_DEFAULT does not need to be selected, although it's likely
-  to be used together
-
-Keep the "depends on EXPERT && !COMPILE_TEST" as there's no point making
-the deprecated option more visible.
-
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
----
- lib/Kconfig.kasan |  2 +-
- mm/Kconfig        | 16 +++++++---------
- mm/Kconfig.debug  |  2 +-
- 3 files changed, 9 insertions(+), 11 deletions(-)
-
-diff --git a/lib/Kconfig.kasan b/lib/Kconfig.kasan
-index a4bb610a7a6f..f20b574f6653 100644
---- a/lib/Kconfig.kasan
-+++ b/lib/Kconfig.kasan
-@@ -49,7 +49,7 @@ menuconfig KASAN
- 		     (HAVE_ARCH_KASAN_SW_TAGS && CC_HAS_KASAN_SW_TAGS)) && \
- 		    CC_HAS_WORKING_NOSANITIZE_ADDRESS) || \
- 		   HAVE_ARCH_KASAN_HW_TAGS
--	depends on SYSFS && !SLUB_TINY
-+	depends on SYSFS
- 	select STACKDEPOT_ALWAYS_INIT
- 	help
- 	  Enables KASAN (Kernel Address Sanitizer) - a dynamic memory safety
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 604c58199acb..a1b1ff7db59f 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -167,16 +167,18 @@ config SLUB
- 
- config KVFREE_RCU_BATCHED
- 	def_bool y
--	depends on !SLUB_TINY && !TINY_RCU
-+	depends on !TINY_RCU
- 	depends on !RCU_STRICT_GRACE_PERIOD
- 
- config SLUB_TINY
--	bool "Configure for minimal memory footprint"
-+	bool "Enable slab_tiny by default"
- 	depends on EXPERT && !COMPILE_TEST
--	select SLAB_MERGE_DEFAULT
- 	help
-+	   Deprecated option that enables the slab_tiny boot parameter by
-+	   default, and can be overridden by booting with slab_tiny=0.
-+
- 	   Configures the slab allocator in a way to achieve minimal memory
--	   footprint, sacrificing scalability, debugging and other features.
-+	   footprint, sacrificing scalability.
- 	   This is intended only for the smallest system that had used the
- 	   SLOB allocator and is not recommended for systems with more than
- 	   16MB RAM.
-@@ -199,7 +201,6 @@ config SLAB_MERGE_DEFAULT
- 
- config SLAB_FREELIST_RANDOM
- 	bool "Randomize slab freelist"
--	depends on !SLUB_TINY
- 	help
- 	  Randomizes the freelist order used on creating new pages. This
- 	  security feature reduces the predictability of the kernel slab
-@@ -207,7 +208,6 @@ config SLAB_FREELIST_RANDOM
- 
- config SLAB_FREELIST_HARDENED
- 	bool "Harden slab freelist metadata"
--	depends on !SLUB_TINY
- 	help
- 	  Many kernel heap attacks try to target slab cache metadata and
- 	  other infrastructure. This options makes minor performance
-@@ -216,7 +216,6 @@ config SLAB_FREELIST_HARDENED
- 
- config SLAB_BUCKETS
- 	bool "Support allocation from separate kmalloc buckets"
--	depends on !SLUB_TINY
- 	default SLAB_FREELIST_HARDENED
- 	help
- 	  Kernel heap attacks frequently depend on being able to create
-@@ -234,7 +233,7 @@ config SLAB_BUCKETS
- config SLUB_STATS
- 	default n
- 	bool "Enable performance statistics"
--	depends on SYSFS && !SLUB_TINY
-+	depends on SYSFS
- 	help
- 	  The statistics are useful to debug slab allocation behavior in
- 	  order find ways to optimize the allocator. This should never be
-@@ -245,7 +244,6 @@ config SLUB_STATS
- 	  Try running: slabinfo -DA
- 
- config KMALLOC_PARTITION_CACHES
--	depends on !SLUB_TINY
- 	bool "Partitioned slab caches for normal kmalloc"
- 	default RANDOM_KMALLOC_CACHES
- 	help
-diff --git a/mm/Kconfig.debug b/mm/Kconfig.debug
-index 15dca19dd07d..7fa01e48c9f0 100644
---- a/mm/Kconfig.debug
-+++ b/mm/Kconfig.debug
-@@ -48,7 +48,7 @@ config DEBUG_PAGEALLOC_ENABLE_DEFAULT
- config SLUB_DEBUG
- 	default y
- 	bool "Enable SLUB debugging support" if EXPERT
--	depends on SYSFS && !SLUB_TINY
-+	depends on SYSFS
- 	select STACKDEPOT if STACKTRACE_SUPPORT
- 	help
- 	  SLUB has extensive debug support features. Disabling these can
-
--- 
-2.55.0
-
+Will
