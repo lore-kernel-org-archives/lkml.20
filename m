@@ -1,254 +1,378 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC234A68B0;
-	Wed, 23 Sep 2026 11:34:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790163303; cv=fail; b=KWky8M5KhFWTmi0N/oU3GAxouKiEzIGud/QDVmwx9pmK5wb8siHuZtPZsN9dBs2plWprHhODJsGJsP1R0CPMJGMtqF2s47XVOlrpFASRny+xpvlmX4KpNwkTE2ysAyXTvyRU48AFw39DOnmcn2s4FelZrwkt6eZclQHlZgrrkqE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790163303; c=relaxed/simple;
-	bh=2HH8LfpCxFj5rZ2dw+UjxRgUH1ivtc4eZjU4MNcrC30=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=F70Z19u18afRw2nb87NaIvjMsqGkDi1ixx6JSlzS8XqPLk3i1MryG7xf6P2AcmNMQ9pIGKeI7h+52QbIS2TShGiVWG5ZeY2YG7GwRkli4L90JrhuTZQgjcQoW1wISctpGgnygnyHnoZF+AgoXkE6mm37olddxE/A9nX9pWmZcnI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LxssE4D/; arc=fail smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F0F442B21;
+	Wed, 23 Sep 2026 11:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790163362; cv=none; b=Rus/5nImPIwDkka6ZJ7+KpGxzQ3aY4a6SGGvbMra26D6Y697SP9FUiY2vc7pzzk8AsStTCk7fDQeRVk3Vyh2UXu0dv9ydhkUq19tfY4nlEhAQXNXdDw9GSKSCPYClL6CZa6TTzBdpY9uH5pcyA4cEwaH0vhhQqyyzmpOJW3xBi4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790163362; c=relaxed/simple;
+	bh=XQP2T1nHQoGZbB2qaQSrJqPp4ebZ4GdcjQQKoj3V04Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ik8Xqc8nZyUWmNIB56lVLEw3wEnQ05P1IvAakBxUu1zk0yHJI5kltc95nkxRl6V2hGnnvyuFXvgFeyl/k9m45OBxG3D8x55aOJ3xrZux+M6BQLx8fMz6CBfbRXgPCgGIrJI+Ks20oEh48UxvnTluAbt6DgIRpjEOovne+IyfaSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jpOtDXFN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LxssE4D/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790163296; x=1821699296;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=2HH8LfpCxFj5rZ2dw+UjxRgUH1ivtc4eZjU4MNcrC30=;
-  b=LxssE4D/j3ByAyfgYihW2+bPJVHKd+TLecHE8jLC3xDjSlmbJSZ3JGOv
-   IiOcDo1E7AXAm9+gxk+WuBenfpoAah1kYNXHwN4njUF94Jsdy4xk+L3H5
-   jAWDNIPzMx7Xj+IDjxwt1XyBR2mbFUPAg3RnjyjeMSIhn6/otJ+XAnnu2
-   Lm7YJqCOcsEJD32q1Z5Ol1/rSPUHHZHJtS4JpBnQ3TnypR96UtoS6hN54
-   JrjU1kyfwR63O3uxbUS929nG4M6IHH9tW12ekr0uvNydIXsWhS7d08psZ
-   UkT9MBMOK13lpxXOWEVL3KU204D3kAzun0Syrzl9ebDj4zRXOR9MES89c
-   A==;
-X-CSE-ConnectionGUID: 7WKemmvBR/GzaA9g5rJLgQ==
-X-CSE-MsgGUID: 9iAn8TUbRduXLAsXaqBZjw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="89766723"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="89766723"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 04:34:52 -0700
-X-CSE-ConnectionGUID: ErFgsm5pSHyXMIVR6fy7pg==
-X-CSE-MsgGUID: oH0nXo1mSsOeCG7KmcLH7g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="273746033"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by fmviesa008.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 04:34:51 -0700
-Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 04:34:51 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 23 Sep 2026 04:34:51 -0700
-Received: from PH0PR06CU001.outbound.protection.outlook.com (40.107.208.9) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 04:34:50 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UlBJKJScRuDTaBTV1dXe/QPO9ki+hO78I+AymcrzZDdBfWuFayLB+7CCH8BRLyhTYKzrC0IZjuQaGfdUoHfL1uq1dGmANcVV36pTISl3eUp1mQaQmILSTPQudZ29kpH4Ej6wuiMCJCpsWbITOqMqJQs8JFuAgDxFqm8jhz52vcQgbTF+xoNks9Hnd0cydFIsivh8F3tp4JP5v6eEpkf6iJ1IxcZg5usnosCjrtJI0kEimAymwAgkLnTnQvjXJYHKZZ6fXRuH/tHP1mB3buOdlcYyhBhiYqk69qNK8ldvcKUWtzJC3etmJLURsiUPbx5S4L8juHwwWKdHnoI4TCSZNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lL922/6PIa9unVwLc6i5hfNDdTkkv9QVec3BGD7zEM4=;
- b=zKZHeBF8M/VM3nrmg5KsHQ9wFtAfvFpS8xVu50iZUPPDYaHh2di3sp2vS+ojQYLRul28SeyG2aebVlK9JBz6FcWYYn9xUvcbh6ejstrlsGm154EN9tL49paI5bqe3XqhtDMhdeDArgRblRYfBSMj9H0kK7JlLeUe/PYOn9Of+Ut+OZ1NIB3OeZNRtx3VdGxraaqu589OuyPf9Z1ImtTFimxkTx1tOC43bTgz+Zdt9Z/7Om+YJ//aucJWrANXbGRZnfSWXU68nj1FCO2POY0BKFiwAeUZVPFfP5WvMcxlTEF6PdlQEQ3WPYVEplj4H11lgY5vmvnIj53IU8Ad3aOX+w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- DS0PR11MB7460.namprd11.prod.outlook.com (2603:10b6:8:142::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.14; Wed, 23 Sep 2026 11:34:47 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 11:34:46 +0000
-Message-ID: <ac8a6383-3a8d-4fcd-bad1-dbb8dd6cc742@intel.com>
-Date: Wed, 23 Sep 2026 19:34:37 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/13] sched/fair: Remove magic hardcoded margin in
- fits_capacity()
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-CC: Zhan Xusheng <zhanxusheng@xiaomi.com>, Ingo Molnar <mingo@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>, Vincent Guittot
-	<vincent.guittot@linaro.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
-	"Viresh Kumar" <viresh.kumar@linaro.org>, Juri Lelli <juri.lelli@redhat.com>,
-	"Steven Rostedt" <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
-	"Dietmar Eggemann" <dietmar.eggemann@arm.com>, Tim Chen
-	<tim.c.chen@linux.intel.com>, Thomas Gleixner <tglx@kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>, Qais Yousef
-	<qyousef@layalina.io>
-References: <20260504020003.71306-1-qyousef@layalina.io>
- <20260504020003.71306-5-qyousef@layalina.io>
- <20260923065407.3451520-1-zhanxusheng@xiaomi.com>
-Content-Language: en-US
-From: "Chen, Yu C" <yu.c.chen@intel.com>
-In-Reply-To: <20260923065407.3451520-1-zhanxusheng@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TPYP295CA0025.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:a::15) To DM4PR11MB6020.namprd11.prod.outlook.com
- (2603:10b6:8:61::19)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jpOtDXFN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48F751F000FF;
+	Wed, 23 Sep 2026 11:35:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790163342;
+	bh=HWPmCJVdQ8/Io06Lqs84cx0oI6m8O1OgDfmt/Vbbcoo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=jpOtDXFNSeiiCWZZABz4Ju4Bb6iHITZbiOuKKGf2noe0o3c1+Z/zLiRVnyVyHCSrM
+	 jORXJN97VJEh/lx5+7qAXBRt96rtPSoKm6WKGOPcmLkllqAWSyIBYcJPeY0hzP/P2o
+	 arV9DfNgPc3wgVhWvERpgIlu9nK6ItFDIgG+TLNaXX53hTLz0oamXRKeuMt2zg73y/
+	 rpk4dnQsRSMSRhSWTetnXZzSfs0B9v99V3uoylQYadMBDC9gGQP639EDRvHYIZ8122
+	 mtGhYWzLXknD0gVWHyRPV38gTRp3FyrYEQHqUxzQ/2fCn8HIb3kWUVaFRw4xsY1Czd
+	 Zkv/+ptynn8Tg==
+Message-ID: <b1cd8166-2ede-4a47-88fe-e9d46f881000@kernel.org>
+Date: Wed, 23 Sep 2026 13:35:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|DS0PR11MB7460:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d6d4d08-fc68-4742-4ccc-08df1966ab5a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|18002099003|22082099003|11063799006|10067099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: 6kslgspGCTLfSOb5/CndQJvhD6QmBGXRmIs4hfLUAekRFaKsjqwu7oh6sgK/Pt0m7uCRS9/cin9DBZHCNL/wBpvADm9nAlixXwvSmkvEff3P+kUam6vU90kU72hwZWN9aNIf6ENLaxxGIhZ1lzBIKSii8ZKX3rRfzNRzvTK/J8XSYo88RjiZTEKOcMqOmdEbawJSHfGtp9e2FAKwilCoN/g7WtYkyPSffZsFgCl1cT2Po1YITcBHXS82dqn/PVdK9YzKIvxzwwmxi6rCakpE/qITTEt3rnukhHJiI+qIvMiJ46dHnZ7ZehiImq/lJgNynI1raZccreVCWvCXT+vjfrktExKAftO+b+sRRGGDIFO1MZbWEQh2Br/OSSlcciMwEYPj/cLR5PmCzkB3V2AdbIvlfb6PwBJ7FiDeOlCYSpAuGpQk9HOzw0/9DyhJfrxdjqio7PUsHaRSgwGb2uoqZZoC8e5s4Gt8kDpxtLa77QLnW/tqOtIYlzwQlJEs51o7EHxH2W/vJ3LqVqpL+u1QL4C8LDFQhBJqCvQf9Jb6gIlMLdVBeSLU7zOtSOu0iML9UPeQv+JBpecSLFRv2S1l6u8TTZMwOMd53PK6AgYQIR5ckiOJVvQLgIbpN0yHZ73LVhFk4FbcorsD7qFozQD2+RSMqmFvAfDgktUeWOg+/5I=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHhaK2xTZnY1VklzdEhxbkVHdGhOdi9ySnhDdFJrZkZsc1hsMzV5LzZENWZh?=
- =?utf-8?B?WDdPaG9QdkdBOTk3c1hLOE9iWFNKVXZkdVNicG1HaEZScndMV05LWDBsT0Z6?=
- =?utf-8?B?ZzJTTkgwdE1VZk9nVnVDM2k0ZVA2WDE0ZUNZbXk2Zk4wQzlHaWR1NDYrOEFk?=
- =?utf-8?B?UFpGNWdmdkdWc3V0OUM5VmhQN0VIelovZ0RCYytWYzMzVXFDamhRMW9sU1Ay?=
- =?utf-8?B?MDlxSTlTcnRWdlRzTzV4MmFRbXhzdnNiMGNSTTd6MERQdnpObS82TWdGN3FN?=
- =?utf-8?B?aXZpbXVTbHRsNHRNRXlqcjRrMUZWNlZrb2F4bzJjZjFMd3RFcEw0ZVRoVHNZ?=
- =?utf-8?B?RnpvTCtlV3Jhb0xuVkVubU10U0NxQnhlYVFkY25mRXRaNnA0SUZiM3pPTDVl?=
- =?utf-8?B?dFM4akNGQ0FoNU9NNG1TTXdtWWNuK2I4VGpmUno5Z3RxRVZrZW02Zit4aXls?=
- =?utf-8?B?cFF2aXBNam5hZzduUVg5RXljYWU2R3RPTDJNTHBEbmlqK3dncWpIKzE1elNY?=
- =?utf-8?B?a215RHlzT3c0bFdrTlBzY0ZkNzd3RE94VzRXQXk3OGtYZEt5cUQwTVE1R3FW?=
- =?utf-8?B?TUVKb2ZCelFtWjVieTVZM2dvUUc1WEJZTnlFSGlhUWhXYVZqYktqZ1BTeTJi?=
- =?utf-8?B?SlprZ3h4b3dtOS9RT1NqRUdKd216TnBRNmJiZnBxMTFNY3FZbm5UZDA3akV1?=
- =?utf-8?B?OWp3eUFQdWFuR25NYXFFZ2QweGpSblVEb2ovSUQ0MUpsaGRtVXoyN3NMNWto?=
- =?utf-8?B?M2lkQWxRWHJsL1NNZndSM0xWOVlndm1VK0tnazI0OG5ZR2VNYVFRSE1YNTZ0?=
- =?utf-8?B?V0ttK0Z6OHl5cUIyWXJWSlNPV0VxVkRRSS9jOG4vNEJsM1VwclFLSjhBQUJW?=
- =?utf-8?B?K3YzbVFVaGFUeVljdzFpek1MMWwzKzNjVXZDRFNxaDFMaWxjVTRuaFJRWlZm?=
- =?utf-8?B?RW43bU1zYlkvUDRUT2xsRTRjVG0wNUZrNlNaTzFMeGFqM1JmOW1pUURIYzJp?=
- =?utf-8?B?VUNSQXJITU56eStIZ01XRnU2WUsreGJtRXdaNENpTEduN3g2bXlTcW1sK0ZD?=
- =?utf-8?B?VDJvQk9MUEwwbDlzSEJUampsb3YvWVBWd1RmcjV3OE5qYnczdHJQY1Rvd3V2?=
- =?utf-8?B?bVlOS0ZkMlU1TUNTSFpDNzF6dy9BVnEvTU90dEJCQmNGWHMrNTZMWGpNSU1H?=
- =?utf-8?B?anNZUTZkV2FQT2s5NElYODRMR1BYM1JsaWE3bDUwNUdrc1N4RU1TL0diQjFE?=
- =?utf-8?B?QWFjdTV3RE5zUE5mYmM5VmMrdGh3ckJvM1oyclQwaVpaaG9UNGx6ZGxNZzZC?=
- =?utf-8?B?NVA0SmI2WVcxOU9hK3RWUGFudUkzWTJ4QTRoSXdkblJyeEdqNE5QL2JiZ0NO?=
- =?utf-8?B?QzRmeGV2d1dXdEN6UXBhV05yejA2d3BYUzZaRTl2ZzNKNkFPR0pNY0pZeHVy?=
- =?utf-8?B?SEE4U0lRd3F5UHEvS1ljaFJWM3Bjd0gvdmlNeWRVR1QvaUtTZFBqSkk3WjlI?=
- =?utf-8?B?eFZOUU0waEpldFNvU29yMDFEeGlpaHRzbHJBUG8wWlBJNXd1OC92cEtHVU9L?=
- =?utf-8?B?UW50ZkFmRU1rSjFaWHEzQmg2YWxkT2NwSVAyMURWREdBVG5hL2IzNnN2U1Rn?=
- =?utf-8?B?bjlYMjJQeTEraXp2K3lwZnhsV0dBMUdlY0dYcExrYTVoWUIyVHdUeFpDWFY4?=
- =?utf-8?B?RkIwMTJQWmdSSVBNckJmWVJwb1U5Y0F4bVozTTdkTlFnV0NpbGhqb3ljK2VB?=
- =?utf-8?B?eE1ncm4yNVloZTFpSUNLWjBXSnAzd0huemxneTA5OUhCWisyd2lPZC9FeTV3?=
- =?utf-8?B?eitqQkZZWUJGVkdLY2xYSEV3MlZiUzFsM2FST1poQzk1S0l4NU9xWXBXSVg4?=
- =?utf-8?B?WG81UmtIZTJsU1JUdzRhUGJKanVuY2VLaGpPMDc0Z0VEeDQ5bkhDcHE5NHpL?=
- =?utf-8?B?Nm1VTlhNN1hBODJtVHZ5ZFFZKzllOW9peGRleDdWY0Nid2JNekVRRFI0TWN0?=
- =?utf-8?B?VlNEak15NC9CZjJTM1BXR3U3T1RQaXJlMDRBS2x6dk8zTnNwNlFFMWdyVS9H?=
- =?utf-8?B?RjRhTFk5aUJ4Y2lDdzJnTEFxeTJyU0hYUlNTNTNGc1dqMFVienFJYmRNQzdu?=
- =?utf-8?B?OXJXTi9VWWRPekYwd1VmYW1DdHBjcmR2djJiTitHN0hIa0xRbzdjcE15Mkxl?=
- =?utf-8?B?U0pLOXlHZ1FvQUVMMzZXL2FOcU0wNk5qMjlIZm5WNk1GTGoyalFlK1JzTjBI?=
- =?utf-8?B?SlhISjZzR2paYmphQkp4S1g2L0xOdE1rS3JRYjN3QlZ2TDR0MWxMa2Z0bXFX?=
- =?utf-8?B?Y0U5Y1ZZNjd5R2wzUEluVDhmWnlMa2dOalNhNEljYnoxS1Z3N2ZnZz09?=
-X-Exchange-RoutingPolicyChecked: 3F4bRUieYlx6tMvKAUm/gZP56Spn2Mo74wg/3Xw4JmkFfeoBJK5G76gYiJadPbDbR4nIW6ZKU6gEUxwaaUIv+8nWpidkHxyYWoP2nqZXnJtWch3N6dR68MJKIsXRgxWpTloaPmXLaLy2kFor+Go4fxxq7mUXfONVqt5wpQv+0VfRAj3pBO8EJQ/qplAE1/JxBToHfnLrRqw4q85UuRzD6yiRj74R3hlRWIRjxqW6ZaMnxDeXMMHTBwZ66AeVa3qPF5Ld+hRxQGPW/1F9Ryfa62pU7UuctgUL2BC9ZfEiknToW/ECYP0tCWC3ZHypar0tZk3EFfaLgiTHLnLAupAlHA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d6d4d08-fc68-4742-4ccc-08df1966ab5a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 11:34:46.7340
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DTz4wioS1iywCDEkxqUkf11bDxAmHl3iHhX6PGaEbaO+zzpUKHYpOygHihQCwAutclLusoEieMaJ4M1V6GX35A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7460
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/28] dt-bindings: sound: Add Apple Macs sound
+ peripherals
+To: James Calligeros <jcalligeros99@gmail.com>,
+ =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sven Peter <sven@kernel.org>,
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Ulf Hansson <ulfh@kernel.org>, Amit Kucheria <amit.kucheria@linaro.org>,
+ "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Vinod Koul <vkoul@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ James Schulman <james.schulman@cirrus.com>
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.de>, linux-mediatek@lists.infradead.org
+References: <20260920-macaudio-v1-0-741cc20a74e5@gmail.com>
+ <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260920-macaudio-v1-1-741cc20a74e5@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 9/23/2026 2:54 PM, Zhan Xusheng wrote:
-> On 05/04/26 02:59, Qais Yousef wrote:
->> -#define fits_capacity(cap, max)	((cap) * 1280 < (max) * 1024)
->> +static inline bool fits_capacity(unsigned long util, int cpu)
->> +{
->> +	return util < cpu_rq(cpu)->fits_capacity_threshold;
->> +}
-> 
-> This does not hold on current tip anymore: fits_capacity() has picked up
-> a second caller that does not pass a capacity, and the new signature
-> accepts it silently.
-> 
-> kernel/sched/fair.c, invalid_llc_nr():
-> 
-> 	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
-> 			(scale * per_cpu(sd_llc_size, cpu)));
-> 
-> The second argument is a scaled count of the CPUs in an LLC. sd_llc_size
-> is a per-CPU int and scale is an int, so the product binds to the new @cpu
-> parameter with no conversion and no warning, and the test becomes
-> 
-> 	cpu_rq(scale * per_cpu(sd_llc_size, cpu))->fits_capacity_threshold
-> 
-> With the defaults (CONFIG_SCHED_CACHE=y, sysctl_sched_cache_user=1,
-> llc_aggr_tolerance=1) scale is 1, so this is cpu_rq(sd_llc_size), which is
-> not a valid CPU id on a machine with a single LLC. invalid_llc_nr() is
-> called from account_mm_sched(), task_cache_work() and
-> can_migrate_llc_task().
-> 
-> Separating the two uses first makes 04/13 safe to apply. Something like
-> the below, against tip/sched/urgent (3cb0243767fd, where the cache-aware
-> fixes have just landed; sched/core still has the older mm->sc_stat form).
-> It is a no functional change, since x * 1280 < y * 1024 is equivalent to
-> x * 100 < y * 80. Built with CONFIG_SCHED_CACHE=y and =n, no new warnings.
-> 
-
-How about x * 5 < y * 4 ?  The y * 4 is a left-shift which could be faster.
-
-Thanks,
-Chenyu
-> I can post it as a standalone patch if you would rather not carry it in
-> the series.
-> 
-> ---
->   kernel/sched/fair.c | 19 +++++++++++++++++--
->   1 file changed, 17 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 57360f5cdde4..97ce56fcaf85 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -1526,6 +1526,21 @@ static bool exceed_llc_capacity(struct sched_cache_group *grp, int cpu)
->   	return false;
->   }
->   
-> +/*
-> + * The margin used when comparing the number of a process' active threads
-> + * with the number of CPUs in an LLC.
-> + *
-> + * Mirrors the ~20% margin of fits_capacity(), but is kept separate because
-> + * fits_capacity() describes a utilization versus CPU capacity relation,
-> + * which this is not.
-> + *
-> + * (default: ~80% of the LLC's CPUs)
-> + */
-> +static inline bool fits_llc_nr(u64 nr_threads, unsigned int nr_cpus)
-> +{
-> +	return nr_threads * 100 < (u64)nr_cpus * 80;
-> +}
+On 20/09/2026 06:53, James Calligeros wrote:
+> index 000000000000..bd844c9928c9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/apple,macaudio.yaml
+> @@ -0,0 +1,235 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/apple,macaudio.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
->   static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
->   			   int cpu)
->   {
-> @@ -1542,8 +1557,8 @@ static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
->   	if (scale == INT_MAX)
->   		return false;
->   
-> -	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
-> -			(scale * per_cpu(sd_llc_size, cpu)));
-> +	return !fits_llc_nr(READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads,
-> +			    scale * per_cpu(sd_llc_size, cpu));
->   }
->   
->   /*
+> +title: Sound peripheral integration for Apple Silicon Macs
+> +
+> +description:
+> +  This binding represents the overall machine-level integration of sound
+
+Please rephrase to describe not what binding describes (circular) but
+just say what this device is.
+
+> +  peripherals on Apple Silicon Macs, starting with the M1 series.
+> +
+> +maintainers:
+> +  - James Calligeros <jcalligeros99@gmail.com>
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - description: First-of-their-kind machines
+> +        items:
+> +          - enum:
+> +              - apple,j180-macaudio
+> +              - apple,j274-macaudio
+> +              - apple,j293-macaudio
+> +              - apple,j313-macaudio
+> +              - apple,j314-macaudio
+> +              - apple,j316-macaudio
+> +              - apple,j375-macaudio
+> +              - apple,j413-macaudio
+> +              - apple,j415-macaudio
+> +              - apple,j473-macaudio
+> +              - apple,j456-macaudio
+> +              - apple,j457-macaudio
+> +          - const: apple,macaudio
+
+As pointed out by Sven, please use specific compatible as fallback.
+Descriptions will be also redundant in such case, since the fllback will
+tell what is compatible with what.
+
+
+> +      - description: Machines compatible with J293
+> +        items:
+> +          - enum:
+> +              - apple,j493-macaudio
+> +          - const: apple,j293-macaudio
+> +          - const: apple,macaudio
+> +      - description: Machines compatible with J314
+> +        items:
+> +          - enum:
+> +              - apple,j414-macaudio
+> +              - apple,j504-macaudio
+> +              - apple,j514-macaudio
+> +          - const: apple,j314-macaudio
+> +          - const: apple,macaudio
+> +      - description: Machines compatible with J316
+> +        items:
+> +          - enum:
+> +              - apple,j416-macaudio
+> +              - apple,j516-macaudio
+> +          - const: apple,j316-macaudio
+> +          - const: apple,macaudio
+> +      - description: Machines compatible with J375
+> +        items:
+> +          - enum:
+> +              - apple,j475-macaudio
+> +              - apple,j575-macaudio
+> +          - const: apple,j375-macaudio
+> +          - const: apple,macaudio
+> +      - description: Machines compatible with J413
+> +        items:
+> +          - enum:
+> +              - apple,j613-macaudio
+> +          - const: apple,j413-macaudio
+> +          - const: apple,macaudio
+> +      - description: Machines compatible with J415
+> +        items:
+> +          - enum:
+> +              - apple,j615-macaudio
+> +          - const: apple,j415-macaudio
+> +          - const: apple,macaudio
+> +      - description: Machines compatible with J473
+> +        items:
+> +          - enum:
+> +              - apple,j474-macaudio
+> +          - const: apple,j473-macaudio
+> +          - const: apple,macaudio
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  model:
+> +    description:
+> +      Model name for presentation to users
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +
+> +patternProperties:
+> +  "^dai-link(@[0-9a-f]+)?$":
+> +    description: |
+> +      Node for each sound peripheral such as the speaker array, headphones jack,
+> +      or microphone.
+> +    type: object
+> +    $ref: tdm-slot.yaml#
+> +
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +
+> +      link-name:
+> +        description: |
+> +          Name for the peripheral, expecting 'Speaker' or 'Speakers' if this is
+> +          the speaker array.
+
+If there is actual expectation, please encode it as schema, e.g.
+
+enum: [ Speaker, Speakers ]
+
+You can also drop | from description.
+
+> +        $ref: /schemas/types.yaml#/definitions/string
+> +
+> +      cpu:
+> +        type: object
+> +
+> +        properties:
+> +          sound-dai:
+> +            description: |
+> +              DAI list with CPU-side I2S ports involved in this peripheral.
+> +            minItems: 1
+> +            maxItems: 2
+> +
+> +        required:
+> +          - sound-dai
+> +
+> +      codec:
+> +        type: object
+> +
+> +        properties:
+> +          sound-dai:
+> +            minItems: 1
+> +            maxItems: 8
+> +            description: |
+> +              DAI list with the CODEC-side DAIs connected to the above CPU-side
+> +              DAIs and involved in this sound peripheral.
+> +
+> +              The list is in left/right order if applicable. If there are more
+> +              than one CPU-side DAIs (there can be two), the CODECs must be
+> +              listed first those connected to the first CPU, then those
+> +              connected to the second.
+> +
+> +              In addition, on some machines with many speaker codecs, the CODECs
+> +              are listed in this fixed order:
+> +
+> +              Four speakers: Left Front, Left Rear, Right Front, Right Rear
+> +              Six speakers: Left Woofer 1, Left Tweeter, Left Woofer 2,
+> +                            Right Woofer 1, Right Tweeter, Right Woofer 2
+> +
+> +        required:
+> +          - sound-dai
+> +
+> +    patternProperties:
+> +      "^dai-tdm-idle-mode-[0-9]$":
+> +        $ref: tdm-slot.yaml#/properties/dai-tdm-idle-mode
+> +
+> +      "^dai-tdm-slot-tx-idle-mask-[0-9]$":
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description: Idle slot mask. A bit being set to 1 indicates
+> +          that the corresponding TDM slot is inactive/idle.
+> +
+> +    required:
+> +      - reg
+> +      - cpu
+> +      - codec
+> +
+> +required:
+> +  - compatible
+> +  - model
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    mca: mca@9b600000 {
+> +      compatible = "apple,t6000-mca", "apple,mca";
+> +      reg = <0x9b600000 0x10000>,
+> +            <0x9b500000 0x20000>;
+> +
+> +      clocks = <&nco 0>, <&nco 1>, <&nco 2>, <&nco 3>;
+> +      power-domains = <&ps_audio_p>, <&ps_mca0>, <&ps_mca1>,
+> +                      <&ps_mca2>, <&ps_mca3>;
+> +      dmas = <&admac 0>, <&admac 1>, <&admac 2>, <&admac 3>,
+> +             <&admac 4>, <&admac 5>, <&admac 6>, <&admac 7>,
+> +             <&admac 8>, <&admac 9>, <&admac 10>, <&admac 11>,
+> +             <&admac 12>, <&admac 13>, <&admac 14>, <&admac 15>;
+> +      dma-names = "tx0a", "rx0a", "tx0b", "rx0b",
+> +                  "tx1a", "rx1a", "tx1b", "rx1b",
+> +                  "tx2a", "rx2a", "tx2b", "rx2b",
+> +                  "tx3a", "rx3a", "tx3b", "rx3b";
+> +
+> +      #sound-dai-cells = <1>;
+> +    };
+> +
+
+Other nodes rarely need to be in the example. It's not even referenced
+(although that also does not matter). Please drop.
+
+
+> +    sound {
+> +      compatible = "apple,j416-macaudio", "apple,j316-macaudio", "apple,macaudio";
+> +      model = "MacBook Pro J416";
+> +
+> +      #address-cells = <1>;
+> +      #size-cells = <0>;
+> +
+> +      dai-link@0 {
+> +        reg = <0>;
+> +        link-name = "Speakers";
+> +
+> +        dai-tdm-idle-mode-0 = "zero";
+> +        dai-tdm-idle-mode-3 = "zero";
+> +        dai-tdm-slot-tx-idle-mask-0 = <0xf0f0f0>;
+> +        dai-tdm-slot-tx-idle-mask-3 = <0x0f0f0f>;
+> +
+> +        cpu {
+> +          sound-dai = <&mca 0>, <&mca 1>;
+> +        };
+> +
+> +        codec {
+> +          sound-dai = <&speaker_left_woof1>,
+> +                      <&speaker_left_tweet>,
+> +                      <&speaker_left_woof2>,
+> +                      <&speaker_right_woof1>,
+> +                      <&speaker_right_tweet>,
+> +                      <&speaker_right_woof2>;
+> +        };
+> +      };
+> +
+> +      dai-link@1 {
+> +        reg = <1>;
+> +        link-name = "Headphones Jack";
+> +
+> +        cpu {
+> +          sound-dai = <&mca 2>;
+> +        };
+> +        codec {
+> +          sound-dai = <&jack_codec>;
+> +        };
+> +      };
+> +    };
+> 
+
+
+Best regards,
+Krzysztof
