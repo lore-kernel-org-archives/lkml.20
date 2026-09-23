@@ -1,110 +1,104 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+Received: from mail-dy2-f1.google.com (mail-dy2-f1.google.com [74.125.229.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D912372ED3
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1512E443C0A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:41:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156467; cv=none; b=ewwrJZOK64X/FRO0E0Dso9V+pf9wgylUO/nstjJkz9+3OVM0iDYHSv12VmoJ+q7Pl43cHplEmrVMt0/uQT/iqGBeTgPfIpHcxqoFIAtXCCxEJLJHqONbNebaRxA+tPxiLLCVtBHfl44qk2NLN8d3arfrZUgIR/cgt/DwRgYVEbY=
+	t=1790156501; cv=none; b=k5fPy+izYYvGhVSsp5YGXQHeGat3WwRVdJ71b/9d2bLeotreAG+YxvYuutG28y/8CmSIpw7IE4kac1sgze2/MIAzTg+dKf1x/kWKodl/cw1uZ1hUihqnY5/LzrvRaKTeo/2H45SYSZjDAVAyA/we6rD2XuZwluwJUOd7xYxrySE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156467; c=relaxed/simple;
-	bh=wHIiCEgdZtfqmIfAflpfV641BfeO9lzUS6fjDGeRjIQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UUIRk5jVThxzxmZc+TiN1BuR4Vb1y3lM9LCdppHm3cLDMyBq8Ppvrp+pmDU94+Hnct9/Ef2R8KDY252IhkDS05ZixmcBrk/PG+0tU5PGDgpiNWf5qvayYO1F3Xje3Xtfvi25lcYZ5AvTSTGcP2tKBUY30ZUyrBZ90Y4hzRO9CEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1790156501; c=relaxed/simple;
+	bh=8KRd2IeBcyI79hkB04B1fpSGvFrzC7yk22zox4oFbxY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=erSOTBdbPrsV7wxJMkh2PrNuMS+lkxXsw6ijMZhZULnijV+dh7BGHvMo9nOatL4jNGCzGZsbJV4U4wyqnbJBcEi+3fiz7ToSRQFjfX9sY3x4aR5KAMDfswYpEU6bbLGj3xleNMWmUY1PgqhdgGy1DNrxgGO5gzgiWH8vIxs0uXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fUq7WRWt; arc=none smtp.client-ip=74.125.229.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c7e8a17839so176774e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:41:05 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fUq7WRWt"
+Received: by mail-dy2-f1.google.com with SMTP id 5a478bee46e88-313be8d47d4so368848eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:41:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790156499; x=1790761299; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oEoKsgWSINlMeUP0j6kujHfz74zeFa1j5vE3VMbHVkw=;
+        b=fUq7WRWtBf55mOPPROeg+JVIGrPm05Fk5FKWfubHtY6eQpEvDmZ0/Jhm6plF4Lywa2
+         DzODqSmYNIQwhYCj0ZST6SFauakYP+atbVN4DVl4ME8loPm3akydmer/1nUd20uDcAhl
+         c61E0asuw8uFtuKjpOVLFzu9If4Q9PshOiSWJ7vyx8eWzusYk1ul6Esy7x/yMsmojZW0
+         sgX6ZwDcNMLONRPZie4WWpRMyTP/e5rluSRjewmIdCJYMH2SrrK8ZDtdOTXXaG2ZwdgW
+         x/QY5bxFPA/p4Ht3ZYx9SI2g+Wc3pSxj3rgcCScbNU4UgDAUWaHXZssMQJrLHtR+3GRd
+         guWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790156464; x=1790761264;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Nr90W5Fnz0vjayQ2rPJMI4dvvs1Oph2WPp0m5lztwRY=;
-        b=S0NB5jsVHugT6Dvq0m9KriWBbCiQBNAWOzLUVBaHHkUgXyjtyp0j9QeMMrqjh/uIzF
-         cHyicNVJ7oeHURjOTVPl658zB2k/qwo+3326PHOrC77KXPXdm7+02Ycnf3FSWsIZlvwC
-         wz2Yc9bf5gugYy7OyBxhiNRI2vmlHADWt322vvAeQ+qVxCb2ZQqukR9g3885DjeNA4wW
-         tcDvYuE1IVW8KUCK14GESprj12m+hobkVi93x6PNteya4TTPGP2571iL4jZjUL7RMqzf
-         4KWrPhZjeEFrtPR5B1RwzznqqfAPR+rmECkKFhBPZK28YznJQyrQmZPkjzPIwfdz3Ikr
-         Q1wQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxFkZI7WNYl7tK6bNnQtqY0Myc4lQLz4oi8VOhL5JRzIAMNddWA3lElaV5QVaEWmsL+/1lb/LH2Sc4ymLQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++myry7SJBtI8tPNI9yfwwkyIWdT0++K4kDzDJwC3CLtMZi0QhSc
-	I2mBaxDBGC9EOsbtOiS7cOp8Gi+lyLBJhV7ruTNu4nzn6uNiM65WnmnwczNx8XyfKHw=
-X-Gm-Gg: AYBFou0IGKhKKEi7m44eNSZAj7D72V1EsMa44OxO6iHfY344XGO1/bB6cRHE4SryJBw
-	ueuMKVIimFOl8mLhG2MJDZN10IB1JGP0qLFsczH8LCrYo6GvLOIceKgRZVsd8SoWaQ292KQdYxE
-	6qLRzWdr3Nb8X8y+5ey0XhOp5kMVWpRxgVBybHuyej5WqHmWgQin2/g+LhicbPCZl+nbZ1b745H
-	jIclArvPizyY5KzdW255HIlgm2qpvVB7zKz8rfwTobJdB8aLEuCKZhGH5q9jjnMBK9knfKeXM1c
-	bUQ1tOJP/+I2ucBcM/T1ntm4gDyVaX4zjBwdWoXr2dnWoHVC35QlSSgDrev7sYauWR18eg4r0IB
-	JMtw4Ovo8NEBI83R+4GjKK74XBoOR1eh0DW7tb3oAQiH+p+8B6p8oYco0efmADuvObIyK4Z5Y/K
-	ifVc+uBSciOU3p50j653NzJRGophaiUdWugOiIDkQOy8O3+QlAOjwHfrAujUvmqhXLxC/8Jf4nR
-	PyMP3fg390fKS0LQBeFXmyAFeENGT9OCORdCDJN0Rz0cVgE
-X-Received: by 2002:a05:6102:26c7:b0:7a2:28cc:fa83 with SMTP id ada2fe7eead31-7ac0b1b10c7mr1877306137.6.1790156464252;
-        Wed, 23 Sep 2026 02:41:04 -0700 (PDT)
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com. [209.85.217.43])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf65b6a0esm2871805137.12.2026.09.23.02.41.03
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 02:41:03 -0700 (PDT)
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-78a338fe106so1702114137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:41:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxHAAHh9peWmLWrIINMBOvDB4+j3gMf6WLnTgzhImy7TeH8mJwLeOMhLiYAjB7PHlYFzom21h/ZPNlZUdw=@vger.kernel.org
-X-Received: by 2002:a05:6102:f0a:b0:7a7:69a1:add2 with SMTP id
- ada2fe7eead31-7aaa0708f72mr5644581137.30.1790156462933; Wed, 23 Sep 2026
- 02:41:02 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790156499; x=1790761299;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oEoKsgWSINlMeUP0j6kujHfz74zeFa1j5vE3VMbHVkw=;
+        b=qOEnUhEYmgCjnQ5CVoYuDUPegQArf9gAniONC5TprJVm3RHQFl6Q97anpcxlo3rz/F
+         ow6NAkZj7vJNwlK0VY9FzG9s0G056X45mIQ6+iS/IovaITuqxk1mEQTUA2kwE4XVhDW+
+         uvek7rf4mCtiipIj3Ezm6gBygkxjL3ErBmRDyCxTpJsTbWj1T3CW6VNTI8hajXyhrWTy
+         GKkoAqXvujJUHVD2oVxXdtjym76gVLKz56RkSphVuNbKPi9AXXt8oEiO7M7/5w+vuzAd
+         804/IlqY3kAXr3/O9aHuMfPelnTX0n2sZ3YDDf/M2ExGXnxz+k7nxSG7tETsNeX7sNgV
+         6pLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx02vrkqwDmIleF+df5Y8PGEJEtbSWie4Ehp6OkEHtpzNmyZ/iG7BFAWGNuecJ+TBzwHgzHDzRFKfvnNqI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0E4vktNAIui04dD8WXc49yj4Y4GTLVCoCxX9O/aGPrkZLgt6i
+	o87b7bsBZgnOErAkB20PDJSp40XJqHfO0aIFCFY4rFQG9dSPwcH4aCBTXtCv9+4=
+X-Gm-Gg: AYBFou1LLAGaajNsbeZUgoLsY6SkCzm5JjOSGpVZVOz0TW99U1nNvLUt13OT2evpnW+
+	DygazBtNAf85pEELalBTuhyT1/FhVjDvRJbMKO0vjHv3n6Rpkz3utrqMoT9Ql3HZjceYbxpPzb7
+	96mxmaYh4uBGZtyQilly3xkjC5gR6hRmqueEaX2BM/azUoNABEZdoBkeB6Io++eQ65dTDEYD0vh
+	fFZlBf/cJwjYeCffhFdueXJB6oqTtYWnl2EsWSyT1RecB5E0sAEbyvnJoy1+zxaGNB70VTro4Sb
+	EOdom5d8Zvv6D/EqLVT/5CYeT61bsPR7Ny60O199IcwecouwKFLR0crETGg/3td1xfzfBOh0LPB
+	6kM6ZxDtZiTv9be7I9TvN0+3h8PpiaPaq/0u/0XagBOwltBirx5uvthjPkJbGq5XeUgFnuHjPxX
+	49qJCs516avr8O7vFyE/Q20bErL3X3S2ib9Y/KY+7ZNGGpqgcygZxlFHgf2s0Awm5JDG4Fu1qt4
+	N+ILJuNdrilSPVjGLNLI5WX
+X-Received: by 2002:a05:7300:fc01:b0:33b:f062:a654 with SMTP id 5a478bee46e88-33e9548f062mr1886015eec.16.1790156498684;
+        Wed, 23 Sep 2026 02:41:38 -0700 (PDT)
+Received: from murali-Aspire-A515-58PT.. ([2a09:bac5:3b22:16b4::243:71])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e95c7bf6bsm4894525eec.8.2026.09.23.02.41.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 02:41:38 -0700 (PDT)
+From: Murali Krishna <muralikrishna2444b@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: srini@kernel.org,
+	ekansh.gupta@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Murali Krishna <muralikrishna2444b@gmail.com>
+Subject: Re: misc: fastrpc: is a ctx_idr IDR -> XArray conversion wanted?
+Date: Wed, 23 Sep 2026 15:10:01 +0530
+Message-ID: <20260923094040.18397-1-muralikrishna2444b@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <2026092338-banking-tactics-2cfb@gregkh>
+References: <20260923082254.15312-1-muralikrishna2444b@gmail.com> <2026092338-banking-tactics-2cfb@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790005703.git.tommaso.merciai.xr@bp.renesas.com> <15cfcb44c2d6b6e03b5c3d0d5af8ed997c4d179a.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
-In-Reply-To: <15cfcb44c2d6b6e03b5c3d0d5af8ed997c4d179a.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 11:40:52 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUw3vsV+rs0wuYbDmLpA_EXWZAKtpoP1ZXTY6Xt_FPLsA@mail.gmail.com>
-X-Gm-Features: AclHuK-4kOrbGKvyDLh28vAfMHGiFQCwXQMIlG3sAkDSk9boruM0x-6nSZuHeBU
-Message-ID: <CAMuHMdUw3vsV+rs0wuYbDmLpA_EXWZAKtpoP1ZXTY6Xt_FPLsA@mail.gmail.com>
-Subject: Re: [PATCH v4 1/3] arm64: dts: renesas: r9a08g046: Add USB2.0
- placeholder nodes
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 22 Sept 2026 at 00:27, Tommaso Merciai
-<tommaso.merciai.xr@bp.renesas.com> wrote:
-> The USB2.0 wiring on the RZ SMARC Carrier-II board is the same for the
-> RZ/G3E and RZ/G3L SoMs, so the nodes belong in the shared
-> renesas-smarc2.dtsi. Enabling them there breaks the RZ/G3L SMARC EVK
-> build, as the r9a08g046 (RZ/G3L) SoC DTSI describes neither the USB2.0
-> host (OHCI/EHCI) nor function (HSUSB) instances:
+On Wed, Sep 23, 2026 at 11:28:52AM +0200, Greg KH wrote:
+> I doubt it's really needed unless you can prove some sort of advantage
+> for the change?  Is it faster on a measurable path, or less memory or
+> something else that would justify the churn?
 >
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:94.1-7 Label or path ehci0 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:99.1-7 Label or path ehci1 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:104.1-8 Label or path hsusb0 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:114.1-7 Label or path ohci0 not found
-> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:119.1-7 Label or path ohci1 not found
->
-> Add minimal placeholder nodes carrying only the reg property.
-> The remaining properties will be filled in once USB2.0 support for
-> RZ/G3L is complete.
->
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> idr is still a fine structure/api for many things, they don't all have
+> to go away, otherwise we would have done so long ago.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4.
+Understood, and I cannot show such an advantage. struct idr is already
+built on the same underlying tree as the xarray, so there is nothing
+measurable to gain here in speed or memory -- it would be churn for its
+own sake. I will drop the conversion.
 
-Gr{oetje,eeting}s,
+Thank you for answering so quickly, and for explaining the reasoning
+rather than just saying no. That was useful to me.
 
-                        Geert
+If there is something in fastrpc, or elsewhere in drivers/misc, that you
+would actually like to see worked on, I would be glad to take on
+something small and learn from the review.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Murali Krishna
