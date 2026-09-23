@@ -1,100 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD664570FF;
-	Wed, 23 Sep 2026 21:31:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B53347668E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:32:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790199115; cv=none; b=NPS395FlX4LXZhQjUDB2ACfL7PLEoNz/rqDyQGO1t+sGPkVQO/9mUNTIH2X7iK5/3E623jGQoLgn3oxiBkkk/0wvsMdivpGcBfhg/4vElTPr0nI11/62SOaJ61vy67uTaoLTEdhk4cHR1XyLLizGGbRvHo+ZCUy7A0/iys9Y6dk=
+	t=1790199125; cv=none; b=TfBj1oLvREfMhvfOEX/f1uvhDyHbTQAii1jUdhbSAp+Wa1pCoF0TZ+xYVdb8mzDiaZ1i6PEyo5aaZnrMvF47emPzCVlKegzkwLBauuJPmTDg565gdg8Y0bGZt5uOeA3kyoCcZt65C9yEb2duhJU6oib3Lq8aXZ3gvnEK5Gj1wWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790199115; c=relaxed/simple;
-	bh=5SAVxGmg7GnelrcPsgVtt3W2kFmCd8Tt9b2GZLTh4zY=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=gWkwzSCl8dGSf28b0Bqfk1VHlzPp4s5JT9FLFTRmZyLYTZSuKQYzXYzM2LF7DZI/6QelMNR0vT5t5OfC2WOm8cSMZ4uEOvEv17Jn6mDiBeHEMA00zrICWlrxcsZ5+nnzax6cEJqBByxu8CrMfM9ESTDoRulJWYEEGuwEZSfMNAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LRHixrlv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790199125; c=relaxed/simple;
+	bh=yqwWpK4N9YeYAJC00jfG/KN04unxyF4L4b45axRv0cE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lch3p0Bj0dURdzAOItlUeL8IY+1x2cn8LzwhKp8nE8MCqr2W1+rhZvby4B0t02mTtGavAqb3XhrKGezEUKrjiFE2JQxZqtcuq86tQ9wGZf3bzEmxZdoj8J5EFutaqtPz2i+RdOs38pA4YkGU3Kcw8XOEL5TyPywhLSk5kDfPTTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=rS/+wDoP; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LRHixrlv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C63031F000FF;
-	Wed, 23 Sep 2026 21:31:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790199113;
-	bh=5SAVxGmg7GnelrcPsgVtt3W2kFmCd8Tt9b2GZLTh4zY=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=LRHixrlvCqA4DP04Yj/XSkiBYsMMYZlDbXvmoCxrq1HDhPJtk+LVGKjcQSv7tmDqO
-	 4fYu7FUCBiTYhpeMS/6aQbisEdSFCiopAELkp7kujX5ljUdBHIg7ra/pgY6Nb3uNeZ
-	 LgvJ+iXkvU8D6SJJSUEboJH6S6ui2qK1RaEyLRzEAHSBh6mcIUJNgybbpnfp4J88ce
-	 NoHfjItL+pt4PGXQ6KO1Ix1Jcwo/Y0/SmjC6WGZTwfCf92OYBXA+pauq7J8WzQjXYa
-	 b4+rkxY6ZtM6QZqyS6rRdFBv5RhKkBtHHEo4oQ0+2vLuUDgL/byVCRaddIYLm3POVd
-	 mcv758lKIjMtA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 18D991980059;
-	Wed, 23 Sep 2026 17:31:50 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 23 Sep 2026 17:31:50 -0400
-X-ME-Sender: <xms:Q0W0aqgh93mvqMIz3Y4uAkRvcFCMlSrZJvQLJNS7bPVxk3BwqtGw6Q>
-    <xme:Q0W0al0Y5YiwqMZgHtmMwm84QKmHbvGj-nO-rK_go5KYC5df5DmtZZPq6X2YcRPsp
-    ETeCwEl9OTwP4CNXkEpyJX1Obt0gdOG2A3OBjnagcgh1jFZMAsG0ujt>
-X-ME-Proxy-Cause: dmFkZTGpc2w2ufMjmJ0kap8IYjs9DfPrMkSQFlAOzp0sPrwE/vrB6G6LACcNgsecPhcLyl
-    /g20MmAILQDVu0ZlSW7Lo9cigxl3519OTOgyM8UAyR1qlsSJMvP2OLuBuCYEy8vwV9/bNQ
-    WQh7FLbGr62pkxIMcPm4sXkf+skT0hS8S8/4fyusGJg9XxMo6tfZoxf/yeVuvn1UVSKtK+
-    yjpDxHjNgfv6GXN8E2hYbkrxiDycjOFqxFyHgKgVwyw2yLOS7dg0qc1A0/3PCZ0TVcW9qF
-    a8vS5CuOnbW9yqpETq/JNukDtE0dez70dGFdfo8YR4EcapOfSiMdt0JJhH/CoQYunZXEkx
-    4y7dbz0FO1BNf2ZSmwjaC1o72nLr4BOeYMmL5fn/EJxQkBS8ykwEjFHn3vNe6FqNtH7zih
-    4Qo6NHaODC5piVE+bwEL1bQ/GGvg5rPtcRTTRPeIGoCiRmmv4LJIk6tRJVtMquknDVezHJ
-    vWQbLQgtDaQvlrTFNM2YyIStqkeNju5IKd4OSczUWM7kL87z7nG7Z+zbUwMIv7rlagqy1v
-    /jnU8At4jogCsmDlfPrvmrtUXUie/We54VcYHwH0jNEnOLdUNAej1KTGMPyThdfDPqpXE9
-    L6tBNGaVbNgPTadl+LKcwDhKPMUp35itFGnikWAMDTXsn5WTXQrxO+n6zalA
-X-ME-Proxy: <xmx:RkW0atFaMfzn3umDR1s9bs-Kk3MkgaNPoyM6LolyQEp-hCjgS5FgNA>
-    <xmx:RkW0arEMcEzOzSkta4DLZ7mtyUwSqEAIzP5_zYGHmpBP5xNdZhf89Q>
-    <xmx:RkW0at2M57JbrSZQWBwlJEfJ3-I2xW3WcKTqGPE7WInrBOK5vBEe-g>
-    <xmx:RkW0alcf_Bhjxlov46iFTQW11wgGbri_oCK0uu0iVIKNEl4uzXKfgQ>
-    <xmx:RkW0anJBbBkol_rpPInw8zj5v303xcyAaRVcunZlrAoMOBChhJT4Rxg4>
-Feedback-ID: i36794607:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 3BD3932A0087; Wed, 23 Sep 2026 17:31:47 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="rS/+wDoP"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43ac8d1dso16942657b3.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:32:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1790199120; x=1790803920; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YDp63aNNvlo+CbPC5AYf50weUXwD55oicYAOt2YPLqw=;
+        b=rS/+wDoPYolig2FICJsL6XwXIlKtMB5Lunw4Hx6BWlj0fmGdUF4Rr3dj09iX2IZRL3
+         J0rKAB930jc6NPDnpFIUKCYXIOn5kzKwi2wpSBWcmGa8iTGY9zmvjD6+YueUktxbZDHI
+         usbT+MDVDJfJdWVkh3ZK94GqQ/odGH+G2D2/gskt1sEGc0ByD1Pl0hmlBqUZLVJ8YElt
+         gf6nmO9n8C5eTdkTjiZd2jVd9i1XdAMVXX3pt0dO65R58xp1VndkhjaYJj3/txSaMgYf
+         07hu5Bv2nmoX8gyTinaqcUecDDJ4ulYErQxFrUyp20KI7IKUk8mNscb2ftmfByaYLNPS
+         yhrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790199120; x=1790803920;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YDp63aNNvlo+CbPC5AYf50weUXwD55oicYAOt2YPLqw=;
+        b=HKp0i9yjxxkifucuWojyTLJGrZNBQf3rbVCREcAMwCE8J2xZDRFHKpuvK5wQXnlvIm
+         1c2Vv3khq9vRbEqCShQnr24BOVbk/pR0j0SbGRgevwqjHKaLUfOa1V7VGJtbBRnpoYnX
+         0ZeKjtL7PEVhwD9TXb3qWzAA0b/kgjmNsuA1IjMn1KBkLPpmywUw/La6LPc0TRbmd0e9
+         0AvGpw9ELK27L4dR61psg1d2HrrsuhcgxlhchlBddMnchH+IFM+XTAyLjF9S8EddomkW
+         5R5uRxSxGImup17MPn279H3lKAt8Ej6ekd0/n6hGDVqg/8ilT+RSQos2egI7A+pjNpNn
+         UY2w==
+X-Forwarded-Encrypted: i=1; AKwUvBx9NNhbsL1ugq0hPopD2TFD2Z72D0MDOmOgvFNG8c1TxMwIKEOmwKe+Yah6bXhggzMMcDPg/42CYLJ/sDE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3mOmL1mtd1o+rfLRKFFEHc66j7tQ8OvgTK+W//UsR0Df2ZTfU
+	700gHUh+yE7D7WgplJVtnB286wys3W5aAEgrnDlT9AILDtXZtRpbrDIZgTo21qBKftA=
+X-Gm-Gg: AYBFou1DpPXJ53deYYwLdY7l6svfgwaFfGdMzzt0JsrH+vWzs1j6QKbDJ6t8vzgdtbB
+	QTbflEkkHw1oRZLnxzFoiSUuukXdxEiwVDIoj/QZJKXgXvMwMtlv9L3AcEIOs34WhHndZxOvF/R
+	TfxoVhXtPU3so6cTVY/JjVIJW/+cux94x4Ce3Xv32DaPtOv0Q/jGvVyb6Qx2vyKHQqqzBD7u/mW
+	4TVMhgGkmxzzQX4poBvQyxRHy9O3zY0pgo/uGJmMRDPEpcIcMS9aZ+cqbJJmgaABEuVnXyuV6NL
+	BgyZxK6cTi2DFOB1njc/0MzEhEAOlH8KNPr6xzrqcG4qBdGb/PMZEScV3AHYWtaRsnUuCXhBVk9
+	jjHcNtNDcchXOigxRVAj0Ds00gKNAlfsGk3n6n0KYm4gobpEZF9z1+KIIZ1BzQKvj+/9wNG5u3u
+	wyUuvV/svVXDJ26xW8rPnGfEQO2k8gbGHEGiWkT8kZartLzyDEEeaajghtvw3J0k1oeq63ug8zF
+	/ENlPSR+dfuND2xMep5msyDTZhF40SIhHDxY1x0rdnqk4KNjyI6lEAEWAR81tKihA==
+X-Received: by 2002:a05:690c:c507:b0:87f:c20c:67a5 with SMTP id 00721157ae682-8a649d6750bmr4124377b3.29.1790199120690;
+        Wed, 23 Sep 2026 14:32:00 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2474fbb3sm319077785a.6.2026.09.23.14.31.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 14:32:00 -0700 (PDT)
+Date: Wed, 23 Sep 2026 17:31:58 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Yeoreum Yun <yeoreum.yun@arm.com>
+Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-mm@kvack.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Shuah Khan <shuah@kernel.org>
+Subject: Re: [PATCH v3 1/2] kselftest: mm: return fail when child test result
+ is fail in khugepaged
+Message-ID: <arRFEKD8hmzTKFNC@gourry-fedora-PF4VCD3F>
+References: <20260923-fix_khugepagd_fail-v3-0-b387e92fe1a9@arm.com>
+ <20260923-fix_khugepagd_fail-v3-1-b387e92fe1a9@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AZl98to-mMhc
-Date: Wed, 23 Sep 2026 23:31:25 +0200
-From: "Arnd Bergmann" <arnd@kernel.org>
-To: "Greg Ungerer" <gerg@linux-m68k.org>, linux-m68k@lists.linux-m68k.org
-Cc: linux-kernel@vger.kernel.org, "Wei Fang" <wei.fang@nxp.com>,
- "Frank Li" <frank.li@nxp.com>, "Shenwei Wang" <shenwei.wang@nxp.com>,
- imx@lists.linux.dev, Netdev <netdev@vger.kernel.org>,
- "Nicolas Pitre" <nico@fluxnic.net>, linux-can@vger.kernel.org,
- linux-spi@vger.kernel.org, "Vladimir Oltean" <olteanv@gmail.com>,
- andrew+netdev@lunn.ch, "David S . Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>
-Message-Id: <b6135a85-1f05-4ec4-a283-60e8dbcf0437@app.fastmail.com>
-In-Reply-To: <20260907134037.1855408-3-gerg@linux-m68k.org>
-References: <20260907134037.1855408-1-gerg@linux-m68k.org>
- <20260907134037.1855408-3-gerg@linux-m68k.org>
-Subject: Re: [PATCHv3 2/3] net: smc91x: do not use readw()/writew() on ColdFire
- platforms
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260923-fix_khugepagd_fail-v3-1-b387e92fe1a9@arm.com>
 
-On Mon, Sep 7, 2026, at 15:37, Greg Ungerer wrote:
-> Modify the access macros and functions used to access the smsc hardware
-> registers when used on ColdFire SoC platforms so they do not use readw()
-> or writew(), or derived functions like ioread16be() and iowrite16be().
->
-> The current set of readX()/writeX() access methods for ColdFire have
-> historically been non-standard, in that they mostly access memory
-> big-endian instead of the expected little-endian. Before fixing the
-> ColdFire readX() and writeX() supporting code to properly work with
-> little-endian data existing driver uses need to be fixed. Convert the
-> smsc driver ColdFire uses of these to use the raw access macros - which
-> are well defined to be (native) big-endian on ColdFire. This change
-> requires some byte swapping at time of access to retain existing correct
-> behavior.
->
-> Signed-off-by: Greg Ungerer <gerg@linux-m68k.org>
+On Wed, Sep 23, 2026 at 04:29:51PM +0100, Yeoreum Yun wrote:
+> Although the child process in collapse_fork*() or collapse_max_ptes_shared()
+> reports `KSFT_FAIL`, the result is ignored because the test only checks
+> whether the parent’s page was collapsed into a huge page.
+> 
+> As a result, the test is considered successful whenever the parent’s page
+> is a huge page, even if the child test fails, as shown below:
+> 
+>   #
+>   # Run test: collapse_max_ptes_shared (khugepaged:anon)
+>   # Allocate huge page... OK
+>   # Share huge page over fork()... OK
+>   # Trigger CoW on page 1023 of 2048... OK
+>   # Maybe collapse with max_ptes_shared exceeded.... OK
+>   # Trigger CoW on page 1024 of 2048... Fail
+>   Bail out! Unexpected huge page
+>   # Planned tests != run tests (26 != 23)
+>   # Totals: pass:23 fail:0 xfail:0 xpass:0 skip:0 error:0  // child failed.
+>   # Check if parent still has huge page... OK              // parent hpage success
+>   ok 24 collapse_max_ptes_shared                           // considered as success
+>   ...
+>   # Totals: pass:26 fail:0 xfail:0 xpass:0 skip:0 error:0
+> 
+> To address this, propagate the child’s failure and skip the subsequent
+> check in the parent.
+> 
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
 
-Reviewed-by: Arnd Bergmann <arnd@arndb.de>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+
