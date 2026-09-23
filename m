@@ -1,271 +1,241 @@
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABD23BB13C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:14:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790136875; cv=none; b=jThpThloRGp/xLXW2CfvCRcS66U/bwTM4y2SGIxqzc2gdvpgnKgFJTN1g56mdZZMtV2WFPn9jnCLKx8HFo7T9UnresBRauxwmrxox3xiKAE9f9aX1vu9nbxl1qnfZcMyI+ABg4rFa4nHur3AKSFDJvPnxrNCtaqqFaXviZ6jsOQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790136875; c=relaxed/simple;
-	bh=iFXhhPbf6guF0BVm2qInEL1K40mXocy6lXl5zbmUw4M=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A9033F8A6
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790136936; cv=pass; b=ItlyQjlRlNAO7vRrQGJdUTlFizlOVJDlcmeA1aUI2ho6vOqVubPiv0jOVhNoHYo1vKNSF/ZkbEGaSiv1zNDI37t5zSDiJ4FO+YPuV7H9BXDZpl6li03qAIA03GHPROAceEVsW9O4imZVJgmOgJ/ngunxrl991INLp/8/l7c5czc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790136936; c=relaxed/simple;
+	bh=oUewmwn77TqWmsD8jxMMcsLsXwJkucdFvCNJu5PgVaU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ej1OdgkRdBgT1biZsVBWETkKiWE6Ifntcv4FObOZeQB/gS/uuRZMoEjPrzkCe2WEUN3YURZHOryutC8GNM/XCoxWBm6adkjI1LBsKyLgsmnZ5nmEGqgZrOoGubiR469k0S8hzG3UHLCfKZPofZci9rXC87JMlcWkjOuvsa3cs2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=YOrVmhY/; arc=none smtp.client-ip=209.85.216.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	 To:Cc:Content-Type; b=rtHInkcVYBh43Ib+Y+5WNdPxSBYEuRtrvnbYzjoxI6IPZ2mxGJhJn7NMhbS7zq14k92BGh7FQDEeFUza5QPkkrHD6vK3JpB2cR/8wgFkzlHSGsqPKASeOWQqsLsEjxbda0xbbI+7R5BTulwyWG+kQ/ZNT9bK71Ip05RPYtdLgkc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FwzOicOX; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="YOrVmhY/"
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-398e9698a70so197205a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:14:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790136874; x=1790741674;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hPAqHdAaGdvmyWUagoOXdL7r0CRQDoZmwr3/dJMY3Pg=;
-        b=cSoTuKN5XuQUQ3v4NpZkfky4x0ZvpE2JdCHIjofsKF9LPcLAK0rZ63qOKYcEFE/FZo
-         xJV/fq/fgI8gYrYvW49yHxwc2F0Wr0W9JyPC//u7DbfJ3JR0TEugQqP4DrVS1/tATqZP
-         4XZDvi0WtsJRA3CKsvRSMTW/2vt64JzARlZy1nAB6aKXTh8G2dg9jMo+LiXO8NFNGLwr
-         Vb7opGnfPYRm2qlMQ9E4qbs7ZuxtZcOeqkKFlVPUDSbWfjNns79VZx9vRV5h2+7BEC8c
-         Z1JRMCGwpEaetDV58kfBrUVP/Ut/+a1cY25cXPwJpQ8uBnBkHp6Soxw96O0qAFv1GqHf
-         I41A==
-X-Forwarded-Encrypted: i=1; AKwUvBw+Cq3QOa2nMhvdWBsPU6b2R3XRsr+fWFUPT/T9NlBkbPZ3WSu09FfrhD10IrXI9dTS/E9yIg/cM//ffeQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvq+aoRsGGMSF+ShTPlXPYJ6YDKtLvNxkEzTKH4AOAWqFGslVO
-	3nxW+gm81QHu+FJaZw+ROQtVbrT37X8RqQMeHb1KbnZJMzD905uCohJ0CUD2unyrbZgFjL3hTzT
-	eXsca+m37DCKpw+zv9AJfGkvGvbr/tUd+TY3PZcAgvQosDIEZva4AtyhK2bH/E6gnUKUEWrCeeV
-	6Pc0a7C7w0dzMzGi6uChGlhjEvr3hRFbId+EGLyv/5M8TDAF5VbnnnDAEFsDZxv34WMPoyQxNk9
-	LIJ4GhQO+bpAjPt/L0=
-X-Gm-Gg: AYBFou0oSwGwgTOLBSJR6g47MaIncmTQL+p8RWNyQ8/o8rFk3LTHkvCu2HcBu9yEHjz
-	y0fWbc344/XWnUN/Y2A6v0vemYH7zcXa3nT+B8IBuJBW1OjeOnEu0IYrBaeFXwVOtbffh6+kj+t
-	LC9gTPvTcV1DKeDb5IagLp1KThc2SJneKdPx3pRtLhyR4cAL//yiYkWMgxLxOtLXPbdqmgrpLDx
-	gpusvQVYHqhqj83pAMNavLbIyr652D9Fc9nYo9igQPvrUbGQuTtwp644F6NPo0kKyAaWdC/kUZj
-	hWd5+NnNaN9KEdhP0pSgRjjYw6FONLLX8zcuWKAMjhgOJMT66hvmM6cKHQOufecI2jrUGTlgDq2
-	rdUBq1IWtFRe3lWcDdPDuHTeoT06f2YoTcFhyQBRa4ChWTfQPNl/yJBBMBH5407jvoqHVjgM/Pf
-	VjlQX+hRR8hVIJf6bL6zLvnF1Mcwh5CI/Pz73rv419YgfD9IHQ
-X-Received: by 2002:a17:90b:3d47:b0:39e:6c69:f470 with SMTP id 98e67ed59e1d1-3a07e712031mr1240855a91.47.1790136873713;
-        Tue, 22 Sep 2026 21:14:33 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc75f4f9f09sm538390a12.9.2026.09.22.21.14.32
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 22 Sep 2026 21:14:33 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c293e604f0eso32058166b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:14:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FwzOicOX"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so3650055e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:15:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790136933; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oAvhRWWjLukZo5c7n1wQ+WaMEf0/yTDYqMiEl9f/WX+gb2CDsOsshWgkMMVlVRnBzI
+         YgXp8sJxXWsK3+UXtl6W01/z8V09JO1Q/GTSpeasfwyWhghOcimTd/d4q+5xdwyQksqw
+         +NZOQK2DPHr+431yLMAf/h+cwP4JYXaSNAl5bka9nVPr0prOe73L7pS38nade3O/aheM
+         2BaK+uuWX4rzfh++VNh0hBFvSiZx/SwW+IL8OcPXxvQZ7kHLTHJavc+7LmSmlHypQBpZ
+         ZaRgr8xDCxF1VoIyjuvw3i/YIlE8HOgeg/bXmm9Bkn5AUzcKDNiNINP6bH6t7lrcTIUe
+         xFsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=i36f7xtnWKpVJBn7KVPs9Rgrmv9naoWJLljKyz9tnJM=;
+        fh=PtepVdIY1zOT0klpGshl6QkTnKtWP3Ny7nWHrJGRY78=;
+        b=OD4SHSNrEDmmoQtmw7WmXBKajpYwQ7jNdKQy/1h1YPMOZnbhyBh1N7owZ4wAGZ0mod
+         R7lelIw93z7bdGBko6myQPf9Y59CT3q4M0SNSB9WyOuAc2ojKUD9f+9mI36dDyzdfFez
+         br6COg1s80ZIApPYM9PIyhgkWY3LM3f4M0wkk/JwiqEJkRp39QBdyLFBejnY3Hk9BRPi
+         dTVSvBlYGktrOHggH3tkZjT3tGj6BA489w7XMGs10au322Rfq7XQuBJEqj/cb8KBFtN+
+         wc+5ma0nTD+V3WjT27Fsrv2Ilom0C+r45DSDprrlsUlW8xzIwoIs62zbK0x95/iTBjfo
+         gLRQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1790136871; x=1790741671; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790136933; x=1790741733; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=i36f7xtnWKpVJBn7KVPs9Rgrmv9naoWJLljKyz9tnJM=;
+        b=FwzOicOXBvQWomnpL+aYG0N+i5jLMO8MrDsiVI8l1fVS6XdW9fDMl1F8zGPSRyu1l6
+         9pXV3H5lJPr/F6LU6XohEkHofNQNHW+AI/wfR3LWzUa8/qCs4rmigEc7HPdLaowwehw/
+         8m3gECfEYmr3+ncR4W7x4fdVYGE9EqBTLckDN+i1iTbZc0gNk7Xcmc1JPgOOQBs0pNq3
+         2YwQnj97ivnt6ArNZvaCwLeAO+TBECusObiifCgVDruPsc6JGbU0VDLU/1z6Qo+bk9gB
+         bho5bmJJXRvC54EGqGbs5HXmdV2r2uCM2ZMPREqsnCKBi8GXCWzWlZ46L7takwwiqtSc
+         TcNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790136933; x=1790741733;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hPAqHdAaGdvmyWUagoOXdL7r0CRQDoZmwr3/dJMY3Pg=;
-        b=YOrVmhY/dri8ZKLlpKeuOtjb6B30Z9esyhpBVKvQf5BlTrotGxVdVWe4jalsee+CbF
-         nQlj4MerIwrvdNSX4xJ2ehWIA6xW0s/BpzIzCEWFTmFy0+kLrddFtciEVFCOKn6UjQjL
-         XojGwvS7pnC2VstUk7zz9TxNosJE7/sLEUSo4=
-X-Forwarded-Encrypted: i=1; AKwUvBxyX+oBgcsvcepPLuLOGqS0DjYxID9ESn6IO9zmUxzEhCOWLB3G3XaCrq516mMzBztxW0Ysy1imOLXNVj0=@vger.kernel.org
-X-Received: by 2002:a17:907:9410:b0:c29:41e1:c918 with SMTP id a640c23a62f3a-c2aade3f89amr107993466b.1.1790136871190;
-        Tue, 22 Sep 2026 21:14:31 -0700 (PDT)
-X-Received: by 2002:a17:907:9410:b0:c29:41e1:c918 with SMTP id
- a640c23a62f3a-c2aade3f89amr107992266b.1.1790136870821; Tue, 22 Sep 2026
- 21:14:30 -0700 (PDT)
+        bh=i36f7xtnWKpVJBn7KVPs9Rgrmv9naoWJLljKyz9tnJM=;
+        b=ufK4W4nGYXcw0LRzXL8ZhSd3V7zdZoTZDO76577LF6/INyUX9UZnMuRbuX4Fotw5xR
+         5g+eU+8TY+ek3jC2ACGPm8QPKsqI2GN/J5Us9i6QQ0h0hF+cTFUdBaKhRsbGjdsX/JTZ
+         jU2yalB+Qb8bCp86Xe3YmVFiIpHmkDiwHUP7gV0Sstz/mu3CXJZha2yEOWjFY1D+ANC1
+         QS+oHJS0uRjJ6ZbPQFDm0OqBxlbSZt0ktAmaIk6wxgAw9WjXtWx3yW30zBVYW8nSOu7/
+         +ql7dplzx+Q5vzJI+jKFV4ctMcU5QZIGaL7s3N6/ClaOKlmUQK30iCv/poXVFzi7eiVr
+         KuQg==
+X-Forwarded-Encrypted: i=1; AKwUvByAVosIwd5xanI+sbqqMYbn5ZgzXL2q8N+/o+dpaZT5YpzHJeDShCojemcOGHb3TTVT3/o4WRa7UciJ1+g=@vger.kernel.org
+X-Gm-Message-State: AFuF++koe19g4HpNxb4rPu+7wYGWTSSuHdMUY/rFAs401l3uj9FDovYt
+	lgvzmfRJGm7BX5lc59kPhoVjl90UxrjTAqM3IR4hoeaoWphsVl+GpeeaVZemLTfnU6/3P1wlC4E
+	zTldZAW/jroj4iDu2hb+OMJ4vu+VysmQ=
+X-Gm-Gg: AYBFou1xUTQztmHb3NoW8tV9hnkNxSk4MeJ2yV/cQkRG3/5bb+wxnF4iLUL3w/G+w9j
+	99xUWlndabBjbaxiBZ1RHZD2zU0ar3q0fxUjNSsUoxlJvyLQnYDYzVWsmkxes097exDleIxgFOZ
+	orkR3dt9NcrpdqhLQCKfylr6gxUYUdYifNkdyiXUXTrpu52qnNd8lN34z6jghFkgqXKDa1GLQLV
+	/ktyE5D7lI8IWuOD3Szb0qTsZsqzEyybIbN5wmfeRY8G1Te7AcXO2lutUS3lBRWNKZ4RJfkY18/
+	DJXHNFrOLzKlSb6hb6vk9w3itTTey79gI0GlLZ20il51yjHL7bIOeWOy3X33ADa4YPUB31QN9TU
+	cVW4EPZyexlpYTg==
+X-Received: by 2002:a05:600c:46cf:b0:49d:797:8488 with SMTP id
+ 5b1f17b1804b1-49fdeff7112mr14786765e9.1.1790136932220; Tue, 22 Sep 2026
+ 21:15:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922182405.1290749-1-joe@dama.to> <20260922182405.1290749-3-joe@dama.to>
-In-Reply-To: <20260922182405.1290749-3-joe@dama.to>
-From: Michael Chan <michael.chan@broadcom.com>
-Date: Tue, 22 Sep 2026 21:14:18 -0700
-X-Gm-Features: AclHuK_e4Gt7Dv3XPW09iCAf1S03Mu7dXH__bdIt3P0qo_pmNoYoWQWLfzZIffo
-Message-ID: <CACKFLimrDMPfWRz9cUadTNDs5X6LYqZS2vJrujmuSb8NQ57yVA@mail.gmail.com>
-Subject: Re: [RFC net v2 2/3] bnxt_en: check HWRM response if completion never arrives
-To: Joe Damato <joe@dama.to>
-Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Prashant Sreedharan <prashant@broadcom.com>, horms@kernel.org, linux-kernel@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="00000000000052eade065c1eb890"
-
---00000000000052eade065c1eb890
+References: <20260922070950.4173245-1-kunwu.chan@gmail.com>
+ <20260922070950.4173245-3-kunwu.chan@gmail.com> <arJBpQyOQf3AJ4cA@MacBook-0RXW5>
+In-Reply-To: <arJBpQyOQf3AJ4cA@MacBook-0RXW5>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Wed, 23 Sep 2026 12:15:21 +0800
+X-Gm-Features: AclHuK_nckJ12y6T2Aoov6rc7a6r-smUS_AxTu-iCekyh8CIGeC66Dch7H_GWTo
+Message-ID: <CAN_Opa9fyOApv8u-WxcdHDgYDLkOkv4tKLacGsuHgnz7GdNVTQ@mail.gmail.com>
+Subject: Re: [RFC/WIP PATCH 2/4] locking/lockdep: use hazptr to wait for
+ dynamic key lookups
+To: Boqun Feng <boqun@kernel.org>
+Cc: stern@rowland.harvard.edu, parri.andrea@gmail.com, will@kernel.org, 
+	peterz@infradead.org, npiggin@gmail.com, dhowells@redhat.com, 
+	j.alglave@ucl.ac.uk, luc.maranget@inria.fr, paulmck@kernel.org, 
+	corbet@lwn.net, mingo@redhat.com, dave@stgolabs.net, josh@joshtriplett.org, 
+	frederic@kernel.org, neeraj.upadhyay@kernel.org, urezki@gmail.com, 
+	akiyks@gmail.com, dlustig@nvidia.com, joelagnelf@nvidia.com, 
+	skhan@linuxfoundation.org, rdunlap@infradead.org, longman@redhat.com, 
+	rostedt@goodmis.org, mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, 
+	qiang.zhang@linux.dev, include@grrlz.net, linux-kernel@vger.kernel.org, 
+	linux-arch@vger.kernel.org, lkmm@lists.linux.dev, linux-doc@vger.kernel.org, 
+	rcu@vger.kernel.org, lianux.mm@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 11:24=E2=80=AFAM Joe Damato <joe@dama.to> wrote:
-
-> @@ -582,12 +606,39 @@ static int __hwrm_send(struct bnxt *bp, struct bnxt=
-_hwrm_ctx *ctx)
->                 }
+On Tue, Sep 22, 2026 at 4:51=E2=80=AFPM Boqun Feng <boqun@kernel.org> wrote=
+:
 >
->                 if (READ_ONCE(token->state) !=3D BNXT_HWRM_COMPLETE) {
-> -                       hwrm_err(bp, ctx, "Resp cmpl intr err msg: 0x%x\n=
-",
-> -                                req_type);
-> -                       goto exit;
-> +                       bool completed =3D false;
-> +                       u8 valid_byte =3D 0;
-> +
-> +                       /* The completion ring entry was not delivered fo=
-r
-> +                        * some reason. It might be possible that the com=
-mand
-> +                        * was carried out even without a completion bein=
-g
-> +                        * posted. Check the response before giving up an=
-d log
-> +                        * the state.
-> +                        */
-> +                       len =3D le16_to_cpu(READ_ONCE(ctx->resp->resp_len=
-));
-> +                       if (len &&
-> +                           READ_ONCE(ctx->resp->seq_id) =3D=3D ctx->req-=
->seq_id) {
-> +                               valid =3D (u8 *)ctx->resp + len - 1;
-> +                               completed =3D hwrm_wait_for_valid(valid) =
-<
-> +                                           HWRM_VALID_BIT_DELAY_USEC;
+> On Tue, Sep 22, 2026 at 03:09:48PM +0800, Kunwu Chan wrote:
+> > lockdep_unregister_key() waits for is_dynamic_key() callers with
+> > synchronize_rcu_expedited(), which sends IPIs to every online CPU.
+> > Have is_dynamic_key() mark the hash bucket with a hazard pointer
+> > and use hazptr_synchronize() to wait specifically for those
+> > traversals.
+> >
+> > The hash bucket address from keyhashentry() is stable, making it a
+> > suitable hazptr synchronize target.  The rest of the key hashlist
+> > lifetime (hlist_del_rcu/call_rcu) remains RCU-based.
+> >
+> > This adapts the lockdep use case from Boqun Feng's hazard-pointer
+> > series to the current hazptr API.
+> >
+> > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > ---
+> >  kernel/locking/lockdep.c | 30 ++++++++++++++++++++----------
+> >  1 file changed, 20 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+> > index c56a7f91d72e..f67d847f9abf 100644
+> > --- a/kernel/locking/lockdep.c
+> > +++ b/kernel/locking/lockdep.c
+> > @@ -58,6 +58,7 @@
+> >  #include <linux/context_tracking.h>
+> >  #include <linux/console.h>
+> >  #include <linux/kasan.h>
+> > +#include <linux/hazptr.h>
+> >
+> >  #include <asm/sections.h>
+> >
+> > @@ -1280,14 +1281,24 @@ static bool is_dynamic_key(const struct lock_cl=
+ass_key *key)
+> >
+> >       hash_head =3D keyhashentry(key);
+> >
+> > -     rcu_read_lock();
+> > -     hlist_for_each_entry_rcu(k, hash_head, hash_entry) {
+> > -             if (k =3D=3D key) {
+> > -                     found =3D true;
+> > -                     break;
+> > +     /*
+> > +      * The traversal is protected by a hazard pointer rather
+> > +      * than an RCU read-side critical section.
+> > +      */
+> > +     {
+> > +             struct hazptr_ctx ctx;
+> > +             void *bucket =3D hash_head;
+> > +             void *addr;
+> > +
+> > +             addr =3D hazptr_acquire(&ctx, &bucket);
+> > +             hlist_for_each_entry_rcu(k, hash_head, hash_entry, 1) {
+> > +                     if (k =3D=3D key) {
+> > +                             found =3D true;
+> > +                             break;
+> > +                     }
+> >               }
+> > +             hazptr_release(&ctx, addr);
+>
+> This looks good to me. However, we probably want to use scoped_guard()
+> here, that means cleanup.h support for hazptr.
+>
 
-I feel that it is not necessary to wait for the valid bit in this
-case.  We have already waited several seconds for the interrupt and it
-never came.  By now, the whole response should be valid if we got it.
+Thanks for the suggestions. That makes sense.
 
-This differs from the polling case below which polls for a non-zero
-length.  As soon as we see the length, we need to wait a bit for the
-valid bit which is at the end of the message.
+I'll add a DEFINE_CLASS wrapper for hazptr so is_dynamic_key() can use
+scoped_guard().
 
-> +                               valid_byte =3D *valid;
-> +                       }
-> +                       if (!completed) {
-> +                               hwrm_err(bp, ctx,
-> +                                        "Resp cmpl intr err msg: 0x%x le=
-n:%d valid:0x%x seq:0x%x/0x%x\n",
-> +                                        req_type, len, valid_byte,
-> +                                        le16_to_cpu(READ_ONCE(ctx->resp-=
->seq_id)),
-> +                                        le16_to_cpu(ctx->req->seq_id));
-> +                               goto exit;
-> +                       }
-> +                       netdev_warn(bp->dev,
-> +                                   "Resp cmpl intr not delivered, msg: 0=
-x%x completed anyway (len:%d valid:0x%x err:0x%x)\n",
-> +                                   req_type, len, valid_byte,
-> +                                   le16_to_cpu(ctx->resp->error_code));
-> +               } else {
-> +                       len =3D le16_to_cpu(READ_ONCE(ctx->resp->resp_len=
-));
-> +                       valid =3D ((u8 *)ctx->resp) + len - 1;
->                 }
-> -               len =3D le16_to_cpu(READ_ONCE(ctx->resp->resp_len));
-> -               valid =3D ((u8 *)ctx->resp) + len - 1;
->         } else {
->                 __le16 seen_out_of_seq =3D ctx->req->seq_id; /* will neve=
-r see */
->                 int j;
+> The other thing that could be added is a debug option that force we
+> skip the fast path, so we always go into the show path in
+> hazptr_acquire(). This occurs to me because the slow path here means
+> acquiring a lock inside lockdep code, it should work, but I just want to
+> be careful. So something like:
+>
+>         void *hazptr_acquire(..)
+>         {
+>                 ...
+>                 if (IS_ENABLED(CONFIG_HAZPTR_ACQUIRE_FORCE_SLOWPATH) ||
+>                     unlikely(slot->addr))
+>                         return __hazptr_acquire(ctx, addr_p);
+>                 ...
+>         }
+>
+> Thoughts?
 
---00000000000052eade065c1eb890
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Agreed on the slow path. I'll add CONFIG_HAZPTR_ACQUIRE_FORCE_SLOWPATH to
+always enter __hazptr_acquire(), and exercise it with lockdep-heavy
+workloads under
+CONFIG_PROVE_LOCKING.
+The existing hazptrtorture module can also cover the forced-slowpath
+path for additional
+stress, including per-CPU slot contention that can trigger the backup-slot =
+lock.
 
-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
-DPVtLUtep/P3evQuAtTQRaKedjamBcUpJ7qUhBuv/Z07LlLIlB/vfNSPWe1V+njTezc8m3VfvNEC
-qEpXasPSfDgfcuUhcPR+7++oUDaTt9iqGFOjwiURxx08pL6ogSuiT41O4Xu7msabnUE6RY0O0xR5
-5UGwbpC1QSmnBq7TAy8oQg/nNw4vowEh3S2lmjdHCOdR270Ygd7jet8WQKa5ia4ZK4QdkS8+5uLt
-rMMRyM3QurndiZZJBipjPvEWJR/+jod8867f3n0CAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
-oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
-Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
-BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
-IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
-FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
-hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
-BB0wG4EZbWljaGFlbC5jaGFuQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
-HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUJbO/Fi7RhZHYmATVQf6NlAH2
-qUcwDQYJKoZIhvcNAQELBQADggIBABcLQEF8mPE9o6GHJd52vmHFsKsf8vRmdMEouFxrW+GhXXzg
-2/AqqhXeeFZki82D6/5VAPkeVcgDeGZ43Bv89GHnjh/Vv0iCUGHgClZezpWdKCAXkn698xoh1+Wx
-K/c/SHMqGWfBSVm1ygKAWkmzJLF/rd4vUE0pjvZVBpNSVkjXgc80dTZcs7OvoFnt14UgvjuYe+Ia
-H/ux6819kbi0Tmmj5LwSZW8GXw3zcPmAyEYc0ZDCZk9QckL5yPzMlTAsy0Q+NMVpJ8onLj/mHgTk
-Ev8zt1OUE8MlXZj2+wgVY+az2T8rGmqRU2iOzRlJnc86qVwuwjL9AA9v4R13Yt8zYyA7jL0NiBNP
-WaOSajKBB5Z/4ZVtcvOMILD1+G+CVZX7GUWERT9NRXw/SyIEMU59lFbuvy4zxe3+RbOleCgp3pze
-q8HE2p9rkOJT3MkCNLxe+ij4RytIvPQXACsZeLdfTDUnjeXCDDJ9KugVhuqMelAZc4NissPz8FOn
-2NK++r5/QamlFqYRhsFxSBIvhkh2Q/hD3/zy4j17Yf/FUje5uyg03FblSBOk2WYpRpXEuCpyn5pb
-bYVIzfhQJgwGfO+L8BAeZIFjO1QL3s/zzn+RBlTl4wdDzh8L9eS+QEDhMcSsqb4fFRDbsoVuRjpx
-R5MunSUzk4GcmmM19m7oHhPGeKwIMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
-ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
-MjAyMwIMZh03KTi4m/vsqWZxMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCCq8q1n
-aHifGxFYDvklv6KfT8nKVho0vkUPOz6+VR9ozDAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
-CSqGSIb3DQEJBTEPFw0yNjA5MjMwNDE0MzFaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
-MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
-SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQAi0fz6Gyif8tZjbaMWMyOc2komut5dniwn8bUwvKTh
-MywGxrUgk6Pl8tnl5txembn7HsbYmHa47ddz4ZhmCOWel2lbIyJP/Xyo6JFo7MK/FZejee1guzct
-SwJ9TbsvIPOeE2Rcsu+95sptsNXIzMST1LDINk5ssoDgCZgHQMtfcjgBwM9AQFP/P+YWcSogAJhU
-8Ey2UMAkIVJ3Rx4bwE4qNWHIc8t5pFmR8U2/D4LLYctwNsvnmWyFkl+VFZJutkPWSF/IWS6q9iLx
-/0WV0GlaoerYsqQ/WAJQ/pAjmhTPqgMUNIJuWcNbeYk/0Xa+3Av0nrLQeFFKDS36AHU5f9qi
---00000000000052eade065c1eb890--
+Thanks,
+Kunwu
+
+>
+> Regards,
+> Boqun
+>
+> >       }
+> > -     rcu_read_unlock();
+> >
+> >       return found;
+> >  }
+> > @@ -6683,11 +6694,10 @@ void lockdep_unregister_key(struct lock_class_k=
+ey *key)
+> >        *
+> >        * Some operations like __qdisc_destroy() will call this in a deb=
+ug
+> >        * kernel, and the network traffic is disabled while waiting, hen=
+ce
+> > -      * the delay of the wait matters in debugging cases. Currently us=
+e a
+> > -      * synchronize_rcu_expedited() to speed up the wait at the cost o=
+f
+> > -      * system IPIs. TODO: Replace RCU with hazptr for this.
+> > +      * the delay of the wait matters in debugging cases. Replace the
+> > +      * expedited RCU wait with hazptr_synchronize().
+> >        */
+> > -     synchronize_rcu_expedited();
+> > +     hazptr_synchronize(keyhashentry(key));
+> >  }
+> >  EXPORT_SYMBOL_GPL(lockdep_unregister_key);
+> >
+> > --
+> > 2.43.0
+> >
