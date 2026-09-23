@@ -1,82 +1,100 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69DDB4EF134
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693AA4EDCB8
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:55:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164546; cv=pass; b=JYpIBO00/9OK4ylKwJLv3NTpiDipnYrYeiRFE3TzuOOYhL8Rf60jFN1FSJLmHU4l/hFtlAHMrJOwxFtYSF7tfNDHQWwJYDaHCQVwUwELthyj6aOZIuSrTJCVnQUl55mhKRlNuqS/nxr0Hzc9vrzFexFmkOkIch74z1f2/xqeyHk=
+	t=1790164543; cv=pass; b=ShP+1T5t+rzAk4t7jTxteuKYL+1afVeYFlyb6rQvrCvmdsvHHCyTnTckc6We1+SamCoP0bAEZN3w/S3hUosr3kET5dKNBGIWgLxtPYvWgz7f0yOPBwTYhiU1fRSx+9KeMghIUmLvpX7sRIqmtMjRU5WTln8Vl66dHHc7/THUpXk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164546; c=relaxed/simple;
-	bh=nm2A3E+U5TTONx7bskhFhE5Ow4/TVEhF235l9tbEgwY=;
+	s=arc-20240116; t=1790164543; c=relaxed/simple;
+	bh=VZdhg/2WWxj23TMQOLxv2EYnD9sVykx5dWuo8oKJNGo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=E42wYIQY6KIxTrtv6N+UTr1pQ0epfwSooeB9hxvYULeh5qbO1WGa3Rffm8Ic6UdRiudkcWqXmkDTf7zV777e59puyuU+Ik+cdjKocokwRn7bk4in9GqG7fhgwa5ZtXAoTbeiuJ640zwHkPKmb4SWjc/XNarVJisos3J4ZMZogP4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=V858jvEu; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	 To:Cc:Content-Type; b=AYquo7eVR1JU+hjOvGm6a3+ngn/afn1vdbAvxzYmOg9g5MWfn1duA2OybQBkQgD1FA+ZD5h1VHVk7WgQiMS6oQhUA1Ao45Lvstj2+NqnA4WEmtVd//WTwrjLpp+rbLDXFEWLwZwmaJ8/SqO5/AcYYKKWZ9xK2M8QSu7qBNit0lg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dPJXw+GN; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=S9BD7B6y; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="V858jvEu"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so692239f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:55:28 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dPJXw+GN";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="S9BD7B6y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790164526;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wfFWfiDFRsRocPK6MajUZe1PhNrKZn5zM8GQiGakpDQ=;
+	b=dPJXw+GNaO0dRiRaG7sq1P0qAC5lGJ/Lt9+9aLUgT1UnD7G5rBrVw/Kh5lGF6TH3Oyr67p
+	l35UL37RfRCiZ7eE00jftcNUwbAFJ4queqFqIxBe70WttlQ1Uqad6txMhPTvo3I1t6xCwJ
+	OXcxc59IdGLbrtDtBfaIPQEZaW0wTXA=
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+ [209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-306-iHcgMvIUO8-f-4z77fYNNQ-1; Wed, 23 Sep 2026 07:55:24 -0400
+X-MC-Unique: iHcgMvIUO8-f-4z77fYNNQ-1
+X-Mimecast-MFC-AGG-ID: iHcgMvIUO8-f-4z77fYNNQ_1790164524
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c29bc25836fso83924766b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:55:24 -0700 (PDT)
 ARC-Seal: i=1; a=rsa-sha256; t=1790164523; cv=none;
         d=google.com; s=arc-20260327;
-        b=rJ9deZZuVPJX0Bk9RDMqatT1lMnsryhfQsI/1fgFZxR0o63r64qmcOnjs+nhRiArSM
-         O+eoUBH5Ohf5psI+KkxobbGNN4ThbO+AMnH2urCicUBDULY4ASnQ6kbDvqQZqHDtv155
-         QPUVzbcZ0DrvGtoF/FS29fNGeqVZ7mKUEq6iITgyy6aW3+F0/UcOFDJl8W6gyF92Vsim
-         mrGLiGjS7QSku7gVQmQeSlwtyYKIZhTboLlrNoQod7w3GEwl6hSIXzu4KZ4gYbkCg8p4
-         9kMPzB4c80hRobLrj06v6+qK9/9bb2RqVP2GTOGdvsxnOMYHuN0hpRnalwQy/lkoooP5
-         tUmw==
+        b=KyPIlyTUltTwDtdvki93zBKjYwQjXaBQTFSRdiA8rK3ho6CfuZYHHpVzr/2+P7PHnp
+         1ho7sPlc8HCAtZ4S/ehEtLzeW5cE5qyk1Nkwe92gIDJi+IuULoJVIV+Bfzad76ruwN/D
+         Jkk/fy+e9NmBHPCakQIllU0vtqF4xl9TXmw7dUrCH6fq4HtbHtvEU9U8qAefuE4l0SbB
+         T5dDh539sngh9mIUuPvyL2xJPN0tm2I8nD/aHfEIqncNA2Zeki5MAnFGux2Y+HcHT3nS
+         xRRXrFPGG+c2RnxKiRg5lVxmha6RoBIBJMgYH1ojE+4+5PdmYttaNhQl4t+dE5BlU8Jo
+         5Cew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=HVdhMrrjS3oE1TYac2kH0SXF1gwoyCJ45igZqsjG9/w=;
-        fh=JybjFV1hV/TJG25e/hB0wfHfhTERdGImEFR/TL/A3t0=;
-        b=EbPhtMopA/Ui/F6P3RnijJ4T/Xab/inTN2YeK+ldQ5H9B5rd+8KwSUJFGm8nbNcspU
-         9J1SoRNSC6wCS6opXrvMcUtqh7xkmCTVF4jSFZ2xBDwb6or01AYPkEo1MJnskTOXFBbh
-         kedaimZmHY0D/1HSr62uFnY/zURgyfGbH1nvcOxCAGfX9UsP1aW/81Mmvb7z+LjkjJD/
-         rXbJaDCsD+1S/j3zPWygfkE2LREnH3p9l6KL3zAXrBrzLZJJM6XZumdz6cnoaZeCcd5u
-         gXBDQvpYq8l3Yo/wCaI45pbLxTtQEQypx+G9S5T6Y8PFY3pkUURTogElSFmwVtqAtGmG
-         MvAg==;
+        bh=wfFWfiDFRsRocPK6MajUZe1PhNrKZn5zM8GQiGakpDQ=;
+        fh=64R4CJKSTQNU8rOk91hfA2rotBmUY3yxX1auv0KxjJ8=;
+        b=kg/C5xvaYDi7NMSk9gS9WuHtsFB3/iq/Tl/LQYZ8wzChSWS1sCAw1lwCjqZrXgkg9r
+         YGEbQggvLloG9FhUN5yOSeF8uW03ijNkhcjFqsYkVxv68A4NZaVsylK1E9KeQOtbduwJ
+         hqm4gaY+H3zVQN9M9L6C9C1sa4qfLsfCIqofhhoMR3sn3a/cOzFmYEEgTPk64PsiHVs1
+         5dicQ08EaIO2zCbyCoK9tiXrQvEipSxauaHeUQtb57dKGiJfuGOeB6vKBE5fpoXiuvpF
+         Dlf6hKtkAmg5haA1j5cd6MPQZqZcldTyYt2rPktPEvC+vXQ7OzQtphnckpgPvCCOWf5A
+         pshg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault.org; s=google; t=1790164523; x=1790769323; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1790164523; x=1790769323; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=HVdhMrrjS3oE1TYac2kH0SXF1gwoyCJ45igZqsjG9/w=;
-        b=V858jvEuxHVw7s/8PdGMnONcUvExIxZOSSQr+cYn5CfmMlrBc+anRAdWkT5cJlOwq+
-         72YnoOYgKc+dssIZWhs/qcWy/Od8XX61XLCY9HopU6fzfsPV0uy4vVOt5U3S0sgI4reI
-         g0iytY2kpJsA6sWQT37UAAUkJxdFeugPFkGHNVB9XIZmRsLcwQ1qGLldzZzkgDmv6ueV
-         CskUijjA+IwZX+BCo8PUSibcVx9rhy1aUQptXPrKA8GMvOFXPVbfFA0+0w94wgh5rZh7
-         zGZOeu8XvxyMbZMxNVNIWdD4fhdCWvZG+Hgl7SAZIVB0lzebsAS7qvB7E690tnskMLbv
-         Wkhg==
+        bh=wfFWfiDFRsRocPK6MajUZe1PhNrKZn5zM8GQiGakpDQ=;
+        b=S9BD7B6yh5Pfeev90Ukgbzv/T5j/HEUtN3d6GDMsPQ2J22MiIG/Au6rTNKjMfnxABO
+         tTVqNzvNBIqdHBLgDwM6kzUrUBXSSBAypQxpZKbQUAXAye2yL/bC0ZVVhyf6jCP9ddAn
+         xVOsGZPfao6sH7ZJMo7z5XD+7/SXbDIizCuWWemtiX/uoH9+0VB0zbP/1y3mOOk0ZsHc
+         wH3p5BRd8SguBz9oJE8+QGikecl0YzqPKR92Mqc66vvvLtM3qVFN0Nxup1kojzquiehC
+         EGofksuZTIVI0kg9rtY/0Dxcg9bjB71uusmlCqayztvmtgnUjeY3h1dsEFFSLekm0OeZ
+         WCIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790164523; x=1790769323;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HVdhMrrjS3oE1TYac2kH0SXF1gwoyCJ45igZqsjG9/w=;
-        b=GeIljT2kBZ4HYK3AQXyaoNZkDxAs6b99l/67tvE2rehLTsaxo8Xo5IzKLgPb9dm2Bb
-         SRuGQe5szL4iBFl3pTN6AqMVTqb4lJ4EOlBR8irgkpYNKWyJF5gZJfKcG5QbXlYAMxhU
-         ZNKF92CUCL6+f+HVahilz4KLVzohMDVou4D6oqQ8JRGii7YphtoOpMxfdL0cseLfpQT/
-         coOiymjYh1b5ZAPS1tlyKtFng5JWR+FeREd+wXb9eumCEn0KFBpqkQAQfnGOe4L/WKsc
-         aQfcaw7QJpHYlbsrZuw0sMw6BCinpHQ+j9sMRPZyBSL22hB916gozrvzzPbQkDrY9/e1
-         KVAg==
-X-Forwarded-Encrypted: i=1; AKwUvByxwCtHyACXSgZb4XjVQSrgtVG+UuQWSktmDsdCzEBHaCm61pGaLTC+OnFObkR32hyOBv1ZjEt5ehRYEJc=@vger.kernel.org
-X-Gm-Message-State: AFuF++myIjhWgHTIgVXzpB2VqWu3fzVxiiO8L1uuw0lVN72MgQ6Po7Nn
-	vpoNOy+akRUtCb4PXmoTqRA02N/VK39OXREPgHealip13DpLwxd05ttblGjKHU1+Qm5DyqGfjX3
-	QzgwiAMowNamiQzbM7oxqz5P3oUpBi/0ig+P4nf0SqA==
-X-Gm-Gg: AYBFou0JDIl2i13KQio4yFfmuWv3iqTq+zas5UAAjOYJc/IVZYKTZoBomvnsWhAHWT+
-	ggvnAwLYgcItsxI7B5ZUD2N9/tyB2ig+a9aly9ZxvySBV/NB4eblk8y+F6nmo9HbRQ05mjtQ292
-	nvZ9bezpPiSfLDDyPf/7y9/kbmslawG//zLXMn4BfjqWg4zHESuXa0vY9jwfviL3zb+nW10sosa
-	CRMkOQo5yFq4ZzN97Z09ktPJ3B+LTSPlmD6XZUWPv9x/7RAC7C6pOo6wuLpWgMr4Zgh80C+Dnhd
-	qos/XFSM09Y4k6aezy7yS5QxiGAbjp2KCEbUmmnwhRTcao3nqNJtGgJX6n73LNNhwoVofK+sOyn
-	n8wvwIUS5Rv28vTP9UuywJ5hQcuV0lvdIih9mmdmulaEKY3neTFnM9iKhAr+wv2tGxmDiOTz1ph
-	Yy
-X-Received: by 2002:a05:6000:4023:b0:486:f17d:14dc with SMTP id
- ffacd0b85a97d-4886705f8fdmr4136204f8f.12.1790164523026; Wed, 23 Sep 2026
+        bh=wfFWfiDFRsRocPK6MajUZe1PhNrKZn5zM8GQiGakpDQ=;
+        b=rrUkYsy1IFnp2XSH8I0OxDqWHZlPZcf55F0l+4Av8A40pF3IhjIT9LW8XofbsyvHkK
+         XiDV/kFc8hux/NVquVBNZVOc5PWUkvl8qGN2wEFz7b3aVk3rVjx0GJI1aRpA/OXEYk2h
+         fvRISlpY0/GlDsZDttYGbgOKEHWl09FFd9LjYhcHaEAciaY1hrjjhhQMatddy3vg4MLH
+         EotT1vp6fSn7Fvj/Tn0J8NT4U8AaxjFvFgnlWbmVj2W0xlJ880KH+u3dMLjVOB2Pn/70
+         WFdn/+ptqZrCIODt1WWv1p2kwbOLPbjWYQVavXBCgfSq9aIZDbURcyr7oo7TbI8CWXxO
+         dypQ==
+X-Forwarded-Encrypted: i=1; AKwUvByRCyuE9JCFLwGeF6gLg83Lb/BlNJ6Cmp6kJETOWvAQxCfb7uuWjllrO2u0my2Pk44fBl6T5z2OZ6xH+kU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUz7j+XJDyK5FdiZDqFa3xPb/3gfZ8vN/rYAxTFmiOH9X3bPDs
+	vlaBl1PogwquSkt53X2/QH3E1DGh7cSqvK1TbTxpwrk980nQOCqncQjY6pT3j8j2HdXRGyAkwWc
+	OoKXCG+N0a5oTy9MZ31Sk+Ie3fuGVde/+XQiq61sbtjuVArvgYLUgQ4ZemK8XvBFcV2Gu7dJqOx
+	zD8whgweB1jySc3hKByFZ9hAA8DsSSXZIQNpcspENarFc/ab73k6G7Xg==
+X-Gm-Gg: AYBFou3ETBhvkkb197kn5XGZVJn8H6FJ6wZGc5NrPy+XEfAnNQ+4re9i/tldndiaMHd
+	zq2+bAK+nY77OiJFp/wPG8u53k5djYct+6GULjNWls073plo+1Rhs+pKeX7RrG9P099PLHBV2Gn
+	kux1LciIC4FiDw19r4RE//llAIJ3g7vzYOZ3FBnRzGlHyBr4Cy3qKmYXXbgAX2ct65PUUv8hylf
+	EjpbnWnLJak/fL37jCiikjwuHybqIFkfb/53Og2eWD93JFViMDQL2Ujf1kCxxHeCls/SkZ9lZ53
+	GXg=
+X-Received: by 2002:a17:907:6d28:b0:c28:fb3f:fe20 with SMTP id a640c23a62f3a-c2aadf9f210mr198480566b.30.1790164523617;
+        Wed, 23 Sep 2026 04:55:23 -0700 (PDT)
+X-Received: by 2002:a17:907:6d28:b0:c28:fb3f:fe20 with SMTP id
+ a640c23a62f3a-c2aadf9f210mr198478466b.30.1790164523216; Wed, 23 Sep 2026
  04:55:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -84,123 +102,158 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831145943.313726-1-andrew.jones@oss.qualcomm.com> <20260831145943.313726-12-andrew.jones@oss.qualcomm.com>
-In-Reply-To: <20260831145943.313726-12-andrew.jones@oss.qualcomm.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Wed, 23 Sep 2026 17:25:11 +0530
-X-Gm-Features: AclHuK_zLIl-mrpS78xV6vRgDB9dAAUf9QhniI9fOC93j9unzeVYyRI1tSChnzo
-Message-ID: <CAAhSdy3o=JtEXnFANPdNn3E3XuKk2wUwXwrekQ+1ropJWnrYGA@mail.gmail.com>
-Subject: Re: [PATCH v5 11/17] irqchip/riscv-imsic: Add S-mode MSI address list
-To: Andrew Jones <andrew.jones@oss.qualcomm.com>
-Cc: linux-riscv@lists.infradead.org, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, tomasz.jeznach@linux.dev, tjeznach@rivosinc.com, 
-	jgg@ziepe.ca, jgg@nvidia.com, joro@8bytes.org, will@kernel.org, 
-	robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com, tglx@kernel.org, 
-	kevin.tian@intel.com, fangyu.yu@linux.alibaba.com
+References: <20260922202734.1344770-2-Jeremy.Jean@oss.cyber.gouv.fr>
+In-Reply-To: <20260922202734.1344770-2-Jeremy.Jean@oss.cyber.gouv.fr>
+From: Ricardo Robaina <rrobaina@redhat.com>
+Date: Wed, 23 Sep 2026 08:55:12 -0300
+X-Gm-Features: AclHuK-nUTKQQ2wWEAK3vYcbaNjq3pmLpdcICbfm-hJLNCAdjoG-ETE2fFTin9k
+Message-ID: <CAABTaaD_DA+=ywGNnZzJeXnwonh_=Abq8dThprJFQpM7Lc6eGg@mail.gmail.com>
+Subject: Re: [PATCH v2] audit: fix exe mark UAF in kill_rules()
+To: =?UTF-8?B?SsOpcsOpbXkgSmVhbg==?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Paul Moore <paul@paul-moore.com>, Eric Paris <eparis@redhat.com>, brads@mainlining.org, 
+	audit@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 8:30=E2=80=AFPM Andrew Jones
-<andrew.jones@oss.qualcomm.com> wrote:
+On Tue, Sep 22, 2026 at 5:34=E2=80=AFPM J=C3=A9r=C3=A9my Jean
+<Jeremy.Jean@oss.cyber.gouv.fr> wrote:
 >
-> Upcoming RISC-V IOMMU interrupt remapping needs to map every possible
-> host IMSIC target into one contiguous MSI IOVA range. MSI message
-> composition then uses the target CPU's position within that range.
+> kill_rules() removes mixed AUDIT_DIR and AUDIT_EXE rules when an audit
+> tree is pruned. It drops entry->rule.exe before removing the rule from
+> the RCU-visible filter lists.
 >
-> Build an S-mode IMSIC physical address array indexed by logical CPU.
-> Require every possible CPU to have an initialized IMSIC page before
-> publishing the array. This preserves physical address zero as a valid
-> target and guarantees the array has num_possible_cpus() entries.
+> After a rule has been installed with AUDIT_ADD_RULE, which requires
+> CAP_AUDIT_CONTROL, removing the watched directory can race with another
+> task that is still evaluating the rule. In that case, fsnotify can free
+> the executable mark before the reader reaches audit_mark_compare(),
+> causing a use-after-free.
 >
-> The array size and each target's index can therefore be derived
-> directly, without storing duplicate count or per-CPU index metadata.
+> KASAN reports:
 >
-> Signed-off-by: Andrew Jones <andrew.jones@oss.qualcomm.com>
+>     BUG: KASAN: slab-use-after-free in audit_mark_compare+0x8d/0xa0
+>
+> Unlink the published rules from the RCU-visible lists and retain them
+> on tree->rules for cleanup. If any rule has an executable mark, wait for
+> a single RCU grace period before removing the marks and scheduling the
+> entries for freeing. Otherwise, call_rcu() already provides the required
+> deferred freeing without a synchronous wait.
+>
+> Fixes: 34d99af52ad4 ("audit: implement audit by executable")
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+
+Looks good to me. I've checked that audit-testsuite passes cleanly.
+
+Reviewed-by: Ricardo Robaina <rrobaina@redhat.com>
+Tested-by: Ricardo Robaina <rrobaina@redhat.com>
+
+# uname -r
+7.3.0-rc4+
+
+# make test
+make -C tests test
+Running as   user    root
+        with context unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+        on   system  Fedora
+
+amcast_joinpart/test ................. ok
+backlog_wait_time_actual_reset/test .. ok
+bpf/test ............................. ok
+coredump/test ........................ ok
+exec_execve/test ..................... ok
+exec_name/test ....................... ok
+fanotify/test ........................ ok
+field_compare/test ................... ok
+file_create/test ..................... ok
+file_delete/test ..................... ok
+file_permission/test ................. ok
+file_rename/test ..................... ok
+filter_device/test ................... ok
+filter_exclude/test .................. ok
+filter_exit/test ..................... ok
+filter_inode/test .................... ok
+filter_saddr_fam/test ................ ok
+filter_sessionid/test ................ ok
+io_uring/test ........................ ok
+login_tty/test ....................... ok
+lost_reset/test ...................... ok
+netfilter_pkt/test ................... ok
+signal/test .......................... ok
+syscalls_file/test ................... ok
+syscall_module/test .................. ok
+syscall_socketcall/test .............. ok
+time_change/test ..................... ok
+user_msg/test ........................ ok
+All tests successful.
+Files=3D28, Tests=3D303, 69 wallclock secs ( 0.08 usr  0.03 sys + 36.64
+cusr  1.87 csys =3D 38.62 CPU)
+Result: PASS
+
+
 > ---
->  drivers/irqchip/irq-riscv-imsic-state.c | 32 +++++++++++++++++++++++++
->  drivers/irqchip/irq-riscv-imsic-state.h |  1 +
->  2 files changed, 33 insertions(+)
 >
-> diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/ir=
-q-riscv-imsic-state.c
-> index df38a7670a89..c7ebddd308ec 100644
-> --- a/drivers/irqchip/irq-riscv-imsic-state.c
-> +++ b/drivers/irqchip/irq-riscv-imsic-state.c
-> @@ -709,6 +709,31 @@ static int __init imsic_get_mmio_resource(struct fwn=
-ode_handle *fwnode,
->         return of_address_to_resource(to_of_node(fwnode), index, res);
+> v2: Address Sashiko's review with Ricardo Robaina's improved patch:
+> - Batch executable-mark teardown behind one synchronize_rcu() after
+>   unlinking all rules, instead of waiting once per rule under the audit
+>   mutexes.
+> - Skip the synchronous wait when none of the removed rules has an
+>   executable mark.
+>
+> v1: https://lore.kernel.org/all/20260921195921.4174830-2-Jeremy.Jean@oss.=
+cyber.gouv.fr/
+>
+>  kernel/audit_tree.c | 24 ++++++++++++++++++++----
+>  1 file changed, 20 insertions(+), 4 deletions(-)
+>
+> diff --git a/kernel/audit_tree.c b/kernel/audit_tree.c
+> index 1ed19b775912..f2e81be8265e 100644
+> --- a/kernel/audit_tree.c
+> +++ b/kernel/audit_tree.c
+> @@ -545,22 +545,38 @@ static void kill_rules(struct audit_context *contex=
+t, struct audit_tree *tree)
+>  {
+>         struct audit_krule *rule, *next;
+>         struct audit_entry *entry;
+> +       bool need_sync =3D false;
+>
+>         list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
+>                 entry =3D container_of(rule, struct audit_entry, rule);
+>
+> -               list_del_init(&rule->rlist);
+>                 if (rule->tree) {
+>                         /* not a half-baked one */
+>                         audit_tree_log_remove_rule(context, rule);
+> -                       if (entry->rule.exe)
+> -                               audit_remove_mark(entry->rule.exe);
+>                         rule->tree =3D NULL;
+>                         list_del_rcu(&entry->list);
+>                         list_del(&entry->rule.list);
+> -                       call_rcu(&entry->rcu, audit_free_rule_rcu);
+> +                       if (entry->rule.exe)
+> +                               need_sync =3D true;
+> +               } else {
+> +                       list_del_init(&rule->rlist);
+>                 }
+>         }
+> +
+> +       if (list_empty(&tree->rules))
+> +               return;
+> +
+> +       if (need_sync)
+> +               synchronize_rcu();
+> +
+> +       list_for_each_entry_safe(rule, next, &tree->rules, rlist) {
+> +               entry =3D container_of(rule, struct audit_entry, rule);
+> +
+> +               list_del_init(&rule->rlist);
+> +               if (entry->rule.exe)
+> +                       audit_remove_mark(entry->rule.exe);
+> +               call_rcu(&entry->rcu, audit_free_rule_rcu);
+> +       }
 >  }
 >
-> +static int __init imsic_init_smode_msi_pa(void)
-> +{
-> +       struct imsic_global_config *global =3D &imsic->global;
-> +       phys_addr_t *smode_msi_pa;
-> +       unsigned int cpu;
-> +
-> +       smode_msi_pa =3D kcalloc(num_possible_cpus(), sizeof(*smode_msi_p=
-a), GFP_KERNEL);
-> +       if (!smode_msi_pa)
-> +               return -ENOMEM;
-> +
-> +       for_each_possible_cpu(cpu) {
-> +               struct imsic_local_config *local =3D per_cpu_ptr(global->=
-local, cpu);
-> +
-> +               if (!local->msi_va) {
-> +                       kfree(smode_msi_pa);
-> +                       return -ENODEV;
-> +               }
-> +
-> +               smode_msi_pa[cpu] =3D local->msi_pa;
-> +       }
-> +
-> +       imsic->smode_msi_pa =3D smode_msi_pa;
-> +       return 0;
-> +}
-> +
->  static int __init imsic_parse_fwnode(struct fwnode_handle *fwnode,
->                                      struct imsic_global_config *global,
->                                      u32 *nr_parent_irqs,
-> @@ -959,6 +984,12 @@ int __init imsic_setup_state(struct fwnode_handle *f=
-wnode, void *opaque)
->                 goto out_local_cleanup;
->         }
+>  /*
 >
-> +       rc =3D imsic_init_smode_msi_pa();
-> +       if (rc) {
-> +               pr_err("%pfwP: failed to initialize S-mode MSI addresses\=
-n", fwnode);
-> +               goto out_local_cleanup;
-> +       }
-> +
->         /* Initialize matrix allocator */
->         rc =3D imsic_matrix_init();
->         if (rc) {
-> @@ -984,6 +1015,7 @@ int __init imsic_setup_state(struct fwnode_handle *f=
-wnode, void *opaque)
->  out_free_local:
->         free_percpu(imsic->global.local);
->  out_free_priv:
-> +       kfree(imsic->smode_msi_pa);
->         kfree(imsic);
->         imsic =3D NULL;
->         return rc;
-> diff --git a/drivers/irqchip/irq-riscv-imsic-state.h b/drivers/irqchip/ir=
-q-riscv-imsic-state.h
-> index c42ee180b305..11352f14e32d 100644
-> --- a/drivers/irqchip/irq-riscv-imsic-state.h
-> +++ b/drivers/irqchip/irq-riscv-imsic-state.h
-> @@ -49,6 +49,7 @@ struct imsic_priv {
->
->         /* Global configuration common for all HARTs */
->         struct imsic_global_config              global;
-> +       phys_addr_t                             *smode_msi_pa;
 
-Please a comment over here about what this is for.
+--Ricardo
 
-I also suggest renaming "smode_msi_pa" to "msi_pa_list" because
-theoritically IMSIC driver can work for M-mode as well although
-we have not tried it for M-mode.
-
-Regards,
-Anup
