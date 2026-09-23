@@ -1,162 +1,198 @@
-Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D81C556B85
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:43:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3D05540A9;
+	Wed, 23 Sep 2026 16:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790181836; cv=none; b=J+mYuM/rsaXlsPGXGaKBEFeA1coC7xDXOQdOpMc1vbnZv6Fw6SOHp08GnAp5pqMc2a6bnnLvaoENSFsU1DY9J/0cV0obid7sqVJXRMQl/48xYXZLTae6wpgBq17qF8qDP6mYnr7VmwhhZ3m60DlV05EuZLzir3IVZgiqGYXM458=
+	t=1790181861; cv=none; b=PKyRQ0PUP7UHFsu6KVnDEDmSnVG+f40W8S/4WPtMK8QCVk/GqxildwWGh3E5uWeD4UrfEU3O0xJB2Eee6hFCpM3KEER1xoNHFlZ8YItDhrAWE/BhJQDQGuRC149ivz+4mIoCGO1IJQvtQ1rAmy0v9P5yIstlrIlpufrOxzMNo8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790181836; c=relaxed/simple;
-	bh=U3sHigMCrX/n5NS47tTRaKkN8n2XUCVkkGrtu+Vz9Qc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D2J/ibo0qbrZU65cyCsHjAzqZaU3LSjSumWUxEGxcE0J110FPChaOUllEw88w9OWNOwt52+aUfKStcMKHILIhoEe9lu397XfPbuQqf1DJbseTcOupU4GWkGCMKeTtLt4E5NRFZNTlaHpfKeoTsrCbWdIIPL/aCR3lHUHxVfJI4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HsRMHVOo; arc=none smtp.client-ip=74.125.227.142
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790181861; c=relaxed/simple;
+	bh=Nuf0x5Che1kW9MXRNKV1O0+PL473KETLCmpr2hKdS4g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k/MJeKpEheH8xxdNpZqDSAGaPipXlC8s6K/1hH6DrbedsLyNhvvZ0j7tWWXBWcXzLRQG5YLtvAsQVOKLsKAdMZQ+/f3DYsjlFQuELF/PES//lCO/iNod+zKF/mhMkFVeEHuGeP0+KP88tX1F6u4NExi76LbbizYCHsmkbZgnSlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aVfroUQH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HsRMHVOo"
-Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so6352435ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:43:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790181829; x=1790786629; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hOl6tPrOOHYH5O/IseABr/XrIgSZiBfl2TxmXjGm+SY=;
-        b=HsRMHVOo0d6l+7zV1hzYqdlAQGf5RJhZ7bUaM3PIuqqwYGKZv5ZPr+7myPUeSVmJpu
-         EfDaArLJE75yRMEWkpZUO7WIHl5n2uPyxuYsHY/6i7WkAua5USAZL6+FsNO+lkX8Z6DW
-         kEFq+PkRAL9K0zh7Za1jaspgQm6I6ClbDRskCOfYfm0W29AjbXbCL0C1mz1svQ3R2khu
-         ajf/ZBWbgpwllpcIM4XSYyCLUTGOIXAG0it77qB3Dl+lrNhixWwSPfodNEsKlcXCf0c8
-         t2f4hZtSGDK1o/j6XiW5F4GWasWpPtp1r9F6+Y0XISA3WaShX2YbluNiyy3ljbiqL+2M
-         AdEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790181829; x=1790786629;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hOl6tPrOOHYH5O/IseABr/XrIgSZiBfl2TxmXjGm+SY=;
-        b=pGCNCk/CUNYSPs0YjLb5m4pLnOBJOyYVoAe3OyGJuGX9p1AsZvt5fltzPtZHOFdskx
-         1Lz8kz2v9qXoH9RajJ360vYaf/PDmCR69T6n/iOU3Rk7THrHC1rVJA82Gte4RS659vKC
-         AQhogXLD+bM/R3LgzE9le61LIIL4CP59BV/JJdIUAQ/dJioQgCtUFt7bDb4ENH0p7jdi
-         gdsVH2DA7ZrhA+R389kar0BU0DWULbuo6OtQ3g2EhcyiZg6HCnR/OZ6KJCur3JQYySMm
-         ry+g+FwoGeGdRbeeQWgGUsAXe8M63Xusd8tKov9EK9r0m09T8TL+yDInSNdVKlTkLvsk
-         lTaA==
-X-Forwarded-Encrypted: i=1; AKwUvBzoTrormd4hKwn3gMX/4AkH1Wkm9e6EISjtiRluDD+y3N1+j/uSm1IkLvnN8Ddw1TYYKzHJnLZIyRNIwKI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mNUDcFAHH2jwwIjUpQVifo/Ac9HZCLK7/WlwxYMWx/bkTHWfKU
-	E7Jg/+mh7PoAn/m8KcHbfDOvvbCgpE+g9OBC0u5C2+UW5bpFm3BJztdt
-X-Gm-Gg: AYBFou3X0Na5nV14UoSTVU2Zmn0wskAjmAGtcQjtLKsWYurHYrqTJ99bd4Udd6PYOlu
-	SKITjWMUTtoH9/1UrE7VMM46P7asjaRhZrheHqkUDLVTpFOJtQkRoSEkB/oUXKgJ+ofgIMZYnGL
-	vme0/J8i/2livhmgZoBOFIUcJoR0AOMkipXTwp0S9Oozn7BwjuNBU7rusOXbx9utuA6+M9EZk3Y
-	XsLZvmXuATbzkigB1mEbYACq1CW/i4nkUGZw+KUxMwzpmDT2Omo3J2A7oJ/0y1fUv6OrbCzQP2D
-	lje8k24JUyw2TRyt8Q7hmWBS22/aibO8LNAkOiQB0d7cnT5BsoS2LSRXAwV/fCeHA7W4YwQZx58
-	sBVf1iqACmmTAiQIA8c5eycr8PcLtcKt8fnIZwcWe7X3+VkxIpdBaMFJMgJ/RnnJsICq8lkaW/O
-	dlx73yJxN0cecMJ+wbmhWWMIROE+UuonB1Ve2Dj4Il8Ey72NCKXIjhonXPm5C6GPb4h9OX5VcWf
-	fZDLir1x2fkZxY0ZEpXpJOR650M/DY7cVo7LDeaTfU=
-X-Received: by 2002:a17:903:8c3:b0:2dd:b6e7:ac1b with SMTP id d9443c01a7336-2df69d36537mr27542935ad.2.1790181828967;
-        Wed, 23 Sep 2026 09:43:48 -0700 (PDT)
-Received: from carrot.home.local (madb688455.ap.nuro.jp. [219.104.132.85])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5f52dcsm14763745ad.69.2026.09.23.09.43.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 09:43:48 -0700 (PDT)
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: linux-nilfs <linux-nilfs@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com,
-	syzkaller-bugs@googlegroups.com
-Subject: [PATCH] nilfs2: fix deadlock between nilfs_evict_inode() and find_inode()
-Date: Thu, 24 Sep 2026 01:41:19 +0900
-Message-ID: <20260923164345.18456-1-konishi.ryusuke@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aVfroUQH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B491F000FF;
+	Wed, 23 Sep 2026 16:44:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790181846;
+	bh=OoOOTxuoQ6EZdspGU37DbBh74bllbiSJrPb5SoDh0CQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aVfroUQHOic+0dG0LtM4us94aUGmqKHasYKAZgcYJrcxPjPbj5PP5puWmbXv5Lm42
+	 bS+BGz9yKlGjxIJm0id71spz1+rpkhp+PxPuCNaCeDAgzf87xT/KSjJJVcSfAE/pUI
+	 HjV76sMIkOY63g05fjx/v73QViQR19pqGlwq981+F+TLl4u7fuB/C0Vw5Nt7oH1Ase
+	 GPvWMA44C1MyxkRN3nfJs3XI6FKVEErJZ3j+029Wf68CH3vAWVIxFQwos99gUm5fHi
+	 xf/StU/KeKQnZWOAwI0SycRR/t4do0Umk9NjI775dI42NX7pgIw6wG/i5hPFMhcqIq
+	 d2mGoCF1AbkZA==
+Date: Wed, 23 Sep 2026 17:43:59 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
+	liam@infradead.org, david@kernel.org, vbabka@kernel.org, jannh@google.com, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, shuah@kernel.org
+Subject: Re: [PATCH 05/10] mm/madvise: factor huge-PMD folio processing
+Message-ID: <arP4Igew3iL9qVKW@gremlin>
+References: <20260922235830.2350770-1-gourry@gourry.net>
+ <20260922235830.2350770-6-gourry@gourry.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922235830.2350770-6-gourry@gourry.net>
 
-Syzbot reported a deadlock between nilfs_evict_inode(), executed via
-an asynchronous workqueue (kworker) as:
+On Tue, Sep 22, 2026 at 07:58:25PM -0400, Gregory Price wrote:
+> The huge-PMD branch combines PMD validation and lock ownership with folio
+> filtering, splitting, aging and isolation.
+>
+> Move the folio-specific work into a helper called with the PMD lock held.
+> Return a locked and referenced folio only when the caller must drop the PMD
+> lock and split it.
+>
+> No functional change intended.
+>
+> Assisted-by: LLM
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+> ---
+>  mm/madvise.c | 70 ++++++++++++++++++++++++++++++++++------------------
+>  1 file changed, 46 insertions(+), 24 deletions(-)
+>
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index b31b877c2c130..6b518f7f73651 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -394,6 +394,49 @@ static bool madvise_lru_folio_is_filtered(struct folio *folio,
+>  	       (pageout_anon_only && !folio_test_anon(folio));
+>  }
+>
+> +#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+> +static void madvise_cold_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+> +		pmd_t *pmd, unsigned long addr, pmd_t orig_pmd)
+> +{
+> +	if (!pmd_young(orig_pmd))
+> +		return;
+> +
+> +	pmdp_invalidate(vma, addr, pmd);
+> +	orig_pmd = pmd_mkold(orig_pmd);
+> +	set_pmd_at(tlb->mm, addr, pmd, orig_pmd);
+> +	tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
+> +}
+> +
+> +/* Return a locked, referenced folio only when it must be split. */
 
-  process_one_work()
-    process_scheduled_works()
-      nilfs_iput_work_func()
-        nilfs_dispose_list()
-          iput()
-            iput_final()
-              evict()
-                s_op->evict_inode()
-                  nilfs_evict_inode()
+I find it really weird that when it:
 
-and find_inode(), called via
+a. succeeds
+b. mapped folio is missing/invalid/filtered
 
-  nilfs_mkdir()
-    nilfs_new_inode()
-      nilfs_insert_inode_locked()
-        insert_inode_locked4()
-          inode_insert5()
-            find_inode()
+In both cases it returns NULL.
 
-When an inode is deleted (i_nlink == 0), nilfs_evict_inode() clears its
-ifile bitmap entry and then synchronously triggers the log writer via
-nilfs_transaction_commit() if IS_SYNC(inode) is true.
+And it's also weirdly returning a folio in a kind of failure case, or it's
+more like a defer-to-the-rest-of-the-code case I suppose.
 
-If a concurrent directory creation via nilfs_new_inode() attempts to
-allocate the same newly freed inode number, however, find_inode() called
-just before inserting it into the inode hash, blocks waiting for the old
-inode's evict() to complete.
+I wonder if the split could be done as part of the function?
 
-Meanwhile, the synchronous log writer invoked from nilfs_evict_inode()
-tries to acquire a write lock on 'ns_segctor_sem' which is read locked
-by the caller of nilfs_new_inode() (in this case, nilfs_mkdir()),
-resulting in a deadlock.
+Then maybe have it return bool and document that true means it's fully
+processed (invalid folio cases, success case), false means that it's been
+split and the rest of the code should continue.
 
-The synchronous log writer invocation from nilfs_evict_inode() is a
-legacy artifact; it is no longer necessary because the call itself
-(triggered by iput()) is now handled asynchronously with a kworker
-if i_nlink == 0.  It merely increases the risk of deadlock.
+Awkward one actually.
 
-Fix this deadlock by removing the synchronous log writer trigger from
-nilfs_evict_inode().
+> +static struct folio *
+> +madvise_lru_huge_pmd_locked(pmd_t *pmd, pmd_t orig_pmd,
+> +		unsigned long addr, unsigned long next, struct mm_walk *walk,
+> +		struct list_head *folio_list, bool pageout_anon_only)
+> +{
+> +	const struct madvise_walk_private *private = walk->private;
+> +	struct vm_area_struct *vma = walk->vma;
+> +	struct folio *folio;
+> +
+> +	folio = vm_normal_folio_pmd(vma, addr, orig_pmd);
+> +	if (!folio || folio_is_zone_device(folio))
+> +		return NULL;
+> +	if (madvise_lru_folio_is_filtered(folio, pageout_anon_only))
+> +		return NULL;
+> +
+> +	if (next - addr != HPAGE_PMD_SIZE) {
 
-Reported-by: syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6646318bbcf419411bc5
-Fixes: 7ef3ff2fea8b ("nilfs2: fix deadlock of segment constructor over I_SYNC flag")
-Tested-by: syzbot+6646318bbcf419411bc5@syzkaller.appspotmail.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
----
-Hi Viacheslav,
+NIT: Maybe could define above as:
 
-Please apply this bug fix.
+	const bool spans_pmd = next - addr == HPAGE_PMD_SIZE;
 
-This fixes a deadlock issue that had been reported by syzbot but
-remained unresolved for over a year.
+And then make this:
 
-Thanks,
-Ryusuke Konishi
+	if (!spans_pmd)
 
- fs/nilfs2/inode.c | 6 ------
- 1 file changed, 6 deletions(-)
+?
 
-diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
-index 64437aed8390..33490e8063eb 100644
---- a/fs/nilfs2/inode.c
-+++ b/fs/nilfs2/inode.c
-@@ -895,13 +895,7 @@ void nilfs_evict_inode(struct inode *inode)
- 
- 	nilfs_clear_inode(inode);
- 
--	if (IS_SYNC(inode))
--		nilfs_set_transaction_flag(NILFS_TI_SYNC);
- 	nilfs_transaction_commit(sb);
--	/*
--	 * May construct a logical segment and may fail in sync mode.
--	 * But delete_inode has no return value.
--	 */
- }
- 
- int nilfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
--- 
-2.53.0
+> +		if (!folio_trylock(folio))
+> +			return NULL;
+> +		folio_get(folio);
+> +		return folio;
+> +	}
+> +
+> +	if (!private->pageout)
+> +		madvise_cold_pmd(private->tlb, vma, pmd, addr, orig_pmd);
+> +	madvise_lru_folio(folio, private->pageout, folio_list);
+> +	return NULL;
+> +}
+> +#endif
+> +
+>  static int madvise_lru_pmd_entry(pmd_t *pmd, unsigned long addr,
+>  		unsigned long end, struct mm_walk *walk)
+>  {
+> @@ -431,22 +474,11 @@ static int madvise_lru_pmd_entry(pmd_t *pmd, unsigned long addr,
+>  			goto huge_unlock;
+>  		}
+>
+> -		folio = vm_normal_folio_pmd(vma, addr, orig_pmd);
+> -		if (!folio)
+> -			goto huge_unlock;
+> -
+> -		if (folio_is_zone_device(folio))
+> -			goto huge_unlock;
+> -
+> -		if (madvise_lru_folio_is_filtered(folio, pageout_anon_only))
+> -			goto huge_unlock;
+> -
+> -		if (next - addr != HPAGE_PMD_SIZE) {
+> +		folio = madvise_lru_huge_pmd_locked(pmd, orig_pmd, addr, next,
+> +				walk, &folio_list, pageout_anon_only);
+> +		if (folio) {
+>  			int err;
+>
+> -			if (!folio_trylock(folio))
+> -				goto huge_unlock;
+> -			folio_get(folio);
+>  			spin_unlock(ptl);
+>  			err = split_folio(folio);
+>  			folio_unlock(folio);
+> @@ -455,16 +487,6 @@ static int madvise_lru_pmd_entry(pmd_t *pmd, unsigned long addr,
+>  				goto regular_folio;
+>  			return 0;
+>  		}
+> -
+> -		if (!pageout && pmd_young(orig_pmd)) {
+> -			pmdp_invalidate(vma, addr, pmd);
+> -			orig_pmd = pmd_mkold(orig_pmd);
+> -
+> -			set_pmd_at(mm, addr, pmd, orig_pmd);
+> -			tlb_remove_pmd_tlb_entry(tlb, pmd, addr);
+> -		}
+> -
+> -		madvise_lru_folio(folio, pageout, &folio_list);
+>  huge_unlock:
+>  		spin_unlock(ptl);
+>  		if (pageout)
+> --
+> 2.53.0-Meta
+>
 
+--
+Cheers, Lorenzo
