@@ -1,176 +1,106 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AC457D21D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DBD234BA5B;
+	Wed, 23 Sep 2026 21:00:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197179; cv=none; b=cZocss56AvLy7eDX0urxqE/d8AKQefBGxLnaz6kfmeWtGXN39pqG4XevPxYLgUgKcypUg0GFu3cl6XT5ZIZqQb4mVlf8Y2YvPHuUbhTnyd3tn/YiF0sJ+m7dOykqEt20lYN0pd2u35fPb81+c7kdgjMmxJ9m3NYTqiB5QXFv9D0=
+	t=1790197218; cv=none; b=fjChbBzCZ/XmWUOFh3sBIYRkMB+Nxhi3gJibCy405T4T9v7CWo6ZmYpaj4s6Bd5RGH8jcJ79Jhtj8K1PiWV5wjTkvNfjjxtbVEbcJ1LrprCBqdHOuHlKP/zRCcqqxFdutlkJYRUOBTVKp6PXktDZPlpZ6loDcRdqFNM3SafQqdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197179; c=relaxed/simple;
-	bh=Vaf95jC8xWvp09f4oUdupmMNE65BFZ9EkwxhEWMfN8Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UshanEr0LZpFmLZb6epkkrWnQMIxJy9FsWbSd9We1JrRkz2Pj0rYkZjE4MhVvoG08kkvR3ZgFcSCckW0i1kRBQ0ZytTI1RffK9pJVU5ZCPcisIeCDkZ4zzO2AIdNDI1EY6n18ZumX8GQvsRZ5hk5SFtjMu4CnlOKTvV3a663854=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oGkmRku8; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790197218; c=relaxed/simple;
+	bh=ccQz9YvjRV9nNKuWS/TlWg8SWDYqOPJmHdP9RIhMSUY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=k+74p+jxc23Ei45KM9hDwStLJumySJJikhfpl2M2/NdFHZt86q0mnUfNnl6l0I8KcccRUo/4YZKiRn0NPCY4KhNt0UV+xbee2PPROeHBjnUOzFFqwGMPPObztoMF3ktfACpKyTBf6JTdD4TyLWiwFehRgbWh2W/ewTQnZZQfLrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j12baXkZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oGkmRku8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790197177; x=1821733177;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=Vaf95jC8xWvp09f4oUdupmMNE65BFZ9EkwxhEWMfN8Q=;
-  b=oGkmRku8unYgzHBOHF/HWIFuiehoFwCm0fWXIYVIz9D3cj+oh+ozO2rr
-   RlYmRw+T0uFkT0i4w3sQ6bxhObj0hzakAPk2O1HpvmsYgn8I3iavfqEXE
-   EAHOHwWgzs4ovBrK4mWsGs0pHc7ZcoHA7SnR3jvUe440gSyWs7K+COjei
-   dlmqZeiqdnomNlhsKThF+5xNRgpENcDxrNz3V1wdmRoRh/HwWdzg5QG+U
-   e9LAJvKsoozK9z0N6FwRa95fshRwYBymRWdP1iLC7R7k3tcFSRZlg468S
-   wra68boHHAhnwZUZTVjgO2345Kvnn4PXCEMqOLbyAvYA/X2U2oBB2sA45
-   A==;
-X-CSE-ConnectionGUID: clxPsRfZTg27oDhdgufSSw==
-X-CSE-MsgGUID: joOYlfPYR/e3RQ7CCoXzOA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="101517870"
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="101517870"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 13:59:34 -0700
-X-CSE-ConnectionGUID: /iR8RbswS6uJMxeD3LhHIg==
-X-CSE-MsgGUID: I4h2gX63Rsap9UozagoS0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,119,1787036400"; 
-   d="scan'208";a="4867261"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa011.fm.intel.com with ESMTP; 23 Sep 2026 13:59:33 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x9U3t-00000000HjO-3Iyg;
-	Wed, 23 Sep 2026 20:59:29 +0000
-Date: Thu, 24 Sep 2026 04:59:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: =?utf-8?B?5p6X5r+s5ZOy?= <m18667909625@163.com>,
-	Petr Mladek <pmladek@suse.com>
-Cc: oe-kbuild-all@lists.linux.dev, Steven Rostedt <rostedt@goodmis.org>,
-	John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	linux-kernel@vger.kernel.org, m18667909625@163.com
-Subject: Re: [PATCH] printk: fold consecutive duplicate messages
-Message-ID: <202609240431.W97eMUgr-lkp@intel.com>
-References: <20260921050304.73440-1-m18667909625@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j12baXkZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53A831F000FF;
+	Wed, 23 Sep 2026 21:00:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790197216;
+	bh=gopMSo0mzfjrUmtaCVKnC5i427RNBJMYYN+bfD5UTH4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=j12baXkZU6VWzbYrJ0+NzEVS/CfB8Rh8M798lc+51zoz+KwjyW3gRw6z7EbYzEKEt
+	 ZvK0X4S2aRfw3cy98PCg798VnCw2rE7bfIYDt0xAL3U971Y+q8VpPNSApFBWoOB/KT
+	 GYT2UyxeQI99pJh0d6zdMidf9LV8/FqeIZJtB0pCSDN+mByRuB8vFuwtybfAlOxXz5
+	 Emh6muuBBbpxRkqAdRwCwdcgzHCg2AkyVLFkGW5mRTdrDHfNbeedm2Zedp/LbGYsw9
+	 HH+YBEKk6Hr2IUcRUjHJrynTu5TcVnQd3Gg0SAZBacZirPA9pv1eDsGDNBQUY5X6UD
+	 eqECMtzKo5Dig==
+Message-ID: <b1340496-1ff3-4ad7-87c3-36d2162efbfa@kernel.org>
+Date: Wed, 23 Sep 2026 22:00:01 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260921050304.73440-1-m18667909625@163.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] firmware: qcom: scm: pass qcom_scm to internal
+ helpers
+To: Albert Esteve <aesteve@redhat.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Russell King
+ <linux@armlinux.org.uk>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Christian Loehle <christian.loehle@arm.com>,
+ Maximilian Luz <luzmaximilian@gmail.com>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jeff Johnson <jjohnson@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+ Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+ Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Brian Norris <briannorris@chromium.org>,
+ Govind Singh <govinds@codeaurora.org>,
+ Niklas Cassel <niklas.cassel@linaro.org>, Kalle Valo <kvalo@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+ op-tee@lists.trustedfirmware.org, Maxime Ripard <mripard@kernel.org>
+References: <20260914-scm-device-api-v1-0-3573e2596c51@redhat.com>
+ <EKwbCgCnxbNX4p95qJ3xoytzeNBBLc2L_HOVWr-S-y8n7pNOIToj37TyoXRcLyIK1gjq_IvbreQ331gw6jIK9Q==@protonmail.internalid>
+ <20260914-scm-device-api-v1-1-3573e2596c51@redhat.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260914-scm-device-api-v1-1-3573e2596c51@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi 林濬哲,
+On 14/09/2026 13:41, Albert Esteve wrote:
+>   int qcom_scm_pas_auth_and_reset(u32 pas_id)
+>   {
+> -	return __qcom_scm_pas_auth_and_reset(__scm->dev, pas_id);
+> +	struct qcom_scm *scm = __scm;
+> +
+> +	return __qcom_scm_pas_auth_and_reset(scm->dev, pas_id);
+>   }
+>   EXPORT_SYMBOL_GPL(qcom_scm_pas_auth_and_reset);
 
-kernel test robot noticed the following build warnings:
+Why make this change at all though ?
 
-[auto build test WARNING on linus/master]
-[also build test WARNING on v7.3-rc4 next-20260922]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+It takes a pointer to the file static _scm
 
-url:    https://github.com/intel-lab-lkp/linux/commits/printk-fold-consecutive-duplicate-messages/20260921-130304
-base:   linus/master
-patch link:    https://lore.kernel.org/r/20260921050304.73440-1-m18667909625%40163.com
-patch subject: [PATCH] printk: fold consecutive duplicate messages
-config: arc-randconfig-1000-20260924 (https://download.01.org/0day-ci/archive/20260924/202609240431.W97eMUgr-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 12.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609240431.W97eMUgr-lkp@intel.com/reproduce)
+The reset of the patch looks straight-forward to me but this change 
+caught my eye.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609240431.W97eMUgr-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> kernel/printk/printk.c:134:13: warning: 'outputs_dedupe' defined but not used [-Wunused-function]
-     134 | static bool outputs_dedupe(int facility, int level, const char *fmt)
-         |             ^~~~~~~~~~~~~~
-
-
-vim +/outputs_dedupe +134 kernel/printk/printk.c
-
-   124	
-   125	/*
-   126	 * Detect consecutive duplicate printk messages and fold them away.
-   127	 * Returns true if this message should be dropped.
-   128	 *
-   129	 * The dedup key is built from facility, level and the format string.
-   130	 * Format parameters are intentionally not part of the key: va_list
-   131	 * can only be consumed once, and hashing rendered text would put
-   132	 * string comparisons on the printk fast path.
-   133	 */
- > 134	static bool outputs_dedupe(int facility, int level, const char *fmt)
-   135	{
-   136		unsigned long flags;
-   137		bool drop;
-   138		u64 now;
-   139		u32 key;
-   140		u32 n;
-   141	
-   142		/* error and above must never be folded */
-   143		if (level <= LOGLEVEL_ERR || !printk_dedup)
-   144			return false;
-   145	
-   146		key = hash_64((unsigned long)(fmt ? : ""), 32) ^
-   147		      hash_32(facility ^ level, 32);
-   148		now = ktime_get_ns();
-   149	
-   150		raw_spin_lock_irqsave(&dedup_lock, flags);
-   151	
-   152		if (dedup_active && key == dedup_last_key) {
-   153			dedup_repeat++;
-   154			/*
-   155			 * Force a flush when 10 repeats have accumulated or
-   156			 * the 1s window has elapsed, so the summary shows up.
-   157			 */
-   158			if (dedup_repeat >= 10 ||
-   159			    now - dedup_window_start > PRINTK_DEDUP_WINDOW_NS) {
-   160				n = dedup_repeat;
-   161				dedup_repeat = 0;
-   162				dedup_window_start = now;
-   163				drop = false;
-   164			} else {
-   165				drop = true;
-   166			}
-   167		} else {
-   168			if (dedup_active && dedup_repeat) {
-   169				n = dedup_repeat;
-   170				drop = false;
-   171			} else {
-   172				n = 0;
-   173				drop = false;
-   174			}
-   175			dedup_last_key = key;
-   176			dedup_repeat = 0;
-   177			dedup_window_start = now;
-   178			dedup_active = true;
-   179		}
-   180	
-   181		raw_spin_unlock_irqrestore(&dedup_lock, flags);
-   182	
-   183		/*
-   184		 * Print only after dropping the lock: pr_info() re-enters
-   185		 * vprintk_emit() and would deadlock on dedup_lock otherwise.
-   186		 */
-   187		if (n)
-   188			pr_info("last message repeated %u times\n", n);
-   189	
-   190		return drop;
-   191	}
-   192	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+---
+bod
