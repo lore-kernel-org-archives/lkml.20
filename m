@@ -1,98 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-107.mta1.migadu.com [95.215.58.107])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B9347A0C3;
-	Wed, 23 Sep 2026 09:09:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0525247988A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154584; cv=none; b=kOKWQpyqd8GxTw2LyrrGWgfkBhJJa1sfIUp5JuifeGDKuy1PpItLijeS7Ay/RgAPKvScUZpH0LS8AnCaG4tovuemUkmy8baq8KJDtW+NNV6K3bDTJUz+M+aDgvZbgxTyJMnFRJGxNlx2U53LeORSQl62++oFxp357B4/MvvFJPU=
+	t=1790154592; cv=none; b=BkrcQzlZenJxYCqHTJFpdbE3EI90lWs1DlUr+VhcIOz5wQ1mjEJlh/kqczQosX41WrMfy7w2/avKCrM3p/zC6loPm4oHWkAlYVMG3UHrnrzitdr3fLBWSiwHpv8T56ustAKuNaCrIsOsfVg5WJuhUe2KrvsE90LN7kR8l53lPY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154584; c=relaxed/simple;
-	bh=5tMF/y/2lHq35n8+ZKRafbktmyjplBB/jZZEPef+IOc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FvxRkcTqns5em9U6az2JQX4hfr5EdI+4xY9kwfeiET0HH4owzasyQ7IU+9EEo+pqrOaYF/jpHKTZ9jgbBNhyLpVlrTOaOwHSgkNYybQnvscXymji0bS8VG4Knk5gKwmB9Zyr74i1zN2eTQfwDpHHUUhM6Ho1GJo9WRLD1deog74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830B91F000FF;
-	Wed, 23 Sep 2026 09:09:41 +0000 (UTC)
-From: Geert Uytterhoeven <geert+renesas@glider.be>
-To: Helge Deller <deller@gmx.de>,
-	Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH] video/logo: Improve logo help texts
-Date: Wed, 23 Sep 2026 11:09:38 +0200
-Message-ID: <024a2d7e9a6b63d261f6ca4afb1a75d4f540defa.1790154481.git.geert+renesas@glider.be>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1790154592; c=relaxed/simple;
+	bh=NVL2uUXDSe8UVs+D9FKlOgLuLLswb0xtaQ4XR1VvYsg=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=pUg9w19x+Bujq6o0oi5q5VyYSH9JrwE8FcOhWyj4qpJ3dl81FxkOf/P0mef/aPpwSe76m2WChkVn0PDVqNQAadTuvN0f718TcAdmC5ibO5qct5rliub9QD/o/bHXF9fyI+OTIspSepvyL5yYqwNiicZwZzAQgNdr2WUGguVv3zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=U7Yv9O3X; arc=none smtp.client-ip=95.215.58.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="U7Yv9O3X"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NVL2uUXDSe8UVs+D9FKlOgLuLLswb0xtaQ4XR1VvYsg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790154587; v=1; x=1790759387;
+ b=U7Yv9O3X7JnzLhiCT2FkWbofjtFp93tJF9zeO4tI4LJ5EPL/1f/V10U2PezzbQFNaIMxFa+8
+ W0OCt/9j+sIsQXEmD8+Lx6hk0OhaFigHrErtvy5NKNlGFClvQ0UtFDRcGgRbO+5tXmdNTQ8xRjV
+ Qpf4Dga0m5yE3zdKVlvFT0aE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 99c88c09ab6822ea;
+	Wed, 23 Sep 2026 09:09:47 +0000
+X-Mizu-Trace-ID: 99c88c09ab6822ea
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Wed, 23 Sep 2026 09:09:47 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Luka Gejak" <luka.gejak@linux.dev>
+Message-ID: <8acd337635cda76b7e1f5dfacfaeb0c8c93a886f@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v3 2/6] wifi: rtw88: 8723b: add the RTL8723B BB, RF and
+ AGC tables
+To: "Ping-Ke Shih" <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "Michael   
+ Straube" <straube.linux@gmail.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>,
+ luka.gejak@linux.dev
+In-Reply-To: <16eeca262aab43a798afeb806e88aac8@realtek.com>
+References: <20260921154347.82317-1-luka.gejak@linux.dev>
+ <20260921154347.82317-3-luka.gejak@linux.dev>
+ <0a6ea4337e004faa97595b1b62d2cad9@realtek.com>
+ <6c14fabffc6984a5e7cd91c9b7fe6e4caceeaf70@linux.dev>
+ <3ce6a66b25274fb0b58f259529359bfe@realtek.com>
+ <09c6a890906e4d4e93d8dcde41e2b808b7d9582c@linux.dev>
+ <16eeca262aab43a798afeb806e88aac8@realtek.com>
 
-Since commit dfa6ce636cb8faea ("video/logo: allow custom logo"), the
-LOGO_LINUX_{MONO,VGA16,CLUT224} configuration options no longer control
-the inclusion of the "standard" Linux logo, but the inclusion of
-(possibly custom) logos specified through the correspondig *_FILE
-options.
+September 23, 2026 at 11:59, "Ping-Ke Shih" <pkshih@realtek.com> wrote:
 
-Adjust the one-line prompt to reflect this.
-Add long help texts while at it.
+>=20
+>=20Luka Gejak <luka.gejak@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> Luka Gejak <luka.gejak@linux.dev> wrote:
+> >=20
+>=20>  >
+> >  > Luka Gejak <luka.gejak@linux.dev> wrote:
+> >  > > +// SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
+> >  > > +/*
+> >  > > + * Copyright(c) 2007-2017 Realtek Corporation
+> >  > > + * Copyright(c) Michael Straube <straube.linux@gmail.com>
+> >  > > + * Copyright(c) 2024-2026 Luka Gejak <luka.gejak@linux.dev>
+> >  > >
+> >  > I'm not sure if we should claim copyright year back to 2007?
+> >  >
+> >  > What would you prefer, just tell me and I will change it?
+> >  >
+> >  You can reference what Bitterblue did [1]. I don't have much study
+> >  about the copyright.
+> >=20
+>=20>  [1] 1a7545784642 ("wifi: rtw88: Add rtw8814a.{c,h}")
+> >=20
+>=20>=20=20
+>=20>  He uses 2025, so should I copy his line for Realtek copyright head=
+er?
+> >=20
+>=20Maybe "Copyright(c) 2026 Realtek Corporation"
+>=20
+>=20If needed, more copyright are also okay, but I don't know much about =
+that.
+> You can study Documentation or somewhere to know more.
+>=20
 
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
----
- drivers/video/logo/Kconfig | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+Understood,=20will do.
 
-diff --git a/drivers/video/logo/Kconfig b/drivers/video/logo/Kconfig
-index cda15b95891ed3a8..3cb66ac88d6be0fe 100644
---- a/drivers/video/logo/Kconfig
-+++ b/drivers/video/logo/Kconfig
-@@ -19,7 +19,11 @@ config FB_LOGO_EXTRA
- 	default y if SPU_BASE
- 
- config LOGO_LINUX_MONO
--	bool "Standard black and white Linux logo"
-+	bool "Black and white Linux logo"
-+	help
-+	  Include a monochrome (black and white) Linux logo.
-+	  This logo can be shown on all kinds of displays.
-+	  Say Y to show a logo on monochrome displays.
- 
- config LOGO_LINUX_MONO_FILE
- 	string "Monochrome logo .pbm file"
-@@ -36,7 +40,13 @@ config LOGO_LINUX_MONO_FILE
- 	    magick source_image -compress none destination.pbm
- 
- config LOGO_LINUX_VGA16
--	bool "Standard 16-color Linux logo"
-+	bool "16-color Linux logo"
-+	help
-+	  Include a 16-color Linux logo.
-+	  This logo can be shown on displays that support showing (at least)
-+	  the standard VGA 16 color palette.
-+	  Say Y to show a logo on color displays that are limited to less than
-+	  256 colors.
- 
- config LOGO_LINUX_VGA16_FILE
- 	string "16-color logo .ppm file"
-@@ -55,8 +65,13 @@ config LOGO_LINUX_VGA16_FILE
- 	      -remap drivers/video/logo/clut_vga16.ppm destination.ppm
- 
- config LOGO_LINUX_CLUT224
--	bool "Standard 224-color Linux logo"
-+	bool "224-color Linux logo"
- 	default y
-+	help
-+	  Include a 224-color Linux logo.
-+	  This logo can be shown on displays that support showing a palette of
-+	  256 or more colors.
-+	  Say Y to show a logo on colorful displays.
- 
- config LOGO_LINUX_CLUT224_FILE
- 	string "224-color logo .ppm file"
--- 
-2.43.0
+> >=20
+>=20> Also I will address all comments and send v4 tonight/tomorrow morni=
+ng.
+> >=20
+>=20No rush. Deeply what review the patches before sending is more import=
+ant.
+> As this patchset is large LOC, one iteration spends me a lot of time. I=
+'d
+> minimize iteration as few as possible.
+>=20
+>=20Ping-Ke
+>
 
+I agree that less iterations are better, and architecturally I
+believe very little, if any changes should be made, therefore I
+think only style changes are left, and I will try to catch as
+many myself when I review today.
+
+Best regards,
+Luka Gejak
