@@ -1,137 +1,170 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6D84B7A4B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:58:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D8E4B7A2B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:58:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164710; cv=none; b=cxivmkspsB5N5IbBlYP3R2/OVdsnPG9MeDVJyy8ZsZ/VijHq4hYHcqjZfPfwPW7O2wg+Yv39QbB7jNhli9q/xOm4m3JFtqhbmWE9cu5ArxpMn2Gqx3b1P2lxb2TPvmFqd+9/1WGFJjWSpBn6Yw2tOFoynWsloZXcuOWmjnAoW8M=
+	t=1790164716; cv=none; b=I796UHIK2eKyh2MMCoySQODI8SPapgJbiNDEZgi6EfTz+LcJGQQ9tNQZNxg3Mrsdc3MiAOEAN+Fh/NRQvqDs11WCSdNUdQ5UT3+p5qXA5S6mcWHGJfRlGENjGhkvQCH5w7Ppomn4yx10kJA0Qq+02piKYa5vykKTy1sy/VcBNFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164710; c=relaxed/simple;
-	bh=ifTmuhdYEfA8S+Ti9vBnBv8jVJkTFG9fKTW/c6hx1FQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DPaNIYQqDWmfvMHsqjZmj0jdxQEDV7dh44owvN3spm574Xp/n3915lA0mNrLetV9k9zxN48DO0TLj8AexKQ5wYOCWNmRCt/WWKk0C5nI22ds5A/O0KDzuH0TZZx6M9Cl2AFMeqyhld5A2+82N3ltdP1JGfLgvzdq9UHCrVeHSQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i/nsXj3H; arc=none smtp.client-ip=74.125.226.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790164716; c=relaxed/simple;
+	bh=rnqsZPXYSagqFKkg9Q69pwDVeCIBpS3jc/teWefmvTQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=gTQBuQQMdORAZFtZtBRW46CIz7flNhcD5RG42stlob/E0dRzaWMj5T8zPEnRPKLKzh7+nFWahDiojis91UpdvagyjaO2/dX72I20RHcBNpKg4ZcbInuQAqzxtQEf2jiTtDV2Xy4fvq+2x3h7Bfh+th9Yrp+guJNgCZZXwGtWLdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=G6VFAUPn; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i/nsXj3H"
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97ea1a712deso290392241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:58:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="G6VFAUPn"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd4ba9f68so9278385e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:58:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790164703; x=1790769503; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ibl0MHrnxFzM837MpKxLVego5yHxJdHEFJ+77R4ZX9E=;
-        b=i/nsXj3HBjJwaFiK/WvcUoe4E0BCWdtNaiOYTgdmylvpOiqzO5zCoWqYW9DZOBvZzQ
-         /TgnxS2Ii2BE9zExDNiwpW4bhRvMf7q+bP5kiZ7nEtX7xZWe3kTqlqFA1ZRcEPUp5I2u
-         uX6J7M0+7HHmpe7+rJJnzqz41PoSVqeFdbmctI9Q2uUgwoQ7ZaCWcbgkf1hcktGz2Z0o
-         lMKXA5E8u7xMW4SHvc87aORe4hSZVyZNTn2G8byfOqcY3uvcFaJtxNAiN+EHNvpBD09m
-         eNzorVOgqBsSGo5JfTLE/NOs0HDpssXfelWQs3G4RGzv+7tx8nqDQLBLIIQOkxjRBMnT
-         UbaA==
+        d=suse.com; s=google; t=1790164708; x=1790769508; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9A8wYxIVGsH10Bdo4rxzJQUGF4dm75Ur8pO9nrlugsQ=;
+        b=G6VFAUPnqz622uxutLI4S2RoJH+fIgyr0FqlVMc4SKBOh370ALNrWEu+yTllH4lLUm
+         ydY8vSOyCpyvqaiM/FCMOZeKOnWHm/n9tC1jw+6vqOr87Arrv8/8UprIEquErGFagcKz
+         vOWmmo2jiWT06/r7jMM4QDC087dx77wsnWKBsK7sUPgLWt3mh+2GGSdNWk3brVS/L5sE
+         vE5LbPR8K2cx1WuKdYwRoYpk8IjxCpeLGTdVvjMjov9dr7mTADRxy/Ttuoskm1d9JdLx
+         ItaPLgoAh2ctiNnVOmupUxb59U7sLhQI6rJHre2bwKpRWuxtt9w8NZl6nB4L1ylKAggc
+         Vc8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790164703; x=1790769503;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790164708; x=1790769508;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt
+         :content-language:from:references:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ibl0MHrnxFzM837MpKxLVego5yHxJdHEFJ+77R4ZX9E=;
-        b=CdDzmaaSFyCbTP0q0up+6uSkH+XACCyzeg7tXoOJq7nH7YgQs7k35wo2jEm5p8DWY9
-         8wcd7eLcfrbYLo7iWOr23xVj2V/RnDTYUxaWB93KeTNUP00AwE+OcJdejshIo/sL/Wkn
-         Nq8dH3WKKYer2tmu/SATmINAft1OcDa48+pplhlBiYrjF3wwpq7cJQz0oSHu8ACRuuDg
-         La/ZWFF8fXPz7TOlpBggnXkoih8b07sPKZFB2tcV23MdYtwfQAlMzpjmFaP9FwtL6yNr
-         Fflp/uP3Zaz7SZLH1tJh8tVOvxCqK5WaI9UP2ZoQgZ8h/8hkzE6aiUTnmwvhOQ6VtXSK
-         3dgw==
-X-Forwarded-Encrypted: i=1; AKwUvByadLRw4smS0bOvMC9P0Snu5wXjkExSiGa3bf9+tXAg3bRswQSiwvTHrWH/jyxp26al05mbyUeD26JWqdo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJMXwcXqhz+gpVWEcmbmbGHRCVLOjeeoPYHEh8T9ZsH7ZUGM2W
-	XoPCkuMmqMlLAZbupqzT3mMpH+lWV0aQW8O9zzSZpNHyMZnwUhCR1LYT
-X-Gm-Gg: AYBFou0kv0zLDeHCGOLg+GTTZSyLX/JmNH0W57Ykgrwujs1JP+OasBa00CeB1R33O8/
-	0jFdraWcm1EanXea9RHtLeT0BEZDuesuSUfnlRPXghVz0Z1I5U/oy9XtLP2c6VvY8z+TgAY6mda
-	/D0GUYHGa5Vwfucb/8AeSlbyem+5fp2+ofpI7tcETMMfi3sauboj5dYAktescHi48pSFCliMX+y
-	Yj/xbx11VJMCtNPgFKc6Z/k3dLCzINuuZznzZtqEM4qNA/3GV+7tK0Jql0sIsGjx8tPETinwRXZ
-	Bbt/pAh6o6BEK3dZEQuDQKQoY+QxfzUTFCKDdTdqseKBdOJhQrdWRaABCgQ8+yrUsUJIjRZ1TOm
-	FN2Ga4LYyYD2EAI1QQV+KBzcZOC7U4YnnF0yRF9xe8cnkS29/DjMSGm8BSDUvb4bvtTg0/opuyf
-	2wkTBqXNdGAanQ6NifTrFH3EgghGPns2Wulge0awizUf5zAHnadeLwYOEa2/aJ+wI=
-X-Received: by 2002:a05:6102:f12:b0:79f:45dc:118e with SMTP id ada2fe7eead31-7ac1acd5debmr2043519137.5.1790164702882;
-        Wed, 23 Sep 2026 04:58:22 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ca2876229dsm1091399e0c.3.2026.09.23.04.58.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 04:58:22 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: linux-xfs@vger.kernel.org,
-	Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J . Wong" <djwong@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 RESEND] xfs: bound da-node entry count against the correct geometry
-Date: Wed, 23 Sep 2026 08:57:54 -0300
-Message-ID: <20260923115754.3196232-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=9A8wYxIVGsH10Bdo4rxzJQUGF4dm75Ur8pO9nrlugsQ=;
+        b=t6j6/yC19xn3C/cXvTkmM06w6Z7+vKk9LBbPKMqmARHPF/4zvqeQF6pf0Vb7zKlTrr
+         8l0+UOh4PrRRu1plsSpCFke8LO1vbSw/OSdU0nJFfC8lJbnVobTIRHkQCK/r2wyESMjm
+         1HJUyEkwXxxuD7l9QfofBjZLWddhtEMLHGeRaqbS7zd0xKlyKA8d3jo8TMUCAF7m+kGY
+         WDdL6Fwg2Y72VXUFuP9X4pYyNMKMvhQ3E/DBV96IWpz9MNpbCl5PzyRwubMMyDQU40Vf
+         aSTuwtmGy4z7We6qfsR+OzRsHhklXoeGLTpnfBZyCBSLFnav7T78Yq2NIGB9GzBN3dRX
+         DKbw==
+X-Forwarded-Encrypted: i=1; AKwUvBz9s1aFxsOtaPPyQfPoMZud05vY4kPcjSs5q18bQWzr3+NiP41FDfuYKa74oHJPrFqXMA3sbuyRGVzev4E=@vger.kernel.org
+X-Gm-Message-State: AFuF++muhRJMKybXHxeXkGhpnKfW7UGbHdpMmw4MOSKnJqVYXWh9BxOl
+	xwbp8lnN2+WJxGg6NYeNSDinZjQGy6WWiqDYbdvnQUZ3Kx1wfIScVD8+b9+OnIJ0fds=
+X-Gm-Gg: AYBFou3FZDv1VAHppgEXpdOqQa1G3Vxo2GYQ8zTiD9zyRLdhbgb5Qb0D1PHP9iYVjrZ
+	ksBTLW+GCIlq6OUOgDgu/vOrW77nFtWL3JlgkaNjGSEWJxixz34lrLQxMVXhkk+yohT2155bVvr
+	JUwvfxateZ80xy3TAjdUplDUVjrGEt+bhh+d0a7rwG9C7rZmM3CwhWuhOR/TUQc1gcqMsa0NsRU
+	+5izpJ5XoYJXgkH5P8r+LRwxf9No62/67WPCrkoOlfFLwple5dFpsr895bouQtXEYSigHI0CnVM
+	qZY/K23OtVQ3idsFTi4LZFRd0AMlVmg4o9wcLe4M4Z9aB1UN4Ssmmy86Apndxzbq4G4LRFMV9lK
+	3AiAe9Q0ojO6p4zYQG+dpXs1io7/xti2UXjsAC0/HZg85E1BWh8RQVgcd8i3f07KJHUqo5B6+LG
+	onKBjEEOyvEON9DeQqXi1c8MoJXHWhAW77Kh0G1Y2wx73rXalAwBDxxduHO+lUmlCOT3PBb+rVq
+	5dkn0V75QvZ6Gy94tpGJao=
+X-Received: by 2002:a05:600c:1f90:b0:49d:1de5:ce0a with SMTP id 5b1f17b1804b1-49fdf0f93a4mr28227655e9.13.1790164708556;
+        Wed, 23 Sep 2026 04:58:28 -0700 (PDT)
+Received: from [192.168.0.20] (nborisov.ddns.nbis.net. [185.218.66.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c64dsm6585044f8f.21.2026.09.23.04.58.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 04:58:28 -0700 (PDT)
+Message-ID: <86d0237e-80a5-4592-8e34-67960de70d8f@suse.com>
+Date: Wed, 23 Sep 2026 14:58:26 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] x86/virt/tdx: Drop tdx_clflush_*()
+To: Rick Edgecombe <rick.p.edgecombe@intel.com>, pbonzini@redhat.com,
+ dave.hansen@intel.com, seanjc@google.com, x86@kernel.org, kas@kernel.org,
+ adrian.hunter@intel.com, yan.y.zhao@intel.com, binbin.wu@intel.com,
+ xiaoyao.li@intel.com, chao.gao@intel.com, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+References: <20260922205215.870563-1-rick.p.edgecombe@intel.com>
+ <20260922205215.870563-2-rick.p.edgecombe@intel.com>
+From: Nikolay Borisov <nik.borisov@suse.com>
+Content-Language: en-US
+Autocrypt: addr=nik.borisov@suse.com; keydata=
+ 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
+In-Reply-To: <20260922205215.870563-2-rick.p.edgecombe@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-xfs_da3_node_verify() bounds the node entry count against the larger of
-the directory and attribute geometries because, as a buffer verifier, it
-cannot tell whether the block belongs to the directory or the attribute
-tree. When the directory block size exceeds the fs block size (e.g.
-mkfs.xfs -n size=64k -b size=4k), an attribute node buffer is a single fs
-block that holds only m_attr_geo->node_ents entries, yet a crafted attr
-node may claim a count up to m_dir_geo->node_ents and still pass the
-verifier.
 
-xfs_da3_node_lookup_int() then indexes btree[] up to that count during
-its binary search -- an out-of-bounds read via getxattr/listxattr on a
-mounted crafted image.
 
-The buffer verifier is the wrong place to tighten this: it has no fork
-context, and the transaction-less read path used by getxattr does not run
-xfs_da3_node_set_type() either. xfs_da3_node_lookup_int(), on the other
-hand, always runs on that path and holds args->geo, the geometry of the
-fork actually being searched. Bound the entry count against
-args->geo->node_ents there, before walking the entries.
+On 22.09.26 г. 23:52 ч., Rick Edgecombe wrote:
+> The TDX module exposes a bit (CLFLUSH_BEFORE_ALLOC) to say whether it
+> requires some memory to be flushed from the cache before being handed
+> to the TDX module.
+> 
+> During the initial TDX upstreaming, it was decided it would be simplest
+> to just always flush in these cases, rather than checking for the bit and
+> having conditional logic. So currently the kernel flushes in several
+> places when handing memory to the TDX module.
+> 
+> In practice this bit has never been set by any TDX module, so flushing
+> is unneeded. Going forward the TDX docs will be updated to clarify that
+> CLFLUSH_BEFORE_ALLOC will never be set in any future TDX module either.
+> 
+> So make code even simpler by just deleting all the CLFLUSH_BEFORE_ALLOC
+> handling.
+> 
+> AI was used to review the change.
+> 
+> Signed-off-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
 
-Fixes: 7ab610f9e0f1 ("xfs: move node entry counts to xfs_da_geometry")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
-v2: reworked per Darrick's review.  Do not infer dir-vs-attr from the
-    buffer size in the verifier; instead bound the entry count in
-    xfs_da3_node_lookup_int() against args->geo->node_ents, the
-    geometry of the fork being searched.  cc stable.
 
- fs/xfs/libxfs/xfs_da_btree.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+The code change itself is trivial, however nothing in the code being 
+removed is tied to CLFLUSH_BEFORE_ALLOC directly. And from the changelog 
+it's not entirely clear which those operations are (as per other 
+reviewers feedback). Looking at the TDX module spec that flag is 
+mentioned in relation to the following 3 operations:
 
-diff --git a/fs/xfs/libxfs/xfs_da_btree.c b/fs/xfs/libxfs/xfs_da_btree.c
-index 9debb95d86fa..95ea3737eb33 100644
---- a/fs/xfs/libxfs/xfs_da_btree.c
-+++ b/fs/xfs/libxfs/xfs_da_btree.c
-@@ -1787,6 +1787,20 @@ xfs_da3_node_lookup_int(
- 		} else
- 			expected_level--;
- 
-+		/*
-+		 * The node verifier cannot tell whether this block belongs to
-+		 * the directory or the attribute tree, so it only bounds the
-+		 * entry count against the larger of the two geometries.  Here
-+		 * args->geo is the geometry of the fork we are actually
-+		 * searching, so reject a count that would walk btree[] off the
-+		 * end of this node buffer.
-+		 */
-+		if (nodehdr.count > args->geo->node_ents) {
-+			xfs_buf_mark_corrupt(blk->bp);
-+			xfs_da_mark_sick(args);
-+			return -EFSCORRUPTED;
-+		}
-+
- 		max = nodehdr.count;
- 		blk->hashval = be32_to_cpu(btree[max - 1].hashval);
- 
--- 
-2.53.0
+TDH.MEM.SEPT.ADD
+TDH.MEM.PAGE.ADD
+TDH.MEM.PAGE.AUG
 
+Whereas the patch also removes flushing from MNG_CREATE/VP_ADDCX/MNG_ADDCX
+
+
+So concrete references in the changelog would be much appreciated i.e 
+whether flushing for those 3 additional functions was because people 
+were overzealous, or they simply have been omitted from the public 
+documentation.
