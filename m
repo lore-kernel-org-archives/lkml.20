@@ -1,225 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-157.mta1.migadu.com [95.215.58.157])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A4847F2D5;
-	Wed, 23 Sep 2026 09:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D7B347DD6A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157281; cv=none; b=MBSByRoN5MbVIU5n8IYjpIb9pUETY+VRC8d21DisXzNmS/GdBMLGbxYAvTgPWUNhFaUxDPKKn4ZZ08mctEd8ofcJ3nI1rH13FFupmKqBqV3EnRBzVTqO4Lt7+EObFq4dNiWthuci8VAp8RyUaTRvl0Srw8E8xfOsS57vVhbOh3w=
+	t=1790157285; cv=none; b=EcbfJEbURy8z5JCzWw1iUPlSpA9XC2sNPxBl0uN1z4cqCDaMr5eLsdzMHbxbaO/d1hoQMCKpRigQM+xBIQ+hutNSrvH5gs64w6DEFWujrHj/DhHJzP4cLl3qWwnWygD1ajdbg/4ox4jh7VLoZA3D/xG+44vka94iaQZw4agL0p4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157281; c=relaxed/simple;
-	bh=L4/n+65sMdgjRJcyuPD7nEB2hnY7edDeSQ2y+aq3guU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=mDCVXTF+IvTW9FqS/d/QCISf8JQLMsvzP3nJR6JUil/QNWca754w40eP9D2VHsP966nMgMvWKx3b2dxUtMtNy+CYfsjlgjaJY0JBzP9X1HPOUYLzOn/0KVu3XfxHHGqy9ziPyjnTgknVRfAfbaiT3RqOuTOY4pPKVVAtn7qYblo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ul50Wr5G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790157285; c=relaxed/simple;
+	bh=wZUoP4FuiHaQwyQE/qC2hfUw+ONE9OqaXvgOriAyrMk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IiHCnbBfoJH68Ck4KOdGqTuXz5E44QMV7o+C02+hP0AOmM4fLC49KenVstoQkPo7HWQ3Rgw8P+TMLU05mz2TyzfpD17aLafUDDm26iw0w5OLH1rOd31Scnas40si9pdmXUSiVbhN0ga9E7QIMkNFCqBnvYJ+M1YaPdhcI+lT3wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t3lK2z5Y; arc=none smtp.client-ip=95.215.58.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ul50Wr5G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A5441F00893;
-	Wed, 23 Sep 2026 09:54:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790157278;
-	bh=k7iECOsQjJSZD5VEWOPiYHIjpbmBagUaEuQH/HWxFDc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Ul50Wr5GsPkPxrF5Vw+AsiTa3MtRbd4GD7rPc4axl82bpbj8xgospZ6qvzYg5Bmu+
-	 ubvrkEzIBag0RMKgcoz8/IP7HE5DVgBBzUXZZYQoxe5Iu5bxqwmtWI8vtH+CtAyfTw
-	 XvJd8Tzx773MH9NF1c97LjolxrFpE66fyZQIIIlK9o+qI8WjMNG/f0yWv8+HvplJuo
-	 TeNM0u3NmuxAiQHTXniD8fyY10Ys/Qk/1ueEqiyVHo0DVYa25QMuoC7GJJzeg/JDC8
-	 Jn31+uZ62Zac0wEVttYYI3k95dP+V8X9aWkP2YqbiXGuHlk/VVJBMbS0UQQdx4xB73
-	 Qufi1mh87gFpA==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>, Breno
- Leitao <leitao@debian.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy
- Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, Younes
- Akhouayri <git@younes.io>
-Subject: Re: [PATCH v3] rust: configfs: fix object initialization cleanup
-In-Reply-To: <20260818-fix-rust-configfs-registration-state-v1-v3-1-28b5cbfe0a72@younes.io>
-References: <20260818-fix-rust-configfs-registration-state-v1-v3-1-28b5cbfe0a72@younes.io>
-Date: Wed, 23 Sep 2026 11:54:27 +0200
-Message-ID: <87ld8s2sz0.fsf@t14s.mail-host-address-is-not-set>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t3lK2z5Y"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wZUoP4FuiHaQwyQE/qC2hfUw+ONE9OqaXvgOriAyrMk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790157279; v=1; x=1790762079;
+ b=t3lK2z5YiPWMIhC8sLTZJMyAc3OKMa0LqI20Nlt6uG4ZtOFcvo3fxux9DuUWVxiRNNOpcEFO
+ kkusSUAvJwl4nS2CZ7gg5+SJ+SV+aLrHxZU2Co3kY9sORyMJnCH4+ezqY9Bx3rWIqv+bHkZP519
+ B8d4B5oxMuU4i6nbT1DKMuk8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id fc06004bceb9ed48;
+	Wed, 23 Sep 2026 09:54:39 +0000
+X-Mizu-Trace-ID: fc06004bceb9ed48
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <ee0a1126-9ff2-4a08-8f13-4af366ebe28a@linux.dev>
+Date: Wed, 23 Sep 2026 17:54:33 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next 1/2] bpf: Keep target extended until its last
+ freplace link detaches
+To: chenyuan_fl@163.com, bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Yuan Chen <chenyuan@kylinos.cn>
+References: <20260923090635.368488-1-chenyuan_fl@163.com>
+ <20260923090635.368488-2-chenyuan_fl@163.com>
+Content-Language: en-US
+From: Leon Hwang <leon.hwang@linux.dev>
+In-Reply-To: <20260923090635.368488-2-chenyuan_fl@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org> writes:
+On 23/9/26 17:06, chenyuan_fl@163.com wrote:
+> From: Yuan Chen <chenyuan@kylinos.cn>
+> 
+> The is_extended / prog_array_member_cnt protocol introduced by commit
+> d6083f040d5d ("bpf: Prevent tailcall infinite loop caused by freplace")
+> keeps a prog extended by a freplace program out of prog_array maps, and
+> vice versa: once a tail call re-enters an extended subprogram, its
+> tail_call_cnt resets on every execution and the loop never terminates.
+> 
+> But is_extended is a plain boolean, while one target prog can carry
+> several freplace links at the same time, one on its entry and one on a
+> global subprogram.  __bpf_trampoline_unlink_prog() cleared is_extended
+> whenever *any* freplace link detached, so detaching one of two links
+> re-armed the unbounded loop through the remaining one.
+> 
+> Replace the is_extended boolean with a count of the freplace links
+> attached to each target prog, so the target stays extended until its
+> last link detaches.  Also rename bpf_freplace_check_tgt_prog() to
+> bpf_freplace_link_tgt_prog(), as the helper has never been a pure
+> check: it reserves the target prog on success.
+> 
+> Fixes: d6083f040d5d ("bpf: Prevent tailcall infinite loop caused by freplace")
 
-> From: Younes Akhouayri <git@younes.io>
->
-> Subsystem::new() calls configfs_register_subsystem() at the end of its
-> pin initializer. If registration returns an error, release the config
-> item's initial reference and destroy the initialized mutex before
-> returning. Otherwise, long subsystem names allocated by
-> config_item_set_name() leak.
->
-> The initial reference also remains after a successful subsystem is
-> unregistered. Release it from PinnedDrop before the Rust container is
-> destroyed.
->
-> Initialize driver data before the C configfs object in Subsystem::new()
-> and Group::new(). Then failure while initializing driver data cannot
-> leave an initialized config group, and its allocated name, behind.
->
-> Keeping registration inside try_pin_init! also means PinnedDrop is
-> installed only after registration succeeds. A duplicate name therefore
-> returns -EEXIST without attempting to unregister a subsystem whose
-> ci_dentry was never set.
->
-> Fixes: 446cafc295bf ("rust: configfs: introduce rust support for configfs=
-")
-> Signed-off-by: Younes Akhouayri <git@younes.io>
+You should cc me when posting the next revision.
+
+You can get the cc list by ./scripts/get_maintainer.pl /path/to/file.patch.
+
+> Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
 > ---
-> Changes in v3:
-> - Initialize driver data before configfs groups.
-> - Release the initial group reference after registration failure and unre=
-gister.
-> - Link to v2: https://patch.msgid.link/20260818-fix-rust-configfs-registr=
-ation-state-v1-v2-1-9acedd3070f7@younes.io
->
-> Changes in v2:
-> - Register the subsystem at the end of try_pin_init!.
-> - Destroy su_mutex when registration fails.
-> - Remove the registered flag.
-> - Link to v1: https://patch.msgid.link/20260818-fix-rust-configfs-registr=
-ation-state-v1-v1-1-c929990bc8ef@younes.io
->
-> To: Andreas Hindborg <a.hindborg@kernel.org>
-> To: Breno Leitao <leitao@debian.org>
-> To: Miguel Ojeda <ojeda@kernel.org>
-> To: Boqun Feng <boqun@kernel.org>
-> To: Gary Guo <gary@garyguo.net>
-> To: Bj=C3=B6rn Roy Baron <bjorn3_gh@protonmail.com>
-> To: Benno Lossin <lossin@kernel.org>
-> To: Alice Ryhl <aliceryhl@google.com>
-> To: Trevor Gross <tmgross@umich.edu>
-> To: Danilo Krummrich <dakr@kernel.org>
-> To: Daniel Almeida <daniel.almeida@collabora.com>
-> To: Tamir Duberstein <tamird@kernel.org>
-> To: Alexandre Courbot <acourbot@nvidia.com>
-> To: Onur =C3=96zkan <work@onurozkan.dev>
-> Cc: rust-for-linux@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  rust/kernel/configfs.rs | 35 +++++++++++++++++++++++++----------
->  1 file changed, 25 insertions(+), 10 deletions(-)
->
-> diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
-> index cd082b83e9e7..d28ac9a648f1 100644
-> --- a/rust/kernel/configfs.rs
-> +++ b/rust/kernel/configfs.rs
-> @@ -150,6 +150,7 @@ pub fn new(
->          data: impl PinInit<Data, Error>,
->      ) -> impl PinInit<Self, Error> {
->          try_pin_init!(Self {
-> +            data <- data,
->              subsystem <- pin_init::init_zeroed().chain(
->                  |place: &mut Opaque<bindings::configfs_subsystem>| {
->                      // SAFETY: We initialized the required fields of `pl=
-ace.group` above.
-> @@ -172,13 +173,23 @@ pub fn new(
->                      Ok(())
->                  }
->              ),
-> -            data <- data,
-> -        })
-> -        .pin_chain(|this| {
-> -            crate::error::to_result(
-> -                // SAFETY: We initialized `this.subsystem` according to =
-C API contract above.
-> -                unsafe { bindings::configfs_register_subsystem(this.subs=
-ystem.get()) },
-> -            )
-> +            _: {
-> +                let result =3D crate::error::to_result(
-> +                    // SAFETY: We initialized `subsystem` according to t=
-he C API contract above.
-> +                    unsafe { bindings::configfs_register_subsystem(subsy=
-stem.get()) },
-> +                );
-> +                if result.is_err() {
-> +                    // SAFETY: The group and mutex were initialized abov=
-e, and registration
-> +                    // failed, so configfs does not hold references to t=
-he group.
-> +                    unsafe {
-> +                        bindings::config_item_put(
+>  include/linux/bpf.h     |  4 ++--
+>  kernel/bpf/arraymap.c   |  2 +-
+>  kernel/bpf/trampoline.c | 10 ++++++----
+>  3 files changed, 9 insertions(+), 7 deletions(-)
+> 
 
-I think this should be `config_group_put`, although it does make a
-difference in practice right now.
+[...]
 
-> +                            &raw mut (*subsystem.get()).su_group.cg_item,
-> +                        );
-> +                        bindings::mutex_destroy(&raw mut (*subsystem.get=
-()).su_mutex);
-> +                    }
-> +                }
-> +                result?
-> +            }
->          })
->      }
->  }
-> @@ -188,8 +199,12 @@ impl<Data> PinnedDrop for Subsystem<Data> {
->      fn drop(self: Pin<&mut Self>) {
->          // SAFETY: We registered `self.subsystem` in the initializer ret=
-urned by `Self::new`.
->          unsafe { bindings::configfs_unregister_subsystem(self.subsystem.=
-get()) };
-> -        // SAFETY: We initialized the mutex in `Subsystem::new`.
-> -        unsafe { bindings::mutex_destroy(&raw mut (*self.subsystem.get()=
-).su_mutex) };
-> +        // SAFETY: Unregistering drops configfs's references to the grou=
-p, so it is safe to drop
-> +        // the initial group reference and destroy the initialized mutex.
-> +        unsafe {
-> +            bindings::config_item_put(&raw mut (*self.subsystem.get()).s=
-u_group.cg_item);
+>  
+> @@ -933,7 +933,7 @@ static int __bpf_trampoline_link_prog(struct bpf_tramp_node *node,
+>  		/* Cannot attach extension if fentry/fexit are in use. */
+>  		if (cnt)
+>  			return -EBUSY;
+> -		err = bpf_freplace_check_tgt_prog(tgt_prog);
+> +		err = bpf_freplace_link_tgt_prog(tgt_prog);
+>  		if (err)
+>  			return err;
+>  		tr->extension_prog = node->link->prog;
+> @@ -979,7 +979,9 @@ static int __bpf_trampoline_unlink_prog(struct bpf_tramp_node *node,
+>  					 tr->extension_prog->bpf_func, NULL);
+>  		tr->extension_prog = NULL;
+>  		guard(mutex)(&tgt_prog->aux->ext_mutex);
+> -		tgt_prog->aux->is_extended = false;
+> +		if (WARN_ON_ONCE(!tgt_prog->aux->freplace_link_cnt))
 
-Similar, should be `config_group_put`.
+Is this WARN_ON_ONCE() necessary?
 
-> +            bindings::mutex_destroy(&raw mut (*self.subsystem.get()).su_=
-mutex);
-> +        }
->      }
->  }
->=20=20
-> @@ -260,6 +275,7 @@ pub fn new(
->          data: impl PinInit<Data, Error>,
->      ) -> impl PinInit<Self, Error> {
->          try_pin_init!(Self {
-> +            data <- data,
->              group <- pin_init::init_zeroed().chain(|v: &mut Opaque<bindi=
-ngs::config_group>| {
->                  let place =3D v.get();
->                  let name =3D name.to_bytes_with_nul().as_ptr();
-> @@ -269,7 +285,6 @@ pub fn new(
->                  };
->                  Ok(())
->              }),
-> -            data <- data,
+Thanks,
+Leon
 
-Without adding a `PinnedDrop` implementation, this change has no effect.
-We should add `PinnedDrop` that does `config_group_put` on `group`,
-right?
-
-We could also consider adding `SubsystemInner` and `GroupInner` and
-implement `PinnedDrop` on those, to handle the C interface. We would
-then have fields of type `SubsystemInner` in `Subsystem` instead of
-`Opaque<_>` and similar for `Group<_>`. Then we would not have to
-consider the initialization ordering with respect to the `data` field of
-`Subsystem` and `Group`. What do you think?
-
-Best regards,
-Andreas Hindborg
-
-
+> +			return err;
+> +		tgt_prog->aux->freplace_link_cnt--;
+>  		return err;
+>  	}
+>  	bpf_trampoline_remove_prog(tr, node);
 
