@@ -1,144 +1,137 @@
-Received: from mta0.migadu.com (out-144.mta0.migadu.com [91.218.175.144])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2DC4334D8
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:53:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CB513DDDB1;
+	Wed, 23 Sep 2026 05:53:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142814; cv=none; b=PxXvRz14yjrch5ewmXwakRMZzLMfEahrSbUjEbrnK8suQcZ7fsJZAcyXU62zYlZSE4gzQJXKqfsbEKfg6Mge+xCpzpIDw8fMNcd63f+dykmoFnJs6Sx4Zsms+EpRNrmyMb0yXIroRc4kGNCTCmKSL/gwv9CKCiJvHzST+ejMRkc=
+	t=1790142819; cv=none; b=qM4mq2H6qTZ9sSpxeFyW9kuU9Mo50wx4MULtBvP4vRVXiwdHKLA2ykYxwI14qrLRp4VKHDbNxbyNT4U7soC2uOWA/GEUHFfdSwjpI1UQMSffBy9nqg1+Idv1KdMh6pSkjQyZW4P3f364pNX8QrBBf+2FPxAsusFDERo6Rt5dfmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142814; c=relaxed/simple;
-	bh=GtzyIimaRhdHKGvlttK2axmNG4AJfexvcRRfGpY2ECk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=neSb6j7FNYFiyWGsv+GEtcNkzoDOYSC+j0dpTn8sLQErukCk3oCxrwEVREpz1YNm1r2gL1xXJbajEDPvHqm4BYZ2WN41nBci2YqyEIJjOtyJPphaWTJtydz87z6Ry8PmXmbMufUlOinc8C1+27EraWXEloe5k0rNtyEW/VwexSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xcVDaIA6; arc=none smtp.client-ip=91.218.175.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790142819; c=relaxed/simple;
+	bh=SizAW2/qNUHUEFI/k5gafiEU85XtrtxInmg/6FaOLvo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=SBcAhpK9Ha+1K1L0eYtbT85bBaZkQL31rdmM5d1PQHJnjiQwVfSPvzGWhQyA6mdc0mtHIq8QM6/YH+2L6jMGOvgL6jhPV5HApNI8clIXI2e36qE4zmJVpnMioQUH5VVbYaPQcYTMngDh0+6q4cg4lOyfGsWU9H1dLNvhWtsIyyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfiMSTdw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xcVDaIA6"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=GtzyIimaRhdHKGvlttK2axmNG4AJfexvcRRfGpY2ECk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790142810; v=1; x=1790747610;
- b=xcVDaIA6AxJGFyl59gR9e+k4n6ll3IV+Ux5WtvjeEy7Uqvr9qSjbHiEbS4u701fHPsgb4MF3
- 3WqOxoxDpUxacdcTKFiA3B63AJSLpbG3pM5hg1XYuBZPCNBId9XqzuCuQ9/OGIUbZEOkcqWxbRE
- 3rWw06t2Zb0ebyMbx6R0GkPU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4e0d178c503526e4;
-	Wed, 23 Sep 2026 05:53:30 +0000
-X-Mizu-Trace-ID: 4e0d178c503526e4
-X-Migadu-Flow: FLOW_OUT
-From: Kaitao Cheng <kaitao.cheng@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Dan Williams <djbw@kernel.org>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>,
-	Ira Weiny <iweiny@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	linux-mm@kvack.org,
-	nvdimm@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Kaitao Cheng <chengkaitao@kylinos.cn>,
-	Oscar Salvador <osalvador@suse.de>
-Subject: [PATCH v2] nvdimm/pmem: remove test_and_clear_pmem_poison()
-Date: Wed, 23 Sep 2026 13:53:18 +0800
-Message-ID: <20260923055318.57485-1-kaitao.cheng@linux.dev>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfiMSTdw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B328E1F000FF;
+	Wed, 23 Sep 2026 05:53:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790142817;
+	bh=NLg7eC5tmmPMhZrdk3Y2A4+KtVVGLpx4Z4IOl6QmxuU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=dfiMSTdwFtu0GCkhWemNFDgm+eZPZTNwX9NfJANQl2p7VUL12gPuLOT5GFrp9s1/W
+	 gYHsfaLK7hikvujYiuXBUn8tMKa90RN/oaYf2S0NAbKARN3nHId0g1n9dBJrUeJeqm
+	 1Q44Iafx85llSabeXDEcOdxXWocXCUP5y+CfG+SLeH3LQKK2DCfDxkDMtcFBDaOqJv
+	 3HMHpRbUUmlsMii5otr4W/LYqrG4eJChKhKMXRP42VluhoUFMzhKQPjXcnsbxGFGAB
+	 eSZq2hnozQ8Ha+TQTKHYQZsH+7U8XaqMquyRiYdYscnEhoNd02LZ7qoYGMlm0AwCPg
+	 wXpHkFmSzOfPQ==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	Andrew Morton <akpm@linux-foundation.org>,
+	christian.koenig@amd.com, Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
+In-Reply-To: <arKsFofudnTYpXj1@arm.com>
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-3-aneesh.kumar@kernel.org>
+ <arKsFofudnTYpXj1@arm.com>
+Date: Wed, 23 Sep 2026 11:23:27 +0530
+Message-ID: <yq5aik3w344o.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Kaitao Cheng <chengkaitao@kylinos.cn>
+Catalin Marinas <catalin.marinas@arm.com> writes:
 
-The pmem driver provides test_and_clear_pmem_poison() only to handle
-the CONFIG_MEMORY_FAILURE dependency of TestClearPageHWPoison().
-The wrapper has no other pmem-specific behavior.
+> On Mon, Sep 21, 2026 at 08:18:36PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> +int alloc_cc_shared_pages_node(int nid, gfp_t gfp,
+>> +		size_t requested, struct cc_shared_pages *mem)
+>> +{
+>> +	struct cc_shared_layout layout;
+>> +	struct page *page;
+>> +	unsigned int order;
+>> +	bool zero = gfp & __GFP_ZERO;
+>> +	int ret;
+>> +
+>> +	if (!mem)
+>> +		return -EINVAL;
+>> +
+>> +	ret = cc_shared_calc_layout(requested, &layout);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	order = get_order(layout.shared_size);
+>> +	if (order > MAX_PAGE_ORDER)
+>> +		return -EINVAL;
+>> +
+>> +	/*
+>> +	 * State transitions require a linear-map address and may modify memory.
+>> +	 * Allocate from low memory and defer requested zeroing until afterwards.
+>> +	 */
+>> +	gfp &= ~(__GFP_HIGHMEM | __GFP_ZERO);
+>> +	if (nid == NUMA_NO_NODE)
+>> +		page = alloc_pages(gfp, order);
+>> +	else
+>> +		page = alloc_pages_node(nid, gfp, order);
+>> +	if (!page)
+>> +		return -ENOMEM;
+>> +
+>> +	ret = cc_make_shared(page_address(page), layout.shared_size);
+>> +	if (ret) {
+>> +		if (!cc_make_private(page_address(page), layout.shared_size))
+>> +			__free_pages(page, order);
+>> +		else
+>> +			pr_warn_ratelimited("leaking %zu bytes with uncertain shared state\n",
+>> +					    layout.shared_size);
+>> +		return ret;
+>> +	}
+>> +
+>> +	if (zero)
+>> +		memset(page_address(page), 0, layout.shared_size);
+>
+> Does the memset() post sharing logic work for pKVM as well? If nothing
+> clears it, we have a small window where guest data is leaked to the
+> host.
+>
+> Is there a case where we *do not* need the memory cleared? If not, maybe
+> we can move the logic in the arch set_memory_decrypted().
+>
 
-Define the HWPoison test-and-change helpers to return false when
-CONFIG_MEMORY_FAILURE is disabled.  This allows pmem to call
-TestClearPageHWPoison() directly in all configurations.
+I don't think every architecture or platform can unconditionally zero
+memory in set_memory_decrypted(). Some callers may need to share valid
+contents with the host.
 
-Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
----
-Changes in v2 (David Hildenbrand, Oscar Salvador):
-- squash patch#1 into patch#2.
+Also, if zeroing is added only to the CCA implementation, the allocator
+must retain __GFP_ZERO for platforms such as pKVM. This would cause the
+memory to be zeroed twice on CCA.
 
-Link to v1:
-https://lore.kernel.org/all/20260903053535.17611-1-kaitao.cheng@linux.dev/
----
- drivers/nvdimm/pmem.c      |  2 +-
- drivers/nvdimm/pmem.h      | 12 ------------
- include/linux/page-flags.h |  1 +
- 3 files changed, 2 insertions(+), 13 deletions(-)
+How about extending cc_make_shared() with a flag indicating that the
+memory must be zeroed, and passing that requirement down to the
+architecture-specific implementation? The implementation could then zero
+the memory at the appropriate point: before sharing for pKVM and after
+the destructive transition for CCA.
 
-diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
-index 30a51c365ce8..5fb86595e8bd 100644
---- a/drivers/nvdimm/pmem.c
-+++ b/drivers/nvdimm/pmem.c
-@@ -80,7 +80,7 @@ static void pmem_mkpage_present(struct pmem_device *pmem, phys_addr_t offset,
- 		 * here since we're in the driver I/O path and
- 		 * outstanding I/O requests pin the dev_pagemap.
- 		 */
--		if (test_and_clear_pmem_poison(page))
-+		if (TestClearPageHWPoison(page))
- 			clear_mce_nospec(pfn);
- 	}
- }
-diff --git a/drivers/nvdimm/pmem.h b/drivers/nvdimm/pmem.h
-index a48509f90196..76870505dd79 100644
---- a/drivers/nvdimm/pmem.h
-+++ b/drivers/nvdimm/pmem.h
-@@ -1,7 +1,6 @@
- /* SPDX-License-Identifier: GPL-2.0 */
- #ifndef __NVDIMM_PMEM_H__
- #define __NVDIMM_PMEM_H__
--#include <linux/page-flags.h>
- #include <linux/badblocks.h>
- #include <linux/memremap.h>
- #include <linux/types.h>
-@@ -31,15 +30,4 @@ long __pmem_direct_access(struct pmem_device *pmem, pgoff_t pgoff,
- 		long nr_pages, enum dax_access_mode mode, void **kaddr,
- 		unsigned long *pfn);
- 
--#ifdef CONFIG_MEMORY_FAILURE
--static inline bool test_and_clear_pmem_poison(struct page *page)
--{
--	return TestClearPageHWPoison(page);
--}
--#else
--static inline bool test_and_clear_pmem_poison(struct page *page)
--{
--	return false;
--}
--#endif
- #endif /* __NVDIMM_PMEM_H__ */
-diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
-index ae2ebaed6d4d..3dc79c0c5adf 100644
---- a/include/linux/page-flags.h
-+++ b/include/linux/page-flags.h
-@@ -655,6 +655,7 @@ TESTSCFLAG(HWPoison, hwpoison, PF_ANY)
- #define __PG_HWPOISON (1UL << PG_hwpoison)
- #else
- PAGEFLAG_FALSE(HWPoison, hwpoison)
-+TESTSCFLAG_FALSE(HWPoison, hwpoison)
- #define __PG_HWPOISON 0
- #endif
- 
--- 
-2.54.0 (Apple Git-157)
+The allocator could derive this flag from __GFP_ZERO, remove __GFP_ZERO
+before calling alloc_pages(), and let the sharing operation perform the
+requested zeroing with the correct ordering.
 
+-aneesh
