@@ -1,109 +1,251 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3170253B5E2
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:57:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0223E49DA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790200663; cv=none; b=F2S5JToXRgdq8d0OtG5V/l/idCAA1ve9q7I4eqvvOQ+6sfQ2KDin36Yu2TBg5gNqyzM2Df0EwGgJaZrsILDOdPQbEZoHmxrZR67ahbIlDMty0/5XKCJQbqp1cO1mbN+abNs+64nPlft9a79epFjjBD1fV9h8pfiktxjsGhp0640=
+	t=1790200687; cv=none; b=J5flgWMIrlWLAk+7ChudwYjF0lFHMPa1JLrkyVCYhV6AGp083D3jU8eZOJKt35/knZxsZTNlv4bn7rXZ+Vs5XY1zA685YoMNPZT6bwvGfssXlkNiLXU1VekqtG0D6JHcQxrmahr1YiuPqUjpTaaWj7O2+M93h/HVXQ9+lOTcCnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790200663; c=relaxed/simple;
-	bh=cDctsACO4GX2Nf+W7WzQPrg8wTk/YI8e4HjqIhkckoI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M3o2ePOzKHgZu4KgZC0eBu5tE8ChQH0X3WtDvGASmM+zyfY8ZaxBHrP82cCgCs7Y5dZ0HV8n8JRuumHn/ofildvyJYoHD1k5kTrsjxGTvj4kINxJjw5NgZgwJrpoSGBK2XDn3NrSQ9HaKIBtM97GyPKj3usSSHVY8Jr54O7Ixsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlRCpIiu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790200687; c=relaxed/simple;
+	bh=59GcBbsmvDaiPsvB1gNrks06qF+u1TwcNO4QE9BQcu0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ulsOf4Y3anLhnVGXvYOA4UkywyXyiXBO2Hi0W+GOQEIZDzzLpBh44e/bqFElIs3WFNG8yrdqiREoyk/j+xhwh4NIPLsJz7k4YtaZ7hncliRZrMJUlZtu9AfLNYdwGzptP8bYHLIMvD9bUF8CVluLw0qfu109m4/oKTketKwvJ4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RhPrkACU; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlRCpIiu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E64F1F000FF;
-	Wed, 23 Sep 2026 21:57:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790200661;
-	bh=8M+UT7oIyha+XPFScsNzmi18L28ReOVLoc3XQz11GVc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UlRCpIiuV4BL8JAAastxBfA9AqVs0ltc4wCol3mQOA0gLZjTyueHPUzDfkomWqfcu
-	 vpR5AZPTtAEq8u8eSrNmhkr+1CMQCTroungYOMyBMU32U2CLz6KVXjlWqsLSI8bR6S
-	 wP35XQ0D+0tN2X9HGw/1WDk6TQFINV9Nk3VDmxB8pRzxfOrvcjXU2KNpiq4TgP+2pl
-	 ygpXh/ifYG/6W3V00QmeW4/BAs7W2rOQMFTUC0RlwS5eMPL8R/2vlpijuJKJ/F+yA+
-	 MDkFmyaiUsbKOg26ABOc+B4X0L531YtjJ1pdd1hXGLbmJLpqc1OPuXWPqBU7xsqBdy
-	 Cg9pPN+qNyR9w==
-Message-ID: <f95ccf9c-c366-48d6-ac9f-c97546b9b543@kernel.org>
-Date: Wed, 23 Sep 2026 23:57:31 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RhPrkACU"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a98604f6b4so2165914a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:58:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790200684; x=1790805484; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6wXl9kDIHvkBOlMWPi5UbEM/iw7w5+qrkwtBtIFjgjg=;
+        b=RhPrkACUVpkIv7kXMQU0uVKx5GS757qVgh83ukME5A8piuk9M6Dz+j5x/1wIO31jub
+         4VUkLfmq0+gXbcoeJ0t4Fq/PEaSd+HLr5mh5iSZiNCuyhBW3S2Nic2OcgIDnRoArXotI
+         a10Bnf7LOku0eIutNvAChBei1PYjni2vAaHEC+8hyvNpd6eaHd5ZolVo7bgzw2NV1MN5
+         dJMAkq1fyoqxbyTT573BwHqBu1aNZs5ADJhEZ5+dYsvMhLxv6xFzQr/dyOr6+iDkv815
+         P3TnZV5qwQrRf7/bdCo2mNSwciu1QhlZB56XGA0X3IXOuBptp8ZYafHjVPkvtIbJDNL6
+         DO1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790200684; x=1790805484;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6wXl9kDIHvkBOlMWPi5UbEM/iw7w5+qrkwtBtIFjgjg=;
+        b=H3RMhAaMBAzKND6kIuDV3FLEpOd5p1wBAYTZFLhB80DzbBF0ru1zlBvwEr59hMkcUG
+         vcdn0oZdNNo5mJwGrgfgJfGXwuKJ78W8+OFoVPuza+gWVAD/8NlplezC5kqJGz+q5Io3
+         6x3aXtyrHoP+0LYv7IP1oZTLP61UlO/BiSC0HvmgXpPy8awUeP0FnfI5Sjcs0Wkm2bNi
+         8kNg0sK0Ywr5w/R8nP8VFjlILcxqurpfXj5vRi64eDPY6ZtaQ91iDk1617zHSGg8sFqc
+         1A6/yPgaqlhC/94L+apszPPYaah1XURqW328M34dnqh5I7L1OV1BlJan8E9pmZxYaTw7
+         r5HA==
+X-Forwarded-Encrypted: i=1; AKwUvBxflaYWjT3XU6drjjAC4bcdjrNUNx9Gv+tKC8K0SF33T8SNiiU1FCcM+qxg9UHUrF7aUTcAw3s46tSw5PA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTBh0DQH1Kp6j1I/OzMiqXVA+GoDlwkF2A07Gx+R1pA546T3/P
+	ZcIMs+59MBd6LeWJU0dUHJAaQwJDqzEYBRTLRR/9d0N+PgkW5WKjyod1
+X-Gm-Gg: AYBFou3/C2LczuxlrRtxt45DKStP4Ek5ZOp++rC59+K8AP9+CzhKc7x8YOy7yzPWhS9
+	4tZU2EMDIOtn8zenJgXbI13oZFknPjRhywzPNn6V8mWPOYmCWn4FjVz7PEl+xiKpsfWJnNtybJO
+	6pEWLvswc9GzEzdAJEDqsEROfQwSldo+Glb2MWfn38EJPJNQ7L+z4aAgzClSwxAWsjfs3MP+1Il
+	jkBEC6IXIHbXa+ijhDdk6LM+Zh3AjwfDhVo6ANRst5IsrfBlsusnaUlz/UE4suuRGJvEhWx5Kp5
+	13pku0ix2igu89jzypAriW4eYLSKodN/5aAQT2vIQ1fa5TiRh6gqYgidQ/B9j5sf8vrUZt5S/Oo
+	GFcwTuczUCqrGy/KcH9AbWfEQlYW5mfSWU4kV6AiO3UOzRif3FTyvmTFtZDX7sSlwSuR4T/oyOT
+	S6OwI2zfcCpuILoHgilQ9rhU+wKuDLY37mToshNSxiJWgc51RkCrTMk9hgQaPoPhss41bQ4ZiZd
+	Ck/UqemvSF527htslfl4zlEzdGGWk0kMfQuu0cz+ED1meAy2jn2F+Ih2T7hFKJcMVlkOfabNVOD
+	iqFh6OxYOhGhlOOhoOLQ
+X-Received: by 2002:a17:907:a890:b0:c29:6291:e37c with SMTP id a640c23a62f3a-c2ac22abccemr39709366b.24.1790200684048;
+        Wed, 23 Sep 2026 14:58:04 -0700 (PDT)
+Received: from localhost.localdomain (83-233-130-25.cust.bredband2.com. [83.233.130.25])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab386e57csm2384010a12.6.2026.09.23.14.58.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 14:58:03 -0700 (PDT)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] net: dsa: qca8k: propagate MDIO errors
+Date: Wed, 23 Sep 2026 23:57:48 +0200
+Message-ID: <20260923215748.1336-1-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.45.2.windows.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 03/10] mm/vmalloc: use pte_set_huge()/pte_clear_huge()
- for PTE-level block mappings
-To: Barry Song <baohua@kernel.org>, Wen Jiang <jiangwenxiaomi@gmail.com>
-Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org,
- urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com,
- ajd@linux.ibm.com, anshuman.khandual@arm.com, david@kernel.org,
- dev.jain@arm.com, jiangwen6@xiaomi.com, leo.yan@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
- npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
-References: <20260923062832.479455-1-jiangwen6@xiaomi.com>
- <20260923062832.479455-4-jiangwen6@xiaomi.com>
- <CAGsJ_4z-oqoxKynRr6mz0-5zZU_2NBnPkwz05CEEHHnwTyqa-Q@mail.gmail.com>
-Content-Language: fr-FR
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-In-Reply-To: <CAGsJ_4z-oqoxKynRr6mz0-5zZU_2NBnPkwz05CEEHHnwTyqa-Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+qca8k_mii_write32() ignores errors from both 16-bit half-word writes.
+Its callers (register writes and read-modify-write helpers) then return
+the earlier successful page selection or read result, incorrectly
+reporting success even when writing the switch register failed.
 
+Propagate write errors from both the low and high half-words through the
+regmap paths and internal MDIO master transactions. Attempt to clear
+MASTER_EN even if a transaction fails, preserving the initial error, and
+report a cleanup failure if the transaction itself succeeded. Preserve
+the existing Ethernet-to-MDIO fallback order.
 
-Le 23/09/2026 à 23:38, Barry Song a écrit :
-> On Wed, Sep 23, 2026 at 2:28 PM Wen Jiang <jiangwenxiaomi@gmail.com> wrote:
->>
->> vmap installs PTE-level block mappings by reusing set_huge_pte_at() and
->> huge_ptep_get_and_clear() under #ifdef CONFIG_HUGETLB_PAGE. This makes
->> the feature silently unavailable on CONFIG_HUGETLB_PAGE=n kernels and
->> couples mm/vmalloc.c to HugeTLB internals it does not otherwise need.
->>
->> Now that arm64 and powerpc/8xx provide pte_set_huge() and
->> pte_clear_huge(), add the generic fallbacks next to the existing
->> pmd/pud_set_huge() family and convert vmap_pte_range() and
->> vunmap_pte_range() to the new helpers. The CONFIG_HUGETLB_PAGE guards
->> around the block-mapping paths are dropped, so PTE-level block mappings
->> now also work on CONFIG_HUGETLB_PAGE=n kernels, and mm/vmalloc.c no
->> longer includes <linux/hugetlb.h>.
->>
->> The fallbacks exist only to keep the build working on architectures
->> without PTE-level block mapping support. They are unreachable there:
-> 
-> Since this is a `BUILD_BUG`, can the compiler simply eliminate the call?
-> I guess the build would still pass even without the fallbacks, so this is
-> more of a build-time check than something needed to keep the build passing?
+Propagate read errors through the internal and legacy MDIO bus callbacks
+instead of masking them as 0xffff. Returning 0xffff causes PHY
+read-modify-write callers to treat the failed read as valid register
+data, which can corrupt unrelated bits on writeback.
 
-Yes and that's what the compiler does, it eliminates the call.
-The BUILD_BUG() is there to make sure it does eliminates the call.
+Stop polling when reading the MDIO busy status fails, and return the
+error immediately. Because the read helper clears its output on failure,
+checking only the BUSY bit mistakes an unsuccessful read for transaction
+completion.
 
-The build won't pass without at least a forward declaration of the fallback.
+Fixes: 6b93fb46480a ("net-next: dsa: add new driver for qca8xxx family")
 
-In the old days when BUILD_BUG() didn't exist, the trick was the declare 
-the function and never define it. But with that trick the problem is 
-only detected at link time. With BUILD_BUG() the problem is detected at 
-build time.
+Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
+Assisted-by: LLM
+---
+ drivers/net/dsa/qca/qca8k-8xxx.c | 51 ++++++++++++++++++--------------
+ 1 file changed, 28 insertions(+), 23 deletions(-)
 
-> 
-> Am I missing something?
-> 
->> the callers only run when arch_vmap_pte_range_map_size() or
->> arch_vmap_pte_range_unmap_size() return a size other than PAGE_SIZE,
->> which requires an arch implementation. BUILD_BUG() makes that
->> explicit rather than silently doing nothing.
->>
->> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
-> 
-> Nice to see that `#ifdef CONFIG_HUGETLB_PAGE` and
-> `#include <linux/hugetlb.h>` are no longer needed in `vmalloc`.
-> 
-> Nothing concerns me except for the changelog issue mentioned above.
-> Please double-check whether the changelog needs to be corrected.
-> 
-> Reviewed-by: Barry Song <baohua@kernel.org>
+diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+index 60f2a615a..f9e2eb0b9 100644
+--- a/drivers/net/dsa/qca/qca8k-8xxx.c
++++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+@@ -129,13 +129,16 @@ qca8k_mii_read32(struct mii_bus *bus, int phy_id, u32 regnum, u32 *val)
+ 	return ret;
+ }
+ 
+-static void
++static int
+ qca8k_mii_write32(struct mii_bus *bus, int phy_id, u32 regnum, u32 val)
+ {
+-	if (qca8k_mii_write_lo(bus, phy_id, regnum, val) < 0)
+-		return;
++	int ret;
++
++	ret = qca8k_mii_write_lo(bus, phy_id, regnum, val);
++	if (ret < 0)
++		return ret;
+ 
+-	qca8k_mii_write_hi(bus, phy_id, regnum + 1, val);
++	return qca8k_mii_write_hi(bus, phy_id, regnum + 1, val);
+ }
+ 
+ static int
+@@ -462,7 +465,7 @@ qca8k_write_mii(struct qca8k_priv *priv, uint32_t reg, uint32_t val)
+ 	if (ret < 0)
+ 		goto exit;
+ 
+-	qca8k_mii_write32(bus, 0x10 | r2, r1, val);
++	ret = qca8k_mii_write32(bus, 0x10 | r2, r1, val);
+ 
+ exit:
+ 	mutex_unlock(&bus->mdio_lock);
+@@ -492,7 +495,7 @@ qca8k_regmap_update_bits_mii(struct qca8k_priv *priv, uint32_t reg,
+ 
+ 	val &= ~mask;
+ 	val |= write_val;
+-	qca8k_mii_write32(bus, 0x10 | r2, r1, val);
++	ret = qca8k_mii_write32(bus, 0x10 | r2, r1, val);
+ 
+ exit:
+ 	mutex_unlock(&bus->mdio_lock);
+@@ -799,14 +802,13 @@ qca8k_mdio_busy_wait(struct mii_bus *bus, u32 reg, u32 mask)
+ 
+ 	qca8k_split_addr(reg, &r1, &r2, &page);
+ 
+-	ret = read_poll_timeout(qca8k_mii_read_hi, ret1, !(val & mask), 0,
++	ret = read_poll_timeout(qca8k_mii_read_hi, ret1,
++				ret1 < 0 || !(val & mask), 0,
+ 				QCA8K_BUSY_WAIT_TIMEOUT * USEC_PER_MSEC, false,
+ 				bus, 0x10 | r2, r1 + 1, &val);
+ 
+-	/* Check if qca8k_read has failed for a different reason
+-	 * before returnting -ETIMEDOUT
+-	 */
+-	if (ret < 0 && ret1 < 0)
++	/* Preserve an MDIO read error instead of treating it as ready. */
++	if (ret1 < 0)
+ 		return ret1;
+ 
+ 	return ret;
+@@ -818,7 +820,7 @@ qca8k_mdio_write(struct qca8k_priv *priv, int phy, int regnum, u16 data)
+ 	struct mii_bus *bus = priv->bus;
+ 	u16 r1, r2, page;
+ 	u32 val;
+-	int ret;
++	int ret, ret1;
+ 
+ 	if (regnum >= QCA8K_MDIO_MASTER_MAX_REG)
+ 		return -EINVAL;
+@@ -836,14 +838,18 @@ qca8k_mdio_write(struct qca8k_priv *priv, int phy, int regnum, u16 data)
+ 	if (ret)
+ 		goto exit;
+ 
+-	qca8k_mii_write32(bus, 0x10 | r2, r1, val);
++	ret = qca8k_mii_write32(bus, 0x10 | r2, r1, val);
++	if (ret < 0)
++		goto exit;
+ 
+ 	ret = qca8k_mdio_busy_wait(bus, QCA8K_MDIO_MASTER_CTRL,
+ 				   QCA8K_MDIO_MASTER_BUSY);
+ 
+ exit:
+ 	/* even if the busy_wait timeouts try to clear the MASTER_EN */
+-	qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, 0);
++	ret1 = qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, 0);
++	if (!ret)
++		ret = ret1;
+ 
+ 	mutex_unlock(&bus->mdio_lock);
+ 
+@@ -856,7 +862,7 @@ qca8k_mdio_read(struct qca8k_priv *priv, int phy, int regnum)
+ 	struct mii_bus *bus = priv->bus;
+ 	u16 r1, r2, page;
+ 	u32 val;
+-	int ret;
++	int ret, ret1;
+ 
+ 	if (regnum >= QCA8K_MDIO_MASTER_MAX_REG)
+ 		return -EINVAL;
+@@ -873,7 +879,9 @@ qca8k_mdio_read(struct qca8k_priv *priv, int phy, int regnum)
+ 	if (ret)
+ 		goto exit;
+ 
+-	qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, val);
++	ret = qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, val);
++	if (ret < 0)
++		goto exit;
+ 
+ 	ret = qca8k_mdio_busy_wait(bus, QCA8K_MDIO_MASTER_CTRL,
+ 				   QCA8K_MDIO_MASTER_BUSY);
+@@ -884,7 +892,9 @@ qca8k_mdio_read(struct qca8k_priv *priv, int phy, int regnum)
+ 
+ exit:
+ 	/* even if the busy_wait timeouts try to clear the MASTER_EN */
+-	qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, 0);
++	ret1 = qca8k_mii_write_hi(bus, 0x10 | r2, r1 + 1, 0);
++	if (!ret)
++		ret = ret1;
+ 
+ 	mutex_unlock(&bus->mdio_lock);
+ 
+@@ -919,12 +929,7 @@ qca8k_internal_mdio_read(struct mii_bus *slave_bus, int phy, int regnum)
+ 	if (ret >= 0)
+ 		return ret;
+ 
+-	ret = qca8k_mdio_read(priv, phy, regnum);
+-
+-	if (ret < 0)
+-		return 0xffff;
+-
+-	return ret;
++	return qca8k_mdio_read(priv, phy, regnum);
+ }
+ 
+ static int
+-- 
+2.43.0
 
