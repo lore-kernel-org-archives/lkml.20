@@ -1,140 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com [74.125.230.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6177A53D9DE;
-	Wed, 23 Sep 2026 14:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA025304B7
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175295; cv=none; b=bTBGn20+Pr19c3YKm8Hm+qhPywGVSKlO9vw5x/aKHwXzs3L2JLnzadrCTdPys9v2U5GUnitVFoXFAvzADAeaCuVT0iGyQNnIokf+oSt1eEuGF3TFccTsIWu0kV8p64a1vUzuitJZ0OU/kLDPp1LnsHnGSVfU9xS8kW5M9/VxU6I=
+	t=1790175309; cv=none; b=idNhkGCzEQkJmVdiao7D7FKIdSMdlKj3XvEYZ/QedDXwIJLJriCVModvyRP8zy/UD1sJrJ9AM0PHXGOxgWyHglr08gvzFe5g8tW5//sELEDdMWX2qOT0g9A+I3nqrvYLGxRIEdgwn2R3Db8+MzqGAkfxWCBp++7/tRWUJecx6a8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175295; c=relaxed/simple;
-	bh=/guISUhN1tfuL/zmHvonZQnAjplJvrNgr3YUupn78x4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UHro+DPDe13TnIScVovgmfZwASTydmssYIdYDV+UOdAZzNvW8iP0jtjYnmLkKBmR8/cuhoco50JksYBYiENksmpCT1Bs++dK3XOO6iBVw6/XezXMT8de8ahSVe36L9FbUBd3JrMiF+OCpxD8XdlzQJ/L7sAuYdwuJHZ2uBUMnxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mjaAd0iC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790175309; c=relaxed/simple;
+	bh=Irzn3KoZz2CPFbn4S9qLAfiWXivutTrsLSXE8ABhv5Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JZ4x04zbU5r5ugxHn4NM5rars3SM3zZplIQqa93NQcYC/WZDgD3De+ePaWxNHzXseAygX/c3pgxjQLvQA8Eq8gOOlLQ+hoL1FMRHNfFuCrt1vfv6VuWomRPMpqEE0Liu7tRTo221MBxhewUF5AX+1JRZ+XOIkx5Phcv0f8A5EO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DAJXxPwy; arc=none smtp.client-ip=74.125.230.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mjaAd0iC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D5F01F000FF;
-	Wed, 23 Sep 2026 14:54:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790175294;
-	bh=6j34DEcQ9RvtDEf0GXPWKVEEMdoMM3G+aQ4UmVf7gC8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mjaAd0iCBu5b/9LAzmQnRVqxTJpoyoRyYeiw3uLdMsDhaKp59fNbVH3H026AkoGj+
-	 BK2BTCYI3Tw69sHWuIEvA5UgPXZJtx3vhEQMiZl4LiNSoZ1YZ7GLBcEm6WSX5Fe8v/
-	 2OnYOcaU9wtL377DFSjsvNZrhgloKrgSte+hT+51lz8459nWEKW9WKf1kzwVgKHLp8
-	 F44kAn+izJ2MkUeboT/qqi2DlTip0aIm2Jo4nvWM5gQ9jKKGU5iG/vc+LwA+nSseuN
-	 O48W5QRSVsjAtDsZNSp3VtfmsV9FkFuxOijZBjRAouT6gN+8KRw3CCjz4pq4NU2/6k
-	 wkDMkEQxF6eqQ==
-Message-ID: <bea461d6-4ae9-451d-b6c7-5ac7bc144651@kernel.org>
-Date: Wed, 23 Sep 2026 16:54:49 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DAJXxPwy"
+Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a499fd4357so5506941fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:55:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790175305; x=1790780105; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IYj8DR6tUMAlSBOX53pzMRuQvG2jVj6PU8CNMEIk8m4=;
+        b=DAJXxPwyYuMjUl1UVWY4kopRxCiF8/0gmmrFtsSeivWvwcBh+DebL7tf1VVVimPHZm
+         ibPkOh/EVG8U4EtAuZUAMJfz4TnNjvbUEMzH4/uoUPAnn5/ddiVfq0KS/K7iBdQtGNW0
+         tatcPDkBbOTfgkF1jyZST2J4peaR9a5gMAxUao70QR62izKoMSltTKQgPDzez9y7R4t2
+         Bou2YN5L8C6lmHeANHFQTumLKsr+wTPw3NCUynj65cfu8Md4I3adf/Whl2hO6al7aMot
+         S3Y1cey44JMXSWTWmSr5y1C4aoFEbHH/1OR7fEda1W2Vgdi7DsK/UDUSQzkdgdwHbx3S
+         J4eQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790175305; x=1790780105;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IYj8DR6tUMAlSBOX53pzMRuQvG2jVj6PU8CNMEIk8m4=;
+        b=x7R2M59L75yxp28LHeP28jcy37qllGK+1rauNZnQLqU+90BW8p7IfotS74wbsGSnkT
+         Z47Tob2MNEtrLEdxnNec+uhtFuRMtRgtAzB/Z06p0b+v9LStn3TdmViFtemxWg39R9BX
+         mXBqQ2+tVwkeu/4+tzgAAL3k3Ezb49qyY+SClEX9YPCV1E/9LSIPcBIOVLCx3fDSi4zN
+         S3uDk69X95RuOBaBVr6X2MlvgkL9qTgGB3L3ijer8HFivamfc+5UmINZ7WYl/Pj71yPH
+         SQS19tjYAw/9PI8LG3uT2qs3FCrLGSHOHx0eKrme5tUMrVpeSJsgRJZm806aqRHmbo/l
+         oh+Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwSQRd5g1+dNaCMJZa/X5l2gQvU07WdDW4w6t6T8NGqz0wY0EzBOL58Lzn05JnYHZ/H0NpJbc1AXQb9LKw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKOMUPvr1yGRjLgZT3HtOldu/xYbMdZSexnFLjiJBbCwQ3DuW0
+	wnm6VVllix1Ye7QffytRqug+pEIrUmzs17YXA7+YRmQF4goCip2dxevT
+X-Gm-Gg: AYBFou13nRckUpuxZEzYc4qQJnboZegigIYf23zzhsTJf6nZkMVQlfVtLIWfpLdfziE
+	8Fe0RuADE7KYvKPWpvhT3v/MQgHcIZ5nzzX2lMM7qJ3nv1QR3xlUmzS098ZfY5skdNEMsSiDUZU
+	rMC2LxPuBi3BiakFJWNR5hQEFsvOgpW0HsKIkwOn0ywqIWWcUU7vO4ZolBhSLYCqNCwOTN88dKr
+	SbBcBOEri8Ff4xvYpUrZWhyjSmkvGEda25LYbgakGG+qe8azpnhZjtouDasZ8Q6n4Oy3FjCB+fW
+	799Ih8akkb+Ab9CRnrTq3AXqmPcYRa3v3nrjAbmic7lQVnJJ9lE3ph4NgGN2FKUy2JPaCRKgBP6
+	qQpB6Sul/wUw8iSdFKKvz4yC+2bGxq2xJeVJgBx0JsigLeklfHNK/e5sVucgb4a/q9Hxq0w6sra
+	VvclRdZkYdGecqB7IOv/z6IVKviIBbLxYqs7dkAlhAz1bYtCnuItv7m537kp8XkaGAw8AN0ohPM
+	M3mXhXJ1kXDmFZn
+X-Received: by 2002:a05:651c:a381:20b0:3a6:95a:52b2 with SMTP id 38308e7fff4ca-3a630659a31mr4896841fa.28.1790175305364;
+        Wed, 23 Sep 2026 07:55:05 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a62f527d51sm7824951fa.33.2026.09.23.07.55.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:55:05 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@linux.ie>,
+	Daniel Vetter <daniel@ffwll.ch>,
+	Kees Cook <kees@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Jani Nikula <jani.nikula@intel.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Fang Wang <32840572@qq.com>
+Subject: [PATCH 5.15 1/2] drm/amdgpu: Use vmemdup_array_user in amdgpu_bo_create_list_entry_array
+Date: Wed, 23 Sep 2026 17:54:48 +0300
+Message-ID: <20260923145453.76114-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] memory: stm32_omm: fix child clock leak on set_amcr()
- error path
-To: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>,
- Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Christophe Kerello <christophe.kerello@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260917235925.44185-1-diegomancera.dev@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260917235925.44185-1-diegomancera.dev@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18/09/2026 01:59, Diego Fernando Mancera Gomez wrote:
-> When the mux is enabled, stm32_omm_configure() enables the two OSPI
-> child clocks via stm32_omm_toggle_child_clock(dev, true); they are meant
-> to stay enabled for the device's lifetime and are disabled again in
-> stm32_omm_remove() and on the devm_of_platform_populate() error path.
-> 
-> However, if the subsequent stm32_omm_set_amcr() call fails, the function
-> jumps to the "error:" label which only calls pm_runtime_put_sync_suspend()
-> before returning, leaving the two child clocks enabled. As this happens
-> during probe, the error is propagated and .remove() is never called, so
-> the clock enable references are leaked. devm_clk_bulk_get() only releases
-> the clock handles on unwind, it does not undo clk_prepare_enable().
-> 
-> Disable the child clocks on the set_amcr() error path, mirroring the
-> cleanup already done on the devm_of_platform_populate() failure path.
-> 
-> Fixes: 8181d061dcff ("memory: Add STM32 Octo Memory Manager driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
-> ---
->  drivers/memory/stm32_omm.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
-> index 84eb23c824f5..3599683ab04a 100644
-> --- a/drivers/memory/stm32_omm.c
-> +++ b/drivers/memory/stm32_omm.c
-> @@ -274,6 +274,8 @@ static int stm32_omm_configure(struct device *dev)
->  	writel_relaxed(omm->cr, omm->io_base + OMM_CR);
->  
->  	ret = stm32_omm_set_amcr(dev, true);
-> +	if (ret && (mux & CR_MUXEN))
-> +		stm32_omm_toggle_child_clock(dev, false);
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-How does it work without st,omm-mux?
+commit c4ac100e9ae252b09986766ad23b1f83ca3a369d upstream.
 
->  
->  error:
->  	pm_runtime_put_sync_suspend(dev);
+Replace kvmalloc_array() + copy_from_user() with vmemdup_array_user() on
+the fast path.
 
+This shrinks the source code and improves separation between the kernel
+and userspace slabs.
 
-Best regards,
-Krzysztof
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Fang Wang <32840572@qq.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Stable-dep-of: c833d6c7199c ("drm/amdgpu: Limit BO list entry count to prevent resource exhaustion")
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2026-23468
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 41 +++++++++------------
+ 1 file changed, 17 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+index 9fb8012007e2..22d7b7c504db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
+@@ -224,43 +224,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
+ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
+ 				      struct drm_amdgpu_bo_list_entry **info_param)
+ {
+-	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
+ 	const uint32_t info_size = sizeof(struct drm_amdgpu_bo_list_entry);
++	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
++	const uint32_t bo_info_size = in->bo_info_size;
++	const uint32_t bo_number = in->bo_number;
+ 	struct drm_amdgpu_bo_list_entry *info;
+-	int r;
+-
+-	info = kvmalloc_array(in->bo_number, info_size, GFP_KERNEL);
+-	if (!info)
+-		return -ENOMEM;
+ 
+ 	/* copy the handle array from userspace to a kernel buffer */
+-	r = -EFAULT;
+-	if (likely(info_size == in->bo_info_size)) {
+-		unsigned long bytes = in->bo_number *
+-			in->bo_info_size;
+-
+-		if (copy_from_user(info, uptr, bytes))
+-			goto error_free;
+-
++	if (likely(info_size == bo_info_size)) {
++		info = vmemdup_array_user(uptr, bo_number, info_size);
++		if (IS_ERR(info))
++			return PTR_ERR(info);
+ 	} else {
+-		unsigned long bytes = min(in->bo_info_size, info_size);
++		const uint32_t bytes = min(bo_info_size, info_size);
+ 		unsigned i;
+ 
+-		memset(info, 0, in->bo_number * info_size);
+-		for (i = 0; i < in->bo_number; ++i) {
+-			if (copy_from_user(&info[i], uptr, bytes))
+-				goto error_free;
++		info = kvmalloc_array(bo_number, info_size, GFP_KERNEL);
++		if (!info)
++			return -ENOMEM;
+ 
+-			uptr += in->bo_info_size;
++		memset(info, 0, bo_number * info_size);
++		for (i = 0; i < bo_number; ++i, uptr += bo_info_size) {
++			if (copy_from_user(&info[i], uptr, bytes)) {
++				kvfree(info);
++				return -EFAULT;
++			}
+ 		}
+ 	}
+ 
+ 	*info_param = info;
+ 	return 0;
+-
+-error_free:
+-	kvfree(info);
+-	return r;
+ }
+ 
+ int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
+-- 
+2.53.0
+
