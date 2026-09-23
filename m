@@ -1,322 +1,174 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011006.outbound.protection.outlook.com [52.101.70.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83344457A3;
-	Wed, 23 Sep 2026 06:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790144098; cv=none; b=ry3j5MAKuLiBsE9RJolJQMKI4Ss1/IrcaZcgIBZGIqihNeIwG0z7DTI01JnWLxAks1OcBUhEP6QEqaYQNCCgCzN0WYhsgBHjUNlkvaYaZaUjIE8QQtt03YWyKntsehr2Guf5ixoipBRoWL5kXvETwchiK3CWtVYUl5xS94JRD0Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790144098; c=relaxed/simple;
-	bh=a/yAIKWkmXan8JFHfAMCcyrMGaiwv/YwnROXQ+PfgUg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lBuY/012DWN2Hc5cm5e4OIErGEKMNAiIqyUYK93iW82c/ZRK+CNdopasaPr+kqAR6GL9ux6cI8VpSxlbHr62z7qXkNfgLu5FYEDpxBnE/lwQfP8cLyLs7UzG3XxwHSyfLArazhqrjTLANMD/++FwCZamSPHafAPNKpxO9Czv5RU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KWBoEc5o; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABCC442384;
+	Wed, 23 Sep 2026 06:14:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790144105; cv=fail; b=ZeyoLZjUPDQSSQEEyIdNs4i6fh2lsYo4Fp4IcUS16l4guLewCDEyQeyux/bgghBJk4wEG/H890pY4XwOaCjptqnWL0k828JfzlDxkAyGlyER/gyK1JlJUPdYxW0EKDu9fB9WS/7tPfDf8XyzU+JNAUSLjfIJq6wf3svS3zw5qiQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790144105; c=relaxed/simple;
+	bh=OJ51+xaqdJ9LqSarlEliD9zBHik7ItrkR4skyjxJbFs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Z700zPwFq20qLKb0NHAuFE8pc/HVcZBh1CcGm34WHfoj0VnCDCwm+gxFrrZGT9JwD0HftTJPUMryJsXxWNVmsDxucP0sjWkVOhAnITqwmO7oEcd9cqm11m++Sc5q2e2ONpo+GIWK+NN/Px31oM8vRBZOZBQS/QdjhaPCtMtbIPc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=C6kSMPKj; arc=fail smtp.client-ip=52.101.70.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KWBoEc5o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790144094; x=1821680094;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=a/yAIKWkmXan8JFHfAMCcyrMGaiwv/YwnROXQ+PfgUg=;
-  b=KWBoEc5omhpFCZxHCaKyX8YfOADWLN161VgdoDtN+dKlvppwvzbRG5GG
-   DFYt78ieUzbirNtnA2yFBinMRiSsHzX0ezas61Sw+GKc4vARWl/hQkazl
-   xvjGarWSsTH1+ZwRJ8ytbmUI4XQZUia6m+jU61uTl5G86rP8rtjd+sOf7
-   YSm42LYVzjOYJgefZcRAij7AHwZsmxu0FvK+116cd765GFE97FCOmW+GQ
-   zjI2sK6L/+PispnL4mRgKPZGvj/0V5LbSijhq7IRK7GKZ7wSgs1T9uOgy
-   zFE0ohBFhW6xzetfBhJWbc8GMqmGz4i6j4B20KKw8usouoq9ekw8hJqtF
-   g==;
-X-CSE-ConnectionGUID: dXAqdkbVRfW7Fxzq129nqw==
-X-CSE-MsgGUID: khu784KfQMCJEzzCQsHhBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="93308340"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="93308340"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 23:14:48 -0700
-X-CSE-ConnectionGUID: hLya9EFtR/y1enJ0JUuIIA==
-X-CSE-MsgGUID: M4RV5WF7RX6FyeBjg5MQhQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="301381223"
-Received: from igk-lkp-server01.igk.intel.com (HELO 1bbc298b9a73) ([10.211.93.152])
-  by fmviesa001.fm.intel.com with ESMTP; 22 Sep 2026 23:14:44 -0700
-Received: from kbuild by 1bbc298b9a73 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x9GFe-000000000Xz-0EVf;
-	Wed, 23 Sep 2026 06:14:42 +0000
-Date: Wed, 23 Sep 2026 08:13:49 +0200
-From: kernel test robot <lkp@intel.com>
-To: Abdelnasser Hussein <abdelnasserhussein11@gmail.com>, jic23@kernel.org,
-	gregkh@linuxfoundation.org, nuno.sa@analog.com,
-	Michael.Hennerich@analog.com
-Cc: oe-kbuild-all@lists.linux.dev, dlechner@baylibre.com, andy@kernel.org,
-	linux@analog.com, linux-iio@vger.kernel.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	joshua.crofts1@gmail.com, error27@gmail.com,
-	Abdelnasser Hussein <abdelnasserhussein11@gmail.com>
-Subject: Re: [PATCH v2] staging: iio: adc: ad7816: Protect sysfs attributes
- with mutex
-Message-ID: <202609230855.IEzAf41u-lkp@intel.com>
-References: <20260920091522.15507-1-abdelnasserhussein11@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="C6kSMPKj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w3GaNhc68V+w58sgXOYM3RKJ00snyT8kfND2kxvoibF9J0jSoZNn13aef9lVqqJjq103hakldXdPC8Qi8H1ZbfF5EYmZwWQQc13IOwAqgwopPHOhHOraAwzM6eUGqqT1UGAVIBMODP4Vk0ipVNZDtskAFxWt3cNE9MimdyD0+yetC4J6br5VXfV92IqI9si7+lX37u+Tep4LPhUYYBiy41b5o+fkXDsDEnXPQDT1IXWpUtKm5CKf9fZX4wQAEtShvFRqIqWrC2EFX5ghhioGTc9o9H0BCggkrdPbPrHmkJE1i1/mYfDvI5vHKbzO+G9A05FJ3+wT8fML0TYimEDDlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jprutNdFgkcAYybSFgGpZoFZCil8zgrm1y90FJDPXG8=;
+ b=G8vTmgCkQjs2v9cGdDUQQW8umnITGG+6CVxUNSWvtbzcuQeRWTMDLizwHkQB1l32XYevJw8hMaBvu+3DbqBJFljPPYVZeEfAYph1Id7KWdXCy7vYDPQd3Zze0XsfFSiBSEJGn3rbP/1lAHG8GeQ2secWKglBQyGZmmpCG/RSTqGFVzJbtIRz4DSQvNoeB0IxskHujG5KcQPNVHGgd2v9wQddWox8MR0/MRMv6ApO+cBKG31nwXzC0QmcnT2G4ugiTqmR5vf6cGTYjwrQBFwk6olJO+bllaPxW0wnTvmxmMs9o4yE2Peb94pf8Vdx+rUrD3qjPMEaAksl3FuYubtOOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jprutNdFgkcAYybSFgGpZoFZCil8zgrm1y90FJDPXG8=;
+ b=C6kSMPKjKsFsL6KKJzu/oE1WY6ljNSTWRbvKwmncC/RBbrdSf6Vk0FiA73c+tf/W3vtj6jOJaK3fapvIPkH15oaK2A+Iqy0N+fPTi9YywO74ozbC+KWzlVFKSOwqiTgPw5mP6XL6wgRj071pyL8WwtiV8kyFrJZRmFqo6JMeTRhci9pZiNGU2kClTCid8nWc+ue+MiSAy71g9MK0ZCDr2Rw1bMXVHqB9F4BsF3ll8LcO/L8/rCKrmDMTJX1MopS+VOEyL6ARWwhFxGnH/ZlIzBmpTmqA2Kr+vEXhmH9ym/5El8x3Y72LloNRcdvK3gKqhte2SwbBHXUQI2h5zVVGtw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20) by AM9PR04MB8339.eurprd04.prod.outlook.com
+ (2603:10a6:20b:3e6::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 06:14:53 +0000
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 06:14:53 +0000
+From: Chancel Liu <chancel.liu@oss.nxp.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Oder Chiou <oder_chiou@realtek.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: Support Opensource <support.opensource@diasemi.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	patches@opensource.cirrus.com
+Subject: [PATCH v2 13/21] ASoC: codecs: max98090: Move mclk acquisition to the i2c probe
+Date: Wed, 23 Sep 2026 15:12:57 +0900
+Message-ID: <20260923061305.4041197-14-chancel.liu@oss.nxp.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260923061305.4041197-1-chancel.liu@oss.nxp.com>
+References: <20260923061305.4041197-1-chancel.liu@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SEWP216CA0108.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2bb::13) To GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920091522.15507-1-abdelnasserhussein11@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|AM9PR04MB8339:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91af088f-eb45-4fb9-353f-08df1939fb58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|19092799006|7416014|376014|10067099003|56012099006|11063799006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Wl8w0GnDu0mZQbQu7tJzN16k/4nJipSgDrhTptONZGC+fXnfpEa/G5El0+XXO2kPTSxt5jSokBF7Kv9jgHQPquPIOKQKy0qF4aM1hn1VwiRPOX7yVv3ugA9t69pdYk9hgPt1QBNbeyP3WxK52IKVnYzC81GZBHns9FL0dHhqQfaNg7juCUoIjNLbAddUW0FfXMtFrx0CLNib3GPdMM68a56QquuDhbNyeVwT5yoG1/IeuoOH0WuDm6PCmbe3yTHc4a6B2qAJEDNX8NOTvz077nrZyPATqv0a5QNjTKw7JeM5QK+FIkuAqq8psAsF0GAaZtoTJgpQJxJP8URd5xl7zxuOCY3aCuHd9TaU69TIEOzijXNkN8Gzhbh3UIEMAVKMZ5oAKvHvhfFlyf/dDYoy6ywp7aPu3TBsP3pidww0/fxlVJh0GLqIMr63Z5kzjTKS0PDpo/YzS+YiDPvOubkyoGzhLs9/U7I5uKY33ZEd5vh1Vfb8RpRinEpty6vWy5gnNsX/Jqe6Hpdsu8eSgUJh0gvcrwqlIJ7kGKyG/0codHsSsSRNM9LSgeM4nxegxcrL21/Rv8Rxgb7Eqq65foqMZ393C3jItTVHUpdJ+EtMEvVYb5HlldIcT3tdnRdqZ5WeXUaKANkmlfEfRgud5vzO+Ypbqjob2Q1pBTqt8FpBpAI=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(19092799006)(7416014)(376014)(10067099003)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?vv4bQHFZwhF0+IWrx9siXgJ5HyinYDlj+qhsjDde1LuzSN+2yEvFpTtuIYk9?=
+ =?us-ascii?Q?uPZkkjLTZgFxf9mK0Y0KnXzJqsKc2P6mz8Z1USruvAB9SkVCRLpBsTZDiWPO?=
+ =?us-ascii?Q?PxFU1HdNR1NAYUGPa4oLF0UuB87VceD9tYmi6yLWe3irqRmwOxfox+hYc3sb?=
+ =?us-ascii?Q?dFqkXyXhROmdpOiHkL0F6tnpYrErmRjiZc62kfQ1i/a+5kzactRGGkJODsfo?=
+ =?us-ascii?Q?1wfBMTvdKV9efINfYhrnPtJf0VwhTK+oDmre9F96heFryOtpcwWhKcDfQhV1?=
+ =?us-ascii?Q?k/ZbLkSDYxoVx5u278tNnPK/zFpreqK40k8Pl5goa4totyUXXJSxU/WeHkOB?=
+ =?us-ascii?Q?qVlQNWMjEyv5gJXY8Vl0zZolLAzEfajTVrShSIW78IC5zMEmDIHXwnq+5jmI?=
+ =?us-ascii?Q?o7d9abxFgdSgdK3+W3AfLGzdEUay8G8xPNTfI17/6GKBdRZInU31WWEf95ZX?=
+ =?us-ascii?Q?dLNeRyDvM2GsaL2fPM0GOYHRf7nvrf6imQ6z7/LjWBwBlBg3qwedOIzkkSg5?=
+ =?us-ascii?Q?9IyOQNkHt5qPfuzINEQ7K2TS2gR+TKWCRBAd0AC7zJPy27TVqomiMPHxr5VE?=
+ =?us-ascii?Q?dipTNDdfK2BlwXrew0q06x7bxP4vPsRX46v93Fg/r1PV00LUAF2ftOek9v9P?=
+ =?us-ascii?Q?F4mCU1iVh307mBsaOPHohHQgXqExbEBygfz+Ut5xJtxRvNqQgKgt3c9iBDq8?=
+ =?us-ascii?Q?lYFQZ0lqctckYk6psqkkmi8+VSQYqx0IbZIQqefpdqkXYjSTcvf7lXYSmfs5?=
+ =?us-ascii?Q?byoJbsaLd99LI/3QUU9IRLHJf3wPgwPhmQaUI76XawTfs875QA5/xZ7ojNB9?=
+ =?us-ascii?Q?L+h7Xm1oza0msji4JFEBh2kbBqkdLq6TSBZmvqYOU9eqWKXd8BpNOcegQ19Z?=
+ =?us-ascii?Q?E/J5IhEbd7atnntmBFf+OLuqPRUV/ySumvKrBMOhZatArwl9AwBmpqSrr5V2?=
+ =?us-ascii?Q?hyL1869Hxf/e86BJAUGrzgomWEMvWjoB7heeuWxP/zynGJB10AgSUSl8dkCa?=
+ =?us-ascii?Q?e+9GJ42rG3az7Vpo4oDaFWe7lu8vhIVBddP5brWS0x1BFl+rJDdpvTvSmkUL?=
+ =?us-ascii?Q?Z+N9JrYrmwUjUGvvOKmOHTkeUxE+aY/n1DzmHx40QHXcJkVZ+09U5lmGhdGU?=
+ =?us-ascii?Q?GNvG8OMNc705J29zB3ougNIy07J5g2sjv7RKegXQWRoALyfULwTA/myxyQDf?=
+ =?us-ascii?Q?C8UpHd2zcvBtXGWkh7utl5z6JYLr3fI/pJXANSg1dk8iVi3WvK+yiuspxv0k?=
+ =?us-ascii?Q?4a0kKUR4Nk9GXbFRQtksfy371T7JnR/AYJOGSdbRhusSOxWFS5uhzkPaqNS5?=
+ =?us-ascii?Q?d+Y69RF1YY6czp4w7vxADQwgk+J9zZr6HXHg+8CLH8TMgVrjTXpA55+rWx4E?=
+ =?us-ascii?Q?Dp2MSpfioUsPLHxXDIMMmUnPhSdwfyL7Hgs5TAJsxHciyhjeQgyyMtdLCX2k?=
+ =?us-ascii?Q?/3hn10+L5azn7WeFAqYTKwQ23UHDLERxuNLhGMhHAhc89peVgwyXVg+42+ij?=
+ =?us-ascii?Q?fcJhO6CJOSE3GG4E5+3hqT05SD0BXNhsf6lJK20NEK/ymtfMjkBYmerpFzsv?=
+ =?us-ascii?Q?IagXcd/zQ3jfIhbmDrupmGWITbjGulMYL7EsB88LCJJkoz7ZEhMrsXm10Zgm?=
+ =?us-ascii?Q?eo8ndplqLQ6ZxF/NcKwoQk1SSlVKkbCJJ8XZd1NLdnTIGICp5mv+mC0BDhdC?=
+ =?us-ascii?Q?uDth8BgftHv7nJWs4PLF9lrPwmItiIyaZsTtNmKE+uZYueIUdnU7+030dhXt?=
+ =?us-ascii?Q?sWmh6YlXLO7BQKxBpFRLJuHM1/tDCA7ctfSSPnmDgQqvZ413CIbg?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91af088f-eb45-4fb9-353f-08df1939fb58
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 06:14:53.2117
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Dd+7klN15AWvesxn/azMouEraguja3XL7afFErIJY1801T0zduP/U0jcVwKfpOcmqZCq5xx03HivgbjSFU6zH4hDXVNlsZHJFVN5ZKwmUHzdHZKXOCvYof+2V+qziuhr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8339
 
-Hi Abdelnasser,
+From: Chancel Liu <chancel.liu@nxp.com>
 
-kernel test robot noticed the following build errors:
+component->dev is the underlying i2c device whose devres is only
+released on physical device removal, not on ASoC card unbind. Getting
+the codec clock with devm_clk_get(component->dev, ...) in the component
+probe therefore leaks a clk reference on every card bind/unbind cycle.
 
-[auto build test ERROR on staging/staging-testing]
+Move the devm_clk_get() to max98090_i2c_probe() so the clk reference is
+tied to the physical device lifetime.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Abdelnasser-Hussein/staging-iio-adc-ad7816-Protect-sysfs-attributes-with-mutex/20260920-121522
-base:   staging/staging-testing
-patch link:    https://lore.kernel.org/r/20260920091522.15507-1-abdelnasserhussein11%40gmail.com
-patch subject: [PATCH v2] staging: iio: adc: ad7816: Protect sysfs attributes with mutex
-config: sparc-randconfig-2001-20260923 (https://download.01.org/0day-ci/archive/20260923/202609230855.IEzAf41u-lkp@intel.com/config)
-compiler: sparc-linux-gcc (GCC) 14.3.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260923/202609230855.IEzAf41u-lkp@intel.com/reproduce)
+Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
+---
+ sound/soc/codecs/max98090.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609230855.IEzAf41u-lkp@intel.com/
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index c31f3d32fa43..4bb5478f4642 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -2448,11 +2448,6 @@ static int max98090_probe(struct snd_soc_component *component)
+ 
+ 	dev_dbg(component->dev, "max98090_probe\n");
+ 
+-	max98090->mclk = devm_clk_get(component->dev, "mclk");
+-	if (IS_ERR(max98090->mclk))
+-		if (PTR_ERR(max98090->mclk) == -EPROBE_DEFER)
+-			return -EPROBE_DEFER;
+-
+ 	max98090->component = component;
+ 
+ 	/* Reset the codec, the DSP core, and disable all interrupts */
+@@ -2633,6 +2628,11 @@ static int max98090_i2c_probe(struct i2c_client *i2c)
+ 		goto err_enable;
+ 	}
+ 
++	max98090->mclk = devm_clk_get(&i2c->dev, "mclk");
++	if (IS_ERR(max98090->mclk))
++		if (PTR_ERR(max98090->mclk) == -EPROBE_DEFER)
++			return -EPROBE_DEFER;
++
+ 	ret = devm_request_threaded_irq(&i2c->dev, i2c->irq, NULL,
+ 		max98090_interrupt, IRQF_TRIGGER_FALLING | IRQF_ONESHOT,
+ 		"max98090_interrupt", max98090);
+-- 
+2.50.1
 
-All errors (new ones prefixed by >>):
-
-   In file included from include/linux/irqflags.h:17,
-                    from include/asm-generic/cmpxchg-local.h:6,
-                    from arch/sparc/include/asm/cmpxchg_32.h:67,
-                    from arch/sparc/include/asm/cmpxchg.h:7,
-                    from arch/sparc/include/asm/atomic_32.h:17,
-                    from arch/sparc/include/asm/atomic.h:7,
-                    from include/linux/atomic.h:7,
-                    from include/asm-generic/bitops/lock.h:5,
-                    from arch/sparc/include/asm/bitops_32.h:102,
-                    from arch/sparc/include/asm/bitops.h:7,
-                    from include/linux/bitops.h:67,
-                    from include/linux/kernel.h:23,
-                    from include/linux/interrupt.h:6,
-                    from drivers/staging/iio/adc/ad7816.c:8:
-   drivers/staging/iio/adc/ad7816.c: In function 'ad7816_store_mode':
->> drivers/staging/iio/adc/ad7816.c:139:27: error: 'struct ad7816_chip_info' has no member named 'lock'
-     139 |         guard(mutex)(&chip->lock);
-         |                           ^~
-   include/linux/cleanup.h:558:37: note: in definition of macro 'WITH_LOCK_GUARD_1_ATTRS'
-     558 |         class_##_name##_constructor(_T),                                \
-         |                                     ^~
-   include/linux/cleanup.h:303:17: note: in expansion of macro 'class_mutex_constructor'
-     303 |                 class_##_name##_constructor
-         |                 ^~~~~~
-   include/linux/cleanup.h:423:9: note: in expansion of macro 'CLASS'
-     423 |         CLASS(_name, __UNIQUE_ID(guard))
-         |         ^~~~~
-   drivers/staging/iio/adc/ad7816.c:139:9: note: in expansion of macro 'guard'
-     139 |         guard(mutex)(&chip->lock);
-         |         ^~~~~
->> drivers/staging/iio/adc/ad7816.c:139:27: error: 'struct ad7816_chip_info' has no member named 'lock'
-     139 |         guard(mutex)(&chip->lock);
-         |                           ^~
-   include/linux/cleanup.h:559:97: note: in definition of macro 'WITH_LOCK_GUARD_1_ATTRS'
-     559 |         *__UNIQUE_ID(unlock) __cleanup(__class_##_name##_cleanup_ctx) = (void *)(unsigned long)(_T)
-         |                                                                                                 ^~
-   include/linux/cleanup.h:303:17: note: in expansion of macro 'class_mutex_constructor'
-     303 |                 class_##_name##_constructor
-         |                 ^~~~~~
-   include/linux/cleanup.h:423:9: note: in expansion of macro 'CLASS'
-     423 |         CLASS(_name, __UNIQUE_ID(guard))
-         |         ^~~~~
-   drivers/staging/iio/adc/ad7816.c:139:9: note: in expansion of macro 'guard'
-     139 |         guard(mutex)(&chip->lock);
-         |         ^~~~~
-   drivers/staging/iio/adc/ad7816.c: In function 'ad7816_store_channel':
-   drivers/staging/iio/adc/ad7816.c:205:27: error: 'struct ad7816_chip_info' has no member named 'lock'
-     205 |         guard(mutex)(&chip->lock);
-         |                           ^~
-   include/linux/cleanup.h:558:37: note: in definition of macro 'WITH_LOCK_GUARD_1_ATTRS'
-     558 |         class_##_name##_constructor(_T),                                \
-         |                                     ^~
-   include/linux/cleanup.h:303:17: note: in expansion of macro 'class_mutex_constructor'
-     303 |                 class_##_name##_constructor
-         |                 ^~~~~~
-   include/linux/cleanup.h:423:9: note: in expansion of macro 'CLASS'
-     423 |         CLASS(_name, __UNIQUE_ID(guard))
-         |         ^~~~~
-   drivers/staging/iio/adc/ad7816.c:205:9: note: in expansion of macro 'guard'
-     205 |         guard(mutex)(&chip->lock);
-         |         ^~~~~
-   drivers/staging/iio/adc/ad7816.c:205:27: error: 'struct ad7816_chip_info' has no member named 'lock'
-     205 |         guard(mutex)(&chip->lock);
-         |                           ^~
-   include/linux/cleanup.h:559:97: note: in definition of macro 'WITH_LOCK_GUARD_1_ATTRS'
-     559 |         *__UNIQUE_ID(unlock) __cleanup(__class_##_name##_cleanup_ctx) = (void *)(unsigned long)(_T)
-         |                                                                                                 ^~
-   include/linux/cleanup.h:303:17: note: in expansion of macro 'class_mutex_constructor'
-     303 |                 class_##_name##_constructor
-         |                 ^~~~~~
-   include/linux/cleanup.h:423:9: note: in expansion of macro 'CLASS'
-     423 |         CLASS(_name, __UNIQUE_ID(guard))
-         |         ^~~~~
-   drivers/staging/iio/adc/ad7816.c:205:9: note: in expansion of macro 'guard'
-     205 |         guard(mutex)(&chip->lock);
-         |         ^~~~~
-
-
-vim +139 drivers/staging/iio/adc/ad7816.c
-
-   > 8	#include <linux/interrupt.h>
-     9	#include <linux/gpio/consumer.h>
-    10	#include <linux/device.h>
-    11	#include <linux/kernel.h>
-    12	#include <linux/slab.h>
-    13	#include <linux/sysfs.h>
-    14	#include <linux/list.h>
-    15	#include <linux/spi/spi.h>
-    16	#include <linux/module.h>
-    17	
-    18	#include <linux/iio/iio.h>
-    19	#include <linux/iio/sysfs.h>
-    20	#include <linux/iio/events.h>
-    21	
-    22	/*
-    23	 * AD7816 config masks
-    24	 */
-    25	#define AD7816_FULL			0x1
-    26	#define AD7816_PD			0x2
-    27	#define AD7816_CS_MASK			0x7
-    28	#define AD7816_CS_MAX			0x4
-    29	
-    30	/*
-    31	 * AD7816 temperature masks
-    32	 */
-    33	#define AD7816_VALUE_OFFSET		6
-    34	#define AD7816_BOUND_VALUE_BASE		0x8
-    35	#define AD7816_BOUND_VALUE_MIN		-95
-    36	#define AD7816_BOUND_VALUE_MAX		152
-    37	#define AD7816_TEMP_FLOAT_OFFSET	2
-    38	#define AD7816_TEMP_FLOAT_MASK		0x3
-    39	
-    40	/*
-    41	 * struct ad7816_chip_info - chip specific information
-    42	 */
-    43	
-    44	struct ad7816_chip_info {
-    45		kernel_ulong_t id;
-    46		struct spi_device *spi_dev;
-    47		struct gpio_desc *rdwr_pin;
-    48		struct gpio_desc *convert_pin;
-    49		struct gpio_desc *busy_pin;
-    50		u8  oti_data[AD7816_CS_MAX + 1];
-    51		u8  channel_id;	/* 0 always be temperature */
-    52		u8  mode;
-    53	};
-    54	
-    55	enum ad7816_type {
-    56		ID_AD7816,
-    57		ID_AD7817,
-    58		ID_AD7818,
-    59	};
-    60	
-    61	/*
-    62	 * ad7816 data access by SPI
-    63	 */
-    64	static int ad7816_spi_read(struct ad7816_chip_info *chip, u16 *data)
-    65	{
-    66		struct spi_device *spi_dev = chip->spi_dev;
-    67		int ret;
-    68		__be16 buf;
-    69	
-    70		gpiod_set_value(chip->rdwr_pin, 1);
-    71		gpiod_set_value(chip->rdwr_pin, 0);
-    72		ret = spi_write(spi_dev, &chip->channel_id, sizeof(chip->channel_id));
-    73		if (ret < 0) {
-    74			dev_err(&spi_dev->dev, "SPI channel setting error\n");
-    75			return ret;
-    76		}
-    77		gpiod_set_value(chip->rdwr_pin, 1);
-    78	
-    79		if (chip->mode == AD7816_PD) { /* operating mode 2 */
-    80			gpiod_set_value(chip->convert_pin, 1);
-    81			gpiod_set_value(chip->convert_pin, 0);
-    82		} else { /* operating mode 1 */
-    83			gpiod_set_value(chip->convert_pin, 0);
-    84			gpiod_set_value(chip->convert_pin, 1);
-    85		}
-    86	
-    87		if (chip->id == ID_AD7816 || chip->id == ID_AD7817) {
-    88			while (gpiod_get_value(chip->busy_pin))
-    89				cpu_relax();
-    90		}
-    91	
-    92		gpiod_set_value(chip->rdwr_pin, 0);
-    93		gpiod_set_value(chip->rdwr_pin, 1);
-    94		ret = spi_read(spi_dev, &buf, sizeof(*data));
-    95		if (ret < 0) {
-    96			dev_err(&spi_dev->dev, "SPI data read error\n");
-    97			return ret;
-    98		}
-    99	
-   100		*data = be16_to_cpu(buf);
-   101	
-   102		return ret;
-   103	}
-   104	
-   105	static int ad7816_spi_write(struct ad7816_chip_info *chip, u8 data)
-   106	{
-   107		struct spi_device *spi_dev = chip->spi_dev;
-   108		int ret;
-   109	
-   110		gpiod_set_value(chip->rdwr_pin, 1);
-   111		gpiod_set_value(chip->rdwr_pin, 0);
-   112		ret = spi_write(spi_dev, &data, sizeof(data));
-   113		if (ret < 0)
-   114			dev_err(&spi_dev->dev, "SPI oti data write error\n");
-   115	
-   116		return ret;
-   117	}
-   118	
-   119	static ssize_t ad7816_show_mode(struct device *dev,
-   120					struct device_attribute *attr,
-   121					char *buf)
-   122	{
-   123		struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-   124		struct ad7816_chip_info *chip = iio_priv(indio_dev);
-   125	
-   126		if (chip->mode)
-   127			return sysfs_emit(buf, "power-save\n");
-   128		return sysfs_emit(buf, "full\n");
-   129	}
-   130	
-   131	static ssize_t ad7816_store_mode(struct device *dev,
-   132					 struct device_attribute *attr,
-   133					 const char *buf,
-   134					 size_t len)
-   135	{
-   136		struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-   137		struct ad7816_chip_info *chip = iio_priv(indio_dev);
-   138	
- > 139		guard(mutex)(&chip->lock);
-   140	
-   141		if (strcmp(buf, "full") == 0) {
-   142			gpiod_set_value(chip->rdwr_pin, 1);
-   143			chip->mode = AD7816_FULL;
-   144		} else {
-   145			gpiod_set_value(chip->rdwr_pin, 0);
-   146			chip->mode = AD7816_PD;
-   147		}
-   148	
-   149		return len;
-   150	}
-   151	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
