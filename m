@@ -1,56 +1,56 @@
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5561B45C715
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A66544E65A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:14:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147676; cv=none; b=E5g2HxIsmCI4s72K1jlyf7odkLsYnTzit7cFTRHZoPRTqY6qoUX4/gPLeMBvs5zzMRAwMZw4kF8mrMNNqUPeZ5EF2ya8bjOBIPcBB6/Z2dUSoh76KFYS1R+NZ4bsPGTWDznBUU6iNq5MHDKOEk3p5Y29KyGcxE5Ca8Hhx8/vXOE=
+	t=1790147676; cv=none; b=tFBYjIKygsnB5s6vstVid39fPeS/JkeQxlhebYf58ko1HymxPgciTlyaX7O6neFGMpGtGnYKGocTdQEIGJ6Egu2QRGnWKM2oZp2QKzH1IkmnLcmRCIIranQpFEEogjkVglx3bFeZe4UAQXe9unx8k+ir+Femy4A0TOTnQ6ptVHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790147676; c=relaxed/simple;
-	bh=tkU5/HW0EJVFlf7xMc3oLa1n9EN1rmNyxsbrNxyo5aY=;
+	bh=sWDjpmqQFHNxbOrqetG/mdGySdzadyLLEakaJ4zMYI0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=GAyk6mGKlkMDpONjCj0P727hVk5voQgbHnTFVfgC2DZBWtBl55NsFVFUdV+fiyPhTWbH5R42C3wdsDGnUleLSh/pF0eVakAnrAmEV+DCUGyKNgda89TaHO39RlqZeEvlNOZ/Y2A2EWF5+RsTA186OR++0JntEBoS538AdpFI34A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AtSWq2T7; arc=none smtp.client-ip=74.125.82.71
+	 To:Cc:Content-Type; b=ot0Zx3aKVL0zkD/l6C/05HmxmI+z9sHhLw6jCLlGtssqCwrHz8As10/OHlNyw58hkfQq/0SV1T8NVx2Rpv/7eY2v3f6s8d6EQcxSFtjvxwpqmyRWpL/8kdV4OGWZvVX8F8NrIxe/Qe8yutjEudIbKvbT3hcuhhlJFsle1LzNioc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ym3RI0mn; arc=none smtp.client-ip=74.125.82.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AtSWq2T7"
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-14383177746so903978c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:14:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ym3RI0mn"
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1437272611eso950465c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:14:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790147672; x=1790752472; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790147674; x=1790752474; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4s3o3BN7rRyced2L+PC1QB2nCzMDA7Y6t5Oq1+KBNAY=;
-        b=AtSWq2T7TBwqwRA8/zE96gCZD6AHZuAy/avGccFNvtlS5uxo1d1Tz1MI6hWS3khzko
-         5duzlo4CwWMmdUFzDmEIWPXdDD5v4gDRyyR1p9rYQa316K4lvjtiywd57irCG9FgrLfm
-         jWhhRqGxEni3F+Homq5LJcbN7lbLmLJv6ImxW/zQV5JVSFrGv7AHgnbM26JIsZYufwjB
-         0F5hHc/ajtr4vOR5RdVBDlnlN9eMESTSBtm1L9FCk82E1w3vzTDAFwrUSM4VnELkFqfG
-         Cs5ECfQOVwiGYPxpoWjI8SLtPEcOyJM/SJ++COq3TISWdOEo0NXOPVfu/3/ZhYhB4EgH
-         mh3Q==
+        bh=2RXz5qApTCo7+4xTK6ChTxiYdBPBy8PFXhCMYPC9khM=;
+        b=Ym3RI0mnwn3lCknw4VSr7jIc0QyJ3n2D71+CnqEQomcOckUIVDSQpy0+0j8v/cYH+N
+         89LOYmqx4IHwFrZkHmgUe5iXQC3kOsj1cLAuw5AgtBsq7d7ZK+3nTP5qJlIuOy591X1I
+         6yGby/AIkVB9RLaC5fyYRYUbgbAIQpTH2zbvdPvtfZHo3f3LvJzwhwROD2dv1ahpId80
+         oL4J7T9GZUr6Xg5fXP36mMCdlMt3XwY2k3QBNispL8Cwql9wbnwDmg73CjECsZ+yMnUF
+         xOHIVcKc+WDm6Y5jIeRKh+UoMV3cdfR38iMYV6Cz66zIForo6+NL6LmM8jGr2yIlxYjq
+         phAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790147672; x=1790752472;
+        d=1e100.net; s=20260707; t=1790147674; x=1790752474;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4s3o3BN7rRyced2L+PC1QB2nCzMDA7Y6t5Oq1+KBNAY=;
-        b=tvcc7GIHh2DH7VUydh3V4fL5WCOlk8vl1uqpWKJTIsdHmXHSb58VVoGrmHn1Omii4I
-         1clo6OEiAop7hpEC3DPk4XJKLwl8RTjQ1iHUDMNeRkSGZdx/S3QDWBGU60FyscbOsTvK
-         LnEP8YoDhY1oeZ2QO4BkR8y1bACFQufG5Qy4x8+2K2vnCJ32OOJs8xYpnginGst2R+3I
-         8aQRwbmEKTrpJjRrtXNc1MBScihY7fwbTjZEzPL+ierYsJtqpSfaOjVkkv99o9uDpUfQ
-         k0y2UHaUIOSGL8r5HYyUUvfRZMuRqzd87ZGZFX+dNHgP3ChWxo8vBiso93Y/AZlhcj7p
-         +1MQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxioCH0O7vAmu7ECu5P5MheUY1rKN/z9cSINTcueLVRqHiS6eCXbtlhJSSUhAqkOGNyAMBo1hWYIlgtZZU=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8V3egsP8XIPa+51vc8f5GTGkkxg3LLUAPrYpcKAFxSk8usSDE
-	tpboRnrgwPXgTt0d+ZYaWg6iJjFTkCAc2kr5MD/Jr6hMC2Z7dlGpCXnXWCX7vKz489k9M6x4m00
-	2urFdqQAxvg==
-X-Received: from dlbrn9.prod.google.com ([2002:a05:7022:1509:b0:144:bcd9:aa06])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:b047:20b0:144:ff47:60d2
- with SMTP id a92af1059eb24-144ff476110mr249479c88.13.1790147671975; Wed, 23
- Sep 2026 00:14:31 -0700 (PDT)
-Date: Wed, 23 Sep 2026 00:13:50 -0700
+        bh=2RXz5qApTCo7+4xTK6ChTxiYdBPBy8PFXhCMYPC9khM=;
+        b=hUNCW71d/slOux6250Bzn3POubIu4Gg65VVGA+vupM/hLbLGWYMp32P+rp6NEKGbd9
+         BQsk5rSM4ne7ev03NeOaw5laMi4Nic45TbxgcviG5qUfx0bmj5hNoXjLyYD6ybaV/1BT
+         KuaDyUkDWP6JGZJu9t32SRvRoyo4gp9ux9JJUxK33/sYjnn7RrLUBSIC5Tt1SGHEDv2h
+         QXbMsjLFfuSNnuPlgLP1uWlkTDIh/lAyWMmh1xKdEBE6NXYA9svgN7Z7LCrF5wMYf2XN
+         mnqixHbWPMnmY1pFPpDPu2iCteKchuypkhmRamdieWsXl27FCK0qwyqRHH77L8BGR7n3
+         eeXQ==
+X-Forwarded-Encrypted: i=1; AKwUvByJv8OEps0CHke8XpP1pQPzhZm/IHXAqAP3HS3MuJG4wH+l/zC0pBnvG7TdmNL0lKtbLl0vURp7Omxn5Fo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpXOoSmELvMSsCaTRtyghGOt6pi5/SUMGXHkpZmHY8WYvjBEk1
+	h2HuVgDoAjM2niJ+FyrLSSu+N2jrMSHUCPGp3z2Vv/r4wHgFgeZHCBUQue0Eak4RyyWYq0nmiW3
+	vfkY6aAhygg==
+X-Received: from dlbps14.prod.google.com ([2002:a05:7023:88e:b0:144:db24:c0ba])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:4247:20b0:143:297c:82e1
+ with SMTP id a92af1059eb24-144f931bbf3mr2024267c88.33.1790147673875; Wed, 23
+ Sep 2026 00:14:33 -0700 (PDT)
+Date: Wed, 23 Sep 2026 00:13:51 -0700
 In-Reply-To: <cover.1790145937.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1790145937.git.irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <ef191bac73ace3ff810eaf6fb1cbe6a45f35be2e.1790145937.git.irogers@google.com>
-Subject: [PATCH v5 10/23] perf trace: Do not read sample padding as an
- augmented argument
+Message-ID: <42dc47785bdb78054500591b193a1cb653ef39b7.1790145937.git.irogers@google.com>
+Subject: [PATCH v5 11/23] perf trace: Do not set unaugmented BPF program on
+ sys_exit map
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, howardchu95@gmail.com, 
 	namhyung@kernel.org
@@ -71,107 +71,97 @@ Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
 	mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-syscall__augmented_args() treats everything after the fixed tracepoint
-payload as augmented arguments, taking any non-zero trailing length as a
-struct augmented_arg. A record with no augmented arguments at all still
-has a trailing run, because the raw payload is padded.
+In trace__init_syscalls_bpf_prog_array_maps(), the BPF program array map
+for sys_exit (syscalls_sys_exit) was populated with the result of
+trace__bpf_prog_sys_exit_fd().
 
-perf_sample_save_raw_data() sizes the raw data as:
+When a syscall had no specific exit augmenter,
+trace__find_syscall_bpf_prog() fell back to unaugmented_prog
+(syscall_unaugmented). However, syscall_unaugmented is a sys_enter
+program that outputs enter arguments to __augmented_syscalls__.
 
-	size = round_up(sum + sizeof(u32), sizeof(u64));
-	raw->size = size - sizeof(u32);
-	frag->pad = raw->size - sum;
+As a consequence, when an unaugmented syscall exited, sys_exit
+tail-called syscall_unaugmented, which interpreted the exit arguments as
+enter arguments and emitted a duplicate, corrupt sys_enter event into
+__augmented_syscalls__ right as the syscall completed.
 
-and the kernel writes that padding with __output_skip(), which advances
-over it rather than zeroing it, so the bytes are whatever the ring buffer
-last held there. A 64 byte struct syscall_enter_args therefore arrives
-with raw_size of 68, and the 4 bytes past the end are stale memory that
-syscall__augmented_args() copies out and hands to a beautifier as the
-size and int_arg of an augmented argument.
+Fix this by:
+1. Returning NULL from trace__find_syscall_bpf_prog() when looking up exit
+   augmenters and none is found.
+2. Returning -1 from trace__bpf_prog_sys_exit_fd() when no exit program
+   is present.
+3. Only updating map_exit_fd when prog_fd >= 0.
+4. Clearing err = 0 when trace__bpf_sys_enter_beauty_map() returns
+   non-zero (indicating the syscall has no augmentable pointer arguments)
+   before continuing the loop, so a trailing run of such syscalls (e.g.
+   'perf trace -e close') does not leave err non-zero on return and abort
+   the session.
 
-A trailing run shorter than a struct augmented_arg cannot be one, so
-recognise it as the padding it is. The length prefix and the payload it
-describes are checked separately by syscall_arg__augmented_args_valid();
-this stops the padding being offered as augmented data in the first
-place, so that the syscall appears with no augmented arguments as it
-should rather than with one whose contents happen to pass validation.
-
-Reported-by: Arnaldo Carvalho de Melo <acme@kernel.org>
-Closes: https://lore.kernel.org/linux-perf-users/arJ-gpzqOHk-gF8T@x2/
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/builtin-trace.c | 47 ++++++++++++++++++++++++++------------
- 1 file changed, 32 insertions(+), 15 deletions(-)
+ tools/perf/builtin-trace.c | 28 ++++++++++++++++++++++------
+ 1 file changed, 22 insertions(+), 6 deletions(-)
 
 diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index eeaaab44016c..aa2d64eb56bd 100644
+index aa2d64eb56bd..0ae14ecd9f00 100644
 --- a/tools/perf/builtin-trace.c
 +++ b/tools/perf/builtin-trace.c
-@@ -3022,6 +3022,7 @@ static void *syscall__augmented_args(struct trace *trace, struct syscall *sc,
- 	 * traffic to just what is needed for each syscall.
- 	 */
- 	int args_size = raw_augmented_args_size ?: sc->args_size;
-+	static uintptr_t argbuf[1024]; /* assuming single-threaded */
- 
- 	/*
- 	 * Augmented arguments are a perf trace specific payload, they are only
-@@ -3042,24 +3043,40 @@ static void *syscall__augmented_args(struct trace *trace, struct syscall *sc,
- 		return NULL;
- 
- 	*augmented_args_size = sample->raw_size - args_size;
--	if (*augmented_args_size > 0) {
--		static uintptr_t argbuf[1024]; /* assuming single-threaded */
- 
--		if ((size_t)(*augmented_args_size) > sizeof(argbuf))
--			return NULL;
--
--		/*
--		 * The perf ring-buffer is 8-byte aligned but sample->raw_data
--		 * is not because it's preceded by u32 size.  Later, beautifier
--		 * will use the augmented args with stricter alignments like in
--		 * some struct.  To make sure it's aligned, let's copy the args
--		 * into a static buffer as it's single-threaded for now.
--		 */
--		memcpy(argbuf, sample->raw_data + args_size, *augmented_args_size);
+@@ -4176,7 +4176,12 @@ static struct bpf_program *trace__find_syscall_bpf_prog(struct trace *trace __ma
+ 	pr_debug("Couldn't find BPF prog \"%s\" to associate with syscalls:sys_%s_%s, not augmenting it\n",
+ 		 prog_name, type, sc->name);
+ out_unaugmented:
+-	return unaugmented_prog;
 +	/*
-+	 * perf_sample_save_raw_data() rounds the raw payload up to a multiple
-+	 * of 8 bytes less the u32 that holds its size, and the kernel skips
-+	 * over that padding rather than zeroing it, so those bytes are stale
-+	 * ring buffer contents.
-+	 *
-+	 * A record that carries no augmented arguments at all therefore still
-+	 * arrives with up to 7 trailing bytes, e.g. the 64 byte struct
-+	 * syscall_enter_args that an unaugmented syscall emits comes back with
-+	 * raw_size of 68. Anything shorter than a struct augmented_arg cannot
-+	 * be one, so drop it instead of letting a beautifier read a length out
-+	 * of uninitialised memory.
++	 * Do not set unaugmented_prog for exit: syscall_unaugmented is a
++	 * sys_enter program that outputs enter arguments. Exit without a
++	 * specialized return augmenter returns 1 directly from sys_exit.
 +	 */
-+	if (*augmented_args_size < (int)sizeof(struct augmented_arg)) {
-+		*augmented_args_size = 0;
-+		return NULL;
-+	}
- 
--		return argbuf;
-+	if ((size_t)(*augmented_args_size) > sizeof(argbuf)) {
-+		*augmented_args_size = 0;
-+		return NULL;
- 	}
--	return NULL;
-+
-+	/*
-+	 * The perf ring-buffer is 8-byte aligned but sample->raw_data
-+	 * is not because it's preceded by u32 size.  Later, beautifier
-+	 * will use the augmented args with stricter alignments like in
-+	 * some struct.  To make sure it's aligned, let's copy the args
-+	 * into a static buffer as it's single-threaded for now.
-+	 */
-+	memcpy(argbuf, sample->raw_data + args_size, *augmented_args_size);
-+
-+	return argbuf;
++	return !strcmp(type, "exit") ? NULL : unaugmented_prog;
  }
  
- static int trace__sys_enter(struct trace *trace,
+ static void trace__init_syscall_bpf_progs(struct trace *trace, int e_machine, int id)
+@@ -4199,7 +4204,7 @@ static int trace__bpf_prog_sys_enter_fd(struct trace *trace, int e_machine, int
+ static int trace__bpf_prog_sys_exit_fd(struct trace *trace, int e_machine, int id)
+ {
+ 	struct syscall *sc = trace__syscall_info(trace, NULL, e_machine, id);
+-	return sc ? bpf_program__fd(sc->bpf_prog.sys_exit) : bpf_program__fd(unaugmented_prog);
++	return sc && sc->bpf_prog.sys_exit ? bpf_program__fd(sc->bpf_prog.sys_exit) : -1;
+ }
+ 
+ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, int key, unsigned int *beauty_array)
+@@ -4454,16 +4459,27 @@ static int trace__init_syscalls_bpf_prog_array_maps(struct trace *trace, int e_m
+ 		err = bpf_map_update_elem(map_enter_fd, &key, &prog_fd, BPF_ANY);
+ 		if (err)
+ 			break;
++		/* Only update the exit prog array map if an exit augmenter exists */
+ 		prog_fd = trace__bpf_prog_sys_exit_fd(trace, e_machine, key);
+-		err = bpf_map_update_elem(map_exit_fd, &key, &prog_fd, BPF_ANY);
+-		if (err)
+-			break;
++		if (prog_fd >= 0) {
++			err = bpf_map_update_elem(map_exit_fd, &key, &prog_fd, BPF_ANY);
++			if (err)
++				break;
++		}
+ 
+ 		/* use beauty_map to tell BPF how many bytes to collect, set beauty_map's value here */
+ 		memset(beauty_array, 0, sizeof(beauty_array));
+ 		err = trace__bpf_sys_enter_beauty_map(trace, e_machine, key, (unsigned int *)beauty_array);
+-		if (err)
++		if (err) {
++			/*
++			 * Not a failure: the syscall just has no augmentable
++			 * arguments. Clear err, or a trailing run of such
++			 * syscalls, e.g. all of them for 'perf trace -e close',
++			 * would leave it set on return and abort the session.
++			 */
++			err = 0;
+ 			continue;
++		}
+ 		err = bpf_map_update_elem(beauty_map_fd, &key, beauty_array, BPF_ANY);
+ 		if (err)
+ 			break;
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
