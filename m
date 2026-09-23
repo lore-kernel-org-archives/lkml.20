@@ -1,86 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B82560AC2;
-	Wed, 23 Sep 2026 20:32:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C586432C8B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:33:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790195529; cv=none; b=SRMB+dRFnP09+S1PN5wOKfjy2U9U3EboNjnegQLTgziJUIhGVh07wTH7eq5J0jHcLi8UjIl05g/pRleCRUMHQNv0/QtyHbW3JyqA17q5aWs1e6bs2OOBG5wgwGqmm2r+8+SPFPwPuJcaUps9Kutu2YUgGcLD+182mYDEOygVCrY=
+	t=1790195628; cv=none; b=Jkgy8FcDvGDSCMsVqdzRRa0abEDaQEDHxNh/RlE1Or0Ry3Svk5DmHtvc7fy8g9x1gkfqnU1ZEe7LNcBCgMfmC2sRRgUj+MMyfbmKoq5L0wsraeDJGmywnrzEmqe6dU1WSjmJPax4fhZahngZL01MZ9ZTHKO68paRMWddpkvCB5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790195529; c=relaxed/simple;
-	bh=penjlBlTgqB2kWrPtgaOvaogZg7i5pf+p8NYD0/I4as=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kSREArKe7c6h3IV7OKHc6EP58qF3MaaOyISdnhRxOkUWpW4bHRecKt2EDylDkbId87s8c1z8rave+UYQjpsdYWPpy+QjnHXzRBB9w2Z8idkeRzdXur+SGnOdD6gVFpOQ1eKJITobmy00OIwaq7tp/FY6hQahomKGEqWOOeV+gbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yr3Q4IbW; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yr3Q4IbW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 236DC1F000FF;
-	Wed, 23 Sep 2026 20:31:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790195520;
-	bh=penjlBlTgqB2kWrPtgaOvaogZg7i5pf+p8NYD0/I4as=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Yr3Q4IbWQ+1R28k2uwHIxPOX/hK23qUPD2ZBKdzN63QtdN/2CDQtedx98IMEGVvKi
-	 S5A+E9RM3PD1i40dbSqegp8LwkPRdO0RKLnRlmFPPMYDMl+vkdpYj0oDCBhNtO2W6K
-	 AfJCx81k4wuKtmhKX4J4MBH0a+bv+F+AubebBpnSWNIc4IbynZ8Twjq+YbCYWmJ3aF
-	 UUP0Ndh/VuO3eQowmn5jD54PD13WRL93bCj09cWdp8FqbLqRk4a1P2yg11I8YUsyZg
-	 pb2gx2CJGKophHx7AQJd3nq+S4tGb2+GdNBdifh0Hd5Uh1MxZr58U0/j3Mn5oZn8Vp
-	 Xspd2kUlDktKQ==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Adarsh Das <adarshdas950@gmail.com>, adarshdas950@gmail.com
-Cc: acourbot@nvidia.com, aliceryhl@google.com, axboe@kernel.dk,
- bjorn3_gh@protonmail.com, boqun@kernel.org, dakr@kernel.org,
- daniel.almeida@collabora.com, gary@garyguo.net,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- lossin@kernel.org, ojeda@kernel.org, rust-for-linux@vger.kernel.org,
- tamird@kernel.org, tmgross@umich.edu, work@onurozkan.dev
-Subject: Re: [PATCH v3] rust: block: set GenDisk
- block_device_operations.owner to THIS_MODULE
-In-Reply-To: <87fqyz3etf.fsf@t14s.mail-host-address-is-not-set>
-References: <20260806083655.23161-1-adarshdas950@gmail.com>
- <20260806104027.83940-1-adarshdas950@gmail.com>
- <87fqyz3etf.fsf@t14s.mail-host-address-is-not-set>
-Date: Wed, 23 Sep 2026 22:31:50 +0200
-Message-ID: <87cxu33e15.fsf@t14s.mail-host-address-is-not-set>
+	s=arc-20240116; t=1790195628; c=relaxed/simple;
+	bh=/JJF6ssyxAQdmL0bSTx1Ono3iYU/qejhw/WQLlUJjoo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g9OyndCtLW22yS9QyneqkQ36xva2X/xyHblQ5CFYCq8/PflCawRvNWhpUwgfwBQ6S13xmRVuRlgDrxiZMAebHrYoeCz89AbKwlDcwBw9oU4Lvy9Cye/pWq2CaQ4XPv2adDVjmlOm14/w2v0B7VViaitpgkLUu1m5pp2SCnVNsfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=posteo.de; arc=none smtp.client-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout01.posteo.de (Postfix) with ESMTPS id 7CC0C240028
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:33:38 +0200 (CEST)
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hqpZn2flvz6twP;
+	Wed, 23 Sep 2026 22:33:37 +0200 (CEST)
+From: Benjamin Drung <benjamin.drung@canonical.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Matthias Brugger <mbrugger@suse.com>,
+	Benjamin Drung <benjamin.drung@canonical.com>
+Subject: [PATCH 0/2] brcmfmac: firmware: Add missing clm_blob firmware files
+Date: Wed, 23 Sep 2026 20:33:38 +0000
+Message-ID: <20260923203253.2553179-1-benjamin.drung@canonical.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Andreas Hindborg <a.hindborg@kernel.org> writes:
+Hi,
 
-> Hi Adarsh,
->
-> Adarsh Das <adarshdas950@gmail.com> writes:
->
->> GenDiskBuilder left block_device_operations.owner NULL. Set owner from a
->> const block_device_operations table using this_module::<M>() and update
->> rnull to pass NullBlkModule.
->>
->> Add ModuleMetadata::THIS_MODULE and this_module() so the owner pointer is
->> available in const context. Rebased on Alvins fix-fops-owner series [1].
->>
->> Link: https://lore.kernel.org/all/20260805192020.107601-1-adarshdas950@gmail.com/
->>
->
-> We merged `LocalModule` [1]. Please use this feature to set the owner.
->
-> I don't think you need to move the operations vtable.
->
-> Best regards,
-> Andreas Hindborg
->
-> [1] https://lore.kernel.org/r/20260811-fix-fops-owner-v10-7-7e71776f9dbe@linux.dev
+I noticed that these firmware files were missing inside the initrd when
+including the brcmfmac kernel module:
 
-Actually we are going to pick this one instead [1]. Seems like you have
-been trying to do the same thing.
+```
+/usr/lib/firmware/brcm/brcmfmac43436-sdio.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43456-sdio.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43430-sdio.raspberrypi,3-model-b.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43430b0-sdio.raspberrypi,model-zero-2-w.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43436-sdio.raspberrypi,model-zero-2-w.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,3-model-a-plus.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,3-model-b-plus.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,5-compute-module.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,500.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43456-sdio.raspberrypi,4-compute-module.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43456-sdio.raspberrypi,400.clm_blob.zst
+```
 
-Best regards,
-Andreas Hindborg
+These changes should be backported to the stable kernel releases as
+well.
 
+Benjamin Drung (2):
+  wifi: brcmfmac: Add per-board clm_blob firmware binaries
+  wifi: brcmfmac: Add clm_blob firmware for brcmfmac43456-sdio
 
-[1] https://lore.kernel.org/r/20260811-fix-gendisk-owner-v1-1-c0fe4a449ecb@linux.dev
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+-- 
+2.53.0
 
