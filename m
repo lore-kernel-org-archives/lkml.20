@@ -1,149 +1,147 @@
-Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597483EFFA9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A6749DBB5;
+	Wed, 23 Sep 2026 11:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164684; cv=none; b=jmyvIWNW3LQLDx+qv3PKi4LPl0TGJMzUGlQGAm2upOuLNsrej/X6cOMnEefoQV1lWVFCVLV2bf+mB6yER9T6s4gNFSY1HGh917NzsaywQi4CA1xcbn1+3RamWrK1OCKmn0xHs0kKyYT8izcjB0h96zHjjS1iILNkiUBmD1ijyIM=
+	t=1790164689; cv=none; b=DdvjrTA8zcP2iFfd5OFOjeXYpV0+6n8XJjxotlZGVjAUcY1hzKh1vVYO8/yv8FTN4pTaWbmE83SpKpS/ZzrbDD5fiYoug5kyx/3tY2zvmlhc/afIGuDrW9Qat3jYXsz0tJ0tqzgwxMUi32d/2lu3w6nRlau3XebJJgFZJVRxz8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164684; c=relaxed/simple;
-	bh=QYUa20pIZh2wxiF+T5Z9fR8QFbYCIIP9R0h4qS+mLH4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EuDpjgUMeu7E3pCH0/z0UAKX63t8wikuOn2/ut+rcQkc7D0z1R7MC96glqK2VT41H6Z2ZvjhWxfHGp3xqm/2cJR87z/lf3u+QIXYiG7WWh4R7ZdhDWdPrNkrdrNju8Kw3hUkvQXWDEzKxcDt14h+jhQkO1El0Wt/Siz6Hva9UCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pwanlu1Y; arc=none smtp.client-ip=74.125.227.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790164689; c=relaxed/simple;
+	bh=cWvXrV+my2FQu7dTFED2drhd7CxfJCpDWyIVkGQEgHc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fT3ODVZaAE8C40OWfpNSaPNcYXXVNSDo0K26XPqKbRaJt4eILR3dcpDHYQCw+xZAEwUKI4CgQPZbdi3rw2JsXiP/oBbWnuMF43ju1ZUF+J8lfb1SjOe0sA9sXK1RNTPBKz04zu1Pzge6d+cVTlomyVIGYQLa4OYrgN3B+sCG330=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nrO4ol60; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pwanlu1Y"
-Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-78a4c5c582eso316452137.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:57:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790164673; x=1790769473; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fcqVoGIOsqHneznya0CjxdKSZ/9QYnIEWsldQdbwafY=;
-        b=pwanlu1Y5uhorzXbF2bYqznbUDl3U0lbePyU4DsYEOzt7gbYpuQAXPEbmOlcrlOQeV
-         T51ojFvBOg9XNqn1OnZsl3pRZxFuQH/VH0Pxu2jYO9l/XmtgVwnJf69nsbOCEdLLY6y5
-         uhsp6xqnMq10JKr4l3vK40tppAC4GCYi3Lt+sEGSEuwDIwTSBmZD1kELJNpPwvRwUY9f
-         yeRnZQSV0bCR+g8gH1IkurGBZ8HV7URwCXp6u3HaoAMnsHIYk0uvGP/XdwCh5ZffGnos
-         FYchKWwXe96WJtPbCmnpRExCu2vLxgxqP+vk6NPHjFFqXOsBNKeFZjoyM0DO0njHf1ZY
-         HHbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790164673; x=1790769473;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fcqVoGIOsqHneznya0CjxdKSZ/9QYnIEWsldQdbwafY=;
-        b=DnvcRP9b1oR4Ehq3XRK3fXPdy9rfL5eRr5gMlgC3sJc9dOV6EOKA7lBwwniYI48wrV
-         tdBMLVJXlZc66B5i5atnELkXqCCYU5aACo/DjjRC3l0T2AMzIDCtSRJckqtH78zp2+H8
-         0yud3795QiHXjFm0SQTRWfsRH/vG6Aed+iLGnFjjgOHS+tPEQ1L+CTUQ8U09Ae5yUzTK
-         6X9xsa9HsUl4hy3xG7nOHMe3Wrg7EJqwreNP/SDKxK+pTSaNUVUHEGT+0wsW7b31VKp6
-         C17z7dJnl1TDoKECtb9yc9myrp8BddPPNlK2VxEsQDHQ25Gvc5VDp8r2noXt70EFFqEi
-         z4pg==
-X-Forwarded-Encrypted: i=1; AKwUvByO6CVD+kqg6O30/exZi4pP0R1h7Zude2wcDtEcp0yZkzutVCWcOXD7onbHyL8OK9AnSssPMiBr90R+Mhw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUoAeebvpbPwzN1MREm9zK/Eqvme2jACcvHkM/wNrh2uVycBNP
-	RBZkonlOWAQfXepdzzS1EF3ymBMOiK+RZWRMOdsvNXvyKs3JkhQp3ae8
-X-Gm-Gg: AYBFou3zYz2WbOf4XNPixwnUhSOw9StIRDPgwEY4S/rCVke3W211IPAKqg6qGWoyWmp
-	/vL5v13/NX9l2lihuiN+J8/nD9+onKIYuAbZgNf48aGBuKqa7lHvWyQRMdAvbxhXj5QZmMuzsrH
-	fYGqiyaqLlBJa7ISw0MeTeGCAHhmVl02lDQfz6W4Ot4x11zvX5VyQBiC7/8mRU93/QHGvSqKnzG
-	rD5WLRS+qDgH6OHe7YFALv+qSoG1RVJw4Qiso7vmrv30Z9/ziF02CEsK6welvlP9ZFWr1geiLbT
-	IHHTtwTIKfbwE/xnldRevxth8ss9NCzz8MfH3azWoxE3VXcl4pNVrc1XEqupj2jVqRm3QtSep7c
-	KUAiE7VkXWTnj6RNUrCseQiItO3DGE4qxE/2b3/4NU4aiKttbvvZ6B7ZG7AQ8Y27wqGdfVHeR8Q
-	xgHmkT/Ynb39v5Wjz13Cz/GYwu4FcSBeLe1jD3P3HJ/wkElQOUTAiaF3g7N3JhSHg0
-X-Received: by 2002:a05:6102:689b:b0:7a1:f7d2:e831 with SMTP id ada2fe7eead31-7ac1d4f3614mr1859344137.17.1790164673544;
-        Wed, 23 Sep 2026 04:57:53 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98517a8ecaesm2629757241.12.2026.09.23.04.57.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 04:57:53 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: linux-xfs@vger.kernel.org,
-	Carlos Maiolino <cem@kernel.org>
-Cc: "Darrick J . Wong" <djwong@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 RESEND] xfs: bound inode fork length against the fork size during log recovery
-Date: Wed, 23 Sep 2026 08:57:44 -0300
-Message-ID: <20260923115744.3160635-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nrO4ol60"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BED0D1F000FF;
+	Wed, 23 Sep 2026 11:57:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790164675;
+	bh=r0l7/XHKTd+jga0Pd8Q9o+u4rceRax13PA5OVBYyrSg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nrO4ol60X2LXvUhsLo43dS/e6Fr4Y+DpAn49E7uxfmmsWOaKSpMrpmiPEpYHagYda
+	 jtMWSA36ayyxP8TTACE4opYEuoHe50dj38YtJNnIL/mljbpISpTWflzFteQh2Tkr91
+	 gOkofMHmCCWLI/zWSBgQGzo0UmDoATqOiG/3irB0oGeKFM9nKUMLljuda5SB89lgd6
+	 fR33/Ej2VPUPZ7ViOGm2tbyIYQdy0JCefzMbRNzpE3OhgGPtqs+tBErr2SBDpFHdZG
+	 xmKjGZjeWz2p1o/In0ix8MnwwEJglD1P+CPJeyOQAictADTDbkDsme9a9x6swK6XZx
+	 aqzitItGPrRSA==
+Message-ID: <0d2a8e7b-6a7c-4cb8-a6e4-98a7a5615764@kernel.org>
+Date: Wed, 23 Sep 2026 13:57:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/4] dt-bindings: sound: qcom,q6apm-dai: add
+ memory-region and relax iommus
+To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
+ Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260922-vmid-v4-v5-0-e79cfd7af5b3@oss.qualcomm.com>
+ <20260922-vmid-v4-v5-3-e79cfd7af5b3@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260922-vmid-v4-v5-3-e79cfd7af5b3@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-xlog_recover_inode_commit_pass2() copies an inode log item's data/attr
-fork region into the inode buffer using the on-log region length without
-bounding it against the fork capacity, e.g.:
+On 21/09/2026 21:08, Ajay Kumar Nandam wrote:
+> On modem-DSP (mDSP) platforms the DSP runs in a stage-2 protected
+> context and cannot use the SMMU. PCM buffers must live in reserved-memory
+> carveouts that are SCM-assigned to the appropriate VMIDs.
+> 
+> Add an optional memory-region property (1-2 entries) for the
+> control-path and data-path carveouts, and remove iommus from the
+> required list since mDSP platforms have neither IOMMU nor VMID DT
+> properties.
+> 
+> Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
+> index 9e5b30d9c6e6..7d0415f2463a 100644
+> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
+> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
+> @@ -20,9 +20,19 @@ properties:
+>      minItems: 1
+>      maxItems: 2
+>  
+> +  memory-region:
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      - description:
+> +          Control-path buffer (audio_heap_mem) for platforms where the DSP
+> +          runs in a stage-2 protected context (e.g. modem-DSP).
+> +      - description:
+> +          Data-path buffer pool from which per-stream DMA buffers are
+> +          allocated.
+> +
+>  required:
+>    - compatible
+> -  - iommus
 
-	len = item->ri_buf[2].iov_len;
-	memcpy(XFS_DFORK_DPTR(dip), src, len);
+I imagine you either have iommus or memory-region, no? IOW,
+oneOf:
+  - required:
+      - iommus
+  - required:
+      - memory-region
+?
 
-The only guard is an ASSERT, which is a no-op on production kernels
-(CONFIG_XFS_DEBUG off), and xfs_dinode_verify() runs only after the copy.
-A crafted image with a dirty log can therefore drive a heap out-of-bounds
-write at mount time. The XFS_ILOG_DBROOT sibling already passes
-XFS_DFORK_DSIZE as a bound; the DDATA/DEXT and ADATA/AEXT memcpy paths
-did not.
-
-Bound each logged fork region against the destination fork size before
-copying it, and reject the log item with -EFSCORRUPTED when it does not
-fit. Because the recovered inode is only verified after the fork data has
-been copied in, the checks are done up front, before any memcpy into the
-on-disk inode.
-
-Fixes: 658fa68b6f34 ("xfs: refactor log recovery inode item dispatch for pass2 commit functions")
-Cc: <stable@vger.kernel.org> # v5.8
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
-v2: cc stable # v5.8 (per Darrick).  Move both fork-length checks to the
-    top of the fork-copy block, before any memcpy into the on-disk
-    inode, and drop the now-redundant ASSERT.
-
- fs/xfs/xfs_inode_item_recover.c | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
-
-diff --git a/fs/xfs/xfs_inode_item_recover.c b/fs/xfs/xfs_inode_item_recover.c
-index 169a8fe3bf0a..6c7dd7dd7032 100644
---- a/fs/xfs/xfs_inode_item_recover.c
-+++ b/fs/xfs/xfs_inode_item_recover.c
-@@ -507,6 +507,25 @@ xlog_recover_inode_commit_pass2(
- 	ASSERT(!(fields & XFS_ILOG_DFORK) ||
- 	       (len == xlog_calc_iovec_len(in_f->ilf_dsize)));
- 
-+	/*
-+	 * The recovered inode is verified only after the fork data has been
-+	 * copied into it, so bound each logged fork region against the size of
-+	 * its fork now, before the memcpy below can overrun the on-disk inode.
-+	 * The DBROOT/ABROOT cases already bound their copies against the fork
-+	 * size.
-+	 */
-+	if ((fields & (XFS_ILOG_DDATA | XFS_ILOG_DEXT)) &&
-+	    item->ri_buf[2].iov_len > XFS_DFORK_DSIZE(dip, mp)) {
-+		error = -EFSCORRUPTED;
-+		goto out_release;
-+	}
-+	if ((fields & (XFS_ILOG_ADATA | XFS_ILOG_AEXT)) &&
-+	    item->ri_buf[(fields & XFS_ILOG_DFORK) ? 3 : 2].iov_len >
-+	    XFS_DFORK_ASIZE(dip, mp)) {
-+		error = -EFSCORRUPTED;
-+		goto out_release;
-+	}
-+
- 	switch (fields & XFS_ILOG_DFORK) {
- 	case XFS_ILOG_DDATA:
- 	case XFS_ILOG_DEXT:
-@@ -546,7 +565,6 @@ xlog_recover_inode_commit_pass2(
- 		case XFS_ILOG_ADATA:
- 		case XFS_ILOG_AEXT:
- 			dest = XFS_DFORK_APTR(dip);
--			ASSERT(len <= XFS_DFORK_ASIZE(dip, mp));
- 			memcpy(dest, src, len);
- 			break;
- 
--- 
-2.53.0
-
+Best regards,
+Krzysztof
