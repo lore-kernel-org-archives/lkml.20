@@ -1,90 +1,128 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8999A51CF76;
-	Wed, 23 Sep 2026 14:47:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E9BB539790
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174861; cv=none; b=ApcdWt3uD6dkE73E4XKlp8o7IckmaSu1LMr5ZURfRq6iXeYG68XLSZpLvI08YWe1k2UBVyfF/G4az897H3wTHvSvwmLBdcTbpC8vmxTUA7MzgCrdK5Vc1K5zz1ItHUfFbUK2RQ5cVKAs905t3U3XcNIARkOTK69oWc5lHTIqvwo=
+	t=1790174953; cv=none; b=NVZSGXfaVWB3XfFTC9aqQnCduOPNSy6ZQr4UIQZ/0P1CcLeauc6eLeIwGTkc7ZNRAPuw8NKv/UdIaXmvPJZAuyWZDd4/t90Ju6b6FJthowDI0l8V7GJ+z7k6b3gc1NFbcFpeAO112dPT0h/TzMxqBP3FxVUXrdVeR9OyXlaGnWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174861; c=relaxed/simple;
-	bh=MwZgnHPFFGSL49mOgaoJtNsPPKvCGM4K3GZNXUY+5xg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jXFbWVddrpnolNmm5v0q7Tt9JMZ1jymix80vDDFsMqaxw8Qgok4KL6wIzw4WFCQqp0kKUo97MpaHiOqNDD7jekHE01c+3o1XYPtSA8Vo9zyfl35pTa4V/HXSUolbOY98DIbNGlTIV8Hxl1D9rJlsOrwQgIwwRRvKrxCec/AruK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DiitupBx; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790174953; c=relaxed/simple;
+	bh=wQCvOdr5DG6nGGHUmjf3dbvqPAsVzIgztOSMKuc72jM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oBWUABYQfaD5N5/3j4N4NuCCJbbVHVSUqt0/bnTnP0BN/jRe7GG3gydbt3oZ+GLYP1RQeLBNiE8cpjX8N2/Tid7Ce1krhOENbCvqipkoKMk5gXGCF9Yr+Cgnsoy3xQw9jU93FZA6KQEo6GCcerh2n7uZimb1RMBFfM6Ey8LjJeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DVMvzhby; arc=none smtp.client-ip=74.125.231.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DiitupBx"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 453C9152B;
-	Wed, 23 Sep 2026 07:47:35 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D7B9E3F86C;
-	Wed, 23 Sep 2026 07:47:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790174858; bh=MwZgnHPFFGSL49mOgaoJtNsPPKvCGM4K3GZNXUY+5xg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DiitupBxbjkThSFpOSKScvVyDKIYwZVZU+IsbhFP/W6+udcJWW9cCrEzhu6dvx6EN
-	 p3L9MfIbHQOPCEuSWLgvC3bHkfURsw+BrWtEUB9/1+QHUCVAkYMcMINcaJlsfBSEro
-	 2aMOQW8rfqkvqYa2+YZnMF8jexjIVFnZ9e/NewoQ=
-Date: Wed, 23 Sep 2026 15:47:34 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Oleg Keri <okerixx@gmail.com>
-Cc: Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Prasanna Kumar T S M <ptsm@linux.microsoft.com>,
-	Beata Michalska <beata.michalska@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DVMvzhby"
+Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6d13d47b7caso527856eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:49:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790174951; x=1790779751; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Jb40C5wg5KlMegSVoKPaSGTLlViBBhllfQg4nnGSKA8=;
+        b=DVMvzhby3hWepqkLYFp3NitIWxCyCs+BvmMzaoEUuuZvhu/zgJBntz4evdhwOrXecL
+         nB2D16y2jhP2bcHSMCf0iiShrA2usUUbKlVk7oaqTWeLynqUhmEoXUieXWozIVng5kqb
+         v6ULCkYQCAvYEC0TGFZeNsRosSSl/c4LIJDjb7dgvFoONLQQW4oPFhfQsm/w5VkrVzba
+         eBIwzc8Akvg9FCvwwW2e7TN3UGLPR0YASFvT0qYoDyTo0H5tCzpg+3ppn32pWYAeaK00
+         yUuKVivSKMQof3WikcMALRJ8MtDVEoAi6OkatxjeIhvOT1HigvWrDu6j4sM+KUbaFrrL
+         +9xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790174951; x=1790779751;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Jb40C5wg5KlMegSVoKPaSGTLlViBBhllfQg4nnGSKA8=;
+        b=2UlFs9LzDhQy4qbAUm7Es2+QauYVR4simNUkLaOE1MtV0PMI3ZgaL/L9z6SqX55gAf
+         e0FsYuP/HuXK+1s4y4XqCQQCiwDLK+cqFDg46wspU4zF5Qf5PyY8aGW/rVm7ndjwST5u
+         Trma2c9GdxCG5o+iNaGrjJa0MovZp7VRojP1F+nznN6KNkdrHwi9JyqManXNMSofkanf
+         0Kuxs4ReebhN/VVz0qnHWIyiMw5mo68LBsdHnumcBI4taDfXXUrGpK7JYp6SI92eVD6n
+         T07GxYa7a49p+tyFIuVL3Q8dPIepiF5/ssqxzR1bHspkmSYvpNvhF1Ruc2PDxZ7cmZhv
+         k6hw==
+X-Forwarded-Encrypted: i=1; AKwUvBxy3TG2w9H2wF7VjR/9ElyWMXeayXOlNduGPvvSoUSg/jIv+mpG6Qyn3u9TvTJTH4eRRvQu8+UWc/asIF8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kn8PfHlGLZwmNtsW00tyNZ7EdzaLVN9HS9EwxQeQfEvIXVkUtz
+	9+FceArUvIa0uMAUpMYncdox9JnL4pYQjSNp3mVRoEPqRz+7ygLv+slw
+X-Gm-Gg: AYBFou2xcK4j28tsq0FXvDuTDodF+2UI/IiDDxXlxAWwBNWHYS0eX6QnqdSdvUR0Krz
+	1ZUjHMU9sR6JCMTuRWH3BEvQsfi8eIR6l9gjOhQ/U8vkYFmjyHb88gS5NZPnQeYzy5Rm+8kRDo4
+	sCHGQALS5j6Hzej2BcMaZ9/S4egzoNshqnTqKE8AP/BGGID6tXzl7jr4NVooVtS3VptlJgrTwDc
+	MlA2dJszb3aAUGsdncvgt2tE+8uRi/cxyINIm8WtmdfzrktxHZyWcepl9s7Q4vY9oBBeY2eN2J6
+	W8T6D6mqkgxi2NPRi0CIBm7JCq9JxqeD8TUzjo3Ef79PN9kzL0naIjbPBUd6R3nqdb5t7+SrED1
+	jeyEFKnrLNGHmUGEUxs6CrlO2MdgOo59vTCANWWQE/tr5MB6pJXIaZah+H15Tj4yT+atE4RA3Px
+	3Xd6mtIcFTz8EFRK8SnbLjZ+7W/b6Swx1p/wnumOTpqJrgldZPrUaZJtL4a5yM2QdpUn9ZOiDRm
+	fZgFoqGyHe45x83d9qm+wuDgtFrQp1bBCjz6lEU
+X-Received: by 2002:a05:6820:190f:b0:6cd:3fec:de75 with SMTP id 006d021491bc7-6d2d3012efemr2156575eaf.75.1790174950870;
+        Wed, 23 Sep 2026 07:49:10 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d2c92c2619sm2788537eaf.0.2026.09.23.07.49.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:49:10 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Ananthu C V <ananthu.cv@oss.qualcomm.com>, linux-pm@vger.kernel.org
-Subject: Re: [PATCH v6] arm64: topology: fix arch_freq_get_on_cpu() overflow
- above 4.19 GHz
-Message-ID: <arPmhnU-pkGpaD4-@arm.com>
-References: <20260923125604.2482-1-okerixx@gmail.com>
+	Allen Pais <allen.lkml@gmail.com>,
+	sparclinux@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>
+Subject: [PATCH 0/2] sparc64: fix relbranch_fixup() for BPr, FBfcc and FBPfcc
+Date: Wed, 23 Sep 2026 09:49:06 -0500
+Message-ID: <20260923144909.414968-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923125604.2482-1-okerixx@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 02:56:04PM +0200, Oleg Keri wrote:
-> arch_freq_get_on_cpu() computes the product of the frequency scale and
-> the reference frequency as a u64, but assigns it to an unsigned int
-> before shifting it back down:
-> 
-> 	freq = scale * arch_scale_freq_ref(cpu);
-> 	freq >>= SCHED_CAPACITY_SHIFT;
-> 
-> The product is truncated to 32 bits before the shift, so the result
-> wraps once arch_scale_freq_ref() exceeds 2^32 / SCHED_CAPACITY_SCALE,
-> i.e. 4194304 kHz.
-> 
-> On a Snapdragon X2 Elite (Glymur) laptop, whose boost OPP is 4723200
-> kHz, cpuinfo_avg_freq reports 524283 kHz instead of ~4723200 kHz while
-> the CPU demonstrably runs at the boost frequency: a fixed workload
-> completes in 1.72 s at the 4723200 kHz OPP versus 2.01 s at 4032000
-> kHz, matching the 1.171 frequency ratio.
-> 
-> Shift the u64 product and narrow only at the return.
-> 
-> Fixes: 16d1e27475f6 ("arm64: Provide an AMU-based version of arch_freq_get_on_cpu")
-> Signed-off-by: Oleg Keri <okerixx@gmail.com>
-> ---
-> Changes in v6:
-> - Drop the cap_scale() change. As a u64 static inline in a shared
->   header it would cost future 32-bit callers a 64-bit multiply that the
->   macro did not (Will); the truncation is the unsigned int temporary, so
->   drop that and leave kernel/sched untouched. Will's Ack on v5 not
->   carried since the arm64 hunk changed.
-> - v5: https://lore.kernel.org/all/20260917182059.2851-1-okerixx@gmail.com/
+kprobes and uprobes on sparc64 single-step a copy of the probed
+instruction, and each has a relbranch_fixup() that moves a taken
+branch's target from the copy back to the probed code. Both only
+recognize call, BPcc and Bicc. A taken BPr, FBfcc or FBPfcc therefore
+continues next to the copy, which crashes the kernel for a kprobe and
+kills the task with SIGILL for a uprobe. BPr is a common first
+instruction (a brz,pn on an argument), so a probe on a function's entry
+is enough to hit it.
 
-I assume Dietmar and Will's acks still stand. I can add them from v5
-(let me know if you disagree).
+Patch 1 fixes kprobes, where the check dates back to the start of git
+history. Patch 2 fixes the uprobes copy of it. They are independent of
+each other, and of my pending uprobes kmap_local_page() patch.
 
+Testing, in QEMU sun4u with sparc64_defconfig plus PREEMPT,
+DEBUG_PREEMPT, PROVE_LOCKING and DEBUG_ATOMIC_SLEEP. A static init puts
+uprobes on seven branches in its own code: brz,pn at a function's entry,
+brgz,pt, fbe,pt %fcc0 (FBPfcc) and fbe (FBfcc), plus be (Bicc),
+be,pt %xcc (BPcc) and call as controls. Each function runs 200 times in
+a child, alternating taken and not taken, and the delay slot's effect
+and the path taken are both checked. It then puts a kprobe on
+__se_sys_getcpu(), which starts with "brz,pn %o0", and calls getcpu()
+200 times, half of them with a NULL cpu pointer.
+
+- fe2ec83746e5 (v7.3-rc4+): the four new uprobe cases die with SIGILL
+  on their first taken branch, the controls pass, and the first taken
+  getcpu() under the kprobe crashes the kernel.
+- Patch 1 only: the kprobe case passes with 200 hits; uprobes as before.
+- Both patches: everything passes, with no new kernel warnings. Boot
+  has three DEBUG_PREEMPT "__this_cpu_read() in preemptible" reports
+  from iommu_tbl_range_alloc(), with or without these patches.
+
+W=1 and sparse are clean for both files.
+
+Danish Khateeb (2):
+  sparc64: kprobes: fix relbranch_fixup() for BPr, FBfcc and FBPfcc
+  sparc64: uprobes: fix relbranch_fixup() for BPr, FBfcc and FBPfcc
+
+ arch/sparc/kernel/kprobes.c | 13 ++++++++-----
+ arch/sparc/kernel/uprobes.c | 13 ++++++++-----
+ 2 files changed, 16 insertions(+), 10 deletions(-)
+
+
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
 -- 
-Catalin
+2.55.0
+
