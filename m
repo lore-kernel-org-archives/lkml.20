@@ -1,170 +1,181 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012015.outbound.protection.outlook.com [40.93.195.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88EB23346BE
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:10:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172632; cv=fail; b=SdsN/aXAY40imLLrqZxYJWugzEIn4zbIrSsFvUdoJO7y86PwnMH7MP94wde3OMSBH7+jvHO4BhormkicA2lO2CyYMdI2ScadZGx4McelBS8Yu93evhFOcdenVF09i5oZR2izgRruGxFA7BXqwj7wkQyVXpQUzOAub6xSbyshClk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172632; c=relaxed/simple;
-	bh=KpnU3U894QLNIBXygkIO0ahTXGx0Z3pw+JY4fOlaXes=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=YWwcs9veRSNrDyG23AXrAfrmpDuFksOcB044nvF4qd98l+7bDNLkIyFYWKYCnAP2boYtWZ2RsRC6RpnY7JR8QuYCFi4ZMf+3JrBwXx+nlmYxYAl28VFAXhZmzz6BjShvQ6uD4q8V/b2HTgxRz9yHkmpYsVjjLq/pVb3//yBLzJ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ELsIjeXm; arc=fail smtp.client-ip=40.93.195.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CB5244687
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:11:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790172692; cv=none; b=P3Y+EbJJMHiJ5ksZmeeU6PrJDjpVyIohF6lJDUbU8+5sJtDF1oG91bCHIwrXm4Uoiit/6971l59RAIEQ0oNE9iaK8B/LdIagIAnT3B2pFcM80bFxHIZ1yQRPT3c8rCp6liGpRfo9LnIxTDwUF9Um4R7xoDrySZHQ79QCm2zyik8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790172692; c=relaxed/simple;
+	bh=69jidcAtM1YFZanlNL98DsZwBlPwfCk4+ebC9+KWGIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fry3m1rESQfme6Dgf5dNcRhdzzIuhCfW7mOuvQegD+Mwo48Owt0u6acRqFIWriojRpuAznBHE3I5acz2LNDIYcrzbGzuAw90ZJS9a3uoVI7rOmGYQ5x1SZ1kyhWAH7G7Urn4RIybXWbEXGKJIn7f4/gualWaxvh54YJHrlKK46s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=c9vukZgD; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ELsIjeXm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=o7Q9CezQVWoSu/98CVyh5+plX9wFgw0tEmpNApawTe064GvoqU4orBSFpml561n/wz3i5ynXHP6rUZiVwIqH+/HNdhJkdW9ID4qjnMQUO0pqyJ3Ck+mrUxm/6EoRarClduXUlcmvtU7gVRbv/BQ3GOCd4jG3Wb5koX3FLLoLDNJdd9Fwf2GZPZ9bvHXJsfQzTHn7s361ev/pkH5KQApaee3dsQs5I2wZW2W8lWAtGAWCUomtOoIapOtmmLcVGCVm6QjQw0oLsPGucbWe6NY1835jtjYq+/SSJtlsCbfHHPLIYRy055VzLUvu6Bg4di3I6VuOv+oWzIg9dJjJmtKOyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nZpnEAtJsxUXaa/Pr4caV5nUmhVN2JICc6XTZ2RLWgA=;
- b=prZMLwEl80TQ3sZWR18hDYrC7VVCkXV6SwBgyojZyojDHuHv1DoNtY2BsTarVp+mCRAPuy845QwT0Dk50f3zZbmdwXaT9qGVDCvWJr8F4GjqpOutSoke2PjAOM+lMlszHCa33xTkjjbgorbzZ/YshP5Yskf8MhdFsv4UOIketsTVKcHvR4nSQTSJDSssRSGhpWIhmce9QSkZ2+J9Ka4vnrvPxDcmWoCDYqYuORvMXnjKkqpe5LvQ2xYcm+Jdw8xV/4rx4ofhqdKeM645qmg/K/zcBqh/H/mHvnVmZ1M+jziYOSDSKTigtSpIocPU5BAixRTLhaYkxXzi55DrSPk2GQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nZpnEAtJsxUXaa/Pr4caV5nUmhVN2JICc6XTZ2RLWgA=;
- b=ELsIjeXmKhCig4fB2eG+bp2eRnVFpySw77ICX16J8D/7vyolT1XW6iT4xbXXAvIoqYxbDLFZ794BeNvgT9wPcshqciuH3vrAMu6HIc+h1ngSv42gJWXnUmPlXyO77j9PybKN4n2dY9cc22I/Q+Hqmgsf2226Qt2bItxYLF/vvcSCTc+qP6K5/FA+fPjac181pVwTtADdY2lsWiss9r8vZEMd1XFYS1X9Z/cz2/rLyqn2RU/xkSfBVypN91kBnEdtxIA7AZa58efplcWah0eHA1B1f+wtHzuLqa3vVqoqevXIqVsVQC6n7RUi6HlLcHU3QQt7afj9yp+KC+crJ2MmuQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by MW4PR12MB5628.namprd12.prod.outlook.com (2603:10b6:303:185::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 14:10:24 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 14:10:24 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 23:10:21 +0900
-Message-Id: <DLMR8D3Q17YD.W0G16F19WB2L@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 33/33] gpu: nova-core: gsp: match a GMC response by
- flag, id and sequence
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260918010719.1176945-1-jhubbard@nvidia.com>
- <20260918010719.1176945-34-jhubbard@nvidia.com>
-In-Reply-To: <20260918010719.1176945-34-jhubbard@nvidia.com>
-X-ClientProxiedBy: TY4PR01CA0069.jpnprd01.prod.outlook.com
- (2603:1096:405:370::12) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="c9vukZgD"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3931so7215875e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:11:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790172689; x=1790777489; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Eb/HgMl+NhiWb/6B9RK+EF0vsqiiLDmd1MrEvTDfOeI=;
+        b=c9vukZgD7bG+5KAUmdlUypL1Ln7wHpu+I38fGp78DzMGngiOSFQptLJyVkkvV9mJw2
+         z8flpUpHj1exGih+i50bYpEApHMcquWINa60kdC2xNSiJOsNqFhmrxa3s0C6YOpJO/PK
+         oB9VUu5lEYgSWq2L5nxrLoVtcIgEbJ68Fa9U6uYe0SC3IL9fDuMSWHC1il/eWWxK9nS8
+         B+9d/C1yeYpD1EWydVjDlRDW5f0gNE5V+07epl2B2cx4/rOhPmuW70BLSkCgS0WkwtLr
+         NVXb5W1hr6A65bAv/dSqU6ZpgLkHZjbotlxrOINHXsFZ2gFW0h0YYOpCEg42MCCzj9/7
+         0X5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790172689; x=1790777489;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Eb/HgMl+NhiWb/6B9RK+EF0vsqiiLDmd1MrEvTDfOeI=;
+        b=2NPpqeR7RNkyHwL3xm8QRPW/4Smv3zITwL5KIShlkykTzINHt+CXBMYBPNuCD5B3bp
+         sEHopZpfXvH1Bl+/itywmPFfW888DhpTC4kC8Y+sRIpt0B7VBPAFvW69OuDL69knJ9iE
+         IhUHmQX2iJ2s+2ZdW8Fd7KmmGDOGIU0kJVQo4gRyVRi1JnafkCTY29oYDwrYeia/DLjn
+         sO6jLzL5R8XGwSAsxk2m6rwxD7jrXXvmmuK9I/cNca+ReFl4bmKka2h7NufCBpdFcfvE
+         SLTy1Hg5FGrX8TysVfe7zTtxQ02SUnhEyxhirvlKwVJ1plin82s66cQaN1Dk1X37rjbl
+         XQCA==
+X-Forwarded-Encrypted: i=1; AKwUvBwHvBli4h71G/axCJNji1QuG45ceUSnrR1WSPnUrduSqY5tsWsPLBF6DNhVhznOKjEQu5cilBiZWK5Vvv8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5zBHRxEUGUipU1tiZxAfCtGdVwrb7UPsp3mH9QpMh83UoXSV5
+	V02gdJPSbmgzv9BKAv5s2oJlJrnckxB7GnvyukrD21iFNk5Du13Yka+PZkH8iIvu3Q==
+X-Gm-Gg: AYBFou3Ny0u6gXWuwlS1Q1xTIabLaceAO1H5TsKDftcztult6NIqnywIJWK+Z7klfmf
+	+HwFS/cuzSJRewzEycbgEk4cvMlDNwQPmBz1PVQ/zxc6HRqr+TwbIj1JlxXpHK8fR4jTkrOSJbq
+	79G1E8Rz6gnOlBgCgFBn+DSUFdqu/LyhUxSOY6CP3jvj1NhIOUzntcGZ5fDCm3ZoCQUSDNnuBCx
+	Vn4VCNKjGCHyVYyUpRMZlrecvqf6dBX8ltqQLvYH1RJ9XrOskukqYAOmIr8RA2DdGpQX2aEZeo/
+	WGW0NJidxpf88S7BPeLbDDI/rSaTTbq6aKMJQp856oW1NkGPmbiNl8qmRkA3XZ/97rf7sq5lBxJ
+	m/WF2udhCsJgRoCG0vaRZZmvaKAVJbGr0wvA5Bkwposy9FS2EjNe+Y2akeRQipMdho657It3Hfb
+	mZvQj745N9Wym6B9lOrJ8Oi+5otFL324ma06wpcZ5CKW43mEkNq+nQXNx0N9EsYBy8XoGdrGdtD
+	OzcrV6GyEEGp+HhXyKTd4jRFbYp3g==
+X-Received: by 2002:a05:600c:1908:b0:49e:8184:f63b with SMTP id 5b1f17b1804b1-49fdf12a2c6mr35858125e9.16.1790172688081;
+        Wed, 23 Sep 2026 07:11:28 -0700 (PDT)
+Received: from google.com ([2a00:79e0:288a:8:c20f:9e7a:eeee:1b06])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1a0e00sm68608725e9.10.2026.09.23.07.11.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 07:11:27 -0700 (PDT)
+Date: Wed, 23 Sep 2026 16:11:21 +0200
+From: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+To: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+Cc: Christopher Lusk <clusk@northecho.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] docs: landlock: clarify TTY signal scoping
+Message-ID: <arPeCRLPD3WxStgU@google.com>
+References: <20260916152336.1589383-1-clusk@northecho.dev>
+ <aqq3yY8SKIBGUZ8v@google.com>
+ <20260923.oyohBie1Jeen@digikod.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|MW4PR12MB5628:EE_
-X-MS-Office365-Filtering-Correlation-Id: 02667142-743b-4872-60c2-08df197c6948
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|10070799003|1800799024|376014|366016|10067099003|11063799006|56012099006|6133799003|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	yejOPuqdqDwXOqzsoAmTrG7JXmyhUFvzX8rYPqzrGD+rBsxyR9u6J4QnQ4jRqe0fOwgPeNOSyetYbzdTtHhJj7Pd0nIUSRftkqdbZ9we7DYAmXcELkzglg1KWAZuv+gNlHRZVVpF2xgQQ3/ktMGxxcz1mPN0Y7UzYqdubuzmqBnyJRaEXiZk5l5qu+ArkZ95ctRfzgp8ucVw5cIuZd9S4UO66KMQMrYMxg0VPuA030vD5sjHeyc3tR0p7dCT1VqFiTF6vYe/Nv+hLEsNvS1K5H5vnvleTr8+oGncTI0L7Vd/Wzf+y6QL+tGG6g+/oTDNAkYDpg0HQs2maRXJaAJmNOIdcYnETiEUU9AUjYMY/xoIwYbTXxiEsej4P3gbJQrROu5FbDTXXKCORTzWwc46SiP8KHewpv2b7CC3zBfmHQmZCfbtFYPRMA4n2JOUYkCHTGB2BsCENJLqZtd4mBvAI4JjAv0hFbsX5tNjV8fLZ3IscoD6IZB1PdT3C/uSsckJ9B+8YxMuePXAZoLkr9p5bwsquOVVRKYBqBpgc5UVWFWWVvIAjM19md1cI/Z+VvhV8Qo/kQK24AQNnsDbt4e3rr3hjn12+bOFQyzsO1pxaBi5w3xVuQun5mjYBJ4WILsBokyfYZg7mZ2ZLreMQ9VXZha73e/Z17gVvGe5C0LpDGA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(10070799003)(1800799024)(376014)(366016)(10067099003)(11063799006)(56012099006)(6133799003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RVBpMjdkTFdaaGF3aGRpb1JERUJmWDNtTncvZk50VlNXa3o3M2ttbXg4dnpm?=
- =?utf-8?B?MlhBSzVUMGtGVnR6OXFJV2IxQmhRNXNMNVFrMHJva3A1VzhBeXNZaXhndm9S?=
- =?utf-8?B?THkwMWM2ZFl4S215ajJId0ZhSlcxOGNqMkRWRkF0VVFOWXJodnh0RFM0elFv?=
- =?utf-8?B?VG1iZnk4ZGdsSHNlM0VWTVN2U01HMkJuWHBSRitsMWVYRzVUUHptK241UlpQ?=
- =?utf-8?B?WitLbWZ5RWFxZ0F0cnl1cTF5Ym91L0tSZkEzREJaT0NoNytwQ25DQ3dlcDlQ?=
- =?utf-8?B?WjFFN1VlRFdoMjQ3ZGx2eWNtQ3o3dEhRU3BTZCtRWXY1eG1tWks4cTVkaVNL?=
- =?utf-8?B?R0RXN2NHaERxR0Z5dW9iM3FnRnB2LzllUS9RQzdSNVpCMWw3SUNWRVUxK1NM?=
- =?utf-8?B?SFhQNDh0anNyTnNGalpKWlpENWQ4ekU3bXE1VUx3QlFXMC9RbGNJckJhU0k3?=
- =?utf-8?B?WU04TzdjTFJCSXJiaTBSdDRYTzNMNjl1K0M2M3VVcGtaVTR1UkUxT2p5NFlv?=
- =?utf-8?B?b2Vsd2o2SEt6TGczZTlEcFFGRDdhUU00b1BFVlZVUjNiV0dtQkk3NmRnWlNm?=
- =?utf-8?B?Nk5UdkRUT0wxMUwzMFliSWt3TzNpdEprTERsOGFqVHpOOEVxNk4wcXlURGg4?=
- =?utf-8?B?ZEdyaElFOWptWDhMSHpnSE5iTkFlWkdCbHVLMmNxQ2ZPMlJwNW1RU29ZTFZ3?=
- =?utf-8?B?K3ZxRWQycUFLMGJJZWNmOTB4d0RyUHg2Y0lqSmNFNnY0OUhIQmhyWlc3UHFh?=
- =?utf-8?B?a2V5blZXcHpRYU5jNloxY1gyNTBNb01vNC92ZllLVEFHb0hCR0FaWUE5Tm9G?=
- =?utf-8?B?V29PUFl5Y1poSGdXdWdVdjRiQnc5akNIL2tDUm9sdktLSXdsa280N1IwS0kv?=
- =?utf-8?B?MTA3TkRaejd2eXF6SG55NmhQeTVVSjVBaDNKZ3IwRmtDSTRsS0JWR0hvZUtE?=
- =?utf-8?B?VktkREpDUG1EYnZIYWdTOFg1cjlmREVHVytVb3FUcGI3VXliUmRFQVVxS2t0?=
- =?utf-8?B?bEZjV1BiM2JEN1B0WG0zRDZ6aTJVKzRJRCtzS1lMdCt0c3JCYVNMUU9XQUNU?=
- =?utf-8?B?TUt1YjZ0SE1BVUpCQ1NYaEhWTVBxdmlLMCtieE1JWXdaRkZFS2laS3MySE5k?=
- =?utf-8?B?aUZBNTJGNzNDNFVoY3FvNUhSVFRsNU1LSFJLQTNBTzRDRE56VjVGWXluMUtI?=
- =?utf-8?B?b1Vmc2l6am1CR0JsSkRKcC9nWThjR2tERWRCRmppQmF4d0o2WHFIRlJLVTV5?=
- =?utf-8?B?QzZMaGMwa0dBT1cwalVTSEZkUjlNOXo2TVIrYjJNTUpNUHFsUzdGSWpJa1Nt?=
- =?utf-8?B?cGJKdVlWYlNSVEIxTzRGbzhNY2w0VnJub1c3NHRNU1c5ZEQ5SjBZL3FHb3Rs?=
- =?utf-8?B?OWMycnIweVdhYUFLdVdCY0tDd2JuQllFdDdVSDhIOHBwQnZBcEhYTUl0SmQ0?=
- =?utf-8?B?cU1zQ0VuTkZ3Unc0ZDlDQzdldzREYXdlVCtpcGU1WHR1WVJ2NWRWUnJlNG1I?=
- =?utf-8?B?SmpVcHlDNDJVTG9zYjN2YlRBQU9CYm43eVRyQkUyZzlock1vVXk4SlFLbU1W?=
- =?utf-8?B?M284ZGJxOVRNYy9KV1F6OUJFNFIzZDRyMVQrRlRoTTZObDRKOXNNQ0s3VXJ4?=
- =?utf-8?B?QUFDNkVmNW9hTkkyZ0hmS3A3U2F1aExjKzRCRDFzL280WExYdTZrTmM3ME5k?=
- =?utf-8?B?NGh5TFhyZ3c3Tm9JTmkvMTY3cWQwaWR5N1libDBpTVlEY2FNVjc2eW5SbFgx?=
- =?utf-8?B?Z09Bb0VheUxQeVM4MkdwN0UwQS9BdE9UYXI2ZGNYV3dOQ2RkZXBucC9wc2FE?=
- =?utf-8?B?dm5qbWk3cngzMGpsMkRXenNHUVdXc0NkdXdHV0lMZEpuRGtETXhjYmdZVXdM?=
- =?utf-8?B?Y20zdzdoMHJmUkVEelhmTER4eUxzUlMrNDMxa0YxM1RnV2lWckpmcWdydmdv?=
- =?utf-8?B?eHlVWGlVZnNmaU4vSGEzdTVvTmQwMG9OR0lQZTc3dnczeXF2dDhPU21jNnVK?=
- =?utf-8?B?Qm5mL2NOeFpkWFcwclh6MXpOd2J3bzNPTHh6cmRmYnR0QllaL1B2NFc5d25L?=
- =?utf-8?B?dERMUGd1VjZrQjlTL3BjSnZCTnFQcVpyNGFXb3VyalBiU1NXV3RTUnZOQlFD?=
- =?utf-8?B?RXE0NmxaRVNNeUptaXh6b2hpS09yR2w2R3BmWTNYcUFHK1hOaDBHZ0duTGRY?=
- =?utf-8?B?d2prd1ZyK2grQTc5T1FTSWQzZFZySHlWT1FWZFBJQWFGd0gwNlhYZmtIK3py?=
- =?utf-8?B?Qm9CQmUxVjB4WlBQOU5BTTE2L2JBbkM5cUxnS3dCKzVOc3lvWnB6eUxZR0pD?=
- =?utf-8?B?MWNaVUlUWnNHOXRYOFJOVDI1V2Q5RFB6LzNLTk1jdzFPN2pCRlZHQ0xmL2Vt?=
- =?utf-8?Q?Taf3pu3EQs/JkUodhILuNdl9KJMhScrDifNLgHlukluhW?=
-X-MS-Exchange-AntiSpam-MessageData-1: ir1w7JrkNPOP3Q==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02667142-743b-4872-60c2-08df197c6948
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 14:10:24.5760
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8UPkDLWpmRxb3/zu76P8zi4rspp+QNrmL4+0Wi0GC5uFMZGYM4lzU3+yom0+hsPXI4yR0ynuL8TeT1BJ8k2LLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5628
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260923.oyohBie1Jeen@digikod.net>
 
-On Fri Sep 18, 2026 at 10:07 AM JST, John Hubbard wrote:
-<...>
->  // SAFETY: All fields are integer types with no uninitialized padding by=
-tes.
-> @@ -801,7 +817,7 @@ pub(crate) struct GspGmcMsgElement {
-> =20
->  impl GspGmcMsgElement {
->      /// Creates the queue element header and the GMC API header of a req=
-uest that carries
-> -    /// `payload_size` bytes of payload.
-> +    /// `payload_size` bytes of payload under the RPC sequence number `s=
-equence`.
->      ///
->      /// `max_response_size` is the largest response that the sender acce=
-pts, and zero for a request
->      /// that GSP-RM does not answer.
-> @@ -811,7 +827,7 @@ impl GspGmcMsgElement {
->      /// - `EOVERFLOW` if a length does not fit its 32-bit field.
->      pub(crate) fn init(
->          command_id: u32,
-> -        sequence: u64,
-> +        sequence: u32,
+On Wed, Sep 23, 2026 at 12:14:01PM +0200, Mickaël Salaün wrote:
+> This looks good, much simpler.  Could you please send the (new) test
+> with the v3 of this series?
+> 
+> On Wed, Sep 16, 2026 at 05:37:45PM +0200, Günther Noack wrote:
+> > On Wed, Sep 16, 2026 at 11:23:36AM -0400, Christopher Lusk wrote:
+> > > The LANDLOCK_SCOPE_SIGNAL documentation does not describe how TTY-driven
+> > > signals interact with signal scoping.  Holding a PTY master file descriptor
+> > > is a separate capability: its holder can cause the TTY layer to signal
+> > > processes running under that terminal, even across a Landlock domain
+> > > boundary.
+> > > 
+> > > Add a concise clarification to the userspace API guide and the UAPI header.
+> > > This records the capability boundary identified during review of the
+> > > TIOCSIG discussion without enumerating individual TTY signal paths.
+> > > 
+> > > The documentation text and changelog were drafted with assistance from
+> > > Codex (gpt-5.6-sol).
+> > > 
+> > > The userspace API documentation builds successfully with the kernel-pinned
+> > > Sphinx dependencies.  The patch introduces no new warnings; the existing
+> > > missing-graphviz and undefined-label warnings are unchanged.
+> > 
+> > Minor nit: Last two paragraphs of the commit message would have been
+> > fine to drop for conciseness (the Assisted-by line already lists Codex
+> > and the other paragraph talks about things that didn't change).
+> > 
+> > But really just very minor, and probably not worth changing unless we
+> > unexpectedly need a V3.
+> > 
+> > > 
+> > > Link: https://lore.kernel.org/r/aqqJAZfG9FC7PgMW@google.com
+> > > Suggested-by: Günther Noack <gnoack@google.com>
+> > > Assisted-by: Codex:gpt-5.6-sol
+> > > Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+> > > ---
+> > >  Documentation/userspace-api/landlock.rst | 3 +++
+> > >  include/uapi/linux/landlock.h            | 2 ++
+> > >  2 files changed, 5 insertions(+)
+> > > 
+> > > diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
+> > > index 84cb7bf6b3ed..33a514ebc615 100644
+> > > --- a/Documentation/userspace-api/landlock.rst
+> > > +++ b/Documentation/userspace-api/landlock.rst
+> > > @@ -430,6 +430,9 @@ The operations which can be scoped are:
+> > >      This limits the sending of signals to target processes which run within the
+> > >      same or a nested Landlock domain.
+> > >  
+> > > +    Holding a PTY master FD still grants the capability to issue signals through
+> > > +    that PTY to the processes running under that terminal.
+> 
+> It would be more complete to quickly explain that a master TTY FD should
+> be considered at least as privileged as the processes using/trusting the
+> slave side.  See
+> https://lore.kernel.org/all/20260923.eehieph7UaX1@digikod.net/
+> 
+> So, this paragraph should really be short.
+> 
+> > > +
+> > >  ``LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET``
+> > >      This limits the set of abstract :manpage:`unix(7)` sockets to which we can
+> > >      :manpage:`connect(2)` to socket addresses which were created by a process in
+> > > diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
+> > > index cceda3b3b961..6485af37dd25 100644
+> > > --- a/include/uapi/linux/landlock.h
+> > > +++ b/include/uapi/linux/landlock.h
+> > > @@ -501,6 +501,8 @@ struct landlock_net_port_attr {
+> > >   *   related Landlock domain (e.g., a parent domain or a non-sandboxed process).
+> > >   * - %LANDLOCK_SCOPE_SIGNAL: Restrict a sandboxed process from sending a signal
+> > >   *   to another process outside the domain.
+> > > + *   Holding a PTY master FD still grants the capability to issue signals
+> > > + *   through that PTY to the processes running under that terminal.
+> 
+> What about rewording the LANDLOCK_SCOPE_SIGNAL description to say that
+> it is about signaling *arbitrary* processes (which is not the case with
+> the TTY master FD)?  This way we would not have to specifically re-talk
+> about the TTY case.
 
-Why are we changing the type of sequence here? `u64` is the correct type
-as it's the one that is stored in the GMC header eventually.
+In "Restrict a sandboxed process from sending a signal to another process
+outside the domain", I think it is already implicit that this applies
+to all (arbitrary) processes.
 
-This patch (and the previous one IIUC) repair defects introduced earlier
-in the very same series. Let's please settle on the right shape from the
-get-go.
+How about this:
+
+   Restrict a sandboxed process from sending a signal to another
+   process outside the domain, unless it is done through a controlled
+   indirection mechanism (e.g. a PTY master FD).
+
+I think it's worth mentioning the PTY explicitly here.  This is the
+interface description for what these LANDLOCK_* constants mean, and
+for documentation clarity, it would be good to be specific about the
+cases that we know.
+
+—Günther
