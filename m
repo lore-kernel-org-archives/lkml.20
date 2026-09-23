@@ -1,90 +1,85 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE363E4C6B;
-	Wed, 23 Sep 2026 06:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E186B2580F3;
+	Wed, 23 Sep 2026 06:25:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790144699; cv=none; b=oBNPEu2uhl2+lXzdxoYfxz9vNUmwYGLzB88XXmszTexOcpLKXsuA2co0pYixoaRFLcmL6j5MiMXKVahIdDmZx/vMHPm17GN0hUoFXAR/HXXbHP0AAnezWtZqKDv+HdQBsvAXUnld2q+v1uiqMyX9EWasm5YWuvaoCOYMRufqrP0=
+	t=1790144733; cv=none; b=YU7tcIOj3OcJlnOir+MeEnRAyendbwzr0zupsTedeDqVyV6i2GOeiiF+o7hjUiDRtTHWRIWq2z6XX59JlPbSt8zk7OVT5sRDK5eG+R75mSDzuiiqaySJS8cVhKBtx50IEBIZP2m54Uov5itRmy8ubm26tEu2fWuAGNqtMwnRirc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790144699; c=relaxed/simple;
-	bh=nyDFj8GSfVMz/iweAypKdQ+Y9ZzMkfNh7Ehq37PbvhM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UluHymgXLKMa8XLC8udi1OdMW3WpXE2mF1wBe6HElqLVvUWya4a28olaW/tA5V7zANlSb7QyMIpPqZhNMP4dZkKrDnEZJL4RAcrVjYi5kCV3ajFMNJSj4bpjc8KeBJBFW52ZESPZyZX3VcZ93wj/2qGG7JnDRfH8znjLUny5SV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ZSAMTl2j; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=W/stwqPg; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1790144733; c=relaxed/simple;
+	bh=xRIPxHX3ccHfbkvawKMpytxGlBaDv+XN5nWcaIIJMLE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ah43TlnjOenZEDWxl5rW/DSfhoFSH2Eucjq5e8FaPmbfn4YdhPqsYLBEYY2Me5Od22yoOoR6arB8rKBeEy1d7qqe9vKfuFSFzdtNn6fB3uGpzyfI6Bsj21kSBb9M0jnr7+52fYRtDThVtDLEugAloqSweOEiL7GF/euXYeXZNdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=HVkc+PZP; arc=none smtp.client-ip=115.124.30.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ZSAMTl2j";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="W/stwqPg"
-Date: Wed, 23 Sep 2026 08:24:54 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790144696;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2+Kd30g846HGZLOYEKmEAqtiOww49Ok9pxV3DLVIOME=;
-	b=ZSAMTl2jsWi6tWk/kxqsBXR1v93aj741ThFraZFI1eKz+Ob13g5Oyp+QbCEadseQZavJ6V
-	vd72xDKjZ9cDyH+4YeJZZsvWoahb9kyZp9Ya/yYWblGq3rAsI82cg3dQoFFGgxuDYQN2Ak
-	LxlA5lp2yuEKjS42LDpYCisSFgMqH5oaRiVj0Y+JUozkJloxvCAwn9QjnAwy42uGnSHVuA
-	wZ23y/fbLyJKpe7by6uleLUF5aTonmUQ87EIk1rxSvfxKpejhk756sOkyFi1KsKQrXe0tb
-	jBvPVEemmMFFMQBdkPSzXCySS6V19vokaqBLqjjBMl+VTc8xIrSXJss9XVMIng==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790144696;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2+Kd30g846HGZLOYEKmEAqtiOww49Ok9pxV3DLVIOME=;
-	b=W/stwqPggWUmbCpUFJnscKOc0QIPzP18qyVg/1kIFPtDjovrlEo8d1sPtw2LCCBlvM2PcT
-	hD8IIdb2TvIpOFCw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH net] net: gen_estimator: protect seqcount updates from
- hardirq readers
-Message-ID: <20260923062454.0W45uc5U@linutronix.de>
-References: <20260923032936.2020902-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="HVkc+PZP"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790144727; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=D9NFy7AB+YED6sFXcPgfcOz13XtdS9fxqd/Xeu4Y7fo=;
+	b=HVkc+PZPu59+mYYXlMuY5tKY9ldsfWN2T55xVYFYRdWr7TJAuXtLXcz8+7bZ5kxPSrWriZnUYqSuAI724NAxbJT6QnbGobNtIX3NdMhbofhalWvCcmci2KtUvgTf1k6KEi6gdKH8UwI2t3x79KlTx2ARZy3+BbejucAeMEkmFcU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=27;SR=0;TI=SMTPD_---0XBW5CM0_1790144724;
+Received: from 30.74.144.107(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XBW5CM0_1790144724 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 23 Sep 2026 14:25:25 +0800
+Message-ID: <c551f404-f3db-442d-b101-f21c78c502bc@linux.alibaba.com>
+Date: Wed, 23 Sep 2026 14:25:24 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260923032936.2020902-1-runyu.xiao@seu.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 06/19] selftests/mm: stop khugepaged during the
+ MADV_COLLAPSE cases
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Mike Rapoport <rppt@kernel.org>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Muhammad Usama Anjum <usama.anjum@arm.com>, Usama Arif
+ <usama.arif@linux.dev>, "Nico Pache (Red Hat)" <nico.pache@linux.dev>,
+ Zi Yan <ziy@nvidia.com>, Barry Song <baohua@kernel.org>,
+ Dev Jain <dev.jain@arm.com>, Hugh Dickins <hughd@google.com>,
+ Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Michal Hocko <mhocko@suse.com>, Ryan Roberts <ryan.roberts@arm.com>,
+ Shuah Khan <shuah@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, kernel-team@meta.com
+References: <20260919002451.496763-1-kirill@shutemov.name>
+ <20260919002451.496763-7-kirill@shutemov.name>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260919002451.496763-7-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2026-09-23 11:29:36 [+0800], Runyu Xiao wrote:
-> est_timer updates the estimator seqcount with preemption disabled, which
-> does not exclude hardirq readers on non-PREEMPT_RT kernels.  A reader can
-> observe an odd sequence and spin while the timer is interrupted.
 
-How do you inject a reader from hardirq? Isn't this meant for softirq
-context only?
 
-> Disable interrupts around the seqcount write section.
+On 9/19/26 8:24 AM, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 > 
-> The failure mode was reproduced with an x86_64 kernel under QEMU. A
-> test-only hardirq injection invokes gen_estimator_read() on the same CPU
-> while est_timer() is updating the sequence counter.
+> __madvise_collapse() turns THP off before each MADV_COLLAPSE, both to keep
+> khugepaged out of the range and to prove MADV_COLLAPSE ignores the setting.
+> It clears the global controls only, which is no longer enough.  A per-order
+> control overrides them, and -s, which makes the cases fault in folios of
+> one order, leaves that order's control at "always".  khugepaged then
+> collapses the very range the case is working on, and the case fails on a
+> collapse that was interfered with rather than refused.
 > 
-> On the unfixed kernel, the hardirq reader reports the seqcount lockdep
-> warning and spins until QEMU times out. With this change, the reader is
-> deferred until the writer restores local IRQs, then returns and the guest
-> shuts down normally. The hardirq context is deliberately injected to
-> exercise this interleaving; ordinary userspace traffic does not guarantee
-> it.
+> Clear the per-order controls too.  MADV_COLLAPSE does not consult them:
+> anon never did, and shmem stopped with "mm: shmem: ignore sysfs configs
+> for shmem forced collapse".
 > 
-> Fixes: 1c0d32fde5bd ("net_sched: gen_estimator: complete rewrite of rate estimators")
-> Cc: stable@vger.kernel.org
+> Fixes: b7f16963efe7 ("mm/khugepaged: run khugepaged for all orders")
 > Assisted-by: LLM
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
 
-Sebastian
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
