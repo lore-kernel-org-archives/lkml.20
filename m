@@ -1,193 +1,83 @@
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D7B334C1C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565A13A71A8;
+	Wed, 23 Sep 2026 23:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790207468; cv=none; b=ZPVfkVP35CzTfna+isy10WMDm5bJ2ogrnEkUI0djTl+17AfxiZZb8QTzyzGt/hF1YCmnpXIJjZ0PtuscybfXOi7EkSLDIVqjSe0t+KxzrpeUu+sdNlTAXomgUmsQrERTKSv8n4XREt+0QW9Y8iAF87X8tlyQu9wHBJW1yfI9zxQ=
+	t=1790207481; cv=none; b=dyAIsw8HKdqgtLVLItxpcBO52I2tf7kScb554q0FJuTQ5XVbSLKVFcCO2WwBWnFY0PNmFRge3flF6QqJlnq8w0S9jxrQ7HteXZNJRlDQTyc60taSY2m9vyIBvgOWUu90cNEiP+88zbudBTMA4i9YYaTfd31nN99pKxvkVUwIwk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790207468; c=relaxed/simple;
-	bh=VgbmQzkSocoxdOZDZi/gjzkF9LcNvq+8MxsAhKJwtGw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=oziXJBX16N7jCvYscNZTpoh/5rVNKyUx+iYptb/9pnVF07DV8I6pAL7o5gmk7z4CypOw2Odi0qBogACgIdrqXWTGLcJ3JvGeIYsiesh8dPRR75kOESev48smKqSryIxaMgtkBtyuugyvX9A3N4HqWzU2fPHZ/XZLJ+flFCt3Zik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CWE9ROJp; arc=none smtp.client-ip=209.85.215.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790207481; c=relaxed/simple;
+	bh=1e9LQbt+X6yyOphfcnXgsEW45Y592U08huJX51Uzf3M=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=W3mgmelwnXFSQgzIR+P4mnlAZ6RUwhz3wJHmoQ7qunWHtBfbe4gT5e5yrPhFBPF0aJjElqKOEXlQEX1QlzV2v9OHP1S21eqmWoXqGddx+n9JkA0bYHNrDdU3oVwk0vljoYjYBilHdSvqL4W46R8Q6pMles+JdB2aC4nivYrvPA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E13OI+yG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CWE9ROJp"
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4c1fc9ceaso807744a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:51:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790207466; x=1790812266; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZL0v8EpU+Yx8SlmaaQwfQoS5AEmcrF7Pnr1vJ2jpOzg=;
-        b=CWE9ROJpe7OTV9Bz6Wqse0ha/iHSesBvEre4oVE/PPVXeM2t6WlkTmKmjbOg+p8iOV
-         UN7Z1o6gnqCW1CYLBnH57qpI/sbd53Iyn/uhrHfOdpvvvW2jWq5CvrpfqOMoGHzp9rYA
-         fCsFchjd71Xk99NM/liKgF88vqPpuMPyzt1eHUSQcyNzC6Je5JBJRAXPmzZAI5gM+3R2
-         HollK8lj3hIeFhI3alvs7oXoznlLiQie+6nX8avPhftSovwCfP3zVgToX1XMBl/ilZy9
-         A2vlj+pLRqvno/CBDMRestSkrHTBhdp+8IchK2ic99UsJG2to2uZU2olWvJcgZoxGT15
-         cLDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790207466; x=1790812266;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZL0v8EpU+Yx8SlmaaQwfQoS5AEmcrF7Pnr1vJ2jpOzg=;
-        b=DESNEeii1SfdX+yjX4s2yMcORoxe3clVo6UNnDNyHSXOLJtRG5JzyHwJ9tE5poiSS9
-         VVl+5JkP3IdhSi+yGrlEHI8dt86BFkS+D8Cu04DOed7vj1tG+4BJGggJMrfgo/vJXCLM
-         xXWXo+SHJ4z2G7Cbkq5q2/PyWqiJMd91UpJZqarTbNj51XsVbDAYJ/NAsnMfGjrFyKGt
-         SuPTsXSZTccC/Dql5uDy4ezR50IRmB0hzTmKJTekUd1p0/C7BhSoUfehcxMLsodxB025
-         cOsSQQQSNef0QuvZWojE4UGHKoeJJdCi3G0TfnKJO37x7r2e2WEA+JTnHMvMY8IsEKMh
-         EsKA==
-X-Forwarded-Encrypted: i=1; AKwUvBwj4GPe0K4GQXl9JHBB+NfD9eV+HSEAFU/hg716p6RJsB0CDv4iOvgdHZEArbNg45wpsQhsNUqJ4O8evKs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiwxwlObXSAMB6dvHElV8C5SDIGGkYIqubXgTfisrR4mw8KKV+
-	uyA5wY/5F/xGpMGU8lYNTiuFQ30KQeaCxH4J1RS7SxxwjI3j/RFmCFbON4+bs5yW8PyotlyFl/9
-	TEHT5WA==
-X-Received: from pfbfr11.prod.google.com ([2002:a05:6a00:810b:b0:87b:c228:1bd6])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:3d81:b0:3cc:b26a:7686
- with SMTP id adf61e73a8af0-3de0e713696mr681743637.6.1790207465622; Wed, 23
- Sep 2026 16:51:05 -0700 (PDT)
-Date: Wed, 23 Sep 2026 16:51:04 -0700
-In-Reply-To: <8c9922a47e3044683322a5a8755fccca1a1a129a.camel@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E13OI+yG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E706D1F00893;
+	Wed, 23 Sep 2026 23:51:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790207480;
+	bh=mbCwRTgn9fV8AwDIlQlyn3JYMSLiwU3wb3k1ZoQIaaA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=E13OI+yGGfCKHoId8Otw2313St8xQBfbw6db25z0B1FvOLn7BUYOuTs7ubULB+oi3
+	 tc2A1pHHWdJKo3ATDSv7a8wuogmIZMMgRNPhPfIVFVws/nn2JjdTYt6ThrLylbqYUi
+	 Ndp8fJEdfbp7ui+8fYcpLBpalhYGVejMJCC8ZNnfN8gKa3gRLxcVzU4WCDXnbn3pzK
+	 u7MWDW2Xgczxxl9t73hk2gJoQrAGzryyLYc6Rzp1zc0u3ZAJMaVptxtiZWpvOMBhhP
+	 TtFzOD4uDC/dXwPcqUm7I7GTD4xwrjbKsN8qwmPEsiEPIgBIiGVkZMcucTkHL4ZJmO
+	 wIEtRXqQh1csA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D092E39E9602;
+	Wed, 23 Sep 2026 23:50:10 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260923163315.1580860-1-seanjc@google.com> <8c9922a47e3044683322a5a8755fccca1a1a129a.camel@intel.com>
-Message-ID: <arRl6HECqNVOL_cH@google.com>
-Subject: Re: [PATCH] KVM: TDX: Synthesize SHUTDOWN instead of returning -EIO
- on unhandled EPT violation
-From: Sean Christopherson <seanjc@google.com>
-To: Rick P Edgecombe <rick.p.edgecombe@intel.com>
-Cc: "pbonzini@redhat.com" <pbonzini@redhat.com>, "kas@kernel.org" <kas@kernel.org>, 
-	"jthoughton@google.com" <jthoughton@google.com>, 
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "x86@kernel.org" <x86@kernel.org>, 
-	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Yan Y Zhao <yan.y.zhao@intel.com>, 
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, 
-	"ackerleytng@google.com" <ackerleytng@google.com>, Vishal Annapurve <vannapurve@google.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] ppp_synctty: remove redundant skb null check in
+ ppp_sync_txmunge()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179020740939.999807.4999315153340387066.git-patchwork-notify@kernel.org>
+Date: Wed, 23 Sep 2026 23:50:09 +0000
+References: <20260920114945.2517-1-qingfang.deng@linux.dev>
+In-Reply-To: <20260920114945.2517-1-qingfang.deng@linux.dev>
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, jirislaby@kernel.org,
+ elfring@users.sourceforge.net, kees@kernel.org, linux-ppp@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, lkp@intel.com,
+ error27@gmail.com
 
-On Wed, Sep 23, 2026, Rick P Edgecombe wrote:
-> On Wed, 2026-09-23 at 09:33 -0700, Sean Christopherson wrote:
-> > Synthesize a triple fault, i.e. exit to userspace with KVM_EXIT_SHUTDOW=
-N,
-> > instead of returning -EIO from KVM_RUN if KVM encounters an EPT Violati=
-on
-> > due to a guest access to a pending page.=C2=A0 Returning -EIO implies K=
-VM is
-> > buggy, and most VMMs will respond by completely terminating the VM, ver=
-sus
-> > rebooting the VM in response to KVM_EXIT_SHUTDOWN.=C2=A0 I.e. give the =
-VMM the
-> > option of trying to keep the VM (from the end user's perspective) alive=
-.
->=20
-> Why not just return KVM_EXIT_SHUTDOWN directly when the pending ept viola=
-tion is
-> detected? The synthetic triple fault makes it harder to trace what is hap=
-pening.
-> I guess there is some centralization, but harder to trace.
+Hello:
 
-Because it didn't even cross my mind that that's on option.  :-)  This woul=
-d be
-a great opportunity to do some centralization, e.g. do the below, and then =
-use
-kvm_prepare_shutdown_exit() for this case as well.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-diff --git arch/x86/kvm/svm/svm.c arch/x86/kvm/svm/svm.c
-index f5aa3d7d3a10..34e5bc283479 100644
---- arch/x86/kvm/svm/svm.c
-+++ arch/x86/kvm/svm/svm.c
-@@ -2164,7 +2164,6 @@ static int mc_interception(struct kvm_vcpu *vcpu)
-=20
- static int shutdown_interception(struct kvm_vcpu *vcpu)
- {
--       struct kvm_run *kvm_run =3D vcpu->run;
-        struct vcpu_svm *svm =3D to_svm(vcpu);
-=20
-=20
-@@ -2188,7 +2187,7 @@ static int shutdown_interception(struct kvm_vcpu *vcp=
-u)
-                kvm_vcpu_reset(vcpu, true);
-        }
-=20
--       kvm_run->exit_reason =3D KVM_EXIT_SHUTDOWN;
-+       kvm_prepare_shutdown_exit(vcpu);
-        return 0;
- }
-=20
-diff --git arch/x86/kvm/vmx/tdx.c arch/x86/kvm/vmx/tdx.c
-index 7173ef3fc398..0faa7cfd0433 100644
---- arch/x86/kvm/vmx/tdx.c
-+++ arch/x86/kvm/vmx/tdx.c
-@@ -2091,8 +2091,7 @@ int tdx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t=
- fastpath)
-=20
-        switch (exit_reason.basic) {
-        case EXIT_REASON_TRIPLE_FAULT:
--               vcpu->run->exit_reason =3D KVM_EXIT_SHUTDOWN;
--               vcpu->mmio_needed =3D 0;
-+               kvm_prepare_shutdown_exit(vcpu);
-                return 0;
-        case EXIT_REASON_EXCEPTION_NMI:
-                return tdx_handle_exception_nmi(vcpu);
-diff --git arch/x86/kvm/vmx/vmx.c arch/x86/kvm/vmx/vmx.c
-index e8af5e57e1cc..5411eb7f3f26 100644
---- arch/x86/kvm/vmx/vmx.c
-+++ arch/x86/kvm/vmx/vmx.c
-@@ -5587,8 +5587,7 @@ static __always_inline int handle_external_interrupt(=
-struct kvm_vcpu *vcpu)
-=20
- static int handle_triple_fault(struct kvm_vcpu *vcpu)
- {
--       vcpu->run->exit_reason =3D KVM_EXIT_SHUTDOWN;
--       vcpu->mmio_needed =3D 0;
-+       kvm_prepare_shutdown_exit(vcpu);
-        return 0;
- }
-=20
-diff --git arch/x86/kvm/x86.c arch/x86/kvm/x86.c
-index 1705e7be46ec..e433aa7ee603 100644
---- arch/x86/kvm/x86.c
-+++ arch/x86/kvm/x86.c
-@@ -8082,8 +8082,7 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
-                                kvm_nested_call(triple_fault)(vcpu);
-=20
-                        if (kvm_check_request(KVM_REQ_TRIPLE_FAULT, vcpu)) =
-{
--                               vcpu->run->exit_reason =3D KVM_EXIT_SHUTDOW=
-N;
--                               vcpu->mmio_needed =3D 0;
-+                               kvm_prepare_shutdown_exit(vcpu);
-                                r =3D 0;
-                                goto out;
-                        }
-diff --git include/linux/kvm_host.h include/linux/kvm_host.h
-index 284fc7d68c60..d133ad33776b 100644
---- include/linux/kvm_host.h
-+++ include/linux/kvm_host.h
-@@ -2523,6 +2523,12 @@ static inline void kvm_account_pgtable_pages(void *v=
-irt, int nr)
- /* Max number of entries allowed for each kvm dirty ring */
- #define  KVM_DIRTY_RING_MAX_ENTRIES  65536
-=20
-+static inline void kvm_prepare_shutdown_exit(struct kvm_vcpu *vcpu)
-+{
-+       vcpu->run->exit_reason =3D KVM_EXIT_SHUTDOWN;
-+       vcpu->mmio_needed =3D false;
-+}
-+
- static inline void kvm_prepare_memory_fault_exit(struct kvm_vcpu *vcpu,
-                                                 gpa_t gpa, gpa_t size,
-                                                 bool is_write, bool is_exe=
-c,
+On Sun, 20 Sep 2026 19:49:43 +0800 you wrote:
+> The skb is already dereferenced before the check. In addition, a TX skb
+> passed from the generic layer can never be null.
+> 
+> Remove the redundant null check.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Closes: https://lore.kernel.org/r/202609132245.txZXoUxc-lkp@intel.com/
+> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] ppp_synctty: remove redundant skb null check in ppp_sync_txmunge()
+    https://git.kernel.org/netdev/net-next/c/1196e46f6d42
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
