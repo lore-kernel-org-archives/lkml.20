@@ -1,100 +1,60 @@
-Received: from mta0.migadu.com (out-248.mta0.migadu.com [91.218.175.248])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C4E334C3B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:30:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.248
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4030135DA5D;
+	Wed, 23 Sep 2026 01:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790127003; cv=none; b=P3v+8MmpRl+oPINnjXv+6CLynMNg19SJdV+QcdJltWSor9mtRVvp55qwlqjKz2iqyFC8yI5huZul4tQb+8JneaopyLr99q/AyOCQLNUZ3IIhZYYibcVeyjAnC43vzghJ6eFmnWTj5oXLVwGK+GFpAvSRB+BOxbWp9dX7z/uiw0U=
+	t=1790127013; cv=none; b=tGLT4yLinZ6PbVt9yoB687l7x4XHTBVbtANjg92Ij1qDHRWpyEg7fVPNgnp9Gw/5TLPgazVpe2ethKsGWIcEebcz/54SQF5M6CEFF904+htASFp3dAczlMXtVgbdEOcuEYX3DKmh8+EkvU5JiI9m5aKYFIhROtxY/m6eiverhvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790127003; c=relaxed/simple;
-	bh=dS5qUtvKQC1wRIgURnnfaocsTm6UxBc5fX4lBc2zSJk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gm3jgetaqAPvNwzm91ZIyjb6iKaCqlrYgT1oJj8UWSWUO45UygYu/E0tuJfSu9YSz/Sy3r8z07Q2PbCVHtcY7KSuzqZPIKwL4aMn77KM5xL20+rZNvyZMKTSGAMbBk/O37UvttNrr2Vz2dQAfKgkqlG1woeJKln5IsCE+/2ntjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FPNHYdsR; arc=none smtp.client-ip=91.218.175.248
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FPNHYdsR"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dS5qUtvKQC1wRIgURnnfaocsTm6UxBc5fX4lBc2zSJk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790126999; v=1; x=1790731799;
- b=FPNHYdsRYakN8DSQIJSZSihPd9eAZpPYqpkQhtXfXSPNoM7zM9RqvHcw3sTcKBYTh8ZNw/IG
- sqX1jy7+/QwAjokpc3r3s4oW4YrgjEGwaYtAeJXJCeADNX3GNirTuFCzykQWSv9CjnxEAw2PbDg
- pBfpI97D34nTwouoANKmQ294=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 380b12c68c1d1d35;
-	Wed, 23 Sep 2026 01:29:59 +0000
-X-Mizu-Trace-ID: 380b12c68c1d1d35
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 23 Sep 2026 09:29:43 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Gabriel Goller <g.goller@proxmox.com>
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2] net: ipv6: seg6: report lwtunnel setup
- errors via extack
-Message-ID: <arMrh_SqjKz2PqlR@fedora>
-References: <20260922090851.38978-1-g.goller@proxmox.com>
+	s=arc-20240116; t=1790127013; c=relaxed/simple;
+	bh=l6wavfWFqIPbHOP0VOBZlGD4ZV9dL1W6BaDPspxND4M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=G1a6tV15cIqCr0U65zzCEGlPhJKnC/1aTSwhmHqmh+F1Iq0U9Hoo+LiwyjAvaem9Uma7uqtILrM3SATvGKrggjpld58b6b1ix7D+s7cN2CcGEMh3T9flswrYfrVGATENYmjmXocrxB6RdTSu4BKcmgaq/cPqjnMPDKtOlOUOLu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 4ce5d14ab6ee11f19a56ed5b684f684d-20260923
+X-CID-CACHE: Type:Local,Time:202609230918+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:5577916f-1f5e-435c-8de0-25e55880b9c0,IP:0,U
+	RL:0,TC:0,Content:18,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:18
+X-CID-META: VersionHash:7db8b62,CLOUDID:30e527e91fb5a7723ef191353456febf,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:4|15|50|99,EDM
+	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 4ce5d14ab6ee11f19a56ed5b684f684d-20260923
+X-User: zhangheng@kylinos.cn
+Received: from [172.25.120.77] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhangheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1757878694; Wed, 23 Sep 2026 09:30:03 +0800
+Message-ID: <86bb39db-6602-4068-9789-e3c472fac591@kylinos.cn>
+Date: Wed, 23 Sep 2026 09:29:59 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922090851.38978-1-g.goller@proxmox.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ASoC: amd: acp: Add DMI quirk for Lenovo Yoga Pro 7
+ 14ASP9
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260922123029.534152-1-zhangheng@kylinos.cn>
+ <arKCdpOu3C85owdO@sirena.co.uk>
+Content-Language: en-US
+From: Zhang Heng <zhangheng@kylinos.cn>
+In-Reply-To: <arKCdpOu3C85owdO@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 11:08:33AM +0200, Gabriel Goller wrote:
-> seg6_build_state() rejected invalid configurations with a generic -EINVAL, so
-> "ip route add ... encap seg6 ..." always reported "Invalid argument".
-> 
-> Attach an extack message to each of them. The checks themselves and their return
-> values are unchanged.
-> 
-> Signed-off-by: Gabriel Goller <g.goller@proxmox.com>
-> ---
-> 
-> v2 (https://lore.kernel.org/netdev/20260918153544.1178884-1-g.goller@proxmox.com/):
->  * dropped tests
-> 
->  net/ipv6/seg6_iptunnel.c | 25 ++++++++++++++++++++-----
->  1 file changed, 20 insertions(+), 5 deletions(-)
-> 
-> diff --git a/net/ipv6/seg6_iptunnel.c b/net/ipv6/seg6_iptunnel.c
-> index 61c6a27bf202..e7f75970e26e 100644
-> --- a/net/ipv6/seg6_iptunnel.c
-> +++ b/net/ipv6/seg6_iptunnel.c
-> @@ -756,8 +756,12 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
->  	struct seg6_lwt *slwt;
->  	int err;
->  
-> -	if (family != AF_INET && family != AF_INET6)
-> +	if (family != AF_INET && family != AF_INET6) {
-> +		NL_SET_ERR_MSG(
-> +			extack,
-> +			"unsupported address family for SRv6 encapsulation");
->  		return -EINVAL;
-> +	}
->  
->  	err = nla_parse_nested_deprecated(tb, SEG6_IPTUNNEL_MAX, nla,
->  					  seg6_iptunnel_policy, extack);
-> @@ -765,8 +769,10 @@ static int seg6_build_state(struct net *net, struct nlattr *nla,
->  	if (err < 0)
->  		return err;
->  
-> -	if (!tb[SEG6_IPTUNNEL_SRH])
-> +	if (!tb[SEG6_IPTUNNEL_SRH]) {
-> +		NL_SET_ERR_MSG(extack, "missing SRv6 SRH attribute");
-
-I think we can use NL_SET_ERR_MSG_ATTR.
-
-Thanks
-Hangbin
+Since this commit was only from the author's side and doesn't link to 
+any URL, it's also hard to determine whether it was placed in the wrong 
+location.
