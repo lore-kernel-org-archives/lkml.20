@@ -1,155 +1,137 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE359442396;
-	Wed, 23 Sep 2026 09:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FAAA3E5EF8;
+	Wed, 23 Sep 2026 09:24:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155304; cv=none; b=jaBfXDGzHwWl2UwAemHLvKOFMJM1gTB1BFcqDL2UFDVnDDqlakPn6y9XYDSnhBYuiSaCOGYp4Y5eHQEwVlY2CQhn/Zfe90xm6BfyJMQOLu5epHo9SlCMi6pbSZ5ISVHgQ/+qHFSMMq3ux//kgDvk7V2pcrfvx1/e6un+zOXY6yg=
+	t=1790155493; cv=none; b=RmEfH7qjn+baPqMqTFiLEFElQLqE2tkAAePDHpnIl/c2+sInpRR72IQZtkuMZH/DX8kH+vo7mUji6xPDRg9O3po8WdFfyFcTGpbFF4aS8W5RJF3O+ut6nprAS4yobJffBJPerkNNRX7BjmdSuCbjc3eUgr5XIVl879qXwMZaM+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155304; c=relaxed/simple;
-	bh=oAixXAnaQxinHHkQ/rby2Wk4rk6fMGCMkLTBcOV+IsU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=thOXBgDfR2EAO84JTDg/w27t4pM5aJwxzZyO+MgUchdJSShVqEmcUi23r7XOd1YdBoFbgku4wVIUSEgCCT0zNFNaFC4Z0acwpQvSaHR5s0xzHlCPI0lS2kb6uAAdOnsAzfxEe8oBnvff880WI/1ZwHf04cPd6nVwz1QluyrxDJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=hsV1VpEI; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790155493; c=relaxed/simple;
+	bh=de5fgle82bLILPDmswSi2vb3mLGL++T0W8W0EDiaSr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uq/wqz4kWrgaJJaWIJ07toKo+e/D3E5jgkZCzaXNuFkGwDhtj/HmY4OagzoxiA84yO9KzH9PpjLmQUJ9vZc++HdZk1VW9t/o2JSco31WsJk1+LdLeGOU1bmnLVV9FZf2CiW5NiOnujeT/5ktB+vZzKGoalGTK5jatCARmyrEFlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lf/HJYmS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="hsV1VpEI"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hqWgP6fWWzMlcN;
-	Wed, 23 Sep 2026 11:21:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790155297; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oAixXAnaQxinHHkQ/rby2Wk4rk6fMGCMkLTBcOV+IsU=;
-	b=hsV1VpEIcbfAY97859a01N4NfGJ1qfkYQ3qQDzvGI09N3qFlULRneVEir627XR5eolXIdw
-	5RrkkOPWp5H54LzL4Sp4h9TtXn+DVUxJ93vxkHhohRl6y+c8A7t9HDNYWHRBwIi0fz54Gy
-	lpGV3DMWLLVkxnDIxpS0DH44l61v1dDjoGR6ZMdDJty4cyNwwq6c1xkXWW6vV9pXOe6vPA
-	/bl/H+fjLKLagm13Z3OMmuWLqS5hiQaBMtdyQphynQz305m6osjNHtIv3BN3eLNsQCeMZy
-	gUpBOavYW/2suWPmXnP0lEdKHEb0QDbhExZioHGGa/oLmVFFiEzVceATJr7GnQ==
-Message-ID: <ffad51ef7d5f20d21396c84362fbdd2ac5883116.camel@mailbox.org>
-Subject: Re: [PATCH v11 1/2] rust: Add dma_fence abstractions
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
-	 <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Daniel Almeida
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=	
- <work@onurozkan.dev>, Sumit Semwal <sumit.semwal@linaro.org>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>,  "Yury Norov (NVIDIA)"	
- <yury.norov@gmail.com>, Asahi Lina <lina+kernel@asahilina.net>, Burak Emir	
- <burak.emir@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, Joel Fernandes	
- <joelagnelf@nvidia.com>, FUJITA Tomonori <fujita.tomonori@gmail.com>, Boris
- Brezillon <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org
-Date: Wed, 23 Sep 2026 11:21:26 +0200
-In-Reply-To: <DL9AEUZ4VGV5.2RT33JE0MHYME@kernel.org>
-References: <20260905085343.1827305-2-phasta@kernel.org>
-	 <20260905085343.1827305-3-phasta@kernel.org>
-	 <DL9AEUZ4VGV5.2RT33JE0MHYME@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lf/HJYmS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F05E1F000FF;
+	Wed, 23 Sep 2026 09:24:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790155491;
+	bh=rLKRb8Y4+nISCnQaxnX4ctxBf/lcPEd8M1PAoqnsICk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lf/HJYmS7UTiPzh9amAhYD2S1aZFVo3LNH5rJLGdyYuILAzd5aGZtD7Z+A88a9tmL
+	 hHM6MECEikQkwhUsVWW9OiN+brnRisqJ9m4BU9synUw13IBOU89ZTDelvYTT+MbfCr
+	 YHCOAWS4p2NquBk89ID0zbIa8fuQleDE9KqU4RAhKfHJPAKRRbVI/pQHilGVcicP07
+	 EW/UgyDgmSBMmHsdSA0fJ+c0tZ/MA4+6VdDCVG/bt0KetNYvzUPxCl4XaT+mMKf/Jf
+	 B1arbqfvaLL4O7tkudrCw1fmUe8fqQeMQ5Yhy/QP0Sg91jXC39kkSIBIAWf4RbKs6W
+	 EnUBG7zakOYgg==
+Date: Wed, 23 Sep 2026 12:24:43 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Dave Young <ruirui.yang@linux.dev>, linux-mm@kvack.org,
+	linux-s390@vger.kernel.org, kexec@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>
+Subject: Re: [PATCH] vmcore: convert mmap_vmcore_fault() to use folios
+Message-ID: <arOa28u0tRZ-jGYi@kernel.org>
+References: <20260915-vmcore-fault-folio-v1-1-a0cb6278670f@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: ee915ba95aed2083b9c
-X-MBO-RS-META: gc4f65s5boyqeb8nrisbs9xnw697ra6q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-vmcore-fault-folio-v1-1-a0cb6278670f@columbia.edu>
 
-On Mon, 2026-09-07 at 20:14 +0200, Danilo Krummrich wrote:
-> On Sat Sep 5, 2026 at 10:53 AM CEST, Philipp Stanner wrote:
-> > +impl<'a, T: Send + Sync + FenceContextOps> Drop for DriverFence<'a, T>=
- {
-> > +=C2=A0=C2=A0=C2=A0 fn drop(&mut self) {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let guard =3D self.as_fence=
-().lock();
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // Use dma_fence_test_signa=
-led_flag() instead of
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // dma_fence_is_signaled_lo=
-cked() because the C backend wants to get rid
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // of the latter.
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `guard` is valid=
- until the `call_rcu()` below.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let signaled: bool =3D unsa=
-fe { bindings::dma_fence_test_signaled_flag(guard.as_raw()) };
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if !signaled {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_=
-err!("DriverFence drops unsignaled. Danger of memory corruption!\n");
->=20
-> I'm not sure we want to keep this as pr_err!().
->=20
-> If we really want to keep warning about this I'd either make this a WARN_=
-ON() or
-> dev_warn() (we can easily store a device reference in the fence context),=
- such
-> that it is at least clear who's the offender.
->=20
-> My preference would be dev_warn(), as I don't think it is that bad of an =
-error
-> condition to begin with. It would be pretty odd to have a driver where a =
-DriverFence
-> drops while the corresponding GPU job is not dropped. And further it'd be=
- pretty
-> odd if dropping the GPU job would not imply that the GPU actually stopped
-> processing the work associated with the job.
+(cc s390 folks)
 
-Yeah, it would be odd. I would not expect it to happen. But many things
-have happened which I did not expect, so =E2=80=A6 :)
+On Tue, Sep 15, 2026 at 07:42:15PM -0400, Tal Zussman wrote:
+> Use a folio for the page cache page the s390 fault handler reads the
 
->=20
-> For the same reason I also think it is a bit misleading to say "Danger of=
- memory
-> corruption!". It's not the signaling of the fence that does prevent memor=
-y
-> corruption; it's the driver implementing a proper teardown sequence. And =
-if this
-> sequence is structurally detached from the lifetime of the DriverFence (a=
-nd Job)
-> structure, something is structurally wrong with the driver anyway.
+I tiny bit of context why is this only relevant for s390 would have been
+nice :)
 
-Hypothetically, it could mean that there is a forgotten job still
-running on the GPU, which might then access freed resources through
-DMA. Sure, that would mean that the driver is fundamentally broken, but
-that's what warnings like that are about.
+> old kernel's memory into. This removes four compound_head() calls and
+> one of the last callers of find_or_create_page().
+> 
+> The vmcore mapping only has order-0 folios, so the logic is unchanged.
+> 
+> Compile tested for s390.
+> 
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
+> This is based on the kexec-next branch of the liveupdate tree.
+> ---
+>  fs/proc/vmcore.c | 27 ++++++++++++++-------------
+>  1 file changed, 14 insertions(+), 13 deletions(-)
+> 
+> diff --git a/fs/proc/vmcore.c b/fs/proc/vmcore.c
+> index 44d15436439f..2dc3803aa11d 100644
+> --- a/fs/proc/vmcore.c
+> +++ b/fs/proc/vmcore.c
+> @@ -474,29 +474,30 @@ static vm_fault_t mmap_vmcore_fault(struct vm_fault *vmf)
+>  	pgoff_t index = vmf->pgoff;
+>  	struct iov_iter iter;
+>  	struct kvec kvec;
+> -	struct page *page;
+> +	struct folio *folio;
+>  	loff_t offset;
+>  	int rc;
+>  
+> -	page = find_or_create_page(mapping, index, GFP_KERNEL);
+> -	if (!page)
+> +	folio = __filemap_get_folio(mapping, index,
+> +			FGP_LOCK | FGP_ACCESSED | FGP_CREAT, GFP_KERNEL);
+> +	if (IS_ERR(folio))
+>  		return VM_FAULT_OOM;
+> -	if (!PageUptodate(page)) {
+> -		offset = (loff_t) index << PAGE_SHIFT;
+> -		kvec.iov_base = page_address(page);
+> -		kvec.iov_len = PAGE_SIZE;
+> -		iov_iter_kvec(&iter, ITER_DEST, &kvec, 1, PAGE_SIZE);
+> +	if (!folio_test_uptodate(folio)) {
+> +		offset = folio_pos(folio);
+> +		kvec.iov_base = folio_address(folio);
+> +		kvec.iov_len = folio_size(folio);
+> +		iov_iter_kvec(&iter, ITER_DEST, &kvec, 1, folio_size(folio));
+>  
+>  		rc = __read_vmcore(&iter, &offset);
+>  		if (rc < 0) {
+> -			unlock_page(page);
+> -			put_page(page);
+> +			folio_unlock(folio);
+> +			folio_put(folio);
+>  			return vmf_error(rc);
+>  		}
+> -		SetPageUptodate(page);
+> +		folio_mark_uptodate(folio);
+>  	}
+> -	unlock_page(page);
+> -	vmf->page = page;
+> +	folio_unlock(folio);
+> +	vmf->page = folio_file_page(folio, index);
+>  	return 0;
+>  #else
+>  	return VM_FAULT_SIGBUS;
+> 
+> ---
+> base-commit: 4d17a004cfd5489f88ad0a7a151dea11a533338b
+> change-id: 20260907-vmcore-fault-folio-4b382eeff262
+> 
+> Best regards,
+> --  
+> Tal Zussman <tz2294@columbia.edu>
+> 
 
-Just to ellaborate on my thinking. I wouldn't insist on any wording.
-From my POV we can just say "=E2=80=A6 drops unsignaled.". That should be
-enough.
-
->=20
-> Furthermore, it would be very natural to just require the generic Job typ=
-e to
-> own a DriverFence. In this case it becomes natural to either signal the f=
-ence on
-> Job completion, or just drop the Jobqueue, which does the ring teardown a=
-nd
-> subsequently drops all the Jobs, which would also imply signaling the
-> DriverFence with ECANCELED. I.e. I think the fact that the DriverFence is
-> signaled with ECANCELED if it is still unsignaled should just be an API c=
-ontract
-> and not an error condition.
-
-Yup, with the JobQueue design I have in mind this error is largely
-impossible, just as the forgetting of DriverFences is. Which is why I
-think it's a good design idea to have the JQ own the jobs, isolating
-the driver from direct fence interaction.
-
-
-P.
+-- 
+Sincerely yours,
+Mike.
