@@ -1,130 +1,109 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE5534C134;
-	Wed, 23 Sep 2026 01:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF61035201E;
+	Wed, 23 Sep 2026 01:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126878; cv=none; b=tS/+6AYUsn1TrJLGz219eolNHU/VeybcKro5rIj7mFJKzkoXPcbGSQf+uMp0YOYbUfVhBzSvPcP6gARvOogOAKQjvX32sjdLFS/Uq63wnZIEytc3lGFPDHHNO1U0LUDlSa6CzDzdhIyODm8HgYGGbAfrtN2CNkZbClbG6/zSJv0=
+	t=1790126880; cv=none; b=tWj70VZtJ32vfd8aWo1GI3clptjcQLvUhi+dh5QEdAhaKjhV6QjcJ5LDem94XwCZsEKxGOZeBBVvzcvdsff6yX9rlZ7jj8wigK2vIaeyj7RlccYuctGTAv05QVrCml7kEhDUyF/7yeG+092HZ00N+SrXfJt8Fp+7yb+Jh7b2qWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126878; c=relaxed/simple;
-	bh=mW3Vkfkxjp+H+5FmxGrHaec7y+NgR5m7QC1Xm8DDNl0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YuWZv/3EivE0FeqYkeqgKCnUpgEaSnvc6tGljq2NrKfrVu8EKeXlACBrVaeOHRgCinsigW9E49ncFCoddKvX3X+giXC//RiyHwCEZksPAQDQz8FeGIcSNYu8r7hpXRaRpGKaTEObZ8ZbHSebr+G7sBR6C6oJqXSA+iWt/TH0+Mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=MenRviod; arc=none smtp.client-ip=115.124.30.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1790126880; c=relaxed/simple;
+	bh=WKcoTnwMJFiFv+GpNXt4XtPv6Oatkbi6NTanAKwNOGY=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=jkTx83qG7VElGu/U7IH0oLevEzfp+tpuB5J5bBJU4CZQJjHCSrGDxqeHMd/CaYgTiiziD0D3n0K9Npues3T8S5mOC16QbdYlB4lTjhF7arOC6adJmyHqkG7sWrtJoUCInYCSpKQ8p6eyht09+6CVgwYP2Qvu7uvnhctmpXnrC10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jZR0OVn3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="MenRviod"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1790126872; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=cD1YZ/WyUkw2qCPI2vFSMU0Kjpp4BrTGZOfKp+4KDFA=;
-	b=MenRviodAWpyhOyywxWe8gbb1EHKmmTfKjmXOyTxfs6GqaYywmHvMmrEOsVgYw0pYzdjtYO0Q+jgm6Cs40RFWIAyNKGN31sGrlPFhfRonOaT/dmuMCR53egmpjHmRhtBt2AD2HIM3LJceiYwSdu4A4WA++t/nOKq++iswDlcnU0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XBVIAlL_1790126871;
-Received: from 30.170.56.46(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XBVIAlL_1790126871 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 23 Sep 2026 09:27:52 +0800
-Message-ID: <c83f90ca-6712-4c84-8417-451cef65567e@linux.alibaba.com>
-Date: Wed, 23 Sep 2026 09:27:51 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jZR0OVn3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94AB31F000FF;
+	Wed, 23 Sep 2026 01:27:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790126878;
+	bh=vtTioKgjHBGaolMLsnfiP8LN2ht5fmSkFnpoSB2RmW0=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=jZR0OVn39v7qAw8XLTzpHzegyFJvJflLoJJr+315bWpioWos+n3jSqMhCd/p+1yB6
+	 WyN457BgC4SdLulZVvIuqtyy5jaKECIdGshXms16SR/BwI8j9J69Lvw/Jy0n2WYRwg
+	 d91qvS7/DSY2N7Gk7+L8Sg4L7BtlwH8bbgllbBgKlKvX1WC2BX2ZO+xaGCG1+WJrzf
+	 yAMtSZhXzhC/S98SbiQaVuTIv5cUHPXUzMNqy6nev8W64L980c693Ilk/f6wqccVFk
+	 Rw7EqAu1di70FIJoEvbEWNUEPZg7Iw7/pacVFWgBnsETdBZ7f0b17NAYwBadZ3fUHO
+	 z7KSyzVQvl20w==
+Content-Type: multipart/mixed; boundary="===============0936865111618100228=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: fix array out of bound access in
- __ocfs2_find_path()
-To: Giorgi Kobakhia <gkobakhi@asu.edu>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
- Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org
-References: <20260922202159.2421642-1-gkobakhi@asu.edu>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20260922202159.2421642-1-gkobakhi@asu.edu>
-Content-Type: text/plain; charset=UTF-8
+Message-Id: <9552c77f5b41d3ad38b9b65ad54e5153cb959725cdf2bd19097e0021b970df5a@mail.kernel.org>
+In-Reply-To: <20260923004243.969919-3-sh_def@163.com>
+References: <20260923004243.969919-3-sh_def@163.com>
+Subject: Re: [PATCH bpf-next v3 2/2] bpftool: Fix sparse CPU IDs in prog profile
+From: bot+bpf-ci@kernel.org
+To: sh_def@163.com,bpf@vger.kernel.org
+Cc: qmo@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,linux-kernel@vger.kernel.org,sh_def@163.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed, 23 Sep 2026 01:27:56 +0000 (UTC)
+
+--===============0936865111618100228==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
+> diff --git a/tools/bpf/bpftool/prog.c b/tools/bpf/bpftool/prog.c
+> index 000774835b10..24e40dfab469 100644
+> --- a/tools/bpf/bpftool/prog.c
+> +++ b/tools/bpf/bpftool/prog.c
+
+[ ... ]
+
+> @@ -2394,6 +2397,7 @@ static void profile_close_perf_events(void)
+>  		close(profile_perf_events[i]);
+>
+>  	free(profile_perf_events);
+> +	profile_perf_events = NULL;
+>  	profile_perf_event_cnt = 0;
+>  }
+
+This isn't a bug, but is the new 'profile_perf_events = NULL;' needed
+for the sparse-CPU fix, or would it read better as its own patch (or at
+least a changelog line), since the rest of the hunk set is about CPU
+IDs?
+
+[ ... ]
+
+> @@ -2486,6 +2491,10 @@ static int profile_print_and_cleanup(void)
+>
+>  	close(profile_tgt_fd);
+>  	free(profile_tgt_name);
+> +	free(profile_cpu_ids);
+> +	profile_cpu_ids = NULL;
+> +	profile_cpu_cnt = 0;
+> +	profile_cpu_id_span = 0;
+>  	return err;
+>  }
+
+[ ... ]
+
+> @@ -2589,6 +2600,10 @@ static int do_profile(int argc, char **argv)
+>  		profiler_bpf__destroy(profile_obj);
+>  	close(profile_tgt_fd);
+>  	free(profile_tgt_name);
+> +	free(profile_cpu_ids);
+> +	profile_cpu_ids = NULL;
+> +	profile_cpu_cnt = 0;
+> +	profile_cpu_id_span = 0;
+>  	return err;
+>  }
+
+This isn't a bug, but could the 'profile_cpu_cnt = 0' /
+'profile_cpu_id_span = 0' stores be dropped, given nothing reads them
+after either return and the adjacent statics (profile_tgt_name,
+profile_obj) are left alone?
+
+[ ... ]
 
 
-On 9/23/26 4:21 AM, Giorgi Kobakhia wrote:
-> __ocfs2_find_path() walks down the extent tree and records path by calling
-> find_path_ins(), which appends entry to path->p_node[]. It only has 5
-> spots.
-> 
-> A corrupted ocfs2 image whose extent block is pointing to itself causes
-> __ocfs2_find_path() descent endlessly, writing past the end of
-> path->p_node[] array.
-> 
->  UBSAN: array-index-out-of-bounds in fs/ocfs2/alloc.c:677:14
->  index 5 is out of range for type 'ocfs2_path_item [5]'
->  Call Trace:
->   <TASK>
->   find_path_ins (fs/ocfs2/alloc.c:677 fs/ocfs2/alloc.c:1914)
->   __ocfs2_find_path.constprop.0 (fs/ocfs2/alloc.c:1882)
->   ocfs2_commit_truncate (fs/ocfs2/alloc.c:1924 fs/ocfs2/alloc.c:7286)
->   ocfs2_truncate_file (fs/ocfs2/file.c:515)
->   ocfs2_setattr (fs/ocfs2/file.c:1224)
->   notify_change (fs/attr.c:556)
->   do_truncate (fs/open.c:68)
->   do_ftruncate (fs/open.c:194 (discriminator 1))
->   ksys_ftruncate (fs/open.c:206)
->   __x64_sys_ftruncate (fs/open.c:211 fs/open.c:209 fs/open.c:209)
-> 
-> Commit a406aff8c051 ("ocfs2: validate l_tree_depth to avoid
-> out-of-bounds access") already restricts el->l_tree_depth to be less than
-> OCFS2_MAX_PATH_DEPTH, which is equal to 5. However, does not handle the
-> infinite descent case.
-> 
-> Check if the el->l_tree_depth decreases on each descent. Maximum
-> descents are restricted to 4 and the path->p_node[] array does not
-> overflow.
-> 
-> Fixes: dcd0538ff4e8 ("ocfs2: sparse b-tree support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Tested-by: Xiang Mei <xmei5@asu.edu>
-> Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Looks fine.
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-
-> ---
->  fs/ocfs2/alloc.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
-> index be09e766ac1f..c85a472965d5 100644
-> --- a/fs/ocfs2/alloc.c
-> +++ b/fs/ocfs2/alloc.c
-> @@ -1817,6 +1817,7 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
->  	int i, ret = 0;
->  	u32 range;
->  	u64 blkno;
-> +	u32 prev_depth = OCFS2_MAX_PATH_DEPTH;
->  	struct buffer_head *bh = NULL;
->  	struct ocfs2_extent_block *eb;
->  	struct ocfs2_extent_list *el;
-> @@ -1824,14 +1825,16 @@ static int __ocfs2_find_path(struct ocfs2_caching_info *ci,
->  
->  	el = root_el;
->  	while (el->l_tree_depth) {
-> -		if (unlikely(le16_to_cpu(el->l_tree_depth) >= OCFS2_MAX_PATH_DEPTH)) {
-> +		if (unlikely(le16_to_cpu(el->l_tree_depth) >= prev_depth)) {
->  			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
-> -				    "Owner %llu has invalid tree depth %u in extent list\n",
-> +				    "Owner %llu has invalid tree depth %u in extent list (max %u)\n",
->  				    (unsigned long long)ocfs2_metadata_cache_owner(ci),
-> -				    le16_to_cpu(el->l_tree_depth));
-> +				    le16_to_cpu(el->l_tree_depth), prev_depth - 1);
->  			ret = -EROFS;
->  			goto out;
->  		}
-> +		prev_depth = le16_to_cpu(el->l_tree_depth);
-> +
->  		if (!el->l_next_free_rec || !el->l_count) {
->  			ocfs2_error(ocfs2_metadata_cache_get_super(ci),
->  				    "Owner %llu has empty extent list at depth %u\n"
-
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/35804155043
+--===============0936865111618100228==--
