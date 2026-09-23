@@ -1,64 +1,64 @@
 Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4053F53B33F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:49:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 572CD53F6A7
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:49:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174992; cv=none; b=ctsWtUPU/ImQ8uGOfVzeyIdk7ichg/NzWoq5oluCiknx4ZKTDRXHFJhfomTcucv6WUuRiPx2GWjK6ijAX/jl+1ILJBpElxHaExAr/H/JvmjYeU9GcYcaUTTroHsnD4070KU7Eiw5wI/nC5icaL2uktiUBqijq9MiP1AyAbMQxV8=
+	t=1790174995; cv=none; b=hmTfaCSZ7frE1j1KnjlvWQfTq9f9pfIRqyk9U88wnp2H+dAaJIj6qNGz6Iu+c+N5O1HYW0MYEaFG7URkrKVksXM/XrcYNgZJ24F9sEbz3U1wedNdQcok8PNevPB2MQ5jALNcwAAl4jEViidZZsIKemlD2NsLF4TqL27f4IkfpbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174992; c=relaxed/simple;
-	bh=D7CW/L5x2Wzbfvs/Ry3HQFjuRxjKXKVxOFbyRvCgGRs=;
+	s=arc-20240116; t=1790174995; c=relaxed/simple;
+	bh=xJdKepmRpAoz1zQFvIxmXfvUfRSmnb1JsW+eRmMFwSU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CkFgQ1f7z1vpPHLV9s57YiYUqiwKPqzjwqyWKlaO0DGs1hSUWCMbbGx2BGZW1Tq4mVyZp4CiFyWTQp6UhVOwOYH4T4PfnQdvziT+bFmqmv2wbSHIDR1qV8aei8vGf0ymTaEN7gcircZ+9Xj6Fmz6YgnqRE5+ISKbsttNbki+axw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NKG+MpJL; arc=none smtp.client-ip=74.125.227.141
+	 MIME-Version; b=IwR2bJU5pdByU5eQ52aPnzq0A1CsCKdl0x544uScdyipu62YUxsGBwZxKpJxHRj0+n636KYOFE2KLp/7iilQGFtdDWNVRcYEKCEd1kkVl4aGiUg/xaJhvclXsdjJUKtfzkqTwNAipJyFtzPjyhAkYdh03FfknTeBtU22bwyjPd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mqs008B0; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NKG+MpJL"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso856462a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:49:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mqs008B0"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so469256a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:49:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790174990; x=1790779790; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790174994; x=1790779794; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oxVNMYiWuEb3uiOivIQYfnI77XxUaLJxdPfRt2FjCgs=;
-        b=NKG+MpJLYc+AHT22Yc4AL9pyNPXqb8U8akuel0SkFCsJrRVlUC53H5YBYZOWqUr0vT
-         91hBD0+J34R2DYsoWF2XNLoUlULxxp9FssJrevk+mWkfHXm7hlZdA+e8yVhMaw91Vgyo
-         kMgd5CiKtaAYnmjA7+Mj5a8KnwOQ7G6zoavKfWry4AsjzCbjBDyLjFnzWFWJ+syE41YE
-         gs+PL0HtfErNhf/cHFVZCtJ7GJ7Ek12e+hBkk/I/MlzzwXegP+9HkUxbs00WMfimN9fj
-         yt8P6ZUwq0tX1en+byzEvURWv3UKIRBj+6mcx+iGaTJoUnvSgaAafp10RgaKYtn9IGWx
-         pNlg==
+        bh=JjR07HVq5pYhUmwpsgEGWXdyXHF+ofIQx2iCJm+Z1l0=;
+        b=mqs008B0oH2utC7g7dz1vj31Sy10v3bGiB5F/Nae2ELECmkplwwjwPT18NVenOGiMd
+         k9aXFDeMzE1kYyt/f/HTtmrogGk4zjBLXG/8t8KbVlyyyoOZoykV1Y8uZ2W7g83xfQgp
+         f2pUtD8foSxoSbHv+wTBRxXlcenPGVp85gf5MXiCC4xAQkxZsv3VbwDQffwYLlZTl0+Y
+         DqNT/m/DmZcskmDAQT19duZZe3HO0jDkmMjCslsZJbwZtkr4nsl83L1p7cfpBWYb48ID
+         of/+0FJXgJlgkY227EoRFoBBpRM9JSn9ZcuucprkymTgEszzEl6nm7arJYEFkdOuFUz5
+         oQ6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790174990; x=1790779790;
+        d=1e100.net; s=20260707; t=1790174994; x=1790779794;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oxVNMYiWuEb3uiOivIQYfnI77XxUaLJxdPfRt2FjCgs=;
-        b=QqVRgqFKQFbCmw+la6oABRW+075VRsf0HsY3xwUThLZqRvmWO5HiOiiIGRcPWbtc9v
-         Pb1WaofB8FpJYT1K8RCe17qIZz+cfWx9ibuZ+zhs5dCBc1AD71Q6XjD4fUDw4myWdT8x
-         UDT6GG0QpOOl8W8WcY7rrXp+bedTmQ9j+FtcVVswpTkBmu3c4aGtdgX3y2zRH0+UKd6q
-         sErYQt3WOlGvn9mvmhlsWLJl4G1qzYYc2P3kmvQftToaQSnoCWF4hkg9FBq3u6B/mPrw
-         ASlAB5el698mOJHvsi1QvKjXkYwh0qSxgjpDbLxTRSKLwawwNwLfcI1a9rVV5W24MzO2
-         zA8w==
-X-Forwarded-Encrypted: i=1; AKwUvBxGwyevKbBMwhVFGzmjI5Tx21JfGDoB6F7cMYD0daBHwHfXl6ik3pNnoQVjsFxSb7lHqhybFkrsIX0V1BY=@vger.kernel.org
-X-Gm-Message-State: AFuF++naqRAdJLfphYVdUV3viqwNl2b+rcRwOxqwlT6053+ovdCoyq1u
-	QKU7dhJzxfZkGobQ5+D6mt9yOeh5aKmrpAxpap1qwxQp8ioMB4+39fXd
-X-Gm-Gg: AYBFou0+myIl37So3pltkSzO4DcSpXvZmydURZVx+F99kRvqDGs52CvoD76ZunFCPan
-	qijcnk7jO/COtmZ9UCnvjSs7IEaEJRtWVmWwVmbv8lMu2qRcaxxWCEZ9YpHSAXZDOUNy3b9+WDB
-	42XUDG1G/LUDX+nXNrMlvULwaSNPjgVW4ll7L2H7vu04lOtXJIITWg4vd4etMs6d6mvisVTSAnA
-	UGXAb0k1sY4U0JjwPIhGtSGSPRswonKRc1nl1Fmn+CV4+oopUsBlg0lidYDeR5Z2wBHcsnTRo/d
-	xwauzVVpOhLVmGKWIshSsYtdNsmyejpHzELBosyFBa3SoHhjeMmHvRUR69oytF8fEtOlc9zl1Vk
-	H/XvfrkifY78ZsOHSRTEQS1LGSTIUbYHs89KqKgtqbR0LFk0nRs1YQWXpBDp8Ej3kc/JnWJ3Mkd
-	Ug34gCRO320eaM5oMuhUUseflHFBYI088ZLrT4iqmPkK0k3L2cvHdp3deaOZxaYN3H99j0BKyAh
-	TxV3SEu36UAUMwox46iZA==
-X-Received: by 2002:a17:90b:3811:b0:39e:6c69:9b91 with SMTP id 98e67ed59e1d1-3a07e69fec5mr2606939a91.54.1790174990257;
-        Wed, 23 Sep 2026 07:49:50 -0700 (PDT)
+        bh=JjR07HVq5pYhUmwpsgEGWXdyXHF+ofIQx2iCJm+Z1l0=;
+        b=AaJryLeyhAF2nbNUA1JPr4Heesql+oR76K4ApYBuBaY78aBi5fb22v+f8tA2YqkDT3
+         1dNgyMKUzb0Fdl2gdjOhVeQ/6RS+oOI8wIyD/lbYZgJat4s83fygU9fLXnbQaCvPaUF0
+         iH17EqmL0HOE4XSN9XX/dScPI/d35fF43eXLNBiINm8LGcZ2R3YXFpi0phCNhpf945JY
+         GL9x9bPeYyF8BiDq+2m4xrexxRNGu+zN6kG6nUAkF3HEe60fQX0ciPkJwR/+61NeHLuF
+         wM6dbtfNumwbyg2TPozrmoQMtQ2/tlKRjlxnWhLVIS9SwNNWZEOHRSrSeORZ7kps9nl6
+         VjBg==
+X-Forwarded-Encrypted: i=1; AKwUvBwAVn1t4a9Ajnb315X4HcYeMsVytqN3Eb6zcoTHOizPv1q6heVsqBa0m1S+XBjK3kRCl7dSraPDvT4Lxek=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK4le/1l3Pni8nXrhTvCUJ6bx8iIkK8Jf7xsXi/zvCU1OFYCxd
+	piAvj6ihnBxntnY+hNAO2g0+16n4Xz+fmGO7ZQOmTbsF0lnHNy64+I4P
+X-Gm-Gg: AYBFou2jOs+1cWGyLmBeE8h27CZuoajHsaoDDEaGqopk5Rd53BgP8CeH2MaOo/Xi0zN
+	/uCsbVzdUoQxVfHhz0CI6cRL8yiR/fPbqckXASVuBoHruzaF/4xG394Yc2ptgqdFq5NPWRsQ7zF
+	iNw9/82/diwTbuJJ3oqSxp2TmZ78NKvwzs2GuJxRr7sqdgwBGwMqg29GhzbRQEVqdD+NknbWuok
+	g0s80wb8aiX22I2WFradkOc0nf/ERN0eupFboEUgAg3egnA8jXjSXP+2U8PmTxVVI7Ok3A8GYhD
+	MyVz7bkvVaekjoATDVqJ/L6lj9uwlkUX4jD/ueUNmg8RjTdG9gvYcBO03OIizAysLTPywPzAhYx
+	LPVzJDZHZ9/81Ojye9+JKh29o29L/XyqBccZsvM8JWciCK7Wv5TL9EfmnnqbrG8HycVcHkk+unB
+	eQuIGVBCjhgV/UwQqtFXfQWqt4HGeNOxaTXzer2W4qArsUMREQz873H3MFFRP3mOMLKwGHSewAt
+	B2J6GU7hct+Z3SIzpr6Lg==
+X-Received: by 2002:a17:90a:f947:b0:39e:6c68:fd93 with SMTP id 98e67ed59e1d1-3a07e6195e3mr1763305a91.40.1790174993687;
+        Wed, 23 Sep 2026 07:49:53 -0700 (PDT)
 Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc4109dsm6469824a91.14.2026.09.23.07.49.47
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc4109dsm6469824a91.14.2026.09.23.07.49.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:49:50 -0700 (PDT)
+        Wed, 23 Sep 2026 07:49:53 -0700 (PDT)
 From: Zhan Xusheng <zhanxusheng1024@gmail.com>
 X-Google-Original-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 To: Joel Granados <joel.granados@kernel.org>
@@ -70,9 +70,9 @@ Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>,
 	linux-kernel@vger.kernel.org,
 	linux-fsdevel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH 1/2] sysctl: Add jiffies converter entries to the test module
-Date: Wed, 23 Sep 2026 22:49:36 +0800
-Message-ID: <20260923144940.3712965-2-zhanxusheng@xiaomi.com>
+Subject: [PATCH 2/2] selftests: sysctl: Check the sign of a negative jiffies read
+Date: Wed, 23 Sep 2026 22:49:37 +0800
+Message-ID: <20260923144940.3712965-3-zhanxusheng@xiaomi.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260923144940.3712965-1-zhanxusheng@xiaomi.com>
 References: <20260923144940.3712965-1-zhanxusheng@xiaomi.com>
@@ -84,85 +84,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-lib/test_sysctl.c covers proc_dointvec(), proc_douintvec(),
-proc_dostring(), proc_do_large_bitmap() and proc_dou8vec_minmax(), but
-none of the jiffies converters.  Their int paths report the sign
-separately from the magnitude, which is a shape the existing entries do
-not exercise at all.
+proc_int_k2u_conv_kop() returns the sign through *negp and the magnitude
+through *u_ptr.  For a negative value it used to convert the
+sign-extended int and negate afterwards, so the magnitude came back as a
+wrapped 64-bit number.  Nothing noticed, because no test wrote a
+negative value to a jiffies sysctl.
 
-Add one entry per affected int converter: proc_dointvec_jiffies(),
-proc_dointvec_ms_jiffies() and proc_dointvec_userhz_jiffies().  Each is
-seeded with HZ jiffies, which is one second in every converter's own
-unit, so the three read back as 1, 1000 and 100 respectively.
+Write one to each of the three int converters and require the value to
+read back unchanged.  Each value is chosen to convert exactly at every
+CONFIG_HZ, so the test does not depend on it:
+
+	converter		write	jiffies stored	reads back
+	jiffies			-1	-HZ		-1
+	ms_jiffies		-1000	-HZ		-1000
+	userhz_jiffies		-100	-HZ		-100
+
+On a kernel without the fix, at CONFIG_HZ=250:
+
+  # int_jiffies: got '-18372957097414713411', want '-1'
+  # int_ms_jiffies: got '-18446744069414585320', want '-1000'
+  # int_userhz_jiffies: got '-18446742229035144346', want '-100'
+  not ok 1 test_int_jiffies_negative
+
+(paths shortened; the runner prints them under /proc/sys/debug/test_sysctl)
 
 Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
 ---
- lib/test_sysctl.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ tools/testing/selftests/sysctl/sysctl.sh | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/lib/test_sysctl.c b/lib/test_sysctl.c
-index 909cfcf76dbf..7718cf4ffd47 100644
---- a/lib/test_sysctl.c
-+++ b/lib/test_sysctl.c
-@@ -15,6 +15,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/tools/testing/selftests/sysctl/sysctl.sh b/tools/testing/selftests/sysctl/sysctl.sh
+index ceb5cfa0cfd4..ad1ee0fccd7c 100755
+--- a/tools/testing/selftests/sysctl/sysctl.sh
++++ b/tools/testing/selftests/sysctl/sysctl.sh
+@@ -328,6 +328,29 @@ test_int_plain()
+ 	assert_int_range "$t" "$baseline" || RET=$KSFT_FAIL
+ }
  
- #include <linux/init.h>
-+#include <linux/jiffies.h>
- #include <linux/list.h>
- #include <linux/module.h>
- #include <linux/printk.h>
-@@ -48,6 +49,10 @@ struct test_sysctl_data {
- 
- 	int boot_int;
- 
-+	int int_jiffies;
-+	int int_ms_jiffies;
-+	int int_userhz_jiffies;
++# The jiffies converters report the sign separately from the magnitude, so a
++# negative value must survive the round trip through the converter.  Each
++# value below is chosen to convert exactly at every CONFIG_HZ.
++test_int_jiffies_negative()
++{
++	local t="${SYSCTL}/int_jiffies"
++	local m="${SYSCTL}/int_ms_jiffies"
++	local u="${SYSCTL}/int_userhz_jiffies"
 +
- 	unsigned int uint_0001;
- 
- 	char string_0001[65];
-@@ -67,6 +72,11 @@ static struct test_sysctl_data test_data = {
- 
- 	.boot_int = 0,
- 
-+	/* One second in each converter's unit; all three store HZ jiffies. */
-+	.int_jiffies = HZ,
-+	.int_ms_jiffies = HZ,
-+	.int_userhz_jiffies = HZ,
++	[[ -f "$t" && -f "$m" && -f "$u" ]] || { RET=$KSFT_SKIP; return; }
 +
- 	.uint_0001 = 314,
- 
- 	.string_0001 = "(none)",
-@@ -113,6 +123,27 @@ static const struct ctl_table test_table[] = {
- 		.extra1		= SYSCTL_ZERO,
- 		.extra2         = SYSCTL_ONE,
- 	},
-+	{
-+		.procname	= "int_jiffies",
-+		.data		= &test_data.int_jiffies,
-+		.maxlen		= sizeof(int),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dointvec_jiffies,
-+	},
-+	{
-+		.procname	= "int_ms_jiffies",
-+		.data		= &test_data.int_ms_jiffies,
-+		.maxlen		= sizeof(int),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dointvec_ms_jiffies,
-+	},
-+	{
-+		.procname	= "int_userhz_jiffies",
-+		.data		= &test_data.int_userhz_jiffies,
-+		.maxlen		= sizeof(int),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dointvec_userhz_jiffies,
-+	},
- 	{
- 		.procname	= "uint_0001",
- 		.data		= &test_data.uint_0001,
++	printf '%s' "-1" > "$t"
++	assert_content "$t" "-1" || RET=$KSFT_FAIL
++	printf '%s' "-1000" > "$m"
++	assert_content "$m" "-1000" || RET=$KSFT_FAIL
++	printf '%s' "-100" > "$u"
++	assert_content "$u" "-100" || RET=$KSFT_FAIL
++
++	# The positive path was never broken; keep it covered.
++	printf '%s' "1" > "$t"
++	assert_content "$t" "1" || RET=$KSFT_FAIL
++}
++
+ test_uint_plain()
+ {
+ 	local t="${SYSCTL}/uint_0001"
 -- 
 2.43.0
 
