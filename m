@@ -1,148 +1,170 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BC753D0D7;
-	Wed, 23 Sep 2026 15:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790179042; cv=none; b=Jh2pxMr+9geomRO6C0UkD4U71YGhWebA0a4njowKuj/jBgQ7Acqd7AZcIXi1GpGLIbCWjEQ+2iRTbmXel1ktCbzSFMQRU6S+NlQMKrLthhTSPqA0szSCdr7BYwEzwrsfNZ/elMfZCpD5Df4UF7SCrslRwWjbc2+fESxZ5GOzAYs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790179042; c=relaxed/simple;
-	bh=Z/w/kI/X4tXR/s2nUyxfG2V8PK+h36DMzF53LKcUUqE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GCohl5G7q0uE0GGRO8drv75qQbsSFACWCDa1tWzxS3V7YQ9TgxCQoyx6J6GwYOLgfSo7FaPqkjD90Gbr1dVHuzLVl36CQ6VnsHLWlncTOwIHZ8xFf9Mp65gRWQ+GW6wL7rOe65HyeATSLac60Z5RhZ2++ygPBJqYShq7Us3+dME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fgTAekkr; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5613A49BD87
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790179117; cv=pass; b=VRw3C8xukw2EN3wPCvxnRK9fEWjPmOAjnf8C5vGaHFm6bLIXfLkVPWvAIhHOLgYvIc9ffX29nrQFvB23mdbqusIOIi1732FzE6/SEf4ZRzgfagpSziGjpa0im68cj2tRewUPqxc8KCquvEGInes0g9tyY486H1qgXYkae1jHV2c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790179117; c=relaxed/simple;
+	bh=+BZjU+5sABFAo+aPUsrzZJGuFADNIS4wC9vOaaJtusY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mF3wV9bUToUdnF7gEGHKqWMKIKkrIy10JMjflsJ44J0wEd/Zld46mAiGO1gxkzvLgwPBiFfXh4LVwdFfPvqbArYK7dsvX0Jo6R2Zf2yx6Nx3pgc1p1Qu/FAw7d/OClgdVQptUDQ0VF0dKFbbo7H/NJFYrZRTh6L75GXCyDHNxgA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GwiJitI5; arc=pass smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fgTAekkr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790179039; x=1821715039;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=Z/w/kI/X4tXR/s2nUyxfG2V8PK+h36DMzF53LKcUUqE=;
-  b=fgTAekkrIcSragk8z4KuFKX5wAfmXDIEj6CNrUORsfvOfQk/D/gd/J7g
-   zCa1a/efF4d3gksHxZYWnm68937wAkqkuSURo2egSRXQKrbXXIhYCQZzg
-   F5Wv0HOqpya7NvQ/B44c17/jV540lSK6T8sc1jQMFg0/Sq1Zb5DR6cfMK
-   lJBquxzHkR65pgIlAkh2hdrr4YtAq0OMgNCgCI2oiJARu2lkSdA3fN6e9
-   mkSYbtLcZv1tIY61DwhxzHzzWPe07Fo58CkTgq7wLvIAdfuvukORJk5L4
-   fMlehqTdI+vfXOC1WqWU2rAmvYPznrh1Tnfdt/+3Xt1smqf7pgXxcHsfH
-   Q==;
-X-CSE-ConnectionGUID: VDA8cshyRQyeIVZp4d9jaw==
-X-CSE-MsgGUID: mVERw9rrSF2Jx5rULKluYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="78445987"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="78445987"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 08:57:14 -0700
-X-CSE-ConnectionGUID: g6YnwgaVSEKxZW1sNlvnYw==
-X-CSE-MsgGUID: vTX+ZWzyTyy5EGoSyHStpA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="4935342"
-Received: from rosenzwe-mobl1.amr.corp.intel.com (HELO tfalcon-desk.attlocal.net) ([10.124.221.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 08:57:14 -0700
-From: Thomas Falcon <thomas.falcon@intel.com>
-To: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Cc: linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>
-Subject: [PATCH v11 6/6] perf c2c: print memory region data with stdio output
-Date: Wed, 23 Sep 2026 10:57:03 -0500
-Message-ID: <20260923155703.34814-7-thomas.falcon@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923155703.34814-1-thomas.falcon@intel.com>
-References: <20260923155703.34814-1-thomas.falcon@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GwiJitI5"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e83a388f8so6798295e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:58:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790179113; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dLZXonkl9hej82tyfMcZATyVLKbsUIF8iTI4h0tq7+9rzkCu8PjX4AbzrFqz8V/6qx
+         uV/ByKybKprWJ/QJCF3Gm9Xsl4Qbd/xQJDvTPZ6ZeFudGBGJmDtpRPnjhVEp3sRdT0AW
+         FB/NI76PUgawNMflhyGOIl8bI8+goHPh1DfGpKdR2hAf3ePlpA6MBTDnsOHm5cvWCE93
+         4/ca1yOWkYa48wA9IWdVaPiBUioOL28gNg5Zlx2Kk/3nn3fbh/567c6gqhpIszLKmUpQ
+         g5C6FudIksqbDXWt13Sf0qkwhpQv1WCOWGvxQdCUBefWctIS6lYTyFWdBqXi4cUZ2/qi
+         upbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=K0v4coruP+L6BX4vjUSdnYrIsiFKS1VA1AwT/foYE2I=;
+        fh=KbniccDWaDZuBYaCm3HdIcG/sglG3kU+Uy++gLFFwCc=;
+        b=akYBiw+xLZXyw72QDzpIhdCR/3icqgzugFoEFhkUgR1692GDaKLg8RrR+llICeR+1I
+         /tUKdFSL+aUNe5wKZzgCBSRQq6CLwb7ngkR+tNtoMGEXQ7SVGR2wF8z9V4g3pTIfb6qZ
+         w9CBsDUMVSjpcIH4EsT7FETxxuE4Gad3o5hXvq8dwIZwB+4INyfBZMNsbDP/yvgvt3EO
+         6j7/PJwAacRTS+eaBi4fyvfj8BqUpvg82UPihI8o1MzC20cMUMw0YlqalBITXUH3EtAD
+         gCPecxKooDnxqM2KNDRKGPKio7G7JF8Mt5CVzmi1vbCIfdt5O44K0hmTOnskmKfvnU/v
+         Dlvw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790179113; x=1790783913; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K0v4coruP+L6BX4vjUSdnYrIsiFKS1VA1AwT/foYE2I=;
+        b=GwiJitI5ERcABqLA8malg1cUHFc0a+PfRcWxaoxerrMxh8C1YYJWaIlO9nTJo9aFsO
+         qt9lLJYZf0ZWqlZQNFbZ6wTiQKB+Q958h6cOvY6llPH4tc/Cx/Ypz7AdlSLvBm4CHHwn
+         WBfX0GwUTLd4vhajB9llQpD4aZTkAskn4DvHwoyv66xGv+gmSVP6Ra0qfaEhxZdPN3qp
+         JF+fCvuBeJQ22HacZc6xgv8FNFYV0lxeM+dIVk+K0z77E6RUOOGUbIqxF5oursRIr4+1
+         RtvH4H6e7rbzWOnqiAgHYEyxPm3SnPsP9ey9VuRqNXJrONE+tIl6k+pNuHcw8CjTYBBf
+         W+Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790179113; x=1790783913;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K0v4coruP+L6BX4vjUSdnYrIsiFKS1VA1AwT/foYE2I=;
+        b=ON4e5vNdmmMBLeFtG4VWWpbfXE5tZYibmOcgi0sFCFV7o7dYI5o3Rll9CanPthuv9H
+         7rmuBywIOxcZ3oG19BGT+c5cdIqVALjjl9X9n5wDK/0RDNQvWWHz8lWvvMQ59xC9xwyB
+         5JNiEajoP3pLFSm67pWBlzjYlN1F53mlsau+8TaBk57Nq/RDd/qPwTVajo0IK8RRl1eh
+         ZtlGwGIP2gdde1GhzXttBGLethF/soUgBhCLA95a6EhVPcuvWNw4lM4ucEtBnpszWMSm
+         GVfsW3PO44Ak7+97jjgEg8nTg47NoHOgrBpvbQR+21FA5oiym6oCuGqCEpJQz9zjg5ck
+         fXOw==
+X-Forwarded-Encrypted: i=1; AKwUvBwdMorwZ0XQTPeoHnDeY3qwDOheDNZMw93ORUlizCEPFQ661Kb00umxQ/ReSWGYn/u84LsMIh6aWoBlvi4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlYkZ/cdA5/9v7HR2cy6ydZl9KMMQ7ijXSDZnRv5XxsuhMGGCK
+	ZVXxNOwxhQZMr8UUY8okOO18DpB4AAK8pyf4xwTUomA/5J7E65/cWouVG39zkYrz+S3XpOsMGMM
+	LwqZOj/FFdijKSfg6wDl7WzmSYlLDU5g=
+X-Gm-Gg: AYBFou1dVHCOSyUL4Tte8CXXPaKKk0NS9Fj2v2No+cjQYRAws3w5gRdY3Y595q+eHXB
+	qvQuuXhk9/s6omIvFGAN5Va76H8vYs+kyjvS2zTP3d4rIkRPhaIHfxUoLVhvg9hfENf/D+UA2n+
+	K1WiJ8rFKeeAxSX4toKOUjWTffUzS3GAVKvBMkDS/+JFeil8Wpfhiak2zNt+G/d6o3T5NF4MbfK
+	ggBO4qOoASTPosSMAfIawAvk/tfIWxDuZ4jJjcZaAcf9FZRvMam7e1akHL9yG0qbr4nVkjEQHd9
+	f3kvFyEloaUWg0hZbHEUkdoyOmJUUixhLpgxTHIwotjrF5ywXmUst3/MyJR678VwZFrWcqTzqUx
+	pDg9L2fwEpzYpLKO9fyWkHyRZ
+X-Received: by 2002:a05:600c:34c1:b0:49f:bd3c:bc1f with SMTP id
+ 5b1f17b1804b1-49fdf14d3bamr45188315e9.26.1790179113201; Wed, 23 Sep 2026
+ 08:58:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260923095435.591542-1-kunwu.chan@gmail.com> <7efbc8e2ecbf397fc8e44327d13e9a7021b97212.camel@infradead.org>
+In-Reply-To: <7efbc8e2ecbf397fc8e44327d13e9a7021b97212.camel@infradead.org>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Wed, 23 Sep 2026 23:58:16 +0800
+X-Gm-Features: AclHuK-JmV4yqSDsdpWSQDzp1TbngEWAsztj3vbr93WLLF9_cem1MLtrY6_DvNs
+Message-ID: <CAN_Opa-tDcZOEk=Mt5MAqUTkg2as5G79uBkxkUaJif8b5QpXYQ@mail.gmail.com>
+Subject: Re: [PATCH 00/17] KVM: Use atomic SRCU for gfn-to-pfn cache,
+ reinstate guest mode for x86 nesting
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
+	pbonzini@redhat.com, seanjc@google.com, paul@xen.org, paulmck@kernel.org, 
+	kunwu.chan@linux.dev, nh-open-source@amazon.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Print memory range data in perf-c2c subcommand. Only available in stdio
-mode currently. If memory ranges are not supported or present, print
-nothing.
+On Wed, Sep 23, 2026 at 8:05=E2=80=AFPM David Woodhouse <dwmw2@infradead.or=
+g> wrote:
+>
+> On Wed, 2026-09-23 at 17:54 +0800, Kunwu Chan wrote:
+> > Thanks, this is very helpful. I've put the results together below.
+>
+> That looks correct. I had my friend dig out the missing parts from runs
+> I haven't posted, and do the runs it hadn't run.
+>
+> 128-way Ice Lake, PREEMPT_DYNAMIC production-like config:
+>
+>   rwlock                                   avg 0.59=C2=B5s   max  330=C2=
+=B5s
+>   synchronize_srcu_expedited() drain       avg 3.65=C2=B5s   max 4383=C2=
+=B5s
+>   synchronize_srcu_atomic(), no fastpath   avg 8.04=C2=B5s   max 6034=C2=
+=B5s
+>   synchronize_srcu_atomic() + fastpath     avg 3.59=C2=B5s   max  326=C2=
+=B5s
+>
+> 192-way Granite Rapids, PREEMPT_RT production config:
+>
+>   rwlock                                   avg  4.4=C2=B5s   max 3854=C2=
+=B5s
+>   synchronize_srcu_expedited() drain       avg  8.6=C2=B5s   max  810=C2=
+=B5s
+>   synchronize_srcu_atomic(), no fastpath   avg 12.0=C2=B5s   max  620=C2=
+=B5s
+>   synchronize_srcu_atomic() + fastpath     avg  ~3=C2=B5s    max  801=C2=
+=B5s
+>
+> The max values here are noisy and can vary by 2x per (300s) run. The
+> averages are fairly clean, and I think I have per-bucket breakdowns for
+> all of them if you really want to dig into it.
+>
+> Astute readers will note that rwlock actually wins on average on the
+> "production-like" config, that the max is in the same ballpark as the
+> srcu_atomic+fastpath too, and wonder why we bothered... the point is
+> not just that rwlocks are the wrong thing to use for PREEMPT_RT, but
+> also that all we're benchmarking in the above tables is the
+> *invalidation* not the read side, which scales a *lot* better in the
+> SRCU model and doesn't bounce cache lines around.
 
-Example output of perf c2c report --stdio:
+Hi David,
 
-=================================================
-                  Memory Ranges
-=================================================
-Range 0: [0x0000000000000000-0x00000000bfffffff] Node 0, local region id 0, remote region id 255
-Range 1: [0x0000000100000000-0x000000203fffffff] Node 0, local region id 0, remote region id 255
-Range 2: [0x0000008000000000-0x0000027fffffffff] Node -2, local region id 1, remote region id 255
-Range 3: [0x0000028000000000-0x0000047fffffffff] Node -2, local region id 1, remote region id 255
-Range 4: [0x0000048000000000-0x000004ffffffffff] Node -2, local region id 1, remote region id 255
+Thanks again to you and your friend for digging out the missing results
+and running the additional measurements. I really appreciate the effort.
+These real-workload results are very valuable for understanding how the
+different approaches behave in a KVM workload.
 
-Assisted-by: Sashiko:gemini-3.1-pro-preview
-Reviewed-by: Ian Rogers <irogers@google.com>
-Reviewed-by: Namhyung Kim <namhyung@kernel.org>
-Signed-off-by: Thomas Falcon <thomas.falcon@intel.com>
----
-v10: Fixup double blank line before print_memory_ranges_info() define
----
- tools/perf/builtin-c2c.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+The results also make the effect of the reader-free fastpath much clearer.
+In the measurements on both systems, it substantially reduces the average
+invalidation latency of synchronize_srcu_atomic() compared with the same
+implementation without the fastpath.
 
-diff --git a/tools/perf/builtin-c2c.c b/tools/perf/builtin-c2c.c
-index a42423ca990d..2c8e1c7adedd 100644
---- a/tools/perf/builtin-c2c.c
-+++ b/tools/perf/builtin-c2c.c
-@@ -2597,6 +2597,33 @@ static void print_c2c_info(FILE *out, struct perf_session *session)
- 	fprintf(out, "  Cacheline data grouping           : %s\n", c2c.cl_sort);
- }
- 
-+static void print_memory_ranges_info(FILE *out, struct perf_session *session)
-+{
-+	struct perf_env *env = perf_session__env(session);
-+	int nr_ranges = 0;
-+
-+	if (!perf_header__has_feat(&session->header, HEADER_MEMORY_RANGES))
-+		return;
-+	nr_ranges = env->nr_memory_ranges;
-+	if (nr_ranges == 0) {
-+		pr_debug("No memory ranges found, skipping\n");
-+		return;
-+	}
-+
-+	fprintf(out, "\n");
-+	fprintf(out, "=================================================\n");
-+	fprintf(out, "                  Memory Ranges                  \n");
-+	fprintf(out, "=================================================\n");
-+
-+	for (int i = 0; i < nr_ranges; i++) {
-+		struct memory_range *r = &env->memory_ranges[i];
-+
-+		fprintf(out, "Range %d: [0x%016" PRIx64 "-0x%016" PRIx64 "] Node %d, local region id %u, remote region id %u\n",
-+			i, r->base, r->base + r->length - 1, r->node,
-+			r->local_region_id, r->remote_region_id);
-+	}
-+}
-+
- static void perf_c2c__hists_fprintf(FILE *out, struct perf_session *session)
- {
- 	setup_pager();
-@@ -2610,6 +2637,8 @@ static void perf_c2c__hists_fprintf(FILE *out, struct perf_session *session)
- 	if (c2c.stats_only)
- 		return;
- 
-+	print_memory_ranges_info(out, session);
-+
- 	fprintf(out, "\n");
- 	fprintf(out, "=================================================\n");
- 	fprintf(out, "           Shared Data Cache Line Table          \n");
--- 
-2.43.0
+You mentioned that the SRCU read side scales a lot better and avoids
+cacheline bouncing. If you happen to have any existing measurements of
+the reader side, such as throughput or reader-side latency, I would be
+very interested in seeing them. That would be useful for understanding
+the reader-side benefit you mentioned.
 
+Of course, no need to rerun anything just for this. I was mainly
+wondering whether you already had such data from the existing testing.
+
+Thanks again for all the help. If you notice anything else in this
+workload that would be interesting to look at, I'd be very happy to
+dig into it.
+
+Thanks,
+Kunwu
