@@ -1,236 +1,258 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2136.outbound.protection.partner.outlook.cn [139.219.146.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE7B7381EBD
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790132398; cv=none; b=V3sCo7pUkDCmQk3hzLfblE9IuavzSmfm2gdVOS5j4dm06p45+ex1dHYcffL7KG+Qb6+/h0NyGkuM7pVY1QAnSmN44xgm0SBvAxet04gk1NIJsjL5cD3bunlnnIpuaeZJf6n4t9JKLpJ1+izxWdPqruXfIsEmbVFPji+SWrhLaD0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790132398; c=relaxed/simple;
-	bh=RMKbGXPUS+GUMUHxSbHbcqX4rPxmEL/XQKVk0tP4MBw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CTTb38ND18yzEP1RmWeGxHXqLZE4CBh6a/tEqs9gS8IBMEETPk4WfhxKvrbn96q7VFF3ZwgJKMeWDeVsjIhoOIWJ+kECUkIfxEqgdyEvEopnovmU78l0CD38wBPzjrMT9ircK4hX62LYkq4eyd/WERcf6F6LDGcbuZQHBU6CsZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Wq8YoPsK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TVvKOEXe; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wq8YoPsK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TVvKOEXe"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68MJD2mR1166832
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:59:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Wv7VUHWdp7FOHwnmCDQTxgbKyh+3nz706HoUphQe+oo=; b=Wq8YoPsKkFmdS5IQ
-	27CNPJF4Y55SVu/HVYyhJ+VIYXGt78vPWF7zB24f8c3q0F4/dmqjBrBOeqW4kslh
-	10sIcD5NF2b6j8inY0eB+x9WOI15zG8Zx3ESCSqye8V6gXYr7JEOppFdyJMpy6E6
-	rRubpQAz0M+zTx6UZ5VkeUDEIuUljlCbUzV/6kupOgE9bHwQ7669E6S2onpLYCiZ
-	RY6jkAP6q+jjy98CVye6d6Ylcy/VVZvN0b0TJeHkY93wJvT39bm2EbuJJFKvGJIW
-	3jY7lxYS5KUk2AisHm4cizcPrIAZdEaOjPB6HBvpz6HxXNmtczNJYJ6u6K6VUw2M
-	kJKP+w==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guymw1q1u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:59:55 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39b6416441eso780176a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:59:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790132390; x=1790737190; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wv7VUHWdp7FOHwnmCDQTxgbKyh+3nz706HoUphQe+oo=;
-        b=TVvKOEXe3wUpTfYVTEDUbYXy2SaDIi0xxaygshxBcXZCPAiGOQXYSVPKKrHgNGH8Ya
-         KJ3WED/dBI/nKWDhzFeyt14h+RLXPpfdU7P4MDI66HsSVlfld4PU1popM6HMpJBDR6VK
-         dX2GRUwRLR5g77bu/9XbeoBKLclv7+2Mei0hcTPaGkppk+M43YJJfGoRasW5QT2TlL2t
-         aL+NOR2BsvzS4iMY3BT3JbhHunF1Y2PQitEEqcqu2iF5qDZzFM5uvinls+Nt8duzQYgj
-         6Gj/EJvA2Oyel/gfQGh8K2XToEv6Lihh1Nlmkjrl3xhfIzqi1qtttaUFSLhYQi9yrMCy
-         fsuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790132390; x=1790737190;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wv7VUHWdp7FOHwnmCDQTxgbKyh+3nz706HoUphQe+oo=;
-        b=AndJOj3pkk6XX7eEbUjr6hW1WQNwZy70BhYNL3Pp3ak7ahnFQqOLyiSTaiu2HkBbbd
-         rmj4auf3p4xhyVUK51I1Df5ZXYlxx/tly9pblLYZeRWKO59+7N/e6SPYLal4WJGEcdTt
-         ms8jvNGu82t/yoAwUVvsrN9yVMm9WsIHc2CskJT83fRAHdSPGS5mIiOhZjl4lZeIEF9+
-         3D/Ad6gu7DsEblrsqbuKAJ+E6fq/vLVYViGNZUt5sp++m2h9qOHCPaHY6n5cWQXKedS0
-         qHuuK6ePHBrdimZfI7gzPAO86xiyeXVHc6wupp7xSC8KGXfRdOgY3W1FTZXOEAkh+74g
-         dZPw==
-X-Forwarded-Encrypted: i=1; AKwUvBwPvBH1nuamwsuf0K//DxlQ8ivy7InfG48tmOUAvfgIukX3qpFnl0qMrun58C2ox7JqSOEzIpduNNva77Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++keamTuo+yHkf4K50LhbVeRuBt5yzZrKUxN953zil6hWM3abc5H
-	Pl3QMRRX8PuOQ7X/4pjSwcUlPuVuWg0sNIPzMWfwHK6g9EZ06GVhGquu6uHmjlDJTVR7d/DZwG+
-	rx5pgd7oS9jXBZPqtwpxf46uMjBoXSTbnwA6/lVXyWh/uicNJuh27VbU8LfPhr4e7ogc=
-X-Gm-Gg: AYBFou20YypBDXpDunQAXwlRDaw0E2yP9QCtHxGJLN3AgTxiedSzPB3DzZSPPc824ik
-	dk161bk3UtnklkRYp8b0YVuezwKtYf1Zdqq5zvzd0/D8cE6IbqzfSUo9aXTBnJSGnoZ/A0JPfri
-	9rd+gsxdLCf16NNAHK7reNpDJJcI05zp3/MTbAMBh1W7Zu3lc+ITOVARVg297Hx8JZeL5/h2bd7
-	zgqybNr7buHsOf5oU6vGoNqBYOp27X0f+bMEEJ0Te6A3A8g6pkJWtmj+rmzgDUO9n0beqSmh7Qv
-	V3Opa+M92R7dVR0rt2O/zyjowdX5eOa422hTOVhja1zGDxcb413HRbJ2IQR9+Vm6EpaC4A9kvyG
-	jUaObIJTg+KoPDBRzg2MBPWw3Z76Tfeu9DewZKQizvIlmC59ZHq/kH4mrh5qMtvM=
-X-Received: by 2002:a17:90b:4a0a:b0:39e:6c68:c789 with SMTP id 98e67ed59e1d1-3a07e71cc99mr1203558a91.63.1790132390068;
-        Tue, 22 Sep 2026 19:59:50 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a0a:b0:39e:6c68:c789 with SMTP id 98e67ed59e1d1-3a07e71cc99mr1203540a91.63.1790132389605;
-        Tue, 22 Sep 2026 19:59:49 -0700 (PDT)
-Received: from [10.133.33.57] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5de5c8sm3352105ad.60.2026.09.22.19.59.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 19:59:49 -0700 (PDT)
-Message-ID: <272abb48-8f13-4fe8-a7ab-bfa353f1f8ec@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 10:59:19 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9E236B054;
+	Wed, 23 Sep 2026 03:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.136
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790132487; cv=fail; b=cEZX7kW2/ifg/1iXxcnfdcCWZ5e04b2c7hfvthsuS0AenBXes19/u8GMJh9TEJnMcPwft0ZpZUleOSbSkbtQY3FquFPpbcMnIMj6ZQ5YaWGc3xsVQ5diM65vDKwfiFuIayTV6PySRUXj0XOWg0pwJfOjz+UTmP+fkAlFeLEvlpU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790132487; c=relaxed/simple;
+	bh=Rs8A0SNxLWYX7onJvKi+EFeGuQgNCzHVCOJg6tp0sg0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=r5anPmpaOeozGT+yFH4zesmGroePYhRv8A7oH7XVmhayfqCpqot/RglHLIB0pn0Zj4jXXemm+JxmUC6X7434Gz+y5ceN/Ld2qB3AnWGMPCRiHjnapjcr2EajbHJATtr515BS6JjN67e/V8MlVjBdUEc6Wmu8CQhtyQwrn9VASlI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=DAssdICX96P2pxZoOMujBxRIhmGOhKAcrZMsounQidNwoo1h/UEqi32+bCUHvIjSJVRIzAyiPstII6N0uuInYx36ioLx55PRonjLkh3/poKdxJTjF/mKBKb57wDus1D7blSseHLvHk7k/kXccbCFhc3H87dmv+/YazSMWluiLphOTtWVsdqtLBBcTf1dig0YK1UH5I6air6dM/pwguXFh3tmet4HOCuzFaZ8NJEon401zV3E5FSNNAOtN0IsA7/SftBcZhjDgP5edpEqUur4esN+94MnMsZQXVD7iHuCf6gtL/RVtlHZVAs6oavH8oSP9VpCviqXxaeITGyXb4eIkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1VTZtXkYj6r3JzNJ/X0xaqTxuWjrM7sRfZxlDPMxf+U=;
+ b=i8llJOInQh0QHXvNVbGJ8NxVLEyw6tktG9+TiBlc8VNm/DaiuyXCzosSawtNlbZQTYfW8WG3lbRxC+2Ro/0rj++tjv8OlMNsbkO88abdHAh26Ny9EXQT1FK9FAAZIko4SL00Avx42HPdKHM+1h400dJLAZVNr4QvvxAxcG7m4cczVbOG17F7Guisf3K6bXYCfZFy2DPSp/SFQJtxp95OrCPX2XFlktKScte0ADDU9HUyUZcjSQ1LSYgTnnd4qAK5PFkt4vwGkUbnx0Bgz/ydr5apIHZCzK8Nrr8XBiL6tHaTxkVy7ZONiFHJ5uHZ07ZJaXcdirAWMwiNVNIDbV0bXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1298.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 00:27:55 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0451.014; Wed, 23 Sep 2026 00:27:54 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
+Thread-Topic: [PATCH v4 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
+Thread-Index:
+ AQHdOB2pWGWmLpoNUE2Go4xzfaaD97a4XHIAgACUoYCAAJPygIAAXoiAgAiT2BCAGI8bgIAAbgIA
+Date: Wed, 23 Sep 2026 00:27:54 +0000
+Message-ID:
+ <ZQ4PR01MB1202CB83E2ED0A5C9042AAFEF2822@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260830011941.40199-1-changhuang.liang@starfivetech.com>
+ <20260830011941.40199-2-changhuang.liang@starfivetech.com>
+ <20260831-dominion-data-c8b6f691dd5b@spud>
+ <ZQ4PR01MB12023835F6083F45484E1ED3F2A82@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260901-contrite-cathouse-f50c63af6323@spud>
+ <4cc20c64-bd95-4689-81b3-3f01d9c3bc8e@roeck-us.net>
+ <ZQ4PR01MB1202328B1B28955A0C6DF44DF2B22@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <20260922-buffalo-urology-0395e437ae61@spud>
+In-Reply-To: <20260922-buffalo-urology-0395e437ae61@spud>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1298:EE_
+x-ms-office365-filtering-correlation-id: 6159ec16-4d3a-44d4-4b96-08df1909827a
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|38070700021|56012099006|4143699003|10067099003|22082099003|18002099003|3023799007;
+x-microsoft-antispam-message-info:
+ XNnaFVILTPro3F/GQez92cJdmoKVMoITytOuPegPbQuHWPsld0I8iw6uZ9knG3Nr8N4KGav6Z3QzvobtQGGnPMb77Bja+UKnjVHuhgJRrczPpqFppFMN5+ABASRY1qiJOVlzSeyPy3is07CLRIaDnnuuTByQdZ59cguB4ildFIrFAPTgu8A/zBI0ST5uk0548VqPj2ujpMlHSncNWP4iWZGaPmpdGhRTl1b16g+CkLvbLwvv+OFaZsesUaiqeKS3fjumKdESSUwMvyXggJt4CUwDi3qfn8l8MDIdYNhwyFKsovDY7WhKWKvy4vAi7CfkAuOWbVOA2vc6xwAAq+SgGAEVhSQ7xEJ9qkGIcEub8OYg32+58NBzQOH8w6rr+6VKAX2wb0AAXrS7aJ0U/D6Sp+8DYrBK1h9cLvD4v4Ii0dbAOgmZvsVxvVzJKkE96Zt5At8HTxwQTybrxSE9r4aSoK7jvs78x9718v9/WUgaJwVaHHhC7ntj5rL/BvGe1B47Pv77ZcM/Tj3PDa6hqWROHsfpZRwQapfaKy6T3bg2k5lOL+ZtQiCnFI60JN8BP58B
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(38070700021)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?qRJFpbrXfGx52hhF78912QY7e3XpXkU9Lcfg2GWqH2Ts9uy8sL9Y6lS7T7Lo?=
+ =?us-ascii?Q?0a1PQghO/CIczwpItMOj//Sg8V3OT4ggKq3W8I9/Blz1SL/4rh/mXMFZxWes?=
+ =?us-ascii?Q?iSuDQtyuCtOXGuFUgtzk0oyX4dG+6AL8D/RYBoTo2aZPsFJLes0fOs68y59W?=
+ =?us-ascii?Q?HuCQqrii7rN4bTta5hoWQ/I95dgMKA7Vj3SWKbRB0QBtvAaZBlJ7A7OcDh34?=
+ =?us-ascii?Q?n4iKDMtyNOU7Apv0Av65GgfjYDtpYQKbCbQdL0RK4aIuASCXJccSZ+1qOHmR?=
+ =?us-ascii?Q?V93V/w9zii03XDR3b4+m/wYXsqbXuKnpcFfJqcme+4J6Rxxc1td3DxH0mopn?=
+ =?us-ascii?Q?gSi9oaCuHCWO6qshNwsDIC8ufHUoJMedDonX52UvhKB1x+TeylN3rGSH2dmF?=
+ =?us-ascii?Q?itwvrGmuk4fElXc98nDyReIbUdSTSAOeZ708BGSSSP3robWMvCv/Qe5S6VZX?=
+ =?us-ascii?Q?+J0dobZBzQnK0aIUhDTQGHjWd5oY8x1/rjJQqNzmajf6ohjDUdtg2MGLcfQC?=
+ =?us-ascii?Q?VyZjJd+a+dfWlcblebp1aBp6+PHbL6GLX+FQdPGzkNHJQ1cV6IRWh/lZ8lms?=
+ =?us-ascii?Q?axX3RLa4W36DFU/T9fLtPDZWopEXexAC4Wb4sa0+i9S3WBtH1Rpj/bMrWqj9?=
+ =?us-ascii?Q?xclQHkUvlK6O9ga0dV2PzSu7VaAXYqlWVr7B0RpfHyzku1kX8PidP+r2u8qo?=
+ =?us-ascii?Q?i19+RELSpjZnIWYqWfa4AwO59f77TSc47iPxahF0yGNtgRavgw3yOCgjvHcJ?=
+ =?us-ascii?Q?Ap6C1EdBnNhikPTxl2miwI1HUBwf99w56B2kh9+L8AlybRNpzFqDUvfJ6I78?=
+ =?us-ascii?Q?ihcmKRLIMs1SxwaGn1HgW8RjkqGf2ETXgZ//OOf64F7EZxg+PCsT3ZUQyjCU?=
+ =?us-ascii?Q?N/MBM8d0azM05Hdwr3Z0+8g8aas01MXLugNPc5zNHuowg3aEFjTUemRe/BbB?=
+ =?us-ascii?Q?Pa4XrxRi96MdMhWv5RCEfskZWWieZE0RyNL03Y5TF6OUwMo2XSVc8AusgklI?=
+ =?us-ascii?Q?uVGmcarxwu45lWTQi6i9JsMtZrd/vCjC4FZuxYzi0rtU9sLx8Oj/Yt8AooSu?=
+ =?us-ascii?Q?TYoqjh5f9mIeJ5yA/ANY+nVSR8n8MbEgVLc4ADPYpj7MDHLb7CvMx/R6bq04?=
+ =?us-ascii?Q?X+UhSlxQIw5Mk9vTafTkdEVYuFv33gzckKOgyvUsMUDFR97qYyJR6k/lMImd?=
+ =?us-ascii?Q?FgfvWfHEA8CsI3euAbAI3D8SSXA3YHhvv1O9lj5RiOQxQy1Ks4HXndifXw+o?=
+ =?us-ascii?Q?djLan9SqkEvCLMgzGlUTTgxcBhIAYDKaCnwca16S49/ahdXmGpltDhFJxaT6?=
+ =?us-ascii?Q?J4mUl0vibFgtpkExb0PjU6s82bzznbY11D+OQtGLNkUY3g5GVkfCMA7AOuwY?=
+ =?us-ascii?Q?xE8M7qXKuea/3GPyzCa6ka12zdhdf0umkJYh13zGfg1725lRz2isbYDobwpN?=
+ =?us-ascii?Q?19tAK+AFY9ToPSTk31O3zavuAma3du61zMN3zaDmR1mdH/LTaRdtde+rW61k?=
+ =?us-ascii?Q?DG5qx6+1mKuKFkYHNSRREg1WBGGVzPYZ7cA3VMXfqs9mj1ls+qiRbBZvLq0Y?=
+ =?us-ascii?Q?NRPWV1cwTH3cnAd1DVtc/Asezs9rBKQ7RmMqAaKp81jMxKfuEwnxi/DS1blR?=
+ =?us-ascii?Q?FH/vvjmJ8OcSxewVkQYCv/j6+afhBsrRQUu6987fQby5+joKWZK7LjpeJ4aw?=
+ =?us-ascii?Q?RGJd4Jdacq8NhIJW2L7nL9OCbL0nVWL1IYhmMyvaM0vNj6g2qN3y8PIWxPNq?=
+ =?us-ascii?Q?jG5Q1+M0TxzIbWsp4agUYmJA2+aYOig=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 07/10] arm_mpam: Fix mpam_dt_create_foundling_msc()
- to create MSC platform devices
-To: James Morse <james.morse@arm.com>, Rob Herring <robh@kernel.org>,
-        Shanker Donthineni <sdonthineni@nvidia.com>,
-        Ben Horgan
- <ben.horgan@arm.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Catalin Marinas
- <catalin.marinas@arm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Reinette Chatre <reinette.chatre@intel.com>,
-        Fenghua Yu
- <fenghuay@nvidia.com>, Jonathan Cameron <jic23@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Gavin Shan <gshan@redhat.com>
-Cc: Andre Przywara <andre.przywara@arm.com>,
-        Drew Fustini
- <fustini@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,
-        Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
-        trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
-        ganapatrao.kulkarni@oss.qualcomm.com,
-        Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
-        Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-        devicetree@vger.kernel.org
-References: <20260914-mpam-resctrl-dt-knp-support-v2-0-bf6645bb2f65@oss.qualcomm.com>
- <20260914-mpam-resctrl-dt-knp-support-v2-7-bf6645bb2f65@oss.qualcomm.com>
-Content-Language: en-US
-From: Yin Li <yin.li@oss.qualcomm.com>
-In-Reply-To: <20260914-mpam-resctrl-dt-knp-support-v2-7-bf6645bb2f65@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAxMSBTYWx0ZWRfX/Xf8W6Ei3/4x
- 2uoU5S+EXBNC9kziiSa3TmZ4A3ZYQrvtKXAY84mRq1rIfIZ8thphjStCQKkLCHKXYjeLs31mxLn
- 8Mtf9iW/2R3feYCUKgtRIpGG7tk8t+bi7y9euq3j1E/25aI3pt2a1CWW+j0C3eDe7nkU/TN1LV7
- itjlgPNuGljRtwvF6gIB/YaGsUzL0za88DoppGIXFKDSHLmTcnR244IvuOQ5bN2RRkIQAZnk8EW
- ftl/e4C+3Gu655xPzvFm6VTXucgrqKUJG8/Wp05dxM1A47wV1nto/wunr+dniCtW3oi2gVkKSlX
- 9TTHRT4ZLUW8LIy7WLe2laiAyCFqwRkQfZX+VVwnhOa6Wed9vCmhJ/BrVNEZs1iF0NZJPEEU2fZ
- PQH8Vu13s3RREsVga3WtSVRu59gxpQ8iGVV68SP0opGTW6PIiFpGzxAykL9paFLYgqzK+GPlNno
- pCgjkkJcSXTwBgLNY6g==
-X-Authority-Analysis: v=2.4 cv=feI4WEQF c=1 sm=1 tr=0 ts=6ab340ab cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=2UIP8dk73OJ_h1EwUPsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: 3b50ga7-coiXKYKs3N6eggjRukj4wN5c
-X-Proofpoint-ORIG-GUID: 3b50ga7-coiXKYKs3N6eggjRukj4wN5c
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAxMSBTYWx0ZWRfXxKAvn0EfWEXT
- TOw6MR5W4/eMFV9axBqCQI8nN1zjpZ8A/JRm51FcJHdgdXIBbS0e9BonPdV2wtuZHvJHQz6oEoF
- 4wD+k8PZ40Vx6MGwvulDGGH1CIFxZB4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-22_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 spamscore=0 suspectscore=0 lowpriorityscore=0
- clxscore=1015 impostorscore=0 malwarescore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230011
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6159ec16-4d3a-44d4-4b96-08df1909827a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 00:27:54.4080
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: NjrabXedQG3R5sog5DBIXZ3voGILZtoOOo5a1+75oMc01haPVgZYWdf/ZBIf3aNhwx7VwaPxsTx6qJ2ze7tMqtxgn67E2Y+bPBSiJIScWomN/T5hlTQhAnivoTaM5Lly
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1298
 
+Hi, Conor
 
+> On Mon, Sep 07, 2026 at 02:51:44AM +0000, Changhuang Liang wrote:
+> > Hi, Guenter, Conor
+> >
+> > Thanks for the review.
+> >
+> > > On 9/1/26 03:14, Conor Dooley wrote:
+> > > > On Tue, Sep 01, 2026 at 01:24:39AM +0000, Changhuang Liang wrote:
+> > > >>> On Sat, Aug 29, 2026 at 06:19:40PM -0700, Changhuang Liang wrote:
+> > > >>>> +patternProperties:
+> > > >>>> +  "^fan@[0-9a-f]+$":
+> > > >>>> +    $ref: fan-common.yaml#
+> > > >>>> +    unevaluatedProperties: false
+> > > >>>> +
+> > > >>>> +    properties:
+> > > >>>> +      reg:
+> > > >>>> +        description:
+> > > >>>> +          PWM channel index. The driver allows two fans to
+> > > >>>> + share the
+> > > >>> same
+> > > >>>> +          PWM channel, or each fan to use a dedicated channel.
+> > > >>>
+> > > >>> Doesn't matter what the driver can do, the description should
+> > > >>> describe what the hardware supports.
+> > > >>> pw-bot: changes-requested
+> > > >>> Does this fan-tach controller provide the PWMs?
+> > > >>> If so (although Guenter may correct me), I think the fan-tach
+> > > >>> controller needs to be.
+> > > >>>
+> > > >>> If you don't do that, I think you're going to run into problems
+> > > >>> with having multiple nodes with the same unit address when two
+> > > >>> fans share a
+> > > pwm?
+> > > >>>
+> > > >>> I think what you're supposed to do is drop "reg" and replace it
+> > > >>> with "pwms", but once again Guenter may correct me there.
+> > > >>> e.g. aspeed,g6-pwm-tach.yaml
+> > > >>>
+> > > >>
+> > > >> Perhaps I can refer to aspeed,g6-pwm-tach.yaml and change
+> > > >> "^fan@[0-9a-f]+$" to "^fan-[0-9]+$", which would remove the reg
+> > > >> property. In fact, the driver does not use reg either.
+> > > >>
+> > > >> Our fan-tach controller does not include PWM. The JHB100 SoC will
+> > > >> have a separate PWM controller. (This controller uses the same IP
+> > > >> as the JH7110 SoC, but there are some differences in driver
+> > > >> implementation.)
+> > > >>
+> > > >> The JHB100 has 8 PWM channels and 16 fan tach channels.
+> > > >>
+> > > >> So currently we expect the Device Tree to be configured like this:
+> > > >>
+> > > >> 	pwm0: pwm {
+> > > >> 		compatible =3D "starfive,jhb100-pwm";
+> > > >> 	};
+> > > >>
+> > > >
+> > > >>
+> > > >> 	fan0: pwm-fan0 {
+> > > >> 		compatible =3D "pwm-fan";
+> > > >> 		pwms =3D <&pwm0 0 40000 0>;
+> > > >> 	};
+> > > >
+> > > >>
+> > > >> fan-controller {
+> > > >> 	compatible =3D "starfive,jhb100-fan-tach";
+> > > >>
+> > > >> 	fan@0 {
+> > > >> 		tach-ch =3D <0x0>, <0x8>;
+> > > >> 	};
+> > > >
+> > > > Truncating this for readability, but it looks wrong to me. How
+> > > > does the feedback loop work here when there's no way to determine
+> > > > which fan is connected to a tach channel? The unit address of the
+> > > > child nodes has no dt enforced guarantee to line up with node
+> > > > names of the fans or pwm indices.
+> > >
+> > > Normally (for other fan controllers) the fan would have a target spee=
+d.
+> > > The controller measures the speed and adjusts pwm output values
+> > > until the fan speed matches the expected value. The controller needs
+> > > to know the association between tachometer input and pwm output for
+> this to work.
+> > > Typically (for classic fan controllers) that association is static.
+> > > In the Aspeed G6 fan controller it is dynamic/configurable.
+> > >
+> > > I thought this is the case here as well, but I have no idea if that
+> > > is correct (or if there is a chip-internal feedback loop to start wit=
+h).
+> >
+> > Here is some information I found about fan tach and PWM control. It
+> > looks like these two devices are managed through an application.
+> >
+> > Do you have any new suggestions for modifications?
+>=20
+> I, at least, have no new suggestions. I thought the most recent reply fro=
+m
+> Guenter was pretty clear? If you've got a dedicated fan controller with s=
+tatic
+> association then you don't need to provide the association, but if there'=
+s
+> dynamic/configurable pwm-tach then you need to provide the association so
+> that the fan controller can work correctly?
+> To me, that read as if the pwms property would be required here, because
+> what's proposed above represents the same fan twice, as pwm-fan0 and
+> fan0 without an association between the two because you have an different
+> IP entirely providing the pwm.
+>=20
+> For this to work, don't you actually need to do:
+> pwm0: pwm {
+> 	compatible =3D "starfive,jhb100-pwm";
+> };
+>=20
+> fan-controller {
+> 	compatible =3D "starfive,jhb100-fan-tach";
+>=20
+> 	fan@0 {
+> 		pwms =3D <&pwm0 0 40000 0>;
+> 		tach-ch =3D <0x0>, <0x8>;
+> 	};
+> };
+>=20
 
-On 9/14/2026 5:37 PM, Yin Li wrote:
-> The original code created a platform device for the cache node itself
-> rather than for the MSC, so the MSC was never created. Instead, walk
-> the cache's children using for_each_child_of_node_scoped() and create
-> the platform device for the MSC child node, skipping cache parents
-> that firmware has marked disabled.
-> 
-> Co-developed-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
-> Signed-off-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
-> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
-> ---
->   drivers/resctrl/mpam_devices.c | 27 ++++++++++++---------------
->   1 file changed, 12 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 480e38cfa86d..7ef3ed55b066 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -2366,23 +2366,20 @@ static struct platform_driver mpam_msc_driver = {
->    */
->   static void mpam_dt_create_foundling_msc(void)
->   {
-> -	struct platform_device *pdev;
-> -	struct device_node *cache;
-> -
-> -	for_each_compatible_node(cache, NULL, "cache") {
-> -		struct device_node *cache_device;
-> -
-> -		if (of_node_check_flag(cache, OF_POPULATED))
-> -			continue;
-> -
-> -		cache_device = of_find_matching_node_and_match(cache, mpam_of_match, NULL);
-> -		if (!cache_device)
-> +	for_each_compatible_node_scoped(cache, NULL, "cache") {
-> +		if (!of_device_is_available(cache))
->   			continue;
+Okay, I recently came across a similar example:
+https://lore.kernel.org/all/20260921-axiado-ax3000-pwm-fan-v3-0-3def8b6ffec=
+9@axiado.com/
+I'll refer to this for the next version.
 
-Hi,
-
-As sashiko-bot said：Checking of_device_is_available(cache) here 
-introduces a mismatch with mpam_dt_count_msc(), which only checks 
-whether the MSC node itself is available, not its parent cache. And in 
-practice, cache nodes are rarely if ever marked as disabled in the 
-device tree, so this check adds unnecessary inconsistency without a real 
-benefit.
-
-I'll remove the cache availability check in the next version to keep the 
-two consistent.
-
-Thanks,
-Yin
-
-
-> -		of_node_put(cache_device);
->   
-> -		pdev = of_platform_device_create(cache, "cache", NULL);
-> -		if (!pdev)
-> -			pr_err_once("Failed to create MSC devices under caches\n");
-> +		for_each_child_of_node_scoped(cache, child) {
-> +			if (!of_match_node(mpam_of_match, child))
-> +				continue;
-> +			if (!of_device_is_available(child))
-> +				continue;
-> +			if (of_node_check_flag(child, OF_POPULATED))
-> +				continue;
-> +			if (!of_platform_device_create(child, NULL, NULL))
-> +				pr_err("Failed to create MSC device for %pOF\n", child);
-> +		}
->   	}
->   }
->   
-> 
-
--- 
-Thx and BRs,
-Yin
+Best Regards,
+Changhuang
 
