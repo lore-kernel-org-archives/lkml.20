@@ -1,175 +1,181 @@
 Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 448A247F3B5
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:54:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDDB47FAFE
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:54:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790157292; cv=none; b=iOjzDAlp/Wc5dJJ/vpMZgEf92S7rpPV+3IByP7sOHLb6N+9eOCAEvXtQ0TFMQuoaTh4gE5r2iK1fn75wpyyeBoWvGH9eAVoME1vqTkS4KmS4HOpNoLEMWXoo+UmfsHqsQBbcKotxy3m1SGAOLYOiaenZ26CTYCBFDBL6LMrARvM=
+	t=1790157295; cv=none; b=r+8E1EoMWruJSWCncmxYkMuE8AuaugcWiQoBBGpNbCpmJEmnqhUUOA/0km0YQ8dP+ueSrEgdnnZRdDqVZ17WmRhH2Tbf6aI/E/KOG2+o1QKwMZD7No3sLpZzirU/GldAvKjaRCdBLSuOiUgx0wj2oKsg1WLyAGg98GaldqWqGyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790157292; c=relaxed/simple;
-	bh=IUticTq4foak3yxsGQl2vQDiakNmvntsdMGpOFGsCD8=;
+	s=arc-20240116; t=1790157295; c=relaxed/simple;
+	bh=ORWzwlnjPxIPXwwIl71ibZqlgxSHR3cDOmeid8ApVjM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=glHwU7GgnnvUZ4x1EuGizLDMfpC4n3/eMirBqIEcncIK17eyPgEFPLljptZL7XYlaKzld89qYbvtsnMmhfEQ6YbyAv41EZ42C9jFG3WxgUmueuOPL9L1Fkv28FjT+rW7gjSkcAG4WCVVxEndbpT/dR+JUOY6lWs+GfGZ7lDE0sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=iisnueaK; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	 MIME-Version:Content-Type; b=pupV2mUaFYFg1aHbzyty7KjFRTGhxePitiltrb+puvgHqNXJkpjh3V+uKYzf6BwKjM2tGeTbbNYH0pkbVuI1EBPDdmjfIIa7NZ7wN9IPsrrh3DC9Kw1Pir5xhrqWBW773F5YBE3nqCk/JwrBVOS4zezAF85DDn1uP28vFu+qPSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LFCwYKrB; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="iisnueaK"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f7so3133285ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:54:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LFCwYKrB"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb1a98dso477307a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:54:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1790157288; x=1790762088; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aQDxycOIV80BPgrqxrzM7NANBApnebD30BToWezPxAI=;
-        b=iisnueaKSaCz7CXaV8b7t8il/3RUHIYzy6lPx6TVpmG9za1rfF1/0Je4dT+5Ut8icn
-         MDCQDiJ3nd2CFnN3rea8FYDjR42/I00+ZXLB+I0amPG2W87scf2m96JZ9n1w5+nFzJ0b
-         toCVyg4+DOWleDkqmhccJAFWDdnsdfz1Lwl+eCsdJcFDzyLOoMDOeuuczfH/WNdxmsif
-         j1PjijPDrKyO1I6DvULKYCDjVQF8BEhsvhXikiIkTqyGKxKYIdb1FaxQUZNBe3cahPGd
-         N6n0b+rajCoH3tcNnrdxv4+9hju/Tz760jp7p/gGY1E++LswVcYcsYZEcIVyL4cIgvwY
-         Myag==
+        d=gmail.com; s=20251104; t=1790157291; x=1790762091; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=O/p+TOshpoie9dAYVqfiIsQZZYf+Pgovp0T9es4CnLs=;
+        b=LFCwYKrBB4mHn/nk1nuU63ZkQAuECsBU3jvaEOWmoGKY6SrYbkhMlCLr2dPAIm878e
+         UnJa9Llxg24VKLiyBTKUtHxEyssLjBEfFcUnlcn2O4ZXQRuFDur4QPk7pmSBVpbeiGFZ
+         XJmUsyTPwY3QpzcKKAnEF3RPPvDgomwUycTaIaMcdz22jpJDeXpkvuX2eLuHxoQ+LhYS
+         wNr75Yhw7s4h51YTsiIYH92NsIeTcCkx5OSpoKwdIaQpjEX8HdUXzsin3poSheHxcvxW
+         Y/kd9mkm6jKANhNS5V1r5dMlxqPDngTGisX3vAd1KrF2zilYWLXfkz86wb7WodSpVA0z
+         n/kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790157288; x=1790762088;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aQDxycOIV80BPgrqxrzM7NANBApnebD30BToWezPxAI=;
-        b=1C8wcNw9uXsQvhJySgYUUQ+hHcfUyFzfTzS6nKdD4z+mBcr/NZYpI2Ac3MyjcAlUGk
-         rZy4ZYA9JPPRW3QRW3Ilfh4bmyNUPOL2u4eKT0OQs/8j5FHxX/EWZuJKBfEQ2OUP498R
-         urVABdxXZrAr3x3wtV8kvBp51z9a9ycCfUDnSbIPkgNk8nclzD6UVMTj63YoZ4yMDORS
-         eFGBhpiZLmv1NPjYT4pNimI3IdVq86tODnuIzBC6bjJm7gBphSBd7dwiKa7RxLHhirc5
-         93d4L8wx4aKVvMsm2uBO031n1EvB4qw65/mLdpBNEKLiW4X6EIFBFs0WYWWqv5m/1kcm
-         637g==
-X-Forwarded-Encrypted: i=1; AKwUvBwJ8DwFOibO9Bg7c2/ypM3mXVZ5Gn9vo2BDVsmXMspWavmCZty3XA2EcdTWCfdpoh1hXHXyhjqYHdXOb7o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcCY/G79CLdtykWEd9mQSqCqiJVINdZyVAscpQ8aAjDuTddZSR
-	IeI8YhWJvjAXcUJr30o3vBTgbeK+6ju7azkXzGaexpUICpu4akzOjdZ51/TdDPpTfe70
-X-Gm-Gg: AYBFou3bFHQ4xnich4ez5cudlQuKibi2jfcXk5miYN71EA7/+I0k7Jrt5CJtxDw3Vhh
-	FdTYPT20dqtP/RuTPSRlTs5UHXvktbfH8B20bQpBco8iOsrjWnhayut3ys1CwpiyeOjFP5QwptR
-	Whmuo1oP4YsQN4A7GctgjLILqO990G/raHTcJfTHy9zWonZdahv3KTEkSlwG4t3VmHUyWGlIvMn
-	SWY2yW7PiwS7XhV0BJs1qsGY2iSRUG0qZql8TIy2hD1n0UOKmNjnbofHrnfpUObmYvAJ4BDE/j5
-	F9PNSqjwLvdxdUGNUU9ohIarlRQGxFS9ctBcLi/x4wd0zvEQ489Pyjd2UmQNuD7ck9oQPTM/fA+
-	RBuPDDOBLmdOy5lw83UHIDdUVtKb6NTRAcLNSM8S+NUzAe44d6GEGnTPcTsLoZcEWxJ+ofLpYq+
-	pbqa/u4Qq9GS2ieMTK+oeHTigx2VdezyFe15otOx7FBFJE9vnXXLGB68g7L0towSHsTprZKXMOP
-	cR/AH2UxEAAE1UmrOTYdNAaGitbvw==
-X-Received: by 2002:a17:903:234e:b0:2dd:ad73:c983 with SMTP id d9443c01a7336-2df69d595f0mr17906435ad.27.1790157287897;
-        Wed, 23 Sep 2026 02:54:47 -0700 (PDT)
-Received: from 954df21a5119.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dc5f3d7sm4793862a91.16.2026.09.23.02.54.42
+        d=1e100.net; s=20260707; t=1790157291; x=1790762091;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O/p+TOshpoie9dAYVqfiIsQZZYf+Pgovp0T9es4CnLs=;
+        b=ovAW/OxFqpC2mQA/i09bNfn/k6E52hKhQ1bcqL0sljdGG1nhEHj2VYwg0WsTT2swbU
+         BkIHMIE5Cv1vImQWsrZj0euKNhbuK+x3eSnmNflywqcJAuZH0XK/8ZX5JDNtDYPYhgZG
+         9r+rPFuAWYQ3qNVRzbOyw9WSlcVm/Xm4teJpcGKh5oVcUVzDnKee2q+1pyh+CIi6N3Cd
+         rIc9D8aL4oh/azy8pLGaT7knV5+Ud3dC0oGaLiUMObL1iUfeOF0T1/5XkRspwtKPs4qq
+         BMQj5ljsmM8tcnK2D/acP/HCvWtnCy2wnPhOibhb8VA71z/dwwJV6Q8QQB8ES1n/+oCw
+         IAqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLg9XdACca9wc6GNUB8xCqdPzSJqpT63lUHwMqdx6hHuiXrkLRFmQmrLWdPNONtr1uA/hRO8iXOYK+sbA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6u5mdSSnfVOw7w7kLwokzwjrqfv0ns7AbntZI8qOLjt5cWbhb
+	ex16BtDAJ52TIeqwlHnNXaUnMme1M9DERzHC13+WXts5EaFpgy++eZ2N
+X-Gm-Gg: AYBFou3lRMLB8NQiA7XNn13F1kO4g56szPwdIwmG80BnCwOA0eih5ZqNZzsNoA/Mkn+
+	2CmgV8Y4iQ92RocYfqrv/1LZXMiB74hdTw97a6aJHmvRZag3kwbZDd8b4dNgs66+8hg1C/LmvFS
+	pu0/plgDliB1hSuMIpoSwpPS8XCtBqwe+HRJXt9jAqkkNn/WNPg/rE8euXxfiKxVAY52ybIpPnz
+	40+mVPIgmOGqIdbBTjVPoZ44aS087SNou5nA0OPpfZVT1Y5h49DvgdOiDUzTutkA7Iy45T5LShK
+	bg6ZZ9qXos+z5V65ZE7Ca0l53vMT/huaM2WutMr2wyXB7S8/E+Ko54c/OR/DRxfFIqiTZy7FHNW
+	bnAbjiawPCUTVqciPpZFtIZZfKSGzKfz+Yr+/mCVAvRQG/RqqOigEXhwj4Oif+rAAv1sIMPjDRw
+	0EztB53s11UxB+puqHdi6fVl8Hwy3T3aNKV+/J3wdLobanmATYtltJVfTvVZ/JQ6VKx/+3ZjuXB
+	0DiuLmG
+X-Received: by 2002:a17:90b:1c09:b0:39e:237c:50e0 with SMTP id 98e67ed59e1d1-3a07e4a2554mr1921438a91.13.1790157290738;
+        Wed, 23 Sep 2026 02:54:50 -0700 (PDT)
+Received: from gmail.com ([185.220.238.43])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a982esm8000105ad.22.2026.09.23.02.54.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 02:54:47 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netfilter-devel@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	lvs-devel@vger.kernel.org,
-	coreteam@netfilter.org,
+        Wed, 23 Sep 2026 02:54:50 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: Kunwu Chan <kunwu.chan@gmail.com>,
+	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	horms@verge.net.au,
-	ja@ssi.bg,
-	zihanx@nebusec.ai,
-	pablo@netfilter.org,
-	fw@strlen.de,
-	phil@nwl.cc,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH nf v4 3/3] ipvs: reject FTP control ports as data ports
-Date: Wed, 23 Sep 2026 09:54:15 +0000
-Message-ID: <b5c5a01607eabe55a6a5a27a9ed40a0ac8ec65fe.1790146910.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1790146910.git.zihanx@nebusec.ai>
-References: <cover.1790146910.git.zihanx@nebusec.ai>
+	rcu@vger.kernel.org,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	paul@xen.org,
+	paulmck@kernel.org,
+	kunwu.chan@linux.dev,
+	nh-open-source@amazon.com
+Subject: Re: [PATCH 00/17] KVM: Use atomic SRCU for gfn-to-pfn cache, reinstate guest mode for x86 nesting
+Date: Wed, 23 Sep 2026 17:54:33 +0800
+Message-ID: <20260923095435.591542-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <84e1f6c28becdf94ccb72f5c64c0001768167fc2.camel@infradead.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ip_vs_ftp_out() creates a wildcard data connection from the
-server-advertised passive port. If that port is one of the configured FTP
-control ports, ip_vs_conn_new() binds the FTP helper to the new connection
-again. A subsequent wildcard lookup can then extend a controlled-connection
-chain.
+On Tue, 22 Sep 2026 12:37:43 +0200 David Woodhouse <dwmw2@infradead.org> wrote:
 
-Reject zero and configured control ports before creating passive
-connections. For active mode, reject a zero client port and a data port
-derived from a configured control port.
+> On Tue, 2026-09-22 at 11:16 +0800, KunWu Chan wrote:
+> > Do you happen to have any numbers comparing the GPC invalidation
+> > latency with regular SRCU vs. `synchronize_srcu_atomic()`? If there
+> > are also numbers with the reader-free fastpath, that would be useful
+> > for understanding its impact as well.
+> 
+> Yeah, I built some latency tests and was posting results in the earlier
+> thread¹, on a few different test hosts.
+> 
+> I compared against the existing rwlock, as well as SRCU both with and
+> without the try_synchronize_srcu() fast path. Mostly looking at the
+> invalidation latency, since that was Sean's stated concern with the
+> original RCU-based proof of concept.
+> 
+> All from the same test: 12 concurrent guest-memory invalidation
+> reproducers hammering the Xen shinfo/vcpu_info caches, 300 second
+> windows, measuring the invalidation drain end-to-end.
+> 
+> 192-way Granite Rapids, PREEMPT_RT production config:
+> 
+>   rwlock (before this series)              avg  4.4µs   max 3.85ms
+>   synchronize_srcu_expedited() drain       avg  8.6µs   max 810µs
+>   synchronize_srcu_atomic() + fastpath     avg  ~3µs    max 801µs
+> 
+> The A/B numbers I have for the reader-free fast path were on different
+> hardware (128-way Ice Lake, production-like config):
+> 
+>   synchronize_srcu_atomic(), no fastpath   avg 8.0µs   max 6.0ms
+>   with the inline no-readers proof         avg 3.6µs   max 326µs
+> 
+> If you want, it isn't much effort for me to tell my friend to redo any
+> of the measurements.
+> 
+> ¹ https://lore.kernel.org/all/0d4af6318ac67486858be1df8d436147b444a2d2.camel@infradead.org/
+> 
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v4:
-  - Resend the FTP helper fix as patch 3/3 with the generic cleanup fixes.
-  - v3 Link:
-    https://lore.kernel.org/all/cover.1789877273.git.zihanx@nebusec.ai/
-changes in v3:
-  - Keep the active-mode guard for configured FTP control ports.
-  - v2 Link:
-    https://lore.kernel.org/all/cover.1789435989.git.zihanx@nebusec.ai/
-changes in v2:
-  - Add the active-mode check for a data port derived from a configured
-    control port.
-  - v1 Link:
-    https://lore.kernel.org/all/cover.1789110326.git.zihanx@nebusec.ai/
+Hi David,
 
- net/netfilter/ipvs/ip_vs_ftp.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+Thanks, this is very helpful. I've put the results together below.
 
-diff --git a/net/netfilter/ipvs/ip_vs_ftp.c b/net/netfilter/ipvs/ip_vs_ftp.c
-index 9e3e005a82635..4822a1a75212d 100644
---- a/net/netfilter/ipvs/ip_vs_ftp.c
-+++ b/net/netfilter/ipvs/ip_vs_ftp.c
-@@ -62,6 +62,17 @@ static unsigned short ports[IP_VS_APP_MAX_PORTS] = {21, 0};
- module_param_array(ports, ushort, &ports_count, 0444);
- MODULE_PARM_DESC(ports, "Ports to monitor for FTP control commands");
- 
-+static bool is_control_port(u16 port)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ports_count; i++) {
-+		if (ports[i] == port)
-+			return true;
-+	}
-+	return false;
-+}
-+
- 
- static char *ip_vs_ftp_data_ptr(struct sk_buff *skb, struct ip_vs_iphdr *ipvsh)
- {
-@@ -319,6 +330,10 @@ static int ip_vs_ftp_out(struct ip_vs_app *app, struct ip_vs_conn *cp,
- 		return 1;
- 	}
- 
-+	/* Do not redirect data to control ports */
-+	if (!port || is_control_port(ntohs(port)))
-+		return 0;
-+
- 	/* Now update or create a connection entry for it */
- 	{
- 		struct ip_vs_conn_param p;
-@@ -529,6 +544,9 @@ static int ip_vs_ftp_in(struct ip_vs_app *app, struct ip_vs_conn *cp,
- 		return 1;
- 	}
- 
-+	if (!port || is_control_port(ntohs(cp->vport) - 1))
-+		return 0;
-+
- 	/* Passive mode off */
- 	cp->app_data = (void *) IP_VS_FTP_ACTIVE;
- 
--- 
-2.43.0
+KVM GPC invalidation drain latency
+
+128-way Ice Lake:
+┌──────────────────────────────────┬──────────────┬──────────────┐
+│ Implementation                   │ Avg          │ Max          │
+├──────────────────────────────────┼──────────────┼──────────────┤
+│ Baseline (rwlock)                │ not provided │ not provided │
+├──────────────────────────────────┼──────────────┼──────────────┤
+│ synchronize_srcu_expedited()     │ not provided │ not provided │
+├──────────────────────────────────┼──────────────┼──────────────┤
+│ synchronize_srcu_atomic()        │ 8.0us        │ 6.0ms        │
+├──────────────────────────────────┼──────────────┼──────────────┤
+│ synchronize_srcu_atomic() +      │ 3.6us        │ 326us        │
+│   reader-free fastpath           │              │              │
+└──────────────────────────────────┴──────────────┴──────────────┘
+
+192-way Granite Rapids:
+┌──────────────────────────────────┬──────────────┬──────────────┐
+│ Implementation                   │ Avg          │ Max          │
+├──────────────────────────────────┼──────────────┼──────────────┤
+│ Baseline (rwlock)                │ 4.4us        │ 3.85ms       │
+├──────────────────────────────────┼──────────────┼──────────────┤
+│ synchronize_srcu_expedited()     │ 8.6us        │ 810us        │
+├──────────────────────────────────┼──────────────┼──────────────┤
+│ synchronize_srcu_atomic()        │ not provided │ not provided │
+├──────────────────────────────────┼──────────────┼──────────────┤
+│ synchronize_srcu_atomic() +      │ ~3us         │ 801us        │
+│   reader-free fastpath           │              │              │
+└──────────────────────────────────┴──────────────┴──────────────┘
+Note: Avg / Max are the average and maximum end-to-end invalidation drain latency.
+The measurements use 12 concurrent guest-memory invalidation reproducers 
+hammering the Xen shinfo/vcpu_info caches over 300-second windows.
+
+On the 128-way Ice Lake system, the reader-free fastpath reduces the
+average latency from 8.0us to 3.6us, and the maximum from 6.0ms to
+326us.
+
+The 192-way Granite Rapids result is from a separate hardware
+configuration, so I kept it separate from the 128-way A/B comparison.
+
+The only missing comparison is the 192-way Granite Rapids result for
+synchronize_srcu_atomic() without the reader-free fastpath. If you
+already have that result, it would be useful to add it. No need to
+rerun the measurement just for this table if you don't have it.
+
+Could you please confirm that I transcribed the numbers correctly?
+
+Thanks,
+Kunwu
 
