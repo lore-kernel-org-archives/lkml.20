@@ -1,249 +1,190 @@
-Received: from mta1.migadu.com (out-20.mta1.migadu.com [95.215.58.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021132.outbound.protection.outlook.com [52.101.95.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65793549368
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.20
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188859; cv=none; b=d5UlppJJx8cBzBnI6wUWCIDBW9S5hMNtKQOFcgBt+6Ma2oHVuSesZmfLg0v3Maa13b6k8o9tMMwdyHoEMGee5jixP+KlIt9JMT/utxfFAaBopDcULUD+KdU52odVAWWnBIbZjrYL6Eqz4P87/Ina30au28iEJhmay5nhILtsR9c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188859; c=relaxed/simple;
-	bh=KHltIsP16/D58QoS2DV7BJ0dfwy+AgfodY00vY+4j2w=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=K/bZHPxuI7yV4W7xCtAikP593vsQmluscEcUfJkfeaxjnw/ZHJt3+V6pxRV0ZushHCkBnXhHWzKH0eUQ2Mw6P9psOAplX6Vmowpx1aH54YsJGnk638dIm2lWus4m2zM98RnEwdl+I7pJ75NSLl8sQyuXR9MutA0SjSrd7seSUIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=LqmUBHEl; arc=none smtp.client-ip=95.215.58.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78E344248C6;
+	Wed, 23 Sep 2026 18:41:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.132
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790188910; cv=fail; b=Nraq3oU7714yslF7cA5JikK49ILW7/RY7/7T8fD7O0cicjUJyFPKlZqYQFqaLqQPta713tvrI+NgabX/IBDeO+0j1K26482XFdDjaVF1zX/aIN0cUxDNc4TCCdsc2f2cy8mRZPRrgotOMquUiCB/wmBl0uCdw8Uyhq2W5l2FLu4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790188910; c=relaxed/simple;
+	bh=z2jKquVciKjj3tVrvsUDDatAi7t2z+CJ+ibEPg/uFYo=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=ktao5ARW9uAomd3/ysHLgm8rEvKmT2ycwPHHntcswGI0wFccv30QAaH9QjixXsOMl5opZoShlcqgjNZAntLwU8QqG3Lhutbi3bCYBkCyXLRbSLNBMCYvIU7BP6BVvNW5Lq6nswpORHGVrQQ1DzKUC0rZAlqBETwdA/rFKhndKyY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=STzw6BSh; arc=fail smtp.client-ip=52.101.95.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="LqmUBHEl"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=KHltIsP16/D58QoS2DV7BJ0dfwy+AgfodY00vY+4j2w=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790188851; v=1; x=1790793651;
- b=LqmUBHElxdjwZqJAjAC+wzS2hQA3pIfJXEugnSX3sVWkDfhxAoCftVJSyq0Po+J2uSGWppaT
- pCY+hcYJ+cZsptCvzKiqGV6jstKsAH1IYgqroU6nrdifbGASNpfyNA7vpDoTl4x8RRomr3QeLdU
- pM/lk0fjBn5IZB/Dx3zSNaP5vJpDu1D4WGJ8fq/dJWbbwqCKPyVp+msanb1sJJeavNweTxGqMCe
- uWklVQxYFXozpE95kjYMJqNEHitptBnzMfVvc+rdoEIuJIimUXGQzuZ8Uiv/suSaGB46Ii19nMW
- 5N5ZTZ7KBYAkPOy+9jhkkJ1Tu8oQu+KdVrdl0ya2e2vcg==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b3c24cb28d2361dc;
-	Wed, 23 Sep 2026 18:40:51 +0000
-X-Mizu-Trace-ID: b3c24cb28d2361dc
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="STzw6BSh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QOaI0P7eTu+GKUtv/6U4tXwVc5via0dmX2TkeXhy3ib/seShwHUI7hgh5ugRfn94cvC4cvug53ES76hO4Y+INGE6o6758PbdxQrXAn71LQT8mAfZmnEX10E2r/qP0Nr+0n7Nxkxu6HW1I93cIsXDyJQZws+dd3bEPSxDCU+b5qzI1ZQ2JvSe50zpLXLKVRp2ZuPf3ZFHhtT8So9FCUbdyxVOtISboBns0q2tiIg8WimtvbYI6zUCdB20GDx0SQzFAGiBouj4Crsn5SqC7sl+0X0kPYarG9GXOmTe6Wub3fpXzcX32Mg8RzdVOjWIOIfqfukOsR+fft0cDaDVk8Sfww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RGLAysBPU0lMX4JrmqbVwSkWCjZ1Bcymiz05jpKaaBc=;
+ b=XHdUMxxyNs1M3aR7/SLPvgQ3xFhrPYkqE/iW4sFVHceUyhRwSknKYZgRxFYoSaA/I/eBG8jaLcVm5K07QJ/AwtSWAGmkSpFPoHLSai+gioVCRDEpOw+qJE3+RdrFYVmmf/UYfapVSFu4RJ6PYQfqpeJVvefGAbQsEUS9L+qxFlrhT7K3Pj3JYjnl4x4MiCC/jV2gBvbvMxLResmfoVSFYAALw4eSmU1OCPs23e73ud+Dm+EAHDu7TAFshU7kVFAuE81WDuGzZMmEBwOPwq/5sHP7GHFZ7WJsNP+5In0dKJCBLjtpnMQRmgM9VXOjIq/7eMcAgeVGqtdH0JksOscAKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RGLAysBPU0lMX4JrmqbVwSkWCjZ1Bcymiz05jpKaaBc=;
+ b=STzw6BSh9f1MRcj9Ni7D4y1hqKnrM2JYp85pngyNL9zk1MXJy2bCp+E5NSJq75lsNcBQJb/f8GMa0piYsloB0RJk4QD/AbOJnFnb0glUNAqqyR8pHnr78WGV8+5gfUJVQNMheOSatkyQE0wPrMTcMHtJDHAiQHSDtgMqRqpLCLM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO9P265MB7724.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3b7::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
+ 2026 18:41:46 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 18:41:46 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 19:41:45 +0100
+Message-Id: <DLMX05RAZD0S.1EZ4L85L0T2HS@garyguo.net>
+Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
+Subject: Re: [PATCH] rust: sync: fix safety comment for `Arc::from_raw`
+From: "Gary Guo" <gary@garyguo.net>
+To: "Andreas Hindborg" <a.hindborg@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Lyude Paul" <lyude@redhat.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Miguel Ojeda" <ojeda@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Tamir Duberstein" <tamird@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260923-aref-from-raw-safety-v1-1-e34f0da04145@kernel.org>
+In-Reply-To: <20260923-aref-from-raw-safety-v1-1-e34f0da04145@kernel.org>
+X-ClientProxiedBy: LO4P123CA0306.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:196::23) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 20:40:50 +0200
-Message-Id: <DLMWZGK72FK2.22X7CQ2WIY9A@cknow-tech.com>
-Cc: "Sebastian Reichel" <sebastian.reichel@collabora.com>,
- <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, "Jonas Karlman" <jonas@kwiboo.se>
-Subject: Re: [PATCH v5 5/7] arm64: dts: rockchip: describe PCIe RTL8125
- Ethernet on NanoPi R5S
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Ricardo Pardini" <ricardo@pardini.net>, "Diederik de Haas"
- <diederik@cknow-tech.com>, "Heiner Kallweit" <hkallweit1@gmail.com>,
- <nic_swsd@realtek.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S.
- Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
-X-Mailer: aerc 0.22.0-24-g39041fd9f179
-References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net> <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-5-c1b9e5f10cd6@pardini.net> <DLMV5WTF5TR1.BXDY94L4J4H7@cknow-tech.com> <12e5e5ad-7d55-469d-a63e-d19e3279c6c1@pardini.net>
-In-Reply-To: <12e5e5ad-7d55-469d-a63e-d19e3279c6c1@pardini.net>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO9P265MB7724:EE_
+X-MS-Office365-Filtering-Correlation-Id: d36c78e8-0176-478a-2d33-08df19a251e9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|10070799003|7416014|921020|3023799007|6133799003|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	shFG8DUisR2DJ69i9T+gimgCG4lT9LUqRLyvbTio373Qkcs0gpgv609WHrOP3oj4Hxf3eMMOWaP4x30KJNuu0G2NnfrbgbgZ+LKI/73UdZbKfQS9/wVTbS9yAeqAb54WxsDgYlQ5bkmiqXBgUxPJQs6V4KkXSlgJ3saVash/wfLeXnIx82915yeRrxZ1i5GHgo/YgDRmqNj8F63pzzMsh2yjxGDJdmg64Gs4/an6UFRBPiKxF86cDFZep8L/j5QIYJwaTbrjfp1yCQQBz6nY0JNlZLSvf2wnTA0OkiRdyi6i8eQKOspCtHkprZUUAAyLmFqzBScrNuHtXcaKxsWzbqH3xhloB4kv6L27eTJJ0PkzZk7PqMePjeHdkQMp3G2BsVYh0zv8A6U8gk77ISQ1oHymSAwcFwAJoAbA/AKO0ODpNhApkN93sBC5EqyYe6OPx8ixqTYKAthQrpDeSKwEU/YD1oJ++NdAPg52KjXAyLNk/W72cZamVy5vXtwKjA5QGf8+EzRKJq5jxBP+vIr/sdkwXzBk3U/PIgHpqwKS1xwG79kfGzhBf25fjCAKIvwG0Y9kQ+FK00yhWqlEPldGa2EvutdfAhX35dHvCYSqwskkviLOgewJo0F5AdGAYkjy6sErv3DNWQctP2AbxSAFQMG+HPZKorzJxvZnHimUMr9cQhJlZLWV8SnPNgaif7g6wM1qmiTx8UB697NUqG1vJg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(10070799003)(7416014)(921020)(3023799007)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cWVGTjEvekhBTElzRktnV3JDZXMxUnpjNmpjOC9ibUIyOUJUTHNEK05mKzV3?=
+ =?utf-8?B?TDVuVnNQVmw5bnpYVU5WTGN2ZUx0YUthdmVNbVNHNE1qSHNsSWlWeGFOMTdF?=
+ =?utf-8?B?cHpITk1aTFNIYVdkazl1N3lhdHpScEM5eXRqbm5iY2FHMXdnbExDWHNwTCtl?=
+ =?utf-8?B?N21oR3BkRGphdHJ6d3p2TnpuZmtLUlB2TFlEUjh4ZTY3WFZVekl4RlBTSXgw?=
+ =?utf-8?B?bnlGbGZtNG8rajdsVlpMZGYwdjhreFdKWnBVODFtZEVoVDFPSFNmY1VVazVh?=
+ =?utf-8?B?NE1VTUlGQVNCTnArd1lCN2kvcEg0SGpYYTBaaUwzcU9mZThqclRxTzlaNmhv?=
+ =?utf-8?B?eVRKOTlDcmhqT1RUSE1jME0zcXpnQzAzS0pya2JjU0ZjbklWV0pvcGloeStC?=
+ =?utf-8?B?anBrQkpJVU1aaTM4MkU5UnV6d1NqQ0ZNWDI1Z1BFQjZ2SFIvRkdoKzR2ZUFM?=
+ =?utf-8?B?aWtSOUV5YUhaNFNuU1k5dzlDV3JweXg5TGRkZW9oTnJnTVlYQk4xK01EZDZV?=
+ =?utf-8?B?aVQvZDE0UGp4bExtQkNVMGQxeU5DU2VjSVBpcjBoZHNBUnNhWmQ3SjFlcElm?=
+ =?utf-8?B?R2Q1WjVXeTlBKytjN2lCdTEzWTRNeGlBL3JLYzE2ZCtsQysvckxQMTlzOGN6?=
+ =?utf-8?B?ZU85WEkyQ0pycUFka1hnR1dUN0RuUkR2NmIwOEdhaCtkTVFrTE9tK0NtZjRp?=
+ =?utf-8?B?eWtzdTZuQWdpMFkxT1ZkUGlPall1VFM1QlA0T2lhaUZUYVI5ck02WFQ4dVBB?=
+ =?utf-8?B?R0JQOGphU25FMTdDVkcxcDkwYjNSSlMwNHBiRHFUZHZjVXEvQXVCREcxS3R5?=
+ =?utf-8?B?Nyt0VFZLanVvTGNXVCtlNXlVZFloYVJIQkZ3RkFOR1ZqZEJRRXBWUm9hcVdN?=
+ =?utf-8?B?QnR4TzRxKzZGTjgxa3Q0S3l3clZGWW5lU0RNcG9XUU04UGM0WGdhblJZcG5C?=
+ =?utf-8?B?RjVQYXlkT2RHU3VyczRtc0FRT01ncnUwY2dhRklOWGJCTnJCNVkyQ0RKMWsw?=
+ =?utf-8?B?WndXY0dHc1JjMVdWazA4b1ZEa1VPMWxrRjRBRWJ0aVp0Q1AzcitWVEZ0bXEv?=
+ =?utf-8?B?ZnhPbjQraGc4SXRheDJsb3hZUmF6RzJxaXZHam9RZ0IzNFFQL3FPdWJzdFln?=
+ =?utf-8?B?OVZKcGMxQ01qR1lMZTNheGV3VW5pSnVaajh0ZkhUN09hYWFaNkNzZ0FKOHdn?=
+ =?utf-8?B?c2wwRWRxT242bUxQblVyWWEwbWZkeG5ZK3RZMzBvM0NFazBpcnVDcVk0d3Rz?=
+ =?utf-8?B?VktBRTJKL3NkTTNFd2dhbFVHVWh3NkNFa01NKzhJd1EvTUsxejJZQU9WNXVY?=
+ =?utf-8?B?cFJUMWZwNDBIbmI3c1ZKd3N3ZE93eExVRXRRYUFFSjRLRFV3L0MwdWZmVW52?=
+ =?utf-8?B?Zjk2VzFIMmZCNUhpWjJxajJuMjdnWFBGSTQ4QlorT2JCa0JZZFhqY0ZBRkU0?=
+ =?utf-8?B?bTBRYTN0UlBzM1VQNzd0bTcxUDh4NXN5Z0VSdGRpKy9wV1RrSnViT0JnTzZX?=
+ =?utf-8?B?MitDTmJhS0MzdWtnY2U1VHZnRnZjQkNMWGxXdUtIdnd1cThPaHRLbG40cHFi?=
+ =?utf-8?B?RnY5MEg3TWhqS2R6Qm9CNm1Ccjd0S0gxdnhMcUVmNnYvNDUvSWVGRFJJeWRl?=
+ =?utf-8?B?dU81Mzg1L1ZIWUFMN3J2bm5uVXlTZno1RnphQm1lWFdiR2xxdWpMNHpuTGx5?=
+ =?utf-8?B?RXU5TTArUXBWeHFCWndMekU3L0lSRHl6dWpNK2RmWXltb2k5L3RJN0pWWVo4?=
+ =?utf-8?B?UjZRYVloUHhSQkhVUnRqMU5mei9OWXV0NnN4bnozMXF5OFhtbVlya1JIQkE4?=
+ =?utf-8?B?MlZFS0lQQUZrWHYyZEkwajhFNW1VRWpQR0laalFXVWxFbXgvQnl4UmhFV3Vm?=
+ =?utf-8?B?N05iZThUSE5jUzk2T2pZMlN0VTZVMjYyQTdxVXRIMDNjQi93Sk5HQmFOL1k5?=
+ =?utf-8?B?MkhadGpqdEx5VStmdlFKQXBnNVVJKzFPVHQ0MGhqRDFTMmZxZ0NrU0g2MnRn?=
+ =?utf-8?B?L0xSUU56ZTExUGEwQ0JsUXF4N1IrV3liTGUrVnZGM0tBYm1FczIvS3lBS0Q0?=
+ =?utf-8?B?SHlJKzM5eUZreWlyL2FDZUQvdHAzbkZ4Tmtuek9Pa29JVXdZRDdzSlEvRXUv?=
+ =?utf-8?B?QkVmVFFRbjRKZVgwWVlWOVpoZDhRL3ZSTFJuM1lRVXBqZU9HTSs1d3NDNDVl?=
+ =?utf-8?B?ZnFFTS9FaWNwUXNvcUR0UHpwM3djNlJobEcrK2w4eXZGNEIvUjQ3UzNxalNQ?=
+ =?utf-8?B?UGlEL0xXQjFoeEk5SnZXNk1wRnRtWmpVZVRTZXJXRHdJK0xkajM5ZDZlWXdp?=
+ =?utf-8?B?RUtSSGJUL09VTVY3L2cxM285dnl0UzVKVlV5cnpmSGZWT25QTzUvQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: d36c78e8-0176-478a-2d33-08df19a251e9
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 18:41:46.0148
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +25ZClS0kntTpieRNTxL9nDjFB+pysUdGLZygBNFEPT8Kg5MH2FMBEdpCJ2E99a8ovGOmZwC0zrYOL81RD/MqQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO9P265MB7724
 
-Hi Ricardo,
-
-On Wed Sep 23, 2026 at 8:02 PM CEST, Ricardo Pardini wrote:
-> On 23/09/2026 19:15, Diederik de Haas wrote:
->> On Thu Sep 10, 2026 at 10:07 PM CEST, Ricardo Pardini via B4 Relay wrote=
-:
->>> From: Ricardo Pardini <ricardo@pardini.net>
->>>
->>> The FriendlyElec NanoPi R5S (rk3568) carries two on-board Realtek
->>> RTL8125 NICs behind pcie2x1 and pcie3x1, alongside the existing gmac0
->>> RGMII PHY.
->>>
->>> Describe the fixed function nodes and attach ethernet1/ethernet2
->>> aliases (ethernet0 stays mapped to gmac0), so that U-Boot's
->>> fdt_fixup_ethernet() can inject mac-address properties from its
->>> eth1addr/eth2addr env, for stable MACs across boots that both U-Boot
->>> and the kernel agree on.
->>>
->>> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
->>> ---
->>>   arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts | 30 +++++++++++++=
-+++++++++
->>>   1 file changed, 30 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts b/arch/=
-arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
->>> index 90ce6f0e1dcff..9ed11663c31c9 100644
->>> --- a/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
->>> +++ b/arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts
->>> @@ -15,6 +15,8 @@ / {
->>>  =20
->>>   	aliases {
->>>   		ethernet0 =3D &gmac0;
->>> +		ethernet1 =3D &rtl_eth1;
->>> +		ethernet2 =3D &rtl_eth2;
->>>   	};
->>=20
->> With my NanoPi-R5S I'm still getting the following warning:
->>=20
->>    r8169 0001:11:00.0: can't read MAC address, setting random one
->>=20
->> ```
->> root@nanopi-r5s:~# ip link
->> 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode=
- DEFAULT group default qlen 1000
->>      link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
->> 2: end1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq_codel sta=
-te DOWN mode DEFAULT group default qlen 1000
->>      link/ether 4e:52:85:9e:22:f9 brd ff:ff:ff:ff:ff:ff
->>      altname enp1s0
->>      altname enx4e52859e22f9
->> 3: end2: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq_codel sta=
-te DOWN mode DEFAULT group default qlen 1000
->>      link/ether 12:e5:47:9e:e2:f1 brd ff:ff:ff:ff:ff:ff
->>      altname enP1p17s0
->> 4: end0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mo=
-de DEFAULT group default qlen 1000
->>      link/ether 4e:52:85:9e:22:f8 brd ff:ff:ff:ff:ff:ff
->>      altname enx4e52859e22f8
->> ```
->>=20
->> I did not do anything (explicitly) in U-Boot, but it seems it created a
->> non-random MAC address for end0 and end1 ... and then stopped.
->> AFAIK gmac0=3Dend0 already had a non-random MAC address and I hoped/expe=
-cted
->> it would create non-random addresses for end1 and end2, which would've m=
-ade
->> the above warning go away too.
->>=20
->> Is this an issue with this patch, with U-Boot or me?
+On Wed Sep 23, 2026 at 7:32 PM BST, Andreas Hindborg wrote:
+> `Arc::from_raw` does not require `T: Send`. But if `Arc::from_raw` was
+> executed on a different thread than `Arc::into_raw`, `T` must implement
+> `Send` for the API to be sound. If this is not the case, ownership of `T`
+> may be sent across a thread boundary even if `T: !Send`.
 >
-> Hi Diederik, in this case (3 ethernet's) I think it's down to U-boot.
-> Check the output of `printenv` in u-boot, you'll probably find it only=20
-> pre-computes 2 MAC addresses, and doesn't feed the ethernet2 alias=20
-> during its fdt_fixup_ethernet().
-
-It's indeed what I suspected. I don't dabble in U-Boot very often, but I se=
-em
-to recall it has fixed room for 2 MAC addresses and that would explain the
-symptom/problem I described.
-
-> Try doing `setenv eth2addr xx:xx...` in u-boot before booting -- it=20
-> should work. I think that's what I did when testing the R5S with this=20
-> series, but it has been a very long time ago.
-
-I'm going to give it a try and see what happens.
-
-> One way around this (without u-boot) would be to use Alexey's series [1]=
-=20
-> which could compute as many MACs as needed out of the CPU serialnum -=20
-> but that also won't work as-sent vs rk356x, I believe he's checking an=20
-> alternative proposed.
+> Augment safety comment for `Arc::from_raw` to close this gap.
 >
-> [1]=20
-> https://lore.kernel.org/linux-rockchip/20260902-rk3576-otp-cpuid-mac-v2-0=
--e4b7fe2ab13f@flipper.net/
-
-Haha! You linked in that thread to Heiko's RK356X OTP patch set and I teste=
-d
-that hoping/assuming that could help with generating unique MAC addresses.
-I see (or think I do) pieces of the puzzle, but I don't know how they all
-fit together.
-
->> Full details:
->> https://paste.sr.ht/~diederik/8ae7d354985afcd1c3464e3a4ad81da1b4442364
->>=20
->> Side note:
->> I wonder how 'random' those addresses are as during testing ``ssh rock5b=
-``
->> landed me on another device (NanoPC-T6 Plus), f.e. My router has DHCP
->> reservations based on MAC addresses and it looks like it got confused ;-=
-)
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+> ---
+>  rust/kernel/sync/arc.rs | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> Interesting. I dunno what seed is used, as I've been fully set on making=
-=20
-> it non-random, but I wouldn't discard the possibility of conflicts=20
-> across different machines. One more reason to have this series ;-)
+> diff --git a/rust/kernel/sync/arc.rs b/rust/kernel/sync/arc.rs
+> index 8ae0fe6f19ec..06838ecf633c 100644
+> --- a/rust/kernel/sync/arc.rs
+> +++ b/rust/kernel/sync/arc.rs
+> @@ -276,6 +276,9 @@ pub fn as_ptr(this: &Self) -> *const T {
+>      ///
+>      /// `ptr` must have been returned by a previous call to [`Arc::into_=
+raw`]. Additionally, it
+>      /// must not be called more than once for each previous call to [`Ar=
+c::into_raw`].
+> +    ///
+> +    /// If [`Arc::into_raw`] was executed on a different thread than the=
+ one executing
+> +    /// [`Arc::from_raw`], `T` must implement [`Send`].
 
-They all use the RTL8125BG and I suspect that plays a role in it.
+This needs to be `Send + Sync`?
 
-> I'll soon send a v6 to linux-rockchip/dt (with small fixes Sashiko found=
-=20
-> to DTs, and without the binding) and split a single-patch v1 to net-next=
-=20
-> with only the binding, collecting Rob's review. If and when those land,=
-=20
-> we'd have open road both for u-boot local-mac-address and Alexey's=20
-> nvmem-cells for the RTLs.
+That said, I am not sure if we want to enumerate all cases where things can=
+ go
+wrong. For example, would `Box::from_raw` need to mention that the type is
+`Send` too? `ARef::from_raw`? `ForeignOwnable::from_foreign/borrow/borrow_m=
+ut`
+all have to mention about this, too?
 
-Awesome, thanks :-)
+Best,
+Gary
 
-Cheers,
-  Diederik
-
-> Regards,
-> Ricardo
+>      pub unsafe fn from_raw(ptr: *const T) -> Self {
+>          // SAFETY: The caller promises that this pointer originates from=
+ a call to `into_raw` on an
+>          // `Arc` that is still valid.
 >
+> ---
+> base-commit: df2908090cda368b01ff43709f51890076c56157
+> change-id: 20260923-aref-from-raw-safety-78a7283627fa
 >
->>=20
->> Cheers,
->>    Diederik
->>=20
->>>   	gpio-keys {
->>> @@ -107,6 +109,20 @@ &pcie2x1 {
->>>   	num-lanes =3D <1>;
->>>   	reset-gpios =3D <&gpio0 RK_PB6 GPIO_ACTIVE_HIGH>;
->>>   	status =3D "okay";
->>> +
->>> +	pcie@0,0 {
->>> +		reg =3D <0x000000 0 0 0 0>;
->>> +		#address-cells =3D <3>;
->>> +		#size-cells =3D <2>;
->>> +		ranges;
->>> +		device_type =3D "pci";
->>> +		bus-range =3D <0x00 0x0f>;
->>> +
->>> +		rtl_eth1: ethernet@0,0 {
->>> +			compatible =3D "pci10ec,8125";
->>> +			reg =3D <0x010000 0 0 0 0>;
->>> +		};
->>> +	};
->>>   };
->>>  =20
->>>   &pcie30phy {
->>> @@ -119,6 +135,20 @@ &pcie3x1 {
->>>   	reset-gpios =3D <&gpio0 RK_PA0 GPIO_ACTIVE_HIGH>;
->>>   	vpcie3v3-supply =3D <&vcc3v3_pcie>;
->>>   	status =3D "okay";
->>> +
->>> +	pcie@0,0 {
->>> +		reg =3D <0x100000 0 0 0 0>;
->>> +		#address-cells =3D <3>;
->>> +		#size-cells =3D <2>;
->>> +		ranges;
->>> +		device_type =3D "pci";
->>> +		bus-range =3D <0x10 0x1f>;
->>> +
->>> +		rtl_eth2: ethernet@0,0 {
->>> +			compatible =3D "pci10ec,8125";
->>> +			reg =3D <0x110000 0 0 0 0>;
->>> +		};
->>> +	};
->>>   };
->>>  =20
->>>   &pcie3x2 {
->>=20
+> Best regards,
+> -- =20
+> Andreas Hindborg <a.hindborg@kernel.org>
 
 
