@@ -1,189 +1,142 @@
-Received: from mta0.migadu.com (out-4.mta0.migadu.com [91.218.175.4])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E82D3B8BC4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:50:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF3B4156C5
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:51:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790200238; cv=none; b=lzwW9JgzaL1cqjzKXRGURddCsQIDBxiw52+Lf4D9DTvydfv/Q7zRZY9vOwCq8ckCp9F8Hc/rJGi55DcsBeU13bbcQPTs8vTgNZZDNPYS+cytuyl86AjRhbZaRgFhihD0zsIy1YmUA8eqvemeXzbrfs9xVDGh6ABbwqkqLPcipHg=
+	t=1790200267; cv=none; b=U4fdFxFQVEKrL0Ri1oUTbnMlrUKtjl7Qj+BRTDCDFDhGN/ezZhlY49WXj7GysO8zEV4cNZ3xRyYmwyjHumsNXXeXP3Nh91A16uwDHzG5Js5B9FJJHiuNQoiJMB1M/EuRaAoYXft9mebl22ySau5MWCGw4Z+hA4+hYzERWg83HnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790200238; c=relaxed/simple;
-	bh=HPfVi3y1gax+ff5umcyzIricIySLtDF7Qf7jPDLvjBk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=CobaU9NI8AQ6WxCv4l8mthnrjK/BB54d0eAhtY4/P7rp1HNh+J3fU+UYQPB7h2KuI/xGM9/H5J0THqCuD8AbB+tV8OdV9FBIp4AiTtGOhrSriTL/swT7CabckrgSlpW1TZUwg4Fgw/bh2j2wAN84/YWVwUH82fVedPwoG5Ictpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=riFz9eQW; arc=none smtp.client-ip=91.218.175.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790200267; c=relaxed/simple;
+	bh=IgxTQuGeICrd5MzQGmpTL/c1gTtW/uQz3Qz7w3LwLaw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Q7ceE5FIGPl6IHTNuufQ6YpM9llkU6KzSC16NISFmW7ecEvBgbjVUkSv/LGDBsNk8Dh8rwqCkEwOr7kelImcpnVi0UomTlmAKKloTTUDA8MPp3dgociZLMQDnIMnOY2t2jltqNbk7EAH1g2GVIclNPpO0LQ8t4VBbsPsb6SdATE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ijlbFhsE; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="riFz9eQW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HPfVi3y1gax+ff5umcyzIricIySLtDF7Qf7jPDLvjBk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790200234; v=1; x=1790805034;
- b=riFz9eQW0/o1Y53S87vz0zL0SFqOUywm6WnRRl0thz1+ZSOi/PthyStJVtNGb0in0kCwkXI6
- OHvJrDIDj2vGHOZueg1sXwSqD60Tt3Qzfb4DUckrgbk9B/8xFAgSkBNYdSq74ml8oH9ZFu1F4ay
- oChnX+2jAg7/IqSceA3MFVn4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c37ad1e32183d01a;
-	Wed, 23 Sep 2026 21:50:13 +0000
-X-Mizu-Trace-ID: c37ad1e32183d01a
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ijlbFhsE"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so7688475e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:51:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790200264; x=1790805064; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bA3OJe4KXebO5yMPraruGl/foJ6oDyZS8+2CGZOOFhE=;
+        b=ijlbFhsE18WWMeAysPZFcwyAMX8Uua7zvLvN8PYncgtCGiuKHVuJIJJqBtgAV6VddO
+         Cbn9/Zd2iulKjpcTMshUp97Elz4RW0xEQujxH4UWVkBP9DKVS1DpODynHhZ6HRsMQJtk
+         QL14LKxlPL4CEzEpfEfT11cgmyulHSwyX9/HrWHq9gFpm9Q9UhcOC4l5tyO4SL5gnzhD
+         ub/t/zWhNuNNAELDlF3SeHW8W23oD8w5DeZVg/Tmle82aRsXPX9sIf49OekBQjCoUJBD
+         2isTp9ImGFOVu1SNu/w9te98ZW3nW7gptqR7xno4XLuvr5IweraNtT7sc/AYMvQe/9dP
+         1/mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790200264; x=1790805064;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bA3OJe4KXebO5yMPraruGl/foJ6oDyZS8+2CGZOOFhE=;
+        b=t0ZQBMcM/BD02sH964ylHx5c2L6RCDs002MvccyX2hw3bYji9VGoiKU6E8Hv6I6WDW
+         0zWZ2kHp/nVcL0p69qsWJ5D+LIv/TMJ88qvXSdylWqpnlxVH2+lb9iCU64FLiTYqDOLL
+         ZxY0TgJeVxZMoDukuYeXkI8HnLn5LiYdM0igIypalBqdDP88rMxjHF95fQD+PJ/iKAY2
+         wrkCaXwwJsVFI4TqksPPXvFgWARi2/XUuoI2y/4zrL2VgCHgobZ1h1YwLukFmhG+Cgkh
+         I6Dmza+Xf3xnsDjU57TND+BAyyew/ZzyKm45RchT0lOkJfjyQbKTyNsu7Hiap9RVVB4q
+         Qzfw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrRbuIZr6OotAwez2HsS8mm+VEBrMhQRGnrSU1fmkuEnnLR/rdL4HPrYfCezUkXGRjEHLrEgezG6sAC3c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOGPiAJ0ShTRE7R/s7ApdAx6YygAgXU5LvGBE+7M2xmCKYjjlm
+	/gKWHWgJfOazRBAbkl7G0IecWfJGcSifqTAei4vKYXX0NPHWmntW1O0tyxqt0SSq
+X-Gm-Gg: AYBFou3zNp9I/yoloaFaspeC6KID+DUKhg+zCOoxepCYdkRdXNwmNS0ngnl9Pztncff
+	aCpCvrPfDwnSMYC/Q26kZKAg4Os+VLNpNFVT1P8AQ1zwa+U7AkPck9eq9M9Y6WRwy9vd6Wkje4+
+	yhIuvomeKTwTrv2nIC0sze+VqWwWgDFAjTwmI3Om2c2u7AK986M2AF+qhGZGeADXjBZhkdsK+G3
+	Tqin5SpuaoDmZknTUYewUB+MCP9YW0MGxNuOopyCTCvBnqBZfeDliEyU1tPmLefAxEqodvSgrBC
+	fYvxoJis2J5h8eHs00Z6Do7X3EQotU7KcMTJUh/2BT4YumA4bh3XibhgC/lca7LKOg+EFcAdEJT
+	uyd/aE6Ekw4xLBl7OZxcj6vtbj0OXBbfU8u53iONmT28UZwsFiux5cro11uaPH5wI1QjdRtZbe1
+	P5KYEqpk6lSPNcnVIl16S18JTuIoG/rHwKC6jZkPUJ6ziQa4g9wwp1lOSp9KAGTrkxPVIebV8rG
+	TOuyWbZOSTZ1/RBqb+VhzgROR/W2GDPyuYq8HxT8iXt4A==
+X-Received: by 2002:a05:600c:1992:b0:49d:286:83d5 with SMTP id 5b1f17b1804b1-49fe66d5537mr7659645e9.13.1790200264413;
+        Wed, 23 Sep 2026 14:51:04 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c446e1sm72175855e9.2.2026.09.23.14.51.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 14:51:04 -0700 (PDT)
+Date: Wed, 23 Sep 2026 22:50:59 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Deepanshu Kartikey <kartikey406@gmail.com>, bhelgaas@google.com,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+Subject: Re: [PATCH] PCI: sysfs: Reject unaligned resource I/O port accesses
+Message-ID: <20260923225059.5c8cf0d7@pumpkin>
+In-Reply-To: <20260923205518.GA1941939@bhelgaas>
+References: <CADhLXY7008e4JA35T2wE8TnJnR_r82RCpfSd=aLBmDh5xAQ02A@mail.gmail.com>
+	<20260923205518.GA1941939@bhelgaas>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 23 Sep 2026 23:50:11 +0200
-Message-Id: <DLN10FU8L1PQ.3NK0M6NVQ3Y53@linux.dev>
-To: "Ping-Ke Shih" <pkshih@realtek.com>, "Luka Gejak" <luka.gejak@linux.dev>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
- Straube" <straube.linux@gmail.com>, "Peter Robinson"
- <pbrobinson@gmail.com>, "Bitterblue Smith" <rtl8821cerfe2@gmail.com>
-Subject: Re: [PATCH v3 3/6] wifi: rtw88: 8723b: add the RTL8723B chip driver
-From: "Luka Gejak" <luka.gejak@linux.dev>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260921154347.82317-1-luka.gejak@linux.dev>
- <20260921154347.82317-4-luka.gejak@linux.dev>
- <39da13e5cdd840f5a5ab86ded478d07c@realtek.com>
-In-Reply-To: <39da13e5cdd840f5a5ab86ded478d07c@realtek.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Wed Sep 23, 2026 at 10:30 AM CEST, Ping-Ke Shih wrote:
-> Luka Gejak <luka.gejak@linux.dev> wrote:
->> Add the Realtek RTL8723B 802.11n chip driver: the chip operations, the
->> power sequences, the efuse layout, the RF and IQ calibration, and the
->> chip specific coexistence handling.
->>=20
+On Wed, 23 Sep 2026 15:55:18 -0500
+Bjorn Helgaas <helgaas@kernel.org> wrote:
 
-Thanks for the review. Everything that could be turned into a change is
-in v4, and six of your points are worth an answer as much as a change,
-so here they are.
+> On Wed, Sep 23, 2026 at 09:05:15AM +0530, Deepanshu Kartikey wrote:
+> > On Sun, Aug 9, 2026 at 10:29=E2=80=AFAM Deepanshu Kartikey
+> > <kartikey406@gmail.com> wrote: =20
+> > >
+> > > pci_resource_io() validates that off+count stays within the BAR's
+> > > range but never checks that the resulting port is aligned to the
+> > > access size. A pwrite64()/pread64() on a resourceN file with an odd
+> > > offset and count=3D2 or count=3D4 reaches outw()/outl() with a misali=
+gned
+> > > address. On arm64 this becomes a store/load to a Device-memory
+> > > mapping (PCI_IOBASE + port), which architecturally requires natural
+> > > alignment, causing an alignment fault and kernel oops.
+> > >
+> > > Reject misaligned accesses before they reach the low-level accessor.
+> > >
+> > > Reported-by: syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
+> > > Closes: https://syzkaller.appspot.com/bug?extid=3D7134530b25073b4ef373
+> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> > > ---
+> > >  drivers/pci/pci-sysfs.c | 3 +++
+> > >  1 file changed, 3 insertions(+)
+> > >
+> > > diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
+> > > index 5ec0b245a69b..72f0404a34e9 100644
+> > > --- a/drivers/pci/pci-sysfs.c
+> > > +++ b/drivers/pci/pci-sysfs.c
+> > > @@ -1175,6 +1175,9 @@ static ssize_t pci_resource_io(struct file *fil=
+p, struct kobject *kobj,
+> > >         if (port + count - 1 > pci_resource_end(pdev, bar))
 
->> +#include <linux/unaligned.h>
->> +#include "main.h"
->> +#include "coex.h"
-> [...]
->> +#include "tx.h"
->
-> In increasing alphabet order.
+I think that test can ignore count.
 
-The list is already in increasing alphabetical order after main.h, and
-main.h cannot be sorted into place. The other rtw88 headers have no
-includes of their own and are written expecting main.h to be first: it is
-what brings in struct rtw_dev and even BIT() and GENMASK(). With mac.h
-ahead of main.h the build stops after 179 error lines, the first of them
+> > >                 return -EINVAL;
+> > >
+> > > +       if (!IS_ALIGNED(port, count))
+> > > +               return -EINVAL;
+> > > +
+> > >         switch (count) {
+> > >         case 1:
+> > >                 if (write)
+> > > --
+> > > 2.43.0
+> > > =20
+> > Please let me know the status of this patch. =20
+>=20
+> What do you think of the sashiko comments:
+> https://lore.kernel.org/all/20260809051652.36BA31F000E9@smtp.kernel.org?
+>=20
 
-  'struct rtw_dev' declared inside parameter list will not be visible
-  outside of this definition or declaration
-  implicit declaration of function 'GENMASK'
-  passing argument 1 of 'rtw_set_channel_mac' from incompatible pointer
-  type
+You could just add 'if (port & 1) return -EINVAL;' to the 'case 2:' branch,
+and a similar '& 3' to the 'case 4:' one.
 
-I tried the sort and reverted it. A strict order needs main.h added to
-those headers first. I can send that as a separate patch ahead of this
-series, but I would rather not fold a shared header change into the chip
-driver.
+Did it miss that loff_t is (probably) 64bit on 32bit?
+Or do large offsets get detected earlier?
 
->> +#define MASK_NETTYPE   0x30000
->> +#define _NETTYPE(x)    (((x) & 0x3) << 16)
->> +#define NT_LINK_AP     0x2
->
-> The PORT_SET_NET_TYPE in rtw_vif_port_config() does similar thing
-> relying on static const struct rtw_vif_port rtw_vif_port[].
->
-> Is that not suitable for RTL8723B? If so, should the common flow
-> avoid RTL8723B?
-
-It is suitable, and the common flow does not need to avoid RTL8723B.
-PORT_SET_NET_TYPE writes the same field with the same value:
-rtw_vif_port[0].net_type is address 0x0100 with mask 0x30000, which is
-REG_CR bits 17:16, and rtwvif->net_type is RTW_NET_MGD_LINKED, 2, the
-value NT_LINK_AP carried.
-
-Only the timing differs, and there the common flow is the better one.
-rtw_ops_add_interface() sets net_type from the interface type,
-RTW_NET_NO_LINK for a station, and the association path moves it to
-RTW_NET_MGD_LINKED, writing REG_CR after both. The chip local call ran
-during mac_init and forced the linked value before there was a link,
-and the core's write replaced it a moment later in any case.
-
-So v4 drops rtw8723b_init_network_type() with MASK_NETTYPE, _NETTYPE()
-and NT_LINK_AP, and the chip relies on rtw_vif_port[] like the others.
-No other rtw88 chip defines a net type value of its own.
-
->> +       /* Override the default rcr filter for 8723B */
->> +       rtwdev->hal.rcr =3D WLAN_RCR_CFG;
->
-> Why? The default value doesn't work to RTL8723B?
-
-Two things say it does not.
-
-hal.rcr is not only written at init. fw.c clears and restores
-BIT_CBSSID_BCN in it around the beacon filter, and mac80211.c toggles
-BIT_AM, so whatever is left there has to keep those bits.
-
-And this is not a private filter. It is the RCR that rtw8723x_mac_init()
-writes for the whole 8723x family, 0x700060ce, with BIT_APP_FCS added.
-The generic default is a different set: it has BIT_PKTCTL_DLEN and lacks
-BIT_CBSSID_DATA, BIT_CBSSID_BCN and BIT_AMF, so it drops exactly the bits
-fw.c manipulates on this chip.
-
-BIT_APP_FCS has to be set because rtw88 advertises RX_INCLUDES_FCS for
-every chip and the shared 8723x value has bit 31 clear; without it
-mac80211 trims four bytes of real frame data. v4 says this at the
-assignment.
-
->> +       rtw8723b_init_adaptive_ctrl(rtwdev);
->> +       rtw8723b_init_edca(rtwdev);
->> +       rtw8723b_init_retry_function(rtwdev);
->
-> So RTL8723B is very different from existing chips?
-
-No, and the siblings write the same registers with the same values.
-
-rtw8703b_phy_set_param() writes REG_SPEC_SIFS, REG_MAC_SPEC_SIFS, REG_SIFS
-and REG_SIFS + 2 with the same 0x100a, ACKTO is 0x40 in both, and
-REG_RETRY_LIMIT uses the same 0x3030 in both. Its four EDCA registers are
-the same magnitudes as here:
-
-  8703b  0x002FA226 VO  0x005EA324 VI  0x005EA42B BE  0x0000A44F BK
-  8723b  0x002FA226 VO  0x005EA324 VI  0x005EA42B BE  0x0000A44F BK
-
-rtw88xxa.c writes REG_RRSR with the same 0xfffff / 0xffff1 pair used here,
-and REG_RESP_SIFS_CCK and REG_RESP_SIFS_OFDM are the pair that only this
-chip and 8822c write. So I read the three helpers as the family pattern
-rather than as something chip specific. Say the word if you would rather
-have them inlined into rtw8723b_phy_set_param() the way 8703b has them;
-that is a smaller diff.
-
->> +static bool rtw8723b_sdio_needs_rx_path_fix(struct rtw_dev *rtwdev)
->
-> What does it mean?
->
-> In many places using this function are not RX path.
-
-Right, the name hid what it is, and it is a test the preparation series
-already provides. The function gates the SDIO only register work: the PAD
-mux restore in post_enable_flow, the path control save and restore around
-IQK, and the trailing re-assert in set_channel. v4 drops the local helper
-and calls rtw_is_8723bs() at those seven places, which is what rx.c, tx.c
-and sdio.c already use.
-
-One more, where the review asked for a change that was already there.
-The declarations in rtw8723b_reassert_rx_path() that you marked for
-reverse X'mas order are already longest first, three u32 lines followed
-by two u8 lines, and they are the same in the sent v3 and in v4. If you
-had a different order in mind, tell me which and I will apply it.
-
-I re-ran the hardware validation on this exact tip after these changes.
-The suite and the soak both pass: association, WPA2, DHCP, throughput,
-latency, scans under traffic, 20/20 reload/reassociate, link cycles and
-reconnects, with no error, TX-report, H2C, LPS or lockdep lines in dmesg,
-and no regression against the branch that was validated before.
-
-Best regards,
-Luka Gejak
+David
