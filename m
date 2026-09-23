@@ -1,224 +1,158 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EA14E3EED
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:11:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165473; cv=pass; b=Xvu/5d4CxgmeEjKStU96ZC+hCUlSwzWHeWkp9K0MUOD3xkGRfYfdL1cpDLMaEPQaOiKvjKi9buslRvqHV87N2GffZJnKafPIpCzNd/aukG+b4w0Yck9ztTTdckh6fUwjBP3xhJyoDbJBNNbCLgUFIbclzWk5oc1v6sOxSeZ1MBk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165473; c=relaxed/simple;
-	bh=o9ESTc8AilBu3NYkC+X8HMlQp3tCaNfUdjSt8pFWTNk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A+hQEecFu9XjVqENM9u/q3r3SzlYm1TWZ3Fju7nSSs76/p6XvY2XRMdiCg7S4wMEZs4Dgfb6Y2fav1eBpoInIYKcmB4nr1+F+ClxBSawzblxdK56Ds6/jS06Mpn1iKbq7dFvGYIL04YMaQqwWvASlKoMzIwURvj56vCW6+N9PP8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=OxuZWshG; arc=pass smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CD84A92FA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:11:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790165481; cv=none; b=kw9hvGutB8MWhyEzNY1aJj6Z8V9pVqXdJWOpcdfFBO0MgnNwc7pwch2rPBXzED5JpyOEOL8o8nqr2+hVLf2fN5dORiE5ycj8XcEihqs7yRh4JWfbThERZuVcGgtBmJII9YWC9d/gEvFSTjPxIkgvOkQTJsKY+ifW7gKXvKH3snA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790165481; c=relaxed/simple;
+	bh=huFl7zPpoNDi3ZejUCdFgfxAsa+ZPgCrVcmlJh38yNI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RJp+fcsFC+3sD5BbQ1KojO9PZ++LiSiSgHQaa4e7hEHRlt+eI7B3D4DJcgbPBI/vEUZj6GbVfWiSzgNVm7eH1+yeC22K0F9ugas2qjK/ZekANq0k2o43ZUhqlGa8holEM6JM5u8yJ131Xp3WdzpWMpvD2p9ifkkdplhaBp7Rm6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SCOGI/Nf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TnQNvrtz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="OxuZWshG"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e630052ebso982964eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:11:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790165465; cv=none;
-        d=google.com; s=arc-20260327;
-        b=co7SS1TlgICSLvKTwiYXypzIEr86HeKemPaiP3tR4yUagHF6KdAb7ADQGacZ0E9DnP
-         1RjZooefIFQqkpI8zH4fX/aU9l5tOQSyEYa2UkzdWpNC0p1XIgD76++8kB79xd3RK1t4
-         V1JFClXB3epALGtyv4HTtcnE1qG9SCFx7OKfd9oEAKzHW129ejA/Y1WagZW5cY/m1bxU
-         fkqtZxWShqGPP8Oavxkv5ExafH91Bd+jJpdtvRL0NmCWyLGZ4MnuKd7WkjUWkzUAFr51
-         OsZW+wC63VJnfZx1RemoHyebQ9x+YLzdNdhUcikqKspkF0wG9QqC46wdVp/sXLuGF9bP
-         J34g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=D+sAs6/yZPqQPCCjoSh/yVQa4eqK/t0Brk5AQsTggYw=;
-        fh=aWOrHff6b5h+c8WwMjjJ4GQ4RQWNjqhy9JIAk7dH7ck=;
-        b=QbqeLTihTGZLkqsdp6sJ+kVW4ZnSdg/IBkxu+JExb1rdhURUabeEhpKKcm//cmbrT2
-         ho93RPtl7aoHq/aVIC0+jCDwkPYlPAze5ME4GD4YO6/p6BznhW1g4R3OTwC1480Riotv
-         CPCCeiwCm1mxmyhReDPIBbCFRjly0uj3/+Vy4daxNp6eKrrMCPgpMnW98vVB+giJ8vK6
-         UDri5pSeyxc1ZSIQf7nT3y58CZ/Qp2GWMSmgi2c/z0DkTgOgJztLNPxk3WSIDbwK6+O2
-         UrEu0j8mUx/Dq5WGb2HIDPbVnQszyWXsmbvA92w/S2x+24cBJxzEAdSlC42XAfantUTa
-         7aSg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SCOGI/Nf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TnQNvrtz"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBbXKt3028019
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:11:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=8A0MKVbKWmnlKbzQw920PSpP
+	eoOO0tpdgW2Ug9tAy0I=; b=SCOGI/NfAWRAzhh7yBTj8bqPb5Iyp90UuKn+E4DO
+	6Fwcdm1hrjLMfKkZb9S5sRywkXQpkV5FzrE7gpGfK8U2FxZ5AGTn7FOcPQI+q1vZ
+	3EOpN/KXOlzGso2YnsPnrk2cE2Oc6ptH7Ok3wcT8M0e2doxQ4niTbsAXP+gVkL0D
+	L+6gueUd9RDWgJwOkLsL85fjblNDciYggzKkTLY76kiPoWTFgiVTXwRcDRJpYSDB
+	csPZ5Nt8SCgXjVAn06+3O6eiydCq1+xgqLDBxfJ7uAOuv6+xUb4XdPOs95GeGADh
+	ZIln7ZkzAW8FgFSFSySNrKi/aRbIg2L/38ZLMmGQWOM1QQ==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvbwarqbe-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:11:16 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-97e8d95121cso227552241.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:11:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1790165465; x=1790770265; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1790165476; x=1790770276; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=D+sAs6/yZPqQPCCjoSh/yVQa4eqK/t0Brk5AQsTggYw=;
-        b=OxuZWshG81Pu7Q/R9zG6hbx+dwDw7NwyKM7czLs2lWaBn8/7gpC/FHK2oiCmmsjHMQ
-         3fCDRnxSP6EEPQ6UF/eA7HxQiR401m7ejC8xcEaRF16egQQuwEkBLgc+KQQ32sqLZHYj
-         O4Ac8xA2zyyCCBMOVRGJ+oNYUbeAd3e0L2nn0=
+        bh=8A0MKVbKWmnlKbzQw920PSpPeoOO0tpdgW2Ug9tAy0I=;
+        b=TnQNvrtzjDaIp+lZ7Y4/sPCbnqiL69QRShXcLefFpYQ49rnB/TxsSvABleVnfwagNl
+         BzSW+2XfVcNzMVtfDYHvgQ8GCBEF0GTUyoy2plUzihuPy/yXFJzX9AM/J/aLDwamk4KX
+         lf6QK+ygFITHGdXToGiO7eQzr4GlV6v8CtZ1iM+ApS8crvvXpMRnAmiX60WTz/PiZvL+
+         o9o7SExbc/A+rSUA8Utd7CINWJpTdZJT74ntQM1E0i6oRGTgLYty8DaGAXZhkjl3dO3U
+         ij8XlH79psRtMfMa4UQruKxVpX3K5Z3LsZTJrzCSzzRNuSLBNzuc1X8WjZ/VG9sWbQK/
+         weKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790165465; x=1790770265;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790165476; x=1790770276;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=D+sAs6/yZPqQPCCjoSh/yVQa4eqK/t0Brk5AQsTggYw=;
-        b=QsbHl3mn9WUudOWEnbnFctw7VNhnkIyCiUZ/CGVNulN6/ri5RFmVfA1NaE0rPdKcVL
-         rTghcPZGVEQAU7hnvaCxuCaKEMBsNDJyxFXVzHwZ7msISfz4Vh4ag767ZX+pNUHW7yVW
-         Vqaoxznoq6+Es1W5oyVuVLoAXE9wUdTrKPvaR4rQvkQTCf13pGOY9C8BaJEMKh38oyOS
-         npp9Hz7dI0eTCsEYAmDLpMjzbSNOt21QhwGmx9Bdh81NCSFEe6pK5c/1U650Bn5achow
-         I5s7iNrxbaSTFqnx4nQwGRQ0PXQ9DVj0a2SVcGkznU0Jc9c5dTEIPFVmfDQyhkKGkyQy
-         bRIg==
-X-Forwarded-Encrypted: i=1; AKwUvBwOYy8nXphMooORMfzTTSYJ9GStJZ1VpFQhtlOTyFJBIocXuziOGH3rw36oAnw52/PMomio6HQWMVdbJfw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kl9zMjeVaYUcfuJwNiZIB78TIF8iTVsrb+Jbu4YqB4JywpHxhy
-	WyMChC0D5Nn2ugNBRbhr4BKne9YA6RbZsHoY5oCdOMIehkUaz4N/iqa9M2HF6EM29Za21py+MLe
-	xcZDgPpMfilUDZIchnuCSCD+VciqmagfEdxcJsLOT0g==
-X-Gm-Gg: AYBFou1IXYJqRgll8JkMC0C5423qfHAJDTjcbXeXTohCVqna6puiGGXFHKntH2UlWiw
-	BSL9B8I57PfDqEzRQ7MUEYIySMWTA7auaQhPgNPo1xwUBXmS1aIgBU90iNMbI5caah+UMQwbcv1
-	TH7wTTNM0UXl46MzDXR1Wn3wX/UZ1zE3AgwNEB6+ImT+V9ZjaKcmzP7Dr308DB+6UoG6GoHu1s0
-	HGaZuE+3rPPyPH3EjZ/MqcsUBFfZGLLbYowiSKsAyFVaB/g8wEY1oMF5Pm4E56dmFJ/VKzsBicR
-	Gyi63U06QUc6ugEsYM6ziRQ0DMNlxxX4KFf3CprbzdnutHA8Xz4eQF8HdETP0jrfJsagwYj4waB
-	vWyDHgZJ1
-X-Received: by 2002:a05:7300:c7c8:b0:315:9d54:6bf with SMTP id
- 5a478bee46e88-33ea4d875damr2193402eec.10.1790165464415; Wed, 23 Sep 2026
- 05:11:04 -0700 (PDT)
+        bh=8A0MKVbKWmnlKbzQw920PSpPeoOO0tpdgW2Ug9tAy0I=;
+        b=PO8YxLZvrtq0yggx5DSPjdSEZg6xNt0axf45FaZxPYFyu6a57FfCz0UJUcXQkLjc3W
+         OEcxCiTD29WBn8gwYoycCtrZ7755tPTPGCpBxZ1eOx36cidcVjLdZHSYTbRegMPQWw9x
+         YUJXbQ+uQScKUapB3JZ3zxSS0c94t8CB10qbk3RnKOqH5Z9vQydiKHi9pNSefYQWpYNa
+         hy2ed3vSQntChEWCLA8IbdVFedqJVqXaOSZod8DuJHSsh8VcwqbIhIP0ANsDi2S+ePL5
+         93SNMdsm9e7wcn+6a/NpqN68IMW3BLcGVMQG3fjuND4kMTKbSg6uYWkQnr7gCQDjVK9b
+         lyyg==
+X-Forwarded-Encrypted: i=1; AKwUvBxdJfjU8+rEFoQ4pZ+71aSWavvm1aAbzzoYk07yGzBsn67hMamUNMtpiE4TGiCCTBlWj6HTo9P57g1+gSQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++ktBINu0LQTHPXpds3+EmGpWWJT8BS8GgtHVoRvThVyoj7+qPzn
+	soE4j130z+YxAhOn6+oV28QLeexd8gTq2Z99CdDWJM4GtGWvxJBi2EWjMpUlupanNyFjbsmjGoR
+	RjouDFwEZCwmhzqRN3qjyTOXEow2uKpDPCz8O1LwI3zHyHeHT9qTzmOES88Ar6FpGy5Y=
+X-Gm-Gg: AYBFou2ORGUEs8yeOrC+kgO1vSfkcAjPLSYn1caLFMBgEwmW2YCTbDAAgpRULAF/F1U
+	1pLJbaowkpXdsMCq7Hh75nMadPMUkEu5MGKRF1LZLc/uYd66q4m7+8k46M7vbGKVdid2e7q8cl1
+	QptJKzRscPPd5QZZkZgUFezMPQEvtsXM3PNdqzNoOL2u1A56q5iDi5vkFRR23u/W/wm3Uy+d0F4
+	rslBWK+V4STIfvOKGywPm/HxzejgN/cAtbvMVaAKizpvIAg4hoIvZz9KczgIkVKS2o61Fo1zj89
+	uYC5rveU20gFMM0JbtqhFrccYNZqpued0QgpwZKbC8WUxsunVRe7mZ/ZUOoeHSx1rvCHZ50uIsK
+	9GdDBL7jGqfHyyu3sVeLDzGFZVmC3n8f6MB/NQZbb6HJkxGEjn/8BivxaE5KBL15ijY1Qoep3bQ
+	jnlclIBOqEDvWL
+X-Received: by 2002:a05:6102:2c82:b0:7a7:198a:c2c6 with SMTP id ada2fe7eead31-7ac1ea99e8fmr1676844137.36.1790165475572;
+        Wed, 23 Sep 2026 05:11:15 -0700 (PDT)
+X-Received: by 2002:a05:6102:2c82:b0:7a7:198a:c2c6 with SMTP id ada2fe7eead31-7ac1ea99e8fmr1676817137.36.1790165475048;
+        Wed, 23 Sep 2026 05:11:15 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8d8590237sm555422e87.69.2026.09.23.05.11.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 05:11:12 -0700 (PDT)
+Date: Wed, 23 Sep 2026 15:11:11 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Jordan Crouse <jordan@cosmicpenguin.net>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 01/15] drm/msm/a6xx: Honor perfmode_bw threshold on A8x
+Message-ID: <yfpkgdcf3c366giiec6p4bjoutwepvtkjf3yushbgzeqe4uygw@pnddu3mbsmlb>
+References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
+ <20260923-hawi-gpu-v1-1-0c3c79a1a470@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260522101653.2565125-1-paulk@sys-base.io> <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
-In-Reply-To: <ad9788bba0851dcb86c22f40c2562f2a57ac8e6c.camel@collabora.com>
-From: Michael Nazzareno Trimarchi <michael@amarulasolutions.com>
-Date: Wed, 23 Sep 2026 14:10:52 +0200
-X-Gm-Features: AclHuK-84lPkb8p5nYwdkesZrMKYeKl0UBKC7sQ4h-YVRpCrvvaQQCitxdpuwrs
-Message-ID: <CAOf5uwktfp0a3Vi5Jd8Zw5knGMHd_FH=iusRX1NgHYC4VSuzBA@mail.gmail.com>
-Subject: Re: [PATCH 00/14] media: Add V4L2 H.264 stateless encode and VC8000E support
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Cc: Paul Kocialkowski <paulk@sys-base.io>, devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>, 
-	Michael Tretter <m.tretter@pengutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-hawi-gpu-v1-1-0c3c79a1a470@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0OCBTYWx0ZWRfX3pIlP7lOlYtD
+ QylKpgA8zzm+GTBhQ9FdavjZF9G+0na4MJfxEQRWR6/7ZuZOTD8r9y8SAGEmzuwd19zczCqyVAd
+ PFZJ4VoJ3WpIjkR08jeSBiD/9ph3TNr0QJuKb6RgtuCdwBzjonSxa51gnlY4CYtOEzBCSv2dpE4
+ /VeGgRUA1kpPmCNHuLO5ogpztAQjXcpVv6ixwh7f6frjZGtOIR0WAOpjAiQMUnBOfXnQam8emr3
+ yTs07Ncsz49dCkHq/VtJa9fcOJIMBDcujI96GeGa6KcMgz4P/8eh4I8UeHDtf0BGm+ESZR0ZTjg
+ wzM4NUjJ/Fnz5wCBFbeGzuzM6+mzK6FyzOiY+tqAOOw+t1NpEOBnTEsA2P4yqA7EgZu+19KH2id
+ 78Vkz5xD/mBjrZl5yICgbWJ0ydvbjHWuYDqbXJzIgJhBFp43ryl2iuCUp85VvzL4blCF9/hEb1P
+ mRjYrQG92z5eDWlb+Mw==
+X-Authority-Analysis: v=2.4 cv=HfuB3SE8 c=1 sm=1 tr=0 ts=6ab3c1e4 cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=YJv5aonfaXPMDC4gfg4A:9 a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-GUID: _sF19w0Vl9fRjxJWVdLWdVolNkCdg--8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0OCBTYWx0ZWRfX/y3/may+WXZE
+ ev99VU/uiCzXxqnZ7T1Gq1RKLIf6YjmfOBxtkRaO+5cHvCvWfVkSDmDtCifRDgKHV9cOc9tY5X0
+ s/e5rVayNIiQs+CfWxwH8MFBeMmTIT8=
+X-Proofpoint-ORIG-GUID: _sF19w0Vl9fRjxJWVdLWdVolNkCdg--8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 suspectscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 bulkscore=0 adultscore=0 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230048
 
-Hi
+On Wed, Sep 23, 2026 at 03:55:41PM +0530, Akhil P Oommen wrote:
+> Instead of voting ACV for all bw corners for A8x GPU, restrict it to BW
+> votes above the perfmode_bw threshold, similar to the A7x GPUs.
+> 
+> Fixes: 288a93200892 ("drm/msm/adreno: Introduce A8x GPU Support")
+> Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/adreno/a6xx_gmu.c   | 8 ++++++--
+>  drivers/gpu/drm/msm/adreno/adreno_gpu.h | 5 +++++
+>  2 files changed, 11 insertions(+), 2 deletions(-)
+> 
 
-On Fri, May 22, 2026 at 4:55=E2=80=AFPM Nicolas Dufresne
-<nicolas.dufresne@collabora.com> wrote:
->
-> Hi Paul,
->
-> Le vendredi 22 mai 2026 =C3=A0 12:16 +0200, Paul Kocialkowski a =C3=A9cri=
-t :
-> > This series introduces support for the V4L2 H.264 stateless encode uAPI=
-,
-> > core and support in the hantro driver for the Verisilicon VC8000E.
-> >
-> > While this is a first version that will likely need some level of rewor=
-k,
-> > it is already usable for most common use-cases and supports constant
-> > bitrate rate-control.
-> >
-> > A GStreamer tree can be used to test the series at:
-> > https://github.com/paulkocialkowski/gstreamer/tree/v4l2codecs/h264enc
-> > And an example pipeline would look like:
-> > gst-launch-1.0 videotestsrc pattern=3Dsmpte num-buffers=3D25 ! video/x-=
-raw,width=3D640,height=3D480 ! v4l2slh264enc rate-control=3Dcbr bitrate=3D8=
-000000 qp-min=3D8 qp-max=3D42 ! h264parse ! matroskamux ! filesink location=
-=3Dencode.mkv
-> >
-> > Note that documentation for the new uAPI is intentionally left out of
-> > this series since it has not yet received approval.
->
-> The unfortunate part is that the spec is important for the actual review =
-and
-> interops analyses. That omission qualify this submission as RFC from my p=
-oint of
-> view. Any chances you can reply to this cover filling the blank for the f=
-ew
-> important bit (something similar but non spec style of:
->
-> https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/dev-statel=
-ess-decoder.html#initialization
->
-> - Querying capabilities
-> - Initialization
-> - Encoding
-> - Dynamic Resolution Changes**
->
-> The other sections are just going to be the same imho. The ** for the DRC=
- is
-> because H.264 is not that complicated, its intra only, so you can reset t=
-he
-> encoder (use the drain flow). So that's probably something for future us
-> (VP9/AV1). Adding your view on these topics (or just matching what you ha=
-ve
-> implemented) will make review more constructive.
->
-> cheers,
-> Nicolas
->
-> >
-> > Marco Felsch (2):
-> >   media: hantro: use hantro_decoded_buffer only for dst_vq
-> >   arm64: dts: imx8mp: add VC8000E encoder node
-> >
-> > Paul Kocialkowski (12):
-> >   media: h264: Add a more generic reflist builder init
-> >   media: uapi: Add H.264 stateless encode support
-> >   media: h264: Add SPS video definitions
-> >   media: h264: Add stateless encode core
-> >   media: h264: Add stateless encode rbsp
-> >   media: h264: Add stateless encode reference management
-> >   media: h264: Add stateless encode rate control
-> >   media: verisilicon: Report default pixel coding for non-JPEG and fix =
-JPEG case
-> >   media: verisilicon: Cancel job with runtime pm put/clk disable on fai=
-lure
-> >   media: verisilicon: Add common encoder parm and frameintervals ioctls
-> >   media: verisilicon: Add support for the VC8000E H.264 encoder
-> >   media: verilisicon: imx8m: Add support for the VC8000E on i.MX8MP
-> >
-> >  arch/arm64/boot/dts/freescale/imx8mp.dtsi     |   11 +
-> >  drivers/media/platform/verisilicon/Kconfig    |    1 +
-> >  drivers/media/platform/verisilicon/Makefile   |    2 +
-> >  drivers/media/platform/verisilicon/hantro.h   |   17 +
-> >  .../media/platform/verisilicon/hantro_drv.c   |  180 +-
-> >  .../media/platform/verisilicon/hantro_h264.c  |    6 +-
-> >  .../media/platform/verisilicon/hantro_hw.h    |   28 +
-> >  .../media/platform/verisilicon/hantro_v4l2.c  |  123 +-
-> >  .../platform/verisilicon/hantro_vc8000e.c     |   68 +
-> >  .../verisilicon/hantro_vc8000e_h264_enc.c     |  883 +++++++
-> >  .../verisilicon/hantro_vc8000e_regs.h         | 2129 +++++++++++++++++
-> >  .../media/platform/verisilicon/imx8m_vpu_hw.c |  113 +
-> >  drivers/media/v4l2-core/Kconfig               |    4 +
-> >  drivers/media/v4l2-core/Makefile              |    2 +
-> >  drivers/media/v4l2-core/v4l2-ctrls-core.c     |   62 +
-> >  drivers/media/v4l2-core/v4l2-ctrls-defs.c     |    4 +
-> >  drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c  | 1173 +++++++++
-> >  drivers/media/v4l2-core/v4l2-h264-enc-rc.c    |  558 +++++
-> >  drivers/media/v4l2-core/v4l2-h264-enc.c       | 1322 ++++++++++
-> >  drivers/media/v4l2-core/v4l2-h264.c           |   69 +
-> >  include/media/v4l2-ctrls.h                    |    2 +
-> >  include/media/v4l2-h264-enc-rbsp.h            |   72 +
-> >  include/media/v4l2-h264-enc-rc.h              |  108 +
-> >  include/media/v4l2-h264-enc.h                 |  135 ++
-> >  include/media/v4l2-h264.h                     |  146 ++
-> >  include/uapi/linux/v4l2-controls.h            |   33 +
-> >  include/uapi/linux/videodev2.h                |    1 +
-> >  27 files changed, 7231 insertions(+), 21 deletions(-)
-> >  create mode 100644 drivers/media/platform/verisilicon/hantro_vc8000e.c
-> >  create mode 100644 drivers/media/platform/verisilicon/hantro_vc8000e_h=
-264_enc.c
-> >  create mode 100644 drivers/media/platform/verisilicon/hantro_vc8000e_r=
-egs.h
-> >  create mode 100644 drivers/media/v4l2-core/v4l2-h264-enc-rbsp.c
-> >  create mode 100644 drivers/media/v4l2-core/v4l2-h264-enc-rc.c
-> >  create mode 100644 drivers/media/v4l2-core/v4l2-h264-enc.c
-> >  create mode 100644 include/media/v4l2-h264-enc-rbsp.h
-> >  create mode 100644 include/media/v4l2-h264-enc-rc.h
-> >  create mode 100644 include/media/v4l2-h264-enc.h
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-I tested on px30 and achieved working H.264 encoding with some small change=
-s
 
-Michael
+-- 
+With best wishes
+Dmitry
