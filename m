@@ -1,176 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C50F3A782D;
-	Wed, 23 Sep 2026 11:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 44B8B494A04;
+	Wed, 23 Sep 2026 11:01:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790161269; cv=none; b=VnK0nRCMQuWtQ6CrmVtsVfRwduIB0KROEwkAgGWwXT0EcCp1DPD91j5rPD1sOmCWKsHuSfkKHtNyYcGKk/QMsFqGNvurGXhZ4lbyLd9+YxFLGUJ4HD2wGKZRWMRKjg9BZvZaWhIBncbB97RtXYtzV0JsBsulNrTsb0wrpfh1ktM=
+	t=1790161309; cv=none; b=dBdVS857LdzMddL3G2AW/WQAJlH3Givw5salTpA6HKm+cKYVGbYFGPRFIpNWSRQkGNiaUHMYR02I2ynppccIghYQ3U4Dkk3MoxBhSYISY/ZAnzjXfryXN47f3YTXTFUBn4MHI+wVXBv7jhsZTtvs3owQgHwRA5B7rfVQS2OY3To=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790161269; c=relaxed/simple;
-	bh=9yll0nn5e5lV+1in9Vhvnllsql337KFRc3hbJLB4hqU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pUvVZvACiusOLm3LGBdn3j8qJQbeX5acNMCdmrFEt9kZnC5KQwTaTo7/P2KJAuPBdEp6O4dgYKxiG8DPuMB4Xea7MIOv+A3ea9WFHL5wVej4gvKMBGS0Avkmsvul7AlVbgnTTtO7cIiKaWwJAWKYEkJfmb1n8coN/txpEbdZkv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WK+LYWEi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790161309; c=relaxed/simple;
+	bh=os7TsDMccUA+latXENT28M3rbe2rwbG6e5bpzP+PvA0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=isnup22LONIWSQaQ3xdUqIxUY/YYaNVCk1pu+zQUSpitjBcO0e1B0g3UkmXeJnamt8Rv+vl3mOG1ey1dfGsSE3zwgmSvNa7qkBt/IwF+EEukYFsSKWYFqbh82tBgqxhJglJlkg7I5ykLXo+EKy0mBmzeRt2CTuEMSQnEXVC2IJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=B19aC+k3; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WK+LYWEi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 239121F0089B;
-	Wed, 23 Sep 2026 11:00:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790161258;
-	bh=CSemoiGK8C8HIrpj1CQTjAtJI5ZavOEHMhvENOxUUaM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WK+LYWEin48HI9L180eak8SkVQ64uMjyXAc/Cs+xSEk8qWULRn+1VCCWasa+p99kD
-	 m9bDLawyUyN9yU909W7e6OTtyBytFg79fb5XnuibeEPizzJJSb4OfthnsA5trI0QB6
-	 DlGwu+YRS4Hrt8Epg204Ub/aXWkYEVjuqzvdcXZ07gOQoKqGHUvmXtE2I8OeytaUQg
-	 Xhpvv0u5Z0kEjccOApu8CCt0YSUpDgELN3mLEy53KcvOtoRArieIa1dV1wwX+F4gqj
-	 FB7Kunt4TZswebcQSok9lntXrxA+KnR3q1cI9hJzkISTDQjJo6XKk48CHOMdUvqeOy
-	 kCW3Zps0q/XcQ==
-Date: Wed, 23 Sep 2026 12:00:53 +0100
-From: Simon Horman <horms@kernel.org>
-To: Liu Chao <liuc63@xiaopeng.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, ilane@ti.com, david@ixit.cz,
-	linville@tuxdriver.com, oe-linux-nfc@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] nfc: nci: avoid unbounded skb allocation when
- max_pkt_payload_len is zero
-Message-ID: <20260923110053.GT13925@horms.kernel.org>
-References: <20260913101309.891633-1-liuc63@xiaopeng.com>
- <20260918185458.2711284-1-liuc63@xiaopeng.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="B19aC+k3"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 16BBE1516;
+	Wed, 23 Sep 2026 04:01:34 -0700 (PDT)
+Received: from e129823.cambridge.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E10033F86C;
+	Wed, 23 Sep 2026 04:01:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790161297; bh=os7TsDMccUA+latXENT28M3rbe2rwbG6e5bpzP+PvA0=;
+	h=From:To:Cc:Subject:Date:From;
+	b=B19aC+k3DJZH7LZHsx1nheIHI3NcBwkKbYzkIJI0QetJd9bC3WeSL0paLVy6G3TEF
+	 Sr695yJAqfOJ/zb461yzyF8vYI8b7AKYtK35NJrB0xMpGNh2QssHAsCO1cBj+cO60h
+	 LA9qEAowJOSWAeju53Sp5/ns50Nr2gIxMumIxOyM=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ziy@nvidia.com,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	lance.yang@linux.dev,
+	usama.arif@linux.dev,
+	kas@kernel.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	shuah@kernel.org,
+	Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: [PATCH] kselftest: mm: use helper to identify anon_ops in khugepaged test
+Date: Wed, 23 Sep 2026 12:01:33 +0100
+Message-ID: <20260923110133.429745-1-yeoreum.yun@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918185458.2711284-1-liuc63@xiaopeng.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 19, 2026 at 02:54:58AM +0800, Liu Chao wrote:
-> nci_queue_tx_data_frags() uses conn_info->max_pkt_payload_len as the
-> fragment size.  When that value is zero, frag_len is always zero and
-> total_len never decreases.  The loop then allocates skbs without
-> bound: none of them are freed inside the loop, they accumulate on
-> frags_q, and there is no cond_resched() in the loop body.  A single
-> sendmsg() can therefore consume all allocatable memory, and on
-> CONFIG_PREEMPT_NONE it occupies the CPU long enough to trip the
-> softlockup watchdog:
-> 
->   watchdog: BUG: soft lockup - CPU#3 stuck for 26s! [kworker/3:1:57]
->   Workqueue: events rawsock_tx_work [nfc]
->   Call Trace:
->    nci_send_data+0x1ca/0x6b0 [nci]
->    nci_transceive+0xbb/0x170 [nci]
->    rawsock_tx_work+0xb5/0x1a0 [nfc]
-> 
-> max_pkt_payload_len comes straight from controller-supplied fields,
-> with no check for zero:
-> 
->   ntf.c: conn_info->max_pkt_payload_len = ntf.max_data_pkt_payload_size;
->   rsp.c: conn_info->max_pkt_payload_len = rsp->max_ctrl_pkt_payload_len;
-> 
-> Reject the zero value in the fragmentation path rather than at the
-> assignment sites.  nci_queue_tx_data_frags() is the only place that
-> loops over the RF data path's conn_info, and nci_send_data() takes
-> the non-fragmenting branch only for skb->len <= max_pkt_payload_len,
-> which for a zero limit means empty skbs alone.  Validating on
-> assignment would not be sufficient either, because
-> nci_rf_disc_rsp_packet() allocates ndev->rf_conn_info with
-> devm_kzalloc(), so max_pkt_payload_len is already zero before any
-> notification arrives.
-> 
-> No legitimate configuration is affected: where the NCI spec does
-> mandate a zero Max Data Packet Payload Size -- the NFCEE Direct RF
-> Interface -- nci_rf_intf_activated_ntf_packet() takes the "goto
-> listen" shortcut, bypassing the assignment entirely.
-> 
-> Snapshot the field once with READ_ONCE() and use the snapshot for
-> both the check and the min_t() bound: the rx workqueue updates the
-> field without any lock held against this path, so without the
-> snapshot the check could validate a value the loop no longer
-> consumes.
-> 
-> nci_hci_send_data() also loops over the same field, but on a
-> different conn_info instance (ndev->hci_dev->conn_info) created by
-> nci_core_conn_create_rsp_packet(); a zero or one there underflows
-> the loop arithmetic and will be addressed in a separate patch.  This
-> guards the path carrying the reported bug.
-> 
-> Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Instead of comparing mem_ops->name to determine whether mem_ops is
+anon_ops, use the is_anon() helper.
 
-A note on process: Please send new patch revisions in new email threads,
-not as a response to an earlier revision. Thanks!
+Suggested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+---
+NOTE:
+  This patch is based on mm/mm-unstable.
+---
+ tools/testing/selftests/mm/khugepaged.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> ---
-> 
-> v1 claimed that nci_queue_tx_data_frags() is "the only place that
-> loops" over max_pkt_payload_len.  That holds for the RF data path
-> (ndev->rf_conn_info) but was overstated as a blanket claim: the
-> Sashiko review of v1 pointed out that nci_hci_send_data() loops over
-> the same field as well, albeit on a separate conn_info instance
-> (ndev->hci_dev->conn_info) -- pre-existing and unchanged here; it
-> will be fixed separately.
-> 
-> The READ_ONCE() snapshot follows the same review: with the check and
-> the loop reading the field independently, a store from the rx
-> workqueue in between would let the loop spin on a value the check
-> had just rejected.
+diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
+index bdc0c7c117d9..b0cb02bf1a73 100644
+--- a/tools/testing/selftests/mm/khugepaged.c
++++ b/tools/testing/selftests/mm/khugepaged.c
+@@ -618,7 +618,7 @@ static bool wait_for_scan(const char *msg, char *p, size_t len,
+ 		usleep(TICK);
+ 	}
+ 
+-	if (!strncmp(ops->name, "anon", 4))
++	if (is_anon(ops))
+ 		madvise(p, len, MADV_NOHUGEPAGE);
+ 
+ 	return timeout == -1;
+-- 
+LEVI:{C3F47F37-75D8-414A-A8BA-3980EC8A46D7}
 
-There is a fresh AI-generated review of this patchset at
-https://netdev-ai.bots.linux.dev/sashiko/#/message/20260918185209.2675909-1-liuc63%40xiaopeng.com
-
-It raises a concern that the snapshot may not be broad enough.
-Please take a look.
-
-  The comment documents that the rx workqueue can update the field
-  concurrently, but the only caller still reads the same field of the same
-  conn_info with a plain load, and it is that read which decides whether
-  fragmentation happens at all:
-
-  net/nfc/nci/data.c:nci_send_data() {
-	/* check if the packet need to be fragmented */
-	if (skb->len <= conn_info->max_pkt_payload_len) {
-
-  Should this read be part of the same snapshot?  Two things follow from
-  leaving it as is.  The plain-versus-marked access pair on the field is
-  still KCSAN-reportable, and the decision and the loop can consume
-  different values: if nci_rf_intf_activated_ntf_packet() in
-  net/nfc/nci/ntf.c lowers the limit (255 -> 64, say) right after
-  nci_send_data() read the old value, nci_send_data() queues an
-  unfragmented packet larger than the controller's current maximum, a
-  transition the callee's snapshot cannot observe.  Would snapshotting once
-  in nci_send_data() and passing the validated value down be preferable?
-
-
-It also raises a concern regarding logging.  And while I do agree that the
-logging in question should be rate limited, because it occurs on the data
-path and is controlled by remote data, I am not convinced that it isn't a
-pre-existing problem.
-
-In any case, I think it should been addressed sooner or later.
-
-  Does this new return value make the caller's log line reachable once per
-  transmit attempt?
-
-  net/nfc/nci/data.c:nci_send_data() {
-		rc = nci_queue_tx_data_frags(ndev, conn_id, skb);
-		if (rc) {
-			pr_err("failed to fragment tx data packet\n");
-			goto free_exit;
-
-  Before the patch this input never returned from the helper, so the site
-  was effectively unreachable for it.  With a controller reporting
-  max_pkt_payload_len == 0, every sendmsg() on an NFC raw socket
-  (rawsock_tx_work -> nfc_data_exchange -> nci_transceive -> nci_send_data)
-  now logs a line, and so does every received HCP command, since
-  nci_hci_cmd_received() answers each one with nci_hci_send_data(ndev, pipe,
-  status, NULL, 0) -> nci_send_data().  Neither side is rate limited.
-  Would pr_err_ratelimited(), or a ratelimited message at the new check
-  itself, be a better fit for a controller-data-driven error path?
-
-...
