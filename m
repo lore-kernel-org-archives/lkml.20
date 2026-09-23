@@ -1,178 +1,191 @@
-Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7703952BE4F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5FD73DE426
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170433; cv=none; b=l5bn6STwxXnYnmRiOLqU1XfFZYewxMOeTsDZ3kl2AHH17iyNs0SabGmvJ83iSMT9tQuVJnLSCPOAx77J55HG/FxkafrnfBBj4QBPKz4WAwSzL/Gn/3ezOnmoRFr6q5UbztURfsUd2QmCVr3m5Q6izx+WLRyCAKDElmwdd/5RyXA=
+	t=1790170460; cv=none; b=D6djrNd0sQ+JGitWYThyFvT46SJfxJQhRiCBVcYqSuRlY3HB5v3YApyq/F7g6KXgQqz+oPrlq3ULbn4/XbaXTFq740YpjAgLqQTMNhl7eTz0yRka5jHfy53Cu2i6DjsGiPR35Gagpyn3EqlSazQuiyoxDZ9xRY4LTga2g+5UDHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170433; c=relaxed/simple;
-	bh=w1fQS1nTWrUrIlI4ihs1ABgazTfXJca/Tdv4wLIV7Ro=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mTiO1JhOD/ZghJeeFKlotHwNFxXwEPlG15KkOsFXwHP5VjmBudpVRud7NloBJc7kd7szXOxH3i9azZRNPEMfGXU8N2e04hDV1xfMUIsmjtnWedjVSB+QtYgfk2BV307x8IgLUwTUFJXTUHinlSX3PFb8afo25Ki0mzCIVxUrAhc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IeA96/Jq; arc=none smtp.client-ip=74.125.226.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790170460; c=relaxed/simple;
+	bh=DTpE7gvMB7JXTY0SV2eGfql2vWXaQWIIR+pksHrMaCA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BABtdhTRL9Eez89cv/ytFkfTChrIRJQu5nxt3uwG0zzdFKGRBKFKw85qCyx2hqKsImf6hhEV0UdQK63EbJVlGiw+BO3Uf3uBbHmrT0+m+c2yLM1jICM4XSZNONi21yyGKQQvQLmgA8anEjXCCZ3RAwyUPGv+ogH9QpvDLCqreYo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LwVkJj9Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IeA96/Jq"
-Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-9851d513a70so330286241.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:33:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790170431; x=1790775231; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VigpCgJFGr19aE1C6suxBlVqAbaMUssmLz2MA/9FLTI=;
-        b=IeA96/Jqu8+7+EVEndBvA7LbfDPX2PAg2KtVQxvrR1rZWUW8mh7DxeFT/uEnhBmxXX
-         iITMGiWlWfph1YW9aPMrLvs5WhZKrXijpgsqhi2BwRcY8WDHue6bjnCA4SvwP+mndEeR
-         hyqdQtGyCwFafEPACmyZ+EBWuFsNi48OfZXL+sRFTe+ZG2LfqCS506llaJ1Pg+lIkbQw
-         0lGA+AmuKaWQA3QSiOVfGWejMs6S5wBCaAVUVdg0uSZbl/nccFIX+V8Vxb5JTZ/QOufI
-         tofOLHM9NuXQ0XlFxKOq0AmsEJBkxb9kDfuS61TCH2qQWiwte/kg0JAKSiygmaZA8D+l
-         k3AA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790170431; x=1790775231;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VigpCgJFGr19aE1C6suxBlVqAbaMUssmLz2MA/9FLTI=;
-        b=RTs1TCFWJaZ7WeBWd/aJQwgNh2T1gHtkD+9u7D6PESnS5QzDreFgqhpQr0T0O2Y7Od
-         0PFKRCeds1wEiCJGF5I+XISjpCYoq5/J9d7jKNO6r92O8AgvIGIMpttaOcsTbQoXygX9
-         HN8BonNe8XfxUazm/9MCH5TF7cxnVCn1J9PahZEuzoyvSWl1p4ZPOdDn4uAOZEUmhTeL
-         LxTSboNKktz+KoIxJHT4sKjfnTdfeGnsGa0XqBjC4C2UNRpEsSjcyhPfilrTImep6bBn
-         wtTkQlSX0lm62YK97Up3O2TCYKd+nhQQQJfsrPWnK+zxkoz9LrpwqoTUzLpXIbZPRgyi
-         hBzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzm13JXef+80yR+c9u60zIhkZGN+89QO8i3seEaeJRe1ghX9ymvXDjL4AGrdBm692SviFI6/VOGhVXcTjc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqL/JyrJB8fChUhvi0sj3o4AbrjiJDkXXJuv4T7/foorTh2t2k
-	bvgTpq6SXAzy5FJj4z3h/bFQ9VPe8kGZfwA8AFbSKJ0QP6GJzXoMByXR
-X-Gm-Gg: AYBFou12P5WNZwJNfw6h/ymUozBbG/RgScUsOr9pMg5jva3u43x7DgIq4Gr7rMtCn33
-	ykrpEXXo7BrxtaKurmQ8HiUBfy9xWrbT97VHuy1KblMGLg0hpSn957PEL3AyPWQEIi0BVElNGqW
-	XOTgot0fG+GF5xCi3T9G/b8pin4LZXkqUdhlbgPEbJT3TIlMcWgvXa+LfIgOV2E6/VX5TKdsGBR
-	PZDfso+rrHQtxGoU8ilqtHV7oINx4lblBAbnrLQp26pmfvVfCUxyTQpmIrPjpRCys/XEI6GQpxV
-	ceW1yXnPib/KzMGD00gt9LiokyfH3DgeZrL70RLec8SxrqzF+75wkWpYncl0rv1h01yl8xvM18B
-	szZLSD3e0/MI6zXXrcfnsBMkAGgNnFq0VkAJj5CfLGGBVghFJIXBeW+SYzCFI5Kmat8neESDN6S
-	mKwEWvHF2AaXtOImQydoBNji2lRVWX0eV3HTLVvEqZduRDz72lhMs9kvmH8sINjfE=
-X-Received: by 2002:a05:6102:38c7:b0:7a7:198b:674c with SMTP id ada2fe7eead31-7ac1e251385mr2374231137.33.1790170431324;
-        Wed, 23 Sep 2026 06:33:51 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf61931c3sm3480402137.11.2026.09.23.06.33.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 06:33:50 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: David Heidelberg <david@ixit.cz>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH net RESEND] nfc: llcp: Fix list corruption / refcount desync in nfc_llcp_recv_dm()
-Date: Wed, 23 Sep 2026 10:33:39 -0300
-Message-ID: <20260923133339.2518641-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LwVkJj9Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1AC1F000FF;
+	Wed, 23 Sep 2026 13:34:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790170459;
+	bh=nAi96pIQ95HWh44XRESIidPNe1NFI5clCoocx23jiPE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LwVkJj9ZkDQNHUczf9zcG7g0DgTpgrnyciNJ/Cx7aktOA81IDL4565Pa4ewbNgbnL
+	 sOxlBJ0HEeSge6kIxE/QzVDN5gDP0zv/C3w3Zablx/uNLD1Tw42b1DihXctbcdWxvA
+	 qEAZu/JL0E0D42ihlsjAJDN7CWFYRBQ5uIcV2gu0bQShATr7as45XPupetHkHlLoAE
+	 UaEbw5YtE8p2mo6O0YDwAOTETtZwfbe50Qx4/bcBIf6wGFN2Db7/5+qGLWgFOlj8k/
+	 l2XE3/dkDQ9HcGI6hM+MbeGmMg24gbbhpHiS7j91lf3l8I+pmVLM/e+UecWuYd1O/i
+	 C07+7kOLqzv6g==
+Message-ID: <63f49a8b-cabf-4b93-a7e2-76b62c463a90@kernel.org>
+Date: Wed, 23 Sep 2026 15:34:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/12] mm/collapse: declare the collapse interface in
+ collapse.h
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>
+References: <20260916093145.4022188-1-kirill@shutemov.name>
+ <20260916093145.4022188-12-kirill@shutemov.name>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260916093145.4022188-12-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-nfc_llcp_recv_dm() handles DM(NOBOUND)/DM(REJ) for a socket that is still
-linked on local->connecting_sockets: it looks the socket up with
-nfc_llcp_connecting_sock_get(), sets sk->sk_state = LLCP_CLOSED and
-returns, without taking the socket lock and without unlinking the socket
-from the connecting_sockets list.
+On 9/16/26 11:31, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> A collapse takes four calls:
+> 
+>   - collapse_control_init() - set up the control a caller carries;
+>   - collapse_scan_pmd() - scan one PTE table, under mmap_lock;
+>   - collapse_run_pmd() - collapse what the scan found, no mmap_lock;
 
-llcp_sock_release() selects the list to unlink from by sk_state: a socket
-in LLCP_CONNECTING is unlinked from connecting_sockets, otherwise from the
-sockets list.  Because recv_dm left the socket physically on
-connecting_sockets but in the LLCP_CLOSED state, release() takes the else
-branch and calls nfc_llcp_sock_unlink(&local->sockets, sk).  That runs
-sk_del_node_init() while holding sockets.lock, i.e. it removes the socket
-from the connecting_sockets hlist under the wrong lock.  A concurrent
-connect() linking another socket onto connecting_sockets under
-connecting_sockets.lock then mutates the same hlist unserialized, which
-corrupts the list and desyncs the sk_add_node()/sk_del_node_init()
-sock_hold()/__sock_put() pairing.  An unprivileged local process holding
-LLCP sockets, with the DM supplied by the remote peer over an established
-LLCP link, can drive this to leak kernel sockets without bound (the
-mis-decrement goes through the non-freeing __sock_put() path, so the
-object is never released), leading to memory exhaustion / DoS.
+As discussed, having a single collapse_pmd() function might be cleaner if that's
+easily possible.
 
-This is the same class of bug that was fixed in the sibling handler
-nfc_llcp_recv_cc() by commit b493ea2765cc ("nfc: llcp: Fix use-after-free
-race in nfc_llcp_recv_cc()"); recv_dm did not receive the equivalent fix.
+	collapse_pmd()
 
-Fix it the same way: take lock_sock(), re-check that the socket is still
-hashed (release() may have won the race), and for the NOBOUND/REJ case
-unlink it from connecting_sockets before moving it to LLCP_CLOSED.  The
-unlink drops the connecting_sockets membership reference via
-sk_del_node_init(), leaving the socket unhashed, so the later
-nfc_llcp_sock_unlink() in llcp_sock_release() becomes a no-op and no
-double put occurs.
+>   - collapse_control_release() - done with the control.
+> 
 
-Fixes: a69f32af86e3 ("NFC: Socket linked list")
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- net/nfc/llcp_core.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+And as discussed, I hope we can just get rid of a release function that's not
+actually supposed to release anything right now (unless I was missing an update
+in one of the patches).
 
-diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-index cac1b5487..bd6361e2e 100644
---- a/net/nfc/llcp_core.c
-+++ b/net/nfc/llcp_core.c
-@@ -1251,6 +1251,7 @@ static void nfc_llcp_recv_dm(struct nfc_llcp_local *local,
- 	struct nfc_llcp_sock *llcp_sock;
- 	struct sock *sk;
- 	u8 dsap, ssap, reason;
-+	bool connecting = false;
- 
- 	dsap = nfc_llcp_dsap(skb);
- 	ssap = nfc_llcp_ssap(skb);
-@@ -1262,6 +1263,7 @@ static void nfc_llcp_recv_dm(struct nfc_llcp_local *local,
- 	case LLCP_DM_NOBOUND:
- 	case LLCP_DM_REJ:
- 		llcp_sock = nfc_llcp_connecting_sock_get(local, dsap);
-+		connecting = true;
- 		break;
- 
- 	default:
-@@ -1276,10 +1278,33 @@ static void nfc_llcp_recv_dm(struct nfc_llcp_local *local,
- 
- 	sk = &llcp_sock->sk;
- 
-+	lock_sock(sk);
-+
-+	/* Check if socket was destroyed whilst waiting for the lock */
-+	if (!sk_hashed(sk)) {
-+		release_sock(sk);
-+		nfc_llcp_sock_put(llcp_sock);
-+		return;
-+	}
-+
-+	/*
-+	 * For DM(NOBOUND)/DM(REJ) the socket is still linked on the
-+	 * connecting_sockets list.  Unlink it here, under the socket lock,
-+	 * before moving it to LLCP_CLOSED: llcp_sock_release() selects the
-+	 * list to unlink from by sk_state, so leaving a connecting socket
-+	 * in the CLOSED state would make it unlink from the wrong list and
-+	 * corrupt the connecting_sockets list / desync the socket refcount.
-+	 * This mirrors nfc_llcp_recv_cc().
-+	 */
-+	if (connecting)
-+		nfc_llcp_sock_unlink(&local->connecting_sockets, sk);
-+
- 	sk->sk_err = ENXIO;
- 	sk->sk_state = LLCP_CLOSED;
- 	sk->sk_state_change(sk);
- 
-+	release_sock(sk);
-+
- 	nfc_llcp_sock_put(llcp_sock);
- }
- 
+
+> All four are static in khugepaged.c, as are collapse_possible_orders(),
+> which says what a VMA allows, and the revalidate a caller needs once a
+> collapse has given the mmap_lock up.  No other file can ask for a collapse
+> without them.
+> 
+> Declare them in collapse.h, with a comment stating the order they are
+> called in and who holds the lock over each step.  Each function says
+> what it needs and what it does where it is defined.
+> 
+> hugepage_vma_revalidate() becomes collapse_vma_revalidate(): it is part of
+> what a collapse offers now, not a helper of the daemon.
+
+Is it just me or is collapse_vma_revalidate() an odd part of this interface?
+
+You'd expect a matching function that performs the initial validation on a given
+vma.
+
+Maybe we should have a
+
+	orders = collapse_vma_validate(vma)
+
+that really just wraps collapse_possible_orders(), an expose that instead to the
+collapse users?
+
+So they'd use collapse_vma_validate() to then call collapse_vma_revalidate()
+after temporarily dropping the mmap lock?
+
+
+[...]
+
+> -static enum scan_result hugepage_vma_revalidate(struct mm_struct *mm, unsigned long address,
+> +enum scan_result collapse_vma_revalidate(struct mm_struct *mm, unsigned long address,
+>  		bool expect_anon, struct vm_area_struct **vmap,
+>  		struct collapse_control *cc, unsigned int order)
+>  {
+> @@ -1264,7 +1264,7 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm,
+>  	}
+>  
+>  	mmap_read_lock(mm);
+> -	result = hugepage_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
+> +	result = collapse_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
+>  					 &vma, cc, order);
+>  	if (result != SCAN_SUCCEED) {
+>  		mmap_read_unlock(mm);
+> @@ -1299,7 +1299,7 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm,
+>  	 * mmap_lock.
+>  	 */
+>  	mmap_write_lock(mm);
+> -	result = hugepage_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
+> +	result = collapse_vma_revalidate(mm, pmd_addr, /*expect_anon=*/ true,
+>  					 &vma, cc, order);
+>  	if (result != SCAN_SUCCEED)
+>  		goto out_up_write;
+> @@ -2741,7 +2741,8 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+>  	return result;
+>  }
+>  
+> -static void collapse_control_init(struct collapse_control *cc)
+> +/* Set up a control before its first scan; cc->policy is the caller's to fill */
+
+
+Kerneldoc please. Applies to the other ones exposed as part of the same
+interface as well.
+
 -- 
-2.43.0
+Cheers,
 
+David
