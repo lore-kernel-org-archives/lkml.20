@@ -1,73 +1,97 @@
-Received: from mail.sysgo.com (mail.sysgo.com [159.69.174.53])
+Received: from smtp68.ord1d.emailsrvr.com (smtp68.ord1d.emailsrvr.com [184.106.54.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3669377EBF
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.69.174.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5735B3E0C4A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:56:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=184.106.54.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790171790; cv=none; b=Nyind4xuTt1wKqvagNPuH7DeLNFHaV5oGNX3EsO1I9ynPU5c20yBDtR+U1O6V2GSTK08p8gFQzAxz6ly4hHdXAM3j7nJeAFRcoc7OSFUiacn9I3t5qWbeEhE/UGuiLP59RJIBY2hbks5hAXvamDuGe06RuTUpZCLYNUPex9EoWU=
+	t=1790171808; cv=none; b=Fws/YdW3fmu3/XjrHVkS2yaNyIfVRuvzO+CoB1CxelzFQ7Z9zlqWSWh03ffYyM0rhGP7Nd+fqYH6L7zfyNTnGE1YpaxbR6lD/s97958bKqrWRRVZJNiMYDE4iv5iVcetboUKVM2aN9YKmXY+GD1JHCoNDiRmg0J38Ritzg1GVuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790171790; c=relaxed/simple;
-	bh=sDjoU8rJM/Of9jet53pz+B1Jc6uO/I7gjVDM/44Dr6Y=;
+	s=arc-20240116; t=1790171808; c=relaxed/simple;
+	bh=rJbi9HnWJ6hsy9VsgD0sXvgSN820WQPgudLb959hP70=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jP2evUmZeSd8u/GslSiCKewZmRQ1s1dgnQ9hkduPOu/VmPCnxn4r58oJAS3txpY32yZnGB9q1HDloYFs3afJRtOfOmEupX5kTI3mKrE5jFxomDyRbGtlftezCWWV067bbUDnX3YnAyNh9C3YI8g/NXCwBQCaQyujQq5vZ2BUzhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sysgo.com; spf=pass smtp.mailfrom=sysgo.com; dkim=pass (2048-bit key) header.d=sysgo.com header.i=@sysgo.com header.b=Yr1ZMeR7; arc=none smtp.client-ip=159.69.174.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sysgo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sysgo.com
+	 In-Reply-To:Content-Type; b=YSA2hwCrVxs1rI5AOQZavLEdwLNqpuQrl6SKve9R0Z0rZ8tovUvPZCnPjT89pDrwcBfCyH6WsNMcku9u7pN63aGkayLJovrURwzkLYYyxMgi/vMuN35WG7lf02DPlgkRyiSGYX8ty7cz7azeN1OAjZyiujUi9vH6m6WeSGvtfMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk; spf=pass smtp.mailfrom=mev.co.uk; dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.b=H55e12z9; arc=none smtp.client-ip=184.106.54.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sysgo.com header.i=@sysgo.com header.b="Yr1ZMeR7"
-Received: from mailgw.sysgo.com (localhost.localdomain [127.0.0.1])
-	by mail.sysgo.com (Proxmox) with ESMTP id C9AC781354;
-	Wed, 23 Sep 2026 15:56:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sysgo.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=k1; bh=t3PKFjVC6I3WnNDIwfn8EE
-	+A9whZo9GX4GF4cSIjgcA=; b=Yr1ZMeR7TS6ZvxXi31ov/rA7clk1OCoBxOBDPB
-	6zCE3DHSx8KozI6jXsQe7Wi9TTUC1AtlTbzVX9PEdXRisYuYXduLJTcrzSXe/xLI
-	k4cguxpLrTIpGeHIi5tM6RXU465/tmFV4eYUI6sUWLQQxoj3G2lh4hWSzX9Qj9ei
-	MWgt8EX5inALu4ddoTlE+z3gDDIcxs+NRsotkhNK1Fkex0kxSuUvwW5+65K2hdec
-	XPzTmz8D0l4VBFd6vo8HNoEpgFGA4dscLHRIJ8RZyVUn3kKUU4VW9yHO5vkpo21p
-	TUIM2baKsCjD7FMS/7KpkUOekM1QGuQairWrshIOJ2P93XZQ==
-Message-ID: <582e545e-52b3-4adf-9c93-446ad0fecc93@sysgo.com>
-Date: Wed, 23 Sep 2026 16:56:18 +0300
+	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.b="H55e12z9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+	s=20221208-6x11dpa4; t=1790154693;
+	bh=rJbi9HnWJ6hsy9VsgD0sXvgSN820WQPgudLb959hP70=;
+	h=Date:Subject:To:From:From;
+	b=H55e12z9yWI3m1ng6GDUFTi2euQkrSF4UTZSHY94n4EbjEAXaS4OWxsl1hnmNBLsK
+	 lwCiTBUUXO28NNjMrsj0TcvJ5MX5PiJQfuCelThtJReX2DIjBUdxyyVky6NQfBw6qE
+	 wFrpZlLWZ5hSJiGtg+8fx4K9qDLrqxf6m1co9f40=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp1.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 44A0040215;
+	Wed, 23 Sep 2026 05:11:32 -0400 (EDT)
+Message-ID: <21bad709-afa0-4864-b1ce-c0b4427b91f0@mev.co.uk>
+Date: Wed, 23 Sep 2026 10:11:30 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2] printk: Remove console options before decoding the
- name
-To: Tony Lindgren <tony.lindgren@linux.intel.com>,
- Petr Mladek <pmladek@suse.com>
-Cc: rostedt@goodmis.org, john.ogness@linutronix.de, senozhatsky@chromium.org,
- linux-kernel@vger.kernel.org
-References: <05107b0b-394d-4023-bbd5-8efef73f5542@sysgo.com>
- <20260917060754.37315-3-david.engraf@sysgo.com>
- <arOdv1HHPWzXgW7h@pathway.suse.cz> <arOnowDZHimj_86C@tlindgre-MOBL1>
- <arPAwpfKLSv8ZwpY@pathway.suse.cz> <arPCw7eyRYYsveTy@tlindgre-MOBL1>
-Content-Language: en-US, de-DE
-From: David Engraf <david.engraf@sysgo.com>
-In-Reply-To: <arPCw7eyRYYsveTy@tlindgre-MOBL1>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] comedi: dt2811: fix shift-out-of-bounds in IRQ check
+To: Pei Xiao <xiaopei01@kylinos.cn>, hsweeten@visionengravers.com,
+ linux-kernel@vger.kernel.org,
+ syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
+Cc: syzkaller-bugs@googlegroups.com, gregkh@linuxfoundation.org
+References: <6ab21240.e548f532.1ca396.0018.GAE@google.com>
+ <02c46315293a26169d2a3862a2047959a1651ef4.1790061387.git.xiaopei01@kylinos.cn>
+Content-Language: en-US
+From: Ian Abbott <abbotti@mev.co.uk>
+Organization: MEV Ltd.
+In-Reply-To: <02c46315293a26169d2a3862a2047959a1651ef4.1790061387.git.xiaopei01@kylinos.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Classification-ID: 7ba2016a-fe11-449d-9d2d-ccca2bcaafb3-1-1
 
-On 23.09.26 15:14 wrote Tony Lindgren:
-> On Wed, Sep 23, 2026 at 02:06:26PM +0200, Petr Mladek wrote:
->> On Wed 2026-09-23 13:19:15, Tony Lindgren wrote:
->>> Nice, you could now initialize idx = -1 to start with to leave out the
->>> else for setting devname idx?
->>
->> I would personally prefer to keep the else part because it makes it
->> clear how the "devname" variant is handled. But I could live without
->> it as well.
+On 2026-09-22 10:19, Pei Xiao wrote:
+> The IRQ number passed via comedi_devconfig->options[1] is a signed int
+> that comes from userspace.  The check `it->options[1] <= 7` does not
+> reject negative values, so a negative IRQ number reaches
+> `BIT(it->options[1])`, which is undefined behavior and triggers a UBSAN
+> shift-out-of-bounds warning:
 > 
-> OK thanks, that works just fine for me.
+>    UBSAN: shift-out-of-bounds in drivers/comedi/drivers/dt2811.c:570:31
+>    shift exponent -251 is negative
+> 
+> Add an explicit lower bound check (`it->options[1] >= 0`) so that only
+> valid IRQ numbers 0..7 are accepted before the shift.
+> 
+> Fixes: f2975a9b2ab9 ("staging: comedi: dt2811: add async command support for AI subdevice")
+> Reported-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/all/6ab21240.e548f532.1ca396.0018.GAE@google.com/#R
+> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+> ---
+>   drivers/comedi/drivers/dt2811.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/comedi/drivers/dt2811.c b/drivers/comedi/drivers/dt2811.c
+> index 0438b8c90e44..53cb17993ae7 100644
+> --- a/drivers/comedi/drivers/dt2811.c
+> +++ b/drivers/comedi/drivers/dt2811.c
+> @@ -567,7 +567,7 @@ static int dt2811_attach(struct comedi_device *dev, struct comedi_devconfig *it)
+>   	dt2811_reset(dev);
+>   
+>   	/* IRQ's 2,3,5,7 are valid for async command support */
+> -	if (it->options[1] <= 7  && (BIT(it->options[1]) & 0xac)) {
+> +	if (it->options[1] >= 0 && it->options[1] <= 7 && (BIT(it->options[1]) & 0xac)) {
+>   		ret = request_irq(it->options[1], dt2811_interrupt, 0,
+>   				  dev->board_name, dev);
+>   		if (ret == 0)
 
-Thanks for the review. I'm going to prepare v3 including Petr's changes.
+Looks good, thanks!
 
-Best regards
-- David
+Reviewed-by: Ian Abbott <abbotti@mev.co.uk>
 
+-- 
+-=( Ian Abbott <abbotti@mev.co.uk> || MEV Ltd. is a company  )=-
+-=( registered in England & Wales.  Regd. number: 02862268.  )=-
+-=( Regd. addr.: S11 & 12 Building 67, Europa Business Park, )=-
+-=( Bird Hall Lane, STOCKPORT, SK3 0XA, UK. || www.mev.co.uk )=-
 
