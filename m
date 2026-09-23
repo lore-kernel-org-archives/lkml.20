@@ -1,60 +1,66 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5837523EAB4;
-	Wed, 23 Sep 2026 18:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DC5495037;
+	Wed, 23 Sep 2026 18:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790189946; cv=none; b=F64NDk34V6CvR3fxti7sQAboWWyDGvb16zH+9v0u7FvnJ/Cfke6gLel11bg5KdOldgBYghLPcbwG6tN5/8nY+awsFSXxAy3GaD2GOjRzAjcRPnecXpO/kF79mJl7+eF0PRggDZ20QzKDd+ULHSsk8U5mCMSmS6JcalxwdOvSUlw=
+	t=1790189958; cv=none; b=kzX1oJRg2dmAd0L5iy72b1DPKoJH++9JZ5XpoISCrw7KHtN9tbshphU53D1+F+zQlDkVQg3BXsX3oLkgoXQnzg6NgWUXVgt7c7NR8nsY8Vyfv09uiedWmhc7l6UNWSH3gZABHbSNQXwtA7CNJ90/gITqOVOIuy4rZ32KKvY5nmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790189946; c=relaxed/simple;
-	bh=+eRroRBUu0Ticgi50hMmFGo0lqD4k6fU3P9bG1LD7h0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bn5QIHyR7Iu9EJj2z4QUwwBoS5q74KZIyjmrlEXnHo9Q3UnTLKs36/ldUuaaZoys1PLzTzt4FrOSmqrhX9+49Zo2Xq+VTvbJ2XfDveWFACkwpYxRkMhEU6RHuN6ggN1nuI7UOEB9OyyYeXKcMSjWMkhDrS+K2a9al3cAsoBKnM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=iby9M76E; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790189958; c=relaxed/simple;
+	bh=YnzNba1uuRhllBwFJYI8SdVTn2LoAWh2vPE0KLyn/xg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=ZmZLqnh/FNRrmJ5u6zEouWzilANyUdRGW3E3eDHmYiL9ojVtsu5noaiIWC+pkov47hHNmLUzR83YMpKKdguu8BygsU7t9JCV4C+ZDQ/974h6I8fUsrQP40oSMLqlVxsh4J3Xrj9R5CX7ubF8qe30X95MXzvSrgjYw5nGvYNLzcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JRx1BQmd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="iby9M76E"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=A3JBkXtCW1FVJdbuHt6ARwllcCUeB+jrfclewLqz8wc=; b=iby9M76E8ioxvXhdHEA6pxssM7
-	eABklK4sehH0Awp7ONaQ2oZ9XKHGrM6452KASqPQ0oAvfsf1wAcSEJnHYXd13K19hQ1bkePmdVCmd
-	TjMaSQnzfgmrFTpIuQ8K850wZhktvXxz8/Et3Bto+Io0gmq1vYXB//jscFLSEAWddNl4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9SBK-006rWi-AG; Wed, 23 Sep 2026 20:59:02 +0200
-Date: Wed, 23 Sep 2026 20:59:02 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: wei.fang@nxp.com, frank.li@nxp.com, shenwei.wang@nxp.com,
-	imx@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] net: fec: reject oversized fragments before
- bounce-buffer memcpy
-Message-ID: <f5247cf6-f3c1-4fae-ac6f-c84237f848a2@lunn.ch>
-References: <20260923141154.2415545-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JRx1BQmd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21931F000FF;
+	Wed, 23 Sep 2026 18:59:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790189956;
+	bh=/NeSA8DVk2ilaVt7KJ+BPCe9UE1my0uOPhiixkwDHNc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=JRx1BQmdnRvG0noJzX/iqrNQtgNaV7TdzUfIlImfzU4t9v7DWWRrtw6J9qVgmmmlU
+	 nhk54zDQi8dN7eaYbNkBzWvW9KBW9hx7nxgGNdIBbMGVPyFk9rUhtsYzSCgNsDjX+r
+	 wEZa8JU7VjJqfVmRVM/sS6ZOhl4s5fpLQskOUNmsX3E1d3oi+AIC7iSYd2w6s9Oor/
+	 Jkt+l1s3h+8hB6hG764abMXhK0jQ+eOxKHUzCMOyLDTFln2eXwpVeMABXFHZGNJQB+
+	 wJq49LINmdmmcsITwtDit5sWmIolB6igtuv3/hl5skVZFFHMNlWv8ApABAOwGDwEow
+	 X75JX5xaUFglQ==
+Date: Wed, 23 Sep 2026 08:59:15 -1000
+Message-ID: <15d491d4d4fb481941e8495d48b5c610@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: arighi@nvidia.com, bsegall@google.com, changwoo@igalia.com,
+    dietmar.eggemann@arm.com, etsal@meta.com, juri.lelli@redhat.com,
+    kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, mgorman@suse.de,
+    mingo@redhat.com, peterz@infradead.org, rostedt@goodmis.org,
+    sched-ext@lists.linux.dev, tj@kernel.org, vincent.guittot@linaro.org,
+    void@manifault.com, vschneid@redhat.com, yphbchou0911@gmail.com,
+    emil@etsalapatis.com, david.dai@linux.dev
+Subject: Re: [PATCH] sched_ext: Avoid relocking DSQ during remote consumption
+In-Reply-To: <20260923140750.2128382-1-usama.arif@linux.dev>
+References: <20260923140750.2128382-1-usama.arif@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923141154.2415545-1-qwe.aldo@gmail.com>
 
-> Fixes: 6605b730c061 ("FEC: Add alignment handling for FEC driver")
+Applied to sched_ext/for-7.4 with an unnecessary line break removed.
 
-https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+Possible follow-ups:
 
-Please set the Subject: line correctly.
+- The !dsq branch comment in scx_dispatch_dequeue() only mentions direct
+  dispatch as a source of holding_cpu. Remote consume now reaches it too.
+  Can you update the comment? The dsq branch comment also names
+  dispatch_to_local_dsq() as the racer when it's
+  unlink_dsq_and_switch_rq_lock().
 
-    Andrew
+- The remote local DSQ branch of move_task_between_dsqs() has the same
+  relock. Calling dispatch_dequeue_locked() before dropping src_dsq->lock
+  would avoid it. scx_bpf_dsq_move() isn't widely used, but it'd still be
+  nice.
 
----
-pw-bot: cr
+Thanks.
+
+--
+tejun
