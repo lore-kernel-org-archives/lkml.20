@@ -1,142 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915FF1ADC97
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C4054788
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:01:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790125267; cv=none; b=r7IsCNlLZ+AvEkDR+afKbPcJVAs/cyTkwiMa80kLMBmewO0bv7E9CfnWSmD7wnah8ci9rea/gwXQMBt3gnNIQATStlRmyfwrCyE96/R6QyuetG6/vc48TLgbbwc0knJe/znst4Ht6mbvd38vahYWlc1baSuWAGK42CNtNZNbMPw=
+	t=1790125281; cv=none; b=Vxvn1Q+XLGWYzYEjwFZHZIHZcvichM6leicEmKe8gwnTM+KdVfo7pBjzYAMDvoyihgFAMsKeF5WtMI9z7zvVqwFw7/R8/FVFjYTenDhrreCvppyE/eHNd07aQvOu0c0YLvKfkVqEELwQjHX/T/pt4931a4A33WBjI9c/0PG6opQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790125267; c=relaxed/simple;
-	bh=74O1kp/nZApmmjBc7sKM2+VS4aA5/+dj08DdtbaNMyI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=E3aJE4TbMm/tteEmdSPT2h5cjHeUPail7kbp3zpSxyyh1ychXlpkkQWOH/4lohcT/HTdioY4x0ygAVBAi9deWRH+MSqpaZL0JCOfplxykH2y6DzKvxgUm0gQlIrRBwn4Y2jLllmR0RuM7h4UteLiiurHQd8vFzQeDkd83NQyS6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V5YPYDn9; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790125281; c=relaxed/simple;
+	bh=Ds8v6KxDkR9/9Npv13Jf4GLaCKlKSgwBLsCNTjHzyMQ=;
+	h=Message-ID:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=K49wdIB4B5xo2Q55WIjs/H99sfjP2MtFNsK43IUysMETrw/1+3+f+sHxNVTufDzD5tuWYz3rwqWeaFkszpdFlR5TeVaXRg59EGUme+oy0wMVCoOEScbi6vphazEq8cPpg2hsgYf3roBZ0e5ggjZ1OmFvwO4gfSiZn8tNVHnPgEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cv6G//h1; arc=none smtp.client-ip=74.125.227.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V5YPYDn9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790125265; x=1821661265;
-  h=date:from:to:cc:subject:message-id:mime-version:
-   content-transfer-encoding;
-  bh=74O1kp/nZApmmjBc7sKM2+VS4aA5/+dj08DdtbaNMyI=;
-  b=V5YPYDn9a/kW4EMwB0KWIpqzxbESTWH3SC8tnYV/VwtJkQH813KpFmIk
-   BfDWGqycrv8EH/BRJbehbqimbZqugArdhPsWo+TvYl35tUtcv58GsrB7b
-   CSjQCs4etyu52PUMGOw+G9OxMCiqLCInalcFWDgFvYx5ds5CkHGSDJbQf
-   Z46JaKs5J/p4IAKvLaatVdXkMPYbBwf4uQ8F1na3rrR3vH2m356tSy7Xo
-   CebyDvp3ZL3EvpQbXgG4ePfum1bFUHFazSC37kRiZEhmGLdHCkncfdUEy
-   PsSofmlxRYEJOspHqaWLfuRCRLzLgw0Zg9JpmtWZkzscqVFbEH6UorMSc
-   g==;
-X-CSE-ConnectionGUID: gYfk1K1/T2++XQdK+swStQ==
-X-CSE-MsgGUID: P8VikHVvSHq9i4hB1zkvGw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="116303994"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="116303994"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 18:01:05 -0700
-X-CSE-ConnectionGUID: ti1bcWrYTQuQFr18gyFW6w==
-X-CSE-MsgGUID: +8ft8is0RFGwWC+LqX5l9g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="281446757"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 18:01:00 -0700
-Date: Wed, 23 Sep 2026 09:00:57 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Lorenzo Stoakes <ljs@kernel.org>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-kernel@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Daehyeon Ko <4ncienth@gmail.com>, Mike Rapoport <rppt@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Hagen Paul Pfeifer <hagen@jauu.net>,
-	Jakub Kacinski <kuba@kernel.org>,
-	James Bottomley <james.bottomley@hansenpartnership.com>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>, linux-mm@kvack.org,
-	yi1.lai@intel.com
-Subject: [linus:master] [mm/secretmem]  97d34aa65c:
- stress-ng.secretmem.ops_per_sec 99.5% regression
-Message-ID: <202609230824.7a9189aa-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cv6G//h1"
+Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2ddbf74c12cso3321775ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:01:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790125279; x=1790730079; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vEyEng1MK22ReTdo9F+8MEGOd7gPeqeDoJ7WSVRsKUU=;
+        b=Cv6G//h1QV8L/xIF51r3Cwle7a20GuV9xUuY5nKrGeZc5rouNe5DZXvWdCl6+yH+7I
+         suvLSTHTNfDKwvUzL7HjaTiPFuioeF+cbZmfZ8MwdP/1l/53/WTa29t+h2vxy9AwKbR8
+         2Z9T1f1kB1M8NzE7hvWFspyGVpJc6a7IoBOis7jeFsBOYC8QGum+82j/asVuQKLVclwv
+         e9fyTnX54a/bRGA7cU4CWRw2LSZW+EWGI1lPfgLXoALfrTge/xHec0kJq0qfKCejMM+b
+         MEceu2lD7qHQGE5TUrRPQP2e4CCX+P17HXjj62S7c15TjEZSoDntBueqIqLeeFf8NgGb
+         nSCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790125279; x=1790730079;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vEyEng1MK22ReTdo9F+8MEGOd7gPeqeDoJ7WSVRsKUU=;
+        b=nBkO7OLCInxrPJsZomEMvDf2PxccoVVuQVDurxCTLOe7CR0oTTIk/QzvXVVPmnM7Uw
+         IQYBFHQJOcaEwOI74CxtRGRnd598LHR3lCyfoP9EGk3RSU959TAvYAnav2lPIkS+7sei
+         xIdlSmna/Hdw9SFGm99wR42ui5ASYtASOrSp2n40j1NV8NostkIy/m1f0/kw3vMds7J2
+         zg22ao4wnUUFAgQB1SaxIIhL9yLirDwPAP53Bi2MHG1tEqpvT5Ij272J85HIc3Lh3rQk
+         pFfXZWN1QTZkNv/MNqHlugcSkbHPQ2siuMiswo/Shrys0mbEdZ3kGboU/z7dq8rsns8b
+         ljqg==
+X-Forwarded-Encrypted: i=1; AKwUvBx3luA9VhkpUuHOqLYGGxrbHnL9/MrH+8txeyXFhTtcItaxt0+68bJGNFw7t4Mvfoa2WgyiuArUuT1xKfk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzOs30k8TNYLnilLieB6m8i+dnPo/c1cqLH2vaV+JPgXEycknr
+	9IzVi6V6OhDtvLg6EKtoKEeY7h1mb1Z0Mqndl1l/ifLjqdnMB6eO3mW4
+X-Gm-Gg: AYBFou12aBJEAqN0XGr3DYhY3PhtoRrdKXawnUdw+yUqRfn7WnkIGE4Nm8d27OctYPy
+	+9FGleVmWddgWdmdExzguPe3pWv6GEs/Y6zdfnjFXzBIHvjm/UA+c5u7jCPm+ReJw39Wdc9q9SY
+	fgWpBJMD9jrh5gJfUOqhDRmL5By7OpUFFFPDx5C5fTMIhQB0MVNJZsrDritNoQhDAKjHJXw37iC
+	pXm1Rv3F+p3D/QbYVHBZ4JhK6+kkg3QR851DtMp5rLFnytCibi6A0+0gkKhP0W1dIaBgjQCuvVk
+	b6Mllxth/xcHUIkJiZcuq0xNPoNLNHeVRljnb3yTRs7hIx0HJbUUDYUyvg93NkEJqIb+WLbcWeH
+	wZAcKAkfG9/fYm/k2Dn1v8KMCkwqhMaUYHtVki6YgGlX/KK2c6ExQ2L8koT0+TjQxKF6yJ+kKRd
+	+w2Cm3UuO1r2O4/PnZ9VWcThp9hetrHFxVJEYfZ3/1oF6rDnI3L7Uot6di0tKo2sWa4ndtdMhee
+	85Vp9eVk5hRlxBCYmzhW6gy80ZMq7xCzNolzJH+NYJJSH0ACGS2oK82n0EPWPk=
+X-Received: by 2002:a17:902:d48a:b0:2da:f7ad:cfea with SMTP id d9443c01a7336-2df69d1aa73mr8835515ad.8.1790125279133;
+        Tue, 22 Sep 2026 18:01:19 -0700 (PDT)
+Received: from [127.0.1.1] ([2409:408d:3188:aa03:9728:ccb0:1ebd:8895])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5f035bsm2369745ad.65.2026.09.22.18.01.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 18:01:17 -0700 (PDT)
+Message-ID: <6ab324dd.577d9347.2d1fba.32e4@mx.google.com>
+Date: Tue, 22 Sep 2026 18:01:17 -0700 (PDT)
+From: Rohinthan P <rokinthanp03@gmail.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+9f7405999979761b6cfc@syzkaller.appspotmail.com
+Subject: Re: [PATCH v3] media: v4l2-ctrls: do nothing if controls[0] == NULL
+ in cluster functions
+In-Reply-To: <2e35f2b6-6b90-4587-8891-08846433b0d6@kernel.org>
+References:
+ <CAHzb5FFOq=2_piCiFdEun_s2h+Jr90pNLF5O_2umNLkM9-XjkA@mail.gmail.com>
+ <2e35f2b6-6b90-4587-8891-08846433b0d6@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
 
+Hi Hans,
 
+Thank you for reviewing the patch!
 
-Hello,
+1. Regarding my name:
+   My correct name is "Rohinthan P". I have updated my email display name
+   and git configuration so that Author and Signed-off-by consistently match.
 
-kernel test robot noticed a 99.5% regression of stress-ng.secretmem.ops_per_sec on:
+2. Regarding the 'Reply-To' header:
+   That was an accidental typo in my Gmail web settings where 'www.' was
+   mistakenly prefixed to the address. I have fixed and removed that setting.
 
-commit: 97d34aa65c29cca85e3e9050f4c936389b38a054 ("mm/secretmem: properly account locked pages") https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git master
+Please let me know if you would like me to resubmit a [PATCH v4] with the
+updated Author and Signed-off-by lines, or if you can apply v3 directly
+with the name "Rohinthan P <rokinthanp03@gmail.com>".
 
-testcase: stress-ng
-config: x86_64-rhel-9.4
-compiler: gcc-14
-test machine: 224 threads 2 sockets Intel(R) Xeon(R) Platinum 8480CTDX (Sapphire Rapids) with 256G memory
-parameters:
-
-	nr_threads: 100%
-	testtime: 60s
-	test: secretmem
-	cpufreq_governor: performance
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202609230824.7a9189aa-lkp@intel.com
-
-
-Details are as below:
--------------------------------------------------------------------------------------------------->
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20260923/202609230824.7a9189aa-lkp@intel.com
-
-=========================================================================================
-compiler/cpufreq_governor/kconfig/nr_threads/rootfs/tbox_group/test/testcase/testtime:
-  gcc-14/performance/x86_64-rhel-9.4/100%/debian-13-x86_64-20250902.cgz/lkp-spr-r02/secretmem/stress-ng/60s
-
-commit: 
-  35b0fb391b ("mm/mremap: reset unfaulted VMA page offset for MREMAP_DONTUNMAP")
-  97d34aa65c ("mm/secretmem: properly account locked pages")
-
-35b0fb391b0df573 97d34aa65c29cca85e3e9050f4c
----------------- --------------------------- 
-         %stddev     %change         %stddev
-             \          |                \  
-   6080503           -99.6%      23092 ±  3%  stress-ng.secretmem.ops
-     85584           -99.5%     385.28 ±  3%  stress-ng.secretmem.ops_per_sec
-     71.48           -16.0%      60.07        stress-ng.time.elapsed_time
-     71.48           -16.0%      60.07        stress-ng.time.elapsed_time.max
-     97435 ±  2%   +1276.4%    1341103        stress-ng.time.involuntary_context_switches
-    230308           -96.1%       9096        stress-ng.time.maximum_resident_set_size
-  18401243         +3349.6%  6.348e+08        stress-ng.time.minor_page_faults
-     20417            -8.7%      18639        stress-ng.time.percent_of_cpu_this_job_got
-     14581           -25.0%      10937        stress-ng.time.system_time
-     13.34         +1858.5%     261.33        stress-ng.time.user_time
-      6898 ±  2%  +96037.7%    6631576 ±  3%  stress-ng.time.voluntary_context_switches
-
-Disclaimer:
-Results have been estimated based on internal Intel analysis and are provided
-for informational purposes only. Any difference in system hardware or software
-design or configuration may affect actual performance.
-
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
-
+Thanks,
+Rohinthan P
