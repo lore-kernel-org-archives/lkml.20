@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF6D47F3D6
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:44:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5716484882
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:44:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790203461; cv=none; b=XGEqA3/UKSzTgtFbvQhqFD4iGM1jFgcHf4g7Gk5zReImLdp5mIGBuS8bJ/nPAdPFKu0t624pjZXOK1PXLsxg/acW4w8z8zgmgQuk+ovWpIQdLwVTjLC3gUgrfJuJokYoAi4fZWtX8Up0ZtME5w8vN27ifujFhmN57J4w4OLjcU0=
+	t=1790203464; cv=none; b=ILW0YH7CMhY7mREl0IT9BP78yk3YgG5+t8LHJ1z1nCF0ZzqAA+/sDQxXYSau0DYJy05akO6JwkIvO3LfvFF+VL2JBfOBo5W7Le6evWzyKF9Bm+ReEkm+N/iP88awBFsS1Sgo23jFtoiliUbQddBwU4AtZeZURhBddpc4PX7WvyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790203461; c=relaxed/simple;
-	bh=6meQNQ6TqF2Mb4uCSK2qQxVdWVcnzbfnViphUequMx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TewkBrZ+RFGKM9OewYspmTkHlxgtxDmFCJRvaKA9eM3WPkE6tWWpcw0EywVsCSRVD6XYKhJV1CmG/dGhiaBsq9O90sllAtyiBQdAlHEFSXqla4MhQhCL7IIYoQhAHizvDJPfuoR8Z8h/Fve6QVJj0tvR6n3KD9bxBwdmnfGob+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hNekichH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790203464; c=relaxed/simple;
+	bh=5GEZ3ja58DI0UQj4lRPUu6xrAU32yO4Wnmquf2NfRBQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=d7WF1dvKoeZLagtR14GVXWPmUzQ/sgiMFyjWFvl1HL4hjIZbHnZMosJjDOv07/MljWYkjU1CJEjU8CbG9cgCjsIBfi10Bj/cK3y1Md4U9MfKTPWmZnenRSyrBikkt2FjPPZyJijqwGUC5g8kP+4Ffh5UoaFlKbHrhnR9YahVlp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TLDWEyiH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hNekichH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5391F000FF;
-	Wed, 23 Sep 2026 22:44:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TLDWEyiH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117221F00893;
+	Wed, 23 Sep 2026 22:44:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790203459;
-	bh=UPMsCT2qvWI8EN+jpV7cX6nzZkhYVxQZfqb9tn+GBjo=;
-	h=From:To:Cc:Subject:Date;
-	b=hNekichHgeFu9YAHhsC57ga8KbZeqqYNoPt9qyeJkcA62yO3zslm5ClhEnnIVKNa2
-	 lHX2WsoedAGQHIkLZ3XtC1PusAva9ljvI5XsjK28jhmt2xLfY4QeX2JokCV99DkqAd
-	 cCdPJs9y/eFE0DFmdSiwOHVB7TdDofuG4c4htxyj8fZNK1JzxU62wzdVhJfp+wxciK
-	 I9V7sq80Jl+7oEhUZyKPyhOag00hsGuRo/Q27LFbczH2Vu6jWpHeYsJuQ8xE1Jwusp
-	 sNpPewsakzebZBaMFoaMuhk4XGUzBZP5ZLO4flQ9qK1kRtSe2dDsuMSfqHopso6zls
-	 Xg4N/8sM0wE8Q==
+	s=k20260515; t=1790203462;
+	bh=XCYcL1R5NicLL/NhwgzYeBgYTteRbyS24vJmmzlRDaw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TLDWEyiH4tsSHQ5jJ4W2INbg6NtCw24Nd55zZ1YffQlaEZPAogYwjP2a/jc2DrkPj
+	 fXfbbY0AbOWflZJduor+NXDIF6D+FNeJF7fl8dSS/E5uP0Qr0d96bjebpX+f4ESMn/
+	 iPGrG7bYGtfPO3T4UR+BK/3sz9bYHuMUdh/5T7cjpw4U7scGJJsTDgxf2jodSDjEoI
+	 sKzZnyHAKe6jGpPk8E3MGJqmqx+C5rJILC4+9pbw+A1ID0OAaQjT1kgvaS4YzT/Y1G
+	 pojgEXXMxey8NvFAyaDGkdrYwSbl0qyYLPQj7yrknb+ildxh1CLxjM3OlCEiyPkYsh
+	 qIjtHZqFGtM2Q==
 From: Pratyush Yadav <pratyush@kernel.org>
 To: Pasha Tatashin <pasha.tatashin@soleen.com>,
 	Mike Rapoport <rppt@kernel.org>,
@@ -40,10 +41,12 @@ To: Pasha Tatashin <pasha.tatashin@soleen.com>,
 Cc: kexec@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH 0/6] luo: tmpfs preservation
-Date: Thu, 24 Sep 2026 00:43:59 +0200
-Message-ID: <20260923224408.3745689-1-pratyush@kernel.org>
+Subject: [RFC PATCH 1/6] liveupdate: luo_file: look up outgoing tokens by id
+Date: Thu, 24 Sep 2026 00:44:00 +0200
+Message-ID: <20260923224408.3745689-2-pratyush@kernel.org>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+In-Reply-To: <20260923224408.3745689-1-pratyush@kernel.org>
+References: <20260923224408.3745689-1-pratyush@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,89 +57,98 @@ Content-Transfer-Encoding: 8bit
 
 From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 
-Hi,
+liveupdate_get_token_outgoing() is used to look up tokens of
+dependencies. It does the search based on struct file. LUO preserves
+resources; the files are only handles to those resources.
 
-I brought this idea up in this week's Hypervisor Live Update bi-weekly.
-I decided to try using an LLM to see if it can produce a
-proof-of-concept quickly. This series is the end result.
+LUO provides file handlers a ->get_id() callback that can return the
+unique identifier of a resource. LUO uses it to ensure the same resource
+can't be preserved twice if it can be referred to by multiple files. The
+default ID is the struct file, but file handlers can implement the
+callback and return something else. For example, memfd returns the inode
+of the file, not the struct file itself.
 
-The main use case is preserving in-memory files that have a filesystem
-path. We already support memfd preservation, but memfds can't be linked
-to a (user-visible) filesystem. This is needed for storing VMM packages
-for live update on hosts that don't have a disk. A cold boot fetches the
-binaries from network, but that is too slow for a live update.
+Use ID to look up dependencies in liveupdate_get_token_outgoing()
+instead of struct file. This allows the lookup to work with handlers
+that use things other than the struct file.
 
-David tried to solve the problem by introducing
-LIVEUPDATE_SESSION_RETRIEVE_INTO_FD [0], which lets you provide a FD for
-LUO to retrieve into. This is an alternative to the idea. It uses the
-standard preservation and retrieval API that LUO already provides.
+Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+---
+ include/linux/liveupdate.h   |  6 +++---
+ kernel/liveupdate/luo_file.c | 21 ++++++++++++---------
+ 2 files changed, 15 insertions(+), 12 deletions(-)
 
-The core idea is to allow userspace to preserve a tmpfs mount FD. Once
-the mount is preserved, userspace can pass in regular files in that
-mount for preservation. The files take a dependency on the mount token,
-and that is used for retrieving the files in the right mount. This saves
-us from doing a full FS preservation and makes preservation of each file
-explicit.
-
-Currently only files in the root are supported. Files in subdirectories
-will be rejected. This is mainly for simplicity. Complex mount features
-like memory policies, id mappings, or casefolding are also not
-supported. All these can be reconfigured after retrieve if really
-needed.
-
-The code re-uses a lot of the preservation and retrieval logic from
-memfd preservation. It only adds some extra file and mount metadata on
-top.
-
-As I mentioned earlier, this is heavily LLM generated. The code is not
-very polished and has some rough edges. That said, I have read all the
-code and did significant cleanups of the LLM output. This includes
-turning the 1600 or so lines it generated to a more modest 977 lines.
-So (I think) it isn't complete AI garbage. And I think it does get the
-core idea across.
-
-The big exception to this is the changes to and use of VFS APIs. I am
-not competent with VFS at all so I have mostly taken the LLM at its word
-and haven't done my homework to see if the usage even makes sense.
-That's why I have not Cced any of the VFS maintainers. I'd rather spare
-them the pain.
-
-[0] https://lore.kernel.org/kexec/20260901180713.4185641-1-dmatlack@google.com/T/#u
-
-Regards,
-Pratyush Yadav
-
-Pratyush Yadav (Google) (6):
-  liveupdate: luo_file: look up outgoing tokens by id
-  shmem: add tmpfs_create_mount() to create tmpfs mounts internally
-  fs/namespace: Add vfs_open_detached_mount()
-  mm/memfd_luo: allow preserving a tmpfs mount
-  mm/memfd_luo: allow preserving a tmpfs file
-  selftests/liveupdate: add tmpfs kexec test
-
- Documentation/core-api/liveupdate.rst         |   1 +
- Documentation/mm/index.rst                    |   1 +
- Documentation/mm/tmpfs_preservation.rst       |  24 +
- MAINTAINERS                                   |   1 +
- fs/namespace.c                                |  59 ++
- include/linux/kho/abi/tmpfs.h                 |  83 +++
- include/linux/liveupdate.h                    |   6 +-
- include/linux/mount.h                         |   1 +
- include/linux/shmem_fs.h                      |   5 +
- kernel/liveupdate/luo_file.c                  |  21 +-
- mm/internal.h                                 |   1 +
- mm/memfd_luo.c                                | 558 +++++++++++++++++-
- mm/shmem.c                                    |  43 +-
- tools/testing/selftests/liveupdate/Makefile   |   1 +
- .../selftests/liveupdate/luo_kexec_tmpfs.c    | 191 ++++++
- .../selftests/liveupdate/run-vmtests.sh       |   1 +
- 16 files changed, 977 insertions(+), 20 deletions(-)
- create mode 100644 Documentation/mm/tmpfs_preservation.rst
- create mode 100644 include/linux/kho/abi/tmpfs.h
- create mode 100644 tools/testing/selftests/liveupdate/luo_kexec_tmpfs.c
-
-
-base-commit: db3db4c33a1cf89a201ad1a11c63f503b248ee32
+diff --git a/include/linux/liveupdate.h b/include/linux/liveupdate.h
+index 6051abc0612c..1cddbab50b98 100644
+--- a/include/linux/liveupdate.h
++++ b/include/linux/liveupdate.h
+@@ -253,9 +253,9 @@ void liveupdate_flb_put_outgoing(struct liveupdate_flb *flb);
+ int liveupdate_get_file_incoming(struct liveupdate_session *s, u64 token,
+ 				 struct file **filep);
+ 
+-/* Get a token for an outgoing file, or -ENOENT if file is not preserved */
++/* Get a token for a preserved object, or -ENOENT if it is not preserved */
+ int liveupdate_get_token_outgoing(struct liveupdate_session *s,
+-				  struct file *file, u64 *tokenp);
++				  unsigned long id, u64 *tokenp);
+ 
+ #else /* CONFIG_LIVEUPDATE */
+ 
+@@ -316,7 +316,7 @@ static inline int liveupdate_get_file_incoming(struct liveupdate_session *s,
+ }
+ 
+ static inline int liveupdate_get_token_outgoing(struct liveupdate_session *s,
+-						struct file *file, u64 *tokenp)
++						unsigned long id, u64 *tokenp)
+ {
+ 	return -EOPNOTSUPP;
+ }
+diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
+index a39992da504f..51817d202ce2 100644
+--- a/kernel/liveupdate/luo_file.c
++++ b/kernel/liveupdate/luo_file.c
+@@ -950,29 +950,32 @@ void liveupdate_unregister_file_handler(struct liveupdate_file_handler *fh)
+ }
+ 
+ /**
+- * liveupdate_get_token_outgoing - Get the token for a preserved file.
++ * liveupdate_get_token_outgoing - Get the token for a preserved object.
+  * @s:      The outgoing liveupdate session.
+- * @file:   The file object to search for.
++ * @id:     The identifier of the preserved object to search for, as returned
++ *          by the owning handler's ->get_id().
+  * @tokenp: Output parameter for the found token.
+  *
+- * Searches the list of preserved files in an outgoing session for a matching
+- * file object. If found, the corresponding user-provided token is returned.
++ * Searches the list of preserved files in an outgoing session for an object
++ * with a matching identifier. If found, the corresponding user-provided token
++ * is returned.
+  *
+- * This function is intended for in-kernel callers that need to correlate a
+- * file with its liveupdate token.
++ * For handlers that do not implement ->get_id() use the 'struct file' pointer
++ * as their identifier.
+  *
+  * Context: It must be called with session mutex acquired.
+- * Return: 0 on success, -ENOENT if the file is not preserved in this session.
++ * Return: 0 on success, -ENOENT if no such object is preserved in this
++ *         session.
+  */
+ int liveupdate_get_token_outgoing(struct liveupdate_session *s,
+-				  struct file *file, u64 *tokenp)
++				  unsigned long id, u64 *tokenp)
+ {
+ 	struct luo_file_set *file_set = luo_file_set_from_session_locked(s);
+ 	struct luo_file *luo_file;
+ 	int err = -ENOENT;
+ 
+ 	list_for_each_entry(luo_file, &file_set->files_list, list) {
+-		if (luo_file->file == file) {
++		if (luo_get_id(luo_file->fh, luo_file->file) == id) {
+ 			if (tokenp)
+ 				*tokenp = luo_file->token;
+ 			err = 0;
 -- 
 2.56.0.rc1.310.g51773c2048-goog
 
