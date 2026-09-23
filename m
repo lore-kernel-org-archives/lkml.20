@@ -1,97 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356AD53A3A5;
-	Wed, 23 Sep 2026 15:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177920; cv=none; b=iskhHHe2lgTI4gnEvCKIRXoFyGbHTNkA5WQDY7m/Oml5h4aH+lJmhq5GeTX/KAk7VMQVHqvYntVDXzpJYduNYno8aDq0mYqsA9nacc2o2s5Ly5WPxm9dUrxNhDKIcRzwgZUBWziB9Q0EfBCU9yhs4yBGNPe23mLZR0KdPF2JKgA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177920; c=relaxed/simple;
-	bh=ToK0TNxC3oAnPP0HqGNewVc3O3yCJzRv01PvOvv1TMk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sq1uFBWg2BefCaQITi6tAxUPy5w3SHKBBP6jy0eD6UQFQePGwRwcUWVxuB6TK8maYb6BEj0CY4SzHQVDySdd2jluCLxk8P06+LTfJnoqxarbC7wNwTF6Jx5Ovv4JhVTm4+Q/dgbi7Qn28Ca5XJ33qWvwgPYVDXce1zIXhtPSc1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZIAz+p+G; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4E353B34A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790177938; cv=pass; b=INZo1jjZs06z6i5X//yInZVIXhQZUxeLxVcVMfFdXUAHZs0+g6vs9OA5zwTPayir3ueJOuFHPTiuB4m0NnRZw0C7mxZ6z4wXOIt6Wn0ubEYtlxijxvlh0n0PrBvvWtWaXFaBKSPdDQdf/zY3eBv9S7u2KyoR4kw1AN8En9JW6F4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790177938; c=relaxed/simple;
+	bh=471+xwzsHhix7zeMBIIU+C2QTB25AzHe0qndhZvonm0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DlLx+IkU6yoHlspt9m9eCWOMAj0PEHMrrHLRP7t1QwnjqgUM3faZhGmO8j6rSSob6Yb6T8o+G2Hs0FZMMICPynLi+nPrtgLGRkCqQ99mb1gg8XWgY4Daoo8I8vncaXWeUJsGNpFAPbkGrfNdvaqzUh5piG1Mh3cdEDlS0G04jwQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lgc6ZLjx; arc=pass smtp.client-ip=74.125.231.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZIAz+p+G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8B381F000FF;
-	Wed, 23 Sep 2026 15:38:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790177918;
-	bh=WBvzheVxpsN1KuGNPAJdA0qsktLApMfKzycXl7Y5NAE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZIAz+p+GcBovjWK/gG9i/D/MOXQ6OZFqKjDxy3MduFYI8wZ+szwC/H9/Z8emkXg4g
-	 X+hanW4zo94iLmVClDyVPrxvOFngm6qm0TMVLJO6VA0DplqL1GsgHMUrgA48FverBk
-	 3P0RJT7+fDPZFCKVGPMWQy3ILRtoC6Y1aAEBIDMBywNZ0fo6glmzFuzHCsTXVhnmhC
-	 QjszwSyRaPkJkdm0ZxQqZIz2RqfYYb6/EkJJjXrCBTUN/HsmXeoZ+UeuZj+ziA7uSa
-	 Vo8KDnAzq2ub3A0itwuFcxN+xydMHSeMo9ywhOlg/C4o2hQ5RPo28PPDOD+P8f+l7n
-	 FIRYA5V3Ikouw==
-Date: Wed, 23 Sep 2026 18:38:32 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Dmitry Vyukov <dvyukov@google.com>, Len Brown <lenb@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, kasan-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH 2/5] hibernation: ensure secretmem pages don't reach a
- snapshot
-Message-ID: <arPyeNHUkthT4Rlv@kernel.org>
-References: <20260917-hibernation-v1-0-7f7dfae3dbe0@kernel.org>
- <20260917-hibernation-v1-2-7f7dfae3dbe0@kernel.org>
- <4ed926ae-9e9b-45d7-9ba3-a24431522bb2@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lgc6ZLjx"
+Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c556f35e70so167987b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:38:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790177935; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eZ7b4rBckH/9DR1f0sBKVaQnhnEo/BCLHAycab7ROcJCtLKvJYEVRBF7+GbwmtOjpR
+         UOew4cYb4G6oGQD5/fh8ylstURIEKmBejL+BAm2MnuF0876dejbVkubp2iB4z5Opxl3H
+         LMptpaCVY1jyXlWdEdolCsJjLdHwPTger02HQk/ehtyzzeuwUQou58/YpCJsoN+Cp/iK
+         eLweas/6ilKOkhpCT87/Yny5mRy5u5QoSZGtHyjS7ihKtdueYcswQZLQx8hMXnYD1BIr
+         7Vy4t8Y2FvtBX3m0mVCgQix1fEPghefuLP4ak9tlUhF+mpjRf9YAiyzl9QZOLnGmffr5
+         IKxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=471+xwzsHhix7zeMBIIU+C2QTB25AzHe0qndhZvonm0=;
+        fh=JsUkn1v9jJwp48a8dHO3qnmaBhi+UtKQKNbFsvnIg48=;
+        b=ClF+M+84vWoqt8Iex01LJkXkC0IUEbWARchNq1TZ7G4Cy0V9KvaxL2PMv8W4LpDpcA
+         nzbs+7LcsVehDMTla59pTvauT7cwXvX5J0hBZT2RuolDde50/ruiaxojnVdJJrjI6AB0
+         dSR3EsXv+YbebH30yeIVPpp61Ttj87O/9jL4zhFNtmCh0OSMmYuYvCnp6OZ7dbSD+CpA
+         E+gb8oIMXS7HSD4waFUeyKiEjKwiOMs7GS6sx0SvTEDXhJ/+8ESV1rvFUMUruwo3Hpha
+         WUtAm72lLRUVnLzJ/YdUEnsMtn+9ECuyOC7hXlWzEA0ODZQhE8tRdfjRpMvX7vAenh/g
+         1bMg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790177935; x=1790782735; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=471+xwzsHhix7zeMBIIU+C2QTB25AzHe0qndhZvonm0=;
+        b=Lgc6ZLjxJeusXyd3EEeus6/sE1JDLDujyZs57woMUdQtc2Kjio2LZn53PlqdWY8WXT
+         PtgkzzQP0ToxpHa1URnU5QbndZxyzO+oZnEWwQiIH7zzmPej8xSjBY5aySX0ud77uqtt
+         k9rmz/ElydeS5nBSjOulsFVjWPNvLgjX1Cpj4tv5z5AvUTjibJznUimFF6bGEt/JYnND
+         b01MckU/15AP/p7Ymcf/t4FYQM12Q30GgWluxCKw1MRqCAsPtHZfc8WLKpFviDNUoyWO
+         QacCIOol8e1qIYJ7gxQyiOX1TsL3hqvUcuzvxk+OPAhBo+QpHXjDLjn6JRZO+PlIBCsR
+         vWiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790177935; x=1790782735;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=471+xwzsHhix7zeMBIIU+C2QTB25AzHe0qndhZvonm0=;
+        b=QE4IdBl6cWC888FPfAnGhv/oi4U1N7PRou5Ly5aXVxG2hnhxzsmUaR4FFZRR4dbG5f
+         ylt5GHMYwSouGvBLhSCKOMDuXhdn+DaMpbh+WUVN6/eUT9NDVbpLPnUyPZYhqzPOJIQs
+         jEcPrfj77C3J8fmaV3x5suRNu48UYwIjIBmKxt5QxhXkICGjf3Kh88/NwPyZj68DwQVj
+         PBENS23IyJ5KmDjKT/zbfoU8Wa/lwedMBgw/1Uzd+x2IxMadW/Wv9NqQOc/9nkKNc/XI
+         yZ4koTWEtuWaJrzRhTyYCc0cDqmRUzftGZrsamzWyGT2erkRqN8FuNhigq1YFIcYK/Zm
+         U/qw==
+X-Forwarded-Encrypted: i=1; AKwUvBxzIk3GEalP07a+O5zCYub63p4sDYTG/4CWmL1vRie01fo/mjS4bu8Wk7SuhK9djKIzVd8Qvc+ZObp7Fp0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncMwRlcxBZJr6/RwtWkrwF03Et3mHxOsKbijU78Hkh9Or+D6/+
+	T7hHBICPiLKK9CXvZF4zaK8xm4+RvQhAm6YTJysPEfxgqwPfGXtev7fSeTnMkr47sI5iZfcg/Vm
+	Weg9xYIkf/0wdEH4Eks1iJMj6tZlR6Y8=
+X-Gm-Gg: AYBFou3VTtQ5C77ECf3252KqqLcmTG6Pe6q6IxNjvVi9ptI++FUoYIFBgVBSjmkCRKY
+	1cYSN4urJJot8RVnPBAu2zsl3rqZEQU8zvVXJNFdA6rV4H6fnhSP9oDfmM692YoiQ4fDdq9+j+F
+	ItcyI6QElyjAsE35L/9+DIwXH+PXkbljOviJnQeL9ePCPLspneo0VICpqZA/a6f9DZgXxPaaTXt
+	auQ/eeMlWrwus2vI2d8QIbUdfXX3NUrcA3MsPssZ4tt+CN5ufipcd9tNcBa1r7l3tniyPEmkT8w
+	jCJm0GOR0vMERcaFQ5YarcrEcpyTkLIUzDCPY1DaaISSz+N7oa9LrrX1IGzjLUduhJy3/TY=
+X-Received: by 2002:a05:6808:148a:b0:496:9bf:c837 with SMTP id
+ 5614622812f47-4d5b3bf7584mr4092874b6e.0.1790177934516; Wed, 23 Sep 2026
+ 08:38:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4ed926ae-9e9b-45d7-9ba3-a24431522bb2@kernel.org>
+References: <20260914-netcons_ratelimit-v3-0-8e81b789ab37@debian.org> <20260914-netcons_ratelimit-v3-2-8e81b789ab37@debian.org>
+In-Reply-To: <20260914-netcons_ratelimit-v3-2-8e81b789ab37@debian.org>
+From: Gustavo Luiz Duarte <gustavold@gmail.com>
+Date: Wed, 23 Sep 2026 16:38:43 +0100
+X-Gm-Features: AclHuK_jZZFxO2Dh2JWJerZTiWPe1oDb0kLQ1Sj5dw4U8L9ub-MiIvvivGhqr7E
+Message-ID: <CAGSyskWZFfuCvvg8y+Re3VKhHWZiWrAxRkXXoFp9pgCrqxi=1g@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 2/5] netconsole: add a per-target message rate limit
+To: Breno Leitao <leitao@debian.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, paulmck@kernel.org, asantostc@gmail.com, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 23, 2026 at 12:10:52PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/17/26 08:07, Mike Rapoport (Microsoft) wrote:
-> > hibernation_available() checks for active secretmem users, but a secretmem
-> > file can be created after this check and its pages may get into the
-> > hibernation snapshot although they should not.
-> > 
-> > Recheck secretmem state after userspace is frozen and abort hibernation if
-> > secretmem is active.
-> > 
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> > ---
-> >  kernel/power/hibernate.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-> > index d2479c69d71a4..281ad49411481 100644
-> > --- a/kernel/power/hibernate.c
-> > +++ b/kernel/power/hibernate.c
-> > @@ -412,6 +412,11 @@ int hibernation_snapshot(int platform_mode)
-> >  	if (error)
-> >  		goto Close;
-> >  
-> > +	if (secretmem_active()) {
-> > +		error = -EBUSY;
-> > +		goto Thaw;
-> > +	}
-> > +
-> 
-> Should we instead recheck hibernation_available() like we do at the beginning of
-> hibernate() before freezing?
+On Mon, Sep 14, 2026 at 1:10=E2=80=AFPM Breno Leitao <leitao@debian.org> wr=
+ote:
+>
+> Give each target a token bucket and consult it once per message in
+> netconsole_write().
+>
+> The bucket is created with a zero interval, which struct ratelimit_state
+> treats as unlimited, and nothing can set a nonzero one yet, so no target
+> changes behaviour.
+>
+> Skip the bucket while the kernel is dying, reusing the helper the
+> oops_only fix added, so a limit configured for steady-state logging
+> never truncates an oops, BUG() or panic().
+>
+> The configfs files that expose it come next.
+>
+> ___ratelimit() only trylocks its own raw spinlock, so it is safe with
+> target_list_lock held and interrupts disabled, and safe from NMI. Set
+> RATELIMIT_MSG_ON_RELEASE so it does not report the suppressed count
+> itself, which would printk() from inside the console being serviced.
+>
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-I'm not sure it's possible to hotplug cxl at that tiny window, but yeah,
-checking hibernation_available() is cleaner.
- 
-> -- 
-> Cheers,
-> 
-> David
-
--- 
-Sincerely yours,
-Mike.
+Reviewed-by: Gustavo Luiz Duarte <gustavold@gmail.com>
