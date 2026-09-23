@@ -1,98 +1,82 @@
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FC6407CD0
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51027413798;
+	Wed, 23 Sep 2026 08:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790153408; cv=none; b=MV8zqyv+ooeVOuT5S51vk+iKqbbLDEv/c8SHEgQewoRzocO5P35FcB3PT7p0PTSg07aNECx4PyLJOB4bm7H4GgWMYSlMftUqJkm4lbIdwzUmT+k7JpdO6JFn5fIMpnEDXeSF02/ZyH8nE13/zXPqXum+MdsyCUp2wYh+o0jXi6U=
+	t=1790153416; cv=none; b=GtHqVsT1qBC5p41FX3Gtw/T18dvkPWKNuaGUgr61Pdf0R8nbO+MZaFcAhCrJvjIYLMQJtbuNg4oOwYSgjewxAlWxKXZ0mx96ENGlk/hU09L7P4u7wPknNxhD1iCCrWOuLfUUKuJtO5Y07ZwJgheomAWrlE2HDaJ/E9tStlN3/CA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790153408; c=relaxed/simple;
-	bh=2XHh08DSWyQ2Lla9nNvrGWSyFGkMaNolE/nGXFIv2Do=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=inr2ElYEa03NOkXSyYd88haTtMm/4R1jx5bxRsM1B3LPmPY6natQ1DQHDQfI/xUXsiSVq2M2scO6fWxGfO664QyPMsff0hW5+iLyWrJKsZblOTueLqcHml4x3onfs4+1I1vRkxm5G/XvCvy7PWwbm0yH956hm2HKsM49WdpJ4jA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sAQ42flg; arc=none smtp.client-ip=209.85.208.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1790153416; c=relaxed/simple;
+	bh=vw6CA2I173k93qtQof0Y5hXQlDUAFKr5FN6nPvywoH8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rv1LcvrG+RWFlqfXowIDSzpRYJKoTqWN0Myg19QC7taiXH3jqFFfeBLlYwGUjNTIP72d1Xjml93IGNT+Jc5KzidwvXHE/pxELFJfJP/UZmIr8FoVatAgnFIj96XdTTNeMaJvi0PpfIhUbsIhCvA1fnlwxi8eUqThony0BJYOGeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fkKZSamI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sAQ42flg"
-Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6a5d7e3ac13so849780a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:50:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790153404; x=1790758204; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/V4JJZVNuiDLsMZrmNpJjlcNEhUviMYM4KAzEYYNoVE=;
-        b=sAQ42flgNn5Fe4xFAC7IwQ2tN1sInq1uwlWXEylFisRb6+OLbLWh2HD4h+0OlN8seJ
-         HXn7E6VHEOiK54GV7Gs90bE8FsvklifCIdb0FDgx4+SvaOky92hdhncG1+eDjdRcBU4l
-         treQrIW/COp0eZIoEapx/oJMaZd/hVf42qBs8y2RxRwwo0bJ+S9rGMaskyDfVGtuHpdF
-         iA9MrENCwBQmQ4mriO67Z9ouXw1LjtYUoLYom2Mn096Lf11yE770cF3GM+iJUGc+U7JT
-         2S+zn6KGAVEjQGFQjZS8jF6lSH3wU9Xx/B3RUtxtIZ8BKlXvXWLdkvWx7pZy7dy5Te8a
-         oXSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790153404; x=1790758204;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/V4JJZVNuiDLsMZrmNpJjlcNEhUviMYM4KAzEYYNoVE=;
-        b=p7ug2m0mzfp541O+xWWVdV/z+pcgWd/NiAHOT1XWVHyd0gDafHhONll/92CxWvPEev
-         bkuJQheeZRyv6UFRfkZmdWDmp6vTb36SgP4jtqH58aw2ONPqzYOKep8OlfTn6gFQ8Y7C
-         csFyu991Rx3c1W0jg/p0F5Ie7Y/mFluEcgLW0KShafikVMqZmVAyyYxAUIxbzWQkcNfA
-         1OYjYYNvdavzQCuzJ8Os1dg5Z0I8w3iU4gGWAgTLtvYIAy8uMbbILv83Ok9u83fo9f2K
-         ZtP+37XWENuslQL/Lab6E4B7cy1T0K6CvuCV4Pwp9bYfNyrL9Q4PNX0ll3yOriTMTFYf
-         pSNg==
-X-Forwarded-Encrypted: i=1; AKwUvBxovNySk0Qta4bnqUpFXyfA2gZ7UaOzyiCgXHqdpK6474AW4AaoIOpQrlpmsSQUfb5dxmAZtYaqqUFnslE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpeeypq74Wv/eOgZ08cEa2pFh9v9qgvJoFdGFV6CnFaXeVgJ8z
-	tilB6ZWdbTmNiI8bZJlbLmfe6gfLbQapABiR2Mu/n0yk+ptdTADdL4punrX/VV67jBN/rEVxEIh
-	BVvdpx+ZenfD6vYyjOA==
-X-Received: from edxs21.prod.google.com ([2002:a05:6402:1655:b0:6a6:6326:bdd8])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:a0cc:b0:6aa:734b:1a1f with SMTP id 4fb4d7f45d1cf-6aab3b5bb34mr1568561a12.25.1790153404051;
- Wed, 23 Sep 2026 01:50:04 -0700 (PDT)
-Date: Wed, 23 Sep 2026 08:50:02 +0000
-In-Reply-To: <20260915-tyr-interfaces-v1-9-5d28f1f75aca@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fkKZSamI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F52C1F000FF;
+	Wed, 23 Sep 2026 08:50:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790153414;
+	bh=/mgicnWaAz9WEZlH7S8mQa/MGfsAmlS+pMaAuGE5fsE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fkKZSamInRjp0YI6W/QSd94uSdRqcQ9QG3AN7LzO5kpo4tlYBH/7stKVPbI3rLWyM
+	 51Dj3Xr2eoRkgKWBU4SY7eLclI1AxSXOsxKETndqXL9ldyKkMhzAv/ZNZvub7kjzOt
+	 DDU8nJDFcNzSiHFvnUTGQ0mtBiDOKWNMcWZumwBbB59w2fcSByR6RtKjuxmaYeao08
+	 FQOno6iQvFl5zGAI3kL6lHZK/oMgAFXCndNUeKC7Nv1r0+KwtkLxzlLsPWdLNJrwdl
+	 iSYhji6PMY481nS8SormHxQvzAsjaFE//fvW59ZmXBe19z1plukrQPQnmnIQ5+SRM5
+	 IeQxyNoTML6Gg==
+Date: Wed, 23 Sep 2026 09:49:38 +0100
+From: Simon Horman <horms@kernel.org>
+To: Daniel Machon <daniel.machon@microchip.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	UNGLinuxDriver@microchip.com, Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next v7 02/14] net: microchip: fdma: rename
+ contiguous dataptr helpers
+Message-ID: <20260923084938.GK13925@horms.kernel.org>
+References: <20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c@microchip.com>
+ <20260918-lan966x-pci-fdma-v7-2-0ecc179c8a2c@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260915-tyr-interfaces-v1-0-5d28f1f75aca@collabora.com> <20260915-tyr-interfaces-v1-9-5d28f1f75aca@collabora.com>
-Message-ID: <arOSuojQNLcO6m8r@google.com>
-Subject: Re: [PATCH 9/9] drm/tyr: wait for global interface readiness
-From: Alice Ryhl <aliceryhl@google.com>
-To: Laura Nao <laura.nao@collabora.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
-	Frederic Weisbecker <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>, 
-	John Stultz <jstultz@google.com>, Stephen Boyd <sboyd@kernel.org>, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
-	rust-for-linux@vger.kernel.org, kernel@collabora.com, 
-	Deborah Brouwer <deborah.brouwer@collabora.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-lan966x-pci-fdma-v7-2-0ecc179c8a2c@microchip.com>
 
-On Tue, Sep 15, 2026 at 12:57:42PM +0200, Laura Nao wrote:
->          io.write_reg(MCU_CONTROL::zeroed().with_req(McuControlMode::Auto));
->  
->          if let Err(e) = poll::read_poll_timeout(
-> -            || Ok((io.read(MCU_STATUS), io.read(JOB_IRQ_RAWSTAT))),
-> -            |(mcu_status, irq_rawstat)| {
-> -                mcu_status.value() == McuStatus::Enabled && irq_rawstat.glb()
-> -            },
-> +            || Ok(io.read(MCU_STATUS)),
-> +            |status| status.value() == McuStatus::Enabled,
->              time::Delta::from_millis(1),
->              time::Delta::from_millis(100),
->          ) {
+On Fri, Sep 18, 2026 at 01:33:54PM +0200, Daniel Machon wrote:
+> When the FDMA library was introduced [1], two helpers to get the DMA and
+> virtual address of a data buffer, in contiguous memory, were added. These
+> helpers have had no callers until this series. I found the naming I
+> initially used confusing and inconsistent.
+> 
+> Rename fdma_dataptr_get_contiguous() and
+> fdma_dataptr_virt_get_contiguous() to fdma_dataptr_dma_addr_contiguous()
+> and fdma_dataptr_virt_addr_contiguous(). This makes the pair symmetric
+> and clarifies what type of address each returns.
+> 
+> [1]: commit 30e48a75df9c ("net: microchip: add FDMA library")
+> 
+> Tested-by: Herve Codina <herve.codina@bootlin.com>
+> Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
 
-Does the io.write_reg(JOB_IRQ_CLEAR::zeroed().with_glb(true)) line after
-this read_poll_timeout() also need to be removed?
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Alice
