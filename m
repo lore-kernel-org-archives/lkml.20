@@ -1,223 +1,85 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F2C0039D3EB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:14:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67F2306D2A;
+	Wed, 23 Sep 2026 03:17:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790133310; cv=none; b=A7u7VSzt2VYNckUgkL6zj5tGhVoNRm6/i2HqwtcvaLwFvmZPK1M0Dp5nk0VTwBixWlSKwJQp/9Jkc1+b8MiRWJyvN+THi18KSZXHwpwbQ1zTUqNa9idg7pVM3dR5wiAScObMP10G3R+tdkUR6XPLw4Zc5r041vRBlhIojgtJuS8=
+	t=1790133426; cv=none; b=ZFsCEuJ/IyFK0/zYfey+rmwFZC4PjdVPzyANN4sFxXaoZyGTXBXKHwvglz2tsjhln1JAcfCaCtaxq7Y0ij3kLB1vWOBKfnr2R2P7kY90BwNSazPS+ToqKZibulFTYjHS7BA6BYLyqDD5xAAhDGffwHBKX7AeVP2W7JwHsk5a398=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790133310; c=relaxed/simple;
-	bh=2VCGGVD2PfvUPOifoaucu4rvYTuLGwn8UHs20QRnNjc=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ausWtdJQtxIIJb9O7LtyhRfaIztHf7KWhdOt98RmibhfedrqVcaNTKNMlBV+WPuSMktTACpdA+gqNNYI7YICBzQutoNl87TONNFqZquL3G12XXqqZf4sRNB8egWcA7ppmlRwtE4qv1czlkflx5jFGVUxn2pxkpY1DxUPQhXjuto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqMX81ZCFzTSdn;
-	Wed, 23 Sep 2026 11:14:48 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqMX771sWzTSdn;
-	Wed, 23 Sep 2026 11:14:47 +0800 (CST)
-Received: from cncheex06.Hygon.cn (unknown [172.23.18.116])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id 29DFC3027FFB;
-	Wed, 23 Sep 2026 11:10:17 +0800 (CST)
-Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex06.Hygon.cn
- (172.23.18.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 23 Sep
- 2026 11:14:47 +0800
-Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
- cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
- 15.02.1544.036; Wed, 23 Sep 2026 11:14:47 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: Tim Chen <tim.c.chen@linux.intel.com>, Peter Zijlstra
-	<peterz@infradead.org>
-CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak
-	<kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld
-	<pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>, "David
- Hildenbrand" <david@kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"jianyong.wu@outlook.com" <jianyong.wu@outlook.com>, Yuan Zhong
-	<zhongyuan@hygon.cn>, Huangsj <huangsj@hygon.cn>, Fengyu Wang
-	<wangfengyu@hygon.cn>, Zhiwei Ying <yingzhiwei@hygon.cn>, "justin.he@arm.com"
-	<justin.he@arm.com>
-Subject: RE: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA distance
- matrix with unique distance values
-Thread-Topic: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA distance
- matrix with unique distance values
-Thread-Index: AQHdNiA3jheQVPdvikWpN4gB9aTKG7a3i1wAgCMFioCAAQKWYA==
-Date: Wed, 23 Sep 2026 03:14:47 +0000
-Message-ID: <09261c8222994a41a04ace5f342475df@hygon.cn>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
-	 <20260827122816.756234-3-wujianyong@hygon.cn>
-	 <20260831115004.GF776954@noisy.programming.kicks-ass.net>
- <da32ba66d95fd88869ba052f97698b9a4d6c3dc6.camel@linux.intel.com>
-In-Reply-To: <da32ba66d95fd88869ba052f97698b9a4d6c3dc6.camel@linux.intel.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	s=arc-20240116; t=1790133426; c=relaxed/simple;
+	bh=cpdCqDTtq6OzdQmR7vApqFII+zHNBr6OyO5hRcTXONw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bsZbHLA/EDAGxRUcDhl+jGaBa+5cTQ12ez7X9tos8/6dk2rC8jFzYbp2HFSAzbG8kI2Ln/N01l9SwLauQdeUH+J2OoHdfXKn+eqlNgXh41U1IKS/gyOTKRAUDklugGF145Oj2VWB2N7wR9CWWlW91xnXl36VxZqUmLAi2MzE5aU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Uhrspv5G; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Uhrspv5G"
+Received: from PC-202605011814.localdomain (unknown [221.228.238.82])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4eceabcf1;
+	Wed, 23 Sep 2026 11:16:56 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH v5 0/3] nvmet: avoid recursive configfs open
+Date: Wed, 23 Sep 2026 11:16:38 +0800
+Message-Id: <20260923031641.2016406-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0cc44336203a1kunmae5dc6a4b63be
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTx9MVktKHUtOQx9IGkhKQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUpVSUlDVUlIQ1VDSVlXWRYaDxIVHRRZQVlPS0hVSktISk
+	9ITFVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=Uhrspv5Go3edRSJCakrVJ8Ct/hJu2mXJsft565oXrjZwu349un2wQlVxjjeicJFymJCLpnOaL3hdIiS6qQrURQiglQgJ+C3HwXVbkqTlZvTom7+eHdH0m7aqOxwYWTzLCwZHO+p4jCaWtBhz1obdGnKSgvPfXZsq/eDPXdrCRbI=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=C7RRtsNWLeNcIF2K/Vpd4E+BXgF+UtHFYZksle4q9+E=;
+	h=date:mime-version:subject:message-id:from;
 
-SGkgVGltLA0KDQpUaGFua3MgZm9yIHlvdXIgc3VnZ2VzdGlvbi4NCg0KPiAtLS0tLU9yaWdpbmFs
-IE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBUaW0gQ2hlbiA8dGltLmMuY2hlbkBsaW51eC5pbnRlbC5j
-b20+DQo+IFNlbnQ6IFdlZG5lc2RheSwgU2VwdGVtYmVyIDIzLCAyMDI2IDI6MzkgQU0NCj4gVG86
-IFBldGVyIFppamxzdHJhIDxwZXRlcnpAaW5mcmFkZWFkLm9yZz47IEppYW55b25nIFd1DQo+IDx3
-dWppYW55b25nQGh5Z29uLmNuPg0KPiBDYzogSW5nbyBNb2xuYXIgPG1pbmdvQHJlZGhhdC5jb20+
-OyBKdXJpIExlbGxpIDxqdXJpLmxlbGxpQHJlZGhhdC5jb20+Ow0KPiBWaW5jZW50IEd1aXR0b3Qg
-PHZpbmNlbnQuZ3VpdHRvdEBsaW5hcm8ub3JnPjsgQ2hlbiBZdQ0KPiA8eXUuYy5jaGVuQGludGVs
-LmNvbT47IERpZXRtYXIgRWdnZW1hbm4NCj4gPGRpZXRtYXIuZWdnZW1hbm5AYXJtLmNvbT47IFN0
-ZXZlbiBSb3N0ZWR0IDxyb3N0ZWR0QGdvb2RtaXMub3JnPjsNCj4gQmVuIFNlZ2FsbCA8YnNlZ2Fs
-bEBnb29nbGUuY29tPjsgTWVsIEdvcm1hbiA8bWdvcm1hbkBzdXNlLmRlPjsNCj4gVmFsZW50aW4g
-U2NobmVpZGVyIDx2c2NobmVpZEByZWRoYXQuY29tPjsgSyBQcmF0ZWVrIE5heWFrDQo+IDxrcHJh
-dGVlay5uYXlha0BhbWQuY29tPjsgU2hyaWthbnRoIEhlZ2RlIDxzc2hlZ2RlQGxpbnV4LmlibS5j
-b20+Ow0KPiBQaGlsIEF1bGQgPHBhdWxkQHJlZGhhdC5jb20+OyBBbmRyZXcgTW9ydG9uDQo+IDxh
-a3BtQGxpbnV4LWZvdW5kYXRpb24ub3JnPjsgRGF2aWQgSGlsZGVuYnJhbmQgPGRhdmlkQGtlcm5l
-bC5vcmc+Ow0KPiBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBsaW51eC1tbUBrdmFjay5v
-cmc7DQo+IGppYW55b25nLnd1QG91dGxvb2suY29tOyBZdWFuIFpob25nIDx6aG9uZ3l1YW5AaHln
-b24uY24+OyBIdWFuZ3NqDQo+IDxodWFuZ3NqQGh5Z29uLmNuPjsgRmVuZ3l1IFdhbmcgPHdhbmdm
-ZW5neXVAaHlnb24uY24+OyBaaGl3ZWkgWWluZw0KPiA8eWluZ3poaXdlaUBoeWdvbi5jbj47IGp1
-c3Rpbi5oZUBhcm0uY29tDQo+IFN1YmplY3Q6IFJlOiBbUkZDIFBBVENIIHYyIDAyLzIzXSBzY2hl
-ZC90b3BvbG9neTogSW50cm9kdWNlIGEgTlVNQQ0KPiBkaXN0YW5jZSBtYXRyaXggd2l0aCB1bmlx
-dWUgZGlzdGFuY2UgdmFsdWVzDQo+IA0KPiBPbiBNb24sIDIwMjYtMDgtMzEgYXQgMTM6NTAgKzAy
-MDAsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiA+IE9uIFRodSwgQXVnIDI3LCAyMDI2IGF0IDA4
-OjI3OjU1UE0gKzA4MDAsIEppYW55b25nIFd1IHdyb3RlOg0KPiA+ID4gQnVpbGRzIGEgcmVmaW5l
-ZCBub2RlIGRpc3RhbmNlIG1hdHJpeCBiYXNlZCBvbiB0aGUgcmF3IE5VTUEgZGlzdGFuY2UNCj4g
-bWF0cml4DQo+ID4gPiBwcm92aWRlZCBieSBCSU9TLiBUaGUgcmVmaW5lZCBtYXRyaXggcHJlc2Vy
-dmVzIHRoZSByZWxhdGl2ZSBvcmRlcmluZyBvZg0KPiA+ID4gTlVNQSBkaXN0YW5jZXMsIHdoaWxl
-IGFzc2lnbmluZyBkaXN0aW5jdCBkaXN0YW5jZSB2YWx1ZXMgdG8gbm9kZSBwYWlycw0KPiB0aGF0
-DQo+ID4gPiBvcmlnaW5hbGx5IHNoYXJlZCBpZGVudGljYWwgZGlzdGFuY2VzIHdpdGhpbiBlYWNo
-IG1hdHJpeCByb3cuIFRoaXMgbWF0cml4DQo+ID4gPiBpcyBleGNsdXNpdmVseSB1c2VkIGZvciBj
-YWNoZS1hd2FyZSBzY2hlZHVsaW5nIGFuZCBoYXMgbm8gaW1wYWN0IG9uDQo+IGV4aXN0aW5nDQo+
-ID4gPiBOVU1BIHRvcG9sb2d5IGxvZ2ljIHN1Y2ggYXMgc2NoZWQgZG9tYWluIGNvbnN0cnVjdGlv
-bi4NCj4gPiA+DQo+ID4gPiBGb3IgZXhhbXBsZSwgY29uc2lkZXIgYSBzeXN0ZW0gd2l0aCA0IE5V
-TUEgbm9kZXMuIFRoZSByYXcNCj4gQklPUy1wcm92aWRlZA0KPiA+ID4gZGlzdGFuY2UgbWF0cml4
-IG1heSBsb29rIGxpa2UgdGhpczoNCj4gPiA+DQo+ID4gPiAgICAgICAgIE5PREUwICBOT0RFMSAg
-Tk9ERTIgIE5PREUzDQo+ID4gPiBOT0RFMCAgIDEwICAgICAyMCAgICAgMjAgICAgIDMwDQo+ID4g
-PiBOT0RFMSAgIDIwICAgICAxMCAgICAgMjAgICAgIDI1DQo+ID4gPiBOT0RFMiAgIDIwICAgICAy
-MCAgICAgMTAgICAgIDIwDQo+ID4gPiBOT0RFMyAgIDMwICAgICAyNSAgICAgMjAgICAgIDEwDQo+
-ID4gPg0KPiA+ID4gTXVsdGlwbGUgZHVwbGljYXRlIGRpc3RhbmNlIHZhbHVlcyBleGlzdCB3aXRo
-aW4gZWFjaCByb3cuIEFmdGVyIHRoZQ0KPiA+ID4gZGVkdXBsaWNhdGlvbiBzdGVwLCB0aGUgcmVm
-aW5lZCBkaXN0YW5jZSBtYXRyaXggYmVjb21lczoNCj4gPiA+DQo+ID4gPiAgICAgICAgIE5PREUw
-ICBOT0RFMSAgTk9ERTIgIE5PREUzDQo+ID4gPiBOT0RFMCAgIDEwICAgICAxNSAgICAgMjAgICAg
-IDMwDQo+ID4gPiBOT0RFMSAgIDE1ICAgICAxMCAgICAgMTIgICAgIDI1DQo+ID4gPiBOT0RFMiAg
-IDIwICAgICAxMiAgICAgMTAgICAgIDE1DQo+ID4gPiBOT0RFMyAgIDMwICAgICAyNSAgICAgMTUg
-ICAgIDEwDQo+ID4gPg0KPiA+ID4gQWxsIGVudHJpZXMgaW4gZWFjaCByb3cgYXJlIG5vdyB1bmlx
-dWUsIHdoaWxlIGFkaGVyaW5nIHRvIHR3byBjb3JlDQo+IHByaW5jaXBsZXM6DQo+ID4gPiAxLiBU
-aGUgcmVsYXRpdmUgZGlzdGFuY2Ugb3JkZXJpbmcgZnJvbSB0aGUgb3JpZ2luYWwgbWF0cml4IGlz
-IHByZXNlcnZlZC4NCj4gPiA+ICAgIEZvciBpbnN0YW5jZSwgb3JpZ2luYWwgZGlzdGFuY2UoTk9E
-RTAsIE5PREUxKSA8IGRpc3RhbmNlKE5PREUwLA0KPiBOT0RFMyksDQo+ID4gPiAgICBhbmQgdGhp
-cyByZWxhdGl2ZSByZWxhdGlvbnNoaXAgaXMgcmV0YWluZWQgaW4gdGhlIHJlZmluZWQgbWF0cml4
-IGFzDQo+IHdlbGwuDQo+ID4gPiAyLiBUaGUgbWF0cml4IHJlbWFpbnMgc3ltbWV0cmljIGFjcm9z
-cyBpdHMgbWFpbiBkaWFnb25hbC4gTWFpbnRhaW5pbmcNCj4gPiA+ICAgIHN5bW1ldHJ5IGlzIGNy
-aXRpY2FsIHRvIGd1YXJhbnRlZSBjb25zaXN0ZW50IHBhaXJ3aXNlIG5vZGUNCj4gZGlzdGFuY2Vz
-Lg0KPiA+DQo+ID4gVGhpcyBleGFtcGxlIHVzZXMgTm9kZSBvbmx5LCBidXQgdGhlIGNvZGUgaW4g
-cXVlc3Rpb24gaXMgc3BlY2lmaWNhbGx5DQo+ID4gYWltZWQgYXQgQ2FjaGUgZ3JhbnVsYXJpdHk7
-IG1pZ2h0IGl0IGJlIGJldHRlciB0byB1c2UgYSBjYWNoZSBleGFtcGxlPw0KPiA+DQo+ID4gQSBs
-aXR0bGUgc29tZXRoaW5nIGxpa2Ugc28gKEkgZ290IHRpcmVkIG9mIHByb21wdGluZyBHZW1pbmkg
-dG8gZ2VuZXJhdGUNCj4gPiBtb3JlIGNvbXBsaWNhdGVzIC8gbGVzcyBicm9rZW4gZXhhbXBsZXMp
-Li4uDQo+ID4NCj4gPiBQcmU6DQo+ID4NCj4gPiBDYWNoZSB8ICBDMCAgIEMxIHwgIEMyICAgQzMg
-fCAgQzQgICBDNSB8ICBDNiAgIEM3DQo+ID4gLS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0tLSst
-LS0tLS0tLS0tKy0tLS0tLS0tLQ0KPiA+ICAgQzAgIHwgIDEwICAgMTAgfCAgMjAgICAyMCB8ICAy
-MCAgIDIwIHwgIDIwICAgMjANCj4gPiAgIEMxICB8ICAxMCAgIDEwIHwgIDIwICAgMjAgfCAgMjAg
-ICAyMCB8ICAyMCAgIDIwDQo+ID4gLS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0tLSstLS0tLS0t
-LS0tKy0tLS0tLS0tLQ0KPiA+ICAgQzIgIHwgIDIwICAgMjAgfCAgMTAgICAxMCB8ICAyMCAgIDIw
-IHwgIDIwICAgMjANCj4gPiAgIEMzICB8ICAyMCAgIDIwIHwgIDEwICAgMTAgfCAgMjAgICAyMCB8
-ICAyMCAgIDIwDQo+ID4gLS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0tLSstLS0tLS0tLS0tKy0t
-LS0tLS0tLQ0KPiA+ICAgQzQgIHwgIDIwICAgMjAgfCAgMjAgICAyMCB8ICAxMCAgIDEwIHwgIDIw
-ICAgMjANCj4gPiAgIEM1ICB8ICAyMCAgIDIwIHwgIDIwICAgMjAgfCAgMTAgICAxMCB8ICAyMCAg
-IDIwDQo+ID4gLS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0t
-LQ0KPiA+ICAgQzYgIHwgIDIwICAgMjAgfCAgMjAgICAyMCB8ICAyMCAgIDIwIHwgIDEwICAgMTAN
-Cj4gPiAgIEM3ICB8ICAyMCAgIDIwIHwgIDIwICAgMjAgfCAgMjAgICAyMCB8ICAxMCAgIDEwDQo+
-IA0KPiBJIHRoaW5rIHdoYXQgd2UgcmVhbGx5IHdhbnQgaXMgYW4gb3JkZXJpbmcgb2YgY2FjaGVz
-IHdpdGhpbg0KPiB0aGUgc2FtZSBOVU1BIG5vZGUuICBTbyB3aGVuIG9uZSBjYWNoZSBpcyBmdWxs
-LCB3ZSBjYW4NCj4gcGljayB0aGUgbmV4dCBvbmUgZG93biB0aGUgbGlzdC4gIFRoYXQgaXMgZXNz
-ZW50aWFsbHkgdGhlDQo+IG5ldCBlZmZlY3Qgb2YgdGhlIGRpc3RhbmNlIGRlLWR1cGxpY2F0aW9u
-Lg0KDQpUaGUgZ29hbCBvZiB0aGlzIHNlcmllcyBpcyB0byBwcm92aWRlIGEgc3lzdGVtLXdpZGUg
-TExDIGFmZmluaXR5DQpvcmRlcmluZywgcmF0aGVyIHRoYW4gb25seSBhbiBvcmRlcmluZyBvZiB0
-aGUgTExDcyB3aXRoaW4gb25lIE5VTUEgbm9kZS4NCg0KTWFpbnRhaW5pbmcgb25lIGxhcmdlIHN5
-c3RlbS13aWRlIExMQyBvcmRlcmluZyB3b3VsZCBiZSBleHBlbnNpdmUsIHNvDQp0aGUgb3JkZXJp
-bmcgaXMgcmVwcmVzZW50ZWQgaGllcmFyY2hpY2FsbHk6IGEgTlVNQS1ub2RlLWxldmVsIGFmZmlu
-aXR5DQpvcmRlcmluZywgZm9sbG93ZWQgYnkgYW4gTExDLWxldmVsIG9yZGVyaW5nIHdpdGhpbiBl
-YWNoIG5vZGUuICBUaGlzDQpwYXRjaCBvbmx5IGRlYWxzIHdpdGggdGhlIE5VTUEtbm9kZS1sZXZl
-bCBwYXJ0Lg0KDQo+IA0KPiBTbyBob3cgYWJvdXQgaW50cm9kdWNlIGEgbGxjX25leHQgYXJyYXku
-ICBXZSB3aWxsIGluaXRpYWxpemUNCj4gdGhlIGFycmF5IHN1Y2ggdGhhdCBpdCB3aWxsIHJldHVy
-biB0aGUgbmV4dCBMTEMgaW4NCj4gdGhlIE5VTUEgbm9kZS4gIFNvIGZvciB0aGUgZXhhbXBsZSB0
-aGF0IFBldGVyIGhhcyBhYm92ZSwNCj4gYXNzdW1pbmcgQzAgbWFwcyB0byBMTEMgaWQgMCwgQzEg
-bWFwcyB0byAxLCBldGMuDQo+IHRoZW4gbGxjX25leHQgaXMNCj4gDQo+IAkgICAgYzAgYzEgYzIg
-YzMgYzQgYzUgYzYgYzcNCj4gbGxjX25leHQgPSBbMSAgMCAgMyAgMiAgNSAgNCAgNyAgNl0NCj4g
-DQo+IFdoZW4gd2UgY29tZSBiYWNrIHRvIHRoZSBvcmdpbmFsIExMQyB3ZSBzdGFydCBvZmYgd2l0
-aCwNCj4gd2Uga25vdyB0aGF0IGl0IGlzIHRpbWUgdG8gbW92ZSBvbiB0byBhIExMQyBpbiBuZXh0
-IGNsb3Nlc3QNCj4gTlVNQSBub2RlLg0KPg0KSG93IHNob3VsZCB0aGUgbmV4dCBjbG9zZXN0IE5V
-TUEgbm9kZSBiZSBzZWxlY3RlZCB3aGVuIG11bHRpcGxlIG5vZGVzDQpoYXZlIHRoZSBzYW1lIGRp
-c3RhbmNlIGZyb20gdGhlIGN1cnJlbnQgbm9kZT8NCg0KVGhhdCBpcyB0aGUgYW1iaWd1aXR5IHRo
-aXMgcGF0Y2ggaXMgaW50ZW5kZWQgdG8gcmVzb2x2ZS4gRm9yIGVhY2gNCnNvdXJjZSBub2RlLCBp
-dCBkaXNhbWJpZ3VhdGVzIGVxdWFsIE5VTUEgZGlzdGFuY2VzIGFuZCBwcm9kdWNlcyBhDQp1bmlx
-dWUgbm9kZS1sZXZlbCBhZmZpbml0eSBvcmRlcmluZy4gQW4gbGxjX25leHQgYXJyYXkgY2FuIGRl
-c2NyaWJlDQp0aGUgdHJhdmVyc2FsIG9mIExMQ3Mgd2l0aGluIGEgbm9kZSwgYnV0IGl0IGRvZXMg
-bm90IGRldGVybWluZSB3aGljaA0KZXF1aWRpc3RhbnQgTlVNQSBub2RlIHNob3VsZCBiZSB2aXNp
-dGVkIG5leHQuDQoNCj4gVGhpcyB3aWxsIGJlIHN0b3JhZ2UgZWZmaWNpZW50IGFuZCBtb3JlIHN0
-cmFpZ2h0IGZvcndhcmQNCj4gdG8gdXNlIHRoYW4gbWFpbnRhaW5pbmcgYW4gYXJ0aWZpY2lhbCBj
-YWNoZSBkaXN0YW5jZSBtYXRyaXguDQo+IA0KPiBJIGRpc2xpa2UgdGhlIGFydGlmaWNpYWwgZGlz
-dGFuY2UgbWF0cml4IGFsc28gZm9yIHRoZQ0KPiByZWFzb24gdGhhdCB0aGVyZSBpcyBubyBndWFy
-YW50ZWUgdGhhdCB0aGVyZSBhcmUgZW5vdWdoDQo+IGF2YWlsYWJsZSBkaXN0YW5jZSBzbG90cyBi
-ZXR3ZWVuIHR3byBub2Rlcy4gIFNheSBpZiBJDQo+IHN0YXJ0IHdpdGgNCj4gDQo+ICAgICAgICAg
-Tk9ERTAgIE5PREUxICBOT0RFMiAgTk9ERTMNCj4gTk9ERTAgICAxMCAgICAgMjAgICAgIDIwICAg
-ICAzMA0KPiBOT0RFMSAgIDIwICAgICAxMCAgICAgMjAgICAgIDI1DQo+IE5PREUyICAgMjAgICAg
-IDIwICAgICAxMCAgICAgMjANCj4gTk9ERTMgICAzMCAgICAgMjUgICAgIDIwICAgICAxMA0KPiAN
-Cj4gYW5kIHRoZXJlIGFyZSAxNiBMTENzIGluIE5PREUgMSwgSSB3aWxsIHJ1bg0KPiBvdXQgb2Yg
-c2xvdHMgd2hlbiBJIHRyeSB0byBkZWR1cGxpY2F0ZSBhcw0KPiBvbmx5IDEwIHNsb3RzIGFyZSBh
-dmFpbGFibGUgdG8gZml0IDE2IExMQ3MuDQo+DQoNClRoZXJlIGlzIG5vIHN5c3RlbS13aWRlIExM
-QyBkaXN0YW5jZSBtYXRyaXggaW4gdGhpcyBzZXJpZXMuIFRoZQ0KZGUtZHVwbGljYXRpb24gaXMg
-YXBwbGllZCBvbmx5IHRvIHRoZSBOVU1BLW5vZGUgZGlzdGFuY2UgbWF0cml4Lg0KQ29uc2VxdWVu
-dGx5LCB0aGUgbnVtYmVyIG9mIExMQ3MgaW4gTk9ERTEgZG9lcyBub3QgYWZmZWN0IHRoZSBudW1i
-ZXINCm9mIGRpc3RhbmNlIHZhbHVlcyByZXF1aXJlZCBieSB0aGlzIHBhdGNoLg0KDQpUaGUgYWxn
-b3JpdGhtIGFsc28gdGFrZXMgdGhlIGF2YWlsYWJsZSBkaXN0YW5jZSBzcGFjZSBpbnRvIGFjY291
-bnQNCndoZW4gYXNzaWduaW5nIHRoZSByZWZpbmVkIG5vZGUgZGlzdGFuY2VzLiBJdCBkb2VzIG5v
-dCBzaW1wbHkgaW5zZXJ0DQpvbmUgdmFsdWUgZm9yIGVhY2ggZHVwbGljYXRlIGludG8gdGhlIGV4
-aXN0aW5nIGdhcCBiZXR3ZWVuIHR3bw0Kb3JpZ2luYWwgZGlzdGFuY2UgbGV2ZWxzLiBUaGUgZGlz
-dGFuY2UgdmFsdWVzIGFyZSBhZGp1c3RlZCBhcw0KbmVjZXNzYXJ5IHRvIHJlc2VydmUgZW5vdWdo
-IHNwYWNlIGJlZm9yZSB0aGUgZHVwbGljYXRlcyBhcmUgYXNzaWduZWQuDQpUaGVyZWZvcmUsIHRo
-ZSBhbGdvcml0aG0gY2Fubm90IHJ1biBvdXQgb2YgYXZhaWxhYmxlIGRpc3RhbmNlIHZhbHVlcywN
-CnJlZ2FyZGxlc3Mgb2YgdGhlIG51bWJlciBvZiBub2RlcyBzaGFyaW5nIHRoZSBzYW1lIG9yaWdp
-bmFsIGRpc3RhbmNlLg0KDQpJbiBhZGRpdGlvbiB0byBwcm92aWRpbmcgdGhlIG5vZGUtbGV2ZWwg
-Y29tcG9uZW50IG9mIHRoZSBMTEMgYWZmaW5pdHkNCm9yZGVyaW5nLCB0aGUgcmVmaW5lZCBub2Rl
-IGRpc3RhbmNlcyBhcmUgdXNlZCB0byBjYWxjdWxhdGUgdGhlDQphZmZpbml0eSBpbXByb3ZlbWVu
-dCBzY29yZSB3aGVuIHNlbGVjdGluZyBhIHNvdXJjZSBzY2hlZHVsaW5nIGdyb3VwDQpvciBydW5x
-dWV1ZSBkdXJpbmcgbG9hZCBiYWxhbmNpbmcuIFBsZWFzZSBzZWUgcGF0Y2ggMTIgZm9yIHRoYXQg
-dXNhZ2UuDQoNClRoYW5rcw0KSmlhbnlvbmcNCg0KPiBUaW0NCj4gDQo+ID4NCj4gPiBQb3N0Og0K
-PiA+DQo+ID4gQ2FjaGUgfCAgQzAgICBDMSB8ICBDMiAgIEMzIHwgIEM0ICAgQzUgfCAgQzYgICBD
-Nw0KPiA+IC0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0tLSstLS0tLS0tLS0N
-Cj4gPiAgIEMwICB8ICAxMCAgIDExIHwgIDIwICAgMjEgfCAgMjIgICAyMyB8ICAyNCAgIDI1DQo+
-ID4gICBDMSAgfCAgMTEgICAxMCB8ICAyMSAgIDIwIHwgIDIzICAgMjIgfCAgMjUgICAyNA0KPiA+
-IC0tLS0tLSstLS0tLS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0tLSstLS0tLS0tLS0NCj4gPiAg
-IEMyICB8ICAyMCAgIDIxIHwgIDEwICAgMTEgfCAgMjQgICAyNSB8ICAyMiAgIDIzDQo+ID4gICBD
-MyAgfCAgMjEgICAyMCB8ICAxMSAgIDEwIHwgIDI1ICAgMjQgfCAgMjMgICAyMg0KPiA+IC0tLS0t
-LSstLS0tLS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0tLSstLS0tLS0tLS0NCj4gPiAgIEM0ICB8
-ICAyMiAgIDIzIHwgIDI0ICAgMjUgfCAgMTAgICAxMSB8ICAyMCAgIDIxDQo+ID4gICBDNSAgfCAg
-MjMgICAyMiB8ICAyNSAgIDI0IHwgIDExICAgMTAgfCAgMjEgICAyMA0KPiA+IC0tLS0tLSstLS0t
-LS0tLS0tKy0tLS0tLS0tLS0rLS0tLS0tLS0tLSstLS0tLS0tLS0NCj4gPiAgIEM2ICB8ICAyNCAg
-IDI1IHwgIDIyICAgMjMgfCAgMjAgICAyMSB8ICAxMCAgIDExDQo+ID4gICBDNyAgfCAgMjUgICAy
-NCB8ICAyMyAgIDIyIHwgIDIxICAgMjAgfCAgMTEgICAxMA0KPiA+DQo+ID4NCj4gPiA+IEVhY2gg
-cm93IG9mIHRoaXMgcmVmaW5lZCBOVU1BIGRpc3RhbmNlIG1hdHJpeCBpcyBzb3J0ZWQgaW4gYXNj
-ZW5kaW5nDQo+IG9yZGVyIHRvDQo+ID4gPiBnZW5lcmF0ZSBhIHVuaXF1ZSBwZXItbm9kZSBhZmZp
-bml0eSBzZXF1ZW5jZS4gVGhpcyBzZXF1ZW5jZSB3aWxsIGd1aWRlDQo+ID4gPiB0aHJlYWQgbWln
-cmF0aW9uIGxvZ2ljIGludHJvZHVjZWQgaW4gc3Vic2VxdWVudCBwYXRjaGVzLg0KPiA+DQo+ID4g
-SUlSQyBncmVlZHkgaGFzIHNpZ25pZmljYW50IHdvcnNlIGJvdW5kcyB0aGFuIG1hbnkgb3RoZXIg
-c2NoZW1lcy4gVGhpcw0KPiA+IHdvdWxkIHJlc3VsdCBpbiBtb3JlIHVuaXF1ZSBkaXN0YW5jZXMg
-dGhhbiBzdHJpY3RseSBuZWVkZWQgaGVyZSwgcmlnaHQ/DQo+ID4NCj4gPiBTaW5jZSB0aGlzIGlz
-IGFsbCBvbiBzbG93IHBhdGhzIGFueXdheSwgZG9lcyBpdCBtYWtlIHNlbnNlIHRvIHBpY2sgYQ0K
-PiA+IHNsaWdodGx5IGJldHRlciBhbGdvcml0aG0gaW4gb3JkZXIgdG8gcmVkdWNlIHRoaXMgYm91
-bmQgYW5kIGdldCBiZXR0ZXINCj4gPiByZXN1bHRzPw0KPiA+DQo+ID4gQW55d2F5LCBsZXQgbWUg
-Y29udGludWUgdHJ5aW5nIHRvIGRpZyB0aHJvdWdoIGFsbCB0aGlzLg0KDQo=
+The nvmet configfs store callbacks hold the item's frag_sem while they
+enable file-backed namespaces or passthru controllers.  Both paths open a
+user-configured pathname.  If it resolves into configfs, the open path can
+re-enter __configfs_open_file() and try to acquire that same non-recursive
+semaphore again, which deadlocks the task.
 
+Add configfs helpers that reject configfs-backed roots or paths and open
+the resulting path with file_open_root().  This keeps the normal open-time
+permission and security checks while preventing the recursive configfs
+open.
+
+Changes since v4:
+- Make the filesystem-type check local to configfs_open_root() in
+  fs/configfs/mount.c instead of exporting a one-line predicate, since
+  there is no user outside configfs for it.
+- Add kerneldoc for both helpers, documenting how they are meant to be
+  used by configfs store callbacks.
+- Keep the Reviewed-by tags on 2/3 and 3/3: those patches are unchanged.
+
+Runyu Xiao (3):
+  fs: configfs: add helpers for opening non-configfs paths
+  nvmet: avoid recursive configfs open for file-backed namespaces
+  nvmet: avoid recursive configfs open for passthru
+
+ drivers/nvme/target/io-cmd-file.c |  3 +-
+ drivers/nvme/target/passthru.c    |  3 +-
+ fs/configfs/mount.c               | 67 +++++++++++++++++++++++++++++++
+ include/linux/configfs.h          |  5 +++
+ 4 files changed, 76 insertions(+), 2 deletions(-)
+
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
