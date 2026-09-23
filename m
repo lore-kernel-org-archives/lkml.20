@@ -1,78 +1,74 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD17C51AEEB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E483E51F5
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166762; cv=none; b=cIqL7XxbTjXqSxjjRAnFuuCuWYsXjhvKLxgN7KTVCI0TJQO7o9sr0/tXPl+FGme5MhIq28FcOYXlsgGAEdFc6Pd9KxkGvq/ixBcnn6MM662/LZmGAILxplA+aWEXIqf2joERhzJF+vNMFHH0vkQ+YRr0moVCOX/2CT63Ysd722g=
+	t=1790166815; cv=none; b=T/WOsynDro8McsuA0u2cH5SdFYiVkX/L8a4L/hhKiciakUUsG9EJCjzsn0DBAijltLSlIBYmY2wcxUrlRIrQy5E44u4X5EO3g7MmuanLv84FAvcLhKC02q1wAbhC6QspRNXmBAVWQz1DvGicoAQjrllZpu6UScwPs8BN2JwdsKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166762; c=relaxed/simple;
-	bh=cWL4fevHSSSX8thrOI3c5H6tW03iYZLERBtXM0woPUA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=siJgWr560lqaQoyWRKWAHkoNbUSOxH1YItmTw5aFqUN5m51KwLdUkv7MvtARE/iOhxr6OgTsgnfTUBGrQ4nRKtpVf8EBI+IabRKEx2q44qPTZnLI5CEzkcI/YxDGFEyL5prcDyF7cFbYGToBJTCbBj49tC/+bexhVIXFFGUj8lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TOgdQVo/; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1790166815; c=relaxed/simple;
+	bh=Kw1D7x3e0DUFoJur+dMbjUEgfL32VrgoQAFkq1DSLM8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZJqF1IkODjdbPJW1k/QOd7Sgh2iD1ppf/FzkBlEDQJh4oDsp6eXwO69SbfPFgBaRSixQI3EPJt7VqXWwTTxp9O6iuQqo9bKvTEQEqCT3sjsYexxiRGyFEl/bQ7kh6WkTAL16UZFqHbkTBYJaHIK7DqqviHDeIQgVQ0Ql6R2IYwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mPxn+8iQ; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TOgdQVo/"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8631d0023daso461538b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:32:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mPxn+8iQ"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d9004a1ac0so3457415ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:33:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790166752; x=1790771552; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cWL4fevHSSSX8thrOI3c5H6tW03iYZLERBtXM0woPUA=;
-        b=TOgdQVo/EAIi01lwyP6QPUmRo0RUlNswRL2kxckK+tNpbOx/pVKRGuqJBlgR6sNNEE
-         MzYGjJ1SZ4ajOh5NfYaHWaeweWMfatUV8C1qksxppQMvxjIS0PBpmcoEcT9cGtSYrAGB
-         Lm21C4PPw1w1OO80aga0nKRI6dRt3dQpDvXfFRkay7i8kKzoStCAnEHnOJKSVnVd4F5f
-         wxqZwA/rwMMVoVEpoI5Glq2Ofh+ZSAZ5Q9N1lFpCop35G84+vjYPGon4ZlfH96e25wjm
-         EBSbSg6a59ERHOkgYxePvADsRpMIbJ04fI5MNSaGYofy+zMu1GxAVcsTjNHWy2vivN2M
-         nq9A==
+        d=gmail.com; s=20251104; t=1790166808; x=1790771608; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bjEYBRRXH+Qyw5H6z4owKhXElfv0eipiaXkKKJThTG0=;
+        b=mPxn+8iQCWgb+RuWWzZ4mI2Xpeo3uWR/AsejltQtFd8ewiZHlc1gUODY5Nxx0hDClg
+         m6TdkTRXLbpSqzEhY9+weddxv/cihtgFUZOKQb5NR2TZT425Ryke1FEKMvtNnSLm3n9I
+         SQKI0j6Dlgd/e+7kmkY+8ovtpnfNG8O/6rmGmwMsaIBclVD1secam/uHci9Dj6lwzmmX
+         CqesIXO5QnGLvp3FX+ZRV8rPQZ/vJKE0onKREFEhLZCbU/uPaZCLvIw5I8sNVxmLSfOW
+         mLqnM84T9CXOKwDV0Q+qcpcTw+Y3GE4LiHosuLIRMJZLv258XZfc1YRk6iW2w8YR3siJ
+         i+NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790166752; x=1790771552;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cWL4fevHSSSX8thrOI3c5H6tW03iYZLERBtXM0woPUA=;
-        b=d4eJCfR1pcKGPPn+Qm364pz6wE/Ura/ENCxBxSBlIkxCYv6wcl/t58ir8X8+6FAFda
-         Pova4ta+Hi83jjwqUuvHzl7Kh/NyEqWtQW6b5+HruwtYLOjRyZQ7ZHvuXivDn3CsKz81
-         k0N9r/K91fExRtmwXQan+RzrcDYLTI0AE6NhjgeS8RqkiUFmwkLG0ric3U98mSyqP9dt
-         cyeLxp8KIGcn3VXa8k4CUK76AQG3YSKAPPHMXCnv1BPMI3vYjEYOnN/6I4kP7uzrULNS
-         MhTD3+AKdo/WTnGSJ9aOxpN6c16RmEeueeCjQ6fDp2ypw9FFXKOvoxQBap1a2n44yuFh
-         8MXA==
-X-Forwarded-Encrypted: i=1; AKwUvByK/DAvoPAJ0c6HSIP7fDi9ZZ9Y4dHV0PtAO5dT+IihLS9FQv25HeAigMYqJbWqfz5MLXdrjaQ8kfnBhoM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nU3s9wirn38QtDTZZPXv5+5NdZLCmalyvOjvQoPmmikD6JPwsU
-	Jdd461PnWa57678VgsaP8wc1MyL7SIMEDiEUH0F5u6WDg//pwA2K9dlW
-X-Gm-Gg: AYBFou1ehwyhOlc/KLSD2L+tdBks0SsU4/ddLnd7iPX+SfHln8Mc/cRMIAHgPdHll3L
-	8VRICvYKBXoE8GLq9JFRRddP9eYg86V/hAiKDe0eXz4MlzBXSIcCTkGluS0quKZYJfk+FFc6VOV
-	RlTD4Rp6Sp508XAumFn75hejvThykfJF0AAW6mtDJVkTC1cAOeuHqVYtGfFst3XQJxpuApD3nkB
-	cLkdmh9do5AMhSsZASvr7zAB9C1MlXkLB6pv42sVWFMuHcNITxlX/PnyxfiTvpc6YHRIhgZjkQh
-	grcYJc3rFdn494JnNHK4B3BLN823leHrkOwmTVng0PiTbcJB9Qr55n2tYdqB0/jk1c8Neo5cAZu
-	sfmqd1lqw74KMxci++0eMhnPdpiQw0owccMKkM3jKciNIAdjGysS/kSYPBFhECmjsqmzHVRQ+5C
-	ils0ujCDT0aCi1hLpsQKLIK+2trtDWJ/4HchFqzirhQZhq4nw1k1E+f6mFLwmBb8q8xNq/qL+aw
-	IW3E7wWTGSh
-X-Received: by 2002:a05:6a00:3407:b0:842:2419:6c0b with SMTP id d2e1a72fcca58-87d1a7aec9fmr2191941b3a.10.1790166747788;
-        Wed, 23 Sep 2026 05:32:27 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790166808; x=1790771608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bjEYBRRXH+Qyw5H6z4owKhXElfv0eipiaXkKKJThTG0=;
+        b=E48q5oiowVK1BRHCyh3Nn46k/+javERXq5axygv9J3cym7EeF8syp2/EcTJQM7cJQ9
+         qbamDwAyh4ZPRhnbveUhKXCoTlQn6LlICNj7FOEQfQ+iAGvPgnwc7IdM01Won5xtWN21
+         L+0mwDWJAIRCn7vmpxXVD154W2SqSHi6ZhuNcbo8pIqya0z2Ctd2dujami+5ZRPI0BnC
+         03nJOn9sfN0QSv2agaxA6XEmiOXbBKLSnRG52j8iYKw7PV4UzGBMmZBGzGRRwKDlF1HK
+         vCTF/b2f2S+acEZWezahZGZONHn+Mnhj2ReXbXOKI14iXEexdrnUK/KZsnqu9a+qfFux
+         wOBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0bxMcWBD8+I4p5vtdLnBpNQVt8UkmLFh5BQd9DVAvO8RAJ+EHnl6fol3m69gm++rQVzqZj3mkytK8ulQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kh5E04Zl2Dx7ZMB1y/QNZ9NGAPQTyJowVzpq/mTlAeRpxqt0zS
+	to9NfFoLYya0nId0o/isnZqgQwDuD5VY+vGpvcg9R1tLeRBaenKPVRC/
+X-Gm-Gg: AYBFou0zQ1n3huOKD01F3F71foygWhewYWijvM9LpOmrmi9ZEnghCHF89jnvAGCSM4r
+	tmx5D3jdueH3CdyjzkfY/nX9p0brdn262qLjgIYtNbPWWxJrtFIeQbr5pjU4ZM2VOjG8wXBJKAO
+	KC3/oCbtdgXG2w4yr9GB5oOdlMnaPUCZekq7BPz1vJuxVlHFwZFA1q1A0CQBxuZjl1YZEKqjAlA
+	St23NUwxS2oHQR77weQZWH6n1sEuIxW9faWHcmIg8qXqp9Qaqi4X9/wu4OT4jgJUitcP3sMqm17
+	KF73+d5IHlo3LQ3rwCYAJzQr3p7u7PRKsna66h9iET5YS2R7qiavj8isIBYEmUIT0fdrNQLE5c9
+	hUu2kgmqtbd22g9vtrNQEuwbuRPmLMXzFsjOkJi3j7xKBpHADrjOIjJUe6NxYz5n+K8uZcUCKVq
+	DN0cBmlg0Kfj/w9c3KoPhw5sF2oQC7iEtkfx2MjJH2x9d+GpxQa9ro7P5Z5vMGPmcCG7cKIQsDz
+	ZXCtUs1ARdR
+X-Received: by 2002:a17:903:4588:b0:2d9:1dee:43e3 with SMTP id d9443c01a7336-2df69d58bb4mr23419345ad.18.1790166803015;
+        Wed, 23 Sep 2026 05:33:23 -0700 (PDT)
 Received: from localhost.localdomain ([47.100.192.162])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1d5c252esm1127535b3a.31.2026.09.23.05.32.22
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a6d35sm9510475ad.19.2026.09.23.05.33.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 05:32:27 -0700 (PDT)
+        Wed, 23 Sep 2026 05:33:22 -0700 (PDT)
 From: Yang Wen <anmuxixixi@gmail.com>
-To: linkinjeon@kernel.org
-Cc: anmuxixixi@gmail.com,
-	chizhiling@163.com,
+To: linkinjeon@kernel.org,
+	sj1557.seo@samsung.com,
+	chizhiling@163.com
+Cc: yuezhang.mo@sony.com,
 	exfat@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	sj1557.seo@samsung.com,
-	yuezhang.mo@sony.com
-Subject: Re: [PATCH v5 2/3] exfat: retain the next empty directory entry hint
-Date: Wed, 23 Sep 2026 20:31:58 +0800
-Message-Id: <20260923123158.1626278-1-anmuxixixi@gmail.com>
+	Yang Wen <anmuxixixi@gmail.com>
+Subject: [PATCH v6 0/3] exfat: speed up file creation in large directories
+Date: Wed, 23 Sep 2026 20:32:57 +0800
+Message-Id: <20260923123300.1626723-1-anmuxixixi@gmail.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CAKYAXd99=QNEFH3n_=PyAYFrmTkqqxsBFHamYYnfOoFNex52Ow@mail.gmail.com>
-References: <CAKYAXd99=QNEFH3n_=PyAYFrmTkqqxsBFHamYYnfOoFNex52Ow@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,16 +77,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+Negative name lookups and empty-entry allocation can repeatedly scan a
+directory from the beginning. Bulk creation in a large directory therefore
+approaches O(N^2).
 
-Thank you for catching this.
+This series separates the optimization into three independently reviewable
+steps. Patch 1 adds the Bloom filter used to reject definite name misses.
+Patch 2 retains and correctly invalidates the next-empty-entry hint.
+Patch 3 adds the LRU and shrinker used to reclaim filters under memory
+pressure.
 
-I have updated the error path to invalidate the name filter immediately
-after the initial exfat_put_dentry_set() failure, before attempting the
-cleanup.
+Test environment:
+  QEMU TCG multi-thread, 4 vCPUs, 6 GiB RAM
+  4 GiB exFAT image, 32 KiB clusters
 
-I verified the updated series with a dirsync I/O failure test. The create
-operation returned -EIO, and the filter count decreased from two to one,
-confirming that the affected directory's filter was invalidated. I will
-include the fix in v6.
+The measured results were:
 
-Thanks again for the careful review.
+                         Before          After
+  real                   589.48 s        15.94 s
+  user                     4.72 s         4.20 s
+  sys                    584.63 s        11.71 s
+
+Changes in v6:
+- Invalidate the name filter when committing a new entry set fails, before
+  attempting rollback. Despite the reported write error, the new name may
+  already have reached disk.
+- Move rename/move error invalidation into the Bloom filter patch so that
+  each patch remains correct when applied independently.
+
+Changes in v5:
+- Rebase the series onto the exFAT maintainer's dev branch.
+- Treat every non-negative exfat_find_empty_entry() return value as a
+  successful allocation in the volume-label path.
+- Record the minimum entry-set size for which a saved empty-entry hint is
+  valid. A shorter entry set now rescans from the beginning and can reuse a
+  smaller hole that an earlier, longer entry set could not use.
+
+Changes in v4:
+- Publish the next-empty-entry hint only after the directory entry set is
+  successfully committed, so post-allocation failures cannot skip an unused
+  slot.
+- Invalidate the destination name filter when rename or move fails because
+  the new entry may already exist on disk.
+
+Changes in v3:
+- Split the change into Bloom filter, empty-entry hint, and shrinker
+  patches.
+- Accept filenames containing exactly 255 UTF-16 code units while building
+  the Bloom filter.
+- Invalidate the empty-entry hint in every path that can free directory
+  entries, preventing stale hints from skipping earlier holes.
+
+Changes in v2:
+- Move exfat_name_filter_free() to exfat_evict_inode() because
+  ->free_inode() may run from an RCU callback in softirq context.
+
+Yang Wen (3):
+  exfat: add a Bloom filter for negative name lookups
+  exfat: retain the next empty directory entry hint
+  exfat: reclaim name filters under memory pressure
+
+ fs/exfat/dir.c      | 293 +++++++++++++++++++++++++++++++++++++++++++-
+ fs/exfat/exfat_fs.h |  28 ++++-
+ fs/exfat/inode.c    |   1 +
+ fs/exfat/namei.c    |  87 +++++++++++--
+ fs/exfat/super.c    |   9 ++
+ 5 files changed, 409 insertions(+), 9 deletions(-)
+
+-- 
+2.34.1
