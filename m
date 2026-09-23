@@ -1,77 +1,139 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A09452843F;
-	Wed, 23 Sep 2026 13:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5355C52BE58;
+	Wed, 23 Sep 2026 13:09:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168964; cv=none; b=fontmqjTFRWlgkIWaGtn8Vd891jccURn/Mvr3fYk+kZOBS6nS/eAssgjHn6Cm1/LYJZhrZfwxtg7csMnJtzjs5U8VRaXGxKJIU2G5fxBzrApRlgjFiDAj6Nv5eNumfNHJ6ucx/JPEVBbIWvYdPe9mEG9SI6WJI17Gd/bXp9Gmxs=
+	t=1790168977; cv=none; b=SbNDMxafFoUqmHTkauE7hjhEXl1nUgQLL6TTx9xobgnNsSlvNlQCpV7wO5iAhJTXMoA9xng87CQ3VP5wqo9Qat0nJdVG1WVPmENP8jFWXrJk6sJauNFPEf/t19RQm3rJ7Ix48ZiHCM0tRgH7EYfY+NbLac8eVDKsvLQnx75Xz44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168964; c=relaxed/simple;
-	bh=PMfQYJu4S+eyo4CBcRx81ldB54dXieCgifT7oTiD4WQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e8RGHUXtUJ2iqkaqzJPCwIXlBZkI0D+rXRtfTCWlXbDX72WxmNy1d61XGqkWsnb6y2+bXMq5EvQn5SdyezZpMPBaL1MA6zwCFzUVHqMmABiKLPeYeZeqayNKsEJfsQWRIBxpsLF8yV3wO6le1823A46/C39WXw5VP8QVIOXlTUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ijRDIoVc; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790168977; c=relaxed/simple;
+	bh=bg9bhbGrO8szyUuIieyhFOaqXkMVTj0HA51QVzs36Xs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Lm5mUTHivQkiNstg6gqSOZ+JgZtppk2o26PVZu1L6zl/sS9/zOL8iDR69PxLOZfZe146mhDc2ATRuzkzTes6Ma7d8x8B5FHByY8NaYOt/scAUmvnNdQ0z8td4abNQXkXqwA8c7b0FOL1xBJ+mC65qmDannDQVvZ9vREm2YlrHis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=sKhOeygB; arc=none smtp.client-ip=115.124.30.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ijRDIoVc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=eX4lFJvGPAAq+TJkwdWXeBO2K4L3FS4jS7wg6NEAm3A=; b=ijRDIoVchibeZIUomjltED/2Hq
-	VfxSznYOnK+TKFtBwkXpLs4nqsS0KB4L5IpvK3W62pbep+V5Z3dF8tMMIybdkQA9cUYh/IqgOp9K6
-	ZcJ+7Mrpn3YQg1KknkSRVw7gQn0AIx2TzD0Rpg/giMDIqJxODtoWeq0eZxmzbsHxsFkw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9Mib-006oGi-Qs; Wed, 23 Sep 2026 15:09:01 +0200
-Date: Wed, 23 Sep 2026 15:09:01 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-Cc: shengchao.guo@oss.qualcomm.com, bartosz.golaszewski@oss.qualcomm.com,
-	mohd.anwar@oss.qualcomm.com, maxime.chevallier@bootlin.com,
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com, hkallweit1@gmail.com,
-	linux@armlinux.org.uk, netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] net: stmmac: support low-speed USXGMII validation
-Message-ID: <e05baad3-49ec-4db0-ac70-ffd8e0f52b10@lunn.ch>
-References: <20260923-qcom_xpcs_nord_emac-v1-0-4b1c682af70f@oss.qualcomm.com>
- <20260923084921.3942100-1-zhangfei.gao@oss.qualcomm.com>
- <20260923084921.3942100-2-zhangfei.gao@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="sKhOeygB"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1790168968; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=o6SVUnKde/TR5k8kPB3Bgbc2uo8e/oZYlAsOUPZzYhI=;
+	b=sKhOeygBsXf+Zln0mzQe72MUeS4kW5KijfS93dKnGdTxxJIh4cNUuIeezsvLqnmE0aaaOzmBJDdTFP12eBJQewvJKu8q/2HiR5Yuq3wxA2X3Ad0n1QEVR4Q1HTp9QdGUIJzU5IwACvrpgFH5L6t63ouUtV6NQvOr2AQMpU8CBQU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XBX4ZPB_1790168967;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XBX4ZPB_1790168967 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 23 Sep 2026 21:09:27 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	memxor@gmail.com,
+	bjorn@kernel.org,
+	puranjay@kernel.org
+Cc: ihor.solodrai@linux.dev,
+	eddyz87@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	pulehui@huawei.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	shuah@kernel.org,
+	guoren@kernel.org,
+	bpf@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next 1/2] bpf, riscv: Add support for indirect jumps
+Date: Wed, 23 Sep 2026 21:08:55 +0800
+Message-ID: <20260923130856.1157-2-cp0613@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923130856.1157-1-cp0613@linux.alibaba.com>
+References: <20260923130856.1157-1-cp0613@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923084921.3942100-2-zhangfei.gao@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-> The XPCS also consumes the PHY-generated Clause 37 in-band link and
-> speed status, so USXGMII must use in-band signalling.
+Implement JIT support for the indirect jump instruction (BPF_JMP |
+BPF_JA | BPF_X), a.k.a. gotox, which lets a BPF program jump through a
+BPF_MAP_TYPE_INSN_ARRAY jump table.
 
-Is this a qualcomm specific feature, or defined in the databook of the
-licensed IP.
+Emit "jalr zero, rd, 0" and hand the xlated to jitted offsets to
+bpf_prog_update_insn_ptrs(), which is what fills in the jump table
+entries; without that call the load fails with -EFAULT in
+bpf_insn_array_ready(). ctx->offset[] holds the offset of the insn
+*following* insn i, as bpf_prog_fill_jited_linfo() expects, so it is
+shifted by one and offset[0] comes from the prologue length. build_body()
+now records both halves of a multi-insn record, so no slot keeps a
+fabricated offset.
 
->  	case DW_AN_C37_USXGMII:
-> -		return LINK_INBAND_DISABLE;
-> +		/* The PCS consumes the PHY's CL37 in-band link and speed status. */
-> +		return LINK_INBAND_ENABLE;
+Only the RV64 JIT is covered; RV32 keeps failing to load as before.
 
-I ask, because when i look at this, i immediately think is this a
-behaviour change? Is it going to break existing systems? Or was the
-old code broken?
+Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+---
+ arch/riscv/net/bpf_jit_comp64.c |  5 +++++
+ arch/riscv/net/bpf_jit_core.c   | 16 ++++++++++++++--
+ 2 files changed, 19 insertions(+), 2 deletions(-)
 
-The commit message is where you try to guess what reviewers are going
-to ask, and answer the question before they ask. Seeing such answers
-in the commit message gives me a good idea you have done your due
-diligence, and the patch is probably O.K. Without such comments, i
-have to assume this is poor quality code and really exam it in detail.
+diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
+index ed0a6f871dea..9de3749fb268 100644
+--- a/arch/riscv/net/bpf_jit_comp64.c
++++ b/arch/riscv/net/bpf_jit_comp64.c
+@@ -1691,6 +1691,11 @@ int bpf_jit_emit_insn(const struct bpf_insn *insn, struct rv_jit_context *ctx,
+ 			emit_zextw(rd, rd, ctx);
+ 		break;
+ 
++	/* JUMP reg */
++	case BPF_JMP | BPF_JA | BPF_X:
++		emit_jalr(RV_REG_ZERO, rd, 0, ctx);
++		break;
++
+ 	/* JUMP off */
+ 	case BPF_JMP | BPF_JA:
+ 	case BPF_JMP32 | BPF_JA:
+diff --git a/arch/riscv/net/bpf_jit_core.c b/arch/riscv/net/bpf_jit_core.c
+index 2fb0b4e198b9..15acf249fed4 100644
+--- a/arch/riscv/net/bpf_jit_core.c
++++ b/arch/riscv/net/bpf_jit_core.c
+@@ -26,10 +26,13 @@ static int build_body(struct rv_jit_context *ctx, bool extra_pass, int *offset)
+ 		int ret;
+ 
+ 		ret = bpf_jit_emit_insn(insn, ctx, extra_pass);
+-		if (ret > 0)
+-			i++; /* skip the next instruction */
+ 		if (offset)
+ 			offset[i] = ctx->ninsns;
++		if (ret > 0) {
++			i++; /* skip the next instruction */
++			if (offset)
++				offset[i] = ctx->ninsns;
++		}
+ 		if (ret < 0)
+ 			return ret;
+ 	}
+@@ -176,6 +179,15 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
+ 		for (i = 0; i < prog->len; i++)
+ 			ctx->offset[i] = ninsns_rvoff(ctx->offset[i]);
+ 		bpf_prog_fill_jited_linfo(prog, ctx->offset);
++
++		/*
++		 * bpf_prog_update_insn_ptrs() wants the start of each insn, so
++		 * shift the linfo array by one and get insn 0 from the prologue.
++		 */
++		for (i = prog->len - 1; i > 0; i--)
++			ctx->offset[i] = ctx->offset[i - 1];
++		ctx->offset[0] = ninsns_rvoff(ctx->prologue_len);
++		bpf_prog_update_insn_ptrs(prog, ctx->offset, jit_data->ro_image);
+ out_offset:
+ 		kvfree(ctx->offset);
+ 		kfree(jit_data);
+-- 
+2.50.1
 
-     Andrew
