@@ -1,94 +1,78 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C17D3F105B;
-	Wed, 23 Sep 2026 08:59:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB934718DE;
+	Wed, 23 Sep 2026 08:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790153989; cv=none; b=YojXlRe+xK00hfhASbY19/s0ak6Fm6WeGskq/F8lpK4A1crN7prIb7bIko0EeWJRWvEGE5zHHWfxy59FUsRiUH1X730dasFxkHGPE/gQc3/YV/ZodvXEhZCwk1WmziU8H1AWm8xhkp91iK0+7XZwKdtFRdZgwRF376ZpyliU5jc=
+	t=1790153991; cv=none; b=gcM1Pe/aPfo91ehTgAGs+CUzWWChusvwAf0yLMXo8RvlW4of6sDSKHGxbYctViFfYNvSpcWv+ZVptmnzTNa0rKuLuLUexiKHM/KzKmIVnAobmBfoFbWe8qIThIKtK0gNtUvxNJomavnYiCuIWLHC+aTC3xUm439h2VLabfvpy5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790153989; c=relaxed/simple;
-	bh=UF/XgH4255aSGWQgDSj8/OqvKw0xbQCie6ZgV1fNFVQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=GkDM75M/0enQ/TsKduFVF3MNnIEZkTmNlskvwlHd0deFCTe9xq3ioPEOUtpVhfF2bGv9lao/D0bTDI+wYiHfQ6HbNMHkQFYoMBZK4fHBgo7CLZH6hkHxFqmmj1IXIxoRni+abNug9i40TIM2pibe5FKkt+L9057BotY+yi/bD5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=OgyThMr0; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1790153991; c=relaxed/simple;
+	bh=LauzTU5BfdHLdmOz27r/Tc9Ii6E9HVCJLondgVl496c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=apVzVFPxV/nRszsDJOqkGToQSf23pkvQkQGcXpNTckzfgmJCyGxYsGW0IkgzzIeLx62wakX59gzJWGn3ebD/dK4JnrrqdbGIKyYJjWySOVl84cQDlUzeQ4L6Gi/TQ37yp/n7nDM0RN9Z1/4CSAEGER9umAWEl36uGqeeXg9N+5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OjFIRYRK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="OgyThMr0"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68N8xaE13169129, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1790153977; bh=UF/XgH4255aSGWQgDSj8/OqvKw0xbQCie6ZgV1fNFVQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=OgyThMr0G9FSOugnyo6WPOcFoBAcC7BhzP+Zjtauz56+Q81U6ZLAUXlcgzQORsgm7
-	 AmrgYmtbLOoAuqn/4n5EqbHV2VIOR1nwNYbDgX7RAoAfdnGqmj2S79r9O4txT5TNoq
-	 BT7+ckd8+tWUM6meF03lzBbe2fT/yoZwqam9GtkDSCbE2oh1nlejcjpFE8bqa+oA/W
-	 aT2mmF9ZhdKb/Qx/EtyPGHNEheRuwD/ZhA8r/CWjb8s4V4LaPO3Tqrmm7CTQ57Bapq
-	 r1KOb1EkpnSjEtBrgy9JBsVrKpN5YZLov/rpHARgFgU/gnKFVf2BsDjAFRahfzpf1q
-	 QR65xhreUq6tQ==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68N8xaE13169129
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 23 Sep 2026 16:59:37 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Wed, 23 Sep 2026 16:59:36 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Wed, 23 Sep 2026 16:59:36 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Luka Gejak <luka.gejak@linux.dev>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Michael
-   Straube" <straube.linux@gmail.com>, Peter Robinson <pbrobinson@gmail.com>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>
-Subject: RE: [PATCH v3 2/6] wifi: rtw88: 8723b: add the RTL8723B BB, RF and
- AGC tables
-Thread-Topic: [PATCH v3 2/6] wifi: rtw88: 8723b: add the RTL8723B BB, RF and
- AGC tables
-Thread-Index: AQHdSeATpI0NUCgP0kmEYeuJr1vdNLbby2HQ//+FlwCAAIc+QP//fYCAgACI3aA=
-Date: Wed, 23 Sep 2026 08:59:35 +0000
-Message-ID: <16eeca262aab43a798afeb806e88aac8@realtek.com>
-References: <20260921154347.82317-1-luka.gejak@linux.dev>
- <20260921154347.82317-3-luka.gejak@linux.dev>
- <0a6ea4337e004faa97595b1b62d2cad9@realtek.com>
- <6c14fabffc6984a5e7cd91c9b7fe6e4caceeaf70@linux.dev>
- <3ce6a66b25274fb0b58f259529359bfe@realtek.com>
- <09c6a890906e4d4e93d8dcde41e2b808b7d9582c@linux.dev>
-In-Reply-To: <09c6a890906e4d4e93d8dcde41e2b808b7d9582c@linux.dev>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OjFIRYRK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0D081F000FF;
+	Wed, 23 Sep 2026 08:59:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790153989;
+	bh=w1m1NFZV8Q6RkXAfcNO6sJC9PIZku3p2KtNeqepoHJ0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OjFIRYRKDDlKIr3AK+V41zIsPpmYTNPmtHkLw/tBWf1NXG0cvID6+8RkgQU+X+NHR
+	 Kk3LXoX6iD9VLpTczeOhh42F/BWpwOjYR6pRPahxLp5tGut+zmIZKTbqS6x/Riy3N5
+	 4w+D/FQorat3zPOgh75Fzt34GXaCbsuweLUyo3gbtp3gbvcV5YbAH1dQO1hngPCqXD
+	 /rCSfwuuAs6uvnzVFaGgFjsfom0RuFnSBAYbTQ7AIs0jDaFfZxkNSTl45Rxth/WnuY
+	 LsZxKGzTESvKffs2s12VssCMN/IuNvlMjOQD2s7j50MbW2R9oEPDeuVv/XTBq874Ay
+	 mk72nb2qFGnmg==
+Date: Wed, 23 Sep 2026 09:59:43 +0100
+From: Simon Horman <horms@kernel.org>
+To: Daniel Machon <daniel.machon@microchip.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Horatiu Vultur <horatiu.vultur@microchip.com>,
+	Steen Hegelund <steen.hegelund@microchip.com>,
+	UNGLinuxDriver@microchip.com, Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mohsin Bashir <mohsin.bashr@gmail.com>,
+	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next v7 06/14] net: lan966x: use a dedicated device
+ for DMA operations
+Message-ID: <20260923085807.GO13925@horms.kernel.org>
+References: <20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c@microchip.com>
+ <20260918-lan966x-pci-fdma-v7-6-0ecc179c8a2c@microchip.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-lan966x-pci-fdma-v7-6-0ecc179c8a2c@microchip.com>
 
-DQpMdWthIEdlamFrIDxsdWthLmdlamFrQGxpbnV4LmRldj4gd3JvdGU6DQo+ID4NCj4gPiBMdWth
-IEdlamFrIDxsdWthLmdlamFrQGxpbnV4LmRldj4gd3JvdGU6DQo+ID4NCj4gPiA+DQo+ID4gPiBM
-dWthIEdlamFrIDxsdWthLmdlamFrQGxpbnV4LmRldj4gd3JvdGU6DQo+ID4gPiAgPiArLy8gU1BE
-WC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAgT1IgQlNELTMtQ2xhdXNlDQo+ID4gPiAgPiAr
-LyoNCj4gPiA+ICA+ICsgKiBDb3B5cmlnaHQoYykgMjAwNy0yMDE3IFJlYWx0ZWsgQ29ycG9yYXRp
-b24NCj4gPiA+ICA+ICsgKiBDb3B5cmlnaHQoYykgTWljaGFlbCBTdHJhdWJlIDxzdHJhdWJlLmxp
-bnV4QGdtYWlsLmNvbT4NCj4gPiA+ICA+ICsgKiBDb3B5cmlnaHQoYykgMjAyNC0yMDI2IEx1a2Eg
-R2VqYWsgPGx1a2EuZ2VqYWtAbGludXguZGV2Pg0KPiA+ID4gID4NCj4gPiA+ICBJJ20gbm90IHN1
-cmUgaWYgd2Ugc2hvdWxkIGNsYWltIGNvcHlyaWdodCB5ZWFyIGJhY2sgdG8gMjAwNz8NCj4gPiA+
-DQo+ID4gPiAgV2hhdCB3b3VsZCB5b3UgcHJlZmVyLCBqdXN0IHRlbGwgbWUgYW5kIEkgd2lsbCBj
-aGFuZ2UgaXQ/DQo+ID4gPg0KPiA+IFlvdSBjYW4gcmVmZXJlbmNlIHdoYXQgQml0dGVyYmx1ZSBk
-aWQgWzFdLiBJIGRvbid0IGhhdmUgbXVjaCBzdHVkeQ0KPiA+IGFib3V0IHRoZSBjb3B5cmlnaHQu
-DQo+ID4NCj4gPiBbMV0gMWE3NTQ1Nzg0NjQyICgid2lmaTogcnR3ODg6IEFkZCBydHc4ODE0YS57
-YyxofSIpDQo+ID4NCj4gDQo+IEhlIHVzZXMgMjAyNSwgc28gc2hvdWxkIEkgY29weSBoaXMgbGlu
-ZSBmb3IgUmVhbHRlayBjb3B5cmlnaHQgaGVhZGVyPw0KDQpNYXliZSAiQ29weXJpZ2h0KGMpIDIw
-MjYgUmVhbHRlayBDb3Jwb3JhdGlvbiINCg0KSWYgbmVlZGVkLCBtb3JlIGNvcHlyaWdodCBhcmUg
-YWxzbyBva2F5LCBidXQgSSBkb24ndCBrbm93IG11Y2ggYWJvdXQgdGhhdC4NCllvdSBjYW4gc3R1
-ZHkgRG9jdW1lbnRhdGlvbiBvciBzb21ld2hlcmUgdG8ga25vdyBtb3JlLg0KDQo+IA0KPiBBbHNv
-IEkgd2lsbCBhZGRyZXNzIGFsbCBjb21tZW50cyBhbmQgc2VuZCB2NCB0b25pZ2h0L3RvbW9ycm93
-IG1vcm5pbmcuDQoNCk5vIHJ1c2guIERlZXBseSB3aGF0IHJldmlldyB0aGUgcGF0Y2hlcyBiZWZv
-cmUgc2VuZGluZyBpcyBtb3JlIGltcG9ydGFudC4NCkFzIHRoaXMgcGF0Y2hzZXQgaXMgbGFyZ2Ug
-TE9DLCBvbmUgaXRlcmF0aW9uIHNwZW5kcyBtZSBhIGxvdCBvZiB0aW1lLiBJJ2QNCm1pbmltaXpl
-IGl0ZXJhdGlvbiBhcyBmZXcgYXMgcG9zc2libGUuDQoNClBpbmctS2UNCg0K
+On Fri, Sep 18, 2026 at 01:33:58PM +0200, Daniel Machon wrote:
+> In preparation for the PCIe FDMA implementation, add lan966x->dma_dev,
+> resolved once at probe time, and use it for every DMA operation the
+> FDMA path performs: coherent allocations, streaming mappings and the RX
+> page pool. Natively, dma_dev is lan966x->dev, so there is no functional
+> change.
+> 
+> Since dma_dev differs from dev only on the PCIe path, add
+> lan966x_is_pci() on top of it, for the later PCIe patches to key off.
+> 
+> Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+
+Reviewed-by: Simon Horman <horms@kernel.org>
+
