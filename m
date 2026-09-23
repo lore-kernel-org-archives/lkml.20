@@ -1,164 +1,154 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945631A9F85
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C291A9F85;
+	Wed, 23 Sep 2026 00:28:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790123255; cv=none; b=Fa9r9OljKMDkDml8z1zNZreI2urXlpfRhxS+Buq4WvwCHOGGLmypQ9wh3zkUNvKECYuC4R4nFrsqZnL/D744gkUrn1e4LnDThLgdmfpUZuk9R8wYI5wYFr+eHFiOL3Z7vJor0zjHy5ktJwLoUFMUOSPMcQ/TEQRYtRPvMHOWwRE=
+	t=1790123295; cv=none; b=lVC14wEGW6ZX3AlRCjQA09pkSGc2j7dMDskafXvVgTnAWfxvAcRTWvCWApnSoLmKK+J2rwIrt2dxbTt24a7Su0lZmAGz9DpX6JmQlEIbVBcfr0qA+cRA4C+VrUXAE6XI7uGS+uDVgv6vo9tMq/zROFqGcf8dMLsviot1rwO/Wl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790123255; c=relaxed/simple;
-	bh=ZlzT9R5gLvZvToRh6lPUWRnpXLwFNypOuukyV1rpDPk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=P9VIBHGyzmSm9KUrDcGBcSv74je9v1WoIADfSen2Pf86YJxFLCjgm0xMD3lTY5ViPaw7p68hZN4qtbRFulQ1pWZvOr2fC56Tx7N+nPCwLwY/oFMJft+qJTyiw8FS+HJk5opwy9lMXbyvroufF8jQvYP7SIi6rjX8RvOGIa3lGYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dStZXdJ2; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790123295; c=relaxed/simple;
+	bh=VaJKW+0Lel/ioTsk74Ie7TY3LGQ1dBZXZQ4cSarsurE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JMRgXDUri6drh5V6Mii6TmBcelAob2UJ7AWYy45iqEhBFRo9e3e9dCjAuDurm+9jZKNYBscbTxPaQbUKoJHSAtMRIvXNh0WrdF2m4M5qONFS0QNYlJStgDVvMEUO6nqc7COlpTPNVgAp9FC+coaWUTw9iWpqoQ07hLxTYz07/bA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hU72jtip; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dStZXdJ2"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso2054745e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 17:27:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790123251; x=1790728051; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Iu6ChcoYkeqQpso1SWT5boNmU53jolwND8JJxt/RDZI=;
-        b=dStZXdJ2rUf31v84XxTHDgBL3u53tV0A7CyFxMYLMIW4quNFL9U6kGMJ7zVIyM4kcI
-         L2En9EzBehIO1LQtT76HecJzRI56FPHF5vlkF+Oi3AtqTImNZ7xI6hnUH26Wy4fJ9BZD
-         MAH1C2yODHVAF8fiN13sfY8atmw609XsA0eAvM+iFEyWoYAXBg03vtOEplKo/xUFOJpZ
-         fAeuWxXho0kANqPwUe250q7oTPotxZP4RYzZ0US2HWVzCtJ/86VbcTI01RzRW2nmSx9N
-         4gHP4s/Gdtj5cFO0kNKQ1tA04boLD8XN4BKw0yd8RFt9E3QYYgkJIIxWrCFQYPndFHp0
-         l1qQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790123251; x=1790728051;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Iu6ChcoYkeqQpso1SWT5boNmU53jolwND8JJxt/RDZI=;
-        b=d7WTjG0vDtwDG37QFbKPRaPqCKhR2zsf7onrndB56+oDMdNaaIZXHWoPzgnDfKNHzr
-         iQPUl0ZfzhbNHkSiF6ghLYXoPlMnSmLkHHq87Qq6Xh7olgcWkw0ABVWMxJAG2xVhjzwo
-         DhpIv1JyVZ101wESVk8ORr2oK4OyPxDNBn3gOTdxb8EgFI4GyLLdd6SvZk080U8MMGid
-         79Ysu0npSGI7Phn/cO/9o520WdinYbKlTp14Oc17hG3NfSLr4ocdgXtXdsIyv/eQSvTz
-         RqkgXPHVrnOOOi8MzLTW7dU2Cc0T3nHEK+WRXnCLw/6S/fF//WjSYCefW0iWt7BmISyx
-         mT8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxMKNO5C12mcLdjxaElRWjSJ9eP+hLUKNg/Wkv9FTZ7Vbx2bhMEg/WgyGRbeBQSbjAy4UpkswKt+q5/kpk=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndOJT/qb8uVWui2sTpakQTzwynassZ7O+Pia1tqQmsKTEc5cIw
-	PUI28betOuDOwCBrkvwKneTpxSz2K4KpYrZXip3WSOtaMjWrVzqaBMJUyY4yRZCX
-X-Gm-Gg: AYBFou03mOdyK6Gfz97bp2bgcVo1BvxHByJi0i5eHDTCN7PvqyZcH2YltoZtMoCazps
-	vTZbqp/l0g5kJMNpXCdeTn0lBkN5KUD9nO+emnLN1qdd7XA2AFE4isbtV6eBev1nPhTl7AJvTOP
-	cDTMtUMuwhfTBcxo1Zd+Cx8IMr++W+5KNHhylcd0e1U2C98ilUDq28ZzGte3JgyM3ON7UUKrNh8
-	aecqG0OmbAK68x7XfT8fZOAwCcv2S87cMn3b9n1j3xg1oaOYrO7PoZF4JCPp23zpRQYx39VJf5B
-	rcxBkgPgzA4MvcMTwufJ97PT3bswp21Gr5ZBsnA5WsCj/6gafo6bVLVS672oDfnmMbHRKM5Z8X1
-	/QxG/pJKsMJR6/uqqA653/IRwbmlrRTIs9txo0I4Bpp0TnmYDArfp2PkZDBC0KzB75KnkpI0bx3
-	a7rF5GSemXzgzNNft3up7TvmiRQQXbJZ16VLL7cGMJkgiuHhGoxXLraJ8pyc0toX/p/EphNxM=
-X-Received: by 2002:a05:600c:19d2:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49fdf1370bcmr9734545e9.16.1790123251286;
-        Tue, 22 Sep 2026 17:27:31 -0700 (PDT)
-Received: from NBLK-WAX9X ([78.175.157.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868889337sm2229702f8f.34.2026.09.22.17.27.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 17:27:30 -0700 (PDT)
-From: =?UTF-8?q?Ata=20=C4=B0lhan=20K=C3=B6kt=C3=BCrk?= <atailhan2006@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [DRM] amdgpu: HDMI FreeSync not exposed on Samsung S22C31x despite AMD VSDB
-Date: Wed, 23 Sep 2026 03:27:18 +0300
-Message-ID: <20260923002718.5915-1-atailhan2006@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hU72jtip"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790123293; x=1821659293;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=VaJKW+0Lel/ioTsk74Ie7TY3LGQ1dBZXZQ4cSarsurE=;
+  b=hU72jtipa60ykide7JM85vcJlexPLw6hLJjKZl8ILoFwa535jGD793mL
+   xfMJTqGPxMk28AyWKk/0fVCZm9VqTKZATVS0/0DmhsLsEMiOzfmENqTGI
+   1eUOEhdJxMl7Zd54N2CgwAG9RCOEBmJdUsBmgYzXhPypcuMB2NRNSdqMX
+   Sq3dL+PxhpqwFvR+0fKHfBkJ7V417n6rCvRaZQLXc9ms7l7yjmPwrgfrB
+   yWS+mIT4kJsAAa5hH/AZwAxac4wH8rmsxy1xfSYBh86ksJGhgP3AW1TtN
+   dUvm3eN8NGPqfoCIIs+fZKD8c/S4MO0zOPiNchW0ToHQMwx6vHBFB5OxN
+   g==;
+X-CSE-ConnectionGUID: QZD6QLbiTwefbBgYcuuNXg==
+X-CSE-MsgGUID: O31fXBx3Rle339hskgmmOQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="101363795"
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="101363795"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 17:28:12 -0700
+X-CSE-ConnectionGUID: wNKBc32vQAyJR4LSZ7FEKg==
+X-CSE-MsgGUID: y5zJAeLIT/m5KlqZA+0p7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="299623106"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 17:28:08 -0700
+Message-ID: <4c553712-d2b3-44d5-9c09-ba51a5f3729e@linux.intel.com>
+Date: Wed, 23 Sep 2026 08:28:02 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/4] KVM: TDX: Filter configurable CPUID bits
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com" <seanjc@google.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "kas@kernel.org" <kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+ "Maloor, Kishen" <kishen.maloor@intel.com>,
+ "dedekind1@gmail.com" <dedekind1@gmail.com>,
+ "tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "nik.borisov@suse.com" <nik.borisov@suse.com>
+References: <20260917072548.2314491-1-binbin.wu@linux.intel.com>
+ <20260917072548.2314491-4-binbin.wu@linux.intel.com>
+ <d6bf5183b74b6c6f595001ee753405ea94a6042d.camel@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <d6bf5183b74b6c6f595001ee753405ea94a6042d.camel@intel.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi,
 
-I am investigating an issue where HDMI FreeSync
-is not exposed for a Samsung S22C31x monitor on
-an AMD Picasso/Raven 2 GPU, although the monitor
-advertises an AMD FreeSync range in its EDID and
-VRR works under Windows.
 
-Hardware/software:
+On 9/23/2026 8:16 AM, Edgecombe, Rick P wrote:
+> On Thu, 2026-09-17 at 15:25 +0800, Binbin Wu wrote:
+>> Filter the directly configurable CPUID bits reported through
+>> KVM_TDX_CAPABILITIES against KVM's TDX allowlist, and drop the hardcoded
+>> denylist based filtering.
+>>
+>> The TDX module reports directly configurable CPUID bits that it supports
+>> for a TD, but KVM must not expose bits that it doesn't support, as blindly
+>> exposing a host state clobbering feature can lead to host state corruption.
+>> The existing denylist, which clears only TSX and WAITPKG, is not fail-safe.
+>>
+>> Add tdx_get_cpuid_cfg_mask() to get the mask of directly configurable bits
+>> allowed by KVM for a given CPUID register, covering both feature bits,
+>> which come from tdx_cpu_cfg_caps[], and non-feature bits, which are
+>> enumerated at runtime.  Apply the mask to every CPUID entry reported
+>> through KVM_TDX_CAPABILITIES.
+>>
+>> With the allowlist in place, newly introduced TDX directly configurable
+>> CPUID bits stay hidden from userspace until KVM explicitly opts in.
+>>
+>> Note, filtering KVM_TDX_CAPABILITIES intentionally stops advertising the
+>> directly configurable bits that aren't in the allowlist, as the
+>> corresponding features are unsupported or cannot be properly virtualized.
+> 
+> I think we need to more loudly call out that this is an ABI change and we expect
+> it not to impact other VMMs because...
 
-* GPU: 03:00.0 VGA compatible controller [0300]:
-Advanced Micro Devices, Inc. [AMD/ATI] Picasso/Raven 2
-[Radeon Vega Series / Radeon Vega Mobile Series]
-[1002:15d8] (rev c2)
-* Kernel: 7.2.5-200.fc44
-* Compositor: Sway (Wayland)
-* Monitor: Samsung S22C31x
-* Connector: HDMI-A-1
-* EDID serial: H9DX100210
-* Kernel command line includes: amdgpu.freesync_video=1
+OK, will do this for this patch and patch 4.
 
-Observed:
+Thanks!
 
-* swaymsg -t get_outputs reports "Adaptive sync: disabled" for HDMI-A-1.
-* Adaptive sync remains disabled at both 1920x1080@60 Hz and 1920x1080@75 Hz.
-* The same monitor exposes and enables FreeSync under Windows.
+> 
+>>
+>> Update the documentation to reflect the ABI change.
+>>
 
-The EDID contains the following AMD Vendor-Specific Data Block:
+[...]
 
-Vendor-Specific Data Block (AMD), OUI 00-00-1A:
-    Version: 1
-    Feature Caps: 0x01
-    Minimum Refresh Rate: 48 Hz
-    Maximum Refresh Rate: 75 Hz
-    Flags 1.x: 0x00
+>> +#define TDX_CPUID_ALL_ALLOWED_MASK	GENMASK_U32(31, 0)
+>> +
+>> +static u32 tdx_get_cpuid_cfg_non_feature_mask(u32 function, u32 index, int reg)
+>> +{
+>> +	/*
+>> +	 * For a leaf/subleaf/register that will never be repurposed to hold
+>> +	 * feature bits, it's safe to return TDX_CPUID_ALL_ALLOWED_MASK, i.e.
+>> +	 * leave the TDX module's CPUID config mask intact.
+>> +	 */
+>> +	switch (function) {
+>> +	case 1:
+>> +		if (reg == CPUID_EAX || reg == CPUID_EBX)
+>> +			return TDX_CPUID_ALL_ALLOWED_MASK;
+>> +		return 0;
+>> +	case 4:
+>> +	case 0x18:
+>> +	case 0x1f:
+>> +		return TDX_CPUID_ALL_ALLOWED_MASK;
+>> +	case 0x24:
+>> +		if (index == 0 && reg == CPUID_EBX)
+>> +			return GENMASK_U32(7, 0);
+>> +		return 0;
+>> +	case 0x80000008:
+>> +		if (reg == CPUID_EAX)
+>> +			return TDX_CPUID_ALL_ALLOWED_MASK;
+> 
+> There are reserved bits in some of these. Are these "no feature bit" assumptions
+> checked somehow?
 
-The HDMI VSDB therefore appears to advertise a 48-75 Hz FreeSync range.
+Xiaoyao mentioned it in v3 too.
 
-There is also this message in dmesg:
+Sean suggested in v2 that "Realistically, CPUID.0x1.E{A,B}X are never going to be
+repurposed to hold feature bits, and so generating a mask of allowed bits adds
+unnecessary cognitive load and maintenance.  Ditto for CPUID 0x4, 0x18, and 0x1F."
+https://lore.kernel.org/kvm/aj1fi_0SBxMK5WOB@google.com/
 
-amdgpu 0000:03:00.0: [drm] Failed to setup vendor infoframe on connector HDMI-A-1: -22
-
-I believe this is the -EINVAL path from
-drm_hdmi_vendor_infoframe_from_display_mode() for this timing and
-is probably unrelated to the FreeSync issue.
-
-The part I am currently investigating is amdgpu_dm_update_freesync_caps().
-
-For HDMI, the driver calls parse_hdmi_amd_vsdb(), which
-on this DCN configuration goes through the DMUB path:
-
-parse_hdmi_amd_vsdb()
-  -> parse_edid_cea()
-     -> parse_edid_cea_dmub()
-        -> dm_edid_parser_send_cea()
-           -> output->amd_vsdb.freesync_supported
-
-If the DMUB parser returns freesync_supported == 0,
-the driver does not expose the connector as VRR capable.
-
-What makes this interesting is that the DRM EDID parser also
-contains the corresponding AMD VSDB information in
-connector->display_info.amd_vsdb, while the DMUB result
-does not result in FreeSync being exposed.
-
-I am wondering about the following:
-
-1. Is the AMD VSDB layout above expected to be accepted by
-the DMUB EDID parser, particularly with
-Feature Caps 0x01, Flags 1.x == 0x00, and no MCCS VCP code byte?
-
-2. If the DMUB parser rejects this form of AMD VSDB, should amdgpu_dm
-fall back to the software-parsed connector->display_info.amd_vsdb
-when determining FreeSync capability?
-
-I have a working kernel tree and can run diagnostic tests
-or test a small patch. I can also provide drm.debug
-output or DMUB-related traces if useful.
-
-Thanks,
-Ata İlhan Köktürk
+If we really have concerns, I can change it to exclude reserved bits in the next
+version.
