@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384064F68B1;
-	Wed, 23 Sep 2026 12:05:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD7C4CCDCC;
+	Wed, 23 Sep 2026 12:05:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165123; cv=none; b=dzzDprI7q0YsQ/6c/kgcyOia/hMeGksnnw/PyN6X+0YbRTkegOoI+B7yQi4/DOskomew+ai40WcIx48GF2V7EoBovlOZ4B28d+IhquCxGSaV5mVoTHF8GAaHc9TuP02JHC1zfRyPtsDvgUvphnTaVW6qCJsYY4K1euE+yc/IjhE=
+	t=1790165125; cv=none; b=MdZjBR3sXAfyf41/IsLiUr37LNxDlMnkqhlm6WrOAJev4IgAd/49ui+/qwVdTYiMIWH0gyIvrzXpGIwqADa5E5wFKibgsUxhH3Jgsd/JSCTVA8HnHGfPYllGPxpzPYq5oArMlEbJ0zoN1cxCmrVOZkVAIjYnr0rzn8NjOXjThXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165123; c=relaxed/simple;
-	bh=aiu5BQmooqpYpTxUiTsFRkUauq9c6vOlNTSSE9Hp2cE=;
+	s=arc-20240116; t=1790165125; c=relaxed/simple;
+	bh=S687wPIWnngoSYYE8QrRewba5wXRcqwoRWDDHq0Jsz4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fTbd6uyHXF659FJHZezhd4z4s5036RDKUIYb2hP/INynWjSJo5B3spd6e7FmkGB2sGjyZLK5WEUqIEyidxxZCIQTgnjkInnBGMUQmztVFXRK4+ExC08gy8bWr73PNeXiX2U1MbeJBtQZm4MjXz5wxD2+BCLpHkfiNAe5YtW1oe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhMXezZC; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=DMVfqjIkhiVuKkbbik2f5lf8MvyoqO/4daHxRjOM4K4MFWf2MD3wFuD4h5sYLs8JDeiyeJuxI8BIWCZIdBcdVWzTxnt/yFmQip4I1KldL1labd3un8mCTzkTUKLKGSIHpWqqvybXj1+ZPYsiW3hVK3zLg8Mt7F1SQV+lThsn+AQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jC/Rs/sy; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhMXezZC"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C3B8AC2BCB8;
-	Wed, 23 Sep 2026 12:05:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jC/Rs/sy"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9FCFAC4AF12;
+	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790165120;
-	bh=aiu5BQmooqpYpTxUiTsFRkUauq9c6vOlNTSSE9Hp2cE=;
+	s=k20201202; t=1790165121;
+	bh=S687wPIWnngoSYYE8QrRewba5wXRcqwoRWDDHq0Jsz4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=hhMXezZC4F734ZEYTNu0ImTcn1++ayl23Vp6sFKPd6wz8iUNWKd5dHihz69NbPipQ
-	 8zuPIAfqcHJxmsfBJqaky2XT7Qo/iSLlEWyAU30rqRAm/+OwRhvnJFxEzD1AMbu2Ep
-	 p61wbSSdcNbKEkOv6szKDylR69JS0Ar+gB+4Az7yh17MqU6AkA+YYpaZ9OFirPcKtC
-	 OAL3U7RwgixpYLNcKoIgv8yEwrvuuNgsR3Ib3g9SIiBM9HtAp+vWafn8THhRtWcj44
-	 gWYi98hZ/3qaNXGLtoK2uLdg5U+3feDHBfqTXqCXZ3eDH7mkcOTpk2pL4EPQmhCSn4
-	 6f8nPg6jXOWJA==
+	b=jC/Rs/syZ9Mup/u9Q2aD1FvJNysQTG7xEcz54APWE2Lzb9cIJlm49BORjXQrzfrob
+	 xU0KyCZ34unsJmwPnxDWXImWhpdu9dT77K5ljVw0te4LKNZIpeW8XBYEsUUTuMummu
+	 QXDxSmd21vKyXZEpS7GTPHdvCqzsVpaK5+W3h3JPy2FO2eNSs86qOm8aOEYha3BqmA
+	 eW9rvtf22Hx/aSLRduXclwR4eS4Wudv+49D9j7g0Mxlqjr87PgvzPoWi6QVtmGrURN
+	 0wnB2sD70WiD/TPEjYGwub90yP09sCFTl8jmsqp+t9E3YZFVtjEJUDdPQ00oIfMPAu
+	 47GkXr3F/jskQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97F91C98307;
-	Wed, 23 Sep 2026 12:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CF39C9830D;
+	Wed, 23 Sep 2026 12:05:21 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Wed, 23 Sep 2026 16:05:07 +0400
-Subject: [PATCH ath-next 01/16] dt-bindings: net: wireless: ath11k: Sort
- compatible names alphabetically
+Date: Wed, 23 Sep 2026 16:05:20 +0400
+Subject: [PATCH ath-next 14/16] wifi: ath11k: update hif and pci ops for
+ QCN6122
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-1-86729521a75c@outlook.com>
+Message-Id: <20260923-ipq5018-qcn6122-mpd-v1-14-86729521a75c@outlook.com>
 References: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 In-Reply-To: <20260923-ipq5018-qcn6122-mpd-v1-0-86729521a75c@outlook.com>
 To: Johannes Berg <johannes@sipsolutions.net>, 
@@ -56,11 +56,11 @@ Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=1172;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790165117; l=4286;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=8Rc10oeOzKG46Y973OUa46HiYgABQNhQH09OMbqE0/A=;
- b=3+IjZNJc/3kIEHzthob1GBb8swjvmJm3tT2XGZdAeVqB3+1bxIGOUS3jPiFtH7zw2XhSFeb45
- S8mdKrSK7N/DUNla87oYJd+YhC7B6MW3DhOtcsbJ2gvPyGxpPV27ex4
+ bh=KAfYNiJSlBqkx5nRUcT0tjr+2gqae9Hk9UcR8v+Y2kU=;
+ b=tWmSWuokIX04sHQ/skHZfIGfbroeqBvobVRWhObbpfO2LDTFZnARd1W4ShuaoSn+DuIEIo2Gg
+ 0cmybhN6UJAA23f5a9T1hcSvLmUfA0+fR5KsqeXpXa93YAkgxWis5Ui
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -70,41 +70,115 @@ Reply-To: george.moussalem@outlook.com
 
 From: George Moussalem <george.moussalem@outlook.com>
 
-Sort the compatible names in the binding file alphabetically for
-legibility and correct ordering.
+Add HIF and PCI ops for QCN6122. QCN6122 by default uses DP window 3.
+However, this is configurable, so let's introduce a function to do that and
+follow the existing register access code for (hybrid)AHB devices and use
+DP window 1.
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/wireless/ath/ath11k/ahb.c | 34 ++++++++++++++++++++++++++++++++++
+ drivers/net/wireless/ath/ath11k/hif.h |  9 +++++++++
+ drivers/net/wireless/ath/ath11k/qmi.c |  2 ++
+ 3 files changed, 45 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
-index d4aa56e2f823..a846cd704b19 100644
---- a/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
-+++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath11k.yaml
-@@ -17,10 +17,10 @@ description: |
- properties:
-   compatible:
-     enum:
--      - qcom,ipq8074-wifi
-+      - qcom,ipq5018-wifi
-       - qcom,ipq6018-wifi
-+      - qcom,ipq8074-wifi
-       - qcom,wcn6750-wifi
--      - qcom,ipq5018-wifi
+diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
+index 1b9115311bed..03936f574c8d 100644
+--- a/drivers/net/wireless/ath/ath11k/ahb.c
++++ b/drivers/net/wireless/ath/ath11k/ahb.c
+@@ -892,6 +892,18 @@ static int ath11k_ahb_hif_resume(struct ath11k_base *ab)
+ 	return 0;
+ }
  
-   reg:
-     maxItems: 1
-@@ -108,8 +108,8 @@ allOf:
-         compatible:
-           contains:
-             enum:
--              - qcom,ipq8074-wifi
-               - qcom,ipq6018-wifi
-+              - qcom,ipq8074-wifi
-     then:
-       properties:
-         interrupts:
++static void ath11k_ahb_config_static_window_qcn6122(struct ath11k_base *ab)
++{
++	u32 umac_window = FIELD_GET(ATH11K_PCI_WINDOW_VALUE_MASK, HAL_SEQ_WCSS_UMAC_OFFSET);
++	u32 ce_window = FIELD_GET(ATH11K_PCI_WINDOW_VALUE_MASK, HAL_CE_WFSS_CE_REG_BASE);
++	u32 window;
++
++	window = (umac_window) | (ce_window << 6);
++
++	iowrite32(ATH11K_PCI_WINDOW_ENABLE_BIT | window,
++		  ab->mem + ATH11K_PCI_WINDOW_REG_ADDRESS);
++}
++
+ static const struct ath11k_hif_ops ath11k_ahb_hif_ops_ipq8074 = {
+ 	.start = ath11k_ahb_start,
+ 	.stop = ath11k_ahb_stop,
+@@ -907,6 +919,24 @@ static const struct ath11k_hif_ops ath11k_ahb_hif_ops_ipq8074 = {
+ 	.ce_irq_disable = ath11k_ahb_ce_irq_disable_sync,
+ };
+ 
++static const struct ath11k_hif_ops ath11k_ahb_hif_ops_qcn6122 = {
++	.start = ath11k_pcic_start,
++	.stop = ath11k_pcic_stop,
++	.read32 = ath11k_pcic_read32,
++	.write32 = ath11k_pcic_write32,
++	.read = NULL,
++	.irq_enable = ath11k_pcic_ext_irq_enable,
++	.irq_disable = ath11k_pcic_ext_irq_disable,
++	.get_msi_address =  ath11k_pcic_get_msi_address,
++	.get_user_msi_vector = ath11k_pcic_get_user_msi_assignment,
++	.map_service_to_pipe = ath11k_pcic_map_service_to_pipe,
++	.power_down = ath11k_ahb_power_down,
++	.power_up = ath11k_ahb_power_up,
++	.ce_irq_enable = ath11k_pci_enable_ce_irqs_except_wake_irq,
++	.ce_irq_disable = ath11k_pci_disable_ce_irqs_except_wake_irq,
++	.config_static_window = ath11k_ahb_config_static_window_qcn6122,
++};
++
+ static const struct ath11k_hif_ops ath11k_ahb_hif_ops_wcn6750 = {
+ 	.start = ath11k_pcic_start,
+ 	.stop = ath11k_pcic_stop,
+@@ -1638,6 +1668,10 @@ static int ath11k_ahb_probe(struct platform_device *pdev)
+ 		hif_ops = &ath11k_ahb_hif_ops_wcn6750;
+ 		pci_ops = &ath11k_ahb_pci_ops_wcn6750;
+ 		break;
++	case ATH11K_HW_QCN6122_HW10:
++		hif_ops = &ath11k_ahb_hif_ops_qcn6122;
++		pci_ops = &ath11k_ahb_pci_ops_wcn6750;
++		break;
+ 	default:
+ 		dev_err(&pdev->dev, "unsupported device type %d\n", hw_rev);
+ 		return -EOPNOTSUPP;
+diff --git a/drivers/net/wireless/ath/ath11k/hif.h b/drivers/net/wireless/ath/ath11k/hif.h
+index 017fed1b4bd1..2e1a4fedf139 100644
+--- a/drivers/net/wireless/ath/ath11k/hif.h
++++ b/drivers/net/wireless/ath/ath11k/hif.h
+@@ -32,6 +32,7 @@ struct ath11k_hif_ops {
+ 	void (*ce_irq_disable)(struct ath11k_base *ab);
+ 	void (*get_ce_msi_idx)(struct ath11k_base *ab, u32 ce_id, u32 *msi_idx);
+ 	void (*coredump_download)(struct ath11k_base *ab);
++	void (*config_static_window)(struct ath11k_base *ab);
+ };
+ 
+ static inline void ath11k_hif_ce_irq_enable(struct ath11k_base *ab)
+@@ -159,4 +160,12 @@ static inline void ath11k_hif_coredump_download(struct ath11k_base *ab)
+ 		ab->hif.ops->coredump_download(ab);
+ }
+ 
++static inline void ath11k_hif_config_static_window(struct ath11k_base *ab)
++{
++	if (!ab->hw_params.static_window_map || !ab->hif.ops->config_static_window)
++		return;
++
++	ab->hif.ops->config_static_window(ab);
++}
++
+ #endif /* _HIF_H_ */
+diff --git a/drivers/net/wireless/ath/ath11k/qmi.c b/drivers/net/wireless/ath/ath11k/qmi.c
+index 771ef9b5304f..7d77f5c8c609 100644
+--- a/drivers/net/wireless/ath/ath11k/qmi.c
++++ b/drivers/net/wireless/ath/ath11k/qmi.c
+@@ -2243,6 +2243,8 @@ static int ath11k_qmi_request_device_info(struct ath11k_base *ab)
+ 	if (!ab->hw_params.ce_remap)
+ 		ab->mem_ce = ab->mem;
+ 
++	ath11k_hif_config_static_window(ab);
++
+ 	return 0;
+ out:
+ 	return ret;
 
 -- 
 2.53.0
