@@ -1,312 +1,194 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2851DC198
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2ED3EEAD8
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:18:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194661; cv=none; b=JyF1inMsVvSBhAGzkBmweLBjWEnybeiCqp5itCA9dKra9Mx7xrZQwW6vO60kzS3RyQMqzZZ3xMuPMbDzs8xo4nMBYuGWn2pM80jrxcbdsWQ5YzU5gg4V92y17llthoETC/kPkE9Y2dDSf3iZ2vqT+7j07ZzikKg22DNRCinvfTs=
+	t=1790194745; cv=none; b=SetMDkgj3xH71YZ/JXosEiwFemwbx2Ejw5FWmq6/N0XgXjQCNQXk52nJxayCZeBw+FZTg4ALYxDA136VBAxRTy5aISUTBR03cjd6wj7IaKSS25M6bH+eOadR6yapLtz5ui0zhqHiNsMF1XYVctoGyxNjj+ajv+6umboGs23qxcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194661; c=relaxed/simple;
-	bh=IRhuTM0kLZsYFMp3Lrgkw0bn0kAOxMdvDnoLmBzNWoo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nWBgKKN7ebbHBJmyH9SrfKQx149sxGGdih2/sw95eKss+pzWeKygJcVq0MFHvYAS6ooFf3q+U7lb25btUwI5enRWnolIye+qZ+UnIqBl1h6f1uFWR8X1Vs4OEq04YZU8ab9Ot3IEMSl0kti9DHb02a/f/EhJ1AheaPZlBKxLNxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZJL6yBLW; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790194745; c=relaxed/simple;
+	bh=QjLlivu2dOKEbDVXMk1o8BAQJhqwrAVntDEBrUiGVek=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=f7X72FwrrdXwGF8WTTyHZRtjWUQkOkDM9T9ILuv370b0wX9i+SOTXeAej3GyOFV46CTShcdvQDUF9MwllTgZVD92XlBa9rqn0gJUS5ynDWpnfrhB3CXBOMJzuVGUN7K9km/w4kiwrPM7Zd9KrVymAWYLHJv8uKLSFod8YBXuTiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jackyli.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nEabeCqI; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jackyli.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZJL6yBLW"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7db0so161721466b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:17:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nEabeCqI"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd188e16a2so10339645ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:18:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790194654; x=1790799454; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HgPtV1IXszkLhG6uHST7dgneJNufVJJ9/BLgDeMeRlk=;
-        b=ZJL6yBLWkBcJzrLYyUTdEfCIA+QPROzG80OrQGmhnGm5TxpYKY5ZnsNw2Y09qciGfX
-         3eV2H8ffg5t+LX3xzHYr/8NJnEMkqZfWjQWMMKqoDkoNdZqzj0uXH9Uo1EQgL+H4Oo8k
-         cUOxEFuuP0D8/LQYNZjgkVSAhv+GvnE4NhZDbllSKsNrK8UaS3Afcf+g7oD/kP+J6mVj
-         VXFgUSX6fJA1D85JGezKrCPXEIUTLpSqld2TYYW2H++yQXsWYGktjfOXgOs0kbe58F+4
-         j8Rb5JyFK/aS9PYaHFxCPhpx4852Sy5oUUz4v+MFh1zGA/yynES7YltbBvYI0gRoJdRf
-         zBOw==
+        d=google.com; s=20251104; t=1790194737; x=1790799537; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jszBNrH3yEDoF7juZMXw4OW+M7ckW2ZEtY9P8ifTaAo=;
+        b=nEabeCqIkEG8p2uVW7Dw6dKEu8LWrw96IQa69SowACZerdVoiYIQ9Wn0IgNAEYpI/w
+         SQAwa4jfrWR/SFYPWqVh0cWI2cOJJlZSZKWCI0SVz+ckJLuHiyH7aERaAS/4Lky8AVsW
+         7fROwKPe49rYlUIDdLIAKM6v9QFhR/7QCOyuMBtcsKARehm10zXaLXeHLDHrFtelsOD1
+         w2z91BWOo5zAia7SMvgRIsWJ1jyG1HfOS5lx4Hfo6VLV6zTz8OjlOIGBeQR1GYHjLRfs
+         TCRyGY5lGp9wC1C5kxOBYz9BYiMU0QI8rDojv2OzQ0sLjuFe+hQ9JAcpPfiH4HhbzcXd
+         wwXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790194654; x=1790799454;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HgPtV1IXszkLhG6uHST7dgneJNufVJJ9/BLgDeMeRlk=;
-        b=sojp9BOcdjFhRbvhRY9Og3UsPwRVGZcSOp27+u5b44Ui5OL61CXNR33jWWnEtfZ98K
-         iynvceBgdvU/oPXXA9cXRSYZ59O3IwTpcw+4tVDHmX53x49/2DYXTMf4IDUaxE+y2bJ/
-         sBZ9kMxPzSgvNkocqxW9gwADs7EsirvYvlJs+PLMHTv2wctATchVKiP7MJpYqzhvdTOL
-         3miG+pgBgqeGwgTgOvyYfyxXMfTx2R0ByUmPY75ng0nqvSsgG15xeCIG2/hIwd65wXLV
-         ZjEctnhys2RXpZJxLdu9pp11DiD1kzllCFLM0ksvXbsQfkdTMLP1I2EnTDdtHuQ1go1Z
-         R9bw==
-X-Forwarded-Encrypted: i=1; AKwUvBxuLgKj2FcdQ6nSRTLcEM4cppLCYLiD0GapdFXzjw6oULI+rB2DzPdn0qMOGEqf0yaS1RUamVyGr35VTHU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mG3HzphTwMbmwMUZPsG1ADiN2n7BdrWZZGllQUaEsq3fFFevlQ
-	hpi3n90k6u/DIT2Gqnsi+QZGBOIAeMeszEDoCOXQGMfceazD7Q4bhcFL
-X-Gm-Gg: AYBFou3fm1pUfzfBleWjPW0yzBpuSjNxLTdFyyWfpkzIL7CH0Wy9LvQuF4CHHQSzTIP
-	KnV0n0Fj/0M9JUCWNudJdbXzzRQD6vRR7PRq7NMzUsaQ36HQngjpzZqG5OWdWlELN0kHCNnWzDx
-	FmO8/Lfs4LUgppN1n1PAlD4ZRNKEQnYeXHseVS5iFkXVOTjR6XHBtE6oTgvfKx4eJdwiTtmJltp
-	QksVCkbDQPR+gzGxN7J1zuEK37NOADm+Ywd3h1MlSYUVHQWg1BtMc1G7oTuo3pI/aFTkZzxg1x1
-	dKfM5IboStZB5Koh7vy1JVF80zfWAbVLaOloqksMRUe/+s897dYQC19miCtREKqORY8EAwH6Jng
-	ucMPIP80G8PGUYWW8TPMZcwKz0VxCr6nbAwAqjO2uY34qKwKO3rG+UJpo0yagB03NZ7h+wmsUU3
-	s5n/YSN8FSgtFUNM+U9tlUmM4gXL+3xu3eg79gepfESByTs6/kEzrMMqyfDyNyD+pmK7AJnb4VT
-	iC47hl4TE9+798q+Ld4pQFIQqrGAqfA
-X-Received: by 2002:a17:907:9452:b0:c29:4b79:e41a with SMTP id a640c23a62f3a-c2ac24cf5c4mr18473566b.20.1790194654447;
-        Wed, 23 Sep 2026 13:17:34 -0700 (PDT)
-Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c8a44sm177243566b.20.2026.09.23.13.17.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:17:33 -0700 (PDT)
-From: Pablo Mazzini <pmazzini@gmail.com>
-To: Brian Masney <bmasney+clk@redhat.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Stephen Boyd <sboyd@kernel.org>
-Cc: Pablo Mazzini <pmazzini@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH v1 01/11] dt-bindings: clock: add Allwinner B288 CCU
-Date: Wed, 23 Sep 2026 21:16:51 +0100
-Message-ID: <20260923201701.43391-1-pmazzini@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1790194737; x=1790799537;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jszBNrH3yEDoF7juZMXw4OW+M7ckW2ZEtY9P8ifTaAo=;
+        b=HUOGClyUl4RtVOjLcWbnijRljh1KNJR/RKnSYh6sbee5ASLehlhlGGHKr7PpnZqyfB
+         767sEXzjXIE1G+GNjdqemHqgOnSNHKUJIH7I6hIjtzMx6J861rzPhFU9Y4pFe4Dtw/yD
+         pBSEb64sgz1nDPZ5hyHkvcx7JFR6qkG32NvkpTHjl2nAQIl0LJBFwIUWPA5cqZfpjC+T
+         WsUR+EQQBvp89O1XsO558t/U42pRiLDYeXO/qsdBfg66wra5DwQjvARQERYhacxxflug
+         sI1ZF1MIRhuaX2IBhZ2AfOYw05LQwSxJUyce0jmB0g7i3dEDlIumtuiRoH4TEThdUUTv
+         49Lw==
+X-Forwarded-Encrypted: i=1; AKwUvBwuEgplePNkIu2U/5TPEaW/NM4PoGKCt89TyPUqVsjOo8rL7xoSUqgj7Cv8Gcno2DvkHAM33tHonyETFp4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lavlH3wohMKx5FuHBKpkSWvwkBdMktbcfLd9rQw6R3uT+n+4sX
+	5hxeZ9W5TZbumqLwDv0apAMYHbA7uldfPAyrfaXkpce55KHSYhJb6XaayCKIpCPaEw0D21f/OAb
+	gZufFuhLq
+X-Received: from pgvf21.prod.google.com ([2002:a65:6295:0:b0:cc1:bda2:d09c])
+ (user=jackyli job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:c105:b0:398:e96a:8999
+ with SMTP id 98e67ed59e1d1-3a098b3741amr216478a91.16.1790194737205; Wed, 23
+ Sep 2026 13:18:57 -0700 (PDT)
+Date: Wed, 23 Sep 2026 20:18:12 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAAM0tGoC/32NQQ7CIBREr9L8tRjAitqV9zBdQPmlP6lAoBJN0
+ 7uLPYCryZtk3qyQMRFm6JoVEhbKFHwFeWhgmLR3yMhWBsml4jfBWfaRkS96JlszvhZ2tsYo3fI
+ rXkaou5hwpPfufPSVJ8pLSJ/9oohf+89WBBNsNBL5yWolWnN3IbgZj0N4Qr9t2xeoKAILswAAA A==
+X-Change-Id: 20260910-snp-invalid-input-5dbb6a408e7f
+X-Mailer: b4 0.14.3
+Message-ID: <20260923-snp-invalid-input-v2-1-c00e0dd077ca@google.com>
+Subject: [PATCH v2] KVM: SEV: Return INVALID_INPUT on SNP req/resp buffer
+ access failure
+From: Jacky Li <jackyli@google.com>
+To: kvm@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Tom Lendacky <thomas.lendacky@amd.com>, Michael Roth <michael.roth@amd.com>, 
+	Ashish Kalra <ashish.kalra@amd.com>, Jacob Xu <jacobhxu@google.com>, 
+	Supraja Sridhara <suprajasri@google.com>, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, Jacky Li <jackyli@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-The B288 (sun8iw10p1) is a dual Cortex-A7 SoC used in e-book readers.
+Currently, snp_handle_(ext_)guest_req() returns -EIO when
+kvm_{read/clear}_guest() fails while accessing guest-provided buffers.
+Returning -EIO causes KVM_RUN to exit to userspace, likely killing the VM.
 
-Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+Fix this by returning GHCB_HV_RESP_MALFORMED_INPUT with sub-error code
+GHCB_ERR_INVALID_INPUT to the guest and resuming the vCPU.
+
+Per the GHCB specification, guest-provided GPA buffers that cannot
+be accessed by the hypervisor (e.g. private pages) should be treated
+as guest input errors. Because kvm_{read/write/clear}_guest() only
+returns -EFAULT on failure, treating this failure as an invalid input
+aligns with the definition of -EFAULT ("Bad address").
+
+Returning GHCB_ERR_INVALID_INPUT also matches existing SNP handling
+in KVM, which already returns this error code for unaligned or
+overlapping buffers. It also aligns with other hypercall implementations
+in KVM (e.g. Hyper-V returning INVALID_HYPERCALL_INPUT on
+kvm_read_guest() failures in kvm_hv_flush_tlb()).
+
+Additionally, tickle the response buffer before issuing the PSP command
+so that an invalid resp_gpa fails upfront with GHCB_ERR_INVALID_INPUT.
+Do not return an error to the guest if the post-firmware write fails, as
+the firmware has already incremented the VMPCK sequence number. Exiting
+to userspace avoids creating an ambiguous failure where the guest has no
+way to know whether to advance its VMPCK sequence number.
+
+Fixes: 88caf544c930 ("KVM: SEV: Provide support for SNP_GUEST_REQUEST NAE event")
+Fixes: 74458e4859d8 ("KVM: SEV: Provide support for SNP_EXTENDED_GUEST_REQUEST NAE event")
+Signed-off-by: Jacky Li <jackyli@google.com>
 ---
- .../clock/allwinner,sun8i-b288-ccu.yaml       | 55 ++++++++++++
- include/dt-bindings/clock/sun8i-b288-ccu.h    | 90 +++++++++++++++++++
- include/dt-bindings/reset/sun8i-b288-ccu.h    | 45 ++++++++++
- 3 files changed, 190 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-ccu.yaml
- create mode 100644 include/dt-bindings/clock/sun8i-b288-ccu.h
- create mode 100644 include/dt-bindings/reset/sun8i-b288-ccu.h
+v2:
+ - "Tickle" resp_gpa before issuing the PSP command. [Sean]
+ - Keep post-command write failure as -EIO; returning INVALID_INPUT
+   creates an ambiguous ABI on whether VMPCK was consumed. [Tom, Sean]
 
-diff --git a/Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-ccu.yaml b/Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-ccu.yaml
-new file mode 100644
-index 000000000000..22b59d5b652c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/allwinner,sun8i-b288-ccu.yaml
-@@ -0,0 +1,55 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/allwinner,sun8i-b288-ccu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+v1: https://lore.kernel.org/all/20260910-snp-invalid-input-v1-1-fb2e03da614b@google.com
+---
+ arch/x86/kvm/svm/sev.c | 32 ++++++++++++++++++++++++++------
+ 1 file changed, 26 insertions(+), 6 deletions(-)
+
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 5705723f1f41..37a2a2677d3a 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -4221,6 +4221,7 @@ static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_
+ 	struct kvm *kvm = svm->vcpu.kvm;
+ 	struct kvm_sev_info *sev = to_kvm_sev_info(kvm);
+ 	sev_ret_code fw_err = 0;
++	u8 tickle = 0;
+ 	int ret;
+ 
+ 	if (!is_sev_snp_guest(&svm->vcpu))
+@@ -4228,8 +4229,15 @@ static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_
+ 
+ 	guard(mutex)(&sev->guest_req_mutex);
+ 
+-	if (kvm_read_guest(kvm, req_gpa, sev->guest_req_buf, PAGE_SIZE))
+-		return -EIO;
++	if (kvm_read_guest(kvm, req_gpa, sev->guest_req_buf, PAGE_SIZE)) {
++		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
++		return 1;
++	}
 +
-+title: Allwinner B288 Clock Control Unit
-+
-+maintainers:
-+  - Chen-Yu Tsai <wens@csie.org>
-+  - Maxime Ripard <mripard@kernel.org>
-+
-+properties:
-+  "#clock-cells":
-+    const: 1
-+
-+  "#reset-cells":
-+    const: 1
-+
-+  compatible:
-+    const: allwinner,sun8i-b288-ccu
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: High Frequency Oscillator
-+      - description: Low Frequency Oscillator
-+
-+  clock-names:
-+    items:
-+      - const: hosc
-+      - const: losc
-+
-+required:
-+  - "#clock-cells"
-+  - "#reset-cells"
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    ccu: clock-controller@1c20000 {
-+        compatible = "allwinner,sun8i-b288-ccu";
-+        reg = <0x01c20000 0x400>;
-+        clocks = <&osc24M>, <&osc32k>;
-+        clock-names = "hosc", "losc";
-+        #clock-cells = <1>;
-+        #reset-cells = <1>;
-+    };
-diff --git a/include/dt-bindings/clock/sun8i-b288-ccu.h b/include/dt-bindings/clock/sun8i-b288-ccu.h
-new file mode 100644
-index 000000000000..3dc1704d001e
---- /dev/null
-+++ b/include/dt-bindings/clock/sun8i-b288-ccu.h
-@@ -0,0 +1,90 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
-+#ifndef _DT_BINDINGS_CLK_SUN8I_B288_H_
-+#define _DT_BINDINGS_CLK_SUN8I_B288_H_
-+
-+#define CLK_PLL_CPUX	0
-+#define CLK_PLL_AUDIO_BASE	1
-+#define CLK_PLL_VIDEO0	2
-+#define CLK_PLL_DDR0	3
-+#define CLK_PLL_PERIPH0	4
-+#define CLK_PLL_VIDEO1	5
-+#define CLK_PLL_24M	6
-+#define CLK_PLL_PERIPH1	7
-+#define CLK_PLL_DE	8
-+#define CLK_PLL_DDR1	9
-+
-+#define CLK_PLL_PERIPH0_2X	10
-+#define CLK_PLL_PERIPH1_2X	11
-+#define CLK_CPUX	12
-+#define CLK_AXI	13
-+#define CLK_CPUAPB	14
-+#define CLK_AHB1	15
-+#define CLK_APB1	16
-+#define CLK_APB2	17
-+
-+#define CLK_NAND	18
-+#define CLK_MMC0	19
-+#define CLK_MMC1	20
-+#define CLK_MMC2	21
-+#define CLK_MMC3	22
-+#define CLK_SPI0	23
-+#define CLK_SPI1	24
-+#define CLK_SPI2	25
-+#define CLK_DRAM	26
-+#define CLK_DE	27
-+#define CLK_EE	28
-+#define CLK_EDMA	29
-+#define CLK_TCON0	30
-+#define CLK_MBUS	31
-+
-+#define CLK_BUS_THS	32
-+#define CLK_BUS_NAND	33
-+#define CLK_BUS_SDMMC0_BUS	34
-+#define CLK_BUS_SDMMC1_BUS	35
-+#define CLK_BUS_SDMMC2_BUS	36
-+#define CLK_BUS_SDMMC3_BUS	37
-+#define CLK_BUS_SPI0	38
-+#define CLK_BUS_SPI1	39
-+#define CLK_BUS_SPI2	40
-+#define CLK_BUS_I2S0	41
-+#define CLK_BUS_I2S1	42
-+#define CLK_BUS_SPDIF	43
-+#define CLK_BUS_DSD	44
-+#define CLK_BUS_DMIC	45
-+#define CLK_BUS_USBOHCI0	46
-+#define CLK_BUS_USBEHCI0	47
-+#define CLK_BUS_USBOTG	48
-+#define CLK_BUS_DE	49
-+#define CLK_BUS_EE	50
-+#define CLK_BUS_TCON0	51
-+#define CLK_BUS_CSI_S	52
-+#define CLK_BUS_CSI_M	53
-+#define CLK_BUS_CSI_MISC	54
-+#define CLK_BUS_ADDA	55
-+#define CLK_BUS_SDRAM	56
-+#define CLK_BUS_PSRAM	57
-+#define CLK_BUS_DMA	58
-+#define CLK_BUS_UART0	59
-+#define CLK_BUS_UART1	60
-+#define CLK_BUS_UART2	61
-+#define CLK_BUS_UART3	62
-+#define CLK_BUS_UART4	63
-+#define CLK_BUS_UART5	64
-+#define CLK_BUS_TWI0	65
-+#define CLK_BUS_TWI1	66
-+#define CLK_BUS_TWI2	67
-+#define CLK_BUS_PIO	68
-+#define CLK_BUS_GPADC	69
-+#define CLK_BUS_KEYADC	70
-+
-+/*
-+ * mmc0 and mmc1 are v4p1x controllers driven in the old timing mode, which
-+ * needs the sample and output phase clocks. mmc2 and mmc3 are newer blocks
-+ * that do their own delay calibration and have none.
-+ */
-+#define CLK_MMC0_SAMPLE	71
-+#define CLK_MMC0_OUTPUT	72
-+#define CLK_MMC1_SAMPLE	73
-+#define CLK_MMC1_OUTPUT	74
-+
-+#endif
-diff --git a/include/dt-bindings/reset/sun8i-b288-ccu.h b/include/dt-bindings/reset/sun8i-b288-ccu.h
-new file mode 100644
-index 000000000000..675145654548
---- /dev/null
-+++ b/include/dt-bindings/reset/sun8i-b288-ccu.h
-@@ -0,0 +1,45 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
-+#ifndef _DT_BINDINGS_RST_SUN8I_B288_H_
-+#define _DT_BINDINGS_RST_SUN8I_B288_H_
-+
-+#define RST_BUS_THS	0
-+#define RST_BUS_NAND	1
-+#define RST_BUS_MMC0	2
-+#define RST_BUS_MMC1	3
-+#define RST_BUS_MMC2	4
-+#define RST_BUS_MMC3	5
-+#define RST_BUS_SPI0	6
-+#define RST_BUS_SPI1	7
-+#define RST_BUS_SPI2	8
-+#define RST_BUS_I2S0	9
-+#define RST_BUS_I2S1	10
-+#define RST_BUS_SPDIF	11
-+#define RST_BUS_DSD	12
-+#define RST_BUS_DMIC	13
-+#define RST_USBPHY0	14
-+#define RST_BUS_OHCI0	15
-+#define RST_BUS_EHCI0	16
-+#define RST_BUS_OTG	17
-+#define RST_BUS_DE	18
-+#define RST_BUS_EE	19
-+#define RST_BUS_TCON0	20
-+#define RST_BUS_CSI	21
-+#define RST_BUS_ADDA	22
-+#define RST_BUS_WLAN	23
-+#define RST_MBUS	24
-+#define RST_BUS_DRAM	25
-+#define RST_BUS_PSRAM	26
-+#define RST_BUS_DMA	27
-+#define RST_BUS_UART0	28
-+#define RST_BUS_UART1	29
-+#define RST_BUS_UART2	30
-+#define RST_BUS_UART3	31
-+#define RST_BUS_UART4	32
-+#define RST_BUS_UART5	33
-+#define RST_BUS_I2C0	34
-+#define RST_BUS_I2C1	35
-+#define RST_BUS_I2C2	36
-+#define RST_BUS_GPADC	37
-+#define RST_BUS_KEYADC	38
-+
-+#endif
++	if (kvm_write_guest(kvm, resp_gpa, &tickle, sizeof(tickle))) {
++		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
++		return 1;
++	}
+ 
+ 	data.gctx_paddr = __psp_pa(sev->snp_context);
+ 	data.req_paddr = __psp_pa(sev->guest_req_buf);
+@@ -4244,6 +4252,14 @@ static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_
+ 	if (ret && !fw_err)
+ 		return ret;
+ 
++	/*
++	 * Exit to userspace if writing the response fails. The buffer was already
++	 * tickled, so failure here indicates the mapping changed in flight.
++	 *
++	 * Do not return an error to the guest because firmware already incremented
++	 * the VMPCK sequence number. Exiting to userspace avoids creating an
++	 * ambiguous failure ABI for the guest.
++	 */
+ 	if (kvm_write_guest(kvm, resp_gpa, sev->guest_resp_buf, PAGE_SIZE))
+ 		return -EIO;
+ 
+@@ -4295,8 +4311,10 @@ static int snp_handle_ext_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t r
+ 		return -EINVAL;
+ 
+ 	if (kvm_read_guest(kvm, req_gpa + offsetof(struct snp_guest_msg_hdr, msg_type),
+-			   &msg_type, 1))
+-		return -EIO;
++			   &msg_type, 1)) {
++		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
++		return 1;
++	}
+ 
+ 	/*
+ 	 * As per GHCB spec, requests of type MSG_REPORT_REQ also allow for
+@@ -4335,8 +4353,10 @@ static int snp_handle_ext_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t r
+ 		 * As per GHCB spec (see "SNP Extended Guest Request"), the
+ 		 * certificate table is terminated by 24-bytes of zeroes.
+ 		 */
+-		if (data_npages && kvm_clear_guest(kvm, data_gpa, 24))
+-			return -EIO;
++		if (data_npages && kvm_clear_guest(kvm, data_gpa, 24)) {
++			svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
++			return 1;
++		}
+ 	}
+ 
+ 	return snp_handle_guest_req(svm, req_gpa, resp_gpa);
+
+---
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+change-id: 20260910-snp-invalid-input-5dbb6a408e7f
+
+Best regards,
 -- 
-2.53.0
+Jacky Li <jackyli@google.com>
 
