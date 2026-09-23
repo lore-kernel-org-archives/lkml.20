@@ -1,158 +1,363 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E905326A0;
-	Wed, 23 Sep 2026 18:29:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FD6530E0A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:29:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188182; cv=none; b=erSKO5gccjHTpcvIizKeloGjLmSG5i8JTs3vuxkAjrm+6FGTdRP689tfUvKwE9rAbJQFlF6QuDUwQByCWYDgI5DF/e2xIz9H9388wy0LRnqRjTtdz5yeBN+z8KKPipIecQOccZvv9FoGrcxc+i2knZ72FxuOXX8vae9PNwz12PA=
+	t=1790188184; cv=none; b=sXgNnHjPRMYla5Eo0QgflYM1rrKkvhHcz24QAv4qcUgxXJNBJM1pMbtsgtMJeuYsgPZ+QbNI5YrkDkSCwDSvjlUeWIwQaqOZJ+QUblGG+SIOjIrlDDrdtNKmhRvfgHwJCGR/GyHGYPKgR789/wh+ar259Rc7DVvE+4Rj1iB+z9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188182; c=relaxed/simple;
-	bh=Ia2a9egR1wh2McHjPFZzuxJM/PhWu5apl0PD+4LMRn0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RZ84T7g7BY582ScUDvt3qkhzpBfj3AO+IP9WXR9r9LMtTqacZe7KY+69rA2UsMCI5W++NRjAq0ux4db3jOotNiku6ngfBnRN1WdMPh7fpaJx0hXcu5+TQhsenmauBaCeqM1sFI5bDcOm/RIIyTUfhVdZH243x9X8mP0S5HDNSCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=adf4DQpN; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1790188184; c=relaxed/simple;
+	bh=s5HodUNMsgVfadsLU+kfwam1IXupbWUWoFUS3o1DP+I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=L83zhWVZsecuAReJtv/uBzLMjRXQ6fbb6QyjtOuvJ5qcrywQJjRTTainXt32DbdRMT4X0yMJKxjX0wwHT8LXY171t13W+NsBmH5ajFy/n6gaIEfHj4PggDqdV2SJ2S1i5glXHT69ppVcYAjnuHXeL2sQ8HotXSVGNDoaF6dYngA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=erED7kON; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="adf4DQpN"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGZLr33921943;
-	Wed, 23 Sep 2026 18:29:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=P7boCCNyEcigrL7CU
-	59oRfKRZkngHfHczb87pzUn4Uk=; b=adf4DQpNAPrIAeeEGrTJl29KPLRbhAOa+
-	4QeJVI9rw6lIMphrkzAT7JEgjMwlcKiaqOcgKYRjkIldYRMUZqYb9nbZqwo3I2+n
-	jyTt2VmfeP11u9LLKXQD52qCE5AlHe8l/k5Pow1W4oVvSMVeNOVe0Dd+OGXCunAY
-	Q25sRpPVO3awPylGGyZoCSk3VF8JQxJLECbtwjijpMXFC1DLlBG2AkqAXsy1mccy
-	FuOAs78CmWlvtvxJgen6bYrB18JOsEUI3jO56pd8J6JowBYVgmP4S9S8xkZviJTr
-	t4GQfgdS5Uqf8/n/llcJ8/UmEWVlIZafEAy9WdJgJ45N2BBvy6Rzg==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgscxm6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 18:29:25 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68NGWnWF664394;
-	Wed, 23 Sep 2026 18:29:24 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbe1t9bd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 18:29:24 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NITKFU45416830
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 18:29:20 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 91E9320043;
-	Wed, 23 Sep 2026 18:29:20 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D456420040;
-	Wed, 23 Sep 2026 18:29:14 +0000 (GMT)
-Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.83.254])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 23 Sep 2026 18:29:14 +0000 (GMT)
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        christophe.leroy@csgroup.eu, nayna@linux.ibm.com, gjoyce@linux.ibm.com,
-        ritesh.list@gmail.com, sshegde@linux.ibm.com,
-        linux-kernel@vger.kernel.org, rnsastry@linux.ibm.com,
-        ssrish@linux.ibm.com, stable@vger.kernel.org
-Subject: [PATCH 04/12] pseries/plpks: clear sensitive PLPKS buffers
-Date: Wed, 23 Sep 2026 23:58:08 +0530
-Message-ID: <20260923182816.151451-5-ssrish@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923182816.151451-1-ssrish@linux.ibm.com>
-References: <20260923182816.151451-1-ssrish@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="erED7kON"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so7087215e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:29:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790188176; x=1790792976; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PdyX3EEf30yF/3DPJtb+gbDDLL1RLvfzlS4iMTV7KW8=;
+        b=erED7kONpBRv7MhWcQzvTNgvRxB5P1dFx6Gyw4bpjTdPmh9W2QxfPOaWSFvq48nYad
+         fYhNQbK9ZHsmOA40zpHfu2nhkv3KUcTffrsu8BPe83o43g2A2jXlu1zCHpecWZSOoKtQ
+         vhXbabiS9KsjyjNWVVbVMeNrw6BlJWHuaxw+IQEtES5fTgqdYJ7sGoVjDQYL53ROPUzw
+         eEtTB18QEZdETkfp1T1Vk0zEmeh6+XIrjesZjlVn2BVW4LG28jgiJdfJ27WiifIM+cDB
+         Hu2e3kN8Eqqrpd1Nf6WnKPcfmDdroXftXOQm5WO+4YyOdxGia1ullHy6PMNuu/XzsoYL
+         KiCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790188176; x=1790792976;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PdyX3EEf30yF/3DPJtb+gbDDLL1RLvfzlS4iMTV7KW8=;
+        b=ExFgeokStwHK6h4YUTqo6yxnAYXT+fjNciiAV9FFGmZuajdggDmgKojnplgwntOdbX
+         C/jn7MppITYskGEUp80EkkLq3xmdplElSRwcHwbdhPc/16BwToKLN8D7vEPz1o91f1v7
+         ICj+5ssc5qEtWWeqL3X/lZ2doG4znmXquHGBb01lZVkwMD8dj8gEHCiC2TP5Hvr+oXFV
+         ipx1FwNgyMws4I1uXv50tovyAplVAu2f6RzuM92d6Ut4l7QLZZvDfFAGiQRe7pQnpgGo
+         4BvV2Djymtt0Alyn/juO5KW/ZOKEGWgeSW84k7i1LLKBWfHFuWGkaKIh0NUj23rzDEDS
+         3AUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxk1YGWdThh6asJha700mkFf2nS/YL02kGkMOetrVuVxzZHbI+gsy+u3lcyYLO/LQwKylPe45WTjZkmcjQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdt3Zkrjlm4sHX6MgK1mOI9VPxOzhhu9evkOHIXjjNoSFpPu51
+	bixmdL0XBx0MEQ6IDpZRWfKWKrWWQ56VywMIy13V9yxne1Ij4oPRPds8
+X-Gm-Gg: AYBFou2vpL/jg9Ib2xEuRb49TgbOOQQZrUFIO7fqV1DPhUblaVc70LJvLeI6bbZI9Zt
+	m/r+2z8N/kezTEFzdH9hkMQ+xkOX2GUJun61mdEpwC4/t9VzQH8GI10FNa8hw0jX8hQDj+hvPuq
+	TO4QKj23T0juftPSFPR/jmTn72AIX0MWg/PhWfanwmEbsWczuA+wvbMWOoQuV7NLTKVmH9SPeBh
+	uE7Ltjcw+PDs8LyxgPnkkrDuUfrhDkj7UirsU6uG7LeB56Kh90KN2lYbLBJS4QU8RtnNGdJERv/
+	I2sLMMR+MvHk3D7GvtUsWADhaldp+Nugeyum0XU0O0zexRUChfZ7YarLEKoo4fQfsRMs1JpfScn
+	nyw3j5pG/DXnVL6kMJsQcHg6uuw7T7zDB4daoGQgJNDAn5+P0oHfo3015gEnFCLeTVSVN29Q0bP
+	grkX5Inb9RjC+hawuf84BbmfVdLGW+p20dbLzU1buKVDrx/y8A2lwLfsVmWBZUgaXsyCg5eNAKf
+	RP1Tr9606mTo4BvpOs6/I72upc=
+X-Received: by 2002:a05:600c:35d1:b0:49f:e441:d61f with SMTP id 5b1f17b1804b1-49fe66eb27cmr1339885e9.21.1790188175962;
+        Wed, 23 Sep 2026 11:29:35 -0700 (PDT)
+Received: from [192.168.0.2] ([197.250.51.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd3d5csm4711835e9.14.2026.09.23.11.29.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 11:29:35 -0700 (PDT)
+From: =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+Date: Wed, 23 Sep 2026 21:28:50 +0300
+Subject: [PATCH v12 04/12] mfd: zx297520v3: Add a clock and reset MFD
+ driver
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=V/XoQuni c=1 sm=1 tr=0 ts=6ab41a86 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
- a=vus6YNbAzWr4A5RBNAEA:9
-X-Proofpoint-ORIG-GUID: YI4qsMKNQlCWu0eUOi7I3VxAthQIOZ7o
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA3MiBTYWx0ZWRfX/8tOXSs8ueHT
- DqNvCRZYF4t17rUoSzv5TXtScR/rlvr2HYybUyPvkmI/tbarBtbxZKu3xQUEM1ECSv+CcH8cgbz
- lIliqONiaZclFrHIefhKCR53xu7B+mTCNf/zkISjwwpgm5c1wx/4L0D2EYrwZp6Z9/CPw8gb45K
- Np9RkhCuYgVa3O+uDC0P2dlWWMtEMTDr6r1IC0KowBH4FeT3pzLlKIN/SVnOQb1YUTNpAU1UiLO
- 8XQ394olE0UjR0JcSpuIyiEuG8G0uBb++YPm7rIEMKiLbfJJkLVm5j2/+hwJha9cTFgtUNT/7jE
- YvLl40i5UJDlSS30Xmg0iDNtyqm+sJmL6kTaWnaaaq/PcLHeDuZZGXTU3sMjopIS/tT2upxAQ3Z
- ioW1U9S++VOnni2irIia0icD71Rzqc0FBXpsdeuABOkmMOg84bj8QoJWWvVwLdlhGMFTCnb21++
- BqldbmazqyOonO7MhbQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA3MiBTYWx0ZWRfX+SUJkb4vnXFr
- PvABrytmKroSlEiIrNvo1WEnXLaZTf4kLZfo9lt0KVB3Gb+lOt3Qx6qve9HhGHI5QyYhuSQRIb5
- Mt+U3RKozKNV+pc4bo+E43q6yKtMw+0=
-X-Proofpoint-GUID: jlwCKsWSBKq14AFC7aJoN1EcZKVb6XB0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 clxscore=1015 phishscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230072
+Message-Id: <20260923-zx29clk-v12-4-9c243796b6d2@gmail.com>
+References: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
+In-Reply-To: <20260923-zx29clk-v12-0-9c243796b6d2@gmail.com>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Russell King <linux@armlinux.org.uk>, Lee Jones <lee@kernel.org>, 
+ Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-phy@lists.infradead.org, mfd@lists.linux.dev, 
+ =?utf-8?q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9208;
+ i=stefandoesinger@gmail.com; h=from:subject:message-id;
+ bh=s5HodUNMsgVfadsLU+kfwam1IXupbWUWoFUS3o1DP+I=;
+ b=owEBiQJ2/ZANAwAIAT0TvMhUTxoiAcsmYgBqtBpt1ByKJAE9q1EduahR0o+Q4jdQQ5IANZ1Z0
+ qo43IQbqpGJAk8EAAEIADkWIQRDFvS2qgVbJ5UyXWw9E7zIVE8aIgUCarQabRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQPRO8yFRPGiJXkg/8CwRN66JobMfslLxMkaj/shxoPv0Hz4+
+ dQE7Nm/6oEQ5OYK7QvniGDKnpBXl5D+dxEg4mxngE5G+0TcjR2lYsuIsKuFg91swzsLSRF8pSvl
+ vovQIYeCmk/mpl6McTalFBbl/LljtcmfoGXYazWup9fjurUK8RPwAGMs9uOQ7gFZCgQtn9KnoVh
+ hkCcQLHAyilMerz4mpCLob9qx7Qn5T6AdADPswG4KZn1RxsWsv/aPWBSJsGIHcj8d6ufnEpMxhQ
+ rGYywFVDACH2134tUPFImYUPqUzNCTL0Z55vp6+xHPCDKOBqBpVXR8lUlLOP4HhTzQm/fiilLO6
+ PC63yaTmhx2LQEz4ATbzlC6HRkxQpKDT/dcclkTXstNngP7ib5wIBddMK13Zw5/H6hVtZN8tziD
+ WFJuiHVNisH5cbbna4KlZePs+A0Qsq2tQocbLZWpAwVzBs4Kn2ZHhmM7XYGf7ehG4Vsntctl3H8
+ oFbVDuey5JNqcwoVv6h4iNLMQiAfP5hgEfYNyPQx8Azpbd2zbHB+Hq0mXAWM+lbIJLR9pqTtz+W
+ yw/CCYz+/LXUsfQt9Wi1GH2knyG1YJq99Tv5wHJ5f1q56CnzRrAWP467b+9ZC6bGwLO4I4t/xAU
+ p5Wto9d3FlPDBt2/0cMfzNOA9h/evatbWApVD6AvHBxYzRUQjsco=
+X-Developer-Key: i=stefandoesinger@gmail.com; a=openpgp;
+ fpr=4F9C2C8728019633893EBBB98CB81F9A72BBA155
 
-PLPKS read, remove, and write operations use authentication buffers that
-contain passwords. The read output buffer may also contain sensitive data.
-Freeing these buffers with kfree(), without wiping the contents, can leave
-sensitive data in memory.
+This driver registers child devices for the zx297520v3 clock and reset
+controllers. The clk-zx297520v3 and reset-zte-zx297520v3 submitted in
+the next patches will drive the respective functionalities.
 
-Use kfree_sensitive() to wipe the buffers when freeing them.
+Signed-off-by: Stefan Dösinger <stefandoesinger@gmail.com>
 
-Fixes: 2454a7af0f2a ("powerpc/pseries: define driver for Platform KeyStore")
-Cc: stable@vger.kernel.org # 6.0
-Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-Reviewed-by: Nayna Jain <nayna@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 ---
- arch/powerpc/platforms/pseries/plpks.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/arch/powerpc/platforms/pseries/plpks.c b/arch/powerpc/platforms/pseries/plpks.c
-index e3ae2cd78247..8dbf85e9714c 100644
---- a/arch/powerpc/platforms/pseries/plpks.c
-+++ b/arch/powerpc/platforms/pseries/plpks.c
-@@ -754,7 +754,7 @@ int plpks_write_var(struct plpks_var var)
- 	rc = pseries_status_to_err(rc);
- 	kfree(label);
- out:
--	kfree(auth);
-+	kfree_sensitive(auth);
+Changes v12:
+Added comments elaborating on the role of the driver and the hardware.
+
+Regarding the names: zx297520v3 is the SoC's name (chip marking, boot
+messages). TOPCRM, MATRIXCRM, LSPCRM are ZTE's names for the MMIO blocks
+in their downstream sources. Sadly no datasheet is available. "clk",
+"reset" names for the child nodes are mine.
+
+Regarding personal copyright: I am not affiliated with ZTE nor paid by
+them. This is my personal hobby project. I am using knowledge extracted
+from ZTE's kernel dumps, but not code.
+
+Changes v10 (All Lee Jones):
+*) drop "select REGMAP_MMIO"
+*) Drop comment about unimplemented hwlocks
+*) Use MFD_CELL_[NAME|OF]
+*) Renamed the device type enum and its values
+*) Use device_get_match_data instead of the of_ variant
+*) Improved debug messages
+
+Changes v9:
+Deassert the LSP reset and enable the LSP pclk here. In practice the
+boot rom needs to do that because it prints to an LSP-connected UART and
+reads the boot policy from the LSP connected flash chip.
+
+In doing so, I migrated the match data to an enum as mfd.md suggests.
+
+Changes v8:
+*) Remove .of_compatible from PHY mfd child
+
+*) Move to drivers/mfd (Sashiko)
+
+For me either soc/zte or mfd/ is fine. Note though that this MFD parent
+is very specific to the zx297520v3 SoC. I don't expect this to be reused
+anywhere else. There are two more MFD-ish devices in there: soc_sys at
+0x140000, which I plan to handle in the same driver, and an i2c PMIC,
+which would get its own host driver.
+
+*) Use PLATFORM_DEVID_AUTO (Sashiko). NONE was intentional as I only
+ever expect one instance, but I don't see any harm in doing the standard
+thing and use AUTO
+
+*) On the suggestion not to put the link to mfd_cells[] into match data:
+I see that it is spelled out in Sashiko's mfd.md, written by Lee Jones,
+the MFD maintainer. I would appreciate some education on the rationale
+behind it: Putting a pointer into the void *data is a common pattern in
+the kernel. I don't understand in which situation this can possibly
+break?
+
+Both structs are static const in the same compilation unit. data is a
+const void *, not a uintptr_t or kernel_ulong_t, so it seems passing a
+pointer is the intended use. What am I missing?
+
+Changes v7:
+Add phy MFD child
+
+Changes v6: Make the ZTE SoC driver section depend on HAS_IOMEM
+(Sashiko). The entire MFD section, which contains MFD_CORE, depends on
+HAS_IOMEM even with COMPILE_TEST.
+
+Add a NULL ptr check for of_device_get_match_data (Sashiko). While not
+uniform, rave-sp, rohm-bd9576, atc260x, da9052-i2c protect against
+incorrect manual attachment that way.
+
+Add lspclk here as well in an attempt to satisfy both Conor Dooley, who
+asks for MFD for top and matrix, and Philipp Zabel, who prefers aux but
+at least wants the reset driver limited to one driver type.
+
+Changes v5: Use MFD instead of Aux bus for top and matrix crm because of
+extra functionality: Reboot in top, hwlock in Matrix.
+
+LSP clocks stay with the aux bus and are thus not handled in this
+driver. The clk driver will bind directly to the lspcrm node.
+---
+ MAINTAINERS                      |   1 +
+ drivers/mfd/Kconfig              |  12 +++++
+ drivers/mfd/Makefile             |   2 +
+ drivers/mfd/zte-zx297520v3-crm.c | 111 +++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 126 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 06dbf9305518..41c287316d0e 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3927,6 +3927,7 @@ F:	Documentation/devicetree/bindings/clock/zte,zx297520v3-matrixcrm.yaml
+ F:	Documentation/devicetree/bindings/clock/zte,zx297520v3-topcrm.yaml
+ F:	arch/arm/boot/dts/zte/
+ F:	arch/arm/mach-zte/
++F:	drivers/mfd/zte-zx297520v3-crm.c
+ F:	include/dt-bindings/clock/zte,zx297520v3-clk.h
+ F:	include/dt-bindings/phy/zte,zx297520v3-topcrm.h
+ F:	include/dt-bindings/reset/zte,zx297520v3-reset.h
+diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+index 857ca3bb0d5b..b30600f6ff0c 100644
+--- a/drivers/mfd/Kconfig
++++ b/drivers/mfd/Kconfig
+@@ -2580,5 +2580,17 @@ config MFD_MAX7360
+ 	  additional drivers must be enabled in order to use the functionality
+ 	  of the device.
  
- 	return rc;
- }
-@@ -812,7 +812,7 @@ int plpks_remove_var(char *component, u8 varos, struct plpks_var_name vname)
- 	rc = pseries_status_to_err(rc);
- 	kfree(label);
- out:
--	kfree(auth);
-+	kfree_sensitive(auth);
++config MFD_ZTE_ZX297520V3_CRM
++	tristate "ZTE zx297520v3 Clock and Reset Manager"
++	depends on ARCH_ZTE || COMPILE_TEST
++	select MFD_CORE
++	default SOC_ZX297520V3
++	help
++	  Say yes here to enable the driver for the ZTE zx297520v3 clock and
++	  reset manager MFD driver. This driver provides the host device for
++	  the clock and reset drivers and is required to boot the SoC. You
++	  will also need to enable CLK_ZTE_ZX297520V3 and RESET_ZTE_ZX297520V3
++	  to build the actual clock and reset child drivers.
++
+ endmenu
+ endif
+diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+index 72d3944b0ad8..ab0cba2042a2 100644
+--- a/drivers/mfd/Makefile
++++ b/drivers/mfd/Makefile
+@@ -304,3 +304,5 @@ obj-$(CONFIG_MFD_RSMU_SPI)	+= rsmu_spi.o rsmu_core.o
+ obj-$(CONFIG_MFD_UPBOARD_FPGA)	+= upboard-fpga.o
  
- 	return rc;
- }
-@@ -878,11 +878,11 @@ static int plpks_read_var(u8 consumer, struct plpks_var *var)
- out_copy_policy:
- 	var->policy = retbuf[1];
- out_free_output:
--	kfree(output);
-+	kfree_sensitive(output);
- out_free_label:
- 	kfree(label);
- out_free_auth:
--	kfree(auth);
-+	kfree_sensitive(auth);
- 
- 	return rc;
- }
+ obj-$(CONFIG_MFD_LOONGSON_SE)	+= loongson-se.o
++
++obj-$(CONFIG_MFD_ZTE_ZX297520V3_CRM)	+= zte-zx297520v3-crm.o
+diff --git a/drivers/mfd/zte-zx297520v3-crm.c b/drivers/mfd/zte-zx297520v3-crm.c
+new file mode 100644
+index 000000000000..d896261a4d40
+--- /dev/null
++++ b/drivers/mfd/zte-zx297520v3-crm.c
+@@ -0,0 +1,111 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026 Stefan Dösinger
++ *
++ * This driver splits the ZTE zx297520v3 SoC's clock and reset management devices into MFD child
++ * nodes that are managed by independent drivers in their respective subsystems.
++ *
++ * ZTE's downstream kernel names the mmio regions "topcrm", "matrixcrm" and "lspcrm". For an
++ * explanation of how the controllers relate please see the DT binding documentation found in
++ * Documentation/devicetree/bindings/clock/zte,zx297520v3-*yaml.
++ *
++ * The controllers are primarily clock controllers, but they all have reset controls as well. Top
++ * and Matrix controllers have further auxiliary functions.
++ */
++
++#include <linux/clk.h>
++#include <linux/err.h>
++#include <linux/errno.h>
++#include <linux/mfd/core.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/property.h>
++#include <linux/reset.h>
++
++enum zx_device_type {
++	TYPE_INVALID = 0,
++	TYPE_TOPCRM,
++	TYPE_MATRIXCRM,
++	TYPE_LSPCRM,
++};
++
++static const struct mfd_cell zx297520v3_topcrm_cells[] = {
++	MFD_CELL_NAME("zx297520v3-topclk"),
++	MFD_CELL_NAME("zx297520v3-topreset"),
++	MFD_CELL_OF("reboot", NULL, NULL, 0, 0, "syscon-reboot"),
++	MFD_CELL_NAME("zx297520v3-usb-phy"),
++};
++
++static const struct mfd_cell zx297520v3_matrixcrm_cells[] = {
++	MFD_CELL_NAME("zx297520v3-matrixclk"),
++	MFD_CELL_NAME("zx297520v3-matrixreset"),
++};
++
++static const struct mfd_cell zx297520v3_lspcrm_cells[] = {
++	MFD_CELL_NAME("zx297520v3-lspclk"),
++	MFD_CELL_NAME("zx297520v3-lspreset"),
++};
++
++static int zx297520v3_crm_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	const struct mfd_cell *cells;
++	struct reset_control *reset;
++	enum zx_device_type type;
++	unsigned int num_cells;
++	struct clk *pclk;
++
++	type = (enum zx_device_type)(kernel_ulong_t)device_get_match_data(dev);
++	switch (type) {
++	case TYPE_TOPCRM:
++		cells = zx297520v3_topcrm_cells;
++		num_cells = ARRAY_SIZE(zx297520v3_topcrm_cells);
++		break;
++
++	case TYPE_MATRIXCRM:
++		cells = zx297520v3_matrixcrm_cells;
++		num_cells = ARRAY_SIZE(zx297520v3_matrixcrm_cells);
++		break;
++
++	case TYPE_LSPCRM:
++		cells = zx297520v3_lspcrm_cells;
++		num_cells = ARRAY_SIZE(zx297520v3_lspcrm_cells);
++
++		pclk = devm_clk_get_enabled(dev, "pclk");
++		if (IS_ERR(pclk))
++			return dev_err_probe(dev, PTR_ERR(pclk), "Could not get 'pclk'\n");
++
++		reset = devm_reset_control_get_exclusive_deasserted(dev, NULL);
++		if (IS_ERR(reset))
++			return dev_err_probe(dev, PTR_ERR(reset),
++					     "Failed to deassert reset control\n");
++		break;
++
++	default:
++		return -ENODEV;
++	}
++
++	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, cells, num_cells, NULL, 0, NULL);
++}
++
++static const struct of_device_id of_match_zx297520v3_crm[] = {
++	{ .compatible = "zte,zx297520v3-topcrm", .data = (void *)TYPE_TOPCRM },
++	{ .compatible = "zte,zx297520v3-matrixcrm", .data = (void *)TYPE_MATRIXCRM },
++	{ .compatible = "zte,zx297520v3-lspcrm", .data = (void *)TYPE_LSPCRM },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, of_match_zx297520v3_crm);
++
++static struct platform_driver zx297520v3_crm = {
++	.probe = zx297520v3_crm_probe,
++	.driver = {
++		.name = "zx297520v3-crm",
++		.of_match_table = of_match_zx297520v3_crm,
++	},
++};
++module_platform_driver(zx297520v3_crm);
++
++MODULE_AUTHOR("Stefan Dösinger <stefandoesinger@gmail.com>");
++MODULE_DESCRIPTION("ZTE zx297520v3 CRM driver");
++MODULE_LICENSE("GPL");
+
 -- 
-2.52.0
+2.55.0
 
