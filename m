@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1D53C09EC;
-	Wed, 23 Sep 2026 17:09:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2670E556BAF;
+	Wed, 23 Sep 2026 17:09:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790183369; cv=none; b=ZWTf2jB0Y50ec/whokierbJs7f4AmDMMWTV9195szVT/J4zbMpRUVg4ja2vYnxylXyMBRdVof2Gjl9amhZ9mC/l+QdldydWXGGTqNRp7NEKj80SA1yUBnhvjYv9Ws4yDznl7Oxgb6dYSB4ko/Ja807zqzesS5MEX6uAkDokIkcc=
+	t=1790183371; cv=none; b=p7SQgDKeRvd7MnZ1ltZecyHEJdhXuxPHOuybv2TyC5QCnNynQPBQxk+wc7BSGGjZxFH+3SHEWmDw+nwzZUwu2Rl9mRtt+LwKZbXhCtMHrwF57nc64dnhLQfTV5SvAhsIGZeI9yGgouSgilnpyHXnMXCl9nBTOqUB40RWGGebP/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790183369; c=relaxed/simple;
-	bh=w8TbIiOpQ7bE19y47kGM0xVJA3lsoPU/laYEfHXkYCw=;
+	s=arc-20240116; t=1790183371; c=relaxed/simple;
+	bh=6k189w7XrbI/Va4FjAoq4zQSBBJLUUZF0QLiETfL+oo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hBNDXJaX1IniPAU2IezGgBR7JcsYrF1l7aRAys5QEgN92FBWLuFKPlceSa2RUQRzsuk/46Y+Ag3cBneivQ1tsTgBownGDGd7CU8+jKXEbzcxVhtDS6eQJ0HhZk6cByQuNO1NosUgjvCVIt8Ss9a8w7dfz/A7tdcwiEZOhX3tY3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Pu5RMDtV; arc=none smtp.client-ip=192.198.163.19
+	 MIME-Version; b=LMgqTrHa8oDT9sycqyXez2RMI/0te+UGPPm8/1LbSavtbj1DAgTWKkFyyxU4qpM366SCJDdo7iv+sSkpuZz+QtHv3FX3h1O9UctaJhrWh5MaQkqyDTdR0ftYptdX0LiVuk4i32LlWLG7EiJMsnUroYRP5KviZ2zElI1JP5CHjJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CMSkLbez; arc=none smtp.client-ip=192.198.163.19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Pu5RMDtV"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CMSkLbez"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790183366; x=1821719366;
+  t=1790183367; x=1821719367;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=w8TbIiOpQ7bE19y47kGM0xVJA3lsoPU/laYEfHXkYCw=;
-  b=Pu5RMDtVEjWEr9S2cOK8yjxRC4ZOzxCZpSJyodJcWrL65cs8m4nWUsp3
-   4WY3BEOW8W99J+IZt9fUr5fJX1COWdpVjbskDcT3LbdtyS4/JDm4ZZpdZ
-   LmffJH7IdmG2gCNS68aVc3HMqPS3jH00CaX4Uz6Gp9hbJ9I8gNSBa5DQ/
-   XefJtoH4eErH05U1VZnPfKJpUhOr2PI8rstKDEW8veq7ieCsV4ke5SR6G
-   nt2Me7KVvMiTLosMJhXRaMhOUs+5jowqofMnJZl8MLw7B0m/LWUzxMdOY
-   EnbB3u3RhmLTydPHBj3NptsqzhAy9qLQeaVylMBeqE3FIGxBeJ6EfQJ4O
-   g==;
-X-CSE-ConnectionGUID: 3A0Z22VzTrWOVm87R42K2w==
-X-CSE-MsgGUID: GAHPmp5EQ1eT+/LoibhQNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89820284"
+  bh=6k189w7XrbI/Va4FjAoq4zQSBBJLUUZF0QLiETfL+oo=;
+  b=CMSkLbezPbYZ4hc5SQVPPEi1qrdSr9JUI1u+dWRYAVQ8dRwA0uWXJL8n
+   BaEsz554ukSxNXe6j/Lg03glPrKDQ2uWnX9CSPLOGnOT4OgG47UcByzHo
+   k/filZ2154rSpUDXrd4KSZLlZiKEcvWmGZmLxbWuEd9V2io5kdytTgbwM
+   Q0SD9cfSRbTljI6hKRggk+YdQdnMJmzbTPtzvyzAMVe8roK1eklxGyK85
+   CUuNKm6IX3hrHCc4ODYurKIaCdgd4SCsefGECq+vPp+HIdl5tDBSobh9C
+   gWTVEXQCClHKILR5FaFONdOHwbWkZezUhUR8Qho3rcq3kv+ew88Xxdd2K
+   w==;
+X-CSE-ConnectionGUID: fah6YY2lTSiEWJkflXhERg==
+X-CSE-MsgGUID: fYyrArtOQU+cIzWpAQIJ8A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="89820293"
 X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="89820284"
+   d="scan'208";a="89820293"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 10:09:19 -0700
-X-CSE-ConnectionGUID: M/lN85GOTI6EnNsEOOwjMg==
-X-CSE-MsgGUID: HELKMJ88R4uNlKib5sAAjg==
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 10:09:20 -0700
+X-CSE-ConnectionGUID: tk7pC8F+Rg+8BU6aHbhOmw==
+X-CSE-MsgGUID: 4rmoUePMQmONlNRRUhPY/Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="301631636"
+   d="scan'208";a="301631646"
 Received: from rosenzwe-mobl1.amr.corp.intel.com (HELO tfalcon-desk.attlocal.net) ([10.124.221.119])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 10:09:18 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 10:09:19 -0700
 From: Thomas Falcon <thomas.falcon@intel.com>
 To: sashiko-bot@kernel.org
 Cc: linux-perf-users@vger.kernel.org,
@@ -58,9 +58,9 @@ Cc: linux-perf-users@vger.kernel.org,
 	Adrian Hunter <adrian.hunter@intel.com>,
 	James Clark <james.clark@linaro.org>,
 	Dapeng Mi <dapeng1.mi@linux.intel.com>
-Subject: [PATCH v12 4/6] perf tools: Show memory region in perf-c2c subcommand
-Date: Wed, 23 Sep 2026 12:09:01 -0500
-Message-ID: <20260923170903.48388-5-thomas.falcon@intel.com>
+Subject: [PATCH v12 5/6] perf tools: Show memory region in perf-script subcommand
+Date: Wed, 23 Sep 2026 12:09:02 -0500
+Message-ID: <20260923170903.48388-6-thomas.falcon@intel.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260923170903.48388-1-thomas.falcon@intel.com>
 References: <20260923161043.95C171F000FF@smtp.kernel.org>
@@ -75,24 +75,26 @@ Content-Transfer-Encoding: 8bit
 
 From: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-Add memory region field to the cacheline list view to help users
-identify the memory region to which the cacheline belongs. The memory
-region field was included with the introduction of support for the
-Off-module Response facility (OMR) [1] in Intel's Diamond Rapids and
-Nova Lake architectures.
+Show the memory region in perf-script subcommand. Memory region is found
+in the mem_region field of the memory information data source. This
+field was included with the introduction of support for the Off-module
+Response facility (OMR) [1] in Intel's Diamond Rapids and Nova Lake
+Architectures.
 
-An example of the new perf c2c output including the memory region
-field is shown below:
+An example of perf-script output with the new memory region field is shown
+below:
 
-# Index             Address  Region  Node  PA cnt     Hitm    Total  LclHitm  RmtHitm  records    Loads
-# .....  ..................  ......  ....  ......  .......  .......  .......  .......  .......  .......
-#
-      0  0xffffffff84eb0040     N/A     0    1205   23.25%      544      544        0     1677     1677
-      1  0xffffffff84f03a80     N/A     0       1   18.12%      424      424        0      585      585
-[...]
-     19  0xffffffff845bc840   Mem-0     0      13    0.30%        7        7        0       31       31
-     20  0xff3bbba284520a00     N/A     0      10    0.26%        6        6        0       11       11
-     21  0xff3bbbe0bc833500     N/A     0      24    0.26%        6        6        0       30       30
+      thread 5/0 ...	|OP LOAD|LVL L3 hit|SNP HitM|TLB L1 or L2 hit|LCK No|BLK  N/A|Region Local-shared-cache              ffffffff9f002aba
+      thread 2/0 ...	|OP LOAD|LVL L3 hit|SNP None|TLB L1 or L2 hit|LCK No|BLK  N/A|Region Local-shared-cache              ffffffff9dc54c95
+      thread 8/0 ...	|OP LOAD|LVL L3 hit|SNP HitM|TLB L1 or L2 hit|LCK No|BLK  N/A|Region Other-non-shared-cache          ffffffff9dc54db3
+      thread 0/0 ...	|OP LOAD|LVL LFB/MAB hit|SNP None|TLB L1 or L2 hit|LCK No|BLK  Addr|Region N/A                       ffffffff9dc54db3
+      thread 2/0 ...	|OP LOAD|LVL L0 hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  N/A|Region N/A                            ffffffff9f002a8c
+      thread 0/0 ...	|OP LOAD|LVL L3 hit|SNP HitM or Fwd|TLB L1 or L2 hit|LCK No|BLK  N/A|Region Local-non-shared-cache   ffffffff9f002aba
+      thread 0/0 ...	|OP LOAD|LVL L3 hit|SNP None|TLB L1 or L2 hit|LCK No|BLK  N/A|Region Local-shared-cache          ffffffff9dc54ca7
+     thread 30/0 ...	|OP LOAD|LVL LFB/MAB hit|SNP None|TLB L1 or L2 hit|LCK Yes|BLK  N/A|Region N/A                       ffffffff9dcc1ff2
+     thread 30/0 ...	|OP LOAD|LVL RAM hit|SNP None|TLB L1 or L2 hit|LCK No|BLK  N/A|Region Mem-0                          ffffffff9dc54c95
+     thread 19/0 ...	|OP LOAD|LVL LFB/MAB hit|SNP None|TLB L1 or L2 hit|LCK No|BLK  N/A|Region N/A                        ffffffff9f002cbb
+     thread 19/0 ...	|OP LOAD|LVL L3 hit|SNP HitM or Fwd|TLB L1 or L2 hit|LCK No|BLK  N/A|Region Local-non-shared-cache   ffffffff9f002aba
 
 [1]: https://lore.kernel.org/all/20260114011750.350569-1-dapeng1.mi@linux.intel.com/
 
@@ -104,287 +106,230 @@ Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 Co-developed-by: Thomas Falcon <thomas.falcon@intel.com>
 Signed-off-by: Thomas Falcon <thomas.falcon@intel.com>
 ---
-v11: perf-c2c: revert to only recording a real memory region for a
-     cacheline
-v10: only update mem_region for real cache/memory regions so N/A samples
-     don't overwrite a valid region; add #include <stdio.h> for asprintf
-     (Sashiko)
-v9: Update perf-c2c to include cache region reporting (Dapeng Mi)
-v8: Update developer tags and commit message with real example
-    output (Dapeng Mi)
-v7: fix output_str allocation error handling which introduced
-    a memory leak (Sashiko)
-v6: rebased onto 7.3-rc1
-v5: make the cacheline header span and ui_quirks() width
-    fixup depend on memory-region availability (Namhyung Kim)
-v4: correctly handle output_str memory allocation failure
+v10: use a forward declaration of struct perf_session in mem-events.h
+     instead of including session.h; include session.h directly where
+     needed (Sashiko)
+v8: Update developer tags and commit message with real example output
+v4: Drop the global show-region flag; pass perf_session to
+    perf_script__meminfo_scnprintf() and gate the Region field
+    on the feature bit, with a pipe-mode fallback
 v3: make memory region reporting conditional on feature bit
 ---
- tools/perf/builtin-c2c.c | 114 +++++++++++++++++++++++++++++++++++----
- tools/perf/util/c2c.h    |   1 +
- 2 files changed, 104 insertions(+), 11 deletions(-)
+ tools/perf/builtin-script.c                   | 13 +--
+ tools/perf/util/mem-events.c                  | 87 ++++++++++++++++++-
+ tools/perf/util/mem-events.h                  |  4 +-
+ .../scripting-engines/trace-event-python.c    |  6 +-
+ 4 files changed, 100 insertions(+), 10 deletions(-)
 
-diff --git a/tools/perf/builtin-c2c.c b/tools/perf/builtin-c2c.c
-index 6b64c0d6b24f..a42423ca990d 100644
---- a/tools/perf/builtin-c2c.c
-+++ b/tools/perf/builtin-c2c.c
-@@ -14,6 +14,7 @@
- #include <inttypes.h>
- #include <stdlib.h>
- #include <string.h>
-+#include <stdio.h>
- 
- #include <asm/bug.h>
- #include <linux/compiler.h>
-@@ -72,6 +73,7 @@ struct perf_c2c {
- 
- 	bool			 show_src;
- 	bool			 show_all;
-+	bool			 show_mem_region;
- 	bool			 use_stdio;
- 	bool			 stats_only;
- 	bool			 symbol_full;
-@@ -248,6 +250,18 @@ static void c2c_he__set_node(struct c2c_hist_entry *c2c_he,
- 	}
+diff --git a/tools/perf/builtin-script.c b/tools/perf/builtin-script.c
+index 0174489d1c0f..565ee8d55f80 100644
+--- a/tools/perf/builtin-script.c
++++ b/tools/perf/builtin-script.c
+@@ -2153,11 +2153,12 @@ static int evlist__max_name_len(struct evlist *evlist)
+ 	return max;
  }
  
-+static void c2c_he__set_mem_region(struct c2c_hist_entry *c2c_he,
-+				   unsigned int mem_region)
-+{
-+	if (WARN_ONCE(mem_region > PERF_MEM_REGION_MEM7,
-+		      "WARNING: invalid memory region ID\n"))
-+		return;
-+
-+	/* Update mem_region only if it really accesses memory */
-+	if (mem_region >= PERF_MEM_REGION_MMIO)
-+		c2c_he->mem_region = mem_region;
-+}
-+
- static void compute_stats(struct c2c_hist_entry *c2c_he,
- 			  struct c2c_stats *stats,
- 			  u64 weight)
-@@ -306,6 +320,7 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
- 	struct addr_location al;
- 	struct mem_info *mi = NULL;
- 	struct callchain_cursor *cursor;
-+	unsigned int mem_region;
- 	int ret;
- 
- 	addr_location__init(&al);
-@@ -333,6 +348,7 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
- 	}
- 
- 	c2c_decode_stats(&stats, mi);
-+	mem_region = mem_info__data_src(mi)->mem_region;
- 
- 	he = hists__add_entry_ops(&c2c_hists->hists, &c2c_entry_ops,
- 				  &al, NULL, NULL, mi, NULL,
-@@ -349,6 +365,7 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
- 	c2c_he__set_cpu(c2c_he, sample);
- 	c2c_he__set_node(c2c_he, sample);
- 	c2c_he__set_evsel(c2c_he, evsel);
-+	c2c_he__set_mem_region(c2c_he, mem_region);
- 
- 	hists__inc_nr_samples(&c2c_hists->hists, he->filtered);
- 
-@@ -402,6 +419,7 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
- 		c2c_he__set_cpu(c2c_he, sample);
- 		c2c_he__set_node(c2c_he, sample);
- 		c2c_he__set_evsel(c2c_he, evsel);
-+		c2c_he__set_mem_region(c2c_he, mem_region);
- 
- 		hists__inc_nr_samples(&c2c_hists->hists, he->filtered);
- 		ret = hist_entry__append_callchain(he, sample);
-@@ -540,6 +558,45 @@ dcacheline_node_count(struct perf_hpp_fmt *fmt, struct perf_hpp *hpp,
- 	return scnprintf(hpp->buf, hpp->size, "%*lu", width, c2c_he->paddr_cnt);
- }
- 
-+static int
-+dcacheline_node_mem_region(struct perf_hpp_fmt *fmt, struct perf_hpp *hpp,
-+			   struct hist_entry *he)
-+{
-+	int width = c2c_width(fmt, hpp, he->hists);
-+	struct c2c_hist_entry *c2c_he;
-+	unsigned int mem_region;
-+	char buf[20];
-+
-+	c2c_he = container_of(he, struct c2c_hist_entry, he);
-+	mem_region = c2c_he->mem_region;
-+
-+	switch (mem_region) {
-+	case PERF_MEM_REGION_NA:
-+	case PERF_MEM_REGION_RSVD:
-+		scnprintf(buf, sizeof(buf), "N/A");
-+		break;
-+	case PERF_MEM_REGION_MMIO:
-+		scnprintf(buf, sizeof(buf), "MMIO");
-+		break;
-+	case PERF_MEM_REGION_MEM0:
-+	case PERF_MEM_REGION_MEM1:
-+	case PERF_MEM_REGION_MEM2:
-+	case PERF_MEM_REGION_MEM3:
-+	case PERF_MEM_REGION_MEM4:
-+	case PERF_MEM_REGION_MEM5:
-+	case PERF_MEM_REGION_MEM6:
-+	case PERF_MEM_REGION_MEM7:
-+		scnprintf(buf, sizeof(buf), "Mem-%d",
-+			  mem_region - PERF_MEM_REGION_MEM0);
-+		break;
-+	default:
-+		scnprintf(buf, sizeof(buf), "N/A");
-+		break;
-+	}
-+
-+	return scnprintf(hpp->buf, hpp->size, "%*s", width, buf);
-+}
-+
- static int offset_entry(struct perf_hpp_fmt *fmt, struct perf_hpp *hpp,
- 			struct hist_entry *he)
+-static int data_src__fprintf(u64 data_src, FILE *fp)
++static int data_src__fprintf(struct perf_session *session,
++			     u64 data_src, FILE *fp)
  {
-@@ -1360,6 +1417,14 @@ static struct c2c_dimension dim_dcacheline_node = {
- 	.width		= 4,
- };
+ 	struct mem_info *mi = mem_info__new();
+-	char decode[100];
+-	char out[100];
++	char decode[200];
++	char out[200];
+ 	static int maxlen;
+ 	int len;
  
-+static struct c2c_dimension dim_dcacheline_mem_region = {
-+	.header		= HEADER_LOW("Region"),
-+	.name		= "dcacheline_mem_region",
-+	.cmp		= empty_cmp,
-+	.entry		= dcacheline_node_mem_region,
-+	.width		= 6,
-+};
-+
- static struct c2c_dimension dim_dcacheline_count = {
- 	.header		= HEADER_LOW("PA cnt"),
- 	.name		= "dcacheline_count",
-@@ -1791,6 +1856,7 @@ static struct c2c_dimension dim_dcacheline_num_empty = {
- 
- static struct c2c_dimension *dimensions[] = {
- 	&dim_dcacheline,
-+	&dim_dcacheline_mem_region,
- 	&dim_dcacheline_node,
- 	&dim_dcacheline_count,
- 	&dim_offset,
-@@ -2854,8 +2920,11 @@ static int ui_quirks(void)
- 	/* Fix the zero line for dcacheline column. */
- 	buf = fill_line(chk_double_cl ? "Double-Cacheline" : "Cacheline",
- 				dim_dcacheline.width +
-+				(c2c.show_mem_region ?
-+					dim_dcacheline_mem_region.width : 0) +
- 				dim_dcacheline_node.width +
--				dim_dcacheline_count.width + 4);
-+				dim_dcacheline_count.width +
-+				(c2c.show_mem_region ? 6 : 4));
- 	if (!buf)
+@@ -2165,10 +2166,10 @@ static int data_src__fprintf(u64 data_src, FILE *fp)
  		return -ENOMEM;
  
-@@ -3107,7 +3176,8 @@ static int perf_c2c__report(int argc, const char **argv)
- 	OPT_END()
- 	};
- 	int err = 0;
--	const char *output_str, *sort_str = NULL;
-+	const char *sort_str = NULL;
-+	char *output_str = NULL;
- 	struct perf_env *env;
+ 	mem_info__data_src(mi)->val = data_src;
+-	perf_script__meminfo_scnprintf(decode, 100, mi);
++	perf_script__meminfo_scnprintf(decode, 200, mi, session);
+ 	mem_info__put(mi);
  
- 	annotation_options__init();
-@@ -3272,9 +3342,16 @@ static int perf_c2c__report(int argc, const char **argv)
- 		goto out_mem2node;
- 	}
+-	len = scnprintf(out, 100, "%16" PRIx64 " %s", data_src, decode);
++	len = scnprintf(out, 200, "%16" PRIx64 " %s", data_src, decode);
+ 	if (maxlen < len)
+ 		maxlen = len;
  
--	if (c2c.display != DISPLAY_SNP_PEER)
--		output_str = "cl_idx,"
-+	c2c.show_mem_region = perf_header__has_feat(&session->header,
-+						HEADER_MEMORY_RANGES);
-+	if (c2c.show_mem_region)
-+		dim_dcacheline.header.line[0].span = 3;
+@@ -2562,7 +2563,7 @@ static void process_event(struct perf_script *script,
+ 		perf_sample__fprintf_addr(sample, thread, evsel, fp);
+ 
+ 	if (PRINT_FIELD(DATA_SRC))
+-		data_src__fprintf(sample->data_src, fp);
++		data_src__fprintf(evsel__session(evsel), sample->data_src, fp);
+ 
+ 	if (PRINT_FIELD(WEIGHT))
+ 		fprintf(fp, "%16" PRIu64, sample->weight);
+diff --git a/tools/perf/util/mem-events.c b/tools/perf/util/mem-events.c
+index 4fd48fd20055..0cdcb47647bd 100644
+--- a/tools/perf/util/mem-events.c
++++ b/tools/perf/util/mem-events.c
+@@ -17,6 +17,7 @@
+ #include "symbol.h"
+ #include "pmu.h"
+ #include "pmus.h"
++#include "session.h"
+ 
+ unsigned int perf_mem_events__loads_ldlat = 30;
+ 
+@@ -604,8 +605,77 @@ int perf_mem__blk_scnprintf(char *out, size_t sz, const struct mem_info *mem_inf
+ 	return l;
+ }
+ 
+-int perf_script__meminfo_scnprintf(char *out, size_t sz, const struct mem_info *mem_info)
++static int perf_mem__region_scnprintf(char *out, size_t sz, const struct mem_info *mem_info)
+ {
++	size_t l = 0;
++	u64 mem = PERF_MEM_REGION_NA;
 +
-+	if (c2c.display != DISPLAY_SNP_PEER) {
-+		if (asprintf(&output_str,
-+			     "cl_idx,"
- 			     "dcacheline,"
-+			     "%s"
- 			     "dcacheline_node,"
- 			     "dcacheline_count,"
- 			     "percent_costly_snoop,"
-@@ -3286,10 +3363,17 @@ static int perf_c2c__report(int argc, const char **argv)
- 			     "ld_fbhit,ld_l1hit,ld_l2hit,"
- 			     "ld_lclhit,lcl_hitm,"
- 			     "ld_rmthit,rmt_hitm,"
--			     "dram_lcl,dram_rmt";
--	else
--		output_str = "cl_idx,"
-+			     "dram_lcl,dram_rmt",
-+			     c2c.show_mem_region ?
-+			     "dcacheline_mem_region," : "") < 0) {
-+			err = -ENOMEM;
-+			goto out_mem2node;
-+		}
-+	} else {
-+		if (asprintf(&output_str,
-+			     "cl_idx,"
- 			     "dcacheline,"
-+			     "%s"
- 			     "dcacheline_node,"
- 			     "dcacheline_count,"
- 			     "percent_costly_snoop,"
-@@ -3301,7 +3385,13 @@ static int perf_c2c__report(int argc, const char **argv)
- 			     "ld_fbhit,ld_l1hit,ld_l2hit,"
- 			     "ld_lclhit,lcl_hitm,"
- 			     "ld_rmthit,rmt_hitm,"
--			     "dram_lcl,dram_rmt";
-+			     "dram_lcl,dram_rmt",
-+			     c2c.show_mem_region ?
-+			     "dcacheline_mem_region," : "") < 0) {
-+			err = -ENOMEM;
-+			goto out_mem2node;
++	sz -= 1; /* -1 for null termination */
++	out[0] = '\0';
++
++	if (mem_info)
++		mem = mem_info__const_data_src(mem_info)->mem_region;
++
++	switch (mem) {
++	case PERF_MEM_REGION_NA:
++	case PERF_MEM_REGION_RSVD:
++		l += scnprintf(out + l, sz - l, "N/A");
++		break;
++	case PERF_MEM_REGION_L_SHARE:
++		l += scnprintf(out + l, sz - l, "Local-shared-cache");
++		break;
++	case PERF_MEM_REGION_L_NON_SHARE:
++		l += scnprintf(out + l, sz - l, "Local-non-shared-cache");
++		break;
++	case PERF_MEM_REGION_O_IO:
++		l += scnprintf(out + l, sz - l, "Other-IO");
++		break;
++	case PERF_MEM_REGION_O_SHARE:
++		l += scnprintf(out + l, sz - l, "Other-shared-cache");
++		break;
++	case PERF_MEM_REGION_O_NON_SHARE:
++		l += scnprintf(out + l, sz - l, "Other-non-shared-cache");
++		break;
++	case PERF_MEM_REGION_MMIO:
++		l += scnprintf(out + l, sz - l, "MMIO");
++		break;
++	case PERF_MEM_REGION_MEM0:
++		l += scnprintf(out + l, sz - l, "Mem-0");
++		break;
++	case PERF_MEM_REGION_MEM1:
++		l += scnprintf(out + l, sz - l, "Mem-1");
++		break;
++	case PERF_MEM_REGION_MEM2:
++		l += scnprintf(out + l, sz - l, "Mem-2");
++		break;
++	case PERF_MEM_REGION_MEM3:
++		l += scnprintf(out + l, sz - l, "Mem-3");
++		break;
++	case PERF_MEM_REGION_MEM4:
++		l += scnprintf(out + l, sz - l, "Mem-4");
++		break;
++	case PERF_MEM_REGION_MEM5:
++		l += scnprintf(out + l, sz - l, "Mem-5");
++		break;
++	case PERF_MEM_REGION_MEM6:
++		l += scnprintf(out + l, sz - l, "Mem-6");
++		break;
++	case PERF_MEM_REGION_MEM7:
++		l += scnprintf(out + l, sz - l, "Mem-7");
++		break;
++	default:
++		l += scnprintf(out + l, sz - l, "N/A");
++		break;
++	}
++
++	return l;
++}
++
++int perf_script__meminfo_scnprintf(char *out, size_t sz,
++				   const struct mem_info *mem_info,
++				   struct perf_session *session)
++{
++	struct perf_env *env;
+ 	int i = 0;
+ 
+ 	i += scnprintf(out, sz, "|OP ");
+@@ -620,6 +690,21 @@ int perf_script__meminfo_scnprintf(char *out, size_t sz, const struct mem_info *
+ 	i += perf_mem__lck_scnprintf(out + i, sz - i, mem_info);
+ 	i += scnprintf(out + i, sz - i, "|BLK ");
+ 	i += perf_mem__blk_scnprintf(out + i, sz - i, mem_info);
++	if (session) {
++		/*
++		 * In case the feature bits are not available, as in
++		 * pipe mode, fallback to checking for the existence of
++		 * memory ranges
++		 */
++		env = perf_session__env(session);
++		if ((env && session->data->is_pipe && env->nr_memory_ranges) ||
++		    perf_header__has_feat(&session->header,
++					  HEADER_MEMORY_RANGES)) {
++			i += scnprintf(out + i, sz - i, "|Region ");
++			i += perf_mem__region_scnprintf(out + i, sz - i,
++							mem_info);
 +		}
 +	}
  
- 	if (c2c.display == DISPLAY_TOT_HITM)
- 		sort_str = "tot_hitm";
-@@ -3315,7 +3405,7 @@ static int perf_c2c__report(int argc, const char **argv)
- 	err = c2c_hists__reinit(&c2c.hists, output_str, sort_str, perf_session__env(session));
- 	if (err) {
- 		pr_err("Failed to reinitialize hists\n");
--		goto out_mem2node;
-+		goto out_str;
- 	}
+ 	return i;
+ }
+diff --git a/tools/perf/util/mem-events.h b/tools/perf/util/mem-events.h
+index daa22748f9fe..38b14c03392c 100644
+--- a/tools/perf/util/mem-events.h
++++ b/tools/perf/util/mem-events.h
+@@ -24,6 +24,7 @@ enum {
+ struct evsel;
+ struct mem_info;
+ struct perf_pmu;
++struct perf_session;
  
- 	ui_progress__init(&prog, c2c.hists.hists.nr_entries, "Sorting...");
-@@ -3324,17 +3414,19 @@ static int perf_c2c__report(int argc, const char **argv)
- 	hists__output_resort_cb(&c2c.hists.hists, &prog, resort_shared_cl_cb);
- 	err = hists__iterate_cb(&c2c.hists.hists, resort_cl_cb, perf_session__env(session));
- 	if (err)
--		goto out_mem2node;
-+		goto out_str;
+ extern unsigned int perf_mem_events__loads_ldlat;
+ extern struct perf_mem_event perf_mem_events[PERF_MEM_EVENTS__MAX];
+@@ -47,7 +48,8 @@ int perf_mem__snp_scnprintf(char *out, size_t sz, const struct mem_info *mem_inf
+ int perf_mem__lck_scnprintf(char *out, size_t sz, const struct mem_info *mem_info);
+ int perf_mem__blk_scnprintf(char *out, size_t sz, const struct mem_info *mem_info);
  
- 	ui_progress__finish();
+-int perf_script__meminfo_scnprintf(char *bf, size_t size, const struct mem_info *mem_info);
++int perf_script__meminfo_scnprintf(char *bf, size_t size, const struct mem_info *mem_info,
++				   struct perf_session *session);
  
- 	if (ui_quirks()) {
- 		pr_err("failed to setup UI\n");
--		goto out_mem2node;
-+		goto out_str;
- 	}
+ struct c2c_stats {
+ 	u32	nr_entries;
+diff --git a/tools/perf/util/scripting-engines/trace-event-python.c b/tools/perf/util/scripting-engines/trace-event-python.c
+index 239104b0337d..038c4268a429 100644
+--- a/tools/perf/util/scripting-engines/trace-event-python.c
++++ b/tools/perf/util/scripting-engines/trace-event-python.c
+@@ -58,6 +58,7 @@
+ #include "stat.h"
+ #include "mem-events.h"
+ #include "util/perf_regs.h"
++#include "util/session.h"
  
- 	perf_c2c_display(session);
+ #define _PyUnicode_FromString(arg) \
+   PyUnicode_FromString(arg)
+@@ -694,8 +695,9 @@ static void set_sample_read_in_dict(PyObject *dict_sample, struct perf_sample *s
+ static void set_sample_datasrc_in_dict(PyObject *dict,
+ 				      struct perf_sample *sample)
+ {
++	struct perf_session *session = evsel__session(sample->evsel);
+ 	struct mem_info *mi = mem_info__new();
+-	char decode[100];
++	char decode[200];
  
-+out_str:
-+	free(output_str);
- out_mem2node:
- 	mem2node__exit(&c2c.mem2node);
- out_session:
-diff --git a/tools/perf/util/c2c.h b/tools/perf/util/c2c.h
-index 53f024e25d99..f04e78e1a2e3 100644
---- a/tools/perf/util/c2c.h
-+++ b/tools/perf/util/c2c.h
-@@ -33,6 +33,7 @@ struct c2c_hist_entry {
- 	unsigned long		*nodeset;
- 	struct c2c_stats	*node_stats;
- 	unsigned int		 cacheline_idx;
-+	unsigned int		 mem_region;
+ 	if (!mi)
+ 		Py_FatalError("couldn't create mem-info");
+@@ -704,7 +706,7 @@ static void set_sample_datasrc_in_dict(PyObject *dict,
+ 			PyLong_FromUnsignedLongLong(sample->data_src));
  
- 	struct compute_stats	 cstats;
+ 	mem_info__data_src(mi)->val = sample->data_src;
+-	perf_script__meminfo_scnprintf(decode, 100, mi);
++	perf_script__meminfo_scnprintf(decode, 200, mi, session);
+ 	mem_info__put(mi);
  
+ 	pydict_set_item_string_decref(dict, "datasrc_decode",
 -- 
 2.43.0
 
