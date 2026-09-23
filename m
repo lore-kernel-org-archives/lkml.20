@@ -1,40 +1,34 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B9A23A561;
-	Wed, 23 Sep 2026 03:02:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2915B39A07C;
+	Wed, 23 Sep 2026 03:06:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790132568; cv=none; b=Ft1JjOnajaDTLptp4E3AwgFg2FCxkBIXs9tiBZEtP/5zyP281L7fBLjvfgwsjJ796CKBrSiL8YG5yLrlSV1rE7LmyXdg1k6PJ1NUyr5IOuxHRFpdnuPLDqDe+E2SAsSpv59qbODHOv1hmq50uTD0VrEGn1o6x3vTWMgINeBxOnI=
+	t=1790132790; cv=none; b=RO+cwRMr1OD04wM8w4sLPc30jeQvR+MEDsGGfcDmNIDgDpmo+vnaUkEIDlsbPv64w+vmhFnvzEEms4lb1brKStWSMVSwjWg01DBW7P/QkmNnDBMzXbrEl4KrqzPDWoaHV3SwH2QyME3M1jcMF2IcUONRUSODfEU73VVgC3ffXms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790132568; c=relaxed/simple;
-	bh=OpBMzIh0s7WPZekJWq2eRPQKXNnq6MxgX9eyXEZt7zI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=czgc5bT47SLrZVp6Aeta+iZ4PVUolCtAPuL2DcMuup9eIRAnTwLwXbk/GZDHX4sopyv+7eG5oxDak6ppPBC9yWulfRuQlTbOVb6mumww0402bbmb6rbHugVEL+0JxThR5txleuEcfZaerNtS6MG3h0VPY9ao0Rrt6ESo9tCU6rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=F8h+xpBU; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="F8h+xpBU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=k0
-	W+FEHgDviHkmWS5vK0O5npEnjkO1jC0pRxVJqPdSA=; b=F8h+xpBUbn5b/9sYIT
-	r85If0+pItbsylU5oaEbm3ufHgR4BqUNuhW3r88vKtTpBZ9XZjEJsvI9HY6sBUjH
-	yYtA4HL0bNtvEpESZqE51ac1ZMJGoTBr+L94vnfEzwsccBzz9G+OFXKP/OSZ7wWy
-	xRUIfKQVHmPk1SuamLf7rc020=
-Received: from LUOBO-DINQG8T.hobot.cc (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wB3tvFDQbNqX37yAA--.32722S2;
-	Wed, 23 Sep 2026 11:02:29 +0800 (CST)
-From: Rui Wang <wr574332525@163.com>
-To: vkoul@kernel.org,
-	Eugeniy.Paltsev@synopsys.com
-Cc: Frank.Li@kernel.org,
-	dmaengine@vger.kernel.org,
+	s=arc-20240116; t=1790132790; c=relaxed/simple;
+	bh=3EwO0EYw+mTOrYwxnMMWjIll/hMQ4/gaQ+s4Bdl4ogs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TiZ+hT4/xXd2S8CihYaP3ND2iCdQimEa20DqUH0ed4XuzKCulYMa3Zf1UIOAUZjSgL5W/zCdC4NYor9J3V+J7XdTwKnsSo4JRjW//rQ5pxjDLkSJTlOLIfI/S0CCqGc7anGXJACSViirq6555MAZ+wH1zn4yj/HyHN6EK5dsk0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wCXrnwpQrNqTyEwAQ--.4422S3;
+	Wed, 23 Sep 2026 11:06:18 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgBn+tApQrNq+G6VBA--.59138S2;
+	Wed, 23 Sep 2026 11:06:17 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>
+Cc: linux-can@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Rui Wang <wr574332525@163.com>
-Subject: [PATCH] dmaengine: dw-axi-dmac: report paused state and residue in tx_status
-Date: Wed, 23 Sep 2026 11:02:01 +0800
-Message-ID: <20260923030201.859-1-wr574332525@163.com>
-X-Mailer: git-send-email 2.53.0.windows.2
+	Fan Wu <fanwu01@zju.edu.cn>,
+	stable@vger.kernel.org,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] can: ems_usb: use usb_kill_urb() to stop the intr URB
+Date: Wed, 23 Sep 2026 03:05:22 +0000
+Message-Id: <20260923030522.409344-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,134 +36,70 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wB3tvFDQbNqX37yAA--.32722S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAw4fAw4ftrWrtF1DCr1kAFb_yoWrZFW7pa
-	y5GayfGryjgrnIqF4rXw48Jr4rZF4FqFW2vrW5XasIkFWYgF9akFn7Ka4FqF1UJFyvv34I
-	9a1Yya43GF1UCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piYFAdUUUUU=
-X-CM-SenderInfo: lzuvlkittskjqv6rljoofrz/xtbC0wXogWqzQUX0zgAA3Y
+X-CM-TRANSID:zC_KCgBn+tApQrNq+G6VBA--.59138S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?CXGSCgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI2UqrLr6gmX1sihfTAW2cmoodJqjuNKbeRhRo4tkDIW+azR
+	+UQ4jbHZXGTvhIGllkx/fhSXRnQnisA2hkqkTVk6
+X-Coremail-Antispam: 1Uk129KBj93XoW7uw18GF1kKw48ZryxXFWrWFX_yoW8Aw43pr
+	Z29Fn0yFyDWr4YvanrJrsrZF18AanrAry5CryI93yruwn8X3Z8Gr1UK3ya9ayDZrnxAFyj
+	vrZ8Jw4Uua98G3cCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
 
-The driver implements device_pause/device_resume, but device_tx_status
-keeps reporting DMA_IN_PROGRESS for a paused channel, so clients cannot
-tell a paused channel apart from a running one. Report DMA_PAUSED when
-the channel is paused and the cookie is still in flight, and clear the
-stale is_paused flag in dma_chan_terminate_all(), which disables the
-channel and thus implicitly cancels the paused state.
+The intr URB submitted in ems_usb_start() is not anchored, and its
+completion handler ems_usb_read_interrupt_callback() resubmits it, so
+it stays in flight as long as the interface is up. But unlink_all_urbs()
+stops this URB with usb_unlink_urb(), which only initiates an
+asynchronous unlink and returns without waiting for the handler.
 
-Also, the residue of an in-flight transfer is currently derived from
-the number of completed LLI blocks, so it only advances in block-size
-steps and stays stale for the duration of a large block. Read the
-current hardware pointer (CH_SAR for MEM_TO_DEV and MEM_TO_MEM, CH_DAR
-for DEV_TO_MEM) and walk the descriptor's LLIs to compute how many
-bytes have actually been transferred. Queued descriptors keep
-reporting their full length and cyclic descriptors keep the
-block-granular accounting.
+The handler can therefore still be running while ems_usb_disconnect()
+frees its data: it reads the transfer buffer dev->intr_in_buffer, which
+is kfree()d there, and dereferences the private context, which is
+released via free_candev() together with the network device.
 
-Tested on an FPGA platform.
+Fix this by stopping the intr URB with usb_kill_urb(), which waits
+until the handler has returned, so the frees in ems_usb_disconnect()
+happen strictly after the last callback.
 
-Signed-off-by: Rui Wang <wr574332525@163.com>
+The handler treats the -ENOENT completion of a killed URB as terminal and
+does not take RTNL or any sleeping lock, so the resubmit loop is cut and
+no RTNL deadlock occurs.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 702171adeed3 ("ems_usb: Added support for EMS CPC-USB/ARM7 CAN/USB interface")
+Cc: stable@vger.kernel.org
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- .../dma/dw-axi-dmac/dw-axi-dmac-platform.c    | 60 ++++++++++++++++---
- 1 file changed, 53 insertions(+), 7 deletions(-)
+ drivers/net/can/usb/ems_usb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-index eebed2474..4e1b8654a 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-@@ -352,19 +352,51 @@ static void vchan_desc_put(struct virt_dma_desc *vdesc)
- 	axi_desc_put(vd_to_axi_desc(vdesc));
- }
- 
-+/*
-+ * Return the number of bytes already transferred by the in-flight
-+ * non-cyclic descriptor, based on the current hardware read or write
-+ * position: CH_SAR for MEM_TO_DEV and MEM_TO_MEM, CH_DAR for
-+ * DEV_TO_MEM. Must be called with vc.lock held and the channel
-+ * running or paused.
-+ */
-+static u32 axi_chan_get_xferred(struct axi_dma_chan *chan,
-+				struct axi_dma_desc *desc)
-+{
-+	struct axi_dma_hw_desc *hw_desc;
-+	bool dst = chan->direction == DMA_DEV_TO_MEM;
-+	u64 pos, start;
-+	u32 xferred = 0;
-+	int i;
-+
-+	pos = lo_hi_readq(chan->chan_regs + (dst ? CH_DAR : CH_SAR));
-+
-+	for (i = 0; i < desc->nr_hw_descs; i++) {
-+		hw_desc = &desc->hw_desc[i];
-+		start = le64_to_cpu(dst ? hw_desc->lli->dar : hw_desc->lli->sar);
-+
-+		/* Current position is inside this block: partial progress */
-+		if (pos >= start && pos <= start + hw_desc->len)
-+			return xferred + (u32)(pos - start);
-+
-+		xferred += hw_desc->len;
-+	}
-+
-+	/* Position doesn't match any block, be conservative */
-+	return 0;
-+}
-+
- static enum dma_status
- dma_chan_tx_status(struct dma_chan *dchan, dma_cookie_t cookie,
- 		   struct dma_tx_state *txstate)
+diff --git a/drivers/net/can/usb/ems_usb.c b/drivers/net/can/usb/ems_usb.c
+index 9b25dda..9ffb195 100644
+--- a/drivers/net/can/usb/ems_usb.c
++++ b/drivers/net/can/usb/ems_usb.c
+@@ -705,7 +705,7 @@ static void unlink_all_urbs(struct ems_usb *dev)
  {
- 	struct axi_dma_chan *chan = dchan_to_axi_dma_chan(dchan);
- 	struct virt_dma_desc *vdesc;
-+	struct axi_dma_desc *desc;
- 	enum dma_status status;
- 	u32 completed_length;
- 	unsigned long flags;
--	u32 completed_blocks;
- 	size_t bytes = 0;
- 	u32 length;
--	u32 len;
+ 	int i;
  
- 	status = dma_cookie_status(dchan, cookie, txstate);
- 	if (status == DMA_COMPLETE || !txstate)
-@@ -374,13 +406,26 @@ dma_chan_tx_status(struct dma_chan *dchan, dma_cookie_t cookie,
+-	usb_unlink_urb(dev->intr_urb);
++	usb_kill_urb(dev->intr_urb);
  
- 	vdesc = vchan_find_desc(&chan->vc, cookie);
- 	if (vdesc) {
--		length = vd_to_axi_desc(vdesc)->length;
--		completed_blocks = vd_to_axi_desc(vdesc)->completed_blocks;
--		len = vd_to_axi_desc(vdesc)->hw_desc[0].len;
--		completed_length = completed_blocks * len;
--		bytes = length - completed_length;
-+		desc = vd_to_axi_desc(vdesc);
-+		length = desc->length;
-+
-+		if (chan->cyclic)
-+			completed_length = desc->completed_blocks *
-+					   desc->hw_desc[0].len;
-+		else if (vdesc == vchan_next_desc(&chan->vc) &&
-+			 (axi_chan_is_hw_enable(chan) || chan->is_paused))
-+			/* In-flight descriptor: read progress from hardware */
-+			completed_length = axi_chan_get_xferred(chan, desc);
-+		else
-+			/* Still queued, nothing transferred yet */
-+			completed_length = 0;
-+
-+		bytes = length - min_t(u32, completed_length, length);
- 	}
+ 	usb_kill_anchored_urbs(&dev->rx_submitted);
  
-+	if (chan->is_paused && status == DMA_IN_PROGRESS)
-+		status = DMA_PAUSED;
-+
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
- 	dma_set_residue(txstate, bytes);
- 
-@@ -1206,6 +1251,7 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
- 	vchan_get_all_descriptors(&chan->vc, &head);
- 
- 	chan->cyclic = false;
-+	chan->is_paused = false;
- 	spin_unlock_irqrestore(&chan->vc.lock, flags);
- 
- 	vchan_dma_desc_free_list(&chan->vc, &head);
--- 
-2.43.0
 
