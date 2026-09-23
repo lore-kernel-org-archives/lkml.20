@@ -1,140 +1,130 @@
-Received: from mta0.migadu.com (out-156.mta0.migadu.com [91.218.175.156])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4454119EE
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:56:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E4941D652;
+	Wed, 23 Sep 2026 08:56:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790153802; cv=none; b=OemG7PIvOq+6y/FeRwMBgX0BqOoiZ4FGsTigjhkJ+caK5tY5DU/rnLi2CsLZxz7XDPGQTCEX4N09Y52yXdMRRLTY606qV1eWE4yBHLmi31UDcKuBoFmFEObHz2hv4cix7yesc+y6DtRYhc0soS5bskrqPysJ+XdF7Qc6rKKbWuQ=
+	t=1790153809; cv=none; b=HAMERTBV+X9LP8ISkggoN2oQsU0zrMEw0eAXCDSe4w4s60K0EdktQRFspIuDnBVXjKl9f8T8aqtMd9LgfQbusZy6v054peFnmKVK2IoznOJj9eRnW0fZ37NA5SanzaGIQ2wjhbNRKqrWkWljighOcvw8Ks8uQYoFAHR/qXoMCVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790153802; c=relaxed/simple;
-	bh=dnPq4pRHlT6hpC3lghdvKVIgRaHtyf+n6DAJtS+2gSk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y1Mb3nHNd0+nSh8tT4RCpgI7NcNNMymFlthr9iENkgZuNKAB/QBnRkUTqdJ1TF6EH9aH8kr1DlZ00LRZ4xmo+wPTRHNQ2T9y634sJpKAIyQ4QGXp6W4euWISUULJUvlp/dvyU3jorpibBgSPr5PRyTa+r+mCXLD38Sg3Qzg/39I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oXZF0OB+; arc=none smtp.client-ip=91.218.175.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790153809; c=relaxed/simple;
+	bh=D+PRfodcb5DeYcdICrW1OrpyffEkbwC4VHviyDXCiY4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=WxaevH9f7rPFXFe1mlmydhXh0yOVN/hgtOR+EzHaLENx+CUWoozP1PM3Ka3+P1UW+LK+1PdrwjRa7GeBfB0gqG2taWc3gNImoFtzq+WBEIuYGx3YcwzaO1Xt+aFocxNKrerzkH7LUg+xiiflpYagIKbzfDBXVXbrm6lLrZeljH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R3cr94nW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oXZF0OB+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dnPq4pRHlT6hpC3lghdvKVIgRaHtyf+n6DAJtS+2gSk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790153798; v=1; x=1790758598;
- b=oXZF0OB+RmD1ab//9L5cZkloiO/n5jwMqKIhXAmLw8oQMSx01KHbWJKNDs3pi0AcXov9BFlj
- DZcCPXAFG/tHpnopAoOfAv31RtBK6NhraJo+kf8gJLaQKaM1TK2YNCc8d8CPq45bhGcRoqkh8Q8
- Ut4CcAiIJ7FE6fxYkZC00BjU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a3c32f82d4955334;
-	Wed, 23 Sep 2026 08:56:37 +0000
-X-Mizu-Trace-ID: a3c32f82d4955334
-X-Migadu-Flow: FLOW_OUT
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-To: Waiman Long <longman@redhat.com>,
-	Ridong Chen <ridong.chen@linux.dev>
-Cc: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>
-Subject: [PATCH] cgroup/cpuset: Cancel CPU transfer when housekeeping check fails
-Date: Wed, 23 Sep 2026 16:56:24 +0800
-Message-ID: <20260923085624.172022-1-guopeng.zhang@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R3cr94nW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3EE1F000FF;
+	Wed, 23 Sep 2026 08:56:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790153807;
+	bh=peEgk85oW0o45UEk+b/f1O4XOFTkrbbpNKdH9tZIxrs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=R3cr94nWvED/W8J4yBUH6ftLMuhyyHma6K/pTW4JT9FLiWtaRj+uRuCeL5BLUAeLB
+	 aGfV/WAIMXemugLY+j/hmXoZ+4Rle7iPgaXAzQfraKHXhV8VxKDOnRnagoNpbP90NA
+	 68QQyaQgzvPuLpypffKoSeoVgi1OCPtq57yP/SKpJmt2UPlAyNEz0MvrnhWbtWa00R
+	 PzkU3ld9Gp9zu8mQ5N9fjRXi7nxze2GkWNm+xxZkhaGeUlKVnB78EZvI3Va/SKCHmh
+	 FjmDuJ3MdShYxJTPYuxbKD/rp2Akbdzz+W4cy9dJyvdWKrAfDinjPm10c8T5P8R7hW
+	 peCzBfAHiMWbw==
+Date: Wed, 23 Sep 2026 17:56:40 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Peter Zijlstra <peterz@infradead.org>, Steven Rostedt
+ <rostedt@goodmis.org>, Ingo Molnar <mingo@kernel.org>, Sean Christopherson
+ <seanjc@google.com>, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>, Thomas Gleixner
+ <tglx@linutronix.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org,
+ x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
+Subject: Re: [PATCH v17 01/13] x86/mce: Fix hardware debug register
+ corruption on task migration
+Message-Id: <20260923175640.e8d80d19e63a77b75a8968d4@kernel.org>
+In-Reply-To: <20260923002740.GAarMc_PJBsgo8Z-G9@fat_crate.local>
+References: <179005108298.388919.4535333252892590932.stgit@devnote2>
+	<179005109564.388919.3937970081044095776.stgit@devnote2>
+	<20260923002740.GAarMc_PJBsgo8Z-G9@fat_crate.local>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+On Tue, 22 Sep 2026 17:27:40 -0700
+Borislav Petkov <bp@alien8.de> wrote:
 
-Widening an isolated child partition to include the last kernel-noise
-housekeeping CPU invalidates the partition, but the CPU transfer
-computed before the housekeeping check is still applied:
+> On Tue, Sep 22, 2026 at 01:24:55PM +0900, Masami Hiramatsu (Google) wrote:
+> > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > 
+> > In exc_machine_check_user(), local_db_save() and local_db_restore() are
+> > invoked in the outer entry stubs (DEFINE_IDTENTRY_MCE_USER,
+> > DEFINE_FREDENTRY_MCE, and DEFINE_IDTENTRY_RAW), surrounding
+> > exc_machine_check_user().
+> > 
+> > However, exc_machine_check_user() calls irqentry_exit_to_user_mode(),
+> > which handles pending thread work and may schedule() if TIF_NEED_RESCHED
+> > is set. If the task migrates to another CPU during schedule(),
+> > local_db_restore() runs on the new CPU with the dr7 state saved from the
+> > old CPU. This corrupts the new CPU's DR7 hardware debug register and
+> > leaves the old CPU's DR7 disabled.
+> > In short, local_db_save() and local_db_restore() pair must be run
+> > on the same CPU.
+> > 
+> > To fix this, move local_db_save() and local_db_restore() inside
+> > exc_machine_check_user() and exc_machine_check_kernel(). In
+> > exc_machine_check_user(), DR7 is saved and restored strictly around
+> > do_machine_check() to avoid schedule() during migration. In
+> > exc_machine_check_kernel(), local_db_save() is called at the entry point
+> > to prevent early memory accesses from triggering nested #DB exceptions,
+> > and restored on all exits.
+> > 
+> > Fixes: cd840e424f27 ("x86/entry, mce: Disallow #DB during #MC")
+> > Assisted-by: Antigravity:gemini-3.8-flash
+> 
+> verify_tags: WARNING: Zapping LLM ads tag: ['Antigravity:gemini-3.8-flash'].
+> 
+> Needs to be:
+> 
+> Assisted-by: LLM
+> 
+> Please fix all your patches.
 
-    WARNING: kernel/cgroup/cpuset.c:1315 at partition_xcpus_add+0x61/0x70, CPU#1: sh/1052
-    Call Trace:
-     <TASK>
-     update_parent_effective_cpumask+0x320/0xa30
-     cpuset_write_resmask+0x1e6/0x7c0
-     </TASK>
-    ---[ end trace 0000000000000000 ]---
+Ah, let me fix it.
 
-This can be reproduced on a 32-CPU system booted with nohz_full=1:
+> 
+> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > ---
+> > Changes in v15:
+> >  - Move local_db_save() to the entry of exc_machine_check_kernel() and
+> >    restore it on early return from mce_check_crashing_cpu() to prevent
+> >    nested #DB on watched variables.
+> > Changes in v14:
+> >  - Newly added.
+> > ---
+> >  arch/x86/kernel/cpu/mce/core.c |   27 ++++++++++-----------------
+> >  1 file changed, 10 insertions(+), 17 deletions(-)
+> 
+> Yah, makes sense.
+> 
+> I'm thinking this needs to be CC:stable and I should take it in now.
 
-    cd /sys/fs/cgroup
-    echo +cpuset > cgroup.subtree_control
-    mkdir A B C C/child
-    echo 0 > A/cpuset.cpus
-    echo isolated > A/cpuset.cpus.partition
-    echo 4-31 > B/cpuset.cpus
-    echo isolated > B/cpuset.cpus.partition
-    echo +cpuset > C/cgroup.subtree_control
-    echo 2-3 > C/cpuset.cpus
-    echo root > C/cpuset.cpus.partition
-    echo 3 > C/child/cpuset.cpus
-    echo isolated > C/child/cpuset.cpus.partition
-    echo 2-3 > C/child/cpuset.cpus
+OK. thanks for review!
 
-The last write returns 0 and leaves the hierarchy in this state:
+> 
+> Peter?
+> 
+> -- 
+> Regards/Gruss,
+>     Boris.
+> 
+> https://people.kernel.org/tglx/notes-about-netiquette
 
-    root (cpuset.cpus.effective=1)
-    |
-    +-- A (isolated):       cpuset.cpus=0
-    |                       cpuset.cpus.effective=0
-    +-- B (isolated):       cpuset.cpus=4-31
-    |                       cpuset.cpus.effective=4-31
-    \-- C (root):           cpuset.cpus=2-3
-        |                   cpuset.cpus.effective=<empty>
-        \-- C/child (invalid isolated):
-                            cpuset.cpus=2-3
-                            cpuset.cpus.effective=<empty>
 
-Before the last write, C owns CPU 2 and C/child owns CPU 3. The last
-write changes C/child's CPU mask from 3 to 2-3, which would transfer
-CPU 2 from C to C/child.
-
-The housekeeping check invalidates C/child, but delmask still contains
-CPU 2 while addmask is empty. partition_xcpus_add() therefore removes
-CPU 2 from C and warns because the new partition state is invalid.
-CPU 3 is not returned when C/child is invalidated, leaving both CPUs
-unavailable to any valid partition.
-
-Handle PERR_HKEEPING like PERR_NOCPUS: cancel the pending transfer and
-rebuild addmask from the CPUs currently held by the child. This leaves
-CPU 2 in C and returns CPU 3 to C.
-
-Fixes: 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full don't leave any housekeeping")
-Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
----
- kernel/cgroup/cpuset.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 753aa65afcd7..a4ead0d3c872 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1929,6 +1929,17 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 			    /* Adding to parent means adding isolated CPUs */
- 			    !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
- 				part_error = PERR_HKEEPING;
-+			if (part_error == PERR_HKEEPING) {
-+				/*
-+				 * Fall back to returning all the granted
-+				 * CPUs to the parent instead of applying
-+				 * the pending change.
-+				 */
-+				deleting = false;
-+				adding = cpumask_and(tmp->addmask,
-+						     cs->effective_xcpus,
-+						     parent->effective_xcpus);
-+			}
- 		}
- 
- 		/*
 -- 
-2.43.0
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
