@@ -1,254 +1,192 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11013060.outbound.protection.outlook.com [52.101.127.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C922B3ACF14
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:55:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790135704; cv=none; b=hWAKsRFQiYfksemEDqrJLCDAuavlbw4L8+bnZNL8ZRTtiFHF9bTrJvksEGKWocXjA4ZkXsIk3HeMeT4/uE1k6nYISYFfPdAsMBXprkb5u4t3uvrciGKkRN4MiNA+q+cQb0vyxRY+ZxaHdVk/a2Y/81+PqWbFMoq6yaGN20N5qwU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790135704; c=relaxed/simple;
-	bh=I2y+Q3y/JP4FAuevPIkg/yzyIU7sQ8gYea8Sp5bayYk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VqZPDqbXNHa7kvzuzdCc1KAfxB1m/bKQoVBSl25mCClMWfnx3GoQmx5eqbVaIOzx2lI31dxfhGouS1cni76yMpcQU8L3H8EY6yhUYNWGT5S9RfKRUM3TpkFlHtb1ALE+j1PPTo5RMMuUnAkUkQLRiM/lsAx1x2Jugt56qUhYxPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OVz0iY5+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PHIxKA8q; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 977C93ACF14
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790135789; cv=fail; b=o8PnA4vnLomZz/8C2403Iu4olPunX8BuN4Z+hf0C/xKx/u2mvj0pg2fTcFAY2Y5s2fKxtinEKlGslll9PC77bHtHL3Me3CNw0B0uPbV8cQ/ONnmll33FvBEQwmU0oRmIM18BvTEy7+zWy4MCOzUe6SDjtbSI8358GTzpwM77p8U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790135789; c=relaxed/simple;
+	bh=TnXRHNcNNPO7Sh8gsD/Aep2Gh0iQmLScx9Jpv6P7o9s=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=ZDI8hx7LXFyUZc9x309909dgSlArvrhhIpVX+18ds5wyDqzOxIk97zNBgL6MEgxuvpfLagmpsv6SPbXHsJEuzKxhua32Y4fVq9Ta15kCvPDUvGidmp+ho7/HHHkq1rSdo2fPG5ov/PTAASh6UIZEAAmN0jx/aKXsUKucDWW/hiI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com; spf=pass smtp.mailfrom=vivo.com; dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b=EULLs3kW; arc=fail smtp.client-ip=52.101.127.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vivo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vivo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OVz0iY5+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PHIxKA8q"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3iXY32728534
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:55:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HsyStiKpapbMHJVSA8FehAfpdi4M9Dgl9/9WbFEg8zI=; b=OVz0iY5+Vc4TW2mH
-	PbtRPb555/pCRTK/PD3f7jj+fPezS0CQ8nbr2mSrIypVtwDC18pp/gD13db5KVFu
-	ZIJ3NiNA9v53iZzZD7nHVpnQHNAG9z9l20dbkqe6Fof5PsSbsmKkkIfVFOTw+lZD
-	gn6d0Ro6TWVN8Lpg1NyxYVM4iz6a6spVy6sAzQjDPmzhcl4yEyj52dqwOMNGKKJm
-	n0kV87ZFlJMBFMj0OogzHcjEDBgH4g/gTUhvcR2mt2CP8KrWJqA4MhMbz4DSpbP4
-	dD4zuBxysx42Qn3lgeQa+1hQU4hmXTeBg0/KflcJ+mw+L8VXXVxDyeJm1SXH4EkW
-	p9HkuA==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux7xtcga-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:55:01 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33bee712354so569361eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:55:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790135700; x=1790740500; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HsyStiKpapbMHJVSA8FehAfpdi4M9Dgl9/9WbFEg8zI=;
-        b=PHIxKA8qUF/OA5lLf42Yr1DtY7na/kXx4gpogH3H7gngF+qAfBfsQ5QADmhAh/mpCE
-         vSOWLHz4wvuqnE7NV3iTU2RAvNE3jmw9btTii5QyvtAPmh4/Hnv9s/OPJgXTONEg3pfk
-         8PqM/Y64esAJm3SyrkOcgd4DKW1C7s3TmSMsPh9RclDCuzyF4Gfr3v+MFJ38dJGbsvnq
-         X/3m8War7wLJp7PBps3v0PJS+DpXapuFQAz6GeKqJ4Vl0A1TCiY095t8F4MMtCA3F0Sx
-         iHPoZ4RAusL4EId4U/DfQxq40PfVtwUVqzbFVwQYw9UmE3rEvjjfTBLMpwHLKSeW0BS7
-         2xGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790135700; x=1790740500;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HsyStiKpapbMHJVSA8FehAfpdi4M9Dgl9/9WbFEg8zI=;
-        b=Ir7YHaUjbJjWDWJJD75avQtwYidspsjFNdGSSMAb/EQF2Q27uBm20Q7diSRO6XL086
-         xd51lL4vmtxLKxqn2UESFJXegvzV15nSh79UkZ8B1xarqniFOzi6fscFYh14e+/F7PCD
-         eR5XW6HhR+Csnv3ORtXOqC9RiwrEI0gCD8CMh4pgiA5Gy7evbRNYGPC32kKYSyf0MVGX
-         2AHSQhK+o1zK1R5M2a2zcZTSm3W06yBWM3yhUNZkbcNbKFr8XkM5FA6hreEZdnkxezxw
-         JVcyymi23/fE9opS6hv/r17V7ZV1OTbYVgOjMpLY7ycOL4N3IPtFcQBmCAYR38f4HnqS
-         nO6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzSeZwAQQZeXGrXhZqYVMGKSe6XklmBNsHcPx78k++JIYnIA03OScWriayhWMJv3fCDoGwYEs1+03O8+18=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmOsIXhoFxoiVQDALcrHVUeKsDVHClZsfr0ObBu1L//oMd4PZS
-	dYVrnHhJpxJnpftUJCqxjMlqXCV4nNGAE+81jgpgsf1JDqf+jJDk91W4m+8qvDle+ng4Ccc253R
-	oeAW5frclkxWhr/djEpo89oGOrV7r4CO7mhVma6RlM3Wji2TASXbJCWhlOIUqpG+ni2E=
-X-Gm-Gg: AYBFou25fuFLpUnGupADz2fa/4/1UT//B3dQZw90X9eJ0cWHomVP4ZR5WXLK0mrdSb5
-	W7ql1sA9n5TmtUn/u07vULXrIYzSjXzwDM20WAD2QAxnRTLIuIRRIrpn4dUrVo0eaUVt7p3SK8j
-	6+fO2FOUXv7o/1nvGXSdXYHGqsQhrE2/Szw4qV7xGDz+nB9mA3X2oTMAtElqYBwa+E+N5X9cx4g
-	duj1WQtmJgAQBdNjN2cSTDFCM11EOhEELGqzQOXUykwnADaDy53Fp8j0CGRgCvlDujoXj29DL25
-	oZxrFcZ5Y8btoA76pRxsSh8eNaNzz7d2VEJmO71anXBsnzSx+s9/Laog06hAKcber2ncpmjk3Te
-	vVErUj+wtlL44JTkw29UnDw263b1J8Fp3
-X-Received: by 2002:a05:7301:700d:b0:33b:fc00:976a with SMTP id 5a478bee46e88-33e8ddc27e8mr1454091eec.35.1790135700305;
-        Tue, 22 Sep 2026 20:55:00 -0700 (PDT)
-X-Received: by 2002:a05:7301:700d:b0:33b:fc00:976a with SMTP id 5a478bee46e88-33e8ddc27e8mr1454061eec.35.1790135699641;
-        Tue, 22 Sep 2026 20:54:59 -0700 (PDT)
-Received: from [10.218.42.145] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e95c7bf6bsm2357770eec.8.2026.09.22.20.54.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 22 Sep 2026 20:54:59 -0700 (PDT)
-Message-ID: <2b0d3e13-96fa-437a-9de9-4a61911fe232@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 09:24:55 +0530
+	dkim=pass (2048-bit key) header.d=vivo.com header.i=@vivo.com header.b="EULLs3kW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UCLO8Dl9CBXk+1QwF4lmlcA3Mi5rP523fBZtY0cNNpkwugMw4j/mWYrFQeWutf/GGEXaR/wZ0jAkICPQCqu96/KRv5ExP78jUT8Wm7Fz5NdHA+Z5IU3DNBJWFaLtMP8vKvCRN/PKGfvT5QTLmF4kvs+KTn3c7idOrHkX9d9sWdhBexl+n/FhyWYyXZvZwkyjlAIG5ObsknfqU2AbXQN/KY4iWaCYWnIgWd6Ic5OIPxxntV9IwoOGepgi1rVKbHZQri06Ma2GJK/9kO6zwxVqdsaH0wcw9JgHG+jdbEvkMK3HWCiRlkuOug+EnCZEbP8cxJhNbb1/niHNzmPMlFFA1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gJWxYdC7YQqa4aPLEPLBpXQwK8Ul1FzIVLNsf1V9vc0=;
+ b=iTuJDIfARGmF92/Y7uU3cGsjqLei9Tmi0/CFR1ty34BkLEkyYnoetsBlGzVH+9XgQYTth6kng8QMPyRp0zmf2WKeWkE6n1WE/CeWcTxVopNrZxDrY2+HHa7jP5QRVwBjT07INRzBtE6yfv7CCizRNRFyO+YSjaS7yycHYJ9ocobcu/GU7M2yl4MPOXQGRCFG48eZLgUOOpN+OO5RnfapUcpbmxV5YHD9kZxe/UGYnuGcErZI9l1zOcd0/EwYl/rq3rwZUhqSLGXPpOvhR6l8mtf92WyljnnsakhLj6tRTNx03p24rry+oCZIyQ6lcO9kQqXvnhuMEJQXUBUVHHrLQw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gJWxYdC7YQqa4aPLEPLBpXQwK8Ul1FzIVLNsf1V9vc0=;
+ b=EULLs3kWCuJCFrWQ/G8c1P3hv6MmYEpI8NK92DJP86s/oX5l2t0Bs4VxfsQw3hUNYy3JoOSxgj9bORNFaWVIdnPMyh8ib3DYqFLlo+Lx+alHHkYo5JPPtsOgAlRbmenmaUXzous8tnmYhLkCxyZ+vOwv3GFIt8Oyavp7E0IYVcOd7ZoGm1eOLZqaESZKxPviC/x3byxymnibXc3Rmj4dJeMHQeEJKIfIqx3SOdBg+oHFK4N44rp8gOjLF1Zk0t9lvPzYqoeV0Hl0Kdlr2x4v2lIJQQnasTAsvUnjB7VMFkFgJz3U7YNj4hdK0rZOMGTtBv0qZGUBIadGnyNlnk0qYQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+Received: from PUZPR06MB4742.apcprd06.prod.outlook.com (2603:1096:301:b5::13)
+ by TYSPR06MB6470.apcprd06.prod.outlook.com (2603:1096:400:483::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 03:56:23 +0000
+Received: from PUZPR06MB4742.apcprd06.prod.outlook.com
+ ([fe80::206c:c661:9838:5571]) by PUZPR06MB4742.apcprd06.prod.outlook.com
+ ([fe80::206c:c661:9838:5571%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 03:56:23 +0000
+From: Fuyu Zhao <zhaofuyu@vivo.com>
+To: tj@kernel.org
+Cc: void@manifault.com,
+	arighi@nvidia.com,
+	changwoo@igalia.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Fuyu Zhao <zhaofuyu@vivo.com>
+Subject: [PATCH v2] tools/sched_ext: Add SCX_OPS_OPEN_OPTS for schedulers using open opts
+Date: Wed, 23 Sep 2026 11:56:13 +0800
+Message-Id: <20260923035613.20099-1-zhaofuyu@vivo.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI2PR01CA0010.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:191::12) To PUZPR06MB4742.apcprd06.prod.outlook.com
+ (2603:1096:301:b5::13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] bus: mhi: host: pci_generic: Add autosuspend_delay
- customized support
-To: Slark Xiao <slark_xiao@163.com>
-Cc: mani@kernel.org, jeff.hugo@oss.qualcomm.com, mhi@lists.linux.dev,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260919095506.9570-1-slark_xiao@163.com>
- <bf94f351-777d-4dc0-98a2-7af77f832f2b@oss.qualcomm.com>
- <1bec2fd7.99f3.1a0c8ea4db6.Coremail.slark_xiao@163.com>
-Content-Language: en-US
-From: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
-In-Reply-To: <1bec2fd7.99f3.1a0c8ea4db6.Coremail.slark_xiao@163.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 1ULkcGMmARMEHIqBoz3UkdKaxrgkUloZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAxNSBTYWx0ZWRfXxsVqYm7zVtjD
- ZsHyZpnj1PegF4uK9qXsE0e8hH2VH66iapQXCSTysbw9QPIWUktqsLQK7TTiG2Hx/jOZ8TmZfQa
- ogvx80lmSVxY+SRFdBTMtEvnF65YqgX387DSlTG6+wt60e+QWGffO1YVX4d8FZsnu7nG4y6mVe1
- iJCFmavHmRhaMh5k6et/Ge214OIO7P2Ci5EioqlJTlhnbbwRwUVhTt2KurAAowASjO35NWNQRvW
- JBa5CQMguO1gGAdG9oxjOwSqEQTLnq2x0tMAPo2pAb6qaOTrmcWTBxyRngebIYNS8620oSDWDg/
- b8oZWcvviAnh0dtYeDEWqzAfqa+R1sPWui6b/JLD26B8piLQ4jKG1gCeGjn5U4thxUFW1GcAEkw
- Btbogj7y70VW3j7zYXaGadnTRiWYVX8KNZYJU6bJ5LXjf7mQMkDg/Mrc/pebRG89oLyMUIp/nM3
- 3NbrzZ3L7jB4V/siGWA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAxNSBTYWx0ZWRfX2Fq421tukTJK
- jRmGeYFz+my3NjxJgAcEulY3/21o4ahPCmTwRSpmCmtqQTmdBLwQPWBuWcPjhqgSu+qT9ryq/kd
- 1Z1hvd6UFKTX2C3742G/07YJXyPiD9s=
-X-Authority-Analysis: v=2.4 cv=QsDLTlyd c=1 sm=1 tr=0 ts=6ab34d95 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=Byx-y9mGAAAA:8 a=Pom97L_i2cqLMbMsZTUA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-ORIG-GUID: 1ULkcGMmARMEHIqBoz3UkdKaxrgkUloZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 lowpriorityscore=0 phishscore=0 bulkscore=0
- suspectscore=0 impostorscore=0 adultscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230015
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PUZPR06MB4742:EE_|TYSPR06MB6470:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59344153-3459-4938-ae7d-08df1926a220
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|52116014|23010399003|376014|1800799024|38350700014|6133799003|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	s5qYMK/Dlfm7d6jLt3NeIVWJQyML1glgV7x0tK8Cin17tN4HEeXcnOanFf0UCHDUsQ7LhOF+wW3b9SHkQsdXwFbf/dhxzryn4uA1LypBJZXokeI7miKF4xuNjvGRXQUpCCvApBXoUB/2TooS3lS+IUGbQrJP+DSqzMwdpoduXU0wQAMUFz430TsnFddEwAIAaFw0jG4gndTY9rXB1OFDcrqOePXrslr/ln6HIaek+82qAQIlCgW/zYRU7iTyl+nbIgxqhZ7TFTzv85dExeFHSRwoEDb5iBOPNE0Ot7euaQUY1EE9eXoBfVM5WZbYtmNDV/b55XiXsZdznCNsxES3uOjKcEhxvOVgFBBQbXQ+S6n+Ky9UPn0zqQaJTJbXlAIomvTw6oojq7VytdMskTNYTpyYjcZ9Xra7Yt9Is6fxhakWMXrjwDg5/O3qDtmqC0w5IJ1N8VhUJTKZJKJgozXfNFpvvFHwkZP1DeJ/g/JbRM77Lv9Q+8YD2ODnUdv04ERMH2kvcJLxz2/f+/KZblqlBlkxuCW0wFABXo5Jv/2gPON9W4wLWVMdYQAMtp5kmxqVYY169/Bu7Mr9yAD6FdJW1yaqH8ih9L4Inql+g15GFytILsHNeRPkpcebFUqQUmgsy6c1TLA2a0sbMBgp5JEVaaSQdXFKGSCOVrMDlsvsEUzPJoIaGuLnVJQtp0U0FyFesEqh3rAJIJylMxnGlJOBXY72Qji/TYrxEIT5Q8JcWLQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PUZPR06MB4742.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(23010399003)(376014)(1800799024)(38350700014)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?36/3DrC/kbJ8eH8rEuCQwu6ZnrIIOND18lR6OakOfj41XDcZ8YS3Mn6fTr3+?=
+ =?us-ascii?Q?QZj+hup1cMiWf33WDEgsVYZDjsclIYowISslt6p54/GE3mmpYx6z/x8AxwxU?=
+ =?us-ascii?Q?5Fex4HYb0nNbZySpdzDuVuHXYodfsiQu5hFL2ZuaHWGm5m2pnfViQ0WK0M2T?=
+ =?us-ascii?Q?rI9q5bUt2EKg6CqOnHapZK9mlqtpDjxD01oNKom19YHD4VgOYlUVnRVTonKj?=
+ =?us-ascii?Q?4us4QPuziJ5wjE7k7kDnxxUodEFJ6Z1rMWXb3EsK51E7rVqFVu50qTaSGxoT?=
+ =?us-ascii?Q?uU8A37jdg05qu6yCNqsA90woHB1zT15P6ogz/2ZldVYVX/DjJupAAaSG6wHQ?=
+ =?us-ascii?Q?t2QQegdRDt07gnft8PqZIiocX/zMsT1zG95KTtY9MNoxu2HbjAshiv62WmBT?=
+ =?us-ascii?Q?yL+pwEY/XLFQ8u2w6xPu6BNKO08J1mLrXsLX5bHHDTe8CWTxleWcJ5xWWL22?=
+ =?us-ascii?Q?PcgV33drshPHHnQkoWXY1+5mbiKZUJpH/rsAHbNd9Trvw384+8CIompM9DO1?=
+ =?us-ascii?Q?kmpvyz8yyUxkVPWSahaSmvwphupSTOXbsUyTOvFDilZNyJAWhpch7zM2JcvR?=
+ =?us-ascii?Q?ENCt7JcWi2CRP8JYfkXecEQPNxnZagUVFq5Nopzfs9eNPbpM81MZ82tmggtw?=
+ =?us-ascii?Q?HyASb9rlQSx2MUtIsSpqKY7sjXXAt72or5MNKMQTn4BVBkYdyzTaDgOObNB/?=
+ =?us-ascii?Q?BUue0+XdF1kle6IzROG3l/ou62krX//dn5aXFmb6bZe5pfK7/l6nFMT83Tg2?=
+ =?us-ascii?Q?8lsm1q5dv/BlANbRS3OiAQ0DPVCeZVN0+ofUX4CgzD3ze9wBe2v4qfrcVkgN?=
+ =?us-ascii?Q?DkY5pGDOveOFV7LFKr7UoKQtqrUB0xYQ8wPYcHE75t8LznjsUJYLV4OSf8Xs?=
+ =?us-ascii?Q?VdJNkKKDhN7U+BRLrAGvmKTDuKXCEPQLKf2QMo3JkJoV7/RPDWsVKFr1S/T/?=
+ =?us-ascii?Q?sy9gxihgw5UavCUyjveitP3QVd0rwZrrYw/73fjoc5xI262Fvwsr9NzgO2bL?=
+ =?us-ascii?Q?QGejQqzjXfeqbEyhFvgw/+Nt6opVHNfbmjvXRriXBJkb2c6NlRuhk3n5KSoA?=
+ =?us-ascii?Q?ulmEXhJMMWP/kSfPi3G/pjXJkvvG3iom9mI5L5qETUXwSEhFu3B7fqsXWpr+?=
+ =?us-ascii?Q?ap1FojVjgRSeYfKVQW26yosJ/3IKfxbFrV7ToCHDqrmnio3WyhmQBVGgVYtC?=
+ =?us-ascii?Q?L3ojdTWSAm5bgFdPBBhk8W8+dPnLX2dNum9dVYuY3Ajiddq3teME9t9RzfGM?=
+ =?us-ascii?Q?LEYS9yKwWWWVGud7tpIOI8cLWjAK+AY+3QR8MoKVpukPzM6zD/H7HWpOivMv?=
+ =?us-ascii?Q?aQ2TYV0bnwm5FjNltK9Kn/EVF1vcWdqeYqyjVfHvaKVpCT5SREePwPAELxZB?=
+ =?us-ascii?Q?KJ+Xl7cTTMQo9ctxPZfWOJ4vIVxNRt+znRp52TaawQWII2h5e+opk4aPM+WO?=
+ =?us-ascii?Q?o4NUnXpPhs/HTGRUgsFceygh8LJ4n5Q9iGVIETMhQhX5k2iFGOGX3oewStoH?=
+ =?us-ascii?Q?dLSdBHA7fkwqo817Uv1BIgdLOA7YbqcbKk324yHzWuaO8WnwXOYtaHr4RSi0?=
+ =?us-ascii?Q?5rQhwJqhJHy858eTQxNv7pGsw3heirUrGVbaq4dxi8y3UbtVFOTj8Xe6U8Rg?=
+ =?us-ascii?Q?81kPONXHHqt2pOBHf8QfJ1WJJQh8/oh8PSBmx7f6jBsxUhHJof/k2b/baTiO?=
+ =?us-ascii?Q?nc60dp1ENC/mlkVKD7whIQ8W2Cwo8ooJqMM0rRPd5dwyUKDRIYsgBoNaDkK5?=
+ =?us-ascii?Q?tXq+vV1dJw=3D=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59344153-3459-4938-ae7d-08df1926a220
+X-MS-Exchange-CrossTenant-AuthSource: PUZPR06MB4742.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 03:56:23.0793
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V8jskSRuYqW+wXpePzRwJIrrgnDYr5auDlS7FSRTE7kAFeAFVk7Iipw6F06RzDTEYWgB0P/07d4nuUO2pM+FNQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYSPR06MB6470
 
+Add SCX_OPS_OPEN_OPTS() to allow sched_ext schedulers to pass
+bpf_object_open_opts when opening BPF skeletons.
 
+Using the *_open_opts() interface generated by bpftool directly would
+bypass the compatibility checks performed by SCX_OPS_OPEN(). Use
+SCX_OPS_OPEN_OPTS() instead to pass open opts while retaining the
+existing compatibility handling.
 
-On 9/22/2026 5:09 PM, Slark Xiao wrote:
-> At 2026-09-22 12:12:35, "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com> wrote:
->>
->> On 9/19/2026 3:25 PM, Slark Xiao wrote:
->>> For some WWAN device, it may get a SYS ERROR issue when resuming
->>> from suspend state frequently. Refer to the Qualcomm Windows
->>> driver, the default value of autosuspend_delay_ms is set as 5000
->>> ms. But in Linux side, all WWAN device were set as 2000ms. We
->>> tried to set this value to 5000ms and we can get a positive test
->>> result.
->>>
->>> So we add a support to allow vendor to set a difference value for
->>> specific WWAN device.
->> you can change auto suspend delay from sysfs, please use that way instead of
->> doing in the driver.
->>
->> - Krishna Chaitanya.
-> Yes, we can do this by setting the sysfs API . However, not all users 
-> are aware of this method. Additionally, this approach is only
-> effective for a single instance; it requires reconfiguration after each
-> restart, which is quite inconvenient.
-you can have udev rule to set this without any user intervention.
-> Though I want to set the default value from 2000 to 5000, refer to
-> the Qualcomm Windows driver, I don't want this change to affect
-> the default configuration of other vendors. 
->
-> This attribute should belong to specific WWAN devices, such as
-> SDX65, SDX72 or QDU100, rather than to the same category of
-> devices, like all MHI devices sharing a single setting.
->
-> BTW, I saw some one add 'no_m3' flag for their SDX7X device.
-> Why can they disable suspend on the same SDX7X device, while
-> I can't adjust the suspend delay time? That's curious.
-no_m3 flag is for qdu100 target, where the target itself will not support M3.
-It is not just disabling suspend but also make sure device never enters m3 even
-in system suspend case. 
+Signed-off-by: Fuyu Zhao <zhaofuyu@vivo.com>
+---
+v2:
+- Make SCX_OPS_OPEN() call SCX_OPS_OPEN_OPTS() with 0 as the opts
+  argument (Tejun).
 
-There is already support from sysfs to change the time, doing again that in
-the driver is just duplication of work.
+v1:
+- Link: https://lore.kernel.org/sched-ext/20260922031618.2858-1-zhaofuyu@vivo.com/
+---
+ tools/sched_ext/include/scx/compat.h | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-- Krishna Chaitanya.
->
-> Thanks
->>> BTW, based on the principle of structure alignment, I moved the
->>> location of 'trigger_edl'.
->>>
->>> Signed-off-by: Slark Xiao <slark_xiao@163.com>
->>> ---
->>>  drivers/bus/mhi/host/pci_generic.c | 14 +++++++++++---
->>>  1 file changed, 11 insertions(+), 3 deletions(-)
->>>
->>> diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
->>> index b636e2c23b4d..3339b9b2d16d 100644
->>> --- a/drivers/bus/mhi/host/pci_generic.c
->>> +++ b/drivers/bus/mhi/host/pci_generic.c
->>> @@ -23,6 +23,8 @@
->>>  
->>>  #define HEALTH_CHECK_PERIOD (HZ * 2)
->>>  
->>> +#define AUTOSUSPEND_DELAY_MS 2000
->>> +
->>>  /* PCI VID definitions */
->>>  #define PCI_VENDOR_ID_THALES	0x1269
->>>  #define PCI_VENDOR_ID_QUECTEL	0x1eac
->>> @@ -38,11 +40,12 @@
->>>   * @name: name of the PCI module
->>>   * @fw: firmware path (if any)
->>>   * @edl: emergency download mode firmware path (if any)
->>> - * @edl_trigger: capable of triggering EDL mode in the device (if supported)
->>>   * @bar_num: PCI base address register to use for MHI MMIO register space
->>>   * @dma_data_width: DMA transfer word size (32 or 64 bits)
->>>   * @vf_dma_data_width: DMA transfer word size for VF's (optional)
->>>   * @mru_default: default MRU size for MBIM network packets
->>> + * @autosuspend_delay: customized autosuspend_delay_ms value for specific mhi device
->>> + * @edl_trigger: capable of triggering EDL mode in the device (if supported)
->>>   * @sideband_wake: Devices using dedicated sideband GPIO for wakeup instead
->>>   *		   of inband wake support (such as sdx24)
->>>   * @no_m3: M3 not supported
->>> @@ -54,11 +57,12 @@ struct mhi_pci_dev_info {
->>>  	const char *name;
->>>  	const char *fw;
->>>  	const char *edl;
->>> -	bool edl_trigger;
->>>  	unsigned int bar_num;
->>>  	unsigned int dma_data_width;
->>>  	unsigned int vf_dma_data_width;
->>>  	unsigned int mru_default;
->>> +	unsigned int autosuspend_delay;
->>> +	bool edl_trigger;
->>>  	bool sideband_wake;
->>>  	bool no_m3;
->>>  	bool reset_on_remove;
->>> @@ -1369,6 +1373,7 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->>>  	struct mhi_pci_device *mhi_pdev;
->>>  	struct mhi_controller *mhi_cntrl;
->>>  	unsigned int dma_data_width;
->>> +	unsigned int autosuspend_delay;
->>>  	int err;
->>>  
->>>  	dev_info(&pdev->dev, "MHI PCI device found: %s\n", info->name);
->>> @@ -1394,6 +1399,9 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->>>  	dma_data_width = (pdev->is_virtfn && info->vf_dma_data_width) ?
->>>  			  info->vf_dma_data_width : info->dma_data_width;
->>>  
->>> +	autosuspend_delay = info->autosuspend_delay ? info->autosuspend_delay :
->>> +			  AUTOSUSPEND_DELAY_MS;
->>> +
->>>  	mhi_cntrl->cntrl_dev = &pdev->dev;
->>>  	mhi_cntrl->iova_start = 0;
->>>  	mhi_cntrl->iova_stop = (dma_addr_t)DMA_BIT_MASK(dma_data_width);
->>> @@ -1463,7 +1471,7 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
->>>  
->>>  	/* Allow runtime suspend only if both PME from D3Hot and M3 are supported */
->>>  	if (pci_pme_capable(pdev, PCI_D3hot) && !(info->no_m3)) {
->>> -		pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
->>> +		pm_runtime_set_autosuspend_delay(&pdev->dev, autosuspend_delay);
->>>  		pm_runtime_use_autosuspend(&pdev->dev);
->>>  		pm_runtime_mark_last_busy(&pdev->dev);
->>>  		pm_runtime_put_noidle(&pdev->dev);
+diff --git a/tools/sched_ext/include/scx/compat.h b/tools/sched_ext/include/scx/compat.h
+index d2e4384df..bd471c51f 100644
+--- a/tools/sched_ext/include/scx/compat.h
++++ b/tools/sched_ext/include/scx/compat.h
+@@ -177,23 +177,23 @@ static inline long scx_hotplug_seq(void)
+  * - v7.1:  ops.sub_attach(), ops.sub_detach(), ops.sub_cgroup_id
+  * - v7.3:  ops.rescue_bandwidth_ppt, ops.rescue_quantum_us
+  */
+-#define __SCX_OPS_OPEN(__ops_name, __scx_name, __ops_struct) ({			\
++#define __SCX_OPS_OPEN(__ops_name, __scx_name, __ops_struct, __opts) ({		\
+ 	struct __scx_name *__oskel;						\
+ 										\
+ 	SCX_BUG_ON(!__COMPAT_struct_has_field(__ops_struct, "dump"),		\
+ 		   __ops_struct ".dump() missing, kernel too old?");		\
+ 										\
+-	__oskel = __scx_name##__open();						\
++	__oskel = __scx_name##__open_opts(__opts);				\
+ 	SCX_BUG_ON(!__oskel, "Could not open " #__scx_name);			\
+ 	__oskel->struct_ops.__ops_name->hotplug_seq = scx_hotplug_seq();	\
+ 	SCX_ENUM_INIT(__oskel);							\
+ 	__oskel;								\
+ })
+ 
+-#define SCX_OPS_OPEN(__ops_name, __scx_name) ({					\
++#define SCX_OPS_OPEN_OPTS(__ops_name, __scx_name, __opts) ({			\
+ 	struct __scx_name *__skel;						\
+ 										\
+-	__skel = __SCX_OPS_OPEN(__ops_name, __scx_name, "sched_ext_ops");	\
++	__skel = __SCX_OPS_OPEN(__ops_name, __scx_name, "sched_ext_ops", __opts); \
+ 	if (__skel->struct_ops.__ops_name->cgroup_set_bandwidth &&		\
+ 	    !__COMPAT_struct_has_field("sched_ext_ops", "cgroup_set_bandwidth")) { \
+ 		fprintf(stderr, "WARNING: kernel doesn't support ops.cgroup_set_bandwidth()\n"); \
+@@ -232,12 +232,15 @@ static inline long scx_hotplug_seq(void)
+ 	__skel; 								\
+ })
+ 
++#define SCX_OPS_OPEN(__ops_name, __scx_name)					\
++	SCX_OPS_OPEN_OPTS(__ops_name, __scx_name, 0)
++
+ /*
+  * Open a cid-form (struct sched_ext_ops_cid) skeleton. The cid form postdates
+  * every op the load-time fix-ups above handle, so none of them apply.
+  */
+ #define SCX_OPS_CID_OPEN(__ops_name, __scx_name)				\
+-	__SCX_OPS_OPEN(__ops_name, __scx_name, "sched_ext_ops_cid")
++	__SCX_OPS_OPEN(__ops_name, __scx_name, "sched_ext_ops_cid", 0)
+ 
+ /*
+  * Associate non-struct_ops BPF programs with the scheduler's struct_ops map so
+-- 
+2.34.1
 
