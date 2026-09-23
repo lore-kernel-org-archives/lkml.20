@@ -1,214 +1,140 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D2147FB04
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:13:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158428; cv=pass; b=pwD8AszjFa+I9Qvcf77/wOxdg2006G/k03FSr22FExo8LuusojU9/ZNV+znkdhA5iksuFacGXSuhqPOA+LnYYSooboqGjfCJWCZ7Fk23gtpoZC8EyEkJbfMS4dL7OXjUTrhH2H+hjXoxu+/EGU0LCyclFmw3xcfHB7KwwHyOioA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158428; c=relaxed/simple;
-	bh=6hNoicvQ9Qh0NY5PAdLmWCgVT7I2KnZ8VwidqirOaVY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FO3xtOs8Vp7mO6/Ufo93QLRjIb56IErXItDzHxlPYGyF5/7XqDUcaJjqy07DfTRYekWkGeGJZlJ0asRn3c4cRmtTMRJd+CqttaDTj7XRNL99Hp5E3cCl13gm8RgiK6Ncvr4glZh1LXR0udFNejWVFNFkrXDRSfqb5kv2cYQBJiI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ImiwyYv+; arc=pass smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5173F48097B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:13:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790158435; cv=none; b=LhOoBAY8wIpIiBVXB00Kms8YaBeoo+5ExnRhx8M//KJ6/oyyKLgUMfKq3h+EdrLn/n10oE+njFjK3fJg55puX1VJQ8ImpYTXvCEHQICa3t5yL31rxQu5lmfa4q16qZKHFLKGNaXz0m2vtyY+iSlGIBgu08Qa09xCt6bAWvLRQX8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790158435; c=relaxed/simple;
+	bh=86tGOrPEB/iivl/l0MEf2yHA5M2eh28fX8Zw5dM3jqY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JFIy1pRbKi0Uc6NahuAPBG7O3/WzmUrmbMFPAM5vAhsSs+GS6PTLR/1DHAaHBlqcI41MlBdbRE3KzN+m9ZZJBIWKXaXFrPGVYhhJ0Vdh+FisBV+1nMS8L5C2WlsiXX+9W5s6X9M1hNAtcmlUIlT3m6M9A/PTskdtH/IN3P5bqBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UluvbZAT; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ImiwyYv+"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85a4329731cso427759b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:13:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790158411; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DFD38QW7Kgbac/l5zoDyCfTrQJqnu+WFpj0h6uR3etmIuBsZSeWOkC3LUfEILgIXZA
-         XKW7KElpeO/iKBMuFSQ8C43OLuMo6DF3w2xmpywXqVV1tpl8XDMMEdo86HcJqzIVjrQ8
-         kPpUaLh3OzIR6ApJOPjxBFaMia5yD5wPMHDXgS2HERPlpGdQ/F8P3LfryZx4Rm98BqCJ
-         455DK3amXDZ3MoD8421fdgi/mZkmY6a7rTI1iptb/RG2ZsxA7Ud4KPVQgfY6Jy808Th/
-         If0PoHhjf/xkw6JCa6mA59UtKM+LM3FDE9lhH/Vgf+afhnksMQ042vCPVhtR+8g8S76v
-         NSFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=T8UPdY8cxlA6aoPjewzNTQu1SQVA5gFWIlU2oGV5oPs=;
-        fh=EfbFLs1FA9wtGWki36bGsUHiPwdFlKIZdLAQEQrwHWo=;
-        b=Ve4/4xqP5sTacWO5sOK6q1bg2zXldsZimtybxxOi/LBps/oJOinpOzGfpMza3+auwP
-         LDL8N5pbmJXbdXeHMSSuriQah3jyeNECkB+b21VwlZ86IOau9nW61eBtOlfTL97GDOnE
-         VoRjxMhs8OlFtB2ya3TnLfD/we9dIc1TqKx76qg+wYmC4z4mydGrw6xKY2hw0X9yYDh8
-         vjnUYhiMI4lgcKINs1BvyQNFM0cR6GCcUGKAthYFIlb1nbYmwquKtUTJ7/i2rxn/QOCI
-         oeGlpE/4IW7N7i21+5fYrZ3xRPI35uVWFeh9JfUn7XZFSnct+6xlaUHYh/c0nCWmjWWU
-         Ejgw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UluvbZAT"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49e6425f96eso35785e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:13:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790158411; x=1790763211; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=google.com; s=20251104; t=1790158416; x=1790763216; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=T8UPdY8cxlA6aoPjewzNTQu1SQVA5gFWIlU2oGV5oPs=;
-        b=ImiwyYv+Szy9sBOTxAaUjzR7tF9JDGlVrujEaLSCmW+oKqiEeeyf19vKH1938mB4Ai
-         qcTH+2z/VZ88uOi+Q5eM9rml09l/OqPv0YfqHVF0siVgsKDQHSZnOIRFaLdGRAEqcYud
-         woX3dF6MUhHv8Rl9uQuG1OyGcWeAuYzmnvM1lRBctLw0lBr1MVOhMijAA0K559uVHXbO
-         aJioCmi6Sqk4Jb0/cgD3OpwsMVcjB/BO7x/gQKTF4/s7jxYgo+ctcGcuT98pN0BOeOLJ
-         qw74NpXqxq0D/fZojv1q60r/+3eCGAKaWLvqdRB4cWTUaeuOx5J6viMUdUlcdx+olQ7c
-         /IiA==
+        bh=vdEIBnHA/8T+E7XayOUCjgaZYlTP8ZfuwSF0Dftqz2M=;
+        b=UluvbZATTY/rSsKCRw3+gePcgsSmX+XmCzViNo/LaN1ctJdpZpCMUuKS09xwiAhppF
+         9RJEH10sscHgi3KdRLxZkH/bgvF6bry/hlpJOOklI3YROmChr20tBIbpH04LSFIuF0bA
+         K+8v+MV72DdOrMmWSqirrVci35KW3jPDtJXbOoTM93szCp/Q6aae+so46JI+8K2mQlXa
+         Wu/Onn/knXGXVn+8Aaf+OlkuL79abQ+raVX6juoDGeHMoLtsfoUtgmzc5gE9craTTRxb
+         1PjRkRaOIsUfKvvhh+s73j9TSZWIlyvkxzGdff8wjjjW/7b1Xzx6LEJ3ZyF6D3H51k7K
+         bATA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790158411; x=1790763211;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790158416; x=1790763216;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=T8UPdY8cxlA6aoPjewzNTQu1SQVA5gFWIlU2oGV5oPs=;
-        b=vRJ9u9V1z3AflxXoGZn/9eNGcD9eiCCH8in+XPTwaAAJ+1EIrM/vVTAOGo89JrkDgR
-         L8nbgf8JzPM52mxlo8RlV79RfRK4tOvBSe4wnYEm9BEtE2QowLpZhKc9E91BCb/Hr2mc
-         HFsN+mxoMQBVUQ3R6uSjaMUGWcMrCdcA38Nk8fo1HQQD6Z6ENsO4ZpzsUkooVCkZ6Sq0
-         +hoPbqxvQCWU4kZWWd+7KdAn8Gz6BXELl3UOFkX/m4umafylMy/LU3CCJtBps2Q0sdYs
-         0XgoDX4C9ka9IilAZPrdNS3AHvjk4tukbDl/G6ueUBBE5i3GSFYSEnZvWW5M8vDCfv/M
-         Se6g==
-X-Forwarded-Encrypted: i=1; AKwUvByOBTV5BU6vRwjYRTSRgiHazu4PKxykWdIrluFDMh2T7N5T73N8ZzjDjUb4cILSg4fIZHvzA4bLP/OsEc8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjaQGKDV4JRp1sR2ikWLa946LPdLR50Y8mPv4BXZYGpyVetsu8
-	wAptDDQHyXMZeK2zwDyEufPTtSg0yIGrMYsYVgKOZHgpKhWLDE08UMimqca28RNk03YgbaFRYsy
-	lThPzWLZcnwMQPu6blh0Vub+sDP8xe7o=
-X-Gm-Gg: AYBFou2EoNWyBWgK3pj1RgZdjVIBxZhrIYQ1/WoJPD9vqrAWrvuzujJbIdqInLMSNIN
-	AJyvAefwicD9nDYCbGQ6l39lrTK87POIiREEfMNnbg6GKIOrukAe8xqLA/gZdqFocOMdVJKzenJ
-	icnERQ+IyEdbkDcbYITlSaPzPbgo0kAGKTxuVaajlzxxRpWbD4qg1VHcUXYNxlwlWQLgE8vUh0k
-	8XxE8lN7OCK/1FyzDzNoY3MA1aulQV6ryx42QqGxJVQayrtuYuSAUI3EQYcyiEad7RsgHho9VDG
-	yUkRBzQ/B496a4ASAMIuLoPVi8ytcSu74TiPEm4rikQI6r/52l1orHAqTd1ZtFhyOA==
-X-Received: by 2002:a05:6a00:1489:b0:845:ba94:a56 with SMTP id
- d2e1a72fcca58-87d1a7ade4amr1946462b3a.5.1790158411345; Wed, 23 Sep 2026
- 03:13:31 -0700 (PDT)
+        bh=vdEIBnHA/8T+E7XayOUCjgaZYlTP8ZfuwSF0Dftqz2M=;
+        b=eWVSRIdSu5VfFciYU4drr9ZuHsSTJQiLazFhhsILYCFSwI34awHLMmdN6F/W4qLLzC
+         OC6mXOnMTI+KIAgy+m9VPNl0gmKlQleTrc5dRtzhRQ9L+qt6m+UVoVTQ+2j1AX/Fh88T
+         uufW95HO/xM0oCihbKK46fqhN6AAy3rB1mwjgvvuOKMwiu8Xc8lvn4p50dYqYHq8tTzu
+         Rs4YKKk10jSeNcG570Ff1//lUlRfiytQVAmWCrTwQ1o5R+glEhNUjLjbNIv/YPoLd8Ll
+         3YpCv4QV9znqoExoQv+A40TCAdDGSCl07vr2X0aOYv/i4DFcf+l8Pc0Ed0ItcetLRV+c
+         kJVg==
+X-Forwarded-Encrypted: i=1; AKwUvBzVr72FJQW5E633/duRnEKiw/SFIV7K3FIMT+BWo8/G/rIYRGW2DtV6PC5EqBcWArg52yXsz2XgHzjqrtY=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9OFCtEkDki5O8nCrtBVzFPtTPkCW9h+l/zv258g7fZo1aGy5s
+	DGUWgW8CMiSzACWwTMVK7gtiuBrRRnAVV6aYdSKG0KFb5njZjJcFdmgYf08KmRhaEg==
+X-Gm-Gg: AYBFou0N4iXKzSGrErLSmf9zySUesYjuEEOybRunrSQW5twhA5pRE+p8G8RQm1gTORN
+	5vToWEeIE4i/VeCefNc1jBcMMJ1ZNsoiuToxZyIimBGao6cIMlEYdfOJHRv7bPPPoTRAriPGXRr
+	shZ9raC3KBKvOiouNXEg0pspqjXXCgRCReHzDMCA2taPCnE7nhWSB0bndElUZ3i7SdNc9MAnyGo
+	ow5C1N7d2Epz0mrLw1FgawJ30wMsUwJ9QAcFuoe5BccE1qPjxLKkAFN1BLbRKhr1YWbztdsrUhT
+	JJg/7fvhV5kb7w5Nt2N1fVI6tL4Wxc+QftSbXr5ys6zR1d//Ij/w60LCtW2M2fdazwiXhuFYnAP
+	eriAJwhPlJQDFB+VAaMHE1r7wye5/MuKTEa2qOIUeR8EwP7o50eUAOvCnjpeYYCgES+9BV2plZ8
+	LoVujb5U0fWdvrWJeHYLVQSHzG5PsZEY6/xOdxQLJOpoTMrC16JXYEtHuOUEmm7Blcj7RLqRmcy
+	SaG9yfxmERqzd3EqjIyjF5bvLEGbA9uct43+mVraQ==
+X-Received: by 2002:a05:600d:8653:20b0:49f:e0f7:257e with SMTP id 5b1f17b1804b1-49fe0f725e4mr416395e9.6.1790158415606;
+        Wed, 23 Sep 2026 03:13:35 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868486408sm5194076f8f.9.2026.09.23.03.13.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 03:13:34 -0700 (PDT)
+Date: Wed, 23 Sep 2026 10:13:31 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Nicolin Chen <nicolinc@nvidia.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.linux.dev, iommu@lists.linux.dev,
+	catalin.marinas@arm.com, will@kernel.org, maz@kernel.org,
+	oliver.upton@linux.dev, joey.gouly@arm.com, suzuki.poulose@arm.com,
+	yuzenghui@huawei.com, joro@8bytes.org, mark.rutland@arm.com,
+	qperret@google.com, tabba@google.com, vdonnefort@google.com,
+	sebastianene@google.com, keirf@google.com
+Subject: Re: [PATCH v8 04/25] iommu/arm-smmu-v3: Move IDR parsing to common
+ functions
+Message-ID: <arOmSxqRxhd717Xy@google.com>
+References: <20260922131259.2975334-1-smostafa@google.com>
+ <20260922131259.2975334-5-smostafa@google.com>
+ <arLa0E3xq5dGuPpd@nvidia.com>
+ <20260922214818.GA2545495@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923054017.93553-1-mhun512@gmail.com>
-In-Reply-To: <20260923054017.93553-1-mhun512@gmail.com>
-From: Shengjiu Wang <shengjiu.wang@gmail.com>
-Date: Wed, 23 Sep 2026 18:13:18 +0800
-X-Gm-Features: AcwNN1XtFHREsFLdPRUiEqLGtk9NvYoAB2IZLiGY3P6QqpB_FT8nAPCPpRvlyaw
-Message-ID: <CAA+D8AMQLkprPdOrT=oYR0dMmy0TqDdy1rZ3nXP6nPoigdsBuQ@mail.gmail.com>
-Subject: Re: [PATCH] ASoC: fsl_xcvr: free IRQ before canceling reset work
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>, Xiubo Li <Xiubo.Lee@gmail.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Fabio Estevam <festevam@gmail.com>, 
-	Nicolin Chen <nicoleotsuka@gmail.com>, linux-sound@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922214818.GA2545495@nvidia.com>
 
-On Wed, Sep 23, 2026 at 1:40=E2=80=AFPM Myeonghun Pak <mhun512@gmail.com> w=
-rote:
->
-> irq0_isr() schedules work_rst on a preamble error, and reset_rx_work()
-> touches regmap.  remove() cancels that work while the IRQ is still
-> registered, so the handler can queue it again during teardown.  The IRQ
-> is also requested before INIT_WORK() and spin_lock_init().  Probe
-> failure does not call remove(), so freeing the IRQ leaves queued work
-> running, and an earlier interrupt schedules uninitialized work.
->
-> Initialize the lock and devm_work_autocancel() before the IRQ.  Failed
-> probe then frees the IRQ and cancels the work.  Unbind frees the IRQ
-> before cancel_work_sync() and pm_runtime_disable().
->
-> Fixes: 1e5d0f106164 ("ASoC: fsl_xcvr: reset RX dpath after wrong preamble=
-")
-> Cc: stable@vger.kernel.org # 6.13+
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+On Tue, Sep 22, 2026 at 06:48:18PM -0300, Jason Gunthorpe wrote:
+> On Tue, Sep 22, 2026 at 12:45:20PM -0700, Nicolin Chen wrote:
+> 
+> > Also, Jason's suggestion in v7 was hyp_arm_smmu_v3_device, which
+> > looks nicer than ARM_SMMU_OBJ...
+> 
+> I guess the point is to emphasis the substition technique, I don't
+> mind.
+> 
+> > > +	if (coherent && !disable_msipolling &&
+> > > +	    smmu->features & ARM_SMMU_FEAT_MSI)
+> > > +		smmu->options |= ARM_SMMU_OPT_MSIPOLL;
+> > 
+> > Will pKVM ever use MSIPOLL?
+> 
+> Not sure I understood the approach in this patch, why was anything
+> left behind? I imagined everything would be moved?
+> 
+> Maybe a few more remarks in the commit message?
 
-Reviewed-by: Shengjiu Wang <shengjiu.wang@gmail.com>
+As replied to Nicolin, because it is a module param, I am ok with
+adding this in the commit message, or passing disable_msipolling
+as a function arg and moving the logic.
 
-Best regards
-Shengjiu Wang
-> ---
->  sound/soc/fsl/fsl_xcvr.c | 26 +++++++++++++++++++-------
->  1 file changed, 19 insertions(+), 7 deletions(-)
->
-> diff --git a/sound/soc/fsl/fsl_xcvr.c b/sound/soc/fsl/fsl_xcvr.c
-> index 9828272..29929df 100644
-> --- a/sound/soc/fsl/fsl_xcvr.c
-> +++ b/sound/soc/fsl/fsl_xcvr.c
-> @@ -3,6 +3,7 @@
->
->  #include <linux/bitrev.h>
->  #include <linux/clk.h>
-> +#include <linux/devm-helpers.h>
->  #include <linux/firmware.h>
->  #include <linux/interrupt.h>
->  #include <linux/module.h>
-> @@ -57,6 +58,7 @@ struct fsl_xcvr {
->         struct snd_aes_iec958 tx_iec958;
->         u8 cap_ds[FSL_XCVR_CAPDS_SIZE];
->         struct work_struct work_rst;
-> +       int irq;
->         spinlock_t lock; /* Protect hw_reset and trigger */
->         struct snd_pcm_hw_constraint_list spdif_constr_rates;
->         u32 spdif_constr_rates_list[SPDIF_NUM_RATES];
-> @@ -1617,7 +1619,7 @@ static int fsl_xcvr_probe(struct platform_device *p=
-dev)
->         struct fsl_xcvr *xcvr;
->         struct resource *rx_res, *tx_res;
->         void __iomem *regs;
-> -       int ret, irq;
-> +       int ret;
->
->         xcvr =3D devm_kzalloc(dev, sizeof(*xcvr), GFP_KERNEL);
->         if (!xcvr)
-> @@ -1705,12 +1707,22 @@ static int fsl_xcvr_probe(struct platform_device =
-*pdev)
->                 return dev_err_probe(dev, PTR_ERR(xcvr->reset),
->                                      "failed to get XCVR reset control\n"=
-);
->
-> +       /*
-> +        * irq0_isr() schedules work_rst. Prepare the work and its lock
-> +        * before the IRQ, and register the cancel action first so a fail=
-ed
-> +        * probe frees the IRQ and then cancels any queued work.
-> +        */
-> +       spin_lock_init(&xcvr->lock);
-> +       ret =3D devm_work_autocancel(dev, &xcvr->work_rst, reset_rx_work)=
-;
-> +       if (ret)
-> +               return ret;
-> +
->         /* get IRQs */
-> -       irq =3D platform_get_irq(pdev, 0);
-> -       if (irq < 0)
-> -               return irq;
-> +       xcvr->irq =3D platform_get_irq(pdev, 0);
-> +       if (xcvr->irq < 0)
-> +               return xcvr->irq;
->
-> -       ret =3D devm_request_irq(dev, irq, irq0_isr, 0, pdev->name, xcvr)=
-;
-> +       ret =3D devm_request_irq(dev, xcvr->irq, irq0_isr, 0, pdev->name,=
- xcvr);
->         if (ret)
->                 return dev_err_probe(dev, ret, "failed to claim IRQ0\n");
->
-> @@ -1751,8 +1763,6 @@ static int fsl_xcvr_probe(struct platform_device *p=
-dev)
->                         fsl_xcvr_comp.name);
->         }
->
-> -       INIT_WORK(&xcvr->work_rst, reset_rx_work);
-> -       spin_lock_init(&xcvr->lock);
->         return ret;
->  }
->
-> @@ -1760,6 +1770,8 @@ static void fsl_xcvr_remove(struct platform_device =
-*pdev)
->  {
->         struct fsl_xcvr *xcvr =3D dev_get_drvdata(&pdev->dev);
->
-> +       /* Free the IRQ first so irq0_isr() cannot requeue work_rst. */
-> +       devm_free_irq(&pdev->dev, xcvr->irq, xcvr);
->         cancel_work_sync(&xcvr->work_rst);
->         pm_runtime_disable(&pdev->dev);
->  }
+> 
+> > > +	if (smmu->features & ARM_SMMU_FEAT_HYP &&
+> > > +	    cpus_have_cap(ARM64_HAS_VIRT_HOST_EXTN))
+> > > +		smmu->features |= ARM_SMMU_FEAT_E2H;
+> > 
+> > Why is ARM64_HAS_VIRT_HOST_EXTN left behind?
+> 
+> +1
+> 
+> And the TT_LE/BE and S1/S2 checks, and ...
+> 
+> If kvm doesn't want to dev_err log that's fine, we should able to
+> #define that away too shouldn't we? And maybe it does want to log?
+
+The hypervisor can not print to the kernel console, so dev_err()
+will not compile, I'd rather keep that outside and let the caller
+decide what is a probe failure and print it's own message that keeping
+the code and stubbing dev_err().
+
+Thanks,
+Mostafa
+
+> 
+> This seems pretty close otherwise
+> 
+> Jason
