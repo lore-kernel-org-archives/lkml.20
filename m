@@ -1,96 +1,106 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F4D339377
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728A021ABC9;
+	Wed, 23 Sep 2026 01:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126562; cv=none; b=fkp00FHuJO21Ono/HYVCD27EyMY6L3PxaLEdhfpX/8R7UWyLNVX6P1xTOT7VLv8gYIitWY5CmH03KA3nMEumqxdFEwVEY45cWHAlkh1mwxqnLM4IVELHdQwCk9B9SVbJuQro/aDEuEnauUPixoLXGBzIKnxk1NNqeEgCQMF7OPA=
+	t=1790126575; cv=none; b=gOhig31Vi/ul7PiKhJh5s+gHZptOTwT3RaHQKjh5mFqU/yDk9rQD+l0VbTNRaQaW524nmWQKR122GsagcOj7b+YXnAZ0cb7ApsdCv4sLT9GejrCbI6TwrgeTkF4yPKYP9sPOxrhTx9c/56Zo02ZmOUBctf/kWN6dg6zmDMYnf5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126562; c=relaxed/simple;
-	bh=+h/tQM1KRRz94YnwCuXVu511Yz+gseQKHqy43pFBzq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pYW4OB4sjxYKjqobik3G2w9aaKhYfelkw60z+B6NjdX/Q6ugrtIG96FPtElMCdQkysBmj+W/xC2/DcyITbbBoqDcS3fydPZ57Cld1cNv8lll4nmgtjPZf/rD0CiGHSprfsoxDkoFlx2dM/KwalcXtY/GFZLj5Nw7ZkK5oxlitD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wy921TE7; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wy921TE7"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-39dec5de01eso78096a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:22:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790126560; x=1790731360; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+h/tQM1KRRz94YnwCuXVu511Yz+gseQKHqy43pFBzq4=;
-        b=Wy921TE7G6KUWuVwkwRzZ16iM036rQS5E0LZMW4uXXGx77jeay2GOyMoEdKuuxoxHz
-         QLh0PsoUevwrVZ32ehW1FrRHrXOtZzSRKwjo8wAKTBJ4us88RTPvboVeQv6LG01jHMoe
-         xcYRPdV4AsSrPheo8RAYS9d2CVJX73KaEBrBLm6oLKj4pYAaA6SQS7Ognn3KxM8nzTQq
-         E8dSg5V4QUnBFYJZ/0woKEjElYcSGXmLS0IVT6xh8y9vApOu369XbZe+aoK/bCZ72PW2
-         twIPT1ugSPeslxSCFCAoZF6CJfruYKkTTnqzRpLpCytVdVuXtRt8F3oIKG1K8/AlQ+/j
-         apNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790126560; x=1790731360;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+h/tQM1KRRz94YnwCuXVu511Yz+gseQKHqy43pFBzq4=;
-        b=iO2oo3Pa5TJ5LIeQIewaYNSP+6Z0uUkCNawn+W7apBbOopFxleoc6zlYySMMcwXqGe
-         yVj/od/5e1cXEVkVts/ivvLLmC+swZOxzwYAFmh6qYOdI0xxNevdOrKvdXg4r1RHnutA
-         8wAq1KQ33JUkr0GCbJxk5NeF+2BSa7KIu9Y+qadQjWf/adbWq1y9VNWx7Qo/M+jyXUrl
-         FiQpay0L1DawfQp8B3t8v8PcuglN53Lf7TGZC/S/n4a4+jF5Aa3qHtnFUH0b8wJf7cRK
-         ZgifNidy4RQb/O7F23TpLjwuWWrbGNBACJMJniu1sTiqkzhly6J0BwJKj79uQ2QauA1e
-         Gdzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwOUT2TSZ+dNoRdQDG2OaXweDPyvK+PlEa3UJHkYzOA8O6pktrv0njkes4fn60xwJx29IRvIkd6mlJZmyw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lruvMeE2q1yo6r1adIYgNwD9F2cI6Gx/zzlq5zryUxdAkeaF12
-	Lf0n1ZM6u7+3/IdU8TogK5J+SYaYNov6GHRikQin8gvjduAR4uSFkXyo
-X-Gm-Gg: AYBFou1Kn0PfwfPcIsmNMirDERhMxKuQjZXFx6AYKUnbrhretPjA9vuDgp11VpOOUYc
-	EW7wKMec3DUBnBzXqVKrZDW5ldmbhawRdh7L01O6FOQWz0DS4fwreVOMxPldIHF4IL8HRIUE2Qk
-	QAEbJxrHzWeSzokPlY71p+5vWJ3aoKhLXy7J+v5x1UDznyqoaFrbwm9/chxXNX3mEv+c3/kDVWN
-	3SwjYyo4u3t/hlgBVMsLZRJkWiTkNM0/FJpupOg/48EVVJa/fSoC9ct/kQSspC38fl2o9DOjyhW
-	BNf82WGmW581+cybpu4POwTmLMzbixehZw1jVzVMWEQ5mu+no0U6qs7aVItWNxkPtgj3YYc4lRQ
-	ngA8fauQcTRc4/NZ3Ow95xXbwOxJ4Rkx7SQWrdlvCxxujO2Rd8a48VDSi/j0pZdZnIWRNIs93zA
-	ARnZ2H5nQKChdJlIG6m5MenqlQgbXUgAo2+wmJPpYzf5DD4GVHLLZ3uvGTJm8KCwHTQE+U5FA7T
-	+5k/i96dgmQ454r6kPCg2/ApNYbxJZcDsjKum3GbBNnRVcCA2UU0dxuJX1QnJIQ5ReGp57rBUF/
-	8QhPcvYMMOpPN8WIJ/DePgMZjqus3w==
-X-Received: by 2002:a17:90b:4fca:b0:398:bad2:c10 with SMTP id 98e67ed59e1d1-3a07e773d26mr1573460a91.6.1790126560258;
-        Tue, 22 Sep 2026 18:22:40 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.109])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07de1f20bsm1784885a91.11.2026.09.22.18.22.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 18:22:39 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: nika@nikableh.moe
-Cc: emmanuel.grumbach@intel.com,
-	helgaas@kernel.org,
-	miriam.rachel.korenblit@intel.com,
-	mpearson-lenovo@squebb.ca,
-	linux-wireless@vger.kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] x86/PCI: Disable D3cold on Intel BE200 Wi-Fi on Lenovo IdeaPad Pro 5 14IAH10
-Date: Wed, 23 Sep 2026 06:52:32 +0530
-Message-ID: <20260923012232.240305-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829093922.37103-1-navonjohnlukose@gmail.com>
-References: <20260722021321.68902-1-nika@nikableh.moe> <20260729125202.33719-1-nika@nikableh.moe> <20260829093922.37103-1-navonjohnlukose@gmail.com>
+	s=arc-20240116; t=1790126575; c=relaxed/simple;
+	bh=A+3vYfrTUr9mwE1ZcCgBnFC9WxVY09IUFMKr26VLjwg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IxKRmEaoAu1kXEWVNNDHsE5lxcIoMCElvG8NYv8H+qoNU6Q4zi/0EGe21JBh2/5h5Yk9wRkthOaSzn8HPz9mA7f2T6iaTL8e/rYhUDUSJkHxpX4xOnz6CDfUx92wUbchQt+9gBiKtwnFJovHCPm+KlPSRyu5gS3aYckReyJMdBw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 9478f0cab6ec11f19a56ed5b684f684d-20260923
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d80b21c5-c1e1-4552-9cf1-5d341d35dd68,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:60354df2836bd219256cc746932e7531,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|52|99,
+	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 9478f0cab6ec11f19a56ed5b684f684d-20260923
+X-User: xiaopei01@kylinos.cn
+Received: from [10.42.12.251] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <xiaopei01@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 982311563; Wed, 23 Sep 2026 09:17:44 +0800
+Message-ID: <63bf9e57-1edf-4e1d-8195-99be056f075a@kylinos.cn>
+Date: Wed, 23 Sep 2026 09:17:41 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] ata: pata_parport: pin the protocol module before
+ device_register()
+To: Niklas Cassel <cassel@kernel.org>
+Cc: dlemoal@kernel.org, linux-ide@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1790047457.git.xiaopei01@kylinos.cn>
+ <952bac5f61dc69079c3ffe62d6392bcc89f6aac0.1790047457.git.xiaopei01@kylinos.cn>
+ <arKWUwJeXUdGHpp0@ryzen>
+From: Pei Xiao <xiaopei01@kylinos.cn>
+In-Reply-To: <arKWUwJeXUdGHpp0@ryzen>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Sat, 29 Aug 2026 15:09:22 +0530, Navon John Lukose wrote:
-> I will post two small iwlwifi patches for this as a separate series and
-> link it here.
 
-It grew to four patches and is at v3 now:
-https://lore.kernel.org/all/cover.1789333511.git.navonjohnlukose@gmail.com/
 
-Nika, if you can run it on the IdeaPad Pro 5 without your quirk, a
-Tested-by from a second machine would help.
+在 2026/9/22 22:53, Niklas Cassel 写道:
+> Hello Pei,
+> 
+> On Tue, Sep 22, 2026 at 11:38:00AM +0800, Pei Xiao wrote:
+>> pi_init_one() calls device_register() before try_module_get(). Between
+>> these two calls the device is already visible but the module is not
+>> pinned yet, so an unload in this window leaves pi->proto dangling:
+>>
+>>     pi_init_one()                       rmmod -f <proto>
+>>     --------------------------------------------------------
+>>     device_register(&pi->dev)
+>>          device visible on the bus
+>>                                            module memory freed
+>>          pi->proto = pr        <- writes into freed memory / dangles
+>>          try_module_get(...)   <- too late, module already gone
+>>
+>> Take the module reference before registering the device, and drop it
+>> on the device_register() failure path.
+>>
+>> Fixes: 246a1c4c6b7f ("ata: pata_parport: add driver (PARIDE replacement)")
+>> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+> 
+> Looking at the code, this race cannot happen.
+> 
+> All three callers hold pi_mutex throughout pi_init_one().
+> 
+> pata_parport_unregister_driver() also acquires the mutex
+> before unregistering.
+> 
+> Thus, unload cannot complete at the same time as pi_init_one().
+> So the motivation looks wrong.
+> 
+> Additionally, rmmod -f bypasses a non-zero module reference count,
+> so I don't see how taking a refcount earlier would solve a rmmod -f.
+Yes, you're right — force unload doesn't really solve this issue. Thanks
+for pointing it out.
+  Thanks for your reply, and sorry for the noise.
 
-Navon
+Pei.
+Thanks.
+> 
+> Are you building your kernel with CONFIG_MODULE_FORCE_UNLOAD ?
+> 
+> 
+> Kind regards,
+> Niklas
+
