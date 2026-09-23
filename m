@@ -1,83 +1,365 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49E75304CC;
-	Wed, 23 Sep 2026 13:23:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED485326CF
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169815; cv=none; b=hPBU20JMaNQ6PT+JufibF+xwHk/Ghk1QQ5WYP6Q2vqFVdyhrpfMb+CE7bDinQEfgkX6+vJXhQ69bTvCbL2uiWQ6f8e3O3V9udGWP8T47EY8jbRxYZvF3+RlqJOFqamUZmi/dkiB27rLuQz3FB4b9niA5U/N8TQtlcEG7eTP9alU=
+	t=1790169820; cv=none; b=ejCTWRS74Mfvof7iByHnwXKw0edlaOecYUJUUoD/uFIAIpOmho0Gf/IjhiYJAK99uxijD3IGTPo/DF2mzvMG5sAMvXRM/20okENQZ/eFcuh7Gadp7uIevq86Aqvi5NbCXeUes1C+kjISyW8BOivPxNNyOXQWqi9CT4GvaCuvk44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169815; c=relaxed/simple;
-	bh=BDOzWHIc90fxbewwvw0Rru5lz8XcqrZT7fTWgRXM4q0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RE5FW2mvFvOrbZ8lzZVplCejmyWRbXiUiVXcLDWw9rqLJDSJQ8v4C5C6fBRXuSJAcpRrB4ORqiwzthJLc8996NUew0WrSj/ldtsmDwx8LXWgAGrKeTlpdzRsG1mW4s7XtctDXm/XTTW5qBzJHtTyPvOYtYBk2jmse1Bcd73ytgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=IYrLApRq; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790169820; c=relaxed/simple;
+	bh=oQffYuc4WkgylQz29jyxPbi5SPO9s5ys9ZORuKU377w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZctWlmcwtI3Zap6HhR8oNYu+fZqNN5C/HG10Zb/IcrEmltKUjBtbYtwLu6gaRvJ1kD2/upT/O0YN49/kcjo/mw3BXDLpdyTCJO1rL/v3ncOPbVQ9MhoKOykhK+QWJLWn/eTouhFrrMRb7VfYd40EZbcLU28/k7f6/jaUyyd+UfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=N55nIu79; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=G8eY8Y6+; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="IYrLApRq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=EDnLi2pUMtS4xKymq2Gq5V18843JYuRVkIZ8gdUdVlU=; b=IYrLApRqgufL5H2QZLDcTZbkHg
-	SH1wQ72o6gWBFq0DYRoigcScJUYmEhPbBFgVFE41jDMDvIGF1tDTm0VEGwwxVK53dddVrv0VdQwgj
-	qjjMYNj67nAjJBy9bKdJ9wxkz8EkQ4v5f3kIp8l7jsp9vgh0u8JxazN8VGAfzFamZpyY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9Mwb-006oS1-F0; Wed, 23 Sep 2026 15:23:29 +0200
-Date: Wed, 23 Sep 2026 15:23:29 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Greg Ungerer <gerg@linux-m68k.org>
-Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org,
-	arnd@kernel.org, wei.fang@nxp.com, frank.li@nxp.com,
-	shenwei.wang@nxp.com, imx@lists.linux.dev, netdev@vger.kernel.org,
-	nico@fluxnic.net, linux-can@vger.kernel.org,
-	linux-spi@vger.kernel.org, olteanv@gmail.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com
-Subject: Re: [PATCHv3 1/3] net: fec: do not use readl()/writel() for ColdFire
-Message-ID: <eb987eb9-f368-4d28-bdd0-c289c3039c3b@lunn.ch>
-References: <20260907134037.1855408-1-gerg@linux-m68k.org>
- <20260907134037.1855408-2-gerg@linux-m68k.org>
- <42ad1525-fceb-43d6-aa03-d17e844a9ad9@linux-m68k.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="N55nIu79";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="G8eY8Y6+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790169817;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FLaNzmeUxVe7oHCirWr50+xtXpo5WRTIGAcIx75e3pA=;
+	b=N55nIu79IIehWGSCF1QvMGI8t1+SrPo/+hrQupXmXaGOCWIN2XytTc3xP4/6CL/IvHW6gR
+	fP11oCxAbJurt2Z5ow+uxG9HqXPBCSPY2Z7f8TQ6FV6f7lAwYwxw1KfkglZ7Cnn2/pCxQC
+	n7vDDcQl8nwX+sC3YpR++y1jvb/WJjo=
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-414-YC2GPx8QOSKveVS3sQiGkw-1; Wed, 23 Sep 2026 09:23:35 -0400
+X-MC-Unique: YC2GPx8QOSKveVS3sQiGkw-1
+X-Mimecast-MFC-AGG-ID: YC2GPx8QOSKveVS3sQiGkw_1790169814
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d6fb956002so8652545ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:23:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790169814; x=1790774614; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FLaNzmeUxVe7oHCirWr50+xtXpo5WRTIGAcIx75e3pA=;
+        b=G8eY8Y6+y/f5KYCip4SdE2iDKvGw0jEayBSmSfjuyDfjhNKPV020y+DDslYDcAUgMA
+         9uEUL9CzNTIEtH1BkJNgdWYHyLkxd5C7YZvycEP3HEE9+hN0D/uH6zz2WV9Hgv/eSjVS
+         4fnk3wBxpHyUWbRzPglSwDW27oHgFUw7fN9EbXSI9MeKiSaDILMkGbo12Ku98HsbAOZF
+         B3F3KzxXEHl7ggnuhrxEocu2+kTHqg3dal4nDqGpENXEVqYtDTAlmWIZSXKBlN8AmYVR
+         lKQbfxdNg6H3Pe0zt3uMEEm69olU12IQx/GXRGw9cgvq7A/P6VnADfWm9yJ2LyWtHcka
+         MSrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790169814; x=1790774614;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FLaNzmeUxVe7oHCirWr50+xtXpo5WRTIGAcIx75e3pA=;
+        b=OLszHvqOfrQm6dgnNjidLqN4UvOFC842L4Ehhv71ElRpBncwG0sZXuQhRK58IVW+Fa
+         SnY+fHI9OO0BsxVOJNvhrXdCkTWuZCbfU6L5l3t5m9lySI5F2TyZBsa0oUn9O9998hh0
+         NpM3+uTiKobIoKtPN/DSz9FpKbB7NyoCyrrZYgPtTCPMDRA71ZhSn/XHpdR1a/5x2wj7
+         kfz4TvL80siE7jt6udvyWSo9FUxoSqWg9vixGVN2BWjl4Fwp6vL7M+zs2BptqFPXjDc8
+         ZRmIiaknt0wqxG4SgrqxvZWdll48bUXPU2TZAvcwN21dk6Hy0Y6sgRBFPrDya/0GiGUl
+         tKZg==
+X-Forwarded-Encrypted: i=1; AKwUvBy2ubesvRbv8y3xUF/HUWR5NXzeOqSQ8i1e1rfcTTyhn8f8oOfVmBhgqgiCemXENrlQAJBC7pif5qpYWk0=@vger.kernel.org
+X-Gm-Message-State: AFuF++ni6lVyFbGOf95itKoLB6FcBM1BmHWwxxeBZB8cWQZWAKMw1dFV
+	CrhlvEZ+abq+Sit+xMXTPyxkDFPJDxqdflVOBpveqVdUacIjnvXYlEOBxpJf8RAauYBHuHfmaRc
+	xo26ZofT8swPSfrLcJ+UhmvIXjF1i1bkojkO7oaZ8VuhsSKVeVMArPvlD/BFKdW6CSw==
+X-Gm-Gg: AYBFou34sibdIK7yIQn0/2pSl6EjitMqMojuI/Hduz7yaX2MPBQYiQzMUEsxdXFaysd
+	8y4eyRTNIn5LGMEDq1sUNqrRux7LC/RFE6evhomRJx+B5wqzQEbpzV/FEyZGEkNIoX7gQ9Dyx86
+	48ZOvFscHA8UeBnbTRPi1huK4wEP6eRNDvWl9rQ6m+GeEk5GCKR23jpZ/Y2v8FG9KP0HhAvtblp
+	G3N2+LbB5ixuh0FAURWDGXMj2ugX/JUA8RoDHO17ar9hvrNj0nbqaz3KYquL100a1vIQIJpYjgx
+	4ySfPJuf/1rwaQOPJRGpYQOQyoFw81JbYJGYoor6ZqV04ByfO3MnY/fGC93lPyT6//8DJ79Rm3Y
+	F7TB9X72bGFhK6zLyK+cT2EjfjgEc/RDiCfjDnpBr/A==
+X-Received: by 2002:a17:903:28e:b0:2dd:c100:4b84 with SMTP id d9443c01a7336-2df69e06244mr20772245ad.59.1790169814167;
+        Wed, 23 Sep 2026 06:23:34 -0700 (PDT)
+X-Received: by 2002:a17:903:28e:b0:2dd:c100:4b84 with SMTP id d9443c01a7336-2df69e06244mr20769775ad.59.1790169808912;
+        Wed, 23 Sep 2026 06:23:28 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6afc80easm10412065ad.30.2026.09.23.06.23.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 06:23:25 -0700 (PDT)
+Message-ID: <0ddf1529-a198-413d-bffb-1dbc7b6ee25f@redhat.com>
+Date: Wed, 23 Sep 2026 23:23:18 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <42ad1525-fceb-43d6-aa03-d17e844a9ad9@linux-m68k.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 05/20] KVM: arm64: Track the type of VM in kvm_arch
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260920212845.707-1-suzuki.poulose@arm.com>
+ <20260920212845.707-6-suzuki.poulose@arm.com>
+ <69ff265b-a110-46c5-a061-a875b2f86c03@redhat.com>
+ <e1bd3155-acb2-4c80-b963-6cd7865c9ce3@redhat.com>
+ <672c4905-09c9-4e40-97ea-c87a987bda19@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <672c4905-09c9-4e40-97ea-c87a987bda19@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 11:07:17PM +1000, Greg Ungerer wrote:
-> Ping...
+On 9/23/26 8:24 PM, Suzuki K Poulose wrote:
+> On 23/09/2026 07:19, Gavin Shan wrote:
+>> On 9/23/26 4:05 PM, Gavin Shan wrote:
+>>> On 9/21/26 7:28 AM, Suzuki K Poulose wrote:
+>>>> KVM arm64 has different types of VMs with all the different modes in which
+>>>> the hypervisor code can be run. e.g., VHE, nVHE, pKVM etc. Then there is
+>>>> protected VM and normal VMs with pKVM. We might soon add other types,
+>>>> e.g., Arm CCA Realm. So in an effort to make the handling of these
+>>>> different types of VMs a bit more friendly to the eyes, add a VM flavor to
+>>>> the kvm_arch and we could then add handlers for different operations based
+>>>> on the VM type.
+>>>>
+>>>> Keep the flavor initialisation at the beginning to allow for the detection
+>>>> early enough and fail out on any unsupported requests.
+>>>>
+>>>> With that, add wrappers for checking the "type" of a VM and replace the
+>>>> existing users with the new wrappers.
+>>>>
+>>>> Given we already have the construct of "kvm_vm_is_protected" in the core
+>>>> KVM code, use that for all confidential compute guests including Realms
+>>>> that we are about to add.
+>>>>
+>>>> Adds __VM_PROTECTED marker vm flavor to generalize kvm_vm_is_protected()
+>>>> to predicate all confidential guests running on KVM. In later patches, we
+>>>> would add Realm VMs, which would also be classified as protected.
+>>>>
+>>>> Add explicit helper to detect if a given VM is a "protected" VM under pKVM.
+>>>> Change the existing users that precisely want to check the VM type. These
+>>>> include :
+>>>>    - kvm_arch_prepare_memory_region - For preventing memslot changes after
+>>>>      pVM creation.
+>>>>
+>>>> All the others are retained as a wider check for confidential guest VMs.
+>>>> These are:
+>>>>   - kvm_vm_ioctl_set_counter_offset - For disallowing timer offset
+>>>>     configuration
+>>>>   - io_mem_abort for dabt handling without valid syndrome information
+>>>>
+>>>> Both of which are true for Realms too.
+>>>>
+>>>> Realms support is restricted to VHE host and thus "kvm_vm_is_protected()"
+>>>> checks in the pkvm hyp specific code doesn't need to change, as the only
+>>>> protected guests it deals with is "protected pKVM" guests. To tighten this
+>>>> init_pkvm_hyp_vm() restricts the hyp copy of the vm_flavor to the ones it
+>>>> supports.
+>>>>
+>>>> Suggested-by: Marc Zyngier <maz@kernel.org>
+>>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>>> ---
+>>>> Changes since v18:
+>>>>   - Merge the __VM_PROTECTED marker and the widening of kvm_vm_is_protected()
+>>>>     to this patch.
+>>>>   - Merge the use of kvm_vm_is_unprotected_pkvm() for ! kvm_vm_is_protected()
+>>>>     given the scope changes here.
+>>>>   - Drop Fuad's review tag, as this patch has multiple merges
+>>>>   - Restrict the VM flavors to the supported types in init_pkvm_hyp_vm().
+>>>>   - Drop kvm_vm_hyp_is_pkvm() and revert to is_protected_kvm_enabled()
+>>>>   - Use is_protected_kvm_enabled() to make the pKVM guest flavor checks.
+>>>>   - s/PKVM/pKVM for commit descriptions too
+>>>>
+>>>> Changes since v17:
+>>>>   * s/PKVM/pKVM for the comments
+>>>>   * Drop type argument for pkvm_init_host_vm and also drop protected variable.
+>>>>   * Add helpers for checking if the VM is running on pKVM (kvm_vm_hyp_is_pkvm())
+>>>>   * Use kvm_vm_hyp_is_pkvm() to replace is_protected_kvm_enabled() with valid
+>>>>     kvm instance
+>>>> ---
+>>>>   arch/arm64/include/asm/kvm_host.h | 22 +++++++++++++++++++---
+>>>>   arch/arm64/include/asm/kvm_pkvm.h |  4 ++--
+>>>>   arch/arm64/kvm/arm.c              | 31 ++++++++++++++++++++++++++-----
+>>>>   arch/arm64/kvm/handle_exit.c      |  2 +-
+>>>>   arch/arm64/kvm/hyp/nvhe/pkvm.c    |  6 +++++-
+>>>>   arch/arm64/kvm/mmu.c              |  2 +-
+>>>>   arch/arm64/kvm/pkvm.c             |  6 ++----
+>>>>   7 files changed, 56 insertions(+), 17 deletions(-)
+>>>>
+>>>
+>>> This causes broken nVHE mode. I applied PATCH[01-05] to v7.3.rc4 whose head commit
+>>> is f0100363d8c3, and kselftests/kvm/guest_print causes host crash (as below). I don't
+>>> see the crash if only PATCH[01-04] are applied.
+>>>
+>>> host$ cat /proc/cmdline | grep kvm-arm\.mode
+>>> BOOT_IMAGE=(hd0,gpt2)/vmlinuz-7.3.0-rc4-gavin+ root=/dev/mapper/ rhel_nvidia--grace--hopper--01-root ro crashkernel=2G-4G:406M,4G-64G:470M,64G-:726M rd.lvm.lv=rhel_nvidia- grace-hopper-01/root rd.lvm.lv=rhel_nvidia-grace-hopper-01/swap video=simplefb:off kvm-arm.mode=nvhe
+>>>
+>>> host$ cd linux/tools/testing/selftests/kvm
+>>> host$ ./guest_print_test
+>>> Random seed: 0x193a0ed3
+>>> [  192.754328] kvm [6674]: nVHE hyp panic at: [<ffff8000811da044>] __kvm_nvhe___timer_enable_traps+0x4/0x160!
+>>> [  192.754338] kvm [6674]: nVHE call trace:
+>>> [  192.754339] kvm [6674]:  [<ffff8000811dcf34>] __kvm_nvhe_hyp_panic+0xb4/0xe0
+>>> [  192.754342] kvm [6674]:  [<ffff8000811dcba4>] __kvm_nvhe___kvm_vcpu_run+0x164/0x440
+>>> [  192.754344] kvm [6674]:  [<ffff8000811dfe90>] __kvm_nvhe_handle___kvm_vcpu_run+0x40/0x1f0
+>>> [  192.754346] kvm [6674]:  [<ffff8000811e0238>] __kvm_nvhe_handle_trap+0x158/0x280
+>>> [  192.754347] kvm [6674]:  [<ffff8000811dd8fc>] __kvm_nvhe___skip_pauth_save+0x4/0x4
+>>> [  192.754348] kvm [6674]: ---[ end nVHE call trace ]---
+>>> [  192.754350] Code: d2818002 17fffff7 d503201f f9400001 (b94a6821)
+>>> [  192.754350] kvm [6674]: Hyp Offset: 0xfffeb0d7fe2e0000
+>>> [  192.754351] Kernel panic - not syncing: HYP panic:
+>>> [  192.754351] PS:834003c9 PC:0000cf2882efa044 ESR:0000000096000004
+>>> [  192.754351] FAR:ffff00009b286a68 HPFAR:8000000000000000 PAR:1d00ec7edbadc8de
+>>> [  192.754351] VCPU:0000cf011848a350
+>>> [  192.845154] CPU: 12 UID: 0 PID: 6674 Comm: guest_print_tes Kdump: loaded Not tainted 7.3.0-rc4-gavin+ #7 PREEMPT(full)
+>>> [  192.856182] Hardware name:  GH200 P5042, BIOS 02.04.01 20250422
+>>> [  192.862231] Call trace:
+>>> [  192.864725]  show_stack+0x20/0x38 (C)
+>>> [  192.868471]  dump_stack_lvl+0x88/0xb8
+>>> [  192.872215]  dump_stack+0x18/0x30
+>>> [  192.875598]  vpanic+0x280/0x498
+>>> [  192.878806]  panic+0x68/0x70
+>>> [  192.881745]  nvhe_hyp_panic_handler+0x184/0x190
+>>> [  192.886372]  kvm_arm_vcpu_enter_exit+0x24/0x100
+>>> [  192.891003]  kvm_arch_vcpu_ioctl_run+0x254/0x7c0
+>>> [  192.895726]  kvm_vcpu_ioctl+0x174/0xb40
+>>> [  192.899645]  __arm64_sys_ioctl+0xb0/0x120
+>>> [  192.903745]  invoke_syscall.constprop.0+0xa8/0x100
+>>> [  192.908639]  do_el0_svc+0xb8/0xe0
+>>> [  192.912022]  el0_svc+0x48/0x1f8
+>>> [  192.915228]  el0t_64_sync_handler+0xa0/0xe8
+>>> [  192.919500]  el0t_64_sync+0x1ac/0x1b0
+>>> [  192.923243] SMP: stopping secondary CPUs
+>>> [  192.927653] Starting crashdump kernel...
+>>> [  192.931658] Bye!
+>>>
+>>
+>> With the following changes applied after PATCH[01-05] on top of v7.3.rc4, the crash
+>> is avoided.
+>>
+>> In arch/arm64/include/asm/kvm_host.h:
+>>
+>> -#define kvm_vm_is_protected(kvm)       ((kvm)->arch.vm_flavor >= __VM_PROTECTED)
+>> +#define kvm_vm_is_protected(kvm)       \
+>> +       (is_protected_kvm_enabled() && (kvm)->arch.vm_flavor >= __VM_PROTECTED)
+> 
+> That only papers over the problem. We can't use the vcpu_is_*
+> constructs from nvhe hyp, without converting the vcpu->kvm to
+> the hyp address, before accessing it. The fix is a bit more
+> involved. One option is to define the vcpu_is_* helpers only
+> for the !NVHE hyp code in the kvm_host.h (to avoid pulling
+> in the asm/kvm_mmu.h in to kvm_host.h and then make a mess
+> with header dependencies) and define the NVHE version in
+> asm/kvm_hyp.h. Something like :
+> 
+> 
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index 46a7f6c1e426c..4016d09ed39c3 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -1545,11 +1545,14 @@ struct kvm *kvm_arch_alloc_vm(void);
+>   #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
+> 
+>   #define kvm_vm_is_protected(kvm)       ((kvm)->arch.vm_flavor >= __VM_PROTECTED)
+> +
+> +#ifndef __KVM_NVHE_HYPERVISOR__
+>   #define vcpu_is_protected(vcpu) kvm_vm_is_protected((vcpu)->kvm)
+> +#define vcpu_is_protected_pkvm(vcpu) kvm_vm_is_protected_pkvm((vcpu)->kvm)
+> +#endif
+> 
+>   #define kvm_vm_is_protected_pkvm(kvm)          \
+>          (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM))
+> -#define vcpu_is_protected_pkvm(vcpu)   kvm_vm_is_protected_pkvm(vcpu->kvm)
+> 
+>   #define kvm_vm_is_unprotected_pkvm(kvm)                \
+>          (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PKVM))
+> diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/asm/kvm_hyp.h
+> index 4974492744cc8..3bf87e81af430 100644
+> --- a/arch/arm64/include/asm/kvm_hyp.h
+> +++ b/arch/arm64/include/asm/kvm_hyp.h
+> @@ -137,6 +137,19 @@ int __pkvm_init(phys_addr_t phys, unsigned long size, unsigned long *per_cpu_bas
+>   void __noreturn __host_enter(struct kvm_cpu_context *host_ctxt);
+>   #endif
+> 
+> +#ifdef __KVM_NVHE_HYPERVISOR__
+> +#define vcpu_is_protected(vcpu)        \
+> +       ({                                                              \
+> +               struct kvm *__kvm = READ_ONCE((vcpu)->kvm);             \
+> +               __kvm && kvm_vm_is_protected((kern_hyp_va(__kvm)));     \
+> +       })
+> +#define vcpu_is_protected_pkvm(vcpu)                                   \
+> +       ({                                                              \
+> +               struct kvm *__kvm = READ_ONCE((vcpu)->kvm);             \
+> +               __kvm && kvm_vm_is_protected_pkvm((kern_hyp_va(__kvm)));\
+> +       })
+> +#endif
+> +
+> 
+> 
+> Or explicitly convert all nvhe accessors to a new "nvhe_vcpu_is_protected"
+> 
+> The second one sounds like a better option to me.
+> 
 
-To: linux-m68k@lists.linux-m68k.org
+We just need to include "asm/kvm_mmu.h" to "arch/arm64/mmio.c". With it,
+we can have unified functions (macros) in kvm_host.h to accomodate all
+cases, like below.
 
-ICMP redirect.
+diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+index 9b1cf9c59e81..b9c9a9f203f9 100644
+--- a/arch/arm64/include/asm/kvm_host.h
++++ b/arch/arm64/include/asm/kvm_host.h
+@@ -1514,11 +1514,36 @@ struct kvm *kvm_arch_alloc_vm(void);
+  #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
+  
+  #define kvm_vm_is_protected(kvm)       ((kvm)->arch.vm_flavor >= __VM_PROTECTED)
+-#define vcpu_is_protected(vcpu)                kvm_vm_is_protected((vcpu)->kvm)
++#define vcpu_is_protected(vcpu)                                                \
++       ({                                                              \
++               struct kvm *__kvm = READ_ONCE((vcpu)->kvm);             \
++               bool __protected = false;                               \
++                                                                       \
++               if (__kvm) {                                            \
++                       if (is_nvhe_hyp_code())                         \
++                               __kvm = kern_hyp_va(__kvm);             \
++                       __protected = kvm_vm_is_protected(__kvm);       \
++               }                                                       \
++                                                                       \
++               __protected;                                            \
++        })
++
+  
+  #define kvm_vm_is_protected_pkvm(kvm)          \
+         (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PROTECTED_PKVM))
+-#define vcpu_is_protected_pkvm(vcpu)   kvm_vm_is_protected_pkvm(vcpu->kvm)
++#define vcpu_is_protected_pkvm(vcpu)                                   \
++       ({                                                              \
++               struct kvm *__kvm = READ_ONCE((vcpu)->kvm);             \
++               bool __protected = false;                               \
++                                                                       \
++               if (__kvm) {                                            \
++                       if (is_nvhe_hyp_code())                         \
++                               __kvm = kern_hyp_va(__kvm);             \
++                       __protected = kvm_vm_is_protected_pkvm(__kvm);  \
++               }                                                       \
++                                                                       \
++               __protected;                                            \
++        })
+  
+  #define kvm_vm_is_unprotected_pkvm(kvm)                \
+         (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == VM_PKVM))
+diff --git a/arch/arm64/kvm/mmio.c b/arch/arm64/kvm/mmio.c
+index d1c3a352d5a2..ab1d2fef9a52 100644
+--- a/arch/arm64/kvm/mmio.c
++++ b/arch/arm64/kvm/mmio.c
+@@ -6,6 +6,7 @@
+  
+  #include <linux/kvm_host.h>
+  #include <asm/kvm_emulate.h>
++#include <asm/kvm_mmu.h>
+  #include <trace/events/kvm.h>
+  
+  #include "trace.h"
 
-> > The FEC driver works today because the m68k architecture io.h has a
-> > kludge in the definitions of the readl() and writel() functions for
-> > ColdFire that allow big-endian access if the address of the register to
-> > access is within the SoC's internal peripheral registers. This is being
-> > fixed in the near future to define readl() and writel() correctly - with
-> > no byte swapping. Thus the motivation for this fix here.
-> > 
-> > __raw_readl()/__raw_writel() access methods are used instead of the more
-> > commonly used ioread32be()/iowrite32be() here because those are broken too,
-> > because of the current readl()/writel() kludge. They are implemented in
-> > asm-generic/io.h in terms of readl()/writel().
-> > 
-> > Note that even when readl() and writel() are fixed on ColdFire they will
-> > not be the right thing to use within the FEC driver on ColdFire hardware.
+Thanks,
+Gavin
 
-So what is the end goal here? This patch. Then fix
-readl()/writel(). Then fix ioread32be()/iowrite32be()? And then change
-these macros to use ioread32be()/iowrite32be()?
-
-Are we always going to be using fec_read()/fec_write()?
-
-	Andrew
