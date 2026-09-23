@@ -1,220 +1,126 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBB257D233
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:47:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA33157D21D
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:48:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790196474; cv=none; b=B5UfKNzYdJAy5qKjWPUxrgXRqkUNKJ+0FMD/SUL8daUc0LoZNfvPMTEojIyeU5J7siqB66VzQDmajqhzbl0iMKMxpHcap2Ck2/xFi4jVReUCQdgmiMUGIrNBxwG1zeD1usflj0x1RZjudZ47OAJEuv+FgDZZuyhy8PTal+JBhbY=
+	t=1790196496; cv=none; b=aWBNfDWz+b85B8Az8yV4anr9XDEYd4oVkgMJke1GylY63BCUMk/MO+im5x9s2VC6cf6sfyeaynzS0o3coV/FyKZrdKsVvbCWp4Cetg4He3/icELFTfLun8Q0n1+61Evf8a84mnDvlp0rmJdnXEElDnLy2teG77ZaOng+qWCEu6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790196474; c=relaxed/simple;
-	bh=sjLoecwDQJXaWVmzvGOQ+F7IRuyAd48CcawjSycmYoQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KNbnHKFzvPkmH4FVTY7tGcpFtMXSiklKqEW9u4+TYh55gl9WypAv5zeKIO4VaEhkuklXPZPU+lZx89O3GdV7Xfk+hNWEJRV84zij9rd4cvq4KngKHqXDHqW+1BILBer681bLVtJYu/20Ek/nigXvt1WDSTM0psaOAUklZAN6sl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=GdXWg9yK; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790196496; c=relaxed/simple;
+	bh=/JJF6ssyxAQdmL0bSTx1Ono3iYU/qejhw/WQLlUJjoo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FuQdUy/kar9Ah+gtKDHzpYeoTCrxDngtqrOmvLuHhfsWD+DtsBSyDzIcz2/hal7OcVBeu25WexCchSpJ9i3CHLIRtF9wAUq1aXag4LtZJBq7Vtw+EpCLz5gRRf3zVLjloUgR59RP8go1RmDIsLLBoaT+AuIB8+V3KeCM3WGzEtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=cVHavJqo; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="GdXWg9yK"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912df756so9977155e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:47:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790196469; x=1790801269; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kHpHp+F5tI4LZnE8xFoLfG2BiWUFVvoyvHapbJH+e74=;
-        b=GdXWg9yKY3WsQbWY+qukXrmughfq/vMpqLEGv80D9insKkvIJOoM1G+DNShWVo7s8D
-         5F6DeV55aqJguZEEJvm06neTVEf30HFQD0uL/OSSKJ3OPJE9BhJ2D6+j+Q7aozT1NEMg
-         o/5/n5I3ZKmwNdKxBC6alBBdg9eAQrHu0GhWZEZXQPccKcsIYEtzxRFgTPHz/iNCxcC7
-         dH0ajzmA/s6XNrxFr8qzfpdVM/f5g3e2pVV+kO3ytp1IB7NzeBk5+XZwD1Zpt5j6Dgqn
-         hFkNByafO6sKI8pEt01UBD0fFFPU5clXR51r7RfUUT0tcZsO+0L2xDJ6BI/tkxitg4hl
-         12jw==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="cVHavJqo"
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 2C1AB3F781
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:42:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1790196177;
+	bh=1lsBUs9NSNq+2CCd0RHpAdGjAy6PPuORFqVcIIm1nuk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
+	b=cVHavJqoeUvPYyz/+c9am5+bg0tyvwbVPoCoS7SFk+Ez8eUquVjppMSrsnB+OAnJ9
+	 rYQbXm6f3RBWjTVK7mac8bSTQDvswTrQywLVDDSSxmkaLolAImHHGrSdqjC3rHVncb
+	 //xUxmWfifg5EET2IJ1WHpFnIgZYd3Ip6RoGKmfIsMsaDlr8/HkZcdUITiBZAA+h22
+	 AqGw9KNRkZopJOoeCziWgLXxYmylXhAUb//lOfgM7v+dJ2prMqZK125TdfsnrcZwqI
+	 5915RudZYhTEMbvY1xYzo6KQ/7hypJaFnYmMbbUrBoHQi744E2iEQhQfwJq93wIRW7
+	 Qbp60nisj7Ub74zeMDJdPL2+LdIsGKMGb8tHxJyRi5+1iJ2WavZ9Azp2vbgVLWwSXK
+	 WWEtEnNC7RV5d2zc1viYm0o1pF41Eps7C6S81ye6UgcLaghemDdblI/k5uM2qs0b1o
+	 rfj/znp19C0mmI3PKSfRs6xz8XBO0tbJX3GdtXsyZHqXm38zofyLCa5Al6tFhIOntC
+	 NF8t7WbTYYt9jQokQPMWjr+5pz4LJ96c7XHW7iXLl0mkVX8vYEK0AGUqW2D+ovNOsP
+	 MCoZIjjx91aAVr5BWlcwQ5366nNegFKanSAGj+RRNAxECFlUlCDD/EeGETrtm2CuYj
+	 q/6QyDsoBvE04JxO/yWu/v4U=
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c251c140b41so116419466b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:42:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790196469; x=1790801269;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kHpHp+F5tI4LZnE8xFoLfG2BiWUFVvoyvHapbJH+e74=;
-        b=RLWSiV4oJ6cIu6WdduPJCqUbrDHDN+p9KH6o2NNN1M6kT8Rkh0raYzU2acN1DIoEbn
-         RaR3sabqP/yMa6KR9MBrOHA/01Ir6le4y6v0T78/Ac2xzuNv20rjJY2b/F96WVep4IEk
-         N0Ep7BZdGrq/mXuGPcat48wauJiTziual4bUKpbq3SZAgVisFN64UHvMulxUzGuPRWGq
-         /hu4anq/mkRnPMK1j6BOrOgZfC+S1v+tbUUiS9tFdPi09H2OvRNyNro1kyBS7mQZBfNa
-         qoFL9mAHjcq7cpsoNuOGRbrKvMQWM6cn4+AchSkms8bODc39ihQX0tplDqyYUrh4iLDP
-         MUiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwlU/c0lStLj1Ui3v5p13evCIDtXdtGLGUGG4HlIciZnk1M34qGwghtNuWuFLYcOy0r0ZMLWlzZMM4FAhI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQpGSPQI+O3dQUhzBPopn1JWyT+nob2dVvrE84DEw3kS/4MjdR
-	uc3RWNz9Z92nTn7LTQbLblHoNoectlHsury7KdI5nqWKWQB02ldIU35azv8KW9+02dU=
-X-Gm-Gg: AYBFou04IjloMfXAUMPCQLNxGi45Gg+UQXS2shicWxABoMMgXiYGZyP6OhalqpC35rw
-	CfP4cpIDx3r7Ltv61S4lqyAi0CI2Alv5MN+UWADAzM5W3XR0dn0Y0AuRAGkgRL1wbPtzC41dzCa
-	NBKVS0bOj25dvqFmmseSk2gJjQ1jgKe8f1UpKWk7x53zEAWJi/oIzSGNuzZN5tyTXDY5KwRZtWe
-	ujmuKGqKP8YukaB91T7sJiv+7cMS3EobTFq8XV6k0mFOQSIDy/pvVqkZeMW6Y9JUeIdmFoPL4BB
-	uRHLzpK4wUtC9ml44hKG0qhGyoa/9GxKmm2iqd2tyOWEsQa8+N2a+Bu4v9Syw+HGgT+knJINm8A
-	Z6oS6gdYCq5KRSyLwSLi96YX/wH6Wu9tbcljJeiPqMlUMXf6weAwm0A0dSPVsUX7sVz3GIseQjk
-	3V3ZizKcgYjKpbFJthx7WgfCk0sLllxMMEzbRUMaI3+HekQGUYEePc5eKEeXAcN1S+LwnXuAaqL
-	EQh8SBiC+O0WXVY0A==
-X-Received: by 2002:a05:600c:1989:b0:49d:16df:8521 with SMTP id 5b1f17b1804b1-49fe66ab9d1mr6607445e9.4.1790196469631;
-        Wed, 23 Sep 2026 13:47:49 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5b44db6sm14839105e9.0.2026.09.23.13.47.48
+        d=1e100.net; s=20260707; t=1790196176; x=1790800976;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1lsBUs9NSNq+2CCd0RHpAdGjAy6PPuORFqVcIIm1nuk=;
+        b=WrZFNpiNheXww6k1Uptyz3ucoEZsBRgOBUQrBxyymoDcqUcvF/4hVDiBxX/TYjUHrE
+         EXoLzqQBeYm7aR/yvjagp92kMBTn2kF1cXKmpjFwQNZP+NNAAzkjxkqHd7XJmyaAma9t
+         bojCcjiPZqYcCt+TNuD9Iuxz/g2ankengGQbI3i+vRVPkdyPmlWzu14IjHW2sux54V5a
+         KesZXaVBMrowNguasRxc/dVSmBGfUSa50I/3ZkTTwtOFjdToMmHta6X8vNeaiosaBXss
+         aZu5IvCVUqChxKZBwz3oQNoE7+Jc1E28A2XGbulSSeEPjwjLtNzsgFzgzzGEC8QzmK5o
+         JMxw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcl+WRwoDj3A2uzC0B/M7uyyOY/sVmpcBXMd3kDI2QduOXvZImtuigxGX4KFzNjgHTYXsUV7FAm9ujUo4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjBKecElNI4f3ITTDA3DwkELbUOybvrkYdNbCjj22VqwAjC5aG
+	zPuDz7iDXqWoFq1Pm59IGo1kM+xZ0m92fV/lJRfCMOKNn6FmdtSy1kzgZ4f8UJ5MojWyOi37i7+
+	b6EZeV3nSL6UjiZnzI0rjMM5XgfFIh4MKCbv480J4H/FjnaQoVrH9SfCzw1EGA8iUKgiMm+3AGl
+	0/kBdpOQ==
+X-Gm-Gg: AYBFou3UrOuwfuDyzXyecNHYXGqBwXqkl/RfNt7CSWoWeJ2OpglXbVyfaQG/bUPEcxJ
+	COiKMaPZpWbn+xAOfL2cateE7KtrHIDYjK9l9H34XF9ySplYnfP1WMqQbfjfDiFwRbmTYk1BQSp
+	1yoW9WYH52BMheXK5gLQf3qBYBCj0C+diYGreQW8n5f6m7FXlO1eENGUFQmdESNEhR4RxIfJi7j
+	vHpYL02irHBYvmDh13xRGBDus9d4bw1wcsxcKhu2UxMUSi0j20HNFhriIXhiU8SXHR/jF0voU4c
+	6oxlYMFDAcW6145DHtsh7TB07ibZdyxcpNGt3QEk87OqxiwR8qIYyjdV8Caw1B08KaLHi3c21BE
+	uB0IRfOBEWXUHCJ0zmp5ufwUsBsVXfrU76iANFjoUSrv4aUIjlFcUommtYKQ3+DvJEefc2M/or+
+	sDe8qloSg=
+X-Received: by 2002:a17:907:968c:b0:c29:4b08:79d with SMTP id a640c23a62f3a-c2ac237a45bmr26771766b.26.1790196176618;
+        Wed, 23 Sep 2026 13:42:56 -0700 (PDT)
+X-Received: by 2002:a17:907:968c:b0:c29:4b08:79d with SMTP id a640c23a62f3a-c2ac237a45bmr26770966b.26.1790196176365;
+        Wed, 23 Sep 2026 13:42:56 -0700 (PDT)
+Received: from deep-thought.gnur.de (ip-095-089-205-015.vkd78.pools.vodafone-ip.de. [95.89.205.15])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae6a4a00sm185431466b.46.2026.09.23.13.42.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:47:49 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Wed, 23 Sep 2026 22:47:35 +0200
-Subject: [PATCH net-next v3 5/5] net: stmmac: sun55i: Add support for
- Allwinner A733 GMAC210
+        Wed, 23 Sep 2026 13:42:55 -0700 (PDT)
+From: Benjamin Drung <benjamin.drung@canonical.com>
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org,
+	brcm80211@lists.linux.dev,
+	brcm80211-dev-list.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	Matthias Brugger <mbrugger@suse.com>,
+	Benjamin Drung <benjamin.drung@canonical.com>
+Subject: [PATCH 0/2] brcmfmac: firmware: Add missing clm_blob firmware files
+Date: Wed, 23 Sep 2026 22:37:37 +0200
+Message-ID: <20260923203739.2560527-1-benjamin.drung@canonical.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-allwinner-a733-gmac-support-v3-5-15735155a789@baylibre.com>
-References: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
-In-Reply-To: <20260923-allwinner-a733-gmac-support-v3-0-15735155a789@baylibre.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Maxime Ripard <mripard@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- Andre Przywara <andre.przywara@arm.com>, 
- Jerome Brunet <jbrunet@baylibre.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4132; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=sjLoecwDQJXaWVmzvGOQ+F7IRuyAd48CcawjSycmYoQ=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFlbrN669B39qPeAbW7OgdsplxQT71j87Zx16uqMiimtn
- Lp1lh6lHaUsDGJcDLJiiiw13NXi7yS1vsyarnMbZg4rE8gQBi5OAZiIihkjwyb31d8uyoQbH75s
- 9sfsjf4n69Uei5jkzL5psmk98r3+tIrhv7f6q8R7G+4cYbbpqebm5Ntqsd2bf3uH2dmQ2SHdm9s
- c+AA=
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Transfer-Encoding: 8bit
 
-The A733 GMAC210 is a DesignWare MAC 5.20 using an Allwinner glue close to
-the A523 GMAC200 already supported by this driver, with the following
-differences to handle:
+Hi,
 
-* The glue configuration registers are a dedicated MMIO region of the
-  controller instead of a syscon register. This region is in the AHB
-  reset domain, so the glue driver releases the shared AHB reset before
-  writing the configuration.
-* The TX clock delay value is 5 bits wide, split over 2 register fields.
-  Both TX and RX delays use a 180ps step.
-* The DMA channels have their own interrupt lines, so the per-DMA-channel
-  interrupt mode is enabled, as the vendor SDK does.
-* TX LPI clock gating is supported, as the vendor SDK indicates. Follow
-  the PHY capability with STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP rather than
-  forcing it on with the deprecated 'snps,en-tx-lpi-clockgating' DT
-  property.
+I noticed that these firmware files were missing inside the initrd when
+including the brcmfmac kernel module:
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c | 53 +++++++++++++++++++++-
- 1 file changed, 52 insertions(+), 1 deletion(-)
+```
+/usr/lib/firmware/brcm/brcmfmac43436-sdio.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43456-sdio.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43430-sdio.raspberrypi,3-model-b.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43430b0-sdio.raspberrypi,model-zero-2-w.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43436-sdio.raspberrypi,model-zero-2-w.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,3-model-a-plus.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,3-model-b-plus.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,4-compute-module.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,4-model-b.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,5-compute-module.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43455-sdio.raspberrypi,500.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43456-sdio.raspberrypi,4-compute-module.clm_blob.zst
+/usr/lib/firmware/brcm/brcmfmac43456-sdio.raspberrypi,400.clm_blob.zst
+```
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-index 49abbb248b61..675b83cd52c8 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-@@ -19,6 +19,7 @@
- #include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/reset.h>
- #include <linux/stmmac.h>
- 
- #include "stmmac.h"
-@@ -65,6 +66,41 @@ static int sun55i_gmac200_init_resources(struct platform_device *pdev,
- 	return 0;
- }
- 
-+static const struct regmap_config sun60i_a733_regmap_cfg = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+};
-+
-+static int sun60i_gmac210_init_resources(struct platform_device *pdev,
-+					 struct sun55i_gmac *gmac)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct reset_control *ahb_reset;
-+	void __iomem *base;
-+
-+	/*
-+	 * Get the configuration region out of reset before changing it.
-+	 * stmmac core holds the same shared reset but only deasserts it later.
-+	 */
-+	ahb_reset = devm_reset_control_get_shared_deasserted(dev, "ahb");
-+	if (IS_ERR(ahb_reset))
-+		return dev_err_probe(dev, PTR_ERR(ahb_reset),
-+				     "Failed to get ahb reset\n");
-+
-+	base = devm_platform_ioremap_resource(pdev, 1);
-+	if (IS_ERR(base))
-+		return dev_err_probe(dev, PTR_ERR(base),
-+				     "Unable to get config memory region\n");
-+
-+	gmac->regmap = devm_regmap_init_mmio(dev, base, &sun60i_a733_regmap_cfg);
-+	if (IS_ERR(gmac->regmap))
-+		return dev_err_probe(dev, PTR_ERR(gmac->regmap),
-+				     "Unable to get regmap for config memory region\n");
-+
-+	return 0;
-+}
-+
- static int sun55i_gmac200_validate_delay(struct device *dev, const char *dir,
- 					 u32 *val, u32 step, u32 max)
- {
-@@ -132,9 +168,11 @@ static int sun55i_gmac200_setup(struct device *dev,
- 				     phy_modes(plat->phy_interface));
- 	}
- 
-+	/* The dwmac will sample this when stmmaceth reset is deasserted */
- 	ret = regmap_write(gmac->regmap, gmac->data->offset, reg);
- 	if (ret < 0)
--		return dev_err_probe(dev, ret, "Failed to write to syscon\n");
-+		return dev_err_probe(dev, ret,
-+				     "Failed to write glue configuration\n");
- 
- 	return 0;
- }
-@@ -202,9 +240,22 @@ static const struct sun55i_gmac_data sun55i_a523_gmac200_data = {
- 	.rxdly_step_ps = 100,
- };
- 
-+static const struct sun55i_gmac_data sun60i_a733_gmac210_data = {
-+	.init_resources = sun60i_gmac210_init_resources,
-+	.flags = (STMMAC_FLAG_SPH_DISABLE |
-+		  STMMAC_FLAG_MULTI_MSI_EN |
-+		  STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP),
-+	.offset = 0x0,
-+	.etxdc_ext_mask = GENMASK(17, 16),
-+	.txdly_step_ps = 180,
-+	.rxdly_step_ps = 180,
-+};
-+
- static const struct of_device_id sun55i_gmac200_match[] = {
- 	{ .compatible = "allwinner,sun55i-a523-gmac200",
- 	  .data = &sun55i_a523_gmac200_data },
-+	{ .compatible = "allwinner,sun60i-a733-gmac210",
-+	  .data = &sun60i_a733_gmac210_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, sun55i_gmac200_match);
+These changes should be backported to the stable kernel releases as
+well.
+
+Benjamin Drung (2):
+  wifi: brcmfmac: Add per-board clm_blob firmware binaries
+  wifi: brcmfmac: Add clm_blob firmware for brcmfmac43456-sdio
+
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/sdio.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 -- 
 2.53.0
