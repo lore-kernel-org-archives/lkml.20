@@ -1,234 +1,328 @@
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com [205.220.177.32])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776B7383C96;
-	Wed, 23 Sep 2026 17:26:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.177.32
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184372; cv=fail; b=ZfZU5n/PJf5sNUigL3BLP1vkT7HNxZmSAQIEv+4Q6iPG5Bb/Fb+gSfsVnPBS1wrn/MAgIp4neREY/mPWM5lEzafXE+9FxYUSO7H6mvOZGRzPMrK6KAvS3+XvdEYaPMtcx5GXe3W661Z7PDxp4vSzRN6g++jB0H9UedgmVBpFCf4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184372; c=relaxed/simple;
-	bh=z8jqCNW7OlgJlptdqfMlccH6zvvQK/3N0sA9PqJO2eg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Eddj4tk5xUovBXwGjAr52IarwA10LRhXRbGEq/2rtj/8ulb3BG7HA28SRHLjCWR7zBkg/6nm5Eb+ziFAlW3D1gYxJJ8NmawGiIiNv86DNqvlC+m0ci/nyC0SPxPubTG9Wy+uywqd12zzegIwjkuC1DG4jiXyltjdz1BG5BOPo9A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=fjQxQZ/r; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=LLZ4IWG7; arc=fail smtp.client-ip=205.220.177.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3312D3F54A4
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790184374; cv=none; b=syrPukXtBgMcXNeSM+2ZFNyCzKJRKpMY3D1sOtaN0MVqb8uMPHMw3D9QZqSX0xd0iufX6CbHjrve0YW4SasB8saiC0AfyMv9LyRt/6tTpDtlQu9hJCrk6uZ3dH2eTmnSCeUVniiHfz9NNe8pk+pqwpwMKFcFMP/r1s9Cs5lSHm0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790184374; c=relaxed/simple;
+	bh=Er9oqPBQrHuNy1LZ0kjHor+yXTWXjfbzxppCXP23G28=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EQ6KRvnr+fwniulQxXjHU61TlxjhCjV0oXGkysB4N3lkfJKVTOl2qMQ9fGtm68Ba6CXNpFN1UJWaBQmdXdFj5XJZoCaZXxuWFgTXqE99hhzjHlWzs7Z54LzBYFWJwkX+ozMLZK6pebcD/pV5XDN5VYbKMPX+lAbcRUgsymz/FTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Sa+MAkcR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="fjQxQZ/r";
-	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="LLZ4IWG7"
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
-	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NErt1E2391957;
-	Wed, 23 Sep 2026 17:25:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	corp-2025-04-25; bh=bzeFiOyIyT8zYtgtmYcxL7TwHu2PZS4CR44T5EF94j0=; b=
-	fjQxQZ/rP4dC8goPIuzPfvxR7lf2xVg8PGx6ocFSJVxhFPi/jWypy3CITjGdrVdv
-	SQhWG3lbgOYgA3UDWcwRx3KfKRDhfnqECtyw9Zyekr7cF1rZsrLKgxFpxKDjBQOs
-	JCYRk+I07TAaXGbgbIQa1jRbwA3bAxMgm245Mci86snype62f4vuUlXLqrL8iE8y
-	ozz2FDPOsmagmAFDBPeE4SBX49zqdk1BCA2VXCmlJuULzH7yqo3HTtlKz5oBgtX+
-	P2Dwik6mEGUbqX5BIPjXMfqILXjUBUUKJRsiCrhCgSUbFxiLspSglOErPwZXT6/6
-	jGBIEEzb0/xbLgGn149Dwg==
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
-	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gsk1ge85m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 23 Sep 2026 17:25:38 +0000 (GMT)
-Received: from pps.filterd (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 68NHKPpw038281;
-	Wed, 23 Sep 2026 17:25:37 GMT
-Received: from sn4pr0501cu005.outbound.protection.outlook.com (mail-southcentralusazon11011069.outbound.protection.outlook.com [40.93.194.69])
-	by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4gu1rc0ymm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 23 Sep 2026 17:25:37 +0000 (GMT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NIjS+jL1RS0RiTw1qjxoPJ3wWB4fH50DhoTFk/4SdWpONpcS0ABOtInfZA0JnVAbs5lsT/MoEBHCR35WEwD+cuiJzgYN/68MoI4+WbN0HQ20q4OLvQI/XuBU/cnWBZlSfkwnaAedFwqmEytLghsIC2hxVjD56dLFG67F6LEVdDOsGu5m+ng9LXzJCuPrZCVT7vv1J4a0ez756zkP/xq1zYGCaTjE9ZW2e0qaMf+M6qqGCaFgG5rl3v6VFJlndGEN6VSbvcpiV2JBh2J2Wt0lfJglj6tXy2HOIYjfhL0w1Pz6rD/oinNNCHcorCiZuXCjTFD/y0uK4ql/eJD4j5PnRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bzeFiOyIyT8zYtgtmYcxL7TwHu2PZS4CR44T5EF94j0=;
- b=gTkj2kjZ/geIgnCrqDcMHOD+9uvB59KSXHEg4AwH121uKJa6aX8HdQYnAm4WotqkiXNFGGWpCPNzqYm5/TCT7tqb9esKzmAbbLkjKKHjAbju3idQVONfNjylfQl9gXlmbTFHFZ5mNsXrf/Jn8+YoZXkVzWdpfU8mjn6a0BxW/A+nL4nlnv6BZ2G2oYlnWHb5OnUhaoJT1hojCpg3yHDNXI4lefqTtFRbHHhrELo4TsTLbZ8k5pSWkb7oT5H/VzxOYVrAOxzTBnXjPKOtlQhffNfv8BTTd2UfbH2r124mDVU6fkzumkn/RO8xpWWnNJPvalLqqv5nzeoQsF2/jurJrA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bzeFiOyIyT8zYtgtmYcxL7TwHu2PZS4CR44T5EF94j0=;
- b=LLZ4IWG7BoOsTUcQWRPudJFpGuodYOezEqvtpGgPGz3kOyhSSRFbnvx3wpKzUF4cSgGtpoArfZJdWKrOvk1RI+SZD3DFKnzyZmzVR3MTQCd/RBLTbaOpsIkAfUpAY75k3dulXA/RqG5wDZLAbHt7xNkks7A3LDWljpnkZuJWm1s=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oracle.com;
-Received: from CO1PR10MB5506.namprd10.prod.outlook.com (2603:10b6:303:161::7)
- by CH4PR10MB8075.namprd10.prod.outlook.com (2603:10b6:610:236::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 17:25:31 +0000
-Received: from CO1PR10MB5506.namprd10.prod.outlook.com
- ([fe80::da72:a0a9:5f18:cda4]) by CO1PR10MB5506.namprd10.prod.outlook.com
- ([fe80::da72:a0a9:5f18:cda4%6]) with mapi id 15.21.0451.004; Wed, 23 Sep 2026
- 17:25:31 +0000
-Message-ID: <02e6b16a-67d0-439e-868b-435fe1c38400@oracle.com>
-Date: Wed, 23 Sep 2026 10:25:28 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 2/2] sched/core: Defer preempted remote vCPU task
- clock updates
-To: Sean Christopherson <seanjc@google.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, pbonzini@redhat.com,
-        peterz@infradead.org, juri.lelli@redhat.com,
-        vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-        rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-        vschneid@redhat.com, kprateek.nayak@amd.com, dwmw2@infradead.org,
-        joe.jin@oracle.com
-References: <20260824012716.753022-1-dongli.zhang@oracle.com>
- <20260824012716.753022-3-dongli.zhang@oracle.com>
- <arFUTBLuLdVVaqxX@google.com>
-Content-Language: en-US
-From: Dongli Zhang <dongli.zhang@oracle.com>
-In-Reply-To: <arFUTBLuLdVVaqxX@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PH7P222CA0024.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:33a::24) To CO1PR10MB5506.namprd10.prod.outlook.com
- (2603:10b6:303:161::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Sa+MAkcR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097121F000FF;
+	Wed, 23 Sep 2026 17:26:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790184372;
+	bh=cvDimQIGm9Wi0MFjm/wmDxID/1HZ9OhjyTZKZb8d394=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Sa+MAkcRDi7dHjeQ9qWNOBoh0SmByAfKs7DTO//Q1vIm454chYgsMu0xJFLwrLgO8
+	 cMzeaI46c+B5vAe/aJPseqhgZZryhdRQoMrTfFrBI/pbOztGP9aZva2OTMY3WeBE1U
+	 o2nOSt/3qU+UUevxd5nDtpadTDWdCX7ynFm/SHsr629yxYxIhRE1qhKyNoKhnpeobF
+	 XQ8WhnhafOk/hHP01DBR89GjBe37V/RXI7b1z4+6HQGnQIA00wmJlKNvFMEkr5WHwm
+	 SvhFax5RJg5d5hAzlk1hVNFgxXJSrZm1vKw+nzzSVDfn97LuK+dQd1F4ysMe9/9D2+
+	 psNq+wchIqd5A==
+Message-ID: <e402fd5c-86bd-4666-8a96-6f0f5ea4bc38@kernel.org>
+Date: Wed, 23 Sep 2026 12:26:11 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR10MB5506:EE_|CH4PR10MB8075:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f12aca2-d626-4622-e0fd-08df1997ab06
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|56012099006|10067099003|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ve4TmZlRPAuKUZAI7r4VmqQtC3ccoCoC8rqSORx+2XO8aHOc5U48Q3fPOrgWLukU10QTuAx1L4ph9ammG4ywW64H5+JZ+JhfTJOxnCJzm1IJgjkqGg4F6hiMrDepacdYY5SWywRNEITQzrQSRLYd3mYbxNIgQqDGjARo1JSinU8Eao//wRqzLI5bPm0v7YUfLY1kz3H368xgTwc5MH5BPU5pD22rnWJRCOLSwc9puYXcAaoLRmw7HVElxqdFHpqtaVrJy3sdlCwU3GCKvBPZfY0wI/5fzvNwTr/7rOpsBR6P2ZfSKCCeXfCsRRYUcB2dXnuPw1WBGjv3g3pATqkGW+LsiVohEHVtcwYeYc5MXAlOHq9EBDExnBOPLaGXoVaYGGqPXTv5NRO1wzDgQpEdJ3qagO6iNmYHQDdtlS6rFKyxKGpNGcam+ppar14275AuBXxbnO4zaE2/2cWfn2/5fzPz8WqxyWTD+h4/fOHOV8O/arZy8evXVRnDOnDL0w6haX2ETn3xeLvSmyE2DP6AumtAMqddkHHmk0e0CCzwlncqu9Eo0tFDlre5yeqjdCBvVwOlSQHTCXZSBPReDFLwA8wp6dPniuNb/KMQdCdRvnNNygZAFBsUAgpP/WtzzPjxhWQeZjtpe0fGIN7kbOL+s9Ljlo5CPh5fqOh9eB5gDw4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CO1PR10MB5506.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(56012099006)(10067099003)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U1djc2U2ODc5REJHTzh2TmgxZmVZYXhBRENTNFA3ZjE0cy9pS3dHTEloTGVi?=
- =?utf-8?B?bnlSNi9idjloTC9reUh3V0lpZjdQdGFrbVJ4WldwK0NRQVNlS1J5V3B0dXFQ?=
- =?utf-8?B?aUNPenFPUEJXa1BzWGlyY2xTb1RkcUFzcUg0U1cxVXNaRFlVODlWWXc0aENJ?=
- =?utf-8?B?dWtHVy9hNVZFUW1sdm4rcE5BMVowZUoxZ21ZSC9iMmZlZWxKZWNPbVdWaDZ3?=
- =?utf-8?B?NEpuTkNERG5McHBuVHVockhnSWlLcS9HTGlzUStNMHFYSFBMWldDUXNNSDRq?=
- =?utf-8?B?aDNkRmpBQ2ZjQU4wTEFNbW4rS1ljclAvaE5wck5jR3VSNVlwUThVNkdQdGlS?=
- =?utf-8?B?YlEzTlloV2kzK2xIZlVXdHZKalFjam1LRDdVeHpvTndKVUt4R05XNU9LZ1ha?=
- =?utf-8?B?bzNDRDFFMXhmYU5wWThxekgrYS94bEd2Zm9YOTlLOXlSSFBIUkJTZUpHeDhy?=
- =?utf-8?B?MWxIVlVRaWpzWU53Nk9IL2syS0dabWxYL256V3dnR21MRnkzdEYyZTR4Q1ly?=
- =?utf-8?B?UHU5NGhJUkhGZ1F2c2lGclNKN1RzMmFIeitLN01BUjhGKzkwc0k1bWc5aVFo?=
- =?utf-8?B?Ni9jSnpRSnlUdG5QUmJvcWhaZ285Rm90Tm8wMjYzREhtUXNCaFRQMDlRSFRT?=
- =?utf-8?B?bzhGS0JRdDlud1lqVjlJNmpJVnQ3T0RyNmhoMEx0cEk5YWMyenUzVTlaVzhW?=
- =?utf-8?B?NUNGOHpEcXlkdGVNQXBTZUdqNkQyV2d2NWxtK1NVMG54OEc5a21QanpRNFU2?=
- =?utf-8?B?cTc2T2FtTlZsL3NiaG5nN2JXQ01CTzRMZXhOL3FNcE1wTXBaWldnblhmdDVq?=
- =?utf-8?B?ZkVCOFRxY3dIQ3VNNkYreEcvWlVoWjdiWU54Zmk1bnF3aXdzS3VZNC9YUnM0?=
- =?utf-8?B?a2RTYW1LRnQxZXY3V2pocjM0RENxN051bjVTM3l0QmVNVTN6ZFJ0VndvbVk4?=
- =?utf-8?B?WENxMlppNWZiUThYaGpZT0dZU1JEZ0htSWZJWjJLaitGSjl6TklzOHloS2Zn?=
- =?utf-8?B?eUplZmFLRUNoRnk2QnFFZUNnUTZ5NjdyYkRyU3VDUjBYMWtkVG5kMlB6RmFL?=
- =?utf-8?B?M0U0ZmdRVXZwT3ZKK3ppMkNlZEE0VS9sK3NHMHltaEdWVDhPT0xTbHBVUSsr?=
- =?utf-8?B?M0NISmszNGNrK21zamgzeGtwK3lJTWNuV2c1RUhBNWFkc0ZhK3A2UFptQ251?=
- =?utf-8?B?VDM0VHZzMldPYXNYbWZlWjhsa2taNGZ0dXpVNi9oSzh5MU1RcDV2MlFRWFJ2?=
- =?utf-8?B?cVo4dVNVTHg5Z3h4SWZSNUJtSTVJa0xPL0tTeXR3MkdRanhicHprcm9mZ0J3?=
- =?utf-8?B?eDZKRVdHblRKOUlnc3FIaWFkZFBFMGpCbU13emdqWEUxSkw4TFo3TVgvbEVt?=
- =?utf-8?B?bkEvalNTNFF5a293eE5vdkxaWjV3aklZbHpwbEtxY1g3eWdjYkVmL1ZLTzY0?=
- =?utf-8?B?bTlkWXZsSDRHR0RxRmlIUUlZNXZNbTVocERUWmVGeU80Z25rNWJsYUErMVRz?=
- =?utf-8?B?Y0MwbGVIVUpHZi9PMWdqRlJCNjZkQ01qWk9Sd0NjNXFNZTFLZ0ozd3I2eVRw?=
- =?utf-8?B?eXJiTHVsdjkvL3hhOFRPUnkrZExjQ3ZFc2psbmVteWRlUE1zZXZWRzkreTBK?=
- =?utf-8?B?RWdOSlJvWS9ZcklIa21JZGZFMDlTVlY5ZE9QYU5KajRFczBIWjdDOVJwSlV1?=
- =?utf-8?B?ci9SYm1icVlaWlBHWk9qNGwzdmt2NlVIYzNlNy9BOXROR3RGaFV5QW0vWHZJ?=
- =?utf-8?B?M2Z2elpVUjZ6UkFoV01ta3pBY3FTUU1IMEdOM2NueEpSSVJRRnRUWEo0UUhI?=
- =?utf-8?B?Zm9GdVB6L1ZCT3YrbCt4L2Y0UEUzaHh2QllVOGh4MkxxR0FsQU9xdytna1hq?=
- =?utf-8?B?bWNmUDFhTkJkTGxqUnhHY2NUbWpSWDZ5N1Bob3dEamVBZVBxd0FaYmFqYXBo?=
- =?utf-8?B?N3lOOUJSZWJBc1NRVit5c1RoUnpLN2pqWEg1YlRzTGFnWjB0MTZmbExYaHYw?=
- =?utf-8?B?WTdlaHpqMUV2ZzRJVkhiOGFaZitlUHAzSW84VVdpdnVsbVJuZ1NRQ3R3azJF?=
- =?utf-8?B?Y1dRSm0rRTYrcUxOeEZVQlpSRG9naW5EQkp6T3UzVEJDWkVSMGxhT1BCRU0z?=
- =?utf-8?B?L3dYUVFsZjA0Y2l4OTQ2bnRMYmd1c0ZWbVJ4TTJZUzlYbDZRZm1aQTNYamdJ?=
- =?utf-8?B?YnlVS2tUUitzMUFmUTdtb2xBdWhabU9Fd1JPODZmUlh4ZWR2QkJic2RZT1VF?=
- =?utf-8?B?dmg1QXNBU2RIQkNGdzArNEJiajRtbkxKKzFhVnVPbHBNOFVIeDlkOEo0SW9o?=
- =?utf-8?B?a0d2Q3lza0pmRmM2QVl6cHpWclpZNmxwanFUaGxiZCtoR0l2KzRRQT09?=
-X-Exchange-RoutingPolicyChecked:
-	QljQBZziOzhY5VNH3rW1TLnrJ9xoaIUFOB1JT1DWqydpNN3P7jQxFMLjThgfVKfpAOKtFGa3oeWQ4oqUK3F8/Ysl+nvM12bAQFdP74agrd483JSIChSb1TaNrU2tJ5fnezzdyIEdkaJ/fMnp+AA8jbSlGJfC7ilgQMsA7WZcwZ6GVSdHlOqX5op6AQtTRMBdAuFZgK6v65RfUQM1BBKsAGDXDc75QTWec5iWLu0I9aeVk7vsOjQrMsnRI2iToVeBQR4zI9Ii+q1pnTzE6xQ5VVccCjs9o9bXe5aPrE6/e2YQywMSvKSVdUrK18uv581dxo8RAYtmDdb9j2LyUtq2gQ==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	28ogo6TsIlBFNrDhcoROSxv4zEPjgwMUBmIwdtBkYD/BGSYcVLOzR9NquTbMQxMSu9tH2g7JjEvSatGAeEw2P/svVl9Kxdz1neOJoW78B5CS7w3HzNJ7fsPpMtjKbsj2QjgnY33r3YE0YJxf5B4kpa0vtOvOPPHOnAHbI4QIwlKXnXf5rAQbfB+7GbBmLM+F7AIZKbN7WDX+mvLMaByt8tPq9xpqs6N81Iw3z7XdwaUupQWXMtHySmkHEYObqTB3+NijYFMDQ5JBa7MParmW8P/zDOSd96OCLHJ0doDuC9Y9nOnd0ZKh3loqhrLtbS5VE9zMGKgNCeEE0bP22yqKsmTq6I59GZP/VIxDGNyDKRHCqJl7Fbsbg56eWgrVXv5hVkpPyTrjaKc+011xOFZkLq+PIc4P/EkVuTeYNDcYwVgYfyLzTWPaHLMFOXvgXnzuT9y4kOLU3WQ+K41PKvH9NNXO5KoNk15gME91hzoIdT9QkzgvE0jx2BsdvghqdW/fHrPQI+CJ3oT7MGSqMEA4JWTHGd249vIpSLF9AbjCEqsdMYhSfkTts6SadW2gFKyyBiOZMQQgDt5ixTLXYl6Egezdf5tDSMOLVu5tIO/+tSQ=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f12aca2-d626-4622-e0fd-08df1997ab06
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR10MB5506.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 17:25:31.1465
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C8VFXF5CpwEjRIbBJyfh29626AYzsEO4eM1xnWM6AbkJK59rF0gocPneTq+26xB843giVL0/FNEmk8CsbmlwWg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR10MB8075
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_06,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- bulkscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 malwarescore=0
- mlxscore=0 mlxlogscore=999 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.19.0-2609040000 definitions=main-2609230069
-X-Proofpoint-GUID: CKGFUIlnROEN_Xe_MbQQvTuYYrUBf-1n
-X-Authority-Analysis: v=2.4 cv=T6sZ3PKQ c=1 sm=1 tr=0 ts=6ab40b92 b=1 cx=c_pps
- a=qoll8+KPOyaMroiJ2sR5sw==:117 a=qoll8+KPOyaMroiJ2sR5sw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=x4eqshVgHu-cdnggieHk:22 a=-ACe4YRWzawKTbou7kUA:9
- a=QEXdDO2ut3YA:10 a=5yU3S35YU4bGjq-dph-N:22 a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf
- awl=host:12107
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA2OSBTYWx0ZWRfX8yDs4LFkKvcL
- OxAZglJeyDiLHKs7MSBWRsk4GvO+wQ672rSIH0NoPTIsCpycC15JFo5q38KKRFx7/rco/Ps7Py8
- yhhP2z5h/uy0n720+5/olXRH6ip1ZeoGJ7CyGg0vTHaPE2fOlBLt
-X-Proofpoint-ORIG-GUID: CKGFUIlnROEN_Xe_MbQQvTuYYrUBf-1n
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA2OSBTYWx0ZWRfX2IaQc5Xlk5S/
- Pzzzd8KZ/Rjpma4coQCsmHUkq0L48l3nALfrlljehIUXLSCOnlvR3Dpa1psIzFL3SewAnYbAXsX
- OYDrL9ldI4hKiqzuAcLmk97dh6NRypHOxB2lOrNjrLkLzINWtUKDCmRJi/v4nPYFiHlNJrA5Y8l
- TEEAJGlz+4bkQUg2DniLrOWyECbhCP9+kUs63EF7HPZOn3rtlTfuCDf0J8cuOz48pIvR4oMyFX0
- Emvu8h3iqfW3KXsSH0ZuoowpLE89zCxvfjLe6suumQLS+E1wBj+hFqmoBgDqSBPsW8SQ8BNwyWB
- Bq7g9pTtjtt4D1VhS33NrIPoprU2XToHXYU/At9FNrMq12SU1VqGFMOyJemMXyGpTeirahd3JPU
- yquXOlpipYOeHT4BN3opI/B7qej2iC21wwZCPQQyJlZC7qvAyEBHxCad+CsTdRkLRFCQDnBg5fp
- 9rgVGKJvYKMnVyy8W3ePcEtQruQ1iNN5Y16z9X1I=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/3] firmware: stratix10-svc: add FCS crypto-service
+ commands for Agilex 5
+Content-Language: en-US
+To: hang.suan.wang@altera.com, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ "Michael S . Tsirkin" <mst@redhat.com>, Huacai Chen <chenhuacai@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: muhammad.nazim.amirul.nazle.asmade@altera.com, tze.yee.ng@altera.com,
+ chee.nouk.phoon@altera.com, genevieve.chan@altera.com,
+ adrian.ho.yin.ng@altera.com
+References: <cover.1790183372.git.hang.suan.wang@altera.com>
+ <3ae33440d87e3bedca95048d7e798e5bab7871a0.1790183375.git.hang.suan.wang@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <3ae33440d87e3bedca95048d7e798e5bab7871a0.1790183375.git.hang.suan.wang@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
 
-On Mon, Sep 21, 2026 8:59:08AM -0700, Sean Christopherson wrote:
-> On Sun, Aug 23, 2026, Dongli Zhang wrote:
->> A remote update of a runqueue can advance rq->clock while the owner
->> vCPU is still preempted by the host. KVM publishes the matching stealtime
->> when the vCPU is about to re-enter the guest, so the remote CPU can
->> otherwise charge the stolen interval to rq->clock_task.
->> 
->> Defer clock_task updates made by a remote CPU while the owner vCPU is
->> reported preempted. Fold the deferred delta back into the next update
->> that can proceed so IRQ and steal accounting process it together.
->> 
->> This requires the hypervisor to publish up-to-date stealtime before
->> clearing the preempted data.
+On 9/23/26 12:23, hang.suan.wang@altera.com wrote:
+> From: Hang Suan Wang <hang.suan.wang@altera.com>
 > 
-> What happens if the hypervisor doesn't do that?  Because it's infeasible to
-> guarantee this will never run on an older version of KVM.
+> The Agilex 5 Secure Device Manager (SDM 1.5) exposes an FPGA Crypto
+> Service (FCS) over the existing SIP SMC mailbox: a session-based
+> interface for crypto primitives such as SDOS (Secure Data Object
+> Service) encrypt/decrypt. The service layer has no command to drive it
+> yet.
 > 
+> Configure stratix10-svc about this interface so an in-kernel FCS client
+> can use it:
+> 
+>    - add the client command codes COMMAND_FCS_CRYPTO_OPEN_SESSION,
+>      COMMAND_FCS_CRYPTO_CLOSE_SESSION and COMMAND_FCS_SDOS_DATA_EXT (all
+>      asynchronous)
+> 
+>    - add the matching asynchronous SIP SMC function IDs
+>      (INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION,
+>      INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION and
+>      INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT) with their register-usage
+>      documentation;
+> 
+>    - match "intel,agilex5-svc" and register a "stratix10-fcs" child
+>      platform device, mirroring the existing RSU child, so an FCS client
+>      driver can bind without a dedicated device-tree node;
+> 
+>    - dispatch the new commands in the asynchronous send and response
+>      paths; for the SDOS data command, translate the source and
+>      destination buffers (allocated from the service-layer gen_pool) to
+>      physical addresses and pass them, together with the session/context
+>      IDs and owner ID, to the SDM.
+> 
+> The transport is unchanged: Agilex 5 reuses the SIP SMC calling
+> convention and async mailbox ABI the driver already implements, so no
+> new transport mechanism is required.
+> 
+> The SDOS SMMU-remapped address slots currently carry the buffer
+> physical addresses; SMMU remapping support is added in a follow-up
+> series.
+> 
+> This is a prerequisite for the SoCFPGA FCS driver, the first in-tree
+> consumer of these commands.
+> 
+> Signed-off-by: Hang Suan Wang <hang.suan.wang@altera.com>
+> Reviewed-by: Dinh Nguyen <dinguyen@kernel.org>
+> ---
+>   drivers/firmware/stratix10-svc.c              | 59 +++++++++++++++--
+>   include/linux/firmware/intel/stratix10-smc.h  | 64 +++++++++++++++++++
+>   .../firmware/intel/stratix10-svc-client.h     | 16 +++++
+>   3 files changed, 134 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/firmware/stratix10-svc.c b/drivers/firmware/stratix10-svc.c
+> index 07345efeef0c..8ead4a3c4a1b 100644
+> --- a/drivers/firmware/stratix10-svc.c
+> +++ b/drivers/firmware/stratix10-svc.c
+> @@ -46,6 +46,7 @@
+>   
+>   /* stratix10 service layer clients */
+>   #define STRATIX10_RSU				"stratix10-rsu"
+> +#define STRATIX10_FCS				"stratix10-fcs"
+>   #define SOCFPGA_HWMON				"socfpga-hwmon"
+>   
+>   /* Maximum number of SDM client IDs. */
+> @@ -106,10 +107,12 @@ struct stratix10_svc_chan;
+>   /**
+>    * struct stratix10_svc - svc private data
+>    * @stratix10_svc_rsu: pointer to stratix10 RSU device
+> + * @stratix10_svc_fcs: pointer to stratix10 FCS device
+>    * @stratix10_svc_hwmon: pointer to stratix10 HWMON device
+>    */
+>   struct stratix10_svc {
+>   	struct platform_device *stratix10_svc_rsu;
+> +	struct platform_device *stratix10_svc_fcs;
+>   	struct platform_device *stratix10_svc_hwmon;
+>   };
+>   
+> @@ -1398,6 +1401,30 @@ int stratix10_svc_async_send(struct stratix10_svc_chan *chan, void *msg,
+>   		STRATIX10_SIP_SMC_SET_TRANSACTIONID_X1(handle->transaction_id);
+>   
+>   	switch (p_msg->command) {
+> +	case COMMAND_FCS_CRYPTO_OPEN_SESSION:
+> +		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION;
+> +		break;
+> +	case COMMAND_FCS_CRYPTO_CLOSE_SESSION:
+> +		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION;
+> +		args.a2 = p_msg->arg[0];
+> +		break;
+> +	case COMMAND_FCS_SDOS_DATA_EXT:
+> +		args.a0 = INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT;
+> +		args.a2 = p_msg->arg[0];
+> +		args.a3 = p_msg->arg[1];
+> +		args.a4 = p_msg->arg[2];
+> +		/* payloads are allocated from the svc gen_pool; pass phys addr */
+> +		args.a5 = gen_pool_virt_to_phys(ctrl->genpool,
+> +						(unsigned long)p_msg->payload);
+> +		args.a6 = p_msg->payload_length;
+> +		args.a7 = gen_pool_virt_to_phys(ctrl->genpool,
+> +						(unsigned long)p_msg->payload_output);
 
-With an older KVM, st->preempted can be cleared before the corresponding
-stealtime update is published.
+These calls to gen_pool_virt_to_phys() can fail.
 
-As a result, the guest can observe !vcpu_is_preempted() and consume the deferred
-clock delta while still reading the old stealtime value. Thus, the stolen
-interval is incorrectly charged to rq->clock_task in that update.
 
-On the next update, the accumulated stealtime delta is observed, but it can be
-larger than the new, small rq clock delta and is capped to that delta. Since
-prev_steal_time_rq is nevertheless advanced to the new stealtime value, the
-remaining stealtime is not accounted in later updates.
+> +		args.a8 = p_msg->payload_length_output;
+> +		args.a9 = p_msg->arg[3];
+> +		/* SMMU remapping is added later; pass phys addr for now */
+> +		args.a10 = args.a5;
+> +		args.a11 = args.a7;
+> +		break;
+>   	case COMMAND_RSU_GET_SPT_TABLE:
+>   		args.a0 = INTEL_SIP_SMC_ASYNC_RSU_GET_SPT;
+>   		break;
+> @@ -1495,8 +1522,13 @@ static int stratix10_svc_async_prepare_response(struct stratix10_svc_chan *chan,
+>   	data->status = STRATIX10_GET_SDM_STATUS_CODE(handle->res.a1);
+>   
+>   	switch (p_msg->command) {
+> +	case COMMAND_FCS_CRYPTO_CLOSE_SESSION:
+>   	case COMMAND_RSU_NOTIFY:
+>   		break;
+> +	case COMMAND_FCS_CRYPTO_OPEN_SESSION:
+> +	case COMMAND_FCS_SDOS_DATA_EXT:
+> +		data->kaddr1 = (void *)&handle->res.a2;
+> +		break;
+>   	case COMMAND_RSU_GET_SPT_TABLE:
+>   		data->kaddr1 = (void *)&handle->res.a2;
+>   		data->kaddr2 = (void *)&handle->res.a3;
+> @@ -2004,6 +2036,7 @@ EXPORT_SYMBOL_GPL(stratix10_svc_free_memory);
+>   static const struct of_device_id stratix10_svc_drv_match[] = {
+>   	{.compatible = "intel,stratix10-svc"},
+>   	{.compatible = "intel,agilex-svc"},
+> +	{.compatible = "intel,agilex5-svc"},
+>   	{},
+>   };
+>   
+> @@ -2107,7 +2140,18 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
+>   
+>   	ret = platform_device_add(svc->stratix10_svc_rsu);
+>   	if (ret)
+> -		goto err_put_device;
+> +		goto err_put_rsu;
+> +
+> +	svc->stratix10_svc_fcs = platform_device_alloc(STRATIX10_FCS, 0);
+> +	if (!svc->stratix10_svc_fcs) {
+> +		dev_err(dev, "failed to allocate %s device\n", STRATIX10_FCS);
+> +		ret = -ENOMEM;
+> +		goto err_unregister_rsu;
+> +	}
+> +
+> +	ret = platform_device_add(svc->stratix10_svc_fcs);
+> +	if (ret)
+> +		goto err_put_fcs;
+>   
+>   	if (IS_ENABLED(CONFIG_SENSORS_ALTERA_SOCFPGA_HWMON)) {
+>   		svc->stratix10_svc_hwmon =
+> @@ -2139,10 +2183,14 @@ static int stratix10_svc_drv_probe(struct platform_device *pdev)
+>   err_unregister_clients:
+>   	if (svc->stratix10_svc_hwmon)
+>   		platform_device_unregister(svc->stratix10_svc_hwmon);
+> -	if (svc->stratix10_svc_rsu)
+> -		platform_device_unregister(svc->stratix10_svc_rsu);
+> +	platform_device_unregister(svc->stratix10_svc_fcs);
+> +	goto err_unregister_rsu;
+> +err_put_fcs:
+> +	platform_device_put(svc->stratix10_svc_fcs);
+> +err_unregister_rsu:
+> +	platform_device_unregister(svc->stratix10_svc_rsu);
+>   	goto err_free_fifos;
+> -err_put_device:
+> +err_put_rsu:
+>   	platform_device_put(svc->stratix10_svc_rsu);
+>   err_free_fifos:
+>   	/* only remove from list if list_add_tail() was reached */
+> @@ -2164,9 +2212,10 @@ static void stratix10_svc_drv_remove(struct platform_device *pdev)
+>   	struct stratix10_svc_controller *ctrl = platform_get_drvdata(pdev);
+>   	struct stratix10_svc *svc = ctrl->svc;
+>   
+> -	platform_device_unregister(svc->stratix10_svc_rsu);
+>   	if (svc->stratix10_svc_hwmon)
+>   		platform_device_unregister(svc->stratix10_svc_hwmon);
+> +	platform_device_unregister(svc->stratix10_svc_fcs);
+> +	platform_device_unregister(svc->stratix10_svc_rsu);
+>   
+>   	stratix10_svc_async_exit(ctrl);
+>   
+> diff --git a/include/linux/firmware/intel/stratix10-smc.h b/include/linux/firmware/intel/stratix10-smc.h
+> index 366309260121..75a39e7190af 100644
+> --- a/include/linux/firmware/intel/stratix10-smc.h
+> +++ b/include/linux/firmware/intel/stratix10-smc.h
+> @@ -669,6 +669,70 @@ INTEL_SIP_SMC_FAST_CALL_VAL(INTEL_SIP_SMC_FUNCID_FPGA_CONFIG_COMPLETED_WRITE)
+>   #define INTEL_SIP_SMC_FCS_GET_PROVISION_DATA \
+>   	INTEL_SIP_SMC_STD_CALL_VAL(INTEL_SIP_SMC_FUNCID_FCS_GET_PROVISION_DATA)
+>   
+> +/**
+> + * Request INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT
+> + * Async call to perform encryption/decryption
+> + *
+> + * Call register usage:
+> + * a0 INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT
+> + * a1 transaction job id
+> + * a2 session ID
+> + * a3 context ID
+> + * a4 cryption operating mode (1 for encryption and 0 for decryption)
+> + * a5 physical address of source
+> + * a6 size of source
+> + * a7 physical address of destination
+> + * a8 size of destination
+> + * a9 sdos ownership
+> + * a10 smmu remapped address of source
+> + * a11 smmu remapped address of destination
+> + * a12-a17 not used
+> + *
+> + * Return status:
+> + * a0 INTEL_SIP_SMC_STATUS_OK or INTEL_SIP_SMC_STATUS_ERROR
+> + * a1-a17 not used
+> + */
+> +#define INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CRYPTION_EXT (0x12F)
+> +#define INTEL_SIP_SMC_ASYNC_FCS_CRYPTION_EXT \
+> +	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CRYPTION_EXT)
+> +
+> +/**
+> + * Request INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION
+> + * Async call to open and establish a crypto service session with firmware
+> + *
+> + * Call register usage:
+> + * a0 INTEL_SIP_SMC_FCS_OPEN_CRYPTO_SERVICE_SESSION
+> + * a1 transaction job id
+> + * a2-a17 not used
+> + *
+> + * Return status:
+> + * a0 INTEL_SIP_SMC_STATUS_OK ,INTEL_SIP_SMC_STATUS_REJECTED
+> + * or INTEL_SIP_SMC_STATUS_BUSY
+> + * a1-a17 not used
+> + */
+> +#define INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_OPEN_CS_SESSION (0x13A)
+> +#define INTEL_SIP_SMC_ASYNC_FCS_OPEN_CS_SESSION \
+> +	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_OPEN_CS_SESSION)
+> +
+> +/**
+> + * Request INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION
+> + * Async call to close a service session
+> + *
+> + * Call register usage:
+> + * a0 INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION
+> + * a1 transaction job id
+> + * a2 session ID
+> + * a3-a17 not used
+> + *
+> + * Return status:
+> + * a0 INTEL_SIP_SMC_STATUS_OK ,INTEL_SIP_SMC_STATUS_REJECTED
+> + * or INTEL_SIP_SMC_STATUS_BUSY
+> + * a1-a17 not used
+> + */
+> +#define INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CLOSE_CS_SESSION (0x13B)
+> +#define INTEL_SIP_SMC_ASYNC_FCS_CLOSE_CS_SESSION \
+> +	INTEL_SIP_SMC_ASYNC_VAL(INTEL_SIP_SMC_ASYNC_FUNC_ID_FCS_CLOSE_CS_SESSION)
+> +
+>   /**
+>    * Request INTEL_SIP_SMC_HWMON_READTEMP
+>    * Sync call to request temperature
+> diff --git a/include/linux/firmware/intel/stratix10-svc-client.h b/include/linux/firmware/intel/stratix10-svc-client.h
+> index 9bb46c3cb0f8..ffc1ac7c9785 100644
+> --- a/include/linux/firmware/intel/stratix10-svc-client.h
+> +++ b/include/linux/firmware/intel/stratix10-svc-client.h
+> @@ -7,6 +7,8 @@
+>   #ifndef __STRATIX10_SVC_CLIENT_H
+>   #define __STRATIX10_SVC_CLIENT_H
+>   
+> +#include <linux/types.h>
 
-That's why I tagged this patchset as RFC, to seek feedback on whether there is a
-better solution.
+Shouldn't need this.
 
-Thank you very much!
-
-Dongli Zhang
-
+Dinh
