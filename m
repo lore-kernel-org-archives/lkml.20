@@ -1,214 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE35E3CF67F;
-	Wed, 23 Sep 2026 23:24:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1523C2BA4
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 23:24:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790205866; cv=none; b=AFH39FtIO121mILw4THTBosJizDqK/6H+sBu4PwLMo/9PbSuoQmFebQkuqh+lfnNgbEU+yb2IIYYbMEGIO6HVKmeOS5fq5o9yMpfkO7JV0XrbgqK+Houk2OmnIVvmGkb+pzdgf61YSh4NzaFIjkAyIMKV9jykj/nw+BcayowJb8=
+	t=1790205898; cv=none; b=uNR8HdVqqbkPlUWgwUqcDkWDbBLBSh9VUvsyRI25KAxdCpixFtu7In3sG4aa0WBhC2hh3QidOYVKfv/I87CA2TVvjyhYzMzL9Jv88wsLG/QfSOIGkMoUQxZnvKbKEsMzEGcLLf5PUzZsHfVb03gskYgN340iglu0Vw5j8VVj9w0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790205866; c=relaxed/simple;
-	bh=HRrBlmsVBvBb+TMnAum+7J15MBrbDAhKeBAjCN8c5XQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KDdA/q6fjj8PBaX9JyTwRKFZBpkeLxtwh/jS3XEaiet9HbRQj6R9SPhz8BD/u5s/rrCbu8pR/B2JojSVMZ4PLHFABQ8+LN66U8Gow3I1f78pcl6Yw+gMc46mpFcBp4qz68YFbwqRqEaNBtOAraacxhIqMpQP1shiMYCVpfYET38=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DT+SkoUo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790205898; c=relaxed/simple;
+	bh=YP+HaHZiSayNoB99gQgkKGP0qHM6YuP4LC/EvJtCTcI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NzWL5CM8klgPyUvPEddWSVbDp3KM/tazXd62wB5b9fxmIZdJFscB82Ml3dxU/+dQGwrLTHXtmaPJGTsu3k2mB3GsLCYRYzpRAo0LiehxmQZLi4HcuCqk70L7qGr1gLt+pcpG5Bk/SkP49ul5SCdEjeirsLm+RTBL+r+hZD1IcUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OMIRNr4O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DT+SkoUo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0E251F000FF;
-	Wed, 23 Sep 2026 23:24:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OMIRNr4O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCC0C1F000FF;
+	Wed, 23 Sep 2026 23:24:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790205864;
-	bh=NL2zL4T1TwfBi0kwYRvAZ/jCym1NP3SWepDCm8q+Snw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=DT+SkoUodPmMNL6fmxvDwBPmaTItsVZZpqoHCSzEKN6hqY5r2eQEeYPFBfgPHP1nv
-	 LLKB2Xbp6dWrLqiIkWzxMHqhvupca1lgtLvgH5er4kega/R1xQ8G3bW9TRDjNx8Lg+
-	 unWfypn2/BTKAHEkwIIAQIz8EckRuXp/LsCMF5hzST887LzzIYPNF2jqGLPXg6VDoG
-	 8kAnlJzzY0Qbfw4NSrSUiLYCMYsKQzS2Wm6yJSVmq2fYP2kxqGqWpHRaqt6H8YszR/
-	 CwUAn5kHjDzvEu1KEqF7vK28eaEnSjow5buk2lVaPgi1aLAKW4FOSn5AocVhhOQiuF
-	 t8ACyGvupT6ig==
-Subject: Re: [PATCH] kcm: fix socket memory accounting leak on TX completion,
- error, and close
-From: netdev-bot+sashiko@kernel.org
-To: benquike@gmail.com
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 23 Sep 2026 23:24:23 +0000
-Message-ID: <179020586343.2160803.15675750153868355675@kernel.org>
-In-Reply-To: <20260919212853.3240951-1-benquike@gmail.com>
-References: <20260919212853.3240951-1-benquike@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1790205897;
+	bh=U9YKFd/Hl7YhdOyAieKBjsie7xEHxxz4e55B/x6uzdo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OMIRNr4OLiUixLKnhBolSnExmjDFWiRUOgWv20SvZaXjb2auAnjVO7paMjuqxwVUh
+	 gAznIr7cxA8iwbMkmKDqKHfpe1TD8i+ljP6YUolouKAwsl4f7+f1rOlXQVB0XCdwbH
+	 zyqskPgnBxQTHf32dDgeBvVOID2t7ytyP4gz5du6Is0yMc5oUiSqdo18GwgRg6AGe4
+	 ExTY00SKLiY9HVRr3LlDd7XhgF4nLqikcaON2hjaUoR0iYwBwr+xjA1FfSfDhUATqS
+	 W/bTglH0wjmNowS+kVve+Q8JaSPv3Vhw8YXbWFuO3I97nSsjIRd8+ETJemkQbLwLdK
+	 92jaAVSIpl77A==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 5/6] mm/memfd_luo: allow preserving a tmpfs file
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Mike Rapoport" <rppt@kernel.org>, "Andrew
+ Morton" <akpm@linux-foundation.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Pratyush
+ Yadav" <pratyush@kernel.org>, "Baolin Wang" <baolin.wang@linux.alibaba.com>, "Samiullah
+ Khawaja" <skhawaja@google.com>, "Hugh Dickins" <hughd@google.com>, "David
+ Hildenbrand" <david@kernel.org>, "David Matlack" <dmatlack@google.com>, "Alexander
+ Graf" <graf@amazon.com>
+Cc: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+In-Reply-To: <20260923224408.3745689-6-pratyush@kernel.org>
+References: <20260923224408.3745689-1-pratyush@kernel.org>
+ <20260923224408.3745689-6-pratyush@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 23 Sep 2026 23:24:56 +0000
+Message-Id: <20260923232456.BCC0C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The commit message's stated bug does not exist, and roughly half
-  of the patch is dead code.
-
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] mm: restored file permission bits are corrupted by current_umask()
+- [High] mm: TOCTOU race allows unprivileged userspace to disrupt tmpfs fil=
+e retrieve
+- [High] mm: memory leak of KHO folios on tmpfs_luo_file_retrieve failure
+- [Medium] mm: potential double free / UAF of ser and folios on successful =
+retrieve
 --
 
-kcm: fix socket memory accounting leak on TX completion, error, and close
+commit 4087da995ba7fe7684120abaf9ec59deb366b97b
+Author: Pratyush Yadav (Google) <pratyush@kernel.org>
 
-The patch replaces the direct sk->sk_wmem_queued arithmetic in
-kcm_write_msgs() with sk_wmem_queued_add(), and adds sk_wmem_queued_add()
-plus sk_mem_uncharge() calls wherever TX skbs are freed in the
-kcm_sendmsg() out_error path and in kcm_release().  It also adds NULL
-checks on head before freeing it in kcm_sendmsg().
+mm/memfd_luo: allow preserving a tmpfs file
 
-> diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
-> index 71af69d442f2..accf0d427e11 100644
-> --- a/net/kcm/kcmsock.c
-> +++ b/net/kcm/kcmsock.c
-> @@ -693,7 +693,8 @@ static int kcm_write_msgs(struct kcm_sock *kcm)
->  		}
->  
->  		/* Successfully sent the whole packet, account for it. */
-> -		sk->sk_wmem_queued -= txm->sent;
-> +		sk_wmem_queued_add(sk, -txm->sent);
-> +		sk_mem_uncharge(sk, txm->sent);
->  		total_sent += txm->sent;
->  		skb_dequeue(&sk->sk_write_queue);
->  		kfree_skb(head);
+This commit introduces tmpfs file preservation across kexec live updates.
+It preserves regular files within a tmpfs mount by serializing their
+properties and memory folios, and restores them when the mount is
+retrieved.
+
+> diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
+> --- a/mm/memfd_luo.c
+> +++ b/mm/memfd_luo.c
+> @@ -1005,62 +1005,51 @@ static int tmpfs_luo_file_retrieve(struct liveupd=
+ate_file_op_args *args)
+[ ... ]
+> 	err =3D liveupdate_get_file_incoming(args->session, ser->mnt_token,
+> 					   &mnt_file);
+> 	if (err) {
+> 		pr_err("failed to retrieve tmpfs mount: %pe\n", ERR_PTR(err));
+> 		goto free_ser;
+> 	}
 
 [Severity: High]
-Are the sk_mem_uncharge() calls added by this patch reachable at all on a
-KCM socket?  kcm_proto declares no .memory_allocated:
+If this path jumps to the free_ser error label, does it permanently leak
+the physical memory reserved for the KHO folios?
 
-net/kcm/kcmsock.c:
-static struct proto kcm_proto = {
-	.name	= "KCM",
-	.owner	= THIS_MODULE,
-	.obj_size = sizeof(struct kcm_sock),
-};
+The free_ser error label frees the ser metadata, but does not discard
+the physical folios or the ser->folios vmalloc region. Because the function
+returns an error, tmpfs_luo_file_finish() may skip its cleanup logic if
+args->retrieve_status is set to a non-zero error code. This would permanent=
+ly
+leak the memory of all files preserved inside that mount.
 
-and the accounting helpers are gated on that field:
+[ ... ]
+> 	/*
+> 	 * TODO: This is racy. This will link the file in the mount so after
+> 	 * this call userspace can already open the file and write to it.
+> 	 * Ideally we should first create the inode and set it up, and only
+> 	 * then link it to the root.
+> 	 */
+> 	file =3D file_open_root(&mnt_file->f_path, ser->name,
+> 			      O_RDWR | O_CREAT | O_EXCL | O_LARGEFILE,
+> 			      ser->mode);
 
-include/net/sock.h:
-static inline bool sk_has_account(struct sock *sk)
-{
-	return !!sk->sk_prot->memory_allocated;
-}
+[Severity: High]
+Does this code inadvertently strip the file permissions via the
+orchestrator's umask?
 
-static inline void sk_mem_uncharge(struct sock *sk, int size)
-{
-	if (!sk_has_account(sk))
-		return;
-	sk_forward_alloc_add(sk, size);
-	sk_mem_reclaim(sk);
-}
+VFS creation functions like file_open_root(O_CREAT) will apply
+~current_umask() to the newly created file, which could alter the
+preserved ser->mode. Since the kernel code lacks a subsequent chmod()
+or vfs_setattr() step to enforce the exact preserved mode, the restored
+file might have incorrect permission bits.
 
-If sk_has_account() is always false for KCM, then the new
-sk_mem_uncharge() in kcm_write_msgs(), the two in the kcm_sendmsg()
-out_error path and the two in kcm_release() are all no-ops, and only the
-sk_wmem_queued_add() half of the patch has any effect.  Would it make
-sense to drop the sk_mem_uncharge() calls (or wire up real proto
-accounting for KCM as a separate change)?
+[Severity: High]
+Does linking the file into the namespace here open a TOCTOU race window?
 
-The same reasoning applies to the premise in the changelog:
+Since file_open_root() immediately links the restored file into the tmpfs
+namespace, unprivileged userspace could potentially open and write or mmap
+the file before memfd_luo_retrieve_folios() is called. This would instantia=
+te
+page cache folios, causing the subsequent shmem_add_to_page_cache() inside
+memfd_luo_retrieve_folios() to hit an -EEXIST collision and permanently drop
+the preserved data folios.
 
-  "every TX fragment is charged to both `sk->sk_wmem_queued` and
-   `sk->sk_forward_alloc` (`sk_mem_charge()`)"
+[ ... ]
+> 	args->file =3D file;
+> 	kho_restore_free(ser);
+>=20
+> 	return 0;
 
-The sk_mem_charge() inside skb_copy_to_page_nocache() and the explicit one
-in the MSG_SPLICE_PAGES branch of kcm_sendmsg() are gated by the same
-sk_has_account() test, so is sk->sk_forward_alloc ever charged here?
+[Severity: Medium]
+Could this lead to a double-free or use-after-free regression of the KHO
+folios on a successful retrieve?
 
-And for claim 1:
+This code frees the ser object but leaves args->serialized_data as a
+dangling pointer.
 
-  "When `kcm_write_msgs()` finishes transmitting `head`, it subtracts
-   `txm->sent` from `sk->sk_wmem_queued` but never calls
-   `sk_mem_uncharge(sk, txm->sent)`."
+[ ... ]
+> static void tmpfs_luo_file_finish(struct liveupdate_file_op_args *args)
+> {
+> 	struct memfd_luo_folio_ser *folios_ser;
+> 	struct tmpfs_luo_file_ser *ser;
+>=20
+> 	/*
+> 	 * A successful retrieve() already consumed the preserved memory, and a
+> 	 * failed one cleaned up what it could. Only a file that was never
+> 	 * retrieved is left to discard here.
+> 	 */
+> 	if (args->retrieve_status || !args->serialized_data)
+> 		return;
 
-The line this hunk removes already did sk->sk_wmem_queued -= txm->sent, so
-is anything leaked on the TX completion path, or is this hunk just a
-cosmetic conversion to the WRITE_ONCE() wrapper?
+[Severity: Medium]
+If the LUO core framework sets args->retrieve_status to 0 upon a successful
+return, tmpfs_luo_file_finish() might bypass this early return, dereference
+the dangling args->serialized_data pointer, and mistakenly double-free the
+folios. Could args->serialized_data be explicitly cleared after it is freed
+to prevent this?
 
-> @@ -960,10 +961,17 @@ static int kcm_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
->  		 */
->  		if (copied)
->  			goto partial_message;
-> -		if (head != kcm->seq_skb)
-> +		if (head && head != kcm->seq_skb) {
-> +			sk_wmem_queued_add(sk, -head->len);
-> +			sk_mem_uncharge(sk, head->len);
->  			kfree_skb(head);
-> +		}
->  	} else {
-> -		kfree_skb(head);
-> +		if (head) {
-> +			sk_wmem_queued_add(sk, -head->len);
-> +			sk_mem_uncharge(sk, head->len);
-> +			kfree_skb(head);
-> +		}
->  		kcm->seq_skb = NULL;
->  	}
->  
-
-These two hunks in kcm_sendmsg() look like the one place where a real
-imbalance existed: head carries data already added to sk->sk_wmem_queued,
-and the pre-patch code dropped it with a bare kfree_skb().
-
-Since the patch carries a Fixes: tag and is a stable candidate, could the
-changelog describe that symptom instead?  A leaked sk_wmem_queued count
-permanently shrinks the send space reported to sk_stream_memory_free(),
-sk_stream_wait_memory() and SIOCOUTQ, so a socket that repeatedly hits
-out_error can end up blocking or returning -EAGAIN forever.  As written,
-the described symptom is not reproducible.
-
-> @@ -1695,13 +1704,21 @@ static int kcm_release(struct socket *sock)
->  
->  	lock_sock(sk);
->  	sock_orphan(sk);
-> -	kfree_skb(kcm->seq_skb);
-> +	if (kcm->seq_skb) {
-> +		sk_wmem_queued_add(sk, -kcm->seq_skb->len);
-> +		sk_mem_uncharge(sk, kcm->seq_skb->len);
-> +		kfree_skb(kcm->seq_skb);
-> +	}
->  
->  	/* Purge queue under lock to avoid race condition with tx_work trying
->  	 * to act when queue is nonempty. If tx_work runs after this point
->  	 * it will just return.
->  	 */
-> -	__skb_queue_purge(&sk->sk_write_queue);
-> +	while ((skb = __skb_dequeue(&sk->sk_write_queue)) != NULL) {
-> +		sk_wmem_queued_add(sk, -skb->len);
-> +		sk_mem_uncharge(sk, skb->len);
-> +		kfree_skb(skb);
-> +	}
->  
->  	release_sock(sk);
->  
-
-Can the warning named in claim 2 of the changelog actually fire here?
-
-  "triggering a `WARN_ON` in `inet_sock_destruct()` and `__sk_destruct()`
-   when the KCM socket is closed"
-
-The WARN_ON_ONCE(sk->sk_wmem_queued) / WARN_ON_ONCE(sk->sk_forward_alloc)
-pair lives only in inet_sock_destruct() in net/ipv4/af_inet.c, and
-kcm_create()/kcm_clone() install the destructor via sock_init_data(), which
-leaves the empty sock_def_destruct() in net/core/sock.c as sk->sk_destruct
-for PF_KCM.  __sk_destruct() itself has no wmem or forward_alloc warning.
-
-Given that the socket is being torn down at this point, are the
-adjustments in kcm_release() observable by anything?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919212853.3240951-1-benquike%40gmail.com
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923224408.3745=
+689-1-pratyush@kernel.org?part=3D5
