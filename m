@@ -1,308 +1,164 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012062.outbound.protection.outlook.com [52.101.66.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A9E57C739
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194266; cv=none; b=ZWQDcK/uKUGli3L1YQjPsvUapi+YhoxV4BGYhrQdVROopXgquRuG221amMo66Zb8y/HnAm4SyOqfaYU4KdpsG5ubva3LTw6DOerm9sKlGcfSjhZyUX8NPAUmcWat7P9Vni5kFyMtFld71Mnm2DmAkLNyLJmgybw0LTwThxLSz3s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194266; c=relaxed/simple;
-	bh=3EvrIXSSNTfqaTWmJCml3IdN7Rvlm1RwyRyJC80Mmks=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dfi2R7YnEL/A1hS1N5oNz6x0JyAQzhz0Atosm23Qdb05fcVG/TYDt2Wr3bDsmvmicg2tXLE8OIitOXob40NkBOXhg9G8YrrUPHjNUj4RIRQedG5uLj6S8Js/G/FoHFUaNud1YKkGGaMxdKuajhpf4/b3Ne8JngplBPzUQuY+NxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WBVhQzcn; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE22857F754;
+	Wed, 23 Sep 2026 20:10:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790194260; cv=fail; b=r+hKH8qOnZE0lwQZF2EL+lguDi4Kf5B8aKbaTXwwBKwJNxDBf7sgn7dDuWeoAOFfaJQpzb9zdIUBoe6ztl1CdFPpKPXvCol1LnyV2/gRn2nedCH3dJhqLeagW5HQhhrN99H8A4dVYPFiGSH34UJ2RwQ6w1seNZO8F1rrRWHAPJg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790194260; c=relaxed/simple;
+	bh=3saJVCwAC087Wpt3upYvuiO3oANGjS8Gf3QCu+u11t0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VNFz2I0wZ9Fqshm7ty2i+iMZKPKQpOF2onYts+AQr+PSpA6Mwm9CtkKzboHSrkppfxYP5GgOxZzfDVoPkQPDOfNSOCV4zeXIKSWdUP1TE5xoBspCVdskVBlRKFrsk3ZnXed7s0vDXt2nuWeR1LHmxhIWXGVoGuKwr7g7mfwjs14=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=NnoccR5o; arc=fail smtp.client-ip=52.101.66.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WBVhQzcn"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3920so9059765e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:10:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790194253; x=1790799053; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xvoHV0YGRd2DvHEw1s5i4Tx9EoZPZBx4yBYx/JIF9lU=;
-        b=WBVhQzcnz0yD3K3e/LbODbIqVOj27jyrlM0tSTciQIxOytaIc0/FM+7WBv752oYrWN
-         dHrLZuBE1b3eNm7Gc6fNXOBNEDsl2dhh3jZHCNb0ZBn6L16EVBJf/tTiJRNUlrBiq8ON
-         2rpDYbZP+U5qq7oL/WTK0OKjETFVeugfkZfqqyCfMe/lLB7asMOSFtHOVSGV5s6oU9m2
-         rvSXQk5ZxKs63NrCsl+Z1QhNWH5LJj2x/zAYKiaUEZJ8wn3UNuZzc86rxQSwDNEZty04
-         9v0PZbLs2vEHVGhzJhN4rTABzQflWYKYJrPpUGMBiVOP74g1qM/PJMxC8m3qy34mIw85
-         BNYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790194253; x=1790799053;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xvoHV0YGRd2DvHEw1s5i4Tx9EoZPZBx4yBYx/JIF9lU=;
-        b=R/bdwCHvCs/d3VjQ1dapK8mIBOaQ7UxKABlMV+mCkI4bOUGC2yFdHfEN1oqfCEmEv+
-         vinDsUWDlViBN+jImO/lNIG3WU7mVOVk42BuXf+JBj5jd807ftKfxg8aq6lMC9gP58GO
-         xBbViuSg1wYg9bHWA0PLeqTetgg5FN83n4NsAxdfAa9sJp7eCopJLw+r3337ursc+9p8
-         5MA4FvU15QUhgD+FR8Gz9+NmB2EIBMWBO3rmNBBdAhalCpPlgpLECxS6f/F975R1YxTM
-         kMT8+QjyBZ8xqcwMUp7Z3g8wjf7qvDVgKfvSVXOtKGS/QZq/7cfY5elbaFjzFsQaunNL
-         LBGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwuu/sFAaIXZ6AwmptMrQyuEP9dmLeZFzbF/n8Q2oJQOZAPRdkdt1evPyzJ8p1b1kUZjlk7T3SK5vHZq1E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGFWlZQ6M6UcIA1iNMeYWdoITZvKRdPLZbXzM7hs7hcCG8mmR0
-	xQdvMljzcPbsdRbBcyJzO3pfFEg5BVAjrKTD/vHIcKHmMngW6r1FhOEjMbsRYA==
-X-Gm-Gg: AYBFou1hHKxMk3O1yxaoezAZc8XAOMzbSPXHD0GuAZyVVWaPKHSU2aKEtMforgKLadh
-	eHX6w/2p91iAiZcjGMQhphFYFUP6muh9yieDpnDUtRZFvc6lgOsmVeom+JluhBwD7WKcurEY5/W
-	HKukLB7h1eZ/VHC6oZJoNopGsRbJ9KauMQvBnADBLXwT+E8yE98wgUtjPoEW9lGgdmmd6jbFo0e
-	G77rTpOxYc2Wl0b+rkRIBIwi6sZTbRaM0VaULLpwjuY+bjyKzbiVAfzGAbN8ceoP5ECJpV1P0ku
-	EVoixo1sNJrbLUHEENk+Zi/kl7Soa1i6IkzRkPpoBliUWGrbGNvWsoIPDXYZD8N5UX68uZavwJw
-	Xig5Ssty0AZYcYp24Fsd6FtAMAUsgbsN5VErKnZHunhDC+lQkEyb0Gykl0lK3EaVHxeHOUK6vU/
-	LX9ezPmd72rdHV0RIzy+rv+xKQH/JRDlWQQaAjGeLJdu8oMNCKm8aaF6G6jXp3MhpaQSscPlwsT
-	yqoXy2ZTkDJ7OE1uUEMnwXFSl5/CXF1GZ8R
-X-Received: by 2002:a05:600c:5489:b0:49f:d71f:9a39 with SMTP id 5b1f17b1804b1-49fe66c9ad8mr4896715e9.1.1790194252722;
-        Wed, 23 Sep 2026 13:10:52 -0700 (PDT)
-Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4c8dsm13559295e9.3.2026.09.23.13.10.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:10:52 -0700 (PDT)
-From: Max Pedraza <maximpedraza@gmail.com>
-To: Helge Deller <deller@gmx.de>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="NnoccR5o"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=slyb4W0iiUtA42qnv5rT4WeYbHFLx3XpvdxqZljUpmPMPGY5xUkVsp0BBvDWT/16qiB/BndjMp92uKms7tF5bM6bypgu0xvx2PZIzARb+mPMuLpBKKkGgH8VCKc2cSV7aPwRYYIfEMWiTGfjprMWqcBsaRhglcwYMqOJzXvS6AGexaZLWscKyTnz91AFPemZeYkU89hOPsH/FBIqdjXMq1raAVQPIaROWOMKGNZVq9RJXGYwejH+Ze4M8Uz+Kxf7sAJAxZNEUC5gDyi3NS/A++Ebxi8ZyNgJrwwd7LdFEt9r/PZ+4kU6kK7GykbVN2DdBkvislaqHO5NKaoloy119w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zZ6Utr1X2hiwrDQrOHZGIZI/jjFAEh3VK8g8U2qXsvo=;
+ b=gQt+89S1RScmYKEJ8Kr8yOYdRWXVgK8ucBM2Yynih+JfMpsLFakSy+oE+8d14rXMWES3L9hWZYDTRhE1SIyfdVwXtxIZ1240dbvw5uuqGTulrchL4pGfoHMdbm9N6cLj3JxjsKaWFNE9dn1iTN5qXhaYTfNxtnzfU76/+uYzppK/uVv65mx9Rce/J1gDDVhxlYlDWitPHFtvxrv+fajQHtYaAs3/CGqL9QilrVB4avSRIQPuLq0DoPe+PbBpuDpADUIKfXx0jOp5HmwDII28JGxgGhF+xuQfMOYYJO630s9Rau4va1+KbM34/hs8QS3aX3kXI4nntVBFpUvX0lucAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zZ6Utr1X2hiwrDQrOHZGIZI/jjFAEh3VK8g8U2qXsvo=;
+ b=NnoccR5otGeXPkvr6YqDCMDNKWKxzQl+YMyYrtptBeYjhafRYwwE7MkEiYHZOkdC0T6dzigUCiO0aBQ852ilN1jrA0MuNlnIQBYKdXvk8BJA5ppwurSe4IsNAKPjhEKx5laFWTfbitbJFMIDwel196Cbo8jjvp74RteDHdJoWyWHR9mSU9mplpHRIplBbSilks6bCSyI1YxOOFlh/B+6x5PiviVKamEyI5NGNGcwnEY5VCyR+A3RwsMQ06vDIhfwHkjVBvm7JrnWjoeiEdOkZIO5pZcBFtShq//by2miUy0JzXHh9Xd0XZIb6amg92+6U3hJ6OPv2JmlS98iX6Soug==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI2PR04MB10715.eurprd04.prod.outlook.com (2603:10a6:800:277::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 20:10:40 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
+ 20:10:40 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>
-Cc: linux-fbdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Max Pedraza <maximpedraza@gmail.com>
-Subject: [PATCH v3 0/7] Boot logo supplied by the device tree
-Date: Wed, 23 Sep 2026 22:10:28 +0200
-Message-Id: <20260923201035.51007-1-maximpedraza@gmail.com>
-X-Mailer: git-send-email 2.39.5
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Natasha Kovalenko <natasha.k@variscite.com>
+Subject: Re: [PATCH v1 1/1] arm64: dts: imx95-var-dart-sonata: correct UART8 header pins
+Date: Wed, 23 Sep 2026 16:10:32 -0400
+Message-ID: <179019422287.3742204.18120428206043977139.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260914125311.8354-1-stefano.r@variscite.com>
+References: <20260914125311.8354-1-stefano.r@variscite.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SJ0PR03CA0123.namprd03.prod.outlook.com
+ (2603:10b6:a03:33c::8) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI2PR04MB10715:EE_
+X-MS-Office365-Filtering-Correlation-Id: 978d995f-9211-4043-0326-08df19aebd86
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|19092799006|11063799006|6133799003|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ XN/AyHsdgFOpehCBbRtpMzs2oUuFbgn0H/aXah/UlXt0euq1m6PRY7Ub2HePSR9NypOj+dhlwy5Lk0HyLbpT2lid7YlISb8v8P8EJk/Q/3auTGvUab8aNSo2OReIZYT/Vb4rfwYyjZOXb3bGU0gvuNAEO2tLJT8e7iohXW5Lt2IcXnOCdghWEVlxGzOoE40t5Itb5AYKeNJcyPvQnBwaeCvyvnb6omX5whNoHyXU9ppqmvga0Iov1sCMB8h1zcm/S93qEW5YbXntTqxl7NlyTofyAUiiVBEAQ1Hb779ZpEYB7bAwVqL9uPDvnanVqbUXdtvCOKX5vbmvFg8dDx979961QxMQFKGQvHJsCY7PyoFs7AAWt2FUEtYvm3LQ/AX0n53mkDA7jxe0qxaTFkJ+4dQhDQvH65hhzhZfVDxjdXP3VsFTu6Inr2vlDWm31dvASjBt1kI+4rT9f8clC9mAZeCyCKnUEoN+TEqtzWIZgq8Xvgrpp1SrYFuGlHMcQ1qX0/63w5eHnj7rTN7ePkFxmCBuOIy1RTfnqo2dIxW6QoUMXPfTk4uzv9KxohnTYOiLJonytx7M6iDGPuSO7MDiBygng7gbjNO8kxBAZfKIKFM6nRwLkcWXwt7yZHS/5zwDl5junTE1wlRIX6GWBYT1dY3+ZX6pDjPr6xNu/JZ+T1o=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(19092799006)(11063799006)(6133799003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?MG1VMFRIbjBrK0tXdlhSYjRkUHZYVWZEY3RrZGdCMHBhUmcwcDRGdVY2eXlF?=
+ =?utf-8?B?a2FvU1EzVWprM0lZczMzbHI1ZnpMY2I0d1pKTjhNajdzQjRDaVI5cTFIOEZx?=
+ =?utf-8?B?TExOcHZFd2tZdWJsTTd0MVVVeDV0Y1U1YVpkSExBRnF3eXVDZDZjS0JnTTB1?=
+ =?utf-8?B?OUU1dEN5WHp6aExIaG5oLzhlb1Z5bm9qYnhOMWZjd1VoRWxsZ0RIOXpHbm04?=
+ =?utf-8?B?UVo2U0ZnU2lZV1BGQkFZRVlsK0pIUm0vMlVFSVNFUENUYXIvQjNDSUc4cVJh?=
+ =?utf-8?B?ZUh6Z3pFTEVCbWdsSU1GUTdHRVJJL0Jrd1RocEk1MDRaMGJFZGNLb1JaVEtY?=
+ =?utf-8?B?SEQ1cGhXbHRWM283SWMyWTVGcHlnMjE5WG1LSUNyRVVybko1bFA4amdYS0lX?=
+ =?utf-8?B?QlEralpWZDRvV01pQVNoZVVRUWRjZDRPRGFsc1JmQWZ2dEZ4TkdMMVArK1ox?=
+ =?utf-8?B?VXArY0ZVcTRQcVNUR0VvdVM2azBybFVUWGNWb0xwZlZ5TlhJOWcrSWpDTmJX?=
+ =?utf-8?B?TlVYTWRyS1ZSWHdNeGxKMTRKVXlyRnYxNnhhSGNhRlk0SDRFaS9SbkZsZ2F5?=
+ =?utf-8?B?MmEyQS9QVC9ydWt2KzVlRXFtem8wQmZHdEJ0QTFMaWI5TUNibUR3YXR0OExG?=
+ =?utf-8?B?TDJoMFZIWGd3cnZzem81NkljWng4U0l3bzNHN2lUbmlyRjI4KzQydWNpNjEx?=
+ =?utf-8?B?TkNIUnhLS2lDYjJOenZUeUVUc1FHdDZncnpyQW1jL2ZkekdJN3lzVGxsTTZ4?=
+ =?utf-8?B?akJ3K1diYW40KzhTK2dwdzN2VGJ5SG5OWDdzU2dzMXVxUHhLVzJUeVMxSW5u?=
+ =?utf-8?B?MWRUTkhadmxBTmU4VkxNWXUxVWtrOUY4cHhXMlo2Vk0ra2pJYXpUdzEzTmlN?=
+ =?utf-8?B?MExURWdLWGJ3V21GOHdhU3JpL0h0VEJGYVN5UmVwRTM4ZTJkZGNob1lmSmlp?=
+ =?utf-8?B?ajhQZ0lUQmprU0FaL29EZmNJY0xlbnMranp2RUtyQjZ3emNNNGZoZ2Z4U1F2?=
+ =?utf-8?B?Zmo1VEF3OHpRNGNXSjFUTGhicDA4QUJOT2FYblRkc2lZeDBDSzFnTytGL1BU?=
+ =?utf-8?B?eGVrOEo5aUwxWDY2d1kyVW9UemxzdXhWZS9pRUM3TXVWNUd1a0dXUUgvTVZx?=
+ =?utf-8?B?Nzl4dUJrMkJ4aWRDdVoyMS9qdzZmTXRrZldLYUN4L3h5TzlNVnVvZWtod3Jk?=
+ =?utf-8?B?YmNlSDh0KzY2TGVNRk9kMC85YTljMElBOGVvblUrZDU5UVZQMW12LzBtL3B0?=
+ =?utf-8?B?d090Q2JEc1pWL3M5OW91Z0NYeDdvTDB2NlZHRnppYVpZODcwNFFITnZ4V3NV?=
+ =?utf-8?B?dUI5NE1kejZndVR1b09SS3h1MmVhQXlVV1FwMFF6Y0U2NWtkQ2p6MkxpUnlZ?=
+ =?utf-8?B?UUVpaEExYnZ6NnIzQVJvZXJlNDRJV0I1Q0dseE41SUZEdW1XZWFxTlZOb0Nx?=
+ =?utf-8?B?b2tyNmVNVGxOZ0lReWlqRkxVMmJTZ3I5MzQxYVNzeCtrRklBaVBRaXhlVEVs?=
+ =?utf-8?B?dTBTRks4NHNHQ1NoNDZZYm42UGVSYUlLKy9Gam9tVkNWRlZwRWpPVUF2dzlM?=
+ =?utf-8?B?cTc1MjU5RUg4U2kzWmN1eFJHWk5qOElmTGNuYXNLMXR3Zkd6SFpUcE85MFBJ?=
+ =?utf-8?B?WnR4ZDF1eHNuVkNzWk5IU3I5QTgwdGg2SVRiRnZsblJlYW8raUZRNC9wS1lK?=
+ =?utf-8?B?UzRNelRtSGhzYVROQXMzRnhoT2lzS25zVHZXOTFCK3d3TEcwWTNvcXYzV1Y4?=
+ =?utf-8?B?NklqVHBMWU5BSFFPR1JhQU5KSGNRMXZ1TXNRVmM1MG5kSm5JVkVGU213WDVR?=
+ =?utf-8?B?aWtaVzNRbVgza1dwcXU4K1FLV2lEZll4UUpzbVMwenhEcTFPNU5JYVpWVFNU?=
+ =?utf-8?B?REplZnhlVUw0bDl1d1F1bWZSR1dDZzlGV09FT3VmR2tYQVJiSk1jYU9SVzRo?=
+ =?utf-8?B?RWpNTWVzcVNLQ2VZbkVJcmIyemdnRXRMOFZWa1F0bXA4SGVwWGo2UWZTUEVR?=
+ =?utf-8?B?bjY4cURIQWZaOUxNUEEvZHcxLzA5YmFkbTNPTHRNbFFMNzdtZVJQSXpMa1RQ?=
+ =?utf-8?B?UzhYRTYxTEFBVFBveHRvcGFTTDJGMW9OYnR0aUhybkFFMWwzU2I2aWhXTm1H?=
+ =?utf-8?B?SDJmYWUwS0s2ZHhDcmpMZDI4WTRURkJSdnpSQURsT0gzNlBrUFlUQkh2Vndq?=
+ =?utf-8?B?RkVEQnpZSXhQMU5zOUFlRE1TTUFZTkdOSHhDZFo0T3l3bG9QRjU1Qk5kbHJK?=
+ =?utf-8?B?NmplelZnZXRyYk9kNUFZQ2xnRnY4bENmM3dQUVI5NHRvU2cvTWR0SlJlRnRp?=
+ =?utf-8?B?Y3F2SFlPdU1lakFSZkI0L01ESmdoNHpvT1NXRWVQT1ArZEJhSE5sTVlETXVv?=
+ =?utf-8?Q?m2rMB3cMbZ+iR3H6uRliZse9KlOg2wKrsICpN?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 978d995f-9211-4043-0326-08df19aebd86
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:10:40.6695
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4k/ywipXMQeP3Dtu9h8Qefa9Gw7kl81O4kh3ovwx0OHPsYNOdcxZOQGVvvoj47UYF9FIq4EjDW21NgyNButugXQB0Gq/5gg79LGxPD7EjFj9/uVCHea3Qqpb5/A60qC/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10715
 
-Embedded products routinely need their own boot logo. Today that means
-pointing CONFIG_LOGO_LINUX_CLUT224_FILE at a different image, which bakes
-it into the kernel image. Two products that share a board support package
-but differ in branding therefore need two kernel builds, and rebranding an
-existing product means rebuilding and requalifying a kernel for what is
-purely a cosmetic change.
-
-This series lets the logo be described by the device tree instead: a node
-compatible with "boot-logo-clut224" under /chosen supplies the image in
-the same paletted format the built-in CLUT224 logos already use, and the
-kernel prefers it over the built-in ones when it is present and enabled.
-If the node is absent or disabled, nothing changes.
-
-The image can come from the node itself (patches 2-3) or from a reserved
-memory region the bootloader filled in (patches 5-6), because the image
-and its placement are independent axes of variation. One board sold to
-several customers wants several device trees differing in the logo. One
-customer with several products built on that board, with different panels,
-wants the same logo placed differently on each: there the image belongs in
-a shared binary and only the placement belongs in the device tree.
-
-Patch 1 is a cleanup that stands on its own. fb_prepare_logo() works out
-how many rows to keep clear for the logo and fb_show_logo_line() works out
-where to draw it, and both open code the same decision; nothing makes them
-agree, even though fbcon erases whatever falls outside the rows that were
-reserved. It gives the position a structure of its own, in linux_logo.h,
-with -1 on an axis meaning centre on that axis, so that fb_center_logo
-becomes a value rather than a second code path and both callers share one
-calculation. No functional change. The device tree placement in patch 4
-then only fills the same structure in from the node, which is parsed in
-logo.c next to the image that comes from it, so that everything that knows
-the binding lives in one place and the frame buffer code only asks for the
-result.
-
-We have been carrying a cruder version of this downstream on an AM335x
-product since 2020, across a handful of board revisions, and it has
-removed a real maintenance burden for us.
-
-Where this fits
----------------
-
-There are already ways to get a picture on the screen early, and this does
-not replace any of them. A bootloader splash handed over through a
-simple-framebuffer node is the earliest of all. A userspace splash is the
-most flexible, and is what most systems end up using. What neither covers
-is the case where nothing initialises the display before the kernel does.
-
-That case is not exotic. U-Boot's SPL can boot the kernel directly, and
-display initialisation lives in U-Boot proper, which then never runs:
-there is no splash to hand over and nothing for a simple-framebuffer node
-to point at. Falcon mode exists to cut boot time, which is the same reason
-one cares about how early the logo appears, so the two tend to arrive
-together. Userspace is far too late to fill that gap: on the board I
-tested, the kernel has the panel up at 3.2 seconds.
-
-Rob Herring asked in v2 why a simple-framebuffer handover would not do,
-and I answered that it did not work on our hardware. That was wrong, and I
-am correcting it here: the node I had measured it with was incomplete, and
-with a complete one it does work. What it does not do is help where there
-is no splash to hand over in the first place, and it does not survive the
-native driver.
-
-simplefb registers fb0 at 1.79 seconds with the bootloader's image; tilcdc
-initialises at 3.16 seconds, registers its own fb1 and reprograms the
-controller to scan that buffer, which starts empty, so the screen goes
-black. Nothing is evicted and nothing is cleared: the two frame buffers
-coexist, and cat /dev/fb0 > /dev/fb1 brings the picture straight back. It
-is only that nobody does it, and by the time anything could, userspace is
-already up, which is the moment a splash was there to cover. With
-simpledrm it does not even survive in memory, since it hands its clients
-shmem buffers and blits them onto the firmware framebuffer, so the first
-frame any client commits overwrites what the bootloader drew. A logo the
-kernel draws itself has none of this: there is nothing to carry across.
-
-Notes on the binding
---------------------
-
-  - The compatible has no "linux," prefix. Rob asked why it was Linux
-    specific, and nothing in the node is: it describes an image and where
-    it goes, which any consumer can read. A bootloader drawing the same
-    logo before the kernel starts is the obvious other one. The 224 is the
-    palette limit of the format, which is what lets the kernel use the
-    image the way it already uses its built-in logos, without converting
-    it.
-  - The palette size is derived from the length of the "clut" property
-    instead of being a separate property, so it cannot disagree with the
-    palette actually supplied.
-  - "data" holds plain palette indices. The 32 entry offset the frame
-    buffer layer reserves for the console is an implementation detail and
-    is applied by the kernel.
-  - "logo-position" takes -1 on an axis to mean centre on that axis, which
-    is what fb_center_logo already meant. A boolean could only centre both
-    axes or neither, and next to explicit coordinates it would have to
-    override them silently.
-  - "logo-rotation" turns the logo, not the screen. "logo-position" and
-    "logo-offset" are screen pixels whatever the rotation says, and a
-    quarter turn only changes how much room the logo takes up.
-  - "logo-position" and "logo-offset" are spelled with the prefix because
-    plain "position" and "offset" are already used elsewhere in the tree
-    with an incompatible type, which dtschema rejects.
-  - The reserved memory path takes a "memory-region" phandle rather than a
-    bare address. The reservation is what makes the memory safe to read at
-    all, and it is what gives the kernel a size to bounds check against.
-
-The byte arrays are not written by hand: patch 7 adds ppmtodtlogo, a host
-tool along the lines of the existing pnmtologo -- plain C, no
-dependencies, no quantization of its own -- that turns a PPM image into
-the node or into the memory region blob. It is what produced everything
-tested below.
-
-Until chosen.yaml knows about the node, dtbs_check rejects it on any board
-that uses it: it allows only ^framebuffer under /chosen. I sent that one
-line change as dt-schema pull request 204, and Rob closed it saying he
-expects it is either not needed or will change, given this discussion.
-That seems like the right order to me, so I am not asking for it again
-here: once the shape of the binding is settled, the schema change follows
-from it, and I will send it then.
-
-On a system that has DRM but no frame buffer device, nothing draws the
-logo at all: fbcon is what draws it today, and without it there is no
-consumer. Showing it there needs an in-kernel DRM client, which I have
-working on top of this series and will send separately. I mention it
-because it is the reason the node is parsed in logo.c rather than in
-fb_logo.c: the same node then puts the logo on the same pixel whichever of
-the two draws it, rotated or not, which I checked on the same board.
-
-Testing: built for arm with CONFIG_LOGO_DT_CLUT224 both enabled and
-disabled, and each of the seven patches builds on its own, with the option
-enabled from the patch that introduces it. Also built for x86_64 with
-CONFIG_OF=n, where nothing is left unresolved and the placement data is
-dropped from the image, and for powerpc Cell -- where SPU_BASE makes
-CONFIG_FB_LOGO_EXTRA real -- to a linked vmlinux. No compiler warnings,
-W=1 clean on the files touched, checkpatch --strict clean apart from the
-MAINTAINERS reminder for the new tool, which the existing drivers/video/
-entry already covers. A full dt_binding_check has one complaint for this
-binding and none other in the whole tree: the chosen.yaml rejection
-described above.
-
-Boot tested under qemu-system-arm -M versatilepb with PL111 and fbcon, at
-16bpp, over a 26 case matrix: absolute positions, per axis centring, all
-four corners, offsets including negative ones, out of range values, the
-three rotations, and each rotation combined with an offset and with an
-absolute position, each compared pixel by pixel against the source image
-rotated to match. A position out of range on both axes is clamped to the
-corner, and the console text then overwrites the rows below what fbcon
-reserved. Supplying the same image through a reserved region instead
-produces an identical logo area. Blobs with a bad magic, a geometry larger
-than the reservation and an out of range pixel are each rejected with a
-warning, with no logo drawn and no crash.
-
-Also boot tested on real hardware: an AM335x board (tilcdc) with an
-800x480 panel at 16bpp. The product logo comes up where the node asks,
-both carried in the device tree and taken from a bootloader-loaded
-reserved memory region, and the two produce a frame buffer that is
-identical byte for byte. Dumping /dev/fb0 and comparing it against the
-source image, the logo lands on exactly the pixel the binding predicts:
-16836 of 16836 pixels match, and one pixel of displacement in any
-direction drops that to about 90%. With logo-rotation = "ccw" it lands on
-the rotated position the same way, every pixel.
-
-Changes since v2:
-  - Rebased onto current mainline (v7.3-rc3).
-  - Dropped the "linux," prefix from the compatible, and renamed the
-    binding to match, per Rob.
-  - A rotation asked for by the device tree now turns the logo and not the
-    screen: "logo-position" and "logo-offset" stay in screen pixels, and a
-    quarter turn only changes how much room the logo takes up. v2 fed the
-    device tree rotation into the path fbcon uses for a rotated console,
-    which places the logo in the console's own frame and maps the result
-    back, so a vertical offset came out horizontal on a screen that was not
-    rotated. Found by testing it on the panel. fb_rotate_logo() is split
-    into the part that turns the image and the part that moves the
-    placement, and the console path is unchanged.
-  - The placement properties are read in logo.c, next to the image, and the
-    frame buffer code only asks for the result, so that the binding is
-    parsed in a single place.
-  - Added patch 1, which pulls the logo position out into something both
-    fb_prepare_logo() and fb_show_logo_line() share, after Helge pointed out
-    that the placement patch was stamped in rather than merged with the
-    existing code. That turned up a real bug: the reservation took the larger
-    of the console position and the device tree one while the drawing took
-    only the device tree one.
-  - IS_ENABLED() instead of #ifdef, per Helge, so the code is compile checked
-    whatever the configuration.
-  - The device tree is read once, from fb_prepare_logo(), rather than from
-    every accessor.
-  - Dropped "logo-centered" for -1 in "logo-position", per Helge.
-  - The position and offset are added in 64 bits and both are bounded in the
-    binding; in int, a large pair from the device tree wrapped instead of
-    landing against an edge.
-  - The copy of the image is no longer freed from a late initcall, which ran
-    before async_synchronize_full() and so could pull it out from under a
-    display driver still probing. Pixels are allocated with kvmalloc().
-  - The example declares compatible and model on the root node, and the
-    binding no longer requires the image properties unconditionally, which
-    made the reserved memory form unreachable. Both found by Rob's bot.
-  - Extra logos are not drawn when the device tree supplied the logo; they
-    stack up from an arbitrary point once it has been placed.
+From: Frank Li <Frank.Li@nxp.com>
 
 
-Max Pedraza (7):
-  fbdev: describe where the boot logo goes in one place
-  dt-bindings: display: add a device tree supplied boot logo
-  video: logo: allow the boot logo to come from the device tree
-  fbdev: honour the device tree boot logo placement properties
-  dt-bindings: display: allow the boot logo in a reserved memory region
-  video: logo: allow the boot logo to come from a reserved memory region
-  video: logo: add ppmtodtlogo host tool
+On Mon, 14 Sep 2026 14:53:11 +0200, Stefano Radaelli wrote:
+> Correct the UART8 header reference from J12 to J6 on the DART-MX95
+> Sonata carrier board.
+> 
+> This is a documentation-only fix and does not change the hardware
+> configuration.
+> 
+> 
+> [...]
 
- .../bindings/display/boot-logo-clut224.yaml   | 161 +++++++
- MAINTAINERS                                   |   1 +
- drivers/video/fbdev/core/fb_logo.c            | 221 ++++++++--
- drivers/video/logo/Kconfig                    |  12 +
- drivers/video/logo/Makefile                   |   6 +-
- drivers/video/logo/logo.c                     | 332 +++++++++++++-
- drivers/video/logo/ppmtodtlogo.c              | 416 ++++++++++++++++++
- include/linux/linux_logo.h                    |  59 +++
- 8 files changed, 1170 insertions(+), 38 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
- create mode 100644 drivers/video/logo/ppmtodtlogo.c
+Applied, thanks!
 
+[1/1] arm64: dts: imx95-var-dart-sonata: correct UART8 header pins
+      commit: 8912bc10501ddb0d9b9ad450b21f42110b6bc619
+
+Best regards,
 -- 
-2.39.5
-
+Frank Li <Frank.Li@nxp.com>
