@@ -1,218 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541B5477E37;
-	Wed, 23 Sep 2026 09:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D16FE477E37;
+	Wed, 23 Sep 2026 09:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154807; cv=none; b=qeOliM/X5MHVif/wGK8MbtITwyeVtSdqKOb9OujVRkDkjDntRQVi7eRSH3yWP52WuawXoYVvimX0Y3qIvP0ZBcHial2PYVbYK9PQgi1I4zRa+ffOXWxgJFRy7N3E63RtNcukdDFLbzQqlUzIvwQ1RmNuRCTBBNBHgsAtFg4WvOg=
+	t=1790154815; cv=none; b=FTdx4vN1mdkc/qJCC916+FtaqlUDpOApWIvDeAZ5uvcSz8pcZ5qdzem/noxyGlwcuY0jh21qtSLLU/HvRAK4pcvTeNUOg3qQ2fdeDVQ8btEVjHjLiMSeJWmokW6GOX1v3v2lC+D03TAlmPe8bP2ctupn/WW7uNw+Qd/baobE9SM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154807; c=relaxed/simple;
-	bh=baQuCNHWQgGvyqp1YInqR3FnINiRqk+cgToOBlhlmjo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IrvOYKUkmh8i12Tp6DNaBSGQFlilB1yMnWf/4H3IgeU+k/NqJq0y98giCdcTR8XxfFN0cZLnq/cZBxgDyEKQYWKCqeYX0mS6Dx6fbhr4PVhaIPneo829pEW82jgzDthgN6NKXos9U6AvyeOKXLkesX6lY/SrHgrbnERZD57Ra+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rV4WYhT2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790154815; c=relaxed/simple;
+	bh=TsIuNm5jFryvz4LLPwlBrr1EE8osp13D6JiRN6bqtQ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BnNsAdK/ZU3WT7oIrDffEHcEG6pWxLvpOlASLf6i4lbWDFZcfd6kC93xT6pafs7W426TMX/S7zi0LdgpdZBrA37LxjPmQkVFKem7O1oIYzXPxs+O2wzsN1HzTvAm/wEhCDMBWrX+0kWNDUs5xP1ivXDVMwTwXttKB5AFTyh27O0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=hkPlCmYJ; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rV4WYhT2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 055ADC2BCB8;
-	Wed, 23 Sep 2026 09:13:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790154807;
-	bh=baQuCNHWQgGvyqp1YInqR3FnINiRqk+cgToOBlhlmjo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=rV4WYhT2jPNzPZR55ruLP/NiZuYBd2KOntGphNEsZzUKjOUa7BGsVX8SVjwNIY/W+
-	 Xi4n1YNetxRcblBl163yqWhIdJcR0zR4WnKju3LJQuZmpamq5q9sP3w6ZWZ8+lB8Jd
-	 hZT4KQW6I8LYcpyRTQU1ORYiVxNC2xQK5fcy0HXdVHGCCqU/dcIIj3A4ckthIKtFWS
-	 Ze7e89RUSpdkrvVR+tr9h37vzUm4fwL3BZnar6IROPlVE3EWe4CJH/TdyO2Qh3jCIG
-	 qSIgb+YM3ltWnaV19DRxMbNj86WTr9D4neaxbl6M9qwpiJHRhYxo/ySHsU5zC0iPx2
-	 MkYUlOvWzvPfA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9A98C982EA;
-	Wed, 23 Sep 2026 09:13:26 +0000 (UTC)
-From: Kim Wooseok via B4 Relay <devnull+5mghybrid.khu.ac.kr@kernel.org>
-Date: Wed, 23 Sep 2026 18:13:25 +0900
-Subject: [PATCH net-next v2 1/3] net: macb: Preserve timestamp settings on
- rejected requests
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="hkPlCmYJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=JUBiUwkLuqf7ZmJwTiYj7Qrw6wUl0OXzxMNYxraTk/E=; b=hkPlCmYJFsdy/YK0RkiVRAqWXB
+	GzN0N/P1H7rVpbCKkSBKwCjJL9JoNKKJY176lqHON8IhJSZxww3F65ZRpxJQE24HF6Te/2Tz+4yL2
+	M9k7nLlCyGisi29RVxoORbnQc+uFsG1ZaxHxALW0vpiaw1HKkxiGTDVC5iJ36nz4TXWbZP4FsJ99B
+	q/Lnw50Z+ezeL8gfcCvTOs6oZC4ucrrS2TAD2PqpYvdS9D5f6TDYy9J2r5jOpMKTnouGZspPxaJvV
+	tHNZTq5BE7DsXbs/kdAAgWVxjyFyA9diGfIgFOu4s17B3zCYLaFCC5XQDgQkJiwRSS+SF5rvygQhl
+	tCTrfxgw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x9J2X-0000000CW22-0qbV;
+	Wed, 23 Sep 2026 09:13:21 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 362833006DD; Wed, 23 Sep 2026 11:13:20 +0200 (CEST)
+Date: Wed, 23 Sep 2026 11:13:20 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Ingo Molnar <mingo@kernel.org>,
+	Sean Christopherson <seanjc@google.com>,
+	Jinchao Wang <wangjinchao600@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org, x86@kernel.org,
+	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
+Subject: Re: [PATCH v17 03/13] x86/hw_breakpoints: Make DR7 updates NMI safe
+Message-ID: <20260923091320.GW776954@noisy.programming.kicks-ass.net>
+References: <179005108298.388919.4535333252892590932.stgit@devnote2>
+ <179005111951.388919.3131603399440492416.stgit@devnote2>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260923-macb-hwtstamp-rework-v2-1-75c909b2676d@khu.ac.kr>
-References: <20260923-macb-hwtstamp-rework-v2-0-75c909b2676d@khu.ac.kr>
-In-Reply-To: <20260923-macb-hwtstamp-rework-v2-0-75c909b2676d@khu.ac.kr>
-To: netdev@vger.kernel.org, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Rafal Ozieblo <rafalo@cadence.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>, 
- Nicolai Buchwitz <nb@tipi-net.de>, linux-kernel@vger.kernel.org, 
- Kim Wooseok <5mghybrid@khu.ac.kr>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790154804; l=4775;
- i=5mghybrid@khu.ac.kr; s=kernel-20260913; h=from:subject:message-id;
- bh=cZ8HFk0QBR/lBfFLhEs1nXctgIhBJl26Kd7OTZMobvU=;
- b=jXR2Hp81kDBB3dOP8irV6q2Rx5YAdBZQMd8sWvVWGMMsBH3D1l8FJBewrR/bxeNt+gKTp8ScO
- 85iVRyD56rfBNfyHJSFTrY6bXEzZLx1vUDk2/T94vRxUxJPIi2lfC/4
-X-Developer-Key: i=5mghybrid@khu.ac.kr; a=ed25519;
- pk=1az/6lC8Tmd6BcvyarPc8FWoSxsV/WRr5NLs1v+kjlE=
-X-Endpoint-Received: by B4 Relay for 5mghybrid@khu.ac.kr/kernel-20260913
- with auth_id=1028
-X-Original-From: Kim Wooseok <5mghybrid@khu.ac.kr>
-Reply-To: 5mghybrid@khu.ac.kr
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179005111951.388919.3131603399440492416.stgit@devnote2>
 
-From: Kim Wooseok <5mghybrid@khu.ac.kr>
+On Tue, Sep 22, 2026 at 01:25:19PM +0900, Masami Hiramatsu (Google) wrote:
+> From: Jinchao Wang <wangjinchao600@gmail.com>
+> 
+> Hardware breakpoint installation and removal run with IRQs disabled, but
+> an NMI can still enter the same code through KGDB. The interrupted
+> operation and the NMI can consequently claim the same slot or overwrite
+> each other's DR7 state.
+> 
+> Claim and release per-CPU slots with cmpxchg. Update cpu_dr7 with
+> single-instruction per-CPU operations, and preserve hardware-first
+> disable and hardware-last enable ordering. Add a per-CPU sequence number
+> so interrupted DR7 writers and restore paths detect an NMI update and
+> retry from the latest shadow state.
 
-gem_set_hwtst() can reject a request after changing the TX one-step
-setting, because it programs the TX mode before checking the RX
-filter. The call returns -ERANGE, but the hardware may no longer match
-the cached configuration.
-
-Validate both settings first and keep the adjusted RX filter local
-until validation succeeds. Then apply the register settings and update
-the configuration. A rejected request now leaves the hardware, the
-caller's settings and the cached configuration unchanged.
-
-Protect the NCR read-modify-write with bp->lock, keeping the descriptor
-writes and cache update in the same section. With the register writes
-now in the setter, remove gem_ptp_set_one_step_sync() and
-gem_ptp_set_ts_mode().
-
-Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Tested-by: Nicolai Buchwitz <nb@tipi-net.de>
-Assisted-by: GPT-6 Astra
-Signed-off-by: Kim Wooseok <5mghybrid@khu.ac.kr>
----
- drivers/net/ethernet/cadence/macb_ptp.c | 59 ++++++++++++++-------------------
- 1 file changed, 25 insertions(+), 34 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index 14ae57fa0..02face93a 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -374,16 +374,6 @@ void gem_ptp_remove(struct net_device *netdev)
- 		 GEM_PTP_TIMER_NAME);
- }
- 
--static int gem_ptp_set_ts_mode(struct macb *bp,
--			       enum macb_bd_control tx_bd_control,
--			       enum macb_bd_control rx_bd_control)
--{
--	gem_writel(bp, TXBDCTRL, GEM_BF(TXTSMODE, tx_bd_control));
--	gem_writel(bp, RXBDCTRL, GEM_BF(RXTSMODE, rx_bd_control));
--
--	return 0;
--}
--
- int gem_get_hwtst(struct net_device *netdev,
- 		  struct kernel_hwtstamp_config *tstamp_config)
- {
-@@ -396,25 +386,17 @@ int gem_get_hwtst(struct net_device *netdev,
- 	return 0;
- }
- 
--static void gem_ptp_set_one_step_sync(struct macb *bp, u8 enable)
--{
--	u32 reg_val;
--
--	reg_val = macb_readl(bp, NCR);
--
--	if (enable)
--		macb_writel(bp, NCR, reg_val | MACB_BIT(OSSMODE));
--	else
--		macb_writel(bp, NCR, reg_val & ~MACB_BIT(OSSMODE));
--}
--
- int gem_set_hwtst(struct net_device *netdev,
- 		  struct kernel_hwtstamp_config *tstamp_config,
- 		  struct netlink_ext_ack *extack)
- {
- 	enum macb_bd_control tx_bd_control = TSTAMP_DISABLED;
- 	enum macb_bd_control rx_bd_control = TSTAMP_DISABLED;
-+	int rx_filter = tstamp_config->rx_filter;
- 	struct macb *bp = netdev_priv(netdev);
-+	unsigned long flags;
-+	u32 ncr_mask = 0;
-+	u32 ncr_bits = 0;
- 	u32 regval;
- 
- 	if (!macb_dma_ptp(bp))
-@@ -424,18 +406,19 @@ int gem_set_hwtst(struct net_device *netdev,
- 	case HWTSTAMP_TX_OFF:
- 		break;
- 	case HWTSTAMP_TX_ONESTEP_SYNC:
--		gem_ptp_set_one_step_sync(bp, 1);
-+		ncr_bits |= MACB_BIT(OSSMODE);
-+		ncr_mask |= MACB_BIT(OSSMODE);
- 		tx_bd_control = TSTAMP_ALL_FRAMES;
- 		break;
- 	case HWTSTAMP_TX_ON:
--		gem_ptp_set_one_step_sync(bp, 0);
-+		ncr_mask |= MACB_BIT(OSSMODE);
- 		tx_bd_control = TSTAMP_ALL_FRAMES;
- 		break;
- 	default:
- 		return -ERANGE;
- 	}
- 
--	switch (tstamp_config->rx_filter) {
-+	switch (rx_filter) {
- 	case HWTSTAMP_FILTER_NONE:
- 		break;
- 	case HWTSTAMP_FILTER_PTP_V1_L4_SYNC:
-@@ -451,25 +434,33 @@ int gem_set_hwtst(struct net_device *netdev,
- 	case HWTSTAMP_FILTER_PTP_V2_DELAY_REQ:
- 	case HWTSTAMP_FILTER_PTP_V2_L2_DELAY_REQ:
- 	case HWTSTAMP_FILTER_PTP_V2_L4_DELAY_REQ:
--		rx_bd_control =  TSTAMP_ALL_PTP_FRAMES;
--		tstamp_config->rx_filter = HWTSTAMP_FILTER_PTP_V2_EVENT;
--		regval = macb_readl(bp, NCR);
--		macb_writel(bp, NCR, (regval | MACB_BIT(SRTSM)));
-+		rx_bd_control = TSTAMP_ALL_PTP_FRAMES;
-+		rx_filter = HWTSTAMP_FILTER_PTP_V2_EVENT;
-+		ncr_mask |= MACB_BIT(SRTSM);
-+		ncr_bits |= MACB_BIT(SRTSM);
- 		break;
- 	case HWTSTAMP_FILTER_PTP_V1_L4_EVENT:
- 	case HWTSTAMP_FILTER_ALL:
- 		rx_bd_control = TSTAMP_ALL_FRAMES;
--		tstamp_config->rx_filter = HWTSTAMP_FILTER_ALL;
-+		rx_filter = HWTSTAMP_FILTER_ALL;
- 		break;
- 	default:
--		tstamp_config->rx_filter = HWTSTAMP_FILTER_NONE;
- 		return -ERANGE;
- 	}
- 
--	bp->tstamp_config = *tstamp_config;
-+	spin_lock_irqsave(&bp->lock, flags);
-+	if (ncr_mask) {
-+		regval = macb_readl(bp, NCR);
-+		regval = (regval & ~ncr_mask) | ncr_bits;
-+		macb_writel(bp, NCR, regval);
-+	}
- 
--	if (gem_ptp_set_ts_mode(bp, tx_bd_control, rx_bd_control) != 0)
--		return -ERANGE;
-+	gem_writel(bp, TXBDCTRL, GEM_BF(TXTSMODE, tx_bd_control));
-+	gem_writel(bp, RXBDCTRL, GEM_BF(RXTSMODE, rx_bd_control));
-+
-+	tstamp_config->rx_filter = rx_filter;
-+	bp->tstamp_config = *tstamp_config;
-+	spin_unlock_irqrestore(&bp->lock, flags);
- 
- 	return 0;
- }
-
--- 
-2.53.0
+Bah, KGDB.. Aren't there far more problems with that thing? 
 
 
+> diff --git a/arch/x86/include/asm/debugreg.h b/arch/x86/include/asm/debugreg.h
+> index 854d82b88ff4..515d2d313d0c 100644
+> --- a/arch/x86/include/asm/debugreg.h
+> +++ b/arch/x86/include/asm/debugreg.h
+> @@ -18,6 +18,7 @@
+>  #define DR7_FIXED_1	0x00000400
+>  
+>  DECLARE_PER_CPU(unsigned long, cpu_dr7);
+> +DECLARE_PER_CPU(unsigned int, cpu_dr7_seq);
+
+Would it make sense to:
+
+typedef struct {
+	unsigned long dr7;
+	unsigned int  seq;
+} dr7_save_t;
+
+
+>  #ifndef CONFIG_PARAVIRT_XXL
+>  /*
+> @@ -125,40 +126,69 @@ static __always_inline bool hw_breakpoint_active(void)
+>  
+>  extern void hw_breakpoint_restore(void);
+>  
+> -static __always_inline unsigned long local_db_save(void)
+> +static __always_inline void local_db_save(unsigned long *dr7,
+> +					  unsigned int *dr7_seq)
+
+static __always_inline dr7_save_t local_db_save(void)
+
+>  {
+
+>  }
+>  
+> -static __always_inline void local_db_restore(unsigned long dr7)
+> +static __always_inline void local_db_restore(unsigned long dr7,
+> +					     unsigned int dr7_seq)
+
+static __always_inline void local_db_restore(dr7_save_t dr7)
+
+>  {
+
+>  }
+>  
+>  #ifdef CONFIG_CPU_SUP_AMD
+
+> diff --git a/arch/x86/kernel/hw_breakpoint.c b/arch/x86/kernel/hw_breakpoint.c
+> index 0473a5c95856..901323ae7d6a 100644
+> --- a/arch/x86/kernel/hw_breakpoint.c
+> +++ b/arch/x86/kernel/hw_breakpoint.c
+
+> @@ -106,32 +108,25 @@ int arch_install_hw_breakpoint(struct perf_event *bp)
+
+> +	do {
+> +		seq = this_cpu_inc_return(cpu_dr7_seq);
+> +		this_cpu_write(cpu_debugreg[i], info->address);
+> +		barrier();
+> +		set_debugreg(info->address, i);
+> +		if (info->mask)
+> +			amd_set_dr_addr_mask(info->mask, i);
+> +		this_cpu_or(cpu_dr7, encode_dr7(i, info->len, info->type));
+> +		barrier();
+> +		set_debugreg(this_cpu_read(cpu_dr7) | DR7_FIXED_1, 7);
+> +		barrier();
+> +	} while (seq != this_cpu_read(cpu_dr7_seq));
+>  
+>  	return 0;
+>  }
+> @@ -149,36 +144,34 @@ void arch_uninstall_hw_breakpoint(struct perf_event *bp)
+
+> +	do {
+> +		seq = this_cpu_inc_return(cpu_dr7_seq);
+> +		dr7 = this_cpu_read(cpu_dr7);
+
+You're inconsistent with the leading barrier(). 
+
+> +		dr7 &= ~__encode_dr7(i, info->len, info->type);
+> +		set_debugreg(dr7 | DR7_FIXED_1, 7);
+> +		if (info->mask)
+> +			amd_set_dr_addr_mask(0, i);
+> +		barrier();
+> +		this_cpu_and(cpu_dr7,
+> +			     ~__encode_dr7(i, info->len, info->type));
+> +		barrier();
+> +	} while (seq != this_cpu_read(cpu_dr7_seq));
+> +
+> +	WARN_ONCE(this_cpu_cmpxchg(bp_per_reg[i], bp, NULL) != bp,
+> +		  "Can't release breakpoint slot");
+>  }
+
+These loops should be far more similar. Note how the top one does:
+
+	this_cpu_or(cpu_dr7, encode_dr7(...));
+	set_debugreg(this_cpu_read(cpu_dr7) | ..., 7);
+
+while the bottom one does:
+
+	dr7 &= ~encode_dr7(...)
+	set_debugreg(dr7 | ...);
+	this_cpu_and(cpu_dr7, ~encode_dr7(...));
+
+Why can't they both have the same shape and only one encode_dr7()
+instance?
+
+
+> @@ -486,12 +480,18 @@ void flush_ptrace_hw_breakpoint(struct task_struct *tsk)
+>  
+>  void hw_breakpoint_restore(void)
+>  {
+> +	unsigned int seq;
+> +
+> +	do {
+> +		seq = this_cpu_inc_return(cpu_dr7_seq);
+
+no barrier().
+
+> +		set_debugreg(this_cpu_read(cpu_debugreg[0]), 0);
+> +		set_debugreg(this_cpu_read(cpu_debugreg[1]), 1);
+> +		set_debugreg(this_cpu_read(cpu_debugreg[2]), 2);
+> +		set_debugreg(this_cpu_read(cpu_debugreg[3]), 3);
+> +		set_debugreg(DR6_RESERVED, 6);
+> +		set_debugreg(this_cpu_read(cpu_dr7) | DR7_FIXED_1, 7);
+> +		barrier();
+> +	} while (seq != this_cpu_read(cpu_dr7_seq));
+>  }
+>  EXPORT_SYMBOL_FOR_KVM(hw_breakpoint_restore);
+
+I really can't say I'm a fan of this. Is KGDB really a thing?
