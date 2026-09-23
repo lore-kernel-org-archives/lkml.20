@@ -1,76 +1,78 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-qv2-f40.google.com (mail-qv2-f40.google.com [74.125.230.168])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87DE3C0A13
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:09:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0748556B866
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:09:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790201382; cv=none; b=XZMQRfnJ0/iuz0Kk3lw274dPtdTlxvcwEVM62Xy1wzTHmI1dFfzNH4tu76UDo67RadFGDRZA1BHWLpYNhqjgwfhLIz7cqGi5pW13IAVGOi6H66lJmG9NtJtcPL8gCX6oXK6cEPXCXYEWr5WlZsoVrFnndSRW+BhPo29UKoMmyA0=
+	t=1790201394; cv=none; b=J79nEw4ofrLRB1KnMTJBMc7LaNtVkd4otPhg5skO5q+1kHzfg8R8+hAKMOc4voC8BMuyNJTJ6vyQaSrJs9HsyxpXRXPn5UimK+Qe5Z4P6pAEWaiDJQvImmUCVDFdMnR8oipzHMqJsigPJ6EM64MiynAwpEul+eXnwXO4uRl4GrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790201382; c=relaxed/simple;
-	bh=Fd7arL5gD//WV/QNV8gMH5UiaR36OMO6q0zoeLWvhC0=;
+	s=arc-20240116; t=1790201394; c=relaxed/simple;
+	bh=qUgi28KzXa/rBYmuGnRdzm2GomdlzkFdVTAERTef4fA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nctB0vB+y/yf0avJcu+x4bErlpC2lE8T+V/hT7aBQIpE9zWqPem7SbqohKlYEQ3K6UWCHv/5vkwc7pdXhr2LOFzgHeVoCohtld2T0+sVDqrPBOKTcASTM33m6CT/z5cJ/faUdojRwdC12CoezfA2U6RW9hGe8R5b3M6Ewf04PCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=kwc0Bod2; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=m0Lhu22aL65i98rprEmRbLfqKkVAHUUoyylB+EZixJxraglr03oSi9fUilDvAiJzOl71RhD8hwmpwOdw1NHb5R13tOC3XXHp67RE2KvJQNoitbeeCl73Fm6mBoO69bx0geRaBpM5X+RaudxPIXlT1/brz6bYb+Ea2wBM3emZGwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=dC8ANaOc; arc=none smtp.client-ip=74.125.230.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="kwc0Bod2"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2db33db4de9so30915ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:09:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="dC8ANaOc"
+Received: by mail-qv2-f40.google.com with SMTP id 6a1803df08f44-90cdfe57a3bso10209526d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:09:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790201380; x=1790806180; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1790201392; x=1790806192; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=+IZRsj3puzmZNAPUNV3XzHF/8z5xEyYXKGsh0zAy4Kg=;
-        b=kwc0Bod2l+ycWttYn65uzEjhsswrRqp32NhtuxWGbRoTaZJMslzD+0TFiU+3w3JFtT
-         OyswI5vvNtPoZ9EdW+IS2lEY1gyHchN7BK7vFnL5U04cP10I6JQzM36CR6zn13zmdeop
-         XZMxMRHfBp4GJEJwZ8nop5UhwoUvLypam+l7omVTvpmqsPPmWc2HwWjZbEs5L/J+QWDS
-         dXDmSs5SPlKZQ+sQNMRf20/064+7UmhatPRw09YKKZ7WVXkIT4C3VVWOra+JT5VTdH5i
-         9y4P0e9NHvYW2XRBgfBCyQmSzSRpd9mQMaPiNaiugn9HPx/VvBwUKWXxE47iOehftRYU
-         ZeCA==
+        bh=K1Hvo7RTbP2R7EwaTKGv+PaU0aoOQ9FZzhpnXlX0iSg=;
+        b=dC8ANaOcdlcw/hXF1QtFu+9WETRasZcor4Ac6D/KFt7/MedNJypEA5cZk7imdnxG1G
+         G6p2hJyVnTaL7anDY7cri5ZnsKER3/n/fB32R2FPrA9LP11g+CpEQt1ym5dMH1YkTNmp
+         3flOiq3iWFdZ+sxTWw5nYLLWkU+bC9Xqu2fs3MAgEKCXssxcwiood5434KHrf8+kcTez
+         9UXFDAawjUs1FpCzk6fNCiMlhcSioNrZsXMU6gt79QlmL8IfzHDlmktVAWgZD5lJsTst
+         sl0jAx0K9BxCjvICsgVv4SOz6W7eA1lT1eAH8p2tHWrCWkef3Zo93nw95ALLfzX/yZfH
+         GaQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790201380; x=1790806180;
+        d=1e100.net; s=20260707; t=1790201392; x=1790806192;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+IZRsj3puzmZNAPUNV3XzHF/8z5xEyYXKGsh0zAy4Kg=;
-        b=F/xZQWeSmrn/1Jo/ikVJc6F6IYEPlnU7QsIKpsPkJAUR/OoEh3xw1AAT7VIc/dQOBq
-         B6Rf0FR7TUDVTURRNyw8XzXGjS+skiDfQhjvoeqjLo4jsM/HGYqgbQxPWvHwVwnHTb3H
-         Ijnvp0GqcWcNcTOkGi9Z9O0kFLh2j67lrnkBK+bycLVrLmk6Xzmkl3k8J6OFooT7wxTu
-         WCmvqmMkGOi30RVZHMfDf7wBa96kWfmjh0wQ+mOvGMkocqGDY5tnxRVALiZfDOxBJ9ls
-         5D31aIfqRRPYZj6umxIo17DxbvE+kY7s0rKUCpVNKlxVXrOBLSf1zyY+TSB+Ph7aYK3G
-         0wvA==
-X-Forwarded-Encrypted: i=1; AKwUvBzjDpT3N9Ds0n5IFkkKmoMZ+zgYKgtXN14MCRL+EqcolZJ+5Q70T0+m/CChmN/RNHSLL1lnUZn9KxsJEOs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lvR6dmec92esscaN8WSVMkSlcYy4GLlIYUTFjC/GabKJ/5+6H0
-	0BBT9InQpMEvpx9VTnouT3SNRlKVK4T9IDt02MYloWm77H2w4JjUbwtkHhVl9xAWaA==
-X-Gm-Gg: AYBFou2PLso/3zk0yzh0xa+Gl+P/SlKO3ilfNn7KG+d6vrLeqI4w3YFPRQOSU8i6TqO
-	cQ3I69Y/zDgwfVJ7p23EdMSnYJRhEfx33hWFjhDRb5aqCSYD1EKMRxHqlz92kc/eWqyOMFDz41h
-	RAlxcIqNf4rQwKnoNstvUrnPwYxtBwBn3I9AjjwL0x8viOaMtQRy2xiADirMIyxt/Slc4bbopBy
-	R/h5+e2KMqou00eUroqKFznZGwi2v39emzXE8Z/If6ATZUBzmP1lGBnpFnlPxJ3uhkZvHKge7M4
-	GBiAb88zJY3AN/moF0OePPiHYnGv2kkEkp15WpUHPA7SPPVpdNi3NdIAgPqGQP05W9CELBw3Wav
-	BPxdnjUkdzkYIx0JiR+FxRdPfhUn5LLOWwv0lWQtQu/rV4QJG184Lffy/iSMTdn80h4zoYJchjQ
-	zYfBz+0zkl2mwx4t+IqP1Pkx997eUsszKMFvoMcomheY1N/2mmeSYzLnGfmMrKtmZgaLcahenBC
-	sBvLmpMk45KCsyojz0RKignSYqbKJAi8zXbaukKna7Zsb5fzr0RK8kbPT5mY1U1jhGwJEY8xK4U
-	DVM+q66EHjQ7nAnropBGev/mN5A83Oe4sQ42aCr6S4ogT48=
-X-Received: by 2002:a17:902:ef4c:b0:2df:42af:2f9f with SMTP id d9443c01a7336-2df7bb2f8femr2192835ad.1.1790201379697;
-        Wed, 23 Sep 2026 15:09:39 -0700 (PDT)
-Received: from google.com (99.95.125.34.bc.googleusercontent.com. [34.125.95.99])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5164c0sm17368465ad.6.2026.09.23.15.09.38
+        bh=K1Hvo7RTbP2R7EwaTKGv+PaU0aoOQ9FZzhpnXlX0iSg=;
+        b=YqUb++VwdXf+nHlV0tyvr/4B4cyMci4jcMGxMEH/R5pBYqkULNf60GpWLNrmeCbfoF
+         JWeksNQO+N8XJTpA3VdGtyqTUdj+6UMn+Iwbc1YfDQ7uSN6AisdwBriCrjnRNQXsUpts
+         rni00kWThCbTNrdGhAUj6Ny5lqwMsQxTBNzJ9vrTo+qjeNgbpPIqL/9ycesRwr9r3bxZ
+         KY5CoDl0YFkzh/dn5T7zhV6r1P1FrEs6D4Q4MxILmnykr1RLB68HhcfFSomCVndHqNuX
+         lQMcYjziL6gAF4Hw1PX2mBd89CZHRn2QPDJXQ4zuNbn5SXTcoKVeo5b96mQfWnBCKz3+
+         BXjg==
+X-Forwarded-Encrypted: i=1; AKwUvBxFKJl4uI+4O4d8d2Lez9VSikxTUPKSQlYVotZ3m+xFPesYK/s4V5MsI6d5RPprCWf38judXso2Xw42vuk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6Vrx1ytgJ/YGhEER96sz01It2Opt73o9IKCo8Yffjp46W6Ipq
+	nB4EQ4LRLSoHWg/vLT/nNJe3u+Yb16/cDMVZSj7a4rqqPGDa+xqfjFYnCZYMevNDJNA=
+X-Gm-Gg: AYBFou2SwbTei2Se3Gaa3YuD6b6TXaD+HV6SfYAh0Imy2eDpt4Ro3UPy/TSrAfU0yiw
+	+d3N+DCNiZvhl4HubG5WwLlmyBk6EmHbukd6zohSOonThCgc64a/oG4rgdGDCANejuH+bY5C0GN
+	SSCLQSj/vYuGiT49FNhh5q8iZnvmoZVoCliOaPkD0hRxc4Fv3bN2m3d2gU1v9NAnlWcdEQHQHZk
+	Vojdc+p8bzivG8o3vBNnV6oDF1rE302H0wrAOU7rBgvinaN7NRb+PSIONKRcJrnp17q218FORpd
+	8Tcp9efFTa96588m1QZ/n/qxr7tM/1/o85eEBSoYYPwK4aSZzDMBxD9Geeyvmi6B7i80uea9Zec
+	n7FdwtgKWwW/mfYM2dpWR/vcW4Ket0/kjHNEz5YoZ4WkwegaZKgMjcaC1wFwWU1q0tyra/i43l9
+	DROSicdxTUcsgft3mwwoyQDHkJSwDw4XLqZg+dZWt3F3bsOBR1JrksMk9UoL+0jw8Pgway36aSW
+	eCrCwxO0HdscpHUFTeK2Y53x/wcRgh5znVqDKgK1OwuzVQdZ1oeGhWv60tsoaHlMec=
+X-Received: by 2002:a05:6214:3282:b0:912:517b:9753 with SMTP id 6a1803df08f44-9141e966f4dmr9008456d6.45.1790201391865;
+        Wed, 23 Sep 2026 15:09:51 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9141e217944sm3890176d6.9.2026.09.23.15.09.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:09:38 -0700 (PDT)
-Date: Wed, 23 Sep 2026 22:09:34 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com,
-	brauner@kernel.org, aliceryhl@google.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] binder: roll back frozen state and enqueue freeze work
- on BINDER_FREEZE error
-Message-ID: <arROHg886j_usQk-@google.com>
-References: <20260919213652.3317208-1-benquike@gmail.com>
+        Wed, 23 Sep 2026 15:09:51 -0700 (PDT)
+Date: Wed, 23 Sep 2026 18:09:49 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Matthew Wilcox <willy@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, kernel-team@meta.com, jack@suse.cz, akpm@linux-foundation.org, 
+	david@kernel.org, ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
+	ying.huang@linux.alibaba.com, vbabka@kernel.org, surenb@google.com, mhocko@suse.com, 
+	brendan.jackman@linux.dev, hannes@cmpxchg.org
+Subject: Re: [RFC PATCH 0/6] mm: pass alloc_flags through folio, filemap, and
+ bulk allocators
+Message-ID: <arRM9qUFLfP04YUB@gourry-fedora-PF4VCD3F>
+References: <20260923211041.3127588-1-gourry@gourry.net>
+ <arRHr05gy_eu4WVA@casper.infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,38 +81,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260919213652.3317208-1-benquike@gmail.com>
+In-Reply-To: <arRHr05gy_eu4WVA@casper.infradead.org>
 
-On Sat, Sep 19, 2026 at 09:36:52PM +0000, Hui Peng wrote:
-> Fix two state rollback bugs when `BINDER_FREEZE` fails with `-EAGAIN`:
+On Wed, Sep 23, 2026 at 10:42:07PM +0100, Matthew Wilcox wrote:
+> On Wed, Sep 23, 2026 at 05:10:34PM -0400, Gregory Price wrote:
+> > The folio, filemap, and bulk allocation interfaces currently hard-code
+> > ALLOC_DEFAULT before reaching the page allocator. Multiple MM series
+> > need to select allocator behavior through these paths, so pulling these
+> > changes out ahead helps both series avoid conflicts.
 > 
-> 1. In `binder_ioctl_freeze()`, `target_proc->is_frozen = true` is set
->    before waiting for pending transactions to drain. If
->    `wait_event_interruptible_timeout()` times out with `-EAGAIN`,
->    `binder_ioctl_freeze()` resets `target_proc->is_frozen = false` but
->    omits calling `binder_add_freeze_work(target_proc, false)`, leaving
->    any `BINDER_WORK_FROZEN_INFO` state queued during the freeze window
->    un-cleared.
+> I really think this 'expose ALLOC flags' idea is wrong.
 
-This is incorrect. The current implementation doesn't add the work for
-"proc->is_frozen = true" until _after_ the timeout has passed. So adding
-another binder_add_freeze_work(target_proc, false) is incorrect.
+It is mm/ internal only - to be clear.
 
-> 2. In `binder_ioctl()` (`BINDER_FREEZE`), a single PID can own multiple
->    `binder_proc` instances (`target_procs[]`). If
->    `binder_ioctl_freeze()` succeeds on `target_procs[0]` (`is_frozen =
->    true`) and then fails with `-EAGAIN` on `target_procs[1]`, the loop
->    exits and returns `-EAGAIN` to userspace while leaving
->    `target_procs[0]` permanently frozen. Unfreeze any previously frozen
->    `target_procs[0..i-1]` when `binder_ioctl_freeze()` fails.
+It's also already been partially exposed, this just brings the rest of
+the interfaces with it.
 
-This is a real issue. However, I'm already fixing this and _other_
-issues with this API here:
+There are use cases.  I initially only wanted to expose a zonelist
+selection rather than alloc flags, but given ALLOC_UNMAPPED was
+in-flight it seemed better not to propose different solutions when there
+are existing possibilities.
 
-https://r.android.com/4254406
+I'm open to options.
 
-> 
-> Fixes: 432ff1e91694 ("binder: BINDER_FREEZE ioctl")
-> Fixes: d579b04a52a1 ("binder: frozen notification")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+~Gregory
