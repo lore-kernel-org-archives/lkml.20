@@ -1,164 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D996848035A;
-	Wed, 23 Sep 2026 10:59:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C50F3A782D;
+	Wed, 23 Sep 2026 11:00:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790161174; cv=none; b=GDM3nP8oxcQy3HSTHb7C2Dqvxfhc48nT6Im9u4bDFvMGZUVml96vbhBOPCVI4rIjsfL7KfqjZwnSJjFE51Pje/Ye99hJvW3Xm4xygSm0qhw0OGsAYabyteo3/u97pCy6f+3tm37SPU5/vHFu9Wf6B4qHce7G1apQq60Kj3W+gXY=
+	t=1790161269; cv=none; b=VnK0nRCMQuWtQ6CrmVtsVfRwduIB0KROEwkAgGWwXT0EcCp1DPD91j5rPD1sOmCWKsHuSfkKHtNyYcGKk/QMsFqGNvurGXhZ4lbyLd9+YxFLGUJ4HD2wGKZRWMRKjg9BZvZaWhIBncbB97RtXYtzV0JsBsulNrTsb0wrpfh1ktM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790161174; c=relaxed/simple;
-	bh=xX9XhkpOXj1Cb9rbMympF2NdN69EjApoTlQ7aXuya04=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=u18bfnAOJkc3Jks/kUyQXGi9lOav5YAgNDQclp2g33sp2NkI7J+CVLJpWzhGmQJTqThMi4bWm+YqdIlWABypVIYSLPlf9uOEQduTDjfcL0U08UeP9b/CDH5YPBxIQSRDh7/yNGfT3e39iyWLCjTTaJwKEktOriRrLzt34Wi9Gxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PgOR459u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790161269; c=relaxed/simple;
+	bh=9yll0nn5e5lV+1in9Vhvnllsql337KFRc3hbJLB4hqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pUvVZvACiusOLm3LGBdn3j8qJQbeX5acNMCdmrFEt9kZnC5KQwTaTo7/P2KJAuPBdEp6O4dgYKxiG8DPuMB4Xea7MIOv+A3ea9WFHL5wVej4gvKMBGS0Avkmsvul7AlVbgnTTtO7cIiKaWwJAWKYEkJfmb1n8coN/txpEbdZkv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WK+LYWEi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PgOR459u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3BDB1F00899;
-	Wed, 23 Sep 2026 10:59:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WK+LYWEi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 239121F0089B;
+	Wed, 23 Sep 2026 11:00:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790161163;
-	bh=6ASRleEWYyVlo5W4I727TEqskFbsxMPvO1Pmz4MNgbM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PgOR459uWYRSctv+xW8bxeGtfyWnjmrZijGtJbH1ACCVyythjky21uHWeP7Jwb+JZ
-	 nN5je9z7efjlx7yaC94Z09A968F1Ysg03OCf5Sb1nzURqbwgAe220FmAmHGBwuI7JC
-	 fNfElPvazamUP+ZZo2gPw3+Pzpr6AMQ80IbMaZPnq/rp8T/XuAWE6VxJGFV642KRnr
-	 +4GunG/PiwJxq7an2BcEQPXK7fIpBFGYv2XMJ9aOpCYfedWbJ+Yvt5RWDtsi4E2Ozw
-	 aGNkOruWeD7geMFi395/OBgLus4asGRVKrHX4dzrBH8epnBv4nKmyc2JtK6Bu3SApH
-	 o743/btzApSAQ==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Wed, 23 Sep 2026 06:58:56 -0400
-Subject: [PATCH 1/2] lockd: allow SERVER_SET without a gracetime attribute
+	s=k20260515; t=1790161258;
+	bh=CSemoiGK8C8HIrpj1CQTjAtJI5ZavOEHMhvENOxUUaM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WK+LYWEin48HI9L180eak8SkVQ64uMjyXAc/Cs+xSEk8qWULRn+1VCCWasa+p99kD
+	 m9bDLawyUyN9yU909W7e6OTtyBytFg79fb5XnuibeEPizzJJSb4OfthnsA5trI0QB6
+	 DlGwu+YRS4Hrt8Epg204Ub/aXWkYEVjuqzvdcXZ07gOQoKqGHUvmXtE2I8OeytaUQg
+	 Xhpvv0u5Z0kEjccOApu8CCt0YSUpDgELN3mLEy53KcvOtoRArieIa1dV1wwX+F4gqj
+	 FB7Kunt4TZswebcQSok9lntXrxA+KnR3q1cI9hJzkISTDQjJo6XKk48CHOMdUvqeOy
+	 kCW3Zps0q/XcQ==
+Date: Wed, 23 Sep 2026 12:00:53 +0100
+From: Simon Horman <horms@kernel.org>
+To: Liu Chao <liuc63@xiaopeng.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, ilane@ti.com, david@ixit.cz,
+	linville@tuxdriver.com, oe-linux-nfc@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2] nfc: nci: avoid unbounded skb allocation when
+ max_pkt_payload_len is zero
+Message-ID: <20260923110053.GT13925@horms.kernel.org>
+References: <20260913101309.891633-1-liuc63@xiaopeng.com>
+ <20260918185458.2711284-1-liuc63@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-nfsd-testing-v1-1-a793f54a4dd1@kernel.org>
-References: <20260923-nfsd-testing-v1-0-a793f54a4dd1@kernel.org>
-In-Reply-To: <20260923-nfsd-testing-v1-0-a793f54a4dd1@kernel.org>
-To: Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Tom Talpey <tom@talpey.com>, Shuah Khan <shuah@kernel.org>
-Cc: Scott Mayhew <smayhew@redhat.com>, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3157; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=xX9XhkpOXj1Cb9rbMympF2NdN69EjApoTlQ7aXuya04=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqs7EJacj5mH/yrwyt5daEWPrwtC1WeEK88mL3X
- o5g4BB43UaJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCarOxCQAKCRAADmhBGVaC
- FZHvEAC6fUnc5zMr9pHNUCJZRRBJWBMjo8WaIm060qq/d9lwo8SibdpZObW76m12d6PFSsqMlFO
- /1iWXGC2HiOI64oLwonP/y+1u9pHul4QZnQHelnjQDcQaPzJ+Td1cPm4ogKnmGOjMH86dw1Faza
- oMhqMR8bQ3klQLntFkZC8rTvODEE5zkVGM/MaJwaQMRil/CaWPvmg3jjiUXAQNUSGva9n3Oa4ZY
- M/l/fVoh9+D2mcFp7lReO4mS6ZEIQX+Dkd7yPn/L0VrJqvjp/kDy9eKSSPThCvjLvqCnUG+jmcF
- XECR7hc5XVBCe3L9xOENn4dh/EGOU7jO8r15xaHgqADWW9BmXD9UuJ03STs3SPz/XVU/yWTrdbS
- VGNmlkh0GReHN9adZaJBpL5/Ui9uZVehMz929+pawCJICcmbg4wsbtfOuXouCh4hRpbHinU4ZKg
- KgAZDXYSUJFWiwE4CgZ5megHow/YU0jxjNt+AQ/KIpxrC+t72UkacQZA1nNcmIytKEcrqiyzvJB
- mbo6GfGSCmA+T+yaMyMjl7E0boq3HVe+oM8ckgnZtNd49KKxBR21wGwcGH82IIdA6yswyqSECsj
- ga2mlWHdWuCqFaXIlO2Dlfao4+RUap4RorEwK7MxUnv/P1Y8nq/riDlGTP2l83r6oAqrjbAAaQs
- SHBqOoOxGgbnR9w==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918185458.2711284-1-liuc63@xiaopeng.com>
 
-lockd_nl_server_set_doit() required LOCKD_A_SERVER_GRACETIME via
-GENL_REQ_ATTR_CHECK(), but all three attributes are optional in
-lockd.yaml and each is applied independently below. The effect was that
-the tcp and udp ports could not be set on their own.
+On Sat, Sep 19, 2026 at 02:54:58AM +0800, Liu Chao wrote:
+> nci_queue_tx_data_frags() uses conn_info->max_pkt_payload_len as the
+> fragment size.  When that value is zero, frag_len is always zero and
+> total_len never decreases.  The loop then allocates skbs without
+> bound: none of them are freed inside the loop, they accumulate on
+> frags_q, and there is no cond_resched() in the loop body.  A single
+> sendmsg() can therefore consume all allocatable memory, and on
+> CONFIG_PREEMPT_NONE it occupies the CPU long enough to trip the
+> softlockup watchdog:
+> 
+>   watchdog: BUG: soft lockup - CPU#3 stuck for 26s! [kworker/3:1:57]
+>   Workqueue: events rawsock_tx_work [nfc]
+>   Call Trace:
+>    nci_send_data+0x1ca/0x6b0 [nci]
+>    nci_transceive+0xbb/0x170 [nci]
+>    rawsock_tx_work+0xb5/0x1a0 [nfc]
+> 
+> max_pkt_payload_len comes straight from controller-supplied fields,
+> with no check for zero:
+> 
+>   ntf.c: conn_info->max_pkt_payload_len = ntf.max_data_pkt_payload_size;
+>   rsp.c: conn_info->max_pkt_payload_len = rsp->max_ctrl_pkt_payload_len;
+> 
+> Reject the zero value in the fragmentation path rather than at the
+> assignment sites.  nci_queue_tx_data_frags() is the only place that
+> loops over the RF data path's conn_info, and nci_send_data() takes
+> the non-fragmenting branch only for skb->len <= max_pkt_payload_len,
+> which for a zero limit means empty skbs alone.  Validating on
+> assignment would not be sufficient either, because
+> nci_rf_disc_rsp_packet() allocates ndev->rf_conn_info with
+> devm_kzalloc(), so max_pkt_payload_len is already zero before any
+> notification arrives.
+> 
+> No legitimate configuration is affected: where the NCI spec does
+> mandate a zero Max Data Packet Payload Size -- the NFCEE Direct RF
+> Interface -- nci_rf_intf_activated_ntf_packet() takes the "goto
+> listen" shortcut, bypassing the assignment entirely.
+> 
+> Snapshot the field once with READ_ONCE() and use the snapshot for
+> both the check and the min_t() bound: the rx workqueue updates the
+> field without any lock held against this path, so without the
+> snapshot the check could validate a value the loop no longer
+> consumes.
+> 
+> nci_hci_send_data() also loops over the same field, but on a
+> different conn_info instance (ndev->hci_dev->conn_info) created by
+> nci_core_conn_create_rsp_packet(); a zero or one there underflows
+> the loop arithmetic and will be addressed in a separate patch.  This
+> guards the path carrying the reported bug.
+> 
+> Fixes: 6a2968aaf50c ("NFC: basic NCI protocol implementation")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 
-nfsdctl hits this: with a [lockd] section that sets "port" but no
-"grace-time", it sends SERVER_SET with only the two port attributes, and
-"nfsdctl autostart" aborts with EINVAL before configuring anything.
+A note on process: Please send new patch revisions in new email threads,
+not as a response to an earlier revision. Thanks!
 
-Drop the check, along with the now-redundant outer test for "any
-attribute present". The gracetime range check is unaffected.
+> 
+> ---
+> 
+> v1 claimed that nci_queue_tx_data_frags() is "the only place that
+> loops" over max_pkt_payload_len.  That holds for the RF data path
+> (ndev->rf_conn_info) but was overstated as a blanket claim: the
+> Sashiko review of v1 pointed out that nci_hci_send_data() loops over
+> the same field as well, albeit on a separate conn_info instance
+> (ndev->hci_dev->conn_info) -- pre-existing and unchanged here; it
+> will be fixed separately.
+> 
+> The READ_ONCE() snapshot follows the same review: with the check and
+> the loop reading the field independently, a store from the rx
+> workqueue in between would let the loop spin on a value the check
+> had just rejected.
 
-Fixes: 9a28ac1762a7 ("lockd: add netlink control interface")
-Assisted-by: LLM
-Reported-by: Scott Mayhew <smayhew@redhat.com>
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
----
- fs/lockd/svc.c | 50 ++++++++++++++++++++++----------------------------
- 1 file changed, 22 insertions(+), 28 deletions(-)
+There is a fresh AI-generated review of this patchset at
+https://netdev-ai.bots.linux.dev/sashiko/#/message/20260918185209.2675909-1-liuc63%40xiaopeng.com
 
-diff --git a/fs/lockd/svc.c b/fs/lockd/svc.c
-index f0e1a58c9106..8e1b1735acaf 100644
---- a/fs/lockd/svc.c
-+++ b/fs/lockd/svc.c
-@@ -704,7 +704,8 @@ static struct svc_program	nlmsvc_program = {
-  * @info: netlink metadata and command arguments
-  *
-  * This updates the per-net values. When updating the values in the init_net
-- * namespace, also update the "legacy" global values.
-+ * namespace, also update the "legacy" global values. Every attribute is
-+ * optional; only the ones present in @info are changed.
-  *
-  * Return 0 on success or a negative errno.
-  */
-@@ -714,38 +715,31 @@ int lockd_nl_server_set_doit(struct sk_buff *skb, struct genl_info *info)
- 	struct lockd_net *ln = net_generic(net, lockd_net_id);
- 	const struct nlattr *attr;
- 
--	if (GENL_REQ_ATTR_CHECK(info, LOCKD_A_SERVER_GRACETIME))
--		return -EINVAL;
-+	attr = info->attrs[LOCKD_A_SERVER_GRACETIME];
-+	if (attr) {
-+		u32 gracetime = nla_get_u32(attr);
- 
--	if (info->attrs[LOCKD_A_SERVER_GRACETIME] ||
--	    info->attrs[LOCKD_A_SERVER_TCP_PORT] ||
--	    info->attrs[LOCKD_A_SERVER_UDP_PORT]) {
--		attr = info->attrs[LOCKD_A_SERVER_GRACETIME];
--		if (attr) {
--			u32 gracetime = nla_get_u32(attr);
-+		if (gracetime > nlm_grace_period_max)
-+			return -EINVAL;
- 
--			if (gracetime > nlm_grace_period_max)
--				return -EINVAL;
-+		ln->gracetime = gracetime;
- 
--			ln->gracetime = gracetime;
--
--			if (net == &init_net)
--				nlm_grace_period = gracetime;
--		}
-+		if (net == &init_net)
-+			nlm_grace_period = gracetime;
-+	}
- 
--		attr = info->attrs[LOCKD_A_SERVER_TCP_PORT];
--		if (attr) {
--			ln->tcp_port = nla_get_u16(attr);
--			if (net == &init_net)
--				nlm_tcpport = ln->tcp_port;
--		}
-+	attr = info->attrs[LOCKD_A_SERVER_TCP_PORT];
-+	if (attr) {
-+		ln->tcp_port = nla_get_u16(attr);
-+		if (net == &init_net)
-+			nlm_tcpport = ln->tcp_port;
-+	}
- 
--		attr = info->attrs[LOCKD_A_SERVER_UDP_PORT];
--		if (attr) {
--			ln->udp_port = nla_get_u16(attr);
--			if (net == &init_net)
--				nlm_udpport = ln->udp_port;
--		}
-+	attr = info->attrs[LOCKD_A_SERVER_UDP_PORT];
-+	if (attr) {
-+		ln->udp_port = nla_get_u16(attr);
-+		if (net == &init_net)
-+			nlm_udpport = ln->udp_port;
- 	}
- 	return 0;
- }
+It raises a concern that the snapshot may not be broad enough.
+Please take a look.
 
--- 
-2.55.0
+  The comment documents that the rx workqueue can update the field
+  concurrently, but the only caller still reads the same field of the same
+  conn_info with a plain load, and it is that read which decides whether
+  fragmentation happens at all:
 
+  net/nfc/nci/data.c:nci_send_data() {
+	/* check if the packet need to be fragmented */
+	if (skb->len <= conn_info->max_pkt_payload_len) {
+
+  Should this read be part of the same snapshot?  Two things follow from
+  leaving it as is.  The plain-versus-marked access pair on the field is
+  still KCSAN-reportable, and the decision and the loop can consume
+  different values: if nci_rf_intf_activated_ntf_packet() in
+  net/nfc/nci/ntf.c lowers the limit (255 -> 64, say) right after
+  nci_send_data() read the old value, nci_send_data() queues an
+  unfragmented packet larger than the controller's current maximum, a
+  transition the callee's snapshot cannot observe.  Would snapshotting once
+  in nci_send_data() and passing the validated value down be preferable?
+
+
+It also raises a concern regarding logging.  And while I do agree that the
+logging in question should be rate limited, because it occurs on the data
+path and is controlled by remote data, I am not convinced that it isn't a
+pre-existing problem.
+
+In any case, I think it should been addressed sooner or later.
+
+  Does this new return value make the caller's log line reachable once per
+  transmit attempt?
+
+  net/nfc/nci/data.c:nci_send_data() {
+		rc = nci_queue_tx_data_frags(ndev, conn_id, skb);
+		if (rc) {
+			pr_err("failed to fragment tx data packet\n");
+			goto free_exit;
+
+  Before the patch this input never returned from the helper, so the site
+  was effectively unreachable for it.  With a controller reporting
+  max_pkt_payload_len == 0, every sendmsg() on an NFC raw socket
+  (rawsock_tx_work -> nfc_data_exchange -> nci_transceive -> nci_send_data)
+  now logs a line, and so does every received HCP command, since
+  nci_hci_cmd_received() answers each one with nci_hci_send_data(ndev, pipe,
+  status, NULL, 0) -> nci_send_data().  Neither side is rate limited.
+  Would pr_err_ratelimited(), or a ratelimited message at the new check
+  itself, be a better fit for a controller-data-driven error path?
+
+...
