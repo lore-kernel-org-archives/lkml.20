@@ -1,64 +1,64 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+Received: from mail-oa2-f41.google.com (mail-oa2-f41.google.com [74.125.231.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD6053163A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2450F531AE4
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169207; cv=none; b=hDwqAo08ugX2Dau5EknLm6Rc7sHnDpfJ2qwBkR6iK4yDWaIIvLGloQWboqNJc1uAfr36XvNlxsZpMX8GGnHbkkrruYaxQdhnAeWugQ5DouRLJmhBXyLTd/VhUPgzwMhDzvSmDTXUmfPTNyKpWUVgiUUgNzLQ40B6HRstO/Hbm7E=
+	t=1790169209; cv=none; b=kjZlLVjjxOzEC/LP3w7lMtZXHq0bwkN/ixM5fNUINOCnAwvssJ/ImdrxLk7YNHIrFyeAj581gDGm+hJ44cKxnxlWMl324TcuxQejZMeMrfcsVQyHmfhqk0BmIPi68g7i1/MW/Wy/x3V8OR4ULMbM81Hz3T+98EEINvaeai3z7cU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169207; c=relaxed/simple;
-	bh=wJPbewVAsF07/WKXUvjLddxh2zDS4t1o5x9ugWJR6EU=;
+	s=arc-20240116; t=1790169209; c=relaxed/simple;
+	bh=II6lr93DMg9hJaSLm8z69j9Y0iee9yw5A9DTDMf4bQg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U2YO0a5qjiwhNd3zWFyexATw7xHreDtO/rJwudG19ui/2sj0cuu7D+p6Ew46P5JS0+6nM0FVBuRnA0Cw/F3DUi/wRWC0DebDwhtEC8MMUT300VhXcWt1/Gwe2KiuCSrCfSdafeBAJoMcC9mySWqTscbsKr4JcqWF/+vw1+NZBdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=orjoyvcP; arc=none smtp.client-ip=74.125.231.76
+	 MIME-Version; b=EmVylJXiUcXxn71FlCyHdqh0rCVuFZo2ROtgOWpCgtMZgMsAjPDgIppbAgxDkCeDTAlTx1mUEg/hX3idyAaJpbL0Tqs1X7iea/5xzSApcOGFVaUDqZbJQbI8hWhVtIF58Z1xsJ6CM12ctuhZ4bf4ok0XbYnWvugLndq1S3ejDOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kU0vMsuK; arc=none smtp.client-ip=74.125.231.105
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="orjoyvcP"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-46accbdfc39so824931fac.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:13:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kU0vMsuK"
+Received: by mail-oa2-f41.google.com with SMTP id 586e51a60fabf-47bc923fe6aso768874fac.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:13:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790169205; x=1790774005; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790169206; x=1790774006; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GWcsyWerzXtmqpdXsdvwUzYUFNtc0z30AKuwtSX4TlE=;
-        b=orjoyvcPw50EmeaJOqhxKIZRhoxLAo0uWIso4JrS2ty7Fu2oIiC2cuNQ/IKlbXs7FK
-         2lpXLkPr7Zxtq37lmWZK3N+wK1/skKq0e3PfRzjhj3K476kaBYLA5EVrWqoOTcNcmqS4
-         LCntTxW5YLc6VMFlJsvmlmtAR/Myf+UpG8V0JtdVxdMqV6SE9/JLVs5DsqBJlJ+JJJM4
-         +hGxyh4VPZ3yVH2UzHwyMRuhfsIn9yIrfbawgcDG+ZjJePnuM51SG/oH0d343SUcTNi2
-         lrj2jEwh1YXwMIv17s3Te6U6kMhuwiy+e1tE6yD7MOC1128R1WcfsGzSgOc/28osm8fT
-         REQA==
+        bh=mQYxSBPSGsPGEpCxfkSkSGM9Wdwhb7nPmrXw81ANLdI=;
+        b=kU0vMsuKteMPPQ/3hlyEZx63hvWccEeH9bb/AhG2W8fdrSCA0oCWVqy3nLIBNoWs/z
+         Hu7gZSnsnE5V6DZIrRVPy+eqh37GDvU/Ipk7rPSiUMbl5uZOHceiN1GSJgQ7JVM2Eh0G
+         Jb5WBeI43c1G6BvJFnmebsqQuTUNqIiLyqF5c54nIuklWeqvmJOoqKyK5QFIf454+NIN
+         zgkMtAxIirjB5Ppw4MjagH4l71FRsXrIelMYVLCGdxVii+VueSNxN2mExBg8i+6uLJi2
+         8+bAtmTap8H2nyzL2d6h4wfWxonnSyBqX4ohNWnPxxUhfZDfzyUFijBsyWddr4vZLimb
+         qHfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790169205; x=1790774005;
+        d=1e100.net; s=20260707; t=1790169206; x=1790774006;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GWcsyWerzXtmqpdXsdvwUzYUFNtc0z30AKuwtSX4TlE=;
-        b=Pb9RajO6eLM54ZJveB2COJZal9p0yavRWT1a8Vm0IFZcKOm6kj2sGqW4l6hvc2Eiwb
-         HMjWW6B1UEMjZvubEnZ+devRVVJ2nnGIYsYDN/pNReeOiDkaulvEIw+l4xi4v+C3fnyv
-         ThK5wz5iv3FELg2IUFmpHxKnWY/cbEsYT//46v4KITetn9elPTFTyX/Fv1tlfVY59EwH
-         APGW4WSdsKRGCQECBJX4GcD6MJ3kR0OawxozwlUydAUg1acLJ4Bsn6wJ1YJ6MgY0yfZ7
-         XK1BPpEQSi7e63NmQgotvsWDLTAsJQcqX/IqHqKNw/57EuT1AsQlQNNcV/TAD6sIeVaX
-         Tc3A==
-X-Forwarded-Encrypted: i=1; AKwUvBwdr/dVu4xEDggYyYec7fX2xutRV3LghzORmB3xdavxuejxSdahQLIVunx0FRmziQ9Q0R5+v0IR6/VhChg=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+eaSd2O1Cfd4rFYgG3jtahLx/YRtrrwUp+llVVY0EifPLubCc
-	Y+6SPGuFaRF3n9l8iKlcKJy6NZ1CF5J28eEolP64rsSkBA21Wk2+5iId
-X-Gm-Gg: AYBFou2RbjFdOTFm2oOo60+kHQlANdswbngp8K2Lka+uTA/HxXQMILSL0ip5V5GCqUS
-	oC3PaC4GCYP+tB++LAbRyC+d1tj6kzDoxRERLx5ehhmIKu5pExFaq5X1lD50zOtSspzpwQ7KA/p
-	6sH0cvCjzPUmQgQO/Ob5jA8BNriKjaXSXwm8OfFP+rjKC3CICa4gN/lSmnRhJ+QIa3oNXr7/jGZ
-	sQQa9G9vnvsi9f42zzteYIW+gl5YKHB5dSo5HerPLpzAGtyaFQorHm5DQlhWBmJEI93rc62YLpM
-	kWq3lFDS2mwcL1erWeKkzajRYy4+rSHuDJm4Sj+fDweT49drGY950n5tmRnEgPzyX2iyWhY5Q63
-	xiByu1WspnEnL3iOqO/HD0JvR/OGGN9ZW8zeheO+5zkzVuyuLvMmqYOjsOCF0RxZWqGkQGGm/Li
-	7/T/Lc4HBO6oU566irjIp9XF0d9ZoaaUDRXpaHf88BtrKf3V8QPsquYzDyqxxYP0t3wGLgGdyA3
-	LPapslysa8gWch2EezPrlQYkAUEOn6fGojLf084
-X-Received: by 2002:a05:6871:5814:b0:48f:e0e5:a1fa with SMTP id 586e51a60fabf-4908c3d6c7emr2513096fac.46.1790169204734;
-        Wed, 23 Sep 2026 06:13:24 -0700 (PDT)
+        bh=mQYxSBPSGsPGEpCxfkSkSGM9Wdwhb7nPmrXw81ANLdI=;
+        b=qen2m4WYiNfxs0XojOPTnSBLjR3NP5HmjfiEuYTtWkJ/Lh3sfZtyQEfGtFu+snU93g
+         0EH8DUdQhTcbploZ3CPZ69O2DRzB4BYNt3+YTw23+o6FxE7hiObe8TNHa3xieq0STbdX
+         dD3K3lvdIr2Zr1enJhStnSkeZ4yJ6TqGVgezXoiihfZWJueRReW1psdULS+MnzYSAJPO
+         teFUl6KSkbdA0YF1o4rxX3GGbKHhO+DmQInSUYn2QS0ujDnzMfs5f7w8HJn8EnZrDfor
+         aIcTLRj42KHvD2GTWURGIcyy2qPDax1Osa/tKSxk0NW7kVNTRFU1VyuooUdgMz5ztGNS
+         IV5w==
+X-Forwarded-Encrypted: i=1; AKwUvByGh1+N9DcijnIAZYBNtAqTp0NgJUwxjWiBhZVvRNQi7GcT41vy5CXd9UPuz44wuLSoXcyU7RV8UI1WC/k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mjPlklP14iSZQoNCju0o8iFr8uQp0e2Y8UzrRw28YbP7RZTklX
+	jmBMrcGsxGeGSEgfAPogJb/Ug1SZkaF6vnuxWbbcXUkUsQl3AAoOReR6
+X-Gm-Gg: AYBFou2uwkDN9FWS/RvboAC5HqnQyuIJU0c6GcEgA4/yKSX0OOIyWP7cG41bSo9qiWw
+	kbl359hD/S+djPN5CJtvSXnqDslsjFhGufoKtTni1ZmUO4Fju0OPSyhebKimO4GzMxRb22LrD3Y
+	xmdjs3QxcXZA8WaDLc1IfXyNdeSdzJ9KvBIa8/NgGy2uIfC0jT7fNVsafYzxRhUKo0FhKyEohQ2
+	N7rLlBCGWNOL/25plrmmdlMQXWlxA49YmemzNdki4bB+ZqgeWCUfPSdesTQhhgOYrkfO20BVZCK
+	A3mZ5cKIFPfKCXJshm0kTzVza+o3wpIh2/lYSR6NagaWM+g5T7SMuR+E0SAa6d8ZJ+08uO3wSvd
+	1/wSD2q0iQdh/R38sYj5jney3C5fgelzsF2VIU2tUBsSxasxxXov+DlSnVYtwohuRyhmBpwqcS+
+	Bt++eez8W0vwIXQkETzy0F1rXg9su4WJ8z7f1eMTXgcGn2YUpoYUo2zlJeCQps/leamlqwPcUIA
+	H+GWGF6tdbUxDq0ErWe2IsJSbtmLCnSBsA/18J/
+X-Received: by 2002:a05:6870:9129:b0:48f:e0f6:bd68 with SMTP id 586e51a60fabf-4908c5f00c9mr2317244fac.57.1790169205681;
+        Wed, 23 Sep 2026 06:13:25 -0700 (PDT)
 Received: from archlinux.lan ([136.34.156.120])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4908e54f277sm1599838fac.7.2026.09.23.06.13.22
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4908e54f277sm1599838fac.7.2026.09.23.06.13.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 06:13:23 -0700 (PDT)
+        Wed, 23 Sep 2026 06:13:25 -0700 (PDT)
 From: Danish Khateeb <danishkhateeb03@gmail.com>
 To: "Martin K. Petersen" <mkp@kernel.org>
 Cc: linux-scsi@vger.kernel.org,
@@ -66,9 +66,9 @@ Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Akinobu Mita <akinobu.mita@gmail.com>,
 	Danish Khateeb <danishkhateeb03@gmail.com>
-Subject: [PATCH 1/2] scsi: target: core: Fix kunmap_atomic() address in sbc_dif_copy_prot()
-Date: Wed, 23 Sep 2026 08:13:18 -0500
-Message-ID: <20260923131319.310123-2-danishkhateeb03@gmail.com>
+Subject: [PATCH 2/2] scsi: target: core: Use kmap_local_page() in SBC emulation
+Date: Wed, 23 Sep 2026 08:13:19 -0500
+Message-ID: <20260923131319.310123-3-danishkhateeb03@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260923131319.310123-1-danishkhateeb03@gmail.com>
 References: <20260923131319.310123-1-danishkhateeb03@gmail.com>
@@ -80,66 +80,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sbc_dif_copy_prot() copies protection information between the command's
-protection SGL and the backend's SGL "sg". It maps each page of "sg" with
-kmap_atomic() and unmaps it with kunmap_atomic(addr - sg->offset - offset).
-The unmap runs after offset has been advanced by len, so it is passed an
-address len bytes below the start of the mapped page, inside the page
-below the mapping.
+kmap_atomic() is deprecated in favour of kmap_local_page(). Convert the
+kmap_atomic() and kunmap_atomic() calls in sbc_dif_generate(),
+sbc_dif_verify(), sbc_dif_copy_prot() and compare_and_write_do_cmp().
 
-The only caller, rd_do_prot_rw(), passes the rd backend's protection
-pages, which come from alloc_pages(GFP_KERNEL). kmap_atomic() of a lowmem
-page returns its linear address, and kunmap_atomic() of a linear address
-has nothing to unmap, so the wrong address has gone unnoticed. It matters
-on 32-bit x86 with CONFIG_DEBUG_HIGHMEM, which selects
-CONFIG_DEBUG_KMAP_LOCAL_FORCE_MAP so that lowmem pages get a real
-temporary mapping too. kunmap_local_indexed() then warns
+The mappings already nest the way kmap_local_page() requires. The
+protection page is mapped first and unmapped last, and the data page (the
+rd protection page in sbc_dif_copy_prot()) is mapped and unmapped inside
+it, including on the early returns. compare_and_write_do_cmp() maps one
+page at a time. The code between map and unmap only works on kernel
+memory with memcpy(), memcmp(), the CRC helpers and pr_*(), so it does
+not rely on page faults or preemption being disabled.
 
-  WARNING: mm/highmem.c:623 at kunmap_local_indexed+0x148/0x190
-  Workqueue: target_submission target_queued_submit_work
-  Call Trace:
-   sbc_dif_copy_prot+0xef/0x310
-   rd_do_prot_rw+0x115/0x140
-   rd_execute_rw+0x354/0x3b0
-   sbc_execute_rw+0x2b/0x40
-   __target_execute_cmd+0x22/0xb0
+Apart from dropping the deprecated calls, this lets preemptible kernels
+preempt the guard tag CRCs in sbc_dif_generate() and sbc_dif_verify(),
+which run inside the mapping of a protection SGL entry: up to 512 blocks
+per page of protection information, 2 MiB of data with 4 KiB blocks.
 
-and clears the right PTE, but x86 flushes the TLB entry of the wrong
-address. The stale entry keeps the slot pointing at the old page, so the
-next page mapped there is not the one accessed. With an rd device with
-pi_prot_type=1 exported through tcm_loop, reads and writes then fail
-with "DIFv1 checksum failed" errors.
-
-Unmap the page before advancing offset, so kunmap_atomic() gets the
-address kmap_atomic() returned.
-
-Fixes: 57636388af32 ("target: Fix inconsistent address passed to kunmap_atomic() in sbc_dif_copy_prot()")
 Assisted-by: LLM
 Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
 ---
- drivers/target/target_core_sbc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/target/target_core_sbc.c | 56 ++++++++++++++++----------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/target/target_core_sbc.c b/drivers/target/target_core_sbc.c
-index 21f5cb86d70c..55a8c2f0a286 100644
+index 55a8c2f0a286..2c79bca5f6e4 100644
 --- a/drivers/target/target_core_sbc.c
 +++ b/drivers/target/target_core_sbc.c
-@@ -1347,13 +1347,13 @@ void sbc_dif_copy_prot(struct se_cmd *cmd, unsigned int sectors, bool read,
+@@ -406,7 +406,7 @@ compare_and_write_do_cmp(struct scatterlist *read_sgl, unsigned int read_nents,
+ 	ret = TCM_NO_SENSE;
+ 	for_each_sg(read_sgl, sg, read_nents, sg_cnt) {
+ 		unsigned int len = min(sg->length, cmp_len);
+-		unsigned char *addr = kmap_atomic(sg_page(sg));
++		unsigned char *addr = kmap_local_page(sg_page(sg));
+ 
+ 		if (memcmp(addr, buf + offset, len)) {
+ 			unsigned int i;
+@@ -418,7 +418,7 @@ compare_and_write_do_cmp(struct scatterlist *read_sgl, unsigned int read_nents,
+ 				*miscmp_off);
+ 			ret = TCM_MISCOMPARE_VERIFY;
+ 		}
+-		kunmap_atomic(addr);
++		kunmap_local(addr);
+ 		if (ret != TCM_NO_SENSE)
+ 			goto out;
+ 
+@@ -1222,8 +1222,8 @@ sbc_dif_generate(struct se_cmd *cmd)
+ 	unsigned int block_size = dev->dev_attrib.block_size;
+ 
+ 	for_each_sg(cmd->t_prot_sg, psg, cmd->t_prot_nents, i) {
+-		paddr = kmap_atomic(sg_page(psg)) + psg->offset;
+-		daddr = kmap_atomic(sg_page(dsg)) + dsg->offset;
++		paddr = kmap_local_page(sg_page(psg)) + psg->offset;
++		daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
+ 
+ 		for (j = 0; j < psg->length;
+ 				j += sizeof(*sdt)) {
+@@ -1232,26 +1232,26 @@ sbc_dif_generate(struct se_cmd *cmd)
+ 
+ 			if (offset >= dsg->length) {
+ 				offset -= dsg->length;
+-				kunmap_atomic(daddr - dsg->offset);
++				kunmap_local(daddr - dsg->offset);
+ 				dsg = sg_next(dsg);
+ 				if (!dsg) {
+-					kunmap_atomic(paddr - psg->offset);
++					kunmap_local(paddr - psg->offset);
+ 					return;
+ 				}
+-				daddr = kmap_atomic(sg_page(dsg)) + dsg->offset;
++				daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
+ 			}
+ 
+ 			sdt = paddr + j;
+ 			avail = min(block_size, dsg->length - offset);
+ 			crc = crc_t10dif(daddr + offset, avail);
+ 			if (avail < block_size) {
+-				kunmap_atomic(daddr - dsg->offset);
++				kunmap_local(daddr - dsg->offset);
+ 				dsg = sg_next(dsg);
+ 				if (!dsg) {
+-					kunmap_atomic(paddr - psg->offset);
++					kunmap_local(paddr - psg->offset);
+ 					return;
+ 				}
+-				daddr = kmap_atomic(sg_page(dsg)) + dsg->offset;
++				daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
+ 				offset = block_size - avail;
+ 				crc = crc_t10dif_update(crc, daddr, offset);
+ 			} else {
+@@ -1273,8 +1273,8 @@ sbc_dif_generate(struct se_cmd *cmd)
+ 			sector++;
+ 		}
+ 
+-		kunmap_atomic(daddr - dsg->offset);
+-		kunmap_atomic(paddr - psg->offset);
++		kunmap_local(daddr - dsg->offset);
++		kunmap_local(paddr - psg->offset);
+ 	}
+ }
+ 
+@@ -1336,18 +1336,18 @@ void sbc_dif_copy_prot(struct se_cmd *cmd, unsigned int sectors, bool read,
+ 	for_each_sg(cmd->t_prot_sg, psg, cmd->t_prot_nents, i) {
+ 		unsigned int psg_len, copied = 0;
+ 
+-		paddr = kmap_atomic(sg_page(psg)) + psg->offset;
++		paddr = kmap_local_page(sg_page(psg)) + psg->offset;
+ 		psg_len = min(left, psg->length);
+ 		while (psg_len) {
+ 			len = min(psg_len, sg->length - offset);
+-			addr = kmap_atomic(sg_page(sg)) + sg->offset + offset;
++			addr = kmap_local_page(sg_page(sg)) + sg->offset + offset;
+ 
+ 			if (read)
+ 				memcpy(paddr + copied, addr, len);
  			else
  				memcpy(addr, paddr + copied, len);
  
-+			kunmap_atomic(addr - sg->offset - offset);
-+
+-			kunmap_atomic(addr - sg->offset - offset);
++			kunmap_local(addr - sg->offset - offset);
+ 
  			left -= len;
  			offset += len;
- 			copied += len;
- 			psg_len -= len;
- 
--			kunmap_atomic(addr - sg->offset - offset);
--
- 			if (offset >= sg->length) {
- 				sg = sg_next(sg);
+@@ -1359,7 +1359,7 @@ void sbc_dif_copy_prot(struct se_cmd *cmd, unsigned int sectors, bool read,
  				offset = 0;
+ 			}
+ 		}
+-		kunmap_atomic(paddr - psg->offset);
++		kunmap_local(paddr - psg->offset);
+ 	}
+ }
+ EXPORT_SYMBOL(sbc_dif_copy_prot);
+@@ -1379,8 +1379,8 @@ sbc_dif_verify(struct se_cmd *cmd, sector_t start, unsigned int sectors,
+ 	unsigned int block_size = dev->dev_attrib.block_size;
+ 
+ 	for (; psg && sector < start + sectors; psg = sg_next(psg)) {
+-		paddr = kmap_atomic(sg_page(psg)) + psg->offset;
+-		daddr = kmap_atomic(sg_page(dsg)) + dsg->offset;
++		paddr = kmap_local_page(sg_page(psg)) + psg->offset;
++		daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
+ 
+ 		for (i = psg_off; i < psg->length &&
+ 				sector < start + sectors;
+@@ -1390,13 +1390,13 @@ sbc_dif_verify(struct se_cmd *cmd, sector_t start, unsigned int sectors,
+ 
+ 			if (dsg_off >= dsg->length) {
+ 				dsg_off -= dsg->length;
+-				kunmap_atomic(daddr - dsg->offset);
++				kunmap_local(daddr - dsg->offset);
+ 				dsg = sg_next(dsg);
+ 				if (!dsg) {
+-					kunmap_atomic(paddr - psg->offset);
++					kunmap_local(paddr - psg->offset);
+ 					return 0;
+ 				}
+-				daddr = kmap_atomic(sg_page(dsg)) + dsg->offset;
++				daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
+ 			}
+ 
+ 			sdt = paddr + i;
+@@ -1414,13 +1414,13 @@ sbc_dif_verify(struct se_cmd *cmd, sector_t start, unsigned int sectors,
+ 			avail = min(block_size, dsg->length - dsg_off);
+ 			crc = crc_t10dif(daddr + dsg_off, avail);
+ 			if (avail < block_size) {
+-				kunmap_atomic(daddr - dsg->offset);
++				kunmap_local(daddr - dsg->offset);
+ 				dsg = sg_next(dsg);
+ 				if (!dsg) {
+-					kunmap_atomic(paddr - psg->offset);
++					kunmap_local(paddr - psg->offset);
+ 					return 0;
+ 				}
+-				daddr = kmap_atomic(sg_page(dsg)) + dsg->offset;
++				daddr = kmap_local_page(sg_page(dsg)) + dsg->offset;
+ 				dsg_off = block_size - avail;
+ 				crc = crc_t10dif_update(crc, daddr, dsg_off);
+ 			} else {
+@@ -1429,8 +1429,8 @@ sbc_dif_verify(struct se_cmd *cmd, sector_t start, unsigned int sectors,
+ 
+ 			rc = sbc_dif_v1_verify(cmd, sdt, crc, sector, ei_lba);
+ 			if (rc) {
+-				kunmap_atomic(daddr - dsg->offset);
+-				kunmap_atomic(paddr - psg->offset);
++				kunmap_local(daddr - dsg->offset);
++				kunmap_local(paddr - psg->offset);
+ 				cmd->sense_info = sector;
+ 				return rc;
+ 			}
+@@ -1440,8 +1440,8 @@ sbc_dif_verify(struct se_cmd *cmd, sector_t start, unsigned int sectors,
+ 		}
+ 
+ 		psg_off = 0;
+-		kunmap_atomic(daddr - dsg->offset);
+-		kunmap_atomic(paddr - psg->offset);
++		kunmap_local(daddr - dsg->offset);
++		kunmap_local(paddr - psg->offset);
+ 	}
+ 
+ 	return 0;
 -- 
 2.55.0
 
