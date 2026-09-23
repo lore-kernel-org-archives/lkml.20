@@ -1,177 +1,113 @@
-Received: from mta0.migadu.com (out-109.mta0.migadu.com [91.218.175.109])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F59D4119EE
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.109
+Received: from zg8tmja2lje4os43os4xodqa.icoremail.net (zg8tmja2lje4os43os4xodqa.icoremail.net [206.189.79.184])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 29916475324;
+	Wed, 23 Sep 2026 08:54:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=206.189.79.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790153673; cv=none; b=p3sWOLmd0091oRd0BywCHU7zPpUKnSk5/UTUC0hS//gE11ZQ/r0yVda85CZkorLFjIWTBMEY5TACypX7goLRZQ1n0e4ajxk736EsEGls5qJGDHGmJjWufbxOxSlrLJOTRUajDl+bpmzTkXJ9Oni2CAADOLSUon9iScAp55AtD0M=
+	t=1790153698; cv=none; b=Rf0n0XSkvABUk0u8SkW5nhob4+icSBpK8OKlYczIGogX/MD5b2wzKyhU0p/AK48nVGP8m8s3x1edbS8b2Tp3XLnZacUbxSyu4hKsGFqlvWOkF81xaIlJI/PNx3vWbIAhQHEURPm5fe2/WTTzBAASolrZVe2RTX/nzT+XgrIm+bY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790153673; c=relaxed/simple;
-	bh=mKKXd8n2HOhU5Q0gLVPMEbhCsXKgHbRUMQtENSwBdyw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kApLblKtF0TSCh26yfkhL3beFIblIabDZ+rvyzDvqBZHYabiDJYOoykfyFcHWFaQgXGQCYKbPaOTAv7m7JE8APxcUrY2IW1W64JpBdRdXAxEQ6SoIuv/4zArmygLbCVK/qm3vYJUqz2qsvMmS99AT8CrOlWgkDHL/9O70+dzU88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rTdL/kco; arc=none smtp.client-ip=91.218.175.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rTdL/kco"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mKKXd8n2HOhU5Q0gLVPMEbhCsXKgHbRUMQtENSwBdyw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790153662; v=1; x=1790758462;
- b=rTdL/kco2jWaktzhosQZAR4yPbpemzM+W/JhlqUKydBnWCPQJHxC2Rky7z+bu+LZLaE8AKdv
- n1BgZZc4Ud2JTyeTZHdsSul1iDRDPH//c2fqwrDW4sLETI7ufLwI9vs0n9rZmQ1vUn+SwAaNsRz
- x0t4lG+y3UDTOz4ZOKaM0qVE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c56b50517945abbe;
-	Wed, 23 Sep 2026 08:54:20 +0000
-X-Mizu-Trace-ID: c56b50517945abbe
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: ljs@kernel.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	guoren@kernel.org,
-	bcain@kernel.org,
-	geert@linux-m68k.org,
-	dinguyen@kernel.org,
-	schuster.simon@siemens-energy.com,
-	jonas@southpole.se,
-	stefan.kristiansson@saunalahti.fi,
-	shorne@gmail.com,
-	dalias@libc.org,
-	glaubitz@physik.fu-berlin.de,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	linux@armlinux.org.uk,
-	vgupta@kernel.org,
-	monstr@monstr.eu,
-	chris@zankel.net,
-	jcmvbkbc@gmail.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	peterz@infradead.org,
-	davem@davemloft.net,
-	andreas@gaisler.com,
-	richard.henderson@linaro.org,
-	mattst88@gmail.com,
-	linmag7@gmail.com,
-	catalin.marinas@arm.com,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	tsbogend@alpha.franken.de,
-	James.Bottomley@HansenPartnership.com,
-	deller@gmx.de,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	chleroy@kernel.org,
-	hca@linux.ibm.com,
-	gor@linux.ibm.com,
-	agordeev@linux.ibm.com,
-	borntraeger@linux.ibm.com,
-	svens@linux.ibm.com,
-	richard@nod.at,
-	anton.ivanov@cambridgegreys.com,
-	johannes@sipsolutions.net,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	arnd@arndb.de,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	jgg@ziepe.ca,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	ysato@users.sourceforge.jp,
-	shakeel.butt@linux.dev,
-	corbet@lwn.net,
-	rdunlap@infradead.org,
-	linux-mm@kvack.org,
+	s=arc-20240116; t=1790153698; c=relaxed/simple;
+	bh=SpI95p3FXYAUYKBkSzyrmk5qySayfT9zX1AUBpYiSIs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gEnOraIClJvElr+ngq9xDiI3W1vapAAf2msbDu6fmKd4t1fzbGqpUrdg+Zjbt5JjnA90EmRNNKTm6kOT/bAdXOGNXys4L7sDXWEAH78epLt/DD7Kw/R7R/CO6SS/Qy1M+K5vqxwd2uUOkTFsbbvnHgRvTqc6DYSwt+JaaZWVI1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=206.189.79.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wBXUH_Lk7NqlyoxAQ--.6727S3;
+	Wed, 23 Sep 2026 16:54:36 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgAXY8fLk7NqW12WBA--.34014S2;
+	Wed, 23 Sep 2026 16:54:35 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	linux-i3c@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-csky@vger.kernel.org,
-	linux-hexagon@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-openrisc@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-snps-arc@lists.infradead.org,
-	linux-arch@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-alpha@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	hughd@google.com,
-	qi.zheng@linux.dev,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 06/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for sparc64
-Date: Wed, 23 Sep 2026 16:54:14 +0800
-Message-ID: <20260923085414.17309-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260922-rcu-pagetable-freeing-v4-6-fe1ad1f1e303@kernel.org>
-References: <20260922-rcu-pagetable-freeing-v4-6-fe1ad1f1e303@kernel.org>
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] i3c: master: adi: free the IRQ before unregistering the master
+Date: Wed, 23 Sep 2026 08:53:40 +0000
+Message-Id: <20260923085340.490776-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgAXY8fLk7NqW12WBA--.34014S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?8KVjTwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI1FG/lD/lmE44/TuyE2gfu15RhSvlRqdn5iLMsVzzySkL90
+	jme45YJaF+aFbzuszpKp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoW7CFWrWFy3tr4DWr1DJr1fAFc_yoW8ZFWrpa
+	18K34Y9FWkJF4UAa1UGa15ZFy5Jw1a9ry7Kw43t3sFgr98JasYyryrJry8AF1fGrWkCF1Y
+	yry5tw4Uu398ArcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Xo7JUUUUU==
 
+adi_i3c_master_irq() is requested with devm_request_irq(), so it stays
+registered when adi_i3c_master_remove() runs, and the writes masking the
+controller IRQ sources do not synchronize with a handler that is already
+running on another CPU. i3c_master_unregister() then frees the
+struct i3c_dev_desc objects that master->ibi.slots[] still point to, so
+the IBI path in adi_i3c_master_handle_ibi() can dereference freed memory.
 
-On Tue, Sep 22, 2026 at 04:35:37PM +0100, Lorenzo Stoakes (ARM) wrote:
->Commit 4a0100f7546f ("sparc64: use RCU page table freeing") enabled
->CONFIG_MMU_GATHER_RCU_TABLE_FREE for SMP sparc64 architectures, expressly
->for GUP-fast page table walkers.
->
->Naturally, UP systems do not have to worry about concurrent GUP fast
->operations.
->
->However, CONFIG_PREEMPT_RCU is also available even on a UP system, so a
->future pure-RCU page table walker requires MMU_GATHER_RCU_TABLE_FREE to be
->enabled on UP, even if concurrent GUP fast is not possible there.
->
->To enable future pure-RCU page table walkers, enable
->MMU_GATHER_RCU_TABLE_FREE unconditionally.
->
->With this change, it is no longer necessary to have !CONFIG_SMP
->pgtable_free_tlb(), so also remove this now dead code.
->
->This forms part of an overall effort to switch every architecture to this
->mode.
->
->Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
->Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->---
+Fix this by storing the IRQ number in the private structure and calling
+devm_free_irq() after the IRQ sources are masked, so a running handler
+is finished before the master is torn down.
 
-Also ran page-table teardown stress on qemu-system-sparc64 (sun4u, UP).
-That ran cleanly too ;) Feel free to add:
+This issue was found by an in-house static analysis tool.
 
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Acked-by: Lance Yang <lance.yang@linux.dev>
+Fixes: a79ac2cdc91d ("i3c: master: Add driver for Analog Devices I3C Controller IP")
+Cc: stable@vger.kernel.org
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/i3c/master/adi-i3c-master.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/i3c/master/adi-i3c-master.c b/drivers/i3c/master/adi-i3c-master.c
+index 6380a38..9b0ee4e 100644
+--- a/drivers/i3c/master/adi-i3c-master.c
++++ b/drivers/i3c/master/adi-i3c-master.c
+@@ -115,6 +115,7 @@ struct adi_i3c_master {
+ 		spinlock_t lock; /* Protect transfer */
+ 	} xferqueue;
+ 	void __iomem *regs;
++	int irq;
+ 	struct clk *clk;
+ 	unsigned long i3c_scl_lim;
+ 	struct {
+@@ -954,6 +955,7 @@ static int adi_i3c_master_probe(struct platform_device *pdev)
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+ 		return irq;
++	master->irq = irq;
+ 
+ 	version = readl(master->regs + ADI_AXI_REG_VERSION);
+ 	if (ADI_AXI_PCORE_VER_MAJOR(version) != 1)
+@@ -999,6 +1001,8 @@ static void adi_i3c_master_remove(struct platform_device *pdev)
+ 	writel(0x00, master->regs + REG_IRQ_MASK);
+ 	writel(0x01, master->regs + REG_ENABLE);
+ 
++	devm_free_irq(&pdev->dev, master->irq, master);
++
+ 	i3c_master_unregister(&master->base);
+ }
+ 
+
