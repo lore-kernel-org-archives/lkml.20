@@ -1,147 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 485DD3E49DA
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:55:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C4B7352018;
+	Wed, 23 Sep 2026 21:56:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790200511; cv=none; b=aTvh4rdyJXHVN815x1T+/7ATrQTHFlQoqXlPoUIK/5W0fbxF1XKW4xLV+w62j7DK8/80ytpF+kMzfLkEdPaAS9lR9VoUGmiQAPwsyPhPsWa4AxkUypyKXBtSSCpEVmMG4obvTqaWPjz9Lfa4bxqUaXZU2dCY6fA5HiE5O4b0pSw=
+	t=1790200608; cv=none; b=lL0WL5SqwX3n9qIk4r65rcaP4177/BGTXbmy2j6L0CKECAJe7AQD4RaRW0Nq6HOiVqCvKfzFowQI4hOp5QQM7Ni/rCjeakJncdw3mfykstdrXQcqqFihHwmBKzkzT7iIY540Azr5OOA8dOf9AMgFwkI/uxmseBt4RfATOAybmG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790200511; c=relaxed/simple;
-	bh=p+ZNuXYJq6YNjelH1m1aPrewzztl95I1NAzy/Ny9jgA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Y1InbK8POEblniW5WSuZPPFujz/muDpAGtmkl2TwjI08JdBFSWRRe4nKzIhgbeQGebtB8YMQCDf8tc8UWpYFi7zgH+WSqHNseeyL0LGdjIkChTfOKt0XWCcV1fkFY6fuCwqcgUCJFyA3uRoEKsIc46g8adLZ1OrC/7Ap+uDyhZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cgw3afYu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790200608; c=relaxed/simple;
+	bh=nq+Tjt9BG1+woc1wqOCMFTkkJ8ZOti86hSWZvTb4bDM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:Content-Type:
+	 MIME-Version; b=OenoM/9OJh17r/zWjMgDCC+S0FsSBtSoL/r5Ipy7FBKRgv+gW+Dqzr2E5Ewlb7mzH8N9Mn+rWnLVvsnwJ666z/qmv1gqFdvNxEVQr0urwL0qd8NoESPtejxUnewKcV1JoNEJ+Fi00/Qat7yhy2r39xHDSAuGlXM6YlKLHgsYFtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=DSA3XdtK; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cgw3afYu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F096A1F0089B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:55:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790200510;
-	bh=SpXPGh64kpxQKL1N904LXrN6hkR3B6eHCfE5NZYijII=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Cgw3afYujNqlrWM/WhXomv6w5ymB9ASvZlKeEGsThrj5KwbV0o78k4RyPSTvGYY1T
-	 xTyNNjPQe0dyBODmMwCzxN8qPec5CC32ksR7FpvgtShi3F+PYBHnxCAYj10pgVrMOD
-	 Vj5VnKeKQwHskPqOTx692ErN7Y4A2tv32iesJZGxGgCM/bKkRNCR3vMflD+gWoPeoc
-	 /PWLIAjHQMmje4LAJug8HdcgpZr5oYEJu/XYL+/eauTR3V4X8cOyB8KzwgnJqEpIcm
-	 +zBA+oytBZPJyf6hJdHBl+fHVogHN+5Dv4xlWqZB+RzfkZXb1jT085vOrt9TGTd5eL
-	 b3rlsOUx/FALQ==
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109f067fso147130085a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:55:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwBo0qiVyKkk90XSHFu+gmvJIx7QBdNc6HR6US4STgu0AfQDZH6lAn4h3DFBbgXdghXAEtO2GpHs91jhtM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kZfbajnceTDEWfJAGguAeCvF8sKZ0ojGh+GxNmGvwVzxZLZb20
-	C4kI3XIeGfD/CI/Sg+McoHL3D7e2yhkXjK9BkpN71eObsZP3rsXBUS2R5D5lome8AmqklbY78ho
-	+EcfG8MGc4n32EYoLStftjiqtGif6DL8=
-X-Received: by 2002:a05:620a:284a:b0:936:dfbf:85b0 with SMTP id
- af79cd13be357-93c363a8152mr1388985a.35.1790200509327; Wed, 23 Sep 2026
- 14:55:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="DSA3XdtK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:In-Reply-To:
+	Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
+	Content-ID:Content-Description:References;
+	bh=nq+Tjt9BG1+woc1wqOCMFTkkJ8ZOti86hSWZvTb4bDM=; b=DSA3XdtKERHi+mDvReT4d1S7Vx
+	q0qK9Qv36ePctglbywHQJdGNtQjpKnrqkgc/bUi77DJfYtkjPcH+f1lmLqOOXjC1vJTMijmcnE2MM
+	zalUK5M3hpozYYGRFFXgFKNuMPR4R/1kyKFK5K2pvNJxRUeBSZkdKVZH5EEmgaCdWiEyHSjwhCHzk
+	gjGhtbqfq+k0qaf9UWa5xNQpWgGIKLct8EkJxxQ3Hii1tHpCFkzfMMnlCZOvaevRGcdDUgkhHmkJ5
+	OShsMT1bOTmoMf7SiMLfmr9K3CsE8QlPkVPpdfGIAbm47TOdm25W3hhBsgSvhltgUKWVAVeSTLurM
+	yFCBnUTg==;
+Received: from [54.239.6.185] (helo=edge-m2-r3-116.e-iad50.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x9UxF-0000000Ea0o-3hui;
+	Wed, 23 Sep 2026 21:56:42 +0000
+Message-ID: <558719203d9a99a825fcd8efabf656b6f4686736.camel@infradead.org>
+Subject: Re: [PATCH 00/17] KVM: Use atomic SRCU for gfn-to-pfn cache,
+ reinstate guest mode for x86 nesting
+From: David Woodhouse <dwmw2@infradead.org>
+To: KunWu Chan <kunwu.chan@gmail.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
+	pbonzini@redhat.com, seanjc@google.com, paul@xen.org, paulmck@kernel.org, 
+	kunwu.chan@linux.dev, nh-open-source@amazon.com
+Date: Wed, 23 Sep 2026 23:56:40 +0200
+In-Reply-To: <CAN_Opa-xVAzFAJVU3rwCsiBzVpQYqUYWzgpBBP7EaX3K+ASk1g@mail.gmail.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-6tuHJDOCYqmkzJ9WKYhh"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1789718658.git.zhuhui@kylinos.cn>
-In-Reply-To: <cover.1789718658.git.zhuhui@kylinos.cn>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 24 Sep 2026 05:54:58 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xuc0+Ehih7hY2YEhRR7tppbf+B5O62wdP3nxDp+K7oZw@mail.gmail.com>
-X-Gm-Features: AcwNN1XTWzCfQmh8uM20cSrnV3apsyMT9Ecd9a8pnvLDRtaQT8_TZ6QtW38rdjA
-Message-ID: <CAGsJ_4xuc0+Ehih7hY2YEhRR7tppbf+B5O62wdP3nxDp+K7oZw@mail.gmail.com>
-Subject: Re: [RFC PATCH RESEND v5 0/2] mm/vmscan: fix NR_ISOLATED accounting
- and throttle MGLRU eviction
-To: Hui Zhu <hui.zhu@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+
+
+--=-6tuHJDOCYqmkzJ9WKYhh
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
-On Fri, Sep 18, 2026 at 4:07=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
->
-> From: Hui Zhu <zhuhui@kylinos.cn>
->
-> Previously the patch was based on mm-unstable, which caused issues during
-> Sashiko apply.
-> So I rebased it onto mm-stable and resend.
-> Thanks Andrew for the heads-up.
->
-> The legacy reclaim path has two mechanisms around isolated folios that
-> MGLRU lacks:
->
-> 1. NR_ISOLATED_ANON/FILE counters are updated when folios are isolated
->    from the inactive lists. Compaction's too_many_isolated() relies on
->    them to decide when to back off. The MGLRU reclaim path never
->    updates them, so compaction cannot see MGLRU's in-flight isolation.
->
-> 2. shrink_inactive_list() throttles direct reclaim via
->    too_many_isolated() when isolated folios pile up. MGLRU's
->    evict_folios() isolates folios without any such check, so many
->    concurrent reclaimers can over-isolate the same (oldest) generation,
->    leading to unnecessary swapping, thrashing and premature memcg OOM.
->
-> Patch 1 fixes the counter accounting in the MGLRU isolation path.
-> Patch 2 adds a per-lruvec throttle, mirroring the legacy behavior but
-> adapted to MGLRU's per-lruvec contention and its dynamic type
-> selection/fallback.
->
-> Testing
-> =3D=3D=3D=3D=3D=3D=3D
-> Two test scripts are provided to reproduce the problem and validate
-> the fix. Both are available at:
-> https://gist.github.com/teawater/3ef51251f2e91a5a600e3d26bb477e34
-> Test environment: 10 CPU / 8GB QEMU guest, MGLRU enabled, a 16MB
-> memory cgroup, anonymous working set, swap backed by dm-delay (50ms
-> read/write delay) to slow swap-out and lengthen the isolation window.
->
-> mglru_iso_repro.sh (64 threads, 48MB working set, 60s):
-> Drives concurrent direct reclaim inside the memcg and measures scan
-> efficiency, throttle events, in-flight isolation and throughput.
-> Neither kernel OOMs at this concurrency; the value of the patch shows
-> in reclaim quality:
->                         unpatched       patched
->   OOM kills             0               0
->   mm_vmscan_throttled   0               35645 (all
->                                         VMSCAN_THROTTLE_ISOLATED)
->   nr_isolated peak      0 (invisible)   230
->   total touches         246,499,132,369 301,456,426,692
->   scan efficiency       0.0261          0.0194
->
-> The patched kernel completes ~22% more work in the same 60s: the
-> throttle keeps concurrent reclaimers from trampling the same
-> generation, so less CPU is burned in reclaim. Note nr_isolated is
-> always 0 on the unpatched kernel - the over-isolation is invisible
-> there, which is exactly what patch 1 fixes.
->
-> mglru_iso_repro_v2.sh (192 threads, 48MB working set, 60s):
-> Raises concurrency to the point where over-isolation becomes fatal:
->                         unpatched       patched
->   OOM kills             1 (task killed) 0
->   memcg oom events      51              0
->   mm_vmscan_throttled   0               512292 (all
->                                         VMSCAN_THROTTLE_ISOLATED)
->   total touches         0 (killed)      682,300,003,972
->
-> With 192 threads the unpatched kernel cannot keep reclaim ahead of
-> allocation and the task is OOM-killed; the patched kernel survives the
-> full run and keeps reclaim making progress.
->
+T24gVGh1LCAyMDI2LTA5LTI0IGF0IDAwOjI2ICswODAwLCBLdW5XdSBDaGFuIHdyb3RlOgo+IFRo
+ZSBwYXJhbGxlbCBpbnRlcnJ1cHQgZGVsaXZlcnkgY2FzZSBzb3VuZHMgcGFydGljdWxhcmx5IGlu
+dGVyZXN0aW5nLgo+IFBsZWFzZSBkb24ndCBnbyB0byBhbnkgdHJvdWJsZSBpZiB0aGUgb2xkIHJl
+c3VsdHMgYXJlIG5vdCBhdmFpbGFibGUuCgpUaGUgb2xkIHJlc3VsdHMgd2VyZSBvbiB0aGUgb3Jp
+Z2luYWwgUkNVLWJhc2VkIChub3QgU1JDVSkgdmVyc2lvbiwgc28KSSByZWRpZCB0aGVtIHdpdGgg
+dGhlIGxhdGVzdCwgb24gdGhlIDE5Mi13YXkgUFJFRU1QVF9SVCBHTlIgYm94LgoKSXQncyBhIGJp
+dCBvZiBhIG1pY3JvYmVuY2htYXJrOiBOIHZDUFVzIHNwaW5uaW5nIGluIGd1ZXN0IG1vZGUsIHdp
+dGggTgptb3JlIHNlbmRlciB0aHJlYWRzLCBlYWNoIGRlbGl2ZXJpbmcgaW50ZXJydXB0cyBhcyBm
+YXN0IGFzIGl0IGNhbiB0bwppdHMgb3duIHBhaXJlZCB2Q1BVIHRocmVhZC4gVGhlIHZDUFUgaXNu
+J3QgZXZlbiBhY2tub3dsZWRnaW5nIHRoZQppbnRlcnJ1cHQsIGJ1dCB0aGUgbG9ja2VkIGJ0c2wg
+d2lsbCBzdGlsbCBiZSBkaXJ0eWluZyB0aGUgY2FjaGUgbGluZXMKb2YgdGhlIHNoYXJlZCBpbmZv
+IGV2dGNobl9wZW5kaW5nIGJpdG1hcCBldmVuIHRvIGZpbmQgdGhhdCB0aGUgYml0IGlzCmFscmVh
+ZHkgc2V0IChxdikuCgpUaGUgcndsb2NrIHZlcnNpb24gZ2V0cyB1cCB0byA4LTlNIGRlbGl2ZXJp
+ZXMgcGVyIHNlY29uZCBhbmQgdGhlbgpzdGFydHMgdG8gcmVncmVzcyBwYXN0IGFib3V0IDMyIHBh
+cmFsbGVsIHZDUFVzLiBXaGlsZSBTUkNVIHN0YXJ0cyBvZmYKZmFzdGVyLCBhbmQgZ2V0cyBtb3Jl
+IHNvLgoKRGVsaXZlcmllcy9zZWMsIHNwcmVhZCBsYXlvdXQ6CiAg4pSM4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSs4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSQCiAg4pSC
+IHZDUFVzIOKUgiAgcndsb2NrICDilIIgYXRvbWljIFNSQ1Ug4pSCIHJhdGlvIOKUggogIOKUnOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUpAogIOKUgiAxICAgICDilIIgMS4wMk0gICAg4pSCIDEuMTNNICAgICAgIOKUgiAxLjHD
+lyAg4pSCCiAg4pSc4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pS84pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSkCiAg4pSCIDIgICAgIOKUgiAxLjg3TSAgICDilIIgMi4yN00g
+ICAgICAg4pSCIDEuMsOXICDilIIKICDilJzilIDilIDilIDilIDilIDilIDilIDilLzilIDilIDi
+lIDilIDilIDilIDilIDilIDilIDilIDilLzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilLzilIDilIDilIDilIDilIDilIDilIDilKQKICDilIIgNCAgICAg4pSCIDMuNTlN
+ICAgIOKUgiA0LjU3TSAgICAgICDilIIgMS4zw5cgIOKUggogIOKUnOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUpAogIOKUgiA4
+ICAgICDilIIgNy4wNk0gICAg4pSCIDkuMTNNICAgICAgIOKUgiAxLjPDlyAg4pSCCiAg4pSc4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS84pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSkCiAg4pSCIDE2ICAgIOKUgiA4Ljc1TSAgICDilIIgMTYuOE0gICAgICAg4pSCIDEuOcOX
+ICDilIIKICDilJzilIDilIDilIDilIDilIDilIDilIDilLzilIDilIDilIDilIDilIDilIDilIDi
+lIDilIDilIDilLzilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilLzilIDi
+lIDilIDilIDilIDilIDilIDilKQKICDilIIgMzIgICAg4pSCIDguNTJNICAgIOKUgiAzMy4zTSAg
+ICAgICDilIIgMy45w5cgIOKUggogIOKUnOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKU
+gOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKU
+gOKUgOKUgOKUvOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUpAogIOKUgiA2NCAgICDilIIgNi43NU0g
+ICAg4pSCIDYzLjdNICAgICAgIOKUgiA5LjTDlyAg4pSCCiAg4pSU4pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pS04pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS04pSA4pSA4pSA4pSA4pSA4pSA
+4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pS04pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSYCgpUaGlzIGlz
+IHdpdGggdGhlIHBvcnQgbnVtYmVycyBvZiBlYWNoIG9mIHRoZSBOIENQVXMgZGVsaWJlcmF0ZWx5
+IHNwcmVhZApvdXQgaW50byBkaWZmZXJlbnQgY2FjaGUgbGluZXMgKHdoaWNoIGFyZ3VhYmx5IHdl
+IG91Z2h0IHRvIGRvIGZvcgpwcm9kdWN0aW9uIGd1ZXN0cywgYnV0IHdlIGRvbid0KS4gSWYgSSBs
+ZXQgdGhlbSBhbGwgcGFjayB3aXRoCnNlcXVlbnRpYWwgcG9ydCMgYWxsb2NhdGlvbiwgaXQgbWFr
+ZXMgbm8gZGlmZmVyZW5jZSB0byByd2xvY2sgYnV0IHRoZQpTUkNVIHZhcmlhbnQgaGl0cyBhIHNj
+YWxpbmcgY2xpZmYgYXJvdW5kIE49MTYgdG9vICgxNy4yTSBAMzIsIDE0LjBNCkA2NCkuIEJ1dCBo
+ZXksIGFzIEkgc2FpZDogbWljcm9iZW5jaG1hcmsuCg==
 
-Hi Hui,
 
-I=E2=80=99m perfectly fine with using a script to create a scenario with a =
-small
-memcg (e.g. 16 MB or 64 MB) and many threads. This is how we do R&D and
-build simple reproducers for complex problems.
+--=-6tuHJDOCYqmkzJ9WKYhh
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-But I=E2=80=99m still struggling to understand how this scenario maps to or
-affects real-world workloads, other than `iso_stress.c` in your scripts.
-Do you have any idea of a real workload that suffers from the lack of
-throttling, which we could present in the cover letter?
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+qnE5DQgAmMlpdVAg7ZnFygYAAAAAAAA=
 
-Best Regards
-Barry
+
+--=-6tuHJDOCYqmkzJ9WKYhh--
