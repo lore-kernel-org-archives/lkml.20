@@ -1,194 +1,309 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+Received: from mail-ej2-f17.google.com (mail-ej2-f17.google.com [74.125.228.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2ED3EEAD8
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:18:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2ED3D810F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:19:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194745; cv=none; b=SetMDkgj3xH71YZ/JXosEiwFemwbx2Ejw5FWmq6/N0XgXjQCNQXk52nJxayCZeBw+FZTg4ALYxDA136VBAxRTy5aISUTBR03cjd6wj7IaKSS25M6bH+eOadR6yapLtz5ui0zhqHiNsMF1XYVctoGyxNjj+ajv+6umboGs23qxcA=
+	t=1790194766; cv=none; b=M8Nleg1o0nysAoqlknvHWLRmqc+2nBfrjND+jyd9fkyarr6DJPFpLET+AVK58yJrapnfFRNakUqgeefNtX+7yND8rTDJsY4eulbyRya8mS+hAdKi7P5njJz+taetesbbuDSLIj9Wo/Kl9sQpmPmJguPVW6PzCf3wlMioQrttuW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194745; c=relaxed/simple;
-	bh=QjLlivu2dOKEbDVXMk1o8BAQJhqwrAVntDEBrUiGVek=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=f7X72FwrrdXwGF8WTTyHZRtjWUQkOkDM9T9ILuv370b0wX9i+SOTXeAej3GyOFV46CTShcdvQDUF9MwllTgZVD92XlBa9rqn0gJUS5ynDWpnfrhB3CXBOMJzuVGUN7K9km/w4kiwrPM7Zd9KrVymAWYLHJv8uKLSFod8YBXuTiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jackyli.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nEabeCqI; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jackyli.bounces.google.com
+	s=arc-20240116; t=1790194766; c=relaxed/simple;
+	bh=0wHYlVgoasAY1JmiSfypx9MtD3RKd0J6iTU414lX8cc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gmz7vVVPUaffmvLV5ZQSH6FJiJTTGLXskdMzoQVcQvPJTbyoj2cG3dUiccjoAEqa3qmrFYGFo/dgfsqAYwcUxB2u3TljJ4I5PnapWyrgm3QFljywTV5mvpSg3h037mw9H4+NLGmaIIQ87V1WZw5j8HJYYOOQoQFG6/px5Wp8xOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sZV5K7zD; arc=none smtp.client-ip=74.125.228.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nEabeCqI"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd188e16a2so10339645ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:18:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sZV5K7zD"
+Received: by mail-ej2-f17.google.com with SMTP id a640c23a62f3a-c29d50b7cf9so185419766b.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:19:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790194737; x=1790799537; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jszBNrH3yEDoF7juZMXw4OW+M7ckW2ZEtY9P8ifTaAo=;
-        b=nEabeCqIkEG8p2uVW7Dw6dKEu8LWrw96IQa69SowACZerdVoiYIQ9Wn0IgNAEYpI/w
-         SQAwa4jfrWR/SFYPWqVh0cWI2cOJJlZSZKWCI0SVz+ckJLuHiyH7aERaAS/4Lky8AVsW
-         7fROwKPe49rYlUIDdLIAKM6v9QFhR/7QCOyuMBtcsKARehm10zXaLXeHLDHrFtelsOD1
-         w2z91BWOo5zAia7SMvgRIsWJ1jyG1HfOS5lx4Hfo6VLV6zTz8OjlOIGBeQR1GYHjLRfs
-         TCRyGY5lGp9wC1C5kxOBYz9BYiMU0QI8rDojv2OzQ0sLjuFe+hQ9JAcpPfiH4HhbzcXd
-         wwXA==
+        d=gmail.com; s=20251104; t=1790194758; x=1790799558; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lWUnL6Dr5OR7XEBSMs9m8RHYhNUCxYmL/3WkiHTjwQE=;
+        b=sZV5K7zD6WLwhp2aC7GFAOGLB2ULZgX+485VMLGElvKM70b1loMuAkWpXdLsRULQ2W
+         mtCy9BRt26fN3kJbWn1qNOzJ9SoydYrl/YmYpYd6VIv+F6nhL9v2QkgVaswwH+MxA9AH
+         13zkUDRVvFXaOquEZue9DJwdlwmVTmrFEmu7sNplaD6vkqaN8uRJ90xQqo5em9976SuR
+         0Om/eKiz0qSTwEY1dfFZKiARhm5trw1/laMaGeTSTJJB+NDQqZb+Nsz2gVb/Gs6Zo1s+
+         VGEixYIfsgQ/hUx9jzT7tqaajxKhr9EwaU/drXj0UUWZQWouICqwrG8x98YtraHvmko+
+         zOIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790194737; x=1790799537;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jszBNrH3yEDoF7juZMXw4OW+M7ckW2ZEtY9P8ifTaAo=;
-        b=HUOGClyUl4RtVOjLcWbnijRljh1KNJR/RKnSYh6sbee5ASLehlhlGGHKr7PpnZqyfB
-         767sEXzjXIE1G+GNjdqemHqgOnSNHKUJIH7I6hIjtzMx6J861rzPhFU9Y4pFe4Dtw/yD
-         pBSEb64sgz1nDPZ5hyHkvcx7JFR6qkG32NvkpTHjl2nAQIl0LJBFwIUWPA5cqZfpjC+T
-         WsUR+EQQBvp89O1XsO558t/U42pRiLDYeXO/qsdBfg66wra5DwQjvARQERYhacxxflug
-         sI1ZF1MIRhuaX2IBhZ2AfOYw05LQwSxJUyce0jmB0g7i3dEDlIumtuiRoH4TEThdUUTv
-         49Lw==
-X-Forwarded-Encrypted: i=1; AKwUvBwuEgplePNkIu2U/5TPEaW/NM4PoGKCt89TyPUqVsjOo8rL7xoSUqgj7Cv8Gcno2DvkHAM33tHonyETFp4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lavlH3wohMKx5FuHBKpkSWvwkBdMktbcfLd9rQw6R3uT+n+4sX
-	5hxeZ9W5TZbumqLwDv0apAMYHbA7uldfPAyrfaXkpce55KHSYhJb6XaayCKIpCPaEw0D21f/OAb
-	gZufFuhLq
-X-Received: from pgvf21.prod.google.com ([2002:a65:6295:0:b0:cc1:bda2:d09c])
- (user=jackyli job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:c105:b0:398:e96a:8999
- with SMTP id 98e67ed59e1d1-3a098b3741amr216478a91.16.1790194737205; Wed, 23
- Sep 2026 13:18:57 -0700 (PDT)
-Date: Wed, 23 Sep 2026 20:18:12 +0000
+        d=1e100.net; s=20260707; t=1790194758; x=1790799558;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lWUnL6Dr5OR7XEBSMs9m8RHYhNUCxYmL/3WkiHTjwQE=;
+        b=QQlQpyP8XW5BtdU7BcswtnJXorvmMaTGjW74ENwyEJPd2XYts3mxZ3sLMkkXh2WZWM
+         gwJ83M0A8IYZDFUtqjJARh9adejOY8+PbsAIMbdm8XSQ7AyYdQSDI0cvEWkGARckQNuW
+         emsFFnahA/Oy2/fNNeXbhb4eIApAeNTCqA9mSBgKVkLWQiTLHXVdOrGryAEUF04B+bdR
+         NVrcfjrlYFKhzj7sPxT9XBWG6ODlO0/y4HHw6rTDctUvhkebzbrKFFyJK9rjIfRoZtwY
+         +O6ci0DfECe4jiM9U8gjQl9RGqkSt4y7zv9aiwofskTXI+Ydy135kWYGgVcEAUjHen1b
+         513g==
+X-Forwarded-Encrypted: i=1; AKwUvBx7EA/FBO65DhM9vSd/nZ57/W+ilTpw6Iff6cHg+1xniZW/aPcfA1uABLlgVjUbdDJ5UEFGUYUR0VGITAY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nThHkms0zS92GkifFNDhp90I5M40HX0JAe2/NxGwXfVCq8zyNf
+	NTiZbD+hbE8P5Z8TGiAd8yTZY8fOCocPdewKLtMcC++45ehMiPGfLv0A
+X-Gm-Gg: AYBFou0zx7rahulAwAsOE+EwWspCfEeT88cniCB87ViQZFP+FNfekowd3eD/mEVVO25
+	iNVHHYEVh/NsZqyOxA07XVxfv2tIkQ1cgM1f0HGWl6OgCsWOCSwsOFdR4UwwpKfALRyrE7cB6sW
+	awsdqxDUvowxyCm6sR0kwM1DCB4Ia80phfL8o4NmHft2Clmq83i8zEB78CrU2FfOv+Uru65G1Vb
+	Sm3JZ8xpEseyhJ2XBYunlQpCmyAl+/72BsiIBGv85AM9kqSq1CN9aT0H2JHR0VPkKGxxwnIFP6h
+	LHg6sh88FWmfgjxKKKqWkrQmYIb14SbTlhdxzIbJICS+dHfFnhqsszvTO2HE3StxHAO1QqMjvQj
+	PgeaIzRCVnad8DQ9G9UX85eulSGnSpLTKp/rxrswm7vW4uY+nnMm9EAyEmNBEaCN+oTLbbK/gJl
+	r5dAYtRcb27QoxJpEHxke64hkKSp9+GsvuW2eqO7SElMcTjL57q8eFv7irD8/saPnVHRIMHIOBG
+	zHuH1bc9kiZePPOfceJGt+Ivg/0QclZAfWBRbJh
+X-Received: by 2002:a17:907:1c84:b0:c26:2f09:f2d8 with SMTP id a640c23a62f3a-c2ac2601042mr17491066b.36.1790194758486;
+        Wed, 23 Sep 2026 13:19:18 -0700 (PDT)
+Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae63dc17sm183626966b.33.2026.09.23.13.19.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 13:19:18 -0700 (PDT)
+From: Magnus Lindholm <linmag7@gmail.com>
+To: davem@davemloft.net,
+	andreas@gaisler.com
+Cc: sam@ravnborg.org,
+	sparclinux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linmag7@gmail.com
+Subject: [RFC PATCH 1/5] sparc32: detect the compare-and-swap instruction at boot
+Date: Wed, 23 Sep 2026 22:17:17 +0200
+Message-ID: <20260923201830.865553-2-linmag7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923201830.865553-1-linmag7@gmail.com>
+References: <20260923201830.865553-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAM0tGoC/32NQQ7CIBREr9L8tRjAitqV9zBdQPmlP6lAoBJN0
- 7uLPYCryZtk3qyQMRFm6JoVEhbKFHwFeWhgmLR3yMhWBsml4jfBWfaRkS96JlszvhZ2tsYo3fI
- rXkaou5hwpPfufPSVJ8pLSJ/9oohf+89WBBNsNBL5yWolWnN3IbgZj0N4Qr9t2xeoKAILswAAA A==
-X-Change-Id: 20260910-snp-invalid-input-5dbb6a408e7f
-X-Mailer: b4 0.14.3
-Message-ID: <20260923-snp-invalid-input-v2-1-c00e0dd077ca@google.com>
-Subject: [PATCH v2] KVM: SEV: Return INVALID_INPUT on SNP req/resp buffer
- access failure
-From: Jacky Li <jackyli@google.com>
-To: kvm@vger.kernel.org
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Michael Roth <michael.roth@amd.com>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Jacob Xu <jacobhxu@google.com>, 
-	Supraja Sridhara <suprajasri@google.com>, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Jacky Li <jackyli@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Currently, snp_handle_(ext_)guest_req() returns -EIO when
-kvm_{read/clear}_guest() fails while accessing guest-provided buffers.
-Returning -EIO causes KVM_RUN to exit to userspace, likely killing the VM.
+Some 32-bit sparc implementations provide the v9 compare-and-swap as an
+extension, LEON3 does, plain v8 does not. Whether it is present decides
+how a user word can be made atomic, and the kernel has to make the same
+choice userspace made: a binary built for such a cpu uses casa inline, one
+built for v8 cannot and asks the kernel instead. Both follow from the
+hardware, so deciding on the hardware keeps them in step.
 
-Fix this by returning GHCB_HV_RESP_MALFORMED_INPUT with sub-error code
-GHCB_ERR_INVALID_INPUT to the guest and resuming the vCPU.
+Probe by executing one compare-and-swap that must succeed and checking
+that it did, rather than inferring support from the absence of a trap.  A
+cpu without the instruction raises illegal_instruction, so
+do_illegal_instruction() now looks for an exception table fixup before
+dying, the way the data fault path already does; the same entry also
+covers a faulting address later.
 
-Per the GHCB specification, guest-provided GPA buffers that cannot
-be accessed by the hypervisor (e.g. private pages) should be treated
-as guest input errors. Because kvm_{read/write/clear}_guest() only
-returns -EFAULT on failure, treating this failure as an invalid input
-aligns with the definition of -EFAULT ("Bad address").
+casa cannot appear in inline asm: sparc32 is built -Wa,-Av8, the assembler
+rejects the instruction outright, and sparc gas has no .arch pseudo-op to
+override that locally. It therefore lives in its own object assembled
+-Wa,-Aleon, which adds the one instruction without letting the rest of v9
+in.  This affects the assembler only, not what the compiler emits.
 
-Returning GHCB_ERR_INVALID_INPUT also matches existing SNP handling
-in KVM, which already returns this error code for unaligned or
-overlapping buffers. It also aligns with other hypercall implementations
-in KVM (e.g. Hyper-V returning INVALID_HYPERCALL_INPUT on
-kvm_read_guest() failures in kvm_hv_flush_tlb()).
+The helpers are laid out for the LEON atomic errata rather than detecting
+them. GRLIB-TN-0011 wants the atomic 16-byte aligned, or an instruction
+TLB miss can release the bus lock before the store completes;
+GRLIB-TN-0010 forbids reaching one from a load or a control transfer,
+which a call with a load in its delay slot does. A nop at the entry plus
+nop padding to the boundary covers both, for less than runtime detection
+would cost. The padding is spelled .balignl because a plain .align lets
+the assembler branch over the gap, and that branch lands on the atomic -
+exactly the sequence TN-0010 asks us to avoid.
 
-Additionally, tickle the response buffer before issuing the PSP command
-so that an invalid resp_gpa fails upfront with GHCB_ERR_INVALID_INPUT.
-Do not return an error to the guest if the post-firmware write fails, as
-the firmware has already incremented the VMPCK sequence number. Exiting
-to userspace avoids creating an ambiguous failure where the guest has no
-way to know whether to advance its VMPCK sequence number.
+The probe runs once, on the boot cpu, so an SMP machine whose cpus
+disagree about the instruction is not supported. None is known.
 
-Fixes: 88caf544c930 ("KVM: SEV: Provide support for SNP_GUEST_REQUEST NAE event")
-Fixes: 74458e4859d8 ("KVM: SEV: Provide support for SNP_EXTENDED_GUEST_REQUEST NAE event")
-Signed-off-by: Jacky Li <jackyli@google.com>
+Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
 ---
-v2:
- - "Tickle" resp_gpa before issuing the PSP command. [Sean]
- - Keep post-command write failure as -EIO; returning INVALID_INPUT
-   creates an ambiguous ABI on whether VMPCK was consumed. [Tom, Sean]
+ arch/sparc/include/asm/cas_32.h   | 10 +++++++++
+ arch/sparc/include/asm/cpu_type.h |  7 +++++++
+ arch/sparc/kernel/cpu.c           | 24 ++++++++++++++++++++++
+ arch/sparc/kernel/traps_32.c      | 16 ++++++++++++++-
+ arch/sparc/lib/Makefile           |  5 +++++
+ arch/sparc/lib/casa_32.S          | 34 +++++++++++++++++++++++++++++++
+ 6 files changed, 95 insertions(+), 1 deletion(-)
+ create mode 100644 arch/sparc/include/asm/cas_32.h
+ create mode 100644 arch/sparc/lib/casa_32.S
 
-v1: https://lore.kernel.org/all/20260910-snp-invalid-input-v1-1-fb2e03da614b@google.com
----
- arch/x86/kvm/svm/sev.c | 32 ++++++++++++++++++++++++++------
- 1 file changed, 26 insertions(+), 6 deletions(-)
-
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 5705723f1f41..37a2a2677d3a 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -4221,6 +4221,7 @@ static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_
- 	struct kvm *kvm = svm->vcpu.kvm;
- 	struct kvm_sev_info *sev = to_kvm_sev_info(kvm);
- 	sev_ret_code fw_err = 0;
-+	u8 tickle = 0;
- 	int ret;
- 
- 	if (!is_sev_snp_guest(&svm->vcpu))
-@@ -4228,8 +4229,15 @@ static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_
- 
- 	guard(mutex)(&sev->guest_req_mutex);
- 
--	if (kvm_read_guest(kvm, req_gpa, sev->guest_req_buf, PAGE_SIZE))
--		return -EIO;
-+	if (kvm_read_guest(kvm, req_gpa, sev->guest_req_buf, PAGE_SIZE)) {
-+		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
-+		return 1;
-+	}
+diff --git a/arch/sparc/include/asm/cas_32.h b/arch/sparc/include/asm/cas_32.h
+new file mode 100644
+index 000000000000..3658ff71fa70
+--- /dev/null
++++ b/arch/sparc/include/asm/cas_32.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _SPARC_CAS_32_H
++#define _SPARC_CAS_32_H
 +
-+	if (kvm_write_guest(kvm, resp_gpa, &tickle, sizeof(tickle))) {
-+		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
-+		return 1;
-+	}
++#include <linux/types.h>
++
++/* Returns 0 and stores the value found in *prev, or -EFAULT. */
++int __sparc32_casa(u32 *addr, u32 oldval, u32 newval, u32 *prev);
++
++#endif /* _SPARC_CAS_32_H */
+diff --git a/arch/sparc/include/asm/cpu_type.h b/arch/sparc/include/asm/cpu_type.h
+index 2b59799859d1..c54e0abfdb2b 100644
+--- a/arch/sparc/include/asm/cpu_type.h
++++ b/arch/sparc/include/asm/cpu_type.h
+@@ -2,6 +2,8 @@
+ #ifndef __ASM_CPU_TYPE_H
+ #define __ASM_CPU_TYPE_H
  
- 	data.gctx_paddr = __psp_pa(sev->snp_context);
- 	data.req_paddr = __psp_pa(sev->guest_req_buf);
-@@ -4244,6 +4252,14 @@ static int snp_handle_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t resp_
- 	if (ret && !fw_err)
- 		return ret;
++#include <linux/types.h>
++
+ /*
+  * Sparc (general) CPU types
+  */
+@@ -18,6 +20,11 @@ enum sparc_cpu {
+ #ifdef CONFIG_SPARC32
+ extern enum sparc_cpu sparc_cpu_model;
  
-+	/*
-+	 * Exit to userspace if writing the response fails. The buffer was already
-+	 * tickled, so failure here indicates the mapping changed in flight.
-+	 *
-+	 * Do not return an error to the guest because firmware already incremented
-+	 * the VMPCK sequence number. Exiting to userspace avoids creating an
-+	 * ambiguous failure ABI for the guest.
-+	 */
- 	if (kvm_write_guest(kvm, resp_gpa, sev->guest_resp_buf, PAGE_SIZE))
- 		return -EIO;
++/* True where the cpu implements the v9 casa extension (LEON3 does, plain v8
++ * does not).  Probed once on the boot cpu.
++ */
++extern bool sparc32_has_casa;
++
+ #define SUN4M_NCPUS            4              /* Architectural limit of sun4m. */
  
-@@ -4295,8 +4311,10 @@ static int snp_handle_ext_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t r
- 		return -EINVAL;
+ #else
+diff --git a/arch/sparc/kernel/cpu.c b/arch/sparc/kernel/cpu.c
+index 79cd6ccfeac0..e09c688a5fd3 100644
+--- a/arch/sparc/kernel/cpu.c
++++ b/arch/sparc/kernel/cpu.c
+@@ -21,6 +21,9 @@
+ #include <asm/psr.h>
+ #include <asm/mbus.h>
+ #include <asm/cpudata.h>
++#ifdef CONFIG_SPARC32
++#include <asm/cas_32.h>
++#endif
  
- 	if (kvm_read_guest(kvm, req_gpa + offsetof(struct snp_guest_msg_hdr, msg_type),
--			   &msg_type, 1))
--		return -EIO;
-+			   &msg_type, 1)) {
-+		svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
-+		return 1;
-+	}
+ #include "kernel.h"
+ #include "entry.h"
+@@ -437,11 +440,32 @@ const struct seq_operations cpuinfo_op = {
+ };
  
- 	/*
- 	 * As per GHCB spec, requests of type MSG_REPORT_REQ also allow for
-@@ -4335,8 +4353,10 @@ static int snp_handle_ext_guest_req(struct vcpu_svm *svm, gpa_t req_gpa, gpa_t r
- 		 * As per GHCB spec (see "SNP Extended Guest Request"), the
- 		 * certificate table is terminated by 24-bytes of zeroes.
- 		 */
--		if (data_npages && kvm_clear_guest(kvm, data_gpa, 24))
--			return -EIO;
-+		if (data_npages && kvm_clear_guest(kvm, data_gpa, 24)) {
-+			svm_vmgexit_bad_input(svm, GHCB_ERR_INVALID_INPUT);
-+			return 1;
+ #ifdef CONFIG_SPARC32
++bool sparc32_has_casa __ro_after_init;
++
++/* One compare-and-swap that must succeed: a cpu without casa traps and the
++ * exception table reports -EFAULT.
++ */
++static void __init casa_probe(void)
++{
++	static const u32 oldval = 0x600df00d;
++	static const u32 newval = 0x0badcafe;
++	u32 word = oldval;
++	u32 prev = 0;
++
++	if (!__sparc32_casa(&word, oldval, newval, &prev))
++		sparc32_has_casa = prev == oldval && word == newval;
++
++	pr_info("sparc32: compare-and-swap instruction %s\n",
++		sparc32_has_casa ? "present" : "not implemented");
++}
++
+ static int __init cpu_type_probe(void)
+ {
+ 	int psr_impl, psr_vers, fpu_vers;
+ 	int psr;
+ 
++	casa_probe();
++
+ 	psr_impl = ((get_psr() >> PSR_IMPL_SHIFT) & PSR_IMPL_SHIFTED_MASK);
+ 	psr_vers = ((get_psr() >> PSR_VERS_SHIFT) & PSR_VERS_SHIFTED_MASK);
+ 
+diff --git a/arch/sparc/kernel/traps_32.c b/arch/sparc/kernel/traps_32.c
+index bb149f6cc34b..85ae2fc143ec 100644
+--- a/arch/sparc/kernel/traps_32.c
++++ b/arch/sparc/kernel/traps_32.c
+@@ -20,6 +20,7 @@
+ #include <linux/kdebug.h>
+ #include <linux/export.h>
+ #include <linux/pgtable.h>
++#include <linux/extable.h>
+ 
+ #include <asm/delay.h>
+ #include <asm/ptrace.h>
+@@ -108,8 +109,21 @@ void do_hw_interrupt(struct pt_regs *regs, unsigned long type)
+ void do_illegal_instruction(struct pt_regs *regs, unsigned long pc, unsigned long npc,
+ 			    unsigned long psr)
+ {
+-	if(psr & PSR_PS)
++	if (psr & PSR_PS) {
++		const struct exception_table_entry *entry;
++
++		/*
++		 * An instruction this cpu does not implement can be probed
++		 * for deliberately, so honour a fixup before dying.
++		 */
++		entry = search_exception_tables(pc);
++		if (entry) {
++			regs->pc = entry->fixup;
++			regs->npc = regs->pc + 4;
++			return;
 +		}
- 	}
- 
- 	return snp_handle_guest_req(svm, req_gpa, resp_gpa);
-
----
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-change-id: 20260910-snp-invalid-input-5dbb6a408e7f
-
-Best regards,
+ 		die_if_kernel("Kernel illegal instruction", regs);
++	}
+ #ifdef TRAP_DEBUG
+ 	printk("Ill instr. at pc=%08lx instruction is %08lx\n",
+ 	       regs->pc, *(unsigned long *)regs->pc);
+diff --git a/arch/sparc/lib/Makefile b/arch/sparc/lib/Makefile
+index dd10cdd6f062..007d8e510ee8 100644
+--- a/arch/sparc/lib/Makefile
++++ b/arch/sparc/lib/Makefile
+@@ -12,6 +12,11 @@ lib-$(CONFIG_SPARC32) += blockops.o
+ lib-y                 += memscan_$(BITS).o memcmp.o strncmp_$(BITS).o
+ lib-$(CONFIG_SPARC32) += divdi3.o udivdi3.o
+ lib-$(CONFIG_SPARC32) += copy_user.o locks.o
++lib-$(CONFIG_SPARC32) += casa_32.o
++
++# casa is not in v8, which the rest of sparc32 is assembled as.  -Aleon rather
++# than -Av9: it adds the one instruction without letting anything else v9 in.
++AFLAGS_casa_32.o += -Wa,-Aleon
+ lib-$(CONFIG_SPARC64) += atomic_64.o
+ lib-$(CONFIG_SPARC32) += lshrdi3.o ashldi3.o
+ lib-$(CONFIG_SPARC32) += muldi3.o bitext.o
+diff --git a/arch/sparc/lib/casa_32.S b/arch/sparc/lib/casa_32.S
+new file mode 100644
+index 000000000000..67df9ea439ce
+--- /dev/null
++++ b/arch/sparc/lib/casa_32.S
+@@ -0,0 +1,34 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Compare-and-swap for the 32-bit sparc implementations that have it.
++ */
++
++#include <linux/linkage.h>
++#include <asm/errno.h>
++
++	.text
++	.align	4
++
++/* int __sparc32_casa(u32 *addr, u32 oldval, u32 newval, u32 *prev)
++ * Returns 0 and *prev, or -EFAULT.  ASI 0x0b is supervisor data.
++ */
++ENTRY(__sparc32_casa)
++	/* nop + .balignl: LEON errata GRLIB-TN-0010 and TN-0011. */
++	nop
++	.balignl 16, 0x01000000
++1:	casa	[%o0] 0x0b, %o1, %o2
++	st	%o2, [%o3]
++	retl
++	 clr	%o0
++ENDPROC(__sparc32_casa)
++
++	.section .fixup,#alloc,#execinstr
++	.align	4
++2:	retl
++	 mov	-EFAULT, %o0
++	.previous
++
++	.section __ex_table,#alloc
++	.align	4
++	.word	1b, 2b
++	.previous
 -- 
-Jacky Li <jackyli@google.com>
+2.43.0
 
