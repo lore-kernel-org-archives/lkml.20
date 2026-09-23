@@ -1,204 +1,194 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB4C57F72F;
-	Wed, 23 Sep 2026 20:19:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7657576EAE
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194776; cv=none; b=AqJayZLqqEbvPh9FuDmd1tpLJw7sjaE8hUrCVgnTWBfkdXzACsPL0HpthLBdksM7Z7b0I4hcSQVlanatgw9PbtxIjGLWtzOQyxBtdMAlryndDdEm09rg6l7gBfLGN47svRmQDoi4/BBDkhmGKH2QlMcAgoQRvsKue1RWHJKTAiU=
+	t=1790194818; cv=none; b=iq+bofOUQ3mNmWoV4h1lKWvA5anck+FbQieMbU1XZHT+RJb441cT38nIyqfDFPUgIqlH1NB/3RCR162WPXZyNY2tbb6gCTklP5ftpuCFVCr5qAtzohEXrGPhqP2DP1nxlcrH++PESDUJAVrE2yZX5HCy5IO967zzrX5D+3Da8kU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194776; c=relaxed/simple;
-	bh=jTTgaq8Jg0Us7MveAYFDhYn+JWGl/W2/BYk/ScSRMJE=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=EvgueSNehtdtfpYMVGiSY2UvDSKjg6dshlc5CuHA721wAHKyChJVf837GNuQIiXpZ4m7j/tzZk7JLT6o77oMDSo+k/4/mGXrXkSRjuOoUgykbiovspHUzi2xzJjYKibtt3qdRCYYuhfZxXUA7ax5M0Wy/uHfv47bJgUcwClQmvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=DggDRZbk; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1790194818; c=relaxed/simple;
+	bh=rkXot5HGhjZOPZR33I4YIFnOTxk7DvG0maljEkvCoQw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Tq6sgta6aPajHbfsQyn4az8vX+5a7dqtjk3b8WZVvwdlQunQZxrD9+efjY2K7vIv2fcsV5/RUTWSAQrshYRmgyaPDhlzpSQRsKUi6sHlU6CxkE9m52Ukf8tt+7B00DlQrwXU1BL1cwRMIrwweBb+FQTb7fZeTPex+6Nl5g/HFA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=OWul9Tys; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="DggDRZbk"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 57FBF534081A;
-	Wed, 23 Sep 2026 22:19:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1790194768;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="OWul9Tys"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790194813;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
-	bh=L+FndUAuUuEB3GBzTT3jgMIUGfofnLyhfCY6C8PSc9E=;
-	b=DggDRZbkOqhJSiEnCnDfTFtKFGjLhwKBCkljGGfyFb99xP49pJD2eZr6sFdEuP/sQU7xJa
-	d76HG0CpJO7e2yiImxe9mr9yDTOfzOJTdQo5x11qufxTUf6LaO+9TFMEvuVVW/B59b5znA
-	rk5FeZKx9jnNmhUTcmG4lDL4sm9MojY=
-Message-ID: <adeaccc1-cc04-4bb9-a28a-61a61d75ba14@ixit.cz>
-Date: Wed, 23 Sep 2026 22:19:27 +0200
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=DmWiMwtjUNhE7pDI46zh3hWGMwkIrcVg32ax/z+GaCQ=;
+	b=OWul9TyswGwLzsthxhNV2UbvFC1rXRpRar5F1lqb8ij8LsTajUKuYvCGzRXlzZjEnA5+YA
+	pp51A0YtueBdB60ANhCred3f4SXFasQLdQAjK9CzsoB80+sQdaPUhdjbSydrZTXhoqMLE4
+	1FUUQ81U14LY/n0pD9uDRjrN6Uj2FlQ=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-26-M_l4EBVtMFOSErBqp6mH1Q-1; Wed,
+ 23 Sep 2026 16:20:10 -0400
+X-MC-Unique: M_l4EBVtMFOSErBqp6mH1Q-1
+X-Mimecast-MFC-AGG-ID: M_l4EBVtMFOSErBqp6mH1Q_1790194808
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id F0CDE1954236;
+	Wed, 23 Sep 2026 20:20:07 +0000 (UTC)
+Received: from jtaubepe-thinkpadx1carbongen12.ibmlowe.csb (unknown [10.17.16.153])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 10F1D1953948;
+	Wed, 23 Sep 2026 20:20:05 +0000 (UTC)
+From: Jesse Taube <jtaubepe@redhat.com>
+To: linux-nvme@lists.infradead.org
+Cc: Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	John Meneghini <jmeneghi@redhat.com>,
+	Chris Leech <cleech@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	Mohamed Khalfella <mkhalfella@purestorage.com>,
+	Jesse Taube <jtaubepe@redhat.com>
+Subject: [PATCH v2] nvmet: Add traffic based keep alive support to configfs
+Date: Wed, 23 Sep 2026 16:20:03 -0400
+Message-ID: <20260923202003.1776271-1-jtaubepe@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US, cs-CZ
-To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
-Cc: oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>
-From: David Heidelberg <david@ixit.cz>
-Subject: [pull-request] NFC fixes for net 7.3-rc5
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
+Add the ability to turn on and off tbkas (traffic based keep alive
+support) via configfs. This is useful for testing and debugging.
 
-   Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
+Signed-off-by: Jesse Taube <jtaubepe@redhat.com>
+V1 -> V2:
+ - Add tbkas to nvmet_ctrl
+ - Force reconnect controllers when tbkas is set
+ - Use ctrl->tbkas in nvmet_execute_identify_ctrl and nvmet_req_init
+---
+ drivers/nvme/target/admin-cmd.c |  4 +++-
+ drivers/nvme/target/configfs.c  | 29 +++++++++++++++++++++++++++++
+ drivers/nvme/target/core.c      |  4 +++-
+ drivers/nvme/target/nvmet.h     |  2 ++
+ 4 files changed, 37 insertions(+), 2 deletions(-)
 
-are available in the Git repository at:
+diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
+index 7764a3c0195c..26028be8fe4d 100644
+--- a/drivers/nvme/target/admin-cmd.c
++++ b/drivers/nvme/target/admin-cmd.c
+@@ -696,7 +696,9 @@ static void nvmet_execute_identify_ctrl(struct nvmet_req *req)
+ 
+ 	/* XXX: figure out what to do about RTD3R/RTD3 */
+ 	id->oaes = cpu_to_le32(NVMET_AEN_CFG_OPTIONAL);
+-	ctratt = NVME_CTRL_ATTR_HID_128_BIT | NVME_CTRL_ATTR_TBKAS;
++	ctratt = NVME_CTRL_ATTR_HID_128_BIT;
++	if (ctrl->tbkas)
++		ctratt |= NVME_CTRL_ATTR_TBKAS;
+ 	if (nvmet_is_pci_ctrl(ctrl))
+ 		ctratt |= NVME_CTRL_ATTR_RHII;
+ 	id->ctratt = cpu_to_le32(ctratt);
+diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
+index 6286e38436dd..2b879b1d4c3c 100644
+--- a/drivers/nvme/target/configfs.c
++++ b/drivers/nvme/target/configfs.c
+@@ -1369,6 +1369,34 @@ static ssize_t nvmet_subsys_attr_serial_store(struct config_item *item,
+ }
+ CONFIGFS_ATTR(nvmet_subsys_, attr_serial);
+ 
++static ssize_t nvmet_subsys_attr_tbkas_show(struct config_item *item,
++					     char *page)
++{
++	return snprintf(page, PAGE_SIZE, "%d\n", to_subsys(item)->tbkas);
++}
++
++static ssize_t nvmet_subsys_attr_tbkas_store(struct config_item *item,
++					      const char *page, size_t count)
++{
++	struct nvmet_subsys *subsys = to_subsys(item);
++	struct nvmet_ctrl *ctrl;
++	bool tbkas;
++
++	if (kstrtobool(page, &tbkas))
++		return -EINVAL;
++
++	down_write(&nvmet_config_sem);
++	subsys->tbkas = tbkas;
++
++	/* Force reconnect */
++	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry)
++		ctrl->ops->delete_ctrl(ctrl);
++	up_write(&nvmet_config_sem);
++
++	return count;
++}
++CONFIGFS_ATTR(nvmet_subsys_, attr_tbkas);
++
+ static ssize_t nvmet_subsys_attr_cntlid_min_show(struct config_item *item,
+ 						 char *page)
+ {
+@@ -1706,6 +1734,7 @@ static struct configfs_attribute *nvmet_subsys_attrs[] = {
+ 	&nvmet_subsys_attr_attr_qid_max,
+ 	&nvmet_subsys_attr_attr_ieee_oui,
+ 	&nvmet_subsys_attr_attr_firmware,
++	&nvmet_subsys_attr_attr_tbkas,
+ #ifdef CONFIG_BLK_DEV_INTEGRITY
+ 	&nvmet_subsys_attr_attr_pi_enable,
+ #endif
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index 43871a8f56ca..6b4bda231bd9 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -1227,7 +1227,7 @@ bool nvmet_req_init(struct nvmet_req *req, struct nvmet_sq *sq,
+ 		goto fail;
+ 	}
+ 
+-	if (sq->ctrl)
++	if (sq->ctrl && sq->ctrl->tbkas)
+ 		sq->ctrl->reset_tbkas = true;
+ 
+ 	return true;
+@@ -1677,6 +1677,7 @@ struct nvmet_ctrl *nvmet_alloc_ctrl(struct nvmet_alloc_ctrl_args *args)
+ 	mutex_lock(&subsys->lock);
+ 
+ 	ctrl->max_qid = subsys->max_qid;
++	ctrl->tbkas = subsys->tbkas;
+ 
+ 	ctrl->sqs = kzalloc_objs(struct nvmet_sq *, ctrl->max_qid + 1);
+ 	if (!ctrl->sqs)
+@@ -1865,6 +1866,7 @@ struct nvmet_subsys *nvmet_subsys_alloc(const char *subsysnqn,
+ 	}
+ 
+ 	subsys->ieee_oui = 0;
++	subsys->tbkas = true;
+ 
+ 	subsys->firmware_rev = kstrndup(UTS_RELEASE, NVMET_FR_MAX_SIZE, GFP_KERNEL);
+ 	if (!subsys->firmware_rev) {
+diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
+index dbda55895f4f..2bc0e87ea981 100644
+--- a/drivers/nvme/target/nvmet.h
++++ b/drivers/nvme/target/nvmet.h
+@@ -270,6 +270,7 @@ struct nvmet_ctrl {
+ 	u16			cntlid;
+ 	u16			max_qid;
+ 	u32			kato;
++	bool			tbkas;
+ 
+ 	struct nvmet_port	*port;
+ 
+@@ -343,6 +344,7 @@ struct nvmet_subsys {
+ 	bool			subsys_discovered;
+ 	char			*subsysnqn;
+ 	bool			pi_support;
++	bool			tbkas;
+ 
+ 	struct config_group	group;
+ 
+-- 
+2.55.0
 
-   https://codeberg.org/linux-nfc/linux.git tags/nfc-7.3-rc5
-
-for you to fetch changes up to b61732f47316d45f27706db7812950145d3327b5:
-
-   nfc: pn533: fix OOB read in pn533_acr122_is_rx_frame_valid() (2026-09-23 
-22:13:18 +0200)
-
-----------------------------------------------------------------
-NFC fixes for net 7.3-rc5
-
-Mostly security fixes.
-
-fix use-after-free in nfc_get_local_general_bytes
-llcp: Fix list corruption / refcount desync in nfc_llcp_recv_dm()
-llcp: Fix race condition in accept_queue lifecycle
-llcp: drop truncated I/RR/RNR PDUs in nfc_llcp_recv_hdlc()
-llcp: fix -ENOMEM on connect with zero-length service name
-llcp: fix WKS SAP hijacking via prefix match in nfc_llcp_wks_sap()
-llcp: fix sdreq TLV list leak on parse/alloc/send failure
-llcp: fix slab-out-of-bounds reads when logging service names
-selftests/nci: Fix out-of-bounds store on thread join
-selftests: nci: Correct pthread_create return value check
-selftests: nci: Fix uninitialized family ID on missing attribute
-virtual_ncidev: Add missing ioctl compat handler
-nfcmrvl: validate helper command length before pull
-pn533: fix OOB read in pn533_acr122_is_rx_frame_valid()
-port100: reject frames whose declared length exceeds the received data
-st21nfca: validate ISO15693 inventory length
-st21nfca: validate received frame size
-trf7970a: power down on startup RX gain failure
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
-
-----------------------------------------------------------------
-Aamir Ahmed (1):
-       nfc: llcp: drop truncated I/RR/RNR PDUs in nfc_llcp_recv_hdlc()
-
-Aldo Ariel Panzardo (1):
-       nfc: llcp: Fix list corruption / refcount desync in nfc_llcp_recv_dm()
-
-Chaithanya Lagisetty (1):
-       selftests: nci: Fix uninitialized family ID on missing attribute
-
-Chris Gellermann (2):
-       selftests/nci: Fix out-of-bounds store on thread join
-       nfc: virtual_ncidev: Add missing ioctl compat handler
-
-Cong Nguyen (1):
-       nfc: llcp: fix sdreq TLV list leak on parse/alloc/send failure
-
-Deepanshu Kartikey (1):
-       nfc: pn533: fix OOB read in pn533_acr122_is_rx_frame_valid()
-
-Doruk Tan Ozturk (1):
-       nfc: port100: reject frames whose declared length exceeds the received data
-
-Lee Jones (1):
-       nfc: llcp: Fix race condition in accept_queue lifecycle
-
-Lei Zhu (1):
-       selftests: nci: Correct pthread_create return value check
-
-Luxiao Xu (1):
-       nfc: fix use-after-free in nfc_get_local_general_bytes
-
-Myeonghun Pak (1):
-       nfc: trf7970a: power down on startup RX gain failure
-
-Pengpeng Hou (3):
-       nfc: nfcmrvl: validate helper command length before pull
-       nfc: st21nfca: validate received frame size
-       nfc: st21nfca: validate ISO15693 inventory length
-
-Ömer Mete Kaya (3):
-       nfc: llcp: fix -ENOMEM on connect with zero-length service name
-       nfc: llcp: fix WKS SAP hijacking via prefix match in nfc_llcp_wks_sap()
-       nfc: llcp: fix slab-out-of-bounds reads when logging service names
-
-  drivers/nfc/microread/microread.c     |   6 ++---
-  drivers/nfc/nfcmrvl/fw_dnld.c         |  11 +++++---
-  drivers/nfc/pn533/pn533.c             |  14 +++++-----
-  drivers/nfc/pn533/pn533.h             |   4 ++-
-  drivers/nfc/pn533/usb.c               |   4 ++-
-  drivers/nfc/pn544/pn544.c             |   7 +++--
-  drivers/nfc/port100.c                 |   7 +++++
-  drivers/nfc/st21nfca/core.c           |  12 ++++-----
-  drivers/nfc/st21nfca/i2c.c            |  29 +++++++++++++-------
-  drivers/nfc/trf7970a.c                |   4 ++-
-  drivers/nfc/virtual_ncidev.c          |   3 ++-
-  include/net/nfc/hci.h                 |   2 +-
-  include/net/nfc/nfc.h                 |   3 ++-
-  net/nfc/core.c                        |  15 +++++------
-  net/nfc/digital_dep.c                 |   8 +++---
-  net/nfc/llcp.h                        |   1 +
-  net/nfc/llcp_commands.c               |   2 +-
-  net/nfc/llcp_core.c                   | 175 
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------------------------
-  net/nfc/llcp_sock.c                   |  65 
-+++++++++++++++++++++++++++++++-------------
-  net/nfc/nci/core.c                    |  10 +++----
-  net/nfc/netlink.c                     |   7 +++--
-  net/nfc/nfc.h                         |   3 ++-
-  tools/testing/selftests/nci/nci_dev.c |  45 +++++++++++++++++++------------
-  23 files changed, 289 insertions(+), 148 deletions(-)
