@@ -1,136 +1,149 @@
-Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FD334F497
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:46:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4546E38A725;
+	Wed, 23 Sep 2026 05:47:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142405; cv=none; b=bSAjWMtqYCNqai810du0bL5zvV9UR090yQOUPff8NNRC9zI4B1gBPP7CXahmLZlOc9Y8sTFwy6fKaynXaJIO11GvQZ2EELQDbnjYFPgVznfZdP3lAiHn1QU5ocdGFnEjnAhwLT2DXbnVmGnEJirniq29qFAVVBfDJEJwNZpKfrg=
+	t=1790142447; cv=none; b=UWlB2rfHUxTiO1/c632kKqHPDRuUvbCvd4XDkSSPNoPYGEuOPhyzoT7ss8inGaqeOy0Ysdam3y2nMTtRQRBRNZwz/cuQF+2b6aN/N3Vjv2hjWGDZNbYoU/1j8RjhD/r/aSkuleTadYRnJJ92xbjcpBNptM0bKFcGz32oIJaH8Mg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142405; c=relaxed/simple;
-	bh=RFcuOwEqjf9SaP/OTSaZv2iojCmoDJVvJIjDiQ7k58Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jDV8zxuoACaeGOEU8cR0jnbNwjx2oDfxFlUhIMSewdXCXNNcoZe17aTpqG0bvkGcM5K43XhCSF2QZXbkW+lMED+UHQ6unqjlbOkrnGDB4LOlxo6C9ODyXlzp0pAiX++2KIx+kjXSFdp4NdmiqdkXujBZsZ8Hg6VNwfE8ZlE/I/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=UEfECF5T; arc=none smtp.client-ip=44.202.169.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
+	s=arc-20240116; t=1790142447; c=relaxed/simple;
+	bh=Jh4McRuX8VGkuoqjbR/Q7ARz9onvjFUEMsOtQRDshdE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OdMogqvrX3t761W/a4Ieb+TO3GZMI67mTs5HI85HdDASnhJvj6kw3mdrfN6+6Lxq+7NwKXRS4mswUDhQVe1F3Ldu7LEaUFvKQdr6tsq5Tf7+mcxhuBfPMnSXnaUKFicxqPyfK7QCT/kAbgAnhUHkI8v5uDduliPR6Dsz/qYlOFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DS3ZbV/I; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="UEfECF5T"
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
-	by cmsmtp with ESMTPS
-	id 9AXvx1tU3FNWB9FoXxUac3; Wed, 23 Sep 2026 05:46:41 +0000
-Received: from gator4166.hostgator.com ([108.167.190.91])
-	by cmsmtp with ESMTPS
-	id 9FoWxebh8upTF9FoXxRTGx; Wed, 23 Sep 2026 05:46:41 +0000
-X-Authority-Analysis: v=2.4 cv=H9jbw/Yi c=1 sm=1 tr=0 ts=6ab367c1
- a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=1XWaLZrsAAAA:8
- a=VwQbUJbxAAAA:8 a=GayhebFrRX0EwB9RMoAA:9 a=QEXdDO2ut3YA:10
- a=2aFnImwKRvkU0tJ3nQRT:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=OTwx4w9402ve7XEVGULW94SFMv5Tl4N0r/phY59l/8k=; b=UEfECF5TgEW3
-	KGIj5aT/C29st5hACjcHuxVLxBSR5tOuRMT/rmWCDjiSiI+BzQMiTkM0qDAMxbHWK0jWLqRxQEoAr
-	ro+Og+0qw7/KJY6TDfCr4pB3RfKZ8OPRmY157FqncfrM24JAx8Vq1qu9OrVkMYXgVi9TNeOphlT6a
-	4XmHPaMDFoirjhxsqZ4uTut9sorVP017tpwM+iI1+6BS5oO2mfQIrBgWaYEYcjTbj0xYX4QGH9Zpd
-	5J3/hzOu3YEydLLXFA7/I/gyV41+wvDJxLQiZwGHasg9hWiT3sD7NJRft+6+8i0pYdAUSndXnjvkA
-	87RFK8+svAIE2Wy1cUW05w==;
-Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:43316 helo=[10.203.100.34])
-	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <gustavo@embeddedor.com>)
-	id 1x9FoW-0000000204S-0DM9;
-	Wed, 23 Sep 2026 00:46:40 -0500
-Message-ID: <3e9d09ef-5766-4f19-aa8c-641e15572950@embeddedor.com>
-Date: Wed, 23 Sep 2026 14:46:35 +0900
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DS3ZbV/I"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=LO
+	G6wlR4WrEhwbx34Joq7X3VgPhzJyeuVOuxLeR/59M=; b=DS3ZbV/IAKVUTPuN4D
+	zSsQ4rBHtUz1KsL9260COp7+0ZXp9bFu6iOhen4KMaxlbfONdcO3DnQyA4gMr6aB
+	OgxtpK1qJeTVpXbCXSJug4KMv+nHVOqGQ/QGm26j4L4mBRYPWBkw3pwOndjEqxpy
+	H7sYTWhsZbJAtfEmnl8B5TH3I=
+Received: from colol4bi5.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgC3n62xZ7NqskLCAw--.9596S2;
+	Wed, 23 Sep 2026 13:46:26 +0800 (CST)
+From: Binbin Deng <18983559317@163.com>
+To: john.johansen@canonical.com,
+	georgia.garcia@canonical.com,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com
+Cc: ryan.lee@canonical.com,
+	cengiz.can@canonical.com,
+	apparmor@lists.ubuntu.com,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Binbin Deng <18983559317@163.com>
+Subject: [PATCH security v1] apparmor: fix a use-after-free in aa_lookupn_ns()
+Date: Wed, 23 Sep 2026 13:46:23 +0800
+Message-ID: <20260923054623.247634-1-18983559317@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] bus: fsl-mc: Annotate fsl_mc_io.portal_virt_addr with
- __counted_by_ptr
-To: Bill Wendling <morbo@google.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva"
- <gustavoars@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Justin Stitt <justinstitt@google.com>, linuxppc-dev@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org, llvm@lists.linux.dev,
- codemender-patching+linux@google.com
-References: <20260922223538.2287676-1-morbo@google.com>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20260922223538.2287676-1-morbo@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 125.195.69.90
-X-Source-L: No
-X-Exim-ID: 1x9FoW-0000000204S-0DM9
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:43316
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 54
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfFfXDxmMb9skvhnR7CatqsVuniKES+lqHkJ9n2jnloHamiQTPzxud3XThfTO7N6DHRH6bnM6R3H8kY4bdR96ZCpyDOG1RsrASflHqV5E2QJNeWbKVw3N
- UojdS4xDuOR1ya/q7n48proyRPehSMonXJL1uaFa7IKTs6Wxd8aKW2BNuKaFnHYzYt30y3BoyllA4Oljw4cZOSP4C1Qg/lkAxeeCldIiqTOEfYwUnSeyNVkS
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgC3n62xZ7NqskLCAw--.9596S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAF1DKw4xuF47KF45GF1DAwb_yoW5tr48pF
+	4fK345CrWkGFy7Zr47W3W3Wr1Y9ayrWr13t393WF4YvFW3Wr48Cr1UtF129ry5CF97AFy0
+	qa12gw4rZFyDXaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRW5lnUUUUU=
+X-CM-SenderInfo: jprymmytvvmjmrxbiqqrwthudrp/xtbC3xKNcWqzZ7KqAwAA3U
 
+aa_lookupn_ns() takes a reference on the namespace it finds with
+aa_get_ns(),which is kref_get() on the reference count that the
+namespace is released through, without checking whether the namespace
+is still in use.  A concurrent removal of a ":"-prefixed namespace
+looks the same namespace up and only then takes the parent lock to
+remove it, so the last reference can be dropped between the lookup and
+the aa_get_ns() call: the reference count then reports the increment on
+a zero count and the kernel classifies the following use of the object
+as a use-after-free.  A user with CAP_MAC_ADMIN can trigger this by
+writing a ":<name>" removal and a ":<name>/<profile>" removal to
+/sys/kernel/security/apparmor/.remove concurrently.
 
+refcount_t: addition on 0; use-after-free.
+WARNING: lib/refcount.c:25 at refcount_warn_saturate+0xc0/0xe0, CPU#6
+Call Trace:
+ <TASK>
+ aa_lookupn_ns+0xa9/0xc0
+ aa_remove_profiles+0x4fb/0x730
+ ? __kvmalloc_node_noprof+0x219/0x5c0
+ ? __pfx_aa_remove_profiles+0x10/0x10
+ ? aa_loaddata_alloc+0x65/0x1f0
+ ? _copy_from_user+0x2d/0x80
+ ? aa_loaddata_alloc+0x111/0x1f0
+ profile_remove+0x2ee/0x4a0
+ vfs_write+0x21e/0xcf0
+ ? rcu_core+0x29c/0x1740
+ ? timerqueue_linked_add+0x1f4/0x3d0
+ ? __pfx_vfs_write+0x10/0x10
+ ? mutex_lock+0x81/0xe0
+ ? __pfx_mutex_lock+0x10/0x10
+ ? __pfx_rcu_core+0x10/0x10
+ ? __pfx_hrtimer_update_next_event+0x10/0x10
+ ? mutex_unlock+0x7b/0xd0
+ ? fdget_pos+0x24d/0x4b0
+ ksys_write+0xf7/0x1c0
+ ? __pfx_ksys_write+0x10/0x10
+ ? restore_fpregs_from_fpstate+0x37/0xc0
+ do_syscall_64+0xf9/0x540
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
 
-On 9/23/26 07:35, Bill Wendling wrote:
-> The GCC and Clang compilers provide the __counted_by_ptr attribute,
-> which is used by KASAN and compiler bounds-checking to detect
-> out-of-bounds accesses to pointer fields.
-> 
-> In "struct fsl_mc_io", the "portal_virt_addr" pointer points to the MC
-> command portal virtual address. The size of this allocated portal in
-> bytes is tracked by the "portal_size" field within the same structure.
-> 
-> Annotate the "portal_virt_addr" pointer field with
-> "__counted_by_ptr(portal_size)" to enable compiler bounds-checking and
-> harden against potential out-of-bounds accesses.
-> 
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
+Fix by rejecting a namespace whose reference count.
 
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+Fixes: 3664268f19ea0 ("apparmor: add namespace lookup fns()")
+Signed-off-by: Binbin Deng <18983559317@163.com>
+---
+ security/apparmor/include/policy_ns.h | 16 ++++++++++++++++
+ security/apparmor/policy_ns.c         |  2 +-
+ 2 files changed, 17 insertions(+), 1 deletion(-)
 
-Thanks
--Gustavo
-
-> ---
->   include/linux/fsl/mc.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/fsl/mc.h b/include/linux/fsl/mc.h
-> index c25f0f7e6dd4..0b2c0eb9b605 100644
-> --- a/include/linux/fsl/mc.h
-> +++ b/include/linux/fsl/mc.h
-> @@ -336,7 +336,7 @@ struct fsl_mc_io {
->   	u16 flags;
->   	u32 portal_size;
->   	phys_addr_t portal_phys_addr;
-> -	void __iomem *portal_virt_addr;
-> +	void __iomem *portal_virt_addr __counted_by_ptr(portal_size);
->   	struct fsl_mc_device *dpmcp_dev;
->   	union {
->   		/*
+diff --git a/security/apparmor/include/policy_ns.h b/security/apparmor/include/policy_ns.h
+index cc6e84151812..4f8359875476 100644
+--- a/security/apparmor/include/policy_ns.h
++++ b/security/apparmor/include/policy_ns.h
+@@ -117,6 +117,22 @@ static inline struct aa_ns *aa_get_ns(struct aa_ns *ns)
+ 	return ns;
+ }
+ 
++/**
++ * aa_get_ns_not0 - increment references count on @ns found via lookup
++ * @ns: namespace to increment reference count of (MAYBE NULL)
++ *
++ * Returns: pointer to @ns, if @ns is NULL returns NULL,
++ *          NULL if @ns is being freed
++ * Requires: @ns must be held with valid refcount when called
++ */
++static inline struct aa_ns *aa_get_ns_not0(struct aa_ns *ns)
++{
++	if (ns && aa_get_profile_not0(ns->unconfined))
++		return ns;
++
++	return NULL;
++}
++
+ /**
+  * aa_put_ns - decrement refcount on @ns
+  * @ns: namespace to put reference of
+diff --git a/security/apparmor/policy_ns.c b/security/apparmor/policy_ns.c
+index 5a907a875d8f..ae9168c1a85e 100644
+--- a/security/apparmor/policy_ns.c
++++ b/security/apparmor/policy_ns.c
+@@ -207,7 +207,7 @@ struct aa_ns *aa_lookupn_ns(struct aa_ns *view, const char *name, size_t n)
+ 	struct aa_ns *ns = NULL;
+ 
+ 	rcu_read_lock();
+-	ns = aa_get_ns(__aa_lookupn_ns(view, name, n));
++	ns = aa_get_ns_not0(__aa_lookupn_ns(view, name, n));
+ 	rcu_read_unlock();
+ 
+ 	return ns;
+-- 
+2.43.0
 
