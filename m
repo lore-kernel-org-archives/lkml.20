@@ -1,110 +1,96 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE0F415F0B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18D346EF75
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:38:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152724; cv=none; b=kLcE1JOS5m2/HEchLZa81reXEGFYiNiAsa0irwGDbVDBDl/jt9u36VLj/AU7R6Ttkx3Ibajg0mfmIxuqf+Vc6FO5dHv1QKf2j/cCQsJbuYjttgWuBoH983z0qwTFO92JIuByRluDovFCvMGoWm7wN2VomXtig/j8aK9fBK4KqOQ=
+	t=1790152725; cv=none; b=gZypvTD0oqERYsdtuoyW6PXCCd/qL7CLZLeI0Q/nnWle5oarlF8avpHTjH5s/zypI+909h0AoixgRDEInRUcuyb0RO6dDbtWsbiPnhzheRMthOL43Kitl2RE3u+iFv25qEA4ZqcHLt9JTteUdAjkjPUkAhaHZfd6+wDncIMHwYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152724; c=relaxed/simple;
-	bh=j0E9slfjlQutlT6Rmi1TRe1co8dcfLW5noTfuk2g2T0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lzP8gNY21iDr10IZfxKstI7CtkG6UroDqflIGcm0NP5Oj7NiAGdadhg/efHuwVVNb/+Aul1ISB/i1zL2V2fZs2nnuWczt6cjXsJ3e9g3+tXSQT6dpH1std3iBt4Cw8jCr6HSvhZQpeLekV4M06oPb4CzGx3FHarIxGbU1BsY0DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cx8ysRbf; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790152725; c=relaxed/simple;
+	bh=oSQ+Mq6A5TscODmoyrIVu6iJjtgM1iNvQM6RlsRFikE=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=cyx5IuiA4F8xO7eRJwU1m/sTSNGfJSH+8iOLKnfOzOcFLH+lRHKwoVQaWaYvUvoujVu73suAqLW2m2h6Pq4/xwZhD6LEh5mbQjVdqTBnOYmNq8/Lew2gyKiTGCU2PG8HvNAKnuxHW5biB+9GM6eKGTAHKyh8j1WhzDj3ikm87kY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--snehalreddy.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Vuk07DVS; arc=none smtp.client-ip=209.85.208.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--snehalreddy.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cx8ysRbf"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so380831a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:38:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Vuk07DVS"
+Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6a9b7e63963so998911a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:38:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790152717; x=1790757517; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IX4TEagbPQFXdBfnOIheUTG+gtBUa9fq/Un7VWSnr+0=;
-        b=Cx8ysRbfrxnCBY5+B/XrzoK05UtRyDDq1w0m/0WZyFqU0zIBJDCFIUNZ4M3enV3fbp
-         jn1lAk6Edc/q6ruU/aOI87lucPU6wSPRN//6xtoaNwrhcxDcIREC/Lr+wU20FHW0zCeq
-         62ZVv70NI7MOwCxmP67YqCPd0RJzF45NN1vaL6oxpRvjz9TQLIxtCs5UbfeloLc88hdh
-         gj8wDzMKduxpUW1ed7XXO0LSgROgooUOHR71Y9NA5qA1NlKZMUiLkLlrXxZXqSbAomcE
-         zkfPWSspXUZBCZXFoFAjSCIAsLuYZoZVsxIdEbh3tKhkZ4Ywn6DuKcMzYAIbUqG+76Oz
-         MxZw==
+        d=google.com; s=20251104; t=1790152719; x=1790757519; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/rrd89OsQ/qKLyQdREPNPgMGcGQacoElL1Au38Xxqk8=;
+        b=Vuk07DVS4C4K+iYU8h8w6LKcGfNcCk/P9Io5ViTz4W0YlFLUq/xICsnqvehIpeC308
+         nHHhV10RtpNwf43aghIOrkyioFmKtMC0BRqyf/IYFv5Hm/cudGUo9CKHQcnpaFLI+gnu
+         Rz9hnpnFcjbyl9W7PBFq1lHw6mf46t7MPnDKijRIHEsvbdsDIOhCvjAjH5n2SF5rPuab
+         9BsiIW1bxSOhNS8ib8uxWtYL4kzWnEOQ1u1FuU7JXpAj+6tnSPtka0kZiHdGL8Kty238
+         uG2/4qG3x5hkzRYCQDtJcDzdHPcsmi/x31CocI6bUh5IhdOdIIAwzAtB2MldNBs869v1
+         gsIQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790152717; x=1790757517;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790152719; x=1790757519;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IX4TEagbPQFXdBfnOIheUTG+gtBUa9fq/Un7VWSnr+0=;
-        b=bb2xDxsnIQR3yRHG7LaWdsjIi1iZEZ1Tm2SErhJLoRg9CKNtCcwyIjYVx4rgaJNba+
-         8Ezoi3y4CdsVxFaUU1/qoK2GDshDtH/hrUJrKsOm6fDVElMXVqeFZFuu5RoJPCvdeO5+
-         ounWs1AkZrr9F0chtTFLPRQDt9I/NGz3RsG8V03D82fTlFILAzknfJHCTOjOf/Rjbi47
-         U2Yvq6bI4wTwOhU6/Gb2qnx7yn+iWKEbc+GfY+53YaMj9ChbEG2U9x6DqPo0WALW6Rnd
-         Qlq8SrCRXQ/lKm50oQDnbt4+aob1RRwh6JXwpbUVDJdbIOk+S3N7MeeGCws4AuHpvk9D
-         BkGw==
-X-Forwarded-Encrypted: i=1; AKwUvBynF37oc0a9YEZn2OYiKOWmHsmvZHfGUNrJ9Onbcs55Mk3rFdBsy3V1PBaRjpnW8hJcR5+1tUdqdpHr6O8=@vger.kernel.org
-X-Gm-Message-State: AFuF++k514i8AF+ToB8xwNumTH+x6HdgwUdkPnnAwSEbp8vB8hvJej2j
-	FlVI4J2VbWP/ez/8lK8PtlnW1IzlD3lm4VSOZ8D0AhHpUD0WrXeWagqn
-X-Gm-Gg: AYBFou3lDfCzxoIxqFQHD0Vbd/9CeEtr+j0XBALvH0waLfUDKVvzuQf+OJJqn+SzyLs
-	7s0b642NDQOcgKgIv/uO3aVkiFEZ37qvxChf2XRM6iATegP9RcoPWpaJHEmATrP7OegVkey1sgI
-	texfAJdfS1WE8jUM14/27nkwyRheYYJdtr8soYeIpVi4HdqaokH9CO7MC1MtCzycAu42Gel35vC
-	tW+fMk0tXIKO6cN1qwhSsqnlgklglnwcEx9yCcMuZl6Fae1z4ogw1v35ZsHgX8ZBDh6aTSTzMOH
-	MgBzHRkIAc6o5flgmrrDro1BDIBM931b0YGJkoxAxpMsAK4+8Y9fD+bFZKYgAOuT8jTcKXXqi+e
-	2jbliSenaGQJT9/pXIuyEhHPaHOhKAXo8ZDbiinNGUyeDR6U6c5qxBj9sy+tJpJuTOgdH8KfdIz
-	hXr/iwjTG4voO5qtYbyxt6YKwWQ3DGL162OG3BooxPfqCY9YAqKyh2JmS5OEMXWG2gV6VUqyqfR
-	QYI3vL92byxBEWhZ8Rvcuklg0T/g/o+FW4RLLH+GdP8Va+1/rd1SDJsid1cvxjwfmxZwcu2Dvvy
-	sQ==
-X-Received: by 2002:a17:90a:fc4b:b0:39e:6c69:776e with SMTP id 98e67ed59e1d1-3a07e69606amr1458680a91.23.1790152716997;
-        Wed, 23 Sep 2026 01:38:36 -0700 (PDT)
-Received: from localhost.localdomain (ec2-13-212-242-176.ap-southeast-1.compute.amazonaws.com. [13.212.242.176])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07ddf23desm3793463a91.10.2026.09.23.01.38.34
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 23 Sep 2026 01:38:36 -0700 (PDT)
-From: Ginger Li <ginger.jzllee@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] USB: core: Fix unlocked hcd->status_urb access in usb_hcd_poll_rh_status()
-Date: Wed, 23 Sep 2026 16:38:28 +0800
-Message-ID: <20260923083828.64925-1-ginger.jzllee@gmail.com>
-X-Mailer: git-send-email 2.46.0
+        bh=/rrd89OsQ/qKLyQdREPNPgMGcGQacoElL1Au38Xxqk8=;
+        b=FymGMBt+FcP4j3rCo6ccY8LgijiQh1GfPt1cqayvNnL1nDhHSqVuJyErkomZ3q3896
+         N3uEjmOuLqClQgk8plNVsOy0xqVCcWc2rH2RJZib/ZkseHqZdXTB2l/qo1gJlB/+a2WY
+         r7v/sf/DrwQYDkFUYgc7DV15Yl/HhN34lFJXwS3jwswnuWYRkZ8M/aeEO92ghmO/9tYL
+         SfUxX1tQp7RscOHjZwXYUhy89W+vJkP1qmI1EfBRcYQcIWTldE3Hql90zX7QuQ+5pkLp
+         opRgSuSnHrv4FLWIQmtMsUCJwMXw5Bc572NgJ0EJCcbEIjgx2t9EggE54U7kmm7kbNpZ
+         sYrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxVXGpbdhbbPo4/mpYDfLh935zxGAPRChEUR1os0PiY35/tk9jNLKrzfN8u163kgy6Xj7bsTgf35aUfu+I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nctZyZ6sbOtz4nCX3cvVYPQQmKsMG6PuBBZy4+D8n/P5mlVvuq
+	9czwpx/p9B40cd5wAGWkbxU+JRLq+5GEnYYKeY3ULZg2KmAphAY+GqoCxjM6lqn0W0YLfXpzM2U
+	2J7FFpcD8xi5laFdh3M/oh36skg==
+X-Received: from edxs16.prod.google.com ([2002:a05:6402:1650:b0:6aa:12fd:fc3b])
+ (user=snehalreddy job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:23c7:b0:6aa:9fd4:987a with SMTP id 4fb4d7f45d1cf-6aab3b985dcmr1498844a12.20.1790152719283;
+ Wed, 23 Sep 2026 01:38:39 -0700 (PDT)
+Date: Wed, 23 Sep 2026 08:38:37 +0000
+In-Reply-To: <20260922-chubby-cicada-of-exercise-bbb429@sudeepholla>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260922-chubby-cicada-of-exercise-bbb429@sudeepholla>
+X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
+Message-ID: <20260923083837.4133676-1-snehalreddy@google.com>
+Subject: Re: [PATCH 1/2] firmware: arm_ffa: Add FFA_FN64_MEM_RECLAIM2 function ID
+From: Snehal Koukuntla <snehalreddy@google.com>
+To: Sudeep Holla <sudeep.holla@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Vincent Donnefort <vdonnefort@google.com>, Fuad Tabba <tabba@google.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Sebastian Ene <sebastianene@google.com>, 
+	Mostafa Saleh <smostafa@google.com>, Snehal Koukuntla <snehalreddy@google.com>, 
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-usb_hcd_poll_rh_status() tests hcd->status_urb without holding
-hcd_root_hub_lock, while rh_queue_status() and the completion path inside
-usb_hcd_poll_rh_status() itself update that field under the lock.
+Hi Sudeep,
 
-Take hcd_root_hub_lock around the early bail-out check so that the read is
-serialized with the writers.
+On Tue, Sep 22, 2026 at 01:15:52PM +0100, Sudeep Holla wrote:
+> On Mon, Sep 21, 2026 at 04:47:47PM +0000, Snehal Koukuntla wrote:
+> > FF-A v1.3 ALP5 (DEN0140 rev J) introduces the optional FFA_MEM_RECLAIM2
+> > (0xC4000091) ABI, which enables an Owner to reclaim exclusive access to
+> > a subset of pages of a memory region without requiring the Relayer to
+> > maintain intermediate transaction state.
+> > 
+> > Add the FFA_FN64_MEM_RECLAIM2 function ID definition to arm_ffa.h.
+> > 
+> 
+> Since the spec is still at ALPHA, I suggest to add RFC in the subject
+> if you post newer version so that it is *NOT* considered for merging
+> until spec reaches *BETA*.
 
-Fixes: d5926ae7a827 ("[PATCH] usbcore support for root-hub IRQ instead of polling")
-Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
----
- drivers/usb/core/hcd.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Makes sense, I will mark v2 with [RFC PATCH v2] in the subject.
 
-diff --git a/drivers/usb/core/hcd.c b/drivers/usb/core/hcd.c
---- a/drivers/usb/core/hcd.c
-+++ b/drivers/usb/core/hcd.c
-@@ -727,8 +727,13 @@ void usb_hcd_poll_rh_status(struct usb_hcd *hcd)
- 
- 	if (unlikely(!hcd->rh_pollable))
- 		return;
--	if (!hcd->uses_new_polling && !hcd->status_urb)
-+
-+	spin_lock_irqsave(&hcd_root_hub_lock, flags);
-+	if (!hcd->uses_new_polling && !hcd->status_urb) {
-+		spin_unlock_irqrestore(&hcd_root_hub_lock, flags);
- 		return;
-+	}
-+	spin_unlock_irqrestore(&hcd_root_hub_lock, flags);
- 
- 	length = hcd->driver->hub_status_data(hcd, buffer);
- 	if (length > 0) {
--- 
-2.43.0
-
+Thanks,
+Snehal
