@@ -1,281 +1,144 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013053.outbound.protection.outlook.com [40.107.159.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B474A48489A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:27:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166451; cv=fail; b=bysF+lANTmwXmFGXi+KYdBQjPjGLgnh9gUCVg0Tk5YoEMzZHe5ZC3fUckX8efwfRM7L9gW1DK2CNCN3DINNYirydoeD2lqeFmTn6fGBwqPc9zG0GzuHthowtXSfBx11A9Ri23XRnsMi2IUqCDFpgoIAfW6GWSMqn8MHJ4uodN8s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166451; c=relaxed/simple;
-	bh=rsOqpE8WfhWWNP9wcabPrYxAEecyDyL6pN4iHofBpgM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=OL8DllQAu+QyRwiIEot0vg1a8mI31SYImmf+THJDD3PpaPb2/GVpWtaS6lpynSYsccqxfadwv2DdbKdfcWZJAZEt+HIOrQBI9xt+kjOFvg3b2GRgkkmSqqcS5FDBFfgUq9B1wfybymfwKRqo6o79YVQIw3S23oFJR5Z5yNoci7k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=hTCcLolz; arc=fail smtp.client-ip=40.107.159.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hTCcLolz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i8jKKUhu+JFOMuYfFtKm2Tkm3TjkFRy90dzXyA657SfdQCYTvm3XrZahP/TPaDlDPXBcj/EVzNHXIenr6sryMKG8agpT8J01OLvhlI9uGkFKdH2JLFlwaEGmNW/9xxBfWikn/+c1MoYS509GxKfE7yPGgorDNoKtAGnO7iTrY1TKk8AH8mPv6jcXefAmPf5FB+9S0cjsAXH/a1jzGzp2GkGc2zAbobqanQq+tUiKkukSdai9E1P0Ni0KYARIDSfLyMR0Ios+GHZ8G+uURxU/ByYhewJ7IT5adNIlO2bah9xI4WHNhb8iVS4bmgxQ3w9OSIIcvyzCHaAhwE4XuLmVBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sw7m9ei6+Ro/6Aq4X7DE508umiDrDH1wYyODwHzDvXk=;
- b=gZmr4dBpxWHqwxcIp7qALwgysteOwuDkhsjvDV2RJPC8bcpUjSx7YKHaXP2Zun5jFoth3pgqL6MlKdxmlvCX7y4+Jj9GEqeB7eITvh4bkoCFQ5GuUEQgsOGf3RfJEM9uOsqes5R2KGTNX1vXXpoE2cRxRkec2+RJbXvtU30NPlntSG7NgTkoPfq31fbYsoXKth0RZeJQLWiADb3FOjYp2JD3ItziMrKaBZXXrNnmdieLlvbvbwjkdpucdEsimBp3/RZkzW+FG5S2rvZW9Cyy10FiPeG6KJ/kOyN+ibRfwmZtpUmHnyTsaM0NGjckF84CUcaELfmATglXHsMH0M/hRg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sw7m9ei6+Ro/6Aq4X7DE508umiDrDH1wYyODwHzDvXk=;
- b=hTCcLolz1nHmJ+yEWvyCvhnewpXhLscwPEKg1mBdtFdKIdoxTJCaA2tKZ7yLzDcZh7DppiL4gcejtdz93pNDkzx7gKKXQbI/ba1EBoCvXUvo3e5d3SOK1eN5V9vt+wbURacdjccU4TEYzzEHmkp06qhZfT/80O4fGYoCC3ay4Tw3hTUoUIWOHiog8c1uCKXe/9PBSnrd19KBQNEgcNc+rrhqWg4plh8M6jaXuBxzxNUp83ji3L+vcB/RVCmmNTOZLqVU1beHGpFivtTb7i1bUFFJUKY2XSs20ezVAhc6Rg+qVtJdGo9h2p/ftDaPIJn/TxphKhCqgCGU27Po87aEaw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by AS8PR04MB9510.eurprd04.prod.outlook.com (2603:10a6:20b:44a::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 12:27:26 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 12:27:26 +0000
-Date: Wed, 23 Sep 2026 20:31:47 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Mark Brown <broonie@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-	Peng Fan <peng.fan@nxp.com>
-Subject: Re: [PATCH RFC v2 2/4] regcache: use the regmap scoped lock guard
-Message-ID: <arPGs0VioH17XEr5@shlinux89>
-References: <20260922-regmap-lock-guard-v2-0-0c9d426427bd@nxp.com>
- <20260922-regmap-lock-guard-v2-2-0c9d426427bd@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922-regmap-lock-guard-v2-2-0c9d426427bd@nxp.com>
-X-ClientProxiedBy: MA5PR01CA0290.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:21b::15) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F982515982
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790166466; cv=none; b=SEaRoezo1erF1zCfLGtqwqPm6m8CBi3Xt1AbvAM6vh+3vD5GtcjtaGYcY1rsbPkQVH+WejlEP0wgy0h27TxqHr+Vd5BCDZ9i4T2s56bct79EDXFF5BSdQmZWkM4QdMQYPPQnJEj9h/CO2MzvWnhteJFQtpIcBHvPMRVpQqfevzU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790166466; c=relaxed/simple;
+	bh=iB1X6yc9MU3O6Kpid7OWc6ghPs6cxaK0vVaYt7GQq78=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o+AYnEkAPnL5rJXvFabS5JDjE7nM+ekuNdeuzTQTJFoHIdlUPE0ct+i4bvd8BENRm6RzUChh34u8zOIqpm6tJ2ahpTaJbsF6nEh+/K9RD24TfUK+Ms+wRX30EoB1Gg2kkaYhlulh3MfLTvX67vow48aEDGn01GupnzfoBsAAmjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c83be8db39so560562e0c.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:27:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790166464; x=1790771264;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IWcv1ApL6q2ZhyUuH+tMQlo7vXHYJanHFmdCnLCsLWk=;
+        b=GcPRKB6M53ds7dB0TWXigpH2bdspsgEKXwBTlYrERDipERk1Whp1+vVge6NnN2vCTY
+         jdQieJAM/tcLhYmcnyDHqaNgZFjUt/0u2/WQ+k22I6g9pfT3yZCygWtcQDfOXom36dAe
+         yzdyE+sJYkWuQdJlTAd+U9fHNNV9TtqJdhoupvsGUsyzP1cn323yuLh+KeaV+0BP1sAj
+         VbJMMURO1J+8aUaUZpMpOZmLUFV8Pr7A0yIBZfLJSG7ohMsGdaY+AygXP8btUAadYwJQ
+         7Ydg7Gho4x0RrtPE71ajbK1qk8k4TcWoaR+AwCDgIR18pXCEM/3jBZvfPzt+AIBLUMRP
+         qvSg==
+X-Forwarded-Encrypted: i=1; AKwUvBy1aRhzRUP3chUyUY5ktvnL4nrDz4hNsfEzEO4XEBDdPtHpZGASIhOPITg3nUuPQP4+gMsN0O7SrCorRko=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGWe98gwOndmUYzgtDABYRVQveURypos+jdc2JgZVBUwRU8jDb
+	TzGo22Ymq41Xzkl2LBDini8ZK8pIi70VBRMlpAapcIWzPiBGzk2tNbhRPhvG+mLZRb8=
+X-Gm-Gg: AYBFou3rZsUHNZz3Y/J7WfMOv0/SeCXLl5SuQHtZHxHgbl3sINIPEPQsgu/Y8SG6llY
+	fan2+NOk1TAdjiPrBd8OSBGg8oP5JqiDYdkGH/Z5Mt2G84pbWRtsgC4Tccu2SwolScKC2xgrSww
+	7wEo2VlAYPtkgmSy/F8Vkk28uCehZzy4bl3iKEaYdrxD/81WRyJWgg0bHNkI0Vt5ieje/qLfIZN
+	sxBMp/EUzIp+75V85f0Q8W/I3smww0RDnt674d6wBu9aQUDgJ3aoaZcphP5e61PsrQ/Lbt0ALfp
+	GDC4MkgLdhw/DSLZuW7PVEULmaYuUwE6AUzV1M3gm+HzAhUQjZ2oKBLOGwofsQBomJ+rZsgjGIt
+	TsWWE/MDobAqlDUJJmPm4MraGfxfcMZHQouvNycD2eiOKzkcVNcxqsEX6CRSQTUsb+3toal1q6T
+	YPmva1nzxcqlDC83NS2Szw2kBZFTxhscAnCpJWtMPZWMecH9rilXpRiE45G9T8bHQ3+1G+YRN/M
+	N235wWfe3i6JfKKpqjfHOIHp/++V+RoE5bodQ==
+X-Received: by 2002:a05:6122:1815:b0:5c9:a60c:273b with SMTP id 71dfb90a1353d-5c9f16926b8mr2746441e0c.19.1790166464389;
+        Wed, 23 Sep 2026 05:27:44 -0700 (PDT)
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f04f02bfsm2814556e0c.7.2026.09.23.05.27.43
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 05:27:43 -0700 (PDT)
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e97e2c7d4so493775241.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:27:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByrrrNiuFVfKUR4C7LZ2xbbhqDtdiV+8SVPrNSq/lXrzHJMbmz++cC0gn/hlbRaX+RmRyypjxvjV3sz7us=@vger.kernel.org
+X-Received: by 2002:a05:6102:162b:b0:7a1:f7d2:e81e with SMTP id
+ ada2fe7eead31-7ac1d2e81fcmr2402107137.23.1790166463439; Wed, 23 Sep 2026
+ 05:27:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|AS8PR04MB9510:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9505f6ad-9e42-411b-c139-08df196e06ae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|19092799006|1800799024|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	BCLdvEFzgR5Cz+DOzfCZdGQoADEluNJcSxQIhyk0LRNqfG4KszLsNFsC/JmDfCIJIdiLXkkhv8qnUVKMMDynZWmwmVUPgtqElJjF+c2VbPfCLccRtXa7uI/ufgy6xduU6ZKP+tUpMoITHFK8UjddIBhymSVBd0CvS1hpxCrq9YlWYuVXNAayFTtKduAG6DkJvViLooxPLLRc3/E4ho5ktIisd7q/x/mNDdnvF3ibDm5IgSvYj6g/tSK7II+UFdz/1dC/mN1ufWbdSfTTUlb8S+GLLRfkfyMjsI0iznMrvGQvvJIFvQhuJ/4EmadRbkvFeDPRGQ2GmOr5kr+3rusXxGkgUQJY3t+C7X/BbJWRthJDowQ/J3f9xf1InVrl5lBenUqvbXiVF/eX7RS8hi7T6MQrJTxasyN5cl08RK7x/6D1vRz+c46JS2TBLBKbBBsW//Jo5cu1Z2Si7CRly1jInENRRfUk0o6wOeR+tCm5Jp+G8e181KaBneHkVjnrblnxEwhsjv2WALxHM+tJwHOVBDUitfgMBMNSEUDn+0n9Xp7ktGMzuBNFj3pKqggJ2jvCseSUfYgoG6TjKc8JXKikIjOBg+05g2y3yA0qoSnMNFYBA9hGKCsDhzZYxmc89OKiezhEA+sLje01GQKhWwvTPxHfzgWuFpTHXqpRPT9i95s=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(19092799006)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?0gS36ACWKm8PhFDFfhzDg3ERt9eYFGa1a8QA+TTxv0dTLaTM7D/T/WsxrFWW?=
- =?us-ascii?Q?3errdqlMSQTZyuKKWrkRSH2OnL+EPRuA78s9reXkNjMfB+ADGlW5nBeQFIRN?=
- =?us-ascii?Q?BPc3ZT+88HDt1EQn/PXJ2PhKVx0StjvHAMcH2viUMlT37DqcByru88pdb49s?=
- =?us-ascii?Q?qL2Nkz6ZczztCHGwFQ8pMgyBPiNTkXrwKo3Qw/Lew7v17xikdAaRFuVDG7TJ?=
- =?us-ascii?Q?U8QQEWZUGHV5rzMPAnjvifpkMDe+z2B8rAe6NQfhxFZeNilntTC3jZNJke8O?=
- =?us-ascii?Q?nA/07VwdDGhohZGF5aPADPKw76Bg6HdvwNqGVyX209wmen67V9BddTKGiRmb?=
- =?us-ascii?Q?7sNAnX+RtMqEqgzi0JNXhGnjKTtHLTmHcWvEkQuASctS4StK0l2gWIyr2WMV?=
- =?us-ascii?Q?4D/QhUuH6PaYunbTyg1ndggVYSCh11uBBNjaXcVU7s9P16jpFyrZQzmMfaOp?=
- =?us-ascii?Q?nJ14ymDeJbm1gyEw4RqntBuxGUJLHr0X2+MTFptHrGrjkGhRslxeL7aN+jyX?=
- =?us-ascii?Q?yFtQFoETEnTLvcJkcSJGlpILnOSJFjlnWiQHT9ycd+83Dt7XT9DCzngdlp0x?=
- =?us-ascii?Q?/AF8zgr1VzgdJFol4bkAkkQ+aF0Jto7hRibxauzn9yrOf2BIxQ9e4Tn04qHj?=
- =?us-ascii?Q?EC7baruErX24eU7e+ZFCSPR38qso+tnMs+Q+tInfNEcZdeDHFSVVIvmVpJHx?=
- =?us-ascii?Q?bKbRwqH7gL878nKUap7wEha18PP6JqRSMk2Spc7foXuvrTeyC5zqKrPmQ/5U?=
- =?us-ascii?Q?7O6pXAx79EMlADJogPwuW0lCGbYl+7p1a4XKGzqY+9DsoHmmkQETx2H8EUxS?=
- =?us-ascii?Q?Vy1UBV2XldIPTGbBclDZq41e2+DPBBzJ9XvTGONmB5PU31MN4s+JRXiDzfaa?=
- =?us-ascii?Q?UnBGsyr8gpCVPDzsXJCZuKbh9gT3aaW7kBkWPTA1d4X2hjZnA4D7hNP/ZNbt?=
- =?us-ascii?Q?sWGJMbDyRRqpVsZb/1ExWzc2ig5hSjhHIvd6BbdNt/1o6rYZ6nkXRJEY/lpu?=
- =?us-ascii?Q?Q7Kk+faRK7ycQlvZQ7LcLnb0mxe37WzMRtqWp+kgxeZ/NBbZcTqrQjkIrKvo?=
- =?us-ascii?Q?9qGDVcTH7/9Th/pfFjT/JAxXMmvC5aB5cbVOF2DBbKazZIVI8n77wUd+OwWy?=
- =?us-ascii?Q?D9nW370oqZcFzJwz6O6IMCYagDCfEAjqeI6RcBBfHbk2dhmh3vgQtvImLZO6?=
- =?us-ascii?Q?Nc8RbEXjw1q6b6gpsBMMAinNmpJkM9W8zst02ENPVhHqW8KamX/sRCaYyhTl?=
- =?us-ascii?Q?U6MdO2jicwO1zX84IGeMb9T9UCkgli36m9ffR2Ea99nOXZymxslZTxoDacum?=
- =?us-ascii?Q?MdvWtiWi5t9c6i/ITJtV47b4UgCpvXJEvbGcp7d4SzHvdkUwH1v3IDRtGaFr?=
- =?us-ascii?Q?S1hSXQbi/VVK9Xl5qvJr7Xj0Rk50EiO5JlXOdMhdOzXL5QTSDPOPVCc3dreh?=
- =?us-ascii?Q?T9df3tPch1bMQfkfuQu6mQ9VP/1dAqc0a5yaY3+vh/I5l+dRYRUTPkqzQIZ4?=
- =?us-ascii?Q?kYRm841emnHLyTeZbw4m9yir/87eEH6z7FdMZG7NBt3SG7nb/vn31dtYSWBv?=
- =?us-ascii?Q?TCCwUwzLT6Gh6+MnV0hniYHEogLxVVtubiXJxVLHTiRL7rrRqyC3Ya2iYknF?=
- =?us-ascii?Q?mF5YuCYQc6f7B4nf8Wp2IFrFgvONOe7KLuWAFJeN/VwNYOqjr69GiJWcWZRI?=
- =?us-ascii?Q?81acLT1Sy8DvKIhA2IavBgmx4QV9TTx2TEhg1OIos2aBBhWC9pOwTzCUWgBC?=
- =?us-ascii?Q?cgtakJhOYXUh2PcLJaDRFERF3l+VVAbxfilaRYu5pxVSuqgUB4TL?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9505f6ad-9e42-411b-c139-08df196e06ae
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 12:27:26.1925
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WZUcCIFzZvX2D+VGoCWY/Ac1p33SmozWusHH6V7Fu3Bj/rlwhdy59hvp9P7eCAD0KFgX6GryrVYiJ060+cXc0vxg9RYCslgrg6BUrax+M+/bzupR28QxRU5pOCR6SHSe
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9510
+References: <20260921134432.50338-1-ayman.chaudhry.kc@renesas.com>
+ <20260921134432.50338-4-ayman.chaudhry.kc@renesas.com> <CAMuHMdVkh_qpJKqD7N=njG+35gS+rE7cFfWQ-kS3aRoTByxH_Q@mail.gmail.com>
+ <CAMuHMdXmJWu5DD5sQ0epWX8FnWc7zt0CTvJ5_jpjj-Hnvgg_cw@mail.gmail.com> <CAPx+jO99DnXLzarD_rWgr43e6vzWCJjYWaVFh_hhr6rtivXxFg@mail.gmail.com>
+In-Reply-To: <CAPx+jO99DnXLzarD_rWgr43e6vzWCJjYWaVFh_hhr6rtivXxFg@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 14:27:32 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWqNLG15fAUt6EVf2-Ek1T=tR4jykean3c-K98+HP4TMA@mail.gmail.com>
+X-Gm-Features: AclHuK_87NLy33tHoFHeNjhVq_Wp4n3b4z8txTDgsw2XX2yqZfJAlI229NijKRs
+Message-ID: <CAMuHMdWqNLG15fAUt6EVf2-Ek1T=tR4jykean3c-K98+HP4TMA@mail.gmail.com>
+Subject: Re: [PATCH v2 3/9] pmdomain: renesas: rcar-sys: Add r8a774a3 support
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Chris Paterson <Chris.Paterson2@renesas.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 07:10:56PM +0800, Peng Fan (OSS) wrote:
->From: Peng Fan <peng.fan@nxp.com>
+Hi Ulf,
+
+On Wed, 23 Sept 2026 at 14:12, Ulf Hansson <ulf.hansson@oss.qualcomm.com> w=
+rote:
+> On Wed, Sep 23, 2026 at 1:45=E2=80=AFPM Geert Uytterhoeven <geert@linux-m=
+68k.org> wrote:
+> > On Wed, 23 Sept 2026 at 12:33, Geert Uytterhoeven <geert@linux-m68k.org=
+> wrote:
+> > > On Mon, 21 Sept 2026 at 15:45, Ayman Chaudhry
+> > > <ayman.chaudhry.kc@renesas.com> wrote:
+> > > > Add support for Renesas RZ/G2M v3.0 (a.k.a. R8A774A3) SoC power are=
+as
+> > > > to the R-Car SYSC driver. The RZ/G2M v3.0 SYSC is similar to the RZ=
+/G2M
+> > > > v1.3 SYSC, however it lacks the A2VC0 power area.
+> > > >
+> > > > Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+> > > > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > > > ---
+> > > > v1->v2:
+> > > > - Added space before closing brace for `ca57-cpu1` area
+> > > > - Updated include path to SYSC dt-bindings
+> > > > - Added Reviewed-by tag
+> > >
+> > > As this has a hard dependency on "[PATCH v2 2/9] dt-bindings: power:
+> > > Add r8a774a3 SYSC power domain definitions", I will provide a shared
+> > > branch with the dependency to Ulf.
+> >
+> > Alternatively, I can just collect all pmdomain patches in this series
+> > in renesas-pmdomain for v7.4, and send a PR for that, similar to what
+> > I do for clk and pinctrl.  Up to you...
 >
-...
->diff --git a/drivers/base/regmap/regcache.c b/drivers/base/regmap/regcache.c
->index 0d58d900a2ca..d030fcbe11d9 100644
->--- a/drivers/base/regmap/regcache.c
->+++ b/drivers/base/regmap/regcache.c
->@@ -225,9 +225,8 @@ int regcache_init(struct regmap *map, const struct regmap_config *config)
-> 	if (map->cache_ops->init) {
-> 		dev_dbg(map->dev, "Initializing %s cache\n",
-> 			map->cache_ops->name);
->-		map->lock(map->lock_arg);
->-		ret = map->cache_ops->init(map);
->-		map->unlock(map->lock_arg);
->+		scoped_guard(regmap, map)
->+			ret = map->cache_ops->init(map);
-> 		if (ret)
-> 			goto err_free_reg_defaults;
-
-Sashiko reported that goto and scoped_guard should not be used in one
-function per cleanup.h.
-
-Actually goto does not break scoped_guard. Anyway, to follow cleanup.h
-rule, I may need to use a helper saying:
-
-int regmap_map_cache_ops_init(regmap)
-{
-	guard(regmap)(map);
-
-	return regmap->cache_ops->init(map);
-}
-
-I will look into make the helper to support other cache_ops in V3. and
-avoid mix goto and scoped_guard in one function.
-
-Thanks
-Peng
-
-
-> 	}
->@@ -246,9 +245,8 @@ int regcache_init(struct regmap *map, const struct regmap_config *config)
-> 	if (map->cache_ops->populate &&
-> 	    (map->num_reg_defaults || map->reg_default_cb)) {
-> 		dev_dbg(map->dev, "Populating %s cache\n", map->cache_ops->name);
->-		map->lock(map->lock_arg);
->-		ret = map->cache_ops->populate(map);
->-		map->unlock(map->lock_arg);
->+		scoped_guard(regmap, map)
->+			ret = map->cache_ops->populate(map);
-> 		if (ret)
-> 			goto err_free;
-> 	}
->@@ -259,9 +257,8 @@ int regcache_init(struct regmap *map, const struct regmap_config *config)
-> err_exit:
-> 	if (map->cache_ops->exit) {
-> 		dev_dbg(map->dev, "Destroying %s cache\n", map->cache_ops->name);
->-		map->lock(map->lock_arg);
->-		map->cache_ops->exit(map);
->-		map->unlock(map->lock_arg);
->+		scoped_guard(regmap, map)
->+			map->cache_ops->exit(map);
-> 	}
-> err_free_reg_defaults:
-> 	kfree(map->reg_defaults);
->@@ -281,9 +278,8 @@ void regcache_exit(struct regmap *map)
-> 	if (map->cache_ops->exit) {
-> 		dev_dbg(map->dev, "Destroying %s cache\n",
-> 			map->cache_ops->name);
->-		map->lock(map->lock_arg);
->-		map->cache_ops->exit(map);
->-		map->unlock(map->lock_arg);
->+		scoped_guard(regmap, map)
->+			map->cache_ops->exit(map);
-> 	}
-> 
-> 	kfree(map->reg_defaults);
->@@ -584,20 +580,14 @@ EXPORT_SYMBOL_GPL(regcache_sync_region);
-> int regcache_drop_region(struct regmap *map, unsigned int min,
-> 			 unsigned int max)
-> {
->-	int ret = 0;
->-
-> 	if (!map->cache_ops || !map->cache_ops->drop)
-> 		return -EINVAL;
-> 
->-	map->lock(map->lock_arg);
->+	guard(regmap)(map);
-> 
-> 	trace_regcache_drop_region(map, min, max);
-> 
->-	ret = map->cache_ops->drop(map, min, max);
->-
->-	map->unlock(map->lock_arg);
->-
->-	return ret;
->+	return map->cache_ops->drop(map, min, max);
-> }
-> EXPORT_SYMBOL_GPL(regcache_drop_region);
-> 
->@@ -615,12 +605,11 @@ EXPORT_SYMBOL_GPL(regcache_drop_region);
->  */
-> void regcache_cache_only(struct regmap *map, bool enable)
-> {
->-	map->lock(map->lock_arg);
->+	guard(regmap)(map);
-> 	WARN_ON(map->cache_type != REGCACHE_NONE &&
-> 		map->cache_bypass && enable);
-> 	map->cache_only = enable;
-> 	trace_regmap_cache_only(map, enable);
->-	map->unlock(map->lock_arg);
-> }
-> EXPORT_SYMBOL_GPL(regcache_cache_only);
-> 
->@@ -639,10 +628,9 @@ EXPORT_SYMBOL_GPL(regcache_cache_only);
->  */
-> void regcache_mark_dirty(struct regmap *map)
-> {
->-	map->lock(map->lock_arg);
->+	guard(regmap)(map);
-> 	map->cache_dirty = true;
-> 	map->no_sync_defaults = true;
->-	map->unlock(map->lock_arg);
-> }
-> EXPORT_SYMBOL_GPL(regcache_mark_dirty);
-> 
->@@ -659,11 +647,10 @@ EXPORT_SYMBOL_GPL(regcache_mark_dirty);
->  */
-> void regcache_cache_bypass(struct regmap *map, bool enable)
-> {
->-	map->lock(map->lock_arg);
->+	guard(regmap)(map);
-> 	WARN_ON(map->cache_only && enable);
-> 	map->cache_bypass = enable;
-> 	trace_regmap_cache_bypass(map, enable);
->-	map->unlock(map->lock_arg);
-> }
-> EXPORT_SYMBOL_GPL(regcache_cache_bypass);
-> 
->@@ -680,12 +667,10 @@ bool regcache_reg_cached(struct regmap *map, unsigned int reg)
-> 	unsigned int val;
-> 	int ret;
-> 
->-	map->lock(map->lock_arg);
->+	guard(regmap)(map);
-> 
-> 	ret = regcache_read(map, reg, &val);
-> 
->-	map->unlock(map->lock_arg);
->-
-> 	return ret == 0;
-> }
-> EXPORT_SYMBOL_GPL(regcache_reg_cached);
+> Usually I pick the corresponding power domain DT bindings and share
+> them via an immutable branch called "dt". I would prefer if we could
+> keep doing it like that to avoid confusion and special cases.
 >
->-- 
->2.51.0
+> Note that I already have a couple of patches queued for the renesas
+> power domain driver this cycle and whether this series conflicts, I
+> don't know.
 >
->
+> That said, I am planning to pick patch1, patch2 (both shared at the dt
+> branch) and patch3. Would that be a problem for you this time?
+
+Fine for me, too!
+
+Note that I will have a renesas-r8a774a3-dt-binding-defs branch for
+the clock DT binding definitions anyway.
+
+Thanks!
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
