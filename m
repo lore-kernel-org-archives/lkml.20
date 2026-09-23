@@ -1,112 +1,181 @@
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020101.outbound.protection.outlook.com [52.101.228.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E240653B32E
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:24:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177071; cv=none; b=u3FfPMPiBL0+cUJPJ8Uiyu5eFzM1w3BAsqZJ6n7twiBlmuKpggCDCTFiuB4Lg+ol/5hz8gizal/G79EbUzUSbITGa1mR35qIsn3nRdtPSpdSkyFvAjkcp3vUscy/kP9oQT5sPQW1cawIqvrl7uTrCdbxYbJ/XYzHkeZLMgmQ69M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177071; c=relaxed/simple;
-	bh=NYa7lzrDyEG/58XwTA2LcOHsOYKMnwjd0FctfadBdsM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VFI6onkdUEPCmHAgSl19AQEc3AMeJIU0h9VXSz2xPb/FpGeNIMX97+xPtKFr9hHFhl7+ulE/ZE4iXKksblG6rVpm2HbuLFkcvXHhYY8pR9rOBraUZJXOU/B6Bxx+CsWjJjzghCuK/1UxagUEO2hH8tdSVDW6nP55vZvzKeKV7h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=jMAoQ6WK; arc=none smtp.client-ip=74.125.226.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF723549390;
+	Wed, 23 Sep 2026 15:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790177076; cv=fail; b=kp0/JXVhvVvnSE+PgKx19GOXh2JU3uwrSAim7urU0S8qcIAYdI1910/XlflhwtmMhpeEiq1Ql9+luz6uYHTaZ71gpC/P3RZhHaLQSMPx5lINJtHfDWFutp5AckKbvy2DiLB9O5qfa+1JLZm6l1BxK+N6WWn+1noAt61W3YHwgNs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790177076; c=relaxed/simple;
+	bh=xKBpkQyYjrp6kKUtr6GhzO08eLLRyUwEIWfmFqYZkEY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=GopbYvTsyfWocaPuQEc6NPUT4DCxDb2UwVfRj8ijVEHTRshxNHjcSGOK1Jzx+c5rbY4hEJivwutPUcCL9ifEKfPf+L8Q9dMBVYRLrpNWxYbPUny01e2YCDxLMoWFYKaTdHSw9A8s+qB49gxWNsUaQfIMuJoMGgDljwAlQGy1+8k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=DYFtoP8D; arc=fail smtp.client-ip=52.101.228.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="jMAoQ6WK"
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c62dde2so362446241.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:24:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1790177068; x=1790781868; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DLCbEVM2yeFpINaieYUT1nKrAhZHHWf3GyoE7bLHvDg=;
-        b=jMAoQ6WKJzRrOkG/QY8sgwqZ1c8y/aQ0jzAvgHsL/8Ifg9Mg/pUukeZ5VPynU2PrK0
-         bvZoR0quOz7CRX5zLLLy97s7NWbtIEJ/oNZxIH5rE0TuUd8NdSWUbPny7bjgAaPb84cL
-         nGYdBm1pDQsEn+Z47Poql9IAG7qBQEDxzWB7yPIVz1rjdEVonlVdnGtRO7C2l7sdq3Dt
-         fQbnwmhrJy/3/9uLVyWcFfOTnJykjQqvY/fMU+PNm3R9sqvgkpuACLTjI/g7xFq4dV1t
-         5Sl56hk/g2Fmy6DqjWKcnXsJkEdXsXzDwo4PD+24hkBigbmC+3VedNteIsrCQ8BK4Az0
-         7c1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790177068; x=1790781868;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DLCbEVM2yeFpINaieYUT1nKrAhZHHWf3GyoE7bLHvDg=;
-        b=GTEhi7XYYKz+0Wm4A+ghCGZQ+iySrj8PooxQVawUcELY8F/+b5bpN+QgANxCsumA2k
-         M9JV1O5kRO6vbuIjw13y7ySO/FBay1+QPW7cW0sv2gLgtR/LokO0wKpIdj0IQxo5ktox
-         1HAATUTsF1zyDonGBPs5tG4jDI3w5F9V+dfkDdW+pFeYEe1+9rTclzdz7Ym3SMPF6xlr
-         wYqleJRu45+WrmBFf2nWnCC8/4snGea+UYN7KXsMqoo0dvntxdfov8nS5KBI/QGf1vDO
-         XCyd7LSETjlhEra+lSNmJQWyfyjyWp5DGkLDbw3K29w2xXGI+Wusv45AYjh5zdzK2m5v
-         YEZQ==
-X-Forwarded-Encrypted: i=1; AKwUvByB34cqNfqKtQGYh41ZX+VUngi8odwVnQgbn72bm0i06rifEXSBehampxiSa8PyS93pZ/knGyGGrgyJsXA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGdDtaT2lx9CJgRA2h8qVUp8HxEvHDuKtcHZ0YFuGMKAsSAZ+K
-	z6FBp1BoZITjrgT00ArqaAbEOFWtTJi+WbWtKUmmCCs+XnGJj8z0dp60a2QOGsVMiJU=
-X-Gm-Gg: AYBFou1BZNhH5pAdng7msVcmYcmsKkvlrNFGn3j+UiMA+zZKkpb3YJ4Jw+7HKvICX/u
-	34QrXZFprhZ5duLaONyF4Uxx0qCSjs3AjykkQsWOwuEscd57u+b9+0hOr/0YwJe5tdTbyvIOGF5
-	ZB3ghaLRmp2XiDdVuw/5yMjjQJ4VYgthuVgfAoDwsznQ/wNx/R4doqineajXt+LBcysCYpgdCzk
-	xRv3VJqEn1W3n47d/XQB+jc7mkdpUP2I9JKAzpji2qRE9eMaVW27t0g2jbTJiHH2BMeChGMOA4G
-	EN6xpcLYbUjgqgtQ+JJ9vrQULPsUSg8uvxPUP9vKIG/6jFUjRlF3zKhnBcvAJVChJH4V0LEltAu
-	0hV+TPJugHD8jip0pCLKujacMCKrqQjlCNYf2HWwVmWBDfueAhXfJM2WntFByE6Y9WMrnipcXg1
-	XFg0OrhT+vCPTu+nkFV6crUlt9v3dRNoGJanoPgiaKTVjLNziOrnARzgqv8FhINhe1WzJd5+7QW
-	pyWaL/oGizX1xH5/Pz4qA9NioFTerCCmv/5LPMplvH8B7BPdkaPHZWoARo6P7fhCw==
-X-Received: by 2002:a05:6102:2b89:b0:7a2:2148:c800 with SMTP id ada2fe7eead31-7ac1d2d4b61mr2458963137.17.1790177068540;
-        Wed, 23 Sep 2026 08:24:28 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2485dce4sm250217085a.23.2026.09.23.08.24.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:24:27 -0700 (PDT)
-Date: Wed, 23 Sep 2026 11:24:25 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
-	surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org, 
-	ziy@nvidia.com, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
-	rppt@kernel.org, baolin.wang@linux.alibaba.com, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, 
-	kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com
-Subject: Re: [PATCH] mm/page_alloc: let the bulk and folio allocators carry
- alloc_flags
-Message-ID: <arPut2xL8oU6Hr3F@gourry-fedora-PF4VCD3F>
-References: <20260914155115.439742-1-gourry@gourry.net>
- <20260922130558.48402-1-lance.yang@linux.dev>
- <arMxm4ia5Md-Zt4R@gourry-fedora-PF4VCD3F>
- <80206444-d0c3-4dab-a5e3-a2909e58ea33@kernel.org>
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="DYFtoP8D"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=td4awdRxs97loO/30WXC2KiYL/0JAu43lT/WsrKMaqu1qxYho1aT/r8KrOvUY4i3wZ/Ybm/z68MSZcS16SBkEI7+9JAikd8tOyvZxeNxDFSV9X+tB1rLZ4KW/pK/OFwQBVC0qbVQ5LcmkA6igFd97kQB/vSHfu8Iwqh28vQIdwG2i2aoC7KHXOLmZ3xDdxb/mNM95VVg/uTGtGRxt4LJneFrqGck9SiCk7Pr5w/YysmqjgzAlQbGMKwfm96AqF1q74MNo0VPbbeOcVRAB7gnyAYz104sS0kmv2KM4suSGdAGTLTdiOOecv9Z0LbiMn70ZOs+ThlfarzWbc6iwSICPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+f7GADm8E2E+JY/GkM8vPWMQwRXvJf55AW0cTrJnaYk=;
+ b=ANYq1Kz6UmboafdtTepcIctm9iFcfhfY7kq7918UAfpM/dKqZU2A3SYOtHhY3gNTObVYLJE2tBRF7xUl668l0oDI+kcpbVxC0/u/9a+1SbG1Qk/TagB4PSr62b/DDOEc7mrNWSSTytHmncYYGcxTQsfW8eTYh6rn3ItwwBUT81i/tc1bn1Cw9ks5jbZLvpDFnB2h21GTdQdMuyRH+oyICOG9tv452o1mkUp0RFzC2kWj0dWZ41KxWJ+x+8mUC5DcLA8S93LGt3Nmp8iOZRl9HGo/iQg+zgvSxOZt4x2UYH/6hqlPiwPHFF9Av6eZKN+g/lT9mFFuAv3vlQrB+BeYXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+f7GADm8E2E+JY/GkM8vPWMQwRXvJf55AW0cTrJnaYk=;
+ b=DYFtoP8Dgdzq2k0NvEi3/3ZfAo8tl5LgDXxp/MeQFvIoKMI8KNhFinQtt62r1k+XGDPLM23Sqs3HzxO+q9TQTwef4JqIYxISzTdkSDQch+SptjPb3L8CmzI/EUQq1NHWZt43oX/7TTkubQUVaVGbz0/pqk0NJtiqX+F41MpEppM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by TYYP286MB4523.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:199::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 15:24:30 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 15:24:30 +0000
+Date: Thu, 24 Sep 2026 00:24:29 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 05/11] PCI: rcar-gen4: Split reusable hardware
+ initialization
+Message-ID: <76sb4yufhu7erlpt5ndlas4aegasxeqpiz6l7vvdwxyjzbgb2m@rgabcdixifw4>
+References: <20260918032038.2216471-1-den@valinux.co.jp>
+ <20260918032038.2216471-6-den@valinux.co.jp>
+ <e99b8b02-861e-4980-b7a0-f0075640589d@mailbox.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e99b8b02-861e-4980-b7a0-f0075640589d@mailbox.org>
+X-ClientProxiedBy: TYCP286CA0179.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c6::7) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <80206444-d0c3-4dab-a5e3-a2909e58ea33@kernel.org>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYYP286MB4523:EE_
+X-MS-Office365-Filtering-Correlation-Id: e46d32f1-706e-4aed-5b4d-08df1986c35c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|366016|23010399003|7416014|376014|1800799024|10067099003|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Dvug2RcYfn6DvS2e4ByJ2M5pMq9U3rsRtlXMvyyz7YxUc2bSoJmtZ2k9x1Yj77ZJ5O0ABhFd04dD5x61hpyGfAxWFfRvLGS6XlVAv0xZZqBub81rIa1dNNVCXmZoOSrz31BB1CsLmwMVhZk5tm8LHRL3+/u6blZ/iBhtn9aDWi/D7wssr0XOkUPPHzT57Do7yheFcrKraSBqGmwfvHLAtyUcaY9ESZJhq7MKREjqezvukXklz0bg9ara2HQw85g3XodclFbxL1lymz9AJ8dA9F5c0PfuQylXlg2fyR6SweUZK45Lz6ZiLmGdpxAzl58qB882a++6CH6kariui0iU3b1SPu2B+faEQD2mmp7G+yhPUKRIK/IPXlNaS2ZnYWBG/G6nHTY+Tp370dhmP5SpynS+axCM5xiyEn386hoYtm13S9lGAeVe6gE3a7P5une6472uHYGnlh/HVUer4Q+1u2iiOuZHIbaIy9E4xYlU5/f79YaxQqmjpEjZEktLbyPXVVdhOADZOBGidxZM4dvph+vLLQzlVqHFIXai2ukMiasD5yN8+81rvS7iZ77v+RT8DQHFVUBharpkdZR9r6eORk4lRU4I5Oixd0iRxCc4SZPDbwpjOXYROUKuquCiu4P2cRJidQAV4aMTfTKdjSdZSBmQ66AUOmXdKRAwWP6XbXk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(23010399003)(7416014)(376014)(1800799024)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Yo0BSKACmtnTXrwhWCSaeaRAc5GdgyIiRDmug6fkRTyXNJS1hbsGnxnpM4Pu?=
+ =?us-ascii?Q?HiOzxloVZShG5yV9swBgz4onEUHVgZ1aPKlfiFnMgvd7wsHcBbKzn7FLeDmO?=
+ =?us-ascii?Q?z/N9OPcBjZPTkNAFan/+pcKoknrp6fe3nuvbIwtBvB7Z5zWnCmYU/hG3Z2fx?=
+ =?us-ascii?Q?AzuASq6rMtD1c/6P4yJ+847kTQ+6wJWwBpcb1gEtz29Z1yW7Fbf7Sllllb0b?=
+ =?us-ascii?Q?CpsDo72Wi1Jvbaj6TlyRSPE8Olw82Nhc0qmM7kDNjA6E04v5gfI8zL9E4C9Y?=
+ =?us-ascii?Q?goDgenZN9vmAnZvtM34lSiepTtW/kGfTieDugXCWiU2Krz9Fpr3Qr+GCleed?=
+ =?us-ascii?Q?o8Gf/LAI69mMVWmVj9OdWQa+eDoccyZVXcppPFDCn8dOS5YpDLGDvFlf3I84?=
+ =?us-ascii?Q?2wDx4AnB2yvPn0+ms9gYou2utSpwtq/4sHLo6mhTJrnqlQkfVV51Ils9e+JP?=
+ =?us-ascii?Q?OK7pcLRTqDZbKVHw6ExFxwWDGsyaWttEU/FG3fuKsbVTgY5Vq+TcvVIWKa/Y?=
+ =?us-ascii?Q?a63red82vRb9Y4yd9iZ223BnigoLxM2wTTZmvrC2akODIkEPgoHhAcZfK/c7?=
+ =?us-ascii?Q?t0xJIyEQxaJ6zvg/bz9KyPGBUHMS6bQB/MueLRW4HgXmNSgRPfn7hilaHN4A?=
+ =?us-ascii?Q?LfXH5pO+/yL4qfSbO2unw/vlV6ND7uCQ7GzLieVNMsjiZ/5C3k0g23vGnxKq?=
+ =?us-ascii?Q?ukZi7x+U4Vy0Kk/cYYGkzkw7v33GNybVm1Rk546f6cGgJFU5jUMdEEOBrszS?=
+ =?us-ascii?Q?u2d8VDi6EgA4CWPZW2nQ0PL0kKOj9yuIOf7uM1PckBTfnR1D0nvu02Co8kM3?=
+ =?us-ascii?Q?q5ntaM3osVDutNWpvy8gaoTvsDB+7FPQsTLmyOHlXm515UdBEjSUpY43m1sh?=
+ =?us-ascii?Q?TOW++A02SrFgqzfMsnfoPuB3U4ciFmX15ILB6kjFdZXuUO4/aDYvpJNaVsL2?=
+ =?us-ascii?Q?wNpqMp0GRZjB2sFsidgyRtbJwVNmVfZaamAElnC6YREZlrC0Xmcg6KOhHIdy?=
+ =?us-ascii?Q?X+K8+UkXGFOD83taXv/uxh536tPC+/H3hcBXH5klWaG3SyHABrgztRJZ16mi?=
+ =?us-ascii?Q?P44znG6a/ad0fa1QHdTATUZnW8OpR6Rxgto0yhDGdTf4vS2mwh9BxG1Sf91M?=
+ =?us-ascii?Q?JZz1ETG26ujx+Hfg4hpOP33Zfb3Iw2YGDzQop635Ab9qGbbKfKCxAn8axr5P?=
+ =?us-ascii?Q?3UgzNcsjFm5R+v/Uw0zkTflb7VZuboCd8b/Xx9e/wgyas8pv0uiD6zYPK6ok?=
+ =?us-ascii?Q?db3oIBvDUWCVYCh5UqlEySKLV4Y1E6RbU3oCAXGvLTRWYYkTBz1G6JL44aAM?=
+ =?us-ascii?Q?nsSHIsRuDbNfd/lOLbAoloFCfBmCBgKIkBMgo447O5KRigH2gzGYRfhXwOEi?=
+ =?us-ascii?Q?02C8mOSUFHzykyen0L2gUQLHu4ckhaQ+j7SsMmGAD5NscIBD64gtsTs53YS7?=
+ =?us-ascii?Q?nw86/7HccGAGmf7LbrsyUvjoN5qI4BrbP46VPfFIysVz3azndd1mMGWaKSVH?=
+ =?us-ascii?Q?f86EZ/8R/PK8QNW8/z2P6X6rUrrhUzEo3A2FHJAl3VSHPWRzQJke+GgoG4pv?=
+ =?us-ascii?Q?u79GqtOvO0H3GABHupjBerEtJx9WisKy583dezvL29ebeLWlLS4tvP06eLyi?=
+ =?us-ascii?Q?QB8YIq9QxhHFMYTWT4OrhY6tpwS4hur0qctFrr8i5uwPy6rMSvkJRGf9Jxke?=
+ =?us-ascii?Q?mr6f4pzbyKbTOcBYlIMrL++r6twZavVhuO/EXsmLMXxMqVdLyib5YvIAfnhL?=
+ =?us-ascii?Q?W998/sYtRpQfjb36dZA6Gm+QGKdutR8MbkzToaajEfM+42zuKr8l?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: e46d32f1-706e-4aed-5b4d-08df1986c35c
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:24:30.4577
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gBjKjAw32bRT2gyflmz99vKZerLAHmWQ8GFao7A5pdB7EBsxsY74COnkKDYIc9AGNiJTyqN23UEaWDmUxhRjJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB4523
 
-On Wed, Sep 23, 2026 at 08:32:29AM +0200, Vlastimil Babka (SUSE) wrote:
-> On 9/23/26 03:59, Gregory Price wrote:
-> > On Tue, Sep 22, 2026 at 09:05:58PM +0800, Lance Yang wrote:
-> > 
-> > There is some concern around NOLOCK here yes, in fact sashiko picked
-> > this issue up and I've been poking at it.
+On Tue, Sep 22, 2026 at 11:15:48PM +0200, Marek Vasut wrote:
+> On 9/18/26 5:20 AM, Koichiro Den wrote:
 > 
-> It's possible to document it as unsupported, add a VM_WARN_ON_ONCE etc.
-> It's not necessary for bulk alloc to support ALLOC_NOLOCK just because it
-> takes flags. e.g. kmalloc_nolock() supports a subset of gfp flags as well.
+> [...]
 > 
+> > +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> > @@ -178,23 +178,18 @@ static int rcar_gen4_pcie_common_init(struct rcar_gen4_pcie *rcar)
+> >   	u32 val;
+> >   	int ret;
+> > -	ret = clk_bulk_prepare_enable(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
+> > -	if (ret) {
+> > -		dev_err(dw->dev, "Enabling core clocks failed\n");
+> > +	ret = reset_control_assert(dw->core_rsts[DW_PCIE_PWR_RST].rstc);
+> > +	if (ret)
+> >   		return ret;
+> > -	}
+> > -	if (!reset_control_status(dw->core_rsts[DW_PCIE_PWR_RST].rstc)) {
+> > -		reset_control_assert(dw->core_rsts[DW_PCIE_PWR_RST].rstc);
+> > -		/*
+> > -		 * R-Car V4H Reference Manual R19UH0186EJ0130 Rev.1.30 Apr.
+> > -		 * 21, 2025 page 585 Figure 9.3.2 Software Reset flow (B)
+> > -		 * indicates that for peripherals in HSC domain, after
+> > -		 * reset has been asserted by writing a matching reset bit
+> > -		 * into register SRCR, it is mandatory to wait 1ms.
+> > -		 */
+> > -		fsleep(1000);
+> > -	}
+> > +	/*
+> > +	 * R-Car V4H Reference Manual R19UH0186EJ0130 Rev.1.30 Apr.
+> > +	 * 21, 2025 page 585 Figure 9.3.2 Software Reset flow (B)
+> > +	 * indicates that for peripherals in HSC domain, after
+> > +	 * reset has been asserted by writing a matching reset bit
+> > +	 * into register SRCR, it is mandatory to wait 1ms.
+> > +	 */
+> > +	fsleep(1000);
+> 
+> This fsleep here should only happen if the reset wasn't asserted before.
+> Is removal of reset_control_status() correct ?
 
-It seemed simpler to just support it than to create more future
-footguns.  I can RFC my current rework if you like, i attempted
-to deduplicate the logic via a prepare_alloc_flags() called from
-both the bulk and non-bulk contexts.
+You're right. Looking at the code again, adding the recovery path doesn't at all
+justify removing the reset_control_status() check. I'll fix it and restore that
+condition.
 
-But if we prefer the WARNs over adding the new semantics to the bulk
-allocator, that also doesn't seem unreasonable.
+Thanks for the review!
 
-~Gregory
+Best regards,
+Koichiro
+
+> 
+> >   	val = readl(rcar->base + PCIEMSR0);
+> >   	if (rcar->drvdata->mode == DW_PCIE_RC_TYPE) {
+> [...]
