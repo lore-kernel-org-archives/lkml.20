@@ -1,212 +1,313 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B052E8DE3
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790134349; cv=none; b=EwS7OlYPwAHA1ooPy+zynHmTUBiN+mUNGlnR7iR2KI+6vA3NDoGDhmiIYjG/N4oDkoavMmYG7Oy4TCH0Go6QPgzgEkLTlOIEoEXOC/dDBD8zpsoNOBUvt7v72E/uE6JKVob8T8o91jGSwNDSl9rDUGpm59SafQ47YbZshxn4LtQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790134349; c=relaxed/simple;
-	bh=LwPxSn6z8UiIL2XR/B/XxiBO7rUlTs9y3VQGDUoqfaE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=YN4tFrxispFSHnwttmEnNjFpy2w52LeBPedGVRqOanQjlc/dCC7JXHAHe/9QjQBd83rbFMP/XgX3vLAl2tkb9hkEeVXNBQWUGXuVYMvPQEFmASQBcoOYiNsLKYSbj+4wYUOiD1fzG6OHXV00lOlWE3k+VxGCPdEgowklkhsE6aU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b37620eb73so964192b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:32:27 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD533A7839
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790134372; cv=pass; b=lLBdnvewjydA106rRbE4Vd8gZcsTrPBMf8/ypTcDuVh7o1K/ONtBBZlu6Z1cG7mxtjTJzVAsHmcrEfHjjsiI78AhvATZvNCgPCzR+8t4nvDN6NPxYAA3BT9tO4NmayV/ZMHDqyQSnceXkTVeEunQ6eOi8jb2OMrpaAC3isi44uE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790134372; c=relaxed/simple;
+	bh=K1qPM9hjnXJfPu3SDCcdpkpSeBMlGT3kyoPhf0UKiAU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KBADI/N0fKWgtc8WTkDj3GtryJWAODmXqDhdTJf5ZlI/IP695hrUw1EPXGbg2jc99vterB8ZzbLvJaIIjjAWG0aC5cNQ6G//Lb+GYZZbAwRej7pHH7CTdtUAr/5U4AB3QptY13XMDk9MkeZLhuGAVYV5owrVgmVkgDYtPuiqijs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ayyR/xfw; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ayyR/xfw"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab201ebso492472d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:32:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790134360; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hiAc3Y5Lz5GT3TawzA7DGIvEIKiPAPcl/2dJN4gLYsTa8yzUgO/UJfVkumGkPuMFOf
+         cI4y5Uyi+RVNbojfrn53/rP9+aQTlzPXTmKcqHQNGK7w4vzrOnTireQqI4+tp+OPF//y
+         bGsrz6lYI/DuJUo+nWbyQMP6HD/K1mSRT+kQhm73NSzVwdQthZH6FK3MICuc6ew4U+wx
+         gmnXoadzR6vuGycMJ/vvBE4bC7FETsG/ZbLw3ycJup55WmNBZhwxm5J4JET08C0lDU5i
+         aU6ZJmfTjh3T+5fE6/E9T5KkiXti8t5orKA5HNDIuCDcMt+Bk0iSnDdHJMxMm9yc4LzD
+         KDaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=IADwZsna+z2G3DbifRLwGvdi1yVjeTXiluD0rHvc+iI=;
+        fh=csovmiaKLUedxGgKvEvkFGvg0pxwZBfIFEbKuZMSDB4=;
+        b=OO9lkB0PvH8LxxFtM0VxCHqNKxo4B2djunrcj3Lu8PRAMzz6yUnv74OZgv2w6JD3bm
+         wU2WEMFLpygSq0Wt3wncZ3y40bx8P6YoMs4lgW5p/06szhISg2PuCVNYg6h+X5GmHrcy
+         Z1Gmkdlb6F1a47quwmh+6yqcYuUuKYpZTgUqWED1syYCXa4YgYMn/9IdWAvkaTeaEAZ5
+         Wu1OteSqeeneRwniCl9nULPJ3P4K0r0z3o7MHvXSQ/RDI8Y5YVjW9kyAZg5bgWYbBoAq
+         py3Nyux5qHVljc774Ey6syR92QPc8VL/k0pIA/mwRaBKbW52j6eQvpp4jBY7ERt17Se8
+         GsIg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790134360; x=1790739160; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IADwZsna+z2G3DbifRLwGvdi1yVjeTXiluD0rHvc+iI=;
+        b=ayyR/xfwfTkXREDEgdkBV66tDxqUAHyfxw+Lr8vc9w2vUxSqxkZTd/ZgPqbhHpu1w2
+         QwwpJNhvy/gKKO3lGyqZJN2W4BBqOXP+i7iu88+5/PpWiopNhqZhxXrRoxzjYqwzAip2
+         2+00Y7sIFCbRjxDW1XltU6+HIEkFK1+URjT/qUsy6sIHq1N3E8qWox6HkMouHs4xqfwk
+         GBlfEbjPMp1quA7ACDeWUUZ6NY6e++fOxmtmrh+HowzNGfzmZX/2f/1BjQFjhVxTP+Fa
+         bwS4XnaJZEh2VS6/vJVvmN4wBKHfPQBq+WYlCG1Itff3RSQvYQBoH9QadVARWAiLHpq7
+         ZaxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790134347; x=1790739147;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ecdzmKoPOIWDjnigL6sfHg7MhoBwWGqxm5KzrWcgv4g=;
-        b=vnmvGz90lg7p/qza9X1TQfuLoJraPbjvEAr3nFh/lsNB7pFBJij76c8xqIbfLLOivY
-         8+gef+VjuQ0lTL+mEg/axTyclPLge+GKdBP3hN81fmqrHDs14Iv04b6Js+cTlABdBn7P
-         jg8O2XVEGYyj0WkSNLhdEu6baCsbPycg/1kit9jIvJY8JdhXURgyBeLzNHYIL1CSV7/s
-         mYeXOskUWJABIcsfacBBLQaLifyY87tlpR5iEcIgCMmZDtpH1PNKCutKhcEKcZXG/YJh
-         CZXtkspJ3GClQsXeW44y8NENWctCLiC03kIuwuaS5JruRt5pCQ8zZjQoyVBPlLt28mVI
-         e5uQ==
-X-Gm-Message-State: AFuF++m1vpDN4t6+jCbaTEOL8k8alw8HtNkjAJG7Vwz4PWewUEpJDa5h
-	9AYPb1cbUAV41aCShdVF9n2NwdeBwynogz/OSJSkLmcOOufyLvyrGWAABYDsU3XtaBJg0F+ADGx
-	LCEeTJnbQpnbsjaD4Ox4LhcMY+tmNeKiKdGyn566vjWvjyxXJiSsNeJQPv1c=
+        d=1e100.net; s=20260707; t=1790134360; x=1790739160;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IADwZsna+z2G3DbifRLwGvdi1yVjeTXiluD0rHvc+iI=;
+        b=Ayc6DZoipmmFdHjUU5CFyymfwC64UPzAruvPigsadXdrc53oJKroYfIKD5ny5xEZaA
+         viN/LHPzg9EyYAqk+F6h+P0/jUP76wws1btrO00GMLMLq4iuMWyrzpJSk0iQkdo3YwOR
+         8OSi+n+lE7EYMH2YuZwtuhdaEK4ENvdWJODWYyNBJu2yLM32irSgAO2MkitNH9dMpero
+         veU9cf1oJNo5lNynHiPP+EnBuLRju4p2lpn73YUkZqTejZXqPGSDxCuzmyzc0MMNOHB/
+         4fgROzjqdehWkzcvCxvuvH/U5ROSM7GQPoQUPEigYeOyBKq3wjHs2Wxp/DdymJhEFDkJ
+         d7nw==
+X-Forwarded-Encrypted: i=1; AKwUvByyW+cLqMi/4ltbKn8SoWOjXgXKt5Z+pJ6kLEZdMPqqdjhlB/nSP0JbZC3N5u0JFcHrLVGf3qf+d/YY9Uc=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0kX9fzyfxdG+SKwR+z7E9f9fs8FrWwoMgdhFpiBaRpCAuv2Nj
+	ERoShtYfkp/Ah7LTb/3loal+cK9GsSw/R5PQse/ZSN15FWYyE5FaCYgJR6EbLTTeo5Z054bWIJ6
+	ffIBI/rt43r9PgE+2vJZeuo43xnX5EwLu1Pbg
+X-Gm-Gg: AYBFou2gdUercamvadLu9h+NJaTPoeO4xAolGJLOqUo46ywhrFHg30zH6mKP+UbIcl6
+	ZGmXWpQzvJ8VJkRX9Z6LFGUrWZPOP/PC2Quz8rhwoWy+TJTmz8eIpWFvmBd+r0cPWJnBIgc9idu
+	47fgyzLr7yj16qwvYgkUitO5UNckQiaJE5g0Eon/4qa91TRbX+NkrxTv7KgdLRDwhxp0U1qUOOe
+	SiJrWjeRUwUYA0rLnI4zcTrBLCqUSiuU1GLUhvpQaDjlTQ0+cc3Bv6RrMpdljr4MNvxKiKHDk1t
+	9BY1BvXzkDY2zvpV30Y1yjjbjfqlF0hedLrF+sP4dHzTFQ2wDed7moDZzcG/OEyemHREnNRXhbC
+	QF2+n6gICWupXy/n4HaIGsjS1BZmHl+ioUPzuh5JabAImaxRvUAdLGg==
+X-Received: by 2002:a05:690e:d46:b0:672:a314:f3b with SMTP id
+ 956f58d0204a3-672d599edb6mr531510d50.155.1790134359954; Tue, 22 Sep 2026
+ 20:32:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:168b:b0:6b1:6f3d:2068 with SMTP id
- 006d021491bc7-6d2cf849f68mr1292080eaf.12.1790134346778; Tue, 22 Sep 2026
- 20:32:26 -0700 (PDT)
-Date: Tue, 22 Sep 2026 20:32:26 -0700
-In-Reply-To: <6aac8d73.87c06881.1db2b3.001e.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ab3484a.71f81b7d.15fa6d.0046.GAE@google.com>
-Subject: Re: [syzbot] [mmc?] [usb?] KASAN: slab-use-after-free Read in rtsx_usb_ms_handle_req
-From: syzbot <syzbot+3ee5da0319ca17ef1f4e@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
-	linux-usb@vger.kernel.org, maximlevitsky@gmail.com, oakad@yahoo.com, 
-	syzkaller-bugs@googlegroups.com, ulf.hansson@linaro.org, ulfh@kernel.org
+References: <20260903121938.7661-1-kartikey406@gmail.com>
+In-Reply-To: <20260903121938.7661-1-kartikey406@gmail.com>
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+Date: Wed, 23 Sep 2026 09:02:28 +0530
+X-Gm-Features: AcwNN1XLcCRqZ3dwAEcyeNO_SAQFBracNGZPqDQTPW2eXSCPoixNM1HuSvjNQAY
+Message-ID: <CADhLXY4MpFNrutY7D=BD96yTOeT2TjUPzgT3v8q8yXhwvNWtFg@mail.gmail.com>
+Subject: Re: [PATCH v4] usbip: vhci_hcd: let the driver core manage the sysfs attributes
+To: valentina.manea.m@gmail.com, shuah@kernel.org, i@zenithal.me, 
+	gregkh@linuxfoundation.org
+Cc: yuyang.du@intel.com, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+8753715f05759f1a10de@syzkaller.appspotmail.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-syzbot has found a reproducer for the following issue on:
+On Thu, Sep 3, 2026 at 5:49=E2=80=AFPM Deepanshu Kartikey <kartikey406@gmai=
+l.com> wrote:
+>
+> The vhci attribute group is created in vhci_start() and removed in
+> vhci_stop(), guarded by usb_hcd_is_primary_hcd(). Both run from
+> usb_add_hcd()/usb_remove_hcd(), which are called once per hcd, so the
+> attach attribute is live while only one of the two hcds exists: it is
+> created during the first usb_add_hcd() before vhci_hcd_ss is set, and it
+> survives the first usb_put_hcd() on removal. A concurrent write to attach
+> can therefore reach a NULL or freed vhci_hcd_ss.
+>
+> Register the group as dev_groups on the platform driver instead, so the
+> driver core creates the files before probe and removes them after remove
+> returns, and drop the sysfs_create_group()/sysfs_remove_group() calls fro=
+m
+> the driver. The attributes have always been created only on vhci_hcd.0;
+> an is_visible() callback keeps them there.
+>
+> vhci_init_attr_group() is moved into vhci_hcd_init() ahead of
+> platform_driver_register() so the group is populated before the core
+> reads it. The attribute array is still built at runtime because the
+> number of status attributes comes from CONFIG_USBIP_VHCI_NR_HCS and the
+> preprocessor cannot emit a variable number of __ATTR() declarations.
+>
+> Fixes: 1c9de5bf4286 ("usbip: vhci-hcd: Add USB3 SuperSpeed support")
+> Reported-by: syzbot+8753715f05759f1a10de@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D8753715f05759f1a10de
+> Tested-by: syzbot+8753715f05759f1a10de@syzkaller.appspotmail.com
+> Link: https://lore.kernel.org/all/20260815143427.19066-1-kartikey406@gmai=
+l.com/T/ [v1]
+> Link: https://lore.kernel.org/all/20260816015051.13184-1-kartikey406@gmai=
+l.com/T/ [v2]
+> Link: https://lore.kernel.org/all/20260816061034.17769-1-kartikey406@gmai=
+l.com/T/ [v3]
+> Assisted-by: Claude (Anthropic)
+> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+> ---
+>
+> v4:
+>  - add Assisted-by: tag (Greg)
+>
+> v3:
+>  - make vhci_attr_group static, drop its extern from vhci.h (Greg)
+>  - drop stray blank line in vhci_hcd_init()
+>  - fix indentation in vhci_sysfs.c
+>
+> v2:
+>  - use dev_groups instead of moving sysfs_create_group() into probe (Greg=
+)
+>  - add is_visible() to keep the attributes on vhci_hcd.0 only
+>  - move vhci_init_attr_group() into vhci_hcd_init()
+>
+>  drivers/usb/usbip/vhci.h       |  2 +-
+>  drivers/usb/usbip/vhci_hcd.c   | 36 ++++++++++------------------------
+>  drivers/usb/usbip/vhci_sysfs.c | 21 +++++++++++++++++++-
+>  3 files changed, 31 insertions(+), 28 deletions(-)
+>
+> diff --git a/drivers/usb/usbip/vhci.h b/drivers/usb/usbip/vhci.h
+> index 5659dce1526e..f3993238f91d 100644
+> --- a/drivers/usb/usbip/vhci.h
+> +++ b/drivers/usb/usbip/vhci.h
+> @@ -120,7 +120,7 @@ struct vhci_hcd {
+>
+>  extern int vhci_num_controllers;
+>  extern struct vhci *vhcis;
+> -extern struct attribute_group vhci_attr_group;
+> +extern const struct attribute_group *vhci_groups[];
+>
+>  /* vhci_hcd.c */
+>  void rh_port_connect(struct vhci_device *vdev, enum usb_device_speed spe=
+ed);
+> diff --git a/drivers/usb/usbip/vhci_hcd.c b/drivers/usb/usbip/vhci_hcd.c
+> index 39e8faf4c18c..22b9bad7ca31 100644
+> --- a/drivers/usb/usbip/vhci_hcd.c
+> +++ b/drivers/usb/usbip/vhci_hcd.c
+> @@ -1199,7 +1199,6 @@ static int vhci_start(struct usb_hcd *hcd)
+>  {
+>         struct vhci_hcd *vhci_hcd =3D hcd_to_vhci_hcd(hcd);
+>         int id, rhport;
+> -       int err;
+>
+>         usbip_dbg_vhci_hc("enter vhci_start\n");
+>
+> @@ -1230,40 +1229,17 @@ static int vhci_start(struct usb_hcd *hcd)
+>                 return -EINVAL;
+>         }
+>
+> -       /* vhci_hcd is now ready to be controlled through sysfs */
+> -       if (id =3D=3D 0 && usb_hcd_is_primary_hcd(hcd)) {
+> -               err =3D vhci_init_attr_group();
+> -               if (err) {
+> -                       dev_err(hcd_dev(hcd), "init attr group failed, er=
+r =3D %d\n", err);
+> -                       return err;
+> -               }
+> -               err =3D sysfs_create_group(&hcd_dev(hcd)->kobj, &vhci_att=
+r_group);
+> -               if (err) {
+> -                       dev_err(hcd_dev(hcd), "create sysfs files failed,=
+ err =3D %d\n", err);
+> -                       vhci_finish_attr_group();
+> -                       return err;
+> -               }
+> -               dev_info(hcd_dev(hcd), "created sysfs %s\n", hcd_name(hcd=
+));
+> -       }
+> -
+>         return 0;
+>  }
+>
+>  static void vhci_stop(struct usb_hcd *hcd)
+>  {
+>         struct vhci_hcd *vhci_hcd =3D hcd_to_vhci_hcd(hcd);
+> -       int id, rhport;
+> +       int rhport;
+>
+>         usbip_dbg_vhci_hc("stop VHCI controller\n");
+>
+> -       /* 1. remove the userland interface of vhci_hcd */
+> -       id =3D hcd_name_to_id(hcd_name(hcd));
+> -       if (id =3D=3D 0 && usb_hcd_is_primary_hcd(hcd)) {
+> -               sysfs_remove_group(&hcd_dev(hcd)->kobj, &vhci_attr_group)=
+;
+> -               vhci_finish_attr_group();
+> -       }
+> -
+> -       /* 2. shutdown all the ports of vhci_hcd */
+> +       /* shutdown all the ports of vhci_hcd */
+>         for (rhport =3D 0; rhport < VHCI_HC_PORTS; rhport++) {
+>                 struct vhci_device *vdev =3D &vhci_hcd->vdev[rhport];
+>
+> @@ -1513,6 +1489,7 @@ static struct platform_driver vhci_driver =3D {
+>         .resume =3D vhci_hcd_resume,
+>         .driver =3D {
+>                 .name =3D driver_name,
+> +               .dev_groups =3D vhci_groups,
+>         },
+>  };
+>
+> @@ -1541,6 +1518,10 @@ static int __init vhci_hcd_init(void)
+>         if (vhcis =3D=3D NULL)
+>                 return -ENOMEM;
+>
+> +       ret =3D vhci_init_attr_group();
+> +       if (ret)
+> +               goto err_init_attr_group;
+> +
+>         ret =3D platform_driver_register(&vhci_driver);
+>         if (ret)
+>                 goto err_driver_register;
+> @@ -1568,6 +1549,8 @@ static int __init vhci_hcd_init(void)
+>  err_add_hcd:
+>         platform_driver_unregister(&vhci_driver);
+>  err_driver_register:
+> +       vhci_finish_attr_group();
+> +err_init_attr_group:
+>         kfree(vhcis);
+>         return ret;
+>  }
+> @@ -1576,6 +1559,7 @@ static void __exit vhci_hcd_exit(void)
+>  {
+>         del_platform_devices();
+>         platform_driver_unregister(&vhci_driver);
+> +       vhci_finish_attr_group();
+>         kfree(vhcis);
+>  }
+>
+> diff --git a/drivers/usb/usbip/vhci_sysfs.c b/drivers/usb/usbip/vhci_sysf=
+s.c
+> index a7ede6fb3da9..d87d9e449d72 100644
+> --- a/drivers/usb/usbip/vhci_sysfs.c
+> +++ b/drivers/usb/usbip/vhci_sysfs.c
+> @@ -497,8 +497,27 @@ static void finish_status_attrs(void)
+>         kfree(status_attrs);
+>  }
+>
+> -struct attribute_group vhci_attr_group =3D {
+> +static umode_t vhci_attr_is_visible(struct kobject *kobj,
+> +                                   struct attribute *attr, int n)
+> +{
+> +       struct platform_device *pdev =3D to_platform_device(kobj_to_dev(k=
+obj));
+> +
+> +       /*
+> +        * The attributes control every controller and have always lived =
+on
+> +        * vhci_hcd.0 only.  Keep them there now that the driver core cre=
+ates
+> +        * the group for each device.
+> +        */
+> +       return pdev->id =3D=3D 0 ? attr->mode : 0;
+> +}
+> +
+> +static struct attribute_group vhci_attr_group =3D {
+>         .attrs =3D NULL,
+> +       .is_visible =3D vhci_attr_is_visible,
+> +};
+> +
+> +const struct attribute_group *vhci_groups[] =3D {
+> +       &vhci_attr_group,
+> +       NULL,
+>  };
+>
+>  int vhci_init_attr_group(void)
+> --
+> 2.43.0
+>
 
-HEAD commit:    c4e9f74da438 Merge tag 'v7.3-p5' of git://git.kernel.org/p..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=160ea515580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
-dashboard link: https://syzkaller.appspot.com/bug?extid=3ee5da0319ca17ef1f4e
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15670d25580000
+Gentle Reminder. Please let me know the status of this patch.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+3ee5da0319ca17ef1f4e@syzkaller.appspotmail.com
+Thanks
 
-usb 5-1: New USB device found, idVendor=0bda, idProduct=0129, bcdDevice= 1.00
-usb 5-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
-==================================================================
-BUG: KASAN: slab-use-after-free in rtsx_usb_ms_handle_req+0x173b/0x1a00 drivers/memstick/host/rtsx_usb_ms.c:528
-Write of size 4 at addr ffff88802dba2074 by task kworker/2:4/5905
-
-CPU: 2 UID: 0 PID: 5905 Comm: kworker/2:4 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: events rtsx_usb_ms_handle_req
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- rtsx_usb_ms_handle_req+0x173b/0x1a00 drivers/memstick/host/rtsx_usb_ms.c:528
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 38:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2f8/0x6d0 mm/slub.c:5563
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- memstick_alloc_card drivers/memstick/core/memstick.c:383 [inline]
- memstick_check+0x2c1/0x10d0 drivers/memstick/core/memstick.c:452
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 38:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6508 [inline]
- kfree+0x22b/0x6d0 mm/slub.c:6801
- memstick_alloc_card drivers/memstick/core/memstick.c:420 [inline]
- memstick_check+0x72b/0x10d0 drivers/memstick/core/memstick.c:452
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff88802dba2000
- which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 116 bytes inside of
- freed 2048-byte region [ffff88802dba2000, ffff88802dba2800)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88802dba5000 pfn:0x2dba0
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000240 ffff88801c042f00 ffffea0000dda410 ffffea000074f410
-raw: ffff88802dba5000 0000000000080006 00000000f5000000 0000000000000000
-head: 00fff00000000240 ffff88801c042f00 ffffea0000dda410 ffffea000074f410
-head: ffff88802dba5000 0000000000080006 00000000f5000000 0000000000000000
-head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5751, tgid 5751 (syz-executor), ts 52051381762
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35d0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab mm/slub.c:3462 [inline]
- new_slab+0xa9/0x6e0 mm/slub.c:3513
- refill_objects+0xe3/0x410 mm/slub.c:7417
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x67c/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- cache_create_net+0xa2/0x1f0 net/sunrpc/cache.c:1739
- unix_gid_cache_create+0x60/0x130 net/sunrpc/svcauth_unix.c:875
- sunrpc_init_net+0x71/0x1b0 net/sunrpc/sunrpc_syms.c:49
- ops_init+0x1e2/0x5f0 net/core/net_namespace.c:137
- setup_net+0x118/0x3a0 net/core/net_namespace.c:443
- copy_net_ns+0x345/0x7a0 net/core/net_namespace.c:582
- create_new_namespaces+0x3ea/0xac0 kernel/nsproxy.c:132
- unshare_nsproxy_namespaces+0xf2/0x220 kernel/nsproxy.c:234
- ksys_unshare+0x4a2/0xa70 kernel/fork.c:3295
-page last free pid 5718 tgid 5718 ts 42990443667 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
- alloc_filename fs/namei.c:147 [inline]
- do_getname+0x35/0x390 fs/namei.c:187
- class_filename_flags_constructor include/linux/fs.h:2586 [inline]
- do_sys_openat2+0xc7/0x1e0 fs/open.c:1416
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x12d/0x210 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff88802dba1f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802dba1f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff88802dba2000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                             ^
- ffff88802dba2080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88802dba2100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Deepanshu
