@@ -1,165 +1,162 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C6A57F73D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176956; cv=pass; b=kxz16+jydbOwbA9pOn98gPptKkpuGnEmo8x+pmZ/gBZvkouxI8IEvnbkTHjORtTkMY5fFeb6QBUFELbkZJs7LleksCKn5qQUI83dhYemBupCMKphfIrgy0D+Wnh3R0h04Yb0eCWYuw5d4BbNeROgAa99SIqd3uUHfnBiff+Yn4E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176956; c=relaxed/simple;
-	bh=k52FAz1VeVA/rpXiXnrdLNg/c0mGxAcxoMRWsw09e38=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BwZKULBD6eiI+Dpd+NrGxxMRz+Kzf9fyiKhBQ0lEZ3j1Kgun9KenWBDlIYS3+nRQvT170ybmYxhgcMy6OBPexPytJKl/6l37yf/xTYOFEaVm2ynaTQoGCmow6r7C5Z2uSOFzj/0hXfInRF/mYo8Ep5lCJmSYToBfB9aLFzmhk0w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anyfinetworks.com; spf=none smtp.mailfrom=anyfinetworks.com; dkim=pass (2048-bit key) header.d=anyfinetworks-com.20251104.gappssmtp.com header.i=@anyfinetworks-com.20251104.gappssmtp.com header.b=yfU6/ylX; arc=pass smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=anyfinetworks.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=anyfinetworks.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69BB758039C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790176960; cv=none; b=bmSEQbB5GwTJgvV8LkAApf6Q8xv/e04BxORcTr4gNkVKsYWoDIkRCw1VAoYLtGO68lB/jWo0VWt0ZXZIdbCNX6trRHXrL5b9Cok2pMJNmoEnZMFX4SP2M/BiOXXkKjxT9R+1HI3h8h/uQeDHdVKhEQPd8q66E8SKTaylbuFp+QE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790176960; c=relaxed/simple;
+	bh=yY0kJfI01Rw2AfDbOCtrdQF+byY/coJMlcJ81UoBYXA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fv8SkuTm4gL1yn+nKoMLZTVh7s9V8wTw0K1hh8DqoZXoCVK86/37mesrqjiLB5UO6tDf5o3kGm+u7z5D6S8QyiZKVrPuAhC/gp6E+bZIqvNfwG5x1lA2pW0F5fRhwfn4HyzVTGZR00aVSBjsf0jn3AUlgiKVGYnaswuSWg7Zyd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jMkC+Zmz; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=anyfinetworks-com.20251104.gappssmtp.com header.i=@anyfinetworks-com.20251104.gappssmtp.com header.b="yfU6/ylX"
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-7856441f7d9so424117137.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:22:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790176954; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MQiQeiwmdm47eYFUO6P0b+OfVnNJHqNlfY6RL3ziQYymmjlaukB3MZSxmEF1Rov8mz
-         QVvpGEYQb4tD2MzBrq+fOiQtsStiJCjsDo+bBEC4QKg8vfTpr0TEkI5H9yEIbRHEriJ3
-         YRBQsxwYnQ0s7b9p6y88S+wUXoUEfIraDKvQRkfxu0oemHT2b4J3eROO7t/gVwXiZSDA
-         6YZXjVV09ndH7zVG3pgvo9rtPb8QiabJ6ASm4EvRsHvcgZahSa3z0R95uZ70ngOi4Q0Z
-         /guTimCM0QhjTn6bsiF2Bsg3C6uOf6YgMZZVmy25rwk+qsJetYn6Zy6YbHvyir6Tvnoo
-         61lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=iZ8RpPQpWuomiLvwjk3uovF6+uc5LQwN2VY4ctUFEBc=;
-        fh=2BRcIset3gzdoqbhQQTd1W2vnCXlS4Oep1RkzrO45qY=;
-        b=p529VMf5/vleZHO8rOcnNXkYzT8Wu5MDrnFJ1zXPwJ1Nr4Wbzu5ji/a73OmhjY/eRB
-         3aySzjxB7MJ1pnt4p52FfG5oOppoTxxUgcUyy6FituD6OsZ9XojSOrM5DL+LIOAn3r1M
-         7VkfgmsC6bOZeMm9ZVMdy36YR9GqvOQoyZbG46JtQjJDOq4wxrn7AqWkLYCwMcQRKOIB
-         lOpBrYrk4DPOLe0xiFMcqRJlXV8UNr/LmvVeiJ7dB+12uY1uapKkPNwivcJDfWIxmUrO
-         3y0mK4eq+tW+/QTQM2ztOKlTIA4d6GB+jK3VkIIXZU7QNDsQhanZn2gkOh9i+5lSzF5R
-         EJ6g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jMkC+Zmz"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso13711645e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:22:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=anyfinetworks-com.20251104.gappssmtp.com; s=20251104; t=1790176954; x=1790781754; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iZ8RpPQpWuomiLvwjk3uovF6+uc5LQwN2VY4ctUFEBc=;
-        b=yfU6/ylXO3OdTM0k+QgkBxEUvb/719Dq7FSFJCATdd9ylvzQK6MF+5QiYAjSf87ez+
-         Pu0it2eiPmz9yWhxZ+/XBYeiydwciL+5NkOzKk554o7gTaM8d9m8OLZ5IWtKQD8g0Hl9
-         9u+l+S/NcgC/gbvRgg430bI4WZHwTLGtJqi7j3iuhUuECnWRPcgbGxEa6auMhZxvgfsT
-         BXOvlmjNQKI3cHfTnU0DOPtTPyWc0mrix5zIjCqNy4NBhepMJmfNvCNasEqGh9uOFmXw
-         1x6V4OVHwnMpknOPg3AMg0FMSpEKorVpKinmfl2O+fzWNx3Ai1XbiIgEVFABPJhzXDlT
-         PpVA==
+        d=gmail.com; s=20251104; t=1790176956; x=1790781756; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2MN0kXIQBzh7Av0NtqnLLt7RvllEa0igVF7Jr0x+c5s=;
+        b=jMkC+ZmzpnLFrJ7tGa1+2bNjFN/pgh8yQFcDCIAjn4i04yNu+prMvtqoF3277Wj+fQ
+         CLgVqsHtlbcY8IOyhoQUyxCECf9eVWPz5xSiDEBYTXcY0gXewQNKpq9is0KY3S5DyVuc
+         kAfCvTVeMomq5JTIhHMK9SBy7TJYOUpyWNkFvMcGZGjOefRv73EDwvrGuqKlnwrmLYFR
+         d0UIJ8wUFp02HhTkfpGXxdsxSN7vrePPsax8Oa9gOt8WjdCr1W8kzk7u+Z3iPJ4Bpgph
+         1i5LYPYNX9PlgGbuhjJa+hV2aMZwODZSmAcZQlFDQ/cPys3PpQtQeefNp6A7QZ7LckiZ
+         wx7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790176954; x=1790781754;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iZ8RpPQpWuomiLvwjk3uovF6+uc5LQwN2VY4ctUFEBc=;
-        b=JGuP6F/MdqjpvuJLv8ao3ypxQSkXk5Umt6UBlyeoOJ3k1HgQFWnteuZ+M18KvzpP+N
-         k/FldoI7eFHNV9QsdmIF9DsCVpvECg3ZLBy5mdycJFA56+6/vx4Z46hC0dQP/GyZWUSJ
-         bHdD/I0gEy2LSrz7g5cI6kpfKWIericrP3lyDqHyWI8t4PpVLN/8I+ClaqgkqW51RCLm
-         4yP/foNIbRSyqINnJWjRzxWUfXEPocjFeiMsoH0XzBSBt0APzCK7m4miyxzPfa/CKOIv
-         v7FhxiGkdTm1pxRkCtMkYnscyrDlDpP8Qn8gNyTAy2vlmPiDJSDUmtb7xwQtTbsiqOMk
-         BD7g==
-X-Forwarded-Encrypted: i=1; AKwUvBxJNxwTxoPNxM7JV7Tdg3hAcwPJR/zlA634ADd+gsbL4qg/StNlsXIm5horlbdqARZwe+kypeGGrNdF9uI=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7yvqQ6Y3lAZU5y2G6x5SgzdIVhVdJVVZgUlqF2qD19WbYa1T3
-	Zjg3z6yau+4J76fTugvTNEKlFrZ+P6WUw2934C1Ux7L2JSLO7UFuaNuAd+NDMYbh1HkRqbrWGuw
-	qr/vCeiaoVBm6mxEIFclV6dNLdcuK8VF44LSPqx90Sw==
-X-Gm-Gg: AYBFou0HSfOq3ud+5TNdugtgWALoH0nIdaeiWlkQoSD+1rezaqeOXCYjKopmriZ90ui
-	K35KaSq9NJwRJhVdqZBW7v0Auf6BtUo79PsgUn7UECFcr3mA0pKFglRKtvlquS/JjDUyxLFFNnm
-	Bl402a9K2lWHvb2RqHAC4gtcAdIaLivcI3m+v2fnzy27TsEGgre+qwp/FVHUCAeBj2Kpqy+aFKb
-	VfWpAboSTz3C3YQSqI7YEjPcjbWmyz2pf1vkO/ISrF31vaLSsn/HTtlq8p3GwBRzcL3/K2k2N4S
-	o1lXPySljseJM289rSSslPvoL0DZ1VI9rrwuAcIEjXzLJJymt8a4RGE=
-X-Received: by 2002:a05:6102:14a1:b0:7a7:7d3c:248c with SMTP id
- ada2fe7eead31-7ac1b9284c2mr2783278137.11.1790176953250; Wed, 23 Sep 2026
- 08:22:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790176956; x=1790781756;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2MN0kXIQBzh7Av0NtqnLLt7RvllEa0igVF7Jr0x+c5s=;
+        b=yHZ23VS7dy9OHxt7RfUj5kSGRR/IkDH3Q8go9XW53EjG4STivy5jPwmPz/wmylh2PO
+         FrTNjG01VWKrvElqetOKOAF0gnipcBm+qhO+VkZuc8G0EWmLOYM287QiqQQdAHhYgD8J
+         bGdb8IjS+Si/WHWckaDEAGsERTcucE4RXFWYdi2ITKFcKoxAdlrRWKfeu4Gl2j+7oZNg
+         EPXH5NKxTb2JfxD5w1YB4YvzxFoNKlPFcGzjpw1QMhOr6Exfg//fYaCXN2QpV/m0YrQU
+         NMpw5ckr4pM2zPEUJYlJpA6LAq0sHhm/Oj1Iw5JgJbWloBsN1XDXyJV+XhOPHGQ1vcid
+         DKtA==
+X-Forwarded-Encrypted: i=1; AKwUvByTnfbPDlip/j33fBFyrkwUKVYk3uCevxjcWlujtYTlZ4nbhT5tTT/thjwFURSdZEAQwMLvM//F9fn5Do4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJOQ8GYs/wB7os9qyLyKTEc0j/wutQ2rp+A5GYcOhQxgXGCKut
+	S4LbDOeaIRiaLznsR5C/C30KVttoNidDLSfQ/obrCpPu034V9tRMlisu
+X-Gm-Gg: AYBFou0fFA74PbwNhqos70Ky4PSdyuNFaeLGFkFP6ZVqUYq/gZGNHXVo/4p8P8mcwEQ
+	CqbMm8gw5A1O0mI2EzcwlRCW7dLgKg0RFlxTfM7teIeC8xXT5aAK3Yd+S0CZXy83aLSQdxQIZtq
+	5NYPlgAcvmMc/QVfI69hnyIREnF76tnoyaT+fZgZLkcoLWmngTejh5076BxpWmV/ddgh5Q2amAH
+	H6Lxwco+Z1xlXptr83b4U6az9vGhFl8Nq4CiwERV0zGAo3OuqGoxg6NWm4eJnWd8mghUdo0EKDl
+	UVYC1i4LY1fSCtK6+q9A+pVHMvLcop+QOnHT/NVVs1PXiXpgUu/cznsZpqJRr4nKJserKPUtFM3
+	sa9RC8x7+1JXU053rno/O03QXwFnwwd8q5+btMnyFtYmZVEZlWWv8PFu6U3l2yA2Mu4ajGBN26t
+	IbVl5Lf/Zo281OxLacYGq9/4GIIi5IavXBQucsrfDuNYBwb7nM1ppUCiLvhSdInQyQqcu+FheKi
+	WRSayxiM6bEOt1ajGkaoEwPG2cNB9onBcw=
+X-Received: by 2002:a05:600c:4e05:b0:49f:bd3c:bc16 with SMTP id 5b1f17b1804b1-49fdf1371f6mr41833485e9.17.1790176956473;
+        Wed, 23 Sep 2026 08:22:36 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe14322c0sm72636225e9.5.2026.09.23.08.22.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 08:22:36 -0700 (PDT)
+Date: Wed, 23 Sep 2026 16:22:34 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: x86@kernel.org, Thomas Gleixner <tglx@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Ingo Molnar <mingo@redhat.com>, Borislav
+ Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter
+ Anvin" <hpa@zytor.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 2/2] x86/uaccess: Drop the address space qualifier
+ from put_user()
+Message-ID: <20260923162234.394061af@pumpkin>
+In-Reply-To: <CANiDSCt9nOM8OWY21Q=ei5dmOK2O+DB1aYdd9NrbLt3e+pJPUg@mail.gmail.com>
+References: <20260914-unqual-v2-0-60a1407a0cd4@chromium.org>
+	<20260914-unqual-v2-2-60a1407a0cd4@chromium.org>
+	<CANiDSCt9nOM8OWY21Q=ei5dmOK2O+DB1aYdd9NrbLt3e+pJPUg@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260912041220.444715-1-main.kalliope@gmail.com> <20260912041220.444715-3-main.kalliope@gmail.com>
-In-Reply-To: <20260912041220.444715-3-main.kalliope@gmail.com>
-From: Johan Almbladh <johan.almbladh@anyfinetworks.com>
-Date: Wed, 23 Sep 2026 17:22:22 +0200
-X-Gm-Features: AclHuK9RzOpNJXNF7_8ky-O5PRlAZRO1N6Z9BojyMo80dP_J3h_DY_FPoZ03fvM
-Message-ID: <CAM1=_QTjcyMtMLawSFnCt2c5wJJ-if40GSfo+o-CoZqcgx5wYQ@mail.gmail.com>
-Subject: Re: [PATCH bpf-next v3 2/2] bpf, mips: Add support for BPF_MOVSX in
- the JITs
-To: Nicholas Dudar <main.kalliope@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, 
-	memxor@gmail.com, paulburton@kernel.org, tsbogend@alpha.franken.de, 
-	martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev, 
-	jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev, 
-	bpf@vger.kernel.org, linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Nicholas,
+On Wed, 23 Sep 2026 13:08:20 +0200
+Ricardo Ribalda <ribalda@chromium.org> wrote:
 
-Thanks for the v3 series. Looks good, with one minor comment below.
+> Friendly ping?
+> 
+> On Mon, 14 Sept 2026 at 15:53, Ricardo Ribalda <ribalda@chromium.org> wrote:
+> >
+> > __typeof__() preserves every qualifier, the address space included.
+> >
+> > When we do __typeof(*__user *int), we are declaring a __user integer,
+> > which is pretty much meaningless. A value in a register or in the stack
+> > does not live in the user address space.
 
-I have applied all three of your patch series together, along with the
-two fixes I just submitted, on top of the base commit 15972a29ac91.
+Doesn't that mean it is a smatch bug - so should be fixed there.
 
-Nicholas Dudar (6):
-  bpf, mips: Factor out div/mod emission helpers
-  MIPS: uasm: Add signed div/mod and sign-extension emitters
-  bpf, mips: Add support for BPF_SDIV and BPF_SMOD
-  bpf, mips: Factor register moves into helpers
-  bpf, mips: Add support for BPF_MOVSX in the JITs
-  bpf, mips: Add BPF_MEMSX support to the JITs
+Somewhere in the middle of this there ought to checks that the value
+is the correct type (eg pointer v integer) and that, for put_user(),
+the destination pointer isn't const.
+Using:
+	auto __x = 0 ? *ptr : x;
+can be more succinct than other versions - might not help here.
 
-Johan Almbladh (2):
-  bpf, mips: Fix immediate JMP JEQ/JNE on MIPS32
-  bpf, mips: Fix BSWAP 32 and 16 on MIPS64
+David
 
-I ran test_bpf on QEMU targets, with the following results. All tests
-pass on all 12 targets tested.
+> >
+> > This annotation did not trigger any error until a recent version of
+> > smatch[1] started caring. And as a result of that now we have tens of
+> > warnings like:
+> >
+> >   drivers/media/usb/uvc/uvc_v4l2.c:1112:13: warning: incorrect type in argument 2 (different address spaces)
+> >   drivers/media/usb/uvc/uvc_v4l2.c:1112:13:    expected void const *from
+> >   drivers/media/usb/uvc/uvc_v4l2.c:1112:13:    got unsigned int __user *
+> >
+> > Instead of __typeof__() use TYPEOF_UNQUAL(). It maps to
+> > __typeof_unqual__() in recent compilers, so the address space annotation
+> > is gone.
+> >
+> > [1] https://github.com/error27/smatch/commit/e53027a4e816a772403baafa83c09e4a94c1cb8f
+> >
+> > Suggested-by: Dan Carpenter <dan.carpenter@linaro.org>
+> > Link: https://lore.kernel.org/r/20260825-unqual-v1-2-7024fb81b4f9@chromium.org
+> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> > ---
+> >  arch/x86/include/asm/uaccess.h | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/arch/x86/include/asm/uaccess.h b/arch/x86/include/asm/uaccess.h
+> > index 3a0dd3c2b233..4e576c0b9131 100644
+> > --- a/arch/x86/include/asm/uaccess.h
+> > +++ b/arch/x86/include/asm/uaccess.h
+> > @@ -172,7 +172,7 @@ extern void __put_user_nocheck_8(void);
+> >         int __ret_pu;                                                   \
+> >         void __user *__ptr_pu;                                          \
+> >         register __typeof__(*(ptr)) __val_pu asm("%"_ASM_AX);           \
+> > -       __typeof__(*(ptr)) __x = (x); /* eval x once */                 \
+> > +       TYPEOF_UNQUAL(*(ptr)) __x = (x); /* eval x once */              \
+> >         __typeof__(ptr) __ptr = (ptr); /* eval ptr once */              \
+> >         __chk_user_ptr(__ptr);                                          \
+> >         __ptr_pu = __ptr;                                               \
+> > @@ -231,7 +231,7 @@ extern void __put_user_nocheck_8(void);
+> >
+> >  #define __put_user_size(x, ptr, size, label)                           \
+> >  do {                                                                   \
+> > -       __typeof__(*(ptr)) __x = (x); /* eval x once */                 \
+> > +       TYPEOF_UNQUAL(*(ptr)) __x = (x); /* eval x once */              \
+> >         __typeof__(ptr) __ptr = (ptr); /* eval ptr once */              \
+> >         __chk_user_ptr(__ptr);                                          \
+> >         switch (size) {                                                 \
+> >
+> > --
+> > 2.55.0.1007.g17ff1f9808-goog
+> >  
+> 
+> 
 
-MIPS32r1/r2/r6, big and little endian:
-test_bpf: Summary: 1062 PASSED, 0 FAILED, [1041/1050 JIT'ed]
-
-MIPS64r1/r2/r6, big and little endian:
-test_bpf: Summary: 1061 PASSED, 0 FAILED, [1040/1049 JIT'ed]
-
-> +/* Register move operation (32-bit), optionally with sign extension */
->  static void emit_mov_r32(struct jit_context *ctx, const u8 dst[],
-> -                        const u8 src[])
-> +                        const u8 src[], s16 off)
->  {
-> -       emit_mov_r(ctx, lo(dst), lo(src));
-> +       switch (off) {
-> +       case 8:
-> +       case 16:
-> +               emit_movsx_r(ctx, lo(dst), lo(src), off);
-> +               break;
-> +       default:
-> +               /* off == 0 is MOV; the verifier rejects other offsets. */
-> +               emit_mov_r(ctx, lo(dst), lo(src));
-> +               break;
-> +       }
-> +       clobber_reg(ctx, lo(dst));
->         emit_zext_ver(ctx, dst);
->  }
-
-The naming is a bit confusing. The name "mov" means two different
-things here: 1) an instruction with opcode BPF_MOV, 2) a MOV
-instruction (as opposed to MOVSX). I would suggest the following name
-changes, applied to both 32-bit and 64-bit JIT variants. This would
-make it consistent with the rest of the JIT and solve the MOV naming
-ambiguity.
-
-emit_mov_r32 -> emit_mov_movsx_r
-emit_mov_r64 -> emit_mov_movsx_r64
-
-I would also put the clobber_reg call last, after all emitter calls.
-
-For the series:
-Tested-by: Johan Almbladh <johan.almbladh@anyfinetworks.com>
-Acked-by: Johan Almbladh <johan.almbladh@anyfinetworks.com>
-
-Thanks,
-Johan
