@@ -1,64 +1,64 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE23351DAED
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:11:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9051857ED8C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194271; cv=none; b=I4XEmgwQfzvio8BULvI1Evx9IAtXeQH2u/K6RGLFrCDM6x7HFA5I6vqAMcIYm5VR15X2cDQ+9eXWnj1KVEJL3C7mxDYpoT0gKvCGEUAs5T2PvYCQQwN1RUHXeWerpJeRMpzuWN0zUeX+cgur5cDsxLH5TCKXP3Hl8f48d3lDPtg=
+	t=1790194271; cv=none; b=lRAGdwmtyFQXIUPY8RKH+GcaHEDU6TI/aJSdMBEr26y87WIuzgexheNg9QEKYSlxB1Bh/DvlALZhjudZb8gWRv3muFp4EaEpQrm24GcwG052nXj8ykROktohNRbaX1+q7lZyvyxXJgrB7PJ3934UySwjsCryWWJMDzpbgm1ESx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790194271; c=relaxed/simple;
-	bh=0bOxnq+Qjeh+sxAlHlASgbdrTP5Xke/gEBsr1dGPWwc=;
+	bh=MGegY49PyrX5dI2WXMEBmc92kvSEAfIxTrxpSA/jTWo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=E+9PnDTCY++4/5/Li9OMrfcan2r5hiScCadTHCmliOiuRZzLhf9641gy+Y6myRddMkbC5eJz/Eozve55Z/1McDeP9TuCC1+JVO6HzxTZnXnxtcvFjOHzGj6mcqxzfH1cw8eUPux/3ZgHPTtsCh4n51oz2f+0WnXjWNvgqHC5hBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxa86pxk; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=YXdUITZZsWNfCdAqFFiVwQa1H61cFRlRaCd0auW8zqTjrk8ll+BZF//aKg1jMD/g/UpQZs9OWU6pRFETx15xPNIv0Zyy12hfL2Syfh9sU4vKewLHuYpFezHpV3xiymV5bUZ52MTAshxv0f16twTSJ1iQHX2SbrCZNt4n0qxgm8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sJV3KT2J; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxa86pxk"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e4ad9so7773005e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:11:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sJV3KT2J"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e2406so6611265e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:10:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790194259; x=1790799059; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790194254; x=1790799054; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OHFYvczNQQ8zbB57FCazhQfFZ5fguvDLVHqTQCN5Cj0=;
-        b=cxa86pxks2OvJmhjl2gKHFKGCbvSm269fshF+eV+GcZMI7KpHBFDJqDjXJpFxqxXGa
-         AtowXnFpYspunZOSHqIrDcTnVkncgQsyXm25ODPh3MFB548CuLtZOxxijFcZFwy778/T
-         7xdDnWLp0eaITiv6wF/REXpQYtmKjcXdybIOBhbTo3a7vmon/LGMB6LT2bzbFVgi8YDk
-         vi5FidlCoXEKwW4saaViCVIMpeafWRVrWDgdQj1WxhcE1lezbF355e46YbtLHHEUYqTn
-         vo0fzCYx/RD5kFZ6C8FvZ12iDNFibFBU2zfDgovkD9pUBOm/zu9+LKvI6WmDiFLfzaYv
-         DyZg==
+        bh=KzWnvXvBcRYh23VzcFk9fIrKKbovPKtd+dDK4CYg1CA=;
+        b=sJV3KT2JPwcsLZnEEveDSmtWGeXz57ilHAD+b+Wet1VQ4DqqSxWM+d9Y5RyRr/6Ycz
+         vPaN7To38SaSL5d5TKit7/AWP664F62EALQjtRpyt42TNgc8suM2LIVWwFuwuW4SWBWk
+         BP4Z6b2CcLF+vMKFhe2rH2OUCH49n4C4ttIJOQ8jHNLHEZCuQhlny0B1OmUWlBEeT3nL
+         rTFheIzbz406WgABzHlrMA/6aMC4Ob4sUcfWrEo7tW8JNmW5AerlgpIm/pWduIm7eq9Q
+         w+xD4opCXuZX3WhVxMaWKWsy7eZNvKu2vJ5jGwrvSmFaIjJm9EpJeKblSCQ3qxtj5pFn
+         jQfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790194259; x=1790799059;
+        d=1e100.net; s=20260707; t=1790194254; x=1790799054;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OHFYvczNQQ8zbB57FCazhQfFZ5fguvDLVHqTQCN5Cj0=;
-        b=pEHSpnAKeLxoGre9yRXlLqwhXJvqCsBK4IEpECHg7nHTDEFUIZi/DUO8aGRtM9F9O0
-         vDzztupeajjEdNNxbfZJR8BoA+WGtZ+dkqf09Z6+oyw1vHIhaOYTKf5XArr7tR7tPcUF
-         /d9qbjCa0heUvZxPsnPWwC0pkcOr2sqG5KIfzGKmnJs+o2v5pI1MIZUaMALYFLdeRLQw
-         35fKgcHBKmGCpN3ek5rot6p2fcelymIjTWKwd7Mxrnye99LsiuULupFiDpn1MPzPwVY3
-         5EXZXaZqLoheyp8V4BtGDkyEyZggWiQh81IyuvTDNSCpSOyCgbgpcqTVFGIUpshSgmJr
-         g3GQ==
-X-Forwarded-Encrypted: i=1; AKwUvByWPhLW2f4NTUEIGz2eWO9PDyErlKvRBxbx9h+ocn+3EIhxutepn/HtQzBlXBiS7e9tT7yGp6eX2Ndhu3E=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHvzQ618Upgud9BCPfv4v2P++1Rc1p1VOqBiFIFasfMmiaXPMj
-	MmXcKbG0nnUlT1VNAmsyysqPqjMG/1Xqhzk3JNbuOY/Mb9usSx1IKRli
-X-Gm-Gg: AYBFou1FYpyq6xxChtgXx7I7OO+/aBpmP1aWrkQc1VoRVBX6Y6jugp59+yuNkpqVzMt
-	Riqq4LlK0YnGzbglC4AuNBqT3McEiur5wdSc/igvxREM9+dH6qosGTR28bo87j3vM0w11Ln1PVP
-	p6d4QNU7OVpkoRIH+Onely1pvBbqgELZxIpIxHz7inVGCzwGJoOQMb6djEVChcEuaUUkeXyUo7V
-	Xprkbt/XP70fiRs7tbNOwio9FxokjzO7rNFHB6uAgSs40a3REoJYdCWiaNQAUExET5CiY/C9NoO
-	majGytj+QjuZYmSilGWWzY6UlZ47cdHnqmwzmkKfDs8MZk7yCDilnT7NRv9vBeG53MZTLUxmEcz
-	dXrSTjW7FI/2VCBVFotmobJY2wKAowCAVdOMJClLpVc4DhjuXyeMFNy6I2PifMaXNoUJOkR2H2s
-	CTfAnZQggxB3vH4bhIVndZot3/q0VRVaHa8J2SQivSGdlOmAOZqYZMU7yjGmtKyd/SN5tX3WLkb
-	PRaDovbWyts5TJMg4jFMC04
-X-Received: by 2002:a05:600c:c16d:b0:49f:cac3:c68a with SMTP id 5b1f17b1804b1-49fe66f9ff1mr4161775e9.31.1790194258869;
-        Wed, 23 Sep 2026 13:10:58 -0700 (PDT)
+        bh=KzWnvXvBcRYh23VzcFk9fIrKKbovPKtd+dDK4CYg1CA=;
+        b=VKW+v+L4SFvTqiCOilGqvxEzayLqj/ZIllL801nyDC0Sv05oZucJGoSZL+aTINgPBW
+         4rBdyV2XWpptfQUagvh3ivfF9Mu8kR/pDXBybD0fZ2wXqcF+s3UydjrF8lppSv7O2Qne
+         UVJdVWQtf59na6opgyoH/6NI5Utm+vPRxSiTdRK24dAaPgnvtUG4LRHFgvb7jPZNjnd/
+         ulaPev/fdmruQLgzVaRvJXP7R6lOv0l3VKJeVw0ttQgu67gB02SXHRNu2r6LpS2S/VPy
+         zvh+KvkoecuiJMVXTknw7ciV/zV0EsKCe/OOm68EwWhCSnktVn0QoWrzbEiMGTXYAYVd
+         KXAw==
+X-Forwarded-Encrypted: i=1; AKwUvBz4KjpaDuMZ1apbWUray8WpTt2eeVgo9Zyt+f395wC8ZK7TiABtdSJMFG/chFKx4WMGlBtk+8MHKo/C8kI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kH723QoTEHl8PGnyBEEMM3AJsTZ5k6/ubVAyw7WPLqFuD71XvX
+	g1XYwxAOMSFAXQQk9rVYgP1sdEPuYWNQQXKjzCVDZgCjeKfOst8z94VP
+X-Gm-Gg: AYBFou16r4IjdFWjyQRzQe/03O1TYaHsPf8HWHZcjrCe8QRUpKu+KIqbb5B43VOh3d8
+	PW6RRHcYqo50XW/GPPJEOLBelg9tMK7EoyBO38o7ESIAui2fPdFBbSm1O2X/sBCQXozjj37z/Rv
+	xJRKfqOLGClOMTl2VuoofM6994tWjr7vNyvujMHju8C9/PA4Yj2hZf2VvVZxCoksGPgsF1ogNhC
+	GHzm4k0hrDVPSDkwsXDRs4Dn9OPoeY4+t0PtyfgsXFzE7DKKUI5PfjawkpArpltCBRkJh10xhQk
+	L1TVNjV8giGtTR6Dq0s0BbwCq2UNOUR/zVn3KlwmvHd013ZkAKTQwBu2KYkm5cmIBKRs15nAg2p
+	pldbceHPHl+y+g70TA8wWkfP/L1nXm7NnZOa+o6p5/Cl+T9T6YpoOdJRIBcsf1AZoyejaWVnnI/
+	bdHzyFwJBjeuOE9yGPZ4agqTg7cKAsWXazoONPOoubqgPhx8X3Btvcop1ub4UjfnVX5DA2W0tTA
+	EQTl8+MkwQ7UPFQrsz7aaTlOwWQ2h2Jazk=
+X-Received: by 2002:a05:600c:4705:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-49fe66d03b6mr4620805e9.5.1790194253946;
+        Wed, 23 Sep 2026 13:10:53 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4c8dsm13559295e9.3.2026.09.23.13.10.57
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd4c8dsm13559295e9.3.2026.09.23.13.10.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:10:58 -0700 (PDT)
+        Wed, 23 Sep 2026 13:10:53 -0700 (PDT)
 From: Max Pedraza <maximpedraza@gmail.com>
 To: Helge Deller <deller@gmx.de>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
@@ -72,9 +72,9 @@ Cc: linux-fbdev@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	Max Pedraza <maximpedraza@gmail.com>
-Subject: [PATCH v3 5/7] dt-bindings: display: allow the boot logo in a reserved memory region
-Date: Wed, 23 Sep 2026 22:10:33 +0200
-Message-Id: <20260923201035.51007-6-maximpedraza@gmail.com>
+Subject: [PATCH v3 1/7] fbdev: describe where the boot logo goes in one place
+Date: Wed, 23 Sep 2026 22:10:29 +0200
+Message-Id: <20260923201035.51007-2-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260923201035.51007-1-maximpedraza@gmail.com>
 References: <20260923201035.51007-1-maximpedraza@gmail.com>
@@ -86,93 +86,183 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Carrying the image in the device tree ties it to the device tree, but the
-image and where it goes on screen are independent axes of variation. One
-board sold to several customers wants several device trees that differ in
-the logo; one customer with several products built on that board wants the
-same logo placed differently on each panel. The second case would otherwise
-mean duplicating the same image into every device tree.
+fb_prepare_logo() works out how many rows to keep clear for the logo and
+fb_show_logo_line() works out where to draw it, and both of them open code
+the same decision: centred if fb_center_logo, top left otherwise. The two
+calculations have to agree, because fbcon erases whatever falls outside the
+rows that were reserved, and nothing makes them.
 
-Let the node point at a reserved memory region filled in by the bootloader
-instead, so one image can be shared by device trees that differ only in
-placement. The region starts with a small header carrying a magic number
-and the geometry, so the kernel can tell a logo from an empty or stale
-region and bounds check everything against the reservation.
+Give the position a small structure of its own, with -1 on an axis meaning
+centre on that axis, and have both callers ask for it. fb_center_logo
+becomes {-1, -1} rather than a second path, and the arithmetic lives in one
+function that both use, so they cannot end up disagreeing.
 
-A phandle to a declared region is used rather than a bare address: the
-reservation is what makes the memory safe to read and what gives the kernel
-a size to validate against.
+The structure and logo_place_axis() go in linux_logo.h rather than in the
+frame buffer code, since where a logo goes is a property of the logo, not
+of the one thing that draws it today.
 
-The two ways of supplying the image are mutually exclusive, which is what
-the oneOf introduced here says. Until now the image properties were simply
-required, since they were the only way to supply one.
+logo_place_axis() also clamps, which the open coded version did not: the
+result is now always a position at which the logo lies entirely on screen.
+That is not reachable today, since the only positions are the two the
+console offers, but it stops being something the next caller has to
+remember.
+
+No functional change intended.
 
 Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
 ---
- .../bindings/display/boot-logo-clut224.yaml   | 40 +++++++++++++++----
- 1 file changed, 33 insertions(+), 7 deletions(-)
+ drivers/video/fbdev/core/fb_logo.c | 58 +++++++++++++++++++-----------
+ include/linux/linux_logo.h         | 29 +++++++++++++++
+ 2 files changed, 67 insertions(+), 20 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/boot-logo-clut224.yaml b/Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
-index 9dc3471763..a71fc09a7c 100644
---- a/Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
-+++ b/Documentation/devicetree/bindings/display/boot-logo-clut224.yaml
-@@ -62,12 +62,31 @@ properties:
-       index into the colour lookup table. The property length must be equal to
-       width multiplied by height.
+diff --git a/drivers/video/fbdev/core/fb_logo.c b/drivers/video/fbdev/core/fb_logo.c
+index 0bab8352b6..5ec9f9554f 100644
+--- a/drivers/video/fbdev/core/fb_logo.c
++++ b/drivers/video/fbdev/core/fb_logo.c
+@@ -8,6 +8,17 @@
+ bool fb_center_logo __read_mostly;
+ int fb_logo_count __read_mostly = -1;
  
-+  memory-region:
-+    maxItems: 1
-+    description: |
-+      Reserved memory region holding the logo, as an alternative to carrying
-+      it in the width, height, clut and data properties. The bootloader is
-+      expected to have placed the image there before starting the kernel.
++/*
++ * The placement in effect, as asked for on the console command line.
++ */
++static const struct logo_placement *fb_logo_placement(void)
++{
++	static const struct logo_placement centred = { .x = -1, .y = -1 };
++	static const struct logo_placement top_left = { };
 +
-+      This lets one image be shared by several device trees that differ only
-+      in where the logo goes, which is what a family of products built on the
-+      same board but with different panels needs.
++	return fb_center_logo ? &centred : &top_left;
++}
 +
-+      The region starts with a header of four little endian 32 bit words:
-+      the magic number 0x4f474f4c ("LOGO"), the width, the height and the
-+      number of palette entries. The palette follows, as consecutive red,
-+      green and blue bytes per entry, and then one byte per pixel, each an
-+      index into that palette.
-+
-   logo-position:
-     $ref: /schemas/types.yaml#/definitions/int32-array
-     description:
--      X and Y coordinates, in pixels, of the top left corner of the logo.
--      A value of -1 on an axis centres the logo on that axis instead.
--      Defaults to the top left corner of the screen.
-+      X and Y coordinates, in screen pixels, of the top left corner of the
-+      logo once it has been rotated. A value of -1 on an axis centres the
-+      logo on that axis instead, which is the only way to say it when the
-+      logo size is not known to the device tree, as is the case for the
-+      memory-region form. Defaults to the top left corner of the screen.
-     items:
-       - description: X coordinate, or -1 to centre horizontally
-         minimum: -1
-@@ -103,10 +122,17 @@ properties:
+ static inline unsigned int safe_shift(unsigned int d, int n)
+ {
+ 	return n < 0 ? d >> -n : d << n;
+@@ -281,7 +292,11 @@ static int fb_show_logo_line(struct fb_info *info, int rotate,
+ {
+ 	u32 *palette = NULL, *saved_pseudo_palette = NULL;
+ 	unsigned char *logo_new = NULL, *logo_rotate = NULL;
++	const struct logo_placement *p;
++	unsigned int xres = info->var.xres;
++	unsigned int yres = info->var.yres;
+ 	struct fb_image image;
++	unsigned int block;
  
- required:
-   - compatible
--  - width
--  - height
--  - clut
--  - data
+ 	/* Return if the frame buffer is not mapped or suspended */
+ 	if (logo == NULL || info->state != FBINFO_STATE_RUNNING ||
+@@ -322,26 +337,22 @@ static int fb_show_logo_line(struct fb_info *info, int rotate,
+ 		fb_set_logo(info, logo, logo_new, fb_logo.depth);
+ 	}
+ 
+-	if (fb_center_logo) {
+-		int xres = info->var.xres;
+-		int yres = info->var.yres;
++	image.width = logo->width;
++	image.height = logo->height;
+ 
+-		if (rotate == FB_ROTATE_CW || rotate == FB_ROTATE_CCW) {
+-			xres = info->var.yres;
+-			yres = info->var.xres;
+-		}
++	if (rotate == FB_ROTATE_CW || rotate == FB_ROTATE_CCW)
++		swap(xres, yres);
+ 
+-		while (n && (n * (logo->width + 8) - 8 > xres))
+-			--n;
+-		image.dx = (xres - (n * (logo->width + 8) - 8)) / 2;
+-		image.dy = y ?: (yres - logo->height) / 2;
+-	} else {
+-		image.dx = 0;
+-		image.dy = y;
+-	}
++	while (n && (n * (logo->width + 8) - 8 > xres))
++		--n;
+ 
+-	image.width = logo->width;
+-	image.height = logo->height;
++	/* The copies are drawn in a row, so they are centred as one block */
++	block = n ? n * (logo->width + 8) - 8 : logo->width;
 +
-+# The image either lives in the device tree or in a reserved memory region,
-+# never both.
-+oneOf:
-+  - required:
-+      - width
-+      - height
-+      - clut
-+      - data
-+  - required:
-+      - memory-region
++	p = fb_logo_placement();
++	image.dx = logo_place_axis(p->x, xres, block);
++	/* A stacked logo goes where the caller put it */
++	image.dy = y ? y : logo_place_axis(p->y, yres, image.height);
  
- additionalProperties: false
+ 	if (rotate) {
+ 		logo_rotate = kmalloc_array(logo->width, logo->height,
+@@ -418,6 +429,7 @@ static int fb_show_extra_logos(struct fb_info *info, int y, int rotate)
+ int fb_prepare_logo(struct fb_info *info, int rotate)
+ {
+ 	int depth = fb_get_color_depth(&info->var, &info->fix);
++	const struct logo_placement *p;
+ 	unsigned int yres;
+ 	int height;
  
+@@ -480,9 +492,15 @@ int fb_prepare_logo(struct fb_info *info, int rotate)
+ 		}
+ 	}
+ 
+-	height = fb_logo.logo->height;
+-	if (fb_center_logo)
+-		height += (yres - fb_logo.logo->height) / 2;
++	/*
++	 * fbcon only leaves the first @height rows of the screen alone, so a
++	 * logo placed further down would be drawn and then immediately
++	 * cleared. Ask the same placement fb_show_logo_line() will use, so
++	 * that the two cannot disagree.
++	 */
++	p = fb_logo_placement();
++	height = logo_place_axis(p->y, yres, fb_logo.logo->height) +
++		 fb_logo.logo->height;
+ #ifdef CONFIG_FB_LOGO_EXTRA
+ 	height = fb_prepare_extra_logos(info, height, yres);
+ #endif
+diff --git a/include/linux/linux_logo.h b/include/linux/linux_logo.h
+index 1e727a2cb4..b3b15d3800 100644
+--- a/include/linux/linux_logo.h
++++ b/include/linux/linux_logo.h
+@@ -13,6 +13,8 @@
+  */
+ 
+ #include <linux/init.h>
++#include <linux/minmax.h>
++#include <linux/types.h>
+ 
+ 
+ #define LINUX_LOGO_MONO		1	/* monochrome black/white */
+@@ -36,6 +38,33 @@ extern const struct linux_logo logo_linux_clut224;
+ extern const struct linux_logo logo_spe_clut224;
+ 
+ extern const struct linux_logo *fb_find_logo(int depth);
++
++/*
++ * Where a boot logo goes. A coordinate of -1 centres the logo on that axis.
++ * Whatever draws the logo describes its placement this way and computes it
++ * with logo_place_axis(), so that no two places can end up disagreeing about
++ * where the logo is.
++ */
++struct logo_placement {
++	s32 x, y;
++};
++
++/*
++ * Place a logo along one axis. @pos is the coordinate asked for, or -1 to
++ * centre on that axis. The result is clamped so that the logo always lies
++ * entirely within the screen: the drawing code does not clip, so asking for
++ * more than that would otherwise scribble past the end of the frame buffer.
++ */
++static inline int logo_place_axis(s32 pos, unsigned int span, unsigned int size)
++{
++	int last = (int)span - (int)size;
++
++	if (size > span)
++		return 0;
++
++	return pos == -1 ? last / 2 : clamp(pos, 0, last);
++}
++
+ #ifdef CONFIG_FB_LOGO_EXTRA
+ extern void fb_append_extra_logo(const struct linux_logo *logo,
+ 				 unsigned int n);
 -- 
 2.39.5
 
