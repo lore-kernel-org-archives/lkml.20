@@ -1,113 +1,77 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054BB46E002;
-	Wed, 23 Sep 2026 08:18:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0B146E01F
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151509; cv=none; b=bkI7v5OkEmg7NOpWsGkoWLxq1i2G+tOxDsEoifgLrHaVLIxYsszCQYV55/eqP8JgJ6EBrjyUC0UmfNz4hHVGh2Ray8KVQbnGdx+nrBu+9/l4gOJouRF6lpOwQfA9/xnl4LDtKn3lhjlLuTWddwA1tHXkfFmF0c7wyDTtGjHbQMc=
+	t=1790151514; cv=none; b=TzHpIbE+9LGfHPKjmxZHu2GAovPSiRa/iE0aJvQJZukmLYpxOmCmBWE8YBnhik5XCnbm6WqgarEMGz3eFnGO0noSWG34lsjIimBrMHbBbUEBGddpBCHnlo0hbqd5MqWL/zpKwzzaVu9yQStbr9nuNGsXkPajUBb+v0pU3ykPI54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151509; c=relaxed/simple;
-	bh=CFm4AUxvpaX7p7/NjBZOP3TWdAYbUyijXAa6DF1pZWA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=B7K5YfBfQ1kTQ8aaxJ1UMv4JwX7t9LcZeDiuVsGOBox5w+dSJcAtrOzPMHrb2WdBBb8CRPJbrKwMaQ5N28CJUjHlSmtgMdDgcxfTz0G/m+Ocv3lbmniOFrDEk9wH9yatp0WTq1IV8aHNY7DpmIQ2/ul6589gqY2duSWIVaE3sps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=oYfXYB5v; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1790151514; c=relaxed/simple;
+	bh=aOYE/Tl0/743HzZHqhMOY/z8sqYDx3bnvebki0Vgqmg=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mqgh8VKB98KC4HUI9D+5Ol95wMlQYom/SnOm0XQ5070mSHnr4ftUke5o0YJeruEvYhjabuh1m8RhRG8BV8jgTuPFMWEkmtVNdyn8QwYSaaQV73zciwEI885upIuqstpBGCtRkIEfglK2RPybiYUCV0vXTaX7BKKX0A3TSFrN6C0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CIi3W8Sr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="oYfXYB5v"
-X-UUID: 576c47f0b72711f18dc8c9802ae25ab1-20260923
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=sP6wUj2jGaL1zbuYodHcp4quq1nEFGgaqRRcNNs7Hak=;
-	b=oYfXYB5vJ8uxkc2APM+Zx2LYnuo04WgqnnECAncEpEAPs1qXuNduD107sAXxGqWUAlKVBxaZ59X0kssk6UAAkeMChG2BCryptnebB6m44D2x6Ymq+/lI+7jVM8PAkX6GRPv90UEXcPJQo/J8kaGHs/GpNYrGRSVmLUltS1YTdZY=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:a715bd2e-4afc-48ae-93b7-cbdc91f93581,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:410fdefa-1cb6-4618-8a29-fa072b24d2a9,B
-	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
-	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
-	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 576c47f0b72711f18dc8c9802ae25ab1-20260923
-Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
-	(envelope-from <kyrie.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 571606249; Wed, 23 Sep 2026 16:18:22 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 23 Sep 2026 16:18:21 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 23 Sep 2026 16:18:19 +0800
-From: Kyrie Wu <kyrie.wu@mediatek.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
-	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
-	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
- Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
-	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
-CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
-	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>, Krzysztof
- Kozlowski <krzysztof.kozlowski@linaro.org>
-Subject: [PATCH v10 09/10] dt-bindings: media: Add MT8189 mediatek,vcodec-encoder
-Date: Wed, 23 Sep 2026 16:18:18 +0800
-Message-ID: <20260923081818.268329-1-kyrie.wu@mediatek.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CIi3W8Sr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B45961F0089E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:18:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790151513;
+	bh=aOYE/Tl0/743HzZHqhMOY/z8sqYDx3bnvebki0Vgqmg=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=CIi3W8SrDkBFcjl2qACR1MIg4WYW9VPFLSEVLoEyaFDFui+ojphVMt9fiSIb1T3/M
+	 t18RtJpG0B+3QOdvzih9x3iAm4GFN4rVIGgQwiYKEIp+FY6pskPTKko2tI4PzIJMSc
+	 PKkbxTNRiFM2uvwBhX/0WYK+DdXXWmNKE+8Yp0nrCRDs6UqtxVOBRIAHCGsDvybasr
+	 qIdcmNXwyufVS6DbzH628ihy8MQ3dmZ+papohYt1hEv+VRtq7EnbJnE+Fx0cw5BwJv
+	 LUYz2qaixXE2oGuxA+6Q7b/3PorfDvFvp9VF5rD+2rl8xrlYIQGBVH3ludsrvoIktb
+	 u0Tc/RhxoPcKg==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a5e21a5408so4997841fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:18:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwTfKCJ9MmXsQWF4e6IBHec6U4+G4/kEBuKiS8Y/haU5NptVRhxFTEyikOlRKEyqAF1tlT1nRO5FUBGKps=@vger.kernel.org
+X-Gm-Message-State: AFuF++mq2zXDN8c5WwX93OpkdJ2iyaP5bmqn1WpGjqsNeWbONVzESo7P
+	qt29U8vSwPk5vqxl374Q3Qov8wqyQkoYW/ntpkZjzScKl27hDcGfCjSqMSAqbZh3hEvSeZx9Vv2
+	a9YYRTiDNB3Gr18pEQryZ8FjA8ba88rq/J1y/25iDEA==
+X-Received: by 2002:a05:6512:110f:b0:5b6:183c:5c98 with SMTP id
+ 2adb3069b0e04-5b8d89b6776mr545891e87.54.1790151512285; Wed, 23 Sep 2026
+ 01:18:32 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 23 Sep 2026 01:18:31 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 23 Sep 2026 01:18:31 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260922111354.533902-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+References: <20260922111354.533902-1-shengchao.guo@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 01:18:31 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mcmko7oVkRWuGX1ZM6WdLdEBCC0ruwVqJiEsUb5nkhrog@mail.gmail.com>
+X-Gm-Features: AclHuK8l_GomYsmy473wjIZApEtMIZ8_bdLcsbHMxcEoZDreibPFTIVAba0mhAk
+Message-ID: <CAMRc=Mcmko7oVkRWuGX1ZM6WdLdEBCC0ruwVqJiEsUb5nkhrog@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: qcom: nord: Add adreno SMMU nodes
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Add MT8189 encoder compatible string to distinguish former ICs
-MTK's. Compared with MT8196, the maximum resolution of MT8189
-encoder is only 4K, and the fps is only 30, which cannot reach
-the highest parameter of MT8196: level6.2, 8K@60fps.
-Compared with MT8188, the level can only support 5.1, which is less
-than 5.2 of MT8188. But the maximum bitrate is 100Mbps, which is twice
-that of MT8188. And MT8189 could support NBM mode.
+On Tue, 22 Sep 2026 13:13:54 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+>
+> Add the Adreno GPU SMMMUs (MMU-500) for both GPU instances.
+>
+> Wire up the gpucc clock and power domain on both adreno SMMU nodes in
+> nord-embedded.dtsi for embedded Nord variants where gpucc is available.
+>
+> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
-Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- .../devicetree/bindings/media/mediatek,vcodec-encoder.yaml      | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-index dce007e6e5cf..fc3d529b6325 100644
---- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-+++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-@@ -22,6 +22,7 @@ properties:
-               - mediatek,mt8173-vcodec-enc
-               - mediatek,mt8183-vcodec-enc
-               - mediatek,mt8188-vcodec-enc
-+              - mediatek,mt8189-vcodec-enc
-               - mediatek,mt8192-vcodec-enc
-               - mediatek,mt8195-vcodec-enc
-               - mediatek,mt8196-vcodec-enc
-@@ -105,6 +106,7 @@ allOf:
-             enum:
-               - mediatek,mt8183-vcodec-enc
-               - mediatek,mt8188-vcodec-enc
-+              - mediatek,mt8189-vcodec-enc
-               - mediatek,mt8192-vcodec-enc
-               - mediatek,mt8195-vcodec-enc
- 
--- 
-2.51.0.windows.2
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
