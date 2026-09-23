@@ -1,426 +1,225 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB803D810F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:05:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790193927; cv=fail; b=lh/mj+ixF9w7bNjdjIvwif1wQHTMbP39sQF652ot5NEZ3VFSfOOGXArJLdtjS2RWxlRqxJ4+YIK5B/s9UIox5UJt6YJrf/kf9ieNFl4CwM4lSk/dzRJAvJprBVpTSX5IGK2TfzJcYw7SxrKPnTM74yIuT/wTdjKYV2jiNApltj0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790193927; c=relaxed/simple;
-	bh=gveg+op9YfVwPwl5MJ30FZj1iGcXQ+InPr76/gRgpYE=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rMjY8OfFIVBlLuK3n34l7seKK2bS9X8yu3bm+Hn3YDmMaglIM4cs7IIHYQvIUC88p07glNW9fTOPnW3h8294dw44AIQmlgy/tEQO68PhSp1B+hdfJzuy0JMPx3alNU5q/CYu3ihyjntv7IHAlBaaTpjB6vf0jBssSJKZsyUyq5I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lW7RYjZS; arc=fail smtp.client-ip=52.101.57.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA65856C651;
+	Wed, 23 Sep 2026 20:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.144
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790193932; cv=none; b=eaxTsaCl3Jwr2C9RHWh+Azpldytrl3c5xP5IhfhQmD8UufSHfx3/MQKJdBZb9mIgfWTD5ajipQR5idkS3BVmYb1jkywXxkyAph2yg8LeEUA2d8dBYY+U7bEuZMD2JcTVgTyoTeq0zKDf2vaC7karJ7gm5JArgHdZXc7WhVDW2Uc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790193932; c=relaxed/simple;
+	bh=UThFQqE2nFbGVGXVivJEy6xsdCtKSR8oOWel8XxMWs4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hcu00PQe5M4MbueGiTaaQrzE07cbEbqcD55QjCVzw9B4cHj7qN14utsSFHb05YxhEek5jBBhLGloi6YqlG7G88uHX3eV65zy2QZU8ftqr2mRWSHPLUYnx7+osXO4okkXbnhGk0n2uisLWGwyxCKSY7Mrl046wDrN0qA1SusqrOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=ZbAdGQxS; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=q1/FY4qD; arc=none smtp.client-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lW7RYjZS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OD3jYXerS2209BAdm/3cvbdSznHV/fjFbXkzhLSqyc/auhqNrHlbDUQ7juK7ikvY2CfLcBCx4YvNVPNqr9KW3+U7syBdmhco+IMaixXGRny1o6Pb6vjZLh0ost4ezbQpM3nTwMSZ++MOaf9QmMFHmOgA/1CrZ/Oy26Ma0/3VkOuSHgICQoF7iZVvtkYf6pXWIB5GTurrK9K7z27D7lVx+TrCCmd3S9eOAUhCZgOmY0Uyj+/alGQ/g3jKQRLYMM0B+PW62h0QKXRbwGR6H0YdListZka7owsnu3KUezlDafReiL52PEkfvwBywagQCnnzHNA2KIvJFGILZTvZEByZxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+pCl3tFKxoWh73jWSCDk0U/TyXpWH72QGSRj49w9svs=;
- b=XngmcAYZZKnJEsl3siIRzdPIie4PgBx34tioqrtDBLmdtZrrHbjibxIE5Xlt5EEK6yiRBUeWuvv+U9PPUnTttqY6dJAOuC4atY9X8W9OR0kzWQVe5O3gl4Wh6Wp3FOGrwrO0u5hNDmM6M3oQAomqO8sTwrgF9HdWpbnTt5FfymNettrKpZOdUKcxBo5cNiRymHs4bF0J9NAf2lVEsNP+YASD/c94lFTZUWidVK9m2szemvTVwLCZj/+GTuHxX5+b1CqRuTogxsuGJXuzK0UAOT2Hfcqm1P0jxIqpyOEgp59WGDKusXEFQ307VsjoJWSbpewycbudeuhHfchSsbHAHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+pCl3tFKxoWh73jWSCDk0U/TyXpWH72QGSRj49w9svs=;
- b=lW7RYjZS/gVZPSURTv4t0mqPW3W9ruFVII6tHFvvXfsI//2pOIIHO9d1H6wSBt1GssUoYtBEIxTQyyMNcPKABbgCkbK3v45Ujv/XxZtD35FkkyoaLKcvlmOPmsyuCBNzuhkAwwhmVhwpUF/SvcoBx9DIrpJidMAgVBxJOGxiHtY=
-Received: from SJ0PR03CA0141.namprd03.prod.outlook.com (2603:10b6:a03:33c::26)
- by MN0PR12MB6053.namprd12.prod.outlook.com (2603:10b6:208:3cf::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 20:05:13 +0000
-Received: from CO1PEPF000075ED.namprd03.prod.outlook.com
- (2603:10b6:a03:33c:cafe::1e) by SJ0PR03CA0141.outlook.office365.com
- (2603:10b6:a03:33c::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 23
- Sep 2026 20:05:13 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000075ED.mail.protection.outlook.com (10.167.249.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 20:05:13 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 15:05:12 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 23 Sep 2026 15:05:12 -0500
-From: Lizhi Hou <lizhi.hou@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>,
-	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
-	<karol.wachowski@linux.intel.com>, <max.zhen@amd.com>
-CC: Lizhi Hou <lizhi.hou@amd.com>, <linux-kernel@vger.kernel.org>,
-	<sonal.santan@amd.com>, Jonghyuk Kim <malhyuk97@gmail.com>
-Subject: [PATCH V1] accel/amdxdna: Preallocate hardware context schedulers
-Date: Wed, 23 Sep 2026 13:05:01 -0700
-Message-ID: <20260923200501.281208-1-lizhi.hou@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="ZbAdGQxS";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="q1/FY4qD"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id D8ABBEC00CC;
+	Wed, 23 Sep 2026 16:05:28 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Wed, 23 Sep 2026 16:05:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1790193928;
+	 x=1790280328; bh=JUwLwolmgzoYkr0jKNKZ779s9mSH2rxnP/9sdt8jqGA=; b=
+	ZbAdGQxSkA2mHJIQdiZGQnpOXxNybNglJjNbF7RMCpAJs5VRcUI72J/ViT6RzEpR
+	WRoHSsmZb3IyvAH0jft5GVzgIE9EZz2Tnl/2iLK82iwBVLzIlvThtMjjeU7EdgKy
+	2pCP1efixRn9hJ8uOBCmyE0cx6hq1dzmLJ7t+ocEWw0PfnuljFLv+/sPHU1KZHTj
+	E679FOSa7RsINEkAqUOb043E94WNXgdakXmPLVTzZMVjgup0et4oLWhPcZFvdG3F
+	bNooSnCoWTIqjOPvgGHPWUhVFhsXcHBchw8PWjIzgB/dlpB0gxEcA68lTa612cLK
+	U7llEkvOjBnaLv96wMUXiw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790193928; x=
+	1790280328; bh=JUwLwolmgzoYkr0jKNKZ779s9mSH2rxnP/9sdt8jqGA=; b=q
+	1/FY4qDb0A+YxToOOP4iHReDhjS7JWTJ/E0ZofWhdjmI0f6HVNwIhP2irzKoN+1R
+	DerQ4oc3DADQgz8yKJ7LOqUCtUPE2MMqIY2p5B+clNhQ2NbtluX/7klJbIYV3x6N
+	cmpCez7oxuA7o3ZysrfzhcimbFyxgkbF8ILN2FNUX+ckFjbZN9z2AsPdO+/jdOg0
+	2q05irA37EWzGzPjtE13GAvB0CpZdGzNfd0uA5K3qVwr+mgFNFOZeUTBBVjCX7q2
+	eL7sYWI4cqLYs5pmJkyLDq7klnELvbe+BxHkNRxvSBUcNEmagX15ydjkoLWeM8C3
+	eLFUzkvh3TJnsgEwx4wBg==
+X-ME-Sender: <xms:CDG0auGNTePmPgQ-G9omMqR9AwVIsb0IZTDbzLgFL02ERxaTu2rk_g>
+    <xme:CDG0apt2Wv3NC5DBtN3tOs_ha1zM3O2TrYXGieorEmyf18LVZVyA2Y4TXWHbZoSHZ
+    q_nTadSxXS4pTcYLgJKtDXlWpZMaNPBmC8vjgRA1bdOin-f8GidrA>
+X-ME-Received: <xmr:CDG0ajtD0YJSxJ-w4iWCayrkBBQrF1xM3UmAwHXihfQHfM9VBy4mcLBRlimWwA>
+X-ME-Proxy-Cause: dmFkZTE99ioZg8PG1u/Lino5tKLa9aVNVWGU06n/wTa0B3sKfMwnM4kcsu8D3pzwQpGVLG
+    pw6n0QH07tKGTiHMH/ysrTzxxqmYHWncsTkTQd02CX0Dgxn4kpyZiL7E1vwIzwGpUDBoP0
+    6Kgw9cu27Mp8rTWQv9gsdhTS/Hnq24kPXUEr9buaOHqjJY1u8sDy2OxHajrOpip/NR11t1
+    kr0f8gBhcBSHKv93lGsuIvXcY6IokGZCMJ26okZSGj8LEu4N4WBD+YWOZhiMtUBtzB0RF4
+    Da+tPf9Rv5e/MoP+z6RyZ1uCcGaS0a88XvEYVIdkr98M42pcuiQA4KlNQ7TjrVrnRj8vlI
+    ARI7tgJ49LrQeMSzDn++bJjHmKImKDJi6T/8xXujy6PE4FGMdr2ldu1AUVfmMlbBCnRAMn
+    AUDpcEWoVefErF+ACGL9MTFDOhGxaRGJt21B/u4dMl9ZCdyLIwE94YNRmrp/4kv+q0itJ4
+    pWUDoR5Yq2BDdKkY/Khv4znGt5Mdv5wKT18N8DRvnBNjotjghj638QgkLFHH6nSleIXrOh
+    kUjMg/OpWVEyef56f8AYcKVxN7eeJ0wcpisKrBK20C5O0dDzNXrvIIrLa/K6vMIc8TNyM2
+    a7DXfVmQtQDszRniNXVR7TtdHSUXkDnPlAm4iLu3ps3fA+YIq1J0e9PrHTkw
+X-ME-Proxy: <xmx:CDG0aiFdhCc7XPldMWKu413HiCiaRysPExNh_DTmqxuk9qz4u9fnYg>
+    <xmx:CDG0auLeqwb_kChf1eLIJerrtUl0ZXVqtejU06nNSbUeCxk6p2QGkw>
+    <xmx:CDG0aqa-7IdZRaFr_9o62XFrRnvPnOfVfgxJalEi5iaAcnmYnGn2TA>
+    <xmx:CDG0aroIBlLQlpNkXlzI3oB7DiOpHdxKa9GuHZNi98sVoImc66ZEQg>
+    <xmx:CDG0avbie63RuYOgdqg40gJ-OXcF0zpzZSIZJ4BfLPjtJxzHK0OA9qZP>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 23 Sep 2026 16:05:24 -0400 (EDT)
+Date: Wed, 23 Sep 2026 14:05:20 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: "Jason Gunthorpe" <jgg@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <acourbot@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
+ <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <jhubbard@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
+ <smitra@nvidia.com>, <kjaju@nvidia.com>, <alkumar@nvidia.com>,
+ <ankita@nvidia.com>, <aniketa@nvidia.com>, <kwankhede@nvidia.com>,
+ <targupta@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>,
+ <kvm@vger.kernel.org>, alex@shazbot.org, "Simon Song (SW-GPU)"
+ <xinmengs@nvidia.com>
+Subject: Re: [PATCH 12/13] vfio/nvidia-vgpu: add the NVIDIA vGPU VFIO
+ variant driver
+Message-ID: <20260923140520.5cbea0c7@shazbot.org>
+In-Reply-To: <DLHV4FKD31CX.3JEB9FLV2327F@kernel.org>
+References: <20260914121217.70fa0d93@shazbot.org>
+	<DLFD2ZDSK9YQ.3A4R66G8UJMD8@kernel.org>
+	<20260915120148.7548a8ca@shazbot.org>
+	<DLG7C7MLGSTC.2GSTD84WI595N@kernel.org>
+	<20260916141718.GU3968357@nvidia.com>
+	<DLGUPX9KPFKF.12CU304YAST79@kernel.org>
+	<20260916162817.GW3968357@nvidia.com>
+	<DLGXS4SCP3VT.28XXX09BL963U@kernel.org>
+	<20260917132829.GA3968357@nvidia.com>
+	<DLHOBJB1NYJA.3FCP9OLPBVRZA@kernel.org>
+	<20260917171056.GF3968357@nvidia.com>
+	<DLHV4FKD31CX.3JEB9FLV2327F@kernel.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075ED:EE_|MN0PR12MB6053:EE_
-X-MS-Office365-Filtering-Correlation-Id: 34b2ca8d-d88f-4421-c752-08df19adfa9c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|13003099007|6133799003|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	zPjz7Prp4SvWFe2SHaVXdMa63SmTotnguxROBeeNJuRjGqRWf8vMvX1xHAI41iX/dazMqHseFy5EvtZIJsQ7lXnvydR9+beHCbMj8wTtO8NDxG3h/8WAPB4XZWiAKTKf6q0S8i5WH66X4L4p56N3TOUdM1XZ/zPZ1QYyLWqwEWQSrd2bLXlDzVNJbyJgZrrkC99/mO39C/ngcAqw17ESEbhlJzyazmgQOyA4NB9U3upGxkATc4pM1vwmzywBOu+Q1lUnazBes049OY1xk7AiQsW7hVYybw886yFEfmJIu7ubyFGHvBwp+n4Jf1J2CoM2PDQbjMHHneAN0rglpfdJx9SWHlSxSKcdHiGf357QC5TRgvSQ2SvSzXi3VvxDjy9JjHxwAQnhDdiNLusDRf4vxrVkxCDNh0cNTZbs620LiXCcJ+t4JnVe8qB6Ccve7XagujYE10hskgbFx5mSbjRho0WCOWh2+6fOojBVsg1Vs1H2wrjbkpWZ6abz00y4lA4j4pL0DSKAf3Iro9vxL1b4KuzS94gDNwJ39aHxPvJNm3MF6laBs6inwY+M3WoESW1jgheVCdiqDC4ON5xDfDQhBsNN9bQfajug2PczWv38Nvr/hfmhRXxy0wvpSCX0v4WPVlpSEvh5WwWfbfXz8O208SXoKo/ASgXnja8xGeQuhOg=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(13003099007)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	hs2ufjbW1Oky+KDXxlsixiMI36TTb55LUa10kJNd1FjJZdmeGNU5X4pShabdFjDzRVY1zjYKwlNBI7U04Id8RRczvMj4fXt/ovTYuddab3YF4sGakF0YjYGmi2NgzVJugbaCY2txmV6wYboBdO76MGhoHFlYx+geeja3ozKKSa9OQKpOzpoy4Gi2nPh8JA58Evlg/OYRmhin681zHQEGtjAMFR8GuLMXyzIL3GXc6KekV3GNA4nNkg3tq8pL8qpRZ9Uuk/v6rHhxpAvx0XtrVnq5T2Z99kF1NqrJq4HLV3eetBdwEdbfNNC2e1mhEAH3YgTHD3RsU0MO96K/3VH0Cko65K54VuXwJm8pdRTmPbZmt4Q660YdCLRFTDyh+sOCsRPb6CAZf7LdQ4EoI1PswyY4+duSTzyyBg1pyAHvHIOSCrPvhjzR6t6cLGwEyexW
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:05:13.3765
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34b2ca8d-d88f-4421-c752-08df19adfa9c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF000075ED.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6053
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The hardware context scheduler fence is exposed through
-drm_syncobj_add_point(). After a hardware context is destroyed,
-userspace can still call drm_sched_fence_get_timeline_name() on the
-fence through SYNC_IOC_FILE_INFO. This results in a use-after-free
-when accessing fence->sched->name.
+On Thu, 17 Sep 2026 22:09:58 +0200
+"Danilo Krummrich" <dakr@kernel.org> wrote:
 
-Preallocate hardware context schedulers and free them during device
-teardown instead. A destroyed hardware context no longer frees its
-scheduler, ensuring that the scheduler remains valid while its fences
-are still accessible.
+> On Thu Sep 17, 2026 at 7:10 PM CEST, Jason Gunthorpe wrote:
+> > On Thu, Sep 17, 2026 at 04:50:07PM +0200, Danilo Krummrich wrote:  
+> >> On Thu Sep 17, 2026 at 3:28 PM CEST, Jason Gunthorpe wrote:  
+> >> > On Wed, Sep 16, 2026 at 08:02:17PM +0200, Danilo Krummrich wrote:  
+> >> >> >> TBH, I don't think it makes a difference; having Rust abstractions is pretty
+> >> >> >> much the same as having another driver. I.e. it would be equivalent to saying
+> >> >> >> "before we accept another pci-vfio driver we need to do some rework".  
+> >> >> >
+> >> >> > Well, it is, but thats the point when judging effort..  
+> >> >> 
+> >> >> So it seems that we agree that there isn't really a difference between adding a
+> >> >> new C or Rust driver in this regard.  
+> >> >
+> >> > To be clear I was trying to say I think you are are underestimating
+> >> > how much work this is and how long it will take. Including all the
+> >> > preconditon C reworks has to be included when considering how much
+> >> > work is involved.  
+> >> 
+> >> I'm not sure I follow what you mean by "preconditon C reworks".  
+> >
+> > Rust bindings often seem to need C code rework for Rust, drvdata here
+> > is an example.  
+> 
+> I can assure you we can set this concern aside. The driver core code, auxiliary,
+> platform, PCI, DMA, scatterlist, DRM, firmware loader, IRQ, I/O and fwctl, to
+> name just a few, did not need any changes. And from the top of my head I can't
+> think of any case where changes were needed.
+> 
+> For VFIO I already wrote the code, and no changes were required either, except
+> for the drvdata things of course.
+> 
+> But, as discussed, this is an existing layering violation. The Rust driver code
+> code simply relies on its own subsystem's API contract. Please let's not frame
+> this as a Rust issue.
+> 
+> Plus, it is trivial to address, so it luckily is not a huge problem anyway. :)
+> 
+> >> Or do you refer to other C core reworks people are working on? If so, they are
+> >> only relevant if they affect the drivers. And if they affect the drivers,
+> >> there's not really a difference between adding a new C driver and adding a Rust
+> >> abstraction.  
+> >
+> > A new C driver should not need reworks?  
+> 
+> If a new C driver is not affected the Rust abstraction won't be affected either.
+> They are just users of the same APIs the C drivers consume. So, that doesn't
+> seem to be a concern then.
+> 
+> >> > I cannot forsee rust bindings for vfio until sometime in 2027.  
+> >> 
+> >> What is different in 2027 than is now?  
+> >
+> > I mean I think that is how long it will take to merge something like
+> > that, given how many other vfio series there are, the lack of
+> > expertise, and some general expectations. There are already lots of
+> > series for vfio that are in front of something like this in the queue.  
+> 
+> The same would then be true for an nvidia-vgpu driver written in C, no? Again,
+> the Rust abstractions are nothing else than a driver in the end. They only
+> consume the driver facing APIs and translate them to a safe Rust API.
+> 
+> > And then we end up with what will be one of the most complex drivers
+> > in a form nobody familiar with vfio can review.  
+> 
+> I think this isn't the case; the people you refer to can still review semantics
+> and vfio design specifics. It's not like everything is different.
+> 
+> For instance, there's still a get_region_info() callback on
+> vfio::pci::Operations where people can review whether this semantically makes
+> sense.
+> 
+> And for the language specifics we have a lot of Rust familiar people around who
+> will review the code and help to improve it.
+> 
+> Why not see this as a chance to scale on both ends? More people on both ends
+> will get familiar with VFIO and Rust at the same time.
 
-Fixes: aac243092b70 ("accel/amdxdna: Add command execution")
-Reported-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
-Link: https://lore.kernel.org/dri-devel/20260902012712.880520-1-malhyuk97@gmail.com/
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
----
- drivers/accel/amdxdna/aie2_ctx.c | 117 +++++++++++++++++++++++--------
- drivers/accel/amdxdna/aie2_pci.c |  15 +++-
- drivers/accel/amdxdna/aie2_pci.h |   6 +-
- 3 files changed, 105 insertions(+), 33 deletions(-)
+This thread has gone cold for a few days and nothing really seems to be
+dissuading from the direction of implementing the Nova interfacing
+vfio-pci variant vGPU driver in Rust.  Zhi has been investigating the
+gaps and bugs in the PoC, and afaik, nothing stands out as a blocker.
 
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 164441e43940..d927c8c9d557 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -7,6 +7,7 @@
- #include <drm/drm_device.h>
- #include <drm/drm_gem.h>
- #include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_print.h>
- #include <drm/drm_syncobj.h>
- #include <linux/hmm.h>
-@@ -99,9 +100,9 @@ static void aie2_job_put(struct amdxdna_sched_job *job)
- static void aie2_hwctx_stop(struct amdxdna_dev *xdna, struct amdxdna_hwctx *hwctx,
- 			    struct drm_sched_job *bad_job)
- {
--	drm_sched_stop(&hwctx->priv->sched, bad_job);
-+	drm_sched_stop(hwctx->priv->sched, bad_job);
- 	aie2_destroy_context(xdna->dev_handle, hwctx);
--	drm_sched_start(&hwctx->priv->sched, 0);
-+	drm_sched_start(hwctx->priv->sched, 0);
- }
- 
- static int aie2_hwctx_restart(struct amdxdna_dev *xdna, struct amdxdna_hwctx *hwctx)
-@@ -659,10 +660,19 @@ static void aie2_ctx_syncobj_destroy(struct amdxdna_hwctx *hwctx)
- 	drm_syncobj_put(hwctx->priv->syncobj);
- }
- 
--int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
-+void aie2_hwctx_sched_fini(struct amdxdna_dev_hdl *ndev)
- {
--	struct amdxdna_client *client = hwctx->client;
--	struct amdxdna_dev *xdna = client->xdna;
-+	int i;
-+
-+	for (i = 0; i < ndev->priv->hwctx_limit; i++)
-+		drm_sched_fini(&ndev->hwctx_sched[i]);
-+
-+	ida_destroy(&ndev->hwctx_sched_ida);
-+}
-+
-+int aie2_hwctx_sched_init(struct amdxdna_dev_hdl *ndev)
-+{
-+	struct amdxdna_dev *xdna = ndev->aie.xdna;
- 	const struct drm_sched_init_args args = {
- 		.ops = &sched_ops,
- 		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
-@@ -673,7 +683,55 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 		.name = "amdxdna_js",
- 		.dev = xdna->ddev.dev,
- 	};
--	struct drm_gpu_scheduler *sched;
-+	int i, ret;
-+
-+	ndev->hwctx_sched = drmm_kcalloc(&xdna->ddev, ndev->priv->hwctx_limit,
-+					 sizeof(*ndev->hwctx_sched), GFP_KERNEL);
-+	if (!ndev->hwctx_sched)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < ndev->priv->hwctx_limit; i++) {
-+		ret = drm_sched_init(&ndev->hwctx_sched[i], &args);
-+		if (ret) {
-+			XDNA_ERR(xdna, "Failed to init DRM scheduler. ret %d", ret);
-+			goto fini_sched;
-+		}
-+	}
-+
-+	ida_init(&ndev->hwctx_sched_ida);
-+
-+	return 0;
-+
-+fini_sched:
-+	while (--i >= 0)
-+		drm_sched_fini(&ndev->hwctx_sched[i]);
-+
-+	return ret;
-+}
-+
-+static struct drm_gpu_scheduler *aie2_hwctx_sched_alloc(struct amdxdna_dev_hdl *ndev)
-+{
-+	int ret;
-+
-+	ret = ida_alloc_range(&ndev->hwctx_sched_ida, 0,
-+			      ndev->priv->hwctx_limit - 1, GFP_KERNEL);
-+	if (ret < 0)
-+		return ERR_PTR(ret);
-+
-+	return &ndev->hwctx_sched[ret];
-+}
-+
-+static void aie2_hwctx_sched_free(struct amdxdna_dev_hdl *ndev,
-+				  struct drm_gpu_scheduler *sched)
-+{
-+	ida_free(&ndev->hwctx_sched_ida, sched - ndev->hwctx_sched);
-+}
-+
-+int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
-+{
-+	struct amdxdna_client *client = hwctx->client;
-+	struct amdxdna_dev *xdna = client->xdna;
-+	struct amdxdna_dev_hdl *ndev = xdna->dev_handle;
- 	struct amdxdna_hwctx_priv *priv;
- 	struct amdxdna_gem_obj *heap;
- 	int i, ret;
-@@ -683,13 +741,26 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 		return -ENOMEM;
- 	hwctx->priv = priv;
- 
-+	priv->sched = aie2_hwctx_sched_alloc(ndev);
-+	if (IS_ERR(priv->sched)) {
-+		ret = PTR_ERR(priv->sched);
-+		goto free_priv;
-+	}
-+
-+	ret = drm_sched_entity_init(&priv->entity, DRM_SCHED_PRIORITY_NORMAL,
-+				    &priv->sched, 1, NULL);
-+	if (ret) {
-+		XDNA_ERR(xdna, "Failed to initial sched entity. ret %d", ret);
-+		goto free_sched;
-+	}
-+
- 	mutex_lock(&client->mm_lock);
- 	heap = xa_load(&client->dev_heap_xa, 0);
- 	if (!heap) {
- 		XDNA_ERR(xdna, "The client dev heap object not exist");
- 		mutex_unlock(&client->mm_lock);
- 		ret = -ENOENT;
--		goto free_priv;
-+		goto free_entity;
- 	}
- 	drm_gem_object_get(to_gobj(heap));
- 	mutex_unlock(&client->mm_lock);
-@@ -722,30 +793,16 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 		priv->cmd_buf[i] = abo;
- 	}
- 
--	sched = &priv->sched;
- 	mutex_init(&priv->io_lock);
- 
- 	fs_reclaim_acquire(GFP_KERNEL);
- 	might_lock(&priv->io_lock);
- 	fs_reclaim_release(GFP_KERNEL);
- 
--	ret = drm_sched_init(sched, &args);
--	if (ret) {
--		XDNA_ERR(xdna, "Failed to init DRM scheduler. ret %d", ret);
--		goto free_cmd_bufs;
--	}
--
--	ret = drm_sched_entity_init(&priv->entity, DRM_SCHED_PRIORITY_NORMAL,
--				    &sched, 1, NULL);
--	if (ret) {
--		XDNA_ERR(xdna, "Failed to initial sched entiry. ret %d", ret);
--		goto free_sched;
--	}
--
- 	ret = aie2_hwctx_col_list(hwctx);
- 	if (ret) {
- 		XDNA_ERR(xdna, "Create col list failed, ret %d", ret);
--		goto free_entity;
-+		goto free_cmd_bufs;
- 	}
- 
- 	ret = amdxdna_pm_resume_get_locked(xdna);
-@@ -791,10 +848,6 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 	amdxdna_pm_suspend_put(xdna);
- free_col_list:
- 	kfree(hwctx->col_list);
--free_entity:
--	drm_sched_entity_destroy(&priv->entity);
--free_sched:
--	drm_sched_fini(&priv->sched);
- free_cmd_bufs:
- 	for (i = 0; i < ARRAY_SIZE(priv->cmd_buf); i++) {
- 		if (!priv->cmd_buf[i])
-@@ -805,6 +858,10 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 	amdxdna_gem_unpin(heap);
- put_heap:
- 	drm_gem_object_put(to_gobj(heap));
-+free_entity:
-+	drm_sched_entity_destroy(&priv->entity);
-+free_sched:
-+	aie2_hwctx_sched_free(ndev, priv->sched);
- free_priv:
- 	kfree(priv);
- 	return ret;
-@@ -812,18 +869,20 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 
- void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx)
- {
-+	struct amdxdna_dev_hdl *ndev;
- 	struct amdxdna_dev *xdna;
- 	int idx;
- 
- 	xdna = hwctx->client->xdna;
-+	ndev = xdna->dev_handle;
- 
- 	XDNA_DBG(xdna, "%s sequence number %lld", hwctx->name, hwctx->priv->seq);
- 	aie2_hwctx_wait_for_idle(hwctx);
- 
- 	/* Request fw to destroy hwctx and cancel the rest pending requests */
--	drm_sched_stop(&hwctx->priv->sched, NULL);
-+	drm_sched_stop(hwctx->priv->sched, NULL);
- 	aie2_release_resource(hwctx);
--	drm_sched_start(&hwctx->priv->sched, 0);
-+	drm_sched_start(hwctx->priv->sched, 0);
- 
- 	mutex_unlock(&xdna->dev_lock);
- 	drm_sched_entity_destroy(&hwctx->priv->entity);
-@@ -834,7 +893,7 @@ void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx)
- 		   atomic64_read(&hwctx->job_free_cnt));
- 	mutex_lock(&xdna->dev_lock);
- 
--	drm_sched_fini(&hwctx->priv->sched);
-+	aie2_hwctx_sched_free(ndev, hwctx->priv->sched);
- 	aie2_ctx_syncobj_destroy(hwctx);
- 
- 	for (idx = 0; idx < ARRAY_SIZE(hwctx->priv->cmd_buf); idx++) {
-diff --git a/drivers/accel/amdxdna/aie2_pci.c b/drivers/accel/amdxdna/aie2_pci.c
-index daec1f6b4907..7a4314ca843b 100644
---- a/drivers/accel/amdxdna/aie2_pci.c
-+++ b/drivers/accel/amdxdna/aie2_pci.c
-@@ -503,10 +503,16 @@ static int aie2_init(struct amdxdna_dev *xdna)
- 	ndev->priv = xdna->dev_info->dev_priv;
- 	ndev->aie.xdna = xdna;
- 
-+	ret = aie2_hwctx_sched_init(ndev);
-+	if (ret)
-+		return ret;
-+
- 	for (i = 0; i < ARRAY_SIZE(npu_fw); i++) {
- 		fw_full_path = kasprintf(GFP_KERNEL, "%s%s", ndev->priv->fw_path, npu_fw[i]);
--		if (!fw_full_path)
--			return -ENOMEM;
-+		if (!fw_full_path) {
-+			ret = -ENOMEM;
-+			goto free_hwctx_sched;
-+		}
- 
- 		ret = firmware_request_nowarn(&fw, fw_full_path, &pdev->dev);
- 		kfree(fw_full_path);
-@@ -519,7 +525,7 @@ static int aie2_init(struct amdxdna_dev *xdna)
- 	if (ret) {
- 		XDNA_ERR(xdna, "failed to request_firmware %s, ret %d",
- 			 ndev->priv->fw_path, ret);
--		return ret;
-+		goto free_hwctx_sched;
- 	}
- 
- 	ret = pcim_enable_device(pdev);
-@@ -623,6 +629,8 @@ static int aie2_init(struct amdxdna_dev *xdna)
- 	aie2_hw_stop(xdna);
- release_fw:
- 	release_firmware(fw);
-+free_hwctx_sched:
-+	aie2_hwctx_sched_fini(ndev);
- 
- 	return ret;
- }
-@@ -631,6 +639,7 @@ static void aie2_fini(struct amdxdna_dev *xdna)
- {
- 	amdxdna_pm_fini(xdna);
- 	aie2_hw_stop(xdna);
-+	aie2_hwctx_sched_fini(xdna->dev_handle);
- }
- 
- static int aie2_get_aie_status(struct amdxdna_client *client,
-diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
-index ea1dac106400..2c7019bd26b5 100644
---- a/drivers/accel/amdxdna/aie2_pci.h
-+++ b/drivers/accel/amdxdna/aie2_pci.h
-@@ -107,7 +107,7 @@ struct amdxdna_hwctx_priv {
- 	struct amdxdna_gem_obj		*heap;
- 	void				*mbox_chann;
- 
--	struct drm_gpu_scheduler	sched;
-+	struct drm_gpu_scheduler	*sched;
- 	struct drm_sched_entity		entity;
- 
- 	struct mutex			io_lock; /* protect seq and cmd order */
-@@ -152,6 +152,8 @@ struct amdxdna_dev_hdl {
- 	u32				total_col;
- 	struct amdxdna_drm_query_aie_version version;
- 	struct aie2_exec_msg_ops	*exec_msg_ops;
-+	struct drm_gpu_scheduler	*hwctx_sched;
-+	struct ida			hwctx_sched_ida;
- 
- 	/* power management and clock*/
- 	enum amdxdna_power_mode_type	pw_mode;
-@@ -294,6 +296,8 @@ int aie2_update_prop_time_quota(struct amdxdna_dev_hdl *ndev, u32 us);
- /* aie2_hwctx.c */
- int aie2_hwctx_init(struct amdxdna_hwctx *hwctx);
- void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx);
-+int aie2_hwctx_sched_init(struct amdxdna_dev_hdl *ndev);
-+void aie2_hwctx_sched_fini(struct amdxdna_dev_hdl *ndev);
- int aie2_hwctx_config(struct amdxdna_hwctx *hwctx, u32 type, u64 value, void *buf, u32 size);
- int aie2_hwctx_sync_debug_bo(struct amdxdna_hwctx *hwctx, u32 debug_bo_hdl);
- void aie2_hwctx_suspend(struct amdxdna_client *client);
--- 
-2.34.1
+I'll do my best to use LLM assisted reviews on my part, but the
+expectation should be that I won't be merging any Rust code without
+formal reviews on list.  Over time I hope to be able to contribute from
+that perspective, but the Rust community is going to need to hold their
+end of the bargain as well.  If meaningful reviews are not provided,
+the driver can be orphaned and removed.
 
+The Rust community also needs to be proactive in supporting the vfio
+community such that abstractions and interfaces between C and Rust
+don't become a barrier for C-based development.  Keeping the Rust code
+working when the C code changes is the Rust community's job, we
+shouldn't expect more than "best effort" from the existing C-focused
+community.
+
+I also want to be clear, I'm not endorsing Rust as a pattern anywhere
+beyond this individual vfio-pci variant driver.  Any other proposals
+would need to bring a comparably sized community to sponsor them.
+
+Dave's approach to make vfio-pci-core a stateless helper with respect
+to drvdata, with a dash of Jason's macro idea to minimize the driver
+boilerplate for the common cases, seems like the right direction to
+remove that convention.  I've handed off my own LLM generated version
+that does this and it should be refined and posted soon.
+
+So, unless there's an aspect we haven't considered, it seems the Rust
+variant driver should be the direction here.  Thanks,
+
+Alex
