@@ -1,157 +1,113 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECAA565110
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:32:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E711857EDA7
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177540; cv=none; b=YHMZ/5NlNx+bKd1gxpTQf3HJCiBJtXAV7baJ0hkUyqGx8a6S7ucl418++p/HcHsWNOopQeCjuipzObFqVTHJMdFqoaDRpEiILUFWO8lyklTvEbbsR1jTfrSnESLWV6bazZXYXrderkLKzgl7mv7p3ED/QGKmJn1ICykUyFljRJw=
+	t=1790177551; cv=none; b=ZbrmBgyxiv4vSxboW2poedzyJ7gXo8fQrpKqW605xTgDN9DNCo+HuhcLOVWjfcPRCseBhMuZ6INZrfGae1lj+nHg1T7iJTQPvk2wYhwHq6eIrHL1fZM+S6nvzv9QRwVVlBryWI1bA09fdJZZATP2gLYEw0vtdHrxETkuysOUqIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177540; c=relaxed/simple;
-	bh=85dX9Lf/sfXcN1Tyse46Ek5ZypzCkU8iMrFONRu4zwA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=IryW9ZvCRCA0gxmIm32L6D4WK4OtGk8tWC76P6Cz7zeB1GIXAsswuNYGn3fxdh+3y9N9lq1mvKoyusfHu5a17MHyAnVfkrYt/fmh+6OzztLpn8R9TsmTjctlvKbTKH/Ktgj8VOKEQArZWiCHs/4I6GgsGnWq2fnZLOLdraN/MB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QFpbyCWL; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1790177551; c=relaxed/simple;
+	bh=mSR3f1gDPChfk7NMnvIsHTprfuzaYszs1yxvY+OqOhQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TnsHqoRd+pK4W/5cUo0cAKCLz8sM4kwJjhddTCZ953U0ZjRtgpsE7BYVjipKI0B1BDqXdCWmmU4iUuXKGkrcIofQcGGeOb2Ab3Nd6gLadJ5jJFT67okYsGWLbYlsZAvc52RC7ZbKuU/Lhkxr6/JWo+BdGBQb36VMDCQ40+ZNrTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AAgeQI72; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QFpbyCWL"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0fso1836526a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:32:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AAgeQI72"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ee1f9bso5685955ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:32:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790177530; x=1790782330; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3B1pltCyt8uMcbScgeyNeCyno46cKnz3EXyCIHLNjo8=;
-        b=QFpbyCWL0bMHfDJPmbyxXmvntc0i2QYbLW8YaSaa2G1qKoG6qO7FFdGbqLlIKK9IwP
-         rl46QobOy3gCr8IbQnvzpov6cMna2nP614y/2UYve+HWB0EoiLaxcPfCpmAM9U9FDQKv
-         nDVkpBHdfUmmKmVKKw6DievcIvq2pMiQkWvvH+yjVeTQs2LVe42486kJr/zwztysxiGD
-         e627YH+3/p+r4dXbHuHEJGVCkgvoADBf2rmrEiJXPYckODGpKShyHX5XSx4JRLHKiUAr
-         yDSmFBvNpg7eX9G/DPbkLH9MTrvxQSCmaDzpd2KPyYpB6Pwvd/8bSL/9/NPGA3oVCDjA
-         TkOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790177530; x=1790782330;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790177541; x=1790782341; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3B1pltCyt8uMcbScgeyNeCyno46cKnz3EXyCIHLNjo8=;
-        b=P5vDRe0mqwzfxugsSvvJPx6QlOCB+4Ohk7AN6wRCrgOWAPo3liWE61aSEd68nnrxwn
-         L9+b3ImOfVHhaHxv8CKwUvwXKcOPhyBpRUHmMWXzxr4jnwTgFD1E/OOCgX3jeiNiCK7C
-         Yh9IEa3gdFsrcfPWUroSyA3XkrAi0VUMapYxXo2sqqZBoiuDGRfXG2Yqa6PM9pvxgAJe
-         w9Io4eKPs/UTuMcGuNJzVSDkn4IsNq1Hm71nRDxFi9CIK0WWsF6nnfiEkuQaWwTQU0C4
-         PmmA+laDLT5dZCQVnMCSaGrr/d6zVcy2Iqi0NT3oR9wMk014S3omOgf4Lc+u7w276CPb
-         ETZg==
-X-Forwarded-Encrypted: i=1; AKwUvBwC0/ps1p6jaql5zZN6uJ7aIU7okVDVKmoHQ2tv9MpqvpnrC1KP72qifIpdF+twBRUwLFViOYy6zA9ymVg=@vger.kernel.org
-X-Gm-Message-State: AFuF++khviJrNhW1fQo7rnfdSnWhKglduhBuCSEkvNfMW7Mbj3uMqYUB
-	a88FQLiTC9Pp20wcPGCVQWGFhu6oNFIm5RGpXWYKb1wa5legoyA6tMjMojQCr0rnec16Md3J3ci
-	s75xH0g==
-X-Received: from pgvn10.prod.google.com ([2002:a65:63ca:0:b0:cc4:5907:21e9])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:314c:b0:39e:6c68:fd8d
- with SMTP id 98e67ed59e1d1-3a07e5da863mr1820942a91.34.1790177529298; Wed, 23
- Sep 2026 08:32:09 -0700 (PDT)
-Date: Wed, 23 Sep 2026 08:32:08 -0700
-In-Reply-To: <20260923091555.GX776954@noisy.programming.kicks-ass.net>
+        bh=eizHbalFVOzT+I6Ooa3gggOLwA/JPAGjR3GiwZpUvKw=;
+        b=AAgeQI726MkCk/oA1+gl/roZwc7xD+ivXB8ZSA7SS/+SvqCDzWUk+7PwsKc+KDS3OK
+         +0nYdCrpyZFv3k60oBV09l33TyDItkH9bXLOmnU6MGEx9EIlsu39VgJfJZ2Yr0l/tarp
+         RpeMwy/S5449U4QNmnHtlGHrauKlDPqlp9uJJIzZw5G5bZMUEBc+FuveLTU43f7Bj9yT
+         xaHb2Cg4YDs2xOHwc28sVnK7g6qfuj1tx81JcfiTkz5jRZWwX9FganBAzow3Xb600PSx
+         dLdg9TuheoP3R2o3B7YmotS22lwRt7Bfyo2A3qF8WmUbntKq+tMVRJN75xh/QJDWy/jC
+         V/9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790177541; x=1790782341;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eizHbalFVOzT+I6Ooa3gggOLwA/JPAGjR3GiwZpUvKw=;
+        b=i+ENkLm8WCrNE5vtIGcheYP/1TMPhU+DdW1IX8F4u4g6tQRc4bHqDSyZA7YSJDg+pK
+         dgmjtde7QgJCS4T3KrApqlzS65t4QUawGE305m+IxHI/+UbbW//vBtohILtgAfyKO6eE
+         U6yVJEMfIOfjVbuNcIQG9gGBuCrUuCeGAGIP4pi9Dswf8vJTK4x3farokdJcbJgICv0l
+         wRTswW8VRprpKBS+RxtIFuEm/cj+R7/nt7rk2hCr8mOiomwkLDPfydkkrAbSattcWjva
+         Dxit1m+wryxFZ2i14n/DgX+lr9+qDud4NmLxu1iU+pwcjnmND1aB9Vq0hjoVQXZkXbII
+         No1w==
+X-Forwarded-Encrypted: i=1; AKwUvBziib3ducZxoc/MciM8RGB87jnM2mjBfZqxGsyv0c3GnWURRGYKu2mbONIOTcpT3NxXod9gnetwo+ojFpg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpUJ1w6zH982Sy1LWxGbxDfQuY/RwK+56yiFZ5J08zhku2leUe
+	OFss7K7hBOVtfnYBzW+kz0QcpzWpj944n5xsNnA/O1wrKPaVIfMAOEyh
+X-Gm-Gg: AYBFou0SnydVaM7Hzg58rxs+JnhiA9u5KO/IPs2n1quP1Tes4M9cvSfC7MZr+q7t55p
+	lrSc1JvbD8Z/VLk9POFd3iroHWoNUYv9NzLBEbvXd0/x78cjZ8gPg6QBDpsb3XFbuA4PQ9JxZz5
+	FcuA1pROjA0THZd+XdlQkHq7FF88jCMFFoPqlemNBC//m1s++Sw8abgPPIGBpYdSL8epiVKdpm6
+	Q/r32VLAiYTTymTuXjbIyD2ONuOyJQ2IvVyvWYP319c1jg/tsU1cGrypzxmJCa8Av8XsfvV/ENj
+	pPgSjfdszCDRkHli23QlZO6/jXFBcINTY7pGE+RmccLRoCAlh4uGbBAOmG/wOi6zbJRunFoQDpe
+	qYOcwn2tsT25sDwUPNTcf+C9GOhyD1aj/WEVpPGI6JEG5ips7NvQcd2GarIzVoEp9vK7YPWpJOt
+	Zx5UQlgY/Ez57kvP0by7cSwaJBF7GR4ipuGrLw4VoiS/Xi3+g/Ctid21B8AiGHqCAfI/4CROpPk
+	hqJ/k9RmHRjQ6uIXJ9yQ8Lst4bO9+hOfDm58JmSFCuyAfFCqTBpZCv/RbsPgLgy2bsavhp16dro
+	3uq6Wa2Zd5iXcmJ/Mjh1ayat91vJMEF6ZQNUGwcbOi1WkA9Nv9qnhDwxR8/sStc=
+X-Received: by 2002:a17:903:2f85:b0:2df:5b0a:33da with SMTP id d9443c01a7336-2df69dc8cebmr24623855ad.34.1790177540475;
+        Wed, 23 Sep 2026 08:32:20 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5a69f7sm13139835ad.16.2026.09.23.08.32.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 08:32:20 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Jan Kara <jack@suse.cz>
+Cc: Christian Brauner <brauner@kernel.org>,
+	chenyichong@uniontech.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] isofs: validate directory records in isofs_read_level3_size()
+Date: Wed, 23 Sep 2026 23:32:17 +0800
+Message-ID: <20260923153217.777351-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cpadce3biub2f3lv5mnuegqpd5wwip3n67oe4xy3jujserdzfk@ynipz43pmoul>
+References: <20260922140137.1768064-1-matthias.goergens@gmail.com> <20260922140137.1768064-2-matthias.goergens@gmail.com> <cpadce3biub2f3lv5mnuegqpd5wwip3n67oe4xy3jujserdzfk@ynipz43pmoul>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <179005108298.388919.4535333252892590932.stgit@devnote2>
- <179005110742.388919.1509641807739909065.stgit@devnote2> <20260923091555.GX776954@noisy.programming.kicks-ass.net>
-Message-ID: <arPw-N3HF3ehNGTQ@google.com>
-Subject: Re: [PATCH v17 02/13] perf/x86, KVM: Prevent host debug register leak
- into guest OS on NMI
-From: Sean Christopherson <seanjc@google.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ingo Molnar <mingo@kernel.org>, Jinchao Wang <wangjinchao600@gmail.com>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	"H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Ian Rogers <irogers@google.com>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, x86@kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026, Peter Zijlstra wrote:
-> On Tue, Sep 22, 2026 at 01:25:07PM +0900, Masami Hiramatsu (Google) wrote:
-> > diff --git a/arch/x86/kernel/hw_breakpoint.c b/arch/x86/kernel/hw_breakpoint.c
-> > index f846c15f21ca..0473a5c95856 100644
-> > --- a/arch/x86/kernel/hw_breakpoint.c
-> > +++ b/arch/x86/kernel/hw_breakpoint.c
-> > @@ -102,6 +102,9 @@ int arch_install_hw_breakpoint(struct perf_event *bp)
-> >  
-> >  	lockdep_assert_irqs_disabled();
-> >  
-> > +	if (perf_guest_in_guest())
-> 
-> That naming is hilariously bad :-)
+Hi Jan,
 
-Indeed.  It's also misleading and confusing, because it's really checking for
-"in KVM's core run loop", whereas the goal of perf_guest_state() returns a
-non-zero value if and only if the IRQ/NMI really did occur while the guest was
-active (I say "the goal" because it's imperfect due to architectural limitations,
-but the goal is purely to detect guest PMIs).
+Thanks for looking at it.
 
-Ugh, and routing this through perf was my suggestion[*]:
+I don't see how it can trigger there, but I'm probably missing
+something, so here is my reasoning.  With 1/2 alone, offset is always
+below bufsize at the top of the loop: a record that ends exactly at the
+end of the block takes the existing "offset >= bufsize" branch further
+down, which leaves offset & (bufsize - 1) == 0 and bumps block, so the
+next iteration starts at offset 0 of the next block.  And
+isofs_dir_record_valid() accepts a record that ends exactly at bufsize:
+its test "len > bufsize - offset" is false when len equals the room
+left.
 
-  : If we decide this is how to fix arch_install_hw_breakpoint() clobbering DRs from
-  : NMI context, I would rather have more generic flag to tell perf that KVM is about
-  : to enter the guest, e.g. so that we don't have to separately solve the same problem
-  : for other perf events:
+I also tried it, running fs/isofs in a userspace harness on level 3
+images where a record of a multi-extent file ends exactly at the end of
+a block, including xorrisofs -iso-level 3 output with a sparse 8 GiB
+file.  Neither 1/2 alone nor 1/2+2/2 rejects the directory, and the file
+sizes come out right; a record whose length runs past the block is
+rejected.
 
-After seeing the code, that feels like a pretty stupid suggestion.  Though in my
-defense, I was thinking of a per-CPU flag as opposed to a new callback.  Anyways,
-I don't think we should key off IN_GUEST_MODE and EXITING_GUEST_MODE because they
-are very much an arch-specific, KVM-internal concept.
+If you have a reproducer, or just a hint at the case you have in mind,
+I'd be really happy to look at it.
 
-What I was trying to say by "more generic flag" is that I would prefer not to have
-a super specific cpu_dr_in_guest.  I'm not opposed to have a dedicated flag (though
-if we can avoid one, that would be lovely).  The biggest problem I see with adding
-a generic flag is how to make it precise enough to be useful, without end up with a
-confusing name.  E.g. "guest_state_loaded" is terrible because KVM keeps some guest
-state loaded even when the task is scheduled out.
+Even if the code might be technically correct, it's confusing.  1/2 only
+works because of a branch further down that 2/2 then deletes, so I'll
+send a v2 that squashes the two: move on to the next block first, then
+check the record, as you suggest, with the straddle code gone.  The end
+result is the same code as after 2/2.
 
-And to Peter's point below, is arch_install_hw_breakpoint() even the right place
-to handle this?  It seems like KGDB itself should be handling this, at which point
-maybe we just do something like this?  Then we can provide nop stubs when KGDB
-support is disabled.
-
-diff --git arch/x86/kvm/x86.c arch/x86/kvm/x86.c
-index 1705e7be46ec..42fa4dc44cbc 100644
---- arch/x86/kvm/x86.c
-+++ arch/x86/kvm/x86.c
-@@ -8273,6 +8273,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
- 
-        kvm_load_xfeatures(vcpu, true);
- 
-+       kgdb_arch_enter_guest();
-+
-        if (unlikely(vcpu->arch.switch_db_regs &&
-                     !(vcpu->arch.switch_db_regs & KVM_DEBUGREG_AUTO_SWITCH))) {
-                set_debugreg(DR7_FIXED_1, 7);
-@@ -8365,6 +8367,8 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
-        if (hw_breakpoint_active())
-                hw_breakpoint_restore();
- 
-+       kgdb_arch_exit_guest();
-+
-        vcpu->arch.last_vmentry_cpu = vcpu->cpu;
-        vcpu->arch.last_guest_tsc = kvm_read_l1_tsc(vcpu, rdtsc());
- 
-[*] https://lore.kernel.org/all/aqgGRKOE138ePqmX@google.com
-
-> > +		return -EBUSY;
-> > +
-> >  	for (i = 0; i < HBP_NUM; i++) {
-> >  		struct perf_event **slot = this_cpu_ptr(&bp_per_reg[i]);
-> >  
-> 
-> Note how the other -EBUSY return is a WARN. Why is silently not doing
-> anything not a WARN in this case?
-
-Probably because the WARN would trigger anytime KGDB's NMI craziness happens to
-hit a vCPU, i.e. isn't a kernel bug.
+Matthias
