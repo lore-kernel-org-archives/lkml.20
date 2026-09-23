@@ -1,292 +1,155 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F8F51E43D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:48:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650214D37A4
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:48:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790167699; cv=none; b=Yds4ARM5MuN4KluUVU2jyXoRkUhQlirZqN+0+QblpfbpDq+wmIr48eNFZBEM6WRTDq6SE4gHO2TuqgPUWV0jp0fpW9OMlzLYQNHdIbnQBy84S6JoMt/XcoUchgYgtdA0JWYguzO0gBEpWtsoVDVDfW3s4iFVe8NfhX9yZwMQZsI=
+	t=1790167734; cv=none; b=qtrNZoYjJPzmfF9GgQfDkK5/GFHO4f+iGxTmBKgzqM5hcVvex9XAH22rYRDizaY/K49Z8aXhvznS/kL3knDOKiQAaT8/62cSJmqKgUK/vNfyTdEOZzGlkpN9dEeTatPeCnWZmmQrHSw6vcrHXoHX/+CpXnEnbRhK8xjiElBI1Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790167699; c=relaxed/simple;
-	bh=jPNtavFMI4q+FGbI7qJEzIBWSIDqEWdTuyso7m6gikQ=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SHfvx38+APtg1LE1OBXNtdgHT3Iz6iNsZW6ihWnqmWBT9MDnpiAggt9PMZ740ccSbLqtpy/0hnXqXlC0DWmSqINsD/ZM9Mm+axup75S/+bNR4p4TkqP2d88jjbkvrAyHG3Db4fGC4V/OVFuXVkKwfJmNHmxfCsDFcLxZmlQrTO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=aP/REoU+; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1790167734; c=relaxed/simple;
+	bh=UqvzQZF+a+YBDiE3dPxoSY4txFf1GjSNRE0yqZqWl5s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kTg8uIWWNe97xk4nbYMGeLQ3m+Dmofs1uKsJp1lmItLZcfu+rNenWmXPd7MBcsyRjv31lYNiYblQIMUOV+BX1zc78GDmZOM3tDMVvjHWxxrkXhJEnuGTdoyNGbxjv8XUhYOqS3OXNA+k6cs/Vu1vptWAvcTX9YcbIwJ8UbqGRVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L+4AJWdi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bWC34EaL; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="aP/REoU+"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885d4825adso588651f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:48:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L+4AJWdi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bWC34EaL"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NBbTks2466532
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:48:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+fYsmaCOswGfXIcjuZ4YVs1Tv5hzJto3q+rRnzlZDec=; b=L+4AJWdioG+c+ta7
+	YIeFC+C6VwsQVYQKlFICre85GROY41erDMA6dTGiXamvlCxpI+G324jr8n5zFgjw
+	VkD432rX0+In0NDhkj8nc8bs/QkW6z/Dg5YGMAIqHouM51bUpREE+H7Rx6u8yg6I
+	FYLckwljTE7bIM9SBSn7UBRopE/2qgUu7j8Uk7aml0HcEJCq7NzZu50yM6ufl+fV
+	z2uAVQyaFSHIHiyqHQBVMBS6CbpXSDj+Xqkd63HsiYrOOhiHkIeWVeVfc5NQyZCH
+	GiKJm/+41f6/tOQ24+rqwf0gA4A05hSc/GMsYAyz76wOqeRrbVTBCo/ZFOygStmT
+	MKxbLA==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guy2c42f6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:48:51 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90520763ceaso195626d6.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:48:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790167695; x=1790772495; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ODeygWUoyfZFfVTkmoKD2nbDJdrzVQ9HvoPK8jlMnfI=;
-        b=aP/REoU+pbqj1Po5qdX43wyIII9rzCDorXWUCTz76wM00v/+d4SF+b/0wGeQ0eCilK
-         nrha7jo9IyTIKp3AF6E6B5WWr7N5fl/cv0YSO5gc7mYxKFy69fEQ4DDKgIxqMeIuPG9w
-         c3OW9bRhoPy6Tf2YJxdJUtXQafgNCY7rNIcySc0Pg9jhjkSg+xi1r1cbJbUHGglASqy4
-         8Og31XH4nEiLViQC4EUxaS9IblninMKhZ6bRdjtpiDmi8wfaBBY56N12cfmIQyvUqJJF
-         hCzKOjCjaiLl3gRsv25koO+lgPSrxD2YvUE86I6EaR3W0iZ+JetEKx79xLTALou8mGCf
-         1Xsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790167695; x=1790772495;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1790167731; x=1790772531; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ODeygWUoyfZFfVTkmoKD2nbDJdrzVQ9HvoPK8jlMnfI=;
-        b=BCCYk68O+8B+9iPtmt12It4ft2+WJjeZCvcECy7aj9KG1uL+n1DXJocdyQurvo+rhB
-         DmVjx63o6kayzPw9dmq+UcCSVzm4ILyiownMmqLsqtTrwqF+Utf3e8QW0knP0Biy4Bcw
-         HgSQQ4Xh4qv2yukEAyqDoKgB3GjWpw+B0/QDTzB2pAtudACMpguc5mUJ4S+FP+S+6KqE
-         TWM72UmDceZuy3gLSyDGZU6RV3fNIkBd33T2Ua374jAGew8Nq8rB5KkArhMlnLQIMAoQ
-         CIrwElhnfBqa7CqiDl+26ipAHNRmrtwHcBa2gvrf6GyNs+ClBf86A96zJ2orejZM53+n
-         FNhA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7AxNcHBluSJF8fxZ0TAYpcAOEh8zTDSgZoyFodjIiUy6piCdNgsnU02vWhmHt+jhK+BeAlB39SK30ah0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/KSTezuu8hCM1LB6SwSVqzE13sumITy4MWqKudEvvF0IkPGbU
-	/frRAVGnnKEbWHNq7ucB1OJkYm4HdUkGGbLhVj/jC/v9+0gdKIXYAPJ7nw/Fm4Ztg54=
-X-Gm-Gg: AYBFou2pRluhRt/tMWEcgI/n8onWvDeOQ8Jn9VAez3mM1sWfFITSdT367Mcw3ayJSIy
-	CMWqnVHKjTQlKwR3w3CZcePrqokyCqZv4O8ptiCX8IC93DBBAW9LWuwwXKLMm2H7LD3raU9yOjF
-	YQqlmYXTcjzJBYMzOipV3m/q34svjGm8L4JOEuiylXRsYPzq8UjnNF5XgnVsuyRaMjplfufT1Ys
-	jc20EZhhD/pKqj1mF0ttYAhZgvERwF86yBS3sH7EqXmmOCVAtYgj7vhDMDVy8FKh6w1FSMbuMkC
-	oOr3cqeVoBINbi5EORZgEnvkny2xUXmL8axGOkNr5/PSIt17hwJq783ZX5r1PfT7cbsq+bEWdEB
-	31p/0Kv6YTx3FoR2YGs7IuALwdcSjPC1E/KKnDwKxun3gYZeADHNUr6Sd2GzocIwLag2zJDdIjf
-	w4jSY503PPb6iwkbv45JE1xtNdbCRqJepuIsGbDRX5M5kmwlLxNZmFRVVlEYziRrMg57k8bw==
-X-Received: by 2002:a05:6000:240d:b0:484:39b4:5bc9 with SMTP id ffacd0b85a97d-48867093ba7mr4171210f8f.26.1790167694853;
-        Wed, 23 Sep 2026 05:48:14 -0700 (PDT)
-Received: from localhost ([195.94.147.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c267sm6932595f8f.16.2026.09.23.05.48.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 05:48:14 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Wed, 23 Sep 2026 14:51:55 +0200
-To: Gary Guo <gary@garyguo.net>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
-	Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH v9 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <arPLa_g4mAg1t2rq@apocalypse>
-References: <cover.1789724999.git.andrea.porta@suse.com>
- <22f454003902173a7230d0aee5fbd7261fcc163e.1789724999.git.andrea.porta@suse.com>
- <DLM3VDAEVVEO.1STV7HI3M3YXK@garyguo.net>
+        bh=+fYsmaCOswGfXIcjuZ4YVs1Tv5hzJto3q+rRnzlZDec=;
+        b=bWC34EaLJ2F7ASZVzD2Vgl4LDktyDlKv6wBps81n0KkUVDp+UA865idKpjVncmrE4o
+         f0Lc54gY96SyT6Y5HxZSIVb2eAzqww+kznQh4HM0PCh9UkK5FniOF3Gs1ZQVLSsts5cg
+         guys/TMcya86h3NuQmH2Gl/F7STltEWEJicRKJZQE6lmr3cI1TI0VnwV3FU5NKLjNNPc
+         tMZ86GeDe6aTtkrsXBHfz8ojHB36F3jK4aM6wQN2ScYBT1HrY0xtwDS/8xNzLmag/E9O
+         gSALlgRK3/Z7SGydJQSOneNn9dlhN/xvs3OJAySMkOKs4Qy0qPh1g6Tvy/il0606IaNA
+         WpxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790167731; x=1790772531;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+fYsmaCOswGfXIcjuZ4YVs1Tv5hzJto3q+rRnzlZDec=;
+        b=Lc5EzlSl95DEccdqspXQmgBVUO9B/5xhPQvZ69RvSv7K9PTb30iqHe7o3D+QHXakWF
+         ej2mnpmrKc8Yo45WU4fqjM6KSiGpnNWlu2Ne4B45GWqB5aqcblDsYwNdg+ouG1cJfXhq
+         9tQYPQWMKTJKvB841eid1rBOOsNb/puc0mpMjv5+bXwNexECgyYuf6umEPfKy4HAYFZO
+         HqX60s3TTgPCegGvg0HkBfk4xEPO3KUjbbwCMqwae0SDpMVaMtc4l5euvK/gNcx94i92
+         ZFiexmWyyAx80RTHUV63oaLKdK6cB7YB/MO7Rcz9WIVbXolxSJHHpCgI658wJFWIIbde
+         mlKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypznNNRWneLFVN0le14pzx8FrAIgUFVAeAb/6MhsNXR6jT3qokUyBJwXks0bFYEsAebITvj95DjrZPO7o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmH46stzZevCA3iUpFfFMB4e6XfN1JIPaSssC23+YOVoYNOR5b
+	FG7YISrUQYIgCwTcihMGNb5R5ZzKEANNqLE6l0iRht6IgcRwH3WQ/Wo2ZK1yUKo+ZICOU6Hmi3e
+	rOPM0cqMXPi/EnSNu1S6U3gDijE1KyHQJzj9zNQ4Hv1a0apNLuUk4erXk5X30YuWpPe0=
+X-Gm-Gg: AYBFou2qVtgYZMv+vkv6DBpGELn9eJYWKrKhYjx97gz2fogPeIHW/pT4wjqYGYhQI6o
+	vBnD9VZslD3lOuOtYUZr2aaCtcvWJHsnMdmTKefRfNkJ38DytBLKLgcuNcQjJ191yEUOyykzgJs
+	tid5pIkmiyKBYDDG0wt09RTLVjHLGgP7Pqs7pWSDIH3f6E4cWRG06mLmu+VwkH7TCDnXnud5pyD
+	yZBBFHNgjYvNASvg+s9DEyP3BoV9eX8bSi05J/DVsjjpSCxWQ2XLzncQ6iBB8pg662zivX7hyY/
+	b9fYA7fPevt0U+Zns0dB4KkinptMFT7b4YLlMqIjk+om6UOLyhqfx95L9fnIZQpVXzMoZa0aCPW
+	kMwi7EW5gUcbZJjBNJcWJL+wJCjMRceGs
+X-Received: by 2002:a05:6214:5b86:b0:912:1333:e04f with SMTP id 6a1803df08f44-9140c1331abmr40600476d6.0.1790167730621;
+        Wed, 23 Sep 2026 05:48:50 -0700 (PDT)
+X-Received: by 2002:a05:6214:5b86:b0:912:1333:e04f with SMTP id 6a1803df08f44-9140c1331abmr40600186d6.0.1790167730121;
+        Wed, 23 Sep 2026 05:48:50 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae5c5c6csm116628066b.16.2026.09.23.05.48.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 05:48:49 -0700 (PDT)
+Message-ID: <8e12599e-be86-49a8-a9f1-7bc2abf2eae6@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 14:48:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLM3VDAEVVEO.1STV7HI3M3YXK@garyguo.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] serial: qcom-geni: avoid unused-function warning
+To: Arnd Bergmann <arnd@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jiri Slaby <jirislaby@kernel.org>,
+        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+        Praveen Talari <praveen.talari@oss.qualcomm.com>,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Aniket Randive <aniket.randive@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
+References: <20260915200435.3524505-1-arnd@kernel.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260915200435.3524505-1-arnd@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: D0ZQpVSxAFH-v1E9h5i5NbaoD9ryQIZl
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1MCBTYWx0ZWRfXzbWB8bX+CC3s
+ YdIc5yGnfAXHeosVyJDO/10j+Jgh+DT7oDu9BneyOVFsNVi2krvVQBjswVh23Sc3uqtZbuvZA0M
+ w1mkcbOo0HKe4+qlhQihvwY6wtwdk+0=
+X-Authority-Analysis: v=2.4 cv=Zsh4uN7G c=1 sm=1 tr=0 ts=6ab3cab3 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=GCO5t0sYmCnv8Esj6DsA:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-ORIG-GUID: D0ZQpVSxAFH-v1E9h5i5NbaoD9ryQIZl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1MCBTYWx0ZWRfX/p+9cHCaWbbj
+ EtrFj1mrcw8xNhxbY87aLlg6QQj0/rjH+TYvPPtI7DjJ5DOiOsLiYk7fvB04kYSMz8nx/5h8O4T
+ HSELqDVC2D37OzSEYQ30KFr9bqALMy4KlXUaxOq2rq4JMpBgbeXqi/zbHzl8tYNIGJht5lnNecU
+ WYRoc8hSugj7xc6KcKhxh9SpDrXKz2/c0wof5ywYsFO1dWdnN9FfixZiibN0H+7w9MLluxQniei
+ YMaqgHt4bubZqWqmv8110zCTbblLu90VuidDylLMFsVzI+mdzgBymrFKMMUjt3J7JEBwFibVT/8
+ wRpmADhVmzG8D4iNuqJVcl3hrZY2m2MKNjAqW8KalvIQypPhb0SWxAwgCFEpX/PIcFMpaxBG1RB
+ 39Gquzl9IrDNvGi5/s8ptJV3kkRPqvO3End/MZR+Jix5MUAMw8iuYgMRq53g1dnaz5W0IvL55fM
+ 4Pq3HXBK2Wb95us05sw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230050
 
-Hi Gary,
-thanks for your feedback!
-
-On 20:51 Tue 22 Sep     , Gary Guo wrote:
-> On Fri Sep 18, 2026 at 10:59 AM BST, Andrea della Porta wrote:
-> > From: Naushir Patuck <naush@raspberrypi.com>
-> >
-> > The Raspberry Pi RP1 southbridge features an embedded PWM
-> > controller with 4 output channels, alongside an RPM interface
-> > to read the fan speed on the Raspberry Pi 5.
-> >
-> > Add the supporting driver.
-> >
-> > Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
-> > Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
-> > Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-> > Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
+On 9/15/26 10:04 PM, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
 > 
-> Put yourself a Co-developed-by perhaps? You made significant changes.
-
-Ack.
-
+> The qcom_geni_serial_poll_rx_fifo_locked() function is only
+> used for console support, but defined outside of the #ifdef block:
 > 
-> I've tested the device on my Pi 5, and the fan is indeed spinning now :)
-
-Nice! Thanks for testing it :)
-
+> drivers/tty/serial/qcom_geni_serial.c:918:13: error: 'qcom_geni_serial_poll_rx_fifo_locked' defined but not used [-Werror=unused-function]
+>   918 | static void qcom_geni_serial_poll_rx_fifo_locked(struct uart_port *uport)
 > 
-> > ---
-> >  drivers/pwm/Kconfig                       |   8 +
-> >  drivers/pwm/Makefile                      |   1 +
-> >  drivers/pwm/pwm-rp1.c                     | 499 ++++++++++++++++++++++
-> >  include/soc/bcm2835/raspberrypi-pwm-rp1.h |  10 +
-> >  4 files changed, 518 insertions(+)
-> >  create mode 100644 drivers/pwm/pwm-rp1.c
-> >  create mode 100644 include/soc/bcm2835/raspberrypi-pwm-rp1.h
-> >
-> > diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
-> > index 7297760868790..e1baec8d294d1 100644
-> > --- a/drivers/pwm/Kconfig
-> > +++ b/drivers/pwm/Kconfig
-> > @@ -637,6 +637,14 @@ config PWM_ROCKCHIP
-> >  	  Generic PWM framework driver for the PWM controller found on
-> >  	  Rockchip SoCs.
-> >  
-> > +config PWM_RASPBERRYPI_RP1
-> > +	tristate "RP1 PWM support"
-> > +	depends on MISC_RP1 || COMPILE_TEST
-> > +	depends on HAS_IOMEM
-> > +	select REGMAP_MMIO
-> > +	help
-> > +	  PWM framework driver for Raspberry Pi RP1 controller.
-> > +
-> >  config PWM_SAMSUNG
-> >  	tristate "Samsung PWM support"
-> >  	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
-> > diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
-> > index 5630a521a7cff..c07fd24f69f39 100644
-> > --- a/drivers/pwm/Makefile
-> > +++ b/drivers/pwm/Makefile
-> > @@ -57,6 +57,7 @@ obj-$(CONFIG_PWM_RENESAS_RZG2L_GPT)	+= pwm-rzg2l-gpt.o
-> >  obj-$(CONFIG_PWM_RENESAS_RZ_MTU3)	+= pwm-rz-mtu3.o
-> >  obj-$(CONFIG_PWM_RENESAS_TPU)	+= pwm-renesas-tpu.o
-> >  obj-$(CONFIG_PWM_ROCKCHIP)	+= pwm-rockchip.o
-> > +obj-$(CONFIG_PWM_RASPBERRYPI_RP1)	+= pwm-rp1.o
-> >  obj-$(CONFIG_PWM_SAMSUNG)	+= pwm-samsung.o
-> >  obj-$(CONFIG_PWM_SIFIVE)	+= pwm-sifive.o
-> >  obj-$(CONFIG_PWM_SL28CPLD)	+= pwm-sl28cpld.o
-> > diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
-> > new file mode 100644
-> > index 0000000000000..cfd38e46cc589
-> > --- /dev/null
-> > +++ b/drivers/pwm/pwm-rp1.c
-> > +
-> > +int rp1_pwm_read_tachometer(struct device *dev)
-> > +{
-> > +	struct pwm_chip *chip;
-> > +	struct rp1_pwm *rp1;
-> > +	u32 tach_val;
-> > +	int ret;
-> > +
-> > +	if (!dev)
-> > +		return -EINVAL;
-> > +
-> > +	device_lock(dev);
+> Move the function definition to a more appropriate place that
+> avoids the warning.
 > 
-> You should use the device link mechanism for synchronizing unbind / runtime PM.
-> That can be done in your RP1 fan driver, and it doesn't need locking on this
-> driver.
+> Fixes: 8200871327d1 ("serial: qcom-geni: Keep FIFO RX active during console TX")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
 
-This does not enforce the locking though. Is it enough to just rely on
-caller to create the device link in advance? IOW, just add a documentation
-comment to the exported function prologue stating that the consumer is
-responsible to sync via a device link is acceptable?
-Otherwise the only way I see to protect it in any scenario is via the mutex
-I've already implemented and a second flag for the removing path (device_lock
-will be dropped, of course).
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> 
-> So Sashiko is kinda reporting a false positive here.
-> 
-> > +
-> > +	chip = dev_get_drvdata(dev);
-> > +	if (!chip) {
-> > +		ret = -ENODEV;
-> > +		goto err_dev_unlock;
-> > +	}
-> > +
-> > +	rp1 = pwmchip_get_drvdata(chip);
-> > +	if (!rp1) {
-> > +		ret = -ENODEV;
-> > +		goto err_dev_unlock;
-> > +	}
-> > +
-> > +	mutex_lock(&rp1->lock);
-> > +	if (!rp1->clk_enabled) {
-> > +		ret = -EBUSY;
-> > +		goto err_clk_unlock;
-> > +	}
-> > +
-> > +	ret = regmap_read(rp1->regmap, RP1_PWM_PHASE(2), &tach_val);
-> > +	if (ret)
-> > +		goto err_clk_unlock;
-> > +
-> > +	ret = (int)tach_val;
-> > +
-> > +err_clk_unlock:
-> > +	mutex_unlock(&rp1->lock);
-> > +err_dev_unlock:
-> > +	device_unlock(dev);
-> > +
-> > +	return ret;
-> > +}
-> > +EXPORT_SYMBOL_NS_GPL(rp1_pwm_read_tachometer, "RP1_PWM_FAN");
-> > +
-> > +static int rp1_pwm_probe(struct platform_device *pdev)
-> > +{
-> > +	struct device *dev = &pdev->dev;
-> > +	unsigned long clk_rate;
-> > +	struct pwm_chip *chip;
-> > +	void __iomem	*base;
-> > +	struct rp1_pwm *rp1;
-> > +	int ret;
-> > +
-> > +	chip = devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
-> > +	if (IS_ERR(chip))
-> > +		return PTR_ERR(chip);
-> > +
-> > +	rp1 = pwmchip_get_drvdata(chip);
-> > +	ret = devm_mutex_init(dev, &rp1->lock);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	base = devm_platform_ioremap_resource(pdev, 0);
-> > +	if (IS_ERR(base))
-> > +		return PTR_ERR(base);
-> > +
-> > +	rp1->regmap = devm_regmap_init_mmio(dev, base, &rp1_pwm_regmap_config);
-> > +	if (IS_ERR(rp1->regmap))
-> > +		return dev_err_probe(dev, PTR_ERR(rp1->regmap), "Cannot initialize regmap\n");
-> 
-> You mentioned "rework regmap error paths" in cover letter.
-> 
-> But the issue is that regmap doesn't need be used here at all. RP1 is on PCIe
-> so there is no need for bus abstraction, direct use of MMIO is sufficient.
-> MMIO accessors have no error paths, so you're saying yourself from having to
-> handle that, and also reduce the overhead by not having to go through an
-> abstraction w/ indirect funicton calls.
->
-> I suppose regmap was used when syscon was there; but it's not needed anymore.
-
-True, and I don't have any issue in converting back to MMIO call and drop the conditional for
-error checking, but please consider the following, since the driver may be extended in the
-future to support more features:
-
-- regmap gives you free debugfs view on the registers, which may be useful to test
-  the new features.
-- regmap_write/read may still return an error in case the passed register is not in range.
-  This will be trapped at runtime only, but could still be useful during development
-- I expect the PWM driver to be a access with very low frequency, so I guess the overhead 
-  imposed by regmap is negligible.
-
-Since we already have it, I'd prefer to leave regmap if possible for the aforementioned reasons,
-but I'm obviously open to drop it in favor of direct MMIO calls in case you or anyone else are
-not seeing those as real benefits.
-
-Many thanks,
-Andrea
-
-> 
-> Best,
-> Gary
-> 
-> > +
-> > +	rp1->clk = devm_clk_get(dev, NULL);
-> > +	if (IS_ERR(rp1->clk))
-> > +		return dev_err_probe(dev, PTR_ERR(rp1->clk), "Clock not found\n");
-> > +
-> 
+Konrad
