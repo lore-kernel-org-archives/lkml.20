@@ -1,171 +1,164 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta34.uswest2.a.cloudfilter.net (omta34.uswest2.a.cloudfilter.net [35.89.44.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0881837268C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557793BB13C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:10:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143807; cv=none; b=ZaDssscvx1VmGYf7DsSlLsmRWFZrpaSWWfoieChb09IfehBCHydo1SMMcmtIXLeOr4gLozL269lyp4QaN1eA15pS5G7zNE3HSva5onIVNCPJKIVJ2U0MHtbjLh6X3KDORFEyNrRUZ41xcg40vX3ipxMarkmfp+J7faiTwB2MSH4=
+	t=1790143816; cv=none; b=aHkSgpZu6K1nDFadvza2LU/zvyNpWvGDWdvrmwYVbIgyOUPWiMV/Howt8j6TEPOnqU4OiVEXcaQG/MU8YsET+Q1AsDvFVySwITHxAdAUNJT99pPDONqXgF193ph4ASCPTotk57+gpmh3BqBs/LzsrF9sO0UOUTrlvjNJca+6EB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143807; c=relaxed/simple;
-	bh=iP+xM/Nm2s51I7N4uWGzs3QFeDnfkK6qhX2Exs+Av50=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iIxA4SQW4LTThJky89quYPW21wsrgkFZRNLqKm1P+HGQnR1HVClGpNXdNMIdwyg9u0RtOPHVJwccaKyQ0y0a3oxwl9RMV4Q9fahcQzMN3bL4g1S+Ii4+rKCKQzUe0rdanlOJiUTz1TkTX4fnCGcwzPNsFrKE10ZbttleUHUZoGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R3zU1l5A; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790143816; c=relaxed/simple;
+	bh=dy2CeYpd+lXAnmlW07mW4QKCWyh5ASqU6aif4ORmxO0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SWV9sr1+ulbyJkBpKX4xAlXfmVnDUlrZ5MtlrsTf2qertufHQNiZwINPbsDrfTsX37ChJY463mrAdgC98pIXNdvWOaMZcZi5QZpdFvUjwZ+QrQf1OF2VyZ21+8yXEDCx1QPhwU8hUqXFhlTjpodirVn2EhxBn14PtKbNh/E5q0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=qzxqJIpN; arc=none smtp.client-ip=35.89.44.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R3zU1l5A"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so2347555e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:10:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790143804; x=1790748604; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rzigS/BodMBW2I1kmdTZEpfx589O3xIFW3xCJjMx4pU=;
-        b=R3zU1l5ANLXB6AmevKSoH2wkA7OKXHI7gUqdHojrX5vEbMBWQB0iTxtC/HTAFFvS7K
-         C5ph+af8P3PZGluQpTcknwFA+2CIMHx5UOXoo6TM2oIXG96dnxzAsDcnJs18g+M1KVyI
-         HSzS7cDnNKRI0cL/bn5H+iPKGeTC2OgUNVgwE7CZcs2rfky7SGj+HdPaElg3jqb9UDEg
-         NoDUOeJZ4pfHQxFXGXqI5d4cgcliHO2TnDoqPqn47FOplz1IKxgcyTV6VL8jI1cGou0o
-         0PAn5tvnC7Vs1Kv2WeBg1jyPLlmQsE72iURY3xiyh3IKOvwUoqIMZ8bh80JwZTJT4WJL
-         Xewg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790143804; x=1790748604;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rzigS/BodMBW2I1kmdTZEpfx589O3xIFW3xCJjMx4pU=;
-        b=eubFISiGtidnPZP4I2CHpDe8q5LqK2L58TDz7cIgGUbK4bRZhfgw0tZQSWd0T51IyA
-         Pm7kRYK1cv0fbP20PZmFiBcOE0lAi8Vr4o0Z9MpMdByEHmkcIpF8goxWyOqHKLUT70Yl
-         xqZfDRw/TubevcWLNCn47ugSM0fwaU1Ir8bBs2q3sp8pd0eAl40xqvIlJkkMBCdigJUD
-         qupZ+J6Yvu8O1LeVSF/Bjs+YzsB6dOBWO5d7sFKa+MTvpHjrLa9aXvlMwXFvr9562TYn
-         dlS3nXanG5B/JZ8yo41FTUaYZDPd8JxKeMFZa52HHY2iaecpsz1lETXqsRAJ1OfZgtQt
-         kHiA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1AKMPj3Z0yNyaa4FennVn5TD/YMBsjNrEXTU5V+S5nZzdqheQewO8LAsSZmkKMRxhrO+bOTFYO7n1aBA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqH0I5PNrJ/ifpi7+L/lZj+cUZlKavG0bkuDddHU6qv1WC0q7q
-	/NLF7zcG0VwgGA7ol1h5b+4t1DzY/b7Dq7Es+b+ky8npPufGp0evWsfX
-X-Gm-Gg: AYBFou2peRtbGeEg0gapJ3uCDVGEZkSB6JAwyWJWa/zH87kFkKuYlUokvgdGD43mXP4
-	7N/Rkr/J6/I1K7E6qhyparRlKTBDfITJFj0evIvoIQh9JYIb1s+Y90XwT3xq6t+OcAVb3U+qYic
-	RmtHyI7E6yvxX0qwCMkCHQG2Br38WjyvIFSJCVTipwRxu2CJbVYVAas22PrKz6wcvqobQ2eym0d
-	pGWG8RrTIZa977ofKphS1SzvrTDFiIbuu9OwEZSAfIBZr6d223i4n9vw6OSkFTfgwl5Lg+dxttz
-	+YOt3Rt1PkqQNtiXy3pVZKqBvIzmQ+3TfoI0SZG/uZShy2F6SAaC3QePhNDKvf+8cQ9SFeIYI7u
-	xgdtOdOB6nY60x+sd4l2malLGnJfRa/3Hk30rQw+YiHzk/dY3TD2C/ukO0nrU7Fz7pMy8fq3zk+
-	eOeGFC3K1U+p7q3UnIPU0mzIHfD259JT010iDDRwMdOCVsoqT6s0IuFnleqfPS1V83Hn7LlSj8x
-	Jd6O+layDGVi9RxOcolKdUZGn+nqi/LPD/qkephc2+edxWIx/Ylhvk=
-X-Received: by 2002:a05:600c:8b86:b0:49c:cee2:1697 with SMTP id 5b1f17b1804b1-49fdf1354b4mr15462555e9.16.1790143804001;
-        Tue, 22 Sep 2026 23:10:04 -0700 (PDT)
-Received: from LS-Tayyab-Farooq.dreambig.corp ([58.27.187.115])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1acb91sm48246775e9.15.2026.09.22.23.10.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 23:10:03 -0700 (PDT)
-From: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
-To: Helge Deller <deller@gmx.de>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Simona Vetter <simona@ffwll.ch>,
-	Andrew Morton <akpm@osdl.org>,
-	Antonino Daplas <adaplas@pol.net>,
-	dri-devel@lists.freedesktop.org (open list:FRAMEBUFFER CONSOLE),
-	linux-fbdev@vger.kernel.org (open list:FRAMEBUFFER CONSOLE),
-	linux-kernel@vger.kernel.org (open list)
-Cc: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>,
-	syzbot+bf4020519fbd94b2355d@syzkaller.appspotmail.com
-Subject: [PATCH] fbdev: fbcon: Fix KASAN slab-out-of-bounds read in rotated font buffer
-Date: Wed, 23 Sep 2026 11:08:07 +0500
-Message-ID: <20260923060924.45742-1-syedtayyabfarooq08@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="qzxqJIpN"
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+	by cmsmtp with ESMTPS
+	id 9G50xYbQhaC0U9GBKx8uc0; Wed, 23 Sep 2026 06:10:14 +0000
+Received: from gator4166.hostgator.com ([108.167.190.91])
+	by cmsmtp with ESMTPS
+	id 9GBKx6ihQUy7g9GBKxMnFU; Wed, 23 Sep 2026 06:10:14 +0000
+X-Authority-Analysis: v=2.4 cv=CvO/cm4D c=1 sm=1 tr=0 ts=6ab36d46
+ a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=1XWaLZrsAAAA:8
+ a=VwQbUJbxAAAA:8 a=vmMgSTcIRG_wnqpSMZkA:9 a=QEXdDO2ut3YA:10
+ a=2aFnImwKRvkU0tJ3nQRT:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=0+Ti3ClvEeyB0mxjZ6Y5EozLt9wFOSnnKiPH9XINcK8=; b=qzxqJIpNrJXl
+	3zJRZ6IK7MgKuMmJuyFiMJ3YHCWMzzbhJ0Al6OcwtbFRyunv+E39aorQU6e1yGW6heNp/swhwkp4M
+	LxReoQFGHv0kdBmkKM5Ip/itJIaZzl9H10IxE0HVyyLskyhGAEpFB/aBQHO3o0cVX1ik7aKZwiQFR
+	cgi8Gas1OrtSZsaSPuTkVXxLhyCzOF3fNEWJalsyUIQS+AqCdha6Vbzp2I7xS5GpAwHVkpAa+63KX
+	YDIPER3OUvxPiqcog+cEc8LFN9OjeygVafALX88uRADuWhb/YjyVzTg3N3r5/VmZRoOV/uGpY42ch
+	BD3PN/5igNRDKI1yJ3MAjg==;
+Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:35276 helo=[10.203.100.34])
+	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <gustavo@embeddedor.com>)
+	id 1x9GBJ-00000002LmZ-1RVU;
+	Wed, 23 Sep 2026 01:10:13 -0500
+Message-ID: <a51283e0-7d55-4d06-bf7d-3cd7b7a21faa@embeddedor.com>
+Date: Wed, 23 Sep 2026 15:10:08 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Drivers: hv: vmbus: annotate struct vmbus_gpadl with
+ __counted_by_ptr
+To: Bill Wendling <morbo@google.com>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
+Cc: Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva"
+ <gustavoars@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Justin Stitt <justinstitt@google.com>, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ llvm@lists.linux.dev, codemender-patching+linux@google.com
+References: <20260923055320.2602534-1-morbo@google.com>
+Content-Language: en-US
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+In-Reply-To: <20260923055320.2602534-1-morbo@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 125.195.69.90
+X-Source-L: No
+X-Exim-ID: 1x9GBJ-00000002LmZ-1RVU
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:35276
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 4
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfP7+So3zhj2UP7mMxPy7PyLxqwEQkqI0kzkTUaVgTgXCfWOD+PtxQT5CR//DxufFvuCFwZdmLynoUlFwj3Bq4rgI9kJEt0Ah1J9bV3FsfPs+GSf95S6o
+ coQzH0Yu/ASvdcBLQMbI4g96Z44MEIqFmRtPh1gKVWpZXmlpUyVPUlixDbzrk2QQI2NR78g6vT1ecw0HrEWHnJZhB0KDxYGhEMxlB9SMEyr0AMFqB1xjRtag
 
-The root cause of this KASAN slab-out-of-bounds read is that fbcon fails to
-reallocate the rotated font buffer (par->rotated.buf) when the font
-character count changes but the font dimensions (width and height) remain
-the same.
 
-When a user changes the font via ioctl(KDFONTOP), fbcon_do_set_font() is
-called. If the user first sets a 256-character font, enables rotation, and
-then sets a 512-character font with the exact same width and height, resize
-evaluates to false. The function then directly calls update_screen(vc).
-Notice that fbcon_do_set_font() never calls par->bitops->rotate_font() to
-update the rotated font buffer for the new font. As a result,
-par->rotated.buf remains sized for the old 256-character font.
 
-When update_screen(vc) is called, it eventually reaches cw_putcs_aligned(),
-which attempts to read the glyphs from the rotated buffer. Since
-vc->vc_font.charcount is now 512, vc->vc_hi_font_mask is set, making
-charmask equal to 0x1ff (511). If the text buffer contains a character with
-an index >= 256, src will point out of bounds of the old par->rotated.buf
-(which only holds 256 glyphs). The subsequent read in
-__fb_pad_aligned_buffer() triggers the KASAN slab-out-of-bounds crash.
+On 9/23/26 14:53, Bill Wendling wrote:
+> Add the "__counted_by_ptr" attribute to the buffer field of "struct
+> vmbus_gpadl". This allows compilers (GCC and Clang) to perform
+> compile-time and runtime bounds-checking when KASAN is enabled, preventing
+> potential out-of-bounds accesses to the GPADL buffer.
+> 
+> The fields "buffer" and "size" of "struct vmbus_gpadl" are assigned
+> exactly once, during GPADL establishment inside
+> "__vmbus_establish_gpadl()" in "drivers/hv/channel.c".
+> 
+> To ensure that the count field ("size") is initialized before the
+> pointer field ("buffer") is assigned, we reorder the assignments in
+> "__vmbus_establish_gpadl()" so that "gpadl->size" is written before
+> "gpadl->buffer".
+> 
+> Cc: codemender-patching+linux@google.com
+> Assisted-by: LLM
+> Signed-off-by: Bill Wendling <morbo@google.com>
+> ---
+>   drivers/hv/channel.c   | 2 +-
+>   include/linux/hyperv.h | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
+> index 7e4cc6f55237..7042de2dd481 100644
+> --- a/drivers/hv/channel.c
+> +++ b/drivers/hv/channel.c
+> @@ -548,8 +548,8 @@ static int __vmbus_establish_gpadl(struct vmbus_channel *channel,
+>   
+>   	/* At this point, we received the gpadl created msg */
+>   	gpadl->gpadl_handle = gpadlmsg->gpadl;
+> -	gpadl->buffer = kbuffer;
+>   	gpadl->size = size;
+> +	gpadl->buffer = kbuffer;
 
-To fix this, fbcon_do_set_font() must call par->bitops->rotate_font() to
-update the rotated font buffer before calling vc_resize() or
-update_screen(). If vc_resize() fails and the old font is restored in the
-error path, rotate_font() must be called again to restore the rotated
-buffer.
+I think in some cases these subtle changes are worth a short but
+informative comment saying that the _counter_ must be initialized
+before the first reference to the pointer.
 
-This pattern of updating the rotated font buffer was previously established
-in fbcon_modechanged() by commit ef7656e85f1a ("fbdev: Fix out-of-bounds
-access when rotating console after font resize"). The fix applies this
-exact idiom to fbcon_do_set_font(). By placing it before vc_resize() and
-update_screen(), we ensure the buffer is correctly sized before any
-rendering occurs. Checking con_is_visible(vc) is also correct here, as
-hidden consoles will have their rotation state updated later via
-fbcon_switch() when they become visible.
+We can see this as part of the learning curve people have to go
+through before the counted_by annotations and their requirements
+are more widely known and understood. But I guess this can be
+handled on a case-by-case basis.
 
-Furthermore, by calling rotate_font() again in the err_out path, we ensure
-that if vc_resize() fails, the rotated buffer is restored to match the old
-vc->vc_font. Without this, restoring a 512-character font to a
-256-character font on failure would leave the rotated buffer sized for 512
-characters, which wastes memory; or worse, restoring a 256-character font
-to a 512-character font would leave the buffer too small, causing an
-out-of-bounds read later.
+Regardless:
 
-Fixes: e4fc27618b75 ("[PATCH] fbcon: Console Rotation - Prepare fbcon for console rotation")
-Assisted-by: Gemini:gemini-3.6-flash Gemini:gemini-3.1-pro-preview syzbot
-Reported-by: syzbot+bf4020519fbd94b2355d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=bf4020519fbd94b2355d
-Link: https://syzkaller.appspot.com/ai_job?id=59f0d7d9-607c-4497-b2e2-0b16693f9502
-Signed-off-by: Syed Tayyab Farooq <syedtayyabfarooq08@gmail.com>
----
- drivers/video/fbdev/core/fbcon.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 01715873ea49..158b2f91d68e 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2432,6 +2432,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!vc->vc_hi_font_mask && charcount == 512)
- 		set_vc_hi_font(vc, true);
- 
-+	if (con_is_visible(vc)) {
-+		if (par->bitops->rotate_font && par->bitops->rotate_font(info, vc)) {
-+			par->rotate = FB_ROTATE_UR;
-+			set_blitting_type(vc, info);
-+		}
-+	}
-+
- 	if (resize) {
- 		int cols, rows;
- 
-@@ -2466,6 +2473,13 @@ static int fbcon_do_set_font(struct vc_data *vc, int w, int h, int charcount,
- 	else if (!old_hi_font_mask && vc->vc_hi_font_mask)
- 		set_vc_hi_font(vc, false);
- 
-+	if (con_is_visible(vc)) {
-+		if (par->bitops->rotate_font && par->bitops->rotate_font(info, vc)) {
-+			par->rotate = FB_ROTATE_UR;
-+			set_blitting_type(vc, info);
-+		}
-+	}
-+
- 	font_data_put(data);
- 
- 	return ret;
--- 
-2.43.0
+Thanks
+-Gustavo
+
+>   
+>   
+>   cleanup:
+> diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+> index 9e109d91aa14..408748a05440 100644
+> --- a/include/linux/hyperv.h
+> +++ b/include/linux/hyperv.h
+> @@ -780,7 +780,7 @@ struct vmbus_device {
+>   struct vmbus_gpadl {
+>   	u32 gpadl_handle;
+>   	u32 size;
+> -	void *buffer;
+> +	void *buffer __counted_by_ptr(size);
+>   	bool decrypted;
+>   };
+>   
 
