@@ -1,163 +1,146 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4646846DFE5
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:15:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44841459AD7;
+	Wed, 23 Sep 2026 08:16:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151353; cv=none; b=uqGyrVA+CmswSaPS2+5K4HtS/TXDCPUR5nII9UawHoWvWSnAMyHO44RP1QeKyIqG+aUIKv+mgPoiTWY9y4VbkEJr89HSBPouFYQIlCT0QWquGaEgOn/eCHKd8o21ldFjodSmjTp6jnje18hX5XA08XoqIoJ1d0jZKl1lgzzlKaI=
+	t=1790151382; cv=none; b=jgi8XQKP56xWDWfB9M9PBvSSq8T8zcPxik1ZwpDwLfpbfES2Kz/RS+6Pa3IThGTFN0ipvttEP2REzgwXMKIG1v7yHhcJvXyIiH9X64uXh78rg+gzGe1WIio1BjDRTZEfqmhYhQq7k3zXZHNVxh+Nsg3uDWU5v3zxFBfuupfgg5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151353; c=relaxed/simple;
-	bh=Arm8zT+/JUhQkGb7yad6BvTCVvWlZBkot9k6kvbpgZs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IaK9GuR2BL352Fsz+ALbLKZZzwNm/OpjIHnKUkyQvuvdgeIS+X9pSX2Nr8MWdF/uzNkJDyfTrFP+osF0LYh1bcmQJtQeiTY3uMOWUg9y8+mMiABpX6Agtl0tLaz+oOYMDcDIwfBaBCAXPXAAmpyGE85gdZDeOgR2UoGv03C6kos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GCx6575p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fOtjS6Ag; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790151382; c=relaxed/simple;
+	bh=mnmMfZQXhaLK2sGi1RQKPnfNJurBtbDYIstu8vABIqY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BOD3Ca8RGbapHenM2e+w2h2UdEzgVOjlN1nSIIr95C+6hORG6Ajm7o14MwXnneKxPYI84z97iOK+CtYBsCWPEDDaKqYLlwpt+G80lUEx9nkPiPD5YlEEEiicEwPg3WacxuF0nyRkAZh3ptCYTxgyjW9NJ/5CCDfQsoaGKFLelzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XWzv7yYP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GCx6575p";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fOtjS6Ag"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N79Yst3174845
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:15:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EgqVn5JCTg0Wh+1+T3L2Kw7No/Apzuy2f2xoTJEufq0=; b=GCx6575puVozFU4f
-	I5EKrRfK8kuUJkac1Vm+uvx2r0babcdryEhpN/h583+8jtloZDVr5te0hA732sBb
-	UTsTnPEJtRYTnQmeOXJ8NQpRTifYxznjKrQCDRPZRZFcPyIb2xxwj2vK6fuM7waM
-	Jq0SL1xSS9PbACfMVS3C2v34oIN3QNjps/GbMIa5j9+Kz3VA3IYPN5UZaqWEeFMo
-	Yoi7LXXWUoO1TLgEnk+FKwGskzbJjVEMTqIFibsw+Y188LtsQltZALvthNo15r0Y
-	/E6Hq4ZBohHi/xRGfHbqp0DCsCUa+kFZOKdREKa6SbujOQmenMQ6wb0NoYi1ZqTA
-	VWNpAQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux7xua8e-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:15:50 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a0312937eso86427585a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:15:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790151349; x=1790756149; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EgqVn5JCTg0Wh+1+T3L2Kw7No/Apzuy2f2xoTJEufq0=;
-        b=fOtjS6AgXEougG2a279yT9PqetxT1JkHH6iELjC0MDPLmoC+b09InBaIeKVIwnCCpR
-         r/m+MgaHoeSHR5TImSWtCNAXFcSwuFdB8N0JxXzc2bXfQt6m19ugdSgwX1VwaOAXpDkE
-         KvTGbR6552VsvqovQYuNUslIE3i+fY9ScjzuxWIoHrB1hOLfI4jY1W04NNF6Urr3gscp
-         n0JFHrViDgtnsrKP1Opd6lp3qvy5xcEPXzKmhpvDaU2xcHzrV1nrDcMnhaPoyhbIIT7f
-         r0IRYZnr4+5FeNrJcWD1+QB7AKfCBAa1Mk65ltz2DgcXMBN5OEzc/wXxz6UrN3ALGY8Z
-         TykQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790151349; x=1790756149;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EgqVn5JCTg0Wh+1+T3L2Kw7No/Apzuy2f2xoTJEufq0=;
-        b=PuA2BD73L5dt3vjW5FJdTf7Fls9kfbz09jBbbpkCwmUu1uQ3o0rUfbAD39RKNFNpf3
-         OjP2RNnOi5sQk4vrpGhClGowrIwJ08zR5RIxYXRWbvNUKkYfTjgFafKSSzwZIpS10dTF
-         8w5/YI8BIZbpqVT3jLSiHETcyGyic5/DtQQ2HkT563Hw0pAuH7UCLSZXJriGuc5DDsUv
-         siKP07xfVhd2h9xCwJ5xWUAXJtXBDQ0Cd3RFh9/CevSRxsVGEw4EgtvImS9okXWXJ4Pg
-         MWwIbtJAyHCCjltnvkuD844+chbQfS40Ru1HmlWLUG9EifgmcEBcYok+vbrUY27Dxk5V
-         0zAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznMjncbK7qPZ2iWqjX0m6BeDSpIOXYFhNbI4EsKaFiF4CgajiY/CTeuBT9FBaQZCwjpGx+unn4I68K3Ho=@vger.kernel.org
-X-Gm-Message-State: AFuF++npgY2uXvER8AJyjWDZLjA0OqIgC3YIbtnFw3+TnP+Z0uwXzkOk
-	cOKxvJRsJCmUrCh8EqjT8ewxD54ZshsG3SDEJs2C6UdYL75jAmw7y4tF9/29Xzq+BNDlCuBAauG
-	E0I+qvOCuIAZhCX8eBbgR2mEv4ITznLbJFck0PsuBPvZCk2l3EtgULv9g0yx/kQYyMv4=
-X-Gm-Gg: AYBFou3jj4Paz3tuxIDkTYtDlQ+WDZFEA9+bZhwzrRJdHYiMvOO6lXhefLSIOngt41k
-	+JNQkwR5hmynzPLn6Gh9BG4OxCxQwrM6Q6Oewgt6OeDOqW3f6EzK2Rvo/TeLQSJGDGj0By1R1Y2
-	vYt0U3dNE2NqlDFhVXBSWLiwhBk/vDjCkGDHG+FJmPVygT/CMpV9evSYgN3zhEd4isGcDjMZOQO
-	I3ynieVCvuop/37w0JP91XdZqhPmK3UBcF/gdz6LAZc5W+6KEUVPsV+RxBaRnqer9p2BvWfObsR
-	I6j4c0X0bWjKx61hW9EVWa5q1kb8pZBZFuLsp6UhxYVyXRRaGPwuzrAXRK2q+1/T7V9OpRHC+Gk
-	BvcLoSYLN5IUwUoem49MbmWS7xU8+YIEyO7NKAc4OHRRSdps=
-X-Received: by 2002:a05:620a:438c:b0:939:2d77:d6a8 with SMTP id af79cd13be357-93c251af1b4mr282503185a.34.1790151349428;
-        Wed, 23 Sep 2026 01:15:49 -0700 (PDT)
-X-Received: by 2002:a05:620a:438c:b0:939:2d77:d6a8 with SMTP id af79cd13be357-93c251af1b4mr282499685a.34.1790151348996;
-        Wed, 23 Sep 2026 01:15:48 -0700 (PDT)
-Received: from [172.20.10.5] (82-132-216-202.dab.02.net. [82.132.216.202])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49fe0c3731fsm42528615e9.2.2026.09.23.01.15.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 01:15:48 -0700 (PDT)
-Message-ID: <8b62c6b1-3055-4787-87f3-1ea990f8b546@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 09:15:38 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XWzv7yYP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBFAF1F000FF;
+	Wed, 23 Sep 2026 08:15:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790151380;
+	bh=gkbaaSNAYtW2x8Ye+X/x3ROsO8U5+sLZrnhf7gfW0AU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XWzv7yYPoIuMX44YD8j0VCMsdDvMOX4ZVAIwX6BWM0BUqWc3RxIQZSbE4cGZBLrge
+	 gWLBh7F6BN09sSHOwzXLTPhMBdbgGZ6ISWHW4/1i53Zn5SSXa2PnleA4qBPK1HJpi/
+	 etoE+9oM5tkUI97Gx9MHEzowWO3SL5laHbhNb2bs+YqJnehf7FqQ+20aklCnDvyxBU
+	 dQufrR0quNaM8Nwo+uAfom4D3GQWDgMFE29WL99bcadsidF86S38WdLPg0fZu1yARz
+	 kesEf0L+KRr0RP7uSr/Fj7nY9fKSeYTI9jz8Iy6In6IVSX3cWmDThsfmnJAvkoqJYQ
+	 5vOTP2yUpOXvw==
+Date: Wed, 23 Sep 2026 09:15:57 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, 
+	guoren@kernel.org, bcain@kernel.org, geert@linux-m68k.org, dinguyen@kernel.org, 
+	schuster.simon@siemens-energy.com, jonas@southpole.se, stefan.kristiansson@saunalahti.fi, 
+	shorne@gmail.com, dalias@libc.org, glaubitz@physik.fu-berlin.de, pjw@kernel.org, 
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, linux@armlinux.org.uk, 
+	vgupta@kernel.org, monstr@monstr.eu, chris@zankel.net, jcmvbkbc@gmail.com, 
+	will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com, peterz@infradead.org, 
+	davem@davemloft.net, andreas@gaisler.com, richard.henderson@linaro.org, 
+	mattst88@gmail.com, linmag7@gmail.com, catalin.marinas@arm.com, mark.rutland@arm.com, 
+	chenhuacai@kernel.org, kernel@xen0n.name, tsbogend@alpha.franken.de, 
+	James.Bottomley@hansenpartnership.com, deller@gmx.de, maddy@linux.ibm.com, mpe@ellerman.id.au, 
+	chleroy@kernel.org, hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com, 
+	borntraeger@linux.ibm.com, svens@linux.ibm.com, richard@nod.at, 
+	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net, tglx@kernel.org, mingo@redhat.com, 
+	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
+	arnd@arndb.de, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, jgg@ziepe.ca, jhubbard@nvidia.com, peterx@redhat.com, 
+	ysato@users.sourceforge.jp, shakeel.butt@linux.dev, corbet@lwn.net, rdunlap@infradead.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, 
+	linux-hexagon@vger.kernel.org, linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+	linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sparclinux@vger.kernel.org, linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-s390@vger.kernel.org, linux-um@lists.infradead.org, hughd@google.com, 
+	qi.zheng@linux.dev, linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 04/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for MMU arm
+Message-ID: <arOKtMvZk_3tPJE-@gremlin>
+References: <20260922-rcu-pagetable-freeing-v4-4-fe1ad1f1e303@kernel.org>
+ <20260923080523.9480-1-lance.yang@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/8] ASoC: SDCA: allow building without ACPI
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Charles Keepax <ckeepax@opensource.cirrus.com>,
-        Maciej Strozek <mstrozek@opensource.cirrus.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        patches@opensource.cirrus.com
-References: <20260918131914.681588-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260918131914.681588-2-srinivas.kandagatla@oss.qualcomm.com>
- <arKDa69Aggoo32CE@sirena.co.uk>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <arKDa69Aggoo32CE@sirena.co.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: xTlhWq_JPGP5fHM9rBPJA6H9PbEQc4gJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAzMiBTYWx0ZWRfX0+kjJ8bDzWhT
- Vjivcx5NWUO+j1eq1NJhABN0mmHkiZ2ZdLFSeLMNJykS0y8pHs9YxvreAJb304QCcG+qxqszizL
- 237OYjPZucjVpLSLq6KI3gIBzgQUMUCU93AVFeu7QkbROZPfmE8TqJlz9zh5U76f9AcqdkRxe3x
- W4LvfY8hmleEibj9HmwJr/UBnfcEfC/faI9QrUN9QzqdjEq0atnfLBqtNlgN+q0EHYc+YT3oMGS
- 98/WnHeHDp0fmYsYDpW8fzv36MfqFSc+9eHlaWcQvVFrFmTcNOI5MbXS7MuMwpLQ+RRxl0yOje/
- aqxCs9Vd0ljSZ3VSZuzT2zmVjDeM8sz7qkr8NnMouBQ0RyBrofirq2MwLzHy8VcycdVVCxzAvpt
- F03hLDKVtc4Zr96pHC5fQbxxOfXsF3J5sjkoW5gLK/S0QXEZgC9lGP0Gvpw2EUu0cI77aXSOERM
- 1G4PSnQ1fVl524HU2SA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAzMiBTYWx0ZWRfX8lm/1m0mkfVY
- JsHX4FnlnufsFiURWv9AqgdCX1VXjRcdABXOcV2vTLf5a+vsXryWsUlZ8/CfWcy0I8/4R7Mx3dS
- jg8oitRf3MYpWSnm8t9Dpc+HW/XI4m8=
-X-Authority-Analysis: v=2.4 cv=QsDLTlyd c=1 sm=1 tr=0 ts=6ab38ab6 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=GdRps4uEH5l7/IE9oLSJdA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=vW_vOncweQm3iN5ZsRUA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: xTlhWq_JPGP5fHM9rBPJA6H9PbEQc4gJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 lowpriorityscore=0 phishscore=0 bulkscore=0
- suspectscore=0 impostorscore=0 adultscore=0 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230032
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923080523.9480-1-lance.yang@linux.dev>
 
-On 9/22/26 2:32 PM, Mark Brown wrote:
-> On Fri, Sep 18, 2026 at 02:19:06PM +0100, Srinivas Kandagatla wrote:
->> The SDCA class driver is useful on non-ACPI platforms where the
->> topology is supplied statically via sdca_class_hw_ops.get_function_data.
-> 
->>  config SND_SOC_SDCA
->>  	tristate "SDCA core support"
->> -	depends on ACPI
->>  	select AUXILIARY_BUS
->>  	help
->>  	  This option enables support for the MIPI SoundWire Device
->> -	  Class for Audio (SDCA).
->> +	  Class for Audio (SDCA).  The ACPI/DisCo topology parser is
->> +	  only built when CONFIG_ACPI is enabled; on non-ACPI platforms
->> +	  (e.g. ARM/DT) codec drivers supply the SDCA function data
->> +	  via sdca_class_hw_ops.populate_function.
-> 
->   $ git grep sdca_class_hw_ops
-I will remove this sentence in next version.
+On Wed, Sep 23, 2026 at 04:05:23PM +0800, Lance Yang wrote:
+>
+> On Tue, Sep 22, 2026 at 04:35:35PM +0100, Lorenzo Stoakes (ARM) wrote:
+> >Commit a0ad5496b2b3 ("arm: mm: enable HAVE_RCU_TABLE_FREE logic") enabled
+> >CONFIG_MMU_GATHER_RCU_TABLE_FREE (then named HAVE_RCU_TABLE_FREE) for SMP
+> >arm architectures with LPAE enabled.
+> >
+> >Regardless of whether CONFIG_ARM_LPAE is enabled or not, the same page
+> >table freeing functions __pte_free_tlb() and __pmd_free_tlb() are used.
+> >
+> >Non-LPAE PMD page tables are folded into the PGD and freed by
+> >pgd_free() (PGD freeing is not part of mmu_gather page table freeing in any
+> >case), so this is a noop in this case.
+> >
+> >Since commit 358d1c39c82a ("arm: convert various functions to use ptdescs")
+> >both LPAE and non-LPAE PTE page table freeing uses tlb_remove_ptdesc().
+> >
+> >Thus all page table freeing is performed under RCU with
+> >CONFIG_MMU_GATHER_RCU_TABLE_FREE enabled for LPAE and non-LPAE and thus it
+> >need not be gated on LPAE.
+> >
+> >A UP arm system can set CONFIG_PREEMPT_RCU, so a future pure RCU page
+> >table walker requires MMU_GATHER_RCU_TABLE_FREE to be enabled on UP as
+> >well, even if concurrent GUP fast is not possible there.
+> >
+> >Therefore, it is both safe and desirable to set
+> >CONFIG_MMU_GATHER_RCU_TABLE_FREE for all MMU arm architectures (nommu does
+> >not perform mmu_gather operations).
+> >
+> >This forms part of an overall effort to switch every architecture to this
+> >mode.
+> >
+> >Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> >Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> >---
+>
+> Tested under heavy page-table teardown load on qemu-system-arm,
+> with and without ARM_LPAE. No issues seen :D
+>
+> Tested-by: Lance Yang <lance.yang@linux.dev>
+>
+> Also, feel free to add:
+>
+> Acked-by: Lance Yang <lance.yang@linux.dev>
 
---srini
->   $
+Thanks, much appreciated! :)
 
+>
+>
+> > arch/arm/Kconfig | 2 +-
+> > 1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> >diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+> >index 408aa58a2a5b..72b9afc6ae10 100644
+> >--- a/arch/arm/Kconfig
+> >+++ b/arch/arm/Kconfig
+> >@@ -134,7 +134,7 @@ config ARM
+> > 	select HAVE_PERF_REGS
+> > 	select HAVE_PERF_USER_STACK_DUMP
+> > 	select HAVE_POSIX_CPU_TIMERS_TASK_WORK
+> >-	select MMU_GATHER_RCU_TABLE_FREE if SMP && ARM_LPAE
+> >+	select MMU_GATHER_RCU_TABLE_FREE if MMU
+> > 	select HAVE_REGS_AND_STACK_ACCESS_API
+> > 	select HAVE_RSEQ
+> > 	select HAVE_RUST if CPU_LITTLE_ENDIAN && CPU_32v7 && !KASAN
+> >
+> >--
+> >2.55.0
+> >
+> >
+
+--
+Cheers, Lorenzo
