@@ -1,206 +1,189 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C7732B133;
-	Wed, 23 Sep 2026 13:19:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D59531AF0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:19:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169548; cv=none; b=kJZbzdatOCs4+SOfNyWa4V9NZ9JD7y18NjlfM6HnNFjPadtHFUtoMc8WoCZoHbiwvLiIMk7eC/jDgUEKqc5d7cXxZnC7TbFdK8qMe3OqAwncd9qxNNA7U27/VUHuJKgkUa3wLZepBZv/NU6QStreTyd5+ONoV7rLMeartmBvBEc=
+	t=1790169601; cv=none; b=dhs48Khb4aAHLQ9K/Sn6fb/WINzKROPY6Z+N+ZLpjSYyn3TiPOmfCW5nYibFQRgAQ0mIZ0E/G5o4IctV6QdmiGzT2/iMKEWTAkXRbptPlpRqCLoudeu77xjjdtfspnrRD0F3ct+CyiFxYQPu/fztBItfiuKOAGcP0woTuYjcBds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169548; c=relaxed/simple;
-	bh=shV/jHwiOOO+2nu26tUkKGDmxnj6c238IyYyiu83uR0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NmLzBb6fHPyi/Bcj2x1NA4la1othJQybyiIVjvxskk7dM3eHwBilKD1ls+HxXTZbgqwNNSOsRVm3LNZASGHZYqQTleJiU91b5CjmbSZYtoZoeAgxMQQ+5d0MiJVew96MTkorLzHYIFVCM0/mcjhTKp7HlteVfdRXJT6IsnWZjko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lpuKPlhl; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790169601; c=relaxed/simple;
+	bh=OjWXPIvLNc6n7/N3/PTFzOrtR0JqXSNHicvsujdPpKw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QUfFQTq+9tr78IskacV1ZqnhOA2zN27C+VO/6ANATc/nD65o/d6aD68iJm3Sw03uDvWqbZJP6m9pFJTvI2eQUKcTnAO7pF985tWMtZpsiKMi5H4utKMJ6oGselb/DlCMim+R4FDcPfe6QhSW3j1IUS+91h6Rz+k7uvZGiqmAW+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1/H3BIw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lpuKPlhl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790169544; x=1821705544;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=shV/jHwiOOO+2nu26tUkKGDmxnj6c238IyYyiu83uR0=;
-  b=lpuKPlhl90tQSgplZBFn8FoFK2qOMgsow9yX61jjFfoqlOOVnhCujwrc
-   /DiRUn4te6iLFa8JWI9liVcNyd6EoXBngF//e081tYP9XSKVUADb9t8Pn
-   ZzQUsRcDqbv1ZZ+9fg2Vbi6YvXlbLdbv7o95TJeDEZn/ARhF2ynonqPIy
-   WTz2WnmtSiCjHO9xraYJ4xiu9pZqHAJ54IBp3CzcxsppAjWM8wE7hfaKb
-   M9DNxlz3TVIgfBRdjgqluEkSTA6GpAzeMPGkkO6YCF28TRiFMdrT1Blzf
-   xERrxR0M7OFCw0GNo4i2VTQf2lPxq3oacPUb8z9a7vbuOh+E4qAIv52zA
-   Q==;
-X-CSE-ConnectionGUID: DmYBjP/iR/Oba//jQ2vWHg==
-X-CSE-MsgGUID: HlzectgsTXaSLaKlvu7Smg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90886641"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="90886641"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 06:18:57 -0700
-X-CSE-ConnectionGUID: m6WdkbLYTZGqzoTJLaYxXQ==
-X-CSE-MsgGUID: s7hw7WjkQQyUFIaw1/+0pw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="273080862"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.13])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 06:18:51 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Nikolas Joshua Britton <nbritton@exabit.io>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH 5/5] PCI/quirks: Avoid certain BAR 0 address with igb
-Date: Wed, 23 Sep 2026 16:17:55 +0300
-Message-ID: <20260923131757.7792-6-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260923131757.7792-1-ilpo.jarvinen@linux.intel.com>
-References: <20260923131757.7792-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1/H3BIw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 691C01F000FF;
+	Wed, 23 Sep 2026 13:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790169584;
+	bh=1yeMMNYYq0MjqSUEKuIfnViLoDuHUncMTKA/2pebiVA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=i1/H3BIwXC/3FqxM7OhmXImiWOFFXzO19DqjayzdfQFmlHNTwKnf8kEd4Ouqi18fB
+	 sQitBw2loeZ18GwUJs7owPN4iXTEXiDzc2I9ck5KYzrNt6VQ+cK/COu3qu+1+fVnMR
+	 mgMeReDp73bHZwF8HeiycWMDG44daShEsWqUyfx98HxGZFIcb6ptUVcBPPVfRXQ2mL
+	 xyFDkkiIvutmfJeR5AEQG/ZWhqP4kC8weztIKGKg5XnVO6J7Mwnmnpl4ONvhAfF9th
+	 zJf/X4dslfJzXVHvTjR1WSlX6y/OpSVHCP6pW/8rRz+/PUByPnUwffhruLZo3qCoQx
+	 NJOL7TqR2mNig==
+Message-ID: <b5e5e4a2-db9e-4d8e-9f9b-954f3aa3a3c4@kernel.org>
+Date: Wed, 23 Sep 2026 15:19:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 10/12] mm/collapse: work out the orders a VMA allows
+ once per VMA
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>
+References: <20260916093145.4022188-1-kirill@shutemov.name>
+ <20260916093145.4022188-11-kirill@shutemov.name>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260916093145.4022188-11-kirill@shutemov.name>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-While testing the resource placement changes, my tests hit a case where
-igb fails to probe when BAR 0 is placed at 0x9c000000:
+On 9/16/26 11:31, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> The scan asked collapse_possible_orders() for every PTE table, for an
+> answer that is a property of the VMA.  Both callers walk a VMA a table at
+> a time, so let them work it out once and pass the mask in.  It is only
+> good while the lock that produced it is held, so madvise_collapse() takes
+> it again after every collapse.
+> 
+> The mask is then sampled once per VMA rather than once per table.  A thp
+> enabled knob written during a walk takes effect one VMA later, and cannot
+> widen a collapse: hugepage_vma_revalidate() tests the order again under
+> the lock the collapse retakes.
+> 
+> Assisted-by: LLM
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>  mm/khugepaged.c | 32 ++++++++++++++++++--------------
+>  1 file changed, 18 insertions(+), 14 deletions(-)
+> 
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 9e6b2af6519e..12cb67d8df32 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -1549,12 +1549,12 @@ static enum scan_result mthp_collapse(struct mm_struct *mm, unsigned long addres
+>  }
+>  
 
-   90000000-9cffffff : PCI Bus 0000:a0
-  -  90000000-902fffff : PCI Bus 0000:a1
-  -    90000000-900fffff : 0000:a1:00.0
-  -      90000000-900fffff : igb
-  -    90100000-901fffff : 0000:a1:00.0
-  -    90200000-90203fff : 0000:a1:00.0
-  -      90200000-90203fff : igb
-  +  9be00000-9c0fffff : PCI Bus 0000:a1
-  +    9be00000-9befffff : 0000:a1:00.0
-  +    9bf00000-9bf03fff : 0000:a1:00.0
-  +    9c000000-9c0fffff : 0000:a1:00.0
-     9c100000-9c17ffff : amd_iommu
-     9c180000-9c1803ff : IOAPIC 8
+[...]
 
-  -       Region 0: Memory at 90000000 (32-bit, non-prefetchable) [size=1M]
-  -       Region 3: Memory at 90200000 (32-bit, non-prefetchable) [size=16K]
-  -       Expansion ROM at 90100000 [disabled] [size=1M]
-  +       Region 0: Memory at 9c000000 (32-bit, non-prefetchable) [size=1M]
-  +       Region 3: Memory at 9bf00000 (32-bit, non-prefetchable) [size=16K]
-  +       Expansion ROM at 9be00000 [disabled] [size=1M]
+> +		/* One mask for the whole VMA */
+> +		orders = collapse_possible_orders(vma, vma->vm_flags,
+> +						  cc->policy.tva_type);
 
-igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
-------------[ cut here ]------------
-igb: Failed to read reg 0x18!
-WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at igb_rd32.cold+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
-...
- igb_get_invariants_82575+0xff/0xf00 [igb]
- igb_probe+0x3c8/0x1190 [igb]
- local_pci_probe+0x3b/0x80
+cc->policy.tva_type is always sattic here, no?
 
-Apparently, the igb driver bails out, after its initial sanity check
-detects an unexpected ~0 read. Hacking around the sanity check just
-results in more failures down the road so the sanity check itself is not
-the cause for the failure.
+> +		if (!orders) {
+>  			cc->progress++;
+>  			continue;
+>  		}
+> @@ -2922,7 +2922,7 @@ static void collapse_scan_mm_slot(unsigned int progress_max,
+>  			/* move to next address */
+>  			khugepaged_scan.address += HPAGE_PMD_SIZE;
+>  
+> -			*result = collapse_scan_pmd(vma, addr, cc);
+> +			*result = collapse_scan_pmd(vma, addr, cc, orders);
+>  			/* Nothing to do here, and the lock is still ours */
+>  			if (*result != SCAN_SUCCEED &&
+>  			    *result != SCAN_PTE_MAPPED_HUGEPAGE) {
+> @@ -3207,14 +3207,16 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
+>  {
+>  	struct collapse_control *cc;
+>  	struct mm_struct *mm = vma->vm_mm;
+> -	unsigned long hstart, hend, addr;
+> +	unsigned long hstart, hend, addr, orders;
+>  	enum scan_result last_fail = SCAN_FAIL;
+>  	int thps = 0;
+>  
+>  	BUG_ON(vma->vm_start > start);
+>  	BUG_ON(vma->vm_end < end);
+>  
+> -	if (!collapse_possible_orders(vma, vma->vm_flags, TVA_FORCED_COLLAPSE))
+> +	orders = collapse_possible_orders(vma, vma->vm_flags,
+> +					  TVA_FORCED_COLLAPSE);
+> +	if (!orders)
+>  		return -EINVAL;
+>  
+>  	hstart = ALIGN(start, HPAGE_PMD_SIZE);
+> @@ -3252,9 +3254,11 @@ int madvise_collapse(struct vm_area_struct *vma, unsigned long start,
+>  			}
+>  			vma = found;
+>  			hend = min(hend, vma->vm_end & HPAGE_PMD_MASK);
+> +			orders = collapse_possible_orders(vma, vma->vm_flags,
+> +							  cc->policy.tva_type);
 
-The resource placement looks valid so the actual placement patches seem
-to work normally.
 
-All other possible 1M address I could test (with a hack patch) did work.
+That's always TVA_FORCED_COLLAPSE, no?
 
-Add quirk to reshuffle igb resources, use BAR 3 to block the problematic
-address.
+It's a shame we cannot get rid of cc->policy.tva_type because we need it for
+hugepage_vma_revalidate to calculate orders. Which sucks a bit.
 
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
 
-I know this is ugly and I don't like it either but do not know better
-way to avoid the regression.
-
-I've tried with iommu=off and that did not resolve the issue.
-
-I also managed to prove igb works with the same resource layout in
-another system. So identifying the case should probably be tightened
-by matching with more devices than the one used by igb. This is open
-to discussion.
-
----
- drivers/pci/quirks.c | 56 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
-
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index de9bbccda21f..e6f3e2ab1fd4 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -6288,6 +6288,62 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1536, rom_bar_overlap_defect);
- DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1537, rom_bar_overlap_defect);
- DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1538, rom_bar_overlap_defect);
- 
-+/*
-+ * The igb driver probe (due to reads returning ~0 unexpected) when BAR 0
-+ * appears at 0x9c000000. The cause is unknown.
-+ *
-+ * Use BAR 3 to block 0x9c000000 address.
-+ */
-+static void bar0_address_breakage(struct pci_dev *dev)
-+{
-+	struct resource *bar0 = pci_resource_n(dev, 0);
-+	struct resource *bar3 = pci_resource_n(dev, 3);
-+	resource_size_t broken_addr = 0x9c000000;
-+	struct resource *res;
-+	int i, ret;
-+
-+	if (bar0->start != broken_addr)
-+		return;
-+
-+	/*
-+	 * HW BAR sizes seems to vary. Exclude non-1M BAR 0 case and
-+	 * sanity check BAR 0 & 3 before attempting this quirk.
-+	 */
-+	if (resource_type(bar0) != IORESOURCE_MEM ||
-+	    resource_size(bar0) != SZ_1M ||
-+	    resource_type(bar3) != IORESOURCE_MEM)
-+		return;
-+
-+	pci_info(dev, "%pR: relocating BAR\n", bar0);
-+
-+	pci_dev_for_each_resource(dev, res, i) {
-+		if (!resource_assigned(res) ||
-+		    resource_type(res) != IORESOURCE_MEM)
-+			continue;
-+
-+		pci_release_resource(dev, i);
-+	}
-+
-+	resource_set_range(bar3, broken_addr, resource_size(bar3));
-+	bar3->flags &= ~IORESOURCE_UNSET;
-+	pci_claim_resource(dev, 3);
-+	if (!resource_assigned(bar3)) {
-+		bar3->flags |= IORESOURCE_UNSET;
-+		pci_warn(dev, "resource relocation failed\n");
-+	}
-+
-+	pci_dev_for_each_resource(dev, res, i) {
-+		if (resource_assigned(res) ||
-+		    resource_type(res) != IORESOURCE_MEM)
-+			continue;
-+
-+		ret = pci_assign_resource(dev, i);
-+		if (ret)
-+			pci_warn(dev, "resource relocation failed\n");
-+	}
-+}
-+DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_INTEL, 0x1533, bar0_address_breakage);
-+
- #ifdef CONFIG_PCIEASPM
- /*
-  * Several Intel DG2 graphics devices advertise that they can only tolerate
 -- 
-2.47.3
+Cheers,
 
+David
