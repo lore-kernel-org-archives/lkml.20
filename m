@@ -1,118 +1,164 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F00293FF8B6;
-	Wed, 23 Sep 2026 07:15:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147748; cv=none; b=KQLBYYj3PiEVRo5WNAP91AQClNG2vYfadtblrkyDLIemwadyLzEZAJCC7USAMyHXtZ+dtyjP1SQQkGScK+wKR1iffQFybA9Jxat/XFVqEuIO1gNss/YVqlG+P9yeeG8nLpkj92upiwy8wWlDdlYp/PgO2d2/AiJcSE+lyL9uarw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147748; c=relaxed/simple;
-	bh=vZuxlwRpnrfiw2XnOOnbK05Vv1F8TcWxDpr/OMYOFp0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mocflb281tR16KJw67FdqG+0ruMCjrtJGVh+tzFbXJ9JfyOuXAlU0z8FmQ/dvic4pG5xFQXOMRZBsh5Jh5742hmo0lQYwZsdyWx3Bttj07ikv8Oo3un8Im6iVt7Y8x+EHNM8gy3L/9fAFVWpgfe6ytX0iYVpGVW1Y4FBHs7s+2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wA3EX6QfLNqptcwAQ--.6008S3;
-	Wed, 23 Sep 2026 15:15:29 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app2 (Coremail) with SMTP id zC_KCgAXy9KPfLNq+hSWBA--.44834S2;
-	Wed, 23 Sep 2026 15:15:27 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: Elie Morisse <syniurge@gmail.com>,
-	Shyam Sundar S K <shyam-sundar.s-k@amd.com>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] i2c: amd-mp2: Synchronize IRQ handler on callback unregister
-Date: Wed, 23 Sep 2026 07:14:32 +0000
-Message-Id: <20260923071432.487741-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2126.outbound.protection.partner.outlook.cn [139.219.17.126])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7403943DED9;
+	Wed, 23 Sep 2026 07:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.126
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790147759; cv=fail; b=YajziBlquah/LXypLeFMI2L0vom69LFcKEATA/gLaQBBc/qGla7Dtn8eAKvQRV3PbTLs4p34oE7eMDf6S1PwZZKw0vi9xjSGF7NFggjQBbhXETJtyTg+LZp4Wv6ATc3TtmLRO7J6US1m8hFnYnAk4uhevJpIv/xVcb4s/nfIFBE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790147759; c=relaxed/simple;
+	bh=iDBr1ig+eSGaxNJj1HY7Ttt/n2s3v/QIDlcnD626hBE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=suGCSSNVWhVjEY9VPTQSyMefD23BwVO45BeKIqDLsXtAMOLuY5NEQRfQelj/80l9ZwxqnWY7bTOYfmp0eDIqbsgvGgbNlNo7mLMO0SUnynb1FtHYLZ6kyTw0dLkdKzkuy3CqZsIwlG1JH+pUNHstUCscYgOr8JPT76JLhRZK950=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.126
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QmEYd1oHZytivYiaz83jVhnn4Dh0S/QUhk/4fgATa1qLI5A0ve8X8sgLxBpRQi6LvHzDZZK0cvP6UnCJ01SthnHldmcG43VHmdXdBgUBKYUHCMMDAYXiLBdoDucbCxSfVk/8wY2LRfeiPSh4nrRgIggGbNOJgDDy36RU3gjcOunM7JzA2Ib+UQXBTp8yln68YbKwdI1k9PHxPO1zu38HSiRHxGaWTVJBgHWJrfyjE+ixBEzQP8QBXAmrsPAY4NVc5vE5e5cxeI8SRqwQ835QRisdvJl4Q7uUwLwnyAbuL99GlCwFh1Vi7N4lg9hxLNJB9QeeV+onnXisG5FVy3Le8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u42D1MYm9uib6R4RGuK19vJPl9D+e0d5388SjZh0pW8=;
+ b=BDMI88bPs4M1Z6WjndrAEsPi3hsJHCKs1iqtQMfSdMAOnpv+STwFYbGYsxOrHXXTnYSdKAFWBXapRj8GzolmgpoVJ5cwspECACqjLpECmFCY557MjubHpJLk87imIPGikQJDtadppyOKqq75J4kJ4G145CmpTj5XmMDJzmIVaa9YcSABglryDXuG15epjtOqXMjAwCulR9okxKalnsX3pow58MfhQTYelPZ6MZPvKOQvWl0QDuKod9PYIc6SAbSLBHzt/LNsNsunx2gT5l40TVOoHB47qjPbb4Jn6C9u0XJj6XgO8I+bwXNMY5LhWkm6KajUewxb2ob7qGM/xQgwNA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:1b::23) by BJXPR01MB0517.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:14::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 07:01:28 +0000
+Received: from BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e644:7bf5:5a3c:e548]) by
+ BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn ([fe80::e644:7bf5:5a3c:e548%3])
+ with mapi id 15.21.0451.014; Wed, 23 Sep 2026 07:01:28 +0000
+From: Joshua Yeong <joshua.yeong@starfivetech.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	rahul@summations.net,
+	anup@brainfault.org,
+	lftan.linux@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	joshua.yeong@starfivetech.com,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 3/3] MAINTAINERS: Add RISC-V RPMI voltage driver
+Date: Wed, 23 Sep 2026 15:00:14 +0800
+Message-ID: <20260923070014.1340761-4-joshua.yeong@starfivetech.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
+References: <20260923070014.1340761-1-joshua.yeong@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJSPR01CA0020.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:c::32) To BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:1b::23)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zC_KCgAXy9KPfLNq+hSWBA--.44834S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?as2ZGQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfncGSG+szpQCInt5Y8rbJUI1WXnYUE6Iac3H707PoH6LkwsQ8ncJF0C3+57Q5r70gUnGd
-	neRwZM6hBr/dGuJHJDfN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoW7tFyxXFWfGF1DJw13WrykWFX_yoW8tF4fpF
-	WfWrsayrs8JFs093WDAa1Fvry5Xws3XayUC34Uu39rZanYyrZ5Cry8tasIvFn8AryxJ3Wj
-	yFW5t343CayjyFgCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8aQ6JUUUUU==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BJXPR01MB0838:EE_|BJXPR01MB0517:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0d6c31a5-9796-4602-2fde-08df19407d4c
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|366016|7416014|1800799024|52116014|38350700014|921020|6133799003|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	HYoDxqRKsJB0fdzh8SiIKszrGuX2CigHgJ1Y7BcOVXKXIHoAgppsR0zqXo0GNDV3rLZQLwPICG75OaRVsowXrvJCoqSg+1F26lf7ED3mk2qlOIp0w0xcxJL8UAhMVHPZFiv+iJKwTSztmborg8/knMc2xTeLNxqabaLPfdDDNBuL5MaxXn69O1UPa8rPK1iJ1ZwFxIS2Ea+CxtB8eOgH6q8J3lzW9Pehxj76O7Q0tSA0yCrB10jMu6XvEEcVPYTWRtZ90pOfr57jNaDK0P0oL6vsq2A0eEQoBuZ4XRlPjNon8+46wU/9bScIG5j7IBN31yF123RLY6z+9H9RY3sGrxV9hWcMGjTLpYUITa2ZCb2nkDLX6S0RKhH2qLhbPjLtaR469UajsOi8v2vua8sOUtiuAvSchG+eR2l7utfdjCYqCoKB89kNJeTIyIS0WI763VsT1RMqEhxTBBkFHxPMg1yiZBRhyKxPnhiayeixmdKSpF1+EMSuGqKC43Vp9eMpN7DsxifzC6V0YCm7+qavu+j8NJzP0VboUY0ZWxwBW5AcC/LAkKA4OcmzcOWUqzs2RBhm/yYxLhT+fvGL4rmu+Q==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(7416014)(1800799024)(52116014)(38350700014)(921020)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?6yzmGgLkxOV9qpLKb4ZK5C/MtGfvijPljXIutsi7KDlFa0M+3rN8Ib8IjLKI?=
+ =?us-ascii?Q?kyPW7K4zEJajVHHUKxFiZG9+qu9sofiH75TZnEoGPe93q+2Aj5PURrq+KrCb?=
+ =?us-ascii?Q?pdoxeR1CwAHuqH6T47hkn5IX5Cu95O54dOq47ztl3cxkDWTQ541KmsLL0acr?=
+ =?us-ascii?Q?e/Gi7RYAQD37/AmwHYIMwT+5l790OjUvK6Ws9GM9eFCsMrZjIF72g99ywpCh?=
+ =?us-ascii?Q?PLfXg1voZ10zdYgWy3d9iyeB4YP7EOUkCAznyHyF7tgKbST+ltcg/myHRbT9?=
+ =?us-ascii?Q?tBiQ7gbwAxtkXQlk4J6xnqaVnDkxLyldFFs6+4cXejrRy8D1CNEJ2aU9+3BI?=
+ =?us-ascii?Q?PFZK99+lC2rFYfK3Fl7pnHpFWfAqmMw5/anwgLKLyp2sfMqJ3OlqTb0v634q?=
+ =?us-ascii?Q?TaQg/WPRD8kHkE/vFIQAGbCAn3HajtlTvfydIAQtoVNA9LUljxMZY9m2RD51?=
+ =?us-ascii?Q?V+nRLFe349PyjzqA/Sq8K1xsmc3n5oQX/YsRDgrr8jFT2i3fwE2B2GYOn16n?=
+ =?us-ascii?Q?PKN6vejOZEsMQpCPKAYDlRYP/tPoXPRBpwj3GdsonJwXRgomSFaGR2i6q62s?=
+ =?us-ascii?Q?+R3LzvWH/iic4RD2K5sne5Y691DYF8pKZLcuIHcK0lf3qHAW71/liRuf08F5?=
+ =?us-ascii?Q?KfWI7wjgRn4BpepDWplszMYL/8VjnMgIilVuHKJc9hIo5VsJDxRLdIgo3+k0?=
+ =?us-ascii?Q?dVKhd0u2ZTEYyoeiFreDHnJa6f+QCwMFrkDHegxvH7IttivsA8GcPCoOeo9/?=
+ =?us-ascii?Q?6mqYW9uY4nv4sWv6QiI+nrzEwQzjWzafPgad9OeJHoJDAV5OGaS3OfjporEy?=
+ =?us-ascii?Q?z0cidz00tPOUD5a1rgUu6FnL50N57tLKwOdBs/rJG8Dpb9Uw5NGrx86EccSz?=
+ =?us-ascii?Q?MgK+S7N9VQFjDlA++1PRKwbw9TtiQffb2qRUorqiRvYRfmsN4vpNGelZFjx7?=
+ =?us-ascii?Q?SSjs7lCxvTsplL0N6QnhyPDHnMK739ai0f7fzvsn5WpwxZdJ337Imr+nfbuv?=
+ =?us-ascii?Q?eEa/9HRtIPpW4uUmZjYaQOji2+qdMYDu4QnEfaVA7x2GNUA9FgZFk1yG68yI?=
+ =?us-ascii?Q?YPBCrCGOtFExx2g1X1Ln0x03luSFp+08RW+Dsk6EREegKnFXIYa9csYlvB1k?=
+ =?us-ascii?Q?JBDbYz8O7QPKYs7RPOYDEbgsrnW4AuI4RZ6paBuCH4ekMuTDNYzi6Z/syaCP?=
+ =?us-ascii?Q?5olBGKF+KkfEturG3cCapeiw6pJdngHNbB3wJNhxxlAW+xNsOroZo2LTIzdT?=
+ =?us-ascii?Q?9K/EjGmdbLhRMicFvYBW3mIPYhkBNWQ6pRdFCfH0G/3rRubQ7sOa+ioOKhQS?=
+ =?us-ascii?Q?ljc77naJfoPGWk1IzN2/dg8keGTjgQfsRJuZRc62vIOLbfyz3v/orSSHjQ7P?=
+ =?us-ascii?Q?IrrGBTMJB60S6/UOhWeL8yQ30WDbTvItnAuC+WIqpae9giPmtUkVECm7fiNM?=
+ =?us-ascii?Q?iOATQZbI9NmgurWjYuaUchNG2vPCTebfj5wg2K8vHephryWpTUSMYFqypv5O?=
+ =?us-ascii?Q?X7yA7hsG4JqHLeql3Ng0fOlNfU8dLZ8OysaG3hGs/L3MA+nQVXBWBZcMJ8i9?=
+ =?us-ascii?Q?uKEKpmnkkjoBKCRcj0sTfjk/tp+Andp/gVG+D6iDVq0XEq0gJNRrfqOcmbCI?=
+ =?us-ascii?Q?Miq4q+0k+hco6J0WokqbmFyOnRnMsLJ2ePJ/MeHrfyOO0gvtDvD5LHx+y/31?=
+ =?us-ascii?Q?HRCmuDIGcpmpsCVnjXrNeD5mEa3ot0UPE3M52NWuWqAEFgEYw3UIru225qSu?=
+ =?us-ascii?Q?cEXlxhrDnMv/g+R3/hmoN3Oo2ULCOhU=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d6c31a5-9796-4602-2fde-08df19407d4c
+X-MS-Exchange-CrossTenant-AuthSource: BJXPR01MB0838.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 07:01:28.3675
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wvAipCpPOKoECKJsndpVrtiqhJ7FH+f5tihtOHvF4HeP+p1fG68MzHY7bGbpmxACst2hXoVNvy+mr/bC+cECss9P4Slf3bZPjVw4Axzrr5Q=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BJXPR01MB0517
 
-amd_mp2_irq_isr() dereferences the per-bus i2c context stored in
-privdata->busses[] and calls its cmd_completion() callback.
-i2c_amd_remove() clears that pointer with amd_mp2_unregister_cb()
-without any synchronization, so a handler that already loaded the
-pointer can still write i2c_common->eventval and call
-cmd_completion() after devres frees the struct amd_i2c_dev embedding
-the context.
+Add the RPMI voltage driver and its bindings to the RPMI device power
+entry, renamed to cover both, rather than extending the existing RISC-V
+RPMI and MPXY drivers entry, which covers drivers maintained by others.
 
-Fix this by calling synchronize_irq() in amd_mp2_unregister_cb()
-after the pointer is cleared: handler instances that started earlier
-finish before the caller frees the object, and handlers that run
-later observe the NULL entry and skip the bus.
-
-The interrupt handler keeps reading the slot without any lock, so the
-clear and the handler's read use WRITE_ONCE()/READ_ONCE() to mark
-the access as intentionally concurrent.
-
-synchronize_irq() can sleep, but its callers hold only the sleepable
-adapter bus lock, which the interrupt handler never takes.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: 529766e0a011 ("i2c: Add drivers for the AMD PCIe MP2 I2C controller")
-Cc: stable@vger.kernel.org
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
 ---
- drivers/i2c/busses/i2c-amd-mp2-pci.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Based on the RPMI device power series ("Add RISC-V RPMI device power
+service support"), which has been applied for next. The cover letter
+links the mail saying so.
 
-diff --git a/drivers/i2c/busses/i2c-amd-mp2-pci.c b/drivers/i2c/busses/i2c-amd-mp2-pci.c
-index 60edbab..8c81247 100644
---- a/drivers/i2c/busses/i2c-amd-mp2-pci.c
-+++ b/drivers/i2c/busses/i2c-amd-mp2-pci.c
-@@ -209,7 +209,7 @@ static irqreturn_t amd_mp2_irq_isr(int irq, void *dev)
- 	enum irqreturn ret = IRQ_NONE;
+ MAINTAINERS | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4716da916aa1..cd13d6172655 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23308,13 +23308,17 @@ F:	drivers/irqchip/irq-riscv-rpmi-sysmsi.c
+ F:	drivers/mailbox/riscv-sbi-mpxy-mbox.c
+ F:	include/linux/mailbox/riscv-rpmi-message.h
  
- 	for (bus_id = 0; bus_id < 2; bus_id++) {
--		i2c_common = privdata->busses[bus_id];
-+		i2c_common = READ_ONCE(privdata->busses[bus_id]);
- 		if (!i2c_common)
- 			continue;
+-RISC-V RPMI DEVICE POWER DRIVER
++RISC-V RPMI DEVICE POWER AND VOLTAGE DRIVERS
+ M:	Joshua Yeong <joshua.yeong@starfivetech.com>
+ L:	linux-riscv@lists.infradead.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/power/riscv,rpmi-device-power.yaml
+ F:	Documentation/devicetree/bindings/power/riscv,rpmi-mpxy-device-power.yaml
++F:	Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
++F:	Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
+ F:	drivers/pmdomain/riscv/
++F:	drivers/regulator/riscv-rpmi-regulator.c
++F:	include/linux/regulator/riscv-rpmi-regulator.h
  
-@@ -268,7 +268,9 @@ int amd_mp2_unregister_cb(struct amd_i2c_common *i2c_common)
- {
- 	struct amd_mp2_dev *privdata = i2c_common->mp2_dev;
- 
--	privdata->busses[i2c_common->bus_id] = NULL;
-+	WRITE_ONCE(privdata->busses[i2c_common->bus_id], NULL);
-+
-+	synchronize_irq(privdata->dev_irq);
- 
- 	return 0;
- }
+ RISC-V SPACEMIT SoC Support
+ M:	Yixun Lan <dlan@kernel.org>
+-- 
+2.43.0
 
