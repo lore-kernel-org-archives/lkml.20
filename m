@@ -1,120 +1,231 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2635F5452A1
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:37:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790181461; cv=none; b=u0fC8xgUuQ2hj4AKEoDJTwZlA7HidA43UOHsXXKTrLtnncFJqhS0jE09pZdDgps3INvZMhplHiLR05XSHnar76XaSYg835hJDPCFwOqzRnKvl0129LS23KRhF42WkAolQkkZ2enEzc2aViPkDs0Ndi5O2fcc5hz/L7eHRhF9q8k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790181461; c=relaxed/simple;
-	bh=l92mD18fSNLpCYLPJHZVS7PRAzNZbkw6femw0wFQAng=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=aOkYe2GoN47qgAdM5KLdHtHqCyJbcK02rRJQrvkXfRsV8wHDKBCEkZj7yx3hHORjGrKV5QHquf7hw7mXWP1Z3B4K2lcSynwkFRJzlwOrBQsFv8rDRkUa1ohaVVLeGtO6T0cHgEeXzOZKUbyG2qD6fbOJDpUkqmBmxADIz1l6t3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uGr7pXIR; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A77C853A8B2
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:38:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790181491; cv=pass; b=YU9XS1gO+nGvH3z1VurEvoHB7GQMb1q1hb7l66b1de36PpzGZNdTGhLeqfcWT4+n5ba3EwQ/nP7WbLy0H9XFk/UN0KLFWTpczCT4kwHIzmMhdRBV+YUvGGbhK6JJDPYrXYrG4swRVNprovoVBBfCakcJ005syF3YQ06C64Vb2jI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790181491; c=relaxed/simple;
+	bh=Ki68AWhOtCntsoI0OFIKHyKcKBjhFUq6rGGkI3eKt94=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sJEi4r01QmbHWCfI0nlqoLB246y/qAmHhZvK0Mf55AtJqK6MryIPnRBqSQCrO4AbAqQ+/tdT8QhCgnJZlBg8p3sC51mJOQGvqvRoPSxjF5v5+ET5XCGei3jNH+Isf8HSxNC2iZgDKqWhjMUbWWKqdxhVdLBOY+En7nXMg6QEBmI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jThPTznR; arc=pass smtp.client-ip=209.85.160.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uGr7pXIR"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39533bb224cso1470075a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:37:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jThPTznR"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-530e8c6fb80so281371cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:38:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790181477; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iXHFKUcRNP9Q5iPQvxAtLtwsBEkigZy8VSM2ReqtnuP/pr1BO0G/ZF8loBEkLGsq7H
+         mHYMynRy/8wGNCEEsmzde5jvpHPR715TCoutNmGC1TfOK7B4Auem4ureIvWedrD6yXpj
+         szFF5UYMBd9wNm4tJpYY/x9LSu26mHqitwdS9XCpCv12npVjEW7CDxGpt/4hLo2Gtjw5
+         t9w+rmhzSpoU3ZFJvDYD4WFsYBElac3tLKEqxnLWoBIXPySt1rDNRz4dnYOkAQLdroNA
+         XKHJAJF6BuBAG5cItB0McrdLWsMymvIckJ/dkATM1z+c31teVL0PmkF/e7mj4F85faJ+
+         Po5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=j+invQ9QY+xGc1wJGh+eSpEPO8pFIqJwIrCsCZ77yWs=;
+        fh=UmecafZ2PenPipesayB9VyjBfsohUNsVEZiTpipmN6s=;
+        b=ncxPwdCNDAWm7RUGH5Sarw3MFuuz0zktI5gqwTS862WSblLcoDVgz8gdKAJVEE+/sB
+         Yw00O22fbCsR99v4Snaiq1CErEmDqHAoJr3rnct0WT+BRSOe4LmOp/DRT2FVzGZEH8DH
+         A76Ptu6QFlt270IZqbQD7rPlmRz+oGWA0Cui7MFRM0FdXvq3n4gINA1gcD7ypqCgl8kY
+         TmLuhKsko1WzyjOkSn9+SJZfMKHIMbNKlG+avd7V8vJGkhoYI9JHER972feoSCirBhUV
+         D0zj3hPz8bomjI9MWarKTZE2vdWlpjstTznTQmP56kz9euiu36AE7ngDYVmm7hwkkNE/
+         p6xw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790181444; x=1790786244; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=v5iTeCVol8w3KZ0quMKIDJmrpriPxbZxm1zt2zphWwM=;
-        b=uGr7pXIRFdfOJItuORNDDu6f2P2uq5O8UBqu7ssI4c6uVmH0WJ96/NN7HJpjm5lkW8
-         4bS1z9IX0ztoPu+BbCQh3O91td/U//XAvZzVs3Rq2B0KHqXZ+v62XnQ8RHP6kfxPmnHO
-         UjrdBbQifKYO3gElk2X9yx+8w/N7B1ykc7GpUzXpeF170CqOjl3Kr6pqddou3bkbssIZ
-         OxBXPruEi7abJNKSQFBSxoVGuhsZqz9vbGKdjeuV4RN4Yzb1+Kn5SqF4I8VlzHErFR7a
-         XScZBJU3k9YI/FCK7+iIm6XAFZMmwGZtzZ79bSHa4ArH0e057fUUmIhQgYWlp140xuUC
-         HD8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790181444; x=1790786244;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+        d=google.com; s=20251104; t=1790181477; x=1790786277; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=v5iTeCVol8w3KZ0quMKIDJmrpriPxbZxm1zt2zphWwM=;
-        b=OK7D190qbaMTirnjdBbzT1Mto/VYi2zLtCLb4ZFdYMyq4sjEoFfwb19pUi4V6mZ1jw
-         ec+jSie8NTBX8gxofr/qXa+j2JRNpPtHO5/F2MGvdniKi1yUMg88aIIjde565KojUW3F
-         mmMTgO5xJ8Wm0n3bsrZiB2ptbnhrkZnAOIjOA9cpPtrKrb3yj1IZGAF4dzy40w5T2CO2
-         Jrowt4EALpesjuG2VbswS08oCooNZcCh/jchMCKNjCYqdNhIdLkUmiv+Pjj0GEtI5iuG
-         r8Uxcu55LmYTI0tLbwwh1HxZWLZn2Jktz4jYrC0rvY+XJt5uHY/JIkKMSNfDlYOLU/s8
-         MHGw==
-X-Forwarded-Encrypted: i=1; AKwUvBwH+7Y5NOa0LctmLuablsa+JF7XVAMpo7LFlZ38zTTOX6FakSwZe96LarUaWEt7U8IZZYCLmPMdXtiY2Hs=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2tDM4Z0ikGUrpK0Ic7+km+ynYQDd126H7YgAL3+Vl2aCmPG6b
-	KZTJFseCdM2zbqUjYKLw7A6nIoxaO/gNPrTbHoJJ/653ghLiUT7Jc7ybeQc2IlQGdsGGnrbc0xy
-	knSEL4Q==
-X-Received: from pjtl23.prod.google.com ([2002:a17:90a:c597:b0:39d:c134:415])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3d92:b0:39e:6a7e:ee1b
- with SMTP id 98e67ed59e1d1-3a07e654dacmr2590578a91.39.1790181443894; Wed, 23
- Sep 2026 09:37:23 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed, 23 Sep 2026 09:37:20 -0700
-In-Reply-To: <20260923163721.1584779-1-seanjc@google.com>
+        bh=j+invQ9QY+xGc1wJGh+eSpEPO8pFIqJwIrCsCZ77yWs=;
+        b=jThPTznR670ycgCbH7qizm1s+5zC15cNHS9nP2YzsFKa99rlkiwHOfs0twMbnFxSNo
+         ECKfSxVrJaXI2Tof5xtvy9IySgvjd+BwRvKVzluHdUfORli8b1LmUn2UW1yFp5vMVTrK
+         TFD2Coe4xl/zahes46jdA0Fd1QLA8ZjLMui2/amkhJOtTTDhkGvpzTl1Yrz/J4diREqI
+         audXPwrPEwiejgxhY2R/ea3RLYWTs5lc8OvOhyDBzavz857Su+uBfPE9ldBMtMyVXKo7
+         x7fzP/mHJZbvFz909gDVkJK2I2GWfDNVl/5jIhg8wY0NCvpRGLeiCagqn0nTA0Ut7Pqd
+         sqGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790181477; x=1790786277;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j+invQ9QY+xGc1wJGh+eSpEPO8pFIqJwIrCsCZ77yWs=;
+        b=XpuOE7N5Zn8Y10ZQZE3YYSyAHtUbqbKGnt/IkuENcR2b90Pb9o4JqV7EXvspQydWDn
+         W8mOW5UVoipbYPjUWepegUCfV9SZdXQRWI7TXeb84/saln/1AASNAJy49jeMRLx2OwWO
+         114ILD5iMf0+SEi7+3sBVCLEztYX65uHJ2KsXonpeGYP4aK61d7XQy7cRp5CUZ9MLDZq
+         pnJsfV44D2qGHR1GKpRCt4OVmZaWPH8KuwuRW5wwDwSJ/t66Lqyjhv3tBOl8a8M+iF1X
+         Epu5H3F1sA69YiFYJe8tXc7I44A29Fqf5BhHWGjTFYXnKUKVhEImLCCYuuYSZDSgFEEH
+         lskA==
+X-Forwarded-Encrypted: i=1; AKwUvBy9DsQzXSEg3teFEZk4WyjUfdw+4yQI+TUP/bdCcvuXkgh9C8W4IUh9uMUdcn1pjl1AnOzTBUFS6WyxSp4=@vger.kernel.org
+X-Gm-Message-State: AFuF++loVTQzhd58Ud5PJ11WNLPyw2VDK265/V8SEaWR05MbpSRNTnNO
+	IsODtlqKT79X/PzKhlVzieRwKt8qDYNa+gbArXJNutSK66LetXfezRwil6lNcc2rtWU/klevhBB
+	ElVVcnA2hdxRTTIibsuoTV4QaOA0v1mOLVIwo+X92
+X-Gm-Gg: AYBFou0w1V2dQhdfRkSZc+t6YEMxx20PTtSM+acNiDvqSZk+0tEXUc6bOLX1AuVdAwd
+	46zJsIr/Qg0v3NbgOGXO3tVt762HsWNlm3jgd57ihGVktNp3yexxQsmVr880UWPqotgrwPQ9w93
+	Be2mrvvnzXiA7lENtTwH3tAQlDyBOQDdJ26uSSK5nhHzfzQfQWwzJfyCeXnmOd4WcL+nAcCDfMK
+	0nByajmbZ2uP9WK1Cw3k3x4ZsOrVI06uGMIXnXHytYh2tm2Z8gpu/gzptG7iF5LBaHWWMzDvEPP
+	W+EuRd+DXqL7PBDGvgB6N6VrKlw6oPZQ/KDVgyNSfkwknFERuYAFVX9nqURYdpT+Ss7igQ7p5l6
+	L6NHl0eCIrw==
+X-Received: by 2002:a05:622a:580f:b0:531:a85:69c1 with SMTP id
+ d75a77b69052e-532f9c84160mr802371cf.5.1790181476065; Wed, 23 Sep 2026
+ 09:37:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260923163721.1584779-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260923163721.1584779-2-seanjc@google.com>
-Subject: [PATCH 1/2] KVM: SEV: Free have_run_cpus during VM destruction even
- if VM is no longer SEV
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Stefan Teodorescu <fane@google.com>
+MIME-Version: 1.0
+References: <20260922144300.1217524-1-jremus@linux.ibm.com>
+In-Reply-To: <20260922144300.1217524-1-jremus@linux.ibm.com>
+From: Ian Rogers <irogers@google.com>
+Date: Wed, 23 Sep 2026 09:37:43 -0700
+X-Gm-Features: AclHuK-tTzR7flHC1FUf-5xqss-YgaqJiwuxrG28Gk18QOopJdckSUgFKtvajV0
+Message-ID: <CAP-5=fUM6gb9MY9Sm=QhC+Tc4AFt2=fdLbr4tES++AMQcxryUQ@mail.gmail.com>
+Subject: Re: [PATCH] perf evsel: Improve callchain warning for s390
+To: Jens Remus <jremus@linux.ibm.com>, Thomas Richter <tmricht@linux.ibm.com>
+Cc: Jan Polensky <japo@linux.ibm.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+	Namhyung Kim <namhyung@kernel.org>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Ilya Leoshkevich <iii@linux.ibm.com>, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, linux-s390@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Unconditionally free SEV's "have run CPUs" cpumask in the VM destroy path,
-i.e. even for what appear to be non-SEV VMs, as an SEV VM becomes a non-SEV
-VM if its state is intra-host migrated.  Alternatively, the mask could be
-freed in sev_migrate_from() when "converting" the source VM, but that gets
-annoying because ideally KVM would nullify the mask to guard against UAF,
-and nullifying the mask would need be conditioned on CPUMASK_OFFSTACK=y.
+On Tue, Sep 22, 2026 at 7:43=E2=80=AFAM Jens Remus <jremus@linux.ibm.com> w=
+rote:
+>
+> On s390 the kernel uses s390 back chain instead of frame pointers for
+> stack tracing of user space since v6.7 commit aa44433ac4ee ("s390: add
+> USER_STACKTRACE support").  This is because frame pointers on s390
+> cannot be used for stack tracing. [1]
+>
+> This requires user space to maintain a s390 back chain.  For instance
+> user space to be built with compiler option '-mbackchain' (instead of
+> '-fno-omit-frame-pointer' used on other architectures, which should
+> better not be used on s390 [1]).  Only few distributions and users build
+> user space with '-mbackchain'.  Therefore '--call-graph fp' may in
+> practice not produce the expected results.
+>
+> Commit ca76fb67ebdd ("perf evlist: Improve default event for s390")
+> changed the default '-g' option to 'dwarf' on s390 and added a warning
+> for s390 that wrongly claimed that "Framepointer unwinding lacks kernel
+> support".  This warning resulted from a misinterpretation of comments
+> in s390 cpumsf_pmu_event_init().
+>
+> The restriction in cpumsf_pmu_event_init() applies to callchain sampling
+> with the s390 CPU Measurement Sampling Facility (CPUMSF) hardware PMU.
+> CPUMSF events, such as 'cycles', do not support callchain sampling.
+> This is independent of whether perf uses the 'fp' or 'dwarf' call-graph
+> mode.  The CPUMSF PMU provides samples collected asynchronously, making
+> it impossible to associate a callchain to the historic IPs.  Therefore
+> callchains can only be used with software events on s390.
+>
+> Remove the incorrect warning.  The kernel supports the 'fp' call-graph
+> mode on s390 by walking the back chain.  Do not replace it with a
+> hint to use 'dwarf' when the resulting callchain is incomplete.  Such a
+> suggestion could imply that 'fp' is inherently inferior.  The same
+> general limitation exists on other architectures when user space is not
+> built with frame pointers (i.e. '-fno-omit-frame-pointers').
+>
+> Instead, warn on s390 when callchain sampling is requested with an event
+> provided by the CPUMCF or CPUMSF hardware PMUs, because that combination
+> is not supported.
+>
+> Update the perf record documentation to state that 'dwarf' is the
+> default call-graph mode on s390 and that 'fp' uses back chain instead
+> of frame pointers on s390.
+>
+> Note that '--call-graph fp' may also be useful for other applications,
+> such as OpenJDK maintaining a s390 back chain (does not require JVM
+> option '-XX:+PreserveFramePointer' on s390):
+>
+>   $ perf record --call-graph fp ... -- \
+>     java -XX:+UnlockDiagnosticVMOptions -XX:+DumpPerfMapAtExit ...
+>
+> [1]: s390: Stack tracing using Frame Pointer, Back Chain, and SFrame,
+>      https://conf.gnu-tools-cauldron.org/opo25/talk/Y3CVHY/
+>
+> Fixes: ca76fb67ebdd ("perf evlist: Improve default event for s390")
+> Signed-off-by: Jens Remus <jremus@linux.ibm.com>
 
-Freeing the mask during sev_migrate_from() is also not robust against other
-KVM bugs, though that's kind of a moot point since any such bugs would show
-up even if sev->active is never set.  I.e. KVM must get that side of things
-correct.  But, that's not a great reason to add more code just to make
-things marginally less robust.
+Acked-by: Ian Rogers <irogers@google.com>
 
-Fixes: 6f38f8c57464 ("KVM: SVM: Flush cache only on CPUs running SEV guest")
-Cc: stable@vger.kernel.org
-Reported-by: Stefan Teodorescu <fane@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/svm/sev.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+Thanks,
+Ian
 
-diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
-index 63e8cfa9bf55..c9242c936a40 100644
---- a/arch/x86/kvm/svm/sev.c
-+++ b/arch/x86/kvm/svm/sev.c
-@@ -2981,13 +2981,17 @@ void sev_vm_destroy(struct kvm *kvm)
- 	struct list_head *head = &sev->regions_list;
- 	struct list_head *pos, *q;
- 
-+	/*
-+	 * Free the mask even if the VM is not *currently* an SEV VM, as it may
-+	 * have been an SEV VM prior to intra-host migration.
-+	 */
-+	free_cpumask_var(sev->have_run_cpus);
-+
- 	if (!sev_guest(kvm))
- 		return;
- 
- 	WARN_ON(!list_empty(&sev->mirror_vms));
- 
--	free_cpumask_var(sev->have_run_cpus);
--
- 	/*
- 	 * If this is a mirror VM, remove it from the owner's list of a mirrors
- 	 * and skip ASID cleanup (the ASID is tied to the lifetime of the owner).
--- 
-2.55.0.1082.g2b9226bbc0-goog
-
+> ---
+>
+> Notes (jremus):
+>     Changes in v3:
+>     - Updated warning message.
+>     - Rebased on v7.3-rc4.
+>
+>  tools/perf/Documentation/perf-record.txt | 7 ++++++-
+>  tools/perf/util/evsel.c                  | 6 +++---
+>  2 files changed, 9 insertions(+), 4 deletions(-)
+>
+> diff --git a/tools/perf/Documentation/perf-record.txt b/tools/perf/Docume=
+ntation/perf-record.txt
+> index 178f483140ed..dc72606cb25d 100644
+> --- a/tools/perf/Documentation/perf-record.txt
+> +++ b/tools/perf/Documentation/perf-record.txt
+> @@ -293,7 +293,7 @@ OPTIONS
+>
+>  --call-graph::
+>         Setup and enable call-graph (stack chain/backtrace) recording,
+> -       implies -g.  Default is "fp" (for user space).
+> +       implies -g.  Default is "fp" for user space (s390 uses "dwarf").
+>
+>         The unwinding method used for kernel space is dependent on the
+>         unwinder used by the active kernel configuration, i.e
+> @@ -329,6 +329,11 @@ OPTIONS
+>         enable deferred user callchain which will collect user-space call=
+chains
+>         when the thread returns to the user space.
+>
+> +       On s390, the "fp" method uses back chain instead of frame pointer=
+s,
+> +       which requires user space to maintain a back chain (e.g. compiler
+> +       option -mbackchain).  Without a maintained back chain this produc=
+es
+> +       bogus call graphs.  In that case use "dwarf" instead.
+> +
+>  -q::
+>  --quiet::
+>         Don't print any warnings or messages, useful for scripting.
+> diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
+> index d4cb455f4a7d..55297b8dab37 100644
+> --- a/tools/perf/util/evsel.c
+> +++ b/tools/perf/util/evsel.c
+> @@ -1092,9 +1092,9 @@ static void __evsel__config_callchain(struct evsel =
+*evsel, const struct record_o
+>         bool function =3D evsel__is_function_event(evsel);
+>         struct perf_event_attr *attr =3D &evsel->core.attr;
+>
+> -       if (EM_HOST =3D=3D EM_S390 && param->record_mode =3D=3D CALLCHAIN=
+_FP) {
+> -               pr_warning_once(
+> -                       "Framepointer unwinding lacks kernel support. Use=
+ '--call-graph dwarf'\n");
+> +       if (EM_HOST =3D=3D EM_S390 && evsel->pmu && !perf_pmu__is_softwar=
+e(evsel->pmu)) {
+> +               pr_warning_once("Cannot use hardware PMU 'cpum_cf' / 'cpu=
+m_sf' event with callchain. "
+> +                               "Use a software 'cpu-clock' / 'task-clock=
+' event.\n");
+>         }
+>
+>         evsel__set_sample_bit(evsel, CALLCHAIN);
+>
+> base-commit: 93f51579e7df248780214094418f205253383cc5
+> --
+> 2.53.0
+>
