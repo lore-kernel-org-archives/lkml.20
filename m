@@ -1,77 +1,134 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 542AD4195D2;
-	Wed, 23 Sep 2026 05:48:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A339936B054
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142535; cv=none; b=C08uPs6GxONvABXgUwV023yjKtDcN8lhrGf7UX0J72gaFHt2Jg7lmlJCufffTzN3gVjdiaOhU6igAVlxrItkqUdus20FWKvyWqg1qO2gnN7BZGzXlLzmkpxMtpuzQw6iO+feO7ROryTDC84ZI9p03GiHPohFMZSDnsZcRbtPerk=
+	t=1790142569; cv=none; b=MbJfTVUj3oqYB/SCatFjq1EjMbj7ESl9FdyTgsSoZfycCyIg4RBhOAuXgGyku3DGDyr5qE4oeGRFXZZ7yq5aPwrj9z8gqmreLIbomh8lqVXVpnSy3+HVBMSWEKDM6eEXtCIXZK1/7I+HCdbzAg+7s4G7TG8VBM+YSs7N6tftiTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142535; c=relaxed/simple;
-	bh=yfaHH9y4TD4RLwNpbO5aRcWTU8ZDYKKdTwShcCInq4A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HcCinutmbqwVtWk8ypLrfO6BhVfLawU2XVUoLqAte23Rr9b8x4kmUa5F9/gz6LfZcGawtgDwpdFLY8nJyoNtrLCZpLF7oDxxKKN7HoGmGAQ2Z/Vd8eZO456kFuX7WtU1rw83Hkm76pebHbykyp6DJpzBWCnNjX1iOEHT8vR7BDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=Qeok1GQV; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1790142569; c=relaxed/simple;
+	bh=704PCO9tRpHwADqRFHO79/OKnaRn28gjGpJwbyPjrWA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=I5JQs7iuEw/u99qU4f1Agi3Djpaz/XBSpbIYXPsBq3mR5tXJeJVKKJKgCUMklKy1uqUI/SUtTWx+97fRz3IxnhBV0eGSoEV/vNfC9YhhYR0+H/6oBmhLyH/dJTcO8A++Uiw2RSmcaMzWHpXfqNOiooFgz3uPoyW72N/H1L06MXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=yzsHqYwq; arc=none smtp.client-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="Qeok1GQV"
+	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="yzsHqYwq"
+Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
+	by cmsmtp with ESMTPS
+	id 9AP6x3rxCJFmF9FrDxmNz2; Wed, 23 Sep 2026 05:49:27 +0000
+Received: from gator4166.hostgator.com ([108.167.190.91])
+	by cmsmtp with ESMTPS
+	id 9FrCxpStuIRv99FrDxhNMS; Wed, 23 Sep 2026 05:49:27 +0000
+X-Authority-Analysis: v=2.4 cv=GIUIEvNK c=1 sm=1 tr=0 ts=6ab36867
+ a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=1XWaLZrsAAAA:8
+ a=VwQbUJbxAAAA:8 a=iSKem9uEHTndPMaPadgA:9 a=QEXdDO2ut3YA:10
+ a=2aFnImwKRvkU0tJ3nQRT:22
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=+wFBYWTN50BPqgwOPE62LNDyMYzj9FtzyJ9AasR97Kc=; 
-	b=Qeok1GQVXgdvYIOKp3NODlwoaLUwEcJt1tfzdFmCPYCno90Uh4yJyLy8dLz6CLlWpKbiRv9MSRg
-	9P5BF5YATaKzNSdHdEfwZ43BFho7U/J67i9IoCg4C2yt7nwWj2Zo3sCWJaLzaomu0HRkEyxH+l0FL
-	0Yh/QWv3zNek+AIOKb0gkquxrijSVa6tH2yFU9gw3IiE/cY+Xrxs0L39sTTffbUThVZRx1qCJHrnd
-	HMdlRnBhdyxJVp4eIO/oSw+h02NPfrzelBijUB7zSd409r2rqSd/8OBXzKlVrd2TibKLkv/oiEBkX
-	8IMqVLL5RGxW2w6VcTNPWAbIST5x7ygnfm4w==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x9FqX-0000000Guqf-1nBQ;
-	Wed, 23 Sep 2026 13:48:46 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 15:48:45 +1000
-Date: Wed, 23 Sep 2026 15:48:45 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Alex Ousherovitch <aousherovitch@rambus.com>
-Cc: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
-	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org,
-	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
-	linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Thi Nguyen <thin@rambus.com>
-Subject: Re: [PATCH v5 00/19] crypto: cmh - add Rambus CryptoManager Hub
- driver
-Message-ID: <arNoPcxJqrE7BwK9@gondor.apana.org.au>
-References: <20260917225929.2494111-1-aousherovitch@rambus.com>
+	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=Bhfb9Y56ZxdKLlIuR0TJG5mzD8QYu4ucWDxna8mxNeI=; b=yzsHqYwqKzfy
+	IT3QL6oSRSVzzTy7ooK6YA8F9tfn+4JgPBwIbjXHrZRdyajEaCcyh4OiQjIgDiQnszPBevMuV2FnF
+	TLhlmXj8ioQVCsKDILzIE3vfpVPO2KFK5Ha7iJEhMXYNV0kod8Y230S5zFWeQ6cNA2hR8EpWfYBpD
+	5aSbpt2I80Vr9EQ4JJnIA5LYU3lAPAyfC/mb2OQHZILFyw4NyESr+VNgjQ1AjEJUzbmdh7Qa7lfgj
+	dYIa925lxYUCLxmIwoeV5yBKwaUfEJ6vN8YsMB1MeI9uznlzOtaggxP2DXtOeF7UAD1RktWnNKnWA
+	BmzeeOJT6rZ0P3Ik9bD6vg==;
+Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:56274 helo=[10.203.100.34])
+	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <gustavo@embeddedor.com>)
+	id 1x9FrC-0000000257W-0dyp;
+	Wed, 23 Sep 2026 00:49:26 -0500
+Message-ID: <fa45cff7-162e-4ad4-9485-da45690044ca@embeddedor.com>
+Date: Wed, 23 Sep 2026 14:49:21 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917225929.2494111-1-aousherovitch@rambus.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] wifi: ieee80211: annotate struct s1g_tim_enc_block with
+ __counted_by_ptr
+To: Bill Wendling <morbo@google.com>, Kees Cook <kees@kernel.org>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Justin Stitt <justinstitt@google.com>,
+ Bryam Vargas <hexlabsecurity@proton.me>,
+ Lachlan Hodges <lachlan.hodges@morsemicro.com>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ llvm@lists.linux.dev, codemender-patching+linux@google.com
+References: <20260923045233.2579591-1-morbo@google.com>
+Content-Language: en-US
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+In-Reply-To: <20260923045233.2579591-1-morbo@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 125.195.69.90
+X-Source-L: No
+X-Exim-ID: 1x9FrC-0000000257W-0dyp
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:56274
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 78
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfOgIu6HdfLOkGPz5qMxFMYhlTndyCgOj7Tf405DRE7PTFGDrNSxp4izKMfUSOUvoO3g7N27BbK4fmxiY5opEyKvSQdPMVqY01yKvb0G9wdn+KHty39WK
+ DDgECFVFYrf4y9LwGQEWkyqXwRxxH1Ksk5V1Yokl2gjPGEl1Bz/PmG2oIxIOUZTGtAq86KK2qvSxIhbM1z7iNuh06LyhPjqNSv/y6zsgyrTGqLloi45JiMXU
 
-On Thu, Sep 17, 2026 at 03:59:09PM -0700, Alex Ousherovitch wrote:
-> crypto: cmh - add Rambus CryptoManager Hub hardware crypto accelerator
 
-Please check the Sashiko review, it is not happy with your
-patches:
 
-https://sashiko.dev/#/patchset/20260917225929.2494111-1-aousherovitch%40rambus.com
+On 9/23/26 13:52, Bill Wendling wrote:
+> The GCC and Clang compilers support the "__counted_by_ptr" attribute on
+> pointer fields to associate them with an element count in the same
+> struct. This enables KASAN and UBSan bounds checking to detect
+> out-of-bounds accesses to the pointer.
+> 
+> In "include/linux/ieee80211-s1g.h", "struct s1g_tim_enc_block" has a
+> pointer member "ptr" of type "const u8 *" whose size is described by the
+> "len" member, which is correctly populated with the size of the buffer
+> before any pointer dereferences.
+> 
+> Cc: codemender-patching+linux@google.com
+> Assisted-by: LLM
+> Signed-off-by: Bill Wendling <morbo@google.com>
 
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+
+Thanks
+-Gustavo
+
+> ---
+>   include/linux/ieee80211-s1g.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/ieee80211-s1g.h b/include/linux/ieee80211-s1g.h
+> index 3f9626ad3d97..8f6107782c38 100644
+> --- a/include/linux/ieee80211-s1g.h
+> +++ b/include/linux/ieee80211-s1g.h
+> @@ -349,7 +349,7 @@ struct s1g_tim_aid {
+>   struct s1g_tim_enc_block {
+>   	u8 enc_mode;
+>   	bool inverse;
+> -	const u8 *ptr;
+> +	const u8 *ptr __counted_by_ptr(len);
+>   	u8 len;
+>   
+>   	/*
+
