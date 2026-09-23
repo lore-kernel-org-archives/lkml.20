@@ -1,188 +1,241 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mta1.migadu.com (out-25.mta1.migadu.com [95.215.58.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0CC34C155
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:16:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 507993D566D
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:16:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790183771; cv=none; b=JWKc3QnqI77N+sQDWJCDd46gltL9j3oLITis/d6pR57QwOwkncFHhtL3Qo6JB2Re1KrlHxaZSTPe0OnhHvca3HaQ/FzsqQPHauYpNzlwSx5vRzpSn5pI3WrCYyoMdsRPmtuvf7oPgRiTXHhN1WeuItTpMckQaPXGB5cEnXBKQ0M=
+	t=1790183789; cv=none; b=E52Rmnmrp2msJ1wi0IK4xP2cIfLmGLCrYUSn3JUcbLMqf5XPsGiuLGUnIkwsQ+KzIx/8WJYzbLrxWZtHqjdnRo5ZG2LT5Y8qLe2/JIWlo7nGduS49osZj3ikHwD8DgVm8exghqbnUBPlMyDSIQr6vDRVuX93NKgSX5OrK+jlKYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790183771; c=relaxed/simple;
-	bh=s3VoHPfdGXRS6MChYVrimL6jd8QOiYICb6vP73NM4BQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pAWjsDSQ+qRKEcv8NtXn+o/IOKUYJZVANBo0rMstnzupu5KlBsPw8xOBOHK0mEstefI0NMYEWpbOROKJmvQKz49kDmd8otSeLspF0A4TOhQDQQPjZee+f5sEnLhEo7ZzzOtR69pUczBBo/UMii69AEyro8du1ok/g6ArQSkw6wQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=CkWNvJ5U; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1790183789; c=relaxed/simple;
+	bh=OZWCIjfQvJGYe9SmrpS0lHhTXSEFx29Lz36+6DEDDE0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tIagzzK5r4ONgHVXwV3fvAVQWE2H+oSOZGH6deS1XIB/lMHDKteU+raPLULzgKj5IRWbnZ1xsJkwzHphDbyBnIFegJVNFSIZ9g8tIL4+so3dfgsIIRkjbaH6s8yom0QtwT1+f0gTMu8TOXWVCwNE8w3b6OT+XwWt5bLAYY5FZws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mEVpYq7J; arc=none smtp.client-ip=95.215.58.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="CkWNvJ5U"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e512ee6so492913e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:16:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1790183759; x=1790788559; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Tnw0WBB0ykL71IZQC44P5CqwYSfWV4ItBvg5nSQyIs=;
-        b=CkWNvJ5UR4gUnewigAHE0GNEDdeALBO5YjU7io0RqPC9l+duWuH3LbyDz8Gnh5S+Kb
-         PHznbywUpDTBpG28ZKCrUxa6R2bGKzzjxwkTUYkoiTGX4RK5cKpjkbzS7MZ+MdpltcAs
-         S51jrdt69j0zBGu1+fC0JW+IJncIpIERx532A1uiO8MZZam+ZsUA3pH8N0A+HXdTJ3Nr
-         jv9M6rIitBcfqgvWtGZC8h3bVHh2wqXaJY8PlnHLF8yXpfuqIDGNBEqYCz4RnEnO0kST
-         mLgy0w6zrH147SLFjgm/ZdXVmsL7IfoWECDMnrIRL/xfANH7qDWEFzDiCdnB1WP8/Twv
-         YWtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790183759; x=1790788559;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Tnw0WBB0ykL71IZQC44P5CqwYSfWV4ItBvg5nSQyIs=;
-        b=TcIU6JzP5U7Qe9Noln/aNMm3yHgzplpzUHw05+zAnl0iBCZEVwW7KtRv+ngdLXV50l
-         /B7rmnmg7PGGL7SudoDEBw84uGbew3n+w0YtDgusGiP+CnHUjNXr8A5nnrF4KeAEOZ0u
-         BOd4ge574G4+8/In6zI3HpiqJURBQTG97eMGMZGWQn8T56syX+H2PhX9G7u5kmTvfBf8
-         2DTo646YhOxCpUUe56LmMyH4SKZ6DH/Qv7MxozA7s5Q5XaH6QwiKUm3aEa8vWIzxvwH1
-         iMZJEs4iVkgF+uPtcrBYus0pkBYaIzWmeImeyjSVDhyOkaRDMkbpzmhhFn4+YvKEPW1j
-         ebfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzJ1qfDA8ff+9We/iqDXI/tqXjHZGDgMZb7Wd/Llwm5Ch+myAnPIBVG6Q4wdi0Sz3UbdHFO0S/dW59jTSQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHW9HBkav5PCycAayQWrPfb6YS6HldVnE5O4B0yAyzMjB6Um8S
-	ou06nReeavWjHI/sp1eoPpjEOR3AVolQkzpeDlbPDv9nKkbq6cB4Os9XXfbkmj3VFw8=
-X-Gm-Gg: AYBFou1m1AJChV2A9rGQZMQzBFNsl/IMLkHEHXprN8U8h07m1+bNy25OseLci/0X0tW
-	keXoeDmSDRe4gFWueKdGhvlc5HT8JpJTpSSkTMHn5KbCNAYAHZkgsnxir3dmvTEcgov80N0ueUD
-	8jgjd/pHcl1a/NMmAtj8D7ZrdemYDYACS4hkOVhklkBa5O8vNkBxZSEXTiX+0755+gPDS422YIo
-	wwj5W1DMEXpyiPkVbk1KUzM2EiyJTh8qx7CYGJMbN55fJsvrY/eb84IBLxf9zqN3JMlZZPEZVrm
-	VeVnDV1ef3ANkm7NsJdOJ0dwux+eKhcxUJolq43Dpt3lEiMrFxk1Cc3WsegrW9pKRTWlxdsDwrq
-	iRmBT8uJvHap94gqnW0CkCzovNqb4KDVMOLP7uYo1z4vGTee/A364GXr7KNMWUEMxBj+B33/+/d
-	+ilMS6G8WDo5v7vMNkO0ucsPxmjDIAR4nfWqxKxmgWIm9HYkjHRJgzbMqhHKJTiUg4GES7P0xSs
-	jWrQJUcvu9MxYTAU21YpW9qAELW/Ku4eC3LooOjYY5qypD3xZAzr6JjXMq/t55VwJS2kw==
-X-Received: by 2002:a05:6122:e148:b0:5c7:a3a3:a4bd with SMTP id 71dfb90a1353d-5c9f157c88fmr3579854e0c.4.1790183758932;
-        Wed, 23 Sep 2026 10:15:58 -0700 (PDT)
-Received: from [192.168.0.187] (modemcable086.138-200-24.mc.videotron.ca. [24.200.138.86])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ca2876229dsm2214244e0c.3.2026.09.23.10.15.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 10:15:58 -0700 (PDT)
-Message-ID: <f3b50572e116cd82c518e013961f980121686e00.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: v4l2-ioctl: zero the ext control built for
- VIDIOC_{G,S}_CTRL
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Nick Rogers <nick@getfieldwork.ai>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil@xs4all.nl>, Brian Daniels
- <briandaniels@google.com>,  Alexandre Courbot	 <gnurou@gmail.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 23 Sep 2026 13:15:55 -0400
-In-Reply-To: <20260923160936.33445-1-nick@getfieldwork.ai>
-References: <20260923160936.33445-1-nick@getfieldwork.ai>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-QpuVmG4o+y4nZvyD+Tip"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mEVpYq7J"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OZWCIjfQvJGYe9SmrpS0lHhTXSEFx29Lz36+6DEDDE0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790183782; v=1; x=1790788582;
+ b=mEVpYq7JfIO4M7uITxOlV07VaTfOaVUvZCqPtIZs2xxryTm5vzXc+w4UNOGcfhr7aOLHE/W1
+ VZVThdJIThxN9yDTiv+4YJQh7lRrYxmjmufa5Epfc2EKK4+5bsWHvgWlLGfNkdHT4z5Y4woX8VA
+ wWQxGS42ms6XyxxqK14Vu7WU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 12e675c5567fe32c;
+	Wed, 23 Sep 2026 17:16:21 +0000
+X-Mizu-Trace-ID: 12e675c5567fe32c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <94253b72-0c93-4560-8a96-b2ec1e8b1fa3@linux.dev>
+Date: Wed, 23 Sep 2026 18:16:17 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 00/27] Native SCSI Multipath support
+To: John Garry <john.g.garry@oracle.com>,
+ james.bottomley@hansenpartnership.com, hare@suse.com, mkp@kernel.org
+Cc: jmeneghi@redhat.com, linux-nvme@lists.infradead.org,
+ linux-scsi@vger.kernel.org, michael.christie@oracle.com, snitzer@kernel.org,
+ bmarzins@redhat.com, dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ nilay@linux.ibm.com, hch@lst.de, kbusch@kernel.org, sagi@grimberg.me
+References: <20260907105021.1763236-1-john.g.garry@oracle.com>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <20260907105021.1763236-1-john.g.garry@oracle.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 9/7/26 11:49, John Garry wrote:
+> NATIVE SCSI MULTIPATH:
+> 
 
---=-QpuVmG4o+y4nZvyD+Tip
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+JFYI, this passes a sanity test on mkp scsi 7.4 queue after all the 
+recent sense codes changes, as would be expected.
 
-Hi,
+> This series introduces native SCSI multipath support. It is intended as
+> an alternative to dm-mpath.
+> 
+> This support aims to provide a multipath-enabled SCSI block device/
+> gendisk.
+> 
+> For a SCSI device to support native multipath, either of the following
+> conditions must be satisfied:
+> a. unique ID in VPD page 83 and ALUA support and scsi_multipath modparam
+>     enabled
+> b. unique ID in VPD page 83 and scsi_multipath_always modparam enabled
+> 
+> This series relies on reading sdev->access_state to get path information.
+> This path information would be provided by ALUA. ALUA support which does
+> not rely on device handlers has already been discussed at
+> https://lore.kernel.org/linux-scsi/7755e98f-5619-48ba-bcfc-b64eec930c40@oracle.com/
+> and support will be added in the next phase.
+> 
+> New classes of devices are added:
+> - scsi_mpath_device
+> - scsi_mpath_disk
+> 
+> These are required since a multipath scsi_device has no common scsi host.
+> An example of the sysfs files and directories for these new classes is as
+> follows:
+> 
+> $ ls -l /sys/class/scsi_mpath_device/scsi_mpath_device0/
+> total 0
+> -rw-r--r--    1 root     root          4096 Feb 25 11:59 iopolicy
+> drwxr-xr-x    2 root     root             0 Feb 25 11:59 multipath
+> drwxr-xr-x    2 root     root             0 Feb 25 11:59 power
+> lrwxrwxrwx    1 root     root             0 Feb 25 11:59 subsystem ->
+> ../../../../class/scsi_mpath_device
+> -rw-r--r--    1 root     root          4096 Feb 25 11:58 uevent
+> -r--r--r--    1 root     root          4096 Feb 25 11:59 vpd_id
+> $ ls -l /sys/class/scsi_mpath_device/scsi_mpath_device0/multipath/
+> total 0
+> lrwxrwxrwx    1 root     root             0 Feb 25 11:59 8:0:0:0 ->
+> ../../../../platform/host8/session1/target8:0:0/8:0:0:0
+> lrwxrwxrwx    1 root     root             0 Feb 25 11:59 9:0:0:0 ->
+> ../../../../platform/host9/session2/target9:0:0/9:0:0:0
+> $ cat /sys/class/scsi_mpath_device/scsi_mpath_device0/vpd_id
+> naa.600140505200a986f0043c9afa1fd077
+> $ cat /sys/class/scsi_mpath_device/scsi_mpath_device0/iopolicy
+> numa
+> $
+> 
+> $ ls -l /sys/class/scsi_mpath_disk/scsi_mpath_disk0/
+> total 0
+> drwxr-xr-x    2 root     root             0 Feb 25 12:00 power
+> drwxr-xr-x   11 root     root             0 Feb 25 11:58 sdc
+> lrwxrwxrwx    1 root     root             0 Feb 25 11:58 subsystem ->
+> ../../../../class/scsi_mpath_disk
+> -rw-r--r--    1 root     root          4096 Feb 25 11:58 uevent
+> $ ls -l /sys/class/scsi_mpath_disk/scsi_mpath_disk0/sdc/multipath/
+> total 0
+> lrwxrwxrwx    1 root     root             0 Feb 25 12:00 sdc:0 ->
+> ../../../../../platform/host8/session1/target8:0:0/8:0:0:0/block/sdc:0
+> lrwxrwxrwx    1 root     root             0 Feb 25 12:00 sdc:1 ->
+> ../../../../../platform/host9/session2/target9:0:0/9:0:0:0/block/sdc:1
+> 
+> $ ls -l /dev/sdc
+> brw-rw----    1 root     disk        8,  32 Feb 25 11:58 /dev/sdc
+> 
+> The scsi_device and scsi_disk classes otherwise remain unmodified.
+> However, the per-path block device is hidden in /dev/. Furthermore,
+> multipathed block devices have a new naming scheme, sdX:Y, where
+> X is the scsi multipath device index and Y is the path index.
+> 
+> No multipath sg support is added. We still have a per-path sg device.
+> Since the SCSI block device is multipath enabled, we can access
+> multipathed scsi_ioctl() through that block device.
+> 
+> For failover, we take the approach of cloning bio's and re-submitting them
+> in full (for failover errors).
+> 
+> LIBMULTIPATH:
+> 
+> This series introduces also libmultipath. It is essentially a refactoring
+> of NVME multipath support, so we can have a common library to also support
+> native SCSI multipath.
+> 
+> Much of the code is taken directly from the NVMe multipath code. However,
+> NVMe specifics are removed. A template structure is provided so the driver
+> -may provide callbacks for driver specifics, like ANA support for NVMe.
+> 
+> Important new structures introduced include:
+> 
+> - mpath_head
+> These contain much of the multipath-specific functionality from
+> nvme_ns_head, including a pointer to the gendisk structure and
+> a path SRCU-based array.
+> 
+> - mpath_device
+> This is the per-path structure, and contains much the same
+> multipath-specific functionality in nvme_ns
+> 
+> libmultipath provides functionality for path management, path selection,
+> data path, and failover handling.
+> 
+> Full series also available at
+> https://github.com/johnpgarry/linux/commits/scsi-multipath-v7.3-v8/
+> 
+> Differences to v7:
+> - rebase
+> - simplify scsi_mpath_clone_end_io() (sashiko)
+> - rename bio_list_add_clone() -> bio_list_add_master()
+> - rework checks in mpath_alloc_disk_head() (sashiko)
+> 
+> Differences to v6:
+> - rebase
+> - add scsi_mpath_get_head()
+> 
+> Differences to v5:
+> - deal with issues sashiko found in libmultipath:
+>   - include wait_bit.h
+>   - don't store error in mpath_head->disk
+>   - use check_mul_overflow() in mpath_can_remove_head()
+>   - use -ENOTTY in mpath_bdev_ioctl()
+> - deal with issues sashiko found in scsi mpath support:
+>   - check 0 returned from scsi_vpd_lun_id()
+>   - call flush_work() in scsi_mpath_device_iopolicy_store()
+>   - clear SCMD_MPATH_IO_STATS for !bio in scsi_mpath_start_request()
+>   - add checks for calling scsi_mpath_{start,end}_request()
+>   - tweak sd_mpath_dev_show()
+> 
+> John Garry (27):
+>    libmultipath: Add initial framework
+>    libmultipath: Add basic gendisk support
+>    libmultipath: Add path selection support
+>    libmultipath: Add bio handling
+>    libmultipath: Add support for mpath_device management
+>    libmultipath: Add delayed removal support
+>    libmultipath: Add sysfs helpers
+>    libmultipath: Add support for block device IOCTL
+>    libmultipath: Add mpath_bdev_getgeo()
+>    libmultipath: Add mpath_bdev_get_unique_id()
+>    scsi-multipath: introduce basic SCSI device support
+>    scsi-multipath: introduce scsi_device head structure
+>    scsi-multipath: provide sysfs link from to scsi_device
+>    scsi-multipath: support iopolicy
+>    scsi-multipath: clone each bio
+>    scsi-multipath: clear path when device is blocked
+>    scsi-multipath: revalidate paths upon device unblock
+>    scsi-multipath: failover handling
+>    scsi-multipath: provide callbacks for path state
+>    scsi-multipath: add scsi_mpath_{start,end}_request()
+>    scsi-multipath: add delayed disk removal support
+>    scsi: sd: add multipath disk class
+>    scsi: sd: add multipath disk attr groups
+>    scsi: sd: support multipath disk
+>    scsi: sd: add mpath_dev file
+>    scsi: sd: add mpath_numa_nodes dev attribute
+>    scsi: sd: add mpath_queue_depth dev attribute
+> 
+>   drivers/scsi/Kconfig          |  10 +
+>   drivers/scsi/Makefile         |   1 +
+>   drivers/scsi/scsi.c           |   8 +-
+>   drivers/scsi/scsi_lib.c       |  13 +-
+>   drivers/scsi/scsi_multipath.c | 664 ++++++++++++++++++++++++
+>   drivers/scsi/scsi_scan.c      |   4 +
+>   drivers/scsi/scsi_sysfs.c     |  10 +
+>   drivers/scsi/sd.c             | 611 +++++++++++++++++++++-
+>   drivers/scsi/sd.h             |   3 +
+>   include/linux/multipath.h     | 156 ++++++
+>   include/scsi/scsi_cmnd.h      |   9 +-
+>   include/scsi/scsi_device.h    |   2 +
+>   include/scsi/scsi_driver.h    |   4 +
+>   include/scsi/scsi_host.h      |   4 +
+>   include/scsi/scsi_multipath.h | 124 +++++
+>   lib/Kconfig                   |   6 +
+>   lib/Makefile                  |   2 +
+>   lib/multipath.c               | 947 ++++++++++++++++++++++++++++++++++
+>   18 files changed, 2554 insertions(+), 24 deletions(-)
+>   create mode 100644 drivers/scsi/scsi_multipath.c
+>   create mode 100644 include/linux/multipath.h
+>   create mode 100644 include/scsi/scsi_multipath.h
+>   create mode 100644 lib/multipath.c
+> 
 
-Le mercredi 23 septembre 2026 =C3=A0 17:09 +0100, Nick Rogers a =C3=A9crit=
-=C2=A0:
-> When a driver implements the extended control ioctls but has no control
-> handler, v4l_g_ctrl() and v4l_s_ctrl() pass VIDIOC_G_CTRL and
-> VIDIOC_S_CTRL on as a single struct v4l2_ext_control built on the stack.
-> Only its id and value are set, and check_ext_ctrls() clears reserved[0]
-> and reserved2[0]; the control's size and the rest of both structures are
-> left uninitialized.
->=20
-> A driver that forwards the controls rather than handling them through
-> the control framework sees that stack garbage. The virtio-media driver
-> under review takes a nonzero size as a payload to copy from userspace,
-> so VIDIOC_G_CTRL and VIDIOC_S_CTRL fail with -EINVAL through it whenever
-> the stack is dirty. GStreamer's V4L2 encoders set their profile with
-> VIDIOC_S_CTRL, and cannot negotiate against such a device.
->=20
-> Zero-initialize both structures.
->=20
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Nick Rogers <nick@getfieldwork.ai>
-
-One may argue that it could have been fixed in the unique driver not using =
-the
-ctrl framework, but I personally like the simplicity of the fix.
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-> ---
-> Found running the virtio-media v9 series [1] in a VMM with a host-side
-> stateful encoder: GStreamer's v4l2h264enc fails to negotiate because
-> VIDIOC_S_CTRL returns -EINVAL. Tested on 6.18 with that series applied:
-> VIDIOC_G_CTRL and VIDIOC_S_CTRL now reach the device intact, and
-> v4l2-compliance 1.30.1 reports the same results with and without this
-> patch. Build-tested on media.git next (arm64, W=3D1, no new warnings).
->=20
-> [1] https://lore.kernel.org/all/20260917171921.2810550-1-briandaniels@goo=
-gle.com/
->=20
->  drivers/media/v4l2-core/v4l2-ioctl.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-co=
-re/v4l2-ioctl.c
-> index 17ba1ae70..b7d248ab7 100644
-> --- a/drivers/media/v4l2-core/v4l2-ioctl.c
-> +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
-> @@ -2357,8 +2357,8 @@ static int v4l_g_ctrl(const struct v4l2_ioctl_ops *=
-ops, struct file *file,
->  	struct video_device *vfd =3D video_devdata(file);
->  	struct v4l2_control *p =3D arg;
->  	struct v4l2_fh *vfh =3D file_to_v4l2_fh(file);
-> -	struct v4l2_ext_controls ctrls;
-> -	struct v4l2_ext_control ctrl;
-> +	struct v4l2_ext_controls ctrls =3D {};
-> +	struct v4l2_ext_control ctrl =3D {};
-> =20
->  	if (vfh && vfh->ctrl_handler)
->  		return v4l2_g_ctrl(vfh->ctrl_handler, p);
-> @@ -2388,8 +2388,8 @@ static int v4l_s_ctrl(const struct v4l2_ioctl_ops *=
-ops, struct file *file,
->  	struct video_device *vfd =3D video_devdata(file);
->  	struct v4l2_control *p =3D arg;
->  	struct v4l2_fh *vfh =3D file_to_v4l2_fh(file);
-> -	struct v4l2_ext_controls ctrls;
-> -	struct v4l2_ext_control ctrl;
-> +	struct v4l2_ext_controls ctrls =3D {};
-> +	struct v4l2_ext_control ctrl =3D {};
->  	int ret;
-> =20
->  	if (vfh && vfh->ctrl_handler)
-
---=-QpuVmG4o+y4nZvyD+Tip
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCarQJSwAKCRDZQZRRKWBy
-9FaIAQDWFRB/8K9U0kUK3lCh8LBxGAXbkQRJHHQaVr9enrpbkwEA28VLadXOqMoR
-KqXQ3JeT7nnOx2yl6iqY/8biyela0wA=
-=IRRl
------END PGP SIGNATURE-----
-
---=-QpuVmG4o+y4nZvyD+Tip--
