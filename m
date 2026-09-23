@@ -1,192 +1,115 @@
-Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
+Received: from sg-3-45.ptr.tlmpb.com (sg-3-45.ptr.tlmpb.com [101.45.255.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5C649E13D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:54:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3146C49AA34
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164479; cv=none; b=Ncqe8wTzD60cel4k5UxdN7kmA+u26PZlhMzsflIH1AVJQ4EjSHeivBSM/iwXXEaJvxJQOR6/ibwn4YjqoZrvURqHwp/Xhriv+WtOJEY9V59byoi2+343etRmQRCffnWiERpl5sPmOr9kNDr4HRrsQb2UIGXS2oYLLRGEkVWT040=
+	t=1790164508; cv=none; b=HE2/BFF5yWXmT1odfQI7aY3HexNd3UcN8bFoukf77Is3BBiCrFMyFZbVQ3QBBRssBVLsqD6enYxEGOdaL5CTfJyIieueAH9wDAdWMRAMeoI74IrT99MX0onnBgebqcE8OVqjGfp+2jvwgQonXc3scx/JckyIThQpR9bzZzDjKKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164479; c=relaxed/simple;
-	bh=FyI8OIcx4NePB4wjfBisQg331Da0UMxOk3af3KkO/oU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q6dwwEa8FgN7KqlGgDbDkZEV7P4/RF/dsSK7gn3cfAMNwegaVFVtABdlJRcW+qssKkroFS8FJsrbqib9JGzqTYyI67b1OiERg+lyQh5nLKGJ10xNrczKoYOoZ8YMf6mozHzdcEzijOH0KykVZBnCrGQPcfgyuXpeCycJS5va9YI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XYUivsaJ; arc=none smtp.client-ip=91.218.175.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790164508; c=relaxed/simple;
+	bh=9ZmM+jiL87tKv8iSq4DAirsiwl+m6LAEZToL7w69uMY=;
+	h=From:Mime-Version:Content-Type:To:Cc:In-Reply-To:Subject:Date:
+	 Message-Id:References; b=D5DVvp/nNpn0qX1Fs5qRAWccEMJh1NHEqn0AiypuuEUGh0zHvvuBoXaemPQMJIt0TwTcWOgpj2tvbvrfeW9dxZmM189F0qLRl07ajMFYCU1XgFOgtN703g6iJ/AibtLbEPUZ9rYoj2fhbylyaWNjizLQ5oZS83xnJ469lzw8AP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=j9CCjkbK; arc=none smtp.client-ip=101.45.255.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XYUivsaJ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FyI8OIcx4NePB4wjfBisQg331Da0UMxOk3af3KkO/oU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790164469; v=1; x=1790769269;
- b=XYUivsaJQ0BwGfsSrdilffDfKP8kEId74cGTWw5UYM/3NNx8ycFgZrRsXCZVf7GIoambcKK5
- gcJSuudC98NcCcd4P9SIFwQebaGMqDlHJVeaWvB3Wn4IN1AjEJtIHyWpQzGMFrvrx5/V5yoRP/O
- 7MU+1gMvfAvxQMoSQvqgj3A0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b457f4ea14dabe32;
-	Wed, 23 Sep 2026 11:54:26 +0000
-X-Mizu-Trace-ID: b457f4ea14dabe32
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: ljs@kernel.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ziy@nvidia.com,
-	baolin.wang@linux.alibaba.com,
-	liam@infradead.org,
-	nico.pache@linux.dev,
-	ryan.roberts@arm.com,
-	dev.jain@arm.com,
-	baohua@kernel.org,
-	lance.yang@linux.dev,
-	usama.arif@linux.dev,
-	kas@kernel.org,
-	guoren@kernel.org,
-	bcain@kernel.org,
-	geert@linux-m68k.org,
-	dinguyen@kernel.org,
-	schuster.simon@siemens-energy.com,
-	jonas@southpole.se,
-	stefan.kristiansson@saunalahti.fi,
-	shorne@gmail.com,
-	dalias@libc.org,
-	glaubitz@physik.fu-berlin.de,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	linux@armlinux.org.uk,
-	vgupta@kernel.org,
-	monstr@monstr.eu,
-	chris@zankel.net,
-	jcmvbkbc@gmail.com,
-	will@kernel.org,
-	aneesh.kumar@kernel.org,
-	npiggin@gmail.com,
-	peterz@infradead.org,
-	davem@davemloft.net,
-	andreas@gaisler.com,
-	richard.henderson@linaro.org,
-	mattst88@gmail.com,
-	linmag7@gmail.com,
-	catalin.marinas@arm.com,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	tsbogend@alpha.franken.de,
-	James.Bottomley@HansenPartnership.com,
-	deller@gmx.de,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	chleroy@kernel.org,
-	hca@linux.ibm.com,
-	gor@linux.ibm.com,
-	agordeev@linux.ibm.com,
-	borntraeger@linux.ibm.com,
-	svens@linux.ibm.com,
-	richard@nod.at,
-	anton.ivanov@cambridgegreys.com,
-	johannes@sipsolutions.net,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	arnd@arndb.de,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	jgg@ziepe.ca,
-	jhubbard@nvidia.com,
-	peterx@redhat.com,
-	ysato@users.sourceforge.jp,
-	shakeel.butt@linux.dev,
-	corbet@lwn.net,
-	rdunlap@infradead.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-csky@vger.kernel.org,
-	linux-hexagon@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-openrisc@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-snps-arc@lists.infradead.org,
-	linux-arch@vger.kernel.org,
-	sparclinux@vger.kernel.org,
-	linux-alpha@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-s390@vger.kernel.org,
-	linux-um@lists.infradead.org,
-	hughd@google.com,
-	qi.zheng@linux.dev,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v4 08/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for sh-X2
-Date: Wed, 23 Sep 2026 19:54:17 +0800
-Message-ID: <20260923115417.34112-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260922-rcu-pagetable-freeing-v4-8-fe1ad1f1e303@kernel.org>
-References: <20260922-rcu-pagetable-freeing-v4-8-fe1ad1f1e303@kernel.org>
+	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="j9CCjkbK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1790164436;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=s2WEN+twqWGY/7x8wbQRYCNNGCL94CtSF6LCaX7n0H0=;
+ b=j9CCjkbKiO3blSUKK7LKo63ifMwUCX1+DLz5Ks3D2E4Z2bjAaMj0bguwDysBhySozFKG02
+ Zq2YL87CvFkMs9tWw2ndqfnNi6lxtkyBBBUEx6SSma7KMmmZmHA1tUu9xzsUQvUSD7hq8v
+ HfqKh0IOTJ+B3Ffa89DHHKw5VxC8G3ctNELItDQ3TClhfSNoDw9wDyWOIBvvwsYhHwNqc2
+ 0M57dPpEtk7yf0P+JdLOlozBZhQRONFEq2G7vqzLUcGc+zHIZDtRaUeaypFEe8bXfKn73U
+ 1RZxoPrTaLwfzlOOmNZg5KGeC6azYShBnFbvflS80xIov/eoficEx0xwSD/0Ow==
+From: "yu kuai" <yukuai@fygo.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from [192.168.1.104] ([39.182.0.179]) by smtp.larksuite.com with ESMTPS; Wed, 23 Sep 2026 11:53:55 +0000
+To: "By" <xiaobai050@gmail.com>, <song@kernel.org>, 
+	"yu kuai" <yukuai@fygo.io>
+Cc: <magiclinan@didiglobal.com>, <xiao@kernel.org>, 
+	<linux-raid@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com>
+X-Original-From: yu kuai <yukuai@fygo.io>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260923071017.23563-1-xiaobai050@gmail.com>
+X-Lms-Return-Path: <lba+26ab3bdd4+1e1ddd+vger.kernel.org+yukuai@fygo.io>
+User-Agent: Mozilla Thunderbird
+Reply-To: yukuai@fygo.io
+Subject: Re: [PATCH] md: prevent opening an array before its sysfs kobject is ready
+Date: Wed, 23 Sep 2026 19:53:52 +0800
+Message-Id: <a19e3020-272b-4f93-8535-00fa07002d91@fygo.io>
+References: <20260923071017.23563-1-xiaobai050@gmail.com>
 
+Hi,
 
-On Tue, Sep 22, 2026 at 04:35:39PM +0100, Lorenzo Stoakes (ARM) wrote:
->Currently, non-x2 sh specifies CONFIG_MMU_GATHER_RCU_TABLE_FREE allowing
->RCU page table freeing.
+=E5=9C=A8 2026/9/23 15:10, By =E5=86=99=E9=81=93:
+> md_alloc() publishes the gendisk with add_disk() before it initializes
+> and registers mddev->kobj. A concurrent open can issue ADD_NEW_DISK in
+> this window, causing bind_rdev_to_array() to pass the uninitialized
+> mddev kobject as a parent to kobject_add(). This triggers a kobject
+> warning.
 >
->sh-X2 is problematic because it utilises slab-allocated PMD page tables,
->and thus tlb_remove_ptdesc() cannot be used in these cases.
+> Set MD_CLOSING before publishing the disk so md_open() rejects opens
+> until the kobject and sysfs attributes are ready. Clear the bit under
+> open_mutex, which md_open() holds while checking it.
 >
->All other sh variants are fine as commit e3ecf7c7d082 ("mm: pgtable:
->convert some architectures to use tlb_remove_ptdesc()") already converted
->page table freeing to use tlb_remove_ptdesc(), which does so after an RCU
->grace period when CONFIG_MMU_GATHER_RCU_TABLE_FREE is specified.
+> Compile-tested with ARCH=3Darm64 defconfig and drivers/md/md.o. The
+> upstream syzbot report has no reproducer, so this race was not tested
+> at runtime.
 >
->Resolve this issue by firstly specifying CONFIG_HAVE_ARCH_TLB_REMOVE_TABLE
->for sh-X2, so the arch can provide its own __tlb_remove_table()
->implementation (called after the RCU grace period).
+> Fixes: 7df835a32a8b ("md: fix a lock order reversal in md_alloc")
+> Reported-by: syzbot+95eeb4ada2349a2170ea@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3D95eeb4ada2349a2170ea
+> Assisted-by: LLM
+> Signed-off-by: By <xiaobai050@gmail.com>
+> ---
+>   drivers/md/md.c | 5 +++++
+>   1 file changed, 5 insertions(+)
 >
->Then, convert __pmd_free_tlb() to tag the pointer to the PMD, and have
->__tlb_remove_table() check this tag to determine whether to free via the
->slab or to use pagetable_dtor_free().
+> diff --git a/drivers/md/md.c b/drivers/md/md.c
+> index 680b34a63..11b0b6b13 100644
+> --- a/drivers/md/md.c
+> +++ b/drivers/md/md.c
+> @@ -6385,6 +6385,8 @@ struct mddev *md_alloc(dev_t dev, char *name)
+>  =20
+>   	disk->events |=3D DISK_EVENT_MEDIA_CHANGE;
+>   	mddev->gendisk =3D disk;
+> +	/* add_disk() exposes the device before its md kobject is registered. *=
+/
+> +	set_bit(MD_CLOSING, &mddev->flags);
+>   	error =3D add_disk(disk);
+>   	if (error)
+>   		goto out_put_disk;
+> @@ -6406,6 +6408,9 @@ struct mddev *md_alloc(dev_t dev, char *name)
+>   	kobject_uevent(&mddev->kobj, KOBJ_ADD);
+>   	mddev->sysfs_state =3D sysfs_get_dirent_safe(mddev->kobj.sd, "array_st=
+ate");
+>   	mddev->sysfs_level =3D sysfs_get_dirent_safe(mddev->kobj.sd, "level");
+> +	mutex_lock(&mddev->open_mutex);
+> +	clear_bit(MD_CLOSING, &mddev->flags);
+> +	mutex_unlock(&mddev->open_mutex);
 
-Makes sense to me, so RCU callback won't mistake a slab PMD for a PTE
-page :)
+I don't like this fix, it introduces a race window that open md device will=
+ fail. Instead,
+since all bind_rdev_to_array() is already protected by reconfig_mutex, can =
+this problem be
+fixed by holding reconfig_mutex for both add_disk and kobject_add?
 
->This follows the pattern used by sparc64 as implemented in commit
->4a0100f7546f ("sparc64: use RCU page table freeing").
->
->Previously __pmd_free_tlb() freed PMD page tables immediately, before any
->TLB flush IPI. This seems to be a pre-existing bug, which this change also
->resolves.
->
->CONFIG_HAVE_ARCH_TLB_REMOVE_TABLE is only specified for sh-X2, as setting
->it disables CONFIG_PT_RECLAIM and causes __tlb_remove_table_one() to call
->tlb_remove_table_sync_rcu() and synchronize_rcu() in turn, and this is not
->necessary for other sh variants.
->
->This forms part of an overall effort to switch every architecture to this
->mode.
->
->Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
->Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->---
+>   	mutex_unlock(&disks_mutex);
+>   	return mddev;
+>  =20
 
-LGTM, feel free to add:
-
-Acked-by: Lance Yang <lance.yang@linux.dev>
+--=20
+Thanks,
+Kuai
