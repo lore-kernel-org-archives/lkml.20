@@ -1,101 +1,155 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517342FE057
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:28:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1FFF32E6BC;
+	Wed, 23 Sep 2026 04:30:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790137709; cv=none; b=He64vMzaDRZH+tzm2vcG/dYBw80aFLdRjlIBvWwsBd2DtmNWeI7x9Ub3RqfXXnTkwp854U0e1pvnDXmCfzZHknj68KCffy5alrBYwqKXor9wPav9h4D6F8r0cOnSg3pQzcIf1QP0OQUFaI/CojAxb/KH5M5QFQFaNsHpQIjJYF4=
+	t=1790137840; cv=none; b=OoI+U/f4EHfirdFx2UOZT3aHg6zFgrHqme9xP9xeE+qU0MDFwAj3AWpdHyY4MeJGwzbgLIDhpoC/os0ppgZ26CCzKyT3QbrqZVBf42dk9vwSa4VR3NQiDSCfE8hXQBkjMxpyzOjpaD3X8zP4S3B9Mode1QF9s6kO9f3nzji2Q60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790137709; c=relaxed/simple;
-	bh=IqV1Sr0fSrDMt47qWNQ+9YAMvUWzYdiSXARmQmR1aMs=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=OSaicYWXebfbYo73UkcpFdRAgUUGjQlz+Fjd1mhvbxxItX/zgnEwy6vyZ7zFJlCBpmVFVSCfRaHcaPA6x/JtlqWeyJeEdk8QycKRybGpyfUaQ7joxdsThv14dsbaL10+gTNh+rERC/43tXjanPxk/l7SVlcovOU9S3acdX+67U4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YEkbdkaw; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+	s=arc-20240116; t=1790137840; c=relaxed/simple;
+	bh=vg9uaYXmSxJRqtgdteG4ad23jorXd9SvQNq5JmvOsrY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gl7s1YI+xg8VqPndiLSmj2828rbh9ftCBxLx01QGWGm+to/NOPbgUOEyDsdmkLBuZBDXqGNDhF/btAoS6ztTBrQweHAyatijiR7ufJg75bEFn7m9T6svpolne0R5S2YEnqndc9lzOU7FXsFQG+OdL3w9UCMbZxx+GVIHqosK1mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=m6Y2h91c; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YEkbdkaw"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e8e864ef0so654837a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:28:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790137708; x=1790742508; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ngy4XhNxX90C6pR7bGxz/LIb3bO/nvGfahStoZKtl5Q=;
-        b=YEkbdkawAy/a8+2S4ylWed96ck+j1g+9bGox3XZ935krOO8g48/lUGl8Sx9OmuQPJR
-         AV/szlby6OWJKuV02BqVeC6yQUbSc226IgiC+BcbuVtd/b4i5Tze+/WFKpbaXFzQegea
-         /2xIi6JdvR2U3Y57zMe2n9QmxzRoCtks2CR2D4mTi2XztUs2M5eCmelpGI3HeV6F2f6m
-         DdtAzSn3OoBUw6D/pdqtzPk57/WmLQVlR0VLYQU3SoguJefm5nkCqbzWTG5qcH3leFzt
-         coruBivqCIr4YQK9fbDRK4btcq5VfreJTZWDdEt18ONv9SPz04mRvxv2u+oMAcLNdzLZ
-         hm2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790137708; x=1790742508;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ngy4XhNxX90C6pR7bGxz/LIb3bO/nvGfahStoZKtl5Q=;
-        b=gL1SRhJDmvso66lMNTSB5GQNJVOMEe8HpF9kGOOeXmv44CZSXxo3tRVASU/v1gqala
-         cRpJL7nyGMqzhMQG2AcowagZFcPnDkZTVmF+vBYkFvboqHFuHCUKdRJ4y4V7oIf+VVLz
-         ggR4EWEJMbLeVDJHelt5ICKUb1uYnZLpxRrVd2vNIyqxnuP/V7iJTOI7fhi9xmkvQm2d
-         JCgCTbUTkjXhzsr4p14VCkNZaG83OBS/RtJq8TYK31fwwuPtH9mz0g9FvLM9wpn8tebD
-         J93PlyfAjff3bkPQ/0vhqtNsgGRWIlabyxwRK3Fh1F8gt1mPmNUzlGwyWqUIXKb31aDl
-         v48g==
-X-Forwarded-Encrypted: i=1; AKwUvByeyPCPSbAzmMnT1jUkYOKJdVUvXYIADs/82k/pv9rWwyfg26Yocy47kH4djtbQzHmMf+55pdKUlIo2Ft8=@vger.kernel.org
-X-Gm-Message-State: AFuF++klNcWB02TTE+nGTCbTFL9ATEP6HcAF5s6BXKxnrw3+yb51kDR5
-	DzMAxLeIPHHtIgn1aZjIF60EJpgwlEdEcz/+ueIP8S3FhLJBSwucrXgcegGy7V+EKD4byBHI5in
-	A
-X-Received: from pjbkr5.prod.google.com ([2002:a17:90b:4905:b0:3a0:7de0:6fac])
- (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4f8a:b0:3a0:42a9:9c81
- with SMTP id 98e67ed59e1d1-3a07e65d0d7mr1242952a91.17.1790137707448; Tue, 22
- Sep 2026 21:28:27 -0700 (PDT)
-Date: Wed, 23 Sep 2026 04:28:25 +0000
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="m6Y2h91c"
+Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.23])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 7D7AC20B7167;
+	Tue, 22 Sep 2026 21:29:41 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7D7AC20B7167
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790137790;
+	bh=aQReAO0PaLkNvXEhlkkcXHEpAn5VPDQu8Pd8CslTL90=;
+	h=From:To:Cc:Subject:Date:From;
+	b=m6Y2h91cP6uLX+qIVNw14KrOjlbQxwDfkTsuFZFYruq8pVgEOy570bLc+vRiX8mFi
+	 qVV6oxTIer9fjwZ4iyhtVjNzs154sKZ+bfhX0pW/i+rW6t+Qz/0RRVvrJgmehYYlOk
+	 Meh81Y5JCLUISbugqORBFgMIWDeqr57CwFBG4yAY=
+From: Naman Jain <namjain@linux.microsoft.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>,
+	Michael Kelley <mhklinux@outlook.com>
+Cc: Long Li <longli@microsoft.com>,
+	Nam Cao <namcao@linutronix.de>,
+	Joerg Roedel <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Kees Cook <kees@kernel.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Sean Christopherson <seanjc@google.com>,
+	Kai Huang <kai.huang@intel.com>,
+	Dmitry Ilvokhin <d@ilvokhin.com>,
+	Shradha Gupta <shradhagupta@linux.microsoft.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Thierry Reding <treding@nvidia.com>,
+	Jiri Wiesner <jwiesner@suse.de>,
+	Daniel J Blueman <daniel@quora.org>,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v6 0/4] x86/irq: Fix lost interrupts on CPU hot-unplug
+Date: Wed, 23 Sep 2026 04:30:19 +0000
+Message-ID: <20260923043023.3150498-1-namjain@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260923042825.2558762-1-morbo@google.com>
-Subject: [PATCH] iio: add __counted_by_ptr attribute to channels in struct iio_dev
-From: Bill Wendling <morbo@google.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, "=?UTF-8?q?Nuno=20S=C3=A1?=" <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-iio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Bill Wendling <morbo@google.com>, codemender-patching+linux@google.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-In 'struct iio_dev', the 'channels' pointer refers to an array of IIO
-channel specifications ('struct iio_chan_spec const'), and the size of
-this array is tracked by the 'num_channels' field within the same
-struct.
+On CPU hot-unplug, fixup_irqs() re-injects interrupts that are still
+pending in the outgoing CPU's IRR via the irqchip's irq_retrigger()
+callback. The Hyper-V root partition PCI/MSI irqchip lost that callback
+when it was converted to msi_create_parent_irq_domain(), so such a
+pending interrupt is silently dropped, leading to lost interrupts, stalls
+and "No irq handler for vector" messages.
 
-Applying the '__counted_by_ptr' attribute to 'channels' allows KASAN
-and compiler-based bounds checkers to verify that accesses to 'channels'
-remain within bounds at runtime.
+Patch 1 is the minimal, backportable fix (Fixes:/Cc: stable) that restores
+irq_chip_retrigger_hierarchy() on the Hyper-V root partition PCI/MSI chip.
+The equivalent guest pci-hyperv.c fix from the previous version is already
+merged, so it is dropped here.
 
-Cc: codemender-patching+linux@google.com
-Assisted-by: LLM
-Signed-off-by: Bill Wendling <morbo@google.com>
----
- include/linux/iio/iio.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Patch 2 then switches fixup_irqs() to call irq_chip_retrigger_hierarchy()
+directly which ensures that this issue does not occur for chips that
+miss adding this initialization.
 
-diff --git a/include/linux/iio/iio.h b/include/linux/iio/iio.h
-index 711c00f67371..20505139a61b 100644
---- a/include/linux/iio/iio.h
-+++ b/include/linux/iio/iio.h
-@@ -648,7 +648,7 @@ struct iio_dev {
- 	struct iio_poll_func		*pollfunc;
- 	struct iio_poll_func		*pollfunc_event;
- 
--	struct iio_chan_spec const	*channels;
-+	struct iio_chan_spec const	*channels __counted_by_ptr(num_channels);
- 	int				num_channels;
- 
- 	const char			*name;
+Patch 3 makes a similar change in msi_set_affinity()
+
+Patch 4 then drops the now-redundant irq_retrigger() initializations.
+This way, patch 2-4 do not need to be backported.
+
+Changes since v5:
+https://lore.kernel.org/all/20260914111836.2119301-1-namjain@linux.microsoft.com/
+* Commit messages refinement/correction (Michael)
+
+Changes since v4:
+https://lore.kernel.org/all/20260909064448.1004-1-namjain@linux.microsoft.com/
+* Discussion between Thomas and Michael concluded that if-else check for
+  irq_retrigger callback is not required, and
+  irq_chip_retrigger_hierarchy() can safely replace all irq_retrigger
+  invocations. Make the change to remove if-else blocks and update commit
+  msg accordingly. Older series could not be picked because there was a
+  genuine change in patch 1 of this series.
+
+Changes since v3:
+https://lore.kernel.org/all/20260907065129.269262-1-namjain@linux.microsoft.com/
+* Move irq_retrigger setting to hv_init_dev_msi_info() in patch 1
+  (Michael, Nam)
+* Add if-else fallback check in msi_set_affinity() in patch 3 (Michael)
+* Break patch 3 into two separate patches, while *keeping review tags*.
+
+Changes since v2:
+https://lore.kernel.org/all/20260810090716.2325295-1-namjain@linux.microsoft.com/
+* Add a backportable fix for Hyper-V root partition irqchip (Wei)
+* Add a check for custom irq_retrigger implementations and add direct
+  irq_chip_retrigger_hierarchy() calls as a fallback if it is not
+  defined by a chip. (Sashiko, Michael)
+* Removed local loop variable change, and continue using the irq_desc
+  accessor function (Michael)
+* Did not pick "Acked-by: Manivannan Sadhasivam" as it was on v1, and v3
+  is a functionally different to some extent, specially patch 2.
+  Requesting you to please review again.
+
+Changes since v1:
+https://lore.kernel.org/all/20260728135117.2888175-1-namjain@linux.microsoft.com/#t
+* Added Review tags
+* Adding minor clarification in commit msg of patch 2 (Shradha)
+
+Original RFC: https://lore.kernel.org/all/87y0f3jhd6.ffs@fw13/
+
+Naman Jain (4):
+  x86/hyperv: Set irq_retrigger for root partition PCI/MSI irqchip
+  x86/irq: Use irq_chip_retrigger_hierarchy() in fixup_irqs()
+  x86/irq: Use irq_chip_retrigger_hierarchy() in msi_set_affinity()
+  x86/irq, iommu/amd, x86/hyperv, PCI: Drop redundant irq_retrigger
+    inits
+
+ arch/x86/kernel/apic/io_apic.c      |  2 --
+ arch/x86/kernel/apic/msi.c          |  4 +---
+ arch/x86/kernel/hpet.c              |  1 -
+ arch/x86/kernel/irq.c               | 18 ++++++++----------
+ drivers/iommu/amd/init.c            |  1 -
+ drivers/pci/controller/pci-hyperv.c |  1 -
+ 6 files changed, 9 insertions(+), 18 deletions(-)
+
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.43.0
 
