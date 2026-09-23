@@ -1,163 +1,245 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11022127.outbound.protection.outlook.com [52.101.48.127])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8203B2D14;
-	Wed, 23 Sep 2026 17:42:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.127
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790185376; cv=fail; b=FDaxNT3w26WkQbuE69vOBu6c0t90GXKdHZxHJwi9TfB2n8ca/fshOr78sRHi/3JC4Le6yV/szzuKv7BJPNxGdam6J1+8En/XJo5N2O9Nz4pNOo4DZS2+PUHd8kKyQhKvR5sIcKYTP6FxwEfY2Vyt3eHIRgFvQ2SsEQv3tPUhhSw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790185376; c=relaxed/simple;
-	bh=vhd488LrxN3h7wyb7hXsw6U7Jo5LfgVIRQ30TKqdN2U=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=hs4AO+LGJixqECwzzEYYFgvnQXjdZ4DZWNqUeV3JA7MXQdZTV0yHzVVX4pkkvyCZ89eR48TkwFLyUfFeeWmH7Ub8DoNLG+zn7H6Xsb8OH9cUAhNB/l+icqnzWjt6a0vs2zFjtysjOWO464NoukPIN2Z1eJ3igaY5DN/KCQZSe6Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=fhoLWvEN; arc=fail smtp.client-ip=52.101.48.127
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A6941A79C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:44:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.72
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790185480; cv=none; b=L6ix7ubmhS2qfpV6VMCCskNlxyxARbNTPEbtmuvkCE14Cx3pSNPcI46H/U39nUydXSavO9g/CcaO3xwcaLMvG/F+JD4aq0jOfdRfS334wDfTKBFcRGXh+Bj9Mi5IK/0EwdoBpoX5DAVu4NoN+uPUkBBsvtE5skV9pBb9zBxyiWE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790185480; c=relaxed/simple;
+	bh=5yZjf9aWV7RXgQK9ktGV1SjO8oVFTs48qTQLILiKNIo=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=uiahN96cusu6B9oMJ8+/diH8jU1PKcbO0X7MkaqyJfF8XMJ+R6cYSZSYgUD7jg2TqHw2PGMlY1ALrApUIFcmVhs/5DTSGKq3n3tm6spIMqfrginofdOhMTucQHZ2WYZ1fFskChUdgCbQ7ua0VG2cbygTLivW2ne9rBb3yjoYRCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=QY1kZWdH; arc=none smtp.client-ip=209.85.218.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mmaslanka.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="fhoLWvEN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EHLuSVHjJKmTU1JpjmwBo6SX1PKzljhLtzbfAgIvoeKTcnk1B6ZkOh8zDvGMvFF9kn2I12zsg5PFu8d1w8+oKaqBsvSao22H5B2HWwf2GyAzbj4+GbMABBsZaUSvuJ2SivHtf+6d4/nzqXBMVgM14aJzJb2xo9A3k59jm7xL9kjJKNkfEGEKsR0ykZJpk2iDgJOmUsKD6Hw7a1g3QjwBMBy+a5RvIL6A80wo8pHgncHhakd15v4Qs1GC2Ix6RvKr0FmXjH7BhKlqVWt14akIAp/AddwAalNzSaAEZ+YD0JDhsGZuMThq9E5AQVdchkSbVwOYoSKezp/ougUIqy/Sng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vhd488LrxN3h7wyb7hXsw6U7Jo5LfgVIRQ30TKqdN2U=;
- b=XHpGcrGGFU12ZVI6QDIUgRLjH2Z5W+ONcI4krHzl2DhSp0Tsqpu+1Sv4cKr7R7MXGxwBUMups4TxGHNr2fLg7kZbkjBJ7AK5+JHwVms/beG+HTHBYPhJReyJ7HFnRBm8rgzBJI4zXbJR+R0uNSHMoCyvnYJzhSMIvkmhfvBrDzy+m3LnAeX0U9NmWio4PMASX+p+2k2ekvmBbND2JFwirjDHbL7q/Jn8GWcNjzMlbkdlQM5bTlomKwFrSknFfEee4FwGrE45MBzZH4IQAgCfQVgssa6+UZ6BGI7kwiy+pJ+o5Lp/hvYz7GUXRVqmM6eVe4js/1eew5vet1qOXIVhcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
- dkim=pass header.d=rambus.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vhd488LrxN3h7wyb7hXsw6U7Jo5LfgVIRQ30TKqdN2U=;
- b=fhoLWvENDyyaYeC3GOhxS9fF1ESvOe8fF6b7fjntA4z4OdPCTdBGUAbOwFfQyJTuVpoUtZaJB2gQj8Yu58/Adgb8k/GfJNkfV2qBZaoLWDEG0qhvGPdWjbC5z5WoR7D44+jxcBtcEHYezWi4GowgbTieTWCjskWc9jICg6b/LxZnXmwtHh/A6V9vidhlt/f9rz2845Uq1tRFFL0u8MQ2v9pQjVkl1GuP6yqH+rQbh9VoOLkMRQLYH/qXzBxITdCVueF18QGMpzrwhudM+EZtnjfBZdlQA2qxLC4VZfNvrWrpE254cU25L5JatuglxHr/zUU5dZf7HErnMgKO9BZxGQ==
-Received: from LV8PR04MB9006.namprd04.prod.outlook.com (2603:10b6:408:186::11)
- by LV2PR04MB994231.namprd04.prod.outlook.com (2603:10b6:408:41a::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 17:42:52 +0000
-Received: from LV8PR04MB9006.namprd04.prod.outlook.com
- ([fe80::3e2f:2514:159c:85b2]) by LV8PR04MB9006.namprd04.prod.outlook.com
- ([fe80::3e2f:2514:159c:85b2%3]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 17:42:52 +0000
-From: "Ousherovitch, Alex" <aousherovitch@rambus.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-CC: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Rob Herring
-	<robh@kernel.org>, "Krishnamoorthy, Saravanakrishnan"
-	<skrishnamoorthy@rambus.com>, Shuah Khan <shuah@kernel.org>, Alexandre Ghiti
-	<alex@ghiti.fr>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Shuah
- Khan <skhan@linuxfoundation.org>, "Nguyen, Thi" <thin@rambus.com>
-Subject: RE: [PATCH v5 00/19] crypto: cmh - add Rambus CryptoManager Hub
- driver
-Thread-Topic: [PATCH v5 00/19] crypto: cmh - add Rambus CryptoManager Hub
- driver
-Thread-Index: AQHdRvg424EW0KLhSEqDYKZZxF3uXLbbsHSAgADHPeA=
-Date: Wed, 23 Sep 2026 17:42:51 +0000
-Message-ID:
- <LV8PR04MB9006E60F2527002AF2B2F42BD7822@LV8PR04MB9006.namprd04.prod.outlook.com>
-References: <20260917225929.2494111-1-aousherovitch@rambus.com>
- <arNoPcxJqrE7BwK9@gondor.apana.org.au>
-In-Reply-To: <arNoPcxJqrE7BwK9@gondor.apana.org.au>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=rambus.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV8PR04MB9006:EE_|LV2PR04MB994231:EE_
-x-ms-office365-filtering-correlation-id: c582dab9-6a8e-460c-c97e-08df199a1799
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|10067099003|11063799006|22082099003|18002099003|56012099006|4143699003|38070700021;
-x-microsoft-antispam-message-info:
- 0xf2NhohMc5s+hBeuREXD2dD2kshaB9WtNJNoJd2BNNJvx63KEPDOL1htgFXEA3n1Moxz6DkYdsZHAqlXGyFLGTUNbJSsWSxs/mLkiLxgupZnFQK6OR5Ak+MFXRI7nn2GtGGYCSAsdrbQ9To0wFMD7MxHNpJ5WI9bYX9Z5utmpchH5hILM4if0Os2XOfZz5xiAbjdyPRpafiCG74qz6A/88f2aXGmpQqXYBYO0ON48v3RVF9d3asXIGezdJd+ZX3BUL7yFXm/lq4lrnpJHup4gNnqKymtPxYPcpRY4CuTvfkdfB160ISRA2zvPpExGXZo+zOd0HNU0dOInjN+t8AU4qqkGoJl3QA5op1faWAqJfE/UlLiqf+/SVDAJMihcILs3sJDLXHihTmPhsb/+mp/klV04YPMpC8zdOMMKRFhWL8j40PvEbwwHSjPWZ7JNEdUSC0iYzlaKb8kxEGCllrQrbBn0/rXs/vJ2TnM4PITR26Bm0UV4jq2sedGXtiaSZAefdkAospXQMvyfuKxJMTdnbnR6jzIov2ZWjsAteC30jkNxaBfcmQ/mGZBG9NVlp/67CWyLDCqoNQslS53J4twD6FMZwfmlT0yJGsu+euRa1qUHzH51AEHnVs7VL+DyfNZB3SYePHy9h/BIdOMH45OXIgn7SjCbhggKXj4BzizL4=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR04MB9006.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006)(4143699003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?s2qDllrrr09iV05TSFz9lSA/NxVB4uzqAcZHa8lUFexnajkhRJCgXtcn8uYv?=
- =?us-ascii?Q?oTOTaRsbtNgsXgLpEO0018jcvnN2hX6QiUiV7YW0YPFcHU4z40+ncBrtjO/K?=
- =?us-ascii?Q?ue8Ehyrqh4V5Isw+bF8qDFJp4rDUZaulvPLLS+fkNgdegExRgRIE57xD/F9w?=
- =?us-ascii?Q?/4S64Lvb03hY8CbhC9mmv20ek2R6/YJMn86VPr/IEhkfrtZ5BYrrD3hbYtTt?=
- =?us-ascii?Q?FcfJ2qv/BHExrfjQYu7dcZy3wnPwkM7+wFP30Lx/hKpXeHmG1ecsO+GV/tNJ?=
- =?us-ascii?Q?42XYovDf//2+ve2TEdhBnXeFaXYdPtgcJ1LYW8FkD1O1e4ilhZyHt219Kl41?=
- =?us-ascii?Q?YhFfvzSX1cytyPsx5TXlPoyF6bYXqd+vrsfKr3Pm+IiGQy+iwUf4kRozSynC?=
- =?us-ascii?Q?Sr40/m9dcOICYaQjhsfTf4zWdaytyW2usp4yOurPI9JMg5p6z8FtojH42jNf?=
- =?us-ascii?Q?7qqkUxpsPyW+VSfr4c9Hqf+vwHhvnvW+VBuoHR4SXrDx69cO7rgp7p1ZWtjA?=
- =?us-ascii?Q?1rQXWw2ClYo5nTQx7WIdYh19KLx7x16Ht5jDiIxs24LuRmX6uegBMapXuwX4?=
- =?us-ascii?Q?E8fHoA5sQel3YrSg0tXFTU0PkEpTCeON31lH+p+9asGPbEjQvKXscMl2Sfil?=
- =?us-ascii?Q?pstXvzOWFPoKBSiAXFYM7mpzgNMqVT7RphPETZDmxYIPWDk4aZz1IY3hdv/S?=
- =?us-ascii?Q?Mj3JEqjKCF8+sYHOQVc/KVaK8rCxfjeYHtvAJDeui0r1MYE0E/S8OJV5iB/b?=
- =?us-ascii?Q?776gJTc1RiqGN3BcOY+OuW8xI1tIL5QZvMyoPybB3vPX7+Ug7AYggkfTyTNc?=
- =?us-ascii?Q?ArDauicuhFr+Jl8Xi2AWUAy648Q9SW6+aEimtGZsAMCWiSUGKvXSnVJPfvX1?=
- =?us-ascii?Q?bJoeLYqS16r3zaYndz1pkbeC8EL1DESvPLvkz/kTJiibrUW7JrcMdVhyNNex?=
- =?us-ascii?Q?51Uxlfw0gz0toUsQb4m/SHXEGfAbwg5smn8DQhXMDWEFrlx6AaORn54am5IF?=
- =?us-ascii?Q?Hofe/vmPFqPgQqVHD+7ZM15bAMa2TrFEEYCDI7+GRgT8z49oyehEMHVlISGs?=
- =?us-ascii?Q?oULrOaAkc6SjsCRJWiF80h8lNr0CXdfi5UjvMcIgzmVNS6V3M57QMWQGovwi?=
- =?us-ascii?Q?y68pXWU95UCJKxYsaUd/CzjNkAv30ro1UpcXxx1wytXMtu3XQS3GhiYv+hwR?=
- =?us-ascii?Q?cKknlDD2Rn31ELPhnhbpHKlVuUYGIJ1xrif9ZWGTW8EsqIPByDJvc6cxdfRB?=
- =?us-ascii?Q?/faoOuOq0y8LTh23E5wbVBda8sRQk8CJ4dLwVawUktcifpKGi5Nzj6WU/dYL?=
- =?us-ascii?Q?fUCEARuuorkzSunMfeoCguFIrWWM6QI3lx5Em4nmyRtleATWzIvaJClOpYHI?=
- =?us-ascii?Q?zSFe12xqK1zeNT16j1lF6NzlDWhMLKDwQTntnhvSsKxxIzGhKqDaL6E58uLz?=
- =?us-ascii?Q?3dwz8P9WelqM/IEhFQLPC8soDs2d65tvPmtZqi/ETxXH3ZPdBwvhk5AlQz6k?=
- =?us-ascii?Q?dmubd/fs8RWOTSZoPPh9YDSKjEBGNQ9F7DkHBZi9+c5w71AO/kpy3ThsHM7o?=
- =?us-ascii?Q?U3HdaoJTlMSbfWJEK7bbXRCKo6NZataZaSAlqwGL0Cqsh+SvOy3tCxfYbDEN?=
- =?us-ascii?Q?PWEPHp36CjGbDRGIYOfm4FtNncqhlaJwAAQYY4A5LwjOBmhWmIT0arctMX+P?=
- =?us-ascii?Q?sGD97FIqngLhgASCqvYnnuhxgps/nSsPnRoBxS9NxmJSE7q4tGTNAINO5Yq1?=
- =?us-ascii?Q?EmbnR9CGLw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="QY1kZWdH"
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c252634bc4dso103079266b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:44:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790185477; x=1790790277; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Bk6SbIP9vnrSui/2kvsRPPc+GVPC3yW13beKBqucCfg=;
+        b=QY1kZWdHICB48ZSG2zpF/jgzpzlQRAf2oPlSRUebrNiJJZAv9vEHufDjh7bHVmzoRY
+         jP6P6882I2Z0KUsbhlAq/TRmrcy0pbkCNL5pnAqPOPa+lbmXxXAA1gAHdJ9howfnfpK2
+         vb3DWmpCLVRJnwIYgdDwtAEpBsdCfJsNqaG7tS27TEsiVS6xuTH8ybmLMTFhLF+GsRqU
+         WdY/tazd20Pf2JoKcqZC4B9nku64s95jQfQRvzwMO5JaW+dPiRVla1/WgTFQz3I8klaW
+         6z8y9FLB1smqZXpcnPnwPG0SsqIk5YZZNQ3UZ6b7dEz+weY9aSIcuii2XEuf4HwU5wg8
+         29FQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790185477; x=1790790277;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bk6SbIP9vnrSui/2kvsRPPc+GVPC3yW13beKBqucCfg=;
+        b=D0i5iXM6sHAY3n9+wKb2tJlElmJ8YSFfVmSaYnkJVgG2l0HNoqr4APVx3ckzdaGEFY
+         vxBowmsVlHEvw+Ryb3GBsumJOBl8UIGSJOCP8CsJ81L/3PuLVEr7+Ob8LUdpCT0yt1Wt
+         5r99E2kdiif99F2xmv8AtBMa2qm93CMZPSxwR7xDrKv3V6lQddffNHTbQx1hTyi93RKs
+         2aCJeO2RHHc1SR69f7pdi+uqJno9uGcG2pL5x01Dw5x28g7ciT5QSQa/6JaD9Nx4LjKT
+         Sihvk/WEGPaCN7WvcwW9tJzZ2NGJhImstkTjuGrews5oiMNPwFLVO5mzYKyLF5whs+DW
+         rMAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZJz5Pn8T7vb7oPBPLzkWqko7SkpEo8K7GtA6T4+xgf9zssh9eJ11OuOCVHgXgPstRP20T5VioSloUpos=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAN66zGRrGsgveqwRaXktw9zghF9/EbX9U5kYwpHtC8T8UiXke
+	yHYSXC/y4gkD2u6zG6ajvty5k7rJIHFgcDCFfmIuJ3Vg5RniUkqIN97fDC8Ink1foeYfaPIuB1Y
+	rf0oYoO6gFUHol88qtw==
+X-Received: from edea18.prod.google.com ([2002:a05:6402:a192:b0:6aa:9381:b600])
+ (user=mmaslanka job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:a0cc:b0:6aa:734b:1a1f with SMTP id 4fb4d7f45d1cf-6aab3b5bb34mr2924206a12.25.1790185476519;
+ Wed, 23 Sep 2026 10:44:36 -0700 (PDT)
+Date: Wed, 23 Sep 2026 19:44:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: rambus.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR04MB9006.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c582dab9-6a8e-460c-c97e-08df199a1799
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 17:42:52.0950
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Oxj1wM/mcVF3RTbSKO584bjL2h67ljcjiowW+28D73EU2MC4TXPIqJp8d2m7ryuRxzOfvhO1OM4HJwGbV7gfC9IeJybaBB3EWnjOpJQNTZ4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR04MB994231
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+Message-ID: <20260923174420.2343724-1-mmaslanka@google.com>
+Subject: [PATCH] platform/chrome: cros_ec_typec: Poll for role swap completion
+From: Marek Maslanka <mmaslanka@google.com>
+To: Benson Leung <bleung@chromium.org>, 
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Jameson Thies <jthies@google.com>, 
+	Andrei Kuchynski <akuchynski@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Guenter Roeck <groeck@chromium.org>, Radu Vele <raduvele@google.com>, 
+	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Marek Maslanka <mmaslanka@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Sep 23, 2026 at 03:48:45PM +1000, Herbert Xu wrote:
-> Please check the Sashiko review, it is not happy with your patches:
-> https://sashiko.dev/#/patchset/20260917225929.2494111-1-aousherovitch%40r=
-ambus.com
+Depending on the EC USB-C stack (TCPMv2 vs PDC), EC_CMD_USB_PD_CONTROL
+with a role swap request may either block until the swap completes or
+queue the request asynchronously for the EC PD task and return the
+current (pre-swap) role in the immediate response. On platforms where
+the EC handles the swap asynchronously, checking resp.role right after
+issuing the swap command sees the old role and fails with -EIO before
+the USB PD handshake completes.
 
-Thanks, we went through the whole Sashiko list. A number of the findings ar=
-e
-false positives against this tree -- e.g. the dt-bindings "unsatisfiable
-compatible"/"missing example" items are the eip93 idiom Conor asked us to
-follow, "kzalloc_obj undefined" is a real slab.h macro, and most of the
-"unprivileged AF_ALG OOM" DoS class isn't reachable because AF_ALG bind is
-closed for KERN_DRIVER_ONLY|ASYNC algorithms on this kernel.
+If the immediate response does not yet reflect the target role, poll
+EC_CMD_USB_PD_CONTROL with USB_PD_CTRL_SWAP_NONE until the target role
+is reached while connected, or until ROLE_SWAP_TIMEOUT_MS expires. The
+timeout mirrors PD_ROLE_SWAP_TIMEOUT used by the TCPM port manager,
+since a PR_Swap may legitimately take seconds when the partner answers
+with Wait and the initiator retries.
 
-The substantive ones we did address for the next reroll: the MAC/hash
-.import() accounting symmetry (incl. a poly1305 counter underflow), several
-DMA-unmap-of-address-0 guards on PQC/KIC error paths, lost-interrupt orderi=
-ng
-in the ring handler, a wedged-mailbox -EIO path, and the MAC finup
-idempotency fixes. A residual class around async-cancel DMA teardown is
-called out explicitly rather than papered over. Details will be in the v6
-changelog.
+While at it, report the failure modes the same way tcpm.c does, so that
+userspace can tell a rejected swap from a disconnect: -ETIMEDOUT when
+the partner never completes the swap, and -ENOTCONN when the port goes
+away while waiting. Decoding of the swapped role is factored out into
+cros_typec_resp_to_role() instead of being open coded for each swap
+type, which also keeps an unhandled swap type from being misread as a
+power role swap.
 
-Thanks,
-Alex
+Fixes: ab229c2b72c3 ("platform/chrome: cros_ec_typec: Add role swap ops")
+Signed-off-by: Marek Maslanka <mmaslanka@google.com>
+---
+ drivers/platform/chrome/cros_ec_typec.c | 95 +++++++++++++++++--------
+ 1 file changed, 66 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/chrome/cros_ec_typec.c
+index c0806c562bb9..b97026ae0454 100644
+--- a/drivers/platform/chrome/cros_ec_typec.c
++++ b/drivers/platform/chrome/cros_ec_typec.c
+@@ -7,6 +7,8 @@
+  */
+ 
+ #include <linux/acpi.h>
++#include <linux/delay.h>
++#include <linux/jiffies.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_data/cros_ec_commands.h>
+@@ -22,6 +24,14 @@
+ 
+ #define DRV_NAME "cros-ec-typec"
+ 
++/*
++ * Mirrors PD_ROLE_SWAP_TIMEOUT used by the TCPM port manager: a PR_Swap may
++ * legitimately take seconds when the partner answers with Wait and the
++ * initiator retries.
++ */
++#define ROLE_SWAP_TIMEOUT_MS	10000
++#define ROLE_SWAP_DELAY_MS	20
++
+ #define DP_PORT_VDO	(DP_CAP_DFP_D | DP_CAP_RECEPTACLE | \
+ 			 DP_CONF_SET_PIN_ASSIGN(BIT(DP_PIN_ASSIGN_C) | \
+ 						BIT(DP_PIN_ASSIGN_D) | \
+@@ -58,12 +68,33 @@ static int cros_typec_enter_usb_mode(struct typec_port *tc_port, enum usb_mode m
+ 			  &req, sizeof(req), NULL, 0);
+ }
+ 
++/*
++ * Decode the role relevant to @swap_type out of an EC_CMD_USB_PD_CONTROL
++ * response.
++ *
++ * Returns a value comparable against the typec class target role
++ * (TYPEC_DEVICE/TYPEC_HOST or TYPEC_SINK/TYPEC_SOURCE), or -EOPNOTSUPP if
++ * @swap_type is not a role swap this driver knows how to track.
++ */
++static int cros_typec_resp_to_role(struct ec_response_usb_pd_control_v2 *resp, u8 swap_type)
++{
++	switch (swap_type) {
++	case USB_PD_CTRL_SWAP_DATA:
++		return (resp->role & PD_CTRL_RESP_ROLE_DATA) ? TYPEC_HOST : TYPEC_DEVICE;
++	case USB_PD_CTRL_SWAP_POWER:
++		return (resp->role & PD_CTRL_RESP_ROLE_POWER) ? TYPEC_SOURCE : TYPEC_SINK;
++	default:
++		return -EOPNOTSUPP;
++	}
++}
++
+ static int cros_typec_perform_role_swap(struct typec_port *tc_port, int target_role, u8 swap_type)
+ {
+ 	struct cros_typec_port *port = typec_get_drvdata(tc_port);
+ 	struct cros_typec_data *data = port->typec_data;
+ 	struct ec_response_usb_pd_control_v2 resp;
+ 	struct ec_params_usb_pd_control req;
++	unsigned long end;
+ 	int role, ret;
+ 
+ 	/* Must be at least v1 to support role swap. */
+@@ -81,18 +112,10 @@ static int cros_typec_perform_role_swap(struct typec_port *tc_port, int target_r
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	switch (swap_type) {
+-	case USB_PD_CTRL_SWAP_DATA:
+-		role = (resp.role & PD_CTRL_RESP_ROLE_DATA) ? TYPEC_HOST :
+-						TYPEC_DEVICE;
+-		break;
+-	case USB_PD_CTRL_SWAP_POWER:
+-		role = (resp.role & PD_CTRL_RESP_ROLE_POWER) ? TYPEC_SOURCE :
+-						TYPEC_SINK;
+-		break;
+-	default:
++	role = cros_typec_resp_to_role(&resp, swap_type);
++	if (role < 0) {
+ 		dev_warn(data->dev, "Unsupported role swap type %d\n", swap_type);
+-		return -EOPNOTSUPP;
++		return role;
+ 	}
+ 
+ 	if (role == target_role)
+@@ -104,27 +127,41 @@ static int cros_typec_perform_role_swap(struct typec_port *tc_port, int target_r
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	switch (swap_type) {
+-	case USB_PD_CTRL_SWAP_DATA:
+-		role = resp.role & PD_CTRL_RESP_ROLE_DATA ? TYPEC_HOST : TYPEC_DEVICE;
+-		if (role != target_role) {
+-			dev_err(data->dev, "Data role swap failed despite EC returning success\n");
+-			return -EIO;
++	/*
++	 * Depending on the EC USB-C stack (TCPMv2 vs PDC), EC_CMD_USB_PD_CONTROL
++	 * may either block until the swap completes or queue the request
++	 * asynchronously and return the pre-swap role. Poll until the target
++	 * role is reached while connected, or until the timeout expires.
++	 */
++	req.swap = USB_PD_CTRL_SWAP_NONE;
++	end = jiffies + msecs_to_jiffies(ROLE_SWAP_TIMEOUT_MS);
++	for (;;) {
++		if ((resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED) &&
++		    cros_typec_resp_to_role(&resp, swap_type) == target_role)
++			break;
++
++		if (time_after_eq(jiffies, end)) {
++			if (!(resp.enabled & PD_CTRL_RESP_ENABLED_CONNECTED)) {
++				dev_err(data->dev, "Port disconnected during role swap\n");
++				return -ENOTCONN;
++			}
++
++			dev_err(data->dev, "Timed out waiting for role swap to complete\n");
++			return -ETIMEDOUT;
+ 		}
++
++		msleep(ROLE_SWAP_DELAY_MS);
++		ret = cros_ec_cmd(data->ec, data->pd_ctrl_ver,
++				  EC_CMD_USB_PD_CONTROL, &req, sizeof(req),
++				  &resp, sizeof(resp));
++		if (ret < 0)
++			return ret;
++	}
++
++	if (swap_type == USB_PD_CTRL_SWAP_DATA)
+ 		typec_set_data_role(tc_port, target_role);
+-		break;
+-	case USB_PD_CTRL_SWAP_POWER:
+-		role = resp.role & PD_CTRL_RESP_ROLE_POWER ? TYPEC_SOURCE : TYPEC_SINK;
+-		if (role != target_role) {
+-			dev_err(data->dev, "Power role swap failed despite EC returning success\n");
+-			return -EIO;
+-		}
++	else
+ 		typec_set_pwr_role(tc_port, target_role);
+-		break;
+-	default:
+-		/* Should never execute */
+-		break;
+-	}
+ 
+ 	return 0;
+ }
+-- 
+2.55.0.1082.g2b9226bbc0-goog
+
