@@ -1,95 +1,84 @@
-Received: from mta0.migadu.com (out-149.mta0.migadu.com [91.218.175.149])
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853F8440A0A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:34:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD551DF980
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:35:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790199295; cv=none; b=G9t8pnCfHfbT2rziSMtlqGEvrJGm5ssSqnSHT8yeZfkbcoDUaBMF3XNk+bvgADlhFcv9yN1XhCQ3sr+DWgkM7ZWgurrX5MsIAixwVcVz2a/dmhFoSF4jp44P438WKPAZtX5PbMD5Fo0pjTR997Z1S5b2KqZqnaI3H/rgVawP+XQ=
+	t=1790199328; cv=none; b=o53r8aPzfl6PHnFvb4g3LvXqvC+zPwXvts6zFkQsMiOEShc2mwVRPE1Pat6tTdJ8Wu8YdgGEpdHob1UIPTVp9aKhKbPsOW6noQIFxnB0Yos5k+c7SNRc94IsDDh2OoxJe264+eSKpvORVN0GyHqsC8VRa8zfPZGwyw/zYMV+2IE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790199295; c=relaxed/simple;
-	bh=rb7CP4UYtgy+IXS6D08jHYPv/a6qcfU7VomdBfispcs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iI2E0SwL0bQ6dOHV38ZZ86dyVdiuKcmBx/v/VVY4QLHQXuIAIpuOU3Te4e/x9TVuXoUWd8jWHadvSZc/G0kMdNgluwHTira/PaB/bUyMjl2Z6s/g8kekSXn0N++765bbzpYmuzQfdA1SJnTbxTuDl79PWDFjhIvj8a8YPPbLoNU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HnL2tipy; arc=none smtp.client-ip=91.218.175.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HnL2tipy"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rb7CP4UYtgy+IXS6D08jHYPv/a6qcfU7VomdBfispcs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790199291; v=1; x=1790804091;
- b=HnL2tipyUvMaJvc9BPXNfOHSVSlrZuK6eVs5YSLMdcNDJuoy/K9zZE1KskFjPIsAyleFlTik
- 6dTHonyzloOLQa1xESvu9Ox2t0i9tKvNVTzEjn9EJXocIn9JYDnhGerPN5KUR0eVs/sPDxn33Q1
- FznAACwMWKTZDz2PD2E0S7eU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 8768a77adbd16e00;
-	Wed, 23 Sep 2026 21:34:51 +0000
-X-Mizu-Trace-ID: 8768a77adbd16e00
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: arighi@nvidia.com,
-	bpf@vger.kernel.org,
-	bsegall@google.com,
-	changwoo@igalia.com,
-	dietmar.eggemann@arm.com,
-	etsal@meta.com,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	sched-ext@lists.linux.dev,
-	tj@kernel.org,
-	vincent.guittot@linaro.org,
-	void@manifault.com,
-	vschneid@redhat.com,
-	yphbchou0911@gmail.com
-Cc: Usama Arif <usama.arif@linux.dev>
-Subject: [PATCH] sched_ext: Avoid relocking DSQ during remote DSQ moves
-Date: Wed, 23 Sep 2026 14:34:44 -0700
-Message-ID: <20260923213444.3231509-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1790199328; c=relaxed/simple;
+	bh=jqeMkgYyOF8JpI07HwnDNMhbhl8UITBxMI2F9pBLPZo=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=M/tRsb7mxhEJpshwwcvJbPHsAIyWADgONVfae+WYd5bE8d+ZQCsIZTSn8BBEFvBpkdZ8eShzD4KgVGbx5i0+Y/siV7rWpEoaYq+9xHOq1JWHKOqxtjWWSBGPFhZ2B8tQLfjK2LNGPT0HeI5ix95tyNkwANw/ZSfyk2so4VO7EUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4be498aca30so1630623b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:35:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790199325; x=1790804125;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=e+cqgdQMwR3rxzZ32nkFrDMzjEeuu6Xb4rdm1HBfgGs=;
+        b=Urt2swIjFP+7jXuplkbdg0iBE+qJEHc5j1O96Mwki8SNiGowsDGACz0GmMMcN3vN8A
+         UAnJzk7/5ydmdR6iwpe5OBPas77OOn12UW040tMBzKrcWyb+i94t6EZtdS7p2/HxXejH
+         z293lgJ5hQzhJop7hZ+SboSrWBYT41IsBPEQ+gGBCTdkxBgMsOHwZvDVPrM8aDUl1AbU
+         kB0URe0e9jAhCNdc7Wll1SRBrILfTvRxF0V4nF+6Ns9mObeqZHdpr8Wv4XwsMPxFrD7+
+         C9/lxzWgWDwtNdpbo6H1hiIxn0h1lYw7uDw8m6H4yUQI3+qMTldv8EZ1leeolaDV272H
+         XyBw==
+X-Gm-Message-State: AFuF++mNDmybvZxudMzSThwVesPgFTF4jNQhOz251EWLpfdp355PYG6m
+	ctjB9AMWIyyveT51slLZg9LOf1XwUWq6Z34D1+YqUfIHvmGHr4kYSHjygLZ4Gcjh2igmhbDqYYq
+	keBIZKrnX8aCqxwR9/7YnLrYGXaM4n/ePtNjPX8wN7cvpZ18c+QCjaBjbUIE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1998:b0:4d6:9252:48ca with SMTP id
+ 5614622812f47-4d72b746020mr658776b6e.54.1790199325600; Wed, 23 Sep 2026
+ 14:35:25 -0700 (PDT)
+Date: Wed, 23 Sep 2026 14:35:25 -0700
+In-Reply-To: <6a778cfb.9c11d2ce.289b96.00b7.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab4461d.e9f5c185.9abc8.0004.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [block?] WARNING in blk_mq_free_tag_set
+From: syzbot <syzbot+02b37e31e64ea5cb6d29@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-When scx_bpf_dsq_move*() moves a task from a non-local DSQ to a
-remote local DSQ, move_task_between_dsqs() drops src_dsq->lock while
-leaving p->scx.dsq set. The following deactivate_task() then reacquires
-src_dsq->lock in scx_dispatch_dequeue() to unlink the task and clear
-p->scx.dsq.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Both the source rq and src_dsq are already locked before the source DSQ
-lock is dropped. Call dispatch_dequeue_locked() there so that
-deactivate_task() takes the !dsq path and avoids the redundant lock
-acquisition.
+***
 
-Suggested-by: Tejun Heo <tj@kernel.org>
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
----
- kernel/sched/ext/ext.c | 1 +
- 1 file changed, 1 insertion(+)
+Subject: Re: [syzbot] [block?] WARNING in blk_mq_free_tag_set
+Author: raghunathpalla.0209@gmail.com
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index f95d1cf8d3d1c..56bc06a56bb34 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -2710,6 +2710,7 @@ static struct rq *move_task_between_dsqs(struct scx_sched *sch,
- 			raw_spin_unlock(&src_dsq->lock);
- 			scx_move_local_task_to_local_dsq(sch, p, enq_flags, dst_rq);
- 		} else {
-+			dispatch_dequeue_locked(p, src_dsq);
- 			raw_spin_unlock(&src_dsq->lock);
- 			move_remote_task_to_local_dsq(sch, p, enq_flags, src_rq, dst_rq);
- 		}
--- 
-2.53.0-Meta
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git f0100363d8c3
 
+diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+index ed204b3f4b84..9fa0987c203b 100644
+--- a/kernel/rcu/srcutree.c
++++ b/kernel/rcu/srcutree.c
+@@ -701,10 +701,13 @@ void cleanup_srcu_struct(struct srcu_struct *ssp)
+ 	for_each_possible_cpu(cpu) {
+ 		struct srcu_data *sdp = per_cpu_ptr(ssp->sda, cpu);
+ 
+-		// Call srcu_barrier() before this cleanup_srcu_struct()
+-		// to avoid triggering this WARN_ON().
+-		if (WARN_ON(timer_delete_sync(&sdp->delay_work) &&
+-			    rcu_segcblist_n_cbs(&sdp->srcu_cblist)) &&
++		// Deleting a pending delay timer that still has callbacks
++		// behind it is not an error: queueing the work here and
++		// flushing it below invokes them.  A caller that really did
++		// forget srcu_barrier() is caught by the WARN_ON() after the
++		// flush.
++		if (timer_delete_sync(&sdp->delay_work) &&
++		    rcu_segcblist_n_cbs(&sdp->srcu_cblist) &&
+ 		    rcu_cpu_beenfullyonline(sdp->cpu))
+ 			queue_work_on(sdp->cpu, rcu_gp_wq, &sdp->work);
+ 		flush_work(&sdp->work);
