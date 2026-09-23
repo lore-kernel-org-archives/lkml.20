@@ -1,134 +1,92 @@
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A339936B054
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:49:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 15CEA38A725;
+	Wed, 23 Sep 2026 05:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142569; cv=none; b=MbJfTVUj3oqYB/SCatFjq1EjMbj7ESl9FdyTgsSoZfycCyIg4RBhOAuXgGyku3DGDyr5qE4oeGRFXZZ7yq5aPwrj9z8gqmreLIbomh8lqVXVpnSy3+HVBMSWEKDM6eEXtCIXZK1/7I+HCdbzAg+7s4G7TG8VBM+YSs7N6tftiTg=
+	t=1790142582; cv=none; b=l0I0xk1CBohLejTuOAeia2mY0YN0pazdmxk1wpA9ErreJqZg9j8I+4+OvYm63FA2tzd8w2EC/EL3Wb6QFv5BmNVxcGUS5DVuLzFsLR80QL6B6eBbx+wq31/q0Az/AiISvURR2XwNvLnjqrrG6xGZgPa2yUYEKy3wpJxVG2p/NlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142569; c=relaxed/simple;
-	bh=704PCO9tRpHwADqRFHO79/OKnaRn28gjGpJwbyPjrWA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=I5JQs7iuEw/u99qU4f1Agi3Djpaz/XBSpbIYXPsBq3mR5tXJeJVKKJKgCUMklKy1uqUI/SUtTWx+97fRz3IxnhBV0eGSoEV/vNfC9YhhYR0+H/6oBmhLyH/dJTcO8A++Uiw2RSmcaMzWHpXfqNOiooFgz3uPoyW72N/H1L06MXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=yzsHqYwq; arc=none smtp.client-ip=44.202.169.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="yzsHqYwq"
-Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
-	by cmsmtp with ESMTPS
-	id 9AP6x3rxCJFmF9FrDxmNz2; Wed, 23 Sep 2026 05:49:27 +0000
-Received: from gator4166.hostgator.com ([108.167.190.91])
-	by cmsmtp with ESMTPS
-	id 9FrCxpStuIRv99FrDxhNMS; Wed, 23 Sep 2026 05:49:27 +0000
-X-Authority-Analysis: v=2.4 cv=GIUIEvNK c=1 sm=1 tr=0 ts=6ab36867
- a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=1XWaLZrsAAAA:8
- a=VwQbUJbxAAAA:8 a=iSKem9uEHTndPMaPadgA:9 a=QEXdDO2ut3YA:10
- a=2aFnImwKRvkU0tJ3nQRT:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=Bhfb9Y56ZxdKLlIuR0TJG5mzD8QYu4ucWDxna8mxNeI=; b=yzsHqYwqKzfy
-	IT3QL6oSRSVzzTy7ooK6YA8F9tfn+4JgPBwIbjXHrZRdyajEaCcyh4OiQjIgDiQnszPBevMuV2FnF
-	TLhlmXj8ioQVCsKDILzIE3vfpVPO2KFK5Ha7iJEhMXYNV0kod8Y230S5zFWeQ6cNA2hR8EpWfYBpD
-	5aSbpt2I80Vr9EQ4JJnIA5LYU3lAPAyfC/mb2OQHZILFyw4NyESr+VNgjQ1AjEJUzbmdh7Qa7lfgj
-	dYIa925lxYUCLxmIwoeV5yBKwaUfEJ6vN8YsMB1MeI9uznlzOtaggxP2DXtOeF7UAD1RktWnNKnWA
-	BmzeeOJT6rZ0P3Ik9bD6vg==;
-Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:56274 helo=[10.203.100.34])
-	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <gustavo@embeddedor.com>)
-	id 1x9FrC-0000000257W-0dyp;
-	Wed, 23 Sep 2026 00:49:26 -0500
-Message-ID: <fa45cff7-162e-4ad4-9485-da45690044ca@embeddedor.com>
-Date: Wed, 23 Sep 2026 14:49:21 +0900
+	s=arc-20240116; t=1790142582; c=relaxed/simple;
+	bh=vT8RJz34w3HJasV0jOxaSYHk/g/wYgfzEFBwgejv/c4=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FoIvl5Du0dcSCnLVboDK8kUuZ4h/BxLw+LVyWQzE/Ie6aFSC9+06vWjfMYTjEYtj8pff1iSp7bey4OrOf+FWyh1JzdKaMtyN1iQuq5OfD33nDBQzZrus38flZthljj/dKRJzXP14JmS5EVrKtE4sAjFD3tIFSp95ik0gCGW5COY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqQyQ74GSzTSdg;
+	Wed, 23 Sep 2026 13:49:18 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqQyP0TLrzTSdg;
+	Wed, 23 Sep 2026 13:49:17 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id 7B6DF1032;
+	Wed, 23 Sep 2026 13:49:10 +0800 (CST)
+Received: from hsj-2U-Workstation (172.19.24.226) by cncheex04.Hygon.cn
+ (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 23 Sep
+ 2026 13:49:13 +0800
+Date: Wed, 23 Sep 2026 13:49:11 +0800
+From: Huang Shijie <huangsj@hygon.cn>
+To: Christoph Hellwig <hch@infradead.org>
+CC: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <zhongyuan@hygon.cn>,
+	<fangbaoshun@hygon.cn>, <yingzhiwei@hygon.cn>, <jack@suse.cz>,
+	<dev.jain@arm.com>, <ljs@kernel.org>, <adobriyan@gmail.com>,
+	<akpm@linux-foundation.org>, <hpa@zytor.com>, <ryan.roberts@arm.com>,
+	<mjguzik@gmail.com>, <joel.granados@kernel.org>, <jannh@google.com>,
+	<oleg@redhat.com>, <aleksa@amutable.com>, <legion@kernel.org>,
+	<kees@kernel.org>, <joannelkoong@gmail.com>, <tj@kernel.org>,
+	<libaokun@linux.alibaba.com>, <ebiggers@kernel.org>, <sandeen@redhat.com>,
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH v2 1/3] fs/drop_caches: skip filesystems without page
+ cache
+Message-ID: <arNoV2MdtTK-Ruw9@hsj-2U-Workstation>
+References: <20260920072811.2064247-1-huangsj@hygon.cn>
+ <20260920072811.2064247-2-huangsj@hygon.cn>
+ <arIVBpMZk5-O2AZc@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: ieee80211: annotate struct s1g_tim_enc_block with
- __counted_by_ptr
-To: Bill Wendling <morbo@google.com>, Kees Cook <kees@kernel.org>
-Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>,
- Justin Stitt <justinstitt@google.com>,
- Bryam Vargas <hexlabsecurity@proton.me>,
- Lachlan Hodges <lachlan.hodges@morsemicro.com>,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
- llvm@lists.linux.dev, codemender-patching+linux@google.com
-References: <20260923045233.2579591-1-morbo@google.com>
-Content-Language: en-US
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-In-Reply-To: <20260923045233.2579591-1-morbo@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 125.195.69.90
-X-Source-L: No
-X-Exim-ID: 1x9FrC-0000000257W-0dyp
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:56274
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 78
-X-Org: HG=hgshared;ORG=hostgator;
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfOgIu6HdfLOkGPz5qMxFMYhlTndyCgOj7Tf405DRE7PTFGDrNSxp4izKMfUSOUvoO3g7N27BbK4fmxiY5opEyKvSQdPMVqY01yKvb0G9wdn+KHty39WK
- DDgECFVFYrf4y9LwGQEWkyqXwRxxH1Ksk5V1Yokl2gjPGEl1Bz/PmG2oIxIOUZTGtAq86KK2qvSxIhbM1z7iNuh06LyhPjqNSv/y6zsgyrTGqLloi45JiMXU
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <arIVBpMZk5-O2AZc@infradead.org>
+X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-
-
-On 9/23/26 13:52, Bill Wendling wrote:
-> The GCC and Clang compilers support the "__counted_by_ptr" attribute on
-> pointer fields to associate them with an element count in the same
-> struct. This enables KASAN and UBSan bounds checking to detect
-> out-of-bounds accesses to the pointer.
+On Mon, Sep 21, 2026 at 10:41:26PM -0700, Christoph Hellwig wrote:
+> On Sun, Sep 20, 2026 at 03:28:09PM +0800, Huang Shijie wrote:
+> > Add a new flag SB_I_NO_PAGECACHE for superblock.
+> > 
+> > Skip scanning the inode lists of filesystems that have no page cache
+> > in drop_pagecache_sb(), as indicated by the SB_I_NO_PAGECACHE flag.
 > 
-> In "include/linux/ieee80211-s1g.h", "struct s1g_tim_enc_block" has a
-> pointer member "ptr" of type "const u8 *" whose size is described by the
-> "len" member, which is correctly populated with the size of the buffer
-> before any pointer dereferences.
+> I don't think we need a new flag.  This can check for
 > 
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
+> 	sb->s_bdi == &noop_backing_dev_info
+> 
+Okay. I can use this method.
 
-Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+> which is actually the more relevant concept - not if a file system
+> uses the page cache, but if it supports page cache writeback.
+> E.g. for ramfs there is page cache, but it is the only data store.
+> For shmemfs, there is writeback, but it is driven in a different
+> way (through the anonymous memory code and not fs writeback).
+> 
+> And most importantly it just work, no need to mark file systems,
+> as you're currently missing a lot of those that can have a fair
+> number of inodes, e.g., sysfs, kernfs, cgroupfs or configfs.
+> 
+I ever added support for these file systems, but I deleted the code before
+I sent out this patch.
+
+To Jan Kara,
+   thanks for the information about the issue.
+   I will check the inode iteration issue firstly.
 
 Thanks
--Gustavo
+Huang Shijie
 
-> ---
->   include/linux/ieee80211-s1g.h | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/ieee80211-s1g.h b/include/linux/ieee80211-s1g.h
-> index 3f9626ad3d97..8f6107782c38 100644
-> --- a/include/linux/ieee80211-s1g.h
-> +++ b/include/linux/ieee80211-s1g.h
-> @@ -349,7 +349,7 @@ struct s1g_tim_aid {
->   struct s1g_tim_enc_block {
->   	u8 enc_mode;
->   	bool inverse;
-> -	const u8 *ptr;
-> +	const u8 *ptr __counted_by_ptr(len);
->   	u8 len;
->   
->   	/*
+
 
