@@ -1,132 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B07463B70;
-	Wed, 23 Sep 2026 08:06:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679E9468C20
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790150768; cv=none; b=PpyFmr2FAtM/YLxoJG02UhkTb9+KBv+LqbZXgVJArMrPmX99XmVucL3UIoQP1QyBwlFVs/ED6LlKMh/C3juq06Zb3KaWsnKObGV0/dloepAzmHfxsptsbIqi1Vp+oLtAU+166PBrRAldMe6z4xbOJut0H4DYTJJCya8FL0Df8OQ=
+	t=1790150805; cv=none; b=uwM3+jZg4AOSPu5z2KJmIOxlNQnxCIe4+9fjdwsJOZFCgep8+wtNKF0cSTknNw5av4HRlxCAt/hrOtmfYQ6NPnBGBn4KQWs7M5KH0XTRTymp+z2yqY5zc3Q4nl8PnYzMq83dHAWc9IxMzQLGmYhl0TL/Xen3sSq3BND1urNavDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790150768; c=relaxed/simple;
-	bh=1PZwIE8TVU5soElAe+9hqBxDNKLiuQmotjGe3sg8bxA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zx4/HZmlG0xqaB1DbUmOYIeqHhY3R7qRv0+jgsL2tawJpv3jUeX/nGvzUkPIxTvyY+csNCg6oIOLbDDqi9MnEENb38dRce5IY8Zgs/213LcP9htq/Z6Eb3YfJ5lwnrYgG5mJhfMq/vqSO6TGB86O7uRBbOdXLuPz5IH2lIKLDPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m/1ZYNir; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790150805; c=relaxed/simple;
+	bh=nINVdHpeegjZbMF05FpoeGyNb7oZWEvbf8iL9ES8+Uc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UpKY6RBAJLcOchonh+rwBqS3Vinye/jsk0FOgpijmKYWdhKnn90yaL4a+EC9eHop6RxjvdTyxIwxxvQXAEUXTTI/PcDinGkuSofZ011Z4MIOpB0+WcM4KR+ZwQ31l14gJafMZCMr/S/0fBSAlQWcLTmlNi3z5qXPWqC4/mHX+TM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Cmdvvvej; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m/1ZYNir"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 567B11F000FF;
-	Wed, 23 Sep 2026 08:06:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790150766;
-	bh=Xil8py5E3/ndIBs9IcR+eVULmt4f0WzoAU5Rtvj5GqA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=m/1ZYNirgaoPCynZpFJy/4+yEbz3WvWqPgEpgsFnWqQZ7y/UKyBvF9rUuS1qoHN8j
-	 pDibh2CeJH6fXVmwlF6WQ1eh+9WIJExXiP6cC3M6/s7ns32q3GIFvJgiW1JeXpsc8c
-	 mKR5tvDNeHrS2DpQjoWz7U1keT+Wg0MrdvkjQooIEAh17fnh8I+kcHIqMifEvBSvx5
-	 0lIY/xIleJr8B1hSC+ASQKXZynZyiInQX53cfcStII+GE5yd7GUKrxGf/K03CXSVX3
-	 o44XS1vz/M5hCpWSODu7eou6pUSpo+tLuSZsT/yjpOhrDWPWLzd2axlo8e2lPx4r9e
-	 KkSnHNDqfm+NA==
-Message-ID: <26d37b51-fa03-4d91-b160-3c0b8b7e1bb3@kernel.org>
-Date: Wed, 23 Sep 2026 10:05:55 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Cmdvvvej"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so477448f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:06:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790150802; x=1790755602; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uT1Pv4J7yBTtJtITNEIgiikLudfOmUZ+CuCDcjNwO28=;
+        b=CmdvvvejejbKnCdP4QFfXhmvQQ6a3ZeWiBC5jQDgD+kM+nXC2TB6ZkQedhIthtz/i7
+         QWAWHXEi7k4K3iVN3laBB8WJSlIF9TiwUD+Nqbxqs9Z0/sW1fXhLJ1gLpkV61N9HkHax
+         VmrM6oEgOP9nDMC58ab3ziJSgYftR+1CYQgWDUPqMyiXYGOWWbE8bGfljKhv9VkrPlDU
+         1c0bC/R7wIRyVk2RSw+7fYp/62Tgi4f6qRJDVVmoQo2lnYx5VdPGrcHW/3Vcvyfcu7pr
+         vD7YAsk93IWAc2PMknFnncFwVKSnNzxJ7LhWIjtERZnAdYEoNsVL+Xcd+TJ18p6Tt5VO
+         8V8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790150802; x=1790755602;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uT1Pv4J7yBTtJtITNEIgiikLudfOmUZ+CuCDcjNwO28=;
+        b=ei5eUTUi/jJ4SEBgzykTL0yJ8DpcKEPRbqFENmSkoD4yqPNoI3wJJj2augSVtTJ4oT
+         ddZF6A1t4KwHUctwMHZB6ZytEdCncoZeennLfZUz3di2Dgjc0TM2CBTTWvUkMX0CWU5c
+         c2/8z/SSG+RuPwV9NKTN4bl1fMBLfoyABd0BH5cmT7sLSIQN1djI1n7tw3mdKpPZ8EKI
+         +ijb2sVnEcu34UOQzD6uYDF0VrXdhKFb43ngvvd/D7H40DRmMOwgqNwnAik0wmUD7UqW
+         BMKfKmgPIWeGOqBURR8V+u6tP39Kd4xGbXsxQBHiJbDtVaXPBTGT1YwqbqBgCkjyhmiC
+         EWjQ==
+X-Gm-Message-State: AFuF++ns8HjWPohdROluuVUBXFEFN1kOnRC1Iu6Uk7qoVS4QtU7L9PUf
+	/EmQNwaExVxYGtJSrIiKMfd9vCQVnGSRy9vCZwO8mL5ExqNgoh605ygS/EPHcYWM5ZgOAc6uLNF
+	ScgS+4Q==
+X-Gm-Gg: AYBFou1BMBpHUjl/X17Pa3QVjSEJjLCsHcKt/rVJN3PJmF9+3e6HK1UuSSCv8GWfLYX
+	jql4HN1+qDyvMkUCs+P1KChn8olkJttbGU6EK/PRmrpIPU9269VFnL6GYz2W0lQ6ybP6aVG2I3C
+	npQFEUrb8RUVWujpn+ioeT62POrlblUxnLfIwV7IAc/PoA6xGgS4ysZjl5SEsD2C+s+5lCbwIyU
+	4bSe4449cr/o54/By3UAkIhMkcXX5KHe3WXxRAXsRU/yFxB8CmgchaYvLYAsoj58qroC/I9ASq+
+	SdhZarNrLpG+gDVG7Q0tQ7GiLC8CKC0aIt7flUqNjOFf6W97pAh7xqarMTF3WxGCLPM/nCAiBiW
+	zXBYaf8sDlPyB+U/FcJJlNA3AtVvZiQc6uOmRIKyPc+AXmDE1UWmAPLz49MMtSkDQX6qWzW3Dqw
+	rbp9cXmmLA6IGOZWlAGxoF28G2pJl96F6vGL4s5mTfxUl3EJGKAv4iBr2Ivfph5QaTojoeyy6hX
+	oDbiq5f6Lip1FCyEfjFjJmtXiNCkrBo52JJVY3tEMeCMoHz28RwoA==
+X-Received: by 2002:a05:6000:40cc:b0:487:21a4:f617 with SMTP id ffacd0b85a97d-48867069105mr2943801f8f.19.1790150801786;
+        Wed, 23 Sep 2026 01:06:41 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488682668dcsm5442336f8f.1.2026.09.23.01.06.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 01:06:41 -0700 (PDT)
+Date: Wed, 23 Sep 2026 09:06:37 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	Linux Trace Kernel <linux-trace-kernel@vger.kernel.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [PATCH] ring-buffer: Add a MAINTAINERS category specific for the
+ tracing ring-buffer
+Message-ID: <arOIjWCRhnYxkUcR@google.com>
+References: <20260908094035.0b180833@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 7/8] dt-bindings: sound: qcom: add Tambora WCD9378 SDCA
- codec
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Maciej Strozek <mstrozek@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- patches@opensource.cirrus.com
-References: <20260918131914.681588-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260918131914.681588-8-srinivas.kandagatla@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260918131914.681588-8-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908094035.0b180833@gandalf.local.home>
 
-On 18/09/2026 15:19, Srinivas Kandagatla wrote:
-> +  vdd-mic-bias-supply:
-> +    description: Mic bias supply.
+On Tue, Sep 08, 2026 at 09:40:35AM -0400, Steven Rostedt wrote:
+> From: Steven Rostedt <rostedt@goodmis.org>
+> 
+> The ring buffer code in the tracing directory has always been decoupled
+> from the tracing code. It had a clean abstracted API to allow it to be
+> used by systems outside of tracing. The API even allowed the ring buffer
+> code to be drastically changed without affecting the tracing sub-system.
+> 
+> Recently, Vincent Donnefort has been contributing a lot of work to enhance
+> the ring buffer. He implemented the user space mappings and recently
+> created a version to allow pKVM hypervisors to use the code to trace
+> the hypervisor and expose the events to the user.
+> 
+> Create a separate category for maintaining the ring buffer code so that
+> Vincent can become an official maintainer of it. His work has little to do
+> with the tracing code itself. In the future, he may even be the main
+> maintainer of the ring buffer.
+> 
+> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+> ---
+>  MAINTAINERS | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d00c..71bd2f57055d 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -27778,6 +27778,22 @@ F:	kernel/trace/trace_irqsoff.c
+>  F:	kernel/trace/trace_osnoise.c
+>  F:	kernel/trace/trace_sched_wakeup.c
+>  
+> +TRACING RING BUFFER
+> +M:	Steven Rostedt <rostedt@goodmis.org>
+> +M:	Vincent Donnefort <vdonnefort@google.com>
+> +M:	Masami Hiramatsu <mhiramat@kernel.org>
+> +L:	linux-kernel@vger.kernel.org
+> +L:	linux-trace-kernel@vger.kernel.org
+> +S:	Maintained
+> +Q:	https://patchwork.kernel.org/project/linux-trace-kernel/list/
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+> +F:	Documentation/trace/ring-buffer*
+> +F:	Documentation/trace/remotes.rst
+> +F:	include/linux/ring-buffer*.h
+> +F:	kernel/trace/*ring_buffer*.c
+
+as it relates to simple_ring_buffer.c do you want to add here undefsyms_base.c?
+
+> +F:	kernel/trace/remote*.c
+> +F:	tools/testing/selftests/ring-buffer/
 > +
-> +  '#sound-dai-cells':
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - qcom,sdca-compliant
-> +  - qcom,port-mapping
-> +  - reset-gpios
-> +  - vdd-buck-supply
-> +  - vdd-rxtx-supply
-> +  - vdd-io-supply
-> +  - vdd-mic-bias-supply
-> +  - '#sound-dai-cells'
-> +
+>  TRADITIONAL CHINESE DOCUMENTATION
+>  M:	Chen-Yu Yeh <chenyou910331@gmail.com>
+>  M:	Weijie Yuan <wy@wyuan.org>
+> -- 
+> 2.53.0
+> 
 
-You need $ref to dai-common.yaml
-
-> +additionalProperties: false
-
-And this becomes unevaluatedProperties.
-
-
-
-Best regards,
-Krzysztof
+-- 
+Vincent
