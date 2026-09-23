@@ -1,203 +1,507 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAE4495042
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:14:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48494334AA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187253; cv=none; b=jpkFUpsYPopz/GCguEBzZH1mgR0/JAQZxYbPQ8YDfgWQPr96nmFUzE5zZv2tFyKcdtdvpzb/Pa61EK4KmVi2du8RUGjNnyHDcX6/Bpvs5ZJmT/J9RSj1fHOrW7w/AVIS8sSGjIdDs7TXaJGk2owVnkqS9vtncLcV7liwdD3Q45Q=
+	t=1790187248; cv=none; b=GUJRinGMdhCShlsUzc3ljJUB9tyU5hmGHAcAhig5/uGfwuKt5gpoYNYPZ9oJRmgviiPn+68ZVVdkQyT+JYA6mlyMfG1ovg2eb2eWM/IF++G1swXSmvMKnzR2vJHNqMWkDZ1Rs+u2MNj3PsQu02Ppad3w+IFzctUIenv6e0jpPns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187253; c=relaxed/simple;
-	bh=NoYTdwxwn+++VlSqYDmNkTbGe8sVLyF98wvRfV4aZr4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W+jV7RW5/q+EWCqfiZMe/+FUDqNc5HzXBr+85VrWlWSi7Vu3Au+w/URDIKqVAATB2FqKnLbWYZrObcE5mfvlL2rwMbuBZPy/go9NsCycrD040QDd0yzHRHU85e9agM3XicflTJdt4wvAudkFhgDAJkC8H969EFJS2+qOj4XkJp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=daLc1ivM; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790187248; c=relaxed/simple;
+	bh=ee2kJT8GquMMdGQtvdAGiy8A/d5ae4lzGaQMYz7Zzcw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=klpRyGHVBoILH3cJPRtAMhYVmFI0y0j0mGSKGzoa08WQuiGcOWYu8xLKtYAWtc5W7ywOsO9b9BXPVRRlGo/snoktGK+YqO3BsZFew+0SoJj/029vjACO7w3bCq2VUo1jIfsZnxubKbAhtJamX4KHeSFaREppIL4dEeV6PTlOmaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rH7sNi+h; arc=none smtp.client-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="daLc1ivM"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dc83so972049f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:14:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rH7sNi+h"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-33310847fcaso2105425eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:13:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790187244; x=1790792044; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fkORU3gh/MDLpHIFia2dyxO/HqIPBw2hOdFlH/z2RPg=;
-        b=daLc1ivM8Lac88tYJsbt6TEpP2R1ZLbolFtdlpp0wSYnxGbBvd7IF5M39lcv3SLnLP
-         36KEvz16fAprr2EcctZLsn7IdqmNEt4QNoc2Hy1qOIwZ6WTXXAbUNxuWhwq9k4SHZc0W
-         TArLvkQFVwjOvsGJ611XK9m9pnPA3M8lHRF7J+CsvAVZ6mrodXjzeLE90PqcWd5Hs8Eu
-         ZBVNZJleeiOarrH88nwwZWg3OKVY/4liFaItd80wBtfJ2KVOrnnZ2A4JI7xHrlyn2xvt
-         beFnK7q6zrcX+jU/RWsW/IInOfBtmUadTB/DuFfl05gI+gRHZ38BsMUddgFW0fdINEQp
-         UkCw==
+        d=google.com; s=20251104; t=1790187232; x=1790792032; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hNDUERV1AoKVdvNnb21lNRA6FnoSyxnPHWLQUjfm44A=;
+        b=rH7sNi+hVRo6FGETEj9X5TGFXgSs/OXXnqaMSbi/t4ESReHSAgtNMSDjt8ZjYaNWe/
+         TqmIBM4zOKHkL1c41Eg7Wb6qmI1SAhcMvnd8Bo/hzqEY0OGpkTb8PV8TAnCW0HaIzNEa
+         OMFt+mlNh3C8WV6RLxOV/X0l2YwWx//qqx9ho/XdJS9VdC9NxVQcvOhTV6dLprjbJ2OD
+         zhSy1IDVFwkZQF11KKW4D2EetG3g/qV+rYbdsNIbEnRRhOvcAHWdU205YaBsqRmNX+r3
+         ytOCDij9JSO9a9GW5JZrnoABlvRBhSfQurRBslF64zRLEkBOYXwRoByY8mQ9Ze9UGDKt
+         w+hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187244; x=1790792044;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790187232; x=1790792032;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fkORU3gh/MDLpHIFia2dyxO/HqIPBw2hOdFlH/z2RPg=;
-        b=GbcjuoJVY0Gn6okJh6+VolTjVMZcVF0qf5oRrJja5JPOZI6pUjYs82YRWJj53bmomN
-         R+h3KqhJcCk3C5dlsol5/TOPEuz/ztzrNWzRv3K/sr9bz0Ta9xKanrkuTLhOq2m6f4IF
-         /ZhqjFrkBchGEDKDr2T/6h5fyUOKwrrmIi3L2QMbg0l62B65xvAgK9tzvf42kAVgh5Br
-         7OauybYS4dkCeKiV6B5iOHKgxAX+eZdw902p9nOmxK8wiZa7N5klG9yopasxjOrq80yD
-         D22Z4H+4GusxkD5D0les1v+qpjr4KullWDfIGQHPEJu6bml+cYgTBh5upHnn/NP17sRF
-         IbQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwHG1tnxgZZP2Wi2wqODfJp1kQh+sydls4y/M7NO7SKsDBogPsseUMfmGIbDznXwOFAsOUOFWdyd56TrEc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kdakdGvGBUS3yJEsgqniQD03/BJPVyaJ5RdMsx0jFGyI/nEesX
-	UFVKvnrStVEQwgmAPkZzByA0h+xi78zy5R2TrJHbM4OrhoJIMfJIGbb8
-X-Gm-Gg: AYBFou2YXoW7jBPiEChMVq+g9n+S8bScPqz2R2vzidXn2Y2XKoEzl2S7j5ebUXeImcs
-	PaBBmmCX17s8JK1nz3Yp+1eH2B1ndCsNQTYpfF2XZ5gRLZNojwwTlDsfi7ozJkYkOMt3b9BgP2M
-	vfu15l5su/DzUTLWOY54nRXe5OAc3dEFVIj41HsgSU0yswKUWujvSvX7IOuLaSOECyw1qzKQJa7
-	HW67jy0KbeMPnPm3685rpWSmbKGeKySKzbFXkbB0apo8OWugHLJlHZPhs+Q1vHvszGOcx1kwdNI
-	LYTqmel8VBTQxLMIMEiBtajDucY7lDv315jwc0tgtm25rG+boCh4jdxnaBJczPUohFbPr5gxSXW
-	isFWPQuBQ73r+/YXXyA9aqm8RPjdaQPLT4E91wxZkXZfLHt5UAmhJQ+dADWp2om1sV2R/BnKU4g
-	Bxf2r74OoJrOWKrlgFR4DimvLmlWigZVs/HcLgOmdXA1F7Fhw2dS4ZVKmd+y79Yv5hbaj8pU0Qm
-	avJK5Ia1uKY5mKG+lEXi0tBD99m9hg+IvOK5ZOCvfAj
-X-Received: by 2002:a5d:5d0c:0:b0:487:aff:9952 with SMTP id ffacd0b85a97d-4886706f69emr6125723f8f.16.1790187244370;
-        Wed, 23 Sep 2026 11:14:04 -0700 (PDT)
-Received: from cachyos-x8664 (213-225-11-125.nat.highway.a1.net. [213.225.11.125])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488684862a3sm8007107f8f.7.2026.09.23.11.14.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 11:14:03 -0700 (PDT)
-From: Roman Stingler <roman.stingler@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Roman Stingler <roman.stingler@gmail.com>,
-	Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
-	Erik Hakansson <erikhakan@gmail.com>,
-	Filipe Lains <lains@riseup.net>,
-	Bastien Nocera <hadess@hadess.net>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev
-Subject: [PATCH] HID: logitech-hidpp: do not overwrite the device's hi-res wheel mode
-Date: Wed, 23 Sep 2026 20:11:29 +0200
-Message-ID: <20260923181203.422097-1-roman.stingler@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=hNDUERV1AoKVdvNnb21lNRA6FnoSyxnPHWLQUjfm44A=;
+        b=tkHIL8BzpBMoDMbD9J8FYaRgZzEhTOsbDcKOuHWmkH0voLuNoLYS7kBkGTBlNOKPxk
+         ivuS1WjrrHAN+hP1z3SS7isfTjYatm+OaGPM1JBmOMv8cFb0ePjRpfHPrHakk1DTFVAG
+         6ACRJ/zmL2aaWijBVD4T03UyJfUak1DEO5GyJlPJIHxygPbxM/0NyDWCsQCgPHKuzwaJ
+         //WS96BthMH8YMlSZkXmtzbCg1HPTUNxmpJaQQF+wJVwdp+MxlIySkyCbjBCgiOtj4oL
+         O3MDNyHN2SLjQkWk6T3zSFcbMY2NJSaFHQ9bFb6jVvtBd9Xk+h935g9lZHvjgRqb/GPS
+         YEAw==
+X-Forwarded-Encrypted: i=1; AKwUvBypR4zZmatEfIxx+y+ara0yI/VmbRCSe2JjkVCEVslV559/mwrnmGva2VKSB7bFloxTBScoV+4wDUDNmQM=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2E9EJWqBdgPEan6xEMKK8Nw1aVPXAO6DcN72oNWMO1LU/jwEf
+	Y8pu0+/DUlM64F7sGQGGjWIRRquvfBTAKk9rVa0mo+PX4a4GnPBPdvuhayJ4/xmCUSzqgm+E8Fm
+	4cMnCD44wmw==
+X-Received: from dldnz10.prod.google.com ([2002:a05:701a:ca0a:b0:144:dc81:9760])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:3a08:b0:143:298f:33b6
+ with SMTP id a92af1059eb24-144f91721e4mr4578832c88.46.1790187230792; Wed, 23
+ Sep 2026 11:13:50 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:11:44 -0700
+In-Reply-To: <20260923181213.3032038-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <cover.1789966896.git.irogers@google.com> <20260923181213.3032038-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
+Message-ID: <20260923181213.3032038-22-irogers@google.com>
+Subject: [PATCH v3 21/49] perf python: Port event_analyzing_sample to perf module
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
+	namhyung@kernel.org
+Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com, 
+	james.clark@linaro.org, leo.yan@linux.dev, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
+	tmricht@linux.ibm.com
+Content-Type: text/plain; charset="UTF-8"
 
-hi_res_scroll_enable() unconditionally puts HID++ 2.0 devices supporting
-the HiRes Wheel feature (0x2121) into high-resolution mode on every
-connect event.
+Port event_analyzing_sample.py to a standalone script in
+tools/perf/python/ using the perf module and standard library sqlite3
+module.
 
-On at least the MX Master 4 that mode is persistent state in the device.
-With hid-logitech-hidpp unloaded, a mode set from userspace survives
-switching the mouse off and on again. Writing it at connect therefore
-destroys a setting the user configured, and does so on every probe --
-cold boot, receiver replug or module reload -- so userspace cannot
-reliably keep it either: it gets no indication that the mode it set has
-been changed underneath it.
+Improvements compared to the legacy script:
+- Encapsulate database state in a _DB container instead of mutating
+  module-level globals, and ensure temporary SQLite database files are
+  cleaned up on exit.
+- Add argparse CLI options (-i/--input and -d/--db) while preserving
+  PerfEvent, PebsEvent, and PebsNHM binary raw_buf unpacking and
+  symbol/DSO histogram reporting.
+- Remove Python 2 compatibility code and add type annotations.
 
-This became visible when Bolt receivers gained support in 7.3. Before
-that these devices were driven by hid-generic, hid-logitech-hidpp never
-bound to them, and nothing in the kernel wrote the setting.
+Add a shell test (test_event_analyzing_sample_python.sh) to verify the
+standalone script.
 
-0x2121 exposes getWheelMode alongside setWheelMode. Read the current
-mode and scale vertical_wheel_counter.wheel_multiplier to match rather
-than forcing high resolution: a device left in high-resolution mode
-still gets its multiplier, and one the user configured for low
-resolution is left alone.
-
-Note this changes behaviour for devices sitting at a low-resolution
-factory default -- the kernel will no longer switch those to
-high-resolution scrolling.
-
-Link: https://lore.kernel.org/all/20260920094508.39682-1-roman.stingler@gmail.com/
-Signed-off-by: Roman Stingler <roman.stingler@gmail.com>
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
 ---
-Lovekesh Solanki proposed an alternative in the report thread which
-remembers the last mode seen from userspace. That fixes suspend/resume
-but not the probe cases above, and he suggested sending this instead:
-https://lore.kernel.org/all/arJs7GjCP3r4IaM-@eggarch/
+ tools/perf/python/event_analyzing_sample.py   | 332 ++++++++++++++++++
+ .../test_event_analyzing_sample_python.sh     |  62 ++++
+ 2 files changed, 394 insertions(+)
+ create mode 100755 tools/perf/python/event_analyzing_sample.py
+ create mode 100755 tools/perf/tests/shell/test_event_analyzing_sample_python.sh
 
-Tested on 7.3-rc3 with an MX Master 4 (WPID B042) behind a Bolt
-receiver, built as a module and loaded at boot:
-
-                        stock   this patch
-  suspend/resume          no        yes
-  module reload           no        yes
-  cold boot               no        yes
-
-With the mouse left in high-resolution mode, a full module reload leaves
-it in high resolution and the multiplier is fetched as before. I checked
-that the mode is honoured; I did not instrument events per detent,
-though that path is unchanged.
-
- drivers/hid/hid-logitech-hidpp.c | 30 +++++++++++++++++++-----------
- 1 file changed, 19 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
-index 493763a12518..338477bfcaeb 100644
---- a/drivers/hid/hid-logitech-hidpp.c
-+++ b/drivers/hid/hid-logitech-hidpp.c
-@@ -2044,6 +2044,7 @@ static int hidpp_hrs_set_highres_scrolling_mode(struct hidpp_device *hidpp,
- #define HIDPP_PAGE_HIRES_WHEEL		0x2121
- 
- #define CMD_HIRES_WHEEL_GET_WHEEL_CAPABILITY	0x00
-+#define CMD_HIRES_WHEEL_GET_WHEEL_MODE		0x10
- #define CMD_HIRES_WHEEL_SET_WHEEL_MODE		0x20
- 
- static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
-@@ -2072,12 +2073,10 @@ static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
- 	return ret;
- }
- 
--static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
--	bool high_resolution, bool use_hidpp)
-+static int hidpp_hrw_get_wheel_mode(struct hidpp_device *hidpp, u8 *mode)
- {
- 	u8 feature_index;
- 	int ret;
--	u8 params[1];
- 	struct hidpp_report response;
- 
- 	ret = hidpp_root_get_feature(hidpp, HIDPP_PAGE_HIRES_WHEEL,
-@@ -2085,13 +2084,14 @@ static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
- 	if (ret)
- 		return ret;
- 
--	params[0] = (invert          ? BIT(2) : 0) |
--		    (high_resolution ? BIT(1) : 0) |
--		    (use_hidpp       ? BIT(0) : 0);
-+	ret = hidpp_send_fap_command_sync(hidpp, feature_index,
-+					  CMD_HIRES_WHEEL_GET_WHEEL_MODE,
-+					  NULL, 0, &response);
-+	if (ret)
-+		return ret;
- 
--	return hidpp_send_fap_command_sync(hidpp, feature_index,
--					   CMD_HIRES_WHEEL_SET_WHEEL_MODE,
--					   params, sizeof(params), &response);
-+	*mode = response.fap.params[0];
-+	return 0;
- }
- 
- /* -------------------------------------------------------------------------- */
-@@ -3910,8 +3910,16 @@ static int hi_res_scroll_enable(struct hidpp_device *hidpp)
- 	u8 multiplier = 1;
- 
- 	if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_WHEEL) {
--		ret = hidpp_hrw_set_wheel_mode(hidpp, false, true, false);
--		if (ret == 0)
-+		u8 mode;
+diff --git a/tools/perf/python/event_analyzing_sample.py b/tools/perf/python/event_analyzing_sample.py
+new file mode 100755
+index 000000000000..15b47cff9fa3
+--- /dev/null
++++ b/tools/perf/python/event_analyzing_sample.py
+@@ -0,0 +1,332 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: GPL-2.0
++"""
++General event handler in Python, using SQLite to analyze events.
 +
-+		/*
-+		 * The wheel mode is persistent state in the device, so read it
-+		 * rather than overwriting it, and scale to match. A device
-+		 * left in hi-res still gets the multiplier it needs; one the
-+		 * user configured for low resolution is left alone.
-+		 */
-+		ret = hidpp_hrw_get_wheel_mode(hidpp, &mode);
-+		if (ret == 0 && (mode & BIT(1)))
- 			ret = hidpp_hrw_get_wheel_capability(hidpp, &multiplier);
- 	} else if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_SCROLL) {
- 		ret = hidpp_hrs_set_highres_scrolling_mode(hidpp, true,
-
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
++The 2 database related functions in this script just show how to gather
++the basic information, and users can modify and write their own functions
++according to their specific requirement.
++
++The first function "show_general_events" just does a basic grouping for all
++generic events with the help of sqlite, and the 2nd one "show_pebs_ll" is
++for a x86 HW PMU event: PEBS with load latency data.
++
++Ported from tools/perf/scripts/python/event_analyzing_sample.py
++"""
++from __future__ import annotations
++
++import argparse
++import math
++import os
++import sqlite3
++import struct
++import tempfile
++from typing import Any
++import perf
++
++# Event types, user could add more here
++EVTYPE_GENERIC  = 0
++EVTYPE_PEBS     = 1     # Basic PEBS event
++EVTYPE_PEBS_LL  = 2     # PEBS event with load latency info
++EVTYPE_IBS      = 3
++
++#
++# Currently we don't have good way to tell the event type, but by
++# the size of raw buffer, raw PEBS event with load latency data's
++# size is 176 bytes, while the pure PEBS event's size is 144 bytes.
++#
++def create_event(name, comm, dso, symbol, raw_buf):
++    """Create an event object based on raw buffer size."""
++    if len(raw_buf) == 144:
++        event = PebsEvent(name, comm, dso, symbol, raw_buf)
++    elif len(raw_buf) == 176:
++        event = PebsNHM(name, comm, dso, symbol, raw_buf)
++    else:
++        event = PerfEvent(name, comm, dso, symbol, raw_buf)
++
++    return event
++
++class PerfEvent:
++    """Base class for all perf event samples."""
++    event_num = 0
++    def __init__(self, name, comm, dso, symbol, raw_buf, ev_type=EVTYPE_GENERIC):
++        self.name       = name
++        self.comm       = comm
++        self.dso        = dso
++        self.symbol     = symbol
++        self.raw_buf    = raw_buf
++        self.ev_type    = ev_type
++        PerfEvent.event_num += 1
++
++    def show(self):
++        """Display PMU event info."""
++        print(f"PMU event: name={self.name:12s}, symbol={self.symbol:24s}, "
++              f"comm={self.comm:8s}, dso={self.dso:12s}")
++
++#
++# Basic Intel PEBS (Precise Event-based Sampling) event, whose raw buffer
++# contains the context info when that event happened: the EFLAGS and
++# linear IP info, as well as all the registers.
++#
++class PebsEvent(PerfEvent):
++    """Intel PEBS event."""
++    pebs_num = 0
++    def __init__(self, name, comm, dso, symbol, raw_buf, ev_type=EVTYPE_PEBS):
++        tmp_buf = raw_buf[0:80]
++        flags, ip, ax, bx, cx, dx, si, di, bp, sp = struct.unpack('<QQQQQQQQQQ', tmp_buf)
++        self.flags = flags
++        self.ip    = ip
++        self.ax    = ax
++        self.bx    = bx
++        self.cx    = cx
++        self.dx    = dx
++        self.si    = si
++        self.di    = di
++        self.bp    = bp
++        self.sp    = sp
++
++        super().__init__(name, comm, dso, symbol, raw_buf, ev_type)
++        PebsEvent.pebs_num += 1
++        del tmp_buf
++
++#
++# Intel Nehalem and Westmere support PEBS plus Load Latency info which lie
++# in the four 64 bit words write after the PEBS data:
++#       Status: records the IA32_PERF_GLOBAL_STATUS register value
++#       DLA:    Data Linear Address (EIP)
++#       DSE:    Data Source Encoding, where the latency happens, hit or miss
++#               in L1/L2/L3 or IO operations
++#       LAT:    the actual latency in cycles
++#
++class PebsNHM(PebsEvent):
++    """Intel Nehalem/Westmere PEBS event with load latency."""
++    pebs_nhm_num = 0
++    def __init__(self, name, comm, dso, symbol, raw_buf, ev_type=EVTYPE_PEBS_LL):
++        tmp_buf = raw_buf[144:176]
++        status, dla, dse, lat = struct.unpack('<QQQQ', tmp_buf)
++        self.status = status
++        self.dla = dla
++        self.dse = dse
++        self.lat = lat
++
++        super().__init__(name, comm, dso, symbol, raw_buf, ev_type)
++        PebsNHM.pebs_nhm_num += 1
++        del tmp_buf
++
++session: Any = None
++
++class _DB:
++    con: sqlite3.Connection | None = None
++    temp_path: str | None = None
++
++def trace_begin(db_path: str | None = None) -> None:
++    """Initialize database tables."""
++    print("In trace_begin:\n")
++    if not db_path:
++        fd, db_path = tempfile.mkstemp(prefix="perf_events_", suffix=".db")
++        os.close(fd)
++        _DB.temp_path = db_path
++    con = sqlite3.connect(db_path)
++    try:
++        # Drop any pre-existing tables so repeated runs do not accumulate duplicate events.
++        con.execute("drop table if exists gen_events;")
++        con.execute("drop table if exists pebs_ll;")
++
++        # Will create several tables at the start, pebs_ll is for PEBS data with
++        # load latency info, while gen_events is for general event.
++        con.execute("""
++            create table if not exists gen_events (
++                    name text,
++                    symbol text,
++                    comm text,
++                    dso text
++            );""")
++        con.execute("""
++            create table if not exists pebs_ll (
++                    name text,
++                    symbol text,
++                    comm text,
++                    dso text,
++                    flags integer,
++                    ip integer,
++                    status integer,
++                    dse integer,
++                    dla integer,
++                    lat integer
++            );""")
++    except BaseException:
++        con.close()
++        raise
++    _DB.con = con
++
++def insert_db(event: Any) -> None:
++    """Insert event into database."""
++    con = _DB.con
++    assert con is not None
++    if event.ev_type == EVTYPE_GENERIC:
++        con.execute("insert into gen_events values(?, ?, ?, ?)",
++                    (event.name, event.symbol, event.comm, event.dso))
++    elif event.ev_type == EVTYPE_PEBS_LL:
++        # Python's sqlite3 module only accepts signed 64-bit integers (-2^63 to 2^63 - 1)
++        # and raises OverflowError for unsigned 64-bit kernel pointers (> 0x7fffffffffffffff).
++        # Convert unsigned 64-bit addresses to signed 64-bit two's-complement integers.
++        ip = event.ip - 0x10000000000000000 if event.ip > 0x7fffffffffffffff else event.ip
++        status = (event.status - 0x10000000000000000
++                  if event.status > 0x7fffffffffffffff else event.status)
++        dla = event.dla - 0x10000000000000000 if event.dla > 0x7fffffffffffffff else event.dla
++        con.execute("insert into pebs_ll values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
++                    (event.name, event.symbol, event.comm, event.dso, event.flags,
++                     ip, status, event.dse, dla, event.lat))
++
++def process_event(sample: perf.sample_event) -> None:
++    """Callback for processing events."""
++    # Create and insert event object to a database so that user could
++    # do more analysis with simple database commands.
++
++    # Resolve comm, symbol, dso
++    comm = "Unknown_comm"
++    try:
++        if session is not None:
++            proc = session.find_thread(sample.sample_pid, sample.sample_tid)
++            if proc:
++                comm = proc.comm() or "Unknown_comm"
++    except TypeError:
++        pass
++
++    # Symbol and dso info are not always resolved
++    dso = sample.dso if hasattr(sample, 'dso') and sample.dso else "Unknown_dso"
++    symbol = sample.symbol if hasattr(sample, 'symbol') and sample.symbol else "Unknown_symbol"
++    name = str(sample.evsel)
++    if name.startswith("evsel("):
++        name = name[6:-1]
++
++    # Create the event object and insert it to the right table in database
++    try:
++        event = create_event(name, comm, dso, symbol, sample.raw_buf)
++        insert_db(event)
++    except (sqlite3.Error, ValueError, TypeError, OverflowError) as e:
++        print(f"Error creating/inserting event: {e}")
++
++def num2sym(num: int) -> str:
++    """Convert number to a histogram symbol (log2)."""
++    # As the event number may be very big, so we can't use linear way
++    # to show the histogram in real number, but use a log2 algorithm.
++    if num <= 0:
++        return ""
++    snum = '#' * (int(math.log(num, 2)) + 1)
++    return snum
++
++def show_general_events() -> None:
++    """Display statistics for general events."""
++    con = _DB.con
++    assert con is not None
++    count = con.execute("select count(*) from gen_events")
++    for t in count:
++        print(f"There is {t[0]} records in gen_events table")
++        if t[0] == 0:
++            return
++
++    print("Statistics about the general events grouped by thread/symbol/dso: \n")
++
++    # Group by thread
++    commq = con.execute("""
++        select comm, count(comm) from gen_events
++        group by comm order by -count(comm)
++    """)
++    print(f"\n{ 'comm':>16} {'number':>8} {'histogram':>16}\n{'='*42}")
++    for row in commq:
++        print(f"{row[0]:>16} {row[1]:>8}     {num2sym(row[1])}")
++
++    # Group by symbol
++    print(f"\n{'symbol':>32} {'number':>8} {'histogram':>16}\n{'='*58}")
++    symbolq = con.execute("""
++        select symbol, count(symbol) from gen_events
++        group by symbol order by -count(symbol)
++    """)
++    for row in symbolq:
++        print(f"{row[0]:>32} {row[1]:>8}     {num2sym(row[1])}")
++
++    # Group by dso
++    print(f"\n{'dso':>40} {'number':>8} {'histogram':>16}\n{'='*74}")
++    dsoq = con.execute("select dso, count(dso) from gen_events group by dso order by -count(dso)")
++    for row in dsoq:
++        print(f"{row[0]:>40} {row[1]:>8}     {num2sym(row[1])}")
++
++def show_pebs_ll() -> None:
++    """Display statistics for PEBS load latency events."""
++    con = _DB.con
++    assert con is not None
++    # This function just shows the basic info, and we could do more with the
++    # data in the tables, like checking the function parameters when some
++    # big latency events happen.
++    count = con.execute("select count(*) from pebs_ll")
++    for t in count:
++        print(f"There is {t[0]} records in pebs_ll table")
++        if t[0] == 0:
++            return
++
++    print("Statistics about the PEBS Load Latency events grouped by thread/symbol/dse/latency: \n")
++
++    # Group by thread
++    commq = con.execute("select comm, count(comm) from pebs_ll group by comm order by -count(comm)")
++    print(f"\n{'comm':>16} {'number':>8} {'histogram':>16}\n{'='*42}")
++    for row in commq:
++        print(f"{row[0]:>16} {row[1]:>8}     {num2sym(row[1])}")
++
++    # Group by symbol
++    print(f"\n{'symbol':>32} {'number':>8} {'histogram':>16}\n{'='*58}")
++    symbolq = con.execute("""
++        select symbol, count(symbol) from pebs_ll
++        group by symbol order by -count(symbol)
++    """)
++    for row in symbolq:
++        print(f"{row[0]:>32} {row[1]:>8}     {num2sym(row[1])}")
++
++    # Group by dse
++    dseq = con.execute("select dse, count(dse) from pebs_ll group by dse order by -count(dse)")
++    print(f"\n{'dse':>32} {'number':>8} {'histogram':>16}\n{'='*58}")
++    for row in dseq:
++        print(f"{row[0]:>32} {row[1]:>8}     {num2sym(row[1])}")
++
++    # Group by latency
++    latq = con.execute("select lat, count(lat) from pebs_ll group by lat order by lat")
++    print(f"\n{'latency':>32} {'number':>8} {'histogram':>16}\n{'='*58}")
++    for row in latq:
++        print(f"{str(row[0]):>32} {row[1]:>8}     {num2sym(row[1])}")
++
++def trace_end() -> None:
++    """Called at the end of trace processing."""
++    print("In trace_end:\n")
++    try:
++        if _DB.con:
++            try:
++                _DB.con.commit()
++                show_general_events()
++                show_pebs_ll()
++            finally:
++                _DB.con.close()
++                _DB.con = None
++    finally:
++        if _DB.temp_path and os.path.exists(_DB.temp_path):
++            try:
++                os.remove(_DB.temp_path)
++            except OSError:
++                pass
++            _DB.temp_path = None
++
++if __name__ == "__main__":
++    ap = argparse.ArgumentParser(description="Analyze events with SQLite")
++    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
++    ap.add_argument("-d", "--db", "--database", dest="database", default=None,
++                    help="Database file name (defaults to a temporary file cleaned up on exit)")
++    args = ap.parse_args()
++
++    try:
++        trace_begin(args.database)
++        session = perf.session(perf.data(args.input), sample=process_event)
++        session.process_events()
++    finally:
++        # Break the reference cycle between session and process_event (whose module
++        # globals reference session) so the C session object is deterministically freed.
++        session = None
++        trace_end()
+diff --git a/tools/perf/tests/shell/test_event_analyzing_sample_python.sh b/tools/perf/tests/shell/test_event_analyzing_sample_python.sh
+new file mode 100755
+index 000000000000..4678edfd9e5b
+--- /dev/null
++++ b/tools/perf/tests/shell/test_event_analyzing_sample_python.sh
+@@ -0,0 +1,62 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0
++# event_analyzing_sample python test
++
++set -e
++
++shelldir=$(dirname "$0")
++# shellcheck source=lib/setup_python.sh
++. "${shelldir}"/lib/setup_python.sh
++
++# If we don't have the perf python module, we can't test
++if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
++	echo "Skipping test, perf python module not found"
++	exit 2
++fi
++
++script_dir="$(dirname "$0")/../../python"
++script_path="${script_dir}/event_analyzing_sample.py"
++
++if [ ! -f "$script_path" ]; then
++	echo "Skipping test, event_analyzing_sample.py not found at $script_path"
++	exit 2
++fi
++
++err=0
++temp_dir=""
++
++cleanup() {
++	rm -rf "${temp_dir}"
++}
++
++trap 'cleanup' EXIT TERM INT
++
++temp_dir=$(mktemp -d /tmp/perf.event_analyzing.XXXXXX)
++temp_data="${temp_dir}/perf.data"
++temp_db="${temp_dir}/perf.db"
++
++test_file_mode() {
++	echo "Testing event_analyzing_sample.py..."
++
++	# Generate some events
++	if ! perf record -o "${temp_data}" -- perf test -w noploop >/dev/null 2>&1; then
++		echo "Skipping test, perf record failed"
++		exit 2
++	fi
++
++	# Run the script
++	if ! "$PYTHON" "$script_path" -i "${temp_data}" -d "${temp_db}" > "${temp_dir}/perf.out" 2>&1; then
++		echo "File mode test failed."
++		err=1
++	elif ! grep -q "Statistics about the general events" "${temp_dir}/perf.out" || \
++	     grep -q "Error creating/inserting event" "${temp_dir}/perf.out"; then
++		echo "Event analysis output validation failed."
++		err=1
++	else
++		echo "File mode test passed."
++	fi
++}
++
++test_file_mode
++
++exit $err
 -- 
-2.55.0
+2.56.0.rc1.310.g51773c2048-goog
 
