@@ -1,194 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012065.outbound.protection.outlook.com [52.101.53.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690F6499F2F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:20:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790162435; cv=none; b=Z6DWoh7aA8VnNtGxvdjt5qLN/Gd0AfEC9KWkUPIYk6ISKf2ig5TZUwmQvnjmRYvTOO/PrN3++4O5npZYCIfsHgCQSuqTA8z71Mx5o8Qaq1qbUrqmmMaYRQ0U37ymqc8BOD/3Uiul0IrEbG7ptHh6E2w9Fn+ReaW336KNwNp8SIg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790162435; c=relaxed/simple;
-	bh=rFUaC1WdxxLQ9Q7b8x3yzLqeoCkKGkIzB/VC4T+rId0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eGo9NTlJBY5jpWeiag8T1zb2qQQsWSeGBy3b5tmCv+W3A4DCWDdmUE81B9FZq8QL/Uxq5VSZrNmVPTuGtGz/O4FqgYXGmW3GyGy9pFxoP0aTG6omT8iMr2+LIU/V6l7VymUuXc22BvY9Bs8Vxx7OMAJc3NmApPNhdIF7FSHA/Uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eqUA7PDy; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A4549B1EF;
+	Wed, 23 Sep 2026 11:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790162436; cv=fail; b=d4lgZEtzw5f3JvGxT/7vinV/J1NxNL3jLHcqIlj5aEZnsIyBbEuV5aufCmTNP8qoQqepOHIhit29rN3kFx1GQBVtpFq8bgAS079T4zAhzpDvjwFT1M+ouH52+g/Vl+JNXNUAPkTaJkyKz0FlX3fyNgXpxJRpPQX5jeIomQqISGo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790162436; c=relaxed/simple;
+	bh=nwL7l+2/va5rCHv+Sz9IejrgsfshWb/1myHFrvSqecg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cNjecyzxPSDl0I6Xh2keEzfhTyCOI6ajT6eyzfGfEx733HUXvg0UDKPYYfBlHMMnU2ZUvQCy+014S7BOyH7zAeFBjSWqspJzPQ4jh02QQRCdjjc6gNrAFzAzx5vwQ5HlSo+1/hhJer75rPc6QoCuEvf9UiZMWDmjE61rHWY0sKM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Jm4kFOpc; arc=fail smtp.client-ip=52.101.53.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eqUA7PDy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 753231F00899;
-	Wed, 23 Sep 2026 11:20:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790162434;
-	bh=T2qpMYdJaz4fAIUSyChAch/nEGjd4wrkfVeBx+WLlqE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eqUA7PDy7+NmO2fWXgUCRHcoL1aj0mu7vVZbrUFneUJJPmUViNaxyE8PJHIGrPZE2
-	 9n9iqQHrvoL62Kl/NT0aYPUgPpVaeyliUeCz2vSWumqe/atTO/49JC7WOOJmCFgwHY
-	 SuMNbNxXgRR1u1CAXxK9vqVkFSzR2UEekJh+lsaewxP5/wMtTjFJRA4xXTTqp4RAyj
-	 x/OeR5zlFZRPdsS2hm+RasuEnMhYgHxzxaUj2mVV+uY1mKxM9kgtVH7VYXWhV7YCTw
-	 gXWF7hnk/6+zaIqacb5EF1hM0zzkfQGUmqZ9En+UTSOxscNRAzmk2ySFf05tQGqKsc
-	 BusVO1RhbN62g==
-Message-ID: <7f6eb404-8139-4208-88eb-03ea8a4bf3a9@kernel.org>
-Date: Wed, 23 Sep 2026 13:20:23 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Jm4kFOpc"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q6CkIm2DcUgnaq1OTrS2IOQqaNu/LX47js0dXTguxHFduKRiv4/UgI5j9d6mQavec9Sfa+m2Fn4XqhkFiiMmN9pQ/lrcb6C2lg9NU0e7cnVy6QucgfU6NOLEU+HKrP3vmQFs0xJA88syh/P5Mdyk5ZG9bqf88lpKnuO6/7WzZI0SbVT2gZlk/RPwm3Rc0Ipd3NsJV9LNIc4soBnPb/LCMYSlK81JerSBfnjW6zXNnychA0klVTmP6Pa+p1cOrfC8gd81I5faSHQqTXJ6vTUniPyF8jUSli6HBQI4F1IX+RZXhEU3W+zvYilkELvTWvTs8RCufckakO/x8aZO3ojB6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jUHXmE1ecYNDSwXJJTehtj322aYUtBOxOpEODNtKCV4=;
+ b=G7IpKvGdqnnlYVKcUmw/J9BG7Xff9u3F9xRmhCWYHjsa0Pm+O5r8ITQIUJhgerzANVg59hmdrOyEBvvtsU2dlkcziBgemOtOXHs7sEWCfjDcT080B4rqnd1892MMj4QRKMz+KdOgQx7Tby2IusO2frs18OcqWcWsc+mffvhGzTfRh9YtY6Z/lyDQ76NwoN9P6VO/6tatSSZGxl/s+/mXvIX8he9gsfw5tsCjL5GFxHe1YDvgXwt3G1JbvztwoCJ3o5Ag5bhlrlP0bGirmnLsMTaqRuEFpmBm39Nuxar7YmHHBil0hpGXcDI6oArt1l5VcfwnGJkkMIVUNZThylmMSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jUHXmE1ecYNDSwXJJTehtj322aYUtBOxOpEODNtKCV4=;
+ b=Jm4kFOpcYHAjV4CH0zpVKO/w2JpACO+E8Q0iUaWQKFI8wW/+/ydVjHViXEppLHxC5ZFHSWQnKayK7yntiJmNX7mKuSlvSU33YyFU+e5B9Cyttn5W7RA/KFUCT6xbZdIY4Za4+ozIMZ06R1BaCNYPbK8gSBE0Sefw76Ar/dLd8hI=
+Received: from BN9PR03CA0861.namprd03.prod.outlook.com (2603:10b6:408:13d::26)
+ by MW6PR12MB8835.namprd12.prod.outlook.com (2603:10b6:303:240::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 11:20:29 +0000
+Received: from BN6PEPF00000072.namprd03.prod.outlook.com
+ (2603:10b6:408:13d:cafe::74) by BN9PR03CA0861.outlook.office365.com
+ (2603:10b6:408:13d::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.16 via Frontend Transport; Wed,
+ 23 Sep 2026 11:20:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN6PEPF00000072.mail.protection.outlook.com (10.167.248.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 11:20:28 +0000
+Received: from airavat.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
+ 2026 06:20:26 -0500
+From: Vishal Badole <Vishal.Badole@amd.com>
+To: <bp@alien8.de>, <yazen.ghannam@amd.com>, <tony.luck@intel.com>,
+	<linux-edac@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: Vishal Badole <Vishal.Badole@amd.com>
+Subject: [PATCH Intenal 2/2] EDAC/amd64: Limit UMC csrow decode to the implemented chip selects
+Date: Wed, 23 Sep 2026 16:50:03 +0530
+Message-ID: <20260923112003.3677719-3-Vishal.Badole@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260923112003.3677719-1-Vishal.Badole@amd.com>
+References: <20260923112003.3677719-1-Vishal.Badole@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND v7 11/29] mm: split PMD swap entries into PTE swap
- entries
-To: Usama Arif <usama.arif@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, chrisl@kernel.org,
- kasong@tencent.com, ljs@kernel.org, ziy@nvidia.com, linux-mm@kvack.org
-Cc: ying.huang@linux.alibaba.com, Baoquan He <baoquan.he@linux.dev>,
- willy@infradead.org, youngjun.park@lge.com, hannes@cmpxchg.org,
- riel@surriel.com, shakeel.butt@linux.dev, alex@ghiti.fr, kas@kernel.org,
- baohua@kernel.org, dev.jain@arm.com, baolin.wang@linux.alibaba.com,
- Nico Pache <nico.pache@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- ryan.roberts@arm.com, Vlastimil Babka <vbabka@kernel.org>,
- lance.yang@linux.dev, linux-kernel@vger.kernel.org, nphamcs@gmail.com,
- shikemeng@huaweicloud.com, yosry@kernel.org, qi.zheng@linux.dev,
- luizcap@redhat.com, kernel-team@meta.com
-References: <20260914122950.3283997-1-usama.arif@linux.dev>
- <20260914122950.3283997-12-usama.arif@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260914122950.3283997-12-usama.arif@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN6PEPF00000072:EE_|MW6PR12MB8835:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a843a9d-d926-4d73-5b30-08df1964ac1a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|10067099003|56012099006|6133799003|3023799007|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	9lgMGv98xl2YeY6umZ1b8+9QUg4yGLj3vxfUpi/t5WMC1dM81yNWpcKQb8aYZp02P/s5NVk41zGuBS7dCa8r9aFbQ8iLfH5gyfSmpdojBs23SvlbsYy4rZcGwpho9ovT+lPyWlfBcXMBgOx93pJpwkQTscHI7U+e2RG7vSevO3F9prwFnUo7lPlv+Mju2qQ6dH+paExgjeNOpmh7IWxEAtstBC3Pr+en1mhfSTKRvS45Ca/J/UmWce0hjdij1ICOmb0DeZE9Rop1FQZfssZNBpotBOybrZPNGx48F/sStFniF/Cu1cLsY8bzi5kHH+UdWqeupr1K9qEvGwZM2JsX76HURdOjVp903ih+eDNbpPGmZzCaW+tPpGNpOHQ1yTYvQIBZs5E4vIYVx6e8cRVgoqxfQHnqhZcbYHtkUL4HXrpzqLmsqXF+aYFs69OptucmNSGE5oCOlzNeiRK8qEu2RDg1dJpTR4qW12F1LdOmcKSzAY+ke4G/dapWL8gbKpfPFtDMvHHingC6thdPO7iIwtO6ibWxD0D5LyMTMvPq9zMBkL2jbYrZQiZyphiww8ymadHOExtjphG/B0R0oZrK170u3dTvcBwafAyxohOwzVMz5id6dGRDrbun+jyuEIRqkcjMHwF17cyY6gCZlqWId1La3LV0Kl/p/Z8t2kughSkINAGBqsErqmyibE09o3ZsNZYI6kh7s2+UQgAINeb8fg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(6133799003)(3023799007)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	hIlfrljgHqa5KLS8DcuLAoAFX2C5Yfh3eUuwHysuhlO2sV6YeIbHBffyykymUSIcOKGbbm4yCXXibvkCjW8BfP4x1/j4ZpoM1Bu5hy55SjpSZlk0+V3q+cByucLKjEj6M8nq7dwVKoGRGRApi/7f87tpTStEjMO8NmstDhu3Sax8FaSVyqRSpy7GPnfmETuU+emFsQy0Iti2avYSUYS3n3mF3c/1OMJIkur6uyevpZW/bhddQ6cluPFaSbxw9NS6+OoplC/9AJwrkIYhRtTp5b7drqtZMoR+5Y4Yiua+TftUaJE3wrihdVTBj3kto/eaeVYTAZDhNOJzIjpbwDPNoVIH9/BG0dusewjTxQjr1Ma9b+B2BHCKLISWNwVZPrPvl3K+VN5RYjDRGyJpnE1lNqFUT1Nmqwpso8GWQAjOCFHGw0ekqkItnr/eZdfoVD4+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 11:20:28.4311
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a843a9d-d926-4d73-5b30-08df1964ac1a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN6PEPF00000072.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8835
 
-On 9/14/26 14:28, Usama Arif wrote:
-> Once a PMD can hold a swap entry, everything that splits a PMD - mprotect()
-> or munmap() over part of the range, MADV_FREE, a pagewalk with no PMD
-> handler - has to be able to split that entry too, or the callers that rely
-> on split_huge_pmd() to hand them a PTE table would find the PMD unchanged.
-> 
-> No reference counting is needed: a swap entry pins no folio, and swap_map
-> is already one per slot, so the PTEs simply take over what the PMD held.
-> 
-> The migration-only entry point cannot reach the new branch, because
-> page_vma_mapped_walk() never hands back a swap PMD for the folio being
-> migrated. Warn if that ever changes, and force the regular split anyway,
-> since the branch leaves folio and page uninitialised.
-> 
-> Test the pre-split old_pmd rather than re-reading *pmd in the trailing
-> folio_remove_rmap_pmd() gate, so every entry-type test in the function
-> interrogates the same snapshot. That part is cosmetic: pmdp_invalidate()
-> leaves the PMD present as far as software is concerned.
-> 
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
-> ---
->  mm/huge_memory.c | 36 +++++++++++++++++++++++++++++++++++-
->  1 file changed, 35 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 873887aed0bc2..0e347a545588c 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -3304,6 +3304,21 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
->  			folio_add_anon_rmap_ptes(folio, page, HPAGE_PMD_NR,
->  						 vma, haddr, rmap_flags);
->  		}
-> +	} else if (pmd_is_swap_entry(*pmd)) {
-> +		/*
-> +		 * A PMD swap entry has no page, so it cannot be turned into
-> +		 * PTE migration entries.  page_vma_mapped_walk() never hands
-> +		 * one back for the folio being migrated, so this should not
-> +		 * happen; warn, but also force the regular split so that a
-> +		 * broken invariant cannot make the code below dereference the
-> +		 * uninitialised folio and page.
+For DRAM ECC errors on SMCA systems, the Chip Select which reported the
+error is encoded in the MCA_SYND[ErrorInformation] field. The EDAC core
+uses that value to index into the csrow array which was sized during
+probe from pvt->csels[].b_cnt.
 
-I disagree with the force (and the comment). We cannot make each and every
-assertion that never happens (unless someone messes up real bad and would find
-this during early testing) have recovery code.
+On Family 1Ah Model 88h a corrected DRAM error results in:
 
-The real bug would be calling split_pmd_to_migration_entries() with something
-unexpected. See my reply to #10 where we bail out earlier
+  EDAC MC0: INTERNAL ERROR: csrow value is out of range (5 >= 4)
+  WARNING: drivers/edac/edac_mc.c:919 at edac_raw_mc_handle_error
 
+and the error is subsequently reported against "unknown memory", so the
+DIMM which actually reported the error cannot be identified.
 
-> +		 */
-> +		VM_WARN_ON_ONCE(use_migration_entries);
-> +		use_migration_entries = false;
+This happens because the syndrome field is masked with a hardcoded 0x7,
+i.e. eight possible chip selects, while umc_prep_chip_selects() sizes
+every UMC channel for four. Bit 2 of that field is therefore not a valid
+Chip Select bit, and whenever hardware leaves it set the decoded value
+exceeds the number of csrows the EDAC core knows about.
 
-Can we just have on the beginning of the function a check that
-use_migration_entries is only ever set on present PMDs or device-private entries.
+Mask with the number of chip selects the controller actually implements
+so the decoded value can never exceed what was allocated, instead of
+relying on an assumption about the field width that no longer holds.
 
-> +		old_pmd = *pmd;
-> +		soft_dirty = pmd_swp_soft_dirty(old_pmd);
-> +		uffd_wp = pmd_swp_uffd(old_pmd);
-> +		anon_exclusive = pmd_swp_exclusive(old_pmd);
->  	} else {
->  		/*
->  		 * Up to this point the pmd is present and huge and userland has
-> @@ -3440,6 +3455,25 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
->  			VM_WARN_ON(!pte_none(ptep_get(pte + i)));
->  			set_pte_at(mm, addr, pte + i, entry);
->  		}
-> +	} else if (pmd_is_swap_entry(old_pmd)) {
-> +		const softleaf_t old_entry = softleaf_from_pmd(old_pmd);
-> +		pte_t pte_swp_entry;
-> +		swp_entry_t entry;
-> +
-> +		for (i = 0, addr = haddr; i < HPAGE_PMD_NR;
-> +		     i++, addr += PAGE_SIZE) {
+Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
+---
+ drivers/edac/amd64_edac.c | 13 +++++++------
+ drivers/edac/amd64_edac.h |  2 +-
+ 2 files changed, 8 insertions(+), 7 deletions(-)
 
-Just squeeze it into one line like the other instances.
-
-> +			entry = swp_entry(swp_type(old_entry),
-> +					  swp_offset(old_entry) + i);
-
-Didn't we have a helper to advance by a delta? Ah, yes, pte_move_swp_offset().
-
-I guess one could construct the initial pte and then advance one by one through
-pte_move_swp_offset(). Won't remove a lot of code, though, so just a thought.
-
-Apart from that LGTM.
-
+diff --git a/drivers/edac/amd64_edac.c b/drivers/edac/amd64_edac.c
+index ff0ebc8e15f6..f6f9b8e63234 100644
+--- a/drivers/edac/amd64_edac.c
++++ b/drivers/edac/amd64_edac.c
+@@ -2796,13 +2796,14 @@ static inline void decode_bus_error(int node_id, struct mce *m)
+  * the instance_id. For example, instance_id=0xYXXXXX where Y is the channel
+  * number.
+  *
+- * For DRAM ECC errors, the Chip Select number is given in bits [2:0] of
+- * the MCA_SYND[ErrorInformation] field.
++ * For DRAM ECC errors, the Chip Select number is given in the low bits of
++ * the MCA_SYND[ErrorInformation] field. Only as many bits as the UMC has
++ * implemented chip selects are valid there.
+  */
+-static void umc_get_err_info(struct mce *m, struct err_info *err)
++static void umc_get_err_info(struct amd64_pvt *pvt, struct mce *m, struct err_info *err)
+ {
+ 	err->channel = (m->ipid & GENMASK(31, 0)) >> 20;
+-	err->csrow = m->synd & 0x7;
++	err->csrow = m->synd & (pvt->csels[0].b_cnt - 1);
+ }
+ 
+ static void decode_umc_error(int node_id, struct mce *m)
+@@ -2841,7 +2842,7 @@ static void decode_umc_error(int node_id, struct mce *m)
+ 			err.err_code = ERR_CHANNEL;
+ 	}
+ 
+-	pvt->ops->get_err_info(m, &err);
++	pvt->ops->get_err_info(pvt, m, &err);
+ 
+ 	a_err.addr = m->addr;
+ 	a_err.ipid = m->ipid;
+@@ -3514,7 +3515,7 @@ static int umc_hw_info_get(struct amd64_pvt *pvt)
+  * UMC1 CH[3:0] = 0x0025[3:0]000
+  * UMC1 CH[7:4] = 0x0035[3:0]000
+  */
+-static void gpu_get_err_info(struct mce *m, struct err_info *err)
++static void gpu_get_err_info(struct amd64_pvt *pvt, struct mce *m, struct err_info *err)
+ {
+ 	u8 ch = (m->ipid & GENMASK(31, 0)) >> 20;
+ 	u8 phy = ((m->ipid >> 12) & 0xf);
+diff --git a/drivers/edac/amd64_edac.h b/drivers/edac/amd64_edac.h
+index 1757c1b99fc8..9a8b7e296087 100644
+--- a/drivers/edac/amd64_edac.h
++++ b/drivers/edac/amd64_edac.h
+@@ -467,7 +467,7 @@ struct low_ops {
+ 	bool (*ecc_enabled)(struct amd64_pvt *pvt);
+ 	void (*setup_mci_misc_attrs)(struct mem_ctl_info *mci);
+ 	void (*dump_misc_regs)(struct amd64_pvt *pvt);
+-	void (*get_err_info)(struct mce *m, struct err_info *err);
++	void (*get_err_info)(struct amd64_pvt *pvt, struct mce *m, struct err_info *err);
+ };
+ 
+ int __amd64_read_pci_cfg_dword(struct pci_dev *pdev, int offset,
 -- 
-Cheers,
+2.34.1
 
-David
