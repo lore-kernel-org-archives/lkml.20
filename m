@@ -1,181 +1,642 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013007.outbound.protection.outlook.com [52.101.72.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07D753C3DD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E78053B5FA;
 	Wed, 23 Sep 2026 15:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.7
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177973; cv=fail; b=XXHEIR51Wwg+f7SM4uplMnkZKU9c1J+sNcTiOWowEG4Qcb5ECM6wHaHcrcg5Si5RkaAvsSdPAIdL30bHX+9nkZtvumW5wlRy6VUV88ht/3bJThqYpBo9NjrrsuO4YrnMbl7+SzshEnbRBJuP6SS+MMexRceOUT+ebYAtX8j0QcQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790177973; cv=none; b=KRtzAYLneSu4u2mAe4nMabU6eLHrmfofbypzJ/YtGFlyIMgtkihl2IgMM0Nw8Ovvua9R0zmz9Eafln8kZLGaJTffcGztYK60Yk1luMREEqEpHUD7SRIVDV1k3hi9zStmgIMOUanGHQqJj2uOZ9woBjWdDy5MtO+4+2GjkO5CNZw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790177973; c=relaxed/simple;
-	bh=lJGcTHc4IElikoZRpawqwm7b2E3ysC+9dIBK8hGKq/w=;
-	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=GbGM9Qp2hN8nBfHemLs9gw+PR6rZC/bOyvKPM1dHn76of0pqqgP7AnJ7rn2LOy6AMAMkNcMz94Z7ewGtYOczcCfRDi1mT5JnHayYof0HrO3fcpkv1xDlR6OFIo5GK88Uo5dabFwnS8qGvFZwo9Rqc622R82vhNTVq0OiTodWpBc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=ah/UU8LJ; arc=fail smtp.client-ip=52.101.72.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	bh=mvx+sCE2WpyPZMECl1wFptzgur9wWctufpEQMGd2820=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dzgag6W8Zs+VtuV93hDUABQEf997USKwqjIN4xLnmfCzRl1rfYbXBuiVjv3njruNvtNZDXB5G9MmIAAE6Auz7vn3C2mVAxUZC8gfyGjJzeLrsPCgFpFYLu3AraMTpERfbCfxcNuaGsa1fmHheGqYDjtYz94me4Y2RzkuZuqTvb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bvgfDB6n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="ah/UU8LJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HQFDsbVjdWvbadbxg4Lzf2f2vvzeKABBpZ5DeTkNVwvBoWS/3kHorDK/nqS/avs5Mgc4IxmuBZEysV9bMv0PQUscOcODtYyjo8fABZ4sp34XX7iBZdT5TvbX0ZuyQ9qeZj4ctgpvyc1CuTLK/NqaVGx/XBfa1tEc3R41VOluKjZDKqvf0Y9iUMssuRWo2HvZFAHZP7XdhKksbuQ3zTsQarbxXdQTcYacY/Aavj/Tg4p9+SlD5Bm4jJWt4N5EC2i6os8c/QRDMjtCuGTBrWGNVjFeihqSUPfz52Ta/crT9y+/7aOvm4UFaNwEz7BLBoAhCBCKF6PKUVBiwATMnZGksQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5xyyJnzEo/lPxzlLxikA099Q6hPs+5qco8FYG5OjvVo=;
- b=V6BdceMTUihLFCXfiWdCVxJMpg/3yspMIvWh0LUYaHxpkDhPBLTvDF9sMn39Rqi4xUz8xBq1OVkPIm3H4StcaZlX6HytVHvXyUIFZ/1rBkjVuyv7cnxSbN9qS5MfFpzlG5KhtGbCnyNh6EbshhYRvk0EmG0EZe9l40D2yGcsR3Q5LVqZLC37AlpmaJv6BVy+2PZxoW5SFSxIkeODxfoU423iRNEIt737KJBX3PsGxMajWLFCZ4RlwdFwpVBGFJCXwjyiOBWQx4kIp9mNslofLu00TLg+JeX6pwUVGm2JHAvV0u+UQmIqQJAjcAzagFUJpMW7fQGc3OFDC5WkJH3aDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5xyyJnzEo/lPxzlLxikA099Q6hPs+5qco8FYG5OjvVo=;
- b=ah/UU8LJvCW0seOW7Q7tya8s62gjsZr7kxrS5/aADhuRWbhC+GhgQa8J5YjVuDugRvrgpxSlCPaBEjdvTn7n9/IF9ukOfbV5N7A08+HgL6A7fdvemT5ROQqWlIqHc2qI6Eu77rXeu9/7VlJXpUIi/AsYfFOEz4JPfnBRkeqYcP0XQcoF4YlFsXaR6m7G7aq5Unq4u3v8PxGJDdGlB5WPOqw9U6Fpj+7PbkgrZArCQ47qlf5iXZdGNKYXPYLQsvANmtEkpYM8Uv66Ln6GL0DySly/a3Cda3MCB+IdBBwtWfAzrga8lZi6XWsostMrMFkybL7fsEFWOYyqKJFlULfKdQ==
-Received: from PA7P264CA0413.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:39b::25)
- by DU4PR10MB8610.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:56c::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
- 2026 15:39:27 +0000
-Received: from MAD0EPF000008B0.eurprd04.prod.outlook.com
- (2603:10a6:102:39b:cafe::7d) by PA7P264CA0413.outlook.office365.com
- (2603:10a6:102:39b::25) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
- 23 Sep 2026 15:39:27 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- MAD0EPF000008B0.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 15:39:27 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 23 Sep
- 2026 17:45:55 +0200
-Received: from localhost (10.252.7.7) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 23 Sep
- 2026 17:39:26 +0200
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Subject: [PATCH v2 00/14] iio: adc: stm32: add support for stm32mp23 and
- stm32mp25
-Date: Wed, 23 Sep 2026 17:39:03 +0200
-Message-ID: <20260923-adc-stm32mp25-v1-v2-0-46bc019537c6@foss.st.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bvgfDB6n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81D621F000FF;
+	Wed, 23 Sep 2026 15:39:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790177970;
+	bh=krAFHfYOyPR6Il3XZX/CslkG//VH3MmqEc2SRBbC1GM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bvgfDB6nKvMSbUuSNvYx5FWsC4UR5PUQhVUc+ZnuLbhKb96EHZlJD7VctbYSg1YL2
+	 +5lvlU/7qQuXNkxazRc+yMEwH2ww6eE2O/oKb9Z0WQlGPB1YGabAOxJBi6NhTK5V+g
+	 SgGgpFtPzQ4dhT3rRE7kBcYYddeUA+E7noV2b3wa22TJVhO9fL3+83rIIrhxRWsH1c
+	 Cgczbg7tXBqreHDnfoAsu4HLbJK/ikgAjwfweGttqBinrAnqf4BlTlCtQo7gcLctlU
+	 cjfTq0cx/3LOkGHfYscgc+P0ia1PeQ0Yz4dmbSRs8cux2MdN/BpTDwhpwO1dNHuscu
+	 CNx/qtVsDeWvA==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 18F7F1AC573C; Wed, 23 Sep 2026 16:39:26 +0100 (BST)
+Date: Wed, 23 Sep 2026 17:39:26 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Paul Moore <paul@paul-moore.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	Daan De Meyer <daan@amutable.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: manual merge of the security tree with the
+ vfs-brauner tree
+Message-ID: <arPyrhpeEe8A3W3M@sirena.co.uk>
+References: <arPTSwCBIDM9uhRd@sirena.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJfys2oC/32NQQqDMBBFryKzbsSMaGtX3qO4sJOxpqCRTCotk
- rs32n1h4PPg/zcbCHvLAtdsA8+rFevmBHjKgMZ+frCyJjFggXXRaK16Q0rCVOK0YKVWrbCnc4m
- XqmpMA2m2eB7s+1Deuh/L6/5kCrtnb4xWgvOf4+eq994ffbpCEQ9YM5NJ2Q5OJJeQk5ugizF+A
- TOQcOjEAAAA
-X-Change-ID: 20260911-adc-stm32mp25-v1-2ac7328559d9
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>
-CC: Marek Vasut <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Cheick Traore
-	<cheick.traore-ext@st.com>, Olivier Moysan <olivier.moysan@foss.st.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>, Cheick Traore
-	<cheick.traore@foss.st.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008B0:EE_|DU4PR10MB8610:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95f9d4a8-6e9a-4403-76a7-08df1988d9fa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|7416014|23010399003|13003099007|6133799003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	B656dG15Y3rIUQkDfReLaFm6Lovm7W7H86od27nonkM5h2oAg21SA8G0FSR04r7f9ST98vAzczNiUElMv5oSNe9C2J4Yc5SaXwIo40duBU3DN7zgO9vuz3ZL0frSbp2Jubygm7xSEduZTmhJzkgkisPeyTj+Rsgf6NfFGDlhpabgpywHyXtuyyi3YbegCxePdPATyz8cIUATUeG7TOOV2ZVGKp1lCMgmGVS1HhXZQcisvxaoYwbFjhXZVFF7q3hwwbMOJI5RAbvP5xqtDBmnczxY6ZPaYCXEApOE1dsgMxDs3+sXnWR2wRNYX9E6gXm4hWbuV+2dSGqM2fxiEbLYKd6vdHw1yW8AaJLASpUndBpX8d4UNdtntTmL2T5SNNi1ojAQmJ7supfhwUMF9cKz6dXdrfHr6+Ev2ltwj5fsAOrrNXLp85EItWfgToSoj7gbupMAIxQ/wwY68zyTVJPb9Sk+9ceOwYQgIeL7aq2eHw8/N/tio7GuhqwlF+rEkUdtuSOpqARCZ0sQAPtOiSmYfCg5wmy1N1gJrO43xINDUNwm1lSfLzs6foDZtg3JhHj//lMquIwytssopPebZmvPYvZQzmgVDWArWLopbDa+7tATQxVPNchK7210+1P9NQZ3Od9WkNs8htWT8oTuEEiapw==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(7416014)(23010399003)(13003099007)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	7zOcRsfUXqQjqkExe89vuLaGtZu59rdpANA39ugp2XyNwukMiJ21DCt98NNK+njgGOHT1WjnBLs0ob/xdXHoPDVBem+e9VKbJo0WSWrb9E1zUOqkYChac05/UtM4mktQnfe+7oDifjhxWvpzz7hYcmR2lcAO4RH0moPsVWC3fc4F9p5Um85hh8b5GCVjZvf5Iq56oQiDs8WhPa8J8cQnDOHNFagnLW5ispRrnezbROfFDoZj93rVw56556IyxHUbxZYBG8dV/C1WDrPbA8m62vWcvXbRNYjP62IkVaVvOHGo7BpmTQ5vYYa8SjpK9UR6qeFGHvv1ta/0Vw3cnsqdm47k1sHphNa5ruRskydWpCUiecqw/lHmfyn++xAjawhvxkLtSBlTLqhLQxRsSPKIydv1SCJy0ecftEa9qUtW5LwSYHcJfm2BeOQiVB9niQ6m
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:39:27.2043
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95f9d4a8-6e9a-4403-76a7-08df1988d9fa
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008B0.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB8610
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="y+2h74HgZ/urxqtT"
+Content-Disposition: inline
+In-Reply-To: <arPTSwCBIDM9uhRd@sirena.co.uk>
+X-Cookie: I've been there.
 
-Add support for STM32MP23 and STM32MP25 Analog to Digital Converter.
-It's a variant of other supported STM32MP ADCs. Add the DT bindings,
-driver, SOC DTS and an example on stm32mp257f-ev1 board.
 
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+--y+2h74HgZ/urxqtT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Sep 23, 2026 at 03:25:31PM +0200, Mark Brown wrote:
+> Hi all,
+>=20
+> Today's linux-next merge of the security tree got conflicts in:
+>=20
+>   include/linux/security.h
+>   include/linux/lsm_hook_defs.h
+>=20
+> between commit:
+>=20
+>   ad664d41535a5 ("fs: port ->tmpfile() to pass const mnt_idmap")
+>=20
+> from the vfs-brauner tree and commit:
+>=20
+>   16959c469f232 ("lsm: expose mount idmaps to inode hooks")
+>=20
+> from the security tree.
+>=20
+> I fixed it up (see below) and can carry the fix as necessary. This
+> is now fixed as far as linux-next is concerned, but any non trivial
+> conflicts should be mentioned to your upstream maintainer when your tree
+> is submitted for merging.  You may also want to consider cooperating
+> with the maintainer of the conflicting tree to minimise any particularly
+> complex conflicts.
+
+This resolution was not good, there were additional semantic conflicts
+plus a bit of a mismerge.  This is all rather messy, I've applied the
+quickly hacked together fixup below but it's all concerningly large and
+this probably needs some collaboration between the two trees.
+
+=46rom 3f3dca4e8d3b9acf6652dd0cc91122773568120e Mon Sep 17 00:00:00 2001
+=46rom: Mark Brown <broonie@kernel.org>
+Date: Wed, 23 Sep 2026 15:48:54 +0200
+Subject: [PATCH] security: Fix up mismerge and additional semantic issues w=
+ith
+ vfs-brauner
+
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
-Changes in v2:
-- dt-bindings: updates since discussion with Jonathan. Drop fallback
-  compatible and "st,adc-trigger-sel".
-- driver: address Jonathan and Andy comments and overall:
-  - Split into several pieces to prepare the infrastructure without
-    functional change
-  - Add stm32mp23/25 support
-  - Then add vddgpu feature.
-- Rebased on top of fixes sent separately, since pre-existing issues have
-  been reported by Sashiko on v1.
-  https://patch.msgid.link/20260916-adc-fix-intchan-v1-v3-1-b5f05b86bc60@foss.st.com
-  https://patch.msgid.link/20260916-adc-fix-div0-v3-1-bedf027a6e7e@foss.st.com
-- Link to v1: https://patch.msgid.link/20260911-adc-stm32mp25-v1-v1-0-cef26eecdef2@foss.st.com
+ include/linux/lsm_hook_defs.h       | 19 +++++++------------
+ include/linux/security.h            | 24 ++++++++++++------------
+ security/apparmor/af_unix.c         |  2 +-
+ security/apparmor/file.c            | 10 +++++-----
+ security/apparmor/include/af_unix.h |  2 +-
+ security/apparmor/include/file.h    |  4 ++--
+ security/apparmor/include/net.h     |  2 +-
+ security/apparmor/lsm.c             |  4 ++--
+ security/apparmor/net.c             |  2 +-
+ security/security.c                 | 12 ++++++------
+ security/selinux/hooks.c            | 16 ++++++++--------
+ security/smack/smack_lsm.c          |  4 ++--
+ 12 files changed, 48 insertions(+), 53 deletions(-)
 
----
-Cheick Traore (1):
-      arm64: dts: st: add ADC nodes on stm32mp231
+diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+index 597e965fd5d9e..ef16e5343e099 100644
+--- a/include/linux/lsm_hook_defs.h
++++ b/include/linux/lsm_hook_defs.h
+@@ -125,29 +125,24 @@ LSM_HOOK(int, 0, inode_create, const struct mnt_idmap=
+ *idmap, struct inode *dir,
+ 	 struct dentry *dentry, umode_t mode)
+ LSM_HOOK(void, LSM_RET_VOID, inode_post_create_tmpfile, const struct mnt_i=
+dmap *idmap,
+ 	 struct inode *inode)
+-LSM_HOOK(int, 0, inode_link, struct mnt_idmap *idmap,
++LSM_HOOK(int, 0, inode_link, const struct mnt_idmap *idmap,
+ 	 struct dentry *old_dentry, struct inode *dir, struct dentry *new_dentry)
+ LSM_HOOK(int, 0, inode_unlink, struct inode *dir, struct dentry *dentry)
+-LSM_HOOK(int, 0, inode_symlink, struct mnt_idmap *idmap, struct inode *dir,
++LSM_HOOK(int, 0, inode_symlink, const struct mnt_idmap *idmap, struct inod=
+e *dir,
+ 	 struct dentry *dentry, const char *old_name)
+-LSM_HOOK(int, 0, inode_mkdir, struct mnt_idmap *idmap, struct inode *dir,
++LSM_HOOK(int, 0, inode_mkdir, const struct mnt_idmap *idmap, struct inode =
+*dir,
+ 	 struct dentry *dentry, umode_t mode)
+ LSM_HOOK(int, 0, inode_rmdir, struct inode *dir, struct dentry *dentry)
+-LSM_HOOK(int, 0, inode_mknod, struct mnt_idmap *idmap, struct inode *dir,
++LSM_HOOK(int, 0, inode_mknod, const struct mnt_idmap *idmap, struct inode =
+*dir,
+ 	 struct dentry *dentry, umode_t mode, dev_t dev)
+ LSM_HOOK(int, 0, inode_rename, struct inode *old_dir, struct dentry *old_d=
+entry,
+ 	 struct inode *new_dir, struct dentry *new_dentry)
+ LSM_HOOK(int, 0, inode_readlink, struct dentry *dentry)
+ LSM_HOOK(int, 0, inode_follow_link, struct dentry *dentry, struct inode *i=
+node,
+ 	 bool rcu)
+-<<<<<<< HEAD
+-LSM_HOOK(int, 0, inode_permission, struct inode *inode, int mask)
+-LSM_HOOK(int, 0, inode_setattr, const struct mnt_idmap *idmap, struct dent=
+ry *dentry,
+-=3D=3D=3D=3D=3D=3D=3D
+-LSM_HOOK(int, 0, inode_permission, struct mnt_idmap *idmap,
++LSM_HOOK(int, 0, inode_permission, const struct mnt_idmap *idmap,
+ 	 struct inode *inode, int mask)
+-LSM_HOOK(int, 0, inode_setattr, struct mnt_idmap *idmap, struct dentry *de=
+ntry,
+->>>>>>> security/next
++LSM_HOOK(int, 0, inode_setattr, const struct mnt_idmap *idmap, struct dent=
+ry *dentry,
+ 	 struct iattr *attr)
+ LSM_HOOK(void, LSM_RET_VOID, inode_post_setattr, const struct mnt_idmap *i=
+dmap,
+ 	 struct dentry *dentry, int ia_valid)
+@@ -194,7 +189,7 @@ LSM_HOOK(int, 0, inode_setintegrity, const struct inode=
+ *inode,
+ 	 enum lsm_integrity_type type, const void *value, size_t size)
+ LSM_HOOK(int, 0, kernfs_init_security, struct kernfs_node *kn_dir,
+ 	 struct kernfs_node *kn)
+-LSM_HOOK(int, 0, file_permission, struct file *file, int mask)
++LSM_HOOK(int, 0, file_permission, const struct file *file, int mask)
+ LSM_HOOK(int, 0, file_alloc_security, struct file *file)
+ LSM_HOOK(void, LSM_RET_VOID, file_release, struct file *file)
+ LSM_HOOK(void, LSM_RET_VOID, file_free_security, struct file *file)
+diff --git a/include/linux/security.h b/include/linux/security.h
+index d0d27b4260827..8b8d6b8b802f1 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -411,15 +411,15 @@ int security_inode_create(const struct mnt_idmap *idm=
+ap, struct inode *dir,
+ 			  struct dentry *dentry, umode_t mode);
+ void security_inode_post_create_tmpfile(const struct mnt_idmap *idmap,
+ 					struct inode *inode);
+-int security_inode_link(struct mnt_idmap *idmap, struct dentry *old_dentry,
++int security_inode_link(const struct mnt_idmap *idmap, struct dentry *old_=
+dentry,
+ 			struct inode *dir, struct dentry *new_dentry);
+ int security_inode_unlink(struct inode *dir, struct dentry *dentry);
+-int security_inode_symlink(struct mnt_idmap *idmap, struct inode *dir,
++int security_inode_symlink(const struct mnt_idmap *idmap, struct inode *di=
+r,
+ 			   struct dentry *dentry, const char *old_name);
+-int security_inode_mkdir(struct mnt_idmap *idmap, struct inode *dir,
++int security_inode_mkdir(const struct mnt_idmap *idmap, struct inode *dir,
+ 			 struct dentry *dentry, umode_t mode);
+ int security_inode_rmdir(struct inode *dir, struct dentry *dentry);
+-int security_inode_mknod(struct mnt_idmap *idmap, struct inode *dir,
++int security_inode_mknod(const struct mnt_idmap *idmap, struct inode *dir,
+ 			 struct dentry *dentry, umode_t mode, dev_t dev);
+ int security_inode_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 			  struct inode *new_dir, struct dentry *new_dentry,
+@@ -475,7 +475,7 @@ int security_inode_setintegrity(const struct inode *ino=
+de,
+ 				size_t size);
+ int security_kernfs_init_security(struct kernfs_node *kn_dir,
+ 				  struct kernfs_node *kn);
+-int security_file_permission(struct file *file, int mask);
++int security_file_permission(const struct file *file, int mask);
+ int security_file_alloc(struct file *file);
+ void security_file_release(struct file *file);
+ void security_file_free(struct file *file);
+@@ -918,7 +918,7 @@ static inline int security_inode_init_security_anon(str=
+uct inode *inode,
+ 	return 0;
+ }
+=20
+-static inline int security_inode_create(struct mnt_idmap *idmap,
++static inline int security_inode_create(const struct mnt_idmap *idmap,
+ 					struct inode *dir,
+ 					struct dentry *dentry,
+ 					umode_t mode)
+@@ -930,7 +930,7 @@ static inline void
+ security_inode_post_create_tmpfile(const struct mnt_idmap *idmap, struct i=
+node *inode)
+ { }
+=20
+-static inline int security_inode_link(struct mnt_idmap *idmap,
++static inline int security_inode_link(const struct mnt_idmap *idmap,
+ 				      struct dentry *old_dentry,
+ 				      struct inode *dir,
+ 				      struct dentry *new_dentry)
+@@ -944,7 +944,7 @@ static inline int security_inode_unlink(struct inode *d=
+ir,
+ 	return 0;
+ }
+=20
+-static inline int security_inode_symlink(struct mnt_idmap *idmap,
++static inline int security_inode_symlink(const struct mnt_idmap *idmap,
+ 					 struct inode *dir,
+ 					 struct dentry *dentry,
+ 					 const char *old_name)
+@@ -952,7 +952,7 @@ static inline int security_inode_symlink(struct mnt_idm=
+ap *idmap,
+ 	return 0;
+ }
+=20
+-static inline int security_inode_mkdir(struct mnt_idmap *idmap,
++static inline int security_inode_mkdir(const struct mnt_idmap *idmap,
+ 				       struct inode *dir,
+ 				       struct dentry *dentry,
+ 				       int mode)
+@@ -966,7 +966,7 @@ static inline int security_inode_rmdir(struct inode *di=
+r,
+ 	return 0;
+ }
+=20
+-static inline int security_inode_mknod(struct mnt_idmap *idmap,
++static inline int security_inode_mknod(const struct mnt_idmap *idmap,
+ 				       struct inode *dir,
+ 				       struct dentry *dentry,
+ 				       int mode, dev_t dev)
+@@ -995,7 +995,7 @@ static inline int security_inode_follow_link(struct den=
+try *dentry,
+ 	return 0;
+ }
+=20
+-static inline int security_inode_permission(struct mnt_idmap *idmap,
++static inline int security_inode_permission(const struct mnt_idmap *idmap,
+ 					    struct inode *inode, int mask)
+ {
+ 	return 0;
+@@ -1154,7 +1154,7 @@ static inline int security_inode_copy_up_xattr(struct=
+ dentry *src, const char *n
+ 	return -EOPNOTSUPP;
+ }
+=20
+-static inline int security_file_permission(struct file *file, int mask)
++static inline int security_file_permission(const struct file *file, int ma=
+sk)
+ {
+ 	return 0;
+ }
+diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
+index b908e744818c9..de80561348fc4 100644
+--- a/security/apparmor/af_unix.c
++++ b/security/apparmor/af_unix.c
+@@ -715,7 +715,7 @@ static void update_peer_ctx(struct sock *sk, struct aa_=
+sk_ctx *ctx,
+  * boundaries. Otherwise cached info off file is sufficient
+  */
+ int aa_unix_file_perm(const struct cred *subj_cred, struct aa_label *label,
+-		      const char *op, u32 request, struct file *file)
++		      const char *op, u32 request, const struct file *file)
+ {
+ 	struct socket *sock =3D (struct socket *) file->private_data;
+ 	struct sockaddr_un *addr, *peer_addr;
+diff --git a/security/apparmor/file.c b/security/apparmor/file.c
+index 3e74b613db325..305fdb341ddbb 100644
+--- a/security/apparmor/file.c
++++ b/security/apparmor/file.c
+@@ -489,7 +489,7 @@ static void update_file_ctx(struct aa_file_ctx *fctx, s=
+truct aa_label *label,
+=20
+ static int __file_path_perm(const char *op, const struct cred *subj_cred,
+ 			    struct aa_label *label,
+-			    struct aa_label *flabel, struct file *file,
++			    struct aa_label *flabel, const struct file *file,
+ 			    u32 request, u32 denied, bool in_atomic)
+ {
+ 	struct aa_profile *profile;
+@@ -550,7 +550,7 @@ static int __file_path_perm(const char *op, const struc=
+t cred *subj_cred,
+=20
+ static int __file_sock_perm(const char *op, const struct cred *subj_cred,
+ 			    struct aa_label *label,
+-			    struct aa_label *flabel, struct file *file,
++			    struct aa_label *flabel, const struct file *file,
+ 			    u32 request, u32 denied)
+ {
+ 	int error;
+@@ -579,7 +579,7 @@ static bool __file_is_delegated(struct aa_label *obj_la=
+bel)
+ 	return unconfined(obj_label);
+ }
+=20
+-static bool __is_unix_file(struct file *file)
++static bool __is_unix_file(const struct file *file)
+ {
+ 	struct socket *sock =3D (struct socket *) file->private_data;
+=20
+@@ -595,7 +595,7 @@ static bool __is_unix_file(struct file *file)
+ 	return false;
+ }
+=20
+-static bool __unix_needs_revalidation(struct file *file, struct aa_label *=
+label,
++static bool __unix_needs_revalidation(const struct file *file, struct aa_l=
+abel *label,
+ 				      u32 request)
+ {
+ 	struct socket *sock =3D (struct socket *) file->private_data;
+@@ -624,7 +624,7 @@ static bool __unix_needs_revalidation(struct file *file=
+, struct aa_label *label,
+  * Returns: %0 if access allowed else error
+  */
+ int aa_file_perm(const char *op, const struct cred *subj_cred,
+-		 struct aa_label *label, struct file *file,
++		 struct aa_label *label, const struct file *file,
+ 		 u32 request, bool in_atomic)
+ {
+ 	struct aa_file_ctx *fctx;
+diff --git a/security/apparmor/include/af_unix.h b/security/apparmor/includ=
+e/af_unix.h
+index 4a62e600d82b0..62e3269273eb7 100644
+--- a/security/apparmor/include/af_unix.h
++++ b/security/apparmor/include/af_unix.h
+@@ -50,6 +50,6 @@ int aa_unix_msg_perm(const char *op, u32 request, struct =
+socket *sock,
+ int aa_unix_opt_perm(const char *op, u32 request, struct socket *sock, int=
+ level,
+ 		     int optname);
+ int aa_unix_file_perm(const struct cred *subj_cred, struct aa_label *label,
+-		      const char *op, u32 request, struct file *file);
++		      const char *op, u32 request, const struct file *file);
+=20
+ #endif /* __AA_AF_UNIX_H */
+diff --git a/security/apparmor/include/file.h b/security/apparmor/include/f=
+ile.h
+index 1614c07fc53ee..d69a0611a981e 100644
+--- a/security/apparmor/include/file.h
++++ b/security/apparmor/include/file.h
+@@ -29,7 +29,7 @@ struct path;
+ 				 AA_MAY_CHMOD | AA_MAY_CHOWN | AA_MAY_LOCK | \
+ 				 AA_EXEC_MMAP | AA_MAY_LINK)
+=20
+-static inline struct aa_file_ctx *file_ctx(struct file *file)
++static inline struct aa_file_ctx *file_ctx(const struct file *file)
+ {
+ 	return file->f_security + apparmor_blob_sizes.lbs_file;
+ }
+@@ -97,7 +97,7 @@ int aa_path_link(const struct cred *subj_cred, struct aa_=
+label *label,
+ 		 struct dentry *new_dentry);
+=20
+ int aa_file_perm(const char *op, const struct cred *subj_cred,
+-		 struct aa_label *label, struct file *file,
++		 struct aa_label *label, const struct file *file,
+ 		 u32 request, bool in_atomic);
+=20
+ void aa_inherit_files(const struct cred *cred, struct files_struct *files);
+diff --git a/security/apparmor/include/net.h b/security/apparmor/include/ne=
+t.h
+index 375341929cb65..e387b50920b3b 100644
+--- a/security/apparmor/include/net.h
++++ b/security/apparmor/include/net.h
+@@ -112,7 +112,7 @@ int aa_label_sk_perm(const struct cred *subj_cred, stru=
+ct aa_label *label,
+ 		     const char *op, u32 request, const struct sock *sk);
+ int aa_sock_file_perm(const struct cred *subj_cred, struct aa_label *label,
+ 		      const char *op, u32 request,
+-		      struct file *file);
++		      const struct file *file);
+=20
+ int apparmor_secmark_check(struct aa_label *label, char *op, u32 request,
+ 			   u32 secid, const struct sock *sk);
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index c73681d820a06..9d572cf8486b2 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -525,7 +525,7 @@ static void apparmor_file_free_security(struct file *fi=
+le)
+ 		aa_put_label(rcu_access_pointer(ctx->label));
+ }
+=20
+-static int common_file_perm(const char *op, struct file *file, u32 mask)
++static int common_file_perm(const char *op, const struct file *file, u32 m=
+ask)
+ {
+ 	struct aa_label *label;
+ 	bool needput;
+@@ -543,7 +543,7 @@ static int apparmor_file_receive(struct file *file)
+ 	return common_file_perm(OP_FRECEIVE, file, aa_map_file_to_perms(file));
+ }
+=20
+-static int apparmor_file_permission(struct file *file, int mask)
++static int apparmor_file_permission(const struct file *file, int mask)
+ {
+ 	return common_file_perm(OP_FPERM, file, mask);
+ }
+diff --git a/security/apparmor/net.c b/security/apparmor/net.c
+index a333e6aff9262..6048e3c5533d7 100644
+--- a/security/apparmor/net.c
++++ b/security/apparmor/net.c
+@@ -325,7 +325,7 @@ int aa_sk_perm(const char *op, u32 request, const struc=
+t sock *sk)
+=20
+=20
+ int aa_sock_file_perm(const struct cred *subj_cred, struct aa_label *label,
+-		      const char *op, u32 request, struct file *file)
++		      const char *op, u32 request, const struct file *file)
+ {
+ 	struct socket *sock =3D (struct socket *) file->private_data;
+=20
+diff --git a/security/security.c b/security/security.c
+index 09b0af1c0d656..da8d48cd0a2a4 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -1697,7 +1697,7 @@ void security_inode_post_create_tmpfile(const struct =
+mnt_idmap *idmap,
+  *
+  * Return: Returns 0 if permission is granted.
+  */
+-int security_inode_link(struct mnt_idmap *idmap, struct dentry *old_dentry,
++int security_inode_link(const struct mnt_idmap *idmap, struct dentry *old_=
+dentry,
+ 			struct inode *dir, struct dentry *new_dentry)
+ {
+ 	if (unlikely(IS_PRIVATE(d_backing_inode(old_dentry))))
+@@ -1732,7 +1732,7 @@ int security_inode_unlink(struct inode *dir, struct d=
+entry *dentry)
+  *
+  * Return: Returns 0 if permission is granted.
+  */
+-int security_inode_symlink(struct mnt_idmap *idmap, struct inode *dir,
++int security_inode_symlink(const struct mnt_idmap *idmap, struct inode *di=
+r,
+ 			   struct dentry *dentry, const char *old_name)
+ {
+ 	if (unlikely(IS_PRIVATE(dir)))
+@@ -1752,7 +1752,7 @@ int security_inode_symlink(struct mnt_idmap *idmap, s=
+truct inode *dir,
+  *
+  * Return: Returns 0 if permission is granted.
+  */
+-int security_inode_mkdir(struct mnt_idmap *idmap, struct inode *dir,
++int security_inode_mkdir(const struct mnt_idmap *idmap, struct inode *dir,
+ 			 struct dentry *dentry, umode_t mode)
+ {
+ 	if (unlikely(IS_PRIVATE(dir)))
+@@ -1792,7 +1792,7 @@ int security_inode_rmdir(struct inode *dir, struct de=
+ntry *dentry)
+  *
+  * Return: Returns 0 if permission is granted.
+  */
+-int security_inode_mknod(struct mnt_idmap *idmap, struct inode *dir,
++int security_inode_mknod(const struct mnt_idmap *idmap, struct inode *dir,
+ 			 struct dentry *dentry, umode_t mode, dev_t dev)
+ {
+ 	if (unlikely(IS_PRIVATE(dir)))
+@@ -1881,7 +1881,7 @@ int security_inode_follow_link(struct dentry *dentry,=
+ struct inode *inode,
+  *
+  * Return: Returns 0 if permission is granted.
+  */
+-int security_inode_permission(struct mnt_idmap *idmap, struct inode *inode,
++int security_inode_permission(const struct mnt_idmap *idmap, struct inode =
+*inode,
+ 			      int mask)
+ {
+ 	if (unlikely(IS_PRIVATE(inode)))
+@@ -2434,7 +2434,7 @@ int security_kernfs_init_security(struct kernfs_node =
+*kn_dir,
+  *
+  * Return: Returns 0 if permission is granted.
+  */
+-int security_file_permission(struct file *file, int mask)
++int security_file_permission(const struct file *file, int mask)
+ {
+ 	return call_int_hook(file_permission, file, mask);
+ }
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index eb31241047abf..88f3a5858c2a5 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -3110,13 +3110,13 @@ static int selinux_inode_init_security_anon(struct =
+inode *inode,
+ 			    &ad);
+ }
+=20
+-static int selinux_inode_create(struct mnt_idmap *idmap, struct inode *dir,
++static int selinux_inode_create(const struct mnt_idmap *idmap, struct inod=
+e *dir,
+ 				struct dentry *dentry, umode_t mode)
+ {
+ 	return may_create(dir, dentry, SECCLASS_FILE);
+ }
+=20
+-static int selinux_inode_link(struct mnt_idmap *idmap, struct dentry *old_=
+dentry,
++static int selinux_inode_link(const struct mnt_idmap *idmap, struct dentry=
+ *old_dentry,
+ 			      struct inode *dir, struct dentry *new_dentry)
+ {
+ 	return may_link(dir, old_dentry, MAY_LINK);
+@@ -3127,13 +3127,13 @@ static int selinux_inode_unlink(struct inode *dir, =
+struct dentry *dentry)
+ 	return may_link(dir, dentry, MAY_UNLINK);
+ }
+=20
+-static int selinux_inode_symlink(struct mnt_idmap *idmap, struct inode *di=
+r,
++static int selinux_inode_symlink(const struct mnt_idmap *idmap, struct ino=
+de *dir,
+ 				 struct dentry *dentry, const char *name)
+ {
+ 	return may_create(dir, dentry, SECCLASS_LNK_FILE);
+ }
+=20
+-static int selinux_inode_mkdir(struct mnt_idmap *idmap, struct inode *dir,
++static int selinux_inode_mkdir(const struct mnt_idmap *idmap, struct inode=
+ *dir,
+ 			       struct dentry *dentry, umode_t mask)
+ {
+ 	return may_create(dir, dentry, SECCLASS_DIR);
+@@ -3144,7 +3144,7 @@ static int selinux_inode_rmdir(struct inode *dir, str=
+uct dentry *dentry)
+ 	return may_link(dir, dentry, MAY_RMDIR);
+ }
+=20
+-static int selinux_inode_mknod(struct mnt_idmap *idmap, struct inode *dir,
++static int selinux_inode_mknod(const struct mnt_idmap *idmap, struct inode=
+ *dir,
+ 			       struct dentry *dentry, umode_t mode, dev_t dev)
+ {
+ 	return may_create(dir, dentry, inode_mode_to_security_class(mode));
+@@ -3284,7 +3284,7 @@ static inline void task_avdcache_update(struct task_s=
+ecurity_struct *tsec,
+  * Check if the current task is allowed to access @inode according to
+  * @requested.  Returns 0 if allowed, negative values otherwise.
+  */
+-static int selinux_inode_permission(struct mnt_idmap *idmap,
++static int selinux_inode_permission(const struct mnt_idmap *idmap,
+ 				    struct inode *inode, int requested)
+ {
+ 	int mask;
+@@ -3842,7 +3842,7 @@ static int selinux_kernfs_init_security(struct kernfs=
+_node *kn_dir,
+=20
+ /* file security operations */
+=20
+-static int selinux_revalidate_file_permission(struct file *file, int mask)
++static int selinux_revalidate_file_permission(const struct file *file, int=
+ mask)
+ {
+ 	const struct cred *cred =3D current_cred();
+ 	struct inode *inode =3D file_inode(file);
+@@ -3855,7 +3855,7 @@ static int selinux_revalidate_file_permission(struct =
+file *file, int mask)
+ 			     file_mask_to_av(inode->i_mode, mask));
+ }
+=20
+-static int selinux_file_permission(struct file *file, int mask)
++static int selinux_file_permission(const struct file *file, int mask)
+ {
+ 	struct inode *inode =3D file_inode(file);
+ 	struct file_security_struct *fsec =3D selinux_file(file);
+diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
+index 07183e4606fc0..28a8e12603cec 100644
+--- a/security/smack/smack_lsm.c
++++ b/security/smack/smack_lsm.c
+@@ -1096,7 +1096,7 @@ static int smack_inode_init_security(struct inode *in=
+ode, struct inode *dir,
+  *
+  * Returns 0 if access is permitted, an error code otherwise
+  */
+-static int smack_inode_link(struct mnt_idmap *idmap, struct dentry *old_de=
+ntry,
++static int smack_inode_link(const struct mnt_idmap *idmap, struct dentry *=
+old_dentry,
+ 			    struct inode *dir, struct dentry *new_dentry)
+ {
+ 	struct smack_known *isp;
+@@ -1235,7 +1235,7 @@ static int smack_inode_rename(struct inode *old_inode,
+  *
+  * Returns 0 if access is permitted, an error code otherwise
+  */
+-static int smack_inode_permission(struct mnt_idmap *idmap, struct inode *i=
+node,
++static int smack_inode_permission(const struct mnt_idmap *idmap, struct in=
+ode *inode,
+ 				  int mask)
+ {
+ 	struct superblock_smack *sbsp =3D smack_superblock(inode->i_sb);
+--=20
+2.47.3
 
-Fabrice Gasnier (10):
-      dt-bindings: iio: adc: stm32-adc: add support for stm32mp23 and stm32mp25
-      iio: adc: stm32-adc: core: manage clock prescaler diversity
-      iio: adc: stm32-adc: core: configurable number of interrupts
-      iio: adc: stm32-adc: rework internal channels data
-      iio: adc: stm32-adc: add vreg enable option to manage diversity
-      iio: adc: stm32-adc: add support for stm32mp25
-      iio: adc: stm32-adc: add support for stm32mp23
-      iio: adc: stm32: add support for vddgpu on stm32mp23 and stm32mp25
-      arm64: dts: st: add ADC nodes on stm32mp251
-      arm64: dts: st: add ADC support on stm32mp257f-ev1 board
 
-Olivier Moysan (1):
-      iio: adc: stm32-adc: manage characterization voltage diversity
+--y+2h74HgZ/urxqtT
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Patrice Chotard (2):
-      arm64: dts: st: add vrefint calibration on stm32mp23
-      arm64: dts: st: add vrefint calibration on stm32mp25
+-----BEGIN PGP SIGNATURE-----
 
- .../devicetree/bindings/iio/adc/st,stm32-adc.yaml  |  71 +++
- arch/arm64/boot/dts/st/stm32mp231.dtsi             | 116 +++++
- arch/arm64/boot/dts/st/stm32mp251.dtsi             | 116 +++++
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts         |  22 +
- drivers/iio/adc/stm32-adc-core.c                   |  95 +++-
- drivers/iio/adc/stm32-adc-core.h                   |  21 +
- drivers/iio/adc/stm32-adc.c                        | 570 ++++++++++++++++++++-
- 7 files changed, 965 insertions(+), 46 deletions(-)
----
-base-commit: 182c47735554925da9605dc9dd90a8c15a1bbae5
-change-id: 20260911-adc-stm32mp25-v1-2ac7328559d9
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqz8qoACgkQJNaLcl1U
+h9Cx2Af9GYtJ1Ddb2MMlXTD9afDcI70ceCY5JS52rZ2uFZdrb0oRf6nD64o2ZgB/
+Ycww1G1li6oxxj4WScrL5tCn6lebU8M2Ht+ORWi6dXBdFDqNjU7Jj1M8+QNKyEIY
+r/6BjpswCZEepbslrFe030dLLV/v+2ZXZsgnNmXKz9jzgbx6ftpFWPVceMqmx7A0
+teBrzpOh82DKd6FoPiOcLG4GSYnQqjJQfei2zenLtgYLZ10y+YfadlOF900N3aTW
+RF7iKxUS/2e4M/KfiS5ojxVW6ajNDB2jK54Ew3fdjqoIDJT5SFqrMgZJdSmylGfJ
+Iu9ObMGFugXRvOC5AUpOHaLVDeqJLA==
+=C/N0
+-----END PGP SIGNATURE-----
 
-Best regards,
---  
-Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-
+--y+2h74HgZ/urxqtT--
