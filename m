@@ -1,721 +1,207 @@
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BC6F21ABB1
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:27:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A3013A7F64
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:27:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177226; cv=none; b=UzqVbDZvDpjc5dVN5u/peeqGhdjN2a+OuI0o8Fim0cq01SKm/aCRzJXc7fIs3djHPTyqQRyB/j1tPDvvKRarwNF0RwbAwkXW8XVZMp66cdLWUM0DNNTyFznuO20xjEgWZbvs3ezTqBME/OWbz6h+XD433HtESz6zpEYQmg5tQ2w=
+	t=1790177230; cv=none; b=XpJfNMtzllo7oW3EYBUdPpBak/UkrtS4y1LCYZCmmAwk2m/2fQwD2icMydzmqYCKRnSdMMQRU21a+nvokFaJA13qrHitogk1bKd2eIGN8VN1lHH7l2Oq2EHXLcutkB1krd5jLDu2793M5XXxrLU2txDPcfqU3xnXTKKBNo+p7kY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177226; c=relaxed/simple;
-	bh=z7nWryHe7p7l5FiHknBBvknt3I0QkwedubK29u/BB4M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EhrjIy1Fjl3HcPs5dpDTLipl96ccNuDjD0kTuJ08e0bA5N3waEiyEQHGx9My7QeG9rdw5g4/qUJehraUDfsV5Hn+d+XQa8irnQv6zSLmS/sdq58Hq+wd5vsY0AmljT0fOrQHdQ2cg2RlnShaYi+OH3+8WqyHgJujpvEgqf+M9Xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OCkjtDeI; arc=none smtp.client-ip=209.85.215.172
+	s=arc-20240116; t=1790177230; c=relaxed/simple;
+	bh=ZE1AO8NjDCDoum7rwOUEcxpDlgjbbiQ4+FdSK7ehaHY=;
+	h=From:Date:Subject:To:Cc:Message-ID:MIME-Version:Content-Type; b=KjVPixi9JFWC/CEGSvtLhQMXFrbSdxP+6mczS9GXkcWucABFOfDkqiYq4IMph1hsjavATS5EzGnSVMF0V7XBf576ol/iUB/234GNng3ykQV1972FrEiCItg8y3N1Mez4+92rEPMIYNkNakc07J1z+9WMd//twmkATEoZGFpfkwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WoUzrBbq; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OCkjtDeI"
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc147d86bebso629975a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:26:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WoUzrBbq"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4adso546126a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:27:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790177218; x=1790782018; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CZbGWrCF4Ph0WDcJabkXHVhbna89qvg+bJPtSXIGAzA=;
-        b=OCkjtDeI/+06vxAAILCe/h42mMkd72rmRive8Z1ftGfDlszzsk+0WdqVb9xm6Cl0vT
-         LEDm+7ATPVyePzppxmLjI+If53ZIW7VpEu3vNrX+6NYbP/Xoggph+r2kV4doCxBuQwyT
-         t4gzcMenDm2GjXQ19OBJdCfj9eKU0WMRYPvvxK5Cgd2PhgGcjljcYFHcnwpRSyxw8PPi
-         jdLlI19h1eK9j2N71iCwP2wkDdAcM/zSe0nvG3C/uEPlSjGc7hVNYg2gaHWc8qi/DMsr
-         u4tSWnaj+Y8Nz1wqC5oRZ/gDbyrNK/JuV5L1gxyt3ttXQPTSUiENstz1ssdcOCfM3Hdc
-         +fhQ==
+        d=gmail.com; s=20251104; t=1790177224; x=1790782024; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:cc
+         :to:subject:date:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=grLXnCQQweMhLmDpYBV4MKF8n4Dw3i39obyyBfGlpSw=;
+        b=WoUzrBbqpmNvQNEOszOB7R4++o8jZTHoB224jcVC8NGZ8RzEZFnbx3M7x+NnbG3Eoc
+         aUwUGbWUDkfhTYVedEge8X8nPQphfDdZvwg6OIj43cCSZGtjdFQcbo1sYTEs6YvIOc3E
+         wDhdT+5Igqq9xivTNu7MbDARvUbVGk5/m4g/ovVQDGLGjAG9RRHXKCUUGHZriI2gyaOb
+         iKnHR17bxz87XMleEqE3TiiaKexZi4+7wK423OkZa+t+jz+ZeIxPFlTHFFq+T7vZ0gb8
+         iStALiq/ubDiqc562L1A/HByAtpRfEOtWKK+v356Cvl7OiEVeLDIUt+axMiICSmARE9q
+         GnAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790177218; x=1790782018;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CZbGWrCF4Ph0WDcJabkXHVhbna89qvg+bJPtSXIGAzA=;
-        b=Su4TylHLaC+EYV1TVbdRUmsPEf9UU50aPwcO7pNa5A+4yCnPiAILebVIQKsboE+0pm
-         HJm+sD7wXo0vgRLOSevfArEECLQHQXhZ3x9Csabkp0VHFcoNSAP0LweiS0oovY2NvH/h
-         DE2pan7x3PSBelCkl+lFz5TZ7ATN+JaUn/gbEk8etuetgCdg8woo/9ILLqQuA29W8fMD
-         bFvQaoeOXOaFVjDdqVgFp+2MwwdHgY3uZLzmnEtNECdCNclB76bNeFbnVOsd1/iqIbgt
-         5UftAnRO8kT/rKNiAJA7NH4zaOK+6+p2SFO4jl9F77dO1bzQP4Qm1TE1FpSxvopTISnk
-         1ekg==
-X-Forwarded-Encrypted: i=1; AKwUvBz0fBqti+9jCDMfb+dWDk1CHIbuTX7Gb5Rnyc0V3ynN3pjoPsPl6oKmmmkJ17VrfpCpXRE8a7TL1wPw+fw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nY8CSY4uBEbIJFnZUYLHx81i3FXEt1LWmVeBTf/ofFFhQPY0Kv
-	keliVZQh/sl8FVgIq6h0JfBA1LVUUqSsupVwwprlz9zz+w6yzW5i844+
-X-Gm-Gg: AYBFou2hlG0bXj0TaeFX1JUi4bL1z5vhgaWoyg2sg6Wo+GdiBAYTi8cD568aJIh+7Bi
-	AY7qOJhHdj1YucQyg5VToWhZJTwBQHUA9S/1CwpmKy6Ve7/Z/0G61pL1CcWliEt6sTWtVYDcSUg
-	l3+JzqqhfYzXsXPRj56OH9rXR7iII7EJ7OkaNOJPwh8VYep6xUTOVfgS4kPRQDonXgMDBj9uJb3
-	eBIeJXoskXEKlBJACzuLlxZQG6faFfwRfAucUnwcavVkLlMmkzENKsnp+53YKxDnOndm6OB6Y1d
-	MREhNt5p7T/gl7oZN8DyHwTtv59alnkig7AzCMlIp9YGoiEtT+sjoq2O8SBySQNedOru7S73umq
-	VpLXEaO81ppaZk8DPvqrjy2Djugoi9E7A92+1Oxdwv2VZzvQkbyl5NB1e6UyRQNdxEzKj6oZQ/J
-	SpF/Ux0K755IU1XbdfB01hvx68JQNXUMvbx+OLhU5A1Lr5Q+hkbechTgzpvktCHtIo9Frg7VUys
-	xZtzYd4CvlNFnuzkG/xKsbwX+FsyOS1jN2bg2Va7EQ/Cz5mFbQrrBFhu+StLAZfFSpsGX96ZVvn
-	HHI1
-X-Received: by 2002:a05:6a00:14c4:b0:874:72b6:7daa with SMTP id d2e1a72fcca58-87c84e181c5mr3162497b3a.37.1790177217849;
-        Wed, 23 Sep 2026 08:26:57 -0700 (PDT)
-Received: from yupeng-XPS-15-9520.. (c-73-169-192-12.hsd1.wa.comcast.net. [73.169.192.12])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1cfc09fasm1528901b3a.9.2026.09.23.08.26.56
+        d=1e100.net; s=20260707; t=1790177224; x=1790782024;
+        h=content-transfer-encoding:content-type:mime-version:message-id:cc
+         :to:subject:date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=grLXnCQQweMhLmDpYBV4MKF8n4Dw3i39obyyBfGlpSw=;
+        b=fhlerBozFYdK39NNlRRbQhGpim0vF3WL9p/izqQLgLDwLCsRRqq80TdLSPs3MWDD2I
+         Y/ZO8Q2dGxGZ1rQv+L/KwA8vbhZSFBY3ilxVuxTnDogEH7GQE3Ip4tpqVJY3OKOk5SxR
+         JIzmBPn82zNUz91r2J8Pj2jpqV2w9fBOuwEQP9AOm2kWVowUOGdMZqv1qqg461LJ11r/
+         Mkf5tHwb1i9kQzmXbDT+qNR/rTmjx7p/dU8ZD4HplkwjgHm6lI8sG9F3PZBSkm9IuxP1
+         uqI8xLcuCcx6nhAPF4Tj4VYUjTAVkIWfdqwckxM92yNcnukaWYtYFpKqPg1WJ2ub2yVu
+         8Bjg==
+X-Forwarded-Encrypted: i=1; AKwUvByadGfoDr3ZVCYaPeNDl4c4uR8nShFa5FjIbLB9lqVgU8aAJyeu8/1gpzgw/8xKjhv1arxXc4k4lZ4SZv8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mdx6aAiEQjC/Std5AwRqGffvJKQZAvUcJl116CqNgyYJKRATFe
+	mnCxt4HnVkB8TW6oz5NNLLQMzP4m7Q/0TedfHUuWLyDpqBWOqD8u/QQ4
+X-Gm-Gg: AYBFou353zIGRCvmgnH9U6E38TFyNXJVeDS9xQJU7Cnnh9zz/dpBp5+fzHNVGruM00o
+	sxHXxnFIGwImy6G+aYGqnaukiZVCG4maUsxABZ93bDJEjS0VzmYTw1oM99uUCGxiDUs3Mg1L0HN
+	sVwfEqVr04o9TuAWvEGrDO99xn5X+tkH+MMt4UZ/xL5fZYKkKfgbjCSSNcR/qbrqSSPZH3M+jOl
+	OSUHufHNIwVFtoTMg1EcZbD8IN1hWpb0hjstd/TiQFnHTeBP9ykLC4PnuOiNVxYSIBg4xsO9NBH
+	+C26PELQv0MbxT8klBh5litw4No3lN4ovpilj+YETrkC+1J1eBRAKXtMbTOk7ka5/u06HE6ZgL6
+	Vdd7FIg5iJv16eXeZiXbdjfpgIxutY3Z4woLqztR3oQM1ATE11QFcEkIT2FuWWrrvi4obzXV7SF
+	heNCSu5JePFxPvp46WdXzA2bpi3ZnDV5Je27egCLkSxHwGtifJ0Uh6YndGH5a/tVdIa0Pa+qpNV
+	i8jzTfatFeAb0ZZDMLync0UgjRGxR4DN9N4s4V2FW9gX6jAm6BXvS6k5fwqA0GYYNJ16qxtrZP4
+	eqbveV8TBipM1kC25Q/ZaMVPfVCtGdDAUXU=
+X-Received: by 2002:a17:90b:1344:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-3a07e51cf13mr2310705a91.6.1790177223646;
+        Wed, 23 Sep 2026 08:27:03 -0700 (PDT)
+Received: from [172.16.0.2] ([2a09:bac5:d58e:323::50:1d4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0812c87e9sm1822061a91.3.2026.09.23.08.27.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:26:56 -0700 (PDT)
-From: Peng Yu <yupeng0921@gmail.com>
-To: Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>
-Cc: Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Maurizio Lombardi <mlombard@arkamax.eu>,
-	cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Peng Yu <yupeng0921@gmail.com>
-Subject: [PATCH v3] nvmet: add cgroup_path to charge namespace I/O to a cgroup
-Date: Wed, 23 Sep 2026 08:26:53 -0700
-Message-ID: <20260923152653.40953-1-yupeng0921@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Wed, 23 Sep 2026 08:27:03 -0700 (PDT)
+From: houtinghang <ue081723@gmail.com>
+Date: Wed, 23 Sep 2026 23:26:33 +0800
+Subject: [PATCH] clang-tools: Resolve compilation database paths before
+ changing directory
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
+Cc: llvm@lists.linux.dev, linux-kbuild@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+Message-ID: <179017719332.59156.6125068848526895246@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Scenario:
-* Create multiple nvmet subsystems/namespaces.
-* The namespaces are backed by different LVM logical volumes.
-* Some of the logical volumes share the same physical volumes.
-* The subsystems are exported to different users.
-* We should provide each user a specific iops/bps quota, thus a noisy
-  neighbor won't impact the performance of other logical volumes.
+run-clang-tools.py opens the compilation database relative to the caller,
+but passes the same path to clang-tidy while running it in each entry's
+build directory. If these directories differ, a relative database path
+no longer points to the selected database. clang-tidy then falls back to
+running without flags, or can pick up a different database.
 
-Implementation:
-* Add a `cgroup_path` attribute under the nvmet namespace folder, e.g.:
-  /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/cgroup_path
-* We can write a cgroup path to it, then that cgroup will control
-  the IOs used by the namespace.
-* Write an empty string to clear it.
-* The cgroup_path could be modified when the namespace is disabled.
-* Support both block device backed namespaces and file backed namespaces.
-* Only the direct io scenario is supported, enabling a namespace that
-  has both cgroup_path and buffered_io set fails with -EINVAL.
+For example, invoking the script with database/compile_commands.json
+from the parent of the build directory makes clang-tidy look under
+build/database/compile_commands.json. A source file that requires a
+macro defined in the selected database then reports a compiler error.
 
-Change since v2:
-* Fix the in ns->cgroup_path error free issue nvmet_ns_cgroup_path_show.
-* Use nvmet_blkcg_begin/end in nvmet_bdev_zmgmt_send_work
+Convert the database argument to an absolute path when parsing it, before
+starting the worker pool. This preserves the caller's selected database
+when subprocess.run() changes the working directory.
 
-Test:
-1 Load kernel modules.
-sudo modprobe brd rd_nr=2 rd_size=1048576
-sudo modprobe nvmet
-sudo modprobe nvmet_tcp
-sudo modprobe nvme_tcp
+Add a regression test using real clang-tidy with C and C++ inputs. Cover
+both analysis modes and absolute, relative, dot-prefixed and parent
+component paths, including a database directory containing spaces.
 
-2 The two brd devices are used for a bdev backed namespace and a file
-backed namespace, remember their major/minor.
-lsblk --noheadings --nodeps --output NAME,MAJ:MIN,SIZE /dev/ram0 /dev/ram1
-ram0   1:0      1G
-ram1   1:1      1G
-
-3 Enable the io controller and create two cgroups, one for the bdev
-backed namespace, another for the file backed namespace.
-echo "+io" | sudo tee /sys/fs/cgroup/cgroup.subtree_control
-sudo mkdir -p /sys/fs/cgroup/nvmet-bdev
-sudo mkdir -p /sys/fs/cgroup/nvmet-file
-
-4 Create a file system and a file on ram0.
-sudo mkfs.ext4 /dev/ram0
-sudo mkdir -p /mnt/nvmet-file
-sudo mount -o noatime /dev/ram0 /mnt/nvmet-file
-sudo dd if=/dev/zero of=/mnt/nvmet-file/ns.img bs=1M count=512 oflag=direct
-
-5 Create the bdev backed subsystem and namespace.
-sudo mkdir -p /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1
-echo 1 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/attr_allow_any_host
-echo /dev/ram1 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/device_path
-echo /nvmet-bdev | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/cgroup_path
-echo 1 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/enable
-
-6 Create the file backed subsystem and namespace.
-sudo mkdir -p /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1
-echo 1 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/attr_allow_any_host
-echo /mnt/nvmet-file/ns.img | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1/device_path
-echo /nvmet-file | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1/cgroup_path
-echo 1 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1/enable
-
-7 Export the two subsystems to 127.0.0.1.
-sudo mkdir -p /sys/kernel/config/nvmet/ports/1
-echo ipv4 | sudo tee /sys/kernel/config/nvmet/ports/1/addr_adrfam
-echo tcp | sudo tee /sys/kernel/config/nvmet/ports/1/addr_trtype
-echo 127.0.0.1 | sudo tee /sys/kernel/config/nvmet/ports/1/addr_traddr
-echo 4420 | sudo tee /sys/kernel/config/nvmet/ports/1/addr_trsvcid
-sudo ln -s /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev /sys/kernel/config/nvmet/ports/1/subsystems/nqn.2026-09.io.test01:bdev
-sudo ln -s /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file /sys/kernel/config/nvmet/ports/1/subsystems/nqn.2026-09.io.test01:file
-
-8 Connect the two subsystems from 127.0.0.1.
-sudo nvme connect -t tcp -a 127.0.0.1 -s 4420 -n nqn.2026-09.io.test01:bdev
-sudo nvme connect -t tcp -a 127.0.0.1 -s 4420 -n nqn.2026-09.io.test01:file
-sudo udevadm settle
-
-9 Set riops to 20k and run fio.
-echo "1:1 riops=20000 wiops=max rbps=max wbps=max" | sudo tee /sys/fs/cgroup/nvmet-bdev/io.max
-echo "1:0 riops=20000 wiops=max rbps=max wbps=max" | sudo tee /sys/fs/cgroup/nvmet-file/io.max
-
-sudo fio --name=t --filename=/dev/nvme0n1 --rw=randread --bs=4k --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  read: IOPS=20.0k, BW=78.1MiB/s (81.9MB/s)(781MiB/10001msec)
-
-sudo fio --name=t --filename=/dev/nvme1n1 --rw=randread --bs=4k --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  read: IOPS=20.0k, BW=78.1MiB/s (81.9MB/s)(781MiB/10001msec)
-
-10 Set rbps to 100M and run fio.
-echo "1:1 riops=max wiops=max rbps=104857600 wbps=max" | sudo tee /sys/fs/cgroup/nvmet-bdev/io.max
-echo "1:0 riops=max wiops=max rbps=104857600 wbps=max" | sudo tee /sys/fs/cgroup/nvmet-file/io.max
-
-sudo fio --name=t --filename=/dev/nvme0n1 --rw=read --bs=1M --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  read: IOPS=97, BW=100MiB/s (105MB/s)(1033MiB/10304msec)
-
-sudo fio --name=t --filename=/dev/nvme1n1 --rw=read --bs=1M --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  read: IOPS=97, BW=100MiB/s (105MB/s)(1031MiB/10297msec)
-
-11 Set wiops to 20k and run fio.
-echo "1:1 riops=max wiops=20000 rbps=max wbps=max" | sudo tee /sys/fs/cgroup/nvmet-bdev/io.max
-echo "1:0 riops=max wiops=20000 rbps=max wbps=max" | sudo tee /sys/fs/cgroup/nvmet-file/io.max
-
-sudo fio --name=t --filename=/dev/nvme0n1 --rw=randwrite --bs=4k --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  write: IOPS=20.0k, BW=78.1MiB/s (81.9MB/s)(781MiB/10001msec); 0 zone resets
-
-sudo fio --name=t --filename=/dev/nvme1n1 --rw=randwrite --bs=4k --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  write: IOPS=20.0k, BW=78.1MiB/s (81.9MB/s)(781MiB/10001msec); 0 zone resets
-
-12 Set wbps to 100M and run fio.
-echo "1:1 riops=max wiops=max rbps=max wbps=104857600" | sudo tee /sys/fs/cgroup/nvmet-bdev/io.max
-echo "1:0 riops=max wiops=max rbps=max wbps=104857600" | sudo tee /sys/fs/cgroup/nvmet-file/io.max
-
-sudo fio --name=t --filename=/dev/nvme0n1 --rw=write --bs=1M --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  write: IOPS=97, BW=100MiB/s (105MB/s)(1031MiB/10305msec); 0 zone resets
-
-sudo fio --name=t --filename=/dev/nvme1n1 --rw=write --bs=1M --iodepth=32 --numjobs=1 \
---direct=1 --ioengine=libaio --time_based --runtime=10 --ramp_time=3 \
---group_reporting 2>/dev/null | grep -E '^ +(read|write): IOPS'
-  write: IOPS=97, BW=100MiB/s (105MB/s)(1032MiB/10297msec); 0 zone resets
-
-13 Cleanup the environment.
-sudo nvme disconnect -n nqn.2026-09.io.test01:bdev
-sudo nvme disconnect -n nqn.2026-09.io.test01:file
-sudo udevadm settle
-
-sudo rm -f /sys/kernel/config/nvmet/ports/1/subsystems/nqn.2026-09.io.test01:bdev
-sudo rm -f /sys/kernel/config/nvmet/ports/1/subsystems/nqn.2026-09.io.test01:file
-sudo rmdir /sys/kernel/config/nvmet/ports/1
-
-echo 0 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1/enable
-sudo rmdir /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev/namespaces/1
-sudo rmdir /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:bdev
-
-echo 0 | sudo tee /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1/enable
-sudo rmdir /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file/namespaces/1
-sudo rmdir /sys/kernel/config/nvmet/subsystems/nqn.2026-09.io.test01:file
-
-sudo umount /mnt/nvmet-file
-sudo rmdir /mnt/nvmet-file
-sudo modprobe -r brd
-
-sudo rmdir /sys/fs/cgroup/nvmet-bdev
-sudo rmdir /sys/fs/cgroup/nvmet-file
-
-sudo rmmod nvme_tcp
-sudo rmmod nvmet_tcp
-sudo rmmod nvmet
-
-Signed-off-by: Peng Yu <yupeng0921@gmail.com>
-Assisted-by: Claude:claude-fable-5 [Claude Code]
-Assisted-by: Claude:claude-opus-5 [Claude Code]
+Fixes: 6ad7cbc01527 ("Makefile: Add clang-tidy and static analyzer support to makefile")
+Assisted-by: LLM
+Signed-off-by: houtinghang <ue081723@gmail.com>
 ---
- drivers/nvme/target/configfs.c    | 61 +++++++++++++++++++++++++
- drivers/nvme/target/core.c        | 75 +++++++++++++++++++++++++++++++
- drivers/nvme/target/io-cmd-bdev.c | 18 +++++++-
- drivers/nvme/target/io-cmd-file.c | 21 ++++++++-
- drivers/nvme/target/nvmet.h       | 47 +++++++++++++++++++
- drivers/nvme/target/zns.c         |  5 +++
- 6 files changed, 224 insertions(+), 3 deletions(-)
+Testing with Python 3.12.3 and clang-tidy 18.1.3 on Ubuntu:
+- Eight CLI invocations cover both analysis modes and four path forms,
+  each processing C and C++ inputs. Six fail before the fix; all pass
+  after it.
+- Real x86 and ARM64 Clang init/main.c analyses match the output from
+  the original script with an absolute database path, with no compiler
+  errors. Existing analyzer warnings remain identical.
+- GCC database diagnostics also match, but clang-tidy cannot fully
+  process the GCC configuration; this is not a clean analysis result.
 
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index 6286e38436dd..f46227585e4b 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -561,6 +561,64 @@ static ssize_t nvmet_ns_device_path_store(struct config_item *item,
- 
- CONFIGFS_ATTR(nvmet_ns_, device_path);
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static ssize_t nvmet_ns_cgroup_path_show(struct config_item *item, char *page)
-+{
-+	struct nvmet_ns *ns = to_nvmet_ns(item);
-+	struct nvmet_subsys *subsys = ns->subsys;
-+	ssize_t ret;
-+
-+	mutex_lock(&subsys->lock);
-+	ret = snprintf(page, PAGE_SIZE, "%s\n", ns->cgroup_path ?: "");
-+	mutex_unlock(&subsys->lock);
-+	return ret;
-+}
-+
-+static ssize_t nvmet_ns_cgroup_path_store(struct config_item *item,
-+		const char *page, size_t count)
-+{
-+	struct nvmet_ns *ns = to_nvmet_ns(item);
-+	struct nvmet_subsys *subsys = ns->subsys;
-+	size_t len;
-+	const char *path;
-+	int ret = count;
-+
-+	mutex_lock(&subsys->lock);
-+
-+	if (ns->enabled) {
-+		ret = -EBUSY;
-+		goto out_unlock;
-+	}
-+
-+	len = strcspn(page, "\n");
-+	if (!len) {
-+		/* An empty write clears the association. */
-+		kfree(ns->cgroup_path);
-+		ns->cgroup_path = NULL;
-+		goto out_unlock;
-+	}
-+
-+	if (page[0] != '/' || len >= PATH_MAX) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
-+
-+	path = kmemdup_nul(page, len, GFP_KERNEL);
-+	if (!path) {
-+		ret = -ENOMEM;
-+		goto out_unlock;
-+	}
-+	kfree(ns->cgroup_path);
-+	ns->cgroup_path = path;
-+
-+out_unlock:
-+	mutex_unlock(&subsys->lock);
-+	return ret;
-+}
-+
-+CONFIGFS_ATTR(nvmet_ns_, cgroup_path);
-+#endif /* CONFIG_BLK_CGROUP */
-+
- #ifdef CONFIG_PCI_P2PDMA
- static ssize_t nvmet_ns_p2pmem_show(struct config_item *item, char *page)
- {
-@@ -833,6 +891,9 @@ static struct configfs_attribute *nvmet_ns_attrs[] = {
- 	&nvmet_ns_attr_buffered_io,
- 	&nvmet_ns_attr_revalidate_size,
- 	&nvmet_ns_attr_resv_enable,
-+#ifdef CONFIG_BLK_CGROUP
-+	&nvmet_ns_attr_cgroup_path,
-+#endif
- #ifdef CONFIG_PCI_P2PDMA
- 	&nvmet_ns_attr_p2pmem,
- #endif
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index 43871a8f56ca..3e4972513c3e 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -4,6 +4,7 @@
-  * Copyright (c) 2015-2016 HGST, a Western Digital Company.
-  */
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-+#include <linux/cgroup.h>
- #include <linux/hex.h>
- #include <linux/module.h>
- #include <linux/random.h>
-@@ -474,8 +475,77 @@ void nvmet_put_namespace(struct nvmet_ns *ns)
- 	percpu_ref_put(&ns->ref);
- }
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static int nvmet_blkcg_ns_enable(struct nvmet_ns *ns)
-+{
-+	struct cgroup_subsys_state *css;
-+	struct cgroup *cgrp;
-+
-+	if (!ns->cgroup_path)
-+		return 0;
-+
-+	/*
-+	 * Buffered writes will be handled by a separate thread,
-+	 * these IOs have no namespace/cgroup information at that time,
-+	 * so we don't support buffered io.
-+	 */
-+	if (ns->buffered_io) {
-+		pr_err("cgroup_path is not supported with buffered_io: %s\n",
-+		       ns->device_path);
-+		return -EINVAL;
-+	}
-+
-+	cgrp = cgroup_get_from_path(ns->cgroup_path);
-+	if (IS_ERR(cgrp)) {
-+		pr_err("failed to resolve cgroup path %s: %ld\n",
-+		       ns->cgroup_path, PTR_ERR(cgrp));
-+		return PTR_ERR(cgrp);
-+	}
-+
-+	css = cgroup_get_e_css(cgrp, &io_cgrp_subsys);
-+	if (!css || css->cgroup != cgrp) {
-+		pr_err("the io controller is not enabled in cgroup %s\n",
-+		       ns->cgroup_path);
-+		if (css)
-+			css_put(css);
-+		cgroup_put(cgrp);
-+		return -EINVAL;
-+	}
-+	ns->blkcg_css = css;
-+	cgroup_put(cgrp);
-+	return 0;
-+}
-+
-+static void nvmet_blkcg_ns_disable(struct nvmet_ns *ns)
-+{
-+	if (ns->blkcg_css) {
-+		css_put(ns->blkcg_css);
-+		ns->blkcg_css = NULL;
-+	}
-+}
-+
-+static void nvmet_blkcg_ns_free(struct nvmet_ns *ns)
-+{
-+	kfree(ns->cgroup_path);
-+}
-+#else
-+static inline int nvmet_blkcg_ns_enable(struct nvmet_ns *ns)
-+{
-+	return 0;
-+}
-+
-+static inline void nvmet_blkcg_ns_disable(struct nvmet_ns *ns)
-+{
-+}
-+
-+static inline void nvmet_blkcg_ns_free(struct nvmet_ns *ns)
-+{
-+}
-+#endif /* CONFIG_BLK_CGROUP */
-+
- static void nvmet_ns_dev_disable(struct nvmet_ns *ns)
- {
-+	nvmet_blkcg_ns_disable(ns);
- 	nvmet_bdev_ns_disable(ns);
- 	nvmet_file_ns_disable(ns);
- }
-@@ -602,6 +672,10 @@ int nvmet_ns_enable(struct nvmet_ns *ns)
- 	if (ret)
- 		goto out_unlock;
- 
-+	ret = nvmet_blkcg_ns_enable(ns);
-+	if (ret)
-+		goto out_dev_disable;
-+
- 	ret = nvmet_p2pmem_ns_enable(ns);
- 	if (ret)
- 		goto out_dev_disable;
-@@ -699,6 +773,7 @@ void nvmet_ns_free(struct nvmet_ns *ns)
- 	up_write(&nvmet_ana_sem);
- 
- 	kfree(ns->device_path);
-+	nvmet_blkcg_ns_free(ns);
- 	kfree(ns);
- }
- 
-diff --git a/drivers/nvme/target/io-cmd-bdev.c b/drivers/nvme/target/io-cmd-bdev.c
-index f2d9e8901df4..0014e5ef2853 100644
---- a/drivers/nvme/target/io-cmd-bdev.c
-+++ b/drivers/nvme/target/io-cmd-bdev.c
-@@ -297,6 +297,7 @@ static void nvmet_bdev_execute_rw(struct nvmet_req *req)
- 		bio = bio_alloc(req->ns->bdev, bio_max_segs(sg_cnt), opf,
- 				GFP_KERNEL);
- 	}
-+	nvmet_blkcg_set_bio(req->ns, bio);
- 	bio->bi_iter.bi_sector = sector;
- 	bio->bi_private = req;
- 	bio->bi_end_io = nvmet_bio_done;
-@@ -322,6 +323,7 @@ static void nvmet_bdev_execute_rw(struct nvmet_req *req)
- 
- 			bio = bio_alloc(req->ns->bdev, bio_max_segs(sg_cnt),
- 					opf, GFP_KERNEL);
-+			nvmet_blkcg_set_bio(req->ns, bio);
- 			bio->bi_iter.bi_sector = sector;
- 
- 			bio_chain(bio, prev);
-@@ -358,6 +360,7 @@ static void nvmet_bdev_execute_flush(struct nvmet_req *req)
- 
- 	bio_init(bio, req->ns->bdev, req->inline_bvec,
- 		 ARRAY_SIZE(req->inline_bvec), REQ_OP_WRITE | REQ_PREFLUSH);
-+	nvmet_blkcg_set_bio(req->ns, bio);
- 	bio->bi_private = req;
- 	bio->bi_end_io = nvmet_bio_done;
- 
-@@ -366,10 +369,16 @@ static void nvmet_bdev_execute_flush(struct nvmet_req *req)
- 
- u16 nvmet_bdev_flush(struct nvmet_req *req)
- {
-+	bool associated;
-+	int ret;
-+
- 	if (!bdev_write_cache(req->ns->bdev))
- 		return 0;
- 
--	if (blkdev_issue_flush(req->ns->bdev))
-+	associated = nvmet_blkcg_begin(req->ns);
-+	ret = blkdev_issue_flush(req->ns->bdev);
-+	nvmet_blkcg_end(associated);
-+	if (ret)
- 		return NVME_SC_INTERNAL | NVME_STATUS_DNR;
- 	return 0;
- }
-@@ -380,9 +389,11 @@ static void nvmet_bdev_execute_discard(struct nvmet_req *req)
- 	struct nvme_dsm_range range;
- 	struct bio *bio = NULL;
- 	sector_t nr_sects;
-+	bool associated;
- 	int i;
- 	u16 status = NVME_SC_SUCCESS;
- 
-+	associated = nvmet_blkcg_begin(ns);
- 	for (i = 0; i <= le32_to_cpu(req->cmd->dsm.nr); i++) {
- 		status = nvmet_copy_from_sgl(req, i * sizeof(range), &range,
- 				sizeof(range));
-@@ -394,6 +405,7 @@ static void nvmet_bdev_execute_discard(struct nvmet_req *req)
- 				nvmet_lba_to_sect(ns, range.slba), nr_sects,
- 				GFP_KERNEL, &bio);
- 	}
-+	nvmet_blkcg_end(associated);
- 
- 	if (bio) {
- 		bio->bi_private = req;
-@@ -431,6 +443,7 @@ static void nvmet_bdev_execute_write_zeroes(struct nvmet_req *req)
- 	struct bio *bio = NULL;
- 	sector_t sector;
- 	sector_t nr_sector;
-+	bool associated;
- 	int ret;
- 
- 	if (!nvmet_check_transfer_len(req, 0))
-@@ -440,8 +453,11 @@ static void nvmet_bdev_execute_write_zeroes(struct nvmet_req *req)
- 	nr_sector = (((sector_t)le16_to_cpu(write_zeroes->length) + 1) <<
- 		(req->ns->blksize_shift - 9));
- 
-+	associated = nvmet_blkcg_begin(req->ns);
- 	ret = __blkdev_issue_zeroout(req->ns->bdev, sector, nr_sector,
- 			GFP_KERNEL, &bio, 0);
-+	nvmet_blkcg_end(associated);
-+
- 	if (bio) {
- 		bio->bi_private = req;
- 		bio->bi_end_io = nvmet_bio_done;
-diff --git a/drivers/nvme/target/io-cmd-file.c b/drivers/nvme/target/io-cmd-file.c
-index 0b22d183f927..570e65259ad8 100644
---- a/drivers/nvme/target/io-cmd-file.c
-+++ b/drivers/nvme/target/io-cmd-file.c
-@@ -79,6 +79,8 @@ static ssize_t nvmet_file_submit_bvec(struct nvmet_req *req, loff_t pos,
- 	struct kiocb *iocb = &req->f.iocb;
- 	ssize_t (*call_iter)(struct kiocb *iocb, struct iov_iter *iter);
- 	struct iov_iter iter;
-+	bool associated;
-+	ssize_t ret;
- 	int rw;
- 
- 	if (req->cmd->rw.opcode == nvme_cmd_write) {
-@@ -97,7 +99,10 @@ static ssize_t nvmet_file_submit_bvec(struct nvmet_req *req, loff_t pos,
- 	iocb->ki_filp = req->ns->file;
- 	iocb->ki_flags = ki_flags | iocb->ki_filp->f_iocb_flags;
- 
--	return call_iter(iocb, &iter);
-+	associated = nvmet_blkcg_begin(req->ns);
-+	ret = call_iter(iocb, &iter);
-+	nvmet_blkcg_end(associated);
-+	return ret;
- }
- 
- static void nvmet_file_io_done(struct kiocb *iocb, long ret)
-@@ -251,7 +256,13 @@ static void nvmet_file_execute_rw(struct nvmet_req *req)
- 
- u16 nvmet_file_flush(struct nvmet_req *req)
- {
--	return errno_to_nvme_status(req, vfs_fsync(req->ns->file, 1));
-+	bool associated;
-+	int ret;
-+
-+	associated = nvmet_blkcg_begin(req->ns);
-+	ret = vfs_fsync(req->ns->file, 1);
-+	nvmet_blkcg_end(associated);
-+	return errno_to_nvme_status(req, ret);
- }
- 
- static void nvmet_file_flush_work(struct work_struct *w)
-@@ -274,10 +285,12 @@ static void nvmet_file_execute_discard(struct nvmet_req *req)
- 	int mode = FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE;
- 	struct nvme_dsm_range range;
- 	loff_t offset, len;
-+	bool associated;
- 	u16 status = 0;
- 	int ret;
- 	int i;
- 
-+	associated = nvmet_blkcg_begin(req->ns);
- 	for (i = 0; i <= le32_to_cpu(req->cmd->dsm.nr); i++) {
- 		status = nvmet_copy_from_sgl(req, i * sizeof(range), &range,
- 					sizeof(range));
-@@ -300,6 +313,7 @@ static void nvmet_file_execute_discard(struct nvmet_req *req)
- 			break;
- 		}
- 	}
-+	nvmet_blkcg_end(associated);
- 
- 	nvmet_req_complete(req, status);
- }
-@@ -336,6 +350,7 @@ static void nvmet_file_write_zeroes_work(struct work_struct *w)
- 	int mode = FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE;
- 	loff_t offset;
- 	loff_t len;
-+	bool associated;
- 	int ret;
- 
- 	offset = le64_to_cpu(write_zeroes->slba) << req->ns->blksize_shift;
-@@ -347,7 +362,9 @@ static void nvmet_file_write_zeroes_work(struct work_struct *w)
- 		return;
- 	}
- 
-+	associated = nvmet_blkcg_begin(req->ns);
- 	ret = vfs_fallocate(req->ns->file, mode, offset, len);
-+	nvmet_blkcg_end(associated);
- 	nvmet_req_complete(req, ret < 0 ? errno_to_nvme_status(req, ret) : 0);
- }
- 
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index dbda55895f4f..1ef7be97a244 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -21,6 +21,7 @@
- #include <linux/radix-tree.h>
- #include <linux/t10-pi.h>
- #include <linux/kfifo.h>
-+#include <linux/kthread.h>
- 
- #define NVMET_DEFAULT_VS		NVME_VS(2, 1, 0)
- 
-@@ -115,6 +116,16 @@ struct nvmet_ns {
- 	struct nvmet_subsys	*subsys;
- 	const char		*device_path;
- 
-+#ifdef CONFIG_BLK_CGROUP
-+	const char	*cgroup_path;
-+	/*
-+	 * Resolved from ->cgroup_path when the namespace is enabled and
-+	 * released when it is disabled, so it has the same lifetime and
-+	 * visibility rules as ->bdev and ->file.
-+	 */
-+	struct cgroup_subsys_state *blkcg_css;
-+#endif
-+
- 	struct config_group	device_group;
- 	struct config_group	group;
- 
-@@ -732,6 +743,42 @@ void nvmet_bdev_execute_zone_mgmt_recv(struct nvmet_req *req);
- void nvmet_bdev_execute_zone_mgmt_send(struct nvmet_req *req);
- void nvmet_bdev_execute_zone_append(struct nvmet_req *req);
- 
-+#ifdef CONFIG_BLK_CGROUP
-+static inline void nvmet_blkcg_set_bio(struct nvmet_ns *ns, struct bio *bio)
-+{
-+	if (ns->blkcg_css)
-+		bio_associate_blkg_from_css(bio, ns->blkcg_css);
-+}
-+
-+static inline bool nvmet_blkcg_begin(struct nvmet_ns *ns)
-+{
-+	if (!ns->blkcg_css || !in_task() || !(current->flags & PF_KTHREAD))
-+		return false;
-+
-+	kthread_associate_blkcg(ns->blkcg_css);
-+	return true;
-+}
-+
-+static inline void nvmet_blkcg_end(bool associated)
-+{
-+	if (associated)
-+		kthread_associate_blkcg(NULL);
-+}
-+#else
-+static inline void nvmet_blkcg_set_bio(struct nvmet_ns *ns, struct bio *bio)
-+{
-+}
-+
-+static inline bool nvmet_blkcg_begin(struct nvmet_ns *ns)
-+{
-+	return false;
-+}
-+
-+static inline void nvmet_blkcg_end(bool associated)
-+{
-+}
-+#endif /* CONFIG_BLK_CGROUP */
-+
- static inline u32 nvmet_rw_data_len(struct nvmet_req *req)
- {
- 	return ((u32)le16_to_cpu(req->cmd->rw.length) + 1) <<
-diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
-index 23a17c02abee..a9836d44f5e6 100644
---- a/drivers/nvme/target/zns.c
-+++ b/drivers/nvme/target/zns.c
-@@ -480,8 +480,11 @@ static void nvmet_bdev_zmgmt_send_work(struct work_struct *w)
- 	struct block_device *bdev = req->ns->bdev;
- 	sector_t zone_sectors = bdev_zone_sectors(bdev);
- 	u16 status = NVME_SC_SUCCESS;
-+	bool associated;
- 	int ret;
- 
-+	associated = nvmet_blkcg_begin(req->ns);
-+
- 	if (op == REQ_OP_LAST) {
- 		req->error_loc = offsetof(struct nvme_zone_mgmt_send_cmd, zsa);
- 		status = NVME_SC_ZONE_INVALID_TRANSITION | NVME_STATUS_DNR;
-@@ -511,6 +514,7 @@ static void nvmet_bdev_zmgmt_send_work(struct work_struct *w)
- 		status = blkdev_zone_mgmt_errno_to_nvme_status(ret);
- 
- out:
-+	nvmet_blkcg_end(associated);
- 	nvmet_req_complete(req, status);
- }
- 
-@@ -580,6 +584,7 @@ void nvmet_bdev_execute_zone_append(struct nvmet_req *req)
- 		bio = bio_alloc(req->ns->bdev, req->sg_cnt, opf, GFP_KERNEL);
- 	}
- 
-+	nvmet_blkcg_set_bio(req->ns, bio);
- 	bio->bi_end_io = nvmet_bdev_zone_append_bio_done;
- 	bio->bi_iter.bi_sector = sect;
- 	bio->bi_private = req;
+AI disclosure: Codex found and reproduced the path bug, wrote the fix
+and regression test, reviewed the changes, ran the tests and drafted
+this patch in response to a request to find another kernel issue.
 
-base-commit: d9cc476535d29a44df3f2aa3b14af9a833fddf90
+ .../clang-tools/run-clang-tools-path-test.py  | 56 +++++++++++++++++++
+ scripts/clang-tools/run-clang-tools.py        |  3 +-
+ 2 files changed, 58 insertions(+), 1 deletion(-)
+ create mode 100644 scripts/clang-tools/run-clang-tools-path-test.py
+
+diff --git a/scripts/clang-tools/run-clang-tools-path-test.py b/scripts/clang-tools/run-clang-tools-path-test.py
+new file mode 100644
+index 0000000..87baba5
+--- /dev/null
++++ b/scripts/clang-tools/run-clang-tools-path-test.py
+@@ -0,0 +1,56 @@
++#!/usr/bin/env python3
++# SPDX-License-Identifier: GPL-2.0
++
++"""Exercise compilation database paths with the real clang-tidy executable."""
++
++import json
++from pathlib import Path
++import shutil
++import subprocess
++import sys
++import tempfile
++import unittest
++
++
++SCRIPT = Path(__file__).with_name("run-clang-tools.py")
++
++
++@unittest.skipUnless(shutil.which("clang-tidy"), "clang-tidy is required")
++class TestDatabasePath(unittest.TestCase):
++    def test_database_path(self):
++        with tempfile.TemporaryDirectory() as directory:
++            root = Path(directory)
++            build = root / "build"
++            database = root / "database with spaces"
++            build.mkdir()
++            database.mkdir()
++            entries = []
++            for suffix in ("c", "cpp"):
++                source = build / ("test." + suffix)
++                source.write_text(
++                    "#ifndef REQUIRED\n#error compilation flags lost\n"
++                    "#endif\nint test;\n", encoding="utf-8")
++                entries.append({
++                    "directory": str(build), "file": str(source),
++                    "arguments": ["clang", "-DREQUIRED", "-c", str(source)],
++                })
++            path = database / "compile_commands.json"
++            path.write_text(json.dumps(entries), encoding="utf-8")
++            paths = [str(path), str(path.relative_to(root)),
++                     "./" + str(path.relative_to(root)),
++                     "build/../" + str(path.relative_to(root))]
++            for analysis in ("clang-tidy", "clang-analyzer"):
++                for value in paths:
++                    with self.subTest(analysis=analysis, path=value):
++                        result = subprocess.run(
++                            [sys.executable, str(SCRIPT.resolve()), analysis,
++                             value], cwd=root, capture_output=True, text=True)
++                        self.assertEqual(result.returncode, 0, result.stderr)
++                        self.assertNotIn("compilation flags lost", result.stderr)
++                        self.assertNotIn("Running without flags", result.stderr)
++                        self.assertNotIn("Error while trying to load",
++                                         result.stderr)
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/scripts/clang-tools/run-clang-tools.py b/scripts/clang-tools/run-clang-tools.py
+index e78be82..230db50 100755
+--- a/scripts/clang-tools/run-clang-tools.py
++++ b/scripts/clang-tools/run-clang-tools.py
+@@ -12,6 +12,7 @@ compile_commands.json.
+ import argparse
+ import json
+ import multiprocessing
++import os
+ import subprocess
+ import sys
+ 
+@@ -31,7 +32,7 @@ def parse_arguments():
+                         choices=["clang-tidy", "clang-analyzer"],
+                         help=type_help)
+     path_help = "Path to the compilation database to parse"
+-    parser.add_argument("path", type=str, help=path_help)
++    parser.add_argument("path", type=os.path.abspath, help=path_help)
+ 
+     checks_help = "Checks to pass to the analysis"
+     parser.add_argument("-checks", type=str, default=None, help=checks_help)
 -- 
-2.53.0
+2.52.0.windows.1
 
