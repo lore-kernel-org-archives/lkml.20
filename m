@@ -1,127 +1,218 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9229C521891
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:46:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EB58953FD28;
+	Wed, 23 Sep 2026 14:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174815; cv=none; b=UNR0Fr76YI5EbJzfSRS25BhnXBq5FkisJJp+CLOpMypqdp1+iRmLuYx6KcCoc/CO9DiiOyyGKW/XFIpIM6U2zViheKQPzyxxBH1QmFgPIvkxctN5IrfeS6Z2Fyoaw1PIngk/Tr4n1oaqlJSLndgIUxk5KllJ/zBho0sIvOlnEH0=
+	t=1790174828; cv=none; b=MIhJShlqwpmTfMBJlaZSJgC3yRHFfTq0e9pCP6v2gMsIlaIgA6MM+uWy3llDdEyjWl4/C2fMtfK/GWPcUhqIdzdfXGHvIxIqS3A9/rv8D2wOSGIcGe+pea8YOnBUk+X0+UKQAAHqgHEtFwKaArXFrYTwsUos3qfGTyZsjSd5fvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174815; c=relaxed/simple;
-	bh=FXzg6hBNBXZZsScdwtGeM5Pmqbhre7BC03zd4cLn0Yo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KS9lMSLLxdyWXRoE4WDgqdbRdnfFB1TlRYESFpy5ks0fhxTHKmSH8Qzp4Vezs2FIUtHruQimlZGlw4BeBbOiEIdNJKTl8FAh+KIYs2vz750XV+vfxLpAJVkrq3WXOvtUpokv8u3iMphzIB0aRxrwTsZGieGyMb7+UHYBoJrL3lA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e33b917so831651e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:46:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790174812; x=1790779612;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ONYGJu27lrhOYpsTIFykGbM1Hkv2j9YTc036/0zk0Ug=;
-        b=c3ul/s6NUc5AaVGkPXGzBn3MuTGhgqgn5LGOd77yoQ5XFp0ntDKiPP5bHk1C2yk+kx
-         UUuJ6tu8l0D/xX/xrAl2qYmll44pjcMuWRF0H7T9cQh9kLbtsO4do3pauy3gRe8mJBNU
-         vcGNwjmqtqPfAoOqVvm9+7UtnOqc8Ii9y9cgbwgVlzB/T7vZ35TvJQacfi6EDUJxSsN0
-         lUqE3tJrKcc+mPzAQ9Ebx2X60QBFp37ha6xeWnQQ1YQLpyM72wvPim5awgGGuE8mZXO4
-         JXDdWp3fYIm3qIzvkp2KZlclYrRRr0Q7SlFj/nXrk4+2fFk9DPR9gO/EHgfsA+KzZzLG
-         1NoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwzsnVwKLjLVBUKIkRQMMrqmhsxWjBVzcWooII/21oqHSglvoShqMySx9Dwvjj6gHerSLRD4FwPIexXUus=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVCj1oBcUeE6cSXoTb0K+9o7oHj+xRL5KywXchkVA0JaFN2GIP
-	Bso3Gt7Xt1W438pDTdIUly/7feyuLdRtR6x9UHfgCqw/qQLGaFSHltOCIPCv8lnr/Do=
-X-Gm-Gg: AYBFou2/f98kojdzDEpU1AEa7s/fM5CIY7RSHscsKKFeVOAy8Isq3avXSBdTKWVncHv
-	yZ5bKCDiW7JaMSn3RTw9WNX7SCp+yPnB85kqF4ZR/H9nbnclrjiFhT/cd1peo+gWbTSe5nmP2ty
-	I8IkE5GwoMfSx5OROivrJAp6i3omICczk1mIN93gZDI3UaG3owPMsFrRb0UmJ18ZDFlJIh3hTC4
-	3BTxUvA4ywrzm7n0jQNX2kE/y4sKBCRJqO8DngtziU0siAr5gkXwUt3aWgE7uYK1GuHBbQdpVwg
-	6/SoEkDoXt6Kq/allwcyJeueLiRxAYKuxOTdzkqs3KfrQ60B0boAiZPH7f/EW8iWQEn5PD/sK91
-	UsJO37g9TQmRK/O91On2Jyj73ca3pwQYSEsRzhK5qjIkXEDYvO0H9WZUwJB+FfTJNLJtbCFvXRR
-	DAURDSQjssV3FTt21hm1nFXcPdmM0+6tY7TpRuGdi9Fo670X9oe1KNgeVf6xD/zgYts2PVCK89C
-	kGkx4LvltkImT/BdTm1W+ZxYcP+TqWwQCOlm2J8SjmVYzd8
-X-Received: by 2002:a05:6102:3f16:b0:7a5:673f:7a2d with SMTP id ada2fe7eead31-7ac1b000b0cmr2800619137.6.1790174812184;
-        Wed, 23 Sep 2026 07:46:52 -0700 (PDT)
-Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com. [74.125.226.204])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf35bcb07sm3870633137.2.2026.09.23.07.46.51
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 07:46:51 -0700 (PDT)
-Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c7b4ed1so532052241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:46:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwcjEVPPd5VNsnXWsXib/xuObzWhbEoxl4NXn/NpJsOb0XPu6jjnKX4UZtpOKNF8zErEfoKd3Hp4mgKX1E=@vger.kernel.org
-X-Received: by 2002:a05:6102:5709:b0:7a1:f7e2:aadf with SMTP id
- ada2fe7eead31-7ac1d0cb10emr2412732137.17.1790174811407; Wed, 23 Sep 2026
- 07:46:51 -0700 (PDT)
+	s=arc-20240116; t=1790174828; c=relaxed/simple;
+	bh=awIi2SW1S6jVTOUpTt7BOwVz9y44FEJZkTwgeTESkVU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kPpWK1+J09LnkCCfP8VtJAb9oIs4ecQs94/uZ3YRN/Sjh/VeWMplGiFHTm6OOS83Y0Hy06a0Ic2FHxZd+2+MYuiO72EtigHmOMhgTQ4hsY/o1n0E7A+CrhQxp9/smNqc30lo/X6fgNPgrIK/rP7Ffu+8cYSkHOmZ7RXPL9dIEe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=qJj1PIbs; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="qJj1PIbs"
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+	id 4FFE920B7168; Wed, 23 Sep 2026 07:46:18 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4FFE920B7168
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1790174778;
+	bh=BdWvUD6PhTXpEULgXqv9ItmnLeR+T+Ojwl0P/kKONhM=;
+	h=From:To:Cc:Subject:Date:From;
+	b=qJj1PIbsphfBdS88Mg9ne0uT2rNOI9Ri0PRvbSfoJouMyvGIEhHvgJnf7VnMqvGcY
+	 j3iS5g3Rr77YUyTNpzF+qQxVAiTiQnZEQA1FE4VLjj7/oIS5VTfQulR+sE1Q9LCpJr
+	 deFM/Qr2D2NsGbeh1ukNnVgjhmzkiB/FB+tGRclU=
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: netdev@vger.kernel.org
+Cc: "K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Simon Horman <horms@kernel.org>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
+	Aditya Garg <gargaditya@linux.microsoft.com>,
+	Jacob Keller <jacob.e.keller@intel.com>,
+	Saurabh Sengar <ssengar@linux.microsoft.com>,
+	linux-hyperv@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: mana: reserve RX buffer headroom to fix forwarding performance
+Date: Wed, 23 Sep 2026 10:45:00 -0400
+Message-ID: <20260923144500.4073380-1-hamzamahfooz@linux.microsoft.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-5-94c4674927e8@solid-run.com>
-In-Reply-To: <20260904-rzg2-sr-boards-v8-5-94c4674927e8@solid-run.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 23 Sep 2026 16:46:38 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWUt7w8Y=fmX2PtdJhZJ0k0YaKkoaC2ifx+LSYL5PijHg@mail.gmail.com>
-X-Gm-Features: AclHuK_0TFDwROATeFWc5QcEb9bj6YWPyy6x8RXwybT5t7YWLi1_s9QYUiwmNRs
-Message-ID: <CAMuHMdWUt7w8Y=fmX2PtdJhZJ0k0YaKkoaC2ifx+LSYL5PijHg@mail.gmail.com>
-Subject: Re: [PATCH v8 05/11] arm64: dts: renesas: add support for solidrun
- rzv2l som and hb-iiot evb
-To: Josua Mayer <josua@solid-run.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
-	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
-	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
-> Add support for the SolidRun RZ/V2L [1] SoM on HummingBoard IIoT [2].
->
-> The SoM features:
-> - 2x 1Gbps Ethernet with PHY
-> - eMMC
-> - 1/2GB DDR
-> - WiFi + Bluetooth
-> - SDHI Mux switching between eMMC and Carrier Board
->
-> The HummingBoard IIoT features:
-> - 3x USB-2.0 Type A connector
-> - 2x 1Gbps RJ45 Ethernet
-> - USB Type-C Console Port
-> - microSD connector
-> - RTC with backup battery
-> - RGB Status LED
-> - 1x M.2 B-Key connector with USB-2.0 + SIM card holder
-> - 1x DSI Display Connector
-> - GPIO header
-> - 2x RS232/RS485 ports (configurable)
-> - 2x CAN
->
-> The RZ/V2L SoM shares PCB with RZ/G2L, differing only in the SoC itself.
-> RZ/V2L is adding a powerful DRP-AI NPU which G2L lacks.
->
-> Due to the similarities most code is shared, including DT overlays for
-> eMMC, microSD, and RS485.
->
-> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-v2l-som/
-> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
->
-> Signed-off-by: Josua Mayer <josua@solid-run.com>
+Commit 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers
+instead of full pages to improve memory efficiency.") started handing
+out RX buffers with zero headroom so that two buffers fit into one page
+at the default MTU.
 
-LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+The MANA TX path, however, stores the per scatter-gather entry DMA
+mappings in `struct mana_skb_head` at skb->head, and mana_start_xmit()
+therefore calls skb_cow_head(skb, MANA_HEADROOM). The port advertises
+this requirement as ndev->needed_headroom = MANA_HEADROOM.
 
-Gr{oetje,eeting}s,
+As a result every packet that is received and then forwarded out of a
+MANA port fails the skb_cow() in ip_forward() and gets reallocated and
+copied by pskb_expand_head(). This is invisible to a plain RX or TX
+workload, but it puts a full skb reallocation plus memcpy on the hot
+path of every single forwarded packet, which is exactly what a
+router/NVA workload does.
 
-                        Geert
+Restore the headroom. Note that reserving MANA_HEADROOM (232) is not
+enough: ip_forward() asks for LL_RESERVED_SPACE(dev), which rounds
+hard_header_len + needed_headroom up to HH_DATA_MOD and is 256 bytes on
+ethernet. Use LL_RESERVED_SPACE() directly so the value keeps tracking
+both constants.
 
+At the default MTU on a 4K page this means a buffer no longer fits twice
+into a page (SKB_DATA_ALIGN(1500 + MANA_RXBUF_PAD + 256) = 2112), so the
+frag-vs-single decision is now made by computing the real buffer size
+instead of comparing the MTU against PAGE_SIZE / 2. The page_pool
+fragment path is still used wherever at least two buffers genuinely fit,
+e.g. on 16K and 64K page sizes.
+
+Measured on an Azure VM with a MANA NIC acting as a forwarding NVA (UDP,
+1400 byte payload, 4 streams, 8 Gbps offered, only the forwarding
+node's kernel differs), 8 runs each, median:
+
+                  forwarded pps    throughput
+  before              272,830       3.06 Gbps
+  after               390,560       4.37 Gbps   (+43%)
+
+perf on the forwarding node, same workload:
+
+                  memset_orig   __pi_memcpy   pskb_expand_head
+  before             10.07%         3.96%         present
+  after               0.94%         0.64%         gone
+
+Cc: stable@vger.kernel.org
+Fixes: 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers instead of full pages to improve memory efficiency.")
+Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+---
+ drivers/net/ethernet/microsoft/mana/mana_en.c | 58 ++++++++++++++-----
+ 1 file changed, 44 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 591fb4191d90d..e3f3b33ba9062 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -758,6 +758,36 @@ static void *mana_get_rxbuf_pre(struct mana_rxq *rxq, dma_addr_t *da)
+ 	return va;
+ }
+ 
++/* RX buffers must be allocated with enough headroom for the TX path:
++ * mana_start_xmit() stores the SGE DMA mappings in struct mana_skb_head at
++ * skb->head, which is why the port advertises ndev->needed_headroom =
++ * MANA_HEADROOM.
++ *
++ * An skb that is forwarded out of a MANA port has to satisfy
++ * skb_cow(skb, LL_RESERVED_SPACE(dev) + ...) in ip_forward(), so reserve
++ * LL_RESERVED_SPACE() here rather than just MANA_HEADROOM - it rounds
++ * hard_header_len + needed_headroom up to HH_DATA_MOD and is therefore
++ * larger. Reserving less makes every forwarded packet get reallocated and
++ * copied by pskb_expand_head().
++ */
++static u32 mana_get_rxbuf_headroom(struct mana_port_context *apc)
++{
++	u32 headroom = LL_RESERVED_SPACE(apc->ndev);
++
++	if (mana_xdp_get(apc))
++		return max_t(u32, headroom, XDP_PACKET_HEADROOM);
++
++	return headroom;
++}
++
++static u32 mana_get_rxbuf_size(struct mana_port_context *apc, u32 mtu)
++{
++	u32 len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
++				 mana_get_rxbuf_headroom(apc));
++
++	return ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
++}
++
+ static bool
+ mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
+ {
+@@ -770,11 +800,16 @@ mana_use_single_rxbuf_per_page(struct mana_port_context *apc, u32 mtu)
+ 	if (apc->priv_flags & BIT(MANA_PRIV_FLAG_USE_FULL_PAGE_RXBUF))
+ 		return true;
+ 
+-	/* For xdp and jumbo frames make sure only one packet fits per page. */
+-	if (mtu + MANA_RXBUF_PAD > PAGE_SIZE / 2 || mana_xdp_get(apc))
++	/* For xdp make sure only one packet fits per page. */
++	if (mana_xdp_get(apc))
+ 		return true;
+ 
+-	return false;
++	/* Only use the page_pool fragment path when at least two buffers,
++	 * including the headroom each of them has to reserve, actually fit
++	 * into one page. Otherwise the fragment path degenerates into one
++	 * buffer per page while still paying the fragment accounting cost.
++	 */
++	return PAGE_SIZE / mana_get_rxbuf_size(apc, mtu) < 2;
+ }
+ 
+ /* Get RX buffer's data size, alloc size, XDP headroom based on MTU */
+@@ -782,20 +817,19 @@ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
+ 			       int mtu, u32 *datasize, u32 *alloc_size,
+ 			       u32 *headroom, u32 *frag_count)
+ {
+-	u32 len, buf_size;
++	u32 buf_size;
+ 
+ 	/* Calculate datasize first (consistent across all cases) */
+ 	*datasize = mtu + ETH_HLEN;
+ 
++	*headroom = mana_get_rxbuf_headroom(apc);
++
+ 	if (mana_use_single_rxbuf_per_page(apc, mtu)) {
+-		if (mana_xdp_get(apc)) {
+-			*headroom = XDP_PACKET_HEADROOM;
++		if (mana_xdp_get(apc))
+ 			*alloc_size = PAGE_SIZE;
+-		} else {
+-			*headroom = 0; /* no support for XDP */
++		else
+ 			*alloc_size = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD +
+ 						     *headroom);
+-		}
+ 
+ 		*frag_count = 1;
+ 
+@@ -809,11 +843,7 @@ static void mana_get_rxbuf_cfg(struct mana_port_context *apc,
+ 	}
+ 
+ 	/* Standard MTU case - optimize for multiple packets per page */
+-	*headroom = 0;
+-
+-	/* Calculate base buffer size needed */
+-	len = SKB_DATA_ALIGN(mtu + MANA_RXBUF_PAD + *headroom);
+-	buf_size = ALIGN(len, MANA_RX_FRAG_ALIGNMENT);
++	buf_size = mana_get_rxbuf_size(apc, mtu);
+ 
+ 	/* Calculate how many packets can fit in a page */
+ 	*frag_count = PAGE_SIZE / buf_size;
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.55.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
