@@ -1,215 +1,150 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011036.outbound.protection.outlook.com [52.101.65.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D663AB269
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790180255; cv=none; b=LuyNmHWiQt85PDBAufxO5bLeZ1W8StDPeb8+c6b83S3VmkbiL2HNjqCKDF82ozfg2N+jWYwh15iAVKKUTCgPPWz0SZaHJkg6hCvNetEnZAlD7VvVdwzFsvVQXzU+43ypdtNbkzcvH1kimOgmFvRE5hbAFlQSeC+j8ZzS/yffFkI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790180255; c=relaxed/simple;
-	bh=sbnmurq/uAX+vNJcFUT4c5jU9IwDiC579Dx07vz6Q7Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bkAwp0ar6KP7zMdvs5ITZ2IkRN6O23CZPbxHcjleUX41SNg9OkPm566qW4rUkHlCGOyg0W9gLzeEdI08DI8t8/Cd3eMXWb8odUaCBkIWtYOKgTljC7uGGgfUAK/+1wdbhD3wiPUzRK7jGCLybqDUO3uXZnj9lXwfZYruDP/fJas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q7DczvZl; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A1D3AB269;
+	Wed, 23 Sep 2026 16:18:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790180303; cv=fail; b=WhRGZqS9q/6+6BK6TPSXHg3W5K1WNZ2NtbqiIoHQzClhrWgZYwCRPrRzNrkrYAJKbkMrMppgn9NXjw6/IU5rF025vtsvY5NeYt7YwN5uC09lAnIGlmcX9obf4lk5Z8yvDODyCErOFkc/vyq+aGcadht5GGzITOOIQkfMpCKBsnE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790180303; c=relaxed/simple;
+	bh=o89EbtLEdZ+a2l5FSsnNqFl4TEM3xqmbh8dAAW5SoD8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kozRzmOtwtSDKvYqpxw4/H6qlApwUw8BpF0iAU6J3Z48yGSygH5z2UwISJJY7wqKeK4GU0/FtovQJe2mNw94OWSy6lQayH2TvFaPMhyCdmyLmzeHikaDF6Tr9aMk/F3IvSWt4KHRal33gCqrZoO62tNgQqLra+Lb15ZJU+ZZWbo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Ui6D0luY; arc=fail smtp.client-ip=52.101.65.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q7DczvZl"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48586861639so17051f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:17:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790180252; x=1790785052; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6FsqUSBp8jlzbulaQzZnxDz2zVSSSTOE4AXgMopXxYY=;
-        b=q7DczvZleVowyfmR//K2jhBCDx0FX6D86DjOCweqf0hKEE8zwvFpJUksV5TwmG+6AR
-         bclRVLedfwtMqBMN0xX9u2VmZ/IXgXaWTWqZ7zKfMVlzp8G7B66Km1HEEps2H5PsogK+
-         /V/d56NZRn3QkCUC17WIeiPPBcfSFTAFmX2H5IsRH0opIJ4343UMaicQXN6WeL96vONF
-         6QHlobj0fijbv3GNGdmyNso+9FtFwD5dTi6+bc5ZwQJb6IGi5AiU6WIN3P8hHlTkkkJM
-         ZCuYYoJVYgGI+GM4a99LJQDnD6OomFVCMqa4P/L+18wasKyjRtv11TP5CP8znIyUtuW9
-         raAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790180252; x=1790785052;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6FsqUSBp8jlzbulaQzZnxDz2zVSSSTOE4AXgMopXxYY=;
-        b=cQOijeUflsnHjkaVhJMiPcmM7uSdNjxQnnl0qJ8Pw2Jy0q2njOSyx7zap0FJEajMa3
-         glraGX5AViJHPdX4XzphjbFsqObGDqMMNihY2uBqGPr5Kkg2zyJW2C70amM7Bv7dR9Y+
-         AdBzqZndlvjNTKmmfQVoEqKpl3LKV1gorTV11iRkQsPHWDP0HaHb55V/cpwqxAlLPjhi
-         4waG4lbkwJ9I0CiWCm7+A1MkLW9B+LDrX9rpoZrZqeUXBV/EP+bkrhBsmi1B6qhygxR/
-         t+akXocvdf/AObPjrE+fmPnnp7ClzeTZqylIFYcNZ0b/MxiKknqpZ7XHDteTZFcctDT0
-         ytjQ==
-X-Gm-Message-State: AFuF++lpSvNZnrrmZs9TnCIiRyWxiTgkkUyRt5S8jX5LBlsScA5Jq/Il
-	bBUgf2qfG24D5b18WWekT1A8uazl3BFhuhoAQYdbHAlAycpgBIExUkj3bcg+J+G9QlahNw==
-X-Gm-Gg: AYBFou3Lyf9SFuvLTfNsQqF5dKuKzawmuTd6wXkgOpEWVO/aGdLqQi/R7SmbMwCWBTG
-	FGSgPm4aNLoLcI7YcxGE1pfIKl81dnaqUlvuwVVY1ouO54apOawTpJf764/XsnbGxtVNtAXKIHS
-	rJkcgXoLTV6cj5Hb9nAQBMBMlfbz4ax7oI6oueIeglwoysT06ajdjhjwkCBgVYsbAzAusnBo9WD
-	kSnQMf20WtxhQxQfL6uE0ml8R+uI8B+W25IXRSFmMbd72rize9mb1scr4jM6PfzaMFd69ZV1NkI
-	p+kjJFbhUmvPhueuhG56lxUW7vfjkMSzOWoiseZbumLMNYt4pGRjGSDBVnLqvRMcvcIYUp8yfQO
-	1iO+ST0uB8kXTa52gaFqE6XrQ42ugCuKxCqzzLdKxGdBq1oRCdvVjXk7IJUB2zzu2slOzA8cGhO
-	rNA4TaSe2BY3Vz8ZogNtV1eYZU8ZnAcr0/YC1k3dXCbH8mrPmVDgK7DHOFrZZVeejn1us2234Vi
-	cD6JF56O740Fx1tnxfx+DTSgrhuc1/dmk6bZIAJdQ4HCIH+3ZHUlQ5DONt2YBYqbFFiUe4BY4vR
-	RA==
-X-Received: by 2002:a05:6000:1788:b0:487:22b1:e511 with SMTP id ffacd0b85a97d-48860f8dca0mr13416589f8f.9.1790180251439;
-        Wed, 23 Sep 2026 09:17:31 -0700 (PDT)
-Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48867b49661sm7602716f8f.0.2026.09.23.09.17.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 09:17:30 -0700 (PDT)
-From: Palla Raghunath <raghunathpalla.0209@gmail.com>
-To: linux-kernel@vger.kernel.org
-Cc: Shuah Khan <shuah@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	linux-kernel-mentees@lists.linux.dev,
-	raghunathpalla.0209@gmail.com,
-	syzbot+422b372cabfbaa528725@syzkaller.appspotmail.com,
-	Song Liu <song@kernel.org>,
-	Yu Kuai <yukuai@fygo.io>,
-	Li Nan <magiclinan@didiglobal.com>,
-	Xiao Ni <xiao@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	"Trela, Maciej" <Maciej.Trela@intel.com>,
-	linux-raid@vger.kernel.org
-Subject: [PATCH] md/raid0: don't BUG() on a bio that lands off the end of the array
-Date: Wed, 23 Sep 2026 17:17:28 +0100
-Message-Id: <20260923161729.122240-1-raghunathpalla.0209@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Ui6D0luY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xF0Sy83LNB3c050cb6xO3VQC0BTfXQrWPZQ0n6cFSoYH8a3PIkEvbPwyqFfXg+3YSXDCuUCKck9OxIPBNnVlvcOmRh0+uZnAaTPtWd6Eowdi8I6C+sXKENIGT7QnV9IPRrsxKiQPGPDqSKM2OqtRM3cQp7ESvWira5MoQJCVzUQcNLWKk5BRPUzF5b5tajdVUi9uUpriDhMJPxy8bpf8j/6X7PvNncmnNsv/zDr+YUMLr9L/eY5skb+b4g/s1O1aUgmLasoEqUJhXoxdJmg6P5USG26gLa6GRODAkDY7xUH25g3QhBWJfvJquXobb02i26mtA/LGETGznsVCFHiBnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z5A+X8sMOYJbR9lZ5URub+pkgaH4rakh6oT/quT2+hg=;
+ b=k663E4JCcXfIWLXGHzU9Iwqehjw9wamjhE3S/Dj4q4CFELyHqDHy5F2iQDATlQTRDHjOY28WufHpFrjF+lXw+Xb0hU1180LIiPWvkR172guYiNlHe2DYFyH6RkgLBgTeZbZngpo/J1YzkSjEOtFtM/puY4J39Nx3ldm8DPQf6F62fGitjprhL+GQGcDlkErXINdvQrOls9qjc66Sk/6hRN+zsvAeUR0ysycG9EyKD/sUIb/DYS6lNk0wYloA7Qm6og8NUodFg6Pk2ulmDibVakVI4C4jv9omw0Ja/q/xugxav+7tFLanZ41WTwN+6wUNWsztD6jeaL44UgYN6ZBu2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z5A+X8sMOYJbR9lZ5URub+pkgaH4rakh6oT/quT2+hg=;
+ b=Ui6D0luYnfG2pBVP/AQwb+T6e9CWMs1VQE9kGlPr/czFFCDy2wMGQR+SkKMtR9c8OY+j0vnP+f0iirsT0VrfZU+tDvkfRlcu3xZHZZr7JjzCmJ5sITuPzk7TF+gn9moJRoKh82y9WewKLOmEAFTkitRKSG7ErkYYudcSHKmawPC24HGMkQRKxABLHZPM2KFstrfywGQPKzeb2293Eg8MyWlhlpE5KeqOmwsJgoDGET7vxG33v6GuRJz4ZKxubUh+iqJe5gkYxTOZO6z704MJREW6J6kBw4kWe/7ncj/l9zKxSqqpaSshDHRGaoUhTVod02OEObDs2LXLrHgXhwpm0w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM7PR04MB6902.eurprd04.prod.outlook.com (2603:10a6:20b:107::20)
+ by DB9PR04MB8281.eurprd04.prod.outlook.com (2603:10a6:10:25f::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
+ 2026 16:18:19 +0000
+Received: from AM7PR04MB6902.eurprd04.prod.outlook.com
+ ([fe80::6d09:9d2a:f8c2:25e6]) by AM7PR04MB6902.eurprd04.prod.outlook.com
+ ([fe80::6d09:9d2a:f8c2:25e6%4]) with mapi id 15.21.0428.014; Wed, 23 Sep 2026
+ 16:18:18 +0000
+Date: Wed, 23 Sep 2026 19:18:15 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: Patryk Biel <pbiel7@gmail.com>
+Cc: Ioana Ciornei <ioana.ciornei@nxp.com>, Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v4] net: pcs: lynx: enable autonegotiation for
+ 10g-qxgmii and usxgmii
+Message-ID: <20260923161815.qakiviia7lxbu34r@skbuf>
+References: <20260923-b4-fix-pcs-lynx-an-v4-1-3f7927606d12@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923-b4-fix-pcs-lynx-an-v4-1-3f7927606d12@gmail.com>
+X-ClientProxiedBy: VI1P195CA0050.EURP195.PROD.OUTLOOK.COM
+ (2603:10a6:802:5a::39) To AM7PR04MB6902.eurprd04.prod.outlook.com
+ (2603:10a6:20b:107::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM7PR04MB6902:EE_|DB9PR04MB8281:EE_
+X-MS-Office365-Filtering-Correlation-Id: 32a94c42-a9cb-4275-75b7-08df198e477c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|10070799003|7416014|1800799024|366016|376014|10067099003|11063799006|5023799004|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Qfh/jX4SSgXyuvKLOxYXHQF3vDIqvi1eQ960TVqsqmWVBhoxq0Gd05ME2JHc+lfqis6iLh3iXX9fjnVOaU/Edd+Q6SucBhhqpizMvrEMocbcCbs5qtywlhf6EPD7Eh4tFfXkGg+JhgMbTOw7K4mr6OR35ELsCZTxBsTOlrXTu9luJzs9LSTNP7AKRCZextUCpJ6PRwKJqO2Su/eyC3ciVJfY7jaWhcU8qxvbMrtSX+NY4ZX0Ug6/Oh2t+0ppYedlrvUsYWOoUJEDHuqchbBVCiaL3IMLT960DxjUvlm8P4ZVSrAPjRyakcLMLw5Fc6oqoxhIYxs1lhgh3icmuOFYGmZyEqMBeNbfOzlP9keJKNAJ7CK74Mhh/TKA4LRhb5WrIcGYpSk7crp6+EpxRDYo2jA7zQtDa5bvq1okp+z7acqAg+gOq8A7mgx0qiQz7gENeEqrc4bJ93LDBamCYTkQbaCBulN8NepOpXkg2n3BY3BNwY37c2BZVG4LjEvUDcBA2s+d7rpIipiLDGJIFOEBZ6jDO3b4diumwYd33cQVC/J/mmvPmLGP6KWjVHvJ4ppvr/jGQTmOiTjO88Sjjooei4gYz0AD95A3xDPt6NgdSnX09cWzxLhYvV1gFcMFiFTSigU4QWEs9bKvf0Rhv5hdKGX75oZMksZTBnG/v/iCHkY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7PR04MB6902.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(10070799003)(7416014)(1800799024)(366016)(376014)(10067099003)(11063799006)(5023799004)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?N+mTLsKIrBp6U4hOaPe4TjJ/NLs/owAm8N8hurXYZVy9arBHL6y0bVVUPXI4?=
+ =?us-ascii?Q?oHmzL1SiNnOAYDwzPo17L2uDVGeuXAjHc9IjrZbzmcy5La89p0G4P5/5Z0LP?=
+ =?us-ascii?Q?0Z4qge51M0t7wtu4yYjqZHNWaVgwtr8mBRKSdHDYIyTuxoGwofiSLmVmu/k5?=
+ =?us-ascii?Q?pp/bAYPp+jYPIIyxFeQkn0gMR//nITbiFEM8Gm9G6FUN/z83eLj7pXo+RF2n?=
+ =?us-ascii?Q?EnrZ40NgQ6GjsQQJpr1JlZBVcOq4I8WpmGkIqncweWfOcnrNRNxsFLYcMgzx?=
+ =?us-ascii?Q?OZiHPgkMi7GqXF/Pnrw4DcShxkFwtIml0+IXqCe6p6G/F1M14bTKAU9ZgtBt?=
+ =?us-ascii?Q?YvBldRpU9OkBmu9vpEfECT9p45lOSOOTnVwReVjcaKf/ze/LrRsq9yhbLg0J?=
+ =?us-ascii?Q?65ZAZuPpGmVgdrLRiJOLLg56YPBvoQkr6GwNrhwwVfakbURmfZnB33qsxyTs?=
+ =?us-ascii?Q?lK5Zqml7MM+ykJb3vxRfYTXxP49P+RNdrBGcnRnUNDeEAwvvoQmV5v0JiZBO?=
+ =?us-ascii?Q?IowU5l5uZ84V7pvc3/2YegWAl846CpWy4Rl6lCYbYrOm6WUi2Kl6Qmtni7M/?=
+ =?us-ascii?Q?LR31WdnASpXGf4U+bDjCrzCi9b+FKh6aFg02ixdbdjv0KF4AX0nDZMycwpV1?=
+ =?us-ascii?Q?rwEypvHaZ1mBjSI8Pufsc2zyjKohV74rrG0mxf1jBeSTKEKqDsstpGoz3rHs?=
+ =?us-ascii?Q?emu0LKP0JYICdkASGzGTlOn6xmeMI4G4CAUFsIHzQIG/jiq2UuXBgWK8h75G?=
+ =?us-ascii?Q?C251baqFzdNNWI6RnYlWZ2RTFvXIT8INUCO8WBuVFeby8BEolVKLp65XyGDi?=
+ =?us-ascii?Q?UtbsXWY5ttuDbo3WhRRTCrz2cfnQQtnSx1sAovPjjvGqxdzwI6nzQtrAPuzx?=
+ =?us-ascii?Q?upR5CzfU1uUf08p81TFH0feKAwZ5hrQHVNgz9qDUTIVuAt/T7eZyP+RbhBcH?=
+ =?us-ascii?Q?V+b3aZcPuIei8WCG1eS3S1r/C9Xgo6hR/Mh3/IZZqUdML2yP3USdbgTznc8K?=
+ =?us-ascii?Q?DFEPA/VYkJ7cHABNYv70Fst+zt+wCb/IsfnKh0mq134y1nOv4x0Q1Fvus/x2?=
+ =?us-ascii?Q?hHl4Y1fzqWdHhcAHRrzlEEUd/KWUDIGNeeaCsgcYHAUa3+OykLx/Ud7if3Wv?=
+ =?us-ascii?Q?zkkZrfKC5DHvCbFK99VIjnhQhM6IR7IJtO6bEvtdrM0MdxDe5ukD9ALaqEMb?=
+ =?us-ascii?Q?VAM7bGS8ZE0kUCkU481QF8r+dQwrSGjG2L/Vsgl2UAGDtsxFehq8GnhTUNuN?=
+ =?us-ascii?Q?yxBNrfTTfB5mZ6FugZkMo5vZA8ArvUHFIQlnkk5HE42jXcuV4B7hjE/f6LaB?=
+ =?us-ascii?Q?8DUieu31FvVYgB1J3c7MzLeVEsiyhqVGgBtV9ye5Qsw4XDkkrtXkrnOGv2fT?=
+ =?us-ascii?Q?QukhzODHsZfAA6js0hxav2EIJQhZGQwjyXjTV20fr2slqIDvl+KjjL0WGBq5?=
+ =?us-ascii?Q?wqy8ij5STkcqKxd88rd94T30G6X59G8xSyzbs6Q9VF1wvQLF2kFcrwl4WcjV?=
+ =?us-ascii?Q?QRXFDdnZCiMDvaaOKsqEVGKNLpITFjf099Mp7ZjHf/aQzkWWtfbepTOBbUcC?=
+ =?us-ascii?Q?Rw59cuXHs3nzHb/PTd1SkPWL9zjKSIVGIoMzPxfO0kcUwBI3T6Tdw6UdFOHK?=
+ =?us-ascii?Q?pOHEy2Jjmvnz2YnW5KAVsJxayJ9/O8KBX64k/UATWVOaaaRg1kriyFfr1I7n?=
+ =?us-ascii?Q?dlUE5CCe+Drq10dtOPy0zyc8swGZ35qjvcjnvyT6PZ+W5KYcpwD8clv3lvSr?=
+ =?us-ascii?Q?/c1DUBgUrJqts1ejZVcD/4r3gqKxhziio9CqDcnvmLX843PlhUFjtIZmTQd1?=
+X-MS-Exchange-AntiSpam-MessageData-1: JHbVK05VK6xxsMq0aGPN4eKkK5uYH+8G68g=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 32a94c42-a9cb-4275-75b7-08df198e477c
+X-MS-Exchange-CrossTenant-AuthSource: AM7PR04MB6902.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 16:18:18.8881
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cLzZbpuUgynfb+KaNUkGQr2zCgSXCxYrwr//gUK48C2T/jUbOxI+VcxDhjlW3cuCYD6wPy098ewPgxZ2Daaq6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8281
 
-find_zone() looks for the strip zone holding a given sector and BUG()s if
-it can't find one.  That is only a safe assumption while the capacity the
-array advertises matches what the zones actually cover, and a personality
-takeover can break exactly that.
+On Wed, Sep 23, 2026 at 06:14:12PM +0200, Patryk Biel wrote:
+> The Lynx PCS setup for 10g-qxgmii and usxgmii programs the
+> USXGMII replicator advertisement, but does not explicitly enable and
+> restart in-band autonegotiation or program the replicator link timers.
+> 
+> This leaves the PCS dependent on firmware or bootloader state. Systems
+> which do not get the USXGMII replicator preconfigured before Linux may
+> therefore fail to negotiate the link correctly.
+> 
+> After programming the USXGMII device ability, configure the replicator
+> BMCR with reset, autonegotiation enable and autonegotiation restart. Also
+> program the replicator link timer registers using the value returned by
+> phylink_get_link_timer_ns().
+> 
+> Co-developed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Signed-off-by: Patryk Biel <pbiel7@gmail.com>
+> ---
 
-level_store() lets you switch a live array to a different personality.
-The new ->run() recalculates mddev->array_sectors, but level_store() never
-tells the gendisk about it - it is the one place in md that changes the
-array size without a set_capacity_and_notify(), which do_md_run(),
-array_size_store(), update_size(), md_reap_sync_thread() and linear_add()
-all do.  So when a takeover makes the array smaller, the block device goes
-on advertising the old size and I/O sails off the end of the new mapping.
+You are supposed to carry over the received tags from previous patch
+versions. In this case I'll just resend them myself to this version, so
+you need to do nothing further, just keep that in mind for the future.
 
-syzbot got there with a raid1 that had no metadata.  Such a member comes in
-through md_import_device(dev, -1, -1), which never sets rdev->sectors, and
-the check in bind_rdev_to_array() that keeps mddev->dev_sectors inside the
-member is skipped precisely when rdev->sectors is 0:
-
-	if (!test_bit(Journal, &rdev->flags) &&
-	    rdev->sectors &&
-	    (mddev->dev_sectors == 0 || rdev->sectors < mddev->dev_sectors)) {
-
-md/component_size had set dev_sectors to 2048, so raid1 came up with
-array_sectors = 2048 and the disk got a 2048 sector capacity.  Writing
-"raid0" to md/level then took the array over: create_strip_zones() rounded
-rdev->sectors (0) down to a chunk multiple, so the single strip zone ended
-at 0 and raid0_size() returned 0.  The capacity stayed at 2048, so the
-partition scan on the next open of /dev/md0 read sector 0 and fell over:
-
-  kernel BUG at drivers/md/raid0.c:318!
-  RIP: 0010:find_zone drivers/md/raid0.c:318 [inline]
-  RIP: 0010:raid0_map_submit_bio drivers/md/raid0.c:568 [inline]
-  RIP: 0010:raid0_make_request+0xf17/0x10b0 drivers/md/raid0.c:626
-  Call Trace:
-   <TASK>
-   md_handle_request+0xb0a/0xe60 drivers/md/md.c:417
-   __submit_bio+0x27f/0x340 block/blk-core.c:681
-   submit_bio_noacct_nocheck+0x4e8/0xa40 block/blk-core.c:792
-   block_read_full_folio+0x7a6/0x810 fs/buffer.c:2373
-   read_part_sector+0xb6/0x2b0 block/partitions/core.c:724
-   adfspart_check_ICS+0xb1/0x960 block/partitions/acorn.c:357
-   bdev_disk_changed+0x851/0x17a0 block/partitions/core.c:695
-   blkdev_get_whole+0x372/0x510 block/bdev.c:793
-   bdev_open+0x324/0xd70 block/bdev.c:1002
-   blkdev_open+0x461/0x600 block/fops.c:674
-   __x64_sys_openat+0x138/0x170 fs/open.c:1434
-
-Just refreshing the capacity in level_store() is not enough on its own.
-If the size is managed externally - md/array_size written while the array
-was stopped, which slips past array_size_store()'s -E2BIG check -
-md_set_array_sectors() does nothing, array_sectors keeps the larger value
-and we BUG() all the same.  level_store() cannot turn the takeover away
-the way do_md_run() does either, because ->takeover() has already run and
-the old personality has already been freed.
-
-md-linear has always just failed a sector outside its mapping instead of
-asserting, so do the same here: let find_zone() return NULL and have its
-two callers report the bio and end it with an I/O error.
-
-Tested both ways into this state - a takeover that leaves the array
-zero-length, and one where md/array_size pins array_sectors at 2048.
-Before, each panics in find_zone(); after, the read just fails:
-
-  md/raid0:md0: sector 0 out of bounds, array size 0
-  md/raid0:md0: sector 0 out of bounds, array size 2048
-
-Reported-by: syzbot+422b372cabfbaa528725@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=422b372cabfbaa528725
-Fixes: 9af204cf720c ("md: Add support for Raid5->Raid0 and Raid10->Raid0 takeover")
-Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
----
- drivers/md/raid0.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/raid0.c b/drivers/md/raid0.c
-index 35e103f0c2c3..04c022d74fae 100644
---- a/drivers/md/raid0.c
-+++ b/drivers/md/raid0.c
-@@ -301,6 +301,7 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
- 
- /* Find the zone which holds a particular offset
-  * Update *sectorp to be an offset in that zone
-+ * Returns NULL if the sector is off the end of the array.
-  */
- static struct strip_zone *find_zone(struct r0conf *conf,
- 				    sector_t *sectorp)
-@@ -315,7 +316,16 @@ static struct strip_zone *find_zone(struct r0conf *conf,
- 				*sectorp = sector - z[i-1].zone_end;
- 			return z + i;
- 		}
--	BUG();
-+	return NULL;
-+}
-+
-+static void raid0_out_of_bounds(struct mddev *mddev, struct bio *bio)
-+{
-+	pr_err_ratelimited("md/raid0:%s: sector %llu out of bounds, array size %llu\n",
-+			   mdname(mddev),
-+			   (unsigned long long)bio->bi_iter.bi_sector,
-+			   (unsigned long long)mddev->array_sectors);
-+	bio_io_error(bio);
- }
- 
- /*
-@@ -471,6 +481,10 @@ static void raid0_handle_discard(struct mddev *mddev, struct bio *bio)
- 
- 	orig_start = start;
- 	zone = find_zone(conf, &start);
-+	if (!zone) {
-+		raid0_out_of_bounds(mddev, bio);
-+		return;
-+	}
- 
- 	if (bio_end_sector(bio) > zone->zone_end) {
- 		bio = bio_submit_split_bioset(bio,
-@@ -566,6 +580,11 @@ static void raid0_map_submit_bio(struct mddev *mddev, struct bio *bio)
- 	md_account_bio(mddev, &bio);
- 
- 	zone = find_zone(mddev->private, &sector);
-+	if (!zone) {
-+		raid0_out_of_bounds(mddev, bio);
-+		return;
-+	}
-+
- 	switch (conf->layout) {
- 	case RAID0_ORIG_LAYOUT:
- 		tmp_dev = map_sector(mddev, zone, bio_sector, &sector);
--- 
-2.34.1
-
+Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Tested-by: Vladimir Oltean <vladimir.oltean@nxp.com>
