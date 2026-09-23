@@ -1,69 +1,68 @@
-Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
+Received: from mail-oa2-f35.google.com (mail-oa2-f35.google.com [74.125.231.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A55758FD3C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:35:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF70658E2C4
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:35:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202945; cv=none; b=NNqcYvZz5P/RNXxLbx7nPjJJqL48jR+K+clbu4uJGwHTbTZ/an0U+qJZTpLjTBzQ0pKe2PAToH9PNaVEfOfAoRSfS9RUR6i8A6RvnNJnlB8FfX7OwFx4Jr2FUVuepl9Ppg28euUSYxFyNOIC95QBDsjecIiW16TtXm7+PVkry5c=
+	t=1790202942; cv=none; b=u+rKX1GX57cFrfAK7ZmOACuJjw1AsKch3iRLxSQU6UCetBUhcj/ak6BQ8x0FepB5QbY13QcB6EMzcpv/nUzEFxeEhUH76fVRnR+cFpvL9IPUNc/5iGRVyF8/9ly+QdKRJLfwCVeqicxN8HzDc/gKENsLi9owwPMM7lbaI9a6xp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202945; c=relaxed/simple;
-	bh=XlwJxsMLoOEmQpSddsPPKLnRgIC9ISIuuOLCD/BSHY0=;
+	s=arc-20240116; t=1790202942; c=relaxed/simple;
+	bh=7+HPraKPOEEC0zH9j6rk9hElqURen8UcjSYaIkCewNg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rVgOdQM1seKoXjlnxj7nBPGPOl4CRAJbqQ+pQbtCzOlKLk5pImbZj8zOtekRbC89QCSVROvAippXfVErJd2YF4h139CjRlX0p1OmS3dm84vQhpYIBEujprLeB+z9Zc7HoZkVCsshs5VfSsOonambIVCKaX2q8GAMiIh5cOj1z+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rKZH8RMB; arc=none smtp.client-ip=74.125.231.167
+	 In-Reply-To:To:Cc; b=q43GTdihH8PP7EOlh1jBOxifRigmHXUptmzC75Q3tyy2IwRNzbNjBBqO+ak47vrcesxBs6RstnXeWldglfeDc9sYPGOs6hAh0mX7Ki5fUXEFmVy1DXQwAYCgrIXPB64H/cTHJYw19lxErPxwTXJsrgumr8Fior/3E46qCAnm1ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dZHbs6rZ; arc=none smtp.client-ip=74.125.231.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rKZH8RMB"
-Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6b4bff33ceaso835044eaf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:35:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dZHbs6rZ"
+Received: by mail-oa2-f35.google.com with SMTP id 586e51a60fabf-49172f18b40so406892fac.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:35:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790202938; x=1790807738; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790202934; x=1790807734; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=txroU8tpb4AveGN1UplgKFnHMl0k756Ds3MugkCIGpA=;
-        b=rKZH8RMBl5UXx5C1Qa/6reLphVljT0gOiJgfa1oVPArfkBaSb/5FmtvYhrFh05XZq3
-         0v5vn6+w+5yDX4q23k6GV7wB3oM3qSwKyi6xyduTDAn5/XkqwfwWrTMC9tRrDZtS0w13
-         bVNz3bUpkZ2g93ekQ6rjqRKE1PdH66vEBBTiFjOStzFt0E5e/7trbAHNCq9PoqK+OTUZ
-         aO6Dmcny0tkLYrpIQxVICq0DJQPitE8fsXIAZBmHExR2RIJhWvugn6EYqn/TmTxQLKY0
-         utDSL77uuTFqnKX5V4XYNyCyAJSh3dbaSoMvKXG32PMwqtMspdhd8ZlgN0bCRyrCC6pY
-         +UlA==
+        bh=TpRbRk/7nf10Za9Cg3XtZGbhDhlA5QBMQA01q9nUzRU=;
+        b=dZHbs6rZpuB7z/DUI6ILyFchMegR9p8yq3sbjLWRmTXz58Jq8E6A+DERsHOrlyDWN2
+         XsG0ybOCewYJ1Vh9yZc8VTqJfZx4u9ncMr9sFXdrviAdj2d+T+/uFVE/SqdeBSAw8uA2
+         /Yjc4bEvNlGdME5zsZz7fBu/9xGYPM8gVAItIpC2HTd1CmcWWh0KqiVRgo6LvsZK6O7F
+         WWWac8p0OxpWErwgM0rI9Qn2pVZc3itbh5iOuOvTCF1bj+zGqjyR3EZvA9aeBLu3vRUD
+         fa80WKsqb4cw2rYFpehhzQu7fMtxhzmgYQQPLcV1n/r9H2nUICQZxIBiODe3dqyrhYtc
+         azSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790202938; x=1790807738;
+        d=1e100.net; s=20260707; t=1790202934; x=1790807734;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=txroU8tpb4AveGN1UplgKFnHMl0k756Ds3MugkCIGpA=;
-        b=1M0C8KItyXlE1s6uKqsMHDGPV9Ocf2cXUMVEiI06KvncrxCvfgmx0pkO2soUWh8DNo
-         KFnGITkR4roOdLvn23tzkryxHNYgeH0MClIjA9XH/3LhAfT9S85eMn6d7ozG7J1wx+lr
-         YwiMWVgNFnUR0FQmpA/0KHPedpHC+94hc4QBGp9utRDG53qWT3K+lHXFlHy+UIZU37O8
-         Vzfq4eEQOWEl9XdvPsxjmswgDIfeG18hJTJxF9DxwaDxAoFUXFPeDdTfHdLCqTIwqPtq
-         pZ4eWL9lUXOvy2qKLIkemiR8nInwO94ScRbcBFguKNp2d4XXXOSkUdMaREbcygoi2Rwp
-         5/Hg==
-X-Gm-Message-State: AFuF++n5ikNfi4ikwIdfyjVIHC8rr3uyD4Ki8H6LWTXAzfPz61zE2GhI
-	5/rXCSHPP99S9boFQqztRpR0H5kzhUTRQSBb1xI1fXVCDNiPN8tn8Cfk
-X-Gm-Gg: AYBFou10RzXg2Yep4U20NCWJqO/ILCy473zmqZQulawDdCEnh/sCxhX99golh9uZkC+
-	fKMzT2XUFS7HICmyWgqxNsc1u+xvDvAfGsIFXfKYOAaKaCxXbXJZLisv7QpUPzZD9HoJJ93G2Jx
-	zE6yAjXwXq+Ag8ixzfbuFuPeOu3cRhO7PjhpjV2Ykvr6URriOCVSKyxxs9RpuUIdoTPP3TjTquq
-	yoxBYjqvCBoywnHzHQ53DCjR+c189IPHJk95rxZ006YxWi8NK3xcYj0ncMd+cnkA4L4RA/c6xe9
-	x5lAEeize3X36vdD3a5iABZQB9aYlw0bdJtdxKUV6JKM1sYx6poH7Ku+UYSnk0o4HwjeO0PzE1h
-	XQZIcXzeeOcRt/Uc0lgqKQoFJsCw5Wne4A+egcaaaRoYEUGm48xLqfdDQeuYPpRhxapkTGzciD6
-	CngntajguUgPGIGvICyP4zmAzxABId0b1ClDVMu9jAho3PpYbGQYWppE1mFG66NN5iOf5vD3QFs
-	yqM4bMpgAQlXyZvCIpIy4TMPozT19LDFoq5M0LL6iJmCoD0oLQ6VLY75HtbTKh1aCJ0xCK3h6oT
-	4QoUOCX5DyaCrVsD9ro=
-X-Received: by 2002:a4a:ee12:0:b0:6cd:3ffc:acf9 with SMTP id 006d021491bc7-6d441b8251amr657309eaf.73.1790202938243;
-        Wed, 23 Sep 2026 15:35:38 -0700 (PDT)
+        bh=TpRbRk/7nf10Za9Cg3XtZGbhDhlA5QBMQA01q9nUzRU=;
+        b=JzNAXqhvP/qxPwHZQanuvidoXGjpKWBzlIyePomdvQSigASDVATePY2LR3c99ajdLA
+         PNBGHRQ62REE83ZFhKa2BX8x7aWYQiejIO84pQcHoh+nsHZdsGgeRCZfefUvNjlhV54f
+         dOi83CUmZTshZSYg8QtPBm0BpdI68KRt+3resro44VoUzkwdtZq3Jb/ieG9pGKSm0h8k
+         TfkBbLBJ182sxdp/bbZqF1LqWKr4ncDgKCr31gfFzB7M07MyNof0j+U0XmaRv9qaKMAI
+         IW1LbbfHEJGzqAPPFbNk+dA31d9/rq79I+um/MI8NVlERbS+0/Rf1QBKMcLcvgpPIckW
+         RAjw==
+X-Gm-Message-State: AFuF++k2d44QGCKe3B3Dc48lMEtmM0emb6pEtVBQmRiqmXo+AF7Ovhm7
+	GY/HE3afxUqUOqmJa7qbqgn75SOIUuXaPIJ81F4SxikpupqYXf9EVNEC
+X-Gm-Gg: AYBFou1mR7cN6GVubzeYHf+iv4dVYkhtvBKE7hYSXJASNFrcBK42AUcGjo876bdJH0l
+	PbUcW+yTWEKZeVrXSaHP72Soh3HsdgJNGvQxd3cXn6EONaKgqBgxJgoqX7qgar1JqycnyxD7liw
+	ZlfXzgPq20kooRqLA4ySSwhPm/a9hUMdPCiVFXkGrMlqfv+3wh8PPuwL9gf0TAxMUJWmtSjNfmd
+	BXM0gV9mkaO+NfCJdjcj57UulOhAc1TRl/krVKIkDhkBIOM5jivxQAjJLXwl6THFBN7OKL5kQ0R
+	f1LBSpCupzhK2QGj2fSkd73n62CuSUNTxqFuseh82/OHvPqxL1o+39DsDINlbd8KXrq9thEFM7n
+	xC0sfvHKIBusacyUW9bepkWJd4CA20fsTU4j3pbSqJznSpKHFaZhIm7NVenn4T0Zi2UyAslvrcA
+	FZiEiwlfnXZmqo0fR4t3YBFOrFkPJyoQSIUXNhdYPwZZxpvLRgGWJ/QUWj8CeW7orqThdCKugmE
+	OdW5leQPI4l/7NYF2ZLjQZrfBv6MoIZjnt9hS0XN8n9zW4NUbfTj9zEO6UQjN1/k3vFSuo+jeyf
+	o2w4qyvtIMAXiJtNN7A=
+X-Received: by 2002:a05:6870:3263:b0:48f:e107:317b with SMTP id 586e51a60fabf-491e6efd09bmr708378fac.46.1790202934055;
+        Wed, 23 Sep 2026 15:35:34 -0700 (PDT)
 Received: from [100.82.231.29] (c-98-38-17-99.hsd1.co.comcast.net. [98.38.17.99])
-        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.36
+        by smtp.googlemail.com with ESMTPSA id 586e51a60fabf-491ee1ac486sm559401fac.16.2026.09.23.15.35.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:35:37 -0700 (PDT)
+        Wed, 23 Sep 2026 15:35:33 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Wed, 23 Sep 2026 16:34:50 -0600
-Subject: [PATCH v11 26/38] dyndbg: check
- DYNAMIC_DEBUG_CLASSMAP_{DEFINE,USE_} args at compile-time
+Date: Wed, 23 Sep 2026 16:34:48 -0600
+Subject: [PATCH v11 24/38] selftests/dyndbg: Enable FT_classmap_inheritance
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-dd-cmap-part2-clean-v11-26-9b6c217fdf2f@gmail.com>
+Message-Id: <20260923-dd-cmap-part2-clean-v11-24-9b6c217fdf2f@gmail.com>
 References: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
 In-Reply-To: <20260923-dd-cmap-part2-clean-v11-0-9b6c217fdf2f@gmail.com>
 To: Jason Baron <jbaron@akamai.com>, Shuah Khan <shuah@kernel.org>, 
@@ -99,111 +98,151 @@ Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
  linux-kbuild@vger.kernel.org, linux-pm@vger.kernel.org, 
  Jim Cromie <jim.cromie@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=3976;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790202874; l=5931;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=XlwJxsMLoOEmQpSddsPPKLnRgIC9ISIuuOLCD/BSHY0=;
- b=EiptybYCzB6D9ZP87jAlknvFfrN1+LB91BbDMF60BOUBfjDrPvXh9+w10WbHf5H/XbP0syE/Y
- IJx5x2PY9QUCJnmB6hoFeKj+1H0mzvCzbpWlc8waCN4UItOiSWdLBUu
+ bh=7+HPraKPOEEC0zH9j6rk9hElqURen8UcjSYaIkCewNg=;
+ b=SGPNFN3H4AgPho7JeKIVU6CQQlOkXMvxRExTka1tTKCiqj64NTSSY/gE+VsIBZZRvvKXGPxpQ
+ OiyXbaR6zX4Cufn+4KSI9YPtkxD016TGQ5HHiKv1oyG0JOGH91UHKqS
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 
-Add __DYNAMIC_DEBUG_CLASSMAP_CHECK to implement the following
-arg-checks at compile-time:
+Exercise classmap state inheritance between supermod and submod,
+verifying that class settings and controlling parameter states propagate
+from parent classmap definitions to dependent class users upon module
+load and during runtime reconfiguration.
 
-        0 <= _base < 63
-        class_names is not empty
-        class_names[0] is a string
-        class_names.length <= 32
-        (class_names.length + _base) < 63
-        dd-map-type is known value
-
-These compile-time checks will prevent several simple misuses, issuing
-obvious errors if violated.
-
-Several bad examples are ifdef DD_MACRO_ARGCHECK qualified in
-test_dynamic_debug_submod.c and will fail compilation if enabled.
+Add FT_classmap_inheritance to exercise classmap parameter propagation
+across test_dynamic_debug and test_dynamic_debug_submod. Enable it under
+modular_tests and register its 8 golden record checksums.
 
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 16 +++++++++++++++-
- lib/test_dynamic_debug.c      | 20 +++++++++++++++++---
- 2 files changed, 32 insertions(+), 4 deletions(-)
+ .../selftests/dynamic_debug/dyndbg_selftest.sh     | 84 +++++++++++++++++++++-
+ 1 file changed, 83 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 61f9fd4aa7af..26c858588eb1 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -192,6 +192,19 @@ struct ddebug_class_param {
-  * __pr_debug_cls(22, "no such class"); compiles but is not reachable
-  */
+diff --git a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+index c279c795867b..5a805cb30e6c 100755
+--- a/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
++++ b/tools/testing/selftests/dynamic_debug/dyndbg_selftest.sh
+@@ -64,6 +64,7 @@ function ifrmmod {
+ }
  
-+#define __DYNAMIC_DEBUG_CLASSMAP_CHECK(_clnames, _base, _mapty)		\
-+	static_assert(((_base) >= 0 && (_base) < _DPRINTK_CLASS_DFLT),	\
-+		      "_base must be in 0..62");			\
-+	static_assert(__DDEBUG_ARRAY_SIZE(_clnames) > 0,				\
-+		      "classnames array size must be > 0");		\
-+	static_assert(__DDEBUG_ARRAY_SIZE(_clnames) <= 32,			\
-+		      "classnames array size must be <= 32");		\
-+	static_assert((__DDEBUG_ARRAY_SIZE(_clnames) + (_base)) <= _DPRINTK_CLASS_DFLT, \
-+		      "_base + classnames.length must be <= 63");	\
-+	static_assert(((_mapty) >= DD_CLASS_TYPE_DISJOINT_BITS) &&	\
-+		      ((_mapty) <= DD_CLASS_TYPE_LEVEL_NUM),		\
-+		      "unknown class_map_type")
+ # Clean up any leftover loaded test modules at initialization
++ifrmmod test_dynamic_debug_submod
+ ifrmmod test_dynamic_debug
+ 
+ # ===========================================================================
+@@ -189,7 +190,7 @@ function FT_grammar_ok {
+ 
+     # use 4 keywords (max 9 words inc flags)
+     ddcmd "module foo file bar.c func buz class D2_CORE +_"	# 4 keywords
+-    #ddcmd "module foo file bar.c func buz class D2 line 100 +_" # 5 keywords
++    ddcmd "module foo file bar.c func buz class D2 line 100 +_" # 5 keywords
+ 
+     # 3. Dedicated lineno range grammar assertions (side-effect-free proofs)
+     ddcmd "line 42 +_"		# test exact line syntax
+@@ -291,6 +292,78 @@ function FT_basic_queries {
+     ddcmd "file $f =_" "$f"
+ }
+ 
++function FT_classmap_inheritance {
++    v_echo "${GREEN}# TEST_MOD_SUBMOD ${NC}"
 +
- /**
-  * DYNAMIC_DEBUG_CLASSMAP_DEFINE - define debug classes used by a module.
-  * @_var:   name of the classmap, exported for other modules coordinated use.
-@@ -205,6 +218,7 @@ struct ddebug_class_param {
-  */
- #define DYNAMIC_DEBUG_CLASSMAP_DEFINE(_var, _mapty, _base, ...)		\
- 	static const char *_var##_classnames[] = { __VA_ARGS__ };	\
-+	__DYNAMIC_DEBUG_CLASSMAP_CHECK(_var##_classnames, (_base), (_mapty)); \
- 	extern struct ddebug_class_map _var;				\
- 	struct ddebug_class_map __aligned(8) __used			\
- 		__section("__dyndbg_class_maps") _var = {		\
-@@ -212,7 +226,7 @@ struct ddebug_class_param {
- 		.mod_name = DDEBUG_MODNAME,				\
- 		.base = (_base),					\
- 		.map_type = (_mapty),					\
--		.length = ARRAY_SIZE(_var##_classnames),		\
-+		.length = __DDEBUG_ARRAY_SIZE(_var##_classnames),	\
- 		.class_names = _var##_classnames,			\
- 	};								\
- 	EXPORT_SYMBOL(_var)
-diff --git a/lib/test_dynamic_debug.c b/lib/test_dynamic_debug.c
-index 3a69cc3cae6d..01ce07001d4c 100644
---- a/lib/test_dynamic_debug.c
-+++ b/lib/test_dynamic_debug.c
-@@ -148,12 +148,26 @@ DYNAMIC_DEBUG_CLASSMAP_USE_(map_level_num, 7);
- 
- enum cat_level_offset { Vu1 = V1 + 7, Vu2, Vu3, Vu4, Vu5, Vu6, Vu7 };
- 
--#endif
--
-+#if defined(DD_MACRO_ARGCHECK)
- /*
-- * now add the sysfs-params
-+ * Exersize compile-time arg-checks in DYNAMIC_DEBUG_CLASSMAP_DEFINE.
-+ * These will break compilation.
-  */
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_neg, 0, -1, "NEGATIVE_BASE_ARG");
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_big, 0, 100, "TOOBIG_BASE_ARG");
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_str_type, 0, 0, 1 /* not a string */);
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_emptyclass, 0, 0 /* ,empty */);
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_maptype, 3, 10, "no such type");
-+DYNAMIC_DEBUG_CLASSMAP_DEFINE(fail_base_len, 0, 60,
-+			      "base", "plus", "classes", "length", "too-big");
-+DYNAMIC_DEBUG_CLASSMAP_USE_(fail_offset_big, 100);
-+#endif /* DD_MACRO_ARGCHECK */
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
 +
-+#endif /* TEST_DYNAMIC_DEBUG_SUBMOD */
++    # modprobe with plain-old +p & 3 class enablements
++    my_modprobe test_dynamic_debug \
++	"dyndbg=+p;class D2_CORE +pf;class D2_KMS +pt;class D2_ATOMIC +pm"
++    verify_control_slice '\[test_dynamic_debug\]'
++
++    set_param 5 /sys/module/test_dynamic_debug/parameters/p_level_num
++    verify_control_slice '\[test_dynamic_debug\]'
++
++    my_modprobe test_dynamic_debug_submod
++    verify_control_slice 'test_dynamic_debug_submod'
++
++    # fresh start, to clear all above flags (test-fn limits)
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++
++    # load submod, which loads supermod
++    my_modprobe test_dynamic_debug_submod \
++	"dyndbg=+p;class D2_CORE +pfs;class D2_KMS +pts;class D2_ATOMIC +pmf"
++    verify_control_slice 'test_dynamic_debug'
++
++    # runtime changes to both
++    set_param 0x57 /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
++    set_param 4 /sys/module/test_dynamic_debug/parameters/p_level_num
++    verify_control_slice 'test_dynamic_debug'
++
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++
++    # set super-mod params at load-time
++    my_modprobe test_dynamic_debug p_disjoint_bits=0x16 p_level_num=5
++    verify_control_slice '\[test_dynamic_debug\]'
++
++    # see them picked up by submod
++    my_modprobe test_dynamic_debug_submod
++    verify_control_slice 'test_dynamic_debug'
++
++    # Real-time mathematical proof that load-time (modprobe) parameter parsing
++    # and runtime (sysfs write) parameter configurations are perfectly equivalent!
++    local hash_modprobe=$(slice_and_hash_ddctrl '\[test_dynamic_debug\]')
++
++    # Fresh load with default parameters, then configure them dynamically at runtime
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++    my_modprobe test_dynamic_debug
++    my_modprobe test_dynamic_debug_submod
++    echo 0x16 > /sys/module/test_dynamic_debug/parameters/p_disjoint_bits
++    echo 5 > /sys/module/test_dynamic_debug/parameters/p_level_num
++
++    local hash_sysfs=$(slice_and_hash_ddctrl '\[test_dynamic_debug\]')
++    if [ "$hash_modprobe" != "$hash_sysfs" ]; then
++        echo -e "${RED}: Load-time vs runtime parameter equivalence check failed!${NC}"
++        exit $ksft_fail
++    else
++        v_echo "${GREEN}: Proven: parameter load-time (modprobe) " \
++            "and runtime (sysfs write) are equivalent!${NC}"
++    fi
++    # --- Live Content Fingerprinting Phase ---
++    log_start
++    echo 1 > /sys/module/test_dynamic_debug/parameters/do_prints
++    echo 1 > /sys/module/test_dynamic_debug_submod/parameters/do_prints
++    log_stop
++
++    ifrmmod test_dynamic_debug_submod
++    ifrmmod test_dynamic_debug
++}
++
+ # Built-in Feature Tests (Can run on any CONFIG_DYNAMIC_DEBUG kernel, modular or monolithic)
+ builtin_tests=(
+     FT_grammar_ok
+@@ -300,6 +373,7 @@ builtin_tests=(
  
-+/*
-+ * now add the sysfs-params to both sub/super-mods
-+ */
- DYNAMIC_DEBUG_CLASSMAP_PARAM(disjoint_bits, p);
- DYNAMIC_DEBUG_CLASSMAP_PARAM(level_num, p);
+ # Modular Feature Tests (Require CONFIG_MODULES=y and test_dynamic_debug*.ko available)
+ modular_tests=(
++    FT_classmap_inheritance
+ )
  
+ # ==============================================================================
+@@ -383,6 +457,14 @@ function GOLDEN_RECORDS {
+ #K= 02e4fd94602e108cb89bfc70d47a5dad FT_basic_queries.5
+ #K= f03a7ca7316e8db4c0e16523dc41e75d FT_basic_queries.6
+ #K= c518a50ba30ba8099d0dc874a27ecf16 FT_basic_queries.7
++#K= fb294f02a4207b28b2a874524ef07afd FT_classmap_inheritance.1
++#K= 7a0b87016fdc237077dfe96bbbb3661b FT_classmap_inheritance.2
++#K= 2784d60f5056fc5cc03b3ceb854293f5 FT_classmap_inheritance.3
++#K= bf66aaf8ff612272c0cda29778ed2131 FT_classmap_inheritance.4
++#K= 49fdd29d91a4c1d16f8b59bb431e741b FT_classmap_inheritance.5
++#K= a8aa244285d048b5ebe33061fa99c424 FT_classmap_inheritance.6
++#K= 3060b86a0f553dd5a826bb7023284925 FT_classmap_inheritance.7
++#K= f43e0aff8a4b38435b73d90ed8100d1b FT_classmap_inheritance.8
+ EOF
+         # Read the K-recs and skip those for tests that can't run
+         while read -r line; do
 
 -- 
 2.55.0
