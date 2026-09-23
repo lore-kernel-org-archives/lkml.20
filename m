@@ -1,48 +1,48 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ABD4414439;
-	Wed, 23 Sep 2026 06:49:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D74763F9F44;
+	Wed, 23 Sep 2026 06:49:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146191; cv=none; b=K6sQtZc0/Piuxg4hTZMWqOFKZsA+uOmO+yqCTIelSng8RHA6n4N9iBq4PdAu2wGkqzdn1dGy7xV66y7oPFTBYOSYzM9g0vo2f887KF16VrucIBJV5EaLEAMOwnmJEKeBeIu1isifd26Nblh1FerAbODJTuyF8r1S+2G2Dk9r9Cg=
+	t=1790146191; cv=none; b=nfSip5tuEBj6f7O0LK9Fr9hAmdrpbkbMu1pa7we+iDv6UEhStJ/N/5CvPMhAzAPLvxAT5oyxxOHB/CnnrPuV9b+r0dvFyDTnB9c8RPGxqvC8embUEX1bzn6ZhdMARXjgwMm5nnlrcxefcsR3pid5wepVlrj7pbhXLIqvw6thlrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790146191; c=relaxed/simple;
-	bh=Fa2B2z1p2vnYcl9Lt5OrEI5EEaAjDuIeC/VPBFc1ls4=;
+	bh=gJ5DXOX7jBKeYe72ISFn3zdPd5rtDygHQ+XOvvWMtNI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uBfDhGjkLO6WzGZVlXhJ3Hfj5mFAWhl7MUhv34rGfh9+GzBVt38DJiIHKT/LOvJa1YfEHyXZiWHKFYWzZvwknXT/APLH3JC8rYplGFkrQ2oR2hzgJb+VY+XNJo7/ZDtV68GcN0rfXU5dl1b1DN78euarLGgnVq9YwzUCg7HPu+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pGLdq2yJ; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=MxOOlJ9ckPXwpaxlpQT6sQXdiNlPt/1NKOhNbZThJnK7NEFJbRqpxwYFco+ZGaKf/5BbwftFzPMoJCG0DLbxCLV8Xc/wrhY8Y5kF8Q1TSxyuhgxHr8S0E3YcWIk0AEHQMR6vwbpCMgNP81mWaBCGp2XeZr+D3jUi+y+XeDYa1pI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bf33vdMA; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pGLdq2yJ"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3iLM73250360;
-	Wed, 23 Sep 2026 06:49:30 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bf33vdMA"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N3idQR3096536;
+	Wed, 23 Sep 2026 06:49:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PZQ3j0/GmXO1wptiFOYvqy5+qNLnbETvh0uO4ql081U=; b=pGLdq2yJ6OKHC2a2
-	Slg0lhXVj4D1zCS0QzRSJTt/1VuxwQqLK50cCihckDgHB+zE3CuSgkG8ozY3x3vB
-	ka0gbowVdO6K2dangXgOhPu3yFsP2YGdgCOzs9oqdCBaAOCIKhwRThJ/bDhVwHEz
-	9JP8EtDWTQb2oXDRKQ2AkqmomguL7A0ND/t3nCIaQyIpONjukwUweTCHl9p1N2H2
-	mbd6NE0rRBQTMdtLyGvKlV+dcghJCpwulDSSU3mnjpvda1vRgqv0Myk62QC9RTKK
-	7stIT3zGwaxUyeVt6U4W0hHPb7YHxxgvYZpbPEsth5tlsZPWAkNVDmcRV0pXlzjV
-	BwOauQ==
+	NDdtGMlJp2sw1ZrNuusyBMpiqnd8GAq2TlRldVUODRg=; b=bf33vdMArb/Sj7Dg
+	qWc83ECf5Bhf76Zs35NdnDBG4F0oCbsKKKaom2hKZ07DapfXLrOvFS4Xa71VvRQJ
+	UyPRMFc/blMpzlWtvAo5diPvva7w9SJEcJMyfeI2PDsHeGFIyZ3yG9q8CfYQd7fg
+	JSbg8qCif3AQzzBIyKeW1oHx63HTbm+hPrP56y0wo/awDp1Kw5lw5dUqMw5sLrbP
+	NquGdwOt/uzz91xY6hqdMqW+mALKEsYd+TSO0w3ocoylmd3pFTYisoLj40PZPCAy
+	yfA1/gGABbn2U1GYokJxyiY2orz8NzRjtzJfvZWLM0ATom09ol8IzimMVWDkKpOJ
+	12VRJw==
 Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gux8c2wvv-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gv428s9uh-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 06:49:29 +0000 (GMT)
+	Wed, 23 Sep 2026 06:49:30 +0000 (GMT)
 Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N6nONP299669;
-	Wed, 23 Sep 2026 06:49:26 GMT
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N6nOT6299683;
+	Wed, 23 Sep 2026 06:49:27 GMT
 Received: from hu-hgautam-hyd.qualcomm.com (hu-hgautam-hyd.qualcomm.com [10.147.247.91])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 68N6nMCX299652;
-	Wed, 23 Sep 2026 06:49:26 +0000 (GMT)
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 68N6nMCZ299652;
+	Wed, 23 Sep 2026 06:49:27 +0000 (GMT)
 From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 12:18:26 +0530
-Subject: [PATCH v7 06/10] ASoC: qcom: Switch lpass-cpu and qaif-cpu to
- snd_soc_of_xlate_dai_name()
+Date: Wed, 23 Sep 2026 12:18:28 +0530
+Subject: [PATCH v7 08/10] ASoC: qcom: Add QAIF IRQ handling and platform
+ register
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -51,7 +51,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-b4-qaif-shikra-audio-v7-6-d5b6f056568e@oss.qualcomm.com>
+Message-Id: <20260923-b4-qaif-shikra-audio-v7-8-d5b6f056568e@oss.qualcomm.com>
 References: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
 In-Reply-To: <20260923-b4-qaif-shikra-audio-v7-0-d5b6f056568e@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>
@@ -73,90 +73,447 @@ X-Mailer: b4 0.15.2
 X-Proofpoint-Reinject: loops=2 maxloops=12
 X-QCInternal: smtphost
 X-QCInternal: smtphost
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAyNyBTYWx0ZWRfX2yYXoc9S922Y
- 6GNokAwOGqR9DLEIaHIa6sDW6tgxenXCfqKXV2K8yHn/xkomjq3ikKzQq+Fsue91c/cC8Ae13WV
- 25Qj1FBX501ZsC2FE44osTD5Eub43Vaf7UD/Qp3PUg4oA76xAjfM9MpQWieOIZ+mn1BReGUAj7e
- VMO/hZk+p3eo5ptl+Zs1AH9Vd4DNnXUPpXAAA1X7Xr1mx5PDxE8jfXZ95nLxDeG9Xti6FcWVHKa
- hnjVbv/OLUFa6C13VZlajNrN/iRcIDzVh6ta90u6GKTEFqhDNXCBt/3gZBv8tX1CL68GyPPgWE7
- ZfLKxAp76VjU7e/d/121Ja/B8eQP5uEeiidkbErvHsOtV4fNzsczwSNuJuAkls9hjytthLl6L8P
- 7jLRk/FE9J/CxMCjw4Q1h3rk/0rJd27X+sHbySPCfXkCJn8m5GyssydYR057XAfLSJLoVLBKTvx
- gnQQ5u1u5cljcNYP2rw==
-X-Authority-Analysis: v=2.4 cv=P9evFSAu c=1 sm=1 tr=0 ts=6ab37679 cx=c_pps
+X-Authority-Analysis: v=2.4 cv=EZdd0/mC c=1 sm=1 tr=0 ts=6ab3767a cx=c_pps
  a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=Hfps_RfwFyUEpd0PCboA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: 2RxFLe2jOsQsgGIxsJBvI_NQkaNexjSS
-X-Proofpoint-GUID: 2RxFLe2jOsQsgGIxsJBvI_NQkaNexjSS
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAyNyBTYWx0ZWRfXwCcs4s4f1M/U
- NDTz+53xesiGEPe/+B4wO/HB5juNRZycKAWkOqE2CJPoE/erTmDXqN5Q8hwAMQRn9wnLhVHLYkc
- F7ZpBOGOh0J6rqf3xeIbWCS7Rjpdmss=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=o7TJiAN18BN_QPpExZUA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: _VOjOEUXfrrKB1PSmwTKJrh1Cm_DO5cW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDAyNyBTYWx0ZWRfX91Pbi+EkK7CE
+ ePXxehfbipZz9z0/pSOryK8xWtCSDPqi3Jg84TSNwEhgeP2NU+knZUpiCuyENBq4ggzCIPeyhJL
+ tGE6U8LZHGnOczURECRLD27xU1C+bsLTB1FZjAjs1dajLFJc1Igc7/e9gqxSHQHZxnScACjTZaI
+ nIBL8kcfAziVXkcpOMBQfqKrCHQu48qUwgN3ktappNqEyQ3uThY3O+xeC8p3gMJlaL1Pff6DzXN
+ YfsaUuywOGy55XmGAsWve/eYc0N9bYp9pCusGi/eeBo+Fs8fvKWv9fD385u1xpN5ztTKc1ZbOqc
+ B0XnVoceYskUKQqeFvxBjiOJ4wASCN+ppNQwwNGTPhLQoPAxkEnlqpuglzMg56fmxfAixUWkeu2
+ 6im7Q6zoBNDi+oCW2FMO+egoEAov6upg175yB0j4ZMBGl7m0BCgCfISIDpBMpwk+vIeJZV6yt65
+ k64q8X+qTIoVKSG2eLg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDAyNyBTYWx0ZWRfX9FlVIf1+9sJJ
+ 4rxBmPfOOvI6M+qBzaAmydmucc56ZaFVTyYESNm2OGLKmjzUT3GIzRicpodtpjqBtbLqifoEwL3
+ g/j67O/0LpGWJVTw2EEtKNWRd1BPJdk=
+X-Proofpoint-GUID: _VOjOEUXfrrKB1PSmwTKJrh1Cm_DO5cW
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-23_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501 phishscore=0
- clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230027
+ clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609230027
 
-Use the new generic snd_soc_of_xlate_dai_name() helper in lpass-cpu.c
-and qaif-cpu.c, and remove the local lpass implementation.
+Finish the QAIF PCM platform support so streams can be registered, started,
+stopped and serviced by DMA interrupts.
+
+Register the ASoC component, request the QAIF interrupt and add trigger
+handling to enable or disable DMA and its interrupt sources. Dispatch the
+top-level IRQ status to the AIF and CIF DMA handlers, report period elapsed
+events to ALSA, warn on xrun conditions and stop the stream on bus errors.
 
 Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 ---
- sound/soc/qcom/lpass-cpu.c | 23 +----------------------
- sound/soc/qcom/qaif-cpu.c  |  1 +
- 2 files changed, 2 insertions(+), 22 deletions(-)
+ sound/soc/qcom/qaif-platform.c | 392 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 392 insertions(+)
 
-diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
-index 242bc16da36d..61efa45376cd 100644
---- a/sound/soc/qcom/lpass-cpu.c
-+++ b/sound/soc/qcom/lpass-cpu.c
-@@ -458,30 +458,9 @@ const struct snd_soc_dai_ops asoc_qcom_lpass_cpu_dai_ops2 = {
- };
- EXPORT_SYMBOL_GPL(asoc_qcom_lpass_cpu_dai_ops2);
+diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platform.c
+index 84ce3ad9a1f2..762ba3eb6575 100644
+--- a/sound/soc/qcom/qaif-platform.c
++++ b/sound/soc/qcom/qaif-platform.c
+@@ -537,3 +537,395 @@ static int qaif_platform_copy(struct snd_soc_component *component,
  
--static int asoc_qcom_of_xlate_dai_name(struct snd_soc_component *component,
--				   const struct of_phandle_args *args,
--				   const char **dai_name)
--{
--	struct lpass_data *drvdata = snd_soc_component_get_drvdata(component);
--	const struct lpass_variant *variant = drvdata->variant;
--	int id = args->args[0];
--	int ret = -EINVAL;
--	int i;
--
--	for (i = 0; i  < variant->num_dai; i++) {
--		if (variant->dai_driver[i].id == id) {
--			*dai_name = variant->dai_driver[i].name;
--			ret = 0;
--			break;
--		}
--	}
--
--	return ret;
--}
--
- static const struct snd_soc_component_driver lpass_cpu_comp_driver = {
- 	.name = "lpass-cpu",
--	.of_xlate_dai_name = asoc_qcom_of_xlate_dai_name,
-+	.of_xlate_dai_name = snd_soc_of_xlate_dai_name,
- 	.legacy_dai_naming = 1,
- };
- 
-diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
-index e1868dc95cf4..c096ef5133bb 100644
---- a/sound/soc/qcom/qaif-cpu.c
-+++ b/sound/soc/qcom/qaif-cpu.c
-@@ -594,6 +594,7 @@ EXPORT_SYMBOL_GPL(asoc_qcom_qaif_aif_cpu_dai_ops);
- 
- static const struct snd_soc_component_driver qaif_cpu_comp_driver = {
- 	.name = "qaif-cpu",
-+	.of_xlate_dai_name = snd_soc_of_xlate_dai_name,
- };
- 
- static const struct regmap_config audio_qaif_regmap_config = {
+ 	return (copied != bytes) ? -EFAULT : 0;
+ }
++
++static int qaif_platform_irq_op(struct qaif_drv_data *drvdata, int dir,
++				enum qaif_irq_type irq_type, int idx,
++				enum qaif_irq_op op)
++{
++	const struct qaif_variant *v = drvdata->variant;
++	struct regmap *map = drvdata->audio_qaif_map;
++	unsigned int bit = BIT(idx);
++	unsigned int val = op == QAIF_IRQ_ENABLE ? bit : 0;
++	u32 per_reg, err_reg, xrun_reg;
++	int ret;
++
++	if (dir == SNDRV_PCM_STREAM_PLAYBACK) {
++		per_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_RDDMA_PERIOD_IRQ_CLR_REG(v, irq_type)
++					       : QAIF_EE_RDDMA_PERIOD_IRQ_EN_REG(v, irq_type);
++		xrun_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_RDDMA_UF_IRQ_CLR_REG(v, irq_type)
++						: QAIF_EE_RDDMA_UF_IRQ_EN_REG(v, irq_type);
++		err_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_RDDMA_ERR_RSP_IRQ_CLR_REG(v, irq_type)
++					       : QAIF_EE_RDDMA_ERR_RSP_IRQ_EN_REG(v, irq_type);
++	} else {
++		per_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_WRDMA_PERIOD_IRQ_CLR_REG(v, irq_type)
++					       : QAIF_EE_WRDMA_PERIOD_IRQ_EN_REG(v, irq_type);
++		xrun_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_WRDMA_OF_IRQ_CLR_REG(v, irq_type)
++						: QAIF_EE_WRDMA_OF_IRQ_EN_REG(v, irq_type);
++		err_reg = op == QAIF_IRQ_CLEAR ? QAIF_EE_WRDMA_ERR_RSP_IRQ_CLR_REG(v, irq_type)
++					       : QAIF_EE_WRDMA_ERR_RSP_IRQ_EN_REG(v, irq_type);
++	}
++
++	if (op == QAIF_IRQ_CLEAR) {
++		ret = regmap_write(map, per_reg, bit);
++		if (ret)
++			return ret;
++		ret = regmap_write(map, xrun_reg, bit);
++		if (ret)
++			return ret;
++		return regmap_write(map, err_reg, bit);
++	}
++
++	ret = regmap_write_bits(map, per_reg, bit, val);
++	if (ret)
++		return ret;
++	ret = regmap_write_bits(map, xrun_reg, bit, val);
++	if (ret)
++		return ret;
++	return regmap_write_bits(map, err_reg, bit, val);
++}
++
++static int qaif_platform_pcmops_trigger(struct snd_soc_component *component,
++					struct snd_pcm_substream *substream,
++					int cmd)
++{
++	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
++	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
++	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
++	const struct qaif_variant *v = drvdata->variant;
++	struct qaif_pcm_data *data = substream->runtime->private_data;
++	unsigned int dai_id = cpu_dai->driver->id;
++	enum qaif_irq_type irq_type = qaif_is_cif_port(dai_id) ? QAIF_CIF_IRQ : QAIF_AIF_IRQ;
++	struct regmap *map = drvdata->audio_qaif_map;
++	int idx = data->dma_reg_idx;
++	int ret;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		ret = qaif_platform_irq_op(drvdata, substream->stream, irq_type,
++					   idx, QAIF_IRQ_CLEAR);
++		if (ret) {
++			dev_err(soc_runtime->dev, "error clearing irq regs: %d\n", ret);
++			return ret;
++		}
++		ret = regmap_update_bits(map,
++					 qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
++					 QAIF_DMACFG_DYNCLK_BIT, QAIF_DMACFG_DYNCLK_BIT);
++		if (ret) {
++			dev_err(soc_runtime->dev, "error enabling dma_dynclk: %d\n", ret);
++			return ret;
++		}
++		ret = regmap_update_bits(map,
++					 qaif_dmactl_reg(v, idx, substream->stream, dai_id),
++					 QAIF_DMACTL_ENABLE_BIT, QAIF_DMACTL_ENABLE_BIT);
++		if (ret) {
++			dev_err(soc_runtime->dev, "error enabling DMA: %d\n", ret);
++			return ret;
++		}
++		ret = qaif_platform_irq_op(drvdata, substream->stream, irq_type,
++					   idx, QAIF_IRQ_ENABLE);
++		if (ret)
++			dev_err(soc_runtime->dev, "error enabling irq regs: %d\n", ret);
++		break;
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		ret = regmap_update_bits(map,
++					 qaif_dmactl_reg(v, idx, substream->stream, dai_id),
++					 QAIF_DMACTL_ENABLE_BIT, 0);
++		if (ret) {
++			dev_err(soc_runtime->dev, "error disabling DMA: %d\n", ret);
++			return ret;
++		}
++		ret = regmap_update_bits(map,
++					 qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
++					 QAIF_DMACFG_DYNCLK_BIT, 0);
++		if (ret)
++			dev_err(soc_runtime->dev, "error disabling dma_dynclk: %d\n", ret);
++		ret = qaif_platform_irq_op(drvdata, substream->stream, irq_type,
++					   idx, QAIF_IRQ_DISABLE);
++		if (ret)
++			dev_err(soc_runtime->dev, "error disabling irq regs: %d\n", ret);
++		break;
++	default:
++		return -EINVAL;
++	}
++	return ret;
++}
++
++static int qaif_platform_pcmops_sync_stop(struct snd_soc_component *component,
++					  struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *soc_runtime = snd_soc_substream_to_rtd(substream);
++	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(soc_runtime, 0);
++	struct qaif_drv_data *drvdata = snd_soc_component_get_drvdata(component);
++	struct qaif_pcm_data *data = substream->runtime->private_data;
++	unsigned int dai_id = cpu_dai->driver->id;
++	enum qaif_irq_type irq_type = qaif_is_cif_port(dai_id) ? QAIF_CIF_IRQ : QAIF_AIF_IRQ;
++	int idx = data->dma_reg_idx;
++	int ret;
++
++	synchronize_irq(drvdata->audio_qaif_irq);
++	ret = qaif_platform_irq_op(drvdata, substream->stream, irq_type,
++				   idx, QAIF_IRQ_CLEAR);
++	if (ret)
++		dev_err(soc_runtime->dev, "error clearing irq regs: %d\n", ret);
++	return ret;
++}
++
++static irqreturn_t qaif_process_dma_irq(struct qaif_drv_data *drvdata,
++					u32 stat_reg_addr,
++					u32 clr_reg_addr,
++					enum qaif_irq_type irq_type,
++					enum qaif_dma_dir dma_type,
++					enum qaif_irq irq,
++					struct snd_pcm_substream **substream)
++{
++	const struct qaif_variant *v = drvdata->variant;
++	unsigned int reg = 0;
++	int dma_idx, stream_dma_idx, rv, num_dma, stream_offset, array_size;
++	u32 mask;
++	struct snd_pcm_substream *ss;
++
++	stream_offset = (dma_type == QAIF_DMA_WRDMA) ?
++		((irq_type == QAIF_AIF_IRQ) ? v->wrdma_start : v->codec_wrdma_start) : 0;
++	num_dma = (dma_type == QAIF_DMA_WRDMA) ?
++		((irq_type == QAIF_AIF_IRQ) ? v->num_wrdma : v->num_codec_wrdma) :
++		((irq_type == QAIF_AIF_IRQ) ? v->num_rddma : v->num_codec_rddma);
++	if (!num_dma)
++		return IRQ_NONE;
++
++	array_size = (irq_type == QAIF_AIF_IRQ) ?
++		QAIF_MAX_AIF_DMA_IDX : QAIF_MAX_CIF_DMA_IDX;
++	if (stream_offset + num_dma > array_size) {
++		dev_err(regmap_get_device(drvdata->audio_qaif_map),
++			"DMA index range %d+%d exceeds substream table %d\n",
++			stream_offset, num_dma, array_size);
++		return IRQ_NONE;
++	}
++	mask = GENMASK(num_dma - 1, 0);
++
++	rv = regmap_read(drvdata->audio_qaif_map, stat_reg_addr, &reg);
++	if (rv) {
++		dev_err_ratelimited(regmap_get_device(drvdata->audio_qaif_map),
++				    "error reading stat reg 0x%x: %d\n", stat_reg_addr, rv);
++		return IRQ_NONE;
++	}
++
++	if (!(reg & mask)) {
++		dev_warn_ratelimited(regmap_get_device(drvdata->audio_qaif_map),
++				     "spurious IRQ: stat reg 0x%x status 0x%x mask 0x%x\n",
++				     stat_reg_addr, reg, mask);
++		return IRQ_NONE;
++	}
++
++	if (regmap_write(drvdata->audio_qaif_map, clr_reg_addr, reg & mask))
++		return IRQ_NONE;
++
++	for (dma_idx = 0; dma_idx < num_dma; dma_idx++) {
++		stream_dma_idx = dma_idx + stream_offset;
++		ss = READ_ONCE(substream[stream_dma_idx]);
++		if (!(reg & BIT(dma_idx)) || !ss)
++			continue;
++		switch (irq) {
++		case QAIF_IRQ_PERIOD:
++			snd_pcm_period_elapsed(ss);
++			break;
++		case QAIF_IRQ_OVERFLOW:
++		case QAIF_IRQ_UNDERFLOW:
++			dev_warn_ratelimited(regmap_get_device(drvdata->audio_qaif_map),
++					     "QAIF DMA xRun\n");
++			snd_pcm_stop_xrun(ss);
++			break;
++		case QAIF_IRQ_ERROR:
++			snd_pcm_stop_xrun(ss);
++			dev_err_ratelimited(regmap_get_device(drvdata->audio_qaif_map),
++					    "QAIF bus error\n");
++			break;
++		}
++	}
++	return IRQ_HANDLED;
++}
++
++static irqreturn_t qaif_aif_irq_handler(struct qaif_drv_data *drvdata, u32 status)
++{
++	const struct qaif_variant *v = drvdata->variant;
++	struct snd_pcm_substream **ss = drvdata->aif_substream;
++	irqreturn_t ret = IRQ_NONE;
++
++	if (status & QAIF_SUMMARY_BITMASK_AIF_PERIOD_RDDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_RDDMA_PERIOD_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
++					    QAIF_EE_RDDMA_PERIOD_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
++					    QAIF_AIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_PERIOD, ss);
++	if (status & QAIF_SUMMARY_BITMASK_AIF_PERIOD_WRDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_WRDMA_PERIOD_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
++					    QAIF_EE_WRDMA_PERIOD_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
++					    QAIF_AIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_PERIOD, ss);
++	if (status & QAIF_SUMMARY_BITMASK_AIF_OVERFLOW_WRDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_WRDMA_OF_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
++					    QAIF_EE_WRDMA_OF_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
++					    QAIF_AIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_OVERFLOW, ss);
++	if (status & QAIF_SUMMARY_BITMASK_AIF_UNDERFLOW_RDDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_RDDMA_UF_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
++					    QAIF_EE_RDDMA_UF_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
++					    QAIF_AIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_UNDERFLOW, ss);
++	if (status & QAIF_SUMMARY_BITMASK_AIF_ERR_RSP_RDDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_RDDMA_ERR_RSP_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
++					    QAIF_EE_RDDMA_ERR_RSP_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
++					    QAIF_AIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_ERROR, ss);
++	if (status & QAIF_SUMMARY_BITMASK_AIF_ERR_RSP_WRDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_WRDMA_ERR_RSP_IRQ_STAT_REG(v, QAIF_AIF_IRQ),
++					    QAIF_EE_WRDMA_ERR_RSP_IRQ_CLR_REG(v, QAIF_AIF_IRQ),
++					    QAIF_AIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_ERROR, ss);
++	return ret;
++}
++
++static irqreturn_t qaif_cif_irq_handler(struct qaif_drv_data *drvdata, u32 status)
++{
++	const struct qaif_variant *v = drvdata->variant;
++	struct snd_pcm_substream **ss = drvdata->cif_substream;
++	irqreturn_t ret = IRQ_NONE;
++
++	if (status & QAIF_SUMMARY_BITMASK_CIF_PERIOD_RDDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_RDDMA_PERIOD_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
++					    QAIF_EE_RDDMA_PERIOD_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
++					    QAIF_CIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_PERIOD, ss);
++	if (status & QAIF_SUMMARY_BITMASK_CIF_PERIOD_WRDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_WRDMA_PERIOD_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
++					    QAIF_EE_WRDMA_PERIOD_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
++					    QAIF_CIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_PERIOD, ss);
++	if (status & QAIF_SUMMARY_BITMASK_CIF_OVERFLOW_WRDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_WRDMA_OF_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
++					    QAIF_EE_WRDMA_OF_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
++					    QAIF_CIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_OVERFLOW, ss);
++	if (status & QAIF_SUMMARY_BITMASK_CIF_UNDERFLOW_RDDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_RDDMA_UF_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
++					    QAIF_EE_RDDMA_UF_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
++					    QAIF_CIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_UNDERFLOW, ss);
++	if (status & QAIF_SUMMARY_BITMASK_CIF_ERR_RSP_RDDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_RDDMA_ERR_RSP_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
++					    QAIF_EE_RDDMA_ERR_RSP_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
++					    QAIF_CIF_IRQ, QAIF_DMA_RDDMA, QAIF_IRQ_ERROR, ss);
++	if (status & QAIF_SUMMARY_BITMASK_CIF_ERR_RSP_WRDMA)
++		ret |= qaif_process_dma_irq(drvdata,
++					    QAIF_EE_WRDMA_ERR_RSP_IRQ_STAT_REG(v, QAIF_CIF_IRQ),
++					    QAIF_EE_WRDMA_ERR_RSP_IRQ_CLR_REG(v, QAIF_CIF_IRQ),
++					    QAIF_CIF_IRQ, QAIF_DMA_WRDMA, QAIF_IRQ_ERROR, ss);
++	return ret;
++}
++
++static const struct qaif_irq_map qaif_irq_clients[] = {
++	{ QAIF_CLIENT_ID_AIF_DMA, QAIF_BITMASK_AIF_RDDMA_WRDMA, qaif_aif_irq_handler },
++	{ QAIF_CLIENT_ID_CIF_DMA, QAIF_BITMASK_CIF_RDDMA_WRDMA, qaif_cif_irq_handler },
++};
++
++static irqreturn_t asoc_platform_qaif_irq(int irq, void *data)
++{
++	struct qaif_drv_data *drvdata = data;
++	const struct qaif_variant *v = drvdata->variant;
++	u32 summary_irq_status;
++	int rv, client;
++	irqreturn_t ret = IRQ_NONE;
++
++	rv = regmap_read(drvdata->audio_qaif_map, QAIF_SUMMARY_IRQSTAT_REG(v),
++			 &summary_irq_status);
++	if (rv) {
++		dev_err(regmap_get_device(drvdata->audio_qaif_map),
++			"error reading from irqstat reg: %d\n", rv);
++		return IRQ_NONE;
++	}
++
++	if (!(summary_irq_status & QAIF_ALL_CLIENTS_MASK))
++		return IRQ_NONE;
++
++	for (client = 0; client < ARRAY_SIZE(qaif_irq_clients); client++) {
++		if (summary_irq_status & qaif_irq_clients[client].mask)
++			ret |= qaif_irq_clients[client].client_irq_handler(drvdata,
++									   summary_irq_status);
++	}
++	return ret;
++}
++
++static const struct snd_soc_component_driver qaif_component_driver = {
++	.name		= DRV_NAME,
++	.open		= qaif_platform_pcmops_open,
++	.close		= qaif_platform_pcmops_close,
++	.hw_params	= qaif_platform_pcmops_hw_params,
++	.hw_free	= qaif_platform_pcmops_hw_free,
++	.prepare	= qaif_platform_pcmops_prepare,
++	.trigger	= qaif_platform_pcmops_trigger,
++	.sync_stop	= qaif_platform_pcmops_sync_stop,
++	.pointer	= qaif_platform_pcmops_pointer,
++	.mmap		= qaif_platform_pcmops_mmap,
++	.copy		= qaif_platform_copy,
++};
++
++int asoc_qcom_qaif_platform_register(struct platform_device *pdev)
++{
++	struct qaif_drv_data *drvdata = platform_get_drvdata(pdev);
++	struct of_phandle_args iommu_spec;
++	u32 sid;
++	int ret;
++
++	if (!drvdata->variant->alloc_stream_dma_idx ||
++	    !drvdata->variant->free_stream_dma_idx)
++		return dev_err_probe(&pdev->dev, -EINVAL,
++				     "Variant missing mandatory callbacks\n");
++
++	ret = of_parse_phandle_with_args(pdev->dev.of_node,
++					 "iommus", "#iommu-cells", 0,
++					 &iommu_spec);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "failed to parse iommus property\n");
++	sid = iommu_spec.args[0];
++	of_node_put(iommu_spec.np);
++	drvdata->smmu_csid_bits = sid & QAIF_CSID_MASK;
++
++	/*
++	 * The DMA base register only holds the low 32 bits of the buffer
++	 * address, so the coherent buffer must come from the low 32-bit
++	 * address space.
++	 */
++	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "Failed to set 32-bit DMA mask\n");
++
++	drvdata->audio_qaif_irq = platform_get_irq(pdev, 0);
++	if (drvdata->audio_qaif_irq < 0)
++		return dev_err_probe(&pdev->dev, drvdata->audio_qaif_irq,
++				     "Failed to get IRQ\n");
++
++	drvdata->qaif_hw_configured = false;
++	mutex_init(&drvdata->stream_lock);
++
++	ret = devm_request_irq(&pdev->dev, drvdata->audio_qaif_irq,
++			       asoc_platform_qaif_irq, 0,
++			       "qaif-irq-audio-core", drvdata);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret, "irq request failed\n");
++
++	ret = devm_snd_soc_register_component(&pdev->dev, &qaif_component_driver, NULL, 0);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "Failed to register platform component\n");
++	return 0;
++}
++EXPORT_SYMBOL_GPL(asoc_qcom_qaif_platform_register);
++
++MODULE_DESCRIPTION("Qualcomm Audio Interface (QAIF) PCM platform driver");
++MODULE_AUTHOR("Harendra Gautam <harendra.gautam@oss.qualcomm.com>");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
