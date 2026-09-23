@@ -1,122 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029C132B989;
-	Wed, 23 Sep 2026 05:42:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF651B142D;
+	Wed, 23 Sep 2026 05:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142140; cv=none; b=h4AoPVzaz0usjO3RzmJlJomykJkXqKTNMqqa5iM8XXv8CCnZ6dkCPjtCJNLIRs9cEUfAFO2rCZRrzEi2YK3OjM9CS8IjvUAU8Z+Q64gTtSmHCN/qiN3pl+4kmdTojKIY0Lc4ZdD5QehPVEeqLhiSnL1uOCVCfZy2X9HPE27KDqc=
+	t=1790142146; cv=none; b=tJoTRGDpvaOOekeSMPxPhfWWYjEj3s992mENokpK50uHBHWJy6czs7s4UMhIX79z2bwtEPOnVCqS/8ZvWwcovz6+sTrxbOjlpbtaXp4nfuI3/b96oS+WK5EFD8MreftmZ29XQkW1/Ovy+dp0Avo4xUiRxtYUA2apwp1qEzJ0TnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142140; c=relaxed/simple;
-	bh=/w5hv76CtOIg0aakH6ZZiozInlomNNJGvYBDChvRHnM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j73DI++RflXpsgJA3wm65GJUhqSqrfCAScajuMgmvSCQZ/NLI+AK/sChl4T9J13XogjDDCs739ToHkOdE5mCnmnuOrWLZz8EZDHTxoie+AAMAaP0nZcM0xKylxG2g4/5WpAVMOTjaeZqq9r9S6wPnbWJPqTTvCkOpTs9TyzLST8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KisUvEO5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790142146; c=relaxed/simple;
+	bh=O7vLiErv27RUD70UUHBrWpEb96rWFJU+SsC9JHBfrLA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=SwDK78O58Cw19CJ+qpDIQyKY5vLKuj554zPyz6DczwmBqLm+YUsgHvXVz4+Ua+xonHgjuWnn72kuBc3LHYMsh0Enzfx2Cpy0v6EU7Ne1wH/33UmItE0hV4MhPU9iRGpx6znoOv/yOkxo10uaVVq2nBgwesXox6UPDKiWoC62V70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=igGYhJC3; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KisUvEO5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB4C31F000FF;
-	Wed, 23 Sep 2026 05:42:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790142138;
-	bh=t6gLZG08rBpU/svrvyR38HuqFVAnB1qmniMlptlcMgs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KisUvEO5ig4OkrItSqQD4RyoYDjOhke25eMEIZSyzc8YfAUzO0HB2BlbxygzZ5oc5
-	 Z+Y8cAeOm/gR47M3aeamKlZLWRH67bws4nGm0AoA+7DwcRDL57yu0755KiGFNBm8s0
-	 h1GXxHLWsah87t34t5G7TsooAy6hNcZ/UPwPRSap7+m8zFWfOAw2ud/b/B7An2Ev2l
-	 agPBCvp9/oEdcEItPaOSYgRrT4CAJNneIBHVFlko9vi/omuTipWy43+HyI9pACrqUi
-	 K7mnSbrOBYxgjS/0EhcTqA7WxI3edvsWvUaWATeJ4HSNK4UlPxwmNEXkXL7rBw+UQV
-	 IMlMqN3FCptdQ==
-Message-ID: <ebce4bc6-b210-4e07-ab6e-25f1b2b13a8a@kernel.org>
-Date: Wed, 23 Sep 2026 14:42:15 +0900
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="igGYhJC3"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68N5g1P71095606, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1790142121; bh=O7vLiErv27RUD70UUHBrWpEb96rWFJU+SsC9JHBfrLA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=igGYhJC3fnM9NpG2Kyy7h4x/0diJcoDPsGqeRBJHlO6Dd8aprufTDtu5SQt8zpjN6
+	 F06eWfjo/c7jnhtBejksv52s7dkgtm2KJUkCuaO/0zf3d5KnqNOX/HRqkfIagqwSzy
+	 b8YpP7uxY8dnTSh9teYDt3WcxnsKxCek5TlBbmeDRo3K0XMYW5xLW2D9P4muiF3e4u
+	 LXWMMH/X7KKyS9GpVeyQvD8l89GagWgFsjak/KnUj45YA/4mcHETZzoL0sO8t01zKW
+	 PrnehLf/Epzy/UKKPtl55GR+4SP0xWBfAZsA8eIrdiNlpO7OaOXMHHSHhXOCTZq40F
+	 bhKbNvRuTSyjQ==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68N5g1P71095606
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 23 Sep 2026 13:42:01 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 23 Sep 2026 13:42:01 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Wed, 23 Sep 2026 13:42:01 +0800
+From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+CC: "sboyd@kernel.org" <sboyd@kernel.org>, "bmasney+clk@redhat.com"
+	<bmasney+clk@redhat.com>, "jbrunet+clk@baylibre.com"
+	<jbrunet+clk@baylibre.com>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+	=?utf-8?B?RWRnYXIgTGVlIFvmnY7mib/oq61d?= <cylee12@realtek.com>,
+	"afaerber@suse.com" <afaerber@suse.com>,
+	=?utf-8?B?SnlhbiBDaG91IFvlkajoirflrold?= <jyanchou@realtek.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>,
+	"linux-realtek-soc@lists.infradead.org"
+	<linux-realtek-soc@lists.infradead.org>,
+	=?utf-8?B?SmFtZXMgVGFpIFvmiLTlv5fls7Bd?= <james.tai@realtek.com>,
+	=?utf-8?B?Q1lfSHVhbmdb6buD6Ymm5pmPXQ==?= <cy.huang@realtek.com>,
+	=?utf-8?B?U3RhbmxleSBDaGFuZ1vmmIzogrLlvrdd?= <stanley_chang@realtek.com>,
+	Brian Masney <bmasney@redhat.com>
+Subject: RE: [PATCH v14 07/11] clk: realtek: Add support for mux clock
+Thread-Topic: [PATCH v14 07/11] clk: realtek: Add support for mux clock
+Thread-Index: AQHdOeL/g/aJu9pvt06W4ewBENBGWbbPKKcAgAyf0hA=
+Date: Wed, 23 Sep 2026 05:42:01 +0000
+Message-ID: <0b1dd932101848b7ba18aba6ea2d5080@realtek.com>
+References: <20260901072446.2563145-1-eleanor.lin@realtek.com>
+ <20260901072446.2563145-8-eleanor.lin@realtek.com>
+ <178947683646.448573.8652586338644531668.b4-reply@b4>
+In-Reply-To: <178947683646.448573.8652586338644531668.b4-reply@b4>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: linux-next: build failure after merge of the scsi-mkp tree
-To: Mark Brown <broonie@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Hui Peng <benquike@gmail.com>, Niklas Cassel <cassel@kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <arKETtHsac_ZwVc4@sirena.co.uk>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <arKETtHsac_ZwVc4@sirena.co.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 9/22/26 22:36, Mark Brown wrote:
-> Hi all,
-> 
-> After merging the scsi-mkp tree, today's linux-next build
-> (arm64 defconfig) failed like this:
-> 
-> /tmp/next/build/drivers/ata/libata-scsi.c: In function 'ata_scsi_pass_thru':
-> /tmp/next/build/drivers/ata/libata-scsi.c:3575:25: error: too many arguments to function 'ata_scsi_set_sense'
->  3575 |                         ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0);
->       |                         ^~~~~~~~~~~~~~~~~~
-> /tmp/next/build/drivers/ata/libata-scsi.c:206:6: note: declared here
->   206 | void ata_scsi_set_sense(struct ata_device *dev, struct scsi_cmnd *cmd,
->       |      ^~~~~~~~~~~~~~~~~~
-> 
-> Caused by commit
-> 
->    c44f095a9d176 (scsi: ata: libata: Use combined sense codes)
-> 
-> interacting with commit
-> 
->    3bab8c7e0c6ba (ata: libata-scsi: abort multi-sector pass-through commands when multi_count is 0)
-> 
-> from the libata tree,  I have fixed this up with the patch below and can
-> carry as needed:
-> 
-> From 900934c48a431c99de39a6b2976368408e7d2c83 Mon Sep 17 00:00:00 2001
-> From: Mark Brown <broonie@kernel.org>
-> Date: Tue, 22 Sep 2026 14:07:31 +0200
-> Subject: [PATCH] libata: Fix up semantic conflict in ata_scsi_set_sense()
-> 
-> /tmp/next/build/drivers/ata/libata-scsi.c: In function 'ata_scsi_pass_thru':
-> /tmp/next/build/drivers/ata/libata-scsi.c:3575:25: error: too many arguments to function 'ata_scsi_set_sense'
->  3575 |                         ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0);
->       |                         ^~~~~~~~~~~~~~~~~~
-> /tmp/next/build/drivers/ata/libata-scsi.c:206:6: note: declared here
->   206 | void ata_scsi_set_sense(struct ata_device *dev, struct scsi_cmnd *cmd,
->       |      ^~~~~~~~~~~~~~~~~~
-> 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
->  drivers/ata/libata-scsi.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-> index afc2bad677bb9..e380d1b68101a 100644
-> --- a/drivers/ata/libata-scsi.c
-> +++ b/drivers/ata/libata-scsi.c
-> @@ -3572,7 +3572,7 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
->  		unsigned int multi_count = 1 << (cdb[1] >> 5);
->  
->  		if (!dev->multi_count) {
-> -			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0);
-> +			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0);
-
-Mark,
-
-This should be:
-			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND,
-					   NO_ADDITIONAL_SENSE_INFORMATION);
-
-Thanks!
-			
-
->  			return 1;
->  		}
->  
-
-
--- 
-Damien Le Moal
-Western Digital Research
+SGkgSmVyb21lLA0KDQo+ID4gK3N0YXRpYyB1OCBydGtfY2xrX3JlZ21hcF9tdXhfZ2V0X3BhcmVu
+dChzdHJ1Y3QgY2xrX2h3ICpodykgew0KPiA+ICsgICAgIHN0cnVjdCBydGtfY2xrX3JlZ21hcF9t
+dXggKmNsa20gPSB0b19ydGtfY2xrX3JlZ21hcF9tdXgoaHcpOw0KPiA+ICsgICAgIHVuc2lnbmVk
+IGludCBudW1fcGFyZW50cyA9IGNsa19od19nZXRfbnVtX3BhcmVudHMoaHcpOw0KPiA+ICsgICAg
+IHUzMiB2YWw7DQo+ID4gKyAgICAgaW50IHJldDsNCj4gPiArDQo+ID4gKyAgICAgcmV0ID0gcmVn
+bWFwX3JlYWQoY2xrbS0+Y2xrci5yZWdtYXAsIGNsa20tPm11eF9vZnMsICZ2YWwpOw0KPiA+ICsg
+ICAgIGlmIChyZXQpDQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gMHhmZjsNCj4gPiArDQo+ID4g
+KyAgICAgdmFsID0gKHZhbCA+PiBjbGttLT5zaGlmdCkgJiBjbGttLT5tYXNrOw0KPiA+ICsNCj4g
+PiArICAgICByZXR1cm4gdmFsID49IG51bV9wYXJlbnRzID8gMHhmZiA6IHZhbDsNCj4gDQo+IFRo
+aXMgaXMgbm90IHJlYWxseSB1c2VmdWwsIHRoZSBjb3JlIGFscmVhZHkgcmVqZWN0cyB2YWwgPj0g
+bnVtX3BhcmVudC4NCj4gU28gcmV0dXJuaW5nIGEgaGlnaGVyIG51bWJlciBjaGFuZ2VzIG5vdGhp
+bmcgYXMgaXQgc3RhbmRzDQo+IA0KDQpXaWxsIGNoYW5nZSBpdCB0byAncmV0dXJuIHZhbDsnDQoN
+CkJlc3QgUmVnYXJkcywNCll1LUNodW4NCg==
