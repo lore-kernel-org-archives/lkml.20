@@ -1,168 +1,93 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 124595221E4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C515304DD;
+	Wed, 23 Sep 2026 14:25:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790173389; cv=none; b=qGP0epn5mZUu+AnnQdNwzZMjl4XMKgK1Tn4kl862Guz3W6qTc18dqvoV6adr0smVEAZMmYTum2ysfBh0iKvmVxa1Wyotj4KHIzEiIK89OCbByqRYD0Sdd7ZOfOy6F+CO22YWv/Tm5Og0AJ2s0j7aZvXj7RJea0cFhYoOOihyVtk=
+	t=1790173532; cv=none; b=P/vD3cjEjvN5l7r5D/RdxG0BaVE8XPWeY6kSkarx0Fr8iber+NatkTNV+qXWfb/TzRAOK0aqLo/T0fRCt8hYgI97+12I6cfDk2UOEWSUm8u0qzKh2PubArl9l8gtfR9JTjAh8QLcqitTBtpdMX5RvOeFvzfuhFwZ3+YWDh15Cpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790173389; c=relaxed/simple;
-	bh=vHF/4Rebpf1RbmlVp0v2ZLMX/ypaFMtdvlrlz1+PRak=;
-	h=From:Date:Subject:To:Cc:Message-ID:MIME-Version:Content-Type; b=WFNj8g/iUf4WgM3IpGwDU8XzmtkYTVz+fJMAy6bm/EE41tEAHVD6opoN7dhz5WLtiU/pvuh3cv4d3m6czNJ0BAvsxottcPLMruPRyIv/NxlPpW1p5eDSeLhMbaRPvfxZHTV2YGbHsEwOnRFFUDvpeh4W+noRJWUQ3TAltPMA53U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HhANkH8E; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790173532; c=relaxed/simple;
+	bh=/WNOjdQID9kTMoLh/d9iUfAVyC0VUflgmgHiLGHVyuk=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FJ5SXK7bggzNt3x67ouDAY4gYQfqtbZIddjl8igOB9O8IziKxnf6970IlKEfk3nxwqwXFZZS5XsYhhrXg6WctNGOhclGgEakXX+wy8WYjG4Ely+j2dEBMiBZTw0RXgdLbwl7W+cOaiXAgJM8LTVemY/rua5LkJJ2nQQouSsKR1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dAhw3uKN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HhANkH8E"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-868cfc5c244so386132b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:23:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790173387; x=1790778187; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:cc
-         :to:subject:date:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hOAfnEJCG2dfje1lhj2D/yy4s3DfFqXgRx5oeJiylnY=;
-        b=HhANkH8ExC9SpT5qyZKbCVFKMQTPmeA6RwWOndDgqRo2FdugEAaaH4db14sRmuknPG
-         WolZLi7LchG9y+mJqxX2EUD8GsxA1MP0fUEHwezmMczkhEh3XCMaRPvrpLy/h/m1Fs/Q
-         8mokFu/0Y5dcRrorrRhBCrAVhqJlxxjabNJnI/YBQvwDV7Yi+7I5h+xG8Wh/R2Fky0Mg
-         CJkly68JyDdxmO2HDalF9Pv7inCLm7tXuxjw0TIzkqUjVcq6eK19Bj5y33DNskuTjIn3
-         n7OT+Lxtzn2nuECnkf1WlJgKBMl99MYTkhI8Ug9x3uLuYxyMR/sgS2KkstnbNsuTJs6u
-         P9xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790173387; x=1790778187;
-        h=content-transfer-encoding:content-type:mime-version:message-id:cc
-         :to:subject:date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hOAfnEJCG2dfje1lhj2D/yy4s3DfFqXgRx5oeJiylnY=;
-        b=Pl9jHQXGzC2OxaY/5/a7RL6pV8r8yVdGS5fcaOC7BXt4mM4dn0XpwUyYyayLMXf/Tx
-         jFcc5mNxzMKuApFie0ASuhPMWAvqs2apCMXgfpIovut7FlZ972uxnZ/fkFIWJv66p/0R
-         lP5bpy6Tccb5vtMRsWxq3OkUjIinPN5KpM90RB4pByeKAQj85DhR1w6JW/hMAO7gsEn4
-         XSWf1kHLUvM1fhbCqHtRnOH/qHhLf2esqm9YElS8RIlGEXrGswHSEhqbSH7yxWnpqDHt
-         aYc9k4WSHkLrgJ8xa76zMnmRjdhr/7rDe6PRbcE7bZfzAhhDmDvt1WYB+MpS+7hdzdRg
-         hD+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzMupuVruzoIsRrgOoMRBSit/63nplm+oVH7joMLT3GTi/ihiKgfYtjPCOFjw8ieRX/tURO4Qh6AmN6Bjo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZWuADcPaUQkEf9D16ZnojzZBYBjgZ0YzBvFYiFh5Yx0NtbrE6
-	sn/GyCqnzOond+04Z5zAX58O4DpJ96ts5Q9n4dF56ShKS+XwII6Q9iby
-X-Gm-Gg: AYBFou1xUjjYdkEQaQuXZsJ+0jU/geE0trVTX3G0F8F94kBU0v0JEQbFmr2qPJFUckd
-	nLec2bW0mjf8dapKvkQ+sBR+aowj7zTSQjnKbG6jPTE+w0F/vTgM4/w5rs1W97LVsnMDxR0Bk+e
-	R1pP18Qkos1Z9vW6ppZ3F0yCVEQ5Fy6ld177Zv1IQXVPAY6Do74GaWnApdqQ/Pej/26Oj1PJtuB
-	Xj6luRFIeZZThNENb9xPVQnITWhqcwct1znqtv7yXy4c6PIJQ0LNRSVWp3F+EDmn4I3fpvX+psv
-	XycbhAAWrVznXqzlO90PyYAjt679gmjG7g7V3nm0ly/qGg1Y7zi2W0xjpjmkoUQu3bmFhMp4jS2
-	J2g4pqddHz0MeT4KwzQdn1KtKM873L0stYSY+Cvp8+TDHMkIP7f4gXVb1GfUzMJwe9Dskx8q5on
-	/iHd+7/D7Ejm68JBzEjVuC/L89CbtPIEJgwTkicNZQSH90pKPpDox94MHSJVLtSfMQKXLF7R7k5
-	gUgVg8ji+O/zAo/M3XHP9F+AE25m5OXyRh5qrRYuGphFS0eKlRqs5XoRoKxWLxN0Mky1SpXK5aY
-	GW7Hz5zvgy4goesXsCDGASopXZ1s9dTJRBRaxngcja0y7g==
-X-Received: by 2002:a05:6a00:3912:b0:874:705d:f63b with SMTP id d2e1a72fcca58-87d1c1c833dmr2392179b3a.29.1790173387247;
-        Wed, 23 Sep 2026 07:23:07 -0700 (PDT)
-Received: from [172.16.0.2] ([2a09:bac5:d58e:323::50:1d4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e0f4fbbsm1403313b3a.52.2026.09.23.07.23.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:23:06 -0700 (PDT)
-From: houtinghang <ue081723@gmail.com>
-Date: Wed, 23 Sep 2026 22:22:59 +0800
-Subject: [PATCH] clang-tools: Import os for broken pipe handling
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>
-Cc: llvm@lists.linux.dev, linux-kbuild@vger.kernel.org,
- linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>,
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Message-ID: <179017337986.52388.7943687183785012868@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dAhw3uKN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEE9B1F00893;
+	Wed, 23 Sep 2026 14:25:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790173531;
+	bh=5VAvvdSrfVlwZUnwPbQ2SBZe8CezYqvP4YPopdOx8gA=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=dAhw3uKNokZzF7PVP6DNUNhPRP5TgMtmjXCfzaRzvIzZ/EDlA/W7aYqvR3pVbx51M
+	 NFWU/fzMQA+/kDLKggSDlYpg/eGdjYT8bSwMitZbxPrEJzFARFUJs5d5lRIMhJf2RS
+	 dkLcb6CjZeK2zfPt+LauRcs5GoQc+2pw8j/DI3ioC+YQ1/CkoDJh+ibFLQ2SqB2fic
+	 h+GsO2K1S6gD/DdLcFxC+ckgYGh/EQTN9j17KpGVvoaY5trEg22bHIoOe+J6PyZe7H
+	 A7VFWTB2a4uJBjxHQOHfzVvk02jgddwRsupnBSWsYPGhVeTiTRbpZehRXy08hkmmQ1
+	 IoipRCEq09Y8Q==
+Date: Wed, 23 Sep 2026 15:25:26 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+	Frank.Li@kernel.org, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	imx@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] module: add SCMI device table alias support
+Message-ID: <20260923-groovy-airborne-rook-e1efc6@sudeepholla>
+References: <20260918092951.5656-1-johannes.goede@oss.qualcomm.com>
+ <20260918092951.5656-2-johannes.goede@oss.qualcomm.com>
+ <arFKVhlgJge5EZyj@monoceros>
+ <20260923-sceptical-mauve-firefly-f5456d@sudeepholla>
+ <6b5a8300-ebf9-4717-bd39-952e89fc5e78@oss.qualcomm.com>
+ <20260923-snake-of-magic-satiation-c3b857@sudeepholla>
+ <a5e56180-b96f-4fac-980e-e837e84cd5a5@oss.qualcomm.com>
+ <20260923-calculating-positive-inchworm-28d3cc@sudeepholla>
+ <arPMAXs4jjUeu1DE@monoceros>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <arPMAXs4jjUeu1DE@monoceros>
 
-The BrokenPipeError handler in run-clang-tools.py calls os.open() and
-os.dup2() without importing os. When the analysis pool raises this
-exception, the handler raises NameError instead of redirecting stdout
-and exiting with status 1.
+On Wed, Sep 23, 2026 at 02:55:26PM +0200, Uwe Kleine-König wrote:
+> On Wed, Sep 23, 2026 at 01:01:44PM +0100, Sudeep Holla wrote:
+> > If Uwe is fine, yes I can take v7 as is.
+> 
+> Fine for me.
+> 
+> Acked-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+> 
 
-Import os and add a regression test that injects BrokenPipeError from
-Pool.map(), then checks the redirection and exit status.
+Thanks Uwe!
 
-Fixes: 87c7ee67deb7 ("scripts: handle BrokenPipeError for python scripts")
-Assisted-by: LLM
-Signed-off-by: houtinghang <ue081723@gmail.com>
----
-Testing: python scripts/clang-tools/run-clang-tools_test.py -v
-The test fails before the import with NameError and passes after it.
-Tested with Python 3.13 on Windows using exception injection; no complete
-kernel build or real clang-tidy pipeline test was performed.
+> The nice thing is that the device_id structs are not API, so this can
+> also be addressed later if someone comes up with a clever idea how to
+> implement it.
+> 
 
-AI disclosure: Codex found the missing import, wrote the fix and test,
-ran the test, reviewed the diff, and drafted this message in response to
-a request to find, fix, review and submit a Linux kernel bug.
+Agreed.
 
- scripts/clang-tools/run-clang-tools.py      |  1 +
- scripts/clang-tools/run-clang-tools_test.py | 41 +++++++++++++++++++++
- 2 files changed, 42 insertions(+)
- create mode 100644 scripts/clang-tools/run-clang-tools_test.py
+Hans,
 
-diff --git a/scripts/clang-tools/run-clang-tools.py b/scripts/clang-tools/run-clang-tools.py
-index e78be82..79d58b3 100755
---- a/scripts/clang-tools/run-clang-tools.py
-+++ b/scripts/clang-tools/run-clang-tools.py
-@@ -12,6 +12,7 @@ compile_commands.json.
- import argparse
- import json
- import multiprocessing
-+import os
- import subprocess
- import sys
- 
-diff --git a/scripts/clang-tools/run-clang-tools_test.py b/scripts/clang-tools/run-clang-tools_test.py
-new file mode 100644
-index 0000000..207b866
---- /dev/null
-+++ b/scripts/clang-tools/run-clang-tools_test.py
-@@ -0,0 +1,41 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+
-+"""Tests for run-clang-tools.py."""
-+
-+import importlib.util
-+import os
-+from pathlib import Path
-+import unittest
-+from unittest import mock
-+
-+
-+spec = importlib.util.spec_from_file_location(
-+    "run_clang_tools", Path(__file__).with_name("run-clang-tools.py"))
-+run_clang_tools = importlib.util.module_from_spec(spec)
-+spec.loader.exec_module(run_clang_tools)
-+
-+
-+class TestRunClangTools(unittest.TestCase):
-+    def test_broken_pipe_redirects_stdout_and_exits(self):
-+        args = mock.Mock(path="compile_commands.json")
-+        with mock.patch.object(run_clang_tools, "parse_arguments", return_value=args), \
-+             mock.patch("builtins.open", mock.mock_open(read_data="[]")), \
-+             mock.patch.object(run_clang_tools.multiprocessing, "Lock"), \
-+             mock.patch.object(run_clang_tools.multiprocessing, "Pool") as pool, \
-+             mock.patch("os.open", return_value=42) as open_devnull, \
-+             mock.patch("os.dup2") as dup2, \
-+             mock.patch.object(run_clang_tools.sys, "stdout") as stdout:
-+            pool.return_value.__enter__.return_value.map.side_effect = BrokenPipeError
-+            stdout.fileno.return_value = 1
-+
-+            with self.assertRaises(SystemExit) as raised:
-+                run_clang_tools.main()
-+
-+            self.assertEqual(raised.exception.code, 1)
-+            open_devnull.assert_called_once_with(os.devnull, os.O_WRONLY)
-+            dup2.assert_called_once_with(42, 1)
-+
-+
-+if __name__ == "__main__":
-+    unittest.main()
+There were other changes in bus.c that conflicted with this. I have
+resolved the conflicts and pushed to my for-next/scmi/updates[1]
 
-base-commit: fe2ec83746e501645709761605c2464a44fd2929
+If anything is wrong or if you prefer, you can post a rebased version
+that I can pick up.
+
 -- 
-2.52.0.windows.1
+Regards,
+Sudeep
 
+[1] https://git.kernel.org/sudeep.holla/h/for-next/scmi/updates
