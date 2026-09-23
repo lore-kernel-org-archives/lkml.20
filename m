@@ -1,91 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23EC3E834D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:33:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184829; cv=none; b=m0h5hUWHAhgyo8Aw5u3xKnaKfMbTxa1UJQsAQev5VGYwXLZunq1g93n14K+y9DE9jFOzA1tY4YG6vKyNq2LUveZb/0DzE6zLOLoFxtSegSa67CmTKy9SaNR3B5WEERJmjE9FI/zIkfUgfB+4OMxJ1Vk5qe7Kz1lKaPBTBRSA8oM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184829; c=relaxed/simple;
-	bh=7+/gGtEFAH1Te/Z6G2y9uyEyvE2QFcnJ2KCCavRFD4s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Z6MElhI6zBuNqk+6gcZWpExHsrv9ayBQ0sGsZ6VA6mycop0gri+dhkpEGh6Lw81mNjOOdse4EeH/JuyS4qHnpKNq7H+763RfHXuXUDzPoSUkeTZ0KEBsD70EHYj0oX8fvpq4DHcpGYpKlT7HF5Zyplw4NQKduM2YucbLAYtT1m8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B6SgdMjn; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85F1E4052A3;
+	Wed, 23 Sep 2026 17:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790184847; cv=pass; b=AYiqs2LsB9qKGsoxNPgF8biaAPNmP+Pb+3cOy3SE8Q+ohCEiNentQQOauJ5clflCkCuLRY+PsDcv15Lq5UkJFH2DmZIH9BGt/yZHsSKwWmIvhlcjAfLLFVC8F/b7usB0OVTNzLrjW27fAAIJBro3Ks5hlud6Dmg2yoZrxel7jiE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790184847; c=relaxed/simple;
+	bh=DNjgsnyGeTsYcFIs9nGcew1I27uSPBTg/Q/RbgW/T2Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oCqJ971qy6oTwQPnf+zgWTgUH5qbZP8oDo5gjWVAlcEBGzQzphNAsGT767jlyDeYqbnmJABaeBl5NvK01Lz3s/z1bSm1zn6Gj35MTyzuqt9dBMyLi6XRiZu+JRj3xcEu5l+PunfItNqFjuKhUWeUNmr+P9yxmrNy7ukHBbMye4A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=CwMkLaAh; arc=pass smtp.client-ip=165.173.180.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B6SgdMjn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842961F0089A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790184827;
-	bh=ey3SPrkpKGVXMZKt+yPD2M8w0aKzs8cc5D2kXCri1v4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=B6SgdMjnd4YBwwvGENi6BHN81O7xtWfLsllo8cidAPecVIcXGbW44cuuaWvcwxU+x
-	 UezGpwSZ8KX8phDwaAGcmjOa80FpxUT+1E585H0cVA7S+esg0CucWCSImGWy5AM2Wr
-	 RyhE0SZt1WiI5lwSEZudGKt9FLVL1XUvr5L0xpbXXkhE0tkk4kBjIUzlf2bmyCeUeK
-	 sB495Az+n9a3lVqNvwH7yEk1fx7QPl6Cuh6ogzpukSvTP9gk8Ze8RaF2b4sM7a9P4v
-	 UYrKFcERGVk0T2YPcO7dw8EWFznCoYPC6ib+mwm53jSlZTeJPFxIE6xnI3LjorbCGr
-	 LtjIYD35+pV8w==
-Received: by mail-lr2-f18.google.com with SMTP id 38308e7fff4ca-3a354118856so9511521fa.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:33:47 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx7Q1bmLoALdI2Np45rSq/ahAadc52I6oQcNM61+RqX5sGCs04LjNAnzsxjI/9Qud2mWBUSPN5roxefsG8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mi0w2xYKysUNzZOwtT8KYP4kGY870hm5KEK52JmNunetwEOJUV
-	rn8xmXHGJmicVjFIAzUaVRhh2/x/KxzAxBBUCcW16MMfwOe+BVkOlGb8rCC9xBA2fxGgDUHDznU
-	nhWfyEwxnDbnwTB720jznr4KpM2Y8fTo=
-X-Received: by 2002:a2e:a985:0:b0:3a6:3359:84a0 with SMTP id
- 38308e7fff4ca-3a6335989femr6183721fa.5.1790184825869; Wed, 23 Sep 2026
- 10:33:45 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="CwMkLaAh"
+ARC-Seal: i=1; a=rsa-sha256; t=1790184810; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=TK+mhxWqSQlHReN6zjRE3fAskmD8Vi7nKZ6VQaq20716RDwvlnHRyT/pCITIXg86sKTc9EpnMO3o7KbM9Yd0lfGcRJYbCyQSNSPoEArWwCxdWxdE7q5liGQ4SfYmxSG38wqKXpAvHo/+dU6vMAAJXkO99Q0gxz85cxvYSEcop8I=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790184810; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=nsanluhTpoeM0bPWCnlDUgLBI+hwIJEThPZvWCMVm0A=; 
+	b=TbKb47s2NDWK917dpDcHeOCsMXYSlAThLAhCqezjHOMy2c07XphGyOK6WieNc4d0pQtHhUC5wL/4BfhBtooYFUZOrBaFpQVauPgVQi6AoymH0g6kKyS+qdiLAgwoj4ubQfeS0T8BJqUmSQ4h5+d0b3e1DE5BEHC5apL0uHqCWx0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=ziyao.cc;
+	spf=pass  smtp.mailfrom=me@ziyao.cc;
+	dmarc=pass header.from=<me@ziyao.cc>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790184810;
+	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=nsanluhTpoeM0bPWCnlDUgLBI+hwIJEThPZvWCMVm0A=;
+	b=CwMkLaAhi97xQnGSnnqt0hhYccOsCycdzbbdWV5zNxjV2MMcXVRGww4uzq+VHBf0
+	7vY8cSRgeGiGP6aoVqR2FRX3sMkFvtqXuAZ88Ar4QXB5P11DLskN4P5a69x9z/78t+X
+	NI4/ps41AY6+rOPIIxGy2zn+lzFg0s9ocgCVpD+M=
+Received: by smtp.zohomail.com with SMTPS id 1790184808288542.8755653328309;
+	Wed, 23 Sep 2026 10:33:28 -0700 (PDT)
+Date: Wed, 23 Sep 2026 17:33:18 +0000
+From: Yao Zi <me@ziyao.cc>
+To: "Sandie Cao" <sandie.cao@deepcomputing.io>,
+	"Yixun Lan" <dlan@kernel.org>,
+	"Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Paul Walmsley" <pjw@kernel.org>,
+	"Palmer Dabbelt" <palmer@dabbelt.com>,
+	"Albert Ou" <aou@eecs.berkeley.edu>
+Cc: "Alexandre Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
+	<linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, Yao Zi <me@ziyao.cc>
+Subject: Re: [PATCH 2/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: add
+ USB controller and USB phy support
+Message-ID: <arQNUQ92Dx3TOKCR@pie>
+References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
+ <20260922110434.3426051-1-sandie.cao@deepcomputing.io>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <6329043.lOV4Wx5bFT@rafael.j.wysocki> <SN6PR02MB41577ECCDB3E757B8859AE7FD4822@SN6PR02MB4157.namprd02.prod.outlook.com>
-In-Reply-To: <SN6PR02MB41577ECCDB3E757B8859AE7FD4822@SN6PR02MB4157.namprd02.prod.outlook.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 23 Sep 2026 19:32:11 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0juW=oum7jULzHeTbaG2Ame=ge3nitsKDz_05Xs6wQqZA@mail.gmail.com>
-X-Gm-Features: AclHuK--LX3vVHrZY-Ra9i7rARu_luIZZvd7q6F9lMAi8jGLa6H7OU8CGiKAerI
-Message-ID: <CAJZ5v0juW=oum7jULzHeTbaG2Ame=ge3nitsKDz_05Xs6wQqZA@mail.gmail.com>
-Subject: Re: [PATCH v2] driver core/ACPI: Introduce companion_bus_register()
-To: Michael Kelley <mhklinux@outlook.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Linux on Hyper-V List <linux-hyperv@vger.kernel.org>, Linux ACPI <linux-acpi@vger.kernel.org>, 
-	LKML <linux-kernel@vger.kernel.org>, 
-	Linux Driver Core Development <driver-core@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922110434.3426051-1-sandie.cao@deepcomputing.io>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.183.46
+X-ZohoMailClient: External
 
-On Wed, Sep 23, 2026 at 7:06=E2=80=AFPM Michael Kelley <mhklinux@outlook.co=
-m> wrote:
->
-> From: Rafael J. Wysocki <rafael@kernel.org> Sent: Wednesday, September 9,=
- 2026 9:41 AM
-> >
-> > The ACPI bus type does not allow drivers to be registered, so the sysfs
-> > attributes related to drivers created for it and its devices are
-> > useless, and its drivers/ directory is always empty.  All of that is
-> > confusing and wasteful.
-> >
-> > To allow skipping the creation of those sysfs attributes, introduce a
-> > "companion" bus type concept and add a special registration function fo=
-r
-> > registering "companion" bus types, companion_bus_register().
-> >
-> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
->
-> As a heads up, this patch breaks Linux guests booting on Hyper-V.
-> Something goes wrong in the VMBus driver getting loaded and
-> initialized (drivers/hv/vmbus_drv.c).
+On Tue, Sep 22, 2026 at 07:04:34PM +0800, Sandie Cao wrote:
+> Add USB device node (b, c, d) to DeepComputing FML13V05 board.
+> USB A works on otg mode, it isn't configured currently.
+> - 4 USB-C Ports
+>      - Port 1: PD 3.0 (65W Max), USB 3.2 Gen 1
+>      - Port 2: PD 3.0 (65W Max), USB 3.2 Gen 1, DP 1.4 (4K@60Hz)
+>      - Port 3 & 4: USB 3.2 Gen 1
+> 
+> Signed-off-by: Sandie Cao <sandie.cao@deepcomputing.io>
+> ---
+>  .../spacemit/k3-deepcomputing-fml13v05.dts    | 44 +++++++++++++
+>  arch/riscv/boot/dts/spacemit/k3.dtsi          | 66 +++++++++++++++++++
 
-This patch doesn't affect anything except for bus registration and
-driver addition and lookup for the ACPI bus type.
+I think the SoC and board-level changes should be split into separate
+patches.
 
-> It may be that the VMBus
-> driver is doing something wrong or making an invalid assumption.
-> I'll debug the problem today or tomorrow, but any insight you can
-> offer would be appreciated. I'm working with linux-next20260921.
+>  2 files changed, 110 insertions(+)
 
-No idea what's going on.
+Best regards,
+Yao Zi
