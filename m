@@ -1,75 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013027.outbound.protection.outlook.com [52.101.72.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772CA449B2D;
-	Wed, 23 Sep 2026 07:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790148523; cv=none; b=FuNUNkV4wSVfwHCykRNlzfDIH51UAlrliDpuUFAn2RyHTNqgw1FaQXiw8D58Do9nYVXvOjGHzyb2nVJiXcES0BpYD2V5g2I1jy/uBbz6bm0WRr1rJKvLoj3LOe23RDz0UpMfim1p1hzAuGlDUESQaAFETDFppdNtoEBRlwpk4tE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790148523; c=relaxed/simple;
-	bh=dyyaL52hNJt9646Y4OfdjI42kaJDzzGIdBw13x827qc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GdyrLidUN7EVmIpq+P1X0UnIjw7fbHm6Ti1XbwQM0G0iDWBd8Qv1EaicnJaIyBPtZQgzDyzyv6essLNE1KDGOn4QD8vEJmefH2yaCizUW7aOefDKSm8Ai9I0k6FQRcaS2J/fHqg2EypmJR4tUP/SzJL0DMNJVDiEryJY1t///d4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GxrilVmj; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AA7834D3B0;
+	Wed, 23 Sep 2026 07:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790148547; cv=fail; b=CB+P1hsXqdk7oDg2742x6aL3xdpGgylHxT3Q24kNJ+/iGOSeL0P+kx4VgFihhePFH9XgARacequVUSuRhvR0FNaO3KiLbh0GOmSOTnl4W5QNU96DbO0v1nmVb15O7qdam8oSKiLA13tII3vSKihKyxMlyEl+KUEegWSCX1Qp8bg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790148547; c=relaxed/simple;
+	bh=vdbG7NS2UUbrSfU7IzJGME+yOM9w0zAihcXyOin1D3k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=jrajrMeHrb5S9cjeFgWKF7MOaQ4x2ZQ6y4bIAzSj772w5H8idkpZisUoQa3Ue1aL15Y3Jv7+gnOUBx+biTHWZO78Pqm0Y2pGQaE9Odj6X6QJyNpuKme/mTOMhxCtDROLANOamIGXR9Ogb9uhhcg4nG4iaGLOGPBgNOWUfm5HOQM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Fj2Vidr3; arc=fail smtp.client-ip=52.101.72.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GxrilVmj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148991F000FF;
-	Wed, 23 Sep 2026 07:28:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790148522;
-	bh=gptYRX18yZ3lNNH+Yst1WTPf8NSivdeHjyw/ZEBZf5k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GxrilVmjG/urDra3VoKePE4TElFbGRKUx0avZDZwjiGtBafeZTnwtHnd+l338iXde
-	 7PkOPJzKLjLPELciJ+QMGpBb4u8GCKKHMqoqpAVuoBfSBzSGXQiU9h+YdpI6Si+0kB
-	 1S2bghpdV6P6+qqOEYqjk4G8A+un4sQDD6ZfwjKFqkr7pYFF6wj7ljFqCVoxsC8Ggm
-	 oBw0JbWPQeilKr8dbpCe2vcWulh/Xog9JrJeusIPC/7YVAflERriecFUhrJLGUSKED
-	 o/QweHHoXySNUtGuBMLUFoqQvo+6BMAHc0D2XuDClBpHAaLeSc26LG7i1n2D81VmTe
-	 FnJ9ECLaKoQjg==
-Date: Wed, 23 Sep 2026 00:28:41 -0700
-From: Kees Cook <kees@kernel.org>
-To: Bill Wendling <morbo@google.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-clk@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	codemender-patching+linux@google.com
-Subject: Re: [PATCH] clk: tegra: annotate struct tegra210_clk_emc_provider
- with __counted_by_ptr
-Message-ID: <202609230028.B4D7FE202@keescook>
-References: <20260922110601.1959213-1-morbo@google.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Fj2Vidr3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gwPDEkoDLGq3iAWtMdUQdEZfbAqXIZxyqwCbq7JeMbBau2hoJA+S6nTg4WjiZ+hhCy9WqoDgizjm8t/g/lTTRI5JMRaorEYNPdN+3XYsjZiH0mRgyqGH3FdfIJ42RRSEQVC+kRkM3odNLs5+YvcgRRDXaRPuC9ZyFcg8kKPUZ/tFSPMVvx/+eSq/0C0dTJJltUlqoL8kgIw/0S96CLTovhDKYhu03I3D3jWOzjbLPLxxodNlthrFtHjfMAYanawTV8OZiZO3niRdZY9M/yY4UTPB+WEoNdq+NE4uVqBvDM4Dedod2JJDSW1to0ZP2OV+0lACR7i5Bh+ZHCI08Bu/bw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vdbG7NS2UUbrSfU7IzJGME+yOM9w0zAihcXyOin1D3k=;
+ b=Py/gXELZZPujb8WvyOSojJi/IfEUcIQYK4UDNihNr9uT8WnuBG5wOCjAHmoDIsEdfx6JLShMq8wR98XiIdrR8SJC3XxutEr3FcCmPjbWDD95V0tYvGcxyCo5vjx2wv1TjeHM0upPcKlRBR3fRUIcokPWoY1p3aQh0WE7eq7U6eqN4Qk/JfCReUWULlDRBpezriSnbE+IOT/XHqmqQNhPo8q2oNaFK5r5bEr3dLnsM3iwWu8eECkj6ruS0BheQmOoG01aHJ/bcGFbPY7BW5nU7gQZEtkXK1Yjwi5nCpOVjbSRdJ0Nh9MHeom1jZqt9w1r5m83XtEmBPwwJzLPaMizRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vdbG7NS2UUbrSfU7IzJGME+yOM9w0zAihcXyOin1D3k=;
+ b=Fj2Vidr3Y74FUDXfvhcERSBJ+q8bf5CeWmeq/4xhK1NsZORa3uWisQkRMDuwz/0AwJ+tepkvZV0MyHtsprFYOepWdhTespgrSQO9nuJfmJF/h+cf4vTXIrjUEf2LbSX+n+wyTFUM6UvTdzpGVxFZDV5pt0Lsr8E6n+pv+4CiHan7+zIL+kYok4cU/53mAyRjB+D3i98/FKVH7BSB3RdjzS71zh+KNITj1cpH0svl2SccnOkTZbdyKv/UIu5HIJqc7SerRZN7nwD7INg3qa/To2y7H3zi0Wg5JrOCowWXoSqS5BoQvcT/h9axjhhii+X9UW6P2CMEQ3LUBh/uxjGqiA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20) by AMDPR04MB11297.eurprd04.prod.outlook.com
+ (2603:10a6:20b:6cb::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
+ 2026 07:29:02 +0000
+Received: from GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994]) by GVXPR04MB10021.eurprd04.prod.outlook.com
+ ([fe80::d247:853:3e16:1994%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 07:29:01 +0000
+From: Chancel Liu <chancel.liu@oss.nxp.com>
+To: shengjiu.wang@oss.nxp.com
+Cc: shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: fsl_asrc: use regmap_write_bits to update clock source registers
+Date: Wed, 23 Sep 2026 16:28:54 +0900
+Message-ID: <20260923072854.4096310-1-chancel.liu@oss.nxp.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260916094043.1496709-1-shengjiu.wang@oss.nxp.com>
+References: <20260916094043.1496709-1-shengjiu.wang@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SL2P216CA0155.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:35::15) To GVXPR04MB10021.eurprd04.prod.outlook.com
+ (2603:10a6:150:112::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922110601.1959213-1-morbo@google.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GVXPR04MB10021:EE_|AMDPR04MB11297:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86b12cab-9b24-4c69-e7f2-08df1944569e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|19092799006|366016|1800799024|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	I59VNcIYA9Smn/nYo2rx3jEOpxpqrdBXZVWMy8R/rHH3Cfb2/r3DjlVirqkMpmcczXxxAvrfCTzxHxp9l3McklJoiR7yeAx9sCBt2MrWs4kotO60E6syGmP0UjqvqSV8eN0rlyLWZIt7aboA4FWLPsMv1DubNeHNLflYbclo86QCNkZG+i4DWFOGYPHV8CGN6FAiltLOqCXkcSxyffMavI6uDpdLZY9/08Sug3GplEsW1lAJRTk63iQK6pD4kvEX7zovsGylLNJhpe65XsjdzbwRTTVVDTFpl9MjCFW7iuQw+mfNgLBF+7mnzOOXuyBIL1HluLNPo+3IkFx3QDkMaMmju2NDJvP0BiT6wCvtYP7Ixm+MKaWC20azNG2liswCHkBb1EgKOabCzpTAdnxVXDKuOzW3WblCsfQHfB5ySZWzHuW+aB8xYqaXXn/FJQ0diNyq1hXBii02+3zyvDV9NzNg/8Djh4hPxVfi5ZD7Yf5nMfgZUFm2dKZw8HIoWLN5psPaXxwi4iTlHAjmR+1ubl3IDW/HuFijojQ97EPPN4eiE3xSqHmOK+uRThFruwdKfY/lu1LNq4JHQFmGavG1uT9CMpd9SD/BpbpwJcet7Z0yDVfrnOpZKQ22d4pZDrNNJjxy7PeYYEks9OquXP8LPdvqozCUUGnrGM5eRor4sxw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB10021.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(19092799006)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?OHBn/Y205wKLBHb0pm8v8Ty5vUNesL+drqyrLob63A/SmsVqGJ6UJBNvb27n?=
+ =?us-ascii?Q?PyfETArzYBkjMUbCn8Iz1Q7PinYJUIAUpn8msPN0Z2IgdhL2pawVdg8wI/e8?=
+ =?us-ascii?Q?stccFjQ11OUdniFfHT9iMe6CcD7GlELrfJ0JEMdWwuFjQuy2WCSBC6bYkcf6?=
+ =?us-ascii?Q?km2kkyDRohU7QxuDBir9wgVQ6+lc+BC551kf5hw8dZ28EiTCHjJERhrCN1x3?=
+ =?us-ascii?Q?VxN5HPgnZ6LY2SXkqQ/PKf+N9oPCdn+KCEX7uRSDR304dpzpMrUJ8O9euTai?=
+ =?us-ascii?Q?1ra1H8YqjiSpaRov/AZkedQ5XhRmFYpwaeWxUuqwIHjVC2GxwDHLo4Pp8J0P?=
+ =?us-ascii?Q?JorqIMa4Gyw8atpk9D44YlP+tbanr/nwCGxmTgisfLv0W0F3WJ+irLwFHn6B?=
+ =?us-ascii?Q?3z0ZpDwTpen/9L3X6FzySM5voP2RCK0ISAp1st80zJQo5lrWI/J3jXyXocXL?=
+ =?us-ascii?Q?rMkYBWG/sBT6LTfKlJFNgrl/TQyolmwZx0LuEB72Ou10neA/7WQEHYB586IF?=
+ =?us-ascii?Q?Ok9ayEJlBeQ8J3j/X/U682cZpOF7tpTB46PUXADq1uQiixIQ1sdRNQTVxeB2?=
+ =?us-ascii?Q?ZgJkSe7Q+fC+KpMYqgwA3S6/QIMDDIvWnpPANhQ+AQgn2bSdOcnu6DxVUVEQ?=
+ =?us-ascii?Q?1HIRr5Vkh2u+LiIQlPYuurLJhV0nCBe+NFto04i3qTIxygMfnoXVWfI7TMSf?=
+ =?us-ascii?Q?L1qEDoOC1hRSOlSEISvOQhZd9yU4z/Mi2O5M1twmD66r2+SJHYgcLAITDvZ3?=
+ =?us-ascii?Q?CGs8Qo3HsNofh7avhI+ruMQwMLu9JUhFe+FOeNbBzp9T1EkNYCrn8AKcrLvt?=
+ =?us-ascii?Q?0MNquty7ie9LE3jOEw61K7yys/ux0GuJau/y7DXiVG2kUwJGUXP6cu722Sqf?=
+ =?us-ascii?Q?Fxe8Q/S+mhIJCO52zVFan3IjhyUZXJAPRUB1Gn8iUwSGJKg+SL0nbq6EXaPg?=
+ =?us-ascii?Q?R4Dddahu/5Y9y60pawy9rZDvHJSpsOrc3D0fz/XYkkgqYHhbUILFbYD9m5zA?=
+ =?us-ascii?Q?C4Gbc62y3T5N/0q2HMGaoO4gBrQ+vx5nUuu7JzY0Ifs8mZlYPqYPweYbNkja?=
+ =?us-ascii?Q?T6QCpQKeBviJ3kFfQw8G6Zet6/PGkdpxxY8QXiOMp0cpKeGpB7zcLqLDV45q?=
+ =?us-ascii?Q?U9Kch0OW2+yWd6uxwqdH81cMQe3nGWtq4Qp64lyy359I/fSuqwzf6AnpNGx8?=
+ =?us-ascii?Q?T6ApNZVFLDysGfI+BkLSOwEkDyZ9byNwKuvNHEnqSmNUU4PfPw07KpFM0NlY?=
+ =?us-ascii?Q?/B/0fulCnYJVCh+K3Q1qhW/mcGGH+vjyJ0V2q3tQTNJoCJGSbIYz/2r0dgaf?=
+ =?us-ascii?Q?71a8pxPez999+kkhPjHu7hHnD+lSqndQdi0nw5PC8kkNK9Tw0M7lGUiSqH6f?=
+ =?us-ascii?Q?Ok9cn31ylGlkfgZS8xlSSGHdyUH5K1daUYXnNrz0htNoBIOXE1J3uHZEZ3t9?=
+ =?us-ascii?Q?Zfv5WSINj9+TorpNNL9swiSdFfUATXwQ03fX1tpLMNrftbFXEOuY84qpSYBb?=
+ =?us-ascii?Q?709IaB60dhsO+YpoPe3O2BYmwgEp9kNeZUSvUbw2OaHkRdx5oBPYXg8vzamY?=
+ =?us-ascii?Q?WhfzZZ3g0WVgokDiaWOV7GLUxQb7rEY/izkI+uHzorLSX/2XWUs0RvKK4Jq1?=
+ =?us-ascii?Q?JngWi2HOIREhdhHzeVVN2OL9v+ixtZIADqZVAAOLIv6notoo4qzQvNaWbayW?=
+ =?us-ascii?Q?5nYgkVdyac1qgqwDEXJ+Y8YWjllQBoPdxftNAyAjze+NyR8rvzWfKmcjn0M5?=
+ =?us-ascii?Q?+ORNNp9T6asrb0RUF3E6wpMY6yc1vtZ7oPFqg5i81y9j+wdBdSiW?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86b12cab-9b24-4c69-e7f2-08df1944569e
+X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB10021.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 07:29:01.5467
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mtefip+5A5O9toE+IUrcFLfiZxB7Du5yRylWgAPPFkxOcJU8uq3lr1nrIN2VfmcFdAcBfFErfDgQQevTzsWnWQqjqcExXX7cETQhd9QcJaVfbOOY/rzZ3nD6AE5SvT9H
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMDPR04MB11297
 
-On Tue, Sep 22, 2026 at 11:06:01AM +0000, Bill Wendling wrote:
-> Annotate the "configs" pointer field of "struct
-> tegra210_clk_emc_provider" with the "__counted_by_ptr" attribute,
-> allowing the compiler to perform runtime bounds checking on accesses to
-> "configs" based on the value of "num_configs".
-> 
-> The "emc->provider.configs = devm_kcalloc(...)" call uses
-> "emc->num_timings" for the number of elements, which is then assigned to
-> "emc->provider.num_configs" before any accesses to "configs". The
-> "num_configs" field isn't modified after assignment.
+From: Chancel Liu <chancel.liu@nxp.com>
 
-Yup, that's the only assignment I can find.
+After a warm reboot the REG_ASRCSR register may not be in its hardware
+reset state. regmap caches the register value as 0 (the assumed default),
+so when the desired clock source index is also 0, regmap_update_bits()
+skips the actual hardware write because it believes the register already
+holds the correct value. This leaves a stale clock source in the hardware.
 
-> Cc: codemender-patching+linux@google.com
-> Assisted-by: LLM
-> Signed-off-by: Bill Wendling <morbo@google.com>
+Replace regmap_update_bits() with regmap_write_bits() so that the masked
+fields are always written to hardware regardless of the cached value.
 
-Reviewed-by: Kees Cook <kees@kernel.org>
+Fixes: 3117bb3109dc ("ASoC: fsl_asrc: Add ASRC ASoC CPU DAI and platform drivers")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
--- 
-Kees Cook
+Reviewed-by: Chancel Liu <chancel.liu@nxp.com>
+
+Regards,
+Chancel Liu
