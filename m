@@ -1,272 +1,169 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012069.outbound.protection.outlook.com [52.101.66.69])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880853AD517;
-	Wed, 23 Sep 2026 15:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176197; cv=fail; b=oeK71ILHFdHjNPjsaixfjEnf4nSTr7ydJ4uLr1lVrE/O9xxNrJLIGJI00DJ42IvqumW6fOcehTOQWzK5notJVLYjKLgIh6Fg64DRuHISLNBKfPwr+2hF46zB/bSdjCZ8wD4inA/7qtdcxGjmT0LuR+z/Ldw/U1HpEhUEAknk8nU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176197; c=relaxed/simple;
-	bh=5XYfM4sg2VNimZ59ROR/yClGXjoE0sjHXItwJFyhY7U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=YyaoVLjfLMvGaSwoC98wt8CDqZY1jjUVdbscun9uZPW810Oj24pVVkWHKo1KDTHUh/82zdCSguOmbjJ7+jPUWtMSTlNJziVEsPfOOp8Rf2E3YStwI/bC4FKPeZ9qiA/SfVX4CvrFN9Qhly7e7kYgtEo9wapu1kiwL3NnZlkllZ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=EqQmeTTj; arc=fail smtp.client-ip=52.101.66.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E17271443;
+	Wed, 23 Sep 2026 15:10:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790176205; cv=none; b=R3VS73qUjdVOUZOEq/XPc6uQZKehQNnIaTiKAPWGVKyDvEE3hl8FoQqdBP+zF6DgbV35VUW6SRLpoPeCCF0+pTet/dBHrB9Dyb1WpP7V94c0fC5SvngQHjYyJXPn+n6Dgushn+8lUwLwCbunndM3LLrqtBTEU7pv1ndyH7VFavI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790176205; c=relaxed/simple;
+	bh=ZsCiCgubVfsHQuLEBzKfRq8LU4r2cNza4kmPyv0Ar34=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eWYQ1eJOqAm7JqjbaOwFU0G0XpEyfO9X5Q22TRtlERn0KwcizAGZY/zEJJxr/6HnLRWGfF6kVM/1esjRvA/Tu9yGIsWmG9weniV2Ec26yz+SsNQuUAw3L4Ugr1ql4BN/8yAmD0toQalX6iEODizHoxQQEklk42SjXjvey6bBuc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A9k+J1Xv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="EqQmeTTj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l56gmFrrdqlGRqEdsdMX/HE+1z1M/UvVG/TdcMNhcUa0JH+hwz1pl/fPhE8qGBYhzGkLXdPEKV/WaMBLB3J7Jge0EUFYkHdryJ3acbZF8JA8Mv3Ydirq74l2aGbFntbiG5XAoDyNnB554IX1Y8gSlLtv4VVLJqsJsGCz7GMSi1fo1+eHYMyc84rhQPW0rgw/27Tdo/BtpNNEMh1qWGgm0Gzex8EXdh0lMTk6jz7ky1COPPeVBhQopK053xGc3w5AucXpk1zbEfI9auOT2i2Gr6EhD6n4m92Q8q2KPupZK1w3hVS2qb9VaoGJdW2G26t2zMHwd1WDQdjwf9oxXnRjZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1Y8ZjxH2QS8Il7T7u2QklNAQFDGovakGfSPOZtOesvg=;
- b=skvBA3qAhEgeURQ1b8BJOHsTVCah6cyEap0hey/Nqk4telL82YbyTB3jwmoQ3+G4+ZAAt6lBn1+JkLvaSFzLWSIH8EiDt6053VBqsuMHQsJ4XTTzovCcwCZMgBXemmIanocnK5UrUHQdehVOEC7I/su7gWWJ9oGCiQrNzt0YGd+gNaDSepMSOvsnGCE6wI0qs7gsdmYavKQUdhm5FKdUiNcDImJrrCMNAgx/aAMk5G0GYWXh9JA0Pxtk3yT57KTPyrIvI7XX30s8N7DwP9ed42G0NRhZwru02L2bTxUsEvA/SCrN2cgIBSTalwz6WZ7APCJVhBqnH3VbJceqQ/Zquw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1Y8ZjxH2QS8Il7T7u2QklNAQFDGovakGfSPOZtOesvg=;
- b=EqQmeTTjJn2VbOooK93XuCpuM/NtVSqELXVQdv74El0h/+k4F6XfqCRBtNlj0CCXlTMIEZ1AtWWYMp4oMmWAk1WwGOx5TgXUvf8EYpvp46OPxTKXaSS1UWCfxbaEyA9avoOMm5iADuABtU7syCY+39Tbc39oRbr/hfFv1F3hojg11Ng1w9ipGIJrj38YHqQXZPhxTZmXbz/vcNFiNjGR7HbA/J6IfCDk702Gt2KzEbkYMtd4xkz+Ad2HdeaZhvqN7ByDpJlhLicIgh9y+IBwmfonrV4ofbY6C4PKkDR2n9r3MChTt8vRpb8rJq2st0PwMQbkblHj1qHYKYe2nQaVIQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DBBPR04MB7962.eurprd04.prod.outlook.com (2603:10a6:10:1e7::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 15:09:52 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
- 15:09:52 +0000
-Date: Wed, 23 Sep 2026 10:09:41 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: shengjiu.wang@oss.nxp.com
-Cc: lgirdwood@gmail.com, broonie@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
-	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
-	shawnguo@kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com,
-	nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com,
-	linuxppc-dev@lists.ozlabs.org,
-	Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [RESEND PATCH v5 4/5] ASoC: fsl_asrc: expose individual DAIs per
- conversion path
-Message-ID: <arPrtTnF3XBxYcAf@SMW015318>
-References: <20260922033428.1690822-1-shengjiu.wang@oss.nxp.com>
- <20260922033428.1690822-5-shengjiu.wang@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922033428.1690822-5-shengjiu.wang@oss.nxp.com>
-X-ClientProxiedBy: CY5PR22CA0104.namprd22.prod.outlook.com
- (2603:10b6:930:65::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A9k+J1Xv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F41101F00898;
+	Wed, 23 Sep 2026 15:09:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790176203;
+	bh=4tUYPNtyNh01xCJ2PLgysU7v0U9kxuU1XJhtJwMfEio=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=A9k+J1Xv8H8FlYMbCo5VEee282+QP0qM1mxPpKCknxblZba3vik10szV2Grl23HTF
+	 OdhkfcRQhNcFuksIR073l7cXQs4kpB7X1qLbpYCwRbNmIWM9sxWl7Z2M2i5sR5/xc6
+	 VlxeK+yTWZ5D9aHtmwk2TvDkw72If4pGYi5TjFz/86tLcnf7cVcx9tK2Xml/jmlYUb
+	 nXbGKtqEwSAT/JuuCAT7PpIRv0RrHdbNgOCBhQwgAn2wJkd7slhonzJLo7MLfL/L41
+	 AHWGPU7pjxW/DUxdkyGj8W8oE07LvQ9J7aGlXtGzBkE4/L0M6uOwRmDqRbAgTWCvvg
+	 Z8xvUoLdf0GXQ==
+Message-ID: <1857df9a-8952-426e-988b-cd05d45a04cc@kernel.org>
+Date: Wed, 23 Sep 2026 17:09:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DBBPR04MB7962:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18970c45-d0e2-4c07-444f-08df1984b7d8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|23010399003|376014|10067099003|56012099006|11063799006|6133799003|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	MLcCHXHto+ou0d5HOiUSUKnrqGOBS3V6Z4Iw0Y+uH5MGluJMGRwHQx+6DGNkYN7o9bbBnYQG+aGZ66eimoyWGOuGqjtvqTSvwR1KMFLBPuCMc0SGO/LaExHBmhkfBN1ffg4NJf9IKVEMyADYU8s4PxOHVn3u9cmKh32DcnLGELSAxj7IlTxMYEN2ggu788z/mAhR8F3wguX2mFeaZinPCKDRAYPt6yVYxAMbOvVfmXvH9Cr+74bct838vFvRRfTjo3Thi1UHvXhnIFsZZbKa5sRsqur5hDr9FRegPbsa5X+mqtxytdfpgAvJxPaJmnwLaj4Oxl1dfbj5ugcd4Moh+ciecuPO2BxUlyfVoUADR4TBaOXkqgNtsBrVx9IfJDcq9cudjvoqH0sQzmOtMkMp2geXhDzq5U0z4BPRXXRubwlTF4BLZ3oUfgfg6uFNu1C30E8cTqF45AFvsnsWzapMZ5LcMm7nNncLmL4hEG5g4R9FJ7N4gbRnrHojZQyWUvi8WNWQQE3JUsog/WsjrZJEz0aCNWm36kKqPdipSj3yThIaDjthbtaZ27ZBcPJs+oG3FvXioh4v6vD2QnVoXN2yjSVRr0w52bfdgOHG3Bi4Q33L87id+vwG/BGZcVzbUgEi9SJgQ80YRfgsl8lXC2tntsZrCyvkbQHO+vK5SHaj+Ho=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?L4pXHqDmYGc11QyGufQmjlaJ04R9ig4hfFFY5SuVjkmJBCzB5yKJGifsQr1S?=
- =?us-ascii?Q?+hvvNCCcCdlSbRmH5Fm94PDqgak65ZngSMUfCpTqo8e3CNfg0EYY78cEvkyT?=
- =?us-ascii?Q?oOrg2XlFclgd1xAl4mteqTRTYnEIB10wWgLW9F3ODZhn4fGLpycEr376ln8z?=
- =?us-ascii?Q?1cwgVtceH5a4P4cfi5s/YwsW3jKZEAHmbgqPq0yMFizL9XQqZYFjRanXuXd9?=
- =?us-ascii?Q?gvT7jnLbTsRtwrj5hYVAJNVrycuCOsV3FacXgkpJ0FQTYHzYixLet5Gj1alj?=
- =?us-ascii?Q?IALNdjNYDWAGnShnsIArutu3xqr67xnOoVYKirL7aaTckmONFPNcgi70rKbS?=
- =?us-ascii?Q?q67xZdMy63oiwbrsaRx3vJHR97jMbgouG7+ifMqu9KMN7eHSDLLwZCIqULn4?=
- =?us-ascii?Q?9+/Fd8jsY+/yIdktgxxkkgvRiyq5QxVNBe4Z/SNlvlKJHsE87n87sUqRZRZm?=
- =?us-ascii?Q?kYYb1nWXFRVJDmfJHhZg9mSc2MDuWHEOoXYy6Rd1eyFFLWyyfPo4mF3CKyW4?=
- =?us-ascii?Q?qSoo2TYRk/XG8mxC19sB1aVADj5zlPorjFgsP60gkQGmAgUgSXSePeQUXHX2?=
- =?us-ascii?Q?Eoj+f0LnKA32aqiKpXAzLZ7l2ZAl5LeO2tamTegpA/lO1FHst4DLHet66JwG?=
- =?us-ascii?Q?Njkj5w0XtzcF0PjZP4lPWDxTk0X/S6amG+npFE1Wi7t5T05I+Nf5ZDaUVPAW?=
- =?us-ascii?Q?/UGUTok35IHpEZsw0XWZJhYhTGZczMWFOGh1irWt8XeY+uBnmxzoRbogjx2E?=
- =?us-ascii?Q?zFerd3yahEav4FpUxeZBEBMDofsBXrCgnFVhmoIKBvQLG3Z8M1oZjDc5O64B?=
- =?us-ascii?Q?NbhRBJX4bFQHIi8uu8O6gQ/8/khMiNzDSSqr4WtQFzbG+9gxJMiurgjSSakW?=
- =?us-ascii?Q?Lk4vXlPXxjfY5EFkQXwfiXl7qXGlNPpM74jGaO6MkPrALbyNKzUySryPgtDy?=
- =?us-ascii?Q?FHUNRQMhf2fDlAIq7Xk1v0ONUzL0fB5BwiOT2iK5WaGn87nsMRloRQN8pTxY?=
- =?us-ascii?Q?akhWQr2R/gxs+tsaX8MjmUMU06Pjov60qV9OjLwqdzVtst43HN7hZwkAZCDU?=
- =?us-ascii?Q?GhbkfBeyQ3kYQ3/5968U3+eGbjf44hWXS4vmRTxpifDp/zbwkUDEpBBtCN/E?=
- =?us-ascii?Q?XE3eeBHnMo9UIUuCiOwWzSP8WPfgqJj42+N9ogPXTpGuDalsvjDeFxPlf66M?=
- =?us-ascii?Q?dmHm/cI2CKEyimsmXdXpLC+MqYN/tr6y3MlKS2hQy49MagDUSbCAxl4ZX5l3?=
- =?us-ascii?Q?seTFGybniPa6sjK0LwNm45HaTBBBMCYSVWg8h44AiVCx+ASqEMsj6sunuX9A?=
- =?us-ascii?Q?HYpwDUma/23RnHZo12o89rwcVKg1bWWBzTeFdZ4nCTwECJQ+zMiziQiRRWD8?=
- =?us-ascii?Q?GOjJNxqGZ7zKIXjooSDB92tVZcgvIouIhGcgRp11hWlj0oC3UQDm4QS6YE4d?=
- =?us-ascii?Q?mwYXrXmLV4vSY3GUPtFECehNqdpDMaaNuy3xZtdeKXaintJ9uUYzmPgUUNTT?=
- =?us-ascii?Q?sxEDYk5B6xg0RYhx0UVyBxzTnL/xJ6FRee2CHS7A8zFhGqplTs4GV3dP8Aas?=
- =?us-ascii?Q?tVGqITOxCLWVpY5m6qmd1c3LKAFJvNFrMZcJMc4Vm2D9+eGzGcT75rH+mrCp?=
- =?us-ascii?Q?SZDY+/abUvyojpNE+/kWHkNOpFOkof8Gvb6aOEjU5RI9ASLgHtBgeqs6Pjfc?=
- =?us-ascii?Q?wYHuVS+1A5vHJOSDUtfS/siOB/TvHYWsx5OY1kqBlAJ1vnZNISJ1mxBj1pSq?=
- =?us-ascii?Q?uC2WNy/THTt1twWuEf3+jA/ocHXaNo4wKQcTVFsZXArYocVDUBad?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18970c45-d0e2-4c07-444f-08df1984b7d8
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:09:52.3678
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mIWI+x2KWcS/WgY0YN0++lcakc1whrJT77RDWVPYQ1iUpCN0LnMyptpUauqI8UOyXe1BbSQ9u8PYURxn8rhpv4wmfl6A+ixAVL7iWwlTp+siRNoyS5BKfetDWRkoAi5I
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7962
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] fpga: region: Add support for FPGA region variants
+To: Marco Pagani <marco.pagani@linux.dev>, Xu Yilun <yilun.xu@linux.intel.com>
+Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
+ Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Saravana Kannan <saravanak@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <417b510f-0f6d-4695-97f5-3fc19b9377b9@linux.dev>
+ <amCn8UYdybT+RRnq@yilunxu-OptiPlex-7050>
+ <9d4af487-69a7-4a0d-9335-35c3a057de54@linux.dev>
+ <anBfAa4LpjbmYHIc@yilunxu-OptiPlex-7050>
+ <db7cfe9e-b2ba-4323-bff9-44598e1f70bb@linux.dev>
+ <anl8891cH+bUfsGY@yilunxu-OptiPlex-7050>
+ <4dbdb52e-1b28-432e-a3a7-ad9c44f17d27@linux.dev>
+ <aoJ6paA/8ndpJ17y@yilunxu-OptiPlex-7050>
+ <8848432d-45b0-4efe-adf3-adfb64fe0899@linux.dev>
+ <11b1a792-f8b1-4fce-8a7a-8352149febcf@linux.dev>
+ <aq12s+hUVnnvCKmZ@yilunxu-OptiPlex-7050>
+ <2adefc6f-328c-4683-8cba-091d9f3425ab@linux.dev>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <2adefc6f-328c-4683-8cba-091d9f3425ab@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 22, 2026 at 11:34:27AM +0800, shengjiu.wang@oss.nxp.com wrote:
-> From: Shengjiu Wang <shengjiu.wang@nxp.com>
->
-> The i.MX ASRC hardware supports three independent conversion pairs
-> (A, B, C). The driver previously registered a single DAI with generic
-> stream names "ASRC-Playback" and "ASRC-Capture", which prevents
-> multiple independent conversion paths from being used simultaneously.
->
-> Replace the single fsl_asrc_dai instance with an array of three DAI
-> drivers to allow up to three independent conversion paths to be active
-> at the same time:
->
->   asrc-0 -- ASRC-Playback / ASRC-Capture (backward compatible)
->   asrc-1 -- ASRC1-Playback / ASRC1-Capture
->   asrc-2 -- ASRC2-Playback / ASRC2-Capture
->
-> asrc-0 retains the original generic stream names to preserve backward
-> compatibility with existing machine drivers and board configurations.
-> Each DAI retains the same channel, rate and format capabilities as the
-> original. Update the devm_snd_soc_register_component() call to register
-> all three DAIs.
->
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
+On 23/09/2026 16:30, Marco Pagani wrote:
+> 
+> 
+> On 18/09/2026 19:36, Xu Yilun wrote:
+>> On Fri, Sep 18, 2026 at 05:07:07PM +0200, Marco Pagani wrote:
+>>>
+>>> Hi Yilun,
+>>>
+>>> Is it okay with you if I CC the DT people to ask for an opinion?
+>>
+>> Of course. It's good to know in which case could a DTO be applied.
+>>
+>> But to be clear, I think that only affects how we accept and apply the
+>> image-DTO pair. For now, I basically don't want a varient selection
+>> interface.
+> 
+> 
+> Hello Rob, Saravana, Krzysztof, Conor,
+> 
+> I'm CC-ing you on this thread as OF/DT maintainers to kindly ask
+> for your input on this debate we are having about how to implement
+> userspace FPGA reconfiguration, an important feature currently
+> lacking in mainline kernel.
+> 
+> https://lore.kernel.org/all/20260608164247.1998417-1-marco.pagani@linux.dev
+> 
+> To recap: modern FPGAs allow portions of the fabric to be reconfigured
+> at runtime to dynamically swap soft IPs. Usually, these IPs are
+> connected through a non-discoverable on-chip bus like AMBA AXI.
+> From a kernel perspective, this means the FPGA device configuration
+> image (bitstream) must be paired with a DT fragment that describes
+> the new topology.
+> 
+> In this thread, we are essentially debating between two approaches for
+> implementing FPGA userspace reconfiguration at runtime:
+> 
+> - Statically defined Variants (this RFC): Userspace can change FPGA
+>   configuration by selecting from a pre-validated set of variants
+>   (DT fragments) baked into the base DT.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+I don't know what DT fragments are, maybe you meant overlays? But they
+are not baked into the base DT.
 
->  sound/soc/fsl/fsl_asrc.c | 89 +++++++++++++++++++++++++++++++---------
->  1 file changed, 69 insertions(+), 20 deletions(-)
->
-> diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-> index 6007786aca66..56604fa1613a 100644
-> --- a/sound/soc/fsl/fsl_asrc.c
-> +++ b/sound/soc/fsl/fsl_asrc.c
-> @@ -792,27 +792,76 @@ static const struct snd_soc_dai_ops fsl_asrc_dai_ops = {
->  				 SNDRV_PCM_FMTBIT_S16_LE | \
->  				 SNDRV_PCM_FMTBIT_S24_3LE)
->
-> -static struct snd_soc_dai_driver fsl_asrc_dai = {
-> -	.playback = {
-> -		.stream_name = "ASRC-Playback",
-> -		.channels_min = 1,
-> -		.channels_max = 10,
-> -		.rate_min = 5512,
-> -		.rate_max = 192000,
-> -		.rates = SNDRV_PCM_RATE_KNOT,
-> -		.formats = FSL_ASRC_FORMATS |
-> -			   SNDRV_PCM_FMTBIT_S8,
-> +static struct snd_soc_dai_driver fsl_asrc_dai[] = {
-> +	{
-> +		.name = "asrc-0",
-> +		.playback = {
-> +			.stream_name = "ASRC-Playback",
-> +			.channels_min = 1,
-> +			.channels_max = 10,
-> +			.rate_min = 5512,
-> +			.rate_max = 192000,
-> +			.rates = SNDRV_PCM_RATE_KNOT,
-> +			.formats = FSL_ASRC_FORMATS |
-> +				   SNDRV_PCM_FMTBIT_S8,
-> +		},
-> +		.capture = {
-> +			.stream_name = "ASRC-Capture",
-> +			.channels_min = 1,
-> +			.channels_max = 10,
-> +			.rate_min = 5512,
-> +			.rate_max = 192000,
-> +			.rates = SNDRV_PCM_RATE_KNOT,
-> +			.formats = FSL_ASRC_FORMATS,
-> +		},
-> +		.ops = &fsl_asrc_dai_ops,
-> +	},
-> +	{
-> +		.name = "asrc-1",
-> +		.playback = {
-> +			.stream_name = "ASRC1-Playback",
-> +			.channels_min = 1,
-> +			.channels_max = 10,
-> +			.rate_min = 5512,
-> +			.rate_max = 192000,
-> +			.rates = SNDRV_PCM_RATE_KNOT,
-> +			.formats = FSL_ASRC_FORMATS |
-> +				   SNDRV_PCM_FMTBIT_S8,
-> +		},
-> +		.capture = {
-> +			.stream_name = "ASRC1-Capture",
-> +			.channels_min = 1,
-> +			.channels_max = 10,
-> +			.rate_min = 5512,
-> +			.rate_max = 192000,
-> +			.rates = SNDRV_PCM_RATE_KNOT,
-> +			.formats = FSL_ASRC_FORMATS,
-> +		},
-> +		.ops = &fsl_asrc_dai_ops,
->  	},
-> -	.capture = {
-> -		.stream_name = "ASRC-Capture",
-> -		.channels_min = 1,
-> -		.channels_max = 10,
-> -		.rate_min = 5512,
-> -		.rate_max = 192000,
-> -		.rates = SNDRV_PCM_RATE_KNOT,
-> -		.formats = FSL_ASRC_FORMATS,
-> +	{
-> +		.name = "asrc-2",
-> +		.playback = {
-> +			.stream_name = "ASRC2-Playback",
-> +			.channels_min = 1,
-> +			.channels_max = 10,
-> +			.rate_min = 5512,
-> +			.rate_max = 192000,
-> +			.rates = SNDRV_PCM_RATE_KNOT,
-> +			.formats = FSL_ASRC_FORMATS |
-> +				   SNDRV_PCM_FMTBIT_S8,
-> +		},
-> +		.capture = {
-> +			.stream_name = "ASRC2-Capture",
-> +			.channels_min = 1,
-> +			.channels_max = 10,
-> +			.rate_min = 5512,
-> +			.rate_max = 192000,
-> +			.rates = SNDRV_PCM_RATE_KNOT,
-> +			.formats = FSL_ASRC_FORMATS,
-> +		},
-> +		.ops = &fsl_asrc_dai_ops,
->  	},
-> -	.ops = &fsl_asrc_dai_ops,
->  };
->
->  static bool fsl_asrc_readable_reg(struct device *dev, unsigned int reg)
-> @@ -1393,7 +1442,7 @@ static int fsl_asrc_probe(struct platform_device *pdev)
->  		goto err_pm_get_sync;
->
->  	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_asrc_component,
-> -					      &fsl_asrc_dai, 1);
-> +					      fsl_asrc_dai, ARRAY_SIZE(fsl_asrc_dai));
->  	if (ret) {
->  		dev_err(&pdev->dev, "failed to register ASoC DAI\n");
->  		goto err_pm_get_sync;
-> --
-> 2.34.1
->
->
+There are no bindings here and no DT maintainers were CCed on this RFC,
+so I really do not get how this patch can enable something like that.
+
+Linked URL shows some undocumented ABI, so obviously this would be a no
+go. And RFC prefix does not justify undocumented ABI. At least one
+without clear explanation in the cover letter, why is this RFC and why
+it cannot be merged/reviewed.
+
+
+> 
+> - Runtime DTOs (Nava's RFC): Userspace can change FPGA configuration
+>   by loading DTOs that are validated at runtime.
+
+If runtime overlays were working, this looks suitable to the problem of
+runtime change of the hardware. This also fits hot-pluggable hardware
+problem, which Bootlin is working on.
+
+
+Best regards,
+Krzysztof
