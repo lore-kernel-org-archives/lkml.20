@@ -1,73 +1,84 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B134ACC60
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8210D49CF3D;
+	Wed, 23 Sep 2026 11:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790163394; cv=none; b=PjeHNKi9SuwgSbOmfCFgvwQn4NYZN4C8iq1EAiHY2w6A/P7v0HhV2Wyedk1qun/fsJVPyyOoIkhwut1geR5BPC3bt4bRgKSC0l80XvGqIInMqB4wU6wFoYiZ9pbaHbcBURuni98QCQ1YUccBnk8lm2/5hEmPZGz3EHGmCWBjI+U=
+	t=1790163433; cv=none; b=sYL9+UnF9cc7GWnB85JY+vSGTuDvsxVue62gz508LXOh6Ea6XVWvcS4t85nUEeqbAPxY6TF2tPRBwnYVHgPFWlieK///79MA0GO7vLLkyi9oWAMQc0XwpjnCDoQnFamodvtlYvjLNdYCyi4kWMfFfbNac6XRuGKK0/CM4PWqhTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790163394; c=relaxed/simple;
-	bh=PXjfc2GRpQp8nR5HSPX35GWAd6twnDnTEfIfXRHgJKg=;
+	s=arc-20240116; t=1790163433; c=relaxed/simple;
+	bh=PWgiHObg3y731Py8fvpc1mNquBfZTfGkFWp27vzEMXs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YEy7br8BexGPAm1xm+XgX/eBYIGVlULQyQ9dW6tBroP9BPv90bCAEdKI6n1XvgOu+mI1ZwFyA9BFPRAvPlO3RIt30RyowCCkwXOqhgjthpxMK8ddoJxveojIfrEamcyyUYoGMSsEU1cpSSVEA4o+EgnWE833c9gAecexXvReBLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Ot3GYfQQ; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=m27eGMPejFMThEOXsGwc+q23/0loMUlDkGcXETV6LRMX0kF3cl++OTABSvBbXiMLzy82x5qzRK2hOYTcFSUzFoKErfTVKP9yCVBuRxT37DPd3E//wcktJgS/WTNeWF1VuoqFoJsOljKZX62bGEoEVxtl0pRKyc2xjE4NTIgUBjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MUYdtQ/r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Ot3GYfQQ"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48442ea8f59so889204f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:36:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790163379; x=1790768179; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3FKt7HmZnhPw/E1D+Ih3FOMjjaMfPcZEydJoiOdLcMw=;
-        b=Ot3GYfQQXteD2sFGJ4lNr2Bz/l/MG9f7VzPh/Tu+gwvh6K4R6wewnLh9fVEMzd5NQB
-         uhqeOBghX+njBVYeWH58+9m1QOJKmndc/khvhLYt19UXsX7tdok9EMvyMOvkVQ7iZ7qK
-         Un+YYPWV/SeNZyumpbA0e8Vc4QQMmcPKIwnZ6ACVUHrm6swosMKacys6BjDC/4EtIDvo
-         /3PqrvV3ELHr6aa4P1fZXPVmorc1lGMPO8+jxDtlfDIv+H/5fHQjLMdUjsabB6XdMRVU
-         x7cGN3txshr+Uro2if8VVqbl+bMVWC3OQuW77yeJ+rkdsMy2xljOMKiGJeOm3aN6nHRm
-         S4HA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790163379; x=1790768179;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3FKt7HmZnhPw/E1D+Ih3FOMjjaMfPcZEydJoiOdLcMw=;
-        b=2wp1Dn5QjSJNu9168CVtuEzIcqsaGBflZXOFVLZUhS1mAAKC4e1l8gvnNq1xisVpyD
-         e71fRzeHxQJzlf3Qcgwd+zXr0B2Zg7eKLjahg+0ks90tO6Rkq5XtU01S9F6T8vyyxqPE
-         hHpxEzRu4R3p+MAItjqYnBOLeXAAkt1RjBq+wkFZurWLLIlxnqZ/zOI5bm+RK5AuzyVq
-         sC6un0cT+ypXeDYLLo6AQRn/i9ajrO8OQhLe86IOQ9krjloE1/opQswGHAygKKMIJG19
-         APswuz3GruMswYCk9O3x4ze4nznEgUL2y1M/oMKaDph58MGYltYU0fuXxCUEJ0IIhAkm
-         0L0w==
-X-Forwarded-Encrypted: i=1; AKwUvByhvhg/NUoxjyPF2j3E35fzGqk2Me1WaHuYxfvaV5D/nG45NEWHaE2O/ndZqkv2qDYqf22pX95FZ4XLsLM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mXd6uoCNP4pYzX2XKoOYCSD+JUNWT9jaRwo46nUrHvdwyYiBXT
-	tI//GInJT/IpNK/8BTDJjPRYRh/3y4oBifEx5DcR8tS73Q+cFNJ8nGFqSB2NByWHSGA=
-X-Gm-Gg: AYBFou0NemG/A1N8Fs8IqBJDnu2XEY/zzg77XYfRkbfIwv6i27layUI5OFgqt9PgGoN
-	waZN1a+8FFqFY2hPpGIkn5rfsb7uFnm8xF4BXUR2ggZEZmXGfkrE6QKsvrGVou6Qxo1ZJgqlbpy
-	QMz37ZFbgRf9W5cpM2VefGazyH5neRIOE+L/VQea6xZElWaWfv4y90i9GsgBd8eD1ILwp+D4vU1
-	d2n/eBYT+KS+0PMCFgM5uWicEE7DkhDu+iuFI9Oh13PF1bPCoXuOyFsurcgXCeyW3UjfMBO7WGP
-	5iuYs7lsjqCFML4QS2A7YU/fAh/ZPcY1y5ZI71/NN0Kr3P3s+yWiKJH/cE3WXlbk/FI5S//mu2y
-	/gqunARJ07hrONJyBwcAEqLSIFvHbr7oo4YB86ihZkXhWvDM3e2aNruNzMynETK7X5ZNh/7SdOG
-	PMJKyPhQJx5XqyQ/cGi0zwuh0oXmWA+/GokfAr/uRJdBvGh7vzcZAtBmko1B4eSbsXWuum73ZRC
-	QT9RmTOsNhn1W0=
-X-Received: by 2002:a05:6000:65a:b0:487:25:71c7 with SMTP id ffacd0b85a97d-48860fc032bmr7430362f8f.12.1790163379420;
-        Wed, 23 Sep 2026 04:36:19 -0700 (PDT)
-Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886877a19bsm6872294f8f.25.2026.09.23.04.36.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 04:36:19 -0700 (PDT)
-Date: Wed, 23 Sep 2026 13:36:17 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Wang Wensheng <wsw9603@163.com>
-Cc: rostedt@goodmis.org, john.ogness@linutronix.de,
-	senozhatsky@chromium.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] printk_ringbuffer: Avoid needless read of prb_desc
-Message-ID: <arO5sVjuy80UsMkp@pathway.suse.cz>
-References: <20260922062520.248439-1-wsw9603@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MUYdtQ/r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD421F000FF;
+	Wed, 23 Sep 2026 11:36:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790163421;
+	bh=T7sdWnYxMHXupf7TleaKj2/jZn70aUNOMLwBt1Gu25I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MUYdtQ/rOOsFntGNDCU8gVljiX41ZOOjVjIa1/R6mHvqEVrHdCvUW00s158m6Rhfr
+	 lrTfdsDZHHM+8coQufhdItKT2U0f3KpSO1bXFVK65E8hdX7jqTg0RCXs6dbA/rOsE3
+	 hj+OXHPR25h/T+zpUP1sxEFBKfBfbEPENxxtH4NpPA1FC6zBNzSnYJzOsanm0vWeX8
+	 zL3hunrW3+GWyBjkcp7ZV4TlKp8Hz5f+x0SToekr1cuh3sa+lEbvI9mBqvMu2yTtr5
+	 AR51Ti0FikS+Z02shyQHn9y3MNOVB+cU717LR/sppvi3rpyZsF2wIvQXXwZp2C/8Bt
+	 8Q399dOg4bqJA==
+Date: Wed, 23 Sep 2026 12:36:43 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Greg Ungerer <gerg@polyxeno.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Brian Cain <bcain@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Dinh Nguyen <dinguyen@kernel.org>, Simon Schuster <schuster.simon@siemens-energy.com>, 
+	Jonas Bonn <jonas@southpole.se>, Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+	Stafford Horne <shorne@gmail.com>, Rich Felker <dalias@libc.org>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Russell King <linux@armlinux.org.uk>, 
+	Vineet Gupta <vgupta@kernel.org>, Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
+	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
+	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+	linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+	linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+	linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v4 07/12] mm: enable MMU_GATHER_RCU_TABLE_FREE for
+ m68k-coldfire
+Message-ID: <arO5wY1tLAPhJ721@gremlin>
+References: <20260922-rcu-pagetable-freeing-v4-0-fe1ad1f1e303@kernel.org>
+ <20260922-rcu-pagetable-freeing-v4-7-fe1ad1f1e303@kernel.org>
+ <3e6740e3-0515-4e29-9627-f554261daddb@polyxeno.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,22 +87,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260922062520.248439-1-wsw9603@163.com>
+In-Reply-To: <3e6740e3-0515-4e29-9627-f554261daddb@polyxeno.com>
 
-On Tue 2026-09-22 14:25:20, Wang Wensheng wrote:
-> Since commit f244b4dc53e5 ("printk: ringbuffer: Improve prb_next_seq()
-> performance"), desc_read() allows @desc_out to be NULL. We can drop the
-> local `desc` variable in desc_reopen_last() and prb_first_seq(). Also
-> update the comment for desc_read().
-> 
-> Signed-off-by: Wang Wensheng <wsw9603@163.com>
+On Wed, Sep 23, 2026 at 09:31:47PM +1000, Greg Ungerer wrote:
+> Hi Lorenzo,
+>
+> On 23/9/26 01:35, Lorenzo Stoakes (ARM) wrote:
+> > Similar to sun3, the coldfire variant of m68k uses 2-level page tables.
+> >
+> > Update its __pte_free_tlb() function to use tlb_remove_ptdesc() in order
+> > that, with CONFIG_MMU_GATHER_RCU_TABLE_FREE, page tables are freed under
+> > RCU.
+> >
+> > The page tables occupy a page each and have no odd semantics, so this
+> > change suffices to allow enabling of CONFIG_MMU_GATHER_RCU_TABLE_FREE for
+> > m68k-coldfire, so do so.
+> >
+> > This forms part of an overall effort to switch every architecture to this
+> > mode.
+> >
+> > Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>
+> Looks good to me for ColdFire, so:
+>
+> Acked-by: Greg Ungerer <gerg@linux-m68k.org>
+>
+> Tested and run with no issues I could see on a M5475 ColdFire system, so:
+>
+> Tested-by: Greg Ungerer <gerg@linux-m68k.org>
 
-Great catch! Looks good to me:
+Thanks, much appreciated! :)
 
-Reviewed-by: Petr Mladek <pmladek@suse.com>
+>
+> Regards
+> Greg
+>
+>
+>
+> > ---
+> >  arch/m68k/Kconfig                   | 2 +-
+> >  arch/m68k/include/asm/mcf_pgalloc.h | 5 +----
+> >  2 files changed, 2 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/arch/m68k/Kconfig b/arch/m68k/Kconfig
+> > index e29610fd1240..6b8ec67c86fd 100644
+> > --- a/arch/m68k/Kconfig
+> > +++ b/arch/m68k/Kconfig
+> > @@ -36,7 +36,7 @@ config M68K
+> >  	select HAVE_MOD_ARCH_SPECIFIC
+> >  	select HAVE_UID16
+> >  	select MMU_GATHER_NO_RANGE if MMU
+> > -	select MMU_GATHER_RCU_TABLE_FREE if MMU && SUN3
+> > +	select MMU_GATHER_RCU_TABLE_FREE if MMU && (SUN3 || COLDFIRE)
+> >  	select MODULES_USE_ELF_REL
+> >  	select MODULES_USE_ELF_RELA
+> >  	select NO_DMA if !MMU && !COLDFIRE
+> > diff --git a/arch/m68k/include/asm/mcf_pgalloc.h b/arch/m68k/include/asm/mcf_pgalloc.h
+> > index fc5454d37da3..b53ff0950db2 100644
+> > --- a/arch/m68k/include/asm/mcf_pgalloc.h
+> > +++ b/arch/m68k/include/asm/mcf_pgalloc.h
+> > @@ -39,10 +39,7 @@ extern inline pmd_t *pmd_alloc_kernel(pgd_t *pgd, unsigned long address)
+> >  static inline void __pte_free_tlb(struct mmu_gather *tlb, pgtable_t pgtable,
+> >  				  unsigned long address)
+> >  {
+> > -	struct ptdesc *ptdesc = virt_to_ptdesc(pgtable);
+> > -
+> > -	pagetable_dtor(ptdesc);
+> > -	pagetable_free(ptdesc);
+> > +	tlb_remove_ptdesc(tlb, virt_to_ptdesc(pgtable));
+> >  }
+> >
+> >  static inline pgtable_t pte_alloc_one(struct mm_struct *mm)
+> >
+>
 
-I am going to wait few more days for more potential feedback.
-I'll commit it the following week if nobody complains.
-
-Best Regards,
-Petr
+--
+Cheers, Lorenzo
