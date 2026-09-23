@@ -1,126 +1,81 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F64B439F80
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:25:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BEE3F4DD2;
+	Wed, 23 Sep 2026 07:26:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790148353; cv=none; b=PqKcgqbWfqTS6S94tlHTw0oDjsnmzNgYapZd6uTdV8ihZZ+2CS+I1fthmdB3h0ypLGleN2DAqcNzFS7rOLkmGlmGCS3n/SX0/xS1pX1ynWPTKw9kCFyUYBM483nFj3bOuKJplJqcpYIA7C8+n2bv/T2mZUNY22P+Kvq+I1q9UQ0=
+	t=1790148412; cv=none; b=m9kP5K0hMDhp51LoOyQtuBqLS/45V+jh05LF5KoBu1q7TqxQ4Wvfc71b7XuyliCGMVm3ApmYrd7FG3xJ0qe/kU2bW4LdFNy268Kt20spCF8OUnPYY7eyapSZqup6gzjYDqXZ2/22npYfL4TWuN9i0htbEOtYy8mUNW7a+k0TFf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790148353; c=relaxed/simple;
-	bh=ztbtXJT8GDvreC8nZav70VVvbuRpS94hZVXtCzOGUic=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qVSqCU7qsS3rLICFObWYNOuaN96uednhG/vRAmHaFoQlOcvQA+M42AoiCBKK7AOZl/IclaDxI4KchfwZ2w96DAbQntbAUP/FPjm2a7zLQIO7qJDI8LY4WeYA9GxVV4kUNo7FqBcXLfif8TastpRic9gGdke7mBqLl15ljvNsY0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FhogjmTH; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790148412; c=relaxed/simple;
+	bh=pRzjB1LOCxIizV5xkXMeCPX5iYJLsnW0lgHcMqXOGE4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fFseOudXQJyntP10akwBjX4PUO+Fj6PczAnOjK2GB9JvWiLtu/XmSD2Kr3Bi/q1t+ix51po2OBNwmjG4nniCZ7grzj1fKQcTItVVNX+ns0t4np1OurdlEgx6ZZt3ZhjV/6pI1P/cOjwK1C33LG1vROVFX9WKnyIOWb/awG4Yo6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLz1J0yl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FhogjmTH"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb65437so375418a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:25:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790148351; x=1790753151; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XUW9zlJk8CVD2x9WwkVbdCUyIQznruNWJ5NGWNfGy5w=;
-        b=FhogjmTHx9RHhH0FAsb7BiPa6MoWguDcfE1b5Eumg8YLBiF10p9/jYCoc6DYTAD5W0
-         DyUhuzacC8lElU7zU1xOkxF+Y5HIFBZ2YxHHHs2a0vpkx+dfwoobfQhOv+AEwo5i7DZd
-         lS1JOfslD+fFOHGUAOrkzm8qoYxr5qtWqoWcy5hEvi/JhMy2XecoOfT7hCOqSAjWAIN+
-         PfntDq2MUcpthsjElUn4N9i+LA2F7c4utv5rfcOdyBo0S53Do8AJV6uZgaRglHTGk6+w
-         QT0WTnuChEP/1Nwo20mEzGoM6yIVM01wP48P2JzaiCzLh0/nbmOSyVTWl5MYlbNntpZe
-         LWgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790148351; x=1790753151;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XUW9zlJk8CVD2x9WwkVbdCUyIQznruNWJ5NGWNfGy5w=;
-        b=YokERq8DZh7gY5cQXhxrI18BDjVvAgpY68LheJdSIYG/nOLPGlPTptZ91nsQKAliZ0
-         /c6IWmuj1VTR+aRF2zeFNQcEJuuZnca3qiUJmezWE7z/nLu+IBOZkM9mWOxYOGzuPqQj
-         kMdwyLNhkC+P8ze4d8nVXxoEoDr1NsumsS23aKtNAlIvlgvqiesj0tPc04ro2OhsvWgZ
-         wRTlYpRz8JNl6Ep7gOmBBRyXivSF3imcE70vAfGPGPFmzjz1DtO5WH6WP+aW6sQgR4V2
-         eja5vYcA3wk9mGJYG/kvV8eZwkjilq8nGaFagkL/uhA/mrRBCZRNlpbBHDgMyq5Kyzqc
-         MGeg==
-X-Forwarded-Encrypted: i=1; AKwUvBz42tEu9+fSxRV+mXYofjTKFF0Y92+/d3DA7itXeOYGaSM1W8M1cnS49+ZI008IHNgSggBh+MG/QX9BLHg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nH37U3j2HJ7rECar17iT+YTs/glPem7BBTZ8zJrEMqkIZwfu/V
-	yHgxzq1KGLU0pji0na2IgGKm0PL0kJCD47GjJUWhYV5tcb+uFBHlt1yD
-X-Gm-Gg: AYBFou11L0E7BIpQMh72yHcINHaS+XxGLAJ/Kn4YKKZk5O+lg3lBvWDYAWeSTuVwa6q
-	vG1ZfrpQnFsuzdCnk3MYjDC7JsdkCGILXWdn/jU0hh36Zfh/XKPoeRB+BQF6SosW2M3MOXYFTi4
-	lOYRsLLpUUODPN8qZuASG8tTiEiWFPbDVSlTOMMzdl4O4BLjNm0yvOHG33jgPhhro0ywn8R5ymz
-	gdhOgUQNA7jOKH2qM80OYxuy3IS8nq33jA+Oq+brLZM6AVSd/FwbnJ/119qO5glQZxex1Dz4GIf
-	37DzTYAWTtaOAZ4ynRj3gWPor2P+rnamYqPnbFonFyRrCuY/AJRhGL+6Ry+vIOvokZSEzUlabyL
-	SHycVy3XPzcsrqxOkwjZlZc4GSP1b9XBCZn8/4vr7E8m6aZX9he38SSTUxpXykAcWFHSYfk9dnK
-	dfCun57JCk0rE2TQaNOg2506V//b+XioXRyL9A38g2K8GpMXuAjasNEumxas81fr1ZaoKjwZ/ZC
-	ByiJ9M3Sk0bZqE9I2ppnnTaJInjHJAW71QJ464Z/l2FZh0v3jJ7aGImQwwJUH3BlKo+dyb4cxMx
-	b/PhotypTgYxUQ==
-X-Received: by 2002:a17:90b:270e:b0:39e:6a7e:ee20 with SMTP id 98e67ed59e1d1-3a07e659a2dmr1634764a91.44.1790148351423;
-        Wed, 23 Sep 2026 00:25:51 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07db88298sm3940945a91.4.2026.09.23.00.25.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 00:25:51 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Vignesh Raghavendra <vigneshr@ti.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>
-Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>,
-	Chuhong Yuan <hslester96@gmail.com>,
-	dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 2/2] dmaengine: ti: edma: Fix missing pm_runtime cleanup on probe failure
-Date: Wed, 23 Sep 2026 14:25:32 +0700
-Message-ID: <20260923072532.19307-2-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260923072532.19307-1-phucduc.bui@gmail.com>
-References: <20260923072532.19307-1-phucduc.bui@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLz1J0yl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3ABD1F000FF;
+	Wed, 23 Sep 2026 07:26:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790148411;
+	bh=dYg7BkgTwygh8UCnw5w4rzLiw49BTrb1ReMB7n9kcls=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dLz1J0ylCpyy0GYHV6vKCgtAD0zXLcl6SONkhFpW6budbIji+3JYdeRHIGgI7RzuP
+	 8p6rUo6QqMoLWsBUL5uufu6QyEGBPk4RlTOKNlI04pq8jxtXcaFOR5z55n5QxYAqQN
+	 pT8ySF4Ncazjx/Rh370FUSc7D4w4uyVup6kb1WKe0S9cTBN7Zn8sJfK1ZiIbXK2Gbn
+	 NS7uHn+imNW89wFPzH9OTvJcCyQwYCuE9+qEtZ278SUzNBeNddfB23k8phnVi6nsUg
+	 KsMgLfWLFqWe5STHUy3m3dJ2Ukuo62s9u1M/375Egndxy67o5izhUjGbYjIB62qshA
+	 3PRG9aulZzhNA==
+Date: Wed, 23 Sep 2026 00:26:50 -0700
+From: Kees Cook <kees@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: Matti Vaittinen <mazziesaccount@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	codemender-patching+linux@google.com
+Subject: Re: [PATCH] iio: gts-helper: add __counted_by_ptr to struct iio_gts
+Message-ID: <202609230023.C2053303C8@keescook>
+References: <20260923041630.2553973-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923041630.2553973-1-morbo@google.com>
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+On Wed, Sep 23, 2026 at 04:16:30AM +0000, Bill Wendling wrote:
+> The compiler attribute __counted_by_ptr can be used by KASAN and UBSAN
+> to detect out-of-bounds accesses to pointer fields in structs where a
+> corresponding element count field is available.
+> 
+> In "struct iio_gts", there are multiple pointer fields associated with
+> an element count. This patch annotates these pointer fields with
+> "__counted_by_ptr" to improve runtime safety:
+> 
+> - 'hwgain_table': counted by 'num_hwgain'
+> - 'itime_table': counted by 'num_itime'
+> - 'per_time_avail_scale_tables': counted by 'num_itime'
+> - 'avail_all_scales_table': counted by 'num_avail_all_scales'
+> - 'avail_time_tables': counted by 'num_avail_time_tables'
+> 
+> To ensure that the count is set correctly before any pointer is
+> accessed or assigned, we update "iio_init_iio_gts()" to set the counts
+> prior to assigning the pointers.
 
-pm_runtime_get_sync() errors were not checked, so on failure the usage
-count leaked and pm_runtime_enable() was never undone, leaving
-runtime PM in a half-initialized state after a failed probe.
+"Accessed" yes, "assigned" no. :) Let's not churn on assignment ordering
+unless there is some problem I'm not seeing. The only time this should
+ever matter is if there is multithread visibility on the object already,
+but that would require both counter and pointer be set, so that'd be a
+general locking issue, but ordering during initialization doesn't
+matter.
 
-Switch to pm_runtime_resume_and_get(), which cleans up the usage count
-internally on error, and call pm_runtime_disable() to balance the earlier
-pm_runtime_enable() on that path.
-
-Fixes: 23f49fd2ea9b ("dmaengine: edma: Remove dynamic TPTC power management feature")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- drivers/dma/ti/edma.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/dma/ti/edma.c b/drivers/dma/ti/edma.c
-index 8be9e71dab76..5254ce7b8514 100644
---- a/drivers/dma/ti/edma.c
-+++ b/drivers/dma/ti/edma.c
-@@ -2650,8 +2650,16 @@ static struct platform_driver edma_driver = {
- 
- static int edma_tptc_probe(struct platform_device *pdev)
- {
-+	int ret;
-+
- 	pm_runtime_enable(&pdev->dev);
--	return pm_runtime_get_sync(&pdev->dev);
-+	ret = pm_runtime_resume_and_get(&pdev->dev);
-+	if (ret < 0) {
-+		pm_runtime_disable(&pdev->dev);
-+		return ret;
-+	}
-+
-+	return 0;
- }
- 
- static struct platform_driver edma_tptc_driver = {
 -- 
-2.43.0
-
+Kees Cook
