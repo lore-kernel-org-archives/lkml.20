@@ -1,201 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f42.google.com (mail-qk2-f42.google.com [74.125.230.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8A04772B4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:32:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B9B4734F9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:33:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790199164; cv=none; b=an9NN210dMKM5TKM2WVdHHyxYkI6PkFjBFNbAgJE62Py5FQclY+sLbeYkqnja7fENOMEYjHWCBWiBLrCVG2hS5bLe4WI/7VyeRwFRWvWKSy2ymyMfItmGavAPDxXMKTjj+g3QKTIZb/+xtf8roGp/fZg38gMnGgK4CUgzxDTUUA=
+	t=1790199221; cv=none; b=K6auBQtUQnjDRExg8c7VXmCSm2CCwmZxrq79cDUs6cnSzNQL//xetpb+4v9CvQeTrbvimP+n72si18RK1SWuRryq3w6BUKpLMpZ0yz1r9ByO7KU3g+5Aio6il5PGxRPKykczjDtOGf/M/lOzbRlPOTyReA/rbZ9FyjE/BP3qYaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790199164; c=relaxed/simple;
-	bh=YBEVbbweHYfcoloA7VJ7yXPyt9Ai7rrUfs3rNGNaTv8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=s5hQOBqh6MbXDOhj8Eq2pmG/Dk8IBeFFaAwnF5UmzjMYykTPNGZyvTJcLTQBCvMdkdnEPyY5kxMxsQvxacQ70I4mKVkCAxkslBwjK/DsnPjDzcY+ytraYXqioyh39zdC1zBKt0kWYPtApLfEiDpjtzFIpwA/MPRA05kvaDCKSlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WOapASXf; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790199221; c=relaxed/simple;
+	bh=AIosAjl/qfQ0+4SRj6KraAsMA9o8Ij1Mh3Om3uxMQ5M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QhdSsvG4dLZRqqP4OE6cbRLJ0v2K4eYu/WWbGGLyThJ8/2UY9quPx2eNhAABhdR9amhBRu4yY+AO6T7Q52iFL5LLW9mYUky7wHWvG1ZmwYT52SHyiC0vGF6XPG/jrfK9eNCiUE+84tkmyvn7oi0nrTmrE93YqBzTV0hy13gUeh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=jd3c43c7; arc=none smtp.client-ip=74.125.230.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WOapASXf"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 30CC1C2BCFF;
-	Wed, 23 Sep 2026 21:32:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790199164;
-	bh=YBEVbbweHYfcoloA7VJ7yXPyt9Ai7rrUfs3rNGNaTv8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=WOapASXfKBBRREDikSE4WTSa2o0hMgvZbcTfUaa3EndgpzHW1rHJx9zIoF645FM3b
-	 mhuLhyFpnzwqPOmUfQuxMJkBtIiDexiB4p95un25TiJg2JNCS02z8xGyM9jPx6rwym
-	 l55KZzT4ulwSrg9N+zXPk/zRi10Rfhlw03iVvOvDxfEDk/EyzYnTc8+Ozsmo0R2oad
-	 DeFWX/H7TF5ruyGOYnwBhJq1k4jDmnk55lktJEp57MEQLaEPqto2lkESCNRI8nLQW4
-	 q1xZaPtuD5tf15XQNi5nNquRibA2eBZYeJf2vubkgWLrifGT1YBMESM6C+xR3sZo1Y
-	 aeB87J9ndtY4Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D012C9830D;
-	Wed, 23 Sep 2026 21:32:44 +0000 (UTC)
-From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Wed, 23 Sep 2026 23:32:47 +0200
-Subject: [PATCH v6 16/17] mm/huge_memory: count only swap cache refs in
- anon folio split
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="jd3c43c7"
+Received: by mail-qk2-f42.google.com with SMTP id d75a77b69052e-530fa0716f6so15900671cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:33:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790199218; x=1790804018; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dJzkV1wEUwUk4mOjqXcbC0Tz78XuSDZNKDr6Z/EZbvA=;
+        b=jd3c43c7nauj+yMvirxC4UfGyRphA/GxL/+2BJnU9jziqab/ma0IjDy9juAzUTwhnM
+         ga5RRcAOzSI8z05NWeZgmUyHrhukQNW2ztBRDGTNni1MpDSI1ko51SXAsXpzxsmGyg5l
+         qaPL9/OxYvoxZYTiC8w/8d1qANNb6Y51PuTWFSeQNLErFwVg6MUQETBt8fw3r+EIscYM
+         d5OJ5eB3Z0bhbaHP14KevkHQ7SBAiYLoeknr4BQKoBKYLA/V3vua3fFCRQNw+aLpckLq
+         iJiPsW77MEzSsHPiOza9/C3bNRYXZFR+l5hZVHQOs3WMmVuLUe1pShMwyjWfiUf2qwCR
+         mFBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790199218; x=1790804018;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dJzkV1wEUwUk4mOjqXcbC0Tz78XuSDZNKDr6Z/EZbvA=;
+        b=J7Q4nXmRjY5JhcijVaR6stLzoP0jiu1Vl3onmBbnNo+7Jw+YYNoj637bWF8XcaVOYx
+         S55qi1bfEGxXwVJE1s+z6i5mNP3x1/KeCgq5mlfpaS17Ot8j+fSem0cYyyfkepO6Q1Zg
+         /XtQhnhV1TZHTaiwl+Kq6kF3NoTkQLUm9yDn0UsthRRhu0DRHwgTbtrL+umDsfFIeJ9h
+         aX01t3SVIOYYEzX6ULmypDOtyJFsSQ7A2Y5cL6ol/CX6sLeSle5J8uytVBxmu/aSOzsz
+         IuvNvtFG0caVJMSkiLmfNHeU5rqlb/xYg/Zc3CNiQ25xmnghF1gpgfif9mqgJuO+RgFu
+         N4Qw==
+X-Forwarded-Encrypted: i=1; AKwUvByDsmELIOXKJe88+KkU0xDEuwW++ThQ8YOgBom5erfPPcIqaqZp1ZWsdXVbwj2bWrYMwNE7IND+0HXDEAE=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndpejl/Rv3q3SFDWNeRXTlqbj0uGnIoVADzsn+cUrwAU6sjKay
+	ni28Iy7kcOi+LW4fWRKCp+WFqqzv4rWKdiUi6BG88YDvQBruH2icsMt2/sTSGuWWTYU=
+X-Gm-Gg: AYBFou0rHA070SKj2yH3HNhhB9gidieeOqSTFl32Ey5DnKyqXDbcNarUrs0bSlwwWNw
+	sA4fQEjJi/DuoURo+YMssJGUdX2Tl4VqCrBwxIcXkDRBkV8u7BXr1jnDMxo4Z5o0fQSjAoCLNam
+	Uak6ZpPrrIAXT3A/7nR0zxTHnyNC+NWhjC0iYqmg9FFil+ioevE0M1NERy8c84ywPJ4ytU9YfVD
+	gepIMhfIhXvmR+1Rf4JAiIYKSrST0yMqqIH84Li/+B9V3tvcSR9JEg7Yrc5skeNaReWNQyVDmdg
+	yo4yX32QAo3dh4tf97LyUR7ldthISOAJuEsQBKzh9xLMlXh0qLoraHuizBE2i9f8eVRwmYTW0wi
+	qkpyeHBgfXrrT3x8Zndingol82lu/LCkHbWOi0gkg4mdMHHr67fhfRt9x9vRA2/oxY5ouxput5i
+	234qt9Rx/yO618KTZEmEa8axhQTnvFhKESprYDNkOaZ5fqvacUNKdm7ZxQS2BLQE5tZZzwzR0=
+X-Received: by 2002:a05:622a:1806:b0:531:d7d:64ea with SMTP id d75a77b69052e-532fb63b162mr8219331cf.26.1790199218185;
+        Wed, 23 Sep 2026 14:33:38 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532fb287d92sm3634361cf.20.2026.09.23.14.33.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 14:33:37 -0700 (PDT)
+Message-ID: <7147ce22-fc6d-4cff-9470-98e341da0a87@riscstar.com>
+Date: Wed, 23 Sep 2026 16:33:35 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] clk: toshiba: introduce a TC9564 SoC clock and reset
+ driver
+To: Jerome Brunet <jbrunet@baylibre.com>, Brian Masney <bmasney@redhat.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, lee@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, p.zabel@pengutronix.de,
+ daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260918165234.687224-1-elder@riscstar.com>
+ <20260918165234.687224-4-elder@riscstar.com> <arG238GS8bMB6DkW@redhat.com>
+ <0785235b-de06-44d4-9068-ec706eeba848@riscstar.com>
+ <1jcxu3adn6.fsf@starbuckisacylon.baylibre.com>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <1jcxu3adn6.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-swap-thp-cleanup-v6-16-ba1b4ba72c6f@tencent.com>
-References: <20260923-swap-thp-cleanup-v6-0-ba1b4ba72c6f@tencent.com>
-In-Reply-To: <20260923-swap-thp-cleanup-v6-0-ba1b4ba72c6f@tencent.com>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
- Yeoreum Yun <yeoreum.yun@arm.com>, 
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
- Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <kasong@tencent.com>, 
- Kairui Song <ryncsn@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790199160; l=4430;
- i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=bHk44bYsClavSrL0S+ty/yMpowjsaEA3StLe+r4XKwY=;
- b=adVtrlDV113daGntojhWEIZR8gAlsfZuiqul4V9XPviQqWQ9DSI+VL0Hz5+JkAEMIkQQng25i
- /kyStc8n+qFDd4H8Y+olbsnYpS0MeClcqmmEsaj8hkNIvq+wsc06lg1
-X-Developer-Key: i=kasong@tencent.com; a=ed25519;
- pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
-X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
- with auth_id=562
-X-Original-From: Kairui Song <kasong@tencent.com>
-Reply-To: kasong@tencent.com
 
-From: Kairui Song <kasong@tencent.com>
+On 9/23/26 3:58 PM, Jerome Brunet wrote:
+>>>> diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
+>>>> index f9592fd9ec2bb..50efa10d48450 100644
+>>>> --- a/drivers/clk/Kconfig
+>>>> +++ b/drivers/clk/Kconfig
+>>>> @@ -292,6 +292,17 @@ config COMMON_CLK_S2MPS11
+>>>>    	  clock. These multi-function devices have two (S2MPS14) or three
+>>>>    	  (S2MPS11, S5M8767) fixed-rate oscillators, clocked at 32KHz each.
+>>>>    
+>>>> +config COMMON_CLK_TC9564
+>>>> +	tristate "Toshiba TC9564 clock support"
+>>>> +	depends on TC9564_PCI
+>>> select RESET_CONTROLLER
+>> Thank you.  The reset and clock drivers were previously separate
+>> and the reset only became available if RESET_CONTROLLER was enabled.
+>> Combining them means I need this.  I will add it.
+> Why did you combine them ?
+> 
+> it would be a lot better if the reset were handled in
+> drivers/reset rather than in clock. There has already been some work to
+> move reset from clock back to reset. This often involve auxiliary drivers.
+To be honest, I got a suggestion from someone to combine them, but
+I said "no, I got feedback last year that separating them was
+better."  But then a second person told me that these are often
+combined, so I took that as "two against one" and decided to
+merge them.
 
-Only __folio_freeze_split_anon() sees anon folios and swap cache folios
-now. The file split helper only handles page cache folios, which hold
-exactly folio_nr_pages() references.
+The other reason is that four registers are used:
+   #define CLK_CTRL0_OFFSET	0x1004
+   #define RST_CTRL0_OFFSET	0x1008
+   #define CLK_CTRL1_OFFSET	0x100c
+   define RST_CTRL1_OFFSET	0x1010
 
-Rename folio_cache_ref_count() to folio_swapcache_ref_count() and drop
-the anon check so the helper counts what its name says. The file split
-helper now uses folio_nr_pages() directly.
+They alternate between clock and reset.  The previous separated
+drivers specified the two offsets for each driver in the reg
+property.  But somehow these interleaved registers seemed a
+little off, so I thought the combined driver cleaned that up
+a little.
 
-No feature change.
+I don't have any strong preference one way or another.  If you
+think they're better separate, I don't mind separating them
+again.  The two drivers are extremely simple.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Kairui Song <kasong@tencent.com>
----
- mm/huge_memory.c | 35 +++++++++++++++--------------------
- 1 file changed, 15 insertions(+), 20 deletions(-)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index a98f447ae78a..d31c1d3d1f8e 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3997,10 +3997,10 @@ int folio_check_splittable(struct folio *folio, unsigned int new_order,
- 	return 0;
- }
- 
--/* Number of folio references from the pagecache or the swapcache. */
--static unsigned int folio_cache_ref_count(const struct folio *folio)
-+/* Number of folio references from the swapcache. */
-+static unsigned int folio_swapcache_ref_count(const struct folio *folio)
- {
--	if (folio_test_anon(folio) && !folio_test_swapcache(folio))
-+	if (!folio_test_swapcache(folio))
- 		return 0;
- 	return folio_nr_pages(folio);
- }
-@@ -4067,7 +4067,7 @@ static int __folio_freeze_split_anon(struct folio *folio,
- 
- 	local_irq_disable();
- 
--	if (!folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
-+	if (!folio_ref_freeze(folio, folio_swapcache_ref_count(folio) + 1)) {
- 		ret = -EAGAIN;
- 		goto out_no_split;
- 	}
-@@ -4104,7 +4104,7 @@ static int __folio_freeze_split_anon(struct folio *folio,
- 		next = folio_next(new_folio);
- 		zone_device_private_split_cb(folio, new_folio);
- 		folio_ref_unfreeze(new_folio,
--				   folio_cache_ref_count(new_folio) + 1);
-+				   folio_swapcache_ref_count(new_folio) + 1);
- 		if (do_lru)
- 			lru_add_split_folio(folio, new_folio, lruvec, list);
- 		if (ci)
-@@ -4112,7 +4112,7 @@ static int __folio_freeze_split_anon(struct folio *folio,
- 	}
- 
- 	zone_device_private_split_cb(folio, NULL);
--	folio_ref_unfreeze(folio, folio_cache_ref_count(folio) + 1);
-+	folio_ref_unfreeze(folio, folio_swapcache_ref_count(folio) + 1);
- 
- 	if (do_lru)
- 		lruvec_unlock(lruvec);
-@@ -4138,6 +4138,7 @@ static int __folio_freeze_split_file(struct folio *folio,
- 		unsigned int new_order, struct page *split_at,
- 		struct list_head *list, enum split_type split_type)
- {
-+	const long old_nr_pages = folio_nr_pages(folio);
- 	struct address_space *mapping = folio->mapping;
- 	XA_STATE(xas, &mapping->i_pages, folio->index);
- 	struct folio *end_folio = folio_next(folio);
-@@ -4211,22 +4212,16 @@ static int __folio_freeze_split_file(struct folio *folio,
- 		goto fail;
- 	}
- 
--	if (!folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
-+	if (!folio_ref_freeze(folio, old_nr_pages + 1)) {
- 		ret = -EAGAIN;
- 		goto fail;
- 	}
- 
--	if (folio_test_pmd_mappable(folio) &&
--	    new_order < HPAGE_PMD_ORDER) {
--		int nr = folio_nr_pages(folio);
--
--		if (folio_test_swapbacked(folio)) {
--			lruvec_stat_mod_folio(folio,
--					NR_SHMEM_THPS, -nr);
--		} else {
--			lruvec_stat_mod_folio(folio,
--					NR_FILE_THPS, -nr);
--		}
-+	if (folio_test_pmd_mappable(folio) && new_order < HPAGE_PMD_ORDER) {
-+		if (folio_test_swapbacked(folio))
-+			lruvec_stat_mod_folio(folio, NR_SHMEM_THPS, -old_nr_pages);
-+		else
-+			lruvec_stat_mod_folio(folio, NR_FILE_THPS, -old_nr_pages);
- 	}
- 
- 	/* lock lru list/PageCompound, ref frozen by page_ref_freeze */
-@@ -4250,7 +4245,7 @@ static int __folio_freeze_split_file(struct folio *folio,
- 		next = folio_next(new_folio);
- 
- 		folio_ref_unfreeze(new_folio,
--				   folio_cache_ref_count(new_folio) + 1);
-+				   folio_nr_pages(new_folio) + 1);
- 
- 		lru_add_split_folio(folio, new_folio, lruvec, list);
- 
-@@ -4277,7 +4272,7 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	 * Otherwise, a parallel folio_try_get() can grab @folio
- 	 * and its caller can see stale page cache entries.
- 	 */
--	folio_ref_unfreeze(folio, folio_cache_ref_count(folio) + 1);
-+	folio_ref_unfreeze(folio, folio_nr_pages(folio) + 1);
- 	lruvec_unlock(lruvec);
- fail:
- 	xas_unlock_irq(&xas);
-
--- 
-2.55.0
-
-
+					-Alex
