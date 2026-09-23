@@ -1,129 +1,102 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B4B4457C2;
-	Wed, 23 Sep 2026 07:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8448713D53C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146949; cv=none; b=FpspCfQIX1I2Z2eV5sa6FrPaQRHQjRe2TZFnKW2j6FlGhnnyCG4MzMo4Bs4+iFZ6SWVjPa628bfKswoq8YN+7i3VrvV/N/VI4ng7IGH90TSg3Y6TvIXVZMF6+k/EDLdTmfwsyos3ORfTQD0F0UmTSXpLWUaf5OsZ50aNIKsXc70=
+	t=1790147068; cv=none; b=J4WiiBtK0iEiSo1Vy64xaeaSCfo/KSUATbXlKHBEy4u0nJnNai1b4yywCjsLhMOn1CPKFksDza61OJJjo1kVcqOnC7V0RqH+xYM872bcZ4gTlCFnqHx04AhQWiDOruTXMRiXeFWdexgtXQrpgs8KLLg90RCL6S4/p02AhEDdlNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146949; c=relaxed/simple;
-	bh=vV1f8XOtnhd4PUrG7fI1WwmGeEfJB8B4vF5GJJspy7w=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 In-Reply-To:References; b=P9lVm1SxArrdAZhPOd7V0gkjzdOaAnmk/6VbhKNbuc6eYdP3TDqGpeXZH1M0LAWIaWxTeEHeIpFOwIdwDIhSzAaAq9rk2b97L/ncmFzbDVtAvCcsJLkhwg+qz3qKolKwrN42MtanXUQrf/p9moLOGi0Le0UkTwdulS3R8mQjT5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=GmpybhRJ; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1790147068; c=relaxed/simple;
+	bh=ykxKnSBJcsvvZwLLY6xuHQabaFPv1CdXP69zplrPXIo=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=hWjadP/tU/BcVrltPbeJvC+zLBDwgniqdbObN6EIrylXPmxW2hiP88eMAHdl+efS5qr4/KisueMcl4625uBaELiwW1vTRvLFhZ2VJMH8uEYOUuDqHYyPVo589Ox+LWjpENpm2+Pdsb0TYb+7GDrg+oe7sv5Esjpij4Ykp/YIbs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=mve9PMTv; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="GmpybhRJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1790146938;
-	bh=vV1f8XOtnhd4PUrG7fI1WwmGeEfJB8B4vF5GJJspy7w=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=GmpybhRJZLnP/9/jb4XSUy7O32pj4B3yhNJVR2LvRoowBjsTu3k33P33u55vgKoRh
-	 LJX4XuGWBOAmgBIx0erzZGXQmy3EVUAv5mIpLq6uxkGxDXv6vtqlPtrYfJL5e0lYin
-	 Jo6YalOWSWi6Gc05xP7y0DSpkUzg1s5pHC3UUcJg=
-X-QQ-mid: zesmtpsz7t1790146937t51512584
-X-QQ-Originating-IP: 6YGW9d+Woa+ee2SDpHWKexzNo7pMSO7+fqf4Wn3ed+Q=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 23 Sep 2026 15:02:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5313365158734513458
-EX-QQ-RecipientCnt: 14
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="mve9PMTv"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=u+h8E1QKWSZDpJwCxpdRnKnG35J6P/3C8VA+1n19Xdo=;
+	b=mve9PMTvFtE9KLyj5595nFR4Gtto9AwDKfJyqHeyAf2Z5gmF2V+oK13d05KTmeo8cHGCgkNw1
+	bvfUaY+nCurpYTXQjccE5JvOXfxR6PG+JLnTh/gXjcAJHh9hbVrKXnbddAhxGgMEpFko9NPS1Ih
+	/sCZMYdlM8xHZJQomv5DbmE=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hqSLw4T89z1K9B2;
+	Wed, 23 Sep 2026 14:52:08 +0800 (CST)
+Received: from whupemk100014.china.huawei.com (unknown [7.152.184.20])
+	by mail.maildlp.com (Postfix) with ESMTPS id 181C84055B;
+	Wed, 23 Sep 2026 15:04:14 +0800 (CST)
+Received: from [10.67.121.110] (10.67.121.110) by
+ whupemk100014.china.huawei.com (7.152.184.20) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 23 Sep 2026 15:04:12 +0800
+Subject: Re: [PATCH v3 11/13] crypto: hisilicon/sec2: Remove check of
+ CONFIG_CPU_LITTLE_ENDIAN
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Arnd Bergmann <arnd@arndb.de>, Ard
+ Biesheuvel <ardb@kernel.org>, Eric Biggers <ebiggers@kernel.org>, Daniel
+ Borkmann <daniel@iogearbox.net>, Catalin Marinas <catalin.marinas@arm.com>,
+	Alexei Starovoitov <ast@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>, Marc Zyngier <maz@kernel.org>,
+	Chenghai Huang <huangchenghai2@huawei.com>, Weili Qian
+	<qianweili@huawei.com>, Zaibo Xu <xuzaibo@huawei.com>, Kai Ye
+	<yekai13@huawei.com>, Wei Zhang <zhangwei375@huawei.com>
+References: <20260918145217.1669-1-will@kernel.org>
+ <20260918145217.1669-12-will@kernel.org>
+From: liulongfang <liulongfang@huawei.com>
+Message-ID: <0c929b0a-8d92-2d2c-79c2-4d9f7c0c29e5@huawei.com>
+Date: Wed, 23 Sep 2026 15:04:11 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=1d5c24782d6347cbf5fcdf0c6fbf3eaef92642292ff9818598bdb521dc6b;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 23 Sep 2026 15:02:12 +0800
-Message-Id: <DLMI4JHT5Q8L.2MHI30VCCP3W9@linux.spacemit.com>
-Cc: "Yixun Lan" <dlan@kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>, "Conor Dooley" <conor+dt@kernel.org>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt"
- <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre
- Ghiti" <alex@ghiti.fr>, <devicetree@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05:
- Enable SD card support
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Sandie Cao" <sandie.cao@deepcomputing.io>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.2bcc8e57.b8bf.421b.9230.3eea00252952@feishu.cn>
-References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io>
- <20260922110450.3426070-1-sandie.cao@deepcomputing.io>
- <DLMC741RLFU5.3FF1DL7YEIFK9@linux.spacemit.com>
- <407ce3d77416bb2522b7906b0df3d5adf02c27ee.2bcc8e57.b8bf.421b.9230.3eea00252952@feishu.cn>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: ND42uzdxTIzrL4PfGQ4oQcvx3Y+HVF6X8HQKJwbt3MkIxps1XnwT5rsl
-	56GQU+B8Dk35l3RG1nkBK+O1vWo8sAPlY4Q7LlGZNGZXz/CinsSNSZzf2MitPEYMLlDrSz8
-	s+fqZnJaEq344dIF/uauaYMnoL9MO5W1knntX7EPy99Yy5U51lolLzWIMdbIaLBAqwSC312
-	F8EaKwWhHsMhelWq+gsiVx7Kz+pLmGdCv2qmjX8GAhb6JtvC5gxxiD3sWpv6cttcK8uN6ja
-	iSkZrcJYWGs1BVy2Vby9PfpvnzcsYbgAHd4L69fgDkGgeBNYsFgwZoxvtShYc2c3RGyDyZb
-	femJoxgfRMmlSHm3r3V34XLczetco+zgQNDgPpqqm3Sz3r7pU/8nuFGdT0AKHBDUe0q88h+
-	E09vfq5LvaFgEKCXN4dQBQ7YDVq9O/R+Zrq72RRro+GkNRILbBdG1hQuqkCWSUvIoR3ubW2
-	snNlYhLK8FW8kXw6hLAPBmur79xwSjl9lnl2Xtc4GHNBHvTVGougNBh3A4pH73VV6Q0dr3a
-	QvQRKoVhN+NryzSb0uqxYNpV0YAEygPuXmG2QGofKo6bYHU3UjKM81kW5yyXPLZ+YlBlvLe
-	v8FJpULUuKnnrT/MItps6sT8r4cpaYw53h1HWKHuHvKKoEexC/gSzDCu74yG0h5SaUqKl/F
-	hhtzwkd1uIMAugl7w7CyOgG0ykrS4I5EBC08XOQf1yG2UiRsJnA3+Ax0B+4PpRRxSx4xCpH
-	6d6QFXXLiWYAtiF7myI5PI0sntcBiXqKyrGWxWJn0Xoy5fZ5nX9QQpSqR2RbPcfDVCShtsI
-	8fhC190ecBCj6XXNDSmpDnORTnOe1D2b0Ykxa9cmnUkvXN6ySO0kTTHNpA/8r6Qr7ijsC2B
-	Ln8YJFaPhKiI81rl9MjZ/tXfB8APDWx2Wv/G+srRpGQb6RWDI83xFcwO6MHzXTSlsjQ25Dt
-	esBtY962pf/K0eVqNjV2aEcS0PEqn9JzVIcAUcHsIzF/8MQoyzm5Rp/8qLLzqbKyHND+p74
-	yQ6PK3D0+1DihELfQvTmc1g8gVyiLjkPCyJ2EEH47HFggUbTZ452ZgD7EYkLyITL+Vy0uyc
-	vDJqpZRH1pbSpZoM5w3qUE=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+In-Reply-To: <20260918145217.1669-12-will@kernel.org>
+Content-Type: text/plain; charset="gbk"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ whupemk100014.china.huawei.com (7.152.184.20)
 
---1d5c24782d6347cbf5fcdf0c6fbf3eaef92642292ff9818598bdb521dc6b
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-
-On Wed, Sep 23, 2026 at 02:35:20PM +0800, Sandie Cao wrote:
-> FML13V05 SD card slot is inside the board, it doesn't need cd-gpio,
-> FML13V05 Keeps GPIO88 to low, Then SD card is always on for SD Card
-> driver.
-
-An internal slot does not necessarily mean the card is non-removable.
-I don't think its location alone justifies keeping card detect asserted:
-GPIO88 would report a card present even when the slot is empty.
-
-> We check the vmmc-supply is p3v3. We have the same SDK DTS config with
-> k3_com260[1] , so, this patch follows the SD card patch of k3_com260
-> dts[2].
+On 2026/9/18 22:52, Will Deacon wrote:
+> The hisilicon "sec" driver targets arm64 but can be compile-tested on
+> other 64-bit architectures. In preparation for removing the definition
+> of CONFIG_CPU_LITTLE_ENDIAN for arm64 (since it will be little-endian
+> only), invert the check in sec_set_endian() so that it behaves as
+> little-endian by default.
+> 
+> Cc: Chenghai Huang <huangchenghai2@huawei.com>
+> Cc: Weili Qian <qianweili@huawei.com>
+> Cc: Zaibo Xu <xuzaibo@huawei.com>
+> Cc: Longfang Liu <liulongfang@huawei.com>
+> Cc: Kai Ye <yekai13@huawei.com>
+> Cc: Wei Zhang <zhangwei375@huawei.com>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  drivers/crypto/hisilicon/sec2/sec_main.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/crypto/hisilicon/sec2/sec_main.c b/drivers/crypto/hisilicon/sec2/sec_main.c
+> index 752565200c16..03523cfbb28e 100644
+> --- a/drivers/crypto/hisilicon/sec2/sec_main.c
+> +++ b/drivers/crypto/hisilicon/sec2/sec_main.c
+> @@ -484,7 +484,7 @@ static void sec_set_endian(struct hisi_qm *qm)
+>  	if (!IS_ENABLED(CONFIG_64BIT))
+>  		reg |= BIT(1);
+>  
+> -	if (!IS_ENABLED(CONFIG_CPU_LITTLE_ENDIAN))
+> +	if (IS_ENABLED(CONFIG_CPU_BIG_ENDIAN))
+>  		reg |= BIT(0);
 >
-> If this is not correct, we will change it.
 
-Could you confirm from the schematics that the SD power wiring matches
-CoM260 and that the card's VDD is actually connected to ALDO4? If so,
-this supply reference is fine. The same SDK configuration alone does
-not establish the wiring.
+Reviewed-by: Longfang Liu <liulongfang@huawei.com>
 
-If the card instead uses a fixed, always-on supply with no software power
-control, vmmc-supply is optional for the MMC core; it should not point to
-an unrelated ALDO4 rail.
+Thanks.
 
---=20
-Troy Mitchell
-
---1d5c24782d6347cbf5fcdf0c6fbf3eaef92642292ff9818598bdb521dc6b
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCarN5dA0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQv0SkBAJoTYlHEntw6qzTvJySy6HApBMRe5LlDuAd7JRLO
-XP9NAP0XoDVs3rpymXWxOxY0Su4MGjNUGi1VGG4nipsub909DA==
-=Ux3W
------END PGP SIGNATURE-----
-
---1d5c24782d6347cbf5fcdf0c6fbf3eaef92642292ff9818598bdb521dc6b--
+>  	writel_relaxed(reg, qm->io_base + SEC_CONTROL_REG);
+> 
