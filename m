@@ -1,412 +1,528 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012048.outbound.protection.outlook.com [40.107.200.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D358158039B;
-	Wed, 23 Sep 2026 20:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA05581226
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:13:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194392; cv=fail; b=eSb1nDhZsFgIkUZfvyCorg4j0qCKPLkPM/mtFZg/bzjPd5097WiaPc+3O1i5MpB0d7fqVin8JM40EuZjEDw+lR0xql21eW4lJcgfzGALdM1zQVlEvxcKS7eD4GOTh8TSYYU7QqQ7iE8rAUNj2uYRiTntFM6q0w1KBXg1GPjTygE=
+	t=1790194399; cv=pass; b=rb379RvA01K6Lu3Vbbla9g/xxbkYw4n8ExdKbe5fWEVX9akIQZJOnYScJhfao3XDfwMOhz3S+21KjHvjpqvU0hUssNOW0vtrCWmFgeYcfwNI9vpxKCr6kvPaQYoFPRizF88gukCZOaKzOwHr6YZEeYDsXSGM1N16TQrs8n2XFVg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194392; c=relaxed/simple;
-	bh=byTIKMVBTsw7ofNxAtl3qxXYRykuJ3AtzGo18h7U+Ss=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PLSVAIXaOok9LkJtJf1HUTvhvAxvbLgq2J/7HKX54uV9G+vDdbaKjj0QofgolgXDDkH2W5+njwTnCumxnjUvytoZ/vBRBcyBWiAcElP6UrnDqkLiBDALM+9Q++Cvn6JnV3pJPgIRboitoeX0uq/1DkAl8QPYWstbMvyBVpu3gw0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=rD1ilyXo; arc=fail smtp.client-ip=40.107.200.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1790194399; c=relaxed/simple;
+	bh=gWu15iqRJxgX/RGyZaRqm+zMAOUbKzCJkVvlqDFqjUY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Mmc3w4LkM7CeJ2n1JKphl/vLCfD4nOcWBv/iiKC/UIpDIN73nnQANF2nFxXD9Pi1QtJjQEfRU5+h4hXzQRT4kQYHR2Fv5HL3sW9cvVw98cQTz6xMLG8c98ZnGp0Gb8URrVjThXe0TsjkAOhS9bF0zctyMNsKi3S/jecS0h9vzUw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=D6MyiWwo; arc=pass smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="rD1ilyXo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NxUn9mfuZ8WW9dX5U1geYEuiOQ1IZhF2/VEz6AAm4hzRxMDoS0aqbiMOlL1GxrvbNG0s1cUdOHRs0tFj+4RrtfOZSmvHu7L86D3GAQE+E71eNN6XaRyFkW4PUYivRW3iG/x6UjPySq+H1BBXy//OtExXtbcE1U+oXfmrYi//ELKZZeVG7Bxw5K1Z6sLmPNM8asJLcryusjceKFIUe8qShdXFo0Dqxxa2iVTkkPtMN563wUzyK7wsxxL0B5Rtluwh2fl2hgWDdpdwbUO52bFh4abNr54NKzp+75nIrx+cPvEsmnKMHiAG3yJUEpsmsiyAaLFJmatvzE6b9iIsRVSWZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JfndK0A+/yqgGnOXvx+QjMo3TqnDTESBk6QE8k75nkY=;
- b=BMouj6moAw+YohciMLe8mVHJn7ny0s+Amq0kP96XsQsaPF5ASeb7TfGSWGGVZUQDCzqtd0Ps7ZdKB3KimeEBTQJBfNypIJ7I3kYEANYqtLf7W5CnTVYYylSDmjFJaj7R8jGc2v1vDr9OFRpD1mt+JsywO6yOzmvnbrx+I1tfvYKFLVmqRjPWB+VZXHAcmRiwwmvR42zFhyghKkOCPO1t82hNmvMqfqX+IflvN7XY+JhRotwQ6NosH2GccUZdPxdMvTvIjEnUEQInpqNzLOKWEWHaS+fSbDwLCrVnrXZTMlN8cP+1JeXLHXJeuRaKE0GFCRD+IEAAEmj46MW5+ExXyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JfndK0A+/yqgGnOXvx+QjMo3TqnDTESBk6QE8k75nkY=;
- b=rD1ilyXoEOfniazQpHgibRRjETP2czBc0D6UAUVsa0ToRa9VGVsZIRO4QwURdBZnyIWjuC5PNzBsp2w/hfw5kYLjrE9zidu5Cc5xFrYp2tdS85ckKzNYzQ9+2tl7ecEzmdmil11PrJw4Zd7tAVDpxVrxdoUnsRAdk34KP8anzuc0Ge3v02hkP8L7MvOVghPe70jgwJYeCn3Uy/M67KoZ8Unnh5Ci4ll1P6EG+e6X4NGjec7vexxwSpsO7An5uOmfz5aPShFy/mxggZEG5jhM/PjvsWGtf1KLtaMO/gA0HyXFOui9BLKrDvfA6IWylC6amRvUbaiBWZJO5JIfiYiOHA==
-Received: from MW4PR03CA0229.namprd03.prod.outlook.com (2603:10b6:303:b9::24)
- by DM4PR12MB5961.namprd12.prod.outlook.com (2603:10b6:8:68::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Wed, 23 Sep
- 2026 20:12:38 +0000
-Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
- (2603:10b6:303:b9:cafe::66) by MW4PR03CA0229.outlook.office365.com
- (2603:10b6:303:b9::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
- 23 Sep 2026 20:12:36 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 20:12:36 +0000
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 13:12:14 -0700
-Received: from rnnvmail204.nvidia.com (10.129.68.6) by rnnvmail204.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
- 2026 13:12:14 -0700
-Received: from Asurada-Nvidia.nvidia.com (10.127.8.10) by mail.nvidia.com
- (10.129.68.6) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
- Transport; Wed, 23 Sep 2026 13:12:13 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
- Roedel" <joro@8bytes.org>, Bjorn Helgaas <bhelgaas@google.com>, "Jason
- Gunthorpe" <jgg@nvidia.com>
-CC: "Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
-	Pranjal Shrivastava <praan@google.com>, Mostafa Saleh <smostafa@google.com>,
-	Lu Baolu <baolu.lu@linux.intel.com>, Kevin Tian <kevin.tian@intel.com>,
-	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <linux-acpi@vger.kernel.org>,
-	<linux-pci@vger.kernel.org>, <linux-cxl@vger.kernel.org>,
-	<vsethi@nvidia.com>, Shuai Xue <xueshuai@linux.alibaba.com>
-Subject: [PATCH v6 17/17] iommu/arm-smmu-v3: Quarantine ATS after an ATC invalidation timeout
-Date: Wed, 23 Sep 2026 13:11:36 -0700
-Message-ID: <94c7039fc6dcb15b86f79bb72d00e3c4eb11b4f8.1790188511.git.nicolinc@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1790188510.git.nicolinc@nvidia.com>
-References: <cover.1790188510.git.nicolinc@nvidia.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="D6MyiWwo"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d8facae850so21615ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:13:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790194378; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pajAvNrer1iNy73ynXC1k0SG/KxpjuQO7BsmvKC0A3CaZMs6Otll3fAGuQDVAymYmA
+         //KJ/JX30p4diCEOxNsoB1FXGhMlbit2HnPoJ8h++8fk8wqACSYAIc2/nIGSwhePMhFR
+         Qa14J9ikVIi6Bf2JN0AbZA7eCfGDVTgzoNFCnm/u6hzJxzao2TgiFHvfcRLxZlN2VaSD
+         MGOTRJZR7JiEqZ0bP0+x69qkq+ruTZRA1Br85f090rt1fc3UgALyxtENAhXqVgR6mthV
+         6twdA4vJoHg7vd+4HLWAYmuAw6rsdagCMZXwc+FhG9JSu2ihtt1mkegQQSrncYYM44S7
+         tr6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q/Qf9KIEloyGlc9WNysMiio4j06l4Rvqcqlp89ks3rI=;
+        fh=HSGZOgSyBGz9R1vdpzand/2ba8X/BEYjcwOH7nGSTLc=;
+        b=kSkMxzc8M2KvonrF+0Hhvv8rTxAmoJXsiN/D0gokQgG3bEy8IRpYTpj4NB/ALzAhPW
+         Sq6HUdEwMLj5zdrr6cEJqQYXKc34q9me6eB5tIr27AhtSeLdC+rOmNxBuQlD+6en05ZY
+         +QLFnh48zsjIlS1ir5+ztyyeUMAPYpGXm06o1c9bmYAQcKN08oLV8smvnjHuJWbiRvcK
+         C7kqOSb6uErYsQGBs+yecAOyYTYmj0l1KuRpOqU7VCWlOOCvVKxyK+ffkm16OUJrJ4dU
+         LwqiqZwco8eaFDP9/PEEnaCLclGbnARLGA0GWOlefwegzomxNaF5Eu+01CNKJKHCwVng
+         FdNw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790194378; x=1790799178; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q/Qf9KIEloyGlc9WNysMiio4j06l4Rvqcqlp89ks3rI=;
+        b=D6MyiWwoOGEfjRBqhn2Rboi1pPtO0FDcHa1jTAmukEVtb0+4HZ+y/XSkXrq4bSkMr8
+         nBp9IXns4KjzDCQUmL085gMZ9DcioEbZbFfkO9kJwrUX5VtQEFrUt2ll6BxsR2qS2UUf
+         7gjMvRAR0DvIhuyqIKa7PEj008pJENjsLZOKe9qDCsk5HMw6o1cubB4OWvQ2DRW2RGSL
+         oLHzJbCcybToYZuDdKWDPrDRWnOlkV5dyIAZ9k9mFNdpkOqJv7gjrcKOSxR2WnD8g68r
+         wSrXtxVKTTP5hkjc1UgSHLicQD1JT7cxHPbnAwUOtAHg30aoTJFvhGz2ycWEgJyO+fRG
+         IKKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790194378; x=1790799178;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q/Qf9KIEloyGlc9WNysMiio4j06l4Rvqcqlp89ks3rI=;
+        b=QGHq7CPsIFZKbFTuH5N0ryN+2cQfRGIfFwjMnxQgwKN/YnI19HZqPQLSCz2KZhdicM
+         /Yj4P6i1aNrEonHSpLuSsYfpjAa4u2lACo0hckTikCwxyHhKIxsLQuYo/xpTxcswFRtW
+         2I6/F8Qm2SYhcuMjKu6M7Th3Dim2gv7QkwE2J1OnstLfh+WvN4SeQZKDgMRwWQD6h7N6
+         rex6YSUcv1DDylPHFJoTia9HtBH6g3EmUotZrX+pEjeDtXbFeuzcEahxK2fmTpVZ2EqG
+         yTV681+JpXwla1Xc9h2mF1763fSCcPWskDkYTjaPRFNpAjR5MZ9tkcDcNS++IB9PcM4G
+         TdBw==
+X-Forwarded-Encrypted: i=1; AKwUvBxuas5Z5MV/ImAXkRJ9UZfMyEmHU4HAe+HLuQxMJ7Y5urUdhgWfMSz4Tbp8NCy60EAx5WX+39z8SL/rz/M=@vger.kernel.org
+X-Gm-Message-State: AFuF++k472z79Uv6YdCA6X7sxLYKri+M/W/G9IPjIShugu5mk5MTr5UA
+	6IdaCS+NCKz3ZRqB2UNII+0sKwwAGB4M9D/+5xkR9gpwjbHCxdtVXNVvs4czX62aqGor5J+t1xv
+	NJkB3gah5c40sXCzSUMA6L13uGPu9aVPVcIA/q7hD
+X-Gm-Gg: AYBFou1XGztnBI7Ep23sWl5WFEaIR00B5FTKPubbodDrE3Y4Md6R8CxgVhWaeQJR/G8
+	zEtba5RcNIlU2Ha80VbWeGKOD+8sbyExKBGoeP6+ULmZafOkv4kWtd6BE/UR5vYu/NqSyxZVzBN
+	ePn1WrlcBnK7jbOccpMRRpthlTeAPeVYMf4PhLMluDXzxEDn89UIxIApZKXh6SfdOEdD0+KoZdb
+	c23GN6LijSwrN8wYLsW+cTZFPxzINTZ+oIi7CA47bqAaKlMTv83B/kk6n1dyylOx5QN1IaLkhCh
+	Ba0diPEm99AjszN1erQ8lexqzMvgSOea6lsYCQ5ohWl9rcmwYUeWWJblHOXK7AjCszG02LmKxW4
+	tjKyBhhHY
+X-Received: by 2002:a17:903:90d:b0:2ca:4bb4:4bd with SMTP id
+ d9443c01a7336-2df7bbd799fmr1410675ad.5.1790194377700; Wed, 23 Sep 2026
+ 13:12:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|DM4PR12MB5961:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac5ff955-264c-4363-de41-08df19af02c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|7416014|376014|10067099003|11063799006|5023799004|3023799007|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Vhgx6XjtYydoj57fgxU9v31E9HOqEbybdCBuph99DWd0QQIJmIdMz4Y/f8uKQTqhQakBEGgksGrsBGZzznp+xszJS2EdaV4UxDzgqndcl9Ha69EsnmsrqoRUh8lL62jsMpRZVz9mrysGNvoqWqMZOLfUv5n2a4xAe+dOb69kMm8WwQzTiWQSjmSd8sIeTGeYR03oOBJWW7P3OqbC+4/iyLjkOlbctYRj9OXuuEMvPr+ZYsbMl/32shxrLsmhaZwfxcmeOog4webAMro8eQRSPJMSKJqjKZNf5iYL2vNNaUjVwDR+gxstw6CtMlR+9AhJhLsU316MkvwIQwT5XYebir6mTZywVG4yQmRZ5JTHexbJFTbKMrzec0jCLUkWez0GQOPONvJCyr2iQpsyBw2KH4hFBXD7C9Ckc65WY5luj7ggiRY9XIfmDcoxf18YqFXSK9bv3WIXIYREssIPr2JjmZAdbGiu4W4fOjnyWwGfiKBblkZcDqOZp2IGA3N58FbaTQFvln5H+7klTY9Fl8bBcMz2AUg0n/dUaxNij3NacRVJWB2WJb0IBv2jDcHxY4g8fp9R+QlprWGAcyAzaIuDYEYzfZhT8DJiICQAz8qxKViV5LH6OmN3ekIRJ4JYZqgZabQoFSku2k0Ft6wnexji5fvBNQkFNuMq/HvnJFZ8OZN0fp3kAkubqQrZPfnm+cnXf3hCBAtssyly7cvo/qWiSA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(7416014)(376014)(10067099003)(11063799006)(5023799004)(3023799007)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	4HU1JjtrEtZHx2P2rGJeBk1h8WlKq0bS0+ypNTPDvFkDp7aFStccJJl3vLo2VHxzzlFv8EeX3rZ5k4ixktHrKCFJ4c5ODW0BuGOPV2Sy2Jgc4ea0Ge3zBlLxQk75gvsiPBk1F6pLVVATUZikZOpll687Wc6VwGMEa8f1SbEifOQjsnk1VEzVY/0HHtuYSS6f9ZwN/W5UOrDx1a2cVfegzuhIfviNpTgSlTU94OeRFDxn2ABXdJXgBERDVJ6xZHP+q3WyBr6grLh3wtf4VQsoCM7uSeMU0pp8a/w5zguHP24TLF8mWRcDou3wyXBA2hRttDDiiXUhU36nRONs45AgqClTJbSeH5t0H3bUiHWNcPn2PMLxcZNxJoWzk9gYNb8bN5eQyRYTTh4pmRUN/n1Bu26EcQ564gZtfgZL+mYA2Wb/ZkN5CswyIUN7FHQv4VOY
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:12:36.5292
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac5ff955-264c-4363-de41-08df19af02c2
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00012E64.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5961
+References: <cover.1790025465.git.abhishekbapat@google.com>
+ <06c3a9b52785e6968ea15709a55365b2342c7a15.1790025465.git.abhishekbapat@google.com>
+ <e8f65e6d-440b-418d-b7ba-e05ca2b0d712@linux.dev>
+In-Reply-To: <e8f65e6d-440b-418d-b7ba-e05ca2b0d712@linux.dev>
+From: Abhishek Bapat <abhishekbapat@google.com>
+Date: Wed, 23 Sep 2026 13:12:46 -0700
+X-Gm-Features: AclHuK90u3QKMhLOPT-K2l4GMYlhS4sfA0uEIsFHML1VSEDfbP-0xqaYfivaip4
+Message-ID: <CAL41Mv7P3xDAvTGtdSHEG3Cvu70W6uhZ9mThm-OD3PcGDDU17w@mail.gmail.com>
+Subject: Re: [PATCH 1/4] alloc_tag: Add trace events for tracing allocations
+To: Hao Ge <hao.ge@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, linux-trace-kernel@vger.kernel.org, 
+	Shuah Khan <shuah@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-An ATC invalidation timeout is reported on the trailing CMD_SYNC, thereby
-identifying the failed batch but not the CMD_ATC_INV or responsible master.
+On Wed, Sep 23, 2026 at 2:55=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
+>
+> Hi Abhishek
+>
+> On 2026/9/22 05:26, Abhishek Bapat wrote:
+> > The memory allocation profiling framework intercepts allocations across
+> > the core subsystems, but currently lacks runtime tracing hooks for
+> > standard observability tools to dynamically track the context (stack
+> > traces and lifecycles of the individual memory chunks) of the
+> > allocations made.
+> >
+> > Introduce three standard trace events to allow this tracking:
+> >
+> > 1. `alloc_tag_hit`: Fired at the exact call site. This allows userspace
+> >    tools to trigger and capture a call stack.
+> > 2. `alloc_tag_mem_alloced`: Fired in alloc_tag_add upon successful
+> >    allocation. It records the allocated size, the tag, and the uniquely
+> >    generated codetag_ref metadata pointer.
+> > 3. `alloc_tag_mem_freed`: Fired in alloc_tag_sub right before memory is
+> >    freed, yielding the same codetag_ref to allow tracing tools to find
+> >    the corresponding allocation.
+> >
+> > Because the introduced trace events occur at different stages in the
+> > call stack, userspace tracing tools must stitch them together to form a
+> > complete picture of a buffer's lifetime. Here's an example of how
+> > userspace correlates these three events:
+> >
+> > 1. On `alloc_tag_hit`: The tool captures the stack trace and caches it,
+> >    keyed by the combination of the current thread's PID and the `tag`.
+> > 2. On `alloc_tag_mem_alloced`: The tool extracts the PID and `tag` from
+> >    the event and looks up the stack trace cached in step 1. It creates =
+a
+> >    new active allocation record, mapping the new provided `codetag_ref`
+> >    to this cached stack trace and the newly returned allocation size.
+> > 3. On `alloc_tag_mem_freed`: When the memory is freed, the event yields
+> >    the same `codetag_ref`. The tool uses this reference to look up the
+> >    original allocation record, correlates the free, and safely retires
+> >    the tracking entry.
+> >
+> > Also, introduce `alloc_tag_trace_key` static key to minimize the
+> > overhead when no tags are being traced (the usual case). Once tracing
+> > for any tag is requested, the key is set, opening the path to check
+> > whether tracing is enabled for the current tag.
+> > Nore that the mechanism to enabl tag tracing is implemented in the next
+> > patch, therefore for now, `alloc_tag_trace_key` stays always unset.
+> >
+>
+> nit: s/Nore/Note/ s/enabl/enable
+>
+Ack.
+> > Signed-off-by: Abhishek Bapat <abhishekbapat@google.com>
+> > ---
+> >  MAINTAINERS                      |   1 +
+> >  include/linux/alloc_tag.h        |  57 ++++++++++++---
+> >  include/trace/events/alloc_tag.h | 122 +++++++++++++++++++++++++++++++
+> >  mm/alloc_tag.c                   |  28 +++++++
+> >  4 files changed, 196 insertions(+), 12 deletions(-)
+> >  create mode 100644 include/trace/events/alloc_tag.h
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 24420a8c06d0..29e1f7915cb9 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -17096,6 +17096,7 @@ S:    Maintained
+> >  F:   Documentation/mm/allocation-profiling.rst
+> >  F:   include/linux/alloc_tag.h
+> >  F:   include/linux/pgalloc_tag.h
+> > +F:   include/trace/events/alloc_tag.h
+> >  F:   include/uapi/linux/alloc_tag.h
+> >  F:   mm/alloc_tag.c
+> >  F:   tools/testing/selftests/alloc_tag/
+> > diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
+> > index 7f2d80a59792..2994934cf44a 100644
+> > --- a/include/linux/alloc_tag.h
+> > +++ b/include/linux/alloc_tag.h
+> > @@ -128,12 +128,33 @@ DECLARE_PER_CPU(struct alloc_tag_counters, _share=
+d_alloc_tag);
+> >  DECLARE_STATIC_KEY_MAYBE(CONFIG_MEM_ALLOC_PROFILING_ENABLED_BY_DEFAULT=
+,
+> >                       mem_alloc_profiling_key);
+> >
+> > +DECLARE_STATIC_KEY_FALSE(alloc_tag_trace_key);
+> > +
+> >  static inline bool mem_alloc_profiling_enabled(void)
+> >  {
+> >       return static_branch_maybe(CONFIG_MEM_ALLOC_PROFILING_ENABLED_BY_=
+DEFAULT,
+> >                                  &mem_alloc_profiling_key);
+> >  }
+> >
+> > +static inline bool alloc_tag_trace_enabled(const struct alloc_tag *tag=
+)
+> > +{
+> > +     return static_branch_unlikely(&alloc_tag_trace_key);
+> > +}
+> > +
+>
+> The tag parameter is unused here. Let's remove it for now and add it back=
+ when needed,
+> to avoid the -Wno=E2=80=91unused=E2=80=91parameter warning.
+> Some CI bots go through each patch one=E2=80=91by=E2=80=91one, so we can'=
+t leave warnings in
+> intermediate commits.
+>
+Ack.
+> One other thought: what about adding a sysctl knob here?
+> It would let users grab all alloc=E2=80=91tag tracked allocations within =
+a time window?
+>
+You mean to enable the static key? With the following patches, it
+would mean that the state of the static key would change by writing to
+sysctl and through IOCTLs. I am not sure if letting the static key be
+controlled by two mechanism is a good idea. I'd like to get Suren's
+thoughts on this.
 
-cmds->cmds is sorted by SID, so when an ATS batch returns -EIO, retry one
-invalidation for each unique SID to find the unresponsive master. A batch
-with only one unique SID needs no retry. This is the common case, since it
-is uncommon for an ATS-capable PCI device to have multiple Stream IDs.
-
-For each identified master, clear STE.EATS on all of its SIDs and mark its
-ATS invalidation entries in every attached domain as INV_TYPE_ATS_BROKEN,
-thereby blocking further ATS requests and preventing repeated ATC timeouts.
-
-The marking must span every domain because a master may be attached at its
-RID and at multiple PASIDs. Marking only the timed-out invs would leave its
-other invs issuing CMD_ATC_INV commands that continue to time out.
-
-Only mark the entries after the CFGI_STE completes successfully. Otherwise,
-leave them active so later invalidations retry quarantine instead of being
-suppressed while ATS may remain enabled.
-
-The marking cannot take invs->rwlock for writing because the timeout path
-already holds a read lock; taking the write side would ABBA-deadlock this
-path against a concurrent timeout. Change the type with WRITE_ONCE(); once
-STE.EATS is cleared, a racing invalidation cannot create any new ATC entry
-and may at worst time out once more.
-
-Use try_cmpxchg64() to clear STE.EATS without losing a concurrent update to
-the STE; a non-atomic fallback could revert concurrent changes, such as an
-S1DSS update. On a non-cacheable stream table, try_cmpxchg64() is unsafe,
-so limit quarantine to coherent SMMUs. Non-coherent SMMUs retain existing
-behavior of reporting every ATC_INV timeout.
-
-Finally, force CMD_SYNC on every sub-batch containing an ATC invalidation
-so the timeout is observed by the call that issued it.
-
-Identification is synchronous; each unresponsive SID adds a CMD_SYNC poll
-bounded by ARM_SMMU_POLL_TIMEOUT_US. That bound is rarely reached, since a
-non-responding ATC_INV completes in error once the device's PCIe Completion
-Timeout expires.
-
-Assisted-by: LLM
-Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
----
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 202 +++++++++++++++++++-
- 1 file changed, 199 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index c56fd5c6b6242..db202b79bf1e6 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -118,6 +118,10 @@ static const char * const event_class_str[] = {
- 
- static int arm_smmu_alloc_cd_tables(struct arm_smmu_master *master);
- static bool arm_smmu_ats_supported(struct arm_smmu_master *master);
-+static struct arm_smmu_ste *
-+arm_smmu_get_step_for_sid(struct arm_smmu_device *smmu, u32 sid);
-+static struct arm_smmu_domain *
-+to_smmu_domain_devices(struct iommu_domain *domain);
- 
- static void parse_driver_options(struct arm_smmu_device *smmu)
- {
-@@ -966,12 +970,25 @@ static void arm_smmu_cmdq_batch_init_cmd(struct arm_smmu_device *smmu,
- 	cmds->has_ats = false;
- }
- 
-+static void arm_smmu_cmdq_batch_retry(struct arm_smmu_device *smmu,
-+				      struct arm_smmu_cmdq_batch *cmds);
-+
- static int arm_smmu_cmdq_batch_issue(struct arm_smmu_device *smmu,
- 				     struct arm_smmu_cmdq_batch *cmds,
- 				     bool sync)
- {
--	return arm_smmu_cmdq_issue_cmdlist(smmu, cmds->cmdq, cmds->cmds,
--					   cmds->num, sync);
-+	int ret = arm_smmu_cmdq_issue_cmdlist(smmu, cmds->cmdq, cmds->cmds,
-+					      cmds->num, sync);
-+
-+	/*
-+	 * The CMDQ HW reports an ATC invalidation timeout at the trailing
-+	 * CMD_SYNC, not at the failing CMD_ATC_INV. Re-issue each unique ATS
-+	 * SID in the batch to identify the unresponsive master and block its
-+	 * ATS so subsequent invalidations make forward progress.
-+	 */
-+	if (ret == -EIO && cmds->has_ats)
-+		arm_smmu_cmdq_batch_retry(smmu, cmds);
-+	return ret;
- }
- 
- static bool arm_smmu_cmdq_batch_force_sync(struct arm_smmu_device *smmu,
-@@ -995,6 +1012,10 @@ static bool arm_smmu_cmdq_batch_force_sync(struct arm_smmu_device *smmu,
- 	    arm_smmu_erratum_cmd_needs_repeating(&cmds->cmds[0]))
- 		return true;
- 
-+	/* ATC_INV timeout is reported to CMD_SYNC; catch at the call site */
-+	if (cmds->num == CMDQ_BATCH_ENTRIES && cmds->has_ats)
-+		return true;
-+
- 	return false;
- }
- 
-@@ -1068,7 +1089,11 @@ static inline struct arm_smmu_inv *
- arm_smmu_invs_iter_next(struct arm_smmu_invs *invs, size_t next, size_t *idx)
- {
- 	while (true) {
--		if (next >= invs->num_invs) {
-+		/*
-+		 * Lockless readers (arm_smmu_invs_set_ats_broken) pair with the
-+		 * WRITE_ONCE() in arm_smmu_invs_unref(); num_invs only shrinks.
-+		 */
-+		if (next >= READ_ONCE(invs->num_invs)) {
- 			*idx = next;
- 			return NULL;
- 		}
-@@ -2558,6 +2583,177 @@ static int arm_smmu_atc_inv_master(struct arm_smmu_master *master,
- 	return arm_smmu_cmdq_batch_submit(master->smmu, &cmds);
- }
- 
-+static void arm_smmu_invs_set_ats_broken(struct arm_smmu_invs *invs,
-+					 struct arm_smmu_device *smmu, u32 sid)
-+{
-+	struct arm_smmu_inv *inv;
-+	size_t i;
-+
-+	/* arm_smmu_atc_inv_master() submits batches with invs=NULL */
-+	if (!invs)
-+		return;
-+
-+	/*
-+	 * invs->rwlock is deliberately not taken: the caller holds one domain's
-+	 * read side for the timed-out batch, then taking another domain's write
-+	 * side while a concurrent timeout does the reverse would ABBA-deadlock.
-+	 *
-+	 * This indicates some potential races, but they are harmless since EATS
-+	 * was already cleared:
-+	 *  - WRITE_ONCE() may hit a stale invs copy if an attach just installed
-+	 *    a new invs, which might result in another ATC_INV timeout.
-+	 *  - a concurrent invalidation may still issue an ATC_INV that may time
-+	 *    out again.
-+	 */
-+	arm_smmu_invs_for_each_entry(invs, i, inv) {
-+		u8 type = arm_smmu_inv_type(inv);
-+
-+		if (inv->smmu == smmu && inv->id == sid &&
-+		    (type == INV_TYPE_ATS || type == INV_TYPE_ATS_FULL))
-+			WRITE_ONCE(inv->type, INV_TYPE_ATS_BROKEN);
-+	}
-+}
-+
-+/* Find the master by SID and block its ATS at the SMMU */
-+static void arm_smmu_quarantine_ats(struct arm_smmu_device *smmu, u32 stream_id)
-+{
-+	struct arm_smmu_cmd cmd = arm_smmu_make_cmd_op(CMDQ_OP_CFGI_STE);
-+	struct arm_smmu_master_domain *md;
-+	struct arm_smmu_cmdq_batch cmds;
-+	struct arm_smmu_master *master;
-+	struct arm_smmu_invs *invs;
-+	unsigned long flags;
-+	int i;
-+
-+	/*
-+	 * The in-place STE.EATS clear relies on try_cmpxchg64(), which is UB
-+	 * on Non-Cacheable memory. Leave a non-coherent SMMU unquarantined:
-+	 * its invalidations keep issuing ATC_INV and reporting the timeouts.
-+	 */
-+	if (!(smmu->features & ARM_SMMU_FEAT_COHERENCY))
-+		return;
-+
-+	guard(spinlock_irqsave)(&smmu->streams_lock);
-+	master = arm_smmu_find_master(smmu, stream_id);
-+	/*
-+	 * A concurrent hot-unplug can release the master while a stale ATS
-+	 * entry for it still lingers in the invs snapshot being walked here.
-+	 */
-+	if (!master)
-+		return;
-+
-+	/* Clear STE.EATS for every SID and sync to the SMMU */
-+	arm_smmu_cmdq_batch_init_cmd(smmu, &cmds, &cmd);
-+
-+	for (i = 0; i < master->num_streams; i++) {
-+		u32 sid = master->streams[i].id;
-+		struct arm_smmu_ste *ste = arm_smmu_get_step_for_sid(smmu, sid);
-+		__le64 old, new;
-+
-+		/*
-+		 * A concurrent arm_smmu_write_ste() of a domain attachment may
-+		 * overwrite the data[1] and set EATS, which is recoverable by
-+		 * another ATC_INV issued by its arm_smmu_attach_commit().
-+		 */
-+		old = READ_ONCE(ste->data[1]);
-+		do {
-+			new = old & ~cpu_to_le64(STRTAB_STE_1_EATS);
-+		} while (!try_cmpxchg64(&ste->data[1], &old, new));
-+
-+		arm_smmu_cmdq_batch_add_cmd(
-+			smmu, &cmds, arm_smmu_make_cmd_cfgi_ste(sid, true));
-+	}
-+
-+	/*
-+	 * Only proceed to mark the entries broken if the STE.EATS clear above
-+	 * is confirmed; otherwise return so invalidations keep issuing ATC_INV
-+	 * (and re-quarantine) until ATS is actually disabled.
-+	 */
-+	if (arm_smmu_cmdq_batch_submit(smmu, &cmds)) {
-+		dev_err_ratelimited(smmu->dev,
-+				    "failed to disable ATS for master\n");
-+		return;
-+	}
-+
-+	/*
-+	 * Mark this master's ATS entries broken in every domain it is attached,
-+	 * so later invalidations skip the ATC_INV that would time out again.
-+	 */
-+	rcu_read_lock();
-+	spin_lock_irqsave(&master->master_domains_lock, flags);
-+	list_for_each_entry(md, &master->master_domains, master_elm) {
-+		struct arm_smmu_domain *smmu_domain =
-+			to_smmu_domain_devices(md->domain);
-+
-+		if (!smmu_domain)
-+			continue;
-+		invs = rcu_dereference(smmu_domain->invs);
-+		for (i = 0; i < master->num_streams; i++)
-+			arm_smmu_invs_set_ats_broken(invs, smmu,
-+						     master->streams[i].id);
-+	}
-+	spin_unlock_irqrestore(&master->master_domains_lock, flags);
-+	rcu_read_unlock();
-+}
-+
-+/* Re-issue every unique ATS SID in @cmds to identify and quarantine masters. */
-+static void arm_smmu_cmdq_batch_retry(struct arm_smmu_device *smmu,
-+				      struct arm_smmu_cmdq_batch *cmds)
-+{
-+	struct arm_smmu_cmd atc = {};
-+	u32 last_sid = 0;
-+	int nr_sids = 0;
-+	int i;
-+
-+	/*
-+	 * Count unique Stream IDs, taking advantage of the sorted commands. An
-+	 * ATS-capable PCI device rarely has multiple SIDs, so a batch commonly
-+	 * carries a single SID, where a re-issue probe would be pointless.
-+	 */
-+	for (i = 0; i < cmds->num; i++) {
-+		u32 sid;
-+
-+		/* Only ATC_INV commands can time out */
-+		if (FIELD_GET(CMDQ_0_OP, cmds->cmds[i].data[0]) !=
-+		    CMDQ_OP_ATC_INV)
-+			continue;
-+
-+		sid = FIELD_GET(CMDQ_ATC_0_SID, cmds->cmds[i].data[0]);
-+		if (!nr_sids || sid != last_sid) {
-+			nr_sids++;
-+			last_sid = sid;
-+		}
-+	}
-+
-+	/* The timed-out CMD_SYNC already identifies the lone Stream ID */
-+	if (nr_sids == 1) {
-+		arm_smmu_quarantine_ats(smmu, last_sid);
-+		return;
-+	}
-+
-+	for (i = 0; i < cmds->num; i++) {
-+		u32 sid;
-+
-+		if (FIELD_GET(CMDQ_0_OP, cmds->cmds[i].data[0]) !=
-+		    CMDQ_OP_ATC_INV)
-+			continue;
-+
-+		/*
-+		 * One retry per Stream ID. So, only try the first command since
-+		 * commands are sorted. And each dead master costs one CMD_SYNC,
-+		 * bounded by its PCIe Completion Timeout (usually <= 250ms).
-+		 */
-+		sid = FIELD_GET(CMDQ_ATC_0_SID, cmds->cmds[i].data[0]);
-+		if (atc.data[0] &&
-+		    sid == FIELD_GET(CMDQ_ATC_0_SID, atc.data[0]))
-+			continue;
-+
-+		atc = cmds->cmds[i];
-+		if (arm_smmu_cmdq_issue_cmd_p(smmu, &atc, true) == -EIO)
-+			arm_smmu_quarantine_ats(smmu, sid);
-+	}
-+}
-+
- /* IO_PGTABLE API */
- static void arm_smmu_tlb_inv_context(void *cookie)
- {
--- 
-2.43.0
-
+> Thanks
+> Best Regards
+> Hao
+>
+> > +void alloc_tag_trace_mem_alloc(union codetag_ref *ref, struct alloc_ta=
+g *tag,
+> > +                           size_t bytes);
+> > +
+> > +void alloc_tag_trace_mem_free(union codetag_ref *ref, struct alloc_tag=
+ *tag,
+> > +                          size_t bytes);
+> > +
+> > +void __alloc_tag_trace_hit(struct alloc_tag *tag);
+> > +
+> > +static inline void alloc_tag_trace_hit(struct alloc_tag *tag)
+> > +{
+> > +     if (alloc_tag_trace_enabled(tag))
+> > +             __alloc_tag_trace_hit(tag);
+> > +}
+> > +
+> >  bool mem_alloc_profiling_permanently_disabled(void);
+> >
+> >  static inline struct alloc_tag_counters alloc_tag_read(struct alloc_ta=
+g *tag)
+> > @@ -200,8 +221,13 @@ static inline bool alloc_tag_ref_set(union codetag=
+_ref *ref, struct alloc_tag *t
+> >
+> >  static inline void alloc_tag_add(union codetag_ref *ref, struct alloc_=
+tag *tag, size_t bytes)
+> >  {
+> > -     if (likely(alloc_tag_ref_set(ref, tag)))
+> > +     if (likely(alloc_tag_ref_set(ref, tag))) {
+> >               this_cpu_add(tag->counters->bytes, bytes);
+> > +
+> > +             if (alloc_tag_trace_enabled(tag))
+> > +                     /* Trace successful allocs with their unique ref =
+*/
+> > +                     alloc_tag_trace_mem_alloc(ref, tag, bytes);
+> > +     }
+> >  }
+> >
+> >  static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes)
+> > @@ -222,6 +248,10 @@ static inline void alloc_tag_sub(union codetag_ref=
+ *ref, size_t bytes)
+> >       this_cpu_sub(tag->counters->bytes, bytes);
+> >       this_cpu_dec(tag->counters->calls);
+> >
+> > +     if (alloc_tag_trace_enabled(tag))
+> > +             /* Trace frees with their unique ref */
+> > +             alloc_tag_trace_mem_free(ref, tag, bytes);
+> > +
+> >       ref->ct =3D NULL;
+> >  }
+> >
+> > @@ -247,21 +277,24 @@ static inline void alloc_tag_add(union codetag_re=
+f *ref, struct alloc_tag *tag,
+> >  static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes)=
+ {}
+> >  static inline void alloc_tag_set_inaccurate(struct alloc_tag *tag) {}
+> >  static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag) { re=
+turn false; }
+> > +#define alloc_tag_trace_hit(_tag)    /* NOOP */
+> >  #define alloc_tag_record(p)  do {} while (0)
+> >
+> >  #endif /* CONFIG_MEM_ALLOC_PROFILING */
+> >
+> > -#define alloc_hooks_tag(_tag, _do_alloc)                             \
+> > -({                                                                   \
+> > -     typeof(_do_alloc) _res;                                         \
+> > -     if (mem_alloc_profiling_enabled()) {                            \
+> > -             struct alloc_tag * __maybe_unused _old;                 \
+> > -             _old =3D alloc_tag_save(_tag);                           =
+ \
+> > -             _res =3D _do_alloc;                                      =
+ \
+> > -             alloc_tag_restore(_tag, _old);                          \
+> > -     } else                                                          \
+> > -             _res =3D _do_alloc;                                      =
+ \
+> > -     _res;                                                           \
+> > +#define alloc_hooks_tag(_tag, _do_alloc)                              =
+       \
+> > +({                                                                    =
+       \
+> > +     typeof(_do_alloc) _res;                                          =
+       \
+> > +     if (mem_alloc_profiling_enabled()) {                             =
+       \
+> > +             struct alloc_tag * __maybe_unused _old;                  =
+       \
+> > +             /* Fired here to cleanly capture the caller's stack trace=
+ */    \
+> > +             alloc_tag_trace_hit(_tag);                               =
+       \
+> > +             _old =3D alloc_tag_save(_tag);                           =
+         \
+> > +             _res =3D _do_alloc;                                      =
+         \
+> > +             alloc_tag_restore(_tag, _old);                           =
+       \
+> > +     } else                                                           =
+       \
+> > +             _res =3D _do_alloc;                                      =
+         \
+> > +     _res;                                                            =
+       \
+> >  })
+> >
+> >  #define alloc_hooks(_do_alloc)                                        =
+       \
+> > diff --git a/include/trace/events/alloc_tag.h b/include/trace/events/al=
+loc_tag.h
+> > new file mode 100644
+> > index 000000000000..af2182501864
+> > --- /dev/null
+> > +++ b/include/trace/events/alloc_tag.h
+> > @@ -0,0 +1,122 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 */
+> > +#undef TRACE_SYSTEM
+> > +#define TRACE_SYSTEM alloc_tag
+> > +
+> > +#if !defined(_TRACE_ALLOC_TAG_H) || defined(TRACE_HEADER_MULTI_READ)
+> > +#define _TRACE_ALLOC_TAG_H
+> > +
+> > +#include <linux/tracepoint.h>
+> > +
+> > +/*
+> > + * alloc_tag_hit is generated at the exact allocation call site and ca=
+n be
+> > + * used to capture a clean stack trace.
+> > + *
+> > + * To link this stack trace to the actual allocated memory chunk, tool=
+s must
+> > + * correlate this event with the resulting alloc_tag_mem_alloced event=
+. Since
+> > + * multiple threads can hit the same tag simultaneously, tools must ma=
+tch BOTH
+> > + * the `tag` field and the implicitly recorded PID provided by the cor=
+e
+> > + * tracing subsystem.
+> > + */
+> > +TRACE_EVENT(alloc_tag_hit,
+> > +
+> > +     TP_PROTO(struct alloc_tag *tag),
+> > +
+> > +     TP_ARGS(tag),
+> > +
+> > +     TP_STRUCT__entry(
+> > +             __field(struct alloc_tag *, tag)
+> > +             __string(modname, tag->ct.modname ? tag->ct.modname : "NO=
+NE")
+> > +             __string(filename, tag->ct.filename)
+> > +             __string(function, tag->ct.function)
+> > +             __field(unsigned int, lineno)
+> > +     ),
+> > +
+> > +     TP_fast_assign(
+> > +             __entry->tag =3D tag;
+> > +             __assign_str(modname);
+> > +             __assign_str(filename);
+> > +             __assign_str(function);
+> > +             __entry->lineno =3D tag->ct.lineno;
+> > +     ),
+> > +
+> > +     TP_printk("tag %p, module: %s, filename: %s, function %s, lineno =
+%u",
+> > +             __entry->tag,
+> > +             __get_str(modname),
+> > +             __get_str(filename),
+> > +             __get_str(function),
+> > +             __entry->lineno
+> > +     )
+> > +);
+> > +
+> > +/*
+> > + * alloc_tag_mem_alloced is generated after memory is successfully all=
+ocated.
+> > + * It captures the exact byte size.
+> > + *
+> > + * The `ref` pointer identifies the memory chunk for tracking its life=
+cycle
+> > + * (e.g., matching it with alloc_tag_mem_freed).
+> > + *
+> > + * Because the kernel isolates active allocations within the task stru=
+ct
+> > + * (current->alloc_tag), this even will always share the same implicit=
+ PID as
+> > + * its corresponding alloc_tag_hit event. Tools should use the combina=
+tion
+> > + * PID + `tag` to correlate them.
+> > + */
+> > +TRACE_EVENT(alloc_tag_mem_alloced,
+> > +
+> > +     TP_PROTO(union codetag_ref *ref, struct alloc_tag *tag, size_t by=
+tes),
+> > +
+> > +     TP_ARGS(ref, tag, bytes),
+> > +
+> > +     TP_STRUCT__entry(
+> > +             __field(union codetag_ref *, ref)
+> > +             __field(struct alloc_tag *, tag)
+> > +             __field(size_t, bytes)
+> > +     ),
+> > +
+> > +     TP_fast_assign(
+> > +             __entry->ref =3D ref;
+> > +             __entry->tag =3D tag;
+> > +             __entry->bytes =3D bytes;
+> > +     ),
+> > +
+> > +     TP_printk("reference %p, tag %p, bytes %zu",
+> > +             __entry->ref,
+> > +             __entry->tag,
+> > +             __entry->bytes
+> > +     )
+> > +);
+> > +
+> > +/*
+> > + * alloc_tag_mem_freed event is generated immediately before memory is
+> > + * freed. The `ref` pointer matches the one emitted during allocation,
+> > + * allowing tools to match it to it's corresponding allocation and
+> > + * call stack.
+> > + */
+> > +TRACE_EVENT(alloc_tag_mem_freed,
+> > +
+> > +     TP_PROTO(union codetag_ref *ref, struct alloc_tag *tag, size_t by=
+tes),
+> > +
+> > +     TP_ARGS(ref, tag, bytes),
+> > +
+> > +     TP_STRUCT__entry(
+> > +             __field(union codetag_ref *, ref)
+> > +             __field(struct alloc_tag *, tag)
+> > +             __field(size_t, bytes)
+> > +     ),
+> > +
+> > +     TP_fast_assign(
+> > +             __entry->ref =3D ref;
+> > +             __entry->tag =3D tag;
+> > +             __entry->bytes =3D bytes;
+> > +     ),
+> > +
+> > +     TP_printk("reference %p, tag %p, bytes %zu",
+> > +             __entry->ref,
+> > +             __entry->tag,
+> > +             __entry->bytes
+> > +     )
+> > +);
+> > +
+> > +#endif /* _TRACE_ALLOC_TAG_H */
+> > +
+> > +/* This part must be outside protection */
+> > +#include <trace/define_trace.h>
+> > diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> > index f30ef8dd24c7..a5339767efd5 100644
+> > --- a/mm/alloc_tag.c
+> > +++ b/mm/alloc_tag.c
+> > @@ -19,6 +19,9 @@
+> >  #include <linux/kmemleak.h>
+> >  #include <uapi/linux/alloc_tag.h>
+> >
+> > +#define CREATE_TRACE_POINTS
+> > +#include <trace/events/alloc_tag.h>
+> > +
+> >  #include "internal.h"
+> >  #include "page_alloc.h"
+> >
+> > @@ -55,6 +58,9 @@ EXPORT_SYMBOL(mem_alloc_profiling_key);
+> >
+> >  DEFINE_STATIC_KEY_FALSE(mem_profiling_compressed);
+> >
+> > +DEFINE_STATIC_KEY_FALSE(alloc_tag_trace_key);
+> > +EXPORT_SYMBOL(alloc_tag_trace_key);
+> > +
+> >  struct alloc_tag_kernel_section kernel_tags =3D { NULL, 0 };
+> >  unsigned long alloc_tag_ref_mask;
+> >  int alloc_tag_ref_offs;
+> > @@ -485,6 +491,28 @@ static const struct proc_ops allocinfo_proc_ops =
+=3D {
+> >  #endif
+> >  };
+> >
+> > +void __alloc_tag_trace_hit(struct alloc_tag *tag)
+> > +{
+> > +     if (unlikely(!tag))
+> > +             return;
+> > +     trace_alloc_tag_hit(tag);
+> > +}
+> > +EXPORT_SYMBOL(__alloc_tag_trace_hit);
+> > +
+> > +void alloc_tag_trace_mem_alloc(union codetag_ref *ref, struct alloc_ta=
+g *tag,
+> > +                           size_t bytes)
+> > +{
+> > +     trace_alloc_tag_mem_alloced(ref, tag, bytes);
+> > +}
+> > +EXPORT_SYMBOL(alloc_tag_trace_mem_alloc);
+> > +
+> > +void alloc_tag_trace_mem_free(union codetag_ref *ref, struct alloc_tag=
+ *tag,
+> > +                          size_t bytes)
+> > +{
+> > +     trace_alloc_tag_mem_freed(ref, tag, bytes);
+> > +}
+> > +EXPORT_SYMBOL(alloc_tag_trace_mem_free);
+> > +
+> >  size_t alloc_tag_top_users(struct codetag_bytes *tags, size_t count, b=
+ool can_sleep)
+> >  {
+> >       struct codetag_iterator iter;
