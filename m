@@ -1,212 +1,139 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013002.outbound.protection.outlook.com [40.107.162.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE573D9029
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:36:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790181379; cv=fail; b=kiZT+NSbJ88RgUDQd1nBJOFTYiHyqLNNK6j8Lu+G6ITqI9lfBHOt12JXnGHwL0KjZSbonAEdJZLjy59c2yd+FecI5/XVPtqzBEwFbOqwK5cNu3ZAoKC7jqIulRUlQEbu/bMNjAaUVrlVZN0Jrmq9mI7MPAsa+lDJuNHkRToR56s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790181379; c=relaxed/simple;
-	bh=Wsp4dq78nJHFZxl57iXIYYNwoVypMX1h8l2m1bxhkq8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=aRdveCBrlAR1mg9JF8UDc7DUVID+wrXgXqOiwVegqNkBg4Yd2K0MaRwri5Ikzi5cISddX3L9C0orzR9FNZHodLmow43/RD1k+mKZ/81j9z8Huren3czTwOLTVnULtcGs0eYJyKaHxPRZ8PoWe3dGsqjfzBvRYAUAPJ2THz/nawU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=DjLyjlhD; arc=fail smtp.client-ip=40.107.162.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16F884078EC
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:36:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790181391; cv=none; b=shtglnTsidbfcyYgMoT0pMR3lWyq/rr0EYMHO2xa/1frYOWYd8n7imMr/Ldb3a42Vx7Kdkd+qqIYiF72HTGIwHY2so9r9VTek89oUtvY0pWywa0j4caGO+DjsF/Fu/XPx+Xg32DLF3IE8IcDvkfxwH4dENfnKH23Rd/akqj81Q4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790181391; c=relaxed/simple;
+	bh=HyMlUX/W9HvvI5kZhh4XgDfUUhUda5AirsyOm9dGlUM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ue7cLrgkSPxWKF3aSSXLSdQhOxQTHuRu9EXZ+N8WIP/lwkqnQlEKx20ai+DgZGSHGtRN0j1S8GJvuOMZIIMkps2RJXaIv/szPssb6VU5HiyLE78JmzNT/PxZpP6cuPZLVpyiqgshiaUmJe4vcMgUNV3qmxL7XRphQVgQ6OOn6tI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev; spf=none smtp.mailfrom=northecho.dev; dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b=QhKCS5ty; arc=none smtp.client-ip=74.125.224.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=northecho.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=northecho.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="DjLyjlhD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AT5wGHRT6b1xP4qH+zdyspI/RWyEbt3QGti+dUNPypXLUTFGMlNmMWDWICXqb26lzb2sxBgNWllevwUqBD7WIJB0dwJc0yoyOEBqeJsNDrTmiYqXz2q+RBfWrud0ldan2NUSvrxzIhbG733iRYG90Hrz0SrB8X3hoP6XCQG5ESvWI01IC+c9TPbjGAQoGZ0oTpU+7/iDrp6emVqoD8miSVvckHUxerniRtu/VTUkJRdblTvsYGE7bqi8oPs2cr3nqJ170FXHfJXqybofiRzDRUQf4p2E6RXlYwg6YvldWltTfZWG9Q5tN4C4iMTHUc8lgG13IjOIU+OGlGAJWJfd/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n28+ha5zJZebYhyo/KSxV6PcfEI00ANTl9R3+6sIKB4=;
- b=asXTGlOFsPtu+S4Z0c8mWexBakJFkgCOfY0msLbZhJX+wF+lcIQjR97qSXSxlR52rc8KTcMJqjZ03jQU/FQpbJwZPmy8vDDyCSpE6uKOJRlimcgUVlLZ3JB7azzGbDk3k2tL7IuZagmG4KlDl9qVuvn50ZALHSsht3AOp6adrWJ3QIK3eBNQ1IO9cAzJv0yW5iaaD/n4k49VAoU84WN8Q8Ql7cf6eZITm99CwRM5LuisyaBmUr/DTu5R5nLfXnMgsI9Jn36TrefY9UJyoClyHg1Oj5mcWy5YXAzAdQHCrTT91/iSw3ztgVQPbfdB8cCV1d3X4pnGiGCV1Wv3z6h2Fw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n28+ha5zJZebYhyo/KSxV6PcfEI00ANTl9R3+6sIKB4=;
- b=DjLyjlhDu8HVkMq0e36hR5tQgk77NLanKlayYuGOcYRD6BPgDJy02BthFE5vcjTBErmO/V8E/sZWrxj/dLeYoUeRiko0GZlTd7OakpqGU0eom5k79w/Xwlps/dNUiegHhDdjg2WEtuB7fNviaHuIEXs4/HzzbNe2tic48kIzYgXK45eCzv5uA0Jr4nDlR5G9RipuYn66/JC79yADtRMjqgwSU+xTGjj6JjbvddR4tvN3QQGOq0ZzcG9/QdwFGjU6L/pgAGk/o0NTWLhW4kLs2W91osJtb48q7mT0u8QM2x2yAXqQ+dU7sh9YVF/ZRe8vO0EXm3vHOSvNcebWeZi30Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA1PR04MB10503.eurprd04.prod.outlook.com (2603:10a6:102:446::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 16:36:08 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
- 16:36:08 +0000
-Date: Wed, 23 Sep 2026 12:36:01 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, linux-i3c@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=northecho-dev.20251104.gappssmtp.com header.i=@northecho-dev.20251104.gappssmtp.com header.b="QhKCS5ty"
+Received: by mail-yx2-f43.google.com with SMTP id 00721157ae682-859023466e6so1166467b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:36:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=northecho-dev.20251104.gappssmtp.com; s=20251104; t=1790181379; x=1790786179; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K8ztzFzESiCouCMaYiUr65tJ28qhpNA5LSgzOI3RJSU=;
+        b=QhKCS5tyYcQwxn+dfVzq7sGjioWxu2ybxkIxfXdUJioJuhAMZeBkge8rawr/9F1xVM
+         7MAZxqAeIh6t3tie7645xAt1j92seJBopW5YOwg/5lJO4678Rq8RFdNc2e0vZZWDS+do
+         zYX/AR7TkonFvYJJ8vqbmbSOjWgIkL7JU+obB7deYyCg5dDaamUeQaCFsrRmIG/RTIdK
+         ZabJksbPlhdJ+HNZ8llKwuzIWl8O6g22HgBZEaO5CQze4ET7W3XxKzdjmp/neb0Zd1R3
+         nKae+V5+1/wgR29z9OgCeCYvsm4gSh2edqqR4a7hkS0r5x6WcID6rCu6Jz4743shyUzO
+         r1mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790181379; x=1790786179;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K8ztzFzESiCouCMaYiUr65tJ28qhpNA5LSgzOI3RJSU=;
+        b=Cx+7dAvwMvU4pVxq0WfKoVKyNvcyaj+EE32DMWVOdRMshpGkTlfrkPiLhx9zV2/9eK
+         Ftsx2pFklH1xeARHo4LrcfX+PF6O/iltRGE52jvG+WD3Gay+9RnZmVgkugaDud5U5LrL
+         KZLSqcrG2N11gEuVMaTZMvzq7zGxlUHqs7R/ZzDgaDaZzjYXBG1Aoh9G5aKVDh6Ad3Er
+         S5IeqNcfCmoz0YDhwZ4v5/2AdcMDOvRg3NeTHwx09tBW1uPZ1JgxQrBejS2bTdOnDEZ1
+         mywu9NrytWClQGWa3RXEFiEZjP/r+7tDzidAhnYZiAA2d5AEwpeDchFcV7RBN1HmivmM
+         2c3g==
+X-Forwarded-Encrypted: i=1; AKwUvByBwssxPT2pRelWSZf2+LSvUOJSWRxvryvLKypWmnRDNKFJ1nNI9qSoOrqC0bXuRU/Kel6fIVFPGfHBIT0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFl34v/neRsnG5o08ZPaDVxBpL4XX0DtjZ0TJAFTs/r0mpdfo6
+	ixfbt/42OlsJA61ouEJ8DybXcu7AjEhBmxuy65ZY3MjLCg8yqEivUEz2ySxDPsDgfQPj
+X-Gm-Gg: AYBFou1Xdt+WmnYS+i8719JeJR1z/bzygNBoKM3wDJnTkdJZyYfW4EQFUNpGIYxu5PY
+	K1W23qh/b8qhdqk3UtvGacF4yjOVmRIp/6FPYKTLHmtxTufsN5b0zyrteEJg7EOKCjzBYGsUuTB
+	7Bztz0roCbB6ltuWbcNNNi0FAbMDgKTC/25QzMGwv+vKcVhk4ZRKUzAu6Eb9n1DqW4ZPAd2nama
+	WzBbjrRRsxYZz8Ei0mg7nA+qwGTwlNqvqzyHz8uhznQj4Ozfj1PSGXP1i4k27QArErroE3r0Ggs
+	pA4mWEFYGskyi55sffyftsEo10FXURH2Skl1PsMmOG4r3IhpBe2xeq23tJd0blJoSSgqntHmvJ6
+	6dL6NdD23Crtkwfeej/98bTHknBb8U2kIgMjY8Xc8U0ekEVqoc7QKQa2HTs7eoMm7FJpDM1BRzv
+	eVrcEQPLvcEzgEhWeEbPQhCODJWuhKnYXECpZePxFy24lYvVm57tvZQWh81B/eTBV455c7ATbCS
+	xnMe7VrAVtR8Ynh5P5FajHv43gOgsYNA2E5zA0=
+X-Received: by 2002:a05:690c:6b13:b0:862:bb29:a715 with SMTP id 00721157ae682-8a45bb793d0mr35516137b3.3.1790181379194;
+        Wed, 23 Sep 2026 09:36:19 -0700 (PDT)
+Received: from kelso (99-10-92-174.lightspeed.rlghnc.sbcglobal.net. [99.10.92.174])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a4658c9778sm12709257b3.8.2026.09.23.09.36.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 09:36:18 -0700 (PDT)
+From: Christopher Lusk <clusk@northecho.dev>
+To: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <shuah@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-security-module@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i3c: master: use named initializers for acpi_device_id
-Message-ID: <arP_8VZZZq9yHyt2@lizhi-Precision-Tower-5810>
-References: <20260923-acpi-i3c-v1-1-2e78ebef251e@thegoodpenguin.co.uk>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923-acpi-i3c-v1-1-2e78ebef251e@thegoodpenguin.co.uk>
-X-ClientProxiedBy: CYZPR17CA0022.namprd17.prod.outlook.com
- (2603:10b6:930:8c::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+Subject: [PATCH v3 1/2] docs: landlock: clarify TTY signal scoping
+Date: Wed, 23 Sep 2026 12:33:20 -0400
+Message-ID: <20260923163321.79770-2-clusk@northecho.dev>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260923163321.79770-1-clusk@northecho.dev>
+References: <20260923163321.79770-1-clusk@northecho.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB10503:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1fe04340-3bae-40a9-1b53-08df1990c4de
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|19092799006|6133799003|22082099003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	SQyGiJXfzSPRsG9ej21OB5JvvF1Y+gt7MhYF5vUgW5MhjnXYDizmUPcKb8YQMeNAQ0hlykAwLIudifNW1OAz3+K4RK6IL8S5rkv24GHdRcCeT0o3eSZD6/tO0dBm0oBEj3mgrlL4ptMEznlThPhnKBEgjuLUATQfwRFx7JXVo64QDoB1wQdCHJzarvr7emRIQyGPoXwFPcfheogwOIJDEKyJws/3ynvl98rVPqp0iIGuLSfJGphYjSESmYM1dokvW+SEzFSQGuW99G90rPDxQp7lNqHUFPj37AIx+rpE0YvFoqTOowJPAR3SaIcF9s7gZtoI0TxM1SUsTnbMJ1cYNOsvys9rzEANaoQXKet3B0UV9uPc5uqGmmrq8YX03Kt5q2wxo5CQYXk9e75YVA8ndVIjO5WEVjy3vr3nEL5AFfyJS3LaUckaNnrKgD/iPft+M77NbC94CKpwaTSjwbfiHCW8jcmy2j1K0CNBGn9uNDqJLtK+c5LdStuHQRxXy/xSAQ7QvPKqlemtzkizKp41tE7L3lDaGOyvrG+jDfMRMvhp2QkanxDNfNhAyp/fnbB+DSMQKMLOy1xt6V9uuzH+OjtvzqH7ta6DblgdObffCZVTHfrC+1xyA+Do30W6xdGM4fEyg0yElV0ufhJy7GECrM+0ahLVSMK9qpmoxrUx55o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(19092799006)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?TCfsZdgLHZr2Q4MTDUGbeq9PYfVDI/5qADefX1E+rtEig0b+G0w6BB9AVfY4?=
- =?us-ascii?Q?FTT0PO2+R7e5WM2CVyX+6uBX8MxW9QlEbztrwkKS0z0QwGNLicHCdUjdRrM2?=
- =?us-ascii?Q?F2lvltNs+r+P25jS/ThB0/1Ml6rQyU2ligCR55mOltPib6zV9W+Wj3Dh/v/d?=
- =?us-ascii?Q?VRqr+0kJarNVjaWtI/oaEqMO57WpWUbHwxr2W4gRzkcUUmMsnODmwg7/YQcc?=
- =?us-ascii?Q?w/tekXoqZTeQtUQGUF83LvKqIj/yJvp3ntcLIamT6LgVL73vqiDhIXW7FZqn?=
- =?us-ascii?Q?az+WznZqRe5bbNhj3WJM8WiGyIUeo19/Mq5U7CcuMc+99J5oYVFP9cFY/QZj?=
- =?us-ascii?Q?GVUkWIgPgHVtWqLnmbW3/TJbuPXZQSHgQglDLTHhlH0o0a/C2/bw4QkD8RCK?=
- =?us-ascii?Q?8bjlHWY7f/uNwLJW8RZlcKgl0kyd8cd14U2QG8hpprUhDv0rnr9JqPHOd6oP?=
- =?us-ascii?Q?TJL0G18oLtDd0sIsr2ST2ordOpLql42sSZ53gZ6vx/KDTXoP77cKQeSXRHYU?=
- =?us-ascii?Q?Tp5BwG+CQIAYH1QD8psQ+QMf44l2rTak4jky9EkIMWtkFRPg2duKepNeOJWr?=
- =?us-ascii?Q?i68lgKIhph9D53YH+73SSj0fVo2Nr3XnrLykiK+FJtfFtS5zIOMgW0a3U7tc?=
- =?us-ascii?Q?+iQ1WFGazH5KpeEcmlQADHIwJVvZ31zTYOfwjWFypz2SjBb6wcPbhCvQnfUK?=
- =?us-ascii?Q?HzUrKjzIItLW2YNv8XqdeOSc2fHzF2Es1zdpKqPQzDZoolCefX8hLadhm5Jq?=
- =?us-ascii?Q?80Yq084XompISZd5H4fyHW28l/OtXPkJblz5I2g6cPxqStrnxzjdFoVj+p0n?=
- =?us-ascii?Q?Y3VGbskJrbRs9NStDmWzBw7iqwDhk5mrlAyCbeLKR3EJ3jwhxFYBmbj+tFp5?=
- =?us-ascii?Q?1gvgw2GHSbAEm9EW83bxnIv3QnV20Lpoj2xaGfWfKUw1nJvw1N8pJL+xdg9O?=
- =?us-ascii?Q?v2oWBjo3XpeOOq+aOA7gKh8rOKq7noiOpdT99zEG0duoNRWCZv92gga1pSwB?=
- =?us-ascii?Q?lp4upp9pVUpECg0/99iRLltSeOIiWI7tcQwq3xqGTPiMhudaayQa1F4Sd4Ky?=
- =?us-ascii?Q?CVe4Q/jPeEowKD5j3Md2Sga81QV6lKeTEu4ovUH+Fo9RBnfU74oSTmI8zG//?=
- =?us-ascii?Q?uZ5JcHGAmdQ+WfRM3j5uiLfbZiC7ncCAevpjDp9qmWOW64vbK3XNJz06XGqe?=
- =?us-ascii?Q?AT4dMJFBpeizxeVfWx38YJkWSQyOe2/szVPHbbc9b6vLJFfFy0LrJ8sqkcde?=
- =?us-ascii?Q?UKbfBMWF+nWXNCuSbRFfDRAV4uqk+nUmWC8/4/V2TYnjtb7BKkxKyVvtayL7?=
- =?us-ascii?Q?3gB0gN3VOvO0O5Yoise7xorNTStha0e5+hYu6/BjwHMbuhHgKynKDeJajlBf?=
- =?us-ascii?Q?kSEiYxrfs9eFVjIIIv6ADdR9IKjTXIo352xIjaoqw25hIBT6xQqbH/uBsE+Q?=
- =?us-ascii?Q?qDWHf0s1NbWAL5zKEgczOjjTUEQjF3T5jrB9MKEgCIFRQSa/dyqO9T8XUA4s?=
- =?us-ascii?Q?UuScZaU326112k6lR4GpjzENye7I1g8QitdmZRUZhq7KY16DEnKkgcUAxfAP?=
- =?us-ascii?Q?8R+P3Wo0gefCKwLf1CajV6AE3IgOUiGtZnJy+JONngOerebNIUYr8TpUketZ?=
- =?us-ascii?Q?muUCKPArEWv2KK0AgrUQAv4mNyqSbO+j46yf+rk1ERgP3ojbV0B9mVjCYUJt?=
- =?us-ascii?Q?rsE+zFhFXXFh0pnnYQSS1lnuDkuPkVeLsQ0lthFQWxmDeL6FE14CiwjWG12d?=
- =?us-ascii?Q?9lAIHGTQP5SduOwmKsCwf+h8F2+38gNFRXT21OIAF7bQOQFH04B0?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1fe04340-3bae-40a9-1b53-08df1990c4de
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 16:36:08.1001
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8bEkNqwU8FQk99979qxC+W1xIZuk2xxqLwNqdFU664IKyq3NdaX7dNC+FYjDRPjCcHl1i29qAgZV2QF2OeoVgaNW6tZ5ztCTYMNTdlisXwmTTizjIeWmTXRMaQ8QHAAo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10503
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 04:47:05PM +0100, Pawel Zalewski wrote:
-> Use a designated initializer for the acpi_device_id fields which makes the
-> code more readable and consistent with how lists are initialized in the
-> rest of the kernel code base.
->
-> Unify the list terminator to have a single space between the brackets and
-> no trailing comma.
->
-> Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-> ---
+LANDLOCK_SCOPE_SIGNAL limits signals sent to arbitrary processes outside
+a domain.  A PTY master differs because its holder controls attached
+processes through input and signal injection.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Clarify this boundary in the userspace guide and narrow the UAPI
+description to arbitrary target processes.
 
-> This series is converting lists that contain the acpi_device_id struct,
-> which is defined in the include/linux/device-id/acpi.h to make use of named
-> initializers (which they do not use currently). This work is part of the on
-> going effort in the kernel associated with device-ids [1]
->
-> The plan is to convert acpi_device_id::driver_data to have an anonymous
-> union, similarly to what was introduced for PCI and I2C device ID tables.
-> The goal is to increase type-safety (most of the existing casts are gone),
-> to improve readability and to make use intent a bit more clear:
->
-> ```
-> union {
-> 	kernel_ulong_t driver_data;
-> 	const void *driver_data_ptr;
-> }
-> ```
->
-> But for that to work all lists containing the structs need to use named
-> initializers first to avoid triggering -Wmissing-braces. I already have
-> patches that implement this and touching a lot of kernel subsystmes that
-> use the acpi_device_id struct and that list keeps on growing. Therefore,
-> I have decided to split the series per every subsystem into:
-> - pre-clean-ups that convert the lists to use named initializers
->   (which is this series)
-> - actual implementations that make some of the modules use the new
->   driver_data_ptr member
->
-> That way the task can be fragmented into manageable and independent chunks
-> of work and makes this effort easier to review.
->
-> Tested builds on x86-64 and a64 in Yocto using 7.3-rc4.
->
-> [1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
-> ---
->  drivers/i3c/master/dw-i3c-master.c     | 4 ++--
->  drivers/i3c/master/mipi-i3c-hci/core.c | 6 ++++--
->  2 files changed, 6 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-> index 4563d8761ba0..05584ddaf104 100644
-> --- a/drivers/i3c/master/dw-i3c-master.c
-> +++ b/drivers/i3c/master/dw-i3c-master.c
-> @@ -1934,8 +1934,8 @@ static const struct of_device_id dw_i3c_master_of_match[] = {
->  MODULE_DEVICE_TABLE(of, dw_i3c_master_of_match);
->
->  static const struct acpi_device_id dw_i3c_master_acpi_match[] = {
-> -	{ "AMDI0015", AMD_I3C_OD_PP_TIMING },
-> -	{ "NVDA2018", DW_I3C_ACPI_SKIP_CLK_RST },
-> +	{ .id = "AMDI0015", .driver_data = AMD_I3C_OD_PP_TIMING },
-> +	{ .id = "NVDA2018", .driver_data = DW_I3C_ACPI_SKIP_CLK_RST },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(acpi, dw_i3c_master_acpi_match);
-> diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
-> index dadf049bd4b5..5b8d84d0106e 100644
-> --- a/drivers/i3c/master/mipi-i3c-hci/core.c
-> +++ b/drivers/i3c/master/mipi-i3c-hci/core.c
-> @@ -1205,8 +1205,10 @@ static const __maybe_unused struct of_device_id i3c_hci_of_match[] = {
->  MODULE_DEVICE_TABLE(of, i3c_hci_of_match);
->
->  static const struct acpi_device_id i3c_hci_acpi_match[] = {
-> -	{ "AMDI5017", HCI_QUIRK_PIO_MODE | HCI_QUIRK_OD_PP_TIMING | HCI_QUIRK_RESP_BUF_THLD },
-> -	{}
-> +	{ .id = "AMDI5017",
-> +	  .driver_data = HCI_QUIRK_PIO_MODE | HCI_QUIRK_OD_PP_TIMING |
-> +					 HCI_QUIRK_RESP_BUF_THLD },
-> +	{ }
->  };
->  MODULE_DEVICE_TABLE(acpi, i3c_hci_acpi_match);
->
->
-> ---
-> base-commit: fe2ec83746e501645709761605c2464a44fd2929
-> change-id: 20260923-acpi-i3c-4cc518a8e77b
->
-> Best regards,
-> --
-> Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
->
+Built the userspace-api docs; no new warnings.
+
+Link: https://lore.kernel.org/r/20260916152336.1589383-1-clusk@northecho.dev
+Suggested-by: Günther Noack <gnoack@google.com>
+Suggested-by: Mickaël Salaün <mic@digikod.net>
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+---
+ Documentation/userspace-api/landlock.rst | 6 ++++++
+ include/uapi/linux/landlock.h            | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
+index 84cb7bf6b3ed..4d9fb1f1588c 100644
+--- a/Documentation/userspace-api/landlock.rst
++++ b/Documentation/userspace-api/landlock.rst
+@@ -430,6 +430,12 @@ The operations which can be scoped are:
+     This limits the sending of signals to target processes which run within the
+     same or a nested Landlock domain.
+ 
++    Holding a PTY master FD grants control over the processes running under that
++    terminal, including the ability to inject input and signals.  A process able
++    to write to the master should therefore be considered as privileged as those
++    processes, and this capability is not restricted by
++    ``LANDLOCK_SCOPE_SIGNAL``.
++
+ ``LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET``
+     This limits the set of abstract :manpage:`unix(7)` sockets to which we can
+     :manpage:`connect(2)` to socket addresses which were created by a process in
+diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
+index cceda3b3b961..ad7b1ebd62ed 100644
+--- a/include/uapi/linux/landlock.h
++++ b/include/uapi/linux/landlock.h
+@@ -500,7 +500,7 @@ struct landlock_net_port_attr {
+  *   connecting to an abstract UNIX socket created by a process outside the
+  *   related Landlock domain (e.g., a parent domain or a non-sandboxed process).
+  * - %LANDLOCK_SCOPE_SIGNAL: Restrict a sandboxed process from sending a signal
+- *   to another process outside the domain.
++ *   to an arbitrary process outside the domain.
+  */
+ /* clang-format off */
+ #define LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET		(1ULL << 0)
+-- 
+2.55.0
+
