@@ -1,301 +1,282 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44E554856A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:39:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385C949EC4C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:39:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188751; cv=none; b=A/Dfjgp2drYup/kNgcvLWiQiFwflHyF/dAvVOmcZPdmHhoGQx82zPcJZaHUAWmOWVCbuQLFWrCl2x11GTKX66xV+Sb78kVDUG5IXetll/PAjhYVOYmBBub2DSbgymuyVqLj6HHTu7fwxu5KN+lDb5gFSVGzmSt6nucupD60uRBk=
+	t=1790188758; cv=none; b=ew5NQwyRb/N2Xc9qRqp72GwryJZE6ZL3EHsdGhJRLgFyio8DoLZabQS+iuix1dgvKh3vLdh53HgLdNRcDoEDxDZmpxFjEgT9FJp+va7Inryri8z334jhqjxtFPOFFc4i3ir/DTIDmvUTQY1vNTVc+09ap6ND3B5iBbPBy0xWMZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188751; c=relaxed/simple;
-	bh=kutqiqSsu23x5F7im6+hlma0g1ONH2fG+mGqwBNcC/o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GG1fXiLYXzF6kqu4bx8+y6srjrJOmeKknsYmK/giYCJFlU08DQ3IibIBcMsJ2+nhYIYcm/CtzuxxpIwtNJytXpLDjfIcPhE0vBBDs411wpfXAiYbIXZ0uLgO2T5bmKo/Fsb5YcKCNzZ0E/bDVVqk6zlP6VhkYBmNo5FwXBCzCgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=VV7U2RDY; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=iUaYymco; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=m0WtN9eO; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Uf0dXioQ; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1790188758; c=relaxed/simple;
+	bh=GrDNSSO0nvFb2unWTPFRpJmvnJFmkqSGVidtNmo3vmw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gTTJG+zm4OF3YurQg+6mtocwslVEYORt47DPfBVs2OYasJphcosktR65KpGh3RGFftG6TiGp/gEUcfkUz5uP9nBff5QTmrZajiMnY22kMYxK82x1VhCIchxjovG+kAPt27lDQSg0QgH3nLveh6uB/zJ93s9rzjBmwpea5lIdGxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i5qoEp5E; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="VV7U2RDY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="iUaYymco";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="m0WtN9eO";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Uf0dXioQ"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4988321BEB;
-	Wed, 23 Sep 2026 18:38:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790188742; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ii8zjXOvCjg0J/8vHyFLQds1UkGP0eIpuGSI1vhp13w=;
-	b=VV7U2RDYE9fAwwu+wi5FGZL+QFvYtgIxVUy0+ci8xo2V5KPcU+rVbwevpnI51wMywOZowK
-	BjDDLI5lKHPiUOUknD15tn2++SDh3TpCyO4scnWVFy30GB1NM2tvCVDQ/8uUGiDBYSOfYY
-	4zZcXpoaYQCQzPeW8q5SyJZa04O3jt8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790188742;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ii8zjXOvCjg0J/8vHyFLQds1UkGP0eIpuGSI1vhp13w=;
-	b=iUaYymcoZLIrJmEFe6r4WODrZoTVe3fgUBcSqRg4yCweDi3oaFHUBweFJDI09+AXxR2uOq
-	7j1lHD3L9azqPbBQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1790188738; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ii8zjXOvCjg0J/8vHyFLQds1UkGP0eIpuGSI1vhp13w=;
-	b=m0WtN9eO6qq03zUsVRJESmQifaCv53PIilcQSeItrlnilO9h0A+fEi8v9BuKjV9cqiPARy
-	uhRvgCSceLTrsTxLNbzQy2BK4tKGas1BIbVHPAn8mLAik3IUdVI8key6Rt5Tlhbv7VrOVU
-	0J1k8bd9Gu2Wz/Gx/fYDAQzUma6mO30=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1790188738;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ii8zjXOvCjg0J/8vHyFLQds1UkGP0eIpuGSI1vhp13w=;
-	b=Uf0dXioQesj0Eoa9OYfB/swSAQKr1824vXldB0DBDuRdUH01fKxSrD9f6DL1CxOJpxQHkE
-	HoSBbL9N5GUhxOAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 20912134E8;
-	Wed, 23 Sep 2026 18:38:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 3snAN8ActGrwdQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Wed, 23 Sep 2026 18:38:57 +0000
-Date: Wed, 23 Sep 2026 19:38:55 +0100
-From: Pedro Falcato <pfalcato@suse.de>
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, 
-	Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	x86@kernel.org, "H . Peter Anvin" <hpa@zytor.com>, 
-	Mike Rapoport <rppt@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Toshi Kani <toshi.kani@hpe.com>, linux-mm@kvack.org, regressions@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] x86/mm: avoid a reclaiming allocation in
- pud_free_pmd_page()
-Message-ID: <arQbFrGiilXn7ABD@pedro-suse.lan>
-References: <20260916062222.27347-1-mikhail.v.gavrilov@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i5qoEp5E"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso8186675ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:39:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790188755; x=1790793555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8VWM3B8ZR2suQS0fAZFWbkbtS6he0VILtB/lGED1UXs=;
+        b=i5qoEp5ELH292yx17My+lOGlk37sxh+HtVyZSCsfwPkGmbzOYfbxcB2Wel5I/BWwP0
+         L6Qp4LINKRVlG0puGVQkIBp6YWnF6uwnvL86yrZrSWTaLnl8omE1PaLWoTH1qbnKQ353
+         kQE3cmjssXjMJukAGHciLZd2ICkqFHmMcCGvdoyye9c/4CZNruJbKp3JgG8FMGeGfJGa
+         AOQtvHTJR6xQVDJY+mPXGLQAEELrGsvTfPdjIFOzDTkVAzBMrn6z9PD95iYuhqf9lPnN
+         6WEUONWmHvRQ69cg/GQTv2B/ijW6ozYyQ2ajDWeqze//gs9En0PEcKO7xPP+7bDBP9aa
+         yf/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790188755; x=1790793555;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8VWM3B8ZR2suQS0fAZFWbkbtS6he0VILtB/lGED1UXs=;
+        b=2fSPTaK2f+lS0uq4HIcgWC+JNNLOOuM01akMqFGSMS2gPobiw44rAIEPhOS436a/hn
+         f6dVPtyKj6VRAcR6Nk8eM/YQNMcImhR6DEb1jX/vdpNHmf+ed1SKk/ZIU+H25oIHomxL
+         yP4ed59R4a+kOFwmtbpfRbMJklh3IL/nuh0CfWz+cUZiPYhuiVEKZL1tPLuzYQcqALEt
+         eEaNW3lfx+Wz+J110aKPSvCVDvoBhlay6d9SbKtbAe9AELImy1xXOnSNls3RkmtIPkzu
+         rNuG64DyZEgEslitDxX9reNCDVn7cus+6iy895aNOoI0JShLsAnN/02LJheYuUqdx3s+
+         lIkw==
+X-Forwarded-Encrypted: i=1; AKwUvBx943XakSYpmjZY2rZrCPYKXbE9QX1iK9nCOAcTPyDMyw2CmxK5YGBfiWGRvHecC2X7OU9je1pwP8Hx2+k=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXqqBUqWe4wu9uau3WQ78IQDLh6jF4URP9bgcg/cjsjTAvFP8p
+	KnKR+AJQr/XKZZJwoYtimOJjM7Qjms7LsUXw4alKkxeZS1avJvWeJwjU
+X-Gm-Gg: AYBFou0eIpQUIA5rXdmZg9L67E4VO7LxxPa1swoMkw033CigJAm4RfpOKwlUxhyfSOQ
+	JnTPSzGyUdVYQhnTUh9wzVw5AI4kUbOOjQsxLM2aVTqx36rVGhDrAx2D1Ujy+GUze3eXjvG9MWn
+	Q+jHDgvInvbUEgiQqZGYRLntUqNV3vCpIQZbawAfV0u0Ab3VltdOOyqMedq1gkYCeEr0UFaOgnr
+	yvCCEEpGm5eqNquBXhvvSmj+azgTntPxd4ctCsn+CX0ac2p0Utm6DOZZrC6QCoceB0KtOzFejKS
+	V7RMGEqefzIQWiSoa9S3+7Sy0h3Mg5d2u5biO/x2RafA4gYH2uueSbZeQpW8QlwOWP/+fh7UOb1
+	bOw1FlhdM721IOsa4fICqCUuCqJFWN573eqs1yHHYDm8Fa6dDuO+D6qh+DRFiUCUr7tzbhl0Uyh
+	46C7vKT4Q4thGKPhEe4JAFRYtZCTPtaOvFKh0lpPdaRoTMovRnTkVH6UYgOfaJ3hfbrLyFYg7rE
+	AwNenoVB1272qyoBkqfqp6FbXwc20WVowwbRuT4auveZ67f+RHC98mi5CV3bk6MUdAmAUnrzWvT
+	FHX7tR5V3y47gBbJO8jvvsWIMqZIjhQO9igzYl5vSLizcElQ
+X-Received: by 2002:a17:902:db05:b0:2df:556c:1581 with SMTP id d9443c01a7336-2df7e11a469mr224415ad.31.1790188754814;
+        Wed, 23 Sep 2026 11:39:14 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5dc32csm15528625ad.53.2026.09.23.11.39.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 11:39:14 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] ARM: dts: alamo: use qca8337 internal PHYs
+Date: Wed, 23 Sep 2026 11:39:12 -0700
+Message-ID: <20260923183912.13389-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916062222.27347-1-mikhail.v.gavrilov@gmail.com>
-X-Spam-Score: -2.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	MISSING_XM_UA(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 11:22:22AM +0500, Mikhail Gavrilov wrote:
-> On a box with a discrete GPU, lockdep reports a possible deadlock as soon
-> as kswapd shrinks the TTM page pool:
-> 
->   WARNING: possible circular locking dependency detected
->   7.3.0-rc3-f6e7b42bf05b+ #183 Tainted: G     U
->   ------------------------------------------------------
->   kswapd0/269 is trying to acquire lock:
->   ((init_mm).mmap_lock){++++}-{4:4}, at: change_page_attr_set_clr+0x29a/0x4a0
->   but task is already holding lock:
->   (pool_shrink_rwsem){.+.+}-{4:4}, at: ttm_pool_shrink+0xb2/0x330 [ttm]
->   Chain exists of:
->     (init_mm).mmap_lock --> fs_reclaim --> pool_shrink_rwsem
-> 
-> The cycle is built from three edges:
-> 
->   1) pool_shrink_rwsem -> (init_mm).mmap_lock
-> 
->      The TTM shrinker restores the caching attribute of every page it
->      frees, while holding pool_shrink_rwsem:
-> 
->        ttm_pool_shrink()
->        -> ttm_pool_dispose_list()
->        -> ttm_pool_free_page()
->        -> set_pages_wb()
->        -> change_page_attr_set_clr()   [ init_mm mmap read lock ]
-> 
->   2) fs_reclaim -> pool_shrink_rwsem
-> 
->      The same shrinker, called from reclaim.
-> 
->   3) (init_mm).mmap_lock -> fs_reclaim
-> 
->      ioremap() installing a huge PUD mapping over an existing PMD table:
-> 
->        ioremap_page_range()
->        -> vmap_range_noflush()
->        -> vmap_try_huge_pud()          [ init_mm mmap read lock ]
->        -> pud_free_pmd_page()
->        -> __get_free_page(GFP_KERNEL)  [ enters reclaim ]
-> 
-> Edge 3 is the one that should not exist.  Now that reclaim can acquire the
-> init_mm mmap lock, that lock must not be held over an allocation which can
-> enter reclaim.  This rule is stated by commit d5d8b8662e6e
-> ("x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF")
-> and honoured inside CPA itself, where split_large_page() drops the lock
-> around pagetable_alloc().  The vmap path took the same lock earlier, in
-> commit 26444eb71465
-> ("mm/vmalloc: acquire init_mm lock on huge vmap to avoid ptdump UAF"),
-> and pud_free_pmd_page() still allocates its scratch page with GFP_KERNEL
-> underneath it.  Neither commit deadlocks on its own; together they close
-> the cycle.
-> 
-> Use GFP_NOWAIT for that page.  pud_free_pmd_page() already returns 0 when
-> the allocation fails, and its only caller, vmap_try_huge_pud(), then maps
-> at PMD granularity through the existing page table - exactly what it does
-> when its own mmap trylock fails.  So the failure path is not new, and a
-> failed allocation costs nothing but a smaller mapping.
-> 
-> This breaks the cycle at its source: no code holds the init_mm mmap lock
-> across a reclaiming allocation any more, so no shrinker-held lock can be
-> ordered against it.  The same cycle was reported from the i915 shrinker
-> with &vm->mutex in place of pool_shrink_rwsem.
-> 
-> Link: https://lore.kernel.org/all/80993b70-352f-4069-84c7-39a04c061e98@intel.com/
-> Fixes: d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> ---
-> 
-> #regzbot introduced: d5d8b8662e6e
-> 
-> Reproduced and verified on a Ryzen 9 7950X with a Radeon RX 7900 XTX
-> (Navi 31, 0000:03:00.0), lockdep and KASAN enabled.
-> 
-> On a kernel with a TTM driver bound the report above reproduces on
-> demand, no memory pressure needed:
-> 
->   # cat /sys/kernel/debug/ttm/page_pool         # wc/uc rows non-zero
->   # cat /sys/kernel/debug/ttm/page_pool_shrink
-> 
-> The second read runs the TTM shrinker with fs_reclaim held, so the
-> same cycle is reported from the reading task instead of kswapd.
-> 
-> Before (7.3-rc3-f6e7b42bf05b, #183): report within 105 s of boot,
-> 2048 pool pages scanned.
-> 
-> After (same base plus this patch, #185): 1536 write-combined pages
-> scanned - the order-9 row of the pool went from 3 to 0 and total
-> node0 from 27650 to 26114 - no report, and /proc/lockdep_stats still
-> showed debug_locks: 1 afterwards.
-> 
->  arch/x86/mm/pgtable.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/mm/pgtable.c b/arch/x86/mm/pgtable.c
-> index cb03f5a2b243..c79587962526 100644
-> --- a/arch/x86/mm/pgtable.c
-> +++ b/arch/x86/mm/pgtable.c
-> @@ -713,7 +713,7 @@ int pmd_clear_huge(pmd_t *pmd)
->   * Context: The PUD range has been unmapped and TLB purged.
->   * Return: 1 if clearing the entry succeeded. 0 otherwise.
->   *
-> - * NOTE: Callers must allow a single page allocation.
-> + * NOTE: Callers must allow a single non-blocking page allocation.
->   */
->  int pud_free_pmd_page(pud_t *pud, unsigned long addr)
->  {
-> @@ -722,7 +722,13 @@ int pud_free_pmd_page(pud_t *pud, unsigned long addr)
->  	int i;
->  
->  	pmd = pud_pgtable(*pud);
-> -	pmd_sv = (pmd_t *)__get_free_page(GFP_KERNEL);
-> +	/*
-> +	 * The only caller, vmap_try_huge_pud(), holds the init_mm mmap read
-> +	 * lock, which reclaim can take via set_memory_*().  Do not enter
-> +	 * reclaim from here.  Failing is fine: the caller then keeps the
-> +	 * existing PMD table instead of installing a huge PUD mapping.
-> +	 */
-> +	pmd_sv = (pmd_t *)__get_free_page(GFP_NOWAIT);
->  	if (!pmd_sv)
->  		return 0;
+The QCA8337 switch has a managed internal MDIO bus for its built-in
+PHYs.  Move the PHY nodes from the external mdio@0 bus into a
+subnode of the switch, and mark the connected switch ports with
+phy-mode = "internal", so the ports are linked to the correct PHYs.
 
-So, I'm really confuesd about this code. As in the original code. Copy-pasting
-here:
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ .../dts/broadcom/bcm958625-meraki-alamo.dtsi  | 100 +++++++++++-------
+ 1 file changed, 60 insertions(+), 40 deletions(-)
 
-        pmd_t *pmd, *pmd_sv;
-        struct ptdesc *pt;
-        int i;
-
-        pmd = pud_pgtable(*pud);
-        pmd_sv = (pmd_t *)__get_free_page(GFP_KERNEL);
-        if (!pmd_sv)
-                return 0;
-
-We allocate a copy...
-
-        for (i = 0; i < PTRS_PER_PMD; i++) {
-                pmd_sv[i] = pmd[i];
-                if (!pmd_none(pmd[i]))
-                        pmd_clear(&pmd[i]);
-        }
-
-We, for some reason, save and clear the pmd.
-        
-        pud_clear(pud);
-
-Then we clear the PUD entry...
-
-        /* INVLPG to clear all paging-structure caches */
-        flush_tlb_kernel_range(addr, addr + PAGE_SIZE-1);
-
-Then we flush the TLB (and with it, translation caches).
-
-        for (i = 0; i < PTRS_PER_PMD; i++) {
-                if (!pmd_none(pmd_sv[i])) {
-                        pt = page_ptdesc(pmd_page(pmd_sv[i]));
-                        pagetable_dtor_free(pt);
-                }
-        }
-
-        free_page((unsigned long)pmd_sv);
-
-        pmd_free(&init_mm, pmd);
-
-Then we free possible PTEs attached to the PMD (from our copy),
-and free the PMD itself.
-
-
-So, the question is: why the heck do we need a copy? PMD is still allocated
-by the time we flush the TLB. Why doesn't a simple pud_clear() + flush_tlb +
-free over the pmd Just Work? Am I missing something? The git log isn't
-clueing me in.
-
-
-All-in-all, I would much prefer not having a copy of the PMD at all. Perhaps,
-if this isn't workable, then a linked list of PTEs would work. But I would rather
-not have tricky logic at all.
-
+diff --git a/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi b/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi
+index c54451dde6dd..d0199c07707c 100644
+--- a/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi
++++ b/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi
+@@ -85,26 +85,6 @@ mdio@0 {
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+ 
+-			phy_port6: phy@0 {
+-				reg = <0>;
+-			};
+-
+-			phy_port7: phy@1 {
+-				reg = <1>;
+-			};
+-
+-			phy_port8: phy@2 {
+-				reg = <2>;
+-			};
+-
+-			phy_port9: phy@3 {
+-				reg = <3>;
+-			};
+-
+-			phy_port10: phy@4 {
+-				reg = <4>;
+-			};
+-
+ 			switch@10 {
+ 				compatible = "qca,qca8337";
+ 				reg = <0x10>;
+@@ -128,60 +108,70 @@ fixed-link {
+ 					port@1 {
+ 						reg = <1>;
+ 						label = "lan8";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port6>;
+ 					};
+ 
+ 					port@2 {
+ 						reg = <2>;
+ 						label = "lan9";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port7>;
+ 					};
+ 
+ 					port@3 {
+ 						reg = <3>;
+ 						label = "lan10";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port8>;
+ 					};
+ 
+ 					port@4 {
+ 						reg = <4>;
+ 						label = "lan11";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port9>;
+ 					};
+ 
+ 					port@5 {
+ 						reg = <5>;
+ 						label = "lan12";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port10>;
+ 					};
+ 				};
+-			};
+-		};
+ 
+-		mdio-mii@2000 {
+-			reg = <0x2000>;
+-			#address-cells = <1>;
+-			#size-cells = <0>;
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
+ 
+-			phy_port1: phy@0 {
+-				reg = <0>;
+-			};
++					phy_port6: ethernet-phy@0 {
++						reg = <0>;
++					};
+ 
+-			phy_port2: phy@1 {
+-				reg = <1>;
+-			};
++					phy_port7: ethernet-phy@1 {
++						reg = <1>;
++					};
+ 
+-			phy_port3: phy@2 {
+-				reg = <2>;
+-			};
++					phy_port8: ethernet-phy@2 {
++						reg = <2>;
++					};
+ 
+-			phy_port4: phy@3 {
+-				reg = <3>;
+-			};
++					phy_port9: ethernet-phy@3 {
++						reg = <3>;
++					};
+ 
+-			phy_port5: phy@4 {
+-				reg = <4>;
++					phy_port10: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
+ 			};
++		};
++
++		mdio-mii@2000 {
++			reg = <0x2000>;
++			#address-cells = <1>;
++			#size-cells = <0>;
+ 
+ 			switch@10 {
+ 				compatible = "qca,qca8337";
+@@ -206,33 +196,63 @@ fixed-link {
+ 					port@1 {
+ 						reg = <1>;
+ 						label = "lan3";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port1>;
+ 					};
+ 
+ 					port@2 {
+ 						reg = <2>;
+ 						label = "lan4";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port2>;
+ 					};
+ 
+ 					port@3 {
+ 						reg = <3>;
+ 						label = "lan5";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port3>;
+ 					};
+ 
+ 					port@4 {
+ 						reg = <4>;
+ 						label = "lan6";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port4>;
+ 					};
+ 
+ 					port@5 {
+ 						reg = <5>;
+ 						label = "lan7";
++						phy-mode = "internal";
+ 						phy-handle = <&phy_port5>;
+ 					};
+ 				};
++
++				mdio {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					phy_port1: ethernet-phy@0 {
++						reg = <0>;
++					};
++
++					phy_port2: ethernet-phy@1 {
++						reg = <1>;
++					};
++
++					phy_port3: ethernet-phy@2 {
++						reg = <2>;
++					};
++
++					phy_port4: ethernet-phy@3 {
++						reg = <3>;
++					};
++
++					phy_port5: ethernet-phy@4 {
++						reg = <4>;
++					};
++				};
+ 			};
+ 		};
+ 	};
 -- 
-Pedro
+2.55.0
+
