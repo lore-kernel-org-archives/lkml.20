@@ -1,24 +1,24 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01822577E4B;
-	Wed, 23 Sep 2026 20:10:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041B357982F;
+	Wed, 23 Sep 2026 20:10:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194220; cv=pass; b=IMEeiRxJ+gCY2vJeNhrlrD4cFV8biq1msrfKTamEm5JwOk9dF84Y3kKJm2DTSTCMC0si+9FopIl7Zm52oGKhbIa8Tq8Mf3xCx6fvOfPs7L7EAbibC7osGctbOoB78Z7VEDHESPwXfm6aAfDsgvpLH8IPzSfycE2XpwHX15FmIyc=
+	t=1790194218; cv=pass; b=lqzxtvMXbyPzDGtYPmrdZVk+j/amH8nbqlGPJoUKeuNH20JlwG3V3VEvfHZ3vGg90WQzEvdkTs7WRT8auydeC9TOFTXymXCu3xNA2IiiqghxplnaFvCQPkVfCpXNr3wiZ2W3IKTXmkPe/csOIF9UUDys9qgvWmVU29ck3yQ7D6I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194220; c=relaxed/simple;
-	bh=RwiRc9QPgpQ3PJD6BhTgf1UsqFyVHmYQzc4kaDrTn0A=;
+	s=arc-20240116; t=1790194218; c=relaxed/simple;
+	bh=NqupNA8l2xmS1cpwOfwWWtJLLwFj1BSCT0Q7IYhmOjw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sIQ04ApMLO44TeCjO67TdFUYngvINQl051OHIv4bN72tChCLynpL1gSlVoR1m1zmTuPUNEHO2d2zoJG5BaPbkQvvsEPLtAtXNATkPNsMxE2GpdKrVtgoBnrF9eQX+XRchwsR+B9RgGpRXHDXq5ZVVDw/l8NXjlTaOvxwzz9Jw+0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=TXEzKuJI; arc=pass smtp.client-ip=185.203.200.13
+	 In-Reply-To:To:Cc; b=PB1MWN0T251POnM8d/h60afnuIuxVkGp+wwkn1UMW7bWUIoGV1eLXSA6zqrDTNfQjb717O3dUUCf9LX1XNM4iAngbNzvgJhAtMyzKI5E4vKOi8mB9xyoL2aJLNEy6N68kozD+xQXbV9mC4nA6d7sLCR54hbK55TLUx/cYEWAnIE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=Mygvy0/b; arc=pass smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="TXEzKuJI"
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="Mygvy0/b"
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 8C21D20200E;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A0D9720203A;
 	Wed, 23 Sep 2026 22:10:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790194207;
@@ -26,43 +26,43 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0J9+GrhXtzUzxEtOI3PwxbOCzbTKhMnFeRp5Sx6I7iI=;
-	b=TXEzKuJI1XBsJMe0jDrzZs0zDdXKFEeqOLV7Pl6PWbtA/laGNi3Vo2n1CC6UJfUwZRFs95
-	nIYRC9pQT3bGQ+gEtZA0yuZqwvB1PvSn+gWBFVSMarExLEXKUxHz4xuySY5wIUPfEuSsig
-	1ctWH4truU5P/5pGq9nqdLy5Rbt74+fhTD/C/yn+emBU6Uprg5hitwMpcspUmf149dHgtF
-	NUZUYHOUE9WnfYAE4x7dNcm4YUqnaUAMb0Ghu8Uk4/LmMI5Z4t5qedOlPpiiREntasiWWF
-	6m8tXS6AnT6aauw+KbPUAgG2Kv5GTnhiBfJ+97MOKy8wNKWNIlZ99sRRwbbU2Q==
+	bh=9dbKnINREIm0XXUOBxcc6md77cUF0gCRPeKqFRl95zQ=;
+	b=Mygvy0/bZ/8+t5WiV+6sw7R3g+m2jfbNvvGdJ+nrL151u4FFqa9PICOMWxkglH3t+hZL0a
+	4t7WFAKY/gxHctotc7vRHofQpqPGye310/8WZxQICqEtJQyi+ayRrln59R0pW2vzg/THPT
+	9uMkoLf+dtROH/QXsM3r9b8u5Jf79DlClFyDwzZISmra9ag9DdZBwTqKentaiBrxmskbfP
+	HhzfaCkEhJJmtPgXdMH1NeU9zJaFfcWkXwqg3/RQUFWE9HK5O9Ih9079D/3gJsNA5Y/Yh+
+	BSOLDVTpBMol2EdDp/0ydaVWqO8qPPn7yHPdgnyfqgoK9pUeWGcbNfAO3Z0RZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1790194207;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=0J9+GrhXtzUzxEtOI3PwxbOCzbTKhMnFeRp5Sx6I7iI=;
-	b=X4H1/tjQ4/Ib4wJ/OG+xBWf1oDMIDpN/K776otecS1NoKYlgM7rI99SaWWl7v7sT6KIrJG
-	xzTqBr4Jt7b0JlIRrd6k0mUtECBjY9QhH4AnTiqIRLE0v3/NKMgc3O1C5D3m5RpOVmWdS0
-	xw6wy+s6C/wgBO50eRQbeFWjOHY8/3VWbE7PfnJ5RAaIoQO7/0ElsEI6D7at9POI57J1ss
-	h9vQ+xQE5CMVI1MmpkKr9Ij3gB/r5r80EvgW8gP/IXR+NVsaHM6KzaCnuJzNVoPFD5I6t8
-	8QYaMl9evg86Vrd7GjJm7GVimhFIjWe90LVyCOGhS7Rf1ObWQ97ttQnZ2sKe7w==
+	bh=9dbKnINREIm0XXUOBxcc6md77cUF0gCRPeKqFRl95zQ=;
+	b=aU5vEQ1BylAF0QgrGkSjpgB6J4eDeRmHklRVqFrGt5jr5D2Ys8/HeIQ0eFw71FUE+cLJBL
+	krTxqFe60JpHXu7PC5hqcsZKwUecFIhZERUkNa8ndCncwr9aSglcFTcbbcl6YtN2FmQE1x
+	kIRRGp5I+Wns7wmLF+Xtu50OcWp3d6R66VXdfD790yi1mDGdX06uQIldL/4HV645dVG0J/
+	PMiV/iGshwKAFJrZpZMI1BHWUZc22IduWJlmUvkSeqqvlNtEorj2jjn/JdltSMPN+1ckMn
+	AKzP74Vc2cKVjvOMWZPihxL9qs6Dw/C3lIaoTiI4g4kx+U8rX7QN1Rvr9rpmTQ==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790194207; a=rsa-sha256;
 	cv=none;
-	b=TvApsVjOLNJTpMMBgAmdGW1mVdIlDsMuc2vIdaZdfsZxU1wfX4dntKIFK5gieIz0/bVvcY
-	YPrvleo4GKEzGtIUs8mdZqCOD7YQpIYZpCQThiHcgE1NLZArQ3lP/+RNb8f2oM+WVWxSDx
-	Ap5ieJurhO4xH2udjAJJNNVuFh0hduasuL8U6wIvnkqh6jkZgMAO75mqtUAEeOG2d8TuB1
-	UE1SFHmi2fs/p/WT4KbyL608X1wknycVYAzYzynassm6KS4YJiccDQ1o66HaDJX7ZdX54e
-	AV0GI2jLt6wqSvsqUDK5sVDrbXHoHxwDJct8crtIkh1jai390/GInbgds17uOw==
+	b=Gzd7v0zeCfxHy1tzj0/TxuNkPGbVBWHKKfkFqCCpqCP2A1BqZY1DSPHsBcucQtS/aJT89B
+	Qqez50Bs/umRmI+DH93DEMWa0XfO4I+IAW8AsnOdOrEyp+XKdKqYWyu+TiP5O2v0AG3hV0
+	vZn7QgDHIdGxRPFqAAJYZqcKxWFsJZvXhuv9DSCnSzmPfyYCwL+bhpF3gfSkBrBr9sR+X0
+	MzGh9KlYYDqcmLDRvpP2SLL4RKistdbttI4ns0PihqBgcCWzIRcwq0vCBvscBJOWtdDZ5k
+	DJPef5BH5Jg35Xi5dSWReBeVGerOF3x9y5vF1zVj+x6isaT5StBHT6T0IOTN5g==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=jre@pengutronix.de
 Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
 	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
 	(envelope-from <jre@pengutronix.de>)
-	id 1x9TI7-002SC3-1Z;
+	id 1x9TI7-002SC3-1q;
 	Wed, 23 Sep 2026 22:10:07 +0200
 From: Jonas Rebmann <jre@pengutronix.de>
-Date: Wed, 23 Sep 2026 22:09:58 +0200
-Subject: [PATCH v5 03/13] spi: spidev_test: make size argument mandatory
- for --size
+Date: Wed, 23 Sep 2026 22:10:00 +0200
+Subject: [PATCH v5 05/13] spi: spidev_test: abort when -I is selected
+ without -S
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-spi-sun4i-spidev_test-v5-3-25861c17426d@pengutronix.de>
+Message-Id: <20260923-spi-sun4i-spidev_test-v5-5-25861c17426d@pengutronix.de>
 References: <20260923-spi-sun4i-spidev_test-v5-0-25861c17426d@pengutronix.de>
 In-Reply-To: <20260923-spi-sun4i-spidev_test-v5-0-25861c17426d@pengutronix.de>
 To: Mark Brown <broonie@kernel.org>
@@ -79,49 +79,34 @@ Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
  Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
  Jonas Rebmann <jre@pengutronix.de>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1262; i=jre@pengutronix.de;
- h=from:subject:message-id; bh=RwiRc9QPgpQ3PJD6BhTgf1UsqFyVHmYQzc4kaDrTn0A=;
- b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYsjaYiR5LSrhQMm1VNeac3v5VWfpfFPjnTftwO/3ThKPA
- zZrBqyq7yhlYRDjYpAVU2SJVZNTEDL2v25WaRcLM4eVCWQIAxenAEykbAUjQ+NqxW2XEpYZ1r7s
- mzHT82ZP9I7I+Px02ZT6iVcqC+60HWFkuKi+1ers5Z8nvcKPSnmmCi0tSF3TbXJ7fYTJdFHPrqU
- /WAE=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=882; i=jre@pengutronix.de;
+ h=from:subject:message-id; bh=NqupNA8l2xmS1cpwOfwWWtJLLwFj1BSCT0Q7IYhmOjw=;
+ b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYsjaYiR1OtnPdXIwl+7RNF7h/EcGr/evEYq+Zii058QWd
+ bOH007e6yhlYRDjYpAVU2SJVZNTEDL2v25WaRcLM4eVCWQIAxenAExkMhsjw+TV7906GvLU3dl9
+ 5z5PDWq1vff//T2e1YnVTyt5rD3jzRn+ly37Hfbl2MFZV68lP7nCOWfRw1eM2yTY6/foVmilmfc
+ fYAIA
 X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
  fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
 
-When the argument to --size is omitted, zero or not a number,
-abort with a message instead of transmitting default_tx[].
+-I (--iter) for transferring multiple iterations of the selected input
+currently only has an effect when transferring random data using -S
+(--size). Error out if -I is used without -S to avoid confusion.
 
 Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
 ---
- tools/spi/spidev_test.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ tools/spi/spidev_test.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/tools/spi/spidev_test.c b/tools/spi/spidev_test.c
-index 3721ed15352f..b2940a25b7a8 100644
+index 49d40aa6d0ec..45c2b691bffe 100644
 --- a/tools/spi/spidev_test.c
 +++ b/tools/spi/spidev_test.c
-@@ -44,6 +44,7 @@ static int verbose;
- static int transfer_size;
- static int iterations;
- static int interval = 5; /* interval in seconds for showing transfer rate */
-+static int random_input;
- static int input_choices;
+@@ -461,6 +461,9 @@ int main(int argc, char *argv[])
+ 	if (random_input && !transfer_size)
+ 		pabort("a nonzero size argument is mandatory for -S (--size)");
  
- static uint8_t default_tx[] = {
-@@ -319,6 +320,7 @@ static void parse_opts(int argc, char *argv[])
- 			break;
- 		case 'S':
- 			transfer_size = atoi(optarg);
-+			random_input = 1;
- 			input_choices++;
- 			break;
- 		case 'I':
-@@ -453,6 +455,9 @@ int main(int argc, char *argv[])
- 	if (input_choices > 1)
- 		pabort("only one of -S (--size), -p, -i (--input) may be selected");
- 
-+	if (random_input && !transfer_size)
-+		pabort("a nonzero size argument is mandatory for -S (--size)");
++	if (iterations && !transfer_size)
++		pabort("-I (--iter) is only implemented for -S (--size)");
 +
  	fd = open(device, O_RDWR);
  	if (fd < 0)
