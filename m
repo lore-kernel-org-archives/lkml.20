@@ -1,205 +1,112 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010002.outbound.protection.outlook.com [52.101.69.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02617397922;
-	Wed, 23 Sep 2026 15:23:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177028; cv=fail; b=lvnzodnMTY/IIV1fbnUelwt6wrwm4VYnKiaLWagxGEwGCjgPD8cKV6JsQNCdqmWiHCu1vSDcylXKxC3rzFyHzQzTRFB5tpJ9wcvSsKjZ7BG7scY0ixNL09tY9HXR5yvqJzka+rDwWSllilsZavkcv7Il4DURChIRW7BCuVB0ahI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177028; c=relaxed/simple;
-	bh=8enrKbdXk0kTnEJQiPZh6twnf1+gyFKhCbsW598nhYI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=aiXZFw7IXxMx39ewCaEWGC7TT24ElI2oJjZURnzPI35+m+yMbDthJXY8aLBva1vpSzfr+PHpnXyUj+a1qJxvNTeaqYVPhx0vPPX9ALYA9c5M2Su7B7Ktbr3tx9tbMbBOyBUiV+M/QP1jO8u60kTpsh7Mnugd8494HtltlYZucxs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Mr3urwW5; arc=fail smtp.client-ip=52.101.69.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E240653B32E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790177071; cv=none; b=u3FfPMPiBL0+cUJPJ8Uiyu5eFzM1w3BAsqZJ6n7twiBlmuKpggCDCTFiuB4Lg+ol/5hz8gizal/G79EbUzUSbITGa1mR35qIsn3nRdtPSpdSkyFvAjkcp3vUscy/kP9oQT5sPQW1cawIqvrl7uTrCdbxYbJ/XYzHkeZLMgmQ69M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790177071; c=relaxed/simple;
+	bh=NYa7lzrDyEG/58XwTA2LcOHsOYKMnwjd0FctfadBdsM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VFI6onkdUEPCmHAgSl19AQEc3AMeJIU0h9VXSz2xPb/FpGeNIMX97+xPtKFr9hHFhl7+ulE/ZE4iXKksblG6rVpm2HbuLFkcvXHhYY8pR9rOBraUZJXOU/B6Bxx+CsWjJjzghCuK/1UxagUEO2hH8tdSVDW6nP55vZvzKeKV7h4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=jMAoQ6WK; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Mr3urwW5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Hykzf0vtcSbo9N/qKa7XHMIwYUa/As6Cw4UvJ4CSY+eYbQJ1ksk8x6arAAaQQI6X7Xa/yPSyW1VU1aypfDpcpPDTykR7PHfrRRCtFi7f6TxiVt06EOKkYXr/2ezq8Mb2jPD0yeFhNTb6gpYHIAAUOS7U5aauxtltCBPeVLixhqKH1fFV5+4+VkxuJr1lagSYAwoIoEfLQyqyxL4Z8+wBdc9qnzxtwp89Gc2SUMGMl/RlMOu+x8hq7Tx6qO8fCLUCGgV+O/Bbq9nvmcwP/zIXSFkJfdVRBoros+lW0gaVk3Gf9tgVXtO0KVBSARHkSn9xBHc0oc4vbgPR8cKDf4i9Cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3+eKCb4NMKp5Jh6mgKOVM0bUpZ6A4Z9I4O3FILpuvuc=;
- b=hy3Kn80Ylyw6kQBWn1HHtrX5BEaiO6fx/nRfqvtLF6ne5sPPMLPPVgB8FT3PnzLo+CtPrOoMTJM1yDmdVEl4rf34/xmsktYLc93KEyIcshgUkeu4nyPs5WIqCODE6PVkvM9Km9zzi1JoqBgXdM6wklLCbq058auYn6jLQRkCtXHgBCE1qD7jTcByDbWVIbNM33Hxvuy7ZBXvYXeWtb+hEoDdaK9G97pEDNti0kQ9ztdHZVeEjx8/vnv/VIs3joxUZEwvmzRCKjzMz+g/L0cXsIsUjVR2f4/2s1SWaa3Xtc2+5UEpm/dJEDjpRpQMpyXl/sociX1B5Z7f/5ti+3mEWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3+eKCb4NMKp5Jh6mgKOVM0bUpZ6A4Z9I4O3FILpuvuc=;
- b=Mr3urwW5RY+Pykeh1R6qyzNWf34mvYHgIMKFa4XmgUgcKky7AZJgineoewLyk5d484FertvA7XJHl7q72jhzm8s4BFj7qnRDJQ4wAu1HM2iuCUhawdHmH2LR/XpvyJ3u87ka68/O+1ha010s/yaqs5ZNbtQ7YKIvpYNVZHwLrHSYK5fawnoCRqEJFBorLDtZ++PBYXqvjvPsv9aUKJZs+lvWrihJTX5dpMy/SzIn6+FfAKwIi98aJQ8PieHqOrodPN4iCHT/2ElbrNP72l252dj6Pk1Ab3JQw49GvBGArqwwC91Ap708txpd0O1ibV/JUGX2cDfRZZtS1xw71K91Eg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI0PR04MB10928.eurprd04.prod.outlook.com (2603:10a6:800:261::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
- 2026 15:23:42 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
- 15:23:42 +0000
-Date: Wed, 23 Sep 2026 10:23:33 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Ginger Li <ginger.jzllee@gmail.com>
-Cc: sean.wang@mediatek.com, vkoul@kernel.org, Frank.Li@kernel.org,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dmaengine: milbeaut-hdmac: Fix deadlock with the channel
- IRQ handler
-Message-ID: <arPu9TwyACiAlw94@SMW015318>
-References: <20260923094426.67872-1-ginger.jzllee@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923094426.67872-1-ginger.jzllee@gmail.com>
-X-ClientProxiedBy: PH7P220CA0179.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:33b::27) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="jMAoQ6WK"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e7c62dde2so362446241.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:24:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1790177068; x=1790781868; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DLCbEVM2yeFpINaieYUT1nKrAhZHHWf3GyoE7bLHvDg=;
+        b=jMAoQ6WKJzRrOkG/QY8sgwqZ1c8y/aQ0jzAvgHsL/8Ifg9Mg/pUukeZ5VPynU2PrK0
+         bvZoR0quOz7CRX5zLLLy97s7NWbtIEJ/oNZxIH5rE0TuUd8NdSWUbPny7bjgAaPb84cL
+         nGYdBm1pDQsEn+Z47Poql9IAG7qBQEDxzWB7yPIVz1rjdEVonlVdnGtRO7C2l7sdq3Dt
+         fQbnwmhrJy/3/9uLVyWcFfOTnJykjQqvY/fMU+PNm3R9sqvgkpuACLTjI/g7xFq4dV1t
+         5Sl56hk/g2Fmy6DqjWKcnXsJkEdXsXzDwo4PD+24hkBigbmC+3VedNteIsrCQ8BK4Az0
+         7c1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790177068; x=1790781868;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DLCbEVM2yeFpINaieYUT1nKrAhZHHWf3GyoE7bLHvDg=;
+        b=GTEhi7XYYKz+0Wm4A+ghCGZQ+iySrj8PooxQVawUcELY8F/+b5bpN+QgANxCsumA2k
+         M9JV1O5kRO6vbuIjw13y7ySO/FBay1+QPW7cW0sv2gLgtR/LokO0wKpIdj0IQxo5ktox
+         1HAATUTsF1zyDonGBPs5tG4jDI3w5F9V+dfkDdW+pFeYEe1+9rTclzdz7Ym3SMPF6xlr
+         wYqleJRu45+WrmBFf2nWnCC8/4snGea+UYN7KXsMqoo0dvntxdfov8nS5KBI/QGf1vDO
+         XCyd7LSETjlhEra+lSNmJQWyfyjyWp5DGkLDbw3K29w2xXGI+Wusv45AYjh5zdzK2m5v
+         YEZQ==
+X-Forwarded-Encrypted: i=1; AKwUvByB34cqNfqKtQGYh41ZX+VUngi8odwVnQgbn72bm0i06rifEXSBehampxiSa8PyS93pZ/knGyGGrgyJsXA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGdDtaT2lx9CJgRA2h8qVUp8HxEvHDuKtcHZ0YFuGMKAsSAZ+K
+	z6FBp1BoZITjrgT00ArqaAbEOFWtTJi+WbWtKUmmCCs+XnGJj8z0dp60a2QOGsVMiJU=
+X-Gm-Gg: AYBFou1BZNhH5pAdng7msVcmYcmsKkvlrNFGn3j+UiMA+zZKkpb3YJ4Jw+7HKvICX/u
+	34QrXZFprhZ5duLaONyF4Uxx0qCSjs3AjykkQsWOwuEscd57u+b9+0hOr/0YwJe5tdTbyvIOGF5
+	ZB3ghaLRmp2XiDdVuw/5yMjjQJ4VYgthuVgfAoDwsznQ/wNx/R4doqineajXt+LBcysCYpgdCzk
+	xRv3VJqEn1W3n47d/XQB+jc7mkdpUP2I9JKAzpji2qRE9eMaVW27t0g2jbTJiHH2BMeChGMOA4G
+	EN6xpcLYbUjgqgtQ+JJ9vrQULPsUSg8uvxPUP9vKIG/6jFUjRlF3zKhnBcvAJVChJH4V0LEltAu
+	0hV+TPJugHD8jip0pCLKujacMCKrqQjlCNYf2HWwVmWBDfueAhXfJM2WntFByE6Y9WMrnipcXg1
+	XFg0OrhT+vCPTu+nkFV6crUlt9v3dRNoGJanoPgiaKTVjLNziOrnARzgqv8FhINhe1WzJd5+7QW
+	pyWaL/oGizX1xH5/Pz4qA9NioFTerCCmv/5LPMplvH8B7BPdkaPHZWoARo6P7fhCw==
+X-Received: by 2002:a05:6102:2b89:b0:7a2:2148:c800 with SMTP id ada2fe7eead31-7ac1d2d4b61mr2458963137.17.1790177068540;
+        Wed, 23 Sep 2026 08:24:28 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2485dce4sm250217085a.23.2026.09.23.08.24.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 08:24:27 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:24:25 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
+	surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org, 
+	ziy@nvidia.com, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
+	rppt@kernel.org, baolin.wang@linux.alibaba.com, nico.pache@linux.dev, 
+	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, 
+	kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
+	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
+	apopple@nvidia.com
+Subject: Re: [PATCH] mm/page_alloc: let the bulk and folio allocators carry
+ alloc_flags
+Message-ID: <arPut2xL8oU6Hr3F@gourry-fedora-PF4VCD3F>
+References: <20260914155115.439742-1-gourry@gourry.net>
+ <20260922130558.48402-1-lance.yang@linux.dev>
+ <arMxm4ia5Md-Zt4R@gourry-fedora-PF4VCD3F>
+ <80206444-d0c3-4dab-a5e3-a2909e58ea33@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB10928:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6cd48f3f-a39b-4890-624c-08df1986a666
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|19092799006|1800799024|6133799003|11063799006|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	6gFbUrUuOfQJNyEZq+kOjVIJnCJYYk5/lNm7M74xSGWDUYAh1xszWbiAEwGG0VoPFehc35eJRPm33jNBaUBLy0Fhn6VoNl45/QfRS/bru3ZKJcAVq4GLcxSzWkBYr1NnJkc01U34+RyyAKejbdOJ1PczQgis7/T2rKr+ibEOihyPgG0qApLRwhFQilSnvaczGAM8ByCfY3GzunNqzBHa5Qp7cjpfhzmEhMT4E1Exaz9nSlQSwh9b/DFDkuVLjQrpIeb3p2KWXp+z9H6SHZLNR4icCwahX/OoO6j0tm6Eq3X76rDZjb3SPSC+/wv/5jSwl10LNQ/fNdqYXzqs/udq3nys+FaIDHpvCkHe/YBLoNzCipt+cbBqn8Jt7Q1jhdgUmjeHQvxCNe5c89nliq18zq+C06pniG+FqdtIivKnBcADTlPXAn+hK1csPOgPGXIM+unh5XxosQFsHPSsB0aoKn09DO3+IZYo0EovsHZP6/K/JkUk4QWoXXFNr4Y1pk+1TPLFJOE6bZQvrncm0xM17SYidlS3tRgAp1U8PSfs0zj63YLQWNuAe+FfPo/QJYdLU4XZHgQwTL6sZL9ZvljC9zD/BN2d1SspLoRuAsIYzkXwFSF5MXI9AQQcM/cLnksd6V20ZLBz78a82DU/pnZyMStoGyNLg8VpaKpqgTHv5p0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(19092799006)(1800799024)(6133799003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?yn30zA1oGaFIP4Eiv3cbGvEnI248+gHZLCQhbd1KpHqk9wyA2Trx0YZuRsiI?=
- =?us-ascii?Q?KMZXfGnFoHYh23lDVU0YY9/Td5Az0kwOGBOkxE+oyDDHHLAaxs+mIIYIbLw5?=
- =?us-ascii?Q?71taDTluMbN1iHRJD6o91DLdKt32VsRD2X6KUYHN5nfj3qgXqmZLRgpZnFQY?=
- =?us-ascii?Q?W3EfwkWXjA/t8jtWtKaMeLx9NUfAxdUBRpAvsQQ8r563VAuIBu5lVGd5GFTb?=
- =?us-ascii?Q?tTMy262VM7AkQGXpATox3xQqpEDak4+VxUGZ8LZAlhlo2s2D5Lc/SPf7mpMl?=
- =?us-ascii?Q?2kj9RLxZO8AqARU9qtoUQKUZwmy5ZeLJs7IWfOBrnyp1iLHjgUwzS9igNU4a?=
- =?us-ascii?Q?67l2i0mghlhOIMkjhow3iRc2RDBjRBwiDb3QF1gOP3iQIQoRCRZVXG6p77pb?=
- =?us-ascii?Q?A2vycasCeRo6wtw7KXKB1/DIXGHZaencGcEDlt1DD/DgU9+gEk6Q9kzA99FT?=
- =?us-ascii?Q?s2xCzAcmYJhKbCKUhtL8SZPiUvY4YmS6R9fgvlxXHSUyNwZ3M7Nj0PC4+zSn?=
- =?us-ascii?Q?SMX44V6+jy5mfL2z4D6Z0ZwBR6g49H26WpZuoUgXPVttsPtPtX7AAcgpbb5E?=
- =?us-ascii?Q?N4to7nn2TgxjSjEG6EKdDXNZXw3NJp1ilXa7JdcbqYYhbe2HFW8X18XUgdYQ?=
- =?us-ascii?Q?UJmwqBs+GhN1swFiOTqQD7wVJ3qgzQzd+lmDyR1gKw/6jJadtOrgZ3y6dn8V?=
- =?us-ascii?Q?PLTbdiqDUUzplAJr5sSjRuUUqxpn2MehgnApB/5OftIZRdA0LPpziOsWIT4A?=
- =?us-ascii?Q?FUnkQcAVxi7Pi/btlgGtA5QfhBVoUjbiGYVD6i+7ZDxehHUyOp+9afrR1cPh?=
- =?us-ascii?Q?HoHp0Luooi/O6RgVhFIiaYTQ8GlUf5HV7iXCwX3kbv251EnLfUPj/yo5Y+Cm?=
- =?us-ascii?Q?G/MTN+uwkxWVX+g53UTsmNx3KgU5UEnBLvxb+1cAHs6xXLuIaCcBiyyCtg1J?=
- =?us-ascii?Q?OUA+gbfNQSNZ73AmN+Uz9CXIUXDaTVxqiacc1ft4sgDsjhJf1BlUUff/C1pa?=
- =?us-ascii?Q?SlUGRh7NdA5SYol52enb3hmApQTntfSHlvmkM49DXVz5p48rLMFDST4c1+mr?=
- =?us-ascii?Q?0sztvCr4nNiKyPOqofwLfCO/Rq92oMlIHfyYTVC0bIra1M+moPPp4xh0tjvv?=
- =?us-ascii?Q?PMTBzcYhafVd8y0+vNu1Kd6qIv+52U7kaOQMEVSn6CR/WnDy8GF1GflyZQwN?=
- =?us-ascii?Q?OTk8ieh8tyvSLJaHhyq6AXA0zUADDXJvqnru9XxAJghqGo6kYaaRC+P5a/bo?=
- =?us-ascii?Q?Ma8v+elyPCkUDu8sgcX26iT59BQCHca++F9kFvYoMefJraSqX7N6iT9fqx7n?=
- =?us-ascii?Q?KIDGjOua7lbibu4AbEv95o7duB9W6IyJBo7NbFQ7/oEDEtg9QDTT0kr0ULpO?=
- =?us-ascii?Q?H9Ss5UB5T2nzmO4E8aLv8PJG3eI0nnXxOVcomkmd2iex98MH75wCaUejLhw9?=
- =?us-ascii?Q?y5tKSb5CF5WUk+s+3sWYNNE/UumZI6yyWZ0i88o/VKJeoYb/x/zt2zrBkvhE?=
- =?us-ascii?Q?vSlM0npNkj3tULlxSEwCvFWu4IrA6BMBw9J7PsszOFb7FMMD1ap6dD2nsnxJ?=
- =?us-ascii?Q?EX/17z8iZtsN8XmPPmt9Xhoi6chGtYOih0B+PIY6KUcwnPqBt3Q4d1zONKXt?=
- =?us-ascii?Q?sxdY8VzqG+o4Pj4pDHoSbIQziaLFTr41ChyaIQstbiVTC4LwQ9NIocU3Elcs?=
- =?us-ascii?Q?0oSDxGgTYa1Yyqymn0KTsstnuf7VNrxc+ZMYSlcG4VDucG9Zz2iIxKPszKao?=
- =?us-ascii?Q?Wx3AuQncwnB2iLnUSY9rPb5Wx0vdVyOZ5M7Fibh4Dvp/iCfXYd3W?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6cd48f3f-a39b-4890-624c-08df1986a666
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 15:23:42.1265
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r+kQBw/vuU0xn9fOTG1zom4zGXBDcAPhXhFsjWujHJOjicWCNCaiPPOfHijC7xo464/QjntVK8JD9ocpJa+Lwm64pu3oDVUFKFdQhbHvIT19YLInjTWf11UXE4LSnbTN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10928
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <80206444-d0c3-4dab-a5e3-a2909e58ea33@kernel.org>
 
-On Wed, Sep 23, 2026 at 05:44:26PM +0800, Ginger Li wrote:
-> [You don't often get email from ginger.jzllee@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->
-> milbeaut_hdmac_interrupt() is a hardirq handler and takes mc->vc.lock with a
-> plain spin_lock() for the whole time it runs.  interrupts are disabled locally
-> in that context, so the handler itself is fine.
->
-> milbeaut_hdmac_chan_config(), milbeaut_hdmac_chan_pause() and
-> milbeaut_hdmac_chan_resume() are called from process context and take the same
-> lock with a plain spin_lock() as well, so interrupts stay enabled while the
-> lock is held.
->
-> If a channel interrupt is delivered on the CPU that is inside one of those
-> critical sections, milbeaut_hdmac_interrupt() spins on a lock that the
-> interrupted code is holding and can never release, and the CPU hangs.
->
-> Take mc->vc.lock with spin_lock_irqsave() in those three functions, as
-> milbeaut_hdmac_issue_pending() and the other process context users of this
-> lock already do.
->
-> Fixes: 6c3214e698e4 ("dmaengine: milbeaut-hdmac: Add HDMAC driver for Milbeaut platforms")
-> Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
-> ---
+On Wed, Sep 23, 2026 at 08:32:29AM +0200, Vlastimil Babka (SUSE) wrote:
+> On 9/23/26 03:59, Gregory Price wrote:
+> > On Tue, Sep 22, 2026 at 09:05:58PM +0800, Lance Yang wrote:
+> > 
+> > There is some concern around NOLOCK here yes, in fact sashiko picked
+> > this issue up and I've been poking at it.
+> 
+> It's possible to document it as unsupported, add a VM_WARN_ON_ONCE etc.
+> It's not necessary for bulk alloc to support ALLOC_NOLOCK just because it
+> takes flags. e.g. kmalloc_nolock() supports a subset of gfp flags as well.
+> 
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+It seemed simpler to just support it than to create more future
+footguns.  I can RFC my current rework if you like, i attempted
+to deduplicate the logic via a prepare_alloc_flags() called from
+both the bulk and non-bulk contexts.
 
->  drivers/dma/milbeaut-hdmac.c | 15 +++++++++------
->  1 file changed, 9 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/dma/milbeaut-hdmac.c b/drivers/dma/milbeaut-hdmac.c
-> --- a/drivers/dma/milbeaut-hdmac.c
-> +++ b/drivers/dma/milbeaut-hdmac.c
-> @@ -214,10 +214,11 @@ milbeaut_hdmac_chan_config(struct dma_chan *chan, stru
->  {
->         struct virt_dma_chan *vc = to_virt_chan(chan);
->         struct milbeaut_hdmac_chan *mc = to_milbeaut_hdmac_chan(vc);
-> +       unsigned long flags;
->
-> -       spin_lock(&mc->vc.lock);
-> +       spin_lock_irqsave(&mc->vc.lock, flags);
->         mc->cfg = *cfg;
-> -       spin_unlock(&mc->vc.lock);
-> +       spin_unlock_irqrestore(&mc->vc.lock, flags);
->
->         return 0;
->  }
-> @@ -226,13 +227,14 @@ static int milbeaut_hdmac_chan_pause(struct dma_chan *
->  {
->         struct virt_dma_chan *vc = to_virt_chan(chan);
->         struct milbeaut_hdmac_chan *mc = to_milbeaut_hdmac_chan(vc);
-> +       unsigned long flags;
->         u32 val;
->
-> -       spin_lock(&mc->vc.lock);
-> +       spin_lock_irqsave(&mc->vc.lock, flags);
->         val = readl_relaxed(mc->reg_ch_base + MLB_HDMAC_DMACA);
->         val |= MLB_HDMAC_PB;
->         writel_relaxed(val, mc->reg_ch_base + MLB_HDMAC_DMACA);
-> -       spin_unlock(&mc->vc.lock);
-> +       spin_unlock_irqrestore(&mc->vc.lock, flags);
->
->         return 0;
->  }
-> @@ -241,13 +243,14 @@ static int milbeaut_hdmac_chan_resume(struct dma_chan
->  {
->         struct virt_dma_chan *vc = to_virt_chan(chan);
->         struct milbeaut_hdmac_chan *mc = to_milbeaut_hdmac_chan(vc);
-> +       unsigned long flags;
->         u32 val;
->
-> -       spin_lock(&mc->vc.lock);
-> +       spin_lock_irqsave(&mc->vc.lock, flags);
->         val = readl_relaxed(mc->reg_ch_base + MLB_HDMAC_DMACA);
->         val &= ~MLB_HDMAC_PB;
->         writel_relaxed(val, mc->reg_ch_base + MLB_HDMAC_DMACA);
-> -       spin_unlock(&mc->vc.lock);
-> +       spin_unlock_irqrestore(&mc->vc.lock, flags);
->
->         return 0;
->  }
-> --
-> 2.43.0
->
+But if we prefer the WARNs over adding the new semantics to the bulk
+allocator, that also doesn't seem unreasonable.
+
+~Gregory
