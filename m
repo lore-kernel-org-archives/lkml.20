@@ -1,191 +1,150 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 85A8548BD46;
-	Wed, 23 Sep 2026 10:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8877E414414;
+	Wed, 23 Sep 2026 10:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159523; cv=none; b=nhOBIMW9xpN9LA2/TrB9CiB+GmivQ/52XnC4YkLhkrXVusDU/G5qTtd/R06MzLL7lAHFs5DIlvTnj7MM0TfwTD4cPzvMlS9YplRRQiGurID+Ga9qrKzfhvSE64SWhu2drmLX+7CFFjCO2odyQijvd3puSTEnTwJ9DHXS5+MvUzE=
+	t=1790159535; cv=none; b=Jl/AWAQ1D+RCAUR00UifH7U0ofIwH/muawC/7U3+S8YBs35ErZzuIzH+GwWn+lkzxgviwmXnvHmqHv/DDXGmqZhGm+FVADmZp1/pb45cuiUIgW0bbY3cZP08aD21V/ajuYw1Upto9BWeFObXUxgP6qo7WCqT6abZ5dPBbw9WrG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159523; c=relaxed/simple;
-	bh=3ITgkxFPz1IColri678g5nG57QVgrj5EYIaEu5PHiRE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NFnb6ybZhkTVuZGz146MzUsFGOZIjGTDfyMl4PlT8DHyqs6AK74/QMKs4TWiIPcoA0LYtViTcvjECoVb+59dR4aBfWdJMsKT56swrQbTibdW7RRlNGlGBjHC0VcX9mdidYokixKO4cHAt+B4vzJc3VkqLBiZnqGU/+OeE3HnCng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=g9lz5sOa reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1790159535; c=relaxed/simple;
+	bh=cF/njPo9j8sWXcdGcEVgzeYY4ZHTPdGLMqVhs94iLH4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B6teFvaLwlXfymouttei1lPiukBPjsB6eMNoKy2NgbiDgBv8NzszscVUlIZP333XC1GEC59A6Z/QyXEwcfeC9tVO7dz9smKwL/tmh5fNE7ADfyGnpT9LUxAYMNIdiCk+uvcigHrz3zTS/BsGR7441+Rfk7esYvh5pnstw8X0xE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0FmDAODm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="g9lz5sOa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=/RGotnimWk1mwS1lBuqb5bmaY1r+PDJ+z7
-	W0m0eAKts=; b=g9lz5sOau+cxBbocri5kDI+j8EboEo1CojTV69Lmyj6rsFGjQi
-	p0mcHh0IKVBWfifpkDBdzlORabAnXU0zMc6K3er7uLBMik+9k6lo0dVfduK+PN61
-	OYZXQ5e3uu2HFBhJpI2sLB7e8Fb1oorDDOMTOBEizxnA90V4nJRAfl9aU=
-Received: from localhost.localdomain (unknown [113.200.174.5])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with SMTP id BLQMCkCmK9qEqrNqdiYZAA--.17422S3;
-	Wed, 23 Sep 2026 18:31:39 +0800 (CST)
-From: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
-To: perex@perex.cz,
-	tiwai@suse.com
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuanzhe Liu <25031212351@stu.xidian.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/1] ALSA: bcd2000: fix use-after-free of MIDI URBs on file close after disconnect
-Date: Wed, 23 Sep 2026 18:31:16 +0800
-Message-ID: <20260923103116.1666-2-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.45.1.windows.1
-In-Reply-To: <20260923103116.1666-1-25031212351@stu.xidian.edu.cn>
-References: <20260923103116.1666-1-25031212351@stu.xidian.edu.cn>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0FmDAODm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42EC11F000FF;
+	Wed, 23 Sep 2026 10:32:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790159522;
+	bh=cpuCu5v1M9XfKbLexcgtG6aXcXIggBSNrBJURPKiOI8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=0FmDAODmcxVfwZLNR9rZEXlbpRpomC44Gv6lT+IXPYnPTrPF1FGN1X6M9Qa0bERtQ
+	 dhm1mluz8WLI+JNEYy23F3cAxWpybSWy8lKwFDOOdaCkHD/Yw9ZNTGReUWQIJBN2ki
+	 uUUTW9ybj4ow/kSuc6soxXEfNKp2t5XM0CXrNPtQ=
+Date: Wed, 23 Sep 2026 12:31:58 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Ginger Li <ginger.jzllee@gmail.com>
+Cc: jirislaby@kernel.org, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Maarten.Brock@sttls.nl
+Subject: Re: [PATCH v2] serial: max3100: Fix a data race on s->rts in
+ max3100_work()
+Message-ID: <2026092348-police-filth-8d32@gregkh>
+References: <20260922053151.11260-1-ginger.jzllee@gmail.com>
+ <20260922170239.33485-1-ginger.jzllee@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCmK9qEqrNqdiYZAA--.17422S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxKFyUtr1xtw47JryUJry3twb_yoW7Xr1Dpa
-	y8JF4UtF4DXrnI9F4SyF1kWF1Fy3Z7AayYkryrW34Yvry5Xr13Ja18tF9IvrsxCa4kG345
-	ZF1qgayfWF4DCaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
-	x26xkF7I0E14v26r1Y6r1xM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
-	ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVWxJr0_GcWl
-	nxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4
-	CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvj
-	eVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I
-	1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4DMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr
-	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
-	rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJw
-	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2
-	z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbv387UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2qyxZua4gAEs3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922170239.33485-1-ginger.jzllee@gmail.com>
 
-Closing a rawmidi fd of the BCD2000 after its USB interface has been
-unbound crashes with a slab-use-after-free in usb_kill_urb():
+On Wed, Sep 23, 2026 at 01:02:39AM +0800, Ginger Li wrote:
+> max3100_set_mctrl() stores the new RTS state and raises s->rts_commit to tell
+> max3100_work() that it has to program it:
+> 
+> 	spin_lock(&s->conf_lock);
+> 	if (s->rts != rts) {
+> 		s->rts = rts;
+> 		s->rts_commit = 1;
+> 	}
+> 	if (s->loopback_commit || s->rts_commit)
+> 		max3100_dowork(s);
+> 	spin_unlock(&s->conf_lock);
+> 
+> max3100_work() consumes s->rts_commit under s->conf_lock, but reads s->rts
+> itself outside of the lock, both when it services that pending update and when
+> it later transmits a character, so the state it programs into the hardware can
+> be stale.
+> 
+> Read s->rts into a local variable in the s->conf_lock protected snapshot at
+> the top of the loop, before s->rts_commit is consumed, in the same way as
+> s->conf is read before s->conf_commit.
+> 
+> Fixes: 7831d56b0a35 ("tty: MAX3100")
+> Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
+> ---
+> v2:
+>  - read s->rts into "rts" before s->rts_commit is consumed, as suggested by
+>    Maarten
+>  - mention s->rts_commit in the commit message
+>  - left the s->rts / s->rts_commit split alone; folding both into one byte
+>    would be a separate cleanup
+> ---
+>  drivers/tty/serial/max3100.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/max3100.c b/drivers/tty/serial/max3100.c
+> --- a/drivers/tty/serial/max3100.c
+> +++ b/drivers/tty/serial/max3100.c
+> @@ -236,6 +236,7 @@ static void max3100_work(struct work_struct *w)
+>  	struct tty_port *tport = &s->port.state->port;
+>  	unsigned char ch;
+>  	int conf, cconf, cloopback, crts;
+> +	bool rts;
+>  	int rxchars;
+>  	u16 tx, rx;
+>  
+> @@ -249,6 +250,7 @@ static void max3100_work(struct work_struct *w)
+>  		s->conf_commit = 0;
+>  		cloopback = s->loopback_commit;
+>  		s->loopback_commit = 0;
+> +		rts = s->rts;
+>  		crts = s->rts_commit;
+>  		s->rts_commit = 0;
+>  		spin_unlock(&s->conf_lock);
+> @@ -258,7 +260,7 @@ static void max3100_work(struct work_struct *w)
+>  			max3100_sr(s, 0x4001, &rx);
+>  		if (crts) {
+>  			max3100_sr(s, MAX3100_WD | MAX3100_TE |
+> -				   (s->rts ? MAX3100_RTS : 0), &rx);
+> +				   (rts ? MAX3100_RTS : 0), &rx);
+>  			rxchars += max3100_handlerx(s, rx);
+>  		}
+>  
+> @@ -277,7 +279,7 @@ static void max3100_work(struct work_struct *w)
+>  			}
+>  			if (tx != 0xffff) {
+>  				max3100_calc_parity(s, &tx);
+> -				tx |= MAX3100_WD | (s->rts ? MAX3100_RTS : 0);
+> +				tx |= MAX3100_WD | (rts ? MAX3100_RTS : 0);
+>  				max3100_sr(s, tx, &rx);
+>  				rxchars += max3100_handlerx(s, rx);
+>  			}
+> -- 
+> 2.43.0
+> 
 
-  BUG: KASAN: slab-use-after-free in usb_kill_urb+0x74/0x80
-  Read of size 8 at addr ffff8880078e7d40 by task amidi/30287
-   usb_kill_urb+0x74/0x80 drivers/usb/core/urb.c:706
-   bcd2000_midi_output_close+0xd4/0x140 sound/usb/bcd2000/bcd2000.c:182
-   close_substream.part.0+0x15f/0x8d0 sound/core/rawmidi.c:560
-   rawmidi_release_priv+0x21d/0x290 sound/core/rawmidi.c:580
-   snd_rawmidi_release+0x4e/0xa0 sound/core/rawmidi.c:610
-   __fput+0x3a6/0xac0 fs/file_table.c:510
+Hi,
 
-  Allocated by: usb_alloc_urb <- bcd2000_init_midi <- bcd2000_probe
-  Freed by:     usb_free_urb <- bcd2000_free_usb_related_resources
-                <- bcd2000_disconnect <- usb_driver_release_interface
-                <- usbdev_ioctl (USBDEVFS_DISCONNECT)
+This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
+a patch that has triggered this response.  He used to manually respond
+to these common problems, but in order to save his sanity (he kept
+writing the same thing over and over, yet to different people), I was
+created.  Hopefully you will not take offence and will fix the problem
+in your patch and resubmit it so that it can be accepted into the Linux
+kernel tree.
 
-Root cause: bcd2000_disconnect() calls snd_card_disconnect(), which only
-blocks *new* opens, and then immediately kills and frees midi_out_urb and
-midi_in_urb. Already-open rawmidi fds, however, keep working: their
-->close() callback bcd2000_midi_output_close() unconditionally calls
-usb_kill_urb(bcd2k->midi_out_urb) when midi_out_active is set (which it
-is, since the completion handler re-submits the out URB), and the URB
-completion callbacks re-submit the URBs via bcd2k->midi_{in,out}_urb.
-Both dereference pointers that were freed in disconnect -- a UAF. No
-physical unplug is needed; USBDEVFS_DISCONNECT on the usbfs node triggers
-the same path.
+You are receiving this message because of the following common error(s)
+as indicated below:
 
-Fix the lifetime mismatch in two parts:
+- You have marked a patch with a "Fixes:" tag for a commit that is in an
+  older released kernel, yet you do not have a cc: stable line in the
+  signed-off-by area at all, which means that the patch will not be
+  applied to any older kernel releases.  To properly fix this, please
+  follow the documented rules in the
+  Documentation/process/stable-kernel-rules.rst file for how to resolve
+  this.
 
-- Wait for the users that are already there: use
-  snd_card_disconnect_sync() instead of snd_card_disconnect() so that
-  disconnect blocks until all open card files are released. The rawmidi
-  close callbacks then run (and call usb_kill_urb()) while the URBs are
-  still valid, and no userspace-triggered callback can run afterwards.
-  devices_mutex held by bcd2000_disconnect() is not taken by the rawmidi
-  close path, so the wait cannot deadlock.
+If you wish to discuss this problem further, or you have questions about
+how to resolve this issue, please feel free to respond to this email and
+Greg will reply once he has dug out from the pending patches received
+from other developers.
 
-- Mark the device shut down before freeing: add an atomic shutdown flag,
-  set first in bcd2000_disconnect(), and check it in bcd2000_midi_send()
-  and in both URB completion handlers so no new URB submission can be
-  queued while disconnect frees the old ones.  Also NULL the URB
-  pointers after usb_free_urb() so any stray access becomes an
-  immediate, diagnosable NULL dereference instead of a silent UAF.
+thanks,
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
----
- sound/usb/bcd2000/bcd2000.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
-diff --git a/sound/usb/bcd2000/bcd2000.c b/sound/usb/bcd2000/bcd2000.c
-index bebb48c..cbf6d39 100644
---- a/sound/usb/bcd2000/bcd2000.c
-+++ b/sound/usb/bcd2000/bcd2000.c
-@@ -55,6 +55,7 @@ struct bcd2000 {
- 	struct urb *midi_in_urb;
- 
- 	struct usb_anchor anchor;
-+	atomic_t shutdown;
- };
- 
- static int index[SNDRV_CARDS] = SNDRV_DEFAULT_IDX;
-@@ -131,7 +132,7 @@ static void bcd2000_midi_send(struct bcd2000 *bcd2k)
- 	BUILD_BUG_ON(sizeof(device_cmd_prefix) >= BUFSIZE);
- 
- 	midi_out_substream = READ_ONCE(bcd2k->midi_out_substream);
--	if (!midi_out_substream)
-+	if (!midi_out_substream || atomic_read(&bcd2k->shutdown))
- 		return;
- 
- 	/* copy command prefix bytes */
-@@ -212,7 +213,7 @@ static void bcd2000_output_complete(struct urb *urb)
- 		dev_warn(&urb->dev->dev,
- 			PREFIX "output urb->status: %d\n", urb->status);
- 
--	if (urb->status == -ESHUTDOWN)
-+	if (urb->status == -ESHUTDOWN || atomic_read(&bcd2k->shutdown))
- 		return;
- 
- 	/* check if there is more data userspace wants to send */
-@@ -228,7 +229,8 @@ static void bcd2000_input_complete(struct urb *urb)
- 		dev_warn(&urb->dev->dev,
- 			PREFIX "input urb->status: %i\n", urb->status);
- 
--	if (!bcd2k || urb->status == -ESHUTDOWN)
-+	if (!bcd2k || urb->status == -ESHUTDOWN ||
-+	    atomic_read(&bcd2k->shutdown))
- 		return;
- 
- 	if (urb->actual_length > 0)
-@@ -353,6 +355,8 @@ static void bcd2000_free_usb_related_resources(struct bcd2000 *bcd2k,
- 
- 	usb_free_urb(bcd2k->midi_out_urb);
- 	usb_free_urb(bcd2k->midi_in_urb);
-+	bcd2k->midi_out_urb = NULL;
-+	bcd2k->midi_in_urb = NULL;
- 
- 	if (bcd2k->intf) {
- 		usb_set_intfdata(bcd2k->intf, NULL);
-@@ -427,8 +431,19 @@ static void bcd2000_disconnect(struct usb_interface *interface)
- 
- 	guard(mutex)(&devices_mutex);
- 
--	/* make sure that userspace cannot create new requests */
--	snd_card_disconnect(bcd2k->card);
-+	/*
-+	 * Make sure that the URB completion handlers and the rawmidi ops
-+	 * don't touch the USB device or the URBs any longer.
-+	 */
-+	atomic_set(&bcd2k->shutdown, 1);
-+
-+	/*
-+	 * Make sure that userspace cannot create new requests, and wait
-+	 * until all already-open files are closed so that the rawmidi
-+	 * close callbacks (which may kill the out URB) run while the
-+	 * URBs are still valid.
-+	 */
-+	snd_card_disconnect_sync(bcd2k->card);
- 
- 	bcd2000_free_usb_related_resources(bcd2k, interface);
- 
--- 
-2.45.1.windows.1
-
+greg k-h's patch email bot
