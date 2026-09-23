@@ -1,149 +1,111 @@
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f35.google.com (mail-oi2-f35.google.com [74.125.231.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F813B5837;
-	Wed, 23 Sep 2026 03:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790134946; cv=none; b=mH6h67CC9Es1ABq2pBdc8PtujXn4NJBtNyDx5fX4bBkDjOFmTJ2KvOl0/SbKrDbBesdNRytlH6m4wwYYQp2m2o4n6b1tkr3DjViUTIqJQMWtPpEeJ2jeMm9C0GFqla7EMQiHZMuAfNPLrn3aaYjQIr/85Y5gv3QiywgaTQ8KrPk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790134946; c=relaxed/simple;
-	bh=DSWi2C0r8cqwdbL+D/oXhhGYggJoGev4OcBXZnAtWFY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=eoaiKKs++crCQ8njDn/R7oPFpeVj3V1HrP8EznySIpucjPboWiPefdKroJiJb6lmGJxME+h/1QKqvMxuKiPIHoc9ktV8JIc+Gic8deViQQQakkM89VbJ9XCdzCOXSLIzaYCTEoQBfqskoX5H/H3tzwRMD8BJyfAqdtWdTFWN8KU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me; spf=pass smtp.mailfrom=alistair23.me; dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b=PRx++WoT; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=K55jbmV5; arc=none smtp.client-ip=202.12.124.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alistair23.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990FA38B7CD
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.227
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790134958; cv=pass; b=eI356sVeltFQD3gfJRPr5BXFDPT0HxA5pIcXfFuEp0qfQPe1viWTpTlW2FaycfjXWxXlXOHf1e5AWP16OIeURaWPlAOtYHeRA+guQFvqoowG8MzzqywgtSu+LAmPP1aD6l1fZdAVJRhqRyauO5cm/POtDU6QIGJkenluIRsZ01s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790134958; c=relaxed/simple;
+	bh=RRS6qEKxH+NimVpjKf06V/2sQCHRd4tVB6c5u/RsNs0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=s5OT1U361NWRZorTYzTx9wASAfgM+zAM0chf3LLLSrHSL1ddsVEeexP8phfJfjKRmoXfpx78GzvieViYARpjqGHnRmrEtDSt4YPimzJMpghkRDf7mBTDQ+Yux4C36mE+zKuj2HMwtbpARvdrVjzmFln8kAeB1znocZtXVwIrhjE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C7i14aG2; arc=pass smtp.client-ip=74.125.231.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b="PRx++WoT";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="K55jbmV5"
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfout.stl.internal (Postfix) with ESMTP id DF6491D0004C;
-	Tue, 22 Sep 2026 23:42:21 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-09.internal (MEProxy); Tue, 22 Sep 2026 23:42:22 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alistair23.me;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm1;
-	 t=1790134941; x=1790221341; bh=DSWi2C0r8cqwdbL+D/oXhhGYggJoGev4
-	OcBXZnAtWFY=; b=PRx++WoTUWOsvJJFym88XUCOYrkBFJtThSya95aFTGESCAJJ
-	j6r0oqIzbFiXwgipGYtogG2LWflBSo/MHlZn9/l+mqpIjtNp9DyajOOHCSxwWYHO
-	tAQ+D3envhK8zH61bVoslEAWTgcD6kTcwEHuchWY+EiYD+n2B5t3yyEzROAmRQ9M
-	g3o5lBU5OpAEW9OtA6z6hmgSwzR3Hw9LOX+4zguiRCjg3LD7hSQVcGRqIJdQ+nm4
-	gYlxnAhog79+nFF8JTwcap3mUFM8H0VlBqjY2yKrTCm5rvHts6GcIMOuqVpvuOav
-	PLqdjEFxXdS5UBlE6Z4vDIb1xudsoT6f5qopIw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790134941; x=
-	1790221341; bh=DSWi2C0r8cqwdbL+D/oXhhGYggJoGev4OcBXZnAtWFY=; b=K
-	55jbmV5fObulKuAGe1zelj26AbdJg9xUAT0cYUeLgxPOkmXQgv1RHxPrAvwG6CFc
-	kr4xYE0PzuUTgZYFKLE20rXaey3b+21d3tiiLlxPAjWdsqTRQXV5cnZQ2/rNMFzZ
-	mcrPGnQr/C5mYqelZF8grwaoPeZXBvbThoXVN5kN6wQdyiA7oJdvalBIIlwB239o
-	UBlUlWEdco96RmF6HFh4b87qnoQxyDptlXDsNcfOokjWeJx1+M1sk+rCAptb8+ZH
-	Zlw2+0sPaMcUhdeC6eRzM2RW7BCPDtEDH8eeUgyjQF401sp+6MdgQmkPj38aLQUs
-	GqjlRhgIVbK+GMplJ19Sg==
-X-ME-Sender: <xms:nEqzanPof6OC4VujRL9AgMU7P9EjGQqb7wDRZak7FbFppdb9mAI9LQ>
-    <xme:nEqzaiX_X1ajAzmmVkZI9GKdoIHDB1rLVvvGLsMFAocZCa9GPGYNcU-uIpKTX9Ojp
-    Aog8Xt08Qm9O0NjwCqYaOLlbHdWD1mKNx86rTj5MG1g0DrNvqCsfReQ>
-X-ME-Received: <xmr:nEqzanbu8NACHSTiR_I8INeU1uobgqiLGWUayr6UeVEKtim5yTM9RCowceLl_xwzMI1C8QU3D_lep58t8z5Gp5wUM_A>
-X-ME-Proxy-Cause: dmFkZTFWQgVXt9bM2b6NNxDLU2jUhTZqo1HyJ/ceb/6fR6g5/ke7x/NK8aQ/wybD9G7sDE
-    CmtX3QwVhvD3JUclCR9ETEfWsOI7v+reJwTYob7hpcIpPo/4iZmOqyG1I7KAWWIFLXUgLw
-    v96DhGoz9UpYdkKeXc/hZBGnUfxawMjnjVtQDju3d8IVsfsa3zIyqXHLaCqTj4WNRQWGKq
-    tmmTTBcnw0y3dZS7EgIm2YwfTUf4M4enUg6Kt4bClJIVQc/UjREJZ8GfwzQdia7ZNwkro3
-    hK8iW8KSjamfbpmgjaynFsftX9uh5wvKPOsvXMNAxpHo+uCEXTvkZFkk6tJhDoEdtSwgV2
-    6GBehN5HqwyviruHFjGv/WzLwxQoGkueti404EXE3kf7u8qkOyKvo4OvBLEYolmfapcnxB
-    F4JccMi5Te1BZq7oMKbky2uQ5q7y7YKMULV0qOa2MFX9BJV98wv9AyL4iHxOPtRe730K9L
-    MSrboLxu6gG8yVR+5HsIh88Utz5N2KkVtSu/M1zWI9+Se6WJeYQ6P9skWKqRz1Twj/uNfo
-    iCDPvhJucpF8jjturp2P8zSMFq/LgsbLp5axv209DNCuwpcPaaDjlLg6YyrGhYpuOSvpup
-    Tg7vJWck7+rmhOaNt3U0xJDq95oRSreJUPgUvIDr8xnPNvQkrkuFhhj47LIg
-X-ME-Proxy: <xmx:nEqzans9bTMC1bKBz1twK_VLviUrmLn4zeL3QKe7-nefLy1468292g>
-    <xmx:nEqzaumzUv1rsGahWuIrYxwXaD2Tbpu0aHfxi87oMm4mAC5GarLA0Q>
-    <xmx:nEqzagWYYb2dfQ6GUgKoaSarfD0sCoSfqT8w4S_1T9pZokx7-frwIA>
-    <xmx:nEqzapnV4xGZWN9rlPOX_qimTj87Mmpoko6U6zFu9VW8EjK7bB8Olw>
-    <xmx:nUqzatDDdkgNtuOGYUS9GPknZSh2x6r0hLSKQZZlRCetsrAaQqNsJ_Wz>
-Feedback-ID: ifd214418:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 22 Sep 2026 23:42:14 -0400 (EDT)
-Message-ID: <0ba203994392fa8183c226d65c4caec5786112bc.camel@alistair23.me>
-Subject: Re: [PATCH v3 10/21] PCI/TSM: Rename pf0 to host
-From: Alistair <alistair@alistair23.me>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: alistair23@gmail.com, linux-pci@vger.kernel.org, 
-	Jonathan.Cameron@huawei.com, djbw@kernel.org,
- rust-for-linux@vger.kernel.org, 	lukas@wunner.de,
- linux-cxl@vger.kernel.org, bhelgaas@google.com, 	akpm@linux-foundation.org,
- linux-kernel@vger.kernel.org, gary@garyguo.net, 	ojeda@kernel.org,
- benno.lossin@proton.me, a.hindborg@kernel.org, 	wilfred.mallawa@wdc.com,
- tmgross@umich.edu, boqun.feng@gmail.com, 	bjorn3_gh@protonmail.com,
- alex.gaynor@gmail.com, aliceryhl@google.com
-Date: Wed, 23 Sep 2026 13:42:12 +1000
-In-Reply-To: <20260916031143.4fe2ae49@jic23-hlaptop>
-References: <20260901010347.2614656-1-alistair.francis@wdc.com>
-		<20260901010347.2614656-11-alistair.francis@wdc.com>
-		<20260909000158.78ffa790@jic23-huawei>
-		<f9b1c0410e622f7ac1e6feacaa3eae98951bcd79.camel@alistair23.me>
-	 <20260916031143.4fe2ae49@jic23-hlaptop>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (by Flathub.org) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C7i14aG2"
+Received: by mail-oi2-f35.google.com with SMTP id 46e09a7af769-8055dcba0a5so136231a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 20:42:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790134955; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jNJIuCH6f/26I+7r74erCX6acURezvnwaU111dWvxv24baEE69wyUxWptqMJJEdSGs
+         42aUVySXZA2vexgZsihgPgLZi0p7hy1d9iYNgYNo1P4J9kCfEin2IT3YQg55Va+9+O2p
+         UWWhtz5WamCZJdY+b0HS8jTiulAFTnLsauQ+zW0X0sMs0ln/BIC/WXNvWERxHUrumGRv
+         bqZa5dfxf3dlR2CkikhORTnmWyOzY/k0NZ/kmFEdASjZRFbZOTUrAspujj4L67pPqmBg
+         FqbXMQpwOxf189A3THd9QmlHFeFBeySLYyorItDYiSzHSV+OVt1tWzV4kiFBE06VdDcq
+         9BGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ETl0dM96QJlv5nuHoins0eKTRLoHFkMO6xGH/oLfeCU=;
+        fh=3fkqoOq4SB3Cu4sAp74Dp0IRkwVFyQ6jyUlEWN6tAMU=;
+        b=EvrX0PfYrTr7k/yUXwgquPzbTqwjRqjCGQNZklvy2T2oUNDWSm2TFBBUMfSSNVvMbS
+         nYbKOh5Zz7SDN7UwX1nCMl2WXAyXb9sdVRk3k8NQ3QrD5idInyVEhcB+1UmuCH0/R+jV
+         HjM2LzBdA18nnYp9y/arEKI9O/Rip3T98RP6tn2EH33EJpNPMlmTUowSZMuhAA/0bX3H
+         WUb1SnyRsEbZ+/luGWn5R032SkyFm1GZndXLpTxpezVGKY33j8jQX+EDMbSnNH9DYbGr
+         F8vRE+9ryq8Rew1ssR0E1Y3pnjF7SU+3GTqzQp6UeY1vZENvQ5SuTyrmscIbbA+KxG8A
+         3IxA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790134955; x=1790739755; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ETl0dM96QJlv5nuHoins0eKTRLoHFkMO6xGH/oLfeCU=;
+        b=C7i14aG2bdgWqlopi+nQc6ZicQsDdeRNbLRI4NoCJsTi5CbKDln6oThZL7YI/ECfeX
+         /2dMbXp6OVHkwj/KS4P8IFVrkdD31J3A5fplmByd/FkPwCLQxsl9bYLvk/yy1Gj9Y9qz
+         HcKm8LlyC2xDeAKgLNADlIUHQ1ChrpWMN7nHrZeG63A9sctwXxekAQQ2BoI+UpvUwSiI
+         k/OguCoTP+huCPmOLX0rUeZCEdgjM5UjaXifFevmz7h9qlvmPkzMI5/GkQS1wl6277AK
+         MNS4Ezr0V43VHo5Hx5sqZ5B2jTVAHsk367MmZd3pt2sGUOBVo+HK2nRJtrVaL32+CCgn
+         mdpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790134955; x=1790739755;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ETl0dM96QJlv5nuHoins0eKTRLoHFkMO6xGH/oLfeCU=;
+        b=1Ko6cWg4POEL+UfFaNqRMAb9W5XxoQk6poWNtPm2/m2BZcJzcdXHopfwdgzUwSQKq8
+         bsOw3R7Ky4uZ7Nc3gAoKuOtYtetPyDmRwT0rWky7L5InO5Y0WmEfSJgA7xxmO5KVFOK7
+         47SXdYg3thXIGh9BoQeEAK7WnsIU2oYArOGD/cOxAA5x7St8pAj6VlAvP6JCK+ue/dRU
+         7I1ZUBdGGZEkIrAGGF4ouDjdzU/UYjBvwPL1FZ6Y9OEVNSU9jSRXoKv4CGC2qH1zgHzr
+         dno+KfgFJ271KBdyYiC1VOUxibwzX9l8LVDIYhBW5FUrHZPGK2AJxh1F2AVm+7SSu8xx
+         b6sw==
+X-Forwarded-Encrypted: i=1; AKwUvBwumSHkeStpWk0T1G+pDKEQoDSJer/KPCJRjOQ1vlGASdwnW4enC0wj8NjBYMA9VW3twF+S01x6mE/Ug5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++noatG0ImIdzOJP9cIjn770Sl9q1h16XeS3gzh8CSADiPqe0o3f
+	Np2X1iaYL/L9LnRj1tRvWiPQCab7xJjoKcPo8cyJlJHHM7xgmcZgK6jjE22pyeHyvJJbtU8Ejee
+	BbPTagl3WRV6jQgVR2UOR/H63HL6Z/Ws=
+X-Gm-Gg: AYBFou0ho3Zku9a+zBu2Nf8IorSmKHoXUu4fUzLqMwrJlHx8Q0Z4BblsFtKMOYh/abL
+	/PGegpEF/7zpmbbfY14elNJ1fEly8RGrFVLxj+HtXb7RS2LVu9UgZwNLsLIfwPZj5aNzT5KGWvL
+	a8FsFjmAZEXEzRLnHMkqv6qmhC3jmKyAsSk6Kl+coXpx6dajQCev6QwTTaSl6pEqLWu+VL9OuL1
+	GZboVlt2qyCx55SqLy2M4HYKj03Qvepol7Cov9Tdtrjls9LwpqsN5+sCG+embucz0P6UnvYKdZx
+	1As2XDclMGNKI4m06j3toZn9Q9/5+6QiZfNWzDI1o9Dqq87t4mCuAYzgEw674j939+PWaEeUVsi
+	Md1R66JaGZLB9Oc2hlKgucU1rsSnpkCG4MSvObzw4vJm7
+X-Received: by 2002:a05:6830:67f7:b0:7f9:555:1def with SMTP id
+ 46e09a7af769-815fa7a1a70mr1301644a34.11.1790134955518; Tue, 22 Sep 2026
+ 20:42:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260921235951.3214-5-sigefriedhyy@gmail.com> <179012275175.2160803.16091441325063775173@kernel.org>
+In-Reply-To: <179012275175.2160803.16091441325063775173@kernel.org>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+Date: Wed, 23 Sep 2026 12:42:21 +0900
+X-Gm-Features: AclHuK8TXSgkkQWPa_o2Ozz0Yhcd3LUGBcSyKUw1APvq-PmiuvaOCRWU4_ZVJVI
+Message-ID: <CA+7S2vLn07uAcPQTV21eXOsCMmG6EVOaM0NBAkRtHcmeLZf7yg@mail.gmail.com>
+Subject: Re: [PATCH net-next v6 4/4] selftests: net: test AF_PACKET multicast dumps
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, dsahern@kernel.org, 
+	donald.hunter@gmail.com, edumazet@google.com, idosch@nvidia.com, 
+	jacob.e.keller@intel.com, kuba@kernel.org, kuniyu@google.com, 
+	nicolas.dichtel@6wind.com, nickgarlis@gmail.com, pabeni@redhat.com, 
+	sd@queasysnail.net, shuah@kernel.org, horms@kernel.org, sdf.kernel@gmail.com, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 2026-09-16 at 03:11 +0100, Jonathan Cameron wrote:
-> On Fri, 11 Sep 2026 15:00:59 +1000
-> Alistair <alistair@alistair23.me> wrote:
->=20
-> > On Wed, 2026-09-09 at 00:01 +0100, Jonathan Cameron wrote:
-> > > On Tue,=C2=A0 1 Sep 2026 11:03:36 +1000
-> > > alistair23@gmail.com=C2=A0wrote:
-> > > =C2=A0=20
-> > > > From: Alistair Francis <alistair.francis@wdc.com>
-> > > >=20
-> > > > Rename pci_tsm_pf0 to pci_tsm_host (and rename variables and
-> > > > function
-> > > > names from pf0 to host) as part of converting pci_tsm_host
-> > > > to be any device that knows how to speak any of CMA, IDE, or
-> > > > TDISP.=C2=A0=20
-> > >=20
-> > > I'm not against the change, but I would like at least one example
-> > > of
-> > > 'what' other type of device you plan to use this for.
-> > >=20
-> > > vf or something else?=C2=A0=20
-> >=20
-> > It's based on the reply here: https://lkml.org/lkml/2026/6/18/1741
-> >=20
-> > I don't know PCIe that well, so honestly I'm not sure.
->=20
-> Yeah, that's about both VFs and other physical functions.
-> Those can exist on both real EPs and RCiEPs.
->=20
-> >=20
-> > My use case is a root complex integrated endpoint
->=20
-> Any more info to share on that? Why isn't it attested etc as
-> part of the host given it's integrated? Or is SPDM a path to
+> - [High] dev_mc_fill_addr() (net/core/dev_addr_lists.c:1210) emits
+>   IFA_MULTICAST with `nla_put(skb, IFA_MULTICAST, dev->addr_len
 
-Oh, sorry. It's not integrated in the sense of on the board. It's just
-a PCIe attached NVMe device. You can see the example for testing with
-QEMU in the cover letter.
+Existing issue, /proc/net/dev_mcast prints the same bytes. Should be
+addressed separately.
 
-> something other than simple attestation here?=C2=A0 Fine to do it this
-> way, just seems like overkill so I'm curious what the application
-> is.
+> - [Medium] dump_mcaddr_l2_check()
+>   (tools/testing/selftests/net/rtnetlink.py:113) issues the new
 
-The next step is to expand this to support other transports, like the
-storage ones.
-
-Alistair
-
->=20
-> Jonathan
+This is WAI.
