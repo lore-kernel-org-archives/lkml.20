@@ -1,184 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49262463B9B;
-	Wed, 23 Sep 2026 08:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790151421; cv=fail; b=O251UuIKdoQV7itRc1Rq+NptT8WdvagtjB5Oy+QtCfC4+nnS1TYrBYtbVydDMa5B1SlPzh6bQT8TEjFUrBPP4UKlaQSBcRE3jnx3QwZaUkMbGImOuPAIrCHXGPTYFQ6dpiKKekWYNaj9Y8Tt56BsOBPnpugxQFMhXR3F18RgqNE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790151421; c=relaxed/simple;
-	bh=rh3eS9g7qSZiMliTytYbAhNhYaUPrKMDs1jRK18434k=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=n5CE8b1mm8EMSu6vy1kU0dH2fP5Dz7wKyE43vtVJ4OtY82vJfR3DdJo3Uk6/NsjBoyOeA0YKEBWUeWU+kKGZx2WSwZ+uRgS+lmcFCf1pRlUSfJkVOgSjraQLgDqRlA7XO21SfBKMkmUwU2WGYkrAuqMHgaLsODWsxUKG1GX8wmQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UeCKqWvC; arc=fail smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65E5340DA6;
+	Wed, 23 Sep 2026 08:17:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790151465; cv=none; b=Uu3li431mGV8qPPVefERycAH3+gfNodkRcviR4AZVENs2k3iCzWkfYcqEoQdUTsdZuW5/C8CDGfd5iZV0DDIGpDX9lhAsZR7CSUWxfr0yXhr2dOGiasplv4Do02HaRyTO85OswPu4bDXKlHUEMcUvk2ZES9ZDaoBDf5ZN9nMXuw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790151465; c=relaxed/simple;
+	bh=TIN/NRKO8ZbR+0XbmoqI60vFl/wuQ5jwrxcZa79OolE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=YauFxqdBKaINV4D/eEvx5ld61nPQXdhJ/j5gxl0gv302gJ1OZjHQC1KpEiHYyPtCd19eMghgJ6mOEry64UQqKXg3qxOlpge5A9bR+oupOCTl2nr3KnI5YeNoyfPnfKrm5Q9eQWyHCyGKrF0DXWlQPylNJMyfcR8UJQm4SqikLe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=Cupta3+C; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UeCKqWvC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790151419; x=1821687419;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=rh3eS9g7qSZiMliTytYbAhNhYaUPrKMDs1jRK18434k=;
-  b=UeCKqWvCDYNwJW2KiK0XYVXtu7qai8ABHdYKn+o8xvYZb1pzg9hw6MK/
-   vSTXm/r3HAfhEq4BD949k5MsXrXSWiHZK6frsnpxM2VhtvEjSWBYnSdwk
-   nZ79wCiNTTFBpkf1mjeFKh3sZmQqXKTlLPtOgmuvZEgg+/P82T7kqNWmR
-   wcIQAkGDJdF6oLXu26bk1V9Il8A9c66QzYLyLTLOBlVH0Ckxizp8wWKXS
-   5+rhmDzebSLrgIajttIxsL2gPIMYdu4bfd+jdInfOHtEmPpBxcwtrzmUz
-   UuXcr9IkP4xN02TXTXIgPk0amkWrbpkzDlBbeF9GsLQgXW+GpPJv8G001
-   Q==;
-X-CSE-ConnectionGUID: QiqjmRhUQnaW0Gl0VqicAw==
-X-CSE-MsgGUID: z1xCt4MoR3+b2+E6RM7t+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="89739926"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="89739926"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 01:16:58 -0700
-X-CSE-ConnectionGUID: 70/b3u7CQmeHB3ryMkL72g==
-X-CSE-MsgGUID: xiHs2BTeQxq8S7AW/irgcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="299746181"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
-  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 01:16:58 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="Cupta3+C"
+X-UUID: 39f6eebeb72711f18dc8c9802ae25ab1-20260923
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:CC:To:From; bh=asbYkGVb9jA+B/klFq9ejQsyZ8c7kCESU+4zn4DVTs4=;
+	b=Cupta3+Cd0ZtDMsHj8ADX3Kqh6+mPUt8o+V8AeL6jO0mTHTHoR+HmH1usf6y3jNjc6CIG6AxjZdE1FVPgE9bXcm1X6T4oHoc2X2RnbxC4jyHSn6d/0HHaGgt1wf94zO/gNq4/vBCRHl2G63EC6KnVUmpJnkZp0OYWR+7cqCI8WQ=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:217374e9-d513-4200-8dab-f9dfa2f6d18d,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:1bf6e108-d10d-41b3-a8f1-bc707284d0ce,B
+	ulkID:nil,BulkQuantity:0,SF:102|836|865|888|898,TC:-5,Content:0|15|50|99,E
+	DM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,OSA:0,
+	AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 39f6eebeb72711f18dc8c9802ae25ab1-20260923
+Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw02.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 237870587; Wed, 23 Sep 2026 16:17:32 +0800
+Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 01:16:57 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 23 Sep 2026 01:16:57 -0700
-Received: from SA9PR02CU001.outbound.protection.outlook.com (40.93.196.8) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 23 Sep 2026 01:16:53 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Lwrvq7CK0QDxyUgJXQ9qqZH5g/LYyeAJf3ZZ0N93UOvVvXkPnrgXulJO/NNtbIXPpBlfSAxEJewK2+2aaDSi7V/cYmXSvQloGi8k6VNzddXRyfFXzpNiGvEzIZi31EJ0vxqKbuZDSmnlvZYnSzEWfJm2xTpnRNLMgzIznDxkiR1y1a3Hnvehm0ZBshYsf3zwRl/DbkTP6BXbJg3wwMSJaPMje7NVh0lpXGufgYpBuPlhl1vnQBgJ14aaNrGT+rpyRRIqosR+X1VKeloRkPOET7jRMAoJnCRX1X1RqrwHvidtKXmgqh3t+bv0JovcXs09qqmpaOCI3ym51AIc0V5a3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JcvtK4kcuFNLIxD+XFM4URD6pfKOoNLf2W3PI7L/61U=;
- b=FttgTOwrgxS8ddPBy3/8ZPnKPoMesFwLabAMDb622ovjk++q1iIHOYccjdhTZNsFuPmPHV+lL8Q/ne+Q7gD38WjPH3JqO715bCY9W27dyXxQx6LmnlFR/D3RdgtlWJ6Gd3mcgI9spKK8X3m6B9ueLg7eeAdGkiwdiccJmuXzxDL50UKB5WsmAMujcpM+ahnWWpNLVR3BG/9w4OXojcnYYVFzNf2D4Hojz+yghfBuISV13sRuGk+51DQc4/p1PnNnx6PNoBlEfAR4aZTPatn+Z4MQAlCoEWBHFiF0j48Vc9wOJBcbqcqVCfp0wdT0no4rwpmxNps5uzVpd2u4t3YzGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6006.namprd11.prod.outlook.com (2603:10b6:510:1e1::13)
- by SJ0PR11MB6669.namprd11.prod.outlook.com (2603:10b6:a03:449::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Wed, 23 Sep
- 2026 08:16:48 +0000
-Received: from PH7PR11MB6006.namprd11.prod.outlook.com
- ([fe80::4e2d:28f0:ede9:73bd]) by PH7PR11MB6006.namprd11.prod.outlook.com
- ([fe80::4e2d:28f0:ede9:73bd%6]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
- 08:16:39 +0000
-Message-ID: <1690dddf-02ba-4a30-b490-d9e317303b6f@intel.com>
-Date: Wed, 23 Sep 2026 10:16:33 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/21] ASoC: codecs: rt5640: Move mclk acquisition to
- the i2c probe
-To: Chancel Liu <chancel.liu@oss.nxp.com>
-CC: Support Opensource <support.opensource@diasemi.com>,
-	<linux-sound@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<patches@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>, "Liam
- Girdwood" <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, "Takashi
- Iwai" <tiwai@suse.com>, Charles Keepax <ckeepax@opensource.cirrus.com>, "Oder
- Chiou" <oder_chiou@realtek.com>
-References: <20260923061305.4041197-1-chancel.liu@oss.nxp.com>
- <20260923061305.4041197-10-chancel.liu@oss.nxp.com>
-Content-Language: en-US
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20260923061305.4041197-10-chancel.liu@oss.nxp.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: WA3PEPF00000521.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d8::66b) To PH7PR11MB6006.namprd11.prod.outlook.com
- (2603:10b6:510:1e1::13)
+ 15.2.2562.29; Wed, 23 Sep 2026 16:17:31 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 23 Sep 2026 16:17:25 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
+	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
+	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
+ Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
+	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
+	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
+Subject: [PATCH v10 06/10] media: mediatek: vcodec: Fix vp9 4096x2176 fail for profile2
+Date: Wed, 23 Sep 2026 16:17:23 +0800
+Message-ID: <20260923081723.268263-1-kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6006:EE_|SJ0PR11MB6669:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e0991ad-1f23-4cd5-d2ec-08df194afe54
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|10067099003|11063799006|22082099003|18002099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info: JEIwOTu5hOF6mdlUbX6HdcKDUGXM0V0kzqGZJoVt7fa9jgEeA+F5Ia/zCcdBnFZzOrd6MxS3mx5DOP2XA7++u0i2sB7DKmoa4Se4xsqrs2O3UmvCZXGqITINUA4hAzxY+8nqN1yf/z2P9jY2PBlddkTCc/8LoLvCNaB/d5VzMGMegfMrDhfC9pUUY9SOaqWv2mcPEI1fQJ8uil47FBrTodfi01NDDPyt9JohOUeLjWs07Y+YKdH2BGTiLtwZHjHfRQkVo38m21RmpZDb79ctsLAg/zZ4ZTXECx1tnwvUrmlGReQvr/W+5TmooZJHYZ6vWXsDdkHTdUGpNnFKdaalM8oSbcr+BEkuTjT/S5HBnjHN913wm1vf7k4dM7FsMMYYuAzBK+XyPI66xXXYNavoL6JaSn0+Ju4joJuCJGIi+qduGF27/13j2sjBYg1SZ+/54gmsl7aT1NHhVIteQ8ieGFdtQrcv/X8yUIgv0w3bMq4wTLOO6Yw478skwZWJsqDWF0NapB86Ttp3nzcuqyNrEhXMmy0j88bbiB+G/sk/QyfLZEeNKdqNtNP2P13WzmV4sXXtSWoBFueNtapV0PfBNQ2WoCiA3AKuYwAWUO4EC39plvespcFSl+pfzdj+y/V/aryS2vfAM7yzgJyOVIGHe40qOi8/RiK1p5ijjUF/ruE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6006.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bUZ5Z3Rac1puTmxQTWxKSmlTcUdWQzNMbGxUZDZzOEFyeWJJZ2xUTHhIR0xO?=
- =?utf-8?B?OHFsdXhtWXQ4ZWcrcjFRazIyWW0zQ3BHYll6QTZwMnpVV3l6ajdQaFMxMXFr?=
- =?utf-8?B?N1IybHgrbENYam9xV2lpOWFLNEdxc2xsQVdWWXY2N2dFVDNsT3FOcmZJbnNK?=
- =?utf-8?B?dkdVS2x2aHpvOFg4b2ZTSURhcEptbjQ4aU1KQUJjWmZISnllL3czM1Q5QXBy?=
- =?utf-8?B?dU1ncDMwNVBqR09zZU83YUVkdk95UkQzU2FvRG0wVlRpTlE1bmxTaUM3SnQz?=
- =?utf-8?B?Y3FLL1FFY1QxdHE0ZUZ0Q2ZuL2ZuRVdINFk3NWJTcXB3ZmlONnJEeTFLMVE3?=
- =?utf-8?B?RzFsb1JSRkkvTGZaVnJjRlRhTnl0ZnBYTmJVQlk4VE54ODB2U2g1OGJRMTZD?=
- =?utf-8?B?S1NyS2dUQnlqRnBwM21xa0luWWtvdUJWZlBFdWdZK1kyRHNLdDI2THRmSFFC?=
- =?utf-8?B?M3Y4N2tFK04yNHVkMy90dUR1MmZ6YTNQUFFwYUpKTlQ5czl4WHZMWEtMVmdS?=
- =?utf-8?B?WG5lbEc4TG10VytwenhRbVVKT1dXV1p6R01WYVlUVDUyWUdlOVV6d2w5NEY3?=
- =?utf-8?B?OHpVbjNOaTRxdHZlaHJpS29pMkZzc0UrcXB5TEVqQUw0VXVwZjhBdkVtRFo4?=
- =?utf-8?B?MWNqTVhUTkw2ZFpDclZGNkxEdFg0dG5CSEJsQlBwOTdQSFg1MDh0SjFpTnJM?=
- =?utf-8?B?TXByZDdFcFJYbEF0SS9XalB0VTFaZ000UWViVDJzQmV6R2NIS3pTaUdqdlV3?=
- =?utf-8?B?VWNGUXhqNmUrZXhXbTZKMkhZMG5lbjYxMHBLOGp1UXJ5YXhWazM5YU1zbldK?=
- =?utf-8?B?V0cwdHYyd2xmaFhkOWRRTUVnM0lDdU52OVVFQjc4ZnhocEZWeXpqTklmWUdD?=
- =?utf-8?B?S3FSM1BOdUY1Q2orei9YdFluMFRkZ2hvaDRBVnB2V2NLZ3pzQlVXWm1UZk9Y?=
- =?utf-8?B?Ris2c1c0OEc2MmlNOXRLU0VTcllDQ1F0QXE5WTkxbWNTNHdjRm16dFcvc1E5?=
- =?utf-8?B?cktXNTlITTBnem11VUdjQWpKM0dLL2pkTkt6NENxdVdhaERQWk5nekFQVGdE?=
- =?utf-8?B?VWJiTHhNLzM0YjBCRXFXY3U2Y05oZForTjUwNis2ejJORUZhckJIUVdkSEpM?=
- =?utf-8?B?bzdvSHVzZ2xtb3Q4cktHVjVLUkMrQVFmUWRLYVlsSnNaV2xndytpbTZ0QjVu?=
- =?utf-8?B?SytIUGQ4VWw5MHhDZ1dDcW5BWUtNR0Z4M3BLRzE5bGhiZjZhMWR6UTNHT2hO?=
- =?utf-8?B?bERmUXl5ZU05ZG03dXVqQ2Z0SW9LemZwdWVPU05MK0hOMUwrdzM3UDY1V0pW?=
- =?utf-8?B?czlUTG01bVNjL1plK0VGU2xoUEtEQ0hqbmorbXFub0NxSW5XL0ltcEoxMnZh?=
- =?utf-8?B?LzBkR3ZsdWVOMXBFU0xkQ0lqam5ucnQwSWxrU1pWT2Y0K0dqWEsxVEFlUEFX?=
- =?utf-8?B?Qy95dEpyaytpbFQvVFZtbFdCaE4yZEx5RWZ5Q0hicmFtdkh6enBOWmFYOXd6?=
- =?utf-8?B?ZEMvWStkQWZ5T0xGNjBNQVZBNXUrYks1a3pnaFpsSmpKNE92SUcxVU5mcUl3?=
- =?utf-8?B?MExHdUlqUHdNaFk0VkRZQVJLMzZYWkZQb0luQnZYMEJHT3I3cWZMd1BaeTQ2?=
- =?utf-8?B?UEk5N05tNENSdjBJWllEUGxPMkZuUURCdTVsQ3dmTVZOVElmZm42dmsxZG9Z?=
- =?utf-8?B?U0hFb3VZZGh0WDJLTk9MbFl3bFYvcmo0TFFDcWFCREJXN0xhRHdIQ0ROQy9m?=
- =?utf-8?B?N3V2Yll5UzlLWU9UT3N2Q0hIZjZqbXliM1VFSG5sNHJGaDFCOHpiQkVrUmY2?=
- =?utf-8?B?cWl1Ny9DMWxyMjJXRnZrM1VBQzhJOC9reFUyZlB5SXRYTCtCT1NXVnZUdTNW?=
- =?utf-8?B?NjNoanBaMDFCcGFGYVBvLzR3bzB4eHNVUlRFUWdMcHpWaXRhT2plSjJubVps?=
- =?utf-8?B?NVNPSXlrUHhLZVQyWkRlZElTNDlzUUFYVVE0RHdOOG9qYTlPaWYwYlJFSm0x?=
- =?utf-8?B?N0xzOER0bDN3UW80cWlXdmZxczVCU0gvcUZDa3EyU0dOSkNua0QyQ2Z2TnVV?=
- =?utf-8?B?UVlLaHBPZ0ZZZHhXV0lIakFCQTlCUnFlZkk2M0MwWVlHdGw2dzcyV0NoL0pE?=
- =?utf-8?B?bWkxZlJDcmxSWGI2Qi9CR0pIS3VlSmlFcGhWQW5tczRPQkw2ckVPNmRyZDVu?=
- =?utf-8?B?TUp2ZFVtc2xoc1FaeXJuNlhjT0U5OUh4YytiRGxsMG81V2NaT0JzTGNiN3pY?=
- =?utf-8?B?aG5waTdFc21Db0ZlbWVWZVRsWjYwYlVFVUNKamI3WEZLMHRNcWtlK3Z0a1Vq?=
- =?utf-8?B?WVpKcDNRbHJHNkNsN3ZJbVE2czJycm1jKzBuUW50N1ByK1R4VmQrMmZRSXZG?=
- =?utf-8?Q?casyH09k+TAh4Cbs=3D?=
-X-Exchange-RoutingPolicyChecked: LaZrNMQIecK7itga75/20bqInO0ss6XSzYo88I14QptuMkk1KFDVEgWuJddFwoW4yPytLPEESlVX1CV4inWyXgzBpn9P2uwO1y2qzTSbNMKu74TPSALUhUq9FjarDvgcmncGn8SQ5vVexD4t409gZ6B1/3KUhH6ie94yoIKGKGOsbbIIPBIbLnKqLhYAw/yqKBkX4BvhNn11/FT7hwMwrLBKCePJoBVLdQihf1LgnukWs2UBfBL3XZiQWpsJ/KnAcrjx8oaMWoj4+kQWhEYASvIbEgssGiZpVBoV1WNmli2i6iOhUW/wBae0rwYoKBt9TzJ8jTEuwElxSWaZMISMRA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e0991ad-1f23-4cd5-d2ec-08df194afe54
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6006.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 08:16:39.6206
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lvMPjMiANHtL0f1QG+t2GF8sl6e7b8BBmO7+6Mdyk+zXFXmATxiP0aCvLK39QvRCALOmFiqDz41kryutumzqn0WMCwmyDrdaYNY3t6LT1pI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB6669
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-On 9/23/2026 8:12 AM, Chancel Liu wrote:
-> From: Chancel Liu <chancel.liu@nxp.com>
-> 
-> component->dev is the underlying i2c device whose devres is only
-> released on physical device removal, not on ASoC card unbind. Getting
-> the codec clock with devm_clk_get_optional(component->dev, ...) in the
-> component probe therefore leaks a clk reference on every card
-> bind/unbind cycle.
-> 
-> Move the devm_clk_get_optional() to rt5640_i2c_probe() so the clk
-> reference is tied to the physical device lifetime.
-> 
-> Signed-off-by: Chancel Liu <chancel.liu@nxp.com>
-I see no reason why my tag was removed. Nonetheless:
+The DRAM address of the VP9 decoder tile info buffers may require
+as much as 36bits for 4096x2176 resolution. Fold the 4 most significant
+bits into the lower (padding) four bits of address.
 
-Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Fixes: 5d418351ca8f1 ("media: mediatek: vcodec: support stateless VP9 decoding")
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+---
+ .../mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c
+index d08be051d0ab..b32f5e942501 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_lat_if.c
+@@ -1134,9 +1134,17 @@ static int vdec_vp9_slice_setup_tile_buffer(struct vdec_vp9_slice_instance *inst
+ 					return -EINVAL;
+ 			}
+ 			tiles->size[i][j] = size;
++			/*
++			 * If the system supports 64-bit DMA addresses, the upper 4 bits
++			 * of the address are also encoded into the buffer entry.
++			 * The buffer pointer (tb) is incremented after each entry is written.
++			 */
+ 			if (tiles->mi_rows[i]) {
+ 				*tb++ = (size << 3) + ((offset << 3) & 0x7f);
+-				*tb++ = pa & ~0xf;
++				*tb = pa & GENMASK(31, 4);
++				if (IS_ENABLED(CONFIG_ARCH_DMA_ADDR_T_64BIT))
++					*tb |= (pa >> 32) & GENMASK(3, 0);
++				tb++;
+ 				*tb++ = (pa << 3) & 0x7f;
+ 				mi_row = (tiles->mi_rows[i] - 1) & 0x1ff;
+ 				mi_col = (tiles->mi_cols[j] - 1) & 0x3f;
+-- 
+2.51.0.windows.2
+
