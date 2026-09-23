@@ -1,114 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B576F3AC0CB
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:30:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD664570FF;
+	Wed, 23 Sep 2026 21:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790199014; cv=none; b=uA7N2NdlmPn4X5O2oVIOoAzWXZldNZKX1G0fbMM4sBuKiulopzIe/gSN3rGENI/4tXxkUzXK8949xh80nEn3DqxlTjLvL+CMKyszR81QcNs3LncPu3IdnsNRX1+Zge2hmwG7qMFzuuOPrTSL5DsjJkM0F+WN5S5qZPPHAR14xas=
+	t=1790199115; cv=none; b=NPS395FlX4LXZhQjUDB2ACfL7PLEoNz/rqDyQGO1t+sGPkVQO/9mUNTIH2X7iK5/3E623jGQoLgn3oxiBkkk/0wvsMdivpGcBfhg/4vElTPr0nI11/62SOaJ61vy67uTaoLTEdhk4cHR1XyLLizGGbRvHo+ZCUy7A0/iys9Y6dk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790199014; c=relaxed/simple;
-	bh=s3YrED/DYjJkCOhQVuSmfXRnSvlNAGPbMWfjGtNDWeY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XkXjKPVLNE7TjvlRmQRXrVV76RqUPeGFHmClRgnChhEjBWoPeg3TNZ92APghIXUg9Nqx643/Uj5k4O8+Oh/mQ70QORkL443rtkVxYZg9alt4Wi/Xv6tWFoFx37s87qPkGa2d3JY3e+Uy8ZAoRo+DaoKYrcG+ISHY0rdVcQSJIVo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JKAxKVtM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790199115; c=relaxed/simple;
+	bh=5SAVxGmg7GnelrcPsgVtt3W2kFmCd8Tt9b2GZLTh4zY=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=gWkwzSCl8dGSf28b0Bqfk1VHlzPp4s5JT9FLFTRmZyLYTZSuKQYzXYzM2LF7DZI/6QelMNR0vT5t5OfC2WOm8cSMZ4uEOvEv17Jn6mDiBeHEMA00zrICWlrxcsZ5+nnzax6cEJqBByxu8CrMfM9ESTDoRulJWYEEGuwEZSfMNAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LRHixrlv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JKAxKVtM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 433741F0089C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:30:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LRHixrlv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C63031F000FF;
+	Wed, 23 Sep 2026 21:31:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790199013;
-	bh=d3tq9N0LJ4r7VJ+9wdwqQQlbn4k6qzBMuLB5kE1baa4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JKAxKVtMZbF3TD2Yn2zgDD4fLtybBqJ/igLQzq3NUT4r9bDACuqKvXjvgz60TR+JA
-	 BIFmfFeaS555lQfbIUJsxtX1zQkAUve6IUQqNm7nLfx6uf7seZiMIvm9RK03R3nD3X
-	 yIqwdSH/bmBuXrza+VBpZYbApAWVCksy8bFBjD49DyaS1W6AQq+JhF2QihqME55VXB
-	 IJ8+SeI/dKeiSzaW7jniNvqm6j5i8qbdAiZMMHyUhEOvu3CyESGyLW7HUG4hOhAWJf
-	 +n7NPspRkMseNo+3GfhH9oIjsO6FjECoNDaxM6ZpMUq4024vg6/mylbECDTlTHtIO7
-	 kd3RiEuWZgBSg==
-Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93910ad2273so151265785a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:30:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByQGeymSonefemHnHw//lQBobP4/TaRcN917GKebj4BWcKSuZhrn9sAVxMSiLe8H7dcY3A15Rjsk4gKZw4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mHnARVDaB+p5dXIb17sHMOlAB6iXt7dJLMvqQY4F99V1YpgtXC
-	BLM5fzH8RR8HK4G8TH7KI2m7f3gpvs/W6XiCf53BIS2t3YQOxWAPG8T71QgxL0azyhXycieeNpG
-	nhmRsDPbAbdtidnv63SP3jDdo0LEf1HY=
-X-Received: by 2002:a05:620a:4707:b0:937:50b6:4a5b with SMTP id
- af79cd13be357-93c345836d2mr78355685a.23.1790199012523; Wed, 23 Sep 2026
- 14:30:12 -0700 (PDT)
+	s=k20260515; t=1790199113;
+	bh=5SAVxGmg7GnelrcPsgVtt3W2kFmCd8Tt9b2GZLTh4zY=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=LRHixrlvCqA4DP04Yj/XSkiBYsMMYZlDbXvmoCxrq1HDhPJtk+LVGKjcQSv7tmDqO
+	 4fYu7FUCBiTYhpeMS/6aQbisEdSFCiopAELkp7kujX5ljUdBHIg7ra/pgY6Nb3uNeZ
+	 LgvJ+iXkvU8D6SJJSUEboJH6S6ui2qK1RaEyLRzEAHSBh6mcIUJNgybbpnfp4J88ce
+	 NoHfjItL+pt4PGXQ6KO1Ix1Jcwo/Y0/SmjC6WGZTwfCf92OYBXA+pauq7J8WzQjXYa
+	 b4+rkxY6ZtM6QZqyS6rRdFBv5RhKkBtHHEo4oQ0+2vLuUDgL/byVCRaddIYLm3POVd
+	 mcv758lKIjMtA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 18D991980059;
+	Wed, 23 Sep 2026 17:31:50 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 23 Sep 2026 17:31:50 -0400
+X-ME-Sender: <xms:Q0W0aqgh93mvqMIz3Y4uAkRvcFCMlSrZJvQLJNS7bPVxk3BwqtGw6Q>
+    <xme:Q0W0al0Y5YiwqMZgHtmMwm84QKmHbvGj-nO-rK_go5KYC5df5DmtZZPq6X2YcRPsp
+    ETeCwEl9OTwP4CNXkEpyJX1Obt0gdOG2A3OBjnagcgh1jFZMAsG0ujt>
+X-ME-Proxy-Cause: dmFkZTGpc2w2ufMjmJ0kap8IYjs9DfPrMkSQFlAOzp0sPrwE/vrB6G6LACcNgsecPhcLyl
+    /g20MmAILQDVu0ZlSW7Lo9cigxl3519OTOgyM8UAyR1qlsSJMvP2OLuBuCYEy8vwV9/bNQ
+    WQh7FLbGr62pkxIMcPm4sXkf+skT0hS8S8/4fyusGJg9XxMo6tfZoxf/yeVuvn1UVSKtK+
+    yjpDxHjNgfv6GXN8E2hYbkrxiDycjOFqxFyHgKgVwyw2yLOS7dg0qc1A0/3PCZ0TVcW9qF
+    a8vS5CuOnbW9yqpETq/JNukDtE0dez70dGFdfo8YR4EcapOfSiMdt0JJhH/CoQYunZXEkx
+    4y7dbz0FO1BNf2ZSmwjaC1o72nLr4BOeYMmL5fn/EJxQkBS8ykwEjFHn3vNe6FqNtH7zih
+    4Qo6NHaODC5piVE+bwEL1bQ/GGvg5rPtcRTTRPeIGoCiRmmv4LJIk6tRJVtMquknDVezHJ
+    vWQbLQgtDaQvlrTFNM2YyIStqkeNju5IKd4OSczUWM7kL87z7nG7Z+zbUwMIv7rlagqy1v
+    /jnU8At4jogCsmDlfPrvmrtUXUie/We54VcYHwH0jNEnOLdUNAej1KTGMPyThdfDPqpXE9
+    L6tBNGaVbNgPTadl+LKcwDhKPMUp35itFGnikWAMDTXsn5WTXQrxO+n6zalA
+X-ME-Proxy: <xmx:RkW0atFaMfzn3umDR1s9bs-Kk3MkgaNPoyM6LolyQEp-hCjgS5FgNA>
+    <xmx:RkW0arEMcEzOzSkta4DLZ7mtyUwSqEAIzP5_zYGHmpBP5xNdZhf89Q>
+    <xmx:RkW0at2M57JbrSZQWBwlJEfJ3-I2xW3WcKTqGPE7WInrBOK5vBEe-g>
+    <xmx:RkW0alcf_Bhjxlov46iFTQW11wgGbri_oCK0uu0iVIKNEl4uzXKfgQ>
+    <xmx:RkW0anJBbBkol_rpPInw8zj5v303xcyAaRVcunZlrAoMOBChhJT4Rxg4>
+Feedback-ID: i36794607:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 3BD3932A0087; Wed, 23 Sep 2026 17:31:47 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923062832.479455-1-jiangwen6@xiaomi.com> <20260923062832.479455-2-jiangwen6@xiaomi.com>
-In-Reply-To: <20260923062832.479455-2-jiangwen6@xiaomi.com>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 24 Sep 2026 05:30:00 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4xQhmRigaV_2G3pdOgk5mvC6HNzqCyUdRY3RSG8-QNC-Q@mail.gmail.com>
-X-Gm-Features: AcwNN1UaTtV0wPc3IJY9Sx6rnYvw9-CPwWOiah8w0K1fH7hCcF4lT-foCe1dQ8M
-Message-ID: <CAGsJ_4xQhmRigaV_2G3pdOgk5mvC6HNzqCyUdRY3RSG8-QNC-Q@mail.gmail.com>
-Subject: Re: [PATCH v9 01/10] arm64/mm: add pte_set_huge() and pte_clear_huge()
-To: Wen Jiang <jiangwenxiaomi@gmail.com>
-Cc: akpm@linux-foundation.org, catalin.marinas@arm.com, linux-mm@kvack.org, 
-	urezki@gmail.com, will@kernel.org, Xueyuan.chen21@gmail.com, 
-	ajd@linux.ibm.com, anshuman.khandual@arm.com, chleroy@kernel.org, 
-	david@kernel.org, dev.jain@arm.com, jiangwen6@xiaomi.com, leo.yan@arm.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au, 
-	npiggin@gmail.com, rppt@kernel.org, ryan.roberts@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AZl98to-mMhc
+Date: Wed, 23 Sep 2026 23:31:25 +0200
+From: "Arnd Bergmann" <arnd@kernel.org>
+To: "Greg Ungerer" <gerg@linux-m68k.org>, linux-m68k@lists.linux-m68k.org
+Cc: linux-kernel@vger.kernel.org, "Wei Fang" <wei.fang@nxp.com>,
+ "Frank Li" <frank.li@nxp.com>, "Shenwei Wang" <shenwei.wang@nxp.com>,
+ imx@lists.linux.dev, Netdev <netdev@vger.kernel.org>,
+ "Nicolas Pitre" <nico@fluxnic.net>, linux-can@vger.kernel.org,
+ linux-spi@vger.kernel.org, "Vladimir Oltean" <olteanv@gmail.com>,
+ andrew+netdev@lunn.ch, "David S . Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>
+Message-Id: <b6135a85-1f05-4ec4-a283-60e8dbcf0437@app.fastmail.com>
+In-Reply-To: <20260907134037.1855408-3-gerg@linux-m68k.org>
+References: <20260907134037.1855408-1-gerg@linux-m68k.org>
+ <20260907134037.1855408-3-gerg@linux-m68k.org>
+Subject: Re: [PATCHv3 2/3] net: smc91x: do not use readw()/writew() on ColdFire
+ platforms
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 23, 2026 at 2:28=E2=80=AFPM Wen Jiang <jiangwenxiaomi@gmail.com=
-> wrote:
+On Mon, Sep 7, 2026, at 15:37, Greg Ungerer wrote:
+> Modify the access macros and functions used to access the smsc hardware
+> registers when used on ColdFire SoC platforms so they do not use readw()
+> or writew(), or derived functions like ioread16be() and iowrite16be().
 >
-> vmap installs PTE-level block mappings (PTE_CONT on arm64) by reusing
-> set_huge_pte_at() and huge_ptep_get_and_clear(), which are HugeTLB
-> helpers gated by CONFIG_HUGETLB_PAGE. This makes the feature silently
-> unavailable on CONFIG_HUGETLB_PAGE=3Dn kernels and couples mm/vmalloc.c t=
-o
-> HugeTLB internals it does not otherwise need.
+> The current set of readX()/writeX() access methods for ColdFire have
+> historically been non-standard, in that they mostly access memory
+> big-endian instead of the expected little-endian. Before fixing the
+> ColdFire readX() and writeX() supporting code to properly work with
+> little-endian data existing driver uses need to be fixed. Convert the
+> smsc driver ColdFire uses of these to use the raw access macros - which
+> are well defined to be (native) big-endian on ColdFire. This change
+> requires some byte swapping at time of access to retain existing correct
+> behavior.
 >
-> Add pte_set_huge()/pte_clear_huge() to arm64, joining the existing
-> pmd_set_huge()/pud_set_huge() family in mm/mmu.c. They build on
-> __set_ptes() and __get_and_clear_full_ptes() directly, so they do not
-> depend on CONFIG_HUGETLB_PAGE.
->
-> There is no caller yet: mm/vmalloc.c is converted later in this series,
-> once the generic fallbacks are in place.
->
-> Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
+> Signed-off-by: Greg Ungerer <gerg@linux-m68k.org>
 
-LGTM. Please see the comment below.
-
-Reviewed-by: Barry Song <baohua@kernel.org>
-
-[...]
-
-> +void pte_set_huge(pte_t *ptep, unsigned long addr, phys_addr_t phys,
-> +                 pgprot_t prot, unsigned long size)
-> +{
-> +       unsigned long pfn =3D __phys_to_pfn(phys);
-> +       pte_t pte =3D pte_mkcont(pfn_pte(pfn, prot));
-> +       unsigned int nr =3D size >> PAGE_SHIFT;
-> +
-> +       VM_WARN_ON(!IS_ALIGNED(size, CONT_PTE_SIZE));
-> +       VM_WARN_ON(!IS_ALIGNED(addr, CONT_PTE_SIZE));
-> +       VM_WARN_ON(!IS_ALIGNED(pfn, CONT_PTES));
-> +
-> +       __set_ptes(&init_mm, addr, ptep, pte, nr);
-
-You have patch 4 to revert the `clear_flush()` modification from
-06fc959fcff ("arm64/mm: Support huge pte-mapped pages in vmap").
-
-I guess you may still need to guard against the case I mentioned in my
-reply to patch 4:
-https://lore.kernel.org/linux-mm/CAGsJ_4xiLScr2PrPu7Eem73GvPCtsuYd3J05kW3SC=
-4QSs5Q4aQ@mail.gmail.com/
-
-Something like this:
-VM_WARN_ON (pte_valid(__ptep_get(ptep)));
-
-Best Regards
-Barry
+Reviewed-by: Arnd Bergmann <arnd@arndb.de>
