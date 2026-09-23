@@ -1,208 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 426C1463B6F;
-	Wed, 23 Sep 2026 08:42:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487B43E40F3
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:42:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152931; cv=none; b=CmIxgykxpSWUPzHboWthPT5QHW3DxZHgOcowtvbKUhRGteHfk6LKfiaHcFMyKSvbMHstkped/SKPk7fcYRMLhz3Ntol9ulKwTKqxRHQPoVPq+Aysjh3v3plkkAzi63qyC8utwl5SAU4y/bknbdaEiqL43ScVMUtbGtgAjgzR+qA=
+	t=1790152948; cv=none; b=S9ipfkFnaH2RdLY18IWYQskBpM8g7Z/BTBP8sSIPTwIuP57pRMwOyTfznmxz4xht5El+Jyqq0BulvuwjjabxunlS5IQWYkz/pAE+CSdYdtk085BqXn3XrgjxOuaexb6b4uLibYVbIsNE0sdu0DAKjKGR4oFqQWJY7Lz0Y+ZzVCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152931; c=relaxed/simple;
-	bh=SjnDyw2HoqxDvp4VpQpC7G8xibqPQKGBmuPcCak24rQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MmvpzANa+sve9Ly/51ILvni+c+a2nskbv8NwkbMZIh8TlmscZcWhasxGm0bdPL78SyjE3WjowNx1ISWU3g94tVQw2S/TyLqZ5NHLZZKfWEaU/QiaMG2/Iy1g5BIoRfanqyI7EE85t0IFAZoAfUzN+JhGsvCuyZlA70LkAcKor5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H8jS0hY4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790152948; c=relaxed/simple;
+	bh=AlYVH6JZsylctzQviaLt4hc7y4RoW/sXNgqoYSnoG8A=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=SAsVgK3DFxI9nQ9lpvM2hFtH84i3elY6g17VV0yvlEDIO5I1ayZ6pmFnCCQcUCCp1Iee4j5zIH2BLOxHcsQ0uAeyG0JyInQju/7tT/5+vovIE2/PXRK45cQtfioHBOuJvnnvGzDLbDpOwiUU6U1aldgffkBkMPzIYCQCymM5xxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YLJKfbjb; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H8jS0hY4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E169A1F000FF;
-	Wed, 23 Sep 2026 08:41:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790152922;
-	bh=VJF4/vr5y5VcWETmgrbJDPEEq5BFKEqJfgmd5Y2tQcQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=H8jS0hY4lKcJBzeLTpK4BQQqUSaDV5pSY42s2J2J/9E/8UyXF8r39ELo8ION0kD0c
-	 Jhk50GZshpDQ10AQGyrLFVpcH76Z7mHe7nnynn3pNX2PyzAI/cMrILI/bBFkfNKLRl
-	 VTuxW/+ixSerK/Z3pSo57HhZvG/E9dtkHeCk4WB29ABXkbkp6iqQl8NQqE5HOCKmdl
-	 SulfDHaNWAfHDZtfd+9TLZA/nRjUuXZtWABwjsbXvBHWmmr227uZAm0FjiDORGMt++
-	 uBqcNBAHd3GiqOldPMfNugTZrIWuTZ4MGA67E/uCfLnxOeWhLNHWnh2bOwPA5Yhl7K
-	 xq2nOcnyciqBw==
-Message-ID: <ead48f50-5d37-406c-b51e-d754c2c512f8@kernel.org>
-Date: Wed, 23 Sep 2026 11:41:57 +0300
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YLJKfbjb"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e4ad9so3238125e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:42:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790152934; x=1790757734; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n91d5eWYAIFJCF0jV6IWCgrzcQaMYxpIShAjrH7dsh0=;
+        b=YLJKfbjbJIocfNSOVi9MCfMtu9HdsuELgm5mWnyk+bUDUy4OPE6PUcxvHQBe9MwWnh
+         gEo/UIuxacLxSwPZIbkfKt7/LjK9kjVyghYyf5a+qehu33UOpq8ZgRd1F20tWhMJFuYV
+         3ZR2tMOuoyAVLZGWSw/79XNtyf+fy5o3d354HM8pnzt2wT6nI7ZS08jW+UJwY1u7+Nng
+         dTtDewWupFxu8Qk8BWTZUel3EMp6FHU2YKZoOR42wmd1HQZMBrhl9LzC3G2fJ9QYJdcu
+         dYmZmhG609LgHnbSjCTSt3w9kTyc74iOavUAiDr6COhWFYfKQg0jlJbV9ArWVFs7N0Il
+         aCTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790152934; x=1790757734;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n91d5eWYAIFJCF0jV6IWCgrzcQaMYxpIShAjrH7dsh0=;
+        b=AXq3ziVKx2paN4gdcqkOR2npk35QBOQ6jWgITBnxWT6um8ZIrt2QiwR7wGhFzooqtp
+         QSjss9lbph0dB+V1fLo6KegG6FAEHEqr3wa/HKCIjM/tLYwLj2pz9GwUsekhB3dhfq0j
+         zUoZ+CX5PfbYtxrNBxOB3qLGAJznPA/3Q5JhMB+5eMXRnyv2J4gWVyeIy1hxbBg+mZQr
+         GLDxXIHQZkW5WaZWrvhwSrOKa9o3EFx3pq4QiOM+V4yF+n4CfiQf+dDM5V15q1OvTDKo
+         ombZz2mtNMMlcy2BlOX66JSTI4Kgpb+uGFxsAfFHtATOVw8RPn5Z1pMfqCNToe04Vpjz
+         e+zw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/snwB3QvFDfio4RMvVriMFsJ9DqHxNwny/QsjOO+BY02u67xUgqHhIHIsCdC2L8q49n26odk4uKmsDng=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKOYSS5+8gEheMck3MYC7TjEvIhPBWXInTzzbKIVdAAaDOcCYW
+	K5OogUJmuFoXRhKbGNvRbtqP0S3EqEIWUHAcM4H+mz35P0vX9r3JBk5/nItGu0Ha5C0=
+X-Gm-Gg: AYBFou2gdLeGoI2U1FKStuwvO0NSk3vKPfU8vdVBaeE6hB6hy/QlIg+HgOQ1n+znm0y
+	1kfVz554yEUtRuWrErEQMb+tWuRmpyK4gy0jbh/QIacXBMT53vANcm72uStEHXKPwoNoZJrVcAt
+	nT2flLKunAWS3sdSz+w6tC6KxVFSSWw7rsh6JXGtAJyo2vRcWKEq+YsjB3k8ojhZlgWSv6zY9iR
+	A7uhl//vzelCssE8zK451FrOFF53ldjuBex0ktVK3r13XX0bs3BneotcgMZbZIqKRo1I4uH6ZU9
+	pwShSyW3n3GbwAris1z/5k/yqYfLL0IYfnRy8djZgyYrezIdt8EWievd50c9M4jVFdqGOAwdVdQ
+	Sn9sXtMCncpivjPk1aeynV+tJFgQQZAOXtCJlUwOKFreh90OYO7Gp8kU9uwjToezGKlIP8w65lU
+	F/vkoDK8T+2eXigx3jYtMfFtkOx3LxGB7gRzd8GZIC+iKVbbLcqjpVo0Xzd4KYF+zMcMhyjjoV2
+	AuNSgY70Y7voW4twc8=
+X-Received: by 2002:a05:600c:c8a:b0:49f:ce73:7a9 with SMTP id 5b1f17b1804b1-49fdf2543f4mr22923305e9.34.1790152933630;
+        Wed, 23 Sep 2026 01:42:13 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde134739sm56714325e9.0.2026.09.23.01.42.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 01:42:12 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: "yong.liu" <binary_world@163.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet
+ <jbrunet+clk@baylibre.com>
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ binary_world@163.com
+Subject: Re: [PATCH] clk: Reject positive return values from init callbacks
+In-Reply-To: <ccf-patch-f7a5fae0-beeb-4667-93c7-3a4ce9321890@163.com>
+References: <ccf-patch-f7a5fae0-beeb-4667-93c7-3a4ce9321890@163.com>
+Date: Wed, 23 Sep 2026 10:42:00 +0200
+Message-ID: <1jfqz09x5z.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mmc: sdhci-of-at91: disable selectively clocks on pm
- runtime
-To: Aubin Constans <aubin.constans@microchip.com>,
- Ulf Hansson <ulfh@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>,
- Eugen Hristev <ehristev@kernel.org>,
- Romain Sioen <romain.sioen@microchip.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Robert Marko <robert.marko@sartura.hr>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Ryan Wanner <ryan.wanner@microchip.com>, linux-mmc@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260918153414.909333-1-aubin.constans@microchip.com>
-Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-In-Reply-To: <20260918153414.909333-1-aubin.constans@microchip.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-Hi, Aubin,
+On mer. 23 sept. 2026 at 03:58, yong.liu <binary_world@163.com> wrote:
 
-On 9/18/26 18:34, Aubin Constans wrote:
-> From: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-> 
-> SAMA7G5's SDMMC run-time clock disabling is not supported.
-> Add support to avoid this scenario for SAMA7G5.
-> 
-> [Amended with a fix from Romain Sioen below this line]
+> Clock init callbacks must return zero on success or a negative error code
+> on failure. If a callback returns a positive value, __clk_core_init()
+> already takes its failure path and __clk_register() releases the clock
+> before returning ERR_PTR(ret).
 
-This should go close to the Romain's SoB.
+If a provider returns a positive value it is bug in the provider and it should
+be fixed. The contract is clear:
+- negative value on errors
+- 0 on success
 
-> 
-> Sama7 boards are impacted by an unbalanced prepare/unprepare
-> and enable/disable clock management in sdhci driver due to
-> the lack of support for SDMMC clock runtime disabling,
-> managed instead by the PMC driver.
-> 
-> Add conditions in the preset function to manage clock
-> depending on if the board support runtime clock disabling
-> and if we come from the probing or restoring procedure.
-> 
-> Add boolean start_clks variable to manage condition
-> in preset function.
-> 
-> Signed-off-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+Positive values just means nothing.
 
-Maybe better use the @microchip.com emails, even though that is not available 
-anymore, to give Microchip credit for that and avoid any legal issues, if any. 
-There is a mailmap for claudiu.beznea@microchip.com available in the .mailmap 
-file, if any.
+I don't think the framework should try to defend against every silly
+things a provider can try.
 
-Thank you,
-Claudiu
-
-> Co-developed-by: Romain Sioen <romain.sioen@microchip.com>
-> Signed-off-by: Romain Sioen <romain.sioen@microchip.com>
-> Signed-off-by: Aubin Constans <aubin.constans@microchip.com>
+>
+> However, a positive value encoded by ERR_PTR() is not recognized by
+> IS_ERR(). Consequently, clk_register() returns an invalid pointer that
+> passes the caller's error check, while clk_hw_register() and
+> of_clk_hw_register() report success through PTR_ERR_OR_ZERO() despite
+> registration having failed.
+>
+> Convert positive init return values to -EINVAL before taking the failure
+> path. This makes the registration failure detectable through the public
+> registration interfaces while preserving valid negative error codes.
+>
+> Signed-off-by: yong.liu <binary_world@163.com>
 > ---
->   drivers/mmc/host/sdhci-of-at91.c | 36 ++++++++++++++++++++++++--------
->   1 file changed, 27 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/mmc/host/sdhci-of-at91.c b/drivers/mmc/host/sdhci-of-at91.c
-> index 7c4ac65f247d..399856643e57 100644
-> --- a/drivers/mmc/host/sdhci-of-at91.c
-> +++ b/drivers/mmc/host/sdhci-of-at91.c
-> @@ -39,6 +39,7 @@ struct sdhci_at91_soc_data {
->   	const struct sdhci_pltfm_data *pdata;
->   	bool baseclk_is_generated_internally;
->   	unsigned int divider_for_baseclk;
-> +	bool pm_runtime_disable_clks;
->   };
->   
->   struct sdhci_at91_priv {
-> @@ -149,12 +150,14 @@ static const struct sdhci_pltfm_data sdhci_sama5d2_pdata = {
->   static const struct sdhci_at91_soc_data soc_data_sama5d2 = {
->   	.pdata = &sdhci_sama5d2_pdata,
->   	.baseclk_is_generated_internally = false,
-> +	.pm_runtime_disable_clks = true,
->   };
->   
->   static const struct sdhci_at91_soc_data soc_data_sam9x60 = {
->   	.pdata = &sdhci_sama5d2_pdata,
->   	.baseclk_is_generated_internally = true,
->   	.divider_for_baseclk = 2,
-> +	.pm_runtime_disable_clks = true,
->   };
->   
->   static const struct of_device_id sdhci_at91_dt_match[] = {
-> @@ -164,7 +167,7 @@ static const struct of_device_id sdhci_at91_dt_match[] = {
->   };
->   MODULE_DEVICE_TABLE(of, sdhci_at91_dt_match);
->   
-> -static int sdhci_at91_set_clks_presets(struct device *dev)
-> +static int sdhci_at91_set_clks_presets(struct device *dev, bool start_clks)
->   {
->   	struct sdhci_host *host = dev_get_drvdata(dev);
->   	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
-> @@ -174,7 +177,14 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
->   	unsigned int			gck_rate, clk_base_rate;
->   	unsigned int			preset_div;
->   
-> -	clk_prepare_enable(priv->hclock);
-> +	/*
-> +	 * Manage clock prepare/enable procedure depending on if the board
-> +	 * support runtime clock disabling and if we come from the probing
-> +	 * or restoring procedure (for backup+self refresh).
-> +	 */
-> +	if (start_clks)
-> +		clk_prepare_enable(priv->hclock);
-> +
->   	caps0 = readl(host->ioaddr + SDHCI_CAPABILITIES);
->   	caps1 = readl(host->ioaddr + SDHCI_CAPABILITIES_1);
->   
-> @@ -223,8 +233,11 @@ static int sdhci_at91_set_clks_presets(struct device *dev)
->   	writew(SDHCI_AT91_PRESET_COMMON_CONF | preset_div,
->   	       host->ioaddr + SDHCI_PRESET_FOR_DDR50);
->   
-> -	clk_prepare_enable(priv->mainck);
-> -	clk_prepare_enable(priv->gck);
-> +	/* Same clock management as for hclock */
-> +	if (start_clks) {
-> +		clk_prepare_enable(priv->mainck);
-> +		clk_prepare_enable(priv->gck);
-> +	}
->   
->   	return 0;
->   }
-> @@ -254,9 +267,11 @@ static int sdhci_at91_runtime_suspend(struct device *dev)
->   	if (host->tuning_mode != SDHCI_TUNING_MODE_3)
->   		mmc_retune_needed(host->mmc);
->   
-> -	clk_disable_unprepare(priv->gck);
-> -	clk_disable_unprepare(priv->hclock);
-> -	clk_disable_unprepare(priv->mainck);
-> +	if (priv->soc_data->pm_runtime_disable_clks) {
-> +		clk_disable_unprepare(priv->gck);
-> +		clk_disable_unprepare(priv->hclock);
-> +		clk_disable_unprepare(priv->mainck);
-> +	}
->   
->   	return 0;
->   }
-> @@ -269,7 +284,7 @@ static int sdhci_at91_runtime_resume(struct device *dev)
->   	int ret;
->   
->   	if (priv->restore_needed) {
-> -		ret = sdhci_at91_set_clks_presets(dev);
-> +		ret = sdhci_at91_set_clks_presets(dev, priv->soc_data->pm_runtime_disable_clks);
->   		if (ret)
->   			return ret;
->   
-> @@ -277,6 +292,9 @@ static int sdhci_at91_runtime_resume(struct device *dev)
->   		goto out;
->   	}
->   
-> +	if (!priv->soc_data->pm_runtime_disable_clks)
-> +		goto out;
-> +
->   	ret = clk_prepare_enable(priv->mainck);
->   	if (ret) {
->   		dev_err(dev, "can't enable mainck\n");
-> @@ -344,7 +362,7 @@ static int sdhci_at91_probe(struct platform_device *pdev)
->   		return dev_err_probe(&pdev->dev, PTR_ERR(priv->gck),
->   				     "failed to get multclk\n");
->   
-> -	ret = sdhci_at91_set_clks_presets(&pdev->dev);
-> +	ret = sdhci_at91_set_clks_presets(&pdev->dev, true);
->   	if (ret)
->   		return ret;
->   
+>  drivers/clk/clk.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+> --- a/drivers/clk/clk.c
+> +++ b/drivers/clk/clk.c
+> @@ -4053,6 +4053,8 @@ static int __clk_core_init(struct clk_core *core)
+>  	 */
+>  	if (core->ops->init) {
+>  		ret = core->ops->init(core->hw);
+> +		if (ret > 0)
+> +			ret = -EINVAL;
 
+That would at the very least be a WARN_ON(), but again, I don't think
+this is the kind of checks we should add.
+
+>  		if (ret)
+>  			goto out;
+>  	}
+>
+
+-- 
+Jerome
