@@ -1,1256 +1,260 @@
-Received: from mail-oi2-f13.google.com (mail-oi2-f13.google.com [74.125.231.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FDEF47DD78
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A415F47AF6E;
+	Wed, 23 Sep 2026 09:13:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790154811; cv=pass; b=GzKCe30ICNkIpbQvN8scsQv9l7Rd3sCdT/1Zb7Gs30AEwAbB2xWROJLRUOkFnrXiGTUDhH7BxltTxM42zO9m8zPRuPfU400tZwlsZTQyhXyaRjz9YBtIpvdpj0ilrUop7yMJ5rAKmI5EDw+PzUXF1B9ZqmNGy3Lu6MOUGOjRUtg=
+	t=1790154829; cv=pass; b=ouN/DkUyIKw55+LN4p3SSLdbfffbKPMdlbnbgGW/1eQnTFAooP9WPVPX+MaSvtyk5Fkn1SMYLtawqChzngZ9K/R261nldbtQGp3R05TsN5aCU87+jb89KPzqnqjoNPcOx1e+hTooO1Q45F4tJJzc9r/zf2omt/C24QNKKlNevmY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790154811; c=relaxed/simple;
-	bh=UNaPbaGAe6mDUtdWti8yDkXMxxRmuEwWHIu7PKT5dw4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TPcM47oW8JEhG0p2MXzOy61sf8TgU2wLDygcrhnIquciIfMT1IlUS/KLIRlxUv+VZR2H7pCqr5NN/rEi8CiCq0sXSDKm5lUrU6oII24p2tVdHnIfTlmU4iySTISwjJJ9lpgztF8MYlz+EvBFvG3Y9iuq7tJrUaJYORljctJXm7o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=bt6CzwAU; arc=pass smtp.client-ip=74.125.231.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790154829; c=relaxed/simple;
+	bh=GiooBeXJIZ7JYhRqnUsjUFaZvZgkNBbOsUgFgLdwNjA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aso7oR4UmVgn1KFY4Q6/VRvs2V9ttuntquqK4mTa4zZXoyEIrZANoMxtU0aTLulvvJ2x+lhtyXTTeRsM8GMaVpr1jOeKPJpmIPjrYlA6TqCGeYSxiorM8bCk1berUoMHznBOL4oXN+vbX7lXPFjCSYLpX1t5ZiTKeS7OvC2uC/8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=EWEvmagg; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="bt6CzwAU"
-Received: by mail-oi2-f13.google.com with SMTP id 5614622812f47-4c112aaaf04so500690b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:13:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790154807; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HBEaf+4MwLqBADzVihFjml3wpwiizUWQNzZ1anbVKQjJSFnAuG3hDJQaE10D7mpAgb
-         RGb8MOkg4ftBgaZujrBjSagdnHE/xYM5ILuykP7oBfiTvmCPuPFCEE6Ni4nHh8H8mISJ
-         FtJ2y50DQXeZFWU42yWAMChU94GfYHYJLrinhq/vuBjl8ogo9YvxJasE4Z/Is6WMdkjv
-         DZxcd6787zMmS+66LaS0SYFy4R3pwfiLPbkOiz2PG6wFumx+ZjMCywO7XtOaG1vCjTuh
-         bxLl/ilbhHUChYEz+5t3tXQ6SWgQyhq6+T+98Pdm1DR8wYzQp7ZYFI2tFsDhBHq0rvzc
-         uKjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/RNW8Ass0WBbgYgG7Ctc1GZ9e4vdeYBANuSzejgShgY=;
-        fh=pUGf12XMbFkaTx66iB4X5icEyn+Ztu95GmkN89xHe1A=;
-        b=GkP5BksJsrIA8phggUArZfsxuYMv1vdmnWSn1WN/KxGsFSYOM+fHu9jVkkPUKVxlRH
-         RgqZLqSsog1d2GYuy6gcTmnb/z86LxGKL1m4AA37HMJje7W0mKWdM/+iYXtIsT/hN9/r
-         0CQF6reZ15NkRyZy4XMZRofoTgivgQARCHA0mFy3t3FzyJ6jCngol5Gl4efnT72I7ywJ
-         2KF8CrOPYBxw9Etae2xA+he98cPsOvfCTHKvq6wVfiB+b0mvb6HmkzdnqEmVEsAZSJJz
-         G0pffe+DT5gWTZzbpIAtPdiLJ5j78KyCsdLW4swmgICNJ1uSBdone5oCjEXw2KX8P2jU
-         O0vQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1790154807; x=1790759607; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/RNW8Ass0WBbgYgG7Ctc1GZ9e4vdeYBANuSzejgShgY=;
-        b=bt6CzwAUZ1tik2Du0AQ+ggcJ9HJVHLGEgKy+EKZEAKupejRn2CqaOHpl1BdXTQB/vs
-         3WlTNpzpWJxlLbWPlcsFhuxNU15t/mrgQ/51nhG6RtAgOttV5RuCY+Fdn1HRG/K2mn0m
-         PmAJdSSSSH4kIiDKEZD98RziPITA0bir0mDlS3lYpwpmeWuh0bKuObA0hYuavIIW1kc0
-         1cHoeKbH09Kc1L8cXKLVGAna2yzmy9uFvd+wt3X++mm73G0r/Suohsi6UF6nWnm9VOGU
-         us8hi7zErL5hsaqOWsM1CN39EIIcxq6fG6Dqgvdk7eb4u/E9xZCDvNFliqQThVM4yjuC
-         9nQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790154807; x=1790759607;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/RNW8Ass0WBbgYgG7Ctc1GZ9e4vdeYBANuSzejgShgY=;
-        b=OM4v/+V6KDMba2laCg6lPucakdm669mVcO+3JEzYXbWZNDeGIh9vG0SEAPAUjm7pqx
-         zRQeY7ynYdDSDaHw3slWmQ0Y+rgbYuNu5TEpBLIsbgHR0wXfafvIT2NpvCeL1kq9xImN
-         Jybzvb2kJK8V2M9wG2i9gvBmB1H460w9bITj2E8xzXxKmSzABeG5cExxCJRAPH1bSzFq
-         XtHGoxaM2SDKhsqA8B6Yfr7by97X2/Ir0D+vzlw5CACLjqVv9reALdvgmPrIspCBrFTK
-         CVH9J+NyJRKwMapU77Qu1lxgOVaS2cANHxysqXtyuE6+kGnqytRWh+YuGQlLjnyLri4k
-         HGQg==
-X-Forwarded-Encrypted: i=1; AKwUvBxrHyGjw1iRFGO8j+qBOQ0JbiewVQbZf9HbQuQR0mzWyHYc2OTUglAaQuoxp0jOmzDle+GWb49hN/Yvv2w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxkAdvjbBqOJBPPyTbK2sU6lOZp7ZuaqBskgAwe0qZ4oUjRMuz
-	mlcIBUEZ1MLyKzMByw6oCnnY1rLCBG31cc+JR0HukZBvZ0YS88SsJmn/fUvR7FzF/fMBAdkuBf1
-	6JiEaCrXsjn+4BS33cB3AXpAnON6u/QiXtEpLh83Ocg==
-X-Gm-Gg: AYBFou0opiWMU1N8F/+EqfBXTF9Dkc1yFm9BHgqUcsBejgwJgPgQ5PxCR5E0Nip+P3/
-	ArOk68dCSZO8N0xv0eM27kaAmIK/ZNPaHaYzMv6PohgTraMbVhXMoTkXn6fBkPHVPuJxLYHyueT
-	9nbM99etE3+AlVfdVTvcZ3ueAdERHsObrxsDccfQ0Xl0owDN3uxAXsFb68/qAQvuZxAJdafsJYQ
-	gYGdUwp9wHG2LyGA2ETjBrqSzMJ8iI3MxAN9jdd36DaxRIXRrEvFro//ZIo1ONC0n1+Acub51ZX
-	Ohpyxs8iKihCeA/Bul/cwhObRpDo34pbvYoNCnUpsIVIqulBzBf6iSu3Mxfacg==
-X-Received: by 2002:a05:6820:1524:b0:6cd:3fdb:fa65 with SMTP id
- 006d021491bc7-6d2d3908806mr1910348eaf.80.1790154806396; Wed, 23 Sep 2026
- 02:13:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="EWEvmagg"
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4F2D6201CEF;
+	Wed, 23 Sep 2026 11:13:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790154823;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PS2sI9UkmHC+157QJRhoi9K5j3T9szzKe4hMK9xu6V8=;
+	b=EWEvmaggRytp4w+VexO1vp7Ii4h01iDFSl6Rk1FY5bMIZ6OYOWnYzWTiYBBqpdlfSE9Tyi
+	MpOivle8AT1X6zZNgGxLUNfhZ6GhhYNz3QQ6BfhIzE3Gar/7fRDGfVeWQ7SkWFqDminL2r
+	1tR7e2FlNc9thj7YZ8MMP0cCAU6mGcS/deWUHK/XwP8oVNvxRBhq6dFeHxoYzCPpfVE0zY
+	tXNHtnB54KiYKDApQlajLDpYN4acGXDNp3qmwp54ESJ298Rg03Vq7VZxLPzAW7REEFg22K
+	ssTPmM17FCB7gpZtn+IyjZcOfEG8hRDV/l4fdo7rhUExltqwHs2TQ+YDwiA3rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790154823;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PS2sI9UkmHC+157QJRhoi9K5j3T9szzKe4hMK9xu6V8=;
+	b=P0+33uyLO+y4AEiD1puLoXrZvB1E2pq4deNWdg+mg1GS1/RzafdZUPUt+D4iqVnkc84bSa
+	wWi5lcUSWK0ePQ7hzdKTjiQgtzG1AAoH+lbXJjfeSsmGi5FT39dvmoouSbd52bkzO7Rewp
+	z9R6+8PP1/rkvysn6AAOkhVNfp6nYdbHsfB09068sG1x12UQkGYXwJVZe3IAUA8CVkrKbw
+	WMIp8RoogzKhwwgsM9xHtVpNH9N03KZHBABfHWJp20JvaJwFowjaH1w/MxBp8LX7B4f4X8
+	PTqU2LSAnB6JrEd6oF9M8Hxa/eLboliL7bRbDwtRzHv8i2FbhvcH2DT6ip25Pw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790154823; a=rsa-sha256;
+	cv=none;
+	b=TBoRXXLaPGSPk37AIej7rZWoVLc1YZ7gBNbRSiY4iiqASKB/PcCm6LJ+Vriwsoo/7uzkeA
+	ukDKQDzdfVjR5x+J2JJbFhAwRFgves8lI94/jThopcAm/8ptXfc1f3gzZxzP4RUPuu9zdq
+	ZDeZHuYAo5ZTtVwiqVVC1+d/498O4Xr2BBhe5MzaYeyiXRyK9wzBGc1skc8mE68m8O90jN
+	tcE1Ie57BDFz9vpZlx5dFe0gDo9wbL+w9ZkEmcNYzdKSheJjKFZiq2IseONvfFQ/0QrBJ9
+	rj4EBK8a3OccAXYYbumtTD635TzzCrYsDzWIqXxcv79nob2XA8ZMoRWJjGluuw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <7bfea0211710cc1cdab9ac7235c4f283f2c6d8ad.camel@pengutronix.de>
+Subject: Re: [PATCH v2 2/3] usb: dwc3: xilinx: re-assert resets on ZynqMP
+ init error paths
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>, 
+	Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org, michal.simek@amd.com
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 23 Sep 2026 11:13:43 +0200
+In-Reply-To: <20260922182125.11067-3-radhey.shyam.pandey@amd.com>
+References: <20260922182125.11067-1-radhey.shyam.pandey@amd.com>
+	 <20260922182125.11067-3-radhey.shyam.pandey@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917-dfustini-atl-sc-cbqri-dt-v8-0-7964e8d73fe8@kernel.org> <20260917-dfustini-atl-sc-cbqri-dt-v8-2-7964e8d73fe8@kernel.org>
-In-Reply-To: <20260917-dfustini-atl-sc-cbqri-dt-v8-2-7964e8d73fe8@kernel.org>
-From: yunhui cui <cuiyunhui@bytedance.com>
-Date: Wed, 23 Sep 2026 17:13:15 +0800
-X-Gm-Features: AclHuK9IVM3akbZF4_8i8WYwzisHdVqvCgHyIAHT0vXfyU_pYbs5SakXxCGkRpY
-Message-ID: <CAEEQ3w=pDjEGfMtHUamxLFa0+qYuZ=od0OhAUH7_h+ybMAiO4g@mail.gmail.com>
-Subject: Re: [External] [PATCH v8 2/5] riscv_cbqri: resctrl: Add cache
- allocation via capacity block mask
-To: Drew Fustini <fustini@kernel.org>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Atish Kumar Patra <atishp@rivosinc.com>, 
-	Atish Patra <atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>, 
-	Ben Horgan <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>, 
-	Conor Dooley <conor.dooley@microchip.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Dave Martin <Dave.Martin@arm.com>, 
-	Fenghua Yu <fenghuay@nvidia.com>, Gong Shuai <gong.shuai@sanechips.com.cn>, 
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn, 
-	James Morse <james.morse@arm.com>, =?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn, 
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Paul Walmsley <pjw@kernel.org>, Peter Newman <peternewman@google.com>, 
-	=?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>, 
-	Reinette Chatre <reinette.chatre@intel.com>, Rob Herring <robh@kernel.org>, 
-	Samuel Holland <samuel.holland@sifive.com>, 
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>, Clark Williams <clrkwllms@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Tony Luck <tony.luck@intel.com>, 
-	Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>, 
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>, linux-kernel@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, x86@kernel.org, devicetree@vger.kernel.org, 
-	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Fustini,
-
-On Fri, Sep 18, 2026 at 12:41=E2=80=AFAM Drew Fustini <fustini@kernel.org> =
-wrote:
->
-> Wire CBQRI capacity controllers into resctrl as RDT_RESOURCE_L2 and
-> RDT_RESOURCE_L3 schemata.
->
-> resctrl exposes a single capacity mask per resource, so when more than
-> one capacity controller backs a cache level they must report the same
-> number of capacity blocks. The same holds for the other capabilities
-> resctrl exposes once per resource. A level whose controllers disagree
-> is left unexposed. Other levels are unaffected.
->
-> Control domains are created in the cpuhp online callback and keyed on
-> the onlining CPU's cache id from cacheinfo, so a CPU that is offline at
-> probe time still joins its domain once it comes online. A domain is
-> published on the ctrl_domains RCU list only after it is fully
-> initialized and brought online, and removed from the list before it is
-> taken offline, following the documented safe traversal rules.
->
-> Assisted-by: LLM
-> Tested-by: Chen Pei <cp0613@linux.alibaba.com>
-> Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> Signed-off-by: Drew Fustini <fustini@kernel.org>
+On Di, 2026-09-22 at 23:51 +0530, Radhey Shyam Pandey wrote:
+> If reset deassert or PHY setup fails partway through
+> dwc3_xlnx_init_zynqmp(), re-assert any resets that were already
+> released before unwinding the PHY. Use fall-through error labels so
+> unwind matches how far init progressed, for both USB2 and USB3 paths.
+>=20
+> Save the ZynqMP reset handles in driver private data so later probe
+> teardown can re-assert released resets.
+>=20
+> Fixes: 84770f028fab ("usb: dwc3: Add driver for Xilinx platforms")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 > ---
->  MAINTAINERS                      |   2 +
->  arch/riscv/include/asm/resctrl.h | 147 ++++++++
->  drivers/resctrl/Kconfig          |   4 +
->  drivers/resctrl/Makefile         |   1 +
->  drivers/resctrl/cbqri_resctrl.c  | 785 +++++++++++++++++++++++++++++++++=
-++++++
->  5 files changed, 939 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 92b111cd25c0..db0799d8cbf8 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23570,9 +23570,11 @@ R:     yunhui cui <cuiyunhui@bytedance.com>
->  L:     linux-riscv@lists.infradead.org
->  S:     Supported
->  F:     arch/riscv/include/asm/qos.h
-> +F:     arch/riscv/include/asm/resctrl.h
->  F:     arch/riscv/kernel/qos.c
->  F:     drivers/resctrl/cbqri_devices.c
->  F:     drivers/resctrl/cbqri_internal.h
-> +F:     drivers/resctrl/cbqri_resctrl.c
->  F:     include/linux/riscv_cbqri.h
->
->  RISC-V RPMI AND MPXY DRIVERS
-> diff --git a/arch/riscv/include/asm/resctrl.h b/arch/riscv/include/asm/re=
-sctrl.h
-> new file mode 100644
-> index 000000000000..b08f4e12f7aa
-> --- /dev/null
-> +++ b/arch/riscv/include/asm/resctrl.h
-> @@ -0,0 +1,147 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef _ASM_RISCV_RESCTRL_H
-> +#define _ASM_RISCV_RESCTRL_H
-> +
-> +#include <linux/resctrl_types.h>
-> +#include <linux/sched.h>
-> +#include <linux/types.h>
-> +
-> +#include <asm/qos.h>
-> +
-> +struct rdt_resource;
-> +
-> +/*
-> + * Sentinel "no CLOSID assigned" used by resctrl_arch_rmid_idx_decode().
-> + * fs/resctrl treats this opaquely. CBQRI uses MCID directly as the line=
-ar
-> + * rmid index, so closid is unused on decode.
-> + */
-> +#define RISCV_RESCTRL_EMPTY_CLOSID     ((u32)~0)
-> +
-> +/*
-> + * Terminology mapping between x86 (Intel RDT/AMD QoS) and RISC-V:
-> + *
-> + *  CLOSID on x86 is RCID on RISC-V
-> + *    RMID on x86 is MCID on RISC-V
-> + *     CDP on x86 is AT (access type) on RISC-V
-> + */
-> +
-> +/**
-> + * resctrl_arch_alloc_capable() - any CBQRI controller exposes resctrl a=
-lloc
-> + *
-> + * Returns true once at least one CBQRI controller has successfully prob=
-ed for
-> + * a resctrl-exposed cache capacity allocation feature. Only meaningful =
-after
-> + * cbqri_resctrl_setup() runs at late_initcall.
-> + */
-> +bool resctrl_arch_alloc_capable(void);
-> +
-> +/**
-> + * resctrl_arch_mon_capable() - any CBQRI controller exposes resctrl mon=
-itoring
-> + *
-> + * The CBQRI driver implements capacity allocation only and wires up no
-> + * monitoring events, so this always returns false. fs/resctrl reference=
-s it
-> + * unconditionally, hence the stub.
-> + */
-> +bool resctrl_arch_mon_capable(void);
-> +
-> +/**
-> + * resctrl_arch_rmid_idx_encode() - encode (RCID, MCID) into a linear in=
-dex
-> + * @closid: RCID (resource control id)
-> + * @rmid:   MCID (monitoring counter id)
-> + *
-> + * RISC-V uses MCID directly as the linear index into per-RMID arrays
-> + * managed by fs/resctrl, since CBQRI controllers admit any MCID for any
-> + * RCID. closid is unused here. CDP is encoded via the AT field on each
-> + * CBQRI op rather than via the index.
-> + */
-> +u32  resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid);
-> +
-> +/**
-> + * resctrl_arch_rmid_idx_decode() - inverse of resctrl_arch_rmid_idx_enc=
-ode()
-> + * @idx:    linear index
-> + * @closid: out: always RISCV_RESCTRL_EMPTY_CLOSID
-> + * @rmid:   out: the MCID that @idx encodes
-> + */
-> +void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid);
-> +
-> +/**
-> + * resctrl_arch_set_cpu_default_closid_rmid() - install per-CPU srmcfg d=
-efault
-> + * @cpu:    CPU number
-> + * @closid: RCID to use when no task is matched
-> + * @rmid:   MCID to use when no task is matched
-> + *
-> + * Sets the per-CPU cpu_srmcfg_default so __switch_to_srmcfg() can fall =
-back
-> + * to the CPU's default RCID/MCID for default-group tasks (those whose
-> + * thread.srmcfg encodes to 0, i.e. closid =3D=3D RESCTRL_RESERVED_CLOSI=
-D and
-> + * rmid =3D=3D RESCTRL_RESERVED_RMID). Implements resctrl allocation rul=
-e 2
-> + * ("CPU default") on RISC-V.
-> + */
-> +void resctrl_arch_set_cpu_default_closid_rmid(int cpu, u32 closid, u32 r=
-mid);
-> +
-> +/**
-> + * resctrl_arch_sched_in() - context-switch hook to install task RCID/MC=
-ID
-> + * @tsk: the task being scheduled in
-> + *
-> + * Called from finish_task_switch() to write tsk->thread.srmcfg into the
-> + * srmcfg CSR. Tasks tagged with RISCV_RESCTRL_EMPTY_CLOSID inherit the
-> + * per-CPU default set via resctrl_arch_set_cpu_default_closid_rmid().
-> + */
-> +void resctrl_arch_sched_in(struct task_struct *tsk);
-> +
-> +/**
-> + * resctrl_arch_set_closid_rmid() - tag a task with an RCID/MCID
-> + * @tsk:    task to tag
-> + * @closid: RCID to install
-> + * @rmid:   MCID to install
-> + *
-> + * Updates tsk->thread.srmcfg with the encoded (RCID, MCID) pair. The ne=
-w
-> + * value takes effect on the next resctrl_arch_sched_in() for this task.
-> + */
-> +void resctrl_arch_set_closid_rmid(struct task_struct *tsk, u32 closid, u=
-32 rmid);
-> +
-> +/**
-> + * resctrl_arch_match_closid() - test whether a task carries a given RCI=
-D
-> + * @tsk:    task
-> + * @closid: RCID
-> + */
-> +bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid);
-> +
-> +/**
-> + * resctrl_arch_match_rmid() - test whether a task carries a given (RCID=
-, MCID)
-> + * @tsk:    task
-> + * @closid: RCID
-> + * @rmid:   MCID
-> + */
-> +bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 closid, u32 rm=
-id);
-> +
-> +/**
-> + * resctrl_arch_mon_ctx_alloc() - allocate per-monitor-event arch contex=
-t
-> + * @r:     resctrl resource being monitored
-> + * @evtid: which monitor event needs context
-> + *
-> + * The CBQRI driver implements no monitoring events, so there is no per-=
-event
-> + * context to allocate and the stub returns NULL. fs/resctrl references =
-it
-> + * unconditionally before checking resctrl_arch_mon_capable().
-> + */
-> +void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r, enum resctrl_ev=
-ent_id evtid);
-> +
-> +/**
-> + * resctrl_arch_mon_ctx_free() - release context returned by mon_ctx_all=
-oc()
-> + * @r:            resctrl resource
-> + * @evtid:        monitor event id
-> + * @arch_mon_ctx: pointer returned by resctrl_arch_mon_ctx_alloc()
-> + */
-> +void resctrl_arch_mon_ctx_free(struct rdt_resource *r, enum resctrl_even=
-t_id evtid,
-> +                              void *arch_mon_ctx);
-> +
-> +static inline unsigned int resctrl_arch_round_mon_val(unsigned int val)
-> +{
-> +       return val;
-> +}
-> +
-> +/* Not needed for RISC-V */
-> +static inline void resctrl_arch_enable_mon(void) { }
-> +static inline void resctrl_arch_disable_mon(void) { }
-> +static inline void resctrl_arch_enable_alloc(void) { }
-> +static inline void resctrl_arch_disable_alloc(void) { }
-> +
-> +#endif /* _ASM_RISCV_RESCTRL_H */
-> diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
-> index 1219fb29aa2e..cac23d20124b 100644
-> --- a/drivers/resctrl/Kconfig
-> +++ b/drivers/resctrl/Kconfig
-> @@ -38,3 +38,7 @@ menuconfig RISCV_CBQRI
->           RISC-V cache QoS resources. CBQRI exposes cache capacity
->           allocation through the resctrl filesystem at /sys/fs/resctrl wh=
-en
->           RESCTRL_FS is also enabled.
-> +
-> +config RISCV_CBQRI_RESCTRL_FS
-> +       bool
-> +       default y if RISCV_CBQRI && RESCTRL_FS
-> diff --git a/drivers/resctrl/Makefile b/drivers/resctrl/Makefile
-> index 4d8a2c4b5627..a7631712dba9 100644
-> --- a/drivers/resctrl/Makefile
-> +++ b/drivers/resctrl/Makefile
-> @@ -6,3 +6,4 @@ ccflags-$(CONFIG_ARM64_MPAM_DRIVER_DEBUG)       +=3D -DDE=
-BUG
->
->  obj-$(CONFIG_RISCV_CBQRI)                      +=3D cbqri.o
->  cbqri-y                                                +=3D cbqri_device=
-s.o
-> +cbqri-$(CONFIG_RISCV_CBQRI_RESCTRL_FS)         +=3D cbqri_resctrl.o
-> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resc=
-trl.c
-> new file mode 100644
-> index 000000000000..0c4bfa2a7f43
-> --- /dev/null
-> +++ b/drivers/resctrl/cbqri_resctrl.c
-> @@ -0,0 +1,785 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#define pr_fmt(fmt) "%s:%s: " fmt, KBUILD_MODNAME, __func__
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/cacheinfo.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/riscv_cbqri.h>
-> +#include <linux/cpu.h>
-> +#include <linux/cpufeature.h>
-> +#include <linux/cpuhotplug.h>
-> +#include <linux/err.h>
-> +#include <linux/init.h>
-> +#include <linux/rculist.h>
-> +#include <linux/resctrl.h>
-> +#include <linux/slab.h>
-> +#include <linux/types.h>
-> +
-> +#include <asm/csr.h>
-> +#include <asm/qos.h>
-> +
-> +#include "cbqri_internal.h"
-> +
-> +struct cbqri_resctrl_res {
-> +       struct cbqri_controller *ctrl;
-> +       struct rdt_resource     resctrl_res;
-> +       bool                    cdp_enabled;
-> +};
-> +
-> +struct cbqri_resctrl_dom {
-> +       struct rdt_ctrl_domain  resctrl_ctrl_dom;
-> +       struct cbqri_controller *hw_ctrl;
-> +};
-> +
-> +static struct cbqri_resctrl_res cbqri_resctrl_resources[RDT_NUM_RESOURCE=
-S];
-> +
-> +static bool exposed_alloc_capable;
-> +
-> +/* Protects ctrl_domain list mutations across CPU hotplug. */
-> +static DEFINE_MUTEX(cbqri_domain_list_lock);
-> +
-> +static struct rdt_ctrl_domain *
-> +cbqri_find_ctrl_domain(struct list_head *h, int id)
-> +{
-> +       struct rdt_domain_hdr *hdr =3D resctrl_find_domain(h, id, NULL);
-> +
-> +       return hdr ? container_of(hdr, struct rdt_ctrl_domain, hdr) : NUL=
-L;
-> +}
-> +
-> +/* Map a hardware cache level to its resctrl resource id, or -ENODEV. */
-> +static int cbqri_cache_level_to_rid(u32 cache_level)
-> +{
-> +       switch (cache_level) {
-> +       case 2:
-> +               return RDT_RESOURCE_L2;
-> +       case 3:
-> +               return RDT_RESOURCE_L3;
-> +       default:
-> +               return -ENODEV;
-> +       }
-> +}
-> +
-> +static int cbqri_apply_cache_config_dom(struct cbqri_resctrl_dom *hw_dom=
-,
-> +                                       struct rdt_resource *r,
-> +                                       u32 closid, enum resctrl_conf_typ=
-e t,
-> +                                       u64 cbm)
-> +{
-> +       struct cbqri_resctrl_res *hw_res =3D
-> +               container_of(r, struct cbqri_resctrl_res, resctrl_res);
-> +       struct cbqri_cc_config cfg =3D {
-> +               .cbm =3D cbm,
-> +               .at =3D (t =3D=3D CDP_CODE) ? CBQRI_CONTROL_REGISTERS_AT_=
-CODE :
-> +                                       CBQRI_CONTROL_REGISTERS_AT_DATA,
-> +               .cdp_enabled =3D hw_res->cdp_enabled,
-> +       };
-> +
-> +       return cbqri_apply_cache_config(hw_dom->hw_ctrl, closid, &cfg);
-> +}
-> +
-> +bool resctrl_arch_alloc_capable(void)
-> +{
-> +       return exposed_alloc_capable;
-> +}
-> +
-> +bool resctrl_arch_mon_capable(void)
-> +{
-> +       return false;
-> +}
-> +
-> +bool resctrl_arch_get_cdp_enabled(enum resctrl_res_level rid)
-> +{
-> +       if (rid !=3D RDT_RESOURCE_L2 && rid !=3D RDT_RESOURCE_L3)
-> +               return false;
-> +       return cbqri_resctrl_resources[rid].cdp_enabled;
-> +}
-> +
-> +int resctrl_arch_set_cdp_enabled(enum resctrl_res_level rid, bool enable=
-)
-> +{
-> +       struct cbqri_resctrl_res *cbqri_res;
-> +
-> +       if (rid !=3D RDT_RESOURCE_L2 && rid !=3D RDT_RESOURCE_L3)
-> +               return -ENODEV;
-> +
-> +       cbqri_res =3D &cbqri_resctrl_resources[rid];
-> +       if (!cbqri_res->resctrl_res.cdp_capable)
-> +               return -ENODEV;
-> +
-> +       cbqri_res->cdp_enabled =3D enable;
-> +       return 0;
-> +}
-> +
-> +struct rdt_resource *resctrl_arch_get_resource(enum resctrl_res_level l)
-> +{
-> +       if (l >=3D RDT_NUM_RESOURCES)
-> +               return NULL;
-> +
-> +       return &cbqri_resctrl_resources[l].resctrl_res;
-> +}
-> +
-> +bool resctrl_arch_is_evt_configurable(enum resctrl_event_id evt)
-> +{
-> +       return false;
-> +}
-> +
-> +void *resctrl_arch_mon_ctx_alloc(struct rdt_resource *r,
-> +                                enum resctrl_event_id evtid)
-> +{
-> +       return NULL;
-> +}
-> +
-> +void resctrl_arch_mon_ctx_free(struct rdt_resource *r,
-> +                              enum resctrl_event_id evtid, void *arch_mo=
-n_ctx)
-> +{
-> +}
-> +
-> +void resctrl_arch_config_cntr(struct rdt_resource *r, struct rdt_l3_mon_=
-domain *d,
-> +                             enum resctrl_event_id evtid, u32 rmid, u32 =
-closid,
-> +                             u32 cntr_id, bool assign)
-> +{
-> +}
-> +
-> +int resctrl_arch_cntr_read(struct rdt_resource *r, struct rdt_l3_mon_dom=
-ain *d,
-> +                          u32 unused, u32 rmid, int cntr_id,
-> +                          enum resctrl_event_id eventid, u64 *val)
-> +{
-> +       return -EOPNOTSUPP;
-> +}
-> +
-> +bool resctrl_arch_mbm_cntr_assign_enabled(struct rdt_resource *r)
-> +{
-> +       return false;
-> +}
-> +
-> +int resctrl_arch_mbm_cntr_assign_set(struct rdt_resource *r, bool enable=
-)
-> +{
-> +       return -EOPNOTSUPP;
-> +}
-> +
-> +void resctrl_arch_reset_cntr(struct rdt_resource *r, struct rdt_l3_mon_d=
-omain *d,
-> +                            u32 unused, u32 rmid, int cntr_id,
-> +                            enum resctrl_event_id eventid)
-> +{
-> +}
-> +
-> +bool resctrl_arch_get_io_alloc_enabled(struct rdt_resource *r)
-> +{
-> +       return false;
-> +}
-> +
-> +int resctrl_arch_io_alloc_enable(struct rdt_resource *r, bool enable)
-> +{
-> +       return -EOPNOTSUPP;
-> +}
-> +
-> +void resctrl_arch_mon_event_config_read(void *info)
-> +{
-> +}
-> +
-> +void resctrl_arch_mon_event_config_write(void *info)
-> +{
-> +}
-> +
-> +void resctrl_arch_reset_rmid_all(struct rdt_resource *r, struct rdt_l3_m=
-on_domain *d)
-> +{
-> +}
-> +
-> +void resctrl_arch_reset_rmid(struct rdt_resource *r, struct rdt_l3_mon_d=
-omain *d,
-> +                            u32 unused, u32 rmid, enum resctrl_event_id =
-eventid)
-> +{
-> +}
-> +
-> +int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr=
- *hdr,
-> +                          u32 closid, u32 rmid, enum resctrl_event_id ev=
-entid,
-> +                          void *arch_priv, u64 *val, void *arch_mon_ctx)
-> +{
-> +       return -ENODATA;
-> +}
-> +
-> +/*
-> + * Note about terminology between x86 (Intel RDT/AMD QoS) and RISC-V:
-> + *   CLOSID on x86 is RCID on RISC-V
-> + *     RMID on x86 is MCID on RISC-V
-> + */
-> +u32 resctrl_arch_get_num_closid(struct rdt_resource *res)
-> +{
-> +       struct cbqri_resctrl_res *hw_res;
-> +
-> +       hw_res =3D container_of(res, struct cbqri_resctrl_res, resctrl_re=
-s);
-> +
-> +       if (!hw_res->ctrl)
-> +               return 0;
-> +
-> +       return hw_res->ctrl->rcid_count;
-> +}
+> Changes in v2:
+> - Split out of the combined five patch series; see patch 1.
+> - Reordered ahead of the platform-data cleanups.
+> - Added Cc: stable.
+> - No functional change to the patch itself.
+>=20
+>  drivers/usb/dwc3/dwc3-xilinx.c | 49 +++++++++++++++++++++-------------
+>  1 file changed, 30 insertions(+), 19 deletions(-)
+>=20
+> diff --git a/drivers/usb/dwc3/dwc3-xilinx.c b/drivers/usb/dwc3/dwc3-xilin=
+x.c
+> index 8c63e02575f1..d18d3e364381 100644
+> --- a/drivers/usb/dwc3/dwc3-xilinx.c
+> +++ b/drivers/usb/dwc3/dwc3-xilinx.c
+> @@ -48,6 +48,10 @@ struct dwc3_xlnx {
+>  	void __iomem			*regs;
+>  	int				(*pltfm_init)(struct dwc3_xlnx *data);
+>  	struct phy			*usb3_phy;
+> +	struct reset_control		*usb_crst;
+> +	struct reset_control		*usb_hibrst;
+> +	struct reset_control		*usb_apbrst;
+> +	bool				usb_resets_released;
+>  };
+> =20
+>  static void dwc3_xlnx_mask_phy_rst(struct dwc3_xlnx *priv_data, bool mas=
+k)
+> @@ -112,7 +116,6 @@ static int dwc3_xlnx_init_versal(struct dwc3_xlnx *pr=
+iv_data)
+>  static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *priv_data)
+>  {
+>  	struct device		*dev =3D priv_data->dev;
+> -	struct reset_control	*crst, *hibrst, *apbrst;
+>  	struct gpio_desc	*reset_gpio;
+>  	int			ret =3D 0;
+> =20
+> @@ -124,25 +127,25 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *=
+priv_data)
+>  		goto err;
+>  	}
+> =20
+> -	crst =3D devm_reset_control_get_exclusive(dev, "usb_crst");
+> -	if (IS_ERR(crst)) {
+> -		ret =3D PTR_ERR(crst);
+> +	priv_data->usb_crst =3D devm_reset_control_get_exclusive(dev, "usb_crst=
+");
+> +	if (IS_ERR(priv_data->usb_crst)) {
+> +		ret =3D PTR_ERR(priv_data->usb_crst);
+>  		dev_err_probe(dev, ret,
+>  			      "failed to get core reset signal\n");
+>  		goto err;
+>  	}
+> =20
+> -	hibrst =3D devm_reset_control_get_exclusive(dev, "usb_hibrst");
+> -	if (IS_ERR(hibrst)) {
+> -		ret =3D PTR_ERR(hibrst);
+> +	priv_data->usb_hibrst =3D devm_reset_control_get_exclusive(dev, "usb_hi=
+brst");
+> +	if (IS_ERR(priv_data->usb_hibrst)) {
+> +		ret =3D PTR_ERR(priv_data->usb_hibrst);
+>  		dev_err_probe(dev, ret,
+>  			      "failed to get hibernation reset signal\n");
+>  		goto err;
+>  	}
+> =20
+> -	apbrst =3D devm_reset_control_get_exclusive(dev, "usb_apbrst");
+> -	if (IS_ERR(apbrst)) {
+> -		ret =3D PTR_ERR(apbrst);
+> +	priv_data->usb_apbrst =3D devm_reset_control_get_exclusive(dev, "usb_ap=
+brst");
+> +	if (IS_ERR(priv_data->usb_apbrst)) {
+> +		ret =3D PTR_ERR(priv_data->usb_apbrst);
+>  		dev_err_probe(dev, ret,
+>  			      "failed to get APB reset signal\n");
+>  		goto err;
+> @@ -156,19 +159,19 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *=
+priv_data)
+>  	 * absent.
+>  	 */
+>  	if (priv_data->usb3_phy) {
+> -		ret =3D reset_control_assert(crst);
+> +		ret =3D reset_control_assert(priv_data->usb_crst);
+>  		if (ret < 0) {
+>  			dev_err(dev, "Failed to assert core reset\n");
+>  			goto err;
+>  		}
+> =20
+> -		ret =3D reset_control_assert(hibrst);
+> +		ret =3D reset_control_assert(priv_data->usb_hibrst);
+>  		if (ret < 0) {
+>  			dev_err(dev, "Failed to assert hibernation reset\n");
+>  			goto err;
+>  		}
+> =20
+> -		ret =3D reset_control_assert(apbrst);
+> +		ret =3D reset_control_assert(priv_data->usb_apbrst);
+>  		if (ret < 0) {
+>  			dev_err(dev, "Failed to assert APB reset\n");
+>  			goto err;
+> @@ -179,7 +182,7 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *pr=
+iv_data)
+>  	if (ret < 0)
+>  		goto err;
+> =20
+> -	ret =3D reset_control_deassert(apbrst);
+> +	ret =3D reset_control_deassert(priv_data->usb_apbrst);
+>  	if (ret < 0) {
+>  		dev_err(dev, "Failed to release APB reset\n");
+>  		goto err_phy_exit;
+> @@ -195,21 +198,21 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *=
+priv_data)
+>  		writel(PIPE_CLK_DESELECT, priv_data->regs + XLNX_USB_FPD_PIPE_CLK);
+>  	}
+> =20
+> -	ret =3D reset_control_deassert(crst);
+> +	ret =3D reset_control_deassert(priv_data->usb_crst);
+>  	if (ret < 0) {
+>  		dev_err(dev, "Failed to release core reset\n");
+> -		goto err_phy_exit;
+> +		goto err_apbrst_assert;
+>  	}
+> =20
+> -	ret =3D reset_control_deassert(hibrst);
+> +	ret =3D reset_control_deassert(priv_data->usb_hibrst);
+>  	if (ret < 0) {
+>  		dev_err(dev, "Failed to release hibernation reset\n");
+> -		goto err_phy_exit;
+> +		goto err_crst_assert;
+>  	}
+> =20
+>  	ret =3D phy_power_on(priv_data->usb3_phy);
+>  	if (ret < 0)
+> -		goto err_phy_exit;
+> +		goto err_hibrst_assert;
+> =20
+>  	/* ulpi reset via gpio-modepin or gpio-framework driver */
+>  	reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
 
-When CDP is enabled, the resctrl core halves the value returned by
-resctrl_arch_get_num_closid(). Is that correct for CBQRI?
-CBQRI v1.0 defines allocation using an (RCID, AT) pair, and its example
-uses the same RCID=3D5 for separate AT=3D0 and AT=3D1 allocations.
+Are the resets asserted if this fails?
 
-Thanks,
-Yunhui
+Same question about if probe fails after pltfm_init() succeeded.
 
-> +
-> +u32 resctrl_arch_system_num_rmid_idx(void)
-> +{
-> +       return 1;
-> +}
-> +
-> +u32 resctrl_arch_rmid_idx_encode(u32 closid, u32 rmid)
-> +{
-> +       return rmid;
-> +}
-> +
-> +void resctrl_arch_rmid_idx_decode(u32 idx, u32 *closid, u32 *rmid)
-> +{
-> +       *closid =3D RISCV_RESCTRL_EMPTY_CLOSID;
-> +       *rmid =3D idx;
-> +}
-> +
-> +void resctrl_arch_set_cpu_default_closid_rmid(int cpu, u32 closid, u32 r=
-mid)
-> +{
-> +       u32 srmcfg =3D FIELD_PREP(SRMCFG_RCID_MASK, closid) |
-> +                    FIELD_PREP(SRMCFG_MCID_MASK, rmid);
-> +
-> +       WRITE_ONCE(per_cpu(cpu_srmcfg_default, cpu), srmcfg);
-> +}
-> +
-> +void resctrl_arch_sched_in(struct task_struct *tsk)
-> +{
-> +       __switch_to_srmcfg(tsk);
-> +}
-> +
-> +void resctrl_arch_set_closid_rmid(struct task_struct *tsk, u32 closid, u=
-32 rmid)
-> +{
-> +       u32 srmcfg =3D FIELD_PREP(SRMCFG_RCID_MASK, closid) |
-> +                    FIELD_PREP(SRMCFG_MCID_MASK, rmid);
-> +
-> +       WRITE_ONCE(tsk->thread.srmcfg, srmcfg);
-> +}
-> +
-> +void resctrl_arch_sync_cpu_closid_rmid(void *info)
-> +{
-> +       struct resctrl_cpu_defaults *r =3D info;
-> +
-> +       lockdep_assert_preemption_disabled();
-> +
-> +       if (r) {
-> +               resctrl_arch_set_cpu_default_closid_rmid(smp_processor_id=
-(),
-> +                                                        r->closid, r->rm=
-id);
-> +       }
-> +
-> +       resctrl_arch_sched_in(current);
-> +}
-> +
-> +bool resctrl_arch_match_closid(struct task_struct *tsk, u32 closid)
-> +{
-> +       return FIELD_GET(SRMCFG_RCID_MASK, READ_ONCE(tsk->thread.srmcfg))=
- =3D=3D closid;
-> +}
-> +
-> +bool resctrl_arch_match_rmid(struct task_struct *tsk, u32 closid, u32 rm=
-id)
-> +{
-> +       return FIELD_GET(SRMCFG_MCID_MASK, READ_ONCE(tsk->thread.srmcfg))=
- =3D=3D rmid;
-> +}
-> +
-> +void resctrl_arch_pre_mount(void)
-> +{
-> +       /* All controllers discovered at boot via late_initcall. Nothing =
-to do. */
-> +}
-> +
-> +int resctrl_arch_update_one(struct rdt_resource *r, struct rdt_ctrl_doma=
-in *d,
-> +                           u32 closid, enum resctrl_conf_type t, u32 cfg=
-_val)
-> +{
-> +       struct cbqri_resctrl_dom *dom;
-> +
-> +       dom =3D container_of(d, struct cbqri_resctrl_dom, resctrl_ctrl_do=
-m);
-> +
-> +       if (!r->alloc_capable)
-> +               return -EINVAL;
-> +
-> +       switch (r->rid) {
-> +       case RDT_RESOURCE_L2:
-> +       case RDT_RESOURCE_L3:
-> +               return cbqri_apply_cache_config_dom(dom, r, closid, t, cf=
-g_val);
-> +       default:
-> +               return -EINVAL;
-> +       }
-> +}
-> +
-> +int resctrl_arch_update_domains(struct rdt_resource *r, u32 closid)
-> +{
-> +       struct resctrl_staged_config *cfg;
-> +       enum resctrl_conf_type t;
-> +       struct rdt_ctrl_domain *d;
-> +       int err =3D 0;
-> +
-> +       /* Walking r->ctrl_domains, ensure it can't race with cpuhp */
-> +       lockdep_assert_cpus_held();
-> +
-> +       list_for_each_entry(d, &r->ctrl_domains, hdr.list) {
-> +               for (t =3D 0; t < CDP_NUM_TYPES; t++) {
-> +                       cfg =3D &d->staged_config[t];
-> +                       if (!cfg->have_new_ctrl)
-> +                               continue;
-> +                       err =3D resctrl_arch_update_one(r, d, closid, t, =
-cfg->new_ctrl);
-> +                       if (err)
-> +                               return err;
-> +               }
-> +       }
-> +       return err;
-> +}
-> +
-> +u32 resctrl_arch_get_config(struct rdt_resource *r, struct rdt_ctrl_doma=
-in *d,
-> +                           u32 closid, enum resctrl_conf_type type)
-> +{
-> +       struct cbqri_resctrl_dom *hw_dom;
-> +       struct cbqri_controller *ctrl;
-> +       u32 at;
-> +       u32 val;
-> +       int err;
-> +
-> +       hw_dom =3D container_of(d, struct cbqri_resctrl_dom, resctrl_ctrl=
-_dom);
-> +       ctrl =3D hw_dom->hw_ctrl;
-> +       val =3D resctrl_get_default_ctrl(r);
-> +
-> +       if (!r->alloc_capable)
-> +               return val;
-> +
-> +       switch (r->rid) {
-> +       case RDT_RESOURCE_L2:
-> +       case RDT_RESOURCE_L3:
-> +               at =3D (type =3D=3D CDP_CODE) ? CBQRI_CONTROL_REGISTERS_A=
-T_CODE :
-> +                                         CBQRI_CONTROL_REGISTERS_AT_DATA=
-;
-> +               err =3D cbqri_read_cache_config(ctrl, closid, at, &val);
-> +               if (err < 0)
-> +                       val =3D resctrl_get_default_ctrl(r);
-> +               break;
-> +       default:
-> +               break;
-> +       }
-> +
-> +       return val;
-> +}
-> +
-> +void resctrl_arch_reset_all_ctrls(struct rdt_resource *r)
-> +{
-> +       struct cbqri_resctrl_res *hw_res;
-> +       struct rdt_ctrl_domain *d;
-> +       enum resctrl_conf_type t;
-> +       u32 default_ctrl;
-> +       int i;
-> +
-> +       lockdep_assert_cpus_held();
-> +
-> +       hw_res =3D container_of(r, struct cbqri_resctrl_res, resctrl_res)=
-;
-> +       default_ctrl =3D resctrl_get_default_ctrl(r);
-> +
-> +       if (!hw_res->ctrl)
-> +               return;
-> +
-> +       list_for_each_entry(d, &r->ctrl_domains, hdr.list) {
-> +               for (i =3D 0; i < hw_res->ctrl->rcid_count; i++) {
-> +                       for (t =3D 0; t < CDP_NUM_TYPES; t++) {
-> +                               int rerr;
-> +
-> +                               rerr =3D resctrl_arch_update_one(r, d, i,=
- t, default_ctrl);
-> +                               if (rerr)
-> +                                       pr_err_ratelimited("rid=3D%d rese=
-t RCID %u type %u failed (%d)\n",
-> +                                                          r->rid, i, t, =
-rerr);
-> +                       }
-> +               }
-> +       }
-> +}
-> +
-> +static struct rdt_ctrl_domain *cbqri_new_domain(struct cbqri_controller =
-*ctrl)
-> +{
-> +       struct cbqri_resctrl_dom *hw_dom;
-> +       struct rdt_ctrl_domain *domain;
-> +
-> +       hw_dom =3D kzalloc_obj(*hw_dom, GFP_KERNEL);
-> +       if (!hw_dom)
-> +               return NULL;
-> +
-> +       hw_dom->hw_ctrl =3D ctrl;
-> +       domain =3D &hw_dom->resctrl_ctrl_dom;
-> +
-> +       INIT_LIST_HEAD(&domain->hdr.list);
-> +
-> +       return domain;
-> +}
-> +
-> +static int cbqri_init_domain_ctrlval(struct rdt_resource *r, struct rdt_=
-ctrl_domain *d)
-> +{
-> +       struct cbqri_resctrl_dom *hw_dom;
-> +       enum resctrl_conf_type t;
-> +       int err =3D 0;
-> +       int i;
-> +
-> +       hw_dom =3D container_of(d, struct cbqri_resctrl_dom, resctrl_ctrl=
-_dom);
-> +
-> +       for (i =3D 0; i < hw_dom->hw_ctrl->rcid_count; i++) {
-> +               /*
-> +                * Seed both DATA and CODE staged slots so a later mount
-> +                * with -o cdp does not see stale CODE values.
-> +                * On non-AT controllers cbqri_cc_alloc_op() masks AT to =
-0
-> +                * so all three iterations land on the same hardware stat=
-e.
-> +                * The redundant writes are harmless.
-> +                */
-> +               for (t =3D 0; t < CDP_NUM_TYPES; t++) {
-> +                       err =3D resctrl_arch_update_one(r, d, i, t,
-> +                                                     resctrl_get_default=
-_ctrl(r));
-> +                       if (err)
-> +                               return err;
-> +               }
-> +       }
-> +       return 0;
-> +}
-> +
-> +/*
-> + * Two capacity controllers at the same cache level are interchangeable =
-to
-> + * resctrl only if they expose identical caps, since resctrl publishes o=
-ne
-> + * set of caps per rid but any of the level's controllers may service a
-> + * given RCID.
-> + */
-> +static bool cbqri_cc_caps_agree(const struct cbqri_controller *a,
-> +                               const struct cbqri_controller *b)
-> +{
-> +       return a->rcid_count =3D=3D b->rcid_count &&
-> +              a->cc.ncblks =3D=3D b->cc.ncblks &&
-> +              a->cc.supports_alloc_at_code =3D=3D b->cc.supports_alloc_a=
-t_code &&
-> +              a->alloc_capable =3D=3D b->alloc_capable;
-> +}
-> +
-> +/*
-> + * Walk cbqri_controllers and pick one capacity controller (CC) per cach=
-e
-> + * level (L2/L3) to back the corresponding RDT_RESOURCE_L*. When more th=
-an
-> + * one CC sits at the same level (e.g. one per socket), they must agree =
-on
-> + * rcid_count / ncblks / supports_alloc_at_code / alloc_capable. A level
-> + * whose controllers disagree is dropped, since resctrl exposes a single
-> + * set of caps per rid, but the other level is still picked. The first
-> + * matching controller wins.
-> + */
-> +static void cbqri_resctrl_pick_caches(void)
-> +{
-> +       struct cbqri_controller *ctrl, *pick;
-> +       int rid;
-> +
-> +       guard(mutex)(&cbqri_controllers_lock);
-> +
-> +       for (rid =3D 0; rid < RDT_NUM_RESOURCES; rid++) {
-> +               pick =3D NULL;
-> +
-> +               list_for_each_entry(ctrl, &cbqri_controllers, list) {
-> +                       if (ctrl->type !=3D CBQRI_CONTROLLER_TYPE_CAPACIT=
-Y ||
-> +                           !ctrl->alloc_capable ||
-> +                           cbqri_cache_level_to_rid(ctrl->cache.cache_le=
-vel) !=3D rid)
-> +                               continue;
-> +
-> +                       if (!pick) {
-> +                               pick =3D ctrl;
-> +                       } else if (!cbqri_cc_caps_agree(pick, ctrl)) {
-> +                               pr_err("L%u controllers have mismatched c=
-apabilities, skipping this level\n",
-> +                                      ctrl->cache.cache_level);
-> +                               pick =3D NULL;
-> +                               break;
-> +                       }
-> +               }
-> +
-> +               cbqri_resctrl_resources[rid].ctrl =3D pick;
-> +       }
-> +}
-> +
-> +/*
-> + * Fill the rdt_resource fields for one picked rid. An rid with no picke=
-d
-> + * controller is left untouched so it stays out of resctrl_arch_get_reso=
-urce().
-> + */
-> +static void cbqri_resctrl_control_init(struct cbqri_resctrl_res *cbqri_r=
-es)
-> +{
-> +       struct cbqri_controller *ctrl =3D cbqri_res->ctrl;
-> +       struct rdt_resource *res =3D &cbqri_res->resctrl_res;
-> +
-> +       if (!ctrl)
-> +               return;
-> +
-> +       switch (res->rid) {
-> +       case RDT_RESOURCE_L2:
-> +       case RDT_RESOURCE_L3:
-> +               res->name =3D (res->rid =3D=3D RDT_RESOURCE_L2) ? "L2" : =
-"L3";
-> +               res->schema_fmt =3D RESCTRL_SCHEMA_BITMAP;
-> +               res->ctrl_scope =3D (res->rid =3D=3D RDT_RESOURCE_L2) ?
-> +                                   RESCTRL_L2_CACHE : RESCTRL_L3_CACHE;
-> +               res->cache.cbm_len =3D ctrl->cc.ncblks;
-> +               res->cache.shareable_bits =3D 0;
-> +               res->cache.min_cbm_bits =3D 1;
-> +               res->cache.arch_has_sparse_bitmasks =3D false;
-> +               res->cdp_capable =3D ctrl->cc.supports_alloc_at_code;
-> +               res->alloc_capable =3D ctrl->alloc_capable;
-> +               INIT_LIST_HEAD(&res->ctrl_domains);
-> +               INIT_LIST_HEAD(&res->mon_domains);
-> +               break;
-> +       default:
-> +               break;
-> +       }
-> +}
-> +
-> +static void cbqri_resctrl_accumulate_caps(void)
-> +{
-> +       int rid;
-> +
-> +       for (rid =3D 0; rid < RDT_NUM_RESOURCES; rid++) {
-> +               struct cbqri_resctrl_res *hw_res =3D &cbqri_resctrl_resou=
-rces[rid];
-> +
-> +               if (!hw_res->ctrl)
-> +                       continue;
-> +               if (hw_res->ctrl->alloc_capable)
-> +                       exposed_alloc_capable =3D true;
-> +       }
-> +}
-> +
-> +/*
-> + * Create, list-insert, and online a fresh ctrl_domain backing ctrl on
-> + * resource res, seeded with cpu and identified by dom_id. Caller must
-> + * hold cbqri_domain_list_lock and must have already verified that no
-> + * existing ctrl_domain on res carries this id.
-> + */
-> +static struct rdt_ctrl_domain *cbqri_create_ctrl_domain(struct cbqri_con=
-troller *ctrl,
-> +                                                       struct rdt_resour=
-ce *res,
-> +                                                       unsigned int cpu,=
- int dom_id)
-> +{
-> +       struct rdt_ctrl_domain *domain;
-> +       struct list_head *pos =3D NULL;
-> +       int err;
-> +
-> +       domain =3D cbqri_new_domain(ctrl);
-> +       if (!domain)
-> +               return ERR_PTR(-ENOMEM);
-> +
-> +       cpumask_set_cpu(cpu, &domain->hdr.cpu_mask);
-> +       domain->hdr.id =3D dom_id;
-> +       domain->hdr.type =3D RESCTRL_CTRL_DOMAIN;
-> +       domain->hdr.rid =3D res->rid;
-> +
-> +       err =3D cbqri_init_domain_ctrlval(res, domain);
-> +       if (err)
-> +               goto free;
-> +
-> +       err =3D resctrl_online_ctrl_domain(res, domain);
-> +       if (err)
-> +               goto free;
-> +
-> +       /*
-> +        * Publish only after the domain is fully initialized and online,=
- so a
-> +        * reader walking the RCU list never sees a half-built domain.
-> +        */
-> +       resctrl_find_domain(&res->ctrl_domains, dom_id, &pos);
-> +       list_add_tail_rcu(&domain->hdr.list, pos);
-> +
-> +       return domain;
-> +free:
-> +       kfree(container_of(domain, struct cbqri_resctrl_dom, resctrl_ctrl=
-_dom));
-> +       return ERR_PTR(err);
-> +}
-> +
-> +/*
-> + * Remove a CPU from the domain at each level whose cache it shares. The
-> + * domain is looked up by the CPU's own cache id and the lookup returns =
-NULL
-> + * if it is already gone, so this is idempotent and undoes a partial onl=
-ine
-> + * attach as well as a full offline. Caller holds cbqri_domain_list_lock=
-.
-> + */
-> +static void cbqri_detach_cpu_from_all_ctrls(unsigned int cpu)
-> +{
-> +       static const u32 levels[] =3D { 2, 3 };
-> +       struct cbqri_resctrl_res *hw_res;
-> +       struct rdt_ctrl_domain *d;
-> +       struct rdt_resource *res;
-> +       struct cacheinfo *ci;
-> +       int i, rid;
-> +
-> +       lockdep_assert_held(&cbqri_domain_list_lock);
-> +
-> +       for (i =3D 0; i < ARRAY_SIZE(levels); i++) {
-> +               ci =3D get_cpu_cacheinfo_level(cpu, levels[i]);
-> +               if (!ci)
-> +                       continue;
-> +
-> +               rid =3D cbqri_cache_level_to_rid(levels[i]);
-> +               hw_res =3D &cbqri_resctrl_resources[rid];
-> +               if (!hw_res->ctrl)
-> +                       continue;
-> +
-> +               res =3D &hw_res->resctrl_res;
-> +               d =3D cbqri_find_ctrl_domain(&res->ctrl_domains, ci->id);
-> +               if (!d)
-> +                       continue;
-> +
-> +               cpumask_clear_cpu(cpu, &d->hdr.cpu_mask);
-> +               if (cpumask_empty(&d->hdr.cpu_mask)) {
-> +                       list_del_rcu(&d->hdr.list);
-> +                       synchronize_rcu();
-> +                       resctrl_offline_ctrl_domain(res, d);
-> +                       kfree(container_of(d, struct cbqri_resctrl_dom,
-> +                                          resctrl_ctrl_dom));
-> +               }
-> +       }
-> +}
-> +
-> +/*
-> + * Attach a CPU to the capacity controller at each cache level whose cac=
-he
-> + * the CPU shares. On failure, detach the CPU from everything attached s=
-o
-> + * far: the cpuhp core does not run this state's offline teardown when i=
-ts
-> + * startup fails, so a partial attach would otherwise leak into the doma=
-in
-> + * cpu_masks. Caller holds cbqri_domain_list_lock.
-> + */
-> +static int cbqri_attach_cpu_to_all_ctrls(unsigned int cpu)
-> +{
-> +       static const u32 levels[] =3D { 2, 3 };
-> +       struct cbqri_controller *ctrl, *c;
-> +       struct cbqri_resctrl_res *hw_res;
-> +       struct rdt_ctrl_domain *d;
-> +       struct cacheinfo *ci;
-> +       int i, rid;
-> +
-> +       lockdep_assert_held(&cbqri_domain_list_lock);
-> +
-> +       /*
-> +        * Hold cbqri_controllers_lock across the walk so a controller
-> +        * registered after boot cannot corrupt it. The register path tak=
-es
-> +        * it as a leaf and never cbqri_domain_list_lock, so this nesting
-> +        * cannot invert.
-> +        */
-> +       guard(mutex)(&cbqri_controllers_lock);
-> +
-> +       for (i =3D 0; i < ARRAY_SIZE(levels); i++) {
-> +               ci =3D get_cpu_cacheinfo_level(cpu, levels[i]);
-> +               if (!ci)
-> +                       continue;
-> +
-> +               rid =3D cbqri_cache_level_to_rid(levels[i]);
-> +               hw_res =3D &cbqri_resctrl_resources[rid];
-> +               if (!hw_res->ctrl)
-> +                       continue;
-> +
-> +               /* The controller backing this CPU's cache at this level.=
- */
-> +               ctrl =3D NULL;
-> +               list_for_each_entry(c, &cbqri_controllers, list) {
-> +                       if (c->type =3D=3D CBQRI_CONTROLLER_TYPE_CAPACITY=
- &&
-> +                           c->alloc_capable &&
-> +                           c->cache.cache_level =3D=3D levels[i] &&
-> +                           c->cache.cache_id =3D=3D ci->id) {
-> +                               ctrl =3D c;
-> +                               break;
-> +                       }
-> +               }
-> +               if (!ctrl)
-> +                       continue;
-> +
-> +               d =3D cbqri_find_ctrl_domain(&hw_res->resctrl_res.ctrl_do=
-mains,
-> +                                          ci->id);
-> +               if (d) {
-> +                       cpumask_set_cpu(cpu, &d->hdr.cpu_mask);
-> +                       continue;
-> +               }
-> +
-> +               d =3D cbqri_create_ctrl_domain(ctrl, &hw_res->resctrl_res=
-, cpu,
-> +                                            ci->id);
-> +               if (IS_ERR(d)) {
-> +                       cbqri_detach_cpu_from_all_ctrls(cpu);
-> +                       return PTR_ERR(d);
-> +               }
-> +       }
-> +
-> +       return 0;
-> +}
-> +
-> +static bool cbqri_resctrl_inited;
-> +
-> +static void cbqri_resctrl_teardown(void)
-> +{
-> +       int rid;
-> +
-> +       if (!cbqri_resctrl_inited)
-> +               return;
-> +
-> +       resctrl_exit();
-> +
-> +       for (rid =3D 0; rid < RDT_NUM_RESOURCES; rid++) {
-> +               struct cbqri_resctrl_res *hw_res =3D &cbqri_resctrl_resou=
-rces[rid];
-> +
-> +               hw_res->ctrl =3D NULL;
-> +               hw_res->cdp_enabled =3D false;
-> +       }
-> +       exposed_alloc_capable =3D false;
-> +       cbqri_resctrl_inited =3D false;
-> +}
-> +
-> +static int cbqri_resctrl_setup(void)
-> +{
-> +       int rid;
-> +       int err;
-> +
-> +       for (rid =3D 0; rid < RDT_NUM_RESOURCES; rid++)
-> +               cbqri_resctrl_resources[rid].resctrl_res.rid =3D rid;
-> +
-> +       cbqri_resctrl_pick_caches();
-> +
-> +       for (rid =3D 0; rid < RDT_NUM_RESOURCES; rid++)
-> +               cbqri_resctrl_control_init(&cbqri_resctrl_resources[rid])=
-;
-> +
-> +       cbqri_resctrl_accumulate_caps();
-> +
-> +       if (!exposed_alloc_capable) {
-> +               pr_debug("no resctrl-capable CBQRI controllers found\n");
-> +               return -ENODEV;
-> +       }
-> +
-> +       err =3D resctrl_init();
-> +       if (err)
-> +               return err;
-> +
-> +       cbqri_resctrl_inited =3D true;
-> +       return 0;
-> +}
-> +
-> +static int cbqri_resctrl_online_cpu(unsigned int cpu)
-> +{
-> +       int err;
-> +
-> +       mutex_lock(&cbqri_domain_list_lock);
-> +       err =3D cbqri_attach_cpu_to_all_ctrls(cpu);
-> +       mutex_unlock(&cbqri_domain_list_lock);
-> +       if (err)
-> +               return err;
-> +
-> +       /*
-> +        * Seed the per-CPU default RCID/MCID to the reserved (0, 0) pair=
- and
-> +        * notify the resctrl core so it tracks this CPU in the default g=
-roup.
-> +        */
-> +       resctrl_arch_set_cpu_default_closid_rmid(cpu, 0, 0);
-> +       resctrl_online_cpu(cpu);
-> +       return 0;
-> +}
-> +
-> +static int cbqri_resctrl_offline_cpu(unsigned int cpu)
-> +{
-> +       resctrl_offline_cpu(cpu);
-> +
-> +       mutex_lock(&cbqri_domain_list_lock);
-> +       cbqri_detach_cpu_from_all_ctrls(cpu);
-> +       mutex_unlock(&cbqri_domain_list_lock);
-> +       return 0;
-> +}
-> +
-> +static int __init cbqri_arch_late_init(void)
-> +{
-> +       int err;
-> +
-> +       if (!riscv_isa_extension_available(NULL, SSQOSID))
-> +               return -ENODEV;
-> +
-> +       err =3D cbqri_resctrl_setup();
-> +       if (err)
-> +               return err;
-> +
-> +       err =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "cbqri:online",
-> +                               cbqri_resctrl_online_cpu,
-> +                               cbqri_resctrl_offline_cpu);
-> +       if (err < 0) {
-> +               cbqri_resctrl_teardown();
-> +               return err;
-> +       }
-> +
-> +       return 0;
-> +}
-> +late_initcall(cbqri_arch_late_init);
->
-> --
-> 2.43.0
->
+> @@ -226,10 +229,18 @@ static int dwc3_xlnx_init_zynqmp(struct dwc3_xlnx *=
+priv_data)
+> =20
+>  	dwc3_xlnx_set_coherency(priv_data, XLNX_USB_TRAFFIC_ROUTE_CONFIG);
+> =20
+> +	priv_data->usb_resets_released =3D true;
+> +
+>  	return 0;
+> =20
+>  err_phy_power_off:
+>  	phy_power_off(priv_data->usb3_phy);
+> +err_hibrst_assert:
+> +	reset_control_assert(priv_data->usb_hibrst);
+> +err_crst_assert:
+> +	reset_control_assert(priv_data->usb_crst);
+> +err_apbrst_assert:
+> +	reset_control_assert(priv_data->usb_apbrst);
+>  err_phy_exit:
+>  	phy_exit(priv_data->usb3_phy);
+>  err:
+
+Rather than storing usb_resets_released state, and then having
+conditional teardown in the next patch, this could be handled via
+devm_add_action_or_reset.
+
+regards
+Philipp
