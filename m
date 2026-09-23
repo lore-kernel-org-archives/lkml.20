@@ -1,212 +1,149 @@
-Received: from mta1.migadu.com (out-7.mta1.migadu.com [95.215.58.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782433ACF1C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F813B5837;
+	Wed, 23 Sep 2026 03:42:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790134867; cv=none; b=Wp8ji9NmKlX7GdBRZpBhqtmzPsLCmRULEtk4B7gK23/X/aJ0xNemIFef6Tm4HgACHOwd+x0JRoeHMkogYlngJjql2bTwHBoOI3yyKyiaoqYFiRClmo9smGihAuFQWnL+kcR6GMGcZ/xt8Wm294LZ3e2PM+zmJ+zOHlA5yVfE/KE=
+	t=1790134946; cv=none; b=mH6h67CC9Es1ABq2pBdc8PtujXn4NJBtNyDx5fX4bBkDjOFmTJ2KvOl0/SbKrDbBesdNRytlH6m4wwYYQp2m2o4n6b1tkr3DjViUTIqJQMWtPpEeJ2jeMm9C0GFqla7EMQiHZMuAfNPLrn3aaYjQIr/85Y5gv3QiywgaTQ8KrPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790134867; c=relaxed/simple;
-	bh=g0/Z5c9aDwytCwk3EVHISBOUhMOmw+UqfCuabJU23Po=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Bkeccyju12vZaDySompl4ak0NdWxlB1naNFE16Tdxe0nkaKCNAoukGHkoS0+n95r5AsZV1zC3mXIEC3hZ2RVxfxTpSikGj478eEmucosHIZTaSqOS0Uq4hsswniC+JTLqD9S4yjp/iSbsRjEIz9w916KHfW646HoHz8/M9h/vFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=t5KzfUbR; arc=none smtp.client-ip=95.215.58.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790134946; c=relaxed/simple;
+	bh=DSWi2C0r8cqwdbL+D/oXhhGYggJoGev4OcBXZnAtWFY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=eoaiKKs++crCQ8njDn/R7oPFpeVj3V1HrP8EznySIpucjPboWiPefdKroJiJb6lmGJxME+h/1QKqvMxuKiPIHoc9ktV8JIc+Gic8deViQQQakkM89VbJ9XCdzCOXSLIzaYCTEoQBfqskoX5H/H3tzwRMD8BJyfAqdtWdTFWN8KU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me; spf=pass smtp.mailfrom=alistair23.me; dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b=PRx++WoT; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=K55jbmV5; arc=none smtp.client-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alistair23.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alistair23.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="t5KzfUbR"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g0/Z5c9aDwytCwk3EVHISBOUhMOmw+UqfCuabJU23Po=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790134863; v=1; x=1790739663;
- b=t5KzfUbRPgwv6bU849Gk4sjU/WqthHJxWnYgZ9CznQ3o4Ck0wIbxT85pCzznXxrcJtwcMKwQ
- DMe4S/Mui0Td3ETfzxqRd45JJF1Q+PDHNHQjSK/l7mYjRq3dJxcyFjZq6B5/J6f/2Xg9tiZtcQL
- 33KAUZsseBYKCQ+GFiDjP/p4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6f051fd9b05117c8;
-	Wed, 23 Sep 2026 03:41:03 +0000
-X-Mizu-Trace-ID: 6f051fd9b05117c8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <1835413c-e2de-41b0-8225-161afa50676a@linux.dev>
-Date: Wed, 23 Sep 2026 11:40:55 +0800
+	dkim=pass (2048-bit key) header.d=alistair23.me header.i=@alistair23.me header.b="PRx++WoT";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="K55jbmV5"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.stl.internal (Postfix) with ESMTP id DF6491D0004C;
+	Tue, 22 Sep 2026 23:42:21 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Tue, 22 Sep 2026 23:42:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alistair23.me;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm1;
+	 t=1790134941; x=1790221341; bh=DSWi2C0r8cqwdbL+D/oXhhGYggJoGev4
+	OcBXZnAtWFY=; b=PRx++WoTUWOsvJJFym88XUCOYrkBFJtThSya95aFTGESCAJJ
+	j6r0oqIzbFiXwgipGYtogG2LWflBSo/MHlZn9/l+mqpIjtNp9DyajOOHCSxwWYHO
+	tAQ+D3envhK8zH61bVoslEAWTgcD6kTcwEHuchWY+EiYD+n2B5t3yyEzROAmRQ9M
+	g3o5lBU5OpAEW9OtA6z6hmgSwzR3Hw9LOX+4zguiRCjg3LD7hSQVcGRqIJdQ+nm4
+	gYlxnAhog79+nFF8JTwcap3mUFM8H0VlBqjY2yKrTCm5rvHts6GcIMOuqVpvuOav
+	PLqdjEFxXdS5UBlE6Z4vDIb1xudsoT6f5qopIw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790134941; x=
+	1790221341; bh=DSWi2C0r8cqwdbL+D/oXhhGYggJoGev4OcBXZnAtWFY=; b=K
+	55jbmV5fObulKuAGe1zelj26AbdJg9xUAT0cYUeLgxPOkmXQgv1RHxPrAvwG6CFc
+	kr4xYE0PzuUTgZYFKLE20rXaey3b+21d3tiiLlxPAjWdsqTRQXV5cnZQ2/rNMFzZ
+	mcrPGnQr/C5mYqelZF8grwaoPeZXBvbThoXVN5kN6wQdyiA7oJdvalBIIlwB239o
+	UBlUlWEdco96RmF6HFh4b87qnoQxyDptlXDsNcfOokjWeJx1+M1sk+rCAptb8+ZH
+	Zlw2+0sPaMcUhdeC6eRzM2RW7BCPDtEDH8eeUgyjQF401sp+6MdgQmkPj38aLQUs
+	GqjlRhgIVbK+GMplJ19Sg==
+X-ME-Sender: <xms:nEqzanPof6OC4VujRL9AgMU7P9EjGQqb7wDRZak7FbFppdb9mAI9LQ>
+    <xme:nEqzaiX_X1ajAzmmVkZI9GKdoIHDB1rLVvvGLsMFAocZCa9GPGYNcU-uIpKTX9Ojp
+    Aog8Xt08Qm9O0NjwCqYaOLlbHdWD1mKNx86rTj5MG1g0DrNvqCsfReQ>
+X-ME-Received: <xmr:nEqzanbu8NACHSTiR_I8INeU1uobgqiLGWUayr6UeVEKtim5yTM9RCowceLl_xwzMI1C8QU3D_lep58t8z5Gp5wUM_A>
+X-ME-Proxy-Cause: dmFkZTFWQgVXt9bM2b6NNxDLU2jUhTZqo1HyJ/ceb/6fR6g5/ke7x/NK8aQ/wybD9G7sDE
+    CmtX3QwVhvD3JUclCR9ETEfWsOI7v+reJwTYob7hpcIpPo/4iZmOqyG1I7KAWWIFLXUgLw
+    v96DhGoz9UpYdkKeXc/hZBGnUfxawMjnjVtQDju3d8IVsfsa3zIyqXHLaCqTj4WNRQWGKq
+    tmmTTBcnw0y3dZS7EgIm2YwfTUf4M4enUg6Kt4bClJIVQc/UjREJZ8GfwzQdia7ZNwkro3
+    hK8iW8KSjamfbpmgjaynFsftX9uh5wvKPOsvXMNAxpHo+uCEXTvkZFkk6tJhDoEdtSwgV2
+    6GBehN5HqwyviruHFjGv/WzLwxQoGkueti404EXE3kf7u8qkOyKvo4OvBLEYolmfapcnxB
+    F4JccMi5Te1BZq7oMKbky2uQ5q7y7YKMULV0qOa2MFX9BJV98wv9AyL4iHxOPtRe730K9L
+    MSrboLxu6gG8yVR+5HsIh88Utz5N2KkVtSu/M1zWI9+Se6WJeYQ6P9skWKqRz1Twj/uNfo
+    iCDPvhJucpF8jjturp2P8zSMFq/LgsbLp5axv209DNCuwpcPaaDjlLg6YyrGhYpuOSvpup
+    Tg7vJWck7+rmhOaNt3U0xJDq95oRSreJUPgUvIDr8xnPNvQkrkuFhhj47LIg
+X-ME-Proxy: <xmx:nEqzans9bTMC1bKBz1twK_VLviUrmLn4zeL3QKe7-nefLy1468292g>
+    <xmx:nEqzaumzUv1rsGahWuIrYxwXaD2Tbpu0aHfxi87oMm4mAC5GarLA0Q>
+    <xmx:nEqzagWYYb2dfQ6GUgKoaSarfD0sCoSfqT8w4S_1T9pZokx7-frwIA>
+    <xmx:nEqzapnV4xGZWN9rlPOX_qimTj87Mmpoko6U6zFu9VW8EjK7bB8Olw>
+    <xmx:nUqzatDDdkgNtuOGYUS9GPknZSh2x6r0hLSKQZZlRCetsrAaQqNsJ_Wz>
+Feedback-ID: ifd214418:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 22 Sep 2026 23:42:14 -0400 (EDT)
+Message-ID: <0ba203994392fa8183c226d65c4caec5786112bc.camel@alistair23.me>
+Subject: Re: [PATCH v3 10/21] PCI/TSM: Rename pf0 to host
+From: Alistair <alistair@alistair23.me>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: alistair23@gmail.com, linux-pci@vger.kernel.org, 
+	Jonathan.Cameron@huawei.com, djbw@kernel.org,
+ rust-for-linux@vger.kernel.org, 	lukas@wunner.de,
+ linux-cxl@vger.kernel.org, bhelgaas@google.com, 	akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, gary@garyguo.net, 	ojeda@kernel.org,
+ benno.lossin@proton.me, a.hindborg@kernel.org, 	wilfred.mallawa@wdc.com,
+ tmgross@umich.edu, boqun.feng@gmail.com, 	bjorn3_gh@protonmail.com,
+ alex.gaynor@gmail.com, aliceryhl@google.com
+Date: Wed, 23 Sep 2026 13:42:12 +1000
+In-Reply-To: <20260916031143.4fe2ae49@jic23-hlaptop>
+References: <20260901010347.2614656-1-alistair.francis@wdc.com>
+		<20260901010347.2614656-11-alistair.francis@wdc.com>
+		<20260909000158.78ffa790@jic23-huawei>
+		<f9b1c0410e622f7ac1e6feacaa3eae98951bcd79.camel@alistair23.me>
+	 <20260916031143.4fe2ae49@jic23-hlaptop>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: hongfu.li@linux.dev, Chris Down <chris@chrisdown.name>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, cgroups@vger.kernel.org,
- stable@vger.kernel.org, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Shakeel Butt <shakeel.butt@linux.dev>, Michal Hocko <mhocko@suse.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>
-Subject: Re: [PATCH v2 2/2] mm/memcg: migrate per-node hugetlb lruvec stat
- together with hugetlb folio
-To: Muchun Song <muchun.song@linux.dev>, Hongfu Li <lihongfu@kylinos.cn>
-References: <20260923-for-hugetlb_state3-v2-0-e8a36245bfab@kylinos.cn>
- <20260923-for-hugetlb_state3-v2-2-e8a36245bfab@kylinos.cn>
- <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
-From: Hongfu Li <hongfu.li@linux.dev>
-In-Reply-To: <15ac7069-d687-4985-90bd-25bc900b4bdd@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+On Wed, 2026-09-16 at 03:11 +0100, Jonathan Cameron wrote:
+> On Fri, 11 Sep 2026 15:00:59 +1000
+> Alistair <alistair@alistair23.me> wrote:
+>=20
+> > On Wed, 2026-09-09 at 00:01 +0100, Jonathan Cameron wrote:
+> > > On Tue,=C2=A0 1 Sep 2026 11:03:36 +1000
+> > > alistair23@gmail.com=C2=A0wrote:
+> > > =C2=A0=20
+> > > > From: Alistair Francis <alistair.francis@wdc.com>
+> > > >=20
+> > > > Rename pci_tsm_pf0 to pci_tsm_host (and rename variables and
+> > > > function
+> > > > names from pf0 to host) as part of converting pci_tsm_host
+> > > > to be any device that knows how to speak any of CMA, IDE, or
+> > > > TDISP.=C2=A0=20
+> > >=20
+> > > I'm not against the change, but I would like at least one example
+> > > of
+> > > 'what' other type of device you plan to use this for.
+> > >=20
+> > > vf or something else?=C2=A0=20
+> >=20
+> > It's based on the reply here: https://lkml.org/lkml/2026/6/18/1741
+> >=20
+> > I don't know PCIe that well, so honestly I'm not sure.
+>=20
+> Yeah, that's about both VFs and other physical functions.
+> Those can exist on both real EPs and RCiEPs.
+>=20
+> >=20
+> > My use case is a root complex integrated endpoint
+>=20
+> Any more info to share on that? Why isn't it attested etc as
+> part of the host given it's integrated? Or is SPDM a path to
 
-On 9/23/26 10:40 AM, Muchun Song wrote:
->
->
-> On 2026/9/23 10:05, Hongfu Li wrote:
->> From: Hongfu Li <lihongfu@kylinos.cn>
->>
->> memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
->> stats. These stats are accounted against folio_nid(): incremented on
->> the folio's node when handed to a user, decremented when the folio is
->> returned to the pool.
->>
->> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
->> to the new folio and drops the memcg data of the old one, so the free
->> of the old folio right after the migration skips the memcg per-node
->> lruvec decrement. The hugetlb count stays attributed to the old node
->> for the rest of the life of the charge, while the target folio gets no
->> increment on the new node; its later free decrements a counter that
->> was never incremented.
->>
->> Migrate the per-node lruvec accounting alongside migration. Global
->> memcg totals remain balanced because they track resource consumption,
->> not node placement.
->>
->> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
->> Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
->> Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
->> Reviewed-by: Oscar Salvador <osalvador@suse.de>
->> ---
->>   include/linux/memcontrol.h |  8 ++++++++
->>   mm/hugetlb.c               | 25 +++++++++++++++++++++++++
->>   mm/memcontrol.c            |  5 ++---
->>   3 files changed, 35 insertions(+), 3 deletions(-)
->>
->> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
->> index a8358f297b65..74110a324f9e 100644
->> --- a/include/linux/memcontrol.h
->> +++ b/include/linux/memcontrol.h
->> @@ -984,6 +984,9 @@ unsigned long lruvec_page_state_monotonic(const 
->> struct lruvec *lruvec,
->>   unsigned long lruvec_page_state_local(const struct lruvec *lruvec,
->>                         enum node_stat_item idx);
->>   +void mod_memcg_lruvec_state(struct lruvec *lruvec,
->> +                enum node_stat_item idx, int val);
->> +
->>   void mem_cgroup_flush_stats(struct mem_cgroup *memcg);
->>   void mem_cgroup_flush_stats_ratelimited(struct mem_cgroup *memcg);
->>   @@ -1452,6 +1455,11 @@ static inline unsigned long 
->> lruvec_page_state_local(const struct lruvec *lruvec,
->>       return node_page_state(lruvec_pgdat(lruvec), idx);
->>   }
->>   +static inline void mod_memcg_lruvec_state(struct lruvec *lruvec,
->> +                      enum node_stat_item idx, int val)
->> +{
->> +}
->> +
->>   static inline void mem_cgroup_flush_stats(struct mem_cgroup *memcg)
->>   {
->>   }
->> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->> index 519c30b338a8..76d019594b39 100644
->> --- a/mm/hugetlb.c
->> +++ b/mm/hugetlb.c
->> @@ -23,6 +23,7 @@
->>   #include <linux/mmdebug.h>
->>   #include <linux/sched/signal.h>
->>   #include <linux/rmap.h>
->> +#include <linux/rcupdate.h>
->>   #include <linux/string_choices.h>
->>   #include <linux/string_helpers.h>
->>   #include <linux/swap.h>
->> @@ -7378,12 +7379,36 @@ void folio_putback_hugetlb(struct folio *folio)
->>       folio_put(folio);
->>   }
->>   +static void move_hugetlb_lruvec_stat(struct folio *old_folio,
->> +                     struct folio *new_folio)
->> +{
->> +    struct mem_cgroup *memcg;
->> +    long nr_pages = folio_nr_pages(old_folio);
->> +    int old_nid = folio_nid(old_folio);
->> +    int new_nid = folio_nid(new_folio);
->> +
->> +    if (old_nid == new_nid)
->> +        return;
->> +
->> +    guard(rcu)();
->> +
->> +    memcg = folio_memcg(new_folio);
->> +    if (!memcg)
->> +        return;
->> +
->> +    mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, 
->> NODE_DATA(old_nid)),
->> +                   NR_HUGETLB, -nr_pages);
->
-> Why not use mod_lruvec_state? mod_memcg_lruvec_state is an internal
-> API for memcg, I don't want it to be exported.
+Oh, sorry. It's not integrated in the sense of on the board. It's just
+a PCIe attached NVMe device. You can see the example for testing with
+QEMU in the cover letter.
 
-Thank you for the review.
+> something other than simple attestation here?=C2=A0 Fine to do it this
+> way, just seems like overkill so I'm curious what the application
+> is.
 
-mod_lruvec_state() would update the node counter a second time.  It calls
-mod_node_page_state() as well, and the target's node counter is already
-updated in alloc_hugetlb_folio_nodemask() (patch 1/2):
+The next step is to expand this to support other transports, like the
+storage ones.
 
-     lruvec_stat_mod_folio(folio, NR_HUGETLB, folio_nr_pages(folio));
+Alistair
 
-For an uncharged folio lruvec_stat_mod_folio() only updates the node
-counter.  The target folio is not charged to any memcg at that point; its
-charge only appears later in mem_cgroup_migrate().  So the node side is
-already covered and only the per-memcg attribution has to follow the
-charge here.
-
->
-> Thanks.
->
->> + mod_memcg_lruvec_state(mem_cgroup_lruvec(memcg, NODE_DATA(new_nid)),
->> +                   NR_HUGETLB, nr_pages);
->> +}
->> +
->>   void move_hugetlb_state(struct folio *old_folio, struct folio 
->> *new_folio,
->>               enum migrate_reason reason)
->>   {
->>       struct hstate *h = folio_hstate(old_folio);
->>         hugetlb_cgroup_migrate(old_folio, new_folio);
->> +    move_hugetlb_lruvec_stat(old_folio, new_folio);
->>       folio_set_owner_migrate_reason(new_folio, reason);
->>         /*
->> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
->> index 88824f783571..a5335da5d425 100644
->> --- a/mm/memcontrol.c
->> +++ b/mm/memcontrol.c
->> @@ -1015,9 +1015,8 @@ static void __mod_memcg_lruvec_state(struct 
->> mem_cgroup_per_node *pn,
->>       put_cpu();
->>   }
->>   -static void mod_memcg_lruvec_state(struct lruvec *lruvec,
->> -                     enum node_stat_item idx,
->> -                     int val)
->> +void mod_memcg_lruvec_state(struct lruvec *lruvec,
->> +                enum node_stat_item idx, int val)
->>   {
->>       struct pglist_data *pgdat = lruvec_pgdat(lruvec);
->>       struct mem_cgroup_per_node *pn;
->>
->
--- 
-Best regards,
-Hongfu
-
+>=20
+> Jonathan
