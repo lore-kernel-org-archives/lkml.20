@@ -1,129 +1,167 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011016.outbound.protection.outlook.com [40.107.130.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E23748C8AE
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:37:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790195877; cv=none; b=CD6Uj0XrVM2RWXvXgyW+BaE37PpsQYQKVS+yEkONd6Yf13Bj7VsgMpAFSxzORPAsB5YltPO3epldehSxImLzc8OrFyGAo0FXhv+GveJ0BwW0Q/p9GC0C9XMFpPGFgyXmmmSHJo/PprPE5Vynz68o659QTgw4RIkEAjxmu/N1mNo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790195877; c=relaxed/simple;
-	bh=ktR9e2h8nCd9S0EFkl5DruJEUJcripKPI1tSmR1JOBs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C+nQEFN68KdLVTQela1CMOv41zzWYkSH7Mil01tN6GHtTrRaS4+FbHG9d0KXESkJocVkrL+/ZLfQh9Y+RJ4/s/1M8Rlzxil4fPseLAiFPt64CeyQ4/qh71P0t9AdsoHWZo6CyNp5xn6FyZlrsiKg2CeC2N8rBgWASlqWfluqi8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WsPFLco0; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCAE52ED23;
+	Wed, 23 Sep 2026 20:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790195890; cv=fail; b=lLtbIP/pbfzE4YmElEK9YyMG5I+I8HWsdmmSmWjBgiFf7rsjCQBVJC8FLmG6+GA9NPJzSoRAa6yNEGUyzlM4r5HxgJs/BGZ9w2FsOWA2gSD8Dy+s6QV8waZjXmN21i5GFTTFZaWQR7PMNI6Q/XTo1Xz15PKcNgB3wWidw+8WUgE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790195890; c=relaxed/simple;
+	bh=c1xeEh5fEvNJEDuGUiEHr6fLAJ2yO8bBssYbHdsxcG0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DCSZVXtfq9/fUjk3rQoiUpxmOHdqfe4dkd+FobTKnKQlnHeZ80o/9PBFfi3HUsaIEoQsbW23jGIyEB0jmUOC5JXhg/dEhZni+6TfeWBh2EbPSxAgqmi4fhCVv6eBFHpKfqLDrrDfLzR07MsgOGNGJ/96n9eX8ntw+dZciOfT39w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=fsuxkPgm; arc=fail smtp.client-ip=40.107.130.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WsPFLco0"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e630052ebso1624343eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:37:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790195875; x=1790800675; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+ZvYoYp7T3tg2JMG9Cckdchh+Egbf2tNmPcdBTT/ZU4=;
-        b=WsPFLco0BTKLwvvYD/SgZxR7EEMa9176KlisVwB54AJYvwXv9rOttuYZqbe0GWlG0R
-         O7Nw2L40x7ZTi0y3HFViQBW7I5H8TwP9jDHjZnxezZ6FiVrMUL7y143XHfirYtGq8TdU
-         2q8omMlKbC0+07N2TvZ/wMi6kxlGlMHWdk/8CD4IksXriQqXBuHTGDEycFGunSj09DKz
-         zXsXRxiWmd/MhJuuc1SRm+TyDX+3R43WfVngqkSGYgcRfi/HLTyW6MZY2TlMng4/G1l4
-         CAcvrlDEkB8E/Q3UsM2rUHqyF1MYSaQqko9AFY4yDhr2EszY5YMdXbFEBL+fXiQQEQZv
-         YdbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790195875; x=1790800675;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+ZvYoYp7T3tg2JMG9Cckdchh+Egbf2tNmPcdBTT/ZU4=;
-        b=FZSqoGNyAqM+tI4OEJKYpZ3reYT+zs+s/EvhXRBDp8WutnZ+G4fDwW2jSesGzVtqgb
-         xl1hYOMFKTfqsFLPxCCFitA0/2aGLp4BBa5QnNko3Hn63GjfRTGVD8U9+nso2QOZIn2W
-         LR5uBDE0dPqxsS6+cCUN2Cyzjp4Ts4nOIb1/WZfyrIgo7t6NjP5S2K+lp6bSAmeCy6g7
-         sC3uEx2ObZxTvePiD7aQQstDI/rVsljZ2B4YcxE4tZVJ2UH7B/ycnGzV5zQtcDMNo8UM
-         IYW84Cn5+6ih0uzRhpTchgE5z+WPmNCqGZCD13359HlJw/C+hPuvCvKiNpTPtP5HG5PN
-         sR7w==
-X-Forwarded-Encrypted: i=1; AKwUvBw4gwpLRrfcS1E4Qhkmsz0/3NBV56tOA94PvNsvZSV00bwnd3qRrdUpKgavThCp34jGnh/NLUT0KVc+ic8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQkKY0sD/hPQZ953DInW+OvwvqX1msyXauA525djg7e+108v36
-	LSSFB+KPgXJlx0f7xof2n1HreP6ELTyFoON2lFsQUvVYngz7iMHG2RQa
-X-Gm-Gg: AYBFou32ZS6yYUENv2CvKFZwUDo7MXyASaY5M1l5iTXReQ83PZ8IZFXDjEy+NaZjCz0
-	5iPOsVh/PHs3Xy5BcLwpylovMMpU+aZuOgRLGQeFX8iKm6ovnpGM4+dsqvv41vGdlq7M7wa2jvn
-	y54K88Yj31RZrPzgJQovcypF10EAEC2ZPHsF5QAgw/kvyPW3TNqYLXcdLWY/NcQscKUQSJFBgez
-	nNi7Ak+EfNeJfKy4J1kHFKaMBNa5YHDPfTQL8lJQvyXMmVAxPKDrGNt0QcVVcbQX3gHntmMPvXp
-	tcijeIa5e5JVHl78N2N1vVAJlyP8uzvVVBl5OE1iUujpZiMKL9/Lni7OES42txh3+iLz1Xb2Kfh
-	AcZvTWcm3rvohnq3fCEKwqtrFhT71VyKJ1ORwjj2pN8vdjLcYxWIEXl2TbWwFKo23t5o01zQ8IW
-	WPA3rNl4q8s1QLwdoRJqywCzHR4lJ8LYeudqGu1u6uGR4xFboIWLwZd5Yv0HaczMA=
-X-Received: by 2002:a05:693c:8206:b0:339:8131:424e with SMTP id 5a478bee46e88-34006978035mr212595eec.34.1790195875080;
-        Wed, 23 Sep 2026 13:37:55 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e95c7cfd9sm8375052eec.5.2026.09.23.13.37.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:37:54 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: wei.fang@nxp.com
-Cc: andrew@lunn.ch,
-	frank.li@nxp.com,
-	shenwei.wang@nxp.com,
-	imx@lists.linux.dev,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="fsuxkPgm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MYMpreGJf0bGn4AfwZGMF7DyF7qiw6ZhgXzj98A6WXA3uq9D6j2yepOcwLCvAEKwnL7Xhotc0uWRhNu7NZ4LuQNwlzWPuOI3JgnZK+FuX4dBMaZDowA+/R7IkVEDbWnYfR7kIb//p67/FJt5LIJp3iAEoguDvhdYN2ix7+zLDzc0n3HS/b0vOA3iW7SERenO4JciHtk3BDiJrmAHE9gAp1vDaSzB2bu3amO6dolDI1JB3PmtjGNw1GYGNLTuaexpbKYQ5iRqUncVX6DOB+VsEAyUdpFkjpAH8M1aKW6YMODbeX1jNqubLP5h99HYx04PX1JCcsokFIujw99I4j11XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1nFBpexLejNaK+rsHO5eMTZYnY5BD8no9Z/Nrg3DkfY=;
+ b=ygzEq+XIssH8wTyM4DYfOm0Jpeor8VtX2tU6hSt9DmZKhUMK1HVWNNM+Bfd/OmXDOcNoK96EUw2i4q2GgOTUQapcEg7W+uS6V+MnUc3B9kTugXpjcpykHTSACyJqS8mBL9iHOVesgtl8M7YUScLEnTkXaFx8GdgnZMUq4OEpKuuSmd+3SIZ/+5SF/sMyuffM6yysS4iKDl8NxA4AGMa/IOKnzzfL20mDTL3fQG66tar6p8E4ggeyYeVKCgCquInwLFAmCNkb+UZEfu+eLnzecOme8zEf9GQEtLdcE1kXC9S4knj2DyqUKfS46vb6g5hGu6WMIpjpSJuAU5lWnA8MDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1nFBpexLejNaK+rsHO5eMTZYnY5BD8no9Z/Nrg3DkfY=;
+ b=fsuxkPgmBL00QX0Bt7QkAlh/oYpE+cTDYufnHxy+4JlNUW9wADCnVLUAC2ch+Mnh/QrkDFCRbuZYcyOrydk/0POGBDNa7VAv/lNJUSsPuIKoR2C5L5/oCRXpfKq+FN8WsfKf14xtljeTG0P/PgDRsRJoxznlQDIYOzUVnc6WcitA80e1292kzCW6TcsW1fv9k1+XFHSbDYiNlCpSzS8femFM8DrD3SyTU9JZaS6y/q+qebFEwU6qyeT14PkuDxYbrckUXfU2GoH+WyL1unqQjwnuJvmzieAvr4fa5eTuObIKn/Rd2GHzx/1VTT6OxUts5TlBMJOvwqEoAO7gBymM6Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GVXPR04MB9877.eurprd04.prod.outlook.com (2603:10a6:150:113::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.14; Wed, 23 Sep
+ 2026 20:38:05 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0428.015; Wed, 23 Sep 2026
+ 20:38:05 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Francesco Dolcini <francesco@dolcini.it>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net v2] net: fec: reject oversized fragments before bounce-buffer memcpy
-Date: Wed, 23 Sep 2026 17:37:38 -0300
-Message-ID: <20260923203738.1583735-1-qwe.aldo@gmail.com>
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 0/2] arm64: dts: freescale: Add Toradex OSM iMX95
+Date: Wed, 23 Sep 2026 16:37:58 -0400
+Message-ID: <179019586937.3763388.2864908684573790285.b4-ty@b4>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260917102011.69071-1-francesco@dolcini.it>
+References: <20260917102011.69071-1-francesco@dolcini.it>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SJ0PR13CA0125.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c6::10) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GVXPR04MB9877:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f8245fd-9b57-42ee-74b5-08df19b29224
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|19092799006|376014|7416014|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	RpsRbj1U1Lo5jU+bjg2DsjdTU9cFqb1AUQ5a5vMJjgQ+3Q8ulAeSmYebxZQWa6hTGPjmBLkTQ9r81q1IQpRueVCrmgFQ8EL0SqYzVVHgbuQSxrKksaUkniHysfxwioyxp3uw3cdpl7xd49LmfJ5qaYMOTbQiO201fAASMuFoCijtJNaWT++nobXs7hK6qTDIPC6FsHgC4rtpU4VwUSQfpVpUftUX28oYzOx79VSpSAn1iBQ4UaHqez57IC/w8pFOxeqyG301yZ535a/GPHYNYtjd6ob24dfocS8eLAwK9dL+hPGL33Z4V7r8G4fEf1v7ORliJ4w8UPFENOdCx+Qi4ahWCTCVIjKWQtfSIJAYJkR78gvVT7sjexi7QK13f2ud41x7zhv1mduiDYCf6dkNqgQXnVKjoIKNPZMU9a2e8veWOAZ7BCNh9/uzztSt+KDz8mCm36/T1jSAceYhPB5V1BQNA9OfOg/yNUd992WmEKqYh9RW5qVV7IL5mrvJthc/NeNkGONcAbuZktf128zcVkcJggB9TMwSEAeR/mGl59uh55cKZo7lZuMmTaWG9u4qPIVlPuof53jC8/MyJ4XUQMTB/3R99MOmom8uKq//FlgrmgojUS/ns0ibYYjDbzgI2s8mk9ALp0LhP3BhpB9aYv9aAa0NoC0Ggsec84tXOWY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(19092799006)(376014)(7416014)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WnhlRzA0SDN1MHdzZkFhTFVKaWVNcGtEZnd2NU82WWFZNjFBRmRQajA5QXdX?=
+ =?utf-8?B?ZDZYL05XZElva3ZtOXFBWEgvS1o3Sk54SDlSZThPOXVvaXIzb2w2N0FJeXdO?=
+ =?utf-8?B?c3pIazNmVmZObkVPZFNwQlY5dkxzUWR6bFJ0dXV4dU5yQ0RYUlNYY0hneTZZ?=
+ =?utf-8?B?WXRqSFFINUFOY1BteVhnY2FsSkxQZSs0WnY4RUZTVXluY2wvV3V5NEpIemNR?=
+ =?utf-8?B?TzVpYVZCNk5UZVFIbnFJOHQvd2N0VmpKQkp0VTRKa2xiN2FFR2QyYVpuZXFz?=
+ =?utf-8?B?Rk82UHpFaG1UNmlVeUlCUmFmVEJpcTQ0ZVU1T2RuQzdSQ1pFdWg3NXJzbDJW?=
+ =?utf-8?B?dWdWVno3ak1SS1B2OG43UFpEdHY4TDE1NWdENzVXUjdOeUptMXpCNDdlcC83?=
+ =?utf-8?B?NnUwREdSZS9FUkU2RGp3Q293bE44VWFYYityRW56Vmp3TGJQMjludHdNUGhr?=
+ =?utf-8?B?Q3BoWHlEbFNZblJGS0JRZ3I2RGxXbjEwQWpXdzVHUFphYVBORDlXNThxK0kz?=
+ =?utf-8?B?bURmRUVSNnVUMVJjZ0E4aEFtM0lWWkphUlF0NTNOcnRENmJkd3BpMU9pTzZh?=
+ =?utf-8?B?eXVmQlprNHVwWm84NlAxdDd4a1JqTjI3RnV1bDY3T2VHOW1rZDFsR1FvOEdo?=
+ =?utf-8?B?NDlPN3ZFQmFueCtkTlJZcUh1VjZ5dkh0RXhLUjlOODRIbkZmM0lMUEZuYndj?=
+ =?utf-8?B?SU9YWGg3MEtHUUdTTnpNNm95Rmx3WDJkaU9jalQ0eHJrYTEyNkxCYllsK1ZI?=
+ =?utf-8?B?aXBuUTZvYkRzMHA0TmU1RzNpK3ZCQkVmY0tERzk0ZVZVTU5wYm8rdjRSZFI2?=
+ =?utf-8?B?MFJPdzc3SW00S1NMYVQwSzQrU211NG5YSW5MVTlJUmVUdFpUVkRHY3U5QmpW?=
+ =?utf-8?B?OU03MFBxZ3RPVEovSi9Hb3lybzYzWVRpck9mdjJzK2haS2lMTlJ3bWQ2eGhK?=
+ =?utf-8?B?WUNFdXhUZVlkNU9TazNSWkpsbS9jRE9EUHh2WlZQUDFFaTRSUXh1NGMzUTZN?=
+ =?utf-8?B?VG11d0pxSEIvOUVkQTFwbTNIdFVwbHpSWlJwdFZaZ0I4Q0w1YVV2S1F4dnhW?=
+ =?utf-8?B?V0pWRERIM3FsV3p5QkZGcFdUTjFaMWlSdzIvTGx6TkdYQXdLbWZNYWlqYXZB?=
+ =?utf-8?B?eVZVcm5Sd09pemUzci9iUS8xYUtscCtHdFJsVlp3b1dQR1B5a1dnZzU1L25O?=
+ =?utf-8?B?TUMyeFRVT3VGTTZvcUVlWUt6SXNaRE4zWlJkdnlzbHdWUlYyMkR5aVVMckNq?=
+ =?utf-8?B?dkN4V2l3NERaOFIzaTBJU3o3T2lwRXphcG4xU21wYlkwNEJqSDNtczdLRXgy?=
+ =?utf-8?B?MTk5Z3FQdEEvRWRjZ2p4ZWZpMW1jRTkzbW1wQ2xmczkvQzIvaEZCZVRhM0Y2?=
+ =?utf-8?B?bDEwcjFveHlEZFIvWDRWaUVnMXZxMlNqQ2dML1NYajNwbTlnZ2V0ak9UWDJj?=
+ =?utf-8?B?OEViSU90ckFJa3NqMkNsWForYjlDdUF2dVJ0cFZ4S2Y0YXRXOHY0ejJLWldW?=
+ =?utf-8?B?ODI4bkg4RUd2amRkbU40Z21ReVVORnNZU3FuNi9rWTI4ZTRQRmYzd2llTkVO?=
+ =?utf-8?B?eDMrZlpzQm42UUh0clVRN1ZJRjdEc2d0RkptM3hBYU92RHV4Ym1TaG13Z2Rq?=
+ =?utf-8?B?N1NPLy9kenNNNGZDZDZ0NTF1NGQ0MHl6Y21adFlGeERCL05lSG9jWEhtVHVa?=
+ =?utf-8?B?amJSNkRsV1ptdzlCREs1R3BmQmFiN3FlV1NsOHgvUlh2ODhnOVZTeU1ERVZr?=
+ =?utf-8?B?cllURExkd0p4UHZuSVZnaFFwWUpkTUVDdVdWcnlPMUYzbnE2czRVSHBXakJr?=
+ =?utf-8?B?MU8vKzBselgvaUdGZEJXazFKOGkvai9ybHdqZ2hzQ1d0bzdZWW1yVm9QUmZj?=
+ =?utf-8?B?VEpOMkltR205enhkVWlKbUJCR1cwTk9yRExiRDB5aitJMElENUxqc0U1SEdW?=
+ =?utf-8?B?KzNINTJoUjU1eTAxbm9jcEhNWVYrTyt5Mi9sSVFIaDNxWk5XbUxCOWhKNkxR?=
+ =?utf-8?B?MEFEa3dNNlJJdGp5VG1qdk5aNEpQZSt4RjIvbUg3Z1hmUkQvYS9HQ3oydVgy?=
+ =?utf-8?B?cThSNVFGRkxSZW4yTFh2VmxzZml4S1dEaEhvdDhjLzJTYm9xRG5WR1NBMHps?=
+ =?utf-8?B?SmpIRU1vcjZRbWMzSkZTYlFXc0FhUWpDS0xlcDVwTmZoTXM3ZDlIcXhYZ2NZ?=
+ =?utf-8?B?V014YTN4eFp5VVlkRWRGVFBEVm5SVUU0aXVUb2RkU3QvTWc5VmEwbmpjL0xJ?=
+ =?utf-8?B?NHQwVkd4VzVoR3dzY2hBeWZMK2RlMSt6Tno3bnVKNHN1dWNKQlFOZCtPUFF5?=
+ =?utf-8?B?U0hRVlc5WEtsZnA0cU4xV2l3UHB3TnhydXZPTzRnTnh4ek8rb1F6Z2RaTUF0?=
+ =?utf-8?Q?Jd2C0O+hwDyxtZ/LjsbPuxfHbvlJ5BxGCUHu1?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f8245fd-9b57-42ee-74b5-08df19b29224
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 20:38:05.8338
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IkOANqwyiVFN4xWkKd6tPAIlH80fNmr7ap8CfglLEXcLtnl63VLlybrGKAJkGzoDdvmDmuVvudYzxD8zfj1R7gjI7z51TFYE9Ip2lhYYSze5W/jDr2eWgkZimtY910KE
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9877
 
-fec_enet_txq_submit_frag_skb() and fec_enet_txq_submit_skb() copy
-transmit data into a per-ring bounce buffer when the source address is
-misaligned or the FEC_QUIRK_SWAP_FRAME quirk is active. The bounce
-buffers are allocated as kmalloc(FEC_ENET_TX_FRSIZE) where
-FEC_ENET_TX_FRSIZE is 2048 bytes.
+From: Frank Li <Frank.Li@nxp.com>
 
-However, skb_frag_size() can return up to PAGE_SIZE (4096 on most
-architectures) for scatter-gather fragments, and skb_headlen() can
-exceed 2048 for certain GSO packets. When this happens the memcpy
-overflows the bounce buffer by up to 2048 bytes, corrupting adjacent
-heap objects.
 
-Add a length check before each bounce-buffer copy. If the data exceeds
-the bounce buffer capacity, fall through to the error path rather than
-performing the out-of-bounds write.
+On Thu, 17 Sep 2026 12:20:07 +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> 
+> This patch series adds support for the Toradex OSM iMX95 SoM and its OSM
+> Development Board.
+> 
+> The Toradex OSM iMX95 is a SoM compliant with the OSM V1.2 specification
+> from SGET, based on the NXP i.MX95 SoC and available in Size L
+> (45x45 mm).
+> 
+> [...]
 
-Fixes: 6605b730c061 ("FEC: Add alignment handling for FEC driver")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- drivers/net/ethernet/freescale/fec_main.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Applied, thanks!
 
-diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
-index 794ec42..8614984 100644
---- a/drivers/net/ethernet/freescale/fec_main.c
-+++ b/drivers/net/ethernet/freescale/fec_main.c
-@@ -558,6 +558,8 @@ fec_enet_txq_submit_frag_skb(struct fec_enet_priv_tx_q *txq,
- 		index = fec_enet_get_bd_index(bdp, &txq->bd);
- 		if (((unsigned long) bufaddr) & fep->tx_align ||
- 			fep->quirks & FEC_QUIRK_SWAP_FRAME) {
-+			if (frag_len > FEC_ENET_TX_FRSIZE)
-+				goto dma_mapping_error;
- 			memcpy(txq->tx_bounce[index], bufaddr, frag_len);
- 			bufaddr = txq->tx_bounce[index];
- 
-@@ -634,6 +636,8 @@ static int fec_enet_txq_submit_skb(struct fec_enet_priv_tx_q *txq,
- 	index = fec_enet_get_bd_index(bdp, &txq->bd);
- 	if (((unsigned long) bufaddr) & fep->tx_align ||
- 		fep->quirks & FEC_QUIRK_SWAP_FRAME) {
-+		if (buflen > FEC_ENET_TX_FRSIZE)
-+			goto release;
- 		memcpy(txq->tx_bounce[index], skb->data, buflen);
- 		bufaddr = txq->tx_bounce[index];
- 
+[1/2] dt-bindings: arm: fsl: Add Toradex OSM iMX95
+      commit: 4fed69596d776c1361150839acb9e089aaa0116e
+[2/2] arm64: dts: freescale: Add Toradex OSM iMX95
+      commit: 7cb2afdcf226b76134db909e411b915f9fb28852
+
+Best regards,
 -- 
-2.43.0
+Frank Li <Frank.Li@nxp.com>
