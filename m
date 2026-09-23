@@ -1,347 +1,452 @@
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [217.70.183.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38010329C7C;
-	Wed, 23 Sep 2026 14:44:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.193
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174688; cv=none; b=bccDWz5XmF8udcHslr6PykkIca7JUAYd/PKOf3olPagi60g+YutS4pkG/fr9GXaLTF7qPElScDrSEBVjfCakF7YqJIJpKbS582cVF5lPQ52k7rAzp2b08EfmYJt6chv8rC6l95r/FAeErnOeyJdS54GfdfkEcLibeOyv6TRzS5A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174688; c=relaxed/simple;
-	bh=iFeBR66bMMxpCFGg97+uLtxJhu7/l/HwXGvb3eN0hbM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NWCpq6cBqwGKv5azqK0pBwonNoxcJxqGmhckRnaRZZ2yzA7Ar4Fw4Ure3xmYUj0kyDAu2D3I+PXrqNoGcD/3BtEiLciUA8293WEiP9g+PRnzOmQPawEp4NqDoAIgVPLPuHgKnenr0kCXSE3sgO7MSNK1anmNQkM/+jh/kdhVWjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=CtMEI7zg; arc=none smtp.client-ip=217.70.183.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0863A538D91
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790174699; cv=pass; b=H89s7JC8BnDu4oY5RSNxc5IBex+ZkyKtegkSMBzd8CkXsOZJq/2TmjXe/qq+VOlZ27cBU64XRRDWALb2W9tuE7gLWUiEcYhMPFcaY0C7Ip10/dPbYiy/RcyRTl7BCiovsOsgRqILDSUiQ5k1+Gq25TAqx9DtB/jBTxHe4dgaCrY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790174699; c=relaxed/simple;
+	bh=I4CXC8CBXPsAi9J4cmSHK94u4GgKkC4ll7iirgr4BVU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mDnJGjvVh+EjjWcijREr+qoDH/nOooNWVT3Qmf8wxMn3gMSilyuWjpFaYWWnmJTvVBE3AGoSSnpWR47pQLPyEaUmL0RZCuuOhMQRPQbnnkVdwtA4cIT5f4bW/jHg1Of4pCR+ZI8R968ZyIcJa+z2lL888SPu1t9JKYJfyw9VVrc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=y9rblD8S; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="CtMEI7zg"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id C359D3F08A;
-	Wed, 23 Sep 2026 14:44:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1790174679;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZM1YqPOqcVbkjo3zrWMPUPpm5DwL6i2T5wqbMYOcPHc=;
-	b=CtMEI7zgqBrYclk2NgMa9kypPSduAIe6sWlvFWsmAV0OuArbpNQYKX5wkM8oDHXKbeEXic
-	R/pKL5Xo8bsralMwDeKZ522jOg3XCof46pGTrnlCB/GLWGRPif2L3h1zWgyeXiQgF78LC5
-	6l6GzVF5P1Y85W3iolDJXTEXD0YGwBnXg+12TMNvBFErMsGMxsgeQ9FNoQ8q6HVHkZcyiL
-	XQ7bmhU7F97Rs9NvaJDnZwxXs5OVvVLfRafBJdkxk/j1DCwrBiyksZSFr8iFtwnlX+e1xg
-	HilkP9SZW9Vpy3yHzadjB61xDT4g45jEXgOzfWh2N9m0drAzb47FM8peYPoagw==
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-Date: Wed, 23 Sep 2026 16:44:15 +0200
-Subject: [PATCH v5 1/2] usb: gadget: f_hid: allow setting different
- interval for each speed
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="y9rblD8S"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a803458ba0so1388451a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:44:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790174695; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HkoRGEKGM9VqkF75TjuElvSX4W+DY1yKXtivnpOLu+Py/MHaMrdn74ZDFWieD1ekpi
+         NhUPwvPLgH4+W37xNFP+ndXviSuuC1twcGPJOH2UdxemalV+js0eWRHZia/NUYnfdn09
+         O0xYLT2QU/MC02fuyT7eIJOF0pOyG+nGx0OpBuPtAicCMcZgzZowUFiTMLAZncdIldPE
+         9B3aegv26M9Fv86uF6GeUupTnSe2geaDRN6vXzDL435qVQCq4GAGIgsQ21P5zjRSao4F
+         qmVDBkLaudjmYQIxYTL2AsZHC3mYaSkHvHAmyA7fE63leM0XzbAEAKNUFZP9jdl3bobE
+         Kicg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=M4aBOtPsfRM3OiglhHgFceP8oaWfGnoSKrcjXOznF1Q=;
+        fh=AKtRos7mwUz/ekGXz2nlGR/NdcBVzMhC5ejRjgBKCi0=;
+        b=Ld0NeFRpNeCUM/NvN3gHn97zopW8lOeX3yuPCkAiXbiVP8mcSgQ3DIdBwfQ81S9oCz
+         bOcK2bp3xDqCis34MsQWc5FeWUELCGShiT7eTz+zXe+g9FQiJ45sHF53YtqpWivZGhpB
+         tP8MzEQAofpLqIQ7eJTEwcuTqepMdVOw6Ar2sa7lXr2/rjkLgVRQaal4KMklUj/R8+Dd
+         3isgL6kZkyFD2O7edzfYIAvT+oSgIOxA8O7/L4j/zhTrW98scniOSIAJkejlI5PrsPqZ
+         IFKhGTp5MOmLHK3NxBvBGIKkAYuHEPnnU/6M6KN41kgPUeNtOm7ik7jb9wGVGLJ5+Ulj
+         k9Cg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790174695; x=1790779495; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M4aBOtPsfRM3OiglhHgFceP8oaWfGnoSKrcjXOznF1Q=;
+        b=y9rblD8S13fR2oMy4fWiX8dM2/TAcI6Jqmw2jUQQ9pv/gDVVmsmxRCUQbwSPpPrzwK
+         lnC6FgzTSP+4Q0H5v2KNuNSbNd6827A5QSOtiigkpL6/F0E8XUVQmvEjQVIckwSgZcYs
+         jLlA1etvlQF4efiMTiVm+vKq1KqK8JyZ7vGO/bOwHpFg1y53fYb1mK3NjqHsK9jALjAL
+         WnUkX5k+2qqsZn4++ThU6AjI/pV5tQVB+ao9Y48ICNYU55tqPBkR8KT4FzbftabPUWf7
+         nyEv3aBrlyjg2N9MdxyTQPFDnqIxRHw23YB1PDNe+XLzaYMNFvOAEAOF3TrgDsXsRKny
+         CzWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790174695; x=1790779495;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=M4aBOtPsfRM3OiglhHgFceP8oaWfGnoSKrcjXOznF1Q=;
+        b=V/4I/Kif+8VrCRDhoBggpLAufY0sfxByvLeCe7aAygmejJl+eA9lu+JeDz3MGdG1qe
+         BGbWpmyPwQlF31QWOYeNkYjQvEFsHh1b0EBziwPlGCQecBjM2gCMGZ+nxtJd7eDvI7uJ
+         o1NbP8c568mRfvQF8ETiNiy4ZHg/7hAni3FaYM+4HpbJblCNbZ8WxqK40OxkfaBzZGwr
+         McpEzviGKLDQ2egrwqy1AzvBhEs7FAQi1K+jcqbYI6p2l7HtufCSQ7h40DMW7D++d08w
+         +JLtPqFyS+89oz5CwJm8PzroNjU4ab832STgTp8kYwn6NYMzOHDl032TdrC55yZ1xuOM
+         WclQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwpum0+ulF9cGI9OIihcFGkcAk3YUiixlqWfgpJFwLd2Yk3d/cUFEwmN94G2lf8NdWKsQ5pr3R9aBIpgp8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nElF4eWKkVfOQFF7IJLrTJcJKYTGyFrm8lbdrYWtd8vL4v6kXY
+	Z7VXfk6ns33LosL/89IfHNxDX90GRxqyF0dgOlY8iw+pTge5TX4vG04WZe6kn+ZVnV2cOXKC8fu
+	SDKmQgk0pqnLn+JVBxn6gVTE+68xnBvUVlJQPRjvjcA==
+X-Gm-Gg: AYBFou2wWSe7qHgXMHozUTLdW4twr5wFmXbG/rX4eUw44X7BNFYjjS74033BC7TPnE3
+	MBc+IjBs81E+6DHV7PIRIlx3MjXmUEz+BKvVWIEUwZS5sLOv2bjKzR1u12hC3/nzmkz3MHBD6WN
+	W9J9iwWS5XLMq8srP+x5tlJZwfNybzEHbxakCettoRcCj7jPn7mn7WI2Hbf57z9672Q/4jU7ZdF
+	LIgSXz3w7wADdutpUSTJUhL5OrqIq+iEz481zlZ+EF8jRMxkGyO6/RNi8jKOZ8/86NZ6BP1X0Ky
+	GBdQkmEy/Xj2FstINeMocsEAcDLU6zL8LAOcg3uY7ulKqw7PIjPn/mqmXdQ4dvoEzWdakuEB1DP
+	CD/3Exyj/DXk=
+X-Received: by 2002:a05:6402:378a:b0:6aa:9851:6d5c with SMTP id
+ 4fb4d7f45d1cf-6aab3b2954fmr2562437a12.19.1790174694197; Wed, 23 Sep 2026
+ 07:44:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260923-usb_hid_interval-v5-1-7e0e2879ba8b@marmottus.net>
-References: <20260923-usb_hid_interval-v5-0-7e0e2879ba8b@marmottus.net>
-In-Reply-To: <20260923-usb_hid_interval-v5-0-7e0e2879ba8b@marmottus.net>
-To: linux-usb@vger.kernel.org
-Cc: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
- Ben Hoff <hoff.benjamin.k@gmail.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- linux-kernel@vger.kernel.org, Arthur Crepin Leblond <arthur@marmottus.net>
-X-Mailer: b4 0.15.2
-X-GND-Sasl: arthur@marmottus.net
-X-GND-State: clean
-X-GND-Score: -100
-X-GND-Cause: dmFkZTFVVpC0VY/T5b5xqUMGYTw/xxgKsZzbx+eDRQGaXt4G54x8tXt8FzLtfvVwRCBQM7L6Os36JN5SYKIn3ME2iOa0foQ44rwuwuuY/NblhQW28aDWa9xdbqnJAr4M9kfPuyihXJE0fVpaAguEKwOEEpVntMjeffmKDBgOeVwUY5cla2FBUDNPtrvMlTUAgAzSMRJKzPPbxbu5LVmq45tLkmdCWSiFhoFdKayC6zxuEb3PNX1FyRrXJFBbxC/FQitatOC5ikuD/oZ4QX6ndT+l6Ch/QWX4CwHDqOJWY2zhYOIjnWOpgeSPAtHSCAyXlphbehFBSjQoOmUVUEXK3BCk9F1cDZezNedpPMBb212H64k4OjDeIBQSoNdkkXsN6AZoS5vfVmzIIjbAe9QD1Jzuxju5wbAP7xLVg0SitGH61WtUcTUHTatrC5/dRosgoG8r2gP22cxKhtESP26A7qF9wvzEoHb6no6BJNJGRQEVWDfFKZMQeGDnoe6g6n70sP/cxx9w0JbEPvOdmJzbc82IIaRBB0gMJQVhs20n3cJWQt5h6RugfJYVPKfageRiR/WUY+WL9HX4FUvparaiNdC7x/iO036UfjWVvHuI6DM2DuHmBcx4RmYSNaEIQmV6qnNjyPxKLoN78hmrLejt+CHjIE5bHX9+VYCF/aSz9f4N0fSX0A
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-6-dac8c5eb4aa9@valla.it>
+ <arKlvZGqu2nt6Ci0@p14s> <arLXthhYbKkwZ9zY@bywater>
+In-Reply-To: <arLXthhYbKkwZ9zY@bywater>
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+Date: Wed, 23 Sep 2026 08:44:41 -0600
+X-Gm-Features: AclHuK98k2uTxSqJLFP90Hvvkb8R20Qb9iAi3e_cMJ5VQjy6TOoZ99TlQSDABtg
+Message-ID: <CANLsYkwNOukGX68=NVvwNP7iudP3EcKN6C2L2o9nVCTRxFVxFg@mail.gmail.com>
+Subject: Re: [PATCH RFC 06/12] remoteproc: virtio: add bounce buffering for
+ data buffers
+To: Francesco Valla <francesco@valla.it>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, virtualization@lists.linux.dev, 
+	imx@lists.linux.dev, iommu@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-The HID bInterval field is interpreted differently depending on the
-USB speed:
+On Tue, 22 Sept 2026 at 13:39, Francesco Valla <francesco@valla.it> wrote:
+>
+> On Tue, Sep 22, 2026 at 09:58:53AM -0600, Mathieu Poirier wrote:
+> > On Wed, Sep 16, 2026 at 11:10:51PM +0200, Francesco Valla wrote:
+> > > Depending on the driver originating them, data buffers used for virtio
+> > > communication can either:
+> > >
+> > >   - already be allocated from the coherent memory area that is
+> > >     accessible by the remote processor; this is the case of rpmsg
+> > >     and the rproc flavor of virtio-console;
+> > >   - be allocated from generic kmem, and thus not accessible directly by
+> > >     the remote processor.
+> > >
+> > > Exploiting the map operations, which are used by the virtio framework
+> > > when VIRTIO_F_ACCESS_PLATFORM is part of a vdev's feature flags, add
+> > > bounce buffering for the second case: when the map() callback is called
+> > > for a buffer, one or more pages of coherent memory are allocated and
+> > > data is copied to them, then they are exposed to the remote processor;
+> > > the data is  then bounced back on unmap().
+> > >
+> > > The first case is not impacted, since buffers already suitable for
+> > > remote transmission are passed through.
+> > >
+> > > With the bounce buffering in place, any kind of virtio device can be
+> > > supported through the remoteproc-virtio transport, at least from a
+> > > data exchange standpoint.
+> >
+> > Is this _necessary_ for the imx93 platform you are implementing feature for?
+> >
+>
+> If I don't want to fundamentally change how the remoteproc integration
+> works (i.e.: using buffers only from a pre-shared area), yes. While in
+> my test environment the Cortex-M33 serving as remoteproc is able to
+> access the whole RAM space, that is not always the case.
 
- - Full speed: bInterval is linear, in milliseconds (1 to 255)
- - High/Super speed: bInterval is logarithmic, encoding the interval
-   as 2^(bInterval-1) * 125us (microframes)
+The first sentence tells me it is mandatory while the second says it
+is not.  I understand the use case but don't want to bloat the
+subsystem with code that is trying to address a problem you currently
+don't have.
 
-Exposing directly the bInterval means that the user needs to know
-which speed is currently in use and has to convert it accordingly.
 
-The solution is to expose the interval for each speed:
- - interval_fs: bInterval for full-speed
- - interval_hs: bInterval for high-speed
- - interval_ss: bInterval for super-speed
- - interval: legacy bInterval that overwrites the per-speed bInterval
-   to keep backward compatibility
-
-When the user sets the legacy interval attribute, all the other
-per-speed interval attributes are set to this value.
-As a minor side effect, when the user sets a per-speed attribute,
-the value of the legacy interval attribute (when using show) is out of
-sync. This is not an issue as backward compatibility is kept when
-using the legacy interval attribute only.
-
-The interval_user_set field has been removed since the different speed
-values are now set when the legacy interval is stored.
-
-Use sysfs_emit() instead of sprintf().
-
-Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
----
- drivers/usb/gadget/function/f_hid.c | 140 ++++++++++++++++--------------------
- drivers/usb/gadget/function/u_hid.h |   4 +-
- 2 files changed, 66 insertions(+), 78 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/f_hid.c b/drivers/usb/gadget/function/f_hid.c
-index 3c6b43d06a6d..9f7e5a841f4b 100644
---- a/drivers/usb/gadget/function/f_hid.c
-+++ b/drivers/usb/gadget/function/f_hid.c
-@@ -30,6 +30,11 @@
-  */
- #define GET_REPORT_TIMEOUT_MS 2500
- 
-+/* Default bInterval values */
-+#define HIDG_DEFAULT_FS_BINTERVAL 10
-+#define HIDG_DEFAULT_HS_BINTERVAL 4
-+#define HIDG_DEFAULT_SS_BINTERVAL 4
-+
- static int major, minors;
- 
- static const struct class hidg_class = {
-@@ -62,8 +67,9 @@ struct f_hidg {
- 	unsigned short			report_desc_length;
- 	char				*report_desc;
- 	unsigned short			report_length;
--	unsigned char			interval;
--	bool				interval_user_set;
-+	unsigned char			interval_fs;
-+	unsigned char			interval_hs;
-+	unsigned char			interval_ss;
- 
- 	/*
- 	 * use_out_ep - if true, the OUT Endpoint (interrupt out method)
-@@ -1204,16 +1210,10 @@ static int hidg_bind(struct usb_configuration *c, struct usb_function *f)
- 	hidg_fs_in_ep_desc.wMaxPacketSize = cpu_to_le16(hidg->report_length);
- 	hidg_ss_out_ep_desc.wMaxPacketSize = cpu_to_le16(hidg->report_length);
- 
--	/* IN endpoints: FS default=10ms, HS default=4µ-frame; user override if set */
--	if (!hidg->interval_user_set) {
--		hidg_fs_in_ep_desc.bInterval = 10;
--		hidg_hs_in_ep_desc.bInterval = 4;
--		hidg_ss_in_ep_desc.bInterval = 4;
--	} else {
--		hidg_fs_in_ep_desc.bInterval = hidg->interval;
--		hidg_hs_in_ep_desc.bInterval = hidg->interval;
--		hidg_ss_in_ep_desc.bInterval = hidg->interval;
--	}
-+	/* IN endpoints */
-+	hidg_fs_in_ep_desc.bInterval = hidg->interval_fs;
-+	hidg_hs_in_ep_desc.bInterval = hidg->interval_hs;
-+	hidg_ss_in_ep_desc.bInterval = hidg->interval_ss;
- 
- 	hidg_ss_out_comp_desc.wBytesPerInterval =
- 				cpu_to_le16(hidg->report_length);
-@@ -1238,16 +1238,11 @@ static int hidg_bind(struct usb_configuration *c, struct usb_function *f)
- 		hidg_fs_out_ep_desc.bEndpointAddress;
- 
- 	if (hidg->use_out_ep) {
--		/* OUT endpoints: same defaults (FS=10, HS=4) unless user set */
--		if (!hidg->interval_user_set) {
--			hidg_fs_out_ep_desc.bInterval = 10;
--			hidg_hs_out_ep_desc.bInterval = 4;
--			hidg_ss_out_ep_desc.bInterval = 4;
--		} else {
--			hidg_fs_out_ep_desc.bInterval = hidg->interval;
--			hidg_hs_out_ep_desc.bInterval = hidg->interval;
--			hidg_ss_out_ep_desc.bInterval = hidg->interval;
--		}
-+		/* OUT endpoints */
-+		hidg_fs_out_ep_desc.bInterval = hidg->interval_fs;
-+		hidg_hs_out_ep_desc.bInterval = hidg->interval_hs;
-+		hidg_ss_out_ep_desc.bInterval = hidg->interval_ss;
-+
- 		status = usb_assign_descriptors(f,
- 			    hidg_fs_descriptors_intout,
- 			    hidg_hs_descriptors_intout,
-@@ -1334,14 +1329,16 @@ static const struct configfs_item_operations hidg_item_ops = {
- 	.release	= hid_attr_release,
- };
- 
--#define F_HID_OPT(name, prec, limit)					\
-+#define F_HID_OPT_U(name, prec, limit)				\
- static ssize_t f_hid_opts_##name##_show(struct config_item *item, char *page)\
- {									\
- 	struct f_hid_opts *opts = to_f_hid_opts(item);			\
- 	int result;							\
-+	u##prec val;							\
- 									\
- 	mutex_lock(&opts->lock);					\
--	result = sprintf(page, "%d\n", opts->name);			\
-+	val = f_hid_opts_get_##name(opts);				\
-+	result = sysfs_emit(page, "%d\n", val);				\
- 	mutex_unlock(&opts->lock);					\
- 									\
- 	return result;							\
-@@ -1368,7 +1365,7 @@ static ssize_t f_hid_opts_##name##_store(struct config_item *item,	\
- 		ret = -EINVAL;						\
- 		goto end;						\
- 	}								\
--	opts->name = num;						\
-+	f_hid_opts_set_##name(opts, num);				\
- 	ret = len;							\
- 									\
- end:									\
-@@ -1378,10 +1375,39 @@ end:									\
- 									\
- CONFIGFS_ATTR(f_hid_opts_, name)
- 
-+#define F_HID_OPT(name, prec, limit)					\
-+static u##prec f_hid_opts_get_##name(const struct f_hid_opts *opts)	\
-+{									\
-+	return opts->name;						\
-+}									\
-+									\
-+static void f_hid_opts_set_##name(struct f_hid_opts *opts, u##prec val)	\
-+{									\
-+	opts->name = val;						\
-+}									\
-+F_HID_OPT_U(name, prec, limit)
-+
-+static u8 f_hid_opts_get_interval(const struct f_hid_opts *opts)
-+{
-+	return opts->interval;
-+}
-+
-+static void f_hid_opts_set_interval(struct f_hid_opts *opts, u8 val)
-+{
-+	opts->interval = val;
-+	opts->interval_fs = val;
-+	opts->interval_hs = val;
-+	opts->interval_ss = val;
-+}
-+
- F_HID_OPT(subclass, 8, 255);
- F_HID_OPT(protocol, 8, 255);
- F_HID_OPT(no_out_endpoint, 8, 1);
- F_HID_OPT(report_length, 16, 65535);
-+F_HID_OPT(interval_fs, 8, 255);
-+F_HID_OPT(interval_hs, 8, 255);
-+F_HID_OPT(interval_ss, 8, 255);
-+F_HID_OPT_U(interval, 8, 255);
- 
- static ssize_t f_hid_opts_report_desc_show(struct config_item *item, char *page)
- {
-@@ -1428,58 +1454,11 @@ static ssize_t f_hid_opts_report_desc_store(struct config_item *item,
- 
- CONFIGFS_ATTR(f_hid_opts_, report_desc);
- 
--static ssize_t f_hid_opts_interval_show(struct config_item *item, char *page)
--{
--	struct f_hid_opts *opts = to_f_hid_opts(item);
--	int result;
--
--	mutex_lock(&opts->lock);
--	result = sprintf(page, "%d\n", opts->interval);
--	mutex_unlock(&opts->lock);
--
--	return result;
--}
--
--static ssize_t f_hid_opts_interval_store(struct config_item *item,
--		const char *page, size_t len)
--{
--	struct f_hid_opts *opts = to_f_hid_opts(item);
--	int ret;
--	unsigned int tmp;
--
--	mutex_lock(&opts->lock);
--	if (opts->refcnt) {
--		ret = -EBUSY;
--		goto end;
--	}
--
--	/* parse into a wider type first */
--	ret = kstrtouint(page, 0, &tmp);
--	if (ret)
--		goto end;
--
--	/* range-check against unsigned char max */
--	if (tmp > 255) {
--		ret = -EINVAL;
--		goto end;
--	}
--
--	opts->interval = (unsigned char)tmp;
--	opts->interval_user_set = true;
--	ret = len;
--
--end:
--	mutex_unlock(&opts->lock);
--	return ret;
--}
--
--CONFIGFS_ATTR(f_hid_opts_, interval);
--
- static ssize_t f_hid_opts_dev_show(struct config_item *item, char *page)
- {
- 	struct f_hid_opts *opts = to_f_hid_opts(item);
- 
--	return sprintf(page, "%d:%d\n", major, opts->minor);
-+	return sysfs_emit(page, "%d:%d\n", major, opts->minor);
- }
- 
- CONFIGFS_ATTR_RO(f_hid_opts_, dev);
-@@ -1490,6 +1469,9 @@ static struct configfs_attribute *hid_attrs[] = {
- 	&f_hid_opts_attr_no_out_endpoint,
- 	&f_hid_opts_attr_report_length,
- 	&f_hid_opts_attr_interval,
-+	&f_hid_opts_attr_interval_fs,
-+	&f_hid_opts_attr_interval_hs,
-+	&f_hid_opts_attr_interval_ss,
- 	&f_hid_opts_attr_report_desc,
- 	&f_hid_opts_attr_dev,
- 	NULL,
-@@ -1537,8 +1519,10 @@ static struct usb_function_instance *hidg_alloc_inst(void)
- 		return ERR_PTR(-ENOMEM);
- 	mutex_init(&opts->lock);
- 
--	opts->interval = 4;
--	opts->interval_user_set = false;
-+	opts->interval = HIDG_DEFAULT_HS_BINTERVAL;
-+	opts->interval_fs = HIDG_DEFAULT_FS_BINTERVAL;
-+	opts->interval_hs = HIDG_DEFAULT_HS_BINTERVAL;
-+	opts->interval_ss = HIDG_DEFAULT_SS_BINTERVAL;
- 
- 	opts->func_inst.free_func_inst = hidg_free_inst;
- 	ret = &opts->func_inst;
-@@ -1628,8 +1612,10 @@ static struct usb_function *hidg_alloc(struct usb_function_instance *fi)
- 	hidg->bInterfaceProtocol = opts->protocol;
- 	hidg->report_length = opts->report_length;
- 	hidg->report_desc_length = opts->report_desc_length;
--	hidg->interval = opts->interval;
--	hidg->interval_user_set = opts->interval_user_set;
-+	hidg->interval_fs = opts->interval_fs;
-+	hidg->interval_hs = opts->interval_hs;
-+	hidg->interval_ss = opts->interval_ss;
-+
- 	if (opts->report_desc) {
- 		hidg->report_desc = kmemdup(opts->report_desc,
- 					    opts->report_desc_length,
-diff --git a/drivers/usb/gadget/function/u_hid.h b/drivers/usb/gadget/function/u_hid.h
-index a9ed9720caee..34c9bf550cc5 100644
---- a/drivers/usb/gadget/function/u_hid.h
-+++ b/drivers/usb/gadget/function/u_hid.h
-@@ -26,7 +26,9 @@ struct f_hid_opts {
- 	unsigned char			*report_desc;
- 	bool				report_desc_alloc;
- 	unsigned char			interval;
--	bool				interval_user_set;
-+	unsigned char			interval_fs;
-+	unsigned char			interval_hs;
-+	unsigned char			interval_ss;
- 
- 	/*
- 	 * Protect the data form concurrent access by read/write
-
--- 
-2.55.0
-
+> This is even more important for mixed-criticality-ready processors (say:
+> i.MX95), where access to different memory areas si defined even before
+> the various application cores are started.
+>
+> For the sake of completeness, there *might be* a completely different
+> approach that would work: modify every virtio driver to make sure they
+> allocate buffers from the pre-shared memory area (that is, the coherent
+> memory pool). That approach would even avoid the bounce buffering and
+> allow for zero-copy transmission. I even started working on that,
+> defining virtio helpers to do the allocations instead of using raw
+> kmallocs, but then I dropped the idea because of the magnitude of the
+> changes required.
+>
+> > >
+> > > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > > ---
+> > >  drivers/remoteproc/remoteproc_virtio.c | 182 +++++++++++++++++++++++++++++++--
+> > >  include/linux/remoteproc.h             |  14 +++
+> > >  2 files changed, 190 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/drivers/remoteproc/remoteproc_virtio.c b/drivers/remoteproc/remoteproc_virtio.c
+> > > index cfd66d9d1c9e..d21b3b8044df 100644
+> > > --- a/drivers/remoteproc/remoteproc_virtio.c
+> > > +++ b/drivers/remoteproc/remoteproc_virtio.c
+> > > @@ -241,7 +241,14 @@ static void rproc_virtio_reset(struct virtio_device *vdev)
+> > >     dev_dbg(&vdev->dev, "reset !\n");
+> > >  }
+> > >
+> > > -/* provide the vdev features as retrieved from the firmware */
+> > > +/* Provide the vdev features as retrieved from the firmware, plus the following
+> > > + * additional ones:
+> > > + *   - VIRTIO_F_VERSION_1 that is required by some non-rpmsg virtio devices
+> > > + *   - VIRTIO_F_ACCESS_PLATFORM to force usage of the map operations
+> > > + */
+> > > +#define RPROC_VIRTIO_STATIC_FEATURES \
+> > > +   ((1ULL << VIRTIO_F_VERSION_1) | (1ULL << VIRTIO_F_ACCESS_PLATFORM))
+> > > +
+> > >  static u64 rproc_virtio_get_features(struct virtio_device *vdev)
+> > >  {
+> > >     struct rproc_vdev *rvdev = vdev_to_rvdev(vdev);
+> > > @@ -249,7 +256,7 @@ static u64 rproc_virtio_get_features(struct virtio_device *vdev)
+> > >
+> > >     rsc = (void *)rvdev->rproc->table_ptr + rvdev->rsc_offset;
+> > >
+> > > -   return rsc->dfeatures | (1ULL << VIRTIO_F_VERSION_1);
+> > > +   return rsc->dfeatures | RPROC_VIRTIO_STATIC_FEATURES;
+> > >  }
+> > >
+> > >  static void rproc_transport_features(struct virtio_device *vdev)
+> > > @@ -275,16 +282,16 @@ static int rproc_virtio_finalize_features(struct virtio_device *vdev)
+> > >     /* Give virtio_rproc a chance to accept features. */
+> > >     rproc_transport_features(vdev);
+> > >
+> > > -   /* Make sure we don't have any features > 32 bits except VIRTIO_F_VERSION_1 */
+> > > +   /* Make sure we don't have any features > 32 bits */
+> > >     if (WARN_ON_ONCE((u32)vdev->features !=
+> > > -                    (vdev->features & ~(1ULL << VIRTIO_F_VERSION_1))))
+> > > +                    (vdev->features & ~RPROC_VIRTIO_STATIC_FEATURES)))
+> > >             return -1;
+> > >
+> > >     /*
+> > >      * Remember the finalized features of our vdev, and provide it
+> > >      * to the remote processor once it is powered on.
+> > >      */
+> > > -   rsc->gfeatures = vdev->features & ~(1ULL << VIRTIO_F_VERSION_1);
+> > > +   rsc->gfeatures = vdev->features & ~RPROC_VIRTIO_STATIC_FEATURES;
+> > >
+> > >     return 0;
+> > >  }
+> > > @@ -337,6 +344,151 @@ static const struct virtio_config_ops rproc_virtio_config_ops = {
+> > >     .set            = rproc_virtio_set,
+> > >  };
+> > >
+> > > +static inline unsigned int rproc_virtio_bounce_slot(struct device *dma_dev,
+> > > +                                               dma_addr_t dma_handle)
+> > > +{
+> > > +   const dma_addr_t dma_base = dma_dev_coherent_base(dma_dev);
+> > > +
+> > > +   return (dma_handle - dma_base) >> PAGE_SHIFT;
+> > > +}
+> > > +
+> > > +static dma_addr_t rproc_virtio_map_page(union virtio_map map, struct page *page,
+> > > +                                   unsigned long offset, size_t size,
+> > > +                                   enum dma_data_direction dir,
+> > > +                                   unsigned long attrs)
+> > > +{
+> > > +   struct device *dev = map.dma_dev;
+> > > +   struct rproc_vdev *rvdev = dev_get_drvdata(dev);
+> > > +   dma_addr_t dma_base = dma_dev_coherent_base(dev);
+> > > +   size_t dma_size = dma_dev_coherent_size(dev);
+> > > +   phys_addr_t paddr = page_to_phys(page) + offset;
+> > > +   void *vaddr = page_to_virt(page) + offset;
+> > > +   struct rproc_map_record *record;
+> > > +   dma_addr_t map_handle;
+> > > +   void *bounce;
+> > > +
+> > > +   // No need to allocate a bounce buffer if the memory to map is already
+> > > +   // part of the device's coherent pool.
+> > > +   if (paddr >= dma_base && paddr < (dma_base + dma_size)) {
+> > > +           // The allocation details will be recorded also in this case,
+> > > +           // indicating that no bounce buffer was allocated.
+> > > +           map_handle = (dma_addr_t)paddr;
+> > > +           bounce = NULL;
+> > > +   } else {
+> > > +           // Allocate bounce buffer from device coherent memory
+> > > +           bounce = dma_alloc_coherent(dev, size, &map_handle, GFP_KERNEL | __GFP_ZERO);
+> > > +           if (!bounce)
+> > > +                   return DMA_MAPPING_ERROR;
+> > > +
+> > > +           // Copy data to bounce buffer
+> > > +           memcpy(bounce, vaddr, size);
+> > > +   }
+> > > +
+> > > +   // Save bounce details
+> > > +   record = &rvdev->map_records[rproc_virtio_bounce_slot(dev, map_handle)];
+> > > +
+> > > +   record->original = vaddr;
+> > > +   record->size = size;
+> > > +   record->bounce = bounce;
+> > > +
+> > > +   return map_handle;
+> > > +}
+> > > +
+> > > +static void rproc_virtio_unmap_page(union virtio_map map, dma_addr_t map_handle,
+> > > +                               size_t size, enum dma_data_direction dir,
+> > > +                               unsigned long attrs)
+> > > +{
+> > > +   struct device *dev = map.dma_dev;
+> > > +   struct rproc_vdev *rvdev = dev_get_drvdata(dev);
+> > > +   unsigned int slot = rproc_virtio_bounce_slot(dev, map_handle);
+> > > +   struct rproc_map_record *record = &rvdev->map_records[slot];
+> > > +
+> > > +   WARN_ON(size != record->size);
+> > > +
+> > > +   // If a bounce buffer was used, copy data back to original one
+> > > +   if (record->bounce) {
+> > > +           memcpy(record->original, record->bounce, record->size);
+> > > +
+> > > +           dma_free_coherent(dev, record->size, record->bounce, map_handle);
+> > > +   }
+> > > +
+> > > +   record->original = NULL;
+> > > +   record->size = 0;
+> > > +   record->bounce = NULL;
+> > > +}
+> > > +
+> > > +static void rproc_virtio_sync_single_for_cpu(union virtio_map map,
+> > > +                                        dma_addr_t map_handle,
+> > > +                                        size_t size,
+> > > +                                        enum dma_data_direction dir)
+> > > +{
+> > > +   struct device *dev = map.dma_dev;
+> > > +
+> > > +   dma_sync_single_range_for_cpu(dev, (map_handle & PAGE_MASK),
+> > > +                                 offset_in_page(map_handle), size, dir);
+> > > +}
+> > > +
+> > > +static void rproc_virtio_sync_single_for_device(union virtio_map map,
+> > > +                                           dma_addr_t map_handle,
+> > > +                                           size_t size,
+> > > +                                           enum dma_data_direction dir)
+> > > +{
+> > > +   struct device *dev = map.dma_dev;
+> > > +
+> > > +   dma_sync_single_range_for_device(dev, (map_handle & PAGE_MASK),
+> > > +                                    offset_in_page(map_handle), size, dir);
+> > > +}
+> > > +
+> > > +static void *rproc_virtio_alloc(union virtio_map map, size_t size,
+> > > +                           dma_addr_t *map_handle, gfp_t gfp)
+> > > +{
+> > > +   struct device *dev = map.dma_dev;
+> > > +
+> > > +   return dma_alloc_coherent(dev, size, map_handle, gfp);
+> > > +}
+> > > +
+> > > +static void rproc_virtio_free(union virtio_map map, size_t size, void *vaddr,
+> > > +                         dma_addr_t map_handle, unsigned long attrs)
+> > > +{
+> > > +   struct device *dev = map.dma_dev;
+> > > +
+> > > +   dma_free_coherent(dev, size, vaddr, map_handle);
+> > > +}
+> > > +
+> > > +static bool rproc_virtio_need_sync(union virtio_map map, dma_addr_t map_handle)
+> > > +{
+> > > +   struct device *dev = map.dma_dev;
+> > > +
+> > > +   return dma_need_sync(dev, map_handle);
+> > > +}
+> > > +
+> > > +static int rproc_virtio_mapping_error(union virtio_map map, dma_addr_t map_handle)
+> > > +{
+> > > +   if (unlikely(map_handle == DMA_MAPPING_ERROR))
+> > > +           return -ENOMEM;
+> > > +
+> > > +   return 0;
+> > > +}
+> > > +
+> > > +static inline size_t rproc_virtio_max_mapping_size(union virtio_map map)
+> > > +{
+> > > +   struct device *dev = map.dma_dev;
+> > > +
+> > > +   return dma_dev_coherent_size(dev);
+> > > +}
+> > > +
+> > > +static const struct virtio_map_ops rproc_virtio_map_ops = {
+> > > +   .map_page = rproc_virtio_map_page,
+> > > +   .unmap_page = rproc_virtio_unmap_page,
+> > > +   .sync_single_for_cpu = rproc_virtio_sync_single_for_cpu,
+> > > +   .sync_single_for_device = rproc_virtio_sync_single_for_device,
+> > > +   .alloc = rproc_virtio_alloc,
+> > > +   .free = rproc_virtio_free,
+> > > +   .need_sync = rproc_virtio_need_sync,
+> > > +   .mapping_error = rproc_virtio_mapping_error,
+> > > +   .max_mapping_size = rproc_virtio_max_mapping_size,
+> > > +};
+> > > +
+> > >  /*
+> > >   * This function is called whenever vdev is released, and is responsible
+> > >   * to decrement the remote processor's refcount which was taken when vdev was
+> > > @@ -355,6 +507,8 @@ static void rproc_virtio_dev_release(struct device *dev)
+> > >     of_reserved_mem_device_release(&rvdev->pdev->dev);
+> > >     dma_release_coherent_memory(&rvdev->pdev->dev);
+> > >
+> > > +   kvfree(rvdev->map_records);
+> > > +
+> > >     put_device(&rvdev->pdev->dev);
+> > >  }
+> > >
+> > > @@ -429,13 +583,29 @@ static int rproc_add_virtio_dev(struct rproc_vdev *rvdev, int id)
+> > >             of_reserved_mem_device_init_by_idx(dev, np, 0);
+> > >     }
+> > >
+> > > +   /* Allocate one tracking record for each page of the device reserved
+> > > +    * memory. Contiguous memory is not required for this array, which can
+> > > +    * also be quite big (depending on the size of the coherent memory), so
+> > > +    * let's use vmalloc for this allocation.
+> > > +    */
+> > > +   rvdev->map_records = kvcalloc(dma_dev_coherent_size(dev) >> PAGE_SHIFT,
+> > > +                                 sizeof(*rvdev->map_records),
+> > > +                                 GFP_KERNEL);
+> > > +   if (!rvdev->map_records) {
+> > > +           dev_err(dev, "failed to allocate memory for map records\n");
+> > > +           return -ENOMEM;
+> > > +   }
+> > > +
+> > >     /* Allocate virtio device */
+> > >     vdev = kzalloc_obj(*vdev);
+> > > -   if (!vdev)
+> > > +   if (!vdev) {
+> > > +           kvfree(rvdev->map_records);
+> > >             return -ENOMEM;
+> > > +   }
+> > >
+> > >     vdev->id.device = id;
+> > >     vdev->config = &rproc_virtio_config_ops;
+> > > +   vdev->map = &rproc_virtio_map_ops;
+> > >     vdev->dev.parent = dev;
+> > >     vdev->dev.release = rproc_virtio_dev_release;
+> > >
+> > > diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> > > index c3ba51fe9e54..2ff48b505ac0 100644
+> > > --- a/include/linux/remoteproc.h
+> > > +++ b/include/linux/remoteproc.h
+> > > @@ -339,10 +339,23 @@ struct rproc_vring {
+> > >     struct virtqueue *vq;
+> > >  };
+> > >
+> > > +/**
+> > > + * struct rproc_map_record - remoteproc map record
+> > > + * @original:      original virtual address
+> > > + * @num: allocation size
+> > > + * @bounce: bounce buffer virtual address (NULL if not used)
+> > > + */
+> > > +struct rproc_map_record {
+> > > +   void *original;
+> > > +   size_t size;
+> > > +   void *bounce;
+> > > +};
+> > > +
+> > >  /**
+> > >   * struct rproc_vdev - remoteproc state for a supported virtio device
+> > >   * @subdev: handle for registering the vdev as a rproc subdevice
+> > >   * @pdev: remoteproc virtio platform device
+> > > + * @map_records: array of map records
+> > >   * @id: virtio device id (as in virtio_ids.h)
+> > >   * @node: list node
+> > >   * @rproc: the rproc handle
+> > > @@ -358,6 +371,7 @@ struct rproc_vdev {
+> > >     unsigned int id;
+> > >     struct list_head node;
+> > >     struct rproc *rproc;
+> > > +   struct rproc_map_record *map_records;
+> > >     u32 rsc_offset;
+> > >     u32 index;
+> > >     unsigned int num_vrings;
+> > >
+> > > --
+> > > 2.55.0
+> > >
+>
+> Regards,
+> Francesco
+>
