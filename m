@@ -1,114 +1,142 @@
-Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+Received: from mail-dy2-f1.google.com (mail-dy2-f1.google.com [74.125.229.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8343803E9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:01:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615D43803E9
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146876; cv=none; b=VwtepCcwTQlwRsDzwGdh+sVy6re1/G1Lx8qpPwKrN/uSv36FaT79zlu4p0YV+sLQ00NWiwT4wkwoZn+/Dgq5ypU4Nx57Od+R+B+B9DfKSJ5zp1VXwmb/AQ2L+Rbr/NosqDF+vCDFH41T0ny7VaAzSUrN4+6ynfuud2pJFW1EGlw=
+	t=1790146898; cv=none; b=H5dAvd6+NaLK/20t/SB2gtnNVx/EKn9HIQipjXTaa1uX6LASPGkzgt+J8OwjZvFIuNcvYBjIkxV83HwBMgPYWDb94xJkS7nc6V9HaaqAD39mbvcHiN9OdNSF8oZi0mXnljcUVzIu1DphotUxIwp1JRtC7Bs+RvhAzKtMYH+fx9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146876; c=relaxed/simple;
-	bh=BFeM2Z0uvJWReEb4TmxjLVTHw6ANNaWo9dqQG/8wOZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ty28KxcadbFyHfCmSkKIijWRIUlSNlsjmOWNaDu/NdpsDwOJZ9DKouOg/5iApj1C3U3f71SCXidxPUOr7ZQkY/uBVanlHOCuDwypyRnx4pzVDJjMksNAWc8L3vMftI5+6Hw1tMC9LdS63xjh6C8L86KFRHdh/ruNP0OG7pPL8+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K3wiTz36; arc=none smtp.client-ip=74.125.229.140
+	s=arc-20240116; t=1790146898; c=relaxed/simple;
+	bh=obsTMBLuGpMSfaLfy22gbz4UlV890qwEszUgqrLdmyA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fp4BgKP7nuNvJt62pyBFib1w5BqPtQ0UMHXL4h2qQdo6seg/+2+ia1VcxhASCGDnnG/CH2OQ9F8LUSmR65CBTg3gbL9smG1NVzEHnpL6ouJfbld1AF+aoeuEYaVqTNJ81Tw2fq7ec+Bh84+TW+dA5z9t7DpekwEeYzROvR0nhCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fp3w9MGM; arc=none smtp.client-ip=74.125.229.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K3wiTz36"
-Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dd04be84so651810c88.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:01:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fp3w9MGM"
+Received: by mail-dy2-f1.google.com with SMTP id 5a478bee46e88-313be8d47d4so298593eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:01:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790146874; x=1790751674; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I70/VAGdGqE8d4iO1uNSWkA0vYBN0PWe+5KOdFzj+lU=;
-        b=K3wiTz36/owfLmOD4LjzxL6d3zcgQCL/nbwFpWKpS/QZsqbOw49nRPHVGnqkVth4EK
-         kOGxyJzVY+1uxyCOC470GLoOn+5eMhwzzYYvBf/6iIVtKvY/lSYzmlQ3fGqX80SUcMx4
-         gd6vC3yZxLhbhdrYRwAXiSOIO7Gm/FxxEfAra6W7V5px/YhbQVTc+/I294Sl/bG4v/0e
-         wdZ+pWfIuhGFgjircJjZ/QDwwOZhUI0aybHkdKPnKglvwd0t8Bs85xrT9FCkbiox5+fq
-         0tanHSuYikD+Um610Bvqq0WGeb3y0kJpvpTGV8ywsMenHFTSMAsnCQa/vdpfcPV4gkp1
-         x8/w==
+        d=gmail.com; s=20251104; t=1790146896; x=1790751696; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aH4BSQ01Tb47RkHnHR9gmpoXGNiJC9eaCsuZ6hGII7E=;
+        b=Fp3w9MGMiMr36MKkzALjriukef3X9UoXTSE4AOFv05DH4ABVla7syeYYpbtqoNkPnv
+         veDWDvg1V74K+ytx6Q8vihBMSpaeg1PCrF92sPd3h2Msh9PtmUpJW7Wq2cA67zd2mk0z
+         pFxpZkCqO9hq/DXZC4BsxLJVvLMOjD/VuUzjLAXIP+hH0O4kT7tUzk7lPfx3cqLJ+Wyh
+         ciAqkyvrhYyBpbJU6fE7kjGglPR1YoZIv85mhJ8wvqMtud3HHXJ+M5ROJuj3aCYpTLPJ
+         BSKArpED0IDkwzXHrM2Un9S2YvtprSq6I/Cr+rk37nv8kYP0wtoGGfUQViAjawo2QP4f
+         mb+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790146874; x=1790751674;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I70/VAGdGqE8d4iO1uNSWkA0vYBN0PWe+5KOdFzj+lU=;
-        b=aVuoDjTWBS9UlysKg6IgANE//Kk0M8bVyVSp6uSA2rKRW0f7uWurPgbepJ8ueE1CEm
-         mViOyQ2jFRKGj6Kd5SqHc/OnJFOWirrAIxJ+mHKv9GvjBiNEUBD/m8Igl/UB/uVUBypd
-         M/UqFmVxYWvW1M6bx9nE1xx26lHM1gE33mtNgBpwcpGnp1JELAllPiHXSlTlstJodKz6
-         TxZRxhSpjZ78WcH4ilFH5AkSVoQsJum0xo5LozQai0qY4qVCaueScnh82ryhLnMFJEqM
-         T+s67qMrXpX6kcZlEV30XyLUgI1YyF3e3qZjFTHT7RcSncaHuAV+XaEsBETjg5qEREmz
-         5Yqg==
-X-Forwarded-Encrypted: i=1; AKwUvBzWminecwkyLmyT1T68rNNgVg3fqI5qb1FmjvLZWzHC2pCWPYcC1ZgSSY3+Tk30XqWP/ZpR11nIUJSwAKA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbM9vl8vam56/uZqL+3xXMVGWwUxFo7iaq1j/eIaI6zPPQ8IZ6
-	MrBCcmb9cjBKAmG+19orM5HY1GEisk3NlOzUa8+UPENi2GMxcIx2h1sB
-X-Gm-Gg: AYBFou24RjlIUlr/he80auK5L6RN7yE9Ft4zheKrGDA2HvIfGyLLxcTMn+JKESwApaA
-	qYoXxVRr5sEGcdpsRcz6BZ0BAP+WsyBLOZ7sbuLr8YKK8dZxMlyrowcmj6PfvtX0rMrMmqCxOdM
-	Ib1c1Xzd1PKue3YedBCf6cABjTU4rl2BLHM2LX+v5UOQQb34BDGSDbPI9DHGu944hEZ6qXj3k1X
-	IqDB0REGQibS+NaOxBFbIZFi41hlrt4uvCX0LCQ7IJpr1MHwN+Ja0VS4tI+ZcXpVl0zaeX+ZV1y
-	yUGDHYGzf2qAVTR2nEtPrL6pY0j28U3P86aQvpkQ+3dQBkQ3xoyYcYmbmuHagT+782tAOqxIrbq
-	ieznKJn3rH//5Mh7c109rqkCvxCzObnZnD8Gyf56o0x33iTKTyqq8x5oz6t8UO1wCxt2/nnsvIw
-	5qnBQR+UC6ZaaPBGn9worXGDX+aIpNN3wiM9E7R14ZUSomF+i3SAbgBm2TX/pW2fGOzPSIZNh/Q
-	NPBbuz7YSCPar14H69J22T7AALPa8pTcGFMOZIINko=
-X-Received: by 2002:a05:7022:7e81:b0:144:ddf7:256e with SMTP id a92af1059eb24-144f9179543mr2364369c88.29.1790146873779;
-        Wed, 23 Sep 2026 00:01:13 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([129.41.58.4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98209ffsm3646819c88.4.2026.09.23.00.01.08
+        d=1e100.net; s=20260707; t=1790146896; x=1790751696;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aH4BSQ01Tb47RkHnHR9gmpoXGNiJC9eaCsuZ6hGII7E=;
+        b=ymZtzW1XjK5xsFYvulZEF1LGVrv2E1qrNGmQWUQ3iWFKsjL1RAqn9EP8gkxf8WrClH
+         tYRKpTy3TWeOp45BEiKaKOtw5nW2D1fTLN6f8GIhrolYVUGo9D5FYvB6cka8z6cf4k7N
+         MvZIK8ChFeQS9CM/+RcVIGVdXTP4c/muPOSskNRJPEwtwt4UmfqIzU9UCcr3U6hIwoya
+         m1hpaPQBuhXsUtVZBQjZddMMTDRu0FTZiHQ2tliTAN48XSl8Wfya4pufjna7y5B6LfRD
+         fcIYfcMs8O2A4O3ce3KTEqSJh8+7qh2tBVoE989/HActjiLQ0dfrCGfQbLFvBx9YtUXG
+         1lIg==
+X-Forwarded-Encrypted: i=1; AKwUvBz8vzGOldGOCcWW/1z9KrLBW0fC0KnowDoQjVwqdmPwSfHHjWb3iC/Pq8cEIHbiakc1cUGDeYuIVZF04zA=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9Rm5x0vvZYDzJ1vWh6QHMRqam9nJbpGVkOg+cbbiZznvoQGhk
+	WmWklawPs65xYkhXCn2tCl8rXsyDMnMWMwz1dbiTb06euhb4oeULtNpTXl8knCoonDHQMg==
+X-Gm-Gg: AYBFou2x/lilTRe2QgfPVofJIhliGRlGSOq8FfGodVVnH+JokjF+Xz5hJe6auNVjpBT
+	Sbt4KFmX5vP2m+D2whs0lsyZxn52IPQmMc4d3d6/7SduNcFinzwFYiFN2qGLVYCmuvg1bcgPWL4
+	cV5Ur9/jSDZkAaAhcOu82gu4Mk07lMqnJQFX311ZNHHQZGCwS4pcIabm+67krPOV5fBXqWrez78
+	I+05e8FGFe9jfifBgXx9so9LZNrPWFGi1mrwTfXPyGrMjhoEWmWCr3/NRok4yScPJvJl+y8H0rk
+	n3ErTPzVcdtS81L13C6Tobot4rjb0U0YZdI8tjpDN0WvFErIj1f+lf3pxmn5834mYPBZzO9sAV7
+	ySBWO4Yi89+UjBKu+ZkXgfX2DYnlzmi57gCF9rpikFujso0Ax/3rxhuF5eWFs5Dh56ElTTyXtdp
+	n1Puqzt0w2TcMoS/syyAa2ZlmZgppenLxOF8WOCCdX+CSXx3ON12hsfg14bET8fsTGkYI1a3PLX
+	UNtTCcf9bSh7Rh6LmRsRTBya7mefCzu2BpyaaI+wwtHnM5eDDxe
+X-Received: by 2002:a05:7300:fb0a:b0:33b:dd20:f799 with SMTP id 5a478bee46e88-33e8d9cd5bcmr1542183eec.22.1790146896217;
+        Wed, 23 Sep 2026 00:01:36 -0700 (PDT)
+Received: from Raccoon ([113.30.177.23])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96848e18sm3690800eec.17.2026.09.23.00.01.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 00:01:13 -0700 (PDT)
-Date: Wed, 23 Sep 2026 12:31:05 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: Gautam Menghani <gautam@linux.ibm.com>
-Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au, 
-	chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com, 
-	nnmlinux@linux.ibm.com, amachhiw@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Timothy Pearson <tpearson@raptorengineering.com>
-Subject: Re: [PATCH v3] KVM: PPC: Book3S HV: Avoid spurious interrupts caused
- by LPCR_MER bit
-Message-ID: <arN5AY73k0fRh9VQ@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20260921111043.49825-1-gautam@linux.ibm.com>
+        Wed, 23 Sep 2026 00:01:35 -0700 (PDT)
+From: Rohinthan P <rokinthanp03@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
+Cc: Rohinthan P <rokinthanp03@gmail.com>
+Subject: [PATCH] null_blk: reject blocking/memory-backed devices sharing non-blocking tag set
+Date: Wed, 23 Sep 2026 12:31:26 +0530
+Message-ID: <20260923070126.21936-1-rokinthanp03@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921111043.49825-1-gautam@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 21, 2026 at 04:40:42PM +0530, Gautam Menghani wrote:
-> A huge number of spurious interrupts can be seen immediately after a KVM
-> on PowerNV guest boots up in XIVE mode.
-> 
-> $ cat /proc/interrupts  | grep SPU
-> SPU:     223705     192439     273526     147623   Spurious interrupts
-> 
-> This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
-> Handle pending exceptions on guest entry with MSR_EE"). The root cause
-> is that once LPCR_MER bit is set, it is supposed to be reset by
-> software. But when a vCPU starts running with LPCR_MER set, the vCPU does
-> not exit back to the host until the decrementer expires or there is an
-> hcall, etc. This is because KVM on PowerNV guests have support for
-> native XIVE, so they are not dependent on host for interrupt emulation.
-> Due to this behaviour, a huge number of spurious interrupts are seen
-> since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
-> vCPU exits to the host.
-> 
-> Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
-> available (currently in case of KVM on PowerNV only), as the XIVE hardware
-> can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
-> functionality is not required. This reduces the number of spurious
-> interrupts drastically.
-Hey Gautam,
+When a null_blk device is configured via configfs with shared_tags=1
+and memory_backed=1 (or blocking=1), null_validate_conf() sets
+dev->blocking = true because memory-backed devices allocate memory
+during request handling.
 
-Thanks for this. Can you also share the numbers after the change.
+However, when dev->shared_tags is enabled, the device uses the global
+tag_set. The global tag_set is initialized by null_init_global_tag_set()
+according to the module parameter g_blocking. If the module was loaded
+without blocking=1 (g_blocking == false, the default), the global
+tag_set does not have BLK_MQ_F_BLOCKING set in tag_set.flags.
 
-Regards,
-Mukesh
-[...]
+Consequently, blk_mq_run_dispatch_ops() dispatches requests holding an
+RCU read lock (rcu_read_lock()) rather than SRCU. During I/O execution,
+null_queue_rq() -> null_handle_memory_backed() -> null_insert_page()
+calls null_alloc_page(), which invokes kmalloc(..., GFP_NOIO),
+alloc_pages(GFP_NOIO, 0), and radix_tree_preload(GFP_NOIO). Because
+GFP_NOIO can sleep, this triggers a sleeping-in-invalid-context bug:
+
+    BUG: sleeping function called from invalid context at include/linux/sched/mm.h:322
+    in_atomic(): 0, irqs_disabled(): 0, non_block: 0, pid: 6031
+    RCU nest depth: 1, expected: 0
+    1 lock held by syz-executor:
+     #0: rcu_read_lock at blk_mq_dispatch_queue_requests
+    Call Trace:
+     dump_stack_lvl
+     __might_resched
+     might_alloc
+     null_alloc_page drivers/block/null_blk/main.c:878
+     null_insert_page drivers/block/null_blk/main.c:1027
+     copy_to_nullb drivers/block/null_blk/main.c:1165
+     null_handle_memory_backed drivers/block/null_blk/main.c:1388
+     null_queue_rq drivers/block/null_blk/main.c:1711
+     blk_mq_dispatch_queue_requests block/blk-mq.c:2872
+
+Reject configurations in null_validate_conf() where a blocking or
+memory-backed device attempts to share a non-blocking global tag set
+(dev->shared_tags && dev->blocking && !g_blocking).
+
+Fixes: 14509b748ff5 ("null_blk: add configfs variable shared_tags")
+Reported-by: syzbot+95fdab36405e5ffdb680@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=95fdab36405e5ffdb680
+Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
+---
+ drivers/block/null_blk/main.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
+index 4a9beec..64b8bee 100644
+--- a/drivers/block/null_blk/main.c
++++ b/drivers/block/null_blk/main.c
+@@ -1940,6 +1940,11 @@ static int null_validate_conf(struct nullb_device *dev)
+ 		return -EINVAL;
+ 	}
+ 
++	if (dev->shared_tags && dev->blocking && !g_blocking) {
++		pr_err("blocking/memory-backed devices cannot share non-blocking tag set\n");
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.53.0
+
