@@ -1,103 +1,123 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB623E49C8
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:24:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 842C43E172D
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184295; cv=none; b=Ap1SDAsrjtGxFsBw+ZLmISjX/b5duIVn0KdSPiIIN2zObem79BUMRC4wXjFF/X9R6dcikb7w+czpzfrUI+YwnKPPYysfKycYI8whr9ScoLYkBbMdE7q4sCLVmUlFMPD39IbFRuzsZuoVK1FplOQNqSyp+olVwKLBDpmAvnW3Uck=
+	t=1790184364; cv=none; b=Hcl4XeDpPQhOk74Qov138rexILvbJs9RdJnqWXddEWltAr70vGwbm4iQgqHXg19qf64a4qf1uKuq5D88MRk2Y226uYvvR3vI2F3pJUeBAKkVdx1xlG5QgOfhBQ+pAZzCtALATDBoFPqG/HAFby9Wcn4o7/9ZHmMC9mtJfa6toeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184295; c=relaxed/simple;
-	bh=zPbFyXkGlwjReheq7U40lvUG8BvJVpBYL3Kcj7fW/JI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gzDl2yd2t4Bz/ZEKuaX0GhV12ATTZ7j0eNoQZ3NIWf5/PwSwQknMzQ93yPE/94mEywVHZsilpFTCSVcS9MwdwW1d4wDqQ0KnECby32fzNsvwuALjhyMHTcRa8YcahlWw9oTM2EO/HnTWTT3/6aN4cAcZTLF0/LrOX9/3UW1qHTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=jtZszmne; arc=none smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1790184364; c=relaxed/simple;
+	bh=3KsAEjFLqBZmEEPAhvTPCECnRvZP15T6L/+sh2LbO88=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SD+A+rtmlYbt1RKUA/xqzkMf65bfI7yOauDmuJaM+/i1jpS3IgV18htxjbMc19qiY8PynLJEB7hdE6KrOuW42o3Lw+LMri1JsScBGNy6o0BgmAmr147lG6lEFhDGLJG/a6A77cmttA0QeEsDiHs1Nb56YBZhxft3LusZ+BNbGzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FHNuEN/a; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="jtZszmne"
-Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f1354074so303669a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:24:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FHNuEN/a"
+Received: by mail-pz2-f40.google.com with SMTP id d2e1a72fcca58-8748f34b1f2so708922b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:26:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1790184293; x=1790789093; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zPbFyXkGlwjReheq7U40lvUG8BvJVpBYL3Kcj7fW/JI=;
-        b=jtZszmne4Dr5BZS8qz9ANzQ8ZQfaw/bMRnlQDr24kHGVEegMTDP5bALXDuYwmM5rRP
-         aOJAfXeAHjm0z9J4sexizav3ScpKB7DWq/+4UbUR9HWGHp21ZtDJ+bPZ+Rep37BBTG95
-         oA9BEz+SnQgmaJ6sRJq97SeMGyTYpH2tv+SeO1REyRRPpopm8Wf+AeMPQlCHDT4HgqF2
-         gU+t7hDLyrS9bQjI7pA2Mdywe9wHUtEFS/7FbCYwDLpoBLmvcsSBORMyWstX+eNsIJ/X
-         FofJI/eCRd54RYYuwz70swMM8WOJxGtX3JmOOCnQea7r4NLbK4AvG7/dl9dnoVlEzTqb
-         rCOA==
+        d=gmail.com; s=20251104; t=1790184361; x=1790789161; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O22RbiDeWdUAyKALr8GFPofw9Urxk2fBLIPun4++/1o=;
+        b=FHNuEN/aiRd9eoMRjYQqA9kN55PjuUYx2Brp/HnLItOyvSlvzZaG24K9S0wp/t7crO
+         hgmmjWBA0uYJ+8DhMAm5gHQMEUV34HIUev9MrVZC1MMii7h28Ak7+u1JF/0fFsOg9MxU
+         Y5WT8H6tmIXMIVcDSlBGl7mUL8GHmwVcFj1qYpdjf9SiHhY9nZ89dOrY9fsa2sbXaS8d
+         JMRK4WdFgIWkIDLkaS+1ua3gTtxlSS/7w3cSdKWTM6UoS3N8XyR0cOyfkvkWXsMUlsWI
+         bphs3M/dYCZul6ASGQ/Z81kc4BDG++PhAVY6GB/189bWfnr5MMPpzwiAdT1T8f/kUGRI
+         L2UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790184293; x=1790789093;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zPbFyXkGlwjReheq7U40lvUG8BvJVpBYL3Kcj7fW/JI=;
-        b=VuUyub2zOIpIElufJJRZXkWkO4c8qman6/b6pg0oGEiB4GnVdjesvpTV0kJoQ9qaW4
-         9Ildiksm8CN8QhZ9rVRGJXPFW+CqeqKZF/73te83jpvZ6RuQ+vw6RgfUnUsiIVi6nUJM
-         ZSVFCyjM/u0DI6UG3sMr4edoX+pUyX137jBETVYUWC8Qfmdl87oxmP5+MKhxJX1p/fxu
-         O5Y7H2+vZx89vKpJdGnB4BaEZtVFIMRx/NXXbu/9JQz9iz+eVNdO7NeeqW4wv9kxAukE
-         pEMkgwjOlZTBBqt7eB+FNGVE5HHOGlkh6VjPGFYvTxEdDOHRGBu1SFVhqKAlQ8dpuJ8p
-         wEDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHR6D6M5G74weZLXl10pDYa1o1udXJ/6ec03/E0unoyAAKaukusejdbwjY3XtnGxmThJsQDylbRP82qho=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXVHv2PDNhyB7owkhkMzgAoXjD/lMC96v8noVKUKcsmLfQcSQX
-	aF4TeIzqfJY6c+GgAkYgvuQiyNvaJmrdfW/4d2bqioMIK4RMqSAZYi8/6/UxwSvp8ko=
-X-Gm-Gg: AYBFou3+EqoSn09DWB8JCVar3X4GGU6fMEV/Z+gQw/uwN3TGiD5WghajAdC248lFaBC
-	tH4h3FdqsO8OY+sXP6hlRaXgX7YdtI+T5XFhgD07Qm/4wiz9Z9TY4RA/BIy8xYdM4jb4TujaLfU
-	hdPMVRT9COCYtQdLjcb0fIWpVaEAf8iv6tMfn5mwlDWDB77OOQYLIcSl6PxCQi0xDgm96EEMGt9
-	G0ydSQzASnUlNOXlYElDhzVYqc/DIYfldvHb8EIXUwVyNdkL6Fp5u2n+im5wApeJVfADL5h37WE
-	7glHIwr29XCxufGG0tWy1po3h+921jekDna8NjDQ2NBTkDBC6oJtwCzOUQ3wjbCfTVKJDEFE7JF
-	7PDDsr2XCS3u25m9tafo6Z1jy0ZRc4xTbfJSkipukGurmwemQAbfyaR2QXKEMvhYjfiQc0hJSK1
-	eTuSAqhrZk6EOVIWi8bXQ+3Z338iCk9gMFrIF8eVQCntwy3k/iqG1iZDQ=
-X-Received: by 2002:a05:6820:820:b0:6b5:ec3f:4985 with SMTP id 006d021491bc7-6d2cb7abb15mr2482311eaf.32.1790184292712;
-        Wed, 23 Sep 2026 10:24:52 -0700 (PDT)
-Received: from ziepe.ca ([130.41.10.202])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d2ce25c058sm2994831eaf.5.2026.09.23.10.24.52
+        d=1e100.net; s=20260707; t=1790184361; x=1790789161;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O22RbiDeWdUAyKALr8GFPofw9Urxk2fBLIPun4++/1o=;
+        b=ayBIV+iXybnUBSXDX72k09wqSE/N9cM7iKcHKoQLsKXT5O1fi5h9jBZbkGwrNeCHJS
+         x4zRwwzTyvVXeQ/9Lv6Vr8ErGXQ/cikZga4qqqIVHF5nfwqxJUWBAk+F6H/yu9OHntAD
+         jmYQAzYmrjTSK08ig3h3v+QmDV4SLWZNVgiV804qp7+rG7tWA10J0qeQQyBfQuX9czw7
+         /XmB4FreULJyPOZqtQkqWzAAKwx+6nzbmlh8FUuJV2LWq3xeOhjoVPvort30sW3dabKH
+         +Xi2RzXYN3VMVwC5hAyZJ/DLz21QG6ovJ4uPfIsbJZBSkmgsSpGURLpMszuDsMg38Tnw
+         Od8g==
+X-Forwarded-Encrypted: i=1; AKwUvBzv+B+a8O346pKFZ6qqn/bVHS5ZEB1BorQxjDxRrLd5uemKIFbU0yDW4Esed4EA6wirnLw1uERpCe0ZGu0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mpYScvzabY+YcyUPU8/qj8ZMrYvde3rpeZphB0viqzZXOOKltJ
+	T3Z2HkbqoBe/LcWyCoR1+l3KwCB5atyPpVT7m4Mq+mMYVL9gN7DsuJiR
+X-Gm-Gg: AYBFou3Rx0f4iJ0Sw+VeF3Gxka5yHJ0gA+ap+80LB/F+hzvAmnr7bQD+DBX/LwmJ8mO
+	+Zas5BPz6CPmoJucovrxnSdrYGBPNaaVmBw+iXTPzK0eXnK2P+Ux359p181tnFVED82eKLW52lm
+	s/1LJi9s3Xw8DJ/QXiGN+XaIY8u9PjAz2e0/TExCGsAq6MLBWR/vqcNF3cm+9It+Fv5rWfvqaEJ
+	qQAvP4V0xDjdxO1UiDj9lmDTfHxF94VNuCGlzQlK5rzUOTqykiVZJSi4Nq26WkCHK3Xn887zPsa
+	w+WmY4FCEytlddYzVK1g0P6lU7tQyEZ85IoQ8TJfyfpN8nHxUQY6USYCZWND5SlD45Q4uuIXutC
+	bGeEkQhvA3u6tXrLLBZaEJV7+75GBfMnoZc/pr6UWQOSNX5R6yy2ZiZsT6lp5BAo5sUfSw7pYCi
+	DPqvTK3ZHfPapv2XX6d9k9fzaYZHjeW0VLKXu8wD9vJXFU0SEAm/L4UQS/jmygCX1ICYmObDJjY
+	/h7nCZBAb5IirmJyMgIGqYimL98Yxs=
+X-Received: by 2002:a05:6a00:14d6:b0:86b:4138:4084 with SMTP id d2e1a72fcca58-87d19376b36mr3446218b3a.15.1790184360521;
+        Wed, 23 Sep 2026 10:26:00 -0700 (PDT)
+Received: from cfarm424.jing.rocks (cfarm424.jing.rocks. [2600:3c18:e002:2e11::c424])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87d1e601b5dsm1685893b3a.61.2026.09.23.10.25.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 10:24:52 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x9QiB-0000000EA0Z-20hw;
-	Wed, 23 Sep 2026 14:24:51 -0300
-Date: Wed, 23 Sep 2026 14:24:51 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: James Morse <james.morse@arm.com>
-Cc: "Luck, Tony" <tony.luck@intel.com>, alex@ghiti.fr,
-	aou@eecs.berkeley.edu, babu.moger@amd.com,
-	baolin.wang@linux.alibaba.com, ben.horgan@arm.com, corbet@lwn.net,
-	cuiyunhui@bytedance.com, Dave.Martin@arm.com, fustini@kernel.org,
-	joro@8bytes.org, kevin.tian@intel.com, palmer@dabbelt.com,
-	pjw@kernel.org, reinette.chatre@intel.com, robin.murphy@arm.com,
-	shuah@kernel.org, tomasz.jeznach@linux.dev, wangzhou1@hisilicon.com,
-	will@kernel.org, xiaqinxin@huawei.com, yuanzhu@bytedance.com,
-	zengheng4@huawei.com, zhangzhanpeng.jasper@bytedance.com,
-	x86@kernel.org, iommu@lists.linux.dev, linuxarm@huawei.com,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
-Subject: Re: Resctrl and I/O
-Message-ID: <20260923172451.GN1540250@ziepe.ca>
-References: <arKx__kOPe4B5gDW@agluck-desk3>
- <8557363f-c051-4267-9fbc-f4cbb13ac35e@arm.com>
+        Wed, 23 Sep 2026 10:25:59 -0700 (PDT)
+From: Ridham Khurana <khurana.ridham222@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>,
+	Jori Koolstra <jkoolstra@xs4all.nl>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	Ridham Khurana <khurana.ridham222@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] hwmon: (lm95245) Fix negative temperature conversion
+Date: Wed, 23 Sep 2026 17:25:48 +0000
+Message-ID: <20260923172551.1593798-1-khurana.ridham222@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8557363f-c051-4267-9fbc-f4cbb13ac35e@arm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 06:13:27PM +0100, James Morse wrote:
+temp_from_reg_signed() uses only the high byte when the sign bit is set
+and drops the fractional bits in the low byte. Writing -500 to
+temp2_offset stores 0xff80 (-0.5 degrees C) in the offset registers,
+but reading temp2_offset back returns -1000.
 
-> Using iommu_group like this may need a bit more thinking....
-> If we can fall back to using a device as seen by sysfs, then the arch differences
-> here could be invisible to user-space.
+Negative temp1_input and temp2_input values are rounded down to the
+next whole degree the same way. The chip reports -0.125 degrees C as
+0xffe0, which the driver returns as -1000.
 
-Please don't codify iommu_groups in any new uAPI, that has proven to
-be a problematic choice for VFIO. We undid it.. Lets not repeat it.
+Treat the register pair as a single 16-bit two's complement value.
+lm95241 had the same conversion fixed in commit 0c2a40e2fe4f
+("hwmon: (lm95241) Fix negative temperature results").
 
-Jason
+Fixes: fffd80ccc1e6 ("hwmon: LM95245 driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ridham Khurana <khurana.ridham222@gmail.com>
+---
+Build-tested on arm64 with CONFIG_SENSORS_LM95245=m, tested with i2c-stub in QEMU. Not tested on hardware.
+
+ drivers/hwmon/lm95245.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/hwmon/lm95245.c b/drivers/hwmon/lm95245.c
+index 11553391f54b..925574b8b0ca 100644
+--- a/drivers/hwmon/lm95245.c
++++ b/drivers/hwmon/lm95245.c
+@@ -96,9 +96,9 @@ static int temp_from_reg_unsigned(u8 val_h, u8 val_l)
+ 
+ static int temp_from_reg_signed(u8 val_h, u8 val_l)
+ {
+-	if (val_h & 0x80)
+-		return (val_h - 0x100) * 1000;
+-	return temp_from_reg_unsigned(val_h, val_l);
++	s16 val_hl = (val_h << 8) | val_l;
++
++	return val_hl * 1000 / 256;
+ }
+ 
+ static int lm95245_read_conversion_rate(struct lm95245_data *data)
+-- 
+2.47.3
+
