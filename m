@@ -1,186 +1,156 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B17542ECF
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:29:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790180974; cv=none; b=JcnP/FSUtLou2Exeg/lb26w7eI3T78XalUJb+ygXH0pzf+m8plDweXo2rvyb9Z6w+/CH6AneuQrizqeTM4/nVaw9HU1/HyIKTT0tPVTjGSmnPwbCKYoFN1jxIow2WZeBk9Y9PqP+sS/R5MKufFySBHWrE9gYjzK7CSjcc9AsoFY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790180974; c=relaxed/simple;
-	bh=irhQM6PxErm5/M+kv3sqG5uyQturgL5M9IxGLYEqK20=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OyB3ifph8TIcA/9PW/o/TPa/qzcpxs5J/OrbAuFzD+a0rLv7L30bHWakFcZPx/tW/xXFRxvaJ34Ixi5gpaJ9JHRwS1oZoCFpXpWnx1AFBWWdKdMB/tzCrJ8bK/PTLjdpO6GyhoG1a+YZoFH5n6pf2AmbYef3bEYDA73agUSVwoQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=getfieldwork.ai; spf=pass smtp.mailfrom=getfieldwork.ai; dkim=pass (2048-bit key) header.d=getfieldwork.ai header.i=@getfieldwork.ai header.b=EqJ+wIEB; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=getfieldwork.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=getfieldwork.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6324C542ECF
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790180994; cv=pass; b=RlmAXzXo7XVpKQfIOhhr+VISjazl6TDQmrtFFGZuQO5jwQT9JZAOexnM37KchX4R/12ha54eqGxt9P5lBj2gO9ewRxVchxM7OeqdNoJAtOnkVPVo2XDhzZAkMzCPthvY3pDYX/s9t7O/1P3HiddHaGK6cPVAalkwTq2LBG8Nak4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790180994; c=relaxed/simple;
+	bh=N9h2IwPd9qDGS+CyPEwYvdhADj/9kHUcSG31TnFHTSA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P1IY51v4hLB81rvmIMhvxVwRFaeAy0QaJLJLQpyYhTi8I4YITmjNrTZ5Wm6pFtD3SYbZ6UIQuM4gyyYWVd6Q981C7VGiyR8PKjkdtSsn0D53DXCGsFFdDe66hjJX/Ek9naayKZD211o6/sra4qus17dTYBDU0SVJKo8Mn3i96nA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b=auF5lQbs; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=getfieldwork.ai header.i=@getfieldwork.ai header.b="EqJ+wIEB"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccff31419so9701585e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:29:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=getfieldwork.ai; s=google; t=1790180971; x=1790785771; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f/Oxl6B462qmt7DFjvZCs7ILkpn+AJOBiwnAliwsA84=;
-        b=EqJ+wIEB0f+gQ+SGhn7TKYLXPom4hm6UaSTsosuUvIPsZ9zKL7f+QNiZ/uSaHGXWhY
-         b9BrXRBs2kwPIoqf1thLnkPo8n+Qpbq8va70kOsnMInoohjXhNljrPqJ/Wn0eUK+yyJS
-         1z3CkP2Kb0T7/hzyPNnuVGgfhUTdbH8W4x9tcRwZ/C+0HNQqFwQo0IHJtuMPIbsHI5Fp
-         Xm9xK77PqIdr8DIjVS6fxfZCPWqSjsGpenrqRvMOSkWyUZTY0kHIOWfG14RXSXZEN1mF
-         bPHh8V79krasKf7Ma3KN8yZb6If3XzJjq9GAVAti46y7NZWE1fXN2vgzNpo0BGV/YuND
-         xCQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790180971; x=1790785771;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f/Oxl6B462qmt7DFjvZCs7ILkpn+AJOBiwnAliwsA84=;
-        b=JunDqPa7f+aTKPhmNMaPcvyVd9G1RxV47Bj2YHnhxE3ecCH5Ari/QTb9FZu1m2G4hI
-         bo8sNjxBhRuN8WFwuR/aSFLoZ9s5NiD9UUIZijqlZ/IBW3hdydGOCedqGAH1+9igbCOs
-         3R85XigHR9jufR7MxK8r5/vWCjCGwHpkolTtERB8cEx6wvSHcmA9gAzue9FzDxiIlBbJ
-         i48EpP7Fkabnn7ft3ANkZymgKgUiZvUI0i2NX0f3FD231pckJh3ca97t64yjNwAG2qpY
-         K8U7VQqNZi0NBApadiwlmxK6G9Jv/9nFBTcnw9KCdLXn1m0sfmg489HxClhmWyl2fZb5
-         UABA==
-X-Forwarded-Encrypted: i=1; AKwUvBynGKgI7BJbcYKd01dSH7IrfCA1qjf3M3olVdkiK+Yhz6SXP+8vbmvXFG+kPrJGXHQePhzjvmCdm3x+IPQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nR9V0W9kTkzrfDvIMZf/w07qz+dqW15JLyRVPLjX5yM9hcOLjz
-	1ynipLmihRuxJJOkcRwf0l/DzVrVLWegF8CZUE9UD6QtzerN0knwp+0uZb3oPBrdlBBFW1X9Lcw
-	AkcF97iknw5w=
-X-Gm-Gg: AYBFou3Ta3csql/+qEAtovHECr+8/nkx9dC8m4YbQ8pz1DKfhNPM/bZm7DqF8VEpQ1s
-	JWlpNpXTesUq7bPkBW+pZI5qkAClexjGY9z3dQ7AWd+by3CAVZ67jAITUQKUY+jObe4laG6e8tj
-	d5KCaMW/nHsvmd/mIuoC+Yo0UxZ4LaWIlotkP33VLk7R7INVxE0hBWI6OZU8qr6w9Tcs6X3Gk3s
-	cOBAAg3Eu8lD3s0IifwJRnBw1tKOvxc4bpLoM2o/3G+CvbY5uF6GYNyiYILiWmm/44RZ53paMgU
-	vemYiW0zLGQAQSy7oK98LvSfS42doN4YD7NTTmDtmvME9OhE5+IezKJfzZgRdso+lCislfMpV6z
-	Z5XXOco/unGcJQYhvHDKW4//ro5ywn+MfEqN/CRdh1iHXxzuUHnnWb9aKrPbGX6bbEUceP3NjEl
-	YL0IjGX1fLtO/aF08XcuPBY4W9I0rt7ks8bHsVVO7P5zjGBUJs9HzT9y79puWXP0un6g+TcpzWU
-	tsDAILdJELoCRXL6g/8gHySt0iLWuTlkSeoGRolX/41oY8PoQUFq9rUhrgthvrCJOik32FKjIn7
-	Z2nQuU00PYJ7pmkJw9e1QJ2EMnvwKtf0I/SFSyTD/wriQZaKpL+ixH26hsuM
-X-Received: by 2002:a05:600c:a416:b0:49f:e238:e7cb with SMTP id 5b1f17b1804b1-49fe238e887mr34015775e9.29.1790180970792;
-        Wed, 23 Sep 2026 09:29:30 -0700 (PDT)
-Received: from NicksFWMBP.taile41d51.ts.net ([2a00:23c8:b064:8301:d086:f104:dfd3:b00b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fde1aa057sm87184355e9.13.2026.09.23.09.29.29
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 23 Sep 2026 09:29:30 -0700 (PDT)
-From: Nick Rogers <nick@getfieldwork.ai>
-To: Brian Daniels <briandaniels@google.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	adelva@google.com,
-	aesteve@redhat.com,
-	changyeon@google.com,
-	daniel.almeida@collabora.com,
-	eperezma@redhat.com,
-	gnurou@gmail.com,
-	gurchetansingh@google.com,
-	hverkuil@xs4all.nl,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mst@redhat.com,
-	nicolas.dufresne@collabora.com,
-	virtualization@lists.linux.dev,
-	xuanzhuo@linux.alibaba.com,
-	dbassey@redhat.com,
-	laurent.pinchart@ideasonboard.com
-Subject: Re: [PATCH v9 4/4] media: virtio: Add ioctl operations and driver logic
-Date: Wed, 23 Sep 2026 17:29:28 +0100
-Message-ID: <20260923162928.73497-1-nick@getfieldwork.ai>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260917171921.2810550-5-briandaniels@google.com>
-References: <20260917171921.2810550-1-briandaniels@google.com> <20260917171921.2810550-5-briandaniels@google.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="auF5lQbs"
+ARC-Seal: i=1; a=rsa-sha256; t=1790180985; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=eMkK9jljnaAGA3UKMIQxdtAdzQx5+mQIPuJCRKLCCWCBCRyE0fvDoFiwxlmHclMLFLJfPOsa2x4aTpj38L+lJfitYhOvqGEHSyYUNV8cQCWmoJbPwyGwhQzhuXmbJUmvZTv4kU2EjTdqsrJrcPYzicGIANMga5Q/yabK1cZ0LU4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790180985; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=honOZdl9wry64JgMz31XKXdFoAX9aKnTxZ89OftIsLg=; 
+	b=exCsol+Hveja4UdKkALCkt9+j5mm3NRRMmQKgxk4yE+qPBmLdbsDreQ4S37fVXQvvjt36P+rHTc0Rn/13//ImgEH2rQAev+/C8ax97wtWTlgeuOKYjkVvf5+gG6NyjPUEXLQ/FYNZDVT5R5ftQJ+SG5qgfd2RJXMb0MFgHT5fZk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+	dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790180985;
+	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=honOZdl9wry64JgMz31XKXdFoAX9aKnTxZ89OftIsLg=;
+	b=auF5lQbskSRsp1waSQO0xhG3D5F2kNSrQEbxS+U3Ky0hkSrw/LvMMfAWvptm6Kq+
+	l5cJRSYI3vDAlNRy/c2Sr/iVO5bZ41kcSmLQlv7ihq4raoSNj5p/py8QZI4UNJhjUy5
+	UdMt9TqPrhY9jlQTgqjus9ILX5pCqK7e8S8bFmRo=
+Received: by smtp.zohomail.com with SMTPS id 1790180982645897.526443803996;
+	Wed, 23 Sep 2026 09:29:42 -0700 (PDT)
+Date: Wed, 23 Sep 2026 09:29:41 -0700
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/tyr: use `bitfield!` instead of `register!` for
+ non-registers
+Message-ID: <arP-dat7V0Rg70ok@um790>
+References: <20260910165734.80378-1-gary@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910165734.80378-1-gary@kernel.org>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.142.6
 
-Hi Brian, Alexandre,
+On Thu, Sep 10, 2026 at 05:57:33PM +0100, Gary Guo wrote:
+> From: Gary Guo <gary@garyguo.net>
+> 
+> `SectionFlags` and `MMU_MEMATTR_STAGE1` are not registers themselves. Use
+> `bitfield!` directly.
+> 
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+>  drivers/gpu/drm/tyr/fw.rs   | 12 ++++--------
+>  drivers/gpu/drm/tyr/regs.rs | 11 +++++------
+>  2 files changed, 9 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+> index 7edb5eff1707..aea151ff1f93 100644
+> --- a/drivers/gpu/drm/tyr/fw.rs
+> +++ b/drivers/gpu/drm/tyr/fw.rs
+> @@ -14,6 +14,7 @@
+>  //! [`Section`]: crate::fw::Section
+>  
+>  use kernel::{
+> +    bitfield,
+>      device::{
+>          Bound,
+>          Device, //
+> @@ -27,7 +28,6 @@
+>      },
+>      num::Bounded,
+>      prelude::*,
+> -    register,
+>      str::CString,
+>      sync::{
+>          Arc,
+> @@ -39,8 +39,7 @@
+>  use crate::{
+>      driver::{
+>          IoMem,
+> -        TyrDrmDevice,
+> -        TyrRegisters, //
+> +        TyrDrmDevice, //
+>      },
+>      fw::parser::{
+>          FwParser,
+> @@ -101,11 +100,8 @@ fn from(value: CacheMode) -> Self {
+>      }
+>  }
+>  
+> -register! {
+> -    base: TyrRegisters;
+> -
+> -     #[allow(non_upper_case_globals)]
+> -    pub(super) SectionFlags(u32) @ 0x0 {
+> +bitfield! {
+> +    pub(super) struct SectionFlags(u32) {
+>          0:0 read => bool;
+>          1:1 write => bool;
+>          2:2 exec => bool;
+> diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
+> index 0c419c4e1186..6f626957a010 100644
+> --- a/drivers/gpu/drm/tyr/regs.rs
+> +++ b/drivers/gpu/drm/tyr/regs.rs
+> @@ -986,6 +986,7 @@ pub(crate) mod mmu_control {
+>      /// This array contains 16 instances of the MMU_AS_CONTROL register page.
+>      pub(crate) mod mmu_as_control {
+>          use kernel::{
+> +            bitfield,
+>              num::Bounded,
+>              prelude::*,
+>              register, //
+> @@ -1130,14 +1131,12 @@ fn from(val: MemoryType) -> Self {
+>              }
+>          }
+>  
+> -        register! {
+> -            base: TyrRegisters;
+> -
+> +        bitfield! {
+>              /// Stage 1 memory attributes (8-bit bitfield).
+>              ///
+> -            /// This is not an actual register, but a bitfield definition used by the MEMATTR
+> -            /// register. Each of the 8 bytes in MEMATTR follows this layout.
+> -            MMU_MEMATTR_STAGE1(u8) @ 0x0 {
+> +            /// Each of the 8 bytes in MEMATTR follows this layout.
+> +            #[allow(non_camel_case_types)]
+> +            struct MMU_MEMATTR_STAGE1(u8) {
+>                  /// Inner cache write allocation policy.
+>                  0:0     alloc_w => bool;
+>                  /// Inner cache read allocation policy.
 
-We have been running v9 on 6.18 in lighter, a macOS VMM, against a
-host-side stateful decoder and encoder backed by VideoToolbox, with
-ffmpeg 5.1 and 7.1 and GStreamer 1.26 in the guest. It works well; we
-found three problems along the way, all in this patch, and have been
-carrying the fixes below.
+Reviewed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 
-1. queued_bufs can drift until poll stops reporting the queue writable
-
-virtio_media_qbuf() increments queue->queued_bufs after the device has
-replied, without queues_lock. A device that completes the buffer before
-it replies (ours decodes within the command) sends the DQBUF event while
-the QBUF caller is still waiting, and the event's decrement races the
-unlocked increment. When the decrement is lost, queued_bufs creeps up
-until it equals allocated_bufs and the OUTPUT queue is never reported
-writable again. With our device this stalled ffmpeg about once a minute.
-Counting the buffer before the device can see it, under the lock, and
-undoing that if the command fails:
-
---- a/drivers/media/virtio/virtio_media_ioctls.c
-+++ b/drivers/media/virtio/virtio_media_ioctls.c
-@@ -899,15 +899,20 @@
- 	old_flags = buffer->buffer.flags;
- 	buffer->buffer.flags = V4L2_BUF_FLAG_QUEUED;
-
-+	mutex_lock(&session->queues_lock);
-+	queue->queued_bufs += 1;
-+	mutex_unlock(&session->queues_lock);
-+
- 	ret = virtio_media_send_buffer_ioctl(vfh, VIDIOC_QBUF, b);
- 	if (ret) {
- 		/* Rollback the previous flags as the buffer is not queued. */
-+		mutex_lock(&session->queues_lock);
-+		queue->queued_bufs -= 1;
-+		mutex_unlock(&session->queues_lock);
- 		buffer->buffer.flags = old_flags;
- 		return ret;
- 	}
-
--	queue->queued_bufs += 1;
--
- 	return 0;
- }
-
-2. poll does not report the CAPTURE queue readable after the LAST buffer
-
-Once the LAST buffer has been dequeued, DQBUF on the CAPTURE queue
-returns -EPIPE, which is how clients such as ffmpeg's v4l2m2m wrapper
-learn the stream has ended. vb2 reports the queue readable in that
-state (vb2_core_poll() checks last_buffer_dequeued) so the client goes
-on to call DQBUF; virtio_media_device_poll() does not, so a client that
-polls once more after a drain waits forever. Debian's ffmpeg 5.1 does
-exactly that at the end of a stream with no B-frames:
-
---- a/drivers/media/virtio/virtio_media_driver.c
-+++ b/drivers/media/virtio/virtio_media_driver.c
-@@ -633,7 +633,8 @@
- 		    (capture_queue->queued_bufs == 0 &&
- 		     list_empty(&capture_queue->pending_dqbufs)))
- 			rc |= EPOLLERR;
--		else if (!list_empty(&capture_queue->pending_dqbufs))
-+		else if (!list_empty(&capture_queue->pending_dqbufs) ||
-+			 capture_queue->is_capture_last)
- 			rc |= EPOLLIN | EPOLLRDNORM;
- 	}
- 	if (req_events & (EPOLLOUT | EPOLLWRNORM)) {
-
-3. VIDIOC_G_CTRL and VIDIOC_S_CTRL fail with -EINVAL
-
-The driver has no control handler, so the V4L2 core turns G_CTRL and
-S_CTRL into a single extended control and calls the driver's
-g/s_ext_ctrls. That control is built on the core's stack, and its size
-field is never initialized; virtio_media_send_ext_controls_ioctl() takes
-a nonzero size as a payload to copy from userspace, and the ioctl fails.
-GStreamer's V4L2 encoders set their profile with S_CTRL and cannot
-negotiate, and v4l2-ctl cannot read the MIN_BUFFERS controls.
-
-The fault is really in the core, which should hand drivers a zeroed
-structure, and I have sent a patch for that separately [1]. Until it
-lands the driver sees garbage there, so you may also want to guard
-against it; we have been clearing size when the controls array is on
-the stack, which only the core's G/S_CTRL translation produces.
-
-[1] https://lore.kernel.org/all/20260923160936.33445-1-nick@getfieldwork.ai/
-
-Thanks for the driver,
-Nick Rogers
+> 
+> base-commit: 73e5616f3d197c1af5a04a481fe0f13aa3913bd1
+> -- 
+> 2.54.0
+> 
