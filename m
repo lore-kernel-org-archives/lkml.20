@@ -1,303 +1,203 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF7A5293E7
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAE4495042
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:14:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187240; cv=none; b=QSP8FqmAeUHrt6n/j5R4On+W3A+2556T4M7HZnNNq5paswiUBdY28r2qpdl9OWt/TVfZwJpt0hgHrNBBsbuAeldBOjwmBrR8VkA6lpK+z36YGYJXNA8GwVXzt8MVbES6KW2CoisHjAwKQO88jpJLp9V3N2LNTeZ3yJJ0AA5mNNQ=
+	t=1790187253; cv=none; b=jpkFUpsYPopz/GCguEBzZH1mgR0/JAQZxYbPQ8YDfgWQPr96nmFUzE5zZv2tFyKcdtdvpzb/Pa61EK4KmVi2du8RUGjNnyHDcX6/Bpvs5ZJmT/J9RSj1fHOrW7w/AVIS8sSGjIdDs7TXaJGk2owVnkqS9vtncLcV7liwdD3Q45Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187240; c=relaxed/simple;
-	bh=GYtWOGFJKuRfOu3KqWGDgB3Gm1zGpLCl72ZCAP2q3+0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=YqAxob6rVya+6+W+T/lknUm0PMdgQlQl5nc/N9n5boPQncjcocB1OJHQlg+Rzcnnxubj0/oQtJbjRRcPEJI78l1NgNp/azWZUSGLQv37Bwz/Fb8Pv9YxugP5uJMEJOl7Yeq0cR8tGq5fMWGhfVzKDQtJJyI1qm6LosbK820QP4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CpMZmo59; arc=none smtp.client-ip=74.125.82.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	s=arc-20240116; t=1790187253; c=relaxed/simple;
+	bh=NoYTdwxwn+++VlSqYDmNkTbGe8sVLyF98wvRfV4aZr4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W+jV7RW5/q+EWCqfiZMe/+FUDqNc5HzXBr+85VrWlWSi7Vu3Au+w/URDIKqVAATB2FqKnLbWYZrObcE5mfvlL2rwMbuBZPy/go9NsCycrD040QDd0yzHRHU85e9agM3XicflTJdt4wvAudkFhgDAJkC8H969EFJS2+qOj4XkJp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=daLc1ivM; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CpMZmo59"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c0d568830so2220232eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:13:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="daLc1ivM"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dc83so972049f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:14:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790187234; x=1790792034; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CdWkqq5Py2/RE6rujplXydj2oxrlfwYzt8yfdoQJKEk=;
-        b=CpMZmo59UROvOeg1hIO/ZYq3V9U7uG7tPyYpufwy4UMhzqk55vhjiNIRhyI0Bc8MzB
-         GQXv/qK1Dwj0vAojRTnkwy11VY5CQCBjkx5jc8OfxnJPMaOQjdet5+D7kB1kzVY70G4U
-         E/UsZo2NEvlkUn2d0Gc5efLF7X7nFPqKik9ys7fJ0CLFNTg384W3Ib8bjNjS8iZ+/F4M
-         p5T3j7/is5Qbme6lBYF0k7V2fZ6YMDIs+eyv2nbYbsZV9Cf13oCJzhH1noGDoOFatleW
-         QIL5EDpXxorC4AFn3+gpgQnep9v2KiBXMuFDyjT4bDtqhhHEpMnfq8ZM8MpUvd6HXMSI
-         v/eg==
+        d=gmail.com; s=20251104; t=1790187244; x=1790792044; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fkORU3gh/MDLpHIFia2dyxO/HqIPBw2hOdFlH/z2RPg=;
+        b=daLc1ivM8Lac88tYJsbt6TEpP2R1ZLbolFtdlpp0wSYnxGbBvd7IF5M39lcv3SLnLP
+         36KEvz16fAprr2EcctZLsn7IdqmNEt4QNoc2Hy1qOIwZ6WTXXAbUNxuWhwq9k4SHZc0W
+         TArLvkQFVwjOvsGJ611XK9m9pnPA3M8lHRF7J+CsvAVZ6mrodXjzeLE90PqcWd5Hs8Eu
+         ZBVNZJleeiOarrH88nwwZWg3OKVY/4liFaItd80wBtfJ2KVOrnnZ2A4JI7xHrlyn2xvt
+         beFnK7q6zrcX+jU/RWsW/IInOfBtmUadTB/DuFfl05gI+gRHZ38BsMUddgFW0fdINEQp
+         UkCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187234; x=1790792034;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1790187244; x=1790792044;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CdWkqq5Py2/RE6rujplXydj2oxrlfwYzt8yfdoQJKEk=;
-        b=RamPCOPWBxiKFU/mASu9QL8vuXcInSOisyEhiwnJr7l4Eht2LNvePdeFAIa5ig6jY5
-         N/3lAfxXS5yfZovRyb0iCo7H/nIsJW8ivbpOUc2VvaPA0Rp7M4Q0R6TTKeOADGRUH7X8
-         XkMmdD9i/S90U/E7E4R8r+BQg3MtTO7G7WgoYKJVmI8tNRsMTsXJ1e0KK2BN0lRa7+Zm
-         PoaMGDOOwaZrakTPSVGA5GUA1vujH7l9l20WeduSbGbYWTqiYiFmPtKDKHF63p1Uwu2B
-         iwMN8hwhGtBxgs2cpv+3E8WxF0lvx3Fde83SiRQ5vrg0b49q33nGMm2Oflt8XpU/v0UK
-         98ow==
-X-Forwarded-Encrypted: i=1; AKwUvByLp2ARd7DiVXZLkK/3M9SUY4JTR2eEdS4veDP5ZdziL/dMmrjrXujxDUSSEiNKs0qNekT7tVYQlUi6CsY=@vger.kernel.org
-X-Gm-Message-State: AFuF++muAYVRVY+Zj6mW4VQJDPdGiKGowCTGKaIhNyQZ2Hv1qTWXOUSM
-	HOYxYi4ZN0aWVYUtMt45jA0yliYaR7liTHxgvb1wLclFsbmPQYDhMIsFdzY/Iii5uKc25oTYi7C
-	sLiTWQNHeRA==
-X-Received: from dlbsn12.prod.google.com ([2002:a05:7022:b90c:b0:144:c2f8:c025])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:3c16:b0:144:c11c:858e
- with SMTP id a92af1059eb24-144f91ba1fbmr3521801c88.31.1790187233161; Wed, 23
- Sep 2026 11:13:53 -0700 (PDT)
-Date: Wed, 23 Sep 2026 11:11:45 -0700
-In-Reply-To: <20260923181213.3032038-1-irogers@google.com>
+        bh=fkORU3gh/MDLpHIFia2dyxO/HqIPBw2hOdFlH/z2RPg=;
+        b=GbcjuoJVY0Gn6okJh6+VolTjVMZcVF0qf5oRrJja5JPOZI6pUjYs82YRWJj53bmomN
+         R+h3KqhJcCk3C5dlsol5/TOPEuz/ztzrNWzRv3K/sr9bz0Ta9xKanrkuTLhOq2m6f4IF
+         /ZhqjFrkBchGEDKDr2T/6h5fyUOKwrrmIi3L2QMbg0l62B65xvAgK9tzvf42kAVgh5Br
+         7OauybYS4dkCeKiV6B5iOHKgxAX+eZdw902p9nOmxK8wiZa7N5klG9yopasxjOrq80yD
+         D22Z4H+4GusxkD5D0les1v+qpjr4KullWDfIGQHPEJu6bml+cYgTBh5upHnn/NP17sRF
+         IbQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwHG1tnxgZZP2Wi2wqODfJp1kQh+sydls4y/M7NO7SKsDBogPsseUMfmGIbDznXwOFAsOUOFWdyd56TrEc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdakdGvGBUS3yJEsgqniQD03/BJPVyaJ5RdMsx0jFGyI/nEesX
+	UFVKvnrStVEQwgmAPkZzByA0h+xi78zy5R2TrJHbM4OrhoJIMfJIGbb8
+X-Gm-Gg: AYBFou2YXoW7jBPiEChMVq+g9n+S8bScPqz2R2vzidXn2Y2XKoEzl2S7j5ebUXeImcs
+	PaBBmmCX17s8JK1nz3Yp+1eH2B1ndCsNQTYpfF2XZ5gRLZNojwwTlDsfi7ozJkYkOMt3b9BgP2M
+	vfu15l5su/DzUTLWOY54nRXe5OAc3dEFVIj41HsgSU0yswKUWujvSvX7IOuLaSOECyw1qzKQJa7
+	HW67jy0KbeMPnPm3685rpWSmbKGeKySKzbFXkbB0apo8OWugHLJlHZPhs+Q1vHvszGOcx1kwdNI
+	LYTqmel8VBTQxLMIMEiBtajDucY7lDv315jwc0tgtm25rG+boCh4jdxnaBJczPUohFbPr5gxSXW
+	isFWPQuBQ73r+/YXXyA9aqm8RPjdaQPLT4E91wxZkXZfLHt5UAmhJQ+dADWp2om1sV2R/BnKU4g
+	Bxf2r74OoJrOWKrlgFR4DimvLmlWigZVs/HcLgOmdXA1F7Fhw2dS4ZVKmd+y79Yv5hbaj8pU0Qm
+	avJK5Ia1uKY5mKG+lEXi0tBD99m9hg+IvOK5ZOCvfAj
+X-Received: by 2002:a5d:5d0c:0:b0:487:aff:9952 with SMTP id ffacd0b85a97d-4886706f69emr6125723f8f.16.1790187244370;
+        Wed, 23 Sep 2026 11:14:04 -0700 (PDT)
+Received: from cachyos-x8664 (213-225-11-125.nat.highway.a1.net. [213.225.11.125])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-488684862a3sm8007107f8f.7.2026.09.23.11.14.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 11:14:03 -0700 (PDT)
+From: Roman Stingler <roman.stingler@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Roman Stingler <roman.stingler@gmail.com>,
+	Lovekesh Solanki <lovekeshsolanki00@gmail.com>,
+	Erik Hakansson <erikhakan@gmail.com>,
+	Filipe Lains <lains@riseup.net>,
+	Bastien Nocera <hadess@hadess.net>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: [PATCH] HID: logitech-hidpp: do not overwrite the device's hi-res wheel mode
+Date: Wed, 23 Sep 2026 20:11:29 +0200
+Message-ID: <20260923181203.422097-1-roman.stingler@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <cover.1789966896.git.irogers@google.com> <20260923181213.3032038-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260923181213.3032038-23-irogers@google.com>
-Subject: [PATCH v3 22/49] perf python: Port syscall-counts to perf module
-From: Ian Rogers <irogers@google.com>
-To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
-	namhyung@kernel.org
-Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com, 
-	james.clark@linaro.org, leo.yan@linux.dev, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
-	tmricht@linux.ibm.com
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Port tools/perf/scripts/python/syscall-counts.py to a standalone script
-in tools/perf/python/ using the perf module. Avoiding the embedded
-interpreter and per-event dictionary allocation overhead improves
-execution speed by ~4x:
+hi_res_scroll_enable() unconditionally puts HID++ 2.0 devices supporting
+the HiRes Wheel feature (0x2121) into high-resolution mode on every
+connect event.
 
-```
-$ perf record -e raw_syscalls:sys_enter -a sleep 1
-...
-$ time perf script tools/perf/scripts/python/syscall-counts.py perf
-...
-real    0m3.887s
-user    0m3.578s
-sys     0m0.308s
-$ time python3 tools/perf/python/syscall-counts.py perf
-...
-real    0m0.953s
-user    0m0.905s
-sys     0m0.048s
-```
+On at least the MX Master 4 that mode is persistent state in the device.
+With hid-logitech-hidpp unloaded, a mode set from userspace survives
+switching the mouse off and on again. Writing it at connect therefore
+destroys a setting the user configured, and does so on every probe --
+cold boot, receiver replug or module reload -- so userspace cannot
+reliably keep it either: it gets no indication that the mode it set has
+been changed underneath it.
 
-Additional improvements compared to the legacy script:
-- Resolve syscall names using perf.syscall_name(id, session.e_machine)
-  instead of host python-audit / Util.py tables, enabling accurate
-  cross-architecture perf.data analysis without external dependencies.
-- Support both raw_syscalls:sys_enter (sample.id) and individual
-  syscalls:sys_enter_* tracepoints (sample.__syscall_nr / sample.nr),
-  filtering out invalid/corrupt (> 0xffff or negative) syscall numbers.
-- Add argparse CLI options (-i/--input and optional comm filter).
+This became visible when Bolt receivers gained support in 7.3. Before
+that these devices were driven by hid-generic, hid-logitech-hidpp never
+bound to them, and nothing in the kernel wrote the setting.
 
-Add a shell test (test_syscall_counts_python.sh) to verify the
-standalone script. The legacy script and its bin wrapper are retained
-temporarily during the transition to maintain bisectability and are
-removed once all scripts are migrated.
+0x2121 exposes getWheelMode alongside setWheelMode. Read the current
+mode and scale vertical_wheel_counter.wheel_multiplier to match rather
+than forcing high resolution: a device left in high-resolution mode
+still gets its multiplier, and one the user configured for low
+resolution is left alone.
 
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Ian Rogers <irogers@google.com>
+Note this changes behaviour for devices sitting at a low-resolution
+factory default -- the kernel will no longer switch those to
+high-resolution scrolling.
+
+Link: https://lore.kernel.org/all/20260920094508.39682-1-roman.stingler@gmail.com/
+Signed-off-by: Roman Stingler <roman.stingler@gmail.com>
 ---
- tools/perf/python/syscall-counts.py           | 91 +++++++++++++++++++
- .../tests/shell/test_syscall_counts_python.sh | 81 +++++++++++++++++
- 2 files changed, 172 insertions(+)
- create mode 100755 tools/perf/python/syscall-counts.py
- create mode 100755 tools/perf/tests/shell/test_syscall_counts_python.sh
+Lovekesh Solanki proposed an alternative in the report thread which
+remembers the last mode seen from userspace. That fixes suspend/resume
+but not the probe cases above, and he suggested sending this instead:
+https://lore.kernel.org/all/arJs7GjCP3r4IaM-@eggarch/
 
-diff --git a/tools/perf/python/syscall-counts.py b/tools/perf/python/syscall-counts.py
-new file mode 100755
-index 000000000000..005916542c26
---- /dev/null
-+++ b/tools/perf/python/syscall-counts.py
-@@ -0,0 +1,91 @@
-+#!/usr/bin/env python3
-+# SPDX-License-Identifier: GPL-2.0
-+"""
-+Displays system-wide system call totals, broken down by syscall.
+Tested on 7.3-rc3 with an MX Master 4 (WPID B042) behind a Bolt
+receiver, built as a module and loaded at boot:
+
+                        stock   this patch
+  suspend/resume          no        yes
+  module reload           no        yes
+  cold boot               no        yes
+
+With the mouse left in high-resolution mode, a full module reload leaves
+it in high resolution and the multiplier is fetched as before. I checked
+that the mode is honoured; I did not instrument events per detent,
+though that path is unchanged.
+
+ drivers/hid/hid-logitech-hidpp.c | 30 +++++++++++++++++++-----------
+ 1 file changed, 19 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/hid/hid-logitech-hidpp.c b/drivers/hid/hid-logitech-hidpp.c
+index 493763a12518..338477bfcaeb 100644
+--- a/drivers/hid/hid-logitech-hidpp.c
++++ b/drivers/hid/hid-logitech-hidpp.c
+@@ -2044,6 +2044,7 @@ static int hidpp_hrs_set_highres_scrolling_mode(struct hidpp_device *hidpp,
+ #define HIDPP_PAGE_HIRES_WHEEL		0x2121
+ 
+ #define CMD_HIRES_WHEEL_GET_WHEEL_CAPABILITY	0x00
++#define CMD_HIRES_WHEEL_GET_WHEEL_MODE		0x10
+ #define CMD_HIRES_WHEEL_SET_WHEEL_MODE		0x20
+ 
+ static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
+@@ -2072,12 +2073,10 @@ static int hidpp_hrw_get_wheel_capability(struct hidpp_device *hidpp,
+ 	return ret;
+ }
+ 
+-static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
+-	bool high_resolution, bool use_hidpp)
++static int hidpp_hrw_get_wheel_mode(struct hidpp_device *hidpp, u8 *mode)
+ {
+ 	u8 feature_index;
+ 	int ret;
+-	u8 params[1];
+ 	struct hidpp_report response;
+ 
+ 	ret = hidpp_root_get_feature(hidpp, HIDPP_PAGE_HIRES_WHEEL,
+@@ -2085,13 +2084,14 @@ static int hidpp_hrw_set_wheel_mode(struct hidpp_device *hidpp, bool invert,
+ 	if (ret)
+ 		return ret;
+ 
+-	params[0] = (invert          ? BIT(2) : 0) |
+-		    (high_resolution ? BIT(1) : 0) |
+-		    (use_hidpp       ? BIT(0) : 0);
++	ret = hidpp_send_fap_command_sync(hidpp, feature_index,
++					  CMD_HIRES_WHEEL_GET_WHEEL_MODE,
++					  NULL, 0, &response);
++	if (ret)
++		return ret;
+ 
+-	return hidpp_send_fap_command_sync(hidpp, feature_index,
+-					   CMD_HIRES_WHEEL_SET_WHEEL_MODE,
+-					   params, sizeof(params), &response);
++	*mode = response.fap.params[0];
++	return 0;
+ }
+ 
+ /* -------------------------------------------------------------------------- */
+@@ -3910,8 +3910,16 @@ static int hi_res_scroll_enable(struct hidpp_device *hidpp)
+ 	u8 multiplier = 1;
+ 
+ 	if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_WHEEL) {
+-		ret = hidpp_hrw_set_wheel_mode(hidpp, false, true, false);
+-		if (ret == 0)
++		u8 mode;
 +
-+If a [comm] arg is specified, only syscalls called by [comm] are displayed.
-+"""
-+from __future__ import annotations
-+
-+import argparse
-+from collections import defaultdict
-+from typing import DefaultDict
-+import perf
-+
-+syscalls: DefaultDict[int, int] = defaultdict(int)
-+for_comm = None
-+session = None
-+
-+
-+def print_syscall_totals():
-+    """Print aggregated statistics."""
-+    if for_comm is not None:
-+        print(f"\nsyscall events for {for_comm}:\n")
-+    else:
-+        print("\nsyscall events:\n")
-+
-+    print(f"{'event':<40} {'count':>10}")
-+    print("---------------------------------------- -----------")
-+
-+    for sc_id, val in sorted(syscalls.items(),
-+                             key=lambda kv: (-kv[1], kv[0])):
-+        e_machine = getattr(session, "e_machine", 0) or 0
-+        # Mask out the x86_64 x32 ABI bit (__X32_SYSCALL_BIT = 0x40000000) before
-+        # resolving the syscall number in the architecture's syscall table.
-+        raw_sc_id = sc_id & ~0x40000000
-+        if e_machine:
-+            name = perf.syscall_name(raw_sc_id, e_machine) or str(sc_id)
-+        else:
-+            name = perf.syscall_name(raw_sc_id) or str(sc_id)
-+        print(f"{name:<40} {val:>10}")
-+
-+
-+def process_event(sample):
-+    """Process a single sample event."""
-+    event_name = str(sample.evsel)
-+    # raw_syscalls:sys_enter exposes the syscall number as 'id', whereas
-+    # per-syscall syscalls:sys_enter_* tracepoints expose '__syscall_nr' (or 'nr')
-+    # and may have an unrelated syscall argument named 'id' (e.g. sys_enter_clock_gettime).
-+    if event_name.startswith("evsel(raw_syscalls:sys_enter"):
-+        sc_id = getattr(sample, "id", -1)
-+    elif event_name.startswith("evsel(syscalls:sys_enter"):
-+        sc_id = getattr(sample, "__syscall_nr", None)
-+        if sc_id is not None and not (0 <= (sc_id & ~0x40000000) <= 0xffff):
-+            sc_id = None
-+        if sc_id is None:
-+            sc_id = getattr(sample, "nr", -1)
-+    else:
-+        return
-+
-+    # Mask out __X32_SYSCALL_BIT (0x40000000) when validating the syscall ID range.
-+    if not (0 <= (sc_id & ~0x40000000) <= 0xffff):
-+        return
-+
-+    comm = "unknown"
-+    try:
-+        if session:
-+            proc = session.find_thread(sample.sample_pid, sample.sample_tid)
-+            if proc:
-+                comm = proc.comm() or "unknown"
-+    except (TypeError, AttributeError):
-+        pass
-+
-+    if for_comm and comm != for_comm:
-+        return
-+    syscalls[sc_id] += 1
-+
-+
-+if __name__ == "__main__":
-+    ap = argparse.ArgumentParser()
-+    ap.add_argument("comm", nargs="?", help="Only report syscalls for comm")
-+    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
-+    args = ap.parse_args()
-+    for_comm = args.comm
-+    try:
-+        session = perf.session(perf.data(args.input), sample=process_event)
-+        session.process_events()
-+        print_syscall_totals()
-+    finally:
-+        # Break the reference cycle between session and process_event (whose module
-+        # globals reference session) since perf.session lacks cyclic GC (tp_traverse).
-+        session = None
-diff --git a/tools/perf/tests/shell/test_syscall_counts_python.sh b/tools/perf/tests/shell/test_syscall_counts_python.sh
-new file mode 100755
-index 000000000000..0c4b75499209
---- /dev/null
-+++ b/tools/perf/tests/shell/test_syscall_counts_python.sh
-@@ -0,0 +1,81 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+# syscall-counts python test
-+
-+set -e
-+
-+shelldir=$(dirname "$0")
-+# shellcheck source=lib/setup_python.sh
-+. "${shelldir}"/lib/setup_python.sh
-+
-+# If we don't have the perf python module, we can't test
-+if ! "$PYTHON" -c 'import perf' > /dev/null 2>&1; then
-+	echo "Skipping test, perf python module not found"
-+	exit 2
-+fi
-+
-+script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/syscall-counts.py"
-+
-+if ! perf check feature -q libtraceevent > /dev/null 2>&1; then
-+	echo "Skipping test, libtraceevent is disabled"
-+	exit 2
-+fi
-+
-+if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, syscall-counts.py not found at $script_path"
-+	exit 2
-+fi
-+
-+err=0
-+temp_data=""
-+temp_out=""
-+
-+cleanup() {
-+	rm -f "${temp_data}" "${temp_out}"
-+}
-+
-+trap 'cleanup' EXIT TERM INT
-+
-+temp_data=$(mktemp /tmp/perf.data.XXXXXX)
-+temp_out=$(mktemp /tmp/perf.out.XXXXXX)
-+
-+test_file_mode() {
-+	echo "Testing syscall-counts.py..."
-+	# Some systems might not have raw_syscalls:sys_enter (e.g. stripped kernels or permissions)
-+	if ! perf list | grep -q raw_syscalls:sys_enter; then
-+		echo "Skipping test, raw_syscalls:sys_enter not found"
-+		exit 2
-+	fi
-+
-+	# Generate some syscall events
-+	if ! perf record -e raw_syscalls:sys_enter -o "${temp_data}" -- sleep 0.5 2>/dev/null; then
-+		echo "perf record failed (permissions?), skipping file mode test."
-+		exit 2
-+	fi
-+
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" > "${temp_out}"; then
-+		echo "File mode test failed."
-+		err=1
-+	elif ! grep -E -q "^[a-zA-Z0-9_]+ +[0-9]+$" "${temp_out}"; then
-+		echo "File mode output validation failed."
-+		err=1
-+	else
-+		echo "File mode test passed."
-+	fi
-+
-+	# Test with a comm argument
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" "sleep" > "${temp_out}"; then
-+		echo "Comm filter test failed."
-+		err=1
-+	elif ! grep -E -q "^[a-zA-Z0-9_]+ +[0-9]+$" "${temp_out}"; then
-+		echo "Comm filter output validation failed."
-+		err=1
-+	else
-+		echo "Comm filter test passed."
-+	fi
-+}
-+
-+test_file_mode
-+
-+exit $err
++		/*
++		 * The wheel mode is persistent state in the device, so read it
++		 * rather than overwriting it, and scale to match. A device
++		 * left in hi-res still gets the multiplier it needs; one the
++		 * user configured for low resolution is left alone.
++		 */
++		ret = hidpp_hrw_get_wheel_mode(hidpp, &mode);
++		if (ret == 0 && (mode & BIT(1)))
+ 			ret = hidpp_hrw_get_wheel_capability(hidpp, &multiplier);
+ 	} else if (hidpp->capabilities & HIDPP_CAPABILITY_HIDPP20_HI_RES_SCROLL) {
+ 		ret = hidpp_hrs_set_highres_scrolling_mode(hidpp, true,
+
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
 -- 
-2.56.0.rc1.310.g51773c2048-goog
+2.55.0
 
