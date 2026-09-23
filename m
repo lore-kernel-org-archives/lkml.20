@@ -1,114 +1,85 @@
-Received: from mta1.migadu.com (out-160.mta1.migadu.com [95.215.58.160])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B13A8376A1B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:30:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.160
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AF6511E8A;
+	Wed, 23 Sep 2026 14:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790173852; cv=none; b=VqbPnX6VhcXrWA8f9+cEwODiT6Rxba8sqBSk5lyBto1KQMA97r29AsU1kmIUw3HyTYhxu96ZYkZK8RC4shDfREnVgc8d+IWWPdzpgXeMzdMt5wVHQVkXvTUrx9NfJsHfYorQfFlMUCFG5jze2Rih5pqG26a1Yaxesy4XJp5G5n4=
+	t=1790173855; cv=none; b=SNwjwlTD3vHTS9A0+OGBkzPQ5UnvkvjwBatB++pv6+kWeIXqJbhiG6vat7WTW5IwDSFz6Ue4rmoq2BdNm49QddS6rgxr5jKhPqZKfcytcL1yh2EoxWkGCleA8orHVv2FmPH10k3whnjzvaixaNIGNQyENJ+8OXoMcsZ44DqdZz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790173852; c=relaxed/simple;
-	bh=b6ZBHffUU1kQW7t5E42xHCf7V8PqDJJijxTKcey/Qe0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BG8T3BoGTsjW+8bRKJw/xsox/G1ucE1xeOC2ckqMsL6JdigNtn45sIVDvuLBMXS+A4RVWJ20vcLN/ZoH64AncrlaDCGHE14KnBjaH7fmFR95e79GCe86cV8nStzjrusvBAMSLhgF6rcrHd54b4IBgc6RKIPgozJJnSKchZi/RUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CEFw0t+s; arc=none smtp.client-ip=95.215.58.160
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790173855; c=relaxed/simple;
+	bh=N5YqmKihMPoUFLmWlgyIrlyHZ1ar4Pmirq3scgwhBAI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gAP4Va7nPgvKDXImc86JOBc1NmHx2ybk83lFUV0LGb4vGzTFxOceW/H0zD0epHoXRXBW/DCkOw8uElSLtCJe8daBeO2BjEFbXzdHBxQ6o89QxlFKEWjaOC74gY/8FaOli/MeJSW4Dj4abZTifFQFyKY/Nj2jq680rgp7VVB4YbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gDh91WxM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CEFw0t+s"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=b6ZBHffUU1kQW7t5E42xHCf7V8PqDJJijxTKcey/Qe0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790173847; v=1; x=1790778647;
- b=CEFw0t+sSSYZ18s8Ns83dY9xXsLJlRcST2FEeiCltERMntl4VCTroZnrsX82+KRsxhmGoCB3
- xzcUbgPcKVPEusIOuKaLjv/gbVZD4VP6nVXaydLO1DPq+AqWnxQx01/+GNgx/XaxW9hknHpmXvY
- RJv4/okjP4eCEnHI5++X/J1A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 08c87b445fde2718;
-	Wed, 23 Sep 2026 14:30:47 +0000
-X-Mizu-Trace-ID: 08c87b445fde2718
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2adefc6f-328c-4683-8cba-091d9f3425ab@linux.dev>
-Date: Wed, 23 Sep 2026 16:30:42 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gDh91WxM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF0611F000FF;
+	Wed, 23 Sep 2026 14:30:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790173853;
+	bh=AKQFNKkkPF9N3C14+Wm2pRhX/CAnaIcorL6P/HjrDIw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gDh91WxM+CHwV8l4yb/tpPEoplnXiWKN/NZZJDNBjBSpzmUoohaqGXVtJC6Na2az0
+	 SHK0VfJ5PrQBV5Q1Z8v4LA+6PiwaAESe4gyFgiLKt+guhJ1oXPTTr6wI61QpuwaDhK
+	 6+VxR3qEQBxJyTSrOUG67xQUAcas2HWVaI0fsnyeHzQaChoQr66I2d6WdyGUSFFO7m
+	 CtQguCxbL1wsXAXmmCAd5ghIVGDF37l56pYJzQWzgswMif05yRA64xuY0PTBvAmnNV
+	 9ktzy4hma6jyk0AGOc/SMmujr7Ykrq7WBey95Mgmm8tSGeb0V/wekPhXDW87Oj1EjH
+	 8QAy6NwHX8fOA==
+Date: Wed, 23 Sep 2026 09:30:52 -0500
+From: Rob Herring <robh@kernel.org>
+To: Quchaosheng <quchaosheng000406@163.com>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-can@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 3/3] dt-bindings: net: can: fsl,mpc5xxx-mscan: Convert
+ to DT schema
+Message-ID: <20260923143052.GC27237-robh@kernel.org>
+References: <20260922102258.138753-1-quchaosheng000406@163.com>
+ <20260922102258.138753-4-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] fpga: region: Add support for FPGA region variants
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: Moritz Fischer <mdf@kernel.org>, Xu Yilun <yilun.xu@intel.com>,
- Tom Rix <trix@redhat.com>, linux-fpga@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <417b510f-0f6d-4695-97f5-3fc19b9377b9@linux.dev>
- <amCn8UYdybT+RRnq@yilunxu-OptiPlex-7050>
- <9d4af487-69a7-4a0d-9335-35c3a057de54@linux.dev>
- <anBfAa4LpjbmYHIc@yilunxu-OptiPlex-7050>
- <db7cfe9e-b2ba-4323-bff9-44598e1f70bb@linux.dev>
- <anl8891cH+bUfsGY@yilunxu-OptiPlex-7050>
- <4dbdb52e-1b28-432e-a3a7-ad9c44f17d27@linux.dev>
- <aoJ6paA/8ndpJ17y@yilunxu-OptiPlex-7050>
- <8848432d-45b0-4efe-adf3-adfb64fe0899@linux.dev>
- <11b1a792-f8b1-4fce-8a7a-8352149febcf@linux.dev>
- <aq12s+hUVnnvCKmZ@yilunxu-OptiPlex-7050>
-Content-Language: en-US
-From: Marco Pagani <marco.pagani@linux.dev>
-In-Reply-To: <aq12s+hUVnnvCKmZ@yilunxu-OptiPlex-7050>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922102258.138753-4-quchaosheng000406@163.com>
 
-
-
-On 18/09/2026 19:36, Xu Yilun wrote:
-> On Fri, Sep 18, 2026 at 05:07:07PM +0200, Marco Pagani wrote:
->>
->> Hi Yilun,
->>
->> Is it okay with you if I CC the DT people to ask for an opinion?
+On Tue, Sep 22, 2026 at 06:22:58PM +0800, Quchaosheng wrote:
+> Convert the Freescale MPC5xxx MSCAN binding from free-form text to DT
+> schema.
 > 
-> Of course. It's good to know in which case could a DTO be applied.
+> The original text documents fsl,mpc5200-mscan and fsl,mpc5121-mscan in two
+> separate sections. Keep that split: fsl,mscan-clock-source takes "ip" or
+> "ref" on fsl,mpc5200-mscan, and "ip", "ref" or "sys" on fsl,mpc5121-mscan.
 > 
-> But to be clear, I think that only affects how we accept and apply the
-> image-DTO pair. For now, I basically don't want a varient selection
-> interface.
+> Add fsl,mpc5200b-mscan as a fallback of fsl,mpc5200-mscan. mpc5200b.dtsi
+> uses it.
+> 
+> Document clocks and clock-names, which the original text does not describe.
+> fsl,mpc5121-mscan requires the "ipg", "ips", "sys", "ref" and "mclk"
+> clocks in that order, as mpc5121.dtsi supplies them. MPC5200 does not use
+> DT clocks; it takes its frequency from the CDM block.
+> 
+> fsl,mscan-clock-divider divides the selected clock, so value 0 cannot be
+> used.
+> 
+> Keep the note that the MPC5121 Rev. 1 processor is not supported.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+> ---
+> 
+> v8:
+>  - No change.
+>  .../bindings/net/can/fsl,mpc5xxx-mscan.yaml   | 109 ++++++++++++++++++
+>  .../bindings/net/can/mpc5xxx-mscan.txt        |  53 ---------
+>  2 files changed, 109 insertions(+), 53 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/net/can/fsl,mpc5xxx-mscan.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/net/can/mpc5xxx-mscan.txt
 
-
-Hello Rob, Saravana, Krzysztof, Conor,
-
-I'm CC-ing you on this thread as OF/DT maintainers to kindly ask
-for your input on this debate we are having about how to implement
-userspace FPGA reconfiguration, an important feature currently
-lacking in mainline kernel.
-
-https://lore.kernel.org/all/20260608164247.1998417-1-marco.pagani@linux.dev
-
-To recap: modern FPGAs allow portions of the fabric to be reconfigured
-at runtime to dynamically swap soft IPs. Usually, these IPs are
-connected through a non-discoverable on-chip bus like AMBA AXI.
-From a kernel perspective, this means the FPGA device configuration
-image (bitstream) must be paired with a DT fragment that describes
-the new topology.
-
-In this thread, we are essentially debating between two approaches for
-implementing FPGA userspace reconfiguration at runtime:
-
-- Statically defined Variants (this RFC): Userspace can change FPGA
-  configuration by selecting from a pre-validated set of variants
-  (DT fragments) baked into the base DT.
-
-- Runtime DTOs (Nava's RFC): Userspace can change FPGA configuration
-  by loading DTOs that are validated at runtime.
-
-Could you share your thoughts on this? In your opinion, which one of
-these two approaches aligns better with the DT infrastructure and
-general kernel design philosophy?
-
-
-Thanks,
-Marco
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
