@@ -1,104 +1,80 @@
-Received: from out-93wp-a34.jellyfish.systems (out-93wp-a34.jellyfish.systems [104.207.68.34])
+Received: from out-2uec-a98.jellyfish.systems (out-2uec-a98.jellyfish.systems [63.250.43.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8005363083
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:32:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.207.68.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2520736B054
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:33:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130729; cv=none; b=s2t7SOjvd7UcwSVASUZfSK9urviAsi2SBDi5DGFAJqHkG4WlL0tmzi1riRL7mzZWvpqEdDbY1C1v41KyYA7wRVycpSpzBn5zL0mmUSRZu+aEFpZg49P9tzF8WT2UT9yhRpIbBsepe7xKejN8Eu+fKkueS5yR6jCioXXLGE6UZ80=
+	t=1790130783; cv=none; b=qKGb+M4QqqhClh2FeQvtnde6h+5dWI4A7diYb/66at78Z6rzR+7Spfew1HDR5zazFm0vq6aidmGQB4oL5IAXFhT11TSbq8BcXopUhemPuxit+IimZbcU/24VkRctFQ5XRLqWyTKDq+bl7z6FlFHCX0sG7XCqeR2yKGWNCcVUfto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130729; c=relaxed/simple;
-	bh=+zpy3l3uQZbtn3EA5tBa12RRyLBX5X8jEzCv9ArKHCo=;
+	s=arc-20240116; t=1790130783; c=relaxed/simple;
+	bh=QhQdABlylOEbaAhIq2fvadeIDgLzvHLyAFVEKqUhlP4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qeEq06+Aa530M85nOb9IZEmxTV5sjhrEBTVfDrtHZ8doY22u+ep0xpN3kkehaXDhNkl3GB6vcuW4wuf+LfCCKASrGni1+OWr+2/MeUxB8HKCtXCcqKiiFi3En4IeurkYV3K0Gv91y3/uvWvc/tM63AKjM2LjiwI8HcLP7Maqbho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=G5wmWHGF; arc=none smtp.client-ip=104.207.68.34
+	 Content-Type:MIME-Version; b=VmWqb+i79B5oyMtiJGFYezoi9ubOsMa/ACVeqtIylIr+SZ9w0+Lbgsj4PVYcC9bFdorPgDVFKXw0LrKWOx39Lrj6AH6RrZcjmb4sQvyRrzQwCKAr6dqrGjaJXB6QY5ojabeuzKbERw1gz6EDYp+nD8j5kuBI9sblgUXEJuXic0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc; spf=pass smtp.mailfrom=tychen.cc; dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b=i1hlCY5N; arc=none smtp.client-ip=63.250.43.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tychen.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="G5wmWHGF"
-Received: from fedora (unknown [120.199.7.38])
+	dkim=pass (2048-bit key) header.d=tychen.cc header.i=@tychen.cc header.b="i1hlCY5N"
+Received: from [10.18.116.108] (unknown [120.199.7.38])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.spacemail.com (Postfix) with ESMTPSA id 4hqLZP2xcYz8sYH;
-	Wed, 23 Sep 2026 02:31:41 +0000 (UTC)
+	by mail.spacemail.com (Postfix) with ESMTPSA id 4hqLbn1Thyz8sZ1;
+	Wed, 23 Sep 2026 02:32:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tychen.cc;
-	s=spacemail; t=1790130703;
-	bh=yOXnInNUODU5Lzwbj44QgpGQDJ5UdG0pb1N+gcZ3ygM=;
+	s=spacemail; t=1790130774;
+	bh=QhQdABlylOEbaAhIq2fvadeIDgLzvHLyAFVEKqUhlP4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=G5wmWHGF8x5Fjt8JXLIilAfxBLUl9aQ34u42tdylL7dNFnoM1NAqY0nWyDDx+J9yx
-	 fljLl8gdfcAKGAoO9WyBRPyJoNOCD5+BqPI+iyloAdpemuOe4MzU0THBcoz/JBisi4
-	 TI8CsTXrHcTHpshU1yOCiiPwYTKWdYSbmza6yeOY5oiEZkb+eoiSajTeC2dkPnAVxo
-	 s/k5vnjcacO9S8zSilBs9zOwA7Ar2A+9aRXWn3aagBwiOmWna9bHrvEOEKQUIQ0B3r
-	 RlLNzSWPlBYcUGGMBFkZn6CpRIsCU9qQLPkk5IA8lPgRlj965ZI6YmktGqWBm73Fvs
-	 z89vhmX/xvmuQ==
+	b=i1hlCY5NgNFlNCgoXdHhCpD75lDhkozAfMmrWrvw3kEdi4U88oip1XEEBNuEXwrSr
+	 pPmuVn4RA7Bt3TNUIH0BiZCabZZ0z/2sFgchhdYojlUiFxNd/jmVAgwoIDW/MOH8oc
+	 Am0afPogrBPMxizTPbYAuH7B0j9ovWTMvtm1fLsaBIXSVSk/kc+0zN5UvyrxJoay/x
+	 tXmtIVlXZK2ZKSgKWPpuQhMYI6wsNHXeKR6oOfDWUGMEdhbfIeIOnUP6Z/mBBz4d9J
+	 tmEbAFoSEHujRV6w7NsBfX8YOR5NDVEdJTrCQ+8ZdHkyg5L6v0dvaZdpD3E6myC2SU
+	 PkXmPHPkSkAGA==
 From: Tianyi Chen <hi@tychen.cc>
 To: Mike Rapoport <rppt@kernel.org>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/4] memblock tests: zero-extend simulated memory addresses
-Date: Wed, 23 Sep 2026 11:31:24 +0900
-Message-ID: <20260923023126.1910311-3-hi@tychen.cc>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923023126.1910311-1-hi@tychen.cc>
-References: <20260923023126.1910311-1-hi@tychen.cc>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] memblock tests: fix BUILD=32 address conversions
+Date: Wed, 23 Sep 2026 11:32:49 +0900
+Message-ID: <179013076994.1911052.6395482478037915192@tychen.cc>
+In-Reply-To: <179007180279.508753.4595268983388589280.b4-review@b4>
+References: <20260916161105.2548281-1-hi@tychen.cc>
+ <179007180279.508753.4595268983388589280.b4-review@b4>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 X-Envelope-From: hi@tychen.cc
 
-Converting a 32-bit pointer directly to the 64-bit phys_addr_t can
-sign-extend it when BUILD=32 is used. A dummy allocation above 2 GiB
-then gets registered at an address different from its unsigned pointer
-value. The low-address tests compare that value against the registered
-range and fail once the earlier maximum-address free test is fixed.
+Hi Mike,
 
-Convert through uintptr_t when registering and reporting dummy memory.
-This preserves the pointer bits and agrees with the simulator __pa()
-conversion and the allocation tests.
+> Does it mean BUILD=32 without NUMA does not pass with clang?
 
-Fixes: 284d950dd6b0 ("memblock tests: Add simulation of physical memory")
-Assisted-by: LLM
-Signed-off-by: Tianyi Chen <hi@tychen.cc>
----
- tools/testing/memblock/tests/common.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+No. I reran v1 with Clang 18.1.3 and BUILD=32 without NUMA: all 189
+checks pass. The previous cover letter only mentioned the NUMA-enabled
+configuration tested then. Sorry for the ambiguity.
 
-diff --git a/tools/testing/memblock/tests/common.c b/tools/testing/memblock/tests/common.c
-index ac032610a56e..2a248973eb4c 100644
---- a/tools/testing/memblock/tests/common.c
-+++ b/tools/testing/memblock/tests/common.c
-@@ -67,7 +67,7 @@ static inline void fill_memblock(void)
- void setup_memblock(void)
- {
- 	reset_memblock_regions();
--	memblock_add((phys_addr_t)memory_block.base, MEM_SIZE);
-+	memblock_add((phys_addr_t)(uintptr_t)memory_block.base, MEM_SIZE);
- 	fill_memblock();
- }
- 
-@@ -88,7 +88,7 @@ void setup_numa_memblock(const unsigned int node_fracs[])
- 	int flags;
- 
- 	reset_memblock_regions();
--	base = (phys_addr_t)memory_block.base;
-+	base = (phys_addr_t)(uintptr_t)memory_block.base;
- 	flags = (movable_node_is_enabled()) ? MEMBLOCK_NONE : MEMBLOCK_HOTPLUG;
- 
- 	for (int i = 0; i < NUMA_NODES; i++) {
-@@ -115,7 +115,7 @@ void dummy_physical_memory_cleanup(void)
- 
- phys_addr_t dummy_physical_memory_base(void)
- {
--	return (phys_addr_t)memory_block.base;
-+	return (phys_addr_t)(uintptr_t)memory_block.base;
- }
- 
- phys_addr_t dummy_physical_memory_low_limit(void)
--- 
-2.55.0
+> I see a lot of warnings with gcc and BUILD=32. Do you mind fixing them
+> as well?
 
+Done in v2. I reproduced them with GCC 13.3.0 and removed the remaining
+physical-address-to-pointer casts, used __pa() in tools virt_to_phys(),
+and initialized end_rgn to address the maybe-uninitialized warning.
+The latter is a false positive; each insertion already sets the index.
+
+The virt_to_phys() cast also sign-extended 0x80000000 to
+0xffffffff80000000 with GCC BUILD=32. A separate boundary check now
+passes with both compilers in 32- and 64-bit builds.
+
+GCC and Clang each pass seven configurations with -Werror and the default
+ASan/UBSan flags, including BUILD=32 with and without NUMA. Details are
+in the v2 cover letter, sent as a new thread:
+https://lore.kernel.org/r/20260923023126.1910311-1-hi@tychen.cc
+
+Thanks,
+Tianyi
