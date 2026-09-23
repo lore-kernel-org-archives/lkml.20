@@ -1,76 +1,63 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA15352C34;
-	Wed, 23 Sep 2026 22:30:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D318B3B895A;
+	Wed, 23 Sep 2026 22:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202640; cv=none; b=qOb+0oYau7pbQ6nIDTHzDMjf+UOLtBcojBf5y6VENl8gFo5ruypWyLSEQl0QcItLg8wrqR1l/w+E17bUl8eC52iB641R+f0BZLvufZoPbpLI86WPUsYCwWgLweWgMiU0YotnOpl9MnHj6OezckKNpBliCEKUOJ3rqYGsFSJORkw=
+	t=1790202674; cv=none; b=VeafcdHTNj9/MooHSrSb0ykMRvoOhdSFWqfoMYsiyzG1TFJe0ZYtjWxOnqtOX9ipfhpm4rKkyp3Yf/jl0I0Mmjf322fnv+72UJxcKmVuSTAxPXKScXuKv3SJzD2fvdO3hcM5Nqn5hFvAacXjKR5xXrue+JIuuF4jwQhBN2jWTPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202640; c=relaxed/simple;
-	bh=8xiYObyMEcq1Fykp/tkD0dEEJQOsTwGkWOBCkd9/jWc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IXnmLBHh+Ymih2486EpeBQHprRemqrhhzJgibzkr/4sKt0dbsSUBeBbStE4/6j41E3lO65EBGxvHOLwqu/WP6GgE5KOZX4XOtagJ1iTU2wPNqlBIJE+wrlzB0t8kRtwgQb9bh7I1X7XusNVbSU/aZ6J3OhWBOT4PfDZXGu5xRns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=QfmOZ8W7; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1790202674; c=relaxed/simple;
+	bh=w7XfjU9UnIxLGFJJlSAtKQj5p4cHkRASZDMPWhJgZmE=;
+	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=WrBuZClA6707lURH+B9GiTqt2naBgX/6elULzmIrt3JKyvNTmd7JPmasEGJhOjLh8YmkuKLpfkkimHjzlca3dKgDBxayfGnEdScF4qymWJX7kNhyehkCN4XtPAQdaHC/rVOEyeOBU2cNT2x00CIhs6BTs1dSuRHF/Mxx5sJiCKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gJl0KE7i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="QfmOZ8W7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=oID3liBFdIyTSGmV0vyfKcgZpY+lfMHJz1T6fFJ15BA=; b=QfmOZ8W7WlbVRwzSBUirCaHZDl
-	P0dUIUwU6IyPbpAejBilnke4XNGAZnNjHGS97ez5awgw+GoYKbcUxAaaYSZ8q9dk3DfRFwY7eNm4e
-	wiYJino8Nf1Bzz+MZ/2NoXxYZc9WcCtpbcDyM3U4dEzo/NNPo/bGRuUwi5bI6iEJL7Go=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x9VTq-006tAG-5w; Thu, 24 Sep 2026 00:30:22 +0200
-Date: Thu, 24 Sep 2026 00:30:22 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Liu Changjie <liucj1228@outlook.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Luo Jie <jie.luo@oss.qualcomm.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/2] net: phy: Add support for the Maxio
- MAE0621A
-Message-ID: <485d6e8e-2097-4a45-9d1e-0041c7bb3980@lunn.ch>
-References: <MN0PR19MB609154F210DF84DCB29D3696ACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
- <MN0PR19MB609153A4A590C66241B8A3CDACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gJl0KE7i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F201F000FF;
+	Wed, 23 Sep 2026 22:31:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790202673;
+	bh=Z1gFQFsVERABFG9WhtIQJgkmxjNq/ASJj/MHbTXisW8=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=gJl0KE7iMVJQfW7Oxx91VW5K7jtOMu+0tFPyeqtBuv4qvxucXn6WBirVbYtAL3moa
+	 3tlSMvyv484iee0gXOTDaaXFxD/wcNVM01wba1pcH62zBVSiS0DX5wtwc2SzxLz+q6
+	 MMkhYUxcLRsqsu3UIlK9OSu951Eo36aLBO574Xi+4v4x3L4yXUhd/0yO4YVETPtRY/
+	 lutw1O0cG+rj3axGzvL+W/LCenWBztZp0z9AS9ity4rR9yrSItP5awj2mmgQmiWAhT
+	 QYcrp6LtuGA/5PyzqQxqxUXbceNBO/uozs8O3DbKBxsdF+ZbrnyKtxTzv0wAKlymLz
+	 IUIBQPHWG2psg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 198D939E8A7F;
+	Wed, 23 Sep 2026 22:30:04 +0000 (UTC)
+Subject: Re: [GIT PULL] parisc architecture fixes for v7.3-rc5
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <arQ_8PdL1PPCVXh_@p100>
+References: <arQ_8PdL1PPCVXh_@p100>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <arQ_8PdL1PPCVXh_@p100>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux.git tags/parisc-for-7.3-rc5
+X-PR-Tracked-Commit-Id: 94b7e3a7e871ae27d4935c76959dfc61829f27f9
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 62f4c998b297cf233997a2b4cd6fc2d2df0319c9
+Message-Id: <179020260281.732882.12624055437465903504.pr-tracker-bot@kernel.org>
+Date: Wed, 23 Sep 2026 22:30:02 +0000
+To: Helge Deller <deller@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, linux-parisc@vger.kernel.org, John David Anglin <dave.anglin@bell.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <MN0PR19MB609153A4A590C66241B8A3CDACC62@MN0PR19MB6091.namprd19.prod.outlook.com>
 
-On Fri, Jul 17, 2026 at 11:44:03AM +0800, Liu Changjie wrote:
-> Add exact PHY ID matching and optional 125 MHz CLKOUT configuration
-> for the Maxio MAE0621A Gigabit Ethernet PHY. Preserve the existing
-> hardware configuration when the firmware property is absent.
-> 
-> Signed-off-by: Liu Changjie <liucj1228@outlook.com>
+The pull request you sent on Wed, 23 Sep 2026 23:09:04 +0200:
 
-Sorry, but i need to withdraw my Reviewed-by
+> git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux.git tags/parisc-for-7.3-rc5
 
-pw-bot: cr
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/62f4c998b297cf233997a2b4cd6fc2d2df0319c9
 
-Discussions about the Cubie A7A indicate this is an RGMII PHY. You
-need to respect the phydev->interface settings of
-PHY_INTERFACE_MODE_RGMII*. This driver cannot be merged until this is
-fixed.
+Thank you!
 
-     Andrew
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
