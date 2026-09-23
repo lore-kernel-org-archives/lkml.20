@@ -1,114 +1,162 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010032.outbound.protection.outlook.com [52.101.193.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC7B5304BD
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169689; cv=none; b=aIT5yO6TuWE+Kqn4pfU+taQKTM1JooVv2a0xXlKPPhse2lTSyvyGJEZ2sEmKGt6MxrQolua8yiSobz2xebTmAH66c9bvdQyEsC4UHGMPg9qz0B13mNnPkciQ3KVnv2svyvg2zJ32vlwL15BDpzuzs8m0mYKKYdKvmb0tygQh7JA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169689; c=relaxed/simple;
-	bh=ZscYP5Jl3CYCN/ODi1n/KGM8DsiFKAZ7pnQCj8a7dXE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ft4K4K9DCS7uN7CLtHiCe00uo9hTw7RGbvL2OjTLsiverMbM806Ad++T/pLJPyOZYGchOvRSkaAcG7MO/LUhRT66cqb7tJSwv/S43wWW8cVT5hHTRM+U/fLw53T4z2Q4xqaBKqV/iqhH08SFfXLvcWU+OMkjTBYE5VPYs/Z2PD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lqs.me; spf=pass smtp.mailfrom=lqs.me; dkim=pass (1024-bit key) header.d=lqs.me header.i=@lqs.me header.b=HJEKMGXd; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lqs.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lqs.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62815522EE0
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790169699; cv=fail; b=slYl/2spDy2ew3Py7bO9R2BEVCSbFPfYNaaCNeddNtT23Sy8rHzZ8iABlyiBB6H0gHYxqM3nkW3G9uM++kIWhDW1RZXkUQKV1s04Mb8hJ9szT8G6A8sp2FcQ35oW7nBvpxwdlEi9YzwN45fdMrp1wfGGiN5QQ22/wIV0+Ycfv5w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790169699; c=relaxed/simple;
+	bh=G21CvvhM2Q+3PaXUbt+m853FKVie79Z08NwQ4G22Fck=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qXczk6MlgP7x+JUjnmKvX2ZnVYEgpwmCd6LsCgfvZO/hopngCThpFfj3USnVyAQCxXe7Q5e5OkXmADDFU2LJNkwxga0Ck51fFWffYNSGNn4VUORAslXNE31fNMMuhgVKYqAdbFIWpKzc2XIiIDT2oIJGFTzXSvYAiJKbnKVA2fQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=MI0ag8Qp; arc=fail smtp.client-ip=52.101.193.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lqs.me header.i=@lqs.me header.b="HJEKMGXd"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4aa0f1a94so425803a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:21:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lqs.me; s=google; t=1790169671; x=1790774471; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jA9Ng4lpuxB+WAdNDY2KHfY2L2MitKxI8+kcR8oAY7U=;
-        b=HJEKMGXdCqAzHQOMMdPpBextvolzjgk0EvkuzYlXdCWZH14ptuB3hMv4p2D/XphTSi
-         Atts5wUtGMKxUUUowlc5YIq0zIqmnDXROeEGnKDzNJwwJNIc7HRNvvaFMzldalamni26
-         4QT+rgAe8mMLT+DMs54EM0b70WNKRdWpPCzIA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790169671; x=1790774471;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jA9Ng4lpuxB+WAdNDY2KHfY2L2MitKxI8+kcR8oAY7U=;
-        b=I+lUzacOisFlBQv3cCKD/0nSrAksKjpYkeHXNTQ/phyUGe9/PbKNFpqbE1QJDea6dT
-         gt24mkHeEpUBHVR/1aAUxppHqBMCJZetGyjX8OwfLVFmNbdfrS7KjjlGon3LufEnVzuR
-         jaCiTED9BGiZLckNEKug3bLVINAHOtxnEKfgQfpbeAfm3NUkzELnziat/iW0SgtBNo2d
-         Tqeuo2Brt7pnB1dX7UV9BDpplpbAbtPvRyyeAdkk/d60VD5K/FOuQTbGXxaasAh4pCuu
-         V8AVx04UCBGbvObtgyVgUCPfVpfOYRUIkO00uo3tMNIkHh3TDfQdw4FBJeUfv5Ho+0VW
-         5W2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwlhjj3nCwpwK+QavwINpz87YacNK/OnFdX6d4ix0cDC8USjsq4zvloUPZAx7TxHldlnaYVmey8p7kM0q0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgP+YRLLx0BmipO27pQTk2JWCF3alAQI3pt/wXeA+c7rCbbiP/
-	Kt1J7IKVNpE7ZizrUb3PslU7ogsp7oUrlG7QS8O2T0qdjA+DpMrZORYZj8l1QBJ54uo=
-X-Gm-Gg: AYBFou2N3SUC94hOKeJOX2G0248UsRpVdWltZDw2djcHA7HqtadB/LNqgUpv+oDIwBW
-	3OwU6sUn2/b/Mm1yW8UsdgnhLatAF306mx3g2z9Suhe5Vao8t1K64Xzbo1Z97c7NCkStWKyobxw
-	nYciJvdAVsBN0hjE0X8ekCO++2AUAZtypkG6h6srkZVZosuPqPVXo7qhu3PesVqJE52nV23xrUd
-	/7b7e7BroYhKen6N5OJ3QGeEC3F684U03iTUQCVOyCF+tpKC++OdiQRy4/qlJlqOZ0WxcaSYZxM
-	1BlP7uqFHXugkcUrOh71Pqk5ylOyT1S4WgNnHiJxWbW5ohb6eXaacsB3jJ9vMA4rx5nNV6pHpLv
-	GElefi+Dz/nDBZnV2dlJ8wnlbKQZ4k5MDYQOtFOFgv9PJR9FoBV9+3bWW7w6qLS9e6vOmFtwiCy
-	DFKlH3kmpAndTw1dX/RtPFy9gWyHnDs3UScBqTUnvNC+tElKA147kqxwgPhGCdaIwBi7GOJlRxK
-	525XvZylXmYDsmMOojtwFbVe5WeAp4e/1i0BAWykgr1TKG3
-X-Received: by 2002:a05:6a20:7290:b0:3c4:4272:b400 with SMTP id adf61e73a8af0-3ddf7e7f980mr2531871637.18.1790169669529;
-        Wed, 23 Sep 2026 06:21:09 -0700 (PDT)
-Received: from localhost (59x87x240x206.ap59.ftth.ucom.ne.jp. [59.87.240.206])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3ba829sm1081450a12.11.2026.09.23.06.21.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 06:21:08 -0700 (PDT)
-From: Qishuai Liu <lqs@lqs.me>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Qishuai Liu <lqs@lqs.me>
-Subject: [PATCH net] ipv6: fix prefix route expiry in modify_prefix_route()
-Date: Wed, 23 Sep 2026 13:20:48 +0000
-Message-ID: <20260923132048.3272878-1-lqs@lqs.me>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="MI0ag8Qp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aSwLBk4b3GUGh2y5Pk+tk9QkhV8/+51I4o1R8w/ymMS2sXT66ykcP4E7DWUOkElUW9DSlzNfbD5J1C0o4k5jgWDorZPVts8XZ5x0WTdkoWgIzuWGP3v3L0UJswBZFqHZQHizvxs6i4jK9/BqF29GJ0hSoArFvkNSHh4TpH4jKOR86YUJkdKisvhq7/GXumld+4dczzJzj/UENWL/AQYaQ8D/CnCt2Nc/9bsl1cq+bJURfHgSLUkI35wcWzFGjz6r63dhaRKcpR/cE7M3ZWecYe5UtuPCCWnLo+U6cJzt6C5kF8kfVfNITarh7zB1istMAco4euoBAHOydNENGQmnPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=13Gd5ybzxGXqAd22cWhLtvVXmY6XmrTLbrHolND17yo=;
+ b=clZjpMmF/PJncYrJejh6znPFdh/IfpovUIWCtN5GxEkyrxCYfFZQ3VIafWFMlRVwcnwPWEIFiYsww3Sp+plSZBv738dRxmfBeJ1lvRKt52gNwNbnQxJ2xgdxczMrnZgE6ikn8Hl2USwzz7GBZSrIYbsIJVRpzHeWcCIyD8Yg9uir2nyvbQgaiN98DldUMM6NX5de11o/cB0UfztcN3WYtRZbDK93CukiSkpXwU6BE9q/CyF++QqiiqfphQfVghSxP0SRukoaV+HTsYRwHc0ubouI9OCNo1XEcx7RIrmNLoCF3Q8qYEeQWHx0Lx9EijEbhHwrE3JsV9vGIseRpgJhrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=13Gd5ybzxGXqAd22cWhLtvVXmY6XmrTLbrHolND17yo=;
+ b=MI0ag8QpqI/binpYUQhh7TOI0LsRmRRGNCaF34VESEoMnKyM9BavZKmRJ4zF64iRbrmD3U1ckmeebbTB4YVJHmMUsLC5XISb3WG26rvI71hVpbMzMC1fUruEGjjHrb6PkVFSZ2mrreQVoH7PdxqDOCmaVOxlPA9jlPJrm2b30G0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
+ by CH3PR12MB8851.namprd12.prod.outlook.com (2603:10b6:610:180::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
+ 2026 13:21:24 +0000
+Received: from BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
+ ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 13:21:23 +0000
+Message-ID: <b8d1774c-8599-4777-87b4-261e6ce48bf1@amd.com>
+Date: Wed, 23 Sep 2026 08:21:21 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: RE: [PATCH v12 14/25] fs/resctrl: Rebuild free RMID list on each
+ mount
+To: "Luck, Tony" <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>
+Cc: Fenghua Yu <fenghuay@nvidia.com>,
+ "Chatre, Reinette" <reinette.chatre@intel.com>,
+ "Wieczor-Retman, Maciej" <maciej.wieczor-retman@intel.com>,
+ Peter Newman <peternewman@google.com>, James Morse <james.morse@arm.com>,
+ Drew Fustini <dfustini@baylibre.com>, Dave Martin <Dave.Martin@arm.com>,
+ "Chen, Yu C" <yu.c.chen@intel.com>, "Box, David E" <david.e.box@intel.com>,
+ "x86@kernel.org" <x86@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "patches@lists.linux.dev" <patches@lists.linux.dev>
+References: <20260916231320.14502-1-tony.luck@intel.com>
+ <20260916231320.14502-15-tony.luck@intel.com>
+ <8bd7c456-c11f-4c8e-9b95-6825a00194ad@amd.com>
+ <arLlcFYZiu7OcBFc@agluck-desk3>
+ <a6a2e7a1-9b07-40f1-971b-9e9866bee048@amd.com>
+ <SJ1PR11MB60836386E446E04EEF226029FC832@SJ1PR11MB6083.namprd11.prod.outlook.com>
+Content-Language: en-US
+From: "Moger, Babu" <bmoger@amd.com>
+In-Reply-To: <SJ1PR11MB60836386E446E04EEF226029FC832@SJ1PR11MB6083.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA1P222CA0114.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c5::21) To BL1PR12MB5320.namprd12.prod.outlook.com
+ (2603:10b6:208:314::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|CH3PR12MB8851:EE_
+X-MS-Office365-Filtering-Correlation-Id: d11491e2-93a4-4b46-dc32-08df19759083
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|18002099003|22082099003|11063799006|56012099006|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	bd0a0OSSbsphdjt1/GZ1DHdre1eXuaUN2ep1/c1mSu741pdEztUnr4Pi3yJ6i6GFWhNAhml4uZ9NLqSD2f+L0wy6vY8lFHo/agS4Hw1Ea27zYKH0B2NFjA//GRxUPnzbL7A6AoECfZIB/nfj1Uu2nTnn16dxyRRaNb+Pl6C7kQEcgEF4KZzMfdP/JqGLWA5lOmupS+GFaZZv5O3RXOrSsV8+zdXs2saSCJixLDtsfGQZEXmWhOky/q65cYu3svOfzEDtXHLc/KLDW9uWtRH411ANGIMtPMv8OyUYFf/MHkiVkFh8POW4qhcyqCUzJGTow9c5lfZPDTrTQA3/4+sTk/bs7kHO++WmxX3S85cPE0pu+/FMuTvTd2ZrerFHhTrPQ2EyIBOa08BRE87nvgHAUDfGsZTPPFMqziRTVB7up/K6jL45uuTojd2/wishEvXX9TnFljQLdBsl8T5k5ttfTeOThHSFF41MaQyD8v2yDl6ag2OcekxVbZz26FyV1qKOniwErf2e3Vv6CM+OibUCOkYUNCtQdqig6DG0oNrwNVUDTzz4lUa6/2d1+HduiJ8wRD7IE9E5x0znx6u9gMHBtTeWnC/chJ6vSMorw1sg66meuXo86G+gPM/hxh5+n5GAjXCoeEKBfLAtwU/dTFakpcRJNDJGb9ItCCoWm3vCg6E=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eUl5SVpQNTlWY3A1dG8zSEFidGpCMCtOQmMyZURQb0hBZUlSbzByWmYzZ3Ex?=
+ =?utf-8?B?aUFJbC9yeitIREVIU1E0WldNdzJSdkZKS3pZSXpFSzkrNWM2SThWenFhOFZO?=
+ =?utf-8?B?MjNmUWZ4cTQvdnF1cDM0L3lFYUlLdjUxOUU1blJ6dnkzRGlQTDJJam9yUmZ0?=
+ =?utf-8?B?czhlUUM2M29ZeXorcFlLd09DdjFocFRsY0JjY1BKaFlRUmRlUnlieUpUQ3l4?=
+ =?utf-8?B?RlNKZzROOXJIcnljWTRteHRld2liekszeEZ6b2cwVnFWVjB4UUtRcDJZd0lL?=
+ =?utf-8?B?cmVMenAzSGdvdHFUSEVvYzZlNy9zTXlXVkY5Y1VkdVNyZDByeDFqR0dDK0sw?=
+ =?utf-8?B?aWc5emZyZ1lBaDdJc3VFckk5MXFPNXg2d3Nqbm1PcFdyamdwUCtENDF4RjJw?=
+ =?utf-8?B?T2t6ZUx2eVJnWTgvRCtTdy8xL3BWcE0yeVZRUmhwc1pNSWtMaUFjWG1LVlRs?=
+ =?utf-8?B?STBrQVJNc1hnQVNybDBpSjJjNUpLNDJwaXZWaVdNUlNoOVZ3YmRyVHZRWlJQ?=
+ =?utf-8?B?bWlhNFh6MUROVGd1UHJ3ZjlrdThma1BpMjFlSFBrcUVrZmVLemVFdVQ0Tk1s?=
+ =?utf-8?B?VUdjRThZdUVDMktVMXk5NWMvekwxMVBMdDVqNXhLRjJ4MUZHOEo5OGJTRVNB?=
+ =?utf-8?B?bmIyRnN1dTVQS2paby9Lb0EwbHdFemtkY1d0a21jVzZzZmNxSmRPc3oyZ09T?=
+ =?utf-8?B?SGlNWFhVajVvVXFtN3hMRHp0VU4wMkhWUUh2ckY5RkRmcUlrOVF5Smc3S3py?=
+ =?utf-8?B?L2Z6NWNHbElENm1FamtRUEtBUStyWFJJRlczcjhLbHZrc0t4VDdDaGxMUDhK?=
+ =?utf-8?B?NnJhZGpFcFREa3VYQWdCVUJEMFlKVi9DSXdVYmQ2czB2VVJJSWxFQU0wVUZP?=
+ =?utf-8?B?M085YW1QS09HTGFqZW1ad2U2MU9DUGtpbnR6MGxIcjByWTg2V3g0ckpXNTRF?=
+ =?utf-8?B?d21STEdjNUxzdm9jRnc0WGJEeDEreG9udE4vcDV4d0pnOU1nZWQ2UEcrb1NF?=
+ =?utf-8?B?UkgrQ0N2MFBFcDcrNGgwYTZjaHprRHEwZzlBMGRvdWM4WkZ4dTJOS0lNQ1Z4?=
+ =?utf-8?B?THFzRngyZFFNczNkLzB1UzdYRk8zL3BHOGJXZUVybHFzeVZwcWwvckZlV1hJ?=
+ =?utf-8?B?aTBLaEtiOEF0ajdRU3B1RU9weHl2clVxemZEQjRYMUdsdE5pV0ZJSU5uVFlq?=
+ =?utf-8?B?eUVrTmhyZWsxL2ZlbVIySEIrYitWWCt4TUpyQ2hqY0s3ODNUaW9BYlJDQTE5?=
+ =?utf-8?B?OVpaOE1wQy9DQkJQajNKOWFBeHR2L2VZK2FrdmdJTllXWm9DNEw5bVRLcVNX?=
+ =?utf-8?B?RmlrQitSMHBJc2QzMzRPem14eU0raXBqdHAxM0FRV2ttYmJoV2ZRUW9yTFRT?=
+ =?utf-8?B?SE1QZUpCK2hjd0FqaDBxeWVPQTl1MTZQSzc0c1p1eU9Ed0hTZ0M2N3M2elZL?=
+ =?utf-8?B?OVJhbEUzYThrQXV4UmhCRk1SMjZlT2RBNmtJUkozaENlRU5xRldZcytxZ3Jj?=
+ =?utf-8?B?QXc5L2lhOWlrNUhyaDdJUks0c3N3Rlh3ZjBGYU9nbDVWV1NRQ0I1Z3F0Yks0?=
+ =?utf-8?B?QnBzZDBJYVN3aFkyUDNBSTVUUU9yOWdkQjd5UTZBaXEvYVFBNU9XTDBlaTB3?=
+ =?utf-8?B?OG1rZUZqQ0NHWXM3azJlTXpDYVZBdWxxM0s0dFBwdVNPY0xsWEhKU0FGUG94?=
+ =?utf-8?B?ZW1vbjhmTHdPcGFYUzNNdWZVaUMrMGNrYlVlV1BhSytlMFlQK0ZrRmNpSDhO?=
+ =?utf-8?B?UUthZGtVSVRIeWJ2T2hOb016dEFiSEJEU1I1SDNOSmF0SFYwYmdqdldMN2xq?=
+ =?utf-8?B?dEpTMmsxb2pURkxwNUNod0QvS21WdU9IMmUxdG5ManhLbVp3eWRkYXF2TS9a?=
+ =?utf-8?B?a29yOVoyS3dGckljQnpibGdtSWcrYWdYd1hZU2lVY0lOc0tYeklXWW0yUFpw?=
+ =?utf-8?B?WkdJZDlWYnlCN1daMjg2YnlCWWdrV0dVUTlHRzFUMWs4YlQxVHBKeEJPVXFk?=
+ =?utf-8?B?MysxbmRaTU5KS1J6UW1rckNMRk5HNXV1UkNEaUZkWWtHdjI2eGM0K2RhOEFj?=
+ =?utf-8?B?Z3ZqUko2V0dQeE5rbTFqTDlwNWlEK0pqczI0ekNMcXZtMHNqZ0NaR1dKcUJv?=
+ =?utf-8?B?SG9udUM1TDBRWFRHczF3OFZ1aUxWL0pEcTVIeGF4TnFpTCtGVU1iakYrT3Iv?=
+ =?utf-8?B?d2VQMDloQW1tK09OMTIra1QzRkh1STZ4SzJoZ3FJOXhCVTl3czZhYjlEV3cr?=
+ =?utf-8?B?VnozUG1UQmpzTVZhTU5CdlF4QVFCNzhXbkZ1MURxNDlRWGszdkFMcEtFQXR1?=
+ =?utf-8?Q?/TdXOLu0z7pY++28pg?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d11491e2-93a4-4b46-dc32-08df19759083
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 13:21:23.7663
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: getlZW41aDMLqUZpyH9thYr/qJDhnmHfRkZTa0qKF2hdOnMfkwhKzZZuwXIhC2iJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8851
 
-modify_prefix_route() is given the lifetime in clock_t relative to now,
-but fib6_set_expires() wants an absolute jiffies value. So when a
-permanent address is changed to a finite valid_lft, the prefix route
-ends up already expired and GC removes it.
 
-Steps to reproduce:
 
-  ip link add dummy9 type dummy
-  ip link set dummy9 up
-  ip -6 addr add 2001:db8:9::1/64 dev dummy9
-  ip -6 addr change 2001:db8:9::1/64 dev dummy9 valid_lft 3600 preferred_lft 3600
-  ip -6 route show dev dummy9    # expires is negative
+On 9/22/2026 6:07 PM, Luck, Tony wrote:
+>> Will something like this work?
+>>
+>> list_for_each_entry_safe(entry, tmp, &rmid_free_lru, list)
+>>                list_del(&entry->list);
+>> INIT_LIST_HEAD(&rmid_free_lru);
+> 
+> It would work .... but definitely going to provoke a "what?"
+> review comment. If you remove all entries from the list,
+> the INIT_LIST_HEAD() becomes pointless.
+> 
 
-Fixes: 8308f3ff1753 ("net/ipv6: Add support for specifying metric of connected routes")
-Signed-off-by: Qishuai Liu <lqs@lqs.me>
----
- net/ipv6/addrconf.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Yea. True. I see kernel calling list_del_init() all the places when 
+cleaning the list which does the same thing mostly(calls INIT_LIST_HEAD 
+on empty list).
 
-diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 9d89be7e0544..c90ee6dd7446 100644
---- a/net/ipv6/addrconf.c
-+++ b/net/ipv6/addrconf.c
-@@ -4874,7 +4874,7 @@ static int modify_prefix_route(struct net *net, struct inet6_ifaddr *ifp,
- 			fib6_clean_expires(f6i);
- 			fib6_may_remove_gc_list(net, f6i);
- 		} else {
--			fib6_set_expires(f6i, expires);
-+			fib6_set_expires(f6i, jiffies + clock_t_to_jiffies(expires));
- 			fib6_add_gc_list(f6i);
- 		}
- 
--- 
-2.43.0
-
+thanks
+Babu
