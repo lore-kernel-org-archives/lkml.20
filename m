@@ -1,260 +1,313 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DBE82E975E
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:30:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A3C1C695;
+	Wed, 23 Sep 2026 08:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152232; cv=none; b=jZbw3RJVTJF3QssxZ2//GxT/4IQed42DeuGVkOWYCD3ygqTVeZKbO2bPGw+0X/7uQazce7bYOuYw5V6dpNFOrNEdqCorCNZl5l8kqpRzpvf89EA2v5aztDPJTeLEClvHx19hEdWDe/RgLtas7iHFd5PTQm8aX5FZahW7TNhTDtw=
+	t=1790152254; cv=none; b=nfm8L34dxLIzXA2vAcc9ByBkF1x4JYHVznxheJ54k+iGXJjlL3Ba96YxYaZ0t9DJjnueChtMIKbTGkSxO3GFUeDvwCAAqDm8b7aM0Xb6gbzmk91/BFS7RvO637IS+z33O/eI3B27At/PHqX2ldOAPq9FlU3Ji3OhEAnlsNUy2ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152232; c=relaxed/simple;
-	bh=v2WXtyBLSB3YhyBRLWAjDMJC2CGbUi5Cb+4KfZ8nbrI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Qf29hpF1/LeTFR+V48ABbIQ97zjU6XSkacEE9d3Y1myDcEiHYxY0xZO+4ggmYYVULl/aGwr6WLXFOXR3NQl4PDhxqQ8eBNF07jlnQciKP9Xk9Lcvtj+5TwhmFs7tg11mtqvbonZixe+sHzFHCYKCpR8RGEnZwrjhf/WZ0bd0s1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nF7al3z+; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790152254; c=relaxed/simple;
+	bh=LxsQ78vFOWXe2UzDRIux5AkZ5pYhdvGqiEztouVzsWk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FNMfVG2NF5ou90Hk+ewm44U4kyaXz72Sz3As6mXPz/WhtpGLJPoSVFffFaccNiTFCX/9PtpNrrDqHDkYhtYhYKwg8+EB5zM4lVOnMQhMS9BcoJAgVeVW9ygPNP4M/QIyLARqhLD+mXjkv2wKI7j2bZ8s2x2GA0nlLp5WtksBOlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=KbgDl74z; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nF7al3z+"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B79AA1570;
-	Wed, 23 Sep 2026 01:30:25 -0700 (PDT)
-Received: from [10.0.138.135] (XHFQ2J9959-5.cambridge.arm.com [10.0.138.135])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7E3A93FA32;
-	Wed, 23 Sep 2026 01:30:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790152229; bh=v2WXtyBLSB3YhyBRLWAjDMJC2CGbUi5Cb+4KfZ8nbrI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=nF7al3z+DZBg+8dub1pTw8FtztOSgeR7ezbMdaeQ5LFQzTP/C37w01jTHe1I43jHD
-	 vNLmEuv2MdLvnuEzA7jG3n2GM2rMZ4v6LRUA4Ml8zBGUdRio/9nN0TS0jYrMzZ0iP7
-	 1t17BjusAYyUNC/TSoZrGmORAsTqHX9uScNIy1hk=
-Message-ID: <ae280191-4d9b-4971-b724-60233895fdce@arm.com>
-Date: Wed, 23 Sep 2026 09:30:26 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="KbgDl74z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=t8
+	d9Oa1HHLgScLhFX7FghI4hEpWrd7oGGjdeIlvI0bM=; b=KbgDl74zW09IbIfs4t
+	Alt5dsVbLnJbZEchl5O0LwG5ur8UEhJBB2Uyw0HZZ5I9LB0EZLVlodYS1T6/ss3r
+	dFGTI73euPEZ216GJBKPJ8AXrbsE0c1lkiORFs2dSLbt0qlKVaz++TgWkP+NJhHr
+	3Oly6+FCsdx1SHsi4KhRP+8q8=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDn13cTjrNqJr0uAQ--.12348S2;
+	Wed, 23 Sep 2026 16:30:12 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Chris Zhong <zyw@rock-chips.com>,
+	Zhang Qing <zhangqing@rock-chips.com>,
+	mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	quchaosheng000406@163.com
+Subject: [PATCH v5] dt-bindings: mfd: rockchip,rk805: Convert pinctrl to DT schema
+Date: Wed, 23 Sep 2026 16:30:01 +0800
+Message-ID: <20260923083001.606935-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 3/4] arm64/mm: Use p4dp_get() for P4D accesses
-To: Anshuman Khandual <anshuman.khandual@arm.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Linu Cherian <linu.cherian@arm.com>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, kasan-dev@googlegroups.com
-References: <20260922061638.3967467-1-anshuman.khandual@arm.com>
- <20260922061638.3967467-4-anshuman.khandual@arm.com>
-From: Ryan Roberts <ryan.roberts@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260922061638.3967467-4-anshuman.khandual@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDn13cTjrNqJr0uAQ--.12348S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuw47tr47ArWkZry7KFW5trb_yoWfCF4xpF
+	ZxAFs3Jrn2gF45uw48tw18Cw1fuFs7Ar47Gw1jgryvqan8uryjyr13Kw1rZFyDGFW0v34a
+	vF15Wr98JwnrC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUj2NZUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5BQwpWqzjhRfRQAA38
 
-On 22/09/2026 07:16, Anshuman Khandual wrote:
-> Replace READ_ONCE() with p4dp_get() for P4D accesses in preparation for
-> supporting both D64 and D128 translation table formats.
-> 
-> READ_ONCE() cannot currently be used for 128-bit page table entries on
-> arm64 because it does not provide the required 128-bit single-copy
-> atomicity, causing builds to fail for accesses wider than 64 bits.
-> 
-> Although LDP/STP provide the required atomicity when FEAT_LSE is
-> available (as required by FEAT_D128), extending READ_ONCE() to support
-> 128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
-> so doing so could encourage other 128-bit users that would either fail
-> to build in configurations without D128 support or, if D128 becomes a
-> runtime option, silently permit tearing on systems without the required
-> hardware support.
-> 
-> Instead, standardize P4D accesses on the existing page-table helpers.
-> These can be overridden on arm64 to provide 128-bit single-copy
-> atomicity when required. No functional change intended.
+pinctrl-rk805.txt describes the pinmux controller that is part of the
+Rockchip RK805 PMIC. The PMIC itself is already described by
+rockchip,rk805.yaml, so the pinmux part belongs there as well: the
+pinctrl node is a child of the PMIC node, not a separate device.
 
-I notice you still have uncoverted READ_ONCE(*p4dp) in:
+Fold the pinmux description into rockchip,rk805.yaml and drop the
+standalone text binding.
 
- - pud_offset_phys()
- - pud_offset()
+While doing so, add the missing child node schema. The rockchip,rk805.yaml
+schema ends with 'additionalProperties: false' but did not describe the pin
+configuration child nodes at all, so a valid pinmux node like the one shown
+in pinctrl-rk805.txt was rejected:
 
-Is that intentional? If so, perhaps we need a comment explain why it's not using
-the helper?
+    pmic@18 (rockchip,rk805): 'rk805-default-pins' does not match any of
+    the regexes: '^pinctrl-[0-9]+$'
 
-Thanks,
-Ryan
+The pin configuration nodes require 'pins'; without it a node that names
+no pin is accepted silently, while the text binding it replaces listed
+'pins' as required. The RK805 exposes two output-only GPIOs, so 'pins' is
+an enum of gpio0 and gpio1 and a typo such as "gpio2" is caught.
 
+The nodes may be direct children of the PMIC, or sit one level deeper
+inside a "pinmux" grouping node, which is the layout the example of the
+text binding used. pinctrl-bindings.txt allows the configuration nodes to
+be grandchildren of the pin controller, and the driver reaches both
+layouts: pinconf_generic_dt_node_to_map() parses the referenced node and
+then walks its children. The example shows both.
 
-> 
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: kasan-dev@googlegroups.com
-> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
-> ---
->  arch/arm64/mm/fault.c       |  2 +-
->  arch/arm64/mm/fixmap.c      |  2 +-
->  arch/arm64/mm/hugetlbpage.c |  2 +-
->  arch/arm64/mm/kasan_init.c  |  4 ++--
->  arch/arm64/mm/mmu.c         | 12 ++++++------
->  arch/arm64/mm/pageattr.c    |  2 +-
->  arch/arm64/mm/trans_pgd.c   |  4 ++--
->  7 files changed, 14 insertions(+), 14 deletions(-)
-> 
-> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-> index 435e2e14c070..a6afd8929a10 100644
-> --- a/arch/arm64/mm/fault.c
-> +++ b/arch/arm64/mm/fault.c
-> @@ -174,7 +174,7 @@ static void show_pte(unsigned long addr)
->  			break;
->  
->  		p4dp = p4d_offset_lockless(pgdp, pgd, addr);
-> -		p4d = READ_ONCE(*p4dp);
-> +		p4d = p4dp_get(p4dp);
->  		ptval_to_str(pxd_str, p4d_val(p4d));
->  		pr_cont(", p4d=%s", pxd_str);
->  		if (p4d_none(p4d) || p4d_bad(p4d))
-> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-> index d9a870836faf..2a0fe0b0f771 100644
-> --- a/arch/arm64/mm/fixmap.c
-> +++ b/arch/arm64/mm/fixmap.c
-> @@ -74,7 +74,7 @@ static void __init early_fixmap_init_pmd(pud_t *pudp, unsigned long addr,
->  static void __init early_fixmap_init_pud(p4d_t *p4dp, unsigned long addr,
->  					 unsigned long end)
->  {
-> -	p4d_t p4d = READ_ONCE(*p4dp);
-> +	p4d_t p4d = p4dp_get(p4dp);
->  	pud_t *pudp;
->  
->  	if (CONFIG_PGTABLE_LEVELS > 3 && !p4d_none(p4d) &&
-> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-> index c9ad5e75b073..5771bf49e1fe 100644
-> --- a/arch/arm64/mm/hugetlbpage.c
-> +++ b/arch/arm64/mm/hugetlbpage.c
-> @@ -288,7 +288,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
->  		return NULL;
->  
->  	p4dp = p4d_offset(pgdp, addr);
-> -	if (!p4d_present(READ_ONCE(*p4dp)))
-> +	if (!p4d_present(p4dp_get(p4dp)))
->  		return NULL;
->  
->  	pudp = pud_offset(p4dp, addr);
-> diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-> index aad29bcc7622..4dd8c1186471 100644
-> --- a/arch/arm64/mm/kasan_init.c
-> +++ b/arch/arm64/mm/kasan_init.c
-> @@ -89,7 +89,7 @@ static pmd_t *__init kasan_pmd_offset(pud_t *pudp, unsigned long addr, int node,
->  static pud_t *__init kasan_pud_offset(p4d_t *p4dp, unsigned long addr, int node,
->  				      bool early)
->  {
-> -	if (p4d_none(READ_ONCE(*p4dp))) {
-> +	if (p4d_none(p4dp_get(p4dp))) {
->  		phys_addr_t pud_phys = early ?
->  				__pa_symbol(kasan_early_shadow_pud)
->  					: kasan_alloc_zeroed_page(node);
-> @@ -162,7 +162,7 @@ static void __init kasan_p4d_populate(pgd_t *pgdp, unsigned long addr,
->  	do {
->  		next = p4d_addr_end(addr, end);
->  		kasan_pud_populate(p4dp, addr, next, node, early);
-> -	} while (p4dp++, addr = next, addr != end && p4d_none(READ_ONCE(*p4dp)));
-> +	} while (p4dp++, addr = next, addr != end && p4d_none(p4dp_get(p4dp)));
->  }
->  
->  static void __init kasan_pgd_populate(unsigned long addr, unsigned long end,
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index 22efaee79293..83709d987e7c 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -367,7 +367,7 @@ static int alloc_init_pud(p4d_t *p4dp, unsigned long addr, unsigned long end,
->  {
->  	int ret = 0;
->  	unsigned long next;
-> -	p4d_t p4d = READ_ONCE(*p4dp);
-> +	p4d_t p4d = p4dp_get(p4dp);
->  	pud_t *pudp;
->  
->  	if (p4d_none(p4d)) {
-> @@ -457,7 +457,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
->  	}
->  
->  	do {
-> -		p4d_t old_p4d = READ_ONCE(*p4dp);
-> +		p4d_t old_p4d = p4dp_get(p4dp);
->  
->  		next = p4d_addr_end(addr, end);
->  
-> @@ -467,7 +467,7 @@ static int alloc_init_p4d(pgd_t *pgdp, unsigned long addr, unsigned long end,
->  			goto out;
->  
->  		VM_WARN_ON_ONCE(p4d_val(old_p4d) != 0 &&
-> -				p4d_val(old_p4d) != READ_ONCE(p4d_val(*p4dp)));
-> +				p4d_val(old_p4d) != (p4d_val(p4dp_get(p4dp))));
->  
->  		phys += next - addr;
->  	} while (p4dp++, addr = next, addr != end);
-> @@ -1622,7 +1622,7 @@ static void unmap_hotplug_p4d_range(pgd_t *pgdp, unsigned long addr,
->  	do {
->  		next = p4d_addr_end(addr, end);
->  		p4dp = p4d_offset(pgdp, addr);
-> -		p4d = READ_ONCE(*p4dp);
-> +		p4d = p4dp_get(p4dp);
->  		if (p4d_none(p4d))
->  			continue;
->  
-> @@ -1788,7 +1788,7 @@ static void free_empty_p4d_table(pgd_t *pgdp, unsigned long addr,
->  	do {
->  		next = p4d_addr_end(addr, end);
->  		p4dp = p4d_offset(pgdp, addr);
-> -		p4d = READ_ONCE(*p4dp);
-> +		p4d = p4dp_get(p4dp);
->  		if (p4d_none(p4d))
->  			continue;
->  
-> @@ -1809,7 +1809,7 @@ static void free_empty_p4d_table(pgd_t *pgdp, unsigned long addr,
->  	 */
->  	p4dp = p4d_offset(pgdp, 0UL);
->  	for (i = 0; i < PTRS_PER_P4D; i++) {
-> -		if (!p4d_none(READ_ONCE(p4dp[i])))
-> +		if (!p4d_none(p4dp_get(p4dp + i)))
->  			return;
->  	}
->  
-> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-> index 07b2fa4de57f..826856ef64a8 100644
-> --- a/arch/arm64/mm/pageattr.c
-> +++ b/arch/arm64/mm/pageattr.c
-> @@ -403,7 +403,7 @@ bool kernel_page_present(struct page *page)
->  		return false;
->  
->  	p4dp = p4d_offset(pgdp, addr);
-> -	if (p4d_none(READ_ONCE(*p4dp)))
-> +	if (p4d_none(p4dp_get(p4dp)))
->  		return false;
->  
->  	pudp = pud_offset(p4dp, addr);
-> diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-> index d119119455f1..7afe2beca4ba 100644
-> --- a/arch/arm64/mm/trans_pgd.c
-> +++ b/arch/arm64/mm/trans_pgd.c
-> @@ -99,7 +99,7 @@ static int copy_pud(struct trans_pgd_info *info, p4d_t *dst_p4dp,
->  	unsigned long next;
->  	unsigned long addr = start;
->  
-> -	if (p4d_none(READ_ONCE(*dst_p4dp))) {
-> +	if (p4d_none(p4dp_get(dst_p4dp))) {
->  		dst_pudp = trans_alloc(info);
->  		if (!dst_pudp)
->  			return -ENOMEM;
-> @@ -145,7 +145,7 @@ static int copy_p4d(struct trans_pgd_info *info, pgd_t *dst_pgdp,
->  	src_p4dp = p4d_offset(src_pgdp, start);
->  	do {
->  		next = p4d_addr_end(addr, end);
-> -		if (p4d_none(READ_ONCE(*src_p4dp)))
-> +		if (p4d_none(p4dp_get(src_p4dp)))
->  			continue;
->  		if (copy_pud(info, dst_p4dp, src_p4dp, addr, next))
->  			return -ENOMEM;
+The example also regains the gpio-controller and #gpio-cells lines that the
+example of the text binding had.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260923034245.396417-1-quchaosheng000406@163.com?part=1
+Link: https://sashiko.dev/#/patchset/20260923062746.516666-1-quchaosheng000406@163.com?part=1
+Link: https://sashiko.dev/#/patchset/20260923074337.575122-1-quchaosheng000406@163.com?part=1
+Assisted-by: LLM
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+Changes in v5:
+- The child nodes of the "pinmux" node were matched with a patternProperties
+  entry guarded by "if: type: object". That has no "else", so a non-object
+  property of the grouping node, a misspelled "typo = <1>;" for instance,
+  matched the pattern and passed. Match them with additionalProperties
+  against the same definition instead. dtschema puts phandle and status into
+  the allowed properties there, so the grouping node keeps the phandle that
+  pinctrl-0 points at, and every other property has to be a pin
+  configuration node.
+
+Changes in v4:
+- Describe the pin configuration nodes both as direct children and inside a
+  "pinmux" grouping node. Only the flat form was described, so the layout
+  used by the example of the text binding this replaces was still rejected:
+
+    pmic@18 (rockchip,rk805): 'pinmux' does not match any of the regexes:
+      '-pins$', '^pinctrl-[0-9]+$'
+
+  The nodes are now one definition referenced from both places, and the
+  example shows the flat node and a "pinmux" node holding one.
+- Name the binding in the summary, as
+  Documentation/devicetree/bindings/submitting-patches.rst shows for a
+  conversion ("dt-bindings: iio: adc: adi,ad7476: Convert to DT schema").
+
+Changes in v3:
+- Capitalize the summary phrase. dt-bindings: mfd: titles are capitalized
+  after the subsystem prefix (Add 61, Convert 20 against convert 6).
+- Add gpio-controller and #gpio-cells to the example, which the text
+  binding's example had and the conversion dropped.
+- gpio-controller and #gpio-cells are deliberately *not* added to the
+  required list. rv1108-evb, rv1108-elgin-r1 and rk3328-a1 do not set
+  them, so requiring them breaks three in-tree boards:
+
+    rv1108-evb.dtb: pmic@18 (rockchip,rk805): 'gpio-controller' is a required property
+
+  No rk8xx PMIC schema requires the pair, and gpio.yaml already enforces
+  that they appear together ("'#gpio-cells' is a dependency of
+  'gpio-controller'"). The pinctrl driver calls devm_gpiochip_add_data()
+  unconditionally, so the property is not what makes the GPIO controller
+  work either.
+
+Changes in v2:
+- Require 'pins' in the pin configuration nodes. Without it a node that
+  names no pin passes validation, while the text binding listed 'pins'
+  as required.
+---
+ .../bindings/mfd/rockchip,rk805.yaml          | 60 +++++++++++++++++-
+ .../bindings/pinctrl/pinctrl-rk805.txt        | 63 -------------------
+ 2 files changed, 59 insertions(+), 64 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
+
+diff --git a/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml b/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
+index da2391530c16..ecd9846dffec 100644
+--- a/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
++++ b/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
+@@ -77,6 +77,16 @@ properties:
+     description:
+       The input supply for LDO_REG3.
+ 
++  # pinctrl-bindings.txt allows the pin configuration nodes to be grandchildren
++  # of the pin controller, and the text binding this replaces used that layout:
++  # a "pinmux" node holding the nodes that carry "pins". The driver reaches both
++  # layouts, because pinconf_generic_dt_node_to_map() parses the referenced node
++  # and then walks its children.
++  pinmux:
++    type: object
++    additionalProperties:
++      $ref: '#/$defs/rk805-pin-config'
++
+   regulators:
+     type: object
+     patternProperties:
+@@ -86,6 +96,38 @@ properties:
+         unevaluatedProperties: false
+     unevaluatedProperties: false
+ 
++$defs:
++  rk805-pin-config:
++    type: object
++    description:
++      The RK805 has two output-only GPIOs which can be muxed to the GPIO
++      function and driven low or high at boot.
++    additionalProperties: false
++
++    properties:
++      pins:
++        description:
++          List of GPIO pins to configure.
++        items:
++          enum: [gpio0, gpio1]
++        minItems: 1
++        maxItems: 2
++
++      function:
++        description:
++          The RK805 only supports the GPIO function.
++        enum: [gpio]
++
++      output-low: true
++      output-high: true
++
++    required:
++      - pins
++
++patternProperties:
++  '-pins$':
++    $ref: '#/$defs/rk805-pin-config'
++
+ allOf:
+   - if:
+       properties:
+@@ -125,9 +167,11 @@ examples:
+             interrupt-parent = <&gpio2>;
+             interrupts = <RK_PA6 IRQ_TYPE_LEVEL_LOW>;
+             pinctrl-names = "default";
+-            pinctrl-0 = <&pmic_int_l>;
++            pinctrl-0 = <&pmic_int_l>, <&rk805_default>, <&rk805_grouped>;
+             rockchip,system-power-controller;
+             wakeup-source;
++            gpio-controller;
++            #gpio-cells = <2>;
+             #clock-cells = <0>;
+ 
+             vcc1-supply = <&vcc_sys>;
+@@ -137,6 +181,20 @@ examples:
+             vcc5-supply = <&vcc_io>;
+             vcc6-supply = <&vcc_io>;
+ 
++            rk805_default: rk805-default-pins {
++                pins = "gpio0";
++                function = "gpio";
++                output-high;
++            };
++
++            rk805_grouped: pinmux {
++                gpio01 {
++                    pins = "gpio1";
++                    function = "gpio";
++                    output-low;
++                };
++            };
++
+             regulators {
+                 vdd_logic: DCDC_REG1 {
+                     regulator-name = "vdd_logic";
+diff --git a/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt b/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
+deleted file mode 100644
+index 6ad49e51c72e..000000000000
+--- a/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
++++ /dev/null
+@@ -1,63 +0,0 @@
+-Pincontrol driver for RK805 Power management IC.
+-
+-RK805 has 2 pins which can be configured as GPIO output only.
+-
+-Please refer file <devicetree/bindings/pinctrl/pinctrl-bindings.txt>
+-for details of the common pinctrl bindings used by client devices,
+-including the meaning of the phrase "pin configuration node".
+-
+-Optional Pinmux properties:
+---------------------------
+-Following properties are required if default setting of pins are required
+-at boot.
+-- pinctrl-names: A pinctrl state named per <pinctrl-bindings.txt>.
+-- pinctrl[0...n]: Properties to contain the phandle for pinctrl states per
+-		<pinctrl-bindings.txt>.
+-
+-The pin configurations are defined as child of the pinctrl states node. Each
+-sub-node have following properties:
+-
+-Required properties:
+-------------------
+-- #gpio-cells: Should be two. The first cell is the pin number and the
+-  second is the GPIO flags.
+-
+-- gpio-controller: Marks the device node as a GPIO controller.
+-
+-- pins: List of pins. Valid values of pins properties are: gpio0, gpio1.
+-
+-First 2 properties must be added in the RK805 PMIC node, documented in
+-Documentation/devicetree/bindings/mfd/rockchip,rk808.yaml
+-
+-Optional properties:
+--------------------
+-Following are optional properties defined as pinmux DT binding document
+-<pinctrl-bindings.txt>. Absence of properties will leave the configuration
+-on default.
+-	function,
+-	output-low,
+-	output-high.
+-
+-Valid values for function properties are: gpio.
+-
+-There are also not customised properties for any GPIO.
+-
+-Example:
+---------
+-rk805: rk805@18 {
+-	compatible = "rockchip,rk805";
+-	...
+-	gpio-controller;
+-	#gpio-cells = <2>;
+-
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pmic_int_l>, <&rk805_default>;
+-
+-	rk805_default: pinmux {
+-		gpio01 {
+-			pins = "gpio0", "gpio1";
+-			function = "gpio";
+-			output-high;
+-		};
+-	};
+-};
+-- 
+2.43.0
 
