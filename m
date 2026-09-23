@@ -1,557 +1,108 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4586566C42
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:30:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341A64F646A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 19:31:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790191809; cv=none; b=g+QAr+u6FVrSUByjZGFycdlYEOXM93m6CdB49fkW1VX8PRpD9vQOL03Dx/k0U5o/Gl4MjZtpQFTnGgooRc2s0IewyvDyH5295rScFS1p90Xsr23BBoE3vavTDZ5aiyrlLLD/7y6l8OM/JZlMKlz5m5PP7LtgI/TUaWLVttN3UMg=
+	t=1790191886; cv=none; b=jF6ncrSbVPrHiZnwIwemSZwtp7147sKFb9BaHcMxFzMBWAf/s2QMPeA0ml02AEhD/MXvTDA6i5qxlrBejfYFonQflenOtiAI2XhySq51RPI8bLKls6k3bfReuvlY46wdbNr0u5TbGkCJ/ic9bPZg7gfuxrfCq88aI7K99HOpc4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790191809; c=relaxed/simple;
-	bh=WCghleGXty4eEeYwlnoVMG4hmT4btZI3IUN9y3hpF68=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iLRiFEBRGrGG+hQegWjyT9Z26txR/lnq4qgAOAgQNHPTnNx5VRIWsXn6m0B5Qrrb51sWICXsts2h2EB4+sGc0Dz9y5WcES5GzLVrl8ZRw1Bb+tjKa2DTJr8mztxuU3doACPdmbY+qAF85fInTajt86zamP6jH/6M6eg/sG1d3vI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dfR8lc6/; arc=none smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790191886; c=relaxed/simple;
+	bh=0bAYyi3GCLdFiwrtiO9nW4HRWiGG3z+wSQsq4pbpR1E=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=Xa292iqdh0uobVIbIUsoZnG0JU6tQ6VRBCALrjCuBbEHtXZgEuYQB2vhqXDS+eCenhEtZaTUXvunYMLSQGSu0HRWDl4TNGBwyLFu8g9BgTeL+P8JSizFaA1hhrOE3FfgOAqv7Udji1vfSwRAvPV7nCHipKTfLl7P/gwc2Xp5HJg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=U15TE6Ty; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dfR8lc6/"
-Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0d37dc4so913702a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:30:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="U15TE6Ty"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso7554905e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:31:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790191806; x=1790796606; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/rt2uB6/AsMMcgokcDKFyREBgoi73mMVHQmkM9v16NY=;
-        b=dfR8lc6/SMWsrnOUB4AqVmodVlz6GeLoqQZeypiP58BB2A6d6MgdCTyimQpuzG0sRN
-         EwThTH0+AUhUV763K+53gwqOp8XSCcj9L2tQll8/afTFjvorQYjJzIXq5ldUdNYD5pA9
-         MaYL7MX17/h14malwOG9bp9wurUl75ZNSIqq4JACzmzCl2lj+akyuqb804GCMdoFds15
-         sz3yLPEgPBOExv5TdzykpwLIipt4H0p0sk3GfObeFOvVqr1qkpWdRS9bV+O0Um8wtRx2
-         ktJv7uIJxLc0CVI6Z0OIx8HP3r9DPzUR3LwwBRCUfKrAeQ1ij3g2EU0ZNCcio/E7uxN3
-         LNRg==
+        d=linaro.org; s=google; t=1790191882; x=1790796682; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0bAYyi3GCLdFiwrtiO9nW4HRWiGG3z+wSQsq4pbpR1E=;
+        b=U15TE6Tye4M5WDsw35fFP/Oh0EEjWzmo8Bk+GlPMfFg9Z8xiMQ0F6gAWp1AZyVpxxX
+         C++x70T0ka8JR9j9/NiHGp18izRt/Ko/M4xBPlD5jAfmNG7Fw6V2zIZNPGvKBlQjAfKs
+         c419SoCCExy/qT2RovQBNodJdoJ3uptq8NFTVlpprSFajPal3YLiJphbKZYQ7pObiXLW
+         WnhhEaz8lX5z0VU5oa8w1EE7tfXV8+VR1lB0NK0PJduXxmvpy9TxBFFChPp5S+sKZZge
+         6l3JSEm1p9Tr1gZOBxzCk8ar748lZeHXROF0FH5u6aL0Z+Ek0Pqv1ICZ/uQEZBqFQgUN
+         i/ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790191806; x=1790796606;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790191882; x=1790796682;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/rt2uB6/AsMMcgokcDKFyREBgoi73mMVHQmkM9v16NY=;
-        b=CM491a9W/GwrRDoLCgk+fqv2ZR3+PdMX+luOeG5zPzh7IMxt5rtLDyyZw7tn4QIAcm
-         MZVN0J1s2t4XAvRDpYa2ozrpegtBOdeGF1AZAOc591o4SzLtCWMD0xSBgtsAgx1onNCf
-         nu0j/TBGVnaee6v19nKkiKGSLHJXEBiZKSXG2OQW5E0/WGyOyKJAB0Q8ImqEQnk6tWJk
-         djnMY8MhBKISbilnaMNLG/e8mzQWByDJfXjOOM2SHR9DJ7M/WE0w1E+Ip8XaTwxVhe/r
-         Ll+3GqCCKzJIW/uFxIVE7xa7a05OT2pAc4HUVoOf1aoltuFRDhWJoEMt63aFUWHFA6WD
-         Iwiw==
-X-Forwarded-Encrypted: i=1; AKwUvBwDbrD1M82dCNzrbPFsr2cu5trk35sppiWTKUHYepZQSiA39+KqpwEh7+FJfOwwlGBc8qdPkUh1CY4HnRo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6r2Tmix+QPIO1jbQ11PEw6BOfMXmIV28Rpi2wlFB3xXyOfIuI
-	TQ5xjWYAjdTAIqcouGw9jB2kgCHxHKUccYtSyzJ7oW0C+gBvnReDoE36
-X-Gm-Gg: AYBFou2ntx8lcYssL/GBfjYLlQcxgb0/70HXlSfn6fWst5b0DMB8GDes9O5rOjT2jMo
-	mO8zf3juvWZPNLXDdXvUGt/LHgK2QiUOTs2IP6vI4c+YMtn6EsD6vAx8pKIr/5qPkH1OlY9dw8q
-	wgjFniN/gPtdZs2VTc6UiEQcY+Hws19JTdV7YWqdxyDaGNnkiPTsLRTlyJFSz1Ft08XI6UzBFvh
-	QddE//ueCgPaG6crV1KYxNgRVCM+y++YDuCuWC1OWaSL2SAS3KpkEumrjGtXTW95ITzhtWdRMv9
-	Ty/YiNEo1Imhxt9vql8ilNIgzL3SvxFy0dPh+4SVinaE99pqeWAmtKXyoNpG7LZDAR+9y0UH51b
-	0cphoKYfRhCd8f8xc42BcirZnWgQx3mRXUKOWAiiAAajuzKo3kPs0pyAfDWD9AfaYKJeykS4Y/H
-	QnPAc/KE/SobEuIrWVVu9a37V+4d948GzCZpkqrid8JIFF6UfGaRw4DIDFvA7z6sGzEAhp55Jr3
-	ionxnwrx67EHC1xSsO1
-X-Received: by 2002:a05:6808:50a3:b0:4c5:cd9d:c6de with SMTP id 5614622812f47-4d72c635ff8mr198770b6e.7.1790191806332;
-        Wed, 23 Sep 2026 12:30:06 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:42::])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4d5c3d75355sm3060141b6e.3.2026.09.23.12.30.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 12:30:04 -0700 (PDT)
-Date: Wed, 23 Sep 2026 12:29:57 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: netdev@vger.kernel.org, sgarzare@redhat.com, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 2/2] vsock/test: cover receive queue hints
-Message-ID: <arQotQ75qCVXkbH8@devvm29614.prn0.facebook.com>
-References: <20260923184008.153541-1-devnexen@gmail.com>
- <20260923184008.153541-3-devnexen@gmail.com>
+        bh=0bAYyi3GCLdFiwrtiO9nW4HRWiGG3z+wSQsq4pbpR1E=;
+        b=G/gINHZ/+uzIuBNqdTZnmJWR7454vDdlba/CVulfyyUahVDNRKSaHEW8T00/47qM+0
+         45g1RqgrNmChqSSAYity26JWIwissny2rWR88oxdze7qkNbcjXShoUFPkFVhN4ZXes4l
+         Ds5AwE6QqbfnB5Xps6TuOdPV+tgNrRpTpRHdHyJdTBAXxJsbwSPgF/aa5jdwIKZDzKh1
+         AbpCXQy+hC1SIdycxiHNftWCe0+MaON6sr/wbGKRZcC8G+mK60L/dpzWlSPe7sLdHGMX
+         478pTxyVczrkzAXIXDsP1e7YCUVUHEVLX9+hozRvxmk3M1ni4otMZ7Ml977XOCf82gK3
+         JrgQ==
+X-Forwarded-Encrypted: i=1; AKwUvByAlcjahhbsgs5ZxLGKk/BxSbk9x5HsNCtbSaB2ci60th6NViaBAHGxIiVENFM2pKClQTXCkaSaVyKn5LE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXau7C+CDkHsKQIoGs23CqY+D91B9X4Ru7iaWFtD9I8L9asTto
+	xe3n0NC1vSN116HeKIk2l+fqXqLCmuGE+Fgi88KwVMGvZhCijlGoXrjz+d92aC0BftQ=
+X-Gm-Gg: AYBFou1cvYfe4wotPruYUgJgP1lmSX2n9suC/nKwx2wzkycWpkX4WldP004jWAdxgK0
+	xLpS3unZ4PD+Uxj/N09eVsH0saAp0Gds+zFVtogQrM39m4N60S8cv7QB5H2LcanbjbOXUWDoKqj
+	T72Xvf4EdwvU6QXirczT5Lr/vrK6ghzaULwuaIle1XlMsQc8ab0OOj9t94Ukpr47yZGknsamdBl
+	8Y2br2v+or97zmFQPp3D+YrywF0LjGs479sivHMwHWMf+ul82TbOMBfmvI45I4Goh0/+Ynlzah4
+	U0oas4GtbEl+DEnZITFGXNeHeO1aefYqeO9dlItYxz4nO3EArBWZb7/RQ8EdPIqtAkWwlrErUAR
+	jws0yIH22RWVXs8/lt4UcjztdmTPaoKF+KAJRjFvdxD5wHYYEBNZfBeUgCffwR9dLWDYht0802e
+	/142gDgP8vFiNQaD5SKDoDUwwBZXEJPupMy/9IogVq7F9m0zusxxy2yEPPPVFLXZyaKyBPtLQlx
+	NMWclyscJkdfZ9bx767P8y2yGjznvRSZb5gLCGXyImH+67EsAt8Cc1q31UnohWyXPdDDg==
+X-Received: by 2002:a05:600c:3514:b0:49c:fa21:e749 with SMTP id 5b1f17b1804b1-49fe67043a0mr3428765e9.31.1790191882395;
+        Wed, 23 Sep 2026 12:31:22 -0700 (PDT)
+Received: from localhost ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe5cd42f2sm8534355e9.15.2026.09.23.12.31.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 12:31:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923184008.153541-3-devnexen@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 23 Sep 2026 20:31:20 +0100
+Message-Id: <DLMY24LXCIJ4.15ZGPGC6UR28R@linaro.org>
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>,
+ <lee@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+ <conor+dt@kernel.org>, <andersson@kernel.org>, <konradybcio@kernel.org>,
+ <sboyd@kernel.org>
+Cc: <dmitry.baryshkov@oss.qualcomm.com>, <alexey.klimov@linaro.org>,
+ <r.mereu@arduino.cc>, <srini@kernel.org>, <linux-arm-msm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 4/5] arm64: dts: arduino-imola: add support for sound
+X-Mailer: aerc 0.21.0
+References: <cover.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+ <ca8cfb43cdc08851db1283df2108e77b22fedc6e.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <ca8cfb43cdc08851db1283df2108e77b22fedc6e.1790114902.git.srinivas.kandagatla@oss.qualcomm.com>
 
-On Wed, Sep 23, 2026 at 07:40:08PM +0100, David Carlier wrote:
-> Add io_uring receive tests checking IORING_CQE_F_SOCK_NONEMPTY across a
-> partial receive, draining while the peer stays connected, EOF, a
-> nonblocking receive on an empty queue, a zero-length request, and a
-> multishot receive with provided buffers.
-> 
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
->  tools/testing/vsock/util.c             |   9 +
->  tools/testing/vsock/util.h             |   1 +
->  tools/testing/vsock/vsock_uring_test.c | 391 +++++++++++++++++++++++++
->  3 files changed, 401 insertions(+)
-> 
-> diff --git a/tools/testing/vsock/util.c b/tools/testing/vsock/util.c
-> index fe316b02a590..299a4e8ecb63 100644
-> --- a/tools/testing/vsock/util.c
-> +++ b/tools/testing/vsock/util.c
-> @@ -483,6 +483,15 @@ void recv_byte(int fd, int expected_ret, int flags)
->  	}
->  }
->  
-> +void expect_res(int res, int expected, const char *what)
-> +{
-> +	if (res != expected) {
-> +		fprintf(stderr, "%s: expected %d, got %d\n", what, expected,
-> +			res);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +}
-> +
->  /* Run test cases.  The program terminates if a failure occurs. */
->  void run_tests(const struct test_case *test_cases,
->  	       const struct test_opts *opts)
-> diff --git a/tools/testing/vsock/util.h b/tools/testing/vsock/util.h
-> index bf633cde82b0..9dabb547021e 100644
-> --- a/tools/testing/vsock/util.h
-> +++ b/tools/testing/vsock/util.h
-> @@ -94,6 +94,7 @@ void send_buf(int fd, const void *buf, size_t len, int flags,
->  void recv_buf(int fd, void *buf, size_t len, int flags, ssize_t expected_ret);
->  void send_byte(int fd, int expected_ret, int flags);
->  void recv_byte(int fd, int expected_ret, int flags);
-> +void expect_res(int res, int expected, const char *what);
->  void run_tests(const struct test_case *test_cases,
->  	       const struct test_opts *opts);
->  void list_tests(const struct test_case *test_cases);
-> diff --git a/tools/testing/vsock/vsock_uring_test.c b/tools/testing/vsock/vsock_uring_test.c
-> index 5c3078969659..c6cc51db7adc 100644
-> --- a/tools/testing/vsock/vsock_uring_test.c
-> +++ b/tools/testing/vsock/vsock_uring_test.c
-> @@ -13,7 +13,10 @@
->  #include <liburing.h>
->  #include <unistd.h>
->  #include <sys/mman.h>
-> +#include <sys/ioctl.h>
->  #include <linux/kernel.h>
-> +#include <linux/sockios.h>
-> +#include <errno.h>
->  #include <error.h>
->  
->  #include "util.h"
-> @@ -28,6 +31,10 @@
->  
->  #define VSOCK_TEST_DATA_MAX_IOV 3
->  
-> +#define HINT_CHUNK_SIZE		4096
-> +#define HINT_BUF_GROUP		1
-> +#define HINT_BUF_ENTRIES	4
-> +
->  struct vsock_io_uring_test {
->  	/* Number of valid elements in 'vecs'. */
->  	int vecs_cnt;
-> @@ -211,6 +218,365 @@ void test_stream_uring_msg_zc_client(const struct test_opts *opts)
->  		vsock_io_uring_client(opts, &test_data_array[i], true);
->  }
->  
-> +struct uring_inq_ctx {
-> +	struct io_uring ring;
-> +	int fd;
-> +};
-> +
-> +static void inq_server_init(struct uring_inq_ctx *ctx,
-> +			    const struct test_opts *opts)
-> +{
-> +	ctx->fd = vsock_stream_accept(VMADDR_CID_ANY, opts->peer_port, NULL);
-> +	if (ctx->fd < 0) {
-> +		perror("accept");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	if (io_uring_queue_init(RING_ENTRIES_NUM, &ctx->ring, 0))
-> +		error(1, errno, "io_uring_queue_init");
-> +}
-> +
-> +static void inq_server_exit(struct uring_inq_ctx *ctx)
-> +{
-> +	io_uring_queue_exit(&ctx->ring);
-> +	close(ctx->fd);
-> +}
-> +
-> +/* Submit a single receive and report both its result and its CQE flags. */
-> +static int inq_recv(struct uring_inq_ctx *ctx, void *buf, size_t len,
-> +		    int flags, unsigned int *cflags)
-> +{
-> +	struct io_uring_sqe *sqe;
-> +	struct io_uring_cqe *cqe;
-> +	int res;
-> +
-> +	sqe = io_uring_get_sqe(&ctx->ring);
-> +	io_uring_prep_recv(sqe, ctx->fd, buf, len, flags);
-> +
-> +	if (io_uring_submit(&ctx->ring) != 1)
-> +		error(1, errno, "io_uring_submit");
-> +
-> +	if (io_uring_wait_cqe(&ctx->ring, &cqe))
-> +		error(1, errno, "io_uring_wait_cqe");
-> +
-> +	res = cqe->res;
-> +	*cflags = cqe->flags;
-> +	io_uring_cqe_seen(&ctx->ring, cqe);
-> +
-> +	return res;
-> +}
-> +
-> +static void expect_uring_nonempty(unsigned int cflags, bool expected,
-> +				  const char *what)
-> +{
-> +	bool nonempty = !!(cflags & IORING_CQE_F_SOCK_NONEMPTY);
-> +
-> +	if (nonempty != expected) {
-> +		fprintf(stderr, "%s: expected SOCK_NONEMPTY %d, got %d\n",
-> +			what, expected, nonempty);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +}
-> +
-> +static void expect_uring_more(unsigned int cflags, bool expected,
-> +			      const char *what)
-> +{
-> +	bool more = !!(cflags & IORING_CQE_F_MORE);
-> +
-> +	if (more != expected) {
-> +		fprintf(stderr, "%s: expected F_MORE %d, got %d\n",
-> +			what, expected, more);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +}
-> +
-> +/* Wait until the whole payload is queued, so the hint is deterministic.
-> + * Return false if the test has to be skipped.
-> + */
-> +static bool inq_wait_queued(int fd, int len)
-> +{
-> +	if (!vsock_ioctl_int(fd, SIOCINQ, len)) {
-> +		fprintf(stderr, "Test skipped, SIOCINQ not supported.\n");
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
-> +static void inq_send_chunks(const struct test_opts *opts, int chunks)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	int fd, i;
-> +
-> +	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-> +	if (fd < 0) {
-> +		perror("connect");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	memset(buf, 0xa5, sizeof(buf));
-> +	for (i = 0; i < chunks; i++)
-> +		send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
-> +
-> +	control_writeln("SENT");
-> +	control_expectln("DONE");
-> +	close(fd);
-> +}
-> +
-> +static void test_stream_uring_inq_client(const struct test_opts *opts)
-> +{
-> +	inq_send_chunks(opts, 2);
-> +}
-> +
-> +static void test_stream_uring_inq_server(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	struct uring_inq_ctx ctx;
-> +	unsigned int cflags;
-> +	int res;
-> +
-> +	inq_server_init(&ctx, opts);
-> +
-> +	control_expectln("SENT");
-> +	if (!inq_wait_queued(ctx.fd, 2 * HINT_CHUNK_SIZE))
-> +		goto out;
-> +
-> +	/* Data remains after this receive, so the flag must be set. */
-> +	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
-> +	expect_res(res, HINT_CHUNK_SIZE, "partial receive");
-> +	expect_uring_nonempty(cflags, true, "partial receive");
-> +
-> +	/* This receive drains the queue while the peer stays connected. */
-> +	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
-> +	expect_res(res, HINT_CHUNK_SIZE, "draining receive");
-> +	expect_uring_nonempty(cflags, false, "draining receive");
-> +
-> +out:
-> +	control_writeln("DONE");
-> +	inq_server_exit(&ctx);
-> +}
-> +
-> +static void test_stream_uring_inq_eof_client(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	int fd;
-> +
-> +	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-> +	if (fd < 0) {
-> +		perror("connect");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	memset(buf, 0x5a, sizeof(buf));
-> +	send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
-> +	control_writeln("SENT");
-> +
-> +	control_expectln("DRAINED");
-> +	close(fd);
-> +	control_writeln("CLOSED");
-> +}
-> +
-> +static void test_stream_uring_inq_eof_server(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	struct uring_inq_ctx ctx;
-> +	unsigned int cflags;
-> +	int res;
-> +
-> +	inq_server_init(&ctx, opts);
-> +
-> +	control_expectln("SENT");
-> +	if (!inq_wait_queued(ctx.fd, HINT_CHUNK_SIZE)) {
-> +		control_writeln("DRAINED");
-> +		control_expectln("CLOSED");
-> +		goto out;
-> +	}
-> +
-> +	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
-> +	expect_res(res, HINT_CHUNK_SIZE, "drain before EOF");
-> +	expect_uring_nonempty(cflags, false, "drain before EOF");
-> +
-> +	control_writeln("DRAINED");
-> +	control_expectln("CLOSED");
-> +
-> +	/* The queue is empty and the peer is gone.  The hint stays non-zero
-> +	 * so that this receive happens and reports EOF, as TCP does after a
-> +	 * FIN.
-> +	 */
-> +	res = inq_recv(&ctx, buf, sizeof(buf), 0, &cflags);
-> +	expect_res(res, 0, "receive at EOF");
-> +	expect_uring_nonempty(cflags, true, "receive at EOF");
-> +
-> +out:
-> +	inq_server_exit(&ctx);
-> +}
-> +
-> +static void test_stream_uring_inq_empty_client(const struct test_opts *opts)
-> +{
-> +	int fd;
-> +
-> +	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-> +	if (fd < 0) {
-> +		perror("connect");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	control_writeln("READY");
-> +	control_expectln("DONE");
-> +	close(fd);
-> +}
-> +
-> +static void test_stream_uring_inq_empty_server(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	struct uring_inq_ctx ctx;
-> +	unsigned int cflags;
-> +	int res;
-> +
-> +	inq_server_init(&ctx, opts);
-> +
-> +	control_expectln("READY");
-> +
-> +	/* A failed receive must not leave a stale positive hint. */
-> +	res = inq_recv(&ctx, buf, sizeof(buf), MSG_DONTWAIT, &cflags);
-> +	expect_res(res, -EAGAIN, "empty nonblocking receive");
-> +	expect_uring_nonempty(cflags, false, "empty nonblocking receive");
-> +
-> +	control_writeln("DONE");
-> +	inq_server_exit(&ctx);
-> +}
-> +
-> +static void test_stream_uring_inq_zerolen_client(const struct test_opts *opts)
-> +{
-> +	inq_send_chunks(opts, 1);
-> +}
-> +
-> +static void test_stream_uring_inq_zerolen_server(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	struct uring_inq_ctx ctx;
-> +	unsigned int cflags;
-> +	int res;
-> +
-> +	inq_server_init(&ctx, opts);
-> +
-> +	control_expectln("SENT");
-> +	if (!inq_wait_queued(ctx.fd, HINT_CHUNK_SIZE))
-> +		goto out;
-> +
-> +	/* A zero-length request is not an error and still describes the
-> +	 * queue behind it.
-> +	 */
-> +	res = inq_recv(&ctx, buf, 0, 0, &cflags);
-> +	expect_res(res, 0, "zero-length receive");
-> +	expect_uring_nonempty(cflags, true, "zero-length receive");
-> +
-> +out:
-> +	control_writeln("DONE");
-> +	inq_server_exit(&ctx);
-> +}
-> +
-> +static void test_stream_uring_inq_mshot_client(const struct test_opts *opts)
-> +{
-> +	char buf[HINT_CHUNK_SIZE];
-> +	int fd, i;
-> +
-> +	fd = vsock_stream_connect(opts->peer_cid, opts->peer_port);
-> +	if (fd < 0) {
-> +		perror("connect");
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	memset(buf, 0x3c, sizeof(buf));
-> +	for (i = 0; i < 2; i++)
-> +		send_buf(fd, buf, sizeof(buf), 0, sizeof(buf));
-> +	control_writeln("SENT");
-> +
-> +	control_expectln("DRAINED");
-> +	close(fd);
-> +	control_writeln("CLOSED");
-> +
-> +	control_expectln("DONE");
-> +}
-> +
-> +static void test_stream_uring_inq_mshot_server(const struct test_opts *opts)
-> +{
-> +	static char bufs[HINT_BUF_ENTRIES][HINT_CHUNK_SIZE];
-> +	struct io_uring_buf_ring *br;
-> +	struct uring_inq_ctx ctx;
-> +	struct io_uring_sqe *sqe;
-> +	struct io_uring_cqe *cqe;
-> +	int i, ret;
-> +
-> +	inq_server_init(&ctx, opts);
-> +
-> +	br = io_uring_setup_buf_ring(&ctx.ring, HINT_BUF_ENTRIES,
-> +				     HINT_BUF_GROUP, 0, &ret);
-> +	if (!br) {
-> +		fprintf(stderr, "io_uring_setup_buf_ring: %d\n", ret);
-> +		exit(EXIT_FAILURE);
-> +	}
-> +
-> +	for (i = 0; i < HINT_BUF_ENTRIES; i++)
-> +		io_uring_buf_ring_add(br, bufs[i], HINT_CHUNK_SIZE, i,
-> +				      io_uring_buf_ring_mask(HINT_BUF_ENTRIES),
-> +				      i);
-> +	io_uring_buf_ring_advance(br, HINT_BUF_ENTRIES);
-> +
-> +	control_expectln("SENT");
-> +	if (!inq_wait_queued(ctx.fd, 2 * HINT_CHUNK_SIZE)) {
-> +		control_writeln("DRAINED");
-> +		control_expectln("CLOSED");
-> +		goto out;
-> +	}
-> +
-> +	/* Arm only once both chunks are queued, so every completion knows
-> +	 * what is left behind it.
-> +	 */
-> +	sqe = io_uring_get_sqe(&ctx.ring);
-> +	io_uring_prep_recv_multishot(sqe, ctx.fd, NULL, 0, 0);
-> +	sqe->flags |= IOSQE_BUFFER_SELECT;
-> +	sqe->buf_group = HINT_BUF_GROUP;
-> +
-> +	if (io_uring_submit(&ctx.ring) != 1)
-> +		error(1, errno, "io_uring_submit");
-> +
-> +	/* A buffer holds one chunk, so the other one is still queued. */
-> +	if (io_uring_wait_cqe(&ctx.ring, &cqe))
-> +		error(1, errno, "io_uring_wait_cqe");
-> +
-> +	expect_res(cqe->res, HINT_CHUNK_SIZE, "multishot first chunk");
-> +	expect_uring_nonempty(cqe->flags, true, "multishot first chunk");
-> +	expect_uring_more(cqe->flags, true, "multishot first chunk");
-> +	io_uring_cqe_seen(&ctx.ring, cqe);
-> +
-> +	/* This completion drains the queue and keeps the request armed. */
-> +	if (io_uring_wait_cqe(&ctx.ring, &cqe))
-> +		error(1, errno, "io_uring_wait_cqe");
-> +
-> +	expect_res(cqe->res, HINT_CHUNK_SIZE, "multishot second chunk");
-> +	expect_uring_nonempty(cqe->flags, false, "multishot second chunk");
-> +	expect_uring_more(cqe->flags, true, "multishot second chunk");
-> +	io_uring_cqe_seen(&ctx.ring, cqe);
-> +
-> +	control_writeln("DRAINED");
-> +	control_expectln("CLOSED");
-> +
-> +	/* EOF ends multishot regardless of the hint. */
-> +	if (io_uring_wait_cqe(&ctx.ring, &cqe))
-> +		error(1, errno, "io_uring_wait_cqe");
-> +
-> +	expect_res(cqe->res, 0, "multishot EOF");
-> +	expect_uring_more(cqe->flags, false, "multishot EOF");
-> +	io_uring_cqe_seen(&ctx.ring, cqe);
-> +
-> +out:
-> +	control_writeln("DONE");
-> +	io_uring_free_buf_ring(&ctx.ring, br, HINT_BUF_ENTRIES,
-> +			       HINT_BUF_GROUP);
-> +	inq_server_exit(&ctx);
-> +}
-> +
->  static struct test_case test_cases[] = {
->  	{
->  		.name = "SOCK_STREAM io_uring test",
-> @@ -222,6 +588,31 @@ static struct test_case test_cases[] = {
->  		.run_server = test_stream_uring_msg_zc_server,
->  		.run_client = test_stream_uring_msg_zc_client,
->  	},
-> +	{
-> +		.name = "SOCK_STREAM io_uring receive queue hint",
-> +		.run_server = test_stream_uring_inq_server,
-> +		.run_client = test_stream_uring_inq_client,
-> +	},
-> +	{
-> +		.name = "SOCK_STREAM io_uring receive hint at EOF",
-> +		.run_server = test_stream_uring_inq_eof_server,
-> +		.run_client = test_stream_uring_inq_eof_client,
-> +	},
-> +	{
-> +		.name = "SOCK_STREAM io_uring receive hint on empty queue",
-> +		.run_server = test_stream_uring_inq_empty_server,
-> +		.run_client = test_stream_uring_inq_empty_client,
-> +	},
-> +	{
-> +		.name = "SOCK_STREAM io_uring receive hint zero-length",
-> +		.run_server = test_stream_uring_inq_zerolen_server,
-> +		.run_client = test_stream_uring_inq_zerolen_client,
-> +	},
-> +	{
-> +		.name = "SOCK_STREAM io_uring multishot receive hint",
-> +		.run_server = test_stream_uring_inq_mshot_server,
-> +		.run_client = test_stream_uring_inq_mshot_client,
-> +	},
->  	{},
->  };
->  
-> -- 
-> 2.55.0
-> 
+On Tue Sep 22, 2026 at 11:11 PM BST, Srinivas Kandagatla wrote:
+> Add support for sound on Arduino UNO Q board, which includes
+> - Headset playback and record.
+> - Lineout
 
-Reviewed-by: Bobby Eshleman <bobbyeshleman@meta.com>
+And "Ear Out Playback" as well?
+
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+
+It would be nice to see some Tested-by tags.
+I can't it test because I think I don't have this board and no time if
+some fancy connectors are required from scratch.
+
+Anyhow, by just looking at this I don't see any issues, tx-port-mapping
+also seems to be correct correct, so:
+
+Reviewed-by: Alexey Klimov <alexey.klimov@linaro.org>
+
+[..]
+
+Best regards,
+Alexey
