@@ -1,233 +1,220 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0CB50B429
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:43:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1157F535FC3
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174635; cv=none; b=QZwchRh1BJ/icLVBj3Uthi7dyNIW1awocgXkskUZtWkOb07OYDTRnUPxCRzFx4M2Lv56E8oDaumRCIFuJRfeCGygRIax/LlYyHv6k4PnWOezXH1lKIar45kGf9xTFI2hsJnDCAkn1l3rUC231crhbtrzcKoJwVcKP41ZiyBWI50=
+	t=1790174653; cv=none; b=QQZKfJLhLZlby08F6yqN5Hqqg5w5u4VDg+McAl9vL3AN1tBxnt0mh833jadLTgDExXo2sa/+24MnmeUlEE2G+5H0vIw5KT/eQC/cdVcQfqaTFuimrKE3mfconV5q6OGEHxZ9FYewES8T6+EvPV1y3bOWigSySeT7dYGJMIP2/ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174635; c=relaxed/simple;
-	bh=OJefmdtcgSgaSMrhXgucaralmXFSNo9afs27yRRbMq4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GRvN1S+OEuZd3FUB/5n1KMC9O9vkGk8OzdSssyNlEMskgQBg4czn/hwk1X7C5lR4yYP83mokZhdqHiJ9YdoxHpLdz8WsKbihmx1IvPrVlBy8BA6icdPO5rkSd7Gw2ZITXnBgwM51oOYYPMe/5KfQziFfk4kBsk+GSvnK/rRorB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XKF+VafY; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790174653; c=relaxed/simple;
+	bh=T0AABt33CYW34VQbpJtUXdCWr7yi6lEHm/bFAU4TMOE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=c3SNDVqkURPKBnAHhjl+VX58O5NPXfc5O0vH6GsB8bNuu79H7HenmpobSbkgAgJFS8K6OIPg6h1V64S/vdNYbbkXH3zm9dCQpc78iKzusE8gMfR+UBQFDPaA+mTUj+q2v2Sk/3bwIjsyzzlff2K5wEUhPZD639X/EElC5+g73v4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=igjeEXj0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Yd73gZlT; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XKF+VafY"
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c7bd056863so459866e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:43:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="igjeEXj0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Yd73gZlT"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NDKs3j2056327
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:44:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7oNpOO3lBHD3Lw06XNfDeyesoHD/ioJv1keycQQjI5M=; b=igjeEXj0rpJeR6bO
+	Z/+mUdpOYJ2wtX9mdo1x+FasmFa7THP9mj9mHXLrRoXMj8uphYIYu4R22RmW8BdD
+	Xdeosr+ppFZe5pfcWd5jo7lowwD5p2RK3w6Nd23FC3QrA2u3TyTgpyi6j8L5qUFd
+	TXKQ+ZXAlTJT8jGI0NRqhoggQynOQAH84Eatf3uydRh4pjQtB1G/73Wysx6De5e/
+	16SDr7n9Jwk/feBp24WJIF9pJLfziAdUNl419GVV0z4lzNpaN0VqYB18xEF26Q1v
+	PF5WBtYjzB/HlpX3p0C0SUjONDkKHf2szp2x+LNp53DJxBHRFSPxx/xAWRJ9JLrV
+	Rv6usg==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gvfjv0cg7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:44:09 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-78a58df134aso290747137.2
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:44:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790174631; x=1790779431; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TVDr+039wsXoI+SgZ5r50ghgsnSdnZYFac1ieItKnsk=;
-        b=XKF+VafYhyEqUth+S5j1z+3I40paLlJigCvuHqpi/Kkk+4sMKW2/XbQOri2lEgEeMU
-         dyaCZTqG2Rylnube0FZ+xeri2+cGU6yS3M5KH5vftFAwMWmiFHCzivm6uLTWoVBWq5Dg
-         bMOWtssOob/2LlZsUnY9iIjBhT3nWpLL+p0ZcQkAsYZmFlVihkpXlumNm034DRgtlEmE
-         FHwTACHQqcREkEmnzY1QCL4UmmGryT64Fkbufhmxc9ya032eIUlxs8Wx3Q9hIzQrgRcr
-         j+tXDisoDpjcLBLeD8i3dMxqX51D8Tg1CV1joKuGjt3SGdIoJ+PGWkbBSCJQTGZrWNrh
-         p6AA==
+        d=oss.qualcomm.com; s=google; t=1790174648; x=1790779448; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7oNpOO3lBHD3Lw06XNfDeyesoHD/ioJv1keycQQjI5M=;
+        b=Yd73gZlTcH2chtnaTiwJHBSQbanrdekSTUFu+pZI986tgIngQUHVUWqa2ugoGIWpx8
+         vUasFxvc6kkbTznWwxkgNQvidHm3VhjXmi+eXHwqnutyXOoL8oJiBtkrxIb+af1Hbjdx
+         STIqRSCo9p08HefO+B8+b6CpOXJGUABb+njxnVaDULqW72e9U+c9zT42wxlSxQahL/EZ
+         vAfC6UMGeUYp49KkW2fdFaX0bAufAuJ00uz7dR9yShLHPa7rRrI0x8fQjRsKHR2syUrT
+         +e/QSpKhd2OcbcRMy9XLafMcHK7sl2GYt78TJCflJ4n65VOColNuF3BB/cFhmS61dczW
+         4H/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790174631; x=1790779431;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TVDr+039wsXoI+SgZ5r50ghgsnSdnZYFac1ieItKnsk=;
-        b=F3lSq1KyN+wpcran4pZ4VUCmsfokkgORK9v3/2fSa34CQnKykNu6LlD3cMajflz4iS
-         uG1I90dAI+g3oq3Ef7tEbfSCaRNDNzZICakoCaeU8o+gqqPLrhdPqFurdQhFMtbs/Yqc
-         sFwpvYkIoWD/yOgcsqxkAtO9kAIniU29lMy5ICXe3devqt7vD/eAb2BInc2C42wq99lO
-         QzspWM5ptxgQlfzSuMlbX0CsJ72e9jmnJ7fKZRjL7cVgMk9RVLWIHGV9xAt9jS2ZMJXZ
-         00aQAWhE9xhNZkh9bYOojTNM3Hq5WLVPWa9cdpAQ2TehVm3mIPIsrRYp6LHbHm9JMHHW
-         X2IA==
-X-Forwarded-Encrypted: i=1; AKwUvBzWzdQMP4YPLzBmaPb3HRdZ6q51hvmMkFYxDM3ILqVFIJTj1CNk+QA1RLLfGXXzLyphr5Zcf1kraTxHSXs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBts1xoTAOxowmn/eiy0Ev2DhMIZ/WZaKCC0mqMLEQIxJHcmqt
-	2VmFuVEk0tu59nLitURIvkXRK+v26RWo34mI4s/j1jc1ic+HZG4oWrF9IXaERuz7
-X-Gm-Gg: AYBFou2wmA1X+bypvstMB6PXAdAjTRZf3Hd2wocMJ6w3K/D8t9IW4GkB6kWPu838MIo
-	YTBCKqyPCgYeX7JKNOrXHXmUgG8N5bmU56rOfL2LzRVy/8nqVar7yT4dkFmoOuSD8s140mXASJ5
-	gQxaHslBPwFnsNZ8/pkZ0C3NaIyHH3JPVanjBDTuQuWMIU2k3un9GYq6lGzjArZgNljgzJyLkj+
-	ol4SpMhiqPpmx2hKgapXy0CdkIP5URfQk3hmApsKqidR4CFdFaHKQ45n3KpuABc1iStia+3ODEK
-	AgNE9++9SZZQdeBiePZK2CktvkMfDo+dCC64Orai9Ry1qxDY/gJ1tKWoiAz/p0+xdgJvHaXNFgd
-	CF6mbFNX9lKYSDKBDTNfYqL3sVIwVOCPw0hZE2AhAWDZG08J1wbrwNiPMOF3/ZhejcNK1Xwk9Bl
-	/bOh3PYje0gjcsxCMoRzpxELeDsSvCPu8YUEKK324mZGoj25LJUpi9J5KPrF5Sa+TriD298qsXc
-	oSbC8cFwA==
-X-Received: by 2002:a05:6122:e266:b0:5bf:889f:e7da with SMTP id 71dfb90a1353d-5c9f15506c0mr2689666e0c.2.1790174630806;
-        Wed, 23 Sep 2026 07:43:50 -0700 (PDT)
-Received: from archsung ([139.82.178.10])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9f04fb621sm3566169e0c.9.2026.09.23.07.43.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:43:50 -0700 (PDT)
-From: Felipe Calliari <calliarifelipe@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Tomas Moro <tmorolias@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	Felipe Calliari <calliarifelipe@gmail.com>
-Subject: [PATCH v2 3/3] media: ov02c10: Accept a 26 MHz external clock
-Date: Wed, 23 Sep 2026 11:42:57 -0300
-Message-ID: <20260923144257.119076-4-calliarifelipe@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260923144257.119076-1-calliarifelipe@gmail.com>
-References: <20260905030732.39196-1-calliarifelipe@gmail.com>
- <20260923144257.119076-1-calliarifelipe@gmail.com>
+        d=1e100.net; s=20260707; t=1790174648; x=1790779448;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7oNpOO3lBHD3Lw06XNfDeyesoHD/ioJv1keycQQjI5M=;
+        b=Hcikc1oZ/ncr8TB0UHVavRO3BQflQse2NpezzgEaLd1LL2j1lYMG42rwgADrR6ZXXS
+         Z5EHUrVroFB8t7Ejf8tT1vbPgN9XowiPSDm0YG4Zc35S6bHkLLWWSWUHsTpHrEngnlzK
+         zmx6+zQdLysVik554vZFO+K9iIbAMAf7TbMWEKQjR17b5EggSnV1y8OfXLTH3XCl9hy0
+         lt3pgOyCPcdLCb9pU3VnURHFvSHrg+N3qqJO+PWukvNrlwtZy7YOF1CDO1/VoNA2klUw
+         gJqVIzaAZntciao4SvXN6GtPLLrILTR8OI9OAoifH/zvIF+nykKMJLGbdP87yPTC+nTx
+         RiBg==
+X-Forwarded-Encrypted: i=1; AKwUvBzzHBXXfTadEPHtRvUgF+jqAxa6wh0tOaYVMyLNGpwGZBnHNZm39Wr1n3gg/wXT/gN2pjwOeOGb2wt1KcQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+nmIuqxZbsDdJMNtC7oiX7F4iMefHTNJ/Fj+1mYc5jQmHXZlQ
+	/sGfqklVewfgd2FEsuvK9Wto+zokwk+KJHwVqNENUNheWodS4qCcIonAFUpgPpmF0QulQGFd4ro
+	0A7ybD5IH5YpFrFRwLdcS8wXSaffb0Zd2zULGbnxset7VcSKvrx5e8ZBm8oQF9gjJ5T8=
+X-Gm-Gg: AYBFou0p1G3NcrOcosxzghDY7qzU+b1szHKkPH1UZk+N4oDBDYdSLh7zL7UnFx8MniV
+	HanXTK51JjIiAciE1+CcUmPPNkfB1TqE4N57otEuyNNrky7UOIxQ/w4RxQxHlZS7OaWEcr1GaEQ
+	2j4RoQ0xIDRHQ1BmHIk5oODD2XNofSjkYLXCeYAA+zl6NPMrwcs69SdzVwu5p2tbnG5VvtnHHmN
+	4CGhJQYYepJoOmDOIxNcuaSUkGhfzydVJCxurnEOK4qA3KgVEAykwvIjDRr1Z0/yjXFtzXPyXOo
+	UdnUFn9gJHjjWQumCK8bAL7+WjvaFqbj5/MGKOTM9b0Mr/Khkup3+JMJZhOA2aU4w95pIJt5BJ5
+	H1XGZsftOJu1QOxWUswU8bH89jyky6hoSyl+Um/B2gm0urDA4WyY2BtSf/cNUTw==
+X-Received: by 2002:a05:6102:50a5:b0:7a1:f7d2:e80f with SMTP id ada2fe7eead31-7ac1ceb5c51mr2175730137.23.1790174648079;
+        Wed, 23 Sep 2026 07:44:08 -0700 (PDT)
+X-Received: by 2002:a05:6102:50a5:b0:7a1:f7d2:e80f with SMTP id ada2fe7eead31-7ac1ceb5c51mr2175702137.23.1790174647570;
+        Wed, 23 Sep 2026 07:44:07 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:a913:ba43:96d7:743c? ([2a05:6e02:1041:c10:a913:ba43:96d7:743c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868486461sm7314339f8f.8.2026.09.23.07.44.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 07:44:06 -0700 (PDT)
+Message-ID: <e39fbe69-e539-4268-b9f2-4f25a2d51ce3@oss.qualcomm.com>
+Date: Wed, 23 Sep 2026 16:44:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] Add Qualcomm SPEL powercap driver
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+References: <20260702-qcom_spel_driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <20260702-qcom_spel_driver_upstream-v3-0-434d50f0c5b0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA1OCBTYWx0ZWRfXxu6M6clqB2n6
+ 3MHM/Px/XQLQg6Svn1x9jy3fHrUBp/Sk8jRptUKqAG91jML/j9s7v7Z5iVBT62hspyAFWUYx53x
+ XHE15k5DRjHfkLx/Z6J+kKGmP2nwxmXpsU2UVVFMxGBFrGga8gfUZYupHSzzn5dLaaE+NT6OUGx
+ 68c6CDeLUKBTuMTqc6NgKOJtSUR/8ZgTP7A4CabyYXurCFn0WVv+WWvY5R+spHSSqzobsvlbT4o
+ Y/bkAQh8HKk7BKJKUeHdUNHPUv35Gq72vCMB4DsEVB0CUDYLE0aiI5CmzGzEKegfy25tabWkIjt
+ NvmPr+4ddEYF8Emvn+QPVBmMm/OTbCFX+q/OikVrSiQqqAQd/WTWI0Xvm8ZCzgdrCsSAs/Qy37k
+ 9P9sGWX8BzRbanrl9Tkxm5rD8KsgisKYhxQPS8lTRqx+lpFTY+Yz/vY2edKUedaZeD1fzPkTLWp
+ xi27X0v/KMxsku4Wb4Q==
+X-Authority-Analysis: v=2.4 cv=aIxlOr9m c=1 sm=1 tr=0 ts=6ab3e5b9 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=6G08FbKcmm3nPJiwURwA:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-GUID: M0sip3C-XiCRPMsEu_HLGz1dXY9sOBPf
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA1OCBTYWx0ZWRfX2k+YXbH9CnHq
+ bpKNvvleXSimWnNJsHPhG6B6OT+5+7yFOabCcEw+gi7J3D/TENAE58Ye64EQ23xwimMvMla0rss
+ MOkjdI92dm9eD+nvb4jtP//EJPg4CsU=
+X-Proofpoint-ORIG-GUID: M0sip3C-XiCRPMsEu_HLGz1dXY9sOBPf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 priorityscore=1501 spamscore=0 phishscore=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230058
 
-Several Meteor Lake / Lunar Lake designs (e.g. the Samsung Galaxy Book3/4
-series) wire the OV02C10 to a 26 MHz external clock instead of the
-19.2 MHz assumed so far. The IPU6 ipu-bridge forwards the rate from the
-ACPI SSDB verbatim as the "clock-frequency" property, so probe() just
-rejects it today:
 
-  ov02c10 i2c-OVTI02C1:00: external clock 26000000 is not supported
+Hi Rafael,
 
-Rename OV02C10_MCLK to OV02C10_MCLK_19_2MHZ, add OV02C10_MCLK_26MHZ and
-accept both.
+More qcom powercap drivers will come in the future. After discussing 
+internally we agreed I can maintain them, if you are ok with that.
 
-The register tables program the OP PLL multiplier (0x0304/0x0305, 16-bit)
-to 0x0190 = 400 for a 19.2 MHz clock: the common table writes
-0x0304 = 0x01 and the per-lane tables override 0x0305 = 0x90. Left alone
-on a 26 MHz clock the same dividers run every internal clock, and
-therefore the MIPI link, 26/19.2 = 1.3542x faster: a ~541.7 MHz link at
-~40 fps instead of the nominal 400 MHz at ~30 fps.
+I'm wondering if it would make sense to create a qcom directory under 
+powercap in order to group those drivers under the same maintainer 
+umbrella (and perhaps do the same grouping for other drivers?)
 
-Re-program both PLL multipliers by the inverse factor instead, so that
-the link stays where the driver and the ipu-bridge fwnode already
-describe it: 400 * 19.2 / 26 = 295 = 0x0127, written to 0x0304/0x0305
-and 0x0315/0x0316 after the per-lane table when the external clock is
-26 MHz. That puts the link at 295 * 26 / 19.2 = 399.5 MHz, within 0.13%
-of the nominal 400 MHz, so link-frequency and pixel-rate stay accurate
-with the single existing menu entry and the ipu-bridge needs no change.
 
-Tested on a Samsung Galaxy Book3 (two CSI-2 data lanes, 26 MHz clock
-confirmed via clk_summary): the multiplier registers read back 0x0127
-while streaming and capture runs at a steady 30.01 fps by buffer
-timestamp, against ~40 fps with the unmodified tables, matching the
-30.14 fps that the exported hblank, vblank and pixel-rate describe.
-
-While touching the clock check, terminate its error string with a
-newline.
-
-Link: https://lore.kernel.org/linux-media/ap_CGQTdNFysTLot@kekkonen.localdomain/
-Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
----
-
-Changes in v2:
-- Re-program the OP and VT PLL multipliers instead of advertising the
-  scaled 541.667 MHz link frequency (Sakari). The suggested 0x28a / 0x1b1
-  produce no output on this hardware; 0x0127 -- the 0x0190 the tables
-  already program, scaled by 19.2/26 -- does, and brings the frame rate
-  back to the nominal ~30 fps.
-- Drop the second V4L2_CID_LINK_FREQ entry that v1 added: with the link
-  back at ~400 MHz the existing single entry matches the ipu-bridge
-  fwnode directly, so no ipu-bridge change is needed either.
-- Bryan's Reviewed-by and the Tested-by on v1 are not carried over, as
-  the patch was rewritten.
-
- drivers/media/i2c/ov02c10.c | 43 ++++++++++++++++++++++++++++++++++---
- 1 file changed, 40 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-index cdccbdef3..17208f2e6 100644
---- a/drivers/media/i2c/ov02c10.c
-+++ b/drivers/media/i2c/ov02c10.c
-@@ -16,7 +16,8 @@
- #include <media/v4l2-fwnode.h>
- 
- #define OV02C10_LINK_FREQ_400MHZ	400000000ULL
--#define OV02C10_MCLK			19200000
-+#define OV02C10_MCLK_19_2MHZ		19200000
-+#define OV02C10_MCLK_26MHZ		26000000
- #define OV02C10_RGB_DEPTH		10
- 
- #define OV02C10_NATIVE_WIDTH		1928
-@@ -337,6 +338,23 @@ static const struct reg_sequence sensor_1928x1092_30fps_2lane_setting[] = {
- 	{0x3016, 0x32},
- };
- 
-+/*
-+ * The mode tables target a 19.2 MHz input clock, programming the OP PLL
-+ * multiplier (0x0304/0x0305, 16-bit) to 0x0190 = 400 for a 400 MHz link at
-+ * ~30 fps.  A 26 MHz input clock instead runs every internal clock, and
-+ * therefore the MIPI link, 26/19.2 = 1.3542x faster (~541.7 MHz, ~40 fps).
-+ * Scaling both PLL multipliers by 19.2/26 -- 400 * 19.2 / 26 = 295 = 0x0127
-+ * -- puts the link back at 295 * 26 / 19.2 = 399.5 MHz, within 0.13% of the
-+ * nominal 400 MHz, so the frame rate and the advertised link frequency both
-+ * stay correct without a second link-frequency entry.
-+ */
-+static const struct reg_sequence sensor_pll_26mhz_setting[] = {
-+	{0x0304, 0x01},
-+	{0x0305, 0x27},
-+	{0x0315, 0x01},
-+	{0x0316, 0x27},
-+};
-+
- static const char * const ov02c10_test_pattern_menu[] = {
- 	"Disabled",
- 	"Color Bar",
-@@ -396,6 +414,9 @@ struct ov02c10 {
- 	/* MIPI lane info */
- 	u32 link_freq_index;
- 	u8 mipi_lanes;
-+
-+	/* External (sensor) clock rate, Hz */
-+	u32 xvclk_freq;
- };
- 
- static inline struct ov02c10 *to_ov02c10(struct v4l2_subdev *subdev)
-@@ -619,6 +640,17 @@ static int ov02c10_enable_streams(struct v4l2_subdev *sd,
- 		goto out;
- 	}
- 
-+	if (ov02c10->xvclk_freq == OV02C10_MCLK_26MHZ) {
-+		reg_sequence = sensor_pll_26mhz_setting;
-+		sequence_length = ARRAY_SIZE(sensor_pll_26mhz_setting);
-+		ret = regmap_multi_reg_write(ov02c10->regmap,
-+					     reg_sequence, sequence_length);
-+		if (ret) {
-+			dev_err(ov02c10->dev, "failed to write PLL settings\n");
-+			goto out;
-+		}
-+	}
-+
- 	ret = __v4l2_ctrl_handler_setup(ov02c10->sd.ctrl_handler);
- 	if (ret)
- 		goto out;
-@@ -877,6 +909,10 @@ static int ov02c10_check_hwcfg(struct ov02c10 *ov02c10)
- 	/* v4l2_link_freq_to_bitmap() guarantees at least 1 bit is set */
- 	ov02c10->link_freq_index = ffs(link_freq_bitmap) - 1;
- 
-+	dev_dbg(dev, "%u Hz external clock, link freq %lld Hz\n",
-+		ov02c10->xvclk_freq,
-+		link_freq_menu_items[ov02c10->link_freq_index]);
-+
- 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1 &&
- 	    bus_cfg.bus.mipi_csi2.num_data_lanes != 2) {
- 		ret = dev_err_probe(dev, -EINVAL,
-@@ -926,10 +962,11 @@ static int ov02c10_probe(struct i2c_client *client)
- 				     "failed to get imaging clock\n");
- 
- 	freq = clk_get_rate(ov02c10->img_clk);
--	if (freq != OV02C10_MCLK)
-+	if (freq != OV02C10_MCLK_19_2MHZ && freq != OV02C10_MCLK_26MHZ)
- 		return dev_err_probe(ov02c10->dev, -EINVAL,
--				     "external clock %lu is not supported",
-+				     "external clock %lu is not supported\n",
- 				     freq);
-+	ov02c10->xvclk_freq = freq;
- 
- 	v4l2_i2c_subdev_init(&ov02c10->sd, client, &ov02c10_subdev_ops);
- 
--- 
-2.55.0
+On 7/2/26 19:22, Manaf Meethalavalappu Pallikunhi wrote:
+> This patch series introduces support for Qualcomm's SPEL (SoC Power
+> and Electrical Limits) hardware, which provides power monitoring and
+> limiting capabilities for various power domains in Qualcomm SoCs.
+> 
+> The SPEL hardware enables:
+> - Real-time energy consumption monitoring across multiple power domains
+> - Hardware-enforced power limits with configurable time windows
+> - Support for up to 4 power limits (PL1-PL4) per domain
+> - Hierarchical power domain organization (SYS -> SOC -> subsystems)
+> 
+> The driver integrates with the Linux powercap framework, exposing SPEL
+> capabilities through standard sysfs interfaces. This allows userspace
+> applications and thermal management daemons to monitor energy consumption
+> and configure power limits for optimal power/performance balance.
+> 
+> This series introduces a new power/limits directory for power limit
+> controller bindings. The power-limit-controller.yaml schema is added to
+> MAINTAINERS under "QUALCOMM SPEL POWERCAP DRIVER" in patch 2/X alongside
+> the SPEL device specific binding, as this is its primary use case.
+> 
+> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+> ---
+> Changes in v3:
+> - Created common power-limit-controller schema under power/limits and described
+>    power-limit-controller device common capabilities.(Krzysztof)
+> - Created SoC-specific qcom,glymur-spel.yaml file instead of generic one and updated
+>    description and commit.(Krzysztof)
+> - Used FIELD_MODIFY() macro at different places.(Konrad)
+> - Updated glymur specific domain info table.(Konrad)
+> - Updated all for-loops iterator declaration to C99 style.(Konrad)
+> - Fixed use-after-free bugs.(Sashiko)
+> - Corrected time_unit documention to reflect the logic.(Sashiko)
+> - Link to v2: https://lore.kernel.org/r/20260620-qcom_spel_driver_upstream-v2-0-a3ee6837c18f@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Fixed DT issues: corrected unit-address mismatch and made compatible
+>    platform-specific.(Konrad/Krzysztof)
+> - Cleaned up bitfield handling: switched to GENMASK, FIELD_* macros.(Konrad)
+> - Converted hex values to lowercase and simplified array definitions.(Konrad)
+> - used devm_platform_ioremap_resource_byname().(Konrad)
+> - Refactored data structures: merged domain data into spel_domain_info
+>    and removed hardcoded limits using ARRAY_SIZE().(Daniel)
+> - Added bounds checks (TIME_WINDOW_MAX) and fixed time window RMW
+>    handling (preserving reserved bits + firmware notify).(Sashiko)
+> - Resolved use-after-free, replaced allocation strategy, and
+>    added proper cleanup in .release().(Sashiko)
+> - Updated time window calculation logic.
+> - Removed cyclic dependency, improved validation logic, and aligned
+>    naming consistency.(Daniel)
+> - Link to v1: https://lore.kernel.org/r/20260519-qcom_spel_driver_upstream-v1-0-75356d1b7f94@oss.qualcomm.com
+> 
+> ---
+> Manaf Meethalavalappu Pallikunhi (4):
+>        dt-bindings: power: Add common power limit controller schema
+>        dt-bindings: power: limits: Describe Qualcomm SPEL hardware
+>        powercap: qcom: Add SPEL powercap driver
+>        arm64: dts: qcom: glymur: Enable SPEL powercap driver
+> 
+>   .../power/limits/power-limit-controller.yaml       |  34 +
+>   .../bindings/power/limits/qcom,glymur-spel.yaml    |  61 ++
+>   MAINTAINERS                                        |   8 +
+>   arch/arm64/boot/dts/qcom/glymur.dtsi               |  10 +
+>   drivers/powercap/Kconfig                           |  13 +
+>   drivers/powercap/Makefile                          |   1 +
+>   drivers/powercap/qcom_spel.c                       | 803 +++++++++++++++++++++
+>   7 files changed, 930 insertions(+)
+> ---
+> base-commit: 4f441960e691d37c880d2cc004de06bb5b6bd5e4
+> change-id: 20260702-qcom_spel_driver_upstream-909d37c8d8e8
+> 
+> Best regards,
 
