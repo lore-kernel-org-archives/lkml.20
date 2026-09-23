@@ -1,163 +1,215 @@
-Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
+Received: from smtp1.tecnico.ulisboa.pt (smtp1.tecnico.ulisboa.pt [193.136.128.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAED649DB91;
-	Wed, 23 Sep 2026 11:20:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E6049AA57
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:21:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.136.128.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790162460; cv=none; b=lT4CfJbDR+DFb3mmG28DRLsFkuAeW+6pWaIT+NiT0zavJtn/3i2CQjzdRlH47z40qSV/6/N7TtykgCPbcOHdNnd4cEdobbTvXfzadkKVhiXT5ZT0sfjlOUx7moulBsA2i5LQB30h9yGB8b19rf3mkEk8boKdVRJ03VeY+bkTLEw=
+	t=1790162479; cv=none; b=lZZDLKtqOxws/So80XtTLjdlNY7KeS+lzdj89VoS62UVcHVXij69micYQM9XW/yuKre95Nc3svDJS8M/moGIfih6YSFoVM/R0B/b4+p8Ocih9nDdUgLgFeQuDvuZGbitX/2+YFFCKzVVqGviQGJ69VRvFmiCxLXdHVvOMVWoarA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790162460; c=relaxed/simple;
-	bh=qxgXPaVZ81KqoZmkENMxQXoSKcZmLeW316N3sNiz5Zo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WQB8F0UmBpGj8z38pnxLZ7GjdriopG/tFUKZ/RdUZPXaoSaSoxKZubaJjt5kl8kSafa/LnM/LoHK1DlmMIlVe05AKyu7L0ynyw3BkTPwyVN3vBGYxTRn6zVY1xc3M2g2zz4YnA+X0FEJYyhsG9VtS/kxVPXk0dJP6Qt2FCf9Y5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=L98RMmX2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=qU+wGpuY; arc=none smtp.client-ip=202.12.124.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1790162479; c=relaxed/simple;
+	bh=l4sOiiVRttsVL1yIB+otV+BHBVDymLyP6LIpmQAcZLs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ajXn+qKQb6RaZ4C5GmNXJwJDJcs62n72ilfn2qwvazy7xnhHEUo8bGQdbTZCdMtjTeQo7IzbLKuFRZtJAPw+W1Lu58DTxc4jvoyIpxm7X214PBrxvb8htFCZ+xNhg3dBcnR4ockYOBap9i52kl1RI4D1cfKMb2Npyaf5uy31VSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt; spf=pass smtp.mailfrom=tecnico.ulisboa.pt; dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b=qnKP6yun; arc=none smtp.client-ip=193.136.128.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tecnico.ulisboa.pt
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tecnico.ulisboa.pt
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="L98RMmX2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="qU+wGpuY"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailflow.stl.internal (Postfix) with ESMTP id 8302E1300181;
-	Wed, 23 Sep 2026 07:20:55 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Wed, 23 Sep 2026 07:20:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1790162455; x=
-	1790169655; bh=ktiZUKec4B6HZzJ+HNFJ4iYy4188Qhi+lPMjiYgieJ0=; b=L
-	98RMmX2tvfQopY1x7eEjV9sTfX+l8j0VI1k01xg0D+Qmrf6ioEAr6nemXKJ4dxEF
-	Oo0TffjnNinl/3GQd41+cnNNgtg4qBrj8TCx15p3Ms06jdCn2azCvucDkwtJ59wz
-	D8pBs9Q/MR66hU8HkUbZ2JQn870SHFXEnOTEDPtZj1qWgX1+qXkPemxwRzE1le5L
-	ah2OxvHYyfs9IcLHMn2UIOaig10RjgR+L7Rdtf2zsO+HdX/N877mLo9iuJNaKb3E
-	hoDQTgzxAkx7T+74Cgk8VPWla70HDKmtNgZEcwpfUcjo053579zNK7GmFV1L1H2S
-	RgmKwDx6qpP2AKh96RWhQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1790162455; x=1790169655; bh=ktiZUKec4B6HZzJ+HNFJ4iYy4188Qhi+lPM
-	jiYgieJ0=; b=qU+wGpuYPN3hKO+M+jMFavBC8IWCUdrgpnyeGM0ze++b3XJa6mF
-	a3qcuTyl1sXjHvU/eQpeGl+3lyCo4USxjMw9vF1QOuc/kQatBAUK+OroKgEja0gD
-	mjYsBl6z3PHOjM9SuWCITnRBzVDpDUfoJCMONZ/G2PS0lGzAfLJ3eGdrlGIPp5mr
-	dc2a5UTOjGmzvrQE4owdPur1EqZ8Gl8nvo2N2gAAWD/F0FYTh3k73xjRxv63hYJ3
-	5RZqDt3BuW7aNxcgk898YiHLq1w98JDIDrXq38aVvoEoRW1HLmwVZ+WXxJmtbv4H
-	sWidPGjZU66tDqqUBzhZeOnlHtyL9E4Uhcg==
-X-ME-Sender: <xms:F7azavxogpDrfF4DNFL1eKcZyaLyIifkD3nR1ZRYKCDBCzqdcNT2Gg>
-    <xme:F7azapm_Ip8OGxjSen2YTfdBmEHNx2nSn0zexKKF-LjZciNHf-j0cjlG91DTqDxLk
-    ul2OFHNIeEUU6UGQR48HqSLu0rzLpWwp9Iww_ke3fCOnTi-8yRcrBE>
-X-ME-Received: <xmr:F7azaoBnzmW26a655BnpjHaY6rH0AzBSlqHQJW9OtSleJ8IE5F1hl45tHrc>
-X-ME-Proxy-Cause: dmFkZTGYKaX4MJrWiZQMObUvdDS/QWbPENP4/QfruR5BVC0vDr3fwy8UqZaiMm19WVvCJj
-    0rjC2wvVme8pZCZK4Hk73qsmr2qCNpQkL2lxolYz2oT+uCsVBU1r74piGSnXzeClBinZV7
-    y3sxhX+8TAkchK3N+UMQqjVLMQq4uynP4uBOC2y0eE+zIaGoNSwYA6DO1H17PSNo7adr3v
-    zojz82agX4yD8xYnPoAfAweqTZDQka1uyTOk1rUyA2wF2i+pTDCXEHTcXXCXckIiOGFMS9
-    RF8C9KpMBE6BRRNKbAjci9rBuBiDk4EEvDDezb/DoxDzAECoRSW1iKrymdowfjbRej8fo2
-    1fWqr2HTppvuYAkHu+XIoVQXJOiBnpn14qMCD7wVZMNdSs8WjzmZa0LCmexgVyTst7xXCV
-    8vrC5ID1UpF84NYRlV5wWUzeAeZrT7F4j2e/cj7Zx7V53e201mLuDIv+/RuQ0mj/VgPgvy
-    9sVH1R1Ngny8Rf4YlRIVLg9pOhHQTAipWD7r2nF0cQSF+vvqJhDIzyedY2MCw0+Tua+wuO
-    Cyx1D0Y8G3TrhzF0t2c7Fbnnl0ebdqM3oNftdN4qhfBYE7OA1G6iijrPP18j85XPYmw4qi
-    eevpq4izXY2aoM/WK135q5sIZ31zBMEPadTnZfXdg7nTknDl95Pg2+lUFqAw
-X-ME-Proxy: <xmx:F7azamcnDK08mifL84qQeuza90uRKs54JJQcFkR6hr9HwM5sWERw9w>
-    <xmx:F7azauptGNy_k84Tb9wPHFq9GIwU8W_MtL3tfwSMZP09VJaKfgKzGQ>
-    <xmx:F7azaqK4rhh7EUVDwIAsIoH5zX030UctfN-PANF85p9THr4j5d3mlQ>
-    <xmx:F7azavQ-EzhrMhKhAa63jnDmwRhHHHih65emu4DYNKz-CTtzoF5cqQ>
-    <xmx:F7azajpKXdNZS_Ql3gtTIKKMJ-xv-1D89RkX7k717JM6Poi4E83vb7G7>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 23 Sep 2026 07:20:54 -0400 (EDT)
-Date: Wed, 23 Sep 2026 12:20:53 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, akpm@linux-foundation.org, 
-	rppt@kernel.org, peterx@redhat.com, surenb@google.com, aarcange@redhat.com, 
-	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, mhocko@suse.com, 
-	shuah@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] userfaultfd: clear the inherited uffd bit in
- move_swap_pte()
-Message-ID: <arO1r1NfMVLPwqtQ@thinkstation>
-References: <20260919004630.1159895-1-donggeunyoo.kernel@gmail.com>
- <20260919004630.1159895-2-donggeunyoo.kernel@gmail.com>
- <49208ed6-6c20-49a9-9c0d-0e1cffe1898f@kernel.org>
+	dkim=pass (2048-bit key) header.d=tecnico.ulisboa.pt header.i=@tecnico.ulisboa.pt header.b="qnKP6yun"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTP id 16BB26005402;
+	Wed, 23 Sep 2026 12:12:59 +0100 (WEST)
+X-Virus-Scanned: by amavis-2.13.0 (20230106) (Debian) at tecnico.ulisboa.pt
+Received: from smtp1.tecnico.ulisboa.pt ([127.0.0.1])
+ by localhost (smtp1.tecnico.ulisboa.pt [127.0.0.1]) (amavis, port 10025)
+ with LMTP id kaF9eFl8NHYT; Wed, 23 Sep 2026 12:12:57 +0100 (WEST)
+Received: from mail1.tecnico.ulisboa.pt (mail1.ist.utl.pt [IPv6:2001:690:2100:1::b3dd:b9ac])
+	by smtp1.tecnico.ulisboa.pt (Postfix) with ESMTPS id 67AFF6003C2E;
+	Wed, 23 Sep 2026 12:12:56 +0100 (WEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tecnico.ulisboa.pt;
+	s=mail2; t=1790161977;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=LoDof0Bw8itQa6OT3DY4OPRHM5yrJMsSi1RNSka17X8=;
+	b=qnKP6yunEOJBZYBV5BQY4QdQngrse7Hc7qIzRxmiwLdvYhPzEXcqGr0ipBAAS3lDbi47KX
+	TDK+OkN2fl5VK6tpMIdh1uT2y1VrpOx5R5KJEfYqVLi4hXVeJ/wfIPxnkcBSfhBYy4x2VB
+	TY4Rlyt/KHLbJyjlg2qlk82XQvwf31EniEF4TplobHWmGdloBietOHrg9fNomctp1XDF9c
+	YjRf0832bOxGSGwwXvqxoiWbr3NNtVSa5ohSfv6XxLBfultzXp4DwM5ZVFyk/Zz6xyPpj3
+	2HWTh9UL6M1+3I5J4Kgql6qg1jJDc4ClmC6iCxg5a9FufgRKVx4nRDLbWer8Tw==
+Received: from [192.168.1.82] (unknown [IPv6:2001:8a0:67f3:eb00:ee56:8d5c:4e29:8df0])
+	(Authenticated sender: ist187313)
+	by mail1.tecnico.ulisboa.pt (Postfix) with ESMTPSA id 92B3936011C;
+	Wed, 23 Sep 2026 12:12:55 +0100 (WEST)
+From: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+Date: Wed, 23 Sep 2026 12:12:06 +0100
+Subject: [PATCH] firmware/psci: Convert poweroff to the sys-off handler API
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <49208ed6-6c20-49a9-9c0d-0e1cffe1898f@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-firmware-psci-v1-1-430646653fc6@tecnico.ulisboa.pt>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDU2MD3bTMotzyxKJU3YLi5EzdNBNDc0tLA8MUY9MUJaCegqLUtMwKsHn
+ RsRB+cWlSVmpyCcgQpdpaAI2+Sh1xAAAA
+X-Change-ID: 20260530-firmware-psci-f4179901d35d
+To: Mark Rutland <mark.rutland@arm.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790161975; l=4801;
+ i=diogo.ivo@tecnico.ulisboa.pt; s=20240529; h=from:subject:message-id;
+ bh=l4sOiiVRttsVL1yIB+otV+BHBVDymLyP6LIpmQAcZLs=;
+ b=t4oG8XG/Xv/3slE8pRy8WfYjuA+Q2q11pecjWS7qQziZQAJlKoXfNu+v4+26VNYop6XECU58O
+ syAyeYNgjRXBlb3MYILgijnG46VHNCqKBvpS698HJt/v/k/+DIZE4cq
+X-Developer-Key: i=diogo.ivo@tecnico.ulisboa.pt; a=ed25519;
+ pk=BRGXhMh1q5KDlZ9y2B8SodFFY8FGupal+NMtJPwRpUQ=
 
-On Tue, Sep 22, 2026 at 01:40:51PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/19/26 02:46, Donggeun Yoo wrote:
-> > UFFDIO_MOVE on a swapped-out page installs the source PTE at the
-> > destination unchanged, so a uffd bit set on the source lands in a
-> > destination VMA that was never registered for write protection.  It is
-> > then permanent: the bit is dropped only by change_protection() under
-> > MM_CP_UFFD_{WP,RWP}_RESOLVE, which uffd_wp_range(), mrwprotect_range()
-> > and userfaultfd_clear_vma() issue only for a VMA registered in that
-> > mode.  pagemap reports the page as uffd-tracked, and MADV_COLLAPSE
-> > refuses the range while the bit is set, because collapse_scan_pmd() is
-> > strict about uffd on swap entries.
-> > 
-> > move_present_ptes() and move_zeropage_pte() build the destination PTE
-> > from dst_vma->vm_page_prot and arm RWP only when dst_vma asks for it, so
-> > the destination's own registration decides the result.  move_swap_pte()
-> > copies the source PTE instead and only ever sets the bit, never clears
-> > it, so one UFFDIO_MOVE behaves differently depending on whether the page
-> > happened to be resident.
-> > 
-> > Clear the uffd bit on the moved swap entry unless the destination is
-> > RWP-registered, as copy_nonpresent_pte() does where it installs a PTE
-> > into a destination that may not be armed.  A WP-registered destination
-> > stops inheriting the bit as well, which is already what it gets when the
-> > moved page is resident.
-> > 
-> > Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
-> > Cc: <stable@vger.kernel.org>
-> > Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-> > ---
-> >  mm/userfaultfd.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> > index 74f04c323c50..6495666c596b 100644
-> > --- a/mm/userfaultfd.c
-> > +++ b/mm/userfaultfd.c
-> > @@ -1452,6 +1452,8 @@ static int move_swap_pte(struct mm_struct *mm, struct vm_area_struct *dst_vma,
-> >  	/* Re-arm RWP on the moved swap entry if dst_vma is RWP-registered. */
-> >  	if (userfaultfd_rwp(dst_vma))
-> >  		orig_src_pte = pte_swp_mkuffd(orig_src_pte);
-> > +	else
-> > +		orig_src_pte = pte_swp_clear_uffd(orig_src_pte);
-> >  	set_pte_at(mm, dst_addr, dst_pte, orig_src_pte);
-> >  	double_pt_unlock(dst_ptl, src_ptl);
-> >  
-> 
-> In move_present_ptes() we don't run into that issue as we create a new PTE from
-> scratch
-> 
-> 	orig_dst_pte = folio_mk_pte(src_folio, dst_vma->vm_page_prot);
-> 
-> 
-> Staring at the
-> 
-> 	if (userfaultfd_rwp(dst_vma))
-> 
-> I do wonder why we don't have to take similar care about wp ... I'm sure the is
-> a good reason.
+The PSCI poweroff handler is currently registered via pm_power_off,
+which fires as the last SYS_OFF_PRIO_DEFAULT handler. However, there
+are two problems with this approach: PSCI is a firmware mechanism, so
+its priority should be SYS_OFF_PRIO_FIRMWARE, and the point of the
+sys-off API is to eliminate pm_power_off and make the ordering and
+priority between shutdown mechanisms explicit.
 
-The RWP branch does not preserve anything from the source. It arms the
-destination whether or not the source had the bit.
+This patch converts PSCI to register_sys_off_handler() so that its
+position in the shutdown sequence is explicit and governed by priority.
 
-WP has nothing to arm. The bit is per-PTE state that userspace sets
-explicitly with UFFDIO_WRITEPROTECT or UFFDIO_COPY_MODE_WP. Registration
-alone protects nothing, and UFFDIO_MOVE has no MODE_WP flag, so a moved
-page in a WP destination starts unprotected, same as a faulted or
-copied one.
+In an ideal world PSCI would always be registered at SYS_OFF_PRIO_FIRMWARE
+since it is a firmware mechanism. However, this approach would lead to
+several problems:
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+ - On platforms with ACPI/EFI and PSCI there would be a clash at FIRMWARE
+   level, and the first to register would prevail.
+
+ - Not all platforms have a functional PSCI SYSTEM_OFF callback. This
+   happens for example in some Tegra X1 platforms, where shutdown needs
+   to be handled by the PMIC driver, explicitly marked as a
+   system-power-controller.
+
+As such, the approach here is:
+
+ - On ACPI systems EFI (SYS_OFF_PRIO_FIRMWARE + 1) and ACPI
+   (SYS_OFF_PRIO_FIRMWARE) already handle poweroff at higher
+   priorities. PSCI registers at SYS_OFF_PRIO_DEFAULT as a fallback
+   that runs after both.
+
+ - On DT systems with no system-power-controller, PSCI is the primary
+   firmware poweroff path and registers at SYS_OFF_PRIO_FIRMWARE.
+
+ - On DT systems where a system-power-controller node is present, a
+   dedicated platform driver is responsible for poweroff. PSCI
+   registers at SYS_OFF_PRIO_DEFAULT - 1 so that driver takes
+   precedence while PSCI still acts as a backstop.
+
+Signed-off-by: Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+---
+---
+ drivers/firmware/psci/psci.c | 44 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 41 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
+index e73bae6cb23a..fc7986b7f12f 100644
+--- a/drivers/firmware/psci/psci.c
++++ b/drivers/firmware/psci/psci.c
+@@ -13,7 +13,6 @@
+ #include <linux/errno.h>
+ #include <linux/linkage.h>
+ #include <linux/of.h>
+-#include <linux/pm.h>
+ #include <linux/printk.h>
+ #include <linux/psci.h>
+ #include <linux/reboot.h>
+@@ -79,6 +78,8 @@ struct psci_0_1_function_ids get_psci_0_1_function_ids(void)
+ static u32 psci_cpu_suspend_feature;
+ static bool psci_system_reset2_supported;
+ static bool psci_system_off2_hibernate_supported;
++static bool psci_system_off_supported __initdata;
++static bool is_dt __initdata;
+ 
+ static inline bool psci_has_ext_power_state(void)
+ {
+@@ -329,9 +330,11 @@ static struct notifier_block psci_sys_reset_nb = {
+ 	.priority = 129,
+ };
+ 
+-static void psci_sys_poweroff(void)
++static int psci_sys_poweroff(struct sys_off_data *data)
+ {
+ 	invoke_psci_fn(PSCI_0_2_FN_SYSTEM_OFF, 0, 0, 0);
++
++	return NOTIFY_DONE;
+ }
+ 
+ #ifdef CONFIG_HIBERNATION
+@@ -665,6 +668,40 @@ static void __init psci_init_smccc(void)
+ 
+ }
+ 
++static int __init psci_poweroff_init(void)
++{
++	int priority = is_dt ? SYS_OFF_PRIO_FIRMWARE : SYS_OFF_PRIO_DEFAULT;
++	struct sys_off_handler *handler;
++	struct device_node *np;
++
++	if (!psci_system_off_supported)
++		return 0;
++
++	if (is_dt) {
++		/*
++		 * If a system-power-controller is designated in DT, a dedicated
++		 * driver should handle power-off; in that case register PSCI at
++		 * SYS_OFF_PRIO_DEFAULT - 1 as a fallback. This covers both the
++		 * case where that driver fails to power-off the system and the
++		 * case where it fails to register its own handler.
++		 */
++		np = of_find_node_with_property(NULL, "system-power-controller");
++		if (np) {
++			priority = SYS_OFF_PRIO_DEFAULT - 1;
++			of_node_put(np);
++		}
++	}
++
++	handler = register_sys_off_handler(SYS_OFF_MODE_POWER_OFF, priority,
++					   psci_sys_poweroff, NULL);
++	if (IS_ERR(handler))
++		pr_err("Failed to register PSCI power-off handler: %ld\n",
++		       PTR_ERR(handler));
++
++	return PTR_ERR_OR_ZERO(handler);
++}
++subsys_initcall(psci_poweroff_init);
++
+ static void __init psci_0_2_set_functions(void)
+ {
+ 	pr_info("Using standard PSCI v0.2 function IDs\n");
+@@ -681,7 +718,7 @@ static void __init psci_0_2_set_functions(void)
+ 
+ 	register_restart_handler(&psci_sys_reset_nb);
+ 
+-	pm_power_off = psci_sys_poweroff;
++	psci_system_off_supported = true;
+ }
+ 
+ /*
+@@ -822,6 +859,7 @@ int __init psci_dt_init(void)
+ 	init_fn = (psci_initcall_t)matched_np->data;
+ 	ret = init_fn(np);
+ 
++	is_dt = true;
+ 	of_node_put(np);
+ 	return ret;
+ }
+
+---
+base-commit: f0100363d8c374bd8e9ea7c9ba02744f0b802ca4
+change-id: 20260530-firmware-psci-f4179901d35d
+
+Best regards,
+--  
+Diogo Ivo <diogo.ivo@tecnico.ulisboa.pt>
+
