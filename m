@@ -1,183 +1,322 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11020079.outbound.protection.outlook.com [52.101.193.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA12048A2A0
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:28:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159300; cv=none; b=u5PvOHfTWSazRU/y5hIjvnmG/ClZ/tfp6dN5OrjZJWzXrBR8Uo7BKqgx9h/x/JciASW1n9xvh/k6Qt6QT3jTT8dnxTFz6UKMkPcBX7HQinP/qQ+IxaHHi4/V0+5nXOXK5A0w0yNTFJsgdXC2PephePPS9IlFyMdauTTRZTBVu1E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159300; c=relaxed/simple;
-	bh=9Iu2RNmzJyMYp7GrqKtMQuY4sh83/4hGFSK9f1mwzxc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZbiqP2EmC4Qla1DWb+WpYb/4W3+DH7i16RY+XpXvAEV6zveML3/VLEOO6KXAIQYd71Sa+OB3LTtocW/SLq33yB8Lsvtv//F+jsxgLm1GnhMVdpiG56xYUhRjf1jYfwGsO9WSqDCFiANP/PUOjsu7du1AJ1dayd12tbCyIaGf45w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VSo2N114; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KZ7x4tBV; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1D1443C0B;
+	Wed, 23 Sep 2026 10:28:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.79
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790159318; cv=fail; b=XHcwcsG1mGzl04kxfHija8YaUtz65mpWQZMRp6R6TAEnTRRnkf/ZHxmX9IZ9STHiEEwGGxnJB2oSGJ/I1pETmxg5pgAFtNoPhMlRpVIV/vMm4h2ez3IcjCpBSO7FKLtmVs10WSbPRItUKX7L1fi9TpJPzaDp2oFu+J89b4RNx38=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790159318; c=relaxed/simple;
+	bh=k3Ru7neACwEMVX9RNR17OU/Q1VU/6X16/sjGy391XUE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=fRBWTiZtChNsQRkpLiDy3iwhO8gCLeeveET8hH327a911zqy3DEOwfe3wn9V6IkM5Fb10TBgl2TD9OsCqGGLnkEjXMdUPmloBaYufzJoWVrQyI38ift1mPVz43dmkSHU92Llh2E7BXu61z8TRA+z0lSmm34t80HtQdjxAnnJn7o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=tZeMi3rL; arc=fail smtp.client-ip=52.101.193.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VSo2N114";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KZ7x4tBV"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68NA3igf1623793
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:28:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tJOzJ9srOMosaldHRAHYeJVA1bT1kfaQQ3r/rKqtz88=; b=VSo2N114zfk0G/zm
-	OKK8Kylhkp43W3IJph2g78Yt2TMOBvBBiIZAK+hwS7ewDDeLS6LwS5gEI6Kfu0X7
-	d5td/98TptysDM1TEjzlYi+jfBDRBTETjzQgRQjp7Psbwjw4bcxtIPXR4RO+HFWU
-	Wwf+2HBRGKJzR72Idpqv7GltaUNyAgkeVpKBpbCzu5CjZ6ELKl5D8gfn/x9Mu20t
-	mr8DOmzUIQJVpn/3dckoIuKbjSZwrX0MLcdgkPOuU35PLqgD9VvqrC0AJccSsGRN
-	dd72pJF8VBWy3+ajYVzqIWb17LDVqka7kZ6dPxltao308DQlxrWiuv0VenW5JJbu
-	AWqFBA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4guyma3d9d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:28:03 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-32ab0911226so877060eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:28:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790159282; x=1790764082; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tJOzJ9srOMosaldHRAHYeJVA1bT1kfaQQ3r/rKqtz88=;
-        b=KZ7x4tBVCtEzJ6/N2pjRxQXJ3Kngmw8iqUIrPP06uM0mEVwyf2PyOA9/DkuDp3F/18
-         jwSQl5/Jox2RfBtD7tH3cTgvGICB4GL5JxDcagWTcGNcyeYspsZZR2hbpeCMPJcpHhg0
-         bv4cOzUZa/FDpO4baN3A4WGUXga6UWa40Gt/WH8nTaPG9zPuhJ3cz05tHtlhf7sTKTb7
-         vrIWybXwgazYGvqjOaBgNWuTxS6RjjS3i8+fqn23qC8UL3pshTHYn9Js41w0zDxx/uXT
-         VXrizUU8Tb+Ct6NrBuNpGJWprHZeL+6LPc+w8xDCax7iKkgNLh4cjsw9DkvOrCZy/x1U
-         DuxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790159282; x=1790764082;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tJOzJ9srOMosaldHRAHYeJVA1bT1kfaQQ3r/rKqtz88=;
-        b=S6eaXluaFGfOxtX+BQ16+pt1hSHtFhOJ2hlr0oMQ98luiy8ToogegO5nrQxDAZUSaR
-         8+hZQBxOjTteMi+UtfACYDleyU0ojBQct/UyJ1oFGUvxtOkpEmynYzFZ4aC+wI4sVX3p
-         3WJCSVu9gBAAMdXrJW8ZuR0zm5ohWv19N5HQ3nRrFSoO7nX12pr7yT8o0G021hxa1WHQ
-         bSGXKvJRb/axVcICS3VLZoOeipCuCOnxSiDVFYdoZgNgho2THwj+m8BXg6Yg8xirxo2N
-         d+x3Ks+0ZCaaJ9TkCe+0q9pOkONKysBjyG5S4+QVn/RV32Cc/CaoYgDIIDd2BoArijYJ
-         I+kg==
-X-Forwarded-Encrypted: i=1; AKwUvBwPHfZn7Zec4QR/8FsK9dk075rTIaVnkDI4DZP337Zg1JT0Uo+XD5lEusrVVmEWwzACLSE2s0RkcymGdm4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lE2AbDeNqwsph8iu5SaR0RvzbymnkHEgu5BeE3eFDa2WUDH0uo
-	hsvi44o62znoBi92sntUQ+dKTJRR6z2vaaa6bcpsLJ+WGByxMiT75F+dJsW4Oeyv1e5yKv8J3KP
-	KPS1V35HEjWWjCgHgSxx88lwkDic9GRV8dYsbmOQqxianJ8m3kygIVmPKk6HmJeR5pm4=
-X-Gm-Gg: AYBFou1AsI5a/Ne2LMcDnAmqL5WH696yHSqc0bSfTpORtxcVmQ651X0ra4m3Gsvi9/D
-	9ux5SjnhP5Wsjvw5TvNAwIADPLfrfhyghjuhgHF8XqJYbH0gYPtvhLeo9EwKeh9lyo1oDCl3hK3
-	FDmcst82aiQU1vmCR2tShfCQGBe0zS+3nzwn/peYFJMHpGVN/8rSkzXMZOU+gHo8JWb572wUcBr
-	J5Ns1d1i/ByxlfWmmKv944C/xg8QiMf6ngQG6+DzWiAOYqdyyDIEqx95MUazRWmaGpCzcdEqXX3
-	L7ay83gaKCWLYezi00j1pmfm9Ci/+VrmGOOVwtxDkf7AK6sRrPE43OvwhO3Hb85muR+XByEfiIy
-	IHdkLvHTSzbZe578uqRCMwVs=
-X-Received: by 2002:a05:7022:b051:10b0:144:dc45:91a2 with SMTP id a92af1059eb24-144ef1fee35mr2380581c88.23.1790159282492;
-        Wed, 23 Sep 2026 03:28:02 -0700 (PDT)
-X-Received: by 2002:a05:7022:b051:10b0:144:dc45:91a2 with SMTP id a92af1059eb24-144ef1fee35mr2380549c88.23.1790159281883;
-        Wed, 23 Sep 2026 03:28:01 -0700 (PDT)
-Received: from hu-akhilpo-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm8766646c88.13.2026.09.23.03.27.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 03:28:01 -0700 (PDT)
-From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Date: Wed, 23 Sep 2026 15:55:55 +0530
-Subject: [PATCH 15/15] arm64: dts: qcom: maili-mtp: Enable GPU
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="tZeMi3rL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FOkydPepSueWC1RRLZcPRbJJJlathkdv0ZV+C8LFM/89RvT2bs4EnBKCBA5FwMnUKhhSZsGbQuPeycwSNAZjuMllHeIbKj5EgEYnwL6sfh6x9ZFxwJVRMcqwdYobzMUyKLO+CpbxxIsMIfWBThzy0XEYzMZMKjw499xxfYu61Zxi4AH3GNTCeyExHbhCC9NexqmQ7dfubgru0p0y48zhG+feDBOPtr0vTLLtN66V7UrIuvhf/49O6uAHIKglgOZNKmGZcTA9Na0ODVFiX4L8/Rq6iHGttixcgp6YwZGGMkwQeS0wvNlLMH04rOImk+20AkKVaJmwAJlIaxQpDwXITA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9e+pJHWWRnwxr71jaRDXKYTgvd1Bl4KjdqSDq+VXTD0=;
+ b=KGSdRzAptsEAwuntFkJwIOklIL4QmScf1sC7rQe287sEP3C+2OKo9BPbUOdGo0f5IYxXpnT3ALQ2nwinFc6C3NCkq+Q051BAtCY5L8NitF2GMu1xQ5ZKJZ2Q+0BT7B1rBtrxdmeewgHX6JUX0oWaEudHcnOpDRqlKcsGuxorXXhEuqtpZ38JSohkXtOG4tSVjfOI81Nqi/EabrokOgN23K0BfTAQOnkebu5JduAM5tHQU+hs6n35gKE1RCNKw2jOxEvcp7drvRRnQPd93TSIrdUAqZ076lUkyeDTYUrYHUIHZ/8PoqTnNcUHTO7c7qwr264Nfuqnnllg8rpT2bePvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9e+pJHWWRnwxr71jaRDXKYTgvd1Bl4KjdqSDq+VXTD0=;
+ b=tZeMi3rLmtdbBBWXUBaZQ++8MK788ZnmDs83RW/FHWU5erB2wjaj7zQX3N+RyA1h7dwYLD+js4jkXWdIkxYK6YSBTFCQNrQdBUxillCTSlawLcxmTpgW8gUGWYK1Zj6qbxEYU6Fi6LBmd27seD4LHonrh5qEQVFbBCQKnnGWJ9aZLMLn7XycYhCPc8Ihos3jJgWRo5FFYhsOFqc8VpwjXd0+1Laywxn7drPihYnqmgS+BAV84/yqhUPl7OsdGLykEWFVL/c7pQ0wR+F8+1hMmW4ntE3cnnPSb8PNwFASBf8s1PU7OsLicWgkP6JLLWShMRds0guvW3ga1wiRa0dmwA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com (2603:10b6:5:38b::8) by
+ DM6PR18MB3524.namprd18.prod.outlook.com (2603:10b6:5:2a4::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.13; Wed, 23 Sep 2026 10:28:17 +0000
+Received: from DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11]) by DM4PR18MB4144.namprd18.prod.outlook.com
+ ([fe80::cb97:ca8a:e55a:b11%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
+ 10:28:16 +0000
+Message-ID: <69456648-cd41-4cf7-9df4-02237ec05953@axiado.com>
+Date: Wed, 23 Sep 2026 12:28:11 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] pwm: add Axiado AX3000 PWM driver
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+References: <20260921-axiado-ax3000-pwm-v5-0-202aad28e129@axiado.com>
+ <20260921-axiado-ax3000-pwm-v5-2-202aad28e129@axiado.com>
+ <arFAy5wMZ2Rl7ubj@monoceros>
+Content-Language: en-GB
+From: Petar Stepanovic <pstepanovic@axiado.com>
+In-Reply-To: <arFAy5wMZ2Rl7ubj@monoceros>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0010.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a::20) To DM4PR18MB4144.namprd18.prod.outlook.com
+ (2603:10b6:5:38b::8)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-hawi-gpu-v1-15-0c3c79a1a470@oss.qualcomm.com>
-References: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
-In-Reply-To: <20260923-hawi-gpu-v1-0-0c3c79a1a470@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Jordan Crouse <jordan@cosmicpenguin.net>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790159163; l=777;
- i=akhilpo@oss.qualcomm.com; s=20240726; h=from:subject:message-id;
- bh=eKiUsBNhuhpANIu3zPjDmXfBzq8uzmsYtvGThaw8i9g=;
- b=oTucU2pHz+0kJn0XJLB2P55JznrHw4kc2XiOpgWY9Y4niLKlf9mz/lMqhVAoHQaqpkO+RLoRC
- V7ojlwv33lUBSe1R5puE980u2yX89hfBmI9gLIGacE3GYVLxIQRfgtr
-X-Developer-Key: i=akhilpo@oss.qualcomm.com; a=ed25519;
- pk=lmVtttSHmAUYFnJsQHX80IIRmYmXA4+CzpGcWOOsfKA=
-X-Proofpoint-ORIG-GUID: hDE5bBEi4Yv63a7GPQVUu5RMXaJEmgoV
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfX78XRmzlYBmUG
- 2lMQ8q5ZVZzKl9chNa9pcq7mo5vDhpvSH7d1EPmf4zQngeD90w4X+9VGv3p99GcKcusDgz2E+Xj
- A5k6xTLIMbsfRdWMIy9LiYtv4CX2QBs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MSBTYWx0ZWRfXxDjexitFAwMx
- nDzjfRVKLGrsKUZ4Tgy3U3EdQz7SSW1IAUXUxSTT3bfGd1eneOjdKvX1z+zX2BOxmIa3XPDRWjF
- md5CPhAYocvOCJ2KuH3435G5qserE6Fl2Vhc9ZWjCDAYzSXx4QDbkMgRTpP3j1JT4JnxeVMfHBn
- Hjex7p4TsV+Bz5fj+ll4q4yW2dZ4ZsFujOb9rHrXI8JUsGcguEPk1wSDTelMQFsB1OkuMWpPr1U
- sxTt8OTJR3loCOkOUCCrAYX4hObLH415I7jBw5WHBIbDi8aRezRjOktuDmWyfGi1udJuUiN6Wq4
- 4/eOBi3hPZSmAqDePiWYa1DovL+EJ7zKBfQEWifHwlhyLR3Wd1CQCVuw2DdkzlSVFJZc1lFp7Vv
- EwELiqC9s4zg+XBFMd655tKv0iQlERcHz8nYQ9WjyiBqHuF6xoeXAspgqWAOm2UsIJpSzKWls/9
- +/Mu1GLAEmh1nfg7LBg==
-X-Authority-Analysis: v=2.4 cv=N828hG9B c=1 sm=1 tr=0 ts=6ab3a9b3 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=bOBbJXBpTyr2JeYZIkIA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-GUID: hDE5bBEi4Yv63a7GPQVUu5RMXaJEmgoV
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 malwarescore=0 adultscore=0 spamscore=0
- impostorscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230041
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR18MB4144:EE_|DM6PR18MB3524:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69e48267-4ec4-421d-71c2-08df195d6168
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|4143699003|3023799007|56012099006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	6eUFuDdVTr+lTa8bb/BGDQ6PjVQyg9uS8dmTlLzr7BZN7Y93wDX5ldmIxENq83ctfkgc1xP1l3Ne9QYUGiMNfTz/fQMiFOBSGeevSAfMRBYOmizdF2YuD9XhYv+Fp6I7RpdvEe4wrm2WEHzVYg5xbf8+/MNUwaS7r4xL1qkskKluYYZNtFc+X9f0C6m1S5K7SiR18/n9HpreQ4gR35PqP9OzPZppwPZIX8/Xc5KvSKwHzH+w1E2ylk9xVSk13kIAbCr2TRhGEUMAO75B1jOWOwmwICD6mJwja8UfqJjv/odO7MlB6AFQy38H/7Y9pYvl7y+K7hn2mK/uidjy88FpKxWmjoQpl2txuyKEGjbVUksOwHLhEyfSfEoYIgfxTAXvwqMwFbp+wSZRsC6Ugef4V09T+XeKNgjBm7h1yxfmU7JURBD3ww6xTu23Av1MGjspEXTQ4uVzgI0ZQ5oKq+yww6p+6GjVXiA0jA2h6ezV5xdJN2D17ZXlWRTQIakNRCX3P127sSj00vFKA5xxwGf8JLbwKszxqwqWXoZobEiuUJIwoi6DHnr41gwa+SZrYzJ3/j5L5nWDtmuij2wcG/tCurMKpH0IM3eRhqia93Kki6hC4pFHJu0O9DdPkO2d8aSDYZEe/oNKC7BSbLfTm6AP3OggfhTsqcIEOTbRQltgM8Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR18MB4144.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(4143699003)(3023799007)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VzEyT3JaVUsyc0dudk8yTklXTG9vRUxvdDZmVlVPRlJCYkRuemcvLzMrVkVN?=
+ =?utf-8?B?RE9Fd2o1MmREQWJXYmhpakZwcGxpZFlVYWZaWDFHQnllU0RnREoxWEdjWUE3?=
+ =?utf-8?B?cUdNRkFDTlJoa2o3d2hSS0YwalVRSDZCMXdNaTdXeklyR25lNFZDVEEwVmtl?=
+ =?utf-8?B?MU84Q0thWEZLZ3M0aG5ibHlwR04wUTZIZkpweG45cCtaSGtPSEdVMU5zTHA3?=
+ =?utf-8?B?dzFpSHJ2YW9RZDlCRjZEditDRVY5N0h4MTcrOTJaeFpLUHVCbjd1WllKRlR2?=
+ =?utf-8?B?Uk1OOVFtVkl4RkJ3Nkxoai9OVFVuMy9tcW0yUXhBOFpzM09Vc1pUemFUeDBH?=
+ =?utf-8?B?STlkSE85eGFEVFlBeGhuOVY3MEpvaEhJeXFTdjBxZVlSQzExQ1RYVEpGbkNx?=
+ =?utf-8?B?SG9TZlNHb0dDN2sySWptYlBtdFJKeTl4YmJBSmZ5dlUxMEhTM2RpSjY2a0VH?=
+ =?utf-8?B?OTlNWEFZanZNL3R0KzRRWHgwUzZMdCtvMWZjR0VPbks3eGRsODI5c3BQdnkw?=
+ =?utf-8?B?QmdPejZxZ1RIWXNXanYrWFJVNnozQ1BVeERlTG1uWk92MElyQ05HemVHVmxE?=
+ =?utf-8?B?UFVvN3F2ZzJ4cjg4a3A5YUdaOGEwY3d4TVAxWmZVTlV6eTFiRTNwKzhTb0h6?=
+ =?utf-8?B?WHF2aEF1anIyZXl3d0tWakhHdWRGbk1yQVhmNHd2ZlBaSEhDaXpidjBnd2lV?=
+ =?utf-8?B?MVRGbEtnTk1pSXYyYVRweFlKVzNtUGplMElrUHNzaFhNUlFKbUpHS214cExD?=
+ =?utf-8?B?bmM5cHUzV2lGNGtmajcwdGxreEhOWHFvSUV4QTlJbWpsSTJrZnBobFV5OUIy?=
+ =?utf-8?B?QVF5a0FuSkFCR2wvUXdIUGV2eVlVK3NFTVhKTUxIU1FSN2UxZFJHNVkrSEhE?=
+ =?utf-8?B?cno1OGlNWmFEdFR2Z2d0OWRFRVh1aHIwalZGcldJWmhxdlcxYXVoNEZjQ08y?=
+ =?utf-8?B?MzBxaXl0dkpVaGtyNDgxMjZjOEZCTzFiR1BndzNYSHVqek5hMVZOTTJQRHIw?=
+ =?utf-8?B?Nzc1dWxwbk9sWjhRam01bGVrNE91Mjg4Ynk5TmdPWVI4bHpSSU4zSVRTcnNu?=
+ =?utf-8?B?RWRqMkEvckJxQWFyQTYrUnMzVExVZXExanNBNDlnN0FaUWlLQi9UT1pOc2Zm?=
+ =?utf-8?B?SElhSDFtYWN2VnVTNDdjdEpMdnllWStQVCswaEpZTWUxQy9YbHRWbEJ6dHFM?=
+ =?utf-8?B?bzFCUGp0OGFoNk1sb2Y0ZzA0RHR0bURXeE1oL2NueS83WGV2c0tiaDAwaGRs?=
+ =?utf-8?B?MlQ5SkQvQ0ZJQWY5NFN3TUlDb3U2WjBCcHdIbWtiaDBvY1lQMDZXSFVpTU1k?=
+ =?utf-8?B?Q2F5NFR2U1Y5QmNwK1U5Tm1OMkFzcHU3aFN1WVNNbW1PUGRpUG0vSzgySDBq?=
+ =?utf-8?B?cVVOcHJEZGZyYnd3VjdPS0pIaG5zV05BVk9aUHErTFRjaU5qYVJqUkFOa0Rw?=
+ =?utf-8?B?UFRiR2N0WlowdnlRL2NRb0QxQ3NUc2NON1QxMDgyL1ppNjZtSlZpZzBud3Fh?=
+ =?utf-8?B?VUZpQ2JVRGxEbS8vNVVKR1c5TDYzQnlkUHR3RUpZOGpqL2t2ZU8xK05JSlJC?=
+ =?utf-8?B?bCtZdGNrWkh6bk1HbExmTHpXUTFsUlVXRkhKZXRaQlpMN0Q1K3BMMUNDZjhw?=
+ =?utf-8?B?N0grZGE4ckp6S0RGYTIvc2wzd21vb3M4MXNFdTlTUFQ0czhEMUV3WlU3czUw?=
+ =?utf-8?B?SE5yTThyM0ppb2hWeUlaK1NGRFpGMGhkZXdycnVhWDhJYmYrVy91c1lFMXBk?=
+ =?utf-8?B?T2xxRmVLUDFhVWYwV3ZHTDFzTCtKZmRvMU1nTUROWXVyd0tkTVRIaCtYWDNS?=
+ =?utf-8?B?SDF5OTNFK1luMmR1dzlEc2ZXejYyOFRndkxFSXptMm9xS1Z2OVpVVXFTdzNl?=
+ =?utf-8?B?TjJWLzQ3RkJ3YnlMaGZJNEFMZVVZa1NtQm4rcWZSK1U2NnlZdUQ0SUdJMXEv?=
+ =?utf-8?B?RDJkVng1dWRUTDg5K2dDRjB6b0NpNHlLZG1RejJpRDlyOXlPN3VmUVEyOE9p?=
+ =?utf-8?B?Tjc1c0lnZFRmdWVjZVdieG4zV1FkNnBUOERpbXBnMzVzb0k0RVFPU21YaDdS?=
+ =?utf-8?B?WnJxOW5ZeUNoQzRtYnpBcEZYdEJ1Nkc2SlhaTVZKbW1KSWRwSCtPT2prYTVQ?=
+ =?utf-8?B?alhLNHFOTWJ6NlZXemJQWnorNnRjWWt0WnNQaXJjUVlIZXA3cVY5L1FXbFpo?=
+ =?utf-8?B?c01aVE91RUI4WkdhWDB1UFZtb2pXcnk4MTdVTUlJNGQxSktkN05jWmlzYm1S?=
+ =?utf-8?B?cElSNHI4MzR2QitSeTlXcmpadmVUS05oNFdEL3kzTndRSUVLSUwvUHpHOTIy?=
+ =?utf-8?B?dWlYeFJsM240WmM0WiswSFdYdEZ5eVhEU016SU0zWEY2NUhNdkhBZz09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69e48267-4ec4-421d-71c2-08df195d6168
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR18MB4144.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 10:28:16.8409
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9U5vEtMB5yMhewfmWedATTtOvBTgpDNBAYEUWm4z0zKHDnmwtw3EoczLZ9GbARuI/580Tsjc0h91ZsM33Dqkdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR18MB3524
 
-From: Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
 
-Add the secure firmware name property and enable GPU support on
-Maili MTP device.
+On 9/21/2026 4:48 PM, Uwe Kleine-König wrote:
+> On Mon, Sep 21, 2026 at 12:21:31AM -0700, Petar Stepanovic wrote:
+>> diff --git a/drivers/pwm/Makefile b/drivers/pwm/Makefile
+>> index 0dc0d2b69025..4466a29e780a 100644
+>> --- a/drivers/pwm/Makefile
+>> +++ b/drivers/pwm/Makefile
+>> @@ -8,6 +8,7 @@ obj-$(CONFIG_PWM_ARGON_FAN_HAT)	+= pwm-argon-fan-hat.o
+>>  obj-$(CONFIG_PWM_ATMEL)		+= pwm-atmel.o
+>>  obj-$(CONFIG_PWM_ATMEL_HLCDC_PWM)	+= pwm-atmel-hlcdc.o
+>>  obj-$(CONFIG_PWM_ATMEL_TCB)	+= pwm-atmel-tcb.o
+>> +obj-$(CONFIG_PWM_AXIADO)	+= pwm-axiado.o
+>>  obj-$(CONFIG_PWM_AXI_PWMGEN)	+= pwm-axi-pwmgen.o
+>>  obj-$(CONFIG_PWM_BCM2835)	+= pwm-bcm2835.o
+>>  obj-$(CONFIG_PWM_BCM_IPROC)	+= pwm-bcm-iproc.o
+>> diff --git a/drivers/pwm/pwm-axiado.c b/drivers/pwm/pwm-axiado.c
+>> new file mode 100644
+>> index 000000000000..781053e255f0
+>> --- /dev/null
+>> +++ b/drivers/pwm/pwm-axiado.c
+>> @@ -0,0 +1,277 @@
+>> +// SPDX-License-Identifier: GPL-2.0-or-later
+>> +/*
+>> + * SPDX-FileCopyrightText: 2021-2026 Axiado Corporation.
+>> + */
+>> +
+> Is there a public reference manual for that hardware? If so, adding a
+> link here would be awesome.
 
-Signed-off-by: Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>
-Signed-off-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/maili-mtp.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+Unfortunately, there is currently no publicly available reference manual for this hardware.
 
-diff --git a/arch/arm64/boot/dts/qcom/maili-mtp.dts b/arch/arm64/boot/dts/qcom/maili-mtp.dts
-index 1fdc91e03271..27facd4b2a13 100644
---- a/arch/arm64/boot/dts/qcom/maili-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/maili-mtp.dts
-@@ -908,6 +908,14 @@ &tlmm {
- 			       <211 1>; /* NFC Secure IO */
- };
- 
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/maili/gen81100_zap.mbn";
-+};
-+
- &uart7 {
- 	status = "okay";
- };
+>
+>> +/*
+>> + * Limitations:
+>> + * - Only normal polarity is supported.
+>> + * - The hardware has no shadow registers, so configuration changes take
+>> + *   effect immediately without waiting for the current period to complete.
+>> + * - The output is driven high while the hardware is disabled.
+>> + * - Supported period range: 2 through 0xfffffffe PWM input clock cycles;
+>> + *   0xffffffff is reserved by the hardware for a constant low output.
+>> + *   Longer periods are clamped to the maximum.
+>> + * - A 0% duty cycle is emitted using the constant low encoding because the
+>> + *   hardware interprets a zero high time as a constant high output. The
+>> + *   requested period is lost in that case and is reported as a single clock
+>> + *   cycle.
+>> + * - A 100% duty cycle is supported and emits a constant high output.
+>> + */
+>> [...]
+>> +static int
+>> +axiado_pwm_round_waveform_tohw(struct pwm_chip *chip,
+>> +			       struct pwm_device *pwm,
+>> +			       const struct pwm_waveform *wf,
+>> +			       void *_wfhw)
+>> +{
+>> +	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
+>> +	struct axiado_pwm_waveform *wfhw = _wfhw;
+>> +	u64 period;
+>> +	u64 duty;
+>> +	int ret = 0;
+>> +
+>> +	/* Encode a disabled request as a zeroed hardware waveform. */
+>> +	if (!wf->period_length_ns) {
+>> +		*wfhw = (struct axiado_pwm_waveform) { };
+>> +
+>> +		return 0;
+>> +	}
+>> +
+>> +	period = mul_u64_u64_div_u64(wf->period_length_ns, axpwm->rate,
+>> +				     NSEC_PER_SEC);
+>> +	duty = mul_u64_u64_div_u64(wf->duty_length_ns, axpwm->rate,
+>> +				   NSEC_PER_SEC);
+>> +
+>> +	if (!duty) {
+>> +		/*
+>> +		 * A zero high time makes the hardware emit a constant high
+>> +		 * output, so use the constant low period encoding for a 0%
+>> +		 * duty cycle. The high time must stay non-zero because it
+>> +		 * takes precedence over that encoding. The requested period
+>> +		 * is lost, .round_waveform_fromhw() reports a single clock
+>> +		 * cycle instead.
+>> +		 */
+>> +		*wfhw = (struct axiado_pwm_waveform) {
+>> +			.period = AXIADO_PWM_PERIOD_CONST_LOW,
+>> +			.duty = AXIADO_PWM_DUTY_MIN,
+>> +			.enabled = true,
+>> +		};
+>> +
+>> +		/* That single cycle is longer than a sub-cycle request. */
+>> +		return period ? 0 : 1;
+>> +	}
+>> +
+>> +	if (period < AXIADO_PWM_PERIOD_MIN) {
+>> +		period = AXIADO_PWM_PERIOD_MIN;
+>> +		ret = 1;
+>> +	} else if (period > AXIADO_PWM_PERIOD_MAX) {
+>> +		period = AXIADO_PWM_PERIOD_MAX;
+>> +	}
+>> +
+>> +	/*
+>> +	 * Period clamping can leave the converted duty greater than the
+>> +	 * final hardware period. In that case, clamp it to 100% duty.
+>> +	 */
+>> +	if (duty > period)
+>> +		duty = period;
+> So with period in [AXIADO_PWM_PERIOD_MIN, AXIADO_PWM_PERIOD_MAX], duty =
+> period yields a constant high output? If so, why is there a special
+> encoding for const high?
 
--- 
-2.55.0
+Yes. With a normal period value, |duty == period| produces a constant-high
+output.
+
+There isn't a separate constant-high encoding used by the driver. The unusual
+hardware behavior is that a zero high time also leaves the output high.
+
+To generate a constant-low output, the hardware provides a special encoding:
+the period register is set to |0xffffffff| while the high-time register remains
+non-zero. The driver uses that encoding for a 0% duty cycle because |duty == 0|
+would otherwise leave the output high.
+
+>
+>> +	*wfhw = (struct axiado_pwm_waveform) {
+>> +		.period = period,
+>> +		.duty = duty,
+>> +		.enabled = true,
+>> +	};
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static int
+>> +axiado_pwm_round_waveform_fromhw(struct pwm_chip *chip,
+>> +				 struct pwm_device *pwm,
+>> +				 const void *_wfhw,
+>> +				 struct pwm_waveform *wf)
+>> +{
+>> +	struct axiado_pwm_chip *axpwm = pwmchip_get_drvdata(chip);
+>> +	const struct axiado_pwm_waveform *wfhw = _wfhw;
+>> +	u32 period = wfhw->period;
+>> +	u32 duty = wfhw->duty;
+>> +
+>> +	if (!wfhw->enabled) {
+>> +		*wf = (struct pwm_waveform) {
+>> +			.period_length_ns = 0,
+>> +		};
+>> +
+>> +		return 0;
+>> +	}
+>> +
+>> +	/*
+>> +	 * The constant low encoding doesn't hold a period. Report the
+>> +	 * shortest one, the output is low for all of it either way.
+>> +	 */
+>> +	if (period == AXIADO_PWM_PERIOD_CONST_LOW) {
+>> +		period = 1;
+>> +		duty = 0;
+>> +	} else if (duty > period) {
+>> +		duty = period;
+>> +	}
+> You don't handle wfhw->duty == 0 here. I think this is what Sashiko
+> pointed out. While .round_waveform_tohw() doens't produce this setting,
+> it would still be good to handle that in case the driver is loaded with
+> this setting applied in hardware.
+
+Yes, you're right. A zero high-time value results in a constant-high output, so
+|.round_waveform_fromhw()|should handle that case as well in case the hardware
+was configured before the driver was loaded.
+
+I'll update it to interpret |duty == 0|as a 100% duty cycle. I'll also check
+this before the constant-low period encoding, since a zero high time takes
+precedence over that encoding.
+
+>> +	*wf = (struct pwm_waveform) {
+>> +		.period_length_ns =
+>> +			mul_u64_u64_div_u64_roundup(period, NSEC_PER_SEC,
+>> +						    axpwm->rate),
+>> +		.duty_length_ns =
+>> +			mul_u64_u64_div_u64_roundup(duty, NSEC_PER_SEC,
+>> +						    axpwm->rate),
+>> +		.duty_offset_ns = 0,
+>> +	};
+>> +
+>> +	return 0;
+>> +}
+
+Best regards,
+Petar
 
