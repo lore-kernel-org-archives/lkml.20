@@ -1,132 +1,105 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-oi2-f43.google.com (mail-oi2-f43.google.com [74.125.231.235])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FCE40DB4A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:56:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790196981; cv=pass; b=DjN20vxFiM4GFlrMWvNPX/k8eKoGAu8OEORSQTQ8Q2OBTrlD3W5suaFZLjMQfMLxmiHbw3C3ISg11v6LvHkg8oiNy30JduviRgqtjVwiXTKJ9Wkx20ihkCAz589OF8a59mQy3885p6rwnb3WxI1ublFDcCfbjBNC+3hXDEdwta8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790196981; c=relaxed/simple;
-	bh=AfsNOKliYq6zL1eqw3cqwWjdNoNKiv3VUp2n3SA8M3Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EeIst/BFFNoh8VcnXAwU7l/v3vd+gvSLRb2KuYTxRQ+tuMUfx0GXcjLyzDQ5FgKN/d8YDaVYnv6nYpIQtMMk4S5OTQC4hraH+ESbyOfF5AfblsrMBF46Vyzz08isanLLWS46eHNseAcNVsTVaQCAVgRcU2dqU8GABRVNHR4rK/M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=SCxH7Yqu; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1841446BFA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:56:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.235
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790196987; cv=none; b=uLZusAPYioecvSIkda7Ajv1anLlZ8g30kF0CViinaU5+JDtP5MlciEVPbJfq9Jdv8nUosDSXswDmgPCwjPHvI+N1MLI5etJygVBNYzXKaKXDw+98Jg8MxETQJfGSea//LAIdKG1814o0b26vrh9QaSwpQMKEAc4azMqZMcN4cx4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790196987; c=relaxed/simple;
+	bh=W1wFHElEz1b/dayThNRVFfN+kigL6G25ODCAEJSlsog=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jI9ugGNpzc4tl4uVYC9aD3EG6CT60bZe10bgLz04ihVen26F6kIs3hSjN6AXzBg1HH5Y5VAI2CrHgxkpXnyRGz8FE/Ad6ye5jX//7ZPGYC3IT4poKIpY/XQIIFWRETXzDh6KCtJqryCUbvbqfPFpu8wSfChBKowJRXfeg/rzvvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=abznh2cR; arc=none smtp.client-ip=74.125.231.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="SCxH7Yqu"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so589823a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:56:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790196979; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZNszgOrnzTGtngnmdeWNfDpfnPefS4TZ548RbOmbJRwyvIS/FuHL9Eo+Dj3PBmpS7f
-         Jwko9LBdiwft78DGnxTG/FjGMya/GoGIkiIyRCmkVscWw4ZLb0PAjFa+oEH8CprvgZ6P
-         dzTcLX2EXsTpJexZLefREAivavsb3q7tASf5STqJKqGrrZDOp8b5OWRn6WEPVTdeAXSS
-         KLXfVUBbV3Kok4WgoQnNzY54wqpF7FRFxqkueow6kspYv4i5hroRQsNjhLVsumgZFxJf
-         S8YBKTuw+dyHxli8XETQgzNLHJlIiaRdqxBd89DBn9M5z2+qgKGBTyGKeLolz0O2Nck8
-         vcuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uKXaOIOrNPS4pMqCdHAkufQqbDvyLs8wmA+yFUKQc+s=;
-        fh=5Ia49CQ8nnGQ5imeuUYuCrYLlIqPu4PYzq9WwpI1Uig=;
-        b=lnvBT6d3kSnG59gFWV94MLVX7+y8qeXwArrFnnWK9vJdIz3cjN/zO3PHM5L99zzDl7
-         be7OcX7ZAKUyCzt1cc6JAc1UrvcjlZt7hXpQiWh69rJB2BW1BVbTbFEZFJho4RS1p+Uk
-         qskgzedqv0lEGam8V1i2tYgttLmhxi6N3RQ3TTfLxjfw+dbb6Ep51rLs3Zjdl0RG15dk
-         qxoNi52VhzUn4XOE77o2yIPc/W5ajelBoJEUdLS5zM9QLT270GCH4nGtpMmrYH7kALYN
-         IeUMV1vCKyS6gv5P2kMIADzuosmeDFIYFunGd+jfxc86NS2LPfP/5GApF0ty1fDaa4/Z
-         lnlQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="abznh2cR"
+Received: by mail-oi2-f43.google.com with SMTP id 46e09a7af769-7fccd4c3f36so1492659a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:56:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=paul-moore.com; s=google; t=1790196979; x=1790801779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uKXaOIOrNPS4pMqCdHAkufQqbDvyLs8wmA+yFUKQc+s=;
-        b=SCxH7YquEqV+DMQ7X1Pwfgpngy1rqsZTafwV3mLotiecr9XnNUqcX+RS8aIvbk2rZJ
-         TrW5VOSZPCGF1FbUz+UxdHCtJnGzIsJhWdArB+Y1x53R1JAF5z9ZiWARgW7zmf0YtjXD
-         gWxkaWdSTlG/RoeSErfU1k0wQOiUNPXkOeUC811Gopln/qQ+H5lMNd3jS0TUJ+sJSpWi
-         ElVRopfx5aQFpVpg2UhgtFn7Z6D/wnKhPuGlqVbQ8GqBIaPj3WHWvUJvFamrtdGOOutJ
-         LbqCKYGocOk5c+lLDP1zE03fhY2K64vAesqPmvutPKZFGCbADlFOM75BbbyNFG/AoMLq
-         dTlg==
+        d=gmail.com; s=20251104; t=1790196985; x=1790801785; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FcKyz98Jefny6nggmzRRJAKdNeUQm5PRvYIxlTnznGY=;
+        b=abznh2cRfzonhhRyGmX6b6idZiAVQhhlq3kq28Dvbt2uwgGrHtTAfrNC5ZJ3DUSjIc
+         xwnBrDhyyqNOKdL0dtOVkAbMBpHtVAUFsPZ2bAQJc6ycim8lIZzXF8wDDCfsd+6Kuj+5
+         cYh0jS51WcXuInqDO6Dmn9f2qjpl2QXR32YbC7c0JRXJJa34tb66wcIML+7y8kc4qeXq
+         23F2ssqKA9MfcthWpSc6cl1AKir++wE2slIe6DujIqSftGJavAmuCJ9gBK95+AOpHioi
+         sHLp9KYCrQr6pwtt/rHZDgQBHyytwVCooRju7peiS8KwbrEGdqYCv9VKowKWGcRgbNdt
+         hy3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790196979; x=1790801779;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uKXaOIOrNPS4pMqCdHAkufQqbDvyLs8wmA+yFUKQc+s=;
-        b=FCiej0PFJVk0OriMhn4tZ7Kf2jGsBw4rwLcfDC3ZZeE2IzJ/A9XcYBzAftscSaebHe
-         82075HndH4qZS4S0m4mkXsaL3c6P9obnmKgJTQODrQkM11NzQp38J1grR5suoeK9Jk4T
-         zP8Sprqxn1Cc2G9krIDxDVikWgIQ9UNDI1KZMfK41H400R7ZZfVV0TKWmMcizbraPTeI
-         k91ik1dG9tp04+crZVRD/GOzdg/awXkvKse5fhUqvoU8YfGGQ3jJ2OZupKHdqfmDp2k+
-         ruzB5Rc4fmlgHxnXPKeN7fVwE5duP2L1m5hlOyv1dbT3BdAJZ3Sg2iI6ZeT9wVYrwMHw
-         N0AA==
-X-Forwarded-Encrypted: i=1; AKwUvBzb6MIrsC8PHPyB4MMUrfJQi2kL1BqGwQhsdhuGfltHbw7VGYE5VEjJRaOCgtNfHatiied18pu9LeicgVY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAd4MPIn4k2Euz7Nhrk6VCmmiKlNemPfaDn03OvVZB3qRPey2H
-	UOsZVuMbvY3WSUYgfgdiHo6qVyy+oc39AlozenJI3NnOa3gY8nyb+RxCbsQuDD7NEC30YDnwUbG
-	Xm6zxWoQ7VqUVmY0d34q48z5EANvy2pE5obfJ9odg
-X-Gm-Gg: AYBFou13+qv257B7CYtKuMCGjZtzJwC0iyU627GU1icTy0FWSgtlIaBZ0gn3/9i16ps
-	BCiJBLqpFTp+N4cDG3sDnq/UCBhi5V3H9VoPuSRfikimVBMkIt6acN6d56FXr8sgExbSW9xSXpj
-	rYi5oDqsgACTTqmKZe3xO2NLNgNDfbEezBhaXIS+hiiMXqpYjdUrSI66f/GEjtCBbpkRHZ7znkR
-	OaCeldQz9XZ9/Um7+ZxLN7bkzIonv3wUsS83uBRBYFWuabuHuVOmJGfmz0dkvNioC2Yr8IyBOrY
-	AdMVIYd8OLD/7mbykIFLgJKltec97qEsmJjFQeSdmCALjT3+jJCYM3jylOoNxeYUD4brgDvn3Ho
-	WHh0HvcCmujY=
-X-Received: by 2002:a17:90b:5783:b0:395:8124:ac53 with SMTP id
- 98e67ed59e1d1-3a09860ee65mr161639a91.6.1790196978912; Wed, 23 Sep 2026
- 13:56:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790196985; x=1790801785;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FcKyz98Jefny6nggmzRRJAKdNeUQm5PRvYIxlTnznGY=;
+        b=PStvIdQ4GD7XdRF9NaAAYGq5BMBwwTXjYgTXp1H7UlO6fnZtgmrGJveFEEzJXhw6kB
+         f8yUk4axYOP7dTv1B2bdfhrxxjGToc4DPC7Svv2ZwZ+e5O26/Yvh37wa0WAI+wbtY/uH
+         vTwEEIrn5kClXiBIHkvptU9686ph9YPcdGXzlkqKCEZC6ajkmJKzrw4chXBhAiGo78xW
+         8oE49/+gFssbbG8hq+EI6W4o/3fCjQQRdAVxsAwWAGtTZorzJQNzbwz6ZMGbCYUPBOZ7
+         axa/Nh4U+a0G951eDRNEMtwuye64JIKYh+U4FywUrziifTl0BzGq4D51a0ZlB+nYEcL+
+         6ynQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwFHLUlbpJByfzyZKbz+z+BHSA2OUGy12sYkaSyBpl0SLNL5tS4nAbm2SncQfokiy+1LXz3IcAqis6Ux6w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lx463BI9K7F9ZsFWPEaWlVb/1fLF/KCMTWYgsFbYx8iPPtBhrC
+	y5Hx9DLcSauRV34OvYxZaOyrrbJWXvclZ0S15OJJ0O99KUf8WGhp6UDoZZn8NB4V
+X-Gm-Gg: AYBFou26WC+oFW38RS+vOlHyzBiA0fRGE+/b6/wwHGKq+BP25VIC7jd1CpA1qOwHWid
+	j3Gh1fB4erb3ycTKXQXqx8UBOuc/PjJL6bmqk/jtvR9i4wH8kEI+24jn8qPgx2IqU2bC+nFN+Hs
+	lD3W5KpyGsqJ04jgpfe5Xwvsac+my3As8uidqAk7OiKjRxNsiGV8jjBoHzzV/ohhW6YV6D3nX/1
+	zLL4XvaQ/8y0jl1L2o2e+X+lvH+ttoxufW6hmekXibmD9x/NHOa+oWmO2qgzW9B80XaHDrRjL3M
+	wXtGRCDpnG/HL/EhoSmOVT/DuGlNtgmEvBYeDblfuF1RvGAKaZrusT6HAHBfOsVADbRW5UGxsJX
+	KA/Lw0ikDeJSF0mmc/yDA96f81nHJCCdZ8anLOee59cwYbsFWCgZgr10DX+5PeUAD39NoxsCoBy
+	BwVWatGKJ8r+DP6ePTHui2gUNWa4sAPJK0Fl0hWmvSb2EcoDez3YqjG3u5ecZ+OMxzA6E7e/z99
+	XLcYLN7zmSmltJVsWREDElRZV8BMAbkO3BuXqOF9qb+z6WozXU=
+X-Received: by 2002:a05:6830:6308:b0:80c:d34f:5f61 with SMTP id 46e09a7af769-81783984e99mr475510a34.26.1790196984749;
+        Wed, 23 Sep 2026 13:56:24 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-81603ad0f20sm4498893a34.9.2026.09.23.13.56.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 13:56:23 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: Willy Tarreau <w@1wt.eu>,
+	=?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>
+Cc: Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danish Khateeb <danishkhateeb03@gmail.com>
+Subject: [PATCH 0/2] tools/nolibc: fix WIFSIGNALED() for status 0
+Date: Wed, 23 Sep 2026 15:56:20 -0500
+Message-ID: <20260923205622.1123270-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915150739.284189-1-daniel@iogearbox.net> <20260915150739.284189-5-daniel@iogearbox.net>
- <CAHC9VhR2Zp9LzDRwDOZoesOC7o8hretfgRH-PRqQRXA0EES2vA@mail.gmail.com> <CAEXv5_g1XQAwsydnbu9SUvxNBdYQf+xXjPaZMeC8hxgfThP+pw@mail.gmail.com>
-In-Reply-To: <CAEXv5_g1XQAwsydnbu9SUvxNBdYQf+xXjPaZMeC8hxgfThP+pw@mail.gmail.com>
-From: Paul Moore <paul@paul-moore.com>
-Date: Wed, 23 Sep 2026 16:56:07 -0400
-X-Gm-Features: AclHuK90iLZutEt8vQpJHROuzrBD7oVO2vZ8qgmd-e8wc1UQ4r8BY_tG8pTzJSY
-Message-ID: <CAHC9VhQCcbu9v5aNPBxd6sqwjn2bWZYKJcPMMd=kBQJUuSPPAQ@mail.gmail.com>
-Subject: Re: [PATCH bpf-next 4/8] bpf, lsm: Let BPF LSM provide xattrs at
- inode creation
-To: David Windsor <dwindsor@gmail.com>
-Cc: Daniel Borkmann <daniel@iogearbox.net>, alexei.starovoitov@gmail.com, brauner@kernel.org, 
-	john.fastabend@gmail.com, memxor@gmail.com, kpsingh@kernel.org, 
-	matt@bobrowski.net, bpf@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 3:14=E2=80=AFPM David Windsor <dwindsor@gmail.com> =
-wrote:
-> On Wed, Sep 23, 2026 at 12:57=E2=80=AFPM Paul Moore <paul@paul-moore.com>=
- wrote:
-> > @David, simply for my own understanding, did you ask Daniel to do
-> > this, or was Daniel operating on his own with this patchset?
-> >
->
-> Daniel and I work together and both have things written on top of this
-> kfunc. He reached out to collaborate, I agreed. We're also going to
-> send bpf_set_file_xattr shortly.
->
-> This implementation was chosen due to its immediate mergeability (it
-> only touches security/bpf), but was actually suggested by Kumar in v1
-> or so of my original series.
->
-> That said, sorry for any confusion about this appearing as a new
-> series rather than as v7 of my previous one.
+nolibc's WIFSIGNALED() is true for status 0, so a child that exits with
+0 looks as if it was killed by signal 0. I ran into it in a nolibc init
+for a QEMU test, which reported every clean exit of a child that way.
 
-Thanks for your perspective.
+Patch 1 fixes the macro. Patch 2 adds nolibc-test cases for the wait
+status macros, which would have caught it.
 
-To be perfectly honest with you, seeing this patchset land in
-linux-next without it being posted to the LSM list, or at least CC'ing
-me, after all the discussions on the previous iterations seemed a bit
-suspect, especially considering the rather rocky relations between the
-BPF and LSM communities at the moment.  Regardless, hopefully we can
-get this sorted out.
+Tested on top of nolibc/for-next f2212892b6a0:
+- x86_64: without patch 1, the new wifsignaled_exit0 test fails, and
+  the rest of nolibc-test gives the same results with and without it.
+- x86_64, i386, and arm and sparc64 under qemu-user: all new tests pass.
+- libc-test against glibc: all new tests pass, so the expected values
+  match glibc.
 
---=20
-paul-moore.com
+Danish Khateeb (2):
+  tools/nolibc: fix WIFSIGNALED() for status 0
+  selftests/nolibc: add tests for the wait status macros
+
+ tools/include/nolibc/types.h                 | 2 +-
+ tools/testing/selftests/nolibc/nolibc-test.c | 8 ++++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+
+base-commit: f2212892b6a0c2adab438783e9fa8093c90786d7
+-- 
+2.55.0
+
