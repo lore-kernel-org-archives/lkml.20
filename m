@@ -1,56 +1,56 @@
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E214ED1AE
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:13:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4378C52189C
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790187233; cv=none; b=e6e22iVM6ENdRXwProPrV4KDW/fHhVuNU0H6XIrfzBr7YCjw46T6CMGvztX+c6I8ZaOVwq71IUpmaV29ceZw4WUsWIkALd2rXXeUP/5D68uvncnhIcVS8xyM92YgcUh8EFzzcEPAWhywn2U0HwMt0a3QmiX9uVHb19GslbpRBss=
+	t=1790187229; cv=none; b=azxG6aPaqYADnjV9jpY7g9F1ZZ/7MoH/egk9M85yd05Kuvoq3gSTI2iWKLgM0PDOM2KldisS04gKeC4e0ytP38NSwvmeueFMCaqAB/a8L2j3QwXInTJyR/1ThP7TcCABNwEfv9HN+WpaPad1g0XFHNYslDyCROfrf18ZZ1lzqvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790187233; c=relaxed/simple;
-	bh=PCoZS4hYLNKyS2/J0zNmrX67ReirwGEQHba41+qzYdI=;
+	s=arc-20240116; t=1790187229; c=relaxed/simple;
+	bh=z7vqmH/W7uYEWg9uciwQj+xi8Uw8JQVTKj1NOjVRwo8=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=eGmDElJCKGagXPPxoLG+VuwNv8xzo5XGJSbs4Duf3KPISJC18tkwVBk+0bNXNbQT2VXhB8er5Iyq9XGH4zdjpD5ySll7sbUNauw1ArU1zO7ispKCtsCjcD1imOMFl8D6Ndb/dfX8djr2yE+q7v+dEuttj0GkMYXsCClM8FdsXT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=IbPbFp/6; arc=none smtp.client-ip=74.125.82.72
+	 To:Cc:Content-Type; b=k/mcDoj2EcPjcJLEnAgq9H1pZJ+KtxzSLPbbcttx8EG0+G+uM0lJCMIHWJqSbSlvGdXAy/PjwwS/bzwKbrXzsDcZ+knn2diErSNwzJD/qW9yMeUKCVWCe8j9Xq3ouMsEX7cQko62xrjmJljd/k7ElSVOPZB9/WricOS8hJNXafQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sFb5mNev; arc=none smtp.client-ip=74.125.82.198
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="IbPbFp/6"
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-14383177746so2648298c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:13:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sFb5mNev"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3284bbaa89dso343320eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:13:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790187224; x=1790792024; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790187217; x=1790792017; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=e8ZzEnXiAriAz3I2b2+FYE+wrUl61cx7qAsXLfK/CdM=;
-        b=IbPbFp/6nMDpQ29Vmicz7a7ArJqhf059kJ7vDJrhatqHxJ6zI2Xh0X5x/LzVwhBekT
-         uun+G/fD7bGXRlofAXVg5hrEMU/vE8+q7hCJlufGHgoqFm5KX71Yt7lTd4A/W1GvHi2Q
-         hwFwQyKj65P+wLv6CCEasgMAX2AIhHuNl3WgaapBXEhzctjLxTCFDhTXcARawD20Mw6e
-         xbCvmHRj90bPOZ21FWdpec25AUw2HpE/SgOFCWfRotLRJLECC3heIRKHbwjTE5FZkfqa
-         Gh+X+rYyE1wt2x0Y1wyEVmVl4JCr2AYDiq7qAMJdgAFLzvnyl4R3j/3yw9rdgdfsVzRP
-         g8vA==
+        bh=P5W10MU5bl5VxJ75fOObkLubQboartiFngmcNW9cY0Q=;
+        b=sFb5mNev/Rua7n3y35IG2v6o96kWBkneERzGPqj7uN4T4jd0LPE+7ibiQiOPqufRqd
+         k3eW2Wu+tEKIL3BANJa513WO8Eda8hPdVd8IuGFetnxFUGoc4ddnSsdAM+O36nLZjeqJ
+         1gfjQgk6QjJ8WSiUtvwehGmyQi9O99ot29qZ93tvIEC6wO18zvkdzVSCta1nRCwBeaYq
+         SIUgsUADzQshJYrWEfYRGhgSdPehA3GHmn1Qc43WZ3fOBIHQxxjBXBZnHFek7xVMIUW/
+         pTVFSsDEYECEkV3Nhk0GFmus6PHfWGLtmIN1QikSEgwdSJE4G7ldSOZAyaaPLfgW2YUx
+         ZqPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790187224; x=1790792024;
+        d=1e100.net; s=20260707; t=1790187217; x=1790792017;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=e8ZzEnXiAriAz3I2b2+FYE+wrUl61cx7qAsXLfK/CdM=;
-        b=Jy2fQMvF4W+7/uAvdUNTP4G7IqIqlyMR0SVuhBzvsHGxBCZiuoTxtPu8N1kogfuDT/
-         4LYcWr09nk5T7SV/Cc1MB9lnkkt7t9lCf5UsPtFRkb6KrWBGq+Y2jdFj2CKRvjEeTIra
-         cIIwJbvvibDlofnKIuZXTR9lVqmKTz0Ja6QQjrRiLteXH8i/fQiggrO+0PbIj106hY4c
-         /cYuoqvbgiZ9h+3P6P2IntqaJwVRM9hi1qOlOZy8BbguOMcklByt9Otg0UrKg/NC7F+P
-         nwjxqXlt+ZCvd4frvpIaArOczjhmDXWj8smyyvYZowWH2wZEldJrJcEESEVJrbiXNh38
-         IZ3A==
-X-Forwarded-Encrypted: i=1; AKwUvBz8CPuWCyctfH2n+Yge9+XbLRSdeo+fWFLiUBo0Hn2LUhEfpKEQDlifVw5rwyHq+PmuJ9lU17fVbRA+HhE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/CBgMV+bOX814J6j0ShCG2PtdX7j06lsZDQloMArkk74HmutT
-	Bu3JPSSsF5bib9pCojkfh8TuDqrgaYb9R/F+8b643sU4REI0cv+xGsYj4H5IBsXeGm3+DpJUXHS
-	ucAYjpSm77A==
-X-Received: from dlbox9.prod.google.com ([2002:a05:7022:1209:b0:144:f706:dbd4])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:f51c:b0:144:c127:dd1a
- with SMTP id a92af1059eb24-144f9193f01mr3178179c88.38.1790187223661; Wed, 23
- Sep 2026 11:13:43 -0700 (PDT)
-Date: Wed, 23 Sep 2026 11:11:42 -0700
+        bh=P5W10MU5bl5VxJ75fOObkLubQboartiFngmcNW9cY0Q=;
+        b=zunRGuAGvpgl00cQ03m8ntvPKFTKKUaaP5GPuop1GjZIMFbVbimKqHFvO3AIEArvLq
+         YkKGkk8kPNkyz/OTOVUFHRGFD0BKlMpTqNoEFFQ6gt1HWR0dU+I/Ab02a/oMws4GvqnB
+         QT0Xm2QS1gnQOBmWp498KeYEM+uv/n3yloQdoEbjFq5NP8AqW4dgg6B3bvyhvIddjF/B
+         KTLVmjpjEwPXWVrpKl91tvudxOMbohNwY1pmpXAcMKJvcoO+p987BKz39r9YCMY8kRQj
+         bCvZtOuiQemqZbODUlZ/9NV26OtYuTWnM+CJcME9UA2M2mWp1aR6zfNZb1hC5QMA9Zro
+         H0VQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzBCBr+e4UDUrc7po8KOvRJye92VM6/Qv6k8akXEYDkGA/4Alju4c6q4LVM7/o1v72BycJnlvC5Lm2jKhI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9X/SuSAM7/LtjtZP6bubiaGX1oi+pGePDjemwARAuwLT3dWgs
+	egEWuFYojL6L++mJEX5i3aAXflnvDMnVxxpYhPQOAhl51CmimZnte0p4BYINOPd3Mg5LKQ6yBDf
+	8ExeFQU1tzw==
+X-Received: from dloo7-n1.prod.google.com ([2002:a05:7023:a47:10b0:144:bf4d:c486])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:f50d:b0:143:40a6:9598
+ with SMTP id a92af1059eb24-144f9300e33mr3108039c88.33.1790187216219; Wed, 23
+ Sep 2026 11:13:36 -0700 (PDT)
+Date: Wed, 23 Sep 2026 11:11:40 -0700
 In-Reply-To: <20260923181213.3032038-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1789966896.git.irogers@google.com> <20260923181213.3032038-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
-Message-ID: <20260923181213.3032038-20-irogers@google.com>
-Subject: [PATCH v3 19/49] perf python: Port flamegraph to perf module
+Message-ID: <20260923181213.3032038-18-irogers@google.com>
+Subject: [PATCH v3 17/49] perf python: Port mem-phys-addr to perf module
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, alice.mei.rogers@gmail.com, 
 	namhyung@kernel.org
@@ -71,333 +71,184 @@ Cc: adrian.hunter@intel.com, dapeng1.mi@linux.intel.com,
 	tmricht@linux.ibm.com
 Content-Type: text/plain; charset="UTF-8"
 
-Port flamegraph.py to a standalone script in tools/perf/python/ that
-uses the perf module directly, avoiding intermediate dictionary
-allocations for event fields.
+Port mem-phys-addr.py to a standalone script in tools/perf/python/
+using the perf.session API to read perf.data files and profile physical
+memory access types against /proc/iomem.
 
 Improvements compared to the legacy script:
-- Add Subresource Integrity (integrity="sha256-...") and
-  crossorigin="anonymous" attributes to external CDN stylesheet and
-  script tags in MINIMAL_HTML.
-- Upgrade CDN HTML template hash verification from weak MD5
-  (hashlib.md5) to cryptographic SHA-256 (hashlib.sha256).
-- Escape '<', '>', and '&' ('\u003c', '\u003e', '\u0026') in embedded
-  JSON payloads (stacks_json and options_json) to prevent HTML script
-  injection / XSS when rendering untrusted symbol or command names.
-- Skip invoking 'perf report --header-only' when the input is stdin
-  ('-'), a FIFO pipe, or a character device (S_ISFIFO / S_ISCHR) so
-  non-seekable streams do not hang or fail.
+- Parse the full indentation hierarchy of /proc/iomem into a parent-child
+  tree of frozen IomemEntry dataclasses (instead of only top-level
+  indent-0 ranges), resolving physical addresses to the most specific
+  sub-range (such as Kernel code/data/bss inside System RAM) and rolling
+  child counts up into parent totals.
+- Support profiling multiple memory events in a single perf.data session
+  (keyed by evsel name) instead of assuming a single global event.
+- Add argparse CLI options (-i/--input and --iomem to allow supplying an
+  offline /proc/iomem snapshot from a target system).
 
-Add a shell test (test_flamegraph_python.sh) to verify the standalone
+Add a shell test (test_mem_phys_addr_python.sh) to verify the standalone
 script.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/python/flamegraph.py               | 283 ++++++++++++++++++
- .../tests/shell/test_flamegraph_python.sh     | 110 +++++++
- 2 files changed, 393 insertions(+)
- create mode 100755 tools/perf/python/flamegraph.py
- create mode 100755 tools/perf/tests/shell/test_flamegraph_python.sh
+ tools/perf/python/mem-phys-addr.py            | 136 ++++++++++++++++++
+ .../tests/shell/test_mem_phys_addr_python.sh  | 102 +++++++++++++
+ 2 files changed, 238 insertions(+)
+ create mode 100755 tools/perf/python/mem-phys-addr.py
+ create mode 100755 tools/perf/tests/shell/test_mem_phys_addr_python.sh
 
-diff --git a/tools/perf/python/flamegraph.py b/tools/perf/python/flamegraph.py
+diff --git a/tools/perf/python/mem-phys-addr.py b/tools/perf/python/mem-phys-addr.py
 new file mode 100755
-index 000000000000..1b06a11fa86c
+index 000000000000..53ef7e9a14b5
 --- /dev/null
-+++ b/tools/perf/python/flamegraph.py
-@@ -0,0 +1,283 @@
++++ b/tools/perf/python/mem-phys-addr.py
+@@ -0,0 +1,136 @@
 +#!/usr/bin/env python3
 +# SPDX-License-Identifier: GPL-2.0
-+"""
-+flamegraph.py - create flame graphs from perf samples using perf python module
-+"""
++"""mem-phys-addr.py: Resolve physical address samples"""
 +from __future__ import annotations
-+
 +import argparse
-+import hashlib
-+import json
-+import os
++import bisect
++import collections
++from dataclasses import dataclass
 +import re
-+import subprocess
-+import sys
-+import urllib.request
-+from typing import Dict, Optional, Union
++from typing import (Dict, List, Optional)
++
 +import perf
 +
-+MINIMAL_HTML = """<head>
-+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/d3-flame-graph@4.1.3/dist/d3-flamegraph.css" integrity="sha256-fXXWjLZigZo3QBJIhjEA3Z2zUfS+vzMQhF2Rlvurfio=" crossorigin="anonymous">
-+</head>
-+<body>
-+  <div id="chart"></div>
-+  <script type="text/javascript" src="https://d3js.org/d3.v7.js" integrity="sha256-DA1YviEGwU4kL8dbwJoXRngAYwdRWAZl9ulVKgwGTqI=" crossorigin="anonymous"></script>
-+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/d3-flame-graph@4.1.3/dist/d3-flamegraph.min.js" integrity="sha256-GEbx5jbtG9LDL8h9HiTWOv9+Txhim0u9gZNR8J6iI1M=" crossorigin="anonymous"></script>
-+  <script type="text/javascript">
-+  const stacks = [/** @flamegraph_json **/];
-+  // Note, options is unused.
-+  const options = [/** @options_json **/];
++@dataclass(frozen=True)
++class IomemEntry:
++    """Read from a line in /proc/iomem"""
++    begin: int
++    end: int
++    indent: int
++    label: str
 +
-+  var chart = flamegraph();
-+  d3.select("#chart")
-+        .datum(stacks[0])
-+        .call(chart);
-+  </script>
-+</body>
-+"""
++    def __lt__(self, other) -> bool:
++        if isinstance(other, int):
++            return self.begin < other
++        return self.begin < other.begin
 +
-+class Node:
-+    """A node in the flame graph tree."""
-+    def __init__(self, name: str, libtype: str):
-+        self.name = name
-+        self.libtype = libtype
-+        self.value: int = 0
-+        self.children: dict[str, Node] = {}
++    def __gt__(self, other) -> bool:
++        if isinstance(other, int):
++            return self.begin > other
++        return self.begin > other.begin
 +
-+    def to_json(self) -> Dict[str, Union[str, int, list[Dict]]]:
-+        """Convert the node to a JSON-serializable dictionary."""
-+        return {
-+            "n": self.name,
-+            "l": self.libtype,
-+            "v": self.value,
-+            "c": [x.to_json() for x in self.children.values()]
-+        }
++# Physical memory layout from /proc/iomem. Key is the indent and then
++# a list of ranges.
++iomem: Dict[int, List[IomemEntry]] = collections.defaultdict(list)
++# Child nodes from the iomem parent.
++children: Dict[IomemEntry, List[IomemEntry]] = collections.defaultdict(list)
++# Maximum indent seen before an entry in the iomem file.
++_STATE: Dict[str, int] = {"max_indent": 0}
++# Per-event counts for each range of memory.
++event_counts: Dict[str, collections.Counter] = collections.defaultdict(collections.Counter)
 +
++def parse_iomem(iomem_path: str):
++    """Populate iomem from iomem file"""
++    with open(iomem_path, 'r', encoding='ascii') as f:
++        for line in f:
++            line = line.rstrip('\n')
++            if not line or line.isspace():
++                continue
++            indent = 0
++            while indent < len(line) and line[indent] == ' ':
++                indent += 1
++            _STATE["max_indent"] = max(_STATE["max_indent"], indent)
++            m = re.split('-|:', line, maxsplit=2)
++            if len(m) < 3:
++                continue
++            begin = int(m[0].strip(), 16)
++            end = int(m[1].strip(), 16)
++            label = m[2].strip()
++            entry = IomemEntry(begin, end, indent, label)
++            # Before adding entry, search for a parent node using its begin.
++            if indent > 0:
++                parent = find_memory_type(begin)
++                assert parent, f"Given indent expected a parent for {label}"
++                children[parent].append(entry)
++            iomem[indent].append(entry)
 +
-+class FlameGraphCLI:
-+    """Command-line interface for generating flame graphs."""
-+    def __init__(self, args):
-+        self.args = args
-+        self.stack = Node("all", "root")
-+        self.session = None
++def find_memory_type(phys_addr) -> Optional[IomemEntry]:
++    """Search iomem for the range containing phys_addr with the maximum indent"""
++    for i in range(_STATE["max_indent"], -1, -1):
++        if i not in iomem:
++            continue
++        position = bisect.bisect_right(iomem[i], phys_addr)
++        if position == 0:
++            continue
++        iomem_entry = iomem[i][position-1]
++        if  iomem_entry.begin <= phys_addr <= iomem_entry.end:
++            return iomem_entry
++    return None
 +
-+    @staticmethod
-+    def get_libtype_from_dso(dso: Optional[str]) -> str:
-+        """Determine the library type from the DSO name."""
-+        if dso and (dso == "[kernel.kallsyms]" or dso.endswith("/vmlinux") or dso == "[kernel]"):
-+            return "kernel"
-+        return ""
++def _print_entries(entries, load_mem_type_cnt, total):
++    """Print counts from parents down to their children"""
++    for entry in sorted(entries,
++                        key=lambda e: (-load_mem_type_cnt[e], e.begin)):
++        count = load_mem_type_cnt[entry]
++        if count > 0:
++            mem_type = ' ' * entry.indent + f"{entry.begin:x}-{entry.end:x} : {entry.label}"
++            percent = 100 * count / total
++            print(f"{mem_type:<40}  {count:>10}  {percent:>10.1f}")
++            _print_entries(children[entry], load_mem_type_cnt, total)
 +
-+    @staticmethod
-+    def find_or_create_node(node: Node, name: str, libtype: str) -> Node:
-+        """Find a child node with the given name or create a new one."""
-+        if name in node.children:
-+            return node.children[name]
-+        child = Node(name, libtype)
-+        node.children[name] = child
-+        return child
++def print_memory_type():
++    """Print the resolved memory types and their counts."""
++    if not event_counts:
++        print("No valid physical address samples found in perf data.")
++        return
 +
-+    def process_event(self, sample) -> None:
-+        """Process a single perf sample event."""
-+        if self.args.event_name and self.args.event_name not in str(sample.evsel):
-+            return
++    for event_name, load_mem_type_cnt in event_counts.items():
++        print(f"Event: {event_name}")
++        print(f"{'Memory type':<40}  {'count':>10}  {'percentage':>10}")
++        print(f"{'-' * 40:<40}  {'-' * 10:>10}  {'-' * 10:>10}")
++        total = sum(load_mem_type_cnt.values())
++        if total == 0:
++            continue
 +
-+        pid = sample.sample_pid
-+        dso_type = ""
-+        try:
-+            thread = self.session.find_thread(sample.sample_pid, sample.sample_tid)
-+            comm = (thread.comm() if thread else None) or "[unknown]"
-+        except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError):
-+            comm = "[unknown]"
++        # Add count from children into the parent.
++        for i in range(_STATE["max_indent"], -1, -1):
++            if i not in iomem:
++                continue
++            for entry in iomem[i]:
++                for child in children[entry]:
++                    if load_mem_type_cnt[child] > 0:
++                        load_mem_type_cnt[entry] += load_mem_type_cnt[child]
 +
-+        if pid == 0:
-+            comm = comm if comm != "[unknown]" else "swapper"
-+            dso_type = "kernel"
-+        else:
-+            comm = f"{comm} ({pid})"
-+
-+        node = self.find_or_create_node(self.stack, comm, dso_type)
-+
-+        callchain = sample.callchain
-+        if callchain:
-+            # We want to traverse from root to leaf.
-+            # perf callchain iterator gives leaf to root.
-+            # We collect them and reverse.
-+            frames = list(callchain)
-+            for entry in reversed(frames):
-+                name = entry.symbol or "[unknown]"
-+                libtype = self.get_libtype_from_dso(entry.dso)
-+                node = self.find_or_create_node(node, name, libtype)
-+        else:
-+            # Fallback if no callchain
-+            name = (sample.symbol or '[unknown]')
-+            libtype = self.get_libtype_from_dso((sample.dso or '[unknown]'))
-+            node = self.find_or_create_node(node, name, libtype)
-+
-+        node.value += 1
-+
-+    def get_report_header(self) -> str:
-+        """Get the header from the perf report."""
-+        try:
-+            input_file = self.args.input or "perf.data"
-+            if input_file == "-":
-+                return ""
-+            mode = os.stat(input_file).st_mode
-+            import stat
-+            if stat.S_ISFIFO(mode) or stat.S_ISCHR(mode):
-+                return ""
-+            output = subprocess.check_output(["perf", "report", "--header-only", "-i", input_file])
-+            result = output.decode("utf-8")
-+            if self.args.event_name:
-+                result += "\nFocused event: " + self.args.event_name
-+            return result
-+        except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError,
-+                subprocess.CalledProcessError):
-+            return ""
-+
-+    def run(self) -> None:
-+        """Run the flame graph generation."""
-+        input_file = self.args.input or "perf.data"
-+        if input_file != "-" and not os.path.exists(input_file):
-+            print(f"Error: {input_file} not found. (try 'perf record' first)", file=sys.stderr)
-+            sys.exit(1)
-+
-+        try:
-+            self.session = perf.session(perf.data(input_file),
-+                                        sample=self.process_event)
-+        except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError) as e:
-+            print(f"Error opening session: {e}", file=sys.stderr)
-+            sys.exit(1)
-+
-+        try:
-+            self.session.process_events()
-+        finally:
-+            # perf.session is a C extension type that holds a strong reference to the
-+            # bound method self.process_event (which references self) and does not
-+            # implement cyclic GC (tp_traverse). Explicitly clear self.session to break
-+            # the reference cycle and free the underlying session resources deterministically.
-+            self.session = None
-+
-+        stacks_json = json.dumps(self.stack, default=lambda x: x.to_json())
-+        # Escape HTML special characters to prevent XSS
-+        stacks_json = stacks_json.replace("<", "\\u003c") \
-+            .replace(">", "\\u003e").replace("&", "\\u0026")
-+
-+        if self.args.format == "html":
-+            report_header = self.get_report_header()
-+            options = {
-+                "colorscheme": self.args.colorscheme,
-+                "context": report_header
-+            }
-+            options_json = json.dumps(options)
-+            options_json = options_json.replace("<", "\\u003c") \
-+                .replace(">", "\\u003e").replace("&", "\\u0026")
-+
-+            template = self.args.template
-+            template_sha256sum = None
-+            output_str = None
-+
-+            if not os.path.isfile(template):
-+                if template.startswith("http://") or template.startswith("https://"):
-+                    if not self.args.allow_download:
-+                        print("Warning: Downloading templates is disabled. "
-+                              "Use --allow-download.", file=sys.stderr)
-+                        template = None
-+                else:
-+                    print(f"Warning: Template file '{template}' not found.", file=sys.stderr)
-+                    if self.args.allow_download:
-+                        print("Using default CDN template.", file=sys.stderr)
-+                        template = (
-+                            "https://cdn.jsdelivr.net/npm/d3-flame-graph@4.1.3/dist/templates/"
-+                            "d3-flamegraph-base.html"
-+                        )
-+                        template_sha256sum = (
-+                            "f6a4aa7edffda4fb9bd71eb0eb75bc44d0bb34cd9efbd053f6095bc5c28d702b"
-+                        )
-+                    else:
-+                        template = None
-+
-+            use_minimal = False
-+            try:
-+                if not template:
-+                    use_minimal = True
-+                elif template.startswith(("http://", "https://")):
-+                    with urllib.request.urlopen(template) as url_template:
-+                        output_str = "".join([l.decode("utf-8") for l in url_template.readlines()])
-+                else:
-+                    with open(template, "r", encoding="utf-8") as f:
-+                        output_str = f.read()
-+            except (OSError, ValueError, KeyError, RuntimeError, TypeError, AttributeError) as err:
-+                print(f"Error reading template {template}: {err}\n", file=sys.stderr)
-+                use_minimal = True
-+
-+            if use_minimal:
-+                print("Using internal minimal HTML that refers to d3's web site. JavaScript " +
-+                      "loaded this way from a local file may be blocked unless your " +
-+                      "browser has relaxed permissions. Run with '--allow-download' to fetch " +
-+                      "the full D3 HTML template.", file=sys.stderr)
-+                output_str = MINIMAL_HTML
-+
-+            elif template_sha256sum:
-+                assert output_str is not None
-+                download_sha256sum = hashlib.sha256(
-+                    output_str.encode("utf-8")
-+                ).hexdigest()
-+                if download_sha256sum != template_sha256sum:
-+                    s = None
-+                    while s not in ["y", "n"]:
-+                        try:
-+                            s = input(f"""Unexpected template sha256sum.
-+{download_sha256sum} != {template_sha256sum}, for:
-+{template}
-+continue?[yn] """).lower()
-+                        except EOFError:
-+                            s = "n"
-+                    if s == "n":
-+                        sys.exit(1)
-+
-+            assert output_str is not None
-+            replacements = {
-+                "/** @options_json **/": options_json,
-+                "/** @flamegraph_json **/": stacks_json,
-+            }
-+            # Use a lambda replacement so re.sub does not interpret backslashes
-+            # in the JSON strings (such as \n or \u003c) as regex escape sequences.
-+            output_str = re.sub(
-+                r"/\*\* @(?:options_json|flamegraph_json) \*\*/",
-+                lambda m: replacements[m.group(0)],
-+                output_str,
-+            )
-+            output_fn = self.args.output or "flamegraph.html"
-+        else:
-+            output_str = stacks_json
-+            output_fn = self.args.output or "stacks.json"
-+
-+        if output_fn == "-":
-+            with open(sys.stdout.fileno(), "w", encoding="utf-8", closefd=False) as out:
-+                out.write(output_str)
-+        else:
-+            print(f"dumping data to {output_fn}")
-+            with open(output_fn, "w", encoding="utf-8") as out:
-+                out.write(output_str)
-+
-+
++        _print_entries(iomem[0], load_mem_type_cnt, total)
++        print()
 +if __name__ == "__main__":
-+    parser = argparse.ArgumentParser(description="Create flame graphs using perf python module.")
-+    parser.add_argument("-f", "--format", default="html", choices=["json", "html"],
-+                        help="output file format")
-+    parser.add_argument("-o", "--output", help="output file name")
-+    parser.add_argument("--template",
-+                        default="/usr/share/d3-flame-graph/d3-flamegraph-base.html",
-+                        help="path to flame graph HTML template")
-+    parser.add_argument("--colorscheme", default="blue-green",
-+                        help="flame graph color scheme", choices=["blue-green", "orange"])
-+    parser.add_argument("-i", "--input", help="input perf.data file")
-+    parser.add_argument("--allow-download", default=False, action="store_true",
-+                        help="allow unprompted downloading of HTML template")
-+    parser.add_argument("-e", "--event", default="", dest="event_name", type=str,
-+                        help="specify the event to generate flamegraph for")
++    ap = argparse.ArgumentParser(description="Resolve physical address samples")
++    ap.add_argument("-i", "--input", default="perf.data", help="Input file name")
++    ap.add_argument("--iomem", default="/proc/iomem", help="Path to iomem file")
++    args = ap.parse_args()
 +
-+    cli_args = parser.parse_args()
-+    cli = FlameGraphCLI(cli_args)
-+    cli.run()
-diff --git a/tools/perf/tests/shell/test_flamegraph_python.sh b/tools/perf/tests/shell/test_flamegraph_python.sh
++    def process_event(sample):
++        """Process a single sample event."""
++        phys_addr = sample.sample_phys_addr or 0
++        if not phys_addr:
++            return
++        entry = find_memory_type(phys_addr)
++        if entry:
++            event_name = str(sample.evsel)
++            if event_name.startswith("evsel(") and event_name.endswith(")"):
++                event_name = event_name[6:-1]
++            event_counts[event_name][entry] += 1
++
++    parse_iomem(args.iomem)
++    perf.session(perf.data(args.input), sample=process_event).process_events()
++    print_memory_type()
+diff --git a/tools/perf/tests/shell/test_mem_phys_addr_python.sh b/tools/perf/tests/shell/test_mem_phys_addr_python.sh
 new file mode 100755
-index 000000000000..3733d53b916b
+index 000000000000..d094a0611a24
 --- /dev/null
-+++ b/tools/perf/tests/shell/test_flamegraph_python.sh
-@@ -0,0 +1,110 @@
++++ b/tools/perf/tests/shell/test_mem_phys_addr_python.sh
+@@ -0,0 +1,102 @@
 +#!/bin/bash
 +# SPDX-License-Identifier: GPL-2.0
-+# flamegraph python test
++# mem-phys-addr python test
 +
 +set -e
 +
@@ -412,96 +263,88 @@ index 000000000000..3733d53b916b
 +fi
 +
 +script_dir="$(dirname "$0")/../../python"
-+script_path="${script_dir}/flamegraph.py"
++script_path="${script_dir}/mem-phys-addr.py"
 +
 +if [ ! -f "$script_path" ]; then
-+	echo "Skipping test, flamegraph.py not found at $script_path"
++	echo "Skipping test, mem-phys-addr.py not found at $script_path"
 +	exit 2
 +fi
 +
 +err=0
 +temp_data=""
-+temp_json=""
-+temp_html=""
-+temp_tpl=""
++temp_iomem=""
++temp_out=""
 +
 +cleanup() {
-+	rm -f "${temp_data}" "${temp_json}" "${temp_html}" "${temp_tpl}"
++	rm -f "${temp_data}" "${temp_iomem}" "${temp_out}"
 +}
 +
 +trap 'cleanup' EXIT TERM INT
 +
 +temp_data=$(mktemp /tmp/perf.data.XXXXXX)
-+temp_json=$(mktemp /tmp/perf.flamegraph.json.XXXXXX)
-+temp_html=$(mktemp /tmp/perf.flamegraph.html.XXXXXX)
-+temp_tpl=$(mktemp /tmp/perf.flamegraph.tpl.XXXXXX)
++temp_iomem=$(mktemp /tmp/perf.iomem.XXXXXX)
++temp_out=$(mktemp /tmp/perf.out.XXXXXX)
 +
-+test_file_mode() {
-+	echo "Testing flamegraph.py..."
-+
-+	# Generate some events with callchains
-+	if ! perf record -g -o "${temp_data}" -- perf test -w noploop >/dev/null 2>&1; then
-+		echo "Skipping test, perf record -g failed (permissions or lack of support)"
-+		exit 2
-+	fi
-+
-+	# Run the script, dump as json to temp_json (testing both file mode and pipe '-' mode)
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" -f json -o "${temp_json}" >/dev/null; then
-+		echo "File mode JSON test failed."
-+		err=1
-+	elif ! perf record -g -o - -- perf test -w noploop 2>/dev/null | \
-+		"$PYTHON" "$script_path" -i - -f json -o "${temp_json}" >/dev/null; then
-+		echo "Pipe stdin JSON mode test failed."
-+		err=1
-+	else
-+		# Validate JSON
-+		if ! "$PYTHON" -m json.tool "${temp_json}" /dev/null >/dev/null 2>&1; then
-+			echo "JSON validation failed."
-+			err=1
-+		elif ! "$PYTHON" -c "import json, sys
-+d = json.load(open(sys.argv[1]))
-+assert d.get('v', 0) > 0 or len(d.get('c', [])) > 0" "${temp_json}" >/dev/null 2>&1; then
-+			echo "JSON flamegraph structure is empty."
-+			err=1
-+		else
-+			echo "File and pipe mode JSON tests passed."
-+		fi
-+	fi
-+
-+	# Run the script, dump as html to temp_html using MINIMAL_HTML fallback
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" -f html \
-+		--template /nonexistent/template.html -o "${temp_html}" >/dev/null 2>&1; then
-+		echo "File mode HTML test failed."
-+		err=1
-+	else
-+		if ! grep -q "<head>" "${temp_html}" || \
-+		   ! grep -q 'crossorigin="anonymous"' "${temp_html}"; then
-+			echo "HTML validation failed."
-+			err=1
-+		else
-+			echo "File mode HTML test passed."
-+		fi
-+	fi
-+
-+	# Test custom local HTML template and --colorscheme option
-+	cat << 'EOF' > "${temp_tpl}"
-+<html><body><script>
-+const opts = /** @options_json **/;
-+const data = /** @flamegraph_json **/;
-+</script></body></html>
++cat << 'EOF' > "${temp_iomem}"
++00000000-ffffffffffffffff : System RAM
++  00000000-7fffffffffffffff : Low RAM
++    00001000-00ffffff : Kernel code
++  8000000000000000-ffffffffffffffff : High RAM
 +EOF
-+	if ! "$PYTHON" "$script_path" -i "${temp_data}" -f html --template "${temp_tpl}" \
-+		--colorscheme blue-green -o "${temp_html}" >/dev/null 2>&1; then
-+		echo "Custom template HTML test failed."
-+		err=1
-+	elif ! grep -q "blue-green" "${temp_html}"; then
-+		echo "Custom template colorscheme substitution failed."
++
++test_iomem_hierarchy() {
++	echo "Testing mem-phys-addr.py hierarchical iomem resolution..."
++	"$PYTHON" - "$script_path" "${temp_iomem}" << 'PYEOF' > "${temp_out}"
++import importlib.util
++import sys
++
++spec = importlib.util.spec_from_file_location("mem_phys_addr", sys.argv[1])
++mod = importlib.util.module_from_spec(spec)
++sys.modules[spec.name] = mod
++spec.loader.exec_module(mod)
++
++mod.parse_iomem(sys.argv[2])
++entry_kernel = mod.find_memory_type(0x100000)
++entry_high = mod.find_memory_type(0x9000000000000000)
++assert entry_kernel is not None and entry_kernel.label == "Kernel code"
++assert entry_high is not None and entry_high.label == "High RAM"
++mod.event_counts["cpu/mem-loads/"][entry_kernel] += 3
++mod.event_counts["cpu/mem-loads/"][entry_high] += 1
++mod.print_memory_type()
++PYEOF
++	if ! grep -q "System RAM" "${temp_out}" || \
++	   ! grep -q "Kernel code" "${temp_out}" || \
++	   ! grep -q "High RAM" "${temp_out}"; then
++		echo "Hierarchical iomem resolution test failed."
 +		err=1
 +	else
-+		echo "Custom template HTML test passed."
++		echo "Hierarchical iomem resolution test passed."
 +	fi
 +}
 +
++test_file_mode() {
++	echo "Testing mem-phys-addr.py file mode..."
++
++	# Generate memory access events (try unprivileged user-space first, then system-wide)
++	if ! perf record --phys-data -d -o "${temp_data}" \
++	     -- perf test -w datasym >/dev/null 2>&1 && \
++	   ! perf record -d -o "${temp_data}" -- perf test -w datasym >/dev/null 2>&1 && \
++	   ! perf record -d -a -o "${temp_data}" -- sleep 0.2 >/dev/null 2>&1; then
++		echo "Skipping file mode record test, perf record -d not supported"
++		return 0
++	fi
++
++	# Run the script with custom --iomem
++	if ! "$PYTHON" "$script_path" -i "${temp_data}" --iomem "${temp_iomem}" > "${temp_out}" || \
++	   [ ! -s "${temp_out}" ]; then
++		echo "File mode test failed."
++		err=1
++	else
++		echo "File mode test passed."
++	fi
++}
++
++test_iomem_hierarchy
 +test_file_mode
 +
 +exit $err
