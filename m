@@ -1,204 +1,136 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011038.outbound.protection.outlook.com [52.101.57.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A152052FE29;
-	Wed, 23 Sep 2026 17:03:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790183029; cv=fail; b=EDjh9UiIlguzKYziYpaSHiKpr7iOJHmnQNy1laWVsj5BYr5UI/QGRr94ZsngtNjGsmr5l42NS4z5IqG3fIZLEaVGZDI+gk4Yzj1d93ntMUEbczpfBcJ8h9DjTJHBG2NcDpcMs9g64baoLI56C/LZHTb9QxhSg2mR22wbMDv29cY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790183029; c=relaxed/simple;
-	bh=d4bmL3t+tHsCiSFSYgmIxu15gjruh8NP4wRGCKKM4tI=;
-	h=Content-Type:Subject:From:To:Cc:In-Reply-To:References:Date:
-	 Message-Id:MIME-Version; b=m74S1baCGVWcDnOuf/F7b/wj/S9VEyyYJQAMLGwGjsDrHtZ28ohTXUf3dCUSpOSCQdNR5bhEKxPSR2ZJgIL9EUoW8A6owjNIbFyYDhFPA/ZSkJobQFioNKximjW7pYoCwcgyPN4PtIxmel4oY9MspBodMYli1bkQE/e61b3cyFU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=X2odBybe; arc=fail smtp.client-ip=52.101.57.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B823947F78E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:04:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790183053; cv=none; b=mTiq8oVreevBvb/nqlE34viUK6zWDsd1fMUNmsR5XimVWskcrGPAadbwg3bjsLNxJN364HbJ2ZGQslpUHRZoldo2BLVcfayfk+wktBplknuR7QIR/qhk6RKq97ldt/HQO3ZBKWdFGmd87jjiNXo4FoVHSZtk3/nOuWcetotZrkg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790183053; c=relaxed/simple;
+	bh=KxGHdtuFcz7Pa/useCIWe8nQJkpYfq606H0uzQpEUW0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tnqvZ/jZMbSp2JKjZD9XQCj1InPyFweIy/u/9OhKz1KwvWa3tBm8XU+YgURauoYMw72ZtJ+JUDLwGNqbB2sAnll0lkUNEwOZdc60Z/+PorArA0xl6/534y+CgDFP4QnTKcMMDV8JxQE948Qc1VmN6/zSzF5eLxI3c3Fr884P/eY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mUF3BONO; arc=none smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="X2odBybe"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=suUFYKub0KNgpT+OZDdH6wpnhUMBmGat3zGtLvaQ34uYetDLzcIMHQH4k6ZKSqhcrorRYdYEb5HzbxccuYGcAtcqRGA2HUUF5+7ZgHHMsjzguhGpUeUyouezgSxT0MTnPT8Y7usslDziw8HVTWDs8h+pkqPCxBzhypj8+RUNDeK+E7PVHETRhdjgoDKzgiN+yuh+cyM0BeMuwYffwjv/KUm7ck1qwMcy9HtcgaxXzmWlauNqqP33JcxPIJ9srvVe2WDoA8GiyJn+hN57fIAHLdF7aQu7m8pGOFrKJkVfUXWc80G/y75chHImjPXIzwy25Tr3eEsRAYChW1a+aDzxAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mr9woqzfYbqxeZnpqupRyVXNn84DTPQKrjh3dY/imAg=;
- b=KO71TMMcwPoBxHO+rL3s/eZmGecf4OWWgV9ZI2a81/QtYVV5vD086E2p+WUZEOh21k7NDN00koTltiDLiyJ0zIc/4Gydz06ZC5jNjBJ3LYE2LvrACvUtcQTPp7j3wxxBGADXehUOF9ZxxQZkz7VSCE6OGELgII+UWCozWPl6gLGUvd3OZKIVNMY6vJquo37muCdyPurSsmV52ZtbTLtuvGOovjuq4kKpnfYkydqjO+p4BKYU7kRivzlvQzDCoGfOx7Du/s2liGuWWfI0aTCseYj2Zgvg3v/eNyP4WXK/ERQ82Oi3dN+44Q2PGEsSOJOiHyqIQGP10oiW9ytQ8NoRbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mr9woqzfYbqxeZnpqupRyVXNn84DTPQKrjh3dY/imAg=;
- b=X2odByberU1lI3OWeWibKhnTyeBKb/Lu581hTfZAB5Pb3LXUNfdyiI8fAi13basboEpFLrJ9No4nYranqSA+cLWEoNzLP7X1s1Rw5Iib3TcRvnhnPhfUtfmzfxO5D9vj9ueL6h5dcemKUjkM2b/pEUNymMxIYXPMQ1zvKWgbpxGxsRZJ9/I96vYAtJig+pzDbnJmPSN6F7U8+FLqrwm9X+4xTxD9AXZIQ00dW9IlqUuSZ37+ySdQ1yw3NXPZMpe4lu2me3+7CrClAc78H1NUMSgTSJ2sPpt1haqguIISZeHpG69edQi7QBOdMqZ/XBwJ6Fk6ciRN5YO5JpkJjuNDyA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LY0PR12MB325698.namprd12.prod.outlook.com
- (2603:10b6:408:3bb::14) by DM4PR12MB7574.namprd12.prod.outlook.com
- (2603:10b6:8:10e::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.17; Wed, 23 Sep
- 2026 17:03:39 +0000
-Received: from LY0PR12MB325698.namprd12.prod.outlook.com
- ([fe80::b65f:1548:5b35:e2b5]) by LY0PR12MB325698.namprd12.prod.outlook.com
- ([fe80::b65f:1548:5b35:e2b5%5]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 17:03:39 +0000
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v6 1/2] iommu/arm-smmu-v3: Add a cmdq_max_n_shift
- module parameter
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Joerg Roedel <joro@8bytes.org>, Nicolin Chen <nicolinc@nvidia.com>, 
- Jason Gunthorpe <jgg@nvidia.com>, Pranjal Shrivastava <praan@google.com>, 
- Mostafa Saleh <smostafa@google.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Krishna Reddy <vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
- Breno Leitao <leitao@debian.org>, Kyle McMartin <jkkm@meta.com>, 
- Usama Arif <usama.arif@linux.dev>, kernel-team@meta.com, 
- linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260909095228.2174031-2-kas@kernel.org>
-References: <20260909095228.2174031-1-kas@kernel.org>
- <20260909095228.2174031-2-kas@kernel.org>
-Date: Wed, 23 Sep 2026 14:03:36 -0300
-Message-Id: <179018301689.3334538.1783583175230817305.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-ClientProxiedBy: CH5PR05CA0010.namprd05.prod.outlook.com
- (2603:10b6:610:1f0::22) To LY0PR12MB325698.namprd12.prod.outlook.com
- (2603:10b6:408:3bb::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mUF3BONO"
+Received: by mail-qk2-f13.google.com with SMTP id af79cd13be357-93910cadea0so73238585a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:04:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790183051; x=1790787851; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yXAKuSszj4G6jEUdkMMZJ69gR7K+U4AkbT4uBZF3+cA=;
+        b=mUF3BONOohbmSvGqf7nrKL9prcibp2HGiSG8Eq33PQbaDGp18lyLbDKaHyw9xFw6+X
+         tiTNOa8W+MMpRUe6nZIfQ9CnWY6puvffBDZRiSMGREqI8PepKRSlH4sjiJqJ/nnIV8S+
+         uQvWKae9f8YF81Wm3ZHlO/3gfI6BgLWoBBid392uliOgD0oItCiEnLsm59UDyn4unk4n
+         d+pe+ZHsV6mVh+0heX2soQ+TdnedKV/aXvrkOuvi+NzBPpcya6VH/7241CGe8YYRxNIK
+         zQFzWOMZ0Hz7WWyJ9cz3erxGeBLNsubNRYjz8KfRF6IRy2sJ/1Ifg9MU6vzBPEfDyBL6
+         st7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790183051; x=1790787851;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yXAKuSszj4G6jEUdkMMZJ69gR7K+U4AkbT4uBZF3+cA=;
+        b=pDVl3qbZx8NPfdM+jNzB8JycW2BktAlYhvi91d1FYhW3T+/dszJilPuKAqVNobu878
+         SQhncBMht7FYS5UylqPRxmzX8saV6OWyGb0/Zq33GNhQecguE01U6hrmR6Z1b00P0C1e
+         OQd9QcebYr3o6PYsYctVfy+RWUZyxutIpY306bS3VFG7IZ4RQGm9AKXA6pOfrpr7KXuq
+         7uqbXhtXEGCNRy3qaVPfM/JaBOtpapO+pJs1FayBzzB0KmjRJoLsVsw/S7mmWTPCR1Gh
+         tLt/DEBDqBBfcdMqicH+G80zSKW8gzaIFxrWAUmL7Hm9l3h4ZC9E1aBkROEpUOsVhD/T
+         2KIw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/NdUtR9qsyaGaM4+eAIqwChHTyn73bY+3aCQT1g+lUZr0aQl+8SyHV8vNRB3O82HFzHUSrjTwwwKjbB4=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2gFVtdygDHs//F7EZF0EC/UI5O41luTTe05btL8b31gyrFGMi
+	G1YV/Y2k9jDfDc22O+JQOpwcCdoBIo08h9h2oXo7mEFJmhDo7CoO92Zd
+X-Gm-Gg: AYBFou14zuzcqHea39c+JhetVVL9+qPQQkMK76HyhPBUsq3JFmT722Z7mqIl/kLWlUq
+	KmRjEf/QReTcKWFQrijvh4PHkY4gsMbqnfpqW8+oTZd2WVMkc2hyBvbrMMJ/hbZtNraueGHzyok
+	DSSUhkBtTlD/yUyrSH2kYsTdGgVhdtirXU7gAn5I9bXJXSWae9QPdMv0LQ0sY4wtZPnCMNMHTT/
+	6+zpHnMrI6J9c+CTaMVkFE5Ad1uTMJeYaT4z2YVGmMjsaVyjG9cLn6ysm7p+1VEDc6ikJIqVtL+
+	gRB05HIzetIKaNVpMdIOB8lm3rNdE3CLqvbqZiOUaJQq8E3eCHffwaFJhcNs+C1yru0lsVS0cEV
+	Nmzf1bVUV3Mp4t7u/BQe7CRl7T5CY3GM9uiUVKs8TlVIAEM4iNUBqRdkD4oQmazdFLceTC5YZBO
+	FfA774UbAfUJQdoXy21aFBwzB0DY3/9nPZxebicIJNJ71nSzRsBMiT7VtxmMGVZzTpuOwERohxR
+	D41x7byYHBXRbDpTTLSOxsMhXco3MHjFoKiPSdRHWf1fw==
+X-Received: by 2002:a05:620a:40cc:b0:93a:273:6a41 with SMTP id af79cd13be357-93c250ce492mr517107685a.29.1790183050431;
+        Wed, 23 Sep 2026 10:04:10 -0700 (PDT)
+Received: from mango-teamkim.. ([129.170.192.5])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93c2482302fsm265902685a.12.2026.09.23.10.04.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 10:04:09 -0700 (PDT)
+From: pip-izony <eeodqql09@gmail.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Guenter Roeck <linux@roeck-us.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Li Jun <jun.li@nxp.com>,
+	Seungjin Bae <eeodqql09@gmail.com>,
+	Kyungtae Kim <Kyungtae.Kim@dartmouth.edu>,
+	Badhri Jagan Sridharan <badhri@google.com>,
+	RD Babiera <rdbabiera@google.com>,
+	Amit Sunil Dhamne <amitsd@google.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RFC] usb: typec: tcpm: reject type-mismatched source/sink PDO pairs
+Date: Wed, 23 Sep 2026 13:03:02 -0400
+Message-ID: <20260923170301.415666-3-eeodqql09@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CAAsoPpX1NgzMKJrvTdNp0heM0AMQAT0_t_2+AJdZs5fsZNpLOQ@mail.gmail.com>
+References: <CAAsoPpX1NgzMKJrvTdNp0heM0AMQAT0_t_2+AJdZs5fsZNpLOQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LY0PR12MB325698:EE_|DM4PR12MB7574:EE_
-X-MS-Office365-Filtering-Correlation-Id: a524c4ee-3c6c-454a-ed09-08df19949d31
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|6133799003|3023799007|22082099003|18002099003|56012099006|11063799006|10067099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	HriS0LjZzGWCYGA7Uu99GbYxgogfiO8mC5K8gli8iw6Z8lj7LWUOq5RVSJkI22F514j41O7P4wAsGiuR/WHWl3/xdaA5/Q41dYjAVp6SFy45MgEuopUq5I+43i0PaFUFaqW64oi4nrwEhZKlTsVvfgNUovWzXT8LTLliglWFr3fmJJ/86IbuLtAZ7s0wmJsJ2JN+AgGQShBVbfjlmRBYg2GY9557alUSBoPhI4mAB2wYWmaJh2AaLDxAdT9FY0F2j9oIVWGrQy4NH7WaOse+S7DhycEMQV3MNSeOoDO+ADO6KstZXbo52DxkZCV2EL+dawdlmMuqDd9tKtC4gJlyxmXODSRNnmo8op17AfQU6PMuwJPH74/99Sczv4uBa/J4bEaqZVfhuTq94zPURsPJmn3DHAjupxWWGJeNhrxsPc706/EAYdjdp3GSuQqbV2taCwIzf8h3uHTnt66bB44mOs5YL8u9ALM/ulWpt/UTFvGXRhQf3lPLk4Zfo+dt2MV9v5ZGA4YIRdgYyeSDnPAYcelvLL6q7dprU0PAZOFqxnU1D10duMbCVmuV1+8mxa8d8RVlNd4pjBaK8rnw6Y2JM6JVXLgKp9rKD+E7M5VMVpBQp1Ian+7kgmTK2CXVSLTKPnZUytCp5q9pPBHixKOB8G0MjaUUljS9Q7WjitUGkKg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LY0PR12MB325698.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(6133799003)(3023799007)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bzJVSC9zUEF1empvc3B4aVJjOXZYYVdzRUpFL0M3cDBzTkVqbFY3OTFieTJU?=
- =?utf-8?B?Y0tuUFhFN09hWGVUZFhZVUtNTG9vOUs2Uy9WQ1hMd3p5NnNQeDBra1lkMVl1?=
- =?utf-8?B?bU9kakZLK2RmRnNUTXMrMWdjRXJ5UVdWZzRDOGFrYlVuMWlSWEtoNWxYZXF2?=
- =?utf-8?B?ZE5QRmFHTWYwai96cTNQTEdtdUJaaE5hVDRaaEdIMFFQbHdhcHh5Sk9ncWhh?=
- =?utf-8?B?UEE4REI3d0RRNmFlRlBETWFISXpUZTZlTkVRMVVubE5OM1VSN1NHVVg3emdi?=
- =?utf-8?B?ZFFvVHNqZFVkTCsxTXN2cHNlR0dMekpNSkJMTDNxeU1qbG9KRFlLWGdoZmIr?=
- =?utf-8?B?MjNHVkZBdjVmYmdtWDVJbCtNR1lRVmJHQURON0F6RWZEMnoxV3ZqWlhYS3dN?=
- =?utf-8?B?UzJnekJrOVJvTEY1SXhhN2VxTGE5dEVPQjhLZS9iZVRDRmw3NUNWQkJEdDZt?=
- =?utf-8?B?QU90eHYrVWs1cTNyNEZsWVpGcG9XaU12aWIralRlMFlUZ1QyaUNSWm0zSEln?=
- =?utf-8?B?ZjR3SlVBQ3NtZ1ByNlFTWmF4QitIY1d0N1FhS2l5MGZYU0dEQW9NK3NKOEJi?=
- =?utf-8?B?SWFqVXpkUmMrSE81S3krQTRVTU9XazVvQmVMM2VLUmE0cFhDVnpaZnZROXEr?=
- =?utf-8?B?MERLQXlPMm1RWC9KUS8rekdEWXE0RXBKWHU3K3MzQW0zTElZL2Rxc0YzUVRX?=
- =?utf-8?B?MmF0ZnhsR3M3UG1XUTZiend4RkNmdjhUS1loMTVyeEV0Yk5IbjNZMEJ3V09t?=
- =?utf-8?B?RDZrb0tEc0JSSU0rczVQa1pIREVxWEo5WDdFUmZIUWFhVE8wcElDdWZiaHdy?=
- =?utf-8?B?MHgzRFBBeUlPQUgzcmRzOExNWmhZRC9XNEY3ZFQ0aUNPS1ZLUE1ORzBXMDRs?=
- =?utf-8?B?VVlBei9zWTU4U1V4ZDFEREpYcXI3bHAvaVZUbm5EMFVEZSsyUWFQM01iQWJM?=
- =?utf-8?B?U0dFZjFWMVVmWlJxUzQ4NlU5a1lmZk9NNUV3dDk3YUxQRGFldUxJL3BON1Jx?=
- =?utf-8?B?UlBKSStYSEZ3ajBZK2tvb3pMYklySjRUZ3YwNFlRRk9mOFNQbkloMDJCL1N3?=
- =?utf-8?B?bmJ6MVZ5QitsY2ROZWV6UkhMZjdsNVpQWFlPWG5WTkZEVW9vNWl6VVZWMnU5?=
- =?utf-8?B?dGlrVHZiVWM4MWIyeGcvczRmYncxVkljb3ptZHE0SGJrejVKWW5jSXRXY0R5?=
- =?utf-8?B?Wm1ibnA3SnEzaHNYc09wejhoRnRyUFltQ3ZRSnVBSkdyUk5VeWxUaEUraTJu?=
- =?utf-8?B?YkgrSnJ1RWwwT1pqTUpVYmExc1JyTDZxRFd6MHpLdTNDOW5JN2YveVZZKzNP?=
- =?utf-8?B?SndQT2d6RGlmQ3RnZ1lRcVAva250c1p4REs3bzdmbHA4Ykx6dEJWRWlsbEVF?=
- =?utf-8?B?QmlMTThxZkNBRnRiWU1Ed2k0R1RFbjdleHF0Y1NpYUFGZVA0cE5pWEoxUWo0?=
- =?utf-8?B?Wk01eUFPNnQvU0hEcndiZVE2MWVsSWZYU3o4LzljbUhzVUo5VWdZV2NXRWdx?=
- =?utf-8?B?MGJJMDhUUGVCYzZqa1l2SHN5bUVVMjlTWVZabGw0NE9CL0s4c2l5T2xwVTBv?=
- =?utf-8?B?MHZiRUJMcUFTK2R1T0hXMEV4TkUvRmlxZ1ZHZ3VQUStXNmUwRjdjZnNuOXkx?=
- =?utf-8?B?MC8raTI1aGRrRk5wV1d5bFBybnhlcTV5eWo2elFQaTlJQldwMUlSak5iSDM1?=
- =?utf-8?B?bmZaaWFyRVdqei8raVFNM2tZL01YdjkvVUpEaE1PcjF3OWhhcGg4RGdRT3Fi?=
- =?utf-8?B?dm1vd0JDK3NhQ2g4Y21zUGI5MTZaQUNqNzVEeUFoNHB0ZHZqcTZRMUtNVlNp?=
- =?utf-8?B?NHdldE9FN0ZtbzRHZ2ZRMzlNTEd3dHlpZkZDelFJbG1iVlNodlNWd1VKUmtq?=
- =?utf-8?B?YmR6NUhkNjNPZ21XMDMvQUFKVURoY1dlQUd5WGpxTjJ3YnlmZTJFQzUxM2Fs?=
- =?utf-8?B?MGU3S3RKRjZ1SUtndFRQdy8zbGhOa21sOHFFdmJTWUJhcW5nMFJCN2l2UjlW?=
- =?utf-8?B?RWRkOEhwK0JhUDhlQ3IweVRRRkVTV2V4eEMvYW84YmlaOHNUbnM5cjBMbUVs?=
- =?utf-8?B?Q2FHS3pHeUlFc3RwKzQzSVFINGxKT05uYWVpYUJndGFJdlN3OFovSVFwMlZ0?=
- =?utf-8?B?RTVTLytSYmNQblp4NzB5cUZ5K2V3aGlGVlRLRHczUTFYYS9zNHJRVVVoSmg1?=
- =?utf-8?B?bXpnNzR1ZTdVL0FuM09oMGZnN0FzeGVRWTMrcU5acTdvdGw1T05JK1VZREVW?=
- =?utf-8?B?aEZZbVlSWmRiaWcyYWd6dzJ5d3NvS3dVMnVGcll4NUN1aENBTXN3ZDhOcklE?=
- =?utf-8?Q?5D7Zpg00ikR3qfgqnA?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a524c4ee-3c6c-454a-ed09-08df19949d31
-X-MS-Exchange-CrossTenant-AuthSource: LY0PR12MB325698.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 17:03:39.3877
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 59B+EOprCOEZZcrjqhg37ZKNdrScffwFgX5x6nI3UDEbdYclKoeB0LqvYqC6aHKj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7574
+Content-Transfer-Encoding: 8bit
 
-> [ ... 34 lines skipped ... ]
-> @@ -40,6 +40,11 @@ module_param(disable_msipolling, bool, 0444);
->  MODULE_PARM_DESC(disable_msipolling,
->  	"Disable MSI-based polling for CMD_SYNC completion.");
->  
-> +static unsigned int cmdq_max_n_shift;
-> +module_param(cmdq_max_n_shift, uint, 0444);
-> +MODULE_PARM_DESC(cmdq_max_n_shift,
-> +	"Cap on the command queue depth, as log2 of the number of entries. Zero means the hardware maximum; the queue never shrinks below one page.");
+From: Seungjin Bae <eeodqql09@gmail.com>
 
-The patch looks ok
+The tcpm_pd_select_pdo() function matches a source PDO against a sink
+PDO using their voltage ranges only, without checking that the two
+PDOs are of the same type. A source PDO and a sink PDO of different
+types (e.g. a Battery source PDO and a Fixed sink PDO) can therefore
+be matched as long as their voltage ranges overlap.
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+tcpm_pd_build_request() then combines the matched pair with
+min_power()/min_current(), which apply the same accessor to both
+operands. Since pdo_max_current() and pdo_max_power() decode the same
+bits (9:0) with different scaling (x10 mA vs x250 mW), a type-mismatched
+sink operand is misinterpreted. This misreads the sink's capability and
+weakens the min() bound intended to cap the request to the sink's limit.
 
-But I'd rather use lg2 as name, especially user visible, instead of
-n_shift. "shift" is a word for bitwise stuff, this is a 2**N log2
-encoded value.
+Require the source and sink PDO types to match before a pair is
+selected. This keeps the voltage-range matching introduced by commit
+53fe0de9a35d ("usb: typec: tcpm: pdo matching optimization") and covers
+both the min() computation and the mismatch branch in
+tcpm_pd_build_request().
 
-> [ ... 9 lines skipped ... ]
-> +/**
-> + * arm_smmu_queue_max_n_shift() - pick the log2 depth of a queue
-> + * @ceiling: default log2 depth ceiling of the queue
-> + * @ent_sz_shift: log2 of the queue entry size in bytes
-> + * @shift: log2 depth asked for, or zero for the default
-> + *
-> + * @shift is floored at one page, because coherent DMA is page granular: a
-> + * shallower queue occupies the same memory as one that fills the page, and
-> + * arm_smmu_init_one_queue() stops shrinking at a page too.
-> + */
-> +static u32 arm_smmu_queue_max_n_shift(u32 ceiling, u32 ent_sz_shift, u32 shift)
+I found this by static analysis and have not observed it on hardware, so
+I am sending it as RFC.
 
-These names took me a while to figure out. Something like this seems
-much clearer:
+Fixes: 53fe0de9a35d ("usb: typec: tcpm: pdo matching optimization")
+Signed-off-by: Seungjin Bae <eeodqql09@gmail.com>
+---
+ drivers/usb/typec/tcpm/tcpm.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
- hw_max_lg2
- ent_size_lg2
- user_limit_lg2
-
-And the flow can be simplified alot:
-
-static u32 arm_smmu_queue_max_lg2(u32 hw_max_lg2, u32 ent_sz_lg2,
-				  u32 user_limit_lg2)
-{
-	u32 floor_lg2 = PAGE_SHIFT - ent_sz_lg2;
-
-	if (is_kdump_kernel())
-		return min(hw_max_lg2, floor_lg2);
-	user_limit_lg2 = max(user_limit_lg2, floor_lg2);
-	return min(hw_max_lg2, user_limit_lg2);
-
-Just pass the MAX's as the user limit:
-
-static inline u32 arm_smmu_evtq_max_n_shift(u32 ceiling)
-{
-	return arm_smmu_queue_max_lg2(ceiling, EVTQ_ENT_SZ_SHIFT,
-				      EVTQ_MAX_SZ_SHIFT);
-With only one min:
-
-	return arm_smmu_queue_max_lg2(ceiling, CMDQ_ENT_SZ_SHIFT,
-				      min(CMDQ_MAX_SZ_SHIFT, cmdq_max_n_shift));
-
-Jason
-
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index 2d6b14aa2085..4959872050ae 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -4514,8 +4514,9 @@ static int tcpm_pd_select_pdo(struct tcpm_port *port, int *sink_pdo,
+ 				continue;
+ 			}
+ 
+-			if (max_src_mv <= max_snk_mv &&
+-				min_src_mv >= min_snk_mv) {
++			if (pdo_type(port->source_caps[i]) == pdo_type(pdo) &&
++			    max_src_mv <= max_snk_mv &&
++			    min_src_mv >= min_snk_mv) {
+ 				/* Prefer higher voltages if available */
+ 				if ((src_mw == max_mw && min_src_mv > max_mv) ||
+ 							src_mw > max_mw) {
 -- 
-Jason
+2.43.0
+
