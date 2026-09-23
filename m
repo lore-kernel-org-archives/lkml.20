@@ -1,115 +1,63 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E1DC531F9B4;
-	Wed, 23 Sep 2026 02:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF7B3112BD;
+	Wed, 23 Sep 2026 02:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790129838; cv=none; b=YdqrtRdiinmFDthJNqY69L3eeoBf0UZKsUOZECTC2xt3xsZzCfRe1PUd2r9YEO38U68bJ35/1mvbJVYWapczqKKAKImzNM7bXR39f97frzclqX33V0sn+nFU2PfzICnJ243wUAK9OCiBdlrNWnqOZuuXDf35wm1gIc1u92FTngQ=
+	t=1790129880; cv=none; b=pXnPQwYEjpNo5xxsDMk/jJjzXE239aO8u4vrqdZKdoE2MwB2GTN73hYAqjzFz2u5t63iyrt32AmsKVUO62LStZR6QVKFglCEXeKHiLrw8sHggMQVMNZxprR3AEYhnxfaxIfHFD9u0wV+JUiHVsgvufKJxyXOOyecWktA5hmGBHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790129838; c=relaxed/simple;
-	bh=o2ChluBE/4Fwa5nS12cY6ZuCjs5TyhlXL3NEnVfPuNw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=l5Vojkj5PpCk8fXibvtxwLsI6+2V2psGGb1q76Z7s/7S18ZwvqROH5lhB0kWdA/pH09Y5b+Zy2Ab/mMm+w0ylJQgR3LZifHszEdHgn9vJSiuag5rN466HSBxv+XrzUWYIHZ0JlYAnZ/tEurnE1NqhUn+Wibw/+2tJy8n8Auo6Wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqLFM6Z0DzTSdm;
-	Wed, 23 Sep 2026 10:16:55 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hqLFM2QFXzTSdm;
-	Wed, 23 Sep 2026 10:16:55 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id 019FC102A;
-	Wed, 23 Sep 2026 10:16:50 +0800 (CST)
-Received: from [127.0.0.1] (10.0.235.124) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 23 Sep
- 2026 10:16:54 +0800
-Message-ID: <f72c91f6-c32f-4b5e-a6d0-f828a3e19675@hygon.cn>
-Date: Wed, 23 Sep 2026 10:16:53 +0800
+	s=arc-20240116; t=1790129880; c=relaxed/simple;
+	bh=0Zt3v3NQRNcHtA3hm0KuOL/lsIXryv+QefWbysKnw0E=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tvNi3VYM69FHgpBw9smFAfo0H9A0PIDGeuu4RNN5B6YCXmNH6tMxSLtFem+y2ZFZg26yrZC1qereugsPCmV+53uzdSM4wMQWBIp34Sg89yyRHcEPFM9+IFut06PhCisoqsZh/6ve7XFoS6C2FSmVekejIA7japtN2IabHHmO8ik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n3LkZo0N; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n3LkZo0N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA991F000FF;
+	Wed, 23 Sep 2026 02:17:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790129879;
+	bh=xfghmcIazzNv+3k9/mq2kvL7Hc7x+3J369UsPLCYc6o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=n3LkZo0NI7Oht1VGLYECVSR95ONoTSv/9T9ypWYwO6Uypn/cjianMl+7utFKTXFAv
+	 JdxrHiIM9FrMgeIAoPguIH0gyo4e72jMq0VghBR8inkEsIkdxZLpi18yvs4JTxL2Hp
+	 oAfjmANneH9uTiBFWBHpiWu50JNDF+1w4iU1uLvXDUB94jbo3eH9NUOe161Z+a3jwO
+	 nn+QGvF90dn3T7wsP/K/TFUV5XTfjFf81r1bFAHtmcEjzWzIVp5o3H/ycNghbl/H2s
+	 tAqW43gymhSGLEEPcQtaqw4VUzPuG3cVw8SahVneGGbrWyr66iFlW/ICqpax3Ov0jI
+	 vSSZu+7Z6yxCQ==
+Date: Tue, 22 Sep 2026 19:17:58 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Coia Prant <coiaprant@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>, Maxime Chevallier
+ <maxime.chevallier@bootlin.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Sebastian Reichel
+ <sebastian.reichel@collabora.com>, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: ethernet: stmmac: dwmac-rk: fix bulk clock
+ leak when the PHY clock fails
+Message-ID: <20260922191758.2730da7a@kernel.org>
+In-Reply-To: <20260919174223.2356964-1-coiaprant@gmail.com>
+References: <20260919174223.2356964-1-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/2] perf/x86/amd/uncore: Add Hygon uncore PMU and JSON
- events
-To: <peterz@infradead.org>, <mingo@redhat.com>, <namhyung@kernel.org>,
-	<alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>,
-	<sandipan.das@amd.com>, <ravi.bangoria@amd.com>, <irogers@google.com>,
-	<x86@kernel.org>
-CC: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<lijing@hygon.cn>
-References: <20260818100118.12944-1-liuqi@hygon.cn>
-Content-Language: en-US
-From: Qi Liu <liuqi@hygon.cn>
-In-Reply-To: <20260818100118.12944-1-liuqi@hygon.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: cncheex06.Hygon.cn (172.23.18.116) To cncheex04.Hygon.cn
- (172.23.18.114)
 
-Gentle ping for this patch. Any comments would be appreciated. :)
+On Sun, 20 Sep 2026 01:42:23 +0800 Coia Prant wrote:
+>  			if (ret)
+> +				clk_bulk_disable_unprepare(bsp_priv->num_clks,
+> +							   bsp_priv->clks);
+>  				return ret;
+> +			}
 
-Thanks,
-Qi
-
-
-On 8/18/2026 6:01 PM, Qi Liu wrote:
-> This series adds initial uncore PMU support for Hygon Family 18h
-> processors.
-> 
-> Hygon uncore PMUs use a programming model similar to AMD's, but
-> differ in MSR base addresses, event encodings, and counter allocation
-> semantics. Rather than embedding Hygon support in the AMD uncore
-> driver with vendor checks, a dedicated driver is introduced to keep
-> both drivers clean and independently maintainable.
-> 
-> The new driver provides hygon_df and hygon_df_iod PMUs covering the
-> Data Fabric on both the CPU die and the IO Die, together with perf
-> JSON events and metrics for three processor models. A per-context
-> hrtimer handles counter reads, and CPU hotplug callbacks manage
-> context lifecycle.
-> 
-> Changes since RFC:
->    - Address sashiko bot review.
-> Changes since v1:
->    - Rename the helper namespace to amd_uncore_common_* to avoid
->      an generic uncore_common_* prefix, and to keep it distinct
->      from the existing amd_uncore_* names.
-> Changes since v2:
->    - Drop the common helpers refactoring. Keep the Hygon driver
->      self-contained instead, avoiding unnecessary changes in the AMD
->      uncore driver.
-> Changes since v3:
->    - Address sashiko bot review.
-> Changes since v4:
->    - Improve Hygon Data Fabric PMU event naming, descriptions, and scaling.
-> 
-> Qi Liu (2):
->    perf/x86/amd/uncore: Add Hygon uncore PMU support
->    perf vendor events hygon: Add Hygon Data Fabric PMU events and metrics
-> 
->   arch/x86/events/Kconfig                       |  11 +
->   arch/x86/events/amd/Makefile                  |   2 +
->   arch/x86/events/amd/hygon_uncore.c            | 872 ++++++++++++++++++
->   arch/x86/events/amd/uncore.c                  |  11 +-
->   arch/x86/include/asm/msr-index.h              |   2 +
->   arch/x86/include/asm/perf_event.h             |  20 +
->   include/linux/cpuhotplug.h                    |   3 +
->   tools/perf/pmu-events/Build                   |   2 +-
->   .../arch/x86/hygonm1/data-fabric.json         |  95 ++
->   .../arch/x86/hygonm4/data-fabric.json         | 134 +++
->   .../arch/x86/hygonm6/data-fabric.json         | 170 ++++
->   tools/perf/pmu-events/arch/x86/mapfile.csv    |   3 +
->   tools/perf/pmu-events/jevents.py              |   2 +
->   13 files changed, 1318 insertions(+), 9 deletions(-)
->   create mode 100644 arch/x86/events/amd/hygon_uncore.c
->   create mode 100644 tools/perf/pmu-events/arch/x86/hygonm1/data-fabric.json
->   create mode 100644 tools/perf/pmu-events/arch/x86/hygonm4/data-fabric.json
->   create mode 100644 tools/perf/pmu-events/arch/x86/hygonm6/data-fabric.json
-> 
-
-
+Missing a bracket, EBUILD. I almost appreciate seeing a human error like
+this these days :)
+-- 
+pw-bot: cr
