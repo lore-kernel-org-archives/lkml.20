@@ -1,123 +1,122 @@
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35D0361DA7
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:09:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B943BB13C;
+	Wed, 23 Sep 2026 06:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790143749; cv=none; b=oY8c3lKkeN2HIqmkswT2ifQfoaE+1o86QUUWrFGHv3Sy9Q8VpQncpZRtm3AJKBUTKxCcHwefJYfJs/PuOtOeUB3WlUthiHfl7/ACtmoaKlCTh8VRUA6DeDVWZ7II7cPBx57V53c71zNiEgAwUKeiQNEw0NPrY0WAS0P8RxBR4ZA=
+	t=1790143791; cv=none; b=VoVhDmKT6xrkmlKATcP7I5V+psqgUR4n7cVRXan0mX62ajJBNNhi1zXjp2o6nJf+eWEfnJ3yfG4103t6CKSPFZPVCsAl7we0nIJY9rGr20TzOGeeNFJbfzyoi1avip7evz4OV8Mk/AJ1avyffHlBJBCGQN8Fj+nHWBmX/KMO5ug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790143749; c=relaxed/simple;
-	bh=WlBnM1XpHKucSNs6HIkQmVuFkX/orSSmv7Mm2wkDJr4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HzslpqZ0hG2zPvgOWAKeVMl6CXwmcfVF6Bq/du4ym6LwNybiRh6vbQuBigeywaFBteIr/cuwGqYG+p+U8WNcbup/J6F/XcUGoEW7SmY5WEdCPjTqDSRnXFL+4pzGf4CAwnrY2zXAkT+TI03JIHjSLWDCqZK1VxBL4BjRCSmpqpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BVUR4nxQ; arc=none smtp.client-ip=74.125.229.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790143791; c=relaxed/simple;
+	bh=yK4GGOQ7q5Jsm1hYN2ke5S7Bqv10s370fwH9Yyni3vI=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=kODsx93FKYOKSLmyVib4Zfcn35z2AqWeFj5th5O4POzdG8uLjA1Lbmlq5PWextVUbQPRaLSQO+qXVv9+RVArYuFIuai0jHk+jmMWVpd7qq7qKvgrD4GRx5/VCAJw3VL8xP1G98wuPD3CHFLJ/A3p5ZbhRch038oWml2sDS/dukM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=IKQnwyxN; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BVUR4nxQ"
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-33e59607d38so194651eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:09:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790143747; x=1790748547; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xZnX5eIwfaA6j0Tso7Nhp1FLEmTXkRxG+sEAuBOsXc8=;
-        b=BVUR4nxQ3RBJKk90dUbebWJX+DTcaMiJ7Pvs9u/dvRj5l59O5kJrYLvPwwnyaqTlHg
-         RDAX91G8AAiWHq8nHFkE+lRWSviEY3vF95X5GFDhxlpen2yT6S4aJ1hFYxBfgOlruJWM
-         1VB0tUQxna2T7f6pK7W5tkR0MSH17bLX6sV7RMKVI/GTdYyt3nMxqT2nmDh3LvVq2V/G
-         JfejdQ1uggnh0905RPJj+y1lt7kW0N4O64JKw9WPahzimXqOay8LLC5ik2UjLSsk4wr1
-         j3x9XaifpjSP0Zv6ta8pr/Qsm7p+K6Dtvf7XDVNc2199v0Z28iPs4+21sWcvdyeWqgFK
-         95sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790143747; x=1790748547;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xZnX5eIwfaA6j0Tso7Nhp1FLEmTXkRxG+sEAuBOsXc8=;
-        b=fN2o5RV/RwkYO53GSCTn/HAJupWqysqgnMpTtQywEoqY2MPBEHobToDvOSKSFEVf3O
-         cRNWFP8x8Iec+9UlkOoSx3QPSbI7RzNJsmMXoUX9P5LIsm4jCqZyJcifrf+j3bE59JMe
-         CI1MPMKwIpeIEGQxeBOhsHT/YoZpknS2yFBZMo5rc6qsEeB9GvAkb/8NKpO7FWl9t4ge
-         Q4YQF7BWtcOf6C+Zegz0j+tscX8n1UoailDO96dzRJzTog1MRaJhcmcSjvdm7lVjRLSd
-         SexPW+mpQCJ8ePeXgu9H/wuHW7529BUdkxR7kbZ5+OwwbmOHOQRFziEIdfxBt8qs+aI6
-         6fjQ==
-X-Gm-Message-State: AFuF++lnYssadGpRIHafjZFUQ++485nMAyXOQft3WhYghpIL5087l/hJ
-	/KN/IAS05qDJ7Y0wkkuMzT0G0Z6JtcFdElkE0RUJknmihy2CBxstKv8B
-X-Gm-Gg: AYBFou3W2hEBd2T7vJFgySeGFgsAtFhKRGYt0S5iruYUoV+MObZP/D2dCIttKaMD230
-	R7ctgNeGMRQc72YnrSdFKkm0e9RKl8e4gu0AZm+PAb47VhraRTulo7yI/fNIsjfsgSQNrkgv8LY
-	gE3/QHs8/R/GVdZ6FibIHYWw+YMkfRhM7EhWoabrVMvNcAsxom92320kL6/G6eXHNHNM7H5Gzre
-	Ap80n4ryvB4A2XJREOYHEu3xlvje2vKrZubfB3EL4LL3ElkEhUvt/bO7aGctiJQ8U4D1I0RAYoG
-	RW+KA28DWhnK/CP2UrdHDgaH7KfRplr2d+auA4hBp50QjLCIfNbEhw0OvIDBGgfum++xOpNv4w0
-	IQE4NnFMcilXw6mDlI4+il+9Ww96zi0Sf10tFqeqGQwM0+ZeheQitnMijpsww7HCY7bKwv8C0LT
-	Fx0OtHspbR8OCV+jcXtWedxeaLol6jH4pxd18dsKJbTyaATjmVOj2NAQTorlyyQt5Upny6N3eoo
-	P4xzkzYOlaf2VLaEEHjGZaizBNE/7cboEk8qwe+M4/Jn2SvatI7cP+Ah7BhAS8=
-X-Received: by 2002:a05:7301:700d:b0:33b:fc00:976a with SMTP id 5a478bee46e88-33e8ddc27e8mr1754492eec.35.1790143746603;
-        Tue, 22 Sep 2026 23:09:06 -0700 (PDT)
-Received: from Raccoon ([113.30.177.23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e96258978sm3275139eec.14.2026.09.22.23.09.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 23:09:06 -0700 (PDT)
-From: Rohinthan P <rokinthanp03@gmail.com>
-To: Ian Abbott <abbotti@mev.co.uk>,
-	H Hartley Sweeten <hsweeten@visionengravers.com>
-Cc: linux-kernel@vger.kernel.org,
-	syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com,
-	Rohinthan P <rokinthanp03@gmail.com>
-Subject: [PATCH] comedi: dt2811: fix shift-out-of-bounds in dt2811_attach()
-Date: Wed, 23 Sep 2026 11:38:59 +0530
-Message-ID: <20260923060859.15694-1-rokinthanp03@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="IKQnwyxN"
+X-UUID: 5f11ebfcb71511f1b1788b6acf885367-20260923
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=yK4GGOQ7q5Jsm1hYN2ke5S7Bqv10s370fwH9Yyni3vI=;
+	b=IKQnwyxNkwJqFWv0FtVHRGyimrXGeYSy4yUIrlmYvcJeK1HS6uB4lL30JIU8p6mZeRczirm1HP8iocRNj6lMkSNGFxGND9T3i26ThyMQx5yMnMAD0w6A0XDCPEKGd/M3VVb1qu6vzMVJ5PSiOh8MEVYkdHNkOck135wcRlj3ehk=;
+X-CID-CACHE: Type:Local,Time:202609231409+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:2f4c735d-1ce8-4d9c-afd7-a9fc806b29b1,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:cf79dcfa-1cb6-4618-8a29-fa072b24d2a9,B
+	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
+	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:
+	-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5f11ebfcb71511f1b1788b6acf885367-20260923
+Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by mailgw01.mediatek.com
+	(envelope-from <peter.wang@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 1828432630; Wed, 23 Sep 2026 14:09:44 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 23 Sep 2026 14:09:43 +0800
+Received: from [10.233.130.16] (10.233.130.16) by mtkmbs11n1.mediatek.inc
+ (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
+ Transport; Wed, 23 Sep 2026 14:09:42 +0800
+Message-ID: <f116f82d28f7af4cfca76adf5cff6093fdf393a2.camel@mediatek.com>
+Subject: Re: [PATCH v2 2/2] scsi: ufs: core: Decouple CQ sweep from request
+ iterator in MCQ
+From: Peter Wang <peter.wang@mediatek.com>
+To: Bart Van Assche <bvanassche@acm.org>, Stanley Jhu <stanleyjhu@google.com>
+CC: <linux-scsi@vger.kernel.org>, "Martin K. Petersen" <mkp@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, Alim Akhtar
+	<alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, Bean Huo
+	<beanhuo@micron.com>, "Bao D. Nguyen" <quic_nguyenb@quicinc.com>, Can Guo
+	<can.guo@oss.qualcomm.com>, Manivannan Sadhasivam <mani@kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Date: Wed, 23 Sep 2026 14:09:42 +0800
+In-Reply-To: <df31eb82-7211-415a-9ec1-53ecbc3e39b0@acm.org>
+References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
+	 <20260918143809.3034592-1-stanleyjhu@google.com>
+	 <20260918143809.3034592-3-stanleyjhu@google.com>
+	 <1ddc5181-f547-465c-bfbe-dbf14a91493e@acm.org>
+	 <20260920135014.3528082-1-stanleyjhu@google.com>
+	 <e3538f10-fb9e-48ce-b48f-bca25c8f3d6c@acm.org>
+	 <bab059b9a2dfed258db23993b5a6b4aceca2da49.camel@mediatek.com>
+	 <df31eb82-7211-415a-9ec1-53ecbc3e39b0@acm.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MTK: N
 
-In dt2811_attach(), the driver checks whether the user-supplied IRQ in
-it->options[1] is valid for async command support using:
+On Tue, 2026-09-22 at 09:30 -0700, Bart Van Assche wrote:
+> A SCSI host controller reset must abort all pending commands.
+> Requeuing
+> SCSI commands during a host controller reset violates the API
+> contract
+> between the SCSI error handler and SCSI LLDs. I'm not aware of any
+> other
+> SCSI LLD than the UFS host controller driver that requeues pending
+> commands upon a host controller reset instead of aborting these.
+>=20
+> .eh_host_reset_handler() is expected to reset all logical units and
+> the
+> host controller. The SCSI architecture manual (SAM) mentions
+> explicitly
+> that resetting logical units involves aborting all commands.
+>=20
+> Thanks,
+>=20
+> Bart.
 
-    if (it->options[1] <= 7 && (BIT(it->options[1]) & 0xac))
+Hi Bart,
 
-Because it->options[1] is a signed integer, passing a negative value
-(such as -251) satisfies it->options[1] <= 7 and causes the BIT()
-macro to evaluate a negative shift exponent (1UL << -251), resulting in
-undefined behavior and triggering a UBSAN shift-out-of-bounds warning:
+I'm not sure if I misunderstood your point. SCSI reset=20
+(ufshcd_eh_host_reset_handler) does indeed abort all commands
+by trigger ufshcd_err_handler and call ufshcd_abort_all.
+This shouldn't violate the SCSI API contract. But whether the=20
+subsequent re-queue (DID_REQUEUE) violates, I haven't seen any=20
+prohibition?
 
-    UBSAN: shift-out-of-bounds in drivers/comedi/drivers/dt2811.c
-    shift exponent -251 is negative
-    CPU: 0 UID: 0 PID: 5925 Comm: syz.0.17 Not tainted
-    Call Trace:
-     dt2811_attach.cold+0x19/0x1e drivers/comedi/drivers/dt2811.c:570
-     comedi_device_attach+0x40e/0x6b0 drivers/comedi/drivers.c:1101
-     do_devconfig_ioctl+0x1b3/0x6d0 drivers/comedi/comedi_fops.c:930
+Because currently the UFS error handler (ufshcd_err_handler)=20
+directly re-queues (By set DID_REQUEUE) the unfinish command,
+and err handler might be triggered in many places, for example,=20
+like UIC errors, directly resetting and re-queueing should be
+reasonable and can be handled quickly.=20
 
-Only IRQs 2, 3, 5, and 7 are valid on the DT2811. Add a check that
-it->options[1] >= 2 before evaluating BIT(it->options[1]) to avoid
-negative shift values.
+If it cannot directly re-queue, then ufshcd_eh_host_reset_handler
+would need another similar function that does not handle re-queueing.
+But this looks unnecessary, direct re-queuing seems safe?
 
-Fixes: 8ffdff6a8cfb ("staging: comedi: move out of staging directory")
-Reported-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=a4cedab706d0a8a3f988
-Signed-off-by: Rohinthan P <rokinthanp03@gmail.com>
----
- drivers/comedi/drivers/dt2811.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Thanks
+Peter
 
-diff --git a/drivers/comedi/drivers/dt2811.c b/drivers/comedi/drivers/dt2811.c
-index bcc4b5e..813b1aa 100644
---- a/drivers/comedi/drivers/dt2811.c
-+++ b/drivers/comedi/drivers/dt2811.c
-@@ -564,7 +564,8 @@ static int dt2811_attach(struct comedi_device *dev, struct comedi_devconfig *it)
- 	dt2811_reset(dev);
- 
- 	/* IRQ's 2,3,5,7 are valid for async command support */
--	if (it->options[1] <= 7  && (BIT(it->options[1]) & 0xac)) {
-+	if (it->options[1] >= 2 && it->options[1] <= 7 &&
-+	    (BIT(it->options[1]) & 0xac)) {
- 		ret = request_irq(it->options[1], dt2811_interrupt, 0,
- 				  dev->board_name, dev);
- 		if (ret == 0)
--- 
-2.53.0
 
