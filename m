@@ -1,320 +1,130 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F61053CA71
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790180713; cv=none; b=kYxtt2LHUsUTy9zpDYjcgvH9B7huZQ5C4ZG4M+1Bg7ZI/p8ypeoXBjuvIuvLVZlW6sta5Swg2c+TLHzHI7ecuW32kASXXwaCG0lCgGY5oN2fRg1uAYtUTXFAJNin5+NgRyFiRZCCO2/gz7gPBFSRt+sQvzM0kSe/FbIRoXBdZaQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790180713; c=relaxed/simple;
-	bh=FnBZz2rwbEXSSYx5Rf7kopIfq4oTw76NqAv0lfIxYYw=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u+ZZdLniYIuIguPCHJN8CCxbOuwwiEVCuZO8jTmBD3+Db8t4hvuW7O/vIrEV46087P53W9CxHGNYtJu6ria0g6BVoVPImy5b02I2vdmm7+Ma+4ABKPZG+Wb8hrB8gu2slS+1LgbxWJ6uu00a6I5Rd1XEAZyPChyHo8ErmMFpGWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=PbhddKNQ; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84CF4EB877
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:26:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790180812; cv=pass; b=peR9eZSBOqgLXCqnFWVsLZ0CQDHdDDN3HRdIPj6Qt/QpMMkUxhtKcSnQb6m85CuAbe0WRW3Aj16h8P0fUhDjAgVmr8xGCwMkTJ70A4FKmRxAgXkveKJI9MGm0/NKo/S8Kjm2fqkYOWbyb7EJv0kQDZBOiohZ9NI5KpXmat3RMXI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790180812; c=relaxed/simple;
+	bh=nikGN8S3nY6kcpfCNAE6HAbgdnxKqm3uFGyEPxB9Fj4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n+XTLjpHMpEXjpw8nN1/VihPbMtyUX9CLHBfQKBiIg6V4lBq57g5iGXc6s9naXQY8QdQjE4U9peb97tT0Gs35co25jbOwMSf24U+9PEk1uwGO3kn+O087rn36HYb/y3YCDjsZBSTJMPPaw6ihO6WdLgoVpodMK/UsPEvkv0ROHY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KVtM0WXT; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="PbhddKNQ"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-486e1a044c5so954646f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:25:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KVtM0WXT"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e64ccso7458095e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:26:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790180809; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aNkphCK5xQfl5hIgzSBL/nDsiQF4j3b0Ap6ie2nqZDRdsZkaqpHvNrdtMQgd0/DxLE
+         LdaUfC2q10lHroVw5LkzHAmpopQ+VhEHuoYtahXLYMpgRxQrFvyeWmIFqwsq+4hS9iVu
+         LS1ShkqMnKE4R99GIT3iwKyJKfFyqBICyX8IPMSg2rpdv2casSrMdOrt3cxpc4G9+A1Q
+         VXynONa/GNHX/Oc4/3NVSdzFsP522MI9EdYSRnuZFDeR6FsAH0YYVced060idFE6gbBM
+         ydFyp0dvQYQOWKT5JxYhPow86POqrQCg5WAqhS1oqTyjPvm0Tef3zQrBf8hFo68EwF7D
+         WRKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nikGN8S3nY6kcpfCNAE6HAbgdnxKqm3uFGyEPxB9Fj4=;
+        fh=G9UfkzKSstQchiqL92Hjlw1tibFSX1NHdPkAZSWNVdI=;
+        b=GnJenVPg+PhEnhsoBib8kRHRRYb6uv6GAUBYlZ9bTklTSqJ4DKiGrpJAna9yvqXogk
+         AYrCZnEEbQLv4N9AljUSCXDbkWX2YtPIWCYyz0ZcnBre/0Ipn+MaPUW1dMwlEMnzjt+r
+         DIuY1VkKsEuEIF0j21ezj1Un0pAhx0FSdu4+jQEV4sYWsyqqDDGQ3TyJd/aNRn0WlHA1
+         gfdfzzpXHA1KAKHHCr+OuGS2i0flFTgivOK5rEmd/WPn6uG9dTLOlLr7dTOd9NNSv1Qv
+         sjY6Mf5syS4XMZo7Yoj/o7TvBUv+lRSxXy1VZsB+BJ+JN36Dy6sbUtwbw7ou58fdpVGX
+         xXfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1790180707; x=1790785507; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790180809; x=1790785609; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=uK06dRcc183p1gV2Bdi0P3JOfOANYfMBgsbGabniYGA=;
-        b=PbhddKNQubPsTU15jq0xoks9b8/luKnt1AJwHEiqOLqaZ7jAQ7Mt+0QjbYeLEz0VeI
-         IVu3XvQo9jbMtJxi6mFGtF8r+zKiJmoHtU0Cl9cm0L2oy76kq1YtYEhthlOA30h5wBti
-         GhtmICCCiQfq7ztf5vvJcV+DKA2ubso0QJDVOlSWcpVxtv6dHaEdKWGsOGkKZm8tHn3p
-         BakB9HbVWqWJ3Dwxw187YFd02H49VFHdVQJ4IKfRiXt1JqG7NNM+pb939PlMirsVka+l
-         9fNOxemtxlZtfqBRZOL8UOk3ORS3h0JomqgH8mWPGW78d8BNvu0iNACqR6jB392cIeSM
-         pB+A==
+        bh=nikGN8S3nY6kcpfCNAE6HAbgdnxKqm3uFGyEPxB9Fj4=;
+        b=KVtM0WXTYvLW4EAI56QD2d2oXwXIgutE1WFkbx13JgsskMlBk4Te+52MNOtq7paHrL
+         1vFqQ6XrRbHucUTiPSvPOIMASzP+A8cgjFo+pRpMybfSCEmbsq4qhGENed5V3+6ry9fR
+         vBOG5MHgxNHjZutlIKzzEvi9VrSfO5QwUXYZWmzrd1XrJJfNRNunYfUS4O9DdsvkwoTi
+         pB60AKhF+L9FMgFev08HOOl6oZ6FlGoXroxn8peiIcDYLLZWxOrvyUK95JD03lGdQxG1
+         Dz1ZqE11dve+tv1ZCh4knAlID97kXYuK/1/oq5VTvf5r7Ar66RfgIIoJuTd7kNTiIEkc
+         TuPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790180707; x=1790785507;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790180809; x=1790785609;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uK06dRcc183p1gV2Bdi0P3JOfOANYfMBgsbGabniYGA=;
-        b=X+xCk8QP+Z4ai/2DfHVBerNz0eOn31B6dKWHPZJ3EneiMOsaSAzwJ2aUeUmZ8CjueO
-         AkloyhcCX3+gPPJfXfEPtU74LfppTuuMwo8J8VuZPdWTLKl8V00kQtduqP+W60U6QDoO
-         4pgzzgb7yvxXxT5pgGoHKlhU4qjtbUpB+b9YOYyn7/r3g0ciNV8ypZJ40jEY+07y2eJ/
-         gJFtU6bMD1ewWB8mxJFGa+44zmbodUZ6KiMBmJhw31t0O3dKiu/3fqfwIEV+NmQ++RFH
-         d+fHo9bUPC18Hc0yp82Y4cL9ggG5qRa1cOW1NN+SiSj9O+l7tF96PXDAkVY4zrp6IxDK
-         kI5A==
-X-Forwarded-Encrypted: i=1; AKwUvBzST/YQKUWsYvgUxiX3V1JJzO4saCMi6lXssSe9vMUrbSZDV8Bl4r6tSfh3LfmOHp4uVoFppdVXna2jjvM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kL4LML1xKOEwu75EmPgiUAt2X12SHKEGdKF3E90B/w7sZtihSc
-	XY0jm7J4oYhSz8ba6/vZ+w6ZNoqxUiXJMuJzB0g3ewcTcIo2egD0mm/90NSn81UxZtk=
-X-Gm-Gg: AYBFou0PzcpJ++k/ClJAbA7LA1B3z4V9DI3oQQxbCM/odnTp2fG73pc+mhzRJpyk1i/
-	dz8kfkIL1McdykrHt5J4ehSAWcmKwZuTCeCKPDtSvfG6MQdflqwYbrUWXD2d0/MvG4V9bL1WlXx
-	eppb+vJhiuVgMkZJQQaGLZgefoyuuh49pJj+lpS6TBqr0Ap6skcXQcZvgRITqQ6BmnERhRzrXlY
-	DbsHuGyTGD+R5wJpWCtNOizUcwXfPiE4fLBf83h1yJW9krmHMCxolREz3PY2g7LykHZ/RccykHr
-	hQcjQO4PpT63GtUTKerk5wl9x2ioY8/fhorZsCuYZPyEcf1i7yvqQsh1h7fwhHJpuOfM5Ez8aht
-	WzoPtyp4l9E6zwfU/dLCM4aUCl8K8DuiVW6sWIAOUzDICstOrZ73pWUIvhx2g4+JUBajEVznuk9
-	VWIHSq3tK5Eau+O+VOFprz0ft2WXf0ujzI27WKcM650cmC9XXIVZo1IU2j3sCDDkSO1XW+2OMB/
-	AyJZUFBPl9wjqGubeU=
-X-Received: by 2002:a05:6000:491e:b0:487:7fd:734 with SMTP id ffacd0b85a97d-48867081acdmr4844345f8f.18.1790180706879;
-        Wed, 23 Sep 2026 09:25:06 -0700 (PDT)
-Received: from localhost ([195.94.147.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4886876c1fdsm9260151f8f.14.2026.09.23.09.25.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 09:25:06 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Wed, 23 Sep 2026 18:28:47 +0200
-To: Gary Guo <gary@garyguo.net>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
-	Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: Re: [PATCH v9 2/3] pwm: rp1: Add RP1 PWM controller driver
-Message-ID: <arP-P_a7OyhtMQyr@apocalypse>
-References: <cover.1789724999.git.andrea.porta@suse.com>
- <22f454003902173a7230d0aee5fbd7261fcc163e.1789724999.git.andrea.porta@suse.com>
- <DLM3VDAEVVEO.1STV7HI3M3YXK@garyguo.net>
- <arPLa_g4mAg1t2rq@apocalypse>
- <DLMQPQRYTSNW.2Z6C0408NMCYK@garyguo.net>
+        bh=nikGN8S3nY6kcpfCNAE6HAbgdnxKqm3uFGyEPxB9Fj4=;
+        b=xD2kIrw8xSF2/amW82SVr4PD8YUgPaE9p/9To8QpAm7MHu82yoX9KXbPuzuHerGKEL
+         EJbSoqDhmumpZXqhjX6cyJBUOpg9GSmfoSRmgtkTMiBeCA2WRxx8eI91rJRp20Iabmxx
+         zQQZIWFybMxKAz5CsSQNKB6HVUUcE6GgS5SaBqeepSawsIld52nOKubAhV3gWmih6On1
+         xa8nMe+La7wD+WhPpJVnzxQBW0ciRgMp1DrAMjnNbA3LctQ3titbwCQG/SFFHPk2Jdne
+         QLGRW/U2GKT9rVMXAuSo4TpG0F0vTx4mV49lm08Vymx055+NHXn8VECuFf33Kuo8a77/
+         msMg==
+X-Forwarded-Encrypted: i=1; AKwUvByVvrjeSVYdGDFtp/7WnNrS8lemrQbWi1EFbm+1xtBPSMJzqvS8N/AFp+2nq11Z1UYbGWwlcM6ZHZ/lunw=@vger.kernel.org
+X-Gm-Message-State: AFuF++nop2RJj32ROxOEckioWyen/qeYqxK7C9GxKC0lXAL7GCb2NMPy
+	bPoTNXls1XUWuV7715nrgmJMRN6QMPCUgMgy6PmrE5ZH0TxA/D/6m4sUUCQq2buiGVv/UWmrexH
+	kBH1sULakgjHQe3zvS6mU0vgBjnSkEwI=
+X-Gm-Gg: AYBFou3gfC+Fh+KJ9uZ4iUsp41LSRjUAPt9qk5KvgHtMFBfZ5e+ReP6CXdO49HKOtYu
+	q/FRerF7riwgyjt5g8QakhNI1CjlLdBDUsYLfijHG1zBHpHUDpNC1kLC0FfStdM8u86vjwt+E2U
+	meEv7rCh+JGb+pN90uBsEq+w0fnuWpEsJSlj7opx2oZFM6G85TsEck9cH5kJsexkluJhabqjWGG
+	tJ3e0FOBMgicsf0KyH2Lr6rsz+V2aGGCn+YRw+erE4F362sI7nBciDPIl5c3qjPZlhyey3BMdN9
+	JGE68V3MrYhCatQRhztYdEAFTX6a9hV8S7A+tYTyrQjSfRw9picfadRIFcMP7cxuo4SR14O1TuW
+	Rfpl2Lz26hDVa+zqLlrq16AI=
+X-Received: by 2002:a05:600c:4fc2:b0:49f:bd3c:bc23 with SMTP id
+ 5b1f17b1804b1-49fdf25367dmr45779865e9.30.1790180808596; Wed, 23 Sep 2026
+ 09:26:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DLMQPQRYTSNW.2Z6C0408NMCYK@garyguo.net>
+References: <20260923095435.591542-1-kunwu.chan@gmail.com> <7efbc8e2ecbf397fc8e44327d13e9a7021b97212.camel@infradead.org>
+ <CAN_Opa-tDcZOEk=Mt5MAqUTkg2as5G79uBkxkUaJif8b5QpXYQ@mail.gmail.com> <1cb9c1d40f246ddbe24c9fb930d6dce16aaa25a1.camel@infradead.org>
+In-Reply-To: <1cb9c1d40f246ddbe24c9fb930d6dce16aaa25a1.camel@infradead.org>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Thu, 24 Sep 2026 00:26:32 +0800
+X-Gm-Features: AclHuK_j1ltAz7PGSRQQV9EaBOqpc5nh8k8vCMKlTaWE_EVcZVCxLKzcJIFegA8
+Message-ID: <CAN_Opa-xVAzFAJVU3rwCsiBzVpQYqUYWzgpBBP7EaX3K+ASk1g@mail.gmail.com>
+Subject: Re: [PATCH 00/17] KVM: Use atomic SRCU for gfn-to-pfn cache,
+ reinstate guest mode for x86 nesting
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org, 
+	pbonzini@redhat.com, seanjc@google.com, paul@xen.org, paulmck@kernel.org, 
+	kunwu.chan@linux.dev, nh-open-source@amazon.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 14:46 Wed 23 Sep     , Gary Guo wrote:
-> On Wed Sep 23, 2026 at 1:51 PM BST, Andrea della Porta wrote:
-> > Hi Gary,
-> > thanks for your feedback!
+On Thu, Sep 24, 2026 at 12:07=E2=80=AFAM David Woodhouse <dwmw2@infradead.o=
+rg> wrote:
+>
+> On Wed, 2026-09-23 at 23:58 +0800, KunWu Chan wrote:
 > >
-> > On 20:51 Tue 22 Sep     , Gary Guo wrote:
-> >> On Fri Sep 18, 2026 at 10:59 AM BST, Andrea della Porta wrote:
-
-<...snip...>
-
-> >> > +++ b/drivers/pwm/pwm-rp1.c
-> >> > +
-> >> > +int rp1_pwm_read_tachometer(struct device *dev)
-> >> > +{
-> >> > +	struct pwm_chip *chip;
-> >> > +	struct rp1_pwm *rp1;
-> >> > +	u32 tach_val;
-> >> > +	int ret;
-> >> > +
-> >> > +	if (!dev)
-> >> > +		return -EINVAL;
-> >> > +
-> >> > +	device_lock(dev);
-> >> 
-> >> You should use the device link mechanism for synchronizing unbind / runtime PM.
-> >> That can be done in your RP1 fan driver, and it doesn't need locking on this
-> >> driver.
+> > You mentioned that the SRCU read side scales a lot better and avoids
+> > cacheline bouncing. If you happen to have any existing measurements of
+> > the reader side, such as throughput or reader-side latency, I would be
+> > very interested in seeing them. That would be useful for understanding
+> > the reader-side benefit you mentioned.
 > >
-> > This does not enforce the locking though.
-> 
-> What locking do you think is needed?
-> 
-> Driver core takes care of ordering so you will never see a depended device
-> going away while a dependant device is still bound. Your RP1 fan driver just
-> need to make sure that it never calls this API after it's itself unbound --
-> which it needs to guarantee anyway.
+> > Of course, no need to rerun anything just for this. I was mainly
+> > wondering whether you already had such data from the existing testing.
+>
+> Most of the KVM gfn-to-pfn-cache usage is per-vCPU so doesn't get much
+> parallelism. The main case is interrupt delivery to Xen guests' event
+> channels, and I did some benchmarking of parallel interrupt delivery.
+> I'll see if I still have those results, or tell my friend to go and
+> repeat some meaningful tests.
 
-I think you're referring to the struct device (data) and module binary unloading
-from memory, which is guaranteed not to happen when there is a dependent device
-using it, but what happens when you try to unbind or suspend the device?
-More on that below...
+Thanks David, that would be very helpful.
 
-> 
-> > Is it enough to just rely on
-> > caller to create the device link in advance? IOW, just add a documentation
-> > comment to the exported function prologue stating that the consumer is
-> > responsible to sync via a device link is acceptable?
-> 
-> If you use pwm_get API then a device link is automatically created for you
-> already (however, this automatic link does not pass runtime PM flags, so if you
-> need that you still need to add link explicitly).
+The parallel interrupt delivery case sounds particularly interesting.
+Please don't go to any trouble if the old results are not available.
+I really appreciate you checking, and I also appreciate your friend's
+help with the measurements.
 
-This driver implements only static PM ops so I think both pwm_get API or
-device_link_add should deal automatically with races.
-OTOH, what if the consumer obtains a reference to the PWM device via of_* API (or
-other means)? Thhose calls does not create device link and we would still have unsync
-critical paths.
-I'm just trying to figure out whether I should design the exported function as
-foolproof and caller agnostic wrt sync issues.
-If relying on the caller to use pwm_get/device_link_add is enough, I'd be happy to
-find out I'm just being overly paranoid, dropping all the locking to make teh code
-simpler.
-
-> 
-> How this is supposed to be synchronized or documented is very hard to get right
-> without seeing the user side driver -- if you already have a working version of
-> the RP1 fan driver it might benefit to have it attached as a RFC patch in the
-
-Agreed, that's why I was trying to be as consumer agnostic as possible. After all,
-coupling two modules wrt their locking requirements is usually better to be avoided.
-As for the sample fan driver, I have only a simple module that grab a reference
-to the pwm device and call the exported tachometer function, so nothing really useful
-for this discussion, yet.
-
-> series; or an option to to drop the tachometer API and add it as part of the fan
-> driver series.
-
-That is a great advice. I think it's beneficial to discuss everything in one place,
-and as a plus we won't block the pwm driver.
-
-> 
-> > Otherwise the only way I see to protect it in any scenario is via the mutex
-> > I've already implemented and a second flag for the removing path (device_lock
-> > will be dropped, of course).
-> >
-> >> 
-> >> So Sashiko is kinda reporting a false positive here.
-> >> 
-> >> > +
-> >> > +	chip = dev_get_drvdata(dev);
-> >> > +	if (!chip) {
-> >> > +		ret = -ENODEV;
-> >> > +		goto err_dev_unlock;
-> >> > +	}
-> >> > +
-> >> > +	rp1 = pwmchip_get_drvdata(chip);
-> >> > +	if (!rp1) {
-> >> > +		ret = -ENODEV;
-> >> > +		goto err_dev_unlock;
-> >> > +	}
-> >> > +
-> >> > +	mutex_lock(&rp1->lock);
-> >> > +	if (!rp1->clk_enabled) {
-> >> > +		ret = -EBUSY;
-> >> > +		goto err_clk_unlock;
-> >> > +	}
-> >> > +
-> >> > +	ret = regmap_read(rp1->regmap, RP1_PWM_PHASE(2), &tach_val);
-> >> > +	if (ret)
-> >> > +		goto err_clk_unlock;
-> >> > +
-> >> > +	ret = (int)tach_val;
-> >> > +
-> >> > +err_clk_unlock:
-> >> > +	mutex_unlock(&rp1->lock);
-> >> > +err_dev_unlock:
-> >> > +	device_unlock(dev);
-> >> > +
-> >> > +	return ret;
-> >> > +}
-> >> > +EXPORT_SYMBOL_NS_GPL(rp1_pwm_read_tachometer, "RP1_PWM_FAN");
-> >> > +
-> >> > +static int rp1_pwm_probe(struct platform_device *pdev)
-> >> > +{
-> >> > +	struct device *dev = &pdev->dev;
-> >> > +	unsigned long clk_rate;
-> >> > +	struct pwm_chip *chip;
-> >> > +	void __iomem	*base;
-> >> > +	struct rp1_pwm *rp1;
-> >> > +	int ret;
-> >> > +
-> >> > +	chip = devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
-> >> > +	if (IS_ERR(chip))
-> >> > +		return PTR_ERR(chip);
-> >> > +
-> >> > +	rp1 = pwmchip_get_drvdata(chip);
-> >> > +	ret = devm_mutex_init(dev, &rp1->lock);
-> >> > +	if (ret)
-> >> > +		return ret;
-> >> > +
-> >> > +	base = devm_platform_ioremap_resource(pdev, 0);
-> >> > +	if (IS_ERR(base))
-> >> > +		return PTR_ERR(base);
-> >> > +
-> >> > +	rp1->regmap = devm_regmap_init_mmio(dev, base, &rp1_pwm_regmap_config);
-> >> > +	if (IS_ERR(rp1->regmap))
-> >> > +		return dev_err_probe(dev, PTR_ERR(rp1->regmap), "Cannot initialize regmap\n");
-> >> 
-> >> You mentioned "rework regmap error paths" in cover letter.
-> >> 
-> >> But the issue is that regmap doesn't need be used here at all. RP1 is on PCIe
-> >> so there is no need for bus abstraction, direct use of MMIO is sufficient.
-> >> MMIO accessors have no error paths, so you're saying yourself from having to
-> >> handle that, and also reduce the overhead by not having to go through an
-> >> abstraction w/ indirect funicton calls.
-> >>
-> >> I suppose regmap was used when syscon was there; but it's not needed anymore.
-> >
-> > True, and I don't have any issue in converting back to MMIO call and drop the conditional for
-> > error checking, but please consider the following, since the driver may be extended in the
-> > future to support more features:
-> >
-> > - regmap gives you free debugfs view on the registers, which may be useful to test
-> >   the new features.
-> 
-> Do you have any register that we want to access that is not part of the PWM
-> facility, other than tachometer?
-
-Not at the moment, no. But I don't see how this impact the debugfs usefulness.
-
-> 
-> > - regmap_write/read may still return an error in case the passed register is not in range.
-> >   This will be trapped at runtime only, but could still be useful during development
-> 
-> I think this is rather a anti-feature. Having additional error paths for some
-> thing that never happens is not a good idea, especially that you basically get 0
-> coverage for these paths.
-
-Sure. Well this is true once the code is crystallized and tested, so it's somewhat
-still useful (only) during future development. But I got the point, and I agree.
-
-> 
-> You already know the shape of the register region, so the bounds checking
-> provided by regmap would be better served by an ahead-of-time check:
-> 
->     #define RP1_PWM_REG_MAX (RP1_PWM_DUTY(RP1_PWM_NUM_PWMS) + 4)
-> 
->     struct resource *res;
->     base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
->     if (IS_ERR(base))
->         return PTR_ERR(base);
-> 
->     if (resource_size(res) < RP1_PWM_REG_MAX) ...
-
-Fine for the probe method, but regmap_read/write also check for the range, for free.
-
-> 
-> Shameless plug: Rust abstractions for I/O access is actually pretty good in this
-> regard in the sense that we try to prove statically that access canot fail. It
-> also has PWM and platform abstractions. If you're interested in learning Rust
-> this driver might be a good candidate :) If you're going to LPC we can chat
-> about this there.
-
-Now I'm tempted! :)
-Although it will took far more time to upstream the driver so I think I have
-to posticipate Rust for another driver.
-Thanks for being so available for the LPC, really appreciated! Not sure if I
-can make it this year but we'll see...
-
-Regards,
-Andrea
-
-> 
-> Best,
-> Gary
-> 
-> > - I expect the PWM driver to be a access with very low frequency, so I guess the overhead 
-> >   imposed by regmap is negligible.
-> >
-> > Since we already have it, I'd prefer to leave regmap if possible for the aforementioned reasons,
-> > but I'm obviously open to drop it in favor of direct MMIO calls in case you or anyone else are
-> > not seeing those as real benefits.
-> 
-> 
+Thanks again,
+Kunwu
