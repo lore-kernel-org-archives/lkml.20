@@ -1,183 +1,145 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1DAB3AE198
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:35:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325DA3AE198;
+	Wed, 23 Sep 2026 14:35:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790174104; cv=none; b=aTLhDqyq69bfKqQ7ixuni2Ekh9OhWXaAaaNMqS+ew4J0aFCY+npxMUpqf5+Wq8rL8kySzQ/j2bku67YeBAKR/bjl0apnoLBjmLx7NqQQR0XsmabjkQcsIvPx0h5RwevZi1qi7TOypyplHteKtteqf49APcD3e7OcMqkYMR18QMY=
+	t=1790174113; cv=none; b=agl2RSwU/3UJmUGLgHW3JXjrnS6NIuKary8Ot35OeA0AHj+pYYXreo6imrxZjx0zM1Hs4uMU9EfPOGQ8nyz6vYXsqy+h+uPWL/wH7DGdZDH6cLwl1D0JjcBm0WSqwnhPR2OqRx0Y8dAFMcxlhePN7NMcW/+Ipjn7YVGK5/Md6/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790174104; c=relaxed/simple;
-	bh=5uIlNa4xAoXh/sFqM7AmbWsWqOhs2eV3y5IK8rYjWoQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kpPVTgCyHrxjuEa9nZ8MYuEpD9qhJDL7mmYLWi2YiecYLFHH0Nuy9NLcxzgvwkcitQ9HZNjPUfMRHz6x+WibGhqzvKjWBfWKM0omDBdt0VgwIaH0ZQzvvKm8KVkLuB/bb6OGt9dRJbHViZlvDgRuq/GyEm4+Pf4xYcCilXl/Z5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bhCZj666; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790174113; c=relaxed/simple;
+	bh=1bCLQrHdsVLU9EInS/vCERGCbCjpqd51mH0QOzCSRBg=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=U4AxcQ4HmzchxLWS34uSntFYR8k0uuZrI93p6vjZ/b9BgKV+Hk1SLwikeZiO1c6Vi2hkRJIig0U233mqXe25a2uWLbWv3m6gg1b6oVVGhphqHTEpFzsffY+0JqiOBk8A8cKyFC+q/Dc/jdzuk7jyg7u0c/mtbG90vMpU+fM7UJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aeIXsDUL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bhCZj666"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885d4825adso671230f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:35:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790174101; x=1790778901; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CxuB9ejzTC3o9hFwevWHCxu5Fr62XzfQUzmljnivqK4=;
-        b=bhCZj6661fV3XPzCS7tqELrBJYuhlYKT7FgVnHnY3obiteRy0IgKRks/WwbfW15uiF
-         DJkux1hmPK3xUKyN+wuLA4qPzIsL9Gr//m3S0DOXeSwSGNsOZs9Qawebyb+KFR+CQofW
-         SPlRjj6uqPgGz/OzGU9iRVd4OT6mLdD83Bov2vgStdGfHL3a0XA6ufFuk+q3BbaMgMa6
-         Dru+955Up4LHuovuPbHstZwZoMXPoj43PQQ7fMfWySMLTnk+SewULYWn4mO03vZ37Nn/
-         yQOkprEeYEpzbr0KUgs1zOXsNVihl3rQ786/CK4gUJ4Cy54wjvR+IB448meAWvXwtnYv
-         WvEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790174101; x=1790778901;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CxuB9ejzTC3o9hFwevWHCxu5Fr62XzfQUzmljnivqK4=;
-        b=ppirKBSDzsmIS2syvd3semv76FswzQTEySGtejVZPSKfnLEuGRcbC9IIm4SgjdV2Sk
-         bApdOf7nDPlmq9kKc8/Iuzvu+7uvUFMaXpJoV3lve2/sGKG07oUmeeCtqoGbwIjYOiX4
-         NnZau5rXYoqStVU+1H3nhx42Nfdsp0ULsKVS1OI43UTKxcXsUNjV0gUzVduk15u1dX9l
-         HQOrLagGMTFOD8ZvKfnNkhcKZ9e98vBNaMX7XQsUlaVUH+QmIM9DlUmI/HeIUTEtmhC9
-         Hn+W0NTFpXuRqaNlJHyRD93ggYTwdU7hZi20S7+jTrA99R3dScjnUlIHDkPqrrP3hz2l
-         lDYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx8XD/Yvh1J4jx8QcugFlWjyTnSOfY/1hzOgVoSXlRd70qbv9crL7irRAXWO9VJ4DsANYuJWw8pkqgOJ7o=@vger.kernel.org
-X-Gm-Message-State: AFuF++mI5jxwFjM4ypRztrqPsiP5l+iLR3mIvjGNLSLp6cZXnhjPQBSC
-	1vcmcgSgHGITdiOjcSnBhc12DKbM/GX4GvLhgT+vpKiLRPBp5ndHQHM4
-X-Gm-Gg: AYBFou28VvWqRYPgv1puesGOJk3rAF7DZ6fOKFKRBQjFNokB1M3lVRfLN0EjfYQIXgV
-	k9rhXaP9o0JThqShnIwEyeMB5LYc/rJ28Q5xySDArjKos4vzSXEldypNazTGVGh6wdQy7XFMlnO
-	NPvAmHlbN8iEcsvdqySAajzssFG1G3VB9x5OvrFu1AK74Gng9jmO3bCTdlF7s6PIFrf/N76K1X3
-	Rngk0QK0zNyWPdgstFsF9Ga5s07RDmZPp+Sd6TjB6H8nr1iINfEaXBS0lqduASmhPIiRY8DjLMI
-	FaVYX2/4c9E5C3lNMXnHr5MZCQn0j1U7B5XOWuPMuxhyMOvuCRx5+cqD+Eq6jWeBFhAFx/o8ybx
-	cDnGddI8P3a1mnfEqHIYxIswLNIcTgAhkUwyC18JvxjSqvyt883ayyOEF0lPZmY9QNth1rrvA+7
-	gJyw3twtTfjf+VNWlP8F0fg2t6BKvfsDgff3ivZ6S5ACUbslbel5H+ojx2nS46sg6Dq5atFQqJx
-	JeRqj0ztxJfCN+BbCUAjFClGnBLRbq6Hqv1V9xZjlWM9OXtEbdXPruODgWG3Ei6P7JyClCLxuuF
-	O04jC2Jr24XPrkBYSf/D
-X-Received: by 2002:a05:6000:703:b0:486:e901:e59 with SMTP id ffacd0b85a97d-48867093c7bmr5013070f8f.31.1790174100524;
-        Wed, 23 Sep 2026 07:35:00 -0700 (PDT)
-Received: from KASONG-MC4 (11.pool90-167-203.static.orange.es. [90.167.203.11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48868779472sm7703114f8f.23.2026.09.23.07.34.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:34:59 -0700 (PDT)
-Date: Wed, 23 Sep 2026 16:34:54 +0200
-From: Kairui Song <ryncsn@gmail.com>
-To: Gregory Price <gourry@gourry.net>
-Cc: Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Baoquan He <baoquan.he@linux.dev>, Nhat Pham <nphamcs@gmail.com>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Yosry Ahmed <yosry@kernel.org>, David Hildenbrand <david@kernel.org>, 
-	Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren =?utf-8?B?QmFnaGRhc2FyeWFu77+8?= <surenb@google.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
-	Wenchao Hao <haowenchao22@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Tejun Heo <tj@kernel.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
-	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: Re: Path forward for Virtualized Swap?
-Message-ID: <arPhtkrM-khhmgnN@KASONG-MC4>
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
- <aqJXx2vtbKaRLt3x@fedora>
- <aqLi6cIjD2wJwk0B@cmpxchg.org>
- <CACePvbUG1ApMzMdEzf-63rpjgGVNsRk21pT72OQGJpM=OtRUew@mail.gmail.com>
- <aq6cVXPLUUwJA7-2@gourry-fedora-PF4VCD3F>
- <CACePvbVaPDnva8X-Xmz84r7j5HjTuih-w5phpw7cerK2uPnK6w@mail.gmail.com>
- <CAMgjq7CJBHkoZmg9oKNgGA8czL0djyBTCAkPz8ETm-tX=Qci4g@mail.gmail.com>
- <arEotFqE7ZZoxMHd@gourry-fedora-PF4VCD3F>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aeIXsDUL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D2911F000FF;
+	Wed, 23 Sep 2026 14:35:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790174112;
+	bh=3TwlLkyZQTZh0Z1xs++bAft9ht0Lw6LygEgQuu2yQpI=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=aeIXsDULTaQWcyTIx49ef/GOrG6Jnn0Tke0MEZYE6XLjQFtP0qCHOEBrGCuDq+83y
+	 mltPPaiVyS6QCTI9AcL8MmzG5ix0fCY1wjbgQFSYlt4H6tn7WMQtkegfYqMcp/pAdF
+	 J8sr5oc565b1suLKqZTTEASfNSid/pLEIcdpszV4H8oFKaVsiiA5ebGwQfUMvx7u54
+	 ts0J2NY7ZcOd0ZtpTEjsXpjysn6qh8e11M1LvxDoTezCqthpHIFB6ObBasMTmcvtgd
+	 hY2+C+Rr5NmLXzOrumro10xV9LTRUiuqQtrGQnze4I0YRuk6LnG/giQo+HsFKuPgY0
+	 HQiLzGvd6Tdaw==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id A56B8198003A;
+	Wed, 23 Sep 2026 10:35:09 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Wed, 23 Sep 2026 10:35:09 -0400
+X-ME-Sender: <xms:nOOzanqx8hELxLWJ4Qeiu9lg4QNyYL3Dty_DvgxaG3Tb-30m2sgtXQ>
+    <xme:nOOzascA0PMOvO_BNLXjMqTC72P-ENMKTQ02TLLpaYgBFPYYyhfpyBpMeavFLgn6d
+    6ewlRq7pW3xORPkpaTHSxRzC6wEKaLGJCUS3lq_yNKteZWr6J0tJA>
+X-ME-Proxy-Cause: dmFkZTET3UkT5mqQjagqhJhvdpIFMPyuHUX8u+/eSW+NxtZtu12NbLWJfOn87tvBPLWizL
+    gTXneLmgVEDkvj7uWZZxKyuYv83KC3W4EQDZNdsSvJKvWK5U4Qn5QcwjQShQrB21khUcCt
+    qQ69uSgwT83+2D5LqAVCbNh4zWBxerW7IjWmdJlyal7U6FqN5YZHiT0KbMYje3jjKB14qb
+    F0W3M0yg/649cuu5Uwrssd45k8OoGtqSqoxAnIA3GvWqT8UVcT8unVGEy5DejYmvlWhxyg
+    6O0WtiF5sqyhbHR/Vn5jjq1N6ylKcCXqzq70U4hzTJUSYgPlIKzgW5XH4G7tAYoEZfhqsN
+    67Cn9QxW2Kuvwx5euu5lzbixavJ0ahZXbGY6K7bd+ZRXIq27e/+zeNvuTLN7oRPNqmHQiC
+    DF7dBeN7OdO7aORSO1Zsksu4q5EhYC/rx+VuYQTqoiAEEObzQrhHBRYTd81Y4Uo9YxKM2d
+    Yt6pET56fY5x4FQQFjulh0z1kHJtJZq/Su+1mT4SwvnDG2TC864k9RGLr0yOqF6omlusq8
+    X2DaeyNUlzurUg36iHNLsCQwtTigYN1PDwb6qTReYesuXtEi+/VRyEU0UhhjpoS4L1qYRa
+    R0yw9A7Hj1muYTO1XSpyzoOCmxJUBSaayw3Lcr38I587NUbbJlfNC2Y4aqQQ
+X-ME-Proxy: <xmx:neOzalRLkax8O6CzpGZy-fM3TGiGf2DSGKPHBVVjCGmQd6E0JK8W9w>
+    <xmx:neOzao3qR5-PUz-jawl_fdoSA8uafig3qmxKbCp-RwLDfTaJ0jKUUg>
+    <xmx:neOzaqvnL2L__9Ja328A5wCDVt_iWNbOJPx4ECJaBc2uXwBAUdbRdA>
+    <xmx:neOzauhAlkJjNb02XjHZN3aHn40LziGESpPSZAYX11DCSu6LWa5Mfw>
+    <xmx:neOzar_QtvHoIHDcNSEupfhBGwl6hnAYCAGn7xJpuWR10YgVTaCKU4V->
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id ED42DF8007E; Wed, 23 Sep 2026 10:35:07 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arEotFqE7ZZoxMHd@gourry-fedora-PF4VCD3F>
+Date: Wed, 23 Sep 2026 16:34:47 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "Yan Y Zhao" <yan.y.zhao@intel.com>
+Cc: "Rick Edgecombe" <rick.p.edgecombe@intel.com>,
+ "linux-efi@vger.kernel.org" <linux-efi@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "x86@kernel.org" <x86@kernel.org>, "Borislav Petkov" <bp@alien8.de>
+Message-Id: <b9ff9e11-d7da-4e34-9744-e3adcc786276@app.fastmail.com>
+In-Reply-To: <aq0VWfqv2_SgOvV9@thinkstation>
+References: <20260914183745.37538-5-ardb@kernel.org>
+ <af17c380c43912ce34c228e328b3937343ce2019.camel@intel.com>
+ <aqvrUeIfpE4D-Ol0@thinkstation>
+ <27b267cdaed0c46146de4af2db8362b61e0b08a3.camel@intel.com>
+ <aqyd+rhamNei92Nz@yzhao56-desk.sh.intel.com>
+ <aqzMGEVpDRPUyPUA@yzhao56-desk.sh.intel.com> <aq0VWfqv2_SgOvV9@thinkstation>
+Subject: Re: [PATCH 0/3] Move memory acceptance x86 arch code into EFI stub
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 21, 2026 at 09:27:01AM +0100, Gregory Price wrote:
-> On Mon, Sep 21, 2026 at 12:01:18PM +0200, Kairui Song wrote:
-> > > First of all, the traditional swap counter has a very well-defined
-> > > meaning. It is the size of the memory that, when accessed, requires a
-> > > page fault. A page fault adds significant latency to memory access
-> > 
-> > Yeah I agree on this. Swap just about makes resources not directly
-> > accessible by the CPU act as RAM, whether that is storage on disk,
-> > compressed memory, or a network resource, all accessed through a page
-> > fault. I hope we won't make this fuzzy in the future by introducing
-> > too many magics.
-> 
-> Hm.  The counters are already fuzzy - the accounting is already doing
-> two different jobs.
-> 
-> Suppose we want to allow 24GB of logically swapped memory, backed by up
-> to 8GB of compressed RAM at a 3:1 ratio, but permit only 4GB of physical
-> swap.
-> 
-> Today we have:
->   memory.swap.max  = ?     /* logical memory requiring a fault */
->   memory.zswap.max = 8 GB  /* RAM consumed by compressed data */
-> 
-> If memory.swap.max is 4 GB, zswap stops after 4 GB of logical pages,
-> despite consuming only 1.33GB of RAM.
-> 
-> If memory.swap.max is 24 GB, zswap may reach 8GB of memory consumption,
-> but the cgroup may also consume up to 24GB of physical swap instead of
-> the desired 4GB limit.
 
-Hmm, I mean, this sound a limitation of the zswap.max and not swap.max,
-swap.max is doing a prefect job here limiting the logically swapped
-out memory.
 
-> 
-> memory.swap.max is simply overloaded - there is no way for us to express
-> both limits.
+On Fri, 18 Sep 2026, at 12:45, Kiryl Shutsemau wrote:
+> On Fri, Sep 18, 2026 at 01:28:56PM +0800, Yan Zhao wrote:
+>> On Fri, Sep 18, 2026 at 10:12:10AM +0800, Yan Zhao wrote:
+>> > On Fri, Sep 18, 2026 at 02:29:55AM +0800, Edgecombe, Rick P wrote:
+>> > > +Yan 
+>> > > 
+>> > > On Thu, 2026-09-17 at 14:32 +0100, Kiryl Shutsemau wrote:
+>> > > > > I guess the caller could care about TDX_PAGE_ALREADY_ACCEPTED errors. But
+>> > > > > SNP
+>> > > > > doesn't do anything for this case. It seems like part of the problem is that
+>> > > > > we
+>> > > > > are passing errors back that the caller can't feasibly handle.
+>> > > > 
+>> > > > Maybe. I don't understand SNP model and why they don't care about errors
+>> > > > here.
+>> > > > 
+>> > > > Do you have a proposal here?
+>> > > 
+>> > > Yan pointed out that future TDX modules will not take an S-EPT entry lock on
+>> > > accepting a NP S-EPT entry. However, I think this won't prevent guest caused
+>> > > busys on re-accept attempts?
+>> > Re-accept attempts may occur due to:
+>> > (a) two concurrent ACCEPT TDCALLs, where the one that arrives slightly later
+>> >     returns either TDACCEPT_ALREADY_ACCEPTED or TDX_OPERAND_BUSY.
+>> > (b) two successive ACCEPT TDCALLs on the same GPA.
+>> > 
+>> > Since Linux guest always invokes ACCEPT TDCALL before a memory access, and
+>> > accept_memory() always checks the unaccepted_table->bitmap before invoking the
+>> > ACCEPT TDCALL, case (b) should be impossible in practice, right?
+>> > 
+>> > Is case (a) a valid scenario, and does it actually occur in a Linux guest?
+>> Case (a) should be prevented by the unaccepted_memory_lock in accept_memory(),
+>> right?
+>
+> Right, for accept_memory().
+>
+> The lock itself is dropped around the TDCALL, but the range stays on
+> accepting_list until the bits are cleared, and the overlap check is done
+> in unit_size granularity, so a second caller for the same unit spins
+> until the first one is done and then finds the bits clear. Both (a) and
+> (b) are covered there.
+>
+> There is a second ACCEPT issuer that does not look at the bitmap at
+> all: shared->private conversion in tdx_enc_status_changed().
+>
+> It does not need the bitmap because the memory came from the page
+> allocator or memblock and got accepted before it was handed out. It also
+> has no per-range serialization; mem_enc_lock is only taken for read. So
+> ALREADY_ACCEPTED on that path means either the guest converted the same
+> range twice (a double-free class of bug) or the VMM acked MapGPA(shared)
+> but never removed the private page. Either way the page there is the one
+> the guest accepted earlier, and the failure already comes back as -EIO
+> rather than a panic.
+>
 
-Limitation of physical layer is some swap tiering issue I believe. We
-don't have swap tiering at the moment, so we can't do that, right?
+Is there any way we could make some progress here?
 
-With tiering limit setting swap.max = 24G seems totally fine here.
+Ultimately, the thing I am after is to get rid of the call from the
+decompressor to EFI stub's snprintf(), which I want to remove. For
+the time being, I am more than happy leaving the memory acceptance where
+it is, and just dropping the call to snprintf().
 
-> Could we preserve the existing swap semantics and add a physical swap
-> counter instead?
-> 
->   memory.swap.max  = 24GB  /* logical swapped memory */
->   memory.zswap.max =  8GB  /* compressed RAM limit */
->   memory.pswap.max =  4GB  /* physical storage limit */
-> 
-> These limits would be independent and compose naturally.
-> 
-> For a zswap-only workload where we care about RAM consumption but cannot
-> predict the compression ratio:
-> 
->   memory.swap.max  = max
->   memory.zswap.max = 8GB
->   memory.pswap.max = 0
-> 
-> For a workload that performs poorly after more than 7GB of its logical
-> memory requires swap faults:
-> 
->   memory.swap.max  = 7GB   /* workload-specific latency/SLO limit */
->   memory.zswap.max = 8GB   /* uniform compressed-RAM allowance */
->   memory.pswap.max = 0     /* zswap only */
-> 
-> In short:
-> 
->   memory.swap   = logical swap       - workload/SLO limit
->   memory.pswap  = physical swap      - storage limit
->   memory.zswap  = compressed memory  - RAM limit
-> 
-> This would preserve the existing memory.swap semantics while allowing
-> both backing resources to be constrained independently.
-
-Yeah, this part seems better, but a pswap vs zswap still seems maybe
-too specific for one single usage? Or too board to be over rided. :)
-A actual tiering limit seems better to me.
