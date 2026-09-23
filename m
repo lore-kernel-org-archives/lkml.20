@@ -1,106 +1,62 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728A021ABC9;
-	Wed, 23 Sep 2026 01:22:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 433ED334C3B;
+	Wed, 23 Sep 2026 01:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126575; cv=none; b=gOhig31Vi/ul7PiKhJh5s+gHZptOTwT3RaHQKjh5mFqU/yDk9rQD+l0VbTNRaQaW524nmWQKR122GsagcOj7b+YXnAZ0cb7ApsdCv4sLT9GejrCbI6TwrgeTkF4yPKYP9sPOxrhTx9c/56Zo02ZmOUBctf/kWN6dg6zmDMYnf5c=
+	t=1790126657; cv=none; b=NJ1F8C7K2Walp9dRbCLk+CLz76Njk9S9Kg4/mlsTqM+SE0kd4LyVXDT+tl6LkIRK76YQ+Hc3w4ejeIv10O2LZ3NSWh3gTcbsYlEk5iJTA1BD3tlk8kgbb0u3pHwY89jGV/R/QPE2qBKqii5zdMYNMdkRSuBAm0eIFESnFjv0eVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126575; c=relaxed/simple;
-	bh=A+3vYfrTUr9mwE1ZcCgBnFC9WxVY09IUFMKr26VLjwg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IxKRmEaoAu1kXEWVNNDHsE5lxcIoMCElvG8NYv8H+qoNU6Q4zi/0EGe21JBh2/5h5Yk9wRkthOaSzn8HPz9mA7f2T6iaTL8e/rYhUDUSJkHxpX4xOnz6CDfUx92wUbchQt+9gBiKtwnFJovHCPm+KlPSRyu5gS3aYckReyJMdBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 9478f0cab6ec11f19a56ed5b684f684d-20260923
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:d80b21c5-c1e1-4552-9cf1-5d341d35dd68,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:60354df2836bd219256cc746932e7531,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|52|99,
-	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 9478f0cab6ec11f19a56ed5b684f684d-20260923
-X-User: xiaopei01@kylinos.cn
-Received: from [10.42.12.251] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <xiaopei01@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
-	with ESMTP id 982311563; Wed, 23 Sep 2026 09:17:44 +0800
-Message-ID: <63bf9e57-1edf-4e1d-8195-99be056f075a@kylinos.cn>
-Date: Wed, 23 Sep 2026 09:17:41 +0800
+	s=arc-20240116; t=1790126657; c=relaxed/simple;
+	bh=8ggiHRtMy9F9Vjx4ARo/KUmW8xW2/XjjSzqhyVeNpx8=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=P2V9+C2lBthWg9fjIv8ES1g8nBcFX7bAAnFXrveBziGdcjPaV0wtSwBiJZt7iCvLIwSCKnGOBRqjeTQMQfRpSjDMeMq3ewzFhhpRJNpP/DiobcFYTBaYUE6x5yzVtmj8sgkZ1ZKW+zxRLCW1K4hKDe2KzNxP588+vC5nYtGr51A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=hEGEC2sW; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="hEGEC2sW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=8ggiHRtMy9F9Vjx4ARo/KUmW8xW2/XjjSzqhyVeNpx8=; b=hEGEC2sWt7GTzWhEDIg1cffWxQ
+	KGbwBFbjIRKDLwViCj+DvsZpEz3jS22WsKR01Aj6OYA6hztf98kpCIZGlVvEfC2OuBMBpGrGDrNvC
+	LCJQQXUxKC9ffeRwB+oLFA8yz2SWVhKByREL3FdGErRG4xfYKJOHZu5dZNJaMn4dpF82PuAkSrN0N
+	FUwujMAdwesSi7O/WZtGhERGBd+ITft9zvjRaI0kSApeV1Kd9QqpbsaUV0QocL3mBp5awv+NkTLv3
+	WAUuP5NYEqCqYGHKEb/TkmfKhFgwIEuPFBGH9rh25d6n7/R2LNN45xUxE2Y08AOKxG8dXcR9sFuHt
+	A1qjlMAQ==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x9BiR-000000023kq-02uZ;
+	Tue, 22 Sep 2026 22:24:07 -0300
+Message-ID: <975146f7abe1950650803a6732f1ad48@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Fredric Cover <fredric.cover.lkernel@gmail.com>, Namjae Jeon
+ <linkinjeon@kernel.org>
+Cc: ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Tom Talpey
+ <tom@talpey.com>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad
+ N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>,
+ linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, Fredric Cover
+ <fredric.cover.lkernel@gmail.com>
+Subject: Re: [PATCH] smb: client: use GFP_KERNEL in get_targets()
+In-Reply-To: <20260922173759.67445-1-fredric.cover.lkernel@gmail.com>
+References: <20260922173759.67445-1-fredric.cover.lkernel@gmail.com>
+Date: Tue, 22 Sep 2026 22:24:06 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] ata: pata_parport: pin the protocol module before
- device_register()
-To: Niklas Cassel <cassel@kernel.org>
-Cc: dlemoal@kernel.org, linux-ide@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1790047457.git.xiaopei01@kylinos.cn>
- <952bac5f61dc69079c3ffe62d6392bcc89f6aac0.1790047457.git.xiaopei01@kylinos.cn>
- <arKWUwJeXUdGHpp0@ryzen>
-From: Pei Xiao <xiaopei01@kylinos.cn>
-In-Reply-To: <arKWUwJeXUdGHpp0@ryzen>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+Fredric Cover <fredric.cover.lkernel@gmail.com> writes:
 
+> Currently, get_targets() uses GFP_ATOMIC to allocate the cache target
+> iterator and to duplicate t->name. The callers of get_targets() are
+> in a sleepable context; therefore, switch to GFP_KERNEL to reduce
+> risk of failure and reduce pressure on emergency pools in low-memory
+> scenarios.
+> ...
 
-在 2026/9/22 22:53, Niklas Cassel 写道:
-> Hello Pei,
-> 
-> On Tue, Sep 22, 2026 at 11:38:00AM +0800, Pei Xiao wrote:
->> pi_init_one() calls device_register() before try_module_get(). Between
->> these two calls the device is already visible but the module is not
->> pinned yet, so an unload in this window leaves pi->proto dangling:
->>
->>     pi_init_one()                       rmmod -f <proto>
->>     --------------------------------------------------------
->>     device_register(&pi->dev)
->>          device visible on the bus
->>                                            module memory freed
->>          pi->proto = pr        <- writes into freed memory / dangles
->>          try_module_get(...)   <- too late, module already gone
->>
->> Take the module reference before registering the device, and drop it
->> on the device_register() failure path.
->>
->> Fixes: 246a1c4c6b7f ("ata: pata_parport: add driver (PARIDE replacement)")
->> Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
-> 
-> Looking at the code, this race cannot happen.
-> 
-> All three callers hold pi_mutex throughout pi_init_one().
-> 
-> pata_parport_unregister_driver() also acquires the mutex
-> before unregistering.
-> 
-> Thus, unload cannot complete at the same time as pi_init_one().
-> So the motivation looks wrong.
-> 
-> Additionally, rmmod -f bypasses a non-zero module reference count,
-> so I don't see how taking a refcount earlier would solve a rmmod -f.
-Yes, you're right — force unload doesn't really solve this issue. Thanks
-for pointing it out.
-  Thanks for your reply, and sorry for the noise.
-
-Pei.
-Thanks.
-> 
-> Are you building your kernel with CONFIG_MODULE_FORCE_UNLOAD ?
-> 
-> 
-> Kind regards,
-> Niklas
-
+Applied.
