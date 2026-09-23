@@ -1,142 +1,260 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF3B4156C5
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:51:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790200267; cv=none; b=U4fdFxFQVEKrL0Ri1oUTbnMlrUKtjl7Qj+BRTDCDFDhGN/ezZhlY49WXj7GysO8zEV4cNZ3xRyYmwyjHumsNXXeXP3Nh91A16uwDHzG5Js5B9FJJHiuNQoiJMB1M/EuRaAoYXft9mebl22ySau5MWCGw4Z+hA4+hYzERWg83HnQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790200267; c=relaxed/simple;
-	bh=IgxTQuGeICrd5MzQGmpTL/c1gTtW/uQz3Qz7w3LwLaw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Q7ceE5FIGPl6IHTNuufQ6YpM9llkU6KzSC16NISFmW7ecEvBgbjVUkSv/LGDBsNk8Dh8rwqCkEwOr7kelImcpnVi0UomTlmAKKloTTUDA8MPp3dgociZLMQDnIMnOY2t2jltqNbk7EAH1g2GVIclNPpO0LQ8t4VBbsPsb6SdATE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ijlbFhsE; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DE33EFFC2
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 21:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790200370; cv=pass; b=TkgBKMLmeGEf3HBx6Y8/ONLmUCac6Yvu1nGF5Sg3n3qa105FNMUyJ4jSmayvXdRSIRz06GSKEReNa786CHQUwW0vie7jELI24zdcVEx70JRvDs08Bkao1wmO0bialpBCnA8h9MolhptK7uNNMtn4CraZPUwj40bjUFtfyAdDrtw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790200370; c=relaxed/simple;
+	bh=Y1fyJzs+vFkpEgXjQma8h51ch0FhmddNCCJSogHEK4c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OvoiOwR3Ql++Mu9vkfld3xeJJU/4HrbpV8g+pxxbLS+nhprQ4Z5WFauNGarU3HMyjjHvDVNpmuZAwhE8BgUQx2DiniDej4OIAHOKdDUluoOGjCjy248IfD5NenhmBXTUWUqIzho6SbhQV3QdUJXDhOcpxUGyZGBlLawravj8Kek=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=YWIcHgJu; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ijlbFhsE"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e8185e037so7688475e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:51:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790200264; x=1790805064; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bA3OJe4KXebO5yMPraruGl/foJ6oDyZS8+2CGZOOFhE=;
-        b=ijlbFhsE18WWMeAysPZFcwyAMX8Uua7zvLvN8PYncgtCGiuKHVuJIJJqBtgAV6VddO
-         Cbn9/Zd2iulKjpcTMshUp97Elz4RW0xEQujxH4UWVkBP9DKVS1DpODynHhZ6HRsMQJtk
-         QL14LKxlPL4CEzEpfEfT11cgmyulHSwyX9/HrWHq9gFpm9Q9UhcOC4l5tyO4SL5gnzhD
-         ub/t/zWhNuNNAELDlF3SeHW8W23oD8w5DeZVg/Tmle82aRsXPX9sIf49OekBQjCoUJBD
-         2isTp9ImGFOVu1SNu/w9te98ZW3nW7gptqR7xno4XLuvr5IweraNtT7sc/AYMvQe/9dP
-         1/mQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790200264; x=1790805064;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bA3OJe4KXebO5yMPraruGl/foJ6oDyZS8+2CGZOOFhE=;
-        b=t0ZQBMcM/BD02sH964ylHx5c2L6RCDs002MvccyX2hw3bYji9VGoiKU6E8Hv6I6WDW
-         0zWZ2kHp/nVcL0p69qsWJ5D+LIv/TMJ88qvXSdylWqpnlxVH2+lb9iCU64FLiTYqDOLL
-         ZxY0TgJeVxZMoDukuYeXkI8HnLn5LiYdM0igIypalBqdDP88rMxjHF95fQD+PJ/iKAY2
-         wrkCaXwwJsVFI4TqksPPXvFgWARi2/XUuoI2y/4zrL2VgCHgobZ1h1YwLukFmhG+Cgkh
-         I6Dmza+Xf3xnsDjU57TND+BAyyew/ZzyKm45RchT0lOkJfjyQbKTyNsu7Hiap9RVVB4q
-         Qzfw==
-X-Forwarded-Encrypted: i=1; AKwUvBxrRbuIZr6OotAwez2HsS8mm+VEBrMhQRGnrSU1fmkuEnnLR/rdL4HPrYfCezUkXGRjEHLrEgezG6sAC3c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kOGPiAJ0ShTRE7R/s7ApdAx6YygAgXU5LvGBE+7M2xmCKYjjlm
-	/gKWHWgJfOazRBAbkl7G0IecWfJGcSifqTAei4vKYXX0NPHWmntW1O0tyxqt0SSq
-X-Gm-Gg: AYBFou3zNp9I/yoloaFaspeC6KID+DUKhg+zCOoxepCYdkRdXNwmNS0ngnl9Pztncff
-	aCpCvrPfDwnSMYC/Q26kZKAg4Os+VLNpNFVT1P8AQ1zwa+U7AkPck9eq9M9Y6WRwy9vd6Wkje4+
-	yhIuvomeKTwTrv2nIC0sze+VqWwWgDFAjTwmI3Om2c2u7AK986M2AF+qhGZGeADXjBZhkdsK+G3
-	Tqin5SpuaoDmZknTUYewUB+MCP9YW0MGxNuOopyCTCvBnqBZfeDliEyU1tPmLefAxEqodvSgrBC
-	fYvxoJis2J5h8eHs00Z6Do7X3EQotU7KcMTJUh/2BT4YumA4bh3XibhgC/lca7LKOg+EFcAdEJT
-	uyd/aE6Ekw4xLBl7OZxcj6vtbj0OXBbfU8u53iONmT28UZwsFiux5cro11uaPH5wI1QjdRtZbe1
-	P5KYEqpk6lSPNcnVIl16S18JTuIoG/rHwKC6jZkPUJ6ziQa4g9wwp1lOSp9KAGTrkxPVIebV8rG
-	TOuyWbZOSTZ1/RBqb+VhzgROR/W2GDPyuYq8HxT8iXt4A==
-X-Received: by 2002:a05:600c:1992:b0:49d:286:83d5 with SMTP id 5b1f17b1804b1-49fe66d5537mr7659645e9.13.1790200264413;
-        Wed, 23 Sep 2026 14:51:04 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c446e1sm72175855e9.2.2026.09.23.14.51.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 14:51:04 -0700 (PDT)
-Date: Wed, 23 Sep 2026 22:50:59 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Deepanshu Kartikey <kartikey406@gmail.com>, bhelgaas@google.com,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
-Subject: Re: [PATCH] PCI: sysfs: Reject unaligned resource I/O port accesses
-Message-ID: <20260923225059.5c8cf0d7@pumpkin>
-In-Reply-To: <20260923205518.GA1941939@bhelgaas>
-References: <CADhLXY7008e4JA35T2wE8TnJnR_r82RCpfSd=aLBmDh5xAQ02A@mail.gmail.com>
-	<20260923205518.GA1941939@bhelgaas>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="YWIcHgJu"
+ARC-Seal: i=1; a=rsa-sha256; t=1790200324; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=C30j4qnsHAOwT8Fx65sNvAdY9yITSAddrW4Ya92eJdwmUTzDpBUtxqd0cVBcqfzFn8e6WgJiO8ilTB6ub7YivLPte6GHrnXpUYnHjfwRVHH65lB5sr9MrKMFXwmrJq2ATS+hn0ca6Jqah+P1CMxpBjNlUyXG4caW1B3LuO63Cqc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790200324; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=uOXdJTLZnP2nqLI/uIuWSrbbF84KAZB1fKnEXUgAS14=; 
+	b=D2FGyw3DBGhZz6Bu90y3wntqAFC2yHm2T1oK7KUNlgoUbPA+2CrsQ4YVHwrYpgiVhHy8P0VMaARhzGAOdJrNS6Xdd1pq1JFGKzCnzsvv9N2tlFRm94rIw6HP2GJWoKN0TsgYqgwPNwqOZl5Kzo7LBjmwQF8xJv4yS0HAV5+F+FE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790200324;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=uOXdJTLZnP2nqLI/uIuWSrbbF84KAZB1fKnEXUgAS14=;
+	b=YWIcHgJuQk8LW6UfDGZiFkqIhgh/Ggn47nLgO8ysS2C9MRHUeO5QP+c7wcF1vgb5
+	GTupkRQiVgOX+k5RIDxc3jrDEg9KEWU87MozGkskRcXgcVog+l0DguEp7zh+clKpHdN
+	GkYnToEOd2At5lmDCV4oq8NoA7P3SD6N0MTtbyeI=
+Received: by smtp.zohomail.com with SMTPS id 1790200323922277.6380951213183;
+	Wed, 23 Sep 2026 14:52:03 -0700 (PDT)
+Date: Wed, 23 Sep 2026 22:51:58 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
+	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v9 15/16] drm/panfrost: Fix races between perfcnt and
+ reset sequence
+Message-ID: <arQ8G6ba8jFRwhk7@sobremesa>
+References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
+ <20260912-claude-fixes-v9-15-e588feaa61ef@collabora.com>
+ <20260914121657.2e9925c9@fedora-21.home>
+ <arLg_vX52EGl-AMN@sobremesa>
+ <20260923100849.573d4d92@fedora-32.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260923100849.573d4d92@fedora-32.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/290.183.46
 
-On Wed, 23 Sep 2026 15:55:18 -0500
-Bjorn Helgaas <helgaas@kernel.org> wrote:
+On 23.09.2026 10:08, Boris Brezillon wrote:
+> On Wed, 23 Sep 2026 02:39:10 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > > > -static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
+> > > > +static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev, u32 *state)
+> > > >  {
+> > > > -	u64 gpuva;
+> > > > +	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
+> > > > +	u64 gpuva = perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+> > > >  	int ret;
+> > > >  
+> > > > -	reinit_completion(&pfdev->perfcnt->dump_comp);
+> > > > -	gpuva = pfdev->perfcnt->mapping->mmnode.start << PAGE_SHIFT;
+> > > > -	gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
+> > > > -	gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
+> > > > -	gpu_write(pfdev, GPU_INT_CLEAR,
+> > > > -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> > > > -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> > > > -	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
+> > > > +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> > > > +		perfcnt->dump_finished = false;
+> > > > +		*state = 0;
+> > > > +
+> > > > +		if (!perfcnt->owns_as_ref) {
+> > > > +			*state = PANFROST_PERFCNT_SESSION_DEAD;
+> > > > +			return -EIO;
+> > > > +		}
+> > > > +
+> > > > +		if (perfcnt->reset_happened) {
+> > > > +			*state = PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+> > > > +			perfcnt->reset_happened = false;
+> > > > +		}  
+> > > 
+> > > 		*state = perfcnt->state;  
+> > 
+> > I'm thinking maybe we don't need to set the ioctl output state here. Even if there was
+> > a reset, if we recovered from it and didn't lose the AS reference, we might be able to
+> > go forward as usual. In that case, counters would be measured since the latest reset
+> > rather than the last successful dump, although maybe this is not an issue.
+> 
+> I think userspace needs to know about INTERRUPTED_BY_RESET, at the very
+> least. But honestly, I'd keep it simple and propagate the state
+> regardless of the flags userspace might or might not care about.
 
-> On Wed, Sep 23, 2026 at 09:05:15AM +0530, Deepanshu Kartikey wrote:
-> > On Sun, Aug 9, 2026 at 10:29=E2=80=AFAM Deepanshu Kartikey
-> > <kartikey406@gmail.com> wrote: =20
-> > >
-> > > pci_resource_io() validates that off+count stays within the BAR's
-> > > range but never checks that the resulting port is aligned to the
-> > > access size. A pwrite64()/pread64() on a resourceN file with an odd
-> > > offset and count=3D2 or count=3D4 reaches outw()/outl() with a misali=
-gned
-> > > address. On arm64 this becomes a store/load to a Device-memory
-> > > mapping (PCI_IOBASE + port), which architecturally requires natural
-> > > alignment, causing an alignment fault and kernel oops.
-> > >
-> > > Reject misaligned accesses before they reach the low-level accessor.
-> > >
-> > > Reported-by: syzbot+7134530b25073b4ef373@syzkaller.appspotmail.com
-> > > Closes: https://syzkaller.appspot.com/bug?extid=3D7134530b25073b4ef373
-> > > Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> > > ---
-> > >  drivers/pci/pci-sysfs.c | 3 +++
-> > >  1 file changed, 3 insertions(+)
-> > >
-> > > diff --git a/drivers/pci/pci-sysfs.c b/drivers/pci/pci-sysfs.c
-> > > index 5ec0b245a69b..72f0404a34e9 100644
-> > > --- a/drivers/pci/pci-sysfs.c
-> > > +++ b/drivers/pci/pci-sysfs.c
-> > > @@ -1175,6 +1175,9 @@ static ssize_t pci_resource_io(struct file *fil=
-p, struct kobject *kobj,
-> > >         if (port + count - 1 > pci_resource_end(pdev, bar))
+Agreed.
 
-I think that test can ignore count.
+> > > > +	/*
+> > > > +	 * Here we release the reset semaphore because perfcnt should not get in the way
+> > > > +	 * of a HW reset. Besides, a legitimate reset might be issued during the wait.
+> > > > +	 */
+> > > >  	ret = wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump_comp,
+> > > >  							msecs_to_jiffies(1000));
+> > > > -	if (!ret)
+> > > > -		ret = -ETIMEDOUT;
+> > > > -	else if (ret > 0)
+> > > > -		ret = 0;
+> > > > +
+> > > > +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> > > > +		/* Either sample finished or reset happened */
+> > > > +		if (ret > 0) {
+> > > > +			ret = perfcnt->dump_finished ? 0 :
+> > > > +			      perfcnt->owns_as_ref ? -EAGAIN : -EIO;
+> > > > +
+> > > > +		} else if (!ret) {
+> > > > +			ret = -ETIMEDOUT;
+> > > > +		}
+> > > > +
+> > > > +		if (perfcnt->reset_happened)
+> > > > +			*state |= PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+> > > > +		if (!perfcnt->owns_as_ref)
+> > > > +			*state |= PANFROST_PERFCNT_SESSION_DEAD;
+> > > > +	}  
+> > > 
+> > > 	if (!ret)
+> > > 		return -ETIMEDOUT;  
+> > 
+> > I was doing this check inside the guard because, in the time between the completion
+> > is signalled and the semaphore locked, another reset could come right through.
+> 
+> I wouldn't worry about late signaling to be honest, the timeout is
+> 1sec, which is way more than I would expect a DUMP request to take in
+> a normal situation. Now, we might want to propagate the state in that
+> case too, so it might make sense to return ETIMEDOUT inside the
+> scoped_guard, after the state has been copied.
 
-> > >                 return -EINVAL;
-> > >
-> > > +       if (!IS_ALIGNED(port, count))
-> > > +               return -EINVAL;
-> > > +
-> > >         switch (count) {
-> > >         case 1:
-> > >                 if (write)
-> > > --
-> > > 2.43.0
-> > > =20
-> > Please let me know the status of this patch. =20
->=20
-> What do you think of the sashiko comments:
-> https://lore.kernel.org/all/20260809051652.36BA31F000E9@smtp.kernel.org?
->=20
+On a second thought, I agree with you. Not only is the completion timeout much longer
+than the usual sample period, but also, in the event of a timeout (and no counters being
+copied back to UM), I don't think a perfcnt user would care much about the reset state.
 
-You could just add 'if (port & 1) return -EINVAL;' to the 'case 2:' branch,
-and a similar '& 3' to the 'case 4:' one.
+> > And then because I believed counter values were accumulated rather than reset between
+> > consecutive dumps, it was best to notify the user as soon as possible, even if that
+> > meant losing one legitimate frame.
+> > 
+> > > 	scoped_guard(rwsem_read, &pfdev->reset.lock) {
+> > > 		u32 new_state = perfcnt->state;
+> > > 
+> > > 		*state |= new_state;
+> > > 		if (new_state & PANFROST_PERFCNT_SESSION_DEAD)
+> > > 			return -EIO;
+> > > 
+> > > 		perfcnt->state = 0;  
+> > 
+> > I think this should not be here, because we're already resetting the state before
+> > running the PERFCNT_SAMPLE GPU command, and also we need to check it right below.
+> 
+> I think we want to reset in both places, especially if we propagate the
+> state before the DUMP too, otherwise we might leave the
+> INTERRUPTED_BY_RESET bit behind even though we already informed
+> userspace about this event in the previous DUMP request. And yes, the
+> following test should have been on new_state instead of perfcnt->state,
+> indeed.
+> > 
+> > > 		/* If we faced a reset during our SAMPLE, the user needs to try again. */
+> > > 		if (perfcnt->state & PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET)
+> > > 			return -EAGAIN;
+> > > 	}  
+> > 
+> > The main reason I added the panfrost_perfcnt::dump_finished flag was that when a reset happens,
+> > the GPU IRQ handler might've been already running in response to a finished perfcnt sample
+> > command. However, the reset sequence might come off first and cancel the completion, leaving
+> > us with a ret > 0 despite sampling having succeeded.
+> > 
+> > I'm thinking rather than trying to sort of patch this up precariously as I did in this revision,
+> > I'll leave it the way you suggested and address the race between the GPU IRQ handler and the
+> > reset sequence in a future series.
+> 
+> Yes, that's exactly what needs to be done: reset should synchronize
+> IRQs, mask/suspend them while the reset sequence is happening, and
+> unmask them when it's done. As for the completion of a DUMP request
+> interrupted by a RESET, we want a ret > 0 (AKA no-timeout) in that
+> case, but the perfcnt::state should be updated prior to that, so that
+> this function knows exactly what to expect from this completion: if
+> SESSION_INTERRUPTED_BY_RESET is set, it's likely that the DUMP didn't
+> complete which is why I return EAGAIN in that case, but we can also have
+> a dedicated flag for DUMP_COMPLETE if you want to be accurate (when
+> set, DUMP is effective, when not set EAGAIN).
 
-Did it miss that loff_t is (probably) 64bit on 32bit?
-Or do large offsets get detected earlier?
+I'll leave dealing with the problem of synchronisation between reset and the IRQ
+handlers to a later patch series, so in the meantime, SESSION_INTERRUPTED_BY_RESET
+should always lead to EAGAIN being returned.
 
-David
+> > 
+> > > 	return 0;  
+> > 
+> > We still need to return -ERESTARTSYS when wait_for_completion_interruptible_timeout()
+> > is interrupted from UM.
+> 
+> Oh, absolutely.
+> 
+> >
+> > > > +void panfrost_perfcnt_reset(struct panfrost_device *pfdev)
+> > > > +{
+> > > > +	struct panfrost_perfcnt *perfcnt = pfdev->perfcnt;
+> > > > +
+> > > > +	if (drm_WARN_ON(&pfdev->base, !perfcnt))
+> > > > +		return;
+> > > > +
+> > > > +	lockdep_assert_held(&pfdev->reset.lock);
+> > > > +
+> > > > +	if (!perfcnt->user)
+> > > > +		return;
+> > > > +
+> > > > +	perfcnt->owns_as_ref = !panfrost_perfcnt_hw_enable(pfdev);
+> > > > +	perfcnt->reset_happened = true;
+> > > > +	complete(&perfcnt->dump_comp);  
+> > > 
+> > > 	/* All active AS are released during the MMU post_reset. */
+> > > 	perfcnt->owns_as_ref = false;  
+> > 
+> > I'm guessing this should go away as soon as I move it into panfrost_perfcnt_hw_enable().
+> 
+> If you reset it at the beginning of panfrost_perfcnt_hw_enable(), sure,
+> but I think it's easier to assume that when
+> panfrost_perfcnt_hw_enable() is called, the AS is not owned, and reset
+> it here instead.
+
+Noted.
+
+> > 
+> > > 	perfcnt->state |= PANFROST_PERFCNT_SESSION_INTERRUPTED_BY_RESET;
+> > > 	if (panfrost_perfcnt_hw_enable(pfdev))
+> > > 		perfcnt->state |= PANFROST_PERFCNT_SESSION_DEAD;
+> > > 
+> > > 	/* Unblock pending sample requests. */
+> > > 	complete(&perfcnt->dump_comp);  
+> > > > +}
+
+Adrian Larumbe
