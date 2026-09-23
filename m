@@ -1,62 +1,65 @@
-Received: from mail-lr2-f10.google.com (mail-lr2-f10.google.com [74.125.230.74])
+Received: from mail-lr2-f5.google.com (mail-lr2-f5.google.com [74.125.230.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA025304B7
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399EF53163A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:55:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175309; cv=none; b=idNhkGCzEQkJmVdiao7D7FKIdSMdlKj3XvEYZ/QedDXwIJLJriCVModvyRP8zy/UD1sJrJ9AM0PHXGOxgWyHglr08gvzFe5g8tW5//sELEDdMWX2qOT0g9A+I3nqrvYLGxRIEdgwn2R3Db8+MzqGAkfxWCBp++7/tRWUJecx6a8=
+	t=1790175312; cv=none; b=Wg+QqqkPuFwiSLw9JoLxlF1yeOlL9jivVl1hCL3+DEcZ6FcNs1xftcyZBpOF6HWTXUBQf23o+4X75wvF1z1WbxBTFLayHCfm7kXwvuvZsfAfOnHDWZs10G8NMCzY2rxB65k8OG7yc+kGmL0ImVcklvQv90+iGzjV0GLmZNm+MCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175309; c=relaxed/simple;
-	bh=Irzn3KoZz2CPFbn4S9qLAfiWXivutTrsLSXE8ABhv5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JZ4x04zbU5r5ugxHn4NM5rars3SM3zZplIQqa93NQcYC/WZDgD3De+ePaWxNHzXseAygX/c3pgxjQLvQA8Eq8gOOlLQ+hoL1FMRHNfFuCrt1vfv6VuWomRPMpqEE0Liu7tRTo221MBxhewUF5AX+1JRZ+XOIkx5Phcv0f8A5EO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DAJXxPwy; arc=none smtp.client-ip=74.125.230.74
+	s=arc-20240116; t=1790175312; c=relaxed/simple;
+	bh=OH8uQ9VNAZOQyUECZ3dFzXsuD/WJGTQjmmIL/oLjcgM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Rnk4yc03rKYByntKT+A5dK6UCQEfCfq9W4h5Bi0tYyOG1vll2R/mhwWCtUdAZAs1Nhrk7wceLbwYkpa1tzO0WLkryewuKK19PXCWM+UYPXUnNRg4vvn+y13ep6NJJ1+afXnYu/Ysry7TP2OnArT62hpQ4w8xpqpMrCuOQ2ZlYMs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jruNQ0d4; arc=none smtp.client-ip=74.125.230.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DAJXxPwy"
-Received: by mail-lr2-f10.google.com with SMTP id 38308e7fff4ca-3a499fd4357so5506941fa.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:55:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jruNQ0d4"
+Received: by mail-lr2-f5.google.com with SMTP id 38308e7fff4ca-3a20b70da4cso6239981fa.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:55:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790175305; x=1790780105; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IYj8DR6tUMAlSBOX53pzMRuQvG2jVj6PU8CNMEIk8m4=;
-        b=DAJXxPwyYuMjUl1UVWY4kopRxCiF8/0gmmrFtsSeivWvwcBh+DebL7tf1VVVimPHZm
-         ibPkOh/EVG8U4EtAuZUAMJfz4TnNjvbUEMzH4/uoUPAnn5/ddiVfq0KS/K7iBdQtGNW0
-         tatcPDkBbOTfgkF1jyZST2J4peaR9a5gMAxUao70QR62izKoMSltTKQgPDzez9y7R4t2
-         Bou2YN5L8C6lmHeANHFQTumLKsr+wTPw3NCUynj65cfu8Md4I3adf/Whl2hO6al7aMot
-         S3Y1cey44JMXSWTWmSr5y1C4aoFEbHH/1OR7fEda1W2Vgdi7DsK/UDUSQzkdgdwHbx3S
-         J4eQ==
+        d=gmail.com; s=20251104; t=1790175308; x=1790780108; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KLyY5MHaKq4xCUtb5Tr0mqR1G0KiRq9dtEBuRM3TfU0=;
+        b=jruNQ0d4o0t4kq1VdodIRWGU1a3Jsg4nw3PDarne+YrQlEmtSrhn9Jcx/cwmY4rBW7
+         28ECWVVLakHnEhLb9/Dlokhg/YYR1n5VGdgYQ6DRY6hNqj9S9HV/aw5aVjDXwZP+p76r
+         Qss1QVavzJScNlCzbBHWiYqX9RaHLWPcwFrhf59fbCSPPPoAULU7jPr0yuRP/6yQUOCz
+         75SZy8/KVB18ICN86nS5z+RDETpcBGdVnmyJ1ALi976M70WtMlC+wmARaC0xg+ncJ1iQ
+         t/87gJ+JLyz1TjHrTY77/WGsFuNVHSHyhnpKy24rKiW70Oe/1T7I2bp3Ir5usU1ouIyh
+         NmEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790175305; x=1790780105;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IYj8DR6tUMAlSBOX53pzMRuQvG2jVj6PU8CNMEIk8m4=;
-        b=x7R2M59L75yxp28LHeP28jcy37qllGK+1rauNZnQLqU+90BW8p7IfotS74wbsGSnkT
-         Z47Tob2MNEtrLEdxnNec+uhtFuRMtRgtAzB/Z06p0b+v9LStn3TdmViFtemxWg39R9BX
-         mXBqQ2+tVwkeu/4+tzgAAL3k3Ezb49qyY+SClEX9YPCV1E/9LSIPcBIOVLCx3fDSi4zN
-         S3uDk69X95RuOBaBVr6X2MlvgkL9qTgGB3L3ijer8HFivamfc+5UmINZ7WYl/Pj71yPH
-         SQS19tjYAw/9PI8LG3uT2qs3FCrLGSHOHx0eKrme5tUMrVpeSJsgRJZm806aqRHmbo/l
-         oh+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwSQRd5g1+dNaCMJZa/X5l2gQvU07WdDW4w6t6T8NGqz0wY0EzBOL58Lzn05JnYHZ/H0NpJbc1AXQb9LKw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKOMUPvr1yGRjLgZT3HtOldu/xYbMdZSexnFLjiJBbCwQ3DuW0
-	wnm6VVllix1Ye7QffytRqug+pEIrUmzs17YXA7+YRmQF4goCip2dxevT
-X-Gm-Gg: AYBFou13nRckUpuxZEzYc4qQJnboZegigIYf23zzhsTJf6nZkMVQlfVtLIWfpLdfziE
-	8Fe0RuADE7KYvKPWpvhT3v/MQgHcIZ5nzzX2lMM7qJ3nv1QR3xlUmzS098ZfY5skdNEMsSiDUZU
-	rMC2LxPuBi3BiakFJWNR5hQEFsvOgpW0HsKIkwOn0ywqIWWcUU7vO4ZolBhSLYCqNCwOTN88dKr
-	SbBcBOEri8Ff4xvYpUrZWhyjSmkvGEda25LYbgakGG+qe8azpnhZjtouDasZ8Q6n4Oy3FjCB+fW
-	799Ih8akkb+Ab9CRnrTq3AXqmPcYRa3v3nrjAbmic7lQVnJJ9lE3ph4NgGN2FKUy2JPaCRKgBP6
-	qQpB6Sul/wUw8iSdFKKvz4yC+2bGxq2xJeVJgBx0JsigLeklfHNK/e5sVucgb4a/q9Hxq0w6sra
-	VvclRdZkYdGecqB7IOv/z6IVKviIBbLxYqs7dkAlhAz1bYtCnuItv7m537kp8XkaGAw8AN0ohPM
-	M3mXhXJ1kXDmFZn
-X-Received: by 2002:a05:651c:a381:20b0:3a6:95a:52b2 with SMTP id 38308e7fff4ca-3a630659a31mr4896841fa.28.1790175305364;
-        Wed, 23 Sep 2026 07:55:05 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790175308; x=1790780108;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KLyY5MHaKq4xCUtb5Tr0mqR1G0KiRq9dtEBuRM3TfU0=;
+        b=FeE4/ZppoZm4Tp/KwlRruY3aWSVdUXFLtszfEVKdX7XEx47Zr67BSbBsnccCKkWn/4
+         94UuTA/Jxi7mvB5RX+zCcIYBGy+eImraqoCLcJqboAXPuAdFhzIgeWKY5YwItEZn4uVh
+         yO+cSl/PMr3FYgUri0mIXh/EDDVt8Ab+7qQT28Hy1+nL7LzugtjNhoqdPoLuW1i7SR+s
+         7mkirlLtO2YegV8BWbPo8SCcjEhDipo91rT4+9Dl0hXlRh275YT9mGabTBexz2KwkfCX
+         oGKTMNDlrsiu5E/vmx8O/Bf0OCRbTgSdL16EEDkheUf29Gov0TLz2JCNWay29IcsPYaB
+         y2tw==
+X-Forwarded-Encrypted: i=1; AKwUvByAjR/+EVISf5um7EBz5ljqfRlDknnjn4DJlE8FNkbJ/v4r7EXFBSaahmypGwL3B713VdNpYA0SvalHJZk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqu1ezLOd1+UXFVVfggDWGgM2JFtEi7oOaE/katSjKzufTrEp4
+	qq6OBousjBz284rXRzKzgCxEtzOm/G/ySa3Gep1oCJsTEbUXsyT6Wr06
+X-Gm-Gg: AYBFou0X27oTOY1OhpFqr8WP9+Qt3LC8275w8GiftIPup/nBuJD3QqTMhwNqcyOQ9KW
+	0Y4LloCn/fZm4y66pnysivJoqUgCYzYiTYFk4jXVwQnGK9fkI6hOdcepRMts3sGm0H6lNsHSaZZ
+	SI02faNFkrmSkkwZQxQun+7g+Hd0LSL8QLGh5JlNPZF2LCJwve8qfWnsDD0xGXB7L+YnED1Hspm
+	OCrsKAO4qwTy6rE8QkkzTZ7Ru4aPw18SXj+YFAuHDqGaMU+rki4scoj7pEM5mNfgNvedZxGU78Y
+	XrgOHAS+5MSdOpdk0siDl2USoLh1zPktA2fwyFGydDwq5MRKbLJks0rhpLeiMCBnhK4zYy21XsZ
+	PWlidp577Ev8Uug+C+jQHsuus3zTB2BhjAu0Db5/NL37V2I2F97gASE1tGX5Nu3+i4ZJow1GJc/
+	AlUOX9/KmQUiCvo5ZOpNttPqOipnSZosIjzVDJjpKJ8sru7XLrMl5GCopRXSZS0E6WZZJZqj8/8
+	s0GXCPl0dHtRn09TA==
+X-Received: by 2002:a2e:bc16:0:b0:3a4:8510:f45b with SMTP id 38308e7fff4ca-3a630587d23mr6394071fa.8.1790175307836;
+        Wed, 23 Sep 2026 07:55:07 -0700 (PDT)
 Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a62f527d51sm7824951fa.33.2026.09.23.07.55.04
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a62f527d51sm7824951fa.33.2026.09.23.07.55.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 07:55:05 -0700 (PDT)
+        Wed, 23 Sep 2026 07:55:07 -0700 (PDT)
 From: Roman Demidov <roman.demidov.nn@gmail.com>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -73,107 +76,77 @@ Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	lvc-project@linuxtesting.org,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Jesse Zhang <jesse.zhang@amd.com>,
 	Fang Wang <32840572@qq.com>
-Subject: [PATCH 5.15 1/2] drm/amdgpu: Use vmemdup_array_user in amdgpu_bo_create_list_entry_array
-Date: Wed, 23 Sep 2026 17:54:48 +0300
-Message-ID: <20260923145453.76114-1-roman.demidov.nn@gmail.com>
+Subject: [PATCH 5.15 2/2] drm/amdgpu: Limit BO list entry count to prevent resource exhaustion
+Date: Wed, 23 Sep 2026 17:54:49 +0300
+Message-ID: <20260923145453.76114-2-roman.demidov.nn@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260923145453.76114-1-roman.demidov.nn@gmail.com>
+References: <20260923145453.76114-1-roman.demidov.nn@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+From: "Jesse.Zhang" <Jesse.Zhang@amd.com>
 
-commit c4ac100e9ae252b09986766ad23b1f83ca3a369d upstream.
+commit 6270b1a5dab94665d7adce3dc78bc9066ed28bdd upstream.
 
-Replace kvmalloc_array() + copy_from_user() with vmemdup_array_user() on
-the fast path.
+Userspace can pass an arbitrary number of BO list entries via the
+bo_number field. Although the previous multiplication overflow check
+prevents out-of-bounds allocation, a large number of entries could still
+cause excessive memory allocation (up to potentially gigabytes) and
+unnecessarily long list processing times.
 
-This shrinks the source code and improves separation between the kernel
-and userspace slabs.
+Introduce a hard limit of 128k entries per BO list, which is more than
+sufficient for any realistic use case (e.g., a single list containing all
+buffers in a large scene). This prevents memory exhaustion attacks and
+ensures predictable performance.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Return -EINVAL if the requested entry count exceeds the limit
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Jesse Zhang <jesse.zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 688b87d39e0aa8135105b40dc167d74b5ada5332)
+Cc: stable@vger.kernel.org
 Signed-off-by: Fang Wang <32840572@qq.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
-Stable-dep-of: c833d6c7199c ("drm/amdgpu: Limit BO list entry count to prevent resource exhaustion")
 Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
 ---
 Backport fix for CVE-2026-23468
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 41 +++++++++------------
- 1 file changed, 17 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-index 9fb8012007e2..22d7b7c504db 100644
+index 22d7b7c504db..ca0d82be5c9c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bo_list.c
-@@ -224,43 +224,36 @@ void amdgpu_bo_list_put(struct amdgpu_bo_list *list)
- int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
- 				      struct drm_amdgpu_bo_list_entry **info_param)
+@@ -35,6 +35,7 @@
+ 
+ #define AMDGPU_BO_LIST_MAX_PRIORITY	32u
+ #define AMDGPU_BO_LIST_NUM_BUCKETS	(AMDGPU_BO_LIST_MAX_PRIORITY + 1)
++#define AMDGPU_BO_LIST_MAX_ENTRIES	(128 * 1024)
+ 
+ static void amdgpu_bo_list_free_rcu(struct rcu_head *rcu)
  {
--	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
- 	const uint32_t info_size = sizeof(struct drm_amdgpu_bo_list_entry);
-+	const void __user *uptr = u64_to_user_ptr(in->bo_info_ptr);
-+	const uint32_t bo_info_size = in->bo_info_size;
-+	const uint32_t bo_number = in->bo_number;
+@@ -230,6 +231,9 @@ int amdgpu_bo_create_list_entry_array(struct drm_amdgpu_bo_list_in *in,
+ 	const uint32_t bo_number = in->bo_number;
  	struct drm_amdgpu_bo_list_entry *info;
--	int r;
--
--	info = kvmalloc_array(in->bo_number, info_size, GFP_KERNEL);
--	if (!info)
--		return -ENOMEM;
  
++	if (bo_number > AMDGPU_BO_LIST_MAX_ENTRIES)
++		return -EINVAL;
++
  	/* copy the handle array from userspace to a kernel buffer */
--	r = -EFAULT;
--	if (likely(info_size == in->bo_info_size)) {
--		unsigned long bytes = in->bo_number *
--			in->bo_info_size;
--
--		if (copy_from_user(info, uptr, bytes))
--			goto error_free;
--
-+	if (likely(info_size == bo_info_size)) {
-+		info = vmemdup_array_user(uptr, bo_number, info_size);
-+		if (IS_ERR(info))
-+			return PTR_ERR(info);
- 	} else {
--		unsigned long bytes = min(in->bo_info_size, info_size);
-+		const uint32_t bytes = min(bo_info_size, info_size);
- 		unsigned i;
- 
--		memset(info, 0, in->bo_number * info_size);
--		for (i = 0; i < in->bo_number; ++i) {
--			if (copy_from_user(&info[i], uptr, bytes))
--				goto error_free;
-+		info = kvmalloc_array(bo_number, info_size, GFP_KERNEL);
-+		if (!info)
-+			return -ENOMEM;
- 
--			uptr += in->bo_info_size;
-+		memset(info, 0, bo_number * info_size);
-+		for (i = 0; i < bo_number; ++i, uptr += bo_info_size) {
-+			if (copy_from_user(&info[i], uptr, bytes)) {
-+				kvfree(info);
-+				return -EFAULT;
-+			}
- 		}
- 	}
- 
- 	*info_param = info;
- 	return 0;
--
--error_free:
--	kvfree(info);
--	return r;
- }
- 
- int amdgpu_bo_list_ioctl(struct drm_device *dev, void *data,
+ 	if (likely(info_size == bo_info_size)) {
+ 		info = vmemdup_array_user(uptr, bo_number, info_size);
 -- 
 2.53.0
 
