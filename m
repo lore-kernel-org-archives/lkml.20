@@ -1,146 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D63A4D0CC5;
-	Wed, 23 Sep 2026 13:27:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 638405304A1;
+	Wed, 23 Sep 2026 13:29:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790170034; cv=none; b=DOWhzu7D5r28wefLmJmv04ww9prM83P1iwMsdnzi3WxJtrh69SU41m7RBow8E24dom9imIwKybI74FO1qEQlwH1YraS4g9gD4eRfGaUZi9SQMeMcwC2Og8zwMTC0Ut5V2dZqChLaPkVVbMdWQCcV4x1xk5InANeZGwgOZS8PXsU=
+	t=1790170149; cv=none; b=QvasFz3C3LA3OUQXciizANBRtga6byIOTXZqFtk98iqsMRwRfstrxNjslHSYN6xt1tDYtdTvubi8Rp0RrjKDTj2JF1TqwvhQ6oKgi+aOJ9GEefmgQY+g89FvdB2W+WiiQeiP1Q8y/OeH/cKGsI8TdOVzAVrQ7G/qXJim/7y68SE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790170034; c=relaxed/simple;
-	bh=meZnHWE/QGGm9bz8zvbWkbtvbXXuQS3tM18f+1xcjr0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sqGtgM8Ut9+Pe8ZFiC6k9AEQlsY2ffh9/aJCbkSRfETSJrdjrD3UnPasz8Mu3/oALmB0nHs7NCJllpN2NYpxQ69lfy60fcSOEUQwp4cs3BfKaAbRF43dcWAjzW9M1XTf3rKrTCbGUfxD0UX/aFKFYZ4MtEp+95TC48hnBZQdMeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IEKCg3An; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790170149; c=relaxed/simple;
+	bh=WD/PEtydjghwC/tknaP4WOFJKi630o/3LrZrYK2+NhQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iUpS4+n5hPPzJr++8V64SBeiupfBDTZ4efIFFgJCF+HB6oUizkcgn1+pIQ/B48vdqr+CpW80SY25xZA0ae7seD851RGISK3KeiuZdtoB7x4qrNIUU652ZOyxTxRs2/tK1kLHwNSclAxQnmo9//QI/JxzXjSMLl4UlLxvZ4jflM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eEYHECZL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IEKCg3An"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D718AC2BCB8;
-	Wed, 23 Sep 2026 13:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790170033;
-	bh=meZnHWE/QGGm9bz8zvbWkbtvbXXuQS3tM18f+1xcjr0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=IEKCg3AniuO3VNlUVCvrLoKH2FEW9oDCO6ceRlc+ovcuO1A7kysPJ/URg3U4ULGFN
-	 iLe4pfLzmluTsqMW5H2rBJqjoELSSYNFZ8MgiUnX8vdGCidvSTrqVu19zGc6vUA9Im
-	 P4J+Ph2gHIqbZxUwkqAjZY8cXBj0Xnvk0IlzxRJ1TRUZ5OztUXrSCZmPnp1GnlXphy
-	 Za+BtxKhpR2BkAKXbbrh1qy3+jRUoxzP5U2c8nrAUzDn+us6R/zEPzuq2Cz0LN61LT
-	 iHaAQitR4infwMdtT899ENAOm60jvTW6ifTO4th3tkX7JbNszGTKUcePOm3ufC4BN+
-	 IPV6tt2owm+5g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3491C9830D;
-	Wed, 23 Sep 2026 13:27:13 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 23 Sep 2026 15:27:06 +0200
-Subject: [PATCH] Input: s6sy761 - fix resume ordering and restore sensing
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eEYHECZL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2832A1F000FF;
+	Wed, 23 Sep 2026 13:29:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790170148;
+	bh=HKxy5ppVh+ZVi5LdabeSqcQhssdmIldVntZe+JHVqHo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eEYHECZLL4YnROp24IFvxK5oqs4Thdn064/2WlM7Tose8DQWMJ0ePy8zG/6y6ezX+
+	 2Vy00VkkmXSyzsZFfBMRHcSypqZQlPuF1HiP1tQcYdePlFyW2d49Ngvevx2WK+vnFy
+	 ogzbX9WKDjakM3jBbTgJYL7l0g6ZO6ITb6ojwnlErR5mCQY6Lt5psTNkrUw+LzxxJl
+	 Kv0IadWBvXRpCef9XC0XEbAWuS5jzmfHRjEhTJKc6FDmbH7GXi/LjHEuXQLOXKE6Yq
+	 fNYOniMZgeEdw8I3tMDVXQyV0tT6iVDwZVjzNisq9/FeOu+P2svrYqIlHx77LHK+Qs
+	 jciqEW9G7sHew==
+Date: Wed, 23 Sep 2026 14:28:59 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Mark Rutland <mark.rutland@arm.com>, Randy Dunlap <rdunlap@infradead.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, kvmarm@lists.linux.dev, 
+	kvm@vger.kernel.org, linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	Jack Thomson <jackabt@amazon.com>, Jack Thomson <jackabt.amazon@gmail.com>, 
+	Alexandru Elisei <alexandru.elisei@arm.com>, Vincent Donnefort <vdonnefort@google.com>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Sean Christopherson <seanjc@google.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Leo Soares Passos <Leo.Bras@arm.com>, 
+	Wei-Lin Chang <weilin.chang@arm.com>
+Subject: Re: [PATCH v3 10/14] KVM: arm64: Implement KVM_PRE_FAULT_MEMORY
+Message-ID: <arPTt4WuVxcdvThs@gremlin>
+References: <20260922-kvm-arm-prefault-v3-0-787bd3bc7e3f@kernel.org>
+ <20260922-kvm-arm-prefault-v3-10-787bd3bc7e3f@kernel.org>
+ <CA+EHjTyCc=T+HkvWv1g2Fg3OxGaa1i8Hdv296ivPc94jQqZq9g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260923-s6sy761-suspend-v1-1-6fff96e71cb0@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz7UUAiRtr4IYEjDUHVIUE9QKc
- XdSGN/w/wZCkUngWWwQaWXhT8gobwX0LxcmQh6yQStt1ENXKEZ+1pQoSWYKA+ra2Nqre2O9g1z
- NkUb+nse2uyzJv6lf/hvY9wO+yPrUcwAAAA==
-X-Change-ID: 20260923-s6sy761-suspend-24674b0857ba
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Andi Shyti <andi@etezian.org>, Rob Herring <robh@kernel.org>, 
- Marco Mattiolo <marco.mattiolo@hotmail.it>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, stable@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2316; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=2egtGbKgJE5/CltCrUVj0shGecXcgN246NO7tAqGS1k=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqs9Ow6ZfUciwK2ClUZoSOMbs50o34eBjqLyVD7
- WuYjzDPwGiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarPTsAAKCRBgAj/E00kg
- cjhpEADH0aV6ANCnG1fYUyzT3YX4F719uv6Tvu5H7tMkmRZH/LKsGd+UJSCT0L/PacXI8spI2Hd
- cSC42TiaY+zI+Moe59onVyFQdLX3B644Kaa7AEGcVdPJXxTeW38Gj4vpMEW+7+frU945hy4F026
- TwzuCAzTPaqEho9df7Ujzm6hU01b2r5Jw1FghGVMI7YgOzs/Tf7xzVxQI2kHINS6uZr9hZQKl25
- /wONlvTHeKyLHX/t1mB5GNylYGBouHnF0OxjnAsvTwWhYLwM+QQmX5P/MBzBeLIPWt72TpX7qJB
- R+3oYYUT+rPXgYG+MaIYcA3wqkFZ2Ni+VVzAN9brsQvJJWvUffwstKHhExHGf7qg6hgIMi3uyn6
- MKhOONSxcv1Zp/BBKITmwdn5tEEfe7wbsFIpgqssDeAf3Fzi/mgu/DXbMUQDf+uvdgQjthEV1To
- AR6XbmtikA5xaoRjkhZb8SB5FOwA+5DbD531FePRV8tHeItUlsKq3naOqZqLDA6+3l6LFCd7QvE
- u0z3NT1Zy5t9N9dZzDYFHLMsOeNvAZIoGKQZ1zzEWs8jtpZGu8619nt2Ukre2iYqkz9yzpXNJpv
- /3FhSMlJEqCqA+KVHrKjkXgqujLf4P6e9dvGbwhkxiwEfRCHGSJi9lRlXF5DewDINWk34Pzx2os
- a29tmGOUrQexMxg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTyCc=T+HkvWv1g2Fg3OxGaa1i8Hdv296ivPc94jQqZq9g@mail.gmail.com>
 
-From: David Heidelberg <david@ixit.cz>
+On Wed, Sep 23, 2026 at 12:18:10PM +0100, Fuad Tabba wrote:
+> Hi Lorenzo,
+>
+> On Tue, 22 Sep 2026 15:18:04 +0100, "Lorenzo Stoakes (ARM)"
+> <ljs@kernel.org> wrote:
+> [...]
+> > diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> [...]
+> > +static long __pre_fault_s2(struct kvm_s2_mmu *mmu, struct kvm_vcpu *vcpu,
+> > +                           gpa_t gpa, struct kvm_memory_slot *memslot, s8 level)
+> [...]
+> > +        if (is_gmem)
+> > +                ret = gmem_abort(&s2fd, &result);
+> > +        else
+> > +                ret = user_mem_abort(&s2fd, &result);
+>
+> When kvm_gmem_get_pfn() fails, gmem_abort() calls
+> kvm_prepare_memory_fault_exit() before returning, which on this path
+> writes vcpu->run's exit_reason and memory_fault fields outside
+> KVM_RUN. If that happens on a vCPU between its KVM_EXIT_MMIO and its
+> next KVM_RUN, kvm_arch_vcpu_ioctl_run() reads KVM_EXIT_MEMORY_FAULT
+> instead, skips kvm_handle_mmio_return(), and the guest repeats the
+> access. Could gmem_abort() skip that exit when result is set?
+> user_mem_abort() never writes kvm_run.
 
-System suspend powers the controller off and resume powers it back on,
-but the resume path enables the interrupt before s6sy761_power_on()
-checks the boot. The firmware raises its boot-complete event on the
-interrupt line, the threaded handler consumes it, s6sy761_power_on()
-then reads an empty event and resume fails with -ENODEV, skipping the
-touch function setup:
+Ack yeah we shouldn't be updating vcpu->run like that in that case, will
+update to avoid doing that in v4.
 
-  s6sy761 2-0048: PM: dpm_run_callback(): s6sy761_resume [s6sy761] returns -19
+>
+> Cheers,
+> /fuad
 
-Power the chip on first and only then unmask the interrupt. Once resume
-completes the boot handshake the chip comes back with sensing off, as
-at probe where input_open() turns it on, so the touchscreen stays dead
-after resume. Send SENSE_ON again when the input device is open.
-
-Tested on a Pixel 3 XL over several s2idle cycles: resume succeeds and
-the touch function and sense status match the pre-suspend state.
-
-Assisted-by: LLM
-Cc: stable@vger.kernel.org
-Fixes: 0145a7141e59 ("Input: add support for the Samsung S6SY761 touchscreen")
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- drivers/input/touchscreen/s6sy761.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/input/touchscreen/s6sy761.c b/drivers/input/touchscreen/s6sy761.c
-index 0f24a9b730635..c52c45a7d1029 100644
---- a/drivers/input/touchscreen/s6sy761.c
-+++ b/drivers/input/touchscreen/s6sy761.c
-@@ -495,20 +495,29 @@ static int s6sy761_suspend(struct device *dev)
- 	s6sy761_power_off(sdata);
- 
- 	return 0;
- }
- 
- static int s6sy761_resume(struct device *dev)
- {
- 	struct s6sy761_data *sdata = dev_get_drvdata(dev);
-+	int err;
- 
-+	err = s6sy761_power_on(sdata);
- 	enable_irq(sdata->client->irq);
-+	if (err)
-+		return err;
- 
--	return s6sy761_power_on(sdata);
-+	guard(mutex)(&sdata->input->mutex);
-+
-+	if (!input_device_enabled(sdata->input))
-+		return 0;
-+
-+	return i2c_smbus_write_byte(sdata->client, S6SY761_SENSE_ON);
- }
- 
- static const struct dev_pm_ops s6sy761_pm_ops = {
- 	SYSTEM_SLEEP_PM_OPS(s6sy761_suspend, s6sy761_resume)
- 	RUNTIME_PM_OPS(s6sy761_runtime_suspend, s6sy761_runtime_resume, NULL)
- };
- 
- #ifdef CONFIG_OF
-
----
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260923-s6sy761-suspend-24674b0857ba
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+--
+Cheers, Lorenzo
