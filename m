@@ -1,106 +1,90 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F62140927D
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:40:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE87054CF54;
+	Wed, 23 Sep 2026 16:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790181629; cv=none; b=qqHvslRuzhtaK1Usa3G1C0maTU5xZyKbDO/451pTYNOfddBs8SA5apPUiHuBV/To7GKkkjoF/0oMChq7Jf9QO+RdDAYV4I98bkD6Gbivh5F9813e3Dhdo+qeU0O0D4lN1v2jX9JjWOvhdplXAE0QBrgBNsIp+LkZdj0dyIMn8Rk=
+	t=1790181630; cv=none; b=mhecWSxo3vfhKYn5/N5R7sMoxA9qDOFTyVmICyLzhVKfkcqDTmfy7KTgX4YhurMghRt1rI8X+GfwndlqSTb1aW/GhzBiUdIYIDtJ1nGAPXlv245XwlhJZ+m/pwMIDVeKL5oNSoG2bA3oWyBEh2PIYegJbivB2FhmeUakGnzkuR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790181629; c=relaxed/simple;
-	bh=REPxjHD1y/zYH6TZHZ01Uu9WQCyhCrSQnAbPvqxHgiY=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=XbAJeSB7Q4IAnKSIbtzZWLO5U5fHaR2YxQGYtasjdIYE3g40AAGCcKSI8PHlWsV1w2xshCRQBsGV7TX8xXTPRUWTSYKKoS7+UNeyTSanUbvtiNQICdiSoT6kfSPDBLqxtNAHVQrTYF2NRahywH/ZI1Glm0BcyFaeLx240gCMDN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=V0rZsIwI; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790181630; c=relaxed/simple;
+	bh=HMiV1lfIaDk5DHsbSxdwUFDcgU3l31krtmmNDs2cJrg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uf1oBg/GUMti1dDUVVxE54bAGK0aQDv9+rF8VE5Xw3GMgAgOc6Kbat0c7djs/JzfwMImyjDmui0W5XtT2MIk5KLcdpF/FQ10f1rnLNrtFYHgSqYSR3Enys7oPJCXh049ULAFBBP4H/YvLkNNcy0eQbsFxFufHyW2uL/t9/OOw5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m9XbphuR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="V0rZsIwI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790181619; x=1821717619;
-  h=date:from:to:cc:subject:message-id;
-  bh=REPxjHD1y/zYH6TZHZ01Uu9WQCyhCrSQnAbPvqxHgiY=;
-  b=V0rZsIwIsJprtX9zvwubLbwQVxQwONxUeR6xIp8M392wGm7LyJvg8bwV
-   5td3R3wmqjZq6F5kO60J4n4ys8yjcdDefDuBADoKuELiLY19fZEAEoZhM
-   /JTFdop07O4IR/aoVWtf7DFG0k5FgeVnqeZ1/AcXvIsynm6qHfDHQR4v4
-   btSkKmyx8oQUhEHZiW2BX45L49NJLX1xXczypLm9URPzKfyjxAMFCtEIj
-   5Viy8J6pUAlDL6U0DonA2PDhltWFsgzR+mpUq3JHpvK96Y6IguGFhaAUe
-   aQ6bu/zsqzmpb/SEEli7uY1NQNfT3DUMtwEfjfvbXJ1JZsnwyBvMw6Ezm
-   Q==;
-X-CSE-ConnectionGUID: O/lxglQKQSuqqYz2nkdf6g==
-X-CSE-MsgGUID: aR5CQqbcT/eSmqyt1vVrAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11914"; a="102258597"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="102258597"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 09:39:59 -0700
-X-CSE-ConnectionGUID: GRjC+BcoQU+7PGWwFLgm+Q==
-X-CSE-MsgGUID: zyV/Pn5qT/SeAnO6fyrbag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="4947902"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 23 Sep 2026 09:39:57 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x9Q0g-00000000HOo-2VDd;
-	Wed, 23 Sep 2026 16:39:54 +0000
-Date: Thu, 24 Sep 2026 00:39:36 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ross Philipson <ross.philipson@gmail.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-kernel@vger.kernel.org, Jarkko Sakkinen <jarkko@kernel.org>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Alec Brown <alec.r.brown@oracle.com>
-Subject: include/linux/tpm_command.h:515:2: warning: field  within
- 'struct tpm_header' is less aligned than 'union tpm_header::(anonymous at
- include/linux/tpm_command.h:515:2)' and is usually due to 'struct tpm_header'
- being packed, which can lead to unaligned acc...
-Message-ID: <202609240044.aAnGhdJw-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m9XbphuR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 279F11F00893;
+	Wed, 23 Sep 2026 16:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790181614;
+	bh=pJuvljr4VJrwhkS2WB5iCaspV3ZEJ4xcFgJqC1vtnGg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m9XbphuRQlcHxv/dIcs/B0xX7P6p+A4iWPybU/3YwAAAaBzvF6sjQzP7t4HTjjjg9
+	 ZeIIJ4x1eOXrnjwvp4pZvQaY7H2KL8ILGII9aZ2um1GBWK2/P/+6H0FTL5uJ2h1H5a
+	 S6ks5u66CrHUX11jmZ1FONtFut0a047A27JLGTMDDVHxq+jd8nZq+qM4A9p1b1EIGY
+	 pDtXT+VJZ6tysEBC7ykFlsFG2RLITC8gJjLCRFinsIKbSBEhaZhNrfoP+htoWErD44
+	 a19iPOU6RI6I4/siJo9XYSzFpHC8C2zSx6YSLwXzJABl7FHYgz0acqKQCBlmdLvEqO
+	 oWIMUu4hpYitw==
+Date: Wed, 23 Sep 2026 18:40:02 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Cc: "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jeff Johnson <jjohnson@kernel.org>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
+	ath12k@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
+	Chris Lew <christopher.lew@oss.qualcomm.com>, Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>, 
+	Raj Kumar Bhagat <raj.bhagat@oss.qualcomm.com>, Juha-Matti Tilli <juha-matti.tilli@iki.fi>, 
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/4] net: qrtr: Allow the host QRTR to assign a unique
+ node id
+Message-ID: <l32syvvxm7h22li5bj2n4unqjqor7bgehlbg3pzly7i43l4xkl@xr7xzaf4ydyj>
+References: <20260921-qrtr-multi-ep-v2-0-27dd80d841a0@oss.qualcomm.com>
+ <20260921-qrtr-multi-ep-v2-1-27dd80d841a0@oss.qualcomm.com>
+ <3f5da6c9-7394-4452-92f8-b773cd34aecf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <3f5da6c9-7394-4452-92f8-b773cd34aecf@oss.qualcomm.com>
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   fe2ec83746e501645709761605c2464a44fd2929
-commit: 88c5a62c3af7ca6f36dc6ffc52bcfb29cd2990cb tpm: Move TPM common base definitions to the command header
-date:   4 weeks ago
-config: arm-randconfig-1001-20260923 (https://download.01.org/0day-ci/archive/20260924/202609240044.aAnGhdJw-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 5dc57157f12f0ff676e823d9b4d98b45c07e5df2)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260924/202609240044.aAnGhdJw-lkp@intel.com/reproduce)
+On Tue, Sep 22, 2026 at 06:08:11PM +0100, Youssef Samir wrote:
+> 
+> 
+> On 9/21/2026 12:23 PM, Manivannan Sadhasivam via B4 Relay wrote:
+> > +/* Replace the node id in the control packet with 'node->nid', if both are
+> > + * different.
+> > + */
+> > +static void qrtr_node_rewrite_ctrl(struct qrtr_node *node, unsigned int type,
+> > +				   struct sk_buff *skb)
+> > +{
+> > +	struct qrtr_ctrl_pkt *pkt;
+> > +	__le32 *nid;
+> > +
+> > +	if (node->nid == node->ep_nid)
+> > +		return;
+> > +
+> > +	if (skb->len < sizeof(*pkt))
+> > +		return;
+> > +
+> > +	pkt = (struct qrtr_ctrl_pkt *)skb->data;
+> > +	if (type == QRTR_TYPE_DEL_CLIENT)
+> qrtr_tx_wait() will create a qrtr_tx_flow object keyed by qrtr_node->nid.
+> qrtr_tx_resume will attempt to retrieve it with qrtr_node->ep_nid, which
+> will fail. This leads to the HTD path pending packets reaching
+> QRTR_TX_FLOW_HIGH and block indefinitely. QRTR_TYPE_RESUME_TX should
+> be handled here.> +		nid = &pkt->client.node;
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 88c5a62c3af7 ("tpm: Move TPM common base definitions to the command header")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609240044.aAnGhdJw-lkp@intel.com/
+You are right! I've already fixed this issue in v3.
 
-All warnings (new ones prefixed by >>):
+- Mani
 
-   In file included from security/keys/trusted-keys/trusted_tpm2.c:11:
-   In file included from include/linux/tpm.h:28:
->> include/linux/tpm_command.h:515:2: warning: field  within 'struct tpm_header' is less aligned than 'union tpm_header::(anonymous at include/linux/tpm_command.h:515:2)' and is usually due to 'struct tpm_header' being packed, which can lead to unaligned accesses [-Wunaligned-access]
-     515 |         union {
-         |         ^
-   1 warning generated.
-
-
-vim +515 include/linux/tpm_command.h
-
-   511	
-   512	struct tpm_header {
-   513		__be16 tag;
-   514		__be32 length;
- > 515		union {
-   516			__be32 ordinal;
-   517			__be32 return_code;
-   518		};
-   519	} __packed;
-   520	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+மணிவண்ணன் சதாசிவம்
