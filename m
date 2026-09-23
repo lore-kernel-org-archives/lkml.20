@@ -1,216 +1,121 @@
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B3252E07F;
-	Wed, 23 Sep 2026 13:13:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=44.246.1.125
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790169199; cv=fail; b=h3uLGY8TzQwe7Y9yzA6eiO6KJBwcgH1F3dH1jd/qaFw+zxNP7wBBvXu9qcqKMKmnec5jUOK0hCEDvRELpljsxYeQgZik/o4v/WajBHL+H+EeSx5qc1CSOxBOTwoHK1gidmhtpSkOe/GXgqAzhILxfDObXNnp/cNq++pWmq/BWrA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790169199; c=relaxed/simple;
-	bh=w2hqRCOs1FRnAKz2s6K6YgfJodSZiSzyjtQLmisIs7k=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZSb2/YeAyx7DiW7zwXaIr7YY6hFjisZSbAonlKokp94Mwd75OoaOsrVgsKqJ47vMNUkaH1234r0DxVyPclHux9iJQKpVqQrkNbzItcMcwP/nZKakxJRvsxkn2HUKN4XDZHHNakqOOgu5aFbN5P2SuVWH9mPUJaJjirSgZ4PTg9o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=ehjIwgiO; arc=fail smtp.client-ip=44.246.1.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE2C5304C6
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790169204; cv=none; b=Tyy3aE/pLC0BVS8jMawcLYh6KHaj4UXS+p62uwOxN+mcjco7GKq5ysk6v4dnK0stCz4wgJop0fExOUMdF1TbY5cycm0j6f7ZqbTBxRpH090fifAzcUD3EHTp+/0JofTdi6kqAmtDu6Kjv0/TTVIqP3xT0+mZvJWRrEJ/DlOTpvI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790169204; c=relaxed/simple;
+	bh=GK5ecAyK3OXsUN1hxKCW7v5WXRm6BtLteeK8HP+W+Mc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AfIYuRSt5EHPTJl3+AGmcTAs4+8dUmnRWI6YwdoTpJwPn3NG4zZ9+8JQVeRXTaCKHXWkO0sobdxn7hWlenu5FFziumv94rkyxPzz2QrIVfD5UtObWNrXOAyj4kTlXjdfFuRezgCam1blXuwCUsvbrQxjuHYfzanB8PKyU1vVx+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gHtueHBR; arc=none smtp.client-ip=74.125.231.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="ehjIwgiO"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gHtueHBR"
+Received: by mail-oo2-f40.google.com with SMTP id 006d021491bc7-6b1ae6a9960so620564eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:13:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1790169198; x=1821705198;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=BWEIj0xh6osCsfK7HHwylodNHNlcikd1BkITodAAIW8=;
-  b=ehjIwgiOHAfNZF/0qMrQy8wbll7AO/+16K5/nnu++3ZnCNru6MMq8rsg
-   bVnD/GzFu1ttRIRkSem3Emhh/QDuRr1c+kk7Bu6b5WGex7ZmD0cicfWhD
-   wT06c1+IOhEFtGnmKT1tXYZzwI6YnCnu0RXAYkCvGm5TXxoNHrHT1WNrE
-   1ApdCjNTPjIy0wUTHDkp7VMjP7quva384i2s3XHjoOHyJKPTd/ieOya8f
-   g7nFBhCkB94uF9SQPJ2Sm5Kn8aXMgc6ZqGSlFKNoNT9sPpgFinCwOy4zc
-   k3VtD9FHipemJOun4sf3ib6Xkvrsfx6fCaHeF00sQQUwQxo00sQyvFTvK
-   w==;
-X-CSE-ConnectionGUID: pPo+PqJLT0eGxvCK8SD2Rw==
-X-CSE-MsgGUID: XJhLjLPgSMiurObNeqfR2g==
-X-IronPort-AV: E=Sophos;i="6.27,118,1787011200"; 
-   d="scan'208";a="29438056"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 13:13:15 +0000
-Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:8173]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.18:2525] with esmtp (Farcaster)
- id e01f5bc7-e49b-4b5d-92a4-61cdc1ff6ac2; Wed, 23 Sep 2026 13:13:15 +0000 (UTC)
-X-Farcaster-Flow-ID: e01f5bc7-e49b-4b5d-92a4-61cdc1ff6ac2
-Received: from EX19EXOUWB001.ant.amazon.com (10.250.64.229) by
- EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 23 Sep 2026 13:13:14 +0000
-Received: from EX19EXOUWC002.ant.amazon.com (10.250.64.172) by
- EX19EXOUWB001.ant.amazon.com (10.250.64.229) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 23 Sep 2026 13:13:14 +0000
-Received: from SJ0PR08CU001.outbound.protection.outlook.com (10.250.64.168) by
- EX19EXOUWC002.ant.amazon.com (10.250.64.172) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49
- via Frontend Transport; Wed, 23 Sep 2026 13:13:14 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JS/DV5SwhIf86vhQ8z4M10tf6bL20OHF1gC6GI8ugXoqMNOMfNM++OHsgeG0IhQrTG25HxZ/YFTB54qXekFyI3frhKHgCMAvWJIhKIEVuM7Vb37uOHWx9Ud2Sg4QTGWVd5Ms29a9ZeSGYHagUJbazqm5I0kvz66ez00pyvWR9Cl3znQu1VgNgoYd+GmqB2pnusX/yPvZPrW8Db6IzUAtJoo1uLXY5Zve7mC/9H0Qa6pfXdV/F7vyHctXTJ1Sm8Au4pprJOb/8RBjhY93P8Ml5EhPt0qUYJnOqz/Tu9CKOYbSZmoRLsMzpvUs6UVUJ3vIeztdXY5XHHPN8ZNrvq2cIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BWEIj0xh6osCsfK7HHwylodNHNlcikd1BkITodAAIW8=;
- b=NbvcX7y6HdrlFpMcbDBmH99zSN4vdbWTlFjn/ZnwFpwbDRC+iWqcG2Ux4U9dNl+/5JElyGYwduWbyaenhadqVIInDudtgmcYW+j48EA4vuKwtrNi+Zkbx7B7fh59IFbuO2DOW4bjuphGy7QCGSpPGMq02U3axqdW/mDf+AkVcBbjqnJtLbJSyey8qK1JyBzm2FQPYP7wh53K7fkkSwSfekGdGDeuSSQeD2nx+aL3WO43JlANJF74govCGciuNUYdLT+n5tR+ik354O5IjXobjsgWyQQn3Ob7tN8EyeUip/uMKXaPKQNrknXM3Bj2VUFGwoDVo++OXdhs2wXPFCm+IQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amazon.com; dmarc=pass action=none header.from=amazon.com;
- dkim=pass header.d=amazon.com; arc=none
-Received: from BY3PR18MB4722.namprd18.prod.outlook.com (2603:10b6:a03:3c9::19)
- by IA3PR18MB6163.namprd18.prod.outlook.com (2603:10b6:208:526::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Wed, 23 Sep
- 2026 13:13:10 +0000
-Received: from BY3PR18MB4722.namprd18.prod.outlook.com
- ([fe80::e307:5f61:2694:b219]) by BY3PR18MB4722.namprd18.prod.outlook.com
- ([fe80::e307:5f61:2694:b219%4]) with mapi id 15.21.0451.012; Wed, 23 Sep 2026
- 13:13:10 +0000
-From: "Farber, Eliav" <farbere@amazon.com>
-To: Rob Herring <robh@kernel.org>, Rodolfo Giometti <giometti@enneenne.com>
-CC: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
-	<brgl@kernel.org>, Fabio Estevam <festevam@gmail.com>, Andrew Morton
-	<akpm@linux-foundation.org>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v5 3/4] dt-bindings: pps: pps-gpio: document optional
- pinctrl states
-Thread-Topic: [PATCH v5 3/4] dt-bindings: pps: pps-gpio: document optional
- pinctrl states
-Thread-Index: AQHdS11HPl/d1iMljEuOyfwYfu7vGQ==
-Date: Wed, 23 Sep 2026 13:13:10 +0000
-Message-ID: <BY3PR18MB4722A1298789CA9897B834F4C6822@BY3PR18MB4722.namprd18.prod.outlook.com>
-References: <20260919171157.5502-1-farbere@amazon.com>
- <20260922103051.5257-1-farbere@amazon.com>
- <20260922103051.5257-4-farbere@amazon.com>
- <67e6d618-f94e-426f-aabc-304078fda5c2@enneenne.com>
- <20260923123605.GB27237-robh@kernel.org>
-In-Reply-To: <20260923123605.GB27237-robh@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amazon.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY3PR18MB4722:EE_|IA3PR18MB6163:EE_
-x-ms-office365-filtering-correlation-id: 3ee02776-249b-4275-7b50-08df19746a73
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|38070700021|22082099003|18002099003|11063799006|4143699003|56012099006|10067099003|3023799007;
-x-microsoft-antispam-message-info: hDX3aykv5UnGTFEvCxQ+rzWYd5G3zY4Dvjp09eKmeQCNncWlB79PyE21yfNK2c3Wddr+vkU66cjTD8xvr9Ppz4PYNEXt2kgBRwyj43ISnCI1HFLV5lHYhJNm7+944nVtd1N6mzSy76U5WsBzWEQSRhNuN4daGh3Sy0LtVW6XWsktK71f40n+qSnlBron6rTRhdcyMxy7589o0MYV3wD0O7S5pyUF5h/FwPdqaCfcnd0Nyp2nYf9cR053+rH+cFJi1qgHgtIQaboi6KldGjIy/FL0zVFxgSkAAfje720yU55j3pBiAPTHgUAspuGEYJvu789ZwU0/cldWYvgyzGzJJyfqkjjTD760FT6xte9dAXF7EENzSOiHsNXv/UDtmhkB4cR0y8oZXs1VopyU+4hX3n+WQdmJWoA74HioLRbEm1bAaSDTg8voIXe0ojk/4mPhybF9cbpGOOy74tWinMYhjsiIQ86moLQotCoqOo7KLcatOoxgABEy4tcIvLDm2zLUw6lfpHCG7UDeDyYEFobVeDHolzqsM5FbTP+uaU95K3Y3bmBw67pJrRqs6o3khzSrLYUzYgOJIwP2oZ7oZp+O8VNW4QmolLhzwAO8S5U5nTuj2ZWf0h1q+GyCZRwXOLuqh3t75VhPjYa0NB7r98agPk92/+NTObflRJdJDIyV4EAtGgG6Y+yqncZb+s4vXUYFjtfDbV03fyZSFjYUP6HN/QksaXPnBxxxEAiQ/vWm3qk=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR18MB4722.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(38070700021)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006)(10067099003)(3023799007);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LH6WTDy+dLi4cysmZU2B9Q+Oau7WS7hWXBg3lYdgTTQ33Om0eYNOYuaE8xXY?=
- =?us-ascii?Q?Wp36lTKTDKsqACdLRKRGz8H5WIFWouQrap7SbO08oyIyJ/O9BA76/ibs5H6F?=
- =?us-ascii?Q?Ip9Qt0XcnOBn/wMe9eOUdUUKfmBfmk8NL6Qu9cEPBfp05q0BdP5xA/qbkfxh?=
- =?us-ascii?Q?xTpF3iA/WNgtIJzPHMuhXKOauTi/TuK2g94O+u7qi3WKY31MmVsejjWi3A3f?=
- =?us-ascii?Q?icG40zeUAszVZi7zuNvUtBsFpNKUvF9Qwc/qn8h99Dttu3OwQ2GM/XkKao7k?=
- =?us-ascii?Q?63hJ7S/RGNitsnyD4qE3IsjVIF23YFq9FmyluqStXoJtwVnhREaF4YrEeHvE?=
- =?us-ascii?Q?KjL1NKmwl7cTh1LqjPn1Q9wVxVEPhEpUA72J20I0gik8CffNsMW4dPEsSOEX?=
- =?us-ascii?Q?SvVzlhp9uen+wVQveYmjmvW8GeU2xJj+/+td432gvcAaLxwgzi5Sy8+7eeW+?=
- =?us-ascii?Q?7cgSmrNPGDAYMNYxQnSLGcuDO+eU0xQsbq8slfk/94HJN0vV08OeCnilyh1q?=
- =?us-ascii?Q?ZSNiJVVZ1yli67f0SIH0IqvAPj04uVH4CUmh7QvkHAXC2sSc8A8nMVuB9Dpw?=
- =?us-ascii?Q?wQj7+sX6ioQTKxlssid8I80O/BkUYPeVPN9YWHWdgYhHSy57U0OT+5VHz51f?=
- =?us-ascii?Q?1dYADmdyDduGWVcg8g7ffCKD7NSWGgBrszjTagYGrPbUlffg7co4Ede3Jrmc?=
- =?us-ascii?Q?+kwYpFw+3LG/qPnn8EkmEHAxZtsk+oX9Ckh0oA/NFx7k39LjKPmC3KZUgchg?=
- =?us-ascii?Q?RB6mK6eny7GqI/WFb9JT+Hj7hV7MF0GtJqrn8nhzsvJ4mnqyOJk1+2foRuNX?=
- =?us-ascii?Q?YvDtxxhueYLd9zamM+HkP1Mhv2ugF2uYhczcVOospv1g/Af0HDcAbgMBF1+s?=
- =?us-ascii?Q?XIrNjRpbtWKM67Qp8y0YMw5KxAaV8+6cuBv292JXGpCznc8KGkk3YmuQ+QgH?=
- =?us-ascii?Q?XJy3aaAnzC5SsMxZbCuMrpeOLVNLu7dS717tjJYmvVR8JNeGIkQZN+ZbDPT/?=
- =?us-ascii?Q?agn9xbsPCkorEp9HnXxGBpHz4tZLupT019MQ04tLEg5gW9XxYuDwZjTwSF80?=
- =?us-ascii?Q?N8en5NRLgReComPJihLsSmaWIDm6s1ZtKR/h8l+3ZlbyyjwePYulEzjvXJKP?=
- =?us-ascii?Q?TWslDzMiUNQCqmmjx09n+cdr3uuhtj/7MBn2cXnHrZ9JH7gOOM+n7XHyLLHo?=
- =?us-ascii?Q?FhqhVekLHIvYWn8NxYsLnn3bQ9J/OrjfsPDXhuf1Zyq0H6uZO0IhZAQG0gpt?=
- =?us-ascii?Q?0jnJ61SaFxUxDqeu2PEsR3iP9RLg2rl9qe2AKc044V3Zia7QWdWVhHHNSAKX?=
- =?us-ascii?Q?yogtkEJK0+FRPTkjRgPr/Diztg8pMbBDt8//VeHauyYu8nHxBsOiFG4TkVZE?=
- =?us-ascii?Q?T9Ij83B4vWqw5i5XmQiaLyDrAiNXTYNKQTlzGy1K2/4hH5YdrsCy+TSVcrYH?=
- =?us-ascii?Q?VvNIAntSAk26mApsrcm7XRdXrlu6ElaHWZp1QVS6lbdCPvb+s7k9ShmLdHFW?=
- =?us-ascii?Q?pPkOY0Cdzm/3mAYGhR/aN42QV8hAsvpCP6x+ys2Z8ZxOZjs8Y6gBH0qSCeje?=
- =?us-ascii?Q?U9jjR8LgNUI12UU59a7vbHuVC+hn7ERKvw8nRAdrfcHcfoYwGnTpYMVo33IG?=
- =?us-ascii?Q?Qh40WgQvS0HmCTB9miZUI5QtGYAi+uyg4BAI/TJ/qCpyyfN9cZFCC078kGMw?=
- =?us-ascii?Q?9YlzkDknlfcONu7J/u1KF/k1yFQOsLSAKW5gFdP0t5wpSjaz?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+        d=gmail.com; s=20251104; t=1790169202; x=1790774002; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Nv6lEl/XuVHA69+WOwYewTTKvCN1uRHRSoP0EqmEiFU=;
+        b=gHtueHBRlj/l+DD27c66zli3FQaMk6DAcAq+B4tzE4JT1ewaz2RasJOlMELzB3zNdA
+         xe0EkABKvckfyAkle4Mb7EqFGn+Sb6XPoInc69+LhRU6LwyWTYuxJzR6r6E61s9ogBhs
+         8PwShuXXD7mSlGfGlwfaMnCCwSow/9xRUil9FevH1UEgkj9tapKKJx2o/nOu/ooadLOA
+         L02o6T6sliPhU+khVevLMG+k94zMxqTBgjV5GDvFPG3v+zJmh9IjYtjAsrJ5IzxQ+Aj3
+         q58RU7eZHz32GjvQQTECfytl8EBs8Z0yOW/ArRbgYvHCTORNhRQLlfDFMrsTcujrdxpp
+         BAtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790169202; x=1790774002;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Nv6lEl/XuVHA69+WOwYewTTKvCN1uRHRSoP0EqmEiFU=;
+        b=vEs9Z6Nt3wvJnHcWSZ3PJl8mCbyl0Qn1PIjYrW9TpLkvgS6KnYXwiC8TvE15gfE47d
+         7KVD2r6FLCaGWKhifv+gPrmMnqCjY7qxIAiG0s0EK3QpQia8rG/5t1gSdTF4YlzeRJuc
+         9uB7I/HRyLQ34ZAPLSqQoKRYDcIoRJWFRVmcD30DA12kyXk0Eq0867zyEz4SKrESzcOm
+         3rgU8+HH0sbUNiLi3lyA+efBF0W+HI5q+CRqPfFBEeWdUh8dK8FiIT8isbBZ7MrJ997V
+         zKAJAoSv0+r8hwphxOh84c7OK68EXK88nD2lKsCALfb3U8SZuU1FHX1e3FhG/RChfGtU
+         6cIw==
+X-Forwarded-Encrypted: i=1; AKwUvBy0LjUBGyn3x0WL4rS2vKC61RFaELoHfhkRf6im5x9XAM0tjKORgugCywxQ0/Q0aexPLRRlYYh/uH8FtxM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lYmrfIoMlafCnQwpXtBl1Ixbx+wCqTzcptgiAqUEH3/99ekjyn
+	yRuFpcFqa4sATmA3EqdJpYSyVLpgf+uJfWA14TOnANBwJuP1kxTjuKgX
+X-Gm-Gg: AYBFou3BxNukk+YhZVzJdKwFRkNIZpuBK13ct3ock8yRIeNi0o6u6tO+VCYVUZjYhkk
+	XF5bKmiDBEANOxYNe1BPOVAJStLoxkbDD//qTI54pDfVajP2fVhIzG4t248zun7lbAVUbaHROAg
+	7haSPcxleHy4cdVDepC1yhEsQpgnYx+DFD2CZiDhj3r0u5ny5+D74pQNIwlCEyMN3xre3MKXL6g
+	tmyrLbNa+rOMq+WwSMM0BXKq+6KuB4iyfgDLpMui4kuv6UHV+fZG2IzAvO9hEkMPkVAQR25ZW74
+	VYGE9sEARO+fFr1CGnxcqgAs9WOSBJvvfd9dljxkzEO9+vjP8u97Vjw201RlW09uLAOQddV+5XD
+	V89wOmB+uV2S77kkSg2KGtrH688Nil8X646cS2gVNTf/VGsl28ZfG8AS+2d6edm8NF3rSbJf7bc
+	HdPiBRhDCBFB3XM7yi8ScK4Ytyul7i86UreBUmryKcdDgCLKiQfPXKKbiysH0bGHroXug9wkToS
+	hBTqXJqyw0U75sdeubxSETSOZ+o+xCWOIZTMdFg
+X-Received: by 2002:a05:6820:16a3:b0:6c0:1ab7:8883 with SMTP id 006d021491bc7-6d2cf84ab7dmr2261569eaf.13.1790169202135;
+        Wed, 23 Sep 2026 06:13:22 -0700 (PDT)
+Received: from archlinux.lan ([136.34.156.120])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4908e54f277sm1599838fac.7.2026.09.23.06.13.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 06:13:21 -0700 (PDT)
+From: Danish Khateeb <danishkhateeb03@gmail.com>
+To: "Martin K. Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Akinobu Mita <akinobu.mita@gmail.com>,
+	Danish Khateeb <danishkhateeb03@gmail.com>
+Subject: [PATCH 0/2] scsi: target: core: Fix and convert kmap_atomic() in SBC emulation
+Date: Wed, 23 Sep 2026 08:13:17 -0500
+Message-ID: <20260923131319.310123-1-danishkhateeb03@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: 3kfn/JXstoJBKV+TL948rZboU+wS8hio6Gp7jlXbsu1O0ILwM8vmqlQMXw888DHywROiGE38eQi2zIH9Fye8E00W+ZsUtGpulenmN5kJqe1yLflZTLq+PE7jc0KMnIDIxSAcMPIwnh3yYPfCnu7M8Ik6IFghZ6JzDT5T/KEjuQhsjng7gFAjd1KgbN5RFXVJ6GzRrHzbXEmNWJtUc6xXZs5c85AWL1F4Baa+MRgfCFBM61NJFZ/2EEStfMSPtJAY+ClxRyWicfJhuY+MmMRFY7Tc4Io4vqqa0u32E/ok1spMuXRiJBquZZWoqp9lv0FpospcJXpS6//TDgqAbRGT/w==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY3PR18MB4722.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ee02776-249b-4275-7b50-08df19746a73
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Sep 2026 13:13:10.2441
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hUoUC9k8wG/POzuezoCYxqW0bIiDB93PJUX867TDFzgSr8Eiy3r95dyquRUMctjrUpUwW/47cgVnr02oA+LJIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR18MB6163
-X-OriginatorOrg: amazon.com
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 23, 2026 at 07:36:05AM -0500, Rob Herring wrote:
-> On Tue, Sep 22, 2026 at 02:46:40PM +0200, Rodolfo Giometti wrote:
-> > On Tue, Sep 22, 2026 at 10:30:50AM +0000, Eliav Farber wrote:
-> > > +    minItems: 1
-> > > +    items:
-> > > +      - const: default
-> > > +      - const: inactive
-> >
-> > One observation while testing the series, entirely a devicetree call:
-> > dtschema derives maxItems from the items list, so this also caps
-> > pinctrl-names at two and fixes the order --
->
-> Yes, that's exactly what was said was needed here.
->
-> >   "default", "inactive", "sleep"   ->  'is too long'
-> >   "default", "sleep"               ->  'inactive' was expected
->
-> Well, that's something different.
->
-> items:
->   - const: default
->   - enum: [ inactive, sleep ]
->   - const: sleep
->
-> The common pinctrl-names schema should require unique names so 'sleep'
-> can't be repeated.
+Patch 1 fixes the address sbc_dif_copy_prot() passes to kunmap_atomic(),
+which has been off by one page since v4.2. It keeps kmap_atomic() so it
+can be backported on its own, which is why checkpatch warns about the
+deprecated call there. Patch 2 then converts the kmap_atomic() calls in
+target_core_sbc.c to kmap_local_page().
 
-Thanks. Just so I pick the right thing for v6 -- do you want me to
-change patch 3 to that form, or is the current
+The rd backend's protection pages are lowmem, so the bug only shows on
+32-bit x86 with CONFIG_DEBUG_HIGHMEM, which gives lowmem pages a real
+kmap slot too. I have not Cc'd stable for that reason.
 
-    minItems: 1
-    items:
-      - const: default
-      - const: inactive
+Testing, in QEMU/KVM, with PREEMPT_LAZY and DEBUG_PREEMPT:
 
-fine as-is?
+- i386 with HIGHMEM and DEBUG_HIGHMEM. On fe2ec83746e5 (v7.3-rc4+),
+  kunmap_local_indexed() warns from sbc_dif_copy_prot(), the log has 103
+  "DIFv1 checksum failed" errors, and 9 of the 23 checks fail with
+  EILSEQ or EIO on the rd PI disk. With patch 1, and with both patches,
+  all 23 pass with no warnings.
+- x86-64 with KASAN. All 23 checks pass before and after the series,
+  with no reports.
 
-This binding only defines "default" and "inactive"; the driver looks
-both up by name and does not use a "sleep" state, so I had deliberately
-capped the list at those two. Your snippet reads to me as how the common
-pinctrl-names schema would accommodate a "sleep" state in general,
-rather than something this binding needs -- but I would rather confirm
-than guess.
+A static init sets up three rd_mcp devices through configfs and exports
+them through tcm_loop: one with pi_prot_type=1, one without PI behind a
+TPG with fabric_prot_type=1, and a plain one. It then runs O_DIRECT and
+buffered writes and read-backs on the two PI disks, SG_IO WRITE(10) and
+READ(10) without PI so the target inserts and strips it, and COMPARE AND
+WRITE with a match and with a miscompare at byte 403. Kprobes show that
+sbc_dif_generate(), sbc_dif_verify(), sbc_dif_copy_prot() and
+compare_and_write_callback(), which inlines compare_and_write_do_cmp(),
+all ran. W=1 and sparse are clean for target_core_sbc.c. I can post the
+init program if it is useful.
 
-If you would prefer the more permissive form so a board can also declare
-"sleep", I will switch to it (with unique-name enforcement) in v6.
-Otherwise I will keep the two-entry list.
+Danish Khateeb (2):
+  scsi: target: core: Fix kunmap_atomic() address in sbc_dif_copy_prot()
+  scsi: target: core: Use kmap_local_page() in SBC emulation
 
-> We don't even require pinctrl properties to be documented. They are
-> implicitly allowed, but good to document what users (drivers)
-> expect/require.
+ drivers/target/target_core_sbc.c | 58 ++++++++++++++++----------------
+ 1 file changed, 29 insertions(+), 29 deletions(-)
 
-Right -- documenting the two names the driver actually consumes was the
-intent here.
 
-Thanks,
-Eliav
+base-commit: fe2ec83746e501645709761605c2464a44fd2929
+-- 
+2.55.0
+
