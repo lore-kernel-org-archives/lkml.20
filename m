@@ -1,97 +1,94 @@
-Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9FE414438
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:01:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D452580F3;
+	Wed, 23 Sep 2026 08:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790150475; cv=none; b=tK5Sc/LwbnD9y61SlJZIv6gQtldIsTPCnn60pMdIygp2/xMxGCvHnj15/4G3TSZ3sRJHtcAAuBRtcs4awVUTeipw0UeVrrvY1Msf1zbqzJMlSGPKVT7k9H9ebgqrh26YyYQ5QJSUXu0viA2oGLCtthAWrUdePPzDzW9EWahNciw=
+	t=1790150503; cv=none; b=Va1cm9W1dYVi30OGurmcAnWv7tzswYe5heM4PwVyiJvm7fQRM84fPoxuIZ2XsweaRRuHKFUZSgaKmX2L4ylFAl3d7t2Dgfl/l/YNt+TqNQ/T/Q1htpbFiR3Oh2E8bwt/+YNJc9nYa3XtNTSK6rLjzp/LWRadqkaJdFOSdn3t8Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790150475; c=relaxed/simple;
-	bh=eTRjkNjbTBU25TMiMCm7OeagUXe/qlq8QV1fQTMIa2M=;
-	h=Content-Type:Subject:From:Mime-Version:References:In-Reply-To:
-	 Date:Message-Id:To:Cc; b=KNr5GPr+w2JNWUZ+U5jroLy1Rz8ez6iiYLx+Hk0sr3MmFLE/F0T5VFL6+c4qU2DSuafLWYY9Ttb/j2qqz7F7l4/VaH3F6LOJnuMNXKWHjJ6mCMe06cWzvQixB0rFO+UAsu1OPaSgy8nr5egH9Iu1w1ZGhTd98+eptVrwZHscWJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io; spf=pass smtp.mailfrom=deepcomputing.io; dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b=s+/xc231; arc=none smtp.client-ip=209.127.231.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepcomputing.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepcomputing.io
+	s=arc-20240116; t=1790150503; c=relaxed/simple;
+	bh=m1xkiKN/X1JJIxueyxrugvHruIUDkXslW2W5JUJ+vF8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CZU6uG811nDDdaBzoE5UpoFz3Wevmwpwa8umZA/P1+/1DhUY595FF0qCvzxS8vdwhdjiOqFjA8wTdJaXhesNhAwTN5PnrVJQvku2lj3G7OxC/kIyL+tuF1ly+1hMWlJSAVq4nOpqabQmDL5k3JteXe2OUEwrAabbUuu6QlJHqt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+O8OlcR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deepcomputing-io.20200927.dkim.feishu.cn header.i=@deepcomputing-io.20200927.dkim.feishu.cn header.b="s+/xc231"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=deepcomputing-io.20200927.dkim.feishu.cn; t=1790150466;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=eTRjkNjbTBU25TMiMCm7OeagUXe/qlq8QV1fQTMIa2M=;
- b=s+/xc231Kq4gCXxXJAr6V78sCR7ah3cd0ZgW4fSUslFRktPWNbQUWoyZFMqlotNTGognWE
- 9uH99qcJDnmVzyJCce56mur4a8AlbHhi+CDbJEwQh3PCKm4REOX+wWYQz698P/mCn+KWts
- 0PMf3Xbr0sBtIlZVLoc/kJsJGeytAqxOf9pvlIjYn6YBSoHkq5+PhNVP3RvQ8XaRLDxwrl
- U6f4VPZhFUKe6FrB5w/bTexzGPgStwDU1gTYcEOz7MzlflrvXEYOPusrRZh42MnK+VbDkn
- Fht1qJecIKulElE8RF3bH3aptJ0ebGQWFFRHqhIGjRKubjz2SfCXvqi6kjDkBQ==
-X-Lms-Return-Path: <lba+16ab38740+66235d+vger.kernel.org+sandie.cao@deepcomputing.io>
-Content-Type: text/plain; charset=UTF-8
-Subject: Re: [PATCH 3/3] riscv: dts: spacemit: k3-deepcomputing-fml13v05: Enable SD card support
-From: "Sandie Cao" <sandie.cao@deepcomputing.io>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+O8OlcR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CFB71F0089E;
+	Wed, 23 Sep 2026 08:01:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790150502;
+	bh=Dc6gkHP2bbSbrikastse9j6lN/sY09368OBTKwNLCJE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S+O8OlcRHfiV3jFyTVyebprGjiJPU69uoB4tXVI2SoJ26RbPw5/o7srll9Y8wlH1P
+	 +FYPK9BKzdERa4aiK/QJynq+pGiRZ/pOyumwww2izNJ8XJvbE7G6SOKQU74KVzPhtf
+	 mn8JxAvz8jpr4egL35I82DCYvnLhoqx6xBmsGBD+bC+2zx4/fK3hHhoXOXUhNrYI9K
+	 STVVAL+NQiK/sJsJTDdsf2UmsO2KVL4MPEm0bOyS0h5axcbMcGdSKj1Ru4HnlOUUBZ
+	 p5k7a3wuzoNHJK0PYkHRr52jTyHQ+HiXxcooqPKzGyhKJRrtHsOE9FD9Z5thFWm8QS
+	 EIl4ZQ6QB51iQ==
+Date: Wed, 23 Sep 2026 01:01:42 -0700
+From: Kees Cook <kees@kernel.org>
+To: Bill Wendling <morbo@google.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	codemender-patching+linux@google.com
+Subject: Re: [PATCH] iio: adc: qcom-adc5-gen3: Annotate struct
+ adc5_device_data with __counted_by_ptr
+Message-ID: <202609230056.DF2B9BE56@keescook>
+References: <20260922220950.2267270-1-morbo@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260922110231.3426011-1-sandie.cao@deepcomputing.io> <20260922110450.3426070-1-sandie.cao@deepcomputing.io> <DLMC741RLFU5.3FF1DL7YEIFK9@linux.spacemit.com> <407ce3d77416bb2522b7906b0df3d5adf02c27ee.2bcc8e57.b8bf.421b.9230.3eea00252952@feishu.cn>
-	<DLMI4JHT5Q8L.2MHI30VCCP3W9@linux.spacemit.com>
-In-Reply-To: <DLMI4JHT5Q8L.2MHI30VCCP3W9@linux.spacemit.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 16:01:01 +0800
-Message-Id: <407ce3d77416bb2522b7906b0df3d5adf02c27ee.64156e26.f1af.46d5.a18c.19bc541257f8@feishu.cn>
-To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, 
-	"Yixun Lan" <dlan@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, 
-	"Rob Herring" <robh@kernel.org>, 
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	<devicetree@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
-	<spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922220950.2267270-1-morbo@google.com>
 
-Hi, Troy:
+On Tue, Sep 22, 2026 at 10:09:50PM +0000, Bill Wendling wrote:
+> Under compiler-supported bounds checking (via KASAN or UBSAN), pointer
+> fields inside structures can be annotated with the '__counted_by_ptr'
+> attribute to specify which field in the same structure holds the element
+> count. This enables the compiler to perform runtime bounds checking on
+> the pointer.
+> 
+> Annotate the "base" pointer field in "struct adc5_device_data" with the
+> "__counted_by_ptr" attribute pointing to "num_sdams". The number of
+> SDAMs is determined from the device property and assigned to "num_sdams"
+> which is then used to initialize "base" via "devm_kcalloc".
+> 
+> By ensuring "num_sdams" is set to the correct element count prior to
+> the "base" pointer allocation, and since the size of "base" is never
+> reallocated or changed, this annotation is safe and will not cause any
+> false-positive runtime bounds check panics or KASAN issues.
 
-> From: "Troy Mitchell"<troy.mitchell@linux.spacemit.com>
-> Date:=C2=A0 Wed, Sep 23, 2026, 15:02
-> On Wed, Sep 23, 2026 at 02:35:20PM +0800, Sandie Cao wrote:
-> > FML13V05 SD card slot is inside the board, it doesn't need cd-gpio,
-> > FML13V05 Keeps GPIO88 to low, Then SD card is always on for SD Card
-> > driver.
->=C2=A0
-> An internal slot does not necessarily mean the card is non-removable.
-> I don't think its location alone justifies keeping card detect asserted:
-> GPIO88 would report a card present even when the slot is empty.
+Welp, yes, it's allocated correctly to the size. It'll be interesting to
+see if this:
 
-Yes. The FML13V05 hardware is designed for this. We can't change it.=C2=A0
+        ret = device_property_count_u32(dev, "reg");
+        if (ret < 0)
+                return ret;
 
->=C2=A0
-> > We check the vmmc-supply is p3v3. We have the same SDK DTS config with
-> > k3_com260[1] , so, this patch follows the SD card patch of k3_com260
-> > dts[2].
-> >
-> > If this is not correct, we will change it.
->=C2=A0
-> Could you confirm from the schematics that the SD power wiring matches
-> CoM260 and that the card's VDD is actually connected to ALDO4? If so,
-> this supply reference is fine. The same SDK configuration alone does
-> not establish the wiring.
->=C2=A0
-> If the card instead uses a fixed, always-on supply with no software power
-> control, vmmc-supply is optional for the MMC core; it should not point to
-> an unrelated ALDO4 rail.
+        adc->dev_data.num_sdams = ret;
 
-We check the schematics both of COM260 and FML13V05, both use p3v3 (a fixed=
-, always-on supply with no software power control), not ALDO4. ALD04 is onl=
-y for USB.
-We will correct it in next patch.
+is never at odds with this:
 
-Best regards
-Sandie
+        ret = devm_request_threaded_irq(dev, adc->dev_data.base[ADC5_GEN3_VADC_SDAM].irq,
+                                        NULL, adc5_gen3_isr, IRQF_ONESHOT | IRQF_SHARED,
+                                        adc->dev_data.base[ADC5_GEN3_VADC_SDAM].irq_name,
+                                        adc);
 
->=C2=A0
-> --=C2=A0
-> Troy Mitchell
->=C2=A0
+Nothing checks that num_sdams >= ADC5_GEN3_VADC_SDAM (0). I feel like
+that ret = device_property_count_u32 should check for < 1 :)
+
+
+-- 
+Kees Cook
