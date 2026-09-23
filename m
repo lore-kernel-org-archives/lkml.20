@@ -1,70 +1,103 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A01394EA6;
-	Wed, 23 Sep 2026 04:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CE735B12B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:52:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790139112; cv=none; b=owjZCm1jxSFsOapW7gm9xQ0uag21JDAm4oRphMCg7HkVQKBLGlQCj5m9bdky29k3oFCKbRpaXlpJhjfUY2hS8/4YU+r2NNHEMR/IeWAf1ESn7YI+7CiB7XM1bVqAlYElFI9DQkJ7+Oy7UBI3WBxU0lKYPPJP8Fq9FjvHA9G2bvA=
+	t=1790139158; cv=none; b=noCCzH7wFKW3oDEiA8Lrr6F1ufkSu7lGtaCjuwqwLPYGrtNYdn6BJFioz5Bctsmyv9U1KARHTLPuiMAcxV+TyvXrd2I7G6QQuIDVpC4pegksCYY3kRBuctj3IMPTqJaFBrwx0x4QHGI6wLJL4uQDjwf1izjo/4w2KiyXX1MnDV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790139112; c=relaxed/simple;
-	bh=pu/mpkCqXSxgYN59HbS0UJuN1/RXNva8bBq3n7KmNpk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eYpUjT/ADjUXOO/flICe8sIq7/ZPYA0r6ARmRJ+65JQiRquhb9dE8cQcwRE3iTvE+i7Xscco0KcavzHiJY+a1lKu6RYTSQj1cPuOKMJZKMrCZAoGRRhrp0npunvKxVMIZxnWofiUj/lfv0VgRpEeb6fidBfUTYIfv6XTLcebCVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 2B01F68BFE; Wed, 23 Sep 2026 06:51:44 +0200 (CEST)
-Date: Wed, 23 Sep 2026 06:51:43 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Pavel Begunkov <asml.silence@gmail.com>
-Cc: Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	io-uring@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Nitesh Shetty <nj.shetty@samsung.com>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>,
-	Tushar Gohad <tushar.gohad@intel.com>,
-	William Power <william.power@intel.com>,
-	Phil Cayton <phil.cayton@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-Subject: Re: [PATCH v6 04/13] block: introduce dma map backed bio type
-Message-ID: <20260923045143.GA26231@lst.de>
-References: <cover.1789997898.git.asml.silence@gmail.com> <a3ee719abc440ca139f1a945fdaf43a45f0c6b57.1789997898.git.asml.silence@gmail.com> <20260922131610.GA30468@lst.de> <cce62c72-278a-44d1-9cf7-e0beb0b72688@gmail.com>
+	s=arc-20240116; t=1790139158; c=relaxed/simple;
+	bh=7y7GXnhSDovHIpVLBgt1Fd+3FmTisgFDfMLhG7uux9Y=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=vGPq5AEu6NzkzTW2Wqj/9+OPmYmYzMSuJeSH/kBAjjuSpSY6WuSzYnqQDKazGW1sAPnXV4+VwuweyZL1d8eBQ+2B5YckO+tuKyIcLMN4/sE0mONxU5XTEw/JakGqJezxXRIW+L/+rRR8sSpYoMOeBpn7/a5vudNG4qZQcYXHP6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CsrdKgUT; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--morbo.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CsrdKgUT"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2dd1631d291so4796015ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 21:52:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790139156; x=1790743956; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o0WespfEuphhz3CCLrHdjFoExifMJMtXw8rgeMcCZTM=;
+        b=CsrdKgUTRAU+W05TNihFqv5IgF5KxJG5mOMQdgjmMuMXC0USpMYzPYPdWUi0D81Qyg
+         D4KUSe3/mQlysxYd1c97E2oB5ur1kUrqYYCr4eN51goAcgZBEY2kWO6/59XSinxSm/hO
+         iRjbMr0j1VnqoXknH5M7GlPEaQ96IKVLWG8h5Q3xGX+y4QqBzEOPrYghIKlfzI9ycJAe
+         L6gUJ44XEZjYLY8wyEo9vEzKCExPwg5Ml4HN8Ke6oRIKjVAiI1VZv5Ge1WJ+pMdWOU2H
+         t9Icv2oyj/PkGAXoXYdYg5D1iyW7A/rfqW8AGyGfawi6CR5L3Ya4z8hFabyYNS00iP/g
+         J36g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790139156; x=1790743956;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o0WespfEuphhz3CCLrHdjFoExifMJMtXw8rgeMcCZTM=;
+        b=VY93xvPW1ARpDXK8Xv48/fqFORZLB971uZF2dvIr7nQ/g9Adf51bE+LWv5C+cqwf6X
+         Z+XaLmnCzmtXW6Wk3TROcRLqEDJ/j307SfpDYb98zIpRqVRTnSmw0oZj7u+/IPLRJR7v
+         a0TvCcoqzWcq9bEpcCvPdIBYSbYAaEEvK8m8ukJVKBeXHMj29G7jSIqTZWpOqYYgS2t7
+         1ugDTIuKs4KjZo0aqI4liiySCTIMQ9ScDPE7vwQdtXJyMwSjbOHYemLI8QksobWMEyXp
+         tBYLM5ZBfDHsaLzR6QlqA8nux+upeN4nyxQycMeOiYINC28Yf0Tjc6zHrVU2so68o1Mp
+         cy3A==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ8j5Jw1yhQF0m+QEW/68RYm6jJpMAcskU1xcE7VgEHPA3iC5UCVAoy+2Ec8GST4Qdkwp+ktFY0+J8nTI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2uwBSii7i7j48yvrdhslKQWIWhLoukL+du4A7ubRoe6jalRov
+	3kOcCWRrcHtrrzb0vx76OimH8ZWJtRmuhHsnGKTDhDcOTKtv9vBiW8Nrds7PK9XRbF/2KE5Ow4F
+	P
+X-Received: from pldv21.prod.google.com ([2002:a17:902:ca95:b0:2df:6d4f:f536])
+ (user=morbo job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:144f:b0:2dd:c100:80c0
+ with SMTP id d9443c01a7336-2df69e1f9bfmr13350505ad.59.1790139156378; Tue, 22
+ Sep 2026 21:52:36 -0700 (PDT)
+Date: Wed, 23 Sep 2026 04:52:33 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cce62c72-278a-44d1-9cf7-e0beb0b72688@gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+Message-ID: <20260923045233.2579591-1-morbo@google.com>
+Subject: [PATCH] wifi: ieee80211: annotate struct s1g_tim_enc_block with __counted_by_ptr
+From: Bill Wendling <morbo@google.com>
+To: Kees Cook <kees@kernel.org>
+Cc: "Gustavo A. R. Silva" <gustavoars@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Bryam Vargas <hexlabsecurity@proton.me>, Lachlan Hodges <lachlan.hodges@morsemicro.com>, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	llvm@lists.linux.dev, Bill Wendling <morbo@google.com>, 
+	codemender-patching+linux@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 22, 2026 at 02:54:25PM +0100, Pavel Begunkov wrote:
->>
->> Can you please expland on the splitting considerations a bit?  Preferably
->> both in a comment for the details, and in the commit log for how we
->> arrived at them and why they are fine for now?
->
-> I'll add something to the commit log, but not sure which specific
-> details in comments you mean. Do you want me to expand the comment
-> above limiting the number of segments? Maybe I should add there that
-> it's stricter than necessary and might cause more splitting than
-> necessary? This one:
+The GCC and Clang compilers support the "__counted_by_ptr" attribute on
+pointer fields to associate them with an element count in the same
+struct. This enables KASAN and UBSan bounds checking to detect
+out-of-bounds accesses to the pointer.
 
-Yes, explain why we apply a relatively arbitrary limit not fully
-exploiting the hardware capabilities, and why we thing that is okay.
+In "include/linux/ieee80211-s1g.h", "struct s1g_tim_enc_block" has a
+pointer member "ptr" of type "const u8 *" whose size is described by the
+"len" member, which is correctly populated with the size of the buffer
+before any pointer dereferences.
+
+Cc: codemender-patching+linux@google.com
+Assisted-by: LLM
+Signed-off-by: Bill Wendling <morbo@google.com>
+---
+ include/linux/ieee80211-s1g.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/linux/ieee80211-s1g.h b/include/linux/ieee80211-s1g.h
+index 3f9626ad3d97..8f6107782c38 100644
+--- a/include/linux/ieee80211-s1g.h
++++ b/include/linux/ieee80211-s1g.h
+@@ -349,7 +349,7 @@ struct s1g_tim_aid {
+ struct s1g_tim_enc_block {
+ 	u8 enc_mode;
+ 	bool inverse;
+-	const u8 *ptr;
++	const u8 *ptr __counted_by_ptr(len);
+ 	u8 len;
+ 
+ 	/*
+-- 
+2.55.0.1082.g2b9226bbc0-goog
 
