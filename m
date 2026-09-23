@@ -1,160 +1,428 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from delivery.antispam.mailspamprotection.com (delivery.antispam.mailspamprotection.com [185.56.87.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FA24F93A4
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:42:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188960; cv=none; b=GDfJepBtpJXXgKkEGyk3TRC3Ky3kQ1K0EkL/Z6LjoSZHyl1F3iMDTD2kwgQtahvMJYevhqbn1bdlqeahSxrxNAVPbP3/W770sh3EDtA1LM6liD/1WPHrnkT7g8VQD/6xm/W/KQlwq7/7XrX/6E9DWIa5WgWICd06IAVf4SyNnrc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188960; c=relaxed/simple;
-	bh=e5ziL31xDeZoDLStJOgoy8SPom8Qd56Yk7OU6OSCX9I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LcbwPnnAztwgT1CUk9qu8Ko2VoUXMjA8ivAobdo1FG/fLS4oLqDtH3M4hKDE2uNN4jfR65rpzy18QbE0595gvvbxVfYQSqZfYvkDH9QwLXcPFpNA4tJL7jEZMEUE2ljnT3YXzfGMkPQjCsK9WhR5ZwEsJolPbn+OaZyIz/+5hHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net; spf=pass smtp.mailfrom=pardini.net; dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b=bYMdwxRZ; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pardini.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B723E1CED;
+	Wed, 23 Sep 2026 18:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.56.87.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790188969; cv=pass; b=DULY9Cj8Zoq+syjXNZULnFdx5X+yppqsUTeuX3piY9F/s9kC0kNqDZaLaCTQJdkfP9ZSUuDpGfJYdBO9TmqMxGFvge52ZJfM42NFJ3orLSt7fkvndklLWLE5Bdxy4VQEUK7T5M9Dt/8K5xsI0Hmy0cfoWV+UH7Z7XzTIQBVqu6A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790188969; c=relaxed/simple;
+	bh=j9dZdSTSxaYDMqzUODCHJRq16xiMdrtyG+eoFAibOg4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=M8vNN/8kiCyIn4yjHaA2Fj5Jy3vDPEqw+LG2z72D7QEmGlNr8MMVB5bi+KulkPefLufGJQirSefwqXaX8gWSjtVsp0Pme4z2/lISblucHpVIwFNe098pjEzCfrf83Izt65qy+evTObhvdGXVLtmaacJbOOYXIOueJMbV3vx8aSU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it; spf=pass smtp.mailfrom=valla.it; dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b=myxZ3iSN; dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b=erovEHfr; arc=pass smtp.client-ip=185.56.87.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valla.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valla.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b="bYMdwxRZ"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9ab2a135dso1947402a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:42:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pardini.net; s=google; t=1790188955; x=1790793755; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uksp8NEMMONI77zNPQYkgJlajaAnPtQHDaqlgAf0/EA=;
-        b=bYMdwxRZc4taVqSILtC7IKy9pdzWOZt7u66I0SgEiuqFXXijHJf5sqvl6NSFLEODmH
-         7wHvV8gRG02EKHLP0j2oW3jysvkl3YKBZTZMviz9sEysWZ8vz5O729WLYifkAVuQNZeH
-         kQS9Oj5ix7B/bXmeZXXthRGUGQ78+uwd6FJoJx8SvSjuT1UEV5DnKFUDxYd8515uw1zd
-         7o8+dcXHKxEyK1+LacrZ7pwzS/Nx9oJ8iiY5yg7ka3EXphaZ32bxv80wH3NdAPRl0I3Q
-         yfTMDqfUAk0RhMr3JfKLouKufq+AmHO29M0NUh/KZ+/mNDGKnFw7Do51FFIljo6c7PWf
-         UjGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790188955; x=1790793755;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uksp8NEMMONI77zNPQYkgJlajaAnPtQHDaqlgAf0/EA=;
-        b=V1NvbVicJWbKe+OS9oCdkomT7zhfd0S7ZisqfX4wiZSsALHyvZlBaUWL/w/zBS3DQJ
-         sUfHtMcovXv7kIaxFzVeSl6qXFcAamGzUfzFyT0jcH7AXrdaQf18AHrC/7y+VwrggZIU
-         aM75hJWfgv5X0itDtt7a9MDcb+y2/lm6cvkzVvKSKqDgFQqUnBoQAQ7tPFXKdF4SBTOC
-         j04a5kMi6hd8o1hM74bpjkdvzfLo6GPArmuKT9G8i1hL6jO8I8d8/MDbcft2asJc6QBe
-         FacSY/Vy4cGchtEQwD+OG1aABbKPqDSypRyed32UuvGRhemFID7R5LMLY4LxQvgtoptl
-         HMHg==
-X-Forwarded-Encrypted: i=1; AKwUvByHwNlnQwKmKdLtT8m2dHFqsrzuiv5FBos307UkfGQrKratV02J89E1WliJMlvIk2ktEnkvNFBKCQgr7fc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m96lzumv/MsNW08YPM1GiIjh6SXpS3uhHxlxKp4tpNSmUO6ySc
-	21xvMnz0BLjtqC/BDM98tNHcgHCZKbWwoCOngha9AuRITTpK76/O7QovvhR6LkHy1A==
-X-Gm-Gg: AYBFou2QVENPVqj2FdBAQS2aDhz5IXydQIDehX7X7+vKGud6PR02+zUJ6MPwktZbCnk
-	+YzLYaMsRNFXi95/Dst7mfdvPS7OX93NtO91mDAkvTjfUiljW+5MARbvJlftoQMGIQCdr+79UiC
-	eastnkjd4ZluHn1+QXDr8l2LjvkLaGQkuTrB2xsxU9gqm7JLlbQor7exVXddgbXre+5TqQOrf29
-	kyi4Qk2awlIbxlBBBsjMJWIeS6/rWjKEen8lYx6uWraMNZEvcEpjs0IwdveKTCPXae39Ijdu0x8
-	080/uLmkZgdHwT0BswA9JZoLhFSyrh5xyqWf4DcTg0w1UDJh9rsHEIGaVHV9B7/fQ6MlFLzU761
-	F5wojRuV+gfhgC6Xy/kvTxJLMM4jOHyXymMcMHLRVKjVhH9VN3SZF/ONTdpvXtPxjRliU7kr2Kn
-	Ym5PLP9ESofMdEr8FTDDzOJZ2L02CcbhpBeTi0kWS7JF4ztS1hRipeQnXtIAmuw/ZUsRgB930Sk
-	T9mC13oWIO1iNe+/BVQ7FF8PjdoSdLPk2uv+DWtA4FkvxM3GJo0ky/kWqkUKkyVtJwN7jSMhWIK
-	0qksi26JN3U58WvDIxFFWR4VOMZFH6N3HxLQszKRVAHIuQ==
-X-Received: by 2002:a05:6402:13ce:b0:6aa:c767:ab47 with SMTP id 4fb4d7f45d1cf-6aac90b04ebmr66607a12.35.1790188955272;
-        Wed, 23 Sep 2026 11:42:35 -0700 (PDT)
-Received: from ?IPV6:2a02:a466:4d7a:0:1072:bb1c:c0f3:280f? (2a02-a466-4d7a-0-1072-bb1c-c0f3-280f.fixed6.kpn.net. [2a02:a466:4d7a:0:1072:bb1c:c0f3:280f])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aab37eaab7sm2367557a12.4.2026.09.23.11.42.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 11:42:34 -0700 (PDT)
-Message-ID: <e166f6e2-05b3-4f36-a1c3-b75861618c75@pardini.net>
-Date: Wed, 23 Sep 2026 20:42:32 +0200
+	dkim=pass (1024-bit key) header.d=antispam.mailspamprotection.com header.i=@antispam.mailspamprotection.com header.b="myxZ3iSN";
+	dkim=pass (1024-bit key) header.d=valla.it header.i=@valla.it header.b="erovEHfr"
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=outgoing.instance-europe-west4-5ns1.prod.antispam.mailspamprotection.com; s=arckey; t=1790188967;
+	 b=WADKGsjw7mC1EQN9GiZ9z+/dDDhMeYCGej5V/Mx8sEjlgjWUPT/hLLwmZGJyjISkcuSe0mYTav
+	  AQPgfMKmUuRy/yLrAwGxYlPP8W1JvObUWgZEwDIVBDM1za0suyj68wXsqt8iQDr/hoVMxN++a0
+	  53dXmaelHz9h87OI1GMC1xFfCf5byoKAn4rLMice5dFWPYQzPIZ4cj+xbYg3YIW0fJRDGD2d9v
+	  T16q/YD+n8x5K9/TdMD3hVAUdx0Y5qRZzvSevf2ZiC+//IxmwSNra8oCWJey0VhBJy9WPIJKTh
+	  JaUwMSDfb0rJkOwJAP1qj8rIGXY2zPB6yB4UCeDZ76l7bA==;
+ARC-Authentication-Results: i=1; outgoing.instance-europe-west4-5ns1.prod.antispam.mailspamprotection.com; smtp.remote-ip=35.214.173.214;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=outgoing.instance-europe-west4-5ns1.prod.antispam.mailspamprotection.com; s=arckey; t=1790188967;
+	bh=j9dZdSTSxaYDMqzUODCHJRq16xiMdrtyG+eoFAibOg4=;
+	h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:
+	  From:Date:DKIM-Signature:DKIM-Signature;
+	b=dEKxeP8N5NPwwY9ZmXH/9rUyzxFzVxIgrkDvgiWyqevp2npWJNBoja1VHz1QYzkvH9YA1oeY7p
+	  Stoah5iFlkNIc2cTZ9pOSUHA1MEhxYurAA0Kbk6voPMmzT9OksbHewEsYUJ9ms1emDwrMWYMUO
+	  UFk7+PwuRyKrkP3viYPG6lihDqWUas8ImFhwBKv7hs9eRXh9EUbto232Jls5911DbvxDH3UZO/
+	  k5rJGVrEYFjE2LRnWCm3amPiPJhHTJXq1pOSuKgSX+JKwONdltD8gzRwZnAqbTnI0vzfshvw7W
+	  ESQ1wZd87MQw8q/cBn3m9ZdQN3yyJQs1uTjunnoN7sbSrg==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=antispam.mailspamprotection.com; s=default; h=CFBL-Feedback-ID:CFBL-Address
+	:Content-Type:MIME-Version:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	List-Unsubscribe:Content-Transfer-Encoding;
+	bh=TTFa+4iSF+2rRPsv1XVNqEG3YD/5TbmvxW/wccxckJ0=; b=myxZ3iSNfe4wASnVQ7VsEeGpy3
+	4ywZVD6NtJIZWCzdHx80h9WSK0pQlHZQEAcJFCnc0otsumOY770dORPcZUks+S56tk0vawXcEY7Vf
+	fVUv/sCNTvcnSu0s5zs988OOqSs70oRnZtiSV1/PnWeFqZK+MEO5TEktnI+qOoOi+2W4=;
+Received: from 214.173.214.35.bc.googleusercontent.com ([35.214.173.214] helo=esm19.siteground.biz)
+	by instance-europe-west4-5ns1.prod.antispam.mailspamprotection.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1x9RvS-00000001zXx-00AO;
+	Wed, 23 Sep 2026 18:42:38 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=valla.it;
+	s=default; h=Subject:Cc:To:From:Date:list-help:list-unsubscribe:
+	list-subscribe:list-post:list-owner:list-archive;
+	bh=TTFa+4iSF+2rRPsv1XVNqEG3YD/5TbmvxW/wccxckJ0=; b=erovEHfrwiVjs6db7clhZWgHKr
+	6ePKwQ5dNEKEz+MrT3+BX+d9uRHYQeHDbvnh84YIbungUgI12aH/r75TNn8sfZxC6iKflYy6xeJxK
+	qrk9CvDXRJly/xVYVJEVnYVRODo+kZrA51xsWwKUh+SNeNJq1CbMrlVONb8OsHIFp8v8=;
+Received: from [79.45.60.29] (port=60504 helo=bywater)
+	by esm19.siteground.biz with essmtpa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <francesco@valla.it>)
+	id 1x9RvF-00000000Eam-2iOy;
+	Wed, 23 Sep 2026 18:42:25 +0000
+Date: Wed, 23 Sep 2026 20:42:23 +0200
+From: Francesco Valla <francesco@valla.it>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	virtualization@lists.linux.dev, imx@lists.linux.dev, iommu@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
+ multiple vdevs
+Message-ID: <arP5AvA51GHrI8aN@bywater>
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+ <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
+ <arKiOCGrWAKyc-bc@p14s>
+ <arLawAw6kgFT2e0W@bywater>
+ <arP06mWDehsIDh5s@p14s>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/7] describe RTL8125 PCIe NICs on Rockchip boards (and
- add DT binding)
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Sebastian Reichel <sebastian.reichel@collabora.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org
-References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
- <CAMuHMdXMjxgj+pT5A=jd_A5BVQctHXJqeiU4EhPA_ZSANZAAmQ@mail.gmail.com>
-Content-Language: en-US
-From: Ricardo Pardini <ricardo@pardini.net>
-In-Reply-To: <CAMuHMdXMjxgj+pT5A=jd_A5BVQctHXJqeiU4EhPA_ZSANZAAmQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arP06mWDehsIDh5s@p14s>
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - esm19.siteground.biz
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - valla.it
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-SGantispam-id: 9c629b469a52fe283a2b70925f25c217
+X-AntiAbuse: ID - 9c629b469a52fe283a2b70925f25c217
+AntiSpam-DLS: false
+AntiSpam-DLSP: 
+AntiSpam-DLSRS: 
+AntiSpam-TS: 1.0
+CFBL-Address: feedback@antispam.mailspamprotection.com; report=arf
+CFBL-Feedback-ID: 1x9RvS-00000001zXx-00AO-feedback@antispam.mailspamprotection.com
+Authentication-Results: outgoing.instance-europe-west4-5ns1.prod.antispam.mailspamprotection.com;
+	iprev=pass (214.173.214.35.bc.googleusercontent.com) smtp.remote-ip=35.214.173.214;
+	auth=pass (LOGIN) smtp.auth=esm19.siteground.biz;
+	dkim=pass header.d=valla.it header.s=default header.a=rsa-sha256;
+	arc=none
 
-On 22/09/2026 11:17, Geert Uytterhoeven wrote:
-> Hi Ricardo,
+On Wed, Sep 23, 2026 at 09:48:58AM -0600, Mathieu Poirier wrote:
+> On Tue, Sep 22, 2026 at 10:19:48PM +0200, Francesco Valla wrote:
+> > On Tue, Sep 22, 2026 at 09:43:52AM -0600, Mathieu Poirier wrote:
+> > > On Wed, Sep 16, 2026 at 11:10:57PM +0200, Francesco Valla wrote:
+> > > > Add rings for multiple vdevs, as well as the required virtio nodes for
+> > > > I2C, SPI and GPIO functionalities. On top of that, add example
+> > > > peripherals using all of them.
+> > > > 
+> > > > NOTE: this is a Proof-Of-Concept, not meant to be integrated!
+> > > > 
+> > > > Signed-off-by: Francesco Valla <francesco@valla.it>
+> > > > ---
+> > > >  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++++++++++--
+> > > >  1 file changed, 119 insertions(+), 9 deletions(-)
+> > > > 
+> > > > diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> > > > index bd14ba28690c..dfa3b122ac5f 100644
+> > > > --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> > > > +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
+> > > > @@ -53,6 +53,32 @@ button-k3 {
+> > > >  		};
+> > > >  	};
+> > > >  
+> > > > +	gpio-keys-virtio {
+> > > > +		compatible = "gpio-keys-polled";
+> > > > +		poll-interval = <100>;
+> > > > +
+> > > > +		button-v1 {
+> > > > +			label = "Button V1";
+> > > > +			linux,code = <BTN_3>;
+> > > > +			gpios = <&v_gpio 23 GPIO_ACTIVE_LOW>;
+> > > > +		};
+> > > > +
+> > > > +		button-v2 {
+> > > > +			label = "Button V2";
+> > > > +			linux,code = <BTN_4>;
+> > > > +			gpios = <&v_gpio 24 GPIO_ACTIVE_LOW>;
+> > > > +		};
+> > > > +	};
+> > > > +
+> > > > +	leds {
+> > > > +		compatible = "gpio-leds";
+> > > > +
+> > > > +		led {
+> > > > +			gpios = <&v_gpio 18 GPIO_ACTIVE_HIGH>;
+> > > > +			label = "LED V";
+> > > > +		};
+> > > > +	};
+> > > > +
+> > > >  	reg_usdhc2_vmmc: regulator-usdhc2 {
+> > > >  		compatible = "regulator-fixed";
+> > > >  		off-on-delay-us = <12000>;
+> > > > @@ -89,11 +115,6 @@ linux,cma {
+> > > >  			linux,cma-default;
+> > > >  		};
+> > > >  
+> > > > -		rsc_table: rsc-table@2021e000 {
+> > > > -			reg = <0 0x2021e000 0 0x1000>;
+> > > > -			no-map;
+> > > > -		};
+> > > > -
+> > > 
+> > > Why is the resource table removed?  There is no mention of that in the
+> > > changelog...
+> > >
+> > 
+> > You are obviously right, the commit message here should have been a
+> > poem, not a form of hermetic poetry. My bad.
+> > 
+> > The resource table here is causing problems with how Zephyr is managing
+> > it at its side. If it is kept in a separate memory location and copied
+> > there at runtime by the remote processor firmware during its startup
+> > (which is the current Zephyr behavior), then there might be a race
+> > condition when the aforesaid firmware is loaded and started by Linux
+> > *and* at least one of the vdev drivers (here including rpmsg_bus) is
+> > built-in. In this case, the copy of the resource table done by the
+> > remote processor might - depending on the async execution of the two
+> > processors - overwrite the status bit set by the Linux driver:
+> > 
+> >   Firmware load and startup (echo start > /sys/.../state)
+> >                            |
+> > 			   |
+> > 			   V
+> >   The vdev devices get registered (by register_virtio_device())
+> >                            |
+> > 			   |
+> > 			   V
+> >   If a driver is built-in, it probes and sets the vdev status
+> >   inside the resource table @rsc-table.
+> >                            .
+> > 			   . (in the mean time)
+> > 			   .
+> >   The remote processor starts up and copies the resource table from its
+> >   dedicated section to @rsc-table.
+> > 
+> > Depending on the system load and the complexity of the firmware, the two
+> > operations can happen in whatever sequence, causing a race condition.
 > 
-> On Thu, 10 Sept 2026 at 22:08, Ricardo Pardini via B4 Relay
-> <devnull+ricardo.pardini.net@kernel.org> wrote:
->> Several Rockchip rk35xx boards carry on-board Realtek RTL8125 2.5GbE
->> NICs whose PCI function nodes are not described in the DT. Describing
->> them allows for stable ethernetN aliases (matching the GMAC alias
->> convention on these boards) and lets U-Boot's fdt_fixup_ethernet()
->> inject mac-address properties from its ethaddr/ethNaddr env, so MACs
->> stay stable across boots and U-Boot and kernel MAC match.
->>
->> Tested on a NanoPC-T6: /sys/bus/pci/devices/0004:41:00.0/of_node ->
->> /sys/firmware/devicetree/base/pcie@fe190000/pcie@0,0/ethernet@0,0 and
->> u-boot correctly adds local-mac-address property there which is
->> correctly picked up kernel-side:
+> This would happen regardless of this patchset.
+>
+
+Correct, *if* the remote processor is copying the resource table to a
+specific location and expects the host to use that. On Zephyr (which is
+clearly outside the scope here) this can be enabled through the
+CONFIG_OPENAMP_COPY_RSC_TABLE option. I am keeping that disabled, and
+removing the rsc-table node here.
+
+I am planning to reason on this and propose a proper fix in a separate
+patchset.
+
+> > 
+> > This is somewhat masked if vdev drivers are built as modules, as the
+> > devices does not probe immediately but only after the modules have been
+> > loaded, giving the remote processor time to start. Note that this is not
+> > a solution! but a workaround.
+> > 
+> > If the rsc-table node is not there, the startup logic falls back to the
+> > classic rproc_elf_find_loaded_rsc_table().
 > 
-> Have you tested this at 2.5Gbps? With which firmware?
-> I am asking because I have problems at 2.5Gbps using the firmware from
-> linux-firmware (on a different platform, though)
-> https://lore.kernel.org/CAMuHMdXPAeHoeaQbM9rXbXukoMbFV+0k28n6sRMw8XF8720WUA@mail.gmail.com
+> We can't remove @rsc-table to make a problem go away.  
+> 
 
-Hi Geert, yes, the RTL8125's on those boards work at 2.5gbps just fine 
-(both with and without the fixed-function nodes in this series). They do 
-get quite warm at 2.5gbps. I'm using one of those el-cheapo 8-port 
-2.5gbps switches.
+I need to re-take a look at the NXP SDK to understand what's the real
+purpose of having the rsc-table here. Judging from the commit message
+that introduced support for such facility [1], it seems the SDK is not
+really using it.
 
-Currently:
+Maybe someone from NXP can comment on this?
 
-[    3.254450] r8169 0002:21:00.0 eth0: RTL8125B, 8e:b4:90:97:32:30, XID 
-641, IRQ 124
-...
-[   10.480872] r8169 0002:21:00.0 end0: Link is Up - 2.5Gbps/Full - flow 
-control rx/tx
+> > 
+> > This is specific to i.MX platforms [1] and is probably not normally an
+> > issue because - as stated in [1] - the offical SDK from NXP seems not
+> > to check the status inside the resource table.
+> > 
+> > > >  		vdev0vring0: vdev0vring0@a4000000 {
+> > > >  			reg = <0 0xa4000000 0 0x8000>;
+> > > >  			no-map;
+> > > > @@ -105,12 +126,42 @@ vdev0vring1: vdev0vring1@a4008000 {
+> > > >  		};
+> > > >  
+> > > >  		vdev1vring0: vdev1vring0@a4010000 {
+> > > > -			reg = <0 0xa4010000 0 0x8000>;
+> > > > +			reg = <0 0xa4010000 0 0x1000>;
+> > > > +			no-map;
+> > > > +		};
+> > > > +
+> > > > +		vdev2vring0: vdev2vring0@a4011000 {
+> > > > +			reg = <0 0xa4011000 0 0x2000>;
+> > > > +			no-map;
+> > > > +		};
+> > > > +
+> > > > +		vdev2vring1: vdev2vring1@a4013000 {
+> > > > +			reg = <0 0xa4013000 0 0x2000>;
+> > > > +			no-map;
+> > > > +		};
+> > > > +
+> > > > +		vdev3vring0: vdev3vring0@a4015000 {
+> > > > +			reg = <0 0xa4015000 0 0x2000>;
+> > > > +			no-map;
+> > > > +		};
+> > > > +
+> > > > +		vdev4vring0: vdev4vring0@a4017000 {
+> > > > +			reg = <0 0xa4017000 0 0x4000>;
+> > > > +			no-map;
+> > > > +		};
+> > > > +
+> > > > +		vdev5vring0: vdev5vring0@a401B000 {
+> > > > +			reg = <0 0xa401B000 0 0x2000>;
+> > > > +			no-map;
+> > > > +		};
+> > > > +
+> > > > +		vdev5vring1: vdev5vring1@a401D000 {
+> > > > +			reg = <0 0xa401D000 0 0x2000>;
+> > > >  			no-map;
+> > > >  		};
+> > > >  
+> > > > -		vdev1vring1: vdev1vring1@a4018000 {
+> > > > -			reg = <0 0xa4018000 0 0x8000>;
+> > > > +		vdev5vring2: vdev5vring2@a401F000 {
+> > > > +			reg = <0 0xa401F000 0 0x1000>;
+> > > >  			no-map;
+> > > >  		};
+> > > >  
+> > > > @@ -149,8 +200,67 @@ &cm33 {
+> > > >  		 <&mu1 3 1>;
+> > > >  	mbox-names = "tx", "rx", "rxdb";
+> > > >  	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
+> > > > -			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
+> > > > +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
+> > > > +			<&vdev3vring0>, <&vdev4vring0>,
+> > > > +			<&vdev5vring0>, <&vdev5vring1>, <&vdev5vring2>;
+> > > 
+> > > Who is using vdev5 vrings?  
+> > > 
+> > 
+> > Another thing that should have been in the commit message. Vdevs are
+> > defined, in the Zephyr application I am using as PoC, as follows:
+> > 
+> >  - vdev0: RPMSG (tx and rx vrings)
+> 
+> To be backward compatible, there has to be a way to make vdev0 defaulting to
+> RPMSG.  It would also be nice if bindings were define for RPMSG so that it can
+> show up in the list of remoteproc-virtio devices like i2c, gpio and others.
+>
 
-# sensors r8169_2_2100:00-mdio-0
-r8169_2_2100:00-mdio-0
-Adapter: MDIO adapter
-temp1:        +52.0°C  (high = +120.0°C)
+What vdev type is inside vdev0 is up to the resource table (i.e., to the
+firmware running on the remote processor), not the remoteproc-virtio
+framework.
 
-I'm using whatever is in Armbian's armbian-firmware package:
-
-# ethtool -i end0 | grep -i firmware
-firmware-version: rtl8125b-2_0.0.2 07/13/20
-
-# sha256sum /lib/firmware/rtl_nic/rtl8125b-2.fw
-529bf1c25c97ff52b401090d00ff89cc22351012336e5a0c9662728a3ee909ef 
-/lib/firmware/rtl_nic/rtl8125b-2.fw
-
-
-mvg,
-Ricardo
+Defining bindings for rpmsg would today be... pointless? Since no
+hardware needs to be described for it. The same goes for virtio-can and
+virtio-entropy.
 
 > 
-> Thanks!
+> >  - vdev1: entropy (single request vring)
+> >  - vdev2: GPIO (request and event vrings)
+> >  - vdev3: I2C (single request vring)
+> >  - vdev4: SPI (single request vring)
+> >  - vdev5: CAN (tx, rx and control vrings)
+> > 
+> > vdev5 is not represented inside the devicetree because the can-virtio
+> > driver registers a single CAN network device and has thus no need for
+> > such representation.
 > 
-> Gr{oetje,eeting}s,
+> Then why is it part of the remoteproc's memory-regions?
 > 
->                          Geert
-> 
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-> 
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                  -- Linus Torvalds
+
+Because a vring description needs to be present for it, or the
+remoteproc-virtio won't be able to fill the entry inside the resource
+table.
+
+> > 
+> > > >  	status = "okay";
+> > > > +
+> > > > +	virtio {
+> > > > +		#address-cells = <1>;
+> > > > +		#size-cells = <0>;
+> > > > +
+> > > > +		vdev@2 {
+> > > > +			reg = <2>;
+> > > > +
+> > > > +			v_gpio: gpio {
+> > > > +				compatible = "virtio,device29";
+> > > > +				gpio-controller;
+> > > > +				#gpio-cells = <2>;
+> > > > +				interrupt-controller;
+> > > > +				#interrupt-cells = <2>;
+> > > > +			};
+> > > > +		};
+> > > > +
+> > > > +		vdev@3 {
+> > > > +			reg = <3>;
+> > > > +
+> > > > +			i2c {
+> > > > +				compatible = "virtio,device22";
+> > > > +				#address-cells = <1>;
+> > > > +				#size-cells = <0>;
+> > > > +
+> > > > +				eeprom@50 {
+> > > > +					compatible = "atmel,24c1025";
+> > > > +					reg = <0x50>;
+> > > > +				};
+> > > > +			};
+> > > > +		};
+> > > > +
+> > > > +		vdev@4 {
+> > > > +			reg = <4>;
+> > > > +
+> > > > +			spi {
+> > > > +				compatible = "virtio,device2d";
+> > > > +				#address-cells = <1>;
+> > > > +				#size-cells = <0>;
+> > > > +
+> > > > +				sram@0 {
+> > > > +					compatible = "microchip,mchp23k256";
+> > > > +					reg = <0>;
+> > > > +					spi-max-frequency = <20000000>;
+> > > > +				};
+> > > > +
+> > > > +				lcd@1 {
+> > > > +					compatible = "adafruit,yx240qv29", "ilitek,ili9341";
+> > > > +					reg = <1>;
+> > > > +					spi-max-frequency = <10000000>;
+> > > > +					dc-gpios = <&v_gpio 21 GPIO_ACTIVE_HIGH>;
+> > > > +					reset-gpios = <&v_gpio 20 GPIO_ACTIVE_HIGH>;
+> > > > +					rotation = <90>;
+> > > > +				};
+> > > > +			};
+> > > > +		};
+> > > > +	};
+> > > >  };
+> > > >  
+> > > >  &eqos {
+> > > > 
+> > > > -- 
+> > > > 2.55.0
+> > > >
+> > 
+> > Thank you!
+> > 
+> > Regards,
+> > Francesco
+> > 
+> > 
+
+Thank you for the discussion - is helping in defining further
+requirements and constraints.
+
+Regards,
+Francesco
+
+[1] https://lore.kernel.org/all/20240719-imx_rproc-v2-2-10d0268c7eb1@nxp.com/
+
 
