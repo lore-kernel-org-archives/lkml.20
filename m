@@ -1,248 +1,117 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139D22FDC20
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F5030E82D;
+	Wed, 23 Sep 2026 01:17:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126195; cv=none; b=KDuJ9shQoJzq2XkrBLSMlMVRMp7PYrfiZ+S7ImdKyyRz5145KRxJpd0YFYU7CkC+gmmKuZdHPVu+RcuLTKGfgqOcfooWE9+KC/cpmuXgZPBeSUCMpJt6WRB7pqsEMdjz7XRPbB6aRi3SBV22zq/IhiNxzCQYttJN8U3dbM2R3Bk=
+	t=1790126234; cv=none; b=Ij9DRRvfPncyhGC4GMAOyMDHNo/I8MwDDNWqDhJiWHnLets1izKm9pLXKmJoDlMXi73EISbDNp1cL27jDNRW+3oxARdJtIvF6HO8T4pPxm8uJR2priRxmjp2zLOe2t8iGLSWU/udY9MdKCcc0TG3ucjblJTZAcaoa9lMIoXgNag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126195; c=relaxed/simple;
-	bh=a2c2CW6PypfgOVWO7cUHyksDLEj6SEFvukGjc6yON3M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VNu2tetUJ2vwr7uLkJQYX59NbFwh5u5PTD2P6c59gGamFBYIoDHcm07ss7klrUY+yJ/2yr3pHUfN2vh0q9yrMT3w2sjE1n5Iiq+yxyQtU2xwWzQT51T/CuX+I6nJCKqjBwKGpwOOXbi0673B7yywiWAwFXoKLoeEQeAjvZoCIWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ol+x+Ekw; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790126234; c=relaxed/simple;
+	bh=rISwRDfIka2ykQycQxwOWFfGe9m5G7fX1PQYgwLwS+g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aL3V+MoUfxzNRIuFKjfHF7Wd20gG3+Wos55GF/TtapQbWhsZ5fseP5Q/lcDZtM0jGZCEtIVSCwvAIOUm309Lp+rb7dHfUDiUPWeN5bvHTeaO4X2LLbC/dORVbkITFJ2h/RTfbHKEBdqmTWanQ3452h5upVHL33rfE9nJkt646mE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mxXSPjG7; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ol+x+Ekw"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6188so1856585ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:16:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790126193; x=1790730993; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5lWji8UmxNSsnkxKoH/cSiuyuZZ53U03RDNiUtRnj4I=;
-        b=ol+x+EkwHJFMsHk/0MU7eAfc26OQTzd/g2DRb85cFN8pcVG8i0IRWPJd2d/MOjFl6V
-         M935asisjE/4cifmNBITRlMx8T/RlMLtNleaRNb8BzF2tM5vpKAVorznpWNn3GzBnxgu
-         kTChSchbDdiFo5n4Nv7Jf1z/iCZ5EQwZHvgEuRNlPpQ7wem7W3XiNK/77yrl4KK9eIOS
-         rIuS6lGdT+LLRRqC3BSg4BlDppUY0wGcZlioTmZfgO0D4bqRHYTeXWn/3tU8d6xIj3dY
-         ad49EWtIWcO+K8a8rNzcYACBn7AjEIH3tyxoczHK5kEFNCLIingNLOScuZ2ZhtQ+BRjd
-         7ICg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790126193; x=1790730993;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5lWji8UmxNSsnkxKoH/cSiuyuZZ53U03RDNiUtRnj4I=;
-        b=g2xwcZdOxPDaj6I6caQCad8mCGUQuzb/Bzk/cbAioMY8yx4pPe/jvxJJRiKce5xhFC
-         S8ceBTSzQSwGB3hRhv+RCJKFr6wmUJ+YBUPhCH5X+ZLYx72DXEBwo3jq/F0MiQX/qVsP
-         +obb+hPkY87Zuc0cJDgkW8qGn+7DQd3u4P0OkaNcuot/ewBzpD85tQ/QK4kUQm0O9g+7
-         Kk8ugk9cZeHZf7c17AczY/ObAVvSFYfkMsEdySFqeCVYF4mmn3w3sda81+WN6wBHAoQK
-         qq/LXvYfQa3NbNV1KJlsI+O7LS6ByZUsFqNayWQyStOiGH0N/pfMf7XUpa7YjPKkjak9
-         yNtg==
-X-Forwarded-Encrypted: i=1; AKwUvBwuANi5JJpviA1X9DQJ7DZNrdmwhrX0kFVsSpN/o71ohbKOBwuOiKwcr5r5qbbVFsiV4sZC3/q9CXGYI1w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLqyZZKk7MYHPVt8wZROXh0LOkwJpicwYjOQl/znqCw8jyUOWG
-	z1chJyHyYNMmf2YOoXKs7KJianY4yJ3YW1F0UQm//0QnV3czuCfD3qwt
-X-Gm-Gg: AYBFou2uaytTwDNVtYqG85QnFkd9FRy3gtY0yD0pNRkP0oBfPatD+w5t/rVlHaFE/fI
-	OXqtnEZeui+GsJpxO81tTahG2NfB4j9ohHxjyvJXd6DFXYOGLCIrBJ/pV/d0shiom70no8Fv3+x
-	h2AfdFoXg5eZ2KEFfSXkQGFu0anN/emjyXSRAdm+qF48hCF7L/qcpWZ1DYMI8me+7EFUcjQKpm1
-	rGir5L8uSlA8zOITANXjvPXj6Yqte4IKgsMqSkkLznwK6Qgie0wr2nXXzBw/Qz3WR4JpJ3qvRO0
-	FjQHs5C2hpik1IaXN6HiRHwIUqy0Yqc8BuXYeHtIjCLQjTMhTdL1UsfaDQnzCeJhSWfD9hdQp8V
-	Nlci9YGq+b7HQS7y5MqM9Rk7CYIq6poQXUlFLOELIBEA/G5fFgG04xIdCboXg4re9ce1H8Y157K
-	6q9jrSjFSPS2I2pDpfdpFLHRrlCg1TLll9Zjh+xzWDmk2zkj0Z3bjmdxcdUzAIu63weGdHxuo=
-X-Received: by 2002:a17:90b:3d8e:b0:39d:8794:5564 with SMTP id 98e67ed59e1d1-3a07e568a05mr1067626a91.12.1790126193148;
-        Tue, 22 Sep 2026 18:16:33 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5db05dsm2499195ad.49.2026.09.22.18.16.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 18:16:30 -0700 (PDT)
-Date: Wed, 23 Sep 2026 10:16:26 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ntfs: fail the mount when $MFT needs its own extent
- records
-Message-ID: <arMoap0ZgeORuktT@hyunchul-PC02>
-References: <20260922153931.1976405-1-matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mxXSPjG7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790126232; x=1821662232;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=rISwRDfIka2ykQycQxwOWFfGe9m5G7fX1PQYgwLwS+g=;
+  b=mxXSPjG7aUKk+qVddaaVCxAmGRuF/2dljnO7y1zJyHm4n52IxG2uZ8ct
+   FQ7xk7DKFY6OAlBviLbWYUMwXY+rbcFgW0NKMqHJ4q8xX3FJP8+jMpQ2S
+   YSBaQdfexAL2nM1BwV3jpGXFvnfjE5qzJkpaAFIioTjqPDXJYGOmJSq+J
+   7FhGA/1mIT0YJcbGs57/UO/bVszUJFFTOFCUEiMEebCiPXciS0fua+JKb
+   4h1KUIyXhhDoDIiBCTYDNyxBHZv3uo/GHkbNbn7oagPeImxgpBX+e4auF
+   VQrhePTvMfPZZnxACvMUa9xIH7zUFPpqcYO6Bbh4w+EjnnbPMScOWJCPQ
+   A==;
+X-CSE-ConnectionGUID: NEZOAbjlQ4e5fQGdHyjglw==
+X-CSE-MsgGUID: B810Pr0EQ/+0LMuVjx1iCw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90893282"
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="90893282"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 18:17:11 -0700
+X-CSE-ConnectionGUID: G3+vdjSDTIKGG05c/kqT+Q==
+X-CSE-MsgGUID: Sea6fTbRRU+iGsy7ttEHww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
+   d="scan'208";a="273566513"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 18:17:07 -0700
+Message-ID: <ddba739a-b4b5-4c0f-84f1-803857f34179@linux.intel.com>
+Date: Wed, 23 Sep 2026 09:17:05 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260922153931.1976405-1-matthias.goergens@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/4] KVM: TDX: Track configurable CPUID bits allowed by
+ KVM
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+Cc: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com"
+ <seanjc@google.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "kas@kernel.org" <kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+ "Maloor, Kishen" <kishen.maloor@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "nik.borisov@suse.com" <nik.borisov@suse.com>,
+ "dedekind1@gmail.com" <dedekind1@gmail.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+References: <20260917072548.2314491-1-binbin.wu@linux.intel.com>
+ <20260917072548.2314491-2-binbin.wu@linux.intel.com>
+ <a8ce5d830a04d99ec47cdc727e1761bd4031d544.camel@intel.com>
+ <5ff81fc4-d144-4b2b-8375-d2f63e0dd618@linux.intel.com>
+ <419b23f264af219da3be93a9d246b5401bbbaf13.camel@intel.com>
+ <a436a059-b003-4e84-bd11-014bf2f17e97@linux.intel.com>
+ <5168e058946a61f3be1cdb13f886dd632739d312.camel@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <5168e058946a61f3be1cdb13f886dd632739d312.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Matthias,
+On 9/23/2026 9:09 AM, Edgecombe, Rick P wrote:
+> On Wed, 2026-09-23 at 08:57 +0800, Binbin Wu wrote:
+>>> But directly configurable bits don't have any direct conntion to tdcall
+>>> queried bits. Userspace can still set those to whatever it wants regardless
+>>> of the allow list. 
+>>
+>> I didn't quite get this.
+> 
+> VE bits don't query the directly configurable bits in any case unless userspace
+> sets it up that way. So they are not involved in the problem we are trying to
+> fix here.
+> 
+>>
+>>>
+>>> So the argument is basically there is not expected to be any reason to allow
+>>> them, so save the code in the allow list. It's a "there is no point" reason.
+>>> Makes sense, but I couldn't get that from explanation.
+>>
+>> I think "not just save the code"?
+>> One argument is that if these bits are reported as allowed to userspace and
+>> userspace enabled them during init, and the guest doesn't opt-in the #VE
+>> reduction (KVM doesn't know the real setting), it would cause problem in the
+>> guest.
+> 
+> Userspace is allowed to cause problems to the guest. We shouldn't try to prevent
+> it. 
 
-On Tue, Sep 22, 2026 at 11:39:31PM +0800, Matthias Goergens wrote:
-> Mounting a crafted image hangs the mount process forever: no output, no
-> progress, unkillable, 0% CPU.  Nothing is reported, because the task is
-> not blocked on any lock lockdep tracks.  With PROVE_LOCKING and
-> DEBUG_MUTEXES on it stays silent, and only the hung-task detector
-> notices:
-> 
->   INFO: task mount:74 blocked in I/O wait for more than 30 seconds.
->   locks held by mount/74: 1
->     #0: (&type->s_umount_key#26/1) at sget_fc
-> 
-> It is a folio lock, which lockdep does not track:
-> 
->   folio_wait_bit_common      <- waits forever
->   filemap_read_folio
->   map_mft_record_folio
->   map_mft_record
->   ntfs_map_runlist_nolock
->   ntfs_attr_vcn_to_rl
->   __ntfs_read_iomap_begin
->   iomap_read_folio
->   ntfs_read_folio            <- already holds that folio's lock
->   ntfs_read_inode_mount
->   ntfs_fill_super
-> 
-> ntfs_read_inode_mount() builds the first extent of $MFT/$DATA by hand
-> and then calls ntfs_read_locked_inode() to pick up $MFT's remaining
-> attributes.  The comment there says what that assumes:
-> 
-> 	 * ... we would hope that we don't need
-> 	 * further extents in order to find the other
-> 	 * attributes belonging to $MFT. ... But lets
-> 	 * hope this never happens...
-> 
-> An image whose $MFT attribute list puts those attributes in one of
-> $MFT's own extent records makes it false.  Mapping that extent record
-> reads $MFT at a vcn the half-built runlist does not cover, so the read
-> comes back into ntfs_map_runlist_nolock() for $MFT while it already
-> holds the lock on the folio it then waits for.
-> 
-> So check it.  Mark the volume while the bootstrap is assembling $MFT's
-> runlist, and refuse to map $MFT's runlist through the general path
-> while that mark is set.  The bootstrap builds the runlist itself with
-> ntfs_mapping_pairs_decompress() and never goes through the guarded
-> path, so only the re-entrant case is rejected.
-> 
-> The mount now fails instead of hanging:
-> 
->   ntfs: (device vda): ntfs_map_runlist_nolock(): $MFT needs its own
->     extent records to describe itself. $MFT is corrupt. Run chkdsk.
->   ntfs: (device vda): ntfs_read_inode_mount(): ntfs_read_inode() of
->     $MFT failed.
-> 
-> The guard bails before the function touches anything: no search
-> context, no mapped record, no lock taken.  -EIO is not a new return
-> value here either, and all six call sites already handle a negative
-> one.  ntfs_map_runlist() and ntfs_empty_logfile() propagate it,
-> ntfs_attr_vcn_to_lcn_nolock() maps it to LCN_EIO,
-> ntfs_attr_find_vcn_nolock() passes it through, and
-> ntfs_attr_vcn_to_rl() and ntfs_write_simple_iomap_begin_non_resident()
-> only act on success, falling through to the unmapped-runlist handling
-> they already have.
-> 
-> Found by fuzzing mountable images.  Checked under qemu with KASAN,
-> PROVE_LOCKING and the hung-task detector: two crafted images hang an
-> unpatched kernel and are rejected by a patched one, and eight
-> well-formed images mount on both.
-> 
-> Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-> ---
-> The two crafted images are 28 KB each; happy to send them or put them
-> somewhere fetchable.
-> 
-> fs/ntfs3 rejects both while loading $Volume, so it is not affected by
-> these images, but I did not try fuzzing its parser.
-> 
->  fs/ntfs/attrib.c | 11 +++++++++++
->  fs/ntfs/inode.c  |  2 ++
->  fs/ntfs/volume.h |  3 +++
->  3 files changed, 16 insertions(+)
-> 
-> diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-> index c949ff765075..f94e928f145f 100644
-> --- a/fs/ntfs/attrib.c
-> +++ b/fs/ntfs/attrib.c
-> @@ -103,6 +103,17 @@ int ntfs_map_runlist_nolock(struct ntfs_inode *ni, s64 vcn, struct ntfs_attr_sea
->  		base_ni = ni;
->  	else
->  		base_ni = ni->ext.base_ntfs_ino;
-> +	/*
-> +	 * ntfs_read_inode_mount() builds $MFT's runlist itself, so nothing
-> +	 * should reach here for $MFT.  A crafted image can: the read that
-> +	 * gets here already holds the $MFT folio lock it would wait on.
-> +	 */
-> +	if (unlikely(NVolMftBootstrap(ni->vol) &&
-> +		     base_ni == NTFS_I(ni->vol->mft_ino))) {
-> +		ntfs_error(ni->vol->sb,
-> +			   "$MFT needs its own extent records to describe itself. $MFT is corrupt. Run chkdsk.");
-> +		return -EIO;
-> +	}
->  	if (!ctx) {
->  		ctx_is_temporary = ctx_needs_reset = true;
->  		m = map_mft_record(base_ni);
-> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-> index a777de8a80c7..55f6d3334238 100644
-> --- a/fs/ntfs/inode.c
-> +++ b/fs/ntfs/inode.c
-> @@ -2150,7 +2150,9 @@ int ntfs_read_inode_mount(struct inode *vi)
->  			 * ntfs_read_inode() on extents of $MFT/$DATA. But lets
->  			 * hope this never happens...
->  			 */
-> +			NVolSetMftBootstrap(vol);
->  			err = ntfs_read_locked_inode(vi);
-> +			NVolClearMftBootstrap(vol);
+But userspace doesn't know these bits are not supported by TDX module and KVM.
+If KVM report them as supported, and it causes problems, we cannot say it's
+userspace's fault.
 
-The scope of the bootstrp flag seems to be too narrow.
-The outer loop continues to call ntfs_attr_lookup() until all $DATA
-extents are enumerated. ntfs_attr_lookup() can call map_mft_record()
-also, when mapping pairs is stored in another MFT record. So the same
-folio deadlock can occur.
+> But here, I think we are saving lines of allowlist in preventing it. So the
+> reason is to have less allow list lines, not to help userspace. And that is
+> worth it IMO.
 
-I think that NVolMftBootstrap should remain set until all $DATA
-extent enumeration has completed.
-
->  			if (err) {
->  				ntfs_error(sb, "ntfs_read_inode() of $MFT failed.\n");
->  				ntfs_attr_put_search_ctx(ctx);
-> diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-> index bc85a9592245..f9ecbbe205ad 100644
-> --- a/fs/ntfs/volume.h
-> +++ b/fs/ntfs/volume.h
-> @@ -184,6 +184,7 @@ struct ntfs_volume {
->   * NV_Discard			Issue discard/TRIM commands for freed clusters.
->   * NV_DisableSparse		Disable creation of sparse regions.
->   * NV_NativeSymlinkRel		Translate absolute Windows reparse targets (native_symlink=rel).
-> + * NV_MftBootstrap		Mount is still assembling $MFT's own runlist.
->   */
->  enum {
->  	NV_Errors,
-> @@ -203,6 +204,7 @@ enum {
->  	NV_DisableSparse,
->  	NV_NativeSymlinkRel,
->  	NV_SymlinkNative,
-> +	NV_MftBootstrap,
->  };
->  
->  /*
-> @@ -241,6 +243,7 @@ DEFINE_NVOL_BIT_OPS(Discard)
->  DEFINE_NVOL_BIT_OPS(DisableSparse)
->  DEFINE_NVOL_BIT_OPS(NativeSymlinkRel)
->  DEFINE_NVOL_BIT_OPS(SymlinkNative)
-> +DEFINE_NVOL_BIT_OPS(MftBootstrap)
->  
->  static inline void ntfs_inc_free_clusters(struct ntfs_volume *vol, s64 nr)
->  {
-> 
-> base-commit: 40288c9206c17eb66a603262e06a58d300d0f279
-> -- 
-> 2.55.0
-> 
-
--- 
-Thanks,
-Hyunchul
