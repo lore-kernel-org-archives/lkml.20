@@ -1,231 +1,274 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC0548122F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:06:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED43C48A2BC;
+	Wed, 23 Sep 2026 15:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175976; cv=none; b=uDNm2q0DxkahaH2ZPuEf/w9xrMVffVG7ZB9GQZmmLB8korK7Hatgb/Hgz7jKfoSA0QsPSRh5EKAIN4fAkkrakpItXh8Ca8vhU+l+SVtV1VaikNU1iWVVTLQOVfsP3vcOUOSaIXBwtPaMMybIpIk+mYrTxvXaY1Z5JJJjIGzyCqU=
+	t=1790175999; cv=none; b=N3cmdgE+Gv3PfONIjFnN/7lsfnfoq1QRGDjGW7PZfnV6BGg8jhVA4lr5YOommTn44GxdhEV8ByU4cTjIDTD4BK7gvOV3lkwu57T8wFsaWFIehnXwzm0WE/E+HlK5ssKS3vPn1u8wUY41bI8PZvQ+Ob9HoGuz2BDuT2o+BXfJ9QE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175976; c=relaxed/simple;
-	bh=W8mCp3SJrCu4CBEqSbc4yuvWfyqV1/A4EX/v4gQIyvI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SyNF6EpwrlDNR/YCviJV+aDeX+h5KnujC486tTY/ZSdtRIHeaPeXRaXTxrAF9dUb6O0pq56Rg3j73TF3hj11ObiVWDIRiI1OPn7tt8bc5m7BJ7kYWOgLFTgLiwdK2jlKRdt7zm48WQ2aAoCjxkip4d9icGGs46/vtkQZZibVpGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=dUhDHp1O; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1790175999; c=relaxed/simple;
+	bh=VZu3zFzg5OUy2VEd/K6zWxjpPiOy/+foYzjQg7JwVOE=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=d5r/8a1cgej86LDKMqkzNG5MnlwdH1AwqvqprGsW41G5gNz2k5kSK+pNDlAmvt6ws14rFFCUQTt5seaUSigTtCkk7F1l2wjRQBVThj4o/8JbuVreOv7+MjpuTugb51gAwldRZSJDkhl04qKmCZTDSLMb+3Zcc+eIXIX4c+MGox8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hWJDp+Ng; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="dUhDHp1O"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id D1A26240101
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:06:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1790175969;
-	bh=uEgYgG2jtpKqiEwQEWofsJ4lh37upe+OlrEoikITC34=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=dUhDHp1OUpnfUasNBkFTQn3Qy1oMMMERHkE3RzNc9KDn9ean8msh6xLpynV9oGOAp
-	 b09yCVlnCBmOwaFbhThbOs+v5JnskGIneGE+ztRMDsSNovkKDIfQXyt+rqezbvv81Q
-	 E/0HZ/orNvk33taziSVjvMyYtYX5vc8s7E/5b5qWz7oHr9g1PWfshGY5/krzz9BPUS
-	 +CFRtuQxpawTPFuq0pXfRpR2hsxerydyZtnvaGZtY6ioq41T9lk50E2sgMEagyoqz6
-	 G7qg3mDRMvxh/x7gjggiZq8Tgj+eIyjTuWiNGIHLb/Xqewg05xSr84ZD60swSwlIwS
-	 QYuSC6cfaSo6A==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hqgJs27jgz9rxD;
-	Wed, 23 Sep 2026 17:06:05 +0200 (CEST)
-Message-ID: <708eb7c004c0cce22d71bc8fbd68b44aa3b704a3.camel@posteo.de>
-Subject: Re: [PATCH v2 1/3] tty: serdev: Export functions to pause
- receive_buf callback calls
-From: Markus Probst <markus.probst@posteo.de>
-To: Gary Guo <gary@garyguo.net>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>
-Cc: Ayush Singh <ayush@beagleboard.org>, Johan Hovold <johan@kernel.org>, 
- Alex Elder <elder@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng
- <boqun@kernel.org>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Eric Biggers	
- <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Lorenzo Stoakes	
- <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"	
- <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Jiri Slaby	
- <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	greybus-dev@lists.linaro.org, linux-serial@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev
-Date: Wed, 23 Sep 2026 15:06:08 +0000
-In-Reply-To: <DLMQUEKCSXRS.2OBTL1GV4FXVV@garyguo.net>
-References: 
-	<20260920-rust_serdev_probe_refactor-v2-0-43b855162f5d@posteo.de>
-	 <20260920-rust_serdev_probe_refactor-v2-1-43b855162f5d@posteo.de>
-	 <2026092356-chatting-dust-3de9@gregkh>
-	 <2fcec4f3cd70a41e282505ff5c99b19e5809aead.camel@posteo.de>
-	 <DLMQUEKCSXRS.2OBTL1GV4FXVV@garyguo.net>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-qFTq82k4Jz8KYLv/i1pk"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hWJDp+Ng"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086B41F000FF;
+	Wed, 23 Sep 2026 15:06:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790175997;
+	bh=YW3yWC2QdSON2xhVQNW+HA6LXb2OY7yVJHvi+L2VQCg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=hWJDp+NgDQWVJo9sfrpRCMPRd3IBLurI/GDVJCyIKpxRQnJeylmqxBEAGiqbjT+Pn
+	 aK5aJ9tsRKspl7M+26GDo2msuFzedUOEtwUeDYAH9xXRSjaMVVNTeD6e4e+gMWTyBh
+	 7hG8VLgjFGoqVX2cgJ5tno/Yu2y+PByUZi/ktBs/vIpf5gHWMsIx7mg3CWmKOy89jd
+	 Ytipti6wp+Hb/JJdE3NCTa6gGf5xRCqqeIR1ydjCwBuYX2K3gNwv8CV+1sOHvUstma
+	 pFc13BhIEdlKdijz9vaK1Y7o8ZmLQCHQ5MFdASXovyoDbNqgaUcrdqg3aJKul9c8Gq
+	 AVwPjv3vyshGA==
+Subject: Re: [PATCH] ipv6: exthdrs: copy old IPv6 header before
+ skb_mac_header_rebuild() in ipv6_rpl_srh_rcv()
+From: netdev-bot+sashiko@kernel.org
+To: benquike@gmail.com
+Cc: dsahern@kernel.org, idosch@nvidia.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, alex.aring@gmail.com,
+ horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 23 Sep 2026 15:06:36 +0000
+Message-ID: <179017599653.2160803.10920272565185423743@kernel.org>
+In-Reply-To: <20260919210618.3028986-1-benquike@gmail.com>
+References: <20260919210618.3028986-1-benquike@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
---=-qFTq82k4Jz8KYLv/i1pk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Critical: 0 · High: 1 (1) · Medium: 1 · Low: 0
 
-On Wed, 2026-09-23 at 14:52 +0100, Gary Guo wrote:
-> On Wed Sep 23, 2026 at 2:31 PM BST, Markus Probst wrote:
-> > On Wed, 2026-09-23 at 12:35 +0200, Greg Kroah-Hartman wrote:
-> > > On Sun, Sep 20, 2026 at 02:29:58PM +0000, Markus Probst wrote:
-> > > > These functions will be used to simply the serdev rust abstraction.=
- It
-> > > > also contributes to the fixing of 2 race conditions in the serdev r=
-ust
-> > > > abstraction.
-> > > >=20
-> > > > Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> > > > ---
-> > > >  drivers/tty/serdev/core.c           | 50 +++++++++++++++++++++++++=
-+++++++++++-
-> > > >  drivers/tty/serdev/serdev-ttyport.c | 38 +++++++++++++++++++++++++=
-+++
-> > > >  include/linux/serdev.h              |  6 +++++
-> > > >  3 files changed, 93 insertions(+), 1 deletion(-)
-> > > >=20
-> > > > diff --git a/drivers/tty/serdev/serdev-ttyport.c b/drivers/tty/serd=
-ev/serdev-ttyport.c
-> > > > index bab1b143b8a6..e8aa89e733bd 100644
-> > > > --- a/drivers/tty/serdev/serdev-ttyport.c
-> > > > +++ b/drivers/tty/serdev/serdev-ttyport.c
-> > > > @@ -7,8 +7,10 @@
-> > > >  #include <linux/tty.h>
-> > > >  #include <linux/tty_driver.h>
-> > > >  #include <linux/poll.h>
-> > > > +#include "../tty.h"
-> > > > =20
-> > > >  #define SERPORT_ACTIVE		1
-> > > > +#define SERPORT_PAUSE_RX	2
-> > > > =20
-> > > >  struct serport {
-> > > >  	struct tty_port *port;
-> > > > @@ -32,6 +34,14 @@ static size_t ttyport_receive_buf(struct tty_por=
-t *port, const u8 *cp,
-> > > >  	if (!test_bit(SERPORT_ACTIVE, &serport->flags))
-> > > >  		return 0;
-> > > > =20
-> > > > +	if (test_bit(SERPORT_PAUSE_RX, &serport->flags))
-> > > > +		return 0;
-> > > > +
-> > > > +	/*
-> > > > +	 * Ensure writes by the driver are visible before allowing traffi=
-c to resume.
-> > > > +	 */
-> > > > +	smp_mb__after_atomic();
-> > >=20
-> > > This scares me.  Why not use a real lock?=C2=A0
-> > >=20
-> > I can use locks to make it less "fragile". But I don't I think I need
-> > them.
-> >=20
-> > > WHat's the issue here, you
-> > > need this to be "flushed" before this call:
-> > >=20
-> > > > +
-> > > >  	ret =3D serdev_controller_receive_buf(ctrl, cp, count);
-> > >=20
-> > > here?
-> > >=20
-> > > And you just tested a bit, you didn't set a bit, so what are you tryi=
-ng
-> > > to ensure is written exactly?
-> > This should be an acquire load operation (paired with the release store
-> > operation in `ttyport_resume_rx`).
->=20
-> Then you should use `test_bit_acquire`.
-Ok. For some reason there is no equivalent `set_bit_release`.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
->=20
-> However, this isn't sufficient because there's no synchronization between=
- this
-> bit test with the bit set inside pause_rx.
-Will be replaced with a mutex in the next revision.
+- [High] Incomplete/inverted fix in ipv6_rpl_srh_rcv()
+  (net/ipv6/exthdrs.c): moving `memmove(skb->data, oldhdr, sizeof(struct…
+- [Medium] Commit message inaccuracies plus an undisclosed functional
+  change.
 
-Thanks
-- Markus Probst
+Pre-existing issues:
+- [High] ipv6_rpl_srh_rcv() (net/ipv6/exthdrs.c) mutates the skb data
+  area without ever guaranteeing exclusive ownership of it, unlike every…
 
->=20
-> Best,
-> Gary
+--
 
---=-qFTq82k4Jz8KYLv/i1pk
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+ipv6: exthdrs: copy old IPv6 header before skb_mac_header_rebuild() in ipv6_rpl_srh_rcv()
 
------BEGIN PGP SIGNATURE-----
+The patch moves the 40-byte memmove() that restores the saved IPv6 header
+in ipv6_rpl_srh_rcv() so that it runs before skb_reset_network_header()
+and skb_mac_header_rebuild(), and adds an explicit store of
+NEXTHDR_ROUTING into the reconstructed IPv6 header.  The stated goal is
+to keep the rebuilt MAC header from clobbering oldhdr before it is
+copied.
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqz6twbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSOk0QALLiTzfWtOf81gvgqjYo
-mhW2jo2bqdGVcOHTrqDJY4ms9BRnQmAzJyMamlKEEks3mG6I0QtCAv41lntVXHeW
-jvcOXO54yyQWxVwS+J+M+y8z//MLdvO7mb5v91vYBEY1jnMwl60PHnuKUuVTLms7
-qN+zvihG68OVGFVTInb3CPN4N93cgZkM2gNl+2r/NJxci1tYJN/DgosHvFD2n2UA
-X1ZkfXBMYxiOClRI5V0M36HL3LNM1tNa7Z32Mvl1D4ym09eUoLhPOT+EPONi65cm
-WqBwSFQrWwCffcIzetd68CG6G6C9aPjbXValmd3kUAbsxWFdahghADq35wNb1kNE
-Ga7tcuqL6lpoT46U0wTkDtp8iBk76AjoMK3RtO8SxFxdnstvCVnk8XuqL77QR6tT
-Fd0lMktEYiCm/prxsbwC9jQqRZNEWMTPKGYr21rU2mClvElu4pRceWwzuxsm8D/i
-G7T6runz97OxPDxhdjqGdXLtl8yMF6ds8S7/yxx9DqbtzLp+IhZye+HPsstIECWj
-Xf+ElC8wyTVoCHosvVx6uw1TAKj/mxnq/A2adTvxHYEEiHGOEcMxMENmqZOaKk0G
-Q1U4Ec9RqiAP9Kri1LPxf0pPmiB7rFHtcpfsd79f4KbLI2Owu/bvxqJ7pEQLLAPo
-dFPE9V81NqqyfF4mWkx7RIC0
-=m2Wa
------END PGP SIGNATURE-----
+A few questions on the commit message and the new ordering.
 
---=-qFTq82k4Jz8KYLv/i1pk--
+>     When chdr_len - pull_len < skb->mac_len (for example, an 8-byte
+>     expansion with a 14-byte Ethernet MAC header), the newly rebuilt MAC
+>     header at [skb->data - skb->mac_len, skb->data) overlaps with the old
+>     IPv6 header at [oldhdr, oldhdr + 40).
+
+[Severity: Medium]
+Is this threshold right?  With e = chdr_len - pull_len and the SRH
+directly following the IPv6 header, skb->data after the push is
+oldhdr + 40 - e, so the rebuild write region
+[skb->data - mac_len, skb->data) intersects [oldhdr, oldhdr + 40)
+whenever:
+
+    -mac_len < e < sizeof(struct ipv6hdr)
+
+So e = 30 with mac_len = 14 also clobbers oldhdr, while e <= -mac_len
+does not.  The quoted "e < skb->mac_len" appears to be neither necessary
+nor sufficient.
+
+Also, the field list:
+
+>     skb_mac_header_rebuild(skb) first overwrites the beginning of oldhdr
+>     (version, traffic class, flow label, payload_len, nexthdr, hop_limit,
+>     and the start of saddr) with the Ethernet header bytes,
+
+corresponds to e = 40 - mac_len = 26, not to the quoted 8-byte expansion
+example.  For e = 48 (the 8-byte growth case) the clobbered bytes are
+oldhdr[18..31], i.e. saddr/daddr.  Could the description be adjusted so a
+reproducer or a stable backport decision is not based on the wrong
+window?
+
+>     Moreover, oldhdr's
+>     nexthdr is only updated to NEXTHDR_ROUTING before the pull, which also
+>     gets clobbered by the overlapping MAC rebuild.
+
+Where is that pre-existing update?  At the baseline (1e24c4f2ee44) the
+only NEXTHDR_ROUTING / nexthdr assignments in net/ipv6/exthdrs.c are in
+ipv6_push_rthdr4() and ipv6_push_rthdr(), on the output side.
+ipv6_rpl_srh_rcv() never assigned the outer nexthdr, and the diff removes
+no such store.  See the inline note on the added assignment below.
+
+> diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
+> index 09a4552f7f08..f9563294c5b9 100644
+> --- a/net/ipv6/exthdrs.c
+> +++ b/net/ipv6/exthdrs.c
+> @@ -598,11 +598,12 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+>  		oldhdr = ipv6_hdr(skb);
+>  	}
+>  	skb_push(skb, chdr_len);
+> +	memmove(skb->data, oldhdr, sizeof(struct ipv6hdr));
+
+[Severity: High]
+Does this reordering just swap which of the two overlapping in-place
+copies destroys the other?
+
+The two copies alias each other, so ordering alone cannot fix both
+directions:
+
+  - recompressed SRH smaller than received (e < 40): skb->data lands
+    above oldhdr, and the old order let skb_mac_header_rebuild() clobber
+    oldhdr.  The new order fixes that case.
+
+  - recompressed SRH larger than received (e > 40): skb->data lands
+    below oldhdr, so this memmove() destination
+    [skb->data, skb->data + 40) overwrites the tail of the MAC header
+    that skb_mac_header_rebuild() is about to read.
+
+The growth case is reachable with attacker-chosen SRH fields, because
+ipv6_rpl_srh_compress() in net/ipv6/rpl.c recomputes cmpri/cmpre against
+the post-swap destination:
+
+	cmpri = ipv6_rpl_srh_calc_cmpri(inhdr, daddr, n);
+	cmpre = ipv6_rpl_srh_calc_cmpre(daddr, &inhdr->rpl_segaddr[n]);
+	...
+	seglen = (n * IPV6_PFXTAIL_LEN(cmpri)) + IPV6_PFXTAIL_LEN(cmpre);
+	outhdr->hdrlen = seglen >> 3;
+
+For a received header with n = 1, cmpri = 15, cmpre = 0, hdrlen = 3,
+pad = 7, segments_left = 1 (srh_len = 32), the swap picks segment[1] as
+the new daddr, cmpri and cmpre both recompute to 0, and the recompressed
+SRH is 40 bytes.  That is an 8-byte growth, e = 48, so with
+mac_len = 14 (set by skb_reset_mac_len() in __netif_receive_skb_core())
+skb->data = oldhdr - 8 and this memmove() overwrites the source MAC and
+EtherType.  skb_mac_header_rebuild() then copies those bytes, eight of
+which are now IPv6 header bytes, into the new MAC header:
+
+include/linux/skbuff.h:skb_mac_header_rebuild() {
+	if (skb_mac_header_was_set(skb)) {
+		const unsigned char *old_mac = skb_mac_header(skb);
+
+		skb_set_mac_header(skb, -skb->mac_len);
+		memmove(skb_mac_header(skb), old_mac, skb->mac_len);
+	}
+}
+
+The mandatory pskb_expand_head(chdr_len + skb->mac_len) taken for
+segments_left == 0 shifts data and all header offsets together, so it
+does not break the overlap, and the IFF_LOOPBACK "goto looped_back" path
+re-propagates the corruption on every iteration.  The write stays inside
+the head buffer, so this is intra-buffer corruption of the rebuilt
+link-layer header rather than an out-of-bounds access.
+
+Would it be better to break the aliasing instead of reordering, i.e.
+snapshot the 40 bytes into a local struct ipv6hdr before skb_push() and
+restore them after skb_mac_header_rebuild(), the way
+net/ipv6/rpl_iptunnel.c:rpl_do_srh_inline() already does:
+
+	memcpy(&oldhdr, ipv6_hdr(skb), sizeof(oldhdr));
+	...
+	skb_mac_header_rebuild(skb);
+	...
+	memmove(ipv6_hdr(skb), &oldhdr, sizeof(oldhdr));
+
+net/ipv6/seg6_iptunnel.c:seg6_do_srh_inline() uses the same pattern.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the write added here lands
+in an skb data area that ipv6_rpl_srh_rcv() never guarantees it owns
+exclusively.
+
+The only un-cloning step in this function is conditional on headroom and
+on the last segment, not on skb_cloned():
+
+	if (unlikely(!hdr->segments_left ||
+		     skb_headroom(skb) < chdr_len + skb->mac_len)) {
+		if (pskb_expand_head(skb, chdr_len + skb->mac_len, 0, GFP_ATOMIC)) {
+
+In the fast path (segments_left != 0 after the decrement, typical RX
+headroom of roughly 150 bytes against the roughly 62 required) a cloned
+skb reaches "hdr->segments_left--", the daddr swap, this memmove(),
+skb_mac_header_rebuild() and the memcpy() of the recompressed SRH, all on
+shared data.
+
+A clone is produced before the handler runs.  ip6_protocol_deliver_rcu()
+in net/ipv6/ip6_input.c calls raw delivery for every nexthdr, including
+NEXTHDR_ROUTING:
+
+resubmit_final:
+	raw = raw6_local_deliver(skb, nexthdr);
+	ipprot = rcu_dereference(inet6_protos[nexthdr]);
+
+and net/ipv6/raw.c:ipv6_raw_deliver() queues a data-sharing clone:
+
+			struct sk_buff *clone = skb_clone(skb, GFP_ATOMIC);
+
+			/* Not releasing hash table! */
+			if (clone)
+				rawv6_rcv(sk, clone);
+
+so a raw socket bound to protocol 43, or an AF_PACKET tap, holds a clone
+whose bytes are later copied to userspace.
+
+The sibling handlers in the same file guard against this.  ipv6_srh_rcv()
+has:
+
+	if (skb_cloned(skb)) {
+		if (pskb_expand_head(skb, 0, 0, GFP_ATOMIC)) {
+
+and ipv6_rthdr_rcv() states the rule directly:
+
+	/* We are about to mangle packet header. Be careful!
+	   Do not damage packets queued somewhere.
+	 */
+	if (skb_cloned(skb)) {
+
+Should ipv6_rpl_srh_rcv() get the same skb_cloned() check, and re-derive
+hdr/oldhdr afterwards?
+
+>  	skb_reset_network_header(skb);
+>  	skb_mac_header_rebuild(skb);
+>  	skb_set_transport_header(skb, sizeof(struct ipv6hdr));
+> +	ipv6_hdr(skb)->nexthdr = NEXTHDR_ROUTING;
+
+[Severity: Medium]
+This store is new rather than a relocation of an existing one, since the
+baseline ipv6_rpl_srh_rcv() never assigned the outer nexthdr.  It forces
+the outer nexthdr to 43 even when the received RPL SRH followed other
+extension headers, for example IPv6 header with nexthdr = HOPOPTS,
+hop-by-hop, then RPL SRH arriving via the resubmit loop in
+ip6_protocol_deliver_rcu().  Previously the reconstructed packet kept the
+original nexthdr value.
+
+Could this behavioural change be described in the changelog, or split
+into its own patch?
+
+>  
+> -	memmove(ipv6_hdr(skb), oldhdr, sizeof(struct ipv6hdr));
+>  	memcpy(skb_transport_header(skb), chdr, (chdr->hdrlen + 1) << 3);
+>  
+>  	ipv6_hdr(skb)->payload_len = htons(skb->len - sizeof(struct ipv6hdr));
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919210618.3028986-1-benquike%40gmail.com
