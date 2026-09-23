@@ -1,94 +1,145 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2A941A501;
-	Wed, 23 Sep 2026 05:44:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ADC73C1977
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142253; cv=none; b=JgE8Nuj03W0Si8nCGX1f6XUBu2Z6TJ9PGtLEnopF7nRsnovFZhHeQ3CR0Iu7yFgwVkdjnQKoDQqs8r8pVTozhLr2b2XkhUlFL3RKlq2bC8uVBqPn3G1Q8gNZktMWZNeao1NjYYE3vWlvrhKcgEfLWVXSILcR2ejeFHIGs+rjc24=
+	t=1790142260; cv=none; b=Ip86VZZ4toiO6/xMSV6vJQ5PPyYpNKMgGMoYU85SV2mmi9y4SqhVDZHt4cCxB2fqh3iOk0dCDPBeoQrOjULfOm/44qBCmTcb+RKcOf3G/phiBnrwV0QZQqM5M+P7zDZl6o6tZaKXn6pXhzOVSAXEnApzThBV3BJUtDX6vsVC3OI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142253; c=relaxed/simple;
-	bh=y74lpcnmUllGAWRFEDCby3KhL59rqalI6nEkRfcayRM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tsis4wRAVBlKQ0gmvuaGoQlM44XohYYK5TnqalDmH45ydJa5Hl4EpogOpKfis5NWgsAu2Bxo2CRfrjjaWmiZcFe1rcvxTwlgaE3o2m5h2yPk6Wqd3YA1tu4tirhe9V3kbnl/sqyjGNUBKH/DeMI/3nkVUfWyqQZhEQTPNfNSeXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mFSA0SoU; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790142260; c=relaxed/simple;
+	bh=H+S6QRvGqedLE40KpwbH09MLeOp4jRWCA9/C/tV2RNE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rUo20DCzTs3uRjfErEm/EfFDsNaZlEPw5AukkquInCHOh3O6NZzBNBHvoF7w3L2hDWNvHNQ4h5A86BoN9nrtH3/fhDbmmksx/B5cf2rJqaNDStmSC5K6016Wh8HU18GA4+MwLYwTf5EHq94zoddDN4dfFkNrrLwPsjbnBFnhML4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=MKFFvNVU; arc=none smtp.client-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mFSA0SoU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790142252; x=1821678252;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=y74lpcnmUllGAWRFEDCby3KhL59rqalI6nEkRfcayRM=;
-  b=mFSA0SoUALeFHzXZRTJkiCMztyAixUNU5l8N5b6O5bKPIvp5KzVH++x2
-   h9YXJ/1cwZykrRa9BS2gT6hB6F0VGAGOrFXS6FDcuRhmRVN5xWiFq21Pf
-   CHvbqcGwc+ntHIJblT0i2ecUX4soH5e/mScYvZrdTIlODEIoT1uNXH5yA
-   AbCMhDydX9Oa8E1M/xqsSvLxmsHGhbjxoK3RbvRkShl/ARVkeCNjfaSM9
-   Mk9DmqZFp9+YaCfWDP+5N1nrNVXTMkjquSLg8Qm1psTsK9EV8EYN1AkY2
-   wfOscZRzk1RSp/px3xytwbJ58nXyJYfX5P1jOK1CkSQRz/AP9+JqV3xOh
-   Q==;
-X-CSE-ConnectionGUID: 02GWZyyzRzmFTZpwD71v1w==
-X-CSE-MsgGUID: RqoqyhT6RFC70uDtwoFSBA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90918915"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="90918915"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 22:44:11 -0700
-X-CSE-ConnectionGUID: 8jKRAshlRr2M+xtn/ajagQ==
-X-CSE-MsgGUID: 8LWbQSsYTPKDp9GV32CKbg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="278201839"
-Received: from bradocaj-mobl.ger.corp.intel.com (HELO localhost) ([10.245.246.235])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 22:44:07 -0700
-Date: Wed, 23 Sep 2026 08:44:04 +0300
-From: Tony Lindgren <tony.lindgren@linux.intel.com>
-To: Chao Gao <chao.gao@intel.com>
-Cc: x86@kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, yilun.xu@linux.intel.com,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [RFC PATCH v2 00/10] TDX: Stop auto-generating the global
- metadata code
-Message-ID: <arNnJO3aKDlCD2Uz@tlindgre-MOBL1>
-References: <20260918132946.76533-1-chao.gao@intel.com>
+	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="MKFFvNVU"
+Received: from eig-obgw-5003b.ext.cloudfilter.net ([10.0.29.155])
+	by cmsmtp with ESMTPS
+	id 93Dvxra7Hc3Xs9Fm9x9bsR; Wed, 23 Sep 2026 05:44:13 +0000
+Received: from gator4166.hostgator.com ([108.167.190.91])
+	by cmsmtp with ESMTPS
+	id 9Fm8xGnexkH8b9Fm9xuP3b; Wed, 23 Sep 2026 05:44:13 +0000
+X-Authority-Analysis: v=2.4 cv=d6X1yQjE c=1 sm=1 tr=0 ts=6ab3672d
+ a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=1XWaLZrsAAAA:8
+ a=VwQbUJbxAAAA:8 a=8A-kgZgV7H4LFlDSZ1UA:9 a=QEXdDO2ut3YA:10
+ a=2aFnImwKRvkU0tJ3nQRT:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=k8wIUYwoqdWcXq2+0C5aEKgDwMElrhdlsI09WmfuT9Y=; b=MKFFvNVULWUi
+	Asrp/9c8+Ui6BSFTdUfJwK9TPk+JVpUVmDAr3dHnoDzz2tWYKDYZqhB6adtd8yK/s/SXXMvxis3WS
+	1RkQVUM68f+TjNoxCsS3Lvcr0SOcWtUn3VjBmm6v+DXDiZnMeVBu7+UNGMl/4N2zOAGq4uZjtdAiU
+	YX0vDPvQ312uUQmp5jcJXnd9rqkpUQ8Fp9DFr6jVODSq95c0BgjMSHX0RzBj/510P4oE1iq6hfhc5
+	dUdrdGTp7Qc46Yb3amFXAgoCvlt9/4/nGkqG6yi+Jd6+UVbA79wQlqNEqUcEysJ+32A6KFYGoRiEo
+	ycpMLj+36+EYaW+r3dcHNQ==;
+Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:33808 helo=[10.203.100.34])
+	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <gustavo@embeddedor.com>)
+	id 1x9Fm7-00000001xsk-48IZ;
+	Wed, 23 Sep 2026 00:44:12 -0500
+Message-ID: <06c50171-16b8-4f9e-9b24-61c41f1325ad@embeddedor.com>
+Date: Wed, 23 Sep 2026 14:44:07 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918132946.76533-1-chao.gao@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iio: st_sensors: add __counted_by_ptr to struct
+ st_sensor_settings
+To: Bill Wendling <morbo@google.com>, Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
+ codemender-patching+linux@google.com
+References: <20260922112111.1970872-1-morbo@google.com>
+Content-Language: en-US
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+In-Reply-To: <20260922112111.1970872-1-morbo@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 125.195.69.90
+X-Source-L: No
+X-Exim-ID: 1x9Fm7-00000001xsk-48IZ
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.34]) [125.195.69.90]:33808
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 28
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfNK/JeSaroJpTnEzHN6v2/g8oc2rK5GjYhEJiYng5mtznnrMp1hv9ksUCskmczwed+YAIM1CjFo+lUF/D22kG1eQut2P+E4jQGwtZFH2OwTKGxYZqQHu
+ jlauQwRa23VYYoNdOd6E9TBxbWHulN1UmfJYD4kY2kDDSY+w537gUIHWp9mgCCZHqxh9k08zIl/RZHUzhkwGBygEmmJLococDZ5qdgOapYwPvmsSSbgiZcR2
 
-On Fri, Sep 18, 2026 at 06:29:19AM -0700, Chao Gao wrote:
-> This series cleans up the TDX global metadata code. It has two goals:
-> 
-> 1. Replace the generated code with a table-driven metadata reader.
-> 
-> 2. Make the existing code easier to read and maintain, and simplify
->    adding new metadata fields.
-> 
-> During the v1 review, Dave raised concerns about signing off on
-> AI-generated code. I have since rewritten the affected patches based on
-> my own understanding of the code.
-> 
-> The main goal of this RFC is to agree on whether the table-driven reader is
-> the right replacement for the generated code. Please raise any concerns or
-> alternative design ideas.
 
-For alternatives, I wonder if grouping the metadata would help in the long
-run. Some of TDX metadata needs to be cached. Some of the metadata is init
-time data for how much memory to allocate etc. Some of the metadata needs
-to be re-read after TDX module update.
 
-Should we have the table-driven metadata reader use the TDX module
-metadata directly by default instead of always copying the data? That
-could be used for the init time data. And data could still be cached for
-CPUIDs etc.
+On 9/22/26 20:21, Bill Wendling wrote:
+> Annotate the "ch" pointer member of "struct st_sensor_settings" with the
+> "__counted_by_ptr" attribute. The elements of "ch" are counted by the
+> "num_ch" member in the same struct.
+> 
+> All instances of "struct st_sensor_settings" are defined as "static
+> const" arrays across the ST sensor core drivers. For pressure sensors,
+> "num_ch" is explicitly initialized with the size of the respective
+> channel array using "ARRAY_SIZE(...)" during static definition.
+> 
+> For accelerometer, gyroscope, and magnetometer sensors, "num_ch" is not
+> explicitly initialized (and thus defaults to 0). This is because those
+> drivers hardcode the channel count to "ST_SENSORS_NUMBER_ALL_CHANNELS"
+> rather than using "num_ch" from the settings struct.
+> 
+> Since these structures are static const, both "ch" and "num_ch" are
+> fully initialized at compile time and available immediately at boot
+> time.  The only accesses to the "ch" field of "st_sensor_settings" occur
+> when assigning it to "indio_dev->channels" during device probing.
+> 
+> Because "sensor_settings->ch" is never dereferenced or accessed as an
+> array, adding the "__counted_by_ptr" annotation does not cause any
+> runtime panics or false-positive bounds checks under KASAN or UBSAN.
+> 
+> Cc: codemender-patching+linux@google.com
+> Assisted-by: LLM
+> Signed-off-by: Bill Wendling <morbo@google.com>
+
+Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+
+Thanks
+-Gustavo
+
+> ---
+>   include/linux/iio/common/st_sensors.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/iio/common/st_sensors.h b/include/linux/iio/common/st_sensors.h
+> index 1ba496f0fea5..6e914ed49529 100644
+> --- a/include/linux/iio/common/st_sensors.h
+> +++ b/include/linux/iio/common/st_sensors.h
+> @@ -206,7 +206,7 @@ struct st_sensor_settings {
+>   	u8 wai;
+>   	u8 wai_addr;
+>   	char sensors_supported[ST_SENSORS_MAX_4WAI][ST_SENSORS_MAX_NAME];
+> -	struct iio_chan_spec *ch;
+> +	struct iio_chan_spec *ch __counted_by_ptr(num_ch);
+>   	int num_ch;
+>   	struct st_sensor_odr odr;
+>   	struct st_sensor_power pw;
+
