@@ -1,121 +1,92 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B5A41B8CA
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787384A0904;
+	Wed, 23 Sep 2026 12:55:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168099; cv=none; b=CO8/jMf42K3aKYWuqVsK+wVm5/ghMopXjq1sMRSzzwJ2Q9YeuyzWJ47K4EpxtoDQ/vJZ5NCqbZ/+loUOABjeAVk1eK+GmTa/4OQPxyoF7wJ/uMCujEYHfItHTBPgDwZdpALzKkK5weMDLrsmRfCoJ2ue4Iu5qD/k1BDEjMVrmSU=
+	t=1790168111; cv=none; b=FYylaWNA5C4LMdzOOLfdNu0mTZBDYEjYHB6x3vwPZoasjmt/sRjuZI53SVHweQbFXb9fovvb5p/acZmn6c1i60SouhVX0zViMOt37hUVohegWZGYfJrPBU0pwAAYTI0m+iV4uwnaiNtZFKk/1O7Mg7GDCRiQ1banJw1/5TPQBTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168099; c=relaxed/simple;
-	bh=Zx/zASwng4eAeMQ6fde2oAI+Yd/IiVV1LTddyWl4HxI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NkcDWUQjCE2l9KjcdbBqJIKOTII5jQuQWyJcz/6Gp5P9YqVMguhrupVkVS83S6VaBG2zwvEc5c0/d4KahZq7FPs/+f31h0IHQMIjz2sOTPUpsSzcMZwvTuu3p5UUg6iARYKl7vC3zOOzqWMvDbGSMLgkCBeYojfA5/5jydm9xHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=htUUN0QD; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790168111; c=relaxed/simple;
+	bh=ewgQahr390TzVb6MmAWj4RoBL/NNZ+4Sp+7ieTmGsbk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lPwtYuHNDtA5GQNtE+C+K07v9vfEY0j/UldiBxK2VLsNxZRt9SQksV0crxlQrY+9tIMh+ZJ21mGX+MxY+rj63NCupPFA6U1UfFGwLpTSMYaXKM8MK+stWRKWzALHL0iPKu2WXr7e0NqqiuPMSwAguMNx+WdYsK5gxm+Pl68U5WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZYcrNT7P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="htUUN0QD"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4adso434238a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:54:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790168081; x=1790772881; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eH1PKGunx3MHUYSKzUdOGw8jJHjZCuP1JnlKtRRHVto=;
-        b=htUUN0QDk0OQXl2r657SZf1pC2Sp8Rh6/WLFNZbwuKsd7lZ0qieVpmMtz665ZvWCLu
-         4/ACE+xurWqsMVjwMcyQbbkavRsil1NeyZbicsR4Du66UOGUMJ95J+3Qx+xQUxU2jGRO
-         D8l7UXwSqMACKU5x11kVd5mYYbK01fdLGFhUwkPevDZNG2IR0sU7ejQdSICUsw2yIg/m
-         eW/rDHRKjmClUlbP8BuDmopxy3Qi+8inn9xWqTt0ZMQHm1+FlGu0KWsEQubZhDsa53lP
-         AiIgIj7hDM0fiTbJbgPqs8/TL5eq5/2VKGN8lgQOAPPv6GGR4ZnCMYDEWlcT0tdLJSHS
-         hDfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790168081; x=1790772881;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eH1PKGunx3MHUYSKzUdOGw8jJHjZCuP1JnlKtRRHVto=;
-        b=mDswPCciBEbnzgRPM/WExG744dHaMKc4GQhPFQ7iVlnhkQU4C4j4d3dEO1gBxO8w5L
-         NCxFs0G80E9JvVfFE0qV1ZvB39oRw29Z25uJV2IUHriqwg+G/DQUmvbV5QvDM8z0X4b+
-         O4D3XzxxZSXbABO4iQ7sOWB9YIfZ7LGOZztXYG/uGuFfUOEhMP0r/mzbS77r9ulnWfDf
-         LmI5FScxs2+kPqT3eYJtfQQ9kP2Wy5KbyjB0LxLp+OW6G/gyNzr+ESoZUFe7jEB2HuQp
-         nVu7VngCZb2CH5cfc1YrEW4NoKSG/kPn7ZVTxj1Sw8hP0YB9aKZ0RmCkzqA5djHBLryX
-         uoRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzflwg7bypfKPMABAVeY4evtzpW6WI0KEoLrBBZZ77Pu6xZqbGQy0W9sOUFRJXxf4uf40BpoBvNX63cfTc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mK2AWfiQN+pAJKxzPzln2rVs9wKX2EBokX+qAGV6pZerpKkZJv
-	KD/8TULOxU9Pe/GWRHrdO2FLB4NjQx73KI4JFzm7GzQ4KurAswQ5cjmW
-X-Gm-Gg: AYBFou3e87XoijRk+ZX59uRXCb/CpkT7We5GYxk0UWRnuVIOQUTYQHgiO4wZu7hBr5a
-	AxqX0AKwduGz6pLSnNhlA8hDV/DsmldHktf7aXES2Vq9kHsD80BrJTLJ8LVs5RReVpVPRACqp01
-	dT2kGPXTeYMUpvSUNgLdrcZD3eV8/4ag1ifCLEglvCn0FKc4OR/LZn33gOUvOuPUD0Wkk0bAwLv
-	DQ4zsySTE3p3bRg/fWN5GVKClbl61RzNxFxfurL39VQNCMa+qnuMLJpiKi6X0cULUS375a94B4I
-	ksslHIUriCaG08BWJ53Kf8guH9Om3XH8yuj4mofTwa16hTn1jQLu4uMga9qSBNrYhQNrxwxK7Rn
-	HmalC1TOXnuJVJkFC7G8fgLn6RoLsrXBF4S8R0J0Vb+tnI8TfVXuZQoKljLCsWOZalMtwZeKO0e
-	Y5spxnngsKbDkY+jbbHtCEoxac+7UH8qpmDFZAeLpl5O1cEOQicslzpAqY9WhWOMKXwyA41BCk/
-	vZfkj6YdBAzY0m67ts=
-X-Received: by 2002:a05:6a21:8287:b0:3dd:85a8:4c56 with SMTP id adf61e73a8af0-3ddf7e52ca6mr2589348637.29.1790168080565;
-        Wed, 23 Sep 2026 05:54:40 -0700 (PDT)
-Received: from [100.125.248.95] ([124.70.231.46])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3d67bbsm1007180a12.13.2026.09.23.05.54.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 23 Sep 2026 05:54:40 -0700 (PDT)
-Message-ID: <f36a8d04-206d-4836-b95c-2f144803b195@gmail.com>
-Date: Wed, 23 Sep 2026 20:54:18 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZYcrNT7P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B2801F000FF;
+	Wed, 23 Sep 2026 12:55:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790168110;
+	bh=FRi3C+epsIdutFBlhwS+gFpit1TLgJroCohgwHrl8Ns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZYcrNT7P0hjDlcFWhTnT6+Mxr6YY6Iiktuhuedn/b37B8n+/jnAQd7UEma7I6Gkz/
+	 hgCoughMEp760bK5dumjUrd8WmsOyZaShg4e4uSPR1v18S6XRaCA1wF4LW+XcQ/ar/
+	 jRVTbV5/bnhbKBwk61V2FmWW2pvfHaEU6V9Psd74=
+Date: Wed, 23 Sep 2026 14:55:07 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Jan =?utf-8?B?xIxlcm3DoWs=?= <sairon@sairon.cz>
+Cc: jirislaby@kernel.org, florian.fainelli@broadcom.com, rjui@broadcom.com,
+	sbranden@broadcom.com, phil@raspberrypi.com, stefan@agner.ch,
+	bcm-kernel-feedback-list@broadcom.com, linux-serial@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] serial: 8250_bcm2835aux: Add support for RTS/CTS
+ auto flow control
+Message-ID: <2026092346-snap-kosher-b487@gregkh>
+References: <cover.1786030659.git.sairon@sairon.cz>
+ <7e5ed3fb37ee4e113706c258d792121b868861a9.1786030659.git.sairon@sairon.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4: Fix sparse warning in extents kunit test when
- EXT4_KUNIT_TESTS=m
-To: Ojaswin Mujoo <ojaswin@linux.ibm.com>, linux-ext4@vger.kernel.org
-Cc: Theodore Ts'o <tytso@mit.edu>, Ritesh Harjani <ritesh.list@gmail.com>,
- Zhang Yi <yi.zhang@huawei.com>, linux-kernel@vger.kernel.org,
- Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
- Ye Bin <yebin10@huawei.com>, kernel test robot <lkp@intel.com>
-References: <20260922135808.3371159-1-ojaswin@linux.ibm.com>
-Content-Language: en-US
-From: Zhang Yi <yizhang089@gmail.com>
-In-Reply-To: <20260922135808.3371159-1-ojaswin@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7e5ed3fb37ee4e113706c258d792121b868861a9.1786030659.git.sairon@sairon.cz>
 
-On 9/22/2026 9:58 PM, Ojaswin Mujoo wrote:
-> When kunit tests are compiled as modules, the extents kunit test emits
-> a sparse warning:
+On Thu, Aug 06, 2026 at 05:42:04PM +0200, Jan Čermák wrote:
+> The bcm2835aux mini UART can automatically de-assert RTS based on the RX
+> FIFO fill level and gate the transmitter on CTS, but the driver never
+> made use of it. Wire it up:
 > 
->>> fs/ext4/extents-test.c:59:3: sparse: sparse: symbol 'k_ctx' was not
->     declared. Should it be static?
+> - Enable AUTORTS/AUTOCTS (with the RTS4 threshold and inverted, i.e.
+>   conventional active-low, polarity) whenever CRTSCTS is set on ports
+>   declaring the "uart-has-rtscts" property, advertised via
+>   UPF_HARD_FLOW.
 > 
-> Fix this by declaring it as static.
+> - Gate the AUTORTS function on TIOCM_RTS in set_mctrl() so that
+>   clearing RTS (port close, TIOCMBIC, B0) actually de-asserts the pin
+>   while auto flow control is active.
 > 
-> Fixes: cb1e0c1d1fad ("ext4: kunit tests for extent splitting and conversion")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202609221900.Pgwrcp41-lkp@intel.com/
-
-Looks good to me.
-
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-
+> - Implement throttle()/unthrottle() by disabling the RX interrupts and
+>   letting the FIFO fill up, making the hardware de-assert RTS - the
+>   same approach as in 8250_omap. Re-sync this state on termios and
+>   rs485 changes, as those paths may re-enable the RX interrupts (or
+>   leave them disabled) behind the throttle's back.
+> 
+> - Never enable auto flow control together with rs485, which uses RTS
+>   as the transceiver direction control. As the software CTS fallback
+>   of the serial core cannot work without a modem status interrupt,
+>   strip CRTSCTS whenever it cannot be handled in hardware.
+> 
+> - Restore RXEN when rs485 is disabled, as the emulation may be torn
+>   down without the rs485_stop_tx() callback ever being called, which
+>   would leave the receiver disabled.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Jan Čermák <sairon@sairon.cz>
 > ---
->   fs/ext4/extents-test.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/ext4/extents-test.c b/fs/ext4/extents-test.c
-> index bd7795a82607..9669b2197fca 100644
-> --- a/fs/ext4/extents-test.c
-> +++ b/fs/ext4/extents-test.c
-> @@ -48,7 +48,7 @@
->   #define EXT_DATA_LBLK 10
->   #define EXT_DATA_LEN 3
->   
-> -struct kunit_ctx {
-> +static struct kunit_ctx {
->   	/*
->   	 * Ext4 inode which has only 1 unwrit extent
->   	 */
+>  drivers/tty/serial/8250/8250_bcm2835aux.c | 160 +++++++++++++++++++++-
+>  1 file changed, 156 insertions(+), 4 deletions(-)
 
+There are some bot review comments on this:
+	https://sashiko.dev/#/patchset/7e5ed3fb37ee4e113706c258d792121b868861a9.1786030659.git.sairon@sairon.cz
+
+Can you address them and submit a new version?
+
+thanks,
+
+greg k-h
