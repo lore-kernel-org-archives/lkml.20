@@ -1,282 +1,165 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mta1.migadu.com (out-231.mta1.migadu.com [95.215.58.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385C949EC4C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:39:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F8F4538D69
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:39:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790188758; cv=none; b=ew5NQwyRb/N2Xc9qRqp72GwryJZE6ZL3EHsdGhJRLgFyio8DoLZabQS+iuix1dgvKh3vLdh53HgLdNRcDoEDxDZmpxFjEgT9FJp+va7Inryri8z334jhqjxtFPOFFc4i3ir/DTIDmvUTQY1vNTVc+09ap6ND3B5iBbPBy0xWMZ0=
+	t=1790188777; cv=none; b=joMYJheubnuTYiNqLZixGj+UbN4m+u4wqXy/XePoH1J0zZNVNx6LIfLDmm1ks/dMBzakZWof93qJpgFgXcDjPN5gXF0RjE19xoUgbynWfqanLEo4MSqwEvcaDnhvb9uWeWKY1HzCxHWGku3DMMMv4XPt+c1t7p4kRmk+EzqZRJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790188758; c=relaxed/simple;
-	bh=GrDNSSO0nvFb2unWTPFRpJmvnJFmkqSGVidtNmo3vmw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gTTJG+zm4OF3YurQg+6mtocwslVEYORt47DPfBVs2OYasJphcosktR65KpGh3RGFftG6TiGp/gEUcfkUz5uP9nBff5QTmrZajiMnY22kMYxK82x1VhCIchxjovG+kAPt27lDQSg0QgH3nLveh6uB/zJ93s9rzjBmwpea5lIdGxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i5qoEp5E; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790188777; c=relaxed/simple;
+	bh=xvVfhU/rhBzON30v3lLER/H5XSDtA/5WCZuabwZWrT8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iSK7gOfKog28UOyWRaMtRlIE4U1VFR9+Z8QfJl+1vd/UHU4jYjdfvdNy7arM1B76chIfIAsj2tOMAuAt8EXy/Kmrf1NjI77Sez4WGPCiBDkPQM7ms7wVP56dpnln4mKLq1o85nCfye2WdDXrGcfwWmO6gUrQ20lYJ2hc0eTu0uQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NbHNLt2w; arc=none smtp.client-ip=95.215.58.231
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i5qoEp5E"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso8186675ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:39:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790188755; x=1790793555; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8VWM3B8ZR2suQS0fAZFWbkbtS6he0VILtB/lGED1UXs=;
-        b=i5qoEp5ELH292yx17My+lOGlk37sxh+HtVyZSCsfwPkGmbzOYfbxcB2Wel5I/BWwP0
-         L6Qp4LINKRVlG0puGVQkIBp6YWnF6uwnvL86yrZrSWTaLnl8omE1PaLWoTH1qbnKQ353
-         kQE3cmjssXjMJukAGHciLZd2ICkqFHmMcCGvdoyye9c/4CZNruJbKp3JgG8FMGeGfJGa
-         AOQtvHTJR6xQVDJY+mPXGLQAEELrGsvTfPdjIFOzDTkVAzBMrn6z9PD95iYuhqf9lPnN
-         6WEUONWmHvRQ69cg/GQTv2B/ijW6ozYyQ2ajDWeqze//gs9En0PEcKO7xPP+7bDBP9aa
-         yf/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790188755; x=1790793555;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8VWM3B8ZR2suQS0fAZFWbkbtS6he0VILtB/lGED1UXs=;
-        b=2fSPTaK2f+lS0uq4HIcgWC+JNNLOOuM01akMqFGSMS2gPobiw44rAIEPhOS436a/hn
-         f6dVPtyKj6VRAcR6Nk8eM/YQNMcImhR6DEb1jX/vdpNHmf+ed1SKk/ZIU+H25oIHomxL
-         yP4ed59R4a+kOFwmtbpfRbMJklh3IL/nuh0CfWz+cUZiPYhuiVEKZL1tPLuzYQcqALEt
-         eEaNW3lfx+Wz+J110aKPSvCVDvoBhlay6d9SbKtbAe9AELImy1xXOnSNls3RkmtIPkzu
-         rNuG64DyZEgEslitDxX9reNCDVn7cus+6iy895aNOoI0JShLsAnN/02LJheYuUqdx3s+
-         lIkw==
-X-Forwarded-Encrypted: i=1; AKwUvBx943XakSYpmjZY2rZrCPYKXbE9QX1iK9nCOAcTPyDMyw2CmxK5YGBfiWGRvHecC2X7OU9je1pwP8Hx2+k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXqqBUqWe4wu9uau3WQ78IQDLh6jF4URP9bgcg/cjsjTAvFP8p
-	KnKR+AJQr/XKZZJwoYtimOJjM7Qjms7LsUXw4alKkxeZS1avJvWeJwjU
-X-Gm-Gg: AYBFou0eIpQUIA5rXdmZg9L67E4VO7LxxPa1swoMkw033CigJAm4RfpOKwlUxhyfSOQ
-	JnTPSzGyUdVYQhnTUh9wzVw5AI4kUbOOjQsxLM2aVTqx36rVGhDrAx2D1Ujy+GUze3eXjvG9MWn
-	Q+jHDgvInvbUEgiQqZGYRLntUqNV3vCpIQZbawAfV0u0Ab3VltdOOyqMedq1gkYCeEr0UFaOgnr
-	yvCCEEpGm5eqNquBXhvvSmj+azgTntPxd4ctCsn+CX0ac2p0Utm6DOZZrC6QCoceB0KtOzFejKS
-	V7RMGEqefzIQWiSoa9S3+7Sy0h3Mg5d2u5biO/x2RafA4gYH2uueSbZeQpW8QlwOWP/+fh7UOb1
-	bOw1FlhdM721IOsa4fICqCUuCqJFWN573eqs1yHHYDm8Fa6dDuO+D6qh+DRFiUCUr7tzbhl0Uyh
-	46C7vKT4Q4thGKPhEe4JAFRYtZCTPtaOvFKh0lpPdaRoTMovRnTkVH6UYgOfaJ3hfbrLyFYg7rE
-	AwNenoVB1272qyoBkqfqp6FbXwc20WVowwbRuT4auveZ67f+RHC98mi5CV3bk6MUdAmAUnrzWvT
-	FHX7tR5V3y47gBbJO8jvvsWIMqZIjhQO9igzYl5vSLizcElQ
-X-Received: by 2002:a17:902:db05:b0:2df:556c:1581 with SMTP id d9443c01a7336-2df7e11a469mr224415ad.31.1790188754814;
-        Wed, 23 Sep 2026 11:39:14 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a5dc32csm15528625ad.53.2026.09.23.11.39.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 11:39:14 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM IPROC ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] ARM: dts: alamo: use qca8337 internal PHYs
-Date: Wed, 23 Sep 2026 11:39:12 -0700
-Message-ID: <20260923183912.13389-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NbHNLt2w"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xvVfhU/rhBzON30v3lLER/H5XSDtA/5WCZuabwZWrT8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790188768; v=1; x=1790793568;
+ b=NbHNLt2w4rgF1oxC1LE0aT0NmaOaal6Q9Lfgw0h733K3uN4loKdnqHJIZL74lHUfSwVZgrrl
+ noYk4XP5VONvDU0KsXPR6HgAsBFSAz5x1DFb3vcWIsODiD+/Z3DRG65xvqo72HBbfmlQnqv5ZJe
+ WSXupxsOJTlemb6sncmlw0Xs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3ea29e3c32de8e0c;
+	Wed, 23 Sep 2026 18:39:28 +0000
+X-Mizu-Trace-ID: 3ea29e3c32de8e0c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6c0a220c-7d9f-4b31-88b9-6882b1b09231@linux.dev>
+Date: Wed, 23 Sep 2026 11:39:26 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] RDMA/rxe: unpublish the per-net tunnel socket before
+To: Binbin Deng <18983559317@163.com>, zyjzyj2000@gmail.com, jgg@ziepe.ca,
+ leon@kernel.org, dsahern@kernel.org,
+ "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260923051800.244740-1-18983559317@163.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20260923051800.244740-1-18983559317@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The QCA8337 switch has a managed internal MDIO bus for its built-in
-PHYs.  Move the PHY nodes from the external mdio@0 bus into a
-subnode of the switch, and mark the connected switch ports with
-phy-mode = "internal", so the ports are linked to the correct PHYs.
 
-Assisted-by: LLM
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- .../dts/broadcom/bcm958625-meraki-alamo.dtsi  | 100 +++++++++++-------
- 1 file changed, 60 insertions(+), 40 deletions(-)
+在 2026/9/22 22:18, Binbin Deng 写道:
+> KASAN reports a slab-use-after-free in ip6_route_output_flags()
+> reached from rxe_find_route(), with the free in __sk_destruct() after
+> rxe_sock_put(), and a user with CAP_NET_ADMIN can remove the device with
+> "rdma link del rxe0" while RoCE v2 over IPv6 traffic keeps looking the
+> socket up.
+>
+> BUG: KASAN: slab-use-after-free in ip6_route_output_flags+0x300/0x360
+> Read of size 4 at addr ffff888115ddd794 by task kworker/u32:6/309
+> Call Trace:
+>   <TASK>
+>   dump_stack_lvl+0x53/0x70
+>   print_report+0xd0/0x630
+>   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+>   ? ip6_route_output_flags+0x300/0x360
+>   kasan_report+0xce/0x100
+>   ? ip6_route_output_flags+0x300/0x360
+>   ip6_route_output_flags+0x300/0x360
+>   ip6_dst_lookup_tail.constprop.0+0x76c/0xcc0
+>   ? ct_nmi_exit+0xc3/0xf0
+>   ip6_dst_lookup_flow+0xf5/0x1e0
+>   ? __pfx_ip6_dst_lookup_flow+0x10/0x10
+>   rxe_find_route+0x426/0xa30
+>   ? __kasan_slab_alloc+0x6e/0x70
+>   ? __pfx_rxe_find_route+0x10/0x10
+>   ? kmem_cache_alloc_node_noprof+0x141/0x370
+>   ? kmalloc_reserve+0x103/0x2b0
+>   ? rxe_icrc_generate+0x229/0x330
+>   ? __pfx___alloc_skb+0x10/0x10
+>   rxe_prepare+0x9e8/0x18b0
+>   ? rxe_init_packet+0x3c7/0x4f0
+>   rxe_requester+0x1a0f/0x51f0
+>   ? rxe_completer+0x1de9/0x38c0
+>   ? __pfx_rxe_completer+0x10/0x10
+>   ? __queue_work+0x43e/0x11f0
+>   ? __pfx_rxe_requester+0x10/0x10
+>   ? irqentry_exit+0xd2/0x640
+>   ? _raw_spin_lock_irqsave+0x85/0xe0
+>   ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+>   ? __pfx_rxe_sender+0x10/0x10
+>   rxe_sender+0xe/0x30
+>   do_work+0x144/0x470
+>   process_one_work+0x633/0x1030
+>   ? assign_work+0x11d/0x370
+>   worker_thread+0x45b/0xd10
+>   ? __pfx_worker_thread+0x10/0x10
+>   kthread+0x2c6/0x3b0
+>   ? recalc_sigpending+0x15c/0x1e0
+>   ? __pfx_kthread+0x10/0x10
+>   ret_from_fork+0x36e/0x5a0
+>   ? __pfx_ret_from_fork+0x10/0x10
+>   ? __switch_to+0x572/0xdd0
+>   ? __pfx_kthread+0x10/0x10
+>   ret_from_fork_asm+0x1a/0x30
+>   </TASK>
+>
+> Allocated by task 146020:
+>   kasan_save_stack+0x33/0x60
+>   kasan_save_track+0x14/0x30
+>   __kasan_slab_alloc+0x6e/0x70
+>   kmem_cache_alloc_noprof+0x130/0x360
+>   sk_prot_alloc+0x56/0x210
+>
+> Fix by clearing the per-net pointer before the last reference is dropped.
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi b/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi
-index c54451dde6dd..d0199c07707c 100644
---- a/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm958625-meraki-alamo.dtsi
-@@ -85,26 +85,6 @@ mdio@0 {
- 			#address-cells = <1>;
- 			#size-cells = <0>;
- 
--			phy_port6: phy@0 {
--				reg = <0>;
--			};
--
--			phy_port7: phy@1 {
--				reg = <1>;
--			};
--
--			phy_port8: phy@2 {
--				reg = <2>;
--			};
--
--			phy_port9: phy@3 {
--				reg = <3>;
--			};
--
--			phy_port10: phy@4 {
--				reg = <4>;
--			};
--
- 			switch@10 {
- 				compatible = "qca,qca8337";
- 				reg = <0x10>;
-@@ -128,60 +108,70 @@ fixed-link {
- 					port@1 {
- 						reg = <1>;
- 						label = "lan8";
-+						phy-mode = "internal";
- 						phy-handle = <&phy_port6>;
- 					};
- 
- 					port@2 {
- 						reg = <2>;
- 						label = "lan9";
-+						phy-mode = "internal";
- 						phy-handle = <&phy_port7>;
- 					};
- 
- 					port@3 {
- 						reg = <3>;
- 						label = "lan10";
-+						phy-mode = "internal";
- 						phy-handle = <&phy_port8>;
- 					};
- 
- 					port@4 {
- 						reg = <4>;
- 						label = "lan11";
-+						phy-mode = "internal";
- 						phy-handle = <&phy_port9>;
- 					};
- 
- 					port@5 {
- 						reg = <5>;
- 						label = "lan12";
-+						phy-mode = "internal";
- 						phy-handle = <&phy_port10>;
- 					};
- 				};
--			};
--		};
- 
--		mdio-mii@2000 {
--			reg = <0x2000>;
--			#address-cells = <1>;
--			#size-cells = <0>;
-+				mdio {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
- 
--			phy_port1: phy@0 {
--				reg = <0>;
--			};
-+					phy_port6: ethernet-phy@0 {
-+						reg = <0>;
-+					};
- 
--			phy_port2: phy@1 {
--				reg = <1>;
--			};
-+					phy_port7: ethernet-phy@1 {
-+						reg = <1>;
-+					};
- 
--			phy_port3: phy@2 {
--				reg = <2>;
--			};
-+					phy_port8: ethernet-phy@2 {
-+						reg = <2>;
-+					};
- 
--			phy_port4: phy@3 {
--				reg = <3>;
--			};
-+					phy_port9: ethernet-phy@3 {
-+						reg = <3>;
-+					};
- 
--			phy_port5: phy@4 {
--				reg = <4>;
-+					phy_port10: ethernet-phy@4 {
-+						reg = <4>;
-+					};
-+				};
- 			};
-+		};
-+
-+		mdio-mii@2000 {
-+			reg = <0x2000>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
- 
- 			switch@10 {
- 				compatible = "qca,qca8337";
-@@ -206,33 +196,63 @@ fixed-link {
- 					port@1 {
- 						reg = <1>;
- 						label = "lan3";
-+						phy-mode = "internal";
- 						phy-handle = <&phy_port1>;
- 					};
- 
- 					port@2 {
- 						reg = <2>;
- 						label = "lan4";
-+						phy-mode = "internal";
- 						phy-handle = <&phy_port2>;
- 					};
- 
- 					port@3 {
- 						reg = <3>;
- 						label = "lan5";
-+						phy-mode = "internal";
- 						phy-handle = <&phy_port3>;
- 					};
- 
- 					port@4 {
- 						reg = <4>;
- 						label = "lan6";
-+						phy-mode = "internal";
- 						phy-handle = <&phy_port4>;
- 					};
- 
- 					port@5 {
- 						reg = <5>;
- 						label = "lan7";
-+						phy-mode = "internal";
- 						phy-handle = <&phy_port5>;
- 					};
- 				};
-+
-+				mdio {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					phy_port1: ethernet-phy@0 {
-+						reg = <0>;
-+					};
-+
-+					phy_port2: ethernet-phy@1 {
-+						reg = <1>;
-+					};
-+
-+					phy_port3: ethernet-phy@2 {
-+						reg = <2>;
-+					};
-+
-+					phy_port4: ethernet-phy@3 {
-+						reg = <3>;
-+					};
-+
-+					phy_port5: ethernet-phy@4 {
-+						reg = <4>;
-+					};
-+				};
- 			};
- 		};
- 	};
+Thanks a lot. I also confronted this problem. I fixed this problem with 
+a lock.
+
+It seems that this fix is better. If this fix is verified in your test 
+environment,
+
+I am ok with this fix.
+
+Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+
+Thanks a lot.
+
+Zhu Yanjun
+
+>
+> Fixes: f1327abd6abed ("RDMA/rxe: Support RDMA link creation and destruction per net namespace")
+> Signed-off-by: Binbin Deng <18983559317@163.com>
+> ---
+>   drivers/infiniband/sw/rxe/rxe_net.c | 10 ++++++++--
+>   1 file changed, 8 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/infiniband/sw/rxe/rxe_net.c b/drivers/infiniband/sw/rxe/rxe_net.c
+> index 53daaf4c1eb2..4153f03ed69a 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_net.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_net.c
+> @@ -638,9 +638,15 @@ static void rxe_sock_put(struct sock *sk,
+>   	if (refcount_read(&sk->sk_refcnt) > SK_REF_FOR_TUNNEL) {
+>   		__sock_put(sk);
+>   	} else {
+> +		/*
+> +		 * Clear the per-net pointer before the last reference is
+> +		 * dropped.  rxe_ns_pernet_sk4/6() returns the pointer to readers
+> +		 * that dereference it outside the RCU read-side critical section,
+> +		 * so it must not stay visible once the socket has entered the
+> +		 * teardown path.
+> +		 */
+> +		set_sk(net, NULL);
+>   		rxe_release_udp_tunnel(sk);
+> -		sk = NULL;
+> -		set_sk(net, sk);
+>   	}
+>   }
+>   
+
 -- 
-2.55.0
+Best Regards,
+Yanjun.Zhu
 
