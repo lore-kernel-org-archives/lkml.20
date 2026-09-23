@@ -1,108 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-147.mta1.migadu.com [95.215.58.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18DC40B11A;
-	Wed, 23 Sep 2026 17:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F2340B0E8
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:34:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790184851; cv=none; b=OvrCg9QRtCNP5VVucGnbdPpUmUEak6jNzi6BClclV4USFZU+733FDCc4cZr1OwruFoGZoJyR/4Z6ULWVOUcBm43Qn3mNZMf6SKzXR17q2GFDrbUgCAhIfq4ITr3i0z2+HAJOOfG5I4/seJ+aCilOqmdJYlAITCKYgi/jbRrOFYQ=
+	t=1790184872; cv=none; b=E1ixqunMbVGlqnd4gcOW1kBfHm8tDrR/oJoC4FDc+yBFZCAv3k6iqzCd9H5hZ4YkDEeUjvHxGsxvMqXdEyjQeqPkd771xP/rTkbvpBkyw4+o/7qUZqkVEkm1eyTFIqDJJ9EgMBsJsrgfwgVQB/vFpsmjNhz718/bdmAQ8hBZ2lM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790184851; c=relaxed/simple;
-	bh=kPlu2H6XNVNAm+eyKaf+KNtcUOLDMiz/SdRoD9k3csw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ELTwYuIr+aAzPO3Hku+6VyqsXqOKOKD1EIfW+ic5GBH106PoueFufjSLK4ocKA+S1f8ZgH6FPFCLquTAhVLU/XH4YblZio1C1JoFS0yTp1AiNSFzhR52X+8SEOO3HiK1ROETyoc50x9caOSqo9fF+F0TwV3srI3g+IAoCcmGPr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oIPXhDnn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790184872; c=relaxed/simple;
+	bh=EJYd5eCHl5xQ8DHPfFFy7axjDaK7yOO1wMEyNS6gPb8=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=dFzDP+HYu0aCQyY1IwYeNRj3sGvlP+4vNQ04BwPEV3kLN9I/HNUx4CBARPCNvRbqUqa/MOYpEw3sRFJ+EWw2BTa5ODZNW5SCoODu7/4yViIqtNSJ45HM3HMXngAu5whmo0tSKWCuwqD1/QFN4bePxEeR2a+QXDJ7l5DwwVKnAjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cO/AhfdZ; arc=none smtp.client-ip=95.215.58.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oIPXhDnn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7578A1F00898;
-	Wed, 23 Sep 2026 17:33:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790184849;
-	bh=kPlu2H6XNVNAm+eyKaf+KNtcUOLDMiz/SdRoD9k3csw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oIPXhDnn6KrbHUdB8J3HtxFj0acE8ktVqJkOruOhJCvNG5tAAVxIsyoHMYMRieHKt
-	 Is5+S1MolM3HFRsMb1jGHJLJBKDKhutQW6ZfXT/uIcKRR1r6PUVXazNarmpYGmlPd0
-	 DrVxZDA5/RDFBx7/03GL1IZtxQpOt/AyuqUyDXzSfV+fX36mqbt0ecrQoeMZoKoF4P
-	 +Cw4hzzM0pyksIgfNEY/yt9LZw5XVPHz+WoNZuUa2xzYl1ssIwnutkaiQTvVstnnbO
-	 sloaQyC80Sym14M1BLGJIqAR7U69u/36OLTFb2LZOlo2vRK66xJr47KsIDUd4H3N/u
-	 MIh65qBa71P4g==
-Date: Wed, 23 Sep 2026 18:33:37 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
-	Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <mkp@kernel.org>, 
-	Jaya Kumar <jayalk@intworks.biz>, Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
-	Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Marc Zyngier <maz@kernel.org>, 
-	Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
-	Miklos Szeredi <miklos@szeredi.hu>, Xu Xin <xu.xin@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, linux-rdma@vger.kernel.org, 
-	selinux@vger.kernel.org, linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-trace-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
-	linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, kvm-riscv@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
-	fuse-devel@lists.linux.dev
-Subject: Re: [PATCH v3 02/40] mm/vma: predicate setting mmap_prepare VMA
- fields on new vma alloc
-Message-ID: <arQNTibMdh6x_T04@gremlin>
-References: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-0-4583d8a23bca@kernel.org>
- <20260917-b4-mmap-prepare-vma-flag-sanify-v3-2-4583d8a23bca@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cO/AhfdZ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=EJYd5eCHl5xQ8DHPfFFy7axjDaK7yOO1wMEyNS6gPb8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790184868; v=1; x=1790789668;
+ b=cO/AhfdZAKbPU3IldkEeFiyrjfrV0BJPZs/b3cOgQivxv0RDmJ6kP6VBEyHwDZUbw+qOxvl6
+ Z/3Ibxryusx19MJmlJL17PdtVisLAiL/0Ij2seiRPpegXTjkEqQxSZAU4fV0FJATK1Mj9m2IxpO
+ WI7ADKYnMObRzC3rf4JhJyKc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f743616c5fc41547;
+	Wed, 23 Sep 2026 17:34:27 +0000
+X-Mizu-Trace-ID: f743616c5fc41547
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-b4-mmap-prepare-vma-flag-sanify-v3-2-4583d8a23bca@kernel.org>
+Date: Wed, 23 Sep 2026 17:34:27 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Ilya Gladyshev" <ilya.gladyshev@linux.dev>
+Message-ID: <56e036665dbeb0a8f51d697220d5ed84f210994c@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v6 3/3] mm: implement page refcount locking via dedicated
+ bit
+To: "Zi Yan" <ziy@nvidia.com>
+Cc: akpm@linux-foundation.org, andrew+netdev@lunn.ch, apopple@nvidia.com,
+ artem.kuzin@huawei.com, baolin.wang@linux.alibaba.com, david@kernel.org,
+ Liam.Howlett@oracle.com, edumazet@google.com, harry.yoo@oracle.com,
+ hramamurthy@google.com, ivgorbunov@me.com, joshwash@google.com,
+ kirill@shutemov.name, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ lorenzo.stoakes@oracle.com, mhocko@suse.com, muchun.song@linux.dev,
+ pfalcato@suse.de, rppt@kernel.org, surenb@google.com,
+ torvalds@linuxfoundation.org, vbabka@suse.cz, willy@infradead.org,
+ yuzhao@google.com, ilya.gladyshev@linux.dev
+In-Reply-To: <DLFJL5U9DI6F.3QJP9YP0KX636@nvidia.com>
+References: <cover.1789239015.git.ilya.gladyshev@linux.dev>
+ <ebd6540ad89a4bb80e2a62d00901b5c827315b66.1789239015.git.ilya.gladyshev@linux.dev>
+ <DLFJL5U9DI6F.3QJP9YP0KX636@nvidia.com>
 
-Andrew - please drop this patch from the series, I will send a separate fix for
-this to go into an RC.
+September 15, 2026 at 5:42 AM, "Zi Yan" <ziy@nvidia.com mailto:ziy@nvidia=
+.com?to=3D%22Zi%20Yan%22%20%3Cziy%40nvidia.com%3E > wrote:
 
+
+>=20
+>=20On Sat Sep 12, 2026 at 3:50 PM EDT, Ilya Gladyshev wrote:
+>=20
+>=20>=20
+>=20> The current page refcount implementation uses a single counter valu=
+e
+> >  (zero) as dead. So, to prevent incrementing a dead refcount in
+> >  folio_try_get(), it fundamentally requires a CAS loop.
+> >=20
+>=20>  This CAS loop can act as a serialization point and can become a
+> >  significant bottleneck during high-frequency file read operations
+> >  [1][2].
+> >=20
+>=20>  This patch reallocates the refcount value range:
+> >=20
+>=20>  (1) refcount < 0 means dead refcount (uninit / frozen)
+> >  (2) refcount =3D 0 allowed only as a temporary state (see below)
+> >  (3) refcount > 0 is a regular reference count
+> >=20
+>=20>  In other words, refcount is now split into "dead bit" and a 31-bit
+> >  counter.
+> >=20
+>=20>  Refcount decrement now works as follows:
+> >  1. Counter decrement
+> >  2. If it is now zero, try to put it deep inside the dead zone
+> >  (CAS to INT_MIN). Or you can view it as "set up frozen bit and reset
+> >  counter".
+> >  3. This CAS can fail only if someone grabbed a reference in-between =
 --
-Cheers, Lorenzo
+> >  that's okay, this page is their problem now.
+> >=20
+>=20I am not sure this works. David raised a concern on V4[1], where if a
+> folio lands to page_frag_free()'s free_frozen_pages(), it will not be
+> properly handled. "this page is their problem" only works if every
+> folio/page free functions call a generic folio/page free function that
+> checks the page type and does the proper handling.
+
+>> Refcount decrement now works as follows:
+>> 1. Counter decrement
+>> 2. If it is now zero, try to put it deep inside the dead zone
+>>     (CAS to INT_MIN). Or you can view it as "set up frozen bit and res=
+et
+>>     counter".
+>> 3. This CAS can fail only if someone grabbed a reference in-between --
+>>     that's okay, this page is their problem now.
+>
+> I am not sure this works. David raised a concern on V4[1], where if a
+> folio lands to page_frag_free()'s free_frozen_pages(), it will not be
+> properly handled. "this page is their problem" only works if every
+> folio/page free functions call a generic folio/page free function that
+> checks the page type and does the proper handling.
+
+After some thinking, this scenario is indeed possible and problematic. Th=
+e
+complexity of the required setup give me hope that there are some implici=
+t
+barriers, however I wasn't able to find them. But I am not an mm guru,
+so maybe I missed something :shrug:
+
+-- Below is a minimal buggy scenario --
+
+Thread A: network code that calls page_frag_free()
+Thread B: calls folio_try_get(). Maybe it is the DAMON paddr scanner,
+          maybe this folio was previously used in page cache
+          (however this noticeably complicates the scenario)
+Thread C: user of folio's reincarnation. It also requires destruction via
+          folio_put() and not via free_frozen_pages() -- for example huge=
+tlb
+          or memcg charged folio.
+
+Refcount operations as follows (FR =3D FROZEN):
+
+A: DEC 1 -> 0  [ page_ref_dec_and_test() ]
+B: INC 0 -> 1  [ folio_try_get() ] =3D> success
+B: DEC 1 -> 0  [ page_ref_dec_and_test() ]
+B: CAS 0 -> FR [ page_ref_dec_and_test() ]
+B: * deallocates via __folio_put() *
+
+C: * re-allocates page *
+C: DEC 1 -> 0  [ page_ref_dec_and_test() ]
+A: CAS 0 -> FR [ page_ref_dec_and_test() ] =3D> success
+A: * deallocates directly via free_frozen_pages() * =3D> BUG
+
+This can be fixed with a `s/page_frag_free/folio_put/`-style patch, howev=
+er
+it seems unreasonable...
+
+
+> Before your patches, only a speculative page getter can see any page an=
+d
+> folio_put() handles the last reference drop. So it is safe today.
+>=20
+>=20Let me know if I miss anything.
+>=20
+>=20[1] https://lore.kernel.org/linux-mm/086b119c-b777-46ae-b087-798ca3e4=
+4ecd@kernel.org/
+>=20
+>=20>=20
+>=20> The size of the dead zone allows performing an optimistic increment
+> >  inside page_ref_add_unless_frozen(), replacing the previous read + C=
+AS
+> >  loop with a single RMW operation. This reduces cache line bouncing a=
+nd
+> >  improves scalability, especially in NUMA scenarios.
+> >=20
+>=20>  [1]: https://lore.kernel.org/all/20251017141536.577466-1-kirill@sh=
+utemov.name/
+> >  [2]: https://lore.kernel.org/all/CAHk-=3Dwj00-nGmXEkxY=3D-=3DZ_qP6ki=
+GUziSFvxHJ9N-cLWry5zpA@mail.gmail.com/
+> >=20
+>=20>  Reviewed-by: Artem Kuzin <artem.kuzin@huawei.com>
+> >  Co-developed-by: Ivan Gorbunov <ivgorbunov@me.com>
+> >  Signed-off-by: Ivan Gorbunov <ivgorbunov@me.com>
+> >  Signed-off-by: Ilya Gladyshev <ilya.gladyshev@linux.dev>
+> >  Acked-by: Linus Torvalds <torvalds@linuxfoundation.org>
+> >  ---
+> >  include/linux/page-flags.h | 13 +++++++++++++
+> >  include/linux/page_ref.h | 30 +++++++++++++++++++++++++-----
+> >  2 files changed, 38 insertions(+), 5 deletions(-)
+> >=20
+>=20--=20
+>=20Best Regards,
+> Yan, Zi
+>
+
+---
+Ilya Gladyshev // foxido.dev
