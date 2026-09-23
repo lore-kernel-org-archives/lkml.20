@@ -1,120 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC2CD218ADD;
-	Wed, 23 Sep 2026 14:58:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 843085335B8
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:58:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790175508; cv=none; b=Ip5IyKaYC+ZBfgrScmurDNQnyimudqPw8Eu66F53/t/zErtwEmKWXhd6gpH1ZHiV8n454FrdZpV+uvf+SN/WPmuuVrRwjT5qrGNWI7Qaad577bwfPccFLZTDgQBgPoGb0W+DPUYJ0CIEPcFW6LaMTWH7GjNsp2M+WIINcF1rtZ0=
+	t=1790175538; cv=none; b=nzZYdIhm1RWRyfu81UdyKg7LzmT5BPikgDDu0F7oeFl+k0i/M4sFvxtuRVvpZ5AwPuyb1l+MpUFileKpfeNzIDvzzLjnQR0P5ZrOBj2R/vVZ8il5PpolrFtPjbvlAlSa7hb1T6+B3apIYZm3QA003tYcZdrH9qELvSrjN47V68s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790175508; c=relaxed/simple;
-	bh=+IIrL5QThjsSts6zmHG5ZD1cdZ8aN7uZxwvZydP3Mr0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B18g3OxImt1bDszN1JG7o6noMwYDOaSXK77VO1N1pTb+HsXfeZygSo4byZIOGNtN2JCFsyQIE4oOixTi8PK7+aFkbjT2b107wI0NVWSAdZEnNmzCt0ROL+Y5B9QJM/d0tWEyXKD/slGoTbaG5/I4LTlUeX64QaA2HSqNUBM+XXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QlXCLtMX; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QlXCLtMX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FBDD1F00893;
-	Wed, 23 Sep 2026 14:58:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790175506;
-	bh=2tSma755doQXgisFXpc1rjnkqUYE4hLhMKOMVJp038k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QlXCLtMXO0lx6ggG/M32bSj/9SaDsDMcW83bC/TW4iomSPcy0kvYOgMTc2GkgUTS9
-	 GYBrpX7pZjOfh3Sw077GPFQ0dVKMG5wbRehQSNe4XLv1LjqMMp3vc/CwG+v5I94A1g
-	 sNxAr8LbqxGymdK5mPplTXTrsjFooxuZpLysZHunwIxWdr50GBQ+DbGM26HqQSUrxc
-	 hCZ270/ADiSUkWvZZXBoase7pGIDs3sjAugxFyN2wOz2JlIC03tzJLIKgTBmElLFPa
-	 4HPEia0scyAmqbsERKXr8/tORk9PV9fK+nCzrNEU1AYi7qoSxukoiRVqyE6TorUyNO
-	 yVQhMuguqlwRg==
-Message-ID: <d679c0e9-febe-4069-9c2f-a2173a5218aa@kernel.org>
-Date: Wed, 23 Sep 2026 16:58:20 +0200
+	s=arc-20240116; t=1790175538; c=relaxed/simple;
+	bh=AfFgK5O94TRbSz0v+n2agZrfGhkoCKVuFplQhBhnZO0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Cz0RtOHQNGtBQ+vF0L19/x//Hibrz9m+uaErNcTyuwASUiZHA1VFOX+vxyO8X+jL1xUHLXYkkVdLIdg8TVv8ZUUbp+nDfNQkmNsnhXyQhCnCDXwipSUh/5KBg9xvDUykhm8iUeB0YDh8uoBX40wDBAbpA3U3/HFUWDF/1MV22rA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab20f4bso1292088d50.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:58:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790175533; x=1790780333;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OTVINLgc5+4Z1oNwbQRG/rtTEB6pkVDW8ACRGjhrMlE=;
+        b=hP/BxJ45TdowLH2RUH60gvPVisCx8Iw7YPM/7F0Vr0iBCF6TpltkqgLjR3eaxl04LY
+         2pPqaILe/RtNwvOTQH3BYIGrO0vEgPMKiyXXvMTgqYR380Avprginb1d+wNUAnCmQycB
+         gq3eJ5kNN+oniDIdrxWSHSkcCOZxotImuYXsfahGnPpXGFGOzh1Gpu0gtqK1Qv6Xp/HV
+         2lhbe0Cz2hJJl5bd5XYda9mQ1OSMqb16qDuF9dFgIvuGZVlN+6j4NYKJLu7TJpZqZVRz
+         1ZT7jm26fLZ54N7yZyZhgNF09wX1m8fm7uaGmkMpr4921zTm7H3j0tGOxT5JCd92ElSG
+         J9Xg==
+X-Forwarded-Encrypted: i=1; AKwUvBw/htj9a+CuJGhBago1Ec9ohZ3zHT7AOrE8U4kGO3fCTZu71PGuMaacyBjKJ7KTVF0SlrtO8elseYpGiNk=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+WgrXn8GMAQZ7dsb1dXqte7hJUOYlglS4nu2/9CtIEW6d6FoG
+	3V3AjIPTsGxltHmhQPh+I7JnH3p9JceLx6FZ2b39BLfYSP6PkokIG1ProwGMGopu4hY=
+X-Gm-Gg: AYBFou0HiRRmQTMSMyXmeFOpFgkvlib3CG4YRUCQX9TdI82C66HnMizadiCGyFGvbrE
+	aUrq+JBvPfsplYTylw5Lnx3i7WaRuYUqhB3+qO6Yr7emedocZ3Ik0E/WIDPxs3Kbxfa2bewLvvL
+	9pNB/8nMFjhWq1a47tRCBiqUXhNUGUxNRNnDi2NJK1FKBhAGH7WJ4u4LlEckgW2L0SpCfGnCQKZ
+	mlFazLASOnzxGcxuz9XXpyXgbgWE8DwMuKFMaGfwzMHQAbBWlm0PGjWgs7w7Q8Bo6EOQsnowvSg
+	Sg0jvwtIgJFZiMpKkBn0JFBSujjHaQKzuMM+yX+JwMZ2BDbHAldU+oZxeNauyVDFVJSkuV6Shit
+	ibjxWsZV0PAUgIC1B+kHSgGuFQJEKOoujsUiZRKneNBMMfR0g1Yx9sDd6GaexsanHJweR1AoDSZ
+	XL/o1W6xe1zOrQOcnTQgdmwMy07v4UvTvRTBWLpYP4dcWBCQUQnkPBPdNJhtMPaPRxft7jgc/X9
+	xoSzioZmQYTgPDVrlIpat3NGkwj62PdVZhdGg==
+X-Received: by 2002:a05:690e:1443:b0:66f:c1bc:4083 with SMTP id 956f58d0204a3-672d58aa47amr1414129d50.70.1790175532648;
+        Wed, 23 Sep 2026 07:58:52 -0700 (PDT)
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com. [74.125.224.140])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-672d8096559sm1048310d50.7.2026.09.23.07.58.52
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 07:58:52 -0700 (PDT)
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab20a33so1229745d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:58:52 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzo0VuE+7cHZfU0V9UqI2+xaog0udUod/W6NC6u/pXgVaYFJj61LFXDk9f7TwcBYhcfhV0ShyVIIwl+g8g=@vger.kernel.org
+X-Received: by 2002:a05:6102:370a:b0:7a7:3485:33ea with SMTP id
+ ada2fe7eead31-7ac1db33f0dmr2430482137.19.1790175126732; Wed, 23 Sep 2026
+ 07:52:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: pinctrl: samsung: Require clocks for
- Exynos9610 pinctrl nodes
-To: Alexandru Chimac <alex@chimac.ro>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, Linus Walleij <linusw@kernel.org>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Tomasz Figa <tomasz.figa@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260922-exynos9610-pinctrl-patch-v1-1-f6d816696591@chimac.ro>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260922-exynos9610-pinctrl-patch-v1-1-f6d816696591@chimac.ro>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260904-rzg2-sr-boards-v8-0-94c4674927e8@solid-run.com> <20260904-rzg2-sr-boards-v8-6-94c4674927e8@solid-run.com>
+In-Reply-To: <20260904-rzg2-sr-boards-v8-6-94c4674927e8@solid-run.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 16:51:55 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV5HkURikoQjpm_tw7qnHfGbLFtug4nBMgO7vEtpyjA2g@mail.gmail.com>
+X-Gm-Features: AclHuK-gsUhfafKUl3WYFPzbbNPmdS5PRweR7PwdMXMcSw8FWUkpxbAv7z94Jqg
+Message-ID: <CAMuHMdV5HkURikoQjpm_tw7qnHfGbLFtug4nBMgO7vEtpyjA2g@mail.gmail.com>
+Subject: Re: [PATCH v8 06/11] arm64: dts: renesas: add support for solidrun
+ rzg2lc som and hb-iiot evb
+To: Josua Mayer <josua@solid-run.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
+	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 22/09/2026 14:15, Alexandru Chimac wrote:
-> All Exynos9610 pin controllers (except PINCTRL_TOP) have clocks assigned
-> to them, so force the nodes to have clocks assigned to them.
-> 
-> Signed-off-by: Alexandru Chimac <alex@chimac.ro>
-> ---
-> Most Samsung Exynos9610 pin controllers (except TOP) have clocks
-> designated for them, so allow the device tree node to include clock
+Hi Josua,
 
-I don't understand above. It's contradictory to commit msg which says
-ALL. Here you say most.
+On Fri, 4 Sept 2026 at 13:56, Josua Mayer <josua@solid-run.com> wrote:
+> Add support for the SolidRun RZ/G2LC SoM [1] on HummingBoard IIoT [2].
+>
+> The SoM features:
+> - 100Mbps Ethernet with PHY
+> - eMMC
+> - 1/2GB DDR
+> - WiFi + Bluetooth
+> - SDHI Mux switching between eMMC and Carrier Board
+>
+> The HummingBoard IIoT features:
+> - 3x USB-2.0 Type A connector
+> - 1x 100Mbps RJ45 Ethernet
+> - USB Type-C Console Port
+> - microSD connector
+> - RTC with backup battery
+> - RGB Status LED
+> - 1x M.2 B-Key connector with USB-2.0 + SIM card holder
+> - 1x DSI Display Connector
+> - GPIO header
+> - 2x RS232/RS485 ports (configurable)
+>
+> The RZ/G2LC SoM was designed to be pin compatible to G2L SoM, with
+> slightly reduced feature set.
+>
+> Descriptions for eMMC, microSD, and RS485 are shared with G2L.
+>
+> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2lc-som/
+> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+>
+> Signed-off-by: Josua Mayer <josua@solid-run.com>
+
+Thanks for your patch!
+
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/r9a07g044c2-hummingboard-iiot.dts
+
+> +&eth0 {
+> +       phy-handle = <&phy0>;
+> +       pinctrl-0 = <&eth0_pins>;
+> +       pinctrl-names = "default";
+> +       /*
+> +        * ravb driver does not configure mac internal delays for RZ/G2L(C),
+> +        * instead delays are added by the ADIN1200 phy driver.
+> +        */
+> +       phy-mode = "rgmii-id";
+> +       status = "okay";
+> +
+> +       phy0: ethernet-phy@0 {
+> +               reg = <0>;
+> +               /* Level interrupts are typical for phy but not supported on rz/g2l gpios. */
+
+Nit: "RZ/G2L" (in all patches)
+
+> +               interrupts-extended = <&pinctrl RZG2L_GPIO(27, 0) IRQ_TYPE_EDGE_FALLING>;
+> +       };
+> +};
+
+I didn't compare with the board schematics, but the rest LGTM, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 
-Why two commit msgs?
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-> information for the driver.
-
-that's ABI break without reason.
-
-
-Best regards,
-Krzysztof
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
