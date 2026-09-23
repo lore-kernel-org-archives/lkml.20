@@ -1,50 +1,40 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F5030E82D;
-	Wed, 23 Sep 2026 01:17:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F075830E82D;
+	Wed, 23 Sep 2026 01:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126234; cv=none; b=Ij9DRRvfPncyhGC4GMAOyMDHNo/I8MwDDNWqDhJiWHnLets1izKm9pLXKmJoDlMXi73EISbDNp1cL27jDNRW+3oxARdJtIvF6HO8T4pPxm8uJR2priRxmjp2zLOe2t8iGLSWU/udY9MdKCcc0TG3ucjblJTZAcaoa9lMIoXgNag=
+	t=1790126341; cv=none; b=eSrK+yKGcZJHLzhkRqmeUbM+5XfdQgy8znJoGmY25JaW+HA37tWbl19+090pFFUvfWgera1X4/bxO2nAyHiQ82Rvzm72O6xlCJjDgYlmRLOOYY0fLGZ6eg9MsEL01A5hi17xD+lDXlsZmgtFCmPcxzC1aQ/xyZU/cJZbc9lrQSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126234; c=relaxed/simple;
-	bh=rISwRDfIka2ykQycQxwOWFfGe9m5G7fX1PQYgwLwS+g=;
+	s=arc-20240116; t=1790126341; c=relaxed/simple;
+	bh=l6wavfWFqIPbHOP0VOBZlGD4ZV9dL1W6BaDPspxND4M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aL3V+MoUfxzNRIuFKjfHF7Wd20gG3+Wos55GF/TtapQbWhsZ5fseP5Q/lcDZtM0jGZCEtIVSCwvAIOUm309Lp+rb7dHfUDiUPWeN5bvHTeaO4X2LLbC/dORVbkITFJ2h/RTfbHKEBdqmTWanQ3452h5upVHL33rfE9nJkt646mE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mxXSPjG7; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mxXSPjG7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790126232; x=1821662232;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=rISwRDfIka2ykQycQxwOWFfGe9m5G7fX1PQYgwLwS+g=;
-  b=mxXSPjG7aUKk+qVddaaVCxAmGRuF/2dljnO7y1zJyHm4n52IxG2uZ8ct
-   FQ7xk7DKFY6OAlBviLbWYUMwXY+rbcFgW0NKMqHJ4q8xX3FJP8+jMpQ2S
-   YSBaQdfexAL2nM1BwV3jpGXFvnfjE5qzJkpaAFIioTjqPDXJYGOmJSq+J
-   7FhGA/1mIT0YJcbGs57/UO/bVszUJFFTOFCUEiMEebCiPXciS0fua+JKb
-   4h1KUIyXhhDoDIiBCTYDNyxBHZv3uo/GHkbNbn7oagPeImxgpBX+e4auF
-   VQrhePTvMfPZZnxACvMUa9xIH7zUFPpqcYO6Bbh4w+EjnnbPMScOWJCPQ
-   A==;
-X-CSE-ConnectionGUID: NEZOAbjlQ4e5fQGdHyjglw==
-X-CSE-MsgGUID: B810Pr0EQ/+0LMuVjx1iCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="90893282"
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="90893282"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 18:17:11 -0700
-X-CSE-ConnectionGUID: G3+vdjSDTIKGG05c/kqT+Q==
-X-CSE-MsgGUID: Sea6fTbRRU+iGsy7ttEHww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,117,1787036400"; 
-   d="scan'208";a="273566513"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Sep 2026 18:17:07 -0700
-Message-ID: <ddba739a-b4b5-4c0f-84f1-803857f34179@linux.intel.com>
-Date: Wed, 23 Sep 2026 09:17:05 +0800
+	 In-Reply-To:Content-Type; b=G5QyGxSsRpeQKfl/3Evo0j9ThploDqDpcLGaXBsevDlJUdMIYjB1mkEVsYDaEr41rodBwEF+L/3RLd1EBAyBIG1swmmkK6T5KcHsrM3od2MZZ7/nEesNnB8FUUJ0/yKLG4lhfEr6onb6iyEElGVXqX79BOyKYs+8nO+0Ow1yJ+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: bc1ee0b2b6ec11f19a56ed5b684f684d-20260923
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:dff04ed1-faf5-42b0-9e69-2ecbafa51e5a,IP:0,U
+	RL:0,TC:0,Content:18,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:18
+X-CID-META: VersionHash:7db8b62,CLOUDID:30e527e91fb5a7723ef191353456febf,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:4|15|50|99,EDM
+	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: bc1ee0b2b6ec11f19a56ed5b684f684d-20260923
+X-User: zhangheng@kylinos.cn
+Received: from [172.25.120.77] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zhangheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1324643357; Wed, 23 Sep 2026 09:18:50 +0800
+Message-ID: <6371971a-99d3-4c21-88bf-b3b0df2d8bd9@kylinos.cn>
+Date: Wed, 23 Sep 2026 09:18:48 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,66 +42,19 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] KVM: TDX: Track configurable CPUID bits allowed by
- KVM
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com"
- <seanjc@google.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "kas@kernel.org" <kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>,
- "Maloor, Kishen" <kishen.maloor@intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "nik.borisov@suse.com" <nik.borisov@suse.com>,
- "dedekind1@gmail.com" <dedekind1@gmail.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-References: <20260917072548.2314491-1-binbin.wu@linux.intel.com>
- <20260917072548.2314491-2-binbin.wu@linux.intel.com>
- <a8ce5d830a04d99ec47cdc727e1761bd4031d544.camel@intel.com>
- <5ff81fc4-d144-4b2b-8375-d2f63e0dd618@linux.intel.com>
- <419b23f264af219da3be93a9d246b5401bbbaf13.camel@intel.com>
- <a436a059-b003-4e84-bd11-014bf2f17e97@linux.intel.com>
- <5168e058946a61f3be1cdb13f886dd632739d312.camel@intel.com>
+Subject: Re: [PATCH] ASoC: amd: acp: Add DMI quirk for Lenovo Yoga Pro 7
+ 14ASP9
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mikail <mikailb1998@gmail.com>
+References: <20260922123029.534152-1-zhangheng@kylinos.cn>
+ <arKCdpOu3C85owdO@sirena.co.uk>
 Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <5168e058946a61f3be1cdb13f886dd632739d312.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
+From: Zhang Heng <zhangheng@kylinos.cn>
+In-Reply-To: <arKCdpOu3C85owdO@sirena.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/23/2026 9:09 AM, Edgecombe, Rick P wrote:
-> On Wed, 2026-09-23 at 08:57 +0800, Binbin Wu wrote:
->>> But directly configurable bits don't have any direct conntion to tdcall
->>> queried bits. Userspace can still set those to whatever it wants regardless
->>> of the allow list. 
->>
->> I didn't quite get this.
-> 
-> VE bits don't query the directly configurable bits in any case unless userspace
-> sets it up that way. So they are not involved in the problem we are trying to
-> fix here.
-> 
->>
->>>
->>> So the argument is basically there is not expected to be any reason to allow
->>> them, so save the code in the allow list. It's a "there is no point" reason.
->>> Makes sense, but I couldn't get that from explanation.
->>
->> I think "not just save the code"?
->> One argument is that if these bits are reported as allowed to userspace and
->> userspace enabled them during init, and the guest doesn't opt-in the #VE
->> reduction (KVM doesn't know the real setting), it would cause problem in the
->> guest.
-> 
-> Userspace is allowed to cause problems to the guest. We shouldn't try to prevent
-> it. 
-
-But userspace doesn't know these bits are not supported by TDX module and KVM.
-If KVM report them as supported, and it causes problems, we cannot say it's
-userspace's fault.
-
-> But here, I think we are saving lines of allowlist in preventing it. So the
-> reason is to have less allow list lines, not to help userspace. And that is
-> worth it IMO.
-
+Since this commit was only from the author's side and doesn't link to 
+any URL, it's also hard to determine whether it was placed in the wrong 
+location.
