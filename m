@@ -1,118 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5724C651A;
-	Wed, 23 Sep 2026 11:52:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E684A0EED;
+	Wed, 23 Sep 2026 11:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164341; cv=none; b=LplDoqo3wqrgyQeJ6YYNxv2eXv2kSITtXetaEVBdOABSuGFKFWAiHLpI4iofcKszg8GXrpUdHg51YhbJ6TqMkxBw99pmGua7h5TFzxA/U14GSE/LXNXsIT+4g9zn+9fT4KmxAy/s4kd4YTukFMU76R/QYgC60KeUZmF2HlRoiB8=
+	t=1790164366; cv=none; b=iN0tGrTnAnshQnd2Pee/MONLD0Iieptn3h0TNf7RXC7FC6prV6KAAEMLcA9hG0JAqSusjhSLG7lotbM9Q1wT95LjCpcgL7abt4F0MCZcmLaa/K8v3N5Pe4CY2Fa7JN2urK6gkf2c+FXlOhrbo/cYEcgqZhyt7N6hePxRXVP+FHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164341; c=relaxed/simple;
-	bh=Y9ZYBdMXfaMdcf+8XEdZDizqTOczxotesl2556vHz0k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dU1d9h7ZkiI/QCs4OjIxi8H9tOdWA6KQRtjfvazBVNjR5fy9o+A6echLQS4/fGYGCYSJqvCDD6uHs/sF+Da0sAFnLfhZlwHI0xNb15kbNvCslhPWP68tGexeVZ027EmDe8VA/QA0nEXd9jtzHDxGlfIN5Wp01QCvY7ksRCQjlhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlI5GGP2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790164366; c=relaxed/simple;
+	bh=APmX+ZhRu2oIf8MMO1KHUlLlqrR5kvAOmZ4FceVRgMQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MoKNWfoQUPSdt4gEgzVPQh3HCAZiBwEs+Lh6av/T0/4e/4to0oYun2Q9TwXLMi9XGn5GthgQHt6SvIwgIYDq69SRx+QPX8L/J5tPdVabkt1Mr9U0EjmtxmNsc2M9iksTqKqKgVKuCMV1Gr1aywU5+TG41+yNw+h8VzzmRMzkTkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uKyNHwNn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlI5GGP2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B0541F000FF;
-	Wed, 23 Sep 2026 11:52:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790164330;
-	bh=Ltd0iFxeEgXCHootaIL+uLOVqz8Tw6zB7ny0MXqjoM0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BlI5GGP2G2T08oCdruDc1Gnl5QrmY2cv7Ma3AGuSUVVQSK8CUCKK6MDjAhuklGYYt
-	 cGqhZxs8U1eBnDMU4qb/+0hYXwi8EnMUPeytAS/9k9NxZ3ohuyZDVIyZi98UZVH3qC
-	 x3o32W91dl8QDcm6A7esB28Tl67E9TdFfv+bg5HB4XmtA5QD1yAQHi9DGd9Z6LPl/p
-	 uNtTpVr6Ha2z4gAnJtNwfLsBmb/ZMHOYTZDZmEAbNt4crF1lpGgCsw5j7Bd/iD2FtO
-	 +PxIF/h/yB7f+60req2O6tIxosjSqgmt2XaiqlBbpv8VtG3dLBXvkhhCoinDIry5KT
-	 csaQMgLJH5c/Q==
-Message-ID: <7923c064-e869-4fa0-8b3d-ee1bc73aae53@kernel.org>
-Date: Wed, 23 Sep 2026 13:52:01 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uKyNHwNn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C8200C2BCFA;
+	Wed, 23 Sep 2026 11:52:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790164365;
+	bh=APmX+ZhRu2oIf8MMO1KHUlLlqrR5kvAOmZ4FceVRgMQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=uKyNHwNnsHlU+uRen22QJk8ve9GyQ3bsLZytOfKJ7A3mvkLWkBrDqifae/0TYQ6YF
+	 z3i8l3Y4v28YDHgX8H18u1Zq4cBx+1HA7fEp+R8n+b7ne8abuCz4wVaL03aNzDMgNd
+	 j1GMmnyHm08qE+1sHnYItnvRjH5JTHstFHDXaw9NXkSyxhTyBlxWQx9dnOzHUk3iLg
+	 llsez22oPvtkjSeUos8h77Z1S4HLkvGOTY6UbxUH/3xYhU+N2xdmIdOR91TfF/xRtz
+	 /RAo1fGCTXSZbdetSjfdSIktDBESbRZHdHNOQ2g7/LTl7hEwiKZDH6zQKvIAMV8eg6
+	 ETBX9YgzzttRQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A99B2C982FA;
+	Wed, 23 Sep 2026 11:52:45 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Wed, 23 Sep 2026 13:51:03 +0200
+Subject: [PATCH 2/2] thermal/drivers/amlogic: switch to clk_bulk API to
+ support multiple clocks
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
- Glymur compatible
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
- Guru Das Srinagesh <linux@gurudas.dev>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
- <20260907-glymur_camss-v2-1-75f7982dc983@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260907-glymur_camss-v2-1-75f7982dc983@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-fix-t7-thermal-clock-v1-2-7d4c4682f182@aliel.fr>
+References: <20260923-fix-t7-thermal-clock-v1-0-7d4c4682f182@aliel.fr>
+In-Reply-To: <20260923-fix-t7-thermal-clock-v1-0-7d4c4682f182@aliel.fr>
+To: Guillaume La Roque <glaroque@baylibre.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Conor Dooley <conor.dooley@microchip.com>, linux-pm@vger.kernel.org, 
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2477;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=ioP7fZ0RSW6MezWCgPIvZyXQs7PdrAR6YY8F77TqFTw=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9bmvdVmCr+z0k/9klS7ePj31Q+N6fOTrqxxahfjiLd6z
+ CiouOF3RykLgxgXg6yYIkv/XMsT7y4fPfN1j3oKzBxWJpAhDFycAjARTTmG/2UPshqv86sluNfm
+ NPx5fC+CRbTpZEbBjPD/6tolEl5+fowME8602/lPYTFks0uYfMviZ/P6af1uT3ttrx89YvFBbNI
+ yRgA=
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
-On 07/09/2026 10:13, Nihal Kumar Gupta wrote:
-> Glymur integrates the same CSI2 PHY IP as X1E80100. Add
-> qcom,glymur-csi2-phy falling back to qcom,x1e80100-csi2-phy.
-> 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+
+The t7-thermal variant now exposes two clocks (bus and core) in its
+devicetree binding, but the driver only knows how to get and manage
+a single struct clk. Using devm_clk_get() would silently ignore the
+second clock, so switch to devm_clk_bulk_get_all() and the matching
+clk_bulk_prepare_enable()/clk_bulk_disable_unprepare() calls. This
+lets the driver transparently handle however many clocks a given
+compatible declares, without needing per-variant clock-handling code,
+and keeps working for existing SoCs that only have one.
+
+Fixes: 18d65de8157c ("thermal/drivers/amlogic: Add support for secure monitor calibration readout")
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ drivers/thermal/amlogic_thermal.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_thermal.c
+index a0b530624b60c..2e8d042067079 100644
+--- a/drivers/thermal/amlogic_thermal.c
++++ b/drivers/thermal/amlogic_thermal.c
+@@ -100,7 +100,8 @@ struct amlogic_thermal {
+ 	const struct amlogic_thermal_data *data;
+ 	struct regmap *regmap;
+ 	struct regmap *sec_ao_map;
+-	struct clk *clk;
++	struct clk_bulk_data *clks;
++	int num_clks;
+ 	struct thermal_zone_device *tzd;
+ 	u32 trim_info;
+ 	struct meson_sm_firmware *sm_fw;
+@@ -142,7 +143,7 @@ static int amlogic_thermal_enable(struct amlogic_thermal *data)
+ {
+ 	int ret;
+ 
+-	ret = clk_prepare_enable(data->clk);
++	ret = clk_bulk_prepare_enable(data->num_clks, data->clks);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -156,7 +157,7 @@ static void amlogic_thermal_disable(struct amlogic_thermal *data)
+ {
+ 	regmap_update_bits(data->regmap, TSENSOR_CFG_REG1,
+ 			   TSENSOR_CFG_REG1_ENABLE, 0);
+-	clk_disable_unprepare(data->clk);
++	clk_bulk_disable_unprepare(data->num_clks, data->clks);
+ }
+ 
+ static int amlogic_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
+@@ -323,9 +324,10 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
+ 	if (IS_ERR(pdata->regmap))
+ 		return PTR_ERR(pdata->regmap);
+ 
+-	pdata->clk = devm_clk_get(dev, NULL);
+-	if (IS_ERR(pdata->clk))
+-		return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get clock\n");
++	ret = devm_clk_bulk_get_all(dev, &pdata->clks);
++	if (ret < 0)
++		return dev_err_probe(dev, ret, "failed to get clocks\n");
++	pdata->num_clks = ret;
+ 
+ 	if (pdata->data->use_sm)
+ 		ret = amlogic_thermal_probe_sm(pdev, pdata);
+
+-- 
+2.49.0
 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
