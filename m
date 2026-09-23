@@ -1,71 +1,121 @@
-Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C8A481255
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:55:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.113
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63002440A26;
+	Wed, 23 Sep 2026 10:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790160916; cv=none; b=rDZhaWcYT3vJY/dd6/D8Qp4h2gJfjyFQWGVYxSaHIifjv0x3siIX1c0TXd9qC6zi3PFO1E6Db3ZeWP4aG4ZNCKZ5wPHQ6lA3ybPTGgLfo1rhW/V2q/P8LdGCAoWLihXvUzC/OWYVu8vykkiO7VkMl2py74MOEAvGcpOxAXvw56k=
+	t=1790160978; cv=none; b=EBq+6s+OttukxznpwBf+sEaufEIP45GPvlogzPySpWf8B/A7iyyV8HqTVoDTL3YfcehSuGup6g6a4cxwoSC5zeQqYH47B7/2MUWYjJMuL1RVNxzpUhY695xVSyTYwJkLOKIGa1m6CZzycTeM/LvxOEqpYseln+pas4H6+bpoXO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790160916; c=relaxed/simple;
-	bh=pONCe+vryD+J7wT9UN7GEqgV2HlSYcNCPe4X1qbrM/E=;
-	h=References:To:From:Subject:Message-Id:Cc:In-Reply-To:Content-Type:
-	 Date:Mime-Version; b=nOkHaOyuUGZIq7N1Y2NeSomoBjdJPgD4hd5k2SmijJW1suFgnsIPzq0v6eMCgs0bsSvg3TiSLpauFc+C34H8mS2OHohubGRVkKWCotfyVgZQM/Uy1hFOGtMseecHmccV4GXTY2oNVli3ODw43SEKg3Z2X3pQJsk+XR630IgcKX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=ZhiFIwzq; arc=none smtp.client-ip=209.127.230.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1790160978; c=relaxed/simple;
+	bh=s5eK6czV54tLMgQyspEsKT5FhzSt1Pt79xGUDPqztro=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GQCMg37a2XD9wBKMXhF0p3WI0puCE9Z0OHNA0IJW/20EmQQvR4ejX3PdhCO3X5hGXmgmZ3/yE9RuqZ2AeRyBCKZl+3ecj+DJ5Ki6DmzerGFKCGn92098qF5JaWwAYaFF0OcQWlTzRifI3hkKl2qs3NCk6hYlPZKTt9thYUg9mqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LogV7v5u; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="ZhiFIwzq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1790160898; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=BZiUM9h7Ce09u2QYdbPiXyMCFwJUV4rrQ57LrhBqTws=;
- b=ZhiFIwzq+Rt5F8lWdiUCeY0kD7HLAgDFKBkj+pKpkEiGwf5viOAmDCFt31o4Ei8wX0XeYw
- w7+dZFIH8OstG08+wjFzz6yMAMnftYt7OpOao5J9m+GggVK+1+3n7cy/y+iGRIYyYcXsyF
- HqQQpp/+cpLlTfnI96vrqYcGwxnAeGT903ykIxkC0j/l8soEWoG2QgRk1DdSlcraF/skIs
- BsO467kpeMQKety8x8aBCxrU+CPf7NDscill6mLlcg+n5imiZjD5UKXfS8SNBklW7XxF/9
- g6nstVCJi5eZ8EjDY/haO5/rayiNX4YgDvs41ipRAKGep7a352ZYXe2+n8zJtA==
-X-Original-From: Chuyi Zhou <zhouchuyi@bytedance.com>
-User-Agent: Mozilla Thunderbird
-References: <20260921095359.3784458-1-zhouchuyi@bytedance.com> <20260921095359.3784458-5-zhouchuyi@bytedance.com> <20260923092819.OVgjJ9Gb@linutronix.de> <956efada-ac6a-413c-ac90-324eae428025@bytedance.com> <20260923105037.4wyE0RLj@linutronix.de>
-To: "Sebastian Andrzej Siewior" <bigeasy@linutronix.de>
-From: "Chuyi Zhou" <zhouchuyi@bytedance.com>
-Subject: Re: [PATCH 4/5] x86/mm: Decouple kernel TLB flushes from flush_tlb_info
-Message-Id: <73ce6c91-d654-4890-8497-11a8632205bf@bytedance.com>
-Cc: <tglx@kernel.org>, <mingo@redhat.com>, <luto@kernel.org>, 
-	<peterz@infradead.org>, <paulmck@kernel.org>, <muchun.song@linux.dev>, 
-	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <pbonzini@redhat.com>, 
-	<clrkwllms@kernel.org>, <rostedt@goodmis.org>, <nadav.amit@gmail.com>, 
-	<linux-kernel@vger.kernel.org>
-In-Reply-To: <20260923105037.4wyE0RLj@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-X-Lms-Return-Path: <lba+26ab3b000+23de6d+vger.kernel.org+zhouchuyi@bytedance.com>
-Date: Wed, 23 Sep 2026 18:54:34 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LogV7v5u"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E97BF143D;
+	Wed, 23 Sep 2026 03:56:03 -0700 (PDT)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 047343F86C;
+	Wed, 23 Sep 2026 03:56:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790160967; bh=s5eK6czV54tLMgQyspEsKT5FhzSt1Pt79xGUDPqztro=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LogV7v5ul2kJACpBHby8srql67OXX0Bled1I/EPPVwAmKpYNSZLzGG8ySoD5aiAqb
+	 z8+RgMj8cMWr4Pz2TESQ5GlrSOcy/prdB3nggxKbZkvpFNJLKUt7KD6SYEbTQptlAs
+	 Rr0b9Xa0retjD23OCp/6aqD0SFUfPj8MEmIOOIfo=
+Date: Wed, 23 Sep 2026 11:55:49 +0100
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Cristian Marussi <cristian.marussi@arm.com>,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org, linux-doc@vger.kernel.org,
+	sudeep.holla@kernel.org, james.quinlan@broadcom.com,
+	f.fainelli@gmail.com, vincent.guittot@linaro.org,
+	etienne.carriere@st.com, peng.fan@oss.nxp.com, michal.simek@amd.com,
+	d-gole@ti.com, jic23@kernel.org, elif.topuz@arm.com,
+	lukasz.luba@arm.com, philip.radford@arm.com,
+	souvik.chakravarty@arm.com, leitao@kernel.org, kas@kernel.org,
+	puranjay@kernel.org, usama.arif@linux.dev, kernel-team@meta.com,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Subject: Re: [PATCH v12 02/25] firmware: arm_scmi: Allow registration of
+ unknown-size events/reports
+Message-ID: <arOv8aLJaRQjhkaF@pluto>
+References: <20260920091928.2014972-1-cristian.marussi@arm.com>
+ <20260920091928.2014972-3-cristian.marussi@arm.com>
+ <2135509e-2689-4258-ab00-011d47f4b172@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2135509e-2689-4258-ab00-011d47f4b172@kernel.org>
 
-On 2026-09-23 6:50 p.m., Sebastian Andrzej Siewior wrote:
-> On 2026-09-23 18:43:55 [+0800], Chuyi Zhou wrote:
->> The ceiling check does not cover all possible inputs, though. For
->> example, with start = ULONG_MAX - PAGE_SIZE + 1 and end = TLB_FLUSH_ALL,
+On Tue, Sep 22, 2026 at 03:15:55PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/20/26 11:19, Cristian Marussi wrote:
+> > Allow protocols to register events with build-time unknown sizes: such
+> > events can be declared zero-sized and let the core SCMI stack perform the
+> > needed safe-net boundary checks based on the configured transport size.
 > 
-> Well, due to the number of pages when it is considered to do a full
-> flush. But "ULONG_MAX - PAGE_SIZE + 1"  isn't a valid start input, is
-> it?
+> ok, so we have a maximum message size defined by the transport. We'll use that
+> as payload size, and the report size just gets the additional ktime_t.
+> 
+> 
+> >  	pd = scmi_allocate_registered_events_desc(ni, proto_id, ee->queue_sz,
+> > @@ -807,7 +821,8 @@ int scmi_register_protocol_events(const struct scmi_handle *handle, u8 proto_id,
+> >  		mutex_init(&r_evt->sources_mtx);
+> >  
+> >  		r_evt->report = devm_kzalloc(ni->handle->dev,
+> > -					     evt->max_report_sz, GFP_KERNEL);
+> > +					     evt->max_report_sz ?: max_report_sz,
+> 
+> Having two similarly named variables is a bit confusing. I wonder if you can
+> somehow make it clearer in the latter case that it is the max_report_sz
+> according to the transport.
 
-Correct. On x86-64 that address falls in the unused hole at the top
-of the address space, so it does not represent the start of an actual
-kernel mapping.
-
-My example only illustrated a difference for arbitrary input values;
-it did not demonstrate a valid use case that needs the explicit check.
-I'll drop it.
+Ok I'll do.
 
 > 
-> Sebastian
+> > +					     GFP_KERNEL);
+> >  		if (!r_evt->report)
+> >  			return -ENOMEM;
+> >  
+> > diff --git a/drivers/firmware/arm_scmi/notify.h b/drivers/firmware/arm_scmi/notify.h
+> > index f18f98c5ab3b..c2eb4844c7db 100644
+> > --- a/drivers/firmware/arm_scmi/notify.h
+> > +++ b/drivers/firmware/arm_scmi/notify.h
+> > @@ -18,8 +18,12 @@
+> >  /**
+> >   * struct scmi_event  - Describes an event to be supported
+> >   * @id: Event ID
+> > - * @max_payld_sz: Max possible size for the payload of a notification message
+> > - * @max_report_sz: Max possible size for the report of a notification message
+> > + * @max_payld_sz: Max possible size for the payload of a notification message.
+> > + *		  Set to zero to use the maximum payload size allowed by the
+> > + *		  transport.
+> 
+> "maximum payload size" is ph->hops->get_max_msg_size(ph) ? Should we call this
+> "maximum message size" then?
+>
+Ok 
+> > + * @max_report_sz: Max possible size for the report of a notification message.
+> > + *		   Set to zero to use the maximum payload size allowed by the
+> > + *		   transport plus the additional ktime_t timestamp.
+> 
+> Same here.
+>
+ 
+Ok
+
+Thanks,
+Cristian
+
+> -- 
+> Cheers,
+> 
+> David
