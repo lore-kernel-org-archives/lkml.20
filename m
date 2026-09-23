@@ -1,40 +1,47 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462073C76BB;
-	Wed, 23 Sep 2026 08:47:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3DA3FFF94;
+	Wed, 23 Sep 2026 08:47:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790153278; cv=none; b=Ys+SLmrU80r5N5XNHxUqcFZ/sQ4v1qscRoTCXXdzcHyItf6b46SUZcq2JCkpE6IqNf4gDRGlQd0If4fvwDh/+BwEHn8ChyoBjddr55EQLFxLQTjON3osolJytRpoNgSRa4lgLZeByAc/4H7pzoyC3iIiGq2lsLsYIdtUKwGR2V8=
+	t=1790153281; cv=none; b=g4Ml5YiTPI414iRUnYZAtJTLq+6BFlvRhS+cvo69aLLSvc6uGFI2iHIuwyMK9qM4q8MyKakeonUtYXXfzJwKo4s3Wusu7fgdx39jIzzUkXp9Ha49JC0bUQc7AQcKapEhYAaf/Y6aVOOewzr9KMRQi1rQ9IQupgAPZdMI9qjdgi4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790153278; c=relaxed/simple;
-	bh=E6ngUR8yaYSFJtkuqufH1CdCHF25jtwtFAw9biubYl0=;
+	s=arc-20240116; t=1790153281; c=relaxed/simple;
+	bh=gOCrfM1ZgB3A30nhF2vhNDrTIz6510YJeMwBpqVFw2E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tioGLcQPgHbl3guMOmCErhztqpHNeeWpdSMpJpEuGEZ2ZhuhvoPc7e3B50GYLTgjVIRkMPNZq31zyLMmhunrngXtXTSr88oAZIMtqd1WouuhH58PcEC76EhqKvJKzfO+rT9aZJ4Z9rQRl2qJgp8d1HdvMlvHsU0n+CzdRfb0O2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m0wn8MfM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fegA1QXnefQ2OJra8+omrvpjYiUFVRxe9u8RPRdjW7hPKKgm48GNLgudUKGzTDhfK/67YrdpH6Q9WbkKN4w7uTXLM017YWXfdS5uebekJDLUgxK+tbPvbu4ru3Xr71DTnML/gLVZ7D3PfuK2n3QdyFx+gp6Zl3iNLam7fgK/2Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=AigEOVZZ; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m0wn8MfM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06AE41F000FF;
-	Wed, 23 Sep 2026 08:47:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790153275;
-	bh=xaui1Yn1pNkB/nXVOEkdR+sUD99wJxLpBFDtsL2MDSg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m0wn8MfMyFpXasMiG+weY3HX9RwsxY9ICdpZvTSdsAcjVs2yTSmfxwYMNeWxbEEjB
-	 7cYc3WomzdwZIl3OU0eL/hg8hVqKVVK3Z2zdNbDUZXBkqSNOzbpsZ00DwS4utasRWY
-	 GC+gUjfZT0Q0Z7BJoR+P+QIqOVLdjX45j6bwPo2kIxgFOVJDXEw6aD4jgJeLr9VpoP
-	 u4yGgwddNMxEr/YOWEGcUSUnnWlDRoWKJ8YlhVHNy1iA1vTKaAsY1K8v26wja7jmZ/
-	 oLWUMVT/iNoG9VbRZEtfTYyzpL1ufsot4XnIV7sIKNdLq7gR6UtFWALrZadRWi3CPX
-	 qc1RARsvEhcjg==
-Date: Wed, 23 Sep 2026 11:47:52 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: jgg@ziepe.ca, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
-	rolandd@cisco.com, stable@vger.kernel.org
-Subject: Re: [PATCH] RDMA/core: Fix member use-after-free in
- process_group_error()
-Message-ID: <20260923084752.GN563127@unreal>
-References: <20260916184555.2093238-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="AigEOVZZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=fzOjKS8XrMIrowClrcHFVe4+hqchnAhPz+nCX2EULNg=; 
+	b=AigEOVZZvsyU7sopPZdcbJnWb4W3LzSzGl3HIH2lnN8p4e00UwE9SKzx8EChxM/GFFHVvtKOVrJ
+	T4pw0wO3UgAFWMPvsQkyQrjaR7QwKXbHvxedKZp66Y5JkSESxvVWwvMZOFIQZKqdMtaGL1t//OB2W
+	MyYJz5sfEcx0pWk8FUSy6do4MHJ1BBdYrFpwhIqpVvhGx7tqgVkz4yD8Wu6cYdS2/+HCDciCkeche
+	y+h7de7TXCWBxXiHHIxTAZO8BkPV2sGT8Q5zQ4dsHS7KuLl8VGLQ3isY6k0B9qEPXHhr0H7yOyOk4
+	mR/b7yNASKzJgzmvGpjEc2QXucV0kiD6ggTA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x9Idu-0000000GyAI-3Drb;
+	Wed, 23 Sep 2026 16:47:55 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 23 Sep 2026 18:47:54 +1000
+Date: Wed, 23 Sep 2026 18:47:54 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: sahil.malhotra@oss.nxp.com
+Cc: Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Varun Sethi <v.sethi@nxp.com>,
+	Sahil Malhotra <sahil.malhotra@nxp.com>
+Subject: Re: [PATCH] MAINTAINERS: update caam crypto driver maintainers list
+Message-ID: <arOSOlAyfJv4wJ2n@gondor.apana.org.au>
+References: <20260914041436.3910000-1-sahil.malhotra@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -43,54 +50,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916184555.2093238-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260914041436.3910000-1-sahil.malhotra@oss.nxp.com>
 
-On Wed, Sep 16, 2026 at 06:45:55PM +0000, Wentao Liang wrote:
-> If the callback on the error path returns non-zero after a concurrent
-> ib_sa_free_multicast() already dropped the initial member reference,
-> dropping our temporary reference completes the waiter, which then frees
-> the member before ib_sa_free_multicast() dereferences it again.
+On Mon, Sep 14, 2026 at 06:14:36AM +0200, sahil.malhotra@oss.nxp.com wrote:
+> From: Sahil Malhotra <sahil.malhotra@nxp.com>
 > 
-> Only free the multicast member when our reference decrement was not
-> the last one; otherwise the concurrent free is already in flight.
-
-I'm not sure that last sentence is correct. Can you prove it?
-Because we have the following code:
-  662 void ib_sa_free_multicast(struct ib_sa_multicast *multicast)
-  663 {
-  ...
-  685
-  686         deref_member(member);
-  687         wait_for_completion(&member->comp);
-  ...
-  691 EXPORT_SYMBOL(ib_sa_free_multicast);
-
-Thanks
-
+> Adding Sahil Malhotra as caam maintainer and removing Gaurav Jain.
 > 
-> Fixes: faec2f7b96b5 ("IB/sa: Track multicast join/leave requests")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Signed-off-by: Sahil Malhotra <sahil.malhotra@nxp.com>
 > ---
->  drivers/infiniband/core/multicast.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/infiniband/core/multicast.c b/drivers/infiniband/core/multicast.c
-> index bea7df3dd8f3..aa6fdac5fcde 100644
-> --- a/drivers/infiniband/core/multicast.c
-> +++ b/drivers/infiniband/core/multicast.c
-> @@ -409,8 +409,9 @@ static void process_group_error(struct mcast_group *group)
->  
->  		ret = member->multicast.callback(-ENETRESET,
->  						 &member->multicast);
-> -		deref_member(member);
-> -		if (ret)
-> +		if (refcount_dec_and_test(&member->refcount))
-> +			complete(&member->comp);
-> +		else if (ret)
->  			ib_sa_free_multicast(&member->multicast);
->  		spin_lock_irq(&group->lock);
->  	}
-> -- 
-> 2.34.1
-> 
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
