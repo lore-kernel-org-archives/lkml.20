@@ -1,115 +1,253 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013056.outbound.protection.outlook.com [40.93.201.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF8363A3E73
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790202746; cv=none; b=UbsPWBTHkU8sJTNZHfnvcTIAEsyEXJ99AjjW3qCqUoUeSl2Ieo6Lgv77/aw0XDCMfdxztMmTGH/O6dOdisrHMXMwWCevWkJqQEQB8zlbCcODA31kcHEuxt0pWZF1XSbnzuR0Z0QFYfkO/9Y70Irm+ALcvp3rP/zy4o5gB0udi3w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790202746; c=relaxed/simple;
-	bh=dZKKBf1/yUjdqUoa4GqK26ilVjXq/Zm9pt5x/OdRU3g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cTBd82Y44/qNOcfm+w2Mp6lw3jNK9/jH/+5KAYm28NhJ8/2Fpmr3wme3NGAcCsY/ba3oHscj9gBZzo4YbHg2wnaDpnp8hxNYzJ47w1I7UH8+Kdt9WLUEEbRaIZBCXs7I+zoLqRyP0QNWFAoBG80Z7aJZ6XZaoRQRqX8fSUlEw1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=HTbv97X7; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E043343882;
+	Wed, 23 Sep 2026 22:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.56
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790202814; cv=fail; b=V62KWM3JqYQP7TzgYsb/5InL5mIFSOHC+p9UGiIkfdhI4VhAp2kE3GOTKRXjpJwYcZbbgbrpw6w6QYyd6Z3YIc0RYisCyuHw7Osq+Gc8w4iR3SegbawP5oHfYOY9YqhotP9znAl5yazOfAk5oxkdpUJyqDrLz0o1+Mm6jzyP138=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790202814; c=relaxed/simple;
+	bh=wsjCwBc6LixRQ9P+t6puZB1kV7/h2d7NEto/WhbuSUM=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OQN4Mg+uynKIANL+J7eg2sqAqMSIrh68bp7WdFAyfQ5dHhDn2SN1Ezodb/MrIwOOsHUvPdSr6mTtyEu+txzyMJDQJtn9RMg3xmRtA5a8FN9gPQs/KMGecHC308z+OfhUf+q8VSp+rHSy1PY8TCNfohO+Jr4OYNV05sxDOu9sZ7w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=LVQRduWw; arc=fail smtp.client-ip=40.93.201.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="HTbv97X7"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2db33db4de9so31885ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:32:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790202744; x=1790807544; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=buc8AIw70Q1k0d2thl18OR3X1pkLSFe06GlRsiO09uY=;
-        b=HTbv97X79BnpMZn+4k0Cw0HVM1hneGtXe5oEFthDv+VkJqxPvDzEyF8wce73+0P+Op
-         R85444p79iJ2ZK2A4+p4775nk3n+NO8FoTtux0dYEsCKPLZmo5asSuFIlmi7O12s0XdP
-         TugRwuytGvnBVWrS/fWBPOePqruCP3EeAwynnbeZXTmr3FR0Dc9sFMqy8YMOiuBBaB0j
-         Ieds69qOeZ35XQwgauccU8K4vm5ttsFBXbolF8sYK9joVlZEeyT06kqg7SrX73eo6hvD
-         L28AJqsAywE2TC7SoUVWlUVVJAN5I78gIakhrzKVUEBoKeXfUpOsc6txzv9rNTfA9S/x
-         mc5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790202744; x=1790807544;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=buc8AIw70Q1k0d2thl18OR3X1pkLSFe06GlRsiO09uY=;
-        b=uw6a63uboIoqjqv7Ie7ciFSjfKBKqHObM4u821jxa3h2cUFatXteMN0p4h1Tc+Lr2m
-         x5eceUXB/gkj95pA9Oel0805ZAHd+5CmZRO+1pWICFir6/8v/fIsTzZEp/QY/sSa2ToF
-         1GY65RFp+3ED7uz+N9cssLo/Ie060VXf4Zrz0yjff217+pa5gtGpkjbMu7FfIRYntIjn
-         gC15IEBZijhRTvZiqXAkY64wmhxCmmHyeqtCxPGNW1RIteXRprCfyu+Dw84FaVccxAlR
-         MlePGm2W7OuX3Kk0VBeiJLfVHEujhdtUfVD5Rt+7V1WOjb0Fg92udvK+riGlruKjF87g
-         lKGw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/yCxAKc/Qza77rQGJbj6kOmyQxo60Y1cQCiHLR3twucR+9QTnGmQRlf0hLpXhrf8p1Rn0ZTkH7TQymJI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mzyjjWDxh8XHJrAbgUSO6Q7P10Qp3ltC5f4y4myUmrQ5/ybhE0
-	4eTkI+pXsoTkbhbW7IXzwSWd3makQDXtWwCvzjmnIjbQZQntpjWy7loIU7wlPSqF4Q==
-X-Gm-Gg: AYBFou29zoKa4CkDFIghqX+6jzLYPP8Gd6LF8mhZIqRMpEgQWLh54pFjFSTjHi3ALy5
-	y/c1Lg4NVU0BQQp7N2HsdoezFgdHJ7GWoLK4djCBAMVHGr3IASRule+nw2oLctG7wtppssQ7Nxm
-	11PM/Ia/QcUlyKHVB/t808AV55dhQlrQzaKbu8Nl+4c7mO/sShqXrrv27096cLqKoJnfTTPAZu3
-	GW46RYkyaxA+dhQcm3TBCnKhIbqjejSYy4AP70If1MbAYCovpa2bQD6RyaQtDxMP+KeyQrT1ctY
-	l0EWEmbgDZrKNwQ9uo3yBTDqo5Hcbu+3mKm3XMWtC71RbK/j8ao1GPDJkhRxJwXAVCNdUmDHgTZ
-	OSIlH9CuuqN7C//CZcCmrjC2WnXaqKx0+6SeOjTID744VepzqU7W18uHNaSn5xvvgsxORApEerF
-	i0OdNowo63J1PVD+sUjwIPDaBVYOe1gclXeuf//6W4LbcZpLxp3+BTs6rfrwhskFOdicpEHhQCf
-	uCpqribzeVl18RqyHbUmGsVvYcVvd5uxMUjP4larQiT7wRZRpItKjA95EFm0AIPGXjJ5VfqNGuQ
-	/EIzWYD7eK5A5nGDvHCdNlk1bAX/7JgIdbn0SmMsHngZsjQ=
-X-Received: by 2002:a17:903:1a10:b0:2d0:1aaf:daec with SMTP id d9443c01a7336-2df7bbc5139mr2206095ad.9.1790202743286;
-        Wed, 23 Sep 2026 15:32:23 -0700 (PDT)
-Received: from google.com (99.95.125.34.bc.googleusercontent.com. [34.125.95.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0976c8f8dsm1082589a91.12.2026.09.23.15.32.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 15:32:22 -0700 (PDT)
-Date: Wed, 23 Sep 2026 22:32:18 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Hui Peng <benquike@gmail.com>
-Cc: gregkh@linuxfoundation.org, arve@android.com, tkjos@android.com,
-	brauner@kernel.org, aliceryhl@google.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] binder: fix sender fd 0 close and file refcount leak on
- TF_UPDATE_TXN
-Message-ID: <arRTcvuJ09EKWnAe@google.com>
-References: <20260919213648.3316566-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="LVQRduWw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XbGNgZjfHMhpRXxUsoQ6cnWeUVzl59+bYTOBHbmQw5KE0T/o5MQri28tJnFEWzC7OW79zVP6gw1dkX6fMEXKsokysE3+EgH2YTSXRt4VO59lcTbzvcx25hbT+a0Aqe/zEddfE2z3y3gEIif3Ny0+8DtaBCvkk/gW/yaAJWa0GQudn/pTydp+xQ0LTmvu1N9gNChp1nU5L37YqBY/t7q9iK/nluJ/yj/i4pg/FrFQDmlL4QSkslhHx/U+1+KGZxuXbOITDFFyVT6vLgv99qEMqGLUu8Zfm+96CAEwNFmEvHz5q0XoPpSbznR284tb86ep9adTJFAMNt77w9eCI4Cu4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QjVZsgjafxWHbInP82QtXw3nvYZsQ/D+Rt9D0nwnywk=;
+ b=hn4eGKWmdLZRyCIQ6uwR/ly8kcMHft7Y3ZP+Kk2JvvpQCH5ZMrIsQbtwZIJG+1o+2HQcdmVR5tBUlmd2VW0TEXgO8MUgE2HqvCDpzZFCdgqrnEbjvwEeLCDpZeFOmbgoffTe9plXJ9rn+rGKdF3Z7mc+2TbeMc94LofCgywqpPVh0qm22WyyzbHm96ohplWIUU5vK8Qj5c2JfjOnZeKNoupd2no7a/pIkHB9yaQB3du+ste8OMTxMM5/a5ZUkOtH99x7qNby2pvqOw/iYX5WcwuCAG9ZrXqSNJ//oc2fybSwisn1NmRwofr60wiEq12FRPdZ/zsSH761EbSBzZYn2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QjVZsgjafxWHbInP82QtXw3nvYZsQ/D+Rt9D0nwnywk=;
+ b=LVQRduWwpepK/Lz/QNJB64dLlEIOdJgGOkuy750JMFlH2BDGPkBFPd019yMz8Rol4i/Rlg2QFSSQIx1TyXqxz7a9MI4BYY/7MFzfrJCYp+5noIaHfsAcEZ95fFUsqOXnBsjEVc7Uxqtus2SqzMKG+BWKdZy5mx5KpgI0AGoYTH6eRbCeakW7V66kqTUW1ymbTU8XbEQdrYa4zWkk62rOAoakfs4uj4xUwuzx89zRRo6+Jr044KlqrhGXKgs6OjjJ+Iq0TbLEikst2FtdTkosTxF31up8ylIGETt/hDjjONR0KNMrx6DVYUIc60cwJNe3PxKlncJDNZLvlrREfsDKEQ==
+Received: from PH7PR17CA0033.namprd17.prod.outlook.com (2603:10b6:510:323::7)
+ by PH0PR12MB8800.namprd12.prod.outlook.com (2603:10b6:510:26f::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.22; Wed, 23 Sep
+ 2026 22:33:27 +0000
+Received: from SJ1PEPF000023CE.namprd02.prod.outlook.com
+ (2603:10b6:510:323:cafe::b) by PH7PR17CA0033.outlook.office365.com
+ (2603:10b6:510:323::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.451.14 via Frontend Transport; Wed,
+ 23 Sep 2026 22:33:27 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ SJ1PEPF000023CE.mail.protection.outlook.com (10.167.244.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Wed, 23 Sep 2026 22:33:27 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
+ 2026 15:33:10 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 23 Sep
+ 2026 15:33:10 -0700
+Received: from nvidia.com (10.127.8.12) by mail.nvidia.com (10.129.68.9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Wed, 23 Sep 2026 15:33:08 -0700
+Date: Wed, 23 Sep 2026 15:33:06 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+CC: <will@kernel.org>, <robin.murphy@arm.com>, Jonathan Cameron
+	<jonathan.cameron@oss.qualcomm.com>, <joro@8bytes.org>,
+	<bhelgaas@google.com>, <praan@google.com>, <kevin.tian@intel.com>,
+	<kees@kernel.org>, <smostafa@google.com>, <baolu.lu@linux.intel.com>,
+	Jean-Philippe Brucker <jpb@kernel.org>, Eric Auger <eric.auger@redhat.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<skaestle@nvidia.com>, <mmarrid@nvidia.com>, <skolothumtho@nvidia.com>,
+	<bbiber@nvidia.com>, <harsha.v@oss.qualcomm.com>
+Subject: Re: [PATCH v5 04/15] iommu/arm-smmu-v3: Drain in-flight fault events
+ on domain detach
+Message-ID: <arRTojIlWBOF57zO@nvidia.com>
+References: <cover.1789446520.git.nicolinc@nvidia.com>
+ <cc7eabdd07e7705c84e30b04c85271d4ddf66055.1789446520.git.nicolinc@nvidia.com>
+ <179018862538.3334538.17643821143626392419.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20260919213648.3316566-1-benquike@gmail.com>
+In-Reply-To: <179018862538.3334538.17643821143626392419.b4-review@b4>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CE:EE_|PH0PR12MB8800:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad6e62ab-f8c8-4216-cee2-08df19c2afae
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|82310400026|36860700016|23010399003|6133799003|22082099003|18002099003|56012099006|11063799006|5023799004|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	7LuFV1otp2NNgkH5qFGpBBp/fBMJm5Qw5d2Ab7+p3Sy3LcG3onzj+PXj5GkA83pqPXPGhxakppdLmq9RXbcVQkl6GM8Dl4LSV67m6v7990xmTYb2ZrA/WlK5dyRo2Q+wVmcsdlMP9FmzlJkrodp+vPC4ttxlNYRqxiHQW3/Yto3UWx5lzos2X4Y9k1Mnka7mNnQ2mC5oCbfg4OR2HVwDpfzCM5WGHXqgxS2ztN6LNFUalG9UywpNS5ATJLO64rBpQqjmFhfCvujfB9yaR0SbzFHW20FD07i6ULprY+EMD+NqrpWAnrQgMGgyto4GMoKKtwA6qcqNFXKt0Qi/z1+s+OocENkGetUGukeGaPa86x7P6SMXDHOIb77wTQ7lv8oPWVZTfNj+P3dUuYxp0Mp2faQjSEokfu4gu/R3p0VRMTmgqqDBkV2mxPSTx7GkJ86q7apw2RbdO5jFWJgiECGsM10e96+phpW+ZW3ssUkBlLdkIWnvlFzcBsW4Tm/HMlH2cQcwpsoSWDKjru1PxDlD2tjRYoyjbzTQYGU33dFOqGpfjaDMuUuiLxdop4P4InubbN7AFU2GGZ76owk2jxxwSTdm2borXBlr99t6GUwLH6FpQnNJmVMPYG0ASAtiQH3BQnIZ8u16zh8jx/I3CrVKF0fbt/qSWk/gYLD3r++V8u/Qqy2xKXXsElH9kqS0icxuCKnG7JmVz64IVpsr7H92bQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(82310400026)(36860700016)(23010399003)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(5023799004)(10067099003)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	MhwNzTtx3SrISKL0d7o04hRRbfOsl0JIIABWvrzR6CTU3u0MmOQHwTWB5j3ypj7Om4WtQko2ivGRsRBUwGljc/NZBTvGx8vI6vCdrtUpIVGIpi2gALAnwB9GYiLQe/1TOmiAp1ZGGWCuL1l/u4OW2BOBqF14b0g3duKc+126lbaK0lt5yKs80wuXDytH7s7/J27U2pdnGCzuz4q1ZBvZZFnDoKyUHFS1uJAcyf81iMsKcb/x9K0j9qFwZyAPdTopP0qLWc2lsG+9jqapaXqp33YOJLDmhf7dAh7fouZhiWnM9bU3aZaF+rpYVeNez/KosjpTPOIzJDAaFy1p/4o4IjozLi/1cz/5ZJ7D53ZszV0WGbEoHO+ToLpS4MA6tAvVSKqVKdGRrbMJGNnaH0RbTHo2SK+Td+1uhsOSZqotoPsrTyV2chkGmGTmxMUdqIUS
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 22:33:27.1453
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad6e62ab-f8c8-4216-cee2-08df19c2afae
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023CE.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8800
 
-On Sat, Sep 19, 2026 at 09:36:48PM +0000, Hui Peng wrote:
-> In `binder_proc_transaction()`, when a oneway transaction with
-> `TF_UPDATE_TXN` supersedes an outdated pending transaction
-> (`t_outdated`), the driver calls `binder_release_entire_buffer(proc,
-> NULL, buffer, false)` and `kfree(t_outdated)`.
+On Wed, Sep 23, 2026 at 03:37:05PM -0300, Jason Gunthorpe wrote:
+> > [ ... 73 lines skipped ... ]
+> > +static int arm_smmu_wait_for_queue_drained(struct arm_smmu_device *smmu,
+> > +					   struct arm_smmu_queue *q,
+> > +					   bool until_empty)
+> > +{
 > 
-> Passing `is_failure = false` while `buffer->transaction` has already
-> been set to `NULL` causes two bugs when `t_outdated` contained
-> `BINDER_TYPE_FDA` or `BINDER_TYPE_FD` objects:
-> 
-> 1. For `BINDER_TYPE_FDA`, `binder_translate_fd_array()` never wrote
->    recipient file descriptors into the buffer (it only appended `struct
->    file *` entries to `t_outdated->fd_fixups`), so the FD array in
->    `buffer` still contains zeros (or sender-supplied offsets). Because
->    `is_failure` is `false`, `binder_transaction_buffer_release()`
->    executes the `!is_failure` branch on `BINDER_TYPE_FDA` and calls
->    `binder_deferred_fd_close(fd)` (closing `fd 0` in `current->files`,
->    which is the **sender** process!).
-> 2. `t_outdated` is freed via `kfree(t_outdated)` without calling
->    `binder_free_txn_fixups(t_outdated)`, permanently leaking every
->    translated `struct file` reference in `t_outdated->fd_fixups`.
-> 
-> Pass `is_failure = true` to `binder_release_entire_buffer()` and call
-> `binder_free_txn_fixups(t_outdated)` before freeing `t_outdated`.
-> 
-> Fixes: 9864bb480133 ("Binder: add TF_UPDATE_TXN to replace outdated txn")
-> Fixes: bdc1c5fac982 ("binder: fix UAF caused by faulty buffer cleanup")
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+> Nothing uses until_empty = false ?
 
-It looks like this has also already been resolved by:
-https://lore.kernel.org/all/20260812195316.259136-3-tomerpo@gmail.com/
+This series (PRIQ/EVTQ) use until_empty=false.
+
+> Is that for the power management series? How does it make sense?
+> Shouldn't we already know the queue is not seeing new entries in that
+> case?
+
+The RPM series (CMDQ) uses until_empty=true, as it knows that there
+are no new entries.
+
+> > +	ktime_t timeout = ktime_add_us(ktime_get(), ARM_SMMU_POLL_TIMEOUT_US);
+> > +	u32 cons, prod, pending;
+> > +	u32 drained = 0;
+> > +
+> > +	might_sleep();
+> > +
+> > +	cons = readl_relaxed(q->cons_reg);
+> > +	prod = readl_relaxed(q->prod_reg);
+> > +	/* The exit target: the number of entries in the queue at entry */
+> > +	pending = Q_DIFF(&q->llq, cons, prod);
+> > +
+> > +	while (true) {
+> > +		u32 prev, undrained;
+> > +		bool expired;
+> > +
+> > +		/*
+> > +		 * Sample the deadline ahead of the queue state it judges, but
+> > +		 * break only after the exit conditions below, so a queue that
+> > +		 * drained during a long preemption still exits with a success.
+> > +		 */
+> > +		expired = ktime_compare(ktime_get(), timeout) > 0;
+> > +
+> > +		/* Accumulate the entries consumed since the last poll */
+> > +		prev = cons;
+> > +		cons = readl_relaxed(q->cons_reg);
+> > +		drained += Q_DIFF(&q->llq, prev, cons);
+> > +
+> > +		prod = readl_relaxed(q->prod_reg);
+> > +		undrained = Q_DIFF(&q->llq, cons, prod);
+> 
+> I'm not sure how this all can work, the queue is running on its own
+> with some other CPU handling interrupts.
+> 
+> You can't do this sort of Q_DIFF math unless you've somehow guaranteed
+> one side of the queue is stable for this logic. If both pointers are
+> moving forward then the points pointers can progress and wrap without
+> this noticing that happened. That will lock up.
+
+One side of the queue (pointers) is actually stable. EVTQ/PRIQ uses
+the snapshot mode (until_empty=false):
+
+ * With @until_empty == false (for EVTQ/PRIQ), exit once "drained" reaches its
+ * target: "pending" (i.e. prod0 - cons0, frozen at the entry time):
+ *
+ *   cons0                cons                 prod0         (prod)
+ *     |<---- drained ---->|                     |             |
+ *  ---+###################+=====================+=============+--->
+ *     |<--------------- pending --------------->|
+
+
+"cons0", "prod0", and "pending" are frozen/stable at the start; the
+function only needs to track a moving "cons".
+
+
+Arguably the other model for CMDQ (until_empty=true) does have two
+moving pointers in theory:
+
+ * With @until_empty == true (for CMDQ), exit once the queue is observed empty:
+ *
+ *   cons0                cons                                prod
+ *     |                   |                                   |
+ *  ---+###################+===================================+--->
+ *                         |<--------- undrained==0? --------->|
+
+But in its practical use case (RPM), as you pointed out, there would
+not be new entries. IOW, its "prod" is fixed/stable; only "cons" is
+moving.
+
+> Can you just replace this whole function with:
+> 
+> static void arm_smmu_irq_thread_fence(struct arm_smmu_device *smmu,
+> 				      unsigned int irq)
+> {
+> 	if (!irq)
+> 		return;
+> 	irq_wake_thread(irq, smmu);
+> 	synchronize_irq(irq);
+> }
+> 
+> ?
+> 
+> This forces the thread to run and waits for it to finish. Since the
+> thread fully drains the queue at the moment it starts, that should be
+> sufficient?
+
+Ah, that seems legit to me. The point is to make sure no pending IRQ
+on the HW queues, so everything is drained. And this likely suffices.
+
+Yea, I will try that one!
+
+> But I wonder if the point of this has been lost? Prior to calling the
+> driver attach functions the core code already changes the xarray:
+> 
+> 	curr = xa_cmpxchg(&group->pasid_array, pasid, NULL,
+> 			  XA_ZERO_ENTRY, GFP_KERNEL);
+> 
+> That immediately makes the threaded IRQ safe since it calls
+> iommu_attach_handle_get() which now fails.
+
+I am not sure about that. Looking at iommufd_hwpt_replace_device(),
+there can be a old_handle != NULL, in which case the cmpxchg() would
+not change the xarray?
+
+> So all that is needed is to synchronize_irq() to make sure the irq
+> thread sees the xa update
+> 
+> Then to flush the workqueue that iommu_report_device_fault() pushes
+> into.
+> 
+> We don't need to do anything with the HW queue.
+
+FWIW, the idea of HW drain came from intel_iommu_drain_pasid_prq()..
+
+Nicolin
