@@ -1,33 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A783FFF94;
-	Wed, 23 Sep 2026 12:54:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B5A41B8CA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:54:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168064; cv=none; b=CKjXRjGfvkVuxRPnDjWw7IwI7cNHEBQ8M/5GFFysazQ95j0FkyS7pn26kQk/FBvoa71f0vgThiNc+EYqpNJe7hWbun9rGaMYdXr0JJIiNOtf1EYmnWVPC2gUwnpoxneNAIj5M36oliXIt21kdxBsg/EhXsda//TeY1KwEGbq60Q=
+	t=1790168099; cv=none; b=CO8/jMf42K3aKYWuqVsK+wVm5/ghMopXjq1sMRSzzwJ2Q9YeuyzWJ47K4EpxtoDQ/vJZ5NCqbZ/+loUOABjeAVk1eK+GmTa/4OQPxyoF7wJ/uMCujEYHfItHTBPgDwZdpALzKkK5weMDLrsmRfCoJ2ue4Iu5qD/k1BDEjMVrmSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168064; c=relaxed/simple;
-	bh=2J1h7MUp3bkY4g6NYXbBCpkjvuchfgG7QfNUnxKTW0s=;
+	s=arc-20240116; t=1790168099; c=relaxed/simple;
+	bh=Zx/zASwng4eAeMQ6fde2oAI+Yd/IiVV1LTddyWl4HxI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a9XOK75f7E4jQGXdaF7uzb8dpanGGqo3ck6IjTkq7oH3m3LKTcrv8ST4UQoCPqu/3abzisoP/j7GQ90CbmGN2QouMhOjRFoSm1MTPQrKEKE9WoOB+MFE127/GkNA55/cRWQ5EavaXiRm5Sr9yKmtvhuE/0geXh69KqxREAAyBFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJ8AxRfE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=NkcDWUQjCE2l9KjcdbBqJIKOTII5jQuQWyJcz/6Gp5P9YqVMguhrupVkVS83S6VaBG2zwvEc5c0/d4KahZq7FPs/+f31h0IHQMIjz2sOTPUpsSzcMZwvTuu3p5UUg6iARYKl7vC3zOOzqWMvDbGSMLgkCBeYojfA5/5jydm9xHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=htUUN0QD; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJ8AxRfE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DDE51F00893;
-	Wed, 23 Sep 2026 12:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790168054;
-	bh=uQKW24Y6OW3CY3XYxdWBUmR7dEKdphWdgIXboMFRnOk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XJ8AxRfEoOz5HKfBwxGt9+R/RLJZTF8WXeIzsEcONozH8IEVu9HP2tBIY4LNkFhh3
-	 vT2otMJhXGGtSO5NQq47YMSP6MeCudVUzSOrm3JvEdZoPBkkQfAJjLB+XOBYWl4CbY
-	 puJIXy6O8Q1iV0ra2h2aKMY18JHXU4UFN9NLp0lYp3jsOCSi849jZwXqUqF3LcCrsY
-	 5mQPTeaV+94o9HmUmwHFqGadJHqiS4GgO/bMGxJ7lvXvMaRZVBpJ3Z3n50vAHSPyTf
-	 nqB7N0xyR1P1RtnUmMpNkeaiJvD8VW5OvJfSNxtuJXfT45LRBQwh+jlIUxcG7RyoFv
-	 0giJWU9Hcm9mA==
-Message-ID: <ccf61e53-3bf0-47d3-92ef-46eaf756e339@kernel.org>
-Date: Wed, 23 Sep 2026 14:54:05 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="htUUN0QD"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4adso434238a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:54:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790168081; x=1790772881; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eH1PKGunx3MHUYSKzUdOGw8jJHjZCuP1JnlKtRRHVto=;
+        b=htUUN0QDk0OQXl2r657SZf1pC2Sp8Rh6/WLFNZbwuKsd7lZ0qieVpmMtz665ZvWCLu
+         4/ACE+xurWqsMVjwMcyQbbkavRsil1NeyZbicsR4Du66UOGUMJ95J+3Qx+xQUxU2jGRO
+         D8l7UXwSqMACKU5x11kVd5mYYbK01fdLGFhUwkPevDZNG2IR0sU7ejQdSICUsw2yIg/m
+         eW/rDHRKjmClUlbP8BuDmopxy3Qi+8inn9xWqTt0ZMQHm1+FlGu0KWsEQubZhDsa53lP
+         AiIgIj7hDM0fiTbJbgPqs8/TL5eq5/2VKGN8lgQOAPPv6GGR4ZnCMYDEWlcT0tdLJSHS
+         hDfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790168081; x=1790772881;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eH1PKGunx3MHUYSKzUdOGw8jJHjZCuP1JnlKtRRHVto=;
+        b=mDswPCciBEbnzgRPM/WExG744dHaMKc4GQhPFQ7iVlnhkQU4C4j4d3dEO1gBxO8w5L
+         NCxFs0G80E9JvVfFE0qV1ZvB39oRw29Z25uJV2IUHriqwg+G/DQUmvbV5QvDM8z0X4b+
+         O4D3XzxxZSXbABO4iQ7sOWB9YIfZ7LGOZztXYG/uGuFfUOEhMP0r/mzbS77r9ulnWfDf
+         LmI5FScxs2+kPqT3eYJtfQQ9kP2Wy5KbyjB0LxLp+OW6G/gyNzr+ESoZUFe7jEB2HuQp
+         nVu7VngCZb2CH5cfc1YrEW4NoKSG/kPn7ZVTxj1Sw8hP0YB9aKZ0RmCkzqA5djHBLryX
+         uoRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzflwg7bypfKPMABAVeY4evtzpW6WI0KEoLrBBZZ77Pu6xZqbGQy0W9sOUFRJXxf4uf40BpoBvNX63cfTc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mK2AWfiQN+pAJKxzPzln2rVs9wKX2EBokX+qAGV6pZerpKkZJv
+	KD/8TULOxU9Pe/GWRHrdO2FLB4NjQx73KI4JFzm7GzQ4KurAswQ5cjmW
+X-Gm-Gg: AYBFou3e87XoijRk+ZX59uRXCb/CpkT7We5GYxk0UWRnuVIOQUTYQHgiO4wZu7hBr5a
+	AxqX0AKwduGz6pLSnNhlA8hDV/DsmldHktf7aXES2Vq9kHsD80BrJTLJ8LVs5RReVpVPRACqp01
+	dT2kGPXTeYMUpvSUNgLdrcZD3eV8/4ag1ifCLEglvCn0FKc4OR/LZn33gOUvOuPUD0Wkk0bAwLv
+	DQ4zsySTE3p3bRg/fWN5GVKClbl61RzNxFxfurL39VQNCMa+qnuMLJpiKi6X0cULUS375a94B4I
+	ksslHIUriCaG08BWJ53Kf8guH9Om3XH8yuj4mofTwa16hTn1jQLu4uMga9qSBNrYhQNrxwxK7Rn
+	HmalC1TOXnuJVJkFC7G8fgLn6RoLsrXBF4S8R0J0Vb+tnI8TfVXuZQoKljLCsWOZalMtwZeKO0e
+	Y5spxnngsKbDkY+jbbHtCEoxac+7UH8qpmDFZAeLpl5O1cEOQicslzpAqY9WhWOMKXwyA41BCk/
+	vZfkj6YdBAzY0m67ts=
+X-Received: by 2002:a05:6a21:8287:b0:3dd:85a8:4c56 with SMTP id adf61e73a8af0-3ddf7e52ca6mr2589348637.29.1790168080565;
+        Wed, 23 Sep 2026 05:54:40 -0700 (PDT)
+Received: from [100.125.248.95] ([124.70.231.46])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f3d67bbsm1007180a12.13.2026.09.23.05.54.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 05:54:40 -0700 (PDT)
+Message-ID: <f36a8d04-206d-4836-b95c-2f144803b195@gmail.com>
+Date: Wed, 23 Sep 2026 20:54:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,83 +70,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/4] dt-bindings: spi: cdns,xspi: add SPI NAND
- compatible
-To: Fei Xie <fei.xie@horizon.auto>, Mark Brown <broonie@kernel.org>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Parshuram Thombare
- <pthombar@cadence.com>, linux-spi@vger.kernel.org,
- linux-mtd@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260921093701.1341766-1-fei.xie@horizon.auto>
- <20260921093701.1341766-2-fei.xie@horizon.auto>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] ext4: Fix sparse warning in extents kunit test when
+ EXT4_KUNIT_TESTS=m
+To: Ojaswin Mujoo <ojaswin@linux.ibm.com>, linux-ext4@vger.kernel.org
+Cc: Theodore Ts'o <tytso@mit.edu>, Ritesh Harjani <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, linux-kernel@vger.kernel.org,
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
+ Ye Bin <yebin10@huawei.com>, kernel test robot <lkp@intel.com>
+References: <20260922135808.3371159-1-ojaswin@linux.ibm.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260921093701.1341766-2-fei.xie@horizon.auto>
-Content-Type: text/plain; charset=UTF-8
+From: Zhang Yi <yizhang089@gmail.com>
+In-Reply-To: <20260922135808.3371159-1-ojaswin@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 21/09/2026 11:36, Fei Xie wrote:
-> From: "fei.xie" <fei.xie@horizon.auto>
+On 9/22/2026 9:58 PM, Ojaswin Mujoo wrote:
+> When kunit tests are compiled as modules, the extents kunit test emits
+> a sparse warning:
 > 
-> Document the Cadence XSPI controller compatible used with SPI NAND.
-
-Some more explanation would be useful here, how different it is
-comparing to NOR variant.
-
+>>> fs/ext4/extents-test.c:59:3: sparse: sparse: symbol 'k_ctx' was not
+>     declared. Should it be static?
 > 
-> Signed-off-by: fei.xie <fei.xie@horizon.auto>
+> Fix this by declaring it as static.
+> 
+> Fixes: cb1e0c1d1fad ("ext4: kunit tests for extent splitting and conversion")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202609221900.Pgwrcp41-lkp@intel.com/
 
-It seems you might have used login as full name. Please configure Git
-correctly to properly attribute the work (see submitting patches and DCO).
+Looks good to me.
 
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
 
+> ---
+>   fs/ext4/extents-test.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/ext4/extents-test.c b/fs/ext4/extents-test.c
+> index bd7795a82607..9669b2197fca 100644
+> --- a/fs/ext4/extents-test.c
+> +++ b/fs/ext4/extents-test.c
+> @@ -48,7 +48,7 @@
+>   #define EXT_DATA_LBLK 10
+>   #define EXT_DATA_LEN 3
+>   
+> -struct kunit_ctx {
+> +static struct kunit_ctx {
+>   	/*
+>   	 * Ext4 inode which has only 1 unwrit extent
+>   	 */
 
-
-Best regards,
-Krzysztof
