@@ -1,112 +1,245 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FF136F915
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:13:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790129582; cv=pass; b=MPFQmWiMGMUamVxmkY0D4FFwTvy2TvYSgXmXLxpRYd61CHD9/LZYt5CjlgVdXWCG6gcElkxijP3eNEjS+sAWiLq5EmYVYMgdAh1+DbB9XxTHuB0dZ8QmPWrstIDm91yDiUFUa3NY4XQuBi0Rny+/HYLVNHTsnWmr9Lcb7BpszvU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790129582; c=relaxed/simple;
-	bh=JueReRxXF36/Y6Fa8OTRaKAq+634SD8b+cgAtq1zZgg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jM3icpnXxvoiEsj9iSaORAVjNEq0lyL69lRJe85eYRhdQIJubQrvvRW0t6OqP4a4jwxu/bbj6tytpHB+VUN1LdNBjF1nOGxfeeronbo1ZgYwCNkPO7NltUIPWiMPPbgZLAEzMn98Op75nliSY5SXAE+TCvWJxbiGTAas8FDb1TE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fasheh.com; spf=none smtp.mailfrom=fasheh.com; dkim=pass (2048-bit key) header.d=fasheh.com header.i=@fasheh.com header.b=DScMIfQB; arc=pass smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fasheh.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fasheh.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C8423AB9D;
+	Wed, 23 Sep 2026 02:16:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790129794; cv=none; b=iCH32gKb0qP8Muw8CWSTVONqoXM1yQDrIruYTGApK42z/Ipdvqp/0J5bnfKXG2ETBWzucvYyllUfCmB37hEqTVJ3K3/xoVgg2iDyAAJS7k+LGycrfosJryxOTJLiv408ZH+CLX3rXitFMb3KZ4RE/3PL8Wm9MB5ATK1J0KR+kVk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790129794; c=relaxed/simple;
+	bh=bYFquYxopHCgUru3+F6MCtUWTJUf2ScvOl5GSjt1fKo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dXZLTqcZaqZP41+4vWp0xdH/3bB7v7b5gUKHP2ML41silZBI6969peSs09JuGxYwdbFGVbwiHC55DguhP6h+KUrnrwnWZ3AjAOUqvwT6BWTyHj6rc8bsZzpToJiPSDDAet8ig1SC3bCuBY2bZu9NM+I/c3FoCCD8uJnzq4A/cuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IoIMwJUI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fasheh.com header.i=@fasheh.com header.b="DScMIfQB"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530e2f50d01so5097571cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:13:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790129580; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nRxQm+YEU6MNQpIK4V+BMJWcF73pgYJmDJ4VWesI3cGUF0AZ7F0vJpqf6fb4erqAHj
-         wheJsSszH+Ya1Dl3WqoCwBrYnBCg3OffpFKL5rGnO8brTxxQ+0ckE1VjhGj9G7JTJLSA
-         6z5ah6wWRE652JUCWtyAM27MDgT+PKhIPvwWSPqGTTmcgZ8+I9QAQ0+1u/dkFxMpAjt6
-         eAJVUccqbwUsaI8ReixFeSYkrmrt0IJTZpXf3DFM6gS8CtdHcX28z5EcsykeLo8hjTVq
-         oJEK4Xr+TYaHuuBxMupkwnYwNrZxaWA5WVhNiKRVMQJjiEx7OenbDIJp1C7sOju3gwDa
-         MlBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8+NKsnMYUdtlXCVGR3Ho4DQYC3dNIX0jhxzsZA1mWNs=;
-        fh=RxWVhZ2mgjoK0DElfyRDLoJvKeJolhSTXECmh7PhLTU=;
-        b=PsT5cBwj7kfG8WjKzfK9F8qqnYncxr/DIFdNvP5E4dECMQrGLB4rqT6RwyGfvrmZgR
-         khF1Z+DF2zSCsOEfg3PS29lNwzo/3unmNEZfshGoxE+brsl98i11xaqVbbVIk1G31j2j
-         1VXktaR12jAJA3Sa18d+r5kMVpB0bHjN+7zCtye9CAJh+ieTo861d5azJWh6OXUL2pf1
-         xmYKE6fHgEMBVrB4OHI1aIlu/IPVWpJ4LYwWAu2Nja10cxJDMZza7aRipylVbhS0DkJ/
-         2yIP/+eNv0QhK0yUmc+br2FHESnjFTKmfc0lfdmRc4sEjX1643d7Turc6J85s/Y3V2My
-         4cHw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fasheh.com; s=google; t=1790129580; x=1790734380; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8+NKsnMYUdtlXCVGR3Ho4DQYC3dNIX0jhxzsZA1mWNs=;
-        b=DScMIfQBY9HfnjlqwDkzbjwGfpnpI51RyPKGbIZnGvE1SbjdFwTC7nuEbqMnyJHiGC
-         Urc1uIVuzDrw51E1Pj/BRR6RnFovhOgXiSCgxpVl8Pxj/uaW84AvyR8Ijd289cQrY212
-         a/u9XaM0ztIFPfLYEcsOSOfRlN8XaeVpeTpBx61P+/s1Tb3uLpxrJXM55EM+Iiucqu+2
-         VY+crD1C3B13Kki1XWABNBtVaW8qSHl751xyNID3cqGo1EDTtDu8GsiV1K/k+4gknvnN
-         A6QVKQOYff5w02Yie2kA2+sQhCbT8AAnJuheW1lbvXe2HZ2Kk9PDI/JOtIn+iBO7IWms
-         MAHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790129580; x=1790734380;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8+NKsnMYUdtlXCVGR3Ho4DQYC3dNIX0jhxzsZA1mWNs=;
-        b=SsOByXFYyoKK0UAAXqOd7t8eoHJEn4npGnjAhzyvuNL4qSmMEF4/We5PXEQwZ5xDcd
-         tKWdrOBgSNsnk24ocZU3dOZMnppiwevwfDM7DDoIbfca0S2arAQ7LOH3X5zI2MZEZxDO
-         PqlVvteaiahS9xHfX7IBs7j4qVa/r/2cv+eF5M5PUNowBHC7ckGAe0EgU1fvyyTU+9jI
-         59udyggYQP4aep97rfvcq32+KkSLugnjHRSBBWcXxhr0tcvd1TtE+ThmKa9jq/qq3nGq
-         p5kZjsuccVNtRAvI8kFZEPgMHSe4+fLf/V/RhzH5NITkmCmMOuKM216imtK6lbOeQepZ
-         3MHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwuN8HdIQjCnRShn7LmLqZZdBk9/eTmu7e5Tnn6Crfo8FybbD44fjtW6LASMDV5srr4oTUUGWXubbHURVk=@vger.kernel.org
-X-Gm-Message-State: AFuF++klEo/UfPT59UjHppRtg6WJdWtWwHhWeG2yNV9db/D0lZaRw3k6
-	K8njwsnyoRFUfbpQthxazEbbn1Hto7q96/eTy5Egsc2AD7/4LlZknYH5+wxeA3gqg6QJgh844bP
-	YAVXaxuqP2+LoAPg0eQimSy+uJTI0il9gk0jPYExZOw==
-X-Gm-Gg: AYBFou29o3ue0ajicR9GibyasqY3y38LtjZrxGkw0js/aD/Fo72/DdDgS+XRgNq9F2o
-	dFMGswpkzHmEz5fb+DZe3X+KqUXpgd+gzazy+1N+tcwtKFcGTEqeHiMolYnunAIYLbCCsHQ+4bJ
-	TpP68VxNxV4I687zPCOssXd+vwxq8PDPOPPPc4V5UnCy/G0ulfn8nN7Mz8Z73DXb5ewq8vK+yTy
-	ajpJInbsYCr5fr+gDw8p8twnbh0mNPcVx+dnnTSo7Y6tdZremZ6KliNWF//9II06CjDx74qR9Vz
-	Q8ttoqeUzyi1TcvF10iigy8S1j8S4mv5Ag9r/NhL/lyTKBB0emLACeDI0VsTq48NNiuhKKYoghn
-	c5xXCs3Fnwvde
-X-Received: by 2002:a05:622a:390:b0:532:9ca3:a400 with SMTP id
- d75a77b69052e-532eac690d2mr24213961cf.16.1790129580278; Tue, 22 Sep 2026
- 19:13:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IoIMwJUI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 930291F000FF;
+	Wed, 23 Sep 2026 02:16:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790129792;
+	bh=vxAJTp15YaWbpuNqzN1zd787nmpamoOv4xqv8H+gpMM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=IoIMwJUIRB7fstQtCYdbRzY1TV9vVLIfKt40zsmSWrtNPtNLaSSShqLGfo+QjoIzA
+	 yEHEqEhxiXRxrnxvL2U5dCQ24HFo6oBNV80OsrBNlMx8Po/ibkIfaxmIdIgr2eolrX
+	 xoT16c+fIzVvnrTOY4KPPecy1jxQW90mG5KBVi3FVw/ru5XzoAmmtf0kh1AAFlGMsM
+	 JUKvxjwRFyw9aNYq+pkLv5JIzKA53YyhRp28rs7hMw7oyuRhCYaZJmiJHjHFyc4AyL
+	 UaYwHoRgiUrfwWT11jYVflaKgLaAb9CFo7P5SLOWGD7n/Af9mZjgXxUB1dyDd+8fMu
+	 LvJHVZFS4wOfw==
+Subject: Re: [PATCH net-next v2] net: phy: refuse to attach a PHY whose driver
+ is being unbound
+From: netdev-bot+sashiko@kernel.org
+To: f@lex.la
+Cc: netdev@vger.kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-kernel@vger.kernel.org,
+ maxime.chevallier@bootlin.com
+Date: Wed, 23 Sep 2026 02:16:31 +0000
+Message-ID: <179012979109.2160803.16093602424097111667@kernel.org>
+In-Reply-To: <20260919015340.499675-1-f@lex.la>
+References: <20260919015340.499675-1-f@lex.la>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260923003920.2382398-1-joseph.qi@linux.alibaba.com>
-In-Reply-To: <20260923003920.2382398-1-joseph.qi@linux.alibaba.com>
-From: Mark Fasheh <mark@fasheh.com>
-Date: Tue, 22 Sep 2026 19:12:49 -0700
-X-Gm-Features: AcwNN1UpkX3jOorW0vjOas-FroH4RgfpD_GIVXXvNGML4JW5Y6f9y4ClrdqhKt0
-Message-ID: <CAGe7X7=pfXetdZ0Yze_nFWpa4XqFoQFXWkCtH7qh0eRHC5drjg@mail.gmail.com>
-Subject: Re: [PATCH] MAINTAINERS: add Heming Zhao as ocfs2 reviewer
-To: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Heming Zhao <heming.zhao@suse.com>, 
-	Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 22, 2026 at 5:39=E2=80=AFPM Joseph Qi <joseph.qi@linux.alibaba.=
-com> wrote:
->
-> Heming Zhao has contributed ocfs2 a lot recent years, both as a author
-> and reviewer. So add him as ocfs2 reviewer.
->
-> Cc: Heming Zhao <heming.zhao@suse.com>
-> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Acked-by: Mark Fasheh <mark@fasheh.com>
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 2
 
-Thank you, Heming, for your contributions!
-   --Mark
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The new `else if (!phydev->drv)` guard in phy_attach_direct()
+  (drivers/net/phy/phy_device.c:1821) is a single unsynchronized plain…
+- [Low] The kernel-doc block above phy_attach_direct()
+  (drivers/net/phy/phy_device.c:1781-1788) still states unconditionally…
+- [Low] Submission metadata is incomplete and self-inconsistent for a
+  crash fix: the commit fixes a reproducible NULL-pointer…
+
+Pre-existing issues:
+- [Medium] Module reference mispairing across unbind: phy_attach_direct()
+  charges the reference with try_module_get(d->driver->owner)…
+
+--
+
+net: phy: refuse to attach a PHY whose driver is being unbound
+
+phy_attach_direct() gains a new arm that refuses the attach with -EBUSY
+when the mdio device still has a d->driver but phydev->drv has already
+been cleared by phy_remove(). The intent is to avoid completing an attach
+on a driverless PHY, where the NULL phydev->drv is later dereferenced.
+
+A few questions below about the new check and its neighbourhood.
+
+[Severity: Low]
+The changelog says:
+
+  "Tree and Fixes: tag follow Maxime Chevallier's reading of how reachable
+  this is in practice"
+
+but the commit carries only Assisted-by: and Signed-off-by: trailers, with
+no Fixes: tag, no Cc: stable and no target tree in the subject prefix.
+
+Documentation/process/maintainer-netdev.rst says:
+
+   - for fixes the ``Fixes:`` tag is required, regardless of the tree
+
+Since this is described as fixing a reproducible oops, could the Fixes: tag
+(and a stable designation, if one is intended) be added, pointing at the
+commit that introduced the phydev->drv = NULL ordering in phy_remove()?
+
+> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+> index 5b13a74e2fa9..dfc2b29cac8a 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -1818,6 +1818,10 @@ int phy_attach_direct(struct net_device *dev, struct phy_device *phydev,
+>  			d->driver = &genphy_driver.mdiodrv.driver;
+>  
+>  		phydev->is_genphy_driven = 1;
+> +	} else if (!phydev->drv) {
+> +		/* d->driver outlives phydev->drv on unbind, precedes it on bind */
+> +		err = -EBUSY;
+> +		goto error_put_device;
+>  	}
+
+[Severity: High]
+Does this check actually close the window described in the commit message?
+It is a single unlocked read of phydev->drv, and nothing keeps the observed
+value valid for the rest of phy_attach_direct().
+
+phy_remove() stores the NULL as its last statement, holding only the device
+lock:
+
+  drivers/net/phy/phy_device.c:phy_remove() {
+	...
+	phydev->drv = NULL;
+  }
+
+phy_attach_direct() runs under rtnl and takes neither device_lock(d) nor
+phydev->lock around the new test, so the store can land at any point after
+the test. After the test the attach does sleeping work
+(device_bind_driver(), phy_link_topo_add_phy(), sysfs link creation) and
+then re-reads the pointer:
+
+  if (!phy_drv_supports_irq(phydev->drv) && phy_interrupt_is_valid(phydev))
+	  phydev->irq = PHY_POLL;
+
+with
+
+  static bool phy_drv_supports_irq(const struct phy_driver *phydrv)
+  {
+	  return phydrv->config_intr && phydrv->handle_interrupt;
+  }
+
+which dereferences the pointer unconditionally. Isn't that the same
+instruction pair quoted in the commit message, the config_intr/handle_interrupt
+loads at phy_attach_direct+0x150?
+
+phy_init_hw(), called later in the same function, has the same shape: one
+test on entry followed by several more dereferences and a call into driver
+code:
+
+  drivers/net/phy/phy_device.c:phy_init_hw() {
+	if (!phydev->drv)
+		return 0;
+
+	if (phydev->drv->soft_reset) {
+	...
+	if (phydev->drv->config_init) {
+		ret = phydev->drv->config_init(phydev);
+
+There is also a variant that needs no NULL at all: once phy_remove() has
+run phy_sfp_release() and drv->remove() but has not yet reached
+phydev->drv = NULL, the new test passes and the attach goes on to call into
+a driver instance whose remove() has already completed.
+
+The commit message acknowledges this ("The mid-attach case needs
+serialisation rather than a NULL test"), but the message also opens with
+"Unbinding a PHY driver under an attached consumer crashes in real life"
+and quotes the phy_drv_supports_irq() fault as the motivating oops. Would
+it be better to serialise the read with its uses against phy_remove() (a
+phylib-level mutex taken by both paths, holding a driver reference, or
+having unbind refuse or wait while attached_dev is set) instead of adding
+another entry-point test, so that the reported faulting site is actually
+covered?
+
+[Severity: Low]
+Should the kernel-doc above phy_attach_direct() be updated too? It still
+promises the opposite for this exact case:
+
+  * Description: Called by drivers to attach to a particular PHY
+  *     device. The phy_device is found, and properly hooked up
+  *     to the phy_driver.  If no driver is attached, then a
+  *     generic driver is used.
+
+and there is no Return: section listing the new refusal.
+
+Also, -EBUSY is now returned from two places in this function with
+unrelated meanings. The existing one is permanent and prints something:
+
+	if (phydev->attached_dev) {
+		dev_err(&dev->dev, "PHY already attached\n");
+		err = -EBUSY;
+		goto error;
+	}
+
+The new one is a transient bind/unbind window and is silent, so a bare
+EBUSY from SIOCSIFFLAGS with an empty dmesg is indistinguishable from "this
+PHY belongs to another interface". The in-tree counterpart for a driverless
+PHY does log:
+
+  drivers/net/phy/phylink.c:phylink_sfp_connect_phy() {
+	if (!phy->drv) {
+		phylink_err(pl, "PHY %s (id 0x%.8lx) has no driver loaded\n",
+			    phydev_name(phy), (unsigned long)phy->phy_id);
+		...
+		return -EINVAL;
+	}
+
+Would a phydev_err() here, and/or a distinct errno, make the two cases
+tellable apart?
+
+>  
+>  	if (!try_module_get(d->driver->owner)) {
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, and the changelog already flags
+it as a "Separate defect, separate patch", but noting it here since the new
+arm sits directly above the try_module_get(): the reference charged on
+d->driver->owner at attach time is released by re-reading the field at
+detach:
+
+  drivers/net/phy/phy_device.c:phy_detach_internal() {
+	...
+	if (phydev->mdio.dev.driver)
+		module_put(phydev->mdio.dev.driver->owner);
+
+If the PHY driver is unbound while the consumer is still attached, the
+driver core clears the field in device_unbind_cleanup():
+
+  drivers/base/dd.c:device_unbind_cleanup() {
+	...
+	device_set_driver(dev, NULL);
+
+so the later test is false, module_put() is skipped, and the charged
+reference is leaked, leaving that PHY driver module permanently unloadable.
+If a different driver was bound in between, the put goes to a module that
+was never charged; module_put() uses atomic_dec_if_positive() with
+WARN_ON(), so this warns rather than corrupting memory, but the target
+module ends up below MODULE_REF_BASE and unusable for future
+try_module_get() calls. Is recording the module the reference was taken on
+(rather than re-reading d->driver) the direction you have in mind for that
+follow-up?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260919015340.499675-1-f%40lex.la
