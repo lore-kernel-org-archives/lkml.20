@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44FDD579822
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:44:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8D051AECB
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:44:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790203466; cv=none; b=I/J6kQiggr0UjqT4m7k5RDpKEgREkItuwMXApgVK3lYqubYWzH5632ONUNnwWkVw7vhfgNEn3hwew3OFdGc+v4+4OopghEa4f9QkL+iVouW8ND/piqi0FAgM/QWJ6vlhazMDENccVj74jg8rl1tu4xHBgWla11laBaz/hcAqy5Y=
+	t=1790203469; cv=none; b=SDOk+afDPtB77sxATivyNiG1HmiMddKgi+7401lGZd5Ce4OeVjEJq9IVg1YV0CcmpFAJWvJ0F3F3EhjRr2tHW8JRc5IC9c7wavIi4xrsOqXrxeZFGQpccivfFw+8GdiHp1uHB49dOmyUkq+MFTvp6q7NUY0JXh5ucJwoBiFnALY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790203466; c=relaxed/simple;
-	bh=b2FD4HnaecV/favYI7++QkP0O3dptt9tpaa+kslwvlQ=;
+	s=arc-20240116; t=1790203469; c=relaxed/simple;
+	bh=NJOevRPPbUqn+rLnkCjRvXNFVqlQ8S7uytUxRuvqzeo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ya/ruUOquhH8RsSSFa5927mO8CzyIDdF4L+JMROGXazYPHpnQWuaXWlTU++dxX/BVJwYAiXFnbYjAykMSeE9MGNtXVRMkL2nXnrpYgN+7O2yazbX2kW67wXjoXh0ouRqpDbUYJAQ7yN6L7YultJ8/2uxMoSgSjqJSWT98ou8VCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i6SWVv8J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=umQ7LH6ikejhPzTFgRFER94fmpUqDSve2qshQuu75EUA4FXCD90jl1v2yguBoxyckmPXYiUHZzfhkFCl+MkqkDl+robYZyhb8JS+pBYOdINNxZUyPyMIwKfiq5mi5XhwL1wngwISHai+rsIZnEdYgj+Q8lqPs2nJBONA7WV+xr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pa/cjCtO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i6SWVv8J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D4C1F000FF;
-	Wed, 23 Sep 2026 22:44:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pa/cjCtO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E5BB1F00893;
+	Wed, 23 Sep 2026 22:44:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790203465;
-	bh=5nQ+hBf6qVec8z+IXo2hdLde0/quAUf4P/g17WYv1iw=;
+	s=k20260515; t=1790203467;
+	bh=7qvuMFxeBj+B+G3C9EN8sSVcZBEZuVQAHrFO4Xty0ZA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i6SWVv8JLcwPyjTj/ZDmJk2VviUSkDwPsJXxoiR+68IM0XkG2b/fK11NvvSzU1pUr
-	 1QY4Nv5LrjQFn+aUKbtb0oehm0nI8M4hQNRrQSnb8f8Vk+4Nwg61O4TVn/5bfO7kDG
-	 WRJgBF0aN5ghNfbptXbCvvvM/IHl2/k3bBVfQ699CFcZgTxhuMoaxWde76uHDTD1AJ
-	 esysnoUGA8ha6czLuP7V5/2FL0G7zB6+NtUSaKQ3nVu9yEO/Hgi0kQpXMymT0AF2xx
-	 a4L+ue7xBokmi5+T5BLMctK8w6q7SJ7KjPf+fDarlrpngQ2DmuhEyTyjGKQyUoeMR1
-	 gbdRrYSdIIc0Q==
+	b=Pa/cjCtODH8tQvSaIgT1T1D3gbx8C2FVjR5J83eGcAOvlSe2xloUgJBbPpAsjxZ7U
+	 Ad5qy5KJDhE5OQLNeMDHo41xi0JyCwQ0AeUqJ+KkpKTkme/G4wt58b4+AOzFI0TTZ6
+	 EIf1UQkvhx+MgN9o5eo+YOxdtusXX0Sc4xrCDYkHvKjnE+AJ1hd4UX8QoptrbXJcYF
+	 QgAdlDAHeP6/PD8OmoJdxomH7kvsTd24Dmmxcz0Eku56bSPwHwK6VvraMiBeMOnavh
+	 wge2I68bX0Nis0ZFQJl9JC1FpuPxVxJDheQkHVuwwVH/6N6WdEX8CKdF0ce+RCcK60
+	 E1F0cm+jUc67A==
 From: Pratyush Yadav <pratyush@kernel.org>
 To: Pasha Tatashin <pasha.tatashin@soleen.com>,
 	Mike Rapoport <rppt@kernel.org>,
@@ -41,9 +41,9 @@ To: Pasha Tatashin <pasha.tatashin@soleen.com>,
 Cc: kexec@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH 2/6] shmem: add tmpfs_create_mount() to create tmpfs mounts internally
-Date: Thu, 24 Sep 2026 00:44:01 +0200
-Message-ID: <20260923224408.3745689-3-pratyush@kernel.org>
+Subject: [RFC PATCH 3/6] fs/namespace: Add vfs_open_detached_mount()
+Date: Thu, 24 Sep 2026 00:44:02 +0200
+Message-ID: <20260923224408.3745689-4-pratyush@kernel.org>
 X-Mailer: git-send-email 2.56.0.rc1.310.g51773c2048-goog
 In-Reply-To: <20260923224408.3745689-1-pratyush@kernel.org>
 References: <20260923224408.3745689-1-pratyush@kernel.org>
@@ -57,83 +57,125 @@ Content-Transfer-Encoding: 8bit
 
 From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 
-Upcoming commits will add support for preserving a tmpfs mount via LUO.
-While the retrieve logic can create the mount by constructing an options
-string from its preserved data, it is simpler to let it directly pass
-the parameters.
+A mount created in the kernel by fc_mount() and friends has mnt_ns ==
+NULL, and userspace cannot attach such a mount anywhere.
 
-tmpfs_create_mount() allows creating a mount with the specified
-max_blocks and mode. The function only takes max_blocks and mode for now
-because that is all the tmpfs preservation will use. All other values
-are left to their defaults.
+The missing step is the tail of fsmount(2): allocate an anonymous mount
+namespace, insert the mount as its root, open an O_PATH file on it and
+mark the file FMODE_NEED_UNMOUNT so the mount is torn down on the final
+fput() if it is never attached. The anonymous namespace is what gives
+the detached mount an owning user namespace for permission checks, a
+place for child mounts, and a lifetime tied to the file.
+
+None of the pieces are reachable from outside fs/namespace.c:
+alloc_mnt_ns() and mnt_add_to_ns() are static, and the sequence is
+already open-coded twice, in fsmount(2) and in open_detached_copy().
+
+Factor it out so an in-kernel creator of a mount can hand it to
+userspace. The Live Update Orchestrator needs this to return a tmpfs it
+re-created from state preserved across a kexec; userspace attaches the
+resulting fd with move_mount(), exactly as it would an fsmount(2) fd.
+
+Only add the helper. Converting fsmount() and open_detached_copy() to it
+is an obvious follow-up but is left out to keep this small. It is not
+exported, as the only caller is built in.
 
 Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
----
- mm/internal.h |  1 +
- mm/shmem.c    | 38 ++++++++++++++++++++++++++++++++++++++
- 2 files changed, 39 insertions(+)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index 38b1165212c9..d82c92c8fddd 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1436,6 +1436,7 @@ int shmem_add_to_page_cache(struct folio *folio,
- 			    pgoff_t index, void *expected, gfp_t gfp);
- int shmem_inode_acct_blocks(struct inode *inode, long pages);
- bool shmem_recalc_inode(struct inode *inode, long alloced, long swapped);
-+struct vfsmount *tmpfs_create_mount(unsigned long max_blocks, umode_t mode);
- 
- #ifdef CONFIG_SHRINKER_DEBUG
- static inline __printf(2, 0) int shrinker_debugfs_name_alloc(
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 897fa2b61346..8660405b6ab8 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -5313,6 +5313,44 @@ static struct file_system_type shmem_fs_type = {
- 	.fs_flags	= FS_USERNS_MOUNT | FS_ALLOW_IDMAP | FS_MGTIME,
- };
+---
+
+This patch is entirely LLM generated. It works, but I am not competent
+enough with VFS APIs to even guess if it is sensible. So please don't
+take it too seriously. It makes the RFC testable, but for a proper
+series I will do a lot more homework to make sure this doesn't
+completely abuse VFS APIs.
+---
+ fs/namespace.c        | 59 +++++++++++++++++++++++++++++++++++++++++++
+ include/linux/mount.h |  1 +
+ 2 files changed, 60 insertions(+)
+
+diff --git a/fs/namespace.c b/fs/namespace.c
+index 1ecd96c918b3..5e7ba2b61dd9 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -4435,6 +4435,65 @@ static unsigned int attr_flags_to_mnt_flags(u64 attr_flags)
+ 	return mnt_flags;
+ }
  
 +/**
-+ * tmpfs_create_mount - Create a new tmpfs instance from explicit parameters.
-+ * @max_blocks: Block limit of the filesystem, in PAGE_SIZE units, as held by
-+ *              shmem_sb_info::max_blocks.
-+ * @mode:       Mode of the root directory.
++ * vfs_open_detached_mount - Publish a new mount as a detached mount file.
++ * @mnt: The mount to publish. Must not be attached to a mount namespace. The
++ *       caller's reference is consumed on success.
 + *
-+ * Creates a new tmpfs superblock and returns a mount for it. Everything not
-+ * named above is left at its default.
++ * Places @mnt into a new anonymous mount namespace and opens an O_PATH file on
++ * its root, marked FMODE_NEED_UNMOUNT. This is what fsmount(2) hands back, and
++ * the resulting file behaves the same way: it can be attached to the
++ * filesystem hierarchy with
 + *
-+ * The returned mount belongs to no mount namespace and is owned by the caller,
-+ * who must either mntput() it or hand it to something that takes it over.
++ *	move_mount(fd, "", dfd, path, MOVE_MOUNT_F_EMPTY_PATH)
 + *
-+ * Return: the new mount, or an ERR_PTR.
++ * and the mount is torn down on the final fput() if it never was.
++ *
++ * A mount that is not the root of an anonymous mount namespace cannot be
++ * attached by userspace at all, so a mount freshly made by fc_mount() and
++ * friends has to go through here before it can be given away.
++ *
++ * Return: the new file, or an ERR_PTR. On failure the caller's reference to
++ *         @mnt is dropped, as the mount cannot be published.
 + */
-+struct vfsmount *tmpfs_create_mount(unsigned long max_blocks, umode_t mode)
++struct file *vfs_open_detached_mount(struct vfsmount *mnt)
 +{
-+	struct shmem_options *ctx;
-+	struct fs_context *fc;
-+	struct vfsmount *mnt;
++	struct path path __free(path_put) = {};
++	struct mnt_namespace *ns;
++	struct file *file;
 +
-+	if (!IS_ENABLED(CONFIG_TMPFS))
-+		return ERR_PTR(-EOPNOTSUPP);
++	if (WARN_ON_ONCE(real_mount(mnt)->mnt_ns))
++		return ERR_PTR(-EINVAL);
 +
-+	fc = fs_context_for_mount(&shmem_fs_type, 0);
-+	if (IS_ERR(fc))
-+		return ERR_CAST(fc);
++	ns = alloc_mnt_ns(current->nsproxy->mnt_ns->user_ns, true);
++	if (IS_ERR(ns)) {
++		mntput(mnt);
++		return ERR_CAST(ns);
++	}
 +
-+	ctx = fc->fs_private;
-+	ctx->blocks = max_blocks;
-+	ctx->seen |= SHMEM_SEEN_BLOCKS;
-+	ctx->mode = mode;
++	/* The caller's reference becomes the namespace's reference. */
++	ns->root = real_mount(mnt);
++	ns->nr_mounts = 1;
++	mnt_add_to_ns(ns, real_mount(mnt));
 +
-+	mnt = fc_mount(fc);
-+	put_fs_context(fc);
++	path.mnt = mntget(mnt);
++	path.dentry = dget(mnt->mnt_root);
 +
-+	return mnt;
++	file = dentry_open(&path, O_PATH, current_cred());
++	if (IS_ERR(file)) {
++		dissolve_on_fput(mnt);
++		return file;
++	}
++
++	/*
++	 * An apparent O_PATH fd, with a note that the mount needs to be
++	 * unmounted on the final fput() rather than simply put.
++	 */
++	file->f_mode |= FMODE_NEED_UNMOUNT;
++
++	return file;
 +}
 +
- #if defined(CONFIG_SYSFS) && defined(CONFIG_TMPFS)
+ /*
+  * Create a kernel mount representation for a new, prepared superblock
+  * (specified by fs_fd) and attach to an open_tree-like file descriptor.
+diff --git a/include/linux/mount.h b/include/linux/mount.h
+index acfe7ef86a1b..44c1141bc574 100644
+--- a/include/linux/mount.h
++++ b/include/linux/mount.h
+@@ -89,6 +89,7 @@ extern struct vfsmount *vfs_create_mount(struct fs_context *fc);
+ extern struct vfsmount *vfs_kern_mount(struct file_system_type *type,
+ 				      int flags, const char *name,
+ 				      void *data);
++struct file *vfs_open_detached_mount(struct vfsmount *mnt);
  
- #define __INIT_KOBJ_ATTR(_name, _mode, _show, _store)			\
+ extern void mnt_set_expiry(struct vfsmount *mnt, struct list_head *expiry_list);
+ extern void mark_mounts_for_expiry(struct list_head *mounts);
 -- 
 2.56.0.rc1.310.g51773c2048-goog
 
