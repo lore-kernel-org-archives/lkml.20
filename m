@@ -1,30 +1,30 @@
 Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 387D443C7B1
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:55:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 097B243A7F5
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:55:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790142915; cv=none; b=fYUwboquzpEwTLL5MXpAbtK3+eGBuUjm+6Wxck00ljGqoFUcIqXehvKfTJV3tGCafeVSMOkhl9UbxSJI4wxztcjktNlsKwQ7k7asGBMl1PavxI6WyVA9Msipib3PSSEfOt9aFcA3rWacZqAUvvQYiFsXWH3Z3B/LqZOrEDkPVZ0=
+	t=1790142916; cv=none; b=GxYpiUwfnmokL5RwBezbjxJZDzlyAg1Tdks3PceasT6vs81QHA42S7YnzXcXxricXMTxOb2tP7joV+7uSKN7BdOZxh9rxrTv249ONuj8ja9Zy4N5HzOR7wGipZLkzmbVK/fxhItL4qo759q8qlOiDpM85LeOrVHHOOrP8ZC/HCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790142915; c=relaxed/simple;
-	bh=H+qJAKye2VwOk6NjMOsoAlqoEDHxgsJEC/6qIC9WV5M=;
+	s=arc-20240116; t=1790142916; c=relaxed/simple;
+	bh=LoTeSF2Sp5RJBvRuP5z73LifGbx6GY6oYSFnURWYf3s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jb4P4pn4IOdW3ISjVKGM4nk7MHPxFrIoXVI1jWzlfEoHtjYVoHemMsAm0xTigMSO6xM8HIKy+JUDp8yrBEWYgqunU/wkN6WID0n6NRlpS8yqDUJtP1eFfUBPxaJD106WcFb8ciclhIbPRCinVjjTpbYtTb5yUcTtS/+Cx/ALSnc=
+	 MIME-Version; b=hdbbiom+bkLEhCthNcLkc9z2OAviYCJO2mEFEj21J60hHtUVe31HZXiYQNdO4TtwdvCwAVsytWsqzcbn7oDfUq6FVH4dqKz7mAPrp5/heOCxhDW3jP8Z2ZEyFUI6P+13lmwrN8ySJVHzQ3VPrnvA20/ZAPKov2m3c0z3kI2ohFI=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
 Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8DxTNK_abNqnO0OAA--.43374S3;
-	Wed, 23 Sep 2026 13:55:11 +0800 (CST)
+	by gateway (Coremail) with SMTP id _____8CxPtO9abNqku0OAA--.43584S3;
+	Wed, 23 Sep 2026 13:55:09 +0800 (CST)
 Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJCx9cy7abNqphMkAA--.48859S7;
-	Wed, 23 Sep 2026 13:55:11 +0800 (CST)
+	by front1 (Coremail) with SMTP id qMiowJCx9cy7abNqphMkAA--.48859S4;
+	Wed, 23 Sep 2026 13:55:09 +0800 (CST)
 From: Tiezhu Yang <yangtiezhu@loongson.cn>
 To: Huacai Chen <chenhuacai@kernel.org>
 Cc: loongarch@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/7] LoongArch: Fix perf hardware breakpoint failure via installation
-Date: Wed, 23 Sep 2026 13:55:04 +0800
-Message-ID: <20260923055506.29221-6-yangtiezhu@loongson.cn>
+Subject: [PATCH v3 2/7] LoongArch: Remove redundant call in update_bp_registers()
+Date: Wed, 23 Sep 2026 13:55:01 +0800
+Message-ID: <20260923055506.29221-3-yangtiezhu@loongson.cn>
 X-Mailer: git-send-email 2.42.0
 In-Reply-To: <20260923055506.29221-1-yangtiezhu@loongson.cn>
 References: <20260923055506.29221-1-yangtiezhu@loongson.cn>
@@ -35,112 +35,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJCx9cy7abNqphMkAA--.48859S7
+X-CM-TRANSID:qMiowJCx9cy7abNqphMkAA--.48859S4
 X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxJw1xGw13ZF13Ar4UKrWfWFX_yoW5Gw1Upr
-	ZrAF1vqrW5J3y7G3Zrtan8Aw15JrZru3y7W34akrWYy3ZFvr13tFs29FnrXF18A39Yqa40
-	gr1kWr1SvF4UXabCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+X-Coremail-Antispam: 1Uk129KBj93XoW7Kw4xKw1DKw1UXFWxAw4UWrX_yoW8JFWxpr
+	yY9FZ5Kr4DGF4kC3ZrKF93ZryUGF9ru392vw4Fkay3twnxWr1rJ34UW3s3XFWYvw4fK34I
+	grW5CFyYq3WUAacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
 	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	0xBIdaVrnRJUUUkYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
 	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE
-	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
+	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE
+	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
 	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
 	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jrv_JF1lIxkGc2Ij64vIr41lIxAIcV
-	C0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF
-	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07josjUUUUUU=
+	C0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7
+	CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU8niSPUUUUU==
 
-In hw_breakpoint_control(), the logic to enable CSR_PRMD_PWE (global
-watchpoint enable) incorrectly relies on TIF_LOAD_WATCH. This thread
-flag is only set during ptrace operations, meaning that the standard
-hardware breakpoints created via perf_event_open() will never have
-this flag set.
+In update_bp_registers(), there is a duplicate call to write_wb_reg()
+when enabling an execute breakpoint:
 
-As a result, the CSR_PRMD_PWE switch is skipped, leaving the hardware
-breakpoint completely inactive in perf usage.
+    write_wb_reg(CSR_CFG_CTRL, i, 0, CTRL_PLV_ENABLE);
+    write_wb_reg(CSR_CFG_CTRL, i, 0, CTRL_PLV_ENABLE);
 
-Fix this by decoupling the CSR_PRMD_PWE from the ptrace specific flag
-TIF_LOAD_WATCH, which ensures that CSR_PRMD_PWE is enabled whenever a
-hardware breakpoint is installed.
+The two lines are completely identical. Remove the redundant call to
+clean up the code and eliminate unnecessary register writes.
 
-Here is a user-space reproducer to demonstrate the issue:
-
-(1) Test program (test_perf_install.c):
-
-  #include <stdio.h>
-  #include <unistd.h>
-  #include <sys/syscall.h>
-  #include <sys/ioctl.h>
-  #include <linux/perf_event.h>
-  #include <linux/hw_breakpoint.h>
-
-  static int var = 0;
-
-  int main(void)
-  {
-  	size_t count = 0;
-  	struct perf_event_attr attr = {
-  		.type = PERF_TYPE_BREAKPOINT,
-  		.size = sizeof(attr),
-  		.bp_type = HW_BREAKPOINT_W,
-  		.bp_addr = (unsigned long)&var,
-  		.bp_len = HW_BREAKPOINT_LEN_1,
-  		.exclude_kernel = 1,
-  	};
-
-  	int fd = syscall(__NR_perf_event_open, &attr, 0, -1, -1, 0);
-  	ioctl(fd, PERF_EVENT_IOC_ENABLE, 0);
-
-  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(11) : "memory");
-
-  	ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
-  	read(fd, &count, sizeof(size_t));
-
-  	printf("Watchpoint counts: expected = 1, actual = %zu\n", count);
-
-  	close(fd);
-  	return 0;
-  }
-
-(2) Test steps:
-
-  $ gcc test_perf_install.c -o test_perf_install
-  $ ./test_perf_install
-
-(3) Test results:
-
-Without this patch:
-
-  Watchpoint counts: expected = 1, actual = 0
-
-With this patch:
-
-  Watchpoint counts: expected = 1, actual = 1
-
-Fixes: 3892b11eac5a ("LoongArch: Check TIF_LOAD_WATCH to enable user space watchpoint")
+Fixes: edffa33c7bb5 ("LoongArch: Add hardware breakpoints/watchpoints support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
 ---
- arch/loongarch/kernel/hw_breakpoint.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/loongarch/kernel/hw_breakpoint.c | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/arch/loongarch/kernel/hw_breakpoint.c b/arch/loongarch/kernel/hw_breakpoint.c
-index 3683a52b2368..9dcb122218c2 100644
+index 6ba7315852f3..bd891b3808a6 100644
 --- a/arch/loongarch/kernel/hw_breakpoint.c
 +++ b/arch/loongarch/kernel/hw_breakpoint.c
-@@ -233,7 +233,7 @@ static int hw_breakpoint_control(struct perf_event *bp,
- 		}
- 		enable = csr_read64(LOONGARCH_CSR_CRMD);
- 		csr_write64(CSR_CRMD_WE | enable, LOONGARCH_CSR_CRMD);
--		if (bp->hw.target && test_tsk_thread_flag(bp->hw.target, TIF_LOAD_WATCH))
-+		if (bp->hw.target)
- 			regs->csr_prmd |= CSR_PRMD_PWE;
- 		break;
- 	case HW_BREAKPOINT_UNINSTALL:
+@@ -453,7 +453,6 @@ static void update_bp_registers(struct pt_regs *regs, int enable, int type)
+ 		if (enable) {
+ 			if ((info->ctrl.type == LOONGARCH_BREAKPOINT_EXECUTE) && (type == 0)) {
+ 				write_wb_reg(CSR_CFG_CTRL, i, 0, CTRL_PLV_ENABLE);
+-				write_wb_reg(CSR_CFG_CTRL, i, 0, CTRL_PLV_ENABLE);
+ 			} else {
+ 				ctrl = read_wb_reg(CSR_CFG_CTRL, i, 1);
+ 				if (info->ctrl.type == LOONGARCH_BREAKPOINT_LOAD)
 -- 
 2.42.0
 
