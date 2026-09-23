@@ -1,135 +1,85 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5503444781F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+Received: from fraori-sdnproxy-3.icoremail.net (fraori-sdnproxy-3.icoremail.net [132.226.202.154])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2EE2F448B97;
+	Wed, 23 Sep 2026 06:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=132.226.202.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790146732; cv=none; b=CsA1rCtOobG83ePdooLradvy/F2CxAEY539wafFZehSsxZcPxTeQnw1Iqej2TLohGlsa5/nc2lGoPXIKtBL/BrCCmm/corrREQkt6TZhcow5xAjGbVgujJ69gnL8ZuIVcSVR/NYNNqsSCN0Y+z1u8h1xEp4PgHwVERJxJufi00U=
+	t=1790146729; cv=none; b=scOhPJ59i/AVjTvOoH8Xr1UQw2oOS6Rz1zOtNfv4CDNeOVhlPawy3Z7r91UPCl61ztWek8rBVWziJmxWys/7qWCgam4g86vocc9PwSxE/reXnbMw/wXg6c+/LqGJrYe6OuJdC5lepalHpcq+gAOnwdUkfwxz5kecgjdlEiDYVi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790146732; c=relaxed/simple;
-	bh=a2NtTBakK0HpDmrLfulXCfgzfoYb8F4272oQHZWZOTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nL/w24cojk3BDxcRH7OC8A/hGBT5zUCpTYoUCdRtnzBrXWC47yo5BX9Spocn/5gsbybvNt2EL6/j/XBaAChJ29aSQ14kE7FkuuDCPWuCGsj72GpN/S3uu5IWyuQIl8DMnVCAXA2BujY8PE25sDrdhK0dtgR3UGVvSm4QQs1T2yA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=lWm0hN26; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="lWm0hN26"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1790146722;
-	bh=a2NtTBakK0HpDmrLfulXCfgzfoYb8F4272oQHZWZOTk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=lWm0hN26BVbgIR9ugmfpiVMphZWepL08U7Cv7rXQxXIJ0IgUZLSFpG/ksx0Lke1vy
-	 Og0B/ChtC26wQMcjE236nuoK3GaOAP9FfIK3S8EwIAXZ1hQ+iA4uWKqMv/uQL/xETG
-	 uddLg7WxuNWUUcW83rpmGef3t44moyV94CnUd/b0XgAKwxJGwa52vO6J1hBl+DRlPd
-	 d+PPOOTGwenZLbRqQ0BJTbh6h/A1FuHv8hFbtgtVL6cQsP10zqwNRyr/QifLGZT6WL
-	 HQHJA28TmBD65VXY90SUBOt/EC0rkXDwQXkxb3h4LuduDGxCf0dcoF4jhxYpdT+fEN
-	 S4cFhELwJLUpg==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 882D017E0371;
-	Wed, 23 Sep 2026 08:58:41 +0200 (CEST)
-Date: Wed, 23 Sep 2026 08:58:37 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v9 01/16] drm/panfrost: Move shrinker initialization and
- unplug one level down
-Message-ID: <20260923085837.5e92198c@fedora-21.home>
-In-Reply-To: <arFQG1AYMXlRgmJS@sobremesa>
-References: <20260912-claude-fixes-v9-0-e588feaa61ef@collabora.com>
-	<20260912-claude-fixes-v9-1-e588feaa61ef@collabora.com>
-	<20260914103646.6f1b7246@fedora-21.home>
-	<arFQG1AYMXlRgmJS@sobremesa>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	s=arc-20240116; t=1790146729; c=relaxed/simple;
+	bh=pF9SxQQ9Z1XbgSAlSmM8GywSeHdVQviKAgrAU6XpWCs=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=nmE2jhbDdctfbsrg8dJIHV22IKSZZn2PbPgkenKTpqZSlTqh3bdFNuulhGRP8KiDD1fRKztnqsEP0iNA9S2EVnDt6W9GZwgplXyo985/DUX3IlbhZV+w1LTJa5jr4nsCmggjU6R+6seLlXRr+hwUgCyNLFjPvmiQQ8DOKJMoG1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=132.226.202.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.190.161.236])
+	by mtasvr (Coremail) with SMTP id _____wCnRwiWeLNqVMIwAQ--.6120S3;
+	Wed, 23 Sep 2026 14:58:31 +0800 (CST)
+Received: from smtpclient.apple (unknown [10.190.161.236])
+	by mail-app1 (Coremail) with SMTP id yy_KCgBXyKGWeLNq85qfBA--.49361S2;
+	Wed, 23 Sep 2026 14:58:30 +0800 (CST)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3774.600.62\))
+Subject: Re: [PATCH] HID: playstation: Fix DualShock4 dongle hotplug work
+ use-after-free
+From: Fan Wu <fanwu01@zju.edu.cn>
+In-Reply-To: <20260923032634.417433-1-fanwu01@zju.edu.cn>
+Date: Wed, 23 Sep 2026 14:58:20 +0800
+Cc: linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org,
+ Song Li <songl@zju.edu.cn>
+Content-Transfer-Encoding: 7bit
+Message-Id: <81BEA2CA-2D05-4A0B-95C5-C67E017FBCC5@zju.edu.cn>
+References: <20260923032634.417433-1-fanwu01@zju.edu.cn>
+To: Roderick Colenbrander <roderick.colenbrander@sony.com>,
+ Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+X-Mailer: Apple Mail (2.3774.600.62)
+X-CM-TRANSID:yy_KCgBXyKGWeLNq85qfBA--.49361S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?NDI/4AXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBFdsbiNRDgxIZy1BXBkJ/NUlPxEn5ZVZgKIbGTuX8n9gcE+
+	7FR/EfKaheMfmSlzV2Wp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj9xXoW7JFWrKrW7Wr4kKw13Zw48Zrc_yoWxKwb_u3
+	45Zry0gw1vgF47KFn8KF4fArnxta9rtry5Xw4rZr9av347ur98Wa9IvwnIgryxWw4DCasx
+	Kr1j9rW7Cw1jkosvyTuYvTs0mTUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbT8YFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	W8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4U
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-On Tue, 22 Sep 2026 20:48:49 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+Please drop this patch.
 
-> On 14.09.2026 10:36, Boris Brezillon wrote:
-> > On Sat, 12 Sep 2026 00:28:02 +0100
-> > Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
-> >  =20
-> > > Since the moment we call drm_dev_register() the device should be in a
-> > > position to accept jobs, so it's best if the shrinker is already
-> > > initialized by then.
-> > >=20
-> > > On top of that, make shrinker functions take an panfrost_device point=
-er
-> > > like other functions in the same sequence and rename them accordingly.
-> > >=20
-> > > Essentially mimic the init/fini behaviour in Panthor.
-> > >=20
-> > > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> =20
-> >=20
-> > Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> >=20
-> > One remark below.
-> >  =20
-> > > ---
-> > >  drivers/gpu/drm/panfrost/panfrost_device.c       |  8 +++++++-
-> > >  drivers/gpu/drm/panfrost/panfrost_drv.c          |  6 ------
-> > >  drivers/gpu/drm/panfrost/panfrost_gem.c          | 26 ++++++++++++++=
-----------
-> > >  drivers/gpu/drm/panfrost/panfrost_gem.h          |  7 ++++---
-> > >  drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c |  8 ++------
-> > >  5 files changed, 28 insertions(+), 27 deletions(-)
-> > >=20
-> > > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu=
-/drm/panfrost/panfrost_device.c
-> > > index 485349faf251..05c40d5a20b5 100644
-> > > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> > > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > > @@ -280,9 +280,14 @@ int panfrost_device_init(struct panfrost_device =
-*pfdev)
-> > >  	if (err)
-> > >  		goto out_job;
-> > > =20
-> > > -	panfrost_gem_init(pfdev);
-> > > +	err =3D panfrost_gem_init(pfdev); =20
-> >=20
-> > It feels weird to have the GEM subsystem initialized last when you
-> > consider the fact other subsystems might want to allocate GEMs in their
-> > _init() function. I know it's where the panfrost_gem_init() is right
-> > now, and that ultimately it doesn't prevent anyone from allocating
-> > GEMs, but I think it would make sense have this called before any of
-> > the other subsystem init functions, still. =20
->=20
-> I think we discussed having panfrost_gem_init() be called before the other
-> subsystem init functions, but then I checked panthor and saw it's also be=
-ing
-> called right after all the others there too. I think you're right that it=
-'s
-> best to initialise gem first, because I wonder whether other subsystem in=
-it
-> functions creating GEMs when the mount point for huge page-backed objects
-> hasn't been created yet could lead to some sort of trouble.
->=20
-> However, given how much this patch series has already grown, I believe it=
-'d
-> be best to leave this change for a later one.
+__hid_input_report() returns -EBUSY when it cannot take
+hdev->driver_input_lock, and hid_device_probe() and hid_device_remove()
+hold that lock across the driver's ->probe() and ->remove() callbacks.
+hid-playstation never calls hid_device_io_start(), so input reports
+cannot reach dualshock4_dongle_parse_report() while
+dualshock4_create() or dualshock4_remove() run. The window this patch
+tried to guard does not exist, and the cancel_work_sync() calls that
+were already there are sufficient.
 
-Sounds good to me.
+The issue came from our static analysis tooling, which missed that
+the HID core serializes the report path against probe and remove.
+
+Sorry for the noise.
+
+Fan Wu
+
