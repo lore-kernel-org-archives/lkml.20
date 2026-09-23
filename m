@@ -1,610 +1,245 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86C452F277;
-	Wed, 23 Sep 2026 15:12:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 513B732B111;
+	Wed, 23 Sep 2026 15:13:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790176345; cv=none; b=KOTCJHYGr0ys9Qr3iFwtvKTjqSYg+TXKlYydY1+yZebHth7FIVjIx4jsVnfL850UTx4iNLvci6rW5zz7TP3xo8VXHemEwTryxVV8Xo8D9un2ro5gfX/jaHG6DSxEyHIUtl7zVWsbz2wnMdu+DrD7Ht/J4TY0xWSQPRSYXuYXFwI=
+	t=1790176405; cv=none; b=Kup/fcb0IKcdEXNiHHrXG8EQebenUVFUKpt9wY3SDZEQ3jjESWkZdSNNBqxA1pD+bOKMJIZOhOshPhlVyrb6YjUKmKarudfBegoo0cT3m71y3oKScF0Prp6PRGrfXF8+r0VAfMnIDRERP+dog1mwmeXqrIpgNd/U+5InljzvC8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790176345; c=relaxed/simple;
-	bh=LigyO2a25hdOv//RrnY6nHtYjH1ROLlDr0PJDwsdatg=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=upHUy7a0+AWrKjK8mPedWQFt9UUW/OJWjbe6IC5XW27vNLsuBxaDaZ8qi8HwdfPVkx4ECi6NnnejQzziFp4Wakqqwy4RjjLrCVyptVMnOE774wNTGJ6N97wnnL618aCmur7knCW8RYKindVvZWVSljw1gVvdD/8sAkcuPduaIRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XYOM8kep; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790176405; c=relaxed/simple;
+	bh=phoCjmKpgbmmjwB/TcyzDXeAvmM89UaYWapuOmD6GO4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kYeNImLrYqkyPwm/4q5qwSzJMIrD8UYp6Bfh9UEGGa7cZPVtwc6czJrM8FDPNpDaVoULui9MPzYI39qBAOlwhjD/8uWLQXaoB1hyrFpkWvuIRek0K2ur1zVcgTfbGwEE2TM+5235mNzfKvRiJQgnBNK7f6fPCsqLQbr6holg6Ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lT0HrR7d; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XYOM8kep"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC13E1F000FF;
-	Wed, 23 Sep 2026 15:12:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790176343;
-	bh=UOphsYK0igLkfyOJY1mca3yvMaVhD5Uw9R4nEhHP5VU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XYOM8kepuCQDNxp567zcX3gQOHymQn1ZaAaLewFQ88sLCyF42BaEqjobLoIZE4Xm8
-	 pJ49zpIBo2ZG8GHEoGG8SlsUnSih4ZvcJ2urAh2s9f7UrNz4f7x5RWbZLi8038ig0M
-	 3WSMzPvCAo/P0PF9AoOn6laOzDZ07Pky5TmGz7nENp4aaqhhuwGHVMUHnUbpPhM//+
-	 ziFG47BNuEPdh3zmFHilvAg3I9lSlvFcV3zhkyo7Jr6zfkTa07JYAazbPeyyI+hPxI
-	 E64VEJzlwxCI5ZwTzSSc9Y3gRKIDBXIobnKPCh/jOwj0E8ejfGBbfYuNTJdtRybb+d
-	 Rpykj3VJWNGwA==
-Date: Thu, 24 Sep 2026 00:12:16 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: Josef Bacik <josef@toxicpanda.com>, "Paul E . McKenney"
- <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, Alexei
- Starovoitov <ast@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, Boqun
- Feng <boqun@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Peter
- Zijlstra <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Daniel
- Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org,
- bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Masami
- Hiramatsu <mhiramat@kernel.org>
-Subject: Re: [PATCH] kprobes: Make optprobe optimizer multi-generational and
- asynchronous
-Message-Id: <20260924001216.60407f86076bfc26daf4401a@kernel.org>
-In-Reply-To: <179017148080.466588.9116221556625712980.stgit@devnote2>
-References: <20260923164510.f3bbddefea4423f8f1bfecb8@kernel.org>
-	<179017148080.466588.9116221556625712980.stgit@devnote2>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lT0HrR7d"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2367F1A32;
+	Wed, 23 Sep 2026 08:13:20 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E9DE43F86F;
+	Wed, 23 Sep 2026 08:13:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790176403; bh=phoCjmKpgbmmjwB/TcyzDXeAvmM89UaYWapuOmD6GO4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=lT0HrR7dE1KrdfZA5B71p57+NqXyZadFCb7ajyLoJVdE7kZMh3rZ3Jd0t7uUp8jnW
+	 fLqDM7jtOQPyRFFDJI03lMKNhDcWBWt6MltdUDqXOiaZKTfjhdEkEyRFSF66Rbvbq/
+	 Yjv8PK7Ahg6Cgu2DicOgJTx/pdIes/7CME0K6SuM=
+Message-ID: <37174cd4-95c0-4350-aeb2-b1b6abaccbff@arm.com>
+Date: Wed, 23 Sep 2026 16:13:18 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 00/12] remoteproc: add support for any virtio device
+To: Francesco Valla <francesco@valla.it>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>, Mark Brown
+ <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, virtualization@lists.linux.dev,
+ imx@lists.linux.dev, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org
+References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Ah, I forgot to add "RFC" to the tag.
+On 16/09/2026 10:10 pm, Francesco Valla wrote:
+> Hello,
+> 
+> this patch series introduces the possibility to support generic virtio
+> devices over the remotepoc transport, whereas today only rpmsg and
+> virtio-console are supported.
+> 
+> == Introduction ==
+> 
+> Support for devices other than rpmsg was originally planned [1] and is
+> declared inside the documentation [2], but is in practice not there for
+> the majority of (if not all) the platforms that provide remoteproc
+> capabilities due to memory allocation.
+> 
+> While vrings are pre-allocated in an area that is reachable by both the
+> local (i.e.; Linux) and remote processors, buffers produced by virtio
+> drivers aren't, since they typically get allocated through kmalloc.
+> The aforementioned rpmsg and virtio-console drivers instead use a trick
+> to overcome this limitation and allocate these buffers directly from
+> the remoteproc device's coherent memory area, somewhat breaking the
+> separation between the driver and the underlying transport.
 
-BTW, if the RCU synchronization takes too long, all other similar code --
-calling RCU synchronization under mutex/locks --- are fundamentally having
-the same issue. If that is correct, we should start adding lockdep check
-for such synchronizations, to clarify which one needs to be fixed.
+This sounds very much like needlessly reinventing restricted-dma-pool, 
+with even the same underlying motivation, more or less...
 
 Thanks,
+Robin.
 
-On Wed, 23 Sep 2026 22:51:20 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 > 
-> Currently, kprobe_optimizer() holds kprobe_mutex, text_mutex, and
-> cpus_read_lock() simultaneously while executing synchronize_rcu_tasks().
-> Under PREEMPT_LAZY and server workloads with long-running CPU-bound kernel
-> tasks or heavy cgroup writeback loops, synchronize_rcu_tasks() can block
-> for seconds to minutes. Because text_mutex and cpus_read_lock() are held
-> during this entire wait, any concurrent static key updates, module
-> loading/unloading, CPU hotplug, or tracing updates stall, frequently
-> triggering hung-task detector panics.
+> == Well, nice, but why? ==
 > 
-> Instead of penalizing the kernel preemption path with invasive hooks and
-> global hash lookups, decouple kprobe jump optimization from synchronous
-> waiting entirely:
+> Main usecase is sharing/virtualization of devices in hypervisor-less
+> mixed-criticality contexts, where a subset of peripherals are controlled
+> by a "safety" real-time processor but still need to be used by the Linux
+> world. Several solutions have been / are being proposed [3] [4], but
+> none of them re-uses the existing, standardized virtio specifications.
 > 
-> 1. Replace synchronize_rcu_tasks() with call_rcu_tasks(). Locks
->    (text_mutex and cpus_read_lock()) are held only for the brief moment
->    needed to patch instructions via arch_unoptimize_kprobes() and
->    arch_optimize_kprobes() (microseconds), and are completely released
->    while waiting for the Tasks RCU grace period.
+> == The proposal ==
 > 
-> 2. Introduce a fixed ring of generations (optprobe_gens[OPTPROBE_GEN_MAX])
->    to avoid any dynamic memory allocation (kmalloc) or -ENOMEM failure
->    modes.
+> The proposed approach is to introduce a bounce buffering mechanism that
+> is transparent to the drivers and can expose to remoteproc devices only
+> memory areas they can access. This is obtained by defining the .map
+> memeber of each registered vdev and use the map() and unmap() callback
+> to bounce data to and from the remote processor, just like the swiotlb
+> framework is doing in other contexts, using the device's coherent memory
+> area and the associated functions to allocate the bounce buffers.
 > 
-> 3. The last generation slot in the array is reserved as a "waiting room"
->    and is not dispatched to RCU until another in-flight generation has
->    finished. While a generation is waiting for its Tasks RCU grace period,
->    any newly registered or unregistered probes accumulate in the waiting
->    room generation without blocking or requiring additional slots.
+> During the map() callback the address of the incoming buffer is compared
+> against the coherent memory address base and size, to pass through
+> buffers already suitable for remoteproc usage (e.g.: the ones allocated
+> by the rpmsg framework).
 > 
-> 4. When the Tasks RCU callback fires, it marks the generation as ready
->    and wakes up the optimizer thread to finalize optimization (poking
->    the jump instructions) and free cleaned probe slots. Once finalized,
->    the generation is marked idle, allowing the waiting room generation
->    to be dispatched next.
+> == Status and open points ==
 > 
-> 5. Flushing via wait_for_kprobe_optimizer() waits asynchronously for all
->    in-flight and queued generations to drain without stalling other
->    kernel subsystems.
+> The series was tested against a custom Zephyr application [5] running on
+> the Cortex-M33 processor of an i.MX93 and exposing six different virtio
+> devices:
 > 
-> On non-preemptive kernels or configs where CONFIG_TASKS_RCU=n,
-> call_rcu_tasks() transparently aliases to call_rcu(), preserving full
-> portability.
+>    - rpmsg
+>    - entropy (rng)
+>    - gpio
+>    - i2c
+>    - spi
+>    - can
 > 
-> Assisted-by: LLM
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> On top of three of them (unsurprisingly: i2c, spi, and gpio) several
+> devices where declared inside Linux devicetree and successfully used
+> (well, technically I'm still experiencing difficulties with gpio
+> interrupts not firing on the M33, but that's not really related to the
+> series).
+> 
+> Several open points are still present, and needs to be either
+> investigated or discussed:
+> 
+>    - for each bounce buffer an entire page is allocated from the coherent
+>      memory pool; this is a waste for most of the allocations, which take
+>      on average 32 to 64 bytes. An option can be to initialize a DMA pool
+>      on one page and allocate small buffers from it?
+> 
+>    - the support in its current form allocates more memory than before
+>      (for bounce buffer tracking) also for existing usecases (i.e.,
+>      mainly rpmsg).
+> 
+>    - an additional issue still exist - and is not solved by this series -
+>      for a subset of virtio devices: communication through the device's
+>      config space. The remoteproc transport expects this config space to
+>      be somewhat constant, and there is no provision to sync changes made
+>      by the driver with the remote device. This prevents e.g.
+>      virtio-input to work.
+> 
+>    - device de-registration on remoteproc stop is causing oopses (under
+>      investigation - might no be strictly tied to the series)
+> 
+> == Patches breakdown ==
+> 
+> Patches 1 and 2 are cleanups to the remoteproc-virtio driver and could
+> be applied independently of this series.
+> 
+> Patch 3 was submitted a couple of months ago [6] and paves the road for
+> the actual support of generic virtio devices, removing the fixed number
+> of 2 for the vrings associated to a vdev.
+> 
+> Patch 4 introduces two new APIs for coherent memory areas associated to
+> devices that are used later.
+> 
+> Patch 5 might somewhat be controversial, as it unconditionally defines
+> the VIRTIO_F_VERSION_1 feature for all vdevs. This is required to
+> support some virtio device types, and there is no other mean of
+> defining it, since the field reserved for features inside the resource
+> table is limited to 32 bits. Given that the 1.x virtio specifications
+> are ~10 years old this still seems reasonable.
+> 
+> Patch 6 is were the bounce buffering mechanism is introduced; another
+> feature (VIRTIO_F_ACCESS_PLATFORM) is there unconditionally defined to
+> force the virtio framework to use the new map APIs.
+> 
+> Patches 7 and 8 are new devicetree bindings, the first for spi-virtio
+> (modelled against the existing ones for gpio-virtio and i2c-virtio) and
+> the second for declaring virtio device inside a devicetree. This is not
+> required for some devices (e.g.: can, net, gpu), but for others is
+> necessary to declare child devices and link them.
+> 
+> Patch 9 is used to convince the remoteproc-virtio transport to parse the
+> bindings just defined; it is worth noting that the virtio framework
+> already has the support for devicetree declarations and this adds only
+> the glue between the existing support and remoteproc.
+> 
+> Patches 10 and 11 are i.MX-specific and enable the usage of the newly
+> introduced support on this family of platforms. The first one might
+> probably be sumbitted as-is independently of the series, as it aligns
+> the behavior of imx-rproc to the other platforms in relation to mailbox
+> usage.
+> 
+> Finally, patch 12 is the PoC that has been used to develop and test the
+> series and shall not be merged.
+> 
+> ======
+> 
+> Thank you in advance for any comment you may want to leave.
+> 
+> Regards,
+> Francesco
+> 
+> [1] https://lore.kernel.org/all/1330589497-4139-1-git-send-email-ohad@wizery.com/
+> [2] https://elixir.bootlin.com/linux/v7.2.5/source/Documentation/staging/remoteproc.rst#L26
+> [3] https://lore.kernel.org/linux-remoteproc/20260721204704.400781-1-shenwei.wang@oss.nxp.com/
+> [4] https://cfp.embedded-recipes.org/er2026/talk/PCYPJP/
+> [5] https://github.com/WallaceIT/zephyr/tree/multi_vdev
+> [6] https://lore.kernel.org/all/20260621-vring_flex-v1-1-c6c582fbe94b@valla.it/
+> 
+> Signed-off-by: Francesco Valla <francesco@valla.it>
 > ---
->  kernel/kprobes.c |  319 ++++++++++++++++++++++++++++++++++++++----------------
->  1 file changed, 225 insertions(+), 94 deletions(-)
+> Francesco Valla (12):
+>        remoteproc: virtio: cleanup rproc_add_virtio_dev error path
+>        remoteproc: virtio: replace commas with semicolons
+>        remoteproc: virtio: support dynamic number of vrings
+>        dma-coherent: add base and size APIs
+>        remoteproc: always report VIRTIO_F_VERSION_1 feature
+>        remoteproc: virtio: add bounce buffering for data buffers
+>        dt-bindings: spi: add bindings for spi-virtio
+>        dt-bindings: remoteproc: add remoteproc-virtio
+>        remoteproc: search for a fwnode during vdev registration
+>        remoteproc: imx_rproc: always use non-blocking mailboxes
+>        dt-bindings: remoteproc: imx-rproc: support virtio
+>        PoC: arm64: dts: imx93-11x11-frdm: add multiple vdevs
 > 
-> diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-> index 6337da5cab9e..1e25980303c4 100644
-> --- a/kernel/kprobes.c
-> +++ b/kernel/kprobes.c
-> @@ -42,6 +42,7 @@
->  #include <linux/execmem.h>
->  #include <linux/cleanup.h>
->  #include <linux/wait.h>
-> +#include <linux/rcupdate.h>
->  
->  #include <asm/sections.h>
->  #include <asm/cacheflush.h>
-> @@ -66,7 +67,7 @@ static struct hlist_head kprobe_table[KPROBE_TABLE_SIZE];
->  /* NOTE: change this value only with 'kprobe_mutex' held */
->  static bool kprobes_all_disarmed;
->  
-> -/* This protects 'kprobe_table' and 'optimizing_list' */
-> +/* This protects 'kprobe_table' and 'optprobe_gens' */
->  static DEFINE_MUTEX(kprobe_mutex);
->  static DEFINE_PER_CPU(struct kprobe *, kprobe_instance);
->  
-> @@ -511,10 +512,32 @@ static struct kprobe *get_optimized_kprobe(kprobe_opcode_t *addr)
->  	return NULL;
->  }
->  
-> -/* Optimization staging list, protected by 'kprobe_mutex' */
-> -static LIST_HEAD(optimizing_list);
-> -static LIST_HEAD(unoptimizing_list);
-> -static LIST_HEAD(freeing_list);
-> +#define OPTPROBE_GEN_MAX 2
-> +
-> +struct optprobe_generation {
-> +	struct list_head optimizing_list;
-> +	struct list_head unoptimizing_list;
-> +	struct list_head freeing_list;
-> +	struct rcu_head rcu;
-> +	bool in_flight;
-> +	bool ready;
-> +};
-> +
-> +/*
-> + * Generational ring of optprobes.
-> + *
-> + * Incoming probe requests are queued into the waiting room generation
-> + * (optprobe_gens[optprobe_cur_gen]). When dispatched, the generation
-> + * unoptimizes its probes, invokes call_rcu_tasks(), and optprobe_cur_gen
-> + * advances to the next slot.
-> + *
-> + * To ensure an idle generation is always available to collect incoming
-> + * requests without dynamic allocation, the last available generation slot
-> + * is never dispatched until another generation has finished.
-> + */
-> +static struct optprobe_generation optprobe_gens[OPTPROBE_GEN_MAX];
-> +static int optprobe_cur_gen;
-> +static bool optprobe_flush_requested;
->  
->  static void optimize_kprobe(struct kprobe *p);
->  static struct task_struct *kprobe_optimizer_task;
-> @@ -530,50 +553,78 @@ static DECLARE_COMPLETION(optimizer_completion);
->  
->  #define OPTIMIZE_DELAY 5
->  
-> +static bool optprobe_has_queued_probes(void)
-> +{
-> +	struct optprobe_generation *gen = &optprobe_gens[optprobe_cur_gen];
-> +
-> +	return !list_empty(&gen->optimizing_list) ||
-> +	       !list_empty(&gen->unoptimizing_list);
-> +}
-> +
-> +static int optprobe_active_gens_count(void)
-> +{
-> +	int count = 0;
-> +	int i;
-> +
-> +	for (i = 0; i < OPTPROBE_GEN_MAX; i++) {
-> +		if (optprobe_gens[i].in_flight || optprobe_gens[i].ready)
-> +			count++;
-> +	}
-> +	return count;
-> +}
-> +
->  /*
-> - * Optimize (replace a breakpoint with a jump) kprobes listed on
-> - * 'optimizing_list'.
-> + * The last generation must not be fired until another generation is done.
-> + * (Thus the last generation acts as the waiting room.)
->   */
-> -static void do_optimize_kprobes(void)
-> +static bool optprobe_can_fire(void)
->  {
-> -	lockdep_assert_held(&text_mutex);
-> -	/*
-> -	 * The optimization/unoptimization refers 'online_cpus' via
-> -	 * stop_machine() and cpu-hotplug modifies the 'online_cpus'.
-> -	 * And same time, 'text_mutex' will be held in cpu-hotplug and here.
-> -	 * This combination can cause a deadlock (cpu-hotplug tries to lock
-> -	 * 'text_mutex' but stop_machine() can not be done because
-> -	 * the 'online_cpus' has been changed)
-> -	 * To avoid this deadlock, caller must have locked cpu-hotplug
-> -	 * for preventing cpu-hotplug outside of 'text_mutex' locking.
-> -	 */
-> -	lockdep_assert_cpus_held();
-> +	return optprobe_active_gens_count() < OPTPROBE_GEN_MAX - 1;
-> +}
->  
-> -	/* Optimization never be done when disarmed */
-> -	if (kprobes_all_disarmed || !kprobes_allow_optimization ||
-> -	    list_empty(&optimizing_list))
-> -		return;
-> +static bool optprobe_has_ready_gens(void)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < OPTPROBE_GEN_MAX; i++) {
-> +		if (READ_ONCE(optprobe_gens[i].ready))
-> +			return true;
-> +	}
-> +	return false;
-> +}
->  
-> -	arch_optimize_kprobes(&optimizing_list);
-> +static bool optprobe_optimizer_busy(void)
-> +{
-> +	return optprobe_has_queued_probes() || (optprobe_active_gens_count() > 0);
->  }
->  
->  /*
->   * Unoptimize (replace a jump with a breakpoint and remove the breakpoint
-> - * if need) kprobes listed on 'unoptimizing_list'.
-> + * if need) kprobes listed on 'unopt_list'.
->   */
-> -static void do_unoptimize_kprobes(void)
-> +static void do_unoptimize_kprobes(struct list_head *unopt_list,
-> +				  struct list_head *free_list)
->  {
->  	struct optimized_kprobe *op, *tmp;
->  
->  	lockdep_assert_held(&text_mutex);
-> -	/* See comment in do_optimize_kprobes() */
-> +	/*
-> +	 * The optimization/unoptimization refers 'online_cpus' via
-> +	 * stop_machine() and cpu-hotplug modifies the 'online_cpus'.
-> +	 * And same time, 'text_mutex' will be held in cpu-hotplug and here.
-> +	 * This combination can cause a deadlock (cpu-hotplug tries to lock
-> +	 * 'text_mutex' but stop_machine() can not be done because
-> +	 * the 'online_cpus' has been changed)
-> +	 * To avoid this deadlock, caller must have locked cpu-hotplug
-> +	 * for preventing cpu-hotplug outside of 'text_mutex' locking.
-> +	 */
->  	lockdep_assert_cpus_held();
->  
-> -	if (!list_empty(&unoptimizing_list))
-> -		arch_unoptimize_kprobes(&unoptimizing_list, &freeing_list);
-> +	if (!list_empty(unopt_list))
-> +		arch_unoptimize_kprobes(unopt_list, free_list);
->  
-> -	/* Loop on 'freeing_list' for disarming and removing from kprobe hash list */
-> -	list_for_each_entry_safe(op, tmp, &freeing_list, list) {
-> +	/* Loop on 'free_list' for disarming and removing from kprobe hash list */
-> +	list_for_each_entry_safe(op, tmp, free_list, list) {
->  		/* Switching from detour code to origin */
->  		op->kp.flags &= ~KPROBE_FLAG_OPTIMIZED;
->  		/* Disarm probes if marked disabled and not gone */
-> @@ -586,17 +637,20 @@ static void do_unoptimize_kprobes(void)
->  			 * (reclaiming is done by do_free_cleaned_kprobes().)
->  			 */
->  			hlist_del_rcu(&op->kp.hlist);
-> -		} else
-> +		} else {
->  			list_del_init(&op->list);
-> +		}
->  	}
->  }
->  
-> -/* Reclaim all kprobes on the 'freeing_list' */
-> -static void do_free_cleaned_kprobes(void)
-> +/* Reclaim all kprobes on the 'free_list' */
-> +static void do_free_cleaned_kprobes(struct list_head *free_list)
->  {
->  	struct optimized_kprobe *op, *tmp;
->  
-> -	list_for_each_entry_safe(op, tmp, &freeing_list, list) {
-> +	list_for_each_entry_safe(op, tmp, free_list, list) {
-> +		struct kprobe *_p;
-> +
->  		list_del_init(&op->list);
->  		if (WARN_ON_ONCE(!kprobe_unused(&op->kp))) {
->  			/*
-> @@ -608,11 +662,10 @@ static void do_free_cleaned_kprobes(void)
->  
->  		/*
->  		 * The aggregator was holding back another probe while it sat on the
-> -		 * unoptimizing/freeing lists.  Now that the aggregator has been fully
-> +		 * unoptimizing/freeing lists. Now that the aggregator has been fully
->  		 * reverted we can safely retry the optimization of that sibling.
->  		 */
-> -
-> -		struct kprobe *_p = get_optimized_kprobe(op->kp.addr);
-> +		_p = get_optimized_kprobe(op->kp.addr);
->  		if (unlikely(_p))
->  			optimize_kprobe(_p);
->  
-> @@ -622,67 +675,119 @@ static void do_free_cleaned_kprobes(void)
->  
->  static void kick_kprobe_optimizer(void);
->  
-> -/* Kprobe jump optimizer */
-> -static void kprobe_optimizer(void)
-> +static void optprobe_generation_rcu_cb(struct rcu_head *rcu)
->  {
-> -	guard(mutex)(&kprobe_mutex);
-> +	struct optprobe_generation *gen;
-> +
-> +	gen = container_of(rcu, struct optprobe_generation, rcu);
-> +	WRITE_ONCE(gen->ready, true);
-> +	wake_up(&kprobe_optimizer_wait);
-> +}
-> +
-> +static void optprobe_finalize_generation(struct optprobe_generation *gen)
-> +{
-> +	lockdep_assert_held(&kprobe_mutex);
->  
->  	scoped_guard(cpus_read_lock) {
->  		guard(mutex)(&text_mutex);
->  
-> -		/*
-> -		 * Step 1: Unoptimize kprobes and collect cleaned (unused and disarmed)
-> -		 * kprobes before waiting for quiesence period.
-> -		 */
-> -		do_unoptimize_kprobes();
-> +		/* Optimization never be done when disarmed */
-> +		if (!kprobes_all_disarmed && kprobes_allow_optimization &&
-> +		    !list_empty(&gen->optimizing_list))
-> +			arch_optimize_kprobes(&gen->optimizing_list);
-> +	}
-> +
-> +	/* Free cleaned kprobes after quiescence period */
-> +	do_free_cleaned_kprobes(&gen->freeing_list);
-> +
-> +	gen->in_flight = false;
-> +	WRITE_ONCE(gen->ready, false);
-> +}
-> +
-> +static void optprobe_dispatch_generation(void)
-> +{
-> +	struct optprobe_generation *gen;
-> +
-> +	lockdep_assert_held(&kprobe_mutex);
-> +
-> +	if (!optprobe_can_fire() || !optprobe_has_queued_probes())
-> +		return;
-> +
-> +	gen = &optprobe_gens[optprobe_cur_gen];
-> +
-> +	scoped_guard(cpus_read_lock) {
-> +		guard(mutex)(&text_mutex);
->  
->  		/*
-> -		 * Step 2: Wait for quiesence period to ensure all potentially
-> -		 * preempted tasks to have normally scheduled. Because optprobe
-> -		 * may modify multiple instructions, there is a chance that Nth
-> -		 * instruction is preempted. In that case, such tasks can return
-> -		 * to 2nd-Nth byte of jump instruction. This wait is for avoiding it.
-> -		 * Note that on non-preemptive kernel, this is transparently converted
-> -		 * to synchronoze_sched() to wait for all interrupts to have completed.
-> +		 * Unoptimize kprobes and collect cleaned (unused and disarmed)
-> +		 * kprobes before waiting for quiescence period.
->  		 */
-> -		synchronize_rcu_tasks();
-> +		do_unoptimize_kprobes(&gen->unoptimizing_list, &gen->freeing_list);
-> +	}
-> +
-> +	/* Advance cur_gen to the next generation slot */
-> +	optprobe_cur_gen = (optprobe_cur_gen + 1) % OPTPROBE_GEN_MAX;
-> +
-> +	gen->in_flight = true;
-> +	WRITE_ONCE(gen->ready, false);
->  
-> -		/* Step 3: Optimize kprobes after quiesence period */
-> -		do_optimize_kprobes();
-> +	call_rcu_tasks(&gen->rcu, optprobe_generation_rcu_cb);
-> +}
->  
-> -		/* Step 4: Free cleaned kprobes after quiesence period */
-> -		do_free_cleaned_kprobes();
-> +/* Kprobe jump optimizer */
-> +static void kprobe_optimizer(void)
-> +{
-> +	int i;
-> +
-> +	guard(mutex)(&kprobe_mutex);
-> +
-> +	/* Step 1: Finalize any generation whose Tasks RCU grace period completed */
-> +	for (i = 0; i < OPTPROBE_GEN_MAX; i++) {
-> +		if (READ_ONCE(optprobe_gens[i].ready))
-> +			optprobe_finalize_generation(&optprobe_gens[i]);
->  	}
->  
-> -	/* Step 5: Kick optimizer again if needed. But if there is a flush requested, */
-> -	if (completion_done(&optimizer_completion))
-> -		complete(&optimizer_completion);
-> +	/* Step 2: Dispatch waiting room generation if allowed */
-> +	optprobe_dispatch_generation();
->  
-> -	if (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list))
-> -		kick_kprobe_optimizer();	/*normal kick*/
-> +	/* Step 3: Check completion if flush was requested */
-> +	if (!optprobe_optimizer_busy()) {
-> +		if (optprobe_flush_requested) {
-> +			optprobe_flush_requested = false;
-> +			complete_all(&optimizer_completion);
-> +		}
-> +	} else if (optprobe_has_queued_probes() && optprobe_can_fire()) {
-> +		/* Probes remain and can be fired immediately (e.g. retried siblings) */
-> +		kick_kprobe_optimizer();
-> +	}
->  }
->  
->  static int kprobe_optimizer_thread(void *data)
->  {
->  	while (!kthread_should_stop()) {
-> -		/* To avoid hung_task, wait in interruptible state. */
-> +		/* Wait until there is work to do or a generation is ready */
->  		wait_event_interruptible(kprobe_optimizer_wait,
-> -			   atomic_read(&optimizer_state) != OPTIMIZER_ST_IDLE ||
-> -			   kthread_should_stop());
-> +			atomic_read(&optimizer_state) != OPTIMIZER_ST_IDLE ||
-> +			optprobe_has_ready_gens() ||
-> +			kthread_should_stop());
->  
->  		if (kthread_should_stop())
->  			break;
->  
->  		/*
-> -		 * If it was a normal kick, wait for OPTIMIZE_DELAY.
-> -		 * This wait can be interrupted by a flush request.
-> +		 * If it was a normal kick and no generation is ready to finalize,
-> +		 * wait for OPTIMIZE_DELAY to batch incoming requests.
-> +		 * This wait can be interrupted by a flush request or a ready generation.
->  		 */
-> -		if (atomic_read(&optimizer_state) == 1)
-> +		if (atomic_read(&optimizer_state) == OPTIMIZER_ST_KICKED &&
-> +		    !optprobe_has_ready_gens()) {
->  			wait_event_interruptible_timeout(
->  				kprobe_optimizer_wait,
->  				atomic_read(&optimizer_state) == OPTIMIZER_ST_FLUSHING ||
-> +				optprobe_has_ready_gens() ||
->  				kthread_should_stop(),
->  				OPTIMIZE_DELAY);
-> +		}
->  
->  		if (kthread_should_stop())
->  			break;
-> @@ -707,12 +812,11 @@ static void wait_for_kprobe_optimizer_locked(void)
->  {
->  	lockdep_assert_held(&kprobe_mutex);
->  
-> -	while (!list_empty(&optimizing_list) || !list_empty(&unoptimizing_list)) {
-> +	while (optprobe_optimizer_busy()) {
->  		init_completion(&optimizer_completion);
-> -		/*
-> -		 * Set state to OPTIMIZER_ST_FLUSHING and wake up the thread if it's
-> -		 * idle. If it's already kicked, it will see the state change.
-> -		 */
-> +		optprobe_flush_requested = true;
-> +
-> +		/* Wake up optimizer thread */
->  		if (atomic_xchg_acquire(&optimizer_state,
->  			OPTIMIZER_ST_FLUSHING) != OPTIMIZER_ST_FLUSHING)
->  			wake_up(&kprobe_optimizer_wait);
-> @@ -734,10 +838,28 @@ void wait_for_kprobe_optimizer(void)
->  bool optprobe_queued_unopt(struct optimized_kprobe *op)
->  {
->  	struct optimized_kprobe *_op;
-> +	int i;
->  
-> -	list_for_each_entry(_op, &unoptimizing_list, list) {
-> -		if (op == _op)
-> -			return true;
-> +	for (i = 0; i < OPTPROBE_GEN_MAX; i++) {
-> +		list_for_each_entry(_op, &optprobe_gens[i].unoptimizing_list, list) {
-> +			if (op == _op)
-> +				return true;
-> +		}
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +static bool optprobe_queued_freeing(struct optimized_kprobe *op)
-> +{
-> +	struct optimized_kprobe *_op;
-> +	int i;
-> +
-> +	for (i = 0; i < OPTPROBE_GEN_MAX; i++) {
-> +		list_for_each_entry(_op, &optprobe_gens[i].freeing_list, list) {
-> +			if (op == _op)
-> +				return true;
-> +		}
->  	}
->  
->  	return false;
-> @@ -780,7 +902,7 @@ static void optimize_kprobe(struct kprobe *p)
->  	if (WARN_ON_ONCE(!list_empty(&op->list)))
->  		return;
->  
-> -	list_add(&op->list, &optimizing_list);
-> +	list_add(&op->list, &optprobe_gens[optprobe_cur_gen].optimizing_list);
->  	kick_kprobe_optimizer();
->  }
->  
-> @@ -813,7 +935,7 @@ static void unoptimize_kprobe(struct kprobe *p, bool force)
->  				 * in the freeing list for release afterwards.
->  				 */
->  				force_unoptimize_kprobe(op);
-> -				list_move(&op->list, &freeing_list);
-> +				list_move(&op->list, &optprobe_gens[optprobe_cur_gen].freeing_list);
->  			}
->  		} else {
->  			/* Dequeue from the optimizing queue */
-> @@ -828,7 +950,7 @@ static void unoptimize_kprobe(struct kprobe *p, bool force)
->  		/* Forcibly update the code: this is a special case */
->  		force_unoptimize_kprobe(op);
->  	} else {
-> -		list_add(&op->list, &unoptimizing_list);
-> +		list_add(&op->list, &optprobe_gens[optprobe_cur_gen].unoptimizing_list);
->  		kick_kprobe_optimizer();
->  	}
->  }
-> @@ -860,20 +982,17 @@ static void kill_optimized_kprobe(struct kprobe *p)
->  	struct optimized_kprobe *op;
->  
->  	op = container_of(p, struct optimized_kprobe, kp);
-> -	if (!list_empty(&op->list))
-> -		/* Dequeue from the (un)optimization queue */
-> -		list_del_init(&op->list);
-> -	op->kp.flags &= ~KPROBE_FLAG_OPTIMIZED;
-> -
-> -	if (kprobe_unused(p)) {
-> -		/*
-> -		 * Unused kprobe is on unoptimizing or freeing list. We move it
-> -		 * to freeing_list and let the kprobe_optimizer() remove it from
-> -		 * the kprobe hash list and free it.
-> -		 */
-> -		if (optprobe_queued_unopt(op))
-> -			list_move(&op->list, &freeing_list);
-> +	if (!list_empty(&op->list)) {
-> +		if (kprobe_unused(p)) {
-> +			if (optprobe_queued_unopt(op))
-> +				list_move(&op->list, &optprobe_gens[optprobe_cur_gen].freeing_list);
-> +			else if (!optprobe_queued_freeing(op))
-> +				list_del_init(&op->list);
-> +		} else {
-> +			list_del_init(&op->list);
-> +		}
->  	}
-> +	op->kp.flags &= ~KPROBE_FLAG_OPTIMIZED;
->  
->  	/* Don't touch the code, because it is already freed. */
->  	arch_remove_optimized_kprobe(op);
-> @@ -1073,11 +1192,23 @@ static void __disarm_kprobe(struct kprobe *p, bool reopt)
->  
->  static void __init init_optprobe(void)
->  {
-> +	int i;
-> +
->  #ifdef __ARCH_WANT_KPROBES_INSN_SLOT
->  	/* Init 'kprobe_optinsn_slots' for allocation */
->  	kprobe_optinsn_slots.insn_size = MAX_OPTINSN_SIZE;
->  #endif
->  
-> +	for (i = 0; i < OPTPROBE_GEN_MAX; i++) {
-> +		INIT_LIST_HEAD(&optprobe_gens[i].optimizing_list);
-> +		INIT_LIST_HEAD(&optprobe_gens[i].unoptimizing_list);
-> +		INIT_LIST_HEAD(&optprobe_gens[i].freeing_list);
-> +		optprobe_gens[i].in_flight = false;
-> +		optprobe_gens[i].ready = false;
-> +	}
-> +	optprobe_cur_gen = 0;
-> +	optprobe_flush_requested = false;
-> +
->  	init_waitqueue_head(&kprobe_optimizer_wait);
->  	atomic_set(&optimizer_state, OPTIMIZER_ST_IDLE);
->  	kprobe_optimizer_task = kthread_run(kprobe_optimizer_thread, NULL,
+>   .../bindings/remoteproc/fsl,imx-rproc.yaml         |   3 +-
+>   .../bindings/remoteproc/remoteproc-virtio.yaml     |  89 +++++++++
+>   .../devicetree/bindings/spi/spi-virtio.yaml        |  52 +++++
+>   arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++-
+>   drivers/remoteproc/imx_rproc.c                     |  49 +----
+>   drivers/remoteproc/imx_rproc.h                     |   1 -
+>   drivers/remoteproc/remoteproc_core.c               |  43 +++-
+>   drivers/remoteproc/remoteproc_virtio.c             | 222 ++++++++++++++++++---
+>   include/linux/dma-map-ops.h                        |  10 +
+>   include/linux/remoteproc.h                         |  24 ++-
+>   kernel/dma/coherent.c                              |  34 ++++
+>   11 files changed, 562 insertions(+), 93 deletions(-)
+> ---
+> base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
+> change-id: 20260915-remoteproc_virtio_map-bcf32a5fab54
+> 
+> Best regards,
+> --
+> Francesco Valla <francesco@valla.it>
 > 
 
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
