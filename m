@@ -1,109 +1,308 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265FC455635;
-	Wed, 23 Sep 2026 07:45:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 142713E5A0E;
+	Wed, 23 Sep 2026 07:46:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149517; cv=none; b=VvJbtCeaJrbpayXNm3TuGdfG0qCfRkSVTtmFlJW8EYuee6fwY8uFWTZbvNpARWbqAHl1xlliYlIrQfJXQBMd6AUwYlY7rRQZ4RcnoCugK0d1KFCsaS4SfyeV7u5a52BsdAmKnGriDHK0Gse6MNLV35DRYBxibpXQS8JcQGOql9U=
+	t=1790149607; cv=none; b=Ht3kYEppIhUtx32gFhwCGDOnYjautqSUTE/pUK6nZ5JVeaku2/+wrtg8rbUEyPok3DjVpWshrEsdfQYQQ3yg7iZNB1ItOhX5OUGUn+R9cPpRT9theRSzCNJLIvvqgcfSfVGMoqseW3CzWrInKf92DkTeWRd9b1ZK8Rc+m7U9SAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149517; c=relaxed/simple;
-	bh=L8b2o0xjkNjnnwh84ixRzzr00BXVJ9wSa/nQdaNfnJQ=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=MdfE3pY2eVM3wx0MdLEQ19sPZrJD6hEUF3FWY2wX3L7rGumE+sRTE6WQW0iElp2GzK/idLHjmGzAkzwIRc43MsZ3tjWTyktEiQG6JRxGxjyr77/pVvKYqfQR+19yyHBnMnowuePll1ZoKlEc7kY4A4t0WEKQWvVfjdEiDOK3uCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PFyD01pD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790149607; c=relaxed/simple;
+	bh=/2gTemkZVCx765RzD8+vg/si9R+RsMdUhgwTOizrnsU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uw9o+hlZ+e+75BqQDs38jGcSRRjZJsmBBwpHht7jRljrShaeUhq7w6fe67UyYirppV5RO3GSfA1DZuI/SWymUxv1wPv5arM831KvpmohWTNVCbcGDq478QYc2dxoCZaSFKQ222jAypJYc5pHyVqQyDuG//uIk6KmOTmWmApOsUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ZXhIPGXf; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PFyD01pD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94BDB1F000FF;
-	Wed, 23 Sep 2026 07:45:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790149515;
-	bh=1foUsDpAEZYtjknaRltgsBB8N+Dblj/3OAvcebQkh1g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PFyD01pD0i7cPkEY4MT4Tx4wptgkKyfc+CFsCp6tCOVVDwCG2sGXnnkoVJm8LMONm
-	 Gnj04qtcJCEN0cJVTRjB78TdeBrsSszyM/lbKH7wivZe0P1aRDSW44UEvYGOtC5W8/
-	 CQvXZI9qHt96in2Kvvwm3wGA0BkmcWzqVwvPYzDXzQDA9YyfmLNqq5JHxeyKmmAkgM
-	 uHEWdH3MvdFddROGMBz8x1jaq6O091sTatyFMVW3qcbsKit/4scqTvn2te/E0PVjWk
-	 KZ1X6r4aRQsdWxrFo3w7n9m3AQHgdtlsSCRQ0VkBFtnciIR1VBkCjDwSzGRNDpsdql
-	 v1HltHf7Yn4gA==
-Date: Wed, 23 Sep 2026 16:45:10 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, Frederic Weisbecker
- <frederic@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Steven Rostedt
- <rostedt@goodmis.org>, Boqun Feng <boqun@kernel.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra
- <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan
- <puranjay@kernel.org>, rcu@vger.kernel.org, bpf@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 03/13] kprobes: Expose the optprobe jump window to
- Tasks RCU
-Message-Id: <20260923164510.f3bbddefea4423f8f1bfecb8@kernel.org>
-In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-3-410f57770bad@toxicpanda.com>
-References: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
-	<20260922-b4-rcu-tasks-preempt-qs-v5-3-410f57770bad@toxicpanda.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ZXhIPGXf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=QZ
+	2CklEPM41fBCBH4wMrs2bqusIBHz8n45dNOsqwuuM=; b=ZXhIPGXfnuUPQO7hho
+	Z6mls1UwLr0w/B5xQSWcG9TigaAZL5AszmhnhrrLhwdeynBoFyBGaMi0rboMJ4D2
+	OB1qXptw4TgKIBisj0R28PYSocIdPD6hdYabTFW3KZ1u3QP7Y5oD4Fb4HWD9YykB
+	cChAFPX+mQfGxzOx3ldLiLk4E=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wCnX76Jg7NqtZwiAQ--.40954S2;
+	Wed, 23 Sep 2026 15:45:14 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Lee Jones <lee@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Chris Zhong <zyw@rock-chips.com>,
+	Zhang Qing <zhangqing@rock-chips.com>,
+	mfd@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	quchaosheng000406@163.com
+Subject: [PATCH v4] dt-bindings: mfd: rockchip,rk805: Convert pinctrl to DT schema
+Date: Wed, 23 Sep 2026 15:45:03 +0800
+Message-ID: <20260923074503.575956-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wCnX76Jg7NqtZwiAQ--.40954S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxuw47tr47AF45GF47CF4fAFb_yoWfGr47pF
+	ZxAF4fJrn2gF43uw48tw18Cw1fuan7Ar4UC3WUKryIqan8uryjyr13Kw1rZFyDGFW0va4a
+	vr15Wr98XwnrC3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUbTmhUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAAqKAGqzg4rJEwAA3K
 
-On Tue, 22 Sep 2026 02:23:22 +0000
-Josef Bacik <josef@toxicpanda.com> wrote:
+pinctrl-rk805.txt describes the pinmux controller that is part of the
+Rockchip RK805 PMIC. The PMIC itself is already described by
+rockchip,rk805.yaml, so the pinmux part belongs there as well: the
+pinctrl node is a child of the PMIC node, not a separate device.
 
-> kprobe_optimizer() is the one synchronize_rcu_tasks() user that is not
-> about trampoline text: it waits for tasks that were interrupted on an
-> instruction boundary inside the bytes it is about to overwrite with the
-> optimized jump, so that none of them resumes into the middle of the new
-> instruction.  Those bytes are ordinary kernel or module text with no
-> Tasks Trace reader around them, so on CONFIG_TASKS_RCU_TRAMPOLINE_READERS
-> kernels the irq-exit quiescent-state check has to be told about them.
-> 
-> Add kprobe_in_optimized_region(), a lockless and conservative form of
-> get_optimized_kprobe() that reports whether any registered kprobe lies
-> within MAX_OPTIMIZED_LENGTH before the given address regardless of its
-> optimization state, and have rcu_tasks_trampoline_text() consult it for
-> core and module text so that a task interrupted there becomes a holdout
-> rather than a quiescent event. The hash walk only runs while
-> kprobe_optimizer() is actually inside its synchronize_rcu_tasks(),
-> tracked by a flag it sets around the call; otherwise the check is a
-> single load. That check cannot see a task that was already preempted in
-> the region before the flag went up (possibly before the kprobe even
-> existed), and the new grace period does not otherwise wait for a
-> preempted task to run again, so before synchronize_rcu_tasks() the
-> optimizer calls rcu_tasks_wait_irq_preempted() to wait until no parked
-> task's recorded irq-exit preemption IP is inside such a region; its
-> leading synchronize_rcu() also publishes the flag to every (interrupts-
-> disabled) check in flight. The kprobe hash is RCU-protected and every
-> free path waits for a grace period after unhashing, so the lockless walk
-> from the irq-exit path is safe.
-> 
-> On other configurations the flag is set and cleared but nothing reads
-> it and rcu_tasks_wait_irq_preempted() is a stub; the classic
-> implementation already waits for such tasks.
+Fold the pinmux description into rockchip,rk805.yaml and drop the
+standalone text binding.
 
-Hmm, this seems a bit awkward. To solve this problem with tasks RCU is
-not a straight solution. I rather like to suggest fixing kprobe_optimizer.
+While doing so, add the missing child node schema. The rockchip,rk805.yaml
+schema ends with 'additionalProperties: false' but did not describe the pin
+configuration child nodes at all, so a valid pinmux node like the one shown
+in pinctrl-rk805.txt was rejected:
 
-Since the root cause of the mutex related hang_task stall is the
-kprobe_optimizer() waits RCU under locking mutexes -- text_mutex,
-cpu_read_lock, and kprobe_mutex. When I introduced this, waiting
-RCU grace period did not take so long time. But now it can take
-longer, so it is a good chance to fix it completely.
+    pmic@18 (rockchip,rk805): 'rk805-default-pins' does not match any of
+    the regexes: '^pinctrl-[0-9]+$'
 
-Since the RCU is a kind of the generation control of internal state,
-we can introduce multi-generation optimizing/freeing list and
-RCU tasks callback for that.
+The pin configuration nodes require 'pins'; without it a node that names
+no pin is accepted silently, while the text binding it replaces listed
+'pins' as required. The RK805 exposes two output-only GPIOs, so 'pins' is
+an enum of gpio0 and gpio1 and a typo such as "gpio2" is caught.
 
-Let me try to make another series to fix optprobe side.
+The nodes may be direct children of the PMIC, or sit one level deeper
+inside a "pinmux" grouping node, which is the layout the example of the
+text binding used. pinctrl-bindings.txt allows the configuration nodes to
+be grandchildren of the pin controller, and the driver reaches both
+layouts: pinconf_generic_dt_node_to_map() parses the referenced node and
+then walks its children. The example shows both.
 
-Thank you,
+The example also regains the gpio-controller and #gpio-cells lines that the
+example of the text binding had.
 
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/20260923034245.396417-1-quchaosheng000406@163.com?part=1
+Link: https://sashiko.dev/#/patchset/20260923062746.516666-1-quchaosheng000406@163.com?part=1
+Assisted-by: LLM
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
+---
+Changes in v4:
+- Describe the pin configuration nodes both as direct children and inside a
+  "pinmux" grouping node. Only the flat form was described, so the layout
+  used by the example of the text binding this replaces was still rejected:
+
+    pmic@18 (rockchip,rk805): 'pinmux' does not match any of the regexes:
+      '-pins$', '^pinctrl-[0-9]+$'
+
+  The nodes are now one definition referenced from both places, and the
+  example shows the flat node and a "pinmux" node holding one.
+- Name the binding in the summary. dt-bindings: mfd: <binding>: is the form
+  Documentation/devicetree/bindings/submitting-patches.rst asks for on
+  conversions, and 364 of the 385 dt-bindings: mfd: commits in the tree name
+  a binding there.
+
+Changes in v3:
+- Capitalize the summary phrase. dt-bindings: mfd: titles are capitalized
+  after the subsystem prefix (Add 61, Convert 20 against convert 6).
+- Add gpio-controller and #gpio-cells to the example, which the text
+  binding's example had and the conversion dropped.
+- gpio-controller and #gpio-cells are deliberately *not* added to the
+  required list. rv1108-evb, rv1108-elgin-r1 and rk3328-a1 do not set
+  them, so requiring them breaks three in-tree boards:
+
+    rv1108-evb.dtb: pmic@18 (rockchip,rk805): 'gpio-controller' is a required property
+
+  No rk8xx PMIC schema requires the pair, and gpio.yaml already enforces
+  that they appear together ("'#gpio-cells' is a dependency of
+  'gpio-controller'"). The pinctrl driver calls devm_gpiochip_add_data()
+  unconditionally, so the property is not what makes the GPIO controller
+  work either.
+
+Changes in v2:
+- Require 'pins' in the pin configuration nodes. Without it a node that
+  names no pin passes validation, while the text binding listed 'pins'
+  as required.
+---
+ .../bindings/mfd/rockchip,rk805.yaml          | 65 ++++++++++++++++++-
+ .../bindings/pinctrl/pinctrl-rk805.txt        | 63 ------------------
+ 2 files changed, 64 insertions(+), 64 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
+
+diff --git a/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml b/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
+index da2391530c16..aafc80212c48 100644
+--- a/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
++++ b/Documentation/devicetree/bindings/mfd/rockchip,rk805.yaml
+@@ -77,6 +77,21 @@ properties:
+     description:
+       The input supply for LDO_REG3.
+ 
++  # pinctrl-bindings.txt allows the pin configuration nodes to be grandchildren
++  # of the pin controller, and the text binding this replaces used that layout:
++  # a "pinmux" node holding the nodes that carry "pins". The driver reaches both
++  # layouts, because pinconf_generic_dt_node_to_map() parses the referenced node
++  # and then walks its children.
++  pinmux:
++    type: object
++    additionalProperties: false
++    patternProperties:
++      '^.+$':
++        if:
++          type: object
++        then:
++          $ref: '#/$defs/rk805-pin-config'
++
+   regulators:
+     type: object
+     patternProperties:
+@@ -86,6 +101,38 @@ properties:
+         unevaluatedProperties: false
+     unevaluatedProperties: false
+ 
++$defs:
++  rk805-pin-config:
++    type: object
++    description:
++      The RK805 has two output-only GPIOs which can be muxed to the GPIO
++      function and driven low or high at boot.
++    additionalProperties: false
++
++    properties:
++      pins:
++        description:
++          List of GPIO pins to configure.
++        items:
++          enum: [gpio0, gpio1]
++        minItems: 1
++        maxItems: 2
++
++      function:
++        description:
++          The RK805 only supports the GPIO function.
++        enum: [gpio]
++
++      output-low: true
++      output-high: true
++
++    required:
++      - pins
++
++patternProperties:
++  '-pins$':
++    $ref: '#/$defs/rk805-pin-config'
++
+ allOf:
+   - if:
+       properties:
+@@ -125,9 +172,11 @@ examples:
+             interrupt-parent = <&gpio2>;
+             interrupts = <RK_PA6 IRQ_TYPE_LEVEL_LOW>;
+             pinctrl-names = "default";
+-            pinctrl-0 = <&pmic_int_l>;
++            pinctrl-0 = <&pmic_int_l>, <&rk805_default>, <&rk805_grouped>;
+             rockchip,system-power-controller;
+             wakeup-source;
++            gpio-controller;
++            #gpio-cells = <2>;
+             #clock-cells = <0>;
+ 
+             vcc1-supply = <&vcc_sys>;
+@@ -137,6 +186,20 @@ examples:
+             vcc5-supply = <&vcc_io>;
+             vcc6-supply = <&vcc_io>;
+ 
++            rk805_default: rk805-default-pins {
++                pins = "gpio0";
++                function = "gpio";
++                output-high;
++            };
++
++            rk805_grouped: pinmux {
++                gpio01 {
++                    pins = "gpio1";
++                    function = "gpio";
++                    output-low;
++                };
++            };
++
+             regulators {
+                 vdd_logic: DCDC_REG1 {
+                     regulator-name = "vdd_logic";
+diff --git a/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt b/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
+deleted file mode 100644
+index 6ad49e51c72e..000000000000
+--- a/Documentation/devicetree/bindings/pinctrl/pinctrl-rk805.txt
++++ /dev/null
+@@ -1,63 +0,0 @@
+-Pincontrol driver for RK805 Power management IC.
+-
+-RK805 has 2 pins which can be configured as GPIO output only.
+-
+-Please refer file <devicetree/bindings/pinctrl/pinctrl-bindings.txt>
+-for details of the common pinctrl bindings used by client devices,
+-including the meaning of the phrase "pin configuration node".
+-
+-Optional Pinmux properties:
+---------------------------
+-Following properties are required if default setting of pins are required
+-at boot.
+-- pinctrl-names: A pinctrl state named per <pinctrl-bindings.txt>.
+-- pinctrl[0...n]: Properties to contain the phandle for pinctrl states per
+-		<pinctrl-bindings.txt>.
+-
+-The pin configurations are defined as child of the pinctrl states node. Each
+-sub-node have following properties:
+-
+-Required properties:
+-------------------
+-- #gpio-cells: Should be two. The first cell is the pin number and the
+-  second is the GPIO flags.
+-
+-- gpio-controller: Marks the device node as a GPIO controller.
+-
+-- pins: List of pins. Valid values of pins properties are: gpio0, gpio1.
+-
+-First 2 properties must be added in the RK805 PMIC node, documented in
+-Documentation/devicetree/bindings/mfd/rockchip,rk808.yaml
+-
+-Optional properties:
+--------------------
+-Following are optional properties defined as pinmux DT binding document
+-<pinctrl-bindings.txt>. Absence of properties will leave the configuration
+-on default.
+-	function,
+-	output-low,
+-	output-high.
+-
+-Valid values for function properties are: gpio.
+-
+-There are also not customised properties for any GPIO.
+-
+-Example:
+---------
+-rk805: rk805@18 {
+-	compatible = "rockchip,rk805";
+-	...
+-	gpio-controller;
+-	#gpio-cells = <2>;
+-
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pmic_int_l>, <&rk805_default>;
+-
+-	rk805_default: pinmux {
+-		gpio01 {
+-			pins = "gpio0", "gpio1";
+-			function = "gpio";
+-			output-high;
+-		};
+-	};
+-};
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+2.43.0
+
