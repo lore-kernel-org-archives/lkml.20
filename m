@@ -1,33 +1,33 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8BEBA531AF9;
-	Wed, 23 Sep 2026 13:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24322455635;
+	Wed, 23 Sep 2026 13:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790171673; cv=none; b=X/VpLTsKLX8/dhNLzR1carwnWJmi6puj0Ar19AcpFGztX6shS0j4j/y+nlv8YeHc7jzHP0igOiTO+NPrnTkX1XnWBmy85fA32QpS2Q55DlGMsyozyRF/2ojcs9Rmt+K/pkvYPznKv4yYHt+szW9gFwI0FXd7S+Zrehk2v0PFOLY=
+	t=1790171686; cv=none; b=Z2TGgZBZzSj+qr0eVxrV1dxubMfsc1rvTlyZCfG9ShklhdjhATU+TIBpNiyV6RQC3nkhqadJUw/FRGK3BsHkauW4ag534ghZ3mqytQFhkZTOSB0HE19NuZ2Z7IaXrN0K36zAcweKJD9EbahPDhN3oAruL8xa5Mq2w6MAdBvtjS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790171673; c=relaxed/simple;
-	bh=jOd+1cImWDzjYteOVXtCRTCnioc+6oUd0GoFfux4o8E=;
+	s=arc-20240116; t=1790171686; c=relaxed/simple;
+	bh=3xdu8TqqojNI1/L2WgyqebV/A4o3RGXP8uDvwc+LGRA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ERyd7qAXB2pgF3RWMm6B6r0ifw/4W7UkoluTTQ5/PfmXKp/jTkU54L24wOtxy6czJTND+c0AH4CnRUR3UJzbbw7CsMgF6KQ5f5XTdyfeaHjNRZweUrwpVXkJSBha5+xE6L/TWCmKOt9EWFb5eb/Panh8QTsYN3YJMW8yp4eUpPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=PAtLz9Rt; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 In-Reply-To:Content-Type; b=af+VwNKTLvuGC7ccU0cjj/8l/Eqg1IEtVT7b9Iqn+OoO3PrGJAvyoZzjpi8NKeidGxB5IWj0Muflh8xYYF9ENleFtNGYuVRO0UD5EfS4glSLByrqQC3G9Qw01cciLhigB9H46TG89/1/p8CcrHuvoF8I9x7cgV/iTHrJh7a1Sj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nYvHCK00; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="PAtLz9Rt"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4B5DE1516;
-	Wed, 23 Sep 2026 06:54:26 -0700 (PDT)
-Received: from [10.0.128.141] (unknown [10.0.128.141])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8C5693F86F;
-	Wed, 23 Sep 2026 06:54:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790171669; bh=jOd+1cImWDzjYteOVXtCRTCnioc+6oUd0GoFfux4o8E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=PAtLz9Rt3aTihOaJ+yv2NdmV0CXW4rYuBZHUaaWh2qWU71pQ/MInuODqx7wJ8sr+d
-	 pPMPlqVdzOPM3cOXepnSeOkpONiXaGlPOfnWFQFkx22lkmKsHPZLi+zCD0/Rd6XO3w
-	 lD79U/1F2kXAVvuSOkJl6GeC9j8yE19X3ezeNvf8=
-Message-ID: <80d9cefc-cbdc-4eca-9cf2-1032acc65855@arm.com>
-Date: Wed, 23 Sep 2026 14:54:24 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nYvHCK00"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5D41F000FF;
+	Wed, 23 Sep 2026 13:54:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790171684;
+	bh=lV+u7ZikXuhz6S/aX/agfwlx8ZCGacyG0jw47bgroto=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nYvHCK00gse9lc8Gx/Mov2CNFiG+zwZQHvXDTyOyRVnDEZ7e/j+dBt4VaW492ZGkp
+	 hpxR+G1QWZhj0OCGcyUJe3NS+dPfIOz58dyG8LtXFDK+CVfY1Ab9PrVbLAfE0A3Si9
+	 muH/fQOeqkwXuhVgU+lv4cmT03OdPxLxwo8H6Cqb+/WGhsMFI3fPbi5/wG5OjrK/np
+	 Gy5y45GHFTQJneDnyD3kQM9yg8Dez91ESmEcAYXsc92m5ei+9Y79Q6cQfeItsn3lud
+	 18hXNzMMc068k6FgYejJd6kei3cViLgDhMmavBGFCShROmYqJ8Ih/IOgqRUkaahO+d
+	 1NG6zA4/bxbqw==
+Message-ID: <cf3aede5-62d4-4f93-b415-7498f84a20c2@kernel.org>
+Date: Wed, 23 Sep 2026 15:54:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,341 +35,142 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 05/20] KVM: arm64: Track the type of VM in kvm_arch
-Content-Language: en-GB
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260920212845.707-1-suzuki.poulose@arm.com>
- <20260920212845.707-6-suzuki.poulose@arm.com>
- <69ff265b-a110-46c5-a061-a875b2f86c03@redhat.com>
- <e1bd3155-acb2-4c80-b963-6cd7865c9ce3@redhat.com>
- <672c4905-09c9-4e40-97ea-c87a987bda19@arm.com>
- <0ddf1529-a198-413d-bffb-1dbc7b6ee25f@redhat.com>
- <a9dd79fb-3ba3-4c3c-b4c8-c89d26df6d1a@redhat.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <a9dd79fb-3ba3-4c3c-b4c8-c89d26df6d1a@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 2/2] kselftest: mm: fix intermittent failure khugepaged
+ test
+To: Yeoreum Yun <yeoreum.yun@arm.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Shuah Khan <shuah@kernel.org>
+References: <20260921-fix_khugepagd_fail-v2-0-3c2877beef61@arm.com>
+ <20260921-fix_khugepagd_fail-v2-2-3c2877beef61@arm.com>
+ <6cc12fe6-4f2f-47b6-b821-8a507eb80b46@linux.alibaba.com>
+ <arOv_EFOPg0HwBk5@e129823.arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <arOv_EFOPg0HwBk5@e129823.arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 23/09/2026 14:29, Gavin Shan wrote:
-> On 9/23/26 11:23 PM, Gavin Shan wrote:
->> On 9/23/26 8:24 PM, Suzuki K Poulose wrote:
->>> On 23/09/2026 07:19, Gavin Shan wrote:
->>>> On 9/23/26 4:05 PM, Gavin Shan wrote:
->>>>> On 9/21/26 7:28 AM, Suzuki K Poulose wrote:
->>>>>> KVM arm64 has different types of VMs with all the different modes 
->>>>>> in which
->>>>>> the hypervisor code can be run. e.g., VHE, nVHE, pKVM etc. Then 
->>>>>> there is
->>>>>> protected VM and normal VMs with pKVM. We might soon add other types,
->>>>>> e.g., Arm CCA Realm. So in an effort to make the handling of these
->>>>>> different types of VMs a bit more friendly to the eyes, add a VM 
->>>>>> flavor to
->>>>>> the kvm_arch and we could then add handlers for different 
->>>>>> operations based
->>>>>> on the VM type.
->>>>>>
->>>>>> Keep the flavor initialisation at the beginning to allow for the 
->>>>>> detection
->>>>>> early enough and fail out on any unsupported requests.
->>>>>>
->>>>>> With that, add wrappers for checking the "type" of a VM and 
->>>>>> replace the
->>>>>> existing users with the new wrappers.
->>>>>>
->>>>>> Given we already have the construct of "kvm_vm_is_protected" in 
->>>>>> the core
->>>>>> KVM code, use that for all confidential compute guests including 
->>>>>> Realms
->>>>>> that we are about to add.
->>>>>>
->>>>>> Adds __VM_PROTECTED marker vm flavor to generalize 
->>>>>> kvm_vm_is_protected()
->>>>>> to predicate all confidential guests running on KVM. In later 
->>>>>> patches, we
->>>>>> would add Realm VMs, which would also be classified as protected.
->>>>>>
->>>>>> Add explicit helper to detect if a given VM is a "protected" VM 
->>>>>> under pKVM.
->>>>>> Change the existing users that precisely want to check the VM 
->>>>>> type. These
->>>>>> include :
->>>>>>    - kvm_arch_prepare_memory_region - For preventing memslot 
->>>>>> changes after
->>>>>>      pVM creation.
->>>>>>
->>>>>> All the others are retained as a wider check for confidential 
->>>>>> guest VMs.
->>>>>> These are:
->>>>>>   - kvm_vm_ioctl_set_counter_offset - For disallowing timer offset
->>>>>>     configuration
->>>>>>   - io_mem_abort for dabt handling without valid syndrome information
->>>>>>
->>>>>> Both of which are true for Realms too.
->>>>>>
->>>>>> Realms support is restricted to VHE host and thus 
->>>>>> "kvm_vm_is_protected()"
->>>>>> checks in the pkvm hyp specific code doesn't need to change, as 
->>>>>> the only
->>>>>> protected guests it deals with is "protected pKVM" guests. To 
->>>>>> tighten this
->>>>>> init_pkvm_hyp_vm() restricts the hyp copy of the vm_flavor to the 
->>>>>> ones it
->>>>>> supports.
->>>>>>
->>>>>> Suggested-by: Marc Zyngier <maz@kernel.org>
->>>>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>>>>> ---
->>>>>> Changes since v18:
->>>>>>   - Merge the __VM_PROTECTED marker and the widening of 
->>>>>> kvm_vm_is_protected()
->>>>>>     to this patch.
->>>>>>   - Merge the use of kvm_vm_is_unprotected_pkvm() for ! 
->>>>>> kvm_vm_is_protected()
->>>>>>     given the scope changes here.
->>>>>>   - Drop Fuad's review tag, as this patch has multiple merges
->>>>>>   - Restrict the VM flavors to the supported types in 
->>>>>> init_pkvm_hyp_vm().
->>>>>>   - Drop kvm_vm_hyp_is_pkvm() and revert to 
->>>>>> is_protected_kvm_enabled()
->>>>>>   - Use is_protected_kvm_enabled() to make the pKVM guest flavor 
->>>>>> checks.
->>>>>>   - s/PKVM/pKVM for commit descriptions too
->>>>>>
->>>>>> Changes since v17:
->>>>>>   * s/PKVM/pKVM for the comments
->>>>>>   * Drop type argument for pkvm_init_host_vm and also drop 
->>>>>> protected variable.
->>>>>>   * Add helpers for checking if the VM is running on pKVM 
->>>>>> (kvm_vm_hyp_is_pkvm())
->>>>>>   * Use kvm_vm_hyp_is_pkvm() to replace is_protected_kvm_enabled() 
->>>>>> with valid
->>>>>>     kvm instance
->>>>>> ---
->>>>>>   arch/arm64/include/asm/kvm_host.h | 22 +++++++++++++++++++---
->>>>>>   arch/arm64/include/asm/kvm_pkvm.h |  4 ++--
->>>>>>   arch/arm64/kvm/arm.c              | 31 +++++++++++++++++++++++++ 
->>>>>> +-----
->>>>>>   arch/arm64/kvm/handle_exit.c      |  2 +-
->>>>>>   arch/arm64/kvm/hyp/nvhe/pkvm.c    |  6 +++++-
->>>>>>   arch/arm64/kvm/mmu.c              |  2 +-
->>>>>>   arch/arm64/kvm/pkvm.c             |  6 ++----
->>>>>>   7 files changed, 56 insertions(+), 17 deletions(-)
->>>>>>
->>>>>
->>>>> This causes broken nVHE mode. I applied PATCH[01-05] to v7.3.rc4 
->>>>> whose head commit
->>>>> is f0100363d8c3, and kselftests/kvm/guest_print causes host crash 
->>>>> (as below). I don't
->>>>> see the crash if only PATCH[01-04] are applied.
->>>>>
->>>>> host$ cat /proc/cmdline | grep kvm-arm\.mode
->>>>> BOOT_IMAGE=(hd0,gpt2)/vmlinuz-7.3.0-rc4-gavin+ root=/dev/mapper/ 
->>>>> rhel_nvidia--grace--hopper--01-root ro 
->>>>> crashkernel=2G-4G:406M,4G-64G:470M,64G-:726M rd.lvm.lv=rhel_nvidia- 
->>>>> grace-hopper-01/root rd.lvm.lv=rhel_nvidia-grace-hopper-01/swap 
->>>>> video=simplefb:off kvm-arm.mode=nvhe
->>>>>
->>>>> host$ cd linux/tools/testing/selftests/kvm
->>>>> host$ ./guest_print_test
->>>>> Random seed: 0x193a0ed3
->>>>> [  192.754328] kvm [6674]: nVHE hyp panic at: [<ffff8000811da044>] 
->>>>> __kvm_nvhe___timer_enable_traps+0x4/0x160!
->>>>> [  192.754338] kvm [6674]: nVHE call trace:
->>>>> [  192.754339] kvm [6674]:  [<ffff8000811dcf34>] 
->>>>> __kvm_nvhe_hyp_panic+0xb4/0xe0
->>>>> [  192.754342] kvm [6674]:  [<ffff8000811dcba4>] 
->>>>> __kvm_nvhe___kvm_vcpu_run+0x164/0x440
->>>>> [  192.754344] kvm [6674]:  [<ffff8000811dfe90>] 
->>>>> __kvm_nvhe_handle___kvm_vcpu_run+0x40/0x1f0
->>>>> [  192.754346] kvm [6674]:  [<ffff8000811e0238>] 
->>>>> __kvm_nvhe_handle_trap+0x158/0x280
->>>>> [  192.754347] kvm [6674]:  [<ffff8000811dd8fc>] 
->>>>> __kvm_nvhe___skip_pauth_save+0x4/0x4
->>>>> [  192.754348] kvm [6674]: ---[ end nVHE call trace ]---
->>>>> [  192.754350] Code: d2818002 17fffff7 d503201f f9400001 (b94a6821)
->>>>> [  192.754350] kvm [6674]: Hyp Offset: 0xfffeb0d7fe2e0000
->>>>> [  192.754351] Kernel panic - not syncing: HYP panic:
->>>>> [  192.754351] PS:834003c9 PC:0000cf2882efa044 ESR:0000000096000004
->>>>> [  192.754351] FAR:ffff00009b286a68 HPFAR:8000000000000000 
->>>>> PAR:1d00ec7edbadc8de
->>>>> [  192.754351] VCPU:0000cf011848a350
->>>>> [  192.845154] CPU: 12 UID: 0 PID: 6674 Comm: guest_print_tes 
->>>>> Kdump: loaded Not tainted 7.3.0-rc4-gavin+ #7 PREEMPT(full)
->>>>> [  192.856182] Hardware name:  GH200 P5042, BIOS 02.04.01 20250422
->>>>> [  192.862231] Call trace:
->>>>> [  192.864725]  show_stack+0x20/0x38 (C)
->>>>> [  192.868471]  dump_stack_lvl+0x88/0xb8
->>>>> [  192.872215]  dump_stack+0x18/0x30
->>>>> [  192.875598]  vpanic+0x280/0x498
->>>>> [  192.878806]  panic+0x68/0x70
->>>>> [  192.881745]  nvhe_hyp_panic_handler+0x184/0x190
->>>>> [  192.886372]  kvm_arm_vcpu_enter_exit+0x24/0x100
->>>>> [  192.891003]  kvm_arch_vcpu_ioctl_run+0x254/0x7c0
->>>>> [  192.895726]  kvm_vcpu_ioctl+0x174/0xb40
->>>>> [  192.899645]  __arm64_sys_ioctl+0xb0/0x120
->>>>> [  192.903745]  invoke_syscall.constprop.0+0xa8/0x100
->>>>> [  192.908639]  do_el0_svc+0xb8/0xe0
->>>>> [  192.912022]  el0_svc+0x48/0x1f8
->>>>> [  192.915228]  el0t_64_sync_handler+0xa0/0xe8
->>>>> [  192.919500]  el0t_64_sync+0x1ac/0x1b0
->>>>> [  192.923243] SMP: stopping secondary CPUs
->>>>> [  192.927653] Starting crashdump kernel...
->>>>> [  192.931658] Bye!
->>>>>
->>>>
->>>> With the following changes applied after PATCH[01-05] on top of 
->>>> v7.3.rc4, the crash
->>>> is avoided.
->>>>
->>>> In arch/arm64/include/asm/kvm_host.h:
->>>>
->>>> -#define kvm_vm_is_protected(kvm)       ((kvm)->arch.vm_flavor >= 
->>>> __VM_PROTECTED)
->>>> +#define kvm_vm_is_protected(kvm)       \
->>>> +       (is_protected_kvm_enabled() && (kvm)->arch.vm_flavor >= 
->>>> __VM_PROTECTED)
->>>
->>> That only papers over the problem. We can't use the vcpu_is_*
->>> constructs from nvhe hyp, without converting the vcpu->kvm to
->>> the hyp address, before accessing it. The fix is a bit more
->>> involved. One option is to define the vcpu_is_* helpers only
->>> for the !NVHE hyp code in the kvm_host.h (to avoid pulling
->>> in the asm/kvm_mmu.h in to kvm_host.h and then make a mess
->>> with header dependencies) and define the NVHE version in
->>> asm/kvm_hyp.h. Something like :
->>>
->>>
->>> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/ 
->>> asm/kvm_host.h
->>> index 46a7f6c1e426c..4016d09ed39c3 100644
->>> --- a/arch/arm64/include/asm/kvm_host.h
->>> +++ b/arch/arm64/include/asm/kvm_host.h
->>> @@ -1545,11 +1545,14 @@ struct kvm *kvm_arch_alloc_vm(void);
->>>   #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
->>>
->>>   #define kvm_vm_is_protected(kvm)       ((kvm)->arch.vm_flavor >= 
->>> __VM_PROTECTED)
->>> +
->>> +#ifndef __KVM_NVHE_HYPERVISOR__
->>>   #define vcpu_is_protected(vcpu) kvm_vm_is_protected((vcpu)->kvm)
->>> +#define vcpu_is_protected_pkvm(vcpu) 
->>> kvm_vm_is_protected_pkvm((vcpu)->kvm)
->>> +#endif
->>>
->>>   #define kvm_vm_is_protected_pkvm(kvm)          \
->>>          (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == 
->>> VM_PROTECTED_PKVM))
->>> -#define vcpu_is_protected_pkvm(vcpu)   
->>> kvm_vm_is_protected_pkvm(vcpu->kvm)
->>>
->>>   #define kvm_vm_is_unprotected_pkvm(kvm)                \
->>>          (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == 
->>> VM_PKVM))
->>> diff --git a/arch/arm64/include/asm/kvm_hyp.h b/arch/arm64/include/ 
->>> asm/kvm_hyp.h
->>> index 4974492744cc8..3bf87e81af430 100644
->>> --- a/arch/arm64/include/asm/kvm_hyp.h
->>> +++ b/arch/arm64/include/asm/kvm_hyp.h
->>> @@ -137,6 +137,19 @@ int __pkvm_init(phys_addr_t phys, unsigned long 
->>> size, unsigned long *per_cpu_bas
->>>   void __noreturn __host_enter(struct kvm_cpu_context *host_ctxt);
->>>   #endif
->>>
->>> +#ifdef __KVM_NVHE_HYPERVISOR__
->>> +#define vcpu_is_protected(vcpu)        \
->>> +       
->>> ({                                                              \
->>> +               struct kvm *__kvm = READ_ONCE((vcpu)- 
->>> >kvm);             \
->>> +               __kvm && 
->>> kvm_vm_is_protected((kern_hyp_va(__kvm)));     \
->>> +       })
->>> +#define 
->>> vcpu_is_protected_pkvm(vcpu)                                   \
->>> +       
->>> ({                                                              \
->>> +               struct kvm *__kvm = READ_ONCE((vcpu)- 
->>> >kvm);             \
->>> +               __kvm && 
->>> kvm_vm_is_protected_pkvm((kern_hyp_va(__kvm)));\
->>> +       })
->>> +#endif
->>> +
->>>
->>>
->>> Or explicitly convert all nvhe accessors to a new 
->>> "nvhe_vcpu_is_protected"
->>>
->>> The second one sounds like a better option to me.
->>>
+On 9/23/26 12:54, Yeoreum Yun wrote:
 >>
->> We just need to include "asm/kvm_mmu.h" to "arch/arm64/mmio.c". With it,
->> we can have unified functions (macros) in kvm_host.h to accomodate all
->> cases, like below.
 >>
->> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/ 
->> asm/kvm_host.h
->> index 9b1cf9c59e81..b9c9a9f203f9 100644
->> --- a/arch/arm64/include/asm/kvm_host.h
->> +++ b/arch/arm64/include/asm/kvm_host.h
->> @@ -1514,11 +1514,36 @@ struct kvm *kvm_arch_alloc_vm(void);
->>   #define __KVM_HAVE_ARCH_FLUSH_REMOTE_TLBS_RANGE
+>> On 9/21/26 6:35 PM, Yeoreum Yun wrote:
+>>> There are intermittent failures in collapse_max_ptes_swap() and
+>>> collapse_max_ptes_shared() when using the khugepaged_context:
+>>>
+>>>    // while running ./khugepaged -s 2
+>>>
+>>>    # Run test: collapse_max_ptes_shared (khugepaged:anon)
+>>>    # Allocate huge page... OK
+>>>    # Share huge page over fork()... OK
+>>>    # Trigger CoW on page 1023 of 2048... OK
+>>>    # Maybe collapse with max_ptes_shared exceeded.... OK
+>>>    # Trigger CoW on page 1024 of 2048... Fail
+>>>    Bail out! Unexpected huge page
+>>>    # Planned tests != run tests (26 != 23)
+>>>    # Totals: pass:23 fail:0 xfail:0 xpass:0 skip:0 error:0
+>>>
+>>>    # Run test: collapse_max_ptes_swap (khugepaged:anon)
+>>>    # Swapout 257 of 2048 pages... OK
+>>>    # Maybe collapse with max_ptes_swap exceeded.... OK
+>>>    # Swapout 256 of 2048 pages... OK
+>>>    Bail out! Unexpected huge page
+>>>    # Planned tests != run tests (26 != 17)
+>>>    # Totals: pass:17 fail:0 xfail:0 xpass:0 skip:0 error:0
+>>>
+>>> This happens because khugepaged may collapse the pages before wait_for_scan()
+>>> is called, causing a sanity check that expects uncollapsed pages to fail.
+>>>
+>>> For example, in collapse_max_ptes_swap(), after faulting the pages back in
+>>> and paging out up to max_ptes_swap pages, khugepaged may collapse them again
+>>> before c->collapse() is called.
+>>>
+>>> To prevent this, mark the VMA with MADV_NOHUGEPAGE after it has been
+>>> collapsed by wait_for_scan() for anon. This prevents khugepaged from
+>>> collapsing it again before c->collapse() is called.
+>>>
+>>> This failure was observed on NVIDIA Spark with 16KB page.
+>>>
+>>> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+>>> ---
+>>>   tools/testing/selftests/mm/khugepaged.c | 3 +++
+>>>   1 file changed, 3 insertions(+)
+>>>
+>>> diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
+>>> index c32244b565658..1aad4bb427ece 100644
+>>> --- a/tools/testing/selftests/mm/khugepaged.c
+>>> +++ b/tools/testing/selftests/mm/khugepaged.c
+>>> @@ -578,6 +578,9 @@ static bool wait_for_scan(const char *msg, char *p, size_t len,
+>>>   		usleep(TICK);
+>>>   	}
+>>> +	if (!strncmp(ops->name, "anon", 4))
 >>
->>   #define kvm_vm_is_protected(kvm)       ((kvm)->arch.vm_flavor >= 
->> __VM_PROTECTED)
->> -#define vcpu_is_protected(vcpu)                
->> kvm_vm_is_protected((vcpu)->kvm)
->> +#define 
->> vcpu_is_protected(vcpu)                                                \
->> +       ({                                                              \
->> +               struct kvm *__kvm = READ_ONCE((vcpu)->kvm);             \
->> +               bool __protected = false;                               \
->> +                                                                       \
->> +               if (__kvm) {                                            \
->> +                       if (is_nvhe_hyp_code())                         \
->> +                               __kvm = kern_hyp_va(__kvm);             \
->> +                       __protected = kvm_vm_is_protected(__kvm);       \
->> +               }                                                       \
->> +                                                                       \
->> +               __protected;                                            \
->> +        })
->> +
+>> We usually use the 'if (ops == &__anon_ops)' check in this file to identify
+>> anonymous test cases.
 >>
->>   #define kvm_vm_is_protected_pkvm(kvm)          \
->>          (is_protected_kvm_enabled() && ((kvm)->arch.vm_flavor == 
->> VM_PROTECTED_PKVM))
->> -#define vcpu_is_protected_pkvm(vcpu)   kvm_vm_is_protected_pkvm(vcpu- 
->> >kvm)
->> +#define vcpu_is_protected_pkvm(vcpu)                                   \
->> +       ({                                                              \
->> +               struct kvm *__kvm = READ_ONCE((vcpu)->kvm);             \
->> +               bool __protected = false;                               \
->> +                                                                       \
->> +               if (__kvm) {                                            \
->> +                       if (is_nvhe_hyp_code())                         \
->> +                               __kvm = kern_hyp_va(__kvm);             \
->> +                       __protected = kvm_vm_is_protected_pkvm(__kvm);  \
->> +               }                                                       \
->> +                                                                       \
->> +               __protected;                                            \
->> +        })
->>
+>> With that, LGTM.
+>> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+>> Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 > 
-> Besides, vcpu_is_protected_pkvm() isn't used anywhere in branch "cca/ 
-> cca-host/kvm-v19/integration",
-> so it can be removed :)
+> I think this is merged at mm/mm-unstable already So, I'll send
+> another patch to change it with is_anon().
 
-This was asked by Fuad, IIRC. And it is for the sake of completion with
-vcpu_is_protected and vcpu_is_rec
+Unless it is in mm-stable we can reasonably squash stuff or resend. This
+shouldn't be an independent patch.
 
+-- 
+Cheers,
 
-Cheers
-Suzuki
-
+David
