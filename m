@@ -1,264 +1,310 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD91947FB0F
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517AF47CA90
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158890; cv=none; b=X1IZJnNxOYOjb6AEubX1jpEo6b/ITcPkNm7HBPhdkSnxHQ+xi0anoHth+4JV71QeDw7/2mZ6JtJSAxUXbuJl1sAn7FwbB/Fv5yGXwYQvVRaxWTlH7y6ZZwDXgyQsT2A7toKjt/3c1RNgy3p7/euRm4Sd8wpJCGxmeLeIvtgr6dw=
+	t=1790158961; cv=none; b=MKTADS6MAGBGa4yLTuBbGgq41RG/HzZVKcFMxTfkJn+dcPe8ktdTuMQWZOSLyc3JRM0FgADHeQ2d4pavl84jmjDh3HCmk05xNQzBkrkb/v6wk+75YpWJ9riEco58BVoU1Q6JB5/9l8ztSdUWx+Qau3YE4WNL90mKNgNPo5ylI+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158890; c=relaxed/simple;
-	bh=4qjSqIjJRSLWY8kT8aUZHOXLRBvJpPrV+p/O0kGjplU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PEVMXRuEMCvDM/9NaOzKqwONKKuGFhsGBGJ/ZE0YDJtVTxlAbt4bykKNBzenSDg/uj5AsqiQEnqkHBsfTfo5Y2sG/2si+r8WRknjV276NGVe+DY6bOZ28UrVM2KkSWdyeNnop0pwQr8oby1JY4VpC3Tf8f3PaLnE6bM0GjzqXbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JgyfKQEW; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=AgxeiR2B; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790158961; c=relaxed/simple;
+	bh=0uVQEeQiDOjhujVhqkXbPmpsmORKxFy+xkuH/A1pwy8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ku4J7vK/2sbCC+Wr3L3Tv3S6o5iPpndZfsm6Ck0u6LB9fc0X95hfLH0IXPz9lmF8RL0WetIpHV673tCa3xPE/hPrl11hyVbfV8minIJcNjhyRzKRKKo+SuJdHuUlTvdyx7v6iNbsgbNg80K6PyDu85aZwCr9utJ2o0IdRuNeYXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Ao65L2wB; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JgyfKQEW";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="AgxeiR2B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790158878;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=A/yNGk5DmsVVa7FPt1z8YmmINF36yskI05CuGhzTjCI=;
-	b=JgyfKQEWOLHWK6f9mkuE+DPHhem11MsDaT741M8hQoAVe1KDDTwdoDDDYbe6k+uPVMD2CE
-	+4+S7a5T/AlH8FWZXE3uvOWToiw3ogflTqlyW5EETBYYmkNo3jRCQo1kcpguvuQOztXc8w
-	v6kvqzJ7NK6E3F3nMc7wKUF9n1QdcTw=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-592-5nRgydIROA6M4WS27i265w-1; Wed, 23 Sep 2026 06:21:16 -0400
-X-MC-Unique: 5nRgydIROA6M4WS27i265w-1
-X-Mimecast-MFC-AGG-ID: 5nRgydIROA6M4WS27i265w_1790158875
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49fcd86b8d3so5558905e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 03:21:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790158875; x=1790763675; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=A/yNGk5DmsVVa7FPt1z8YmmINF36yskI05CuGhzTjCI=;
-        b=AgxeiR2BD+8mJAlnclSpLHirysbv4xwP4VXXNk6YBp9b7LG0/m4jQxks6dALYqJ3Ef
-         GR/pXQMQCq7Ckk1EBOmMoQW1QJiuYFo+QOePNX06HrxXK1JK11JLj4EUhjfwZvU8AqxJ
-         kYj3hxfuQLMHC/+YlKUqMWe3jfRYBNfEHf4uRzKOWjRwI5KILuYMHKIgSSz3LBY/dxr3
-         ZFCeG0TdBFJRIII0J8W9UG69FycFUAHuVQc1DSuZVLRQak1MdKS/B53gvj4pNDJ1UXcE
-         d+AJ4MDHPCHL1lNs2fNSQAYzVI/fmzHlWW9cpL2PveKrU/tE/+UOwzCX1OXxXQwpsYAr
-         tVSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790158875; x=1790763675;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A/yNGk5DmsVVa7FPt1z8YmmINF36yskI05CuGhzTjCI=;
-        b=zQZVcicruQzSU8pPk8umLUHIL9i0u5i9KzLRsZR+e9XddYiPMEVbtPO0ZH3HW/Qg/j
-         TB+3hFx4HecP4d523OvHavSD0Yq9X+Vdr4tDru7GMmcYcdnYO102Ru1UYr4ukuwpjISp
-         hnYdEBr2t+O6NyPuHWYRzicIkrwZN0Mp3LfXK/ZcBrLsqRRDjD2AesXlH/hNqSF99iqY
-         jjAesB0F6TozHszTLG0PqaeIWUggBChRvb+TiOqJwQeui3rl4X87a0fcYXma/FWEjC2p
-         BiG10FhdzDur+oXnkFivXPai3Ele5bFv04H+ZLCsMZv88w8QAVfjfbsyMmIHefC/lU+8
-         8png==
-X-Forwarded-Encrypted: i=1; AKwUvBzXVnvJzh1Bn2K4YnotWqUhxHjGh4NX4hNofS1pNDrTGn6jocjMOV0aftn0IoK25JFChITyffPlJiRtn9U=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0rzff2OU9lMjJUWY8K79YSW17rsMs9LsTI0gGFn13EpjWTrXv
-	mjUlIZfGSAxHAfzdBmmdQ9LqHEPU73eOm7/b3CdlVqk7NmKKRuKh7m5n3tCnoHCNv3Xmt1w3GLt
-	q0DnggiKCgAu+MNejfXC4wxO/T+t4ETlEridvWQWO+DWFevm22DJbz+0GFY0pbWJw4g==
-X-Gm-Gg: AYBFou3COvQIWueBVsHOKKN+fAUCBy0roQ+UcvrG4PnsDDv4WHdj9kBWVwaoMDGPSA3
-	0pIE6UVVi6JxBSJs++dQK8GbUsdaPfWu0PWRPq8hV6xLsoeJeJuHxigBstOcr7sFgpySuOn57qm
-	2l7cr6JpDaKrzqnZFjHA5DaOIkYUZR/3rCaFof5MZqi/nmGNbcGu/632r6/+beY3NnJ6Bc7bZ0r
-	yd2uwM7pfY7ebNA0PMoWHwBZVjbK+OISZG3w0ydtwvebLEwyQFSnXJ4kbvtWxwaDvpbaK0kU498
-	uCzvAbwLZwu0K4hZkIZ7t//jKWTIluQ62fxLbKRSRRZUwnRcW8mkypcarQ29ow8EltJpSA==
-X-Received: by 2002:a05:600c:4712:b0:49d:2536:402e with SMTP id 5b1f17b1804b1-49fdf24f928mr27542115e9.30.1790158875122;
-        Wed, 23 Sep 2026 03:21:15 -0700 (PDT)
-X-Received: by 2002:a05:600c:4712:b0:49d:2536:402e with SMTP id 5b1f17b1804b1-49fdf24f928mr27541455e9.30.1790158874532;
-        Wed, 23 Sep 2026 03:21:14 -0700 (PDT)
-Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fdf9691e2sm57317795e9.1.2026.09.23.03.21.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 03:21:13 -0700 (PDT)
-Date: Wed, 23 Sep 2026 06:21:09 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: Paulos Yibelo <habte.yibelo@gmail.com>, netdev@vger.kernel.org,
-	richard@nod.at, anton.ivanov@cambridgegreys.com,
-	johannes@sipsolutions.net, jasowangio@gmail.com,
-	eperezma@redhat.com, xuanzhuo@linux.alibaba.com,
-	andrew+netdev@lunn.ch, pablo@netfilter.org, fw@strlen.de,
-	phil@nwl.cc, razor@blackwall.org, idosch@nvidia.com,
-	dsahern@kernel.org, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	linux-um@lists.infradead.org, virtualization@lists.linux.dev,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	bridge@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v6 1/2] net: validate virtio checksum start after
- network header
-Message-ID: <20260923061215-mutt-send-email-mst@kernel.org>
-References: <20260922030310.8684-1-habte.yibelo@gmail.com>
- <20260922030310.8684-2-habte.yibelo@gmail.com>
- <willemdebruijn.kernel.259bc7096258d@gmail.com>
- <willemdebruijn.kernel.2cdfef118aa1d@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Ao65L2wB"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8ad2N1732116;
+	Wed, 23 Sep 2026 10:22:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=UJSxSK
+	DkUkpvf8mfl9N8qfOQL0311c7JKC2qECOIKk0=; b=Ao65L2wBUIitsZvGGAJG/o
+	Y2tsv4EeQcLb5UzhY0oYt4pEbRkNg5GLlY2TPKlurQ4zkotWbxknOD8cYaSJZosN
+	z3zXRnK8HfmlQv4tBTb3g/OIBUd0B3aCVRkD9lRa+lh2DH0IcQb62/NZHLVFw6ZB
+	CENE9tmnjMWb1FD9RLNjWGfDvfvuvYMjKatIuhWxh/K0FV2lalU0ythyrOF+mcFg
+	gZnGjT8IqdGxBW+Jl0+W6J4zXGiW+XOkMRHm/TTXZGN5IMP3gGiOMgohmvoCLh7x
+	47ahVkjIbiwHZ7o1vznRiSPn+4NtwD0gNmqNJf2ZklkQpgkO4Qja61l36e5ZpyEg
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgqj2ar-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 10:22:20 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8LwdM008054;
+	Wed, 23 Sep 2026 10:22:20 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gvb6qgdg8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 10:22:19 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NAMGbO56361380
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 23 Sep 2026 10:22:16 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 500DE20043;
+	Wed, 23 Sep 2026 10:22:16 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A1FB520040;
+	Wed, 23 Sep 2026 10:22:13 +0000 (GMT)
+Received: from [9.123.14.142] (unknown [9.123.14.142])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 23 Sep 2026 10:22:13 +0000 (GMT)
+Message-ID: <23c0e185-c56b-4025-8136-326dae53ef4e@linux.ibm.com>
+Date: Wed, 23 Sep 2026 15:52:12 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <willemdebruijn.kernel.2cdfef118aa1d@gmail.com>
-
-On Tue, Sep 22, 2026 at 09:27:26PM -0400, Willem de Bruijn wrote:
-> Willem de Bruijn wrote:
-> > Paulos Yibelo wrote:
-> > > __virtio_net_hdr_to_skb() checks a minimum network-header length for
-> > > CHECKSUM_PARTIAL packets. Its checksum start is relative to skb->data,
-> > > but some callers have not established skb->network_header when they
-> > > convert the virtio header.
-> > > 
-> > > Pass the data-relative L3 origin explicitly. Ethernet receive paths
-> > > parse the frame and nested VLAN headers without changing skb state.
-> > > AF_PACKET uses the frame's actual L3 origin even when the socket
-> > > protocol is ETH_P_IP and the raw frame carries VLAN tags. Non-Ethernet
-> > > AF_PACKET devices retain their established skb network offset.
-> > > 
-> > > Also pass the actual L3 protocol so IPv6 packets use the 40-byte base
-> > > header minimum even without TCPv6 GSO. IFF_TUN obtains that protocol
-> > > from the packet before skb->protocol is set. Name the Ethernet parser
-> > > accordingly, use the same origin for tunnel validation, and propagate
-> > > conversion failures in UML.
-> > > 
-> > > The bound remains a minimum; fragmentation paths separately validate
-> > > the parsed IPv4 or IPv6 header length before completing a checksum.
-> > > 
-> > > Fixes: 49d14b54a527 ("net: test for not too small csum_start in virtio_net_hdr_to_skb()")
-> > > Fixes: a2fb4bc4e2a6 ("net: implement virtio helpers to handle UDP GSO tunneling.")
-> > > Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> > > Link: https://lore.kernel.org/netdev/20260920004733.6473-2-habte.yibelo@gmail.com/
-> > > Cc: stable@vger.kernel.org
-> > > Assisted-by: LLM
-> > > Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
-> > > ---
-> > >  arch/um/drivers/vector_transports.c | 13 ++++-
-> > >  drivers/net/tun_vnet.h              | 52 ++++++++++++++++-
-> > >  drivers/net/virtio_net.c            | 10 +++-
-> > >  include/linux/virtio_net.h          | 87 ++++++++++++++++++++++++-----
-> > >  net/packet/af_packet.c              | 24 +++++++-
-> > >  5 files changed, 163 insertions(+), 23 deletions(-)
-> > 
-> > The fix may still miss the case IPv4 packets have options.
-> > 
-> > This version is a very large patch.
-> > 
-> > Untested shorter first suggestion by bot, which looks plausible as a
-> > starting point for discussion.
-> 
-> Cleaned up some more:
-> 
->     diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
->     index f4c652b1fa44..c24607af2aad 100644
->     --- a/drivers/net/tun_vnet.h
->     +++ b/drivers/net/tun_vnet.h
->     @@ -180,6 +180,9 @@ static inline int tun_vnet_hdr_put(int sz, struct iov_iter *iter,
->      static inline int tun_vnet_hdr_to_skb(unsigned int flags, struct sk_buff *skb,
->                            const struct virtio_net_hdr *hdr)
->      {
->     +    if ((flags & TUN_TYPE_MASK) == IFF_TUN)
->     +        skb_reset_network_header(skb);
->     +
->          return virtio_net_hdr_to_skb(skb, hdr, tun_vnet_is_little_endian(flags));
->      }
->      
->     @@ -199,6 +202,9 @@ tun_vnet_hdr_tnl_to_skb(unsigned int flags, netdev_features_t features,
->                  struct sk_buff *skb,
->                  const struct virtio_net_hdr_v1_hash_tunnel *hdr)
->      {
->     +    if ((flags & TUN_TYPE_MASK) == IFF_TUN)
->     +        skb_reset_network_header(skb);
->     +
-> 
->     diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
->     index c381b916c1b5..02c448de0802 100644
->     --- a/include/linux/virtio_net.h
->     +++ b/include/linux/virtio_net.h
->     @@ -48,6 +48,42 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
->          return 0;
->      }
->      
->     +static inline int virtio_net_hdr_nh_min_len(const struct sk_buff *skb,
->     +                        unsigned int nh_min_len)
->     +{
->     +    int thoff = skb_transport_offset(skb);
->     +    __be16 proto;
->     +    int nhoff;
->     +
->     +    if (skb_network_header_was_set(skb)) {
->     +        nhoff = skb_network_offset(skb);
->     +        proto = skb->protocol;
->     +    } else {
->     +        if (unlikely(thoff < ETH_HLEN))
->     +            return -EINVAL;
->     +        nhoff = ETH_HLEN;
->     +        proto = eth_hdr(skb)->h_proto;
->     +    }
->     +
->     +    if (eth_type_vlan(proto)) {
->     +        proto = __vlan_get_protocol(skb, proto, &nhoff);
->     +        if (!proto)
->     +            return -EINVAL;
->     +    }
->     +
->     +    if (proto == htons(ETH_P_IP)) {
->     +        const struct iphdr *iph = (void *)(skb->data + nhoff);
->     +
->     +        if (unlikely(thoff < nhoff + sizeof(*iph)))
->     +            return -EINVAL;
->     +        nh_min_len = max_t(u32, iph->ihl * 4, sizeof(*iph));
->     +    } else if (proto == htons(ETH_P_IPV6)) {
->     +        nh_min_len = sizeof(struct ipv6hdr);
->     +    }
->     +
->     +    return nhoff + nh_min_len;
->     +}
->     +
->      static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
->                            const struct virtio_net_hdr *hdr,
->                            bool little_endian, u8 hdr_gso_type)
->     @@ -98,13 +134,15 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
->              u32 start = __virtio16_to_cpu(little_endian, hdr->csum_start);
->              u32 off = __virtio16_to_cpu(little_endian, hdr->csum_offset);
->              u32 needed = start + max_t(u32, thlen, off + sizeof(__sum16));
->     +        int min_thoff;
->      
->              if (!pskb_may_pull(skb, needed))
->                  return -EINVAL;
->      
->              if (!skb_partial_csum_set(skb, start, off))
->                  return -EINVAL;
->     -        if (skb_transport_offset(skb) < nh_min_len)
->     +        min_thoff = virtio_net_hdr_nh_min_len(skb, nh_min_len);
->     +        if (min_thoff < 0 || skb_transport_offset(skb) < min_thoff)
->                  return -EINVAL;
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/5] powerpc/pseries/eeh: Implement RTAS-based EEH
+ error injection
+To: Narayana Murty N <nnmlinux@linux.ibm.com>, mahesh@linux.ibm.com,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
+        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
+        alex@shazbot.org
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        sbhat@linux.ibm.com, harshpb@linux.ibm.com
+References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
+ <20260831065441.48654-5-nnmlinux@linux.ibm.com>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <20260831065441.48654-5-nnmlinux@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=G+OJgNk5 c=1 sm=1 tr=0 ts=6ab3a85d cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=nKMCb-GtO1_C_x72D5QA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0MCBTYWx0ZWRfX887MkZ5rxaY8
+ ZRevR9qVNjOO2jc/5G72rSmRSLaJ64Aqb/BoFTFJK2IPLQ953G6k10G7DYxSlJ35uSsxg2frjAd
+ 4GFrl7M1N8LAovWqMvul81WJdJzTXblmEmUsc5X255L51E51GjD1zLSHe22f6ntdcY2vFZwN0tD
+ nvri6RxaPw1VDixW9QiZZKfJDOfdarlO3AvKV7zIjCtqQtk70jni6GCPzIjpgRJ1k3xEaFvUvsL
+ OKqMxFKiATSFMHHsNIjXr2bziTKsaZ2ms1I9kAQT4d5YkT46Nwa3RR2IWxVnplhOL5Y9LsZ2JC0
+ 16XCPQApQCwwEyWahq+i9W/PZ8Oy8cDV8Ah9Eb3H5c8vMmsDRQNfTbsF3GO55vqVtK/raZUkkS1
+ vxjoA19TE+pAn3+v/QT67kQBHsqfw+9icCad7ernV5HSGOG3wkyetQTMXcrqNcsoQlrtlu7ZqfG
+ IDntXTWSmTIHvfc4bpw==
+X-Proofpoint-ORIG-GUID: GJSceuQl689lwc1HM24mvtd05fH_DZ17
+X-Proofpoint-GUID: 0-OWOJwmgeSb8ge42PUi4WE9ioduVk3b
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0MCBTYWx0ZWRfX9XxmUJjb3W6b
+ /BnCW94cZw/AnHaUIUFyqFo0qi8tqhf660xXJZkJ2PfM6APIXBQn3Lq4bDZPNY/4jm3Fw77MeQk
+ KPpEI92b/yVsXMEJe454b3y1+ptY8TU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230040
 
 
-Certainly looks much better. But I'd like to ask, generally:
-doesn't the net stack need to protect against weird packets?
 
-It seems likely that not all drivers validate headers defensively,
-and incoming packets can easily become outgoing ones.
-So do we even need virtio specific validation, or is it enough to
-validate everything in the net stack, where we are poking at the
-header anyway?
+On 31/08/26 12:24, Narayana Murty N wrote:
+> Replace the legacy MMIO stub in pseries_eeh_err_inject() with a full
+> PAPR-compliant RTAS error injection path using the existing RTAS
+> work-area allocator.
+>
+> The mutex is not a buffer lock; it serializes the firmware session
+> open/inject/close sequence as required by PAPR.  No global buffer
+> is allocated or used.
+>
+> VFIO EEH error injection exposes a generic userspace ABI.  pSeries maps
+> the generic EEH error types to RTAS ibm,errinjct encodings via
+> pseries_eeh_type_to_rtas().  EEH_ERR_TYPE_32 and EEH_ERR_TYPE_64 are
+> unchanged; their values are defined in arch/powerpc/include/uapi/asm/eeh.h
+> and are not renumbered.
+>
+> Tested with corresponding QEMU patches:
+> https://lore.kernel.org/all/20251029150618.186803-1-nnmlinux@linux.ibm.com/
+>
+> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+> ---
+>   arch/powerpc/platforms/pseries/eeh_pseries.c | 123 ++++++++++++++-----
+>   1 file changed, 95 insertions(+), 28 deletions(-)
+>
+> diff --git a/arch/powerpc/platforms/pseries/eeh_pseries.c b/arch/powerpc/platforms/pseries/eeh_pseries.c
+> index fafe0004e738..fcb8c560d813 100644
+> --- a/arch/powerpc/platforms/pseries/eeh_pseries.c
+> +++ b/arch/powerpc/platforms/pseries/eeh_pseries.c
+> @@ -25,6 +25,7 @@
+>   #include <linux/rbtree.h>
+>   #include <linux/sched.h>
+>   #include <linux/seq_file.h>
+> +#include <linux/mutex.h>
+>   #include <linux/spinlock.h>
+>   #include <linux/crash_dump.h>
+>   
+> @@ -34,6 +35,7 @@
+>   #include <asm/machdep.h>
+>   #include <asm/ppc-pci.h>
+>   #include <asm/rtas.h>
+> +#include <asm/rtas-work-area.h>
+>   
+>   /* RTAS tokens */
+>   static int ibm_set_eeh_option;
+> @@ -958,8 +960,6 @@ static int prepare_errinjct_buffer(void *buf, struct eeh_pe *pe,
+>   			return -EINVAL;
+>   
+>   		if (upper_32_bits(addr) || upper_32_bits(mask)) {
+> -			pr_err("32-bit IOA injection cannot encode addr=%#lx mask=%#lx\n",
+> -			       addr, mask);
+>   			return -EINVAL;
+>   		}
+>   
+> @@ -992,50 +992,117 @@ static int prepare_errinjct_buffer(void *buf, struct eeh_pe *pe,
+>   		break;
+>   
+>   	default:
+> -		pr_err("unsupported RTAS error injection type 0x%x\n", rtas_type);
+> +		pr_err("unsupported RTAS error injection type 0x%x\n",
+> +		       rtas_type);
+>   		return -EINVAL;
+>   	}
+>   
+> -	pr_debug("errinjct buffer ready: rtas_type=0x%x func=%d addr=0x%lx mask=0x%lx\n",
+> -		 rtas_type, func, addr, mask);
+>   	return 0;
+>   }
+>   
+> +/* pseries-local mutex serializes the open/inject/close RTAS session */
+> +static DEFINE_MUTEX(pseries_errinjct_mutex);
+> +
+>   /**
+>    * pseries_eeh_err_inject - Inject specified error to the indicated PE
+>    * @pe: the indicated PE
+> - * @type: error type
+> - * @func: specific error type
+> - * @addr: address
+> - * @mask: address mask
+> - * The routine is called to inject specified error, which is
+> - * determined by @type and @func, to the indicated PE
+> + * @type: generic EEH error type (EEH_ERR_TYPE_32 or EEH_ERR_TYPE_64)
+> + * @func: specific error function
+> + * @addr: address argument (type-dependent, may be zero)
+> + * @mask: address mask (type-dependent, may be zero)
+> + *
+> + * Implements PAPR-compliant error injection using:
+> + *   ibm,open-errinjct -> ibm,errinjct -> ibm,close-errinjct
+> + *
+> + * A short-lived RTAS work area is allocated per call; no global buffer
+> + * is used.  pseries_errinjct_mutex serializes the open/inject/close
+> + * session sequence.
+> + *
+> + * Return: 0 on success, negative errno on failure.
+>    */
+>   static int pseries_eeh_err_inject(struct eeh_pe *pe, int type, int func,
+>   				  unsigned long addr, unsigned long mask)
+>   {
+> -	struct	eeh_dev	*pdev;
+> +	struct rtas_work_area *area;
+> +	phys_addr_t area_phys;
+> +	u32 buf_phys;
+> +	void *buf;
+> +	int open_token, errinjct_token, close_token;
+> +	int session_token;
+> +	int rtas_type;
+> +	int close_rc;
+> +	int rc;
+> +
+> +	rc = validate_errinjct_args(pe, type, func, addr, mask);
+> +	if (rc)
+> +		return rc;
+>   
+> -	/* Check on PCI error type */
+> -	if (type != EEH_ERR_TYPE_32 && type != EEH_ERR_TYPE_64)
+> +	rtas_type = pseries_eeh_type_to_rtas(type);
+> +	if (rtas_type < 0)
+>   		return -EINVAL;
+>   
+> -	switch (func) {
+> -	case EEH_ERR_FUNC_LD_MEM_ADDR:
+> -	case EEH_ERR_FUNC_LD_MEM_DATA:
+> -	case EEH_ERR_FUNC_ST_MEM_ADDR:
+> -	case EEH_ERR_FUNC_ST_MEM_DATA:
+> -		/* injects a MMIO error for all pdev's belonging to PE */
+> -		pci_lock_rescan_remove();
+> -		list_for_each_entry(pdev, &pe->edevs, entry)
+> -			eeh_pe_inject_mmio_error(pdev->pdev);
 
-Or maybe it's more a defense in depth thing?
-
-My worries:
-- more poking at the header, more cache misses, where we really
-  do not need that
-- future protocol extensions that now will require surgery in
-  virtio, instead of just being passed through to the host
-
-What do others think?
-
--- 
-MST
+Only caller of eeh_pe_inject_mmio_erro() is getting removed here. Should 
+we remove the eeh_pe_inject_mmio_error() from the source?
+> -		pci_unlock_rescan_remove();
+> -		break;
+> -	default:
+> -		return -ERANGE;
+> +	open_token    = rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT);
+> +	errinjct_token = rtas_function_token(RTAS_FN_IBM_ERRINJCT);
+> +	close_token   = rtas_function_token(RTAS_FN_IBM_CLOSE_ERRINJCT);
+> +
+> +	if (open_token    == RTAS_UNKNOWN_SERVICE ||
+> +	    errinjct_token == RTAS_UNKNOWN_SERVICE ||
+> +	    close_token   == RTAS_UNKNOWN_SERVICE)
+> +		return -ENODEV;
+> +
+> +	area = rtas_work_area_alloc(RTAS_ERRINJCT_BUF_SIZE);
+> +	buf  = rtas_work_area_raw_buf(area);
+> +	area_phys = rtas_work_area_phys(area);
+> +
+> +	if (WARN_ON_ONCE(upper_32_bits(area_phys))) {
+> +		rc = -ERANGE;
+> +		goto out_free_area;
+>   	}
+>   
+> -	return 0;
+> +	buf_phys = lower_32_bits(area_phys);
+> +
+> +	rc = prepare_errinjct_buffer(buf, pe, rtas_type, func, addr, mask);
+> +	if (rc)
+> +		goto out_free_area;
+> +
+> +	mutex_lock(&pseries_errinjct_mutex);
+> +
+> +	do {
+> +		rc = rtas_call(open_token, 0, 2, &session_token);
+> +	} while (rtas_busy_delay(rc));
+> +
+> +	if (rc) {
+> +		pr_err("ibm,open-errinjct failed: status=%d\n", rc);
+> +		rc = rtas_error_rc(rc);
+> +		goto out_unlock;
+> +	}
+> +
+> +	do {
+> +		rc = rtas_call(errinjct_token, 3, 1, NULL,
+> +			       rtas_type, session_token, buf_phys);
+> +	} while (rtas_busy_delay(rc));
+> +
+> +	if (rc) {
+> +		pr_err("ibm,errinjct failed: status=%d\n", rc);
+> +		rc = rtas_error_rc(rc);
+> +	}
+> +
+> +	do {
+> +		close_rc = rtas_call(close_token, 1, 1, NULL, session_token);
+> +	} while (rtas_busy_delay(close_rc));
+> +
+> +	if (close_rc) {
+> +		pr_warn("ibm,close-errinjct failed: status=%d\n", close_rc);
+> +		if (!rc)
+> +			rc = rtas_error_rc(close_rc);
+> +	}
+> +
+> +out_unlock:
+> +	mutex_unlock(&pseries_errinjct_mutex);
+> +
+> +out_free_area:
+> +	rtas_work_area_free(area);
+> +	return rc;
+>   }
+>   
+>   static struct eeh_ops pseries_eeh_ops = {
 
