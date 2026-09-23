@@ -1,146 +1,151 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACA93B3BEC
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C14B4718C1;
+	Wed, 23 Sep 2026 08:41:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790152890; cv=none; b=AkiPfjk73Xe7mlWdh9eHFOAxIXvZbeoFwxGZ4Y01BHhSO7xt1X9RWcTWcG0yeg/A0amYEDC0wuyrlD99rfr/4XCm2I/w+ZjjhO8UXTnUHhbAOfR160AfVzBLWPf+Nk3AvqJkkBnlr11ymen/KiR3OtExAz0yLhwohcpN4IxqQW0=
+	t=1790152895; cv=none; b=H7qR7vHdiyBsDRrIcjd6Ni7iwuQKnYH6BS7IvwQr+rz0J6Rmv983Py/8hgAlmAHM5at9AA9gNWB1cJDQV/XXpj4M1BZDWBtWpiqd20pdEMTwDxE5yM4LnxmAkQwTr1zih3M08Jr7rTynQDFtRg8D3Gu0Gx7hinafAdx58fIEFZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790152890; c=relaxed/simple;
-	bh=MtElMJ8fbL766bC95A8ZzPRkioZPIOD0KBOOEsCnNBU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Po3gxaoScl+AD7IeKj5DoMy4QOn5b+028pR200QUvspMDSAfspcs4tdWP0vWc5JXecFR4+mQV6qmHKn6DC/odgCmduzPTMRPD/ANOk1ICaQOUWof2jZUFQdZX3cgvv93CNn+qkLT1XEX3Ap/cSxacwZfLT3/w/gsQ0YIXFYE7dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jz7BOztW; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790152895; c=relaxed/simple;
+	bh=ypQGQvjSjQpWCnz9ZAZl9yxVAkoehH4BPQegTdsp+k4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OSfF1pMIhcpLpWauMvvMXHpG7yvED24HxiqSewmamZGWVIdRUbZDaMeSfVIyGFk40ZZ5It7gv4NbPBc7tFWLg+Obl4EiN16azdvncE5FK7Rs7Nfd29NlhsARH9agFF/gUq9XgR+MGqmRhZgD3Hk48Fn+GLkH311cVvJw8/UzaXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=x1Avj4a1; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jz7BOztW"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398c066106cso403363a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:41:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790152865; x=1790757665; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FFMFjnfJDGF+mkKV4NlETqKvpStxbHkejYuXiptoDT8=;
-        b=Jz7BOztW05YtqM24OhZpJabutmbXTXX6pYw434qjpjj+rdWCREpg+bDawCVeUw9nc6
-         YYyB7R28H58WDxoKxCdWyMKGnSxcfRveqrO/hzC0bnmE9Oa5lfosP0dhyF1xvelhK+LC
-         ic1dOvI6jxYDBRveiTYNc+QDlak7hFYkWHVSdQJXmgHwqCHqNOvD/ohA9+8npspw4hrd
-         RV/Ly3HS3dnFmnIkI6HTGtodi4Gmw37ePePOvgwvuhzO0GesBQrMguq8OuAxYFfBo/9B
-         hgt7jL4ZNzZWxMjn3MD9cMlfvRUJXTDm2iJU+9sbMSAqqKvVAzU9w59BkOc8zoTZASFl
-         CErA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790152865; x=1790757665;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FFMFjnfJDGF+mkKV4NlETqKvpStxbHkejYuXiptoDT8=;
-        b=oaHC3KuOOTF2kPc3W24O3g/raTCTfpoYZxtpj/8l67cpk/F5ppuUmgaJZ3V7oBBsTm
-         C3Vy4OEnusMikScegr3VbEw9bPe1TKkvww3m2zgLoK0wvHx5W1qra+jdrSgnwdRPZ0ff
-         l1dxh1AMnHQNu+5YoIz/9thOurWIeRRcqf6934WaHCeLpjvuUdbIUYmaqpO6da5cT/9q
-         dznTDZSyRcr+TaHYmJBv9cLSVX620UUH7V3EmBOnMQ1dFiMlXuVVRHMAanPJe0ebFX7Z
-         iqIbgsiyGj6FyLkKpDBNPiU6n84SJLxBsWzkv+SbwuoisIwcOvKkDIRW6rg5ABQe1gNP
-         OHVg==
-X-Forwarded-Encrypted: i=1; AKwUvByWi+zhesU55XBYETPsv8Xhx39xYqc39GNGZBH5FeI4xe7gZM79svfDPjo8CsBmuAv9/pCT6bUcuCIOlLI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m/jSpPNiWpTPZmWuPPirDtW9y9CD2pVB9/rnbIXUHpmwluohsv
-	ARBVABxc7RuZXBUq9ZbaWM0tusYAtZtd4p3yAJjzxH/Qlg5IitR3Q52p
-X-Gm-Gg: AYBFou2dDqGzdWot6KUKMLjl1gGLqloW4aHBbfmgwLXPBoxrKE6SGLKg8If7Gh2tsRR
-	W1QVHkNliiZlrZXjm8UPAr+I2JIOdeSSxhEJHUqZrcC7Bq9LpxGej8nk9KlMp9yUgHGSI7vG7Qo
-	QsWyXb227bhGtxX1FFkKEl1dFOyi32wjS3hPUsvktgkRZBHirwA3pJ0XjT3ZYHQ5vowF+V9Ongv
-	V4g+6jDOn5frunSBnhaSJrnNvSXVKhhx8wPsNyT+L08OKTbCdMHoZMSU0llHkfiN6B/xIRKsMtY
-	n48rOMRCfxFfIYl5K8CighurzLJrigTtQojIEUopg2mzTwSjTys09soHsXQ3N0lhMdTmBpo1Qvi
-	ZE0Tp5EVn4TdVDrr9A8XGkj3/dMGsVn0d78LnfzDyPY5A3F834CxpA1vMaWQeJ2HWjbj37ehaTd
-	+yo9PnHDXJw5OlOKhrxNxstYw2Z+W1nBTrM5VkslpVSJIFtRzfLpo5ipR1lZ+ubRiR47Hg04Jeg
-	pcOGAS5Fq9O7Y1jDf0HhbYSjABDWcItLSiAJ30jeK4Hs/aMRyKzffiiYGxEEK+gW3kVFyrOLICH
-	mQ==
-X-Received: by 2002:a17:90a:d645:b0:39d:f317:44cd with SMTP id 98e67ed59e1d1-3a07e554e0dmr1667962a91.14.1790152865102;
-        Wed, 23 Sep 2026 01:41:05 -0700 (PDT)
-Received: from localhost.localdomain (ec2-13-212-242-176.ap-southeast-1.compute.amazonaws.com. [13.212.242.176])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0812a1eb2sm1105330a91.4.2026.09.23.01.41.02
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 23 Sep 2026 01:41:04 -0700 (PDT)
-From: Ginger Li <ginger.jzllee@gmail.com>
-To: netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] net: dm9000: Fix a recursive lockup in the TX timeout path
-Date: Wed, 23 Sep 2026 16:40:55 +0800
-Message-ID: <20260923084055.65091-1-ginger.jzllee@gmail.com>
-X-Mailer: git-send-email 2.46.0
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="x1Avj4a1"
+Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 23BB920183;
+	Wed, 23 Sep 2026 10:41:15 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1790152875;
+	bh=8Y5i9c/b4TYc01Xqc0JU1jpnublj/HzO6uENI1sGzb8=; h=From:To:Subject;
+	b=x1Avj4a12eFSUsPZsD1djDgeS5gYKxM7uCO0L1tgYjmDm03qNKjEzVZWwtJCH34uG
+	 A1zYjTj+FzQvp0/7yWVtObnO1iPb4bbqijf/jnKCHFcbxdDQjjUtlcm9lu/N9waqJn
+	 tEftFjnNDitFws9DIcL23vqjkWqINbkWG28+vtQiArhGeG3lb1o+vRO6NbhogTx0L1
+	 M7yxvtuIFX21K5+orZtH651vLCXuVG0HpWUaY47CfgJ32CWxIV1LxMARlqC115c8n0
+	 WYDZv4LjfyMSYlb9FkIW8cojL1CB/xr9JcjAHKDiKXez9We0kfFtilST/qqpM0XT+A
+	 BeUMWexYWafCA==
+Date: Wed, 23 Sep 2026 10:41:11 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Ernest Van Hoecke <ernestvanhoecke@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH 0/4] arm64: dts: freescale: Add Toradex iMX95 overlays
+Message-ID: <20260923084111.GA460930@francesco-nb>
+References: <20260922-v1-imx95-overlays-v1-0-694100afb4bc@toradex.com>
+ <arKn0LhC5fty7dHN@SMW015318>
+ <20260922165846.GA290956@francesco-nb>
+ <arLJl3jyyytfS_Qw@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arLJl3jyyytfS_Qw@SMW015318>
 
-dm9000_timeout() takes db->lock with interrupts disabled and then calls
-dm9000_init_dm9000(), which expects the caller to hold that lock and accesses
-the chip registers directly.  For DM9000B devices dm9000_init_dm9000() also
-calls dm9000_phy_write(), and that function takes db->lock again, so the TX
-timeout path deadlocks on the same CPU.
+Hello Frank,
 
-dm9000_phy_write() already skips db->addr_lock when db->in_timeout is set,
-because in that case the caller holds db->lock and sleeping is not allowed
-either.  Skip db->lock as well then, so that the nested call from
-dm9000_init_dm9000() works as intended.
+On Tue, Sep 22, 2026 at 01:31:51PM -0500, Frank Li wrote:
+> On Tue, Sep 22, 2026 at 06:58:46PM +0200, Francesco Dolcini wrote:
+> > On Tue, Sep 22, 2026 at 11:07:44AM -0500, Frank Li wrote:
+> > > On Tue, Sep 22, 2026 at 04:33:45PM +0200, Ernest Van Hoecke wrote:
+> > > > This series adds device tree overlays for the Toradex Verdin, Aquila,
+> > > > and SMARC iMX95 SoMs.
+> > > >
+> > > > The series adds support for:
+> > > > - NAU8822 Bridge Tied Load configuration on the Verdin Development Board
+> > > > - UART_4 reservation for Cortex-M7 firmware on Verdin and Aquila
+> > > > - SER0 reservation for Cortex-M7 firmware on SMARC
+> > > >
+> > > > The UART overlays mark the port as reserved so Linux does not claim it.
+> > > > Firmware remains responsible for configuring the UART and its pads.
+> > > >
+> > > > The Makefile entries build standalone DTBOs and ready-to-use composed
+> > > > DTBs for the corresponding Development Boards.
+> > > >
+> > > > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> > > > ---
+> > > > Ernest Van Hoecke (4):
+> > > >       arm64: dts: freescale: imx95-verdin: Add NAU8822 Bridge Tied Load
+> > > >       arm64: dts: freescale: imx95-verdin: Add Cortex-M7 UART_4 overlay
+> > > >       arm64: dts: freescale: imx95-aquila: Add Cortex-M7 UART_4 overlay
+> > >
+> > > both reserved lpuart2, can you share one dtso?
+> >
+> > The comment in the DT file must be different because it's important to
+> > reference the actual board it applies to.
+> >
+> > So to fulfill this request we would need to add a common dtsi, include
+> > it from two different dtso files.
+> 
+> No, direct use one dtso. see
+> 
+> https://elixir.bootlin.com/linux/v7.3-rc3/source/arch/arm64/boot/dts/freescale/imx-pcie0-ep.dtso
+> 
+> And makefile to check how apply the same dtso for difference boards
 
-Fixes: 6741f40 ("DM9000B: driver initialization upgrade")
-Signed-off-by: Ginger Li <ginger.jzllee@gmail.com>
----
- drivers/net/ethernet/davicom/dm9000.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
+imx-pcie0-ep.dtso works as a single shared file because its content is
+generic, there is no board name anywhere in it, and nobody needs to
+apply that specific dtbo by hand to know what it is for.
 
-diff --git a/drivers/net/ethernet/davicom/dm9000.c b/drivers/net/ethernet/davicom/dm9000.c
---- a/drivers/net/ethernet/davicom/dm9000.c
-+++ b/drivers/net/ethernet/davicom/dm9000.c
-@@ -325,10 +325,10 @@ dm9000_phy_write(struct net_device *dev,
- 	unsigned long reg_save;
- 
- 	dm9000_dbg(db, 5, "phy_write[%02x] = %04x\n", reg, value);
--	if (!db->in_timeout)
-+	if (!db->in_timeout) {
- 		mutex_lock(&db->addr_lock);
--
--	spin_lock_irqsave(&db->lock, flags);
-+		spin_lock_irqsave(&db->lock, flags);
-+	}
- 
- 	/* Save previous register address */
- 	reg_save = readb(db->io_addr);
-@@ -344,11 +344,14 @@ dm9000_phy_write(struct net_device *dev,
- 	iow(db, DM9000_EPCR, EPCR_EPOS | EPCR_ERPRW);
- 
- 	writeb(reg_save, db->io_addr);
--	spin_unlock_irqrestore(&db->lock, flags);
-+	if (!db->in_timeout)
-+		spin_unlock_irqrestore(&db->lock, flags);
- 
- 	dm9000_msleep(db, 1);		/* Wait write complete */
- 
--	spin_lock_irqsave(&db->lock, flags);
-+	if (!db->in_timeout)
-+		spin_lock_irqsave(&db->lock, flags);
-+
- 	reg_save = readb(db->io_addr);
- 
- 	iow(db, DM9000_EPCR, 0x0);	/* Clear phyxcer write command */
-@@ -356,9 +359,10 @@ dm9000_phy_write(struct net_device *dev,
- 	/* restore the previous address */
- 	writeb(reg_save, db->io_addr);
- 
--	spin_unlock_irqrestore(&db->lock, flags);
--	if (!db->in_timeout)
-+	if (!db->in_timeout) {
-+		spin_unlock_irqrestore(&db->lock, flags);
- 		mutex_unlock(&db->addr_lock);
-+	}
- }
- 
- /* dm9000_set_io
--- 
-2.43.0
+These overlays are different: they are meant to be picked up and applied
+directly by the end user, in addition to also being combined in-tree
+into a ready DTB. Put yourself in that user's shoes: they have a Verdin
+board, they want to free up UART_4 for their Cortex-M7 firmware, and
+they go looking in arch/arm64/boot/dts/freescale/ for the overlay that
+does that for their board. What they need at that point is a file name
+that says "this is for Verdin" and "this is the UART_4 one", and once
+they open it, a comment that confirms both: which board and which
+specific UART. That is the whole point of shipping the overlay
+separately from a combined DTB: it is meant to be readable and
+applicable on its own by someone who is not a DT expert.
+
+There is also a second, even more constrained user: the one who never
+looks at the kernel sources at all, and only gets the compiled .dtbo as
+deployed on their distribution, e.g. under /boot/overlays/ on the
+target, or the more generic paths used by distributions like Debian
+(/boot/firmware/overlays/) or Armbian (user_overlays= in
+armbianEnv.txt), picking it by name from an overlay list or a U-Boot
+env variable. Comments do not survive dtc compilation, so for that user
+the file name is the only information available, there is no comment to
+fall back on.
+
+A single dtso shared between Verdin and Aquila fails that on both
+counts: the name has to become something generic like
+imx95-verdin-aquila-uart4-mcu.dtso (immediately confusing: which board
+is it really for? can I use it on either?), and the comment inside can
+no longer say which board it targets either. That is worse for the
+person using it, for the sake of avoiding 2 lines of duplication:
+
+  &lpuart2 {
+  	status = "reserved";
+  };
+
+It also does not reduce the Makefile churn: we need the same number of
+Makefile lines/combos either way, one dtso reused for two boards or two
+dedicated ones. And this file will not change once merged, so there is
+no maintenance overhead from keeping it per board.
+
+We agree that avoiding duplication is generally the right call. When
+there is real, growing duplication across dtso files, the right fix is
+a shared dtsi included by the dtso files, not merging them into one. In
+this case the duplication is 2 lines that will not change, so it does
+not meet that bar either way.
+
+We would like to keep the two dedicated dtso files.
+
+Francesco
