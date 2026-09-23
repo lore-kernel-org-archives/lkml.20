@@ -1,101 +1,144 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from mta0.migadu.com (out-107.mta0.migadu.com [91.218.175.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37DA1A8F7B
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:05:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E22330659
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:05:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790125542; cv=none; b=tUqbbKxyB85ovTnlTo4OkpDGUM5DQ+Hs9umDFofY/RLExJjwow4SqIWHehRROude31BJXuohhvjO0Ty7QpB0NnshCI+MBfuyXR6tgWevhpkl036T8AUv9EyYZf5uSlwKAMv6giGqBRFpFSfk1FyNDdNRrU1YiNi9tEnR6tlgGEE=
+	t=1790125563; cv=none; b=IMBBGDTbeUYpl33tU9dOfKYvj/uGErUTYRJPvBlgAYqIA6VoXeCFcdMRYD472trapn1AARBx44LYOQcwkXBzaSSxb4Hr3lEtKJPhGm9QRCjI4EiH7JHDKm6dm8fIU6ircRklL1uEEH4sah7OzYGgUjGfFq/4iy4SNXmyQ68ZFPw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790125542; c=relaxed/simple;
-	bh=FjFRP0jJUcVLrPO8ZhYwaG5GZ5vnnMX50LSlCW6IYhI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dwjAxdMPNyQzYYOthMvXmuhjH5aJQ323hofAekYtlS1/TdbGuXBl4V7K3yp3ONJj8TP4GAaE+tMkWVuT/ytkxFzxCZDiV6VPLlz1sHimQSzIWV7X2QsjNlI3NJeVqOnyVro1fHXr+EL4i+u5ZoBdlnP0tx8U75uOYEHAM26FW5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oJCbov1d; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790125563; c=relaxed/simple;
+	bh=FGIBP2DKRVy8CBJKxfLHahH/Xq3TOzbHupuBVzy36FI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TG5EJXDj0oaGtdfHwS11JBDYBigpZeG1pCKELNDfAQPbb8VPbtfPe3KvaFrVnr4scw9Fh4pi0mwAhmSzR5WAv5HJHGJcwhcWozhKZekOqYWwkuTzlkRFyZiK2k6ys3TLmuCXtlINYb5rXrMR1G7rCikpgFtQTsFnAZSkidruECI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZMTYs+iO; arc=none smtp.client-ip=91.218.175.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oJCbov1d"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4c3304784so298034a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:05:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790125540; x=1790730340; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MXBcmQOVXFt2xi54w4xGq9/5w4oxNvJs4LX+noV2HQI=;
-        b=oJCbov1dPX3f+b94Nuq6ANb+qkut1gK76ZNPLj7J89/VJNfciTvMIi0hHbNuTfSviR
-         rn0QcxhQoSE0VSw8EjGL3WeNqygYPWvWh/R9ZGz+Kxwj6wzjYBSdT1zfPvJ58NoAmlfj
-         q5f4wp57oJVQf1fF3X0cSEEuofrkNZP0z9cJCaTki8Nr1Swmc0J+W3WP/bf2kKiWkcFL
-         FcDKIxs/M+ftaW9n8Cr9DPFEyFNXQWSvkLhHFS2jNzK288D5YEdt0Ee4v0cYH0MGfyDy
-         oNFFUoefOOmbqdhW0UPDB2pJAmSB99YMDROy+LW8orbQ3LRFGFmMtVMJzkOBvi0FwhkO
-         5Gdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790125540; x=1790730340;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MXBcmQOVXFt2xi54w4xGq9/5w4oxNvJs4LX+noV2HQI=;
-        b=jpUf/+nH5J95pFvuguQ0JZXiayuI0tzvuSZUp5T0oIH1Xa7B3JLVwmPvIj0AYXHdvZ
-         ka6fRVuF385kYRJV3G5Fn0sHo7sq9ErfCujX0IzFUdoZ3VCzHKlczkOr8ap49YM93BwF
-         iI8+pUxQTLS8w8Z7YAgpObuTNiMXfzOn9jcumVZ5gLTwJHjYvTVrhJfO9QNoTG5UA15+
-         zN22FvlBkW0DqBDtr+NvXeY9WdZfm4aXQzNPmTDcR/+hQme2660aRguCsbAyyULFNA25
-         GNIsgLraij11iABT3sqIMW4PyepN7HQo+57AiPLqo055YprBDpRuVkKZlvGRXfegTVX5
-         n5jA==
-X-Forwarded-Encrypted: i=1; AKwUvBy8sQDLJmwrkyzv7kFAAjWDRe+clGzbwcCrLqWM37VhZwL5reizxOg330+Y/Jp0bq/ryvPhmdkfMptw7lw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyskBJnmBoMLsubOo6QPJP34kNV5P0bxUCX6Y01WWp7dkXwc0v
-	w7gMmkx+QLpks7ZgbKzrRaWLfBQ8F+u+Jv2mgFsU4qE/A5bHvOwbhjg5FSZmEQ==
-X-Gm-Gg: AYBFou1pep/H2hnmmkvs53h4mRRfn4avcj8SXmu+4MylUKpGSWAwzbllueGRXoaJ3uX
-	LydLbZwoNZyt+TYnIs+KmxYWKHfhM0Z4KSP+HX/wAXpqovg2vmG/AJ+lmpYLmlTBFEJ6+cnl1ok
-	UzPOG7+PlHJsW1PolkZXAT1GQ13Ak/tEOnp5C6gnkFK5DbLNhyGrAU/ubMwKIjWbk1DIX/TOMzN
-	r28ThGkF7InuethNAi70by/PyP4ELA46s7EnOtxDPMX5I0wTVv/jGLLd9zl8h8l+xxMJYcQFH7e
-	+iXPfYxJl1l7GD5s9O3c/BIJllsEov3Dtn1eOu8bKEAf0RxJUmowrowlhVgjITg2Y3ITClRKWOQ
-	WnD+WE7U2cRVAZRfvlutjh5I/+ZSycidhCVaqD5Nx1s63dBBC9I75yzW3NLvYoFPVii9xDzperr
-	EYWyp/1We1AbrVuobEGQFB4MiWAUaYqWDx5GeoAJC0NecE5AtYUPNKaNqjgn1CDTb/
-X-Received: by 2002:a17:90a:d64f:b0:3a0:7d88:c2ac with SMTP id 98e67ed59e1d1-3a07e65d0bemr822610a91.18.1790125540223;
-        Tue, 22 Sep 2026 18:05:40 -0700 (PDT)
-Received: from linux ([205.237.104.28])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a0812a1eb2sm336539a91.4.2026.09.22.18.05.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 18:05:39 -0700 (PDT)
-From: Eduard Zateev <hackerowskiy@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Eduard Zateev <hackerowskiy@gmail.com>
-Subject: [PATCH] staging: rtl8723bs: remove unused variable 'phal'
-Date: Wed, 23 Sep 2026 03:04:23 +0200
-Message-ID: <20260923010423.6352-1-hackerowskiy@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZMTYs+iO"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FGIBP2DKRVy8CBJKxfLHahH/Xq3TOzbHupuBVzy36FI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790125557; v=1; x=1790730357;
+ b=ZMTYs+iOjl7FSqnggYn6A0ww9F6vHC97IvL6TyhZb50LWs1Pl4XRwdBw8woI++Eh6AQuVUic
+ yUcILIYgz4zp0jyOmqt0oKWcxJJbRDeuOvQTBBDXjpozvxqAMezqkJ/ouFoazRdFPq4ra8pG7ek
+ b89Koe8Sw68hWPl+gjzKcYt0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id c20166ea8e9ea79a;
+	Wed, 23 Sep 2026 01:05:57 +0000
+X-Mizu-Trace-ID: c20166ea8e9ea79a
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 23 Sep 2026 09:05:45 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: netdev@vger.kernel.org, idosch@nvidia.com, dsahern@kernel.org,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, tgraf@suug.ch,
+	pshelar@nicira.com, linux-kernel@vger.kernel.org,
+	luoxuanqiang@kylinos.cn
+Subject: Re: [PATCH net v2] ip_gre: Reject enabling collect metadata through
+ changelink
+Message-ID: <arMl6ePySuNonC4I@fedora>
+References: <20260921031859.9283-1-xuanqiang.luo@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921031859.9283-1-xuanqiang.luo@linux.dev>
 
-phal is assigned but never used in rtl8723bs_init_xmit_priv(),
-which triggers a -Wunused-but-set-variable warning with W=1.
-Remove the unused variable and its assignment.
+On Mon, Sep 21, 2026 at 11:18:59AM +0800, Xuanqiang Luo wrote:
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> 
+> ipgre_netlink_parms() can enable collect_md on an existing GRE, GRETAP
+> or ERSPAN device. Unlike newlink, changelink does not enforce metadata
+> tunnel uniqueness. Converting a non-metadata device can therefore
+> replace the metadata receive entry for another device of the same type
+> in the same netns. Deleting either device then clears the shared entry,
+> breaking metadata receive lookup for the surviving device.
+> 
+> If parameter validation fails after collect_md is set, deleting the
+> modified device can also clear an entry it never owned.
+> 
+> Reject enabling metadata mode in both changelink callbacks before any
+> encapsulation or tunnel parameters are modified. Allow requests that
+> repeat the metadata attribute on an existing metadata device.
+> 
+> Fixes: 2e15ea390e6f ("ip_gre: Add support to collect tunnel metadata.")
+> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> ---
+> Changes:
+> v2:
+>   - Add an extack message when rejecting collect_md enablement in both
+>     changelink callbacks. (Ido Schimmel.)
+>   - Rebase onto the latest net/main.
+> 
+> v1: https://lore.kernel.org/all/20260917095016.71937-1-xuanqiang.luo@linux.dev/
+> 
+> The state change on failure can be reproduced without an existing
+> metadata tunnel (output abbreviated):
+> 
+>   # ip link add g1 type gre local 192.0.2.1 remote 192.0.2.2
+>   # ip -d link show g1
+>       link/gre 192.0.2.1 peer 192.0.2.2 ...
+>       gre remote 192.0.2.2 local 192.0.2.1 ...
+> 
+>   # ip link set g1 type gre external
+>   RTNETLINK answers: Invalid argument
+> 
+>   # ip -d link show g1
+>       link/none c0:00:02:01 peer c0:00:02:02 ...
+>       gre external remote 192.0.2.2 local 192.0.2.1 ...
+> 
+>   # ip link del g1
+> 
+> The request fails, but collect_md and the device type have already
+> changed.
+> 
+> If another metadata tunnel exists, deleting this device can clear its
+> collect_md_tun entry. A successful conversion can overwrite that entry.
+> 
+>  net/ipv4/ip_gre.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/net/ipv4/ip_gre.c b/net/ipv4/ip_gre.c
+> index 82309efd417e0..e4878e9aa6367 100644
+> --- a/net/ipv4/ip_gre.c
+> +++ b/net/ipv4/ip_gre.c
+> @@ -1464,6 +1464,12 @@ static int ipgre_changelink(struct net_device *dev, struct nlattr *tb[],
+>  	if (!rtnl_dev_link_net_capable(dev, t->net))
+>  		return -EPERM;
+>  
+> +	if (data && data[IFLA_GRE_COLLECT_METADATA] && !t->collect_md) {
+> +		NL_SET_ERR_MSG(extack,
+> +			       "Enabling collect_md on an existing device is not supported");
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>  	err = ipgre_newlink_encap_setup(dev, data);
+>  	if (err)
+>  		return err;
+> @@ -1496,6 +1502,12 @@ static int erspan_changelink(struct net_device *dev, struct nlattr *tb[],
+>  	if (!rtnl_dev_link_net_capable(dev, t->net))
+>  		return -EPERM;
+>  
+> +	if (data && data[IFLA_GRE_COLLECT_METADATA] && !t->collect_md) {
+> +		NL_SET_ERR_MSG(extack,
+> +			       "Enabling collect_md on an existing device is not supported");
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+>  	err = ipgre_newlink_encap_setup(dev, data);
+>  	if (err)
+>  		return err;
+> 
+> base-commit: 1e24c4f2ee44be0eee94092b5d13cbdb4bdf0d60
+> -- 
+> 2.43.0
+> 
 
-Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
----
- drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
-index 7f55448d544e..0441e84ea87d 100644
---- a/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
-+++ b/drivers/staging/rtl8723bs/hal/rtl8723bs_xmit.c
-@@ -525,9 +525,6 @@ s32	rtl8723bs_hal_xmitframe_enqueue(
- s32 rtl8723bs_init_xmit_priv(struct adapter *padapter)
- {
- 	struct xmit_priv *xmitpriv = &padapter->xmitpriv;
--	struct hal_com_data *phal;
--
--	phal = GET_HAL_DATA(padapter);
- 
- 	init_completion(&xmitpriv->SdioXmitStart);
- 	init_completion(&xmitpriv->SdioXmitTerminate);
--- 
-2.55.0
-
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
