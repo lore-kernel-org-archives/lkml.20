@@ -1,125 +1,109 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from vsvhrvbk.outbound-mail.sendgrid.net (vsvhrvbk.outbound-mail.sendgrid.net [134.128.88.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344B0488219;
-	Wed, 23 Sep 2026 14:01:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3815304DF
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 14:01:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.128.88.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790172079; cv=none; b=c66tHEpNHk2dvWlEldFtyVovakwkrEAuQD9aXpEz90/+5NhNkj6b5eCmDOkA81aZUTI/CriRI24z4LF92Frx5oWqObNpfggZreKHKGWxxeNeMlC3A8YRfM8CvaW94nYdsTetJBtWLMoI8bNdfxwmasKQ6fxemRy4+n8E8GEaT00=
+	t=1790172080; cv=none; b=TTlZ4M/6nx0olVneMkEdvRoN1LS307rhhx0cu5Z7mj6SXB9ZKdU5pv7J06HSxjyFvPWlEagg0I1X6I+Rt88jKA4W+dBQkCjeivte+5cF9iXviHFTGrusW6Sq8xPk1QNCMqwSI3qEYtFuXS2znM3ztGVjo1ZUmHi9q1rn4/fAoxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790172079; c=relaxed/simple;
-	bh=lWWYV/6sgrtGiy6kcFwdqaWktcyek5dC6Sfm7CBJFM4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=fb4ZapM02JPFIS8ffKeoTuX5VikbaM1Tm3OJIayZWR6AZuFEGlzDJjyk2BVZVNUtaYMJcHCed0SmBDtsDWxFB2jci5xR0su+sENVoLCjEMSU6CAz55YNzLlvcoh3QEqme7/QQ0EHhPWIem9ihr/64H998Et4Y6rY7bsLQimhBp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MdpajThS; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790172080; c=relaxed/simple;
+	bh=VtCAOF3URoYoFtvn3phbkHKKn+WK22yhRZJIY5QUryU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:To:Cc:Content-Type; b=i7Q6HYbrST7xGNUDu8iQQFr7XhmE/8KBwTCXbk1BDnM9tIHu828ndFg6Lwfy4vc/4ZP2ZnsfZYrdncG+6LmUEVvQ6o75xPL1ihLStxUi46F1iPwuL0E10oZXb+HrQmSvWSf+tY7FFKVBvMvhQU641xY5GvnmYuThhQHIknio/P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flowbird.group; spf=pass smtp.mailfrom=em8284.flowbird.group; dkim=pass (2048-bit key) header.d=flowbird.group header.i=@flowbird.group header.b=mDui+zbQ; arc=none smtp.client-ip=134.128.88.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=flowbird.group
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em8284.flowbird.group
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MdpajThS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790172077; x=1821708077;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=lWWYV/6sgrtGiy6kcFwdqaWktcyek5dC6Sfm7CBJFM4=;
-  b=MdpajThSKD56z5AZ5/nbDqGHpjvYj3M7X61/8cVtk8YuF/2T9CZFEct8
-   KWe7F1WstHlCSlfQESVTCKSO/ZbCgwgaFLbHWGghnjwPvsACTCBn/Bvg9
-   mMG/F/U4sZRKQQLBCZrulR2ZqKZ64kUDAZAdnrw04kFSthLabaidfUuYw
-   QHonKXjzDIRWt8RMcox9HiOIGdeyxzzuNVKcGmZX1HK1Qp613fXeWpt5z
-   6EQP9coaSR5doLsye9YuVLQMDsejneKclQzS8pbYgVnI7c/lEWevraGyA
-   nBTZPUVx1j2KsE8dHkK6hWjIUCjx3s92KHNct3Z12QU8hPXrLDLnHwEnO
-   A==;
-X-CSE-ConnectionGUID: gGKXYGI+Qtuxu9D/AsFqMQ==
-X-CSE-MsgGUID: 0Dv/Y4JgSdiNZWkL5xDyeQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11913"; a="78423050"
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="78423050"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 07:01:16 -0700
-X-CSE-ConnectionGUID: 4NUtWgeQR9uSbPYK1Rb4WA==
-X-CSE-MsgGUID: 6S8LK0O6SUSe1we/VeL+1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,118,1787036400"; 
-   d="scan'208";a="299871741"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.253])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 23 Sep 2026 07:01:14 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Mark Brown <broonie@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@redhat.com>, Alex Deucher
- <alexdeucher@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>, Intel
- Graphics <intel-gfx@lists.freedesktop.org>, DRI
- <dri-devel@lists.freedesktop.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next
- Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-In-Reply-To: <arPTRF4qS6o1Q3vD@sirena.co.uk>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <arPTRF4qS6o1Q3vD@sirena.co.uk>
-Date: Wed, 23 Sep 2026 17:01:11 +0300
-Message-ID: <70527adbe5ab6c73b87abf6a866e8ff34de96d42@intel.com>
+	dkim=pass (2048-bit key) header.d=flowbird.group header.i=@flowbird.group header.b="mDui+zbQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flowbird.group;
+	h=from:subject:date:mime-version:to:cc:content-transfer-encoding:
+	content-type:cc:content-type:date:from:subject:to;
+	s=s1; t=1790172077;
+	bh=yPwdXincuadvk1qnquPvV+ndT1MCQhh1Fha4ubgEw18=;
+	b=mDui+zbQXLrxyEO3GXdFMr2lu3IWAb2RsKot/K1w9KHgOUZ+1F7M6PVx9oh5JN0F0FBa
+	Qew+gHBRQIjDVlxhFeakomcVzFRxHZEA0vn1I+ouxLHtG+pUIQMKx6Msrah1A4PFuYzSxK
+	xgmRq1X34WCw8e5fuY1gN2RVmjuE4Z5Llp3SjWSormHeUMjYffL63AAevchloQkGttqRR2
+	6q1XWGQbBbJ5Tnlxq8E1D8PvVZIICH5W2UvvcFbN5BLb40HRF2H4TdeMVAo5hGq/C2Q8nY
+	HsSEuQZG++MBFLa4XzPUzxbfP7xjL7huhPYGcXoNb0fgN8BBgAaVij9iQk7v5Hxg==
+Received: by recvd-654b7d464-9fg2j with SMTP id recvd-654b7d464-9fg2j-1-6AB3DBAD-57
+	2026-09-23 14:01:17.324560652 +0000 UTC m=+79740.228257346
+Received: from FR-BES-DKT15120.home (unknown)
+	by geopod-ismtpd-9 (SG)
+	with ESMTP
+	id lvMj_yaWQuiHaU3lj77woA
+	Wed, 23 Sep 2026 14:01:17.034 +0000 (UTC)
+From: Martin Fuzzey <martin.fuzzey@flowbird.group>
+Subject: [PATCH] serial: sc16is7xx: fix data corruption due to unexpected
+ xon/xoff
+Date: Wed, 23 Sep 2026 14:01:17 +0000 (UTC)
+Message-Id: <20260923140116.340406-1-martin.fuzzey@flowbird.group>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-SG-EID: 
+ =?us-ascii?Q?u001=2EmxcfyuLMH4=2Fbg2doT3ED5Nkn+NRIhYpRg=2FjjzcGJxXskVm5GzbVM6ryOL?=
+ =?us-ascii?Q?ZDTHCknSk3Bx4wVetjJrUM6AGHj5vqZhoOo=2FP+S?=
+ =?us-ascii?Q?eUiwnxscbnaaNspiYhRwjAaCD3JVzCL91QfKDQi?=
+ =?us-ascii?Q?NgjoeJPNAhO9MlhyJ=2FE1I5ebCF0+bt20fsqT6nz?=
+ =?us-ascii?Q?BWrreNHfRkZRcaVLehYliMo0qIKUPvXQJcZoFB4?=
+ =?us-ascii?Q?zeo5tG2D0LQw5JNHJcEd6VbLD9IzamV8yYvSl3f?=
+ =?us-ascii?Q?sc0OLHmvTZeDwffV+7tVwhNcFA=3D=3D?=
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org
+X-Entity-ID: u001.LMXSJIKpad5A1O6egCWHyQ==
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
 
-On Wed, 23 Sep 2026, Mark Brown <broonie@kernel.org> wrote:
-> Hi all,
->
-> After merging the drm-misc tree, today's linux-next build (x86_64
-> allmodconfig) failed like this:
->
-> /tmp/next/build/drivers/gpu/drm/amd/amdgpu/../display/dc/dc_memory_pool.c:87:37: error: stack frame size (8264) exceeds limit (2048) in 'dc_memory_pool_create' [-Werror,-Wframe-larger-than]
->    87 | __must_check struct dc_memory_pool *dc_memory_pool_create(size_t size,
->       |                       
->
-> which I am exceptionally frustrated to see was caused by commit
->
->   bc3f07516a992 (Merge drm/drm-next into drm-misc-next)
->
-> which merged the bug I originally reported in the amdgpu tree:
->
->   https://lore.kernel.org/r/aq0vYhZXtMqA41wZ@sirena.org.uk
->
-> and then in the drm tree when that was sent upstream without the report
-> having been addressed in any way:
->
->   https://lore.kernel.org/r/arJoCiRM1hRbgRb5@sirena.co.uk
->
-> neither of which have had any response at all.  It really seems like
-> there is some room for improvement in your processes here, currently
-> that's three drm trees all held out of -next with the same fairly simple
-> build issue.  Can I suggest at least check to see if the code you are
-> trying to merge is in -next, the drm merge was done after amdgpu had
-> been held out of -next for several days.
+The hardware supports automatically sending XON/OFF based on the
+FIFO status and that is already implemented by the driver.
+However that capability was not announced with the UPF_SOFT_FLOW bit.
 
-I don't really have a skin in the game, but it all builds fine for me. I
-have CONFIG_FRAME_WARN=2048.
+When the port is opened with the default of XON enabled the driver
+configures that in the hardware.
+If userspace does not want XON/OFF (which is normally the case) it will
+use TCSETS to disactivate it. However the serial core optimises this
+to only notify the driver if someting imporant has changed, and for
+XON/XOFF thit is only if the  driver declares UPF_SOFT_FLOW.
 
-I presume the problem is the compound literal in
-dc_memory_pool_create():
+So we end up with unwanted XON/XOFF in the data stream.
 
-	*pool = (struct dc_memory_pool){
-		.size = size,
-		.capacity = capacity,
-		.unaligned_pool = unaligned_pool,
-		.unaligned_memory = kcalloc(lines + 1, PAGE_SIZE, GFP_KERNEL),
-		.free_list = kcalloc((uint32_t)capacity, sizeof(atomic_t),
-				     GFP_KERNEL),
-		.free_head = ATOMIC_INIT(0),
-	};
+The problem only occurs if nothing else needed to be set by termios,
+ie if the user space requested values are the same as the default values,
+except for XON/XOFF.
+Since the default speed is 9600 this means that the problem only occurs
+when requesting 9600, otherwise the call to the driver will be made to
+change the speed, and that will also clear the XON/XOFF.
+As 9600 is quite rare these days that probably explains why this hasn't
+already been seen.
 
-sizeof(struct dc_memory_pool) == 2 * PAGE_SIZE, so it's clearly not to
-be stored on stack. However, I think it's up to the compiler whether it
-actually holds all of that on stack or not. It could just generate the
-equivalent code instead.
+It also only occurs on the first port open after boot since the subsequent
+opens will use the "logical state" set by TCSETS but not communicated to
+the driver the first time.
 
+Signed-off-by: Martin Fuzzey <martin.fuzzey@arrive.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/tty/serial/sc16is7xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-BR,
-Jani.
-
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index 9b152ead050f..f0a9a3dcd0e4 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -1485,7 +1485,7 @@ static int sc16is7xx_setup_channel(struct sc16is7xx_one *one, int i,
+ 	/* Initialize port data */
+ 	port->type	= PORT_SC16IS7XX;
+ 	port->fifosize	= SC16IS7XX_FIFO_SIZE;
+-	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY;
++	port->flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY | UPF_SOFT_FLOW;
+ 	port->iobase	= i;
+ 	/*
+ 	 * Use all ones as membase to make sure uart_configure_port() in
 -- 
-Jani Nikula, Intel
+2.25.1
+
