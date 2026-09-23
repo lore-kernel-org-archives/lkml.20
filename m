@@ -1,123 +1,175 @@
-Received: from mail-ej2-f6.google.com (mail-ej2-f6.google.com [74.125.228.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91BA4195A3
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.134
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166684; cv=pass; b=JWDWiBGWCIbzowKjEyFPpjbf/Glo27oyAKMdPJ6cAvNjS+nacrItG2l2MvXHCCHyq9FYEY3S4Ko+c/nCNgAcNVOHjnegFPxg2BVHGusRue4h5c/h/Ud2ojGb1FwWFkgecPW1ERHq7H0/S7Mu/9bJGS8BSiafYk8EirWz/eK0EbQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166684; c=relaxed/simple;
-	bh=N5H/My5yGDkDx9/kp/ToxETnGGeoXC/DTFu6XXuB/a8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=We2XB0YEVvHNt/LVKW8wXILGdvhsoG2N7CvpgHnWSrvM7iWAVLUaWmn+KcDjxQP/q66wZ5oi29FGlrEkFcV4GwkgYQTjLrJzmC6EiDY1mhsaZnYUxJFKbtI5N62GSunRUlXywjxh0y8yR1s4+3uWA+XyY7RIveAW6NvCX9u5jdM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GGLZtH4w; arc=pass smtp.client-ip=74.125.228.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053A52EA173;
+	Wed, 23 Sep 2026 12:31:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790166722; cv=none; b=ZdpG/nuXqmdZ7vGCovQ0Ngb+m6D9AWWN9hD3/5wJ8hYn3u6aZv/YMC+ajOpUZhMlMdAxE8ivNc3Zw6alz6G1gUsBIQ1mQJ02oXudwkc7ABvt1di/wUsiWvNVI0+/mQfy/bAON1x6A66y5ydrYIVibAC9AXteneie4JBYOHdBFRQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790166722; c=relaxed/simple;
+	bh=OHDkLReqjSmF6dXmmu4Wss8zFv8e2wXa/6zdpLoQRss=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=MrnH47lh/0G2V98+oTawYeaAO0eX2HmZ/U9DZsSV99W0tq1b2oc+u/Qe4hCl+JHKV0rr1hX2EaEFMbJZ9Z9JHwjCsC4VyyXH0hHtgIgVlWzC1wI7hTxC3mS+Hk5LcKYdf1iA5Y8nUG3xBBn0ogCWhW0lh5vjhJpC2uSTTEbRgLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca; spf=pass smtp.mailfrom=squebb.ca; dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b=UK6FBHdU; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ppHlYZ8V; arc=none smtp.client-ip=202.12.124.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GGLZtH4w"
-Received: by mail-ej2-f6.google.com with SMTP id a640c23a62f3a-c29440ee0e7so49826366b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:31:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790166681; cv=none;
-        d=google.com; s=arc-20260327;
-        b=szgxvIcRPQYOKq4Fj817tCLHwA+neS1XumQFOptT60ySh7DqVJATxJs1lzfeJANSlc
-         dJl2ddN12NBzCPf9L0t/RWhyBcBnr7h7nFh5CQCpT1/FqMR04uwrHI5Qed5H7KfR/3Ng
-         OR7DNw1MGGSw2mm5xauRXZBX/KRB3KzJ27H6H2wAjJq5fOkN+3RkmcNjAFt2+9KiEXFr
-         uQblFfvdUKEtWKas+7d4CWHXpHzKWNlX8V12SesYyiFpSr7SmtuP3qE9dfNLJBIlz0go
-         8FsN36ng3TjVIxRbrtoj+566SLCNr43DfFvknUXfe49JT34RfDxu3zV+2gpqddFMcZGZ
-         zq4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=geosNIRimRwfO8HRfTW0XaPt8QyFJOsPlxIx1190dzs=;
-        fh=0Hx+dOnSHj8vr1hsMfZBlzgdYdm4XqEDnpoeI56vUOY=;
-        b=ksYQRh5+9jXwN2s6EUG7Bjraide0l/A6aXrZhQJGaOLLM/9+cyuqwZi13s05HjFSup
-         broMn1QFYXBzNn/bIjGPyzzOM0SszzhRS+jVeFOXlEvDKam7WVq8TDcSRt+AgXONL7FM
-         4d0tK54D9tvBVWwUgcCBgUT/j8GizdbMeAbRrajMJPMT8DEYt64BeMnoJxSY89mhh0nk
-         xK2wLviFmdbShdfZq7doqMOZjwOrOsV/a2s3jO/rI9x+eh68lMOxQhk1JPMXgmQQJrHu
-         TzKDI979ElFLjRMwDS8DlyTDEm5MEyzhaWceRtgk69Tyo5D2LxToBokL2JoRdTwnnBIA
-         lslw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790166681; x=1790771481; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=geosNIRimRwfO8HRfTW0XaPt8QyFJOsPlxIx1190dzs=;
-        b=GGLZtH4wkgEHP3gt/fuSWbFGDdMIcc6K+AUcRCYLM1E95lE38MtYEUG/kIvD13fmLz
-         P4TUqABYomrf6+WZnOWouZXi9EuerYpR1g2nB6Nt4B/TL0z6BSR4bCBUtWjPELJWH/qq
-         obaklekAKBAPxnX/RTD6Y9KsZ2g3ju9sXPUJpQ2CeilwTiNwvpGcuBGnC/2Ion7iUzdD
-         aiV/L1hPlGWcicr0b0YYXAT6f9Y5WYt9apFYDopXFnkkxOidbN99b7QJ6dWB9/vsdYFP
-         vvQkmLbuHOmkV3CljYMSi886E2H6GsnwwWxAJesd4W8/xV1DD+V0ciho/J3m678LnqZZ
-         7DrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790166681; x=1790771481;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=geosNIRimRwfO8HRfTW0XaPt8QyFJOsPlxIx1190dzs=;
-        b=HyVDxsYAlykFhvKADXKtvRkIwvniVClJoWWYOO7qv/9RkHzVUovLy0jdB3VIMXKEuE
-         TAtrv8BEk87R01Y27WUuLQfHRQlhtlqPZp3X3IMxwUNeJsul5+vpNl+xjQdBlntcuqBT
-         6e4j/viykKr6jDccySksfP45TdJZbLwNRL4AHnpW0caAkMT19Z3vJXA0KqscUCj2NTqS
-         B3HnTW7YZGJdTPk/xPykrgduvZVujBiAzVysTDm9c/dlqLe7QZzqNBkHnJnQeYt3U3dV
-         kJk1gG7dskVFPGOZdw7qQyMpSFC5pEu5jw1tyIhaFrcBC7SHowq5F+af98PHzgp3+0PC
-         Ko9A==
-X-Forwarded-Encrypted: i=1; AKwUvBzVQLGIO1BGxIA8suwLSYxf8yG3CBv5eficE8ZfOUFAwnlILxVWPKG7ziCuYlugBBZOEt9SWJushmr6fbo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kljHvhwkIzqQfj6ndEUX+8k9r2sSH67tB/AtDAd09JT02Fwggz
-	djEU5EeW5yyV5hql+njlGHLHMIwMGj4JRqLysm+k3V7Gf07n8eyZI5jBGxlUyysm0j20ZURJqf7
-	o+RybgXZcfRjR5aQru11ADjXbMTxDRKM=
-X-Gm-Gg: AYBFou0tJ2TgwByaLKjYO3uM43rp4FQfZZ+PqjDVbuvRMa4kn4mcIuwo8lw2cxjCHgx
-	yOzIE13CpWAAnsHpWRsVcaNISlxcVGiplC/wa5uzIa3sqOKM2OU8nYuaWvuDJdnEhW7Q5nx6BoH
-	xov70mVtUnj+Pd6oddnfx87g9aYk0qZfO6VE7Lvd/E8A4FMomXoWXtbMhMgzGyM+cXe1wVEvtWd
-	AxR+WxGAW/lT8HTPTh7DGeEusjdPn9HKFTFn2QCZkbVLrkSvrDiiHRoy/R+VQgyfoA5LQ9b90Yk
-	nrHS0EEHK4KH+ClGngTc8f6vMTv3LlBqeMUW5PDhc1lLhuQoJVWPuDmw5aC/Mvpa7lcG0g==
-X-Received: by 2002:a17:907:a312:b0:c29:f5d8:9c6b with SMTP id
- a640c23a62f3a-c2aadc48e63mr193301966b.26.1790166680835; Wed, 23 Sep 2026
- 05:31:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="UK6FBHdU";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ppHlYZ8V"
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfout.stl.internal (Postfix) with ESMTP id 303371D0007F;
+	Wed, 23 Sep 2026 08:31:59 -0400 (EDT)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Wed, 23 Sep 2026 08:31:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1790166719;
+	 x=1790253119; bh=jDXUn17eWF2FJCQjh3KL/PSgYptSnJQP5HhHFDuMQzI=; b=
+	UK6FBHdUz+hPlebxc7cU3stxTfSCA9j5dQsr/t5PaCO2fCh9wzMyrjuQN6E+btpw
+	E8sHZGdkE82ay01yFDZmJpYX7knXtLNOC/VC2r+y8X0mGSOpVm7sFexqBBIawJBj
+	xU5C7Wt179lLNavJ6ao70RRgw4Je8lCKhyTzRVN8NDMqBZXNTM5imk9dxyE2sdse
+	oAbcZ9b7p/B+cOG8clwC3mgNVyyhSB7AH8kNxgN7E/dGjjFMP11ifnjtWgT6f450
+	cihLa+UYYFNPqX+jOrKJVTm5wdvTEHG4LOz/qyuSCekcodG/K5ljzCTyUYZ57iof
+	Hu2hl2+3EjqtIVjK2Fj7sw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1790166719; x=
+	1790253119; bh=jDXUn17eWF2FJCQjh3KL/PSgYptSnJQP5HhHFDuMQzI=; b=p
+	pHlYZ8VNFXbzvLm9EHLnbgUs43MvHbA0Y1P2dezWcKYJz5JtC+4xpKBXaydF+oE6
+	gA04gxTXIChR7bXwCxZHxIVv5W1znu13CQbUEvGOQ6l0iGyAeHFmww8pOZM4W/2k
+	1B6AasVA79zXeOZkKQGYw/WLrgsP7Mpj9wxIDuQ9HwV3OPH+K9KoCnHjstTwiRyM
+	Rx3A6WhqunZvMXSm/QSBZc5R8wk1KO4SJsRkUYy4OggrgnVd3Wk9dGizJsTQX60l
+	Qx/mNpkrCJiMyXpDlMQabld3r3Rrmkv8uhMuv2uLHGOjLHraNXvtSH1zrxh3NawM
+	sEpH3j5ZTr7w135X5znHQ==
+X-ME-Sender: <xms:vsazalKMYYint3KhR1dZurR-KwVQXuqcVisL5dVNz6Atpjv-DCtOxw>
+    <xme:vsazar8-wQjd6PjO9NNcBXDQHEuPt2nHCV0xl93mA29sWPHrC3cYiY6osQTR-wmYR
+    hjkFC22C6IhLJ61BUYp6ILQgI-pSujy6LprLAazc9xAY7XTg7IvZvI>
+X-ME-Proxy-Cause: dmFkZTGVtdTIK/508IOgQoOWrA0Qx8WXTGemjRm6SbKY5aUPv57peLQzzE6A0/JoWyRXJB
+    upy29g3ypnFw4U2Dl3JKoy74jkJZ3jSbYCSUpuvbO7RwhW9YbgHHiMLZbhzpEcc09JMfOm
+    Uh2uN/pjqW+rIdmJxqVsWkEuFcgUGDwyqo3657F19TaWJR8D+qMesdtvJ3ytnDsqDYycr5
+    3UgiYqh6vwmJOl5mB1IgoDWcXNArLObi5Yo8r5LC/YTvuZvp2ESZcz6E/BFfwyuGfaaKK3
+    GiDORkhXOvMBRAngsoW1zZi14xnm+SEj/g5Xo3XwubVfBcwFX6Jxclvv3u+tifYlbJe9Dx
+    l21o0T/iY3mk3arc2W9uGSXRhcVQAqdmHUj6DEilTQERANOce8nQzPUjNSXtM2UeKDFwVn
+    VFDn0hpZNvxVHFT08RVDPfBuQyDKxsr78sGtaDl8T3SsSPKl94dvn8J53imkCnRbKr2iOy
+    LDWMJTRu8OqO20YzLeOLVN/Vjm3j26vY8Ls/cP9YnTl608SJlDOuZ8r8rzbe/e9Z3u6bdq
+    6lXbf2s6Q29Qsji4AxhFs8567vZt4WUocOoM6rn6qieQDELN7AyIH9NUd5xGta3fWNFs+H
+    vcVw+9id4b24zypWODwmnMoRAz6D98qJj740GyAozTLJsOJWdpRZVH/oVDzw
+X-ME-Proxy: <xmx:vsazamEdaLdjVVPORBTTTSzLgOpHtu0j8l6oZkmE0XLOc0w0RMp_ng>
+    <xmx:vsazasRdsuKj4zLl22RDSUbUTqhnPtgiS3R9VrlNja3gOlARu2nwbg>
+    <xmx:vsazakY0YLAUcMtEtMMh1SRT2iFkMV0D34HK-KvigaBr-DLjEeKBfw>
+    <xmx:vsazav3bFn4l2OJNa-nIaxlFqIChN-3wV1IqRNZ3AHk1yOgfL6Hg_w>
+    <xmx:v8azarvWepPlrvhGX33fQINyGa2rIqf6sBsE-ha5CqYtWm7oyNAddZAi>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 5A6F52C0006A; Wed, 23 Sep 2026 08:31:58 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919174223.2356964-1-coiaprant@gmail.com> <20260922191758.2730da7a@kernel.org>
-In-Reply-To: <20260922191758.2730da7a@kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Wed, 23 Sep 2026 20:31:08 +0800
-X-Gm-Features: AclHuK-NKWB18tJ6bEfQMpRWykl2_zQElAqMu29cCy0C8SHDtVbj2c6Zd_8DHvQ
-Message-ID: <CALj3r0gPjraK9wy_WbTkeYD1OK_HhSeMi8bDmk03gOVJUb825g@mail.gmail.com>
-Subject: Re: [PATCH net] net: ethernet: stmmac: dwmac-rk: fix bulk clock leak
- when the PHY clock fails
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Heiko Stuebner <heiko@sntech.de>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Sebastian Reichel <sebastian.reichel@collabora.com>, netdev@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-ThreadId: AgyGGOYLiW2o
+Date: Wed, 23 Sep 2026 08:31:37 -0400
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: "Randy Dunlap" <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Cc: "Hans de Goede" <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ "platform-driver-x86@vger.kernel.org" <platform-driver-x86@vger.kernel.org>,
+ "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>,
+ linux-doc@vger.kernel.org
+Message-Id: <251504c6-c53e-4105-9d0c-30a6e7054007@app.fastmail.com>
+In-Reply-To: <20260923024957.845198-1-rdunlap@infradead.org>
+References: <20260923024957.845198-1-rdunlap@infradead.org>
+Subject: Re: [PATCH] docs: ABI: sysfs-class-firmware-attributes: use literal blocks for
+ console commands
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8823=E6=97=
-=A5=E5=91=A8=E4=B8=89 10:18=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Sun, 20 Sep 2026 01:42:23 +0800 Coia Prant wrote:
-> >                       if (ret)
-> > +                             clk_bulk_disable_unprepare(bsp_priv->num_=
-clks,
-> > +                                                        bsp_priv->clks=
-);
-> >                               return ret;
-> > +                     }
->
-> Missing a bracket, EBUILD. I almost appreciate seeing a human error like
-> this these days :)
-> --
-> pw-bot: cr
 
-That's what I get for hitting send while my brain was EBUSY. Will fix
-and repost shortly.
 
-Coia
+On Tue, Sep 22, 2026, at 10:49 PM, Randy Dunlap wrote:
+> Use a literal block for console I/O so that the lines aren't merged
+> together in the produced output.
+>
+> Also correct some punctuation.
+>
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> ---
+> Cc: Mark Pearson <mpearson-lenovo@squebb.ca>
+> Cc: Hans de Goede <hansg@kernel.org>
+> Cc: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+> Cc: platform-driver-x86@vger.kernel.org
+> Cc: Jonathan Corbet <corbet@lwn.net>
+> Cc: Shuah Khan <skhan@linuxfoundation.org>
+> Cc: linux-doc@vger.kernel.org
+>
+>  Documentation/ABI/testing/sysfs-class-firmware-attributes |   21 ++++=
++-----
+>  1 file changed, 12 insertions(+), 9 deletions(-)
+>
+> ---=20
+> linux-next-20260921.orig/Documentation/ABI/testing/sysfs-class-firmwar=
+e-attributes
+> +++=20
+> linux-next-20260921/Documentation/ABI/testing/sysfs-class-firmware-att=
+ributes
+> @@ -397,22 +397,25 @@ Description:
+>  		unlimited attributes.
+>=20
+>  		Read the attribute to check what save mode is enabled (single or bu=
+lk).
+> -		E.g:
+> -		# cat /sys/class/firmware-attributes/thinklmi/attributes/save_setti=
+ngs
+> -		single
+> +		E.g::
+> +
+> +		  # cat /sys/class/firmware-attributes/thinklmi/attributes/save_set=
+tings
+> +		  single
+>=20
+>  		Write the attribute with 'bulk' to enable bulk save mode.
+> -		Write the attribute with 'single' to enable saving, after every=20
+> attribute set.
+> +		Write the attribute with 'single' to enable saving after every=20
+> attribute set.
+>  		The default setting is single mode.
+> -		E.g:
+> -		# echo bulk >=20
+> /sys/class/firmware-attributes/thinklmi/attributes/save_settings
+> +		E.g::
+> +
+> +		  # echo bulk >=20
+> /sys/class/firmware-attributes/thinklmi/attributes/save_settings
+>=20
+>  		When in bulk mode write 'save' to trigger a save of all currently=20
+> modified attributes.
+> -		Note, once a save has been triggered, in bulk mode, attributes can=20
+> no longer be set and
+> +		Note, once a save has been triggered in bulk mode, attributes can n=
+o=20
+> longer be set and
+>  		will return a permissions error. This is to prevent users hitting=20
+> the 48+ save limitation
+>  		(which requires entering the BIOS to clear the error condition)
+> -		E.g:
+> -		# echo save >=20
+> /sys/class/firmware-attributes/thinklmi/attributes/save_settings
+> +		E.g::
+> +
+> +		  # echo save >=20
+> /sys/class/firmware-attributes/thinklmi/attributes/save_settings
+>=20
+>  What:		/sys/class/firmware-attributes/*/attributes/debug_cmd
+>  Date:		July 2021
+
+Looks good to me
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+
+Mark
