@@ -1,429 +1,204 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9683757D22A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:19:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB4C57F72F;
+	Wed, 23 Sep 2026 20:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194770; cv=none; b=s0GC57u4Jwtr6LQFQXLSai0VyRVOmyShvTyRHzORGcD5HKAGJZh7I1aOB/ivkBro65ulismN812sSSXpQe/tI/SjoO36LoSVc1lYq/GjXYIPOuT1O8LFl051kOuRWApbBWMuUlOSdC09kuB053uDuTSy0dmW6WbveL39PqYOZ8k=
+	t=1790194776; cv=none; b=AqJayZLqqEbvPh9FuDmd1tpLJw7sjaE8hUrCVgnTWBfkdXzACsPL0HpthLBdksM7Z7b0I4hcSQVlanatgw9PbtxIjGLWtzOQyxBtdMAlryndDdEm09rg6l7gBfLGN47svRmQDoi4/BBDkhmGKH2QlMcAgoQRvsKue1RWHJKTAiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194770; c=relaxed/simple;
-	bh=ZcPIw4eZTdDBlXCbqQEro1ebWfUuQCWYfKDFEL48bSQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kxJqjkXtpe6ScwAO8/81vB+AoCvXBEYZb9El2XcqNkkmLa1LqetzgTp//TibA/iLD0w3JZIYeBA5wubkV6zCV6gI5/4yT2WbjaLZtv50XikKacSF6hFACAH56972dQMUaK1ANTytNW8E/x2JqF8O5cBs1hTq+NqTRoph15TsibE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UWz2s6kn; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790194776; c=relaxed/simple;
+	bh=jTTgaq8Jg0Us7MveAYFDhYn+JWGl/W2/BYk/ScSRMJE=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=EvgueSNehtdtfpYMVGiSY2UvDSKjg6dshlc5CuHA721wAHKyChJVf837GNuQIiXpZ4m7j/tzZk7JLT6o77oMDSo+k/4/mGXrXkSRjuOoUgykbiovspHUzi2xzJjYKibtt3qdRCYYuhfZxXUA7ax5M0Wy/uHfv47bJgUcwClQmvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=DggDRZbk; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UWz2s6kn"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f55efebso215718266b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:19:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790194759; x=1790799559; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=frtoc8QloQCQUfk7NjWI4KUj8MMQjADBvRstAE5cfJw=;
-        b=UWz2s6knK/FiqzFI0Q+UtTuvme6C9omqr1NYZk2QOuVvx4+Q4TIJ5Pm9JBDtFiSbdr
-         nWSe5M9C0mM0x1Md+zf9Cz2VQ3xnknhUOBZX/RSe1lCtXXXsd/SM/rccMbauQF4TsgDj
-         biFMlmCv5RsMtXXcTq49wUzB3GWkH9qZx/prPJR0ayrjavjom5NR4FusfQPSw4siqDWp
-         5Yr0bXQ9uGEbFlNiuYGr1WP0CjcwGL09CPV151WI6pOvfrJTquNVm/ZeXctBAUDZJz3i
-         Imq6k/ygfRHXrqz44G2XYFbLj5veG1m3kL+GzB2T90QlEFL57H4Bg+o58DhUiSDzRdEq
-         5I4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790194759; x=1790799559;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=frtoc8QloQCQUfk7NjWI4KUj8MMQjADBvRstAE5cfJw=;
-        b=EfePb/SAMxRbjSXCoeLmyv6xshAcSr/rfusoAbxttbGONk6oqRNXvRN6lXAroIkpOX
-         OrNfzvA87lAIvVB1xPaLZSmz8jFneUpmFRaD1Nrv7coNi6cNbhVw9v9Ohq5Lf6Li4vZs
-         QtPfKXdSNrRrDZDH6NYJwoMsDH6rl5hWPdU6FvIAmTEMkRjjeKng9GS0uxPGy9cDPAcZ
-         X06v5sp6ZwTUGtdyRovNkTG/xlMZDQ9GEnlmtG/AzkNuEGszCI0XspSWR9kwpCn6Qlx0
-         dbR0BXSDgWpk56CQnnY3MdOU8YycrScuytT+UuF3TYrJ+ifWfO9NPK5O/TWcjqEUpuA8
-         BWRg==
-X-Forwarded-Encrypted: i=1; AKwUvBxaRt08ViidBp7qt04gzLdy4d13epQ3+W9RYiMlncJBzbyUIwfZl1i20ox9NP04Nn9lMXGnORQvDmQsWLQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++md+XdZh84Up07UHWcj8TC0JAk1swJszGDUAbpowgLiG6MCIPHZ
-	jGaoi6TbfCfMQKjohnEaRk5j6k8zcDQweVvSBwXasSLLlKaJEN7tJjkY
-X-Gm-Gg: AYBFou1cBYuCEg3GzyZJBvECtsGRve2tOJw2Wdcfr83LMmkj+t3f8z4Qo+JHURnd7Sg
-	F9zItBJN9E1WegU24j12eLuvKvwg+rTQxhV5VVwnfO9lyoVRdEu9xFtO6+XOY5ets+Mp5aRUWPp
-	+uYlT59oqjrFgVYvMUTdWHjOZtRdGWfjAdX8pAMu2t0Ejnar8s3GdcirSDAZIpp/cOocouM2B/v
-	PtRtCg7e+mwZ8E9crWSADKJHLtjwnv36JyG+C7ZzJfx2rgpPTXdvm5UuxxTnSMtIg+SJAMoNtwA
-	Bw5XZVrCefkeGBwv8LsvV2u5JjB54ptUROthMijbqzeK0xDG7rd5dexLC6VG0EcIS9kpXI3JG/H
-	AH+BtN6Pygtl2Xg5Yp9rU98dkuZsZLavwf8SkiFCHJXJ2xtYMJjgVHLm3BIX289mdW3kRS2dTXh
-	M4W2+3m8RpXpsm9WuO5NDqYdQxa8J+BnTnuXD0l3CayxBPhdRxdmonTMVbJDR+fPeODrQ3pkFBb
-	lhjfPq3sm9rXNVJ6pY6XYp8dxmWzqs4XErfjvBGcd59pwHXc9g=
-X-Received: by 2002:a17:907:9811:b0:c2a:46a2:5b57 with SMTP id a640c23a62f3a-c2ac2375464mr19975466b.10.1790194759459;
-        Wed, 23 Sep 2026 13:19:19 -0700 (PDT)
-Received: from buildhost.darklands.se ([2001:9b1:ff:d701:51eb:176f:63d9:53f8])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2aae63dc17sm183626966b.33.2026.09.23.13.19.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 13:19:19 -0700 (PDT)
-From: Magnus Lindholm <linmag7@gmail.com>
-To: davem@davemloft.net,
-	andreas@gaisler.com
-Cc: sam@ravnborg.org,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linmag7@gmail.com
-Subject: [RFC PATCH 2/5] sparc32: add a kernel assisted compare-and-swap
-Date: Wed, 23 Sep 2026 22:17:18 +0200
-Message-ID: <20260923201830.865553-3-linmag7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260923201830.865553-1-linmag7@gmail.com>
-References: <20260923201830.865553-1-linmag7@gmail.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="DggDRZbk"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 57FBF534081A;
+	Wed, 23 Sep 2026 22:19:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1790194768;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:autocrypt:autocrypt;
+	bh=L+FndUAuUuEB3GBzTT3jgMIUGfofnLyhfCY6C8PSc9E=;
+	b=DggDRZbkOqhJSiEnCnDfTFtKFGjLhwKBCkljGGfyFb99xP49pJD2eZr6sFdEuP/sQU7xJa
+	d76HG0CpJO7e2yiImxe9mr9yDTOfzOJTdQo5x11qufxTUf6LaO+9TFMEvuVVW/B59b5znA
+	rk5FeZKx9jnNmhUTcmG4lDL4sm9MojY=
+Message-ID: <adeaccc1-cc04-4bb9-a28a-61a61d75ba14@ixit.cz>
+Date: Wed, 23 Sep 2026 22:19:27 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US, cs-CZ
+To: Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>
+Cc: oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>
+From: David Heidelberg <david@ixit.cz>
+Subject: [pull-request] NFC fixes for net 7.3-rc5
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Pre-v9 sparc has no compare-and-swap instruction, so userspace can only
-emulate one with a lock, and neither place to put that lock works. A lock
-private to a process cannot serialise against another process operating on
-the same page. A lock kept inside the object, what glibc did before
-2019, ldstub on the top byte of the word, is correct across processes but
-costs value bits, so it cannot implement the full-width operations a
-current compiler emits calls to. A lock owned by the kernel has neither
-problem. parisc solves the same problem the same way with its LWS
-compare-and-swap.
+The following changes since commit fd73f4a6659897191fa0d40695fe370925dd3780:
 
-Add trap type 0x91 for this. Dispatch follows the existing do_hw_divzero
-pattern of reaching C rather than doing the work in trap assembly. The
-ABI is
+   Linux 7.3-rc3 (2026-09-13 14:38:02 -0700)
 
-	%o0	word aligned user address
-	%o1	expected value
-	%o2	new value
+are available in the Git repository at:
 
-returning the value found at the address in %o0, the previously observed
-value, as __sync_val_compare_and_swap does, with the carry bit set and an
-errno in %o0 on failure.
+   https://codeberg.org/linux-nfc/linux.git tags/nfc-7.3-rc5
 
-The number is SP_TRAP_CAS in asm/traps.h, where the other software trap
-numbers already live, since this one is userspace ABI from now on. The
-instruction userspace executes is ta 0x11, not ta 0x91: sparc forms the
-trap type by adding 0x80 to the software trap number, which is also why
-the Linux system call is SP_TRAP_LINUX 0x90 and glibc issues ta 0x10.
+for you to fetch changes up to b61732f47316d45f27706db7812950145d3327b5:
 
-David Miller prototyped the same idea in 2016 on software trap 0x23,
-discovered through the get-kernel-features call and implemented first on
-sparc64 [2]. This is a different ABI rather than that one finished:
-0x11 follows the Linux syscall trap immediately, discovery is AT_HWCAP,
-and sparc64 compat mode is not supported.
+   nfc: pn533: fix OOB read in pn533_acr122_is_rx_frame_valid() (2026-09-23 
+22:13:18 +0200)
 
-Where the cpu implements the instruction the lock is not used at all and
-the swap is performed directly, with the user data ASI so that the kernel
-reaches the word the same way a binary built for that cpu does. Choosing
-on the hardware rather than on a build option is what keeps the two in
-step: such a binary uses casa inline and never takes this trap, so a
-kernel serialising on a lock would exclude nothing against it.
+----------------------------------------------------------------
+NFC fixes for net 7.3-rc5
 
-Otherwise the lock array is used. It is hashed on address bits that lie
-inside the page offset, so the same physical word reached through
-different virtual addresses selects the same lock. asm/futex_32.h uses
-the same array, so a compare-and-swap from userspace and one performed by
-the futex code exclude each other.
+Mostly security fixes.
 
-Page faults are disabled while the lock is held, since faulting there
-would take the mmap lock with interrupts off; on failure the lock is
-dropped, the page is faulted in with fault_in_safe_writeable(), not
-fault_in_writeable(), which may modify the target memory while probing it
-and the operation is retried.
+fix use-after-free in nfc_get_local_general_bytes
+llcp: Fix list corruption / refcount desync in nfc_llcp_recv_dm()
+llcp: Fix race condition in accept_queue lifecycle
+llcp: drop truncated I/RR/RNR PDUs in nfc_llcp_recv_hdlc()
+llcp: fix -ENOMEM on connect with zero-length service name
+llcp: fix WKS SAP hijacking via prefix match in nfc_llcp_wks_sap()
+llcp: fix sdreq TLV list leak on parse/alloc/send failure
+llcp: fix slab-out-of-bounds reads when logging service names
+selftests/nci: Fix out-of-bounds store on thread join
+selftests: nci: Correct pthread_create return value check
+selftests: nci: Fix uninitialized family ID on missing attribute
+virtual_ncidev: Add missing ioctl compat handler
+nfcmrvl: validate helper command length before pull
+pn533: fix OOB read in pn533_acr122_is_rx_frame_valid()
+port100: reject frames whose declared length exceeds the received data
+st21nfca: validate ISO15693 inventory length
+st21nfca: validate received frame size
+trf7970a: power down on startup RX gain failure
 
-One consequence constrains the caller rather than the kernel: where the
-lock is used an ordinary store does not take it, so userspace must build
-every atomic write from this service, or those writes are not atomic
-against it. Andreas Larsson made the same point about
-kernel-emulated casa in 2016 [1]. Documentation/arch/sparc/cas-trap.rst
-states that, and the width and compiler-integration limits, as part of
-the ABI.
+Signed-off-by: David Heidelberg <david@ixit.cz>
 
-Link: https://inbox.sourceware.org/libc-alpha/5810C1A3.9030504@gaisler.com/ [1]
-Link: https://inbox.sourceware.org/libc-alpha/20161107.113825.631166023186879199.davem@davemloft.net/ [2]
-Signed-off-by: Magnus Lindholm <linmag7@gmail.com>
----
- arch/sparc/include/asm/cas_32.h     | 23 +++++++
- arch/sparc/include/uapi/asm/traps.h |  3 +-
- arch/sparc/kernel/Makefile          |  1 +
- arch/sparc/kernel/cas_32.c          | 96 +++++++++++++++++++++++++++++
- arch/sparc/kernel/entry.S           | 17 +++++
- arch/sparc/kernel/ttable_32.S       |  9 +--
- arch/sparc/lib/casa_32.S            | 12 ++++
- 7 files changed, 156 insertions(+), 5 deletions(-)
- create mode 100644 arch/sparc/kernel/cas_32.c
+----------------------------------------------------------------
+Aamir Ahmed (1):
+       nfc: llcp: drop truncated I/RR/RNR PDUs in nfc_llcp_recv_hdlc()
 
-diff --git a/arch/sparc/include/asm/cas_32.h b/arch/sparc/include/asm/cas_32.h
-index 3658ff71fa70..400be2b9f628 100644
---- a/arch/sparc/include/asm/cas_32.h
-+++ b/arch/sparc/include/asm/cas_32.h
-@@ -2,9 +2,32 @@
- #ifndef _SPARC_CAS_32_H
- #define _SPARC_CAS_32_H
- 
-+#include <linux/spinlock.h>
- #include <linux/types.h>
- 
-+struct pt_regs;
-+
-+asmlinkage void handle_sparc32_cas(struct pt_regs *regs, unsigned long pc,
-+				   unsigned long npc, unsigned long psr);
-+
- /* Returns 0 and stores the value found in *prev, or -EFAULT. */
- int __sparc32_casa(u32 *addr, u32 oldval, u32 newval, u32 *prev);
- 
-+/* The same on a user address, using the user data ASI. */
-+int __sparc32_casa_user(u32 __user *addr, u32 oldval, u32 newval, u32 *prev);
-+
-+#define SPARC32_ATOMIC_LOCKS	256
-+
-+extern raw_spinlock_t sparc32_atomic_locks[SPARC32_ATOMIC_LOCKS];
-+
-+/* Hash on page-offset bits only, so one physical word maps to one lock
-+ * through any virtual address.  asm/futex_32.h must hash identically.
-+ */
-+static inline raw_spinlock_t *sparc32_atomic_lock(const void __user *uaddr)
-+{
-+	unsigned long ua = (unsigned long)uaddr;
-+
-+	return &sparc32_atomic_locks[(ua >> 2) & (SPARC32_ATOMIC_LOCKS - 1)];
-+}
-+
- #endif /* _SPARC_CAS_32_H */
-diff --git a/arch/sparc/include/uapi/asm/traps.h b/arch/sparc/include/uapi/asm/traps.h
-index 43fe5b8fe8be..3e4d1c0c5a94 100644
---- a/arch/sparc/include/uapi/asm/traps.h
-+++ b/arch/sparc/include/uapi/asm/traps.h
-@@ -81,6 +81,7 @@
- #define SP_TRAP_SOLARIS 0x88         /* Solaris System Call */
- #define SP_TRAP_NETBSD  0x89         /* NetBSD System Call */
- #define SP_TRAP_LINUX   0x90         /* Linux System Call */
-+#define SP_TRAP_CAS     0x91         /* Compare and swap, issued as "ta 0x11" */
- 
- /* Names used for compatibility with SunOS */
- #define ST_SYSCALL              0x00
-@@ -104,7 +105,7 @@
- 	 (level > SP_TRAP_BADFL && level < SP_TRAP_CPEXP) || \
- 	 (level > SP_TRAP_DMM && level < SP_TRAP_IMM) || \
- 	 (level > SP_TRAP_IMM && level < SP_TRAP_SUNOS) || \
--	 (level > SP_TRAP_LINUX && level < SP_TRAP_KBPT1))
-+	 (level > SP_TRAP_CAS && level < SP_TRAP_KBPT1))
- 
- /* Is this a Hardware trap? */
- #define HW_TRAP_P(level) ((level > 0) && (level < SP_TRAP_SUNOS))
-diff --git a/arch/sparc/kernel/Makefile b/arch/sparc/kernel/Makefile
-index 497b5714fa8f..7ae9ab4082ca 100644
---- a/arch/sparc/kernel/Makefile
-+++ b/arch/sparc/kernel/Makefile
-@@ -18,6 +18,7 @@ CFLAGS_REMOVE_pcr.o := -pg
- endif
- 
- obj-y                   := head_$(BITS).o
-+obj-$(CONFIG_SPARC32)   += cas_32.o
- obj-$(CONFIG_SPARC64)   += urtt_fill.o
- obj-$(CONFIG_SPARC32)   += entry.o wof.o wuf.o
- obj-$(CONFIG_SPARC32)   += etrap_32.o
-diff --git a/arch/sparc/kernel/cas_32.c b/arch/sparc/kernel/cas_32.c
-new file mode 100644
-index 000000000000..de9822dc80b9
---- /dev/null
-+++ b/arch/sparc/kernel/cas_32.c
-@@ -0,0 +1,96 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Kernel assisted compare-and-swap for pre-v9 sparc.
-+ */
-+
-+#include <linux/kernel.h>
-+#include <linux/spinlock.h>
-+#include <linux/uaccess.h>
-+#include <linux/pagemap.h>
-+
-+#include <asm/ptrace.h>
-+#include <asm/cas_32.h>
-+#include <asm/cpu_type.h>
-+
-+raw_spinlock_t sparc32_atomic_locks[SPARC32_ATOMIC_LOCKS] = {
-+	[0 ... (SPARC32_ATOMIC_LOCKS - 1)] =
-+		__RAW_SPIN_LOCK_UNLOCKED(sparc32_atomic_locks)
-+};
-+
-+/* Report errors in the carry bit as the syscall path does, then step over
-+ * the trapping instruction.
-+ */
-+static void cas_return(struct pt_regs *regs, unsigned long value, bool error)
-+{
-+	regs->u_regs[UREG_I0] = value;
-+	if (error)
-+		regs->psr |= PSR_C;
-+	else
-+		regs->psr &= ~PSR_C;
-+
-+	regs->pc = regs->npc;
-+	regs->npc = regs->npc + 4;
-+}
-+
-+/* Trap type SP_TRAP_CAS; the ABI is in
-+ * Documentation/arch/sparc/cas-trap.rst.
-+ */
-+asmlinkage void handle_sparc32_cas(struct pt_regs *regs, unsigned long pc,
-+				   unsigned long npc, unsigned long psr)
-+{
-+	u32 __user *uaddr = (u32 __user *)regs->u_regs[UREG_I0];
-+	u32 oldval = regs->u_regs[UREG_I1];
-+	u32 newval = regs->u_regs[UREG_I2];
-+	raw_spinlock_t *lock;
-+	unsigned long flags;
-+	u32 val;
-+	int err;
-+
-+	if (unlikely((unsigned long)uaddr & 3)) {
-+		cas_return(regs, EINVAL, true);
-+		return;
-+	}
-+
-+	if (unlikely(!access_ok(uaddr, sizeof(u32)))) {
-+		cas_return(regs, EFAULT, true);
-+		return;
-+	}
-+
-+	if (sparc32_has_casa) {
-+		/* No lock needed: casa is atomic against userspace's own. */
-+		if (likely(!__sparc32_casa_user(uaddr, oldval, newval, &val)))
-+			cas_return(regs, val, false);
-+		else
-+			cas_return(regs, EFAULT, true);
-+		return;
-+	}
-+
-+	lock = sparc32_atomic_lock(uaddr);
-+
-+retry:
-+	/* A fault must not take the mmap lock under a raw spinlock, so make
-+	 * it -EFAULT here and fault the page in after dropping the lock.
-+	 */
-+	raw_spin_lock_irqsave(lock, flags);
-+	pagefault_disable();
-+
-+	err = __get_user(val, uaddr);
-+	if (!err && val == oldval)
-+		err = __put_user(newval, uaddr);
-+
-+	pagefault_enable();
-+	raw_spin_unlock_irqrestore(lock, flags);
-+
-+	if (likely(!err)) {
-+		cas_return(regs, val, false);
-+		return;
-+	}
-+
-+	/* fault_in_writeable() may modify the target memory. */
-+	if (fault_in_safe_writeable((char __user *)uaddr, sizeof(u32))) {
-+		cas_return(regs, EFAULT, true);
-+		return;
-+	}
-+
-+	goto retry;
-+}
-diff --git a/arch/sparc/kernel/entry.S b/arch/sparc/kernel/entry.S
-index ea51ef52c952..cad48f0a0835 100644
---- a/arch/sparc/kernel/entry.S
-+++ b/arch/sparc/kernel/entry.S
-@@ -644,6 +644,23 @@ do_cp_exception:
- 
- 	RESTORE_ALL
- 
-+	/* This routine handles the compare-and-swap trap, type 0x91. */
-+	.align	4
-+	.globl	do_sparc32_cas
-+do_sparc32_cas:
-+	SAVE_ALL
-+
-+	wr	%l0, PSR_ET, %psr		! re-enable traps
-+	WRITE_PAUSE
-+
-+	add	%sp, STACKFRAME_SZ, %o0
-+	mov	%l1, %o1
-+	mov	%l2, %o2
-+	call	handle_sparc32_cas
-+	 mov	%l0, %o3
-+
-+	RESTORE_ALL
-+
- 	/* This routine handles Hardware Divide By Zero Exceptions. */
- 	.align	4
- 	.globl	do_hw_divzero
-diff --git a/arch/sparc/kernel/ttable_32.S b/arch/sparc/kernel/ttable_32.S
-index e79fd786fbbb..0408f0dbae68 100644
---- a/arch/sparc/kernel/ttable_32.S
-+++ b/arch/sparc/kernel/ttable_32.S
-@@ -89,7 +89,8 @@ t_bad89:BAD_TRAP(0x89)                      /* Net-B.S. System Call          */
- t_bad8a:BAD_TRAP(0x8a) BAD_TRAP(0x8b) BAD_TRAP(0x8c) BAD_TRAP(0x8d) BAD_TRAP(0x8e)
- t_bad8f:BAD_TRAP(0x8f)
- t_linux:LINUX_SYSCALL_TRAP                  /* Linux System Call             */
--t_bad91:BAD_TRAP(0x91) BAD_TRAP(0x92) BAD_TRAP(0x93) BAD_TRAP(0x94) BAD_TRAP(0x95)
-+t_cas:	TRAP_ENTRY(0x91, do_sparc32_cas)  /* Compare and swap             */
-+t_bad92:BAD_TRAP(0x92) BAD_TRAP(0x93) BAD_TRAP(0x94) BAD_TRAP(0x95)
- t_bad96:BAD_TRAP(0x96) BAD_TRAP(0x97) BAD_TRAP(0x98) BAD_TRAP(0x99) BAD_TRAP(0x9a)
- t_bad9b:BAD_TRAP(0x9b) BAD_TRAP(0x9c) BAD_TRAP(0x9d) BAD_TRAP(0x9e) BAD_TRAP(0x9f)
- t_getcc:GETCC_TRAP                          /* Get Condition Codes           */
-@@ -186,7 +187,7 @@ trapbase_cpu1:
- 	BAD_TRAP(0x87) BAD_TRAP(0x88) BAD_TRAP(0x89)
- 	BAD_TRAP(0x8a) BAD_TRAP(0x8b) BAD_TRAP(0x8c)
- 	BAD_TRAP(0x8d) BAD_TRAP(0x8e) BAD_TRAP(0x8f)
--	LINUX_SYSCALL_TRAP BAD_TRAP(0x91)
-+	LINUX_SYSCALL_TRAP TRAP_ENTRY(0x91, do_sparc32_cas)
- 	BAD_TRAP(0x92) BAD_TRAP(0x93) BAD_TRAP(0x94)
- 	BAD_TRAP(0x95) BAD_TRAP(0x96) BAD_TRAP(0x97) BAD_TRAP(0x98) BAD_TRAP(0x99)
- 	BAD_TRAP(0x9a) BAD_TRAP(0x9b) BAD_TRAP(0x9c) BAD_TRAP(0x9d) BAD_TRAP(0x9e)
-@@ -286,7 +287,7 @@ trapbase_cpu2:
- 	BAD_TRAP(0x86) BAD_TRAP(0x87) BAD_TRAP(0x88)
- 	BAD_TRAP(0x89) BAD_TRAP(0x8a) BAD_TRAP(0x8b) BAD_TRAP(0x8c)
- 	BAD_TRAP(0x8d) BAD_TRAP(0x8e) BAD_TRAP(0x8f)
--	LINUX_SYSCALL_TRAP BAD_TRAP(0x91)
-+	LINUX_SYSCALL_TRAP TRAP_ENTRY(0x91, do_sparc32_cas)
- 	BAD_TRAP(0x92) BAD_TRAP(0x93) BAD_TRAP(0x94)
- 	BAD_TRAP(0x95) BAD_TRAP(0x96) BAD_TRAP(0x97) BAD_TRAP(0x98) BAD_TRAP(0x99)
- 	BAD_TRAP(0x9a) BAD_TRAP(0x9b) BAD_TRAP(0x9c) BAD_TRAP(0x9d) BAD_TRAP(0x9e)
-@@ -385,7 +386,7 @@ trapbase_cpu3:
- 	BAD_TRAP(0x89) BAD_TRAP(0x8a) BAD_TRAP(0x8b) BAD_TRAP(0x8c)
- 	BAD_TRAP(0x8d) BAD_TRAP(0x8e) BAD_TRAP(0x8f)
- 	LINUX_SYSCALL_TRAP
--	BAD_TRAP(0x91) BAD_TRAP(0x92) BAD_TRAP(0x93) BAD_TRAP(0x94)
-+	TRAP_ENTRY(0x91, do_sparc32_cas) BAD_TRAP(0x92) BAD_TRAP(0x93) BAD_TRAP(0x94)
- 	BAD_TRAP(0x95) BAD_TRAP(0x96) BAD_TRAP(0x97) BAD_TRAP(0x98) BAD_TRAP(0x99)
- 	BAD_TRAP(0x9a) BAD_TRAP(0x9b) BAD_TRAP(0x9c) BAD_TRAP(0x9d) BAD_TRAP(0x9e)
- 	BAD_TRAP(0x9f)
-diff --git a/arch/sparc/lib/casa_32.S b/arch/sparc/lib/casa_32.S
-index 67df9ea439ce..c277f1f1f795 100644
---- a/arch/sparc/lib/casa_32.S
-+++ b/arch/sparc/lib/casa_32.S
-@@ -22,6 +22,17 @@ ENTRY(__sparc32_casa)
- 	 clr	%o0
- ENDPROC(__sparc32_casa)
- 
-+/* The same on a user address; ASI 0x0a is user data, as userspace uses. */
-+ENTRY(__sparc32_casa_user)
-+	/* nop + .balignl: LEON errata GRLIB-TN-0010 and TN-0011. */
-+	nop
-+	.balignl 16, 0x01000000
-+4:	casa	[%o0] 0x0a, %o1, %o2
-+	st	%o2, [%o3]
-+	retl
-+	 clr	%o0
-+ENDPROC(__sparc32_casa_user)
-+
- 	.section .fixup,#alloc,#execinstr
- 	.align	4
- 2:	retl
-@@ -31,4 +42,5 @@ ENDPROC(__sparc32_casa)
- 	.section __ex_table,#alloc
- 	.align	4
- 	.word	1b, 2b
-+	.word	4b, 2b
- 	.previous
--- 
-2.43.0
+Aldo Ariel Panzardo (1):
+       nfc: llcp: Fix list corruption / refcount desync in nfc_llcp_recv_dm()
 
+Chaithanya Lagisetty (1):
+       selftests: nci: Fix uninitialized family ID on missing attribute
+
+Chris Gellermann (2):
+       selftests/nci: Fix out-of-bounds store on thread join
+       nfc: virtual_ncidev: Add missing ioctl compat handler
+
+Cong Nguyen (1):
+       nfc: llcp: fix sdreq TLV list leak on parse/alloc/send failure
+
+Deepanshu Kartikey (1):
+       nfc: pn533: fix OOB read in pn533_acr122_is_rx_frame_valid()
+
+Doruk Tan Ozturk (1):
+       nfc: port100: reject frames whose declared length exceeds the received data
+
+Lee Jones (1):
+       nfc: llcp: Fix race condition in accept_queue lifecycle
+
+Lei Zhu (1):
+       selftests: nci: Correct pthread_create return value check
+
+Luxiao Xu (1):
+       nfc: fix use-after-free in nfc_get_local_general_bytes
+
+Myeonghun Pak (1):
+       nfc: trf7970a: power down on startup RX gain failure
+
+Pengpeng Hou (3):
+       nfc: nfcmrvl: validate helper command length before pull
+       nfc: st21nfca: validate received frame size
+       nfc: st21nfca: validate ISO15693 inventory length
+
+Ömer Mete Kaya (3):
+       nfc: llcp: fix -ENOMEM on connect with zero-length service name
+       nfc: llcp: fix WKS SAP hijacking via prefix match in nfc_llcp_wks_sap()
+       nfc: llcp: fix slab-out-of-bounds reads when logging service names
+
+  drivers/nfc/microread/microread.c     |   6 ++---
+  drivers/nfc/nfcmrvl/fw_dnld.c         |  11 +++++---
+  drivers/nfc/pn533/pn533.c             |  14 +++++-----
+  drivers/nfc/pn533/pn533.h             |   4 ++-
+  drivers/nfc/pn533/usb.c               |   4 ++-
+  drivers/nfc/pn544/pn544.c             |   7 +++--
+  drivers/nfc/port100.c                 |   7 +++++
+  drivers/nfc/st21nfca/core.c           |  12 ++++-----
+  drivers/nfc/st21nfca/i2c.c            |  29 +++++++++++++-------
+  drivers/nfc/trf7970a.c                |   4 ++-
+  drivers/nfc/virtual_ncidev.c          |   3 ++-
+  include/net/nfc/hci.h                 |   2 +-
+  include/net/nfc/nfc.h                 |   3 ++-
+  net/nfc/core.c                        |  15 +++++------
+  net/nfc/digital_dep.c                 |   8 +++---
+  net/nfc/llcp.h                        |   1 +
+  net/nfc/llcp_commands.c               |   2 +-
+  net/nfc/llcp_core.c                   | 175 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++------------------------------------
+  net/nfc/llcp_sock.c                   |  65 
++++++++++++++++++++++++++++++++-------------
+  net/nfc/nci/core.c                    |  10 +++----
+  net/nfc/netlink.c                     |   7 +++--
+  net/nfc/nfc.h                         |   3 ++-
+  tools/testing/selftests/nci/nci_dev.c |  45 +++++++++++++++++++------------
+  23 files changed, 289 insertions(+), 148 deletions(-)
