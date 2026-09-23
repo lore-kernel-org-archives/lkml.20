@@ -1,162 +1,147 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6BA240DFC8
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:08:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA0C455168
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790150939; cv=pass; b=af41vfWLrYxpTrnqWlnr3+0UtI99VEYNp6Dn5v8KVKQgtTSh7VOyHgF1rxwGRvAnGReWMgHlljrvmelc/QlPpLEwLrW/rsC8Y1ECGUjn85gPPrqO4OXM7vaLhZSrqe/khtaJnEciMKPin5jTP2martfEtXeMpV3xUn5roZBAZ6g=
+	t=1790150963; cv=pass; b=pLSeB46Quku7/wxo7jeKCiKe4cJ9MbyZ1vaoXqyvjh7AuYiDp2IySguXvpM0KBkiAYkAgLAxbUUg6h+I3Bkhdcq2NuZj03BMoR4s0Nx+PJPhXswt/ETBnat4TLZB2b+bXsR3A2yFNcb41RYZiwS8G3/7EKgx3GF+FmuQ72rj+mc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790150939; c=relaxed/simple;
-	bh=HO+eJ+xYnJ3aapBaasYQmTQ20IXQrrv44FRinMc3r5M=;
+	s=arc-20240116; t=1790150963; c=relaxed/simple;
+	bh=dpP91akbaFzZC6rOdZLmE8fjblFHqBWnDu8zdizP00A=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZqE/gUxHe0016ir9fYpOnywuwTj1WAoIFEfNIHs+fnQbEQjwY/cgwhaawdYM0bfrqV2U/FuK2Gss1U/d2RReCWNRtCXkxCUFAwc4qXTuF9vmU5CfOhBgpynWGJI9n/YwP8tvqhXQr5yjZsZV/GgtRqMqC2k+1BVzrrRVMJfVBCo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VeTQV+CF; arc=pass smtp.client-ip=209.85.160.179
+	 To:Cc:Content-Type; b=RkfjQFC0WPL7b7DeiovrgHfBc29tUey17UtgX5tz+m74M/Iaz8WxGLPlBlA+h+tGLnEBimjsoyD1xjW9MqXUdAPc2+7oklf6LMj5hg127Nm12ubQWf3Wi/mRXK24kseL6EV6MsQuQG8I3G6rLvaQn740p1755LH2yfq/LNXlVO4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DutcuQVC; arc=pass smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VeTQV+CF"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-52faa58bff5so136401cf.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:08:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790150936; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DutcuQVC"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843f22dc83so502550f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:09:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790150959; cv=none;
         d=google.com; s=arc-20260327;
-        b=bwdwDtigww1i+Hjoij329gnTiJ63/80Rz+w7qpQREaXimlkyWqrdfD3CVpZFq8Zh3j
-         8UEcF6ZFEUjcUeQ0+QnO2J+1oKjKSv9nJxhxZfPxLM5K26EBWzVmvrv6djoqWk+zYzgf
-         LIm1zakOhjJWZoV2vx/D34sY1b5cMDadMy5VF536NcZH1FCzoLzbiryKOfI383mKbuh/
-         xh01eDd56b8leVKHvZ5v891aCpRcVW7YHJw++113lMM4rTfOQ8TDzdHgQgrJlONssTio
-         Pjwn/4BsMVjLVAnU/9+aUsuGNwdmaW5LskINxOtdZdgVo1zw6dSkdK7TuxN5d8NY/ORw
-         1EQw==
+        b=Oxx0/xjn5zOvy1wX9HocBjn3FB0VT5Bg1ypFWgMOifIsuZu3iJAqlk8FFT1fRmRACT
+         fvXGZXQvhqMhBXX9zXRayr5uv7Ri/0oHEaeQKyZBJ1KjAVqHSIeogJVzKETAAVaUfLme
+         rduuu6WTG9ZdZ+OQEvbPZHYAmNNhPQoCkded5VMec0S2VdMkduAdO48PQiXCbAF/ARDY
+         JkUsWL9+GNGrMY1Z/iyCJ67Ud0nBEJ4AaVEJvjZ+GoguJh/uGLKf310bGrWQolYE1VRG
+         qX4PRCXPVlcliNRy7xW/+6NMk2dMVdc+MdQ0ssDXzuoCMz/ot8PTD/54EJ+A4gKPR507
+         vxZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=WI1eM2ZtTpVfUjFiAayfQ/0JAeRrdkd3ShivwFg80pU=;
-        fh=NjdV/hozPJIG2mECgfABZuGSxMFQCIW/fsLHwAVAa+M=;
-        b=ZE1bbCuh0qrZUFtmHBPdIuIznNhpzBwlYBb1USH6KJwd0QBmvrD6H3IMHTRo+QVTmP
-         F9A8hr5TO46Ia/DLfNq8qLsBAeZlTiA8LfrQnfT32IPi/cFwtL1qby+WoUvXSuSVUwyr
-         YRBluV90KoyFQg+DlOsBnYv1i20Pj9dzrewUjpSLGcepXXr7MGO8uDIlVWxbL4MkD3mv
-         5tUbyLwZBsXPCNpJSXu2UgUvhwLD5TzW4v6e5khPMv3agRc0cHbLghYgiDCp1PSC5mPZ
-         DWQxFQbIFzn1Ein6R8ipALmTKHaRO0a1CSDLa2AIG6szmDQmHxc+lCFzKHY55/W12fmr
-         GV3g==;
+        bh=dpP91akbaFzZC6rOdZLmE8fjblFHqBWnDu8zdizP00A=;
+        fh=hAeKZ2LCPCu5llfos604KDCQJZEisMOzJaKbdXYNOd8=;
+        b=QbbW6YdpK9KMujYNgRElJMSKem+cOD9KNPwDNd/p/wMWAlSjqVe+bXKx9/2pccHGaK
+         7UuUrfX8NhmwK/cU/aPWzoPFxSGlcWMgo5p5LHMv2g6KHVOJenFHrZMpwSZmznYQ6Lpw
+         qj528ETBB8CdGsUipWArMf6Y71mbYfpsWgCYyWN98AN3SOlJV3BePJQgtewT1SylJw7e
+         LtAUaC1jEjAnOUYChRUBGJGI1C5ItuuN5zXtyPLHXozMgAE7zoJ2SYFpT9KfFuDWaeJh
+         VlMMAmyMtktU4lPqBLqOL3ZuB4gMm+FJ7KdXv+/Ae1bqMVvkGGgvCkAieKxL7mxHy1X9
+         NuUw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790150936; x=1790755736; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790150959; x=1790755759; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=WI1eM2ZtTpVfUjFiAayfQ/0JAeRrdkd3ShivwFg80pU=;
-        b=VeTQV+CFQyaddKGIaQ7juKXyF/bEj/XorySEp+XUpvaCsSvg3JTXIbowJAIgeYwiTd
-         yZJGpNWW7YZgLuQ+vjzU8+NKx/bvVoAOkkGL0d1vOOfaurxd76ZpVn3KOcQQMiW4EHGf
-         faCsqFKOV188mCScomRmFjxa11pWZUHmTL8hbRc69TdZpsrJph7bDxHrUlZh5hd5i+lr
-         7FK8IJ43lQTX8xHKpL30pfEy8NpWp2Sxb79rjfU2wvbfi+qLlREEmOJCQtZqs+ChdhXT
-         KNV0BSi3RePrb7B0eQhCaNDvzirudtg7HweeVOgIRSfm98iM6Bp0A4pAEOPBD9QYsTHQ
-         M7XA==
+        bh=dpP91akbaFzZC6rOdZLmE8fjblFHqBWnDu8zdizP00A=;
+        b=DutcuQVC/HAYeb+HTdhsoWnZc6MI4nLZzEAsHaQM4jgtTA0H+KZfMkn+d//5qIDp6p
+         O7YqcHu14pTs6yWkaks9hNRnoFJSrno/LjB1h54g11UgaNxkCe0Lt6xhmageRX4TuLHz
+         /qJY+LhC6TBoGiRKvLQbY0bEnIsFjzTZD4x0j9p7aPaCfUNcu5fB5bdN8wuzQCw2NHe2
+         5S5+ckq4zszgtSr1UA87QXPRi6MsQtsZK3DM7V1/gKh5jh/ewq9G0CJoDVpd9wmacL3W
+         0e+hofqiV+9fDhK62u2rjMugsGultpU0FM1DKqJnkz4C/5oxJj0L4NNmBLTkO4m4SjOj
+         /jMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790150936; x=1790755736;
+        d=1e100.net; s=20260707; t=1790150959; x=1790755759;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WI1eM2ZtTpVfUjFiAayfQ/0JAeRrdkd3ShivwFg80pU=;
-        b=BRFkew3KbW3kfU8vmN0VRwsotlJZsR8J5lDrLKTprKVnfNkq2MgxtzCM92+86byO0J
-         J/Ldn83Kv7ko7JKk8k6HtNBfQFAzoAcEICFgGo3MWzzBK5+qpCpBRh49jp6w1cyt9Brs
-         NhKGj2ykmCgf69DYwx5v8GzqB9L8CGpqCl6BenfylQvaE1e5DUlXBtcCHImvjqybXPAY
-         W6a7TpridN1R1Tw3ARvDf7lWL2nZhSaitdMMUPzHlcU6xKcaeS+gugs3o8mKwLctlRjO
-         513NqpjXkYj/Y0d0AD7Tzj7aPN2MGxn1kddIgzdTifvUWEM8OTuS16wbFFitH6Likijc
-         IQTw==
-X-Forwarded-Encrypted: i=1; AKwUvBw2KU0hK+I2MsTo9aHijksxIYz8vNxmNn1y+kgTOoMlIuzF0FFe/gWZXXGqEkfAuVIVMPT8NsTICuf5ctI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lavbQ/UW4fqBWZ4gq2qXuV6MymZEBC1Na0GfJkd+SigPQNJOP0
-	ND8a6oc1wxpiGGwRG0a0heAwETYk6sJeGsIosFbfy6nogvQWkifwIao82DOcbrZ6a27G3BWV3VN
-	30k1wGE4Q1d+TTjHu3OSn0gOBJUxgs6DiWbLCYijIw2g8VkNuH17ADiXE
-X-Gm-Gg: AYBFou2v4afnnS+2x7u5afB17KZzr7NMdYGQa3f1olmvCdA4TD1RGle3eZBsJ/kT6b4
-	tWA5r/dcXRpRxsj2k67ntmHXwzGD65tPrTHvesr1hS/TA6HmRLK9NHMna2NpjCC/dPv72QuAo2l
-	WeY4oRtgrXsCCCfcDomM23/TIKB0YN9p+fOWfhkd45yYGfwuhU+E+xpvgLJm0k4a48nx0vkTm7o
-	s4wi51/Hip9huRtVQnMRKb6xSqG93dlD0E4/0RE3QvTdNELEpmZXZCISA8VAhoY6nLYKgaJ6Pcf
-	7oZXzPOIXywgebcFVR0hiZXXuo+q1SZVenEeHbcEedLQUSe06/bsV0QQoF3vwe/JRKbPAqAL74c
-	eCJp4kBKtCA==
-X-Received: by 2002:a05:622a:e08d:20b0:532:eff9:ca08 with SMTP id
- d75a77b69052e-532eff9cd9bmr5404151cf.12.1790150935912; Wed, 23 Sep 2026
- 01:08:55 -0700 (PDT)
+        bh=dpP91akbaFzZC6rOdZLmE8fjblFHqBWnDu8zdizP00A=;
+        b=k5L2rSjxJAkmOTE4UiFvjzedvFqaug1LGZFB/fMrhen3BRe1EwEn5/XTO79npMz/7V
+         TeQHWNP2IkbuDlKkefHToI7A/UAPmuIJVfUHlIpJIAZQ7Uwh8SGO3HcfSg5Hd8wTJPuf
+         FeP8QAv/jk9lsh6Naip4wbIRHIzL9d1+u20qCcpkSxOXql4IUZcCjqB6iGiRzbXWP4Lr
+         31rmtMQgP35wS5jJcaFnzs3IbYloAhBr/apBMyBLTK6tm2tWaOTEJwbLqe+wIKzSZ5sN
+         1WooINLRyDL2iP+bMjjVTXh27lFsWXWa2Sx6NEBlADHQ7qyWgP9Q7U7EVA6Fygb8pfcd
+         vOeA==
+X-Forwarded-Encrypted: i=1; AKwUvByNtdUCpp0zSNamhPrBjiK9M8FqIoDenpHqmW/X7s2BOlDoJuZVcNzWQeRfP2mUimg33sv8iR185upuf1Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBgo9VunVo1d17AhHJRFe3yTz0Cj5uG1mFFjNLsWZ3AjezQXXq
+	7H7bK1WjM7BR5b9rmLWOUlAlgIBL9fOAGdFlx7JFF9+YUAQxw7ixpt5FzyfvmS7+M3rRmJc3/PG
+	Tz2ZjCPYtPQanEtVV4xrirTB1/0d/dnPUsGb7SN8c
+X-Gm-Gg: AYBFou2oLWcLC1gdVCD8JDwtjzfiSPfyYyOzXsDfHBi4G/U5Qk1+25Pe93+NA/nWmrc
+	6eghJ6E12xkZ9yZDyLV20Ojy0DQFuxCmSJ+NeAJKmPufxZItVm+EkLfIees/zLww52aHe+62/Pp
+	xq0fQdhbsPoUrk4ANnkF9wL9o5A0ArraEHDzdUfibkzw3TZb9WRVndB4gv9tW9V/rEes02ZdQ7Y
+	B2D09cR7PwSmPel/wbgwsw0czJw82KvyrNWPa2VLO72GEmqBRviCrzdDHNBhfWr11f5G1UdA5Y/
+	h1ZybOhq7upx3Puy7rLP5eWGBRZx/JIasskC4tPUD87O/kbozRUqiD5FMOEEzdo9Tz4JImuZ8x4
+	rWoTfA8fWPowDo867IPyM
+X-Received: by 2002:a5d:6f06:0:b0:487:6ef:86b8 with SMTP id
+ ffacd0b85a97d-4886709e09emr2505954f8f.49.1790150958679; Wed, 23 Sep 2026
+ 01:09:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <89e19e6e-7ee7-4bb0-abd6-60971b7fd601@gmail.com>
- <2026052726-vagrancy-lilac-bf72@gregkh> <f44f2c8e-accd-4ea8-8184-7da610340a9f@gmail.com>
-In-Reply-To: <f44f2c8e-accd-4ea8-8184-7da610340a9f@gmail.com>
-From: Kuen-Han Tsai <khtsai@google.com>
-Date: Wed, 23 Sep 2026 16:08:29 +0800
-X-Gm-Features: AclHuK_ZrrediHZyNhUWFIDzwVB9TSB6qhwI5PWg5pLUBEU_Y0vbwhKsVjyUbuA
-Message-ID: <CAKzKK0ogStj1un5Vqdzw7+Hq=UyZiav9q++r2-NkMLFiYOHbWg@mail.gmail.com>
-Subject: Re: [REGRESSION] usb: gadget: u_ether NULL deref in eth_stop after gether_detach_gadget
-To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, sashal@kernel.org, 
-	Merlijn Wajer <merlijn@wizzup.org>, linux-usb@vger.kernel.org, 
+References: <20260918100016.100988-1-sagartaunk@proton.me> <KZuCCqRjSSbylbLLVhoUD9-xyBpzD9jUB4vGC16N0_hIra8SNxFeh9lEJ6FIMYMgKqf41J_swYT_HVx3w13k0cSrYYkBljOF56suy3gpgAU=@proton.me>
+ <164304b3-3324-45f1-8766-536767e7b9d7@redhat.com> <CAH5fLgjBC7o4wt0WPH6xEkQEkOvsjj0ymLq2xAGXoMwN-fZyBQ@mail.gmail.com>
+ <_OvWoTp4DaMWPlCDpP6QCis3vmI9jsT_GeJVq8e-7S_FvY5zurx-iRSvWy-rPwHnRGVixK2i7E_QybBBgX4YZVrXfsFbm6IwjmHpBvkoBuM=@proton.me>
+In-Reply-To: <_OvWoTp4DaMWPlCDpP6QCis3vmI9jsT_GeJVq8e-7S_FvY5zurx-iRSvWy-rPwHnRGVixK2i7E_QybBBgX4YZVrXfsFbm6IwjmHpBvkoBuM=@proton.me>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Wed, 23 Sep 2026 10:09:06 +0200
+X-Gm-Features: AclHuK9QTi04eiS47c4EvijGQ9s3_RK43h6MRQ9Dlx9YnzrxaDKzZpju_IdOlPg
+Message-ID: <CAH5fLgjr5p1XMNGwOzigTW+CxvQpfoH8no46RneTCLinem_WTw@mail.gmail.com>
+Subject: Re: [PATCH net v3] rust: net: netlink: validate attribute length
+ before casting to `c_int`
+To: Sagar Taunk <sagartaunk@proton.me>
+Cc: Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Matthew Maurer <mmaurer@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org, rust-for-linux@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Ivaylo,
+On Wed, Sep 23, 2026 at 10:07=E2=80=AFAM Sagar Taunk <sagartaunk@proton.me>=
+ wrote:
+>
+> Should I resend it after rebasing it or would this be fine as is ?
 
-Sorry for the late reply - I was on parental leave since May and just
-returned this week.
+Please resend targeting 'net-next' instead of 'net' and resend with a
+rebase. Thanks!
 
-On Wed, May 27, 2026 at 4:37=E2=80=AFPM Ivaylo Dimitrov
-<ivo.g.dimitrov.75@gmail.com> wrote:
->
->
->
-> On 27.05.26 =D0=B3. 11:03 =D1=87., Greg Kroah-Hartman wrote:
-> > On Tue, May 26, 2026 at 08:56:15AM +0300, Ivaylo Dimitrov wrote:
-> >> on linux 6.18.31 I am seeing a NULL pointer dereference during RNDIS g=
-adget
-> >> teardown.
+Also, please read the guidelines on top-posting:
+https://docs.kernel.org/process/submitting-patches.html#use-trimmed-interle=
+aved-replies-in-email-discussions
+
+> -------- Original Message --------
+> On Tuesday, 09/22/26 at 19:12 Alice Ryhl <aliceryhl@google.com> wrote:
+> On Tue, Sep 22, 2026 at 3:36=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> w=
+rote:
 > >
-> > Does this also happen on the latest 7.1-rc release?
+> > On 9/22/26 04:31, Sagar Taunk wrote:
+> > > Hello, are there any updates for this?
+> > >
+> > > Also, I wanted to ask is it fine if I keep fixing stuff pointed out b=
+y sashiko for now ? (I.e pre-existing issues pointed out by it in other's p=
+atches or should I ask the original authors of it first ?)
+> > Does not apply cleanly to net. Since a repost is needed, you must
+> > also avoid empty lines in the tag area (i.e. after the fixes tag).
 > >
->
-> I didn't test this on current -rc (this is a mobile phone and not
-> particularly easy to run latest Linux on), however this looks more like
-> an object lifetime contract issue than something specific to 6.18.y.
->
-> Also, the suspected patch was backported to 6.18.y together with
-> e002e92e88e12457373ed096b18716d97e7bbb20 ("usb: gadget: u_ether: Fix
-> NULL pointer deref in eth_get_drvinfo"), which fixes a similar issue, so
-> I strongly suspect the issue exists in current -rc as well.
-
-Thank you for the detailed report and bisection. The crash happens
-because gether_detach_gadget() clears dev->gadget during unbind while
-the DBG()/VDBG()/ERROR()/INFO() macros in u_ether.c still dereference
-&dev->gadget->dev when eth_stop() runs during function instance
-teardown.
-
->
-> >> I suspect the reason is commit:
-> >>
-> >>    usb: gadget: f_ncm: Fix net_device lifecycle with device_move
+> > WRT sashiko-reported issues, beyond be aware of false-positives,
+> > generally speaking net-next is the preferred target tree (i.e. no
+> > or very limited impact, very old issue, etc...) with no fixes tag.
 > >
-> > Do you have a proposed fix for this issue?
-> >
+> > Focusing on high stakes changes would be appreciated.
 >
-> Not really, as checking whether dev->gadget is NULL before calling DBG()
-> looks more like a workaround than a proper fix to me. I also don't know
-> the subsystem well enough to judge whether switching to netdev_dbg()
-> instead of DBG() would be appropriate here, or whether that would defeat
-> the purpose of the existing debug messages (or cause confusion by mixing
-> gadget and netdev based logging).
+> From my perspective there's no issue in landing this through net-next
+> instead of net, as it's not urgent.
 >
-> I could use some maintainer advice on what they think the proper fix
-> should look like, and then I'll try to put together a fix.
-
-I have just sent a fix series to convert u_ether.c to netdev_*()
-logging helpers (which safely handle unparented net_devices) and to
-serialize dev->gadget accesses with dev->lock:
-https://lore.kernel.org/r/20260923-u-ether-gadget-npe-v1-0-ff466c55ecc0@goo=
-gle.com
-If you have a chance to test the series, a Tested-by would be much apprecia=
-ted.
-
-Regards,
-Kuen-Han
+> Alice
+>
