@@ -1,101 +1,99 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECE235E1AF
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:56:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C4C3C1984;
+	Wed, 23 Sep 2026 16:57:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790182604; cv=none; b=Ze27imLQpuGgEDjPvXP+FsrpkFQPVcgnMQmroUiD9JA8SnC/8GoSBMkutMXDWFNs5Prr0bnPDlhZPe2+C7BlZFoM+pnxLUs0IlhlcQq6cEHoE+/EXRXK+bsctmBV613G5bIDxGk9dQTJBxTFQTDNGX82nibmz/5+O52Cz84z1Tc=
+	t=1790182655; cv=none; b=vDqXpndEinKlcYD6amh0gyjryxHbGcMmt5bMMo1UafdYvo4YKvWOVwJ6ODygSfjndT0OoV7Lp2f7aZIYCyOQhx8KGWWjgBbbq83wleEFlcgF/z0gYUo/XCSYJ77+2Lv6hexZXwpFgi9GHQARZSg04f5tk7uEimI3RXweaMxpKXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790182604; c=relaxed/simple;
-	bh=SXLwIEv1wLDY/SjQuew2Mr9cNFckDSjzP5UQOUJn3/k=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=nJTEgG9dbHKKhQ6WDcsJrR7ysDLUrj22XD7Aym07PcHlEaa7iyoLzzcKKg/W5xaDu0XXQ7SeGu8E8Y6gHwKfAAtQtnKd6XiRKfZo/BnN7ydjhAKezbwoKBdM5FdLCwB4QbnLGW27P0pPZfyIEl/B+R2469yxi7ClOeMj1nW3QlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dsqQazf7; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790182655; c=relaxed/simple;
+	bh=kSlwMVmGiWcOLHDyL51FrWTuoUOKdxw/7+Ml/GAuE4s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YwfcHJQaAXc5APs0QgQokeObDbgKFAlvQesTmL/2bLIsL4qE5ZQ00KzjORQL/8BvkTFlNBga1zqgMYWwWNjY3L6P3y2oGMyCHlOJ4YHhH2rGOam/gBEgXEon+hK4bqRtUECiH7GjgwT1eArT0JebnmxB1CzemR5+lN+1w2XK1Bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qo9GkNE0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dsqQazf7"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso14841425e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:56:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790182601; x=1790787401; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kr1MVzRgK4mAiK4oAoOCSLrh/zDQ2LAQZ54aeHcdQ74=;
-        b=dsqQazf72wnvXYgCMRGDuI63KD7GRr/bgNVJteCUU1VCHvzL5FAujzLPeUM6o92GUj
-         ChGgFB4VSC5UZcXn1LVfbZLadF+4zY2pFlSA+QKAljRgWHjB6cJwBNpOHhYBm5IJ8Od5
-         lXyFtPomQiO9GhBXeOqPe68w3uP5n0wfVnddk6xLXeh6VnOn+lA/ZtTeLY932no2b1nM
-         rHqAgz/OO2sFsF7rObzQRi3nISwAeCSIt0sxzLBgzINys+rHifmxY2CjuPtt8yVMXiQG
-         GmoXELhwkMlHCXKnvhLwrGSVcyTJXR0FKkEOVOHd71BrYYqx2kub6OCgdsXc4RJ+gh17
-         p7uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790182601; x=1790787401;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kr1MVzRgK4mAiK4oAoOCSLrh/zDQ2LAQZ54aeHcdQ74=;
-        b=zCWGTYxDSWOP3gs7L/XInSNTDc3a7xDPXV4gYpVjN52fpkNFdfnKaEfIq05aKZ3z8v
-         YYXESPadzj6NC1pMfuhaTpePXRVdBo4CBSpcpo6dDQgD+t8GN8+P2qYzJV560u12ptV9
-         KF+5Dtq5MCIPFsBytod3hE18e9sbO4KXYczww2craWySJRoyDk4qUR2WxhpZeQcYEtWO
-         2V0ThGQyiKI5Co9ZeO543ScUeJ/JRRZx5ksBx9u6VOj0SJswOUiz37oJSlrRn9mu9ND+
-         FSNK3Xj5OnQ07t+Pbnlzd4wkfo/xlgr7N+WxTBy/+QmLm87Sl5MDjMODGMiM7EKXS400
-         trBg==
-X-Forwarded-Encrypted: i=1; AKwUvBxpvRCO6eJHMm44AWsjQ+Ou+4ZrXNZSXp75eKP8cRMOMjzMW7QfIllr7M3qnckr6sQ08dsnUtyrm5RuMp8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mofNiQFw+VQVmogI+rXn1J2+LOak9UefTGMe1cyKsePLsd/9ue
-	j5/4jz6FM86owJ/V6PqNeoEKGJ66KqJ9rerZoTm3IURGzUp44fpF7ZYq
-X-Gm-Gg: AYBFou1G/Xff9yqSTwafmzayYKwg26HvxTGR8jb8hfvBshPbRcoE3kqg57y7lxn/ZEW
-	qASZv/rbln/bEJJLqFtfPP0Ow3MNLkwGqIi5R89IY7SP+GEQs2imV4m4U9r0qubkoe3gxXy0Wvy
-	8VbVKV+Lir4Rb5/GFeoEpU6+Cd+0HcjIOa1+Gnh6cKDTrxJalj2toke38hzQUqqCbPvioYISasJ
-	hERIQtNEIRXGF0rQBKYn0HovtXGmcSiJJMhphTbqpciPdaN0YSKs7nwbJtyzVQUiGmvH2vbd81F
-	BDPD3CF0gpiymze5c2H7bjzNxikDC48ekIYx9bGmmMf4hZLYUqcjbBCBp2XHV2u4qkiaE5Sn2WT
-	ofNK/E5/9Qalmofqm/GVhOfZQTz1PZYmfkMCbumEtFfjC+4v/9vwkdxYR/PDOTPNrVTE16dGxcC
-	ltIxv+qbUL/q55z5YwCvOrrkf08Gdl5T28S100tI8r61RgnfJ78t22SuWcjTPs8wiXCR7WQJBwD
-	Ejos+itHw==
-X-Received: by 2002:a05:6000:710:b0:487:27f9:840 with SMTP id ffacd0b85a97d-488670a09d6mr5921753f8f.53.1790182600803;
-        Wed, 23 Sep 2026 09:56:40 -0700 (PDT)
-Received: from [192.168.5.15] ([161.12.45.16])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48867b49661sm7815715f8f.0.2026.09.23.09.56.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 09:56:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qo9GkNE0"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 60E8C1F000FF;
+	Wed, 23 Sep 2026 16:57:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790182654;
+	bh=xqiBb1CVJvGDuNkaA1v7TntapFVwjpxeOmWZZ5xu164=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Qo9GkNE0Fm8AoDxE0XxFL2CsiIdT+/dhP0PsXbgFl5SohrDKDvD9Vysu3QLm6U9BJ
+	 O3gzzUn02jS0RWIbymT84gQBJQI387PTrn3endvL/B1zyTON7107pLkZuD7TuycmYH
+	 8Qygt/i14UXDihsD28VMr+tTI7g996+hBA/f6ZsTYJjQ0syBLimpcA9m4PrfgxzDvC
+	 ZZvKOxQxCPgDQcDR9T7M236AJJ6M7uatgpesOToR++o59JzzVQbjSSKy9cJWQbbcm3
+	 zbm6iAVSiL2/hBTU6/q9+gFXvlBxvZ+QtZR5xpU21fXnw3hQIHwBsSvufSWn5Gc/1z
+	 Fx18bXqU6QiDw==
+Date: Wed, 23 Sep 2026 09:57:34 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: linux-xfs@vger.kernel.org, Carlos Maiolino <cem@kernel.org>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 RESEND 2/2] xfs: reject remote xattr entries with an
+ out-of-range value length
+Message-ID: <20260923165734.GE2705364@frogsfrogsfrogs>
+References: <20260923115823.3305596-1-qwe.aldo@gmail.com>
+ <20260923115823.3305596-3-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: RE: [PATCH] EDAC/skx_base: Fix ambiguous bitwise and logical
- operator style
-From: Bryan Chan <bchimhim15@gmail.com>
-To: "Luck, Tony" <tony.luck@intel.com>
-Cc: Bryan Chan <bchimhim15@gmail.com>, Borislav Petkov <bp@alien8.de>, 
- "open list:EDAC-SKYLAKE" <linux-edac@vger.kernel.org>, 
- open list <linux-kernel@vger.kernel.org>
-In-Reply-To: <SJ1PR11MB60834A6CB20792962CE05051FC822@SJ1PR11MB6083.namprd11.prod.outlook.com>
-References: <20260922231854.108188-1-bchimhim15@gmail.com>
- <SJ1PR11MB6083B6CEC6BA730C18AD450FFC822@SJ1PR11MB6083.namprd11.prod.outlook.com>
- <179013525089.122719.12798013417319991127.b4-reply@b4>
- <SJ1PR11MB60834A6CB20792962CE05051FC822@SJ1PR11MB6083.namprd11.prod.outlook.com>
-Date: Wed, 23 Sep 2026 17:56:39 +0100
-Message-Id: <179018259977.122719.1860882880972360707.b4-reply@b4>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923115823.3305596-3-qwe.aldo@gmail.com>
 
-On 2026-09-23 16:35 +0000, Luck, Tony wrote:
-> > Sorry for my mistake, this is not compiler warning, but warning from the
-> > sparse, here is the warning message:
-> > drivers/edac/skx_base.c:359:46: warning: dubious: x | !y
+On Wed, Sep 23, 2026 at 08:58:23AM -0300, Aldo Ariel Panzardo wrote:
+> xfs_attr3_leaf_verify_entry() validates a remote attribute entry's name
+> but never bounds its on-disk value length (xfs_attr_leaf_name_remote.
+> valuelen, a __be32). A crafted leaf with valuelen = 0x80000000 passes
+> the verifier and the CRC.
 > 
-> Ok. I updated the commit message to say "sparse warning" and pasted
-> in that message.
+> That length is later assigned into the signed int args->rmtvaluelen
+> (xfs_attr3_leaf_getvalue), becoming negative, which slips past the signed
+> -ERANGE check in xfs_attr_copy_value(); a getxattr() with a small buffer
+> then memcpy()s a full remote block into the small kvalue buffer
+> (xfs_attr_rmtval_copyout) -- a heap out-of-bounds write with
+> attacker-controlled content, from an unprivileged getxattr(2) on a
+> mounted crafted image.
 > 
-> Applied, thanks.
+> Reject remote entries whose value length exceeds XFS_XATTR_SIZE_MAX in
+> the leaf verifier, so the malicious block is rejected at read time.
 > 
-> -Tony
-Thank you Tony, I will be more careful writing discriptions in the future.
+> Fixes: c84760659dcf ("xfs: check attribute leaf block structure")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
--Bryan
+Still looks good,
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
 
+--D
+
+> ---
+> v2: cc stable (per Darrick).  Now 2/2 of a series: 1/2 fixes the signed
+>     value-length check in xfs_attr_copy_value(); this read-time verifier
+>     fix is otherwise unchanged from v1.
+> 
+>  fs/xfs/libxfs/xfs_attr_leaf.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
+> index d0f7753659c9..948dc8b26fe6 100644
+> --- a/fs/xfs/libxfs/xfs_attr_leaf.c
+> +++ b/fs/xfs/libxfs/xfs_attr_leaf.c
+> @@ -339,6 +339,8 @@ xfs_attr3_leaf_verify_entry(
+>  		if (!(ent->flags & XFS_ATTR_INCOMPLETE) &&
+>  		    rentry->valueblk == 0)
+>  			return __this_address;
+> +		if (be32_to_cpu(rentry->valuelen) > XFS_XATTR_SIZE_MAX)
+> +			return __this_address;
+>  	}
+>  
+>  	if (name_end > buf_end)
+> -- 
+> 2.53.0
+> 
+> 
