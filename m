@@ -1,93 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17813C819B;
-	Wed, 23 Sep 2026 21:09:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790197754; cv=none; b=k+tq2hgG5OnBh15iS+sJvfYyAwgwAz2jZ76O42QQNqmlKSA9236VuZ7W3XwG/BGU2y/0Oz8oFOxqg3Ppy1zYKbijyyTvNUuHlpwCaYpc4+tHvtJxYNNEQJBEXiqQXUSM/wtXHqFK4LzIOxDgBmTvOVR6ikd/PlaqYyMz+3u6YHM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790197754; c=relaxed/simple;
-	bh=wtEGGMO3DPG62Sr6SgtjiZ9dYBhzHClARU1EvI5jbrA=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=FisHks+16NiOv4aTY8LlBKFdviWFD5SYAGKIYFN9h4qbdDcrsZY/cjSBpAxoEMh50/pGZIFS3cezj63hBkU8RIKAEYU/Wjhl+j+DgA7tozGhIDdSzA+8aI9jFnlkCR+wEnrTHdh49kDSnwLhDa0IyAYMqzWaOUL2ydMNYtm6/YI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TguZnFGs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5853DAACF;
+	Wed, 23 Sep 2026 21:09:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790197789; cv=pass; b=lcelw0od9W4w+/Puc2cQMdVcDnJysBlSD+e7/pRn1cl7WhPwFNwgAIhgJMDgK8V9iRPv/hC4LBxLIrHfr5JvzPgbCYLS6yrkg/Ez5yracFH3Qp9aZmq9Xqy4xG+OiDyicc3lMsGxQe0c6Nip3IJqhEL/R9jaMJiSxB7bbphiwmk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790197789; c=relaxed/simple;
+	bh=g50aYELf9uWnrvAqzcCXLgHvwbHmH1ulJxKPBlt0jas=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=S76Lio9JBC3gBCLQK8BS9EVWxfvO54rFSfITdsGIZaSSuB9S4rahr9VYUpNIL85q/YKW2vbUhOO888miz8A0yAZwrL16pp50OHgtOJrAXPxWjOTvb4d0Cbrn/czRLK6vyRdNQc7KGBecZzi8Vv1Eb/f/Tz3L3pKvbqppsfZijQ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=a5J1r/7z; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TguZnFGs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 691631F000FF;
-	Wed, 23 Sep 2026 21:09:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790197748;
-	bh=0I8OliWp57JKeRNoalAVk1cHol4oFIDEMtHC9uRftOE=;
-	h=Date:From:To:Subject;
-	b=TguZnFGsjN6IInvylxerxRT2KmK56gIqhI5wi7+f9W4sCG9PtsSXCu/yT//49wtR+
-	 kUHn3jW58BSnRoF0so1wHT0v5b44B9ratgFFvz+8tQ7Xz/+8gpnLIfc0vVzE4+yHvJ
-	 V/cQ6SWxCAD3BYHIU7kggXybVOyVHN/xbpAP1vPhYHMFVTEz1JzZ1V2ckPQz3uEpsQ
-	 BSx0C/L9beKVBJ6eSEgW0qJ04dOrF4hzmApl1CQM/NGJ2VwusHyjE02q4la1aVCHSR
-	 vaPt0U6euw1samO/p8s76r37DcKPjT8Xb6x+yvZRsQfwC/lK0HaCvFqdXy5vJm57PR
-	 HNju+fHx0vXxw==
-Date: Wed, 23 Sep 2026 23:09:04 +0200
-From: Helge Deller <deller@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
-	linux-kernel@vger.kernel.org, linux-parisc@vger.kernel.org,
-	John David Anglin <dave.anglin@bell.net>
-Subject: [GIT PULL] parisc architecture fixes for v7.3-rc5
-Message-ID: <arQ_8PdL1PPCVXh_@p100>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="a5J1r/7z"
+ARC-Seal: i=1; a=rsa-sha256; t=1790197729; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=b0zvJPcj/0BVLCBlfvZu5Fg7a18GyQNX6dVM7n+Gk2jTuPixASIushoBWnrbUMMP7Sm88l5KkC0C7ISJNxyyk7/N2X1Gecf6TcaJ68rbs2QM6FYS08GHR6dxYk7f3j/5GltyL/Lm2RbnuhMz9bTBaaaIp5Uj1Ncxgx/KD6JXkqc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790197729; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=g50aYELf9uWnrvAqzcCXLgHvwbHmH1ulJxKPBlt0jas=; 
+	b=JZ/Tbvr47dO5wU0dOv2mWLNRll73nOCBxKjIZcShRL0FaxKqA0rtJiIABwpPcWGKvBSnRVSAP6KG2rxCaIE+l2BqBjBnbozUTPJbSFZZe8NMv9N7znOFFJiQfLcn/7jtw4S/P9pi+uaRkh4pxAJaQNHZORyCZqt+iE0nusj9EhU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790197729;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=g50aYELf9uWnrvAqzcCXLgHvwbHmH1ulJxKPBlt0jas=;
+	b=a5J1r/7zyRsa8T776CNUEtJuYlyE+19nM7cbTpuasSz5TR5uDU+0ImUdfV8AlaqI
+	VytZU9FFKuoJD5Z6XfajJzu9oKnW+/YLBgSj6AVqtVDP9318Y5zV/ViRC4WtvOPWUu+
+	vpCDNDEJuYlWInjLBrK4UWIsKXvjmPtgtKX3p7c4=
+Received: by smtp.zohomail.com with SMTPS id 1790197728390344.91512158913406;
+	Wed, 23 Sep 2026 14:08:48 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [PATCH 0/3] Rust XArray
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260923-rxarray-next-v1-0-92eedf185649@samsung.com>
+Date: Wed, 23 Sep 2026 18:08:29 -0300
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Julia Lawall <Julia.Lawall@inria.fr>,
+ Corinn Tiffany <corinn.tiffany@inria.fr>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Philipp Stanner <pstanner@redhat.com>,
+ linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org,
+ Samsung GOST <gost.dev@samsung.com>,
+ Daniel Gomez <da.gomez@samsung.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <BDFF5973-A521-4A0B-84DB-82C6A595F6BC@collabora.com>
+References: <20260923-rxarray-next-v1-0-92eedf185649@samsung.com>
+To: Daniel Gomez <da.gomez@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-Hi Linus,
 
-please pull a four small patches for parisc for kernel 7.3-rc5:
+Daniel,
 
-Prevent kernel stack overflow, fix parsing huge page parameters & fix unwind code.
 
-Thanks!
-Helge
+> On 23 Sep 2026, at 18:00, Daniel Gomez <da.gomez@kernel.org> wrote:
+>=20
+> We are evaluating Rust for the XArray to test if Rust delivers what it
+> promises for a core kernel data structure, as a consequence of a page
+> cache bug that was dormant for years, left users with a corrupted FS,
+> was difficult to reproduce, and almost prevented the LBS work [1] from
+> being merged. After looking at other XArray-related bugs, I think this
+> particular one represents well the root cause of most XArray bugs:
+> misuse of the API by its callers.
+>=20
+> The XArray's main user is the page cache, but it has many other users
+> and features, such as multi-index, RCU, etc. This initial support does
+> not cover all these features and so, the initial evaluation targets
+> are the ones that use the data structure in the simplest form. For =
+this
+> reason, I would like this series to be considered as a reference Rust
+> implementation (experimental) [2] that we can merge in-tree to let =
+users
+> experiment and evaluate both implementations starting first from Rust
+> users: null block driver and potentially drm gpu drivers such as tyr.
 
-----------------------------------------------------------------
-The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+Thanks a lot for working on this! This will be very helpful for Tyr.
 
-  Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+Give me some time to go over the code.
 
-are available in the Git repository at:
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/deller/parisc-linux.git tags/parisc-for-7.3-rc5
-
-for you to fetch changes up to 94b7e3a7e871ae27d4935c76959dfc61829f27f9:
-
-  parisc: Increase kernel stack size to 32kb (2026-09-21 22:19:09 +0200)
-
-----------------------------------------------------------------
-parisc architecture fixes for kernel v7.3-rc5:
-
-- Increase kernel stack to 32kB on 64-bit kernel to avoid crashes
-- Parse early parameters in setup_arch() to enable huge page settings
-- Replace open-coded binary search with bsearch() in unwind code
-- Remove unused <asm/compat_ucontext.h> header
-
-----------------------------------------------------------------
-Ethan Nelson-Moore (1):
-      parisc: remove unused <asm/compat_ucontext.h> header
-
-Helge Deller (1):
-      parisc: Increase kernel stack size to 32kb
-
-Sean Young (1):
-      parisc: unwind: Replace open-coded binary search with bsearch()
-
-Zhenghui Hao (1):
-      parisc: parse early parameters in setup_arch()
-
- arch/parisc/include/asm/compat_ucontext.h | 18 -----------------
- arch/parisc/include/asm/thread_info.h     |  2 +-
- arch/parisc/kernel/setup.c                | 12 +++++++++++
- arch/parisc/kernel/unwind.c               | 33 ++++++++++++++-----------------
- 4 files changed, 28 insertions(+), 37 deletions(-)
- delete mode 100644 arch/parisc/include/asm/compat_ucontext.h
+=E2=80=94 Daniel=
