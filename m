@@ -1,168 +1,132 @@
-Received: from mta1.migadu.com (out-89.mta1.migadu.com [95.215.58.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21768430CD7
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:37:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.89
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 82E9743BDB3;
+	Wed, 23 Sep 2026 06:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790145431; cv=none; b=AodA+G/F/2UueGpZRcQcZYj2asKWaDE1bSGw8SwVlbN91rpU6AsktjoB28gC2Wj+/2j2+flcGOpAs/wXEkWT2UvIHL6OY9LWLlVxfYL4CHugTrAcVzg4CpEkPBmYMtKlWuVWRCrsbIpjhfxJQOr6BGOwGmKs7vFPB43kV165Udk=
+	t=1790145442; cv=none; b=KVVnVs4HMFWWJGM0hIPFoDKCOKjDkQ4Dq0Hmr0h59DWuD977VqgIb7SiSVqL/CbVKxmmccoK5LH5KzZqaN/BgV0Xeu7KZFGALslpxSiK0USGtX8/MMBIVs4jaIHxYq0M67T8WoDbVfRjHYFSiyXBDhe6UvopbgD8h/gjgRIDGXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790145431; c=relaxed/simple;
-	bh=q6FUjfAvrde7ObIfU3V3bTgB9v/JDqJhh9doDVfzOdI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T6e5nMgTE2ilYHeJ5glbJxlqP/cCvbX5Ig7nobEPIZgQX0uUpDUa5nfAmEdLJs+EDkneLoexVOpTnJZekMgFNBHZQbWcpOTFHwQ2CyN0gDGalGQI8UV5ucU0++h+EIZGjQI+D8RUY0Co4KH+03/Ni8MP42fV/IzMY0ONw8Y1Few=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YrsfIawT; arc=none smtp.client-ip=95.215.58.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1790145442; c=relaxed/simple;
+	bh=o4hG7piVOUQgAGaxVWLjt4d5r0pbx4AC/Tq7g2GLnac=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XLU4FyNzGQnA6cQ7tf3xqqxo1psOMXmvn+ignExonBOXKo4LJbIcBDsDKMD1vORYsM+Vng4AfwcJkiLNVq8+SOGJoN+MIWaL4QW/Bh/9JPSeBkpzSksPpfM5hx6PRyNnrM7ykcCqmWV8FydrbJxLXyrHHwzoNPby2kTdgxpUf3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sYX/4Ojf; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YrsfIawT"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=q6FUjfAvrde7ObIfU3V3bTgB9v/JDqJhh9doDVfzOdI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1790145425; v=1; x=1790750225;
- b=YrsfIawTM4dJ2cxEBQ6nGgUQLQf+evC8T7fQ111YlZpIMVYNHFGXiYpBo97U1iN171gnOqsy
- cOal7C4xbrzeeNTmG5j7dLfUrYf25luNdyiL74daiGSkzLmjflZ9VaJyFwoLeGsYp+U7pJgXqIw
- WRoO50eXkj1KCeRXbeyO4rL8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7a7d515496bbdaf5;
-	Wed, 23 Sep 2026 06:37:02 +0000
-X-Mizu-Trace-ID: 7a7d515496bbdaf5
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Hao Li <hao.li@linux.dev>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>
-Cc: netfs@lists.linux.dev,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Hao Ge <hao.ge@linux.dev>,
-	Erhard Furtner <erhard_f@mailbox.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] netfs: Fix missing alloc tagging of direct mempool allocations
-Date: Wed, 23 Sep 2026 14:37:59 +0800
-Message-Id: <20260923063759.34667-1-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sYX/4Ojf"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 33A5F1516;
+	Tue, 22 Sep 2026 23:37:12 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F0D453F86C;
+	Tue, 22 Sep 2026 23:37:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790145435; bh=o4hG7piVOUQgAGaxVWLjt4d5r0pbx4AC/Tq7g2GLnac=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=sYX/4OjfLkbaAjPqf/UqqZ4gmpM6iQcIn8+LGG5oxSljlAeunNYcNxQTa9+dW+JlT
+	 PY3EsuxYwFI2XfdpFU8OXUB6HdSxRMe/jaG93jLLZtSa1LP61xzJf2NCOacuiFpdwM
+	 tDjnTuDPs+OrZqibBW6yS1Eh2kGE7u6la5KDo2xU=
+Date: Wed, 23 Sep 2026 12:07:12 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>, 
+	James Clark <james.clark@linaro.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Fuad Tabba <tabba@google.com>, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1] arm64/boot: Disable trapping of PMZR_EL0 writes to EL2
+Message-ID: <x2yybbtclm2lv6shjrootdf466tsnxqrpvtd3s75jcxrlrv6hi@7swnsdxykxdc>
+References: <20260922181430.3532371-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260922181430.3532371-1-fuad.tabba@linux.dev>
 
-Commit 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in writeback by
-adding a mempool") added a mempool for the folio_queues and made the
-request, subrequest and folio_queue allocations distinguish between
-writeback and everything else.  Writeback is part of memory reclaim
-and must not fail due to ENOMEM, so it allocates under GFP_NOFS
-through mempool_alloc(), which may dip into the pool's reserve and,
-if that runs empty, wait for elements to be returned.  The
-GFP_KERNEL paths, which can return -ENOMEM to their callers, invoke
-the pool's ->alloc() callback directly instead.
+On Tue, Sep 22, 2026 at 07:14:30PM +0100, Fuad Tabba wrote:
+> __init_el2_fgt2() writes one mask to both HDFGRTR2_EL2 and HDFGWTR2_EL2.
+> PMZR_EL0 is write-only, so its trap bit, nPMZR_EL0, exists only in
+> HDFGWTR2_EL2 and is therefore never set: a PMZR_EL0 write from the host
+> traps to EL2, where the nVHE hypervisor has no handler and BUG()s. The
+> kernel never writes PMZR_EL0, but kernel.perf_user_access=1 has the PMU
+> driver set PMUSERENR_EL0.UEN for a task with a user-read event, so a
+> write from EL0 reaches the trap and takes the host down without a panic
+> message.
+> 
+> Accumulate the HDFGWTR2_EL2 bits separately, as __init_el2_fgt() already
+> does for HDFGWTR_EL2, and set nPMZR_EL0 with the other FEAT_PMUv3p9
+> bits.
+> 
+> Fixes: 858c7bfcb35e1 ("arm64/boot: Enable EL2 requirements for FEAT_PMUv3p9")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-The direct call, however, skips the alloc_hooks() wrapper that the
-mempool_alloc() macro provides.  The pool callbacks, mempool_alloc_slab()
-and mempool_kmalloc(), call kmem_cache_alloc_noprof() and kmalloc_noprof()
-and rely on current->alloc_tag having been set by the caller.  With
-CONFIG_MEM_ALLOC_PROFILING_DEBUG=y this leads to
+Reviewed-by: Anshuman Khandual <anshuman.khandual@arm.com>
 
-    current->alloc_tag not set
-    WARNING: ./include/linux/alloc_tag.h:161 at __alloc_tagging_slab_alloc_hook
-    alloc_tag was not set
-    WARNING: ./include/linux/alloc_tag.h:166 at __alloc_tagging_slab_free_hook
-
-at allocation and free time respectively, as reported when reading
-files on a CIFS mount.  The allocations are also missing from
-/proc/allocinfo.
-
-Wrap the direct ->alloc() invocations in alloc_hooks() with a new
-mempool_alloc_noreserve() helper in include/linux/mempool.h, next to
-the other alloc_hooks()-wrapped macros such as mempool_alloc().  The
-GFP_KERNEL paths keep their failable allocation semantics, they just
-get tagged now.
-
-Fixes: 1d78d56c43ef ("netfs: Fix folio_queue ENOMEM in writeback by adding a mempool")
-Reported-by: Erhard Furtner <erhard_f@mailbox.org>
-Closes: https://lore.kernel.org/all/0b004319-9ef7-437c-a4dd-174d6a9a83db@mailbox.org/
-Tested-by: Erhard Furtner <erhard_f@mailbox.org>
-Suggested-by: Suren Baghdasaryan <surenb@google.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
----
-Changes in v2:
-- Move the alloc_hooks() wrapper from fs/netfs/internal.h into
-  include/linux/mempool.h as mempool_alloc_noreserve(), per Suren's
-  suggestion, so it is not netfs-specific.
-
-v1 Link: https://lore.kernel.org/all/20260922023541.51532-1-hao.ge@linux.dev/
----
- fs/netfs/objects.c        | 4 ++--
- fs/netfs/rolling_buffer.c | 2 +-
- include/linux/mempool.h   | 7 +++++++
- 3 files changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/fs/netfs/objects.c b/fs/netfs/objects.c
-index 7f6a3e912602..ad549daa9c79 100644
---- a/fs/netfs/objects.c
-+++ b/fs/netfs/objects.c
-@@ -34,7 +34,7 @@ struct netfs_io_request *netfs_alloc_request(struct address_space *mapping,
- 
- 		rreq = mempool_alloc(mempool, gfp);
- 	} else {
--		rreq = mempool->alloc(gfp, mempool->pool_data);
-+		rreq = mempool_alloc_noreserve(mempool, gfp);
- 		if (!rreq)
- 			return ERR_PTR(-ENOMEM);
- 	}
-@@ -214,7 +214,7 @@ struct netfs_io_subrequest *netfs_alloc_subrequest(struct netfs_io_request *rreq
- 	struct kmem_cache *cache = mempool->pool_data;
- 
- 	if (rreq->gfp == GFP_KERNEL)
--		subreq = mempool->alloc(rreq->gfp, mempool->pool_data);
-+		subreq = mempool_alloc_noreserve(mempool, rreq->gfp);
- 	else
- 		subreq = mempool_alloc(mempool, rreq->gfp);
- 	if (!subreq)
-diff --git a/fs/netfs/rolling_buffer.c b/fs/netfs/rolling_buffer.c
-index 424e77a9a109..d30d5ef6d86e 100644
---- a/fs/netfs/rolling_buffer.c
-+++ b/fs/netfs/rolling_buffer.c
-@@ -29,7 +29,7 @@ struct folio_queue *netfs_folioq_alloc(unsigned int rreq_id, gfp_t gfp,
- 	struct folio_queue *fq;
- 
- 	if (gfp == GFP_KERNEL)
--		fq = netfs_folioq_pool.alloc(gfp, netfs_folioq_pool.pool_data);
-+		fq = mempool_alloc_noreserve(&netfs_folioq_pool, gfp);
- 	else
- 		fq = mempool_alloc(&netfs_folioq_pool, gfp);
- 	if (fq) {
-diff --git a/include/linux/mempool.h b/include/linux/mempool.h
-index a0fa6d43e0dc..6da502aef2f7 100644
---- a/include/linux/mempool.h
-+++ b/include/linux/mempool.h
-@@ -70,6 +70,13 @@ int mempool_alloc_bulk_noprof(struct mempool *pool, void **elem,
- #define mempool_alloc_bulk(...)						\
- 	alloc_hooks(mempool_alloc_bulk_noprof(__VA_ARGS__))
- 
-+/*
-+ * Allocate a new element without dipping into the pool's reserves or
-+ * waiting.  Returns NULL on failure.
-+ */
-+#define mempool_alloc_noreserve(_pool, _gfp)				\
-+	alloc_hooks((_pool)->alloc(_gfp, (_pool)->pool_data))
-+
- void *mempool_alloc_preallocated(struct mempool *pool) __malloc;
- void mempool_free(void *element, struct mempool *pool);
- unsigned int mempool_free_bulk(struct mempool *pool, void **elem,
--- 
-2.25.1
-
+> ---
+> Based on Linux 7.3-rc4 (93f51579e7df2).
+> 
+>  Documentation/arch/arm64/booting.rst | 1 +
+>  arch/arm64/include/asm/el2_setup.h   | 9 ++++++++-
+>  2 files changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/arch/arm64/booting.rst b/Documentation/arch/arm64/booting.rst
+> index 13ef311dace83..3fea4b14ef7c2 100644
+> --- a/Documentation/arch/arm64/booting.rst
+> +++ b/Documentation/arch/arm64/booting.rst
+> @@ -465,6 +465,7 @@ Before jumping into the kernel, the following conditions must be met:
+>      - HDFGWTR2_EL2.nPMICNTR_EL0 (bit 2) must be initialised to 0b1.
+>      - HDFGWTR2_EL2.nPMICFILTR_EL0 (bit 3) must be initialised to 0b1.
+>      - HDFGWTR2_EL2.nPMUACR_EL1 (bit 4) must be initialised to 0b1.
+> +    - HDFGWTR2_EL2.nPMZR_EL0 (bit 21) must be initialised to 0b1.
+>  
+>    For CPUs with SPE data source filtering (FEAT_SPE_FDS):
+>  
+> diff --git a/arch/arm64/include/asm/el2_setup.h b/arch/arm64/include/asm/el2_setup.h
+> index aa8ec9df80243..87560d8b254e6 100644
+> --- a/arch/arm64/include/asm/el2_setup.h
+> +++ b/arch/arm64/include/asm/el2_setup.h
+> @@ -418,6 +418,7 @@
+>  	b.lt	.Lskip_fgt2_\@
+>  
+>  	mov	x0, xzr
+> +	mov	x2, xzr
+>  	mrs	x1, id_aa64dfr0_el1
+>  	ubfx	x1, x1, #ID_AA64DFR0_EL1_PMUVer_SHIFT, #4
+>  	cmp	x1, #ID_AA64DFR0_EL1_PMUVer_V3P9
+> @@ -426,6 +427,11 @@
+>  	orr	x0, x0, #HDFGRTR2_EL2_nPMICNTR_EL0
+>  	orr	x0, x0, #HDFGRTR2_EL2_nPMICFILTR_EL0
+>  	orr	x0, x0, #HDFGRTR2_EL2_nPMUACR_EL1
+> +	orr	x2, x2, #HDFGWTR2_EL2_nPMICNTR_EL0
+> +	orr	x2, x2, #HDFGWTR2_EL2_nPMICFILTR_EL0
+> +	orr	x2, x2, #HDFGWTR2_EL2_nPMUACR_EL1
+> +	/* PMZR_EL0 is write-only, so it has no read trap to disable */
+> +	orr	x2, x2, #HDFGWTR2_EL2_nPMZR_EL0
+>  .Lskip_pmuv3p9_\@:
+>  	/* If SPE is implemented, */
+>  	__spe_vers_imp .Lskip_spefds_\@, ID_AA64DFR0_EL1_PMSVer_IMP, x1
+> @@ -436,10 +442,11 @@
+>  	cbz	x1, .Lskip_spefds_\@
+>  	/* disable traps of PMSDSFR to EL2. */
+>  	orr	x0, x0, #HDFGRTR2_EL2_nPMSDSFR_EL1
+> +	orr	x2, x2, #HDFGWTR2_EL2_nPMSDSFR_EL1
+>  
+>  .Lskip_spefds_\@:
+>  	msr_s   SYS_HDFGRTR2_EL2, x0
+> -	msr_s   SYS_HDFGWTR2_EL2, x0
+> +	msr_s   SYS_HDFGWTR2_EL2, x2
+>  	msr_s   SYS_HFGRTR2_EL2, xzr
+>  	msr_s   SYS_HFGWTR2_EL2, xzr
+>  	msr_s   SYS_HFGITR2_EL2, xzr
+> 
+> base-commit: 93f51579e7df248780214094418f205253383cc5
+> -- 
+> 2.39.5
+> 
