@@ -1,184 +1,108 @@
-Received: from mail-pj2-f19.google.com (mail-pj2-f19.google.com [74.125.227.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80764483B9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549E713D53C;
+	Wed, 23 Sep 2026 06:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790144987; cv=none; b=efM5TR7H6J/Pag5fq7ODUtNveiFgzL6RrR4UJUzH+AWJrI2UNplvM6vEYsj7nevLiAmD0T8kOtVsUvl2u4ZwcQKMcaKUGQwFy9OW3Zi9gIMXtRT+FfjjmAB4M1I4Kuthxfm+cDU7mHpR1+WL5tWsD8bjR/tll5i5YwemLqKW1cM=
+	t=1790145021; cv=none; b=oF2AXC65TQlpoJKtA+irTBn6EPYY0l1zPEezhrwRl14pLo0OcK65SvRNvrgCZqGEjxzcgx2YJtwf96Dt/uFxI+mFyZECD8Lwq9mWVclmn+e/OTmxvmruGIGdg4Yq/sXkM0JYC1H/e93dzYc5bvvMIoaV3NUM1PWxBmTvVQk0Zcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790144987; c=relaxed/simple;
-	bh=bspJBmRxLS4qW3UQTFV0QVGd0Nf0mf04koeOIwHSQFA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=PopbwOA9vpz+JYA4UxafmSQ0GGqbeg3bGi+WttLwZOSATZkbFBVkFQ1uiH5FPkysuC79J5eW2O854qgZYvcowItzygNCRRcIy4hswwO13OL8sxbwFawCKpbWUlTzwCVJvrFDuSwDFzbGSRRUl9UuvU5kdavYc5Qyq87lymEYWpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G88Z+KwI; arc=none smtp.client-ip=74.125.227.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790145021; c=relaxed/simple;
+	bh=BMGnTj+00mQ/u4zsc1/t3m3T9cgDjBU0J2nPYu5XqG8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Umm6l+5Rd2d9UOwtQTj2vsf2K7x4L+W4P1cBjQwALRiWjPNsg6D5HsAlnoHFaEj+eGe4GVs5VljPD/R8Zc+Z/R2bUoIh8u7zt+Vsb1at8A0G3VXU/D2nZIZdH/apgkDy1mlhnEGDfSP5ZqQ0JnSQ45yj3ha5QWXSVmtQaBOTLp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aAhsXnZv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G88Z+KwI"
-Received: by mail-pj2-f19.google.com with SMTP id d9443c01a7336-2db18fe433fso2719975ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 23:29:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790144978; x=1790749778; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qz31YaIUZL0HkPkLOInD8YA56WfSRIuJpUh6x60MqwE=;
-        b=G88Z+KwIzih7XULAfpBP2PFtsokNa3be8ORhSfBVtcfGN+5Q6Zz5gX+A+yNsrzv3MP
-         cqzeHKMhkZ2EaPESf8rygH+dxipQu21ZlVKj7wssRFlKlOvlG8vkzGs7JjfviWNJoS8w
-         PuHphWdcAVEdd3hR78lyhcINfP9e9nQsQYax1YurP/x5+eFa0YirKvBulLfaTtFpkMGI
-         Gn/ZKXPMl4KczvaxhW4PcynC20Gp5KqqxpIstyTeUg5zdTl1B1YsAfs09eNPHHE69st6
-         gMFggSVr+/1diAIss8BIKPiSLjbyiFsH0A2qpVXOaasMHYcbu9AJGOcthfEx4S0ddiI9
-         ZP2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790144978; x=1790749778;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qz31YaIUZL0HkPkLOInD8YA56WfSRIuJpUh6x60MqwE=;
-        b=QP+4XORPIaoBiuuD4LpYu1DjrrpP801RzRKxTLuLeBrKC+Y4HXfRsfCauZOhqqDPiN
-         tubYIGXQtyHjQh9zE5ZXt5xBBvTiqaZIS2kvYz3xHOB35o478G6jIYgMz6l4viRpKp42
-         usNq+5sPjzYQ5bD5Tzo1uMD/NccUuTgxt5fYHZ4bWSkFzTLlfgMCALKWIfZGV1ecitP6
-         hMrwYwyGPTo6ceDrgzaCb/3YMbiw1DQC+QvpTH8CjgOAahbEqgmzWKV2HtUbaO7HQJOz
-         Xq86piWIj6qAcA/cMpiL2zXwHr+0CW1bxYPEzfnuQD6bV7yfrONpig9XKntEX4HrO0Hr
-         e6ig==
-X-Forwarded-Encrypted: i=1; AKwUvBwPyaUHDl85sfaQO0GmP+WM116iQvGHJ9QqRxpmpt1+fH+3vp1iw5PDWD2M41/KyYkTvwVKvpVCmGAf1QA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCV2iVGnz8x7O8r42yBQ3zNznXyBNIpa18J7SkWV1iOpfezzqA
-	kMnq090X9qOBfX9Ob+/qbVKrWLrmTamrDpzeonbhDyjvgXzjNWB4HWiC
-X-Gm-Gg: AYBFou1KEALzXn1wALiJRpIWY3hgQzR4WCKNBKnl1p/sQXol2QjQ9tBNg00lqfcKOQ1
-	+3RLZZMvqRChyVgbCbMDpuh9K7rwb6R7zLNrx9ekz/E8bjkRkWk6fvuBbo8XoBQ1P+dudiUzwLi
-	Xi5X/fdKVPVkG2A6H5o+xCixPL5ooiRh2VFsRIrto1ZMH6rfKkPyF9556Fqwlphg/END8TFpKbu
-	zV+fMk2kY8qKYAKIIfxAtWgg8gypqlbUeaFZnBa9h8X4GgiGm10/txnkozJWffs5lhgEMmToAZw
-	Uintn65Lr4tkxZ/Qi9ogl9LrEZ3mGEThY93b+tevc2ZBvVEhNPcsxb8BlJj8yl9naMSueEjKjlp
-	xL3v4FiqvjEfeZFFAkgWPQ/r9z/Z5T3KbP7AZWcKJGE3ybgY9Zbjib4a1v9BoXKYZidcsNlWYG6
-	WsafoLd9e+XmXYINTN6iRAUN+QoTzHm92RYEtg6/lMNscrqKXxHGQ3ROSgVoKF72XWmSvOJQ7uy
-	B4R3XuTD5C8nOgyYEsf+g==
-X-Received: by 2002:a17:902:d483:b0:2dd:c053:c20b with SMTP id d9443c01a7336-2df69ddf0cbmr15391165ad.39.1790144977728;
-        Tue, 22 Sep 2026 23:29:37 -0700 (PDT)
-Received: from mi-OptiPlex-7060.mioffice.cn ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df6a516bfdsm5620465ad.5.2026.09.22.23.29.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 23:29:37 -0700 (PDT)
-From: Wen Jiang <jiangwenxiaomi@gmail.com>
-X-Google-Original-From: Wen Jiang <jiangwen6@xiaomi.com>
-To: akpm@linux-foundation.org,
-	catalin.marinas@arm.com,
-	linux-mm@kvack.org,
-	urezki@gmail.com,
-	will@kernel.org
-Cc: Xueyuan.chen21@gmail.com,
-	ajd@linux.ibm.com,
-	anshuman.khandual@arm.com,
-	baohua@kernel.org,
-	chleroy@kernel.org,
-	david@kernel.org,
-	dev.jain@arm.com,
-	jiangwen6@xiaomi.com,
-	leo.yan@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	maddy@linux.ibm.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	rppt@kernel.org,
-	ryan.roberts@arm.com
-Subject: [PATCH v9 10/10] mm/vmalloc: align vm_area so vmap() can batch mappings
-Date: Wed, 23 Sep 2026 14:28:32 +0800
-Message-Id: <20260923062832.479455-11-jiangwen6@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260923062832.479455-1-jiangwen6@xiaomi.com>
-References: <20260923062832.479455-1-jiangwen6@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aAhsXnZv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5381F000FF;
+	Wed, 23 Sep 2026 06:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790145012;
+	bh=0vT2FMuNxSeT1XTJS3tLHJ1GURs84Fhh3gS/jiyljno=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aAhsXnZvDVrpeee2B0EWkIFmWzsDNL8KCsYqpmfUVd9HhgiGc0l0TM4njiVE/o5YD
+	 PIa98yFwl/yIgcdQheQjLL+g6uEh6I1pOxn4ofgM0Vot8Ku2mg7d8Tp4mXAUQUisHF
+	 Dnb8RYqXO7Hli66fI+5dnvHgaM68piPBrd00Fbt/2Za8hectBA2dxrLJH3wajTmXSO
+	 dHYDfhcDSZN5pHBYwprabbawaojeavd3+Swo0jvFECD7q/AaJe4HfNiN83bw3ZTNyH
+	 99PYYx63gdhk+NZPvbCWC7QHYhj0Z5eZwL92+3J5h7TRZLAwhe5orygERqlV2Ec3Be
+	 u7nD/Q50AAdqQ==
+Message-ID: <a5586b54-eed9-47c6-9c9c-dc478f12d081@kernel.org>
+Date: Wed, 23 Sep 2026 08:30:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/4] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+To: Hongliang Yang <hongliang.yang@cixtech.com>
+Cc: peter.chen@kernel.org, gregkh@linuxfoundation.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ p.zabel@pengutronix.de, vkoul@kernel.org, neil.armstrong@linaro.org,
+ pawell@cadence.com, rogerq@kernel.org, cix-kernel-upstream@cixtech.com
+References: <20260910025227.2490151-1-hongliang.yang@cixtech.com>
+ <20260923025834.842467-1-hongliang.yang@cixtech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <20260923025834.842467-1-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
+On 23/09/2026 04:58, Hongliang Yang wrote:
+> Hi Krzysztof,
+> 
+> Gentle ping on my question below about representing the shared RCSU
+> region with a simple-bus container and translating ranges, versus
+> absolute addresses in reg directly under the soc node. I would like
+> to settle this before sending v5.
 
-Try to align the vmap virtual address to PMD_SHIFT or a
-larger PTE mapping size hinted by the architecture, so
-contiguous pages can be batch-mapped when setting PMD or
-PTE entries. We do not expect any significant overhead for
-this.
+There is no context here, nothing below.
 
-Add __get_vm_area_node_aligned_caller() as a wrapper over
-__get_vm_area_node() to simplify repeated calls with fixed
-arguments.
-
-Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-Signed-off-by: Wen Jiang <jiangwen6@xiaomi.com>
-Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Tested-by: Leo Yan <leo.yan@arm.com>
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-Reviewed-by: Dev Jain <dev.jain@arm.com>
----
- mm/vmalloc.c | 35 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
-
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index 37cddb7f45a4f..1a3b191885024 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -3328,6 +3328,14 @@ struct vm_struct *get_vm_area_caller(unsigned long size, unsigned long flags,
- 				  NUMA_NO_NODE, GFP_KERNEL, caller);
- }
- 
-+static struct vm_struct *__get_vm_area_node_aligned_caller(unsigned long size,
-+		unsigned long align, unsigned long flags, const void *caller)
-+{
-+	return __get_vm_area_node(size, align, PAGE_SHIFT, flags,
-+				  VMALLOC_START, VMALLOC_END,
-+				  NUMA_NO_NODE, GFP_KERNEL, caller);
-+}
-+
- /**
-  * find_vm_area - find a continuous kernel virtual area
-  * @addr:	  base address
-@@ -3655,6 +3663,30 @@ static int vmap_pages_range_batched(unsigned long addr, unsigned long end,
- 	return err;
- }
- 
-+static struct vm_struct *vmap_get_aligned_vm_area(unsigned long size,
-+		unsigned long flags, pgprot_t prot, const void *caller)
-+{
-+	struct vm_struct *vm_area;
-+	unsigned int shift;
-+
-+	if (arch_vmap_pmd_supported(prot) && size >= PMD_SIZE) {
-+		vm_area = __get_vm_area_node_aligned_caller(size, PMD_SIZE,
-+				flags, caller);
-+		if (vm_area)
-+			return vm_area;
-+	}
-+
-+	shift = arch_vmap_pte_supported_shift(size);
-+	if (shift > PAGE_SHIFT) {
-+		vm_area = __get_vm_area_node_aligned_caller(size, 1UL << shift,
-+				flags, caller);
-+		if (vm_area)
-+			return vm_area;
-+	}
-+
-+	return __get_vm_area_node_aligned_caller(size, PAGE_SIZE, flags, caller);
-+}
-+
- /**
-  * vmap - map an array of pages into virtually contiguous space
-  * @pages: array of page pointers
-@@ -3693,7 +3725,8 @@ void *vmap(struct page **pages, unsigned int count,
- 		return NULL;
- 
- 	size = (unsigned long)count << PAGE_SHIFT;
--	area = get_vm_area_caller(size, flags, __builtin_return_address(0));
-+	area = vmap_get_aligned_vm_area(size, flags, prot,
-+				__builtin_return_address(0));
- 	if (!area)
- 		return NULL;
- 
--- 
-2.34.1
-
+Best regards,
+Krzysztof
