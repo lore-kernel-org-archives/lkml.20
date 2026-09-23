@@ -1,78 +1,80 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA5D369D56
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E67D368D55
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790130323; cv=none; b=V3U01vS30+FUoozD+Z7+KLfD2i3v9nnyI/94kXOL5p+OQrlNSQ+b3PWuc6A4y2NfvkH8ZKnB/ls0dJU3WcI+aWvBUmfJpYr5ezUO8jTsoRxHXl3c3Lo8g18u3zKxFnqJiVIWxlnElNaLBwIqAcaZipD3et+Kkn+2WZKPjd4X/Pk=
+	t=1790130341; cv=none; b=WPzJBJ/IYRCWtrZsMisNfvi7H++KL9M31rBiw3IjTKNxLi6Ix8sALg4FO1bFD8Sw7hC09J3qrGIF/qnsAoRBv40/EzVHMJ/z0osUKDH9PJlsgqn+LZPKsXGDweMzZqP6y/ceFRKGgJIRsGC/dLWeluZl+nCwZyLWT9NpKcpAePE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790130323; c=relaxed/simple;
-	bh=g5XxiDFghNFRNW5IZuQbEjg3YtPgkCJzRoomlBMAd5c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WYLhhVnO3EOD16SlThq8GabkvLJznueQpS8LJA6rGc5ec4wBw8NhEYm7pEWRO24/GDJwfpfn+NTk3BojjflkyDnr4ZoOCEuzLIJovlTRg3VoV1G8LfzCIHBoBuFxTTBh7fMG47+VybJ/SL+db9ChdVEXblihzK7Bd6Hh2nCfjQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YRXZCerT; arc=none smtp.client-ip=74.125.229.43
+	s=arc-20240116; t=1790130341; c=relaxed/simple;
+	bh=4vHSLjUiiivi80NKIZM434XlQQ2bTlJx5rN8ftXtfls=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BoweesLOJEz9hURW6bVJZ+hw199e3poc1s4KAtiaPVcgY1fSTSwvNdKitxGR+qEFCAtevIRdqjGG0XLvjKTVs+Tv7gLoawkBnzhvf3RTSB1Vb3juRmKHX3AOkeXZYf8FVxbgYpRuv/jf4YPVqxwitc9Sw9iBy/yPFfaV6GVRETc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GXDSg3BE; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YRXZCerT"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33eb5e1df62so22383eec.2
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:25:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GXDSg3BE"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso286347a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:25:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790130320; x=1790735120; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790130340; x=1790735140; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OW8pONdYaJOrcraRgR272mPtvH+JxyXPDb9LA5IdPHg=;
-        b=YRXZCerTNuNPOuZkZCXN/McoJmBVe19ihdI3AeGt3634LRZa8Mf3VDeLVL+Q30JW61
-         LI1sOMmXsrbXouFz10DcrIDU90FJoi/6QaLMe6odwETrvjK7gMP3Xq5S/C99l6jQlJn5
-         zBR4Dg+R9ItyFh/lfn4OHYxrFAWrBAw4gGO1Wx5bwrSUON0FlOXfiUdPKZ53c5cumbR2
-         dEiVCjapPq3kT9mtAUWrW6Bx2Xide+9yVuDNQj6ktRhVSKWBhr7fJbxSg4K8hfRtgG3t
-         aznR7cWgZD18oWg7aMRAWYp+YNg+2son95hXryjDQDT+sq32/UJozmUT0RT55w2SL99k
-         axJw==
+        bh=YgscQk7Ar8r9xNVFdDi2QgmLohb1qk8AI+LPa8A9QYM=;
+        b=GXDSg3BEt1qV9dG1OtaQ6y3aBxRTXTvxleVCAcf0yq/woRjgMLlhbSrCCqJq5DzxWl
+         PnGfn+dibDgXDU9wnQvvq0o/6XtmCCdJqdyWShaLJWGtvm9CdzaBH6SDRXMgrl6tfm1q
+         5chMFfgkH2CH7Ntrf5rKian0KGg6hHQWJ0Q1g7VoUMSLF4je7HL5txkCZCyHyXqGihrQ
+         iD6f2J12bTsiGojGJckQkyQsS0pUmTRzSitNcd4BU4HyxyrvH+BSa19gfwmsNRGUKJUJ
+         oUsBr2WxLnW5p9Kr2X+USNAVt8w0Abc1i4I0FAI6+g/F1s00X7D76XS6vxU7mM4qlz6j
+         XvZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790130320; x=1790735120;
+        d=1e100.net; s=20260707; t=1790130340; x=1790735140;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OW8pONdYaJOrcraRgR272mPtvH+JxyXPDb9LA5IdPHg=;
-        b=iX7VYxXBGsONLeTlWSUcpCLeCKtdkyJZQ9T8z6CZNx0IPYZ4kUPizf/ZotS58LAdrf
-         ELj0fZ0ETCsyhQhwylywFGlGGY7IzcXkLFggHF8Edfds/EO0NCqwewzkPTcx9P4PVSDZ
-         Z1+AYycPvRFtN3ScVQERl89uze2kP67wkrxpebpxmb5aTUReR+4hgJLEwlhi61didwSu
-         ot+pz52xoLlsSNHQx8bGyEZxGehurjXQs5NcsIxH63RPoE9Cp++knVJ3gyoqwa3PCq/w
-         pS6tzzNOJGK4vy/fzyUdBINz+n0WqFybXqyKl6DGvIQ01lryuPkKhEZrjmuW+kQwbCEZ
-         NRNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzgKQWB6RpKPWn5uXzq7pUxJ5ds+4LTx6AjDkY2uDSwrJXY12kjBZIYP4jsV/DX4X9G9iIJXzEVEmT7az4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/NmkDQH4V0V/WT7bktz/eijxa1iUV2yulfqEzFCjL11eriP+U
-	0RSPj+4WKuxr/D3cNNaAH3mubKpA4KO1SscSitLIBU5U5EQBMVfYht66
-X-Gm-Gg: AYBFou0icjAW9LAOlSt05fUWbGYt4fDEGmHASuRJ1QLo9VQn+I7Mz/U8g1GCmLPOc8/
-	G2nsZXqBbzYaZEL4+jbyE6xVWxeyU2eL+RafM7tV+ltJDfeZC8TpeJC2K6C2vUJxQg5f9NPkUAl
-	9M9pP4aLzBu4PCFmRTsdMXkX2eh2osJIgAv+S8m+t5bcCm/jW2daJrBp7kMz9rfswx9YjXkRfzN
-	JX++SCAzJmJD7EbO47mJftgAAy+05FTqR3WYsOlXxoje5bpACHUVrTvT07Yjz3bjMkmDhJYKFia
-	V/DJXW76tHHDOtIP5kE4SFbNBCHULLt2tUCGCMKdSP0ej07v67VZ/xtxBWlAEEubJuOMTdC40wj
-	ImTX/07YRGWbubomwYL8BhkJTX/M0fO9sMLNN9b64j9bzPRevk4EakgDTyKiUQmHbSQyndZ+591
-	m/S1Cr5zuQ+oJ3UMutkSBB9ZDk+R3e5M5GYvX73IY3gwsdOWm+RRLANdR4qJZL0EXaqrDcqNaDq
-	dJiiApF+PwkozveLRpzbb1JgiP80bjVLO80qTmE89tq5f3PtmF8bdvQ/uLzBKn9dGm+LaajLnPq
-	3WplHnHAXkzTSE6X1w==
-X-Received: by 2002:a05:701b:4508:20b0:13e:5a51:148c with SMTP id a92af1059eb24-144f9002ab3mr1914745c88.0.1790130319575;
-        Tue, 22 Sep 2026 19:25:19 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.98])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f983c5a1sm2972435c88.7.2026.09.22.19.25.15
+        bh=YgscQk7Ar8r9xNVFdDi2QgmLohb1qk8AI+LPa8A9QYM=;
+        b=GMldEkDWf9w+xPOQZV/0Hlcnisl731zG2wyldpgo5thuJZDZFH9oa8cyghTxf5ZgWf
+         m2EG3o/5cF6+VDjw1Ms3jUSrT8NkVr2nw2+Yj3lttoMsZJ4xAEVNX9uOP6UUdziM8jnH
+         ca6c9Efizp1SUcUF5WQAjIr9cveDrUEqtdAk9hLqYDTg8im7Qb5hrJ8uNTmbxUFKH9Vk
+         7WD8a45GhoF24w0vCjr514xmdNEa5drC8Xh1V6dgMLkl0PVTQvPtIAy17S4u84vLcqlT
+         BDt5TMJK2kOQ50s5KLAPFyQYiuW+d81tR/19si51FrI9WU57sXDO2GKMSeHzatjIGGdg
+         FiVg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/daNl11RP+szJ28ngvWdTtHw4HDR1CJf+7JjCsYnxmsSPhVprh4OdBlLjs3v2q/XbGak6kCoSXOlI47w=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5z35skLtogq+xNM4KXo7Vy7XSTffu4z7MrHucYM96qZDJHFr7
+	UH2falRaAe0U6sPW1PySXfySjnHhIClcUIm0MQ8QOy8lW0TP43unZ6rS
+X-Gm-Gg: AYBFou2eNHN/SoleQjmQoqlsGhr8T6e3OjQAg7iQFER6nWHQhDbnfS68CpJnhYHSKXl
+	JDh5vit8uwwZaVS0idykodkU1KEaRYOpbTQpedPLzmjwJEhjdSiQGo/nByy0ForrPrYfZa5GsHd
+	74tO1TpEsfEJn2fVFbbdFZB/0r8Jx/cfht5Lhs+RLURaZoKDKkl2zwPRPIuAcISkwcX3PUOSfy5
+	baPzTP8JyjSDiA1S//B9JaP3y9tNuEhlvxBibVhwCTwz+S1BBYVX9T3Peojyr57Sjy5W5RqYZp6
+	O+tVtGr0qXtJXF4nmX/DYUiJ6t9NFfwhZla76SzJthyoM+hEHzqwZWjuClHSXOMwZshK7XCfkTP
+	jq3NmMgTZISoK/7oxWEBg6m6HUGkAXWTKZw45RdyRXzq7TGzB4yRz1OW2hpQrCbOt7Vz4I82QDv
+	h9iUGccrBhhf2zaWLCS0e0lW3rgKomclo3XniYDJIGkxBPtK6/i9JG94FUNp7B7dgl9MUafI6HS
+	1Fc9eHsMxTjLeWaMYhYM9ILbdg4FA6Gjyyhcy4RyWwWU51jgpdNG2zYsrxyLIh3
+X-Received: by 2002:a05:6a21:730b:b0:3dd:a195:fa16 with SMTP id adf61e73a8af0-3ddf82fd6d6mr1278376637.59.1790130339718;
+        Tue, 22 Sep 2026 19:25:39 -0700 (PDT)
+Received: from k1832-XPC7A-R57-GD.tailc99621.ts.net ([2407:c800:5a41:af7:fd99:3ec2:4e58:1374])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc75f40839csm309403a12.30.2026.09.22.19.25.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 19:25:19 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Lukas Wunner <lukas@wunner.de>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Mario Limonciello <Mario.Limonciello@amd.com>,
-	linux-pci@vger.kernel.org,
-	linux-pm@vger.kernel.org,
+        Tue, 22 Sep 2026 19:25:39 -0700 (PDT)
+From: Keita Morisaki <kmta1236@gmail.com>
+To: Austin Zheng <austin.zheng@amd.com>,
+	Jun Lei <jun.lei@amd.com>,
+	Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Navon John Lukose <navonjohnlukose@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] PCI/PM: Skip the suspend_noirq config save if runtime-suspended
-Date: Wed, 23 Sep 2026 07:55:11 +0530
-Message-ID: <20260923022511.24932-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Keita Morisaki <kmta1236@gmail.com>
+Subject: [PATCH] drm/amd/display: Fix swap in median3() for DSC rate control
+Date: Wed, 23 Sep 2026 11:24:51 +0900
+Message-ID: <20260923022451.3346675-1-kmta1236@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,71 +83,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pci_pm_suspend_noirq() saves config space unconditionally when the driver
-of the device has no PM callbacks, which includes unbound devices.  If
-such a device is runtime-suspended, the bridge above it may be in a
-low-power state with the link down.  Depending on the platform, the
-config reads then either hang the CPU or return all ones, which overwrite
-the snapshot taken at runtime suspend and are written back to the device
-on resume.
+median3() is meant to return the median of three values, but its last
+compare-and-swap step swaps b and c instead of a and b. When c is
+smaller than both a and b, it returns max(a, b) instead of min(a, b).
+For example, median3(2, 3, 1) returns 3 instead of 2.
 
-Skip the save if the device is runtime-suspended, as pci_pm_freeze()
-does, since pci_pm_runtime_suspend() has already saved the config space.
-Use pm_runtime_status_suspended(), because runtime PM is disabled by the
-noirq phase and pm_runtime_suspended() would always be false.
+_do_calc_rc_params() always passes 0 as the first argument, and the
+second argument is never below 12. So whenever the third argument is
+negative, first_line_bpg_offset (and second_line_bpg_offset for 4:2:0)
+is set to the second argument instead of 0.
 
-Fixes: 931ff68a5a53 ("PCI PM: Restore config spaces of all devices during early resume")
-Cc: stable@vger.kernel.org # v6.19+
-Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
+Fix this by swapping a and b in the last step, as intended.
+
+Note that this change does not affect valid DSC configurations. The
+third argument is negative only when bits per pixel exceeds the
+uncompressed rate of the colour format:
+
+ - 3 * bpc for 4:4:4, 3 * bpc + 2 for RGB
+
+ - 2 * bpc for 4:2:2
+
+ - 1.5 * bpc for 4:2:0
+
+Fixes: 97bda0322b8a ("drm/amd/display: Add DSC support for Navi (v2)")
+Signed-off-by: Keita Morisaki <kmta1236@gmail.com>
 ---
-Found on a Lenovo Yoga 83KF (Arrow Lake-H).  A driverless O2 Micro SD
-reader at 57:00.0 with power/control=auto lets its root port 00:1c.0
-runtime-suspend to D3hot.  The port then swallows the ECAM reads in
-pci_save_state(), and the forward-progress watchdog raises a fatal machine
-check at the ECAM load in pci_mmcfg_read().
+ drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The same port returns all ones for CF8/CFC reads.  A local quirk hid the
-reader's extended config space so the save did only those reads, and it
-was tried once on each kernel.  The unpatched kernel still died, and the
-patched one resumed with no "restore config" writes for the reader.
-
-!pci_dev->state_saved would only work for one cycle per boot, because
-pci_restore_state() clears it and pci_pm_runtime_suspend() does not run
-again for a device left in RPM_SUSPENDED.
-
-Stable starts at v6.19 because the fix relies on a2f1e22390ac2 ("PCI/ERR:
-Ensure error recoverability at all times").  Older trees still return
-early from pci_restore_state() when state_saved is false, so a backport
-there also needs "pci_dev->state_saved = true;" on the skip path.
-
-Tested on 7.2.5 with the root port in D3hot, three suspend/resume cycles
-in one boot.  The unpatched kernel dies on the first.  W=1 and sparse
-clean.
-
- drivers/pci/pci-driver.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-index e16aa59dd..bdc8bad57 100644
---- a/drivers/pci/pci-driver.c
-+++ b/drivers/pci/pci-driver.c
-@@ -915,7 +915,15 @@ static int pci_pm_suspend_noirq(struct device *dev)
- 		return pci_legacy_suspend_late(dev);
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+index b8fc27a5361e..657173d8081c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dsc/rc_calc_fpu.c
+@@ -46,7 +46,7 @@ static int median3(int a, int b, int c)
+ 	if (b > c)
+ 		swap(b, c);
+ 	if (a > b)
+-		swap(b, c);
++		swap(a, b);
  
- 	if (!pm) {
--		pci_save_state(pci_dev);
-+		/*
-+		 * The bridge above a runtime-suspended device may be in a
-+		 * low-power state with the link down, which makes the device's
-+		 * config space inaccessible.  pci_pm_runtime_suspend() has
-+		 * saved it already.
-+		 */
-+		if (!pm_runtime_status_suspended(dev))
-+			pci_save_state(pci_dev);
-+
- 		goto set_unknown;
- 	}
- 
+ 	return b;
+ }
+
+base-commit: 93f51579e7df248780214094418f205253383cc5
 -- 
-2.55.0
+2.43.0
 
