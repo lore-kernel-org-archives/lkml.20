@@ -1,177 +1,240 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B5E89340A6F;
-	Wed, 23 Sep 2026 01:25:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4393382CB
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 01:27:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790126730; cv=none; b=NzR6Tt2Lpn1vIL/hEcyaAmRV3i9rhYB8wR55Mh571TiE5TBQSkF5sKCw50tHxuDBAU2rNPlpj7eUKRb9EMaA9Ej2uC4ZxopMAsHkcxU9QIPpI9aQi3xfJIPxgLZFo7rRLGeMMT5+uswuAq3/shV5ltaG/8ioBA1gemSSHIrgZTw=
+	t=1790126851; cv=none; b=YDa4Tp8TDU7oiEm+PpIiHFQakatrkip3OJgR8ZRDkHl+ER55li+7f6BkfdT2wxB0ABscTx9eS+vfkMi1pUMdGJU0bf1+QqTfKz9l9tk273I/XofbsL+TK0+fsttbB4KICULZeOnLJcnQql3IkaFnKuBxhTG29sgV/rKnQBGkbM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790126730; c=relaxed/simple;
-	bh=k8rHS55MgpgmLFzdDArshj1+YZnAVCY3dlNP48hX514=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=nKZ1G2M9sX2Ji+R9UD63sW+KV4T2vIc9uYPyQaB2mFmqH8No84GGKVF1xjPjuWYQ5cJW3PpTVodNEmSJ9j24TWM7l5kQfUNQc/ZaIh+DCDle6p2tvBS8tOvJwGJo0P6kDoykxyqdvPb6BbmkljzRP9LcEhYBmoZRz420gE61YWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.2.5.213])
-	by gateway (Coremail) with SMTP id _____8DxjdKGKrNqU9wOAA--.43329S3;
-	Wed, 23 Sep 2026 09:25:26 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.2.5.213])
-	by front1 (Coremail) with SMTP id qMiowJBx6c2EKrNqyQIkAA--.45699S3;
-	Wed, 23 Sep 2026 09:25:25 +0800 (CST)
-From: Bibo Mao <maobibo@loongson.cn>
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: WANG Xuerui <kernel@xen0n.name>,
-	kvm@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH v2 1/2] LoongArch: KVM: Remove parameter line when inject MSI
-Date: Wed, 23 Sep 2026 09:18:02 +0800
-Message-Id: <20260923011803.1057945-2-maobibo@loongson.cn>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20260923011803.1057945-1-maobibo@loongson.cn>
-References: <20260923011803.1057945-1-maobibo@loongson.cn>
+	s=arc-20240116; t=1790126851; c=relaxed/simple;
+	bh=MWZEeEEHXxP0UMNeEEcffTntxJwcZE16u9STmxmylgs=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=Q7pc7idaz90BksMyV6OMtv7I/cGngk72JkfDMMmheNnqo5MjYV2DSytco54eZHWRdxb4z3UK2z5dPimJ9rKZKC6Gaq2oaaD3m9SlSgU3y5FE+BhxyMVkOmKTknR0S/CmLHyMTIl75Mu2z1OiuV+T2+Trr09fEab0Vz0yEt6VIGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZBbc9Cy/; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZBbc9Cy/"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-8716a5baf64so6603587b3.3
+        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 18:27:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790126848; x=1790731648; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lWen8M3Dy9y4fMx+Bf5KiQ+THttX5a/EDRsfysX8uYE=;
+        b=ZBbc9Cy/EYasTbBOc4eTC8ZPohEoDvIRmxx+1fOsWfRxpMXWytFzO6Vu/MxEeWkan4
+         d8aA3CZpTnw5bzhuKkRvgzlu1X4QC5T2MWCLiP2Y1WiiVIu6oykqAYodsLhB3NklCyey
+         pqKD2ISqRexRkV+vdm1c0V5Uw2YJ0bfOjC2bbvdS4ZjXoUbycMEtZx3gLyYNd4FEi5Le
+         n6wGc7ec3ToAUEuFQMcDRyowZqROeAqjbo+jVT4W4SMirNm9Cu6br67gThtYP1LVJjPZ
+         Pn7GSRxjX0UN5hgFP5wbVUjwXgzSL/3RHjBbBG+aapx07xB/5WvjokxdInk+0MY7XOv+
+         2Psw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790126848; x=1790731648;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lWen8M3Dy9y4fMx+Bf5KiQ+THttX5a/EDRsfysX8uYE=;
+        b=hyRlVXq+4JkLPrt2rwNpGzMAji+rCgfAmVp/qGF3ZLVxTNmvBYsvsfixX0DaM/Gft9
+         PtyOHEXq2EytOA9KLyv3UlyYG9GL2RXAYusvL6+ByvAnuEnKtTA/+IFnDBZ55RQgjgBJ
+         h+vIVMkF7q0zhp7G9KtILORsnboI9Ba71Rb3Ks052gQcT21qh7d+X3lwsZOhuHpGUzAi
+         cgqyNlw5FTrT5lesLwXYTdqO4kVs06iTXrvD+wC7CoiMpP2JVJ5R8nmzCq8Y2JSuXUNa
+         +4kYz/MeULdKmPGvSWUuP6LAIxn2UUGvH9mtpdWxCHtRytGMwy6tksjq4rvkO62RqoH/
+         6Oww==
+X-Forwarded-Encrypted: i=1; AKwUvByksLXN85O2jesYyGtAOBYV0A0VXF2anRwFpZlNVrvwCB7X0SvTSi5okL2oTKJPYw+trXq0ieY5Q8dpkHw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lRXYPeXBuJrr11rKTBFo4P0zLhYIvzWN32JhnSN5bf6qszMxLe
+	mVNuGNQNiWjM7vXBA+2jbLcBNcR/MD+9X7r36eh6xGEkMVjgO5cRL5W2
+X-Gm-Gg: AYBFou1cRvB/gG9c/zGCceHxd33yHHcz1TTtFEmkdKuHfkwpTiHHF8aZxew6/gcnqKY
+	CL9j2EKajZgAmEGPo27zU6YPxROfnR/dUvrEXCnuVntmPlCc/8bBmBTALyuDS4lB/V4VNbNYokF
+	o5BKShqW+I18rW6QKLPeF4/yCt4cPz6N7qToSxj4Dqr1fO4PKT/RDfUreBwCakf9TgOFu2KTq8b
+	7z4n1HHldOM5pwtSOcAOcoMq79h6v6Cla//8HHc64Ocw4tyOEzTe2yBpaEM+IOlLZ7o2aQLyJ6Q
+	2U+hfN2kAG1Jo84uBYXKT5L2ZvEedAZ60Zu5+UC0dFGV7byKbsOohcTa1K4AAzemCoLVoFqVshX
+	6tJoliLm7kTujbFEHlQhPugbklmzkvQEtwqXEyI3t4YQBGwxfA/XjLkhbN98uf2nxUDyfIcQQLF
+	ErWcOj6PlUCiViiRbjZQHenyfnWSmKmVeU1qFBJCSAIy35dW/WIVKr68RhM+N3PI9Mqcv+MgTPS
+	jHvPmng1PSbQqolM1E8+scG61oKyihwTztRs7gP0N9u0zA+OXir
+X-Received: by 2002:a05:690c:a703:b0:87c:32da:de03 with SMTP id 00721157ae682-8a45bb75aeemr4672467b3.69.1790126848128;
+        Tue, 22 Sep 2026 18:27:28 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8a465dc9ebcsm4427937b3.20.2026.09.22.18.27.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 22 Sep 2026 18:27:27 -0700 (PDT)
+Date: Tue, 22 Sep 2026 21:27:26 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Paulos Yibelo <habte.yibelo@gmail.com>, 
+ netdev@vger.kernel.org
+Cc: richard@nod.at, 
+ anton.ivanov@cambridgegreys.com, 
+ johannes@sipsolutions.net, 
+ willemdebruijn.kernel@gmail.com, 
+ jasowangio@gmail.com, 
+ mst@redhat.com, 
+ eperezma@redhat.com, 
+ xuanzhuo@linux.alibaba.com, 
+ andrew+netdev@lunn.ch, 
+ pablo@netfilter.org, 
+ fw@strlen.de, 
+ phil@nwl.cc, 
+ razor@blackwall.org, 
+ idosch@nvidia.com, 
+ dsahern@kernel.org, 
+ davem@davemloft.net, 
+ edumazet@google.com, 
+ kuba@kernel.org, 
+ pabeni@redhat.com, 
+ horms@kernel.org, 
+ linux-um@lists.infradead.org, 
+ virtualization@lists.linux.dev, 
+ netfilter-devel@vger.kernel.org, 
+ coreteam@netfilter.org, 
+ bridge@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.2cdfef118aa1d@gmail.com>
+In-Reply-To: <willemdebruijn.kernel.259bc7096258d@gmail.com>
+References: <20260922030310.8684-1-habte.yibelo@gmail.com>
+ <20260922030310.8684-2-habte.yibelo@gmail.com>
+ <willemdebruijn.kernel.259bc7096258d@gmail.com>
+Subject: Re: [PATCH net v6 1/2] net: validate virtio checksum start after
+ network header
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJBx6c2EKrNqyQIkAA--.45699S3
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
-	ZEXasCq-sGcSsGvfJ3UbIjqfuFe4nvWSU5nxnvy29KBjDU0xBIdaVrnUUvcSsGvfC2Kfnx
-	nUUI43ZEXa7xR_UUUUUUUUU==
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-With MSI interrupt, there is intterupt set injection, no interrupt
-clear action. DMSI interrupt controller is specially for MSI irqchip.
-And there is checking with parameter level in most upper function
-kvm_set_msi() and kvm_arch_set_irq_inatomic() already, here remove
-duplicated line parameter checking in MSI injection leaf functions.
+Willem de Bruijn wrote:
+> Paulos Yibelo wrote:
+> > __virtio_net_hdr_to_skb() checks a minimum network-header length for
+> > CHECKSUM_PARTIAL packets. Its checksum start is relative to skb->data,
+> > but some callers have not established skb->network_header when they
+> > convert the virtio header.
+> > 
+> > Pass the data-relative L3 origin explicitly. Ethernet receive paths
+> > parse the frame and nested VLAN headers without changing skb state.
+> > AF_PACKET uses the frame's actual L3 origin even when the socket
+> > protocol is ETH_P_IP and the raw frame carries VLAN tags. Non-Ethernet
+> > AF_PACKET devices retain their established skb network offset.
+> > 
+> > Also pass the actual L3 protocol so IPv6 packets use the 40-byte base
+> > header minimum even without TCPv6 GSO. IFF_TUN obtains that protocol
+> > from the packet before skb->protocol is set. Name the Ethernet parser
+> > accordingly, use the same origin for tunnel validation, and propagate
+> > conversion failures in UML.
+> > 
+> > The bound remains a minimum; fragmentation paths separately validate
+> > the parsed IPv4 or IPv6 header length before completing a checksum.
+> > 
+> > Fixes: 49d14b54a527 ("net: test for not too small csum_start in virtio_net_hdr_to_skb()")
+> > Fixes: a2fb4bc4e2a6 ("net: implement virtio helpers to handle UDP GSO tunneling.")
+> > Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> > Link: https://lore.kernel.org/netdev/20260920004733.6473-2-habte.yibelo@gmail.com/
+> > Cc: stable@vger.kernel.org
+> > Assisted-by: LLM
+> > Signed-off-by: Paulos Yibelo <habte.yibelo@gmail.com>
+> > ---
+> >  arch/um/drivers/vector_transports.c | 13 ++++-
+> >  drivers/net/tun_vnet.h              | 52 ++++++++++++++++-
+> >  drivers/net/virtio_net.c            | 10 +++-
+> >  include/linux/virtio_net.h          | 87 ++++++++++++++++++++++++-----
+> >  net/packet/af_packet.c              | 24 +++++++-
+> >  5 files changed, 163 insertions(+), 23 deletions(-)
+> 
+> The fix may still miss the case IPv4 packets have options.
+> 
+> This version is a very large patch.
+> 
+> Untested shorter first suggestion by bot, which looks plausible as a
+> starting point for discussion.
 
-Signed-off-by: Bibo Mao <maobibo@loongson.cn>
-Reviewed-by: Tao Cui <cuitao@kylinos.cn>
----
- arch/loongarch/include/asm/kvm_dmsintc.h | 3 +--
- arch/loongarch/include/asm/kvm_pch_pic.h | 2 +-
- arch/loongarch/kvm/intc/dmsintc.c        | 9 +++------
- arch/loongarch/kvm/intc/pch_pic.c        | 6 +++---
- arch/loongarch/kvm/irqfd.c               | 4 ++--
- 5 files changed, 10 insertions(+), 14 deletions(-)
+Cleaned up some more:
 
-diff --git a/arch/loongarch/include/asm/kvm_dmsintc.h b/arch/loongarch/include/asm/kvm_dmsintc.h
-index 7c0158764d84..e19b3f5b3c52 100644
---- a/arch/loongarch/include/asm/kvm_dmsintc.h
-+++ b/arch/loongarch/include/asm/kvm_dmsintc.h
-@@ -22,7 +22,6 @@ struct dmsintc_state {
- int kvm_loongarch_register_dmsintc_device(void);
- void kvm_loongarch_unregister_dmsintc_device(void);
- void dmsintc_inject_irq(struct kvm_vcpu *vcpu);
--int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level);
--int dmsintc_deliver_msi_to_vcpu(struct kvm *kvm, struct kvm_vcpu *vcpu, u32 vector, int level);
-+int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data);
- 
- #endif
-diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongarch/include/asm/kvm_pch_pic.h
-index 887b0431fd20..19ed1494c114 100644
---- a/arch/loongarch/include/asm/kvm_pch_pic.h
-+++ b/arch/loongarch/include/asm/kvm_pch_pic.h
-@@ -72,6 +72,6 @@ struct kvm_kernel_irq_routing_entry;
- int kvm_loongarch_register_pch_pic_device(void);
- void kvm_loongarch_unregister_pch_pic_device(void);
- void pch_pic_set_irq(struct loongarch_pch_pic *s, int irq, int level);
--int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int level);
-+int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e);
- 
- #endif /* __ASM_KVM_PCH_PIC_H */
-diff --git a/arch/loongarch/kvm/intc/dmsintc.c b/arch/loongarch/kvm/intc/dmsintc.c
-index 89f980d867be..79e56e330aeb 100644
---- a/arch/loongarch/kvm/intc/dmsintc.c
-+++ b/arch/loongarch/kvm/intc/dmsintc.c
-@@ -43,13 +43,10 @@ void dmsintc_inject_irq(struct kvm_vcpu *vcpu)
- 	}
- }
- 
--int dmsintc_deliver_msi_to_vcpu(struct kvm *kvm,
--				struct kvm_vcpu *vcpu, u32 vector, int level)
-+static int dmsintc_deliver_msi_to_vcpu(struct kvm_vcpu *vcpu, u32 vector)
- {
- 	struct dmsintc_state *ds = &vcpu->arch.dmsintc_state;
- 
--	if (!level)
--		return 0;
- 	if (!vcpu || vector >= 256)
- 		return -EINVAL;
- 	if (!ds)
-@@ -65,7 +62,7 @@ int dmsintc_deliver_msi_to_vcpu(struct kvm *kvm,
- 	return 0;
- }
- 
--int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level)
-+int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data)
- {
- 	unsigned int irq, cpu;
- 	struct kvm_vcpu *vcpu;
-@@ -78,7 +75,7 @@ int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level)
- 	if (!vcpu)
- 		return -EINVAL;
- 
--	return dmsintc_deliver_msi_to_vcpu(kvm, vcpu, irq, level);
-+	return dmsintc_deliver_msi_to_vcpu(vcpu, irq);
- }
- 
- static int kvm_dmsintc_ctrl_access(struct kvm_device *dev,
-diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-index 2b63b0c2c7ce..220fc23ffe8c 100644
---- a/arch/loongarch/kvm/intc/pch_pic.c
-+++ b/arch/loongarch/kvm/intc/pch_pic.c
-@@ -68,20 +68,20 @@ void pch_pic_set_irq(struct loongarch_pch_pic *s, int irq, int level)
- }
- 
- /* msi irq handler */
--int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int level)
-+int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e)
- {
- 	u64 msg_addr = (((u64)e->msi.address_hi) << 32) | e->msi.address_lo;
- 
- 	if (cpu_has_msgint && kvm->arch.dmsintc &&
- 		msg_addr >= kvm->arch.dmsintc->msg_addr_base &&
- 		msg_addr < (kvm->arch.dmsintc->msg_addr_base + kvm->arch.dmsintc->msg_addr_size)) {
--		return dmsintc_set_irq(kvm, msg_addr, e->msi.data, level);
-+		return dmsintc_set_irq(kvm, msg_addr, e->msi.data);
- 	}
- 
- 	if (e->msi.data >= EIOINTC_IRQS)
- 		return -EINVAL;
- 
--	eiointc_set_irq(kvm->arch.eiointc, e->msi.data, level);
-+	eiointc_set_irq(kvm->arch.eiointc, e->msi.data, 1);
- 
- 	return 0;
- }
-diff --git a/arch/loongarch/kvm/irqfd.c b/arch/loongarch/kvm/irqfd.c
-index 40ed1081c4b6..2e9c32023752 100644
---- a/arch/loongarch/kvm/irqfd.c
-+++ b/arch/loongarch/kvm/irqfd.c
-@@ -29,7 +29,7 @@ int kvm_set_msi(struct kvm_kernel_irq_routing_entry *e,
- 	if (!level)
- 		return -1;
- 
--	return pch_msi_set_irq(kvm, e, level);
-+	return pch_msi_set_irq(kvm, e);
- }
- 
- /*
-@@ -78,7 +78,7 @@ int kvm_arch_set_irq_inatomic(struct kvm_kernel_irq_routing_entry *e,
- 		pch_pic_set_irq(kvm->arch.pch_pic, e->irqchip.pin, level);
- 		return 0;
- 	case KVM_IRQ_ROUTING_MSI:
--		return pch_msi_set_irq(kvm, e, level);
-+		return pch_msi_set_irq(kvm, e);
- 	default:
- 		return -EWOULDBLOCK;
- 	}
--- 
-2.39.3
+    diff --git a/drivers/net/tun_vnet.h b/drivers/net/tun_vnet.h
+    index f4c652b1fa44..c24607af2aad 100644
+    --- a/drivers/net/tun_vnet.h
+    +++ b/drivers/net/tun_vnet.h
+    @@ -180,6 +180,9 @@ static inline int tun_vnet_hdr_put(int sz, struct iov_iter *iter,
+     static inline int tun_vnet_hdr_to_skb(unsigned int flags, struct sk_buff *skb,
+                           const struct virtio_net_hdr *hdr)
+     {
+    +    if ((flags & TUN_TYPE_MASK) == IFF_TUN)
+    +        skb_reset_network_header(skb);
+    +
+         return virtio_net_hdr_to_skb(skb, hdr, tun_vnet_is_little_endian(flags));
+     }
+     
+    @@ -199,6 +202,9 @@ tun_vnet_hdr_tnl_to_skb(unsigned int flags, netdev_features_t features,
+                 struct sk_buff *skb,
+                 const struct virtio_net_hdr_v1_hash_tunnel *hdr)
+     {
+    +    if ((flags & TUN_TYPE_MASK) == IFF_TUN)
+    +        skb_reset_network_header(skb);
+    +
 
+    diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+    index c381b916c1b5..02c448de0802 100644
+    --- a/include/linux/virtio_net.h
+    +++ b/include/linux/virtio_net.h
+    @@ -48,6 +48,42 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
+         return 0;
+     }
+     
+    +static inline int virtio_net_hdr_nh_min_len(const struct sk_buff *skb,
+    +                        unsigned int nh_min_len)
+    +{
+    +    int thoff = skb_transport_offset(skb);
+    +    __be16 proto;
+    +    int nhoff;
+    +
+    +    if (skb_network_header_was_set(skb)) {
+    +        nhoff = skb_network_offset(skb);
+    +        proto = skb->protocol;
+    +    } else {
+    +        if (unlikely(thoff < ETH_HLEN))
+    +            return -EINVAL;
+    +        nhoff = ETH_HLEN;
+    +        proto = eth_hdr(skb)->h_proto;
+    +    }
+    +
+    +    if (eth_type_vlan(proto)) {
+    +        proto = __vlan_get_protocol(skb, proto, &nhoff);
+    +        if (!proto)
+    +            return -EINVAL;
+    +    }
+    +
+    +    if (proto == htons(ETH_P_IP)) {
+    +        const struct iphdr *iph = (void *)(skb->data + nhoff);
+    +
+    +        if (unlikely(thoff < nhoff + sizeof(*iph)))
+    +            return -EINVAL;
+    +        nh_min_len = max_t(u32, iph->ihl * 4, sizeof(*iph));
+    +    } else if (proto == htons(ETH_P_IPV6)) {
+    +        nh_min_len = sizeof(struct ipv6hdr);
+    +    }
+    +
+    +    return nhoff + nh_min_len;
+    +}
+    +
+     static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+                           const struct virtio_net_hdr *hdr,
+                           bool little_endian, u8 hdr_gso_type)
+    @@ -98,13 +134,15 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+             u32 start = __virtio16_to_cpu(little_endian, hdr->csum_start);
+             u32 off = __virtio16_to_cpu(little_endian, hdr->csum_offset);
+             u32 needed = start + max_t(u32, thlen, off + sizeof(__sum16));
+    +        int min_thoff;
+     
+             if (!pskb_may_pull(skb, needed))
+                 return -EINVAL;
+     
+             if (!skb_partial_csum_set(skb, start, off))
+                 return -EINVAL;
+    -        if (skb_transport_offset(skb) < nh_min_len)
+    +        min_thoff = virtio_net_hdr_nh_min_len(skb, nh_min_len);
+    +        if (min_thoff < 0 || skb_transport_offset(skb) < min_thoff)
+                 return -EINVAL;
