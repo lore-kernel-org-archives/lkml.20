@@ -1,354 +1,124 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl2-f12.google.com (mail-dl2-f12.google.com [74.125.229.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5014E42E8DC;
-	Wed, 23 Sep 2026 13:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E561E4D1789
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790168749; cv=none; b=msbacH82Z5x8xcJ/vxQQ7IVTqZ1HNP3ui3a+8WeGWnLw4L6JXWUMbtJE++VW5oRorBhVfrHlOrS5H1SmJFPWQDvl7vF3AGBYhEKchPJ4CfmT+I99I0L+xB30CMfdKapM8RMBDEp8qmXUDkTQ2gJ9kUYd7yNJ8lbzRb7ctGIOkVk=
+	t=1790168776; cv=none; b=VKMq3Eo3nUFg2XYR71z1c4PcdimNXE7TQzCALOZcoOdt2nb0WOpyLWfgBUg9hSGDNoxyOJZfm1OasxFHxNMjQxyR+nOUVZWYmYIiXhaHApR9spCgSv5JYafmSFVasys87qUxuG72qgDTUUsX54qDR8HPqKuOtJa/3hlqAMLqwWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790168749; c=relaxed/simple;
-	bh=RRfY/Iwl/obvcbcWFcavWUJBAhcJwGlASOtrRxi78mQ=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=tCkGYOcXNdcjUGKLxbSgd0ScmbDaiDg8Ldt0P8OnPkBB4MUTCilT3NpJnLitz9TdZKcGYZ8zR7gnLlWA31Bog3A6Ut2OeWDL4KlAHmFDoO1MJm9macZKNznjT6hc5SWWUeVWWJzn+9P/MfCRgXdeoqBs7L+SQmWy7zktWUEJ4Yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hqcf13vn0z5B12g;
-	Wed, 23 Sep 2026 21:05:45 +0800 (CST)
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl1.zte.com.cn with SMTP id 68ND5dPP043108;
-	Wed, 23 Sep 2026 21:05:39 +0800 (+08)
-	(envelope-from wang.yaxin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Wed, 23 Sep 2026 21:05:42 +0800 (CST)
-X-Zmail-TransId: 2afc6ab3cea63cf-e12df
-X-Mailer: Zmail v1.0
-Message-ID: <20260923210542517bP5gb_zEY1jsriLQHagUT@zte.com.cn>
-In-Reply-To: <20260923210149015t-X8AvGrXfHE4PDn9gZOM@zte.com.cn>
-References: 20260923210149015t-X8AvGrXfHE4PDn9gZOM@zte.com.cn
-Date: Wed, 23 Sep 2026 21:05:42 +0800 (CST)
+	s=arc-20240116; t=1790168776; c=relaxed/simple;
+	bh=ih23spaVgrDHOFSey9aqnpQ7LFap1dWio/xJjG+h0zE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=L8ZowKXtLOuMFFERxvY7dG6IeItPutozM0WvQcf7RCdnvkSq96kF3mh7Gk8e1d4sfqfK6p9f6QEwPgiXcu+kwZ36dIAUsR6zVb2PyaSxxIeBjIO2IQ3SVYthhbxe+V9eKVhPuk4y9rXESpGYSSyoB93YpDpCSuv+nzeFYHsFWco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=QM9H8Zrv; arc=none smtp.client-ip=74.125.229.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="QM9H8Zrv"
+Received: by mail-dl2-f12.google.com with SMTP id a92af1059eb24-142dce6e235so660266c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 06:06:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1790168774; x=1790773574; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ih23spaVgrDHOFSey9aqnpQ7LFap1dWio/xJjG+h0zE=;
+        b=QM9H8Zrv8Qmtd8Cu2xViSORcsFrwLAZf52EqWpWEtiHi8IegetYozpX7YhBWxshiK+
+         0eePIPj8nFGp6fC0i75hE012I0FgQNa0KlOJQg1v1B0Lws2vu3AN5GEWRB+K195I33qz
+         rZYIMavFkLl5Yir/QCKXtDmlsV54UurB/VWu5BBfQOB8Mo159L60rNy8Ual6/V65aKzV
+         8fkm97uBbww1JBl6qLUOmGSyiWsMPsLk+vLPG0zBoLldzAELihvhnI690O3s9sa/9KkU
+         pXeeIE5pC4zejHf1ozeCT0tivhA8Eb+AbtjbanonYyXV5kdavqPndSGgbtn71gLrg/iD
+         vfTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790168774; x=1790773574;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ih23spaVgrDHOFSey9aqnpQ7LFap1dWio/xJjG+h0zE=;
+        b=b5vg7HMhC9agGHN/8GJRm1J3NtgYTm1d7cF1ptIPwvPces7f9KhfpeQaOu0DVSCxwG
+         TIaeS6xOR+dET5tv+DW4axgllw1WY9WvguQZW57gl3XXUQKkScicuskC7CJXVGDRBlqO
+         0cZQnMu6yRSjPEMRQWaG0WrU/n22aI3ULi/8reDcnKijuztUHM/pn9UgpWjbntWucOL/
+         yBlJYKLbnFPGJNIVWCzsQX15+Bt66WuwtjeiH64OoQ3Vgeui+YWOOaFOEUXZyHlFnrZI
+         tmM/hLVWGnkb5CImMUWzd66Lo8+kXBdBQDFecciCfeCQXDoiP83/5oK/CEs+amkUiKTC
+         k2xQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzu6PNA1fZ/Q/PvbrOW5TdFXk/K1heGlCyubH6ImUR2jfYSgyxiXun9oyHXPNbsrs6MqXafehuYQOnquWg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n8Q0FYi/gtVStlIGmJyBj2QhAQA5Baf02jD6fFPJ/IUwStizu9
+	M+pWRhaf6BCVWt2Q0f0It1YTLVU2ML6ksCCHAxFZ4tODUFKzaEL64HaGuaXzT/ZbRfI=
+X-Gm-Gg: AYBFou0wTkPpGYoJcKCbthPigMjMabkf1Q51c6+zfI7utP1xMrgjUEXjp0OiuqHPs1M
+	urFCeXA61rEng5aJ2yNTKbAoRZI33bXrrTSglqzoDyI6n/DweXZqCLelC8Vu7MTQZ/Tiy7qySD0
+	ZCQxnQekNES6Fi9bMoMK5l1CgyXNw9bf07zN/zRqMfKHod2gsZvFMqJjVkupK9jzNEkm1GiqErf
+	pQbRkyILM8ZJa8ctn8YUPp6XZs9bGjGXb0lXd8/mo5DYjBWls6wAtHS8JWCrB9FSfSFb5yw8FAO
+	C1NdeAeEakd1OXRB19Go+ApGXNMnw5aFjzk5sitD+qjSM3/naotefNZy9Po+mJHS4qs15AhEF+s
+	kmb4Kh/vE7q+UvVYX5ZSfzj7GjHeezSM3DAiQtJy8owPFvNn1zB744al2TxGR4dJdFHkKtef96i
+	2HcWkKZoBoumwQldtdLMD+Oa2RTs+SitAAXfnTIiSPEWwa
+X-Received: by 2002:a05:7022:1402:b0:143:2719:566c with SMTP id a92af1059eb24-144f9198b49mr2872815c88.40.1790168773123;
+        Wed, 23 Sep 2026 06:06:13 -0700 (PDT)
+Received: from ziepe.ca ([130.41.10.202])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144f98a288esm10833873c88.13.2026.09.23.06.06.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 06:06:12 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x9Mfr-0000000DZ6d-2NEP;
+	Wed, 23 Sep 2026 10:06:11 -0300
+Date: Wed, 23 Sep 2026 10:06:11 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev, Andrew Morton <akpm@linux-foundation.org>,
+	christian.koenig@amd.com, Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-media@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [RFC PATCH v7 02/13] mm: Add an allocator for CoCo shared memory
+Message-ID: <20260923130611.GF1540250@ziepe.ca>
+References: <20260921144847.501151-1-aneesh.kumar@kernel.org>
+ <20260921144847.501151-3-aneesh.kumar@kernel.org>
+ <arKsFofudnTYpXj1@arm.com>
+ <yq5aik3w344o.fsf@kernel.org>
+ <arOfD6syXOgQhZYA@arm.com>
+ <yq5a5wzw2ree.fsf@kernel.org>
+ <arOspFxWZ1DjgcAr@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <wang.yaxin@zte.com.cn>
-To: <wang.yaxin@zte.com.cn>
-Cc: <akpm@linux-foundation.org>, <fan.yu9@zte.com.cn>,
-        <yang.yang29@zte.com.cn>, <thomas.weissschuh@linutronix.de>,
-        <corbet@lwn.net>, <linux-kernel@vger.kernel.org>,
-        <linux-doc@vger.kernel.org>, <xu.xin16@zte.com.cn>
-Subject: =?UTF-8?B?W1BBVENIIDMvMyB2NV0gZGVsYXl0b3A6IHNvcnQgYnkgbWF4IGRlbGF5IHRvIGhpZ2hsaWdodCB0b3AgbGF0ZW5jeSBwcm9jZXNzZXM=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 68ND5dPP043108
-X-TLS: YES
-X-ENVELOPE-SENDER: wang.yaxin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Wed, 23 Sep 2026 21:05:45 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AB3CEA9.000/4hqcf13vn0z5B12g
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <arOspFxWZ1DjgcAr@arm.com>
 
-From: Wang Yaxin <wang.yaxin@zte.com.cn>
+On Wed, Sep 23, 2026 at 11:40:36AM +0100, Catalin Marinas wrote:
 
-When using -t/--type option, sort tasks by the maximum delay value of
-the selected type in descending order (largest delay first).
+> The simplest is probably to always zero in the backend and ignore
+> __GFP_ZERO to the allocator. But it's probably only marginally smaller
+> than passing a CC_SHARED_ZERO flag down. Get codex to try this as well
+> and compare the diffstat.
 
-This enables quickly identifying the top N processes with the highest
-delay spikes, which is essential for diagnosing latency problems by
-pinpointing which processes contributed most to system delays.
+For patch ordering I would convert to use the allocator first
 
-Signed-off-by: Wang Yaxin <wang.yaxin@zte.com.cn>
----
- Documentation/accounting/delay-accounting.rst | 87 ++++++++++++++-----
- tools/accounting/delaytop.c                   | 71 ++++++++++++---
- tools/accounting/getdelays.c                  |  8 ++
- 3 files changed, 133 insertions(+), 33 deletions(-)
+The semantics of the new API should be clear
 
-diff --git a/Documentation/accounting/delay-accounting.rst b/Documentation/accounting/delay-accounting.rst
-index e209c46241b0..1bf00fb4f8e7 100644
---- a/Documentation/accounting/delay-accounting.rst
-+++ b/Documentation/accounting/delay-accounting.rst
-@@ -152,28 +152,28 @@ Basic usage with default settings (sorts by CPU delay, shows top 20 tasks, refre
- 	IRQ full:       0.0%/   0.0%/   0.0%/       0(ms)
- 	[o]sort [M]memverbose [q]quit
- 	Top 20 processes (sorted by cpu delay):
--		PID      TGID  COMMAND           CPU(ms)   IO(ms)  IRQ(ms)  MEM(ms)
-+	PID      TGID  COMMAND           CPU(ms)   IO(ms)  IRQ(ms)  MEM(ms)
- 	------------------------------------------------------------------------
--		110       110  kworker/15:0H-s   27.91     0.00     0.00     0.00
--		57        57  cpuhp/7            3.18     0.00     0.00     0.00
--		99        99  cpuhp/14           2.97     0.00     0.00     0.00
--		51        51  cpuhp/6            0.90     0.00     0.00     0.00
--		44        44  kworker/4:0H-sy    0.80     0.00     0.00     0.00
--		60        60  ksoftirqd/7        0.74     0.00     0.00     0.00
--		76        76  idle_inject/10     0.31     0.00     0.00     0.00
--		100       100  idle_inject/14     0.30     0.00     0.00     0.00
--		1309      1309  systemsettings     0.29     0.00     0.00     0.00
--		45        45  cpuhp/5            0.22     0.00     0.00     0.00
--		63        63  cpuhp/8            0.20     0.00     0.00     0.00
--		87        87  cpuhp/12           0.18     0.00     0.00     0.00
--		93        93  cpuhp/13           0.17     0.00     0.00     0.00
--		1265      1265  acpid              0.17     0.00     0.00     0.00
--		1552      1552  sshd               0.17     0.00     0.00     0.00
--		2584      2584  sddm-helper        0.16     0.00     0.00     0.00
--		1284      1284  rtkit-daemon       0.15     0.00     0.00     0.00
--		1326      1326  nde-netfilter      0.14     0.00     0.00     0.00
--		27        27  cpuhp/2            0.13     0.00     0.00     0.00
--		631       631  kworker/11:2-rc    0.11     0.00     0.00     0.00
-+	110       110  kworker/15:0H-s   27.91     0.00     0.00     0.00
-+	57        57  cpuhp/7            3.18     0.00     0.00     0.00
-+	99        99  cpuhp/14           2.97     0.00     0.00     0.00
-+	51        51  cpuhp/6            0.90     0.00     0.00     0.00
-+	44        44  kworker/4:0H-sy    0.80     0.00     0.00     0.00
-+	60        60  ksoftirqd/7        0.74     0.00     0.00     0.00
-+	76        76  idle_inject/10     0.31     0.00     0.00     0.00
-+	100       100  idle_inject/14     0.30     0.00     0.00     0.00
-+	1309      1309  systemsettings     0.29     0.00     0.00     0.00
-+	45        45  cpuhp/5            0.22     0.00     0.00     0.00
-+	63        63  cpuhp/8            0.20     0.00     0.00     0.00
-+	87        87  cpuhp/12           0.18     0.00     0.00     0.00
-+	93        93  cpuhp/13           0.17     0.00     0.00     0.00
-+	1265      1265  acpid              0.17     0.00     0.00     0.00
-+	1552      1552  sshd               0.17     0.00     0.00     0.00
-+	2584      2584  sddm-helper        0.16     0.00     0.00     0.00
-+	1284      1284  rtkit-daemon       0.15     0.00     0.00     0.00
-+	1326      1326  nde-netfilter      0.14     0.00     0.00     0.00
-+	27        27  cpuhp/2            0.13     0.00     0.00     0.00
-+	631       631  kworker/11:2-rc    0.11     0.00     0.00     0.00
+If you pass GFP_ZERO then the resulting allocated memory is zero
 
- Interactive keyboard controls during runtime::
+Otherwise the allocator does Whatever The Arch Needs to not leak
+private data out.
 
-@@ -181,7 +181,7 @@ Interactive keyboard controls during runtime::
- 	M - Toggle display mode (Default/Memory Verbose)
- 	q - Quit
+Once places are converted to the allocator lets go see what is left
+and ask why it is left and what API it actually needs.
 
--Available sort fields(use -s/--sort or interactive command)::
-+Available sort fields (use -s/--sort or interactive command)::
+I think HCH was right that nobody should be calling this in driver
+code, lets aim to unexport set_memory_decrypted as an ideal goal
 
- 	cpu(c)       - CPU delay
- 	blkio(i)     - I/O delay
-@@ -212,3 +212,46 @@ Advanced usage examples::
-
- 	# ./delaytop -d secs
- 	Specify refresh interval as secs
-+
-+	# ./delaytop -t type
-+	Display only specified delay type with avg/max/timestamp
-+	(rows sorted by MAX for that type, largest first)
-+
-+
-+
-+delaytop add delay_max fields to track the maximum delay value for each delay
-+type (cpu, blkio, irq, swapin, freepages, thrashing, compact, wpcopy) per task::
-+
-+	bash# ./delaytop -t cpu
-+	System Pressure Information: (avg10/avg60/avg300/total)
-+	CPU some:       0.4%/   0.2%/   0.1%/     220(ms)
-+	CPU full:       0.0%/   0.0%/   0.0%/       0(ms)
-+	Memory full:    0.0%/   0.0%/   0.0%/       0(ms)
-+	Memory some:    0.0%/   0.0%/   0.0%/       0(ms)
-+	IO full:        0.0%/   0.0%/   0.0%/      12(ms)
-+	IO some:        0.0%/   0.0%/   0.0%/      13(ms)
-+	IRQ full:       0.0%/   0.0%/   0.0%/       0(ms)
-+	[q]quit
-+	Top 20 processes (sorted by cpu MAX delay, largest first):
-+	PID      TGID  COMMAND          AVG(ms)  MAX(ms)   MAX_TIMESTAMP
-+	------------------------------------------------------------------------
-+	9         9   kworker/0:0-eve    0.59   16.87  2026-05-27T13:32:39
-+	30        30  kworker/2:0H-kb   2.87   11.36  2026-05-27T13:32:36
-+	27        27  migration/2       1.05    9.51  2026-05-27T13:32:37
-+	50        50  kworker/2:1-eve   0.50    9.13  2026-05-27T13:32:37
-+	15        15  rcu_preempt       0.11    8.98  2026-05-27T13:32:37
-+	1         1   init              0.17    7.12  2026-05-27T13:32:38
-+	67        67  scsi_eh_0         1.20    4.23  2026-05-27T13:32:37
-+	23        23  ksoftirqd/1       1.12    3.77  2026-05-27T13:32:36
-+	3          3  pool_workqueue    0.72    3.55  2026-05-27T13:32:38
-+	62        62  kworker/u20:2-a   0.49    3.03  2026-05-27T13:32:37
-+	2          2  kthreadd          0.18    2.82  2026-05-27T13:32:37
-+	11        11  kworker/0:1       1.42    2.76  2026-05-27T13:32:36
-+	39        39  kworker/u20:0-a   0.10    2.71  2026-05-27T13:32:38
-+	17        17  rcu_exp_gp_kthr   0.25    2.65  2026-05-27T13:32:36
-+	66        66  kworker/u20:3-e   0.38    2.55  2026-05-27T13:32:37
-+	20        20  cpuhp/0           0.53    2.51  2026-05-27T13:32:38
-+	28        28  ksoftirqd/2       0.59    2.48  2026-05-27T13:32:36
-+	55        55  kworker/u19:1     0.88    2.42  2026-05-27T13:32:36
-+	13        13  kworker/R-mm_pe   1.18    2.35  2026-05-27T13:32:36
-+	54        54  kworker/3:1-eve   0.14    2.20  2026-05-27T13:32:38
-diff --git a/tools/accounting/delaytop.c b/tools/accounting/delaytop.c
-index 104a2dcc6b77..c3ef1e30b102 100644
---- a/tools/accounting/delaytop.c
-+++ b/tools/accounting/delaytop.c
-@@ -295,6 +295,7 @@ static void usage(void)
- 	"  -C, --container=PATH     Monitor the container at specified cgroup path\n"
- 	"  -s, --sort=FIELD         Sort by delay field (default: cpu)\n"
- 	"  -t, --type=FIELD         Display only specified delay type with avg/max/timestamp\n"
-+	"                           (rows sorted by MAX for that type, largest first)\n"
- 	"  -M, --memverbose         Display memory detailed information\n");
- 	exit(0);
- }
-@@ -838,6 +839,15 @@ static void get_task_delays(void)
- 	closedir(dir);
- }
-
-+static void field_delay_max_and_ts(const struct task_info *task,
-+				     const struct field_desc *field,
-+				     unsigned long long *max_ns,
-+				     struct __kernel_timespec *max_ts);
-+static void get_field_delay_values(const struct task_info *task,
-+				   const struct field_desc *field,
-+				   double *avg_ms, double *max_ms,
-+				   struct __kernel_timespec *max_ts);
-+
- /* Calculate average delay in milliseconds */
- static double average_ms(unsigned long long total, unsigned long long count)
- {
-@@ -850,7 +860,7 @@ static double average_ms(unsigned long long total, unsigned long long count)
-  * Format __kernel_timespec to human readable string (YYYY-MM-DDTHH:MM:SS)
-  * Returns formatted string or "N/A" if timestamp is zero
-  */
--static const char *format_timespec64(struct __kernel_timespec *ts)
-+static const char *format_kernel_timespec(struct __kernel_timespec *ts)
- {
- 	static char buffer[32];
- 	time_t time_sec;
-@@ -894,6 +904,16 @@ static int compare_tasks(const void *a, const void *b)
- 	unsigned long long count1;
- 	unsigned long long count2;
- 	double avg1, avg2;
-+	unsigned long long max1, max2;
-+
-+	/* -t/--type: default sort by MAX column for the selected type (descending) */
-+	if (cfg.display_mode == MODE_TYPE && cfg.type_field) {
-+		field_delay_max_and_ts(t1, cfg.type_field, &max1, NULL);
-+		field_delay_max_and_ts(t2, cfg.type_field, &max2, NULL);
-+		if (max1 != max2)
-+			return max2 > max1 ? 1 : -1;
-+		return 0;
-+	}
-
- 	total1 = *(unsigned long long *)((char *)t1 + cfg.sort_field->total_offset);
- 	total2 = *(unsigned long long *)((char *)t2 + cfg.sort_field->total_offset);
-@@ -908,6 +928,28 @@ static int compare_tasks(const void *a, const void *b)
- 	return 0;
- }
-
-+/* Max delay (ns) and timestamp for field (shared by display and sort) */
-+static void field_delay_max_and_ts(const struct task_info *task, const struct field_desc *field,
-+				     unsigned long long *max_ns, struct __kernel_timespec *max_ts)
-+{
-+	if (!field || !field->max_offset) {
-+		*max_ns = 0;
-+		if (max_ts)
-+			memset(max_ts, 0, sizeof(*max_ts));
-+		return;
-+	}
-+
-+	*max_ns = *(unsigned long long *)((char *)task + field->max_offset);
-+
-+	if (max_ts) {
-+		if (field->max_ts_offset)
-+			*max_ts = *(struct __kernel_timespec *)((char *)task +
-+							       field->max_ts_offset);
-+		else
-+			memset(max_ts, 0, sizeof(*max_ts));
-+	}
-+}
-+
- /* Get delay values for a specific field */
- static void get_field_delay_values(const struct task_info *task, const struct field_desc *field,
- 				   double *avg_ms, double *max_ms,
-@@ -926,13 +968,8 @@ static void get_field_delay_values(const struct task_info *task, const struct fi
- 	count = *(unsigned long long *)((char *)task + field->count_offset);
- 	*avg_ms = average_ms(total, count);
-
--	max = *(unsigned long long *)((char *)task + field->max_offset);
-+	field_delay_max_and_ts(task, field, &max, max_ts);
- 	*max_ms = (double)max / 1000000.0;  /* Convert nanoseconds to milliseconds */
--
--	if (field->max_ts_offset)
--		*max_ts = *(struct __kernel_timespec *)((char *)task + field->max_ts_offset);
--	else
--		memset(max_ts, 0, sizeof(*max_ts));
- }
-
- /* Sort tasks by selected field */
-@@ -1082,7 +1119,10 @@ static void display_results(int psi_ret)
- 	}
-
- 	/* Interacive command */
--	suc &= BOOL_FPRINT(out, "[o]sort [M]memverbose [q]quit\n");
-+	if (cfg.display_mode == MODE_TYPE && cfg.type_field)
-+		suc &= BOOL_FPRINT(out, "[q]quit\n");
-+	else
-+		suc &= BOOL_FPRINT(out, "[o]sort [M]memverbose [q]quit\n");
- 	if (sort_selected) {
- 		if (cfg.display_mode == MODE_MEMVERBOSE)
- 			suc &= BOOL_FPRINT(out,
-@@ -1093,8 +1133,13 @@ static void display_results(int psi_ret)
- 	}
-
- 	/* Task delay output */
--	suc &= BOOL_FPRINT(out, "Top %d processes (sorted by %s delay):\n",
--			cfg.max_processes, get_name_by_field(cfg.sort_field));
-+	if (cfg.display_mode == MODE_TYPE && cfg.type_field)
-+		suc &= BOOL_FPRINT(out,
-+			"Top %d processes (sorted by %s MAX delay, largest first):\n",
-+			cfg.max_processes, get_name_by_field(cfg.type_field));
-+	else
-+		suc &= BOOL_FPRINT(out, "Top %d processes (sorted by %s delay):\n",
-+				cfg.max_processes, get_name_by_field(cfg.sort_field));
-
- 	if (cfg.display_mode == MODE_TYPE && cfg.type_field) {
- 		/* Display mode for -t option: show only specified type with avg/max/timestamp */
-@@ -1135,7 +1180,7 @@ static void display_results(int psi_ret)
- 					&max_ms, &max_ts);
-
- 			suc &= BOOL_FPRINT(out, " %12.2f %12.2f %20s\n",
--				avg_ms, max_ms, format_timespec64(&max_ts));
-+				avg_ms, max_ms, format_kernel_timespec(&max_ts));
- 		} else if (cfg.display_mode == MODE_MEMVERBOSE) {
- 			suc &= BOOL_FPRINT(out, DELAY_FMT_MEMVERBOSE,
- 				TASK_AVG(tasks[i], mem),
-@@ -1204,9 +1249,13 @@ static void handle_keypress(char ch, int *running)
- 	} else {
- 		switch (ch) {
- 		case 'o':
-+			if (cfg.display_mode == MODE_TYPE)
-+				break;
- 			sort_selected = 1;
- 			break;
- 		case 'M':
-+			if (cfg.display_mode == MODE_TYPE)
-+				break;
- 			toggle_display_mode();
- 			for (field = sort_fields; field->name != NULL; field++) {
- 				if (field->supported_modes & cfg.display_mode) {
-diff --git a/tools/accounting/getdelays.c b/tools/accounting/getdelays.c
-index 52930629ec3f..c88c21b7b79b 100644
---- a/tools/accounting/getdelays.c
-+++ b/tools/accounting/getdelays.c
-@@ -235,6 +235,14 @@ static const char *format_timespec(struct __kernel_timespec *ts)
- 	if (ts->tv_sec == 0 && ts->tv_nsec == 0)
- 		return "N/A";
-
-+	/* Avoid Y2038 truncation on 32-bit platforms */
-+	if (sizeof(time_sec) < sizeof(ts->tv_sec)) {
-+		__s64 max = (__s64)((1ULL << (sizeof(time_sec) * 8 - 1)) - 1);
-+
-+		if (ts->tv_sec > max || ts->tv_sec < -max - 1)
-+			return "N/A";
-+	}
-+
- 	time_sec = ts->tv_sec;
-
- 	/* Use thread-safe localtime_r */
--- 
-2.25.1
+Jason
