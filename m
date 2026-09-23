@@ -1,162 +1,326 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1D23A380F;
-	Wed, 23 Sep 2026 16:16:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790180183; cv=none; b=iwnsrVA7VZHpVaFcjmxaSdd3mMAvZtVA4gEq+REab3VPUhBZbYYL9X3ILIgi3rkS/IbReoo9dFU/xE1g1X3uKQf42XwzfG1OlslmzJFRiscxqBzUb6sHZxbfoJnaYZ72jpfSN1sn+3aWtytdL+VOgL2OYsZefVv5uu3Vhy/F+Tc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790180183; c=relaxed/simple;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ugboqGcKGximPaCMVu6rQzYA21VPCAEdyYBG496tMQYp/jd8Tc3Few8+9qeE1J7mnRPDrAnl/lOmJXF+z9TWbF9l3DwVgZm+7Ytzf3uHBG3GiRZpmf+Gj6P1lnCMMXQu0uqa6Mc0YN14fdILEy8r/G2Zl/cu1xO7EGPjvOo3fc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b=LY0XQQfm; arc=none smtp.client-ip=212.227.15.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6664A53B5FD
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 16:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790180188; cv=pass; b=m//BDd/ohTwRnssTX0VEY+hg8MT/PeYwvEHr+872QZnYcBA0A1KYLoBwdYH4juroPHsIlmgPaEC/IP6/0/xl4OKAJP7bNbbTNK8D7wCGBNlBRpEfX/SVdwdZuYWrNN7kRJypePp+ymilY45RJzUV/nPOEqUImGZTq0zhxG6P4oY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790180188; c=relaxed/simple;
+	bh=IgFBZ0ZgrljS0uGrRjUXNBEdLyByc1A6yRVAR2zjdZQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r3YtvroA5R6iGn03yZpFxLNI8Q8f+Abe3uROij2cqYRn0aKV+ZzoDzXAQwXi/9Fq91+RmnBmwLBJDIG0Q+WdKPgjcCCIjPQtWuXcOVNDjpSftoYiWHgPfGfWnLc3f2tSDRJNoPcSS2aaoEkEJ0+05Z4TeyYkYNGX1nXMI0KkA5w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dLnDmNt7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=DcUAfx37; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=rwarsow@gmx.de header.b="LY0XQQfm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1790180146; x=1790784946; i=rwarsow@gmx.de;
-	bh=SSebE+ST6hsckt7BsoZWaCrfWED87E2Ve65oZGO3YSg=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=LY0XQQfmkwaOyeS74s0KIF3+MVa4blDD+LBD++xxUkuS/drKX5qdMH9/pnK1P985
-	 59TLTPb2F9VFdImrFiEDNZJA0QkwGHMRTxkcSODrf2LxQAtWSd+AnPDJNTBE6T4hj
-	 yJMo83/qbvkPmVrNX/YKo9o0usJ9TO/Z5Djuw69UqJBYe/gJW/rKiuum8JX8a+Uzj
-	 z2on4KZiTcsYFRv44XMDTOhYKmdGhk/vX46yWl4JqIFTLaC5LB4F521OsYbUFWleQ
-	 XFsLnhcHdvPx7Qcb3t9mACQqR0325+oafwdYisBFBYSGZwQo5cEoSEeqnORZFkHWq
-	 nQTKJRd9X/axBm2Cdg==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1M59GA-1xAW621Nye-003Oq4; Wed, 23
- Sep 2026 18:15:46 +0200
-Message-ID: <0e6bb59e-9c4d-4bdb-af7a-5af627e82220@gmx.de>
-Date: Wed, 23 Sep 2026 18:15:44 +0200
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dLnDmNt7";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="DcUAfx37"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790180185;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8lwL4K1D0LmNyg6j112+oM7NzQaxc/i6AC7mkZYZafE=;
+	b=dLnDmNt7Q3K5LM03c0yDKUvik+/usmYjAUqhSoXBEVwpV8nGQMhziqtJDaOYfuebTkGqEx
+	kElIpVdWKFsOJ7MWAsyr3LoqWXAMGYnoKn+ukRXDUZ5Okh312p5urKY4sEN+ZsWx3zcr5F
+	RDmDDpf+f6Hyk1YJjFRV9RGV/29AVng=
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-36-bVdNE5igPOeP7TxUlq1wAA-1; Wed, 23 Sep 2026 12:16:23 -0400
+X-MC-Unique: bVdNE5igPOeP7TxUlq1wAA-1
+X-Mimecast-MFC-AGG-ID: bVdNE5igPOeP7TxUlq1wAA_1790180182
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49e65ecd557so6804675e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:16:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790180182; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PP/HWWTaE92WyFfgVABT6TTJrk2jxdRK3viN87kt8Vo25GlwEUoaXojTCAvljtBKuL
+         tltX8vGi29fCBJ6uIWn5RIfA1nqJ+0pKlZjv5GaStGYjz5d8qSYRm5FRGOu4k20LBR4D
+         DhajGFKWlEX6z7RK324LAG42fHdPqRuT4Sg18W7E20A1SNhO1uby9FwvJU3C4Kfxip7c
+         bIwFrFQ61pia1cPZhIp0c/j9yrQhWd2nRuwgDtjd0ONfzKv4E8NBkffcvWaDfTOHYnbN
+         Oly3eYqkIwlO9GeE5HRcXG8AvHUhlr/mt79Ma2z5ds/ufPmUbu2W50xC82weOUFJM3eS
+         HxKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8lwL4K1D0LmNyg6j112+oM7NzQaxc/i6AC7mkZYZafE=;
+        fh=BB03b/uzXSDKYPLtwvZfptyvWMyEeZ6BwJNW/esV1rg=;
+        b=NYR5Xg35cgOYNHlt4l62A6E3omaD2drCYb1uD5s+I46QfZsXEQkPEg9WqWQtFxI3BE
+         JU5HD0+nuoqKt/5+p7qTeWo3QolWe/O+s+UM2tTQfsvg53MWu1wbZ9dAjJs6l8VKTmd+
+         RB+/6dxGz4bFhRIzUzKew3MAgaNaXsQDUCzrcmTy6cXF2Tk6UI40ojx9RWM6MyAdYXId
+         lNMYDk5U+R9VI+xFu3GysT2V19zxZeIVOgy2YL6Mym1wtuMJeRZdMpEITm6IGJV/1kSl
+         dlGtDRy93gOrcAJ7/2qgNlDplt9dVAU3KDsjNWDWaPdcWdgm8jyKZV++bigXnm99Md29
+         M9TQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790180182; x=1790784982; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8lwL4K1D0LmNyg6j112+oM7NzQaxc/i6AC7mkZYZafE=;
+        b=DcUAfx37pclwncupI3fDIhT4GD0u9fKNkMcasbZabFwnp34BT1xzOfO5lZcnN4ezZS
+         TgvuDmqxCiLwu35HFXtDQsqlZoAMIyU2ye4PmdtZSQc374lAJdhxBOVnUHw0SUHiRroW
+         f8+/L7OLtttw4wJrTGN0vHejoD2gz1lIjQzsrVNbtbvBe7IKGFbu+IRWZGh8kKqvrZeI
+         niHvHOLH2Ux2UlSmVNBT+nin8qTWjQ0ydUwxYW1VBR6Lzvs6sjGHoklRkiZN8q7z+3db
+         qCY7B1Omqms7k2spLd1ZrGvOIPndnVgrYjUIsgiORvKOK6ihAl0PXgZKrUAd5V9l7oFG
+         W1pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790180182; x=1790784982;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8lwL4K1D0LmNyg6j112+oM7NzQaxc/i6AC7mkZYZafE=;
+        b=b/sjdAPcHChrC1rzBrJeEWgo4FggBiedZqMR2+DpDtuax4GElhwU562gbECYwhg8EK
+         +whmYhwvFEd/+T+Hn83gL710qAymYeox8grtchkEKBBBikbwa7oFer8etQ63WuRZ/uJY
+         +6vko+vOIZ1jePqSCHavesc1bwt3F417nRWKvDKC0NA0BkJ5N1V1/4CEi4p5B0vF9pss
+         KWWpE6v47sEYrX9Pw1Ekxvc7z/HMFSZbEYXEPR7YTUu865Q6eS0KbHgvKuYAlj+PN7ug
+         S1U4JtgvmmPtfoGYb8KepG/e3HFptW25vUHKLmUtNJsGjmMjfoWu+Uc2UrKJSToFPio9
+         paaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByz29NLNPtBBdzzOEgoLZSw4783vGGZeUvIv1Gcgkd2dVrNhgj+O/9YC/lQI2GVLCOonyb2KlJP0UzP+Ek=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuYQl/VO8tAmoyqdzU+R+RAkpUtSumTbQfLXgGPDBmRjDqxsp5
+	vhMQfK5/WQIvDAmqluINhMgGw20Xu6qy4owsGvl/YjJgANJNiO8WnVCoZT693sDvX73mIkBqK25
+	OCwz+1ivojTtUqWLXbC1+lVRqLB4Z58dgvGyaXvzd6IDH6LS0DFvO8Q1h0JoE7eZeWws438Adh+
+	48sf6fVhpQyByTebvIZKoofZhKcLLrFpjDri9i7Wne
+X-Gm-Gg: AYBFou1U47XAzLX2XU98x3S0Y8O0E1cJraPAZS6A7VYFiUnVVA1n1WPkm10xu20oTfr
+	gdYN0E1pDf4XoI0UvuG5iyqGcYNU8tCjUhpRI1CCb9UriqGt8C7pLTuinAE9cx+iT7YeKTpy9i/
+	GoOepScc74nymG4z2BDvsEEEiodotIX811OX0Zrec8aRgSBdBjmhYsSItmz1/Q3YeTiUytRGvjV
+	xVLKBIXD/3aoMmZBw==
+X-Received: by 2002:a05:600c:8b11:b0:49f:ce72:e931 with SMTP id 5b1f17b1804b1-49fdf252adfmr50312355e9.35.1790180182266;
+        Wed, 23 Sep 2026 09:16:22 -0700 (PDT)
+X-Received: by 2002:a05:600c:8b11:b0:49f:ce72:e931 with SMTP id
+ 5b1f17b1804b1-49fdf252adfmr50311885e9.35.1790180181802; Wed, 23 Sep 2026
+ 09:16:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/438] 7.2.8-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260923140644.756254324@linuxfoundation.org>
-From: Ronald Warsow <rwarsow@gmx.de>
-Content-Language: de-DE, en-US
-In-Reply-To: <20260923140644.756254324@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:m1OQPgehz+9AFHT2XE9OtCBY+ClKoJYyXbRtOdTg0ZPpyjfwiTa
- KEVKTkv2KyuyKKhtGJRjFCOWqYcpd4MespgNHeO9XfSezDERKCTQ0YzPvOQV8Cq0rzuQ/6H
- DKOwECiIt7TljKj33vUUuGEnUUsZXXcuZS3xz4K7OfdQHV1ur3cVNSS6zabnCHcOd5UHE3K
- fO53MPgV9zPhbk6p3spKw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:jbPlqXlw/PM=;1Hf1At+G1rJhfGnaT9oqp6Yp/Yu
- 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
+References: <20260902200547.184734-1-jtaubepe@redhat.com> <20260902200547.184734-8-jtaubepe@redhat.com>
+ <ab97f32b-31dd-4975-a8b2-b445110ae3a9@suse.de> <CADRr4bePoiDnWX_XrMWtQe=1g4Yrw1_dK86EV2k9XZR0HnL+UQ@mail.gmail.com>
+ <d4879e78-2735-4f86-beab-8aa319e9162c@suse.de>
+In-Reply-To: <d4879e78-2735-4f86-beab-8aa319e9162c@suse.de>
+From: Jesse Taube <jtaubepe@redhat.com>
+Date: Wed, 23 Sep 2026 12:16:10 -0400
+X-Gm-Features: AclHuK_OOO2Lx5nkFexAXjVTognXDMI5Nb3PQa0tcoQZ7jw26Edo1LYB-gBX5kg
+Message-ID: <CADRr4bcSvLwzfSiV0LTxnhZR7oo3F1b2XEo+wwqi668Gr2BBQA@mail.gmail.com>
+Subject: Re: [PATCH v2 7/7] nvme: fcloop: Add set_marginal_rport to sysfs
+To: Hannes Reinecke <hare@suse.de>
+Cc: linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>, 
+	Sagi Grimberg <sagi@grimberg.me>, Justin Tee <justin.tee@broadcom.com>, 
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, Paul Ely <paul.ely@broadcom.com>, 
+	Chaitanya Kulkarni <kch@nvidia.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <martin.petersen@oracle.com>, Nilesh Javali <njavali@marvell.com>, 
+	GR-QLogic-Storage-Upstream@marvell.com, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>, John Meneghini <jmeneghi@redhat.com>, 
+	Bryan Gurney <bgurney@redhat.com>, Chris Leech <cleech@redhat.com>, 
+	"Ewan D . Milne" <emilne@redhat.com>, shinichiro.kawasaki@wdc.com, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi
+On Wed, Sep 23, 2026 at 11:34=E2=80=AFAM Hannes Reinecke <hare@suse.de> wro=
+te:
+>
+> On 9/23/26 4:56 PM, Jesse Taube wrote:
+> > On Mon, Sep 21, 2026 at 10:03=E2=80=AFAM Hannes Reinecke <hare@suse.de>=
+ wrote:
+> >>
+> >> On 9/2/26 10:05 PM, Jesse Taube wrote:
+> >>> To allow testing of multipath failover, add a sysfs attribute to set =
+a
+> >>> remote port as marginal. This will allow the fcloop LLDD to set the
+> >>> marginal flag on a remote port, simulating a marginal link.
+> >>>
+> >>> Example:
+> >>> Turn on marginal for a remote port matching wwnn and wwpn:
+> >>> `echo 'wwnn=3D0x200000109b5f2956,wwpn=3D0x100000109b5f2956,marginal=
+=3D1' >
+> >>> /sys/class/fcloop/ctl/set_marginal_rport`
+> >>>
+> >>> Turn off marginal for a remote port matching wwnn and wwpn:
+> >>> `echo 'wwnn=3D0x200000109b5f2956,wwpn=3D0x100000109b5f2956,marginal=
+=3D0' >
+> >>> /sys/class/fcloop/ctl/set_marginal_rport`
+> >>>
+> >>> Suggested-by: John Meneghini <jmeneghi@redhat.com>
+> >>> Signed-off-by: Jesse Taube <jtaubepe@redhat.com>
+> >>> V10 -> V1:
+> >>>    - New patch
+> >>> V1 -> V2:
+> >>>    - Fix reference count leak in error path
+> >>> ---
+> >>>    drivers/nvme/target/fcloop.c | 50 ++++++++++++++++++++++++++++++++=
+++++
+> >>>    1 file changed, 50 insertions(+)
+> >>>
+> >>> diff --git a/drivers/nvme/target/fcloop.c b/drivers/nvme/target/fcloo=
+p.c
+> >>> index b63af3b643a6..9977c2a71bd5 100644
+> >>> --- a/drivers/nvme/target/fcloop.c
+> >>> +++ b/drivers/nvme/target/fcloop.c
+> >>> @@ -6,6 +6,7 @@
+> >>>    #include <linux/module.h>
+> >>>    #include <linux/parser.h>
+> >>>    #include <uapi/scsi/fc/fc_fs.h>
+> >>> +#include <uapi/scsi/fc/fc_els.h>
+> >>>
+> >>>    #include "../host/nvme.h"
+> >>>    #include "../target/nvmet.h"
+> >>> @@ -21,6 +22,7 @@ enum {
+> >>>        NVMF_OPT_FCADDR         =3D 1 << 3,
+> >>>        NVMF_OPT_LPWWNN         =3D 1 << 4,
+> >>>        NVMF_OPT_LPWWPN         =3D 1 << 5,
+> >>> +     NVMF_OPT_MARGINAL       =3D 1 << 6,
+> >>>    };
+> >>>
+> >>>    struct fcloop_ctrl_options {
+> >>> @@ -31,6 +33,7 @@ struct fcloop_ctrl_options {
+> >>>        u32                     fcaddr;
+> >>>        u64                     lpwwnn;
+> >>>        u64                     lpwwpn;
+> >>> +     u32                     marginal;
+> >>>    };
+> >>>
+> >>>    static const match_table_t opt_tokens =3D {
+> >>> @@ -40,6 +43,7 @@ static const match_table_t opt_tokens =3D {
+> >>>        { NVMF_OPT_FCADDR,      "fcaddr=3D%x"     },
+> >>>        { NVMF_OPT_LPWWNN,      "lpwwnn=3D%s"     },
+> >>>        { NVMF_OPT_LPWWPN,      "lpwwpn=3D%s"     },
+> >>> +     { NVMF_OPT_MARGINAL,    "marginal=3D%d"   },
+> >>>        { NVMF_OPT_ERR,         NULL            }
+> >>>    };
+> >>>
+> >>> @@ -120,6 +124,13 @@ fcloop_parse_options(struct fcloop_ctrl_options =
+*opts,
+> >>>                        }
+> >>>                        opts->lpwwpn =3D token64;
+> >>>                        break;
+> >>> +             case NVMF_OPT_MARGINAL:
+> >>> +                     if (match_int(args, &token)) {
+> >>> +                             ret =3D -EINVAL;
+> >>> +                             goto out_free_options;
+> >>> +                     }
+> >>> +                     opts->marginal =3D token;
+> >>> +                     break;
+> >>>                default:
+> >>>                        pr_warn("unknown parameter or missing value '%=
+s'\n", p);
+> >>>                        ret =3D -EINVAL;
+> >>> @@ -199,6 +210,9 @@ fcloop_parse_nm_options(struct device *dev, u64 *=
+nname, u64 *pname,
+> >>>
+> >>>    #define TGTPORT_OPTS        (NVMF_OPT_WWNN | NVMF_OPT_WWPN)
+> >>>
+> >>> +#define MARGINAL_OPTS        (NVMF_OPT_WWNN | NVMF_OPT_WWPN | \
+> >>> +                      NVMF_OPT_MARGINAL)
+> >>> +
+> >>>
+> >>>    static DEFINE_SPINLOCK(fcloop_lock);
+> >>>    static LIST_HEAD(fcloop_lports);
+> >>> @@ -1663,6 +1677,40 @@ fcloop_set_cmd_drop(struct device *dev, struct=
+ device_attribute *attr,
+> >>>        return count;
+> >>>    }
+> >>>
+> >>> +static ssize_t
+> >>> +fcloop_set_marginal_rport(struct device *dev, struct device_attribut=
+e *attr,
+> >>> +             const char *buf, size_t count)
+> >>> +{
+> >>> +     struct fcloop_nport *nport;
+> >>> +     struct fcloop_ctrl_options opts =3D {};
+> >>> +     unsigned long flags;
+> >>> +     int ret;
+> >>> +
+> >>> +     ret =3D fcloop_parse_options(&opts, buf);
+> >>> +     if (ret)
+> >>> +             return ret;
+> >>> +
+> >>> +     /* everything there ? */
+> >>> +     if ((opts.mask & MARGINAL_OPTS) !=3D MARGINAL_OPTS)
+> >>> +             return -EINVAL;
+> >>> +
+> >>> +     nport =3D fcloop_nport_lookup(opts.wwnn, opts.wwpn);
+> >>> +     if (!nport)
+> >>> +             return -ENOENT;
+> >>> +
+> >>> +     spin_lock_irqsave(&fcloop_lock, flags);
+> >>> +     if (!nport->rport || !nport->rport->remoteport) {
+> >>> +             spin_unlock_irqrestore(&fcloop_lock, flags);
+> >>> +             fcloop_nport_put(nport);
+> >>> +             return -ENOENT;
+> >>> +     }
+> >>> +
+> >>> +     nvme_fc_set_remoteport_fpin(nport->rport->remoteport, opts.marg=
+inal);
+> >>> +     spin_unlock_irqrestore(&fcloop_lock, flags);
+> >>> +     fcloop_nport_put(nport);
+> >>> +
+> >>> +     return count;
+> >>> +}
+> >>>
+> >>>    static DEVICE_ATTR(add_local_port, 0200, NULL, fcloop_create_local=
+_port);
+> >>>    static DEVICE_ATTR(del_local_port, 0200, NULL, fcloop_delete_local=
+_port);
+> >>> @@ -1671,6 +1719,7 @@ static DEVICE_ATTR(del_remote_port, 0200, NULL,=
+ fcloop_delete_remote_port);
+> >>>    static DEVICE_ATTR(add_target_port, 0200, NULL, fcloop_create_targ=
+et_port);
+> >>>    static DEVICE_ATTR(del_target_port, 0200, NULL, fcloop_delete_targ=
+et_port);
+> >>>    static DEVICE_ATTR(set_cmd_drop, 0200, NULL, fcloop_set_cmd_drop);
+> >>> +static DEVICE_ATTR(set_marginal_rport, 0200, NULL, fcloop_set_margin=
+al_rport);
+> >>>
+> >>>    static struct attribute *fcloop_dev_attrs[] =3D {
+> >>>        &dev_attr_add_local_port.attr,
+> >>> @@ -1680,6 +1729,7 @@ static struct attribute *fcloop_dev_attrs[] =3D=
+ {
+> >>>        &dev_attr_add_target_port.attr,
+> >>>        &dev_attr_del_target_port.attr,
+> >>>        &dev_attr_set_cmd_drop.attr,
+> >>> +     &dev_attr_set_marginal_rport.attr,
+> >>>        NULL
+> >>>    };
+> >>>
+> >> Please don't make it a fabrics option.
+> >
+> > What do you mean by fabrics option? How should I fix this?
+> >
+> Your patch does two things; one is to modify the parser in
+> fcloop_parse_options, and the other is to implement a new
+> sysfs rport attribute 'set_marginal_rport()'.
+> My suggestion is to drop the first part;
 
-kernel build / boot test on x86_64 (Intel).
+You want to drop the parser?
 
-No regressions here.
+> we really should not start off
+> with a marginal port, rather only set ports to marginal during runtime.
 
-Thanks
+Yes it starts as not marginal and will only be set or unset
+with a write to `set_marginal_rport` during runtime.
 
-Tested-by: Ronald Warsow <rwarsow@gmx.de>
+Thanks,
+Jesse Taube
+
+>
+> Cheers,
+>
+> Hannes
+> --
+> Dr. Hannes Reinecke                  Kernel Storage Architect
+> hare@suse.de                                +49 911 74053 688
+> SUSE Software Solutions GmbH, Frankenstr. 146, 90461 N=C3=BCrnberg
+> HRB 36809 (AG N=C3=BCrnberg), GF: I. Totev, A. McDonald, W. Knoblich
+>
+
