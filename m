@@ -1,388 +1,508 @@
-Received: from mail-vs2-f41.google.com (mail-vs2-f41.google.com [74.125.227.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8452833A9F3
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:52:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD2281F63D9;
+	Wed, 23 Sep 2026 02:53:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790131983; cv=none; b=SbzDPOPLn5/JiPLBu/nSgvU2OKt6em+IDSurHkMQI1HGLjFALBMUr8mF/CbN2+y3LTXud8BUaXilaUTidP2enepEjj6rlz6eRyYxEjd6srM4bDXQyV0UfOnH8O3CdK9F2Ra7qtxswWAIdtmLQx59TlQMYd7Tpb20wE95Qquj0q0=
+	t=1790132040; cv=none; b=Sytg9fCmTGUt7QgwB0RDsVVoOezNKQgitppJuoE5lX57YVb/4c6nHDJ72C9GbYVy7allFHt5K1p3Mp9cs602+kWj73pxWc4ShqpyPeg8tJzhKTiRP0Tfh2MYvFlgH4Qvm59VEsxr851GKhfVOHbqQH0cUcWTLpO+/dLcHOOql3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790131983; c=relaxed/simple;
-	bh=a7+pLpf6YkrQIyxveWCVHFRO1MNao1SDWaNEpRApMtI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AsWICTi6hSvEKvQJhsH70RGZkdA+PcYUthg70i9T/k1wJR+pVxxzoMDYKB78UNoPWAHRvRol1/KW7uuaOoLc8bzwW5tysozTT3de108iFyoqiKRHKI1ZxbQnpGRGl9ZNQOugQdv2/QM4pYYXlK2yNGYeb6BptpM7OWgtPNIA5i0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sny0b9Zh; arc=none smtp.client-ip=74.125.227.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790132040; c=relaxed/simple;
+	bh=X/9QHCzrOKuGDYz/clmsNOVioxcItktSTaUSlO//Jz0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ND9UocZ1BPjqIcPwll4C7rAkZknPaXBEnKVMsGP7R2Q7av99K/jBx2fgp7ktBeVMBC6ElgTOH5bLjWEkV1Qhtmk/pvRwUWjtjYvTBQDs2D+W10Y1Xb4QxnEbxQ1LaHitfu1eoh+QJjUN5c47JXcqfBOhqJFRWYpNuRt+OJqCjkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Ytpl7CPe; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sny0b9Zh"
-Received: by mail-vs2-f41.google.com with SMTP id ada2fe7eead31-791a9878aa9so178828137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 22 Sep 2026 19:52:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790131977; x=1790736777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K3s2p1CE2vkwr8sxWmng4sP6dTrRmCWsuND9yv4ilZA=;
-        b=sny0b9ZhEVdeax+v2frlIyF40uDMQV4T2M0B+RvdkYiTgRHm3Uc8mrKOmdFJx4SsAS
-         eYREtdlyK1muK7iIHNrICUe5TAEQcLcQ3Wqh9pzxVe46cO6u6JRha9fTRV0ES8AH6puB
-         VOGFP1k7vdNRfCzhGdXa4NWcw1dePBFj82OecCG6J3YNlhD6pD2YXbnYE0hmrRAfSRGz
-         PsxzM7I0bGOwfZZ6XN7lwWu/IDEVtRmTiTKaxcChd/cxgf3JlBuOFPMZUIoS60NMhvZ4
-         19Ll5nJ+hH5swMpZFuxCGzussEqBxhhJv1JleBZseTsi0sYskMHNkMzkqMxcNU8v4g+0
-         OAyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790131977; x=1790736777;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K3s2p1CE2vkwr8sxWmng4sP6dTrRmCWsuND9yv4ilZA=;
-        b=WZUYoJTU9ihklEnnt1Tybjd0jmX7HJBUWBL5epoBRu/3K2I2RDv6L1y0QQzswgdFdg
-         DKVJvufbRE6M2kauWwHI9HR+Bq+HP9Q4Je6SO7N8mWIx8S2DP3FNCwed+N65HfJHMkCg
-         XrZX0RCfIB7VxP6IJ0bXUoCIfaX5HPr4i5suwQMdJpUlUAP3Q0+u0T4waQXNrDnXl/43
-         Humz6W2lsV4qIT8B9f/PDY/gpxUFVb46z1LknhtlOqNT2r+ElStH6QWSeVebD5hBKunr
-         So/dUGtQZI8eZDtT6kU5QBassOgMT2VNqB0u1sXU2yHE0L6yWdanG171gEOCGn5EBtN/
-         1VEw==
-X-Forwarded-Encrypted: i=1; AKwUvByxu/pXSAm9UH2thFbsgbh7Zn/RuJql0/NAWboTU6o4uYmR2usbj7ky6Idae6Ky1oXRedsx5U70rpTdc04=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOtFel8REemVPKrt3oA0OfcsCkiCBUFnCNl2keWUPbBFPxLjVv
-	Xnj775k3ApYLmOLlg8i4NT0MU1KqKOdnlDX2p5o7aVdhigpmYjOm3+AF
-X-Gm-Gg: AYBFou1ID9qufle+91nRU8y9p+9HXV8dferrPdlEfsiE7iAyLN+PUHqqRq5RQh0dBA0
-	DZMuZHJ6x7bCmjlH1BDz8QP1CAJox/iJJFsGTNQ/NP0jTj/gz+4sIS54vPjY70hkPNcLXVsv3IV
-	aPd++ykG3h2cMhey8uA5j+wWjb3NUME6kL+I5xEldYjfjsRPu59BIbYuy36DdY3ToMMLrCkDIQb
-	v+JKvqPUIK81nCDl0/c5qVpbr3QHfDy5KI0gSFgWHMcbWbRT5nxZx31CwhUWKZFi0BgHycYhFWS
-	Yf/WTTLfEzrLUv6ZyBjGOWsp/DcwPqX9FmwJxF3RkSKUe6ii+3qXStoHpCJam3308P3L4WQu+BD
-	CINLXoOoIOE1EiPiROqYhQIxvFHw9BwEhYIlDvdXjMDulIh4BM/T82cwsojnx1556iQmTs4oklJ
-	J8mlRTQCnwGrGzd6k7TnhJiwxLQIWSfZcQuX0avMuFwT4eATQhVmQsb4FZnuJ4UaX70cn8P27Ap
-	YxKzLAZxIhQRs5pW2E=
-X-Received: by 2002:a05:6102:6b0a:b0:7a8:10eb:96c4 with SMTP id ada2fe7eead31-7ac1d4eb126mr1279244137.20.1790131977369;
-        Tue, 22 Sep 2026 19:52:57 -0700 (PDT)
-Received: from localhost.localdomain ([2804:7f0:9f80:9f3c:2a83:211a:9e77:570c])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf5a7fb17sm2031125137.7.2026.09.22.19.52.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 22 Sep 2026 19:52:56 -0700 (PDT)
-From: vinihsr <vinicius.m1821@gmail.com>
-To: Daniel Pereira <danielmaraboo@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Ytpl7CPe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=SN
+	APCKLxuyT2mcxZ5JnVAm9pPavqX2Kqo/KkOx6nHv8=; b=Ytpl7CPe2+EoyzxzJb
+	MqlkEAbVdAgTr3mzfrUOgW+gZ7snHWwTw4rnQeOFDPshNywADd7atzZHJXtmhdut
+	Pe2bSuMzvmrXOC2w5ROv232zqEpkq98SkijkskI6FAvLPv50I/MAwevC0OJKj7de
+	GRassRrha4bpc+F5ULU1pJY5w=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3BywmP7Nqb1ryAA--.49940S2;
+	Wed, 23 Sep 2026 10:53:27 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Shuah Khan <shuah@kernel.org>
+Cc: Vincent Mailhol <mailhol@kernel.org>,
+	linux-can@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Vinicius Henrique <vinicius.m1821@gmail.com>
-Subject: [PATCH v3] docs: translations: pt_BR: translate threat-model.rst
-Date: Tue, 22 Sep 2026 23:51:48 -0300
-Message-Id: <20260923025148.35637-1-vinicius.m1821@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260922031247.182335-1-vinicius.m1821@gmail.com>
-References: <20260922031247.182335-1-vinicius.m1821@gmail.com>
+	quchaosheng000406@163.com
+Subject: [PATCH] selftests: can: add CAN XL raw socket tests
+Date: Wed, 23 Sep 2026 10:53:17 +0800
+Message-ID: <20260923025317.374997-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3BywmP7Nqb1ryAA--.49940S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3KrW8WFyrWw17ury7JrykAFb_yoWkuw1Up3
+	WvkFy5JrWUJw1fuw45Ja1FkFW3Gr1qgry29r9xXrWDZw1fWFn8WFZ2kFZ09FWUZrZ3W3W5
+	Wa15GFW5C39xJFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRy5d_UUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5Adg1WqzPyd7YQAA3N
 
-From: Vinicius Henrique <vinicius.m1821@gmail.com>
+The CAN raw socket CAN XL support (CAN_RAW_XL_FRAMES,
+CAN_RAW_XL_VCID_OPTS) is currently untested in kselftest. The only CAN
+test in the tree, test_raw_filter, exercises classic CAN filter matching
+and never touches CAN XL.
 
-Translate threat-model.rst into Brazilian Portuguese,
-maintaining consistency with original formatting rules.
-And add it to the pt_BR process documentation index.
+Add a set of CAN XL tests to test_raw_filter. vcan is used as the test
+interface, which reports CAN XL capability when the MTU is large enough,
+so these run without CAN hardware. Tests are skipped when the interface
+cannot carry CAN XL frames, so a classic CAN or CAN FD only interface
+does not turn them into failures.
+
+Covered behaviour:
+
+  - payload round-trips for 1, 8, 64 and the maximum of 2048 bytes,
+    including the priority, SDU type and acceptance field
+  - a CAN XL frame is rejected with -EINVAL while CAN_RAW_XL_FRAMES is
+    disabled
+  - a frame without the mandatory CANXL_XLF flag is rejected
+  - the declared length must match the payload actually written
+  - enabling CAN XL implicitly enables CAN FD, and CAN FD cannot be
+    disabled again while CAN XL stays enabled
+  - the VCID is stripped by default, and a VCID tagged frame is only
+    forwarded once CAN_RAW_XL_VCID_RX_FILTER is set
+  - CAN_RAW_XL_VCID_TX_SET overwrites the VCID without clobbering the
+    priority, and a non-matching RX VCID filter drops the frame
+
+A blocking read() cannot be used to assert that a frame was filtered out,
+as it never returns; the new recv_timeout() helper waits for a frame with
+a bounded timeout instead.
 
 Assisted-by: LLM
-Signed-off-by: Vinicius Henrique <vinicius.m1821@gmail.com>
+Signed-off-by: Quchaosheng <quchaosheng000406@163.com>
 ---
-Changes in v3:
-- Fixed author name and grouped trailer tags.
-- Added SPDX-License-Identifier to threat-model.rst.
-- Fixed document title in the index.rst entry (changed to singular).
-- Corrected capitalization for "UNIX" and "Vazamentos".
-- Fixed verb agreement ("atribuam").
-- Standardized terminology to match other pt_BR documents ("namespace de usuário", "forks", "fortificado", "sem resposta").
-- v2: https://lore.kernel.org/r/20260922031247.182335-1-vinicius.m1821@gmail.com
+ .../selftests/net/can/test_raw_filter.c       | 393 ++++++++++++++++++
+ 1 file changed, 393 insertions(+)
 
- .../translations/pt_BR/process/index.rst      |   1 +
- .../pt_BR/process/threat-model.rst            | 259 ++++++++++++++++++
- 2 files changed, 260 insertions(+)
- create mode 100644 Documentation/translations/pt_BR/process/threat-model.rst
-
-diff --git a/Documentation/translations/pt_BR/process/index.rst b/Documentation/translations/pt_BR/process/index.rst
-index 2c63d82bf..de716743e 100644
---- a/Documentation/translations/pt_BR/process/index.rst
-+++ b/Documentation/translations/pt_BR/process/index.rst
-@@ -78,6 +78,7 @@ gerenciamento de bugs e vulnerabilidades.
-    :maxdepth: 1
- =
-    Falhas de segurança <security-bugs>
-+   Modelo de ameaças do kernel do Linux <threat-model>
-    Problemas de hardware sob embargo <embargoed-hardware-issues>
-    CVEs <cve>
+diff --git a/tools/testing/selftests/net/can/test_raw_filter.c b/tools/testing/selftests/net/can/test_raw_filter.c
+index bb8ae8854273..53f0c9d829ed 100644
+--- a/tools/testing/selftests/net/can/test_raw_filter.c
++++ b/tools/testing/selftests/net/can/test_raw_filter.c
+@@ -16,11 +16,19 @@
+ #include <net/if.h>
+ #include <linux/if.h>
  
-diff --git a/Documentation/translations/pt_BR/process/threat-model.rst b/Documentation/translations/pt_BR/process/threat-model.rst
-new file mode 100644
-index 000000000..cae2d4e85
---- /dev/null
-+++ b/Documentation/translations/pt_BR/process/threat-model.rst
-@@ -0,0 +1,259 @@
-+.. SPDX-License-Identifier: GPL-2.0
++#include <errno.h>
++#include <stddef.h>
 +
-+O modelo de ameaças do kernel do Linux
-+======================================
+ #include <linux/can.h>
+ #include <linux/can/raw.h>
++#include <linux/types.h>
+ 
+ #include "kselftest_harness.h"
+ 
++#ifndef ARRAY_SIZE
++#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
++#endif
 +
-+Existem muitas suposições sobre o que o kernel protege e o que não protege.
-+Essas suposições tendem a causar confusão nos relatórios de bugs
-+(:doc:`relacionados à segurança <security-bugs>` vs :doc:`não relacionados à
-+segurança <../../../admin-guide/reporting-issues>`), e podem complicar a
-+aplicação das medidas de segurança quando as responsabilidades por certos
-+limites não estão claras entre o kernel, as distribuições, os administradores e
-+os usuários.
+ #define ID 0x123
+ 
+ char CANIF[IFNAMSIZ];
+@@ -390,6 +398,391 @@ TEST_F(can_filters, test_filter)
+ 	}
+ }
+ 
++/* --- CAN XL --- */
 +
-+Este documento tenta esclarecer as responsabilidades do kernel neste domínio.
++#define XLF 0x80
 +
-+As responsabilidades do kernel
-+------------------------------
++/* CAN XL requires an interface whose MTU is large enough; a classic CAN or
++ * CAN FD only interface cannot carry CAN XL frames.
++ */
++static bool can_iface_supports_xl(void)
++{
++	struct ifreq ifr;
++	int s, ret;
 +
-+O kernel abstrai o acesso aos recursos de hardware locais e a sistemas remotos
-+de forma a permitir que múltiplos usuários locais obtenham uma parcela justa dos
-+recursos disponíveis concedidos a eles e, quando o hardware subjacente permitir,
-+atribuam um nível de confidencialidade às suas comunicações e aos dados que
-+estão processando ou armazenando.
++	s = socket(PF_CAN, SOCK_RAW, CAN_RAW);
++	if (s < 0)
++		return false;
 +
-+O kernel presume que o hardware subjacente se comporta de acordo com suas
-+especificações. Isso inclui a integridade do conjunto de instruções da CPU, a
-+transparência da unidade de previsão de desvios e das unidades de cache, a
-+consistência da Unidade de Gerenciamento de Memória (MMU), o isolamento de
-+periféricos com capacidade de DMA (por exemplo, via IOMMU), transições de estado
-+nos controladores, intervalos de valores lidos dos registradores, o respeito às
-+limitações de hardware documentadas, etc.
++	strncpy(ifr.ifr_name, CANIF, sizeof(ifr.ifr_name));
++	ret = ioctl(s, SIOCGIFMTU, &ifr);
++	close(s);
 +
-+Quando o hardware não consegue manter o isolamento especificado (por exemplo,
-+falhas na CPU, canais laterais, resposta do hardware a entradas inesperadas), o
-+kernel geralmente tenta implementar medidas de mitigação razoáveis. Trata-se de
-+medidas de melhor esforço destinadas a reduzir a superfície de ataque ou elevar
-+o custo de um ataque dentro dos limites dos recursos do hardware; elas não
-+constituem uma garantia de segurança fornecida pelo kernel.
++	if (ret < 0)
++		return false;
 +
-+Os usuários sempre realizam suas atividades sob a autoridade de um administrador
-+capaz de conceder ou negar vários tipos de permissões que podem afetar a forma
-+como os usuários se beneficiam dos recursos disponíveis ou o nível de
-+confidencialidade de suas atividades. Os administradores também podem delegar
-+todas ou parte de suas próprias permissões a alguns usuários, particularmente
-+por meio de capacidades (capabilities), mas não apenas. Tudo isso é realizado
-+por meio de configuração (sysctl, permissões do sistema de arquivos, etc.).
++	return ifr.ifr_mtu >= CANXL_MIN_MTU;
++}
 +
-+O kernel do Linux aplica um determinado conjunto de configurações padrão que
-+correspondem ao seu modelo de ameaças. As distribuições têm seu próprio modelo
-+de ameaças e vêm com suas próprias predefinições de configuração, as quais o
-+administrador pode ter que ajustar para melhor atender às suas expectativas
-+(flexibilizar ou restringir).
++static int open_xl_socket(int send_xl, const struct can_raw_vcid_options *vcid)
++{
++	struct sockaddr_can addr;
++	struct ifreq ifr;
++	int one = 1;
++	int s, ret;
 +
-+Por padrão, o kernel do Linux garante as seguintes proteções ao ser executado em
-+processadores comuns que possuem níveis de privilégio e unidades de
-+gerenciamento de memória:
++	s = socket(PF_CAN, SOCK_RAW, CAN_RAW);
++	if (s < 0)
++		return -1;
 +
-+* **Isolamento baseado no usuário**: um usuário sem privilégios pode restringir
-+  o acesso aos seus próprios dados por parte de outros usuários sem privilégios
-+  que estejam executando no mesmo sistema. Isso inclui:
++	strncpy(ifr.ifr_name, CANIF, sizeof(ifr.ifr_name));
++	ret = ioctl(s, SIOCGIFINDEX, &ifr);
++	if (ret < 0)
++		goto close_sock;
 +
-+  * dados armazenados, por meio de permissões do sistema de arquivos
-+  * dados na memória (as páginas não são acessíveis, por padrão, a outros
-+    usuários)
-+  * atividade do processo (o ptrace não é permitido a outros usuários)
-+  * comunicação entre processos (outros usuários não podem observar os dados
-+    trocados por meio de UNIX domain sockets ou outros mecanismos de IPC).
-+  * comunicações de rede dentro do mesmo sistema ou com outros sistemas
++	addr.can_family = AF_CAN;
++	addr.can_ifindex = ifr.ifr_ifindex;
 +
-+* **Proteção baseada em capacidades**:
++	ret = bind(s, (struct sockaddr *)&addr, sizeof(addr));
++	if (ret < 0)
++		goto close_sock;
 +
-+  * usuários que não possuam capacidades elevadas (incluindo, mas não se
-+    limitando a CAP_SYS_ADMIN) não podem alterar a configuração, a memória nem o
-+    estado do kernel, modificar a visão de outros usuários sobre o layout do
-+    sistema de arquivos, conceder a qualquer usuário capacidades que ele não
-+    possua, nem afetar a disponibilidade do sistema (desligamento,
-+    reinicialização, pânico, travamento ou tornar o sistema não responsivo por
-+    esgotamento ilimitado de recursos).
-+  * usuários que não possuam a capacidade ``CAP_NET_ADMIN`` não podem alterar a
-+    configuração de rede, interceptar nem falsificar comunicações de rede de
-+    outros usuários ou sistemas.
-+  * usuários que não possuam ``CAP_SYS_PTRACE`` não podem observar as atividades
-+    dos processos de outros usuários.
++	ret = setsockopt(s, SOL_CAN_RAW, CAN_RAW_RECV_OWN_MSGS, &one, sizeof(one));
++	if (ret < 0)
++		goto close_sock;
 +
-+Quando ``CONFIG_USER_NS`` está definido, o kernel também permite que usuários
-+sem privilégios criem seu próprio namespace de usuário, no qual possuem todas as
-+capacidades, mas com algumas restrições (eles não podem realizar ações que
-+tenham impacto no namespace de usuário inicial, como alterar a hora, carregar
-+módulos ou montar dispositivos de bloco). Consulte ``user_namespaces(7)`` para
-+obter mais detalhes; as possibilidades dos namespaces de usuário não são
-+abordadas neste documento.
++	if (vcid) {
++		ret = setsockopt(s, SOL_CAN_RAW, CAN_RAW_XL_VCID_OPTS, vcid,
++				 sizeof(*vcid));
++		if (ret < 0)
++			goto close_sock;
++	}
 +
-+O kernel também oferece diversos recursos de solução de problemas e depuração,
-+os quais podem constituir vetores de ataque quando caem em mãos erradas. Embora
-+alguns deles tenham sido projetados para serem acessíveis a usuários locais
-+comuns com baixo risco (por exemplo, logs do kernel via ``/dev/kmsg``), alguns
-+exporiam informações suficientes para representar um risco na maioria dos casos,
-+e a decisão de expô-los é de responsabilidade do administrador (eventos perf,
-+rastreamentos), e outros não foram projetados para serem acessados por usuários
-+sem privilégios (por exemplo, debugfs). O acesso a esses recursos por um usuário
-+que tenha recebido permissão explícita de um administrador não constitui uma
-+violação de segurança.
++	ret = setsockopt(s, SOL_CAN_RAW, CAN_RAW_XL_FRAMES, &send_xl,
++			 sizeof(send_xl));
++	if (ret < 0)
++		goto close_sock;
 +
-+Bugs que permitem violar os princípios acima constituem brechas de segurança.
-+No entanto, bugs que permitem uma violação somente após outra já ter sido
-+alcançada são apenas pontos fracos. O kernel aplica uma série de medidas de
-+autoproteção cujo objetivo é evitar que um limite de segurança seja ultrapassado
-+quando certas classes de bugs são encontradas, mas uma falha nessas proteções
-+adicionais não constitui, por si só, uma vulnerabilidade.
++	return s;
 +
-+Quais classes de problemas não são consideradas vulnerabilidades
-+----------------------------------------------------------------
++close_sock:
++	close(s);
++	return -1;
++}
 +
-+No modelo de ameaças do kernel do Linux, as seguintes classes de problemas
-+**NÃO** são consideradas vulnerabilidades do kernel do Linux. No entanto,
-+quando se acredita que o kernel poderia ser melhor, eles devem ser relatados,
-+para que possam ser analisados e corrigidos sempre que razoavelmente possível,
-+mas serão tratados como qualquer bug comum:
++static void fill_canxl(struct canxl_frame *cxl, unsigned int len, __u8 sdt)
++{
++	int i;
 +
-+* **Configuração**:
++	memset(cxl, 0, sizeof(*cxl));
++	cxl->prio = ID;
++	cxl->flags = XLF;
++	cxl->sdt = sdt;
++	cxl->len = len;
++	cxl->af = 0xdeadbeef;
 +
-+  * kernels desatualizados e, particularmente, ramos em fim de vida útil estão
-+    fora do escopo do modelo de ameaças do kernel: os administradores são
-+    responsáveis por manter seus sistemas atualizados. Para que um bug seja
-+    qualificado como uma vulnerabilidade, deve ser demonstrado que ele afeta
-+    versões mantidas ativamente.
++	for (i = 0; i < len; i++)
++		cxl->data[i] = i & 0xff;
++}
 +
-+  * nível de compilação: alterações na configuração do kernel que estejam
-+    explicitamente documentadas como redutoras do nível de segurança (por
-+    exemplo, ``CONFIG_NOMMU``), ou destinadas apenas a desenvolvedores.
++/* Wait up to 200ms for a frame. Returns the frame size, or -1 if nothing
++ * arrived. A blocking read() cannot be used to assert that a frame was
++ * filtered out, as it would simply wait forever.
++ */
++static int recv_timeout(int sock, void *buf, size_t len)
++{
++	struct timeval tv = {
++		.tv_sec = 0,
++		.tv_usec = 200000,
++	};
++	fd_set rdfs;
++	int ret;
 +
-+  * nível do sistema operacional: alterações nos parâmetros da linha de comando,
-+    sysctls, permissões do sistema de arquivos, capacidades do usuário, e
-+    exposição de interfaces privilegiadas que aumentem explicitamente a
-+    exposição, seja oferecendo acesso não padrão a usuários sem privilégios,
-+    seja reduzindo a capacidade do kernel de aplicar algumas proteções ou
-+    medidas de mitigação. Exemplo: acesso de gravação ao procfs ou ao debugfs.
++	FD_ZERO(&rdfs);
++	FD_SET(sock, &rdfs);
 +
-+  * problemas acionados apenas ao usar recursos destinados ao desenvolvimento ou
-+    depuração (por exemplo, LOCKDEP, KASAN, FAULT_INJECTION): sabe-se que esses
-+    recursos introduzem sobrecarga e instabilidade potencial e não se destinam
-+    ao uso em produção.
++	ret = select(sock + 1, &rdfs, NULL, NULL, &tv);
++	if (ret <= 0)
++		return -1;
 +
-+  * problemas que afetam drivers expostos sob CONFIG_STAGING, bem como recursos
-+    marcados como EXPERIMENTAL na configuração.
++	return read(sock, buf, len);
++}
 +
-+  * carregamento de módulos explicitamente inseguros/quebrados/staging
-+    e, de modo geral, qualquer uso de subsistema marcado como experimental ou
-+    não destinado ao uso em produção.
++FIXTURE(canxl) {
++	int sock;
++};
 +
-+  * execução de módulos fora da árvore ou forks não oficiais do kernel;
-+    esses casos devem ser relatados ao fornecedor relevante.
++FIXTURE_SETUP(canxl)
++{
++	self->sock = open_xl_socket(1, NULL);
++}
 +
-+* **Excesso de privilégios iniciais**:
++FIXTURE_TEARDOWN(canxl)
++{
++	if (self->sock >= 0)
++		close(self->sock);
++}
 +
-+  * ações realizadas por um usuário que já possui os privilégios necessários
-+    para executar essa ação ou modificar esse estado (por exemplo,
-+    ``CAP_SYS_ADMIN``, ``CAP_NET_ADMIN``, ``CAP_SYS_RAWIO``, ``CAP_SYS_MODULE``,
-+    sem que nenhum outro limite seja ultrapassado).
++/* Round-trip payload lengths, including the maximum CAN XL payload */
++TEST_F(canxl, payload_roundtrip)
++{
++	const unsigned int lens[] = { 1, 8, 64, 2048 };
++	struct canxl_frame tx;
 +
-+  * ações realizadas em um namespace do usuário que não contornam as restrições
-+    impostas ao usuário inicial (por exemplo, uso de ptrace, envio de sinais,
-+    uso de recursos, acesso a FS/dispositivo/sysctl/memória, vínculo de rede,
-+    configuração do sistema/rede, etc.).
++	if (!can_iface_supports_xl())
++		SKIP(return, "%s does not support CAN XL", CANIF);
 +
-+  * qualquer ação realizada pelo usuário root no namespace inicial (por exemplo,
-+    um oops do kernel ao gravar em um dispositivo privilegiado).
++	ASSERT_GE(self->sock, 0)
++		TH_LOG("failed to open CAN XL socket on %s", CANIF);
 +
-+* **Fora do uso em produção**:
++	for (unsigned int i = 0; i < ARRAY_SIZE(lens); i++) {
++		unsigned int len = lens[i];
++		struct canxl_frame rx;
++		int ret;
 +
-+  Isso abrange ataques teóricos/probabilísticos que dependem de condições de
-+  laboratório com ruído zero no sistema, ou aqueles que exigem um número
-+  irrealista de tentativas (por exemplo, bilhões de tentativas) que seriam
-+  detectadas pelo monitoramento padrão do sistema muito antes do sucesso,
-+  tais como:
++		fill_canxl(&tx, len, 0x11);
 +
-+  * previsão de números aleatórios que só funciona em um ambiente totalmente
-+    silencioso (como ID de IP, portas TCP ou números de sequência que só podem
-+    ser adivinhados em laboratório).
++		ret = write(self->sock, &tx, CANXL_HDR_SIZE + len);
++		ASSERT_EQ(ret, CANXL_HDR_SIZE + len)
++			TH_LOG("failed to send CAN XL frame of len %u", len);
 +
-+  * observação de atividades e vazamentos de informações com base em abordagens
-+    probabilísticas que são suscetíveis a ruído de medição e não são
-+    realisticamente reproduzíveis em um sistema de produção.
++		ret = read(self->sock, &rx, sizeof(rx));
++		ASSERT_EQ(ret, CANXL_HDR_SIZE + len)
++			TH_LOG("failed to receive CAN XL frame of len %u", len);
 +
-+  * problemas que só podem ser desencadeados por ataques intensos (por exemplo,
-+    força bruta) cujo impacto no sistema torna improvável ou impossível
-+    permanecerem indetectáveis antes de serem bem-sucedidos (por exemplo,
-+    consumir toda a memória antes de ter sucesso).
++		ASSERT_EQ(rx.len, len)
++			TH_LOG("wrong payload length in received frame");
++		ASSERT_EQ(rx.sdt, tx.sdt)
++			TH_LOG("wrong SDU type in received frame");
++		ASSERT_EQ(rx.af, tx.af)
++			TH_LOG("wrong acceptance field in received frame");
++		ASSERT_EQ(rx.prio, tx.prio)
++			TH_LOG("wrong priority in received frame");
++		ASSERT_EQ(memcmp(rx.data, tx.data, len), 0)
++			TH_LOG("payload corrupted");
++	}
++}
 +
-+  * problemas observados apenas em simuladores de desenvolvimento, emuladores ou
-+    combinações que não existem em sistemas reais no momento do relato
-+    (problemas envolvendo dezenas de milhões de threads, dezenas de milhares de
-+    CPUs, frequências de CPU irrealistas, tamanhos de RAM ou capacidades de
-+    disco, velocidades de rede).
++/* A CAN XL frame must not be accepted when CAN_RAW_XL_FRAMES is off */
++TEST(canxl_send_requires_xl_frames)
++{
++	struct canxl_frame tx;
++	int s, ret;
 +
-+  * bem como problemas que podem ser acionados a um custo que é ordens de
-+    magnitude superior aos benefícios esperados (por exemplo, um emulador de
-+    teclado totalmente funcional apenas para recuperar 7 bytes não inicializados
-+    em uma estrutura, ou um método de força bruta envolvendo milhões de
-+    tentativas de conexão para adivinhar um número de porta).
++	/* a plain socket that did not enable CAN XL */
++	s = open_xl_socket(0, NULL);
++	ASSERT_GE(s, 0)
++		TH_LOG("failed to open CAN socket on %s", CANIF);
 +
-+* **Falhas de fortificação (hardening)**:
++	fill_canxl(&tx, 8, 0x11);
 +
-+  * capacidade de contornar algumas das medidas de fortificação do kernel sem um
-+    caminho de exploração demonstrável (por exemplo, contorno de ASLR,
-+    sincronização de eventos ou sondagem sem consequências demonstráveis).
-+    Trata-se apenas de pontos fracos, não de vulnerabilidades.
++	ret = write(s, &tx, CANXL_HDR_SIZE + tx.len);
++	ASSERT_LT(ret, 0)
++		TH_LOG("CAN XL frame accepted without CAN_RAW_XL_FRAMES");
++	ASSERT_EQ(errno, EINVAL);
 +
-+  * falta de verificações de argumentos e falha ao relatar certos erros sem
-+    consequências imediatas.
++	close(s);
++}
 +
-+* **Vazamentos aleatórios de informações**:
++/* A frame without the mandatory CANXL_XLF flag must be rejected */
++TEST(canxl_requires_xlf_flag)
++{
++	struct canxl_frame tx;
++	int s, ret;
 +
-+  Isso diz respeito a vazamentos de pequenas partes de dados que simplesmente
-+  estão presentes e que não podem ser escolhidas pelo invasor, ou que enfrentam
-+  restrições de acesso:
++	s = open_xl_socket(1, NULL);
++	if (!can_iface_supports_xl())
++		SKIP(return, "%s does not support CAN XL", CANIF);
 +
-+  * preenchimento (padding) de estruturas relatado por chamadas de sistema ou
-+    outras interfaces.
++	ASSERT_GE(s, 0)
++		TH_LOG("failed to open CAN XL socket on %s", CANIF);
 +
-+  * identificadores, dados parciais, strings não terminadas relatadas em
-+    mensagens de erro.
++	fill_canxl(&tx, 8, 0x11);
++	tx.flags = 0;
 +
-+  * Vazamentos de endereços/ponteiros de memória do kernel não constituem um
-+    vetor imediatamente explorável e não são vulnerabilidades, embora devam ser
-+    relatados e corrigidos.
++	ret = write(s, &tx, CANXL_HDR_SIZE + tx.len);
++	ASSERT_LT(ret, 0)
++		TH_LOG("frame without CANXL_XLF accepted");
++	ASSERT_EQ(errno, EINVAL);
 +
-+* **Dispositivos e mídias em não conformidade**:
++	close(s);
++}
 +
-+  Os drivers são implementados com base em uma especificação. Quando um
-+  dispositivo ou mídia de armazenamento viola a especificação para a qual o seu
-+  driver foi escrito, o mau comportamento resultante é um bug comum a ser
-+  corrigido, não uma vulnerabilidade, a menos que o driver esteja
-+  especificamente documentado como sendo fortificado contra entradas hostis. Os
-+  seguintes casos, portanto, não são considerados vulnerabilidades:
++/* The declared length must match the payload actually written */
++TEST(canxl_declared_len_must_match_payload)
++{
++	struct canxl_frame tx;
++	int s, ret;
 +
-+  * bugs desencadeados pela montagem de uma imagem de sistema de arquivos
-+    corrompida ou criada de forma maliciosa: a montagem de um dispositivo de
-+    bloco é uma operação privilegiada (veja acima), e o administrador é
-+    responsável pela mídia que ele monta. Isso inclui problemas que são
-+    resolvidos, mitigados ou detectados pela execução de uma verificação de
-+    consistência do sistema de arquivos (fsck) na imagem antes da montagem.
++	s = open_xl_socket(1, NULL);
++	if (!can_iface_supports_xl())
++		SKIP(return, "%s does not support CAN XL", CANIF);
 +
-+  * bugs cuja reprodução requer modificação de hardware ou emulação,
-+    incluindo dispositivos USB falsos que se passam por outros, ou
-+    dispositivos que relatam valores fora dos seus limites documentados.
++	ASSERT_GE(s, 0)
++		TH_LOG("failed to open CAN XL socket on %s", CANIF);
 +
-+* **Acesso físico**:
++	fill_canxl(&tx, 8, 0x11);
++	tx.len = 100;
 +
-+  Problemas que exigem acesso físico à máquina, modificação de hardware ou o uso
-+  de hardware especializado (por exemplo, analisadores lógicos, ferramentas de
-+  ataque DMA via PCI-E/Thunderbolt) estão fora do escopo, a menos que o sistema
-+  esteja explicitamente configurado com tecnologias destinadas a defender contra
-+  tais ataques (por exemplo, IOMMU).
++	ret = write(s, &tx, CANXL_HDR_SIZE + 8);
++	ASSERT_LT(ret, 0)
++		TH_LOG("frame with mismatching length accepted");
++	ASSERT_EQ(errno, EINVAL);
 +
-+* **Regressões funcionais e de desempenho**:
++	close(s);
++}
 +
-+  Qualquer problema que possa ser mitigado pela definição de permissões e
-+  limites adequados não se qualifica como uma vulnerabilidade.
++/* Enabling CAN XL must implicitly enable CAN FD, and it must not be turnable
++ * off again while CAN XL stays enabled
++ */
++TEST(canxl_enables_fd_and_cannot_be_disabled)
++{
++	struct canfd_frame tx;
++	struct canxl_frame rx;
++	int s, ret;
++	int zero = 0;
++
++	s = open_xl_socket(1, NULL);
++	if (!can_iface_supports_xl())
++		SKIP(return, "%s does not support CAN XL", CANIF);
++
++	ASSERT_GE(s, 0)
++		TH_LOG("failed to open CAN XL socket on %s", CANIF);
++
++	ret = setsockopt(s, SOL_CAN_RAW, CAN_RAW_FD_FRAMES, &zero, sizeof(zero));
++	ASSERT_LT(ret, 0)
++		TH_LOG("CAN FD could be disabled while CAN XL was enabled");
++	ASSERT_EQ(errno, EINVAL);
++
++	memset(&tx, 0, sizeof(tx));
++	tx.can_id = ID;
++	tx.len = 8;
++
++	ret = write(s, &tx, CANFD_MTU);
++	ASSERT_EQ(ret, CANFD_MTU)
++		TH_LOG("CAN FD not implicitly enabled by CAN XL");
++
++	ret = read(s, &rx, sizeof(rx));
++	ASSERT_EQ(ret, CANFD_MTU)
++		TH_LOG("CAN FD frame not delivered to a CAN XL socket");
++
++	close(s);
++}
++
++/* Without VCID options the VCID is stripped on TX and a VCID-tagged frame is
++ * not forwarded on RX
++ */
++TEST(canxl_vcid_stripped_by_default)
++{
++	struct can_raw_vcid_options pass = {
++		.flags = CAN_RAW_XL_VCID_TX_PASS,
++	};
++	struct canxl_frame tx, rx;
++	int tx_sock, rx_sock, ret;
++
++	tx_sock = open_xl_socket(1, &pass);
++	ASSERT_GE(tx_sock, 0)
++		TH_LOG("CAN XL not supported on %s", CANIF);
++
++	rx_sock = open_xl_socket(1, NULL);
++	ASSERT_GE(rx_sock, 0);
++
++	fill_canxl(&tx, 8, 0x11);
++	tx.prio |= 0x42 << CANXL_VCID_OFFSET;
++
++	ret = write(tx_sock, &tx, CANXL_HDR_SIZE + tx.len);
++	ASSERT_EQ(ret, CANXL_HDR_SIZE + tx.len);
++
++	/* the RX socket has no VCID filter, so it drops VCID tagged frames */
++	ret = recv_timeout(rx_sock, &rx, sizeof(rx));
++	ASSERT_LT(ret, 0)
++		TH_LOG("VCID tagged frame forwarded without CAN_RAW_XL_VCID_RX_FILTER");
++
++	close(tx_sock);
++	close(rx_sock);
++}
++
++/* CAN_RAW_XL_VCID_TX_SET overwrites the VCID, and the RX side can select it */
++TEST(canxl_vcid_set_and_filter)
++{
++	struct can_raw_vcid_options opts = {
++		.flags = CAN_RAW_XL_VCID_TX_SET,
++		.tx_vcid = 0x77,
++	};
++	struct can_raw_vcid_options filter = {
++		.flags = CAN_RAW_XL_VCID_RX_FILTER,
++		.rx_vcid = 0x77,
++		.rx_vcid_mask = 0xff,
++	};
++	struct canxl_frame tx, rx;
++	int tx_sock, rx_sock, ret;
++
++	tx_sock = open_xl_socket(1, &opts);
++	if (!can_iface_supports_xl())
++		SKIP(return, "%s does not support CAN XL", CANIF);
++
++	ASSERT_GE(tx_sock, 0)
++		TH_LOG("failed to open CAN XL VCID socket on %s", CANIF);
++
++	rx_sock = open_xl_socket(1, &filter);
++	ASSERT_GE(rx_sock, 0);
++
++	fill_canxl(&tx, 8, 0x11);
++	tx.prio |= 0x42 << CANXL_VCID_OFFSET;
++
++	ret = write(tx_sock, &tx, CANXL_HDR_SIZE + tx.len);
++	ASSERT_EQ(ret, CANXL_HDR_SIZE + tx.len);
++
++	ret = read(rx_sock, &rx, sizeof(rx));
++	ASSERT_EQ(ret, CANXL_HDR_SIZE + 8);
++
++	ASSERT_EQ((rx.prio & CANXL_VCID_MASK) >> CANXL_VCID_OFFSET, 0x77)
++		TH_LOG("CAN_RAW_XL_VCID_TX_SET did not overwrite the VCID");
++	ASSERT_EQ(rx.prio & CANXL_PRIO_MASK, ID)
++		TH_LOG("priority clobbered by the VCID option");
++
++	close(tx_sock);
++	close(rx_sock);
++}
++
++/* A non-matching VCID filter must not forward the frame */
++TEST(canxl_vcid_filter_mismatch)
++{
++	struct can_raw_vcid_options pass = {
++		.flags = CAN_RAW_XL_VCID_TX_PASS,
++	};
++	struct can_raw_vcid_options filter = {
++		.flags = CAN_RAW_XL_VCID_RX_FILTER,
++		.rx_vcid = 0x99,
++		.rx_vcid_mask = 0xff,
++	};
++	struct canxl_frame tx, rx;
++	int tx_sock, rx_sock, ret;
++
++	tx_sock = open_xl_socket(1, &pass);
++	if (!can_iface_supports_xl())
++		SKIP(return, "%s does not support CAN XL", CANIF);
++
++	ASSERT_GE(tx_sock, 0)
++		TH_LOG("failed to open CAN XL VCID socket on %s", CANIF);
++
++	rx_sock = open_xl_socket(1, &filter);
++	ASSERT_GE(rx_sock, 0);
++
++	fill_canxl(&tx, 8, 0x11);
++	tx.prio |= 0x42 << CANXL_VCID_OFFSET;
++
++	ret = write(tx_sock, &tx, CANXL_HDR_SIZE + tx.len);
++	ASSERT_EQ(ret, CANXL_HDR_SIZE + tx.len);
++
++	ret = recv_timeout(rx_sock, &rx, sizeof(rx));
++	ASSERT_LT(ret, 0)
++		TH_LOG("frame with non-matching VCID was forwarded");
++
++	close(tx_sock);
++	close(rx_sock);
++}
++
+ int main(int argc, char **argv)
+ {
+ 	char *ifname = getenv("CANIF");
 -- 
-2.34.1
+2.43.0
 
