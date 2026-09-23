@@ -1,147 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f43.google.com (mail-ua2-f43.google.com [74.125.226.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A6749DBB5;
-	Wed, 23 Sep 2026 11:57:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF6D84B7A4B
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790164689; cv=none; b=DdvjrTA8zcP2iFfd5OFOjeXYpV0+6n8XJjxotlZGVjAUcY1hzKh1vVYO8/yv8FTN4pTaWbmE83SpKpS/ZzrbDD5fiYoug5kyx/3tY2zvmlhc/afIGuDrW9Qat3jYXsz0tJ0tqzgwxMUi32d/2lu3w6nRlau3XebJJgFZJVRxz8g=
+	t=1790164710; cv=none; b=cxivmkspsB5N5IbBlYP3R2/OVdsnPG9MeDVJyy8ZsZ/VijHq4hYHcqjZfPfwPW7O2wg+Yv39QbB7jNhli9q/xOm4m3JFtqhbmWE9cu5ArxpMn2Gqx3b1P2lxb2TPvmFqd+9/1WGFJjWSpBn6Yw2tOFoynWsloZXcuOWmjnAoW8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790164689; c=relaxed/simple;
-	bh=cWvXrV+my2FQu7dTFED2drhd7CxfJCpDWyIVkGQEgHc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fT3ODVZaAE8C40OWfpNSaPNcYXXVNSDo0K26XPqKbRaJt4eILR3dcpDHYQCw+xZAEwUKI4CgQPZbdi3rw2JsXiP/oBbWnuMF43ju1ZUF+J8lfb1SjOe0sA9sXK1RNTPBKz04zu1Pzge6d+cVTlomyVIGYQLa4OYrgN3B+sCG330=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nrO4ol60; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790164710; c=relaxed/simple;
+	bh=ifTmuhdYEfA8S+Ti9vBnBv8jVJkTFG9fKTW/c6hx1FQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DPaNIYQqDWmfvMHsqjZmj0jdxQEDV7dh44owvN3spm574Xp/n3915lA0mNrLetV9k9zxN48DO0TLj8AexKQ5wYOCWNmRCt/WWKk0C5nI22ds5A/O0KDzuH0TZZx6M9Cl2AFMeqyhld5A2+82N3ltdP1JGfLgvzdq9UHCrVeHSQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i/nsXj3H; arc=none smtp.client-ip=74.125.226.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nrO4ol60"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BED0D1F000FF;
-	Wed, 23 Sep 2026 11:57:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790164675;
-	bh=r0l7/XHKTd+jga0Pd8Q9o+u4rceRax13PA5OVBYyrSg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nrO4ol60X2LXvUhsLo43dS/e6Fr4Y+DpAn49E7uxfmmsWOaKSpMrpmiPEpYHagYda
-	 jtMWSA36ayyxP8TTACE4opYEuoHe50dj38YtJNnIL/mljbpISpTWflzFteQh2Tkr91
-	 gOkofMHmCCWLI/zWSBgQGzo0UmDoATqOiG/3irB0oGeKFM9nKUMLljuda5SB89lgd6
-	 fR33/Ej2VPUPZ7ViOGm2tbyIYQdy0JCefzMbRNzpE3OhgGPtqs+tBErr2SBDpFHdZG
-	 xmKjGZjeWz2p1o/In0ix8MnwwEJglD1P+CPJeyOQAictADTDbkDsme9a9x6swK6XZx
-	 aqzitItGPrRSA==
-Message-ID: <0d2a8e7b-6a7c-4cb8-a6e4-98a7a5615764@kernel.org>
-Date: Wed, 23 Sep 2026 13:57:48 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i/nsXj3H"
+Received: by mail-ua2-f43.google.com with SMTP id a1e0cc1a2514c-97ea1a712deso290392241.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 04:58:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790164703; x=1790769503; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ibl0MHrnxFzM837MpKxLVego5yHxJdHEFJ+77R4ZX9E=;
+        b=i/nsXj3HBjJwaFiK/WvcUoe4E0BCWdtNaiOYTgdmylvpOiqzO5zCoWqYW9DZOBvZzQ
+         /TgnxS2Ii2BE9zExDNiwpW4bhRvMf7q+bP5kiZ7nEtX7xZWe3kTqlqFA1ZRcEPUp5I2u
+         uX6J7M0+7HHmpe7+rJJnzqz41PoSVqeFdbmctI9Q2uUgwoQ7ZaCWcbgkf1hcktGz2Z0o
+         lMKXA5E8u7xMW4SHvc87aORe4hSZVyZNTn2G8byfOqcY3uvcFaJtxNAiN+EHNvpBD09m
+         eNzorVOgqBsSGo5JfTLE/NOs0HDpssXfelWQs3G4RGzv+7tx8nqDQLBLIIQOkxjRBMnT
+         UbaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790164703; x=1790769503;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ibl0MHrnxFzM837MpKxLVego5yHxJdHEFJ+77R4ZX9E=;
+        b=CdDzmaaSFyCbTP0q0up+6uSkH+XACCyzeg7tXoOJq7nH7YgQs7k35wo2jEm5p8DWY9
+         8wcd7eLcfrbYLo7iWOr23xVj2V/RnDTYUxaWB93KeTNUP00AwE+OcJdejshIo/sL/Wkn
+         Nq8dH3WKKYer2tmu/SATmINAft1OcDa48+pplhlBiYrjF3wwpq7cJQz0oSHu8ACRuuDg
+         La/ZWFF8fXPz7TOlpBggnXkoih8b07sPKZFB2tcV23MdYtwfQAlMzpjmFaP9FwtL6yNr
+         Fflp/uP3Zaz7SZLH1tJh8tVOvxCqK5WaI9UP2ZoQgZ8h/8hkzE6aiUTnmwvhOQ6VtXSK
+         3dgw==
+X-Forwarded-Encrypted: i=1; AKwUvByadLRw4smS0bOvMC9P0Snu5wXjkExSiGa3bf9+tXAg3bRswQSiwvTHrWH/jyxp26al05mbyUeD26JWqdo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJMXwcXqhz+gpVWEcmbmbGHRCVLOjeeoPYHEh8T9ZsH7ZUGM2W
+	XoPCkuMmqMlLAZbupqzT3mMpH+lWV0aQW8O9zzSZpNHyMZnwUhCR1LYT
+X-Gm-Gg: AYBFou0kv0zLDeHCGOLg+GTTZSyLX/JmNH0W57Ykgrwujs1JP+OasBa00CeB1R33O8/
+	0jFdraWcm1EanXea9RHtLeT0BEZDuesuSUfnlRPXghVz0Z1I5U/oy9XtLP2c6VvY8z+TgAY6mda
+	/D0GUYHGa5Vwfucb/8AeSlbyem+5fp2+ofpI7tcETMMfi3sauboj5dYAktescHi48pSFCliMX+y
+	Yj/xbx11VJMCtNPgFKc6Z/k3dLCzINuuZznzZtqEM4qNA/3GV+7tK0Jql0sIsGjx8tPETinwRXZ
+	Bbt/pAh6o6BEK3dZEQuDQKQoY+QxfzUTFCKDdTdqseKBdOJhQrdWRaABCgQ8+yrUsUJIjRZ1TOm
+	FN2Ga4LYyYD2EAI1QQV+KBzcZOC7U4YnnF0yRF9xe8cnkS29/DjMSGm8BSDUvb4bvtTg0/opuyf
+	2wkTBqXNdGAanQ6NifTrFH3EgghGPns2Wulge0awizUf5zAHnadeLwYOEa2/aJ+wI=
+X-Received: by 2002:a05:6102:f12:b0:79f:45dc:118e with SMTP id ada2fe7eead31-7ac1acd5debmr2043519137.5.1790164702882;
+        Wed, 23 Sep 2026 04:58:22 -0700 (PDT)
+Received: from beelink.. ([187.13.30.172])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ca2876229dsm1091399e0c.3.2026.09.23.04.58.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 23 Sep 2026 04:58:22 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: linux-xfs@vger.kernel.org,
+	Carlos Maiolino <cem@kernel.org>
+Cc: "Darrick J . Wong" <djwong@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 RESEND] xfs: bound da-node entry count against the correct geometry
+Date: Wed, 23 Sep 2026 08:57:54 -0300
+Message-ID: <20260923115754.3196232-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/4] dt-bindings: sound: qcom,q6apm-dai: add
- memory-region and relax iommus
-To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260922-vmid-v4-v5-0-e79cfd7af5b3@oss.qualcomm.com>
- <20260922-vmid-v4-v5-3-e79cfd7af5b3@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260922-vmid-v4-v5-3-e79cfd7af5b3@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21/09/2026 21:08, Ajay Kumar Nandam wrote:
-> On modem-DSP (mDSP) platforms the DSP runs in a stage-2 protected
-> context and cannot use the SMMU. PCM buffers must live in reserved-memory
-> carveouts that are SCM-assigned to the appropriate VMIDs.
-> 
-> Add an optional memory-region property (1-2 entries) for the
-> control-path and data-path carveouts, and remove iommus from the
-> required list since mDSP platforms have neither IOMMU nor VMID DT
-> properties.
-> 
-> Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-> index 9e5b30d9c6e6..7d0415f2463a 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
-> @@ -20,9 +20,19 @@ properties:
->      minItems: 1
->      maxItems: 2
->  
-> +  memory-region:
-> +    minItems: 1
-> +    maxItems: 2
-> +    items:
-> +      - description:
-> +          Control-path buffer (audio_heap_mem) for platforms where the DSP
-> +          runs in a stage-2 protected context (e.g. modem-DSP).
-> +      - description:
-> +          Data-path buffer pool from which per-stream DMA buffers are
-> +          allocated.
-> +
->  required:
->    - compatible
-> -  - iommus
+xfs_da3_node_verify() bounds the node entry count against the larger of
+the directory and attribute geometries because, as a buffer verifier, it
+cannot tell whether the block belongs to the directory or the attribute
+tree. When the directory block size exceeds the fs block size (e.g.
+mkfs.xfs -n size=64k -b size=4k), an attribute node buffer is a single fs
+block that holds only m_attr_geo->node_ents entries, yet a crafted attr
+node may claim a count up to m_dir_geo->node_ents and still pass the
+verifier.
 
-I imagine you either have iommus or memory-region, no? IOW,
-oneOf:
-  - required:
-      - iommus
-  - required:
-      - memory-region
-?
+xfs_da3_node_lookup_int() then indexes btree[] up to that count during
+its binary search -- an out-of-bounds read via getxattr/listxattr on a
+mounted crafted image.
 
-Best regards,
-Krzysztof
+The buffer verifier is the wrong place to tighten this: it has no fork
+context, and the transaction-less read path used by getxattr does not run
+xfs_da3_node_set_type() either. xfs_da3_node_lookup_int(), on the other
+hand, always runs on that path and holds args->geo, the geometry of the
+fork actually being searched. Bound the entry count against
+args->geo->node_ents there, before walking the entries.
+
+Fixes: 7ab610f9e0f1 ("xfs: move node entry counts to xfs_da_geometry")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+v2: reworked per Darrick's review.  Do not infer dir-vs-attr from the
+    buffer size in the verifier; instead bound the entry count in
+    xfs_da3_node_lookup_int() against args->geo->node_ents, the
+    geometry of the fork being searched.  cc stable.
+
+ fs/xfs/libxfs/xfs_da_btree.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/fs/xfs/libxfs/xfs_da_btree.c b/fs/xfs/libxfs/xfs_da_btree.c
+index 9debb95d86fa..95ea3737eb33 100644
+--- a/fs/xfs/libxfs/xfs_da_btree.c
++++ b/fs/xfs/libxfs/xfs_da_btree.c
+@@ -1787,6 +1787,20 @@ xfs_da3_node_lookup_int(
+ 		} else
+ 			expected_level--;
+ 
++		/*
++		 * The node verifier cannot tell whether this block belongs to
++		 * the directory or the attribute tree, so it only bounds the
++		 * entry count against the larger of the two geometries.  Here
++		 * args->geo is the geometry of the fork we are actually
++		 * searching, so reject a count that would walk btree[] off the
++		 * end of this node buffer.
++		 */
++		if (nodehdr.count > args->geo->node_ents) {
++			xfs_buf_mark_corrupt(blk->bp);
++			xfs_da_mark_sick(args);
++			return -EFSCORRUPTED;
++		}
++
+ 		max = nodehdr.count;
+ 		blk->hashval = be32_to_cpu(btree[max - 1].hashval);
+ 
+-- 
+2.53.0
+
