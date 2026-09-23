@@ -1,56 +1,56 @@
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEE5457E5C
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:14:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5935B456E1E
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790147670; cv=none; b=KwWCtcrlD5B0gsBY3Zr/Fl1IwbHjRqfeM+Nj3ZOUfZL3wPgvq/oHi1XnkzqThTsyqhmv27LZKfPJUS6CZXL4Wl5cqkvV1WX+b09lLT4AGHG1eQWyd6OO7g0p2wBfnCkBdFsHa8HDJ30CcGFkx9MW2g9d4kUqPCTmqBv+On7V8Dw=
+	t=1790147673; cv=none; b=RHTlNGAZparwqMx9a73d3TrGmX/LcMWKK6j7ddSZpJzf0H46MVEHYYJVpviSY3Pe7Zlz7LLDbq+7csbRFXzLvs8dabWX4bwOmOCFBBPhuLCAsUi25Od7UlUrCXQfhVJdYCQ6edlC6T/sG62vTMqfPnilGyEi5P28HYQT29kRY5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790147670; c=relaxed/simple;
-	bh=Tj3yDs8rwCDj/BB1fmxJiip60F8wgE92QfWT3F32Oec=;
+	s=arc-20240116; t=1790147673; c=relaxed/simple;
+	bh=ClBRPt0PX+BdDlotzkipLlfgDTGCEc0HqYURNxfWCBQ=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=sv2wjGcxBb6RhB8yiaPsvQAtAFupIg9WumQso2AwklpQEPDaP0igxog+QugRdxWZ+6j+rJmseNETOgrI06/nVNPe9RJEASmGptq7yXR/eHYWMY0jTrfSN4u3aEwU1gHm5KyOs6KBGhtyekrmnr9bHeXtvva6ETTg+bvKF2oPqIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FofFd/iB; arc=none smtp.client-ip=74.125.82.69
+	 To:Cc:Content-Type; b=ai1Jyq2ahDaMIzE+de5MBCP+V+nG+xqF66B4Dsg9sxNU4+oG1UTWmDi1ExbqkRhulj48AhxDdgEm6z7I1IG5pBTMZejRdzVkooul8hxFDOTRNl1hJmo5ODAi0mQqkV/npGW5Vgkax72d30GdOC36ACmPi8OZYVHspLRIXTsWSAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UP8ucDgs; arc=none smtp.client-ip=74.125.82.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FofFd/iB"
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1438fef603cso893216c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:14:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UP8ucDgs"
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso818222eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 00:14:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790147667; x=1790752467; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1790147670; x=1790752470; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=liyi0vSB4PI71vdWOqs25tQFPCa2XdpECr64MsD1W7w=;
-        b=FofFd/iBefhoZ9ZV/HiD3eE32TTbKoGDkFyCUL3S1TomXOgnJC43ajGCTN21a7EEX7
-         LPTTRqcvxgUiNm65RWATRqLB6l8WXA+0rV0SkmLhP+1LSuGCfnJj8+NSq9laUmE4KKxs
-         Qin/1NV+sXZEc94R7AbujNnvnT4pXOrBjujfVWq13i/Rk3+5BMV7x2Izrych75QYSNo4
-         uTaIZE3fiAETxatS3xVdCjM60pfv8xrh3SZu3GY57EI6BzQQkHWyeXW9UJyqxV6eKCBz
-         l/l9Q6iqbDQxPJ6kyDAg5cjDe9dZbKuEO71uDiyMlaX6tJ6PsnMg6GiKrMKrub3/F2nl
-         r9dg==
+        bh=gy5ZJj44yW2Y41JxZ137X9PGWzszng8gimxO0G3/Sm8=;
+        b=UP8ucDgs49jUZkREYruFq1fs9MGKhtu7CWqYYZiC9/z5Lw6C4vC+XA9wvtGf4i8g9g
+         gxI/0tVnQsqFDDv6iS7DIzi0kZM7G7GMft8Fb/y415AJd4j/0p9Yba5ZA9kplM4s9U8C
+         D/9ABK/tryQobTDnYUkRd+/qoOQUj+OJmE7jUfXcSFoJ+dySWVwacjT2kKxOoSRmF33V
+         cYYpNQF1KL/jeT6aaMC5BPdkHURg+LaGeJNgRnoyWIpk7/f29j35KNpkLE8QafLotl8H
+         wr8IGDzwK09xVQHmTmSoJJs62N3YPM9o6or/k7+59g6jvm66zSVk19s2qjj0bIjHieTp
+         4fOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790147667; x=1790752467;
+        d=1e100.net; s=20260707; t=1790147670; x=1790752470;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=liyi0vSB4PI71vdWOqs25tQFPCa2XdpECr64MsD1W7w=;
-        b=ACyDJh1dhP9hVZ21AryBVEolrSSv4p2/0LRjRYM5D4jh1XCPtLflqVVisJpUmFXwBR
-         4Wn4EXu5QcUXuhwvctoG3XjvSDbNqnciXJWOsXTa++6D3iWzSyRHZ5h0WwNqLhG4OaUL
-         TA8yEsGqk6vr64RkyfjlLRZJ3oTa0jPaglhpwbcR9SqPa2knsuYSlYBwGPb4dWTh6WOK
-         p0j7rXp7v/erdrayjqQaHodwupvRl44t4J4DPW9JpYFl3u3h8QAc7XKB8DPiQbfii4MA
-         LxFAUE3b3rRqwSietf4y3HzQ24Cms6/8Nzc01crBv1RPyLsG7ciSvAFiVAfVZT4YgCUF
-         I0Bg==
-X-Forwarded-Encrypted: i=1; AKwUvByWIJNKV7eV95f/uzzcbdj2xt2dUBydVknpKHMK/EYpMYQR86xEaOiLkrEL9imzocOjrPirZXmS/E0VBAA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lz6LiWRjbRJim1Z/nX0eSXzV+YZJxCz4KvS6v5YI8L3yaKK27U
-	V5mWqS8ao1CLlkignpwZcwjStPHpl2wEtY77eBlJ5pRmfM3icoD/7epUFlkV3wDBNMryaECMaXR
-	moPGIwaU8vw==
-X-Received: from dlam20-n2.prod.google.com ([2002:a05:701b:2094:20b0:144:ece5:c0c4])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:2044:10b0:144:c112:5f23
- with SMTP id a92af1059eb24-144f9179515mr2172461c88.24.1790147666238; Wed, 23
- Sep 2026 00:14:26 -0700 (PDT)
-Date: Wed, 23 Sep 2026 00:13:47 -0700
+        bh=gy5ZJj44yW2Y41JxZ137X9PGWzszng8gimxO0G3/Sm8=;
+        b=cAQc6Ua8A2PnJ7doxDerp//xm37Go1/MIj/qqcu/hZvV0h6/2kCPBWMk1beTV10xcL
+         HK9ScPLmq+WuxHVPlIV/uk8ynnbM7AHqMfzJvmH/C8UUdnsVGWpArTccUKqESNkeFzd6
+         mftCnTbldhO+pDlPj+pL6+Opf8rtb4i01LMCm0stoUPDDUcFPFsls7QAzDC6MIJxYH+Y
+         IzD1wlDUh3iR+mik64fSqISdmeHslUsIzaUk83Jhm2W1LezBwMFfaT+NJbzNE9oZlJ35
+         RefdHKmIy1zTdf+7jTEaIeWJZ0U+HT1hrp+q4CL7fK4mcr+Gv7vKY3RJH6hPIn/+Oz3D
+         e1BA==
+X-Forwarded-Encrypted: i=1; AKwUvByetNpiwTm/4dHz676XnxmP+t57I4GNbf9Xo+Ln5nJR6eCCXjpdgEs7jRL4xqzN25q4fqQaQ0JetNObiIM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGqlE57veZ2hjV6NOkj61+3Ff+cpZvLpuok289e8MXd8lyOC4K
+	ZJ07Td1K+Wo5ns+IpXI06SYzBTGo6So4XLGABSKXJeogUwg6Ht0iylllMJqC9EmBxuh1Ys/kiFe
+	KB8o7/jHfQg==
+X-Received: from dyrx23.prod.google.com ([2002:a05:7300:3a97:b0:33b:c09b:a189])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:87d3:20b0:339:7572:7b2b
+ with SMTP id 5a478bee46e88-33ee381562bmr864132eec.24.1790147669961; Wed, 23
+ Sep 2026 00:14:29 -0700 (PDT)
+Date: Wed, 23 Sep 2026 00:13:49 -0700
 In-Reply-To: <cover.1790145937.git.irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,9 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <cover.1790145937.git.irogers@google.com>
 X-Mailer: git-send-email 2.56.0.rc1.315.gc6ed9934b7-goog
-Message-ID: <4315f435177b66e0b25ca9b74a89cc2f51d3801d.1790145937.git.irogers@google.com>
-Subject: [PATCH v5 07/23] perf trace: Skip internal tracepoint fields in
- formatting and beauty map
+Message-ID: <8a2a96e2f9c8511fa5f162682acac29807243972.1790145937.git.irogers@google.com>
+Subject: [PATCH v5 09/23] perf trace: Bound the fixed size augmented argument beautifiers
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, howardchu95@gmail.com, 
 	namhyung@kernel.org
@@ -71,475 +70,222 @@ Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
 	mingo@redhat.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-Linux 6.19+ added __data_loc char[] internal fields for string
-arguments in syscalls:sys_enter_<name> tracepoints (e.g.,
-__data_loc_oldname in sys_enter_renameat2). While is_internal_field()
-was added to detect them, several places did not properly account for
+The timespec, sockaddr and perf_event_attr beautifiers read a fixed
+sized type out of the augmented payload without checking that one is
+there. The payload is only as long as the augmenter made it, which for
+a sockaddr is the addrlen the tracee passed and so can be as little as
+two bytes, and which for a perf_event_attr is the attr size the tracee
+chose.
+
+Gate each of them on syscall_arg__augmented_args_valid() with the size
+it needs before its first read, so that a payload too short for the
+type leaves the raw pointer printed instead, as happens when there is no
+augmented data at all.
+
+Two reads that are unbounded for reasons other than the header go with
 them:
 
-1. In syscall_arg_fmt__init_array(), when an internal field was
-   skipped, the arg pointer was still incremented, causing the
-   subsequent argument formatters to be mismatched. Leaving the slot out
-   is only right for syscall tracepoints, where syscall__scnprintf_args()
-   indexes the array the same packed way and sc->nr_args is counted to
-   match. Every other tracepoint reaches the array through
-   trace__fprintf_tp_fields(), which advances the field list and the
-   array in lockstep, and for those a __data_loc char[] is an ordinary
-   dynamic string to be shown rather than something the kernel appended
-   to a syscall behind perf's back. Add a skip_internal argument so that
-   each caller gets the layout it indexes.
-2. In syscall__scnprintf_args(), internal fields were not skipped,
-   causing spurious trailing arguments like ", 0, 16" to be formatted
-   and printed.
-3. In trace__bpf_sys_enter_beauty_map(), internal fields were not
-   skipped, offsetting beauty array argument indices and breaking string
-   and buffer augmentation.
-4. In trace__find_usable_bpf_prog_entry(), candidate pointer checks
-   matched on internal pointer fields, breaking signature compatibility
-   matching between syscalls for augmenter sharing. Introduce
-   next_user_arg() and advance both cursors with it, so that the two
-   argument lists are always compared at a real argument and the walk
-   ends when one syscall runs out of arguments rather than when one
-   happens to have trailing internal fields.
-5. syscall__augmented_args() computed the augmented payload as
-   sample->raw_size - sc->args_size for any sys_enter style sample.
-   sc->args_size deliberately stops at the last non-internal field, so
-   on 6.19+ a native syscalls:sys_enter_<name> record leaves the
-   __data_loc words and their string payloads in the remainder. Those
-   bytes are not a struct augmented_arg, so
-   syscall_arg__scnprintf_augmented_string() read a bogus length and
-   walked arg->augmented.args out of bounds. This is reachable from
-   trace__event_handler(), which calls trace__fprintf_sys_enter() for
-   any evsel whose tracepoint name starts with "sys_enter_".
-6. In syscall__read_info(), syscall__alloc_arg_fmts() was called before
-   checking and dropping the leading __syscall_nr (or nr) field, using
-   nr_fields - 1 unconditionally. If a tracepoint format lacks that
-   leading field, the allocated arg_fmt array is one entry too small and
-   syscall_arg_fmt__init_array() writes one entry past the end of the
-   heap buffer. Drop __syscall_nr/nr first and size the allocation from
-   the remaining fields.
+  - perf_event_attr__fprintf() always reads a whole struct
+    perf_event_attr, so an attr from an older version is read past its
+    end. Copy the payload into a zero padded local instead of reading it
+    in place, which also replaces the local copy that was only made to
+    fix up a zero size field.
 
-Update these functions to check and skip is_internal_field() so that
-arguments are correctly formatted and beauty map entries match the
-expected syscall signatures, restrict syscall__augmented_args() to the
-__augmented_syscalls__ bpf-output evsel, and size arg_fmt after dropping
-the syscall number field.
-
-Publish sc->args only once that allocation has succeeded. sc->name is
-set earlier in syscall__read_info(), and a later call takes a syscall
-with a name to have been read already and returns it as it stands, so
-a syscall left with arguments and no arg_fmt to describe them would be
-printed by walking the arguments and indexing an array that was never
-allocated.
+  - af_local__scnprintf() prints sun_path as a plain string, but the
+    payload holds only addrlen bytes and the path need not be NUL
+    terminated. Pass the payload length to the address family printers
+    so the path is printed with a bound, and so that the AF_INET and
+    AF_INET6 printers do not read a sockaddr_in or sockaddr_in6 out of
+    a payload too short to hold one.
 
 Assisted-by: Antigravity:gemini-3.1-pro
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/perf/builtin-trace.c | 194 ++++++++++++++++++++++++++++---------
- 1 file changed, 148 insertions(+), 46 deletions(-)
+ tools/perf/trace/beauty/perf_event_open.c | 38 +++++++++-------
+ tools/perf/trace/beauty/sockaddr.c        | 55 ++++++++++++++++++-----
+ tools/perf/trace/beauty/timespec.c        |  2 +-
+ 3 files changed, 67 insertions(+), 28 deletions(-)
 
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index f90c6bb4d8b4..6ffd4a0718ca 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -2276,22 +2276,40 @@ static bool field_is_ptr_sized(const struct tep_format_field *field)
- 	return field->size == ptr_size || field->size == sizeof(u64);
- }
+diff --git a/tools/perf/trace/beauty/perf_event_open.c b/tools/perf/trace/beauty/perf_event_open.c
+index 6315b46bcdf0..fba8993f3b93 100644
+--- a/tools/perf/trace/beauty/perf_event_open.c
++++ b/tools/perf/trace/beauty/perf_event_open.c
+@@ -81,33 +81,39 @@ static size_t perf_event_attr___scnprintf(struct perf_event_attr *attr, char *bf
  
-+/*
-+ * @skip_internal: whether an internal field is left out of the array rather
-+ * than given a slot of its own.
-+ *
-+ * Syscall tracepoints want it left out, as syscall__scnprintf_args() walks the
-+ * array with an index that skips internal fields too and sc->nr_args is counted
-+ * the same way.
-+ *
-+ * Other tracepoints do not: trace__fprintf_tp_fields() advances the field list
-+ * and this array in lockstep, so every field needs a slot or the fields after
-+ * an internal one are formatted with the wrong entry. For them a
-+ * __data_loc char[] is also an ordinary dynamic string to be shown, rather than
-+ * something the kernel appended to a syscall tracepoint behind perf's back.
-+ */
- static struct tep_format_field *
- syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, struct tep_format_field *field,
--			    bool *use_btf)
-+			    bool *use_btf, bool skip_internal)
+ static size_t syscall_arg__scnprintf_augmented_perf_event_attr(struct syscall_arg *arg, char *bf, size_t size)
  {
- 	struct tep_format_field *last_field = NULL;
- 	int len;
+-	struct perf_event_attr *attr = (void *)arg->augmented.args->value;
++	const struct augmented_arg *augmented_arg = arg->augmented.args;
+ 	struct perf_event_attr local_attr;
++	size_t copied = (size_t)augmented_arg->size;
  
--	for (; field; field = field->next, ++arg) {
--		/* assume it's the last argument */
--		if (is_internal_field(field))
-+	for (; field; field = field->next) {
-+		if (is_internal_field(field)) {
-+			if (!skip_internal)
-+				++arg;
- 			continue;
-+		}
- 
- 		last_field = field;
- 
--		if (arg->scnprintf)
-+		if (arg->scnprintf) {
-+			++arg;
- 			continue;
-+		}
- 
- 		len = strlen(field->name);
- 
-@@ -2348,6 +2366,7 @@ syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, struct tep_format_field
- 				}
- 			}
- 		}
-+		++arg;
- 	}
- 
- 	return last_field;
-@@ -2356,7 +2375,8 @@ syscall_arg_fmt__init_array(struct syscall_arg_fmt *arg, struct tep_format_field
- static int syscall__set_arg_fmts(struct syscall *sc)
- {
- 	struct tep_format_field *last_field = syscall_arg_fmt__init_array(sc->arg_fmt, sc->args,
--									  &sc->use_btf);
-+									  &sc->use_btf,
-+									  /*skip_internal=*/true);
- 
- 	if (last_field)
- 		sc->args_size = last_field->offset + last_field->size;
-@@ -2368,7 +2388,8 @@ static int syscall__read_info(struct syscall *sc, struct trace *trace)
- {
- 	char tp_name[128];
- 	const char *name;
--	struct tep_format_field *field;
-+	struct tep_format_field *args, *field;
-+	int nr_args;
- 	int err;
- 
- 	if (sc->nonexistent)
-@@ -2407,24 +2428,35 @@ static int syscall__read_info(struct syscall *sc, struct trace *trace)
- 		return err;
- 	}
- 
--	/*
--	 * The tracepoint format contains __syscall_nr field, so it's one more
--	 * than the actual number of syscall arguments.
--	 */
--	if (syscall__alloc_arg_fmts(sc, sc->tp_format->format.nr_fields - 1))
--		return -ENOMEM;
--
--	sc->args = sc->tp_format->format.fields;
-+	args = sc->tp_format->format.fields;
-+	nr_args = sc->tp_format->format.nr_fields;
  	/*
- 	 * We need to check and discard the first variable '__syscall_nr'
- 	 * or 'nr' that mean the syscall number. It is needless here.
- 	 * So drop '__syscall_nr' or 'nr' field but does not exist on older kernels.
-+	 *
-+	 * Do this before allocating, and size the array from what is left, so
-+	 * that a format without the field does not leave
-+	 * syscall_arg_fmt__init_array() walking one entry past the end.
+-	 * augmented_raw_syscalls.bpf.c (shipped with perf) copies
+-	 * PERF_ATTR_SIZE_VER0 bytes when the tracee passes size=0,
+-	 * but leaves the size field as 0.  The payload size is
+-	 * guaranteed by perf's own BPF program, not externally
+-	 * controllable.  Copy to a local so we can fix up size
+-	 * without writing to the potentially read-only augmented
+-	 * args buffer.
++	 * The tracee picks attr.size, so the payload that
++	 * augmented_raw_syscalls.bpf.c copied can be anything from
++	 * PERF_ATTR_SIZE_VER0 up to the size this build of perf knows about,
++	 * while perf_event_attr__fprintf() below always reads a whole struct
++	 * perf_event_attr. Work on a zero padded local copy so that a payload
++	 * from an older attr is not read past its end, which also lets the size
++	 * be fixed up without writing to the augmented args buffer.
  	 */
--	if (sc->args && (!strcmp(sc->args->name, "__syscall_nr") || !strcmp(sc->args->name, "nr"))) {
--		sc->args = sc->args->next;
--		--sc->nr_args;
-+	if (args && (!strcmp(args->name, "__syscall_nr") || !strcmp(args->name, "nr"))) {
-+		args = args->next;
-+		--nr_args;
- 	}
- 
-+	if (syscall__alloc_arg_fmts(sc, nr_args))
-+		return -ENOMEM;
+-	if (!attr->size) {
+-		memcpy(&local_attr, attr, PERF_ATTR_SIZE_VER0);
+-		memset((void *)&local_attr + PERF_ATTR_SIZE_VER0, 0,
+-		       sizeof(local_attr) - PERF_ATTR_SIZE_VER0);
++	if (copied > sizeof(local_attr))
++		copied = sizeof(local_attr);
++
++	memcpy(&local_attr, augmented_arg->value, copied);
++	memset((void *)&local_attr + copied, 0, sizeof(local_attr) - copied);
 +
 +	/*
-+	 * Only now that there is an arg_fmt for each of them are the arguments
-+	 * published. sc->name was set above, so a later syscall__read_info()
-+	 * takes this syscall to be read already and returns it as it stands;
-+	 * were sc->args set with sc->arg_fmt still NULL, the printing of that
-+	 * syscall would walk the arguments and index an array that does not
-+	 * exist.
++	 * The BPF program copies PERF_ATTR_SIZE_VER0 bytes when the tracee
++	 * passes size=0, but leaves the size field as it found it.
 +	 */
-+	sc->args = args;
++	if (!local_attr.size)
+ 		local_attr.size = PERF_ATTR_SIZE_VER0;
+-		attr = &local_attr;
+-	}
+ 
+-	return perf_event_attr___scnprintf(attr, bf, size,
++	return perf_event_attr___scnprintf(&local_attr, bf, size,
+ 					   trace__show_zeros(arg->trace));
+ }
+ 
+ size_t syscall_arg__scnprintf_perf_event_attr(char *bf, size_t size, struct syscall_arg *arg)
+ {
+-	if (arg->augmented.args)
++	if (syscall_arg__augmented_args_valid(arg, PERF_ATTR_SIZE_VER0))
+ 		return syscall_arg__scnprintf_augmented_perf_event_attr(arg, bf, size);
+ 
+ 	return scnprintf(bf, size, "%#lx", arg->val);
+diff --git a/tools/perf/trace/beauty/sockaddr.c b/tools/perf/trace/beauty/sockaddr.c
+index a17a27ac2a6f..173402400018 100644
+--- a/tools/perf/trace/beauty/sockaddr.c
++++ b/tools/perf/trace/beauty/sockaddr.c
+@@ -10,21 +10,36 @@
+ #include "trace/beauty/generated/sockaddr.c"
+ DEFINE_STRARRAY(socket_families, "PF_");
+ 
+-static size_t af_inet__scnprintf(struct sockaddr *sa, char *bf, size_t size)
++/*
++ * The augmented payload is only as long as the addrlen the tracee passed, so
++ * each of these gets that length and prints nothing rather than reading a
++ * struct that isn't fully there.
++ */
++static size_t af_inet__scnprintf(struct sockaddr *sa, size_t sa_size, char *bf, size_t size)
+ {
+ 	struct sockaddr_in *sin = (struct sockaddr_in *)sa;
+ 	char tmp[16];
 +
- 	field = sc->args;
- 	while (field) {
- 		if (is_internal_field(field))
-@@ -2452,7 +2484,8 @@ static int evsel__init_tp_arg_scnprintf(struct evsel *evsel, bool *use_btf)
- 		const struct tep_event *tp_format = evsel__tp_format(evsel);
- 
- 		if (tp_format) {
--			syscall_arg_fmt__init_array(fmt, tp_format->format.fields, use_btf);
-+			syscall_arg_fmt__init_array(fmt, tp_format->format.fields, use_btf,
-+						    /*skip_internal=*/false);
- 			return 0;
- 		}
- 	}
-@@ -2642,10 +2675,16 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
- 	if (sc->args != NULL) {
- 		struct tep_format_field *field;
- 
--		for (field = sc->args; field;
--		     field = field->next, ++arg.idx, bit <<= 1) {
--			if (arg.mask & bit)
-+		for (field = sc->args; field; field = field->next) {
-+			/* Skip internal fields so they are not printed as spurious arguments */
-+			if (is_internal_field(field))
-+				continue;
++	if (sa_size < sizeof(*sin))
++		return 0;
 +
-+			if (arg.mask & bit) {
-+				++arg.idx;
-+				bit <<= 1;
- 				continue;
-+			}
+ 	return scnprintf(bf, size, ", port: %d, addr: %s", ntohs(sin->sin_port),
+ 			 inet_ntop(sin->sin_family, &sin->sin_addr, tmp, sizeof(tmp)));
+ }
  
- 			arg.fmt = &sc->arg_fmt[arg.idx];
- 			val = syscall_arg__val(&arg, arg.idx);
-@@ -2664,8 +2703,11 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
- 			 */
- 			if (val == 0 && !trace->show_zeros &&
- 			    !(sc->arg_fmt && sc->arg_fmt[arg.idx].show_zero) &&
--			    !(sc->arg_fmt && sc->arg_fmt[arg.idx].strtoul == STUL_BTF_TYPE))
-+			    !(sc->arg_fmt && sc->arg_fmt[arg.idx].strtoul == STUL_BTF_TYPE)) {
-+				++arg.idx;
-+				bit <<= 1;
- 				continue;
-+			}
- 
- 			printed += scnprintf(bf + printed, size - printed, "%s", printed ? ", " : "");
- 
-@@ -2680,12 +2722,16 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
- 								   size - printed, val, field->type);
- 				if (btf_printed) {
- 					printed += btf_printed;
-+					++arg.idx;
-+					bit <<= 1;
- 					continue;
- 				}
- 			}
- 
- 			printed += syscall_arg_fmt__scnprintf_val(&sc->arg_fmt[arg.idx],
- 								  bf + printed, size - printed, &arg, val);
-+			++arg.idx;
-+			bit <<= 1;
- 		}
- 	} else if (IS_ERR(sc->tp_format)) {
- 		/*
-@@ -2946,7 +2992,9 @@ static int trace__fprintf_sample(struct trace *trace, struct perf_sample *sample
+-static size_t af_inet6__scnprintf(struct sockaddr *sa, char *bf, size_t size)
++static size_t af_inet6__scnprintf(struct sockaddr *sa, size_t sa_size, char *bf, size_t size)
+ {
+ 	struct sockaddr_in6 *sin6 = (struct sockaddr_in6 *)sa;
+-	u32 flowinfo = ntohl(sin6->sin6_flowinfo);
++	u32 flowinfo;
+ 	char tmp[512];
+-	size_t printed = scnprintf(bf, size, ", port: %d, addr: %s", ntohs(sin6->sin6_port),
+-				   inet_ntop(sin6->sin6_family, &sin6->sin6_addr, tmp, sizeof(tmp)));
++	size_t printed;
++
++	if (sa_size < sizeof(*sin6))
++		return 0;
++
++	flowinfo = ntohl(sin6->sin6_flowinfo);
++	printed = scnprintf(bf, size, ", port: %d, addr: %s", ntohs(sin6->sin6_port),
++			    inet_ntop(sin6->sin6_family, &sin6->sin6_addr, tmp, sizeof(tmp)));
+ 	if (flowinfo != 0)
+ 		printed += scnprintf(bf + printed, size - printed, ", flowinfo: %lu", flowinfo);
+ 	if (sin6->sin6_scope_id != 0)
+@@ -33,13 +48,28 @@ static size_t af_inet6__scnprintf(struct sockaddr *sa, char *bf, size_t size)
  	return printed;
  }
  
--static void *syscall__augmented_args(struct syscall *sc, struct perf_sample *sample, int *augmented_args_size, int raw_augmented_args_size)
-+static void *syscall__augmented_args(struct trace *trace, struct syscall *sc,
-+				     struct perf_sample *sample,
-+				     int *augmented_args_size, int raw_augmented_args_size)
+-static size_t af_local__scnprintf(struct sockaddr *sa, char *bf, size_t size)
++static size_t af_local__scnprintf(struct sockaddr *sa, size_t sa_size, char *bf, size_t size)
  {
- 	/*
- 	 * For now with BPF raw_augmented we hook into raw_syscalls:sys_enter
-@@ -2964,6 +3012,24 @@ static void *syscall__augmented_args(struct syscall *sc, struct perf_sample *sam
- 	 */
- 	int args_size = raw_augmented_args_size ?: sc->args_size;
- 
+ 	struct sockaddr_un *sun = (struct sockaddr_un *)sa;
+-	return scnprintf(bf, size, ", path: %s", sun->sun_path);
++	size_t path_size;
++
++	if (sa_size <= offsetof(struct sockaddr_un, sun_path))
++		return 0;
++
 +	/*
-+	 * Augmented arguments are a perf trace specific payload, they are only
-+	 * ever appended to samples emitted by the BPF __augmented_syscalls__
-+	 * bpf-output event.
-+	 *
-+	 * Native syscalls:sys_enter_NAME tracepoints may also carry trailing
-+	 * data of their own: since Linux 6.19 they append __data_loc char[]
-+	 * fields plus the string payloads they point at. Those bytes are not a
-+	 * struct augmented_arg, so treating them as one would make
-+	 * syscall_arg__scnprintf_augmented_string() read a bogus length and
-+	 * walk arg->augmented.args far out of bounds.
-+	 *
-+	 * So only look for augmented arguments on the event that can actually
-+	 * produce them.
++	 * Unlike the other families the path is variable length, and it need
++	 * not be NUL terminated, so print at most what the payload holds. An
++	 * abstract socket's name starts with a NUL, which %.*s stops at, as
++	 * printing it as a plain string used to.
 +	 */
-+	if (sample->evsel != trace->syscalls.events.bpf_output)
-+		return NULL;
++	path_size = sa_size - offsetof(struct sockaddr_un, sun_path);
++	if (path_size > sizeof(sun->sun_path))
++		path_size = sizeof(sun->sun_path);
 +
- 	*augmented_args_size = sample->raw_size - args_size;
- 	if (*augmented_args_size > 0) {
- 		static uintptr_t argbuf[1024]; /* assuming single-threaded */
-@@ -3022,17 +3088,13 @@ static int trace__sys_enter(struct trace *trace,
- 	if (!(trace->duration_filter || trace->summary_only || trace->min_stack))
- 		trace__printf_interrupted_entry(trace);
- 	/*
--	 * If this is raw_syscalls.sys_enter, then it always comes with the 6 possible
--	 * arguments, even if the syscall being handled, say "openat", uses only 4 arguments
--	 * this breaks syscall__augmented_args() check for augmented args, as we calculate
--	 * syscall->args_size using each syscalls:sys_enter_NAME tracefs format file,
--	 * so when handling, say the openat syscall, we end up getting 6 args for the
--	 * raw_syscalls:sys_enter event, when we expected just 4, we end up mistakenly
--	 * thinking that the extra 2 u64 args are the augmented filename, so just check
--	 * here and avoid using augmented syscalls when the evsel is the raw_syscalls one.
-+	 * syscall__augmented_args() only returns a payload for the BPF
-+	 * __augmented_syscalls__ event, so raw_syscalls:sys_enter (which always
-+	 * carries all 6 possible arguments rather than sc->args_size worth) and
-+	 * the native syscalls:sys_enter_NAME tracepoints are both handled there.
- 	 */
--	if (evsel != trace->syscalls.events.sys_enter)
--		augmented_args = syscall__augmented_args(sc, sample, &augmented_args_size, trace->raw_augmented_syscalls_args_size);
-+	augmented_args = syscall__augmented_args(trace, sc, sample, &augmented_args_size,
-+						 trace->raw_augmented_syscalls_args_size);
- 	ttrace->entry_time = sample->time;
- 	ttrace->entry_cpu = sample->cpu;
- 	msg = ttrace->entry_str;
-@@ -3077,7 +3139,7 @@ static int trace__fprintf_sys_enter(struct trace *trace, struct perf_sample *sam
- 	struct syscall *sc;
- 	char msg[1024];
- 	void *args, *augmented_args = NULL;
--	int augmented_args_size, e_machine;
-+	int augmented_args_size = 0, e_machine;
- 	size_t printed = 0;
- 
- 
-@@ -3095,7 +3157,8 @@ static int trace__fprintf_sys_enter(struct trace *trace, struct perf_sample *sam
- 		goto out_put;
- 
- 	args = perf_evsel__sc_tp_ptr(args, sample);
--	augmented_args = syscall__augmented_args(sc, sample, &augmented_args_size, trace->raw_augmented_syscalls_args_size);
-+	augmented_args = syscall__augmented_args(trace, sc, sample, &augmented_args_size,
-+						 trace->raw_augmented_syscalls_args_size);
- 	printed += syscall__scnprintf_args(sc, msg, sizeof(msg), args, augmented_args, augmented_args_size, trace, thread);
- 	fprintf(trace->output, "%.*s", (int)printed, msg);
- 	err = 0;
-@@ -4127,10 +4190,16 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
- 	if (trace->btf == NULL)
- 		return -1;
- 
--	for (i = 0, field = sc->args; field; ++i, field = field->next) {
-+	for (i = 0, field = sc->args; field; field = field->next) {
-+		/* Skip internal fields to keep beauty array index aligned with syscall arguments */
-+		if (is_internal_field(field))
-+			continue;
-+
- 		// XXX We're only collecting pointer payloads _from_ user space
--		if (!sc->arg_fmt[i].from_user)
-+		if (!sc->arg_fmt[i].from_user) {
-+			++i;
- 			continue;
-+		}
- 
- 		struct_offset = strstr(field->type, "struct ");
- 		if (struct_offset == NULL)
-@@ -4149,8 +4218,10 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
- 			name[cnt] = '\0';
- 
- 			/* cache struct's btf_type and type_id */
--			if (syscall_arg_fmt__cache_btf_struct(&sc->arg_fmt[i], trace->btf, name))
-+			if (syscall_arg_fmt__cache_btf_struct(&sc->arg_fmt[i], trace->btf, name)) {
-+				++i;
- 				continue;
-+			}
- 
- 			bt = sc->arg_fmt[i].type;
- 			beauty_array[i] = bt->size;
-@@ -4176,7 +4247,9 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
- 			struct tep_format_field *field_tmp;
- 
- 			/* find the size of the buffer that appears in pairs with buf */
--			for (j = 0, field_tmp = sc->args; field_tmp; ++j, field_tmp = field_tmp->next) {
-+			for (j = 0, field_tmp = sc->args; field_tmp; field_tmp = field_tmp->next) {
-+				if (is_internal_field(field_tmp))
-+					continue;
- 				if (!(field_tmp->flags & TEP_FIELD_IS_POINTER) && /* only integers */
- 				    (strstr(field_tmp->name, "count") ||
- 				     strstr(field_tmp->name, "siz") ||  /* size, bufsiz */
-@@ -4186,8 +4259,10 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
- 					can_augment = true;
- 					break;
- 				}
-+				++j;
- 			}
- 		}
-+		++i;
- 	}
- 
- 	if (can_augment)
-@@ -4196,6 +4271,19 @@ static int trace__bpf_sys_enter_beauty_map(struct trace *trace, int e_machine, i
- 	return -1;
++	return scnprintf(bf, size, ", path: %.*s", (int)path_size, sun->sun_path);
  }
  
-+/*
-+ * Advance to the first field that is a real syscall argument, so that callers
-+ * walking two argument lists in step never have to reason about internal
-+ * fields appearing in one list but not the other.
-+ */
-+static struct tep_format_field *next_user_arg(struct tep_format_field *field)
-+{
-+	while (field && is_internal_field(field))
-+		field = field->next;
-+
-+	return field;
-+}
-+
- static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace,
- 							     struct syscall *sc)
+-static size_t (*af_scnprintfs[])(struct sockaddr *sa, char *bf, size_t size) = {
++static size_t (*af_scnprintfs[])(struct sockaddr *sa, size_t sa_size, char *bf, size_t size) = {
+ 	[AF_LOCAL] = af_local__scnprintf,
+ 	[AF_INET]  = af_inet__scnprintf,
+ 	[AF_INET6] = af_inet6__scnprintf,
+@@ -47,7 +77,9 @@ static size_t (*af_scnprintfs[])(struct sockaddr *sa, char *bf, size_t size) = {
+ 
+ static size_t syscall_arg__scnprintf_augmented_sockaddr(struct syscall_arg *arg, char *bf, size_t size)
  {
-@@ -4203,7 +4291,7 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
- 	/*
- 	 * We're only interested in syscalls that have a pointer:
- 	 */
--	for (field = sc->args; field; field = field->next) {
-+	for (field = next_user_arg(sc->args); field; field = next_user_arg(field->next)) {
- 		if (field->flags & TEP_FIELD_IS_POINTER)
- 			goto try_to_find_pair;
- 	}
-@@ -4221,21 +4309,31 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
- 		    pair->bpf_prog.sys_enter == unaugmented_prog)
- 			continue;
+-	struct sockaddr *sa = (struct sockaddr *)&arg->augmented.args->value;
++	const struct augmented_arg *augmented_arg = arg->augmented.args;
++	struct sockaddr *sa = (struct sockaddr *)&augmented_arg->value;
++	size_t sa_size = (size_t)augmented_arg->size;
+ 	char family[32];
+ 	size_t printed;
  
--		for (field = sc->args, candidate_field = pair->args;
--		     field && candidate_field; field = field->next, candidate_field = candidate_field->next) {
-+		/*
-+		 * Both cursors only ever point at real arguments, so the loop
-+		 * ends when one of the two syscalls runs out of them, rather
-+		 * than when one happens to have trailing internal fields.
-+		 */
-+		field = next_user_arg(sc->args);
-+		candidate_field = next_user_arg(pair->args);
-+		while (field && candidate_field) {
- 			bool is_pointer = field->flags & TEP_FIELD_IS_POINTER,
- 			     candidate_is_pointer = candidate_field->flags & TEP_FIELD_IS_POINTER;
+@@ -55,14 +87,15 @@ static size_t syscall_arg__scnprintf_augmented_sockaddr(struct syscall_arg *arg,
+ 	printed = scnprintf(bf, size, "{ .family: %s", family);
  
- 			if (is_pointer) {
--			       if (!candidate_is_pointer) {
-+				if (!candidate_is_pointer) {
- 					// The candidate just doesn't copies our pointer arg, might copy other pointers we want.
-+					field = next_user_arg(field->next);
-+					candidate_field = next_user_arg(candidate_field->next);
- 					continue;
--			       }
-+				}
- 			} else {
- 				if (candidate_is_pointer) {
- 					// The candidate might copy a pointer we don't have, skip it.
- 					goto next_candidate;
- 				}
-+				field = next_user_arg(field->next);
-+				candidate_field = next_user_arg(candidate_field->next);
- 				continue;
- 			}
+ 	if (sa->sa_family < ARRAY_SIZE(af_scnprintfs) && af_scnprintfs[sa->sa_family])
+-		printed += af_scnprintfs[sa->sa_family](sa, bf + printed, size - printed);
++		printed += af_scnprintfs[sa->sa_family](sa, sa_size, bf + printed, size - printed);
  
-@@ -4256,6 +4354,8 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
- 				goto next_candidate;
+ 	return printed + scnprintf(bf + printed, size - printed, " }");
+ }
  
- 			is_candidate = true;
-+			field = next_user_arg(field->next);
-+			candidate_field = next_user_arg(candidate_field->next);
- 		}
+ size_t syscall_arg__scnprintf_sockaddr(char *bf, size_t size, struct syscall_arg *arg)
+ {
+-	if (arg->augmented.args)
++	/* Only the family is read unconditionally, the rest is up to the family printer. */
++	if (syscall_arg__augmented_args_valid(arg, sizeof(sa_family_t)))
+ 		return syscall_arg__scnprintf_augmented_sockaddr(arg, bf, size);
  
- 		if (!is_candidate)
-@@ -4267,7 +4367,9 @@ static struct bpf_program *trace__find_usable_bpf_prog_entry(struct trace *trace
- 		 * more than what is common to the two syscalls.
- 		 */
- 		if (candidate_field) {
--			for (candidate_field = candidate_field->next; candidate_field; candidate_field = candidate_field->next)
-+			candidate_field = next_user_arg(candidate_field->next);
-+			for (; candidate_field;
-+			     candidate_field = next_user_arg(candidate_field->next))
- 				if (candidate_field->flags & TEP_FIELD_IS_POINTER)
- 					goto next_candidate;
- 		}
+ 	return scnprintf(bf, size, "%#lx", arg->val);
+diff --git a/tools/perf/trace/beauty/timespec.c b/tools/perf/trace/beauty/timespec.c
+index b14ab72a2738..8da0b28be0af 100644
+--- a/tools/perf/trace/beauty/timespec.c
++++ b/tools/perf/trace/beauty/timespec.c
+@@ -14,7 +14,7 @@ static size_t syscall_arg__scnprintf_augmented_timespec(struct syscall_arg *arg,
+ 
+ size_t syscall_arg__scnprintf_timespec(char *bf, size_t size, struct syscall_arg *arg)
+ {
+-	if (arg->augmented.args)
++	if (syscall_arg__augmented_args_valid(arg, sizeof(struct timespec)))
+ 		return syscall_arg__scnprintf_augmented_timespec(arg, bf, size);
+ 
+ 	return scnprintf(bf, size, "%#lx", arg->val);
 -- 
 2.56.0.rc1.315.gc6ed9934b7-goog
 
