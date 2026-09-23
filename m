@@ -1,169 +1,92 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D1D515987
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2780A516144;
+	Wed, 23 Sep 2026 12:18:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.21.61.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790165924; cv=none; b=AE4UyObIxTqGUesF7y0ZT79FUFfGYFsbrvO4q4Y5sgB65AKhbe5hyExtLefszCNNHM+7wFBcM3ernB3Hi2mUQJrJLnCGgY9Aw9KDlNdhyAZ7Aks++/f6Uuvqv09bw3IgSzdr9skTvj9ZI4F2m2RpID9cScUavi2YPEjwlTJXrv8=
+	t=1790165928; cv=none; b=nbAOpi5r2rNw0RjnX714WSp3frdd/l2XQ7mozsHsr9yDGrffreYAXdALrwwKP+AH+moTk87L11v9in6eWgq7y9REvk0i1BmcqVgpsagfR9S5ACuBkXrMEfaiOUsbGP0VwTXTqGDBJYWz5GEBNc3i9UqA5cR7VaGvvFESrzPHc2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790165924; c=relaxed/simple;
-	bh=nycHpeqG+1oIMvtY0hvmEQQEnmXB7wjz8VXdVUhTNtA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V+t0Xolxdm5M53oG9rDew7ivd06kkwhSae72E/UNgsK/bP6HSQ6EkW7IAGQ69d/WN4S+wwfmgU9+rHVtuZUWeIvc9oe8pZ5HQIJZXwGkm3Sb9PUfRee9NGrkoym36lbgieDHnwTtr2sq+dfLi9NRRLAAXsOQgVZ9UCmX4XRuNhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K1e7QXa/; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790165928; c=relaxed/simple;
+	bh=71Nr0txiRyDXQQjTVLnQKIL8h5ohanJ0ghTsopnMfII=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=rSzyzRuheNTohLBnmF9kcRZ2bELb2D7GCUeHf643BSdxwbCPgnR5rkcd+wVnkqgQNICNlh6aha2k3cFZstKhR/HvdhUamHZg7xu0fngBtTcaNcJgLStov3BWUG878nHC3vTiWmsZkO38GV4Kdkwn42Jpdj5xhSL6SYV3iYnyErY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr; spf=pass smtp.mailfrom=aliel.fr; dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b=gHNWPBKu; arc=none smtp.client-ip=65.21.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aliel.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aliel.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K1e7QXa/"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd5cf03so596770a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 05:18:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790165922; x=1790770722; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=prVpAsjmMpwAYd/WbDTNxRVVPniTFSqmZS7Z70kOMCc=;
-        b=K1e7QXa/QBF/QyewaN9uw5WVa86Pv7SkKvHjUGtdpIzeWBlxlaTJM/18DHjB/0dM58
-         ZCje/cCQRnSmXPe3mDZE3/rCf5zgDWEz6vjJFAxvbPi9kUsibFTLoTA6fluyp/QhQ0EU
-         6uxcMi+AMe5pivd36LssW7m6eVyevTFV8t9wH0hCC47gO6wlIV/QNpoqqZFaMDo1FV7b
-         L4ABEs6fQYarXreG+k32+aKphsT5mgOl1pM34CApC632iMtwwiDMW7iN5mIxAeQA50mz
-         daE0lp80u+8JX7krQvfJBHNlG7qYSyPRTxECGVCcSE0IJF8USFX4I12XZArYctjlX+1J
-         PoVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790165922; x=1790770722;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=prVpAsjmMpwAYd/WbDTNxRVVPniTFSqmZS7Z70kOMCc=;
-        b=CVUYrtsiXotSZnFqTdHrDDJNQPuSHiPjpkjty18X+9QAtFa4FP35C+wJ5IlWfBd0RE
-         3rAbwkt4SCr5nJiudY+joXFh8snRsTzH68YGqFNHnOLoIDirYj5s6sTrvXN5dNFRz3oB
-         8xXOy70Ahh4SoTuf2LTia0jLEjbCsl5TVspLDvefq+kauSigJ+CSHP+Wk94y86x89uXl
-         pKvo8OTqWTX8OOngc+l+1zpicL3DwSlCtbIz04wZvvFXYhAZl0N0RDvrqoCi1PEIUe9w
-         bCz82wUDFSvPAZZGlYnCgvL0UdwEGg7Q2tC8yvYzHwOUYDBvMSzM3Rp97R8Rf6OsZ3Nz
-         Imng==
-X-Forwarded-Encrypted: i=1; AKwUvByrnULaPeZQZ/mce/H4S/9wrsEDsEnEGn1tzrIwB4XUnfPLhaPHj1YFi+VguXbdOWUBZnkB4qnSD5dbfxo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kT8moGtj4b2hSFvnT/s1G9u9tt7ZkZ/Nrk6D4mn+Qj90EHLWF4
-	3JHfm+bO4fzrCwn1ncbKPaN4wzX265JkrnyLrMmaOVKevOlrOyUZD515
-X-Gm-Gg: AYBFou0ob4t7Iw0m7JaOMDFhoqu2Mw7SrnEUhQPANvpPEKX54iU1/D950gRLp+0258q
-	5O7ogHNZEPEYxTG9x2Y5rUNoIZGdquAhpqITf/HeIAPQJP18PQSgJABuCblUpE+cfZmdL2lQRS+
-	sIeyLw1H5ovuCoUwk2H51TUU5310b5LgD1GnaC9+3RUrsAlGg4vGGLNQLoQRJlT6gHlXzIUBT1o
-	ZLSpbWYS9xfvI8W6BoFFNYjzEsuCA7rYj7C9x71yPWHKt+fRKizRyMrukfZFO56jQowWmAVh710
-	iuq5IubV9D4ykuOWLdSjlERWCeeHirVm+xgOELOSk17hOTu0OhvQVkJz4VPF6QO3JdqECvvgyZ6
-	BE62wxUZsD6EJ30rnNIQkFekjmq5HfuHQYeLcLlbGLKpuTyZXm0zNouMGOfOkL4qbkol9EllJlg
-	FcObZrHRf1BV/fQvF61hb9J2t4bZeRmWuxOFgq3GvK7XDdV13x7E29A9uwaSVhhyILpiLKCf5gS
-	yLNRA==
-X-Received: by 2002:a17:90b:2b45:b0:39d:f189:48d6 with SMTP id 98e67ed59e1d1-3a07e5690efmr2138760a91.4.1790165922326;
-        Wed, 23 Sep 2026 05:18:42 -0700 (PDT)
-Received: from ROGZephyrusG16Air ([240e:b8f:977f:f400:ec2a:b15e:fef8:70a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07dbc013fsm5867255a91.5.2026.09.23.05.18.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 05:18:40 -0700 (PDT)
-From: Liang Haowen <nbg2974@gmail.com>
-To: linux-leds@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	"Martin K . Petersen" <mkp@kernel.org>,
-	linux-scsi@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Denis Benato <denis.benato@linux.dev>,
-	Armin Wolf <W_Armin@gmx.de>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo Jarvinen <ilpo.jarvinen@linux.intel.com>
-Subject: [RFC v8 0/1] leds: asus-aura-scsi: Add ASUS Aura RGB LED driver for ROG NVMe enclosures
-Date: Wed, 23 Sep 2026 20:18:31 +0800
-Message-ID: <20260923121832.2613187-1-nbg2974@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.b="gHNWPBKu"
+Message-ID: <3930d120-c412-4c04-afb0-3aee0f162d13@aliel.fr>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
+	s=courrier-s1; t=1790165916;
+	bh=71Nr0txiRyDXQQjTVLnQKIL8h5ohanJ0ghTsopnMfII=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=gHNWPBKu5gDiNCJyxS9Ae9UoXA6ZoZFyw/XuUZEHJUth9KeoCscWlIQL5k43kjilW
+	 voLUoMYvMswZk2mx/6pvMxW0uOtw9I8SuYlIj7u5rwM9Wvzcv5t0VV4YyIeTc+w+HA
+	 8piqH0/iNEbnle+NyMkw8VDYzf9oni4a0ax944KY=
+Date: Wed, 23 Sep 2026 14:17:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+From: linux-kernel-dev@aliel.fr
+Subject: Re: [PATCH 1/2] dt-bindings: thermal: amlogic: describe bus clock for
+ t7-thermal
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Guillaume La Roque <glaroque@baylibre.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Conor Dooley <conor.dooley@microchip.com>, linux-pm@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260923-fix-t7-thermal-clock-v1-0-7d4c4682f182@aliel.fr>
+ <20260923-fix-t7-thermal-clock-v1-1-7d4c4682f182@aliel.fr>
+ <8c93d281-981f-40ea-839e-6dd24964fbce@kernel.org>
+Content-Language: en-US
+In-Reply-To: <8c93d281-981f-40ea-839e-6dd24964fbce@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 9/23/26 2:02 PM, Krzysztof Kozlowski wrote:
+> On 23/09/2026 13:51, Ronald Claveau via B4 Relay wrote:
+>> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+>>
+>> The t7 thermal sensor needs a bus clock, in addition to the existing
+>> functional clock, to gate register access to the sensor. This bus
+>> clock is specific to each sensor, unlike the functional clock which
+>> is shared between sensors. The current binding only describes a
+>> single unnamed clock and therefore cannot represent this hardware
+>> requirement, so add clock-names to disambiguate "bus" from "core" and
+> 
+> Index distinguishes, not the clock-names because items have strict
+> order. That part of sentence is redundant and more important - if I ack
+> this patch, people will use it as an argument in the future review
+> discussions.
+> 
+> Drop this part of sentence. clock-names are fine if you need them, but
+> still the disambiguation is provided by indices.
+> 
 
-v8, as its own thread. It addresses every comment from Lee's v6
-review and Ilpo's line review; the notes below say what was done per
-comment and where I think a comment rests on a misunderstanding, I
-say so instead of silently keeping the code.
+Thanks for your feedback.
+I will replace `so add clock-names to disambiguate "bus" from "core"` by
+`so add a second clock entry and clock-names for clarity` in next version.
 
-The submission format is git send-email from v7 on, the driver lives
-in drivers/leds/rgb/, and it still has no Kconfig wiring: it is the
-verified out-of-tree module, the wiring lands with the agreed SCSI
-split. On the SCSI device handler itself: it is an out-of-tree
-expedient, not a design statement. The enclosure exposes a single
-mass-storage interface that usb-storage owns, so a USB interface
-driver cannot claim it without taking the disk down, and hooking the
-SCSI bus from a module needs the unexported scsi_bus_type. The
-device handler is the one hook that observes the sdev without
-claiming it. For in-tree, the attachment should move under
-drivers/scsi in whichever form the SCSI side prefers, notifier or an
-exported attach helper, and I will rework it accordingly.
+>> make the second clock mandatory for the t7-thermal compatible only
+> 
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> 
+> Best regards,
+> Krzysztof
 
-Changes against the review comments:
-
-- Includes sorted alphabetically, linux/err.h added (Ilpo).
-
-- The vendor CDB is now struct ene_cdb, __packed, with named fields
-  and a __be16 register set with cpu_to_be16() (Lee, Ilpo), plus a
-  static_assert on the 16-byte size.
-
-- The ENE register defines carry plain comments; the R,B,G wire
-  order has named indices (ENE_WIRE_R/B/G) so the reordering against
-  the R,G,B subleds no longer relies on magic numbers (Lee, Ilpo).
-
-- struct asus_aura_zone became struct asus_aura, the per-enclosure
-  context; the dirty bitmask is gone, each LED carries its own
-  pending flag (Lee: LED-level attribute, faux indexing removed).
-
-- The work item returns before touching the device when nothing is
-  pending: an unlocked scan first, since a colour arriving after the
-  scan re-queues the work (Lee). The locked snapshot follows.
-
-- The write payload is copied into a DMA-safe per-device buffer
-  before blk_rq_map_kern(); no stack memory is ever mapped for DMA
-  (Lee, VMAP_STACK).
-
-- ene_write() became ene_write_reg() with a tx buffer argument, the
-  arg_count branch is gone (never false), and it returns 0/-EIO
-  instead of the raw SAM status; the rationale for not using
-  scsi_execute_cmd() moved to the commit message (Lee).
-
-- The 10 s timeout dropped to 5 s, the development-history comments
-  are gone, declarations are unwrapped, loop variables are declared
-  in the loop, lines are reflowed to 100 columns, the code is grouped
-  with blank lines, and
-  asus_aura_register_led() frees its own name on failure (Lee).
-
-- dev_err_ratelimited() instead of dev_err() on the work error path
-  (Ilpo); _once() would hide a persistently failing device, and
-  there is no caller to report to, the work runs detached from the
-  LED core (Lee).
-
-- strscpy() uses the 2-arg form (Ilpo).
-
-Two comments I did not act on:
-
-- .module = THIS_MODULE in the device handler: the in-tree handlers
-  (scsi_dh_alua, scsi_dh_emc) set it explicitly as well, so I kept
-  it, but I am happy to drop it if the subsystem prefers.
-
-- kzalloc_obj() stays: checkpatch on 7.2 prefers it over kzalloc()
-  with sizeof, and the sashiko report against it is based on an
-  older tree (it has been in include/linux/slab.h since v7.0).
-
-v8 was verified on hardware again: the four LEDs, per-LED colours,
-60 sequential updates, unplug under load (zero splats, zero leaked
-nodes, clean rmmod).
-
-Comments on the interface shape and on folding this into the shared
-Aura work with Denis remain very welcome.
-
-Liang Haowen (1):
-  leds: asus-aura-scsi: Add ASUS Aura RGB LED driver for ROG NVMe
-    enclosures
 
 -- 
-2.55.0
-
+Best regards,
+Ronald
