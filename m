@@ -1,389 +1,256 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3508515965
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02B9515987
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 12:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790166177; cv=none; b=V9I4FkRiCGi5l0s1Jr1avrEnmgzlVI2GcYRDPaZBS8KPG8UusljSbn7+KlR2f9uUGK7MC7cqrTZ+SlYcN4e92DmrEC9x54kIdugwbwtzKVDMRFXnvYovzSWOaQQYHZfYfrwT5hncuvB/gV7o1ABcA0oJKQiZ3+McJCtoXv2sqRM=
+	t=1790166260; cv=none; b=WYvAxHsqk/mvzWNkFZa531SAWXHqEZ4EyxeV2G+JIGq+6S8m45oMu+uLMjgT190RFMHreSJKTaXIj9M0lNBl9fw6p4H+Wg+j2lxobTDNwpa5BhGPjqYv0DzFWqKV5fmxVnq+v6tL7vA+v5tNGfPSdkg+WD8yX5Ri/+TnNwTMPLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790166177; c=relaxed/simple;
-	bh=fybh03wdLDUBfM1mCw7IcFTO9lMUmLVoP4htnADqzIE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Clak/7A/EBuIM/MEZbqHTxLQZQGYyTG2FJmVeBC8yJchLgUF4zhgb14ralKRN3o7jAqI2koM2kOdWoOVfgo99LZPsEFzygbudhx4nNHsMEgglmKN0DbqRvMsPATov9GLjJBhEJYqhpTvPfyvh15d9/qBsN8y2MM/tswJ51Lf8rI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JHClZnLP; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790166260; c=relaxed/simple;
+	bh=8n4iCv+wy91SbVlrQH3XJ5iLx1lAbto/8+W7k4lgep0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UdpY6hgGhX74PxoApF/2GsUjA1bwwW0boeH0cOyUrC6bKIdNRpfeOBYIdYghujfrYGgOhYy/6jN0cgJrtPVxI5H8nfgs/NRihYvgtSkV+1Q3gkF+1x9dtZPBD15jdrhZYjv0REUmFgyGaaKFWSC0onyXOhQ465cTvDXziaohtmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HcO6poHv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JHClZnLP"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CAC351570;
-	Wed, 23 Sep 2026 05:22:50 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 98B633F86C;
-	Wed, 23 Sep 2026 05:22:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790166174; bh=fybh03wdLDUBfM1mCw7IcFTO9lMUmLVoP4htnADqzIE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JHClZnLPaJqC0rxp3J+GWmS3peEKH96Cr/myTKnRM8Iq2ecs8HOhdHsZqkCIUKqxy
-	 LyZhw1Nb3U5O+1LZQ5tYi9fA400pZm7PCr9S9r+DnrQ5w+VAM+JSeL26FdZQhEph9G
-	 N11aI3CavViGBw5+rahFfFiiuP/QPmnTPvPJRyt4=
-Date: Wed, 23 Sep 2026 17:52:50 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Linu Cherian <linu.cherian@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, Mark Rtland <mark.rtland@arm.com>, 
-	linx-arm-kernel@lists.infradead.org, linx-kernel@vger.kernel.org, kasan-dev@googlegrops.com
-Subject: Re: [PATCH V2 1/4] arm64/mm: Use pmdp_get() for PMD accesses
-Message-ID: <7dn5t2m2fzuwxj2anuycz245hnctqc5mgaj5vdx7ybfql7arwv@6ac363txw3ff>
-References: <20260922061638.3967467-1-anshuman.khandual@arm.com>
- <20260922061638.3967467-2-anshuman.khandual@arm.com>
- <212067fe-1b16-4b87-87a7-4ce50847eb24@arm.com>
- <m72rpspdg5cv7xptent4tglgd25zehx462nfmcx5uyjwi2ag7p@bc6hvhosgtfb>
- <bce043cc-0f69-4297-8f31-92dcfbc0061d@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HcO6poHv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 823F01F00893;
+	Wed, 23 Sep 2026 12:24:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790166252;
+	bh=Fz7wnacojcCCtGK9ldyNPikquj5YfjQzpeki9G2X8DI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HcO6poHvX+9qlNd1qxKmYnGXiuf9GFggnkCljgozbVFRxRyTBLJG0U7eTh5rZxKze
+	 aVNJliJp+v7IBHUnr9hS+uzT7jnxsG7FVQcxPdoqH/67j71dEZK5oNsFx5k7U7secu
+	 k+2nWm9wFzKZyzJHySiZXiEUpKcbB+Dy4YVtvbJVoQQUmUDrhtZsHng+pTepwEkdRR
+	 m2q4EKP3fXaHsYZ1I+wKuAwAzAPLk9En8BV+BJ2JwEeUPrcqn6YLB/ea6e2sE0cif6
+	 a0QPuavKg4YY6UuunaYulXXyaKh6k23jJMSaiR6UGtOXbNKdKIz8dRPuEbUgmwArME
+	 Gasc4NMMkitrQ==
+Message-ID: <2add40dc-6541-41e3-8233-521cce7e0d33@kernel.org>
+Date: Wed, 23 Sep 2026 14:24:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bce043cc-0f69-4297-8f31-92dcfbc0061d@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 05/12] mm/collapse: state what a collapse may do in the
+ policy
+To: Kiryl Shutsemau <kirill@shutemov.name>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>
+References: <20260916093145.4022188-1-kirill@shutemov.name>
+ <20260916093145.4022188-6-kirill@shutemov.name>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260916093145.4022188-6-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 23, 2026 at 12:31:42PM +0100, Ryan Roberts wrote:
-> On 23/09/2026 12:01, Anshuman Khandual wrote:
-> > On Wed, Sep 23, 2026 at 09:32:17AM +0100, Ryan Roberts wrote:
-> >> On 22/09/2026 07:16, Anshuman Khandual wrote:
-> >>> Replace READ_ONCE() with pmdp_get() for PMD accesses in preparation for
-> >>> supporting both D64 and D128 translation table formats.
-> >>>
-> >>> READ_ONCE() cannot currently be used for 128-bit page table entries on
-> >>> arm64 because it does not provide the required 128-bit single-copy
-> >>> atomicity, causing builds to fail for accesses wider than 64 bits.
-> >>>
-> >>> Although LDP/STP provide the required atomicity when FEAT_LSE is
-> >>> available (as required by FEAT_D128), extending READ_ONCE() to support
-> >>> 128-bit accesses is undesirable. READ_ONCE() is a general-purpose API,
-> >>> so doing so could encourage other 128-bit users that would either fail
-> >>> to build in configurations without D128 support or, if D128 becomes a
-> >>> runtime option, silently permit tearing on systems without the required
-> >>> hardware support.
-> >>>
-> >>> Instead, standardize PMD accesses on the existing page-table helpers.
-> >>> These can be overridden on arm64 to provide 128-bit single-copy
-> >>> atomicity when required. No functional change intended.
-> >>
-> >> I notice you have an unconverted READ_ONCE(*pmdp) in
-> >> pmdp_test_and_clear_young(). Is that intentional?
-> > 
-> > Converting the above READ_ONCE() instances as pmdp_get() cuases a build
-> > failure as pmpd_get() which is defined in generic pgtable header is not
-> > visible inside platform specific pgtable header, even with a forward
-> > declaration.
-> > 
-> > In D128 V2 series these conversions were performed later in the series,
-> > when platform specific pxdp_get() overrides were added via ptval_get(). 
-> > 
-> > But to avoid this, we could just move pmdp_test_and_clear_young() inside
-> > arch/arm64/mm/mmu.c file instead. Folding in the following change builds.
+On 9/16/26 11:31, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 > 
-> I'm not sure if/how this might affect performance? Probably not significant
-> since they are for higher levels, so not called as frequently as pte helpers.
+> Tests scattered through the collapse path decide what a collapse is
+> allowed to do by asking whether khugepaged started it.  Between them they
+> settle:
+> 
+>  - which VMAs are eligible, and how hard to try for a folio;
+>  - how many empty, swapped-out or shared PTEs a window may contain, and
+>    whether a sub-PMD window is held to a stricter rule than a PMD;
+>  - whether a range has to look used, and whether a MADV_FREE'd page is
+>    left alone;
+>  - whether the PMD is mapped as part of the request, and whether dirty
+>    pages are worth writing back and retrying.
+> 
+> None of those is a fact about khugepaged.  Each is something the caller
+> decided before asking, and the collapse code should not have to look up
+> who called to find out.
 
-Right, should not have much performance impact.
+Agreed. Removing plenty of these is_khugepaged checks is nice.
 
 > 
-> Another option would be to implement arm64-specific pxdp_get() helpers in
-> asm/pgtable.h to override the generic versions?
-
-For now those will still be based on READ_ONCE() just like the default ones.
-Although trying to drop similar redundancies from other platforms :)
-
-https://lore.kernel.org/linux-mm/20260923043226.331880-1-anshuman.khandual@arm.com/
-
-But given D128 is going to define pxdp_get() anyway it might make sense to
-define them now and withdraw the above series :) Seems like s390 platform
-also has similar situation.
-
->
-> Thanks,
-> Ryan
+> Add struct collapse_policy for the caller to fill: khugepaged from its
+> own settings, MADV_COLLAPSE from the fact that a user asked explicitly.
+> Every test becomes a read of a field, and cc->is_khugepaged goes, having
+> no reader left.
 > 
-> > 
-> > diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> > index ae41946c54f26..13ca85ec89f6a 100644
-> > --- a/arch/arm64/include/asm/pgtable.h
-> > +++ b/arch/arm64/include/asm/pgtable.h
-> > @@ -1289,14 +1289,8 @@ static inline bool __ptep_clear_flush_young(struct vm_area_struct *vma,
-> > 
-> >  #if defined(CONFIG_TRANSPARENT_HUGEPAGE) || defined(CONFIG_ARCH_HAS_NONLEAF_PMD_YOUNG)
-> >  #define __HAVE_ARCH_PMDP_TEST_AND_CLEAR_YOUNG
-> > -static inline bool pmdp_test_and_clear_young(struct vm_area_struct *vma,
-> > -               unsigned long address, pmd_t *pmdp)
-> > -{
-> > -       /* Operation applies to PMD table entry only if FEAT_HAFT is enabled */
-> > -       VM_WARN_ON(pmd_table(READ_ONCE(*pmdp)) && !system_supports_haft());
-> > -       return __ptep_test_and_clear_young(vma, address, (pte_t *)pmdp);
-> > -}
-> > -#endif /* CONFIG_TRANSPARENT_HUGEPAGE || CONFIG_ARCH_HAS_NONLEAF_PMD_YOUNG */
-> > +bool pmdp_test_and_clear_young(struct vm_area_struct *vma, unsigned long address, pmd_t *pmdp);
-> > +#endif
-> > 
-> >  static inline pte_t __ptep_get_and_clear_anysz(struct mm_struct *mm,
-> >                                                unsigned long address,
-> > diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> > index 76d8d320aeedf..b3fd06a623db5 100644
-> > --- a/arch/arm64/mm/mmu.c
-> > +++ b/arch/arm64/mm/mmu.c
-> > @@ -2440,4 +2440,15 @@ void __check_safe_pte_update(struct mm_struct *mm, pte_t *ptep, pte_t pte)
-> >                      __func__, pte_str_old, pte_str);
-> >  }
-> >  #endif /* CONFIG_DEBUG_VM */
-> > +
-> > +#if defined(CONFIG_TRANSPARENT_HUGEPAGE) || defined(CONFIG_ARCH_HAS_NONLEAF_PMD_YOUNG)
-> > +#define __HAVE_ARCH_PMDP_TEST_AND_CLEAR_YOUNG
-> > +bool pmdp_test_and_clear_young(struct vm_area_struct *vma, unsigned long address, pmd_t *pmdp)
-> > +{
-> > +       /* Operation applies to PMD table entry only if FEAT_HAFT is enabled */
-> > +       VM_WARN_ON(pmd_table(pmdp_get(pmdp)) && !system_supports_haft());
-> > +       return __ptep_test_and_clear_young(vma, address, (pte_t *)pmdp);
-> > +}
-> > +#endif /* CONFIG_TRANSPARENT_HUGEPAGE || CONFIG_ARCH_HAS_NONLEAF_PMD_YOUNG */
-> > +
-> >  #endif
-> > 
-> >>
-> >> Thanks,
-> >> Ryan
-> >>
-> >>
-> >>>
-> >>> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> >>> Cc: Will Deacon <will@kernel.org>
-> >>> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> >>> Cc: Mark Rtland <mark.rtland@arm.com>
-> >>> Cc: linx-arm-kernel@lists.infradead.org
-> >>> Cc: linx-kernel@vger.kernel.org
-> >>> Cc: kasan-dev@googlegrops.com
-> >>> Reviewed-by: Ryan Roberts <ryan.roberts@arm.com>
-> >>> Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
-> >>> ---
-> >>>  arch/arm64/include/asm/pgtable.h |  3 ++-
-> >>>  arch/arm64/mm/fault.c            |  2 +-
-> >>>  arch/arm64/mm/fixmap.c           |  2 +-
-> >>>  arch/arm64/mm/hugetlbpage.c      |  2 +-
-> >>>  arch/arm64/mm/kasan_init.c       |  4 ++--
-> >>>  arch/arm64/mm/mmu.c              | 22 +++++++++++-----------
-> >>>  arch/arm64/mm/pageattr.c         |  2 +-
-> >>>  arch/arm64/mm/trans_pgd.c        |  2 +-
-> >>>  8 files changed, 20 insertions(+), 19 deletions(-)
-> >>>
-> >>> diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
-> >>> index 763c5a411d64..b953ea0ba3ed 100644
-> >>> --- a/arch/arm64/include/asm/pgtable.h
-> >>> +++ b/arch/arm64/include/asm/pgtable.h
-> >>> @@ -811,7 +811,8 @@ static inline unsigned long pmd_page_vaddr(pmd_t pmd)
-> >>>  }
-> >>>  
-> >>>  /* Find an entry in the third-level page table. */
-> >>> -#define pte_offset_phys(dir,addr)	(pmd_page_paddr(READ_ONCE(*(dir))) + pte_index(addr) * sizeof(pte_t))
-> >>> +#define pte_offset_phys(dir, addr)	(pmd_page_paddr(pmdp_get(dir)) + \
-> >>> +					 pte_index(addr) * sizeof(pte_t))
-> >>>  
-> >>>  #define pte_set_fixmap(addr)		((pte_t *)set_fixmap_offset(FIX_PTE, addr))
-> >>>  #define pte_set_fixmap_offset(pmd, addr)	pte_set_fixmap(pte_offset_phys(pmd, addr))
-> >>> diff --git a/arch/arm64/mm/fault.c b/arch/arm64/mm/fault.c
-> >>> index 2cecf6ba6df7..2757ee0c4300 100644
-> >>> --- a/arch/arm64/mm/fault.c
-> >>> +++ b/arch/arm64/mm/fault.c
-> >>> @@ -188,7 +188,7 @@ static void show_pte(unsigned long addr)
-> >>>  			break;
-> >>>  
-> >>>  		pmdp = pmd_offset_lockless(pudp, pud, addr);
-> >>> -		pmd = READ_ONCE(*pmdp);
-> >>> +		pmd = pmdp_get(pmdp);
-> >>>  		ptval_to_str(pxd_str, pmd_val(pmd));
-> >>>  		pr_cont(", pmd=%s", pxd_str);
-> >>>  		if (pmd_none(pmd) || pmd_bad(pmd))
-> >>> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-> >>> index f66a0016dd02..3cdac8021d4f 100644
-> >>> --- a/arch/arm64/mm/fixmap.c
-> >>> +++ b/arch/arm64/mm/fixmap.c
-> >>> @@ -42,7 +42,7 @@ static inline pte_t *fixmap_pte(unsigned long addr)
-> >>>  
-> >>>  static void __init early_fixmap_init_pte(pmd_t *pmdp, unsigned long addr)
-> >>>  {
-> >>> -	pmd_t pmd = READ_ONCE(*pmdp);
-> >>> +	pmd_t pmd = pmdp_get(pmdp);
-> >>>  	pte_t *ptep;
-> >>>  
-> >>>  	if (pmd_none(pmd)) {
-> >>> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-> >>> index 8e799c1fe0aa..cdaa4500faf9 100644
-> >>> --- a/arch/arm64/mm/hugetlbpage.c
-> >>> +++ b/arch/arm64/mm/hugetlbpage.c
-> >>> @@ -304,7 +304,7 @@ pte_t *huge_pte_offset(struct mm_struct *mm,
-> >>>  		addr &= CONT_PMD_MASK;
-> >>>  
-> >>>  	pmdp = pmd_offset(pudp, addr);
-> >>> -	pmd = READ_ONCE(*pmdp);
-> >>> +	pmd = pmdp_get(pmdp);
-> >>>  	if (!(sz == PMD_SIZE || sz == CONT_PMD_SIZE) &&
-> >>>  	    pmd_none(pmd))
-> >>>  		return NULL;
-> >>> diff --git a/arch/arm64/mm/kasan_init.c b/arch/arm64/mm/kasan_init.c
-> >>> index 45fbdce684c8..7ca833c5de5e 100644
-> >>> --- a/arch/arm64/mm/kasan_init.c
-> >>> +++ b/arch/arm64/mm/kasan_init.c
-> >>> @@ -62,7 +62,7 @@ static phys_addr_t __init kasan_alloc_raw_page(int node)
-> >>>  static pte_t *__init kasan_pte_offset(pmd_t *pmdp, unsigned long addr, int node,
-> >>>  				      bool early)
-> >>>  {
-> >>> -	if (pmd_none(READ_ONCE(*pmdp))) {
-> >>> +	if (pmd_none(pmdp_get(pmdp))) {
-> >>>  		phys_addr_t pte_phys = early ?
-> >>>  				__pa_symbol(kasan_early_shadow_pte)
-> >>>  					: kasan_alloc_zeroed_page(node);
-> >>> @@ -138,7 +138,7 @@ static void __init kasan_pmd_populate(pud_t *pudp, unsigned long addr,
-> >>>  	do {
-> >>>  		next = pmd_addr_end(addr, end);
-> >>>  		kasan_pte_populate(pmdp, addr, next, node, early);
-> >>> -	} while (pmdp++, addr = next, addr != end && pmd_none(READ_ONCE(*pmdp)));
-> >>> +	} while (pmdp++, addr = next, addr != end && pmd_none(pmdp_get(pmdp)));
-> >>>  }
-> >>>  
-> >>>  static void __init kasan_pud_populate(p4d_t *p4dp, unsigned long addr,
-> >>> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> >>> index e589fb00d1e3..95621913679e 100644
-> >>> --- a/arch/arm64/mm/mmu.c
-> >>> +++ b/arch/arm64/mm/mmu.c
-> >>> @@ -200,7 +200,7 @@ static int alloc_init_cont_pte(pmd_t *pmdp, unsigned long addr,
-> >>>  			       int flags)
-> >>>  {
-> >>>  	unsigned long next;
-> >>> -	pmd_t pmd = READ_ONCE(*pmdp);
-> >>> +	pmd_t pmd = pmdp_get(pmdp);
-> >>>  	pte_t *ptep;
-> >>>  
-> >>>  	BUG_ON(pmd_leaf(pmd));
-> >>> @@ -257,7 +257,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
-> >>>  	unsigned long next;
-> >>>  
-> >>>  	do {
-> >>> -		pmd_t old_pmd = READ_ONCE(*pmdp);
-> >>> +		pmd_t old_pmd = pmdp_get(pmdp);
-> >>>  
-> >>>  		next = pmd_addr_end(addr, end);
-> >>>  
-> >>> @@ -272,7 +272,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
-> >>>  			 * only allow updates to the permission attributes.
-> >>>  			 */
-> >>>  			BUG_ON(!pgattr_change_is_safe(pmd_val(old_pmd),
-> >>> -						      READ_ONCE(pmd_val(*pmdp))));
-> >>> +						      pmd_val(pmdp_get(pmdp))));
-> >>>  		} else {
-> >>>  			int ret;
-> >>>  
-> >>> @@ -282,7 +282,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
-> >>>  				return ret;
-> >>>  
-> >>>  			VM_WARN_ON_ONCE(pmd_val(old_pmd) != 0 &&
-> >>> -					pmd_val(old_pmd) != READ_ONCE(pmd_val(*pmdp)));
-> >>> +					pmd_val(old_pmd) != pmd_val(pmdp_get(pmdp)));
-> >>>  		}
-> >>>  		phys += next - addr;
-> >>>  	} while (pmdp++, addr = next, addr != end);
-> >>> @@ -293,7 +293,7 @@ static int init_pmd(pmd_t *pmdp, unsigned long addr, unsigned long end,
-> >>>  static bool pmd_range_has_valid_noncont(pmd_t *pmdp)
-> >>>  {
-> >>>  	for (int i = 0; i < CONT_PMDS; i++) {
-> >>> -		pte_t pte = pmd_pte(READ_ONCE(pmdp[i]));
-> >>> +		pte_t pte = pmd_pte(pmdp_get(pmdp + i));
-> >>>  
-> >>>  		if (pte_valid(pte) && !pte_cont(pte))
-> >>>  			return true;
-> >>> @@ -1553,7 +1553,7 @@ static void unmap_hotplug_pmd_range(pud_t *pudp, unsigned long addr,
-> >>>  	do {
-> >>>  		next = pmd_addr_end(addr, end);
-> >>>  		pmdp = pmd_offset(pudp, addr);
-> >>> -		pmd = READ_ONCE(*pmdp);
-> >>> +		pmd = pmdp_get(pmdp);
-> >>>  		if (pmd_none(pmd))
-> >>>  			continue;
-> >>>  
-> >>> @@ -1708,7 +1708,7 @@ static void free_empty_pmd_table(pud_t *pudp, unsigned long addr,
-> >>>  	do {
-> >>>  		next = pmd_addr_end(addr, end);
-> >>>  		pmdp = pmd_offset(pudp, addr);
-> >>> -		pmd = READ_ONCE(*pmdp);
-> >>> +		pmd = pmdp_get(pmdp);
-> >>>  		if (pmd_none(pmd))
-> >>>  			continue;
-> >>>  
-> >>> @@ -1729,7 +1729,7 @@ static void free_empty_pmd_table(pud_t *pudp, unsigned long addr,
-> >>>  	 */
-> >>>  	pmdp = pmd_offset(pudp, 0UL);
-> >>>  	for (i = 0; i < PTRS_PER_PMD; i++) {
-> >>> -		if (!pmd_none(READ_ONCE(pmdp[i])))
-> >>> +		if (!pmd_none(pmdp_get(pmdp + i)))
-> >>>  			return;
-> >>>  	}
-> >>>  
-> >>> @@ -1881,7 +1881,7 @@ int pmd_set_huge(pmd_t *pmdp, phys_addr_t phys, pgprot_t prot)
-> >>>  	pmd_t new_pmd = pfn_pmd(__phys_to_pfn(phys), mk_pmd_sect_prot(prot));
-> >>>  
-> >>>  	/* Only allow permission changes for now */
-> >>> -	if (!pgattr_change_is_safe(READ_ONCE(pmd_val(*pmdp)),
-> >>> +	if (!pgattr_change_is_safe(pmd_val(pmdp_get(pmdp)),
-> >>>  				   pmd_val(new_pmd)))
-> >>>  		return 0;
-> >>>  
-> >>> @@ -1906,7 +1906,7 @@ int pud_clear_huge(pud_t *pudp)
-> >>>  
-> >>>  int pmd_clear_huge(pmd_t *pmdp)
-> >>>  {
-> >>> -	if (!pmd_leaf(READ_ONCE(*pmdp)))
-> >>> +	if (!pmd_leaf(pmdp_get(pmdp)))
-> >>>  		return 0;
-> >>>  	pmd_clear(pmdp);
-> >>>  	return 1;
-> >>> @@ -1917,7 +1917,7 @@ int pmd_free_pte_page(pmd_t *pmdp, unsigned long addr)
-> >>>  	pte_t *table;
-> >>>  	pmd_t pmd;
-> >>>  
-> >>> -	pmd = READ_ONCE(*pmdp);
-> >>> +	pmd = pmdp_get(pmdp);
-> >>>  
-> >>>  	if (!pmd_table(pmd)) {
-> >>>  		VM_WARN_ON(1);
-> >>> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-> >>> index bbe98ac9ad8c..0ca07bd5ded9 100644
-> >>> --- a/arch/arm64/mm/pageattr.c
-> >>> +++ b/arch/arm64/mm/pageattr.c
-> >>> @@ -414,7 +414,7 @@ bool kernel_page_present(struct page *page)
-> >>>  		return pud_valid(pud);
-> >>>  
-> >>>  	pmdp = pmd_offset(pudp, addr);
-> >>> -	pmd = READ_ONCE(*pmdp);
-> >>> +	pmd = pmdp_get(pmdp);
-> >>>  	if (pmd_none(pmd))
-> >>>  		return false;
-> >>>  	if (pmd_leaf(pmd))
-> >>> diff --git a/arch/arm64/mm/trans_pgd.c b/arch/arm64/mm/trans_pgd.c
-> >>> index cca9706a875c..b27b2d2c20c3 100644
-> >>> --- a/arch/arm64/mm/trans_pgd.c
-> >>> +++ b/arch/arm64/mm/trans_pgd.c
-> >>> @@ -74,7 +74,7 @@ static int copy_pmd(struct trans_pgd_info *info, pud_t *dst_pudp,
-> >>>  
-> >>>  	src_pmdp = pmd_offset(src_pudp, start);
-> >>>  	do {
-> >>> -		pmd_t pmd = READ_ONCE(*src_pmdp);
-> >>> +		pmd_t pmd = pmdp_get(src_pmdp);
-> >>>  
-> >>>  		next = pmd_addr_end(addr, end);
-> >>>  		if (pmd_none(pmd))
-> >>
+> khugepaged fills the policy once per scan pass, MADV_COLLAPSE once per
+> call.  That is the one change in behaviour.  The max_ptes_* limits and the
+> defrag setting behind the allocation mask are sampled once per pass rather
+> than on every table.  A table scanned early in a pass and one scanned late
+> are then treated alike.
+
+Fair.
+
 > 
+> collapse_file() also drops a NULL check on the collapse_control.  It has
+> one call site, reached only from collapse_single_pmd(), which dereferences
+> cc unconditionally, so the check was already dead.
+
+Worth putting this into a separate patch? Likely not.
+
+> 
+> Assisted-by: LLM
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> ---
+>  mm/collapse.h   |  31 ++++++++++++-
+>  mm/khugepaged.c | 114 ++++++++++++++++++++++++++----------------------
+>  2 files changed, 93 insertions(+), 52 deletions(-)
+> 
+> diff --git a/mm/collapse.h b/mm/collapse.h
+> index b115034d9018..7044dc71c7c2 100644
+> --- a/mm/collapse.h
+> +++ b/mm/collapse.h
+> @@ -45,8 +45,37 @@ enum scan_result {
+>  	SCAN_PAGE_DIRTY_OR_WRITEBACK,
+>  };
+>  
+> +/* What a collapse is allowed to do, decided by the caller that asks for it */
+> +struct collapse_policy {
+> +	/* Limits, stated per PMD; HPAGE_PMD_NR means "no limit" */
+> +	unsigned int max_ptes_none;
+> +	unsigned int max_ptes_swap;
+> +	unsigned int max_ptes_shared;
+> +
+> +	/* Take no swapped-out or shared PTE into a sub-PMD collapse */
+> +	bool strict_sub_pmd;
+
+Reading this variable name without the documentation I have no idea what it
+means. It looks like the wrong abstraction.
+
+Maybe you instead want to split max_ptes_swap and shared to a PMD and non-PMD case?
+
+I am also confused why you use "strict_sub_pmd" in the collapse_max_ptes_none()
+handler below? Something seems odd, as it doesn't amtch the description here.
+
+> +
+> +	/* Leave clean lazyfree folios to reclaim rather than collapse them */
+> +	bool skip_lazyfree;
+> +
+> +	/* Refuse a range with no sign of use */
+> +	bool require_referenced;
+> +
+> +	/* Map the PMD over a file collapse instead of leaving it to a fault */
+> +	bool install_pmd;
+
+Confusing.
+
+If some of these policies are anon-/ file-specific, the name should indicate
+that, so there is less head scratching.
+
+> +
+> +	/* Write dirty pages back and retry once instead of refusing them */
+> +	bool writeback_dirty;
+> +
+> +	/* How hard to try for a destination folio */
+> +	gfp_t gfp;
+> +
+> +	/* Which VMAs are eligible, as thp_vma_allowable_orders() spells it */
+> +	enum tva_type tva_type;
+> +};
+> +
+>  struct collapse_control {
+> -	bool is_khugepaged;
+> +	struct collapse_policy policy;
+>  
+>  	/* Num pages scanned per node */
+>  	u32 node_load[MAX_NUMNODES];
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 8889f75cf45f..cb08789b2d38 100644
+> --- a/mm/khugepaged.c
+
+
+[...]
+
+>  
+> +/* khugepaged collapses on its own initiative, so it obeys its own settings */
+> +static void collapse_policy_khugepaged(struct collapse_policy *p)
+> +{
+> +	p->max_ptes_none = READ_ONCE(khugepaged_max_ptes_none);
+> +	p->max_ptes_swap = READ_ONCE(khugepaged_max_ptes_swap);
+> +	p->max_ptes_shared = READ_ONCE(khugepaged_max_ptes_shared);
+> +	p->strict_sub_pmd = true;
+> +	p->skip_lazyfree = true;
+> +	p->require_referenced = true;
+> +	p->install_pmd = false;
+> +	p->writeback_dirty = false;
+> +	p->gfp = alloc_hugepage_khugepaged_gfpmask();
+> +	p->tva_type = TVA_KHUGEPAGED;
+> +}
+> +
+> +/* MADV_COLLAPSE was asked for explicitly, so it is not held to those */
+> +static void collapse_policy_forced(struct collapse_policy *p)
+
+Why are we not calling this collapse_policy_madvise to match its description here?
+
+
+[...]
+
+> @@ -2943,6 +2952,9 @@ static void khugepaged_do_scan(struct collapse_control *cc)
+>  
+>  	lru_add_drain_all();
+>  
+> +	/* One policy for the whole pass, so every table is treated the same */
+
+just drop that comment.
+
+
+
+-- 
+Cheers,
+
+David
