@@ -1,191 +1,109 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EFA43B6C9
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265FC455635;
+	Wed, 23 Sep 2026 07:45:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790149508; cv=none; b=ek9AbM7VZ95DOnDYO+ZJVPFR5QZhndgSYqDzI0uz9iXv24I9EVjnW+aA4UPKKgS5NO4yRfH2ugFhHjn5hMZEBlb44ooitubS+Ty2FiQ6EwRcMdCvesXh2CT4XhGJsIVdFGDZ17efAzedQZ6FNqoKaSiOKXmwU/t3YuNCm1U+WXA=
+	t=1790149517; cv=none; b=VvJbtCeaJrbpayXNm3TuGdfG0qCfRkSVTtmFlJW8EYuee6fwY8uFWTZbvNpARWbqAHl1xlliYlIrQfJXQBMd6AUwYlY7rRQZ4RcnoCugK0d1KFCsaS4SfyeV7u5a52BsdAmKnGriDHK0Gse6MNLV35DRYBxibpXQS8JcQGOql9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790149508; c=relaxed/simple;
-	bh=5kPGnkwKHf5Vj9uekTVIiPSJxentpI2NQNaQR9w0bEk=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:In-Reply-To:
-	 Content-Type:References; b=foiFz+WXcl/I6tcdWyIKPPkz06kj4uAmYz5FdLCqWtWzmfmvIeiXZyZ3AaVAvXn4oGvF/ZX53iOTvX/19g7aT6KiKydqEylS+DFw51WFIshXwwEVv6vHew8w9ip9SQw9IJrUilMpc+AGrcIrET4a4Pn1xTCc4kqiGd6xFC/+iTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=C3aGXNlR; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1790149517; c=relaxed/simple;
+	bh=L8b2o0xjkNjnnwh84ixRzzr00BXVJ9wSa/nQdaNfnJQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=MdfE3pY2eVM3wx0MdLEQ19sPZrJD6hEUF3FWY2wX3L7rGumE+sRTE6WQW0iElp2GzK/idLHjmGzAkzwIRc43MsZ3tjWTyktEiQG6JRxGxjyr77/pVvKYqfQR+19yyHBnMnowuePll1ZoKlEc7kY4A4t0WEKQWvVfjdEiDOK3uCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PFyD01pD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="C3aGXNlR"
-Received: from epcas2p1.samsung.com (unknown [182.195.41.53])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260923074503epoutp025a3ffe4c727a2fe891e0afde7062c4ec~X430yUuV_0828108281epoutp02a
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 07:45:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260923074503epoutp025a3ffe4c727a2fe891e0afde7062c4ec~X430yUuV_0828108281epoutp02a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1790149503;
-	bh=Q0a3Jy2hX8cd9bHF+LBi5EmK52t3iU9A/ipL6ZEZ7i4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=C3aGXNlRuhcpJOzFtClfilmOHGcVxrqC8Lxm6bsndGSM5ErAcX8WboHnJ1PsVQ9v9
-	 5+bCiaxc3iznC0R1ELPeMTdm1JueCXspqs/rZsD5BcKaw4viCGm8eAGdFhg3dLgyVL
-	 C7d2mbdccgUuemPnf5budZSgYVxaY2hEtd6STpV0=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
-	epcas2p3.samsung.com (KnoxPortal) with ESMTPS id
-	20260923074503epcas2p382e280a58b0f579646a0ccb1f20ec214~X430iUQ3g2265222652epcas2p3x;
-	Wed, 23 Sep 2026 07:45:03 +0000 (GMT)
-Received: from epcpadp1new (unknown [182.195.40.141]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4hqTWz3FVDz6B9mN; Wed, 23 Sep
-	2026 07:45:03 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas2p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260923073843epcas2p120eba7035d037f820c1621710e46eeb1~X4ySsSI8E3185531855epcas2p1N;
-	Wed, 23 Sep 2026 07:38:43 +0000 (GMT)
-Received: from ubuntu (unknown [12.81.221.204]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20260923073843epsmtip2c9da43ac0b4e2951a90b3f67e6eeb58f~X4ySp8HxP2834028340epsmtip2N;
-	Wed, 23 Sep 2026 07:38:43 +0000 (GMT)
-Date: Wed, 23 Sep 2026 16:34:56 +0900
-From: Daehwan Jung <dh10.jung@samsung.com>
-To: Prashanth K <prashanth.k@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "open list:USB
- SUBSYSTEM" <linux-usb@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>, cpgs@samsung.com, cpgsproxy1@samsung.com
-Subject: Re: [PATCH v3] usb: gadget: u_serial: fix stale req->dep warn on
- disconnect/reconnect
-Message-ID: <973576304.21790149503446.JavaMail.epsvc@epcpadp1new>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PFyD01pD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94BDB1F000FF;
+	Wed, 23 Sep 2026 07:45:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790149515;
+	bh=1foUsDpAEZYtjknaRltgsBB8N+Dblj/3OAvcebQkh1g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PFyD01pD0i7cPkEY4MT4Tx4wptgkKyfc+CFsCp6tCOVVDwCG2sGXnnkoVJm8LMONm
+	 Gnj04qtcJCEN0cJVTRjB78TdeBrsSszyM/lbKH7wivZe0P1aRDSW44UEvYGOtC5W8/
+	 CQvXZI9qHt96in2Kvvwm3wGA0BkmcWzqVwvPYzDXzQDA9YyfmLNqq5JHxeyKmmAkgM
+	 uHEWdH3MvdFddROGMBz8x1jaq6O091sTatyFMVW3qcbsKit/4scqTvn2te/E0PVjWk
+	 KZ1X6r4aRQsdWxrFo3w7n9m3AQHgdtlsSCRQ0VkBFtnciIR1VBkCjDwSzGRNDpsdql
+	 v1HltHf7Yn4gA==
+Date: Wed, 23 Sep 2026 16:45:10 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: "Paul E. McKenney" <paulmck@kernel.org>, Frederic Weisbecker
+ <frederic@kernel.org>, Alexei Starovoitov <ast@kernel.org>, Steven Rostedt
+ <rostedt@goodmis.org>, Boqun Feng <boqun@kernel.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Peter Zijlstra
+ <peterz@infradead.org>, Thomas Gleixner <tglx@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Puranjay Mohan
+ <puranjay@kernel.org>, rcu@vger.kernel.org, bpf@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 03/13] kprobes: Expose the optprobe jump window to
+ Tasks RCU
+Message-Id: <20260923164510.f3bbddefea4423f8f1bfecb8@kernel.org>
+In-Reply-To: <20260922-b4-rcu-tasks-preempt-qs-v5-3-410f57770bad@toxicpanda.com>
+References: <20260922-b4-rcu-tasks-preempt-qs-v5-0-410f57770bad@toxicpanda.com>
+	<20260922-b4-rcu-tasks-preempt-qs-v5-3-410f57770bad@toxicpanda.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <229c67e8-aaa3-4898-981e-d15844895b77@oss.qualcomm.com>
-X-CMS-MailID: 20260923073843epcas2p120eba7035d037f820c1621710e46eeb1
-X-Msg-Generator: CA
-Content-Type: multipart/mixed;
-	boundary="----2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_709df_"
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-Hop-Count: 3
-X-CMS-RootMailID: 20260727051638epcas2p11f7b91e0be7604331bfe0f46beef9ce1
-References: <CGME20260727051638epcas2p11f7b91e0be7604331bfe0f46beef9ce1@epcas2p1.samsung.com>
-	<20260727051335.1745955-1-dh10.jung@samsung.com>
-	<229c67e8-aaa3-4898-981e-d15844895b77@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_709df_
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
+On Tue, 22 Sep 2026 02:23:22 +0000
+Josef Bacik <josef@toxicpanda.com> wrote:
 
-On Tue, Sep 22, 2026 at 11:37:55AM +0530, Prashanth K wrote:
+> kprobe_optimizer() is the one synchronize_rcu_tasks() user that is not
+> about trampoline text: it waits for tasks that were interrupted on an
+> instruction boundary inside the bytes it is about to overwrite with the
+> optimized jump, so that none of them resumes into the middle of the new
+> instruction.  Those bytes are ordinary kernel or module text with no
+> Tasks Trace reader around them, so on CONFIG_TASKS_RCU_TRAMPOLINE_READERS
+> kernels the irq-exit quiescent-state check has to be told about them.
 > 
+> Add kprobe_in_optimized_region(), a lockless and conservative form of
+> get_optimized_kprobe() that reports whether any registered kprobe lies
+> within MAX_OPTIMIZED_LENGTH before the given address regardless of its
+> optimization state, and have rcu_tasks_trampoline_text() consult it for
+> core and module text so that a task interrupted there becomes a holdout
+> rather than a quiescent event. The hash walk only runs while
+> kprobe_optimizer() is actually inside its synchronize_rcu_tasks(),
+> tracked by a flag it sets around the call; otherwise the check is a
+> single load. That check cannot see a task that was already preempted in
+> the region before the flag went up (possibly before the kprobe even
+> existed), and the new grace period does not otherwise wait for a
+> preempted task to run again, so before synchronize_rcu_tasks() the
+> optimizer calls rcu_tasks_wait_irq_preempted() to wait until no parked
+> task's recorded irq-exit preemption IP is inside such a region; its
+> leading synchronize_rcu() also publishes the flag to every (interrupts-
+> disabled) check in flight. The kprobe hash is RCU-protected and every
+> free path waits for a grace period after unhashing, so the lockless walk
+> from the irq-exit path is safe.
 > 
-> On 7/27/2026 10:43 AM, Daehwan Jung wrote:
-> > When DWC3_EP_DELAY_STOP defers ENDXFER, giveback of -ESHUTDOWN requests
-> > arrives after gserial_disconnect(). These stale requests then accumulate
-> > in read_pool via gs_rx_push(). After gadget exit frees the old endpoint,
-> > req->dep becomes a dangling pointer. On the next gserial_connect(),
-> > gs_start_rx() queues these stale requests onto a new endpoint, triggering:
-> > 
-> >   WARNING: CPU: 0 at drivers/usb/dwc3/gadget.c:1990
-> >   request 00000000e6e350a5 belongs to ''
-> > 
-> >   Call trace:
-> >    dwc3_gadget_ep_queue+0x158/0x1e8
-> >    usb_ep_queue+0x60/0xe8
-> >    gs_start_rx+0xa4/0x128
-> >    gs_start_io+0x128/0x254
-> >    gserial_connect+0xb4/0x14c
-> >    acm_set_alt+0xa0/0x114
-> >    set_config+0x22c/0x384
-> >    composite_setup+0x37c/0xc7c
-> >    configfs_composite_setup+0x5c/0x88
-> >    dwc3_ep0_interrupt+0x6c8/0xbcc
-> >    dwc3_thread_interrupt+0xa0/0x1284
-> >    irq_thread_fn+0x48/0xa8
-> >    irq_thread+0x150/0x31c
-> >    kthread+0x150/0x27c
-> >    ret_from_fork+0x10/0x20
-> > 
-> > Fix by discarding -ESHUTDOWN requests immediately in gs_read_complete()
-> > while ep is still valid, preventing stale reqs from entering read_pool.
-> > 
-> > Fixes: 937ef73d5075 ("USB: serial gadget: rx path data loss fixes")
-> > Signed-off-by: Daehwan Jung <dh10.jung@samsung.com>
-> > ---
-> > Changes in v3:
-> > - Add missing version tag in subject
-> > Link to v2: https://lore.kernel.org/linux-usb/20260727042632.1726391-1-dh10.jung@samsung.com/
-> > 
-> > Changes in v2:
-> > - Correct the name of author
-> > - Modify commit subject (panic -> warn)
-> > Link to v1: https://lore.kernel.org/all/20260721013509.2327242-1-dh10.jung@samsung.com/
-> > ---
-> >  drivers/usb/gadget/function/u_serial.c | 18 +++++++++++++++---
-> >  1 file changed, 15 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/drivers/usb/gadget/function/u_serial.c b/drivers/usb/gadget/function/u_serial.c
-> > index cdd1dfc666c4..97ee1b9cb065 100644
-> > --- a/drivers/usb/gadget/function/u_serial.c
-> > +++ b/drivers/usb/gadget/function/u_serial.c
-> > @@ -459,10 +459,22 @@ static void gs_read_complete(struct usb_ep *ep, struct usb_request *req)
-> >  {
-> >  	struct gs_port	*port = ep->driver_data;
-> >  
-> > -	/* Queue all received data until the tty layer is ready for it. */
-> >  	spin_lock(&port->port_lock);
-> > -	list_add_tail(&req->list, &port->read_queue);
-> > -	schedule_delayed_work(&port->push, 0);
-> > +	if (req->status == -ESHUTDOWN) {
-> 
-> Can we make sure this happens only if gserial_disconnect() is already
-> executed, maybe checking for port_usb would help.> +		/*
+> On other configurations the flag is set and cleared but nothing reads
+> it and rcu_tasks_wait_irq_preempted() is a stub; the classic
+> implementation already waits for such tasks.
 
-Hi Prashanth K, Thanks for the comments.
+Hmm, this seems a bit awkward. To solve this problem with tasks RCU is
+not a straight solution. I rather like to suggest fixing kprobe_optimizer.
 
-I saw read_started = -16 when this issue occured. That's why I suspect
-gserial_disconnect() resets it before. We can check port_usb instead as you
-said.
+Since the root cause of the mutex related hang_task stall is the
+kprobe_optimizer() waits RCU under locking mutexes -- text_mutex,
+cpu_read_lock, and kprobe_mutex. When I introduced this, waiting
+RCU grace period did not take so long time. But now it can take
+longer, so it is a good chance to fix it completely.
 
-> > +		 * Discard shutdown completions here while ep is still valid.
-> > +		 * Returning them to read_pool after gserial_disconnect() has
-> > +		 * reset the counters causes stale reqs (with req->dep pointing
-> > +		 * to the old ep) to be queued onto a new ep at reconnect time,
-> > +		 * triggering a req->dep != dep WARN.
-> > +		 */
-> 
-> Nitpick, please rephrase this with content related to u_serial driver,
-> we dont need dwc3 driver related comments here.
-> 
-Okay, I will modify it.
-> > +		gs_free_req(ep, req);
-> > +		port->read_started--;
-> 
-> read_started would be set to 0 by gserial_disconnect, so reducing it
-> here doesn't make sense. Moreover it might cause underflow in next
+Since the RCU is a kind of the generation control of internal state,
+we can introduce multi-generation optimizing/freeing list and
+RCU tasks callback for that.
 
-You are right. It's better to remove that decrements read_started.
-I will remove it on the next version.
+Let me try to make another series to fix optprobe side.
 
-Best Regards,
-Daehwan Jung
+Thank you,
 
-> reads> +	} else {
-> > +		/* Queue all received data until the tty layer is ready for it. */
-> > +		list_add_tail(&req->list, &port->read_queue);
-> > +		schedule_delayed_work(&port->push, 0);
-> > +	}
-> >  	spin_unlock(&port->port_lock);
-> >  }
-> >  
-> 
-> Regards,
-> Prashanth K
-> 
-
-
-------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_709df_
-Content-Type: text/plain; charset="utf-8"
-
-
-------2-A87u3RbSrJ3XvU_rY9Iz3CwCKX-wh1tRaDlfrw5UdaQK4O=_709df_--
-
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
