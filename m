@@ -1,144 +1,110 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099093769F5
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:40:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D912372ED3
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 09:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790156424; cv=none; b=FRGL0VsZTCZRVtz4lX5ehTzVEUWeWJSGiBXgIH1OMGEyW9EPVvl7sZ4IPO9M4aw8AyAODyz85J+uaUE6pOey0bTyEDnqOpctdFR9nNIgNYX+5t1JNkVZi+LXbzQEq9leAn5iwblJcXtn8pZz+3MlBG2p4sk6eucQZrEpCQYuSxw=
+	t=1790156467; cv=none; b=ewwrJZOK64X/FRO0E0Dso9V+pf9wgylUO/nstjJkz9+3OVM0iDYHSv12VmoJ+q7Pl43cHplEmrVMt0/uQT/iqGBeTgPfIpHcxqoFIAtXCCxEJLJHqONbNebaRxA+tPxiLLCVtBHfl44qk2NLN8d3arfrZUgIR/cgt/DwRgYVEbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790156424; c=relaxed/simple;
-	bh=uzU7RaY2K9+73Q6YK9gtNJvyk4mkQ/ySuzyx9byGgIQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nV9QRAWjcUScy8lqXConf6gK7U1YaYcOMIpmRCwl+NMJXAJ1rDNxJlLtHNCS8mUJixD0MiXnSU66M0+pAfCNyToa1HNR2UBxrZi5u+9jE45hWsrjpyhZZqKA1NpcL0IhTxlfTcccUlweRkI2aiG4p7qpf9SUAtabHd9aKqACL+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DsESacbh; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1790156467; c=relaxed/simple;
+	bh=wHIiCEgdZtfqmIfAflpfV641BfeO9lzUS6fjDGeRjIQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UUIRk5jVThxzxmZc+TiN1BuR4Vb1y3lM9LCdppHm3cLDMyBq8Ppvrp+pmDU94+Hnct9/Ef2R8KDY252IhkDS05ZixmcBrk/PG+0tU5PGDgpiNWf5qvayYO1F3Xje3Xtfvi25lcYZ5AvTSTGcP2tKBUY30ZUyrBZ90Y4hzRO9CEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DsESacbh"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso607611a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:40:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790156422; x=1790761222; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MnQHrDxAyd1yhTRUYQ1mkIzupirTqXVm+66Gi8J/eBw=;
-        b=DsESacbh0dRI66xu2NzwLZxlRdW+armDGeYolMnRwBWt60G2n18BwQ+S8/vRrxIWVW
-         /cBeIfKdUiX5iAt3PkW3D7lDNFlgHpPukSxZ9XLcfw/KWSbRyf8ElBW5W2R+YYkPRssm
-         ER78MU5KYWkhNW8OElrXTcDLPd26iojs5lKx7d8dTxFgxD7SlF1rktZFZ+od1ziVE4iJ
-         J7I0y9JnUMssqP6MXLG3eI9oWvKbEf3e8Ycj7rcFtreDAzDAyUjRXr4JtmggLfEh5H74
-         TkvNbC11NWlVzzJoZSZDBfOszCS+RFH6yZbyA3U/2t+9iu9ldHYI6vqBfHUuOnDe2aTG
-         oLRQ==
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c7e8a17839so176774e0c.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:41:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790156422; x=1790761222;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MnQHrDxAyd1yhTRUYQ1mkIzupirTqXVm+66Gi8J/eBw=;
-        b=af2HWEq5g9U5I8Ec/FjPaG0Prr+uxOYuFI/XrsmH1/Divs9jt5hZa9yhcyELtHzK7v
-         fjxSYugWCVAq234jE+RgVSbyh0rWf9/I7G7+YYM8nWj9ZaB4hFhXRfu0N7M0MDNprUY8
-         atLKrSe+LpTPU5y84gWJlo2ZShrAqpypX4KxL3awpAxymS9212bzKYjTpvn3GuwxAIET
-         fjgd1wPZhZdPUJg6CSkIlkWenDhX9h6L+mXNC/278HvhMts0cwRCiO4HnEvJadUUVwyY
-         wmu5TjiSNMggSMVMkIEUr0+gMtafSVAfFVBAvsJZw9FCyvyBScW7F+tVZi+pWtPrcR1d
-         jhSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzcoDKRi69W/ofCOSkAmV8BGEI4CGkCEAnQq0O2P36FcYoZf+6CkY7ni6XJLjDymFnq3seFs0rt8Q3O/8E=@vger.kernel.org
-X-Gm-Message-State: AFuF++liPFN5fYkffWNsZQUCoquqiSoUOfoV1u076rNTj6OG0hASwbPn
-	eHIKbqTUMUJdG6YKsSdY2bYqqI+FKhUie5PZF31rTxvE0HX2HDyxn9HM
-X-Gm-Gg: AYBFou1/ruZfTsugZ8qAc5PQM5+OzZHOMNmt3kvGh7Tla+vP758aI8DmqWSWKUqfJLu
-	7Uynzf6gNm+iOjpMLsfZ+YcaQPRww9FcW91mHfs9yuMx+hMwOyDNAvPXn2EiAsV0DCWIYDiDvPP
-	HN0wBci8kcwyYES6DX0/9xJOot68yobJtXyBk+toqvU847HmG+CiSue54C70ZuTb1Zd6Xo9oJKl
-	4hHiruaEIZrOM1M6zZVXAdanIgYlE0XnedGev1jk9nTsQVErquWorZmsjczgJHUjtXH9lG/7aRi
-	8hfvr9Si+VAeNSlnmEu0Qz3ki4VRzQ7+G+8UPcHxUU1z+8uY5t613IQWZ0ZtS7vSoqGBxV7+0+l
-	mSlYzjix2RQjdM9m6UjW8zHLFQ7+g+VfVOd1s6EUf4fI/sBI1clTHmWQQpE3iArvndpDN9c8mmM
-	NdQtWvB+v4WOhspRecmPgFWHaicJV9g9HccDoIJrebnpn9r7kymQdoEk6X0QFhEncPMdF2WhBG2
-	GTFjGq1zyCavWGQiQ==
-X-Received: by 2002:a17:90a:e704:b0:39e:6c69:9b8f with SMTP id 98e67ed59e1d1-3a07e693a28mr1695259a91.52.1790156422193;
-        Wed, 23 Sep 2026 02:40:22 -0700 (PDT)
-Received: from fedora.tail6c1c0e.ts.net ([2405:201:c411:b12f:aef2:6452:fd6:d00e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a07fa5fd15sm1333168a91.1.2026.09.23.02.40.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 02:40:21 -0700 (PDT)
-From: Tarun Noonemunthala <ntarun2000@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tarun Noonemunthala <ntarun2000@gmail.com>
-Subject: [PATCH] ALSA: hda/realtek: Add quirk for HP ENVY 13-aq1xxx
-Date: Wed, 23 Sep 2026 15:10:14 +0530
-Message-ID: <20260923094014.58867-1-ntarun2000@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1790156464; x=1790761264;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Nr90W5Fnz0vjayQ2rPJMI4dvvs1Oph2WPp0m5lztwRY=;
+        b=S0NB5jsVHugT6Dvq0m9KriWBbCiQBNAWOzLUVBaHHkUgXyjtyp0j9QeMMrqjh/uIzF
+         cHyicNVJ7oeHURjOTVPl658zB2k/qwo+3326PHOrC77KXPXdm7+02Ycnf3FSWsIZlvwC
+         wz2Yc9bf5gugYy7OyBxhiNRI2vmlHADWt322vvAeQ+qVxCb2ZQqukR9g3885DjeNA4wW
+         tcDvYuE1IVW8KUCK14GESprj12m+hobkVi93x6PNteya4TTPGP2571iL4jZjUL7RMqzf
+         4KWrPhZjeEFrtPR5B1RwzznqqfAPR+rmECkKFhBPZK28YznJQyrQmZPkjzPIwfdz3Ikr
+         Q1wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFkZI7WNYl7tK6bNnQtqY0Myc4lQLz4oi8VOhL5JRzIAMNddWA3lElaV5QVaEWmsL+/1lb/LH2Sc4ymLQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++myry7SJBtI8tPNI9yfwwkyIWdT0++K4kDzDJwC3CLtMZi0QhSc
+	I2mBaxDBGC9EOsbtOiS7cOp8Gi+lyLBJhV7ruTNu4nzn6uNiM65WnmnwczNx8XyfKHw=
+X-Gm-Gg: AYBFou0IGKhKKEi7m44eNSZAj7D72V1EsMa44OxO6iHfY344XGO1/bB6cRHE4SryJBw
+	ueuMKVIimFOl8mLhG2MJDZN10IB1JGP0qLFsczH8LCrYo6GvLOIceKgRZVsd8SoWaQ292KQdYxE
+	6qLRzWdr3Nb8X8y+5ey0XhOp5kMVWpRxgVBybHuyej5WqHmWgQin2/g+LhicbPCZl+nbZ1b745H
+	jIclArvPizyY5KzdW255HIlgm2qpvVB7zKz8rfwTobJdB8aLEuCKZhGH5q9jjnMBK9knfKeXM1c
+	bUQ1tOJP/+I2ucBcM/T1ntm4gDyVaX4zjBwdWoXr2dnWoHVC35QlSSgDrev7sYauWR18eg4r0IB
+	JMtw4Ovo8NEBI83R+4GjKK74XBoOR1eh0DW7tb3oAQiH+p+8B6p8oYco0efmADuvObIyK4Z5Y/K
+	ifVc+uBSciOU3p50j653NzJRGophaiUdWugOiIDkQOy8O3+QlAOjwHfrAujUvmqhXLxC/8Jf4nR
+	PyMP3fg390fKS0LQBeFXmyAFeENGT9OCORdCDJN0Rz0cVgE
+X-Received: by 2002:a05:6102:26c7:b0:7a2:28cc:fa83 with SMTP id ada2fe7eead31-7ac0b1b10c7mr1877306137.6.1790156464252;
+        Wed, 23 Sep 2026 02:41:04 -0700 (PDT)
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com. [209.85.217.43])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7abf65b6a0esm2871805137.12.2026.09.23.02.41.03
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 23 Sep 2026 02:41:03 -0700 (PDT)
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-78a338fe106so1702114137.0
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 02:41:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxHAAHh9peWmLWrIINMBOvDB4+j3gMf6WLnTgzhImy7TeH8mJwLeOMhLiYAjB7PHlYFzom21h/ZPNlZUdw=@vger.kernel.org
+X-Received: by 2002:a05:6102:f0a:b0:7a7:69a1:add2 with SMTP id
+ ada2fe7eead31-7aaa0708f72mr5644581137.30.1790156462933; Wed, 23 Sep 2026
+ 02:41:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1790005703.git.tommaso.merciai.xr@bp.renesas.com> <15cfcb44c2d6b6e03b5c3d0d5af8ed997c4d179a.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
+In-Reply-To: <15cfcb44c2d6b6e03b5c3d0d5af8ed997c4d179a.1790005703.git.tommaso.merciai.xr@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 23 Sep 2026 11:40:52 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUw3vsV+rs0wuYbDmLpA_EXWZAKtpoP1ZXTY6Xt_FPLsA@mail.gmail.com>
+X-Gm-Features: AclHuK-4kOrbGKvyDLh28vAfMHGiFQCwXQMIlG3sAkDSk9boruM0x-6nSZuHeBU
+Message-ID: <CAMuHMdUw3vsV+rs0wuYbDmLpA_EXWZAKtpoP1ZXTY6Xt_FPLsA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] arm64: dts: renesas: r9a08g046: Add USB2.0
+ placeholder nodes
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The HP ENVY Laptop 13-aq1xxx (PCI SSID 103c:86ad) uses an ALC285 codec
-with two speaker pairs: front (pin 0x14) and bottom (pin 0x17).
+On Tue, 22 Sept 2026 at 00:27, Tommaso Merciai
+<tommaso.merciai.xr@bp.renesas.com> wrote:
+> The USB2.0 wiring on the RZ SMARC Carrier-II board is the same for the
+> RZ/G3E and RZ/G3L SoMs, so the nodes belong in the shared
+> renesas-smarc2.dtsi. Enabling them there breaks the RZ/G3L SMARC EVK
+> build, as the r9a08g046 (RZ/G3L) SoC DTSI describes neither the USB2.0
+> host (OHCI/EHCI) nor function (HSUSB) instances:
+>
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:94.1-7 Label or path ehci0 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:99.1-7 Label or path ehci1 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:104.1-8 Label or path hsusb0 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:114.1-7 Label or path ohci0 not found
+> Error: arch/arm64/boot/dts/renesas/renesas-smarc2.dtsi:119.1-7 Label or path ohci1 not found
+>
+> Add minimal placeholder nodes carrying only the reg property.
+> The remaining properties will be filled in once USB2.0 support for
+> RZ/G3L is complete.
+>
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-The BIOS leaves pin 0x14 as [N/A] ("not connected"), so the generic
-parser never enables the front pair and only the bottom speakers are
-audible.  The vendor driver (RTKVHD64.sys) programs that pin with the
-value 0x90170150 and runs the HP amplifier initialization, which is
-already implemented in the driver as ALC285_FIXUP_HP_GPIO_AMP_INIT.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4.
 
-Add a board fixup that applies the pin configuration for 0x14 and chains
-to the existing amplifier init fixup.
+Gr{oetje,eeting}s,
 
-The pin value was recovered from the vendor driver's own configuration
-data.  The patch and this changelog were prepared with an AI coding
-assistant (see the Assisted-by tag below); the change was reviewed and
-tested by the submitter on the affected machine.
+                        Geert
 
-Tested on an HP ENVY 13-aq1xxx by rebuilding snd-hda-codec-alc269 from
-the Fedora 7.1.10 source and loading it: the codec now reports
-"line_outs=2 (0x14/0x17)", pin 0x14 comes up as an output (Pin-ctls
-0x40) with its amplifier unmuted, and both speaker pairs play.
-
-Assisted-by: OpenCode:deepseek-v4.1-flash checkpatch
-Signed-off-by: Tarun Noonemunthala <ntarun2000@gmail.com>
----
- sound/hda/codecs/realtek/alc269.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 8f55c3c00..35d7d2f87 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -4139,6 +4139,7 @@ enum {
- 	ALC285_FIXUP_HP_SPECTRE_X360_EB1,
- 	ALC285_FIXUP_HP_SPECTRE_X360_DF1,
- 	ALC285_FIXUP_HP_ENVY_X360,
-+	ALC285_FIXUP_HP_ENVY_13AQ,
- 	ALC288_FIXUP_DELL_HEADSET_MODE,
- 	ALC288_FIXUP_DELL1_MIC_NO_PRESENCE,
- 	ALC288_FIXUP_DELL_XPS_13,
-@@ -6412,6 +6413,15 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC285_FIXUP_HP_GPIO_AMP_INIT,
- 	},
-+	[ALC285_FIXUP_HP_ENVY_13AQ] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{ 0x14, 0x90170150 }, /* front speakers */
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC285_FIXUP_HP_GPIO_AMP_INIT,
-+	},
- 	[ALC287_FIXUP_IDEAPAD_BASS_SPK_AMP] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc285_fixup_ideapad_s740_coef,
-@@ -7400,6 +7410,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x103c, 0x861f, "HP Elite Dragonfly G1", ALC285_FIXUP_HP_GPIO_AMP_INIT),
- 	SND_PCI_QUIRK(0x103c, 0x864f, "HP Laptop 15-dy0xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
- 	SND_PCI_QUIRK(0x103c, 0x869d, "HP", ALC236_FIXUP_HP_MUTE_LED),
-+	SND_PCI_QUIRK(0x103c, 0x86ad, "HP ENVY 13-aq1xxx", ALC285_FIXUP_HP_ENVY_13AQ),
- 	SND_PCI_QUIRK(0x103c, 0x86c1, "HP Laptop 15-da3001TU", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
- 	SND_PCI_QUIRK(0x103c, 0x86c7, "HP Envy AiO 32", ALC274_FIXUP_HP_ENVY_GPIO),
- 	SND_PCI_QUIRK(0x103c, 0x86c8, "HP Laptop 14s-dr1xxx", ALC236_FIXUP_HP_MUTE_LED_COEFBIT2),
 -- 
-2.55.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
