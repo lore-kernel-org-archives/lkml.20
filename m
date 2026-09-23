@@ -1,147 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E54B47F3DE
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:55:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A6A372ECB
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 22:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790204155; cv=none; b=q/RWWmBPAHAzFP8a7gF/D4l+SOEuU51REt1jfOqPG26zdrFs+rVWly/ILybIQlvuqSEhv71NRznjCErP7RlYGu2GHi8WS/SDqNPLnH4C7oJYQNfNC960wvQME2PsHl1ytNrXq6D8OZdFmvXDeN0+0K1EdkTaGPihssiyuq6xpRM=
+	t=1790204277; cv=none; b=K9OG/O6wyHTS4XCf48+2V4eUeKtaKS7cgU3nfKGnEGgp9bVQPrs5DsJR3ScN7N7ie0igm2kwtC8prBTan8MliVHtqUBq3zsOQbSgFU7oqvFS3NPlfaYCWWV5XmFMcZGkiu4B+srSrarI1+v6ewrI6nCXpmYqahKof4kXsyax6Oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790204155; c=relaxed/simple;
-	bh=1e6iweyCUqC2LWfWOrZ3xVzIWOBi7wUvDf/noyO9l+o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bEMRQRAy/jKSAbEx6xGNhcJHiQJs/1nFYLSgPK2mmC+dVLVS8RLAym78PL2b17ydCECQF4ILl2WBAdQassJyyz6qoqqDP3gEBmb3ULSdI8qhNUX1l0zDV+2VMlnz4cotDDC5xwwT9t36H9PblCoSh3ns2p9xwt43jxfw6E6tCDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CsCpPBhU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790204277; c=relaxed/simple;
+	bh=R2AFbu6PkunSu3wRLU/rJSEJuyRo49aEee30ieQcmVQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=h4FC1qfvDWB8YEDjKvBIKztCLdklyxjYIEtHskfrp+HBBakjMtu9dklVQtsWAJya6QMp/sxnugO3VBI73mR5IgsMJ91M5wKvPGLHLOYkl78XmyfAwJYnIybTFnEUEEFK2xc96AZYY3XvbYkZZhtt5D5pxL2n5gE1zM4XlPFc+zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=VlIcOVzy; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CsCpPBhU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32AC21F00898;
-	Wed, 23 Sep 2026 22:55:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790204150;
-	bh=Y/8cCai3+gMWO6LIo701U/Zh4RgUpa9pwpp5h99P4sw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CsCpPBhUck5u9x5fqVL0K/bW6iAUQ97QJJMFy1hh6nDVhkPc77hjwuwNSu3o3/98A
-	 fgk6cddigQYs+obUykSIkWJeH3tjG6j7cJmd6aLY3VpU9bH/XAQVff/t/3Pk8gwxAL
-	 KD1ck/Yubn1NJCbxKm6s8RcwpyW8yn8/21uwh0wXi38NgncvXpKgOB6U2Ng1lGbnSE
-	 Mye7fHN/UA/h1vLqlt0v3wJr+17DZC8pRp3WSsIPERTefWpHHIf0EqvAQugfGEbRgH
-	 3MxDk4HzIMoRUK3eRXuLqtbIIRVHpFEqYbxoK2kQWMoqvW6M6r+gZfmmPzG+DyBSmz
-	 WEAzPHfNEjGZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 1/6] liveupdate: luo_file: look up outgoing tokens
- by id
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pasha Tatashin" <pasha.tatashin@soleen.com>, "Andrew Morton" <akpm@linux-foundation.org>, "Samiullah
- Khawaja" <skhawaja@google.com>, "Pratyush Yadav" <pratyush@kernel.org>, "David
- Hildenbrand" <david@kernel.org>, "Alexander Graf" <graf@amazon.com>, "Baolin
- Wang" <baolin.wang@linux.alibaba.com>, "Mike Rapoport" <rppt@kernel.org>, "David
- Matlack" <dmatlack@google.com>, "Hugh Dickins" <hughd@google.com>, "Lorenzo
- Stoakes" <ljs@kernel.org>
-Cc: linux-kernel@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org
-In-Reply-To: <20260923224408.3745689-2-pratyush@kernel.org>
-References: <20260923224408.3745689-1-pratyush@kernel.org>
- <20260923224408.3745689-2-pratyush@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 23 Sep 2026 22:55:49 +0000
-Message-Id: <20260923225550.32AC21F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="VlIcOVzy"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33c3735125bso698170eec.3
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:57:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=crusoe.ai; s=google; t=1790204275; x=1790809075; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R2AFbu6PkunSu3wRLU/rJSEJuyRo49aEee30ieQcmVQ=;
+        b=VlIcOVzyiAb4U7w3kLICTtlQn5GHy7i/Gmd80Suuxc+hFhU+zNSdhZKKeGbnYgRskm
+         fhhrkdK4eQ6qnxokQ4Bf4Y8XoHKL1mwFXHmzRZxIxUlbcf0lJQP54YTT3bMzBr8NpEsD
+         rMdXOn4himVazGC2U6ld8UQu1AKWJhYJ5JIkPNf5uTAiyv7eh+xPxl+GH9BrOrSFIEGI
+         UFcyPzZzFTqP6pne3Fzwuk/iYeP6EuMtlMDjHniYbwQSnW4x96RCobgiyod0S3ZBfMhZ
+         CgZ18hPfmEuHRvAsns2s8DXrkWcZwfIPVms3Zpcij6LDfpHESdYAwdajmLen9EEgl2Su
+         BgYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790204275; x=1790809075;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R2AFbu6PkunSu3wRLU/rJSEJuyRo49aEee30ieQcmVQ=;
+        b=07qzLXaCjjX6LPNkcxpLVF1CQRp5yg39H7uoEL1BJHrEJ7HRhACpD+yv9qRXecL1Gi
+         9cRwxkZSbzrhKw98nUkfBri7Py07u0Qb7t/fyZ7cesGuzOPuglICaQMb2WkGrA4d4X9i
+         bDJsX1AF136ap2nj//ij/RnXyQwj305+Gmvabr4mSd1v9TagX1iHx0f/xZE6FY+1zoSS
+         SXplJktBXHpcA62JWfzd+iGCHjUwPRWNICpNZS0J0fPWZSh+AfeOd1JE1CAkvwABFV0h
+         zOjUsvJz4I+1WRzGYgD+AYMYZm1QdwAqogU0St2CYzH9vGCdpvZpxnu5Jw+xDZiu91UO
+         pBAg==
+X-Forwarded-Encrypted: i=1; AKwUvBwqqBNE/rxv6GUQm1DB6yEeAsn7sHhc4WLRRGNl8iD4ZXwh9mFmaujpu8JYTjHD8H3/YsqmAD2XmTSqO6c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYDuBkzhfQCa2p1AZQ7oilgUq7wHjExZrTdhK6ccmacJA3BNzp
+	64qvyRrxPhmATEFr/UWA4XrpnmkoZCmxURbUe0MQaPAywA4EStdbwEjeNAxKNy6Wnq8=
+X-Gm-Gg: AYBFou24/tcRfUtHpm1/jp+pYnoikTUH08/qH+g3DIJNIYtfw/oIUAvOyVhNUA5RMsR
+	N0QVDCs9kOhYImUb/AyZHXPjTIE0nih2ldvWtEzvan7jvJ1rhZhcJsvY65F89c8I/1EiKumFQb7
+	oZvaFjDfZnl0h3Yoa9HpwM7XYFqjElAxY9d1JkkOiElXBC2PrdiqhEye/+24SotJL0LvdBifHoM
+	LQpCbhHuqU9ldeu6o5vJXL1uWg+hwY0a5f8IK3+g9KiqlJYaF92ZP615FZN9LqrKw8HNqNqcXKK
+	2OXpXJggZexPR4O4wcSfJ4hu6WDZnwcI1NIOFU0kNrqEZfe9pbnF1QJ3baxcEFOgG2BVSTIj1ON
+	weYvL6bf93Of4IaUnbPYKrifvDrXE3JRP3B209tpN6AjD3l+JbSJRsN6KX6Sq9nWcrmqDKz6REI
+	udpOV7ptKwV0gD6HyA6GGdWRo9TWUWCYQ8UUEXr6eswTOL9KaZbo7yEbNOw/KImqoNy+sSRkfrf
+	KnoFtONLapHxZSl8cfSmgUQCavWTzy9u/w=
+X-Received: by 2002:a05:7301:c00f:b0:33c:1424:e57c with SMTP id 5a478bee46e88-34000c38310mr496652eec.29.1790204275252;
+        Wed, 23 Sep 2026 15:57:55 -0700 (PDT)
+Received: from MBP-Krishna-Iyer.civet-hops.ts.net ([4.7.95.218])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e939fe502sm8281568eec.2.2026.09.23.15.57.54
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 23 Sep 2026 15:57:54 -0700 (PDT)
+From: Krishna Iyer <kiyer@crusoe.ai>
+To: kbusch@kernel.org
+Cc: hare@suse.de,
+	axboe@kernel.dk,
+	hch@lst.de,
+	sagi@grimberg.me,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	nilay@linux.ibm.com,
+	sjpark@crusoe.ai,
+	saravanand@crusoe.ai
+Subject: Re: [PATCH v3] nvme-multipath: add fail_if_no_path sysfs attribute
+Date: Wed, 23 Sep 2026 15:57:53 -0700
+Message-ID: <20260923225753.49224-1-kiyer@crusoe.ai>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <arRJLL4ki-sVQnHf@kbusch-mbp>
+References: <20260923004959.88440-1-kiyer@crusoe.ai> <arRJLL4ki-sVQnHf@kbusch-mbp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] liveupdate: NULL pointer dereference in liveupdate_get_token_outgo=
-ing() on incoming sessions
-- [Medium] liveupdate: flat ID namespace in liveupdate_get_token_outgoing()=
- risks cross-handler collisions
-- [Low] liveupdate: O(N) indirect function calls in liveupdate_get_token_ou=
-tgoing() list traversal
---
+On 9/23/26 2:48 PM, Keith Busch wrote:
+> I agree with Hannes that we shouldn't need a new flag for this. The
+> current behavior is just broken in a few ways.
+>
+> We just need to restrict queue_if_no_path to only if there really are no
+> paths so that we actually respect the failfast_tmo.
+>
+> And the ANA inaccessible and persistent-loss handling you introduced
+> here should just be the default without requiring a flag. But I think
+> you need to add a requeue_list kick in nvme_update_ns_ana_state() too in
+> case the ANA transition leaves the namespace inaccessible.
 
-commit 17b042e4901cfc25a86dec1038092fbe1eb5d060
-Author: Pratyush Yadav (Google) <pratyush@kernel.org>
+Agreed those are real problems, but fixing them still leaves no way
+to cover this case. Subsystems commonly expose many volumes as
+namespaces behind the same controllers, and failfast is controller
+scoped and time based: a timeout fails every namespace or none, and
+the trigger here is an event, not a duration one can pick up front,
+while sibling namespaces should keep queueing and ride out the
+outage. delayed_removal_secs does not apply either: it only governs
+the window after the last path is removed (here the controllers still
+exist and keep reconnecting), and its expiry removes the head disk,
+where this case needs the opposite, fail the parked I/O and keep the
+device. fail_if_no_path stays the only namespace scoped way to
+release parked I/O.
 
-liveupdate: luo_file: look up outgoing tokens by id
+If the direction sounds right to you, I can send a two patch series:
+the default fixes you describe first, the namespace scoped attribute
+on top.
 
-liveupdate_get_token_outgoing() is used to look up tokens of dependencies.
-It does the search based on struct file. LUO provides file handlers a
-get_id callback that can return the unique identifier of a resource. This
-patch uses ID to look up dependencies in liveupdate_get_token_outgoing()
-instead of struct file.
-
-> diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
-> index a39992da504fb..51817d202ce26 100644
-> --- a/kernel/liveupdate/luo_file.c
-> +++ b/kernel/liveupdate/luo_file.c
-[ ... ]
->  int liveupdate_get_token_outgoing(struct liveupdate_session *s,
-> -				  struct file *file, u64 *tokenp)
-> +				  unsigned long id, u64 *tokenp)
-
-[Severity: Medium]
-Will this flat ID namespace risk cross-handler collisions?
-
-Because liveupdate_get_token_outgoing() searches across all preserved files
-using just an unsigned long id, it loses the context of which file handler
-the ID belongs to.
-
-If different handlers use overlapping namespaces, such as IDR indices or
-pointers that might alias depending on object lifetime, a lookup intended
-for one handler's object could incorrectly match an object from a different
-handler that happens to appear earlier in the list.
-
-Could the API require the expected file handler context to scope the search
-safely?
-
->  {
->  	struct luo_file_set *file_set =3D luo_file_set_from_session_locked(s);
->  	struct luo_file *luo_file;
->  	int err =3D -ENOENT;
-> =20
->  	list_for_each_entry(luo_file, &file_set->files_list, list) {
-> -		if (luo_file->file =3D=3D file) {
-> +		if (luo_get_id(luo_file->fh, luo_file->file) =3D=3D id) {
-
-[Severity: High]
-Can this cause a NULL pointer dereference on incoming sessions?
-
-In an incoming session after deserialization, luo_file->file is initialized
-to NULL and remains NULL until the file is explicitly retrieved.
-
-Because liveupdate_get_token_outgoing() is an exported API that accepts a
-generic struct liveupdate_session, an in-kernel caller could mistakenly pass
-an incoming session.
-
-Prior to this patch, doing so would safely return -ENOENT because NULL =3D=
-=3D file
-is false. With this patch, luo_get_id() will blindly pass the NULL file
-pointer to the handler's get_id callback.
-
-Handlers like memfd_luo call file_inode(file), which would cause an
-immediate NULL pointer dereference and kernel crash.
-
-[Severity: Low]
-Are these indirect function calls necessary during the list traversal?
-
-Replacing the direct pointer comparison with luo_get_id() performs an indir=
-ect
-function call (fh->ops->get_id) if defined, on every iteration of the
-files_list traversal.
-
-Because this function is used to look up tokens for dependencies, it can be
-called for every dependency of every preserved object, resulting in O(N * M)
-indirect calls.
-
-Since the ID is a constant property of the preserved file, could it be
-evaluated exactly once during luo_preserve_file() and cached directly in
-struct luo_file?
-
->  			if (tokenp)
->  				*tokenp =3D luo_file->token;
->  			err =3D 0;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260923224408.3745=
-689-1-pratyush@kernel.org?part=3D1
+Thanks,
+Krishna
