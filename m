@@ -1,61 +1,62 @@
 Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E41566C6A
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:24:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CEF3566C79
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:24:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790177085; cv=none; b=AWzW+1oTayqCj1cj+q/HphkG3T6PcoVE8nFItVI8eZOnh4rMQGY00Rzp73OnAIvxChnkGuoSEkBsxnu3xkGWZowupe/GDhx12nDAve61TzK5f/yBQPpInrkAlvZ1Y0LDveOK/I7aX3SHnTMfttWs5BA1h7Y/uV+H3FKXGeCsVBA=
+	t=1790177089; cv=none; b=MKJ+lURUyHqp9KchMxx6oI9FEOYkjRRvMSBdM8bJR33KUTAdKVj8sLmhshTQgQyv5IdoXbRKUH3XYE9wWoze2WtP92dSIflIboOAprB1CCm9pNmKpyFlOhKjEgyZMcgUcPfJovcGX7+v72bsbiNf/tcrmcQd5b7z3lwqMVxOTto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790177085; c=relaxed/simple;
-	bh=PpFEyVaBu9XHECxlaufb+LXVgXZBS0OkF6zgnYiD3og=;
+	s=arc-20240116; t=1790177089; c=relaxed/simple;
+	bh=L9jJiVOxZyUZuz1cElyCECjsSAjWfF9V54udftkhp64=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NAgox/4ewHzq4W3bw14uYpuf1kIy1u6Zg0uA7q+CZtz25T4HYnN3B7WkJ3QyxDY1MgExaCOvwYqPttm0PgZalJavQedrlxRoOEhk0CVjbO/PMGzORTS6/Ei0I8SuUm3yREardD+3xkl2xY4vKh+W5MmDQ65nH9E33Ho4x0KrwgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=Pj24RJdr; arc=none smtp.client-ip=74.125.225.141
+	 MIME-Version; b=vFLVkxxC1lyxd/dNZJm/z1v9Of3R45svOLvCgqJQpkak20FP4yyrjLfeoXmNh4O/dJncJksHyMuhO5Gk+fKcGfheRJ/OARzJbcc8lZoA/6PG4LdIjEWz6Xc5SfYmAF1+h/bUx0J+W3QErk/P6gk1U0DkYlXEicG4cQo5AnD+qpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=WdojOx60; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="Pj24RJdr"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71cdb22bso7571385e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:24:43 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="WdojOx60"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912e2406so5286555e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:24:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1790177082; x=1790781882; darn=vger.kernel.org;
+        d=amarulasolutions.com; s=google; t=1790177083; x=1790781883; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ozMsbDX9PM7NmdNq22axboQ2GO4zjike6CEQPX9ud3M=;
-        b=Pj24RJdrWvKvuSNEt1JX89JO906u5cK2Xa67GvV4d6hMsOjYDfM6+EfDqfEPy9b20e
-         9bUij+BleNcJcWvtDMKcEbI6m7jVtLQAq/wTHA8l2mCHQfxuoza6BRevvzvABCR7BH2X
-         UTITdqj87XBDUQ9EvD3n37FZOQlOh5HbFs2Yg=
+        bh=+qgYEofzcD0eUBX9qHujAnDMeKk0KiqVJqZ/6o5oZEs=;
+        b=WdojOx60M1cABF+8zHfnpEiLRzOizhWk9Yvkk/Qbgu1g8Vu59KWMw2Nwza9TfFuRXd
+         jMHR2ZDG1ZbFUtqx6bxH71/a5EqdDnm2gZ+pTiTtvB2SS2EIBDS5/fiu05YRhpu2c3ie
+         P6VUiKo8dchHhq4WEdCi1MzmX1otH34UPlR2E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790177082; x=1790781882;
+        d=1e100.net; s=20260707; t=1790177083; x=1790781883;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ozMsbDX9PM7NmdNq22axboQ2GO4zjike6CEQPX9ud3M=;
-        b=M5qBjFWPv3O8Jsb0jrt7Kp8lmpOHRoQdOkIJkJq3/HXATsMbheriEvTbaNzPYkP9R8
-         qOuLKdntMXYhPDTIzC1Jz3YJ6XSW8xF8y2/81ns7x1sO9SThCVR9E3rmtcg2bktL3k61
-         zZISZJlch1tSix8Ih7C7SgOMR3Kq0Ve+jpnrY5039XlTtjdA30ucGUejDhhYG6/aBHiN
-         Af1jxLFJLNflECObA3/iKAYjJcGNEBQcCRA//jJDJ5+q02c948uxcC5Jg9O906SNiWVi
-         Rv2l2x54pzioVDwzvja4E3gYqAlaxCDv6V52wFlXvmsC6BupLeAWCF28ccBeQkAYEw0l
-         W+wQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzr0GybUG4NuPW3yy282M9fG6HKNrY4RIU/Mxv7jCsZT9UYnG0zhI5OqZibUy/RCrobjR2v5WonMpxP43Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++k40EifR07vJ+ezcToeo+GppSL2YyVTiT8EmTnz6l9Vl/f+ljw8
-	gYMBRdFDX8v97BZAhx/4+GmpbellDAbQR5GqSIPrLIPltQ4LTkZTFFg9GfT/yXmnPlc=
-X-Gm-Gg: AYBFou10fFMhDTIOScc2wlwcvVtSf1zUXQoRuKLPu/eDLJ0sr/TuRw+53goD5ZgU880
-	mF0coxNj6mWMeK4C3n4yCD1eYqihgq3UZeAqSvJAQyGG/GBoq/mbhaUnzuifCTLqSy6JCx1nQue
-	A+AWnrjClz1+jPPbxTp/tpJe2tfp6K/3PPBLEY3KKgCpmV7+n5sfE4i5Tav9aH1+UyDndIL0mRj
-	5Lebnbp4vKPZ6wOxkXlPGfyqZF2TP/hvtgFgDqFpc5ahrYrlEk7a9nb4v6TUQUa1Hvoj6P2ljfK
-	AaOKGD/p3UcE15OzImm20pRr4AeikGKQg3IcxKGmgGGYOKwKfq7xejUWc+DHxNkFQ0ipsH1b22g
-	N/EY5mbeJoeY2RDte9YgEDbp1Nerjx3TR60OXGvMyuQuZNOqxd7CxnIUmGhiaTcfw1shtrr4uy7
-	XKciN8AbiUeVKsWbewiOxqXS0GpZRC4mNcB58v4eZbAvP5wIktWaZ8IWGaY3ODuk5ndiqpCLmzr
-	QRboUeRli3O8vJ4kfCjELYVoZYi6xs7rCasmwWquMZXd078quAh4sVhfYk4zdEExE0=
-X-Received: by 2002:a05:600c:c16d:b0:49c:ff9f:f6b6 with SMTP id 5b1f17b1804b1-49fdee0b7f2mr42436965e9.6.1790177081744;
-        Wed, 23 Sep 2026 08:24:41 -0700 (PDT)
+        bh=+qgYEofzcD0eUBX9qHujAnDMeKk0KiqVJqZ/6o5oZEs=;
+        b=2YcvIbX1FwbG0r2nuYefEg2eiy8PQeVqZJ0vl9Ws2v+yRRmFBb6+YXyO571csYAC7U
+         Ra/xvt6Yw3Ne8/aOaDB4Zn8cgCj73X9+d0AWzhPQzdTIZomCFfeDlSiy3d8v6ZRHP5vV
+         gaM/W/izm6/wm7uxqoL8bj1NgA3Vl0znFuDFivp5Xuccg+ahh50Iq9T7hhAZ8pireSK2
+         ItWg44nHNuGQTIrmBznEzzyBbpNkVfegOqN/DcPLon+6SheRdyLpRyBB+/OOI7gFCFrx
+         01qzfMDFCuGYoGKfgyIArCbnGp1CqumK5OuC0OW97cnqGE9oyr9ZayCM342/iHq+W2xA
+         PdIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ1/cfFRSYx5j8JllR3DJBvtgT5Il3HdIg8arkkg/M2zgxh1Je2A1VKb6dwffRiOgMv5mP/4Q19zKMyCE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBuGyRSoI7JXx6SuDo2doj4tq4NEiGeXwV63hVluhgVIIZSOKC
+	rJnzB96ahEs2v5q+GgPTjw8rNyt4BinvdFk0u17eOFPkWZ7q8Xwf6cemHG5U829flcI=
+X-Gm-Gg: AYBFou0zc/Z+NEERURRR1wjX9WuQGle2fV1g5dk2BvaVRvvRdGYy8aa8zrYJYCu/kro
+	8PLH8K1b6zGVhcHdc6tefYIfX08y4vNlLyGl1/Vpg26ICEqvNDn4zWXQaqpIwqG+LjaLJbAttaW
+	LWdTd6NIph4FUMlF2L6nTOQRN9TQnviy+Dx6W+U7bd6JsR5kE8eSsnR8a890Wfn7olgzf059Kod
+	4dLfeAhX4/D+cVwXJt7QZDmPGRcuTT2IGqOne2nba3Ds9PenmMiAc/wRellBIHxGiufxWF4V5fA
+	7w4Y7/eIT+0IwSDRsiUfCX9XxFIQ7k3kl0P23dOu4d23ax4a2qcbky4DZEGhCrkIyJCvys/DZbG
+	ZKSgu15Lpi5jJT72WxdBz3Is/+NsUBPYtl4FZ7IwIOlq+nexlgY95HV8uJ0/3H6FmeZYBf00Kuo
+	sPtdkLKk3lcH8phnK5r+mpW/sjBCPA77OSmoLvSDSl+ydOgE31CzPugLWVy9SK/Qo9OLstLMWTF
+	Shd1SaXNkswUS1VCbRNmhkFa4ta2H/OJCctVUZHDNI1j9vOM0LPILJkUe2i09+Xn2/2T+Ip1aWB
+	1q2YeMQbnA4j
+X-Received: by 2002:a05:600d:8491:10b0:49f:ce79:7a8d with SMTP id 5b1f17b1804b1-49fde4acce8mr34646275e9.17.1790177083240;
+        Wed, 23 Sep 2026 08:24:43 -0700 (PDT)
 Received: from localhost.localdomain ([2001:b07:6474:ebbf:12f8:fcfa:728a:2514])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c446e1sm55582165e9.2.2026.09.23.08.24.39
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fe0c446e1sm55582165e9.2.2026.09.23.08.24.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 23 Sep 2026 08:24:41 -0700 (PDT)
+        Wed, 23 Sep 2026 08:24:42 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>
@@ -72,9 +73,9 @@ Cc: linux-stm32@st-md-mailman.stormreply.com,
 	michael@amarulasolutions.com,
 	linux-kernel@vger.kernel.org,
 	Dario Binacchi <dario.binacchi@amarulasolutions.com>
-Subject: [PATCH 1/2] arm64: dts: st: move Engicam MicroGEA-STM32MP257D-RMM display to an overlay
-Date: Wed, 23 Sep 2026 17:23:47 +0200
-Message-ID: <20260923152435.563925-2-dario.binacchi@amarulasolutions.com>
+Subject: [PATCH 2/2] arm64: dts: st: add Engicam MicroGEA-STM32MP257D-RMM LVDS display overlay
+Date: Wed, 23 Sep 2026 17:23:48 +0200
+Message-ID: <20260923152435.563925-3-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260923152435.563925-1-dario.binacchi@amarulasolutions.com>
 References: <20260923152435.563925-1-dario.binacchi@amarulasolutions.com>
@@ -86,189 +87,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The board is fitted with different displays depending on the product
-variant. Keep in the board dts only what is common to all variants and
-move the RK050HR345-CT106A RGB panel and its touchscreen to an overlay.
+Add an overlay for the variant fitted with the AM-1280800W8TZQW-T00H
+10.1" 1280x800 LVDS panel. Its touchscreen is connected over USB, so
+there is no touchscreen node.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+
 ---
 
  arch/arm64/boot/dts/st/Makefile               |  6 ++
- ...icrogea-rmm-overlay-rk050hr345-ct106a.dtso | 69 +++++++++++++++++++
- .../st/stm32mp257d-engicam-microgea-rmm.dts   | 49 +------------
- 3 files changed, 78 insertions(+), 46 deletions(-)
- create mode 100644 arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtso
+ ...gea-rmm-overlay-am-1280800w8tzqw-t00h.dtso | 67 +++++++++++++++++++
+ .../st/stm32mp257d-engicam-microgea-rmm.dts   |  2 +-
+ 3 files changed, 74 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtso
 
 diff --git a/arch/arm64/boot/dts/st/Makefile b/arch/arm64/boot/dts/st/Makefile
-index 6cbccfd50993..218ff7fdf576 100644
+index 218ff7fdf576..7f657d2bd629 100644
 --- a/arch/arm64/boot/dts/st/Makefile
 +++ b/arch/arm64/boot/dts/st/Makefile
-@@ -1,7 +1,13 @@
+@@ -1,4 +1,8 @@
  # SPDX-License-Identifier: GPL-2.0-only
-+stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a-dtbs := \
++stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h-dtbs := \
 +	stm32mp257d-engicam-microgea-rmm.dtb \
-+	stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtbo
++	stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtbo
 +
- dtb-$(CONFIG_ARCH_STM32) += \
+ stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a-dtbs := \
+ 	stm32mp257d-engicam-microgea-rmm.dtb \
+ 	stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtbo
+@@ -7,6 +11,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
  	stm32mp215f-dk.dtb \
  	stm32mp235f-dk.dtb \
  	stm32mp257d-engicam-microgea-rmm.dtb \
-+	stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtb \
-+	stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtbo \
++	stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtb \
++	stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtbo \
+ 	stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtb \
+ 	stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtbo \
  	stm32mp257f-dk.dtb \
- 	stm32mp257f-ev1.dtb
-diff --git a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtso b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtso
+diff --git a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtso b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtso
 new file mode 100644
-index 000000000000..e64dd277ff09
+index 000000000000..7655c1bf56b1
 --- /dev/null
-+++ b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-rk050hr345-ct106a.dtso
-@@ -0,0 +1,69 @@
++++ b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm-overlay-am-1280800w8tzqw-t00h.dtso
+@@ -0,0 +1,67 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (C) 2026 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
 + * Copyright (C) 2026 Engicam srl
 + *
-+ * Rocktech RK050HR345-CT106A 5" 480x854 RGB panel with EDT FT5306
-+ * I2C touchscreen controller.
++ * Ampire AM-1280800W8TZQW-T00H 10.1" 1280x800 LVDS panel. Its touchscreen
++ * controller is connected over USB.
 + */
 +
 +/dts-v1/;
 +/plugin/;
 +
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/clock/st,stm32mp25-rcc.h>
 +
-+&i2c1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c1_pins_a>;
-+	pinctrl-1 = <&i2c1_sleep_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
++&{/} {
++	panel-lvds {
++		compatible = "ampire,am-1280800w8tzqw-t00h";
++		backlight = <&backlight>;
++		power-supply = <&reg_3v3>;
 +
-+	touchscreen@38 {
-+		compatible = "edt,edt-ft5306";
-+		reg = <0x38>;
-+		interrupt-parent = <&gpiob>;
-+		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&gpiod 1 GPIO_ACTIVE_LOW>;
-+		touchscreen-size-x = <480>;
-+		touchscreen-size-y = <854>;
-+	};
-+};
-+
-+&ltdc {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&ltdc_pins_a>;
-+	pinctrl-1 = <&ltdc_sleep_pins_a>;
-+	status = "okay";
-+
-+	port {
-+		ltdc_out: endpoint {
-+			remote-endpoint = <&panel_in>;
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&lvds_out>;
++			};
 +		};
 +	};
 +};
 +
-+&spi1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	cs-gpios = <&gpioh 8 GPIO_ACTIVE_LOW>, <&gpioh 3 GPIO_ACTIVE_HIGH>;
++&framebuffer {
++	clocks = <&rcc CK_BUS_LTDC>, <&rcc CK_KER_LTDC>,
++		 <&rcc CK_BUS_LVDS>, <&rcc CK_KER_LVDSPHY>;
++};
 +
-+	display@0 {
-+		compatible = "rocktech,rk050hr345-ct106a", "ilitek,ili9806e";
-+		reg = <0>;
-+		vdd-supply = <&reg_3v3>;
-+		spi-max-frequency = <10000000>;
-+		reset-gpios = <&gpiob 6 GPIO_ACTIVE_LOW>;
-+		backlight = <&backlight>;
++&ltdc {
++	status = "okay";
 +
-+		port {
-+			panel_in: endpoint {
++	port {
++		ltdc_out: endpoint {
++			remote-endpoint = <&lvds_in>;
++		};
++	};
++};
++
++&lvds {
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++
++			lvds_in: endpoint {
 +				remote-endpoint = <&ltdc_out>;
++			};
++		};
++
++		port@1 {
++			reg = <1>;
++
++			lvds_out: endpoint {
++				remote-endpoint = <&panel_in>;
 +			};
 +		};
 +	};
 +};
 diff --git a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-index f5af0913bf1b..4b39b6c482d6 100644
+index 4b39b6c482d6..87d4bac1c89b 100644
 --- a/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
 +++ b/arch/arm64/boot/dts/st/stm32mp257d-engicam-microgea-rmm.dts
-@@ -116,25 +116,9 @@ &arm_wdt {
- };
+@@ -43,7 +43,7 @@ chosen {
+ 		#size-cells = <2>;
+ 		ranges;
  
- &i2c1 {
--	pinctrl-names = "default", "sleep";
--	pinctrl-0 = <&i2c1_pins_a>;
--	pinctrl-1 = <&i2c1_sleep_pins_a>;
--	i2c-scl-rising-time-ns = <185>;
--	i2c-scl-falling-time-ns = <20>;
--	status = "okay";
--	/* spare dmas for other usage */
-+	/* dt overlays don't support /delete-property/ */
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
--
--	touchscreen@38 {
--		compatible = "edt,edt-ft5306";
--		reg = <0x38>;
--		interrupt-parent = <&gpiob>;
--		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
--		reset-gpios = <&gpiod 1 GPIO_ACTIVE_LOW>;
--		touchscreen-size-x = <480>;
--		touchscreen-size-y = <854>;
--	};
- };
- 
- &i2c2 {
-@@ -179,19 +163,6 @@ sgtl5000_rx_endpoint: endpoint@1 {
- 	};
- };
- 
--&ltdc {
--	pinctrl-names = "default", "sleep";
--	pinctrl-0 = <&ltdc_pins_a>;
--	pinctrl-1 = <&ltdc_sleep_pins_a>;
--	status = "okay";
--
--	port {
--		ltdc_out: endpoint {
--			remote-endpoint = <&panel_in>;
--		};
--	};
--};
--
- &m_can1 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&m_can1_pins_a>;
-@@ -257,23 +228,9 @@ &spi1 {
- 	pinctrl-1 = <&spi1_sleep_pins_a>;
- 	#address-cells = <1>;
- 	#size-cells = <0>;
--	cs-gpios = <&gpioh 8 GPIO_ACTIVE_LOW>, <&gpioh 3 GPIO_ACTIVE_HIGH>;
-+	/* CS0 is reserved for the display fitted through overlay */
-+	cs-gpios = <0>, <&gpioh 3 GPIO_ACTIVE_HIGH>;
- 	status = "okay";
--
--	display: display@0 {
--		compatible = "rocktech,rk050hr345-ct106a", "ilitek,ili9806e";
--		reg = <0>;
--		vdd-supply = <&reg_3v3>;
--		spi-max-frequency = <10000000>;
--		reset-gpios = <&gpiob 6 GPIO_ACTIVE_LOW>;
--		backlight = <&backlight>;
--
--		port {
--			panel_in: endpoint {
--				remote-endpoint = <&ltdc_out>;
--			};
--		};
--	};
- };
- 
- &timers2 {
+-		framebuffer {
++		framebuffer: framebuffer {
+ 			compatible = "simple-framebuffer";
+ 			clocks = <&rcc CK_BUS_LTDC>, <&rcc CK_KER_LTDC>;
+ 			lcd-supply = <&reg_3v3>;
 -- 
 2.43.0
 
