@@ -1,115 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-bc0d.mail.infomaniak.ch (smtp-bc0d.mail.infomaniak.ch [45.157.188.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA9247DFB0;
-	Wed, 23 Sep 2026 10:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C34143D6CCA
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790158443; cv=none; b=g81fPwAxLXQ9zaqCS1jjVnAg6pzgZ5x2J0g/i/dV06CcnfnfGcKdPYJ6C0CqzGpw2scVvDfEJreW6Vua8+e3Y20tm3eBd8vy3a3IbFB1TW803CzolkcSS7GJJqCLn6RazrU3ifZMw1esoKOC9KATINzyMF648KTIEXObrVDw5do=
+	t=1790158471; cv=none; b=cqtWdPfFKl5s0nqQwSYpIIwwDRLJGG6d6VSoMzQJm4aVLrQxvd20nR0Uiau+B9JWj3WdO8IhQeW150dtDD7RUBdp2OtJlSfHRNbVGsVriaMzdJ36Yzghr5CJUrE9QrV8vvh6AnCPDZ0GAZMgy9Std8vCFCwi40tTOpc+sebimHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790158443; c=relaxed/simple;
-	bh=uJXHXw2jx69ih4DAMrKNLWy++uwTIYy2WsgdE3k5d+s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=fEX2H5qHOW8e7rEBRXEEp+emWHZ9ic1/uLJewkjm/1y9pKsuDIYrm1ZfrvPfqYFEY9+5IUzbFzKz3VFEq0dBNorrZkffz3dsTUgC9jEaEGxnz8brdI/sA0TuslXRNvzpzRa7dAiqz20DHVqRprDk7EBjb/rPQfbePQfRSL3CLp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HPhKOaCv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790158471; c=relaxed/simple;
+	bh=h1AWZRxSrpr2Ju7TwFdK+nHYJRjWltU7Ec14LNpAKVI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jAp61qkPT+Qz89Ilx6pwsqFZCj++fq6pQ5B85Ij7Ec44TXwkPK93+VdpmaJ1B6/fEuOL9T0pP1/ftZH7qeroCEOL7L3AeT6fu+1dGzbRa+vTGcpjrPbtOhoUy0tq5StroDZ+F5zcpSXWI9gh1oJLRSxz5M3j7ygoEOyOJ0mxgsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=1hdtkPw7; arc=none smtp.client-ip=45.157.188.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HPhKOaCv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382301F00893;
-	Wed, 23 Sep 2026 10:13:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790158427;
-	bh=PREKX6Wfx3ocgL0Q8g3oQ27X39xtDWzJRCtGGTbSjy4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HPhKOaCvWCzYSlAAHvGPirT13fNYuHIJ2LWzRria8HssijiCd0iFrRZLIukuZ3FU1
-	 EGZe1X5rXLmLUkikEjc4K5RoUaBZoClgb2pTgfTI4HJ7jt7TaQzMKZ0gNMpD5x6xtx
-	 ZEfxcZsObvhR1V4IjHTAbT4cwCLbgsl9rQi6pqQW9kbO6lwtyacD7aVdFbNcpHH0JA
-	 df0thB5tKOtukXu8mCV2+Ivf+pVKMQf63PYEMuBByA8zBHaG7/xL49PfU+OhTZsU7d
-	 cT1ObMow7SOsSVrurB0qxnQ+lPfHkTK8LIhgWSx115Hb9ZGAmbrHzzHcEOrKmN0FC6
-	 J9QiqSXszvWXA==
-Message-ID: <5271866c-a334-453b-a95c-8bfbede1232b@kernel.org>
-Date: Wed, 23 Sep 2026 12:13:39 +0200
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="1hdtkPw7"
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hqXqv2KvQzgft;
+	Wed, 23 Sep 2026 12:14:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1790158443;
+	bh=SFOa6PXnvBCltv3PDeGTOt6gr++V0R18iCtkjLktUwU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=1hdtkPw7LjOjMNpTmsouoDpZKOhNYHgwH7jTNmRKoiy+vNUY4cyKE6wJ+IzUt8eif
+	 y7zmgJvFHUDPL7p4U9fWJqsRwAT8uLSNEBoPMSCT0PBT6AFjX/QXYDFHIEZHvV5sjm
+	 whH3F5uMft8pCQMRryu1smUuECKWVDZj+7M4eLzc=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hqXqt21f2zd3w;
+	Wed, 23 Sep 2026 12:14:02 +0200 (CEST)
+Date: Wed, 23 Sep 2026 12:14:01 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>
+Cc: Christopher Lusk <clusk@northecho.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-security-module@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] docs: landlock: clarify TTY signal scoping
+Message-ID: <20260923.oyohBie1Jeen@digikod.net>
+References: <20260916152336.1589383-1-clusk@northecho.dev>
+ <aqq3yY8SKIBGUZ8v@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] hibernate: handle potential errors in
- hibernate_{map,unmap}_page()
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Dmitry Vyukov <dvyukov@google.com>, Len Brown <lenb@kernel.org>,
- Pavel Machek <pavel@kernel.org>, kasan-dev@googlegroups.com,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org
-References: <20260917-hibernation-v1-0-7f7dfae3dbe0@kernel.org>
- <20260917-hibernation-v1-3-7f7dfae3dbe0@kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260917-hibernation-v1-3-7f7dfae3dbe0@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqq3yY8SKIBGUZ8v@google.com>
+X-Infomaniak-Routing: alpha
 
-On 9/17/26 08:07, Mike Rapoport (Microsoft) wrote:
-> When safe_copy_page() had to map/unmap pages only because of
-> debug_pagealloc() there could be no errors in the kernel page table
-> updates.
+This looks good, much simpler.  Could you please send the (new) test
+with the v3 of this series?
+
+On Wed, Sep 16, 2026 at 05:37:45PM +0200, Günther Noack wrote:
+> On Wed, Sep 16, 2026 at 11:23:36AM -0400, Christopher Lusk wrote:
+> > The LANDLOCK_SCOPE_SIGNAL documentation does not describe how TTY-driven
+> > signals interact with signal scoping.  Holding a PTY master file descriptor
+> > is a separate capability: its holder can cause the TTY layer to signal
+> > processes running under that terminal, even across a Landlock domain
+> > boundary.
+> > 
+> > Add a concise clarification to the userspace API guide and the UAPI header.
+> > This records the capability boundary identified during review of the
+> > TIOCSIG discussion without enumerating individual TTY signal paths.
+> > 
+> > The documentation text and changelog were drafted with assistance from
+> > Codex (gpt-5.6-sol).
+> > 
+> > The userspace API documentation builds successfully with the kernel-pinned
+> > Sphinx dependencies.  The patch introduces no new warnings; the existing
+> > missing-graphviz and undefined-label warnings are unchanged.
 > 
-> However, with the increasing desire to remove pages from the direct map
-> this assumption becomes a real stretch.
+> Minor nit: Last two paragraphs of the commit message would have been
+> fine to drop for conciseness (the Assisted-by line already lists Codex
+> and the other paragraph talks about things that didn't change).
+> 
+> But really just very minor, and probably not worth changing unless we
+> unexpectedly need a V3.
+> 
+> > 
+> > Link: https://lore.kernel.org/r/aqqJAZfG9FC7PgMW@google.com
+> > Suggested-by: Günther Noack <gnoack@google.com>
+> > Assisted-by: Codex:gpt-5.6-sol
+> > Signed-off-by: Christopher Lusk <clusk@northecho.dev>
+> > ---
+> >  Documentation/userspace-api/landlock.rst | 3 +++
+> >  include/uapi/linux/landlock.h            | 2 ++
+> >  2 files changed, 5 insertions(+)
+> > 
+> > diff --git a/Documentation/userspace-api/landlock.rst b/Documentation/userspace-api/landlock.rst
+> > index 84cb7bf6b3ed..33a514ebc615 100644
+> > --- a/Documentation/userspace-api/landlock.rst
+> > +++ b/Documentation/userspace-api/landlock.rst
+> > @@ -430,6 +430,9 @@ The operations which can be scoped are:
+> >      This limits the sending of signals to target processes which run within the
+> >      same or a nested Landlock domain.
+> >  
+> > +    Holding a PTY master FD still grants the capability to issue signals through
+> > +    that PTY to the processes running under that terminal.
 
-What's our general direction in that regard?
+It would be more complete to quickly explain that a master TTY FD should
+be considered at least as privileged as the processes using/trusting the
+slave side.  See
+https://lore.kernel.org/all/20260923.eehieph7UaX1@digikod.net/
 
-I'd assume we'd not want to modify the directmap from hibernation code and
-simply fail instead if we encounter that scenario.
+So, this paragraph should really be short.
 
--- 
-Cheers,
+> > +
+> >  ``LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET``
+> >      This limits the set of abstract :manpage:`unix(7)` sockets to which we can
+> >      :manpage:`connect(2)` to socket addresses which were created by a process in
+> > diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
+> > index cceda3b3b961..6485af37dd25 100644
+> > --- a/include/uapi/linux/landlock.h
+> > +++ b/include/uapi/linux/landlock.h
+> > @@ -501,6 +501,8 @@ struct landlock_net_port_attr {
+> >   *   related Landlock domain (e.g., a parent domain or a non-sandboxed process).
+> >   * - %LANDLOCK_SCOPE_SIGNAL: Restrict a sandboxed process from sending a signal
+> >   *   to another process outside the domain.
+> > + *   Holding a PTY master FD still grants the capability to issue signals
+> > + *   through that PTY to the processes running under that terminal.
 
-David
+What about rewording the LANDLOCK_SCOPE_SIGNAL description to say that
+it is about signaling *arbitrary* processes (which is not the case with
+the TTY master FD)?  This way we would not have to specifically re-talk
+about the TTY case.
+
+> >   */
+> >  /* clang-format off */
+> >  #define LANDLOCK_SCOPE_ABSTRACT_UNIX_SOCKET		(1ULL << 0)
+> > -- 
+> > 2.55.0
+> > 
+> 
+> Reviewed-by: Günther Noack <gnoack@google.com>
+> 
+> Thank you very much for your contribution! :)
+> 
+> It ended up as a much smaller patch than we started out with, but the
+> real advancement lies in the understanding of the semantics and in the
+> double checking of these boundary conditions.  The LLM output was in
+> some cases a bit wordy ;-) but overall this was a good discovery and
+> useful discussion.
+> 
+> Thanks,
+> —Günther
+> 
