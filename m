@@ -1,58 +1,183 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1830B445AE6;
-	Wed, 23 Sep 2026 09:32:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4589C439340;
+	Wed, 23 Sep 2026 09:32:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790155937; cv=none; b=o0S1U45cdzBsYi6pFRq0jGAhMw8hBS+nOhtEAYkSftfl0vyRO1ZvyKh4U47dRrrcEuDRIn2g9yuYIB7uBY+VJrUh2I16vKTHH+YlODbzFMTuFQz4qxN4T0D9yROj89uHo+XDmKnywPqMVbqqPKB6C4Yx5Tq5ZXCmWrkb3s5hzgQ=
+	t=1790155940; cv=none; b=KREUtRkA3b4aDJDKSuiuPI/8myn4ZdPjEPcpTGr6s36kyyuOCCqM7/RXyx/HpnycHG1jerNC5/BZy2YjPoeuFcglN38hzkDd4qBwLQhNbgxXlkqJCc8acgCze6q/FUmoyPC3yW1MIRFS0X6kwLnGLThhBzjPAO15cmkyXQ//36Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790155937; c=relaxed/simple;
-	bh=x4bUg7+JY1XyzRObjIvH11HFX7ffTSmx+T3zOV3KB1U=;
+	s=arc-20240116; t=1790155940; c=relaxed/simple;
+	bh=XECchcwy6WjKG99wcXn6E/WpZJTYWLBwpuJb8u5vjQI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ACDQyTJo/3UK1iZjhkjq+DmQ7RoJkFXc1y42s7uvqMuYHWdGJAZSNj0lM43zmSFeAQ5tq+bkiCsGi4nA2JK/7dkGYYcfr+qBXRBvmaQYecCgwV8TDcIhUEZK2mfdXOK4v09/xtbmFBL706/aQeF+NVvtAfr9WvNYK50z+a24mys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nKOe3KXU; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=t3hsRBLjVinwGDnynHcYEITc7/FHmzvE9FIYoXzT+GQ6teeMwq7iWslurt9+jVTCD8WdAWdhR1pwwHR+5Z7DjZdelBueFAqxOpsxrtkO3mjaa9VuzBu+MYulssVi1ApEOE8Wks1Fv+HbueiW2FXbfDCye6Gi++3oIG15Qgu4GXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZXKb5Klq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nKOe3KXU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06C91F000FF;
-	Wed, 23 Sep 2026 09:32:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZXKb5Klq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E3BE1F00893;
+	Wed, 23 Sep 2026 09:32:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790155935;
-	bh=+MhfrJq802x57nhWy6AyvHV2FqGGpA4o/mj47hetU1g=;
+	s=korg; t=1790155939;
+	bh=QQBKEqJ2+JI0vz7P4rY5Fvd5mWr3I5LswTIfs2maAzU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nKOe3KXURRcGU9m2nUuxhFNaq6C7xJlzx1X4ITLxHEFI2+N3/iCQa4qNy+Lr7ZyWn
-	 2mgd/V/LiLT6j74WbRPYTj8ClzM3sUOzLNigDF4eeRnxIH6Jyrgzqfq8CXKYN/SmOX
-	 Ej//Jlfl3L8+5ZyJ/9k6e5s6yDQXglUhan544S0Q=
-Date: Wed, 23 Sep 2026 11:24:13 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: By <xiaobai050@gmail.com>
-Cc: Thinh.Nguyen@synopsys.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+665bae0a102933788e1a@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: dwc3: pci: reject matches without software-node data
-Message-ID: <2026092326-stricken-album-d1b9@gregkh>
-References: <20260923081006.89175-1-xiaobai050@gmail.com>
+	b=ZXKb5Klqlx2H0rFKbT554b6ih7cReXnC3p/VYJ4hTpAckzJNawQoZxSaBBgubctIf
+	 3dr66M2PGYnCeb8JTuMkcOF6KpQASN0v9kMLPuVgE7gQyc/hR6/CM1d6C10+tF+f6e
+	 tLMMpz4XbV5b0mJphgSIIFOb21wQiou44yXcFJi8=
+Date: Wed, 23 Sep 2026 11:27:11 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Armin Wolf <W_Armin@gmx.de>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Aleksandr Nogikh <nogikh@google.com>, linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-usb@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org, Johan Hovold <johan@kernel.org>,
+	Richard Weinberger <richard@nod.at>
+Subject: Re: [PATCH v4 0/3] driver core: add TAINT_FORCED_BIND for when
+ userspace manually messes with devices and drivers
+Message-ID: <2026092321-province-yearly-44aa@gregkh>
+References: <20260914-bind_taint-v4-0-eadf8a090903@linuxfoundation.org>
+ <DLIL9H50MALI.3JROXYEEUM3KU@kernel.org>
+ <arIvG0nx4LXG9nlW@monoceros>
+ <defb3953-7516-437e-b70b-d57de55b91bf@baylibre.com>
+ <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260923081006.89175-1-xiaobai050@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <9bd3a34b-5e98-4038-80d6-da2c3b1948dd@gmx.de>
 
-On Wed, Sep 23, 2026 at 04:10:06PM +0800, By wrote:
-> A PCI driver_override bind can reach dwc3_pci_probe() with the dummy ID
-> from pci_match_device(). Its driver_data is zero, so dwc3_pci_quirks()
-> passes NULL to device_add_software_node(), which crashes in
-> software_node_register().
+On Tue, Sep 22, 2026 at 11:04:46PM +0200, Armin Wolf wrote:
+> Am 22.09.26 um 15:40 schrieb David Lechner:
+> 
+> > On 9/22/26 2:39 AM, Uwe Kleine-König wrote:
+> > > On Fri, Sep 18, 2026 at 06:39:02PM +0200, Danilo Krummrich wrote:
+> > > > On Mon Sep 14, 2026 at 4:30 PM CEST, Greg Kroah-Hartman wrote:
+> > > > > The ability to add and remove devices from a driver through the sysfs
+> > > > > "bind" and "unbind" files was created all those decades ago as a way
+> > > > > that kernel developers can iterate faster, and provide a debugging way
+> > > > > for users to attempt to add a new device to a driver without having to
+> > > > > rebuild their kernel.
+> > > > > 
+> > > > > This api over the years has been abused and recently come under a major
+> > > > > fuzzing "attack" through tools like syzbot which decided that it would
+> > > > > attempt to just randomly bind any driver to any type of device, causing
+> > > > > loads of unneeded errors and pointless kernel patches to be generated by
+> > > > > unsuspecting new developers.
+> > > > > 
+> > > > > Handle all of this by adding a new taint flag, TAINT_FORCED_BIND, which
+> > > > > will be set on the driver if the bind/unbind sysfs files are ever
+> > > > > written to.  This lets kernel developers "know" that a user is
+> > > > > attempting to do something that is not normal, and as such, if the
+> > > > > kernel breaks they get to keep the shiny pieces laying around on the
+> > > > > floor.
+> > > > > 
+> > > > > The flag is 'Y' which was unused, and can remembered as the user is
+> > > > > "yeeting" the device being operated on here (thrown with force without
+> > > > > regard for the thing being thrown).
+> > > > > 
+> > > > > Note, the taint flag gets set _BEFORE_ the bind/unbind callback happens,
+> > > > > as many times crashes/oops/warnings/failures happen within the callback,
+> > > > > and the taint flag needs to be there to show what was being attempted.
+> > > > > If it were to be set after the callback happens, the oops report would
+> > > > > not properly reflect what foolishness was being attempted.
+> > > > > 
+> > > > > Fuzzing tools like syzbot, that doesn't have hand-crafted rules to keep
+> > > > > the tool from hitting bind/unbind, should be run with panic_on_taint
+> > > > > enabled so that they fall over and don't continue on, thinking that they
+> > > > > actually found a real issue.
+> > > > > 
+> > > > > Userspace operations that rely on the bind/unbind files
+> > > > I agree that this should be avoided.
+> > > > 
+> > > > But I also think the biggest offender really is driver_override. Specifically,
+> > > > on a hot-pluggable bus a driver must be complient with the device driver
+> > > > lifecycle rules and hence shouldn't break on bind/unbind. I think it would be
+> > > > nice to not taint the kernel for such busses, and only taint on driver_override,
+> > > > as I think we'd still want the bug reports for such cases.
+> > > > 
+> > > > But I think this is fine to leave for a follow-up.
+> > > I fully agree. I'm fine and support tainting on driver_override, but
+> > > bind/unbind are used occasionally in my bubble and I consider drivers
+> > > not handling that properly buggy.
+> 
+> I fully agree with this, drivers should correctly implement the lifecycle model
+> and not just break when being unbound at a improper time. Drivers suffering from
+> this can easily break this way when unloading the associated kernel module, so this
+> taint is no solution.
 
-As it should.  Don't do that.  See the archives for many details.
+It's a "solution" in that it tells the developer "hey, the user did
+something odd and unsupported".  rmmod is also not a normal operation,
+there's no requirement that it actually work as it's usually a "best
+effort" type of thing.
 
-> Reported-by: syzbot+665bae0a102933788e1a@syzkaller.appspotmail.com
+> > In the IIO subsystem, unbind/rebind is the de-facto way to reset a wedged
+> > chip.
+> > 
+> > A few examples where other reset methods were reject in favor of unbind/bind:
+> > 
+> > https://lore.kernel.org/linux-iio/20240727160216.2488ed29@jic23-huawei/
+> > 
+> > 	This needs documenting as it's custom ABI. Note that we don't often
+> > 	accept custom ABI. Particularly not a hook that seems to reset the
+> > 	device. If you want to do that, unbind and rebind the whole drive[r]
+> > 	so we are in a known state etc.
+> > 
+> > https://lore.kernel.org/linux-iio/20240720163440.03c713dc@jic23-huawei/
+> > 
+> > 	Firstly as stated below, we don't provide interfaces for this
+> > 	because it's a heavy weight process that is most of the effort of
+> > 	unbinding and rebinding the driver. So if you need to reset, do that.
+> > 
+> > https://lore.kernel.org/linux-iio/20250505200609.54756520@jic23-huawei/
+> > 
+> > 	The solution is to run it once at driver bind. Similar to reset
+> > 	below, if the usecase needs to re do it then unbinding and rebinding
+> > 	the driver reflects the fact we are taking it effectively offline
+> > 	for a while.
+> > 
+> I also consider bind/unbind to be an official API to interact with devices,
+> so i want to use them in the future with the WMI subsystem.
 
-This is an invalid report, as has been said in the past.
+Why?
+
+> AFAIK the underlying reason for this series is that some drivers break when
+> being bound to unsupported devices. However IMHO drivers should verify that
+> they support a given device inside their .probe callback, and the associated
+> bus should only match devices with drivers that explicitly claim support for
+> those devices (ignoring driver_override).
+
+No, drivers should NOT have to do that in their .probe() function,
+that's what we moved away from decades ago!  The match function should
+handle all of that for you, otherwise it's contant duplication
+everywhere that is unneeded.
+
+Please, learn from our history, don't make the same mistakes.
+
+Now I might be convinced that driver_override is the way to go here, but
+it still feels really odd as again, bind/unbind was created as a driver
+debugging option only, it should NOT be a normal operation that any user
+should rely on.  The driver should "just work" properly instead, without
+requiring manual bind work, as that's not a good model at all.
 
 thanks,
 
