@@ -1,81 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-156.mta0.migadu.com [91.218.175.156])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CADC471CF7;
-	Wed, 23 Sep 2026 08:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4454119EE
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 08:56:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790153721; cv=none; b=MkiMSqUW+/CuJ6RyfeFsR/YxHqe1YGAePZsxdlh4XPIvtEP8061OlLKBe57yRfJxgnU9nY5l0w8O64ZrIcbIRk/u9vJlzRu0F4sxDy3UVrBCmZTYxtUz+t3SriJp9DEqX2dD6UWA9UR4bNoV76npGV2B6oh7GmVnVpaj3j/MiGU=
+	t=1790153802; cv=none; b=OemG7PIvOq+6y/FeRwMBgX0BqOoiZ4FGsTigjhkJ+caK5tY5DU/rnLi2CsLZxz7XDPGQTCEX4N09Y52yXdMRRLTY606qV1eWE4yBHLmi31UDcKuBoFmFEObHz2hv4cix7yesc+y6DtRYhc0soS5bskrqPysJ+XdF7Qc6rKKbWuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790153721; c=relaxed/simple;
-	bh=xE2IWCqMbPk5DBRIkHHAxIcJ03Qg45uYvB8gQsrMlsk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=snbBjI2neiY2ih3979dRlsfgY4Xaw3r3YjqGrwg0I91mC1chdeG5xYgSlOdC4IyMNpEGjPoDzcb6FoI0QvypRwDwkMZa0bGwOZ9I32obpJ8n8WkJ7jL7ZjzAN0AfyCendhSsgnZDjm+hjSMEJf/C/pp1IXKo75tGM9RAZ9qMiiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iACzQIDD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790153802; c=relaxed/simple;
+	bh=dnPq4pRHlT6hpC3lghdvKVIgRaHtyf+n6DAJtS+2gSk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y1Mb3nHNd0+nSh8tT4RCpgI7NcNNMymFlthr9iENkgZuNKAB/QBnRkUTqdJ1TF6EH9aH8kr1DlZ00LRZ4xmo+wPTRHNQ2T9y634sJpKAIyQ4QGXp6W4euWISUULJUvlp/dvyU3jorpibBgSPr5PRyTa+r+mCXLD38Sg3Qzg/39I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oXZF0OB+; arc=none smtp.client-ip=91.218.175.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iACzQIDD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DC871F00898;
-	Wed, 23 Sep 2026 08:55:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790153719;
-	bh=80DZGmjDiR4Bg9Mnkz01B8NPJILVq5/IaueQvHOQ1e4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iACzQIDDqwQYRnvhG9KkuG0heW/4q3SDDtbBW6U3CqrXRI3/mCeelAApaskR6VBPB
-	 NUoief6+g5RW67Z/DNil33B6jzZeazIQLQFCp+7B7DOJ3iebE61O7rUWemyLYeQxNZ
-	 L1xtANiGEvJBwnBtbPAXK9mlB8UasThAaT/3P9NtAob05M+vAZ86tlj2GAwlYP0kQt
-	 T38Z8l3XATqB4k3TCFixC+Tm8BR5wxbk+dqu6KHoHr8fxF+Anu2dcLeHsEaJGEwT/t
-	 l3M3eOkCqwCqeHsib1ylNFEfeKru04l+VfM39z1IERrQa3lpYZsUYBzoMHMDun6JBP
-	 qHVAV2WRfkpTQ==
-Date: Wed, 23 Sep 2026 09:54:42 +0100
-From: Simon Horman <horms@kernel.org>
-To: Daniel Machon <daniel.machon@microchip.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	UNGLinuxDriver@microchip.com, Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mohsin Bashir <mohsin.bashr@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next v7 04/14] net: lan966x: add FDMA LLP register
- write helper
-Message-ID: <20260923085211.GM13925@horms.kernel.org>
-References: <20260918-lan966x-pci-fdma-v7-0-0ecc179c8a2c@microchip.com>
- <20260918-lan966x-pci-fdma-v7-4-0ecc179c8a2c@microchip.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oXZF0OB+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dnPq4pRHlT6hpC3lghdvKVIgRaHtyf+n6DAJtS+2gSk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790153798; v=1; x=1790758598;
+ b=oXZF0OB+RmD1ab//9L5cZkloiO/n5jwMqKIhXAmLw8oQMSx01KHbWJKNDs3pi0AcXov9BFlj
+ DZcCPXAFG/tHpnopAoOfAv31RtBK6NhraJo+kf8gJLaQKaM1TK2YNCc8d8CPq45bhGcRoqkh8Q8
+ Ut4CcAiIJ7FE6fxYkZC00BjU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a3c32f82d4955334;
+	Wed, 23 Sep 2026 08:56:37 +0000
+X-Mizu-Trace-ID: a3c32f82d4955334
+X-Migadu-Flow: FLOW_OUT
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+To: Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>
+Cc: Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>
+Subject: [PATCH] cgroup/cpuset: Cancel CPU transfer when housekeeping check fails
+Date: Wed, 23 Sep 2026 16:56:24 +0800
+Message-ID: <20260923085624.172022-1-guopeng.zhang@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918-lan966x-pci-fdma-v7-4-0ecc179c8a2c@microchip.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 01:33:56PM +0200, Daniel Machon wrote:
-> The FDMA Link List Pointer (LLP) register points to the first DCB in the
-> chain and must be written before the channel is activated. This tells
-> the FDMA engine where to begin DMA transfers.
-> 
-> Move the LLP register writes from the channel start/activate functions
-> into the allocation functions and introduce a shared
-> lan966x_fdma_llp_configure() helper. This is needed because the upcoming
-> PCIe FDMA path writes ATU-translated addresses to the LLP registers
-> instead of DMA addresses. Keeping the writes in the shared
-> start/activate path would overwrite these translated addresses.
-> 
-> Tested-by: Herve Codina <herve.codina@bootlin.com>
-> Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+From: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Widening an isolated child partition to include the last kernel-noise
+housekeeping CPU invalidates the partition, but the CPU transfer
+computed before the housekeeping check is still applied:
+
+    WARNING: kernel/cgroup/cpuset.c:1315 at partition_xcpus_add+0x61/0x70, CPU#1: sh/1052
+    Call Trace:
+     <TASK>
+     update_parent_effective_cpumask+0x320/0xa30
+     cpuset_write_resmask+0x1e6/0x7c0
+     </TASK>
+    ---[ end trace 0000000000000000 ]---
+
+This can be reproduced on a 32-CPU system booted with nohz_full=1:
+
+    cd /sys/fs/cgroup
+    echo +cpuset > cgroup.subtree_control
+    mkdir A B C C/child
+    echo 0 > A/cpuset.cpus
+    echo isolated > A/cpuset.cpus.partition
+    echo 4-31 > B/cpuset.cpus
+    echo isolated > B/cpuset.cpus.partition
+    echo +cpuset > C/cgroup.subtree_control
+    echo 2-3 > C/cpuset.cpus
+    echo root > C/cpuset.cpus.partition
+    echo 3 > C/child/cpuset.cpus
+    echo isolated > C/child/cpuset.cpus.partition
+    echo 2-3 > C/child/cpuset.cpus
+
+The last write returns 0 and leaves the hierarchy in this state:
+
+    root (cpuset.cpus.effective=1)
+    |
+    +-- A (isolated):       cpuset.cpus=0
+    |                       cpuset.cpus.effective=0
+    +-- B (isolated):       cpuset.cpus=4-31
+    |                       cpuset.cpus.effective=4-31
+    \-- C (root):           cpuset.cpus=2-3
+        |                   cpuset.cpus.effective=<empty>
+        \-- C/child (invalid isolated):
+                            cpuset.cpus=2-3
+                            cpuset.cpus.effective=<empty>
+
+Before the last write, C owns CPU 2 and C/child owns CPU 3. The last
+write changes C/child's CPU mask from 3 to 2-3, which would transfer
+CPU 2 from C to C/child.
+
+The housekeeping check invalidates C/child, but delmask still contains
+CPU 2 while addmask is empty. partition_xcpus_add() therefore removes
+CPU 2 from C and warns because the new partition state is invalid.
+CPU 3 is not returned when C/child is invalidated, leaving both CPUs
+unavailable to any valid partition.
+
+Handle PERR_HKEEPING like PERR_NOCPUS: cancel the pending transfer and
+rebuild addmask from the CPUs currently held by the child. This leaves
+CPU 2 in C and returns CPU 3 to C.
+
+Fixes: 103b08709e8a ("cgroup/cpuset: Fail if isolated and nohz_full don't leave any housekeeping")
+Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+---
+ kernel/cgroup/cpuset.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 753aa65afcd7..a4ead0d3c872 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -1929,6 +1929,17 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+ 			    /* Adding to parent means adding isolated CPUs */
+ 			    !isolated_cpus_can_update(tmp->addmask, tmp->delmask))
+ 				part_error = PERR_HKEEPING;
++			if (part_error == PERR_HKEEPING) {
++				/*
++				 * Fall back to returning all the granted
++				 * CPUs to the parent instead of applying
++				 * the pending change.
++				 */
++				deleting = false;
++				adding = cpumask_and(tmp->addmask,
++						     cs->effective_xcpus,
++						     parent->effective_xcpus);
++			}
+ 		}
+ 
+ 		/*
+-- 
+2.43.0
 
