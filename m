@@ -1,133 +1,99 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB4B30AAD8
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E92541E54
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 18:53:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.35
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790189575; cv=none; b=rvhQtOM/5DzsoL+8EEd+Lhy4x7dKdoY3NSx3/xAkXDhU8/vPbRapneiNE5EIER85NA7BYemQO1aT/jrdfekL2gCvJNH3SftIuF3adUIdY+AzebyerXEVUVwfhK2FL5ffYPd6w9JUO4yffpPNyhL1oVKmxk6m5f9ubFhfK3y+Vho=
+	t=1790189601; cv=none; b=p8gQlJHfThe5AGAKojSsO0Jh4P5vlnaZa9nit3tgbT9eUbOxFm3OUrF7zWBYlnorDje7laQnuEQtPvT+mL9fg+9R54DS4rM9Dmg/ReR0FIogFU3iyKorBB5NHjsCh7/Pw/JzuZJzW75GTnMaEXTluPZ7MhAhGsSuor+MrooQcbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790189575; c=relaxed/simple;
-	bh=lEzLIQRxIlCTvxvT5iKhLhs3xbMRRtcxk4lMzlWZCaE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JxL/ljKJYSRlnAo0f3/aYDZM1wfMbm8Dg+D2QPDHr0bhERzEXP9wKn1xEVwml0IORJTTfqDpINbyZ6RuD7jkiQg721cAnIsdnKNXGgXHo/NzEueiX1THmR1udlnl95kAy41Tcq8RsWfsh5d72ir5DoN90ZP2sWeDn0Q8OnuZigM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=H08L0VQj; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790189601; c=relaxed/simple;
+	bh=VQwGs8kxbwA/pw10zZlCJcbl8pu79WWCbvhBxYPCINQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VlAg8e35yCiMb3weAriAcyIh/TdbsGQ+y/tJibA/M1Yl82FmEEw9UkCfdNhoTzg7WxMOJgDnZg9Pnci362F7NbPzWQ/wUxUT2yJPTmQWoN5P+/qMvzYz6BDh5XW70gV2au5qVGUKuFoSdHSob2SEArGRN0tvhdo2SpGeUGbXkl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HucKdqpF; arc=none smtp.client-ip=91.218.175.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="H08L0VQj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790189571;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9+K5bFwX9R5Nh+hXQLnRhgdTjOkZ1p0xvFEtGuA4TZg=;
-	b=H08L0VQjgQ21C7FllCS2QCFulG88Ur0ANnh7Im12gHFJ1LtFDz2JxGRq8NprJqfUO+rRwD
-	6oB6hrKYetTTLc05PUds9Av6W5L2zoQPBHANhskXu85sgkqGmGww01bUNqx/WYnA9sdfgm
-	Ts3IGqjfMOwsp/590y0XyAjpjvjD2Z4=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-627-kVef6ZP-PhqSaV00kwbJXQ-1; Wed,
- 23 Sep 2026 14:52:48 -0400
-X-MC-Unique: kVef6ZP-PhqSaV00kwbJXQ-1
-X-Mimecast-MFC-AGG-ID: kVef6ZP-PhqSaV00kwbJXQ_1790189566
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7CCD81801BD5;
-	Wed, 23 Sep 2026 18:52:46 +0000 (UTC)
-Received: from bmarzins-01.fast.eng.rdu2.dc.redhat.com (bmarzins-01.fast.eng.rdu2.dc.redhat.com [10.6.23.12])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 12A331800351;
-	Wed, 23 Sep 2026 18:52:45 +0000 (UTC)
-Received: from bmarzins-01.fast.eng.rdu2.dc.redhat.com (localhost [127.0.0.1])
-	by bmarzins-01.fast.eng.rdu2.dc.redhat.com (8.18.1/8.17.1) with ESMTPS id 68NIqihF1103311
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 23 Sep 2026 14:52:44 -0400
-Received: (from bmarzins@localhost)
-	by bmarzins-01.fast.eng.rdu2.dc.redhat.com (8.18.1/8.18.1/Submit) id 68NIqiV31103310;
-	Wed, 23 Sep 2026 14:52:44 -0400
-Date: Wed, 23 Sep 2026 14:52:44 -0400
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: By <xiaobai050@gmail.com>
-Cc: agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com,
-        dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
-        syzbot+bdff1ecf726d2af66afd@syzkaller.appspotmail.com,
-        syzbot+665bae0a102933788e1a@syzkaller.appspotmail.com
-Subject: Re: [PATCH] usb: dwc3: pci: reject matches without software-node data
-Message-ID: <arQf_IY2KbiQPyqZ@redhat.com>
-References: <20260923081021.89508-1-xiaobai050@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HucKdqpF"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=VQwGs8kxbwA/pw10zZlCJcbl8pu79WWCbvhBxYPCINQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1790189589; v=1; x=1790794389;
+ b=HucKdqpF2C+Z2funT521S4GuulRKRrlYL3J4dzrEasBAGy13+3ocRtfF+Ew50v4ft3xCxBNu
+ MYE59PCKbXsLZplEPE7kGHRQeiMISXaENc9IvzHtcUO8w7QJfLD5b3LXV157Qq/aznA0Bw0++zT
+ 88vdJReZ9506tspXnQZt3SuI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5a8c85cc33237c1e;
+	Wed, 23 Sep 2026 18:53:09 +0000
+X-Mizu-Trace-ID: 5a8c85cc33237c1e
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b83c1421ecso1472e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:53:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy7sixJfG+Sx5AAa16ruEOqQUSW/LnPPmVLJKI4kmvc1pJMBdNIKuK5WDsES633HLHYiiii4F1LV0c9Q/I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmCdv5aeIunvC1DiPk/sByLTng/nynSCiYTnVPArzYAhnLQ+u3
+	/v+v67H+B0b6d/ijLvhZciedYDjZAtR1cOURZAslBjIsJzeJVGvkhE2rvCHSSJ/8Vxv9Fgw3DFX
+	cZGVL4fq5FAnF+8thEvxNXzArv7Sqdh/q5xnPPBC/
+X-Received: by 2002:a05:6512:124d:b0:5ae:cf5f:4a88 with SMTP id
+ 2adb3069b0e04-5b8dda15fd4mr50291e87.8.1790189584139; Wed, 23 Sep 2026
+ 11:53:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260923081021.89508-1-xiaobai050@gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+References: <20260923-kvm-arm-prefault-v4-0-d4b0b4dfa8c3@kernel.org> <20260923-kvm-arm-prefault-v4-1-d4b0b4dfa8c3@kernel.org>
+In-Reply-To: <20260923-kvm-arm-prefault-v4-1-d4b0b4dfa8c3@kernel.org>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Wed, 23 Sep 2026 19:52:27 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTzDYSuBVEc+SMdDa41sq-ET=m_oWW0gL9dYf+AumPYPUg@mail.gmail.com>
+X-Gm-Features: AclHuK9102l5jXhHZm0wjY1xcBMQ6NzdYFil2Hlxj79BuZjg_2Y9X0YS37SYzUc
+Message-ID: <CA+EHjTzDYSuBVEc+SMdDa41sq-ET=m_oWW0gL9dYf+AumPYPUg@mail.gmail.com>
+Subject: Re: [PATCH v4 01/14] KVM: Allow architectures to disallow pre-fault
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Mark Rutland <mark.rutland@arm.com>, 
+	Randy Dunlap <rdunlap@infradead.org>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Janosch Frank <frankja@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, Jack Thomson <jackabt@amazon.com>, 
+	Jack Thomson <jackabt.amazon@gmail.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
+	Vincent Donnefort <vdonnefort@google.com>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Sean Christopherson <seanjc@google.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+	Leo Soares Passos <Leo.Bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, linux-s390@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-These aren't the appropriate people or list to send this patch to.
+Hi Lorenzo,
 
-scripts/get_maintainer.pl is your friend here.
-
-repos/linux$ scripts/get_maintainer.pl 0001-usb-dwc3-pci-reject-matches-without-software-node-da.patch 
-Thinh Nguyen <Thinh.Nguyen@synopsys.com> (maintainer:DESIGNWARE USB3 DRD IP DRIVER)
-Greg Kroah-Hartman <gregkh@linuxfoundation.org> (maintainer:USB SUBSYSTEM,blamed_fixes:1/1=100%)
-Heikki Krogerus <heikki.krogerus@linux.intel.com> (blamed_fixes:1/1=100%)
-Felipe Balbi <balbi@kernel.org> (blamed_fixes:1/1=100%)
-linux-usb@vger.kernel.org (open list:DESIGNWARE USB3 DRD IP DRIVER)
-linux-kernel@vger.kernel.org (open list)
-USB SUBSYSTEM status: Supported
-
-So Thinh Nguyen <Thinh.Nguyen@synopsys.com> is the maintainer for this
-driver, Greg Kroah-Hartman <gregkh@linuxfoundation.org> is the
-maintainer for the subsystem, linux-usb@vger.kernel.org is the mailing
-list for this driver, and Heikki Krogerus
-<heikki.krogerus@linux.intel.com>, Greg Kroah-Hartman
-<gregkh@linuxfoundation.org>, and Felipe Balbi <balbi@kernel.org> all
-have something to do with e492ce9bcaa1 ("usb: dwc3: pci: Register a
-software node for the dwc3 platform device").
-
--Ben
-
-On Wed, Sep 23, 2026 at 04:10:21PM +0800, By wrote:
-> A PCI driver_override bind can reach dwc3_pci_probe() with the dummy ID
-> from pci_match_device(). Its driver_data is zero, so dwc3_pci_quirks()
-> passes NULL to device_add_software_node(), which crashes in
-> software_node_register().
-> 
-> Reject the match before enabling the device or allocating resources.
-> All static DWC3 PCI IDs provide software-node data.
-> 
-> Build-tested with ARCH=arm64 defconfig and dwc3-pci.o. The runtime
-> reproducer could not be run in this environment.
-> 
-> Fixes: e492ce9bcaa1 ("usb: dwc3: pci: Register a software node for the dwc3 platform device")
-> Reported-by: syzbot+665bae0a102933788e1a@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=665bae0a102933788e1a
-> Assisted-by: LLM
-> Signed-off-by: By <xiaobai050@gmail.com>
-> ---
->  drivers/usb/dwc3/dwc3-pci.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/usb/dwc3/dwc3-pci.c b/drivers/usb/dwc3/dwc3-pci.c
-> index 6c1cbb722..d7fdf6ca6 100644
-> --- a/drivers/usb/dwc3/dwc3-pci.c
-> +++ b/drivers/usb/dwc3/dwc3-pci.c
-> @@ -335,6 +335,9 @@ static int dwc3_pci_probe(struct pci_dev *pci, const struct pci_device_id *id)
->  	int			ret;
->  	struct device		*dev = &pci->dev;
->  
-> +	if (!id->driver_data)
-> +		return -ENODEV;
+On Wed, 23 Sep 2026 16:15:44 +0100, "Lorenzo Stoakes (ARM)"
+<ljs@kernel.org> wrote:
+[...]
+> diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+[...]
+> +int kvm_arch_pre_fault_allowed(struct kvm_vcpu *vcpu)
+> +{
+> +        if (!vcpu->kvm->arch.pre_fault_allowed)
+> +                return -EOPNOTSUPP;
 > +
->  	ret = pcim_enable_device(pci);
->  	if (ret) {
->  		dev_err(dev, "failed to enable pci device\n");
-> -- 
-> 2.55.0
+> +        return 0;
+> +}
 
+nit: the comment above the smp_rmb() in tdx_sept_map_leaf_spte() still
+says pre_fault_allowed is read by kvm_arch_vcpu_pre_fault_memory(),
+but after this patch it's read here.
+
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+
+Cheers,
+/fuad
