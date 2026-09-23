@@ -1,239 +1,86 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from mailout3.hostsharing.net (mailout3.hostsharing.net [144.76.133.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8AF48C8AE
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:27:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B8C48C8DC;
+	Wed, 23 Sep 2026 10:27:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.133.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790159272; cv=none; b=heUPlNlpssCxpZSaCmDnQyE1TsYyZIq/MyuIDgkEGPaQstABy0LhZ+2G6De3jIkLLCUKIaVngXWOa3Pprd75z3Oo3eIDgkJK/HhPMSMYMlmd5kP8ZmcVFTn14NyVWR7yWFS4AQKG27o0EEeAsYCx5+ZqDTpCuD+11wJxRI3nXH0=
+	t=1790159281; cv=none; b=TWq87w4nzpW9hyNpn4EX9qURblAg938dsq7/x/C5Cjz/hLt8Sr9AxhBeXZ8U4oemudVUymgB3Lox0YbeHYJ63SqGhhwS51+H0Lcz3lmc2LtTtrOJMkhgTwmeNEmVNZyjw2fz8Jbluks+ZiNctQf0/XYOFcClTVPT7OQGedaHad4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790159272; c=relaxed/simple;
-	bh=Z/PsIyyNVNfE/wcNawpmZtDNjPKPmx3aX/xgRi4nO38=;
-	h=From:To:Cc:Subject:Date:Message-Id; b=jY2H2TxGDlQ3fv6r1pOPvmgtmzgcEPLtdhgM5u3YEsuMZAaBOsHMLZw7oxbt9T+aPLKdEDXV2iOJ/Dqg2RKskx4zfzXYxr2wYk5lBuZqGZBR9pf6s79+vgYjNTtVcyh7a6GjIueaVzv1/x/d+siGnVGlCcTVbWv6+6hNOAaYoVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com; spf=pass smtp.mailfrom=airkyi.com; dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b=X8gWwXOn; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=airkyi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=airkyi.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=airkyi.com header.i=@airkyi.com header.b="X8gWwXOn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
-	s=altu2504; t=1790159199;
-	bh=XbULw6ULJcXEN7r4HzVKK0xQN1onNLhHJdUNgVvLQ2I=;
-	h=From:To:Subject:Date:Message-Id;
-	b=X8gWwXOnt0SQ3QQ0c5Ga5ykT4dSi9wuLYGSN6vf0X3OnO1Errblkk+aL9jgBfJ3rq
-	 WoSxeKYbvqhqncw80Wdd9MeINcJEsZ81fbBMqwTaGKvCsDvBqb8VgZueMZQiYH5cAm
-	 XBs+fhd+LwUjtt3BnMqJxbCCJDfyaB7VB135DYdk=
-X-QQ-mid: zesmtpgz3t1790159191te5b87cc4
-X-QQ-Originating-IP: WUrZ5XmnOzoxgdtPF6VWy10ah40RwA+e8WcsItuKrhQ=
-Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 23 Sep 2026 18:26:29 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14866682389088076304
-EX-QQ-RecipientCnt: 10
-From: Chaoyi Chen <kernel@airkyi.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Chaoyi Chen <chaoyi.chen@rock-chips.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Chaoyi Chen <kernel@airkyi.com>
-Subject: [PATCH] drm/display/dsc: Add YCbCr 4:2:2 and 4:2:0 computation for DSC 1.2 RC parameters
-Date: Wed, 23 Sep 2026 18:26:16 +0800
-Message-Id: <20260923102616.215-1-kernel@airkyi.com>
-X-Mailer: git-send-email 2.17.1
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MX+1SEN3H+wAZ6YLcAduUSOcyRfX2CiPwqZuU1xrNgWlKgAjb/nWgmR3
-	0w4kaTI2V9W9UZ84NlGyhrsSqkGborapcGHltw6MLU3bLXiSILhqrdvk46lce3wx4/7opmP
-	kEM+bKpro8UU4jok5Bm/H80HsmztX3KWIt6hcFNymNWpI2HjgPT9DUHPF40GazIULCZUd0s
-	0Gdmr1eAtE/waGMuVeJeBW4Enrw0FyiBe+IP3HjsRLJO9rlYe/1TCK1ynvPlPO0nOpgYPeS
-	96yTL7TVpdjyWF04R/eLO29f86hW9esui9plPMCBSfR/ff1quZgDofQa/kEirEXA3P+iIg3
-	94L/OCJk+AKgUOdvkifZ5xwFIRhch2c9DRCqn4D+gjekCZCwKx0S5286YcfT9C2k765kDOX
-	kOqkBCQVInK3LsSzo8hv13PxAd4TTmM/br91+SfDkTPYzjuLc+v8l+AswFVxsQQGRtYzhd5
-	KduY0uY/5/AdgSF408DrxjSWV6/mvm4qvjTPY72I/4+QA+MHaa5khAVZ+UyAQoeoNIb4xE1
-	HRnP9gLvc6DLieKUpw6LfjZFTzvsuzTg9mZzrreacnWVf6pHw8Yz+1tK+q5Xm9mhyvgqNgW
-	aKWkA0ZPQBGIZUkiDKOze7VbFDLsTetHXqHFoIYJn4jA949Tmkln8IS4hivX/qwz2E22VC/
-	KgaplhNg2OmPbwyK0MmYBP1Rj5ijDV7/1KejHw96tZKjZF7oiYKK2Jf3ScdfPu2I7VBvPlc
-	OPxbL1xSq20JwAKRlhh+wzAjK7yWBKVDRJJGwQiL1AcDBwBe/SxTQoOBsMhjzwdxjWpvDNK
-	hFtSDTyzK+mw552W17Yhq1EoTLKlnc2oXXlJ3TzK77gSokII6wMvJJ+21ksQhT+pkHIjrl3
-	VSI2pym7rf2jQfzBsfD2k1Foup0HcTyVD9aBaSIhOB2swoDgJKUdxBoiLZ1nDbA0DgK7YcE
-	DBbyITccR3jo/77S5HlGpdYXyhcowzd5GnHxqBkcX8jY+UPJBWDV0145jdmeO1Ye+dvs=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+	s=arc-20240116; t=1790159281; c=relaxed/simple;
+	bh=8bsRzgiDz06/1Ig7A3wbd46dRe7z3zLwUB654q1EDak=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KHCKEUoPqVOzDl67G4bMJmXr0htq4G563Q9I8r83bleUw0L3KRgIRZBFxZG/LlZg+Bxf1C9kjPJ9XpFNHGOqIGyz9emr1GB+64ADxYD/bgV54UaX9z3LhMf1qiiNaMiGnC2u+46r30XoMRN1Lpp6gPoMUMajdoSD9okRWYe2KfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=144.76.133.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout3.hostsharing.net (Postfix) with ESMTPS id 91F3E1685;
+	Wed, 23 Sep 2026 12:27:27 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id 404CE6235255; Wed, 23 Sep 2026 12:27:27 +0200 (CEST)
+Date: Wed, 23 Sep 2026 12:27:27 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Navon John Lukose <navonjohnlukose@gmail.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Mario Limonciello <Mario.Limonciello@amd.com>,
+	linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] PCI/PM: Skip the suspend_noirq config save if
+ runtime-suspended
+Message-ID: <arOpj4C67BnrNreM@wunner.de>
+References: <20260923022511.24932-1-navonjohnlukose@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260923022511.24932-1-navonjohnlukose@gmail.com>
 
-drm_dsc_compute_rc_parameters() still derives the rate control
-parameters that depend on native 4:2:0/4:2:2 operation using the
-DSC 1.1 model.
+On Wed, Sep 23, 2026 at 07:55:11AM +0530, Navon John Lukose wrote:
+> pci_pm_suspend_noirq() saves config space unconditionally when the driver
+> of the device has no PM callbacks, which includes unbound devices.  If
+> such a device is runtime-suspended, the bridge above it may be in a
+> low-power state with the link down.  Depending on the platform, the
+> config reads then either hang the CPU or return all ones, which overwrite
+> the snapshot taken at runtime suspend and are written back to the device
+> on resume.
+> 
+> Skip the save if the device is runtime-suspended, as pci_pm_freeze()
+> does, since pci_pm_runtime_suspend() has already saved the config space.
+> Use pm_runtime_status_suspended(), because runtime PM is disabled by the
+> noirq phase and pm_runtime_suspended() would always be false.
+> 
+> Fixes: 931ff68a5a53 ("PCI PM: Restore config spaces of all devices during early resume")
+> Cc: stable@vger.kernel.org # v6.19+
+> Signed-off-by: Navon John Lukose <navonjohnlukose@gmail.com>
+> ---
+> Found on a Lenovo Yoga 83KF (Arrow Lake-H).  A driverless O2 Micro SD
+> reader at 57:00.0 with power/control=auto lets its root port 00:1c.0
+> runtime-suspend to D3hot.  The port then swallows the ECAM reads in
+> pci_save_state(), and the forward-progress watchdog raises a fatal machine
+> check at the ECAM load in pci_mmcfg_read().
 
-Bring the helper in line with the latest DSC 1.2 reference
-implementation (C model 20211213, version 1.67):
-- Compute second_line_bpg_offset, second_line_offset_adj and
-nsl_bpg_offset for native 4:2:0.
-- Compute rbsMin for DSC 1.2 native 4:2:0/4:2:2 using the optimized
-method of the C model.
+Hm, pci_pm_suspend_noirq() should bail out earlier because of the
+dev_pm_skip_suspend() check.  That check resolves to:
 
-Signed-off-by: Chaoyi Chen <kernel@airkyi.com>
----
- drivers/gpu/drm/display/drm_dsc_helper.c | 114 ++++++++++++++++++++++-
- 1 file changed, 109 insertions(+), 5 deletions(-)
- mode change 100644 => 100755 drivers/gpu/drm/display/drm_dsc_helper.c
+  dev_pm_smart_suspend(dev) && pm_runtime_status_suspended(dev)
 
-diff --git a/drivers/gpu/drm/display/drm_dsc_helper.c b/drivers/gpu/drm/display/drm_dsc_helper.c
-index 05996c526a8a..90b088335997
---- a/drivers/gpu/drm/display/drm_dsc_helper.c
-+++ b/drivers/gpu/drm/display/drm_dsc_helper.c
-@@ -1300,6 +1300,59 @@ int drm_dsc_setup_rc_params(struct drm_dsc_config *vdsc_cfg, enum drm_dsc_params
- }
- EXPORT_SYMBOL(drm_dsc_setup_rc_params);
+The code comment in device_prepare_smart_suspend() explains that
+smart_suspend is true for devices without PM callbacks.  But only
+if the parent has smart suspend enabled as well.  I guess that's
+the sticking point?  That the port above the card reader doesn't
+have smart suspend enabled?
 
-+/**
-+ * __drm_dsc_compute_buffer_offset - Compute the rate buffer offset at a given
-+ * group position within a slice, following the method of the DSC 1.2 C model.
-+ *
-+ * @vdsc_cfg: DSC Configuration data partially filled by driver
-+ * @groups_per_line: number of groups used to code each line of a slice
-+ * @grpcnt: group position to compute the offset for
-+ *
-+ * Return: the offset value for the group @grpcnt.
-+ */
-+static long
-+__drm_dsc_compute_buffer_offset(const struct drm_dsc_config *vdsc_cfg,
-+				unsigned long groups_per_line,
-+				unsigned long grpcnt)
-+{
-+	unsigned long grpcnt_id = DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay,
-+					       DSC_RC_PIXELS_PER_GROUP);
-+	long offset;
-+
-+	if (grpcnt <= grpcnt_id)
-+		offset = DIV_ROUND_UP(grpcnt * DSC_RC_PIXELS_PER_GROUP *
-+				      vdsc_cfg->bits_per_pixel, 16);
-+	else
-+		offset = DIV_ROUND_UP(grpcnt_id * DSC_RC_PIXELS_PER_GROUP *
-+				      vdsc_cfg->bits_per_pixel, 16) -
-+			 (((grpcnt - grpcnt_id) *
-+			   vdsc_cfg->slice_bpg_offset) >> 11);
-+
-+	if (grpcnt <= groups_per_line)
-+		offset += grpcnt * vdsc_cfg->first_line_bpg_offset;
-+	else
-+		offset += groups_per_line * vdsc_cfg->first_line_bpg_offset -
-+			 (((grpcnt - groups_per_line) *
-+			   vdsc_cfg->nfl_bpg_offset) >> 11);
-+
-+	if (vdsc_cfg->native_420) {
-+		if (grpcnt <= groups_per_line)
-+			offset -= (grpcnt * vdsc_cfg->nsl_bpg_offset) >> 11;
-+		else if (grpcnt <= 2 * groups_per_line)
-+			offset += (grpcnt - groups_per_line) *
-+				   vdsc_cfg->second_line_bpg_offset -
-+				 ((groups_per_line *
-+				   vdsc_cfg->nsl_bpg_offset) >> 11);
-+		else
-+			offset += (grpcnt - groups_per_line) *
-+				   vdsc_cfg->second_line_bpg_offset -
-+				 (((grpcnt - groups_per_line) *
-+				   vdsc_cfg->nsl_bpg_offset) >> 11);
-+	}
-+
-+	return offset;
-+}
-+
- /**
-  * drm_dsc_compute_rc_parameters() - Write rate control
-  * parameters to the dsc configuration defined in
-@@ -1391,6 +1444,36 @@ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg)
- 	else
- 		vdsc_cfg->nfl_bpg_offset = 0;
+Thanks,
 
-+	/*
-+	 * According to DSC 1.2 spec in Section 4.1 if native_420 is set:
-+	 * -second_line_bpg_offset is 12 in general and equal to 2*(slice_height-1) if slice
-+	 * height < 8.
-+	 * -second_line_offset_adj is 512 as shown by emperical values to yield best chroma
-+	 * preservation in second line.
-+	 * -nsl_bpg_offset is calculated as second_line_offset/slice_height -1 then rounded
-+	 * up to 16 fractional bits, we left shift second line offset by 11 to preserve 11
-+	 * fractional bits.
-+	 */
-+	if (vdsc_cfg->native_420) {
-+		if (vdsc_cfg->slice_height >= 8)
-+			vdsc_cfg->second_line_bpg_offset = 12;
-+		else
-+			vdsc_cfg->second_line_bpg_offset =
-+				2 * (vdsc_cfg->slice_height - 1);
-+
-+		vdsc_cfg->second_line_offset_adj = 512;
-+	} else {
-+		vdsc_cfg->second_line_bpg_offset = 0;
-+		vdsc_cfg->second_line_offset_adj = 0;
-+	}
-+
-+	if (vdsc_cfg->native_420 && vdsc_cfg->slice_height > 2)
-+		vdsc_cfg->nsl_bpg_offset =
-+			DIV_ROUND_UP(vdsc_cfg->second_line_bpg_offset << 11,
-+				     (vdsc_cfg->slice_height - 1));
-+	else
-+		vdsc_cfg->nsl_bpg_offset = 0;
-+
- 	/* Number of groups used to code the entire slice */
- 	groups_total = groups_per_line * vdsc_cfg->slice_height;
-
-@@ -1410,7 +1493,9 @@ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg)
- 		vdsc_cfg->scale_increment_interval =
- 				(vdsc_cfg->final_offset * (1 << 11)) /
- 				((vdsc_cfg->nfl_bpg_offset +
--				vdsc_cfg->slice_bpg_offset) *
-+				vdsc_cfg->slice_bpg_offset +
-+				(vdsc_cfg->native_420 ?
-+				 vdsc_cfg->nsl_bpg_offset : 0)) *
- 				(final_scale - 9));
- 	} else {
- 		/*
-@@ -1425,10 +1510,29 @@ int drm_dsc_compute_rc_parameters(struct drm_dsc_config *vdsc_cfg)
- 	 * bits/pixel (bpp) rate that is used by the encoder,
- 	 * in steps of 1/16 of a bit per pixel
- 	 */
--	rbs_min = vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset +
--		DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay *
--			     vdsc_cfg->bits_per_pixel, 16) +
--		groups_per_line * vdsc_cfg->first_line_bpg_offset;
-+	if (vdsc_cfg->dsc_version_minor == 2 &&
-+	    (vdsc_cfg->native_420 || vdsc_cfg->native_422)) {
-+		/* Optimized computation of rbsMin for DSC 1.2 */
-+		unsigned long grpcnt_id =
-+			DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay,
-+				     DSC_RC_PIXELS_PER_GROUP);
-+		long max_offset;
-+
-+		max_offset = __drm_dsc_compute_buffer_offset(vdsc_cfg, groups_per_line, grpcnt_id);
-+		max_offset = max(max_offset,
-+				 __drm_dsc_compute_buffer_offset(vdsc_cfg, groups_per_line,
-+								 groups_per_line));
-+		max_offset = max(max_offset,
-+				 __drm_dsc_compute_buffer_offset(vdsc_cfg, groups_per_line,
-+								 2 * groups_per_line));
-+
-+		rbs_min = vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset + max_offset;
-+	} else {
-+		rbs_min = vdsc_cfg->rc_model_size - vdsc_cfg->initial_offset +
-+			DIV_ROUND_UP(vdsc_cfg->initial_xmit_delay *
-+				     vdsc_cfg->bits_per_pixel, 16) +
-+			groups_per_line * vdsc_cfg->first_line_bpg_offset;
-+	}
-
- 	hrd_delay = DIV_ROUND_UP((rbs_min * 16), vdsc_cfg->bits_per_pixel);
- 	vdsc_cfg->rc_bits = (hrd_delay * vdsc_cfg->bits_per_pixel) / 16;
---
-2.53.0
-
+Lukas
