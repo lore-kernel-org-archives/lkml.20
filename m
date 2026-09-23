@@ -1,138 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DB051DDE3
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7E65349D6
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 15:42:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790178108; cv=none; b=rhCIOtgnh1xOE1EqI/snbAaEaQ5O3QQ9BLOTkiANnr24wcuu0XqnYsI8oztUrtNboVYhU7bFRLk12t005WYVtY2JLMX3FNathNS7+Uhyz6YO2mv64UeKzk7A6EfnkXCcJqrjH2KBltSxCwSp1ZrGmnafmrmfOLQMnOB9bc0f5ek=
+	t=1790178127; cv=none; b=PVYLY0ICoa8PBepJ2eWMv79pCwaXsr0pFErA1uuf6wV1Hi04W/JI54FxdyJtt4RXl1OOnQhSqANyPqOAt3A0w2RBYgWVcv0SabhbMw+eeCsTebjYJ1JWYHBc1KXE2fjdWPnnhepGODs7fsKFY2PbeeNmgpIMZDPRkWwIQ84EBN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790178108; c=relaxed/simple;
-	bh=MvYjnAyiO4k8raG5oAa9G1mAaSfsL0OySlj3qn3xbZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pz0VAscCqOW+fTd+wtvKD2kp9sWoqj1DdAQj9xzcdjOzgAL5/iZzCdF6L86OLaBHqUDGmQrBAJBgpzccyZJPKdwlt9o3Rd2O/g3n8Jr/tohkNMsOtvqkLUDvrZ7K+FVSiHNiIHqhDLnecc/zbcR2ucUpwkPh6Qk6QGzJeC1Zq0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUYNcPTJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790178127; c=relaxed/simple;
+	bh=Bf2WDs6ju2xnoaqyYTaniTAmubFZHV7uVUwkSsLckOU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eI7Hiy7EBcsTRzVc5dPFkOQUCKM9qA/STPepnsuPlu4zShPVfSyQABCeyDBqNt/mfjI2Lq/WM2JUqqgYR9fliwgwqaYeVK7DFjwKQ1f0V+SCX7Zv2QKVLTLmdN2g5J5VQ0z81ST4cDq+YRPdW/taijUh9ZmJYhEKvQFqhQTqHt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hM1TSjdn; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUYNcPTJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10C0D1F000FF;
-	Wed, 23 Sep 2026 15:41:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790178107;
-	bh=ykqrz8DrrE8onYC7AFaq41Bu3k6Q9XyPBzxfGsLzksg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oUYNcPTJ9kLnJrGmKa00IQAQBUF6UUp+1Y8JZkRJUZ8Ud5nJiS3WPbvrP7VCI4NJk
-	 Zgc+9OgFsiDMIynjjCzYmmDikaqt+QiazTRloG3v019HyOSgDku0hzfdy3HYXRjNwj
-	 aJJz5mqI+HIF3hTgeNwpvTDL2QknzZxTnQJlqIIxs6PML3AN7gjJ2JNzIjjOc3NqlL
-	 ZJpuHziuHTmYgVCSNVa9sTtK4FaqgUtTyNdPUY5CIOyab+Fr62zunCk8WScTKlIojt
-	 q/tt3mHWOQDHjUDoR0nNk0SJycW3aabZNCvk6r1ZOCpmt0RgoYktetM66VgjR1rZQI
-	 /Shc+fZrDcJZQ==
-Date: Wed, 23 Sep 2026 16:41:42 +0100
-From: Will Deacon <will@kernel.org>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	maz@kernel.org
-Subject: Re: [PATCH] arm64: smp: Signal EOI after handling IPI_CPU_STOP*
-Message-ID: <arPzNkDD69ZKFT99@willie-the-truck>
-References: <20260922140109.12780-1-andrea.porta@suse.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hM1TSjdn"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 08169C21AB3;
+	Wed, 23 Sep 2026 15:42:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E19A260580;
+	Wed, 23 Sep 2026 15:42:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ED708103290E1;
+	Wed, 23 Sep 2026 17:42:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790178122; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=THlp2NCefvx0BAiojze+1baYVFoUxGf/jKi6XVt79f8=;
+	b=hM1TSjdnDiakjzd2nHhWm+SlveuzgCxbXN8CPuSxoGc4ZE8yZEh4Lq5rEgc/OYpBXwLsXY
+	HMKomkFKIFTHEfWZlr8cCfGu8iTyZzaRdYUs1qldghEE0TeK7tyKuWsV3rpKdA2hQTKF28
+	2qE+3tM9Fu/CuN1pAbAHJm7uItXrb/OJwDnu1PEhZdSdU4qIKu+qb0eb/kCtLXMBTH+uyU
+	3vrYFkK4cqIstxrDPhbQPumVtxVNACpq4lco9UNGZZ4laFdOIAmzv4iv5mUe60H1eYlzrx
+	ONXe2PZidkCo4A/l7BfbqwmMFQMRubOJOI+bu9YFBcMLBQHBqYEvMLbOE+o/FQ==
+Message-ID: <6f8bdbc3-6184-4165-8e5b-83e98e67e70c@bootlin.com>
+Date: Wed, 23 Sep 2026 17:42:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260922140109.12780-1-andrea.porta@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/9] mfd: cgbc: Add I2C platform data
+To: Lee Jones <lee@kernel.org>
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+References: <20260911-cgbc-i2c-storage-devices-support-v3-0-594b53fbc5ea@bootlin.com>
+ <20260911-cgbc-i2c-storage-devices-support-v3-2-594b53fbc5ea@bootlin.com>
+ <20260923150254.GH3864833@google.com>
+Content-Language: en-US
+From: Thomas Richard <thomas.richard@bootlin.com>
+In-Reply-To: <20260923150254.GH3864833@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-[+Marc]
+On 9/23/26 5:02 PM, Lee Jones wrote:
+> On Fri, 11 Sep 2026, Thomas Richard (congatec GmbH) wrote:
+> 
+>> Define I2C platform data for each I2C bus in the cgbc MFD driver. Platform
+>> data passes per-bus parameters to the I2C driver, rather than being defined
+>> inside the i2c-cgbc driver itself. This makes the i2c-cgbc driver more
+>> generic.
+>>
+>> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
+>> ---
+>>  MAINTAINERS                            |  1 +
+>>  drivers/mfd/cgbc-core.c                | 39 ++++++++++++++++++++++++++--------
+>>  include/linux/platform_data/i2c-cgbc.h | 22 +++++++++++++++++++
+>>  3 files changed, 53 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 6215fcb07770..561f102c2541 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -6621,6 +6621,7 @@ F:	drivers/mfd/cgbc-core.c
+>>  F:	drivers/video/backlight/cgbc_bl.c
+>>  F:	drivers/watchdog/cgbc_wdt.c
+>>  F:	include/linux/mfd/cgbc.h
+>> +F:	include/linux/platform_data/i2c-cgbc.h
+>>  
+>>  CONSOLE SUBSYSTEM
+>>  M:	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>> diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
+>> index 4a409234e66c..321fa3fff2ac 100644
+>> --- a/drivers/mfd/cgbc-core.c
+>> +++ b/drivers/mfd/cgbc-core.c
+>> @@ -16,6 +16,7 @@
+>>  #include <linux/mfd/cgbc.h>
+>>  #include <linux/mfd/core.h>
+>>  #include <linux/module.h>
+>> +#include <linux/platform_data/i2c-cgbc.h>
+>>  #include <linux/platform_device.h>
+>>  #include <linux/sysfs.h>
+>>  
+>> @@ -55,6 +56,35 @@
+>>  
+>>  static struct platform_device *cgbc_pdev;
+>>  
+>> +static const struct cgbc_i2c_platform_data cgbc_i2c_gp_pdata = {
+>> +	.name = "Congatec General Purpose I2C adapter",
+>> +	.cgbc_bus_id = 0,
+>> +};
+>> +
+>> +static const struct cgbc_i2c_platform_data cgbc_i2c_pm_pdata = {
+>> +	.name  = "Congatec Power Management I2C adapter",
+>> +	.cgbc_bus_id = 4,
+>> +};
+>> +
+>> +static const struct mfd_cell cgbc_devs[] = {
+>> +	{ .name = "cgbc-backlight" },
+> 
+> MFD_CELL_*
+> 
+>> +	{ .name = "cgbc-gpio" },
+>> +	{ .name = "cgbc-hwmon" },
+>> +	{
+>> +		.name = "cgbc-i2c",
+>> +		.id = 1,
+> 
+> Why does PLATFORM_DEVID_AUTO not work for you?
 
-On Tue, Sep 22, 2026 at 04:01:09PM +0200, Andrea della Porta wrote:
-> On kdump/kexec, the boot CPU triggers an IPI_CPU_STOP (and subsequently
-> an IPI_CPU_STOP_NMI if the first one does not respond) to the secondary
-> CPUs, and the IPI handler eventually calls the firmware to shut down
-> each CPU. Since the IPI is never acknowledged via EOI, the interrupt
-> remains in an active state when the CPU goes idle.
-> 
-> In a virtualized environment, if the hypervisor does not reset the
-> interrupt state, this causes the crashkernel (with cmdline option
-> maxcpus > 1) to be unable to synchronize between the boot CPU and
-> secondary CPUs via IPI_CALL_FUNC, leading the kernel to wait indefinitely
-> for the CPUs to respond. This has been observed with the Hyper-V
-> implementation.
+Path 2, 3 and 4 do the transition to PLATFORM_DEVID_AUTO.
+But at this point I2C driver uses cell id to identify the bus.
 
-Hmm, how is this different from panic()ing inside an interrupt handler?
+Patch 2: adds cgbc_bus_id (in cgbc_i2c_platform_data) to identify the bus.
+Patch 3: modifies I2C driver to use cgbc_i2c_platform_data.
+Patch 4: now I2C driver doesn't rely on cell id, so switch to
+PLATFORM_DEVID_AUTO
 
-> Both the Linux kernel and the Hyper-V firmware appear to violate the
-> PSCI specification:
 > 
-> - The PSCI spec states that the OS kernel must migrate any interrupt away
-> from the CPU that is about to be shut down via CPU_OFF, which by extension
-> implies that no active interrupts are allowed. The kernel does not
-> currently do this in the kdump crash path.
+>> +		.platform_data = &cgbc_i2c_gp_pdata,
+>> +		.pdata_size = sizeof(cgbc_i2c_gp_pdata),
+>> +	},
+>> +	{
+>> +		.name = "cgbc-i2c",
+>> +		.id = 2,
+>> +		.platform_data = &cgbc_i2c_pm_pdata,
+>> +		.pdata_size = sizeof(cgbc_i2c_pm_pdata),
+>> +	},
+>> +	{ .name = "cgbc-wdt" },
+>> +};
+>> +
+>>  /* Wait the Board Controller is ready to receive some session commands */
+>>  static int cgbc_wait_device(struct cgbc_device_data *cgbc)
+>>  {
+>> @@ -235,15 +265,6 @@ int cgbc_command(struct cgbc_device_data *cgbc, void *cmd, unsigned int cmd_size
+>>  }
+>>  EXPORT_SYMBOL_GPL(cgbc_command);
+>>  
+>> -static struct mfd_cell cgbc_devs[] = {
+>> -	{ .name = "cgbc-wdt"	},
+>> -	{ .name = "cgbc-gpio"	},
+>> -	{ .name = "cgbc-i2c", .id = 1 },
+>> -	{ .name = "cgbc-i2c", .id = 2 },
+>> -	{ .name = "cgbc-hwmon"	},
+>> -	{ .name = "cgbc-backlight" },
+>> -};
+>> -
+>>  static int cgbc_map(struct cgbc_device_data *cgbc)
+>>  {
+>>  	struct device *dev = cgbc->dev;
+>> diff --git a/include/linux/platform_data/i2c-cgbc.h b/include/linux/platform_data/i2c-cgbc.h
+>> new file mode 100644
+>> index 000000000000..4465e8a7b40e
+>> --- /dev/null
+>> +++ b/include/linux/platform_data/i2c-cgbc.h
 > 
-> - The PSCI spec also states that the PSCI firmware must reset the CPU
-> registers to their default values when turning on a CPU via the CPU_ON
-> command.
+> I think this area is mainly used to share data with OF.
 > 
-> Fixing this on the kernel side has the advantage of being
-> hypervisor-agnostic.
-> 
-> Signal EOI at the end of the crash handler to prevent the subsequent
-> crashkernel from hanging.
-> 
-> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-> ---
->  arch/arm64/kernel/smp.c | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
-> 
-> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-> index a61dc3016a117..cc7f3261fe537 100644
-> --- a/arch/arm64/kernel/smp.c
-> +++ b/arch/arm64/kernel/smp.c
-> @@ -988,6 +988,27 @@ void kgdb_roundup_cpus(void)
->  }
->  #endif
->  
-> +static void ipi_eoi(int ipinr)
-> +{
-> +	unsigned int cpu = smp_processor_id();
-> +	struct irq_desc *desc;
-> +	struct irq_chip *chip;
-> +	struct irq_data *d;
-> +
-> +	if (ipinr >= MAX_IPI)
-> +		return;
-> +
-> +	desc = get_ipi_desc(cpu, ipinr);
-> +
-> +	if (desc) {
-> +		chip = irq_desc_get_chip(desc);
-> +		d = irq_desc_get_irq_data(desc);
-> +
-> +		if (chip && chip->irq_eoi)
-> +			chip->irq_eoi(d);
-> +	}
-> +}
+> Did you consider include/linux/mfd?
+I thought it was the right place. But I can move the struct to
+include/linux/mfd/cgbc.h if you prefer.
 
-Doesn't this hard-code the flow handler for the irqchip? It feels like it
-would be better for the GIC driver to get a callback during the kexec
-sequence (if it doesn't already) to prepare itself.
+Best Regards,
+Thomas
 
-Will
-
->  /*
->   * Main handler for inter-processor interrupts
->   */
-> @@ -1009,6 +1030,7 @@ static void do_handle_IPI(int ipinr)
->  
->  	case IPI_CPU_STOP:
->  	case IPI_CPU_STOP_NMI:
-> +		ipi_eoi(ipinr);
->  		arm64_nmi_cpu_stop(get_irq_regs(), true);
->  		break;
->  
-> -- 
-> 2.35.3
-> 
