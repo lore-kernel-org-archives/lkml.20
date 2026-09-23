@@ -1,91 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f9.google.com (mail-oi2-f9.google.com [74.125.231.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC77E41DEEC;
-	Wed, 23 Sep 2026 17:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E321641F35A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 17:49:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790185742; cv=none; b=tcbJtUw6BXcqUPNEySWC8CCcXz7x3vqa3pma6I/Aso6BcVCk+Vqzq7akH0GIADNxuSgG6QGDVTDRwbSyZD9RZBky1+ktgQc6e7/7wJpXZYUgi79dVP1ij3nJYP09EFWsDooFnv1ZtQ4GD9fI0JmpHXyIcq44KjronAF/iMj/2DM=
+	t=1790185772; cv=none; b=G90ddKetrvIGFnYVUV6TOQQWy1Nxtzpm4oh7X0Hsj8OijUyaZmMVhnupYVXkqsyOoQOiPAFifidGMZ1Lq1XBGlqogeCBYyJi8oE9CpIm42YriyN6FcBSU2DQUEPryjLku07qRlVvLI617cfaTI1lOEiFpdXywtt6bnSVJ3KG4Tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790185742; c=relaxed/simple;
-	bh=tSCbXhwl4VF0SWxnMnzR581dMjQ6o4o9AB8+Ikgrm6s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=iNHxmEoxKa6OjdreQ61o5Y3L+W6D1WLbsgeDJaaG+jxbEcGaUxLokQfQm+KjfH9r07etWfAShFs5Ri7SRIw8gCnSwrJ5RDR1V4HwnNiUGPZRI3vuZ+IeZx7EVU+Je+ci+Ggoz4VpBiO2AlNCpAxt8NYHS4aAwhaiWGEOxhPkXPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cRSSQCjc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cRSSQCjc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 555711F000FF;
-	Wed, 23 Sep 2026 17:48:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790185741;
-	bh=N7ztw2cuF8oGka3HMYMMtFKCti3Pqq2Z3BAuO0pODYY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=cRSSQCjc+jHHhG7/iDEePs9C+n7lEq7xF5/Twv+s0bU5Xg47OSbszUI46rlvm3U+i
-	 iu9TXJAElClDcT4fqCmx5/oTgr8e81DjRAU/124F2WAdgsw42cmyykaGiAkfEmn9V0
-	 z9Ee+0/Sw9Mw0U1GirAlgRIYhK8CET+t7yNEYCos1YqZcCw9EOdDvmjlpy6KoeL9gR
-	 PaTG1TeKYXOw5iegtJ1naUzryKAGTHysmdb+zleD/H8VC6Y02qkdPpfFFKQCVoHNJd
-	 7h/xGQHfjhoL2apTmJUm6W1QMEsUIvQmvG0+W/jL7Pn90MxC7wfYPGAOehW997ayyx
-	 C2TgLA+8gPXSQ==
-From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Svyatoslav Ryhel <clamor95@gmail.com>, 
- "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260922212140.1118832-1-robh@kernel.org>
-References: <20260922212140.1118832-1-robh@kernel.org>
-Subject: Re: [PATCH] regulator: dt-bindings: Add MAX20024 sd4
-Message-Id: <179016471553.322763.2206433472163704923.b4-ty@b4>
-Date: Wed, 23 Sep 2026 13:58:35 +0200
+	s=arc-20240116; t=1790185772; c=relaxed/simple;
+	bh=P1+tvHw1slpxwuQOyiakKqWUipAkZFzNjGyxkQPASA8=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=ACUmIBEHTkO0YYeu/wTjICuZnPd58c7vfodhlDRkHpyaN5yTjoUmuCbr3sf3BcvTSt7e+RWBHIid+15aS1EkyTed8xnhfPlSInaEyMDAYHlP829NAiw1yqmOdAaRTLqnVyx1iZ6adMWPalWGfGUryUzWEXEb/Hzj+R21Rnd5O5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f9.google.com with SMTP id 46e09a7af769-7f4e9ec63a7so439403a34.1
+        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 10:49:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790185769; x=1790790569;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BIoxU7LRZ4puv9TjF5uCcIKvwIgsp8NZRHhDg/lp2NQ=;
+        b=2m9YfIHPb5skzEYhEIN5eCZ/mWnKXYd17NlyARXIC+nfIiVhI+JFLYaeIREqntkIGp
+         g4IZ2yzhpE/SxYIMojeTYJyZ0wIP1ebflzrHJaes8IgmECmfePMrfV7N34H0srdh8eIK
+         RZ7NYG3l7iGM0ZIM0BA3FuCdPgwaMQTfHeJ54vtSbln0+c8Rl9osfoh4fR/oC+etdH3h
+         L+vDH6LCp5nytUn+iP48XvHhwKB/Y0X/G94LinORr4FHOHHr9u9Fwqw4Y9dEIiFrQ5IM
+         ErBJ7CNXZ85ufRR+YT2rW1bhzlrRulE35WEbHpJ5mvoKcTgwAkrQJBis+6zJBXhbUd7e
+         qMeg==
+X-Gm-Message-State: AFuF++m5epeF5vMiShKq5QY3wnJqcYYXUuH+oerXv4Y9rVuiNQx/4SUo
+	JCJygwHkfo/3ECAznKj/q+E20tBD0YJxLIkfjSoW8O7DzWmkH8+4MLkMQiTNptwY+isv51GegUA
+	SfAiWcis0uQ86TsCdacOzASWFsxnMhD9OqPCr4+k2bnPHSZz6TFgCfyPdwuiX8A==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1111; i=broonie@kernel.org;
- h=from:subject:message-id; bh=tSCbXhwl4VF0SWxnMnzR581dMjQ6o4o9AB8+Ikgrm6s=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqtBEHj8Im+hkqjYq9VAqsykmK5H8tanE4LZF8P
- 4WMGCNTLZ+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCarQRBwAKCRAk1otyXVSH
- 0E0IB/9Rrv3BCGZC5vKDBi1XggAPk7CX2x6tW2gIksr2H4EyhPDjXB3gyLbUeRm0mnFmJeqVsW0
- 0eKAEnjNhF9neAOnOLCRjmtI3Ih71k5Q761y/Wt5s071DDF/XFhXvdV+gjsYhNyg2Kmpv0a6T8A
- lpu0IZ1lnWh3LELOoflSl2/yM53i3k5Lcg1D7SORcQ4t/D5MXFZTC9HuQN//OtKt2tKrXchXOFu
- YKZAkfdh9iSDHj1s9ujdVa5olV1R0DiNe9BKqlrpYBp1LmpheFwv5NntaRMPEbsGI6v8UCyNjbc
- YMEUmKk2TmhQ4z5QoksHl3xu37NkdJJ5hBDwb127ikdelpYu
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+X-Received: by 2002:a05:6820:1849:b0:6be:7d9:b14 with SMTP id
+ 006d021491bc7-6d2cf845d8dmr3207973eaf.4.1790185769616; Wed, 23 Sep 2026
+ 10:49:29 -0700 (PDT)
+Date: Wed, 23 Sep 2026 10:49:29 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ab41129.e548f532.1ca396.001f.GAE@google.com>
+Subject: [syzbot] [raid?] general protection fault in ppl_write_stripe_run
+From: syzbot <syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org, 
+	magiclinan@didiglobal.com, song@kernel.org, syzkaller-bugs@googlegroups.com, 
+	xiao@kernel.org, yukuai@fnnas.com, yukuai@fygo.io
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 22 Sep 2026 16:21:39 -0500, Rob Herring (Arm) wrote:
-> regulator: dt-bindings: Add MAX20024 sd4
+Hello,
 
-Applied to
+syzbot found the following issue on:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.4
+HEAD commit:    50d05c7c76c9 Merge tag 'landlock-7.3-rc3' of git://git.ker..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17cfb4c9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=75d7e96ad03ac2dbbd9f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11849405580000
 
-Thanks!
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-50d05c7c.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/303a0ade8f9e/vmlinux-50d05c7c.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/70b8ca71442b/bzImage-50d05c7c.xz
 
-[1/1] regulator: dt-bindings: Add MAX20024 sd4
-      https://git.kernel.org/broonie/regulator/c/3944065c67f5
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+75d7e96ad03ac2dbbd9f@syzkaller.appspotmail.com
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000002: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
+CPU: 1 UID: 0 PID: 6845 Comm: md0_raid5 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:ppl_write_stripe_run+0x60/0x1320 drivers/md/raid5-ppl.c:538
+Code: 3c 02 00 0f 85 01 11 00 00 4c 8b 8b 48 09 00 00 49 8d 41 10 48 89 c2 48 89 44 24 60 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <0f> b6 04 02 84 c0 74 08 3c 03 0f 8e b9 10 00 00 41 8b 59 10 31 ff
+RSP: 0018:ffffc900077e7938 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: ffff888013c2c000 RCX: 0000000000000000
+RDX: 0000000000000002 RSI: ffffffff888aae3d RDI: ffff888013c2c948
+RBP: 0000000000000001 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000000 R12: ffff888022c26000
+R13: dffffc0000000000 R14: ffff888013c2c2b8 R15: ffff888013c2c000
+FS:  0000000000000000(0000) GS:ffff888096a60000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000fff8cec0 CR3: 000000006b079000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ log_flush_stripe_to_raid drivers/md/raid5-log.h:101 [inline]
+ handle_active_stripes.isra.0+0x11e4/0x1540 drivers/md/raid5.c:6851
+ raid5d+0xe00/0x17b0 drivers/md/raid5.c:6985
+ md_thread+0x505/0x580 drivers/md/md.c:8706
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:ppl_write_stripe_run+0x60/0x1320 drivers/md/raid5-ppl.c:538
+Code: 3c 02 00 0f 85 01 11 00 00 4c 8b 8b 48 09 00 00 49 8d 41 10 48 89 c2 48 89 44 24 60 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <0f> b6 04 02 84 c0 74 08 3c 03 0f 8e b9 10 00 00 41 8b 59 10 31 ff
+RSP: 0018:ffffc900077e7938 EFLAGS: 00010202
+RAX: dffffc0000000000 RBX: ffff888013c2c000 RCX: 0000000000000000
+RDX: 0000000000000002 RSI: ffffffff888aae3d RDI: ffff888013c2c948
+RBP: 0000000000000001 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000000 R12: ffff888022c26000
+R13: dffffc0000000000 R14: ffff888013c2c2b8 R15: ffff888013c2c000
+FS:  0000000000000000(0000) GS:ffff888096a60000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000fff8cec0 CR3: 000000006b079000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess):
+   0:	3c 02                	cmp    $0x2,%al
+   2:	00 0f                	add    %cl,(%rdi)
+   4:	85 01                	test   %eax,(%rcx)
+   6:	11 00                	adc    %eax,(%rax)
+   8:	00 4c 8b 8b          	add    %cl,-0x75(%rbx,%rcx,4)
+   c:	48 09 00             	or     %rax,(%rax)
+   f:	00 49 8d             	add    %cl,-0x73(%rcx)
+  12:	41 10 48 89          	adc    %cl,-0x77(%r8)
+  16:	c2 48 89             	ret    $0x8948
+  19:	44 24 60             	rex.R and $0x60,%al
+  1c:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  23:	fc ff df
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax <-- trapping instruction
+  2e:	84 c0                	test   %al,%al
+  30:	74 08                	je     0x3a
+  32:	3c 03                	cmp    $0x3,%al
+  34:	0f 8e b9 10 00 00    	jle    0x10f3
+  3a:	41 8b 59 10          	mov    0x10(%r9),%ebx
+  3e:	31 ff                	xor    %edi,%edi
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Thanks,
-Mark
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
