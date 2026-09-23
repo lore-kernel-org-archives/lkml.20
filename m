@@ -1,197 +1,210 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A94582BB3
-	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 20:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0558D5678F1;
+	Wed, 23 Sep 2026 20:15:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790194533; cv=pass; b=dz3xRoKG1bOPMS6RS8kwQC9tjX0wPqMjNt78Ch3Zuz50eULjRX8jf3YUcMkrGnAtW9S/EBhitfX1Cqto92fRswEBUnexTw9+HeX8uYJ9sEeip7BmVYH1noBRu6ptV8uCTSohfy6lIa+B4c5LEYD2YCf66TekVnJ2PRPP1pHc7cI=
+	t=1790194534; cv=pass; b=D9w2+0Qb7sJAbV8KITujSuV0aeCPtlDOvGSIo6/APaIseL5I5+dOZuTGrEugDnTFZ281pTRR2QFG4NaI35r2yevCaUfK9DuC1ohxWhUxGrgUE8XizWT9jcVhhPr7VqeJkgCCELMbcMT3SgrZt5LcRgIQ1xrvw6ZAHMeTte01Zps=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790194533; c=relaxed/simple;
-	bh=AG+velq+P1x1sJHq2Eyj+yYuHBfJGE1bCcGBCBjr5A4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=V20b42nJ+LPoZ1gTQ1sGUH22O9LzTLSp3t7CNoDkQISkVd6SZCrVyipmz+iAzjsf8aGWWUgBiEfmXhctBfJetblyRYHuFPt5p5nVX/RGLmuUtSHjUzbs4YRUIGwQf5rum/vn/Da7YfB7sckTXramAYRZ8/W5kAoSAzmh9kcNaJQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n+WEfao5; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1790194534; c=relaxed/simple;
+	bh=4qdD4jbz/LyLufcNQOhcZl+57WSq5cvo7q3Igr3BkXQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=g7bwJnl2v+zQLHQyO9laX/Xmv2muM0sIakJrKyYGkXUi0tHwFAkz2O5HKo8Ep3ooVg13CtX69cgg4Gvm52go5aF4lw4xbrQv0Dv/xgRAM7T1Ch1w07g7mr6Ud85Z7PXQSRVAxisnlyrnZKtrTSdfi/Zzj6JoDzAhnCcHuqxBayo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=SIBcGzgW; arc=pass smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n+WEfao5"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485933b2522so1106934f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 13:15:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790194526; cv=none;
-        d=google.com; s=arc-20260327;
-        b=euLHtUf2jRQ7zpyV7nEc2K1EfUFCIf11YGtV8ZEecwvALrKI9YC0yRwH6RtjUEez9g
-         CCIN5cPuILkkTmFcmlictfNwFmh9Kd0m4MtvBjuTu30Co1hKNeoTv0yAPbCPeePFjqEe
-         vlmiihjdFet1YWJ4HqiWBTZm5SXqhhSXay8ZozZljdfedyLfO6GuW/P2QB7CFuIwj/v7
-         x5kATSxU0DiOHni0VGNh+wPuceKJRYlr3dDiEi4/UaPOqn6opN5p2+6m213MWwoBhUdR
-         bzU8m6gKmGP1vPbLA1aHqecrYLMLyl+Q7f0HvjJpiKTLmQAl0FM5v7lP9OvToAj5zG2j
-         b2Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kOoYO2x0ceYQoltgnReOSIDMz30qflbKcG3KVK6oiAM=;
-        fh=YHHpf6YAXWdcgQcRJD3HtKdSZYCXorhpvbLquoCQAFc=;
-        b=C4FO0qx19VQ39smqu4OLe42SogPlS04e8WcxFvszN53t24u2fdoX7IKOl5PtW/VzWS
-         yvIBkFyn5tv68iVrQX3QyhpMsZHOnYzXVvD4iOsSxHgNOZqXmnhSyoJEFAehEbPcJI57
-         +E5sJft/FegvZOWUtH1rESUFX1/8YvgN+vFhLWAvYUr3HitE8fCaXjlVw2Lfox16Syhl
-         IbNpJjTBJTueBkYkwov5VctJPkOvBJjMmGtTsLvMsJaGGNds1MxMcrsajC7Ocer5iBf4
-         IVIsLOndKm0y+90xzEpK13ngmValyuvM4vWClBKoJ3/U+P/SJsd5MgZrfLm2HE1hcJAH
-         P0nw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1790194526; x=1790799326; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kOoYO2x0ceYQoltgnReOSIDMz30qflbKcG3KVK6oiAM=;
-        b=n+WEfao5P/6A0L77Syn7fH0Vim/5CSlg0pYLAbSFzH1//7tDD9D/BeEd3Rb0VAPv76
-         YtRbfWB/XHTEokC2HJC/zSjZdxwdCVHiaw+M3PKD6HPn/ofbo+xffA1xgnWKSm8E8FFm
-         G7cuDW78UFof42Dvof0D/hLdt0ZPexYmaYbrT4/WJ3ASJAfBC1Fd4YgJIA4SWIx0A446
-         nXk2KhTM64a4kPQxvE1l4/RQaOV+Eix7ZenidKmFT0BeZ2XsuayE0I5mfoaJ9gFJxg8L
-         FhlJP+/Fin93pSOt/uyrFWqeGo29d4WokcWgUnfi3rc3a0NVYSbkZCAP2ysDoP0jTeAj
-         U4aA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790194526; x=1790799326;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kOoYO2x0ceYQoltgnReOSIDMz30qflbKcG3KVK6oiAM=;
-        b=W+/VaMhPlx3mVlRoKDRRKCrXTAF+WEfSLcAi7b0cAEp1yTFRy9e7629pjeQ4o03pgs
-         sl2f69AZrAXZu6OF+/THr3jcjpJzbW42EY+3Z7mlGnV1RlfwqPrvBJvu5YWfh0or9Okk
-         V22cynlvF0rihqEg1l3wIdBktsfAkFqH/AaSA8A7qFERAKgXQ6ZaWR1ilUJ8vQ+eyYJE
-         +AwIpiulU+3KHk/ZDGKngYhZ8eXklWFe7nJTB26N3uqfbjdvlBcnmzCmOWyLjrWQ9nd8
-         n/nm+fRGdJ0xEHpJD1ycGuV9goWQlpbDVgag0qTuJ6WrxhSLU/i9KGpy8xZeI+lJqbCd
-         lmAg==
-X-Gm-Message-State: AFuF++ncHvwvf/wGi7mot3491vQCJjD5SD5V9M05bZ+4t5qs/zdWQ0H/
-	00yNHRNE/8byC4mt93R58kSMwImwJiqIJY4NNCWKptddEbOStgyNYc+iCznnegnZp9Nl4qHJZPe
-	v6kxLzwOqpYMw9r9+wzlZfXEX2hgoW2j3wTzBhF0K
-X-Gm-Gg: AYBFou2f0EPRgLJo6qQVZNyhOAahdRaNdgn+1gGMyeLFxZtIldBRhSCy3hr3yXKCUNA
-	R4Wde33RSmDexJfv9eJ4122km7xmf46S0achXJcDTEGyGqstzcy9Z0COhz/m3BY/zOdZq3GqpI5
-	OOF2owinNR4fTko9JIZEkWWMlvmRp1K9wnDgAHezQLFzuNgqoZrtS/szjZCdj0C+wdJw2pM+lI+
-	ZUmeWBnPWxBcDGbaVnnUWNcmcxV3SQOdZCV8YW5/zTflHi/ZWQIlnpSblDNzadkciW0SVJaCXqg
-	v65yWc6MHNAniDEm9FQ9d0rYyiBrma9fBmFZuOv4hBJvFC40g5s1t+DZkYgEj02qgknn4+OD76o
-	/m5qvVLHjdgeDhhb8dvptiQrlG1UTtZnkv//ZPVsGDKCGDtNE2mjPIZrumIYVlh/kEgq3n8FcTd
-	B7jw==
-X-Received: by 2002:a05:6000:2383:b0:485:ad55:208d with SMTP id
- ffacd0b85a97d-488716c8d48mr511088f8f.18.1790194525443; Wed, 23 Sep 2026
- 13:15:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="SIBcGzgW"
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B024620200E;
+	Wed, 23 Sep 2026 22:15:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790194519;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iOTFH6Gb1kpjuq9poq6S2LaSZyLKcNyrqGl6ITny74A=;
+	b=SIBcGzgWwve7NXdR+Gx1LFR/PWMq6Ksw3cj7I0XNo63mNcI6uROXmGTlPUucdzv+kqa5oh
+	kXNGhZyde5iy3sKPrsofn21k+jUf1P1IjYnLbNwKoqRSSvczvPnDM4jUjxAewV0qt8cQ3a
+	WJDx/dkalrGoosQ88PzZo2gm0f++KnjuMy79qPszupxJicFwwVMYcWeQMZijqnOOz50cbX
+	ToMgybzHsUToWWGUACdHFrUUDhxolEJIFvY6EjHpvFHr1dug6bFTb5T9PZhZ8ndTrCdaw6
+	e+yLVB6L7U37huw4mw9fzZJCzPIXByCoDlG39Zfty7sJCA2U7t3c8gO3mhudXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1790194519;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iOTFH6Gb1kpjuq9poq6S2LaSZyLKcNyrqGl6ITny74A=;
+	b=LWwJNLuND/yzt2+4uMByAAf+cxdrMcZ3fM7v9R0LVP+3tlKTAh3e++W+prgxAn5zcYX+JE
+	zOyfu0lEyNBNsLpFgDTK72NOa+yVjWSjpMXpEVx327yb2jsVwbMk1oTLgif4L3riSS9odk
+	27jRx+jdf5SCVhr8T5rGclTxqs1Q1f85lwWlhBAa2dNPfDamYFASuYJVJ82wr2aCDsHMft
+	qMD+92nRiRs36k7exAsa/ZpVxL/pp35EjvourPbPxyPQFRKB/wIhQP3CerhWvg7tmx4mXQ
+	i/VeUOS9CQvo2bnv2mCOlUXQFT0YL5Bbve611pLi+Exiw8pyS4B3hDmyaIzyEw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1790194519; a=rsa-sha256;
+	cv=none;
+	b=G8+bi+CkD1u3+0bk/F9k/o/zQPWyu7aiF9g6tZCjD0XlksGz/mnbxo5Ju4lhIIwTsJa8Zy
+	tUX6Mbs7Xtm1G9FjRhGwfwL/XgMhbfM0PoCKYynfHWj4KvbXWM1U25fLsRyu9ZvT3wfD8O
+	lptqnTgW+sL3eOvADWv6lPECkGV+IcLJGyRFwsZekR1j80lduWCf980icoz9DdTgpKkz8Q
+	9m/do4cCPBp6E9W0pnvRtWZZfpHWGdK6ehWJxt8/kXxsNpO77LjOwjoGV+jcnXIBTW6rZP
+	ouTX6h+MEiYmEy1C/w/fU9EeUZ0rmEttVuVBg1zYHaYcCxwVBRwr2PvIE6JjEA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=jre@pengutronix.de
+Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
+	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+	(envelope-from <jre@pengutronix.de>)
+	id 1x9TI7-002SC3-2a;
+	Wed, 23 Sep 2026 22:10:07 +0200
+From: Jonas Rebmann <jre@pengutronix.de>
+Date: Wed, 23 Sep 2026 22:10:05 +0200
+Subject: [PATCH v5 10/13] spi: spidev_test: send predictable data
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911084211.3149957-1-jgross@suse.com> <20260923193619.1408940-1-shreshth.srivastava@intel.com>
-In-Reply-To: <20260923193619.1408940-1-shreshth.srivastava@intel.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Wed, 23 Sep 2026 13:15:14 -0700
-X-Gm-Features: AclHuK-BmScte-vitIZ7FKAidjIiegIYr2tRDSSJKsz3-ZO8Fal-vgtzUYiiixY
-Message-ID: <CAKwvOdnKS+E9R3QaFk98dPNNh7uW=8yuJpYWGPHbY7k40Fk=rw@mail.gmail.com>
-Subject: Re: [PATCH v5 00/17] x86/msr: Inline rdmsr/wrmsr instructions
-To: Shreshth Srivastava <shreshth.srivastava@intel.com>, Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, linux-coco@lists.linux.dev, 
-	kvm@vger.kernel.org, linux-hyperv@vger.kernel.org, 
-	virtualization@lists.linux.dev, llvm@lists.linux.dev, tglx@kernel.org, 
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
-	xin@zytor.com, nathan@kernel.org, jpoimboe@kernel.org, peterz@infradead.org, 
-	boris.ostrovsky@oracle.com, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260923-spi-sun4i-spidev_test-v5-10-25861c17426d@pengutronix.de>
+References: <20260923-spi-sun4i-spidev_test-v5-0-25861c17426d@pengutronix.de>
+In-Reply-To: <20260923-spi-sun4i-spidev_test-v5-0-25861c17426d@pengutronix.de>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
+ Jonas Rebmann <jre@pengutronix.de>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4443; i=jre@pengutronix.de;
+ h=from:subject:message-id; bh=4qdD4jbz/LyLufcNQOhcZl+57WSq5cvo7q3Igr3BkXQ=;
+ b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYsjaYiQrtTS47wY795npJf45DfdWsFqdU5EQbpQ6XTbr0
+ 72CoIPWHaUsDGJcDLJiiiyxanIKQsb+180q7WJh5rAygQxh4OIUgInob2NkWNd5ZF/RHPumSDvn
+ kpP/X581tuY30HZdpmP+5XCn0pW6NEaG5VwTtc8/kSpaayx/rN3v18yljP873wrNq+le2VN6Z9V
+ LRgA=
+X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
+ fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
 
-On Wed, Sep 23, 2026 at 12:36=E2=80=AFPM Shreshth Srivastava
-<shreshth.srivastava@intel.com> wrote:
->
-> On 11.09.26 10:41, Juergen Gross wrote:
-> > When building a kernel with CONFIG_PARAVIRT_XXL the paravirt
-> > infrastructure will always use functions for reading or writing MSRs,
-> > even when running on bare metal.
->
-> Hi Juergen,
->
-> This doesn't build with CONFIG_PARAVIRT_XXL=3Dy. 16/17 and 17/17 are wher=
-e
-> it breaks, but the cause is the .byte fallbacks: ASM_WRMSRNS_IMM from
-> 08/17 and ASM_RDMSR_IMM from 10/17 don't end in a separator, unlike the
-> .insn variants above them.
->
->   #define ASM_RDMSR_IMM                         \
->         " .byte 0xc4,0xe7,0x7b,0xf6,0xc0; .long %c[msr]"
->
-> That worked while they were only ever the last argument of an
-> ALTERNATIVE(), which appends its own newline. 16/17 concatenates them
-> with ASM_CLRERR:
->
->         ASM_RDMSR_IMM ASM_CLRERR, X86_FEATURE_MSR_IMM,  \
->
-> so the .long operand runs into the xor. From
-> make arch/x86/kernel/cpu/common.s:
->
->         .byte 0xc4,0xe7,0x7b,0xf6,0xc0; .long 266xor %rdx,%rdx
->
->   paravirt-msr.h:165: Error: junk at end of line, first unrecognized char=
-acter is `x'
->
-> clang reports "error: unexpected token" in the same place. 71 objects
-> fail, the same 71 either way, no vmlinux.
->
-> msr.h chooses between the .insn form and the .byte fallback with:
->
->         #if defined(CONFIG_AS_IS_GNU) && CONFIG_AS_VERSION >=3D 24100
->
-> Two kinds of toolchain end up on the .byte side of that test:
->
->   - GNU as older than 2.41. RHEL 9 and CentOS Stream 9 ship 2.35, and
->     Documentation/process/changes.rst sets the minimum at 2.30, so this
->     is a supported configuration rather than an old outlier.
->   - clang, any version. CONFIG_AS_IS_GNU is never set for clang, so the
->     && short-circuits and the version comparison is never reached. Your
->     08/17 comment already notes that clang has no .insn support.
+Introduce a flag to test on a predictable byte sequence instead of
+random bytes. This is useful when comparing multiple runs with the same
+option set e.g. with an oscilloscope.
 
-Indeed, looks like we're missing support for .insn for x86.
-Filed https://github.com/llvm/llvm-project/issues/225916.
-(Please do file bugs against the toolchain when you encounter issues
-like this, and cc someone from kernel development).
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
+---
+ tools/spi/spidev_test.c | 36 ++++++++++++++++++++++++++----------
+ 1 file changed, 26 insertions(+), 10 deletions(-)
 
->
-> gcc with binutils 2.41 or newer takes the .insn path, where both macros
-> do end in a separator, and is unaffected.
->
-> Reproduced on v7.3-rc2 with your v3 00/13, v2 0/5 and v5 00/17 applied in
-> that order, x86_64 defconfig plus HYPERVISOR_GUEST, PARAVIRT, XEN and
-> XEN_PV. gcc 11.5.0 with GNU as 2.35.2, and clang 21.1.7.
->
-> Terminating both fallbacks fixes it, and both toolchains then build
-> vmlinux with no errors or warnings:
->
-> diff --git a/arch/x86/include/asm/msr.h b/arch/x86/include/asm/msr.h
-> index eba325ecfe4c..529c13553c63 100644
-> --- a/arch/x86/include/asm/msr.h
-> +++ b/arch/x86/include/asm/msr.h
-> @@ -78,9 +78,9 @@ static inline void do_trace_rdpmc(u32 msr, u64 val, int=
- failed) {}
->   * form MSR access instructions reference %rax as the register operand.
->   */
->  #define ASM_RDMSR_IMM                          \
-> -       " .byte 0xc4,0xe7,0x7b,0xf6,0xc0; .long %c[msr]"
-> +       " .byte 0xc4,0xe7,0x7b,0xf6,0xc0; .long %c[msr]\n\t"
->  #define ASM_WRMSRNS_IMM                                \
-> -       " .byte 0xc4,0xe7,0x7a,0xf6,0xc0; .long %c[msr]"
-> +       " .byte 0xc4,0xe7,0x7a,0xf6,0xc0; .long %c[msr]\n\t"
->  #endif
->
->  #define RDMSR_AND_SAVE_RESULT                  \
->
-> ASM_WRMSRNS needs no change, _ASM_BYTES() already emits a semicolon.
->
-> The WRMSRNS line belongs in 08/17 and the RDMSR line in 10/17.
->
-> Thanks,
-> Shreshth
+diff --git a/tools/spi/spidev_test.c b/tools/spi/spidev_test.c
+index e7ee7d5a701e..56b71b842fb5 100644
+--- a/tools/spi/spidev_test.c
++++ b/tools/spi/spidev_test.c
+@@ -48,6 +48,7 @@ static int compare;
+ static int nonzero;
+ static int do_tx = 1, do_rx = 1;
+ static int random_input;
++static int predictable;
+ static int input_choices;
+ 
+ static uint8_t default_tx[] = {
+@@ -188,7 +189,7 @@ static void transfer(int fd, uint8_t const *tx, uint8_t const *rx, size_t len)
+ 
+ static void print_usage(const char *prog)
+ {
+-	printf("Usage: %s [-2348CDFHILMNORSZbcdiloprstvwz]\n", prog);
++	printf("Usage: %s [-2348CDFHILMNOPRSZbcdiloprstvwz]\n", prog);
+ 	puts("general device settings:\n"
+ 		 "  -D --device         device to use (default /dev/spidev1.1)\n"
+ 		 "  -s --speed          max speed (Hz)\n"
+@@ -213,6 +214,7 @@ static void print_usage(const char *prog)
+ 		 "  -o --output         output data to a file (e.g. \"results.bin\")\n"
+ 		 "  -p                  send data (e.g. \"1234\\xde\\xad\")\n"
+ 		 "  -z --nonzero        don't send 0x00 or 0xff bytes\n"
++		 "  -P --predictable    transfer the given number of sequential bytes\n"
+ 		 "  -S --size           transfer the given number of random bytes\n"
+ 		 "  -I --iter           iterations\n"
+ 		 "additional parameters:\n"
+@@ -258,12 +260,13 @@ static void parse_opts(int argc, char *argv[])
+ 			{ "no-cs",         0, 0, 'N' },
+ 			{ "ready",         0, 0, 'R' },
+ 			{ "mosi-idle-low", 0, 0, 'M' },
++			{ "predictable",   0, 0, 'P' },
+ 			{ "verbose",       0, 0, 'v' },
+ 			{ NULL, 0, 0, 0 },
+ 		};
+ 		int c;
+ 
+-		c = getopt_long(argc, argv, "D:s:d:w:b:i:o:lctrHOLC3ZFMNR248p:vS:zI:",
++		c = getopt_long(argc, argv, "D:s:d:w:b:i:o:lctrHOLC3ZFMNR248p:P:vS:zI:",
+ 				lopts, NULL);
+ 
+ 		if (c == -1)
+@@ -341,6 +344,11 @@ static void parse_opts(int argc, char *argv[])
+ 			input_tx = optarg;
+ 			input_choices++;
+ 			break;
++		case 'P':
++			transfer_size = atoi(optarg);
++			predictable = 1;
++			input_choices++;
++			break;
+ 		case '2':
+ 			mode |= SPI_TX_DUAL;
+ 			break;
+@@ -461,9 +469,17 @@ static void transfer_buf(int fd, int len)
+ 		if (!tx)
+ 			pabort("can't allocate tx buffer");
+ 		for (i = 0; i < len; i++) {
+-			do
+-				tx[i] = random();
+-			while (nonzero && (tx[i] == 0x0 || tx[i] == 0xff));
++			if (predictable) {
++				int v = i - iterations;
++
++				if (nonzero)
++					v = ((v % 254) + 254) % 254 + 1;
++				tx[i] = (char)v;
++			} else {
++				do {
++					tx[i] = random();
++				} while (nonzero && (tx[i] == 0x0 || tx[i] == 0xff));
++			}
+ 		}
+ 	}
+ 
+@@ -492,16 +508,16 @@ int main(int argc, char *argv[])
+ 	parse_opts(argc, argv);
+ 
+ 	if (input_choices > 1)
+-		pabort("only one of -S (--size), -p, -i (--input) may be selected");
++		pabort("only one of -S (--size), -p, -i (--input), -P (--predictable) may be selected");
+ 
+-	if (random_input && !transfer_size)
+-		pabort("a nonzero size argument is mandatory for -S (--size)");
++	if ((random_input || predictable) && !transfer_size)
++		pabort("a nonzero size argument is mandatory for -S (--size) and -P (--predictable)");
+ 
+ 	if (iterations && !transfer_size)
+ 		pabort("-I (--iter) is only implemented for -S (--size)");
+ 
+ 	if (nonzero && !transfer_size)
+-		pabort("-z (--nonzero) is only implemented for -S (--size)");
++		pabort("-z (--nonzero) is only implemented for -S (--size) and -P (--predictable)");
+ 
+ 	if (compare && (!do_tx || !do_rx))
+ 		pabort("-c (--compare) conflicts with -t (--no-tx) or -r (--no-rx)");
+@@ -510,7 +526,7 @@ int main(int argc, char *argv[])
+ 		pabort("-r (--no-rx) conflicts with -o (--output)");
+ 
+ 	if (!do_tx && !transfer_size)
+-		pabort("-t (--no-tx) is only implemented for -S (--size)");
++		pabort("-t (--no-tx) is only implemented for -S (--size) and -P (--predictable)");
+ 
+ 	if (compare && mode & (SPI_TX_OCTAL | SPI_TX_QUAD | SPI_TX_DUAL))
+ 		pabort("-c (--compare) conflicts with -2 (--dual), -4 (--quad) or -8 (--octal)");
 
+-- 
+2.56.0.rc0.108.gf0ef1b96a0
 
-
---=20
-Thanks,
-~Nick Desaulniers
