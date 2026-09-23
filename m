@@ -1,169 +1,262 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012052.outbound.protection.outlook.com [52.101.43.52])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF6E442B21;
-	Wed, 23 Sep 2026 11:40:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790163656; cv=fail; b=FoW3p8q2g06+Hpm48sLihJ+sFLtoCWzDyUnMwM9eXCuEnvmXLOEfIEC4phsCHieWHCIE/epi1cwBM15zeoSOtMuJzZqnhgG2cQ9tDWdGNBIT1bM2M+yMzXkTQAubsGbdKgkVKrkSS0sn2Kp6Au6fV8YQf+mY+VYkFYaz5DfV5ZY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790163656; c=relaxed/simple;
-	bh=7hT3bcbSUiwIWTHWzjZkh+ZCAW3X5VV5OSOmHtPCNHA=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=DW+mHiosMw+bYuLHn5NiXp4SCj4aKmBlPf8sjcMyI1GjC+jjKWPGQODx7vsTlQwtIRrWddAhZ3j+mBUPsj/tNH+geS5yMfYNfHSwOHidKLS/RsgFakx+IdTNtPT6XkkAMb7lukAfZpvVFiyGc4n8mdR+7ZYZSf4TjzVZaI15YXw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=D/ZK4Mbr; arc=fail smtp.client-ip=52.101.43.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8C249CF3A
+	for <linux-kernel@vger.kernel.org>; Wed, 23 Sep 2026 11:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790163667; cv=none; b=tLSDQ01Xl1ABcDCUFtRo0B9XH5/enGZK0SASAR1yRxVea6n3IrptK625nl8c6Pi9h8OqEvLwzGmx53SdO4XIvYvjetyTvDF4hgLzupdtnBGfg/QXt4n9mPOWFoLbpRhpUIn/4tZJazY17SNuzyJYztqhhiI7hxLxWk+RGUaCuhI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790163667; c=relaxed/simple;
+	bh=ajL6f5/1RlB/VvJqhe4xL+NIeS0b7UDmyPv3vPbO+1E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O4MrjlkpHLWBHlhlPFgTdLweR5ZzpWZmjV4m3+0yzoE9XLZl1A3C4OPgkzn2bWgiRrxumfppf2JdquCYldvKeg9HYmKa9U5C2BFY73osieKwC1+51hiJN9JnbmRxEEIc3+Xrq3mMtcGp94dJU7L8qESzHxZs3Wnltd+A/e6RxdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=glMzn2Li; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="D/ZK4Mbr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UmaKd3faqY24GNBrB/w+JQWORGWYo8Q+7FmmswoZUqBHkw2is99eRnX2HFFIc1ntH66rQlD+oDrGqeUT5nPlm+GE/wWlX2oCA6WRz2ekRT8dvu1UIOQ2Hk3clHGM4IbgmoArP3hz4j2HLkKx23XLc8py1Si+U18r+zu6Tqf0CPP9Ksmf0uL5Q7+V2GfESZq4nNn96b3ODuqfaukTS3o/VReujPrZ4hd1wTsqPY6jYHfnOtU7Ze2VIOa7ZE3s/X2lltSdZ6Imx6JJgD9qubaAyI1hjO4jJMCwPCUycY1CERho9h7AGDQwlDvWC87Nthb7ecwCVnX5ADGf8QBhTyRFVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f00e5dqXGx2dfvPtylZuMo9aacBEokzWWS0fU3EcqpM=;
- b=vGOG94VTDZgYiXRwdZ5m33jaqVGsN5T+v/9wnzX2f3yas40aIRneWyOdq75/Vm76fHfWSMkGpPjwfxEvXON5LuP/FR0gNnp/0vnfXIUTazLDywgHUcz+pXCOe9bOJtHI2lPsgPCFNAtkvULUuMZnZ2NKaiqNJHmPw9YyRpz/QXnPErw7lT9S6YC1U0edbg3Z9AMagWFeISVFf44FL2tcI7PHWTCaUHcBQd41XEoxHfNbovpYJ1MjaIzy5Ab2EpvGuV3GnGhbyJz/Wr/eOKxVGNo7aWwGXVEBamvgp1ns9VHBVdpG9xtFy6CSylQZPlzzsW4V+i5DlF2xCeYZl6i38w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f00e5dqXGx2dfvPtylZuMo9aacBEokzWWS0fU3EcqpM=;
- b=D/ZK4Mbr3bGDF5/ERF++9NBS2eFegKKEWrw7gO11jQJRxzxARy63jgD4li652onoSMHZQo9o24j3pS06EFZRpNQoWqNUZiEOGz7ckgEITts9//fDNwV9nihhR5B9yff6f0DjVyoG5WJ3kr4T9WDurS6SG1HZzTGJyoNsZ+W7KKc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com (2603:10b6:930:107::6)
- by SA1PR12MB7246.namprd12.prod.outlook.com (2603:10b6:806:2bc::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.13; Wed, 23 Sep
- 2026 11:40:35 +0000
-Received: from CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d]) by CY1PR12MB9697.namprd12.prod.outlook.com
- ([fe80::3a41:55a0:8203:596d%6]) with mapi id 15.21.0451.014; Wed, 23 Sep 2026
- 11:40:33 +0000
-Message-ID: <cedf454c-1840-41a2-810e-16f0cfee452d@amd.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="glMzn2Li"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68N8ZjZM1729651;
+	Wed, 23 Sep 2026 11:40:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=uQUtV0
+	wLTAkW4ZihQIXr/8Gts2bFI7i5cS9f3FCFtPg=; b=glMzn2LizC+W3RHCzqqjfd
+	VndhSWd/n2NW09LCNq3DSm5Hg2gdDfVGn0AO427IEUx50TnQNNnzvQGUjo18ekv0
+	ZTB5VfvP9QG+ud9oO6XPSTN7q0DOGxPyzwXHx7m3jzHskCXdBs06ORn0ulcRdI+/
+	zEecKscdc+7oVSrsuLAArbfwocpmyt7wkoalCi9eiC4iMh98qo189NhcaVa1D2+n
+	NtZI3n5XIPtz5ohFKL7v/0sePQN8zmegLYg7bl7QC/DkeW4WHPd4+udvKDHxdT52
+	rFA9dUQad19/s/hYZGtpvxKnqthoupZE4I0IApQTVjQpGfbC9DnHtygjD55RBR8w
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskgqjdgr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 11:40:34 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68N95gWD005711;
+	Wed, 23 Sep 2026 11:40:34 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gvbu8rj94-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 23 Sep 2026 11:40:34 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68NBeU2e45416794
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 23 Sep 2026 11:40:30 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 50CD520043;
+	Wed, 23 Sep 2026 11:40:30 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C78D120040;
+	Wed, 23 Sep 2026 11:40:27 +0000 (GMT)
+Received: from [9.123.14.142] (unknown [9.123.14.142])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 23 Sep 2026 11:40:27 +0000 (GMT)
+Message-ID: <2d3a50a9-42c3-4f00-887e-56cf4a0bbe30@linux.ibm.com>
 Date: Wed, 23 Sep 2026 17:10:26 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] EDAC/versalnet: fix remoteproc reference leak
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
- Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>,
- linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260913053532.1324671-1-lgs201920130244@gmail.com>
-Content-Language: en-US
-From: "Pandey, Radhey Shyam" <radheys@amd.com>
-In-Reply-To: <20260913053532.1324671-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PN2PR01CA0170.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:26::25) To CY1PR12MB9697.namprd12.prod.outlook.com
- (2603:10b6:930:107::6)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY1PR12MB9697:EE_|SA1PR12MB7246:EE_
-X-MS-Office365-Filtering-Correlation-Id: 896eb56a-b84b-4094-fc02-08df19677a4f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	/fPQ6C8mexvSRlWOQlfWNbEURoSQZJto6ZuJx5PsS/eaX8NUvtDmJVojEXl/FW+FDszi0Yo9jcRMXmO/TKJKVqTHUHcTi/xkJMN2ELIPDSOYQYxwPkmqDEaYw+Uxw7a87YUN5wz2qN7Y7bw1Kmu6cAEJV+dLEKkJF31hCt/AOshBEoeBJMJ9J3ynrKJYFOOK9GlD+9ZXQiZowNoU1ZOQqsT3qMQgpwODqIQalXM0SQqJ5kq+K+sIsL8vz8oNc+JUzQtwnLOPXvVMluqhkSRxWh7spnsIcyy4a2TZJUZfUstRo+JFcmqK9i9+YGgO36W2T+8F5iX2nXv3hWpNbpj/d1+4aDJV/F5ioOWf0S8PzwNTNfK0vbIhirXL6KLPaqrmudp9vEE7t01+kOsJwseECS/BJPjpMEY15gRCxEs7HQNMVzIEg/IzSoE/1yujC/9OvMkPh674J4A4W3ckd1Y8fN06WvWphC62L6guPKzei0kNY/qD4tYD/LFEweFr2SpEYC81B6LlbrdQwmSdNkk+dhTVor8uV3rRDxUrP1PykTEg2omC0S0vaMN1Q3mYnbNaHVJS8Z6nD9EX73a52uaBQc7oqFKhkMeq1Ct7VP7katdzf9poeFHKXAjPhtsuVuBWx2bl4BGp6nrKsV/i+IdqFmqKs865Tw5lUcJvKMKw6tM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY1PR12MB9697.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eElqV3lUMDRHVHF1QUg0bWJzcDdGanFjRmlSOVBoVk1mY2ZaWW1YQkZhdXI3?=
- =?utf-8?B?YnV3OGRjOEVkN0ZZV0hMZEgrWk5yTnA0OTg4Skoza3J2N1I3QVd2MWpSbXRa?=
- =?utf-8?B?L2ZNbmo3WEs3dEt1a0lQS1VCTUZlOGt6bTNEaVBHK1NEMzRCc0dCcFhCQUJp?=
- =?utf-8?B?aWJaeldHNkNrR3cyN0V0c3d4YmV3VGJWZ1I0UlcrNmxmeUQ4WWNZWUVQSnVG?=
- =?utf-8?B?TmZGQWFkSUNxRVlsWUp5QXhKOGlpY2xLSVJaZ3F1aGpiUVVOeFljRXJyZWlH?=
- =?utf-8?B?VUM2TUhWUk0zbWxzMXNKaGtDc3R4VWVpS2xhZzAxK2E4cGlNM1ZBS2EveHNP?=
- =?utf-8?B?eTdqazRiREdoSU9JUFV6bGZFZi85YndiMnkzRWFLWitYQXNkNjY2b3Q3UTZj?=
- =?utf-8?B?SEhCUkpiallVcWtMVThIZGJLOTZRMk53REw4N1FkWi9vTlFFTm9hK0VYanNs?=
- =?utf-8?B?Y1BvT21oSHMwbDVsMjBoaldkSWdyODNmNExoWkpYdnpRaU5pRjJjU3U1OGFk?=
- =?utf-8?B?SjVVSFhOQ0kxVW5aa1VDMmljUDYvWmtabE8yOS9GQjkydGJHbEhtanZNam9F?=
- =?utf-8?B?alpaR1RnQkFMVFFxUVArNWxkajJlb1JqR3BmTXl1UWtOWTFYY3JoamRHYkRD?=
- =?utf-8?B?cmt5UTZheGlET1V3Tm93QjFvOTdiKzhReWFYbzROcWFFTjczSlY1TlJjUEds?=
- =?utf-8?B?amJZNEtGcGZsaTc1enJZMXc1UjExWVQzV2RXODhFZkxvR2R1UThOS1hOTjZq?=
- =?utf-8?B?YThBSmlqK3B5Tm03TGtoNXBWek5GS28xYnZvQTdrUk9wck9yUmR3NFhCNjJL?=
- =?utf-8?B?UTJWS29hRkpxOTVVbVIwV2c1TndPVkRBWGhjNGtkVkUwSVJRMHRGeGJobi9j?=
- =?utf-8?B?VkIwU3J3TnVFeFdoWUk2OUxqdDNPTDBEUndkd08yRy9EdDFsblpZaXd2SDlr?=
- =?utf-8?B?dmsxSWNVRXV3UTZVQ053ZXVKOUdxTHJzT3R3d0pVK1NZWkI1bDEyOFJ1dDA3?=
- =?utf-8?B?WUlFY3JSc1ZmTVBBNXpDVlFpbDJGWHIvU1lzVVpKTXBxMmhTTC9xL1Nnc09r?=
- =?utf-8?B?MXdYM2Y5Y2VObkxHMytBZ2h1bWhXcTVxaXdHVWd0MXVKK0QwQTl0VUJ5TWtC?=
- =?utf-8?B?UEkvUUNPQ3dQNjNuKzRtc2o1V3hEZEtMcGhzRlo3Zm5XVVVmYi9wczM5NU01?=
- =?utf-8?B?QkJiSExiYWFjVDBvcSt5ZTBtekpBU3RxS3lBQmp2ZjBKcFRoMXZiRlVURlN2?=
- =?utf-8?B?YmlIc2lTelRoQzhiYVVqZVpIbEo5MW82d293NzNJQndIQmVnVGNkcjhKaEw5?=
- =?utf-8?B?Q0Z4a0FoZGFIWkxHNk1nLzAxVmNKZFc2eW5SbEVLRSsvNFMzMGQ3T3pBMDI1?=
- =?utf-8?B?RW1LMnFwWDVIWVVYdTJtM2hod0dQaG9Cb05oZjNCNUtvdGwrK2EvOUpwZkc0?=
- =?utf-8?B?YWhnSUhiTFArS3BZaHVqUUExSVUzMUhhUXR6YUhua1h6cUhQd09iNzdUanls?=
- =?utf-8?B?Vyt3M21mMDJvcE1abFE4akQxUk1kbHU5RXRBUkJzVE5QanNYMDFZYjNoajJt?=
- =?utf-8?B?Y0QyMXhIcjdpbkc1YzkrcnFrNzlMNjBBNjFyWTRDWmh5TjYzQjZpam8vNEV0?=
- =?utf-8?B?REJ0MTdBcW5NejlJRUpMQmlnb2V3ZmhHSG5CaGswVW5mWlk0QUpYdUY1N3Rx?=
- =?utf-8?B?RVVLbmdwdUNqeUJwN252cWdQMHdSYWVvcVN0K0JFQU9uSXIrSXBrWmU5TWdH?=
- =?utf-8?B?M1B3V2Y0dVlaRFNSOUhNemZYT1EzMkxuWGxlYmdHK1NGektkUll4aFVPNWgw?=
- =?utf-8?B?NHlLMUR6bUVuc1M4ZHZzdmZsSnpBNjlaSVJ2czBsN1ArVytJeGU2RFJEZ0hE?=
- =?utf-8?B?OUFsZVZLZE1xVC9uUHhBN0hlTXdDMGNOYWh0djNBVnhTd3l2Smh3aExYVzA5?=
- =?utf-8?B?aEtDcDF0RDdMTzZqVWxrVkNxeHJkSjJKTGJLRTNUcXpTaXFpNXFEV2JzcmR5?=
- =?utf-8?B?akIybGdLSWFZUnh5eFFJOFJLaXJvWGdXcHBXK3hieXpqTHVkWmRZSlZiNEFt?=
- =?utf-8?B?TUU2ejJjREI5Y044ZVoxOGpzYytKQ2ZvV29iakY4ZlRObGpsaE51Q1crdktx?=
- =?utf-8?B?QnU3WHkrd255SGx4SENpVXBReCtmR251Z013bW5yVURabmNtOWdSbHAzUGlx?=
- =?utf-8?B?bkh4V2phTGhiak43YUJ4aThyVmpMSnlaRFNRRG9teUM3VWlUYlNlQUpFbFdu?=
- =?utf-8?B?L2g2U3R5bE9tbFZqYjVhaG5qbUE4RW9DWW12S1d5U01KeXBOUUllWjhaWWFZ?=
- =?utf-8?Q?zu9qzHAb3tg1kcwNlP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 896eb56a-b84b-4094-fc02-08df19677a4f
-X-MS-Exchange-CrossTenant-AuthSource: CY1PR12MB9697.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Sep 2026 11:40:33.7911
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ESojEpBvAV+Sq5EhCu7h6nUHTZorC4Bq/JwB5EoJBcWwuXh98eP8U6OcJIRGaUoV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7246
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/5] vfio/spapr_tce: Normalize EEH IOA error injection
+ addresses
+To: Narayana Murty N <nnmlinux@linux.ibm.com>, mahesh@linux.ibm.com,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
+        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
+        alex@shazbot.org
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        sbhat@linux.ibm.com, harshpb@linux.ibm.com
+References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
+ <20260831065441.48654-3-nnmlinux@linux.ibm.com>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <20260831065441.48654-3-nnmlinux@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=G+OJgNk5 c=1 sm=1 tr=0 ts=6ab3bab3 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
+ a=l3H96H2cUKNrCSvcW0EA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIzMDA0NiBTYWx0ZWRfXxS6RZlHtPU12
+ 1IKpGSTX8eQldi8QrGYvRE/Bci1IZsyXHJHVTc2PDb0GFH4aBSJ1msPb7iGVAzEqZfOOwrmSsCJ
+ WW660GqzFqL1yw8S0u2vghkfLWKb7jBm4A3/9vpQqOZZk+e45kjNc1CADG9P3BjjccP8uMsLEsE
+ 6vmLWwB3mcJWligVtWSh35ZcMHl9rP6iCQWCdamE0gchwI0sphyNMeUK9n5vFbPjGePTkkPpAX7
+ wbjR5I1DVS4e2+QhJc4Kzr3PT+kvb7HvnMM4ftq7+BWuez9OtoiL8z7ZGIOC4IL1H1tvm5ydHm1
+ +1XksrD4NmcMvR+0XtzOYS/mkKS8ZfFy6Uo6ISCFylLGR6eSmPPvVLvWJw5ELrUOr6G3Mlt79nK
+ /lH3tnBEp7QG0w17rrEDvf631bOdUm+uR7xdXeixo77x4bwK2H1SsvW7MJmCToidVjq/8Lx+RGo
+ VfyAzX98uyl96P/zMFA==
+X-Proofpoint-ORIG-GUID: qI_qedNBfrEsZcQZ18wKcRJaU0cZqJFd
+X-Proofpoint-GUID: _JSxy0piIMu9Nl45dY4ZoBgVQQ8WxT4v
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIzMDA0NiBTYWx0ZWRfX9OYT2UYe3Kqt
+ 7spRObAabalkH03xOcGq/WLorXkLV28jes36u0UADLtHJdXoB7SrTLh2KcBPdEm10KLKWfoASCb
+ GWD5kaf0xg6gE3XqY+tnQXvHgTxmxL0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-23_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609230046
 
-On 9/13/2026 11:05 AM, Guangshuo Li wrote:
 
-Nit - EDAC/versalnet: Fix remoteproc reference leak in mc_remove()> 
-mc_probe() acquires a reference to the remote processor with
-> rproc_get_by_phandle(), but mc_remove() does not release the reference.
-> 
-> rproc_shutdown() only balances the power reference acquired by
-> rproc_boot(); it does not drop the device reference acquired by
-> rproc_get_by_phandle(). As a result, successful driver removal leaves
-> the remoteproc reference unbalanced.
-> 
-> Call rproc_put() during removal to release the reference acquired in
-> mc_probe().
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: d5fe2fec6c40d ("EDAC: Add a driver for the AMD Versal NET DDR controller")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
-Reviewed-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Thanks!> ---
->   drivers/edac/versalnet_edac.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_edac.c
-> index 97ec05d68bbb..3a06b41c1d84 100644
-> --- a/drivers/edac/versalnet_edac.c
-> +++ b/drivers/edac/versalnet_edac.c
-> @@ -953,6 +953,7 @@ static void mc_remove(struct platform_device *pdev)
->   	remove_versalnet(priv);
->   	rproc_shutdown(priv->mcdi->r5_rproc);
->   	cdx_mcdi_finish(priv->mcdi);
-> +	rproc_put(priv->mcdi->r5_rproc);
->   	kfree(priv->mcdi);
+On 31/08/26 12:24, Narayana Murty N wrote:
+> VFIO_EEH_PE_INJECT_ERR receives a target address from userspace.  For
+> userspace such as QEMU, this address may be derived from the host Linux
+> BAR resource.  The platform EEH backends, however, expect the PCI/IOA
+> bus address used by firmware error-injection interfaces.
+>
+> Normalize IOA/MMIO error-injection addresses in the sPAPR VFIO EEH
+> ioctl path before dispatching to eeh_pe_inject_err().  If the supplied
+> address is already a PCI bus BAR address it is left unchanged.  If it is
+> a Linux resource address, translate it to the corresponding PCI bus
+> address using the BAR-relative offset.
+>
+> Keep the helper local to VFIO so the address semantics of other
+> in-kernel EEH callers are unchanged.  This provides common handling for
+> both pseries and PowerNV backends.
+>
+> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+> ---
+>   drivers/vfio/vfio_iommu_spapr_tce.c | 90 +++++++++++++++++++++++++++++
+>   1 file changed, 90 insertions(+)
+>
+> diff --git a/drivers/vfio/vfio_iommu_spapr_tce.c b/drivers/vfio/vfio_iommu_spapr_tce.c
+> index 1c0eec228cc6..8a6cc856d7da 100644
+> --- a/drivers/vfio/vfio_iommu_spapr_tce.c
+> +++ b/drivers/vfio/vfio_iommu_spapr_tce.c
+> @@ -774,6 +774,85 @@ static long tce_iommu_create_default_window(struct tce_container *container)
+>   	return ret;
 >   }
 >   
+> +static bool vfio_spapr_eeh_err_needs_addr_normalize(unsigned int type)
+> +{
+> +	if (type != EEH_ERR_TYPE_32 && type != EEH_ERR_TYPE_64)
+> +		return false;
+> +
+> +	return true;
+> +}
+
+Do we really need this function? It is only used once.
+
+> +
+> +static int vfio_spapr_eeh_normalize_addr(struct eeh_pe *pe,
+> +					 unsigned long addr,
+> +					 unsigned long *normalized)
+> +{
+> +	struct pci_bus_region region;
+> +	struct eeh_dev *edev, *tmp;
+> +	struct pci_dev *pdev;
+> +	struct resource *res;
+> +	resource_size_t pci_start, pci_len;
+> +	resource_size_t res_start, res_len;
+> +	resource_size_t offset;
+> +	int bar;
+> +
+> +	if (!pe || !normalized)
+> +		return -EINVAL;
+> +
+> +	if (!addr) {
+> +		*normalized = addr;
+> +		return 0;
+> +	}
+
+This silently bypasses normalization for addr == 0. A comment on
+why zero is exempted would be helpful.
+
+> +
+> +	eeh_pe_for_each_dev(pe, edev, tmp) {
+> +		pdev = eeh_dev_to_pci_dev(edev);
+> +		if (!pdev)
+> +			continue;
+> +
+> +		for (bar = 0; bar < PCI_STD_NUM_BARS; bar++) {
+> +			res = &pdev->resource[bar];
+
+I'm not very familiar with this PCI resource regions, so quick question.
+is pdev->resource[] limited to PCI_STD_NUM_BARS?
+
+Also doesn't this need locking around the traversal? This dereferences
+pdev->resource with no lock held, what stops hot-removal or BAR
+reassignment racing this?
+
+> +
+> +			if (!resource_size(res))
+> +				continue;
+> +
+> +			if (!(res->flags & (IORESOURCE_MEM | IORESOURCE_IO)))
+> +				continue;
+> +
+> +			pcibios_resource_to_bus(pdev->bus, &region, res);
+> +
+> +			pci_start = region.start;
+> +			pci_len = resource_size(res);
+> +
+> +			/*
+> +			 * Case 1: userspace already supplied PCI/IOA
+> +			 * bus address.
+> +			 */
+> +			if ((resource_size_t)addr >= pci_start &&
+> +			    ((resource_size_t)addr - pci_start) < pci_len) {
+> +				*normalized = addr;
+> +				return 0;
+> +			}
+> +
+> +			/*
+> +			 * Case 2: userspace supplied Linux resource/CPU
+> +			 * address Convert it back to PCI/IOA bus address
+> +			 * before calling the platform EEH backend.
+> +			 */
+> +			res_start = res->start;
+> +			res_len = resource_size(res);
+> +
+> +			if ((resource_size_t)addr >= res_start &&
+> +			    ((resource_size_t)addr - res_start) < res_len) {
+> +				offset = (resource_size_t)addr - res_start;
+> +				*normalized = region.start + offset;
+> +
+> +				return 0;
+> +			}
+> +		}
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+>   static long vfio_spapr_ioctl_eeh_pe_op(struct iommu_group *group,
+>   				       unsigned long arg)
+>   {
+> @@ -818,6 +897,17 @@ static long vfio_spapr_ioctl_eeh_pe_op(struct iommu_group *group,
+>   		if (copy_from_user(&op, (void __user *)arg, minsz))
+>   			return -EFAULT;
+>   
+> +		if (vfio_spapr_eeh_err_needs_addr_normalize(op.err.type)) {
+
+At this point eeh_pe_inject_err is still using eeh_pe_inject_mmio_error, 
+so why to normalize the address in this patch itself? Isn't this is a 
+good candidate for 4/5 patch?
+> +			unsigned long normalized;
+> +			long ret;
+> +
+> +			ret = vfio_spapr_eeh_normalize_addr(pe, op.err.addr, &normalized);
+> +			if (ret)
+> +				return ret;
+
+We should have error/debug log to tell eeh is not going through.
+
+> +
+> +			op.err.addr = normalized;
+> +		}
+> +
+>   		return eeh_pe_inject_err(pe, op.err.type, op.err.func,
+>   					 op.err.addr, op.err.mask);
+>   	default:
 
